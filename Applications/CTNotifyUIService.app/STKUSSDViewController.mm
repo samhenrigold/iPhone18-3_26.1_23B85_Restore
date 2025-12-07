@@ -26,6 +26,8 @@
 - (void)startTimeoutTimerIfNecessary;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation STKUSSDViewController
@@ -203,6 +205,46 @@
   [NSLayoutConstraint activateConstraints:v47];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = STKUSSDViewController;
+  [(STKUSSDViewController *)&v9 viewWillAppear:appear];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1000078F8;
+  v8[3] = &unk_100018438;
+  v8[4] = self;
+  [UIView animateWithDuration:v8 animations:0.3];
+  if (!self->_hasReceivedContent)
+  {
+    text = [(UITextView *)self->_textView text];
+    v5 = [text length];
+
+    if (!v5)
+    {
+      [(UIActivityIndicatorView *)self->_activityIndicator startAnimating];
+      v6 = [NSBundle bundleWithIdentifier:@"com.apple.CTNotifyUIService"];
+      v7 = [v6 localizedStringForKey:@"PLEASE_WAIT" value:&stru_100018670 table:@"SIMToolkitUI"];
+      [(STKUSSDViewController *)self _updateNotifyText:v7];
+    }
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = STKUSSDViewController;
+  [(STKUSSDViewController *)&v5 viewWillDisappear:disappear];
+  [(STKUSSDViewController *)self clearTimeoutTimer];
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_1000079EC;
+  v4[3] = &unk_100018438;
+  v4[4] = self;
+  [UIView animateWithDuration:v4 animations:0.3];
+}
+
 - (void)_willAppearInRemoteViewController
 {
   v5.receiver = self;
@@ -311,9 +353,7 @@
 {
   if (!self->_timeoutTimer)
   {
-    v3 = [NSTimer scheduledTimerWithTimeInterval:self target:"_displayDidTimeout" selector:0 userInfo:0 repeats:1.5];
-    timeoutTimer = self->_timeoutTimer;
-    self->_timeoutTimer = v3;
+    self->_timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"_displayDidTimeout" selector:0 userInfo:0 repeats:1.5];
 
     _objc_release_x1();
   }

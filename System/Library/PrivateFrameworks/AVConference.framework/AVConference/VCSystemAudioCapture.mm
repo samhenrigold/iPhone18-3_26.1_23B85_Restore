@@ -467,7 +467,7 @@ LABEL_11:
     }
 
 LABEL_21:
-    [(VCSystemAudioCapture *)self setQueueState:0, *v14, *&v14[16], v15, selfCopy];
+    [(VCSystemAudioCapture *)self setQueueState:0, *v14, *&v14[8], v15, selfCopy];
 LABEL_22:
     v12 = 0;
     goto LABEL_23;
@@ -574,14 +574,14 @@ LABEL_50:
   v16 = v15;
   [v15 setScreenSharingHost:(self->_tapSettings.var0.audioProcessIdToTap + 1) < 0xFFFFFFFE];
   v17 = self->_audioRecorderQueue;
-  v18 = [objc_msgSend(v14 "format")];
+  streamDescription = [objc_msgSend_format(v14) streamDescription];
   callbackQueue = self->_callbackQueue;
   inCallbackBlock[0] = MEMORY[0x1E69E9820];
   inCallbackBlock[1] = 3221225472;
   inCallbackBlock[2] = __39__VCSystemAudioCapture_startAudioQueue__block_invoke;
   inCallbackBlock[3] = &unk_1E85F9598;
   inCallbackBlock[4] = self;
-  if (AudioQueueNewInputWithDispatchQueue(&v17->var0, v18, 0x800u, callbackQueue, inCallbackBlock))
+  if (AudioQueueNewInputWithDispatchQueue(&v17->var0, streamDescription, 0x800u, callbackQueue, inCallbackBlock))
   {
     [VCSystemAudioCapture startAudioQueue];
     goto LABEL_50;
@@ -725,7 +725,7 @@ LABEL_35:
   return v29;
 }
 
-void __39__VCSystemAudioCapture_startAudioQueue__block_invoke(uint64_t a1, OpaqueAudioQueue *a2, AudioQueueBuffer *a3, uint64_t a4, unsigned int a5)
+void __39__VCSystemAudioCapture_startAudioQueue__block_invoke(uint64_t a1, OpaqueAudioQueue *a2, AudioQueueBuffer *a3, uint64_t a4, uint64_t a5)
 {
   v8 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);

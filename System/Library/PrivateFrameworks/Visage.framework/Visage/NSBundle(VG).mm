@@ -15,9 +15,9 @@
     +[NSBundle(VG) vg_bundle];
   }
 
-  v1 = +[NSBundle(VG) vg_bundle]::bundle;
+  v2 = +[NSBundle(VG) vg_bundle]::bundle;
 
-  return v1;
+  return v2;
 }
 
 + (id)vg_bundleIdentifier
@@ -27,9 +27,9 @@
     +[NSBundle(VG) vg_bundleIdentifier];
   }
 
-  v1 = +[NSBundle(VG) vg_bundleIdentifier]::bundleIdentifier;
+  v2 = +[NSBundle(VG) vg_bundleIdentifier]::bundleIdentifier;
 
-  return v1;
+  return v2;
 }
 
 + (id)vg_resourcePath
@@ -51,26 +51,24 @@
 
 + (void)setVg_resourcePath:()VG
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v11 = v3;
+  v10 = v3;
   if (_s_vg_resourcePath)
   {
-    v7 = MEMORY[0x277CBEAD8];
-    v12 = @"value";
-    v13[0] = _s_vg_resourcePath;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    v9 = [v7 exceptionWithName:@"Call Order Violation on vg_resourcePath." reason:@"Attempting to set vg_resourcePath after get method on vg_resourcePath was called." userInfo:v8];
+    v6 = MEMORY[0x277CBEAD8];
+    v11 = @"value";
+    v12[0] = _s_vg_resourcePath;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v8 = [v6 exceptionWithName:@"Call Order Violation on vg_resourcePath." reason:@"Attempting to set vg_resourcePath after get method on vg_resourcePath was called." userInfo:v7];
 
-    v10 = v9;
-    objc_exception_throw(v9);
+    v9 = v8;
+    objc_exception_throw(v8);
   }
 
   v4 = [v3 copy];
   v5 = _s_vg_setResourcePath;
   _s_vg_setResourcePath = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)vg_packageBundle:()VG

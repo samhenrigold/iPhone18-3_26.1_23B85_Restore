@@ -1,4 +1,5 @@
 @interface LIFSClientConnector
++ (void)forgetLiveFilesVolumeForProvider:(id)provider volume:(id)volume withFlags:(unsigned int)flags handler:(id)handler;
 + (void)getLiveFSClientForProvider:(id)provider handler:(id)handler;
 + (void)getLiveFilesConnectionForProvider:(id)provider volume:(id)volume withHandler:(id)handler;
 @end
@@ -105,6 +106,60 @@ LABEL_12:
 
   _Block_object_dispose(&v21, 8);
   _Block_object_dispose(&v27, 8);
+}
+
++ (void)forgetLiveFilesVolumeForProvider:(id)provider volume:(id)volume withFlags:(unsigned int)flags handler:(id)handler
+{
+  v7 = *&flags;
+  providerCopy = provider;
+  volumeCopy = volume;
+  handlerCopy = handler;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_10003A7E8;
+  v27 = sub_10003A7F8;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_10003A7E8;
+  v21 = sub_10003A7F8;
+  v22 = 0;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10003AA9C;
+  v16[3] = &unk_100061EB8;
+  v16[4] = &v23;
+  v16[5] = &v17;
+  [LIFSClientConnector getLiveFSClientForProvider:providerCopy handler:v16];
+  v12 = v18[5];
+  if (v12)
+  {
+    v13 = [v12 forgetVolume:volumeCopy withFlags:v7];
+    v14 = v24[5];
+    v24[5] = v13;
+
+    v15 = livefs_std_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000412AC();
+    }
+  }
+
+  else
+  {
+    v15 = livefs_std_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004131C();
+    }
+  }
+
+  handlerCopy[2](handlerCopy, v24[5]);
+  _Block_object_dispose(&v17, 8);
+
+  _Block_object_dispose(&v23, 8);
 }
 
 @end

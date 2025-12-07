@@ -833,7 +833,7 @@ uint64_t HEVC_RBSP::parseVPSextension(uint64_t a1, uint64_t a2)
 {
   v222 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 8);
-  if (v3 != 1 || *(a2 + 9) != 1)
+  if (__PAIR64__(*(a2 + 9), v3) != 0x100000001)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -847,9 +847,9 @@ uint64_t HEVC_RBSP::parseVPSextension(uint64_t a1, uint64_t a2)
     *&v213[6] = v29;
     v26 = MEMORY[0x277D86220];
     v27 = "AppleAVD: ERROR : vps base layer %d, available %d";
-LABEL_28:
+LABEL_27:
     v28 = 14;
-LABEL_38:
+LABEL_37:
     _os_log_impl(&dword_277606000, v26, OS_LOG_TYPE_DEFAULT, v27, buf, v28);
     return 0xFFFFFFFFLL;
   }
@@ -867,7 +867,7 @@ LABEL_38:
     *buf = 0;
     v26 = MEMORY[0x277D86220];
     v27 = "AppleAVD: ERROR: vpsext->vps_layers bad alloc ";
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
   v7 = malloc_type_calloc(8uLL, (*(a2 + 12) + 1), 0x2004093837F09uLL);
@@ -882,7 +882,7 @@ LABEL_38:
     *buf = 0;
     v26 = MEMORY[0x277D86220];
     v27 = "AppleAVD: ERROR: vpsext->vps_layers_2d bad alloc ";
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
   v8 = 0;
@@ -901,7 +901,7 @@ LABEL_38:
       *buf = 0;
       v26 = MEMORY[0x277D86220];
       v27 = "AppleAVD: ERROR: vpsext->vps_layers_2d[i] bad alloc ";
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
     v9 = *(a2 + 12);
@@ -962,7 +962,7 @@ LABEL_38:
     *buf = 0;
     v26 = MEMORY[0x277D86220];
     v27 = "AppleAVD: ERROR: vpsext->vps_splitting_flag && vpsext->vps_num_scalability_types == 0 ";
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
   if (*(v5 + 544) < v17)
@@ -1004,7 +1004,7 @@ LABEL_38:
       v221 = 63;
       v26 = MEMORY[0x277D86220];
       v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-      goto LABEL_25;
+      goto LABEL_24;
     }
 
     return 0xFFFFFFFFLL;
@@ -1039,7 +1039,7 @@ LABEL_38:
           *&v213[6] = v37;
           v26 = MEMORY[0x277D86220];
           v27 = "AppleAVD: ERROR : vps->vps_layer_id_in_nuh[i] %d, vps->vps_layer_id_in_nuh[i-1] %d";
-          goto LABEL_28;
+          goto LABEL_27;
         }
       }
 
@@ -1065,7 +1065,7 @@ LABEL_38:
             v221 = 63;
             v26 = MEMORY[0x277D86220];
             v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-            goto LABEL_25;
+            goto LABEL_24;
           }
 
           return 0xFFFFFFFFLL;
@@ -1134,7 +1134,7 @@ LABEL_38:
       v221 = 64;
       v26 = MEMORY[0x277D86220];
       v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-      goto LABEL_25;
+      goto LABEL_24;
     }
 
     return 0xFFFFFFFFLL;
@@ -1312,7 +1312,7 @@ LABEL_38:
         v221 = 1023;
         v26 = MEMORY[0x277D86220];
         v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-        goto LABEL_25;
+        goto LABEL_24;
       }
 
       return 0xFFFFFFFFLL;
@@ -1329,9 +1329,9 @@ LABEL_38:
     *buf = 0;
     v26 = MEMORY[0x277D86220];
     v27 = "AppleAVD: ERROR: calcLayerSetLayerIdList ";
-LABEL_37:
+LABEL_36:
     v28 = 2;
-    goto LABEL_38;
+    goto LABEL_37;
   }
 
   v77 = malloc_type_calloc(8uLL, *(v5 + 3838), 0x10040436913F5uLL);
@@ -1408,7 +1408,7 @@ LABEL_37:
                 v221 = v90;
                 v26 = MEMORY[0x277D86220];
                 v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-                goto LABEL_25;
+                goto LABEL_24;
               }
 
               return 0xFFFFFFFFLL;
@@ -1469,7 +1469,7 @@ LABEL_37:
           v221 = v99;
           v26 = MEMORY[0x277D86220];
           v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-          goto LABEL_25;
+          goto LABEL_24;
         }
 
         return 0xFFFFFFFFLL;
@@ -1565,7 +1565,7 @@ LABEL_37:
       v221 = 63;
       v26 = MEMORY[0x277D86220];
       v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-      goto LABEL_25;
+      goto LABEL_24;
     }
 
     return 0xFFFFFFFFLL;
@@ -1648,7 +1648,7 @@ LABEL_37:
         v221 = 1023;
         v26 = MEMORY[0x277D86220];
         v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-        goto LABEL_25;
+        goto LABEL_24;
       }
 
       return 0xFFFFFFFFLL;
@@ -1693,7 +1693,7 @@ LABEL_37:
       v221 = 3072;
       v26 = MEMORY[0x277D86220];
       v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-      goto LABEL_25;
+      goto LABEL_24;
     }
 
     return 0xFFFFFFFFLL;
@@ -1759,7 +1759,7 @@ LABEL_37:
     v26 = MEMORY[0x277D86220];
     v27 = "AppleAVD: %s: vpsext->vps_num_target_opt_layer_id_lists[0] == 0\n";
     v28 = 12;
-    goto LABEL_38;
+    goto LABEL_37;
   }
 
   if (*(a2 + 8))
@@ -1769,7 +1769,7 @@ LABEL_37:
 
   if (*(v5 + 3866) < 2u)
   {
-LABEL_217:
+LABEL_216:
     v156 = HEVC_RBSP::ue_v(a1);
     v157 = v156;
     *(v5 + 3904) = v156;
@@ -1791,7 +1791,7 @@ LABEL_217:
         v221 = 255;
         v26 = MEMORY[0x277D86220];
         v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-        goto LABEL_25;
+        goto LABEL_24;
       }
 
       return 0xFFFFFFFFLL;
@@ -1838,13 +1838,13 @@ LABEL_217:
       *(v5 + 744) = v165 < 0;
       if (v165 >> 63 == 1)
       {
-        goto LABEL_233;
+        goto LABEL_232;
       }
     }
 
     else if (*(v5 + 744))
     {
-LABEL_233:
+LABEL_232:
       v166 = *(v5 + 3904);
       v167 = 32 - __clz(v166);
       if (v166)
@@ -1884,7 +1884,7 @@ LABEL_233:
         while (v169 < *(a2 + 12));
       }
 
-LABEL_259:
+LABEL_258:
       v186 = *(a1 + 104);
       ++*(a1 + 164);
       HEVC_RBSP::flush_bits(a1, 1);
@@ -2042,7 +2042,7 @@ LABEL_259:
       v221 = 4096;
       v26 = MEMORY[0x277D86220];
       v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-      goto LABEL_25;
+      goto LABEL_24;
     }
 
     v173 = *(a2 + 12);
@@ -2087,7 +2087,7 @@ LABEL_259:
       while (((v176 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v174);
     }
 
-    goto LABEL_259;
+    goto LABEL_258;
   }
 
   v132 = 1;
@@ -2125,9 +2125,9 @@ LABEL_259:
         v221 = v211;
         v26 = MEMORY[0x277D86220];
         v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-LABEL_25:
+LABEL_24:
         v28 = 46;
-        goto LABEL_38;
+        goto LABEL_37;
       }
     }
 
@@ -2165,7 +2165,7 @@ LABEL_25:
           v141 += 8;
           if (8 * v140 == v141)
           {
-            goto LABEL_203;
+            goto LABEL_202;
           }
         }
 
@@ -2174,7 +2174,7 @@ LABEL_25:
           return 0xFFFFFFFFLL;
         }
 
-        goto LABEL_245;
+        goto LABEL_244;
       }
     }
 
@@ -2195,7 +2195,7 @@ LABEL_25:
         v144 += 8;
         if (v140 == v142)
         {
-          goto LABEL_203;
+          goto LABEL_202;
         }
       }
 
@@ -2204,7 +2204,7 @@ LABEL_25:
         return 0xFFFFFFFFLL;
       }
 
-LABEL_245:
+LABEL_244:
       *buf = 136315906;
       *v213 = "parseVPSextension";
       *&v213[8] = 1024;
@@ -2216,10 +2216,10 @@ LABEL_245:
       v26 = MEMORY[0x277D86220];
       v27 = "AppleAVD: ERROR: %s: numLayersInIdList=%d, vps_ols_2d[%d][%d].vps_output_layer_flag == 0\n";
       v28 = 30;
-      goto LABEL_38;
+      goto LABEL_37;
     }
 
-LABEL_203:
+LABEL_202:
     HEVC_RBSP::calcNecessaryLayerFlags(v131, a2, v132);
     HEVC_RBSP::calcTargetLayerIdList(v145, a2, v132);
     v146 = *(*(v5 + 3896) + 2 * v132);
@@ -2237,7 +2237,7 @@ LABEL_203:
       v26 = MEMORY[0x277D86220];
       v27 = "AppleAVD: %s: vpsext->vps_num_target_opt_layer_id_lists[%d] == 0\n";
       v28 = 18;
-      goto LABEL_38;
+      goto LABEL_37;
     }
 
     if (v140)
@@ -2280,7 +2280,7 @@ LABEL_203:
 
     if (++v132 >= *(v5 + 3866))
     {
-      goto LABEL_217;
+      goto LABEL_216;
     }
   }
 
@@ -2300,7 +2300,7 @@ LABEL_203:
     v221 = 64;
     v26 = MEMORY[0x277D86220];
     v27 = "AppleAVD: ERROR: %s() Line %d: RNG_CHECK failed for %s x %d low %d up %d\n";
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
   return 0xFFFFFFFFLL;
@@ -2839,7 +2839,7 @@ BOOL HEVC_RBSP::calcOutputLayerFlag(uint64_t a1, uint64_t a2, int a3, int a4)
   }
 }
 
-void HEVC_RBSP::calcNecessaryLayerFlags(uint64_t a1, uint64_t a2, int a3)
+void HEVC_RBSP::calcNecessaryLayerFlags(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v3 = *(a2 + 4448);
   v4 = a3;
@@ -3003,7 +3003,7 @@ void HEVC_RBSP::calcNecessaryLayerFlags(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-void HEVC_RBSP::calcTargetLayerIdList(uint64_t a1, uint64_t a2, int a3)
+void HEVC_RBSP::calcTargetLayerIdList(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v3 = *(a2 + 4448);
   v4 = a3;
@@ -3051,7 +3051,7 @@ uint64_t HEVC_RBSP::convOlsIdxToLsIdx(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t HEVC_RBSP::calcOlshighestOutputLayerId(uint64_t a1, uint64_t a2, int a3)
+uint64_t HEVC_RBSP::calcOlshighestOutputLayerId(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v3 = *(a2 + 4448);
   v4 = a3;
@@ -3597,7 +3597,7 @@ LABEL_64:
   return v57;
 }
 
-uint64_t releaseVpsDpb(uint64_t a1, int a2, int a3)
+uint64_t releaseVpsDpb(uint64_t a1, unsigned int a2, unsigned int a3)
 {
   v3 = *(a1 + 4448);
   if (a2 >= 1)
@@ -3673,7 +3673,7 @@ uint64_t releaseVpsDpb(uint64_t a1, int a2, int a3)
   return 0;
 }
 
-uint64_t HEVC_RBSP::vpsDpbInit(uint64_t a1, uint64_t a2, int a3, int a4, int a5)
+uint64_t HEVC_RBSP::vpsDpbInit(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, int a5)
 {
   v8 = *(a2 + 4448);
   result = malloc_type_calloc(1uLL, a3, 0x100004077774924uLL);
@@ -4343,7 +4343,7 @@ LABEL_14:
   return 0xFFFFFFFFLL;
 }
 
-void HEVC_RBSP::calcSpsMaxDecPicBufferingMinus1(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+void HEVC_RBSP::calcSpsMaxDecPicBufferingMinus1(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
 {
   if (*(a3 + 22847))
   {
@@ -4643,7 +4643,7 @@ uint64_t HEVC_RBSP::parseScalingListData(HEVC_RBSP *this, uint64_t a2)
             *(v58 + 24 * (v4 - 2) + 4 * v7) = *(v58 + 24 * (v4 - 2) + 4 * (v7 - v22));
           }
 
-          v23 = &v59[64 * (v21 + v62 - v20)];
+          v23 = (v59 + ((v21 + v62 - v20) << 8));
           v24 = v11;
           v25 = v61;
           do
@@ -4664,7 +4664,7 @@ uint64_t HEVC_RBSP::parseScalingListData(HEVC_RBSP *this, uint64_t a2)
 
     while (v7 != v60);
     v5 = v4 > 2;
-    v6 = v59 + 384;
+    v6 = v59 + 1536;
     if (++v4 != 4)
     {
       continue;
@@ -6193,7 +6193,7 @@ uint64_t HEVC_RBSP::parsePpsMultiLayerExtension(uint64_t a1, uint64_t a2)
   return v129;
 }
 
-uint64_t HEVC_RBSP::calcNumActiveRefLayerPics(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5)
+uint64_t HEVC_RBSP::calcNumActiveRefLayerPics(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   result = 0;
   if (a3)
@@ -6201,6 +6201,7 @@ uint64_t HEVC_RBSP::calcNumActiveRefLayerPics(uint64_t a1, uint64_t a2, int a3, 
     v6 = *(a2 + 4448);
     if (v6)
     {
+      v8 = a3;
       result = HEVC_RBSP::calcNumReflayerPics(0, a2, a3, a4);
       if (result)
       {
@@ -6208,7 +6209,7 @@ uint64_t HEVC_RBSP::calcNumActiveRefLayerPics(uint64_t a1, uint64_t a2, int a3, 
         {
           if (*(a5 + 38))
           {
-            if ((*(v6 + 745) & 1) != 0 || *(*(v6 + 512) + 28 * *(v6 + 2 * a3 + 580) + 18) == 1)
+            if ((*(v6 + 745) & 1) != 0 || *(*(v6 + 512) + 28 * *(v6 + 2 * v8 + 580) + 18) == 1)
             {
               return 1;
             }
@@ -6769,7 +6770,7 @@ LABEL_138:
             v129 = v128 + ~(-2 << (v125 + 31));
           }
 
-          *(v117 + 4 * v115) = (-((v129 & 1) == 0) ^ ((v129 + 1) >> 1)) + ((v129 & 1) == 0);
+          v117[v115] = (-((v129 & 1) == 0) ^ ((v129 + 1) >> 1)) + ((v129 & 1) == 0);
           v130 = *(this + 13);
           if ((v130 & 0x8000000000000000) != 0)
           {
@@ -6807,10 +6808,10 @@ LABEL_138:
 
           result = 0;
           v138 = (-((v137 & 1) == 0) ^ ((v137 + 1) >> 1)) + ((v137 & 1) == 0);
-          v139 = *(v117 + 4 * v115);
+          v139 = v117[v115];
           v140 = a3[187] + a3[186];
           v141 = (((1 << v140) + v139) * v160) >> v140;
-          *(v119 + 4 * v115) = v138;
+          v119[v115] = v138;
           v57 = v138 < v141;
           v142 = v138 - v141 + v160;
           v143 = v159;
@@ -6835,7 +6836,7 @@ LABEL_138:
           }
 
           v118 = 0;
-          *(v120 + 4 * v115) = v143;
+          v120[v115] = v143;
           v115 = 1;
           if ((v121 & 1) == 0)
           {
@@ -7033,7 +7034,7 @@ LABEL_75:
       v70 = v69 + ~(-2 << (v66 + 31));
     }
 
-    *(v59 + 4 * v58) = (-((v70 & 1) == 0) ^ ((v70 + 1) >> 1)) + ((v70 & 1) == 0);
+    v59[v58] = (-((v70 & 1) == 0) ^ ((v70 + 1) >> 1)) + ((v70 & 1) == 0);
     v71 = *(this + 13);
     if ((v71 & 0x8000000000000000) != 0)
     {
@@ -7071,11 +7072,11 @@ LABEL_75:
 
     result = 0;
     v79 = (-((v78 & 1) == 0) ^ ((v78 + 1) >> 1)) + ((v78 & 1) == 0);
-    v80 = *(v59 + 4 * v58);
+    v80 = v59[v58];
     v81 = a3[187] + a3[186];
     v8 = v160;
     v82 = (((1 << v81) + v80) * v160) >> v81;
-    *(v61 + 4 * v58) = v79;
+    v61[v58] = v79;
     v57 = v79 < v82;
     v83 = v79 - v82 + v160;
     v84 = v158;
@@ -7100,7 +7101,7 @@ LABEL_75:
     }
 
     v60 = 0;
-    *(v156 + 4 * v58) = v84;
+    v156[v58] = v84;
     v58 = 1;
     if ((v62 & 1) == 0)
     {
@@ -7206,7 +7207,7 @@ double HEVCReleaseSubLayerHRD(void **a1, int a2)
   return result;
 }
 
-uint64_t AppleAVDWrapperH264DecoderCreateInstance(uint64_t a1, uint64_t a2, void *a3)
+uint64_t AppleAVDWrapperH264DecoderCreateInstance(int a1, uint64_t a2, void *a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   VTVideoDecoderGetClassID();
@@ -7391,52 +7392,52 @@ LABEL_16:
   }
 }
 
-uint64_t AppleAVDWrapperH264DecoderInvalidate()
+uint64_t AppleAVDWrapperH264DecoderInvalidate(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage)
   {
-    v1 = DerivedStorage;
+    v3 = DerivedStorage;
     pthread_mutex_lock((DerivedStorage + 6432));
-    v2 = *(v1 + 8816);
-    if ((v2 - 1) >= 2)
+    v4 = *(v3 + 8816);
+    if ((v4 - 1) >= 2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315394;
-        v9 = "AppleAVDWrapperH264DecoderInvalidate";
-        v10 = 1024;
-        v11 = v2;
-        _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called but plugin state is %d", &v8, 0x12u);
+        v10 = 136315394;
+        v11 = "AppleAVDWrapperH264DecoderInvalidate";
+        v12 = 1024;
+        v13 = v4;
+        _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called but plugin state is %d", &v10, 0x12u);
       }
     }
 
     else
     {
-      *(v1 + 8816) = 3;
-      AppleAVDWrapperH264DecoderCleanUp();
+      *(v3 + 8816) = 3;
+      AppleAVDWrapperH264DecoderCleanUp(a1);
     }
 
-    pthread_mutex_unlock((v1 + 6432));
-    v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+    pthread_mutex_unlock((v3 + 6432));
+    v6 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     result = 0;
-    if (v4)
+    if (v6)
     {
-      v5 = *(v1 + 6604);
-      v6 = *(v1 + 5208);
-      v7 = *(v1 + 5212);
-      v8 = 136316162;
-      v9 = "AppleAVDWrapperH264DecoderInvalidate";
-      v10 = 1024;
-      v11 = v5;
+      v7 = *(v3 + 6604);
+      v8 = *(v3 + 5208);
+      v9 = *(v3 + 5212);
+      v10 = 136316162;
+      v11 = "AppleAVDWrapperH264DecoderInvalidate";
       v12 = 1024;
-      v13 = v6;
+      v13 = v7;
       v14 = 1024;
-      v15 = v7;
-      v16 = 2048;
-      v17 = v1;
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s() codecType: AVC, encryptionScheme %d, %d x %d, session: %p", &v8, 0x28u);
+      v15 = v8;
+      v16 = 1024;
+      v17 = v9;
+      v18 = 2048;
+      v19 = v3;
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s() codecType: AVC, encryptionScheme %d, %d x %d, session: %p", &v10, 0x28u);
       return 0;
     }
   }
@@ -7445,9 +7446,9 @@ uint64_t AppleAVDWrapperH264DecoderInvalidate()
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "AppleAVDWrapperH264DecoderInvalidate";
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called with invalid storage", &v8, 0xCu);
+      v10 = 136315138;
+      v11 = "AppleAVDWrapperH264DecoderInvalidate";
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called with invalid storage", &v10, 0xCu);
     }
 
     return 4294954393;
@@ -7456,9 +7457,9 @@ uint64_t AppleAVDWrapperH264DecoderInvalidate()
   return result;
 }
 
-void AppleAVDWrapperH264DecoderFinalize()
+void AppleAVDWrapperH264DecoderFinalize(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
   {
@@ -7467,56 +7468,56 @@ void AppleAVDWrapperH264DecoderFinalize()
       return;
     }
 
-    v9 = 136315138;
-    v10 = "AppleAVDWrapperH264DecoderFinalize";
-    v3 = MEMORY[0x277D86220];
-    v4 = "AppleAVD: %s called with invalid storage";
-    v5 = 12;
+    v11 = 136315138;
+    v12 = "AppleAVDWrapperH264DecoderFinalize";
+    v5 = MEMORY[0x277D86220];
+    v6 = "AppleAVD: %s called with invalid storage";
+    v7 = 12;
     goto LABEL_11;
   }
 
-  v1 = DerivedStorage;
+  v3 = DerivedStorage;
   pthread_mutex_lock((DerivedStorage + 6432));
-  v2 = *(v1 + 8816);
-  if ((v2 - 1) >= 3)
+  v4 = *(v3 + 8816);
+  if ((v4 - 1) >= 3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "AppleAVDWrapperH264DecoderFinalize";
-      v11 = 1024;
-      v12 = v2;
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called but plugin state is %d", &v9, 0x12u);
+      v11 = 136315394;
+      v12 = "AppleAVDWrapperH264DecoderFinalize";
+      v13 = 1024;
+      v14 = v4;
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s called but plugin state is %d", &v11, 0x12u);
     }
   }
 
-  else if (v2 != 3)
+  else if (v4 != 3)
   {
-    AppleAVDWrapperH264DecoderCleanUp();
+    AppleAVDWrapperH264DecoderCleanUp(a1);
   }
 
-  pthread_mutex_unlock((v1 + 6432));
-  pthread_mutex_destroy((v1 + 6432));
+  pthread_mutex_unlock((v3 + 6432));
+  pthread_mutex_destroy((v3 + 6432));
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(v1 + 6604);
-    v7 = *(v1 + 5208);
-    v8 = *(v1 + 5212);
-    v9 = 136316162;
-    v10 = "AppleAVDWrapperH264DecoderFinalize";
-    v11 = 1024;
-    v12 = v6;
+    v8 = *(v3 + 6604);
+    v9 = *(v3 + 5208);
+    v10 = *(v3 + 5212);
+    v11 = 136316162;
+    v12 = "AppleAVDWrapperH264DecoderFinalize";
     v13 = 1024;
-    v14 = v7;
+    v14 = v8;
     v15 = 1024;
-    v16 = v8;
-    v17 = 2048;
-    v18 = v1;
-    v3 = MEMORY[0x277D86220];
-    v4 = "AppleAVD: %s() codecType: AVC, encryptionScheme %d, %d x %d, session: %p";
-    v5 = 40;
+    v16 = v9;
+    v17 = 1024;
+    v18 = v10;
+    v19 = 2048;
+    v20 = v3;
+    v5 = MEMORY[0x277D86220];
+    v6 = "AppleAVD: %s() codecType: AVC, encryptionScheme %d, %d x %d, session: %p";
+    v7 = 40;
 LABEL_11:
-    _os_log_impl(&dword_277606000, v3, OS_LOG_TYPE_DEFAULT, v4, &v9, v5);
+    _os_log_impl(&dword_277606000, v5, OS_LOG_TYPE_DEFAULT, v6, &v11, v7);
   }
 }
 
@@ -7529,58 +7530,58 @@ __CFString *AppleAVDWrapperH264DecoderCopyDebugDescription(uint64_t a1)
 
 uint64_t AppleAVDWrapperH264DecoderCopyProperty(uint64_t a1, const void *a2, const __CFAllocator *a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!CFEqual(a2, *MEMORY[0x277CE2698]))
   {
     if (CFEqual(a2, *MEMORY[0x277CE2650]))
     {
 LABEL_7:
-      v11 = *MEMORY[0x277CBED28];
+      v12 = *MEMORY[0x277CBED28];
 LABEL_8:
-      v12 = CFRetain(v11);
+      v13 = CFRetain(v12);
 LABEL_9:
-      v13 = v12;
+      v14 = v13;
       result = 0;
-      *a4 = v13;
+      *a4 = v14;
       return result;
     }
 
     if (CFEqual(a2, *MEMORY[0x277CE2688]))
     {
-      LODWORD(v19) = 0;
-      v14 = *(DerivedStorage + 5184);
-      if (!v14)
+      LODWORD(v20) = 0;
+      v15 = *(DerivedStorage + 5184);
+      if (!v15)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          HIDWORD(v19) = 136315138;
-          v20 = "AppleAVDWrapperH264DecoderCopyProperty";
-          v15 = MEMORY[0x277D86220];
-          v16 = "AppleAVD: WARNING: %s() - trying to get FrameReceiverThreadPriority before videoContext was created!\n";
+          HIDWORD(v20) = 136315138;
+          v21 = "AppleAVDWrapperH264DecoderCopyProperty";
+          v16 = MEMORY[0x277D86220];
+          v17 = "AppleAVD: WARNING: %s() - trying to get FrameReceiverThreadPriority before videoContext was created!\n";
           goto LABEL_29;
         }
 
         return 4294954385;
       }
 
-      if (AppleAVDGetParameter(v14, 74, &v19))
+      if (AppleAVDGetParameter(v15, 74, &v20))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          HIDWORD(v19) = 136315138;
-          v20 = "AppleAVDWrapperH264DecoderCopyProperty";
-          v15 = MEMORY[0x277D86220];
-          v16 = "AppleAVD: ERROR: %s() - AppleAVDGetParameter call for kAppleAVDGetFrameReceiverThreadPriority returned ERROR\n";
+          HIDWORD(v20) = 136315138;
+          v21 = "AppleAVDWrapperH264DecoderCopyProperty";
+          v16 = MEMORY[0x277D86220];
+          v17 = "AppleAVD: ERROR: %s() - AppleAVDGetParameter call for kAppleAVDGetFrameReceiverThreadPriority returned ERROR\n";
 LABEL_29:
-          _os_log_impl(&dword_277606000, v15, OS_LOG_TYPE_DEFAULT, v16, &v19 + 4, 0xCu);
+          _os_log_impl(&dword_277606000, v16, OS_LOG_TYPE_DEFAULT, v17, &v20 + 4, 0xCu);
           return 4294954385;
         }
 
         return 4294954385;
       }
 
-      v18 = &v19;
+      v19 = &v20;
     }
 
     else
@@ -7588,11 +7589,11 @@ LABEL_29:
       if (CFEqual(a2, *MEMORY[0x277CE26E0]))
       {
         pthread_once(&sCreateSuggestedQualityOfServiceTiersOnce_0, myCreateSuggestedQualityOfServiceTiers_0);
-        v11 = myVideoDecoderSuggestedQualityOfServiceTiers_0;
+        v12 = myVideoDecoderSuggestedQualityOfServiceTiers_0;
         if (!myVideoDecoderSuggestedQualityOfServiceTiers_0)
         {
 
-          return FigSignalErrorAtGM();
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294954392, "(Fig)", 1097, v4);
         }
 
         goto LABEL_8;
@@ -7608,52 +7609,52 @@ LABEL_29:
         goto LABEL_7;
       }
 
-      v18 = (DerivedStorage + 6600);
+      v19 = (DerivedStorage + 6600);
     }
 
-    v12 = CFNumberCreate(a3, kCFNumberSInt32Type, v18);
+    v13 = CFNumberCreate(a3, kCFNumberSInt32Type, v19);
     goto LABEL_9;
   }
 
-  v8 = *(DerivedStorage + 6716);
+  v9 = *(DerivedStorage + 6716);
   result = 4294954396;
-  if (v8 > 1)
+  if (v9 > 1)
   {
-    if (v8 == 2)
+    if (v9 == 2)
     {
-      v10 = MEMORY[0x277CE2750];
+      v11 = MEMORY[0x277CE2750];
     }
 
     else
     {
-      if (v8 != 3)
+      if (v9 != 3)
       {
         return result;
       }
 
-      v10 = MEMORY[0x277CE2758];
+      v11 = MEMORY[0x277CE2758];
     }
   }
 
-  else if (v8)
+  else if (v9)
   {
-    if (v8 != 1)
+    if (v9 != 1)
     {
       return result;
     }
 
-    v10 = MEMORY[0x277CE2760];
+    v11 = MEMORY[0x277CE2760];
   }
 
   else
   {
-    v10 = MEMORY[0x277CE2748];
+    v11 = MEMORY[0x277CE2748];
   }
 
-  v17 = *v10;
-  CFRetain(*v10);
+  v18 = *v11;
+  CFRetain(*v11);
   result = 0;
-  *a4 = v17;
+  *a4 = v18;
   return result;
 }
 
@@ -7673,23 +7674,23 @@ uint64_t AppleAVDWrapperH264DecoderSetProperty(uint64_t a1, const void *a2, cons
     if (CFEqual(a3, *MEMORY[0x277CE2760]))
     {
       result = 0;
-      v7 = 1;
+      v8 = 1;
 LABEL_36:
-      *(DerivedStorage + 6716) = v7;
+      *(DerivedStorage + 6716) = v8;
       return result;
     }
 
     if (CFEqual(a3, *MEMORY[0x277CE2750]))
     {
       result = 0;
-      v7 = 2;
+      v8 = 2;
       goto LABEL_36;
     }
 
     if (CFEqual(a3, *MEMORY[0x277CE2758]))
     {
       result = 0;
-      v7 = 3;
+      v8 = 3;
       goto LABEL_36;
     }
 
@@ -7698,41 +7699,41 @@ LABEL_36:
 
   if (!CFEqual(a2, *MEMORY[0x277CE26E0]))
   {
-    v8 = (DerivedStorage + 6600);
+    v9 = (DerivedStorage + 6600);
     if (CFEqual(a2, *MEMORY[0x277CE2708]))
     {
       LODWORD(valuePtr[0]) = 0;
       CFNumberGetValue(a3, kCFNumberSInt32Type, valuePtr);
       if (LODWORD(valuePtr[0]) <= 0x2A && ((1 << SLOBYTE(valuePtr[0])) & 0x40000100002) != 0)
       {
-        *v8 = valuePtr[0];
-        v9 = *(DerivedStorage + 5184);
-        if (!v9)
+        *v9 = valuePtr[0];
+        v10 = *(DerivedStorage + 5184);
+        if (!v10)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v44 = "AppleAVDWrapperH264DecoderSetProperty";
-            v10 = MEMORY[0x277D86220];
-            v11 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDSetUsageMode before videoContext was created!\n";
+            v45 = "AppleAVDWrapperH264DecoderSetProperty";
+            v11 = MEMORY[0x277D86220];
+            v12 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDSetUsageMode before videoContext was created!\n";
             goto LABEL_31;
           }
 
           return 4294954385;
         }
 
-        if (AppleAVDSetParameter(v9, 17, (DerivedStorage + 6600)))
+        if (AppleAVDSetParameter(v10, 17, (DerivedStorage + 6600)))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v44 = "AppleAVDWrapperH264DecoderSetProperty";
-            v10 = MEMORY[0x277D86220];
-            v11 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDSetUsageMode returned ERROR\n";
+            v45 = "AppleAVDWrapperH264DecoderSetProperty";
+            v11 = MEMORY[0x277D86220];
+            v12 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDSetUsageMode returned ERROR\n";
 LABEL_31:
-            v16 = 12;
+            v17 = 12;
 LABEL_32:
-            _os_log_impl(&dword_277606000, v10, OS_LOG_TYPE_DEFAULT, v11, buf, v16);
+            _os_log_impl(&dword_277606000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, v17);
             return 4294954385;
           }
 
@@ -7740,10 +7741,10 @@ LABEL_32:
         }
       }
 
-      v15 = *(DerivedStorage + 8840);
-      if (v15)
+      v16 = *(DerivedStorage + 8840);
+      if (v16)
       {
-        fprintf(v15, "%d usage %d\n");
+        fprintf(v16, "%d usage %d\n");
       }
 
       return 0;
@@ -7757,8 +7758,8 @@ LABEL_32:
         CFNumberGetValue(a3, kCFNumberSInt32Type, valuePtr);
         if (LODWORD(valuePtr[0]) != 2)
         {
-          v23 = *(DerivedStorage + 5184);
-          if (!v23)
+          v24 = *(DerivedStorage + 5184);
+          if (!v24)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
@@ -7766,13 +7767,13 @@ LABEL_32:
             }
 
             *buf = 136315138;
-            v44 = "AppleAVDWrapperH264DecoderSetProperty";
-            v10 = MEMORY[0x277D86220];
-            v11 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDSetVRAType before videoContext was created!\n";
+            v45 = "AppleAVDWrapperH264DecoderSetProperty";
+            v11 = MEMORY[0x277D86220];
+            v12 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDSetVRAType before videoContext was created!\n";
             goto LABEL_31;
           }
 
-          if (AppleAVDSetParameter(v23, 30, valuePtr))
+          if (AppleAVDSetParameter(v24, 30, valuePtr))
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
@@ -7780,16 +7781,16 @@ LABEL_32:
             }
 
             *buf = 136315138;
-            v44 = "AppleAVDWrapperH264DecoderSetProperty";
-            v10 = MEMORY[0x277D86220];
-            v11 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDSetVRAType returned ERROR\n";
+            v45 = "AppleAVDWrapperH264DecoderSetProperty";
+            v11 = MEMORY[0x277D86220];
+            v12 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDSetVRAType returned ERROR\n";
             goto LABEL_31;
           }
 
-          v28 = *(DerivedStorage + 8840);
-          if (v28)
+          v29 = *(DerivedStorage + 8840);
+          if (v29)
           {
-            fprintf(v28, "%d vratype %d\n");
+            fprintf(v29, "%d vratype %d\n");
           }
 
           return 0;
@@ -7798,11 +7799,11 @@ LABEL_32:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v12 = MEMORY[0x277D86220];
-          v13 = "AppleAVD: ERROR: AppleAVD_H264VideoDecoder - AppleAVDSetParameter kAppleAVDSetVRAType: Unsupported VRA Type 2\n";
-          v14 = 2;
+          v13 = MEMORY[0x277D86220];
+          v14 = "AppleAVD: ERROR: AppleAVD_H264VideoDecoder - AppleAVDSetParameter kAppleAVDSetVRAType: Unsupported VRA Type 2\n";
+          v15 = 2;
 LABEL_25:
-          _os_log_impl(&dword_277606000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, v14);
+          _os_log_impl(&dword_277606000, v13, OS_LOG_TYPE_DEFAULT, v14, buf, v15);
         }
       }
     }
@@ -7812,31 +7813,31 @@ LABEL_25:
       valuePtr[0] = 0;
       if (a3)
       {
-        v17 = CFGetTypeID(a3);
-        if (v17 == CFDictionaryGetTypeID())
+        v18 = CFGetTypeID(a3);
+        if (v18 == CFDictionaryGetTypeID())
         {
           Value = CFDictionaryGetValue(a3, *MEMORY[0x277CE2770]);
           if (Value)
           {
             CFNumberGetValue(Value, kCFNumberIntType, valuePtr);
-            v19 = CFDictionaryGetValue(a3, *MEMORY[0x277CE2768]);
-            if (v19)
+            v20 = CFDictionaryGetValue(a3, *MEMORY[0x277CE2768]);
+            if (v20)
             {
-              CFNumberGetValue(v19, kCFNumberIntType, valuePtr + 4);
-              v20 = valuePtr[0];
+              CFNumberGetValue(v20, kCFNumberIntType, valuePtr + 4);
+              v21 = valuePtr[0];
               if (LODWORD(valuePtr[0]) != 1080)
               {
-                v21 = HIDWORD(valuePtr[0]);
+                v22 = HIDWORD(valuePtr[0]);
                 if (HIDWORD(valuePtr[0]) != 1080 && ((LOBYTE(valuePtr[0]) | BYTE4(valuePtr[0])) & 0xF) != 0)
                 {
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315650;
-                    v44 = "AppleAVDWrapperH264DecoderSetProperty";
-                    v45 = 1024;
-                    *v46 = v20;
-                    *&v46[4] = 1024;
-                    *&v46[6] = v21;
+                    v45 = "AppleAVDWrapperH264DecoderSetProperty";
+                    v46 = 1024;
+                    *v47 = v21;
+                    *&v47[4] = 1024;
+                    *&v47[6] = v22;
                     _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s() - Non-mod16 VRA dimensions with width %d, height %d\n", buf, 0x18u);
                   }
 
@@ -7847,8 +7848,8 @@ LABEL_25:
                 }
               }
 
-              v22 = *(DerivedStorage + 5184);
-              if (!v22)
+              v23 = *(DerivedStorage + 5184);
+              if (!v23)
               {
                 if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
@@ -7856,13 +7857,13 @@ LABEL_25:
                 }
 
                 *buf = 136315138;
-                v44 = "AppleAVDWrapperH264DecoderSetProperty";
-                v10 = MEMORY[0x277D86220];
-                v11 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDSetVRADimensions before videoContext was created!\n";
+                v45 = "AppleAVDWrapperH264DecoderSetProperty";
+                v11 = MEMORY[0x277D86220];
+                v12 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDSetVRADimensions before videoContext was created!\n";
                 goto LABEL_31;
               }
 
-              if (AppleAVDSetParameter(v22, 31, valuePtr))
+              if (AppleAVDSetParameter(v23, 31, valuePtr))
               {
                 if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
@@ -7870,16 +7871,16 @@ LABEL_25:
                 }
 
                 *buf = 136315138;
-                v44 = "AppleAVDWrapperH264DecoderSetProperty";
-                v10 = MEMORY[0x277D86220];
-                v11 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDSetVRADimensions returned ERROR\n";
+                v45 = "AppleAVDWrapperH264DecoderSetProperty";
+                v11 = MEMORY[0x277D86220];
+                v12 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDSetVRADimensions returned ERROR\n";
                 goto LABEL_31;
               }
 
-              v35 = *(DerivedStorage + 8840);
-              if (v35)
+              v36 = *(DerivedStorage + 8840);
+              if (v36)
               {
-                fprintf(v35, "%d vra_res %d %d\n");
+                fprintf(v36, "%d vra_res %d %d\n");
               }
 
               return 0;
@@ -7894,16 +7895,16 @@ LABEL_25:
       LODWORD(valuePtr[0]) = 0;
       if (a3)
       {
-        v24 = CFGetTypeID(a3);
-        if (v24 == CFNumberGetTypeID())
+        v25 = CFGetTypeID(a3);
+        if (v25 == CFNumberGetTypeID())
         {
           CFNumberGetValue(a3, kCFNumberSInt32Type, valuePtr);
-          v25 = valuePtr[0];
+          v26 = valuePtr[0];
           *(DerivedStorage + 8800) = valuePtr[0];
-          if (v25)
+          if (v26)
           {
-            v26 = *(DerivedStorage + 5184);
-            if (!v26)
+            v27 = *(DerivedStorage + 5184);
+            if (!v27)
             {
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
@@ -7911,13 +7912,13 @@ LABEL_25:
               }
 
               *buf = 136315138;
-              v44 = "AppleAVDWrapperH264DecoderSetProperty";
-              v10 = MEMORY[0x277D86220];
-              v11 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDEnableIOFence before videoContext was created!\n";
+              v45 = "AppleAVDWrapperH264DecoderSetProperty";
+              v11 = MEMORY[0x277D86220];
+              v12 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDEnableIOFence before videoContext was created!\n";
               goto LABEL_31;
             }
 
-            if (AppleAVDSetParameter(v26, 21, (DerivedStorage + 8800)))
+            if (AppleAVDSetParameter(v27, 21, (DerivedStorage + 8800)))
             {
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
@@ -7925,17 +7926,17 @@ LABEL_25:
               }
 
               *buf = 136315138;
-              v44 = "AppleAVDWrapperH264DecoderSetProperty";
-              v10 = MEMORY[0x277D86220];
-              v11 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDEnableIOFence returned ERROR\n";
+              v45 = "AppleAVDWrapperH264DecoderSetProperty";
+              v11 = MEMORY[0x277D86220];
+              v12 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDEnableIOFence returned ERROR\n";
               goto LABEL_31;
             }
           }
 
-          v30 = *(DerivedStorage + 8840);
-          if (v30)
+          v31 = *(DerivedStorage + 8840);
+          if (v31)
           {
-            fprintf(v30, "%d enableIOFenceMode %d\n");
+            fprintf(v31, "%d enableIOFenceMode %d\n");
           }
 
           return 0;
@@ -7949,9 +7950,9 @@ LABEL_25:
       {
         if (a3)
         {
-          v27 = CFBooleanGetValue(a3);
+          v28 = CFBooleanGetValue(a3);
           result = 0;
-          *(DerivedStorage + 8808) = v27;
+          *(DerivedStorage + 8808) = v28;
           return result;
         }
 
@@ -7962,9 +7963,9 @@ LABEL_25:
       {
         if (a3)
         {
-          v29 = CFBooleanGetValue(a3);
+          v30 = CFBooleanGetValue(a3);
           result = 0;
-          *(DerivedStorage + 8804) = v29;
+          *(DerivedStorage + 8804) = v30;
           return result;
         }
 
@@ -7979,24 +7980,24 @@ LABEL_25:
           return result;
         }
 
-        v31 = result;
+        v32 = result;
         LODWORD(valuePtr[0]) = 0;
         TypeID = CFStringGetTypeID();
-        if (TypeID == CFGetTypeID(a3) && CFStringGetCString(a3, v31, 1001, 0x8000100u) && (v33 = strnlen(v31, 0x3E9uLL), strnstr(v31, "RVRA1:", v33)))
+        if (TypeID == CFGetTypeID(a3) && CFStringGetCString(a3, v32, 1001, 0x8000100u) && (v34 = strnlen(v32, 0x3E9uLL), strnstr(v32, "RVRA1:", v34)))
         {
-          v34 = 1;
+          v35 = 1;
           LODWORD(valuePtr[0]) = 1;
         }
 
         else
         {
-          v34 = 0;
+          v35 = 0;
         }
 
-        free(v31);
-        *(DerivedStorage + 6608) = v34;
-        v36 = *(DerivedStorage + 5184);
-        if (!v36)
+        free(v32);
+        *(DerivedStorage + 6608) = v35;
+        v37 = *(DerivedStorage + 5184);
+        if (!v37)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
@@ -8004,13 +8005,13 @@ LABEL_25:
           }
 
           *buf = 136315138;
-          v44 = "AppleAVDWrapperH264DecoderSetProperty";
-          v10 = MEMORY[0x277D86220];
-          v11 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDEnableRVRA before videoContext was created!\n";
+          v45 = "AppleAVDWrapperH264DecoderSetProperty";
+          v11 = MEMORY[0x277D86220];
+          v12 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDEnableRVRA before videoContext was created!\n";
           goto LABEL_31;
         }
 
-        result = AppleAVDSetParameter(v36, 35, valuePtr);
+        result = AppleAVDSetParameter(v37, 35, valuePtr);
         if (!result)
         {
           return result;
@@ -8019,9 +8020,9 @@ LABEL_25:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v44 = "AppleAVDWrapperH264DecoderSetProperty";
-          v10 = MEMORY[0x277D86220];
-          v11 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDEnableRVRA returned ERROR\n";
+          v45 = "AppleAVDWrapperH264DecoderSetProperty";
+          v11 = MEMORY[0x277D86220];
+          v12 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDEnableRVRA returned ERROR\n";
           goto LABEL_31;
         }
 
@@ -8037,35 +8038,35 @@ LABEL_25:
       {
         if (a3)
         {
-          v37 = CFBooleanGetTypeID();
-          if (v37 == CFGetTypeID(a3))
+          v38 = CFBooleanGetTypeID();
+          if (v38 == CFGetTypeID(a3))
           {
-            v38 = CFBooleanGetValue(a3);
-            v39 = v38;
-            v40 = *(DerivedStorage + 8816);
-            if (v40 >= 2)
+            v39 = CFBooleanGetValue(a3);
+            v40 = v39;
+            v41 = *(DerivedStorage + 8816);
+            if (v41 >= 2)
             {
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 return 4294954385;
               }
 
-              v41 = v8[2288];
+              v42 = v9[2288];
               *buf = 136315906;
-              v44 = "AppleAVDWrapperH264DecoderSetProperty";
-              v45 = 1024;
-              *v46 = v40;
-              *&v46[4] = 1024;
-              *&v46[6] = v41;
-              v47 = 1024;
-              v48 = v39 != 0;
-              v10 = MEMORY[0x277D86220];
-              v11 = "AppleAVD: ERROR: %s(): pluginState (%d) was already started! current: %d - requested: %d";
-              v16 = 30;
+              v45 = "AppleAVDWrapperH264DecoderSetProperty";
+              v46 = 1024;
+              *v47 = v41;
+              *&v47[4] = 1024;
+              *&v47[6] = v42;
+              v48 = 1024;
+              v49 = v40 != 0;
+              v11 = MEMORY[0x277D86220];
+              v12 = "AppleAVD: ERROR: %s(): pluginState (%d) was already started! current: %d - requested: %d";
+              v17 = 30;
               goto LABEL_32;
             }
 
-            v8[2288] = v38 != 0;
+            v9[2288] = v39 != 0;
             result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
             if (!result)
             {
@@ -8073,9 +8074,9 @@ LABEL_25:
             }
 
             *buf = 136315394;
-            v44 = "AppleAVDWrapperH264DecoderSetProperty";
-            v45 = 1024;
-            *v46 = v39 != 0;
+            v45 = "AppleAVDWrapperH264DecoderSetProperty";
+            v46 = 1024;
+            *v47 = v40 != 0;
             _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): kVTDecompressionPropertyKey_Paravirtualized - paravirtualizedSession: %d", buf, 0x12u);
             return 0;
           }
@@ -8084,12 +8085,12 @@ LABEL_25:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v44 = "AppleAVDWrapperH264DecoderSetProperty";
-          v45 = 2048;
-          *v46 = a3;
-          v12 = MEMORY[0x277D86220];
-          v13 = "AppleAVD: %s(): propertyValue (%p) is invalid!";
-          v14 = 22;
+          v45 = "AppleAVDWrapperH264DecoderSetProperty";
+          v46 = 2048;
+          *v47 = a3;
+          v13 = MEMORY[0x277D86220];
+          v14 = "AppleAVD: %s(): propertyValue (%p) is invalid!";
+          v15 = 22;
           goto LABEL_25;
         }
       }
@@ -8104,8 +8105,8 @@ LABEL_25:
         if (a3)
         {
           LOBYTE(valuePtr[0]) = CFBooleanGetValue(a3);
-          v42 = *(DerivedStorage + 5184);
-          if (!v42)
+          v43 = *(DerivedStorage + 5184);
+          if (!v43)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
@@ -8113,13 +8114,13 @@ LABEL_25:
             }
 
             *buf = 136315138;
-            v44 = "AppleAVDWrapperH264DecoderSetProperty";
-            v10 = MEMORY[0x277D86220];
-            v11 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDSetAttachQPs before videoContext was created!\n";
+            v45 = "AppleAVDWrapperH264DecoderSetProperty";
+            v11 = MEMORY[0x277D86220];
+            v12 = "AppleAVD: WARNING: %s() - trying to set kAppleAVDSetAttachQPs before videoContext was created!\n";
             goto LABEL_31;
           }
 
-          result = AppleAVDSetParameter(v42, 78, valuePtr);
+          result = AppleAVDSetParameter(v43, 78, valuePtr);
           if (!result)
           {
             return result;
@@ -8128,9 +8129,9 @@ LABEL_25:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v44 = "AppleAVDWrapperH264DecoderSetProperty";
-            v10 = MEMORY[0x277D86220];
-            v11 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDSetAttachQPs returned ERROR\n";
+            v45 = "AppleAVDWrapperH264DecoderSetProperty";
+            v11 = MEMORY[0x277D86220];
+            v12 = "AppleAVD: ERROR: %s() - AppleAVDSetParameter call for kAppleAVDSetAttachQPs returned ERROR\n";
             goto LABEL_31;
           }
 
@@ -8142,65 +8143,65 @@ LABEL_25:
     return 4294954394;
   }
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294954395, "(Fig)", 734, v3);
 }
 
-uint64_t AppleAVDWrapperH264DecoderCleanUp()
+uint64_t AppleAVDWrapperH264DecoderCleanUp(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = CMBaseObjectGetDerivedStorage();
-  v2 = *(v1 + 5184);
-  if (v2)
+  v2 = CMBaseObjectGetDerivedStorage();
+  v3 = *(v2 + 5184);
+  if (v3)
   {
-    if (AppleAVDTerminateDecoder(v2) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (AppleAVDTerminateDecoder(v3) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_H264Decoder - ERROR terminate decoder", buf, 2u);
     }
 
-    if (AppleAVDCloseConnection((v1 + 5184)) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (AppleAVDCloseConnection((v2 + 5184)) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_H264Decoder - ERROR closing connection", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_H264Decoder - ERROR closing connection", v10, 2u);
     }
   }
 
   ReleaseHeaderBufferAndCloseFileIO_0(DerivedStorage);
-  v3 = DerivedStorage[4];
-  if (v3)
-  {
-    CVPixelBufferPoolRelease(v3);
-  }
-
-  DerivedStorage[4] = 0;
-  v4 = DerivedStorage[5];
+  v4 = DerivedStorage[4];
   if (v4)
   {
     CVPixelBufferPoolRelease(v4);
   }
 
-  DerivedStorage[5] = 0;
-  v5 = DerivedStorage[6];
+  DerivedStorage[4] = 0;
+  v5 = DerivedStorage[5];
   if (v5)
   {
-    CFRelease(v5);
-    DerivedStorage[6] = 0;
+    CVPixelBufferPoolRelease(v5);
   }
 
-  v6 = DerivedStorage[7];
+  DerivedStorage[5] = 0;
+  v6 = DerivedStorage[6];
   if (v6)
   {
     CFRelease(v6);
+    DerivedStorage[6] = 0;
+  }
+
+  v7 = DerivedStorage[7];
+  if (v7)
+  {
+    CFRelease(v7);
     DerivedStorage[7] = 0;
   }
 
   *DerivedStorage = 0;
   FigFormatDescriptionRelease();
   DerivedStorage[3] = 0;
-  v7 = DerivedStorage[649];
-  if (v7)
+  v8 = DerivedStorage[649];
+  if (v8)
   {
-    CFRelease(v7);
+    CFRelease(v8);
     DerivedStorage[649] = 0;
   }
 
@@ -8284,14 +8285,14 @@ void myCreateSuggestedQualityOfServiceTiers_0()
   myVideoDecoderSuggestedQualityOfServiceTiers_0 = CFArrayCreate(*MEMORY[0x277CBECE8], values, 4, MEMORY[0x277CBF128]);
   if (!myVideoDecoderSuggestedQualityOfServiceTiers_0)
   {
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", *v2, *&v2[8], *(&v4 + 2));
     if (!myVideoDecoderSuggestedQualityOfServiceTiers_0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v2 = 136315394;
-      v3 = "myCreateSuggestedQualityOfServiceTiers";
-      v4 = 2080;
-      v5 = "myVideoDecoderSuggestedQualityOfServiceTiers";
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): failed with error %s\n", &v2, 0x16u);
+      *v2 = 136315394;
+      *&v2[4] = "myCreateSuggestedQualityOfServiceTiers";
+      v3 = 2080;
+      v4 = "myVideoDecoderSuggestedQualityOfServiceTiers";
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): failed with error %s\n", v2, 0x16u);
     }
   }
 
@@ -8318,7 +8319,7 @@ CFDictionaryRef createQualityOfServiceTier_0(void *a1)
   v4 = CFDictionaryCreate(v2, &v6, values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!v4)
   {
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, valuePtr, *buf);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
@@ -9201,7 +9202,7 @@ LABEL_196:
         v100 = v95 == 4;
         if (v95 == 4)
         {
-          SliceDataForDecryptor_0 = GetSliceDataForDecryptor_0(v10);
+          SliceDataForDecryptor_0 = GetSliceDataForDecryptor_0(v10, v28);
           if (SliceDataForDecryptor_0)
           {
             v33 = SliceDataForDecryptor_0;

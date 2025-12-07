@@ -41,7 +41,7 @@
 
 - (void)loadView
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
   mEMORY[0x1E6966CA0] = [MEMORY[0x1E6966CA0] sharedInstance];
@@ -54,49 +54,47 @@
     [v6 setHidesWhenStopped:1];
     [(EXPlaceholderViewController *)self setActivityView:v6];
     [v3 addSubview:v6];
-    v30 = MEMORY[0x1E696ACD8];
+    v29 = MEMORY[0x1E696ACD8];
     centerXAnchor = [v6 centerXAnchor];
     centerXAnchor2 = [v3 centerXAnchor];
     v9 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v33[0] = v9;
+    v32[0] = v9;
     centerYAnchor = [v6 centerYAnchor];
     centerYAnchor2 = [v3 centerYAnchor];
     v12 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v33[1] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
-    [v30 activateConstraints:v13];
+    v32[1] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+    [v29 activateConstraints:v13];
 
-    v31 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"puzzlepiece"];
-    v14 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v31];
+    v30 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"puzzlepiece"];
+    v14 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v30];
     completeIcon = self->_completeIcon;
     self->_completeIcon = v14;
 
     [(UIImageView *)self->_completeIcon setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIImageView *)self->_completeIcon setHidden:1];
     [v3 addSubview:self->_completeIcon];
-    v25 = MEMORY[0x1E696ACD8];
+    v24 = MEMORY[0x1E696ACD8];
     heightAnchor = [(UIImageView *)self->_completeIcon heightAnchor];
-    v28 = [heightAnchor constraintEqualToConstant:64.0];
-    v32[0] = v28;
+    v27 = [heightAnchor constraintEqualToConstant:64.0];
+    v31[0] = v27;
     widthAnchor = [(UIImageView *)self->_completeIcon widthAnchor];
     heightAnchor2 = [(UIImageView *)self->_completeIcon heightAnchor];
     v16 = [widthAnchor constraintEqualToAnchor:heightAnchor2];
-    v32[1] = v16;
+    v31[1] = v16;
     centerXAnchor3 = [(UIImageView *)self->_completeIcon centerXAnchor];
     centerXAnchor4 = [v3 centerXAnchor];
     v19 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    v32[2] = v19;
+    v31[2] = v19;
     centerYAnchor3 = [(UIImageView *)self->_completeIcon centerYAnchor];
     centerYAnchor4 = [v3 centerYAnchor];
     v22 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-    v32[3] = v22;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
-    [v25 activateConstraints:v23];
+    v31[3] = v22;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
+    [v24 activateConstraints:v23];
   }
 
   [(EXPlaceholderViewController *)self setView:v3];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setState:(unint64_t)state
@@ -243,14 +241,6 @@ void __40__EXPlaceholderViewController_setState___block_invoke(uint64_t a1)
   return WeakRetained;
 }
 
-- (void)setState:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)setState:.cold.2()
 {
   OUTLINED_FUNCTION_5();
@@ -277,30 +267,6 @@ void __40__EXPlaceholderViewController_setState___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)hostViewController:didPrepareToHost:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)hostViewController:didBeginHosting:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)hostViewController:didEndHosting:error:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

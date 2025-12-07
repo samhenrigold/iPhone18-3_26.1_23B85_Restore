@@ -11,16 +11,14 @@
 
 - (void)onMessagesProduced:(id)produced
 {
-  v4 = [produced copy];
-  onMessagesProduced = self->_onMessagesProduced;
-  self->_onMessagesProduced = v4;
+  self->_onMessagesProduced = [produced copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)enqueueMessages:(id)messages
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -30,12 +28,12 @@
   v5 = SiriAnalyticsLogContextStreaming;
   if (os_log_type_enabled(SiriAnalyticsLogContextStreaming, OS_LOG_TYPE_DEBUG))
   {
-    v9 = v5;
-    v10 = 136315394;
-    v11 = "[SiriAnalyticsTimePeriodBuffer enqueueMessages:]";
-    v12 = 2048;
-    v13 = [messagesCopy count];
-    _os_log_debug_impl(&dword_1D9863000, v9, OS_LOG_TYPE_DEBUG, "%s Enqueueing %lu messages", &v10, 0x16u);
+    v8 = v5;
+    v9 = 136315394;
+    v10 = "[SiriAnalyticsTimePeriodBuffer enqueueMessages:]";
+    v11 = 2048;
+    v12 = [messagesCopy count];
+    _os_log_debug_impl(&dword_1D9863000, v8, OS_LOG_TYPE_DEBUG, "%s Enqueueing %lu messages", &v9, 0x16u);
   }
 
   bufferedMessages = self->_bufferedMessages;
@@ -43,12 +41,11 @@
   [(NSMutableSet *)bufferedMessages unionSet:v7];
 
   [(SiriAnalyticsTimePeriodBuffer *)self _startProducing];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_timerElapsed
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [(SiriAnalyticsTimePeriodBuffer *)self _stopProducing];
   v3 = self->_bufferedMessages;
   v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -63,12 +60,12 @@
   v6 = SiriAnalyticsLogContextStreaming;
   if (os_log_type_enabled(SiriAnalyticsLogContextStreaming, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v6;
-    v11 = 136315394;
-    v12 = "[SiriAnalyticsTimePeriodBuffer _timerElapsed]";
-    v13 = 2048;
-    v14 = [(NSMutableSet *)v3 count];
-    _os_log_debug_impl(&dword_1D9863000, v10, OS_LOG_TYPE_DEBUG, "%s Producing %lu messages from buffer", &v11, 0x16u);
+    v9 = v6;
+    v10 = 136315394;
+    v11 = "[SiriAnalyticsTimePeriodBuffer _timerElapsed]";
+    v12 = 2048;
+    v13 = [(NSMutableSet *)v3 count];
+    _os_log_debug_impl(&dword_1D9863000, v9, OS_LOG_TYPE_DEBUG, "%s Producing %lu messages from buffer", &v10, 0x16u);
   }
 
   if ([(NSMutableSet *)v3 count])
@@ -80,8 +77,6 @@
       onMessagesProduced[2](onMessagesProduced, allObjects);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopProducing

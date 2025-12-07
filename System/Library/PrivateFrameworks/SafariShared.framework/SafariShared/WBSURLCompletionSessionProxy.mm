@@ -146,11 +146,11 @@ void __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResu
   v6 = v5;
   if (!a2 || v5)
   {
-    (*(*(a1 + 56) + 16))();
-    v14 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v14 = (*(*(a1 + 56) + 16))();
+    v16 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResultsUsingProfileIdentifier_limit_forQueryID_withSearchParameters_completionHandler___block_invoke_cold_1(v14, v6);
+      __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResultsUsingProfileIdentifier_limit_forQueryID_withSearchParameters_completionHandler___block_invoke_cold_1(v16, v6);
     }
   }
 
@@ -160,23 +160,23 @@ void __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResu
     v8 = *(a1 + 40);
     v9 = *(a1 + 72);
     v10 = *(a1 + 80);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResultsUsingProfileIdentifier_limit_forQueryID_withSearchParameters_completionHandler___block_invoke_10;
-    v15[3] = &unk_1E7FCB2A8;
-    v18 = v9;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResultsUsingProfileIdentifier_limit_forQueryID_withSearchParameters_completionHandler___block_invoke_10;
+    v17[3] = &unk_1E7FCB2A8;
+    v20 = v9;
     v11 = *(a1 + 48);
     v12 = *(a1 + 56);
     v13 = *(a1 + 64);
-    v16 = v12;
-    v17 = v13;
-    [a2 getBestMatchesForTypedString:v7 filterResultsUsingProfileIdentifier:v8 limit:v9 forQueryID:v10 withSearchParameters:v11 completionHandler:v15];
+    v18 = v12;
+    v19 = v13;
+    [a2 getBestMatchesForTypedString:v7 filterResultsUsingProfileIdentifier:v8 limit:v9 forQueryID:v10 withSearchParameters:v11 completionHandler:v17];
   }
 }
 
 void __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResultsUsingProfileIdentifier_limit_forQueryID_withSearchParameters_completionHandler___block_invoke_10(void *a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -198,19 +198,19 @@ void __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResu
     [v10 removeObjectsInRange:{v12, objc_msgSend(v10, "count") - a1[6]}];
   }
 
-  (*(a1[4] + 16))();
-  v13 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v13 = (*(a1[4] + 16))();
+  v15 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v14 = v13;
-    v17 = 134217984;
-    v18 = [v10 count];
-    _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_INFO, "Returning %zi matches", &v17, 0xCu);
+    v16 = v15;
+    v19 = 134217984;
+    v20 = [v10 count];
+    _os_log_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_INFO, "Returning %zi matches", &v19, 0xCu);
   }
 
-  v15 = *(a1[5] + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = 0;
+  v17 = *(a1[5] + 8);
+  v18 = *(v17 + 40);
+  *(v17 + 40) = 0;
 }
 
 void __153__WBSURLCompletionSessionProxy_getBestMatchesForTypedString_filterResultsUsingProfileIdentifier_limit_forQueryID_withSearchParameters_completionHandler___block_invoke_cold_1(void *a1, void *a2)

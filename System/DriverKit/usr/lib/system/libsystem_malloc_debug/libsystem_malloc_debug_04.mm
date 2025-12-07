@@ -141,251 +141,243 @@ _OWORD *_xzm_xzone_malloc_tiny_or_early(unsigned __int8 *a1, uint64_t a2, char a
     goto LABEL_16;
   }
 
-  v14 = *(a2 + 40);
+  v12 = *(a2 + 40);
   do
   {
-    if (!v14)
+    if (!v12)
     {
-      v15 = 0;
+      v13 = 0;
       goto LABEL_9;
     }
 
-    v13 = v14;
-    v3 = v14;
-    v4 = v14;
-    atomic_compare_exchange_strong_explicit((a2 + 40), &v4, v14 - 1, memory_order_relaxed, memory_order_relaxed);
+    v11 = v12;
+    v3 = v12;
+    v4 = v12;
+    atomic_compare_exchange_strong_explicit((a2 + 40), &v4, v12 - 1, memory_order_relaxed, memory_order_relaxed);
     if (v4 != v3)
     {
-      v13 = v4;
+      v11 = v4;
     }
 
-    v14 = v13;
+    v12 = v11;
   }
 
   while (v4 != v3);
-  v15 = 1;
+  v13 = 1;
 LABEL_9:
-  if (v15 != 1)
+  if (v13 != 1)
   {
 LABEL_16:
-    v8 = _xzm_xzone_malloc_tiny(a1, a2, 0);
-    if (a3)
+    v6 = _xzm_xzone_malloc_tiny(a1, a2, 0);
+    if ((a3 & 1) != 0 && !_xzm_mem_is_zero(v6, *(a2 + 48)))
     {
-      v6 = *(a2 + 48);
-      if (!_xzm_mem_is_zero())
-      {
-        qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, xz->xz_block_size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3275)";
-        __break(1u);
-        JUMPOUT(0x6991CLL);
-      }
+      qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, xz->xz_block_size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3275)";
+      __break(1u);
+      JUMPOUT(0x6991CLL);
     }
 
-    return v8;
+    return v6;
   }
 
   else
   {
-    v9 = mfm_alloc(*(a2 + 48));
-    if (!v9)
+    v7 = mfm_alloc(*(a2 + 48));
+    if (!v7)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion ptr failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3263)";
       __break(1u);
       JUMPOUT(0x69868);
     }
 
-    if (a3)
+    if ((a3 & 1) != 0 && !_xzm_mem_is_zero(v7, *(a2 + 48)))
     {
-      v5 = *(a2 + 48);
-      if (!_xzm_mem_is_zero())
-      {
-        qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, xz->xz_block_size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3266)";
-        __break(1u);
-        JUMPOUT(0x698B0);
-      }
+      qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, xz->xz_block_size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3266)";
+      __break(1u);
+      JUMPOUT(0x698B0);
     }
 
-    return v9;
+    return v7;
   }
 }
 
 unint64_t _xzm_xzone_malloc_freelist_outlined(unsigned __int8 *a1, uint64_t a2, unsigned __int8 a3, uint64_t *a4, uint64_t a5, int a6)
 {
-  v50 = a1;
-  v49 = a2;
-  v48 = a3;
-  v47 = a4;
-  v46 = a5;
-  v45 = a6;
+  v49 = a1;
+  v48 = a2;
+  v47 = a3;
+  v46 = a4;
+  v45 = a5;
+  v44 = a6;
   if (a5)
   {
-    _xzm_corruption_detected(v46);
+    _xzm_corruption_detected(v45);
   }
 
-  v44 = v45 & 1;
-  v43 = *(v49 + 48) < 0x401uLL;
-  v42 = *(v49 + 48) > 0x1000uLL;
-  v41 = (*(v49 + 87) & 2) != 0;
-  v40 = (v45 & 0x40000000) != 0;
-  v39 = 0;
-  v38 = v47;
-  v37 = 0;
-  v35 = *v47;
-  v36 = v35;
-  v34 = v35;
-  v37 = v35;
-  v33 = 0;
+  v43 = v44 & 1;
+  v42 = *(v48 + 48) < 0x401uLL;
+  v41 = *(v48 + 48) > 0x1000uLL;
+  v40 = (*(v48 + 87) & 2) != 0;
+  v39 = (v44 & 0x40000000) != 0;
+  v38 = 0;
+  v37 = v46;
+  v36 = 0;
+  v34 = *v46;
+  v35 = v34;
+  v33 = v34;
+  v36 = v34;
   v32 = 0;
   v31 = 0;
+  v30 = 0;
   do
   {
     while (1)
     {
-      while ((v37 & 1) != 0)
+      while ((v36 & 1) != 0)
       {
-        v81 = v37;
-        v80 = v47;
-        v79 = v47;
-        if ((v37 & 2) == 0)
+        v80 = v36;
+        v79 = v46;
+        v78 = v46;
+        if ((v36 & 2) == 0)
         {
-          v78 = v81 | 2;
-          v76 = v81;
-          v75 = 0;
-          v73 = v81 | 2;
-          v72 = v81 | 2;
-          v74 = v81 | 2;
-          v6 = v81;
-          v7 = v81;
-          atomic_compare_exchange_strong_explicit(v79, &v7, v81 | 2, memory_order_relaxed, memory_order_relaxed);
+          v77 = v80 | 2;
+          v75 = v80;
+          v74 = 0;
+          v72 = v80 | 2;
+          v71 = v80 | 2;
+          v73 = v80 | 2;
+          v6 = v80;
+          v7 = v80;
+          atomic_compare_exchange_strong_explicit(v78, &v7, v80 | 2, memory_order_relaxed, memory_order_relaxed);
           if (v7 != v6)
           {
-            v76 = v7;
+            v75 = v7;
           }
 
-          v71 = v7 == v6;
-          v75 = v7 == v6;
-          v81 = v76;
-          v70 = v75;
-          v77 = v7 == v6;
+          v70 = v7 == v6;
+          v74 = v7 == v6;
+          v80 = v75;
+          v69 = v74;
+          v76 = v7 == v6;
           if (v7 != v6)
           {
-            v82 = v81;
+            v81 = v80;
             goto LABEL_17;
           }
 
-          v81 |= 2uLL;
+          v80 |= 2uLL;
         }
 
-        v69 = 17104898;
-        v68 = __ulock_wait();
-        if (v68 < 0 && v68 != -4 && -v68 != 14)
+        v68 = 17104898;
+        v67 = __ulock_wait();
+        if (v67 < 0 && v67 != -4 && -v67 != 14)
         {
-          v67 = -v68;
+          v66 = -v67;
           qword_D8128 = "BUG IN LIBMALLOC: ulock_wait failure";
-          qword_D8158 = v67;
+          qword_D8158 = v66;
           __break(1u);
           JUMPOUT(0x69C04);
         }
 
-        v64 = *v79;
-        v65 = v64;
-        v63 = v64;
-        v66 = v64;
-        v81 = v64;
-        v82 = v64;
+        v63 = *v78;
+        v64 = v63;
+        v62 = v63;
+        v65 = v63;
+        v80 = v63;
+        v81 = v63;
 LABEL_17:
-        v37 = v82;
+        v36 = v81;
       }
 
-      if ((v37 & 2) == 0)
+      if ((v36 & 2) == 0)
       {
         break;
       }
 
-      _xzm_fork_lock_wait(v50);
-      v37 = *v38;
+      _xzm_fork_lock_wait(v49);
+      v36 = *v37;
     }
 
-    v32 = (v37 >> 2) & 0x7FFFFFFFFFFFLL;
-    if (v32)
+    v31 = (v36 >> 2) & 0x7FFFFFFFFFFFLL;
+    if (v31)
     {
-      v33 = _xzm_xzone_malloc_from_freelist_chunk(v50, v49, v48, 0, v32, v42, &v31, 0);
-      if (v33)
+      v32 = _xzm_xzone_malloc_from_freelist_chunk(v49, v48, v47, 0, v31, v41, &v30, 0);
+      if (v32)
       {
         goto LABEL_43;
       }
     }
 
-    if (!v39)
+    if (!v38)
     {
-      v39 = _malloc_ulock_self_owner_value();
+      v38 = _malloc_ulock_self_owner_value();
     }
 
-    v30 = v37;
-    v8 = v37;
-    v9 = v37;
-    atomic_compare_exchange_strong_explicit(v38, &v9, v37 & 0xFFFE000000000000 | (4 * v39) | 1, memory_order_relaxed, memory_order_relaxed);
+    v29 = v36;
+    v8 = v36;
+    v9 = v36;
+    atomic_compare_exchange_strong_explicit(v37, &v9, v36 & 0xFFFE000000000000 | (4 * v38) | 1, memory_order_relaxed, memory_order_relaxed);
     if (v9 != v8)
     {
-      v30 = v9;
+      v29 = v9;
     }
 
-    v37 = v30;
+    v36 = v29;
   }
 
   while (v9 != v8);
-  if (!v39)
+  if (!v38)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion self_owner_value failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:1957)";
     __break(1u);
     JUMPOUT(0x69E40);
   }
 
-  if (v33)
+  if (v32)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !ptr failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:1978)";
     __break(1u);
     JUMPOUT(0x69E70);
   }
 
-  v33 = _xzm_xzone_find_and_malloc_from_freelist_chunk(v50, v49, v48, 0, &v32, &v31);
-  v29 = atomic_exchange_explicit(v38, (4 * (v32 & 0x7FFFFFFFFFFFLL)) & 0x1FFFFFFFFFFFFLL | (((v37 >> 49) + 1) << 49), memory_order_release);
-  if ((v29 & 1) == 0)
+  v32 = _xzm_xzone_find_and_malloc_from_freelist_chunk(v49, v48, v47, 0, &v31, &v30);
+  v28 = atomic_exchange_explicit(v37, (4 * (v31 & 0x7FFFFFFFFFFFLL)) & 0x1FFFFFFFFFFFFLL | (((v36 >> 49) + 1) << 49), memory_order_release);
+  if ((v28 & 1) == 0)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion prev_slot_meta.xasa_gate.xsg_locked failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2000)";
     __break(1u);
     JUMPOUT(0x69F5CLL);
   }
 
-  if (v39 != v29 >> 2)
+  if (v38 != v28 >> 2)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion prev_slot_meta.xasa_gate.xsg_owner == self_owner_value failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2001)";
     __break(1u);
     JUMPOUT(0x69F94);
   }
 
-  if ((v29 & 0x1FFFF00000000) != 0)
+  if ((v28 & 0x1FFFF00000000) != 0)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion prev_slot_meta.xasa_gate.xsg_unused == 0 failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2002)";
     __break(1u);
     JUMPOUT(0x69FC8);
   }
 
-  if (v29 >> 49 != v37 >> 49)
+  if (v28 >> 49 != v36 >> 49)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion prev_slot_meta.xasa_gate.xsg_gen == slot_meta.xasa_gate.xsg_gen failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2004)";
     __break(1u);
     JUMPOUT(0x6A008);
   }
 
-  if ((v29 & 2) != 0)
+  if ((v28 & 2) != 0)
   {
-    v28 = __ulock_wake();
-    if (v28)
+    v27 = __ulock_wake();
+    if (v27)
     {
-      if (v28 != -2)
+      if (v27 != -2)
       {
         qword_D8128 = "BUG IN LIBMALLOC: ulock_wake failure";
-        qword_D8158 = -v28;
+        qword_D8158 = -v27;
         __break(1u);
         JUMPOUT(0x6A094);
       }
@@ -393,38 +385,38 @@ LABEL_17:
   }
 
 LABEL_43:
-  if (v33)
+  if (v32)
   {
-    v10 = *(v49 + 86);
-    v119 = v50;
+    v10 = *(v48 + 86);
     v118 = v49;
-    v117 = (v47 + 2);
-    v116 = v10;
-    v115 = 1;
-    v114 = v31 & 1;
-    if ((v50[249] & 1) != 0 && *(v118 + 6) <= 0x100uLL)
+    v117 = v48;
+    v116 = (v46 + 2);
+    v115 = v10;
+    v114 = 1;
+    v113 = v30 & 1;
+    if ((v49[249] & 1) != 0 && *(v117 + 6) <= 0x100uLL)
     {
-      if (v114)
+      if (v113)
       {
+        v119 = 114;
         v120 = 114;
-        v121 = 114;
         StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-        v113 = *(StatusReg + 912);
-        if (v113)
+        v112 = *(StatusReg + 912);
+        if (v112)
         {
-          v112 = v118[80];
-          v111 = v113 + 24 * v112 + 40;
-          v126 = v119;
+          v111 = v117[80];
+          v110 = v112 + 24 * v111 + 40;
           v125 = v118;
-          v124 = v111;
-          if (*(v113 + 24 * v112 + 56) == -1)
+          v124 = v117;
+          v123 = v110;
+          if (*(v112 + 24 * v111 + 56) == -1)
           {
-            ++*(v124 + 18);
-            v123 = *(v126 + 64);
-            if (*(v124 + 18) == v123)
+            ++*(v123 + 18);
+            v122 = *(v125 + 64);
+            if (*(v123 + 18) == v122)
             {
-              *(v124 + 16) = -2;
-              *(v124 + 22) = *(v124 + 8) & 0xFFF;
+              *(v123 + 16) = -2;
+              *(v123 + 22) = *(v123 + 8) & 0xFFF;
             }
           }
         }
@@ -433,102 +425,102 @@ LABEL_43:
 
     else
     {
-      v110 = 0;
-      v108 = *v117;
-      v109 = v108;
-      v107 = v108;
-      v110 = v108;
-      v106 = (v119[248] >> 4) & 3;
-      if (HIBYTE(v108) != v106 && ((v114 & 1) != 0 || (v110 & 0xFFFFFF00000000) != 0))
+      v109 = 0;
+      v107 = *v116;
+      v108 = v107;
+      v106 = v107;
+      v109 = v107;
+      v105 = (v118[248] >> 4) & 3;
+      if (HIBYTE(v107) != v105 && ((v113 & 1) != 0 || (v109 & 0xFFFFFF00000000) != 0))
       {
-        v105 = 1;
-        if (v114)
+        v104 = 1;
+        if (v113)
         {
-          v105 |= 0x100000000uLL;
+          v104 |= 0x100000000uLL;
         }
 
-        v104 = 0;
-        v102 = v105;
-        v101 = v105;
-        v103 = v105;
-        v97 = v105;
-        v96 = v105;
-        v98 = v105;
-        add_explicit = atomic_fetch_add_explicit(v117, v105, memory_order_relaxed);
-        v99 = add_explicit;
-        v94 = add_explicit;
-        v100 = add_explicit + v103;
-        v104 = add_explicit + v103;
-        v93 = (add_explicit + v103) >> 56;
-        if (v93 != v106)
+        v103 = 0;
+        v101 = v104;
+        v100 = v104;
+        v102 = v104;
+        v96 = v104;
+        v95 = v104;
+        v97 = v104;
+        add_explicit = atomic_fetch_add_explicit(v116, v104, memory_order_relaxed);
+        v98 = add_explicit;
+        v93 = add_explicit;
+        v99 = add_explicit + v102;
+        v103 = add_explicit + v102;
+        v92 = (add_explicit + v102) >> 56;
+        if (v92 != v105)
         {
-          if (v115)
+          if (v114)
           {
-            v27 = *(v119 + 76);
+            v26 = *(v118 + 76);
           }
 
           else
           {
-            v27 = *(v119 + 71);
-          }
-
-          v92 = v27;
-          if (v115)
-          {
-            v26 = v119 + 292;
-          }
-
-          else
-          {
-            v26 = v119 + 272;
+            v26 = *(v118 + 71);
           }
 
           v91 = v26;
-          if ((HIDWORD(v104) & 0xFFFFFFu) < *&v26[4 * v93])
+          if (v114)
           {
-            if (v104 >= v92 && v104 <= v92)
+            v25 = v118 + 292;
+          }
+
+          else
+          {
+            v25 = v118 + 272;
+          }
+
+          v90 = v25;
+          if ((HIDWORD(v103) & 0xFFFFFFu) < *&v25[4 * v92])
+          {
+            if (v103 >= v91 && v103 <= v91)
             {
-              v89 = v104;
-              LODWORD(v88) = 0;
-              HIDWORD(v88) = HIBYTE(v88) << 24;
-              HIBYTE(v88) = v93;
-              v104 = v88;
-              v87 = 0;
-              v86 = v117;
-              v110 = *v117;
+              v88 = v103;
+              LODWORD(v87) = 0;
+              HIDWORD(v87) = HIBYTE(v87) << 24;
+              HIBYTE(v87) = v92;
+              v103 = v87;
+              v86 = 0;
+              v85 = v116;
+              v109 = *v116;
               do
               {
-                if (v110 < v89 || HIBYTE(v110) > HIBYTE(v89))
+                if (v109 < v88 || HIBYTE(v109) > HIBYTE(v88))
                 {
                   break;
                 }
 
-                v85 = v104;
-                v11 = v110;
-                v12 = v110;
-                atomic_compare_exchange_strong_explicit(v86, &v12, v104, memory_order_relaxed, memory_order_relaxed);
+                v84 = v103;
+                v11 = v109;
+                v12 = v109;
+                atomic_compare_exchange_strong_explicit(v85, &v12, v103, memory_order_relaxed, memory_order_relaxed);
                 if (v12 != v11)
                 {
-                  v110 = v12;
+                  v109 = v12;
                 }
 
-                v84 = v12 == v11;
-                v87 = v12 == v11;
+                v83 = v12 == v11;
+                v86 = v12 == v11;
               }
 
               while (v12 != v11);
-              v83 = v87;
+              v82 = v86;
             }
           }
 
-          else if ((HIDWORD(v104) & 0xFFFFFFu) <= *&v91[4 * v93])
+          else if ((HIDWORD(v103) & 0xFFFFFFu) <= *&v90[4 * v92])
           {
-            v127 = HIBYTE(v104);
-            if (HIBYTE(v104))
+            v126 = HIBYTE(v103);
+            if (HIBYTE(v103))
             {
-              if (HIBYTE(v104) != 1)
+              if (HIBYTE(v103) != 1)
               {
-                if (HIBYTE(v104) != 2)
+                if (HIBYTE(v103) != 2)
                 {
                   qword_D8128 = "BUG IN LIBMALLOC: Invalid xzone slot config";
                   __break(1u);
@@ -540,97 +532,97 @@ LABEL_43:
                 JUMPOUT(0x6A4E0);
               }
 
-              v128 = 2;
+              v127 = 2;
             }
 
             else if (ncpuclusters < 2)
             {
-              v128 = 2;
+              v127 = 2;
             }
 
             else
             {
-              v128 = 1;
+              v127 = 1;
             }
 
-            v90 = v128;
-            if (HIBYTE(v104) >= v128)
+            v89 = v127;
+            if (HIBYTE(v103) >= v127)
             {
               qword_D8128 = "BUG IN LIBMALLOC: malloc assertion new_counters.xsc_slot_config < next_slot_config failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:1444)";
               __break(1u);
               JUMPOUT(0x6A554);
             }
 
-            _xzm_xzone_upgrade_freelist_slot_config(v119, v118, v117, v104, v90, v115 & 1);
+            _xzm_xzone_upgrade_freelist_slot_config(v118, v117, v116, v103, v89, v114 & 1);
           }
         }
       }
     }
 
-    if (v41)
+    if (v40)
     {
-      if (v40)
+      if (v39)
       {
-        v13 = *(v49 + 48);
-        v53 = v33;
-        v52 = v13;
-        v54 = v33;
-        v56 = v33;
-        v55 = v33 & 0xF0FFFFFFFFFFFFFFLL;
-        v51 = v33 & 0xF0FFFFFFFFFFFFFFLL;
-        v60 = v33 & 0xF0FFFFFFFFFFFFFFLL;
-        v59 = v13;
+        v13 = *(v48 + 48);
+        v52 = v32;
+        v51 = v13;
+        v53 = v32;
+        v55 = v32;
+        v54 = v32 & 0xF0FFFFFFFFFFFFFFLL;
+        v50 = v32 & 0xF0FFFFFFFFFFFFFFLL;
+        v59 = v32 & 0xF0FFFFFFFFFFFFFFLL;
+        v58 = v13;
         if ((v13 & 0xF) != 0)
         {
           __break(1u);
           JUMPOUT(0x6A724);
         }
 
-        if ((v60 & 0xF) != 0)
+        if ((v59 & 0xF) != 0)
         {
           __break(1u);
           JUMPOUT(0x6A73CLL);
         }
 
-        v58 = v60;
-        v57 = v60 + v59;
-        _X8 = v60;
+        v57 = v59;
+        v56 = v59 + v58;
+        _X8 = v59;
         __asm { STG             X8, [X8] }
 
-        _X8 = v60 + v59;
+        _X8 = v59 + v58;
         __asm { STG             X8, [X8,#-0x10] }
 
-        if (v59 >= 0x21)
+        if (v58 >= 0x21)
         {
-          v58 = (v60 + 31) & 0xFFFFFFFFFFFFFFE0;
-          v57 = (v60 + v59) & 0xFFFFFFFFFFFFFFE0;
-          _X8 = v58;
+          v57 = (v59 + 31) & 0xFFFFFFFFFFFFFFE0;
+          v56 = (v59 + v58) & 0xFFFFFFFFFFFFFFE0;
+          _X8 = v57;
           __asm { ST2G            X8, [X8] }
 
-          _X8 = v57;
+          _X8 = v56;
           __asm { ST2G            X8, [X8,#-0x20] }
         }
 
-        v58 = (v60 + 63) & 0xFFFFFFFFFFFFFFC0;
-        v57 = (v60 + v59) & 0xFFFFFFFFFFFFFFC0;
-        while (v58 < v57)
+        v57 = (v59 + 63) & 0xFFFFFFFFFFFFFFC0;
+        v56 = (v59 + v58) & 0xFFFFFFFFFFFFFFC0;
+        while (v57 < v56)
         {
           __asm { DC              GVA, X8 }
 
-          v58 += 64;
+          v57 += 64;
         }
 
-        v33 = v51;
+        v32 = v50;
       }
 
       else
       {
-        v61 = v33;
-        v62 = v33;
-        _X9 = v33;
+        v60 = v32;
+        v61 = v32;
+        _X9 = v32;
         __asm { LDG             X9, [X9] }
 
-        if (v33 != _X9)
+        if (v32 != _X9)
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion ptr == memtag_fixup_ptr(ptr) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2045)";
           __break(1u);
@@ -639,10 +631,9 @@ LABEL_43:
       }
     }
 
-    *v33 = 0uLL;
-    if ((v44 & 1) != 0 && !v43)
+    *v32 = 0uLL;
+    if ((v43 & 1) != 0 && !v42)
     {
-      v24 = *(v49 + 48);
       _platform_bzero();
     }
   }
@@ -652,7 +643,7 @@ LABEL_43:
     malloc_set_errno_fast(1, 12);
   }
 
-  return v33;
+  return v32;
 }
 
 void _xzm_corruption_detected(uint64_t a1)
@@ -682,87 +673,87 @@ void _xzm_fork_lock_wait(uint64_t a1)
 
 uint64_t _xzm_xzone_malloc_from_freelist_chunk(uint64_t a1, uint64_t a2, unsigned __int8 a3, uint64_t a4, unint64_t a5, char a6, _BYTE *a7, _BYTE *a8)
 {
-  v44 = a1;
-  v43 = a2;
-  v42 = a3;
-  v41 = a4;
-  v40 = a5;
-  v39 = a6;
-  v38 = a7;
-  v37 = a8;
-  v36[1] = 1;
-  v36[0] = 0;
-  v100 = a1;
-  v99 = a2;
-  v98 = a3;
-  v97 = a4;
-  v96 = a5;
-  v95 = a6 & 1;
-  v94 = 1;
-  v93 = v36;
-  v92 = a7;
-  v91 = a8;
-  v90 = *(a5 + 12) & 1;
-  v89 = a8 != 0;
+  v41 = a1;
+  v40 = a2;
+  v39 = a3;
+  v38 = a4;
+  v37 = a5;
+  v36 = a6;
+  v35 = a7;
+  v34 = a8;
+  v33[1] = 1;
+  v33[0] = 0;
+  v97 = a1;
+  v96 = a2;
+  v95 = a3;
+  v94 = a4;
+  v93 = a5;
+  v92 = a6 & 1;
+  v91 = 1;
+  v90 = v33;
+  v89 = a7;
+  v88 = a8;
+  v87 = *(a5 + 12) & 1;
+  v86 = a8 != 0;
   v8 = 1024;
   if ((a6 & 1) == 0)
   {
     v8 = 16;
   }
 
-  v88 = v8;
-  v106 = v100;
-  v105 = v96;
-  v104 = 0;
-  v111 = v100;
-  v110 = v96;
-  v114 = v100;
-  v113 = v96;
-  v112 = v96 & 0xFFFFFFFFFFFFC000;
-  v35 = 1;
-  if ((v96 & 0xFFFFFFFFFFFFC000) != 0)
+  v85 = v8;
+  v103 = v97;
+  v102 = v93;
+  v101 = 0;
+  v108 = v97;
+  v107 = v93;
+  v111 = v97;
+  v110 = v93;
+  v109 = v93 & 0xFFFFFFFFFFFFC000;
+  v32 = 1;
+  if ((v93 & 0xFFFFFFFFFFFFC000) != 0)
   {
-    v34 = 0;
-    if (v113 >= v112 + 2136)
+    v31 = 0;
+    if (v110 >= v109 + 2136)
     {
-      v34 = v113 < v112 + 48 * *(v112 + 16) + 2136;
+      v31 = v110 < v109 + 48 * *(v109 + 16) + 2136;
     }
 
-    v35 = v34;
+    v32 = v31;
   }
 
-  if ((v35 & 1) == 0)
+  if ((v32 & 1) == 0)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !segment || (slice >= segment->xzs_slices && slice < (segment->xzs_slices + segment->xzs_slice_entry_count)) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:262)";
     __break(1u);
     JUMPOUT(0x6AD48);
   }
 
-  v116 = v112;
-  v115 = v110;
-  v121 = v112;
-  v120 = v110;
-  if (v110 < v112 + 2136)
+  v113 = v109;
+  v112 = v107;
+  v118 = v109;
+  v117 = v107;
+  if (v107 < v109 + 2136)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion (uintptr_t)slice >= (uintptr_t)segment->xzs_slices failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:279)";
     __break(1u);
     JUMPOUT(0x6ADACLL);
   }
 
-  v119 = 0xAAAAAAAAAAAAAAABLL * ((v120 - v121 - 2136) >> 4);
-  if (v119 >= *(v121 + 16))
+  v116 = 0xAAAAAAAAAAAAAAABLL * ((v117 - v118 - 2136) >> 4);
+  if (v116 >= *(v118 + 16))
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
     __break(1u);
     JUMPOUT(0x6AE0CLL);
   }
 
-  v118 = v112;
-  v117 = v119;
-  v87 = *(v112 + 72) + (v119 << 14);
-  if (v95)
+  v115 = v109;
+  v114 = v116;
+  v84 = *(v109 + 72) + (v116 << 14);
+  if (v92)
   {
-    if ((*(v96 + 32) & 0xF) != 6)
+    if ((*(v93 + 32) & 0xF) != 6)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_bits.xzcb_kind == XZM_SLICE_KIND_SMALL_FREELIST_CHUNK failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:742)";
       __break(1u);
@@ -770,31 +761,31 @@ uint64_t _xzm_xzone_malloc_from_freelist_chunk(uint64_t a1, uint64_t a2, unsigne
     }
   }
 
-  else if ((*(v96 + 32) & 0xF) != 2)
+  else if ((*(v93 + 32) & 0xF) != 2)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_bits.xzcb_kind == XZM_SLICE_KIND_TINY_CHUNK failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:744)";
     __break(1u);
     JUMPOUT(0x6AEB8);
   }
 
-  if (v97)
+  if (v94)
   {
-    if (v89)
+    if (v86)
     {
-      *v97 = v96;
-      *(v97 + 8) = v87;
+      *v94 = v93;
+      *(v94 + 8) = v84;
     }
 
     else
     {
-      if (*v97 != v96)
+      if (*v94 != v93)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion cache->xztc_chunk == chunk failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:755)";
         __break(1u);
         JUMPOUT(0x6AF2CLL);
       }
 
-      if (*(v97 + 8) != v87)
+      if (*(v94 + 8) != v84)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion cache->xztc_chunk_start == start failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:756)";
         __break(1u);
@@ -803,123 +794,118 @@ uint64_t _xzm_xzone_malloc_from_freelist_chunk(uint64_t a1, uint64_t a2, unsigne
     }
   }
 
-  v86 = 0;
-  v85 = 0;
-  v84 = 0uLL;
   v83 = 0;
   v82 = 0;
-  v80 = *v96;
-  v81 = v80;
-  v79 = v80;
-  v82 = v80;
+  v81 = 0uLL;
+  v80 = 0;
+  v79 = 0;
+  v77 = *v93;
+  v78 = v77;
+  v76 = v77;
+  v79 = v77;
   do
   {
     while (1)
     {
       while (1)
       {
-        while ((v82 & 0x40000000) != 0)
+        while ((v79 & 0x40000000) != 0)
         {
-          if ((v94 & 1) == 0)
+          if ((v91 & 1) == 0)
           {
-            v101 = 0;
-            goto LABEL_143;
+            v98 = 0;
+            goto LABEL_137;
           }
 
-          _xzm_walk_lock_wait(v100);
-          v77 = *v96;
-          v78 = v77;
-          v76 = v77;
-          v82 = v77;
+          _xzm_walk_lock_wait(v97);
+          v74 = *v93;
+          v75 = v74;
+          v73 = v74;
+          v79 = v74;
         }
 
-        v75 = v82;
-        if (!v89)
+        v72 = v79;
+        if (!v86)
         {
           break;
         }
 
-        if (((v82 >> 22) & 0x3F) != 0)
+        if (((v79 >> 22) & 0x3F) != 0)
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_alloc_idx == XZM_SLOT_INDEX_EMPTY failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:791)";
           __break(1u);
           JUMPOUT(0x6B05CLL);
         }
 
-        if ((v82 & 0x10000000) == 0)
+        if ((v79 & 0x10000000) == 0)
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_on_partial_list failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:792)";
           __break(1u);
           JUMPOUT(0x6B08CLL);
         }
 
-        if ((v82 & 0x20000000) != 0)
+        if ((v79 & 0x20000000) != 0)
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !old_meta.xca_on_empty_list failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:793)";
           __break(1u);
           JUMPOUT(0x6B0BCLL);
         }
 
-        v75 &= ~0x10000000uLL;
-        if (((v82 >> 11) & 0x7FF) != 0)
+        v72 &= ~0x10000000uLL;
+        if (((v79 >> 11) & 0x7FF) != 0)
         {
-          v75 = v75 & 0xFFFFFFFFF03FFFFFLL | (((v98 + 1) & 0x3FLL) << 22);
-          goto LABEL_78;
+          v72 = v72 & 0xFFFFFFFFF03FFFFFLL | (((v95 + 1) & 0x3FLL) << 22);
+          goto LABEL_74;
         }
 
-        if ((v82 & 0x7FF) == 0x7FE)
+        if ((v79 & 0x7FF) == 0x7FE)
         {
-          v75 |= 0x20000000uLL;
-          *v91 = 1;
+          v72 |= 0x20000000uLL;
+          *v88 = 1;
         }
 
-        else if ((~v82 & 0x7FF) != 0)
+        else if ((~v79 & 0x7FF) != 0)
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_alloc_head == XZM_FREE_MADVISING failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:811)";
           __break(1u);
           JUMPOUT(0x6B140);
         }
 
-        if (v97)
+        if (v94)
         {
-          *(v97 + 16) = -2;
+          *(v94 + 16) = -2;
         }
 
-        v73 = v82;
-        v72 = 0;
-        v70 = v75;
-        v69 = v75;
-        v71 = v75;
-        v9 = v82;
-        v10 = v82;
-        atomic_compare_exchange_strong_explicit(v96, &v10, v75, memory_order_relaxed, memory_order_relaxed);
+        v70 = v79;
+        v69 = 0;
+        v67 = v72;
+        v66 = v72;
+        v68 = v72;
+        v9 = v79;
+        v10 = v79;
+        atomic_compare_exchange_strong_explicit(v93, &v10, v72, memory_order_relaxed, memory_order_relaxed);
         if (v10 != v9)
         {
-          v73 = v10;
+          v70 = v10;
         }
 
-        v68 = v10 == v9;
-        v72 = v10 == v9;
-        v82 = v73;
-        v67 = v72;
-        v74 = v10 == v9;
+        v65 = v10 == v9;
+        v69 = v10 == v9;
+        v79 = v70;
+        v64 = v69;
+        v71 = v10 == v9;
         if (v10 == v9)
         {
           if (malloc_tracing_enabled)
           {
-            if (v97)
-            {
-              v33 = *(v97 + 16);
-            }
-
             kdebug_trace();
           }
 
-          v101 = 0;
-          goto LABEL_143;
+          v98 = 0;
+          goto LABEL_137;
         }
 
-        if (*v91)
+        if (*v88)
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !(*install_empty_out) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:828)";
           __break(1u);
@@ -927,223 +913,218 @@ uint64_t _xzm_xzone_malloc_from_freelist_chunk(uint64_t a1, uint64_t a2, unsigne
         }
       }
 
-      if (((v82 >> 22) & 0x3F) != v98 + 1)
+      if (((v79 >> 22) & 0x3F) != v95 + 1)
       {
-        if (v97)
+        if (v94)
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !cache failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:869)";
           __break(1u);
           JUMPOUT(0x6B324);
         }
 
-        v101 = 0;
-        goto LABEL_143;
+        v98 = 0;
+        goto LABEL_137;
       }
 
-      if (((v82 >> 11) & 0x7FF) == 0)
+      if (((v79 >> 11) & 0x7FF) == 0)
       {
         break;
       }
 
-LABEL_78:
-      v85 = 0;
-      if (v97)
+LABEL_74:
+      v82 = 0;
+      if (v94)
       {
-        v75 = v75 & 0xFFFFFFFFFFFFF800 | 0x400;
-        v75 &= 0xFFFFFFFFFFC007FFLL;
-        *(v97 + 18) = ((v82 >> 11) & 0x7FF) - 1;
-        if ((v82 & 0x7FF) > 0x3FF)
+        v72 = v72 & 0xFFFFFFFFFFFFF800 | 0x400;
+        v72 &= 0xFFFFFFFFFFC007FFLL;
+        *(v94 + 18) = ((v79 >> 11) & 0x7FF) - 1;
+        if ((v79 & 0x7FF) > 0x3FF)
         {
-          if ((v82 & 0x7FF) != 0x400)
+          if ((v79 & 0x7FF) != 0x400)
           {
             qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_alloc_head == XZM_FREE_NULL failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:948)";
             __break(1u);
             JUMPOUT(0x6B648);
           }
 
-          if (((v82 >> 11) & 0x7FF) == 0)
+          if (((v79 >> 11) & 0x7FF) == 0)
           {
             qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_free_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:949)";
             __break(1u);
             JUMPOUT(0x6B67CLL);
           }
 
-          v58 = *(v99 + 68);
-          v57 = v58 - ((v82 >> 11) & 0x7FF);
-          v86 = v87 + v57 * *(v99 + 48);
-          *(v97 + 16) = 1024;
+          v55 = *(v96 + 68);
+          v54 = v55 - ((v79 >> 11) & 0x7FF);
+          v83 = v84 + v54 * *(v96 + 48);
+          *(v94 + 16) = 1024;
         }
 
         else
         {
-          v86 = v87 + (v82 & 0x7FF) * v88;
-          if (v90)
+          v83 = v84 + (v79 & 0x7FF) * v85;
+          if (v87)
           {
             __asm { MSR             TCO, #1 }
 
-            v84 = *v86;
+            v81 = *v83;
             __asm { MSR             TCO, #0 }
           }
 
           else
           {
-            v84 = *v86;
+            v81 = *v83;
           }
 
-          *(v97 + 16) = WORD4(v84) & 0x7FF;
-          *(v97 + 20) = (DWORD2(v84) >> 11) & 0x1FFF;
-          v85 = 1;
+          *(v94 + 16) = WORD4(v81) & 0x7FF;
+          *(v94 + 20) = (DWORD2(v81) >> 11) & 0x1FFF;
+          v82 = 1;
         }
       }
 
       else
       {
-        v75 = v75 & 0xFFFFFFFFFFC007FFLL | ((((v75 >> 11) - 1) & 0x7FFLL) << 11);
-        if ((v82 & 0x7FF) > 0x3FF)
+        v72 = v72 & 0xFFFFFFFFFFC007FFLL | ((((v72 >> 11) - 1) & 0x7FFLL) << 11);
+        if ((v79 & 0x7FF) > 0x3FF)
         {
-          if (((v82 >> 11) & 0x7FF) == 0)
+          if (((v79 >> 11) & 0x7FF) == 0)
           {
             qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_free_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:985)";
             __break(1u);
             JUMPOUT(0x6B7ACLL);
           }
 
-          if ((v82 & 0x7FF) != 0x400)
+          if ((v79 & 0x7FF) != 0x400)
           {
             qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_alloc_head == XZM_FREE_NULL failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:986)";
             __break(1u);
             JUMPOUT(0x6B7E4);
           }
 
-          v56 = *(v99 + 68);
-          v86 = v87 + (v56 - ((v82 >> 11) & 0x7FF)) * *(v99 + 48);
+          v53 = *(v96 + 68);
+          v83 = v84 + (v53 - ((v79 >> 11) & 0x7FF)) * *(v96 + 48);
         }
 
         else
         {
-          v86 = v87 + (v82 & 0x7FF) * v88;
-          if (v90)
+          v83 = v84 + (v79 & 0x7FF) * v85;
+          if (v87)
           {
             __asm { MSR             TCO, #1 }
 
-            v84 = *v86;
+            v81 = *v83;
             __asm { MSR             TCO, #0 }
           }
 
           else
           {
-            v84 = *v86;
+            v81 = *v83;
           }
 
-          v75 = v75 & 0xFFFFFFFFFFFFF800 | WORD4(v84) & 0x7FF;
-          v75 = v75 & 0xFFFFF0007FFFFFFFLL | (((*(&v84 + 1) >> 11) & 0x1FFFLL) << 31);
-          v85 = 1;
+          v72 = v72 & 0xFFFFFFFFFFFFF800 | WORD4(v81) & 0x7FF;
+          v72 = v72 & 0xFFFFF0007FFFFFFFLL | (((*(&v81 + 1) >> 11) & 0x1FFFLL) << 31);
+          v82 = 1;
         }
       }
 
-      v54 = v82;
-      v53 = 0;
-      v51 = v75;
-      v50 = v75;
-      v52 = v75;
-      v21 = v82;
-      v22 = v82;
-      atomic_compare_exchange_strong_explicit(v96, &v22, v75, memory_order_relaxed, memory_order_relaxed);
+      v51 = v79;
+      v50 = 0;
+      v48 = v72;
+      v47 = v72;
+      v49 = v72;
+      v21 = v79;
+      v22 = v79;
+      atomic_compare_exchange_strong_explicit(v93, &v22, v72, memory_order_relaxed, memory_order_relaxed);
       if (v22 != v21)
       {
-        v54 = v22;
+        v51 = v22;
       }
 
-      v49 = v22 == v21;
-      v53 = v22 == v21;
-      v82 = v54;
-      v48 = v53;
-      v55 = v22 == v21;
+      v46 = v22 == v21;
+      v50 = v22 == v21;
+      v79 = v51;
+      v45 = v50;
+      v52 = v22 == v21;
       if (v22 == v21)
       {
         if (malloc_tracing_enabled)
         {
-          if (v97)
-          {
-            v31 = *(v97 + 16);
-          }
-
           kdebug_trace();
         }
 
-        if (v90)
+        if (v87)
         {
-          if (v95)
+          if (v92)
           {
-            v23 = *(v99 + 48);
-            v109 = v86;
-            v108 = v23;
-            v107 = memtag_assign_tag(v86, v23);
-            v123 = v107;
-            v122 = v108;
-            if ((v108 & 0x1FF) != 0)
+            v23 = *(v96 + 48);
+            v106 = v83;
+            v105 = v23;
+            v104 = memtag_assign_tag(v83, v23);
+            v120 = v104;
+            v119 = v105;
+            if ((v105 & 0x1FF) != 0)
             {
-              v127 = v123;
-              v126 = v122;
-              if ((v122 & 0xF) != 0)
+              v124 = v120;
+              v123 = v119;
+              if ((v119 & 0xF) != 0)
               {
                 __break(1u);
                 JUMPOUT(0x6B9D8);
               }
 
-              if ((v127 & 0xF) != 0)
+              if ((v124 & 0xF) != 0)
               {
                 __break(1u);
                 JUMPOUT(0x6B9F0);
               }
 
-              v125 = v127;
-              v124 = v127 + v126;
-              _X8 = v127;
+              v122 = v124;
+              v121 = v124 + v123;
+              _X8 = v124;
               __asm { STG             X8, [X8] }
 
-              _X8 = v127 + v126;
+              _X8 = v124 + v123;
               __asm { STG             X8, [X8,#-0x10] }
 
-              if (v126 >= 0x21)
+              if (v123 >= 0x21)
               {
-                v125 = (v127 + 31) & 0xFFFFFFFFFFFFFFE0;
-                v124 = (v127 + v126) & 0xFFFFFFFFFFFFFFE0;
-                _X8 = v125;
+                v122 = (v124 + 31) & 0xFFFFFFFFFFFFFFE0;
+                v121 = (v124 + v123) & 0xFFFFFFFFFFFFFFE0;
+                _X8 = v122;
                 __asm { ST2G            X8, [X8] }
 
-                _X8 = v124;
+                _X8 = v121;
                 __asm { ST2G            X8, [X8,#-0x20] }
               }
 
-              v125 = (v127 + 63) & 0xFFFFFFFFFFFFFFC0;
-              v124 = (v127 + v126) & 0xFFFFFFFFFFFFFFC0;
-              while (v125 < v124)
+              v122 = (v124 + 63) & 0xFFFFFFFFFFFFFFC0;
+              v121 = (v124 + v123) & 0xFFFFFFFFFFFFFFC0;
+              while (v122 < v121)
               {
                 __asm { DC              GVA, X8 }
 
-                v125 += 64;
+                v122 += 64;
               }
             }
 
             else
             {
-              v130 = v123;
-              v129 = v122;
-              if ((v123 & 0x1FF) != 0)
+              v127 = v120;
+              v126 = v119;
+              if ((v120 & 0x1FF) != 0)
               {
                 __break(1u);
                 JUMPOUT(0x6BAE0);
               }
 
-              if ((v129 & 0x1FF) != 0)
+              if ((v126 & 0x1FF) != 0)
               {
                 __break(1u);
                 JUMPOUT(0x6BAF8);
               }
 
-              v128 = v130 + v129;
-              while (v130 < v128)
+              v125 = v127 + v126;
+              while (v127 < v125)
               {
                 __asm
                 {
@@ -1157,147 +1138,142 @@ LABEL_78:
                   DC              GVA, X8
                 }
 
-                v130 += 512;
+                v127 += 512;
               }
             }
 
-            v86 = v107;
+            v83 = v104;
           }
 
-          else if (v85)
+          else if (v82)
           {
-            v134 = v84;
-            v133 = v84;
-            v47 = BYTE7(v84) & 0xF;
-            if ((BYTE7(v84) & 0xF) == 0)
+            v131 = v81;
+            v130 = v81;
+            v44 = BYTE7(v81) & 0xF;
+            if ((BYTE7(v81) & 0xF) == 0)
             {
               qword_D8128 = "BUG IN LIBMALLOC: malloc assertion tag != 0 failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:1029)";
               __break(1u);
               JUMPOUT(0x6BC04);
             }
 
-            v137 = v86;
-            v136 = v47;
-            if (v47 >= 0x10u)
+            v134 = v83;
+            v133 = v44;
+            if (v44 >= 0x10u)
             {
               __break(1u);
               JUMPOUT(0x6BC2CLL);
             }
 
-            v135 = v137 & 0xF0FFFFFFFFFFFFFFLL | ((v136 & 0xF) << 56);
-            v86 = v135;
+            v132 = v134 & 0xF0FFFFFFFFFFFFFFLL | ((v133 & 0xF) << 56);
+            v83 = v132;
           }
 
           else
           {
-            v131 = v86;
-            v132 = v86;
-            _X8 = v86;
+            v128 = v83;
+            v129 = v83;
+            _X8 = v83;
             __asm { LDG             X8, [X8] }
 
-            v86 = _X8;
+            v83 = _X8;
           }
         }
 
-        if (v85)
+        if (v82)
         {
-          v46 = v86 ^ *(v100 + 320);
-          if (v95)
+          v43 = v83 ^ *(v97 + 320);
+          if (v92)
           {
-            v103 = v46;
-            v102 = v46 & 0xF0FFFFFFFFFFFFFFLL;
-            v46 &= 0xF0FFFFFFFFFFFFFFLL;
+            v100 = v43;
+            v99 = v43 & 0xF0FFFFFFFFFFFFFFLL;
+            v43 &= 0xF0FFFFFFFFFFFFFFLL;
           }
 
-          if (v46 == v84)
+          if (v43 == v81)
           {
-            v45 = WORD4(v84) & 0x7FF | (((*(&v84 + 1) >> 11) & 0x1FFFLL) << 11) & 0xFFFFFF;
-            if (*(&v84 + 1) != v45)
+            v42 = WORD4(v81) & 0x7FF | (((*(&v81 + 1) >> 11) & 0x1FFFLL) << 11) & 0xFFFFFF;
+            if (*(&v81 + 1) != v42)
             {
-              *v93 = 1;
+              *v90 = 1;
             }
           }
 
           else
           {
-            *v93 = 1;
+            *v90 = 1;
           }
         }
 
-        v101 = v86;
-        goto LABEL_143;
+        v98 = v83;
+        goto LABEL_137;
       }
 
-      *v92 = 1;
-      ++v83;
+      *v89 = 1;
+      ++v80;
     }
 
-    v75 &= 0xFFFFFFFFF03FFFFFLL;
-    if ((v82 & 0x7FF) != 0x400)
+    v72 &= 0xFFFFFFFFF03FFFFFLL;
+    if ((v79 & 0x7FF) != 0x400)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion old_meta.xca_alloc_head == XZM_FREE_NULL failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:881)";
       __break(1u);
       JUMPOUT(0x6B384);
     }
 
-    if ((v82 & 0x10000000) != 0)
+    if ((v79 & 0x10000000) != 0)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !old_meta.xca_on_partial_list failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:887)";
       __break(1u);
       JUMPOUT(0x6B3B4);
     }
 
-    if ((v82 & 0x20000000) != 0)
+    if ((v79 & 0x20000000) != 0)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !old_meta.xca_on_empty_list failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:888)";
       __break(1u);
       JUMPOUT(0x6B3E4);
     }
 
-    if (v97)
+    if (v94)
     {
-      *(v97 + 16) = -2;
+      *(v94 + 16) = -2;
     }
 
-    v65 = v82;
-    v64 = 0;
-    v62 = v75;
-    v61 = v75;
-    v63 = v75;
-    v11 = v82;
-    v12 = v82;
-    atomic_compare_exchange_strong_explicit(v96, &v12, v75, memory_order_relaxed, memory_order_relaxed);
+    v62 = v79;
+    v61 = 0;
+    v59 = v72;
+    v58 = v72;
+    v60 = v72;
+    v11 = v79;
+    v12 = v79;
+    atomic_compare_exchange_strong_explicit(v93, &v12, v72, memory_order_relaxed, memory_order_relaxed);
     if (v12 != v11)
     {
-      v65 = v12;
+      v62 = v12;
     }
 
-    v60 = v12 == v11;
-    v64 = v12 == v11;
-    v82 = v65;
-    v59 = v64;
-    v66 = v12 == v11;
+    v57 = v12 == v11;
+    v61 = v12 == v11;
+    v79 = v62;
+    v56 = v61;
+    v63 = v12 == v11;
   }
 
   while (v12 != v11);
   if (malloc_tracing_enabled)
   {
-    if (v97)
-    {
-      v32 = *(v97 + 16);
-    }
-
     kdebug_trace();
   }
 
-  v101 = 0;
-LABEL_143:
-  if (v36[0])
+  v98 = 0;
+LABEL_137:
+  if (v33[0])
   {
-    _xzm_corruption_detected(v101);
+    _xzm_corruption_detected(v98);
   }
 
-  return v101;
+  return v98;
 }
 
 unint64_t _xzm_xzone_find_and_malloc_from_freelist_chunk(unsigned __int8 *a1, uint64_t a2, unsigned __int8 a3, uint64_t a4, void *a5, _BYTE *a6)
@@ -1939,7 +1915,7 @@ void _xzm_walk_lock_wait(uint64_t a1)
   }
 }
 
-unint64_t _xzm_chunk_list_slot_pop(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
+unint64_t _xzm_chunk_list_slot_pop(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3)
 {
   v14 = a1;
   v13 = a2;
@@ -2840,38 +2816,36 @@ LABEL_19:
   return i;
 }
 
-uint64_t _xzm_xzone_upgrade_freelist_slot_config(uint64_t result, unsigned __int8 *a2, uint64_t a3, uint64_t a4, char a5, char a6)
+uint64_t _xzm_xzone_upgrade_freelist_slot_config(uint64_t result, unsigned __int8 *a2, uint64_t a3, uint64_t a4, unsigned __int8 a5, char a6)
 {
-  v16 = result;
+  v14 = result;
   if (a6)
   {
     if (malloc_tracing_enabled)
     {
-      v6 = a2[80];
       result = kdebug_trace();
     }
   }
 
   else if (malloc_tracing_enabled)
   {
-    v7 = a2[80];
     result = kdebug_trace();
   }
 
   if (a6)
   {
-    v9 = a2 + 86;
+    v7 = a2 + 86;
   }
 
   else
   {
-    v9 = a2 + 85;
+    v7 = a2 + 85;
   }
 
-  *v9 = a5;
-  LODWORD(v11) = 0;
-  HIDWORD(v11) = v12 << 24;
-  HIBYTE(v11) = a5;
+  *v7 = a5;
+  LODWORD(v9) = 0;
+  HIDWORD(v9) = v10 << 24;
+  HIBYTE(v9) = a5;
   if (!a5)
   {
     goto LABEL_15;
@@ -2879,50 +2853,50 @@ uint64_t _xzm_xzone_upgrade_freelist_slot_config(uint64_t result, unsigned __int
 
   if (a5 == 1)
   {
-    v19 = ncpuclusters;
+    v17 = ncpuclusters;
     goto LABEL_16;
   }
 
   if (a5 != 2)
   {
 LABEL_15:
-    v19 = 1;
+    v17 = 1;
     goto LABEL_16;
   }
 
-  v19 = logical_ncpus;
+  v17 = logical_ncpus;
 LABEL_16:
-  for (i = 0; i < v19; ++i)
+  for (i = 0; i < v17; ++i)
   {
     if (a6)
     {
-      v21 = a2[80];
-      v20 = i * *(v16 + 210);
-      if (v20 + v21 >= *(v16 + 211) * *(v16 + 210))
+      v19 = a2[80];
+      v18 = i * *(v14 + 210);
+      if (v18 + v19 >= *(v14 + 211) * *(v14 + 210))
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion alloc_base_idx + xz_idx < zone->xzz_slot_count * zone->xzz_xzone_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:1246)";
         __break(1u);
         JUMPOUT(0x6FC78);
       }
 
-      v8 = (*(v16 + 224) + 32 * (v20 + v21) + 16);
+      v6 = (*(v14 + 224) + 32 * (v18 + v19) + 16);
     }
 
     else
     {
-      v18 = a2[80];
-      v17 = i * *(v16 + 210);
-      if (v17 + v18 >= *(v16 + 211) * *(v16 + 210))
+      v16 = a2[80];
+      v15 = i * *(v14 + 210);
+      if (v15 + v16 >= *(v14 + 211) * *(v14 + 210))
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion alloc_base_idx + xz_idx < zone->xzz_slot_count * zone->xzz_xzone_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:233)";
         __break(1u);
         JUMPOUT(0x6FD30);
       }
 
-      v8 = (*(v16 + 232) + 16 * (v17 + v18) + 8);
+      v6 = (*(v14 + 232) + 16 * (v15 + v16) + 8);
     }
 
-    *v8 = v11;
+    *v6 = v9;
   }
 
   return result;
@@ -2930,13 +2904,13 @@ LABEL_16:
 
 unint64_t _xzm_xzone_malloc_from_fresh_freelist_chunk(uint64_t a1, uint64_t a2, unsigned __int8 a3, uint64_t a4, unint64_t a5, char a6)
 {
-  v10 = 1;
+  v9 = 1;
   if ((*(a5 + 32) & 0xF) != 2)
   {
-    v10 = (*(a5 + 32) & 0xF) == 6;
+    v9 = (*(a5 + 32) & 0xF) == 6;
   }
 
-  if (!v10)
+  if (!v9)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_bits.xzcb_kind == XZM_SLICE_KIND_TINY_CHUNK || chunk->xzc_bits.xzcb_kind == XZM_SLICE_KIND_SMALL_FREELIST_CHUNK failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:1239)";
     __break(1u);
@@ -2944,27 +2918,27 @@ unint64_t _xzm_xzone_malloc_from_fresh_freelist_chunk(uint64_t a1, uint64_t a2, 
   }
 
   _xzm_xzone_fresh_chunk_init(a2, a5, *(a5 + 32) & 0xF);
-  v21 = a5 & 0xFFFFFFFFFFFFC000;
-  v9 = 1;
+  v20 = a5 & 0xFFFFFFFFFFFFC000;
+  v8 = 1;
   if ((a5 & 0xFFFFFFFFFFFFC000) != 0)
   {
-    v8 = 0;
-    if (a5 >= v21 + 2136)
+    v7 = 0;
+    if (a5 >= v20 + 2136)
     {
-      v8 = a5 < (a5 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (a5 & 0xFFFFFFFFFFFFC000)) + 2136;
+      v7 = a5 < (a5 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (a5 & 0xFFFFFFFFFFFFC000)) + 2136;
     }
 
-    v9 = v8;
+    v8 = v7;
   }
 
-  if ((v9 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !segment || (slice >= segment->xzs_slices && slice < (segment->xzs_slices + segment->xzs_slice_entry_count)) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:262)";
     __break(1u);
     JUMPOUT(0x70020);
   }
 
-  if (a5 < v21 + 2136)
+  if (a5 < v20 + 2136)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion (uintptr_t)slice >= (uintptr_t)segment->xzs_slices failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:279)";
     __break(1u);
@@ -2978,37 +2952,36 @@ unint64_t _xzm_xzone_malloc_from_fresh_freelist_chunk(uint64_t a1, uint64_t a2, 
     JUMPOUT(0x700E4);
   }
 
-  v12 = *(&stru_20.fileoff + (a5 & 0xFFFFFFFFFFFFC000)) + ((-1431655765 * ((a5 - v21 - 2136) >> 4)) << 14);
+  v11 = *(&stru_20.fileoff + (a5 & 0xFFFFFFFFFFFFC000)) + ((-1431655765 * ((a5 - v20 - 2136) >> 4)) << 14);
   if (a4)
   {
-    v13 = (((a3 + 1) & 0x3F) << 22) & 0xFFFFBFF | 0x400;
+    v12 = (((a3 + 1) & 0x3F) << 22) & 0xFFFFBFF | 0x400;
     *a4 = a5;
-    *(a4 + 8) = v12;
+    *(a4 + 8) = v11;
     *(a4 + 16) = 1024;
     *(a4 + 18) = *(a2 + 68) - 1;
   }
 
   else
   {
-    v13 = (((*(a2 + 68) - 1) & 0x7FF) << 11) & 0x3FFBFF | 0x400 | (((a3 + 1) & 0x3F) << 22) & 0xFFFFFFF;
+    v12 = (((*(a2 + 68) - 1) & 0x7FF) << 11) & 0x3FFBFF | 0x400 | (((a3 + 1) & 0x3F) << 22) & 0xFFFFFFF;
   }
 
   if (malloc_tracing_enabled)
   {
-    v6 = *(a2 + 80);
     kdebug_trace();
   }
 
-  *a5 = v13;
+  *a5 = v12;
   *(a5 + 34) = *(a2 + 82);
   if ((*(a5 + 12) & 1) == 0)
   {
-    return v12;
+    return v11;
   }
 
   if (a6)
   {
-    return _xzm_xzone_block_memtag_retag(a1, v12, *(a2 + 48));
+    return _xzm_xzone_block_memtag_retag(a1, v11, *(a2 + 48));
   }
 
   else
@@ -3160,425 +3133,424 @@ uint64_t _xzm_xzone_chunk_memtag_init(uint64_t a1, uint64_t a2, unint64_t a3)
 
 void _xzm_xzone_madvise_batch(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v35 = v132;
+  v34 = v131;
+  v52 = a1;
+  v51 = a2;
+  v50 = a3;
+  v49 = *(a3 + 32) & 0xF;
+  v35 = 0u;
+  memset(v131, 0, 512);
+  v48 = 0;
   v53 = a1;
-  v52 = a2;
-  v51 = a3;
-  v50 = *(a3 + 32) & 0xF;
-  v36 = 0u;
-  memset(v132, 0, 512);
-  v49 = 0;
-  v54 = a1;
   v3 = *(a1 + 240);
-  v37 = *(v53 + 240);
+  v36 = *(v52 + 240);
   if (v3)
   {
-    v34 = v37;
+    v33 = v36;
   }
 
   else
   {
-    v34 = v54;
+    v33 = v53;
   }
 
-  v48 = v34;
-  v47 = *(v34 + 568);
-  if (v50 == 2)
+  v47 = v33;
+  v46 = *(v33 + 568);
+  if (v49 == 2)
   {
-    v33 = (*(v48 + 409) >> 3) & 1;
+    v32 = (*(v47 + 409) >> 3) & 1;
   }
 
   else
   {
-    v33 = (*(v48 + 409) >> 2) & 1;
+    v32 = (*(v47 + 409) >> 2) & 1;
   }
 
-  v46 = v33 != 0;
-  v45 = 0;
-  if (v33)
+  v45 = v32 != 0;
+  v44 = 0;
+  if (v32)
   {
-    v55 = v47 + 12;
-    v119 = v47 + 12;
-    v118 = 327680;
+    v54 = v46 + 3;
+    v118 = v46 + 3;
+    v117 = 327680;
+    v119 = 3;
     v120 = 3;
-    v121 = 3;
     StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    v117 = *(StatusReg + 24);
-    v116 = 0;
-    v115 = v117;
-    v114 = v117;
+    v116 = *(StatusReg + 24);
+    v115 = 0;
+    v114 = v116;
+    v113 = v116;
     v4 = 0;
-    atomic_compare_exchange_strong_explicit((v47 + 12), &v4, v117, memory_order_acquire, memory_order_acquire);
-    v31 = v4;
-    v32 = v4 == 0;
+    atomic_compare_exchange_strong_explicit(&v46[3], &v4, v116, memory_order_acquire, memory_order_acquire);
+    v30 = v4;
+    v31 = v4 == 0;
     if (v4)
     {
-      v116 = v31;
+      v115 = v30;
     }
 
-    v113 = v32;
-    if (!v32)
+    v112 = v31;
+    if (!v31)
     {
       os_unfair_lock_lock_with_options();
     }
   }
 
-  while (v51)
+  while (v50)
   {
-    v5 = *(v48 + 424);
-    v30 = 0;
-    if (v49 < v5)
+    v5 = *(v47 + 424);
+    v29 = 0;
+    if (v48 < v5)
     {
-      v30 = v49 < 0x40;
+      v29 = v48 < 0x40;
     }
 
-    if (!v30)
+    if (!v29)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion batch_list_size < main->xzmz_batch_size && batch_list_size < (1u << XZM_BATCH_SIZE_BITS) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2253)";
       __break(1u);
       JUMPOUT(0x70B64);
     }
 
-    v6 = v49++;
-    v132[v6] = v51;
-    if (v50 != (*(v51 + 32) & 0xF))
+    v6 = v48++;
+    v131[v6] = v50;
+    if (v49 != (*(v50 + 32) & 0xF))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion kind == chunk->xzc_bits.xzcb_kind failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2257)";
       __break(1u);
       JUMPOUT(0x70BC4);
     }
 
-    v60 = v53;
-    v59 = v51;
-    v63 = v53;
-    v62 = v51;
-    v61 = v51 & 0xFFFFFFFFFFFFC000;
-    v29 = 1;
-    if ((v51 & 0xFFFFFFFFFFFFC000) != 0)
+    v59 = v52;
+    v58 = v50;
+    v62 = v52;
+    v61 = v50;
+    v60 = v50 & 0xFFFFFFFFFFFFC000;
+    v28 = 1;
+    if ((v50 & 0xFFFFFFFFFFFFC000) != 0)
     {
-      v28 = 0;
-      if (v62 >= v61 + 2136)
+      v27 = 0;
+      if (v61 >= v60 + 2136)
       {
-        v28 = v62 < v61 + 48 * *(v61 + 16) + 2136;
+        v27 = v61 < v60 + 48 * *(v60 + 16) + 2136;
       }
 
-      v29 = v28;
+      v28 = v27;
     }
 
-    if ((v29 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !segment || (slice >= segment->xzs_slices && slice < (segment->xzs_slices + segment->xzs_slice_entry_count)) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:262)";
       __break(1u);
       JUMPOUT(0x70C98);
     }
 
-    v58 = v61;
-    v27 = v61 + 88;
-    v66 = v61;
-    v65 = v59;
-    if (v59 < v61 + 2136)
+    v57 = v60;
+    v26 = v60 + 88;
+    v65 = v60;
+    v64 = v58;
+    if (v58 < v60 + 2136)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion (uintptr_t)slice >= (uintptr_t)segment->xzs_slices failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:279)";
       __break(1u);
       JUMPOUT(0x70CF4);
     }
 
-    v64 = 0xAAAAAAAAAAAAAAABLL * ((v65 - v66 - 2136) >> 4);
-    if (v64 >= *(v66 + 16))
+    v63 = 0xAAAAAAAAAAAAAAABLL * ((v64 - v65 - 2136) >> 4);
+    if (v63 >= *(v65 + 16))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
       __break(1u);
       JUMPOUT(0x70D54);
     }
 
-    v57 = (v27 + 8 * v64);
-    v44 = *v57;
-    v90 = v53;
-    v89 = v44;
-    if (v44 == -1)
+    v56 = (v26 + 8 * v63);
+    v43 = *v56;
+    v89 = v52;
+    v88 = v43;
+    if (v43 == -1)
     {
-      v91 = 0;
+      v90 = 0;
     }
 
     else
     {
-      v88 = v89;
-      v94 = v90;
+      v87 = v88;
       v93 = v89;
-      v92 = v89 & 0xFFFFFFFFFFFFC000;
-      v26 = 1;
-      if ((v89 & 0xFFFFFFFFFFFFC000) != 0)
+      v92 = v88;
+      v91 = v88 & 0xFFFFFFFFFFFFC000;
+      v25 = 1;
+      if ((v88 & 0xFFFFFFFFFFFFC000) != 0)
       {
-        v25 = 0;
-        if (v93 >= v92 + 2136)
+        v24 = 0;
+        if (v92 >= v91 + 2136)
         {
-          v25 = v93 < v92 + 48 * *(v92 + 16) + 2136;
+          v24 = v92 < v91 + 48 * *(v91 + 16) + 2136;
         }
 
-        v26 = v25;
+        v25 = v24;
       }
 
-      if ((v26 & 1) == 0)
+      if ((v25 & 1) == 0)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !segment || (slice >= segment->xzs_slices && slice < (segment->xzs_slices + segment->xzs_slice_entry_count)) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:262)";
         __break(1u);
         JUMPOUT(0x70E68);
       }
 
-      v87 = v92;
-      v24 = 1;
-      if (v89)
+      v86 = v91;
+      v23 = 1;
+      if (v88)
       {
-        v23 = 0;
-        if (v88 >= v87 + 2136)
+        v22 = 0;
+        if (v87 >= v86 + 2136)
         {
-          v23 = v88 < v87 + 48 * *(v87 + 16) + 2136;
+          v22 = v87 < v86 + 48 * *(v86 + 16) + 2136;
         }
 
-        v24 = v23;
+        v23 = v22;
       }
 
-      v91 = v24;
+      v90 = v23;
     }
 
-    if (!v91)
+    if (!v90)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_slice_meta_is_batch_pointer(zone, next) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:2261)";
       __break(1u);
       JUMPOUT(0x70F28);
     }
 
-    if (v46)
+    if (v45)
     {
-      v43 = 0;
-      v70 = v53;
-      v69 = v51;
-      v68 = &v43;
-      if (&v11 == -192)
+      v42 = 0;
+      v69 = v52;
+      v68 = v50;
+      v67 = &v42;
+      if (&v10 == -192)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk_size_out failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:397)";
         __break(1u);
         JUMPOUT(0x70F84);
       }
 
-      v74 = v70;
       v73 = v69;
       v72 = v68;
-      if (v68)
+      v71 = v67;
+      if (v67)
       {
-        v22 = *(v73 + 32) & 0xF;
-        switch(v22)
+        v21 = *(v72 + 32) & 0xF;
+        switch(v21)
         {
           case 2:
-            *v72 = 0x4000;
+            *v71 = 0x4000;
             break;
           case 5:
-            *v72 = 0x10000;
+            *v71 = 0x10000;
             break;
           case 6:
-            *v72 = 0x20000;
+            *v71 = 0x20000;
             break;
           default:
-            if ((v22 - 7) >= 2)
+            if ((v21 - 7) >= 2)
             {
-              v71 = *(v73 + 32) & 0xF;
+              v70 = *(v72 + 32) & 0xF;
               qword_D8128 = "BUG IN LIBMALLOC: asking for start of chunk with invalid kind";
-              qword_D8158 = v71;
+              qword_D8158 = v70;
               __break(1u);
               JUMPOUT(0x71080);
             }
 
-            *v72 = *(v73 + 40) << 14;
+            *v71 = *(v72 + 40) << 14;
             break;
         }
       }
 
-      v76 = v74;
       v75 = v73;
-      v79 = v74;
+      v74 = v72;
       v78 = v73;
-      v77 = v73 & 0xFFFFFFFFFFFFC000;
-      v21 = 1;
-      if ((v73 & 0xFFFFFFFFFFFFC000) != 0)
+      v77 = v72;
+      v76 = v72 & 0xFFFFFFFFFFFFC000;
+      v20 = 1;
+      if ((v72 & 0xFFFFFFFFFFFFC000) != 0)
       {
-        v20 = 0;
-        if (v78 >= v77 + 2136)
+        v19 = 0;
+        if (v77 >= v76 + 2136)
         {
-          v20 = v78 < v77 + 48 * *(v77 + 16) + 2136;
+          v19 = v77 < v76 + 48 * *(v76 + 16) + 2136;
         }
 
-        v21 = v20;
+        v20 = v19;
       }
 
-      if ((v21 & 1) == 0)
+      if ((v20 & 1) == 0)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !segment || (slice >= segment->xzs_slices && slice < (segment->xzs_slices + segment->xzs_slice_entry_count)) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:262)";
         __break(1u);
         JUMPOUT(0x71158);
       }
 
-      v81 = v77;
-      v80 = v75;
-      v19 = v77;
-      v86 = v77;
-      v85 = v75;
-      if (v75 < v77 + 2136)
+      v80 = v76;
+      v79 = v74;
+      v18 = v76;
+      v85 = v76;
+      v84 = v74;
+      if (v74 < v76 + 2136)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion (uintptr_t)slice >= (uintptr_t)segment->xzs_slices failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:279)";
         __break(1u);
         JUMPOUT(0x711BCLL);
       }
 
-      v84 = 0xAAAAAAAAAAAAAAABLL * ((v85 - v86 - 2136) >> 4);
-      if (v84 >= *(v86 + 16))
+      v83 = 0xAAAAAAAAAAAAAAABLL * ((v84 - v85 - 2136) >> 4);
+      if (v83 >= *(v85 + 16))
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
         __break(1u);
         JUMPOUT(0x7121CLL);
       }
 
-      v83 = v19;
-      v82 = v84;
-      v67 = *(v19 + 72) + (v84 << 14);
-      v42 = v67;
-      v97 = v53;
-      v96 = v51;
-      v100 = v53;
-      v99 = v51;
-      v98 = v51 & 0xFFFFFFFFFFFFC000;
-      v18 = 1;
-      if ((v51 & 0xFFFFFFFFFFFFC000) != 0)
+      v82 = v18;
+      v81 = v83;
+      v66 = *(v18 + 72) + (v83 << 14);
+      v41 = v66;
+      v96 = v52;
+      v95 = v50;
+      v99 = v52;
+      v98 = v50;
+      v97 = v50 & 0xFFFFFFFFFFFFC000;
+      v17 = 1;
+      if ((v50 & 0xFFFFFFFFFFFFC000) != 0)
       {
-        v17 = 0;
-        if (v99 >= v98 + 2136)
+        v16 = 0;
+        if (v98 >= v97 + 2136)
         {
-          v17 = v99 < v98 + 48 * *(v98 + 16) + 2136;
+          v16 = v98 < v97 + 48 * *(v97 + 16) + 2136;
         }
 
-        v18 = v17;
+        v17 = v16;
       }
 
-      if ((v18 & 1) == 0)
+      if ((v17 & 1) == 0)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !segment || (slice >= segment->xzs_slices && slice < (segment->xzs_slices + segment->xzs_slice_entry_count)) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:262)";
         __break(1u);
         JUMPOUT(0x7131CLL);
       }
 
-      v95 = v98;
-      v103 = v98;
-      v102 = v96;
-      v16 = v98 + 88;
-      v106 = v98;
-      v105 = v96;
-      if (v96 < v98 + 2136)
+      v94 = v97;
+      v102 = v97;
+      v101 = v95;
+      v15 = v97 + 88;
+      v105 = v97;
+      v104 = v95;
+      if (v95 < v97 + 2136)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion (uintptr_t)slice >= (uintptr_t)segment->xzs_slices failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:279)";
         __break(1u);
         JUMPOUT(0x71388);
       }
 
-      v104 = 0xAAAAAAAAAAAAAAABLL * ((v105 - v106 - 2136) >> 4);
-      if (v104 >= *(v106 + 16))
+      v103 = 0xAAAAAAAAAAAAAAABLL * ((v104 - v105 - 2136) >> 4);
+      if (v103 >= *(v105 + 16))
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
         __break(1u);
         JUMPOUT(0x713E8);
       }
 
-      v101 = (v16 + 8 * v104);
-      v41 = v101;
-      v40 = 0;
-      v7 = xzm_reclaim_mark_free_locked(v47, v42, v43);
-      *v41 = v7;
-      v45 = (v45 | v40) & 1;
+      v100 = (v15 + 8 * v103);
+      v40 = v100;
+      v39 = 0;
+      v7 = xzm_reclaim_mark_free_locked(v46, v41, v42, 1, &v39);
+      *v40 = v7;
+      v44 = (v44 | v39) & 1;
     }
 
     else
     {
-      v109 = v53;
-      v108 = v51;
-      v112 = v53;
-      v111 = v51;
-      v110 = v51 & 0xFFFFFFFFFFFFC000;
-      v15 = 1;
-      if ((v51 & 0xFFFFFFFFFFFFC000) != 0)
+      v108 = v52;
+      v107 = v50;
+      v111 = v52;
+      v110 = v50;
+      v109 = v50 & 0xFFFFFFFFFFFFC000;
+      v14 = 1;
+      if ((v50 & 0xFFFFFFFFFFFFC000) != 0)
       {
-        v14 = 0;
-        if (v111 >= v110 + 2136)
+        v13 = 0;
+        if (v110 >= v109 + 2136)
         {
-          v14 = v111 < v110 + 48 * *(v110 + 16) + 2136;
+          v13 = v110 < v109 + 48 * *(v109 + 16) + 2136;
         }
 
-        v15 = v14;
+        v14 = v13;
       }
 
-      if ((v15 & 1) == 0)
+      if ((v14 & 1) == 0)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion !segment || (slice >= segment->xzs_slices && slice < (segment->xzs_slices + segment->xzs_slice_entry_count)) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:262)";
         __break(1u);
         JUMPOUT(0x71514);
       }
 
-      v107 = v110;
-      v39 = *v110;
-      xzm_segment_group_segment_madvise_chunk(v39, v51);
+      v106 = v109;
+      v38 = *v109;
+      xzm_segment_group_segment_madvise_chunk(v38, v50);
     }
 
-    v51 = v44;
+    v50 = v43;
   }
 
-  if (v46)
+  if (v45)
   {
-    v56 = v47 + 12;
-    lock = v47 + 3;
+    v55 = v46 + 3;
+    lock = v46 + 3;
+    v128 = 3;
     v129 = 3;
-    v130 = 3;
-    v131 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    v127 = *(v131 + 24);
-    v126 = 0;
-    v125 = v127;
-    v124 = 0;
-    v8 = v127;
-    v9 = v127;
-    atomic_compare_exchange_strong_explicit((v47 + 12), &v9, 0, memory_order_release, memory_order_relaxed);
-    v12 = v9;
-    v13 = v9 == v8;
+    v130 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
+    v126 = *(v130 + 24);
+    v125 = 0;
+    v124 = v126;
+    v123 = 0;
+    v8 = v126;
+    v9 = v126;
+    atomic_compare_exchange_strong_explicit(&v46[3], &v9, 0, memory_order_release, memory_order_relaxed);
+    v11 = v9;
+    v12 = v9 == v8;
     if (v9 != v8)
     {
-      v125 = v12;
+      v124 = v11;
     }
 
-    v123 = v13;
-    if (!v13)
+    v122 = v12;
+    if (!v12)
     {
       os_unfair_lock_unlock(lock);
     }
 
-    if (v45)
+    if (v44)
     {
-      v10 = *v47;
       mach_vm_reclaim_update_kernel_accounting();
     }
   }
 
-  if (v50 == 2 || v50 == 6)
+  if (v49 == 2 || v49 == 6)
   {
-    _xzm_xzone_freelist_chunks_mark_empty(v53, v52, v132, v49);
+    _xzm_xzone_freelist_chunks_mark_empty(v52, v51, v131, v48);
   }
 
   else
   {
-    if (v50 != 5)
+    if (v49 != 5)
     {
-      v38 = v50;
+      v37 = v49;
       qword_D8128 = "BUG IN LIBMALLOC: Unexpected chunk kind";
-      qword_D8158 = v50;
+      qword_D8158 = v49;
       __break(1u);
       JUMPOUT(0x716CCLL);
     }
 
-    _xzm_xzone_small_chunks_mark_empty(v53, v52, v132, v49);
+    _xzm_xzone_small_chunks_mark_empty(v52, v51, v131, v48);
   }
 }
 
@@ -3666,12 +3638,6 @@ void _xzm_xzone_small_chunks_mark_empty(uint64_t a1, uint64_t a2, uint64_t a3, u
         case 5:
           *(v15 + 4) = 0;
           *(v15 + 12) = 0;
-          if (a2)
-          {
-            *(a2 + 68);
-            *(a2 + 68);
-          }
-
           *v15 |= (1 << *(a2 + 68)) - 1;
           break;
         case 6:
@@ -3716,7 +3682,7 @@ LABEL_13:
     v12 = *(v15 + 32) & 0xF;
     if (v12 == 2)
     {
-      goto LABEL_28;
+      goto LABEL_26;
     }
 
     if (v12 != 5)
@@ -3730,7 +3696,7 @@ LABEL_13:
         JUMPOUT(0x71F84);
       }
 
-LABEL_28:
+LABEL_26:
       if ((*v15 & 0x7FF) != 0x7FE)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_alloc_head == XZM_FREE_MADVISED failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:851)";
@@ -3749,13 +3715,13 @@ LABEL_28:
       *(v15 + 8) = 0;
       *(v15 + 10) = 0;
       *(v15 + 12) = 0;
-      goto LABEL_35;
+      goto LABEL_33;
     }
 
     *(v15 + 4) = 0;
     *(v15 + 12) = 0;
     *v15 = 0;
-LABEL_35:
+LABEL_33:
     v22 = (v15 & 0xFFFFFFFFFFFFC000);
     v11 = 1;
     if ((v15 & 0xFFFFFFFFFFFFC000) != 0)
@@ -3803,7 +3769,7 @@ uint64_t _xzm_xzone_fresh_chunk_init(uint64_t result, uint64_t a2, char a3)
   *(a2 + 32) &= ~0x40u;
   if (a3 == 2)
   {
-    goto LABEL_19;
+    goto LABEL_17;
   }
 
   if (a3 != 5)
@@ -3815,7 +3781,7 @@ uint64_t _xzm_xzone_fresh_chunk_init(uint64_t result, uint64_t a2, char a3)
       JUMPOUT(0x72508);
     }
 
-LABEL_19:
+LABEL_17:
     if (*(result + 48) >= 0x10000uLL)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion xz->xz_block_size <= UINT16_MAX failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:1218)";
@@ -3837,13 +3803,16 @@ LABEL_19:
   }
 
   v4 = *(a2 + 32) & 0xF;
-  if (v4 == 2)
+  if (v4 != 2)
   {
-    goto LABEL_10;
-  }
+    if (v4 == 5)
+    {
+      *(a2 + 4) = 0;
+      *(a2 + 12) = 0;
+      *a2 |= (1 << *(result + 68)) - 1;
+      return result;
+    }
 
-  if (v4 != 5)
-  {
     if (v4 != 6)
     {
       v3 = *(a2 + 32) & 0xF;
@@ -3852,34 +3821,22 @@ LABEL_19:
       __break(1u);
       JUMPOUT(0x72438);
     }
-
-LABEL_10:
-    if ((*a2 & 0x7FF) != 0x7FE)
-    {
-      qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_alloc_head == XZM_FREE_MADVISED failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:851)";
-      __break(1u);
-      JUMPOUT(0x722C0);
-    }
-
-    if (((*a2 >> 11) & 0x7FF) != 0)
-    {
-      qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_free_count == 0 failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:852)";
-      __break(1u);
-      JUMPOUT(0x722F8);
-    }
-
-    return result;
   }
 
-  *(a2 + 4) = 0;
-  *(a2 + 12) = 0;
-  if (result)
+  if ((*a2 & 0x7FF) != 0x7FE)
   {
-    *(result + 68);
-    *(result + 68);
+    qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_alloc_head == XZM_FREE_MADVISED failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:851)";
+    __break(1u);
+    JUMPOUT(0x722C0);
   }
 
-  *a2 |= (1 << *(result + 68)) - 1;
+  if (((*a2 >> 11) & 0x7FF) != 0)
+  {
+    qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_free_count == 0 failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:852)";
+    __break(1u);
+    JUMPOUT(0x722F8);
+  }
+
   return result;
 }
 
@@ -4761,11 +4718,10 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
         JUMPOUT(0x746B0);
       }
 
-      v31 = v22 - *(v22 + 36);
       v13 = *(v25 + 32) & 0xF;
       if ((v13 - 1) < 2)
       {
-        v32 = v25 == v22;
+        v31 = v25 == v22;
       }
 
       else if (v13 == 3 || (v13 - 5) < 5)
@@ -4777,15 +4733,15 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
           JUMPOUT(0x74760);
         }
 
-        v32 = v22 < v25 + 48 * *(v25 + 40);
+        v31 = v22 < v25 + 48 * *(v25 + 40);
       }
 
       else
       {
-        v32 = 0;
+        v31 = 0;
       }
 
-      if (v32)
+      if (v31)
       {
         v26 = v22 - *(v22 + 36);
       }
@@ -4816,7 +4772,7 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
       v11 = 0;
       if (v22 >= v24 + 2136)
       {
-        v11 = v22 < (v22 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v22 & 0xFFFFFFFFFFFFC000)) + 2136;
+        v11 = v22 < (v22 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v22 & 0xFFFFFFFFFFFFC000)) + 2136;
       }
 
       v12 = v11;
@@ -4836,21 +4792,21 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
       JUMPOUT(0x74990);
     }
 
-    if ((0xAAAAAAAAAAAAAAABLL * ((v22 - v24 - 2136) >> 4)) >= *(&dword_10 + (v22 & 0xFFFFFFFFFFFFC000)))
+    if ((0xAAAAAAAAAAAAAAABLL * ((v22 - v24 - 2136) >> 4)) >= *(dword_10 + (v22 & 0xFFFFFFFFFFFFC000)))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
       __break(1u);
       JUMPOUT(0x749F4);
     }
 
-    v33 = v26 & 0xFFFFFFFFFFFFC000;
+    v32 = v26 & 0xFFFFFFFFFFFFC000;
     v10 = 1;
     if ((v26 & 0xFFFFFFFFFFFFC000) != 0)
     {
       v9 = 0;
-      if (v26 >= v33 + 2136)
+      if (v26 >= v32 + 2136)
       {
-        v9 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
+        v9 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
       }
 
       v10 = v9;
@@ -4863,14 +4819,14 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
       JUMPOUT(0x74C54);
     }
 
-    if (v26 < v33 + 2136)
+    if (v26 < v32 + 2136)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion (uintptr_t)slice >= (uintptr_t)segment->xzs_slices failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:279)";
       __break(1u);
       JUMPOUT(0x74CBCLL);
     }
 
-    if ((0xAAAAAAAAAAAAAAABLL * ((v26 - v33 - 2136) >> 4)) >= *(&dword_10 + (v26 & 0xFFFFFFFFFFFFC000)))
+    if ((0xAAAAAAAAAAAAAAABLL * ((v26 - v32 - 2136) >> 4)) >= *(dword_10 + (v26 & 0xFFFFFFFFFFFFC000)))
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
       __break(1u);
@@ -4897,7 +4853,7 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
       v30 = *(v26 + 40) << 14;
     }
 
-    v20 = (*(&stru_20.fileoff + (v22 & 0xFFFFFFFFFFFFC000)) - 1431650304 * ((v22 - v24 - 2136) >> 4) - (*(&stru_20.fileoff + (v26 & 0xFFFFFFFFFFFFC000)) - 1431650304 * ((v26 - v33 - 2136) >> 4))) / v30;
+    v20 = (*(&stru_20.fileoff + (v22 & 0xFFFFFFFFFFFFC000)) - 1431650304 * ((v22 - v24 - 2136) >> 4) - (*(&stru_20.fileoff + (v26 & 0xFFFFFFFFFFFFC000)) - 1431650304 * ((v26 - v32 - 2136) >> 4))) / v30;
     if (v20 == *(v21 + 68))
     {
       v23 = 0;
@@ -4905,14 +4861,14 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
 
     else
     {
-      v34 = v26 & 0xFFFFFFFFFFFFC000;
+      v33 = v26 & 0xFFFFFFFFFFFFC000;
       v7 = 1;
       if ((v26 & 0xFFFFFFFFFFFFC000) != 0)
       {
         v6 = 0;
-        if (v26 >= v34 + 2136)
+        if (v26 >= v33 + 2136)
         {
-          v6 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
+          v6 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
         }
 
         v7 = v6;
@@ -4925,14 +4881,14 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
         JUMPOUT(0x750D8);
       }
 
-      if (v26 < v34 + 2136)
+      if (v26 < v33 + 2136)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion (uintptr_t)slice >= (uintptr_t)segment->xzs_slices failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:279)";
         __break(1u);
         JUMPOUT(0x75140);
       }
 
-      if ((0xAAAAAAAAAAAAAAABLL * ((v26 - v34 - 2136) >> 4)) >= *(&dword_10 + (v26 & 0xFFFFFFFFFFFFC000)))
+      if ((0xAAAAAAAAAAAAAAABLL * ((v26 - v33 - 2136) >> 4)) >= *(dword_10 + (v26 & 0xFFFFFFFFFFFFC000)))
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
         __break(1u);
@@ -4959,7 +4915,7 @@ uint64_t _xzm_chunk_find_dirtiest_slice(uint64_t a1, uint64_t a2, unsigned int *
         v28 = *(v26 + 40) << 14;
       }
 
-      v19 = (*(&stru_20.fileoff + (v22 & 0xFFFFFFFFFFFFC000)) - 1431650304 * ((v22 - v24 - 2136) >> 4) + 0x3FFF - (*(&stru_20.fileoff + (v26 & 0xFFFFFFFFFFFFC000)) - 1431650304 * ((v26 - v34 - 2136) >> 4))) / v28;
+      v19 = (*(&stru_20.fileoff + (v22 & 0xFFFFFFFFFFFFC000)) - 1431650304 * ((v22 - v24 - 2136) >> 4) + 0x3FFF - (*(&stru_20.fileoff + (v26 & 0xFFFFFFFFFFFFC000)) - 1431650304 * ((v26 - v33 - 2136) >> 4))) / v28;
       if (v19 == *(v21 + 68))
       {
         --v19;
@@ -5469,13 +5425,13 @@ LABEL_102:
   }
 }
 
-void _xzm_free_not_found(uint64_t a1, _BYTE *a2, char a3)
+void _xzm_free_not_found(uint64_t a1, void *a2, char a3)
 {
   if (*(a1 + 240) || !mfm_claimed_address(a2))
   {
     if ((a3 & 1) == 0)
     {
-      malloc_report_pointer_was_not_allocated(80, a2);
+      malloc_report_pointer_was_not_allocated(0x50u, a2);
     }
 
     find_zone_and_free(a2, 1);
@@ -5548,7 +5504,7 @@ void _xzm_xzone_madvise_freelist_chunk(uint64_t a1, uint64_t a2, unint64_t a3)
   _xzm_xzone_freelist_chunks_mark_empty(v8, v7, &v6, 1uLL);
 }
 
-void _xzm_chunk_list_slot_push(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void _xzm_chunk_list_slot_push(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
 {
   v14 = a1;
   v13 = a2;
@@ -5785,11 +5741,11 @@ void _xzm_xzone_free_freelist(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t 
     {
       if ((v25 & 1) == 0)
       {
-        v28 = *(a1 + 216) + 96 * v30;
+        v28 = (*(a1 + 216) + 96 * v30);
         if (((v22 >> 22) & 0x3F) != 0 && (~(v22 >> 22) & 0x3F) != 0 && (*_xzm_chunk_list_get(a1, v28, 0, *(a1 + 232)) & 0x7FFFFFFFFFFFLL) == 0)
         {
           v27 = mach_absolute_time();
-          v32 = *(v28 + 80);
+          v32 = v28[80];
           v31 = (((v22 >> 22) & 0x3F) - 1) * *(a1 + 210);
           if (v31 + v32 >= *(a1 + 211) * *(a1 + 210))
           {
@@ -5849,7 +5805,7 @@ void _xzm_xzone_free_freelist(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t 
 
         v20 |= 0x10000000uLL;
         i = 1;
-        v28 = *(a1 + 216) + 96 * v30;
+        v28 = (*(a1 + 216) + 96 * v30);
       }
     }
 
@@ -5937,7 +5893,7 @@ LABEL_50:
   }
 }
 
-void _xzm_xzone_free_block_to_small_chunk(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+void _xzm_xzone_free_block_to_small_chunk(uint64_t a1, unint64_t *a2, unint64_t a3, unint64_t a4)
 {
   v48 = *(a3 + 12);
   while (1)
@@ -5959,7 +5915,7 @@ void _xzm_xzone_free_block_to_small_chunk(uint64_t a1, uint64_t a2, unint64_t a3
         {
           if (v40 == 5)
           {
-            v64 = *(a3 + 4) == *(a2 + 68);
+            v64 = *(a3 + 4) == *(a2 + 17);
             goto LABEL_18;
           }
 
@@ -6007,7 +5963,7 @@ LABEL_18:
         }
 
         v37 = 1;
-        if (((*a3 >> 11) & 0x7FF) != *(a2 + 68))
+        if (((*a3 >> 11) & 0x7FF) != *(a2 + 17))
         {
           v37 = 1;
           if ((~*a3 & 0x7FF) != 0)
@@ -6078,7 +6034,7 @@ LABEL_27:
             atomic_compare_exchange_strong_explicit((a2 + 36), &v11, 0, memory_order_release, memory_order_relaxed);
             if (v11 != v10)
             {
-              os_unfair_lock_unlock((a2 + 36));
+              os_unfair_lock_unlock(a2 + 9);
             }
 
             _xzm_xzone_chunk_free(a1, a2, a3, 0);
@@ -6130,7 +6086,7 @@ LABEL_27:
         {
           if (v35 == 5)
           {
-            v62 = *(a3 + 4) == *(a2 + 68);
+            v62 = *(a3 + 4) == *(a2 + 17);
 LABEL_62:
             if (v62)
             {
@@ -6144,7 +6100,7 @@ LABEL_62:
             atomic_compare_exchange_strong_explicit((a2 + 36), &v15, 0, memory_order_release, memory_order_relaxed);
             if (v15 != v14)
             {
-              os_unfair_lock_unlock((a2 + 36));
+              os_unfair_lock_unlock(a2 + 9);
             }
 
             v16 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
@@ -6229,7 +6185,7 @@ LABEL_62:
   v33 = 0;
   if (v44)
   {
-    v33 = *(a2 + 48) < *(a1 + 336);
+    v33 = a2[6] < *(a1 + 336);
   }
 
   if (!v33)
@@ -6243,7 +6199,7 @@ LABEL_62:
     case 2:
 LABEL_90:
       v31 = 1;
-      if (((*a3 >> 11) & 0x7FF) != *(a2 + 68))
+      if (((*a3 >> 11) & 0x7FF) != *(a2 + 17))
       {
         v31 = 1;
         if ((~*a3 & 0x7FF) != 0)
@@ -6844,7 +6800,7 @@ unint64_t _xzm_xzone_free_to_chunk(uint64_t a1, uint64_t a2, unint64_t a3, unint
     v8 = 0;
     if (a3 >= v12 + 2136)
     {
-      v8 = a3 < (a3 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (a3 & 0xFFFFFFFFFFFFC000)) + 2136;
+      v8 = a3 < (a3 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (a3 & 0xFFFFFFFFFFFFC000)) + 2136;
     }
 
     v9 = v8;
@@ -6864,7 +6820,7 @@ unint64_t _xzm_xzone_free_to_chunk(uint64_t a1, uint64_t a2, unint64_t a3, unint
     JUMPOUT(0x7A8B0);
   }
 
-  if ((0xAAAAAAAAAAAAAAABLL * ((a3 - (a3 & 0xFFFFFFFFFFFFC000) - 2136) >> 4)) >= *(&dword_10 + (a3 & 0xFFFFFFFFFFFFC000)))
+  if ((0xAAAAAAAAAAAAAAABLL * ((a3 - (a3 & 0xFFFFFFFFFFFFC000) - 2136) >> 4)) >= *(dword_10 + (a3 & 0xFFFFFFFFFFFFC000)))
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
     __break(1u);
@@ -6896,9 +6852,9 @@ unint64_t _xzm_xzone_free_to_chunk(uint64_t a1, uint64_t a2, unint64_t a3, unint
   return v10;
 }
 
-void _xzm_xzone_chunk_madvise_free_slices(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+void _xzm_xzone_chunk_madvise_free_slices(uint64_t result, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v27 = a1;
+  v27 = result;
   v26 = a2;
   v25 = a3;
   v24 = a4;
@@ -7450,7 +7406,7 @@ void _xzm_xzone_chunk_free(uint64_t a1, uint64_t a2, unint64_t a3, char a4)
         *(a3 + 4) = 0;
         *(a3 + 12) = 0;
         *a3 = 0;
-LABEL_103:
+LABEL_101:
         xzm_segment_group_free_chunk(v25, a3, 0, a4 & 1);
         return;
       }
@@ -7483,7 +7439,7 @@ LABEL_103:
     *(a3 + 8) = 0;
     *(a3 + 10) = 0;
     *(a3 + 12) = 0;
-    goto LABEL_103;
+    goto LABEL_101;
   }
 
   if (*(a1 + 240))
@@ -7656,22 +7612,13 @@ LABEL_18:
   }
 
   v14 = *(a3 + 32) & 0xF;
-  if (v14 != 2)
+  if (v14 == 2)
   {
-    if (v14 == 5)
-    {
-      *(a3 + 4) = 0;
-      *(a3 + 12) = 0;
-      if (a2)
-      {
-        *(a2 + 68);
-        *(a2 + 68);
-      }
+    goto LABEL_62;
+  }
 
-      *a3 |= (1 << *(a2 + 68)) - 1;
-      goto LABEL_71;
-    }
-
+  if (v14 != 5)
+  {
     if (v14 != 6)
     {
       v5 = *(a3 + 32) & 0xF;
@@ -7680,23 +7627,29 @@ LABEL_18:
       __break(1u);
       JUMPOUT(0x7C670);
     }
+
+LABEL_62:
+    if ((*a3 & 0x7FF) != 0x7FE)
+    {
+      qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_alloc_head == XZM_FREE_MADVISED failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:851)";
+      __break(1u);
+      JUMPOUT(0x7C4F8);
+    }
+
+    if (((*a3 >> 11) & 0x7FF) != 0)
+    {
+      qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_free_count == 0 failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:852)";
+      __break(1u);
+      JUMPOUT(0x7C530);
+    }
+
+    goto LABEL_69;
   }
 
-  if ((*a3 & 0x7FF) != 0x7FE)
-  {
-    qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_alloc_head == XZM_FREE_MADVISED failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:851)";
-    __break(1u);
-    JUMPOUT(0x7C4F8);
-  }
-
-  if (((*a3 >> 11) & 0x7FF) != 0)
-  {
-    qword_D8128 = "BUG IN LIBMALLOC: malloc assertion chunk->xzc_atomic_meta.xca_free_count == 0 failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:852)";
-    __break(1u);
-    JUMPOUT(0x7C530);
-  }
-
-LABEL_71:
+  *(a3 + 4) = 0;
+  *(a3 + 12) = 0;
+  *a3 |= (1 << *(a2 + 68)) - 1;
+LABEL_69:
   *(a3 + 32) &= ~0x10u;
   if ((*(a3 + 32) & 0xF) == 2 || (*(a3 + 32) & 0xF) == 6)
   {
@@ -7948,7 +7901,7 @@ void _xzm_small_xzone_lock_all(uint64_t a1, uint64_t *a2)
         v24 = 0;
         if (v29 >= v34 + 2136)
         {
-          v24 = v29 < (v29 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v29 & 0xFFFFFFFFFFFFC000)) + 2136;
+          v24 = v29 < (v29 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v29 & 0xFFFFFFFFFFFFC000)) + 2136;
         }
 
         v25 = v24;
@@ -7968,7 +7921,7 @@ void _xzm_small_xzone_lock_all(uint64_t a1, uint64_t *a2)
         JUMPOUT(0x7D808);
       }
 
-      if ((0xAAAAAAAAAAAAAAABLL * ((v29 - (v29 & 0xFFFFFFFFFFFFC000) - 2136) >> 4)) >= *(&dword_10 + (v29 & 0xFFFFFFFFFFFFC000)))
+      if ((0xAAAAAAAAAAAAAAABLL * ((v29 - (v29 & 0xFFFFFFFFFFFFC000) - 2136) >> 4)) >= *(dword_10 + (v29 & 0xFFFFFFFFFFFFC000)))
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
         __break(1u);
@@ -7990,7 +7943,7 @@ void _xzm_small_xzone_lock_all(uint64_t a1, uint64_t *a2)
           v22 = 0;
           if (v29 >= v38 + 2136)
           {
-            v22 = v29 < (v29 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v29 & 0xFFFFFFFFFFFFC000)) + 2136;
+            v22 = v29 < (v29 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v29 & 0xFFFFFFFFFFFFC000)) + 2136;
           }
 
           v23 = v22;
@@ -8009,7 +7962,7 @@ void _xzm_small_xzone_lock_all(uint64_t a1, uint64_t *a2)
           v20 = 0;
           if (v29 >= v38 + 2136)
           {
-            v20 = v29 < (v29 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v29 & 0xFFFFFFFFFFFFC000)) + 2136;
+            v20 = v29 < (v29 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v29 & 0xFFFFFFFFFFFFC000)) + 2136;
           }
 
           v21 = v20;
@@ -8060,7 +8013,7 @@ void _xzm_small_xzone_lock_all(uint64_t a1, uint64_t *a2)
             v18 = 0;
             if (v26 >= v33 + 2136)
             {
-              v18 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
+              v18 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
             }
 
             v19 = v18;
@@ -8080,7 +8033,7 @@ void _xzm_small_xzone_lock_all(uint64_t a1, uint64_t *a2)
             JUMPOUT(0x7DE4CLL);
           }
 
-          if ((0xAAAAAAAAAAAAAAABLL * ((v26 - (v26 & 0xFFFFFFFFFFFFC000) - 2136) >> 4)) >= *(&dword_10 + (v26 & 0xFFFFFFFFFFFFC000)))
+          if ((0xAAAAAAAAAAAAAAABLL * ((v26 - (v26 & 0xFFFFFFFFFFFFC000) - 2136) >> 4)) >= *(dword_10 + (v26 & 0xFFFFFFFFFFFFC000)))
           {
             qword_D8128 = "BUG IN LIBMALLOC: malloc assertion index < (ptrdiff_t)segment->xzs_slice_entry_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:281)";
             __break(1u);
@@ -8102,7 +8055,7 @@ void _xzm_small_xzone_lock_all(uint64_t a1, uint64_t *a2)
               v16 = 0;
               if (v26 >= v36 + 2136)
               {
-                v16 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
+                v16 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
               }
 
               v17 = v16;
@@ -8121,7 +8074,7 @@ void _xzm_small_xzone_lock_all(uint64_t a1, uint64_t *a2)
               v14 = 0;
               if (v26 >= v36 + 2136)
               {
-                v14 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(&dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
+                v14 = v26 < (v26 & 0xFFFFFFFFFFFFC000) + 48 * *(dword_10 + (v26 & 0xFFFFFFFFFFFFC000)) + 2136;
               }
 
               v15 = v14;
@@ -8314,23 +8267,23 @@ atomic_ullong *_xzm_chunk_batch_list_fork_unlock(atomic_ullong *result)
 uint64_t xzm_malloc_zone_malloc(uint64_t a1, unint64_t a2)
 {
   v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 904);
-  malloc_thread_options = _xzm_xzone_get_malloc_thread_options();
+  malloc_thread_options = _xzm_xzone_get_malloc_thread_options(a1);
   return _xzm_malloc_zone_malloc_entry(a1, a2, v5, malloc_thread_options);
 }
 
 uint64_t xzm_malloc_zone_calloc(uint64_t a1, unint64_t a2, unint64_t a3)
 {
   v7 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 904);
-  malloc_thread_options = _xzm_xzone_get_malloc_thread_options();
+  malloc_thread_options = _xzm_xzone_get_malloc_thread_options(a1);
   return _xzm_malloc_zone_malloc_type_calloc_entry(a1, a2, a3, v7, malloc_thread_options);
 }
 
-void xzm_malloc_zone_destroy(mach_vm_address_t a1)
+void xzm_malloc_zone_destroy(char *result)
 {
-  v85 = a1;
-  v84 = *(a1 + 240);
-  v86 = a1;
-  if (!*(a1 + 240))
+  v85 = result;
+  v84 = *(result + 30);
+  v86 = result;
+  if (!*(result + 30))
   {
     return;
   }
@@ -8361,10 +8314,10 @@ void xzm_malloc_zone_destroy(mach_vm_address_t a1)
   }
 
   v83 = 0;
-  for (i = 1; i < *(v85 + 210); ++i)
+  for (i = 1; i < v85[210]; ++i)
   {
-    v81 = (*(v85 + 216) + 96 * i);
-    if (*(v81 + 6) <= 0x1000uLL || (*(v85 + 250) & 1) != 0)
+    v81 = (*(v85 + 27) + 96 * i);
+    if (*(v81 + 6) <= 0x1000uLL || (v85[250] & 1) != 0)
     {
       v76 = 0;
       while (1)
@@ -8763,21 +8716,21 @@ void xzm_malloc_zone_destroy(mach_vm_address_t a1)
         *(j + 24) = &v83;
       }
 
-      for (k = 0; k < *(v85 + 211); ++k)
+      for (k = 0; k < v85[211]; ++k)
       {
         v178 = v85;
         v177 = v81;
         v176 = k;
         v175 = *(v81 + 80);
-        v174 = k * *(v85 + 210);
-        if (v174 + v175 >= *(v85 + 211) * *(v85 + 210))
+        v174 = k * v85[210];
+        if (v174 + v175 >= v85[211] * v85[210])
         {
           qword_D8128 = "BUG IN LIBMALLOC: malloc assertion alloc_base_idx + xz_idx < zone->xzz_slot_count * zone->xzz_xzone_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/../xzone/xzone_inline_internal.h:1246)";
           __break(1u);
           JUMPOUT(0x7F764);
         }
 
-        v77 = (*(v178 + 224) + 32 * (v174 + v175));
+        v77 = (*(v178 + 28) + 32 * (v174 + v175));
         j = *v77;
         if (j)
         {
@@ -8944,7 +8897,7 @@ void xzm_malloc_zone_destroy(mach_vm_address_t a1)
       break;
     }
 
-    v72 = *(v85 + 216) + 96 * *(m + 33);
+    v72 = *(v85 + 27) + 96 * *(m + 33);
     if (*(v72 + 87))
     {
       goto LABEL_193;
@@ -9252,7 +9205,7 @@ LABEL_193:
       }
 
       *(m + 32) &= ~0x20u;
-      _xzm_xzone_chunk_free(v85, *(v85 + 216) + 96 * *(m + 33), m, 0);
+      _xzm_xzone_chunk_free(v85, *(v85 + 27) + 96 * *(m + 33), m, 0);
     }
 
     else
@@ -9268,11 +9221,11 @@ LABEL_193:
 
       v67 = 1;
       *(m + 32) &= ~0x20u;
-      _xzm_xzone_chunk_free(v85, *(v85 + 216) + 96 * *(m + 33), m, v67 & 1);
+      _xzm_xzone_chunk_free(v85, *(v85 + 27) + 96 * *(m + 33), m, v67 & 1);
     }
   }
 
-  for (m = *(v85 + 352); ; m = v73)
+  for (m = *(v85 + 44); ; m = v73)
   {
     v26 = 0;
     if (m)
@@ -9291,7 +9244,7 @@ LABEL_193:
 
   v65 = (*(v84 + 480) + 128);
   v64 = xzm_metapool_alloc(v65);
-  *v64 = *(v85 + 208);
+  *v64 = *(v85 + 104);
   v90 = v84 + 528;
   v210 = v84 + 528;
   v209 = 327680;
@@ -9344,13 +9297,13 @@ LABEL_193:
     os_unfair_lock_unlock(v228);
   }
 
-  mvm_deallocate_plat(v85, *(v85 + 200), 0);
+  mvm_deallocate_plat(v85, *(v85 + 25), 0);
 }
 
 unint64_t xzm_malloc_zone_memalign(uint64_t a1, unint64_t a2, unint64_t a3)
 {
   v7 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 904);
-  malloc_thread_options = _xzm_xzone_get_malloc_thread_options();
+  malloc_thread_options = _xzm_xzone_get_malloc_thread_options(a1);
   return _xzm_malloc_zone_malloc_type_memalign_entry(a1, a2, a3, v7, malloc_thread_options);
 }
 
@@ -9448,7 +9401,7 @@ unint64_t xzm_malloc_zone_malloc_type_malloc_with_options(uint64_t a1, unint64_t
       JUMPOUT(0x813D0);
     }
 
-    v18 = a5;
+    v19 = a5;
     if (*(a1 + 240))
     {
       v9 = *(a1 + 240);
@@ -9463,8 +9416,8 @@ unint64_t xzm_malloc_zone_malloc_type_malloc_with_options(uint64_t a1, unint64_t
     {
       if (a3 > 0x80)
       {
-        v22 = 63 - __clz(a3 - 1);
-        v23 = (((a3 - 1) >> (v22 - 2)) & 3 | (4 * v22)) - 20;
+        v23 = 63 - __clz(a3 - 1);
+        v24 = (((a3 - 1) >> (v23 - 2)) & 3 | (4 * v23)) - 20;
       }
 
       else
@@ -9479,99 +9432,99 @@ unint64_t xzm_malloc_zone_malloc_type_malloc_with_options(uint64_t a1, unint64_t
           v8 = a3 >> 4;
         }
 
-        v23 = v8 - 1;
+        v24 = v8 - 1;
       }
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
-    v17 = *(v9[55] + v23);
+    v18 = *(v9[55] + v24);
     if (HIWORD(a5) == 256)
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     else if (((WORD2(a5) >> 10) & 3) == 1)
     {
-      v16 = 1;
+      v17 = 1;
     }
 
     else
     {
       if (!a5)
       {
-        v18 = HIDWORD(malloc_entropy[0]);
+        v19 = HIDWORD(malloc_entropy[0]);
       }
 
-      v21 = v17 - 2;
-      if ((v17 - 2) >= 5u)
+      v22 = v18 - 2;
+      if ((v18 - 2) >= 5u)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion ptr_bucket_count <= XZM_POINTER_BUCKETS_MAX failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:80)";
         __break(1u);
         JUMPOUT(0x81648);
       }
 
-      v20 = 0;
-      if (v21 >= 2u)
+      v21 = 0;
+      if (v22 >= 2u)
       {
-        v19 = (v9[49] * v18 + v9[50]) >> 32;
-        if (v21 == 2)
+        v20 = (v9[49] * v19 + v9[50]) >> 32;
+        if (v22 == 2)
         {
-          v20 = v19 & 1;
+          v21 = v20 & 1;
         }
 
-        else if (v21 == 3)
+        else if (v22 == 3)
         {
-          v20 = v19 % 3;
+          v21 = v20 % 3;
         }
 
         else
         {
-          v20 = v19 & 3;
+          v21 = v20 & 3;
         }
       }
 
-      v16 = v20 + 2;
+      v17 = v21 + 2;
     }
 
-    if (v16 >= v17)
+    if (v17 >= v18)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion bucket < bin_bucket_count failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:172)";
       __break(1u);
       JUMPOUT(0x81778);
     }
 
-    v15 = _xzm_xzone_malloc(a1, a3, *(v9[56] + v23) + v16, v11);
+    v16 = _xzm_xzone_malloc(a1, a3, *(v9[56] + v24) + v17, v11);
   }
 
   else
   {
-    v15 = _xzm_malloc_large_huge(a1, a3, 0, a5, v11);
+    v16 = _xzm_malloc_large_huge(a1, a3, 0, a5, v11);
   }
 
-  if (!v15)
+  if (!v16)
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion ptr failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3623)";
     __break(1u);
     JUMPOUT(0x817D4);
   }
 
-  if ((v11 & 1) != 0 && !_xzm_mem_is_zero())
+  if ((v11 & 1) != 0 && !_xzm_mem_is_zero(v16, a3))
   {
     qword_D8128 = "BUG IN LIBMALLOC: malloc assertion _xzm_mem_is_zero(ptr, size) failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3625)";
     __break(1u);
     JUMPOUT(0x81818);
   }
 
-  v14 = xzm_malloc_zone_size(a1, v15);
+  v15 = xzm_malloc_zone_size(a1, v16);
   v7 = 0;
   if (*(a1 + 368))
   {
     v7 = 0;
-    if (v14 <= *(a1 + 376))
+    if (v15 <= *(a1 + 376))
     {
       v6 = 1;
       if (v10 == 256)
@@ -9583,11 +9536,11 @@ unint64_t xzm_malloc_zone_malloc_type_malloc_with_options(uint64_t a1, unint64_t
     }
   }
 
-  if (!mfm_claimed_address(v15))
+  if (!mfm_claimed_address(v16))
   {
     if ((v7 & 1) == 0 || (v11 & 0x40000000) != 0)
     {
-      if ((v15 & 0xF0FFFFFFFFFFFFFFLL) != v15)
+      if ((v16 & 0xF0FFFFFFFFFFFFFFLL) != v16)
       {
         qword_D8128 = "BUG IN LIBMALLOC: malloc assertion memtag_strip_address(ptr) == ptr failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3642)";
         __break(1u);
@@ -9595,7 +9548,7 @@ unint64_t xzm_malloc_zone_malloc_type_malloc_with_options(uint64_t a1, unint64_t
       }
     }
 
-    else if ((v15 & 0xF0FFFFFFFFFFFFFFLL) == v15)
+    else if ((v16 & 0xF0FFFFFFFFFFFFFFLL) == v16)
     {
       qword_D8128 = "BUG IN LIBMALLOC: malloc assertion memtag_strip_address(ptr) != ptr failed (/Library/Caches/com.apple.xbs/Sources/libmalloc_driverkit/src/xzone/xzone_malloc.c:3640)";
       __break(1u);
@@ -9603,7 +9556,7 @@ unint64_t xzm_malloc_zone_malloc_type_malloc_with_options(uint64_t a1, unint64_t
     }
   }
 
-  return v15;
+  return v16;
 }
 
 unint64_t xzm_malloc_zone_valloc_slow(uint64_t a1, unint64_t a2)
@@ -9636,19 +9589,19 @@ unint64_t xzm_malloc_zone_valloc_slow(uint64_t a1, unint64_t a2)
   return v4;
 }
 
-void xzm_malloc_zone_free_slow(uint64_t a1, unint64_t a2)
+void xzm_malloc_zone_free_slow(uint64_t result, uint64_t a2)
 {
   if (!a2)
   {
     return;
   }
 
-  v179 = a1;
+  v179 = result;
   v178 = a2;
   v177 = 0;
   v176 = 0;
   v175 = 0;
-  v188 = a1;
+  v188 = result;
   v186 = 0;
   v185 = &v176;
   v184 = &v175;
@@ -9656,10 +9609,10 @@ void xzm_malloc_zone_free_slow(uint64_t a1, unint64_t a2)
   v191 = a2;
   v190 = a2 & 0xF0FFFFFFFFFFFFFFLL;
   v187 = a2 & 0xF0FFFFFFFFFFFFFFLL;
-  v192 = a1;
-  if (*(a1 + 240))
+  v192 = result;
+  if (*(result + 240))
   {
-    v30 = *(a1 + 240);
+    v30 = *(result + 240);
   }
 
   else
@@ -10147,19 +10100,19 @@ LABEL_117:
 
   v32 = v180;
   v31 = 0;
-  if (v180 || (*(a1 + 360) & 0x80) == 0)
+  if (v180 || (*(result + 360) & 0x80) == 0)
   {
     goto LABEL_252;
   }
 
-  if (*(a1 + 240))
+  if (*(result + 240))
   {
-    v22 = *(a1 + 240);
+    v22 = *(result + 240);
   }
 
   else
   {
-    v22 = a1;
+    v22 = result;
   }
 
   v31 = v22;
@@ -10674,7 +10627,7 @@ LABEL_252:
     JUMPOUT(0x83BE8);
   }
 
-  if ((*(a1 + 360) & 0x20) != 0 && v32 >= 0x401)
+  if ((*(result + 360) & 0x20) != 0 && v32 >= 0x401)
   {
     _platform_memset();
   }
@@ -10686,6 +10639,6 @@ LABEL_252:
 
   else
   {
-    xzm_malloc_zone_free(a1, a2);
+    xzm_malloc_zone_free(result, a2);
   }
 }

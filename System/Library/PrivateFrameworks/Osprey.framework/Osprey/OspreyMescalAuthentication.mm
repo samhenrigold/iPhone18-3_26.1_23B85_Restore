@@ -46,9 +46,10 @@
 
 - (void)moveToState:(unint64_t)state
 {
-  OspreyLoggingInit();
+  OspreyLoggingInit(self, a2);
   v5 = OspreyLogContextDeviceAuth;
-  if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_DEBUG))
+  v6 = os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_DEBUG);
+  if (v6)
   {
     [(OspreyMescalAuthentication *)self moveToState:state, v5];
   }
@@ -62,11 +63,11 @@
         goto LABEL_12;
       }
 
-      OspreyLoggingInit();
-      v6 = OspreyLogContextDeviceAuth;
+      OspreyLoggingInit(v6, v7);
+      v8 = OspreyLogContextDeviceAuth;
       if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_DEBUG))
       {
-        [OspreyMescalAuthentication moveToState:v6];
+        [OspreyMescalAuthentication moveToState:v8];
       }
 
       [(OspreyConnectionPreferences *)self->_connectionPreferences deleteCertificateData];
@@ -74,11 +75,11 @@
       self->_certificateData = 0;
     }
 
-    OspreyLoggingInit();
-    v8 = OspreyLogContextDeviceAuth;
+    OspreyLoggingInit(v6, v7);
+    v10 = OspreyLogContextDeviceAuth;
     if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_DEBUG))
     {
-      [OspreyMescalAuthentication moveToState:v8];
+      [OspreyMescalAuthentication moveToState:v10];
     }
 
     mescalSession = self->_mescalSession;

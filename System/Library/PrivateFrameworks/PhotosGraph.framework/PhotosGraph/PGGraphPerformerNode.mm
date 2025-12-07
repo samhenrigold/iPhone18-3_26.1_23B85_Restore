@@ -16,10 +16,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  name = self->_name;
-  v7 = [v3 stringWithFormat:@"%@|%@|%@", v5, name, self->_uuid];
+  v6 = [v3 stringWithFormat:@"%@|%@|%@", v5, self->_name, self->_uuid];
 
-  return v7;
+  return v6;
 }
 
 - (PGGraphPerformerNodeCollection)collection

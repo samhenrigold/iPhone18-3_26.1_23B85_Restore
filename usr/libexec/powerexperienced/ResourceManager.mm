@@ -6,6 +6,7 @@
 - (void)evaluatePowerController;
 - (void)evaluatePowerModes;
 - (void)handleProcessExit:(id)exit;
+- (void)monitorProcessExit:(int)exit;
 - (void)removeResourceHint:(id)hint;
 - (void)removeState:(id)state;
 - (void)restoreResourceHints:(id)hints;
@@ -107,6 +108,31 @@
 
   [(ResourceManager *)self evaluatePowerModes];
   [(ResourceManager *)self removeState:hintCopy];
+}
+
+- (void)monitorProcessExit:(int)exit
+{
+  v5 = [[NSNumber alloc] initWithInt:*&exit];
+  processMonitors = [(ResourceManager *)self processMonitors];
+  v7 = [processMonitors objectForKeyedSubscript:v5];
+
+  if (!v7)
+  {
+    mainQueue = [(ResourceManager *)self mainQueue];
+    v9 = dispatch_source_create(&_dispatch_source_type_proc, exit, 0x80000000uLL, mainQueue);
+
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100007B94;
+    v11[3] = &unk_10002C710;
+    v11[4] = self;
+    exitCopy = exit;
+    dispatch_source_set_event_handler(v9, v11);
+    processMonitors2 = [(ResourceManager *)self processMonitors];
+    [processMonitors2 setObject:v9 forKeyedSubscript:v5];
+
+    dispatch_resume(v9);
+  }
 }
 
 - (void)handleProcessExit:(id)exit
@@ -381,71 +407,71 @@
 
 - (ResourceManager)init
 {
-  v22.receiver = self;
-  v22.super_class = ResourceManager;
-  v2 = [(ResourceManager *)&v22 initWithMachServiceName:@"com.apple.powerexperienced.resourceusage"];
+  v23.receiver = self;
+  v23.super_class = ResourceManager;
+  v2 = [(ResourceManager *)&v23 initWithMachServiceName:@"com.apple.powerexperienced.resourceusage"];
   if (v2)
   {
     v3 = objc_alloc_init(NSMutableDictionary);
     resourceHints = v2->_resourceHints;
     v2->_resourceHints = v3;
 
-    v5 = sub_100001600();
+    v6 = sub_100001600(v5);
     mainQueue = v2->_mainQueue;
-    v2->_mainQueue = v5;
+    v2->_mainQueue = v6;
 
-    v7 = os_log_create("com.apple.powerexperienced", "resourcemanager");
-    v8 = qword_100036B38;
-    qword_100036B38 = v7;
-
+    v8 = os_log_create("com.apple.powerexperienced", "resourcemanager");
     v9 = qword_100036B38;
+    qword_100036B38 = v8;
+
+    v10 = qword_100036B38;
     if (os_log_type_enabled(qword_100036B38, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Listening for resource usage connections", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Listening for resource usage connections", buf, 2u);
     }
 
-    v10 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.powerexperienced.resourcemanager"];
+    v11 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.powerexperienced.resourcemanager"];
     defaults = v2->_defaults;
-    v2->_defaults = v10;
+    v2->_defaults = v11;
 
-    v12 = objc_alloc_init(NSMutableDictionary);
+    v13 = objc_alloc_init(NSMutableDictionary);
     processMonitors = v2->_processMonitors;
-    v2->_processMonitors = v12;
+    v2->_processMonitors = v13;
 
-    v14 = [NSSet setWithObjects:&off_10002E1F0, &off_10002E208, &off_10002E220, &off_10002E238, 0];
-    v15 = qword_100036B40;
-    qword_100036B40 = v14;
+    v15 = [NSSet setWithObjects:&off_10002E1F0, &off_10002E208, &off_10002E220, &off_10002E238, 0];
+    v16 = qword_100036B40;
+    qword_100036B40 = v15;
 
     [(ResourceManager *)v2 setDelegate:v2];
     if (MKBDeviceUnlockedSinceBoot())
     {
       [(ResourceManager *)v2 restoreState];
-      v16 = qword_100036B38;
+      v17 = qword_100036B38;
       if (os_log_type_enabled(qword_100036B38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "restoring state", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "restoring state", buf, 2u);
       }
     }
 
-    v17 = qword_100036B38;
+    v18 = qword_100036B38;
     if (os_log_type_enabled(qword_100036B38, OS_LOG_TYPE_INFO))
     {
-      v18 = v17;
+      v19 = v18;
       mainQueue = [(ResourceManager *)v2 mainQueue];
       *buf = 138412290;
-      v24 = mainQueue;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Initialized ResourceManager with queue %@", buf, 0xCu);
+      v25 = mainQueue;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Initialized ResourceManager with queue %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v20 = qword_100036B38;
+    v21 = qword_100036B38;
     if (os_log_type_enabled(qword_100036B38, OS_LOG_TYPE_ERROR))
     {
-      sub_1000188E0(v20);
+      sub_1000188E0(v21);
     }
   }
 

@@ -7,16 +7,17 @@
 - (void)_updateConstraintWithStack:(id)stack;
 - (void)setAppleID:(id)d;
 - (void)setOrganizationName:(id)name;
+- (void)updateProgressWithTranslationDistance:(double)distance referenceDistance:(double)referenceDistance isScrolling:(BOOL)scrolling;
 @end
 
 @implementation MCProfileTitlePageOrganizationCell
 
 - (MCProfileTitlePageOrganizationCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v32[2] = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = MCProfileTitlePageOrganizationCell;
-  v4 = [(MCProfileTitlePageOrganizationCell *)&v29 initWithStyle:style reuseIdentifier:identifier];
+  v31[2] = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = MCProfileTitlePageOrganizationCell;
+  v4 = [(MCProfileTitlePageOrganizationCell *)&v28 initWithStyle:style reuseIdentifier:identifier];
   v5 = v4;
   if (v4)
   {
@@ -49,19 +50,19 @@
     appleIDValueLabel = v5->_appleIDValueLabel;
     v5->_appleIDValueLabel = _createValueLabel2;
 
-    v32[0] = v5->_organizationLabel;
-    v32[1] = v5->_organizationValueLabel;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[0] = v5->_organizationLabel;
+    v31[1] = v5->_organizationValueLabel;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v19 = [(MCProfileTitlePageOrganizationCell *)v5 _createHorizontalStackWithViews:v18];
 
-    v31[0] = v5->_appleIDLabel;
-    v31[1] = v5->_appleIDValueLabel;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[0] = v5->_appleIDLabel;
+    v30[1] = v5->_appleIDValueLabel;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     v21 = [(MCProfileTitlePageOrganizationCell *)v5 _createHorizontalStackWithViews:v20];
 
-    v30[0] = v19;
-    v30[1] = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[0] = v19;
+    v29[1] = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v23 = [(MCProfileTitlePageOrganizationCell *)v5 _createVerticalStackWithViews:v22];
 
     labelStackView = v5->_labelStackView;
@@ -74,18 +75,17 @@
     [(MCProfileTitlePageOrganizationCell *)v5 _updateConstraintWithStack:v25];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_updateConstraintWithStack:(id)stack
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14 = @"stack";
-  v15[0] = stack;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13 = @"stack";
+  v14[0] = stack;
   v4 = MEMORY[0x277CBEAC0];
   stackCopy = stack;
-  v6 = [v4 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v6 = [v4 dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v7 = MEMORY[0x277CCAAD0];
   0x4034000000000000 = [MEMORY[0x277CCACA8] stringWithFormat:@"|-%f-[stack]-%f-|", 0x4034000000000000, 0x4034000000000000];
   v9 = [v7 constraintsWithVisualFormat:0x4034000000000000 options:0 metrics:0 views:v6];
@@ -97,8 +97,6 @@
 
   contentView2 = [(MCProfileTitlePageOrganizationCell *)self contentView];
   [contentView2 addConstraints:v10];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createLabelLabel
@@ -180,6 +178,17 @@
     appleIDValueLabel = [(MCProfileTitlePageOrganizationCell *)self appleIDValueLabel];
     [appleIDValueLabel setText:dCopy];
   }
+}
+
+- (void)updateProgressWithTranslationDistance:(double)distance referenceDistance:(double)referenceDistance isScrolling:(BOOL)scrolling
+{
+  [(MCProfileTitlePageOrganizationCell *)self bounds:scrolling];
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13 + distance;
+  contentView = [(MCProfileTitlePageOrganizationCell *)self contentView];
+  [contentView setFrame:{v8, v14, v10, v12}];
 }
 
 @end

@@ -859,15 +859,15 @@ uint64_t __53__SXFullscreenCanvasController_handleOpenTapGesture___block_invoke(
   [(SXFullscreenCanvasController *)self willStartTransformingWithGestureRecognizer:0 completionBlock:v4];
 }
 
-uint64_t __59__SXFullscreenCanvasController_presentFullscreenWithIndex___block_invoke(uint64_t result, int a2)
+id *__59__SXFullscreenCanvasController_presentFullscreenWithIndex___block_invoke(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = [*(result + 32) backgroundView];
+    v3 = [result[4] backgroundView];
     [v3 setAlpha:1.0];
 
-    v4 = *(v2 + 32);
+    v4 = v2[4];
     v5[0] = MEMORY[0x1E69E9820];
     v5[1] = 3221225472;
     v5[2] = __59__SXFullscreenCanvasController_presentFullscreenWithIndex___block_invoke_2;

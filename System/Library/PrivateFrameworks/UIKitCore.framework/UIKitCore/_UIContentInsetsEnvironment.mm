@@ -3,11 +3,11 @@
 - (double)_effectiveInsetsForInsetsReference:(unint64_t)reference minimumInsets:(double)result layoutAxis:;
 - (double)effectiveInsets;
 - (double)effectiveInsetsForInsetsReference:(uint64_t)reference;
+- (double)layoutContainerForContainerSize:(__n128)size layoutAxis:(unint64_t)axis;
 - (id)description;
 - (id)initWithInsetsReference:(double)reference safeAreaInsets:(double)insets layoutMarginsInsets:(double)marginsInsets readableContentInsets:(double)contentInsets scrollAccessoryInsets:(double)accessoryInsets minimumInsets:(double)minimumInsets;
 - (id)initWithParentEnvironment:(uint64_t)environment insetsReference:(uint64_t)reference minimumInsets:(uint64_t)insets;
-- (id)layoutContainerForContainerSize:(double)size layoutAxis:(double)axis;
-- (id)layoutContainerForContainerSize:(uint64_t)size layoutAxis:(double)axis insetsReference:(double)reference minimumInsets:(double)insets;
+- (id)layoutContainerForContainerSize:(double)size layoutAxis:(double)axis insetsReference:(double)reference minimumInsets:(double)insets;
 @end
 
 @implementation _UIContentInsetsEnvironment
@@ -16,7 +16,7 @@
 {
   if (self)
   {
-    return [(_UIContentInsetsEnvironment *)self _effectiveInsetsForInsetsReference:3uLL minimumInsets:*(self + 144) layoutAxis:?];
+    return [(_UIContentInsetsEnvironment *)self _effectiveInsetsForInsetsReference:3uLL minimumInsets:self[18] layoutAxis:?];
   }
 
   else
@@ -31,7 +31,7 @@
   {
     v37.receiver = result;
     v37.super_class = _UIContentInsetsEnvironment;
-    result = objc_msgSendSuper2(&v37, sel_init);
+    result = objc_msgSendSuper2(&v37, sel_init, a11, a12, a13, a14, a15, a16);
     if (result)
     {
       *(result + 1) = a2;
@@ -135,25 +135,25 @@
   return result;
 }
 
-- (id)layoutContainerForContainerSize:(double)size layoutAxis:(double)axis
+- (double)layoutContainerForContainerSize:(__n128)size layoutAxis:(unint64_t)axis
 {
   if (self)
   {
-    self = [(_UIContentInsetsEnvironment *)self layoutContainerForContainerSize:a2 layoutAxis:*(self + 8) insetsReference:size minimumInsets:axis, *(self + 144)];
+    self = [(_UIContentInsetsEnvironment *)self layoutContainerForContainerSize:size.n128_f64[0] layoutAxis:self[18] insetsReference:self[19] minimumInsets:self[20], self[21], axis, *(self + 1)];
     v4 = vars8;
   }
 
   return self;
 }
 
-- (id)layoutContainerForContainerSize:(uint64_t)size layoutAxis:(double)axis insetsReference:(double)reference minimumInsets:(double)insets
+- (id)layoutContainerForContainerSize:(double)size layoutAxis:(double)axis insetsReference:(double)reference minimumInsets:(double)insets
 {
   if (self)
   {
     selfCopy = self;
-    v10 = [(_UIContentInsetsEnvironment *)self _effectiveInsetsForInsetsReference:size minimumInsets:a2 layoutAxis:insets];
-    self = [[_UICollectionLayoutContainer alloc] initWithContentSize:selfCopy contentInsets:axis insetsEnvironment:reference, v10, v11, v12, v13];
-    v6 = vars8;
+    v13 = [(_UIContentInsetsEnvironment *)self _effectiveInsetsForInsetsReference:a9 minimumInsets:a8 layoutAxis:axis];
+    self = [[_UICollectionLayoutContainer alloc] initWithContentSize:selfCopy contentInsets:a2 insetsEnvironment:size, v13, v14, v15, v16];
+    v9 = vars8;
   }
 
   return self;

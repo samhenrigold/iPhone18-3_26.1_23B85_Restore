@@ -79,20 +79,20 @@
 
 - (HMSymptom)initWithCoder:(id)coder
 {
-  v15[6] = *MEMORY[0x1E69E9840];
+  v14[6] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(HMSymptom *)self init];
   if (v5)
   {
     v5->_type = [coderCopy decodeIntegerForKey:@"HMS.type"];
     v6 = MEMORY[0x1E695DFD8];
-    v15[0] = objc_opt_class();
-    v15[1] = objc_opt_class();
-    v15[2] = objc_opt_class();
-    v15[3] = objc_opt_class();
-    v15[4] = objc_opt_class();
-    v15[5] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:6];
+    v14[0] = objc_opt_class();
+    v14[1] = objc_opt_class();
+    v14[2] = objc_opt_class();
+    v14[3] = objc_opt_class();
+    v14[4] = objc_opt_class();
+    v14[5] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:6];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HMS.info"];
@@ -113,7 +113,6 @@
     v5->_infoDictionary = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

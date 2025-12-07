@@ -445,27 +445,27 @@ void __80__PKPeerPaymentThresholdTopUpController_thresholdTopUpPerformCancel_com
   }
 }
 
-void __80__PKPeerPaymentThresholdTopUpController_thresholdTopUpPerformCancel_completion___block_invoke_3(void *a1)
+void __80__PKPeerPaymentThresholdTopUpController_thresholdTopUpPerformCancel_completion___block_invoke_3(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Cancelling threshold top up failed with error %@", &v8, 0xCu);
+    v4 = a1[4];
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Cancelling threshold top up failed with error %@", &v9, 0xCu);
   }
 
-  v4 = [MEMORY[0x1E69B8F28] displayableErrorForError:a1[4]];
-  v5 = PKAlertForDisplayableErrorWithHandlers(v4, 0, &__block_literal_global_131, 0);
+  v5 = [MEMORY[0x1E69B8F28] displayableErrorForError:a1[4]];
+  v6 = PKAlertForDisplayableErrorWithHandlers(v5, 0, &__block_literal_global_131, 0);
   WeakRetained = objc_loadWeakRetained((a1[5] + 8));
-  [WeakRetained thresholdTopUpController:a1[5] requestsPresentViewController:v5];
+  [WeakRetained thresholdTopUpController:a1[5] requestsPresentViewController:v6];
 
-  v7 = a1[6];
-  if (v7)
+  v8 = a1[6];
+  if (v8)
   {
-    (*(v7 + 16))(v7, 0);
+    (*(v8 + 16))(v8, 0);
   }
 }
 
@@ -713,13 +713,13 @@ uint64_t __85__PKPeerPaymentThresholdTopUpController_peerPaymentActionController
   return [a1[7] updateRecurringPaymentsWithCompletion:&__block_literal_global_149_0];
 }
 
-void __85__PKPeerPaymentThresholdTopUpController_peerPaymentActionController_hasChangedState___block_invoke_146()
+void __85__PKPeerPaymentThresholdTopUpController_peerPaymentActionController_hasChangedState___block_invoke_146(uint64_t a1, uint64_t a2)
 {
-  v0 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BD026000, v0, OS_LOG_TYPE_DEFAULT, "Updated recurring peer payments after successful setup", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Updated recurring peer payments after successful setup", v3, 2u);
   }
 }
 

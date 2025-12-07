@@ -600,11 +600,11 @@ void __116__STUIStatusBarWifiSignalView__barImageWithSize_forScale_distance_angl
   }
 }
 
-uint64_t __47__STUIStatusBarWifiSignalView__updateFromMode___block_invoke(uint64_t result, int a2)
+id *__47__STUIStatusBarWifiSignalView__updateFromMode___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _updateActiveBars];
+    return [result[4] _updateActiveBars];
   }
 
   return result;

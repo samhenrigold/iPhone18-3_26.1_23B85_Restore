@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)taskStepAsString:(int)string;
 - (int)StringAsTaskStep:(id)step;
 - (int)taskStep;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)taskStepAsString:(int)string
+{
+  if (string >= 0x5E)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E53D48[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsTaskStep:(id)step
@@ -603,55 +619,53 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_taskId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    taskStep = self->_taskStep;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_statusReason)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_slotValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_intentName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_appBundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_interactionId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -767,7 +781,6 @@
     }
   }
 
-  v6 = *(equalCopy + 68);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 68) & 2) == 0 || self->_taskStep != *(equalCopy + 16))
@@ -779,7 +792,7 @@
   else if ((*(equalCopy + 68) & 2) != 0)
   {
 LABEL_23:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_24;
   }
 
@@ -825,7 +838,7 @@ LABEL_23:
     }
   }
 
-  v12 = (*(equalCopy + 68) & 1) == 0;
+  v11 = (*(equalCopy + 68) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -833,12 +846,12 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_24:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

@@ -16,26 +16,25 @@
 
   sub_222CE8D40(v7, v9, v10, v12, v13, v15, paramsCopy);
 
-  v17 = v26;
-  if (v26)
+  v17 = v25;
+  if (v25)
   {
-    v18 = __swift_project_boxed_opaque_existential_1(v25, v26);
+    v18 = __swift_project_boxed_opaque_existential_1(v24, v25);
     v19 = *(v17 - 8);
-    v20 = *(v19 + 64);
     MEMORY[0x28223BE20](v18);
-    v22 = v25 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v19 + 16))(v22);
-    v23 = sub_222D5304C();
-    (*(v19 + 8))(v22, v17);
-    __swift_destroy_boxed_opaque_existential_1Tm(v25);
+    v21 = v24 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v19 + 16))(v21);
+    v22 = sub_222D5304C();
+    (*(v19 + 8))(v21, v17);
+    __swift_destroy_boxed_opaque_existential_1Tm(v24);
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  return v23;
+  return v22;
 }
 
 @end

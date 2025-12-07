@@ -17,7 +17,7 @@
 
 + (void)importAndDeleteCallRecordingFilesIfNeededFromDirectory:(id)directory managedObjectContext:(id)context
 {
-  v6 = sub_10015DA04(&qword_1006BCC20);
+  v6 = sub_10015DA04(&qword_1006BCC20, &qword_100531F40);
   __chkstk_darwin(v6 - 8);
   v8 = &v12 - v7;
   if (directory)
@@ -36,7 +36,7 @@
   contextCopy = context;
   _s11MobileNotes19CallNoteCoordinatorC015importAndDeleteC22RecordingFilesIfNeeded9directory20managedObjectContexty10Foundation3URLVSg_So09NSManagedoP0CtFZ_0(v8, contextCopy);
 
-  sub_1000073B4(v8, &qword_1006BCC20);
+  sub_1000073B4(v8, &qword_1006BCC20, &qword_100531F40);
 }
 
 + (void)createNewCallNoteHelperWithNoteID:(id)d recordingID:(id)iD context:(id)context

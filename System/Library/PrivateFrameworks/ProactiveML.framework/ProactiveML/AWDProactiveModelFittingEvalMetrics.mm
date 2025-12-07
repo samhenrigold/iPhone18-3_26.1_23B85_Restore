@@ -340,7 +340,6 @@ LABEL_28:
     goto LABEL_38;
   }
 
-  v5 = *(equalCopy + 100);
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 100) & 0x20) == 0 || self->_rmse != *(equalCopy + 23))
@@ -352,7 +351,7 @@ LABEL_28:
   else if ((*(equalCopy + 100) & 0x20) != 0)
   {
 LABEL_38:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_39;
   }
 
@@ -426,7 +425,7 @@ LABEL_38:
     goto LABEL_38;
   }
 
-  v6 = (*(equalCopy + 100) & 0x40) == 0;
+  v5 = (*(equalCopy + 100) & 0x40) == 0;
   if ((*&self->_has & 0x40) != 0)
   {
     if ((*(equalCopy + 100) & 0x40) == 0 || self->_secsToExecute != *(equalCopy + 24))
@@ -434,12 +433,12 @@ LABEL_38:
       goto LABEL_38;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_39:
 
-  return v6;
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -660,7 +659,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    rmse = self->_rmse;
     PBDataWriterWriteFloatField();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -680,7 +678,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  f1 = self->_f1;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -695,7 +692,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  truePositives = self->_truePositives;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -710,7 +706,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  trueNegatives = self->_trueNegatives;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -725,12 +720,10 @@ LABEL_6:
   }
 
 LABEL_25:
-  falsePositives = self->_falsePositives;
   PBDataWriterWriteUint64Field();
   if (*&self->_has)
   {
 LABEL_7:
-    falseNegatives = self->_falseNegatives;
     PBDataWriterWriteUint64Field();
   }
 
@@ -740,15 +733,14 @@ LABEL_8:
     PBDataWriterPlaceMark();
     if (self->_positiveScores.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_positiveScores.list[v7];
         PBDataWriterWriteFloatField();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_positiveScores.count);
+      while (v6 < self->_positiveScores.count);
     }
 
     PBDataWriterRecallMark();
@@ -759,15 +751,14 @@ LABEL_8:
     PBDataWriterPlaceMark();
     if (self->_negativeScores.count)
     {
-      v9 = 0;
+      v7 = 0;
       do
       {
-        v10 = self->_negativeScores.list[v9];
         PBDataWriterWriteFloatField();
-        ++v9;
+        ++v7;
       }
 
-      while (v9 < self->_negativeScores.count);
+      while (v7 < self->_negativeScores.count);
     }
 
     PBDataWriterRecallMark();
@@ -775,7 +766,6 @@ LABEL_8:
 
   if ((*&self->_has & 0x40) != 0)
   {
-    secsToExecute = self->_secsToExecute;
     PBDataWriterWriteFloatField();
   }
 }
@@ -1029,7 +1019,7 @@ LABEL_8:
 
 - (id)toDictionary
 {
-  v27[8] = *MEMORY[0x277D85DE8];
+  v26[8] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[AWDProactiveModelFittingEvalMetrics positiveScoresCount](self, "positiveScoresCount")}];
   if ([(AWDProactiveModelFittingEvalMetrics *)self positiveScoresCount])
   {
@@ -1068,35 +1058,33 @@ LABEL_8:
     while ([(AWDProactiveModelFittingEvalMetrics *)self negativeScoresCount]> v10);
   }
 
-  v26[0] = @"rmse";
+  v25[0] = @"rmse";
   v15 = MEMORY[0x277CCABB0];
   [(AWDProactiveModelFittingEvalMetrics *)self rmse];
   v16 = [v15 numberWithFloat:?];
-  v27[0] = v16;
-  v26[1] = @"f1";
+  v26[0] = v16;
+  v25[1] = @"f1";
   v17 = MEMORY[0x277CCABB0];
   [(AWDProactiveModelFittingEvalMetrics *)self f1];
   v18 = [v17 numberWithFloat:?];
-  v27[1] = v18;
-  v26[2] = @"truePositives";
+  v26[1] = v18;
+  v25[2] = @"truePositives";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[AWDProactiveModelFittingEvalMetrics truePositives](self, "truePositives")}];
-  v27[2] = v19;
-  v26[3] = @"trueNegatives";
+  v26[2] = v19;
+  v25[3] = @"trueNegatives";
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[AWDProactiveModelFittingEvalMetrics trueNegatives](self, "trueNegatives")}];
-  v27[3] = v20;
-  v26[4] = @"falsePositives";
+  v26[3] = v20;
+  v25[4] = @"falsePositives";
   v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[AWDProactiveModelFittingEvalMetrics falsePositives](self, "falsePositives")}];
-  v27[4] = v21;
-  v26[5] = @"falseNegatives";
+  v26[4] = v21;
+  v25[5] = @"falseNegatives";
   v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[AWDProactiveModelFittingEvalMetrics falseNegatives](self, "falseNegatives")}];
-  v27[5] = v22;
-  v27[6] = v3;
-  v26[6] = @"positiveScores";
-  v26[7] = @"negativeScores";
-  v27[7] = v9;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:8];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v26[5] = v22;
+  v26[6] = v3;
+  v25[6] = @"positiveScores";
+  v25[7] = @"negativeScores";
+  v26[7] = v9;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:8];
 
   return v23;
 }

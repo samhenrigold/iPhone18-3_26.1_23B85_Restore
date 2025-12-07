@@ -52,26 +52,26 @@
 
 - (CRNeuralTextRecognizer)initWithConfiguration:(id)configuration owner:(id)owner
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884870);
-  MEMORY[0x1EEE9AC00](v6 - 8, v7);
-  v9 = &v15 - v8;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884870, &qword_1B42AC0A0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v14 - v7;
   if (owner)
   {
     sub_1B429F6B8();
-    v10 = sub_1B429F6D8();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v9 = sub_1B429F6D8();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v11 = sub_1B429F6D8();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v10 = sub_1B429F6D8();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
   configurationCopy = configuration;
-  v13 = sub_1B416BC54(configurationCopy, v9);
+  v12 = sub_1B416BC54(configurationCopy, v8);
 
-  return v13;
+  return v12;
 }
 
 - (id)thresholdsForTextRegion:(id)region withLocale:(id)locale

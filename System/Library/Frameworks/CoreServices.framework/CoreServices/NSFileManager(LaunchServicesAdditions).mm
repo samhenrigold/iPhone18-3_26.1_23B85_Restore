@@ -11,9 +11,9 @@
     +[NSFileManager(LaunchServicesAdditions) _LS_frameworkFileManager];
   }
 
-  v1 = _LS_frameworkFileManager_manager;
+  v2 = _LS_frameworkFileManager_manager;
 
-  return v1;
+  return v2;
 }
 
 @end

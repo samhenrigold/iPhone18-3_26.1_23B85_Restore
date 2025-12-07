@@ -58,7 +58,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
   }
 
@@ -134,7 +133,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_version != *(equalCopy + 8))
@@ -146,7 +144,7 @@
   else if (*(equalCopy + 36))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -168,17 +166,17 @@ LABEL_13:
   algorithm = self->_algorithm;
   if (algorithm | *(equalCopy + 1))
   {
-    v9 = [(NSString *)algorithm isEqual:?];
+    v8 = [(NSString *)algorithm isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

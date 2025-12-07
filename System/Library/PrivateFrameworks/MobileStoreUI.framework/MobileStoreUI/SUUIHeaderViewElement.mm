@@ -12,7 +12,7 @@
   parentCopy = parent;
   factoryCopy = factory;
   v11 = objc_opt_class();
-  if (v11 == objc_opt_class() && ([elementCopy getAttribute:@"type"], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", @"browse"), v12, v13))
+  if (v11 == objc_opt_class() && ([elementCopy getAttribute:@"type"], v12 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v12), v12, isEqualToString))
   {
     v14 = parentCopy;
     v15 = v14;

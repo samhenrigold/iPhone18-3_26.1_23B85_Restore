@@ -14,11 +14,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[4] = *MEMORY[0x1E69E9840];
-  v12[0] = @"itemLabel";
+  v12[4] = *MEMORY[0x1E69E9840];
+  v11[0] = @"itemLabel";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_itemLabel];
-  v13[0] = v3;
-  v12[1] = @"itemID";
+  v12[0] = v3;
+  v11[1] = @"itemID";
   itemID = self->_itemID;
   null = itemID;
   if (!itemID)
@@ -26,11 +26,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null;
-  v12[2] = @"contentRating";
+  v12[1] = null;
+  v11[2] = @"contentRating";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_contentRating];
-  v13[2] = v6;
-  v12[3] = @"itemName";
+  v12[2] = v6;
+  v11[3] = @"itemName";
   itemName = self->_itemName;
   null2 = itemName;
   if (!itemName)
@@ -38,8 +38,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[3] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v12[3] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
   if (!itemName)
   {
   }
@@ -47,8 +47,6 @@
   if (!itemID)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

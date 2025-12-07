@@ -377,10 +377,10 @@ LABEL_28:
     v7 = VCPLogToOSLogType[5];
     if (os_log_type_enabled(&_os_log_default, v7))
     {
-      LODWORD(v20) = 138412290;
-      *(&v20 + 4) = objc_opt_class();
-      v8 = *(&v20 + 4);
-      _os_log_impl(&_mh_execute_header, &_os_log_default, v7, "[%@] begin executing task.", &v20, 0xCu);
+      *v20 = 138412290;
+      *&v20[4] = objc_opt_class();
+      v8 = *&v20[4];
+      _os_log_impl(&_mh_execute_header, &_os_log_default, v7, "[%@] begin executing task.", v20, 0xCu);
     }
   }
 
@@ -392,10 +392,10 @@ LABEL_28:
       if (os_log_type_enabled(&_os_log_default, v9))
       {
         v10 = objc_opt_class();
-        LODWORD(v20) = 138412290;
-        *(&v20 + 4) = v10;
+        *v20 = 138412290;
+        *&v20[4] = v10;
         v11 = v10;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, v9, "[%@] suspending the current task execution.", &v20, 0xCu);
+        _os_log_impl(&_mh_execute_header, &_os_log_default, v9, "[%@] suspending the current task execution.", v20, 0xCu);
       }
     }
 
@@ -404,7 +404,7 @@ LABEL_28:
 
   else
   {
-    if ((+[VCPDeviceInformation isHomePod]& 1) != 0)
+    if (([VCPDeviceInformation isHomePod:*v20]& 1) != 0)
     {
       if (MediaAnalysisLogLevel() >= 5)
       {
@@ -412,10 +412,10 @@ LABEL_28:
         if (os_log_type_enabled(&_os_log_default, v12))
         {
           v13 = objc_opt_class();
-          LODWORD(v20) = 138412290;
-          *(&v20 + 4) = v13;
+          *v20 = 138412290;
+          *&v20[4] = v13;
           v14 = v13;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, v12, "[%@] HomePod system; bypassing submission of core activities", &v20, 0xCu);
+          _os_log_impl(&_mh_execute_header, &_os_log_default, v12, "[%@] HomePod system; bypassing submission of core activities", v20, 0xCu);
         }
       }
     }
@@ -436,10 +436,10 @@ LABEL_28:
       if (os_log_type_enabled(&_os_log_default, v17))
       {
         v18 = objc_opt_class();
-        LODWORD(v20) = 138412290;
-        *(&v20 + 4) = v18;
+        *v20 = 138412290;
+        *&v20[4] = v18;
         v19 = v18;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, v17, "[%@] finish executing task.", &v20, 0xCu);
+        _os_log_impl(&_mh_execute_header, &_os_log_default, v17, "[%@] finish executing task.", v20, 0xCu);
       }
     }
   }

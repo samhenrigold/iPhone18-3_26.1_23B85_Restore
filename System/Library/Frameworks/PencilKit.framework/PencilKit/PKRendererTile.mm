@@ -1,7 +1,8 @@
 @interface PKRendererTile
-+ (double)layerFrameForLevel:(uint64_t)level offset:(uint64_t)offset;
-+ (void)drawingFrameForLayerFrame:(CGFloat)frame drawingTransform:(CGFloat)transform contentScale:(double)scale;
++ (double)layerFrameForLevel:(double)level offset:(double)offset;
++ (void)drawingFrameForLayerFrame:(CGFloat)frame drawingTransform:(CGFloat)transform contentScale:(CGFloat)scale;
 - (PKRendererTileProperties)properties;
+- (_BYTE)_clearFramebuffers;
 - (double)tileLayer;
 - (double)tileMultiplyLayer;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -9,7 +10,6 @@
 - (id)framebuffer;
 - (id)initWithLevel:(__int128 *)level offset:(char)offset drawingTransform:(char)transform contentsScale:(char)scale sixChannelMode:(double)mode transparentBlending:(double)blending wantsExtendedDynamicRangeContent:(double)content;
 - (id)multiplyFramebuffer;
-- (uint64_t)_clearFramebuffers;
 - (uint64_t)_lockAndSetFramebuffer:(uint64_t)framebuffer;
 - (uint64_t)_lockAndSetMultiplyFramebuffer:(uint64_t)framebuffer;
 - (uint64_t)hasContents;
@@ -64,14 +64,14 @@
     v37 = *level;
     v38 = level[1];
     v39 = level[2];
-    v25 = [(PKRendererTile *)*(v17 + 21) layerFrameForLevel:PKRendererTile offset:*(v17 + 16)];
+    v25 = [PKRendererTile layerFrameForLevel:*(v17 + 21) offset:*(v17 + 22)];
     v27 = v26;
     v29 = v28;
     v31 = v30;
     v41[0] = v37;
     v41[1] = v38;
     v41[2] = v39;
-    [(PKRendererTile *)v25 drawingFrameForLayerFrame:v26 drawingTransform:v28 contentScale:v30, *(v17 + 19), PKRendererTile, v41];
+    [PKRendererTile drawingFrameForLayerFrame:v41 drawingTransform:v25 contentScale:v26, v28, v30, *(v17 + 19)];
     *(v17 + 23) = v32;
     *(v17 + 24) = v33;
     *(v17 + 25) = v34;
@@ -231,29 +231,29 @@ void __25__PKRendererTile_dealloc__block_invoke(uint64_t a1)
   return self;
 }
 
-+ (double)layerFrameForLevel:(uint64_t)level offset:(uint64_t)offset
++ (double)layerFrameForLevel:(double)level offset:(double)offset
 {
   objc_opt_self();
   objc_opt_self();
-  v7 = round(exp2(offset) * 256.0);
+  v7 = round(exp2(a2) * 256.0);
 
-  return DKDRoundedRectForScale(self * v7, a2 * v7, v7, v7, 1.0);
+  return DKDRoundedRectForScale(level * v7, offset * v7, v7, v7, 1.0);
 }
 
-+ (void)drawingFrameForLayerFrame:(CGFloat)frame drawingTransform:(CGFloat)transform contentScale:(double)scale
++ (void)drawingFrameForLayerFrame:(CGFloat)frame drawingTransform:(CGFloat)transform contentScale:(CGFloat)scale
 {
   objc_opt_self();
-  v13 = a7[1];
-  *&v14.a = *a7;
+  v13 = a2[1];
+  *&v14.a = *a2;
   *&v14.c = v13;
-  *&v14.tx = a7[2];
+  *&v14.tx = a2[2];
   CGAffineTransformInvert(&v15, &v14);
-  v16.origin.x = self;
-  v16.origin.y = a2;
-  v16.size.width = frame;
-  v16.size.height = transform;
+  v16.origin.x = frame;
+  v16.origin.y = transform;
+  v16.size.width = scale;
+  v16.size.height = a6;
   v17 = CGRectApplyAffineTransform(v16, &v15);
-  DKDRoundedRectForScale(v17.origin.x, v17.origin.y, v17.size.width, v17.size.height, scale);
+  DKDRoundedRectForScale(v17.origin.x, v17.origin.y, v17.size.width, v17.size.height, a7);
 }
 
 - (void)updateDisableTransactionActions:(int)actions reloadContents:
@@ -718,33 +718,33 @@ uint64_t __58__PKRendererTile_lockAndSetMultiplyFramebufferThreadSafe___block_in
   return [v2 commit];
 }
 
-- (uint64_t)_clearFramebuffers
+- (_BYTE)_clearFramebuffers
 {
   if (result)
   {
     v1 = result;
     if (*(result + 80) == 1)
     {
-      [(PKMetalFramebuffer *)*(result + 104) decrementNonPurgeableCount];
+      [(PKMetalFramebuffer *)result[13] decrementNonPurgeableCount];
       *(v1 + 80) = 0;
     }
 
-    v2 = *(v1 + 104);
-    *(v1 + 104) = 0;
+    v2 = v1[13];
+    v1[13] = 0;
 
-    [*(v1 + 88) setContents:0];
-    [*(v1 + 88) setCompositingFilter:0];
+    [v1[11] setContents:0];
+    [v1[11] setCompositingFilter:0];
     if (*(v1 + 81) == 1)
     {
-      [(PKMetalFramebuffer *)*(v1 + 112) decrementNonPurgeableCount];
+      [(PKMetalFramebuffer *)v1[14] decrementNonPurgeableCount];
       *(v1 + 81) = 0;
     }
 
-    v3 = *(v1 + 112);
-    *(v1 + 112) = 0;
+    v3 = v1[14];
+    v1[14] = 0;
 
-    [*(v1 + 96) setContents:0];
-    v4 = *(v1 + 96);
+    [v1[12] setContents:0];
+    v4 = v1[12];
 
     return [v4 setCompositingFilter:0];
   }

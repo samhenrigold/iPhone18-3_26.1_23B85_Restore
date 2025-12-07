@@ -1,6 +1,7 @@
 @interface APProxyURLUtilities
 + (BOOL)_shouldProxyRequestToHost:(id)host;
 + (BOOL)shouldProxyRequestToHost:(id)host;
++ (id)_proxyURLForVideoURL:(id)l adIdentifier:(id)identifier changeScheme:(BOOL)scheme;
 + (id)composeUserAgentString:(id)string adIdentifier:(id)identifier maxRequestCount:(int64_t)count;
 + (void)changeSchemeTo:(int64_t)to forUrlRequest:(id)request;
 @end
@@ -85,6 +86,30 @@ LABEL_7:
   v17 = objc_msgSend_URL(requestCopy, v6, v7, v8, v9);
   v13 = objc_msgSend_changeSchemeTo_(v17, v10, to, v11, v12);
   objc_msgSend_setURL_(requestCopy, v14, v13, v15, v16);
+}
+
++ (id)_proxyURLForVideoURL:(id)l adIdentifier:(id)identifier changeScheme:(BOOL)scheme
+{
+  schemeCopy = scheme;
+  v6 = objc_msgSend_setQueryItem_forKey_(l, a2, identifier, @"videoAdvertisingIdentifier", scheme);
+  v11 = v6;
+  if (schemeCopy)
+  {
+    if (objc_msgSend_isHTTP(v6, v7, v8, v9, v10))
+    {
+      objc_msgSend_changeSchemeTo_(v11, v12, 1, v13, v14);
+    }
+
+    else
+    {
+      objc_msgSend_changeSchemeTo_(v11, v12, 2, v13, v14);
+    }
+    v15 = ;
+
+    v11 = v15;
+  }
+
+  return v11;
 }
 
 @end

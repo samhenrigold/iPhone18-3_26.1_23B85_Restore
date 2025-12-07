@@ -45,11 +45,10 @@ uint64_t __85__TRIExcessiveStaleFactorsUsageTimer_initWithNamespaceName_delayTim
   v2 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_22EA6B000, v2, OS_LOG_TYPE_DEFAULT, "Stale factor timer fired", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_22EA6B000, v2, OS_LOG_TYPE_DEFAULT, "Stale factor timer fired", v4, 2u);
   }
 
-  v3 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 

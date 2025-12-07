@@ -8,6 +8,7 @@
 - (void)handleRadioPreferencesChanged:(id)changed;
 - (void)notifyAirplaneModeChanged_sync:(BOOL)changed_sync;
 - (void)removeDelegate:(id)delegate;
+- (void)setAirplaneMode:(BOOL)mode;
 - (void)setupAirplaneModeCallback;
 @end
 
@@ -27,7 +28,7 @@
 
 - (VVMSharedPreferencesObserver)init
 {
-  v3 = sub_10000B2B0();
+  v3 = sub_10000B2B0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
@@ -74,7 +75,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_10000B2B0();
+  v3 = sub_10000B2B0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
@@ -120,7 +121,7 @@
 
   else
   {
-    v4 = sub_10000B2B0();
+    v4 = sub_10000B2B0(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = SCError();
@@ -140,14 +141,14 @@
   preferences = self->preferences;
   if (!preferences)
   {
-    v10 = sub_10000B2B0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10000B2B0(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "";
-      v13 = 2080;
+      v13 = 136315394;
       v14 = "";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sAirplaneMode preferences session is null", &v11, 0x16u);
+      v15 = 2080;
+      v16 = "";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sAirplaneMode preferences session is null", &v13, 0x16u);
     }
 
     goto LABEL_15;
@@ -157,14 +158,14 @@
   Value = SCPreferencesGetValue(self->preferences, @"AirplaneMode");
   if (!Value)
   {
-    v10 = sub_10000B2B0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10000B2B0(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "";
-      v13 = 2080;
+      v13 = 136315394;
       v14 = "";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sAirplaneMode key not found", &v11, 0x16u);
+      v15 = 2080;
+      v16 = "";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sAirplaneMode key not found", &v13, 0x16u);
     }
 
     goto LABEL_15;
@@ -172,16 +173,17 @@
 
   v5 = Value;
   v6 = CFGetTypeID(Value);
-  if (v6 != CFBooleanGetTypeID())
+  TypeID = CFBooleanGetTypeID();
+  if (v6 != TypeID)
   {
-    v10 = sub_10000B2B0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10000B2B0(TypeID);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "";
-      v13 = 2080;
+      v13 = 136315394;
       v14 = "";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sAirplaneMode is not BOOLean", &v11, 0x16u);
+      v15 = 2080;
+      v16 = "";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sAirplaneMode is not BOOLean", &v13, 0x16u);
     }
 
 LABEL_15:
@@ -189,62 +191,64 @@ LABEL_15:
     return;
   }
 
-  v7 = CFBooleanGetValue(v5);
-  v8 = sub_10000B2B0();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = CFBooleanGetValue(v5);
+  v9 = v8;
+  v10 = sub_10000B2B0(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = asNSStringBOOL();
-    v11 = 136315650;
-    v12 = "";
-    v13 = 2080;
+    v11 = asNSStringBOOL();
+    v13 = 136315650;
     v14 = "";
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sAirplaneMode is %@", &v11, 0x20u);
+    v15 = 2080;
+    v16 = "";
+    v17 = 2112;
+    v18 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sAirplaneMode is %@", &v13, 0x20u);
   }
 
-  [(VVMSharedPreferencesObserver *)self setAirplaneMode:v7 != 0];
+  [(VVMSharedPreferencesObserver *)self setAirplaneMode:v9 != 0];
 }
 
 - (void)handleRadioPreferencesChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_10000B2B0();
+  v5 = sub_10000B2B0(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315906;
-    v11 = "";
-    v12 = 2080;
-    v13 = "";
-    v14 = 2112;
-    v15 = objc_opt_class();
-    v16 = 2112;
-    v17 = changedCopy;
-    v6 = v15;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling RadioPreferencesChanged with info <%@>", &v10, 0x2Au);
+    v11 = 136315906;
+    v12 = "";
+    v13 = 2080;
+    v14 = "";
+    v15 = 2112;
+    v16 = objc_opt_class();
+    v17 = 2112;
+    v18 = changedCopy;
+    v6 = v16;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling RadioPreferencesChanged with info <%@>", &v11, 0x2Au);
   }
 
-  if ([changedCopy isEqualToString:@"AirplaneMode"])
+  v7 = [changedCopy isEqualToString:@"AirplaneMode"];
+  if (v7)
   {
     [(VVMSharedPreferencesObserver *)self checkAirplaneModePreference];
   }
 
   else
   {
-    v7 = sub_10000B2B0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000B2B0(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v10 = 136315906;
-      v11 = "";
-      v12 = 2080;
-      v13 = "";
-      v14 = 2112;
-      v15 = v8;
-      v16 = 2112;
-      v17 = changedCopy;
-      v9 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is suppressing notification for %@", &v10, 0x2Au);
+      v9 = objc_opt_class();
+      v11 = 136315906;
+      v12 = "";
+      v13 = 2080;
+      v14 = "";
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = changedCopy;
+      v10 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is suppressing notification for %@", &v11, 0x2Au);
     }
   }
 }
@@ -257,9 +261,22 @@ LABEL_15:
   return airplane;
 }
 
+- (void)setAirplaneMode:(BOOL)mode
+{
+  modeCopy = mode;
+  os_unfair_lock_lock(&self->lock);
+  if (self->airplane != modeCopy)
+  {
+    self->airplane = modeCopy;
+    [(VVMSharedPreferencesObserver *)self notifyAirplaneModeChanged_sync:modeCopy];
+  }
+
+  os_unfair_lock_unlock(&self->lock);
+}
+
 - (void)notifyAirplaneModeChanged_sync:(BOOL)changed_sync
 {
-  v5 = sub_10000B2B0();
+  v5 = sub_10000B2B0(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [(NSMapTable *)self->delegates count];

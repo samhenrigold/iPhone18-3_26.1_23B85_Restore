@@ -57,7 +57,7 @@
     goto LABEL_8;
   }
 
-  type metadata accessor for ArtworkBridge();
+  type metadata accessor for ArtworkBridge(0);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_8:

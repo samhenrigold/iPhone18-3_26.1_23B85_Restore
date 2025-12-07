@@ -15,7 +15,7 @@
 {
   if (self->_volume != volume)
   {
-    objc_msgSend_willModify(self, a2, v3);
+    [(KNSoundtrack *)self willModify];
     self->_volume = volume;
   }
 }
@@ -24,7 +24,7 @@
 {
   if (self->_mode != mode)
   {
-    objc_msgSend_willModify(self, a2, mode);
+    [(KNSoundtrack *)self willModify];
     self->_mode = mode;
   }
 }
@@ -34,12 +34,12 @@
   mediaCopy = media;
   if (self->_media != mediaCopy)
   {
-    v9 = mediaCopy;
-    objc_msgSend_willModify(self, mediaCopy, v5);
-    v8 = objc_msgSend_copy(v9, v6, v7);
+    v6 = mediaCopy;
+    [(KNSoundtrack *)self willModify];
+    v5 = [(NSArray *)v6 copy];
 
-    objc_storeStrong(&self->_media, v8);
-    mediaCopy = v8;
+    objc_storeStrong(&self->_media, v5);
+    mediaCopy = v5;
   }
 }
 
@@ -63,99 +63,99 @@
 {
   mediaCopy = media;
   contextCopy = context;
-  v11 = objc_msgSend_initWithContext_(self, v8, contextCopy);
-  if (v11)
+  v8 = [(KNSoundtrack *)self initWithContext:contextCopy];
+  if (v8)
   {
-    v12 = objc_msgSend_copy(mediaCopy, v9, v10);
-    media = v11->_media;
-    v11->_media = v12;
+    v9 = [mediaCopy copy];
+    media = v8->_media;
+    v8->_media = v9;
   }
 
-  return v11;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend_context(self, v5, v6);
-  v9 = objc_msgSend_initWithContext_(v4, v8, v7);
+  context = [(KNSoundtrack *)self context];
+  v6 = [v4 initWithContext:context];
 
-  *(v9 + 64) = self->_volume;
-  *(v9 + 72) = self->_mode;
-  v12 = objc_msgSend_copy(self->_media, v10, v11);
-  v13 = *(v9 + 80);
-  *(v9 + 80) = v12;
+  *(v6 + 64) = self->_volume;
+  *(v6 + 72) = self->_mode;
+  v7 = [(NSArray *)self->_media copy];
+  v8 = *(v6 + 80);
+  *(v6 + 80) = v7;
 
-  return v9;
+  return v6;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[92]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[92]];
 
-  v6 = *(v5 + 16);
-  if (v6)
+  v5 = *(v4 + 16);
+  if (v5)
   {
-    v7 = *(v5 + 48);
-    self->_volume = v7;
+    v6 = *(v4 + 48);
+    self->_volume = v6;
   }
 
-  if ((v6 & 2) != 0)
+  if ((v5 & 2) != 0)
   {
-    self->_mode = *(v5 + 56);
+    self->_mode = *(v4 + 56);
   }
 
-  v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v11 = *(v5 + 32);
-  if (v11 >= 1)
+  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v8 = *(v4 + 32);
+  if (v8 >= 1)
   {
-    v12 = 8;
+    v9 = 8;
     do
     {
-      v13 = objc_msgSend_readDataReferenceMessage_(unarchiverCopy, v8, *(*(v5 + 40) + v12));
-      objc_msgSend_addObject_(v10, v14, v13);
+      v10 = [unarchiverCopy readDataReferenceMessage:*(*(v4 + 40) + v9)];
+      [v7 addObject:v10];
 
-      v12 += 8;
-      --v11;
+      v9 += 8;
+      --v8;
     }
 
-    while (v11);
+    while (v8);
   }
 
-  v15 = objc_msgSend_copy(v10, v8, v9);
+  v11 = [v7 copy];
   media = self->_media;
-  self->_media = v15;
+  self->_media = v11;
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275DC9704, off_2812EA908[92]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275DC9704 descriptor:off_2812EA908[92]];
 
-  v7 = *(v5 + 16);
-  *(v5 + 48) = self->_volume;
+  v5 = *(v4 + 16);
+  *(v4 + 48) = self->_volume;
   mode = self->_mode;
-  *(v5 + 16) = v7 | 3;
+  *(v4 + 16) = v5 | 3;
   if (mode == 1)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = 2;
+    v7 = 2;
   }
 
   if (!mode)
   {
-    v9 = 0;
+    v7 = 0;
   }
 
-  *(v5 + 56) = v9;
-  objc_msgSend_setDataReferenceArray_message_(archiverCopy, v6, self->_media, v5 + 24);
+  *(v4 + 56) = v7;
+  [archiverCopy setDataReferenceArray:self->_media message:v4 + 24];
 }
 
 @end

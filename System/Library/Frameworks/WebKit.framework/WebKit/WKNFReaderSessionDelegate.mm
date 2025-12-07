@@ -52,7 +52,7 @@
   m_ptr = self->_connection.m_impl.m_ptr;
   if (m_ptr)
   {
-    atomic_fetch_add(m_ptr, 1u);
+    add = atomic_fetch_add(m_ptr, 1u);
   }
 
   if (tags)
@@ -60,15 +60,15 @@
     tagsCopy = tags;
   }
 
-  v8 = WTF::fastMalloc(0x18);
-  *v8 = &unk_1F110BBC8;
-  v8[1] = m_ptr;
-  v8[2] = tags;
-  v9 = v8;
+  v9 = WTF::fastMalloc(add, 0x18);
+  *v9 = &unk_1F110BBC8;
+  v9[1] = m_ptr;
+  v9[2] = tags;
+  v10 = v9;
   WTF::RunLoop::dispatch();
-  if (v9)
+  if (v10)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v10 + 8))(v10);
   }
 }
 

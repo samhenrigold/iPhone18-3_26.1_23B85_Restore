@@ -11,10 +11,10 @@ uint64_t HIDUsage.CameraControlUsage.rawValue.getter()
   }
 }
 
-char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64_t a3@<X8>)
+char HIDUsage.init(page:usage:)@<W0>(uint64_t *__return_ptr a1@<X8>, int rawValue@<W1>, uint64_t a3@<X0>)
 {
   v4 = rawValue & 0x10000;
-  switch(a2)
+  switch(a3)
   {
     case 1:
       if (v4)
@@ -24,7 +24,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.GenericDesktopUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.GenericDesktopUsage.init(rawValue:)(rawValue);
         v6 = v44;
         if (v44 == 114)
         {
@@ -36,7 +36,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
     case 2:
       if (!v4)
       {
-        LOBYTE(a2) = HIDUsage.SimulationControlsUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.SimulationControlsUsage.init(rawValue:)(rawValue);
         v14 = v44 == 51;
         v6 = v44 | 0x400000000;
         v15 = (rawValue << 16);
@@ -54,7 +54,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.VRControlsUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.VRControlsUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x800000000;
         if (v44 == 12)
         {
@@ -71,7 +71,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.SportControlsUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.SportControlsUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0xC00000000;
         if (v44 == 34)
         {
@@ -88,7 +88,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.GameControlsUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.GameControlsUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x1000000000;
         if (v44 == 29)
         {
@@ -105,7 +105,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.GenericDeviceControlsUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.GenericDeviceControlsUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x1400000000;
         if (v44 == 24)
         {
@@ -117,7 +117,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
     case 7:
       if (!v4)
       {
-        LOBYTE(a2) = HIDUsage.KeyboardOrKeypadUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.KeyboardOrKeypadUsage.init(rawValue:)(rawValue);
         v14 = v44 == 218;
         v6 = v44 | 0x1800000000;
         v15 = (rawValue << 16);
@@ -135,7 +135,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.LEDUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.LEDUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x1C00000000;
         if (v44 == 96)
         {
@@ -153,7 +153,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
     case 11:
       if (!v4)
       {
-        LOBYTE(a2) = HIDUsage.TelephonyDeviceUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.TelephonyDeviceUsage.init(rawValue:)(rawValue);
         v14 = v44 == 99;
         v6 = v44 | 0x2800000000;
         v15 = (rawValue << 16);
@@ -171,7 +171,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.ConsumerUsage.init(rawValue:)(rawValue).value;
+        LOBYTE(a3) = HIDUsage.ConsumerUsage.init(rawValue:)(rawValue).value;
         v6 = v44 | 0x2C00000000;
         if (v44 == 450)
         {
@@ -188,7 +188,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.DigitizersUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.DigitizersUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x3000000000;
         if (v44 == 108)
         {
@@ -205,7 +205,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.HapticsUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.HapticsUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x3400000000;
         if (v44 == 29)
         {
@@ -217,7 +217,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
     case 15:
       if (!v4)
       {
-        LOBYTE(a2) = HIDUsage.PhysicalInputDeviceUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.PhysicalInputDeviceUsage.init(rawValue:)(rawValue);
         v14 = v44 == 105;
         v6 = v44 | 0x3800000000;
         v15 = (rawValue << 16);
@@ -349,7 +349,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.SOCUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.SOCUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x3C00000000;
         if (v44 == 10)
         {
@@ -366,7 +366,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.EyeAndHeadTrackersUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.EyeAndHeadTrackersUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x4000000000;
         if (v44 == 34)
         {
@@ -383,7 +383,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.AuxiliaryDisplayUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.AuxiliaryDisplayUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x4400000000;
         if (v44 == 75)
         {
@@ -400,7 +400,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.SensorsUsage.init(rawValue:)(rawValue).value;
+        LOBYTE(a3) = HIDUsage.SensorsUsage.init(rawValue:)(rawValue).value;
         v6 = v44 | 0x4800000000;
         if (v44 == 665)
         {
@@ -417,7 +417,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.MedicalInstrumentUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.MedicalInstrumentUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x4C00000000;
         if (v44 == 29)
         {
@@ -434,7 +434,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.BrailleDisplayUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.BrailleDisplayUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x5000000000;
         if (v44 == 43)
         {
@@ -451,7 +451,7 @@ char HIDUsage.init(page:usage:)@<W0>(int rawValue@<W1>, uint64_t a2@<X0>, uint64
 
       else
       {
-        LOBYTE(a2) = HIDUsage.LightingAndIlluminationUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.LightingAndIlluminationUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x5400000000;
         if (v44 == 33)
         {
@@ -502,9 +502,9 @@ LABEL_164:
       }
 
 LABEL_160:
-      *a3 = v6;
-      *(a3 + 4) = BYTE4(v6);
-      return a2;
+      *a1 = v6;
+      *(a1 + 4) = BYTE4(v6);
+      return a3;
     case 129:
       v6 = rawValue & 0x1FFFF | 0x5C00000000;
       goto LABEL_160;
@@ -516,7 +516,7 @@ LABEL_160:
 
       else
       {
-        LOBYTE(a2) = HIDUsage.VESAVirtualControlsUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.VESAVirtualControlsUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x6000000000;
         if (v44 == 45)
         {
@@ -533,7 +533,7 @@ LABEL_160:
 
       else
       {
-        LOBYTE(a2) = HIDUsage.PowerUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.PowerUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x6400000000;
         if (v44 == 77)
         {
@@ -550,7 +550,7 @@ LABEL_160:
 
       else
       {
-        LOBYTE(a2) = HIDUsage.BatterySystemUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.BatterySystemUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x6800000000;
         if (v44 == 91)
         {
@@ -567,7 +567,7 @@ LABEL_160:
 
       else
       {
-        LOBYTE(a2) = HIDUsage.BarcodeScannerUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.BarcodeScannerUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x6C00000000;
         if (v44 == 194)
         {
@@ -584,7 +584,7 @@ LABEL_160:
 
       else
       {
-        LOBYTE(a2) = HIDUsage.ScalesUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.ScalesUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x7000000000;
         if (v44 == 46)
         {
@@ -601,7 +601,7 @@ LABEL_160:
 
       else
       {
-        LOBYTE(a2) = HIDUsage.MagneticStripeReaderUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.MagneticStripeReaderUsage.init(rawValue:)(rawValue);
         v14 = v44 == 10;
         v6 = v44 | 0x7400000000;
         v15 = (rawValue << 16);
@@ -653,7 +653,7 @@ LABEL_89:
 
       else
       {
-        LOBYTE(a2) = HIDUsage.ArcadeUsage.init(rawValue:)(rawValue);
+        LOBYTE(a3) = HIDUsage.ArcadeUsage.init(rawValue:)(rawValue);
         v6 = v44 | 0x7C00000000;
         if (v44 == 27)
         {
@@ -663,7 +663,7 @@ LABEL_89:
 
       goto LABEL_160;
     default:
-      if (a2 == 61904)
+      if (a3 == 61904)
       {
         v6 = 0x8000000003;
         v7 = 0x8000000001;
@@ -697,8 +697,8 @@ LABEL_89:
       else
       {
 LABEL_17:
-        a2 = a2 | (rawValue << 16);
-        v6 = (a2 | (v4 << 16)) - 0x7C00000000;
+        a3 = a3 | (rawValue << 16);
+        v6 = (a3 | (v4 << 16)) - 0x7C00000000;
       }
 
       goto LABEL_160;
@@ -9267,77 +9267,55 @@ uint64_t HIDUsage.hash(into:)()
         return sub_2455EA0A0();
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EFA26;
-      goto LABEL_71;
+      goto LABEL_70;
     case 2:
       MEMORY[0x245D6BE80](2);
-      if (v1 == 12)
+      if (v1 != 12)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EFA8C;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 3:
       MEMORY[0x245D6BE80](3);
-      if (v1 == 34)
+      if (v1 != 34)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EFAA4;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 4:
       MEMORY[0x245D6BE80](4);
-      if (v1 == 29)
+      if (v1 != 29)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EFAE8;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 5:
       MEMORY[0x245D6BE80](5);
-      if (v1 == 24)
+      if (v1 != 24)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EFB22;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 6:
-      *(v0 + 4);
-      v6 = *v0;
       MEMORY[0x245D6BE80](6);
-      if (v6 == 218)
+      if (v1 != 218)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v7 = word_2455EFB52[v6 ^ 0x80];
-      return sub_2455EA0B0();
+      return sub_2455EA0A0();
     case 7:
       MEMORY[0x245D6BE80](7);
-      if (v1 == 96)
+      if (v1 != 96)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EFD52;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 8:
       MEMORY[0x245D6BE80](8);
       if ((v1 & 0x10000) != 0)
@@ -9345,7 +9323,7 @@ uint64_t HIDUsage.hash(into:)()
         return sub_2455EA0A0();
       }
 
-      goto LABEL_55;
+      goto LABEL_70;
     case 9:
       MEMORY[0x245D6BE80](9);
       if ((v1 & 0x10000) != 0)
@@ -9353,62 +9331,47 @@ uint64_t HIDUsage.hash(into:)()
         return sub_2455EA0A0();
       }
 
-      goto LABEL_55;
+      goto LABEL_70;
     case 0xA:
       MEMORY[0x245D6BE80](10);
-      if (v1 == 99)
+      if (v1 != 99)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EFE12;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0xB:
       MEMORY[0x245D6BE80](11);
-      if (v1 == 450)
+      if (v1 != 450)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EFED8;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0xC:
       MEMORY[0x245D6BE80](12);
-      if (v1 == 108)
+      if (v1 != 108)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F025C;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0xD:
       MEMORY[0x245D6BE80](13);
-      if (v1 == 29)
+      if (v1 != 29)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0334;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0xE:
       MEMORY[0x245D6BE80](14);
-      if (v1 == 105)
+      if (v1 != 105)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F036E;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0xF:
       MEMORY[0x245D6BE80](15);
       if (v1 == 10)
@@ -9416,78 +9379,60 @@ uint64_t HIDUsage.hash(into:)()
         return sub_2455EA0A0();
       }
 
-      goto LABEL_55;
+      goto LABEL_70;
     case 0x10:
       MEMORY[0x245D6BE80](16);
-      if (v1 == 34)
+      if (v1 != 34)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0440;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x11:
       MEMORY[0x245D6BE80](17);
-      if (v1 == 75)
+      if (v1 != 75)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0484;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x12:
       MEMORY[0x245D6BE80](18);
-      if (v1 == 665)
+      if (v1 != 665)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F051A;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x13:
       MEMORY[0x245D6BE80](19);
-      if (v1 == 29)
+      if (v1 != 29)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0A4C;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x14:
       MEMORY[0x245D6BE80](20);
-      if (v1 == 43)
+      if (v1 != 43)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0A86;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x15:
       MEMORY[0x245D6BE80](21);
-      if (v1 == 33)
+      if (v1 != 33)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0ADC;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x16:
       MEMORY[0x245D6BE80](22);
       if (v1 != 4)
       {
-        goto LABEL_55;
+        goto LABEL_70;
       }
 
       return sub_2455EA0A0();
@@ -9495,32 +9440,26 @@ uint64_t HIDUsage.hash(into:)()
       MEMORY[0x245D6BE80](23);
       if ((v1 & 0x10000) == 0)
       {
-        goto LABEL_55;
+        goto LABEL_70;
       }
 
       return sub_2455EA0A0();
     case 0x18:
       MEMORY[0x245D6BE80](24);
-      if (v1 == 45)
+      if (v1 != 45)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0B1E;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x19:
       MEMORY[0x245D6BE80](25);
-      if (v1 == 77)
+      if (v1 != 77)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0B78;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x1A:
       MEMORY[0x245D6BE80](26);
       if (v1 == 91)
@@ -9528,82 +9467,64 @@ uint64_t HIDUsage.hash(into:)()
         return sub_2455EA0A0();
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0C12;
-      goto LABEL_71;
+      goto LABEL_70;
     case 0x1B:
-      *(v0 + 4);
-      v4 = *v0;
       MEMORY[0x245D6BE80](27);
-      if (v4 == 194)
+      if (v1 != 194)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v5 = word_2455F0CC8[v4 ^ 0x80];
-      return sub_2455EA0B0();
+      return sub_2455EA0A0();
     case 0x1C:
       MEMORY[0x245D6BE80](28);
-      if (v1 == 46)
+      if (v1 != 46)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0EC8;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x1D:
       MEMORY[0x245D6BE80](29);
-      if (v1 == 10)
+      if (v1 != 10)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0F24;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x1E:
       MEMORY[0x245D6BE80](30);
       if (v1 != 2)
       {
-        goto LABEL_55;
+        goto LABEL_70;
       }
 
       return sub_2455EA0A0();
     case 0x1F:
       MEMORY[0x245D6BE80](31);
-      if (v1 == 27)
+      if (v1 != 27)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-      sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455F0F38;
-      goto LABEL_71;
+      return sub_2455EA0A0();
     case 0x20:
       MEMORY[0x245D6BE80](32);
       if (v1 != 3)
       {
-        goto LABEL_55;
+        goto LABEL_70;
       }
 
       return sub_2455EA0A0();
     case 0x21:
       MEMORY[0x245D6BE80](33);
       sub_2455EA0B0();
-      if ((v1 & 0x100000000) != 0)
+      if ((v1 & 0x100000000) == 0)
       {
-        return sub_2455EA0A0();
+        goto LABEL_70;
       }
 
-LABEL_55:
-      sub_2455EA0A0();
-      return sub_2455EA0B0();
+      return sub_2455EA0A0();
     default:
       MEMORY[0x245D6BE80](0);
       if (v1 == 114)
@@ -9611,19 +9532,14 @@ LABEL_55:
         return sub_2455EA0A0();
       }
 
+LABEL_70:
       sub_2455EA0A0();
-      v2 = v1;
-      v3 = word_2455EF942;
-LABEL_71:
-      v9 = v3[v2];
       return sub_2455EA0B0();
   }
 }
 
 uint64_t HIDUsage.hashValue.getter()
 {
-  v3 = *(v0 + 4);
-  v2 = *v0;
   sub_2455EA080();
   HIDUsage.hash(into:)();
   return sub_2455EA0D0();
@@ -9631,17 +9547,13 @@ uint64_t HIDUsage.hashValue.getter()
 
 uint64_t sub_2455C9CD0()
 {
-  v3 = *(v0 + 4);
-  v2 = *v0;
   sub_2455EA080();
   HIDUsage.hash(into:)();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455C9D28()
+uint64_t sub_2455C9D28(uint64_t a1)
 {
-  v3 = *(v0 + 4);
-  v2 = *v0;
   sub_2455EA080();
   HIDUsage.hash(into:)();
   return sub_2455EA0D0();
@@ -9649,31 +9561,29 @@ uint64_t sub_2455C9D28()
 
 uint64_t HIDUsage.description.getter()
 {
-  v1 = *(v0 + 4);
-  v2 = *v0;
-  v3 = 0xE000000000000000;
+  v0 = 0xE000000000000000;
   sub_2455E9DF0();
 
   HIDUsage.page.getter();
-  v4 = sub_2455E9FD0();
-  MEMORY[0x245D6B9A0](v4);
+  v1 = sub_2455E9FD0();
+  MEMORY[0x245D6B9A0](v1);
 
   if ((HIDUsage.usage.getter() & 0x10000) != 0)
   {
-    v7 = 0;
+    v4 = 0;
     goto LABEL_5;
   }
 
   result = HIDUsage.usage.getter();
   if ((result & 0x10000) == 0)
   {
-    v6 = sub_2455E9FD0();
-    MEMORY[0x245D6B9A0](v6);
+    v3 = sub_2455E9FD0();
+    MEMORY[0x245D6B9A0](v3);
 
-    v7 = 0x3A6567617375202CLL;
-    v3 = 0xE900000000000020;
+    v4 = 0x3A6567617375202CLL;
+    v0 = 0xE900000000000020;
 LABEL_5:
-    MEMORY[0x245D6B9A0](v7, v3);
+    MEMORY[0x245D6B9A0](v4, v0);
 
     MEMORY[0x245D6B9A0](41, 0xE100000000000000);
     return 0xD000000000000017;
@@ -9685,261 +9595,343 @@ LABEL_5:
 
 uint64_t sub_2455C9F18()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EF942[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455C9FA0()
+uint64_t sub_2455C9FA0(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EF942[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA038()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFA26[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA0C0()
+uint64_t sub_2455CA0C0(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFA26[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA158()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFA8C[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA1E0()
+uint64_t sub_2455CA1E0(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFA8C[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA278()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFAA4[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA300()
+uint64_t sub_2455CA300(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFAA4[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA398()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFAE8[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA420()
+uint64_t sub_2455CA420(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFAE8[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA4B8()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFB22[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA540()
+uint64_t sub_2455CA540(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFB22[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA5E0()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFB52[v1 ^ 0x80];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA670()
+uint64_t sub_2455CA670(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFB52[v1 ^ 0x80];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA710()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFD52[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA798()
+uint64_t sub_2455CA798(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFD52[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA840()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFE12[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA8C8()
+uint64_t sub_2455CA8C8(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFE12[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CA960()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFED8[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CA9E8()
+uint64_t sub_2455CA9E8(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455EFED8[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CAA80()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F025C[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CAB08()
+uint64_t sub_2455CAB08(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F025C[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CABA0()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F0334[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CAC28()
+uint64_t sub_2455CAC28(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F0334[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CACC0()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F036E[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CAD48()
+uint64_t sub_2455CAD48(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F036E[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CADF0()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F0440[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
-uint64_t sub_2455CAE78()
+uint64_t sub_2455CAE78(uint64_t a1)
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F0440[v1];
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }
 
 uint64_t sub_2455CAF10()
 {
-  v1 = *v0;
   sub_2455EA080();
-  v2 = word_2455F0484[v1];
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CAF98(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB030()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB0B8(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB150()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB1D8(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB270()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB2F8(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB390()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB418(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB490()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB50C(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB59C()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB624(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB6BC()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB744(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB7DC()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB864(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB904()
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CB994(uint64_t a1)
+{
+  sub_2455EA080();
+  sub_2455EA0B0();
+  return sub_2455EA0D0();
+}
+
+uint64_t sub_2455CBA34()
+{
+  sub_2455EA080();
   sub_2455EA0B0();
   return sub_2455EA0D0();
 }

@@ -5,6 +5,7 @@
 - (id)getCallScreeningEnabled:(id)enabled;
 - (id)specifiersWithSpecifier:(id)specifier;
 - (void)refreshView;
+- (void)setCallScreeningEnabled:(BOOL)enabled logAnalytics:(BOOL)analytics;
 - (void)setCallScreeningEnabled:(id)enabled specifier:(id)specifier;
 @end
 
@@ -141,37 +142,50 @@ LABEL_11:
 
   else
   {
-    v9 = PHDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PHDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Attempting to turn off Live Voicemail when Receptionist is on", buf, 2u);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Attempting to turn off Live Voicemail when Receptionist is on", buf, 2u);
     }
 
-    v10 = [TUCallScreeningSettingsBundleController localizedStringForKey:@"CALL_SCREENING_RECEPTIONIST_WARNING_TITLE"];
-    v11 = [TUCallScreeningSettingsBundleController localizedStringForKey:@"CALL_SCREENING_RECEPTIONIST_WARNING_MESSAGE"];
-    v12 = [UIAlertController alertControllerWithTitle:v10 message:v11 preferredStyle:1];
-    v13 = [TUCallScreeningSettingsBundleController localizedStringForKey:@"CALL_SCREENING_RECEPTIONIST_WARNING_CONTINUE"];
+    v11 = [TUCallScreeningSettingsBundleController localizedStringForKey:@"CALL_SCREENING_RECEPTIONIST_WARNING_TITLE"];
+    v12 = [TUCallScreeningSettingsBundleController localizedStringForKey:@"CALL_SCREENING_RECEPTIONIST_WARNING_MESSAGE"];
+    v13 = [UIAlertController alertControllerWithTitle:v11 message:v12 preferredStyle:1];
+    v14 = [TUCallScreeningSettingsBundleController localizedStringForKey:@"CALL_SCREENING_RECEPTIONIST_WARNING_CONTINUE"];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_183C;
+    v20[3] = &unk_8370;
+    v20[4] = self;
+    v21 = bOOLValue;
+    v15 = [UIAlertAction actionWithTitle:v14 style:0 handler:v20];
+    [v13 addAction:v15];
+    v16 = [TUCallScreeningSettingsBundleController localizedStringForKey:@"CALL_SCREENING_RECEPTIONIST_WARNING_CANCEL"];
     v19[0] = _NSConcreteStackBlock;
     v19[1] = 3221225472;
-    v19[2] = sub_183C;
-    v19[3] = &unk_8370;
+    v19[2] = sub_18C8;
+    v19[3] = &unk_8398;
     v19[4] = self;
-    v20 = bOOLValue;
-    v14 = [UIAlertAction actionWithTitle:v13 style:0 handler:v19];
-    [v12 addAction:v14];
-    v15 = [TUCallScreeningSettingsBundleController localizedStringForKey:@"CALL_SCREENING_RECEPTIONIST_WARNING_CANCEL"];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_18C8;
-    v18[3] = &unk_8398;
-    v18[4] = self;
-    v16 = [UIAlertAction actionWithTitle:v15 style:1 handler:v18];
-    [v12 addAction:v16];
-    [v12 setPreferredAction:v14];
+    v17 = [UIAlertAction actionWithTitle:v16 style:1 handler:v19];
+    [v13 addAction:v17];
+    [v13 setPreferredAction:v15];
     parentListController = [(TUCallScreeningSettingsBundleController *)self parentListController];
-    [parentListController presentViewController:v12 animated:1 completion:0];
+    [parentListController presentViewController:v13 animated:1 completion:0];
   }
+}
+
+- (void)setCallScreeningEnabled:(BOOL)enabled logAnalytics:(BOOL)analytics
+{
+  enabledCopy = enabled;
+  if (analytics)
+  {
+    analyticsReporter = [(TUCallScreeningSettingsBundleController *)self analyticsReporter];
+    [analyticsReporter logLiveVoiceMailToggleWithToggledTo:enabledCopy];
+  }
+
+  configurationProvider = [(TUCallScreeningSettingsBundleController *)self configurationProvider];
+  [configurationProvider setCallScreeningEnabled:enabledCopy];
 }
 
 @end

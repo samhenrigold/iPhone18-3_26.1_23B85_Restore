@@ -938,15 +938,15 @@ uint64_t __70__OFPageViewController__beginTransitionWithContext_completionHandle
   return [a2 setIsInFlight:1];
 }
 
-uint64_t __70__OFPageViewController__beginTransitionWithContext_completionHandler___block_invoke_3(uint64_t result, int a2, uint64_t a3, void *a4, double a5)
+id *__70__OFPageViewController__beginTransitionWithContext_completionHandler___block_invoke_3(id *result, int a2, uint64_t a3, void *a4, double a5)
 {
   if (a2)
   {
     v8 = result;
-    result = [*(result + 32) object];
+    result = [result[4] object];
     if (result)
     {
-      if ((*(result + 1168) & 8) != 0)
+      if ((result[146] & 8) != 0)
       {
         [objc_msgSend(result "delegate")];
       }
@@ -965,8 +965,8 @@ uint64_t __70__OFPageViewController__beginTransitionWithContext_completionHandle
       if (!v9)
       {
         [a4 setDoEaseIn:0];
-        [a4 setDoEaseOut:(*(*(v8 + 40) + 1010) & 1) == 0];
-        (*(*(v8 + 48) + 16))();
+        [a4 setDoEaseOut:(*(v8[5] + 1010) & 1) == 0];
+        (*(v8[6] + 2))();
       }
 
       v10 = [a4 interactor];

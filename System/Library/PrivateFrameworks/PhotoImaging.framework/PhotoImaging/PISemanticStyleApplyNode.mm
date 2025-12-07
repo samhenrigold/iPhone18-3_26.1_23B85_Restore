@@ -71,7 +71,7 @@ LABEL_26:
     {
       if (stateCopy)
       {
-        [stateCopy time];
+        objc_msgSend_time(stateCopy);
         if ((v67 & 0x100000000) != 0)
         {
           inputNode3 = [(PISemanticStyleApplyNode *)self inputNode];
@@ -99,11 +99,11 @@ LABEL_43:
           v33 = semanticStyleProperties;
           if (semanticStyleProperties)
           {
-            [semanticStyleProperties keyTime];
+            objc_msgSend_keyTime(semanticStyleProperties);
             if (v65)
             {
               v43 = [stateCopy copy];
-              [v33 keyTime];
+              objc_msgSend_keyTime(v33);
               v61 = v63;
               v62 = v64;
               [v43 setTime:&v61];

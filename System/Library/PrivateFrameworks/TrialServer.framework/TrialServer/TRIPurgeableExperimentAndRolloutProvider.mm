@@ -34,12 +34,12 @@
 
 - (id)purgeableExperimentsFromNamespaces:(id)namespaces eagerFactors:(id)factors overriddenFactors:(id)overriddenFactors
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CBEB98];
   overriddenFactorsCopy = overriddenFactors;
   factorsCopy = factors;
   namespacesCopy = namespaces;
-  v18 = [v8 set];
+  v17 = [v8 set];
   v12 = TRILogCategory_Server();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -47,25 +47,24 @@
     _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_DEFAULT, "Querying for purgeable experiments.", buf, 2u);
   }
 
-  [(TRIPurgeableExperimentAndRolloutProvider *)self _purgeablesForExperimentsFromNamespaces:namespacesCopy eagerFactors:factorsCopy overriddenFactors:overriddenFactorsCopy shouldGenerateAssetPaths:0 purgeableExperiments:&v18 purgeableAssets:0];
+  [(TRIPurgeableExperimentAndRolloutProvider *)self _purgeablesForExperimentsFromNamespaces:namespacesCopy eagerFactors:factorsCopy overriddenFactors:overriddenFactorsCopy shouldGenerateAssetPaths:0 purgeableExperiments:&v17 purgeableAssets:0];
   v13 = TRILogCategory_Server();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [v18 count];
+    v14 = [v17 count];
     *buf = 134217984;
-    v20 = v14;
+    v19 = v14;
     _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Found %lu purgeable experiments.", buf, 0xCu);
   }
 
-  v15 = v18;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = v17;
 
   return v15;
 }
 
 - (id)purgeableExperimentAssetsFromNamespaces:(id)namespaces eagerFactors:(id)factors overriddenFactors:(id)overriddenFactors
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CBEAC0];
   overriddenFactorsCopy = overriddenFactors;
   factorsCopy = factors;
@@ -84,24 +83,23 @@
   {
     v14 = [dictionary count];
     *buf = 134217984;
-    v20 = v14;
+    v19 = v14;
     _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Found %lu purgeable experiment assets.", buf, 0xCu);
   }
 
   v15 = dictionary;
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)purgeableRolloutsFromNamespaces:(id)namespaces eagerFactors:(id)factors overriddenFactors:(id)overriddenFactors
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CBEB98];
   overriddenFactorsCopy = overriddenFactors;
   factorsCopy = factors;
   namespacesCopy = namespaces;
-  v18 = [v8 set];
+  v17 = [v8 set];
   v12 = TRILogCategory_Server();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -109,25 +107,24 @@
     _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_DEFAULT, "Querying for purgeable rollouts.", buf, 2u);
   }
 
-  [(TRIPurgeableExperimentAndRolloutProvider *)self _purgeablesForRolloutsFromNamespaces:namespacesCopy eagerFactors:factorsCopy overriddenFactors:overriddenFactorsCopy shouldGenerateAssetPaths:0 purgeableExperiments:&v18 purgeableAssets:0];
+  [(TRIPurgeableExperimentAndRolloutProvider *)self _purgeablesForRolloutsFromNamespaces:namespacesCopy eagerFactors:factorsCopy overriddenFactors:overriddenFactorsCopy shouldGenerateAssetPaths:0 purgeableExperiments:&v17 purgeableAssets:0];
   v13 = TRILogCategory_Server();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [v18 count];
+    v14 = [v17 count];
     *buf = 134217984;
-    v20 = v14;
+    v19 = v14;
     _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Found %lu purgeable rollouts.", buf, 0xCu);
   }
 
-  v15 = v18;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = v17;
 
   return v15;
 }
 
 - (id)purgeableRolloutAssetsFromNamespaces:(id)namespaces eagerFactors:(id)factors overriddenFactors:(id)overriddenFactors
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CBEAC0];
   overriddenFactorsCopy = overriddenFactors;
   factorsCopy = factors;
@@ -146,12 +143,11 @@
   {
     v14 = [dictionary count];
     *buf = 134217984;
-    v20 = v14;
+    v19 = v14;
     _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Found %lu purgeable rollout assets.", buf, 0xCu);
   }
 
   v15 = dictionary;
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -159,7 +155,7 @@
 - (void)_checkTreatmentBasedExperimentForPurgeables:(id)purgeables experimentAssets:(id)assets experimentHasNamespaceWithEagerFactors:(BOOL *)factors experimentHasPurgeableNamespace:(BOOL)namespace overriddenFactors:(id)overriddenFactors record:(id)record shouldGenerateAssetPaths:(BOOL)paths storage:(id)self0
 {
   namespaceCopy = namespace;
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   purgeablesCopy = purgeables;
   assetsCopy = assets;
   overriddenFactorsCopy = overriddenFactors;
@@ -194,44 +190,44 @@
       if (name)
       {
         log = [overriddenFactorsCopy objectForKeyedSubscript:name];
-        v62 = recordCopy;
-        v63 = overriddenFactorsCopy;
-        v61 = storageCopy;
-        v59 = name;
+        v61 = recordCopy;
+        v62 = overriddenFactorsCopy;
+        v60 = storageCopy;
+        v58 = name;
         if (paths)
         {
           treatmentId3 = [recordCopy treatmentId];
-          v65 = [storageCopy urlForFactorsWithTreatmentId:treatmentId3 namespaceName:name];
+          v64 = [storageCopy urlForFactorsWithTreatmentId:treatmentId3 namespaceName:name];
         }
 
         else
         {
-          v65 = 0;
+          v64 = 0;
         }
 
         v30 = namespaceCopy;
-        v73 = 0u;
-        v74 = 0u;
-        v71 = 0u;
         v72 = 0u;
-        v60 = v20;
+        v73 = 0u;
+        v70 = 0u;
+        v71 = 0u;
+        v59 = v20;
         obj = [v20 factorLevelArray];
-        v31 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+        v31 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
         if (v31)
         {
           v32 = v31;
-          v70 = *v72;
-          v64 = purgeablesCopy;
+          v69 = *v71;
+          v63 = purgeablesCopy;
           do
           {
             for (i = 0; i != v32; ++i)
             {
-              if (*v72 != v70)
+              if (*v71 != v69)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v34 = *(*(&v71 + 1) + 8 * i);
+              v34 = *(*(&v70 + 1) + 8 * i);
               v35 = fileFromFactor(v34);
               v36 = v35;
               if (v35)
@@ -263,7 +259,7 @@
                     path2 = [v36 path];
                     [v45 addObject:path2];
 
-                    v47 = [v65 triPathAsOwner:0];
+                    v47 = [v64 triPathAsOwner:0];
                     stringByDeletingLastPathComponent = [v47 stringByDeletingLastPathComponent];
 
                     path3 = [v36 path];
@@ -271,17 +267,17 @@
                     v51 = v50 = assetsCopy;
 
                     v52 = MEMORY[0x277CCACA8];
-                    v75[0] = stringByDeletingLastPathComponent;
-                    v75[1] = @"assets";
-                    v75[2] = v51;
-                    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:3];
+                    v74[0] = stringByDeletingLastPathComponent;
+                    v74[1] = @"assets";
+                    v74[2] = v51;
+                    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:3];
                     v54 = [v52 pathWithComponents:v53];
 
                     v55 = [v50 objectForKeyedSubscript:v39];
                     [v55 addObject:v54];
 
                     assetsCopy = v50;
-                    purgeablesCopy = v64;
+                    purgeablesCopy = v63;
                     v30 = namespaceCopy;
                   }
                 }
@@ -299,17 +295,17 @@
               }
             }
 
-            v32 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+            v32 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
           }
 
           while (v32);
         }
 
-        recordCopy = v62;
-        overriddenFactorsCopy = v63;
-        v20 = v60;
-        storageCopy = v61;
-        name = v59;
+        recordCopy = v61;
+        overriddenFactorsCopy = v62;
+        v20 = v59;
+        storageCopy = v60;
+        name = v58;
       }
 
       else
@@ -332,12 +328,10 @@
       experimentDeployment = [recordCopy experimentDeployment];
       experimentId = [experimentDeployment experimentId];
       *buf = 138412290;
-      v78 = experimentId;
+      v77 = experimentId;
       _os_log_error_impl(&dword_26F567000, v20, OS_LOG_TYPE_ERROR, "No treatment Id for experiment with experiment id: %@", buf, 0xCu);
     }
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_purgeablesForExperimentsFromNamespaces:(id)namespaces eagerFactors:(id)factors overriddenFactors:(id)overriddenFactors shouldGenerateAssetPaths:(BOOL)paths purgeableExperiments:(id *)experiments purgeableAssets:(id *)assets
@@ -451,136 +445,136 @@ LABEL_13:
 
 void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFromNamespaces_eagerFactors_overriddenFactors_shouldGenerateAssetPaths_purgeableExperiments_purgeableAssets___block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 status] == 1)
   {
     if ([v3 deploymentEnvironment] != 2 && objc_msgSend(v3, "deploymentEnvironment") != 3)
     {
-      v9 = [v3 namespaces];
-      v10 = [v9 count];
+      v8 = [v3 namespaces];
+      v9 = [v8 count];
 
-      if (v10)
+      if (v9)
       {
-        v11 = [v3 treatmentId];
+        v10 = [v3 treatmentId];
 
-        if (v11)
+        if (v10)
         {
           v4 = objc_opt_new();
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
-          v35 = v3;
-          v12 = [v3 namespaces];
-          v13 = [v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
-          if (v13)
+          v34 = v3;
+          v11 = [v3 namespaces];
+          v12 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          if (v12)
           {
-            v14 = v13;
-            v15 = 0;
-            v16 = *v39;
+            v13 = v12;
+            v14 = 0;
+            v15 = *v38;
             do
             {
-              for (i = 0; i != v14; ++i)
+              for (i = 0; i != v13; ++i)
               {
-                if (*v39 != v16)
+                if (*v38 != v15)
                 {
-                  objc_enumerationMutation(v12);
+                  objc_enumerationMutation(v11);
                 }
 
-                v18 = [*(*(&v38 + 1) + 8 * i) name];
-                v19 = [*(a1 + 32) containsObject:v18];
-                v20 = [*(a1 + 40) objectForKeyedSubscript:v18];
+                v17 = [*(*(&v37 + 1) + 8 * i) name];
+                v18 = [*(a1 + 32) containsObject:v17];
+                v19 = [*(a1 + 40) objectForKeyedSubscript:v17];
 
-                if (v20)
+                if (v19)
                 {
-                  v21 = [*(a1 + 40) objectForKeyedSubscript:v18];
-                  [v4 unionSet:v21];
+                  v20 = [*(a1 + 40) objectForKeyedSubscript:v17];
+                  [v4 unionSet:v20];
                 }
 
-                v15 |= v19;
+                v14 |= v18;
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v38 objects:v42 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
             }
 
-            while (v14);
+            while (v13);
           }
 
           else
           {
-            v15 = 0;
+            v14 = 0;
           }
 
-          if ([v4 count]|| (v15 & 1) != 0)
+          if ([v4 count]|| (v14 & 1) != 0)
           {
-            v3 = v35;
+            v3 = v34;
             if (*(a1 + 88) == 1)
             {
-              v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
+              v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
             }
 
             else
             {
-              v23 = 0;
+              v22 = 0;
             }
 
-            v37 = 0;
-            v26 = [v35 factorPackSetId];
+            v36 = 0;
+            v25 = [v34 factorPackSetId];
 
-            if (v26)
+            if (v25)
             {
-              v27 = *(a1 + 48);
-              v28 = [v35 factorPackSetId];
-              LODWORD(v27) = [v27 _factorPackSetHasPurgeableFactorsWithFPSId:v28 eagerFactors:*(a1 + 40) overriddenFactors:*(a1 + 56) purgeableNamespaces:*(a1 + 32) returningAssets:v23];
+              v26 = *(a1 + 48);
+              v27 = [v34 factorPackSetId];
+              LODWORD(v26) = [v26 _factorPackSetHasPurgeableFactorsWithFPSId:v27 eagerFactors:*(a1 + 40) overriddenFactors:*(a1 + 56) purgeableNamespaces:*(a1 + 32) returningAssets:v22];
 
-              v37 = v27 != 0;
+              v36 = v26 != 0;
             }
 
-            LOBYTE(v34) = *(a1 + 88);
-            [*(a1 + 48) _checkTreatmentBasedExperimentForPurgeables:v4 experimentAssets:v23 experimentHasNamespaceWithEagerFactors:&v37 experimentHasPurgeableNamespace:v15 & 1 overriddenFactors:*(a1 + 56) record:v35 shouldGenerateAssetPaths:v34 storage:*(*(*(a1 + 64) + 8) + 40)];
-            if (v37)
+            LOBYTE(v33) = *(a1 + 88);
+            [*(a1 + 48) _checkTreatmentBasedExperimentForPurgeables:v4 experimentAssets:v22 experimentHasNamespaceWithEagerFactors:&v36 experimentHasPurgeableNamespace:v14 & 1 overriddenFactors:*(a1 + 56) record:v34 shouldGenerateAssetPaths:v33 storage:*(*(*(a1 + 64) + 8) + 40)];
+            if (v36)
             {
-              v29 = TRILogCategory_Server();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+              v28 = TRILogCategory_Server();
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
-                v30 = [v35 experimentDeployment];
-                v31 = [v30 experimentId];
+                v29 = [v34 experimentDeployment];
+                v30 = [v29 experimentId];
                 *buf = 138543362;
-                v44 = v31;
-                _os_log_impl(&dword_26F567000, v29, OS_LOG_TYPE_DEFAULT, "Found purgeable experiment %{public}@", buf, 0xCu);
+                v43 = v30;
+                _os_log_impl(&dword_26F567000, v28, OS_LOG_TYPE_DEFAULT, "Found purgeable experiment %{public}@", buf, 0xCu);
               }
 
               if (*(a1 + 88) == 1)
               {
-                v36[0] = MEMORY[0x277D85DD0];
-                v36[1] = 3221225472;
-                v36[2] = __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFromNamespaces_eagerFactors_overriddenFactors_shouldGenerateAssetPaths_purgeableExperiments_purgeableAssets___block_invoke_40;
-                v36[3] = &unk_279DDFEA0;
-                v36[4] = *(a1 + 72);
-                [v23 enumerateKeysAndObjectsUsingBlock:v36];
+                v35[0] = MEMORY[0x277D85DD0];
+                v35[1] = 3221225472;
+                v35[2] = __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFromNamespaces_eagerFactors_overriddenFactors_shouldGenerateAssetPaths_purgeableExperiments_purgeableAssets___block_invoke_40;
+                v35[3] = &unk_279DDFEA0;
+                v35[4] = *(a1 + 72);
+                [v22 enumerateKeysAndObjectsUsingBlock:v35];
               }
 
               else
               {
-                v32 = *(*(*(a1 + 80) + 8) + 40);
-                v33 = [v35 experimentDeployment];
-                [v32 addObject:v33];
+                v31 = *(*(*(a1 + 80) + 8) + 40);
+                v32 = [v34 experimentDeployment];
+                [v31 addObject:v32];
               }
             }
           }
 
           else
           {
-            v23 = TRILogCategory_Server();
-            v3 = v35;
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            v22 = TRILogCategory_Server();
+            v3 = v34;
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = [v35 experimentDeployment];
-              v25 = [v24 experimentId];
+              v23 = [v34 experimentDeployment];
+              v24 = [v23 experimentId];
               *buf = 138543362;
-              v44 = v25;
-              _os_log_impl(&dword_26F567000, v23, OS_LOG_TYPE_DEFAULT, "Skipping experiment %{public}@ without eager factors or purgeable namespace while looking for purgeable experiments", buf, 0xCu);
+              v43 = v24;
+              _os_log_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEFAULT, "Skipping experiment %{public}@ without eager factors or purgeable namespace while looking for purgeable experiments", buf, 0xCu);
             }
           }
 
@@ -596,8 +590,8 @@ void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFr
         v5 = [v3 experimentDeployment];
         v6 = [v5 experimentId];
         *buf = 138543362;
-        v44 = v6;
-        v22 = "Skipping experiment %{public}@ with no treatment ID.";
+        v43 = v6;
+        v21 = "Skipping experiment %{public}@ with no treatment ID.";
       }
 
       else
@@ -611,11 +605,11 @@ void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFr
         v5 = [v3 experimentDeployment];
         v6 = [v5 experimentId];
         *buf = 138543362;
-        v44 = v6;
-        v22 = "Skipping experiment %{public}@ with no namespaces.";
+        v43 = v6;
+        v21 = "Skipping experiment %{public}@ with no namespaces.";
       }
 
-      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, v22, buf, 0xCu);
+      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, v21, buf, 0xCu);
       goto LABEL_24;
     }
 
@@ -625,7 +619,7 @@ void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFr
       v5 = [v3 experimentDeployment];
       v6 = [v5 experimentId];
       *buf = 138543362;
-      v44 = v6;
+      v43 = v6;
       v7 = "Skipping experiment %{public}@ while looking for purgeable experiments since its does not have assets on device";
 LABEL_23:
       _os_log_debug_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEBUG, v7, buf, 0xCu);
@@ -641,15 +635,13 @@ LABEL_24:
       v5 = [v3 experimentDeployment];
       v6 = [v5 experimentId];
       *buf = 138543362;
-      v44 = v6;
+      v43 = v6;
       v7 = "Skipping experiment %{public}@ while looking for purgeable experiments since its not active";
       goto LABEL_23;
     }
   }
 
 LABEL_7:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFromNamespaces_eagerFactors_overriddenFactors_shouldGenerateAssetPaths_purgeableExperiments_purgeableAssets___block_invoke_40(uint64_t a1, void *a2, void *a3)
@@ -675,7 +667,7 @@ void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFr
 
 - (BOOL)_checkForPurgeableFactorsInEagerFactors:(id)factors factorLevel:(id)level legacyPath:(id)path overriddenFactors:(id)overriddenFactors purgeableNamespaces:(id)namespaces returningAssets:(id)assets
 {
-  v55[3] = *MEMORY[0x277D85DE8];
+  v54[3] = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   levelCopy = level;
   pathCopy = path;
@@ -684,7 +676,7 @@ void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFr
   assetsCopy = assets;
   v19 = fileFromFactor(levelCopy);
   v20 = v19;
-  v54 = assetsCopy;
+  v53 = assetsCopy;
   if (v19)
   {
     asset = [v19 asset];
@@ -725,13 +717,13 @@ void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFr
             v34 = v33 = factorsCopy;
 
             v35 = MEMORY[0x277CCACA8];
-            v55[0] = v32;
-            v55[1] = @"assets";
-            v55[2] = v34;
-            v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:3];
+            v54[0] = v32;
+            v54[1] = @"assets";
+            v54[2] = v34;
+            v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
             v37 = [v35 pathWithComponents:v36];
 
-            v38 = [v54 objectForKeyedSubscript:v23];
+            v38 = [v53 objectForKeyedSubscript:v23];
             [v38 addObject:v37];
 
             factorsCopy = v33;
@@ -745,7 +737,7 @@ void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFr
 
   if (factorIsValidRegularFileFactor(levelCopy))
   {
-    v53 = factorsCopy;
+    v52 = factorsCopy;
     factor = [levelCopy factor];
     namespaceName = [factor namespaceName];
 
@@ -762,14 +754,14 @@ void __177__TRIPurgeableExperimentAndRolloutProvider__purgeablesForExperimentsFr
 LABEL_19:
 
 LABEL_20:
-        factorsCopy = v53;
+        factorsCopy = v52;
         goto LABEL_21;
       }
 
-      v52 = v44;
+      v51 = v44;
     }
 
-    [v53 objectForKeyedSubscript:namespaceName];
+    [v52 objectForKeyedSubscript:namespaceName];
     v45 = namespacesCopy;
     v46 = overriddenFactorsCopy;
     v48 = v47 = pathCopy;
@@ -778,7 +770,7 @@ LABEL_20:
     pathCopy = v47;
     overriddenFactorsCopy = v46;
     namespacesCopy = v45;
-    v44 = v52;
+    v44 = v51;
     if (!v43)
     {
       goto LABEL_20;
@@ -790,7 +782,6 @@ LABEL_20:
   v49 = 0;
 LABEL_21:
 
-  v50 = *MEMORY[0x277D85DE8];
   return v49;
 }
 
@@ -896,7 +887,7 @@ LABEL_13:
 
 void __174__TRIPurgeableExperimentAndRolloutProvider__purgeablesForRolloutsFromNamespaces_eagerFactors_overriddenFactors_shouldGenerateAssetPaths_purgeableExperiments_purgeableAssets___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 status] != 1)
   {
@@ -909,7 +900,7 @@ void __174__TRIPurgeableExperimentAndRolloutProvider__purgeablesForRolloutsFromN
     v15 = [v3 deployment];
     v16 = [v15 rolloutId];
     *buf = 138543362;
-    v34 = v16;
+    v33 = v16;
     v17 = "Skipping inactive rollout %{public}@ while looking for purgeable rollouts";
     goto LABEL_20;
   }
@@ -918,34 +909,34 @@ void __174__TRIPurgeableExperimentAndRolloutProvider__purgeablesForRolloutsFromN
 
   if (v4)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v5 = [v3 namespaces];
-    v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
       v9 = 0;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v28 + 1) + 8 * i);
+          v12 = *(*(&v27 + 1) + 8 * i);
           v8 |= [*(a1 + 32) containsObject:v12];
           v13 = [*(a1 + 40) objectForKeyedSubscript:v12];
           v9 |= v13 != 0;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v7);
@@ -962,38 +953,38 @@ void __174__TRIPurgeableExperimentAndRolloutProvider__purgeablesForRolloutsFromN
           v14 = 0;
         }
 
-        v19 = *(a1 + 48);
-        v20 = [v3 activeFactorPackSetId];
-        LODWORD(v19) = [v19 _factorPackSetHasPurgeableFactorsWithFPSId:v20 eagerFactors:*(a1 + 40) overriddenFactors:*(a1 + 56) purgeableNamespaces:*(a1 + 32) returningAssets:v14];
+        v18 = *(a1 + 48);
+        v19 = [v3 activeFactorPackSetId];
+        LODWORD(v18) = [v18 _factorPackSetHasPurgeableFactorsWithFPSId:v19 eagerFactors:*(a1 + 40) overriddenFactors:*(a1 + 56) purgeableNamespaces:*(a1 + 32) returningAssets:v14];
 
-        if (v19)
+        if (v18)
         {
-          v21 = TRILogCategory_Server();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v20 = TRILogCategory_Server();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = [v3 deployment];
-            v23 = [v22 rolloutId];
+            v21 = [v3 deployment];
+            v22 = [v21 rolloutId];
             *buf = 138543362;
-            v34 = v23;
-            _os_log_impl(&dword_26F567000, v21, OS_LOG_TYPE_DEFAULT, "Found purgeable rollout %{public}@", buf, 0xCu);
+            v33 = v22;
+            _os_log_impl(&dword_26F567000, v20, OS_LOG_TYPE_DEFAULT, "Found purgeable rollout %{public}@", buf, 0xCu);
           }
 
           if (*(a1 + 80) == 1)
           {
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __174__TRIPurgeableExperimentAndRolloutProvider__purgeablesForRolloutsFromNamespaces_eagerFactors_overriddenFactors_shouldGenerateAssetPaths_purgeableExperiments_purgeableAssets___block_invoke_43;
-            v27[3] = &unk_279DDFEA0;
-            v27[4] = *(a1 + 64);
-            [v14 enumerateKeysAndObjectsUsingBlock:v27];
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __174__TRIPurgeableExperimentAndRolloutProvider__purgeablesForRolloutsFromNamespaces_eagerFactors_overriddenFactors_shouldGenerateAssetPaths_purgeableExperiments_purgeableAssets___block_invoke_43;
+            v26[3] = &unk_279DDFEA0;
+            v26[4] = *(a1 + 64);
+            [v14 enumerateKeysAndObjectsUsingBlock:v26];
           }
 
           else
           {
-            v24 = *(*(*(a1 + 72) + 8) + 40);
-            v25 = [v3 deployment];
-            v26 = [v25 rolloutId];
-            [v24 addObject:v26];
+            v23 = *(*(*(a1 + 72) + 8) + 40);
+            v24 = [v3 deployment];
+            v25 = [v24 rolloutId];
+            [v23 addObject:v25];
           }
         }
 
@@ -1014,7 +1005,7 @@ void __174__TRIPurgeableExperimentAndRolloutProvider__purgeablesForRolloutsFromN
     v15 = [v3 deployment];
     v16 = [v15 rolloutId];
     *buf = 138543362;
-    v34 = v16;
+    v33 = v16;
     v17 = "Skipping rollout %{public}@ without eager factors or purgeable namespace while looking for purgeable rollouts";
 LABEL_20:
     _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, v17, buf, 0xCu);
@@ -1026,13 +1017,11 @@ LABEL_20:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v34 = v3;
+    v33 = v3;
     _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Found active rollout with missing activeFactorPackSetId: %{public}@", buf, 0xCu);
   }
 
 LABEL_21:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __174__TRIPurgeableExperimentAndRolloutProvider__purgeablesForRolloutsFromNamespaces_eagerFactors_overriddenFactors_shouldGenerateAssetPaths_purgeableExperiments_purgeableAssets___block_invoke_43(uint64_t a1, void *a2, void *a3)
@@ -1168,23 +1157,23 @@ void __154__TRIPurgeableExperimentAndRolloutProvider__factorPackSetHasPurgeableF
 
 void __154__TRIPurgeableExperimentAndRolloutProvider__factorPackSetHasPurgeableFactorsWithFPSId_eagerFactors_overriddenFactors_purgeableNamespaces_returningAssets___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [*(a1 + 32) sourceAsFactorPackId];
 
   if (!v5)
   {
-    v20 = [MEMORY[0x277CCA890] currentHandler];
-    [v20 handleFailureInMethod:*(a1 + 96) object:*(a1 + 40) file:@"TRIPurgeableExperimentAndRolloutProvider.m" lineNumber:516 description:{@"Invalid parameter not satisfying: %@", @"fbFactorPack.sourceAsFactorPackId"}];
+    v19 = [MEMORY[0x277CCA890] currentHandler];
+    [v19 handleFailureInMethod:*(a1 + 96) object:*(a1 + 40) file:@"TRIPurgeableExperimentAndRolloutProvider.m" lineNumber:516 description:{@"Invalid parameter not satisfying: %@", @"fbFactorPack.sourceAsFactorPackId"}];
   }
 
   v6 = [*(a1 + 32) namespaceName];
 
   if (!v6)
   {
-    v21 = [MEMORY[0x277CCA890] currentHandler];
-    [v21 handleFailureInMethod:*(a1 + 96) object:*(a1 + 40) file:@"TRIPurgeableExperimentAndRolloutProvider.m" lineNumber:517 description:{@"Invalid parameter not satisfying: %@", @"fbFactorPack.namespaceName"}];
+    v20 = [MEMORY[0x277CCA890] currentHandler];
+    [v20 handleFailureInMethod:*(a1 + 96) object:*(a1 + 40) file:@"TRIPurgeableExperimentAndRolloutProvider.m" lineNumber:517 description:{@"Invalid parameter not satisfying: %@", @"fbFactorPack.namespaceName"}];
   }
 
   v7 = [*(a1 + 32) sourceAsFactorPackId];
@@ -1215,15 +1204,14 @@ void __154__TRIPurgeableExperimentAndRolloutProvider__factorPackSetHasPurgeableF
     v11 = TRILogCategory_Server();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v19 = [*(a1 + 32) sourceAsFactorPackId];
+      v18 = [*(a1 + 32) sourceAsFactorPackId];
       *buf = 138412290;
-      v23 = v19;
+      v22 = v18;
       _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Invalid factor pack id %@ while enumerating factor levels:", buf, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v4);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __154__TRIPurgeableExperimentAndRolloutProvider__factorPackSetHasPurgeableFactorsWithFPSId_eagerFactors_overriddenFactors_purgeableNamespaces_returningAssets___block_invoke_63(uint64_t a1, void *a2)

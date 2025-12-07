@@ -133,13 +133,13 @@
 
   if (v9)
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     goto LABEL_21;
   }
 
-  v10 = [(NSString *)v6 isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v10)
+  if (isEqualToString)
   {
 LABEL_10:
     v11 = profileCopy[2];
@@ -156,27 +156,27 @@ LABEL_16:
       v8 = v14;
       if (v6 == v14)
       {
-        LOBYTE(v10) = 1;
+        LOBYTE(isEqualToString) = 1;
       }
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqualToString) = 0;
         if (v6 && v14)
         {
-          LOBYTE(v10) = [(NSString *)v6 isEqualToString:v14];
+          LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v6);
         }
       }
 
       goto LABEL_21;
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (v6 && v12)
     {
-      v10 = [(NSString *)v6 isEqualToString:v12];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-      if (!v10)
+      if (!isEqualToString)
       {
         goto LABEL_22;
       }
@@ -189,7 +189,7 @@ LABEL_21:
 
 LABEL_22:
 
-  return v10;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

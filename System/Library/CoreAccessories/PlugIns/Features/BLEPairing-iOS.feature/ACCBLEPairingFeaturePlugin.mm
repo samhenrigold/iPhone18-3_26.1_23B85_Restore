@@ -64,10 +64,127 @@
 
 - (void)startPlugin
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2335AD000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  if (gLogObjects)
+  {
+    v3 = gNumLogObjects < 1;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (v3)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCBLEPairingFeaturePlugin startPlugin];
+    }
+
+    v5 = MEMORY[0x277D86220];
+    v4 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v5 = *gLogObjects;
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_DEFAULT, "Starting BLE Pairing feature plugin...", buf, 2u);
+  }
+
+  if (gLogObjects && gNumLogObjects >= 1)
+  {
+    v6 = *gLogObjects;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCBLEPairingFeaturePlugin startPlugin];
+    }
+
+    v6 = MEMORY[0x277D86220];
+    v7 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *v24 = 0;
+    _os_log_impl(&dword_2335AD000, v6, OS_LOG_TYPE_INFO, "Create/Get shared ACCiAP2ShimServer...", v24, 2u);
+  }
+
+  mEMORY[0x277CE84E8] = [MEMORY[0x277CE84E8] sharedInstance];
+  iap2server = self->_iap2server;
+  self->_iap2server = mEMORY[0x277CE84E8];
+
+  [(ACCiAP2ShimServer *)self->_iap2server startServer];
+  if (gLogObjects && gNumLogObjects >= 1)
+  {
+    v10 = *gLogObjects;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCBLEPairingFeaturePlugin startPlugin];
+    }
+
+    v10 = MEMORY[0x277D86220];
+    v11 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *v23 = 0;
+    _os_log_impl(&dword_2335AD000, v10, OS_LOG_TYPE_INFO, "Create ACCBLEPairingProvider...", v23, 2u);
+  }
+
+  v12 = dispatch_queue_create("com.apple.coreaccessories.plugin.blepairing", 0);
+  blePairingQueue = self->_blePairingQueue;
+  self->_blePairingQueue = v12;
+
+  v14 = [objc_alloc(MEMORY[0x277CE8100]) initWithDelegate:self];
+  blePairingProvider = self->_blePairingProvider;
+  self->_blePairingProvider = v14;
+
+  v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  blePairingAccessoryList = self->_blePairingAccessoryList;
+  self->_blePairingAccessoryList = v16;
+
+  v18 = [[ACCBLEPairingShim alloc] initWithDelegate:self];
+  blePairingShim = self->_blePairingShim;
+  self->_blePairingShim = v18;
+
+  [(ACCiAP2ShimServer *)self->_iap2server addDelegate:self->_blePairingShim];
+  if (gLogObjects && gNumLogObjects >= 1)
+  {
+    v20 = *gLogObjects;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCBLEPairingFeaturePlugin startPlugin];
+    }
+
+    v20 = MEMORY[0x277D86220];
+    v21 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  {
+    *v22 = 0;
+    _os_log_impl(&dword_2335AD000, v20, OS_LOG_TYPE_INFO, "Starting BLE Pairing feature plugin... finished, set isRunning", v22, 2u);
+  }
+
+  [(ACCBLEPairingFeaturePlugin *)self setIsRunning:1];
 }
 
 - (void)stopPlugin
@@ -148,7 +265,7 @@
 
 - (void)blePairing:(id)pairing accessoryAttached:(id)attached blePairingUUID:(id)d accInfoDict:(id)dict supportedPairTypes:(id)types
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   pairingCopy = pairing;
   attachedCopy = attached;
   dCopy = d;
@@ -186,17 +303,17 @@
     iap2server = self->_iap2server;
     blePairingProvider = self->_blePairingProvider;
     *buf = 138413570;
-    v35 = pairingCopy;
-    v36 = 2112;
-    v37 = attachedCopy;
-    v38 = 2112;
-    v39 = dCopy;
-    v40 = 2112;
-    v41 = blePairingProvider;
-    v42 = 2112;
-    v43 = blePairingShim;
-    v44 = 2112;
-    v45 = iap2server;
+    v34 = pairingCopy;
+    v35 = 2112;
+    v36 = attachedCopy;
+    v37 = 2112;
+    v38 = dCopy;
+    v39 = 2112;
+    v40 = blePairingProvider;
+    v41 = 2112;
+    v42 = blePairingShim;
+    v43 = 2112;
+    v44 = iap2server;
     _os_log_impl(&dword_2335AD000, v19, OS_LOG_TYPE_INFO, "blePairing: %@ accessoryAttached: %@, blePairingUUID=%@, _blePairingProvider=%@ _blePairingShim=%@ _iap2server=%@", buf, 0x3Eu);
   }
 
@@ -217,14 +334,14 @@
     block[1] = 3221225472;
     block[2] = __105__ACCBLEPairingFeaturePlugin_blePairing_accessoryAttached_blePairingUUID_accInfoDict_supportedPairTypes___block_invoke;
     block[3] = &unk_2789E0FF8;
-    v29 = attachedCopy;
-    v30 = dictCopy;
-    v31 = dCopy;
-    v32 = typesCopy;
+    v28 = attachedCopy;
+    v29 = dictCopy;
+    v30 = dCopy;
+    v31 = typesCopy;
     selfCopy = self;
     dispatch_async(blePairingQueue, block);
 
-    v24 = v29;
+    v24 = v28;
   }
 
   else
@@ -248,21 +365,19 @@
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v35 = pairingCopy;
-      v36 = 2112;
-      v37 = attachedCopy;
-      v38 = 2112;
-      v39 = dCopy;
+      v34 = pairingCopy;
+      v35 = 2112;
+      v36 = attachedCopy;
+      v37 = 2112;
+      v38 = dCopy;
       _os_log_impl(&dword_2335AD000, v24, OS_LOG_TYPE_INFO, "blePairing: %@ accessoryAttached: %@, blePairingUUID=%@, detected non-supported, don't use shim plugin", buf, 0x20u);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __105__ACCBLEPairingFeaturePlugin_blePairing_accessoryAttached_blePairingUUID_accInfoDict_supportedPairTypes___block_invoke(void *a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CE84E0]) initWithUID:a1[4] keyTag:@"BLEPairing" features:0];
   v3 = a1[5];
   if (v3)
@@ -401,7 +516,7 @@ void __105__ACCBLEPairingFeaturePlugin_blePairing_accessoryAttached_blePairingUU
   [(ACCBLEPairingAccessory *)v21 setIap2ShimAccessory:v2];
   [(ACCBLEPairingAccessory *)v21 setBlePairingUUID:a1[6]];
   [(ACCBLEPairingAccessory *)v21 setSupportedPairTypes:a1[7]];
-  v39 = v10;
+  v38 = v10;
   if (gLogObjects && gNumLogObjects >= 1)
   {
     v22 = *gLogObjects;
@@ -455,16 +570,16 @@ void __105__ACCBLEPairingFeaturePlugin_blePairing_accessoryAttached_blePairingUU
 
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      v36 = a1[6];
-      v37 = a1[7];
+      v35 = a1[6];
+      v36 = a1[7];
       *buf = 138413058;
-      v41 = v21;
-      v42 = 2112;
-      v43 = v36;
-      v44 = 2112;
-      v45 = v28;
-      v46 = 2112;
-      v47 = v37;
+      v40 = v21;
+      v41 = 2112;
+      v42 = v35;
+      v43 = 2112;
+      v44 = v28;
+      v45 = 2112;
+      v46 = v36;
       _os_log_debug_impl(&dword_2335AD000, v30, OS_LOG_TYPE_DEBUG, "accessoryAttached: call shim accessoryAttached: bleAccessory=%@ blePairingUUID=%@ pAccDict=%@ supportedPairTypes=%@", buf, 0x2Au);
     }
 
@@ -494,19 +609,17 @@ void __105__ACCBLEPairingFeaturePlugin_blePairing_accessoryAttached_blePairingUU
       v32 = a1[6];
       v33 = *(a1[8] + 40);
       *buf = 138412546;
-      v41 = v32;
-      v42 = 2112;
-      v43 = v33;
+      v40 = v32;
+      v41 = 2112;
+      v42 = v33;
       _os_log_impl(&dword_2335AD000, v28, OS_LOG_TYPE_INFO, "Invalid blePairingUUID(%@) or _blePairingShim(%@)", buf, 0x16u);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blePairing:(id)pairing accessoryDetached:(id)detached blePairingUUID:(id)d
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   pairingCopy = pairing;
   detachedCopy = detached;
   dCopy = d;
@@ -542,17 +655,17 @@ void __105__ACCBLEPairingFeaturePlugin_blePairing_accessoryAttached_blePairingUU
     iap2server = self->_iap2server;
     blePairingProvider = self->_blePairingProvider;
     *buf = 138413570;
-    v25 = pairingCopy;
-    v26 = 2112;
-    v27 = detachedCopy;
-    v28 = 2112;
-    v29 = dCopy;
-    v30 = 2112;
-    v31 = blePairingProvider;
-    v32 = 2112;
-    v33 = blePairingShim;
-    v34 = 2112;
-    v35 = iap2server;
+    v24 = pairingCopy;
+    v25 = 2112;
+    v26 = detachedCopy;
+    v27 = 2112;
+    v28 = dCopy;
+    v29 = 2112;
+    v30 = blePairingProvider;
+    v31 = 2112;
+    v32 = blePairingShim;
+    v33 = 2112;
+    v34 = iap2server;
     _os_log_impl(&dword_2335AD000, v13, OS_LOG_TYPE_INFO, "blePairing: %@ accessoryDetached: %@, blePairingUUID=%@, _blePairingProvider=%@ _blePairingShim=%@ _iap2server=%@", buf, 0x3Eu);
   }
 
@@ -562,18 +675,16 @@ void __105__ACCBLEPairingFeaturePlugin_blePairing_accessoryAttached_blePairingUU
   block[2] = __74__ACCBLEPairingFeaturePlugin_blePairing_accessoryDetached_blePairingUUID___block_invoke;
   block[3] = &unk_2789E1020;
   block[4] = self;
-  v22 = detachedCopy;
-  v23 = dCopy;
+  v21 = detachedCopy;
+  v22 = dCopy;
   v18 = dCopy;
   v19 = detachedCopy;
   dispatch_async(blePairingQueue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ACCBLEPairingFeaturePlugin_blePairing_accessoryDetached_blePairingUUID___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 16) findAccessoryForAccessoryUID:a1[5] andKeyTag:@"BLEPairing"];
   if (v2 && a1[6] && *(a1[4] + 40) && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -620,24 +731,22 @@ void __74__ACCBLEPairingFeaturePlugin_blePairing_accessoryDetached_blePairingUUI
     {
       v10 = a1[6];
       v11 = *(a1[4] + 40);
-      v13 = 138412802;
-      v14 = v2;
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_INFO, "Invalid accessory(%@) or blePairingUUID(%@) or _blePairingShim(%@)", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = v2;
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_INFO, "Invalid accessory(%@) or blePairingUUID(%@) or _blePairingShim(%@)", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blePairingStateUpdate:(id)update validMask:(unsigned int)mask btRadioOn:(BOOL)on pairingState:(int)state pairingModeOn:(BOOL)modeOn accessory:(id)accessory blePairingUUID:(id)d
 {
   modeOnCopy = modeOn;
   onCopy = on;
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   accessoryCopy = accessory;
   dCopy = d;
@@ -672,23 +781,23 @@ void __74__ACCBLEPairingFeaturePlugin_blePairing_accessoryDetached_blePairingUUI
     blePairingProvider = self->_blePairingProvider;
     blePairingShim = self->_blePairingShim;
     *buf = 138414338;
-    v35 = updateCopy;
-    v36 = 1024;
+    v34 = updateCopy;
+    v35 = 1024;
     maskCopy = mask;
-    v38 = 1024;
-    v39 = onCopy;
-    v40 = 1024;
+    v37 = 1024;
+    v38 = onCopy;
+    v39 = 1024;
     stateCopy = state;
-    v42 = 1024;
-    v43 = modeOnCopy;
-    v44 = 2112;
-    v45 = accessoryCopy;
-    v46 = 2112;
-    v47 = dCopy;
-    v48 = 2112;
-    v49 = blePairingProvider;
-    v50 = 2112;
-    v51 = blePairingShim;
+    v41 = 1024;
+    v42 = modeOnCopy;
+    v43 = 2112;
+    v44 = accessoryCopy;
+    v45 = 2112;
+    v46 = dCopy;
+    v47 = 2112;
+    v48 = blePairingProvider;
+    v49 = 2112;
+    v50 = blePairingShim;
     _os_log_impl(&dword_2335AD000, v20, OS_LOG_TYPE_INFO, "blePairingStateUpdate: %@ validMask: %d btRadioOn: %d pairingState: %d pairingModeOn: %d accessory: %@ blePairingUUID: %@, _blePairingProvider=%@ _blePairingShim=%@", buf, 0x4Cu);
   }
 
@@ -698,22 +807,20 @@ void __74__ACCBLEPairingFeaturePlugin_blePairing_accessoryDetached_blePairingUUI
   block[2] = __124__ACCBLEPairingFeaturePlugin_blePairingStateUpdate_validMask_btRadioOn_pairingState_pairingModeOn_accessory_blePairingUUID___block_invoke;
   block[3] = &unk_2789E1048;
   block[4] = self;
-  v28 = accessoryCopy;
-  v29 = dCopy;
-  v32 = onCopy;
+  v27 = accessoryCopy;
+  v28 = dCopy;
+  v31 = onCopy;
   maskCopy2 = mask;
   stateCopy2 = state;
-  v33 = modeOnCopy;
+  v32 = modeOnCopy;
   v24 = dCopy;
   v25 = accessoryCopy;
   dispatch_async(blePairingQueue, block);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __124__ACCBLEPairingFeaturePlugin_blePairingStateUpdate_validMask_btRadioOn_pairingState_pairingModeOn_accessory_blePairingUUID___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) findAccessoryForAccessoryUID:*(a1 + 40) andKeyTag:@"BLEPairing"];
   if (v2 && *(a1 + 48) && *(*(a1 + 32) + 40) && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -756,22 +863,20 @@ void __124__ACCBLEPairingFeaturePlugin_blePairingStateUpdate_validMask_btRadioOn
     {
       v8 = *(a1 + 48);
       v9 = *(*(a1 + 32) + 40);
-      v11 = 138412802;
-      v12 = v2;
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_INFO, "Invalid accessory(%@) or blePairingUUID(%@) or _blePairingShim(%@)", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = v2;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_INFO, "Invalid accessory(%@) or blePairingUUID(%@) or _blePairingShim(%@)", &v10, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blePairingInfoUpdate:(id)update pairType:(int)type pairInfoList:(id)list accessory:(id)accessory blePairingUUID:(id)d
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   listCopy = list;
   accessoryCopy = accessory;
@@ -807,19 +912,19 @@ void __124__ACCBLEPairingFeaturePlugin_blePairingStateUpdate_validMask_btRadioOn
     blePairingProvider = self->_blePairingProvider;
     blePairingShim = self->_blePairingShim;
     *buf = 138413826;
-    v32 = updateCopy;
-    v33 = 1024;
+    v31 = updateCopy;
+    v32 = 1024;
     typeCopy = type;
-    v35 = 2112;
-    v36 = listCopy;
-    v37 = 2112;
-    v38 = accessoryCopy;
-    v39 = 2112;
-    v40 = dCopy;
-    v41 = 2112;
-    v42 = blePairingProvider;
-    v43 = 2112;
-    v44 = blePairingShim;
+    v34 = 2112;
+    v35 = listCopy;
+    v36 = 2112;
+    v37 = accessoryCopy;
+    v38 = 2112;
+    v39 = dCopy;
+    v40 = 2112;
+    v41 = blePairingProvider;
+    v42 = 2112;
+    v43 = blePairingShim;
     _os_log_impl(&dword_2335AD000, v18, OS_LOG_TYPE_INFO, "blePairingInfoUpdate: %@ pairType: %d pairInfoList: %@ accessory: %@ blePairingUUID: %@, _blePairingProvider=%@ _blePairingShim=%@", buf, 0x44u);
   }
 
@@ -829,21 +934,19 @@ void __124__ACCBLEPairingFeaturePlugin_blePairingStateUpdate_validMask_btRadioOn
   block[2] = __98__ACCBLEPairingFeaturePlugin_blePairingInfoUpdate_pairType_pairInfoList_accessory_blePairingUUID___block_invoke;
   block[3] = &unk_2789E1070;
   block[4] = self;
-  v27 = accessoryCopy;
+  v26 = accessoryCopy;
   typeCopy2 = type;
-  v28 = dCopy;
-  v29 = listCopy;
+  v27 = dCopy;
+  v28 = listCopy;
   v22 = listCopy;
   v23 = dCopy;
   v24 = accessoryCopy;
   dispatch_async(blePairingQueue, block);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __98__ACCBLEPairingFeaturePlugin_blePairingInfoUpdate_pairType_pairInfoList_accessory_blePairingUUID___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) findAccessoryForAccessoryUID:*(a1 + 40) andKeyTag:@"BLEPairing"];
   if (v2 && *(a1 + 48) && *(*(a1 + 32) + 40) && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -886,22 +989,20 @@ void __98__ACCBLEPairingFeaturePlugin_blePairingInfoUpdate_pairType_pairInfoList
     {
       v8 = *(a1 + 48);
       v9 = *(*(a1 + 32) + 40);
-      v11 = 138412802;
-      v12 = v2;
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_INFO, "Invalid accessory(%@) or blePairingUUID(%@) or _blePairingShim(%@)", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = v2;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_INFO, "Invalid accessory(%@) or blePairingUUID(%@) or _blePairingShim(%@)", &v10, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blePairingDataUpdate:(id)update pairType:(int)type pairData:(id)data accessory:(id)accessory blePairingUUID:(id)d
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   dataCopy = data;
   accessoryCopy = accessory;
@@ -937,19 +1038,19 @@ void __98__ACCBLEPairingFeaturePlugin_blePairingInfoUpdate_pairType_pairInfoList
     blePairingProvider = self->_blePairingProvider;
     blePairingShim = self->_blePairingShim;
     *buf = 138413826;
-    v32 = updateCopy;
-    v33 = 1024;
+    v31 = updateCopy;
+    v32 = 1024;
     typeCopy = type;
-    v35 = 2112;
-    v36 = dataCopy;
-    v37 = 2112;
-    v38 = accessoryCopy;
-    v39 = 2112;
-    v40 = dCopy;
-    v41 = 2112;
-    v42 = blePairingProvider;
-    v43 = 2112;
-    v44 = blePairingShim;
+    v34 = 2112;
+    v35 = dataCopy;
+    v36 = 2112;
+    v37 = accessoryCopy;
+    v38 = 2112;
+    v39 = dCopy;
+    v40 = 2112;
+    v41 = blePairingProvider;
+    v42 = 2112;
+    v43 = blePairingShim;
     _os_log_impl(&dword_2335AD000, v18, OS_LOG_TYPE_INFO, "blePairingDataUpdate: %@ pairType: %d pairData: %@ accessory: %@ blePairingUUID: %@, _blePairingProvider=%@ _blePairingShim=%@", buf, 0x44u);
   }
 
@@ -959,21 +1060,19 @@ void __98__ACCBLEPairingFeaturePlugin_blePairingInfoUpdate_pairType_pairInfoList
   block[2] = __94__ACCBLEPairingFeaturePlugin_blePairingDataUpdate_pairType_pairData_accessory_blePairingUUID___block_invoke;
   block[3] = &unk_2789E1070;
   block[4] = self;
-  v27 = accessoryCopy;
+  v26 = accessoryCopy;
   typeCopy2 = type;
-  v28 = dCopy;
-  v29 = dataCopy;
+  v27 = dCopy;
+  v28 = dataCopy;
   v22 = dataCopy;
   v23 = dCopy;
   v24 = accessoryCopy;
   dispatch_async(blePairingQueue, block);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __94__ACCBLEPairingFeaturePlugin_blePairingDataUpdate_pairType_pairData_accessory_blePairingUUID___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) findAccessoryForAccessoryUID:*(a1 + 40) andKeyTag:@"BLEPairing"];
   if (v2 && *(a1 + 48) && *(*(a1 + 32) + 40) && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -1016,17 +1115,15 @@ void __94__ACCBLEPairingFeaturePlugin_blePairingDataUpdate_pairType_pairData_acc
     {
       v8 = *(a1 + 48);
       v9 = *(*(a1 + 32) + 40);
-      v11 = 138412802;
-      v12 = v2;
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_INFO, "Invalid accessory(%@) or blePairingUUID(%@) or _blePairingShim(%@)", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = v2;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_2335AD000, v5, OS_LOG_TYPE_INFO, "Invalid accessory(%@) or blePairingUUID(%@) or _blePairingShim(%@)", &v10, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bleAccessoryForConnectionID:(unsigned int)d
@@ -1066,7 +1163,7 @@ void __58__ACCBLEPairingFeaturePlugin_bleAccessoryForConnectionID___block_invoke
 {
   infoCopy = info;
   radioCopy = radio;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   updatesCopy = updates;
   if (gLogObjects)
   {
@@ -1099,17 +1196,17 @@ void __58__ACCBLEPairingFeaturePlugin_bleAccessoryForConnectionID___block_invoke
     blePairingProvider = self->_blePairingProvider;
     blePairingShim = self->_blePairingShim;
     *buf = 138413570;
-    v25 = updatesCopy;
-    v26 = 1024;
+    v24 = updatesCopy;
+    v25 = 1024;
     typeCopy = type;
-    v28 = 1024;
-    v29 = radioCopy;
-    v30 = 1024;
-    v31 = infoCopy;
-    v32 = 2112;
-    v33 = blePairingProvider;
-    v34 = 2112;
-    v35 = blePairingShim;
+    v27 = 1024;
+    v28 = radioCopy;
+    v29 = 1024;
+    v30 = infoCopy;
+    v31 = 2112;
+    v32 = blePairingProvider;
+    v33 = 2112;
+    v34 = blePairingShim;
     _os_log_impl(&dword_2335AD000, v13, OS_LOG_TYPE_INFO, "blePairing deviceStartBLEUpdates: %@ pairType:%d btRadio:%d pairInfoUpdateOn:%d, _blePairingProvider=%@ _blePairingShim=%@", buf, 0x32u);
   }
 
@@ -1119,71 +1216,65 @@ void __58__ACCBLEPairingFeaturePlugin_bleAccessoryForConnectionID___block_invoke
   block[2] = __78__ACCBLEPairingFeaturePlugin_deviceStartBLEUpdates_pairType_btRadio_pairInfo___block_invoke;
   block[3] = &unk_2789E10C0;
   block[4] = self;
-  v20 = updatesCopy;
+  v19 = updatesCopy;
   typeCopy2 = type;
-  v22 = radioCopy;
-  v23 = infoCopy;
+  v21 = radioCopy;
+  v22 = infoCopy;
   v17 = updatesCopy;
   dispatch_async(blePairingQueue, block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ACCBLEPairingFeaturePlugin_deviceStartBLEUpdates_pairType_btRadio_pairInfo___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
   {
-    v13 = [*(a1 + 40) iap2ShimAccessory];
-    v3 = [v13 accessoryUID];
+    v11 = [*(a1 + 40) iap2ShimAccessory];
+    v3 = [v11 accessoryUID];
     v4 = [*(a1 + 40) blePairingUUID];
     [v2 startBLEUpdates:v3 blePairingUUID:v4 pairType:*(a1 + 48) bRadioUpdatesOn:*(a1 + 52) bPairInfoUpdatesOn:*(a1 + 53)];
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (gLogObjects)
     {
-      v6 = gNumLogObjects < 1;
+      v5 = gNumLogObjects < 1;
     }
 
     else
     {
-      v6 = 1;
+      v5 = 1;
     }
 
-    if (v6)
+    if (v5)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         [ACCBLEPairingFeaturePlugin startPlugin];
       }
 
-      v8 = MEMORY[0x277D86220];
       v7 = MEMORY[0x277D86220];
+      v6 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v8 = *gLogObjects;
+      v7 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 40) iap2ShimAccessory];
-      v10 = [v9 accessoryUID];
-      v11 = *(*(a1 + 32) + 24);
+      v8 = [*(a1 + 40) iap2ShimAccessory];
+      v9 = [v8 accessoryUID];
+      v10 = *(*(a1 + 32) + 24);
       *buf = 138412546;
+      v13 = v9;
+      v14 = 2112;
       v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_2335AD000, v8, OS_LOG_TYPE_DEFAULT, "blePairing deviceStartBLEUpdates: %@, skip processing, _blePairingProvider(%@) nil", buf, 0x16u);
+      _os_log_impl(&dword_2335AD000, v7, OS_LOG_TYPE_DEFAULT, "blePairing deviceStartBLEUpdates: %@, skip processing, _blePairingProvider(%@) nil", buf, 0x16u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1192,7 +1283,7 @@ void __78__ACCBLEPairingFeaturePlugin_deviceStartBLEUpdates_pairType_btRadio_pai
   updatesCopy = updates;
   onCopy = on;
   radioCopy = radio;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (gLogObjects)
   {
@@ -1225,19 +1316,19 @@ void __78__ACCBLEPairingFeaturePlugin_deviceStartBLEUpdates_pairType_btRadio_pai
     blePairingProvider = self->_blePairingProvider;
     blePairingShim = self->_blePairingShim;
     *buf = 138413826;
-    v27 = updateCopy;
-    v28 = 1024;
-    v29 = radioCopy;
-    v30 = 1024;
+    v26 = updateCopy;
+    v27 = 1024;
+    v28 = radioCopy;
+    v29 = 1024;
     statusCopy = status;
-    v32 = 1024;
-    v33 = onCopy;
-    v34 = 1024;
-    v35 = updatesCopy;
-    v36 = 2112;
-    v37 = blePairingProvider;
-    v38 = 2112;
-    v39 = blePairingShim;
+    v31 = 1024;
+    v32 = onCopy;
+    v33 = 1024;
+    v34 = updatesCopy;
+    v35 = 2112;
+    v36 = blePairingProvider;
+    v37 = 2112;
+    v38 = blePairingShim;
     _os_log_impl(&dword_2335AD000, v15, OS_LOG_TYPE_INFO, "blePairing deviceStateUpdate: %@ btRadio:%d pairStatus:%d pairModeOn:%d forceUpdates:%d, _blePairingProvider=%@ _blePairingShim=%@", buf, 0x38u);
   }
 
@@ -1247,77 +1338,71 @@ void __78__ACCBLEPairingFeaturePlugin_deviceStartBLEUpdates_pairType_btRadio_pai
   block[2] = __91__ACCBLEPairingFeaturePlugin_deviceStateUpdate_btRadio_pairStatus_pairModeOn_forceUpdates___block_invoke;
   block[3] = &unk_2789E10C0;
   block[4] = self;
-  v22 = updateCopy;
-  v24 = radioCopy;
+  v21 = updateCopy;
+  v23 = radioCopy;
   statusCopy2 = status;
-  v25 = onCopy;
+  v24 = onCopy;
   v19 = updateCopy;
   dispatch_async(blePairingQueue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __91__ACCBLEPairingFeaturePlugin_deviceStateUpdate_btRadio_pairStatus_pairModeOn_forceUpdates___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
   {
-    v13 = [*(a1 + 40) iap2ShimAccessory];
-    v3 = [v13 accessoryUID];
+    v11 = [*(a1 + 40) iap2ShimAccessory];
+    v3 = [v11 accessoryUID];
     v4 = [*(a1 + 40) blePairingUUID];
     [v2 deviceStateUpdate:v3 blePairingUUID:v4 bRadioOn:*(a1 + 52) != 0 pairState:*(a1 + 48) bPairModeOn:*(a1 + 53)];
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (gLogObjects)
     {
-      v6 = gNumLogObjects < 1;
+      v5 = gNumLogObjects < 1;
     }
 
     else
     {
-      v6 = 1;
+      v5 = 1;
     }
 
-    if (v6)
+    if (v5)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         [ACCBLEPairingFeaturePlugin startPlugin];
       }
 
-      v8 = MEMORY[0x277D86220];
       v7 = MEMORY[0x277D86220];
+      v6 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v8 = *gLogObjects;
+      v7 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 40) iap2ShimAccessory];
-      v10 = [v9 accessoryUID];
-      v11 = *(*(a1 + 32) + 24);
+      v8 = [*(a1 + 40) iap2ShimAccessory];
+      v9 = [v8 accessoryUID];
+      v10 = *(*(a1 + 32) + 24);
       *buf = 138412546;
+      v13 = v9;
+      v14 = 2112;
       v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_2335AD000, v8, OS_LOG_TYPE_DEFAULT, "blePairing deviceStateUpdate: %@, skip processing, _blePairingProvider(%@) nil or doesn't support selector", buf, 0x16u);
+      _os_log_impl(&dword_2335AD000, v7, OS_LOG_TYPE_DEFAULT, "blePairing deviceStateUpdate: %@, skip processing, _blePairingProvider(%@) nil or doesn't support selector", buf, 0x16u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)deviceSend:(id)send pairType:(int)type pairingData:(id)data
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   sendCopy = send;
   dataCopy = data;
   if (gLogObjects)
@@ -1351,95 +1436,89 @@ void __91__ACCBLEPairingFeaturePlugin_deviceStateUpdate_btRadio_pairStatus_pairM
     blePairingProvider = self->_blePairingProvider;
     blePairingShim = self->_blePairingShim;
     *buf = 138413314;
-    v24 = sendCopy;
-    v25 = 1024;
+    v23 = sendCopy;
+    v24 = 1024;
     typeCopy = type;
-    v27 = 2112;
-    v28 = dataCopy;
-    v29 = 2112;
-    v30 = blePairingProvider;
-    v31 = 2112;
-    v32 = blePairingShim;
+    v26 = 2112;
+    v27 = dataCopy;
+    v28 = 2112;
+    v29 = blePairingProvider;
+    v30 = 2112;
+    v31 = blePairingShim;
     _os_log_impl(&dword_2335AD000, v12, OS_LOG_TYPE_INFO, "blePairing deviceSend: %@ pairType:%d pairingData:%@, _blePairingProvider=%@ _blePairingShim=%@", buf, 0x30u);
   }
 
   blePairingQueue = self->_blePairingQueue;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __62__ACCBLEPairingFeaturePlugin_deviceSend_pairType_pairingData___block_invoke;
-  v19[3] = &unk_2789E10E8;
-  v19[4] = self;
-  v20 = sendCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __62__ACCBLEPairingFeaturePlugin_deviceSend_pairType_pairingData___block_invoke;
+  v18[3] = &unk_2789E10E8;
+  v18[4] = self;
+  v19 = sendCopy;
   typeCopy2 = type;
-  v21 = dataCopy;
+  v20 = dataCopy;
   v16 = dataCopy;
   v17 = sendCopy;
-  dispatch_async(blePairingQueue, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  dispatch_async(blePairingQueue, v18);
 }
 
 void __62__ACCBLEPairingFeaturePlugin_deviceSend_pairType_pairingData___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
   {
-    v13 = [*(a1 + 40) iap2ShimAccessory];
-    v3 = [v13 accessoryUID];
+    v11 = [*(a1 + 40) iap2ShimAccessory];
+    v3 = [v11 accessoryUID];
     v4 = [*(a1 + 40) blePairingUUID];
     [v2 devicePairingData:v3 blePairingUUID:v4 pairType:*(a1 + 56) pairData:*(a1 + 48)];
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (gLogObjects)
     {
-      v6 = gNumLogObjects < 1;
+      v5 = gNumLogObjects < 1;
     }
 
     else
     {
-      v6 = 1;
+      v5 = 1;
     }
 
-    if (v6)
+    if (v5)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         [ACCBLEPairingFeaturePlugin startPlugin];
       }
 
-      v8 = MEMORY[0x277D86220];
       v7 = MEMORY[0x277D86220];
+      v6 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v8 = *gLogObjects;
+      v7 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 40) iap2ShimAccessory];
-      v10 = [v9 accessoryUID];
-      v11 = *(*(a1 + 32) + 24);
+      v8 = [*(a1 + 40) iap2ShimAccessory];
+      v9 = [v8 accessoryUID];
+      v10 = *(*(a1 + 32) + 24);
       *buf = 138412546;
+      v13 = v9;
+      v14 = 2112;
       v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_2335AD000, v8, OS_LOG_TYPE_DEFAULT, "blePairing deviceSend: %@, skip processing, _blePairingProvider(%@) nil or doesn't support selector", buf, 0x16u);
+      _os_log_impl(&dword_2335AD000, v7, OS_LOG_TYPE_DEFAULT, "blePairing deviceSend: %@, skip processing, _blePairingProvider(%@) nil or doesn't support selector", buf, 0x16u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)deviceUpdate:(id)update pairType:(int)type pairInfo:(id)info
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   infoCopy = info;
   if (gLogObjects)
@@ -1473,95 +1552,89 @@ void __62__ACCBLEPairingFeaturePlugin_deviceSend_pairType_pairingData___block_in
     blePairingProvider = self->_blePairingProvider;
     blePairingShim = self->_blePairingShim;
     *buf = 138413314;
-    v24 = updateCopy;
-    v25 = 1024;
+    v23 = updateCopy;
+    v24 = 1024;
     typeCopy = type;
-    v27 = 2112;
-    v28 = infoCopy;
-    v29 = 2112;
-    v30 = blePairingProvider;
-    v31 = 2112;
-    v32 = blePairingShim;
+    v26 = 2112;
+    v27 = infoCopy;
+    v28 = 2112;
+    v29 = blePairingProvider;
+    v30 = 2112;
+    v31 = blePairingShim;
     _os_log_impl(&dword_2335AD000, v12, OS_LOG_TYPE_INFO, "blePairing deviceUpdate: %@ pairType:%d pairingInfo:%@, _blePairingProvider=%@ _blePairingShim=%@", buf, 0x30u);
   }
 
   blePairingQueue = self->_blePairingQueue;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __61__ACCBLEPairingFeaturePlugin_deviceUpdate_pairType_pairInfo___block_invoke;
-  v19[3] = &unk_2789E10E8;
-  v19[4] = self;
-  v20 = updateCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __61__ACCBLEPairingFeaturePlugin_deviceUpdate_pairType_pairInfo___block_invoke;
+  v18[3] = &unk_2789E10E8;
+  v18[4] = self;
+  v19 = updateCopy;
   typeCopy2 = type;
-  v21 = infoCopy;
+  v20 = infoCopy;
   v16 = infoCopy;
   v17 = updateCopy;
-  dispatch_async(blePairingQueue, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  dispatch_async(blePairingQueue, v18);
 }
 
 void __61__ACCBLEPairingFeaturePlugin_deviceUpdate_pairType_pairInfo___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
   {
-    v13 = [*(a1 + 40) iap2ShimAccessory];
-    v3 = [v13 accessoryUID];
+    v11 = [*(a1 + 40) iap2ShimAccessory];
+    v3 = [v11 accessoryUID];
     v4 = [*(a1 + 40) blePairingUUID];
     [v2 deviceUpdatePairingInfo:v3 blePairingUUID:v4 pairType:*(a1 + 56) pairInfo:*(a1 + 48)];
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (gLogObjects)
     {
-      v6 = gNumLogObjects < 1;
+      v5 = gNumLogObjects < 1;
     }
 
     else
     {
-      v6 = 1;
+      v5 = 1;
     }
 
-    if (v6)
+    if (v5)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         [ACCBLEPairingFeaturePlugin startPlugin];
       }
 
-      v8 = MEMORY[0x277D86220];
       v7 = MEMORY[0x277D86220];
+      v6 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v8 = *gLogObjects;
+      v7 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 40) iap2ShimAccessory];
-      v10 = [v9 accessoryUID];
-      v11 = *(*(a1 + 32) + 24);
+      v8 = [*(a1 + 40) iap2ShimAccessory];
+      v9 = [v8 accessoryUID];
+      v10 = *(*(a1 + 32) + 24);
       *buf = 138412546;
+      v13 = v9;
+      v14 = 2112;
       v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_2335AD000, v8, OS_LOG_TYPE_DEFAULT, "blePairing deviceUpdate: %@, skip processing, _blePairingProvider(%@) nil or doesn't support selector", buf, 0x16u);
+      _os_log_impl(&dword_2335AD000, v7, OS_LOG_TYPE_DEFAULT, "blePairing deviceUpdate: %@, skip processing, _blePairingProvider(%@) nil or doesn't support selector", buf, 0x16u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)deviceStopBLEUpdates:(id)updates
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updatesCopy = updates;
   if (gLogObjects)
   {
@@ -1594,82 +1667,76 @@ void __61__ACCBLEPairingFeaturePlugin_deviceUpdate_pairType_pairInfo___block_inv
     blePairingProvider = self->_blePairingProvider;
     blePairingShim = self->_blePairingShim;
     *buf = 138412802;
-    v16 = updatesCopy;
-    v17 = 2112;
-    v18 = blePairingProvider;
-    v19 = 2112;
-    v20 = blePairingShim;
+    v15 = updatesCopy;
+    v16 = 2112;
+    v17 = blePairingProvider;
+    v18 = 2112;
+    v19 = blePairingShim;
     _os_log_impl(&dword_2335AD000, v7, OS_LOG_TYPE_INFO, "blePairing deviceStopBLEUpdates: %@, _blePairingProvider=%@ _blePairingShim=%@", buf, 0x20u);
   }
 
   blePairingQueue = self->_blePairingQueue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51__ACCBLEPairingFeaturePlugin_deviceStopBLEUpdates___block_invoke;
-  v13[3] = &unk_2789E1110;
-  v13[4] = self;
-  v14 = updatesCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __51__ACCBLEPairingFeaturePlugin_deviceStopBLEUpdates___block_invoke;
+  v12[3] = &unk_2789E1110;
+  v12[4] = self;
+  v13 = updatesCopy;
   v11 = updatesCopy;
-  dispatch_async(blePairingQueue, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(blePairingQueue, v12);
 }
 
 void __51__ACCBLEPairingFeaturePlugin_deviceStopBLEUpdates___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
   {
-    v13 = [*(a1 + 40) iap2ShimAccessory];
-    v3 = [v13 accessoryUID];
+    v11 = [*(a1 + 40) iap2ShimAccessory];
+    v3 = [v11 accessoryUID];
     v4 = [*(a1 + 40) blePairingUUID];
     [v2 stopBLEUpdates:v3 blePairingUUID:v4];
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (gLogObjects)
     {
-      v6 = gNumLogObjects < 1;
+      v5 = gNumLogObjects < 1;
     }
 
     else
     {
-      v6 = 1;
+      v5 = 1;
     }
 
-    if (v6)
+    if (v5)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         [ACCBLEPairingFeaturePlugin startPlugin];
       }
 
-      v8 = MEMORY[0x277D86220];
       v7 = MEMORY[0x277D86220];
+      v6 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v8 = *gLogObjects;
+      v7 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 40) iap2ShimAccessory];
-      v10 = [v9 accessoryUID];
-      v11 = *(*(a1 + 32) + 24);
+      v8 = [*(a1 + 40) iap2ShimAccessory];
+      v9 = [v8 accessoryUID];
+      v10 = *(*(a1 + 32) + 24);
       *buf = 138412546;
+      v13 = v9;
+      v14 = 2112;
       v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_2335AD000, v8, OS_LOG_TYPE_DEFAULT, "blePairing deviceStopBLEUpdates: %@, skip processing, _blePairingProvider(%@) nil or doesn't support selector", buf, 0x16u);
+      _os_log_impl(&dword_2335AD000, v7, OS_LOG_TYPE_DEFAULT, "blePairing deviceStopBLEUpdates: %@, skip processing, _blePairingProvider(%@) nil or doesn't support selector", buf, 0x16u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1706,15 +1773,13 @@ void __51__ACCBLEPairingFeaturePlugin_deviceStopBLEUpdates___block_invoke(uint64
 
 void __105__ACCBLEPairingFeaturePlugin_blePairing_accessoryAttached_blePairingUUID_accInfoDict_supportedPairTypes___block_invoke_cold_2(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [a1 connectionIDObj];
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_2335AD000, a2, OS_LOG_TYPE_DEBUG, "accessoryAttached: accessory=%@ connectionIDObj=%@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_2335AD000, a2, OS_LOG_TYPE_DEBUG, "accessoryAttached: accessory=%@ connectionIDObj=%@", &v5, 0x16u);
 }
 
 @end

@@ -53,7 +53,7 @@
   if (superlayer)
   {
     v9 = superlayer;
-    [superlayer sublayerTransform];
+    objc_msgSend_sublayerTransform(superlayer);
     superlayer = v9;
   }
 

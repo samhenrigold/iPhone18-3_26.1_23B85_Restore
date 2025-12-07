@@ -4,7 +4,9 @@
 - (id)accessibilityElements;
 - (id)automationElements;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_animateButtonsHidden:(BOOL)hidden;
 - (void)_axUpdateReportBug;
+- (void)configureReportBugButtonToShowHoldToTalkState:(BOOL)state;
 - (void)layoutSubviews;
 @end
 
@@ -42,7 +44,7 @@
 
 - (id)accessibilityElements
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   if (([(AFUISiriViewAccessibility *)self safeBoolForKey:@"_lockViewHidden"]& 1) != 0 || ([(AFUISiriViewAccessibility *)self safeValueForKey:@"_lockContainerView"], v3 = objc_claimAutoreleasedReturnValue(), v3, !v3))
   {
     v6 = AFPreferencesTypeToSiriEnabled();
@@ -67,11 +69,9 @@
   else
   {
     v4 = [(AFUISiriViewAccessibility *)self safeValueForKey:@"_lockContainerView"];
-    v14[0] = v4;
-    v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
+    v13[0] = v4;
+    v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v5;
 }
@@ -83,6 +83,14 @@
   allObjects = [reverseObjectEnumerator allObjects];
 
   return allObjects;
+}
+
+- (void)configureReportBugButtonToShowHoldToTalkState:(BOOL)state
+{
+  v4.receiver = self;
+  v4.super_class = AFUISiriViewAccessibility;
+  [(AFUISiriViewAccessibility *)&v4 configureReportBugButtonToShowHoldToTalkState:state];
+  [(AFUISiriViewAccessibility *)self _axUpdateReportBug];
 }
 
 - (void)layoutSubviews
@@ -109,6 +117,14 @@
   v3.super_class = AFUISiriViewAccessibility;
   [(AFUISiriViewAccessibility *)&v3 _accessibilityLoadAccessibilityInformation];
   [(AFUISiriViewAccessibility *)self _axUpdateReportBug];
+}
+
+- (void)_animateButtonsHidden:(BOOL)hidden
+{
+  v3.receiver = self;
+  v3.super_class = AFUISiriViewAccessibility;
+  [(AFUISiriViewAccessibility *)&v3 _animateButtonsHidden:hidden];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], *MEMORY[0x29EDBDAE8]);
 }
 
 @end

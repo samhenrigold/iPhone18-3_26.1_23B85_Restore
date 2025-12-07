@@ -43,8 +43,8 @@
     if ((v5 & 1) == 0)
     {
       cGColor = [v8 CGColor];
-      v12 = sub_1000CCE28();
-      CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v12, kCGRenderingIntentDefault, cGColor, 0);
+      v13 = sub_1000CCE28(cGColor, v12);
+      CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v13, kCGRenderingIntentDefault, cGColor, 0);
       v10 = [UIColor colorWithCGColor:CopyByMatchingToColorSpace];
 
       CGColorRelease(CopyByMatchingToColorSpace);

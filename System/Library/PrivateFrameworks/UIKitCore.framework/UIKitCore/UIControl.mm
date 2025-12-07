@@ -1354,15 +1354,14 @@ LABEL_31:
       v10 = actionCopy;
       v11 = v9;
       v12 = actionCopy[1];
-      v13 = *(v11 + 1);
       if (!v12)
       {
         break;
       }
 
-      v14 = [v12 isEqual:v13];
+      isEqual = objc_msgSend_isEqual_(v12);
 
-      if (v14)
+      if (isEqual)
       {
         goto LABEL_7;
       }
@@ -1375,14 +1374,14 @@ LABEL_12:
       }
     }
 
-    if (v13)
+    if (v11[1])
     {
       goto LABEL_11;
     }
 
     WeakRetained = objc_loadWeakRetained(actionCopy + 2);
-    v16 = objc_loadWeakRetained(v11 + 2);
-    if (WeakRetained != v16)
+    v15 = objc_loadWeakRetained(v11 + 2);
+    if (WeakRetained != v15)
     {
 
 LABEL_11:
@@ -1391,7 +1390,17 @@ LABEL_11:
 
     if (actionCopy[3])
     {
-      v17 = actionCopy[3];
+      v16 = actionCopy[3];
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    if (v11[3])
+    {
+      v17 = v11[3];
     }
 
     else
@@ -1399,23 +1408,13 @@ LABEL_11:
       v17 = 0;
     }
 
-    if (*(v11 + 3))
-    {
-      v18 = *(v11 + 3);
-    }
-
-    else
-    {
-      v18 = 0;
-    }
-
-    if (v17 != v18)
+    if (v16 != v17)
     {
       goto LABEL_12;
     }
 
 LABEL_7:
-    actionCopy[4] = (actionCopy[4] | *(v11 + 4));
+    actionCopy[4] = (actionCopy[4] | v11[4]);
     [(NSMutableArray *)self->_targetActions removeObjectAtIndex:v8 - 2];
     goto LABEL_12;
   }
@@ -1567,7 +1566,7 @@ LABEL_3:
       v11 = v10;
       if (v10)
       {
-        if ([v10 isEqual:v13])
+        if (objc_msgSend_isEqual_(v10))
         {
           v12 = (*(v9 + 32) & v7) == 0;
           *(v9 + 32) &= v7;
@@ -1607,9 +1606,9 @@ LABEL_3:
       if (v11)
       {
         identifier = [v11 identifier];
-        v14 = [identifier isEqualToString:v17];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v14)
+        if (isEqualToString)
         {
           v15 = (*(v10 + 32) & v8) == 0;
           *(v10 + 32) &= v8;

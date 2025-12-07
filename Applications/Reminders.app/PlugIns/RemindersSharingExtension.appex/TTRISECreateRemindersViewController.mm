@@ -4,6 +4,7 @@
 - (id)collectionView:(id)view contextMenuConfigurationForItemsAtIndexPaths:(id)paths point:(CGPoint)point;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
@@ -14,6 +15,20 @@
 {
   selfCopy = self;
   sub_10001C4A4();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(TTRISECreateRemindersViewController *)&v5 viewWillAppear:appearCopy];
+  if (*&v4[OBJC_IVAR____TtC25RemindersSharingExtension35TTRISECreateRemindersViewController_currentTextInputModeObserver])
+  {
+
+    sub_10004B1D0();
+  }
 }
 
 - (void)viewWillLayoutSubviews

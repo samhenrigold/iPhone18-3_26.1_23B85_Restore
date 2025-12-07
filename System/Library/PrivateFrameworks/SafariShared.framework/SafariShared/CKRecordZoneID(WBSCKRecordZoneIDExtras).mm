@@ -16,9 +16,9 @@
     +[CKRecordZoneID(WBSCKRecordZoneIDExtras) safari_bookmarksRecordZoneID];
   }
 
-  v1 = safari_bookmarksRecordZoneID_zoneID;
+  v2 = safari_bookmarksRecordZoneID_zoneID;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_tabGroupsRecordZoneID
@@ -28,9 +28,9 @@
     +[CKRecordZoneID(WBSCKRecordZoneIDExtras) safari_tabGroupsRecordZoneID];
   }
 
-  v1 = safari_tabGroupsRecordZoneID_zoneID;
+  v2 = safari_tabGroupsRecordZoneID_zoneID;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_tabGroupSecondaryRecordZoneIDWithRootRecordName:()WBSCKRecordZoneIDExtras

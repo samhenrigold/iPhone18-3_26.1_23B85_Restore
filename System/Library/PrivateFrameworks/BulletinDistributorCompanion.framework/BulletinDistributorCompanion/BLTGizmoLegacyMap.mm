@@ -81,7 +81,7 @@
 
 void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) request];
   v3 = *(a1 + 40);
   v4 = [v2 identifier];
@@ -91,22 +91,23 @@ void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke(uint64_t a
 
   if (!v6)
   {
-    v8 = [v2 content];
-    v9 = [v8 userInfo];
-    v7 = [v9 objectForKeyedSubscript:@"BLTWatchLegacyMap"];
+    v9 = [v2 content];
+    v10 = [v9 userInfo];
+    v8 = [v10 objectForKeyedSubscript:@"BLTWatchLegacyMap"];
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      if (!v7)
+      if (!v8)
       {
         goto LABEL_25;
       }
 
-      v10 = blt_general_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = blt_general_log(isKindOfClass);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_cold_1(v7, v10);
+        __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_cold_1(v8, v12);
       }
 
 LABEL_24:
@@ -114,27 +115,27 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    v10 = v7;
-    v11 = [MEMORY[0x277CBEB38] dictionary];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5;
-    v34[3] = &unk_278D324F8;
-    v34[4] = *(a1 + 48);
-    v12 = v5;
-    v35 = v12;
-    v33 = v11;
-    v36 = v33;
-    [v10 enumerateKeysAndObjectsUsingBlock:v34];
-    v13 = [*(*(a1 + 48) + 16) objectForKeyedSubscript:v12];
-    v14 = [v13 objectForKeyedSubscript:?];
+    v12 = v8;
+    v13 = [MEMORY[0x277CBEB38] dictionary];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5;
+    v35[3] = &unk_278D324F8;
+    v35[4] = *(a1 + 48);
+    v14 = v5;
+    v36 = v14;
+    v34 = v13;
+    v37 = v34;
+    [v12 enumerateKeysAndObjectsUsingBlock:v35];
+    v15 = [*(*(a1 + 48) + 16) objectForKeyedSubscript:v14];
+    v16 = [v15 objectForKeyedSubscript:?];
 
-    v32 = v12;
-    v15 = [*(*(a1 + 48) + 16) objectForKeyedSubscript:v12];
-    v16 = [v15 objectForKeyedSubscript:@"sectionInfo"];
-    v17 = [v16 objectForKeyedSubscript:?];
+    v33 = v14;
+    v17 = [*(*(a1 + 48) + 16) objectForKeyedSubscript:v14];
+    v18 = [v17 objectForKeyedSubscript:@"sectionInfo"];
+    v19 = [v18 objectForKeyedSubscript:?];
 
-    if (!(v14 | v17))
+    if (!(v16 | v19))
     {
 LABEL_20:
 
@@ -143,58 +144,58 @@ LABEL_20:
 
     if (!*(*(a1 + 48) + 8))
     {
-      v18 = [MEMORY[0x277CBEB38] dictionary];
-      v19 = *(a1 + 48);
-      v20 = *(v19 + 8);
-      *(v19 + 8) = v18;
+      v20 = [MEMORY[0x277CBEB38] dictionary];
+      v21 = *(a1 + 48);
+      v22 = *(v21 + 8);
+      *(v21 + 8) = v20;
     }
 
-    v21 = v17;
-    if (!v17)
+    v23 = v19;
+    if (!v19)
     {
-      v21 = [v32 sectionID];
+      v23 = [v33 sectionID];
     }
 
-    v22 = v10;
-    if (v14)
+    v24 = v12;
+    if (v16)
     {
-      v23 = [BLTBBBulletinKey bulletinKeyWithSectionID:v21 publisherMatchID:?];
-      if (v17)
+      v25 = [BLTBBBulletinKey bulletinKeyWithSectionID:v23 publisherMatchID:?];
+      if (v19)
       {
 LABEL_13:
-        v24 = [*(*(a1 + 48) + 8) objectForKeyedSubscript:v23];
+        v26 = [*(*(a1 + 48) + 8) objectForKeyedSubscript:v25];
 
-        if (!v24)
+        if (!v26)
         {
-          v25 = [MEMORY[0x277CBEB38] dictionary];
-          [*(*(a1 + 48) + 8) setObject:v25 forKeyedSubscript:v23];
+          v27 = [MEMORY[0x277CBEB38] dictionary];
+          [*(*(a1 + 48) + 8) setObject:v27 forKeyedSubscript:v25];
         }
 
-        if (v14)
+        if (v16)
         {
-          v26 = [v32 publisherMatchID];
-          v27 = [*(*(a1 + 48) + 8) objectForKeyedSubscript:v23];
-          [v27 setObject:v26 forKeyedSubscript:@"publisherBulletinID"];
+          v28 = [v33 publisherMatchID];
+          v29 = [*(*(a1 + 48) + 8) objectForKeyedSubscript:v25];
+          [v29 setObject:v28 forKeyedSubscript:@"publisherBulletinID"];
         }
 
-        if (v17)
+        if (v19)
         {
-          v28 = [v32 sectionID];
-          v29 = [*(*(a1 + 48) + 8) objectForKeyedSubscript:v23];
-          [v29 setObject:v28 forKeyedSubscript:@"sectionID"];
+          v30 = [v33 sectionID];
+          v31 = [*(*(a1 + 48) + 8) objectForKeyedSubscript:v25];
+          [v31 setObject:v30 forKeyedSubscript:@"sectionID"];
         }
 
-        v10 = v22;
+        v12 = v24;
         goto LABEL_20;
       }
     }
 
     else
     {
-      v31 = [v32 publisherMatchID];
-      v23 = [BLTBBBulletinKey bulletinKeyWithSectionID:v21 publisherMatchID:v31];
+      v32 = [v33 publisherMatchID];
+      v25 = [BLTBBBulletinKey bulletinKeyWithSectionID:v23 publisherMatchID:v32];
 
-      if (v17)
+      if (v19)
       {
         goto LABEL_13;
       }
@@ -203,17 +204,15 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v7 = blt_general_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = blt_general_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v38 = v5;
-    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_INFO, "Bulletin already mapped: %@", buf, 0xCu);
+    v39 = v5;
+    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_INFO, "Bulletin already mapped: %@", buf, 0xCu);
   }
 
 LABEL_25:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5(uint64_t a1, void *a2, void *a3)
@@ -229,9 +228,10 @@ void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5(uint64_t
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ([MEMORY[0x277D2BCC8] versionForString:v5], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0 || ([MEMORY[0x277D2BCC8] versionForString:v5], (isKindOfClass = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v10 = blt_general_log();
+      v10 = blt_general_log(isKindOfClass);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5_cold_1();
@@ -240,31 +240,32 @@ void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5(uint64_t
       goto LABEL_14;
     }
 
-    v9 = v8;
-    v7 = [v8 unsignedIntegerValue];
+    v9 = isKindOfClass;
+    v7 = [isKindOfClass unsignedIntegerValue];
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v11 = objc_opt_isKindOfClass();
+    if (v11)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2;
-      v12[3] = &unk_278D324D0;
-      v11 = *(a1 + 40);
-      v12[4] = *(a1 + 32);
-      v13 = v11;
-      v15 = v7;
-      v14 = *(a1 + 48);
-      [v6 enumerateKeysAndObjectsUsingBlock:v12];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2;
+      v13[3] = &unk_278D324D0;
+      v12 = *(a1 + 40);
+      v13[4] = *(a1 + 32);
+      v14 = v12;
+      v16 = v7;
+      v15 = *(a1 + 48);
+      [v6 enumerateKeysAndObjectsUsingBlock:v13];
 
       goto LABEL_15;
     }
 
-    v10 = blt_general_log();
+    v10 = blt_general_log(v11);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5_cold_2(v5, v6, v10);
@@ -284,7 +285,8 @@ void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2(uint64_t
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -292,29 +294,30 @@ void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2(uint64_t
       goto LABEL_7;
     }
 
-    v7 = [MEMORY[0x277CBEB68] null];
-    if (v7 == v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v8 = [MEMORY[0x277CBEB68] null];
+    if (v8 == v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
 
       goto LABEL_7;
     }
 
     objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
+    v14 = objc_opt_isKindOfClass();
 
-    if (isKindOfClass)
+    if (v14)
     {
 LABEL_7:
-      v8 = v5;
+      v9 = v5;
       if (BLTGizmoLegacyMapKeySet_onceToken != -1)
       {
         __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2_cold_2();
       }
 
-      if (![BLTGizmoLegacyMapKeySet___BLTGizmoLegacyMapKeySet containsObject:v8])
+      v10 = [BLTGizmoLegacyMapKeySet___BLTGizmoLegacyMapKeySet containsObject:v9];
+      if (!v10)
       {
-        v9 = blt_general_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v11 = blt_general_log(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2_cold_3();
         }
@@ -322,40 +325,40 @@ LABEL_7:
         goto LABEL_22;
       }
 
-      v9 = v6;
+      v11 = v6;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v10 = v9;
-        if ([v10 count])
+        v12 = v11;
+        if ([v12 count])
         {
-          [v10 objectAtIndexedSubscript:0];
+          [v12 objectAtIndexedSubscript:0];
         }
 
         else
         {
           [MEMORY[0x277CBEB68] null];
         }
-        v9 = ;
+        v11 = ;
       }
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v11 = [MEMORY[0x277CBEB68] null];
-        if (v9 == v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        v13 = [MEMORY[0x277CBEB68] null];
+        if (v11 == v13 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
         }
 
         else
         {
           objc_opt_class();
-          v13 = objc_opt_isKindOfClass();
+          v15 = objc_opt_isKindOfClass();
 
-          if ((v13 & 1) == 0)
+          if ((v15 & 1) == 0)
           {
-            v14 = blt_general_log();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v17 = blt_general_log(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2_cold_4();
             }
@@ -365,15 +368,15 @@ LABEL_7:
         }
       }
 
-      [*(a1 + 32) _addMapKey:v8 value:v9 bulletinKey:*(a1 + 40) version:*(a1 + 56) versionDictionary:*(a1 + 48)];
+      [*(a1 + 32) _addMapKey:v9 value:v11 bulletinKey:*(a1 + 40) version:*(a1 + 56) versionDictionary:*(a1 + 48)];
 LABEL_22:
 
       goto LABEL_26;
     }
   }
 
-  v8 = blt_general_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = blt_general_log(isKindOfClass);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2_cold_1();
   }
@@ -528,16 +531,16 @@ void __46__BLTGizmoLegacyMap_categoryIDForBulletinKey___block_invoke(void *a1)
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v7 = v18[5];
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
           v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v18[5], "integerValue")}];
         }
 
         else
         {
-          v10 = blt_general_log();
+          v10 = blt_general_log(isKindOfClass);
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             [BLTGizmoLegacyMap sectionSubtypeForBulletinKey:];
@@ -779,66 +782,22 @@ void __49__BLTGizmoLegacyMap_gizmoSectionInfoForPhoneKey___block_invoke(void *a1
 
 void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
   v4 = v3;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Expecting dictionary type for legacy map, got legacy map type %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, v0, v1, "Expecting string or number type for version key in legacy map, got key %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Expecting dictionary type for legacy map, got legacy map type %@", v5, 0xCu);
 }
 
 void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_5_cold_2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 2112;
-  v9 = objc_opt_class();
-  v4 = v9;
-  _os_log_error_impl(&dword_241FB3000, a3, OS_LOG_TYPE_ERROR, "Unexpected value type in legacy map for version key %@, value type %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0(&dword_241FB3000, v0, v1, "Expecting string type values for key and string, array, number, or dictionary type for value in legacy map dictionary, got key %@ value %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, v0, v1, "Unknown legacy map key %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__BLTGizmoLegacyMap_mapNotification_sectionID___block_invoke_2_cold_4()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0(&dword_241FB3000, v0, v1, "Expecting string, number, or dictionary type values for value in legacy map dictionary, got key %@ value %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sectionSubtypeForBulletinKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_241FB3000, v0, v1, "Expecting number or string type for sectionSubtype in legacy map for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 2112;
+  v8 = objc_opt_class();
+  v4 = v8;
+  _os_log_error_impl(&dword_241FB3000, a3, OS_LOG_TYPE_ERROR, "Unexpected value type in legacy map for version key %@, value type %@", &v5, 0x16u);
 }
 
 @end

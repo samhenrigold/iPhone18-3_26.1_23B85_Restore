@@ -4,6 +4,7 @@
 - (id)selectSpecifier:(id)specifier;
 - (id)specifiers;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CKSettingsCriticalMessagesViewController
@@ -36,9 +37,20 @@
   [(CKSettingsCriticalMessagesViewController *)self setTitle:v4];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = CKSettingsCriticalMessagesViewController;
+  [(CKSettingsCriticalMessagesViewController *)&v7 viewWillAppear:appear];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"CRITICAL_MESSAGES" value:&stru_286A13F00 table:@"CriticalMessagesSettings"];
+  navigationItem = [(CKSettingsCriticalMessagesViewController *)self navigationItem];
+  [navigationItem setTitle:v5];
+}
+
 - (id)specifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -50,34 +62,34 @@
     [v6 setProperty:v8 forKey:*MEMORY[0x277D3FF88]];
 
     [v5 addObject:v6];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     criticalMessagesApps = [(CKSettingsCriticalMessagesAppManager *)self->_appManager criticalMessagesApps];
-    v10 = [criticalMessagesApps countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [criticalMessagesApps countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(criticalMessagesApps);
           }
 
-          v14 = [(CKSettingsCriticalMessagesViewController *)self _specifierForApp:*(*(&v18 + 1) + 8 * v13)];
+          v14 = [(CKSettingsCriticalMessagesViewController *)self _specifierForApp:*(*(&v17 + 1) + 8 * v13)];
           [v5 addObject:v14];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [criticalMessagesApps countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [criticalMessagesApps countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -88,8 +100,6 @@
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

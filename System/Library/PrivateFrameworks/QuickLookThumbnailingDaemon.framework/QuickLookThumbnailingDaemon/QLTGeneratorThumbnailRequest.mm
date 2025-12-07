@@ -389,71 +389,68 @@ void __75__QLTGeneratorThumbnailRequest_computeUbiquitousnessWithCompletionHandl
 
 void __75__QLTGeneratorThumbnailRequest_computeUbiquitousnessWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
-    v5 = *MEMORY[0x277D85DE8];
+    v3 = *(*(a1 + 40) + 16);
 LABEL_5:
 
-    v4();
+    v3();
     return;
   }
 
-  v6 = (a1 + 32);
-  v7 = [*(a1 + 32) taggedLogicalURL];
-  v8 = [v7 _QLIsDataLess];
+  v4 = (a1 + 32);
+  v5 = [*(a1 + 32) taggedLogicalURL];
+  v6 = [v5 _QLIsDataLess];
 
-  v9 = *v6;
-  if (v8)
+  v7 = *v4;
+  if (v6)
   {
-    [v9 setIsDownloaded:0];
+    [v7 setIsDownloaded:0];
     [*(a1 + 32) setIsDownloadedKnown:1];
     [*(a1 + 32) setIsUbiquitous:1];
     [*(a1 + 32) setIsUbiquitousKnown:1];
-    v4 = *(*(a1 + 40) + 16);
-    v10 = *MEMORY[0x277D85DE8];
+    v3 = *(*(a1 + 40) + 16);
     goto LABEL_5;
   }
 
-  [v9 setIsDownloaded:1];
-  [*v6 setIsDownloadedKnown:1];
-  v11 = [*v6 taggedLogicalURL];
-  v26 = 0;
-  v12 = [v11 _QLIsThumbnailableWithError:&v26];
-  v13 = v26;
+  [v7 setIsDownloaded:1];
+  [*v4 setIsDownloadedKnown:1];
+  v8 = [*v4 taggedLogicalURL];
+  v22 = 0;
+  v9 = [v8 _QLIsThumbnailableWithError:&v22];
+  v10 = v22;
 
-  if (v12)
+  if (v9)
   {
-    v14 = [*v6 taggedLogicalURL];
-    v15 = *MEMORY[0x277CBE948];
-    v16 = *MEMORY[0x277CBE8B8];
-    v27[0] = *MEMORY[0x277CBE948];
-    v27[1] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
-    v25 = 0;
-    v18 = [v14 promisedItemResourceValuesForKeys:v17 error:&v25];
-    v19 = v25;
+    v11 = [*v4 taggedLogicalURL];
+    v12 = *MEMORY[0x277CBE948];
+    v13 = *MEMORY[0x277CBE8B8];
+    v23[0] = *MEMORY[0x277CBE948];
+    v23[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v21 = 0;
+    v15 = [v11 promisedItemResourceValuesForKeys:v14 error:&v21];
+    v16 = v21;
 
-    if (v18)
+    if (v15)
     {
-      v20 = [v18 objectForKeyedSubscript:v15];
-      v21 = [v18 objectForKeyedSubscript:v16];
-      [*v6 setIsUbiquitous:{objc_msgSend(v21, "BOOLValue")}];
-      [*v6 setIsUbiquitousKnown:1];
-      v22 = ![v21 BOOLValue] || v20 && (objc_msgSend(v20, "isEqualToString:", *MEMORY[0x277CBE950]) & 1) == 0;
+      v17 = [v15 objectForKeyedSubscript:v12];
+      v18 = [v15 objectForKeyedSubscript:v13];
+      [*v4 setIsUbiquitous:{objc_msgSend(v18, "BOOLValue")}];
+      [*v4 setIsUbiquitousKnown:1];
+      v19 = ![v18 BOOLValue] || v17 && (objc_msgSend(v17, "isEqualToString:", *MEMORY[0x277CBE950]) & 1) == 0;
       [*(a1 + 32) setIsDownloadedKnown:1];
-      [*(a1 + 32) setIsDownloaded:v22];
+      [*(a1 + 32) setIsDownloaded:v19];
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v23 = _log_6();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v20 = _log_6();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        __75__QLTGeneratorThumbnailRequest_computeUbiquitousnessWithCompletionHandler___block_invoke_2_cold_1((a1 + 32), v19, v23);
+        __75__QLTGeneratorThumbnailRequest_computeUbiquitousnessWithCompletionHandler___block_invoke_2_cold_1((a1 + 32), v16, v20);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -464,8 +461,6 @@ LABEL_5:
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchFPItemWithCompletionHandler:(id)handler
@@ -540,36 +535,32 @@ void __65__QLTGeneratorThumbnailRequest_fetchFPItemWithCompletionHandler___block
 
 - (void)fetchURLWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "No URL or FPItem for request %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "No URL or FPItem for request %@", &v2, 0xCu);
 }
 
 void __75__QLTGeneratorThumbnailRequest_computeUbiquitousnessWithCompletionHandler___block_invoke_2_cold_1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [*a1 taggedLogicalURL];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_2615D3000, a3, OS_LOG_TYPE_ERROR, "Could not retrieve the downloading status of %@: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_2615D3000, a3, OS_LOG_TYPE_ERROR, "Could not retrieve the downloading status of %@: %@", &v6, 0x16u);
 }
 
 void __65__QLTGeneratorThumbnailRequest_fetchFPItemWithCompletionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_2615D3000, log, OS_LOG_TYPE_ERROR, "Could not fetch FPItem for %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_2615D3000, log, OS_LOG_TYPE_ERROR, "Could not fetch FPItem for %@: %@", &v4, 0x16u);
 }
 
 @end

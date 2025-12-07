@@ -12,14 +12,14 @@
 {
   prefixCopy = prefix;
   succinctDescriptionBuilder = [(BKSSecureModeViolation *)self succinctDescriptionBuilder];
-  [succinctDescriptionBuilder appendDictionarySection:self->_layerNamesByContext withName:@"layerNamesByContext" multilinePrefix:prefixCopy skipIfEmpty:1];
+  [succinctDescriptionBuilder appendDictionarySection:? withName:? multilinePrefix:? skipIfEmpty:?];
 
   return succinctDescriptionBuilder;
 }
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(BKSSecureModeViolation *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(BKSSecureModeViolation *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;
@@ -27,9 +27,10 @@
 
 - (id)succinctDescriptionBuilder
 {
-  v3 = [MEMORY[0x1E698E680] builderWithObject:self];
-  v4 = [v3 appendInteger:-[NSNumber integerValue](self->_processId withName:{"integerValue"), @"processId"}];
-  [v3 appendArraySection:self->_contextIds withName:@"contextIds" skipIfEmpty:1 objectTransformer:&__block_literal_global_6024];
+  v3 = [MEMORY[0x1E698E680] builderWithObject:?];
+  [(NSNumber *)self->_processId integerValue];
+  v4 = [v3 appendInteger:? withName:?];
+  [v3 appendArraySection:? withName:? skipIfEmpty:? objectTransformer:?];
 
   return v3;
 }

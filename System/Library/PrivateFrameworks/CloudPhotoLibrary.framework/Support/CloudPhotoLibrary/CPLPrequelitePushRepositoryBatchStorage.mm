@@ -1,5 +1,4 @@
 @interface CPLPrequelitePushRepositoryBatchStorage
-- (BOOL)checkInWithError:(id *)error;
 - (BOOL)checkOutWithError:(id *)error;
 - (BOOL)hasChangesInScopeWithIdentifier:(id)identifier;
 - (BOOL)removeChange:(id)change error:(id *)error;
@@ -7,6 +6,7 @@
 - (CPLPrequelitePushRepositoryBatchStorage)initWithPushRepository:(id)repository priority:(unint64_t)priority;
 - (id)allChangesWithClass:(Class)class relatedScopedIdentifier:(id)identifier;
 - (id)allChangesWithClass:(Class)class scopeIdentifier:(id)identifier changeType:(unint64_t)type;
+- (id)allChangesWithClass:(Class)class scopeIdentifier:(id)identifier trashed:(BOOL)trashed;
 - (id)allChangesWithClass:(Class)class secondaryScopedIdentifier:(id)identifier;
 - (id)allChangesWithScopeIdentifier:(id)identifier;
 - (id)allNonDeletedChangesWithClass:(Class)class scopeIdentifier:(id)identifier;
@@ -82,30 +82,30 @@
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_1001749DC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_1001749DC(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         tableName = [(CPLPrequeliteTable *)self->_enumerationTable tableName];
-        v12 = objc_loadWeakRetained(&self->_pushRepository);
-        mainTable = [v12 mainTable];
+        v13 = objc_loadWeakRetained(&self->_pushRepository);
+        mainTable = [v13 mainTable];
         tableName2 = [mainTable tableName];
         priority = self->_priority;
         *buf = 138543874;
-        v24 = tableName;
-        v25 = 2112;
-        v26 = tableName2;
-        v27 = 2048;
-        v28 = priority;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Creating view %{public}@ for %@ with priority %lu", buf, 0x20u);
+        v25 = tableName;
+        v26 = 2112;
+        v27 = tableName2;
+        v28 = 2048;
+        v29 = priority;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Creating view %{public}@ for %@ with priority %lu", buf, 0x20u);
       }
     }
 
-    v16 = [[NSString alloc] initWithFormat:@"priority = %lu", self->_priority];
-    v17 = [PQLRawInjection alloc];
-    v18 = [v16 dataUsingEncoding:4];
-    v19 = [v17 initWithData:v18];
+    v17 = [[NSString alloc] initWithFormat:@"priority = %lu", self->_priority];
+    v18 = [PQLRawInjection alloc];
+    v19 = [v17 dataUsingEncoding:4];
+    v20 = [v18 initWithData:v19];
 
-    v4 = [pqlConnection cplExecute:{@"CREATE TEMP VIEW %@ AS SELECT rowid, class, scopeIndex, identifier, changeType, relatedIdentifier, secondaryIdentifier, dequeueOrder, trashed, uploadIdentifier, flags, priority, trustLevel, serializedRecord FROM %@ WHERE %@", self->_enumerationTable, self->_pushRepositoryTable, v19}];
+    v4 = [pqlConnection cplExecute:{@"CREATE TEMP VIEW %@ AS SELECT rowid, class, scopeIndex, identifier, changeType, relatedIdentifier, secondaryIdentifier, dequeueOrder, trashed, uploadIdentifier, flags, priority, trustLevel, serializedRecord FROM %@ WHERE %@", self->_enumerationTable, self->_pushRepositoryTable, v20}];
     if (v4)
     {
       lastError = 0;
@@ -119,35 +119,23 @@
     self->_viewIsCreated = v4;
     if (error)
     {
-      v20 = v4;
+      v21 = v4;
     }
 
     else
     {
-      v20 = 1;
+      v21 = 1;
     }
 
-    if ((v20 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
-      v21 = lastError;
+      v22 = lastError;
       v4 = 0;
       *error = lastError;
     }
   }
 
   return v4;
-}
-
-- (BOOL)checkInWithError:(id *)error
-{
-  checkOutCount = self->_checkOutCount;
-  if (!checkOutCount)
-  {
-    sub_1001C5650(self, a2);
-  }
-
-  self->_checkOutCount = checkOutCount - 1;
-  return 1;
 }
 
 - (id)changeWithScopedIdentifier:(id)identifier
@@ -157,6 +145,16 @@
   v6 = [WeakRetained changeWithScopedIdentifier:identifierCopy];
 
   return v6;
+}
+
+- (id)allChangesWithClass:(Class)class scopeIdentifier:(id)identifier trashed:(BOOL)trashed
+{
+  trashedCopy = trashed;
+  identifierCopy = identifier;
+  WeakRetained = objc_loadWeakRetained(&self->_pushRepository);
+  v10 = [WeakRetained allChangesWithClass:class scopeIdentifier:identifierCopy trashed:trashedCopy table:self->_enumerationTable];
+
+  return v10;
 }
 
 - (id)allChangesWithClass:(Class)class scopeIdentifier:(id)identifier changeType:(unint64_t)type

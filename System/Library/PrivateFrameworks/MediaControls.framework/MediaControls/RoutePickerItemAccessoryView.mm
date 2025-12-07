@@ -8,7 +8,7 @@
 - (UIColor)tintColor
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for RoutePickerItemAccessoryView();
+  v4.super_class = type metadata accessor for RoutePickerItemAccessoryView(self, a2);
   tintColor = [(RoutePickerItemAccessoryView *)&v4 tintColor];
 
   return tintColor;
@@ -18,7 +18,7 @@
 {
   colorCopy = color;
   selfCopy = self;
-  sub_1A22B4E48(color);
+  sub_1A22B4E48(color, v6);
 }
 
 @end

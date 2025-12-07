@@ -240,49 +240,49 @@ LABEL_28:
   return v31;
 }
 
-void __30__AMSServiceTokenTask_perform__block_invoke_12()
+void __30__AMSServiceTokenTask_perform__block_invoke_12(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v0 = +[AMSUnitTests isRunningUnitTests];
-  v1 = +[AMSLogConfig sharedConfig];
-  v2 = v1;
-  if (v0)
+  v12 = *MEMORY[0x1E69E9840];
+  v1 = +[AMSUnitTests isRunningUnitTests];
+  v2 = +[AMSLogConfig sharedConfig];
+  v3 = v2;
+  if (v1)
   {
-    if (!v1)
+    if (!v2)
     {
-      v2 = +[AMSLogConfig sharedConfig];
+      v3 = +[AMSLogConfig sharedConfig];
     }
 
-    v3 = [v2 OSLogObject];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = [v3 OSLogObject];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&dword_192869000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Token validation handler deallocated without calling its completion handler!", &v9, 0xCu);
+      v5 = objc_opt_class();
+      v6 = NSStringFromClass(v5);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_192869000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Token validation handler deallocated without calling its completion handler!", &v10, 0xCu);
     }
 
-    v2 = [MEMORY[0x1E696AD88] defaultCenter];
-    v6 = +[AMSLogConfig sharedConfig];
-    [v2 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v6 userInfo:0];
+    v3 = [MEMORY[0x1E696AD88] defaultCenter];
+    v7 = +[AMSLogConfig sharedConfig];
+    [v3 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v7 userInfo:0];
   }
 
   else
   {
-    if (!v1)
+    if (!v2)
     {
-      v2 = +[AMSLogConfig sharedConfig];
+      v3 = +[AMSLogConfig sharedConfig];
     }
 
-    v6 = [v2 OSLogObject];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = [v3 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = 138543362;
-      v10 = v8;
-      _os_log_impl(&dword_192869000, v6, OS_LOG_TYPE_FAULT, "%{public}@: Token validation handler deallocated without calling its completion handler!", &v9, 0xCu);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_192869000, v7, OS_LOG_TYPE_FAULT, "%{public}@: Token validation handler deallocated without calling its completion handler!", &v10, 0xCu);
     }
   }
 }

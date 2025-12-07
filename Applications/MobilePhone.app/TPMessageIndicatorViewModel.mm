@@ -7,7 +7,7 @@
 - (id)initWithMessage:(id)message
 {
   messageCopy = message;
-  [messageCopy duration];
+  objc_msgSend_duration(messageCopy);
   v5 = v4;
   identifier = [messageCopy identifier];
   stringValue = [identifier stringValue];

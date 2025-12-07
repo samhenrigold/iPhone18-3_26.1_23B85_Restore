@@ -48,42 +48,42 @@
 
 - (void)initiate
 {
-  v20 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
-  v3 = SBLogCaptureApplication();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = BSDispatchQueueAssertMain();
+  v4 = SBLogCaptureApplication(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     captureApplicationBundleIdentifier = self->_captureApplicationBundleIdentifier;
     *buf = 138412290;
-    v19 = captureApplicationBundleIdentifier;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Initiating launch request for %@", buf, 0xCu);
+    v20 = captureApplicationBundleIdentifier;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Initiating launch request for %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __45__SBCaptureApplicationLaunchRequest_initiate__block_invoke;
-  v15 = &unk_2783ABB98;
-  objc_copyWeak(&v17, buf);
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __45__SBCaptureApplicationLaunchRequest_initiate__block_invoke;
+  v16 = &unk_2783ABB98;
+  objc_copyWeak(&v18, buf);
   selfCopy = self;
-  v5 = MEMORY[0x223D6F7F0](&v12);
+  v6 = MEMORY[0x223D6F7F0](&v13);
   if (self->_prewarmCamera)
   {
     launchType = self->_launchType;
-    v7 = objc_alloc(MEMORY[0x277D02BC0]);
-    v8 = [v7 initWithCameraPrewarmType:launchType == 0 applicationBundleIdentifier:{self->_captureApplicationBundleIdentifier, v12, v13, v14, v15}];
+    v8 = objc_alloc(MEMORY[0x277D02BC0]);
+    v9 = [v8 initWithCameraPrewarmType:launchType == 0 applicationBundleIdentifier:{self->_captureApplicationBundleIdentifier, v13, v14, v15, v16}];
     _cameraPrewarmer = [(SBCaptureApplicationLaunchRequest *)self _cameraPrewarmer];
-    [_cameraPrewarmer prewarmCameraForIdentifier:v8];
+    [_cameraPrewarmer prewarmCameraForIdentifier:v9];
   }
 
-  v10 = [SBCaptureApplicationCenter sharedInstance:v12];
-  v11 = v10;
+  v11 = [SBCaptureApplicationCenter sharedInstance:v13];
+  v12 = v11;
   if (!self->_launchType)
   {
-    [v10 launchForExtensionToApplicationTransition:self->_captureApplicationBundleIdentifier launchActions:self->_launchActions completionHandler:v5];
+    [v11 launchForExtensionToApplicationTransition:self->_captureApplicationBundleIdentifier launchActions:self->_launchActions completionHandler:v6];
   }
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
 }
 
@@ -118,7 +118,7 @@ LABEL_6:
 
 - (void)transactionDidComplete:(id)complete
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   BSDispatchQueueAssertMain();
   isFailed = [completeCopy isFailed];
@@ -126,39 +126,39 @@ LABEL_6:
   if (isFailed)
   {
     error = [(BSTransaction *)self->_launchTransaction error];
-    v7 = [(SBCaptureApplicationLaunchRequest *)self _errorWithCode:2 underlyingError:error];
+    v8 = [(SBCaptureApplicationLaunchRequest *)self _errorWithCode:2 underlyingError:error];
   }
 
   else
   {
-    v8 = SBLogCaptureApplication();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogCaptureApplication(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       captureApplicationBundleIdentifier = self->_captureApplicationBundleIdentifier;
-      v14 = 138412290;
-      v15 = captureApplicationBundleIdentifier;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Scene content is ready %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = captureApplicationBundleIdentifier;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Scene content is ready %@", &v15, 0xCu);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  v10 = [(SBCaptureApplicationLaunchAssertionManager *)self->_launchAssertionManager assertionForBundleIdentifier:self->_captureApplicationBundleIdentifier];
-  v11 = v10;
-  if (v7 || !v10)
+  v11 = [(SBCaptureApplicationLaunchAssertionManager *)self->_launchAssertionManager assertionForBundleIdentifier:self->_captureApplicationBundleIdentifier];
+  v12 = v11;
+  if (v8 || !v11)
   {
-    [(SBCaptureApplicationLaunchRequest *)self _completeLaunchWithError:v7];
+    [(SBCaptureApplicationLaunchRequest *)self _completeLaunchWithError:v8];
   }
 
   else
   {
-    v12 = SBLogCaptureApplication();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SBLogCaptureApplication(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = self->_captureApplicationBundleIdentifier;
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "There's a launch assertion held for %@, waiting for that to be invalidated to complete launch", &v14, 0xCu);
+      v14 = self->_captureApplicationBundleIdentifier;
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "There's a launch assertion held for %@, waiting for that to be invalidated to complete launch", &v15, 0xCu);
     }
 
     [(SBCaptureApplicationLaunchAssertionManager *)self->_launchAssertionManager addObserver:self];
@@ -189,7 +189,7 @@ LABEL_6:
 {
   v10 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = SBLogCaptureApplication();
+  v5 = SBLogCaptureApplication(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     captureApplicationBundleIdentifier = self->_captureApplicationBundleIdentifier;
@@ -256,7 +256,7 @@ void __116__SBCaptureApplicationLaunchRequest_captureApplicationLaunchAssertionM
   if ([a1[4] isEqualToString:*(a1[5] + 3)])
   {
     v3 = [a1[6] assertionForBundleIdentifier:a1[4]];
-    v4 = SBLogCaptureApplication();
+    v4 = SBLogCaptureApplication(v3);
     v5 = v4;
     if (v3)
     {

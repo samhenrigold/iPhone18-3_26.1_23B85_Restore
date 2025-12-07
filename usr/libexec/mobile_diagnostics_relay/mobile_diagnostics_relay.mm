@@ -215,10 +215,7 @@ id sub_100002964(uint64_t a1)
 
 uint64_t sub_100002AF0(uint64_t a1)
 {
-  v2 = +[NSMutableArray array];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 32);
-  *(v3 + 32) = v2;
+  *(*(a1 + 32) + 32) = +[NSMutableArray array];
 
   return _objc_release_x1();
 }
@@ -327,10 +324,11 @@ void sub_100002F80(uint64_t a1)
   *(v13 + 32) = 0;
 }
 
-void sub_100004670(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004670(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_100004724(id a1)
@@ -362,10 +360,11 @@ void sub_1000050F0(uint64_t a1)
   }
 }
 
-void sub_100005198(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005198(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10000526C(id a1)
@@ -409,14 +408,14 @@ void sub_1000060F0(id a1)
   _objc_release_x1();
 }
 
-void sub_1000061B4(uint64_t a1, void *a2)
+void sub_1000061B4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a2;
-  if (!v2)
+  v4 = a2;
+  if (!v4)
   {
-    v6 = [NSString stringWithFormat:@"HIDEventMonitor context is nil in callback!"];
-    v7 = [0 logger];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = [NSString stringWithFormat:@"HIDEventMonitor context is nil in callback!"];
+    v9 = [0 logger];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000132F0();
     }
@@ -427,54 +426,54 @@ void sub_1000061B4(uint64_t a1, void *a2)
   if (IOHIDEventGetType() == 3 && IOHIDEventGetIntegerValue() == 12)
   {
     IntegerValue = IOHIDEventGetIntegerValue();
-    v4 = IOHIDEventGetIntegerValue();
+    v6 = IOHIDEventGetIntegerValue();
     switch(IntegerValue)
     {
       case 48:
-        v5 = @"Power Button";
+        v7 = @"Power Button";
         break;
       case 234:
-        v5 = @"Volume- Button";
+        v7 = @"Volume- Button";
         break;
       case 233:
-        v5 = @"Volume+ Button";
+        v7 = @"Volume+ Button";
         break;
       default:
-        v5 = @"Unknown Button";
+        v7 = @"Unknown Button";
         break;
     }
 
-    v8 = [NSString stringWithFormat:@"HID Event: %@ pressed %d", v5, v4];
-    v9 = [v2 logger];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = [NSString stringWithFormat:@"HID Event: %@ pressed %d", v7, v6];
+    v11 = [v4 logger];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v20 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+      v22 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
     if ((IntegerValue - 233) <= 1)
     {
-      if (!v4)
+      if (!v6)
       {
-        [v2 cancelLongPressTimer];
+        [v4 cancelLongPressTimer];
         goto LABEL_11;
       }
 
-      v10 = &OBJC_IVAR___HIDEventMonitor__volumeDownPressed;
+      v12 = &OBJC_IVAR___HIDEventMonitor__volumeDownPressed;
       if (IntegerValue == 233)
       {
-        v10 = &OBJC_IVAR___HIDEventMonitor__volumeUpPressed;
+        v12 = &OBJC_IVAR___HIDEventMonitor__volumeUpPressed;
       }
 
-      v2[*v10] = 1;
-      if (v2[41] == 1 && v2[42] == 1)
+      v4[*v12] = 1;
+      if (v4[41] == 1 && v4[42] == 1)
       {
-        if (v2[40] == 1)
+        if (v4[40] == 1)
         {
-          v6 = [NSString stringWithFormat:@"Should never be here, return"];
-          v7 = [v2 logger];
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v8 = [NSString stringWithFormat:@"Should never be here, return"];
+          v9 = [v4 logger];
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             sub_1000132F0();
           }
@@ -484,35 +483,35 @@ LABEL_10:
           goto LABEL_11;
         }
 
-        v11 = +[DeviceUtility sharedInstance];
-        v17[0] = _NSConcreteStackBlock;
-        v17[1] = 3221225472;
-        v17[2] = sub_1000065B4;
-        v17[3] = &unk_1000208A8;
-        v12 = v2;
-        v18 = v12;
-        v13 = [v11 createOneshotTimer:2 callback:v17];
-        v14 = *(v12 + 4);
-        *(v12 + 4) = v13;
+        v13 = +[DeviceUtility sharedInstance];
+        v19[0] = _NSConcreteStackBlock;
+        v19[1] = 3221225472;
+        v19[2] = sub_1000065B4;
+        v19[3] = &unk_1000208A8;
+        v14 = v4;
+        v20 = v14;
+        v15 = [v13 createOneshotTimer:2 callback:v19];
+        v16 = *(v14 + 4);
+        *(v14 + 4) = v15;
 
-        if (*(v12 + 4))
+        if (*(v14 + 4))
         {
-          v12[40] = 1;
-          v15 = [NSString stringWithFormat:@"Long press timer started"];
-          v16 = [v12 logger];
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v14[40] = 1;
+          v17 = [NSString stringWithFormat:@"Long press timer started"];
+          v18 = [v14 logger];
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v20 = v15;
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+            v22 = v17;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
         }
 
         else
         {
-          v15 = [NSString stringWithFormat:@"Failed to create long press timer!"];
-          v16 = [v12 logger];
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = [NSString stringWithFormat:@"Failed to create long press timer!"];
+          v18 = [v14 logger];
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             sub_1000132F0();
           }
@@ -546,14 +545,14 @@ id sub_1000065B4(uint64_t a1)
   return [v4 cancelLongPressTimer];
 }
 
-void sub_1000069D0(uint64_t a1, void *a2)
+void sub_1000069D0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a2;
-  if (!v2)
+  v4 = a2;
+  if (!v4)
   {
-    v7 = [NSString stringWithFormat:@"HIDEventMonitor context is nil in callback!"];
-    v8 = [0 logger];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = [NSString stringWithFormat:@"HIDEventMonitor context is nil in callback!"];
+    v10 = [0 logger];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000133D8();
     }
@@ -566,92 +565,92 @@ void sub_1000069D0(uint64_t a1, void *a2)
     IntegerValue = IOHIDEventGetIntegerValue();
     if (IntegerValue)
     {
-      v4 = IntegerValue;
-      v5 = IOHIDEventGetIntegerValue();
-      switch(v5)
+      v6 = IntegerValue;
+      v7 = IOHIDEventGetIntegerValue();
+      switch(v7)
       {
         case 48:
-          v6 = @"Power Button";
+          v8 = @"Power Button";
           break;
         case 234:
-          v6 = @"Volume- Button";
+          v8 = @"Volume- Button";
           break;
         case 233:
-          v6 = @"Volume+ Button";
+          v8 = @"Volume+ Button";
           break;
         default:
-          v6 = @"Unknown Button";
+          v8 = @"Unknown Button";
           break;
       }
 
-      v9 = [NSString stringWithFormat:@"HID Event: %@ pressed %d", v6, v4];
-      v10 = [v2 logger];
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = [NSString stringWithFormat:@"HID Event: %@ pressed %d", v8, v6];
+      v12 = [v4 logger];
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v21 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+        v23 = v11;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
       }
 
-      if (v5 == 48)
+      if (v7 == 48)
       {
-        if (v2[6])
+        if (v4[6])
         {
-          v11 = [NSString stringWithFormat:@"Paring combo string is %@", v2[6]];
-          v12 = [v2 logger];
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v13 = [NSString stringWithFormat:@"Paring combo string is %@", v4[6]];
+          v14 = [v4 logger];
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v21 = v11;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+            v23 = v13;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
 
-          if ([v2[6] length])
+          if ([v4[6] length])
           {
-            v13 = +[HapticPlayer sharedInstance];
-            [v13 playHapticForDuration:0.1];
+            v15 = +[HapticPlayer sharedInstance];
+            [v15 playHapticForDuration:0.1];
 
-            v14 = v2[8];
-            if (v14)
+            v16 = v4[8];
+            if (v16)
             {
-              v15 = [v2[6] copy];
-              v14[2](v14, v15);
+              v17 = [v4[6] copy];
+              v16[2](v16, v17);
             }
           }
 
-          v7 = v2[6];
-          v2[6] = 0;
+          v9 = v4[6];
+          v4[6] = 0;
           goto LABEL_12;
         }
 
-        v18 = +[NSMutableString string];
-        v19 = v2[6];
-        v2[6] = v18;
+        v20 = +[NSMutableString string];
+        v21 = v4[6];
+        v4[6] = v20;
 
 LABEL_34:
-        v7 = +[HapticPlayer sharedInstance];
-        [v7 playHapticForDuration:0.1];
+        v9 = +[HapticPlayer sharedInstance];
+        [v9 playHapticForDuration:0.1];
 LABEL_12:
 
         goto LABEL_13;
       }
 
-      if ((v5 - 233) <= 1)
+      if ((v7 - 233) <= 1)
       {
-        v16 = v2[6];
-        if (v16)
+        v18 = v4[6];
+        if (v18)
         {
-          if (v5 == 233)
+          if (v7 == 233)
           {
-            v17 = @"U";
+            v19 = @"U";
           }
 
           else
           {
-            v17 = @"D";
+            v19 = @"D";
           }
 
-          [v16 appendString:v17];
+          [v18 appendString:v19];
           goto LABEL_34;
         }
       }
@@ -802,11 +801,11 @@ void sub_1000082A0(id a1)
   _objc_release_x1();
 }
 
-void sub_10000844C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10000844C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -944,10 +943,11 @@ void *sub_100009524(uint64_t a1)
   return result;
 }
 
-void sub_100009A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100009A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -977,9 +977,9 @@ void sub_100009B10(uint64_t a1, void *a2, int a3)
   v5 = a2;
   if (!v5 || a3)
   {
-    v9 = [NSString stringWithFormat:@"FATAL! Device browser is canceled"];
-    v10 = [*(a1 + 32) logger];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v7 = [NSString stringWithFormat:@"FATAL! Device browser is canceled"];
+    v8 = [*(a1 + 32) logger];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10001375C();
     }
@@ -987,17 +987,11 @@ void sub_100009B10(uint64_t a1, void *a2, int a3)
     exit(1);
   }
 
-  v6 = *(a1 + 40);
-  v14 = v5;
-  v15 = *(a1 + 32);
-  v16 = *(a1 + 48);
-  v17 = *(a1 + 56);
+  v10 = v5;
+  v11 = *(a1 + 48);
   remote_device_set_connected_callback();
-  v7 = *(a1 + 40);
-  v11 = *(a1 + 32);
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  v8 = v14;
+  v9 = *(a1 + 48);
+  v6 = v10;
   remote_device_set_disconnected_callback();
 }
 
@@ -1774,10 +1768,11 @@ void sub_10000D294(uint64_t a1)
   }
 }
 
-void sub_10000D9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10000D9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 144), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2316,8 +2311,9 @@ LABEL_23:
   }
 }
 
-__CFDictionary *sub_100010364(io_registry_entry_t a1, const char *a2)
+__CFDictionary *sub_100010364(uint64_t a1, const char *a2)
 {
+  v3 = a1;
   busyState = 0;
   valuePtr = a1;
   memset(name, 0, 128);
@@ -2326,7 +2322,7 @@ __CFDictionary *sub_100010364(io_registry_entry_t a1, const char *a2)
   iterator = 0;
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   v5 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-  NameInPlane = IORegistryEntryGetNameInPlane(a1, a2, name);
+  NameInPlane = IORegistryEntryGetNameInPlane(v3, a2, name);
   if (NameInPlane)
   {
     sub_100011B6C("create_ioreg_dict", @"IORegistryEntryGetNameInPlane has failed with error %d.", NameInPlane);
@@ -2346,7 +2342,7 @@ __CFDictionary *sub_100010364(io_registry_entry_t a1, const char *a2)
     sub_100011B6C("create_ioreg_dict", @"Can't create CFString for entry name.");
   }
 
-  Class = IOObjectGetClass(a1, className);
+  Class = IOObjectGetClass(v3, className);
   if (Class)
   {
     sub_100011B6C("create_ioreg_dict", @"IOObjectGetClass has failed with error %d.", Class);
@@ -2405,10 +2401,10 @@ __CFDictionary *sub_100010364(io_registry_entry_t a1, const char *a2)
 
   *v18 = 0;
   v19 = v18;
-  if (!IOObjectConformsTo(a1, "IOService"))
+  if (!IOObjectConformsTo(v3, "IOService"))
   {
 LABEL_38:
-    RetainCount = IOObjectGetRetainCount(a1);
+    RetainCount = IOObjectGetRetainCount(v3);
     sprintf(v19, "retain %d", RetainCount);
     v27 = CFStringCreateWithCString(kCFAllocatorDefault, v10, 0x8000100u);
     if (v27)
@@ -2511,7 +2507,7 @@ LABEL_8:
   }
 
   v24 = __sprintf_chk(v10, 0, 0xC800uLL, "%sregistered, %smatched, %sactive, ", v22, v21, v23);
-  v25 = IOServiceGetBusyState(a1, &busyState);
+  v25 = IOServiceGetBusyState(v3, &busyState);
   if (!v25)
   {
     v19 = &v10[v24 + sprintf(&v10[v24], "busy %d, ", busyState)];
@@ -2742,7 +2738,7 @@ void sub_100010E68(CFTypeRef cf)
   }
 }
 
-uint64_t sub_100010E74()
+uint64_t sub_100010E74(uint64_t a1)
 {
   openlog("mobile_diagnostics_relay", 1, 24);
   secure_lockdown_checkin();
@@ -2836,7 +2832,7 @@ void sub_100011A0C(uint64_t a1, void *a2)
     {
       Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
       CFDictionarySetValue(Mutable, kLockdownCheckinConnectionInfoKey, 0);
-      sub_100010E74();
+      sub_100010E74(Mutable);
       xpc_connection_cancel(*(a1 + 32));
       if (Mutable)
       {
@@ -3004,7 +3000,7 @@ LABEL_5:
 uint64_t sub_100011F70(const char **a1)
 {
   fprintf(__stderrp, "executing %s\n", *a1);
-  if (pipe(v27) != -1)
+  if (pipe(v25) != -1)
   {
     v2 = fork();
     if (v2 == -1)
@@ -3014,26 +3010,26 @@ uint64_t sub_100011F70(const char **a1)
       v14 = __error();
       v15 = strerror(*v14);
       fprintf(v12, "fork %s failed: %s\n", v13, v15);
-      close(*v27);
+      close(*v25);
 LABEL_11:
-      close(*&v27[4]);
+      close(*&v25[4]);
       return 0xFFFFFFFFLL;
     }
 
     v3 = v2;
     if (!v2)
     {
-      if (dup2(*&v27[4], 1) == -1)
+      if (dup2(*&v25[4], 1) == -1)
       {
         goto LABEL_8;
       }
 
-      if (dup2(*&v27[4], 2) == -1)
+      if (dup2(*&v25[4], 2) == -1)
       {
         _exit(2);
       }
 
-      close(*v27);
+      close(*v25);
       if (execv(*a1, a1) == -1)
       {
         v4 = __stderrp;
@@ -3048,46 +3044,44 @@ LABEL_8:
       goto LABEL_11;
     }
 
-    v18 = *v27;
-    close(*&v27[4]);
+    v18 = *v25;
+    close(*&v25[4]);
     if (v18 == -1)
     {
       return 0xFFFFFFFFLL;
     }
 
-    v19 = read(v18, v27, 0x3FFuLL);
+    v19 = read(v18, v25, 0x3FFuLL);
     if (v19 >= 1)
     {
       do
       {
-        v27[v19] = 0;
-        fputs(v27, __stderrp);
-        v19 = read(v18, v27, 0x3FFuLL);
+        v25[v19] = 0;
+        fputs(v25, __stderrp);
+        v19 = read(v18, v25, 0x3FFuLL);
       }
 
       while (v19 > 0);
     }
 
-    v26 = 0;
-    if (waitpid(v3, &v26, 0) != -1)
+    v24 = 0;
+    if (waitpid(v3, &v24, 0) != -1)
     {
-      if ((v26 & 0x7F) == 0x7F)
+      if ((v24 & 0x7F) == 0x7F)
       {
-        v24 = *a1;
         fprintf(__stderrp, "%s was stopped by signal %d\n");
       }
 
       else
       {
-        if ((v26 & 0x7F) == 0)
+        if ((v24 & 0x7F) == 0)
         {
-          v16 = BYTE1(v26);
+          v16 = BYTE1(v24);
 LABEL_25:
           close(v18);
           return v16;
         }
 
-        v25 = *a1;
         fprintf(__stderrp, "%s was terminated by signal %d\n");
       }
 
@@ -3445,6 +3439,146 @@ void sub_100012C38(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%{public}s: %{public}@", &v2, 0x16u);
 }
 
+void sub_100012CD8()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100012D4C()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100012DC0()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100012E34()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100012EA8()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100012F30()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100012FA4()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013018()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_10001308C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100005198(&_mh_execute_header, a2, a3, "%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000130F8()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013180()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000131F4()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013268()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000132F0()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013364()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000133D8()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_10001344C()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000134D4()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013548()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000135BC()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
 void sub_100013644(uint64_t a1, NSObject *a2)
 {
   v2 = 136446466;
@@ -3459,4 +3593,67 @@ void sub_1000136D0(uint64_t a1, NSObject *a2)
   v2 = 138543362;
   v3 = a1;
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "%{public}@", &v2, 0xCu);
+}
+
+void sub_10001375C()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013838()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000138AC()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013920()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013994()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013A08()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013A7C()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013B04()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100013B78()
+{
+  v6 = 136446466;
+  sub_10000465C();
+  sub_100004670(&_mh_execute_header, v0, v1, "%{public}s: %{public}@", v2, v3, v4, v5, v6);
 }

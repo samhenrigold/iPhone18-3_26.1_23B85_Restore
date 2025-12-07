@@ -168,7 +168,6 @@ LABEL_23:
   *out1 = v19;
   *&v18 = mean + stddev * (v9 * v15 / 2147483650.0 * v18);
   *out2 = *&v18;
-  v20 = *out1;
   return 1;
 }
 
@@ -182,31 +181,28 @@ LABEL_23:
 
 + (void)randomFloatVectorFromSeed:(NSObject *)a3 length:mean:stddev:.cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 134218240;
-  v7 = [a1 length];
-  v8 = 2048;
-  v9 = [a2 seedLength];
-  _os_log_error_impl(&dword_22622D000, a3, OS_LOG_TYPE_ERROR, "_DPGaussianPRNG's seed is with wrong length %lu, should be %lu", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 134218240;
+  v6 = [a1 length];
+  v7 = 2048;
+  v8 = [a2 seedLength];
+  _os_log_error_impl(&dword_22622D000, a3, OS_LOG_TYPE_ERROR, "_DPGaussianPRNG's seed is with wrong length %lu, should be %lu", &v5, 0x16u);
 }
 
 + (void)randomFloatVectorFromSeed:(int)a1 length:(NSObject *)a2 mean:stddev:.cold.2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Failed to create cryptor %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Failed to create cryptor %d", v2, 8u);
 }
 
 + (void)randomFloatVectorFromSeed:(int)a1 length:(NSObject *)a2 mean:stddev:.cold.3(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Failed call to CCCryptorUpdate %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Failed call to CCCryptorUpdate %d", v2, 8u);
 }
 
 @end

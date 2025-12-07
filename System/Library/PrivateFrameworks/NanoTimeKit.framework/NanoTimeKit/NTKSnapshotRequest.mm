@@ -135,7 +135,7 @@ void __35__NTKSnapshotRequest_setLoadState___block_invoke(uint64_t a1)
   _Block_object_dispose(&v5, 8);
 }
 
-unint64_t __36__NTKSnapshotRequest_updatePriority__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__36__NTKSnapshotRequest_updatePriority__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 priority];
   v7 = *(*(a1 + 32) + 8);

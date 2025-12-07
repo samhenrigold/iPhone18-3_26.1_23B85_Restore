@@ -30,7 +30,7 @@
 
 + (BOOL)isSupportEnabledForBMDSL:(id)l useCase:(id)case withError:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   if (l)
   {
@@ -39,35 +39,35 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = streamPublishers;
+      v29 = streamPublishers;
       _os_log_impl(&dword_244177000, v9, OS_LOG_TYPE_INFO, "isSupportEnabledForBMDSL: streamPublishers: %@", buf, 0xCu);
     }
 
     v10 = [MEMORY[0x277CBEB58] set];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v11 = streamPublishers;
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          identifier = [*(*(&v24 + 1) + 8 * i) identifier];
+          identifier = [*(*(&v23 + 1) + 8 * i) identifier];
           [v10 addObject:identifier];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v13);
@@ -95,7 +95,6 @@
     v20 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -109,11 +108,10 @@
 
 + (void)isSupportEnabledForBMDSL:(uint64_t)a1 useCase:(NSObject *)a2 withError:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_244177000, a2, OS_LOG_TYPE_ERROR, "Process does not have entitlements for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_244177000, a2, OS_LOG_TYPE_ERROR, "Process does not have entitlements for %@", &v2, 0xCu);
 }
 
 @end

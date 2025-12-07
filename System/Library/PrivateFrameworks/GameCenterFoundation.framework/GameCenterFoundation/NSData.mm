@@ -108,7 +108,7 @@ LABEL_15:
 
 void __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply___block_invoke_9(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CBEA90] imageDebugEnabled])
   {
     if (!os_log_GKGeneral)
@@ -120,9 +120,9 @@ void __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply_
     if (os_log_type_enabled(os_log_GKHTTP, OS_LOG_TYPE_INFO))
     {
       v4 = v3;
-      v8[0] = 67109120;
-      v8[1] = GKAtomicDecrement32(imageLoadCount);
-      _os_log_impl(&dword_227904000, v4, OS_LOG_TYPE_INFO, "END image load: (%d)", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = GKAtomicDecrement32(imageLoadCount);
+      _os_log_impl(&dword_227904000, v4, OS_LOG_TYPE_INFO, "END image load: (%d)", v7, 8u);
     }
   }
 
@@ -132,8 +132,6 @@ void __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply_
     v6 = [*(a1 + 32) result];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __96__NSData_GKAdditions___gkLoadRemoteImageDataForURL_session_subdirectory_filename_queue_handler___block_invoke()
@@ -159,7 +157,7 @@ void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirector
 
 void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_31(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -184,26 +182,24 @@ void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirector
     {
       v14 = v13;
       *buf = 67109120;
-      v26 = GKAtomicIncrement32(imageLoadCount);
+      v25 = GKAtomicIncrement32(imageLoadCount);
       _os_log_impl(&dword_227904000, v14, OS_LOG_TYPE_INFO, "BEGIN image load: (%d)", buf, 8u);
     }
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_32;
-  v18[3] = &unk_2785E1360;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_32;
+  v17[3] = &unk_2785E1360;
   v15 = *(a1 + 40);
-  v19 = *(a1 + 48);
-  v20 = *(a1 + 32);
-  v24 = v3;
-  v21 = *(a1 + 56);
-  v22 = *(a1 + 64);
-  v23 = *(a1 + 72);
+  v18 = *(a1 + 48);
+  v19 = *(a1 + 32);
+  v23 = v3;
+  v20 = *(a1 + 56);
+  v21 = *(a1 + 64);
+  v22 = *(a1 + 72);
   v16 = v3;
-  [v15 addOperationWithBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v15 addOperationWithBlock:v17];
 }
 
 void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_32(uint64_t a1)
@@ -221,7 +217,7 @@ void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirector
 
 void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([MEMORY[0x277CBEA90] imageDebugEnabled])
   {
@@ -235,7 +231,7 @@ void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirector
     {
       v6 = v5;
       *buf = 67109120;
-      v29 = GKAtomicDecrement32(imageLoadCount);
+      v28 = GKAtomicDecrement32(imageLoadCount);
       _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "END image load: (%d)", buf, 8u);
     }
   }
@@ -246,9 +242,9 @@ void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirector
     v7 = (a1 + 40);
     v8 = [*(a1 + 40) stringByDeletingLastPathComponent];
     v9 = [MEMORY[0x277CCAA00] defaultManager];
-    v27 = 0;
-    v10 = [v9 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v27];
-    v11 = v27;
+    v26 = 0;
+    v10 = [v9 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v26];
+    v11 = v26;
 
     if ((v10 & 1) == 0)
     {
@@ -264,9 +260,9 @@ void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirector
     }
 
     v13 = *v7;
-    v26 = 0;
-    [v3 writeToFile:v13 options:1 error:&v26];
-    v14 = v26;
+    v25 = 0;
+    [v3 writeToFile:v13 options:1 error:&v25];
+    v14 = v25;
     if (v14)
     {
       if (!os_log_GKGeneral)
@@ -299,8 +295,6 @@ void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirector
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_35(uint64_t a1)
@@ -315,89 +309,77 @@ void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirector
 
 void __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply___block_invoke_2_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 56);
-  v6 = a2;
-  v7 = NSStringFromSelector(v5);
-  v8 = *(a1 + 32);
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 56);
+  v5 = a2;
+  v6 = NSStringFromSelector(v4);
   OUTLINED_FUNCTION_0();
-  v12 = 2112;
-  v13 = v9;
-  v14 = 2112;
-  v15 = a3;
-  _os_log_error_impl(&dword_227904000, v6, OS_LOG_TYPE_ERROR, "%@:%@: error loading image data:%@", v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = 2112;
+  v10 = v7;
+  v11 = 2112;
+  v12 = a3;
+  _os_log_error_impl(&dword_227904000, v5, OS_LOG_TYPE_ERROR, "%@:%@: error loading image data:%@", v8, 0x20u);
 }
 
 void __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply___block_invoke_2_cold_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 56);
-  v4 = a2;
-  v5 = NSStringFromSelector(v3);
-  v6 = *(a1 + 32);
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 56);
+  v3 = a2;
+  v4 = NSStringFromSelector(v2);
   OUTLINED_FUNCTION_0();
-  v10 = 2112;
-  v11 = v7;
-  _os_log_error_impl(&dword_227904000, v4, OS_LOG_TYPE_ERROR, "%@:%@: no image data received, but no error received either", v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = v5;
+  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "%@:%@: no image data received, but no error received either", v6, 0x16u);
 }
 
 void __72__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_queue_reply___block_invoke_2_cold_4(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 56);
   v6 = a2;
   v7 = NSStringFromSelector(v5);
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(a3, "statusCode")}];
   v9 = *(a1 + 32);
-  v11 = 138412802;
-  v12 = v7;
-  v13 = 2112;
-  v14 = v8;
-  v15 = 2112;
-  v16 = v9;
-  _os_log_error_impl(&dword_227904000, v6, OS_LOG_TYPE_ERROR, "%@: Did not receive http status OK (received %@) for url: %@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138412802;
+  v11 = v7;
+  v12 = 2112;
+  v13 = v8;
+  v14 = 2112;
+  v15 = v9;
+  _os_log_error_impl(&dword_227904000, v6, OS_LOG_TYPE_ERROR, "%@: Did not receive http status OK (received %@) for url: %@", &v10, 0x20u);
 }
 
 void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_31_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_6(&dword_227904000, a2, a3, "Did not find image at cache path %@, will load from server.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_6(&dword_227904000, a2, a3, "Did not find image at cache path %@, will load from server.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_227904000, v0, OS_LOG_TYPE_ERROR, "_gkLoadRemoteImageDataForUrl:subdirectory:filename:queue:imageQueue:handler: error creating directory:%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_227904000, v0, OS_LOG_TYPE_ERROR, "_gkLoadRemoteImageDataForUrl:subdirectory:filename:queue:imageQueue:handler: error creating directory:%@", v1, 0xCu);
 }
 
 void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_2_cold_2(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "Error writing image data to image cache %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "Error writing image data to image cache %@: %@", &v4, 0x16u);
 }
 
 void __107__NSData_GKAdditions___gkLoadRemoteImageDataForUrl_session_subdirectory_filename_queue_imageQueue_handler___block_invoke_2_cold_3(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_6(&dword_227904000, a2, a3, "Loaded and cached image data from server: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_6(&dword_227904000, a2, a3, "Loaded and cached image data from server: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

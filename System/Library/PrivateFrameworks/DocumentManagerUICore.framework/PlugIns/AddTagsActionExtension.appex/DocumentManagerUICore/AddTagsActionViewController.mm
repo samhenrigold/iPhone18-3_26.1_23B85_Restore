@@ -18,8 +18,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100002D1C(appear);
+  sub_100002D1C(appearCopy, selfCopy);
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
@@ -39,7 +40,7 @@
 
   selfCopy = self;
   sub_100002EAC(animated, v6, v7);
-  sub_10000324C(v6);
+  sub_10000324C(v6, v7);
 }
 
 - (_TtC22AddTagsActionExtension27AddTagsActionViewController)initWithCollectionViewLayout:(id)layout

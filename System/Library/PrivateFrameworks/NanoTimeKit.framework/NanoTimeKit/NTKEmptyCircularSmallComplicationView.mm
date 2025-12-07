@@ -22,7 +22,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(NTKCircularComplicationView *)self _layoutConstants:0];
+  objc_msgSend__layoutConstants(self, a2, 0, 0, 0, 0, 0, 0, 0);
   v3 = 0.0;
   v4 = 0.0;
   result.height = v4;

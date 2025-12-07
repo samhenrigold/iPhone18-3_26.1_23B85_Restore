@@ -178,92 +178,90 @@
 - (CUIPlaceholderCUICommonAssetStorage)initWithPath:(id)path forWriting:(BOOL)writing
 {
   writingCopy = writing;
-  v25.receiver = self;
-  v25.super_class = CUIPlaceholderCUICommonAssetStorage;
-  v6 = [(CUIPlaceholderCUICommonAssetStorage *)&v25 init];
-  v14 = v6;
+  v10.receiver = self;
+  v10.super_class = CUIPlaceholderCUICommonAssetStorage;
+  v6 = [(CUIPlaceholderCUICommonAssetStorage *)&v10 init];
   if (!v6)
   {
     goto LABEL_4;
   }
 
-  BOMExceptionHandlerSetDefault(v6, v7, v8, v9, v10, v11, v12, v13, v24);
-  v15 = BOMStorageOpenWithSys([path fileSystemRepresentation], writingCopy, 0);
-  if (!v15)
+  BOMExceptionHandlerSetDefault();
+  v7 = BOMStorageOpenWithSys([path fileSystemRepresentation], writingCopy, 0);
+  if (!v7)
   {
-    _CUILog(4, "CoreUI: Error: CUICommonAssetStorage -initWithPath: Unable to read file at '%@'", v16, v17, v18, v19, v20, v21, path);
+    _CUILog(4, "CoreUI: Error: CUICommonAssetStorage -initWithPath: Unable to read file at '%@'", path);
 LABEL_7:
 
     return 0;
   }
 
-  v22 = v15;
-  if (![(CUIPlaceholderCUICommonAssetStorage *)v14 _commonInitWithStorage:v15 forWritting:writingCopy])
+  v8 = v7;
+  if (![(CUIPlaceholderCUICommonAssetStorage *)v6 _commonInitWithStorage:v7 forWritting:writingCopy])
   {
-    BOMStorageFree(v22);
+    BOMStorageFree(v8);
     goto LABEL_7;
   }
 
 LABEL_4:
-  v14->_facetValueNameDict = 0;
-  return v14;
+  v6->_facetValueNameDict = 0;
+  return v6;
 }
 
 - (CUIPlaceholderCUICommonAssetStorage)initWithBytes:(const void *)bytes length:(unint64_t)length
 {
-  v29.receiver = self;
-  v29.super_class = CUIPlaceholderCUICommonAssetStorage;
-  v6 = [(CUIPlaceholderCUICommonAssetStorage *)&v29 init];
-  v14 = v6;
+  v10.receiver = self;
+  v10.super_class = CUIPlaceholderCUICommonAssetStorage;
+  v6 = [(CUIPlaceholderCUICommonAssetStorage *)&v10 init];
   if (v6)
   {
-    BOMExceptionHandlerSetDefault(v6, v7, v8, v9, v10, v11, v12, v13, v29.receiver);
-    v20 = BOMStorageOpenInRAM(bytes, length, 0, v15, v16, v17, v18, v19);
-    if (!v20)
+    BOMExceptionHandlerSetDefault();
+    v7 = BOMStorageOpenInRAM(bytes, length, 0);
+    if (!v7)
     {
-      _CUILog(4, "CoreUI: Error: CUICommonAssetStorage -initWithBytes:length: unable to read bytes", v21, v22, v23, v24, v25, v26, v29.receiver);
+      _CUILog(4, "CoreUI: Error: CUICommonAssetStorage -initWithBytes:length: unable to read bytes");
       goto LABEL_6;
     }
 
-    v27 = v20;
-    if (![(CUIPlaceholderCUICommonAssetStorage *)v14 _commonInitWithStorage:v20 forWritting:0])
+    v8 = v7;
+    if (![(CUIPlaceholderCUICommonAssetStorage *)v6 _commonInitWithStorage:v7 forWritting:0])
     {
-      BOMStorageFree(v27);
+      BOMStorageFree(v8);
 LABEL_6:
 
       return 0;
     }
   }
 
-  return v14;
+  return v6;
 }
 
 + (BOOL)isValidAssetStorageWithBytes:(const void *)bytes length:(unint64_t)length
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  memset(v37, 0, sizeof(v37));
-  BOMExceptionHandlerSet(0, a2, bytes, length, v4, v5, v6, v7, 0);
-  v15 = BOMStorageOpenInRAM(bytes, length, 0, v10, v11, v12, v13, v14);
-  if (v15)
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  memset(v10, 0, sizeof(v10));
+  BOMExceptionHandlerSet(0);
+  v6 = BOMStorageOpenInRAM(bytes, length, 0);
+  if (v6)
   {
-    v23 = v15;
-    NamedBlock = BOMStorageGetNamedBlock(v15, "CARHEADER");
+    v7 = v6;
+    NamedBlock = BOMStorageGetNamedBlock(v6, "CARHEADER");
     if (NamedBlock)
     {
-      if (BOMStorageSizeOfBlock(v23, NamedBlock, v24, v25, v26, v27, v28, v29) > 0x1B4)
+      if (BOMStorageSizeOfBlock(v7, NamedBlock) > 0x1B4)
       {
         LOBYTE(NamedBlock) = 0;
       }
 
       else
       {
-        BOMStorageCopyFromBlock(v23, NamedBlock, v37, v31, v32, v33, v34, v35);
-        LOBYTE(NamedBlock) = LODWORD(v37[0]) == 1129595218;
+        BOMStorageCopyFromBlock(v7, NamedBlock, v10);
+        LOBYTE(NamedBlock) = LODWORD(v10[0]) == 1129595218;
       }
     }
 
-    v15 = BOMStorageFree(v23);
+    BOMStorageFree(v7);
   }
 
   else
@@ -271,60 +269,61 @@ LABEL_6:
     LOBYTE(NamedBlock) = 0;
   }
 
-  BOMExceptionHandlerSetDefault(v15, v16, v17, v18, v19, v20, v21, v22, *&v37[0]);
+  BOMExceptionHandlerSetDefault();
   return NamedBlock;
 }
 
 + (BOOL)isValidAssetStorageWithURL:(id)l
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  memset(v29, 0, sizeof(v29));
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  memset(v10, 0, sizeof(v10));
   v4 = BomSys_defaultNoMMAP();
-  BOMExceptionHandlerSet(0, v5, v6, v7, v8, v9, v10, v11, 0);
-  v12 = BOMStorageOpenWithSys([l fileSystemRepresentation], 0, v4);
-  if (v12)
+  BOMExceptionHandlerSet(0);
+  v5 = BOMStorageOpenWithSys([l fileSystemRepresentation], 0, v4);
+  if (v5)
   {
-    v20 = v12;
-    NamedBlock = BOMStorageGetNamedBlock(v12, "CARHEADER");
+    v6 = v5;
+    NamedBlock = BOMStorageGetNamedBlock(v5, "CARHEADER");
     if (NamedBlock)
     {
-      BOMStorageCopyFromBlock(v20, NamedBlock, v29, v22, v23, v24, v25, v26);
-      v27 = LODWORD(v29[0]) == 1129595218;
+      BOMStorageCopyFromBlock(v6, NamedBlock, v10);
+      v8 = LODWORD(v10[0]) == 1129595218;
     }
 
     else
     {
-      v27 = 0;
+      v8 = 0;
     }
 
-    v12 = BOMStorageFree(v20);
+    BOMStorageFree(v6);
   }
 
   else
   {
-    v27 = 0;
+    v8 = 0;
   }
 
-  BOMExceptionHandlerSetDefault(v12, v13, v14, v15, v16, v17, v18, v19, *&v29[0]);
-  return v27;
+  BOMExceptionHandlerSetDefault();
+  return v8;
 }
 
 - (BOOL)_commonInitWithStorage:(_BOMStorage *)storage forWritting:(BOOL)writting
 {
+  writtingCopy = writting;
   NamedBlock = BOMStorageGetNamedBlock(storage, "CARHEADER");
   if (NamedBlock)
   {
-    v14 = NamedBlock;
-    v15 = BOMStorageSizeOfBlock(storage, NamedBlock, v8, v9, v10, v11, v12, v13);
-    if (v15 >= 0x1B5)
+    v8 = NamedBlock;
+    v9 = BOMStorageSizeOfBlock(storage, NamedBlock);
+    if (v9 >= 0x1B5)
     {
-      v191 = BOMStorageFileName(storage);
-      _CUILog(4, "CoreUI: Car file '%s' has a malformed header(%zu) sizeof CAR_HEADER_NAME > structure used to store data(%zu)", v16, v17, v18, v19, v20, v21, v191);
+      BOMStorageFileName();
+      _CUILog(4, "CoreUI: Car file '%s' has a malformed header(%zu) sizeof CAR_HEADER_NAME > structure used to store data(%zu)");
       return 0;
     }
 
-    if (v15 == 436)
+    if (v9 == 436)
     {
       header = malloc_type_malloc(0x1B4uLL, 0xEF5FE7D8uLL);
       self->_header = header;
@@ -332,10 +331,10 @@ LABEL_6:
 
     else
     {
-      if (writting)
+      if (writtingCopy)
       {
-        v192 = BOMStorageFileName(storage);
-        _CUILog(4, "CoreUI: Can't update header information for old version of CAR '%s'", v35, v36, v37, v38, v39, v40, v192);
+        BOMStorageFileName();
+        _CUILog(4, "CoreUI: Can't update header information for old version of CAR '%s'");
         return 0;
       }
 
@@ -343,7 +342,7 @@ LABEL_6:
       header = self->_header;
     }
 
-    BOMStorageCopyFromBlock(storage, v14, header, v30, v31, v32, v33, v34);
+    BOMStorageCopyFromBlock(storage, v8, header);
     if (self->_header->var0 == 1380013123)
     {
       [(CUIPlaceholderCUICommonAssetStorage *)self _swapHeader];
@@ -355,47 +354,47 @@ LABEL_6:
 
   else
   {
-    v22 = BOMStorageFileName(storage);
-    _CUILog(4, "CoreUI: Car file '%s' has no header information.  Using default values", v23, v24, v25, v26, v27, v28, v22);
+    BOMStorageFileName();
+    _CUILog(4, "CoreUI: Car file '%s' has no header information.  Using default values", v10);
     [(CUIPlaceholderCUICommonAssetStorage *)self _initDefaultHeaderVersion:"EMPTY\n" versionString:0.0];
   }
 
   self->_thinnedWithCoreUIVersion = -1;
-  v41 = BOMStorageGetNamedBlock(storage, "CARGLOBALS");
-  if (v41)
+  v12 = BOMStorageGetNamedBlock(storage, "CARGLOBALS");
+  if (v12)
   {
-    v48 = v41;
-    v49 = BOMStorageSizeOfBlock(storage, v41, v42, v43, v44, v45, v46, v47);
-    if (v49)
+    v13 = v12;
+    v14 = BOMStorageSizeOfBlock(storage, v12);
+    if (v14)
     {
-      v50 = v49;
-      v51 = malloc_type_malloc(v49, 0xD92A442DuLL);
-      BOMStorageCopyFromBlock(storage, v48, v51, v52, v53, v54, v55, v56);
-      self->_globals = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v51 length:v50];
-      free(v51);
+      v15 = v14;
+      v16 = malloc_type_malloc(v14, 0xD92A442DuLL);
+      BOMStorageCopyFromBlock(storage, v13, v16);
+      self->_globals = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v16 length:v15];
+      free(v16);
     }
   }
 
-  v57 = BOMStorageGetNamedBlock(storage, "KEYFORMAT");
-  if (v57)
+  v17 = BOMStorageGetNamedBlock(storage, "KEYFORMAT");
+  if (v17)
   {
-    v64 = v57;
-    v65 = BOMStorageSizeOfBlock(storage, v57, v58, v59, v60, v61, v62, v63);
-    if (v65 < 0xC)
+    v18 = v17;
+    v19 = BOMStorageSizeOfBlock(storage, v17);
+    if (v19 < 0xC)
     {
-      v81 = BOMStorageFileName(storage);
-      _CUILog(4, "CoreUI: Car file '%s' has erroneous key format information keyformat is too short. Using CUISystemThemeRenditionKeyFormat", v82, v83, v84, v85, v86, v87, v81);
+      BOMStorageFileName();
+      _CUILog(4, "CoreUI: Car file '%s' has erroneous key format information keyformat is too short. Using CUISystemThemeRenditionKeyFormat", v23);
       p_keyfmt = &self->_keyfmt;
 LABEL_26:
       *p_keyfmt = 0;
       goto LABEL_27;
     }
 
-    v66 = v65;
-    v67 = malloc_type_malloc(v65, 0x6D4D9F52uLL);
-    self->_keyfmt = v67;
+    v20 = v19;
+    v21 = malloc_type_malloc(v19, 0x6D4D9F52uLL);
+    self->_keyfmt = v21;
     p_keyfmt = &self->_keyfmt;
-    BOMStorageCopyFromBlock(storage, v64, v67, v69, v70, v71, v72, v73);
+    BOMStorageCopyFromBlock(storage, v18, v21);
     if (*(self + 108))
     {
       [(CUIPlaceholderCUICommonAssetStorage *)self _swapKeyFormat];
@@ -403,15 +402,15 @@ LABEL_26:
 
     if (**p_keyfmt != 1801874804)
     {
-      v193 = BOMStorageFileName(storage);
-      _CUILog(4, "CoreUI: Car file '%s' has erroneous key format information. Using CUISystemThemeRenditionKeyFormat", v88, v89, v90, v91, v92, v93, v193);
+      BOMStorageFileName();
+      _CUILog(4, "CoreUI: Car file '%s' has erroneous key format information. Using CUISystemThemeRenditionKeyFormat");
       goto LABEL_25;
     }
 
-    if (4 * *(*p_keyfmt + 2) + 12 != v66)
+    if (4 * *(*p_keyfmt + 2) + 12 != v20)
     {
-      v74 = BOMStorageFileName(storage);
-      _CUILog(4, "CoreUI: Car file '%s' has erroneous key format information keyformat #keys %d doesn't match size %d. Using CUISystemThemeRenditionKeyFormat", v75, v76, v77, v78, v79, v80, v74);
+      BOMStorageFileName();
+      _CUILog(4, "CoreUI: Car file '%s' has erroneous key format information keyformat #keys %d doesn't match size %d. Using CUISystemThemeRenditionKeyFormat");
 LABEL_25:
       free(*p_keyfmt);
       goto LABEL_26;
@@ -419,40 +418,40 @@ LABEL_25:
   }
 
 LABEL_27:
-  v94 = BOMStorageGetNamedBlock(storage, "KEYFORMATWORKAROUND");
-  if (v94 && self->_keyfmt)
+  v24 = BOMStorageGetNamedBlock(storage, "KEYFORMATWORKAROUND");
+  if (v24 && self->_keyfmt)
   {
-    v101 = v94;
-    v102 = BOMStorageSizeOfBlock(storage, v94, v95, v96, v97, v98, v99, v100);
-    if (v102 < 0xC)
+    v25 = v24;
+    v26 = BOMStorageSizeOfBlock(storage, v24);
+    if (v26 < 0xC)
     {
-      v116 = BOMStorageFileName(storage);
-      _CUILog(4, "CoreUI: Car file '%s' KEY_FORMAT_WORKAROUND that is too short ignoring.", v117, v118, v119, v120, v121, v122, v116);
+      BOMStorageFileName();
+      _CUILog(4, "CoreUI: Car file '%s' KEY_FORMAT_WORKAROUND that is too short ignoring.", v35);
     }
 
     else
     {
-      v103 = v102;
-      v104 = malloc_type_malloc(v102, 0x2D84A0FBuLL);
-      BOMStorageCopyFromBlock(storage, v101, v104, v105, v106, v107, v108, v109);
+      v27 = v26;
+      v28 = malloc_type_malloc(v26, 0x2D84A0FBuLL);
+      BOMStorageCopyFromBlock(storage, v25, v28);
       keyfmt = self->_keyfmt;
       var2 = keyfmt->var2;
-      if (v103 >> 2 < var2)
+      if (v27 >> 2 < var2)
       {
-        var2 = v103 >> 2;
+        var2 = v27 >> 2;
       }
 
       if (var2)
       {
         var3 = keyfmt->var3;
-        v113 = v104;
+        v32 = v28;
         do
         {
-          v115 = *v113++;
-          v114 = v115;
-          if (v115)
+          v34 = *v32++;
+          v33 = v34;
+          if (v34)
           {
-            *var3 = v114;
+            *var3 = v33;
           }
 
           ++var3;
@@ -462,105 +461,105 @@ LABEL_27:
         while (var2);
       }
 
-      free(v104);
+      free(v28);
     }
   }
 
-  v123 = self->_keyfmt;
-  if (v123)
+  v36 = self->_keyfmt;
+  if (v36)
   {
-    CUIRenditionKeyInitializeAttributeIndexWithKeyFormat(&self->_keyfmtindex, v123);
+    CUIRenditionKeyInitializeAttributeIndexWithKeyFormat(&self->_keyfmtindex, v36);
   }
 
-  v124 = BOMStorageGetNamedBlock(storage, "EXTERNAL_KEYS");
-  if (v124)
+  v37 = BOMStorageGetNamedBlock(storage, "EXTERNAL_KEYS");
+  if (v37)
   {
-    v131 = v124;
-    v132 = BOMStorageSizeOfBlock(storage, v124, v125, v126, v127, v128, v129, v130);
-    v133 = malloc_type_malloc(v132, 0xD17EB229uLL);
-    BOMStorageCopyFromBlock(storage, v131, v133, v134, v135, v136, v137, v138);
-    if (*v133 == 1163414603)
+    v38 = v37;
+    v39 = BOMStorageSizeOfBlock(storage, v37);
+    v40 = malloc_type_malloc(v39, 0xD17EB229uLL);
+    BOMStorageCopyFromBlock(storage, v38, v40);
+    if (*v40 == 1163414603)
     {
-      v139 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      if (v133[2])
+      v41 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      if (v40[2])
       {
-        v140 = 0;
-        v141 = v133 + 3;
+        v42 = 0;
+        v43 = v40 + 3;
         do
         {
-          v142 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v141 + 2];
-          [(NSSet *)v139 addObject:v142];
+          v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v43 + 2];
+          [(NSSet *)v41 addObject:v44];
 
-          v141 = (v141 + v141[1] + 8);
-          ++v140;
+          v43 = (v43 + v43[1] + 8);
+          ++v42;
         }
 
-        while (v140 < v133[2]);
+        while (v42 < v40[2]);
       }
 
-      self->_externalTags = v139;
+      self->_externalTags = v41;
     }
 
     else
     {
-      v143 = BOMStorageFileName(storage);
-      _CUILog(4, "CoreUI: Car file '%s' has erroneous external tags information ignoring", v144, v145, v146, v147, v148, v149, v143);
+      BOMStorageFileName();
+      _CUILog(4, "CoreUI: Car file '%s' has erroneous external tags information ignoring", v45);
     }
 
-    free(v133);
+    free(v40);
   }
 
-  v150 = BOMTreeOpenWithName(storage, "RENDITIONS", writting);
-  if (!v150)
+  v46 = BOMTreeOpenWithName(storage, "RENDITIONS", writtingCopy);
+  if (!v46)
   {
-    v194 = BOMStorageFileName(storage);
-    _CUILog(4, "CoreUI: Error: CUICommonAssetStorage No rendition tree found in '%s'", v152, v153, v154, v155, v156, v157, v194);
+    BOMStorageFileName();
+    _CUILog(4, "CoreUI: Error: CUICommonAssetStorage No rendition tree found in '%s'");
     return 0;
   }
 
-  self->_imagedb = v150;
-  self->_colordb = BOMTreeOpenWithName(storage, "COLORS", writting);
-  self->_fontdb = BOMTreeOpenWithName(storage, "FONTS", writting);
-  self->_fontsizedb = BOMTreeOpenWithName(storage, "FONTSIZES", writting);
-  self->_facetKeysdb = BOMTreeOpenWithName(storage, "FACETKEYS", writting);
-  self->_bitmapKeydb = BOMTreeOpenWithName(storage, "BITMAPKEYS", writting);
-  self->_appearancedb = BOMTreeOpenWithName(storage, "APPEARANCEKEYS", writting);
-  self->_localizationdb = BOMTreeOpenWithName(storage, "LOCALIZATIONKEYS", writting);
+  self->_imagedb = v46;
+  self->_colordb = BOMTreeOpenWithName(storage, "COLORS", writtingCopy);
+  self->_fontdb = BOMTreeOpenWithName(storage, "FONTS", writtingCopy);
+  self->_fontsizedb = BOMTreeOpenWithName(storage, "FONTSIZES", writtingCopy);
+  self->_facetKeysdb = BOMTreeOpenWithName(storage, "FACETKEYS", writtingCopy);
+  self->_bitmapKeydb = BOMTreeOpenWithName(storage, "BITMAPKEYS", writtingCopy);
+  self->_appearancedb = BOMTreeOpenWithName(storage, "APPEARANCEKEYS", writtingCopy);
+  self->_localizationdb = BOMTreeOpenWithName(storage, "LOCALIZATIONKEYS", writtingCopy);
   if (BOMStorageIsOpenForWriting(storage) || !BOMStorageMemoryMapped(storage))
   {
-    v151 = *(self + 108) & 0xFD;
+    v47 = *(self + 108) & 0xFD;
   }
 
   else
   {
-    v151 = *(self + 108) | 2;
+    v47 = *(self + 108) | 2;
   }
 
-  *(self + 108) = v151;
+  *(self + 108) = v47;
   bitmapKeydb = self->_bitmapKeydb;
-  if (bitmapKeydb && !writting)
+  if (bitmapKeydb && !writtingCopy)
   {
-    v160 = BOMTreeIteratorNew(bitmapKeydb, 0, 0, 0);
-    v161 = objc_autoreleasePoolPush();
-    if (!BOMTreeIteratorIsAtEnd(v160, v162, v163, v164, v165, v166, v167, v168))
+    v50 = BOMTreeIteratorNew(bitmapKeydb, 0, 0, 0);
+    v51 = objc_autoreleasePoolPush();
+    if (!BOMTreeIteratorIsAtEnd(v50))
     {
-      v176 = 22;
+      v52 = 22;
       do
       {
-        [(CUIPlaceholderCUICommonAssetStorage *)self renditionInfoForIdentifier:BOMTreeIteratorKey(v160, v169, v170, v171, v172, v173, v174, v175)];
-        if (!--v176)
+        [(CUIPlaceholderCUICommonAssetStorage *)self renditionInfoForIdentifier:BOMTreeIteratorKey(v50)];
+        if (!--v52)
         {
           break;
         }
 
-        BOMTreeIteratorNext(v160, v177, v178, v179, v180, v181, v182, v183);
+        BOMTreeIteratorNext(v50);
       }
 
-      while (!BOMTreeIteratorIsAtEnd(v160, v184, v185, v186, v187, v188, v189, v190));
+      while (!BOMTreeIteratorIsAtEnd(v50));
     }
 
-    objc_autoreleasePoolPop(v161);
-    BOMTreeIteratorFree(v160);
+    objc_autoreleasePoolPop(v51);
+    BOMTreeIteratorFree(v50);
   }
 
   if (self->_appearancedb)
@@ -574,8 +573,9 @@ LABEL_27:
 
 - (id)path
 {
-  v2 = BOMTreeStorage(self->_imagedb);
-  v3 = BOMStorageFileName(v2);
+  BOMTreeStorage(self->_imagedb);
+  BOMStorageFileName();
+  v3 = v2;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v5 = strlen(v3);
 
@@ -587,8 +587,9 @@ LABEL_27:
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = BOMTreeStorage(self->_imagedb);
-  return [v3 stringWithFormat:@"<%@:%p '%s'>", v5, self, BOMStorageFileName(v6)];
+  BOMTreeStorage(self->_imagedb);
+  BOMStorageFileName();
+  return [v3 stringWithFormat:@"<%@:%p '%s'>", v5, self, v6];
 }
 
 - (void)dealloc
@@ -685,11 +686,11 @@ LABEL_27:
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   if (!_storagefileTimestamp_tstamp)
   {
-    v3 = BOMTreeStorage(self->_imagedb);
-    v4 = BOMStorageFileName(v3);
-    memset(&v6, 0, sizeof(v6));
-    stat(v4, &v6);
-    _storagefileTimestamp_tstamp = v6.st_mtimespec.tv_sec;
+    BOMTreeStorage(self->_imagedb);
+    BOMStorageFileName();
+    memset(&v5, 0, sizeof(v5));
+    stat(v3, &v5);
+    _storagefileTimestamp_tstamp = v5.st_mtimespec.tv_sec;
   }
 
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
@@ -727,7 +728,7 @@ LABEL_27:
 
   else
   {
-    return CUIDefaultThemeRenditionKeyFormat(self->_header->var11, self->_header->var2, v2, v3, v4, v5, v6, v7);
+    return CUIDefaultThemeRenditionKeyFormat(self->_header->var11, self->_header->var2);
   }
 }
 
@@ -876,28 +877,28 @@ LABEL_27:
     NamedBlock = BOMStorageGetNamedBlock(v3, "EXTENDED_METADATA");
     if (NamedBlock)
     {
-      v11 = NamedBlock;
+      v5 = NamedBlock;
       if ((*(self + 108) & 2) != 0)
       {
-        self->_extendedMetadata = BOMStorageReadFromBlock(v3, NamedBlock, v5, v6, v7, v8, v9, v10);
+        self->_extendedMetadata = BOMStorageReadFromBlock(v3, NamedBlock);
       }
 
       else
       {
-        v12 = BOMStorageSizeOfBlock(v3, NamedBlock, v5, v6, v7, v8, v9, v10);
-        v13 = malloc_type_calloc(1uLL, 0x404uLL, 0x100004084B5CCE0uLL);
-        self->_extendedMetadata = v13;
-        if (v12 >= 0x404)
+        v6 = BOMStorageSizeOfBlock(v3, NamedBlock);
+        v7 = malloc_type_calloc(1uLL, 0x404uLL, 0x100004084B5CCE0uLL);
+        self->_extendedMetadata = v7;
+        if (v6 >= 0x404)
         {
-          v17 = 1028;
+          v8 = 1028;
         }
 
         else
         {
-          v17 = v12;
+          v8 = v6;
         }
 
-        BOMStorageCopyFromBlockRange(v3, v11, 0, v17, v13, v14, v15, v16);
+        BOMStorageCopyFromBlockRange(v3, v5, 0, v8, v7);
       }
     }
   }
@@ -994,7 +995,7 @@ LABEL_27:
 {
   [+[CUIPlaceholderCUIRuntimeStatistics sharedRuntimeStatistics](CUIPlaceholderCUIRuntimeStatistics "sharedRuntimeStatistics")];
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  LOBYTE(length) = BOMTreeValueExists(self->_imagedb, data, length, v7, v8, v9, v10, v11) != 0;
+  LOBYTE(length) = BOMTreeValueExists(self->_imagedb, data, length) != 0;
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   return length;
 }
@@ -1005,43 +1006,43 @@ LABEL_27:
   bytes = [key bytes];
   v6 = [key length];
   size = 0;
-  if (BOMTreeGetValueSize(self->_imagedb, bytes, v6, &size, v7, v8, v9, v10))
+  if (BOMTreeGetValueSize(self->_imagedb, bytes, v6, &size))
   {
     goto LABEL_2;
   }
 
   if ((*(self + 108) & 2) != 0)
   {
-    Value = BOMTreeReadValue(self->_imagedb, bytes, v6, v11, v12, v13, v14, v15);
+    Value = BOMTreeReadValue(self->_imagedb, bytes, v6);
     if (Value)
     {
-      v18 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:Value length:size freeWhenDone:0];
+      v9 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:Value length:size freeWhenDone:0];
 LABEL_9:
-      v16 = v18;
+      v7 = v9;
       goto LABEL_10;
     }
   }
 
-  v16 = BOMTreeGetValue(self->_imagedb, bytes, v6, v11, v12, v13, v14, v15);
-  if (!v16)
+  v7 = BOMTreeGetValue(self->_imagedb, bytes, v6);
+  if (!v7)
   {
     goto LABEL_10;
   }
 
-  v19 = malloc_type_malloc(size, 0x36A11318uLL);
+  v10 = malloc_type_malloc(size, 0x36A11318uLL);
   __CFSetLastAllocationEventName();
-  if (v19)
+  if (v10)
   {
-    memcpy(v19, v16, size);
-    v18 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v19 length:size];
+    memcpy(v10, v7, size);
+    v9 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v10 length:size];
     goto LABEL_9;
   }
 
 LABEL_2:
-  v16 = 0;
+  v7 = 0;
 LABEL_10:
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  return v16;
+  return v7;
 }
 
 - (id)allAssetKeys
@@ -1066,18 +1067,18 @@ uint64_t __51__CUIPlaceholderCUICommonAssetStorage_allAssetKeys__block_invoke(ui
 
 - (id)assetKeysMatchingBlock:(id)block
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   keyFormat = [(CUIPlaceholderCUICommonAssetStorage *)self keyFormat];
-  v52 = 0u;
-  memset(v53, 0, 28);
-  v50 = 0u;
-  v51 = 0u;
-  v49 = 0u;
+  v17 = 0u;
+  memset(v18, 0, 28);
+  v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
   var2 = keyFormat->var2;
   if (var2 < 0x18)
   {
-    v7 = &v49;
+    v7 = &v14;
   }
 
   else
@@ -1087,52 +1088,52 @@ uint64_t __51__CUIPlaceholderCUICommonAssetStorage_allAssetKeys__block_invoke(ui
   }
 
   v8 = BOMTreeIteratorNew(self->_imagedb, 0, 2 * var2, 0);
-  v23 = 0;
-  if (!BOMTreeIteratorIsAtEnd(v8, v9, v10, v11, v12, v13, v14, v15))
+  v9 = 0;
+  if (!BOMTreeIteratorIsAtEnd(v8))
   {
-    v23 = 0;
+    v9 = 0;
     do
     {
-      v24 = BOMTreeIteratorKey(v8, v16, v17, v18, v19, v20, v21, v22);
-      v32 = BOMTreeIteratorKeySize(v8, v25, v26, v27, v28, v29, v30, v31);
-      if ([(CUIPlaceholderCUICommonAssetStorage *)self swapped:v49])
+      v10 = BOMTreeIteratorKey(v8);
+      v11 = BOMTreeIteratorKeySize(v8);
+      if ([(CUIPlaceholderCUICommonAssetStorage *)self swapped:v14])
       {
-        [(CUIPlaceholderCUICommonAssetStorage *)self _swapRenditionKeyArray:v24];
+        [(CUIPlaceholderCUICommonAssetStorage *)self _swapRenditionKeyArray:v10];
       }
 
-      CUIFillRenditionKeyForCARKeyArray(v7, v24, keyFormat);
+      CUIFillRenditionKeyForCARKeyArray(v7, v10, keyFormat);
       os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-      v33 = (*(block + 2))(block, v7, keyFormat);
+      v12 = (*(block + 2))(block, v7, keyFormat);
       os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-      if (v33)
+      if (v12)
       {
-        if (!v23)
+        if (!v9)
         {
-          v23 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+          v9 = objc_alloc_init(MEMORY[0x1E695DFA8]);
         }
 
-        [v23 addObject:{objc_msgSend(MEMORY[0x1E695DEF0], "dataWithBytes:length:", v24, v32)}];
+        [v9 addObject:{objc_msgSend(MEMORY[0x1E695DEF0], "dataWithBytes:length:", v10, v11)}];
       }
 
       if ([(CUIPlaceholderCUICommonAssetStorage *)self swapped])
       {
-        [(CUIPlaceholderCUICommonAssetStorage *)self _swapRenditionKeyArray:v24];
+        [(CUIPlaceholderCUICommonAssetStorage *)self _swapRenditionKeyArray:v10];
       }
 
-      BOMTreeIteratorNext(v8, v34, v35, v36, v37, v38, v39, v40);
+      BOMTreeIteratorNext(v8);
     }
 
-    while (!BOMTreeIteratorIsAtEnd(v8, v41, v42, v43, v44, v45, v46, v47));
+    while (!BOMTreeIteratorIsAtEnd(v8));
   }
 
   BOMTreeIteratorFree(v8);
-  if (v7 != &v49)
+  if (v7 != &v14)
   {
     free(v7);
   }
 
-  os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock:v49]);
-  return v23;
+  os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock:v14]);
+  return v9;
 }
 
 - (BOOL)enumerateKeysAndObjectsUsingBlock:(id)block
@@ -1142,100 +1143,100 @@ uint64_t __51__CUIPlaceholderCUICommonAssetStorage_allAssetKeys__block_invoke(ui
   v6 = malloc_type_calloc(keyFormat->var2 + 1, 4uLL, 0x100004052888210uLL);
   v7 = BOMTreeIteratorNew(self->_imagedb, 0, 0, 0);
   v8 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  if (!BOMTreeIteratorIsAtEnd(v7, v9, v10, v11, v12, v13, v14, v15))
+  if (!BOMTreeIteratorIsAtEnd(v7))
   {
-    v82 = keyFormat;
-    v24 = 0;
-    v23 = 1;
+    v23 = keyFormat;
+    v10 = 0;
+    v9 = 1;
     while (1)
     {
-      v83 = 0;
-      if (v24 >= 0x65)
+      v24 = 0;
+      if (v10 >= 0x65)
       {
         [v8 drain];
         v8 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-        v24 = 0;
+        v10 = 0;
       }
 
-      v83 = 0;
-      v25 = BOMTreeIteratorKey(v7, v16, v17, v18, v19, v20, v21, v22);
-      v33 = BOMTreeIteratorKeySize(v7, v26, v27, v28, v29, v30, v31, v32);
-      if (!v25)
+      v24 = 0;
+      v11 = BOMTreeIteratorKey(v7);
+      v12 = BOMTreeIteratorKeySize(v7);
+      if (!v11)
       {
-        v23 = 0;
+        v9 = 0;
         goto LABEL_24;
       }
 
       if ((*(self + 108) & 2) != 0)
       {
-        v51 = v33;
-        Value = BOMTreeReadValue(self->_imagedb, v25, v33, v36, v37, v38, v39, v40);
-        if (!BOMTreeGetValueSize(self->_imagedb, v25, v51, &v83, v53, v54, v55, v56))
+        v16 = v12;
+        Value = BOMTreeReadValue(self->_imagedb, v11, v12);
+        if (!BOMTreeGetValueSize(self->_imagedb, v11, v16, &v24))
         {
-          v57 = objc_alloc(MEMORY[0x1E695DEF0]);
-          v50 = [v57 initWithBytesNoCopy:Value length:v83 freeWhenDone:0];
+          v18 = objc_alloc(MEMORY[0x1E695DEF0]);
+          v15 = [v18 initWithBytesNoCopy:Value length:v24 freeWhenDone:0];
           goto LABEL_12;
         }
       }
 
       else
       {
-        v48 = BOMTreeIteratorValue(v7, v34, v35, v36, v37, v38, v39, v40);
-        if (v48)
+        v13 = BOMTreeIteratorValue(v7);
+        if (v13)
         {
-          v83 = BOMTreeIteratorValueSize(v7, v41, v42, v43, v44, v45, v46, v47);
-          v49 = objc_alloc(MEMORY[0x1E695DEF0]);
-          v50 = [v49 initWithBytes:v48 length:v83];
+          v24 = BOMTreeIteratorValueSize(v7);
+          v14 = objc_alloc(MEMORY[0x1E695DEF0]);
+          v15 = [v14 initWithBytes:v13 length:v24];
 LABEL_12:
-          v58 = v50;
+          v19 = v15;
           goto LABEL_15;
         }
 
-        _CUILog(4, "CoreUI: %s invalid value skipping", v42, v43, v44, v45, v46, v47, "[CUIPlaceholderCUICommonAssetStorage enumerateKeysAndObjectsUsingBlock:]");
-        v23 = 0;
+        _CUILog(4, "CoreUI: %s invalid value skipping", "[CUIPlaceholderCUICommonAssetStorage enumerateKeysAndObjectsUsingBlock:]");
+        v9 = 0;
       }
 
-      v58 = 0;
+      v19 = 0;
 LABEL_15:
-      bytes = [v58 bytes];
+      bytes = [v19 bytes];
       if (!bytes)
       {
-        _CUILog(4, "CoreUI: %s can't get size of value skipping [data size:%d ptr:%p]", v60, v61, v62, v63, v64, v65, "[CUIPlaceholderCUICommonAssetStorage enumerateKeysAndObjectsUsingBlock:]");
+        _CUILog(4, "CoreUI: %s can't get size of value skipping [data size:%d ptr:%p]");
 LABEL_20:
-        v23 = 0;
+        v9 = 0;
         goto LABEL_21;
       }
 
       if (*bytes != 1129599817)
       {
-        _CUILog(4, "CoreUI: %s skipping invalid CSIHeader [signature:%d]", v60, v61, v62, v63, v64, v65, "[CUIPlaceholderCUICommonAssetStorage enumerateKeysAndObjectsUsingBlock:]");
+        _CUILog(4, "CoreUI: %s skipping invalid CSIHeader [signature:%d]");
         goto LABEL_20;
       }
 
-      CUIFillRenditionKeyForCARKeyArray(v6, v25, v82);
+      CUIFillRenditionKeyForCARKeyArray(v6, v11, v23);
       os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-      v66 = objc_autoreleasePoolPush();
-      (*(block + 2))(block, v6, v58);
-      objc_autoreleasePoolPop(v66);
+      v21 = objc_autoreleasePoolPush();
+      (*(block + 2))(block, v6, v19);
+      objc_autoreleasePoolPop(v21);
       os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
 LABEL_21:
 
-      BOMTreeIteratorNext(v7, v67, v68, v69, v70, v71, v72, v73);
-      ++v24;
-      if (BOMTreeIteratorIsAtEnd(v7, v74, v75, v76, v77, v78, v79, v80))
+      BOMTreeIteratorNext(v7);
+      ++v10;
+      if (BOMTreeIteratorIsAtEnd(v7))
       {
         goto LABEL_24;
       }
     }
   }
 
-  v23 = 1;
+  v9 = 1;
 LABEL_24:
   free(v6);
   BOMTreeIteratorFree(v7);
   [v8 drain];
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  return v23 & 1;
+  return v9 & 1;
 }
 
 - (void)enumerateKeysAndObjectsWithoutIgnoringUsingBlock:(id)block
@@ -1245,73 +1246,73 @@ LABEL_24:
   v6 = malloc_type_calloc(keyFormat->var2 + 1, 4uLL, 0x100004052888210uLL);
   v7 = BOMTreeIteratorNew(self->_imagedb, 0, 0, 0);
   v8 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  if (!BOMTreeIteratorIsAtEnd(v7, v9, v10, v11, v12, v13, v14, v15))
+  if (!BOMTreeIteratorIsAtEnd(v7))
   {
-    v80 = keyFormat;
-    v23 = 0;
+    v21 = keyFormat;
+    v9 = 0;
     do
     {
-      v81 = 0;
-      if (v23 >= 0x3E9)
+      v22 = 0;
+      if (v9 >= 0x3E9)
       {
         [v8 drain];
         v8 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-        v23 = 0;
+        v9 = 0;
       }
 
-      v24 = BOMTreeIteratorKey(v7, v16, v17, v18, v19, v20, v21, v22);
-      v32 = BOMTreeIteratorKeySize(v7, v25, v26, v27, v28, v29, v30, v31);
+      v10 = BOMTreeIteratorKey(v7);
+      v11 = BOMTreeIteratorKeySize(v7);
       if ((*(self + 108) & 2) != 0)
       {
-        v50 = v32;
-        Value = BOMTreeReadValue(self->_imagedb, v24, v32, v35, v36, v37, v38, v39);
-        if (BOMTreeGetValueSize(self->_imagedb, v24, v50, &v81, v52, v53, v54, v55))
+        v15 = v11;
+        Value = BOMTreeReadValue(self->_imagedb, v10, v11);
+        if (BOMTreeGetValueSize(self->_imagedb, v10, v15, &v22))
         {
-          v56 = 0;
+          v17 = 0;
           goto LABEL_11;
         }
 
-        v57 = objc_alloc(MEMORY[0x1E695DEF0]);
-        v49 = [v57 initWithBytesNoCopy:Value length:v81 freeWhenDone:0];
+        v18 = objc_alloc(MEMORY[0x1E695DEF0]);
+        v14 = [v18 initWithBytesNoCopy:Value length:v22 freeWhenDone:0];
       }
 
       else
       {
-        v40 = BOMTreeIteratorValue(v7, v33, v34, v35, v36, v37, v38, v39);
-        v81 = BOMTreeIteratorValueSize(v7, v41, v42, v43, v44, v45, v46, v47);
-        v48 = objc_alloc(MEMORY[0x1E695DEF0]);
-        v49 = [v48 initWithBytes:v40 length:v81];
+        v12 = BOMTreeIteratorValue(v7);
+        v22 = BOMTreeIteratorValueSize(v7);
+        v13 = objc_alloc(MEMORY[0x1E695DEF0]);
+        v14 = [v13 initWithBytes:v12 length:v22];
       }
 
-      v56 = v49;
+      v17 = v14;
 LABEL_11:
-      bytes = [v56 bytes];
+      bytes = [v17 bytes];
       if (!bytes)
       {
-        _CUILog(4, "CoreUI: %s can't get size of value skipping", v59, v60, v61, v62, v63, v64, "[CUIPlaceholderCUICommonAssetStorage enumerateKeysAndObjectsWithoutIgnoringUsingBlock:]");
+        _CUILog(4, "CoreUI: %s can't get size of value skipping");
 LABEL_16:
-        v65 = 0;
+        v20 = 0;
         goto LABEL_17;
       }
 
       if (*bytes != 1129599817)
       {
-        _CUILog(4, "CoreUI: %s skipping invalid CSIHeader", v59, v60, v61, v62, v63, v64, "[CUIPlaceholderCUICommonAssetStorage enumerateKeysAndObjectsWithoutIgnoringUsingBlock:]");
+        _CUILog(4, "CoreUI: %s skipping invalid CSIHeader");
         goto LABEL_16;
       }
 
-      CUIFillRenditionKeyForCARKeyArray(v6, v24, v80);
-      v65 = v56;
+      CUIFillRenditionKeyForCARKeyArray(v6, v10, v21);
+      v20 = v17;
 LABEL_17:
       os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-      (*(block + 2))(block, v6, v65);
+      (*(block + 2))(block, v6, v20);
       os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
 
-      BOMTreeIteratorNext(v7, v66, v67, v68, v69, v70, v71, v72);
-      ++v23;
+      BOMTreeIteratorNext(v7);
+      ++v9;
     }
 
-    while (!BOMTreeIteratorIsAtEnd(v7, v73, v74, v75, v76, v77, v78, v79));
+    while (!BOMTreeIteratorIsAtEnd(v7));
   }
 
   free(v6);
@@ -1325,23 +1326,15 @@ LABEL_17:
   colordb = self->_colordb;
   if (colordb)
   {
-    v5 = BOMTreeIteratorNew(colordb, 0, 0, 0);
-    if (!BOMTreeIteratorIsAtEnd(v5, v6, v7, v8, v9, v10, v11, v12))
+    for (i = BOMTreeIteratorNew(colordb, 0, 0, 0); !BOMTreeIteratorIsAtEnd(i); BOMTreeIteratorNext(i))
     {
-      do
-      {
-        v20 = BOMTreeIteratorKey(v5, v13, v14, v15, v16, v17, v18, v19);
-        v28 = BOMTreeIteratorValue(v5, v21, v22, v23, v24, v25, v26, v27);
-        v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v20 + 4];
-        (*(block + 2))(block, v29, BYTE2(*(v28 + 8)), BYTE1(*(v28 + 8)), *(v28 + 8), HIBYTE(*(v28 + 8)));
-
-        BOMTreeIteratorNext(v5, v30, v31, v32, v33, v34, v35, v36);
-      }
-
-      while (!BOMTreeIteratorIsAtEnd(v5, v37, v38, v39, v40, v41, v42, v43));
+      v6 = BOMTreeIteratorKey(i);
+      v7 = BOMTreeIteratorValue(i);
+      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v6 + 4];
+      (*(block + 2))(block, v8, BYTE2(*(v7 + 8)), BYTE1(*(v7 + 8)), *(v7 + 8), HIBYTE(*(v7 + 8)));
     }
 
-    BOMTreeIteratorFree(v5);
+    BOMTreeIteratorFree(i);
   }
 
   return 1;
@@ -1355,7 +1348,7 @@ LABEL_17:
   }
 
   identifierCopy = identifier;
-  v30 = 0;
+  v21 = 0;
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self renditionInfoCacheLock]);
   v5 = 0;
   while (self->_renditionInfoCacheLookup[v5] != identifierCopy)
@@ -1376,73 +1369,73 @@ LABEL_8:
     bitmapKeydb = self->_bitmapKeydb;
     if ((*(self + 108) & 2) != 0)
     {
-      Value = BOMTreeReadValue(bitmapKeydb, identifierCopy, 2uLL, v7, v8, v9, v10, v11);
+      Value = BOMTreeReadValue(bitmapKeydb, identifierCopy, 2uLL);
     }
 
     else
     {
-      Value = BOMTreeGetValue(bitmapKeydb, identifierCopy, 2uLL, v7, v8, v9, v10, v11);
+      Value = BOMTreeGetValue(bitmapKeydb, identifierCopy, 2uLL);
     }
 
     v6 = Value;
     if (Value)
     {
-      if (BOMTreeGetValueSize(self->_bitmapKeydb, identifierCopy, 2uLL, &v30, v14, v15, v16, v17))
+      if (BOMTreeGetValueSize(self->_bitmapKeydb, identifierCopy, 2uLL, &v21))
       {
         v6 = 0;
       }
 
       else
       {
-        v18 = *(self + 108);
-        v19 = objc_alloc(MEMORY[0x1E695DEF0]);
-        if ((v18 & 2) != 0)
+        v9 = *(self + 108);
+        v10 = objc_alloc(MEMORY[0x1E695DEF0]);
+        if ((v9 & 2) != 0)
         {
-          v20 = [v19 initWithBytesNoCopy:v6 length:v30 freeWhenDone:0];
+          v11 = [v10 initWithBytesNoCopy:v6 length:v21 freeWhenDone:0];
         }
 
         else
         {
-          v20 = [v19 initWithBytes:v6 length:v30];
+          v11 = [v10 initWithBytes:v6 length:v21];
         }
 
-        v21 = v20;
-        v6 = [[CUIPlaceholderCUINamedRenditionInfo alloc] initWithData:v20 keyFormat:[(CUIPlaceholderCUICommonAssetStorage *)self keyFormat] andPlatform:[(CUIPlaceholderCUICommonAssetStorage *)self deploymentPlatform]];
+        v12 = v11;
+        v6 = [[CUIPlaceholderCUINamedRenditionInfo alloc] initWithData:v11 keyFormat:[(CUIPlaceholderCUICommonAssetStorage *)self keyFormat] andPlatform:[(CUIPlaceholderCUICommonAssetStorage *)self deploymentPlatform]];
 
         if (v6)
         {
           os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self renditionInfoCacheLock]);
           for (i = 0; i != 20; ++i)
           {
-            v23 = self + 2 * i;
-            if (!*(v23 + 60))
+            v14 = self + 2 * i;
+            if (!*(v14 + 60))
             {
-              *(v23 + 60) = identifierCopy;
+              *(v14 + 60) = identifierCopy;
               self->_renditionInfoCache[i] = v6;
               goto LABEL_26;
             }
           }
 
-          v24 = &self->_renditionInfoCache[1];
-          v25 = &self->_renditionInfoCacheLookup[1];
-          v26 = 19;
+          v15 = &self->_renditionInfoCache[1];
+          v16 = &self->_renditionInfoCacheLookup[1];
+          v17 = 19;
           do
           {
-            *(v25 - 1) = *v25;
-            v27 = *(v24 - 1);
-            *(v24 - 1) = *v24;
-            *v24 = 0;
-            *v25++ = 0;
-            ++v24;
-            --v26;
+            *(v16 - 1) = *v16;
+            v18 = *(v15 - 1);
+            *(v15 - 1) = *v15;
+            *v15 = 0;
+            *v16++ = 0;
+            ++v15;
+            --v17;
           }
 
-          while (v26);
+          while (v17);
           self->_renditionInfoCacheLookup[19] = identifierCopy;
           self->_renditionInfoCache[19] = v6;
 LABEL_26:
           os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self renditionInfoCacheLock]);
-          v28 = v6;
+          v19 = v6;
         }
       }
     }
@@ -1458,32 +1451,27 @@ LABEL_26:
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   keyFormat = [(CUIPlaceholderCUICommonAssetStorage *)self keyFormat];
   v6 = BOMTreeIteratorNew(self->_bitmapKeydb, 0, 0, 0);
-  v55 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  if (!BOMTreeIteratorIsAtEnd(v6, v7, v8, v9, v10, v11, v12, v13))
+  v13 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  while (!BOMTreeIteratorIsAtEnd(v6))
   {
-    do
+    v7 = BOMTreeIteratorKey(v6);
+    v8 = BOMTreeIteratorValue(v6);
+    v9 = BOMTreeIteratorValueSize(v6);
+    if (v8 && v9)
     {
-      v21 = BOMTreeIteratorKey(v6, v14, v15, v16, v17, v18, v19, v20);
-      v29 = BOMTreeIteratorValue(v6, v22, v23, v24, v25, v26, v27, v28);
-      v37 = BOMTreeIteratorValueSize(v6, v30, v31, v32, v33, v34, v35, v36);
-      if (v29 && v37)
+      v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v8 length:v9];
+      v11 = [[CUIPlaceholderCUINamedRenditionInfo alloc] initWithData:v10 keyFormat:keyFormat andPlatform:[(CUIPlaceholderCUICommonAssetStorage *)self deploymentPlatform]];
+      if (v11)
       {
-        v45 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v29 length:v37];
-        v46 = [[CUIPlaceholderCUINamedRenditionInfo alloc] initWithData:v45 keyFormat:keyFormat andPlatform:[(CUIPlaceholderCUICommonAssetStorage *)self deploymentPlatform]];
-        if (v46)
-        {
-          (*(block + 2))(block, v21, v46);
-        }
+        (*(block + 2))(block, v7, v11);
       }
-
-      BOMTreeIteratorNext(v6, v38, v39, v40, v41, v42, v43, v44);
     }
 
-    while (!BOMTreeIteratorIsAtEnd(v6, v47, v48, v49, v50, v51, v52, v53));
+    BOMTreeIteratorNext(v6);
   }
 
   BOMTreeIteratorFree(v6);
-  [v55 drain];
+  [v13 drain];
   lock = [(CUIPlaceholderCUICommonAssetStorage *)self lock];
 
   os_unfair_lock_unlock(lock);
@@ -1499,8 +1487,8 @@ LABEL_26:
 
 - (const)_renditionKeyForName:(const char *)name hotSpot:(CGPoint *)spot
 {
-  v30 = 0;
-  v29 = 0;
+  v21 = 0;
+  v20 = 0;
   v5 = -1.0;
   if (!name)
   {
@@ -1512,7 +1500,7 @@ LABEL_26:
   if (!self->_facetKeysdb)
   {
 LABEL_6:
-    v21 = [MEMORY[0x1E695DF88] dataWithBytes:&v30 length:4];
+    v12 = [MEMORY[0x1E695DF88] dataWithBytes:&v21 length:4];
 LABEL_7:
     if (spot)
     {
@@ -1520,66 +1508,66 @@ LABEL_7:
       spot->y = v5;
     }
 
-    return [v21 bytes];
+    return [v12 bytes];
   }
 
   swapped = [(CUIPlaceholderCUICommonAssetStorage *)self swapped];
   v10 = strlen(name);
-  if (BOMTreeGetValueSize(self->_facetKeysdb, name, v10, &v29, v11, v12, v13, v14))
+  if (BOMTreeGetValueSize(self->_facetKeysdb, name, v10, &v20))
   {
     return 0;
   }
 
-  if ((*(self + 108) & 2) == 0 || (Value = BOMTreeReadValue(self->_facetKeysdb, name, v10, v15, v16, v17, v18, v19)) == 0)
+  if ((*(self + 108) & 2) == 0 || (Value = BOMTreeReadValue(self->_facetKeysdb, name, v10)) == 0)
   {
-    Value = BOMTreeGetValue(self->_facetKeysdb, name, v10, v15, v16, v17, v18, v19);
+    Value = BOMTreeGetValue(self->_facetKeysdb, name, v10);
   }
 
   result = 0;
-  if (Value && v29)
+  if (Value && v20)
   {
-    v23 = *Value;
+    v14 = *Value;
     if (swapped)
     {
       v5 = (bswap32(*(Value + 2)) >> 16);
-      v7 = __rev16(v23);
-      LODWORD(v24) = bswap32(*(Value + 4)) >> 16;
+      v7 = __rev16(v14);
+      LODWORD(v15) = bswap32(*(Value + 4)) >> 16;
     }
 
     else
     {
-      v7 = v23;
+      v7 = v14;
       v5 = *(Value + 2);
-      LODWORD(v24) = *(Value + 4);
+      LODWORD(v15) = *(Value + 4);
     }
 
-    v21 = [MEMORY[0x1E695DF88] dataWithCapacity:4 * v24 + 4];
+    v12 = [MEMORY[0x1E695DF88] dataWithCapacity:4 * v15 + 4];
     __CFSetLastAllocationEventName();
-    if (v24)
+    if (v15)
     {
-      v24 = v24;
-      v25 = (Value + 6);
+      v15 = v15;
+      v16 = (Value + 6);
       do
       {
-        v28 = 0;
-        v27 = *v25++;
-        v26 = v27;
+        v19 = 0;
+        v18 = *v16++;
+        v17 = v18;
         if (swapped)
         {
-          Value = Value & 0xFFFFFFFF00000000 | v26;
-          LODWORD(v26) = [(CUIPlaceholderCUICommonAssetStorage *)self _swapRenditionKeyToken:Value];
+          Value = Value & 0xFFFFFFFF00000000 | v17;
+          LODWORD(v17) = [(CUIPlaceholderCUICommonAssetStorage *)self _swapRenditionKeyToken:Value];
         }
 
-        v28 = v26;
-        [v21 appendBytes:&v28 length:4];
-        --v24;
+        v19 = v17;
+        [v12 appendBytes:&v19 length:4];
+        --v15;
       }
 
-      while (v24);
+      while (v15);
     }
 
-    [v21 appendBytes:&v30 length:4];
-    if (v29)
+    [v12 appendBytes:&v21 length:4];
+    if (v20)
     {
       goto LABEL_7;
     }
@@ -1597,30 +1585,30 @@ LABEL_7:
   if (facetKeysdb)
   {
     v5 = BOMTreeIteratorNew(facetKeysdb, 0, 0, 0);
-    v13 = v5;
-    if (v5 && !BOMTreeIteratorIsAtEnd(v5, v6, v7, v8, v9, v10, v11, v12))
+    v6 = v5;
+    if (v5 && !BOMTreeIteratorIsAtEnd(v5))
     {
       do
       {
-        v21 = BOMTreeIteratorKeySize(v13, v14, v15, v16, v17, v18, v19, v20);
-        v29 = BOMTreeIteratorKey(v13, v22, v23, v24, v25, v26, v27, v28);
-        if (v21)
+        v7 = BOMTreeIteratorKeySize(v6);
+        v8 = BOMTreeIteratorKey(v6);
+        if (v7)
         {
-          v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v29 length:v21 encoding:4];
-          if (v37)
+          v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v8 length:v7 encoding:4];
+          if (v9)
           {
-            v38 = v37;
-            [array addObject:v37];
+            v10 = v9;
+            [array addObject:v9];
           }
         }
 
-        BOMTreeIteratorNext(v13, v30, v31, v32, v33, v34, v35, v36);
+        BOMTreeIteratorNext(v6);
       }
 
-      while (!BOMTreeIteratorIsAtEnd(v13, v39, v40, v41, v42, v43, v44, v45));
+      while (!BOMTreeIteratorIsAtEnd(v6));
     }
 
-    BOMTreeIteratorFree(v13);
+    BOMTreeIteratorFree(v6);
   }
 
   return array;
@@ -1641,41 +1629,41 @@ LABEL_7:
   if (facetKeysdb)
   {
     v5 = BOMTreeIteratorNew(facetKeysdb, 0, 0, 0);
-    v13 = v5;
-    if (v5 && !BOMTreeIteratorIsAtEnd(v5, v6, v7, v8, v9, v10, v11, v12))
+    v6 = v5;
+    if (v5 && !BOMTreeIteratorIsAtEnd(v5))
     {
       do
       {
-        v21 = BOMTreeIteratorValue(v13, v14, v15, v16, v17, v18, v19, v20);
-        v29 = BOMTreeIteratorKeySize(v13, v22, v23, v24, v25, v26, v27, v28);
-        v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:BOMTreeIteratorKey(v13 length:v30 encoding:{v31, v32, v33, v34, v35, v36), v29, 4}];
-        v38 = *(v21 + 4);
-        if (v38)
+        v7 = BOMTreeIteratorValue(v6);
+        v8 = BOMTreeIteratorKeySize(v6);
+        v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:BOMTreeIteratorKey(v6) length:v8 encoding:4];
+        v10 = *(v7 + 4);
+        if (v10)
         {
-          v39 = 0;
-          v40 = (v21 + 8);
+          v11 = 0;
+          v12 = (v7 + 8);
           do
           {
-            if (*(v40 - 1) == 17)
+            if (*(v12 - 1) == 17)
             {
-              [v3 setObject:v37 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *v40)}];
-              v38 = *(v21 + 4);
+              [v3 setObject:v9 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *v12)}];
+              v10 = *(v7 + 4);
             }
 
-            ++v39;
-            v40 += 2;
+            ++v11;
+            v12 += 2;
           }
 
-          while (v39 < v38);
+          while (v11 < v10);
         }
 
-        BOMTreeIteratorNext(v13, v41, v42, v43, v44, v45, v46, v47);
+        BOMTreeIteratorNext(v6);
       }
 
-      while (!BOMTreeIteratorIsAtEnd(v13, v48, v49, v50, v51, v52, v53, v54));
+      while (!BOMTreeIteratorIsAtEnd(v6));
     }
 
-    BOMTreeIteratorFree(v13);
+    BOMTreeIteratorFree(v6);
   }
 
   return v3;
@@ -1688,60 +1676,60 @@ LABEL_7:
   if (facetKeysdb)
   {
     v6 = BOMTreeIteratorNew(facetKeysdb, 0, 0, 0);
-    v14 = v6;
-    if (v6 && !BOMTreeIteratorIsAtEnd(v6, v7, v8, v9, v10, v11, v12, v13))
+    v7 = v6;
+    if (v6 && !BOMTreeIteratorIsAtEnd(v6))
     {
       do
       {
-        v22 = BOMTreeIteratorKeySize(v14, v15, v16, v17, v18, v19, v20, v21);
-        v30 = BOMTreeIteratorKey(v14, v23, v24, v25, v26, v27, v28, v29);
-        v38 = BOMTreeIteratorValue(v14, v31, v32, v33, v34, v35, v36, v37);
-        if (*(v38 + 4))
+        v8 = BOMTreeIteratorKeySize(v7);
+        v9 = BOMTreeIteratorKey(v7);
+        v10 = BOMTreeIteratorValue(v7);
+        if (*(v10 + 4))
         {
-          v46 = v38;
-          v47 = 0;
-          v48 = (v38 + 8);
+          v11 = v10;
+          v12 = 0;
+          v13 = (v10 + 8);
           while (1)
           {
-            v49 = *v48;
-            if (v49 != CUIRenditionKeyValueForAttribute(&list->identifier, *(v48 - 1)))
+            v14 = *v13;
+            if (v14 != CUIRenditionKeyValueForAttribute(&list->identifier, *(v13 - 1)))
             {
               break;
             }
 
-            v48 += 2;
-            if (++v47 >= *(v46 + 4))
+            v13 += 2;
+            if (++v12 >= *(v11 + 4))
             {
-              v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v30 length:v22 encoding:4];
-              if (!v50)
+              v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v9 length:v8 encoding:4];
+              if (!v15)
               {
                 break;
               }
 
-              v58 = v50;
+              v16 = v15;
               goto LABEL_11;
             }
           }
         }
 
-        BOMTreeIteratorNext(v14, v39, v40, v41, v42, v43, v44, v45);
+        BOMTreeIteratorNext(v7);
       }
 
-      while (!BOMTreeIteratorIsAtEnd(v14, v51, v52, v53, v54, v55, v56, v57));
+      while (!BOMTreeIteratorIsAtEnd(v7));
     }
 
-    v58 = 0;
+    v16 = 0;
 LABEL_11:
-    BOMTreeIteratorFree(v14);
+    BOMTreeIteratorFree(v7);
   }
 
   else
   {
-    v58 = 0;
+    v16 = 0;
   }
 
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  return v58;
+  return v16;
 }
 
 - (id)renditionNamesWithKeys
@@ -1752,45 +1740,45 @@ LABEL_11:
   if (facetKeysdb)
   {
     v5 = BOMTreeIteratorNew(facetKeysdb, 0, 0, 0);
-    v13 = v5;
-    if (v5 && !BOMTreeIteratorIsAtEnd(v5, v6, v7, v8, v9, v10, v11, v12))
+    v6 = v5;
+    if (v5 && !BOMTreeIteratorIsAtEnd(v5))
     {
       do
       {
-        v21 = BOMTreeIteratorValue(v13, v14, v15, v16, v17, v18, v19, v20);
-        v29 = BOMTreeIteratorKeySize(v13, v22, v23, v24, v25, v26, v27, v28);
-        v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:BOMTreeIteratorKey(v13 length:v30 encoding:{v31, v32, v33, v34, v35, v36), v29, 4}];
+        v7 = BOMTreeIteratorValue(v6);
+        v8 = BOMTreeIteratorKeySize(v6);
+        v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:BOMTreeIteratorKey(v6) length:v8 encoding:4];
         string = [MEMORY[0x1E696AD60] string];
-        if (*(v21 + 4))
+        if (*(v7 + 4))
         {
-          v39 = 0;
-          v40 = (v21 + 8);
+          v11 = 0;
+          v12 = (v7 + 8);
           do
           {
-            [string appendFormat:@"%s:%d", CUIThemeAttributeNameToString(*(v40 - 1)), *v40];
-            v41 = *(v21 + 4);
-            if (v39 != v41 - 1)
+            [string appendFormat:@"%s:%d", CUIThemeAttributeNameToString(*(v12 - 1)), *v12];
+            v13 = *(v7 + 4);
+            if (v11 != v13 - 1)
             {
               [string appendString:{@", "}];
-              v41 = *(v21 + 4);
+              v13 = *(v7 + 4);
             }
 
-            v40 += 2;
-            ++v39;
+            v12 += 2;
+            ++v11;
           }
 
-          while (v39 < v41);
+          while (v11 < v13);
         }
 
-        [dictionary setObject:string forKey:v37];
+        [dictionary setObject:string forKey:v9];
 
-        BOMTreeIteratorNext(v13, v42, v43, v44, v45, v46, v47, v48);
+        BOMTreeIteratorNext(v6);
       }
 
-      while (!BOMTreeIteratorIsAtEnd(v13, v49, v50, v51, v52, v53, v54, v55));
+      while (!BOMTreeIteratorIsAtEnd(v6));
     }
 
-    BOMTreeIteratorFree(v13);
+    BOMTreeIteratorFree(v6);
   }
 
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
@@ -1828,21 +1816,21 @@ LABEL_11:
 
 - (BOOL)getColor:(_colordef *)color forName:(const char *)name
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v21 = 0;
+  v15 = *MEMORY[0x1E69E9840];
+  v12 = 0;
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   if (!name || !self->_colordb)
   {
     goto LABEL_12;
   }
 
-  v23 = 0;
-  memset(v22, 0, sizeof(v22));
+  v14 = 0;
+  memset(v13, 0, sizeof(v13));
   __strlcpy_chk();
   colordb = self->_colordb;
   if ((*(self + 108) & 2) == 0)
   {
-    Value = BOMTreeGetValue(colordb, v22, 0x84uLL, v7, v8, v9, v10, v11);
+    Value = BOMTreeGetValue(colordb, v13, 0x84uLL);
     if (Value)
     {
       goto LABEL_5;
@@ -1853,19 +1841,19 @@ LABEL_12:
     return 0;
   }
 
-  Value = BOMTreeReadValue(colordb, v22, 0x84uLL, v7, v8, v9, v10, v11);
+  Value = BOMTreeReadValue(colordb, v13, 0x84uLL);
   if (!Value)
   {
     goto LABEL_12;
   }
 
 LABEL_5:
-  v18 = Value;
-  if (color && !BOMTreeGetValueSize(self->_colordb, v22, 0x84uLL, &v21, v14, v15, v16, v17) && v21 == 12)
+  v9 = Value;
+  if (color && !BOMTreeGetValueSize(self->_colordb, v13, 0x84uLL, &v12) && v12 == 12)
   {
-    v19 = *v18;
-    color->var2 = *(v18 + 8);
-    *&color->var0 = v19;
+    v10 = *v9;
+    color->var2 = *(v9 + 8);
+    *&color->var0 = v10;
     if (*(self + 108))
     {
       color->var2 = bswap32(*&color->var2);
@@ -1879,23 +1867,23 @@ LABEL_5:
 
 - (BOOL)hasColorForName:(const char *)name
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (!name || !self->_colordb)
   {
     return 0;
   }
 
-  LODWORD(v12) = 0;
+  LODWORD(v7) = 0;
   __strlcpy_chk();
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock:0]);
-  v9 = BOMTreeValueExists(self->_colordb, &v11, 0x84uLL, v4, v5, v6, v7, v8) != 0;
+  v4 = BOMTreeValueExists(self->_colordb, &v6, 0x84uLL) != 0;
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  return v9;
+  return v4;
 }
 
 - (const)_fontValueForFontType:(id)type
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (!type)
   {
     return 0;
@@ -1906,18 +1894,18 @@ LABEL_5:
     return 0;
   }
 
-  memset(v16, 0, sizeof(v16));
-  if (![type getBytes:v16 maxLength:128 usedLength:0 encoding:1 options:0 range:0 remainingRange:{objc_msgSend(type, "length"), 0}])
+  memset(v7, 0, sizeof(v7));
+  if (![type getBytes:v7 maxLength:128 usedLength:0 encoding:1 options:0 range:0 remainingRange:{objc_msgSend(type, "length"), 0}])
   {
     return 0;
   }
 
-  v15 = 0;
-  ValueSize = BOMTreeGetValueSize(self->_fontdb, v16, 0x80uLL, &v15, v4, v5, v6, v7);
+  v6 = 0;
+  ValueSize = BOMTreeGetValueSize(self->_fontdb, v7, 0x80uLL, &v6);
   result = 0;
-  if (!ValueSize && v15 == 132)
+  if (!ValueSize && v6 == 132)
   {
-    return BOMTreeGetValue(self->_fontdb, v16, 0x80uLL, v8, v9, v10, v11, v12);
+    return BOMTreeGetValue(self->_fontdb, v7, 0x80uLL);
   }
 
   return result;
@@ -1960,13 +1948,13 @@ LABEL_5:
 
 - (float)fontSizeForFontSizeType:(id)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  if (type && self->_fontsizedb && (memset(v18, 0, sizeof(v18)), ([type getBytes:v18 maxLength:128 usedLength:0 encoding:1 options:0 range:0 remainingRange:{objc_msgSend(type, "length"), 0}] & 1) != 0) && (v17 = 0, !BOMTreeGetValueSize(self->_fontsizedb, v18, 0x80uLL, &v17, v5, v6, v7, v8)) && v17 == 4 && (Value = BOMTreeGetValue(self->_fontsizedb, v18, 0x80uLL, v9, v10, v11, v12, v13)) != 0)
+  if (type && self->_fontsizedb && (memset(v9, 0, sizeof(v9)), ([type getBytes:v9 maxLength:128 usedLength:0 encoding:1 options:0 range:0 remainingRange:{objc_msgSend(type, "length"), 0}] & 1) != 0) && (v8 = 0, !BOMTreeGetValueSize(self->_fontsizedb, v9, 0x80uLL, &v8)) && v8 == 4 && (Value = BOMTreeGetValue(self->_fontsizedb, v9, 0x80uLL)) != 0)
   {
-    v15 = Value;
+    v6 = Value;
     os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-    return *v15;
+    return *v6;
   }
 
   else
@@ -1984,26 +1972,18 @@ LABEL_5:
   bitmapKeydb = self->_bitmapKeydb;
   if (bitmapKeydb)
   {
-    v8 = BOMTreeIteratorNew(bitmapKeydb, 0, 0, 0);
-    if (!BOMTreeIteratorIsAtEnd(v8, v9, v10, v11, v12, v13, v14, v15))
+    for (i = BOMTreeIteratorNew(bitmapKeydb, 0, 0, 0); !BOMTreeIteratorIsAtEnd(i); BOMTreeIteratorNext(i))
     {
-      do
-      {
-        v23 = BOMTreeIteratorKey(v8, v16, v17, v18, v19, v20, v21, v22);
-        v31 = BOMTreeIteratorValue(v8, v24, v25, v26, v27, v28, v29, v30);
-        v39 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v31 length:BOMTreeIteratorValueSize(v8 freeWhenDone:{v32, v33, v34, v35, v36, v37, v38), 0}];
-        v40 = [[CUIPlaceholderCUINamedRenditionInfo alloc] initWithData:v39 keyFormat:keyFormat andPlatform:deploymentPlatform];
-        os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-        (*(block + 2))(block, v23, v40);
-        os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-
-        BOMTreeIteratorNext(v8, v41, v42, v43, v44, v45, v46, v47);
-      }
-
-      while (!BOMTreeIteratorIsAtEnd(v8, v48, v49, v50, v51, v52, v53, v54));
+      v9 = BOMTreeIteratorKey(i);
+      v10 = BOMTreeIteratorValue(i);
+      v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v10 length:BOMTreeIteratorValueSize(i) freeWhenDone:0];
+      v12 = [[CUIPlaceholderCUINamedRenditionInfo alloc] initWithData:v11 keyFormat:keyFormat andPlatform:deploymentPlatform];
+      os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
+      (*(block + 2))(block, v9, v12);
+      os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
     }
 
-    BOMTreeIteratorFree(v8);
+    BOMTreeIteratorFree(i);
   }
 
   lock = [(CUIPlaceholderCUICommonAssetStorage *)self lock];
@@ -2031,67 +2011,67 @@ LABEL_5:
   keyFormat = [(CUIPlaceholderCUICommonAssetStorage *)self keyFormat];
   self->_header->var4 = 0;
   v6 = BOMTreeIteratorNew(self->_imagedb, 0, 0, 0);
-  if (BOMTreeIteratorIsAtEnd(v6, v7, v8, v9, v10, v11, v12, v13))
+  if (BOMTreeIteratorIsAtEnd(v6))
   {
-    v21 = 1;
+    v7 = 1;
   }
 
   else
   {
     do
     {
-      v22 = BOMTreeIteratorKey(v6, v14, v15, v16, v17, v18, v19, v20);
-      v21 = v22 != 0;
-      if (!v22)
+      v8 = BOMTreeIteratorKey(v6);
+      v7 = v8 != 0;
+      if (!v8)
       {
         break;
       }
 
-      v30 = v22;
+      v9 = v8;
       var2 = keyFormat->var2;
       var3 = keyFormat->var3;
-      v33 = v22;
+      v12 = v8;
       if (var2)
       {
         while (1)
         {
-          v34 = *var3++;
-          if (v34 == 17)
+          v13 = *var3++;
+          if (v13 == 17)
           {
             break;
           }
 
-          ++v33;
+          v12 = (v12 + 2);
           if (!--var2)
           {
             goto LABEL_11;
           }
         }
 
-        v35 = *v33;
-        if (*v33)
+        v14 = *v12;
+        if (*v12)
         {
-          v36 = 0;
+          v15 = 0;
           do
           {
-            [(CUIPlaceholderCUICommonAssetStorage *)self _addBitmapIndexForNameIdentifier:v35 attribute:keyFormat->var3[v36] withValue:*(v30 + 2 * v36) toDictionary:dictionary];
-            ++v36;
+            [(CUIPlaceholderCUICommonAssetStorage *)self _addBitmapIndexForNameIdentifier:v14 attribute:keyFormat->var3[v15] withValue:*(v9 + v15) toDictionary:dictionary];
+            ++v15;
           }
 
-          while (v36 < keyFormat->var2);
+          while (v15 < keyFormat->var2);
         }
       }
 
 LABEL_11:
       ++self->_header->var4;
-      BOMTreeIteratorNext(v6, v23, v24, v25, v26, v27, v28, v29);
+      BOMTreeIteratorNext(v6);
     }
 
-    while (!BOMTreeIteratorIsAtEnd(v6, v37, v38, v39, v40, v41, v42, v43));
+    while (!BOMTreeIteratorIsAtEnd(v6));
   }
 
   BOMTreeIteratorFree(v6);
-  return v21;
+  return v7;
 }
 
 - (int)validateBitmapInfo
@@ -2104,54 +2084,54 @@ LABEL_11:
     v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
     [(CUIPlaceholderCUICommonAssetStorage *)self _buildBitmapInfoIntoDictionary:v5];
     v6 = BOMTreeIteratorNew(self->_bitmapKeydb, 0, 0, 0);
-    if (BOMTreeIteratorIsAtEnd(v6, v7, v8, v9, v10, v11, v12, v13))
+    if (BOMTreeIteratorIsAtEnd(v6))
     {
       BOMTreeIteratorFree(v6);
     }
 
     else
     {
-      v22 = 1;
+      v8 = 1;
       do
       {
-        v23 = BOMTreeIteratorKey(v6, v14, v15, v16, v17, v18, v19, v20);
-        v31 = BOMTreeIteratorValue(v6, v24, v25, v26, v27, v28, v29, v30);
-        v39 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v31 length:{BOMTreeIteratorValueSize(v6, v32, v33, v34, v35, v36, v37, v38)}];
-        v40 = [[CUIPlaceholderCUINamedRenditionInfo alloc] initWithData:v39 keyFormat:[(CUIPlaceholderCUICommonAssetStorage *)self keyFormat] andPlatform:v4];
-        v41 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:v23];
-        v42 = [v5 objectForKey:v41];
-        if (v42 && [(CUIPlaceholderCUINamedRenditionInfo *)v40 isEqualToNamedRenditionInfo:v42])
+        v9 = BOMTreeIteratorKey(v6);
+        v10 = BOMTreeIteratorValue(v6);
+        v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v10 length:BOMTreeIteratorValueSize(v6)];
+        v12 = [[CUIPlaceholderCUINamedRenditionInfo alloc] initWithData:v11 keyFormat:[(CUIPlaceholderCUICommonAssetStorage *)self keyFormat] andPlatform:v4];
+        v13 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:v9];
+        v14 = [v5 objectForKey:v13];
+        if (v14 && [(CUIPlaceholderCUINamedRenditionInfo *)v12 isEqualToNamedRenditionInfo:v14])
         {
-          [v5 removeObjectForKey:v41];
+          [v5 removeObjectForKey:v13];
         }
 
         else
         {
-          v22 = 0;
+          v8 = 0;
         }
 
-        BOMTreeIteratorNext(v6, v43, v44, v45, v46, v47, v48, v49);
+        BOMTreeIteratorNext(v6);
       }
 
-      while (!BOMTreeIteratorIsAtEnd(v6, v50, v51, v52, v53, v54, v55, v56));
+      while (!BOMTreeIteratorIsAtEnd(v6));
       BOMTreeIteratorFree(v6);
-      if (!v22)
+      if (!v8)
       {
-        v21 = 0;
+        v7 = 0;
         goto LABEL_13;
       }
     }
 
-    v21 = [v5 count] == 0;
+    v7 = [v5 count] == 0;
 LABEL_13:
 
     goto LABEL_14;
   }
 
-  v21 = -1;
+  v7 = -1;
 LABEL_14:
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  return v21;
+  return v7;
 }
 
 - (int)validatekeyformat
@@ -2168,40 +2148,38 @@ LABEL_14:
   }
 
   v4 = NamedBlock;
-  _bomStorage = [(CUIPlaceholderCUICommonAssetStorage *)self _bomStorage];
-  v12 = BOMStorageSizeOfBlock(_bomStorage, v4, v6, v7, v8, v9, v10, v11);
-  v13 = malloc_type_malloc(v12, 0x8106E4EAuLL);
-  _bomStorage2 = [(CUIPlaceholderCUICommonAssetStorage *)self _bomStorage];
-  BOMStorageCopyFromBlock(_bomStorage2, v4, v13, v15, v16, v17, v18, v19);
-  v20 = v13[2];
-  if (v20)
+  v5 = BOMStorageSizeOfBlock([(CUIPlaceholderCUICommonAssetStorage *)self _bomStorage], NamedBlock);
+  v6 = malloc_type_malloc(v5, 0x8106E4EAuLL);
+  BOMStorageCopyFromBlock([(CUIPlaceholderCUICommonAssetStorage *)self _bomStorage], v4, v6);
+  v7 = v6[2];
+  if (v7)
   {
-    v21 = v13 + 3;
+    v8 = v6 + 3;
     while (1)
     {
-      v22 = *v21++;
-      if (v22 >= 0x18)
+      v9 = *v8++;
+      if (v9 >= 0x18)
       {
         break;
       }
 
-      if (!--v20)
+      if (!--v7)
       {
         goto LABEL_7;
       }
     }
 
-    v23 = 0;
+    v10 = 0;
   }
 
   else
   {
 LABEL_7:
-    v23 = 1;
+    v10 = 1;
   }
 
-  free(v13);
-  return v23;
+  free(v6);
+  return v10;
 }
 
 - (unsigned)appearanceIdentifierForName:(id)name
@@ -2233,36 +2211,36 @@ LABEL_7:
   identifierCopy = identifier;
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   v5 = BOMTreeIteratorNew(self->_appearancedb, 0, 0, 0);
-  v20 = &stru_1F37DEE28;
-  if (!BOMTreeIteratorIsAtEnd(v5, v6, v7, v8, v9, v10, v11, v12))
+  v6 = &stru_1F37DEE28;
+  if (!BOMTreeIteratorIsAtEnd(v5))
   {
     while (1)
     {
-      v21 = BOMTreeIteratorValue(v5, v13, v14, v15, v16, v17, v18, v19);
-      if (v21)
+      v7 = BOMTreeIteratorValue(v5);
+      if (v7)
       {
-        if (*v21 == identifierCopy)
+        if (*v7 == identifierCopy)
         {
           break;
         }
       }
 
-      BOMTreeIteratorNext(v5, v22, v23, v24, v25, v26, v27, v28);
-      if (BOMTreeIteratorIsAtEnd(v5, v29, v30, v31, v32, v33, v34, v35))
+      BOMTreeIteratorNext(v5);
+      if (BOMTreeIteratorIsAtEnd(v5))
       {
         goto LABEL_9;
       }
     }
 
-    v36 = BOMTreeIteratorKey(v5, v22, v23, v24, v25, v26, v27, v28);
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v36 length:BOMTreeIteratorKeySize(v5 encoding:{v37, v38, v39, v40, v41, v42, v43), 4}];
-    v44 = v20;
+    v8 = BOMTreeIteratorKey(v5);
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v8 length:BOMTreeIteratorKeySize(v5) encoding:4];
+    v9 = v6;
   }
 
 LABEL_9:
   BOMTreeIteratorFree(v5);
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  return v20;
+  return v6;
 }
 
 - (NSDictionary)appearances
@@ -2283,27 +2261,19 @@ LABEL_9:
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
     os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-    v4 = BOMTreeIteratorNew(self->_appearancedb, 0, 0, 0);
-    if (!BOMTreeIteratorIsAtEnd(v4, v5, v6, v7, v8, v9, v10, v11))
+    for (i = BOMTreeIteratorNew(self->_appearancedb, 0, 0, 0); !BOMTreeIteratorIsAtEnd(i); BOMTreeIteratorNext(i))
     {
-      do
+      v5 = BOMTreeIteratorValue(i);
+      if (v5)
       {
-        v19 = BOMTreeIteratorValue(v4, v12, v13, v14, v15, v16, v17, v18);
-        if (v19)
-        {
-          v27 = *v19;
-          v28 = BOMTreeIteratorKey(v4, v20, v21, v22, v23, v24, v25, v26);
-          v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v28 length:BOMTreeIteratorKeySize(v4 encoding:{v29, v30, v31, v32, v33, v34, v35), 4}];
-          [v3 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInt:", v27), v36}];
-        }
-
-        BOMTreeIteratorNext(v4, v20, v21, v22, v23, v24, v25, v26);
+        v6 = *v5;
+        v7 = BOMTreeIteratorKey(i);
+        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v7 length:BOMTreeIteratorKeySize(i) encoding:4];
+        [v3 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInt:", v6), v8}];
       }
-
-      while (!BOMTreeIteratorIsAtEnd(v4, v37, v38, v39, v40, v41, v42, v43));
     }
 
-    BOMTreeIteratorFree(v4);
+    BOMTreeIteratorFree(i);
     os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   }
 
@@ -2339,7 +2309,7 @@ LABEL_9:
     os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
     localizationdb = [(CUIPlaceholderCUICommonAssetStorage *)self localizationdb];
     v9 = strlen(v7);
-    Value = BOMTreeReadValue(localizationdb, v7, v9, v10, v11, v12, v13, v14);
+    Value = BOMTreeReadValue(localizationdb, v7, v9);
     if (Value)
     {
       v3 = *Value;
@@ -2372,36 +2342,36 @@ LABEL_9:
   identifierCopy = identifier;
   os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   v5 = BOMTreeIteratorNew(self->_localizationdb, 0, 0, 0);
-  v20 = &stru_1F37DEE28;
-  if (!BOMTreeIteratorIsAtEnd(v5, v6, v7, v8, v9, v10, v11, v12))
+  v6 = &stru_1F37DEE28;
+  if (!BOMTreeIteratorIsAtEnd(v5))
   {
     while (1)
     {
-      v21 = BOMTreeIteratorValue(v5, v13, v14, v15, v16, v17, v18, v19);
-      if (v21)
+      v7 = BOMTreeIteratorValue(v5);
+      if (v7)
       {
-        if (*v21 == identifierCopy)
+        if (*v7 == identifierCopy)
         {
           break;
         }
       }
 
-      BOMTreeIteratorNext(v5, v22, v23, v24, v25, v26, v27, v28);
-      if (BOMTreeIteratorIsAtEnd(v5, v29, v30, v31, v32, v33, v34, v35))
+      BOMTreeIteratorNext(v5);
+      if (BOMTreeIteratorIsAtEnd(v5))
       {
         goto LABEL_9;
       }
     }
 
-    v36 = BOMTreeIteratorKey(v5, v22, v23, v24, v25, v26, v27, v28);
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v36 length:BOMTreeIteratorKeySize(v5 encoding:{v37, v38, v39, v40, v41, v42, v43), 4}];
-    v44 = v20;
+    v8 = BOMTreeIteratorKey(v5);
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v8 length:BOMTreeIteratorKeySize(v5) encoding:4];
+    v9 = v6;
   }
 
 LABEL_9:
   BOMTreeIteratorFree(v5);
   os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-  return v20;
+  return v6;
 }
 
 - (id)localizations
@@ -2410,27 +2380,19 @@ LABEL_9:
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
     os_unfair_lock_lock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
-    v4 = BOMTreeIteratorNew(self->_localizationdb, 0, 0, 0);
-    if (!BOMTreeIteratorIsAtEnd(v4, v5, v6, v7, v8, v9, v10, v11))
+    for (i = BOMTreeIteratorNew(self->_localizationdb, 0, 0, 0); !BOMTreeIteratorIsAtEnd(i); BOMTreeIteratorNext(i))
     {
-      do
+      v5 = BOMTreeIteratorValue(i);
+      if (v5)
       {
-        v19 = BOMTreeIteratorValue(v4, v12, v13, v14, v15, v16, v17, v18);
-        if (v19)
-        {
-          v27 = *v19;
-          v28 = BOMTreeIteratorKey(v4, v20, v21, v22, v23, v24, v25, v26);
-          v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v28 length:BOMTreeIteratorKeySize(v4 encoding:{v29, v30, v31, v32, v33, v34, v35), 4}];
-          [v3 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInt:", v27), v36}];
-        }
-
-        BOMTreeIteratorNext(v4, v20, v21, v22, v23, v24, v25, v26);
+        v6 = *v5;
+        v7 = BOMTreeIteratorKey(i);
+        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v7 length:BOMTreeIteratorKeySize(i) encoding:4];
+        [v3 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInt:", v6), v8}];
       }
-
-      while (!BOMTreeIteratorIsAtEnd(v4, v37, v38, v39, v40, v41, v42, v43));
     }
 
-    BOMTreeIteratorFree(v4);
+    BOMTreeIteratorFree(i);
     os_unfair_lock_unlock([(CUIPlaceholderCUICommonAssetStorage *)self lock]);
   }
 
@@ -2454,21 +2416,22 @@ LABEL_9:
 
 - (BOOL)writeToPath:(id)path withTreePageSize:(unsigned int)size
 {
+  v4 = *&size;
   v6 = BOMTreeStorage(self->_imagedb);
   v7 = BOMStorageNewWithOptionsAndSys([path fileSystemRepresentation], 0, 0);
   if (!v7)
   {
-    _CUILog(4, "CoreUI: Error: CUICommonAssetStorage -writeToPath:withTreePageSize: write file at '%@'", v8, v9, v10, v11, v12, v13, path);
+    _CUILog(4, "CoreUI: Error: CUICommonAssetStorage -writeToPath:withTreePageSize: write file at '%@'", path);
     return 0;
   }
 
-  v14 = v7;
-  if (!__copyBlock(v6, v7, "CARHEADER") || !__copyBlock(v6, v14, "CARGLOBALS") || !__copyBlock(v6, v14, "KEYFORMAT") || !__copyBlock(v6, v14, "KEYFORMATWORKAROUND") || !__copyBlock(v6, v14, "EXTERNAL_KEYS") || !__copyBlock(v6, v14, "EXTENDED_METADATA") || !__copyTree(v6, v14, "RENDITIONS", size) || !__copyTree(v6, v14, "COLORS", size) || !__copyTree(v6, v14, "FONTS", size) || !__copyTree(v6, v14, "FONTSIZES", size) || !__copyTree(v6, v14, "BEZELS", size) || !__copyTree(v6, v14, "FACETKEYS", size) || !__copyTree(v6, v14, "BITMAPKEYS", size) || !__copyTree(v6, v14, "APPEARANCEKEYS", size))
+  v8 = v7;
+  if (!__copyBlock(v6, v7, "CARHEADER") || !__copyBlock(v6, v8, "CARGLOBALS") || !__copyBlock(v6, v8, "KEYFORMAT") || !__copyBlock(v6, v8, "KEYFORMATWORKAROUND") || !__copyBlock(v6, v8, "EXTERNAL_KEYS") || !__copyBlock(v6, v8, "EXTENDED_METADATA") || !__copyTree(v6, v8, "RENDITIONS", v4) || !__copyTree(v6, v8, "COLORS", v4) || !__copyTree(v6, v8, "FONTS", v4) || !__copyTree(v6, v8, "FONTSIZES", v4) || !__copyTree(v6, v8, "BEZELS", v4) || !__copyTree(v6, v8, "FACETKEYS", v4) || !__copyTree(v6, v8, "BITMAPKEYS", v4) || !__copyTree(v6, v8, "APPEARANCEKEYS", v4))
   {
     return 0;
   }
 
-  return __copyTree(v6, v14, "LOCALIZATIONKEYS", size);
+  return __copyTree(v6, v8, "LOCALIZATIONKEYS", v4);
 }
 
 @end

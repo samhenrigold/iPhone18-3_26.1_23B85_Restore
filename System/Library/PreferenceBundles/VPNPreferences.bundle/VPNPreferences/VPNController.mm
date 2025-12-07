@@ -26,6 +26,7 @@
 - (void)someVPNStatusChanged:(id)changed;
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)vpnEnterpriseStatusChanged:(id)changed;
 - (void)vpnPersonalStatusChanged:(id)changed;
@@ -1830,6 +1831,33 @@ LABEL_6:
   v3 = [OBPrivacyPresenter presenterForPrivacySplashWithIdentifier:@"com.apple.onboarding.vpn"];
   [v3 setPresentingViewController:self];
   [v3 present];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = VPNController;
+  [(VPNController *)&v17 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.General/ManagedConfigurationList/VPN"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = [_NSLocalizedStringResource alloc];
+  v8 = +[NSLocale currentLocale];
+  v9 = [v7 initWithKey:@"VPN" table:0 locale:v8 bundleURL:bundleURL];
+
+  v10 = [_NSLocalizedStringResource alloc];
+  v11 = +[NSLocale currentLocale];
+  v12 = [v10 initWithKey:@"General" table:0 locale:v11 bundleURL:bundleURL];
+
+  v13 = [_NSLocalizedStringResource alloc];
+  v14 = +[NSLocale currentLocale];
+  v15 = [v13 initWithKey:@"VPN & Device Management" table:0 locale:v14 bundleURL:bundleURL];
+
+  v18[0] = v12;
+  v18[1] = v15;
+  v16 = [NSArray arrayWithObjects:v18 count:2];
+  [(VPNController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.vpn" title:v9 localizedNavigationComponents:v16 deepLink:v4];
 }
 
 - (void)viewDidLoad

@@ -144,7 +144,7 @@
   [v6 setPeekConfiguration:1];
   [v6 setRetainsSiri:{-[_SBContinuousExposePeekContentSwitcherModifier isSystemAssistantExperiencePersistentSiriEnabled](self, "isSystemAssistantExperiencePersistentSiriEnabled")}];
   v7 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v6 gestureInitiated:0];
-  v8 = SBAppendSwitcherModifierResponse(v7, v5);
+  v8 = SBAppendSwitcherModifierResponse();
 
   [eventCopy handleWithReason:@"Exiting out of peek"];
 

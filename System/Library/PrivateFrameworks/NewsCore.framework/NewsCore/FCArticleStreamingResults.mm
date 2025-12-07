@@ -91,7 +91,7 @@ void __89__FCArticleStreamingResults_fetchObjectsUpToCount_qualityOfService_batc
 
 void __89__FCArticleStreamingResults_fetchObjectsUpToCount_qualityOfService_batchSize_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = *(a1 + 32);
   v9 = a3;
@@ -102,16 +102,16 @@ void __89__FCArticleStreamingResults_fetchObjectsUpToCount_qualityOfService_batc
 
   if (v12 != v13 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"async results are out of sync"];
-    v18 = 136315906;
-    v19 = "[FCArticleStreamingResults fetchObjectsUpToCount:qualityOfService:batchSize:completion:]_block_invoke_2";
-    v20 = 2080;
-    v21 = "FCArticleStreamingResults.m";
-    v22 = 1024;
-    v23 = 42;
-    v24 = 2114;
-    v25 = v17;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v18, 0x26u);
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"async results are out of sync"];
+    v17 = 136315906;
+    v18 = "[FCArticleStreamingResults fetchObjectsUpToCount:qualityOfService:batchSize:completion:]_block_invoke_2";
+    v19 = 2080;
+    v20 = "FCArticleStreamingResults.m";
+    v21 = 1024;
+    v22 = 42;
+    v23 = 2114;
+    v24 = v16;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v17, 0x26u);
   }
 
   v14 = [*(a1 + 32) results];
@@ -133,8 +133,6 @@ void __89__FCArticleStreamingResults_fetchObjectsUpToCount_qualityOfService_batc
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

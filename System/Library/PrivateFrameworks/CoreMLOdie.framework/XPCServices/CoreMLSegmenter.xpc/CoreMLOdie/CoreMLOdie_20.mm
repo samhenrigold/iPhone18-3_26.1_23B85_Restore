@@ -1,151 +1,3 @@
-void sub_1000F3A08(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
-{
-  *a3 = 0;
-  a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
-  if (*(a2 + 40) == 1)
-  {
-    v3 = a2[4];
-    if (v3)
-    {
-      if (v3 == a2 + 1)
-      {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
-      }
-
-      else
-      {
-        v6 = (*(*v3 + 16))(v3);
-      }
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    v7 = 1;
-  }
-
-  operator new();
-}
-
-void *sub_1000F3C7C(void *result)
-{
-  *result = off_1002D6B38;
-  v1 = result[1];
-  if (v1)
-  {
-    result[2] = v1;
-    v2 = result;
-    operator delete(v1);
-    return v2;
-  }
-
-  return result;
-}
-
-void sub_1000F3CD4(void *a1)
-{
-  *a1 = off_1002D6B38;
-  v2 = a1[1];
-  if (v2)
-  {
-    a1[2] = v2;
-    operator delete(v2);
-    v1 = vars8;
-  }
-
-  operator delete();
-}
-
-__n128 sub_1000F3E08(uint64_t a1, uint64_t a2)
-{
-  *a2 = off_1002D6B38;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  v3 = *(a1 + 8);
-  v2 = *(a1 + 16);
-  if (v2 != v3)
-  {
-    if (((v2 - v3) & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    sub_100003FC0();
-  }
-
-  result = *(a1 + 32);
-  v5 = *(a1 + 48);
-  *(a2 + 32) = result;
-  *(a2 + 48) = v5;
-  return result;
-}
-
-void sub_1000F3EAC(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-}
-
-void sub_1000F3EC4(void *a1)
-{
-  v2 = a1[1];
-  if (v2)
-  {
-    a1[2] = v2;
-    v3 = a1;
-    operator delete(v2);
-    a1 = v3;
-    v1 = vars8;
-  }
-
-  operator delete(a1);
-}
-
-uint64_t sub_1000F3F0C(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16) - v2;
-  if ((v3 & 0x7FFFFFFF8) == 0)
-  {
-    return *(a1 + 56);
-  }
-
-  v4 = 0;
-  v5 = -(v3 >> 3);
-  while (1)
-  {
-    v6 = *v2++;
-    if (v6 == *a2)
-    {
-      break;
-    }
-
-    if (v5 == --v4)
-    {
-      return *(a1 + 56);
-    }
-  }
-
-  v8 = *(a1 + 48) - v4;
-  if (*(a1 + 40))
-  {
-    v8 = 0;
-  }
-
-  return *(*(a1 + 32) + 8 * v8);
-}
-
 uint64_t sub_1000F3F74(uint64_t result)
 {
   *result = off_1002D6B80;
@@ -195,45 +47,44 @@ void sub_1000F402C(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000F4210(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000F4210(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000F426C(v4);
+  return sub_1000F426C(v4, v5);
 }
 
-uint64_t sub_1000F426C@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F426C(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000F43BC(a1, v7);
-  if (v8 == 1)
+  sub_1000F43BC(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000F47B0(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000F47B0(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_1000F43BC@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F43BC(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E6C90(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E6C90(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -246,16 +97,14 @@ uint64_t sub_1000F43BC@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000F47B0(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -263,22 +112,22 @@ void sub_1000F47B0(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -447,36 +296,35 @@ void sub_1000F4DF4(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000F4FD8(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000F4FD8(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000F5034(v4);
+  return sub_1000F5034(v4, v5);
 }
 
-uint64_t sub_1000F5034@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F5034(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000F5270(a1, v7);
-  if (v8 == 1)
+  sub_1000F5270(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000F5664(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000F5664(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void sub_1000F5184(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E0808, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0808, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -502,7 +350,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0830, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0830, memory_order_acquire))
   {
     if (qword_1002E0828 != a2)
     {
@@ -531,18 +379,18 @@ LABEL_5:
   sub_1000F6CA8(a1, a3);
 }
 
-uint64_t sub_1000F5270@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F5270(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E6F80(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E6F80(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -555,16 +403,14 @@ uint64_t sub_1000F5270@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000F5664(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -572,22 +418,22 @@ void sub_1000F5664(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -756,45 +602,44 @@ void sub_1000F5CA8(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000F5E8C(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000F5E8C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000F5EE8(v4);
+  return sub_1000F5EE8(v4, v5);
 }
 
-uint64_t sub_1000F5EE8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F5EE8(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000F6038(a1, v7);
-  if (v8 == 1)
+  sub_1000F6038(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000F642C(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000F642C(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_1000F6038@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F6038(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E7270(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E7270(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -807,16 +652,14 @@ uint64_t sub_1000F6038@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000F642C(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -824,22 +667,22 @@ void sub_1000F642C(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -1007,36 +850,35 @@ void sub_1000F6A68(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000F6C4C(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000F6C4C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000F6CA8(v4);
+  return sub_1000F6CA8(v4, v5);
 }
 
-uint64_t sub_1000F6CA8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F6CA8(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000F6EE4(a1, v7);
-  if (v8 == 1)
+  sub_1000F6EE4(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000F72D8(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000F72D8(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void sub_1000F6DF8(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E07E0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E07E0, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -1062,7 +904,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0740, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0740, memory_order_acquire))
   {
     if (qword_1002E0738 != a2)
     {
@@ -1091,18 +933,18 @@ LABEL_5:
   sub_1000F1764(a1, a3);
 }
 
-uint64_t sub_1000F6EE4@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F6EE4(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E7560(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E7560(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -1115,16 +957,14 @@ uint64_t sub_1000F6EE4@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000F72D8(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -1132,22 +972,22 @@ void sub_1000F72D8(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -1315,22 +1155,22 @@ void sub_1000F78FC(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000F7AE0(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000F7AE0(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v7 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v7);
   }
 
   v4 = sub_10000520C();
-  return sub_1000F7B3C(v4);
+  return sub_1000F7B3C(v4, v5, v6);
 }
 
 void sub_1000F7B3C(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E0808, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0808, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -1356,7 +1196,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0768, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0768, memory_order_acquire))
   {
     if (qword_1002E0760 != a2)
     {
@@ -1387,7 +1227,7 @@ LABEL_5:
 
 void sub_1000F7C28(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E0858, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0858, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -1413,7 +1253,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0880, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0880, memory_order_acquire))
   {
     if (qword_1002E0878 != a2)
     {
@@ -1442,32 +1282,31 @@ LABEL_5:
   sub_1000F8ABC(a1, a3);
 }
 
-uint64_t sub_1000F7D14@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F7D14(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000F7E64(a1, v7);
-  if (v8 == 1)
+  sub_1000F7E64(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000F8258(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000F8258(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_1000F7E64@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F7E64(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E7560(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E7560(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -1480,16 +1319,14 @@ uint64_t sub_1000F7E64@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000F8258(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -1497,22 +1334,22 @@ void sub_1000F8258(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -1680,36 +1517,35 @@ void sub_1000F887C(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000F8A60(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000F8A60(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000F8ABC(v4);
+  return sub_1000F8ABC(v4, v5);
 }
 
-uint64_t sub_1000F8ABC@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F8ABC(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000F8CF8(a1, v7);
-  if (v8 == 1)
+  sub_1000F8CF8(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000F90EC(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000F90EC(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void sub_1000F8C0C(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E0B00, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0B00, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -1735,7 +1571,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E08A8, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E08A8, memory_order_acquire))
   {
     if (qword_1002E08A0 != a2)
     {
@@ -1764,18 +1600,18 @@ LABEL_5:
   sub_1000FAAF0(a1, a3);
 }
 
-uint64_t sub_1000F8CF8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F8CF8(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000DFDB8(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000DFDB8(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -1788,16 +1624,14 @@ uint64_t sub_1000F8CF8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000F90EC(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -1805,22 +1639,22 @@ void sub_1000F90EC(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -1988,46 +1822,45 @@ void sub_1000F9710(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000F98F4(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000F98F4(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000F9950(v4);
+  return sub_1000F9950(v4, v5);
 }
 
-unint64_t sub_1000F9950@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F9950(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000F9AA0(a1, v7);
-  if (v8 == 1)
+  sub_1000F9AA0(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000F9F84(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000F9F84(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-unint64_t sub_1000F9AA0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000F9AA0(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  sub_1000FA1F8(a1, &v7);
-  v11[0] = *(*a1 + 32);
-  result = mlir::DenseElementsAttr::tryGetComplexIntValues(v11, v13);
-  if (v14)
+  sub_1000FA1F8(a1, &v6);
+  v10[0] = *(*a1 + 32);
+  mlir::DenseElementsAttr::tryGetComplexIntValues(v12, v10);
+  if (v13)
   {
-    v12[0] = *(v13 + 1);
-    *(v12 + 15) = v13[1];
+    v11[0] = *(v12 + 1);
+    *(v11 + 15) = v12[1];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -2035,42 +1868,31 @@ unint64_t sub_1000F9AA0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
       sub_100003FC0();
     }
 
-    v8 = 0;
-    v10 = 0;
-    v11[3] = 0;
+    v7 = 0;
+    v9 = 0;
+    v10[3] = 0;
     operator new();
   }
 
   *a2 = 0;
   a2[48] = 0;
-  if (v10 >= 0x41)
+  if (v9 >= 0x41 && v8)
   {
-    result = v9;
-    if (v9)
-    {
-      operator delete[]();
-    }
+    operator delete[]();
   }
 
-  if (v8 >= 0x41)
+  if (v7 >= 0x41 && v6)
   {
-    result = v7;
-    if (v7)
-    {
-      operator delete[]();
-    }
+    operator delete[]();
   }
-
-  return result;
 }
 
 void sub_1000F9F84(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -2078,42 +1900,42 @@ void sub_1000F9F84(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
 }
 
-uint64_t sub_1000FA1F8@<X0>(void **a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1000FA1F8@<X0>(void **a1@<X0>, _DWORD *a2@<X8>)
 {
   v6 = sub_1000DE9D4(a1);
   result = mlir::IntegerType::getWidth(&v6);
   v5 = result;
   if (result > 0x40)
   {
-    llvm::APInt::initSlowCase(&v4);
+    llvm::APInt::initSlowCase(&v4, 0, 0);
   }
 
   v4 = 0;
-  *(a2 + 8) = result;
+  a2[2] = result;
   *a2 = 0;
-  *(a2 + 24) = result;
-  *(a2 + 16) = v4;
+  a2[6] = result;
+  *(a2 + 2) = v4;
   return result;
 }
 
@@ -2184,22 +2006,22 @@ void sub_1000FA4A8(uint64_t a1)
   }
 }
 
-void sub_1000FA540(_DWORD *__p)
+void sub_1000FA540(void *__p)
 {
-  if (__p[22] >= 0x41u && *(__p + 10))
+  if (*(__p + 22) >= 0x41u && __p[10])
   {
     operator delete[]();
   }
 
-  if (__p[18] >= 0x41u && *(__p + 8))
+  if (*(__p + 18) >= 0x41u && __p[8])
   {
     operator delete[]();
   }
 
-  v2 = *(__p + 1);
+  v2 = __p[1];
   if (v2)
   {
-    *(__p + 2) = v2;
+    __p[2] = v2;
     operator delete(v2);
   }
 
@@ -2242,7 +2064,7 @@ LABEL_5:
     a3[2] = v8;
     if (v8 > 0x40)
     {
-      llvm::APInt::initSlowCase(a3, (result + 8));
+      llvm::APInt::initSlowCase(a3, result + 8);
     }
 
     *a3 = result[8];
@@ -2251,7 +2073,7 @@ LABEL_5:
     if (v9 > 0x40)
     {
 
-      llvm::APInt::initSlowCase((a3 + 4), (result + 10));
+      llvm::APInt::initSlowCase((a3 + 4), result + 10);
     }
 
     *(a3 + 2) = result[10];
@@ -2260,12 +2082,12 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_1000FA6DC(uint64_t result, uint64_t a2)
+uint64_t sub_1000FA6DC(uint64_t a1, uint64_t a2)
 {
-  *result = off_1002D6E80;
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *(result + 24) = 0;
+  *a1 = off_1002D6E80;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
   v2 = *(a2 + 8);
   if (v2 != *a2)
   {
@@ -2278,25 +2100,25 @@ uint64_t sub_1000FA6DC(uint64_t result, uint64_t a2)
   }
 
   v3 = *(a2 + 40);
-  *(result + 32) = *(a2 + 24);
-  *(result + 48) = v3;
+  *(a1 + 32) = *(a2 + 24);
+  *(a1 + 48) = v3;
   v4 = *(a2 + 64);
-  *(result + 72) = v4;
+  *(a1 + 72) = v4;
   if (v4 > 0x40)
   {
-    llvm::APInt::initSlowCase((result + 64), (a2 + 56));
+    llvm::APInt::initSlowCase((a1 + 64), (a2 + 56));
   }
 
-  *(result + 64) = *(a2 + 56);
+  *(a1 + 64) = *(a2 + 56);
   v5 = *(a2 + 80);
-  *(result + 88) = v5;
+  *(a1 + 88) = v5;
   if (v5 > 0x40)
   {
-    llvm::APInt::initSlowCase((result + 80), (a2 + 72));
+    llvm::APInt::initSlowCase((a1 + 80), (a2 + 72));
   }
 
-  *(result + 80) = *(a2 + 72);
-  return result;
+  *(a1 + 80) = *(a2 + 72);
+  return a1;
 }
 
 uint64_t sub_1000FA7F8(uint64_t result)
@@ -2348,36 +2170,35 @@ void sub_1000FA8B0(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000FAA94(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000FAA94(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000FAAF0(v4);
+  return sub_1000FAAF0(v4, v5);
 }
 
-uint64_t sub_1000FAAF0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FAAF0(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000FAD2C(a1, v7);
-  if (v8 == 1)
+  sub_1000FAD2C(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000FB120(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000FB120(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void sub_1000FAC40(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E08D0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E08D0, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -2403,7 +2224,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E08F8, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E08F8, memory_order_acquire))
   {
     if (qword_1002E08F0 != a2)
     {
@@ -2432,18 +2253,18 @@ LABEL_5:
   sub_1000FC764(a1, a3);
 }
 
-uint64_t sub_1000FAD2C@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FAD2C(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E8130(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E8130(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -2456,16 +2277,14 @@ uint64_t sub_1000FAD2C@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000FB120(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -2473,22 +2292,22 @@ void sub_1000FB120(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -2657,45 +2476,44 @@ void sub_1000FB764(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000FB948(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000FB948(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000FB9A4(v4);
+  return sub_1000FB9A4(v4, v5);
 }
 
-uint64_t sub_1000FB9A4@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FB9A4(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000FBAF4(a1, v7);
-  if (v8 == 1)
+  sub_1000FBAF4(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000FBEE8(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000FBEE8(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_1000FBAF4@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FBAF4(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E842C(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E842C(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -2708,16 +2526,14 @@ uint64_t sub_1000FBAF4@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000FBEE8(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -2725,22 +2541,22 @@ void sub_1000FBEE8(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -2908,36 +2724,35 @@ void sub_1000FC524(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000FC708(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000FC708(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000FC764(v4);
+  return sub_1000FC764(v4, v5);
 }
 
-uint64_t sub_1000FC764@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FC764(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000FC9A0(a1, v7);
-  if (v8 == 1)
+  sub_1000FC9A0(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000FCD94(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000FCD94(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void sub_1000FC8B4(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E0920, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0920, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -2963,7 +2778,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0948, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0948, memory_order_acquire))
   {
     if (qword_1002E0940 != a2)
     {
@@ -2992,18 +2807,18 @@ LABEL_5:
   sub_1000FE3C4(a1, a3);
 }
 
-uint64_t sub_1000FC9A0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FC9A0(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E8728(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E8728(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -3016,16 +2831,14 @@ uint64_t sub_1000FC9A0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000FCD94(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -3033,22 +2846,22 @@ void sub_1000FCD94(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -3216,45 +3029,44 @@ void sub_1000FD3B8(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000FD59C(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000FD59C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000FD5F8(v4);
+  return sub_1000FD5F8(v4, v5);
 }
 
-uint64_t sub_1000FD5F8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FD5F8(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000FD748(a1, v7);
-  if (v8 == 1)
+  sub_1000FD748(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000FDB40(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000FDB40(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_1000FD748@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FD748(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E8A24(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E8A24(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -3267,16 +3079,14 @@ uint64_t sub_1000FD748@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000FDB40(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -3284,22 +3094,22 @@ void sub_1000FDB40(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -3389,41 +3199,34 @@ uint64_t sub_1000FE054(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16) - v2;
-  if ((v3 & 0x7FFFFFFF8) != 0)
+  if ((v3 & 0x7FFFFFFF8) == 0)
   {
-    v4 = 0;
-    v5 = -(v3 >> 3);
-    while (1)
-    {
-      v6 = *v2++;
-      if (v6 == *a2)
-      {
-        break;
-      }
-
-      if (v5 == --v4)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    v9 = *(a1 + 48) - v4;
-    if (*(a1 + 40))
-    {
-      v9 = 0;
-    }
-
-    v10 = (*(a1 + 32) + 16 * v9);
-    v11 = v10[1];
-    return *v10;
-  }
-
-  else
-  {
-LABEL_5:
-    v7 = *(a1 + 64);
     return *(a1 + 56);
   }
+
+  v4 = 0;
+  v5 = -(v3 >> 3);
+  while (1)
+  {
+    v6 = *v2++;
+    if (v6 == *a2)
+    {
+      break;
+    }
+
+    if (v5 == --v4)
+    {
+      return *(a1 + 56);
+    }
+  }
+
+  v8 = *(a1 + 48) - v4;
+  if (*(a1 + 40))
+  {
+    v8 = 0;
+  }
+
+  return *(*(a1 + 32) + 16 * v8);
 }
 
 uint64_t sub_1000FE0CC(uint64_t result)
@@ -3475,36 +3278,35 @@ void sub_1000FE184(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000FE368(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000FE368(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000FE3C4(v4);
+  return sub_1000FE3C4(v4, v5);
 }
 
-uint64_t sub_1000FE3C4@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FE3C4(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000FE600(a1, v7);
-  if (v8 == 1)
+  sub_1000FE600(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000FE9F4(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000FE9F4(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void sub_1000FE514(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E0970, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0970, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -3530,7 +3332,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0998, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0998, memory_order_acquire))
   {
     if (qword_1002E0990 != a2)
     {
@@ -3559,18 +3361,18 @@ LABEL_5:
   sub_100100038(a1, a3);
 }
 
-uint64_t sub_1000FE600@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FE600(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E8D20(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E8D20(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -3583,16 +3385,14 @@ uint64_t sub_1000FE600@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000FE9F4(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -3600,22 +3400,22 @@ void sub_1000FE9F4(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -3784,45 +3584,44 @@ void sub_1000FF038(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000FF21C(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000FF21C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_1000FF278(v4);
+  return sub_1000FF278(v4, v5);
 }
 
-uint64_t sub_1000FF278@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FF278(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1000FF3C8(a1, v7);
-  if (v8 == 1)
+  sub_1000FF3C8(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1000FF7BC(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1000FF7BC(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_1000FF3C8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1000FF3C8(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E901C(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E901C(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -3835,16 +3634,14 @@ uint64_t sub_1000FF3C8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1000FF7BC(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -3852,22 +3649,22 @@ void sub_1000FF7BC(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -4035,36 +3832,35 @@ void sub_1000FFDF8(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_1000FFFDC(uint64_t a1, uint64_t a2)
+uint64_t *sub_1000FFFDC(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100100038(v4);
+  return sub_100100038(v4, v5);
 }
 
-uint64_t sub_100100038@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100100038(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_100100274(a1, v7);
-  if (v8 == 1)
+  sub_100100274(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_100100668(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_100100668(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void sub_100100188(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E09C0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E09C0, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -4090,7 +3886,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0B28, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0B28, memory_order_acquire))
   {
     if (qword_1002E0B20 != a2)
     {
@@ -4119,18 +3915,18 @@ LABEL_5:
   sub_100101C98(a1, a3);
 }
 
-uint64_t sub_100100274@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100100274(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E9318(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E9318(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -4143,16 +3939,14 @@ uint64_t sub_100100274@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_100100668(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -4160,22 +3954,22 @@ void sub_100100668(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -4343,45 +4137,44 @@ void sub_100100C8C(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100100E70(uint64_t a1, uint64_t a2)
+uint64_t *sub_100100E70(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100100ECC(v4);
+  return sub_100100ECC(v4, v5);
 }
 
-uint64_t sub_100100ECC@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100100ECC(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_10010101C(a1, v7);
-  if (v8 == 1)
+  sub_10010101C(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_100101414(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_100101414(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_10010101C@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_10010101C(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v7[0] = *(*a1 + 32);
-  result = sub_1000E95C8(v7, v9);
-  if (v10)
+  v6[0] = *(*a1 + 32);
+  sub_1000E95C8(v6, v8);
+  if (v9)
   {
-    v8[0] = *(v9 + 1);
-    *(v8 + 15) = v9[2];
+    v7[0] = *(v8 + 1);
+    *(v7 + 15) = v8[2];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v6 != __p)
+    if (v5 != __p)
     {
-      if (((v6 - __p) & 0x8000000000000000) == 0)
+      if (((v5 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -4394,16 +4187,14 @@ uint64_t sub_10010101C@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_100101414(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -4411,22 +4202,22 @@ void sub_100101414(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -4516,41 +4307,34 @@ uint64_t sub_100101928(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16) - v2;
-  if ((v3 & 0x7FFFFFFF8) != 0)
+  if ((v3 & 0x7FFFFFFF8) == 0)
   {
-    v4 = 0;
-    v5 = -(v3 >> 3);
-    while (1)
-    {
-      v6 = *v2++;
-      if (v6 == *a2)
-      {
-        break;
-      }
-
-      if (v5 == --v4)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    v9 = *(a1 + 48) - v4;
-    if (*(a1 + 40))
-    {
-      v9 = 0;
-    }
-
-    v10 = (*(a1 + 32) + 16 * v9);
-    v11 = v10[1];
-    return *v10;
-  }
-
-  else
-  {
-LABEL_5:
-    v7 = *(a1 + 64);
     return *(a1 + 56);
   }
+
+  v4 = 0;
+  v5 = -(v3 >> 3);
+  while (1)
+  {
+    v6 = *v2++;
+    if (v6 == *a2)
+    {
+      break;
+    }
+
+    if (v5 == --v4)
+    {
+      return *(a1 + 56);
+    }
+  }
+
+  v8 = *(a1 + 48) - v4;
+  if (*(a1 + 40))
+  {
+    v8 = 0;
+  }
+
+  return *(*(a1 + 32) + 16 * v8);
 }
 
 uint64_t sub_1001019A0(uint64_t result)
@@ -4602,17 +4386,17 @@ void sub_100101A58(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100101C3C(uint64_t a1, uint64_t a2)
+uint64_t *sub_100101C3C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100101C98(v4);
+  return sub_100101C98(v4, v5);
 }
 
 void sub_100101C98(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
@@ -4630,7 +4414,7 @@ void sub_100101C98(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
 void sub_100101DE8(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E09E8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E09E8, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -4656,7 +4440,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0A10, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0A10, memory_order_acquire))
   {
     if (qword_1002E0A08 != a2)
     {
@@ -4689,7 +4473,7 @@ void sub_100101ED4(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   mlir::SparseElementsAttr::getZeroAPFloat(a1, &v20);
   v17[0] = *(*a1 + 32);
-  FloatValues = mlir::DenseElementsAttr::tryGetFloatValues(v17, v21);
+  FloatValues = mlir::DenseElementsAttr::tryGetFloatValues(v21, v17);
   if (v23)
   {
     v5 = v21[0];
@@ -4747,9 +4531,8 @@ void sub_100102440(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -4757,36 +4540,36 @@ void sub_100102440(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
 }
 
-void *sub_1001026B4(void *a1)
+llvm::APFloatBase *sub_1001026B4(llvm::APFloatBase *a1)
 {
   *a1 = off_1002D72B8;
-  v2 = (a1 + 9);
-  v3 = a1[9];
+  v2 = (a1 + 72);
+  v3 = *(a1 + 9);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v3)
   {
     sub_10002B154(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       return a1;
@@ -4796,26 +4579,26 @@ void *sub_1001026B4(void *a1)
   }
 
   llvm::detail::IEEEFloat::~IEEEFloat(v2);
-  v4 = a1[1];
+  v4 = *(a1 + 1);
   if (v4)
   {
 LABEL_3:
-    a1[2] = v4;
+    *(a1 + 2) = v4;
     operator delete(v4);
   }
 
   return a1;
 }
 
-void sub_10010273C(void *a1)
+void sub_10010273C(llvm::APFloatBase *a1)
 {
   *a1 = off_1002D72B8;
-  v2 = (a1 + 9);
-  v3 = a1[9];
+  v2 = (a1 + 72);
+  v3 = *(a1 + 9);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v3)
   {
     sub_10002B154(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
 LABEL_4:
@@ -4827,26 +4610,26 @@ LABEL_4:
   else
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       goto LABEL_4;
     }
   }
 
-  a1[2] = v4;
+  *(a1 + 2) = v4;
   operator delete(v4);
   goto LABEL_4;
 }
 
-void *sub_1001028F0(uint64_t a1, uint64_t a2)
+void *sub_1001028F0(llvm::APFloatBase *a1, uint64_t a2)
 {
   *a2 = off_1002D72B8;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
+  v4 = *(a1 + 1);
+  v3 = *(a1 + 2);
   if (v3 != v4)
   {
     if (((v3 - v4) & 0x8000000000000000) == 0)
@@ -4857,12 +4640,12 @@ void *sub_1001028F0(uint64_t a1, uint64_t a2)
     sub_100003FC0();
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
-  *(a2 + 64) = *(a1 + 64);
+  v5 = *(a1 + 2);
+  v6 = *(a1 + 3);
+  *(a2 + 64) = *(a1 + 8);
   *(a2 + 32) = v5;
   *(a2 + 48) = v6;
-  v8 = *(a1 + 72);
+  v8 = *(a1 + 9);
   v7 = (a1 + 72);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v8)
   {
@@ -4877,14 +4660,14 @@ void *sub_1001028F0(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1001029F0(void *a1)
+void sub_1001029F0(llvm::APFloatBase *a1)
 {
-  v2 = (a1 + 9);
-  v3 = a1[9];
+  v2 = (a1 + 72);
+  v3 = *(a1 + 9);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v3)
   {
     sub_10002B154(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       return;
@@ -4894,26 +4677,26 @@ void sub_1001029F0(void *a1)
   else
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       return;
     }
   }
 
-  a1[2] = v4;
+  *(a1 + 2) = v4;
 
   operator delete(v4);
 }
 
-void sub_100102A70(void *a1)
+void sub_100102A70(llvm::APFloatBase *a1)
 {
-  v2 = (a1 + 9);
-  v3 = a1[9];
+  v2 = (a1 + 72);
+  v3 = *(a1 + 9);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) != v3)
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v4 = a1[1];
+    v4 = *(a1 + 1);
     if (!v4)
     {
       goto LABEL_4;
@@ -4923,11 +4706,11 @@ void sub_100102A70(void *a1)
   }
 
   sub_10002B154(v2);
-  v4 = a1[1];
+  v4 = *(a1 + 1);
   if (v4)
   {
 LABEL_3:
-    a1[2] = v4;
+    *(a1 + 2) = v4;
     operator delete(v4);
   }
 
@@ -4936,7 +4719,7 @@ LABEL_4:
   operator delete(a1);
 }
 
-const llvm::APInt *sub_100102AEC@<X0>(uint64_t a1@<X0>, void *a2@<X1>, llvm::detail::IEEEFloat *a3@<X8>)
+llvm::APInt *sub_100102AEC@<X0>(uint64_t a1@<X0>, void *a2@<X1>, llvm::detail::IEEEFloat *a3@<X8>)
 {
   v4 = *(a1 + 8);
   v5 = *(a1 + 16) - v4;
@@ -5033,50 +4816,46 @@ void sub_100102CA0(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100102E84(uint64_t a1, uint64_t a2)
+uint64_t *sub_100102E84(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100102EE0(v4);
+  return sub_100102EE0(v4, v5);
 }
 
-uint64_t sub_100102EE0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100102EE0(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_100103030(a1, v7);
-  if (v8 == 1)
+  sub_100103030(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_100103430(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_100103430(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_100103030@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100103030(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v4 = *(*a1 + 32);
-  v13[0] = *(v4 + 8);
-  ElementType = mlir::ShapedType::getElementType(v13);
-  result = sub_1000DDEF8(ElementType, 4, 0, 1u);
-  if (result)
+  v10[0] = *(v4 + 8);
+  ElementType = mlir::ShapedType::getElementType(v10);
+  if (sub_1000DDEF8(ElementType, 4, 0, 1u))
   {
-    v7 = *(v4 + 32);
-    v8 = *(v4 + 24);
-    v13[0] = *(v4 + 8);
-    Shape = mlir::ShapedType::getShape(v13);
-    mlir::ShapedType::getNumElements(Shape, v10);
+    v10[0] = *(v4 + 8);
+    Shape = mlir::ShapedType::getShape(v10);
+    mlir::ShapedType::getNumElements(Shape, v7);
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v12 != __p)
+    if (v9 != __p)
     {
-      if (((v12 - __p) & 0x8000000000000000) == 0)
+      if (((v9 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -5089,16 +4868,14 @@ uint64_t sub_100103030@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_100103430(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -5106,22 +4883,22 @@ void sub_100103430(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -5289,36 +5066,35 @@ void sub_100103A6C(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100103C50(uint64_t a1, uint64_t a2)
+uint64_t *sub_100103C50(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100103CAC(v4);
+  return sub_100103CAC(v4, v5);
 }
 
-uint64_t sub_100103CAC@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100103CAC(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_100103EE8(a1, v7);
-  if (v8 == 1)
+  sub_100103EE8(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1001042E8(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1001042E8(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
 void sub_100103DFC(mlir::SparseElementsAttr *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if ((atomic_load_explicit(&qword_1002E0B50, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0B50, memory_order_acquire) & 1) == 0)
   {
     v7 = a1;
     v3 = a2;
@@ -5344,7 +5120,7 @@ LABEL_9:
   }
 
 LABEL_3:
-  if (atomic_load_explicit(&qword_1002E0A38, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0A38, memory_order_acquire))
   {
     if (qword_1002E0A30 != a2)
     {
@@ -5373,23 +5149,20 @@ LABEL_5:
   sub_100105FBC(a1, a3);
 }
 
-uint64_t sub_100103EE8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100103EE8(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v4 = *(*a1 + 32);
-  v13[0] = *(v4 + 8);
-  ElementType = mlir::ShapedType::getElementType(v13);
-  result = sub_1000DDEF8(ElementType, 8, 0, 1u);
-  if (result)
+  v10[0] = *(v4 + 8);
+  ElementType = mlir::ShapedType::getElementType(v10);
+  if (sub_1000DDEF8(ElementType, 8, 0, 1u))
   {
-    v7 = *(v4 + 32);
-    v8 = *(v4 + 24);
-    v13[0] = *(v4 + 8);
-    Shape = mlir::ShapedType::getShape(v13);
-    mlir::ShapedType::getNumElements(Shape, v10);
+    v10[0] = *(v4 + 8);
+    Shape = mlir::ShapedType::getShape(v10);
+    mlir::ShapedType::getNumElements(Shape, v7);
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v12 != __p)
+    if (v9 != __p)
     {
-      if (((v12 - __p) & 0x8000000000000000) == 0)
+      if (((v9 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -5402,16 +5175,14 @@ uint64_t sub_100103EE8@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1001042E8(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -5419,22 +5190,22 @@ void sub_1001042E8(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -5602,17 +5373,17 @@ void sub_10010490C(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100104AF0(uint64_t a1, uint64_t a2)
+uint64_t *sub_100104AF0(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100104B4C(v4);
+  return sub_100104B4C(v4, v5);
 }
 
 void sub_100104B4C(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
@@ -5630,19 +5401,17 @@ void sub_100104B4C(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
 void sub_100104C9C(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  sub_10010546C(a1, &v23);
-  v20[0] = *(*a1 + 32);
-  ComplexFloatValues = mlir::DenseElementsAttr::tryGetComplexFloatValues(v20, v25);
-  if (v27)
+  sub_10010546C(a1, &v21);
+  v18[0] = *(*a1 + 32);
+  ComplexFloatValues = mlir::DenseElementsAttr::tryGetComplexFloatValues(v23, v18);
+  if (v25)
   {
-    v5 = v25[0];
-    v21 = *&v25[1];
-    v22[0] = *v26;
-    *(v22 + 15) = *&v26[15];
+    v5 = v23[0];
+    v19 = *&v23[1];
+    v20[0] = *v24;
+    *(v20 + 15) = *&v24[15];
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &v10);
-    v13 = 0;
-    v14 = 0;
-    __p = 0;
+    memset(__p, 0, sizeof(__p));
     if (v11 != v10)
     {
       if (((v11 - v10) & 0x8000000000000000) == 0)
@@ -5653,68 +5422,67 @@ void sub_100104C9C(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
       sub_100003FC0();
     }
 
-    v15 = v5;
-    v16 = v21;
-    *v17 = v22[0];
-    *&v17[15] = *(v22 + 15);
-    v7 = v23.n128_u64[0];
+    v13 = v5;
+    v14 = v19;
+    *v15 = v20[0];
+    *&v15[15] = *(v20 + 15);
+    v7 = v21.n128_u64[0];
     v8 = llvm::APFloatBase::PPCDoubleDouble(v6);
     if (v8 == v7)
     {
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(&v18, &v23);
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(&v16, &v21);
     }
 
     else
     {
-      llvm::detail::IEEEFloat::IEEEFloat(&v18, &v23);
+      llvm::detail::IEEEFloat::IEEEFloat(&v16, &v21);
     }
 
-    if (v8 == v24.n128_u64[0])
+    if (v8 == v22.n128_u64[0])
     {
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(&v19, &v24);
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(&v17, &v22);
     }
 
     else
     {
-      llvm::detail::IEEEFloat::IEEEFloat(&v19, &v24);
+      llvm::detail::IEEEFloat::IEEEFloat(&v17, &v22);
     }
 
-    sub_100105568(v20);
+    sub_100105568(v18, __p);
   }
 
   *a2 = 0;
   a2[48] = 0;
   v9 = llvm::APFloatBase::PPCDoubleDouble(ComplexFloatValues);
-  if (v9 == v24.n128_u64[0])
+  if (v9 == v22.n128_u64[0])
   {
-    sub_10002B154(&v24);
-    if (v9 != v23.n128_u64[0])
+    sub_10002B154(&v22);
+    if (v9 != v21.n128_u64[0])
     {
       goto LABEL_15;
     }
 
 LABEL_18:
-    sub_10002B154(&v23);
+    sub_10002B154(&v21);
     return;
   }
 
-  llvm::detail::IEEEFloat::~IEEEFloat(&v24);
-  if (v9 == v23.n128_u64[0])
+  llvm::detail::IEEEFloat::~IEEEFloat(&v22);
+  if (v9 == v21.n128_u64[0])
   {
     goto LABEL_18;
   }
 
 LABEL_15:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v23);
+  llvm::detail::IEEEFloat::~IEEEFloat(&v21);
 }
 
 void sub_1001051F8(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -5722,22 +5490,22 @@ void sub_1001051F8(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -5787,24 +5555,24 @@ LABEL_4:
   llvm::detail::IEEEFloat::~IEEEFloat(v7);
 }
 
-void *sub_100105670(void *a1)
+llvm::APFloatBase *sub_100105670(llvm::APFloatBase *a1)
 {
   *a1 = off_1002D7420;
-  v2 = (a1 + 12);
-  v3 = a1[12];
+  v2 = (a1 + 96);
+  v3 = *(a1 + 12);
   v4 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v4 != v3)
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v5 = (a1 + 9);
-    if (v4 != a1[9])
+    v5 = (a1 + 72);
+    if (v4 != *(a1 + 9))
     {
       goto LABEL_3;
     }
 
 LABEL_7:
     sub_10002B154(v5);
-    v6 = a1[1];
+    v6 = *(a1 + 1);
     if (!v6)
     {
       return a1;
@@ -5814,40 +5582,40 @@ LABEL_7:
   }
 
   sub_10002B154(v2);
-  v5 = (a1 + 9);
-  if (v4 == a1[9])
+  v5 = (a1 + 72);
+  if (v4 == *(a1 + 9))
   {
     goto LABEL_7;
   }
 
 LABEL_3:
   llvm::detail::IEEEFloat::~IEEEFloat(v5);
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   if (v6)
   {
 LABEL_4:
-    a1[2] = v6;
+    *(a1 + 2) = v6;
     operator delete(v6);
   }
 
   return a1;
 }
 
-void sub_100105724(void *a1)
+void sub_100105724(llvm::APFloatBase *a1)
 {
   *a1 = off_1002D7420;
-  v2 = (a1 + 12);
-  v3 = a1[12];
+  v2 = (a1 + 96);
+  v3 = *(a1 + 12);
   v4 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v4 == v3)
   {
     sub_10002B154(v2);
-    v5 = (a1 + 9);
-    if (v4 != a1[9])
+    v5 = (a1 + 72);
+    if (v4 != *(a1 + 9))
     {
 LABEL_3:
       llvm::detail::IEEEFloat::~IEEEFloat(v5);
-      v6 = a1[1];
+      v6 = *(a1 + 1);
       if (!v6)
       {
         goto LABEL_5;
@@ -5860,15 +5628,15 @@ LABEL_3:
   else
   {
     llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    v5 = (a1 + 9);
-    if (v4 != a1[9])
+    v5 = (a1 + 72);
+    if (v4 != *(a1 + 9))
     {
       goto LABEL_3;
     }
   }
 
   sub_10002B154(v5);
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   if (!v6)
   {
 LABEL_5:
@@ -5877,16 +5645,16 @@ LABEL_5:
   }
 
 LABEL_4:
-  a1[2] = v6;
+  *(a1 + 2) = v6;
   operator delete(v6);
   goto LABEL_5;
 }
 
-void sub_100105898(void *a1)
+void sub_100105898(llvm::APFloatBase *a1)
 {
-  v2 = (a1 + 12);
-  v3 = a1[12];
-  v4 = (a1 + 9);
+  v2 = (a1 + 96);
+  v3 = *(a1 + 12);
+  v4 = (a1 + 72);
   v5 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v5 != v3)
   {
@@ -5899,7 +5667,7 @@ void sub_100105898(void *a1)
 
 LABEL_8:
     sub_10002B154(v6);
-    v7 = a1[1];
+    v7 = *(a1 + 1);
     if (!v7)
     {
       return;
@@ -5917,23 +5685,23 @@ LABEL_8:
 
 LABEL_3:
   llvm::detail::IEEEFloat::~IEEEFloat(v6);
-  v7 = a1[1];
+  v7 = *(a1 + 1);
   if (!v7)
   {
     return;
   }
 
 LABEL_4:
-  a1[2] = v7;
+  *(a1 + 2) = v7;
 
   operator delete(v7);
 }
 
-void sub_100105954(void *a1)
+void sub_100105954(llvm::APFloatBase *a1)
 {
-  v2 = (a1 + 12);
-  v3 = a1[12];
-  v4 = (a1 + 9);
+  v2 = (a1 + 96);
+  v3 = *(a1 + 12);
+  v4 = (a1 + 72);
   v5 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v5 == v3)
   {
@@ -5943,7 +5711,7 @@ void sub_100105954(void *a1)
     {
 LABEL_3:
       llvm::detail::IEEEFloat::~IEEEFloat(v6);
-      v7 = a1[1];
+      v7 = *(a1 + 1);
       if (!v7)
       {
         goto LABEL_5;
@@ -5964,11 +5732,11 @@ LABEL_3:
   }
 
   sub_10002B154(v6);
-  v7 = a1[1];
+  v7 = *(a1 + 1);
   if (v7)
   {
 LABEL_4:
-    a1[2] = v7;
+    *(a1 + 2) = v7;
     operator delete(v7);
   }
 
@@ -5977,11 +5745,11 @@ LABEL_5:
   operator delete(a1);
 }
 
-uint64_t sub_100105A14(uint64_t a1, uint64_t a2)
+llvm::APFloatBase *sub_100105A14(llvm::APFloatBase *a1, uint64_t a2)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  *(a1 + 1) = 0;
+  *(a1 + 2) = 0;
   v4 = *(a2 + 8);
   if (v4 != *a2)
   {
@@ -5995,14 +5763,14 @@ uint64_t sub_100105A14(uint64_t a1, uint64_t a2)
 
   v5 = *(a2 + 24);
   v6 = *(a2 + 40);
-  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 7) = *(a2 + 56);
   *(a1 + 40) = v6;
   *(a1 + 24) = v5;
   v7 = *(a2 + 64);
   v8 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v8 == v7)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat((a1 + 64), (a2 + 64));
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(a1 + 8, (a2 + 64));
     v9 = (a1 + 88);
     v10 = (a2 + 88);
     if (v8 != *(a2 + 88))
@@ -6028,7 +5796,7 @@ LABEL_6:
   return a1;
 }
 
-void sub_100105B2C(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void sub_100105B2C(uint64_t a1@<X0>, uint64_t a2@<X1>, llvm::detail::IEEEFloat *a3@<X8>)
 {
   v5 = *a1;
   v6 = (*(a1 + 8) - *a1) >> 3;
@@ -6040,7 +5808,7 @@ LABEL_5:
     if (v10 == v9)
     {
       llvm::detail::DoubleAPFloat::DoubleAPFloat(a3, (a1 + 64));
-      v11 = (a3 + 3);
+      v11 = (a3 + 24);
       v12 = (a1 + 88);
       if (v10 != *(a1 + 88))
       {
@@ -6051,7 +5819,7 @@ LABEL_5:
     else
     {
       llvm::detail::IEEEFloat::IEEEFloat(a3, (a1 + 64));
-      v11 = (a3 + 3);
+      v11 = (a3 + 24);
       v12 = (a1 + 88);
       if (v10 != *(a1 + 88))
       {
@@ -6088,7 +5856,7 @@ LABEL_7:
   v16 = *(a1 + 48);
   v15 = v13 - v7;
   mlir::DenseElementsAttr::ComplexIntElementIterator::operator*(&v14, &v17);
-  sub_1000D25AC(&v17, &v14, a3);
+  sub_1000D25AC(a3, &v17, &v14);
   if (v20 >= 0x41 && v19)
   {
     operator delete[]();
@@ -6149,36 +5917,35 @@ void sub_100105D7C(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100105F60(uint64_t a1, uint64_t a2)
+uint64_t *sub_100105F60(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100105FBC(v4);
+  return sub_100105FBC(v4, v5);
 }
 
-uint64_t sub_100105FBC@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100105FBC(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1001061F0(a1, v7);
-  if (v8 == 1)
+  sub_1001061F0(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1001065FC(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1001065FC(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-mlir::SparseElementsAttr *sub_10010610C@<X0>(mlir::SparseElementsAttr *result@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void sub_10010610C(mlir::SparseElementsAttr *result@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  if (atomic_load_explicit(&qword_1002E0A60, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0A60, memory_order_acquire))
   {
     if (qword_1002E0A58 != a2)
     {
@@ -6198,14 +5965,14 @@ mlir::SparseElementsAttr *sub_10010610C@<X0>(mlir::SparseElementsAttr *result@<X
     if (qword_1002E0A58 != v5)
     {
 LABEL_3:
-      if (atomic_load_explicit(&qword_1002E0BA0, memory_order_acquire))
+      if (atomic_load_explicit(byte_1002E0BA0, memory_order_acquire))
       {
         if (qword_1002E0B98 != a2)
         {
 LABEL_5:
           *a3 = 0;
           a3[16] = 0;
-          return result;
+          return;
         }
       }
 
@@ -6227,27 +5994,24 @@ LABEL_5:
     }
   }
 
-  return sub_100106E70(result, a3);
+  sub_100106E70(result, a3);
 }
 
-uint64_t sub_1001061F0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1001061F0(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v4 = *(*a1 + 32);
-  v13[0] = *(v4 + 8);
-  *&v13[0] = mlir::ShapedType::getElementType(v13);
-  ElementType = mlir::ComplexType::getElementType(v13);
-  result = sub_1000DDEF8(ElementType, 4, 0, 1u);
-  if (result)
+  v10[0] = *(v4 + 8);
+  *&v10[0] = mlir::ShapedType::getElementType(v10);
+  ElementType = mlir::ComplexType::getElementType(v10);
+  if (sub_1000DDEF8(ElementType, 4, 0, 1u))
   {
-    v7 = *(v4 + 32);
-    v8 = *(v4 + 24);
-    v13[0] = *(v4 + 8);
-    Shape = mlir::ShapedType::getShape(v13);
-    mlir::ShapedType::getNumElements(Shape, v10);
+    v10[0] = *(v4 + 8);
+    Shape = mlir::ShapedType::getShape(v10);
+    mlir::ShapedType::getNumElements(Shape, v7);
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v12 != __p)
+    if (v9 != __p)
     {
-      if (((v12 - __p) & 0x8000000000000000) == 0)
+      if (((v9 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -6260,16 +6024,14 @@ uint64_t sub_1001061F0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1001065FC(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -6277,22 +6039,22 @@ void sub_1001065FC(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -6381,41 +6143,34 @@ float sub_100106B00(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16) - v2;
-  if ((v3 & 0x7FFFFFFF8) != 0)
+  if ((v3 & 0x7FFFFFFF8) == 0)
   {
-    v4 = 0;
-    v5 = -(v3 >> 3);
-    while (1)
-    {
-      v6 = *v2++;
-      if (v6 == *a2)
-      {
-        break;
-      }
-
-      if (v5 == --v4)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    v9 = *(a1 + 48) - v4;
-    if (*(a1 + 40))
-    {
-      v9 = 0;
-    }
-
-    v10 = (*(a1 + 32) + 8 * v9);
-    v11 = v10[1];
-    return *v10;
-  }
-
-  else
-  {
-LABEL_5:
-    v7 = *(a1 + 60);
     return *(a1 + 56);
   }
+
+  v4 = 0;
+  v5 = -(v3 >> 3);
+  while (1)
+  {
+    v6 = *v2++;
+    if (v6 == *a2)
+    {
+      break;
+    }
+
+    if (v5 == --v4)
+    {
+      return *(a1 + 56);
+    }
+  }
+
+  v8 = *(a1 + 48) - v4;
+  if (*(a1 + 40))
+  {
+    v8 = 0;
+  }
+
+  return *(*(a1 + 32) + 8 * v8);
 }
 
 uint64_t sub_100106B78(uint64_t result)
@@ -6467,51 +6222,47 @@ void sub_100106C30(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100106E14(uint64_t a1, uint64_t a2)
+uint64_t *sub_100106E14(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100106E70(v4);
+  return sub_100106E70(v4, v5);
 }
 
-uint64_t sub_100106E70@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100106E70(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_100106FC0(a1, v7);
-  if (v8 == 1)
+  sub_100106FC0(a1, v6);
+  if (v7 == 1)
   {
-    v5 = sub_1000EBF4C(a1) == 1;
-    sub_1001073D0(v5, v7, &v6);
+    v4 = sub_1000EBF4C(a1) == 1;
+    sub_1001073D0(v4, v6, &v5);
   }
 
   *a2 = 0;
   a2[16] = 0;
-  return result;
 }
 
-uint64_t sub_100106FC0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
+void sub_100106FC0(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 {
   v4 = *(*a1 + 32);
-  v13[0] = *(v4 + 8);
-  *&v13[0] = mlir::ShapedType::getElementType(v13);
-  ElementType = mlir::ComplexType::getElementType(v13);
-  result = sub_1000DDEF8(ElementType, 8, 0, 1u);
-  if (result)
+  v10[0] = *(v4 + 8);
+  *&v10[0] = mlir::ShapedType::getElementType(v10);
+  ElementType = mlir::ComplexType::getElementType(v10);
+  if (sub_1000DDEF8(ElementType, 8, 0, 1u))
   {
-    v7 = *(v4 + 32);
-    v8 = *(v4 + 24);
-    v13[0] = *(v4 + 8);
-    Shape = mlir::ShapedType::getShape(v13);
-    mlir::ShapedType::getNumElements(Shape, v10);
+    v10[0] = *(v4 + 8);
+    Shape = mlir::ShapedType::getShape(v10);
+    mlir::ShapedType::getNumElements(Shape, v7);
     mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-    if (v12 != __p)
+    if (v9 != __p)
     {
-      if (((v12 - __p) & 0x8000000000000000) == 0)
+      if (((v9 - __p) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -6524,16 +6275,14 @@ uint64_t sub_100106FC0@<X0>(mlir::SparseElementsAttr *a1@<X0>, _BYTE *a2@<X8>)
 
   *a2 = 0;
   a2[48] = 0;
-  return result;
 }
 
 void sub_1001073D0(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -6541,22 +6290,22 @@ void sub_1001073D0(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -6646,41 +6395,34 @@ double sub_1001078E4(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16) - v2;
-  if ((v3 & 0x7FFFFFFF8) != 0)
+  if ((v3 & 0x7FFFFFFF8) == 0)
   {
-    v4 = 0;
-    v5 = -(v3 >> 3);
-    while (1)
-    {
-      v6 = *v2++;
-      if (v6 == *a2)
-      {
-        break;
-      }
-
-      if (v5 == --v4)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    v9 = *(a1 + 48) - v4;
-    if (*(a1 + 40))
-    {
-      v9 = 0;
-    }
-
-    v10 = (*(a1 + 32) + 16 * v9);
-    v11 = v10[1];
-    return *v10;
-  }
-
-  else
-  {
-LABEL_5:
-    v7 = *(a1 + 64);
     return *(a1 + 56);
   }
+
+  v4 = 0;
+  v5 = -(v3 >> 3);
+  while (1)
+  {
+    v6 = *v2++;
+    if (v6 == *a2)
+    {
+      break;
+    }
+
+    if (v5 == --v4)
+    {
+      return *(a1 + 56);
+    }
+  }
+
+  v8 = *(a1 + 48) - v4;
+  if (*(a1 + 40))
+  {
+    v8 = 0;
+  }
+
+  return *(*(a1 + 32) + 16 * v8);
 }
 
 uint64_t sub_10010795C(uint64_t result)
@@ -6732,31 +6474,28 @@ void sub_100107A14(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100107BF8(uint64_t a1, uint64_t a2)
+uint64_t *sub_100107BF8(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a1 + 8) + a2;
+  v6 = *(a1 + 8) + a2;
   v2 = *(a1 + 40);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    return (*(*v2 + 48))(v2, &v6);
   }
 
   v4 = sub_10000520C();
-  return sub_100107C54(v4);
+  return sub_100107C54(v4, v5);
 }
 
 void sub_100107DA4(mlir::SparseElementsAttr *a1)
 {
-  v2 = *(*a1 + 32);
-  v3 = *(v2 + 32);
-  v4 = *(v2 + 24);
-  v9 = *(v2 + 8);
-  Shape = mlir::ShapedType::getShape(&v9);
-  mlir::ShapedType::getNumElements(Shape, v6);
+  v7 = *(*(*a1 + 32) + 8);
+  Shape = mlir::ShapedType::getShape(&v7);
+  mlir::ShapedType::getNumElements(Shape, v4);
   mlir::SparseElementsAttr::getFlattenedSparseIndices(a1, &__p);
-  if (v8 != __p)
+  if (v6 != __p)
   {
-    if (((v8 - __p) & 0x8000000000000000) == 0)
+    if (((v6 - __p) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -6771,9 +6510,8 @@ void sub_100108178(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = a1;
-  v4 = *a2;
-  v5[0] = 0;
-  v7 = 0;
+  v4[0] = 0;
+  v6 = 0;
   if (*(a2 + 40) == 1)
   {
     v3 = a2[4];
@@ -6781,22 +6519,22 @@ void sub_100108178(char a1@<W0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
     {
       if (v3 == a2 + 1)
       {
-        v6 = v5;
-        (*(*v3 + 24))(v3, v5);
+        v5 = v4;
+        (*(*v3 + 24))(v3, v4);
       }
 
       else
       {
-        v6 = (*(*v3 + 16))(v3);
+        v5 = (*(*v3 + 16))(v3);
       }
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
   operator new();
@@ -6886,41 +6624,34 @@ uint64_t sub_10010868C(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16) - v2;
-  if ((v3 & 0x7FFFFFFF8) != 0)
+  if ((v3 & 0x7FFFFFFF8) == 0)
   {
-    v4 = 0;
-    v5 = -(v3 >> 3);
-    while (1)
-    {
-      v6 = *v2++;
-      if (v6 == *a2)
-      {
-        break;
-      }
-
-      if (v5 == --v4)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    v9 = *(a1 + 48) - v4;
-    if (*(a1 + 40))
-    {
-      v9 = 0;
-    }
-
-    v10 = (*(a1 + 32) + 16 * v9);
-    v11 = v10[1];
-    return *v10;
-  }
-
-  else
-  {
-LABEL_5:
-    v7 = *(a1 + 64);
     return *(a1 + 56);
   }
+
+  v4 = 0;
+  v5 = -(v3 >> 3);
+  while (1)
+  {
+    v6 = *v2++;
+    if (v6 == *a2)
+    {
+      break;
+    }
+
+    if (v5 == --v4)
+    {
+      return *(a1 + 56);
+    }
+  }
+
+  v8 = *(a1 + 48) - v4;
+  if (*(a1 + 40))
+  {
+    v8 = 0;
+  }
+
+  return *(*(a1 + 32) + 16 * v8);
 }
 
 uint64_t sub_100108704(uint64_t result)
@@ -7111,7 +6842,7 @@ void sub_100108DC4(void *a1@<X8>)
   *v2 = sub_100108E88;
   v2[1] = sub_100108EDC;
   v2[2] = sub_100108F3C;
-  if ((atomic_load_explicit(&qword_1002E0538, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0538, memory_order_acquire) & 1) == 0)
   {
     v5 = v2;
     sub_100299A00();
@@ -7146,7 +6877,7 @@ uint64_t sub_100108EDC(uint64_t a1, void *a2)
 
 BOOL sub_100108F74(uint64_t a1)
 {
-  if (atomic_load_explicit(&qword_1002E0698, memory_order_acquire))
+  if (atomic_load_explicit(byte_1002E0698, memory_order_acquire))
   {
     return qword_1002E0690 == a1;
   }
@@ -7166,133 +6897,131 @@ uint64_t sub_100108FD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t sub_10010900C(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v20 = a1;
-  v18 = *(a1 + 8);
-  v19 = *(a1 + 16);
-  v16 = *a3;
-  v17 = *a2;
-  sub_10010923C(&v18, &v30);
-  Context = mlir::Attribute::getContext(&v20);
-  v4 = v30;
-  v26 = v30;
-  v27 = v29;
-  v28 = 0x600000000;
-  v5 = v32;
-  if (!v32)
+  v18 = a1;
+  v16 = *(a1 + 8);
+  v17 = *(a1 + 16);
+  sub_10010923C(&v16, &v28);
+  Context = mlir::Attribute::getContext(&v18);
+  v4 = v28;
+  v24 = v28;
+  v25 = v27;
+  v26 = 0x600000000;
+  v5 = v30;
+  if (!v30)
   {
     v5 = 0;
-    v8 = v29;
+    v8 = v27;
     goto LABEL_9;
   }
 
-  if (v32 < 7)
+  if (v30 < 7)
   {
-    v7 = v29;
-    v6 = v32;
+    v7 = v27;
+    v6 = v30;
     goto LABEL_7;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v27, v29, v32, 8);
-  v6 = v32;
-  if (v32)
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v25, v27, v30, 8);
+  v6 = v30;
+  if (v30)
   {
-    v7 = v27;
+    v7 = v25;
 LABEL_7:
-    memcpy(v7, v31, 8 * v6);
+    memcpy(v7, v29, 8 * v6);
   }
 
-  LODWORD(v28) = v5;
-  v4 = v26;
-  v8 = v27;
+  LODWORD(v26) = v5;
+  v4 = v24;
+  v8 = v25;
 LABEL_9:
   v9 = *v4;
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v21[0] = &mlir::detail::TypeIDResolver<mlir::StridedLayoutAttr,void>::id;
-  v21[1] = Context;
-  v25[0] = sub_1000E3058;
-  v25[1] = v21;
-  v24[0] = v9;
-  v24[1] = v8;
-  v24[2] = v5;
+  v19[0] = &mlir::detail::TypeIDResolver<mlir::StridedLayoutAttr,void>::id;
+  v19[1] = Context;
+  v23[0] = sub_1000E3058;
+  v23[1] = v19;
+  v22[0] = v9;
+  v22[1] = v8;
+  v22[2] = v5;
   v11 = sub_10002D970(v8, &v8[v5]);
   v12 = __ROR8__(v11 + 16, 16);
   v13 = 0x9DDFEA08EB382D69 * (v12 ^ ((0x9DDFEA08EB382D69 * (v9 ^ v12 ^ 0xFF51AFD7ED558CCDLL)) >> 47) ^ (0x9DDFEA08EB382D69 * (v9 ^ v12 ^ 0xFF51AFD7ED558CCDLL)));
-  v22[0] = v24;
-  v22[1] = v25;
-  v23 = v24;
-  ParametricStorageTypeImpl = mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::StridedLayoutAttr,void>::id, (-348639895 * ((v13 >> 47) ^ v13)) ^ v11, sub_1000E2E30, &v23, sub_1000E2E90, v22);
-  if (v27 != v29)
+  v20[0] = v22;
+  v20[1] = v23;
+  v21 = v22;
+  ParametricStorageTypeImpl = mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::StridedLayoutAttr,void>::id, (-348639895 * ((v13 >> 47) ^ v13)) ^ v11, sub_1000E2E30, &v21, sub_1000E2E90, v20);
+  if (v25 != v27)
   {
-    free(v27);
+    free(v25);
   }
 
-  if (v31 != &v33)
+  if (v29 != &v31)
   {
-    free(v31);
+    free(v29);
   }
 
   return ParametricStorageTypeImpl;
 }
 
-void sub_10010923C(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10010923C(uint64_t a1@<X0>, uint64_t a4@<X8>)
 {
   sub_100109374(*(a1 + 8), *(a1 + 16), &__src);
-  v4 = (a2 + 24);
-  *(a2 + 8) = a2 + 24;
-  *a2 = a1;
-  *(a2 + 16) = 0x600000000;
-  v5 = __src;
-  if ((a2 + 8) == &__src)
+  v6 = (a4 + 24);
+  *(a4 + 8) = a4 + 24;
+  *a4 = a1;
+  *(a4 + 16) = 0x600000000;
+  v7 = __src;
+  if ((a4 + 8) == &__src)
   {
     goto LABEL_12;
   }
 
-  v6 = v10;
-  if (!v10)
+  v8 = v12;
+  if (!v12)
   {
     goto LABEL_12;
   }
 
-  if (__src == v12)
+  if (__src == v14)
   {
-    if (v10 < 7)
+    if (v12 < 7)
     {
-      v8 = v10;
+      v10 = v12;
     }
 
     else
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a2 + 8, (a2 + 24), v10, 8);
-      v8 = v10;
-      v5 = __src;
-      if (!v10)
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a4 + 8, (a4 + 24), v12, 8);
+      v10 = v12;
+      v7 = __src;
+      if (!v12)
       {
 LABEL_10:
-        *(a2 + 16) = v6;
+        *(a4 + 16) = v8;
         goto LABEL_11;
       }
 
-      v4 = *(a2 + 8);
+      v6 = *(a4 + 8);
     }
 
-    memcpy(v4, v5, 8 * v8);
-    v5 = __src;
+    memcpy(v6, v7, 8 * v10);
+    v7 = __src;
     goto LABEL_10;
   }
 
-  *(a2 + 8) = __src;
-  v7 = v11;
-  *(a2 + 16) = v6;
-  *(a2 + 20) = v7;
-  __src = v12;
-  v11 = 0;
-  v5 = v12;
+  *(a4 + 8) = __src;
+  v9 = v13;
+  *(a4 + 16) = v8;
+  *(a4 + 20) = v9;
+  __src = v14;
+  v13 = 0;
+  v7 = v14;
 LABEL_11:
-  v10 = 0;
+  v12 = 0;
 LABEL_12:
-  if (v5 != v12)
+  if (v7 != v14)
   {
-    free(v5);
+    free(v7);
   }
 }
 
@@ -7471,11 +7200,11 @@ uint64_t sub_100109720(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   return result;
 }
 
-uint64_t sub_10010977C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_10010977C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v5[0] = a3;
-  v5[1] = a4;
-  return sub_1001097B0(a2, v5);
+  v7[0] = a3;
+  v7[1] = a4;
+  return sub_1001097B0(a2, v7);
 }
 
 uint64_t sub_1001097B0(uint64_t a1, uint64_t a2)
@@ -7619,43 +7348,43 @@ LABEL_6:
 
 void sub_100109B4C(uint64_t a1)
 {
-  if ((atomic_load_explicit(&qword_1002E0670, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0670, memory_order_acquire) & 1) == 0)
   {
     sub_10029D574();
   }
 
   v2 = qword_1002E0668;
-  sub_100109C98(a1, v12);
-  mlir::Dialect::addAttribute(a1, v2, v12);
-  v3 = v17;
-  if (v17 >= 8)
+  sub_100109C98(a1, &v14);
+  mlir::Dialect::addAttribute(a1, v2, &v14);
+  v3 = v19;
+  if (v19 >= 8)
   {
-    if ((v17 & 4) != 0)
+    if ((v19 & 4) != 0)
     {
-      if ((v17 & 2) != 0)
+      if ((v19 & 2) != 0)
       {
-        v4 = v16;
+        v4 = v18;
       }
 
       else
       {
-        v4 = v16[0];
+        v4 = v18[0];
       }
 
-      (*((v17 & 0xFFFFFFFFFFFFFFF8) + 16))(v4);
+      (*((v19 & 0xFFFFFFFFFFFFFFF8) + 16))(v4);
     }
 
     if ((v3 & 2) == 0)
     {
-      llvm::deallocate_buffer(v16[0], v16[1], v16[2]);
+      llvm::deallocate_buffer(v18[0], v18[1], v18[2]);
     }
   }
 
-  v5 = v13;
-  if (v14)
+  v5 = v15;
+  if (v16)
   {
-    v6 = 16 * v14;
-    v7 = (v13 + 8);
+    v6 = 16 * v16;
+    v7 = (v15 + 8);
     do
     {
       v8 = *v7;
@@ -7665,24 +7394,25 @@ void sub_100109B4C(uint64_t a1)
     }
 
     while (v6);
-    v5 = v13;
+    v5 = v15;
   }
 
-  if (v5 != &v15)
+  if (v5 != &v17)
   {
     free(v5);
   }
 
   v9 = *(a1 + 32);
-  if ((atomic_load_explicit(&qword_1002E0670, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0670, memory_order_acquire) & 1) == 0)
   {
-    v11 = v9;
+    v13 = v9;
     sub_10029B8F0();
-    v9 = v11;
+    v9 = v13;
   }
 
+  v10 = qword_1002E0668;
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(v9);
-  mlir::StorageUniquer::registerParametricStorageTypeImpl(AttributeUniquer);
+  mlir::StorageUniquer::registerParametricStorageTypeImpl(AttributeUniquer, v10, 0, v12);
 }
 
 void sub_100109C98(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -7692,7 +7422,7 @@ void sub_100109C98(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v16 = 0x300000000;
   *&v12 = sub_100109E54;
   v14 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<BOOL (*)(mlir::TypeID),BOOL (* const)(mlir::TypeID),void>::Callbacks + 2;
-  if ((atomic_load_explicit(&qword_1002E0670, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0670, memory_order_acquire) & 1) == 0)
   {
     v9 = a1;
     sub_10029B8F0();
@@ -7765,16 +7495,16 @@ uint64_t sub_100109E5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return mlir::AttrTypeImmediateSubElementWalker::walk(v8, v6);
 }
 
-void *sub_100109E8C(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+void *sub_100109E8C(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
-  v5[0] = a3;
-  v5[1] = a4;
-  return sub_100109EC0(a2, v5);
+  v7[0] = a3;
+  v7[1] = a4;
+  return sub_100109EC0(a2, v7);
 }
 
 void *sub_100109EC0(uint64_t a1, uint64_t **a2)
 {
-  v6 = a1;
+  v7 = a1;
   if (*(a1 + 8))
   {
     v2 = **a2;
@@ -7785,14 +7515,14 @@ void *sub_100109EC0(uint64_t a1, uint64_t **a2)
     v2 = 0;
   }
 
-  Context = mlir::Attribute::getContext(&v6);
+  Context = mlir::Attribute::getContext(&v7);
   Storage = mlir::detail::DistinctAttributeUniquer::allocateStorage(Context, v2);
-  if ((atomic_load_explicit(&qword_1002E0670, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002E0670, memory_order_acquire) & 1) == 0)
   {
     sub_10029B8F0();
   }
 
-  *Storage = mlir::AbstractAttribute::lookup(qword_1002E0668, Context);
+  *Storage = mlir::AbstractAttribute::lookup(qword_1002E0668, Context, v4);
   return Storage;
 }
 
@@ -8279,7 +8009,7 @@ void *sub_10010A8F4(uint64_t a1, unint64_t *a2)
 
   a2[10] += 24;
   v10 = ((*a2 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v11 = v10 + 3;
+  v11 = (v10 + 3);
   if (*a2)
   {
     v12 = v11 > a2[1];
@@ -8406,7 +8136,7 @@ void *sub_10010AA94(uint64_t a1, unint64_t *a2)
 
   a2[10] += 24;
   v10 = ((*a2 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v11 = v10 + 3;
+  v11 = (v10 + 3);
   if (*a2)
   {
     v12 = v11 > a2[1];
@@ -8469,10 +8199,10 @@ BOOL sub_10010ABDC(uint64_t *a1, uint64_t a2)
   }
 }
 
-void *sub_10010AC4C(uint64_t a1, uint64_t *a2)
+void *sub_10010AC4C(void *a1, uint64_t *a2)
 {
   v3 = sub_10010AC9C(a2, *a1);
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   if (*v4)
   {
     (*v4)(*(v4 + 8), v3);
@@ -8758,10 +8488,10 @@ BOOL sub_10010B1DC(const void ***a1, uint64_t a2)
 
   if (*(a2 + 24) > 0x40u)
   {
-    return llvm::APInt::equalSlowCase((a2 + 16), v2 + 1);
+    return llvm::APInt::equalSlowCase((a2 + 16), (v2 + 8));
   }
 
-  return *(a2 + 16) == v2[1];
+  return *(a2 + 16) == *(v2 + 8);
 }
 
 unint64_t sub_10010B224(uint64_t **a1, void *a2)
@@ -8804,7 +8534,7 @@ LABEL_4:
   return v5;
 }
 
-uint64_t sub_10010B300(uint64_t a1, _DWORD *a2)
+uint64_t sub_10010B300(uint64_t a1, int *a2)
 {
   v4 = (*(*a1 + 40))(a1);
   v16[0] = a1;
@@ -8882,7 +8612,7 @@ uint64_t sub_10010B300(uint64_t a1, _DWORD *a2)
   return v5;
 }
 
-uint64_t sub_10010B4E0(uint64_t a1, _DWORD *a2, uint64_t a3)
+uint64_t sub_10010B4E0(uint64_t a1, int *a2, uint64_t a3)
 {
   v6 = (*(*a1 + 40))(a1);
   v27 = 1;
@@ -8906,7 +8636,7 @@ uint64_t sub_10010B4E0(uint64_t a1, _DWORD *a2, uint64_t a3)
     if (v27 > 0x40)
     {
 LABEL_15:
-      llvm::APInt::initSlowCase(&v28);
+      llvm::APInt::initSlowCase(&v28, v11, 1);
     }
 
     goto LABEL_10;
@@ -9206,7 +8936,7 @@ LABEL_16:
   }
 }
 
-uint64_t sub_10010BB74@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char *a3@<X2>, unint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X8>)
+uint64_t sub_10010BB74@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char *a3@<X2>, size_t a4@<X3>, int a5@<W4>, uint64_t a6@<X8>)
 {
   *&v27 = result;
   *(&v27 + 1) = a2;
@@ -9375,7 +9105,7 @@ LABEL_18:
     goto LABEL_12;
   }
 
-  v10 = (v9 - 1);
+  v10 = v9 - 1;
   if (0xFFu >> (8 - (a5 & 7)) != *(v9 - 1))
   {
 LABEL_20:
@@ -9456,9 +9186,9 @@ unint64_t sub_10010BFD8(__int128 **a1, uint64_t *a2)
     v16 = **a1;
     v7 = *(*a1 + 2);
     a2[10] += v5;
-    if (*a2 && (v8 = ((*a2 + 7) & 0xFFFFFFFFFFFFFFF8), &v8[v5] <= a2[1]))
+    if (*a2 && (v8 = ((*a2 + 7) & 0xFFFFFFFFFFFFFFF8), v8 + v5 <= a2[1]))
     {
-      *a2 = &v8[v5];
+      *a2 = v8 + v5;
     }
 
     else
@@ -9551,7 +9281,7 @@ unint64_t sub_10010C170(__int128 **a1, void *a2)
   return v3;
 }
 
-uint64_t sub_10010C248()
+uint64_t sub_10010C248(uint64_t a1, uint64_t a2)
 {
   {
     sub_10029D5C4();
@@ -9589,7 +9319,7 @@ const char *sub_10010C290()
   return &v2[v3];
 }
 
-void sub_10010C310(pthread_rwlock_t **a1@<X0>, uint64_t a2@<X1>, int8x16_t *a3@<X2>, unint64_t a4@<X3>, __int128 *a5@<X4>, uint64_t *a6@<X8>)
+void sub_10010C310(pthread_rwlock_t **a1@<X0>, uint64_t a2@<X1>, int8x16_t *a3@<X2>, size_t a4@<X3>, __int128 *a5@<X4>, uint64_t *a6@<X8>)
 {
   LOBYTE(v18) = 0;
   v24 = 0;
@@ -9686,7 +9416,7 @@ void mlir::ModuleOp::create(uint64_t a1, __int128 *a2)
   sub_10010C888(v3, v4, a2);
 }
 
-void sub_10010C888(uint64_t a1, uint64_t a2, __int128 *a3)
+void sub_10010C888(mlir::StringAttr **a1, uint64_t a2, __int128 *a3)
 {
   v9 = a2;
   Context = mlir::Attribute::getContext(&v9);
@@ -9696,7 +9426,7 @@ void sub_10010C888(uint64_t a1, uint64_t a2, __int128 *a3)
     mlir::OperationState::OperationState(v13, a2, v7);
     v11 = *a3;
     v12 = *(a3 + 2);
-    mlir::ModuleOp::build(a1, v13);
+    mlir::ModuleOp::build(a1, v13, &v11);
   }
 
   sub_100299DF4(v13, &v11, v10);
@@ -9724,7 +9454,7 @@ BOOL mlir::ModuleOp::verify(mlir::Operation **this)
           {
 LABEL_15:
             v56 = 257;
-            mlir::OpState::emitOpError(this, &v55, &AttrDictionary);
+            mlir::OpState::emitOpError(&AttrDictionary, this, &v55);
             if (AttrDictionary)
             {
               LODWORD(Name) = 3;
@@ -9892,7 +9622,7 @@ LABEL_15:
         if (v34)
         {
           v56 = 257;
-          mlir::OpState::emitOpError(this, &v55, &Name);
+          mlir::OpState::emitOpError(&Name, this, &v55);
           if (Name)
           {
             LODWORD(v57) = 3;
@@ -10008,4 +9738,112 @@ LABEL_15:
   }
 
   return 1;
+}
+
+BOOL mlir::UnrealizedConversionCastOp::verify(mlir::Operation **this)
+{
+  if (*(*this + 9))
+  {
+    return 1;
+  }
+
+  v16 = 257;
+  mlir::OpState::emitOpError(v20, this, v15);
+  if (v20[0])
+  {
+    v17 = 3;
+    v18 = "expected at least one result for cast operation";
+    v19 = 47;
+    v2 = &v17;
+    v3 = v21;
+    if (v22 >= v23)
+    {
+      if (v21 <= &v17 && v21 + 24 * v22 > &v17)
+      {
+        v14 = &v17 - v21;
+        llvm::SmallVectorBase<unsigned int>::grow_pod(&v21, v24, v22 + 1, 24);
+        v3 = v21;
+        v2 = (v21 + v14);
+      }
+
+      else
+      {
+        llvm::SmallVectorBase<unsigned int>::grow_pod(&v21, v24, v22 + 1, 24);
+        v2 = &v17;
+        v3 = v21;
+      }
+    }
+
+    v4 = &v3[24 * v22];
+    v5 = *v2;
+    *(v4 + 2) = *(v2 + 2);
+    *v4 = v5;
+    ++v22;
+  }
+
+  v1 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v20);
+  if (v20[0])
+  {
+    mlir::InFlightDiagnostic::report(v20);
+  }
+
+  if (v30 == 1)
+  {
+    if (v29 != &v30)
+    {
+      free(v29);
+    }
+
+    v6 = __p;
+    if (__p)
+    {
+      v7 = v28;
+      v8 = __p;
+      if (v28 != __p)
+      {
+        do
+        {
+          v7 = sub_10005BEF4(v7 - 1);
+        }
+
+        while (v7 != v6);
+        v8 = __p;
+      }
+
+      v28 = v6;
+      operator delete(v8);
+    }
+
+    v9 = v25;
+    if (v25)
+    {
+      v10 = v26;
+      v11 = v25;
+      if (v26 != v25)
+      {
+        do
+        {
+          v12 = *--v10;
+          *v10 = 0;
+          if (v12)
+          {
+            operator delete[]();
+          }
+        }
+
+        while (v10 != v9);
+        v11 = v25;
+      }
+
+      v26 = v9;
+      operator delete(v11);
+    }
+
+    if (v21 != v24)
+    {
+      free(v21);
+    }
+  }
+
+  return v1;
 }

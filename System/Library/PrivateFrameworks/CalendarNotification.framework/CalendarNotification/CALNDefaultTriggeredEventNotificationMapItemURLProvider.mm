@@ -6,6 +6,7 @@
 + (id)_directionsModeForTransportType:(int)type;
 + (id)_eventLocationFromStructuredLocation:(id)location;
 + (id)_mapItemURLForEventLocation:(id)location hypothesis:(id)hypothesis;
++ (id)_mapItemURLLaunchOptionsForDirectionsMode:(id)mode isFromTimeToLeaveNotification:(BOOL)notification;
 + (id)_mapItemURLLaunchOptionsForHypothesis:(id)hypothesis routing:(id)routing;
 - (id)mapItemURLForOptionalEventLocation:(id)location hypothesis:(id)hypothesis;
 @end
@@ -55,7 +56,7 @@ uint64_t __73__CALNDefaultTriggeredEventNotificationMapItemURLProvider_sharedIns
 
 + (id)_mapItemURLForEventLocation:(id)location hypothesis:(id)hypothesis
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   locationCopy = location;
   hypothesisCopy = hypothesis;
   routing = [locationCopy routing];
@@ -67,8 +68,8 @@ uint64_t __73__CALNDefaultTriggeredEventNotificationMapItemURLProvider_sharedIns
   if (mapKitHandle)
   {
     v13 = MEMORY[0x277CD4E80];
-    v21[0] = mapKitHandle;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = mapKitHandle;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     v15 = [v13 _urlForMapItemHandles:v14 options:v9];
 LABEL_5:
 
@@ -88,8 +89,6 @@ LABEL_5:
 
   v15 = 0;
 LABEL_6:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -116,6 +115,20 @@ LABEL_6:
   v7 = [self _mapItemURLLaunchOptionsForDirectionsMode:v6 isFromTimeToLeaveNotification:hypothesis != 0];
 
   return v7;
+}
+
++ (id)_mapItemURLLaunchOptionsForDirectionsMode:(id)mode isFromTimeToLeaveNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  v5 = MEMORY[0x277CBEB38];
+  modeCopy = mode;
+  dictionary = [v5 dictionary];
+  [dictionary setObject:modeCopy forKeyedSubscript:*MEMORY[0x277CD4B68]];
+
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:notificationCopy];
+  [dictionary setObject:v8 forKeyedSubscript:*MEMORY[0x277CD4FD0]];
+
+  return dictionary;
 }
 
 + (id)_directionsModeForHypothesis:(id)hypothesis routing:(id)routing

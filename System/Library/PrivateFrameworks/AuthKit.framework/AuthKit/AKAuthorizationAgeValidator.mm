@@ -150,7 +150,6 @@ LABEL_29:
 LABEL_30:
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v43 & 1;
 }
 

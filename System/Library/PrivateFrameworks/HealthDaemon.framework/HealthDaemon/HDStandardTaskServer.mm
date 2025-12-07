@@ -22,23 +22,22 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (HDStandardTaskServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   clientCopy = client;
   delegateCopy = delegate;
-  v19.receiver = self;
-  v19.super_class = HDStandardTaskServer;
-  v12 = [(HDStandardTaskServer *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = HDStandardTaskServer;
+  v12 = [(HDStandardTaskServer *)&v18 init];
   if (v12)
   {
     _HKInitializeLogging();
@@ -46,13 +45,13 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v21 = v12;
-      v22 = 2114;
-      v23 = dCopy;
+      v20 = v12;
+      v21 = 2114;
+      v22 = dCopy;
       _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_INFO, "%{public}@: Initialized for task %{public}@.", buf, 0x16u);
     }
 
-    v14 = [dCopy copy];
+    v14 = objc_msgSend_copy(dCopy);
     taskUUID = v12->_taskUUID;
     v12->_taskUUID = v14;
 
@@ -63,7 +62,6 @@
     objc_storeWeak(&v12->_delegate, delegateCopy);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

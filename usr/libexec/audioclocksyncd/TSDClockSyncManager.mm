@@ -1,6 +1,7 @@
 @interface TSDClockSyncManager
 + (id)sharedClockSyncManager;
 - (TSDClockSyncManager)init;
+- (id)clockSyncForClockIdentifier:(unint64_t)identifier pid:(int)pid;
 - (void)releaseClockSyncForClockIdentifier:(unint64_t)identifier;
 @end
 
@@ -33,6 +34,32 @@
   }
 
   return v2;
+}
+
+- (id)clockSyncForClockIdentifier:(unint64_t)identifier pid:(int)pid
+{
+  v4 = *&pid;
+  v7 = [NSNumber numberWithUnsignedLongLong:?];
+  os_unfair_lock_lock(&self->_clockSyncsLock);
+  v8 = [(NSMutableDictionary *)self->_clockSyncs objectForKeyedSubscript:v7];
+  if (v8)
+  {
+    v9 = v8;
+    [(TSDClockSync *)v8 addReference];
+  }
+
+  else
+  {
+    v9 = [[TSDClockSync alloc] initWithClockIdentifier:identifier pid:v4];
+    if (v9)
+    {
+      [(NSMutableDictionary *)self->_clockSyncs setObject:v9 forKeyedSubscript:v7];
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_clockSyncsLock);
+
+  return v9;
 }
 
 - (void)releaseClockSyncForClockIdentifier:(unint64_t)identifier

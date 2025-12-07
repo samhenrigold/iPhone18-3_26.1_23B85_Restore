@@ -39,10 +39,10 @@ uint64_t __40__TVPReachabilityMonitor_sharedInstance__block_invoke()
 
 - (id)_init
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = TVPReachabilityMonitor;
-  v2 = [(TVPReachabilityMonitor *)&v7 init];
+  v8 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = TVPReachabilityMonitor;
+  v2 = [(TVPReachabilityMonitor *)&v6 init];
   if (v2)
   {
     mEMORY[0x277CEC5B8] = [MEMORY[0x277CEC5B8] sharedNetworkObserver];
@@ -55,7 +55,6 @@ uint64_t __40__TVPReachabilityMonitor_sharedInstance__block_invoke()
     v2->_reachability = SCNetworkReachabilityCreateWithAddress(0, &address);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

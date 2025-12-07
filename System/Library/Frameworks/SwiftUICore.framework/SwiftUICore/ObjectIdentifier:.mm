@@ -9,11 +9,11 @@
 {
   if (!lazy cache variable for type metadata for MutableBox<[ObjectIdentifier : DynamicPropertyCache.Fields]>)
   {
-    type metadata accessor for [Int : CGFloat](255, &lazy cache variable for type metadata for [ObjectIdentifier : DynamicPropertyCache.Fields]);
-    v0 = type metadata accessor for MutableBox();
-    if (!v1)
+    type metadata accessor for [Int : CGFloat](255, &lazy cache variable for type metadata for [ObjectIdentifier : DynamicPropertyCache.Fields], MEMORY[0x1E69E5FE0], &type metadata for DynamicPropertyCache.Fields, MEMORY[0x1E69E5FE8]);
+    v5 = type metadata accessor for MutableBox(self, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for MutableBox<[ObjectIdentifier : DynamicPropertyCache.Fields]>);
+      atomic_store(v5, &lazy cache variable for type metadata for MutableBox<[ObjectIdentifier : DynamicPropertyCache.Fields]>);
     }
   }
 }

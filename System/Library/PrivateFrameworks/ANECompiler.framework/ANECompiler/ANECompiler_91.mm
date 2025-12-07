@@ -1,3 +1,153 @@
+google::protobuf::UnknownFieldSet *google::protobuf::FileDescriptorProto::Clear(google::protobuf::UnknownFieldSet *this)
+{
+  v1 = this;
+  if (*(this + 8) >= 1)
+  {
+    this = google::protobuf::internal::RepeatedPtrFieldBase::ClearNonEmpty<google::protobuf::internal::GenericTypeHandler<std::string>>(this + 24);
+  }
+
+  if (*(v1 + 56) >= 1)
+  {
+    this = google::protobuf::internal::RepeatedPtrFieldBase::ClearNonEmpty<google::protobuf::internal::GenericTypeHandler<google::protobuf::MessageLite>>((v1 + 48));
+  }
+
+  if (*(v1 + 80) >= 1)
+  {
+    this = google::protobuf::internal::RepeatedPtrFieldBase::ClearNonEmpty<google::protobuf::internal::GenericTypeHandler<google::protobuf::MessageLite>>((v1 + 72));
+  }
+
+  if (*(v1 + 104) >= 1)
+  {
+    this = google::protobuf::internal::RepeatedPtrFieldBase::ClearNonEmpty<google::protobuf::internal::GenericTypeHandler<google::protobuf::MessageLite>>((v1 + 96));
+  }
+
+  if (*(v1 + 128) >= 1)
+  {
+    this = google::protobuf::internal::RepeatedPtrFieldBase::ClearNonEmpty<google::protobuf::internal::GenericTypeHandler<google::protobuf::MessageLite>>((v1 + 120));
+  }
+
+  *(v1 + 144) = 0;
+  *(v1 + 160) = 0;
+  v2 = *(v1 + 16);
+  if ((v2 & 0x1F) == 0)
+  {
+    goto LABEL_18;
+  }
+
+  if ((v2 & 1) == 0)
+  {
+    if ((v2 & 2) == 0)
+    {
+      goto LABEL_14;
+    }
+
+LABEL_26:
+    v6 = *(v1 + 184) & 0xFFFFFFFFFFFFFFFCLL;
+    if (*(v6 + 23) < 0)
+    {
+      **v6 = 0;
+      *(v6 + 8) = 0;
+      if ((v2 & 4) != 0)
+      {
+        goto LABEL_30;
+      }
+    }
+
+    else
+    {
+      *v6 = 0;
+      *(v6 + 23) = 0;
+      if ((v2 & 4) != 0)
+      {
+        goto LABEL_30;
+      }
+    }
+
+LABEL_15:
+    if ((v2 & 8) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_34;
+  }
+
+  v5 = *(v1 + 176) & 0xFFFFFFFFFFFFFFFCLL;
+  if (*(v5 + 23) < 0)
+  {
+    **v5 = 0;
+    *(v5 + 8) = 0;
+    if ((v2 & 2) != 0)
+    {
+      goto LABEL_26;
+    }
+  }
+
+  else
+  {
+    *v5 = 0;
+    *(v5 + 23) = 0;
+    if ((v2 & 2) != 0)
+    {
+      goto LABEL_26;
+    }
+  }
+
+LABEL_14:
+  if ((v2 & 4) == 0)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_30:
+  v7 = *(v1 + 192) & 0xFFFFFFFFFFFFFFFCLL;
+  if (*(v7 + 23) < 0)
+  {
+    **v7 = 0;
+    *(v7 + 8) = 0;
+    if ((v2 & 8) != 0)
+    {
+      goto LABEL_34;
+    }
+
+LABEL_16:
+    if ((v2 & 0x10) == 0)
+    {
+      goto LABEL_18;
+    }
+
+    goto LABEL_17;
+  }
+
+  *v7 = 0;
+  *(v7 + 23) = 0;
+  if ((v2 & 8) == 0)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_34:
+  this = google::protobuf::FileOptions::Clear(*(v1 + 200));
+  if ((v2 & 0x10) != 0)
+  {
+LABEL_17:
+    this = google::protobuf::SourceCodeInfo::Clear(*(v1 + 208));
+  }
+
+LABEL_18:
+  v4 = *(v1 + 8);
+  v3 = v1 + 8;
+  *(v3 + 208) = 0;
+  *(v3 + 8) = 0;
+  if (v4)
+  {
+
+    return google::protobuf::internal::InternalMetadata::DoClear<google::protobuf::UnknownFieldSet>(v3);
+  }
+
+  return this;
+}
+
 google::protobuf::UnknownFieldSet *google::protobuf::FileOptions::Clear(google::protobuf::FileOptions *this)
 {
   result = google::protobuf::internal::ExtensionSet::Clear((this + 16));
@@ -1318,10 +1468,10 @@ void google::protobuf::DescriptorProto_ExtensionRange::~DescriptorProto_Extensio
   JUMPOUT(0x23EED9460);
 }
 
-void *google::protobuf::DescriptorProto_ExtensionRange::MergeImpl(void *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
+void google::protobuf::DescriptorProto_ExtensionRange::MergeImpl(uint64_t this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
 {
-  v5 = (this + 1);
-  v4 = this[1];
+  v5 = (this + 8);
+  v4 = *(this + 8);
   if ((v4 & 1) == 0)
   {
     v6 = *(a2 + 4);
@@ -1339,7 +1489,7 @@ LABEL_3:
       }
 
 LABEL_11:
-      *(this + 8) = *(a2 + 8);
+      *(this + 32) = *(a2 + 8);
       if ((v6 & 4) == 0)
       {
         goto LABEL_13;
@@ -1349,7 +1499,7 @@ LABEL_11:
     }
 
     v7 = this;
-    v8 = this[3];
+    v8 = *(this + 24);
     v9 = a2;
     v10 = *(a2 + 3);
     if (v8)
@@ -1367,7 +1517,7 @@ LABEL_11:
     {
       v11 = google::protobuf::Arena::CopyConstruct<google::protobuf::ExtensionRangeOptions>(v4, v10);
       this = v7;
-      v7[3] = v11;
+      *(v7 + 24) = v11;
       a2 = v9;
       if ((v6 & 2) != 0)
       {
@@ -1382,7 +1532,7 @@ LABEL_5:
     }
 
 LABEL_12:
-    *(this + 9) = *(a2 + 9);
+    *(this + 36) = *(a2 + 9);
     goto LABEL_13;
   }
 
@@ -1394,15 +1544,13 @@ LABEL_12:
   }
 
 LABEL_13:
-  *(this + 4) |= v6;
+  *(this + 16) |= v6;
   v12 = *(a2 + 1);
   if (v12)
   {
 
-    return google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>(v5, ((v12 & 0xFFFFFFFFFFFFFFFELL) + 8));
+    google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>(v5, ((v12 & 0xFFFFFFFFFFFFFFFELL) + 8));
   }
-
-  return this;
 }
 
 google::protobuf::UnknownFieldSet *google::protobuf::DescriptorProto_ExtensionRange::Clear(google::protobuf::DescriptorProto_ExtensionRange *this)
@@ -1518,13 +1666,13 @@ LABEL_9:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v10 & 0xFFFFFFFFFFFFFFFELL) + 8), v7, a3, v7);
 }
 
-unsigned __int8 *google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<1>(google::protobuf::io::EpsCopyOutputStream *a1, unsigned int a2, unsigned __int8 *a3)
+unsigned __int8 *google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<1>(google::protobuf::io::EpsCopyOutputStream *a1, int a2, unsigned __int8 *a3)
 {
   if (*a1 <= a3)
   {
     v8 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a1, a3);
     *v8 = 8;
-    v4 = v8 + 1;
+    v4 = (v8 + 1);
     v5 = a2;
     if (a2 < 0x80)
     {
@@ -1559,13 +1707,13 @@ LABEL_4:
   return v4 + 1;
 }
 
-unsigned __int8 *google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<2>(google::protobuf::io::EpsCopyOutputStream *a1, unsigned int a2, unsigned __int8 *a3)
+unsigned __int8 *google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<2>(google::protobuf::io::EpsCopyOutputStream *a1, int a2, unsigned __int8 *a3)
 {
   if (*a1 <= a3)
   {
     v8 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a1, a3);
     *v8 = 16;
-    v4 = v8 + 1;
+    v4 = (v8 + 1);
     v5 = a2;
     if (a2 < 0x80)
     {
@@ -1751,30 +1899,28 @@ void google::protobuf::DescriptorProto_ReservedRange::~DescriptorProto_ReservedR
   JUMPOUT(0x23EED9460);
 }
 
-void *google::protobuf::DescriptorProto_ReservedRange::MergeImpl(void *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3)
+void google::protobuf::DescriptorProto_ReservedRange::MergeImpl(_DWORD *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3)
 {
   v3 = *(a2 + 4);
   if ((v3 & 3) != 0)
   {
     if (v3)
     {
-      *(this + 6) = *(a2 + 6);
+      this[6] = *(a2 + 6);
     }
 
     if ((v3 & 2) != 0)
     {
-      *(this + 7) = *(a2 + 7);
+      this[7] = *(a2 + 7);
     }
   }
 
-  *(this + 4) |= v3;
+  this[4] |= v3;
   v4 = *(a2 + 1);
   if (v4)
   {
-    return google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>(this + 1, ((v4 & 0xFFFFFFFFFFFFFFFELL) + 8));
+    google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>(this + 1, ((v4 & 0xFFFFFFFFFFFFFFFELL) + 8));
   }
-
-  return this;
 }
 
 google::protobuf::UnknownFieldSet *google::protobuf::DescriptorProto_ReservedRange::Clear(google::protobuf::DescriptorProto_ReservedRange *this)
@@ -1921,7 +2067,7 @@ google::protobuf::DescriptorProto *google::protobuf::DescriptorProto::Descriptor
   *(this + 5) = a2;
   if (*(a3 + 8))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 6, (a3 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::FieldDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 24), (a3 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::FieldDescriptorProto>);
   }
 
   *(this + 6) = 0;
@@ -1929,7 +2075,7 @@ google::protobuf::DescriptorProto *google::protobuf::DescriptorProto::Descriptor
   *(this + 8) = a2;
   if (*(a3 + 14))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 12, (a3 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 48), (a3 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto>);
   }
 
   *(this + 9) = 0;
@@ -1937,7 +2083,7 @@ google::protobuf::DescriptorProto *google::protobuf::DescriptorProto::Descriptor
   *(this + 11) = a2;
   if (*(a3 + 20))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 18, (a3 + 72), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 72), (a3 + 72), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumDescriptorProto>);
   }
 
   *(this + 12) = 0;
@@ -1945,7 +2091,7 @@ google::protobuf::DescriptorProto *google::protobuf::DescriptorProto::Descriptor
   *(this + 14) = a2;
   if (*(a3 + 26))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 24, (a3 + 96), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto_ExtensionRange>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 96), (a3 + 96), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto_ExtensionRange>);
   }
 
   *(this + 15) = 0;
@@ -1953,7 +2099,7 @@ google::protobuf::DescriptorProto *google::protobuf::DescriptorProto::Descriptor
   *(this + 17) = a2;
   if (*(a3 + 32))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 30, (a3 + 120), google::protobuf::Arena::CopyConstruct<google::protobuf::FieldDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 120), (a3 + 120), google::protobuf::Arena::CopyConstruct<google::protobuf::FieldDescriptorProto>);
   }
 
   *(this + 18) = 0;
@@ -1961,7 +2107,7 @@ google::protobuf::DescriptorProto *google::protobuf::DescriptorProto::Descriptor
   *(this + 20) = a2;
   if (*(a3 + 38))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 36, (a3 + 144), google::protobuf::Arena::CopyConstruct<google::protobuf::OneofDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 144), (a3 + 144), google::protobuf::Arena::CopyConstruct<google::protobuf::OneofDescriptorProto>);
   }
 
   *(this + 21) = 0;
@@ -1969,7 +2115,7 @@ google::protobuf::DescriptorProto *google::protobuf::DescriptorProto::Descriptor
   *(this + 23) = a2;
   if (*(a3 + 44))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 42, (a3 + 168), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto_ReservedRange>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 168), (a3 + 168), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto_ReservedRange>);
   }
 
   *(this + 24) = 0;
@@ -1977,7 +2123,7 @@ google::protobuf::DescriptorProto *google::protobuf::DescriptorProto::Descriptor
   *(this + 26) = a2;
   if (*(a3 + 50))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 192, a3 + 192);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 24, a3 + 192);
   }
 
   v8 = *(a3 + 27);
@@ -2080,43 +2226,43 @@ void google::protobuf::DescriptorProto::MergeImpl(google::protobuf::DescriptorPr
   if (*(a2 + 8))
   {
 LABEL_3:
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 6, (a2 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::FieldDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 24), (a2 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::FieldDescriptorProto>);
   }
 
 LABEL_4:
   if (*(a2 + 14))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 12, (a2 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 48), (a2 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto>);
   }
 
   if (*(a2 + 20))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 18, (a2 + 72), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 72), (a2 + 72), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumDescriptorProto>);
   }
 
   if (*(a2 + 26))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 24, (a2 + 96), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto_ExtensionRange>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 96), (a2 + 96), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto_ExtensionRange>);
   }
 
   if (*(a2 + 32))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 30, (a2 + 120), google::protobuf::Arena::CopyConstruct<google::protobuf::FieldDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 120), (a2 + 120), google::protobuf::Arena::CopyConstruct<google::protobuf::FieldDescriptorProto>);
   }
 
   if (*(a2 + 38))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 36, (a2 + 144), google::protobuf::Arena::CopyConstruct<google::protobuf::OneofDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 144), (a2 + 144), google::protobuf::Arena::CopyConstruct<google::protobuf::OneofDescriptorProto>);
   }
 
   if (*(a2 + 44))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 42, (a2 + 168), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto_ReservedRange>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 168), (a2 + 168), google::protobuf::Arena::CopyConstruct<google::protobuf::DescriptorProto_ReservedRange>);
   }
 
   if (*(a2 + 50))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 192, a2 + 192);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 24, a2 + 192);
   }
 
   v8 = *(a2 + 4);
@@ -3193,9 +3339,8 @@ void google::protobuf::ExtensionRangeOptions_Declaration::~ExtensionRangeOptions
   JUMPOUT(0x23EED9460);
 }
 
-std::string *google::protobuf::ExtensionRangeOptions_Declaration::MergeImpl(std::string *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3)
+void google::protobuf::ExtensionRangeOptions_Declaration::MergeImpl(uint64_t this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3)
 {
-  v4 = this;
   v5 = *(a2 + 4);
   if ((v5 & 0x1F) == 0)
   {
@@ -3205,11 +3350,11 @@ std::string *google::protobuf::ExtensionRangeOptions_Declaration::MergeImpl(std:
   if (v5)
   {
     v7 = *(a2 + 3);
-    LODWORD(this->__r_.__value_.__r.__words[2]) |= 1u;
-    size = this->__r_.__value_.__l.__size_;
-    if (size)
+    *(this + 16) |= 1u;
+    v8 = *(this + 8);
+    if (v8)
     {
-      this = google::protobuf::internal::ArenaStringPtr::Set<>(&this[1], (v7 & 0xFFFFFFFFFFFFFFFCLL), *(size & 0xFFFFFFFFFFFFFFFELL));
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v7 & 0xFFFFFFFFFFFFFFFCLL), *(v8 & 0xFFFFFFFFFFFFFFFELL));
       if ((v5 & 2) != 0)
       {
         goto LABEL_14;
@@ -3218,7 +3363,7 @@ std::string *google::protobuf::ExtensionRangeOptions_Declaration::MergeImpl(std:
 
     else
     {
-      this = google::protobuf::internal::ArenaStringPtr::Set<>(&this[1], (v7 & 0xFFFFFFFFFFFFFFFCLL), size);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v7 & 0xFFFFFFFFFFFFFFFCLL), v8);
       if ((v5 & 2) != 0)
       {
         goto LABEL_14;
@@ -3232,7 +3377,7 @@ LABEL_4:
     }
 
 LABEL_16:
-    *(v4 + 40) = *(a2 + 10);
+    *(this + 40) = *(a2 + 10);
     if ((v5 & 8) == 0)
     {
 LABEL_6:
@@ -3254,11 +3399,11 @@ LABEL_6:
 
 LABEL_14:
   v9 = *(a2 + 4);
-  *(v4 + 16) |= 2u;
-  v10 = *(v4 + 8);
+  *(this + 16) |= 2u;
+  v10 = *(this + 8);
   if (v10)
   {
-    this = google::protobuf::internal::ArenaStringPtr::Set<>((v4 + 32), (v9 & 0xFFFFFFFFFFFFFFFCLL), *(v10 & 0xFFFFFFFFFFFFFFFELL));
+    google::protobuf::internal::ArenaStringPtr::Set<>((this + 32), (v9 & 0xFFFFFFFFFFFFFFFCLL), *(v10 & 0xFFFFFFFFFFFFFFFELL));
     if ((v5 & 4) != 0)
     {
       goto LABEL_16;
@@ -3267,7 +3412,7 @@ LABEL_14:
 
   else
   {
-    this = google::protobuf::internal::ArenaStringPtr::Set<>((v4 + 32), (v9 & 0xFFFFFFFFFFFFFFFCLL), v10);
+    google::protobuf::internal::ArenaStringPtr::Set<>((this + 32), (v9 & 0xFFFFFFFFFFFFFFFCLL), v10);
     if ((v5 & 4) != 0)
     {
       goto LABEL_16;
@@ -3281,23 +3426,21 @@ LABEL_5:
   }
 
 LABEL_17:
-  *(v4 + 44) = *(a2 + 44);
+  *(this + 44) = *(a2 + 44);
   if ((v5 & 0x10) != 0)
   {
 LABEL_7:
-    *(v4 + 45) = *(a2 + 45);
+    *(this + 45) = *(a2 + 45);
   }
 
 LABEL_8:
-  *(v4 + 16) |= v5;
+  *(this + 16) |= v5;
   v6 = *(a2 + 1);
   if (v6)
   {
 
-    return google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>((v4 + 8), ((v6 & 0xFFFFFFFFFFFFFFFELL) + 8));
+    google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>((this + 8), ((v6 & 0xFFFFFFFFFFFFFFFELL) + 8));
   }
-
-  return this;
 }
 
 google::protobuf::UnknownFieldSet *google::protobuf::ExtensionRangeOptions_Declaration::Clear(google::protobuf::ExtensionRangeOptions_Declaration *this)
@@ -3604,7 +3747,7 @@ google::protobuf::ExtensionRangeOptions *google::protobuf::ExtensionRangeOptions
   *(this + 8) = a2;
   if (*(a3 + 14))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 12, (a3 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::ExtensionRangeOptions_Declaration>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 48), (a3 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::ExtensionRangeOptions_Declaration>);
   }
 
   *(this + 9) = 0;
@@ -3612,7 +3755,7 @@ google::protobuf::ExtensionRangeOptions *google::protobuf::ExtensionRangeOptions
   *(this + 11) = a2;
   if (*(a3 + 20))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 18, (a3 + 72), google::protobuf::Arena::CopyConstruct<google::protobuf::UninterpretedOption>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 72), (a3 + 72), google::protobuf::Arena::CopyConstruct<google::protobuf::UninterpretedOption>);
   }
 
   google::protobuf::internal::ExtensionSet::MergeFrom((this + 16), this, (a3 + 16), a4);
@@ -3708,13 +3851,13 @@ void google::protobuf::ExtensionRangeOptions::MergeImpl(google::protobuf::Extens
   if (*(a2 + 14))
   {
 LABEL_3:
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 12, (a2 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::ExtensionRangeOptions_Declaration>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 48), (a2 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::ExtensionRangeOptions_Declaration>);
   }
 
 LABEL_4:
   if (*(a2 + 20))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 18, (a2 + 72), google::protobuf::Arena::CopyConstruct<google::protobuf::UninterpretedOption>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 72), (a2 + 72), google::protobuf::Arena::CopyConstruct<google::protobuf::UninterpretedOption>);
   }
 
   v8 = *(a2 + 10);
@@ -3780,7 +3923,7 @@ int *google::protobuf::FeatureSet::Clear(google::protobuf::FeatureSet *this)
   return result;
 }
 
-const google::protobuf::UnknownFieldSet *google::protobuf::ExtensionRangeOptions::_InternalSerialize(google::protobuf::ExtensionRangeOptions *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4, uint64_t a5, google::protobuf::io::EpsCopyOutputStream *a6)
+google::protobuf::UnknownFieldSet *google::protobuf::ExtensionRangeOptions::_InternalSerialize(google::protobuf::ExtensionRangeOptions *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4, uint64_t a5, google::protobuf::io::EpsCopyOutputStream *a6)
 {
   v9 = *(this + 14);
   if (v9)
@@ -4125,13 +4268,13 @@ void google::protobuf::FieldDescriptorProto::~FieldDescriptorProto(google::proto
   JUMPOUT(0x23EED9460);
 }
 
-void google::protobuf::FieldDescriptorProto::MergeImpl(google::protobuf::FieldDescriptorProto *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, __n128 a4)
+void google::protobuf::FieldDescriptorProto::MergeImpl(uint64_t this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, __n128 a4)
 {
   v7 = (this + 8);
-  v6 = *(this + 1);
+  v6 = *(this + 8);
   if ((v6 & 1) == 0)
   {
-    v8 = *(this + 1);
+    v8 = *(this + 8);
     v9 = *(a2 + 4);
     if (!v9)
     {
@@ -4148,11 +4291,11 @@ LABEL_3:
 
 LABEL_14:
       v11 = *(a2 + 4);
-      *(this + 4) |= 2u;
-      v12 = *(this + 1);
+      *(this + 16) |= 2u;
+      v12 = *(this + 8);
       if (v12)
       {
-        google::protobuf::internal::ArenaStringPtr::Set<>(this + 4, (v11 & 0xFFFFFFFFFFFFFFFCLL), *(v12 & 0xFFFFFFFFFFFFFFFELL));
+        google::protobuf::internal::ArenaStringPtr::Set<>((this + 32), (v11 & 0xFFFFFFFFFFFFFFFCLL), *(v12 & 0xFFFFFFFFFFFFFFFELL));
         if ((v9 & 4) != 0)
         {
           goto LABEL_16;
@@ -4161,7 +4304,7 @@ LABEL_14:
 
       else
       {
-        google::protobuf::internal::ArenaStringPtr::Set<>(this + 4, (v11 & 0xFFFFFFFFFFFFFFFCLL), v12);
+        google::protobuf::internal::ArenaStringPtr::Set<>((this + 32), (v11 & 0xFFFFFFFFFFFFFFFCLL), v12);
         if ((v9 & 4) != 0)
         {
           goto LABEL_16;
@@ -4176,11 +4319,11 @@ LABEL_6:
 
 LABEL_18:
       v15 = *(a2 + 6);
-      *(this + 4) |= 8u;
-      v16 = *(this + 1);
+      *(this + 16) |= 8u;
+      v16 = *(this + 8);
       if (v16)
       {
-        google::protobuf::internal::ArenaStringPtr::Set<>(this + 6, (v15 & 0xFFFFFFFFFFFFFFFCLL), *(v16 & 0xFFFFFFFFFFFFFFFELL));
+        google::protobuf::internal::ArenaStringPtr::Set<>((this + 48), (v15 & 0xFFFFFFFFFFFFFFFCLL), *(v16 & 0xFFFFFFFFFFFFFFFELL));
         if ((v9 & 0x10) != 0)
         {
           goto LABEL_20;
@@ -4189,7 +4332,7 @@ LABEL_18:
 
       else
       {
-        google::protobuf::internal::ArenaStringPtr::Set<>(this + 6, (v15 & 0xFFFFFFFFFFFFFFFCLL), v16);
+        google::protobuf::internal::ArenaStringPtr::Set<>((this + 48), (v15 & 0xFFFFFFFFFFFFFFFCLL), v16);
         if ((v9 & 0x10) != 0)
         {
           goto LABEL_20;
@@ -4203,7 +4346,7 @@ LABEL_8:
       }
 
 LABEL_22:
-      v19 = *(this + 8);
+      v19 = *(this + 64);
       v20 = *(a2 + 8);
       if (v19)
       {
@@ -4216,7 +4359,7 @@ LABEL_22:
 
       else
       {
-        *(this + 8) = google::protobuf::Arena::CopyConstruct<google::protobuf::FieldOptions>(v8, v20);
+        *(this + 64) = google::protobuf::Arena::CopyConstruct<google::protobuf::FieldOptions>(v8, v20);
         if ((v9 & 0x40) != 0)
         {
           goto LABEL_26;
@@ -4230,15 +4373,15 @@ LABEL_10:
       }
 
 LABEL_27:
-      *(this + 19) = *(a2 + 19);
+      *(this + 76) = *(a2 + 19);
       goto LABEL_28;
     }
 
     v10 = *(a2 + 3);
-    *(this + 4) |= 1u;
+    *(this + 16) |= 1u;
     if (v6)
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 3, (v10 & 0xFFFFFFFFFFFFFFFCLL), *(v6 & 0xFFFFFFFFFFFFFFFELL));
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v10 & 0xFFFFFFFFFFFFFFFCLL), *(v6 & 0xFFFFFFFFFFFFFFFELL));
       if ((v9 & 2) != 0)
       {
         goto LABEL_14;
@@ -4247,7 +4390,7 @@ LABEL_27:
 
     else
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 3, (v10 & 0xFFFFFFFFFFFFFFFCLL), v6);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v10 & 0xFFFFFFFFFFFFFFFCLL), v6);
       if ((v9 & 2) != 0)
       {
         goto LABEL_14;
@@ -4262,11 +4405,11 @@ LABEL_5:
 
 LABEL_16:
     v13 = *(a2 + 5);
-    *(this + 4) |= 4u;
-    v14 = *(this + 1);
+    *(this + 16) |= 4u;
+    v14 = *(this + 8);
     if (v14)
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 5, (v13 & 0xFFFFFFFFFFFFFFFCLL), *(v14 & 0xFFFFFFFFFFFFFFFELL));
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 40), (v13 & 0xFFFFFFFFFFFFFFFCLL), *(v14 & 0xFFFFFFFFFFFFFFFELL));
       if ((v9 & 8) != 0)
       {
         goto LABEL_18;
@@ -4275,7 +4418,7 @@ LABEL_16:
 
     else
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 5, (v13 & 0xFFFFFFFFFFFFFFFCLL), v14);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 40), (v13 & 0xFFFFFFFFFFFFFFFCLL), v14);
       if ((v9 & 8) != 0)
       {
         goto LABEL_18;
@@ -4290,11 +4433,11 @@ LABEL_7:
 
 LABEL_20:
     v17 = *(a2 + 7);
-    *(this + 4) |= 0x10u;
-    v18 = *(this + 1);
+    *(this + 16) |= 0x10u;
+    v18 = *(this + 8);
     if (v18)
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 7, (v17 & 0xFFFFFFFFFFFFFFFCLL), *(v18 & 0xFFFFFFFFFFFFFFFELL));
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 56), (v17 & 0xFFFFFFFFFFFFFFFCLL), *(v18 & 0xFFFFFFFFFFFFFFFELL));
       if ((v9 & 0x20) != 0)
       {
         goto LABEL_22;
@@ -4303,7 +4446,7 @@ LABEL_20:
 
     else
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 7, (v17 & 0xFFFFFFFFFFFFFFFCLL), v18);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 56), (v17 & 0xFFFFFFFFFFFFFFFCLL), v18);
       if ((v9 & 0x20) != 0)
       {
         goto LABEL_22;
@@ -4317,7 +4460,7 @@ LABEL_9:
     }
 
 LABEL_26:
-    *(this + 18) = *(a2 + 18);
+    *(this + 72) = *(a2 + 18);
     if ((v9 & 0x80) == 0)
     {
       goto LABEL_28;
@@ -4359,15 +4502,15 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  *(this + 21) = *(a2 + 21);
+  *(this + 84) = *(a2 + 21);
   if ((v9 & 0x400) != 0)
   {
 LABEL_32:
-    *(this + 22) = *(a2 + 22);
+    *(this + 88) = *(a2 + 22);
   }
 
 LABEL_33:
-  *(this + 4) |= v9;
+  *(this + 16) |= v9;
   v21 = *(a2 + 1);
   if (v21)
   {
@@ -4974,13 +5117,13 @@ LABEL_63:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v10 & 0xFFFFFFFFFFFFFFFELL) + 8), v7, a3, v7);
 }
 
-unsigned __int8 *google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<3>(google::protobuf::io::EpsCopyOutputStream *a1, unsigned int a2, unsigned __int8 *a3)
+unsigned __int8 *google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<3>(google::protobuf::io::EpsCopyOutputStream *a1, int a2, unsigned __int8 *a3)
 {
   if (*a1 <= a3)
   {
     v8 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a1, a3);
     *v8 = 24;
-    v4 = v8 + 1;
+    v4 = (v8 + 1);
     v5 = a2;
     if (a2 < 0x80)
     {
@@ -5015,13 +5158,13 @@ LABEL_4:
   return v4 + 1;
 }
 
-unsigned __int8 *google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<9>(google::protobuf::io::EpsCopyOutputStream *a1, unsigned int a2, unsigned __int8 *a3)
+unsigned __int8 *google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<9>(google::protobuf::io::EpsCopyOutputStream *a1, int a2, unsigned __int8 *a3)
 {
   if (*a1 <= a3)
   {
     v8 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a1, a3);
     *v8 = 72;
-    v4 = v8 + 1;
+    v4 = (v8 + 1);
     v5 = a2;
     if (a2 < 0x80)
     {
@@ -5330,10 +5473,10 @@ void google::protobuf::OneofDescriptorProto::~OneofDescriptorProto(google::proto
   JUMPOUT(0x23EED9460);
 }
 
-void google::protobuf::OneofDescriptorProto::MergeImpl(google::protobuf::OneofDescriptorProto *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
+void google::protobuf::OneofDescriptorProto::MergeImpl(uint64_t this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
 {
   v7 = (this + 8);
-  v6 = *(this + 1);
+  v6 = *(this + 8);
   if (v6)
   {
     v8 = *(v6 & 0xFFFFFFFFFFFFFFFELL);
@@ -5346,7 +5489,7 @@ void google::protobuf::OneofDescriptorProto::MergeImpl(google::protobuf::OneofDe
 
   else
   {
-    v8 = *(this + 1);
+    v8 = *(this + 8);
     v9 = *(a2 + 4);
     if ((v9 & 3) == 0)
     {
@@ -5357,18 +5500,18 @@ void google::protobuf::OneofDescriptorProto::MergeImpl(google::protobuf::OneofDe
   if (v9)
   {
     v10 = *(a2 + 3);
-    *(this + 4) |= 1u;
+    *(this + 16) |= 1u;
     if (v6)
     {
       v6 = *(v6 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    google::protobuf::internal::ArenaStringPtr::Set<>(this + 3, (v10 & 0xFFFFFFFFFFFFFFFCLL), v6);
+    google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v10 & 0xFFFFFFFFFFFFFFFCLL), v6);
   }
 
   if ((v9 & 2) != 0)
   {
-    v11 = *(this + 4);
+    v11 = *(this + 32);
     v12 = *(a2 + 4);
     if (v11)
     {
@@ -5377,12 +5520,12 @@ void google::protobuf::OneofDescriptorProto::MergeImpl(google::protobuf::OneofDe
 
     else
     {
-      *(this + 4) = google::protobuf::Arena::CopyConstruct<google::protobuf::OneofOptions>(v8, v12);
+      *(this + 32) = google::protobuf::Arena::CopyConstruct<google::protobuf::OneofOptions>(v8, v12);
     }
   }
 
 LABEL_11:
-  *(this + 4) |= v9;
+  *(this + 16) |= v9;
   v13 = *(a2 + 1);
   if (v13)
   {
@@ -5675,30 +5818,28 @@ void google::protobuf::EnumDescriptorProto_EnumReservedRange::~EnumDescriptorPro
   JUMPOUT(0x23EED9460);
 }
 
-void *google::protobuf::EnumDescriptorProto_EnumReservedRange::MergeImpl(void *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3)
+void google::protobuf::EnumDescriptorProto_EnumReservedRange::MergeImpl(_DWORD *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3)
 {
   v3 = *(a2 + 4);
   if ((v3 & 3) != 0)
   {
     if (v3)
     {
-      *(this + 6) = *(a2 + 6);
+      this[6] = *(a2 + 6);
     }
 
     if ((v3 & 2) != 0)
     {
-      *(this + 7) = *(a2 + 7);
+      this[7] = *(a2 + 7);
     }
   }
 
-  *(this + 4) |= v3;
+  this[4] |= v3;
   v4 = *(a2 + 1);
   if (v4)
   {
-    return google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>(this + 1, ((v4 & 0xFFFFFFFFFFFFFFFELL) + 8));
+    google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>(this + 1, ((v4 & 0xFFFFFFFFFFFFFFFELL) + 8));
   }
-
-  return this;
 }
 
 google::protobuf::UnknownFieldSet *google::protobuf::EnumDescriptorProto_EnumReservedRange::Clear(google::protobuf::EnumDescriptorProto_EnumReservedRange *this)
@@ -5830,7 +5971,7 @@ google::protobuf::EnumDescriptorProto *google::protobuf::EnumDescriptorProto::En
   *(this + 5) = a2;
   if (*(a3 + 8))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 6, (a3 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumValueDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 24), (a3 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumValueDescriptorProto>);
   }
 
   *(this + 6) = 0;
@@ -5838,7 +5979,7 @@ google::protobuf::EnumDescriptorProto *google::protobuf::EnumDescriptorProto::En
   *(this + 8) = a2;
   if (*(a3 + 14))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 12, (a3 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumDescriptorProto_EnumReservedRange>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 48), (a3 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumDescriptorProto_EnumReservedRange>);
   }
 
   *(this + 9) = 0;
@@ -5846,7 +5987,7 @@ google::protobuf::EnumDescriptorProto *google::protobuf::EnumDescriptorProto::En
   *(this + 11) = a2;
   if (*(a3 + 20))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 72, a3 + 72);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 9, a3 + 72);
   }
 
   v8 = *(a3 + 12);
@@ -5937,18 +6078,18 @@ void google::protobuf::EnumDescriptorProto::MergeImpl(google::protobuf::EnumDesc
   if (*(a2 + 8))
   {
 LABEL_3:
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 6, (a2 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumValueDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 24), (a2 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumValueDescriptorProto>);
   }
 
 LABEL_4:
   if (*(a2 + 14))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 12, (a2 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumDescriptorProto_EnumReservedRange>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 48), (a2 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::EnumDescriptorProto_EnumReservedRange>);
   }
 
   if (*(a2 + 20))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 72, a2 + 72);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 9, a2 + 72);
   }
 
   v8 = *(a2 + 4);
@@ -6607,10 +6748,10 @@ void google::protobuf::EnumValueDescriptorProto::~EnumValueDescriptorProto(googl
   JUMPOUT(0x23EED9460);
 }
 
-void google::protobuf::EnumValueDescriptorProto::MergeImpl(google::protobuf::EnumValueDescriptorProto *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
+void google::protobuf::EnumValueDescriptorProto::MergeImpl(uint64_t this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
 {
   v7 = (this + 8);
-  v6 = *(this + 1);
+  v6 = *(this + 8);
   if (v6)
   {
     v8 = *(v6 & 0xFFFFFFFFFFFFFFFELL);
@@ -6623,7 +6764,7 @@ void google::protobuf::EnumValueDescriptorProto::MergeImpl(google::protobuf::Enu
 
   else
   {
-    v8 = *(this + 1);
+    v8 = *(this + 8);
     v9 = *(a2 + 4);
     if ((v9 & 7) == 0)
     {
@@ -6642,10 +6783,10 @@ void google::protobuf::EnumValueDescriptorProto::MergeImpl(google::protobuf::Enu
   }
 
   v10 = *(a2 + 3);
-  *(this + 4) |= 1u;
+  *(this + 16) |= 1u;
   if ((v6 & 1) == 0)
   {
-    google::protobuf::internal::ArenaStringPtr::Set<>(this + 3, (v10 & 0xFFFFFFFFFFFFFFFCLL), v6);
+    google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v10 & 0xFFFFFFFFFFFFFFFCLL), v6);
     if ((v9 & 2) != 0)
     {
       goto LABEL_9;
@@ -6660,18 +6801,18 @@ LABEL_5:
     goto LABEL_13;
   }
 
-  google::protobuf::internal::ArenaStringPtr::Set<>(this + 3, (v10 & 0xFFFFFFFFFFFFFFFCLL), *(v6 & 0xFFFFFFFFFFFFFFFELL));
+  google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v10 & 0xFFFFFFFFFFFFFFFCLL), *(v6 & 0xFFFFFFFFFFFFFFFELL));
   if ((v9 & 2) == 0)
   {
     goto LABEL_5;
   }
 
 LABEL_9:
-  v11 = *(this + 4);
+  v11 = *(this + 32);
   v12 = *(a2 + 4);
   if (!v11)
   {
-    *(this + 4) = google::protobuf::Arena::CopyConstruct<google::protobuf::EnumValueOptions>(v8, v12);
+    *(this + 32) = google::protobuf::Arena::CopyConstruct<google::protobuf::EnumValueOptions>(v8, v12);
     if ((v9 & 4) == 0)
     {
       goto LABEL_14;
@@ -6684,11 +6825,11 @@ LABEL_9:
   if ((v9 & 4) != 0)
   {
 LABEL_13:
-    *(this + 10) = *(a2 + 10);
+    *(this + 40) = *(a2 + 10);
   }
 
 LABEL_14:
-  *(this + 4) |= v9;
+  *(this + 16) |= v9;
   v13 = *(a2 + 1);
   if (v13)
   {
@@ -7014,7 +7155,7 @@ google::protobuf::ServiceDescriptorProto *google::protobuf::ServiceDescriptorPro
   *(this + 5) = a2;
   if (*(a3 + 8))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 6, (a3 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::MethodDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 24), (a3 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::MethodDescriptorProto>);
   }
 
   v8 = *(a3 + 6);
@@ -7066,10 +7207,10 @@ void google::protobuf::ServiceDescriptorProto::~ServiceDescriptorProto(google::p
   JUMPOUT(0x23EED9460);
 }
 
-void google::protobuf::ServiceDescriptorProto::MergeImpl(google::protobuf::ServiceDescriptorProto *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
+void google::protobuf::ServiceDescriptorProto::MergeImpl(uint64_t this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
 {
   v6 = (this + 8);
-  v7 = *(this + 1);
+  v7 = *(this + 8);
   if (v7)
   {
     v7 = *(v7 & 0xFFFFFFFFFFFFFFFELL);
@@ -7084,7 +7225,7 @@ void google::protobuf::ServiceDescriptorProto::MergeImpl(google::protobuf::Servi
   if (*(a2 + 8))
   {
 LABEL_3:
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 6, (a2 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::MethodDescriptorProto>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 24), (a2 + 24), google::protobuf::Arena::CopyConstruct<google::protobuf::MethodDescriptorProto>);
   }
 
 LABEL_4:
@@ -7094,24 +7235,24 @@ LABEL_4:
     if (v8)
     {
       v9 = *(a2 + 6);
-      *(this + 4) |= 1u;
-      v10 = *(this + 1);
+      *(this + 16) |= 1u;
+      v10 = *(this + 8);
       if (v10)
       {
         v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 6, (v9 & 0xFFFFFFFFFFFFFFFCLL), v10);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 48), (v9 & 0xFFFFFFFFFFFFFFFCLL), v10);
     }
 
     if ((v8 & 2) != 0)
     {
-      v11 = *(this + 7);
+      v11 = *(this + 56);
       v12 = *(a2 + 7);
       if (!v11)
       {
-        *(this + 7) = google::protobuf::Arena::CopyConstruct<google::protobuf::ServiceOptions>(v7, v12);
-        *(this + 4) |= v8;
+        *(this + 56) = google::protobuf::Arena::CopyConstruct<google::protobuf::ServiceOptions>(v7, v12);
+        *(this + 16) |= v8;
         v13 = *(a2 + 1);
         if ((v13 & 1) == 0)
         {
@@ -7125,7 +7266,7 @@ LABEL_4:
     }
   }
 
-  *(this + 4) |= v8;
+  *(this + 16) |= v8;
   v13 = *(a2 + 1);
   if ((v13 & 1) == 0)
   {
@@ -7534,13 +7675,13 @@ void google::protobuf::MethodDescriptorProto::~MethodDescriptorProto(google::pro
   JUMPOUT(0x23EED9460);
 }
 
-void google::protobuf::MethodDescriptorProto::MergeImpl(google::protobuf::MethodDescriptorProto *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
+void google::protobuf::MethodDescriptorProto::MergeImpl(uint64_t this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3, double a4)
 {
   v7 = (this + 8);
-  v6 = *(this + 1);
+  v6 = *(this + 8);
   if ((v6 & 1) == 0)
   {
-    v8 = *(this + 1);
+    v8 = *(this + 8);
     v9 = *(a2 + 4);
     if ((v9 & 0x3F) == 0)
     {
@@ -7557,11 +7698,11 @@ LABEL_3:
 
 LABEL_12:
       v11 = *(a2 + 4);
-      *(this + 4) |= 2u;
-      v12 = *(this + 1);
+      *(this + 16) |= 2u;
+      v12 = *(this + 8);
       if (v12)
       {
-        google::protobuf::internal::ArenaStringPtr::Set<>(this + 4, (v11 & 0xFFFFFFFFFFFFFFFCLL), *(v12 & 0xFFFFFFFFFFFFFFFELL));
+        google::protobuf::internal::ArenaStringPtr::Set<>((this + 32), (v11 & 0xFFFFFFFFFFFFFFFCLL), *(v12 & 0xFFFFFFFFFFFFFFFELL));
         if ((v9 & 4) != 0)
         {
           goto LABEL_14;
@@ -7570,7 +7711,7 @@ LABEL_12:
 
       else
       {
-        google::protobuf::internal::ArenaStringPtr::Set<>(this + 4, (v11 & 0xFFFFFFFFFFFFFFFCLL), v12);
+        google::protobuf::internal::ArenaStringPtr::Set<>((this + 32), (v11 & 0xFFFFFFFFFFFFFFFCLL), v12);
         if ((v9 & 4) != 0)
         {
           goto LABEL_14;
@@ -7584,7 +7725,7 @@ LABEL_6:
       }
 
 LABEL_16:
-      v15 = *(this + 6);
+      v15 = *(this + 48);
       v16 = *(a2 + 6);
       if (v15)
       {
@@ -7597,7 +7738,7 @@ LABEL_16:
 
       else
       {
-        *(this + 6) = google::protobuf::Arena::CopyConstruct<google::protobuf::MethodOptions>(v8, v16);
+        *(this + 48) = google::protobuf::Arena::CopyConstruct<google::protobuf::MethodOptions>(v8, v16);
         if ((v9 & 0x10) != 0)
         {
           goto LABEL_20;
@@ -7616,10 +7757,10 @@ LABEL_21:
     }
 
     v10 = *(a2 + 3);
-    *(this + 4) |= 1u;
+    *(this + 16) |= 1u;
     if (v6)
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 3, (v10 & 0xFFFFFFFFFFFFFFFCLL), *(v6 & 0xFFFFFFFFFFFFFFFELL));
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v10 & 0xFFFFFFFFFFFFFFFCLL), *(v6 & 0xFFFFFFFFFFFFFFFELL));
       if ((v9 & 2) != 0)
       {
         goto LABEL_12;
@@ -7628,7 +7769,7 @@ LABEL_21:
 
     else
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 3, (v10 & 0xFFFFFFFFFFFFFFFCLL), v6);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 24), (v10 & 0xFFFFFFFFFFFFFFFCLL), v6);
       if ((v9 & 2) != 0)
       {
         goto LABEL_12;
@@ -7643,11 +7784,11 @@ LABEL_5:
 
 LABEL_14:
     v13 = *(a2 + 5);
-    *(this + 4) |= 4u;
-    v14 = *(this + 1);
+    *(this + 16) |= 4u;
+    v14 = *(this + 8);
     if (v14)
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 5, (v13 & 0xFFFFFFFFFFFFFFFCLL), *(v14 & 0xFFFFFFFFFFFFFFFELL));
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 40), (v13 & 0xFFFFFFFFFFFFFFFCLL), *(v14 & 0xFFFFFFFFFFFFFFFELL));
       if ((v9 & 8) != 0)
       {
         goto LABEL_16;
@@ -7656,7 +7797,7 @@ LABEL_14:
 
     else
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 5, (v13 & 0xFFFFFFFFFFFFFFFCLL), v14);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 40), (v13 & 0xFFFFFFFFFFFFFFFCLL), v14);
       if ((v9 & 8) != 0)
       {
         goto LABEL_16;
@@ -7687,7 +7828,7 @@ LABEL_20:
   }
 
 LABEL_22:
-  *(this + 4) |= v9;
+  *(this + 16) |= v9;
   v17 = *(a2 + 1);
   if (v17)
   {
@@ -8223,7 +8364,7 @@ google::protobuf::FileOptions *google::protobuf::FileOptions::FileOptions(google
   *(this + 8) = a2;
   if (*(a3 + 14))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 12, (a3 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::UninterpretedOption>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 48), (a3 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::UninterpretedOption>);
   }
 
   v9 = *(a3 + 9);
@@ -8396,7 +8537,7 @@ void google::protobuf::FileOptions::MergeImpl(google::protobuf::FileOptions *thi
   if (*(a2 + 14))
   {
 LABEL_3:
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 12, (a2 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::UninterpretedOption>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 48), (a2 + 48), google::protobuf::Arena::CopyConstruct<google::protobuf::UninterpretedOption>);
   }
 
 LABEL_4:

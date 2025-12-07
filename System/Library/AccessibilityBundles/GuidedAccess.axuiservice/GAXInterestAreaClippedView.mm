@@ -223,15 +223,18 @@
 - (void)_updateMaskLayer
 {
   clippingPath = [(GAXInterestAreaClippedView *)self clippingPath];
+  v4 = clippingPath;
   if (clippingPath)
   {
-    v21 = clippingPath;
-    if (([clippingPath isEmpty] & 1) == 0)
+    v22 = clippingPath;
+    clippingPath = [clippingPath isEmpty];
+    v4 = v22;
+    if ((clippingPath & 1) == 0)
     {
       window = [(GAXInterestAreaClippedView *)self window];
       if (window)
       {
-        if ([v21 _gaxIsSimpleRectangle])
+        if ([v22 _gaxIsSimpleRectangle])
         {
           layer = [(GAXInterestAreaClippedView *)self layer];
           [layer setMask:0];
@@ -240,23 +243,23 @@
         else
         {
           [(GAXInterestAreaClippedView *)self bounds];
-          v7 = v6;
-          v9 = v8;
-          v11 = v10;
-          v13 = v12;
+          v8 = v7;
+          v10 = v9;
+          v12 = v11;
+          v14 = v13;
           screen = [window screen];
           [screen scale];
-          v16 = v15;
+          v17 = v16;
 
-          v23.width = v11;
-          v23.height = v13;
-          UIGraphicsBeginImageContextWithOptions(v23, 0, v16);
+          v24.width = v12;
+          v24.height = v14;
+          UIGraphicsBeginImageContextWithOptions(v24, 0, v17);
           CurrentContext = UIGraphicsGetCurrentContext();
           CGContextSaveGState(CurrentContext);
-          v18 = +[UIColor blackColor];
-          CGContextSetFillColorWithColor(CurrentContext, [v18 CGColor]);
+          v19 = +[UIColor blackColor];
+          CGContextSetFillColorWithColor(CurrentContext, [v19 CGColor]);
 
-          CGContextAddPath(CurrentContext, [v21 CGPath]);
+          CGContextAddPath(CurrentContext, [v22 CGPath]);
           CGContextFillPath(CurrentContext);
           layer = UIGraphicsGetImageFromCurrentImageContext();
           CGContextRestoreGState(CurrentContext);
@@ -272,13 +275,15 @@
           [mask setContents:{objc_msgSend(layer, "CGImage")}];
           [layer scale];
           [mask setContentsScale:?];
-          [mask setFrame:{v7, v9, v11, v13}];
+          [mask setFrame:{v8, v10, v12, v14}];
         }
       }
+
+      v4 = v22;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(clippingPath, v4);
 }
 
 - (void)_updateMaskLayerFrame

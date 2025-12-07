@@ -8,7 +8,7 @@
 
 - (id)createFaceprint
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   data = [(HMDFaceprintModel *)self data];
   modelUUID = [(HMDFaceprintModel *)self modelUUID];
   v5 = modelUUID;
@@ -29,18 +29,16 @@
     {
       v13 = HMFGetLogIdentifier();
       v14 = [(HMBModel *)selfCopy debugDescription];
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Cannot create faceprint from model: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Cannot create faceprint from model: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -82,21 +80,19 @@
 
 void __34__HMDFaceprintModel_hmbProperties__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"data";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"data";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v7[0] = v0;
-  v6[1] = @"modelUUID";
+  v6[0] = v0;
+  v5[1] = @"modelUUID";
   v1 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v7[1] = v1;
-  v6[2] = @"faceCrop";
+  v6[1] = v1;
+  v5[2] = @"faceCrop";
   v2 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = hmbProperties_properties_139273;
   hmbProperties_properties_139273 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

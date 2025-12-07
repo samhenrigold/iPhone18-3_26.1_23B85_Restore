@@ -1877,45 +1877,35 @@ LABEL_128:
 
 - (void)setAccessibilityLabel:(id)label
 {
-  v4 = [label copy];
-  accessibilityLabel = self->_accessibilityLabel;
-  self->_accessibilityLabel = v4;
+  self->_accessibilityLabel = [label copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->_identifier;
-  self->_identifier = v4;
+  self->_identifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setKeyColor:(id)color
 {
-  v4 = [color copy];
-  keyColor = self->_keyColor;
-  self->_keyColor = v4;
+  self->_keyColor = [color copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setContentType:(id)type
 {
-  v4 = [type copy];
-  contentType = self->_contentType;
-  self->_contentType = v4;
+  self->_contentType = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setImageData:(id)data
 {
-  v4 = [data copy];
-  imageData = self->_imageData;
-  self->_imageData = v4;
+  self->_imageData = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }

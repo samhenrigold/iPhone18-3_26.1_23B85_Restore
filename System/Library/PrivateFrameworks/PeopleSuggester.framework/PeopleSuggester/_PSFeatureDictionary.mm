@@ -10,6 +10,7 @@
 - (void)_timeBucketsCreateIfNeeded;
 - (void)_unoptimizedValuesCreateIfNeeded;
 - (void)addEntriesFromDictionary:(id)dictionary overwrite:(BOOL)overwrite;
+- (void)addFeatureWithIntValue:(id)value doubleValue:(id)doubleValue stringValue:(id)stringValue BOOLValue:(id)lValue timeBucket:(int)bucket forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 @end
 
@@ -269,29 +270,29 @@ LABEL_45:
 
 - (id)objectForKey:(id)key
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = self->_timeBuckets;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [(NSMutableDictionary *)self->_timeBuckets objectForKeyedSubscript:v10, v17];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [(NSMutableDictionary *)self->_timeBuckets objectForKeyedSubscript:v10, v16];
         v12 = [v11 objectForKeyedSubscript:keyCopy];
         if (v12)
         {
@@ -302,7 +303,7 @@ LABEL_45:
         }
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -314,8 +315,6 @@ LABEL_45:
 
   v13 = [(NSMutableDictionary *)self->_unoptimizedValues objectForKeyedSubscript:keyCopy];
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -457,79 +456,79 @@ LABEL_10:
 - (void)addEntriesFromDictionary:(id)dictionary overwrite:(BOOL)overwrite
 {
   overwriteCopy = overwrite;
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v57 = dictionaryCopy;
+    v56 = dictionaryCopy;
     v7 = &OBJC_IVAR____PSSuggester__lock;
     if (overwriteCopy && self->_count)
     {
-      v49 = dictionaryCopy;
-      v8 = v57[3];
+      v48 = dictionaryCopy;
+      v8 = v56[3];
       context = objc_autoreleasePoolPush();
+      v71 = 0u;
       v72 = 0u;
       v73 = 0u;
       v74 = 0u;
-      v75 = 0u;
       obj = [(NSMutableDictionary *)self->_timeBuckets objectEnumerator];
-      v54 = [obj countByEnumeratingWithState:&v72 objects:v84 count:16];
+      v53 = [obj countByEnumeratingWithState:&v71 objects:v83 count:16];
       v9 = 0;
-      if (v54)
+      if (v53)
       {
-        v52 = *v73;
-        v53 = v8;
+        v51 = *v72;
+        v52 = v8;
         while (2)
         {
-          for (i = 0; i != v54; ++i)
+          for (i = 0; i != v53; ++i)
           {
-            if (*v73 != v52)
+            if (*v72 != v51)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v72 + 1) + 8 * i);
-            v55 = [v11 count];
+            v11 = *(*(&v71 + 1) + 8 * i);
+            v54 = [v11 count];
+            v67 = 0u;
             v68 = 0u;
             v69 = 0u;
             v70 = 0u;
-            v71 = 0u;
-            v12 = v57;
-            v13 = [v12 countByEnumeratingWithState:&v68 objects:v83 count:16];
+            v12 = v56;
+            v13 = [v12 countByEnumeratingWithState:&v67 objects:v82 count:16];
             if (v13)
             {
               v14 = v13;
-              v15 = *v69;
+              v15 = *v68;
               do
               {
                 for (j = 0; j != v14; ++j)
                 {
-                  if (*v69 != v15)
+                  if (*v68 != v15)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  [v11 setObject:0 forKeyedSubscript:*(*(&v68 + 1) + 8 * j)];
+                  [v11 setObject:0 forKeyedSubscript:*(*(&v67 + 1) + 8 * j)];
                 }
 
-                v14 = [v12 countByEnumeratingWithState:&v68 objects:v83 count:16];
+                v14 = [v12 countByEnumeratingWithState:&v67 objects:v82 count:16];
               }
 
               while (v14);
             }
 
-            v9 += v55 - [v11 count];
-            v8 = v53;
-            if (v9 == v53)
+            v9 += v54 - [v11 count];
+            v8 = v52;
+            if (v9 == v52)
             {
 
               goto LABEL_42;
             }
           }
 
-          v54 = [obj countByEnumeratingWithState:&v72 objects:v84 count:16];
-          if (v54)
+          v53 = [obj countByEnumeratingWithState:&v71 objects:v83 count:16];
+          if (v53)
           {
             continue;
           }
@@ -538,7 +537,7 @@ LABEL_10:
         }
       }
 
-      dictionaryCopy = v49;
+      dictionaryCopy = v48;
       v7 = &OBJC_IVAR____PSSuggester__lock;
       if (v9 != v8)
       {
@@ -546,29 +545,29 @@ LABEL_10:
         if (unoptimizedValues)
         {
           v18 = [(NSMutableDictionary *)unoptimizedValues count];
+          v63 = 0u;
           v64 = 0u;
           v65 = 0u;
           v66 = 0u;
-          v67 = 0u;
-          v19 = v57;
-          v20 = [v19 countByEnumeratingWithState:&v64 objects:v82 count:16];
+          v19 = v56;
+          v20 = [v19 countByEnumeratingWithState:&v63 objects:v81 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v65;
+            v22 = *v64;
             do
             {
               for (k = 0; k != v21; ++k)
               {
-                if (*v65 != v22)
+                if (*v64 != v22)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                [(NSMutableDictionary *)self->_unoptimizedValues setObject:0 forKeyedSubscript:*(*(&v64 + 1) + 8 * k)];
+                [(NSMutableDictionary *)self->_unoptimizedValues setObject:0 forKeyedSubscript:*(*(&v63 + 1) + 8 * k)];
               }
 
-              v21 = [v19 countByEnumeratingWithState:&v64 objects:v82 count:16];
+              v21 = [v19 countByEnumeratingWithState:&v63 objects:v81 count:16];
             }
 
             while (v21);
@@ -576,7 +575,7 @@ LABEL_10:
 
           v8 = v18 + v9 - [(NSMutableDictionary *)self->_unoptimizedValues count];
 LABEL_42:
-          dictionaryCopy = v49;
+          dictionaryCopy = v48;
           v7 = &OBJC_IVAR____PSSuggester__lock;
         }
 
@@ -591,17 +590,17 @@ LABEL_42:
     }
 
     v33 = objc_autoreleasePoolPush();
-    v34 = v57[1];
-    v62[0] = MEMORY[0x1E69E9820];
-    v62[1] = 3221225472;
-    v62[2] = __59___PSFeatureDictionary_addEntriesFromDictionary_overwrite___block_invoke;
-    v62[3] = &unk_1E7C26380;
-    v62[4] = self;
-    v63 = overwriteCopy;
-    [v34 enumerateKeysAndObjectsUsingBlock:v62];
+    v34 = v56[1];
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = __59___PSFeatureDictionary_addEntriesFromDictionary_overwrite___block_invoke;
+    v61[3] = &unk_1E7C26380;
+    v61[4] = self;
+    v62 = overwriteCopy;
+    [v34 enumerateKeysAndObjectsUsingBlock:v61];
     v35 = v7[223];
     v36 = [*(&self->super.super.super.isa + v35) count];
-    v37 = *(v57 + v35);
+    v37 = *(v56 + v35);
     if (v36)
     {
       if (![v37 count])
@@ -612,31 +611,31 @@ LABEL_59:
         goto LABEL_60;
       }
 
-      v50 = dictionaryCopy;
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
+      v49 = dictionaryCopy;
       v59 = 0u;
-      v38 = *(v57 + v35);
-      v39 = [v38 countByEnumeratingWithState:&v58 objects:v81 count:16];
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v38 = *(v56 + v35);
+      v39 = [v38 countByEnumeratingWithState:&v57 objects:v80 count:16];
       if (v39)
       {
         v40 = v39;
-        v56 = v33;
-        v41 = *v59;
+        v55 = v33;
+        v41 = *v58;
         do
         {
           for (m = 0; m != v40; ++m)
           {
-            if (*v59 != v41)
+            if (*v58 != v41)
             {
               objc_enumerationMutation(v38);
             }
 
-            v43 = *(*(&v58 + 1) + 8 * m);
+            v43 = *(*(&v57 + 1) + 8 * m);
             if (!overwriteCopy)
             {
-              v44 = [(_PSFeatureDictionary *)self objectForKeyedSubscript:*(*(&v58 + 1) + 8 * m)];
+              v44 = [(_PSFeatureDictionary *)self objectForKeyedSubscript:*(*(&v57 + 1) + 8 * m)];
 
               if (v44)
               {
@@ -645,16 +644,16 @@ LABEL_59:
             }
 
             ++self->_count;
-            v45 = [*(v57 + v35) objectForKeyedSubscript:v43];
+            v45 = [*(v56 + v35) objectForKeyedSubscript:v43];
             [*(&self->super.super.super.isa + v35) setObject:v45 forKeyedSubscript:v43];
           }
 
-          v40 = [v38 countByEnumeratingWithState:&v58 objects:v81 count:16];
+          v40 = [v38 countByEnumeratingWithState:&v57 objects:v80 count:16];
         }
 
         while (v40);
-        dictionaryCopy = v50;
-        v33 = v56;
+        dictionaryCopy = v49;
+        v33 = v55;
       }
     }
 
@@ -670,34 +669,34 @@ LABEL_59:
 
   if (overwriteCopy)
   {
-    v80.receiver = self;
-    v80.super_class = _PSFeatureDictionary;
-    [(_PSFeatureDictionary *)&v80 addEntriesFromDictionary:dictionaryCopy];
+    v79.receiver = self;
+    v79.super_class = _PSFeatureDictionary;
+    [(_PSFeatureDictionary *)&v79 addEntriesFromDictionary:dictionaryCopy];
   }
 
   else
   {
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     v24 = dictionaryCopy;
     v25 = dictionaryCopy;
-    v26 = [v25 countByEnumeratingWithState:&v76 objects:v85 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v75 objects:v84 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v77;
+      v28 = *v76;
       do
       {
         for (n = 0; n != v27; ++n)
         {
-          if (*v77 != v28)
+          if (*v76 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v76 + 1) + 8 * n);
+          v30 = *(*(&v75 + 1) + 8 * n);
           v31 = [(_PSFeatureDictionary *)self objectForKeyedSubscript:v30];
 
           if (!v31)
@@ -709,7 +708,7 @@ LABEL_59:
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v76 objects:v85 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v75 objects:v84 count:16];
       }
 
       while (v27);
@@ -719,8 +718,6 @@ LABEL_59:
   }
 
 LABEL_60:
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_timeBucketsCreateIfNeeded
@@ -785,6 +782,94 @@ LABEL_60:
     [v10 setObject:v13 forKeyedSubscript:bucketCopy];
     ++self[3];
   }
+}
+
+- (void)addFeatureWithIntValue:(id)value doubleValue:(id)doubleValue stringValue:(id)stringValue BOOLValue:(id)lValue timeBucket:(int)bucket forKey:(id)key
+{
+  v9 = *&bucket;
+  valueCopy = value;
+  doubleValueCopy = doubleValue;
+  stringValueCopy = stringValue;
+  lValueCopy = lValue;
+  keyCopy = key;
+  if (valueCopy)
+  {
+    if (CFNumberIsFloatType(valueCopy))
+    {
+      v20 = objc_autoreleasePoolPush();
+      unsignedIntValue = [valueCopy unsignedIntValue];
+      v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:unsignedIntValue];
+
+      objc_autoreleasePoolPop(v20);
+      valueCopy = v22;
+    }
+
+    v23 = valueCopy;
+    v34 = v23;
+  }
+
+  else
+  {
+    if (doubleValueCopy)
+    {
+      [doubleValueCopy doubleValue];
+      v25 = v24;
+      v26 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:v24];
+      if (!malloc_size(v26) && ([v26 timeIntervalSinceReferenceDate], v27 == v25) && (v28 = v26) != 0)
+      {
+        v23 = v28;
+      }
+
+      else
+      {
+        if (!CFNumberIsFloatType(doubleValueCopy))
+        {
+          v29 = objc_autoreleasePoolPush();
+          v30 = MEMORY[0x1E696AD98];
+          [doubleValueCopy doubleValue];
+          v31 = [v30 numberWithDouble:?];
+
+          objc_autoreleasePoolPop(v29);
+          doubleValueCopy = v31;
+        }
+
+        v23 = doubleValueCopy;
+        doubleValueCopy = v23;
+      }
+    }
+
+    else
+    {
+      if (stringValueCopy)
+      {
+        null = [stringValueCopy copy];
+      }
+
+      else if (lValueCopy)
+      {
+        bOOLValue = [lValueCopy BOOLValue];
+        v33 = &unk_1F2D8C8E8;
+        if (bOOLValue)
+        {
+          v33 = &unk_1F2D8C8C0;
+        }
+
+        null = v33;
+      }
+
+      else
+      {
+        null = [MEMORY[0x1E695DFB0] null];
+      }
+
+      v23 = null;
+      doubleValueCopy = 0;
+    }
+
+    v34 = 0;
+  }
+
+  [(_PSFeatureDictionary *)self _setPlistValue:v23 inTimeBucket:v9 forKey:keyCopy];
 }
 
 - (void)setObject:(uint64_t)a3 forKey:.cold.1(void *a1, void *a2, uint64_t a3)

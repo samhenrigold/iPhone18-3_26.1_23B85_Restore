@@ -7,8 +7,8 @@
 
 - (void)xpcDisconnected
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DEF33A0, &qword_2381CB200) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DEF33A0, &qword_2381CB200);
+  MEMORY[0x28223BE20](v3 - 8);
   v5 = &v9 - v4;
   v6 = sub_2381CA24C();
   (*(*(v6 - 8) + 56))(v5, 1, 1, v6);

@@ -79,9 +79,9 @@ LABEL_5:
   sub_100001D20(&v14);
 }
 
-void sub_100000F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100000F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_100001D20(va);
   _Unwind_Resume(a1);
 }
@@ -210,24 +210,24 @@ uint64_t CLFamiliarRoadData::isFamiliarRoadDataAvailableForThisRoad(uint64_t a1,
   return 1;
 }
 
-void CLFamiliarRoadData::trimRoadVectorBasedOnFamiliarityIndex(uint64_t a1, uint64_t a2)
+void CLFamiliarRoadData::trimRoadVectorBasedOnFamiliarityIndex(uint64_t result, uint64_t *a2)
 {
   v2 = *a2;
-  if (*a2 != *(a2 + 8))
+  if (*a2 != a2[1])
   {
     do
     {
-      if (CLFamiliarRoadData::isFamiliarRoadDataAvailableForThisRoad(a1, *v2))
+      if (CLFamiliarRoadData::isFamiliarRoadDataAvailableForThisRoad(result, *v2))
       {
         v2 += 16;
-        v5 = *(a2 + 8);
+        v5 = a2[1];
       }
 
       else
       {
-        sub_100001CB4(&v9, (v2 + 16), *(a2 + 8), v2);
+        sub_100001CB4(&v9, (v2 + 16), a2[1], v2);
         v5 = v6;
-        v7 = *(a2 + 8);
+        v7 = a2[1];
         if (v7 != v6)
         {
           do
@@ -244,7 +244,7 @@ void CLFamiliarRoadData::trimRoadVectorBasedOnFamiliarityIndex(uint64_t a1, uint
           while (v7 != v5);
         }
 
-        *(a2 + 8) = v5;
+        a2[1] = v5;
       }
     }
 
@@ -252,7 +252,7 @@ void CLFamiliarRoadData::trimRoadVectorBasedOnFamiliarityIndex(uint64_t a1, uint
   }
 }
 
-void CLFamiliarRoadData::trimNeighborsBasedOnFamiliarityIndex(uint64_t a1, unint64_t **a2, __int128 **a3)
+void CLFamiliarRoadData::trimNeighborsBasedOnFamiliarityIndex(uint64_t result, unint64_t **a2, __int128 **a3)
 {
   v3 = *a2;
   if (v3)
@@ -260,7 +260,7 @@ void CLFamiliarRoadData::trimNeighborsBasedOnFamiliarityIndex(uint64_t a1, unint
     v22 = 0;
     v23 = 0;
     v24 = 0;
-    if (CLFamiliarRoadData::getFamiliarRoadDataForThisRoad(a1, v3, &v22))
+    if (CLFamiliarRoadData::getFamiliarRoadDataForThisRoad(result, v3, &v22))
     {
       v6 = *a3;
       v5 = a3[1];
@@ -321,9 +321,9 @@ void CLFamiliarRoadData::trimNeighborsBasedOnFamiliarityIndex(uint64_t a1, unint
           {
             sub_100001CB4(&v25, (16 - v9), a3[1], -v9);
             v5 = v14;
-            for (i = a3[1]; i != v5; --i)
+            for (i = a3[1]; i != v5; i -= 16)
             {
-              v16 = *(i - 1);
+              v16 = *(i - 8);
               if (v16)
               {
                 sub_100001F6C(v16);
@@ -352,9 +352,9 @@ LABEL_29:
               {
                 sub_100001CB4(&v25, v17 + 1, v5, v17);
                 v5 = v19;
-                for (j = a3[1]; j != v5; --j)
+                for (j = a3[1]; j != v5; j -= 16)
                 {
-                  v21 = *(j - 1);
+                  v21 = *(j - 8);
                   if (v21)
                   {
                     sub_100001F6C(v21);
@@ -381,7 +381,7 @@ LABEL_29:
   }
 }
 
-void sub_100001324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14)
+void sub_100001324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char *a14)
 {
   if (v14)
   {
@@ -393,7 +393,7 @@ void sub_100001324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-BOOL CLFamiliarRoadData::getFamiliarRoadDataForThisRoad(uint64_t a1, unint64_t *a2, uint64_t a3)
+BOOL CLFamiliarRoadData::getFamiliarRoadDataForThisRoad(uint64_t a1, unint64_t *a2, void **a3)
 {
   v5 = sub_10000273C(a1, a2);
   if (v5 != v6)
@@ -437,7 +437,7 @@ BOOL CLFamiliarRoadData::getFamiliarRoadDataForThisRoad(uint64_t a1, unint64_t *
     while (v10 != v8);
   }
 
-  return *a3 != *(a3 + 8);
+  return *a3 != a3[1];
 }
 
 void **sub_100001408(void **result, __int128 *a2)
@@ -486,7 +486,7 @@ void **sub_100001408(void **result, __int128 *a2)
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -724,25 +724,30 @@ double CLRouteRoad::getCourseOfRoadAtIntersection(CLMapRoad **this, int a2)
   return LastSegmentCourse - v6;
 }
 
-void CLRouteRoadArray::add(uint64_t a1, uint64_t a2)
+void CLRouteRoadArray::add(uint64_t **a1, unint64_t ***a2)
 {
   v2 = *a2;
-  if (*a2 && *v2)
+  if (*a2)
   {
-    v4 = sub_100002824(a1, *v2);
-    v6 = *a2;
-    v5 = *(a2 + 8);
-    if (v5)
+    v4 = *v2;
+    if (*v2)
     {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
+      v9 = *v2;
+      v5 = sub_100002824(a1, v4, &std::piecewise_construct, &v9);
+      v7 = *a2;
+      v6 = a2[1];
+      if (v6)
+      {
+        atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
+      }
 
-    v7 = *(v4 + 56);
-    *(v4 + 48) = v6;
-    *(v4 + 56) = v5;
-    if (v7)
-    {
-      sub_100001F6C(v7);
+      v8 = *(v5 + 56);
+      *(v5 + 48) = v7;
+      *(v5 + 56) = v6;
+      if (v8)
+      {
+        sub_100001F6C(v8);
+      }
     }
   }
 }
@@ -867,7 +872,8 @@ uint64_t CLRouteRoadArray::find@<X0>(uint64_t result@<X0>, unint64_t ***a2@<X1>,
   v4 = *a2;
   if (*a2 && *v4 && (v6 = result, (result = sub_100002940(result, *v4)) != 0))
   {
-    result = sub_100002824(v6, **a2);
+    v8 = **a2;
+    result = sub_100002824(v6, v8, &std::piecewise_construct, &v8);
     v7 = *(result + 56);
     *a3 = *(result + 48);
     a3[1] = v7;
@@ -926,10 +932,10 @@ void sub_100001D20(void ***a1)
   }
 }
 
-void sub_100001D74(uint64_t *a1)
+void sub_100001D74(uint64_t *result)
 {
-  v2 = *a1;
-  for (i = a1[1]; i != v2; i -= 16)
+  v2 = *result;
+  for (i = result[1]; i != v2; i -= 16)
   {
     v4 = *(i - 8);
     if (v4)
@@ -938,7 +944,7 @@ void sub_100001D74(uint64_t *a1)
     }
   }
 
-  a1[1] = v2;
+  result[1] = v2;
 }
 
 void sub_100001DD8(const char *a1)
@@ -980,18 +986,18 @@ void **sub_100001EE4(void **a1)
   return a1;
 }
 
-void sub_100001F18(uint64_t a1)
+void sub_100001F18(uint64_t result)
 {
-  v2 = *(a1 + 8);
-  v1 = *(a1 + 16);
+  v2 = *(result + 8);
+  v1 = *(result + 16);
   while (v1 != v2)
   {
-    *(a1 + 16) = v1 - 16;
+    *(result + 16) = v1 - 16;
     v4 = *(v1 - 8);
     if (v4)
     {
       sub_100001F6C(v4);
-      v1 = *(a1 + 16);
+      v1 = *(result + 16);
     }
 
     else
@@ -1019,7 +1025,7 @@ void sub_100001FF8(std::__shared_weak_count *a1)
   operator delete();
 }
 
-uint64_t *sub_100002114(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_100002114(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1045,12 +1051,12 @@ uint64_t *sub_10000216C(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1064,22 +1070,22 @@ uint64_t *sub_10000216C(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1113,13 +1119,13 @@ uint64_t *sub_10000216C(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1304,31 +1310,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -1337,173 +1342,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -1611,15 +1616,15 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_100002824(uint64_t a1, unint64_t *a2)
+uint64_t sub_100002824(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *sub_1000028C0(a1, &v4, a2);
-  if (!v2)
+  v4 = *sub_1000028C0(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *sub_1000028C0(uint64_t a1, void *a2, unint64_t *a3)
@@ -1836,11 +1841,11 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-void CLMapRoad::addSegmentCoordinate(uint64_t a1, float64x2_t *a2, int a3)
+void CLMapRoad::addSegmentCoordinate(uint64_t result, float64x2_t *a2, int a3)
 {
-  if (!a3 || (v3 = *(a1 + 144), *(a1 + 136) == v3) || (v4 = vmovn_s64(vmvnq_s8(vcgtq_f64(vdupq_n_s64(0x3E7AD7F29ABCAF48uLL), vabdq_f64(*(v3 - 16), *a2)))), (vorr_s8(v4, vdup_lane_s32(v4, 1)).u32[0] & 1) != 0))
+  if (!a3 || (v3 = *(result + 144), *(result + 136) == v3) || (v4 = vmovn_s64(vmvnq_s8(vcgtq_f64(vdupq_n_s64(0x3E7AD7F29ABCAF48uLL), vabdq_f64(*(v3 - 16), *a2)))), (vorr_s8(v4, vdup_lane_s32(v4, 1)).u32[0] & 1) != 0))
   {
-    sub_1000031D0(a1 + 136, a2);
+    sub_1000031D0(result + 136, a2);
   }
 }
 
@@ -1941,7 +1946,7 @@ uint64_t CLMapRoad::computeSegmentDistances(CLMapRoad *this)
     }
 
     ++CLMapRoadAnalytics::m_DistanceComputationsCounter;
-    CLDistanceCalc::CLDistanceCalc(v8);
+    CLDistanceCalc::CLDistanceCalc(v9);
     sub_1000033F4(v1, ((*(this + 18) - *(this + 17)) >> 4) - 1);
     v4 = *(this + 17);
     if ((*(this + 18) - v4) >= 0x11)
@@ -1950,9 +1955,10 @@ uint64_t CLMapRoad::computeSegmentDistances(CLMapRoad *this)
       v6 = 1;
       do
       {
-        v7 = CLDistanceCalc::calculateDistance(v8, *(v4 + v5), *(v4 + v5 + 8), *(v4 + v5 + 16), *(v4 + v5 + 24), 0.0);
-        sub_100003494(v1, &v7);
-        *(this + 5) = v7 + *(this + 5);
+        CLDistanceCalc::calculateDistance(v9, *(v4 + v5), *(v4 + v5 + 8), *(v4 + v5 + 16), *(v4 + v5 + 24), 0.0);
+        v8 = v7;
+        sub_100003494(v1, &v8);
+        *(this + 5) = v8 + *(this + 5);
         ++v6;
         v4 = *(this + 17);
         v5 += 16;
@@ -1965,23 +1971,20 @@ uint64_t CLMapRoad::computeSegmentDistances(CLMapRoad *this)
   return 1;
 }
 
-void *sub_1000033F4(void *result, unint64_t a2)
+void sub_1000033F4(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      sub_100005E88(result, a2);
+      sub_100005E88(a1, a2);
     }
 
     sub_100001DC0();
   }
-
-  return result;
 }
 
-void sub_100003494(const void **a1, void *a2)
+void sub_100003494(const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2670,91 +2673,76 @@ uint64_t CLMapRoad::isNonZeroLength(CLMapRoad *this)
   return result;
 }
 
-uint64_t CLMapRoad::getAsString@<X0>(CLMapRoad *this@<X0>, _BYTE *a2@<X8>)
+uint64_t CLMapRoad::getAsString@<X0>(CLMapRoad *this@<X0>, uint64_t *a2@<X8>)
 {
-  sub_100004C3C(v77);
-  v4 = v78;
-  *(&v78 + *(v78 - 24) + 8) |= 4u;
-  *(&v80[0].__locale_ + *(v4 - 24)) = 0;
-  sub_1000062E8(&v78, ",roadID,", 8);
-  v5 = *this;
+  sub_100004C3C(v56);
+  v4 = v57;
+  *(&v57 + *(v57 - 24) + 8) |= 4u;
+  *(&v59[0].__locale_ + *(v4 - 24)) = 0;
+  sub_1000062E8(&v57, ",roadID,", 8);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",clRoadId,", 10);
-  v6 = *(this + 1);
+  sub_1000062E8(&v57, ",clRoadId,", 10);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",oneWay,", 8);
-  v7 = *(this + 16);
+  sub_1000062E8(&v57, ",oneWay,", 8);
   std::ostream::operator<<();
-  v8 = sub_1000062E8(&v78, ",frc,", 5);
-  v9 = *(this + 5);
-  if (v9 >= 0xA)
+  v5 = sub_1000062E8(&v57, ",frc,", 5);
+  v6 = *(this + 5);
+  if (v6 >= 0xA)
   {
-    v10 = [NSString stringWithFormat:@"(unknown: %i)", *(this + 5)];
+    v7 = [NSString stringWithFormat:@"(unknown: %i)", *(this + 5)];
   }
 
   else
   {
-    v10 = off_100014478[v9];
+    v7 = off_100014478[v6];
   }
 
-  v11 = [(__CFString *)v10 UTF8String];
-  v12 = strlen(v11);
-  sub_1000062E8(v8, v11, v12);
+  v8 = [(__CFString *)v7 UTF8String];
+  v9 = strlen(v8);
+  sub_1000062E8(v5, v8, v9);
 
-  v13 = sub_1000062E8(&v78, ",fow,", 5);
-  v14 = *(this + 6);
-  if (v14 < 0x17 && ((0x7EDDDFu >> v14) & 1) != 0)
+  v10 = sub_1000062E8(&v57, ",fow,", 5);
+  v11 = *(this + 6);
+  if (v11 < 0x17 && ((0x7EDDDFu >> v11) & 1) != 0)
   {
-    v15 = off_1000144C8[v14];
+    v12 = off_1000144C8[v11];
   }
 
   else
   {
-    v15 = [NSString stringWithFormat:@"(unknown: %i)", *(this + 6)];
+    v12 = [NSString stringWithFormat:@"(unknown: %i)", *(this + 6)];
   }
 
-  v16 = [(__CFString *)v15 UTF8String];
-  v17 = strlen(v16);
-  sub_1000062E8(v13, v16, v17);
+  v13 = [(__CFString *)v12 UTF8String];
+  v14 = strlen(v13);
+  sub_1000062E8(v10, v13, v14);
 
-  sub_1000062E8(&v78, ",travelDirection,", 17);
-  v18 = *(this + 18);
+  sub_1000062E8(&v57, ",travelDirection,", 17);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",bridge,", 8);
-  v19 = *(this + 19);
+  sub_1000062E8(&v57, ",bridge,", 8);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",tunnel,", 8);
-  v20 = *(this + 18);
+  sub_1000062E8(&v57, ",tunnel,", 8);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",railway,", 9);
-  v21 = *(this + 17);
+  sub_1000062E8(&v57, ",railway,", 9);
   std::ostream::operator<<();
-  v22 = sub_1000062E8(&v78, ",width,", 7);
-  *(v22 + *(*v22 - 24) + 16) = 1;
-  v23 = *(this + 12);
+  v15 = sub_1000062E8(&v57, ",width,", 7);
+  *(v15 + *(*v15 - 24) + 16) = 1;
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",bikeableSide,", 14);
-  v24 = *(this + 22);
+  sub_1000062E8(&v57, ",bikeableSide,", 14);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",walkableSide,", 14);
-  v25 = *(this + 21);
+  sub_1000062E8(&v57, ",walkableSide,", 14);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",startJunction,", 15);
-  v26 = *(this + 27);
+  sub_1000062E8(&v57, ",startJunction,", 15);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",stopJunction,", 14);
-  v27 = *(this + 28);
+  sub_1000062E8(&v57, ",stopJunction,", 14);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",startAtTileBorder,", 19);
-  v28 = *(this + 116);
+  sub_1000062E8(&v57, ",startAtTileBorder,", 19);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",stopAtTileBorder,", 18);
-  v29 = *(this + 117);
+  sub_1000062E8(&v57, ",stopAtTileBorder,", 18);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",laneCount,", 11);
-  v30 = *(this + 26);
+  sub_1000062E8(&v57, ",laneCount,", 11);
   std::ostream::operator<<();
-  v31 = sub_1000062E8(&v78, ",name,", 6);
+  v16 = sub_1000062E8(&v57, ",name,", 6);
   if (*(this + 71) < 0)
   {
     sub_100005ED0(__p, *(this + 6), *(this + 7));
@@ -2763,298 +2751,292 @@ uint64_t CLMapRoad::getAsString@<X0>(CLMapRoad *this@<X0>, _BYTE *a2@<X8>)
   else
   {
     *__p = *(this + 3);
-    v76 = *(this + 8);
+    v55 = *(this + 8);
   }
 
-  if (v76 >= 0)
+  if (v55 >= 0)
   {
-    v32 = __p;
+    v17 = __p;
   }
 
   else
   {
-    v32 = __p[0];
+    v17 = __p[0];
   }
 
-  if (v76 >= 0)
+  if (v55 >= 0)
   {
-    v33 = HIBYTE(v76);
+    v18 = HIBYTE(v55);
   }
 
   else
   {
-    v33 = __p[1];
+    v18 = __p[1];
   }
 
-  sub_1000062E8(v31, v32, v33);
-  if (SHIBYTE(v76) < 0)
+  sub_1000062E8(v16, v17, v18);
+  if (SHIBYTE(v55) < 0)
   {
     operator delete(__p[0]);
   }
 
-  sub_1000062E8(&v78, ",startAlt,", 10);
-  v34 = *(this + 15);
+  sub_1000062E8(&v57, ",startAlt,", 10);
   std::ostream::operator<<();
-  sub_1000062E8(&v78, ",stopAlt,", 9);
-  v35 = *(this + 16);
+  sub_1000062E8(&v57, ",stopAlt,", 9);
   std::ostream::operator<<();
-  v36 = *(this + 17);
-  if (((*(this + 18) - v36) >> 4) >= 1)
+  v19 = *(this + 17);
+  if (((*(this + 18) - v19) >> 4) >= 1)
   {
-    v37 = 0;
-    v38 = 0;
+    v20 = 0;
+    v21 = 0;
     do
     {
-      if (v36)
+      if (v19)
       {
-        if (v38)
+        if (v21)
         {
-          std::to_string(&v73, v38 - 1);
-          v39 = std::string::insert(&v73, 0, ",latitude", 9uLL);
-          v40 = *&v39->__r_.__value_.__l.__data_;
-          v74.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
-          *&v74.__r_.__value_.__l.__data_ = v40;
-          v39->__r_.__value_.__l.__size_ = 0;
-          v39->__r_.__value_.__r.__words[2] = 0;
-          v39->__r_.__value_.__r.__words[0] = 0;
-          v41 = std::string::append(&v74, ",", 1uLL);
-          v42 = *&v41->__r_.__value_.__l.__data_;
-          v76 = v41->__r_.__value_.__r.__words[2];
-          *__p = v42;
-          v41->__r_.__value_.__l.__size_ = 0;
-          v41->__r_.__value_.__r.__words[2] = 0;
-          v41->__r_.__value_.__r.__words[0] = 0;
-          if (v76 >= 0)
+          std::to_string(&v52, v21 - 1);
+          v22 = std::string::insert(&v52, 0, ",latitude", 9uLL);
+          v23 = *&v22->__r_.__value_.__l.__data_;
+          v53.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+          *&v53.__r_.__value_.__l.__data_ = v23;
+          v22->__r_.__value_.__l.__size_ = 0;
+          v22->__r_.__value_.__r.__words[2] = 0;
+          v22->__r_.__value_.__r.__words[0] = 0;
+          v24 = std::string::append(&v53, ",", 1uLL);
+          v25 = *&v24->__r_.__value_.__l.__data_;
+          v55 = v24->__r_.__value_.__r.__words[2];
+          *__p = v25;
+          v24->__r_.__value_.__l.__size_ = 0;
+          v24->__r_.__value_.__r.__words[2] = 0;
+          v24->__r_.__value_.__r.__words[0] = 0;
+          if (v55 >= 0)
           {
-            v43 = __p;
+            v26 = __p;
           }
 
           else
           {
-            v43 = __p[0];
+            v26 = __p[0];
           }
 
-          if (v76 >= 0)
+          if (v55 >= 0)
           {
-            v44 = HIBYTE(v76);
+            v27 = HIBYTE(v55);
           }
 
           else
           {
-            v44 = __p[1];
+            v27 = __p[1];
           }
 
-          v45 = sub_1000062E8(&v78, v43, v44);
-          *(v45 + *(*v45 - 24) + 16) = 8;
-          v46 = *(v36 + v37);
+          v28 = sub_1000062E8(&v57, v26, v27);
+          *(v28 + *(*v28 - 24) + 16) = 8;
           std::ostream::operator<<();
-          if (SHIBYTE(v76) < 0)
+          if (SHIBYTE(v55) < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v74.__r_.__value_.__l.__data_);
+            operator delete(v53.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v73.__r_.__value_.__l.__data_);
+            operator delete(v52.__r_.__value_.__l.__data_);
           }
 
-          std::to_string(&v73, v38 - 1);
-          v47 = std::string::insert(&v73, 0, ",longitude", 0xAuLL);
-          v48 = *&v47->__r_.__value_.__l.__data_;
-          v74.__r_.__value_.__r.__words[2] = v47->__r_.__value_.__r.__words[2];
-          *&v74.__r_.__value_.__l.__data_ = v48;
-          v47->__r_.__value_.__l.__size_ = 0;
-          v47->__r_.__value_.__r.__words[2] = 0;
-          v47->__r_.__value_.__r.__words[0] = 0;
-          v49 = std::string::append(&v74, ",", 1uLL);
-          v50 = *&v49->__r_.__value_.__l.__data_;
-          v76 = v49->__r_.__value_.__r.__words[2];
-          *__p = v50;
-          v49->__r_.__value_.__l.__size_ = 0;
-          v49->__r_.__value_.__r.__words[2] = 0;
-          v49->__r_.__value_.__r.__words[0] = 0;
-          if (v76 >= 0)
+          std::to_string(&v52, v21 - 1);
+          v29 = std::string::insert(&v52, 0, ",longitude", 0xAuLL);
+          v30 = *&v29->__r_.__value_.__l.__data_;
+          v53.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
+          *&v53.__r_.__value_.__l.__data_ = v30;
+          v29->__r_.__value_.__l.__size_ = 0;
+          v29->__r_.__value_.__r.__words[2] = 0;
+          v29->__r_.__value_.__r.__words[0] = 0;
+          v31 = std::string::append(&v53, ",", 1uLL);
+          v32 = *&v31->__r_.__value_.__l.__data_;
+          v55 = v31->__r_.__value_.__r.__words[2];
+          *__p = v32;
+          v31->__r_.__value_.__l.__size_ = 0;
+          v31->__r_.__value_.__r.__words[2] = 0;
+          v31->__r_.__value_.__r.__words[0] = 0;
+          if (v55 >= 0)
           {
-            v51 = __p;
-          }
-
-          else
-          {
-            v51 = __p[0];
-          }
-
-          if (v76 >= 0)
-          {
-            v52 = HIBYTE(v76);
+            v33 = __p;
           }
 
           else
           {
-            v52 = __p[1];
+            v33 = __p[0];
           }
 
-          v53 = sub_1000062E8(&v78, v51, v52);
-          *(v53 + *(*v53 - 24) + 16) = 8;
-          v54 = *(v36 + v37 + 8);
+          if (v55 >= 0)
+          {
+            v34 = HIBYTE(v55);
+          }
+
+          else
+          {
+            v34 = __p[1];
+          }
+
+          v35 = sub_1000062E8(&v57, v33, v34);
+          *(v35 + *(*v35 - 24) + 16) = 8;
           std::ostream::operator<<();
-          if (SHIBYTE(v76) < 0)
+          if (SHIBYTE(v55) < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v74.__r_.__value_.__l.__data_);
+            operator delete(v53.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v73.__r_.__value_.__l.__data_);
+            operator delete(v52.__r_.__value_.__l.__data_);
           }
 
-          std::to_string(&v73, v38 - 1);
-          v55 = std::string::insert(&v73, 0, ",course", 7uLL);
-          v56 = *&v55->__r_.__value_.__l.__data_;
-          v74.__r_.__value_.__r.__words[2] = v55->__r_.__value_.__r.__words[2];
-          *&v74.__r_.__value_.__l.__data_ = v56;
-          v55->__r_.__value_.__l.__size_ = 0;
-          v55->__r_.__value_.__r.__words[2] = 0;
-          v55->__r_.__value_.__r.__words[0] = 0;
-          v57 = std::string::append(&v74, ",", 1uLL);
-          v58 = *&v57->__r_.__value_.__l.__data_;
-          v76 = v57->__r_.__value_.__r.__words[2];
-          *__p = v58;
-          v57->__r_.__value_.__l.__size_ = 0;
-          v57->__r_.__value_.__r.__words[2] = 0;
-          v57->__r_.__value_.__r.__words[0] = 0;
-          if (v76 >= 0)
+          std::to_string(&v52, v21 - 1);
+          v36 = std::string::insert(&v52, 0, ",course", 7uLL);
+          v37 = *&v36->__r_.__value_.__l.__data_;
+          v53.__r_.__value_.__r.__words[2] = v36->__r_.__value_.__r.__words[2];
+          *&v53.__r_.__value_.__l.__data_ = v37;
+          v36->__r_.__value_.__l.__size_ = 0;
+          v36->__r_.__value_.__r.__words[2] = 0;
+          v36->__r_.__value_.__r.__words[0] = 0;
+          v38 = std::string::append(&v53, ",", 1uLL);
+          v39 = *&v38->__r_.__value_.__l.__data_;
+          v55 = v38->__r_.__value_.__r.__words[2];
+          *__p = v39;
+          v38->__r_.__value_.__l.__size_ = 0;
+          v38->__r_.__value_.__r.__words[2] = 0;
+          v38->__r_.__value_.__r.__words[0] = 0;
+          if (v55 >= 0)
           {
-            v59 = __p;
-          }
-
-          else
-          {
-            v59 = __p[0];
-          }
-
-          if (v76 >= 0)
-          {
-            v60 = HIBYTE(v76);
+            v40 = __p;
           }
 
           else
           {
-            v60 = __p[1];
+            v40 = __p[0];
           }
 
-          v61 = sub_1000062E8(&v78, v59, v60);
-          *(v61 + *(*v61 - 24) + 16) = 3;
-          CLMapRoad::getHeadingForSegment(this, v38);
+          if (v55 >= 0)
+          {
+            v41 = HIBYTE(v55);
+          }
+
+          else
+          {
+            v41 = __p[1];
+          }
+
+          v42 = sub_1000062E8(&v57, v40, v41);
+          *(v42 + *(*v42 - 24) + 16) = 3;
+          CLMapRoad::getHeadingForSegment(this, v21);
           std::ostream::operator<<();
-          if (SHIBYTE(v76) < 0)
+          if (SHIBYTE(v55) < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v74.__r_.__value_.__l.__data_);
+            operator delete(v53.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v73.__r_.__value_.__l.__data_);
+            operator delete(v52.__r_.__value_.__l.__data_);
           }
         }
 
         else
         {
-          v62 = sub_1000062E8(&v78, ",latitude,", 10);
-          *(v62 + *(*v62 - 24) + 16) = 8;
-          v63 = *(v36 + v37);
+          v43 = sub_1000062E8(&v57, ",latitude,", 10);
+          *(v43 + *(*v43 - 24) + 16) = 8;
           std::ostream::operator<<();
-          v64 = sub_1000062E8(&v78, ",longitude,", 11);
-          *(v64 + *(*v64 - 24) + 16) = 8;
-          v65 = *(v36 + v37 + 8);
+          v44 = sub_1000062E8(&v57, ",longitude,", 11);
+          *(v44 + *(*v44 - 24) + 16) = 8;
           std::ostream::operator<<();
-          v66 = sub_1000062E8(&v78, ",course,", 8);
-          *(v66 + *(*v66 - 24) + 16) = 3;
+          v45 = sub_1000062E8(&v57, ",course,", 8);
+          *(v45 + *(*v45 - 24) + 16) = 3;
           CLMapRoad::getHeadingForSegment(this, 0);
           std::ostream::operator<<();
         }
       }
 
-      ++v38;
-      v36 = *(this + 17);
-      v37 += 16;
+      ++v21;
+      v19 = *(this + 17);
+      v20 += 16;
     }
 
-    while (v38 < ((*(this + 18) - v36) >> 4));
+    while (v21 < ((*(this + 18) - v19) >> 4));
   }
 
-  if ((v85 & 0x10) != 0)
+  if ((v64 & 0x10) != 0)
   {
-    v69 = v84;
-    if (v84 < v81)
+    v48 = v63;
+    if (v63 < v60)
     {
-      v84 = v81;
-      v69 = v81;
+      v63 = v60;
+      v48 = v60;
     }
 
-    locale = v80[4].__locale_;
+    locale = v59[4].__locale_;
   }
 
   else
   {
-    if ((v85 & 8) == 0)
+    if ((v64 & 8) == 0)
     {
-      v67 = 0;
-      v68 = a2;
-      a2[23] = 0;
+      v46 = 0;
+      v47 = a2;
+      *(a2 + 23) = 0;
       goto LABEL_74;
     }
 
-    locale = v80[1].__locale_;
-    v69 = v80[3].__locale_;
+    locale = v59[1].__locale_;
+    v48 = v59[3].__locale_;
   }
 
-  v68 = a2;
-  v67 = v69 - locale;
-  if ((v69 - locale) >= 0x7FFFFFFFFFFFFFF8)
+  v47 = a2;
+  v46 = v48 - locale;
+  if ((v48 - locale) >= 0x7FFFFFFFFFFFFFF8)
   {
     sub_100005F74();
   }
 
-  if (v67 >= 0x17)
+  if (v46 >= 0x17)
   {
     operator new();
   }
 
-  a2[23] = v67;
-  if (v67)
+  *(a2 + 23) = v46;
+  if (v46)
   {
-    memmove(a2, locale, v67);
+    memmove(a2, locale, v46);
   }
 
 LABEL_74:
-  v68[v67] = 0;
-  v78 = v71;
-  if (v83 < 0)
+  *(v47 + v46) = 0;
+  v57 = v50;
+  if (v62 < 0)
   {
-    operator delete(v82);
+    operator delete(v61);
   }
 
-  std::locale::~locale(v80);
+  std::locale::~locale(v59);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
 
-void sub_100004B60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32)
+void sub_100004B60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48)
 {
   std::ios::~ios();
   _Unwind_Resume(a1);
@@ -3506,47 +3488,50 @@ id sub_100005B18(void *a1)
   if (v1)
   {
     v3 = [v1 roadID];
-    v17 = v3;
+    v25 = v3;
     if ([v2 coordinateCount] >= 2)
     {
       __p = 0;
-      v15 = 0;
-      v16 = 0;
-      v13 = *[v2 coordinates];
-      sub_1000031D0(&__p, &v13);
+      v23 = 0;
+      v24 = 0;
+      v21 = *[v2 coordinates];
+      sub_1000031D0(&__p, &v21);
       v4 = 1;
       v5 = 16;
       while ([v2 coordinateCount] > v4)
       {
-        v12 = *([v2 coordinates] + v5);
-        v6 = [NSString stringWithFormat:@"%.7lf", v12];
-        v7 = [NSString stringWithFormat:@"%.7lf", *(&v12 + 1)];
+        v20 = *([v2 coordinates] + v5);
+        v6 = [NSString stringWithFormat:@"%.7lf", v20];
+        v7 = [NSString stringWithFormat:@"%.7lf", *(&v20 + 1)];
         [v6 doubleValue];
-        *&v12 = v8;
+        *&v20 = v8;
         [v7 doubleValue];
-        *(&v12 + 1) = v9;
-        if (vabdd_f64(*(&v13 + 1), v9) >= 0.0000001 || vabdd_f64(*&v13, *&v12) >= 0.0000001)
+        *(&v20 + 1) = v9;
+        if (vabdd_f64(*(&v21 + 1), v9) >= 0.0000001 || vabdd_f64(*&v21, *&v20) >= 0.0000001)
         {
-          sub_1000031D0(&__p, &v12);
+          sub_1000031D0(&__p, &v20);
         }
 
-        v13 = v12;
+        v21 = v20;
 
         ++v4;
         v5 += 16;
       }
 
       v10 = __p;
-      if ((v15 - __p) >= 0x11)
+      if ((v23 - __p) >= 0x11)
       {
-        sub_1000060DC([v2 isRail], objc_msgSend(v2, "isBridge"), objc_msgSend(v2, "isTunnel"), &__p, &v17);
-        v3 = v17;
+        v11 = [v2 isRail];
+        v12 = [v2 isBridge];
+        v13 = [v2 isTunnel];
+        sub_1000060DC(v11, v12, v13, &__p, &v25, v14, v15, v16, v17, v18);
+        v3 = v25;
         v10 = __p;
       }
 
       if (v10)
       {
-        v15 = v10;
+        v23 = v10;
         operator delete(v10);
       }
     }
@@ -3681,84 +3666,84 @@ uint64_t sub_100005F8C(uint64_t a1, uint64_t *a2)
   return std::iostream::~basic_iostream();
 }
 
-double sub_1000060DC(int a1, int a2, int a3, uint64_t *a4, unint64_t *a5)
+double sub_1000060DC(int a1, int a2, int a3, uint64_t *a4, unint64_t *a5, __n128 a6, __n128 a7, double a8, double a9, __n128 a10)
 {
   if (a3)
   {
-    v6 = 5;
+    v11 = 5;
   }
 
   else
   {
-    v6 = 2;
+    v11 = 2;
   }
 
   if (a1)
   {
-    v6 = 4;
+    v11 = 4;
   }
 
   if (a2)
   {
-    v7 = 3;
+    v12 = 3;
   }
 
   else
   {
-    v7 = v6;
+    v12 = v11;
   }
 
-  v20 = 0uLL;
-  v8 = *a4;
-  v9 = (a4[1] - *a4) >> 4;
-  if (v9 >= 2 * v7 + 2)
+  v25 = 0uLL;
+  v13 = *a4;
+  v14 = (a4[1] - *a4) >> 4;
+  if (v14 >= 2 * v12 + 2)
   {
-    v20 = *(v8 + 16 * v7);
+    v25 = *(v13 + 16 * v12);
   }
 
   else
   {
-    v10 = 0.7;
+    v15 = 0.7;
     if (a3)
     {
-      v10 = 0.9;
+      v15 = 0.9;
     }
 
     if (a1)
     {
-      v10 = 0.775;
+      v15 = 0.775;
     }
 
     if (a2)
     {
-      v11 = 0.825;
+      v16 = 0.825;
     }
 
     else
     {
-      v11 = v10;
+      v16 = v15;
     }
 
-    v12 = v9 > 2;
-    v13 = (v8 + 16 * (v9 > 2));
-    v14 = *v13;
-    v15 = v13[1];
-    v16 = 16;
-    if (v12)
+    v17 = v14 > 2;
+    v18 = (v13 + 16 * (v14 > 2));
+    v19 = *v18;
+    v20 = v18[1];
+    v21 = 16;
+    if (v17)
     {
-      v16 = 32;
+      v21 = 32;
     }
 
-    sub_100006224(&v20, v14, v15, *(v8 + v16), *(v8 + v16 + 8), v11);
+    sub_100006224(&v25, v19, v20, *(v13 + v21), *(v13 + v21 + 8), v16);
   }
 
-  result = *(&v20 + 1);
-  v18 = vabdd_f64(0.0, *&v20) >= 0.0000001;
-  v19 = vabdd_f64(0.0, *(&v20 + 1)) >= 0.0000001 || v18;
-  if (v19 == 1)
+  result = *(&v25 + 1);
+  v23 = vabdd_f64(0.0, *&v25) >= 0.0000001;
+  v24 = vabdd_f64(0.0, *(&v25 + 1)) >= 0.0000001 || v23;
+  if (v24 == 1)
   {
-    result = (*(&v20 + 1) + 180.0) * 10000000.0;
-    *a5 = result | (((*&v20 + 90.0) * 10000000.0) << 32);
+    result = (*(&v25 + 1) + 180.0) * 10000000.0;
+    *a5 = result | (((*&v25 + 90.0) * 10000000.0) << 32);
   }
 
   return result;
@@ -3813,16 +3798,16 @@ void *sub_1000062E8(void *a1, uint64_t a2, uint64_t a3)
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4056,38 +4041,38 @@ double CLDistanceCalc::getDeltaLongitude(CLDistanceCalc *this, double a2, double
   return result;
 }
 
-long double CLDistanceCalc::calculateDistanceVincenty(CLDistanceCalc *this, double a2, double a3, double a4, double a5)
+void CLDistanceCalc::calculateDistanceVincenty(CLDistanceCalc *this, double a2, double a3, double a4, double a5)
 {
   v5 = a4;
-  result = 0.0;
+  v6 = a2;
   if (a4 > 90.0)
   {
-    return result;
+    return;
   }
 
-  v8 = fabs(a2);
-  if (v8 > 90.0 || a4 < -90.0)
+  v7 = fabs(a2);
+  if (v7 > 90.0 || a4 < -90.0)
   {
-    return result;
+    return;
   }
 
-  v9 = 360.0;
-  v10 = a5 + 360.0;
+  v8 = 360.0;
+  v9 = a5 + 360.0;
   if (a5 >= 0.0)
   {
-    v10 = a5;
+    v9 = a5;
   }
 
-  v11 = a3 + 360.0;
+  v10 = a3 + 360.0;
   if (a3 >= 0.0)
   {
-    v11 = a3;
+    v10 = a3;
   }
 
-  v12 = v11 - v10;
-  if (v12 <= 180.0)
+  v11 = v10 - v9;
+  if (v11 <= 180.0)
   {
-    if (v12 >= -180.0)
+    if (v11 >= -180.0)
     {
       goto LABEL_12;
     }
@@ -4095,126 +4080,121 @@ long double CLDistanceCalc::calculateDistanceVincenty(CLDistanceCalc *this, doub
 
   else
   {
-    v9 = -360.0;
+    v8 = -360.0;
   }
 
-  v12 = v12 + v9;
+  v11 = v11 + v8;
 LABEL_12:
-  if (fabs(a2 + a4) >= 0.0001)
+  if (fabs(v6 + a4) >= 0.0001)
   {
-    v44 = a3;
-    v46 = a5;
+    v38 = a3;
+    v40 = a5;
 LABEL_17:
-    v13 = v12;
+    v12 = v11;
     goto LABEL_18;
   }
 
-  if (v8 < 0.0001 && 180.0 - fabs(v12) < 0.0001)
+  if (v7 < 0.0001 && 180.0 - fabs(v11) < 0.0001)
   {
-    return 20037508.3;
+    return;
   }
 
-  v42 = fabs(v8 + -90.0) < 0.0001;
-  if (v42)
+  v36 = fabs(v7 + -90.0) < 0.0001;
+  if (v36)
   {
-    v13 = 0.0;
+    v12 = 0.0;
   }
 
   else
   {
-    v13 = v12;
+    v12 = v11;
   }
 
-  v46 = a5;
-  v44 = a3;
-  if (!v42 && 180.0 - fabs(v12) >= 0.0001)
+  v40 = a5;
+  v38 = a3;
+  if (!v36 && 180.0 - fabs(v11) >= 0.0001)
   {
     goto LABEL_17;
   }
 
-  if (a2 <= a4)
+  if (v6 <= a4)
   {
     v5 = a4 + -0.0001;
   }
 
   else
   {
-    a2 = a2 + -0.0001;
+    v6 = v6 + -0.0001;
   }
 
 LABEL_18:
-  v14 = v13 * 0.0174532925;
-  v43 = a2;
-  v15 = tan(a2 * 0.0174532925);
-  v45 = v5;
-  v16 = tan(v5 * 0.0174532925);
+  v13 = v12 * 0.0174532925;
+  v37 = v6;
+  v14 = tan(v6 * 0.0174532925);
+  v39 = v5;
+  v15 = tan(v5 * 0.0174532925);
+  v16 = v14 * 0.996647189;
   v17 = v15 * 0.996647189;
-  v18 = v16 * 0.996647189;
+  v18 = atan(v16);
   v19 = atan(v17);
-  v20 = atan(v18);
+  v20 = __sincos_stret(v18);
   v21 = __sincos_stret(v19);
-  v22 = __sincos_stret(v20);
-  v23 = 0;
-  v24 = v22.__cosval * v21.__cosval;
-  v47 = v14;
+  v22 = 0;
+  v23 = v21.__cosval * v20.__cosval;
+  v41 = v13;
   while (1)
   {
-    v25 = __sincos_stret(v14);
-    v26 = sqrt((-(v21.__sinval * v22.__cosval) * v25.__cosval + v21.__cosval * v22.__sinval) * (-(v21.__sinval * v22.__cosval) * v25.__cosval + v21.__cosval * v22.__sinval) + v22.__cosval * v25.__sinval * (v22.__cosval * v25.__sinval));
-    if (v26 < 2.22044605e-15)
+    v24 = __sincos_stret(v13);
+    v25 = sqrt((-(v20.__sinval * v21.__cosval) * v24.__cosval + v20.__cosval * v21.__sinval) * (-(v20.__sinval * v21.__cosval) * v24.__cosval + v20.__cosval * v21.__sinval) + v21.__cosval * v24.__sinval * (v21.__cosval * v24.__sinval));
+    if (v25 < 2.22044605e-15)
     {
       break;
     }
 
-    v27 = v24 * v25.__cosval + v21.__sinval * v22.__sinval;
-    v28 = fabs(v27);
-    if (fabs(v26) > 1.0 || v28 > 1.0)
+    v26 = v23 * v24.__cosval + v20.__sinval * v21.__sinval;
+    v27 = fabs(v26);
+    if (fabs(v25) > 1.0 || v27 > 1.0)
     {
       break;
     }
 
-    v30 = atan2(v26, v27);
-    v31 = v24 * v25.__sinval / v26;
-    if (v31 > 1.0)
+    v29 = atan2(v25, v26);
+    v30 = v23 * v24.__sinval / v25;
+    if (v30 > 1.0)
     {
       break;
     }
 
-    v32 = 1.0 - v31 * v31;
-    if (fabs(v32) >= 2.22044605e-15)
+    v31 = 1.0 - v30 * v30;
+    if (fabs(v31) >= 2.22044605e-15)
     {
-      v33 = v27 - v22.__sinval * (v21.__sinval + v21.__sinval) / v32;
-      v34 = v32 * 0.000209550667 * ((v32 * -3.0 + 4.0) * 0.00335281066 + 4.0);
+      v32 = v26 - v21.__sinval * (v20.__sinval + v20.__sinval) / v31;
+      v33 = v31 * 0.000209550667 * ((v31 * -3.0 + 4.0) * 0.00335281066 + 4.0);
     }
 
     else
     {
-      v33 = -1.0;
-      v34 = 0.0;
+      v32 = -1.0;
+      v33 = 0.0;
     }
 
-    v35 = v31 * ((1.0 - v34) * 0.00335281066);
-    v36 = v33 * v33 * 2.0 + -1.0;
-    v37 = v47 + v35 * (v30 + v26 * v34 * (v33 + v27 * v34 * v36));
-    if (vabdd_f64(v37, v14) > 0.000000001)
+    v34 = v41 + v30 * ((1.0 - v33) * 0.00335281066) * (v29 + v25 * v33 * (v32 + v26 * v33 * (v32 * v32 * 2.0 + -1.0)));
+    if (vabdd_f64(v34, v13) > 0.000000001)
     {
-      v14 = v37;
-      if (v23++ < 0x31)
+      v13 = v34;
+      if (v22++ < 0x31)
       {
         continue;
       }
     }
 
-    v39 = v32 * 2.72331606e11 / 4.04083e13;
-    v40 = v39 * 0.0000610351562 * (v39 * (v39 * (v39 * -175.0 + 320.0) + -768.0) + 4096.0) + 1.0;
-    v41 = v39 * 0.0009765625 * (v39 * (v39 * (v39 * -47.0 + 74.0) + -128.0) + 256.0);
-    return v40 * 6356752.31 * (v30 - v26 * v41 * (v33 + v41 * 0.25 * ((v33 * v33 * 4.0 + -3.0) * (v33 * (v41 / 6.0) * 3.0) + v27 * v36)));
+    return;
   }
 
-  return sub_100006CE4(v43, v44, v45, v46);
+  sub_100006CE4(v37, v38, v39, v40);
 }
 
-long double sub_100006CE4(double a1, double a2, double a3, double a4)
+double sub_100006CE4(double a1, double a2, double a3, double a4)
 {
   v5 = 360.0;
   if (a2 < 0.0)
@@ -4307,22 +4287,17 @@ double CLDistanceCalc::reset(CLDistanceCalc *this)
   return result;
 }
 
-long double CLDistanceCalc::calculateDistance3D(CLDistanceCalc *this, double a2, double a3, double a4, double a5, double a6, double a7)
+void CLDistanceCalc::calculateDistance3D(CLDistanceCalc *this, double a2, double a3, double a4, double a5, double a6, double a7)
 {
-  v17 = 0.0;
-  v18 = 0.0;
   v16 = 0.0;
+  v17 = 0.0;
+  v15 = 0.0;
   v14 = sub_100006FC8(a2, a3, a5, a6);
-  if (!v14)
+  if (v14 || !(v14 = CLDistanceCalc::calculatePosDifference(this, a2, a3, a4, a5, a6, a7, &v17, &v16, &v15)))
   {
-    v14 = CLDistanceCalc::calculatePosDifference(this, a2, a3, a4, a5, a6, a7, &v18, &v17, &v16);
-    if (v14)
-    {
-      return sqrt(v17 * v17 + v18 * v18 + v16 * v16);
-    }
-  }
 
-  return CLDistanceCalc::calculateDistanceVincenty(v14, a2, a3, a5, a6);
+    CLDistanceCalc::calculateDistanceVincenty(v14, a2, a3, a5, a6);
+  }
 }
 
 BOOL sub_100006FC8(double a1, double a2, double a3, double a4)
@@ -4424,24 +4399,19 @@ LABEL_13:
   return v10 <= 2.0;
 }
 
-long double CLDistanceCalc::calculateDistance(CLDistanceCalc *this, double a2, double a3, double a4, double a5, double a6)
+void CLDistanceCalc::calculateDistance(CLDistanceCalc *this, double a2, double a3, double a4, double a5, double a6)
 {
+  v14 = 0.0;
   v15 = 0.0;
-  v16 = 0.0;
   v12 = sub_100006FC8(a2, a3, a4, a5);
-  if (!v12)
+  if (v12 || !(v12 = CLDistanceCalc::calculatePosDifference(this, a2, a3, a6, a4, a5, a6, &v15, &v14, &v13)))
   {
-    v12 = CLDistanceCalc::calculatePosDifference(this, a2, a3, a6, a4, a5, a6, &v16, &v15, &v14);
-    if (v12)
-    {
-      return sqrt(v15 * v15 + v16 * v16);
-    }
-  }
 
-  return CLDistanceCalc::calculateDistanceVincenty(v12, a2, a3, a4, a5);
+    CLDistanceCalc::calculateDistanceVincenty(v12, a2, a3, a4, a5);
+  }
 }
 
-long double CLDistanceCalc::calculateDistance(CLDistanceCalc *a1, uint64_t a2, uint64_t a3)
+void CLDistanceCalc::calculateDistance(CLDistanceCalc *a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a2 + 36);
   v5 = *(a3 + 36);
@@ -4488,17 +4458,17 @@ LABEL_11:
   if (v12)
   {
 
-    return CLDistanceCalc::calculateDistanceVincenty(v12, v8, v9, v10, v11);
+    CLDistanceCalc::calculateDistanceVincenty(v12, v8, v9, v10, v11);
   }
 
   else
   {
 
-    return CLDistanceCalc::calculateDistance(a1, v8, v9, v10, v11, v7);
+    CLDistanceCalc::calculateDistance(a1, v8, v9, v10, v11, v7);
   }
 }
 
-long double CLDistanceCalc::calculateDistance(CLDistanceCalc *a1, uint64_t a2, double a3, double a4)
+void CLDistanceCalc::calculateDistance(CLDistanceCalc *a1, uint64_t a2, double a3, double a4)
 {
   if (*(a2 + 36) <= 0.0)
   {
@@ -4510,7 +4480,7 @@ long double CLDistanceCalc::calculateDistance(CLDistanceCalc *a1, uint64_t a2, d
     v4 = *(a2 + 28);
   }
 
-  return CLDistanceCalc::calculateDistance(a1, *(a2 + 4), *(a2 + 12), a3, a4, v4);
+  CLDistanceCalc::calculateDistance(a1, *(a2 + 4), *(a2 + 12), a3, a4, v4);
 }
 
 BOOL CLDistanceCalc::calculateNewPosUsingAcrossTrack(CLDistanceCalc *this, double a2, double a3, double a4, double a5, double a6, double *a7, double *a8)
@@ -4855,13 +4825,13 @@ LABEL_9:
   return result;
 }
 
-long double CLDistanceCalc::calculateDistanceHighPrecision(CLDistanceCalc *this, double a2, double a3, double a4, double a5)
+double CLDistanceCalc::calculateDistanceHighPrecision(CLDistanceCalc *this, double a2, double a3, double a4, double a5)
 {
   v9 = sub_100006FC8(a2, a3, a4, a5);
   if (v9)
   {
 
-    return CLDistanceCalc::calculateDistanceVincenty(v9, a2, a3, a4, a5);
+    CLDistanceCalc::calculateDistanceVincenty(v9, a2, a3, a4, a5);
   }
 
   else
@@ -4871,6 +4841,8 @@ long double CLDistanceCalc::calculateDistanceHighPrecision(CLDistanceCalc *this,
     CLDistanceCalc::calculatePosDifferenceWithArcMethods(&v14, a2, a3, 0.0, a4, a5, 0.0, &v13, &v12, v10);
     return sqrt(v13 * v13 + v14 * v14);
   }
+
+  return result;
 }
 
 double CLDistanceCalc::calculateAzimuth(CLDistanceCalc *this, double a2, double a3, double a4, double a5)
@@ -4898,7 +4870,7 @@ double CLDistanceCalc::calculateAzimuth(CLDistanceCalc *this, double a2, double 
   return v9;
 }
 
-void sub_1000082DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_1000082DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -4993,18 +4965,13 @@ void sub_100008338(uint64_t a1, void *a2)
 void sub_10000895C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v10 = v3;
+  v9 = v3;
   if (v3)
   {
     v4 = [v3 code];
-    v5 = [v10 domain];
-    v6 = [v10 localizedDescription];
+    v5 = [v9 domain];
+    v6 = [v9 localizedDescription];
     NSLog(@"CLTSP,CLMM,MapHelperService,GEOMapFeatureAccessRequest reported errorcode,%lld,domain,%@,description,%@", v4, v5, v6);
-  }
-
-  else
-  {
-    v7 = *(*(*(a1 + 48) + 8) + 40);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -5014,12 +4981,12 @@ void sub_10000895C(uint64_t a1, void *a2)
   }
 
   *(*(a1 + 32) + 48) = 0;
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 24);
-  *(v8 + 24) = 0;
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 24);
+  *(v7 + 24) = 0;
 }
 
-void sub_100008D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_100008D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -5110,13 +5077,13 @@ void sub_100008D60(uint64_t a1, void *a2)
 void sub_10000922C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v10 = v3;
+  v9 = v3;
   if (v3)
   {
     v4 = *(a1 + 64);
     v5 = [v3 code];
-    v6 = [v10 domain];
-    v7 = [v10 localizedDescription];
+    v6 = [v9 domain];
+    v7 = [v9 localizedDescription];
     NSLog(@"CLTSP,CLMM,GEOMapFeatureAccessRequest,tileStyle,%1d,reported errorcode,%lld,domain,%@,description,%@", v4, v5, v6, v7);
   }
 
@@ -5124,7 +5091,6 @@ void sub_10000922C(uint64_t a1, void *a2)
   {
     Current = CFAbsoluteTimeGetCurrent();
     NSLog(@"CLTSP,CLGEOMapHelperService,fetchGEOBuildingDataAroundCoordinate,tileStyle,%1d,repliedWithCount,%d,elapsedTime,%.2lf", *(a1 + 64), [*(*(*(a1 + 48) + 8) + 40) count], (Current - *(*(*(a1 + 56) + 8) + 24)) * 1000.0);
-    v9 = *(*(*(a1 + 48) + 8) + 40);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -5134,7 +5100,7 @@ void sub_10000922C(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000097D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, id a33)
+void sub_1000097D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, id a33)
 {
   _Block_object_dispose(&a24, 8);
   _Block_object_dispose(&a28, 8);
@@ -5178,12 +5144,13 @@ void sub_100009890(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(*(*(a1 + 56) + 8) + 40));
 }
 
-void sub_100009CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, char a30)
+void sub_100009CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, ...)
 {
-  _Block_object_dispose(&a24, 8);
+  va_start(va, a29);
 
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v33 - 152), 8);
+  _Block_object_dispose(&a24, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 152), 8);
 
   _Unwind_Resume(a1);
 }
@@ -5249,7 +5216,7 @@ void sub_10000A794(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10000A82C(const void **a1, _DWORD *a2)
+void sub_10000A82C(const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5304,7 +5271,7 @@ void sub_10000A82C(const void **a1, _DWORD *a2)
   a1[1] = v6;
 }
 
-void sub_10000C298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, void *a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, void *a49, uint64_t a50, uint64_t a51, std::__shared_weak_count *a52, char a53, void *a54, uint64_t a55, char a56, void *a57, uint64_t a58, void **a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_10000C298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, void *a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, std::__shared_weak_count *a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, void **a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   sub_10000C73C(&a48, a49);
   if (a52)
@@ -5314,17 +5281,17 @@ void sub_10000C298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   sub_10000C73C(&a53, a54);
   sub_10000C790(&a56, a57);
-  if (a67)
+  if (a65)
   {
-    sub_100001F6C(a67);
+    sub_100001F6C(a65);
   }
 
-  if (a71)
+  if (a66)
   {
-    sub_100001F6C(a71);
+    sub_100001F6C(a66);
   }
 
-  a59 = &a72;
+  a59 = &a67;
   sub_100001D20(&a59);
   if (STACK[0x220])
   {
@@ -5339,13 +5306,14 @@ void sub_10000C298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-double sub_10000C4E4(uint64_t a1, unint64_t ***a2)
+double sub_10000C4E4(uint64_t **a1, unint64_t ***a2)
 {
   v2 = *a2;
   v3 = -1.0;
   if (*a2 && *v2 && sub_100002940(a1, *v2))
   {
-    return *(sub_10000C6A0(a1, **a2) + 48);
+    v7 = **a2;
+    return *(sub_10000C6A0(a1, v7, &std::piecewise_construct, &v7) + 48);
   }
 
   return v3;
@@ -5356,11 +5324,13 @@ uint64_t sub_10000C564(uint64_t result, uint64_t *a2)
   v2 = *a2;
   if (*a2)
   {
+    v3 = *v2;
     if (*v2)
     {
-      v3 = *(v2 + 48) + *(v2 + 56);
-      result = sub_10000C6A0(result, *v2);
-      *(result + 48) = v3;
+      v4 = *(v2 + 48) + *(v2 + 56);
+      v5 = *v2;
+      result = sub_10000C6A0(result, v3, &std::piecewise_construct, &v5);
+      *(result + 48) = v4;
     }
   }
 
@@ -5377,15 +5347,15 @@ void sub_10000C658(uint64_t a1, unint64_t a2)
   sub_100001EB0();
 }
 
-uint64_t sub_10000C6A0(uint64_t a1, unint64_t *a2)
+uint64_t sub_10000C6A0(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *sub_1000028C0(a1, &v4, a2);
-  if (!v2)
+  v4 = *sub_1000028C0(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void sub_10000C73C(uint64_t a1, void *a2)
@@ -5469,9 +5439,9 @@ void sub_10000CA18(void *a1, uint64_t a2)
   operator new();
 }
 
-void sub_10000CA98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000CA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10000CAAC(va);
   _Unwind_Resume(a1);
 }
@@ -5538,15 +5508,15 @@ BOOL sub_10000CBB4(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t sub_10000CC08(uint64_t a1, unint64_t *a2)
+uint64_t sub_10000CC08(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *sub_1000028C0(a1, &v4, a2);
-  if (!v2)
+  v4 = *sub_1000028C0(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::ostream::operator<<()

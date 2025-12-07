@@ -8,8 +8,10 @@
 - (void)didTapPrimaryButton:(id)button;
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateOverrideTraits;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AMPOnboardingViewController
@@ -63,57 +65,57 @@ void __117__AMPOnboardingViewController_initWithHeaderImage_titleText_descriptio
 
 - (AMPOnboardingViewController)initWithTitleText:(id)text features:(id)features primaryButtonText:(id)buttonText privacyLinkController:(id)controller
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   textCopy = text;
   featuresCopy = features;
   buttonTextCopy = buttonText;
   controllerCopy = controller;
-  v39.receiver = self;
-  v39.super_class = AMPOnboardingViewController;
-  val = [(AMPOnboardingViewController *)&v39 initWithNibName:0 bundle:0];
+  v38.receiver = self;
+  v38.super_class = AMPOnboardingViewController;
+  val = [(AMPOnboardingViewController *)&v38 initWithNibName:0 bundle:0];
   if (val)
   {
     objc_storeStrong(&val->_titleText, text);
     objc_storeStrong(&val->_primaryButtonText, buttonText);
     v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(featuresCopy, "count")}];
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = featuresCopy;
-    v12 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v12 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v12)
     {
-      v13 = *v36;
+      v13 = *v35;
       do
       {
         v14 = 0;
         do
         {
-          if (*v36 != v13)
+          if (*v35 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v35 + 1) + 8 * v14);
-          v41 = 0;
-          v42 = &v41;
-          v43 = 0x2050000000;
+          v15 = *(*(&v34 + 1) + 8 * v14);
+          v40 = 0;
+          v41 = &v40;
+          v42 = 0x2050000000;
           v16 = getAMSUIOnboardingFeatureClass_softClass;
-          v44 = getAMSUIOnboardingFeatureClass_softClass;
+          v43 = getAMSUIOnboardingFeatureClass_softClass;
           if (!getAMSUIOnboardingFeatureClass_softClass)
           {
             location[0] = MEMORY[0x277D85DD0];
             location[1] = 3221225472;
             location[2] = __getAMSUIOnboardingFeatureClass_block_invoke;
             location[3] = &unk_278BC1F78;
-            location[4] = &v41;
+            location[4] = &v40;
             __getAMSUIOnboardingFeatureClass_block_invoke(location);
-            v16 = v42[3];
+            v16 = v41[3];
           }
 
           v17 = v16;
-          _Block_object_dispose(&v41, 8);
+          _Block_object_dispose(&v40, 8);
           v18 = [v16 alloc];
           image = [v15 image];
           titleText = [v15 titleText];
@@ -125,7 +127,7 @@ void __117__AMPOnboardingViewController_initWithHeaderImage_titleText_descriptio
         }
 
         while (v12 != v14);
-        v12 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v12 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v12);
@@ -136,17 +138,16 @@ void __117__AMPOnboardingViewController_initWithHeaderImage_titleText_descriptio
     val->_onboardingController = v23;
 
     objc_initWeak(location, val);
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __98__AMPOnboardingViewController_initWithTitleText_features_primaryButtonText_privacyLinkController___block_invoke;
-    v33[3] = &unk_278BC1F30;
-    objc_copyWeak(&v34, location);
-    [(AMSUIOnboardingViewController *)val->_onboardingController setPrimaryButtonCallback:v33];
-    objc_destroyWeak(&v34);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __98__AMPOnboardingViewController_initWithTitleText_features_primaryButtonText_privacyLinkController___block_invoke;
+    v32[3] = &unk_278BC1F30;
+    objc_copyWeak(&v33, location);
+    [(AMSUIOnboardingViewController *)val->_onboardingController setPrimaryButtonCallback:v32];
+    objc_destroyWeak(&v33);
     objc_destroyWeak(location);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return val;
 }
 
@@ -186,6 +187,28 @@ void __98__AMPOnboardingViewController_initWithTitleText_features_primaryButtonT
     onboardingController4 = [(AMPOnboardingViewController *)self onboardingController];
     [onboardingController4 didMoveToParentViewController:self];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = AMPOnboardingViewController;
+  [(AMPOnboardingViewController *)&v7 viewWillAppear:?];
+  navigationController = [(AMPOnboardingViewController *)self navigationController];
+  [navigationController setNavigationBarHidden:1 animated:appearCopy];
+
+  navigationController2 = [(AMPOnboardingViewController *)self navigationController];
+  [navigationController2 setModalInPresentation:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMPOnboardingViewController;
+  [(AMPOnboardingViewController *)&v4 viewDidAppear:appear];
+  [(AMPOnboardingViewController *)self viewHasAppeared];
+  [(AMPOnboardingViewController *)self setViewHasAppeared:1];
 }
 
 - (void)viewDidLayoutSubviews
@@ -232,7 +255,7 @@ void __98__AMPOnboardingViewController_initWithTitleText_features_primaryButtonT
 
 - (UITraitCollection)cappedTraitCollection
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   if (cappedTraitCollection_onceToken != -1)
   {
     [AMPOnboardingViewController cappedTraitCollection];
@@ -251,10 +274,10 @@ void __98__AMPOnboardingViewController_initWithTitleText_features_primaryButtonT
     {
       v8 = MEMORY[0x277D75C80];
       traitCollection3 = [(AMPOnboardingViewController *)self traitCollection];
-      v15[0] = traitCollection3;
+      v14[0] = traitCollection3;
       v10 = [MEMORY[0x277D75C80] traitCollectionWithPreferredContentSizeCategory:*MEMORY[0x277D76800]];
-      v15[1] = v10;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+      v14[1] = v10;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
       v12 = [v8 traitCollectionWithTraitsFromCollections:v11];
 
       goto LABEL_8;
@@ -267,23 +290,20 @@ void __98__AMPOnboardingViewController_initWithTitleText_features_primaryButtonT
 
   v12 = 0;
 LABEL_8:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 void __52__AMPOnboardingViewController_cappedTraitCollection__block_invoke()
 {
-  v4[3] = *MEMORY[0x277D85DE8];
+  v3[3] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D767F0];
-  v4[0] = *MEMORY[0x277D767F8];
-  v4[1] = v0;
-  v4[2] = *MEMORY[0x277D767E8];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
+  v3[0] = *MEMORY[0x277D767F8];
+  v3[1] = v0;
+  v3[2] = *MEMORY[0x277D767E8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
   v2 = cappedTraitCollection_cappedSizes;
   cappedTraitCollection_cappedSizes = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (id)childTraitCollectionForViewController:(id)controller
@@ -322,38 +342,36 @@ void __52__AMPOnboardingViewController_cappedTraitCollection__block_invoke()
 
 - (void)updateOverrideTraits
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   childViewControllers = [(AMPOnboardingViewController *)self childViewControllers];
-  v4 = [childViewControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [childViewControllers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(childViewControllers);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         v9 = [(AMPOnboardingViewController *)self childTraitCollectionForViewController:v8];
         [(AMPOnboardingViewController *)self setOverrideTraitCollection:v9 forChildViewController:v8];
       }
 
-      v5 = [childViewControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [childViewControllers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didTapPrimaryButton:(id)button

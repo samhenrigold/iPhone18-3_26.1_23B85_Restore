@@ -1627,7 +1627,7 @@ LABEL_6:
 
       else
       {
-        [(CRWrappingEvaluationResult *)self featureTokens];
+        objc_msgSend_featureTokens(self);
         [v10 wordLMScoreByAddingTokens:&__p];
         self->_cachedLMScore = v12;
         if (__p)
@@ -1692,7 +1692,7 @@ LABEL_6:
         text = [featureInTest text];
         if (context3)
         {
-          [context3 tokenizeStringIntoWords:text];
+          objc_msgSend_tokenizeStringIntoWords_(context3);
         }
 
         else

@@ -2,6 +2,7 @@
 - (CGSize)preferredContentSize;
 - (void)dd_update_scroll;
 - (void)didMoveToParentViewController:(id)controller;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -37,6 +38,14 @@
   v4.receiver = self;
   v4.super_class = DDEKDayViewController;
   [(DDEKDayViewController *)&v4 didMoveToParentViewController:controller];
+  [(DDEKDayViewController *)self dd_update_scroll];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DDEKDayViewController;
+  [(EKDayViewController *)&v4 viewDidAppear:appear];
   [(DDEKDayViewController *)self dd_update_scroll];
 }
 

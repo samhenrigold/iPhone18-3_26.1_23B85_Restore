@@ -11,8 +11,11 @@
 - (void)cancelButtonClicked:(id)clicked;
 - (void)dealloc;
 - (void)loadView;
+- (void)operationsHelper:(id)helper didRemoveAccount:(id)account withSuccess:(BOOL)success error:(id)error;
 - (void)reloadAccount;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ESSettingsDataclassConfigurationViewController
@@ -72,6 +75,18 @@
   [navigationItem setTitle:_navTitle];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 removeObserver:self name:ACAccountStoreDidChangeNotification object:0];
+
+  self->_haveRegisteredForAccountsChanged = 0;
+  v6.receiver = self;
+  v6.super_class = ESSettingsDataclassConfigurationViewController;
+  [(ESSettingsDataclassConfigurationViewController *)&v6 viewWillDisappear:disappearCopy];
+}
+
 - (void)_listenForAccountsChangedNotifications
 {
   if (!self->_haveRegisteredForAccountsChanged)
@@ -80,6 +95,17 @@
     v4 = +[NSNotificationCenter defaultCenter];
     [v4 addObserver:self selector:"_accountsChanged:" name:ACAccountStoreDidChangeNotification object:0];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = ESSettingsDataclassConfigurationViewController;
+  [(ESSettingsDataclassConfigurationViewController *)&v6 viewWillAppear:appear];
+  [(ESSettingsDataclassConfigurationViewController *)self _listenForAccountsChangedNotifications];
+  navigationItem = [(ESSettingsDataclassConfigurationViewController *)self navigationItem];
+  _navTitle = [(ESSettingsDataclassConfigurationViewController *)self _navTitle];
+  [navigationItem setTitle:_navTitle];
 }
 
 - (DAAccount)daAccount
@@ -185,6 +211,23 @@
   [v4 handleFailureInMethod:a2 object:self file:@"ESSettingsDataclassConfigurationViewController.m" lineNumber:158 description:{@"You need to subclass %@", v6}];
 
   return 0;
+}
+
+- (void)operationsHelper:(id)helper didRemoveAccount:(id)account withSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  helperCopy = helper;
+  accountCopy = account;
+  errorCopy = error;
+  if (successCopy)
+  {
+    daAccount = [(ESSettingsDataclassConfigurationViewController *)self daAccount];
+    [daAccount cleanupAccountFiles];
+  }
+
+  v14.receiver = self;
+  v14.super_class = ESSettingsDataclassConfigurationViewController;
+  [(ESSettingsDataclassConfigurationViewController *)&v14 operationsHelper:helperCopy didRemoveAccount:accountCopy withSuccess:successCopy error:errorCopy];
 }
 
 - (void)cancelButtonClicked:(id)clicked

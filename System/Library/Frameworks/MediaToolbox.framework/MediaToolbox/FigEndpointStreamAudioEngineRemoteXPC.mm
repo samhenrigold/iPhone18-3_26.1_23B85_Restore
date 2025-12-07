@@ -33,7 +33,7 @@ void __FigEndpointStreamAudioEngineRemoteXPC_runAllCallbacks_block_invoke(void *
   }
 }
 
-uint64_t __FigEndpointStreamAudioEngineRemoteXPC_sendMessageSynchronouslyExpectingCompletionCallback_block_invoke(uint64_t a1)
+uint64_t __FigEndpointStreamAudioEngineRemoteXPC_sendMessageSynchronouslyExpectingCompletionCallback_block_invoke(void *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v3 = *(DerivedStorage + 32);
@@ -44,7 +44,7 @@ uint64_t __FigEndpointStreamAudioEngineRemoteXPC_sendMessageSynchronouslyExpecti
   }
 
   *(DerivedStorage + 32) = v4;
-  *(*(*(a1 + 32) + 8) + 24) = v3;
+  *(*(a1[4] + 8) + 24) = v3;
 
   return FigCFDictionarySetValue();
 }

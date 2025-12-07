@@ -159,7 +159,7 @@ void __88__PKMockPeerPaymentController_identifyRecipientsWithAddresses_senderAdd
 
         v8 = *(*(&v16 + 1) + 8 * v7);
         v9 = [*(a1 + 32) lastObject];
-        if ([v8 isEqualToString:v9])
+        if (objc_msgSend_isEqualToString_(v8))
         {
           v10 = 2;
         }
@@ -953,7 +953,7 @@ void __100__PKMockPeerPaymentController_paymentAuthorizationCoordinator_didAutho
   v12 = [quote firstQuoteItemOfType:1];
   dpanIdentifier2 = [v12 dpanIdentifier];
   v14 = dpanIdentifier2;
-  if (dpanIdentifier && ([dpanIdentifier2 isEqualToString:dpanIdentifier] & 1) == 0)
+  if (dpanIdentifier && (objc_msgSend_isEqualToString_(dpanIdentifier2) & 1) == 0)
   {
     totalReceiveAmount = [quote totalReceiveAmount];
     totalReceiveAmountCurrency = [quote totalReceiveAmountCurrency];

@@ -25,9 +25,9 @@ BOOL sub_100001258(id a1, id a2)
   return v3;
 }
 
-void sub_1000013B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000013B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -40,34 +40,33 @@ void sub_1000013C8(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v35 = a4;
-    v36 = v7;
-    v37 = a1;
-    v38 = v8;
+    v34 = a4;
+    v35 = v7;
+    v36 = a1;
+    v37 = v8;
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v41;
+      v13 = *v40;
       v14 = &NSExtensionMain_ptr;
-      v39 = v9;
+      v38 = v9;
       while (2)
       {
         for (i = 0; i != v12; i = i + 1)
         {
-          if (*v41 != v13)
+          if (*v40 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v40 + 1) + 8 * i);
+          v16 = *(*(&v39 + 1) + 8 * i);
           v17 = [v10 objectForKey:v16];
-          v18 = v14[43];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -77,42 +76,24 @@ void sub_1000013C8(uint64_t a1, void *a2, void *a3, _BYTE *a4)
           else
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            if ((objc_opt_isKindOfClass() & 1) == 0 || (v18 = [v16 intValue], objc_msgSend(v14[43], "numberWithInt:", v18), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "stringValue"), v20 = v12, v21 = v13, v22 = v14, v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqualToString:", v16), v23, v14 = v22, v13 = v21, v12 = v20, v19, !v24))
             {
-              goto LABEL_23;
-            }
+              *(*(*(v36 + 40) + 8) + 24) = 1;
+              *v34 = 1;
 
-            v19 = [v16 intValue];
-            v20 = [v14[43] numberWithInt:v19];
-            [v20 stringValue];
-            v21 = v12;
-            v22 = v13;
-            v24 = v23 = v14;
-            v25 = [v24 isEqualToString:v16];
-
-            v14 = v23;
-            v13 = v22;
-            v12 = v21;
-
-            if (!v25)
-            {
-LABEL_23:
-              *(*(*(v37 + 40) + 8) + 24) = 1;
-              *v35 = 1;
-
-              v7 = v36;
-              v8 = v38;
-              v9 = v39;
+              v7 = v35;
+              v8 = v37;
+              v9 = v38;
               goto LABEL_25;
             }
 
-            v26 = [v14[43] numberWithInt:v19];
-            v9 = v39;
-            [v39 setObject:v17 forKey:v26];
+            v25 = [v14[43] numberWithInt:v18];
+            v9 = v38;
+            [v38 setObject:v17 forKey:v25];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v39 objects:v43 count:16];
         if (v12)
         {
           continue;
@@ -122,7 +103,7 @@ LABEL_23:
       }
     }
 
-    v7 = v36;
+    v7 = v35;
   }
 
   else
@@ -135,36 +116,36 @@ LABEL_23:
       goto LABEL_25;
     }
 
-    v37 = a1;
-    v38 = v8;
-    v27 = [v8 componentsSeparatedByString:{@", "}];
-    if ([v27 count])
+    v36 = a1;
+    v37 = v8;
+    v26 = [v8 componentsSeparatedByString:{@", "}];
+    if ([v26 count])
     {
-      v28 = 0;
+      v27 = 0;
       do
       {
-        v29 = [v27 objectAtIndex:v28];
-        v30 = +[NSCharacterSet whitespaceCharacterSet];
-        v31 = [v29 stringByTrimmingCharactersInSet:v30];
+        v28 = [v26 objectAtIndex:v27];
+        v29 = +[NSCharacterSet whitespaceCharacterSet];
+        v30 = [v28 stringByTrimmingCharactersInSet:v29];
 
-        if (([v31 isEqual:&stru_100008428] & 1) == 0)
+        if (([v30 isEqual:&stru_100008428] & 1) == 0)
         {
-          v32 = [NSNumber numberWithInt:(v28 + 2)];
-          [v9 setObject:v31 forKey:v32];
+          v31 = [NSNumber numberWithInt:(v27 + 2)];
+          [v9 setObject:v30 forKey:v31];
         }
 
-        ++v28;
+        ++v27;
       }
 
-      while ([v27 count] > v28);
+      while ([v26 count] > v27);
     }
   }
 
-  v33 = *(v37 + 32);
-  v34 = [v9 copy];
-  [v33 setObject:v34 forKey:v7];
+  v32 = *(v36 + 32);
+  v33 = [v9 copy];
+  [v32 setObject:v33 forKey:v7];
 
-  v8 = v38;
+  v8 = v37;
 LABEL_25:
 }
 

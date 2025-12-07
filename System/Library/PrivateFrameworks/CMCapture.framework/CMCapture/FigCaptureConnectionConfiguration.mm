@@ -216,7 +216,7 @@ LABEL_10:
   selfCopy = self;
   if (!encoding)
   {
-    [FigCaptureConnectionConfiguration initWithXPCEncoding:];
+    [(FigCaptureConnectionConfiguration *)self initWithXPCEncoding:a2];
     goto LABEL_10;
   }
 
@@ -381,20 +381,6 @@ LABEL_8:
   {
     return 0;
   }
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

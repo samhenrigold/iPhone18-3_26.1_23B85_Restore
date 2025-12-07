@@ -6,29 +6,29 @@
 
 - (id)arrayDroppingNSNullValues
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -38,7 +38,7 @@
             arrayDroppingNSNullValues = [v8 arrayDroppingNSNullValues];
 LABEL_13:
             v10 = arrayDroppingNSNullValues;
-            [array addObject:{arrayDroppingNSNullValues, v14}];
+            [array addObject:{arrayDroppingNSNullValues, v13}];
 
             goto LABEL_14;
           }
@@ -57,7 +57,7 @@ LABEL_13:
             goto LABEL_13;
           }
 
-          [array addObject:{v8, v14}];
+          [array addObject:{v8, v13}];
         }
 
 LABEL_14:
@@ -65,14 +65,12 @@ LABEL_14:
       }
 
       while (v5 != v7);
-      v11 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v11 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       v5 = v11;
     }
 
     while (v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }

@@ -80,7 +80,7 @@
 
 - (void)start
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = LKLogDefault;
   if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
@@ -90,78 +90,62 @@
   }
 
   [(LKNotificationListenerOperation *)self setOperationExecuting:1];
-  if (![(LKNotificationListenerOperation *)self isCancelled])
+  if ([(LKNotificationListenerOperation *)self isCancelled])
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __40__LKNotificationListenerOperation_start__block_invoke;
-    v25[3] = &unk_2798263D0;
-    v25[4] = self;
-    v4 = MEMORY[0x259C5D090](v25);
-    [(LKNotificationListenerOperation *)self timeOutPeriod];
-    v6 = dispatch_time(0, (v5 * 1000000000.0));
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __40__LKNotificationListenerOperation_start__block_invoke_2;
-    block[3] = &unk_279826428;
-    block[4] = self;
-    v7 = v4;
-    v24 = v7;
-    dispatch_after(v6, MEMORY[0x277D85CD0], block);
-    v8 = [(LKNotificationListenerOperation *)self _notificationForNotificationType:[(LKNotificationListenerOperation *)self notificationType]];
-    uTF8String = [v8 UTF8String];
-    v10 = dispatch_get_global_queue(0, 0);
-    handler[0] = MEMORY[0x277D85DD0];
-    handler[1] = 3221225472;
-    handler[2] = __40__LKNotificationListenerOperation_start__block_invoke_12;
-    handler[3] = &unk_279826450;
-    v11 = v8;
-    v21 = v11;
-    v12 = v7;
-    v22 = v12;
-    v13 = notify_register_dispatch(uTF8String, &self->_notifyToken, v10, handler);
+    [(LKNotificationListenerOperation *)self _endOperation];
+    return;
+  }
 
-    listenerStartedBlock = [(LKNotificationListenerOperation *)self listenerStartedBlock];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __40__LKNotificationListenerOperation_start__block_invoke;
+  v24[3] = &unk_2798263D0;
+  v24[4] = self;
+  v4 = MEMORY[0x259C5D090](v24);
+  [(LKNotificationListenerOperation *)self timeOutPeriod];
+  v6 = dispatch_time(0, (v5 * 1000000000.0));
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __40__LKNotificationListenerOperation_start__block_invoke_2;
+  block[3] = &unk_279826428;
+  block[4] = self;
+  v7 = v4;
+  v23 = v7;
+  dispatch_after(v6, MEMORY[0x277D85CD0], block);
+  v8 = [(LKNotificationListenerOperation *)self _notificationForNotificationType:[(LKNotificationListenerOperation *)self notificationType]];
+  uTF8String = [v8 UTF8String];
+  v10 = dispatch_get_global_queue(0, 0);
+  handler[0] = MEMORY[0x277D85DD0];
+  handler[1] = 3221225472;
+  handler[2] = __40__LKNotificationListenerOperation_start__block_invoke_12;
+  handler[3] = &unk_279826450;
+  v11 = v8;
+  v20 = v11;
+  v12 = v7;
+  v21 = v12;
+  v13 = notify_register_dispatch(uTF8String, &self->_notifyToken, v10, handler);
 
-    if (listenerStartedBlock)
+  listenerStartedBlock = [(LKNotificationListenerOperation *)self listenerStartedBlock];
+
+  if (listenerStartedBlock)
+  {
+    listenerStartedBlock2 = [(LKNotificationListenerOperation *)self listenerStartedBlock];
+    listenerStartedBlock2[2]();
+
+    [(LKNotificationListenerOperation *)self setListenerStartedBlock:0];
+    if (!v13)
     {
-      listenerStartedBlock2 = [(LKNotificationListenerOperation *)self listenerStartedBlock];
-      listenerStartedBlock2[2]();
-
-      [(LKNotificationListenerOperation *)self setListenerStartedBlock:0];
-      if (!v13)
-      {
-        goto LABEL_13;
-      }
+      goto LABEL_13;
     }
 
-    else
-    {
-      v16 = LKLogDefault;
-      if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_ERROR))
-      {
-        [(LKNotificationListenerOperation *)v16 start];
-        if (!v13)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      else if (!v13)
-      {
-LABEL_13:
-
-        goto LABEL_14;
-      }
-    }
-
+LABEL_10:
     v17 = LKLogDefault;
     if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       selfCopy = v11;
-      v28 = 1026;
-      v29 = v13;
+      v27 = 1026;
+      v28 = v13;
       _os_log_impl(&dword_25618F000, v17, OS_LOG_TYPE_DEFAULT, "Could not register for %@ notification error %{public}d", buf, 0x12u);
     }
 
@@ -171,9 +155,24 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  [(LKNotificationListenerOperation *)self _endOperation];
-LABEL_14:
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = LKLogDefault;
+  if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_ERROR))
+  {
+    [(LKNotificationListenerOperation *)v16 start];
+    if (!v13)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (v13)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_13:
 }
 
 void __40__LKNotificationListenerOperation_start__block_invoke(uint64_t a1, void *a2)
@@ -199,45 +198,41 @@ void __40__LKNotificationListenerOperation_start__block_invoke(uint64_t a1, void
 
 void __40__LKNotificationListenerOperation_start__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LKLogDefault;
   if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     [v3 timeOutPeriod];
-    v9 = 134217984;
-    v10 = v5;
-    _os_log_impl(&dword_25618F000, v4, OS_LOG_TYPE_DEFAULT, "Notification hasn't posted in the given period (%f seconds). Timing out.", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = v5;
+    _os_log_impl(&dword_25618F000, v4, OS_LOG_TYPE_DEFAULT, "Notification hasn't posted in the given period (%f seconds). Timing out.", &v8, 0xCu);
   }
 
   v6 = *(a1 + 40);
   v7 = [*(a1 + 32) _errorForNotificationType:{objc_msgSend(*(a1 + 32), "notificationType")}];
   (*(v6 + 16))(v6, v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40__LKNotificationListenerOperation_start__block_invoke_12(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = LKLogDefault;
   if (os_log_type_enabled(LKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_25618F000, v2, OS_LOG_TYPE_DEFAULT, "Notified with %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_25618F000, v2, OS_LOG_TYPE_DEFAULT, "Notified with %@", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)cancel
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([(LKNotificationListenerOperation *)self isExecuting]&& [(LKNotificationListenerOperation *)self notifyToken]!= -1)
   {
     v3 = LKLogDefault;
@@ -246,7 +241,7 @@ uint64_t __40__LKNotificationListenerOperation_start__block_invoke_12(uint64_t a
       v4 = v3;
       v5 = [(LKNotificationListenerOperation *)self _notificationForNotificationType:[(LKNotificationListenerOperation *)self notificationType]];
       *buf = 138412290;
-      v9 = v5;
+      v8 = v5;
       _os_log_impl(&dword_25618F000, v4, OS_LOG_TYPE_DEFAULT, "Cancel listening the notification: %@", buf, 0xCu);
     }
 
@@ -254,10 +249,9 @@ uint64_t __40__LKNotificationListenerOperation_start__block_invoke_12(uint64_t a
   }
 
   [(LKNotificationListenerOperation *)self _endOperation];
-  v7.receiver = self;
-  v7.super_class = LKNotificationListenerOperation;
-  [(LKNotificationListenerOperation *)&v7 cancel];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = LKNotificationListenerOperation;
+  [(LKNotificationListenerOperation *)&v6 cancel];
 }
 
 - (void)_endOperation

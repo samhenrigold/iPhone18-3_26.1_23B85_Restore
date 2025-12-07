@@ -4,6 +4,7 @@
 - (BOOL)changePasswordFrom:(id)from toPassword:(id)password error:(id *)error;
 - (BOOL)makeLockdownAndKeychainConsistentWithError:(id *)error;
 - (BOOL)setPasswordInKeychain:(id)keychain error:(id *)error;
+- (BOOL)setWillEncryptInLockdown:(BOOL)lockdown error:(id *)error;
 - (MBDriveEncryptionManager)initWithSettingsContext:(id)context;
 - (void)dealloc;
 @end
@@ -48,7 +49,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Decoding backup keybag", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Decoding backup keybag");
     }
 
     v13 = [MBKeyBag keybagWithData:v11 error:error];
@@ -60,7 +61,7 @@
       {
         *v20 = 0;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Changing backup keybag password", v20, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Changing backup keybag password");
       }
 
       LODWORD(v13) = [(MBKeyBag *)v14 changePasswordFrom:password toPassword:toPassword error:error];
@@ -71,7 +72,7 @@
         {
           *v19 = 0;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Encoding backup keybag", v19, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Encoding backup keybag");
         }
 
         v13 = [(MBKeyBag *)v14 dataWithError:error];
@@ -101,7 +102,7 @@
 
 - (BOOL)changePasswordFrom:(id)from toPassword:(id)password error:(id *)error
 {
-  v50 = 0;
+  v49 = 0;
   v9 = objc_opt_new();
   if (!v9)
   {
@@ -116,23 +117,23 @@
   }
 
   v12 = v11;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
   v13 = dispatch_semaphore_create(0);
-  v45[0] = _NSConcreteStackBlock;
-  v45[1] = 3221225472;
-  v45[2] = sub_10006B918;
-  v45[3] = &unk_1003BC890;
-  v45[4] = v13;
-  v45[5] = &v46;
-  [v10 evaluatePolicy:1013 options:v12 reply:v45];
+  v44[0] = _NSConcreteStackBlock;
+  v44[1] = 3221225472;
+  v44[2] = sub_10006B918;
+  v44[3] = &unk_1003BC890;
+  v44[4] = v13;
+  v44[5] = &v45;
+  [v10 evaluatePolicy:1013 options:v12 reply:v44];
   v14 = dispatch_time(0, 1800000000000);
   if (!dispatch_semaphore_wait(v13, v14))
   {
 
-    if ((v47[3] & 1) == 0)
+    if ((v46[3] & 1) == 0)
     {
       if (error)
       {
@@ -148,7 +149,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Changing backup password", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Changing backup password");
     }
 
     v18 = from == 0;
@@ -159,7 +160,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "oldPassword is NULL", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "oldPassword is NULL");
       }
     }
 
@@ -170,11 +171,11 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "newPassword is NULL", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "newPassword is NULL");
       }
     }
 
-    v21 = [MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v50];
+    v21 = [MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v49];
     if (v21)
     {
       if (![from isEqualToString:v21])
@@ -184,7 +185,7 @@
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Passwords don't match", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Passwords don't match");
         }
 
         v30 = ![(MBDriveEncryptionManager *)self setWillEncryptInLockdown:1 error:error];
@@ -207,7 +208,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Password matches", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Password matches");
       }
 
       if (!password)
@@ -236,7 +237,7 @@
 
     else
     {
-      if (![MBError isError:v50 withCode:4])
+      if (![MBError isError:v49 withCode:4])
       {
         goto LABEL_89;
       }
@@ -246,7 +247,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "No password is currently set", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "No password is currently set");
       }
 
       if (!password)
@@ -256,7 +257,7 @@
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "No password given to add either", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "No password given to add either");
         }
 
         v31 = [(MBDriveEncryptionManager *)self setWillEncryptInLockdown:0 error:error];
@@ -279,7 +280,7 @@ LABEL_91:
       }
     }
 
-    v25 = [MBDriveProperties propertiesWithDrive:[(MBDriveSettingsContext *)self->_settingsContext drive] path:[(MBDriveSettingsContext *)self->_settingsContext driveSnapshotPropertiesPath] error:&v50];
+    v25 = [MBDriveProperties propertiesWithDrive:[(MBDriveSettingsContext *)self->_settingsContext drive] path:[(MBDriveSettingsContext *)self->_settingsContext driveSnapshotPropertiesPath] error:&v49];
     v26 = v25;
     if (v25)
     {
@@ -290,7 +291,7 @@ LABEL_91:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "Snapshot not encrypted", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Snapshot not encrypted");
         }
 
         goto LABEL_53;
@@ -301,7 +302,7 @@ LABEL_91:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Changing snapshot properties password", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Changing snapshot properties password");
       }
 
       if (v18)
@@ -311,26 +312,26 @@ LABEL_91:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Skipping change snapshot properties password - oldPassword is NULL", buf, 2u);
-          _MBLog();
+          _MBLog(@"Df", "Skipping change snapshot properties password - oldPassword is NULL");
         }
 
         goto LABEL_53;
       }
 
-      if ([(MBDriveEncryptionManager *)self _changeBackupKeyBagPasswordInProperties:v26 fromPassword:from toPassword:password error:&v50])
+      if ([(MBDriveEncryptionManager *)self _changeBackupKeyBagPasswordInProperties:v26 fromPassword:from toPassword:password error:&v49])
       {
-        v31 = [[(MBDriveSettingsContext *)self->_settingsContext drive] uploadPropertyList:[(MBProperties *)v26 propertyList] toPath:[(MBDriveSettingsContext *)self->_settingsContext driveSnapshotPropertiesPath] options:0 error:&v50];
+        v31 = [[(MBDriveSettingsContext *)self->_settingsContext drive] uploadPropertyList:[(MBProperties *)v26 propertyList] toPath:[(MBDriveSettingsContext *)self->_settingsContext driveSnapshotPropertiesPath] options:0 error:&v49];
         goto LABEL_52;
       }
 
-      if ([MBError isError:v50 withCode:207])
+      if ([MBError isError:v49 withCode:207])
       {
         v39 = MBGetDefaultLog();
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Password in keychain doesn't match snapshot keybag", buf, 2u);
-          _MBLog();
+          _MBLog(@"Df", "Password in keychain doesn't match snapshot keybag");
         }
 
         goto LABEL_78;
@@ -340,18 +341,18 @@ LABEL_89:
       if (error)
       {
         v23 = 0;
-        *error = v50;
+        *error = v49;
         goto LABEL_92;
       }
 
       goto LABEL_91;
     }
 
-    if (![MBError isError:v50 withCode:4])
+    if (![MBError isError:v49 withCode:4])
     {
       if (error)
       {
-        v16 = [MBBackupHelper driveReadError:v50 description:@"Error reading snapshot manifest properties"];
+        v16 = [MBBackupHelper driveReadError:v49 description:@"Error reading snapshot manifest properties"];
         goto LABEL_27;
       }
 
@@ -363,10 +364,10 @@ LABEL_89:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "No snapshot properties found", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "No snapshot properties found");
     }
 
-    v34 = [MBDriveProperties propertiesWithDrive:[(MBDriveSettingsContext *)self->_settingsContext drive] path:[(MBDriveSettingsContext *)self->_settingsContext driveBackupPropertiesPath] error:&v50];
+    v34 = [MBDriveProperties propertiesWithDrive:[(MBDriveSettingsContext *)self->_settingsContext drive] path:[(MBDriveSettingsContext *)self->_settingsContext driveBackupPropertiesPath] error:&v49];
     v35 = v34;
     if (v34)
     {
@@ -377,7 +378,7 @@ LABEL_89:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Backup not encrypted", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Backup not encrypted");
         }
 
         goto LABEL_78;
@@ -388,7 +389,7 @@ LABEL_89:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Changing backup properties password", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Changing backup properties password");
       }
 
       if (v18)
@@ -398,22 +399,22 @@ LABEL_89:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Skipping change backup properties password - oldPassword is NULL", buf, 2u);
-          _MBLog();
+          _MBLog(@"Df", "Skipping change backup properties password - oldPassword is NULL");
         }
 
         goto LABEL_78;
       }
 
-      if (![(MBDriveEncryptionManager *)self _changeBackupKeyBagPasswordInProperties:v35 fromPassword:from toPassword:password error:&v50])
+      if (![(MBDriveEncryptionManager *)self _changeBackupKeyBagPasswordInProperties:v35 fromPassword:from toPassword:password error:&v49])
       {
-        if ([MBError isError:v50 withCode:207])
+        if ([MBError isError:v49 withCode:207])
         {
           v42 = MBGetDefaultLog();
           if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Password in keychain doesn't match backup keybag", buf, 2u);
-            _MBLog();
+            _MBLog(@"Df", "Password in keychain doesn't match backup keybag");
           }
 
           goto LABEL_78;
@@ -430,11 +431,11 @@ LABEL_89:
 
     else
     {
-      if (![MBError isError:v50 withCode:4])
+      if (![MBError isError:v49 withCode:4])
       {
         if (error)
         {
-          v16 = [MBBackupHelper driveReadError:v50 description:@"Error reading backup manifest properties"];
+          v16 = [MBBackupHelper driveReadError:v49 description:@"Error reading backup manifest properties"];
           goto LABEL_27;
         }
 
@@ -446,12 +447,12 @@ LABEL_89:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "No properties found in backup or snapshot", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "No properties found in backup or snapshot");
       }
     }
 
 LABEL_78:
-    v50 = 0;
+    v49 = 0;
     goto LABEL_53;
   }
 
@@ -459,10 +460,9 @@ LABEL_78:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v52 = 30;
+    v51 = 30;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Timed out waiting %lld minutes for passcode", buf, 0xCu);
-    v44 = 30;
-    _MBLog();
+    _MBLog(@"E ", "Timed out waiting %lld minutes for passcode", 30);
   }
 
   [v10 invalidate];
@@ -477,7 +477,7 @@ LABEL_27:
   v23 = 0;
   *error = v16;
 LABEL_92:
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v45, 8);
   return v23;
 }
 
@@ -530,7 +530,7 @@ LABEL_92:
   {
     *v9 = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Making lockdown and keychain consistent", v9, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Making lockdown and keychain consistent");
   }
 
   if ([MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v10])
@@ -554,6 +554,55 @@ LABEL_92:
   }
 
   return result;
+}
+
+- (BOOL)setWillEncryptInLockdown:(BOOL)lockdown error:(id *)error
+{
+  lockdownCopy = lockdown;
+  v6 = MBGetDefaultLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    v14 = lockdownCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Setting WillEncrypt=%d in lockdown", buf, 8u);
+    _MBLog(@"I ", "Setting WillEncrypt=%d in lockdown", lockdownCopy);
+  }
+
+  v7 = +[MBLockdown connect];
+  if (!lockdownCopy)
+  {
+    v8 = +[MCProfileConnection sharedConnection];
+    if ([v8 effectiveBoolValueForSetting:MCFeatureEncryptedBackupRequired] == 1)
+    {
+      if (error)
+      {
+        v9 = @"Cannot remove iTunes Backup Encryption - Encrypted Backup MDM setting present on device";
+        v10 = 22;
+LABEL_11:
+        v11 = 0;
+        *error = [MBError errorWithCode:v10 format:v9];
+        return v11;
+      }
+
+      return 0;
+    }
+  }
+
+  if (!v7)
+  {
+    if (error)
+    {
+      v9 = @"Error connecting to lockdown";
+      v10 = 1;
+      goto LABEL_11;
+    }
+
+    return 0;
+  }
+
+  v11 = [v7 setObject:+[NSNumber numberWithBool:](NSNumber forDomain:"numberWithBool:" andKey:lockdownCopy) withError:{@"com.apple.mobile.backup", @"WillEncrypt", error}];
+  [v7 disconnect];
+  return v11;
 }
 
 @end

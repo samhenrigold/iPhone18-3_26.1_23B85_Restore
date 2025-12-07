@@ -14,11 +14,11 @@
 
   v8 = v6;
   v9 = v7;
-  v10 = [(TUILayout *)self box];
+  v10 = objc_msgSend_box(self);
   progressMode = [v10 progressMode];
-  v12 = [progressMode isEqualToString:@"activityIndicator"];
+  v12 = objc_msgSend_isEqualToString_(progressMode);
 
-  v13 = [(TUILayout *)self box];
+  v13 = objc_msgSend_box(self);
   [v13 identifier];
   if (v12)
     v14 = {;
@@ -27,18 +27,18 @@
 
   else
     v14 = {;
-    v29 = [(TUILayout *)self box];
+    v29 = objc_msgSend_box(self);
     progressId = [v29 progressId];
-    v27 = [(TUILayout *)self box];
+    v27 = objc_msgSend_box(self);
     progressMode2 = [v27 progressMode];
-    v25 = [(TUILayout *)self box];
+    v25 = objc_msgSend_box(self);
     [v25 progress];
     v17 = v16;
-    v18 = [(TUILayout *)self box];
+    v18 = objc_msgSend_box(self);
     dynamicProgress = [v18 dynamicProgress];
-    v20 = [(TUILayout *)self box];
+    v20 = objc_msgSend_box(self);
     paused = [v20 paused];
-    v22 = [(TUILayout *)self box];
+    v22 = objc_msgSend_box(self);
     color = [v22 color];
     v15 = [TUIProgressView renderModelWithIdentifier:v14 progressId:progressId mode:progressMode2 value:dynamicProgress dynamicProgress:paused paused:color color:v17];
   }

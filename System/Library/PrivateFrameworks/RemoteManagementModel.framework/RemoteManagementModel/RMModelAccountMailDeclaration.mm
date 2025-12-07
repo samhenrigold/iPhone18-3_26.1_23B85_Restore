@@ -13,17 +13,15 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"VisibleName";
-  v7[1] = @"UserIdentityAssetReference";
-  v7[2] = @"IncomingServer";
-  v7[3] = @"OutgoingServer";
-  v7[4] = @"SMIME";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
+  v6[0] = @"VisibleName";
+  v6[1] = @"UserIdentityAssetReference";
+  v6[2] = @"IncomingServer";
+  v6[3] = @"OutgoingServer";
+  v6[4] = @"SMIME";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -42,21 +40,19 @@
 
 void __48__RMModelAccountMailDeclaration_assetReferences__block_invoke()
 {
-  v8[5] = *MEMORY[0x277D85DE8];
+  v7[5] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465E28 keyPath:@"$.payloadUserIdentityAssetReference"];
   v1 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465E40 keyPath:@"$.payloadIncomingServer.payloadAuthenticationCredentialsAssetReference", v0];
-  v8[1] = v1;
+  v7[1] = v1;
   v2 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465E58 keyPath:@"$.payloadOutgoingServer.payloadAuthenticationCredentialsAssetReference"];
-  v8[2] = v2;
+  v7[2] = v2;
   v3 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465E70 keyPath:@"$.payloadSMIME.payloadSigning.payloadIdentityAssetReference"];
-  v8[3] = v3;
+  v7[3] = v3;
   v4 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465E88 keyPath:@"$.payloadSMIME.payloadEncryption.payloadIdentityAssetReference"];
-  v8[4] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
+  v7[4] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
   v6 = assetReferences_assetPaths_4;
   assetReferences_assetPaths_4 = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier visibleName:(id)name userIdentityAssetReference:(id)reference incomingServer:(id)server outgoingServer:(id)outgoingServer SMIME:(id)e
@@ -123,38 +119,36 @@ void __48__RMModelAccountMailDeclaration_assetReferences__block_invoke()
 
 + (id)supportedOS
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21[0] = &unk_28746AB38;
-  v16 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465EA0];
-  v20[0] = v16;
-  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465EB8];
-  v20[1] = v15;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v22[0] = v14;
-  v21[1] = &unk_28746AB80;
+  v21[4] = *MEMORY[0x277D85DE8];
+  v20[0] = &unk_28746AB38;
+  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465EA0];
+  v19[0] = v15;
+  v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465EB8];
+  v19[1] = v14;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v21[0] = v13;
+  v20[1] = &unk_28746AB80;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465ED0];
-  v19[0] = v2;
+  v18[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465EE8];
-  v19[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-  v22[1] = v4;
-  v21[2] = &unk_28746AB50;
+  v18[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v21[1] = v4;
+  v20[2] = &unk_28746AB50;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465F00];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465F18];
-  v18[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-  v22[2] = v7;
-  v21[3] = &unk_28746AB98;
+  v17[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v21[2] = v7;
+  v20[3] = &unk_28746AB98;
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465F30];
-  v17[0] = v8;
+  v16[0] = v8;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465F48];
-  v17[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v22[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v16[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v21[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   return v11;
 }

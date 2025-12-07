@@ -7,7 +7,7 @@
 
 - (id)labelsForVersion:(int64_t)version
 {
-  v7[13] = *MEMORY[0x277D85DE8];
+  v6[13] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBF8];
   if (version > 2)
   {
@@ -18,20 +18,20 @@
 
     else if (version == 4)
     {
-      v7[0] = @"Snow";
-      v7[1] = @"Sunset_Sunrise";
-      v7[2] = @"Flower";
-      v7[3] = @"Cityscape";
-      v7[4] = @"Waterfall";
-      v7[5] = @"Rainbow";
-      v7[6] = @"Skateboarding";
-      v7[7] = @"Forest";
-      v7[8] = @"Airplane";
-      v7[9] = @"Bird";
-      v7[10] = @"Surfing";
-      v7[11] = @"Baby";
-      v7[12] = @"Coffee";
-      v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:13];
+      v6[0] = @"Snow";
+      v6[1] = @"Sunset_Sunrise";
+      v6[2] = @"Flower";
+      v6[3] = @"Cityscape";
+      v6[4] = @"Waterfall";
+      v6[5] = @"Rainbow";
+      v6[6] = @"Skateboarding";
+      v6[7] = @"Forest";
+      v6[8] = @"Airplane";
+      v6[9] = @"Bird";
+      v6[10] = @"Surfing";
+      v6[11] = @"Baby";
+      v6[12] = @"Coffee";
+      v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:13];
     }
   }
 
@@ -53,8 +53,6 @@
       v3 = v4;
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

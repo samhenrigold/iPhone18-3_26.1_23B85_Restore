@@ -8,7 +8,7 @@
 
 - (id)_speakableTextFromDisambiguationList:(id)list
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   listCopy = list;
   items = [listCopy items];
   v5 = objc_alloc_init(MEMORY[0x277CCAB68]);
@@ -19,21 +19,21 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v27 = "[SVXAceViewSpeakableTextExtractor _speakableTextFromDisambiguationList:]";
-    v28 = 2112;
-    v29 = speakableDelimiter;
+    v26 = "[SVXAceViewSpeakableTextExtractor _speakableTextFromDisambiguationList:]";
+    v27 = 2112;
+    v28 = speakableDelimiter;
     _os_log_debug_impl(&dword_2695B9000, v8, OS_LOG_TYPE_DEBUG, "%s speakableDelimiter = %@", buf, 0x16u);
   }
 
-  v24 = listCopy;
+  v23 = listCopy;
   speakableFinalDelimiter = [listCopy speakableFinalDelimiter];
   v10 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v27 = "[SVXAceViewSpeakableTextExtractor _speakableTextFromDisambiguationList:]";
-    v28 = 2112;
-    v29 = speakableFinalDelimiter;
+    v26 = "[SVXAceViewSpeakableTextExtractor _speakableTextFromDisambiguationList:]";
+    v27 = 2112;
+    v28 = speakableFinalDelimiter;
     _os_log_debug_impl(&dword_2695B9000, v10, OS_LOG_TYPE_DEBUG, "%s speakableFinalDelimiter = %@", buf, 0x16u);
   }
 
@@ -43,20 +43,20 @@
     v13 = 0;
     v14 = v6 - 1;
     *&v11 = 136315650;
-    v23 = v11;
+    v22 = v11;
     do
     {
-      v15 = [items objectAtIndexedSubscript:{v13, v23}];
+      v15 = [items objectAtIndexedSubscript:{v13, v22}];
       speakableText = [v15 speakableText];
       v17 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v23;
-        v27 = "[SVXAceViewSpeakableTextExtractor _speakableTextFromDisambiguationList:]";
-        v28 = 2048;
-        v29 = v13;
-        v30 = 2112;
-        v31 = speakableText;
+        *buf = v22;
+        v26 = "[SVXAceViewSpeakableTextExtractor _speakableTextFromDisambiguationList:]";
+        v27 = 2048;
+        v28 = v13;
+        v29 = 2112;
+        v30 = speakableText;
         _os_log_debug_impl(&dword_2695B9000, v17, OS_LOG_TYPE_DEBUG, "%s disambiguationListItems[%tu].speakableText = %@", buf, 0x20u);
       }
 
@@ -100,14 +100,12 @@ LABEL_17:
     while (v13 < [items count]);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)extractWithAceView:(id)view
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -119,11 +117,11 @@ LABEL_17:
     v9 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "[SVXAceViewSpeakableTextExtractor extractWithAceView:]";
-      v17 = 2112;
-      v18 = speakableText;
-      _os_log_debug_impl(&dword_2695B9000, v9, OS_LOG_TYPE_DEBUG, "%s speakablePrefix = %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[SVXAceViewSpeakableTextExtractor extractWithAceView:]";
+      v16 = 2112;
+      v17 = speakableText;
+      _os_log_debug_impl(&dword_2695B9000, v9, OS_LOG_TYPE_DEBUG, "%s speakablePrefix = %@", &v14, 0x16u);
     }
 
     if ([speakableText length])
@@ -138,11 +136,11 @@ LABEL_17:
     v12 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "[SVXAceViewSpeakableTextExtractor extractWithAceView:]";
-      v17 = 2112;
-      v18 = speakableSuffix;
-      _os_log_debug_impl(&dword_2695B9000, v12, OS_LOG_TYPE_DEBUG, "%s speakableSuffix = %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[SVXAceViewSpeakableTextExtractor extractWithAceView:]";
+      v16 = 2112;
+      v17 = speakableSuffix;
+      _os_log_debug_impl(&dword_2695B9000, v12, OS_LOG_TYPE_DEBUG, "%s speakableSuffix = %@", &v14, 0x16u);
     }
 
     if ([speakableSuffix length])
@@ -156,34 +154,32 @@ LABEL_17:
     speakableText2 = [viewCopy speakableText];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return speakableText2;
 }
 
 - (BOOL)hasSpeakableTexts:(id)texts
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   views = [texts views];
-  v5 = [views countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [views countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(views);
         }
 
-        v9 = [(SVXAceViewSpeakableTextExtractor *)self extractWithAceView:*(*(&v14 + 1) + 8 * i)];
+        v9 = [(SVXAceViewSpeakableTextExtractor *)self extractWithAceView:*(*(&v13 + 1) + 8 * i)];
         v10 = [v9 length];
 
         if (v10)
@@ -193,7 +189,7 @@ LABEL_17:
         }
       }
 
-      v6 = [views countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [views countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -206,7 +202,6 @@ LABEL_17:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

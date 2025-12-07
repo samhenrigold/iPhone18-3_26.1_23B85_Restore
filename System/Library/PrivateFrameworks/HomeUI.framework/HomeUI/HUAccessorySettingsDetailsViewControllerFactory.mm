@@ -24,34 +24,34 @@
   return v9;
 }
 
-void __90__HUAccessorySettingsDetailsViewControllerFactory__viewControllerForIdentifier_groupItem___block_invoke_2()
+void __90__HUAccessorySettingsDetailsViewControllerFactory__viewControllerForIdentifier_groupItem___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3[11] = *MEMORY[0x277D85DE8];
-  v2[0] = @"AnalyticsLogsViewController";
-  v3[0] = objc_opt_class();
-  v2[1] = @"AnalyticsViewController";
-  v3[1] = objc_opt_class();
-  v2[2] = @"AppleMusicAccountViewController";
-  v3[2] = objc_opt_class();
-  v2[3] = @"DataAnalyticsViewController";
-  v3[3] = objc_opt_class();
-  v2[4] = @"DoorbellChimeDevicesViewController";
-  v3[4] = objc_opt_class();
-  v2[5] = @"PlaybackInfluencesViewController";
-  v3[5] = objc_opt_class();
-  v2[6] = @"ProfilesViewController";
-  v3[6] = objc_opt_class();
-  v2[7] = @"SiriHistoryViewController";
-  v3[7] = objc_opt_class();
-  v2[8] = @"SiriOutputVoiceViewController";
-  v3[8] = objc_opt_class();
-  v2[9] = @"SiriPersonalRequestsViewController";
-  v3[9] = objc_opt_class();
-  v2[10] = @"SiriRecognitionLanguageViewController";
-  v3[10] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:11];
-  v1 = qword_2811221F8;
-  qword_2811221F8 = v0;
+  v5[11] = *MEMORY[0x277D85DE8];
+  v4[0] = @"AnalyticsLogsViewController";
+  v5[0] = objc_opt_class();
+  v4[1] = @"AnalyticsViewController";
+  v5[1] = objc_opt_class();
+  v4[2] = @"AppleMusicAccountViewController";
+  v5[2] = objc_opt_class();
+  v4[3] = @"DataAnalyticsViewController";
+  v5[3] = objc_opt_class();
+  v4[4] = @"DoorbellChimeDevicesViewController";
+  v5[4] = objc_opt_class();
+  v4[5] = @"PlaybackInfluencesViewController";
+  v5[5] = objc_opt_class();
+  v4[6] = @"ProfilesViewController";
+  v5[6] = objc_opt_class();
+  v4[7] = @"SiriHistoryViewController";
+  v5[7] = objc_opt_class();
+  v4[8] = @"SiriOutputVoiceViewController";
+  v5[8] = objc_opt_class();
+  v4[9] = @"SiriPersonalRequestsViewController";
+  v5[9] = objc_opt_class();
+  v4[10] = @"SiriRecognitionLanguageViewController";
+  v5[10] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:11];
+  v3 = qword_2811221F8;
+  qword_2811221F8 = v2;
 }
 
 + (id)_viewControllerForIdentifier:(id)identifier settingItem:(id)item
@@ -71,20 +71,20 @@ void __90__HUAccessorySettingsDetailsViewControllerFactory__viewControllerForIde
   return v9;
 }
 
-void __92__HUAccessorySettingsDetailsViewControllerFactory__viewControllerForIdentifier_settingItem___block_invoke_2()
+void __92__HUAccessorySettingsDetailsViewControllerFactory__viewControllerForIdentifier_settingItem___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v2[0] = @"AnnounceSettingsViewController";
-  v3[0] = objc_opt_class();
-  v2[1] = @"AudioAnalysisSettingsViewController";
-  v3[1] = objc_opt_class();
-  v2[2] = @"PlaybackInfluencesViewController";
-  v3[2] = objc_opt_class();
-  v2[3] = @"SiriTriggerPhraseSettingDetailsViewController";
-  v3[3] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
-  v1 = qword_281122208;
-  qword_281122208 = v0;
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"AnnounceSettingsViewController";
+  v5[0] = objc_opt_class();
+  v4[1] = @"AudioAnalysisSettingsViewController";
+  v5[1] = objc_opt_class();
+  v4[2] = @"PlaybackInfluencesViewController";
+  v5[2] = objc_opt_class();
+  v4[3] = @"SiriTriggerPhraseSettingDetailsViewController";
+  v5[3] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
+  v3 = qword_281122208;
+  qword_281122208 = v2;
 }
 
 + (id)viewControllerForSettingItem:(id)item

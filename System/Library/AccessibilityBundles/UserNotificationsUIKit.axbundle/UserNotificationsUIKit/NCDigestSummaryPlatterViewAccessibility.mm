@@ -33,7 +33,7 @@
 
 - (id)accessibilityLabel
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v3 = [(NCDigestSummaryPlatterViewAccessibility *)self safeStringForKey:@"heading"];
   v4 = [(NCDigestSummaryPlatterViewAccessibility *)self safeValueForKeyPath:@"_summaryView._timeStampLabel"];
   if ([(NCDigestSummaryPlatterViewAccessibility *)self safeUnsignedIntegerForKey:@"count"])
@@ -45,33 +45,33 @@
     v8 = [(NCDigestSummaryPlatterViewAccessibility *)self safeArrayForKey:@"featuredNotificationContentProviders"];
     if ([v8 count])
     {
-      v25 = v7;
+      v24 = v7;
       array = [MEMORY[0x29EDB8DE8] array];
-      v26 = v4;
-      v27 = v3;
+      v25 = v4;
+      v26 = v3;
       v10 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{2, v3, v4}];
       [array axSafelyAddObjectsFromArray:v10];
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
-      v24 = v8;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v23 = v8;
       obj = v8;
-      v30 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-      if (v30)
+      v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      if (v29)
       {
-        v29 = *v32;
+        v28 = *v31;
         do
         {
-          for (i = 0; i != v30; ++i)
+          for (i = 0; i != v29; ++i)
           {
-            if (*v32 != v29)
+            if (*v31 != v28)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v31 + 1) + 8 * i);
+            v12 = *(*(&v30 + 1) + 8 * i);
             v13 = [v12 safeValueForKeyPath:@"notificationRequest.content"];
             v14 = [v12 safeValueForKeyPath:@"notificationRequest.options"];
             v15 = [v13 safeStringForKey:@"defaultHeader"];
@@ -107,18 +107,18 @@
             }
           }
 
-          v30 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
-        while (v30);
+        while (v29);
       }
 
       v21 = MEMORY[0x29ED3E8D0](array);
 
-      v4 = v26;
-      v3 = v27;
-      v8 = v24;
-      v7 = v25;
+      v4 = v25;
+      v3 = v26;
+      v8 = v23;
+      v7 = v24;
     }
 
     else
@@ -131,8 +131,6 @@
   {
     v21 = __UIAXStringForVariables();
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 
   return v21;
 }
@@ -153,30 +151,30 @@
 
 - (id)accessibilityCustomActions
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v2 = [(NCDigestSummaryPlatterViewAccessibility *)self safeArrayForKey:@"featuredNotificationContentProviders"];
   array = [MEMORY[0x29EDB8DE8] array];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = v2;
-  v20 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v20)
+  v19 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v19)
   {
-    v18 = *v26;
+    v17 = *v25;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v26 != v18)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v25 + 1) + 8 * i);
+        v4 = *(*(&v24 + 1) + 8 * i);
         v5 = [v4 safeValueForKeyPath:@"notificationRequest.content"];
-        v21 = [v5 safeStringForKey:@"defaultHeader"];
+        v20 = [v5 safeStringForKey:@"defaultHeader"];
         v6 = [v5 safeStringForKey:@"title"];
         v7 = [v5 safeStringForKey:@"message"];
         v8 = [v5 safeValueForKey:@"attachmentImage"];
@@ -190,7 +188,7 @@
           v9 = 0;
         }
 
-        v10 = [MEMORY[0x29EDB8DE8] axArrayByIgnoringNilElementsWithCount:{1, v21}];
+        v10 = [MEMORY[0x29EDB8DE8] axArrayByIgnoringNilElementsWithCount:{1, v20}];
         v11 = [v4 safeValueForKeyPath:@"notificationRequest.options"];
         if (!_isDevicePasscodeLocked() || ([v11 safeBoolForKey:@"suppressesTitleWhenLocked"] & 1) == 0)
         {
@@ -206,25 +204,23 @@
         v12 = MEMORY[0x29ED3E8D0](v10);
         objc_initWeak(&location, v4);
         v13 = objc_alloc(MEMORY[0x29EDC78E0]);
-        v22[0] = MEMORY[0x29EDCA5F8];
-        v22[1] = 3221225472;
-        v22[2] = __69__NCDigestSummaryPlatterViewAccessibility_accessibilityCustomActions__block_invoke;
-        v22[3] = &unk_29F316FB0;
-        objc_copyWeak(&v23, &location);
-        v14 = [v13 initWithName:v12 actionHandler:v22];
+        v21[0] = MEMORY[0x29EDCA5F8];
+        v21[1] = 3221225472;
+        v21[2] = __69__NCDigestSummaryPlatterViewAccessibility_accessibilityCustomActions__block_invoke;
+        v21[3] = &unk_29F316FB0;
+        objc_copyWeak(&v22, &location);
+        v14 = [v13 initWithName:v12 actionHandler:v21];
         [array axSafelyAddObject:v14];
 
-        objc_destroyWeak(&v23);
+        objc_destroyWeak(&v22);
         objc_destroyWeak(&location);
       }
 
-      v20 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v19 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 
   return array;
 }

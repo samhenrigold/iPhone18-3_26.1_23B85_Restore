@@ -364,21 +364,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_6;
-  }
-
-  southLat = self->_southLat;
-  [equalCopy southLat];
-  if (southLat != v6)
-  {
-    goto LABEL_6;
-  }
-
-  westLng = self->_westLng;
-  [equalCopy westLng];
-  if (westLng == v8 && (northLat = self->_northLat, [equalCopy northLat], northLat == v10) && (eastLng = self->_eastLng, objc_msgSend(equalCopy, "eastLng"), eastLng == v12))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && (southLat = self->_southLat, objc_msgSend(equalCopy, "southLat"), southLat == v6) && (westLng = self->_westLng, objc_msgSend(equalCopy, "westLng"), westLng == v8) && (northLat = self->_northLat, objc_msgSend(equalCopy, "northLat"), northLat == v10) && (eastLng = self->_eastLng, objc_msgSend(equalCopy, "eastLng"), eastLng == v12))
   {
     altitudeInMeters = self->_altitudeInMeters;
     [equalCopy altitudeInMeters];
@@ -387,7 +373,6 @@
 
   else
   {
-LABEL_6:
     v13 = 0;
   }
 

@@ -31,10 +31,9 @@
 
 - (void)actionMain
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_ERROR, "[ERROR] Requested default container for application record %@ with nil bundle identifier", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_ERROR, "[ERROR] Requested default container for application record %@ with nil bundle identifier", v1, 0xCu);
 }
 
 void __46__FPFetchDefaultContainerOperation_actionMain__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -72,13 +71,10 @@ void __46__FPFetchDefaultContainerOperation_actionMain__block_invoke(uint64_t a1
 
 void __46__FPFetchDefaultContainerOperation_actionMain__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

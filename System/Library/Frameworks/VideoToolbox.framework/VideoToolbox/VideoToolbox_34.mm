@@ -1327,7 +1327,7 @@ LABEL_29:
           a1.i16[2] = v52[1];
           v52 += 2;
           a1 = (*&vuzp1_s16(a1, a1) & 0xFFC0FFC0FFC0FFC0);
-          *v51++ = *&a1;
+          *v51++ = a1;
           v42 = __CFADD__(v54++, 1);
         }
 
@@ -1344,8 +1344,8 @@ LABEL_29:
       {
         v56 = *v52 & 0xFFC0;
         v57 = v52[1] & 0xFFC0;
-        *v51 = v56;
-        *(v51 + 1) = v57;
+        v51->i16[0] = v56;
+        v51->i16[1] = v57;
       }
 
       v12 = (v12 + v11);
@@ -1589,7 +1589,7 @@ LABEL_29:
           a1.i16[2] = v48[1];
           v48 += 2;
           a1 = (*&vuzp1_s16(a1, a1) & 0xFFC0FFC0FFC0FFC0);
-          *v47++ = *&a1;
+          *v47++ = a1;
           v38 = __CFADD__(v50++, 1);
         }
 
@@ -1606,8 +1606,8 @@ LABEL_29:
       {
         v52 = *v48 & 0xFFC0;
         v53 = v48[1] & 0xFFC0;
-        *v47 = v52;
-        *(v47 + 1) = v53;
+        v47->i16[0] = v52;
+        v47->i16[1] = v53;
       }
 
       v12 = (v12 + v11);
@@ -9455,7 +9455,7 @@ LABEL_62:
   return 0;
 }
 
-vImage_Error vt_VImage_Setup_x422_w30r(unint64_t a1, unint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint8_t a6, uint64_t a7, vImage_YpCbCrToARGB **a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_x422_w30r(unint64_t a1, unint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint8_t a6, uint64_t a7, vImage_YpCbCrToARGB **a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v22 = 0uLL;
   v23 = 0;
@@ -9859,7 +9859,7 @@ LABEL_29:
           a1.i16[2] = v52[1];
           v52 += 2;
           a1 = (*&vuzp1_s16(a1, a1) & 0xFFC0FFC0FFC0FFC0);
-          *v51++ = *&a1;
+          *v51++ = a1;
           v42 = __CFADD__(v54++, 1);
         }
 
@@ -9876,8 +9876,8 @@ LABEL_29:
       {
         v56 = *v52 & 0xFFC0;
         v57 = v52[1] & 0xFFC0;
-        *v51 = v56;
-        *(v51 + 1) = v57;
+        v51->i16[0] = v56;
+        v51->i16[1] = v57;
       }
 
       v13 = (v13 + v12);

@@ -16,23 +16,23 @@
 
 - (void)initWithParent:()LSInstallProgressAdditions bundleID:andPhase:
 {
-  v19[5] = *MEMORY[0x1E69E9840];
+  v18[5] = *MEMORY[0x1E69E9840];
   v7 = *MEMORY[0x1E696A7F8];
-  v19[0] = a4;
-  v18[0] = v7;
-  v18[1] = @"installPhase";
+  v18[0] = a4;
+  v17[0] = v7;
+  v17[1] = @"installPhase";
   v8 = MEMORY[0x1E696AD98];
   v9 = a4;
   v10 = [v8 numberWithUnsignedInteger:a5];
-  v19[1] = v10;
-  v18[2] = @"installState";
+  v18[1] = v10;
+  v17[2] = @"installState";
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0];
-  v19[2] = v11;
-  v19[3] = v9;
-  v18[3] = @"bundleID";
-  v18[4] = @"expectedFinalInstallPhase";
-  v19[4] = &unk_1EEF8EFD8;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v18[2] = v11;
+  v18[3] = v9;
+  v17[3] = @"bundleID";
+  v17[4] = @"expectedFinalInstallPhase";
+  v18[4] = &unk_1EEF8EFD8;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
 
   v13 = [self initWithParent:0 userInfo:v12];
   v14 = v13;
@@ -57,13 +57,12 @@
     [v14 setPrioritizable:v15];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (id)childProgressForBundleID:()LSInstallProgressAdditions andPhase:
 {
-  v6 = [self publishingKeyForApp:? withPhase:?];
+  v6 = [self publishingKeyForApp:a3 withPhase:?];
   v7 = [[self alloc] initWithParent:0 bundleID:v6 andPhase:a4];
 
   return v7;

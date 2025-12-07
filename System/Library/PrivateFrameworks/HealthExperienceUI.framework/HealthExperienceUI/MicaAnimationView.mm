@@ -45,7 +45,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1BA220D4C();
+  sub_1BA220D4C(selfCopy);
 }
 
 - (void)stepAnimationForLayer:(id)layer

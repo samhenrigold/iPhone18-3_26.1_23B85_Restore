@@ -6,6 +6,8 @@
 - (void)_willAppearInRemoteViewController:(id)controller;
 - (void)alertProxy:(id)proxy didReceiveMessage:(id)message;
 - (void)dealloc;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ServiceTouchIDAlertViewController
@@ -16,6 +18,50 @@
   v3.receiver = self;
   v3.super_class = ServiceTouchIDAlertViewController;
   [(ServiceTouchIDAlertViewController *)&v3 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  objc_initWeak(&location, self);
+  v5 = +[ServiceAlertQueue defaultQueue];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10000FEC4;
+  v11[3] = &unk_1000516D8;
+  objc_copyWeak(&v12, &location);
+  [v5 getNextAlertForClassName:@"ServiceTouchIDAlertViewController" completionBlock:v11];
+
+  _remoteViewControllerProxy = [(ServiceTouchIDAlertViewController *)self _remoteViewControllerProxy];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [_remoteViewControllerProxy setIdleTimerDisabled:1 forReason:v8];
+
+  _remoteViewControllerProxy2 = [(ServiceTouchIDAlertViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy2 setDesiredHardwareButtonEvents:16];
+
+  v10.receiver = self;
+  v10.super_class = ServiceTouchIDAlertViewController;
+  [(ServiceTouchIDAlertViewController *)&v10 viewDidAppear:appearCopy];
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&location);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  remoteAlertProxy = self->_remoteAlertProxy;
+  if (remoteAlertProxy)
+  {
+    [(ServiceAlertProxy *)remoteAlertProxy setDelegate:0];
+    [(ServiceAlertProxy *)self->_remoteAlertProxy invalidate];
+    v6 = self->_remoteAlertProxy;
+    self->_remoteAlertProxy = 0;
+  }
+
+  v7.receiver = self;
+  v7.super_class = ServiceTouchIDAlertViewController;
+  [(ServiceTouchIDAlertViewController *)&v7 viewWillDisappear:disappearCopy];
 }
 
 - (void)_willAppearInRemoteViewController:(id)controller

@@ -43,15 +43,14 @@
 {
   v6 = sub_240A2946C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6, v9);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_240A2944C();
   selfCopy = self;
   errorCopy = error;
-  sub_2409B6A10(v11, error);
+  sub_2409B6A10(v9, error);
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)remoteUIDidHandleButton:(id)button
@@ -64,20 +63,19 @@
 - (void)remoteUIDidDismiss:(id)dismiss
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E50B420, &qword_240A30800);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8, v6);
-  v8 = &v14 - v7;
-  v9 = sub_240A2C24C();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v12 - v5;
+  v7 = sub_240A2C24C();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
   sub_240A2C21C();
   selfCopy = self;
-  v11 = sub_240A2C20C();
-  v12 = swift_allocObject();
-  v13 = MEMORY[0x277D85700];
-  v12[2] = v11;
-  v12[3] = v13;
-  v12[4] = selfCopy;
-  sub_2409230D4(0, 0, v8, &unk_240A356D8, v12);
+  v9 = sub_240A2C20C();
+  v10 = swift_allocObject();
+  v11 = MEMORY[0x277D85700];
+  v10[2] = v9;
+  v10[3] = v11;
+  v10[4] = selfCopy;
+  sub_2409230D4(0, 0, v6, &unk_240A356D8, v10);
 }
 
 - (id)accountsForAccountManager:(id)manager
@@ -101,7 +99,7 @@
 
     type metadata accessor for AIDAServiceType(0);
     sub_2409194E8(0, &qword_27E50C600, 0x277CB8F30);
-    sub_2409B8508(&qword_27E50BAF0, type metadata accessor for AIDAServiceType);
+    sub_2409B8508(&qword_27E50BAF0, type metadata accessor for AIDAServiceType, &unk_240A2F50C);
     v11 = sub_240A2BE9C();
 
     return v11;

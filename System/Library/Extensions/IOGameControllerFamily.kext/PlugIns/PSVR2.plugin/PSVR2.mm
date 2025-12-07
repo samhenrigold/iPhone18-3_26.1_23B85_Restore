@@ -5,37 +5,25 @@ uint64_t PSVR2Factory(uint64_t a1, const __CFUUID *a2)
 
   if (v4)
   {
-    v14 = CFUUIDGetUUIDBytes(a2);
+    v12 = CFUUIDGetUUIDBytes(a2);
     v5 = sub_F0C();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      sub_73B0(&v14, v5);
+      sub_73B0(&v12, v5);
     }
   }
 
-  *&v14.byte0 = 0;
+  *&v12.byte0 = 0;
   v6 = CFUUIDGetConstantUUIDWithBytes(0, 0x21u, 0x7Du, 0x5Bu, 0xADu, 0xABu, 0x5Eu, 0x43u, 0x23u, 0x9Cu, 0, 0x2Au, 0xE4u, 0x88u, 0xD5u, 0xDAu, 0x87u);
-  if (CFEqual(a2, v6))
+  if (CFEqual(a2, v6) || (v7 = CFUUIDGetConstantUUIDWithBytes(0, 0xF2u, 0x5Fu, 0xF3u, 0xC2u, 0x33u, 0xFu, 0x4Bu, 0x52u, 0x82u, 7u, 0xA0u, 0xD6u, 0xF2u, 0x3Du, 0xF0u, 0xCDu), CFEqual(a2, v7)))
   {
-    v7 = off_10288;
-LABEL_9:
-    v9 = *v7;
-    v10 = objc_opt_new();
-    v11 = CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu);
-    v12 = CFUUIDGetUUIDBytes(v11);
-    [v10 queryInterface:*&v12.byte0 outInterface:{*&v12.byte8, &v14}];
-
-    return *&v14.byte0;
+    v8 = objc_opt_new();
+    v9 = CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu);
+    v10 = CFUUIDGetUUIDBytes(v9);
+    [v8 queryInterface:*&v10.byte0 outInterface:{*&v10.byte8, &v12}];
   }
 
-  v8 = CFUUIDGetConstantUUIDWithBytes(0, 0xF2u, 0x5Fu, 0xF3u, 0xC2u, 0x33u, 0xFu, 0x4Bu, 0x52u, 0x82u, 7u, 0xA0u, 0xD6u, 0xF2u, 0x3Du, 0xF0u, 0xCDu);
-  if (CFEqual(a2, v8))
-  {
-    v7 = off_10290;
-    goto LABEL_9;
-  }
-
-  return *&v14.byte0;
+  return *&v12.byte0;
 }
 
 os_log_t sub_F0C()
@@ -69,9 +57,9 @@ uint64_t sub_1404(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_183C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_183C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -106,9 +94,9 @@ uint64_t sub_18F8(uint64_t a1)
   return result;
 }
 
-void sub_1A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -136,7 +124,7 @@ void sub_1A48(uint64_t a1)
         v15 = sub_F0C();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_810C(v3, v6);
+          sub_810C();
         }
 
         v17 = 0;
@@ -262,9 +250,9 @@ LABEL_23:
   *(*v3 + 64) = 0;
 }
 
-void sub_1E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -336,16 +324,16 @@ void sub_1EA8(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = 0;
 }
 
-void sub_21CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -406,9 +394,9 @@ LABEL_9:
   *(*(*(a1 + 56) + 8) + 24) = [v11 queryInterface:*&v10.byte0 outInterface:{*&v10.byte8, *(a1 + 64)}];
 }
 
-void sub_266C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_266C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -462,27 +450,25 @@ LABEL_8:
   *(*(*(a1 + 56) + 8) + 24) = [v10 queryInterface:*&v7.byte0 outInterface:{*&v7.byte8, *(a1 + 64)}];
 }
 
-uint64_t sub_2DFC(uint64_t a1, uint64_t a2)
+uint64_t sub_2DFC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v6[0] = 0;
-  v6[1] = v6;
-  v6[2] = 0x2020000000;
-  v7 = 0;
-  v2 = *(a2 + 8);
-  v3 = *(a2 + 16);
-  v4 = IOGCCircularControlQueueEntryModify();
-  _Block_object_dispose(v6, 8);
-  return v4;
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x2020000000;
+  v6 = 0;
+  v3 = IOGCCircularControlQueueEntryModify();
+  _Block_object_dispose(v5, 8);
+  return v3;
 }
 
-void sub_2EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -685,27 +671,25 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_3D40(uint64_t a1, uint64_t a2)
+uint64_t sub_3D40(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v6[0] = 0;
-  v6[1] = v6;
-  v6[2] = 0x2020000000;
-  v7 = 0;
-  v2 = *(a2 + 8);
-  v3 = *(a2 + 16);
-  v4 = IOGCCircularControlQueueEntryModify();
-  _Block_object_dispose(v6, 8);
-  return v4;
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x2020000000;
+  v6 = 0;
+  v3 = IOGCCircularControlQueueEntryModify();
+  _Block_object_dispose(v5, 8);
+  return v3;
 }
 
-void sub_3DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -873,7 +857,7 @@ uint64_t sub_44A4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_5098(uint64_t a1, void *a2)
+uint64_t sub_5098(uint64_t a1, void *a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -889,7 +873,6 @@ uint64_t sub_5098(uint64_t a1, void *a2)
   v6 = &v5;
   v7 = 0x2020000000;
   v8 = 0;
-  v2 = *(*(a1 + 24) + 96);
   v3 = IOCircularDataQueueCursorAccess();
   if (!v3)
   {
@@ -900,9 +883,9 @@ uint64_t sub_5098(uint64_t a1, void *a2)
   return v3;
 }
 
-void sub_5178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_5178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1501,16 +1484,18 @@ LABEL_7:
   return v2;
 }
 
-void sub_6230(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_6230(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void sub_6278(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_6278(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_62B4(mach_port_t a1, uint32_t a2, const uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, size_t *a10)
@@ -1540,19 +1525,18 @@ BOOL sub_6380(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void sub_63C8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_63C8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id sub_640C(uint64_t a1, uint64_t a2, ...)
+id sub_640C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
@@ -1563,23 +1547,27 @@ id sub_640C(uint64_t a1, uint64_t a2, ...)
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
 
-  return [v2 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
-void sub_642C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_642C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x12u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x12u);
 }
 
-void sub_644C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_644C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-uint64_t sub_6AE4(uint64_t a1, void *a2)
+uint64_t sub_6AE4(uint64_t a1, void *a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -1595,15 +1583,14 @@ uint64_t sub_6AE4(uint64_t a1, void *a2)
   v5[1] = v5;
   v5[2] = 0x2020000000;
   v6 = 0;
-  v2 = *(a1 + 72);
   v3 = IOCircularDataQueueCursorAccess();
   _Block_object_dispose(v5, 8);
   return v3;
 }
 
-void sub_6BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_6BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1925,10 +1912,7 @@ uint64_t sub_74AC(uint64_t a1)
   result = *(*(a1 + 32) + 32);
   if (result)
   {
-    CFProperty = IORegistryEntryCreateCFProperty(result, *(a1 + 40), kCFAllocatorDefault, 0);
-    v4 = *(*(a1 + 48) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = CFProperty;
+    *(*(*(a1 + 48) + 8) + 40) = IORegistryEntryCreateCFProperty(result, *(a1 + 40), kCFAllocatorDefault, 0);
 
     return _objc_release_x1();
   }
@@ -2059,14 +2043,13 @@ uint64_t sub_76E8(uint64_t a1)
     if (v5)
     {
       v6 = v5;
-      v7 = *(v2 + 48);
       BytePtr = CFDataGetBytePtr(v5);
       CFDataGetLength(v6);
-      v9 = sub_6330();
-      v2 = IOConnectCallMethod(v9, 2u, v10, 1u, BytePtr, v11, v12, v13, v15, v16);
-      if (!v2 && v17)
+      v8 = sub_6330();
+      v2 = IOConnectCallMethod(v8, 2u, v9, 1u, BytePtr, v10, v11, v12, v14, v15);
+      if (!v2 && v16)
       {
-        *v1 = v17;
+        *v1 = v16;
       }
 
       CFRelease(v6);
@@ -2101,14 +2084,13 @@ uint64_t sub_7794(uint64_t a1)
     if (v5)
     {
       v6 = v5;
-      v7 = *(v2 + 48);
       BytePtr = CFDataGetBytePtr(v5);
       CFDataGetLength(v6);
-      v9 = sub_6330();
-      v2 = IOConnectCallMethod(v9, 3u, v10, 1u, BytePtr, v11, v12, v13, v15, v16);
-      if (!v2 && v17)
+      v8 = sub_6330();
+      v2 = IOConnectCallMethod(v8, 3u, v9, 1u, BytePtr, v10, v11, v12, v14, v15);
+      if (!v2 && v16)
       {
-        *v1 = v17;
+        *v1 = v16;
       }
 
       CFRelease(v6);
@@ -2156,48 +2138,48 @@ uint64_t sub_7870(uint64_t a1, unsigned int a2, void *a3, void *a4)
   }
 
   v7 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(v6, "count")}];
-  v9 = sub_640C(v7, v8);
-  if (v9)
+  v11 = sub_640C(v7, v8, v9, v10);
+  if (v11)
   {
-    v10 = v9;
+    v12 = v11;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v12; i = i + 1)
       {
-        v12 = [v7 setObject:+[NSNull null](NSNull forKey:{"null"), *(8 * i)}];
+        v14 = [v7 setObject:+[NSNull null](NSNull forKey:{"null"), *(8 * i)}];
       }
 
-      v10 = sub_640C(v12, v13);
+      v12 = sub_640C(v14, v15, v16, v17);
     }
 
-    while (v10);
+    while (v12);
   }
 
-  v14 = 3758097097;
-  v15 = IOCFSerialize(v7, 0);
-  v16 = v15;
-  if (v15)
+  v18 = 3758097097;
+  v19 = IOCFSerialize(v7, 0);
+  v20 = v19;
+  if (v19)
   {
-    v17 = *(a1 + 48);
-    BytePtr = CFDataGetBytePtr(v15);
-    Length = CFDataGetLength(v16);
-    v20 = IOConnectCallMethod(v17, 5u, input, 1u, BytePtr, Length, 0, 0, &address, &size);
-    if (v20)
+    v21 = *(a1 + 48);
+    BytePtr = CFDataGetBytePtr(v19);
+    Length = CFDataGetLength(v20);
+    v24 = IOConnectCallMethod(v21, 5u, input, 1u, BytePtr, Length, 0, 0, &address, &size);
+    if (v24)
     {
-      v21 = 0;
-      v14 = v20;
+      v25 = 0;
+      v18 = v24;
     }
 
     else
     {
-      v21 = IOCFUnserializeBinary(address, size, kCFAllocatorDefault, 0, &errorString);
-      if (v21)
+      v25 = IOCFUnserializeBinary(address, size, kCFAllocatorDefault, 0, &errorString);
+      if (v25)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = 0;
-          *a4 = v21;
+          v18 = 0;
+          *a4 = v25;
         }
       }
     }
@@ -2205,7 +2187,7 @@ uint64_t sub_7870(uint64_t a1, unsigned int a2, void *a3, void *a4)
 
   else
   {
-    v21 = 0;
+    v25 = 0;
   }
 
   if (address)
@@ -2213,12 +2195,12 @@ uint64_t sub_7870(uint64_t a1, unsigned int a2, void *a3, void *a4)
     mach_vm_deallocate(mach_task_self_, address, size);
   }
 
-  if (v16)
+  if (v20)
   {
-    CFRelease(v16);
+    CFRelease(v20);
   }
 
-  return v14;
+  return v18;
 }
 
 uint64_t sub_7AB0(uint64_t result)
@@ -2264,7 +2246,7 @@ void sub_7DE8()
   {
     sub_63F8();
     sub_61CC();
-    sub_644C(&dword_0, v3, v4, "%@ (PROXY) IOConnectMapMemory64 failed: %{mach.errno}d", v5, v6, v7, v8, v9);
+    sub_644C(&dword_0, v3, v4, "%@ (PROXY) IOConnectMapMemory64 failed: %{mach.errno}d", v5, v6, v7, v8);
   }
 
   *v0 = v1;
@@ -2307,7 +2289,7 @@ void sub_7FC4()
   {
     sub_63F8();
     sub_61CC();
-    sub_644C(&dword_0, v3, v4, "%@ (PROXY) Open failed: %{mach.errno}d", v5, v6, v7, v8, v9);
+    sub_644C(&dword_0, v3, v4, "%@ (PROXY) Open failed: %{mach.errno}d", v5, v6, v7, v8);
   }
 
   *v0 = v1;
@@ -2328,72 +2310,65 @@ void sub_806C()
   *v0 = 0;
 }
 
-void sub_810C(uint64_t *a1, uint64_t a2)
+void sub_810C()
 {
-  v2 = *a1;
-  v3 = *(*(*a2 + 8) + 24);
   sub_61CC();
-  v7 = v4;
-  _os_log_error_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "%@ IOServiceOpen failed: %{mach.errno}d", v6, 0x12u);
+  v3 = v0;
+  _os_log_error_impl(&dword_0, v1, OS_LOG_TYPE_ERROR, "%@ IOServiceOpen failed: %{mach.errno}d", v2, 0x12u);
 }
 
 void sub_8200()
 {
   sub_62E4();
-  v1 = sub_F0C();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v0 = sub_F0C();
+  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = *v0;
     sub_61CC();
-    sub_642C(&dword_0, v3, v4, "%@ #WARNING (PROXY) Close failed: %{mach.errno}d", v5, v6, v7, v8, v9);
+    sub_642C(&dword_0, v1, v2, "%@ #WARNING (PROXY) Close failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
 void sub_8298()
 {
   sub_62E4();
-  v1 = sub_F0C();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v0 = sub_F0C();
+  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = *v0;
     sub_61CC();
-    sub_642C(&dword_0, v3, v4, "%@ #WARNING Close failed: %{mach.errno}d", v5, v6, v7, v8, v9);
+    sub_642C(&dword_0, v1, v2, "%@ #WARNING Close failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
 void sub_8330()
 {
   sub_62E4();
-  v1 = sub_F0C();
-  if (sub_6380(v1))
+  v0 = sub_F0C();
+  if (sub_6380(v0))
   {
-    v2 = *v0;
     sub_61CC();
-    sub_6230(&dword_0, v3, v4, "%@ #WARNING (PROXY) IOConnectUnmapMemory64 failed: %{mach.errno}d", v5, v6, v7, v8, v9);
+    sub_6230(&dword_0, v1, v2, "%@ #WARNING (PROXY) IOConnectUnmapMemory64 failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
 void sub_83C4()
 {
   sub_62E4();
-  v1 = sub_F0C();
-  if (sub_6380(v1))
+  v0 = sub_F0C();
+  if (sub_6380(v0))
   {
-    v2 = *v0;
     sub_61CC();
-    sub_6230(&dword_0, v3, v4, "%@ #WARNING IOConnectUnmapMemory64 failed: %{mach.errno}d", v5, v6, v7, v8, v9);
+    sub_6230(&dword_0, v1, v2, "%@ #WARNING IOConnectUnmapMemory64 failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
 void sub_8458()
 {
   sub_62E4();
-  v1 = sub_F0C();
-  if (sub_6380(v1))
+  v0 = sub_F0C();
+  if (sub_6380(v0))
   {
-    v2 = *v0;
     sub_61CC();
-    sub_6230(&dword_0, v3, v4, "%@ #WARNING IOServiceClose failed: %{mach.errno}d", v5, v6, v7, v8, v9);
+    sub_6230(&dword_0, v1, v2, "%@ #WARNING IOServiceClose failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
@@ -2429,7 +2404,7 @@ void sub_861C()
   {
     sub_62D8();
     sub_61F0();
-    sub_6230(&dword_0, v1, v2, "%@ GetProperties failed: %{mach.errno}d", v3, v4, v5, v6, v7);
+    sub_6230(&dword_0, v1, v2, "%@ GetProperties failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
@@ -2441,7 +2416,7 @@ void sub_87E4()
   {
     sub_62D8();
     sub_61F0();
-    sub_6230(&dword_0, v1, v2, "%@ Create Queue Client failed: %{mach.errno}d", v3, v4, v5, v6, v7);
+    sub_6230(&dword_0, v1, v2, "%@ Create Queue Client failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
@@ -2456,74 +2431,68 @@ uint64_t sub_8874(uint64_t a1, unsigned int a2, mach_port_name_t *a3)
 void sub_891C()
 {
   sub_6250();
-  v2 = sub_F0C();
-  if (sub_634C(v2))
+  v1 = sub_F0C();
+  if (sub_634C(v1))
   {
-    v3 = *v1;
     sub_6200();
     sub_61E0();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
   }
 }
 
 void sub_89B8()
 {
   sub_6250();
-  v2 = sub_F0C();
-  if (sub_634C(v2))
+  v1 = sub_F0C();
+  if (sub_634C(v1))
   {
-    v3 = *v1;
     sub_6200();
     sub_61E0();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
   }
 }
 
 void sub_8A54()
 {
   sub_6250();
-  v2 = sub_F0C();
-  if (sub_634C(v2))
+  v1 = sub_F0C();
+  if (sub_634C(v1))
   {
-    v3 = *v1;
     sub_6200();
     sub_61E0();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
   }
 }
 
 void sub_8AF0()
 {
   sub_6250();
-  v2 = sub_F0C();
-  if (sub_634C(v2))
+  v1 = sub_F0C();
+  if (sub_634C(v1))
   {
-    v3 = *v1;
     sub_6200();
     sub_61E0();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
   }
 }
 
-void sub_8B8C(unsigned int *a1)
+void sub_8B8C()
 {
-  v2 = sub_F0C();
-  if (sub_6380(v2))
+  v0 = sub_F0C();
+  if (sub_6380(v0))
   {
-    v3 = *a1;
     sub_6398();
-    sub_6230(&dword_0, v4, v5, "%@ (PROXY) GetProperties failed: %{mach.errno}d", v6, v7, v8, v9, v10);
+    sub_6230(&dword_0, v1, v2, "%@ (PROXY) GetProperties failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
-void sub_8C20(unsigned int *a1)
+void sub_8C20()
 {
-  v2 = sub_F0C();
-  if (sub_6380(v2))
+  v0 = sub_F0C();
+  if (sub_6380(v0))
   {
-    v3 = *a1;
     sub_6398();
-    sub_6230(&dword_0, v4, v5, "%@ GetProperties failed: %{mach.errno}d", v6, v7, v8, v9, v10);
+    sub_6230(&dword_0, v1, v2, "%@ GetProperties failed: %{mach.errno}d", v3, v4, v5, v6);
   }
 }
 
@@ -2581,6 +2550,27 @@ void sub_8F5C(uint64_t a1, int a2)
     v8 = a2;
     _os_log_error_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "%@ GetProperties failed: %{mach.errno}d", &v5, 0x12u);
   }
+}
+
+void sub_9014(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_6278(&dword_0, a2, a3, "%@ GetProperties failed: bad 'QueueGuard' property.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_9080(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_6278(&dword_0, a2, a3, "%@ GetProperties failed: bad 'QueueMemorySize' property.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_90EC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_6278(&dword_0, a2, a3, "%@ GetProperties failed: bad 'QueueEntrySize' property.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_9158(uint64_t a1, void *a2)

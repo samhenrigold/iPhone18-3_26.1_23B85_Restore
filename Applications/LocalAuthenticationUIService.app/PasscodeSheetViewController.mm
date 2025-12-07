@@ -7,6 +7,7 @@
 - (void)dismissChildWithCompletionHandler:(id)handler;
 - (void)loadView;
 - (void)viewModelDidRejectDevicePasscode:(id)passcode;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PasscodeSheetViewController
@@ -15,6 +16,18 @@
 {
   selfCopy = self;
   PasscodeSheetViewController.loadView()();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(TransitionViewController *)&v7 viewWillAppear:appearCopy];
+  closure #1 in PasscodeSheetViewController.viewWillAppear(_:)(v4);
+  v5 = *&v4[OBJC_IVAR____TtC28LocalAuthenticationUIService27PasscodeSheetViewController_authorizationViewManager];
+  *&v4[OBJC_IVAR____TtC28LocalAuthenticationUIService27PasscodeSheetViewController_authorizationViewManager] = v6;
 }
 
 - (void)dismissChildWithCompletionHandler:(id)handler
@@ -36,7 +49,7 @@
 
   selfCopy = self;
   PasscodeSheetViewController.dismissChild(completionHandler:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
 }
 
 - (_TtC28LocalAuthenticationUIService27PasscodeSheetViewController)initWithRequestID:(id)d endpoint:(id)endpoint

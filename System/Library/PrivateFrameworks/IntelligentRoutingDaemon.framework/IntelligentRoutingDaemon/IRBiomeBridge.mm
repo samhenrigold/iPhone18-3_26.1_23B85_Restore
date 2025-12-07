@@ -47,49 +47,48 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_eventTypeToSinkMap;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMutableDictionary *)self->_eventTypeToSinkMap objectForKeyedSubscript:*(*(&v11 + 1) + 8 * v7)];
+        v8 = [(NSMutableDictionary *)self->_eventTypeToSinkMap objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v7)];
         [v8 cancel];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v10.receiver = self;
-  v10.super_class = IRBiomeBridge;
-  [(IRBiomeBridge *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = IRBiomeBridge;
+  [(IRBiomeBridge *)&v9 dealloc];
 }
 
 - (void)subscribeEvent:(int64_t)event
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D21308];
   v6 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v7 = MEMORY[0x277D21260];
@@ -99,10 +98,10 @@
     v9 = v8;
     v10 = IRBiomeEventTypeToString(event);
     *buf = 136315650;
-    v27 = "#biome-bridge, ";
-    v28 = 2112;
-    v29 = v6;
-    v30 = 2080;
+    v26 = "#biome-bridge, ";
+    v27 = 2112;
+    v28 = v6;
+    v29 = 2080;
     uTF8String = [v10 UTF8String];
     _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_INFO, "%s[%@], IRBiomeBridge, subscribing a context notification of event type, %s", buf, 0x20u);
   }
@@ -114,13 +113,13 @@
   v15 = [(NSMutableDictionary *)eventTypeToSchedulerMap objectForKeyedSubscript:v14];
 
   v16 = [contextPublisher subscribeOn:v15];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __32__IRBiomeBridge_subscribeEvent___block_invoke_27;
-  v25[3] = &unk_2797E0E40;
-  v25[4] = self;
-  v25[5] = event;
-  v17 = [v16 sinkWithCompletion:&__block_literal_global_3 receiveInput:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __32__IRBiomeBridge_subscribeEvent___block_invoke_27;
+  v24[3] = &unk_2797E0E40;
+  v24[4] = self;
+  v24[5] = event;
+  v17 = [v16 sinkWithCompletion:&__block_literal_global_3 receiveInput:v24];
 
   if (v17)
   {
@@ -139,54 +138,48 @@
       v22 = IRBiomeEventTypeToString(event);
       uTF8String2 = [v22 UTF8String];
       *buf = 136315650;
-      v27 = "#biome-bridge, ";
-      v28 = 2112;
-      v29 = v19;
-      v30 = 2080;
+      v26 = "#biome-bridge, ";
+      v27 = 2112;
+      v28 = v19;
+      v29 = 2080;
       uTF8String = uTF8String2;
       _os_log_impl(&dword_25543D000, v21, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Biome subscribe error] Failed at subscribing a biome stream of event type: %s", buf, 0x20u);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __32__IRBiomeBridge_subscribeEvent___block_invoke()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v1 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v3 = 136315394;
-    v4 = "#biome-bridge, ";
-    v5 = 2112;
-    v6 = v0;
-    _os_log_impl(&dword_25543D000, v1, OS_LOG_TYPE_INFO, "%s[%@], IRBiomeBridge, context stream comletion block called, possibly sink is cancelled", &v3, 0x16u);
+    v2 = 136315394;
+    v3 = "#biome-bridge, ";
+    v4 = 2112;
+    v5 = v0;
+    _os_log_impl(&dword_25543D000, v1, OS_LOG_TYPE_INFO, "%s[%@], IRBiomeBridge, context stream comletion block called, possibly sink is cancelled", &v2, 0x16u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __32__IRBiomeBridge_subscribeEvent___block_invoke_27(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v5 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315394;
-    v9 = "#biome-bridge, ";
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEBUG, "%s[%@], IRBiomeBridge, received a context biome event", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "#biome-bridge, ";
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEBUG, "%s[%@], IRBiomeBridge, received a context biome event", &v7, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   [WeakRetained notifyObserversOfEvent:*(a1 + 40) withValue:v3];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsubscribeEvent:(int64_t)event
@@ -234,36 +227,35 @@ void __32__IRBiomeBridge_subscribeEvent___block_invoke_27(uint64_t a1, void *a2)
   return v11;
 }
 
-void __56__IRBiomeBridge_fetchLatestEventsOfEventType_numEvents___block_invoke(uint64_t a1, void *a2)
+void __56__IRBiomeBridge_fetchLatestEventsOfEventType_numEvents___block_invoke(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v5 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
     v6 = MEMORY[0x277CCABB0];
-    v7 = *(a1 + 40);
+    v7 = a1[5];
     v8 = v5;
     v9 = [v6 numberWithUnsignedInteger:v7];
-    v10 = IRBiomeEventTypeToString(*(a1 + 48));
+    v10 = IRBiomeEventTypeToString(a1[6]);
     v11 = [v10 UTF8String];
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*(*(a1 + 32) + 8) + 40), "count")}];
-    v14 = 136316162;
-    v15 = "#biome-bridge, ";
-    v16 = 2112;
-    v17 = v4;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2080;
-    v21 = v11;
-    v22 = 2112;
-    v23 = v12;
-    _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "%s[%@], Fetching latest %@ events of eventType %s completed. Fetch returned %@ events", &v14, 0x34u);
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*(a1[4] + 8) + 40), "count")}];
+    v13 = 136316162;
+    v14 = "#biome-bridge, ";
+    v15 = 2112;
+    v16 = v4;
+    v17 = 2112;
+    v18 = v9;
+    v19 = 2080;
+    v20 = v11;
+    v21 = 2112;
+    v22 = v12;
+    _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "%s[%@], Fetching latest %@ events of eventType %s completed. Fetch returned %@ events", &v13, 0x34u);
   }
 
   [IRBiomeBridge _logCompletion:v3];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __56__IRBiomeBridge_fetchLatestEventsOfEventType_numEvents___block_invoke_32(uint64_t a1, void *a2)
@@ -281,7 +273,7 @@ void __56__IRBiomeBridge_fetchLatestEventsOfEventType_numEvents___block_invoke_3
 
 + (void)_logCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   state = [completionCopy state];
   v5 = dispatch_get_specific(*MEMORY[0x277D21308]);
@@ -294,26 +286,24 @@ void __56__IRBiomeBridge_fetchLatestEventsOfEventType_numEvents___block_invoke_3
       v8 = v6;
       error = [completionCopy error];
       v10 = [error description];
-      v12 = 136315650;
-      v13 = "#biome-bridge, ";
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2080;
+      v11 = 136315650;
+      v12 = "#biome-bridge, ";
+      v13 = 2112;
+      v14 = v5;
+      v15 = 2080;
       uTF8String = [v10 UTF8String];
-      _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Biome stream complete error] Stream operation completed with error, %s\n", &v12, 0x20u);
+      _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Biome stream complete error] Stream operation completed with error, %s\n", &v11, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315394;
-    v13 = "#biome-bridge, ";
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_DEBUG, "%s[%@], Stream operation completed succesfully.", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "#biome-bridge, ";
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_DEBUG, "%s[%@], Stream operation completed succesfully.", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

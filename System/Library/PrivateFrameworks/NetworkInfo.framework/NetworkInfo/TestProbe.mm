@@ -60,17 +60,15 @@
 {
   v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   v5 = 136315650;
   v6 = "[TestProbe stopTest]";
   v7 = 1024;
   v8 = 49;
   v9 = 2112;
-  v10 = v3;
+  v10 = v4;
   _os_log_debug_impl(&dword_25B859000, selfCopy, OS_LOG_TYPE_DEBUG, "%s:%u - Nothing to stop for this probe %@", &v5, 0x1Cu);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelTest:(id)test

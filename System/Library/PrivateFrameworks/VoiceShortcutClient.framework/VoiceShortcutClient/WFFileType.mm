@@ -210,34 +210,34 @@ uint64_t __27__WFFileType_fileTypeCache__block_invoke()
 
 - (BOOL)conformsToUTTypes:(id)types
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   typesCopy = types;
-  v5 = [typesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [typesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(typesCopy);
         }
 
-        if ([(WFFileType *)self conformsToUTType:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(WFFileType *)self conformsToUTType:*(*(&v11 + 1) + 8 * i), v11])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [typesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [typesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -250,7 +250,6 @@ uint64_t __27__WFFileType_fileTypeCache__block_invoke()
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -532,27 +531,27 @@ id __45__WFFileType_typesFromUTTypes_excludingType___block_invoke(uint64_t a1, v
 
 + (id)typeFromFilename:(id)filename
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   filenameCopy = filename;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [&unk_1F2931590 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [&unk_1F2931590 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(&unk_1F2931590);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@".%@.zip", v8];
         v10 = [filenameCopy hasSuffix:v9];
 
@@ -563,7 +562,7 @@ id __45__WFFileType_typesFromUTTypes_excludingType___block_invoke(uint64_t a1, v
         }
       }
 
-      v5 = [&unk_1F2931590 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [&unk_1F2931590 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v5)
       {
         continue;
@@ -577,7 +576,6 @@ id __45__WFFileType_typesFromUTTypes_excludingType___block_invoke(uint64_t a1, v
   v12 = [self typeFromFileExtension:pathExtension];
 
 LABEL_11:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

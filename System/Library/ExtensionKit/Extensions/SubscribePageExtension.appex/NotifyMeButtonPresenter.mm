@@ -23,7 +23,7 @@
 - (void)appEnteredWhileAppeared
 {
 
-  sub_1001D1314();
+  sub_1001D1314(v2, v3);
 }
 
 - (void)appExitedWhileAppeared

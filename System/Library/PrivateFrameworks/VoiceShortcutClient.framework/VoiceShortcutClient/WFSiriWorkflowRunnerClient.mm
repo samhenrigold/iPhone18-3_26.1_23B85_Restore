@@ -125,25 +125,23 @@
 
 - (void)performDialogRequest:(id)request completionHandler:(id)handler
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315138;
-    v9 = "[WFSiriWorkflowRunnerClient performDialogRequest:completionHandler:]";
-    _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_FAULT, "%s Siri workflow runner client should not present, attempting to punch out", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[WFSiriWorkflowRunnerClient performDialogRequest:completionHandler:]";
+    _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_FAULT, "%s Siri workflow runner client should not present, attempting to punch out", &v7, 0xCu);
   }
 
   v6 = [[WFDialogResponse alloc] initWithResponseCode:4];
   handlerCopy[2](handlerCopy, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performSiriRequest:(id)request completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   handlerCopy = handler;
   delegate = [(WFWorkflowRunnerClient *)self delegate];
@@ -160,9 +158,9 @@
     v13 = getWFVoiceShortcutClientLogObject();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v18 = 136315138;
-      v19 = "[WFSiriWorkflowRunnerClient performSiriRequest:completionHandler:]";
-      _os_log_impl(&dword_1B1DE3000, v13, OS_LOG_TYPE_FAULT, "%s Siri delegate not present, attempting to punch out", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[WFSiriWorkflowRunnerClient performSiriRequest:completionHandler:]";
+      _os_log_impl(&dword_1B1DE3000, v13, OS_LOG_TYPE_FAULT, "%s Siri delegate not present, attempting to punch out", &v17, 0xCu);
     }
 
     v14 = [WFSiriActionResponse alloc];
@@ -171,8 +169,6 @@
 
     handlerCopy[2](handlerCopy, v16);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willBeginExecutingShortcutStep:(id)step

@@ -102,8 +102,8 @@
   highlightAnalyzer = self->_highlightAnalyzer;
   if (statsCopy)
   {
-    [statsCopy motionParam];
-    [statsCopy motionParamDiff];
+    objc_msgSend_motionParam(statsCopy);
+    objc_msgSend_motionParamDiff(statsCopy);
   }
 
   else
@@ -355,9 +355,9 @@ LABEL_21:
   toCopy = to;
   if (highlightCopy)
   {
-    [highlightCopy timerange];
+    objc_msgSend_timerange(highlightCopy);
     v40 = time;
-    [highlightCopy timerange];
+    objc_msgSend_timerange(highlightCopy);
     *&v36.value = v38;
     v36.epoch = v39;
     [highlightCopy score];
@@ -372,7 +372,7 @@ LABEL_21:
     v19 = keyFrame;
     if (keyFrame)
     {
-      [keyFrame timestamp];
+      objc_msgSend_timestamp(keyFrame);
     }
 
     else
@@ -405,7 +405,7 @@ LABEL_21:
     if (!self->_isLivePhoto)
     {
       [dictionary setObject:colorNormalization forKeyedSubscript:@"colorNormalizationData"];
-      [highlightCopy timerange];
+      objc_msgSend_timerange(highlightCopy);
       v29 = [(VCPMovieCurationAnalyzer *)self audioQualityScore:&time];
       if (v29)
       {
@@ -439,9 +439,9 @@ LABEL_21:
   toCopy = to;
   if (summaryCopy)
   {
-    [summaryCopy timerange];
+    objc_msgSend_timerange(summaryCopy);
     v44 = time;
-    [summaryCopy timerange];
+    objc_msgSend_timerange(summaryCopy);
     *&v40.value = v42;
     v40.epoch = v43;
     [summaryCopy score];
@@ -451,7 +451,7 @@ LABEL_21:
     v10 = keyFrame;
     if (keyFrame)
     {
-      [keyFrame timestamp];
+      objc_msgSend_timestamp(keyFrame);
     }
 
     else
@@ -540,12 +540,12 @@ LABEL_21:
   if (stickerCopy)
   {
     v14[0] = @"start";
-    [stickerCopy timerange];
+    objc_msgSend_timerange(stickerCopy);
     v12[0] = v12[2];
     v7 = CMTimeCopyAsDictionary(v12, 0);
     v15[0] = v7;
     v14[1] = @"duration";
-    [stickerCopy timerange];
+    objc_msgSend_timerange(stickerCopy);
     time = v12[1];
     v8 = CMTimeCopyAsDictionary(&time, 0);
     v15[1] = v8;
@@ -566,9 +566,9 @@ LABEL_21:
   toCopy = to;
   if (settlingCopy)
   {
-    [settlingCopy timerange];
+    objc_msgSend_timerange(settlingCopy);
     v34 = time;
-    [settlingCopy timerange];
+    objc_msgSend_timerange(settlingCopy);
     *&v30.value = v32;
     v30.epoch = v33;
     [settlingCopy score];
@@ -695,7 +695,7 @@ LABEL_21:
         v45[0] = @"start";
         if (v8)
         {
-          [v8 timerange];
+          objc_msgSend_timerange(v8);
         }
 
         else
@@ -712,7 +712,7 @@ LABEL_21:
         v45[1] = @"duration";
         if (v8)
         {
-          [v8 timerange];
+          objc_msgSend_timerange(v8);
         }
 
         else

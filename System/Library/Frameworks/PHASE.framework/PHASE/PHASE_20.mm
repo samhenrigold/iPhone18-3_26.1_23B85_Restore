@@ -425,7 +425,7 @@ Phase::SpatialModeler::RayTracerState *Phase::SpatialModeler::RayTracerState::Ra
   while (v10 != 256);
   if (this != a2)
   {
-    std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(this + 18928, *(a2 + 2366), *(a2 + 2367), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 2367) - *(a2 + 2366)) >> 3));
+    std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(this + 2366, *(a2 + 2366), *(a2 + 2367), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 2367) - *(a2 + 2366)) >> 3));
     std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>(this + 2369, *(a2 + 2369), *(a2 + 2370), (*(a2 + 2370) - *(a2 + 2369)) >> 3);
     std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>(this + 2372, *(a2 + 2372), *(a2 + 2373), (*(a2 + 2373) - *(a2 + 2372)) >> 3);
   }
@@ -498,7 +498,7 @@ void sub_23A4C59E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Phase::SpatialModeler::RayTracerState::CopySourceListenerResults(Phase::SpatialModeler::RayTracerState *this, const Phase::SpatialModeler::RayTracerState *a2)
+void Phase::SpatialModeler::RayTracerState::CopySourceListenerResults(uint64_t **this, const Phase::SpatialModeler::RayTracerState *a2)
 {
   v2 = *(a2 + 2420);
   v3 = a2 + 19368;
@@ -527,10 +527,10 @@ void Phase::SpatialModeler::RayTracerState::CopySourceListenerResults(Phase::Spa
 
       v20 = *(v2 + 18);
       *&v14 = &v15;
-      v9 = std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 19360, v5);
+      v9 = std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 2420, v5, &v14);
       if (v16)
       {
-        std::allocate_shared[abi:ne200100]<Phase::SpatialModeler::EarlyReflectionDetector,std::allocator<Phase::SpatialModeler::EarlyReflectionDetector>,Phase::SpatialModeler::EarlyReflectionDetector&,0>();
+        std::allocate_shared[abi:ne200100]<Phase::SpatialModeler::EarlyReflectionDetector,std::allocator<Phase::SpatialModeler::EarlyReflectionDetector>,Phase::SpatialModeler::EarlyReflectionDetector&,0>(&v14, v16);
       }
 
       if (v18)
@@ -586,9 +586,9 @@ void Phase::SpatialModeler::RayTracerState::CopySourceListenerResults(Phase::Spa
   }
 }
 
-void sub_23A4C5B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A4C5B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::pair<unsigned long long const,Phase::SpatialModeler::SourceListenerResult>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -600,7 +600,8 @@ __n128 Phase::SpatialModeler::RayTracerState::CopyERClusteringResults(Phase::Spa
     v2 = a2;
     do
     {
-      v4 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 2423, v2 + 2);
+      v6 = (v2 + 16);
+      v4 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 2423, v2 + 2, &std::piecewise_construct, &v6);
       if (*(v2 + 21))
       {
         Phase::SpatialModeler::CopyMetadata<float>(v2 + 64, &v4[4]);
@@ -631,7 +632,7 @@ float Phase::SpatialModeler::RayTracerState::CopyLRClusteringResults(Phase::Spat
     do
     {
       *&v7 = v2 + 16;
-      v4 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 2428, v2 + 2);
+      v4 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 2428, v2 + 2, &std::piecewise_construct, &v7);
       if (*(v2 + 8))
       {
         Phase::SpatialModeler::RayTracerState::CopyDirectivityHistogram(this, v2 + 8, &v7);
@@ -904,7 +905,7 @@ void Phase::SpatialModeler::RayTracerState::~RayTracerState(void **this)
     operator delete(v4);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::~__hash_table((this + 2433));
+  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::~__hash_table(this + 2433);
   std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>>>::~__hash_table((this + 2428));
   std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleERClusterResult>>>::~__hash_table((this + 2423));
   std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>>>::destroy((this + 2420), this[2421]);
@@ -930,22 +931,22 @@ void Phase::SpatialModeler::RayTracerState::~RayTracerState(void **this)
   }
 }
 
-void Phase::SpatialModeler::RayTracerState::FreeSourceListenerResultsDirectivityHistograms(Phase::SpatialModeler::RayTracerState *this)
+void Phase::SpatialModeler::RayTracerState::FreeSourceListenerResultsDirectivityHistograms(Phase::Logger *this)
 {
   if (*this)
   {
     v2 = *(this + 2420);
-    v3 = this + 19368;
-    if (v2 != this + 19368)
+    v3 = (this + 19368);
+    if (v2 != (this + 19368))
     {
       do
       {
-        if (*(v2 + 7))
+        if (v2[7])
         {
           Phase::SpatialModeler::RayTracerState::FreeDirectivityHistogram(this, v2 + 7);
         }
 
-        v4 = *(v2 + 1);
+        v4 = v2[1];
         if (v4)
         {
           do
@@ -961,7 +962,7 @@ void Phase::SpatialModeler::RayTracerState::FreeSourceListenerResultsDirectivity
         {
           do
           {
-            v5 = *(v2 + 2);
+            v5 = v2[2];
             v6 = *v5 == v2;
             v2 = v5;
           }
@@ -977,7 +978,7 @@ void Phase::SpatialModeler::RayTracerState::FreeSourceListenerResultsDirectivity
   }
 }
 
-void Phase::SpatialModeler::RayTracerState::FreeLRClusteringResultsDirectivityHistograms(Phase::SpatialModeler::RayTracerState *this)
+void Phase::SpatialModeler::RayTracerState::FreeLRClusteringResultsDirectivityHistograms(Phase::Logger *this)
 {
   if (*this)
   {
@@ -1045,7 +1046,7 @@ uint64_t Phase::SpatialModeler::RayTracerState::operator=(uint64_t a1, uint64_t 
   while (v5 != 256);
   if (a1 != a2)
   {
-    std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(a1 + 18928, *(a2 + 18928), *(a2 + 18936), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 18936) - *(a2 + 18928)) >> 3));
+    std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>((a1 + 18928), *(a2 + 18928), *(a2 + 18936), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 18936) - *(a2 + 18928)) >> 3));
     std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>((a1 + 18952), *(a2 + 18952), *(a2 + 18960), (*(a2 + 18960) - *(a2 + 18952)) >> 3);
     std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>((a1 + 18976), *(a2 + 18976), *(a2 + 18984), (*(a2 + 18984) - *(a2 + 18976)) >> 3);
   }
@@ -1118,7 +1119,7 @@ void Phase::SpatialModeler::RayTracerState::CopyDirectivityHistogram(Phase::Logg
     a3[1] = 0;
     if (!*a1 || (Phase::SpatialModeler::HistogramPtrStack::Pop(v8), v6 = *v8, v5 = *&v8[8], *a3 = *v8, a3[1] = v5, !v6))
     {
-      _ZNSt3__115allocate_sharedB8ne200100IN5Phase14SpatialModeler20DirectivityHistogramENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+      _ZNSt3__115allocate_sharedB8ne200100IN5Phase14SpatialModeler20DirectivityHistogramENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(v8);
     }
 
     Phase::SpatialModeler::DirectivityHistogram::operator=(v6, *a2);
@@ -1206,7 +1207,7 @@ void Phase::SpatialModeler::RayTracerState::CopyStateAndAssignToModelerInstance(
   while (v11 != 256);
   if (a1 != a5)
   {
-    std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(a1 + 18928, *(a5 + 18928), *(a5 + 18936), 0x6DB6DB6DB6DB6DB7 * ((*(a5 + 18936) - *(a5 + 18928)) >> 3));
+    std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>((a1 + 18928), *(a5 + 18928), *(a5 + 18936), 0x6DB6DB6DB6DB6DB7 * ((*(a5 + 18936) - *(a5 + 18928)) >> 3));
     std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>((a1 + 18952), *(a5 + 18952), *(a5 + 18960), (*(a5 + 18960) - *(a5 + 18952)) >> 3);
     std::vector<Phase::SpatialModeler::DirectivityHistogram *>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::DirectivityHistogram **,Phase::SpatialModeler::DirectivityHistogram **>((a1 + 18976), *(a5 + 18976), *(a5 + 18984), (*(a5 + 18984) - *(a5 + 18976)) >> 3);
   }
@@ -1306,7 +1307,7 @@ void Phase::SpatialModeler::RayTracerState::CopyStateAndAssignToModelerInstance(
   }
 }
 
-void std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+void std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::push_back[abi:ne200100](char **a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -1351,24 +1352,24 @@ void std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::push_ba
     *(v11 + 32) = *(a2 + 32);
     *(v11 + 36) = *(a2 + 36);
     *(v11 + 40) = *(a2 + 40);
-    v6 = 56 * v7 + 56;
+    v6 = (56 * v7 + 56);
     v12 = *a1;
     v13 = a1[1];
-    v14 = 56 * v7 + *a1 - v13;
+    v14 = (56 * v7 + *a1 - v13);
     if (v13 != *a1)
     {
-      v15 = 56 * v7 + *a1 - v13;
+      v15 = (56 * v7 + *a1 - v13);
       do
       {
         *v15 = *v12;
-        *(v15 + 8) = *(v12 + 2);
-        *(v15 + 12) = *(v12 + 3);
-        *(v15 + 16) = *(v12 + 4);
-        *(v15 + 20) = *(v12 + 5);
-        *(v15 + 24) = *(v12 + 6);
-        *(v15 + 28) = *(v12 + 7);
-        *(v15 + 32) = *(v12 + 8);
-        *(v15 + 36) = *(v12 + 9);
+        *(v15 + 2) = *(v12 + 2);
+        *(v15 + 3) = *(v12 + 3);
+        *(v15 + 4) = *(v12 + 4);
+        *(v15 + 5) = *(v12 + 5);
+        *(v15 + 6) = *(v12 + 6);
+        *(v15 + 7) = *(v12 + 7);
+        *(v15 + 8) = *(v12 + 8);
+        *(v15 + 9) = *(v12 + 9);
         *(v15 + 40) = *(v12 + 40);
         v12 += 56;
         v15 += 56;
@@ -1390,14 +1391,14 @@ void std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::push_ba
   else
   {
     *v4 = *a2;
-    *(v4 + 8) = *(a2 + 8);
-    *(v4 + 12) = *(a2 + 12);
-    *(v4 + 16) = *(a2 + 16);
-    *(v4 + 20) = *(a2 + 20);
-    *(v4 + 24) = *(a2 + 24);
-    *(v4 + 28) = *(a2 + 28);
-    *(v4 + 32) = *(a2 + 32);
-    *(v4 + 36) = *(a2 + 36);
+    *(v4 + 2) = *(a2 + 8);
+    *(v4 + 3) = *(a2 + 12);
+    *(v4 + 4) = *(a2 + 16);
+    *(v4 + 5) = *(a2 + 20);
+    *(v4 + 6) = *(a2 + 24);
+    *(v4 + 7) = *(a2 + 28);
+    *(v4 + 8) = *(a2 + 32);
+    *(v4 + 9) = *(a2 + 36);
     *(v4 + 40) = *(a2 + 40);
     v6 = v4 + 56;
   }
@@ -1405,9 +1406,9 @@ void std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::push_ba
   a1[1] = v6;
 }
 
-void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, Phase::SpatialModeler::RayTracerState *this)
+void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, unint64_t a2, uint64_t a3, float32x2_t **a4, uint64_t a5, Phase::SpatialModeler::RayTracerState *this)
 {
-  v130 = *MEMORY[0x277D85DE8];
+  buf[17] = *MEMORY[0x277D85DE8];
   *a1 = a2;
   v11 = *(a2 + 1072);
   *(a1 + 48) = *(a2 + 1056);
@@ -1428,57 +1429,63 @@ void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, uint
   *(a1 + 144) = v15;
   v18 = (a1 + 208);
   *(a1 + 480) = this;
-  v127 = 0u;
-  memset(v128, 0, 28);
-  v125 = 0u;
+  v128 = 0u;
+  memset(v129, 0, 28);
   v126 = 0u;
-  v123 = 0u;
+  v127 = 0u;
   v124 = 0u;
-  v122 = 0u;
+  v125 = 0u;
+  v123 = 0u;
   if (this == 31)
   {
-    v126 = xmmword_23A597A50;
-    v127 = unk_23A597A60;
-    *v128 = xmmword_23A597A70;
-    *&v128[12] = *(&xmmword_23A597A70 + 12);
-    v122 = Phase::sThirdOctaveBandFrequencies;
-    v123 = unk_23A597A20;
+    v127 = xmmword_23A597A50;
+    v128 = unk_23A597A60;
+    *v129 = xmmword_23A597A70;
+    *&v129[12] = *(&xmmword_23A597A70 + 12);
+    v123 = Phase::sThirdOctaveBandFrequencies;
+    v124 = unk_23A597A20;
     v19 = 31;
-    v124 = xmmword_23A597A30;
-    v125 = unk_23A597A40;
+    v125 = xmmword_23A597A30;
+    v126 = unk_23A597A40;
   }
 
   else if (this == 10)
   {
-    memset(&buf[40], 0, 84);
-    *&buf[32] = 0x467A000045FA0000;
-    *buf = Phase::sOctaveBandFrequencies;
-    *&buf[16] = unk_23A5979F4;
-    *&v128[12] = *&buf[108];
-    v127 = *&buf[80];
-    *v128 = *&buf[96];
-    v125 = *&buf[48];
-    v126 = *&buf[64];
-    v123 = unk_23A5979F4;
-    v124 = *&buf[32];
+    memset(&buf[5], 0, 84);
+    buf[4] = 0x467A000045FA0000;
+    *buf[0].f32 = Phase::sOctaveBandFrequencies;
+    *buf[2].f32 = unk_23A5979F4;
+    *&v129[12] = *&buf[13].i32[1];
+    v128 = *buf[10].f32;
+    *v129 = *buf[12].f32;
+    v126 = *buf[6].f32;
+    v127 = *buf[8].f32;
+    v124 = unk_23A5979F4;
+    v125 = *buf[4].f32;
     v19 = 10;
-    v122 = Phase::sOctaveBandFrequencies;
+    v123 = Phase::sOctaveBandFrequencies;
   }
 
   else if (this == 3)
   {
-    memset(&buf[12], 0, 112);
-    *&buf[8] = 1165623296;
-    *buf = 0x447A0000437A0000;
-    v126 = *&buf[64];
-    v127 = *&buf[80];
-    *v128 = *&buf[96];
-    *&v128[12] = 0uLL;
-    v124 = *&buf[32];
-    v125 = *&buf[48];
+    *&buf[9].i32[1] = 0uLL;
+    *&buf[7].i32[1] = 0uLL;
+    *&buf[11].i32[1] = 0uLL;
+    *&buf[13].i32[1] = 0uLL;
+    *&buf[3].i32[1] = 0uLL;
+    *&buf[1].i32[1] = 0uLL;
+    *&buf[5].i32[1] = 0uLL;
+    buf[1].i32[0] = 1165623296;
+    buf[0] = 0x447A0000437A0000;
+    v127 = *buf[8].f32;
+    v128 = *buf[10].f32;
+    *v129 = *buf[12].f32;
+    *&v129[12] = 0uLL;
+    v125 = *buf[4].f32;
+    v126 = *buf[6].f32;
     v19 = 3;
-    v122 = *buf;
-    v123 = *&buf[16];
+    v123 = *buf[0].f32;
+    v124 = *buf[2].f32;
   }
 
   else
@@ -1486,65 +1493,65 @@ void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, uint
     v20 = **(Phase::Logger::GetInstance(a1) + 1264);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136315650;
-      *&buf[4] = "RayTracerState.cpp";
-      *&buf[12] = 1024;
-      *&buf[14] = 499;
-      *&buf[18] = 2048;
-      *&buf[20] = this;
+      buf[0].i32[0] = 136315650;
+      *(buf + 4) = "RayTracerState.cpp";
+      buf[1].i16[2] = 1024;
+      *(&buf[1].i32[1] + 2) = 499;
+      buf[2].i16[1] = 2048;
+      *(&buf[2] + 4) = this;
       _os_log_impl(&dword_23A302000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Unsupported sub-band count: %zu\n", buf, 0x1Cu);
     }
 
     v19 = 0;
   }
 
-  v21 = v127;
-  v18[4] = v126;
+  v21 = v128;
+  v18[4] = v127;
   v18[5] = v21;
-  v18[6] = *v128;
-  *(v18 + 108) = *&v128[12];
-  v22 = v123;
-  *v18 = v122;
+  v18[6] = *v129;
+  *(v18 + 108) = *&v129[12];
+  v22 = v124;
+  *v18 = v123;
   v18[1] = v22;
-  v23 = v125;
-  v18[2] = v124;
+  v23 = v126;
+  v18[2] = v125;
   v18[3] = v23;
   *(a1 + 332) = v19;
   *(a1 + 472) = Phase::SpatialModeler::RayTracerState::GetSubbandIndex(this);
   v25 = *(a3 + 200);
   v114 = this;
-  if (*(a3 + 112) > v25 && (v26 = *(a3 + 96) + 24 * v25, *(v26 + 20) == HIDWORD(v25)) && (v27 = *v26) != 0 && *v27 == 1 && (v28 = **(v27 + 40), v29 = *(v28 + 224), *&buf[64] = *(v28 + 208), *&buf[80] = v29, v30 = *(v28 + 256), *&buf[96] = *(v28 + 240), *&buf[112] = v30, v31 = *(v28 + 160), *buf = *(v28 + 144), *&buf[16] = v31, v32 = *(v28 + 192), *&buf[32] = *(v28 + 176), *&buf[48] = v32, *(v28 + 140) == this) && Phase::operator==<float>(v28 + 16, v18))
+  if (*(a3 + 112) > v25 && (v26 = *(a3 + 96) + 24 * v25, *(v26 + 20) == HIDWORD(v25)) && (v27 = *v26) != 0 && *v27 == 1 && (v28 = **(v27 + 40), v29 = *(v28 + 224), *buf[8].f32 = *(v28 + 208), *buf[10].f32 = v29, v30 = *(v28 + 256), *buf[12].f32 = *(v28 + 240), *buf[14].f32 = v30, v31 = *(v28 + 160), *buf[0].f32 = *(v28 + 144), *buf[2].f32 = v31, v32 = *(v28 + 192), *buf[4].f32 = *(v28 + 176), *buf[6].f32 = v32, *(v28 + 140) == this) && Phase::operator==<float>(v28 + 16, v18))
   {
-    v33 = *&buf[124];
-    v122 = 0u;
+    v33 = buf[15].u32[1];
     v123 = 0u;
     v124 = 0u;
     v125 = 0u;
     v126 = 0u;
     v127 = 0u;
-    memset(v128, 0, 28);
-    *&v128[28] = *&buf[124];
-    if (*&buf[124])
+    v128 = 0u;
+    memset(v129, 0, 28);
+    *&v129[28] = buf[15].i32[1];
+    if (buf[15].i32[1])
     {
-      bzero(&v122, 4 * *&buf[124]);
+      bzero(&v123, 4 * buf[15].u32[1]);
       v34 = (a1 + 336);
-      v35 = v127;
-      *(a1 + 400) = v126;
+      v35 = v128;
+      *(a1 + 400) = v127;
       *(a1 + 416) = v35;
-      v36 = *&v128[16];
-      *(a1 + 432) = *v128;
+      v36 = *&v129[16];
+      *(a1 + 432) = *v129;
       *(a1 + 448) = v36;
-      v37 = v123;
-      *(a1 + 336) = v122;
+      v37 = v124;
+      *(a1 + 336) = v123;
       *(a1 + 352) = v37;
-      v38 = v125;
+      v38 = v126;
       v39 = buf;
-      *(a1 + 368) = v124;
+      *(a1 + 368) = v125;
       *(a1 + 384) = v38;
       do
       {
-        v40 = *v39;
-        v39 += 4;
+        v40 = v39->f32[0];
+        v39 = (v39 + 4);
         *v34++ = fabsf(v40);
         --v33;
       }
@@ -1554,17 +1561,17 @@ void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, uint
 
     else
     {
-      v109 = v127;
-      *(a1 + 400) = v126;
+      v109 = v128;
+      *(a1 + 400) = v127;
       *(a1 + 416) = v109;
-      v110 = *&v128[16];
-      *(a1 + 432) = *v128;
+      v110 = *&v129[16];
+      *(a1 + 432) = *v129;
       *(a1 + 448) = v110;
-      v111 = v123;
-      *(a1 + 336) = v122;
+      v111 = v124;
+      *(a1 + 336) = v123;
       *(a1 + 352) = v111;
-      v112 = v125;
-      *(a1 + 368) = v124;
+      v112 = v126;
+      *(a1 + 368) = v125;
       *(a1 + 384) = v112;
     }
 
@@ -1618,9 +1625,9 @@ void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, uint
 
   *(a1 + 464) = v51;
   v118 = a3;
-  Phase::SpatialModeler::GetFullSceneAABB(a3, buf);
-  *(a1 + 20976) = *buf;
-  *(a1 + 20992) = *&buf[16];
+  Phase::SpatialModeler::GetFullSceneAABB(buf, a3);
+  *(a1 + 20976) = *buf[0].f32;
+  *(a1 + 20992) = buf[2];
   *(a1 + 18936) = *(a1 + 18928);
   if (a4)
   {
@@ -1630,12 +1637,12 @@ void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, uint
       v113 = (a1 + 19368);
       do
       {
-        v54 = *(v53 + 144);
-        if (*(v118 + 184) > v54 && (v55 = *(v118 + 168) + 24 * v54, *(v55 + 20) == HIDWORD(v54)) && (v56 = *v55) != 0 && *v56 == 3)
+        v54 = v53[18];
+        if (*(v118 + 184) > v54.i32[0] && (v55 = *(v118 + 168) + 24 * v54.u32[0], *(v55 + 20) == v54.i32[1]) && (v56 = *v55) != 0 && *v56 == 3)
         {
-          if (*(v53 + 208) == 3)
+          if (v53[26].i32[0] == 3)
           {
-            v57 = *(v53 + 216);
+            v57 = v53[27];
           }
 
           else
@@ -1645,13 +1652,13 @@ void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, uint
 
           v60 = *(v56 + 8);
           v61 = *(v56 + 64);
-          *&buf[8] = *(v56 + 48);
-          v62 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *(a5 + 8)) ^ ((0xC6A4A7935BD1E995 * *(a5 + 8)) >> 47))) ^ (0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * v60) ^ ((0xC6A4A7935BD1E995 * v60) >> 47)) + 3864292196u)) + 3864292196u) ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v57) ^ ((0xC6A4A7935BD1E995 * v57) >> 47)))) + 3864292196u;
-          *&buf[24] = v61;
-          *buf = v62;
-          *&buf[40] = v57;
-          *&buf[48] = v60;
-          v121[0] = v62;
+          *buf[1].f32 = *(v56 + 48);
+          v62 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *(a5 + 8)) ^ ((0xC6A4A7935BD1E995 * *(a5 + 8)) >> 47))) ^ (0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * *&v60) ^ ((0xC6A4A7935BD1E995 * *&v60) >> 47)) + 3864292196u)) + 3864292196u) ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *&v57) ^ ((0xC6A4A7935BD1E995 * *&v57) >> 47)))) + 3864292196u;
+          *buf[3].f32 = v61;
+          buf[0] = v62;
+          buf[5] = v57;
+          buf[6] = v60;
+          v121 = v62;
           v63 = *v113;
           if (!*v113)
           {
@@ -1677,11 +1684,11 @@ void Phase::SpatialModeler::RayTracerState::InitRayTracerState(uint64_t a1, uint
           {
 LABEL_49:
             std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::push_back[abi:ne200100]((a1 + 18928), buf);
-            LODWORD(v124) = 0;
-            v122 = 0u;
+            LODWORD(v125) = 0;
             v123 = 0u;
-            v121[1] = v121;
-            v68 = std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 19360, v121[0]);
+            v124 = 0u;
+            v122 = &v121;
+            v68 = std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 19360), v121, &v122);
             v69 = v68[6];
             v68[5] = 0;
             v68[6] = 0;
@@ -1708,21 +1715,21 @@ LABEL_49:
           v52 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
           if (v52)
           {
-            v59 = *(v53 + 144);
-            *buf = 136315650;
-            *&buf[4] = "RayTracerState.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 372;
-            *&buf[18] = 2048;
-            *&buf[20] = v59;
+            v59 = v53[18];
+            buf[0].i32[0] = 136315650;
+            *(buf + 4) = "RayTracerState.cpp";
+            buf[1].i16[2] = 1024;
+            *(&buf[1].i32[1] + 2) = 372;
+            buf[2].i16[1] = 2048;
+            *(&buf[2] + 4) = v59;
             _os_log_impl(&dword_23A302000, v58, OS_LOG_TYPE_ERROR, "%25s:%-5d Source provided to cluster query (%llu) was not found in the Geometry Layer", buf, 0x1Cu);
           }
         }
 
-        v53 += 304;
+        v53 += 38;
       }
 
-      while (v53 != *a4 + 304 * a4[5]);
+      while (v53 != &(*a4)[38 * a4[5]]);
     }
   }
 
@@ -1776,12 +1783,12 @@ LABEL_62:
           v77 = *(*(a3 + 168) + 24 * v73[2]);
           v78 = *(v77 + 8);
           v79 = *(v77 + 64);
-          *&buf[8] = *(v77 + 48);
-          v80 = 0x35A98F4D286A90B9 * ((0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * v78) ^ ((0xC6A4A7935BD1E995 * v78) >> 47)) + 3864292196u) ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *(a5 + 8)) ^ ((0xC6A4A7935BD1E995 * *(a5 + 8)) >> 47)))) - 0x34CB3A51FC270F68;
-          *&buf[24] = v79;
-          *buf = v80;
-          *&buf[40] = 0;
-          *&buf[48] = v78;
+          *buf[1].f32 = *(v77 + 48);
+          v80 = 0x35A98F4D286A90B9 * ((0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * *&v78) ^ ((0xC6A4A7935BD1E995 * *&v78) >> 47)) + 3864292196u) ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *(a5 + 8)) ^ ((0xC6A4A7935BD1E995 * *(a5 + 8)) >> 47)))) - 0x34CB3A51FC270F68;
+          *buf[3].f32 = v79;
+          buf[0] = v80;
+          buf[5] = 0;
+          buf[6] = v78;
           v81 = *v76;
           if (!*v76)
           {
@@ -1807,9 +1814,9 @@ LABEL_62:
           {
 LABEL_75:
             std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::push_back[abi:ne200100]((a1 + 18928), buf);
-            LODWORD(v124) = 0;
-            v122 = 0u;
+            LODWORD(v125) = 0;
             v123 = 0u;
+            v124 = 0u;
             v85 = *v76;
             if (!*v76)
             {
@@ -1904,10 +1911,10 @@ LABEL_93:
   {
     v92 = v91[4].f32[0] - *(a5 + 72);
     v93 = vsub_f32(v91[3], *(a5 + 64));
-    Phase::SpatialModeler::RayTracerState::CreateDirectivityHistogram(a1, *(a1 + 112), *(a1 + 116), sqrtf(vaddv_f32(vmul_f32(v93, v93)) + (v92 * v92)) / *(a1 + 464), v114, &v122);
-    v94 = v122;
+    Phase::SpatialModeler::RayTracerState::CreateDirectivityHistogram(&v123, a1, *(a1 + 112), *(a1 + 116), sqrtf(vaddv_f32(vmul_f32(v93, v93)) + (v92 * v92)) / *(a1 + 464), v114);
+    v94 = v123;
     v95 = *(a5 + 64);
-    *(v122 + 48) = *(a5 + 48);
+    *(v123 + 48) = *(a5 + 48);
     *(v94 + 64) = v95;
     operator new();
   }
@@ -1924,21 +1931,21 @@ LABEL_93:
   *(a1 + 22768) = 0;
   Phase::SpatialModeler::ImportanceSampling::init((a1 + 23168), (0x6DB6DB6DB6DB6DB7 * ((*(a1 + 18936) - *(a1 + 18928)) >> 3)), 1.0);
   memset(buf, 0, 124);
-  *&buf[124] = v114;
+  buf[15].i32[1] = v114;
   if (v114)
   {
     bzero(buf, 4 * v114);
-    v96 = *&buf[80];
-    *(a1 + 19104) = *&buf[64];
+    v96 = *buf[10].f32;
+    *(a1 + 19104) = *buf[8].f32;
     *(a1 + 19120) = v96;
-    v97 = *&buf[112];
-    *(a1 + 19136) = *&buf[96];
+    v97 = *buf[14].f32;
+    *(a1 + 19136) = *buf[12].f32;
     *(a1 + 19152) = v97;
-    v98 = *&buf[16];
-    *(a1 + 19040) = *buf;
+    v98 = *buf[2].f32;
+    *(a1 + 19040) = *buf[0].f32;
     *(a1 + 19056) = v98;
-    v99 = *&buf[48];
-    *(a1 + 19072) = *&buf[32];
+    v99 = *buf[6].f32;
+    *(a1 + 19072) = *buf[4].f32;
     *(a1 + 19088) = v99;
     memset(buf, 0, 124);
     bzero(buf, 4 * v114);
@@ -1946,32 +1953,32 @@ LABEL_93:
 
   else
   {
-    v100 = *&buf[80];
-    *(a1 + 19104) = *&buf[64];
+    v100 = *buf[10].f32;
+    *(a1 + 19104) = *buf[8].f32;
     *(a1 + 19120) = v100;
-    v101 = *&buf[112];
-    *(a1 + 19136) = *&buf[96];
+    v101 = *buf[14].f32;
+    *(a1 + 19136) = *buf[12].f32;
     *(a1 + 19152) = v101;
-    v102 = *&buf[16];
-    *(a1 + 19040) = *buf;
+    v102 = *buf[2].f32;
+    *(a1 + 19040) = *buf[0].f32;
     *(a1 + 19056) = v102;
-    v103 = *&buf[48];
-    *(a1 + 19072) = *&buf[32];
+    v103 = *buf[6].f32;
+    *(a1 + 19072) = *buf[4].f32;
     *(a1 + 19088) = v103;
     memset(buf, 0, 124);
   }
 
-  *&buf[124] = v114;
-  v104 = *&buf[80];
-  *(a1 + 19232) = *&buf[64];
+  buf[15].i32[1] = v114;
+  v104 = *buf[10].f32;
+  *(a1 + 19232) = *buf[8].f32;
   *(a1 + 19248) = v104;
-  v105 = *&buf[112];
-  *(a1 + 19264) = *&buf[96];
-  v106 = *&buf[16];
-  *(a1 + 19168) = *buf;
+  v105 = *buf[14].f32;
+  *(a1 + 19264) = *buf[12].f32;
+  v106 = *buf[2].f32;
+  *(a1 + 19168) = *buf[0].f32;
   *(a1 + 19184) = v106;
-  v107 = *&buf[48];
-  *(a1 + 19200) = *&buf[32];
+  v107 = *buf[6].f32;
+  *(a1 + 19200) = *buf[4].f32;
   *(a1 + 19216) = v107;
   *(a1 + 19280) = v105;
   *(a1 + 19312) = std::chrono::steady_clock::now();
@@ -1985,6 +1992,13 @@ LABEL_93:
   v108 = fminf(fmaxf(__exp10f(((-1.0 / *(a1 + 120)) / *(a1 + 32)) * 6.0), 0.0), 1.0);
   *(a1 + 8) = v108;
   *(a1 + 12) = 1.0 - v108;
+}
+
+void sub_23A4C7DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  Phase::SpatialModeler::SourceListenerResult::~SourceListenerResult(va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t Phase::SpatialModeler::RayTracerState::GetSubbandIndex(Phase::SpatialModeler::RayTracerState *this)
@@ -2026,7 +2040,7 @@ LABEL_6:
   return ((v3 - &v7) >> 3) + 1;
 }
 
-uint64_t Phase::operator==<float>(uint64_t a1, uint64_t a2)
+BOOL Phase::operator==<float>(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 124);
   if (v2 != *(a2 + 124))
@@ -2059,11 +2073,11 @@ uint64_t Phase::operator==<float>(uint64_t a1, uint64_t a2)
   return v3 >= v2;
 }
 
-uint64_t Phase::SpatialModeler::RayTracerState::CreateDirectivityHistogram@<X0>(Phase::SpatialModeler::RayTracerState *this@<X0>, float a2@<S0>, float a3@<S1>, float a4@<S2>, uint64_t a5@<X1>, void *a6@<X8>)
+uint64_t *Phase::SpatialModeler::RayTracerState::CreateDirectivityHistogram@<X0>(uint64_t *__return_ptr a1@<X8>, Phase::SpatialModeler::RayTracerState *this@<X0>, float a3@<S0>, float a4@<S1>, float a5@<S2>, uint64_t a6@<X1>)
 {
   v18 = *MEMORY[0x277D85DE8];
-  *a6 = 0;
-  a6[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (!*this)
   {
     goto LABEL_11;
@@ -2072,14 +2086,14 @@ uint64_t Phase::SpatialModeler::RayTracerState::CreateDirectivityHistogram@<X0>(
   Phase::SpatialModeler::HistogramPtrStack::Pop(v17);
   v14 = *v17;
   v13 = *&v17[8];
-  *a6 = *v17;
-  a6[1] = v13;
+  *a1 = *v17;
+  a1[1] = v13;
   if (!v14)
   {
     goto LABEL_11;
   }
 
-  if (*(v14 + 20) != a2 || *(v14 + 28) != a5 || *(v14 + 16) != a3)
+  if (*(v14 + 20) != a3 || *(v14 + 28) != a6 || *(v14 + 16) != a4)
   {
     v16 = **(Phase::Logger::GetInstance(v12) + 1264);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -2092,19 +2106,19 @@ uint64_t Phase::SpatialModeler::RayTracerState::CreateDirectivityHistogram@<X0>(
     }
 
     Phase::SpatialModeler::HistogramPtrStack::Clear((*this + 1328));
-    *a6 = 0;
-    a6[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
     if (v13)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
 
 LABEL_11:
-    _ZNSt3__115allocate_sharedB8ne200100IN5Phase14SpatialModeler20DirectivityHistogramENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8ne200100IN5Phase14SpatialModeler20DirectivityHistogramENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(v17);
   }
 
   result = Phase::SpatialModeler::DirectivityHistogram::resetDirectivityHistogram(v14, 1);
-  *(v14 + 40) = a4;
+  *(v14 + 40) = a5;
   *(v14 + 32) = 1065353216;
   return result;
 }
@@ -2119,14 +2133,14 @@ void sub_23A4C81B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Phase::SpatialModeler::RayTracerState::NextRay(unsigned int *a1, uint64_t a2)
+void Phase::SpatialModeler::RayTracerState::NextRay(Phase::Logger *a1, uint64_t a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   if (*a1)
   {
-    v4 = a1 + 4754;
+    v4 = (a1 + 19016);
     (*(**(*a1 + 51960) + 16))(&v12);
-    v5 = a1[83];
+    v5 = *(a1 + 83);
     *(a2 + 56) = 0;
     *(a2 + 68) = -1;
     *(a2 + 76) = 0;
@@ -2205,7 +2219,7 @@ void Phase::SpatialModeler::RayTracerState::UpdateResultData(Phase::SpatialModel
   memcpy(this + 208, a2 + 208, 0x114uLL);
   if (this != a2)
   {
-    std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(this + 18928, *(a2 + 2366), *(a2 + 2367), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 2367) - *(a2 + 2366)) >> 3));
+    std::vector<Phase::SpatialModeler::PhaseRoomSimulationSoundSource>::__assign_with_size[abi:ne200100]<Phase::SpatialModeler::PhaseRoomSimulationSoundSource*,Phase::SpatialModeler::PhaseRoomSimulationSoundSource*>(this + 2366, *(a2 + 2366), *(a2 + 2367), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 2367) - *(a2 + 2366)) >> 3));
   }
 
   memcpy(this + 19008, a2 + 19008, 0x160uLL);
@@ -2437,9 +2451,9 @@ LABEL_17:
 
 void Phase::SpatialModeler::RayTracerState::AggregateResultData(Phase::SpatialModeler::RayTracerState *this, Phase::SpatialModeler::RayTracerState *a2, Phase::Geometry::SystemState *a3)
 {
-  v123 = *MEMORY[0x277D85DE8];
-  v113 = (a2 + 19016);
-  v111 = (this + 19504);
+  v125 = *MEMORY[0x277D85DE8];
+  v115 = (a2 + 19016);
+  v113 = (this + 19504);
   v6 = *(a2 + 6);
   v5 = *(a2 + 7);
   if (*(*this + 32) == 2 && *(this + 195) == 1 && *(this + 72) == 1)
@@ -2451,7 +2465,7 @@ void Phase::SpatialModeler::RayTracerState::AggregateResultData(Phase::SpatialMo
   Phase::SpatialModeler::RayTracerState::UpdateResultData(this, a2, a3);
   if (*(this + 168) != 1 || (*(this + 169) & 1) == 0)
   {
-    v8 = v111[381] / *v113;
+    v8 = v113[381] / *v115;
     if (v8 == 0.0)
     {
       v5 = 1.0;
@@ -2470,11 +2484,11 @@ void Phase::SpatialModeler::RayTracerState::AggregateResultData(Phase::SpatialMo
   {
     v10 = (this + 19368);
     v11 = vdupq_n_s64(4uLL);
-    v112 = v11;
+    v114 = v11;
     do
     {
       v12 = *(v9 + 4);
-      *&v115[0] = v12;
+      *&v117[0] = v12;
       v13 = *v10;
       if (!*v10)
       {
@@ -2499,7 +2513,7 @@ void Phase::SpatialModeler::RayTracerState::AggregateResultData(Phase::SpatialMo
       if (v14 == v10 || v12 < v14[4])
       {
 LABEL_21:
-        std::allocate_shared[abi:ne200100]<Phase::SpatialModeler::EarlyReflectionDetector,std::allocator<Phase::SpatialModeler::EarlyReflectionDetector>,Phase::SpatialModeler::EarlyReflectionDetector&,0>();
+        std::allocate_shared[abi:ne200100]<Phase::SpatialModeler::EarlyReflectionDetector,std::allocator<Phase::SpatialModeler::EarlyReflectionDetector>,Phase::SpatialModeler::EarlyReflectionDetector&,0>(buf, *(v9 + 5));
       }
 
       v21 = v14[7];
@@ -2567,7 +2581,7 @@ LABEL_21:
               v33 = v32;
               v34 = vcgeq_u64(v28, v30);
               v35 = vmovn_s64(v34);
-              *v32.f32 = vuzp1_s16(v35, *v28.i8);
+              *v32.i8 = vuzp1_s16(v35, *v28.i8);
               if (v32.i8[0])
               {
                 v32.i32[0] = *(v29 - 2);
@@ -2618,7 +2632,7 @@ LABEL_21:
             v47 = v46;
             v48 = vcgeq_u64(v42, v44);
             v49 = vmovn_s64(v48);
-            *v46.f32 = vuzp1_s16(v49, *v24.i8);
+            *v46.i8 = vuzp1_s16(v49, *v24.i8);
             if (v46.i8[0])
             {
               v46.i32[0] = *(v43 - 2);
@@ -2636,8 +2650,8 @@ LABEL_21:
             }
 
             v46 = vaddq_f32(v47, v46);
-            v45 = vaddq_s64(v45, v112);
-            v44 = vaddq_s64(v44, v112);
+            v45 = vaddq_s64(v45, v114);
+            v44 = vaddq_s64(v44, v114);
             v43 += 2;
             v41 -= 4;
           }
@@ -2666,7 +2680,7 @@ LABEL_68:
             Phase::SpatialModeler::DirectivityHistogram::operator+=(v21, *(v9 + 7));
             Phase::SpatialModeler::DirectivityHistogram::updateWasHitVector(v21);
             v55 = 0;
-            *(v14 + 18) = (v6 * *(v14 + 18)) + *v113;
+            *(v14 + 18) = (v6 * *(v14 + 18)) + *v115;
           }
 
           else
@@ -2739,7 +2753,7 @@ LABEL_86:
       v63 = v14[5];
       if (!v63)
       {
-        std::allocate_shared[abi:ne200100]<Phase::SpatialModeler::EarlyReflectionDetector,std::allocator<Phase::SpatialModeler::EarlyReflectionDetector>,Phase::SpatialModeler::EarlyReflectionDetector&,0>();
+        std::allocate_shared[abi:ne200100]<Phase::SpatialModeler::EarlyReflectionDetector,std::allocator<Phase::SpatialModeler::EarlyReflectionDetector>,Phase::SpatialModeler::EarlyReflectionDetector&,0>(buf, *(v9 + 5));
       }
 
       v64 = *(v63 + 2);
@@ -3016,61 +3030,61 @@ LABEL_126:
   Phase::SpatialModeler::countSurfaceArea(a3, this + 2619, *(this + 83), this + 2616, this + 4877, this + 4912, *(this + 34), *(this + 35));
   Phase::SpatialModeler::RayTracerState::UpdateLocalMeanFreePathAndMeanAbsorption(a2, v89);
   Phase::SpatialModeler::RayTracerState::UpdateLocalVolumeEstimate(a2, a3);
-  *v111 = (v5 * v113[122]) + (*v111 * v6);
-  v91 = *(v113 + 157);
+  *v113 = (v5 * v115[122]) + (*v113 * v6);
+  v91 = *(v115 + 157);
   if (v91)
   {
     v92 = (a2 + 19520);
     v93 = (this + 19520);
-    v94 = *(v111 + 35);
+    v94 = *(v113 + 35);
     if (v94)
     {
       v95 = 0;
       v96 = 4 * v94;
-      memset(v116, 0, 124);
+      memset(v118, 0, 124);
       do
       {
-        *(v116 + v95) = v6 * *(v93 + v95);
+        *(v118 + v95) = v6 * *(v93 + v95);
         v95 += 4;
       }
 
       while (v96 != v95);
       v97 = 0;
       v98 = 4 * v91;
-      memset(v115, 0, 124);
+      memset(v117, 0, 124);
       do
       {
-        *(v115 + v97) = v5 * *(v92 + v97);
+        *(v117 + v97) = v5 * *(v92 + v97);
         v97 += 4;
       }
 
       while (v98 != v97);
       v99 = 0;
+      v123 = 0u;
+      memset(v124, 0, 28);
       v121 = 0u;
-      memset(v122, 0, 28);
-      v119 = 0u;
+      v122 = 0u;
       v120 = 0u;
-      v118 = 0u;
       memset(buf, 0, sizeof(buf));
-      *&v122[28] = v94;
+      *&v124[28] = v94;
       do
       {
-        *&buf[v99] = *(v116 + v99) + *(v115 + v99);
+        *&buf[v99] = *(v118 + v99) + *(v117 + v99);
         v99 += 4;
       }
 
       while (v96 != v99);
-      v100 = v121;
-      *(this + 1224) = v120;
+      v100 = v123;
+      *(this + 1224) = v122;
       *(this + 1225) = v100;
-      v101 = *&v122[16];
-      *(this + 1226) = *v122;
+      v101 = *&v124[16];
+      *(this + 1226) = *v124;
       *(this + 1227) = v101;
       v102 = *&buf[16];
       *v93 = *buf;
       *(this + 1221) = v102;
-      v103 = v119;
-      *(this + 1222) = v118;
+      v103 = v121;
+      *(this + 1222) = v120;
       *(this + 1223) = v103;
     }
 
@@ -3107,9 +3121,9 @@ LABEL_126:
   }
 
   Phase::SpatialModeler::RayTracerState::UpdateLocalVolumeEstimate(this, a3);
-  Phase::SpatialModeler::RayTracerState::UpdateLocalRT60Estimate(this);
-  Phase::SpatialModeler::RayTracerState::calculateTotalEarlyAndLateEnergy(this, this + 1292, this + 1300, a3);
-  v111[383] = v113[505];
+  updated = Phase::SpatialModeler::RayTracerState::UpdateLocalRT60Estimate(this);
+  Phase::SpatialModeler::RayTracerState::calculateTotalEarlyAndLateEnergy(this, this + 1292, this + 1300, a3, updated, v112);
+  v113[383] = v115[505];
 }
 
 void sub_23A4C942C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56)
@@ -3122,19 +3136,19 @@ void sub_23A4C942C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Phase::SpatialModeler::RayTracerState::UpdateLocalMeanFreePathAndMeanAbsorption(Phase::SpatialModeler::RayTracerState *this, int16x4_t a2)
+void Phase::SpatialModeler::RayTracerState::UpdateLocalMeanFreePathAndMeanAbsorption(uint64_t this, int16x4_t a2)
 {
-  if (*(this + 4826))
+  if (*(this + 19304))
   {
-    v2 = *(this + 4824);
-    v3 = *(this + 4825);
+    v2 = *(this + 19296);
+    v3 = *(this + 19300);
     if (v3 + v2)
     {
-      v4 = *(this + 4756);
+      v4 = *(this + 19024);
       if (!v3 || (v5 = v3, v3 <= 0x12B) && (v2 / v5) >= 3.0)
       {
         v5 = (v3 + v2);
-        v4 = v4 + (*(this + 4755) * 1.1);
+        v4 = v4 + (*(this + 19020) * 1.1);
       }
 
       v6 = v4 / v5;
@@ -3145,17 +3159,17 @@ void Phase::SpatialModeler::RayTracerState::UpdateLocalMeanFreePathAndMeanAbsorp
       v6 = 0.0;
     }
 
-    *(this + 4876) = v6;
-    Phase::SpatialModeler::GetMeanAbsorptionEstimateFromFirstAndHigherOrderTotalAbsorption(this + 19040, this + 19168, v2, v3, this + 1220);
+    *(this + 19504) = v6;
+    Phase::SpatialModeler::GetMeanAbsorptionEstimateFromFirstAndHigherOrderTotalAbsorption(this + 19040, this + 19168, v2, v3, (this + 19520));
   }
 
   else
   {
-    *(this + 4876) = 0;
-    v7 = *(this + 4911);
+    *(this + 19504) = 0;
+    v7 = *(this + 19644);
     if (v7)
     {
-      a2.i32[0] = *(this + 14);
+      a2.i32[0] = *(this + 56);
       v8 = (v7 + 3) & 0x1FFFFFFFCLL;
       v9 = vdupq_n_s64(v7 - 1);
       v10 = xmmword_23A554B60;
@@ -3192,9 +3206,9 @@ void Phase::SpatialModeler::RayTracerState::UpdateLocalMeanFreePathAndMeanAbsorp
   }
 }
 
-void Phase::SpatialModeler::RayTracerState::UpdateLocalVolumeEstimate(Phase::SpatialModeler::RayTracerState *this, Phase::Geometry::SystemState *a2)
+void Phase::SpatialModeler::RayTracerState::UpdateLocalVolumeEstimate(void *this, Phase::Geometry::SystemState *a2)
 {
-  v2 = this + 19304;
+  v2 = this + 2413;
   if (*(this + 4826))
   {
     v3 = *(this + 4876);
@@ -3215,7 +3229,7 @@ void Phase::SpatialModeler::RayTracerState::UpdateLocalVolumeEstimate(Phase::Spa
   {
     if (*(this + 4877) <= 0.0)
     {
-      v10 = vsub_f32(*(this + 20992), *(this + 20980));
+      v10 = vsub_f32(this[2624], *(this + 20980));
       v11 = vmuls_lane_f32((*(this + 5247) - *(this + 5244)) * v10.f32[0], v10, 1);
       v12 = fabsf(v11);
       v13 = LODWORD(v11) & 0x7FFFFFFF;
@@ -3231,7 +3245,7 @@ void Phase::SpatialModeler::RayTracerState::UpdateLocalVolumeEstimate(Phase::Spa
 
     else
     {
-      Phase::SpatialModeler::GetHitShapesAABB(a2, this + 20952, &v23);
+      Phase::SpatialModeler::GetHitShapesAABB(a2, (this + 2619), &v23);
       v7 = vsub_f32(v26, v24);
       *v8.i32 = fabsf(vmuls_lane_f32((v25 - v23) * v7.f32[0], v7, 1));
       v9 = *(v2 + 51);
@@ -3253,7 +3267,7 @@ void Phase::SpatialModeler::RayTracerState::UpdateLocalVolumeEstimate(Phase::Spa
       v17 = vdupq_n_s64(v15 - 1);
       v18 = xmmword_23A554B60;
       v19 = xmmword_23A554B70;
-      v20 = v2 + 228;
+      v20 = v2 + 57;
       v21 = vdupq_n_s64(4uLL);
       do
       {
@@ -3551,7 +3565,7 @@ float Phase::SpatialModeler::RayTracerState::UpdateLaunchedRayHistory(Phase::Spa
   return result;
 }
 
-float Phase::SpatialModeler::RayTracerState::GetSourceListenerResult@<S0>(Phase::SpatialModeler::RayTracerState *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+float Phase::SpatialModeler::RayTracerState::GetSourceListenerResult@<S0>(float *__return_ptr a1@<X8>, Phase::SpatialModeler::RayTracerState *this@<X0>, unint64_t *a3@<X1>)
 {
   v3 = *(this + 2421);
   if (!v3)
@@ -3559,7 +3573,7 @@ float Phase::SpatialModeler::RayTracerState::GetSourceListenerResult@<S0>(Phase:
     goto LABEL_9;
   }
 
-  v4 = *a2;
+  v4 = *a3;
   v5 = this + 19368;
   do
   {
@@ -3578,32 +3592,32 @@ float Phase::SpatialModeler::RayTracerState::GetSourceListenerResult@<S0>(Phase:
   if (v5 != this + 19368 && v4 >= *(v5 + 4))
   {
     v10 = *(v5 + 6);
-    *a3 = *(v5 + 5);
-    *(a3 + 8) = v10;
+    *a1 = *(v5 + 5);
+    *(a1 + 1) = v10;
     if (v10)
     {
       atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
     }
 
     v11 = *(v5 + 8);
-    *(a3 + 16) = *(v5 + 7);
-    *(a3 + 24) = v11;
+    *(a1 + 2) = *(v5 + 7);
+    *(a1 + 3) = v11;
     if (v11)
     {
       atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
     }
 
     result = *(v5 + 18);
-    *(a3 + 32) = result;
+    a1[8] = result;
   }
 
   else
   {
 LABEL_9:
-    *(a3 + 32) = 0;
+    a1[8] = 0.0;
     result = 0.0;
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
   }
 
   return result;
@@ -3771,258 +3785,260 @@ void Phase::SpatialModeler::RayTracerState::calculateTotalSpecularEarlyEnergy(Ph
   }
 }
 
-double Phase::SpatialModeler::RayTracerState::calculateTotalEarlyAndLateEnergy(unsigned int *a1, _OWORD *a2, _OWORD *a3, Phase::Geometry::SystemState *a4)
+double Phase::SpatialModeler::RayTracerState::calculateTotalEarlyAndLateEnergy(Phase::SpatialModeler::RayTracerState *a1, _OWORD *a2, _OWORD *a3, Phase::Geometry::SystemState *a4, double a5, __n128 a6)
 {
-  v7 = a1[83];
-  Phase::SpatialModeler::RayTracerState::predictTotalRoomEnergy(a1, a4, v32);
-  Phase::SpatialModeler::RayTracerState::calculateTotalSpecularEarlyEnergy(a1, &v25);
-  v8 = v30;
-  a2[4] = v29;
-  a2[5] = v8;
-  v9 = *&v31[16];
-  a2[6] = *v31;
-  a2[7] = v9;
-  v10 = v26;
-  *a2 = v25;
-  a2[1] = v10;
-  v11 = v28;
-  a2[2] = v27;
-  a2[3] = v11;
+  v9 = *(a1 + 83);
+  Phase::SpatialModeler::RayTracerState::predictTotalRoomEnergy(v34, a1, a4, a6);
+  Phase::SpatialModeler::RayTracerState::calculateTotalSpecularEarlyEnergy(a1, &v27);
+  v10 = v32;
+  a2[4] = v31;
+  a2[5] = v10;
+  v11 = *&v33[16];
+  a2[6] = *v33;
+  a2[7] = v11;
+  v12 = v28;
+  *a2 = v27;
+  a2[1] = v12;
+  v13 = v30;
+  a2[2] = v29;
+  a2[3] = v13;
+  v32 = 0u;
+  memset(v33, 0, 28);
   v30 = 0u;
-  memset(v31, 0, 28);
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
-  v25 = 0u;
-  *&v31[28] = v7;
-  if (v7)
+  *&v33[28] = v9;
+  if (v9)
   {
-    bzero(&v25, 4 * v7);
-    v12 = v30;
-    a3[4] = v29;
-    a3[5] = v12;
-    v13 = *&v31[16];
-    a3[6] = *v31;
-    a3[7] = v13;
-    v14 = v26;
-    *a3 = v25;
-    a3[1] = v14;
-    v15 = v28;
-    v16 = v32;
-    a3[2] = v27;
-    a3[3] = v15;
+    bzero(&v27, 4 * v9);
+    v14 = v32;
+    a3[4] = v31;
+    a3[5] = v14;
+    v15 = *&v33[16];
+    a3[6] = *v33;
+    a3[7] = v15;
+    v16 = v28;
+    *a3 = v27;
+    a3[1] = v16;
+    v17 = v30;
+    v18 = v34;
+    a3[2] = v29;
+    a3[3] = v17;
     result = 0.0;
     do
     {
-      v18 = *v16++;
-      v19 = v18;
-      v20 = *a2;
+      v20 = *v18++;
+      v21 = v20;
+      v22 = *a2;
       a2 = (a2 + 4);
-      *a3 = fmaxf(v19 - v20, 0.0);
+      *a3 = fmaxf(v21 - v22, 0.0);
       a3 = (a3 + 4);
+      --v9;
+    }
+
+    while (v9);
+  }
+
+  else
+  {
+    v23 = v32;
+    a3[4] = v31;
+    a3[5] = v23;
+    v24 = *&v33[16];
+    a3[6] = *v33;
+    a3[7] = v24;
+    v25 = v28;
+    *a3 = v27;
+    a3[1] = v25;
+    result = *&v29;
+    v26 = v30;
+    a3[2] = v29;
+    a3[3] = v26;
+  }
+
+  return result;
+}
+
+void Phase::SpatialModeler::RayTracerState::predictTotalRoomEnergy(void *__return_ptr a1@<X8>, Phase::SpatialModeler::RayTracerState *this@<X0>, Phase::Geometry::SystemState *a3@<X1>, __n128 a4@<Q1>)
+{
+  v53 = *MEMORY[0x277D85DE8];
+  v7 = *(this + 83);
+  v8 = 0.0;
+  v45 = 0u;
+  memset(v46, 0, 28);
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  __b = 0u;
+  *&v46[28] = v7;
+  if (v7)
+  {
+    bzero(&__b, 4 * v7);
+  }
+
+  v9 = *(this + 2366);
+  if (*(this + 2367) != v9)
+  {
+    if (*(this + 180))
+    {
+      if (v7)
+      {
+        memset_pattern16(&__b, &unk_23A597970, 4 * v7);
+      }
+
+      Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(&__b, *(*this + 51936), v7, v8, a4);
+    }
+
+    else
+    {
+      v10 = 0;
+      do
+      {
+        Phase::SpatialModeler::getSoundPowerRelativeToOmni(a3, *(v9 + 56 * v10 + 40), v7, v39, a4);
+        v11 = *&v46[28];
+        memset(buf, 0, sizeof(buf));
+        v48 = 0u;
+        v49 = 0u;
+        v50 = 0u;
+        v51 = 0u;
+        memset(v52, 0, 28);
+        *&v52[28] = *&v46[28];
+        if (*&v46[28])
+        {
+          v12 = buf;
+          v13 = v39;
+          p_b = &__b;
+          do
+          {
+            v15 = *p_b++;
+            v16 = v15;
+            v17 = *v13++;
+            *v12 = v16 + v17;
+            v12 += 4;
+            --v11;
+          }
+
+          while (v11);
+        }
+
+        v44 = v50;
+        v45 = v51;
+        *v46 = *v52;
+        *&v46[16] = *&v52[16];
+        __b = *buf;
+        v41 = *&buf[16];
+        a4 = v49;
+        v42 = v48;
+        v43 = v49;
+        ++v10;
+        v9 = *(this + 2366);
+        v18 = 0x6DB6DB6DB6DB6DB7 * ((*(this + 2367) - v9) >> 3);
+      }
+
+      while (v10 < v18);
+      v19 = *&v46[28];
+      memset(buf, 0, sizeof(buf));
+      v48 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      memset(v52, 0, 28);
+      *&v52[28] = *&v46[28];
+      if (*&v46[28])
+      {
+        v20 = 1.0 / v18;
+        v21 = buf;
+        v22 = &__b;
+        do
+        {
+          v23 = *v22++;
+          *v21 = v20 * v23;
+          v21 += 4;
+          --v19;
+        }
+
+        while (v19);
+      }
+
+      v44 = v50;
+      v45 = v51;
+      *v46 = *v52;
+      *&v46[16] = *&v52[16];
+      __b = *buf;
+      v41 = *&buf[16];
+      v42 = v48;
+      v43 = v49;
+    }
+  }
+
+  *(a1 + 108) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 6) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  *(a1 + 31) = v7;
+  if (v7)
+  {
+    v24 = (this + 0x4000);
+    bzero(a1, 4 * v7);
+    v25 = v24 + 848;
+    v26 = v24[782] + 1.0e-10;
+    v27 = &__b;
+    do
+    {
+      v28 = *v27++;
+      v29 = v28;
+      v30 = *v25++;
+      *a1 = ((v29 * 308.0) * v30) / v26;
+      a1 = (a1 + 4);
       --v7;
     }
 
     while (v7);
   }
 
-  else
+  v31 = *&v46[28];
+  v32 = *&__b;
+  if (*&v46[28] <= 1uLL)
   {
-    v21 = v30;
-    a3[4] = v29;
-    a3[5] = v21;
-    v22 = *&v31[16];
-    a3[6] = *v31;
-    a3[7] = v22;
-    v23 = v26;
-    *a3 = v25;
-    a3[1] = v23;
-    result = *&v27;
-    v24 = v28;
-    a3[2] = v27;
-    a3[3] = v24;
+    v32 = 0.0;
   }
 
-  return result;
-}
-
-void Phase::SpatialModeler::RayTracerState::predictTotalRoomEnergy(Phase::SpatialModeler::RayTracerState *this@<X0>, Phase::Geometry::SystemState *a2@<X1>, _OWORD *a3@<X8>)
-{
-  v51 = *MEMORY[0x277D85DE8];
-  v6 = *(this + 83);
-  v43 = 0u;
-  memset(v44, 0, 28);
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  __b = 0u;
-  *&v44[28] = v6;
-  if (v6)
+  if (*&v46[28])
   {
-    bzero(&__b, 4 * v6);
-  }
-
-  v7 = *(this + 2366);
-  if (*(this + 2367) != v7)
-  {
-    if (*(this + 180))
-    {
-      if (v6)
-      {
-        memset_pattern16(&__b, &unk_23A597970, 4 * v6);
-      }
-
-      Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(&__b, *(*this + 51936), v6);
-    }
-
-    else
-    {
-      v8 = 0;
-      do
-      {
-        Phase::SpatialModeler::getSoundPowerRelativeToOmni(a2, *(v7 + 56 * v8 + 40), v6, v37);
-        v9 = *&v44[28];
-        memset(buf, 0, sizeof(buf));
-        v46 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v49 = 0u;
-        memset(v50, 0, 28);
-        *&v50[28] = *&v44[28];
-        if (*&v44[28])
-        {
-          v10 = buf;
-          v11 = v37;
-          p_b = &__b;
-          do
-          {
-            v13 = *p_b++;
-            v14 = v13;
-            v15 = *v11++;
-            *v10 = v14 + v15;
-            v10 += 4;
-            --v9;
-          }
-
-          while (v9);
-        }
-
-        v42 = v48;
-        v43 = v49;
-        *v44 = *v50;
-        *&v44[16] = *&v50[16];
-        __b = *buf;
-        v39 = *&buf[16];
-        v40 = v46;
-        v41 = v47;
-        ++v8;
-        v7 = *(this + 2366);
-        v16 = 0x6DB6DB6DB6DB6DB7 * ((*(this + 2367) - v7) >> 3);
-      }
-
-      while (v8 < v16);
-      v17 = *&v44[28];
-      memset(buf, 0, sizeof(buf));
-      v46 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      memset(v50, 0, 28);
-      *&v50[28] = *&v44[28];
-      if (*&v44[28])
-      {
-        v18 = 1.0 / v16;
-        v19 = buf;
-        v20 = &__b;
-        do
-        {
-          v21 = *v20++;
-          *v19 = v18 * v21;
-          v19 += 4;
-          --v17;
-        }
-
-        while (v17);
-      }
-
-      v42 = v48;
-      v43 = v49;
-      *v44 = *v50;
-      *&v44[16] = *&v50[16];
-      __b = *buf;
-      v39 = *&buf[16];
-      v40 = v46;
-      v41 = v47;
-    }
-  }
-
-  *(a3 + 108) = 0u;
-  a3[5] = 0u;
-  a3[6] = 0u;
-  a3[3] = 0u;
-  a3[4] = 0u;
-  a3[1] = 0u;
-  a3[2] = 0u;
-  *a3 = 0u;
-  *(a3 + 31) = v6;
-  if (v6)
-  {
-    v22 = (this + 0x4000);
-    bzero(a3, 4 * v6);
-    v23 = v22 + 848;
-    v24 = v22[782] + 1.0e-10;
-    v25 = &__b;
+    v33 = &__b;
     do
     {
-      v26 = *v25++;
-      v27 = v26;
-      v28 = *v23++;
-      *a3 = ((v27 * 308.0) * v28) / v24;
-      a3 = (a3 + 4);
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  v29 = *&v44[28];
-  v30 = *&__b;
-  if (*&v44[28] <= 1uLL)
-  {
-    v30 = 0.0;
-  }
-
-  if (*&v44[28])
-  {
-    v31 = &__b;
-    do
-    {
-      v32 = *v31++;
-      v33 = v32;
-      if (v30 < v32)
+      v34 = *v33++;
+      v35 = v34;
+      if (v32 < v34)
       {
-        v30 = v33;
+        v32 = v35;
       }
 
-      --v29;
+      --v31;
     }
 
-    while (v29);
+    while (v31);
   }
 
-  v34 = v30 + 1.0e-15;
-  if ((log10f(v34) * 10.0) < -60.0)
+  v36 = v32 + 1.0e-15;
+  if ((log10f(v36) * 10.0) < -60.0)
   {
-    v36 = **(Phase::Logger::GetInstance(v35) + 1264);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v38 = **(Phase::Logger::GetInstance(v37) + 1264);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
       *&buf[4] = "RayTracerState.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 1111;
-      _os_log_impl(&dword_23A302000, v36, OS_LOG_TYPE_DEBUG, "%25s:%-5d The source(s) directivity reduced sound power by more than 60dB.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v38, OS_LOG_TYPE_DEBUG, "%25s:%-5d The source(s) directivity reduced sound power by more than 60dB.", buf, 0x12u);
     }
   }
 }
@@ -4378,9 +4394,9 @@ double Phase::SpatialModeler::RayTracerState::CalculateRoomStats(Phase::SpatialM
   Phase::SpatialModeler::countSurfaceArea(a2, this + 2619, *(this + 83), this + 2616, this + 4877, this + 4912, *(this + 34), *(this + 35));
   Phase::SpatialModeler::RayTracerState::UpdateLocalMeanFreePathAndMeanAbsorption(this, v4);
   Phase::SpatialModeler::RayTracerState::UpdateLocalVolumeEstimate(this, a2);
-  Phase::SpatialModeler::RayTracerState::UpdateLocalRT60Estimate(this);
+  updated = Phase::SpatialModeler::RayTracerState::UpdateLocalRT60Estimate(this);
 
-  return Phase::SpatialModeler::RayTracerState::calculateTotalEarlyAndLateEnergy(this, this + 1292, this + 1300, a2);
+  return Phase::SpatialModeler::RayTracerState::calculateTotalEarlyAndLateEnergy(this, this + 1292, this + 1300, a2, updated, v6);
 }
 
 float Phase::SpatialModeler::RayTracerState::getSumOfActiveRays(Phase::SpatialModeler::RayTracerState *this)
@@ -4566,7 +4582,7 @@ void sub_23A4CAA78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>,std::__tree_node<std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t *std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>,std::__tree_node<std::__value_type<unsigned long long,Phase::SpatialModeler::RendererInfo>,void *> *,long>>(uint64_t *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
@@ -4575,7 +4591,7 @@ uint64_t **std::__tree<std::__value_type<unsigned long long,Phase::SpatialModele
     v8 = result + 1;
     v7 = result[1];
     *result = (result + 1);
-    v7[2] = 0;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -4609,8 +4625,8 @@ uint64_t **std::__tree<std::__value_type<unsigned long long,Phase::SpatialModele
           *(v9 + 56) = v15;
           *(v9 + 40) = v14;
           v16 = *v8;
-          v17 = v5 + 1;
-          v18 = v5 + 1;
+          v17 = (v5 + 1);
+          v18 = (v5 + 1);
           if (*v8)
           {
             do
@@ -4813,10 +4829,10 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialM
   }
 }
 
-void *std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t **std::__tree<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,Phase::SpatialModeler::SourceListenerResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t **a1, unint64_t a2, void **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -4826,27 +4842,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -5744,396 +5760,396 @@ void Phase::SpatialModeler::applyListenerDirectivity(_OWORD *a1@<X0>, uint64_t a
   Phase::SpatialModeler::applySourceDirectivity(a1, a2, a3 + 6, a4, &v17, a5);
 }
 
-void Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(Phase::Logger *a1, int *a2, uint64_t a3)
+void Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(Phase::Logger *a1, int *a2, uint64_t a3, float a4, __n128 a5)
 {
-  v4 = a1;
-  v351 = *MEMORY[0x277D85DE8];
+  v6 = a1;
+  v353 = *MEMORY[0x277D85DE8];
   if (a3 > 5)
   {
     if (a3 != 6)
     {
       if (a3 == 10)
       {
-        v331 = 0;
-        v329 = 0u;
-        v330 = 0u;
+        v333 = 0;
+        v331 = 0u;
+        v332 = 0u;
         if (a2)
         {
-          v44 = *a2;
+          v46 = *a2;
           if (*a2 == 3)
           {
-            v261 = **(a2 + 5);
-            if (!v261)
+            v263 = **(a2 + 5);
+            if (!v263)
             {
               goto LABEL_454;
             }
 
             for (i = 0; i != 30; ++i)
             {
-              v263 = (i * 0.10833) - (floorf((i * 0.10833) / 6.2832) * 6.2832);
-              if (v263 >= 6.2832)
+              v265 = (i * 0.10833) - (floorf((i * 0.10833) / 6.2832) * 6.2832);
+              if (v265 >= 6.2832)
               {
-                v264 = nextafterf(6.2832, 0.0);
+                v266 = nextafterf(6.2832, 0.0);
               }
 
               else
               {
-                v264 = v263 + 0.0;
+                v266 = v265 + 0.0;
               }
 
-              v265 = *(v261 + 40);
-              v266 = cosf(v264);
-              v267 = acosf(v266);
-              ValuesForAllDimensionsAt = Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>::GetValuesForAllDimensionsAt(*v265, 0, v267);
-              v270 = 0;
-              v271 = buf;
+              v267 = *(v263 + 40);
+              v268 = cosf(v266);
+              v269 = acosf(v268);
+              ValuesForAllDimensionsAt = Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>::GetValuesForAllDimensionsAt(*v267, 0, v269);
+              v272 = 0;
+              v273 = buf;
               do
               {
-                v272 = *(ValuesForAllDimensionsAt + v270);
-                *v271++ = v272;
-                v270 += 8;
+                v274 = *(ValuesForAllDimensionsAt + v272);
+                *v273++ = v274;
+                v272 += 8;
               }
 
-              while (v270 != 80);
-              v273 = *buf;
-              v274 = *&buf[16];
-              v269.i32[0] = 977287680;
-              v275 = *v346.f32;
+              while (v272 != 80);
+              v275 = *buf;
+              v276 = *&buf[16];
+              v271.i32[0] = 977287680;
+              v277 = *v348.f32;
               if (i)
               {
-                v269.i32[0] = 977287680;
+                v271.i32[0] = 977287680;
                 if (i != 29)
                 {
-                  v309 = *buf;
-                  v320 = *&buf[16];
-                  v276 = cosf(((i - 1) * 0.10833) + 0.054165);
-                  *v269.i32 = (v276 - cosf((i * 0.10833) + 0.054165)) * 0.5;
-                  v273 = v309;
-                  v274 = v320;
+                  v311 = *buf;
+                  v322 = *&buf[16];
+                  v278 = cosf(((i - 1) * 0.10833) + 0.054165);
+                  *v271.i32 = (v278 - cosf((i * 0.10833) + 0.054165)) * 0.5;
+                  v275 = v311;
+                  v276 = v322;
                 }
               }
 
-              v277 = 0;
-              v278 = 0;
               v279 = 0;
-              *buf = vmulq_f32(v273, v273);
-              *&buf[16] = vmulq_f32(v274, v274);
-              *v346.f32 = vmul_f32(v275, v275);
-              v332 = 0u;
-              v333 = 0u;
-              v334 = 0;
-              do
-              {
-                if (v278 <= 9)
-                {
-                  v277 = v278 + 1;
-                  v332.i32[v278++] = *&buf[v279];
-                }
-
-                v279 += 4;
-              }
-
-              while (v279 != 40);
-              if (v277 <= 9)
-              {
-                v321 = v269;
-                bzero(&v332.f32[v277], 40 - 4 * v277);
-                v269 = v321;
-              }
-
               v280 = 0;
               v281 = 0;
-              v282 = 0;
-              *buf = vmulq_n_f32(v332, *v269.i32);
-              *&buf[16] = vmulq_n_f32(v333, *v269.i32);
-              *v346.f32 = vmul_f32(*&vdupq_lane_s32(v269, 0), v334);
+              *buf = vmulq_f32(v275, v275);
+              *&buf[16] = vmulq_f32(v276, v276);
+              *v348.f32 = vmul_f32(v277, v277);
+              v334 = 0u;
               v335 = 0u;
-              v336 = 0u;
-              v337 = 0;
+              v336 = 0;
               do
               {
-                if (v281 <= 9)
+                if (v280 <= 9)
                 {
-                  v280 = v281 + 1;
-                  v335.i32[v281++] = *&buf[v282];
+                  v279 = v280 + 1;
+                  v334.i32[v280++] = *&buf[v281];
                 }
 
-                v282 += 4;
+                v281 += 4;
               }
 
-              while (v282 != 40);
-              if (v280 <= 9)
+              while (v281 != 40);
+              if (v279 <= 9)
               {
-                bzero(&v335.f32[v280], 40 - 4 * v280);
+                v323 = v271;
+                bzero(&v334.f32[v279], 40 - 4 * v279);
+                v271 = v323;
               }
 
+              v282 = 0;
               v283 = 0;
               v284 = 0;
-              v285 = 0;
-              *buf = vaddq_f32(v329, v335);
-              *&buf[16] = vaddq_f32(v330, v336);
-              *v346.f32 = vadd_f32(v331, v337);
+              *buf = vmulq_n_f32(v334, *v271.i32);
+              *&buf[16] = vmulq_n_f32(v335, *v271.i32);
+              *v348.f32 = vmul_f32(*&vdupq_lane_s32(v271, 0), v336);
+              v337 = 0u;
               v338 = 0u;
-              v339 = 0u;
-              v340.i64[0] = 0;
+              v339 = 0;
               do
               {
-                if (v284 <= 9)
+                if (v283 <= 9)
                 {
-                  v283 = v284 + 1;
-                  v338.i32[v284++] = *&buf[v285];
+                  v282 = v283 + 1;
+                  v337.i32[v283++] = *&buf[v284];
                 }
 
-                v285 += 4;
+                v284 += 4;
               }
 
-              while (v285 != 40);
-              if (v283 <= 9)
+              while (v284 != 40);
+              if (v282 <= 9)
               {
-                bzero(&v338.f32[v283], 40 - 4 * v283);
+                bzero(&v337.f32[v282], 40 - 4 * v282);
               }
 
-              v329 = v338;
-              v330 = v339;
-              v331 = *v340.f32;
+              v285 = 0;
+              v286 = 0;
+              v287 = 0;
+              *buf = vaddq_f32(v331, v337);
+              *&buf[16] = vaddq_f32(v332, v338);
+              *v348.f32 = vadd_f32(v333, v339);
+              v340 = 0u;
+              v341 = 0u;
+              v342.i64[0] = 0;
+              do
+              {
+                if (v286 <= 9)
+                {
+                  v285 = v286 + 1;
+                  v340.i32[v286++] = *&buf[v287];
+                }
+
+                v287 += 4;
+              }
+
+              while (v287 != 40);
+              if (v285 <= 9)
+              {
+                bzero(&v340.f32[v285], 40 - 4 * v285);
+              }
+
+              v331 = v340;
+              v332 = v341;
+              v333 = *v342.f32;
             }
           }
 
-          else if (v44 == 2)
+          else if (v46 == 2)
           {
-            v228 = **(a2 + 5);
-            if (!v228)
+            v230 = **(a2 + 5);
+            if (!v230)
             {
               goto LABEL_454;
             }
 
             for (j = 0; j != 30; ++j)
             {
-              v230 = (j * 0.10833) - (floorf((j * 0.10833) / 6.2832) * 6.2832);
-              if (v230 >= 6.2832)
+              v232 = (j * 0.10833) - (floorf((j * 0.10833) / 6.2832) * 6.2832);
+              if (v232 >= 6.2832)
               {
-                v231 = nextafterf(6.2832, 0.0);
+                v233 = nextafterf(6.2832, 0.0);
               }
 
               else
               {
-                v231 = v230 + 0.0;
+                v233 = v232 + 0.0;
               }
 
-              Phase::Geometry::ConeDirectivity::CalculateSubbandGains<10ul>(&v338, v228, v231);
-              v232.i32[0] = 977287680;
+              Phase::Geometry::ConeDirectivity::CalculateSubbandGains<10ul>(&v340, v230, v233);
+              v234.i32[0] = 977287680;
               if (j)
               {
-                v232.i32[0] = 977287680;
+                v234.i32[0] = 977287680;
                 if (j != 29)
                 {
-                  v233 = cosf(((j - 1) * 0.10833) + 0.054165);
-                  *v232.i32 = (v233 - cosf((j * 0.10833) + 0.054165)) * 0.5;
+                  v235 = cosf(((j - 1) * 0.10833) + 0.054165);
+                  *v234.i32 = (v235 - cosf((j * 0.10833) + 0.054165)) * 0.5;
                 }
               }
 
-              v234 = 0;
-              v235 = 0;
               v236 = 0;
-              *buf = vmulq_f32(v338, v338);
-              *&buf[16] = vmulq_f32(v339, v339);
-              *v346.f32 = vmul_f32(*v340.f32, *v340.f32);
-              v322 = 0u;
-              v323 = 0u;
-              v324.i64[0] = 0;
-              do
-              {
-                if (v235 <= 9)
-                {
-                  v234 = v235 + 1;
-                  v322.i32[v235++] = *&buf[v236];
-                }
-
-                v236 += 4;
-              }
-
-              while (v236 != 40);
-              if (v234 <= 9)
-              {
-                v319 = v232;
-                bzero(&v322.f32[v234], 40 - 4 * v234);
-                v232 = v319;
-              }
-
               v237 = 0;
               v238 = 0;
-              v239 = 0;
-              *buf = vmulq_n_f32(v322, *v232.i32);
-              *&buf[16] = vmulq_n_f32(v323, *v232.i32);
-              *v346.f32 = vmul_f32(*&vdupq_lane_s32(v232, 0), *v324.f32);
-              v332 = 0u;
-              v333 = 0u;
-              v334 = 0;
+              *buf = vmulq_f32(v340, v340);
+              *&buf[16] = vmulq_f32(v341, v341);
+              *v348.f32 = vmul_f32(*v342.f32, *v342.f32);
+              v324 = 0u;
+              v325 = 0u;
+              v326.i64[0] = 0;
               do
               {
-                if (v238 <= 9)
+                if (v237 <= 9)
                 {
-                  v237 = v238 + 1;
-                  v332.i32[v238++] = *&buf[v239];
+                  v236 = v237 + 1;
+                  v324.i32[v237++] = *&buf[v238];
                 }
 
-                v239 += 4;
+                v238 += 4;
               }
 
-              while (v239 != 40);
-              if (v237 <= 9)
+              while (v238 != 40);
+              if (v236 <= 9)
               {
-                bzero(&v332.f32[v237], 40 - 4 * v237);
+                v321 = v234;
+                bzero(&v324.f32[v236], 40 - 4 * v236);
+                v234 = v321;
               }
 
+              v239 = 0;
               v240 = 0;
               v241 = 0;
-              v242 = 0;
-              *buf = vaddq_f32(v329, v332);
-              *&buf[16] = vaddq_f32(v330, v333);
-              *v346.f32 = vadd_f32(v331, v334);
+              *buf = vmulq_n_f32(v324, *v234.i32);
+              *&buf[16] = vmulq_n_f32(v325, *v234.i32);
+              *v348.f32 = vmul_f32(*&vdupq_lane_s32(v234, 0), *v326.f32);
+              v334 = 0u;
               v335 = 0u;
-              v336 = 0u;
-              v337 = 0;
+              v336 = 0;
               do
               {
-                if (v241 <= 9)
+                if (v240 <= 9)
                 {
-                  v240 = v241 + 1;
-                  v335.i32[v241++] = *&buf[v242];
+                  v239 = v240 + 1;
+                  v334.i32[v240++] = *&buf[v241];
                 }
 
-                v242 += 4;
+                v241 += 4;
               }
 
-              while (v242 != 40);
-              if (v240 <= 9)
+              while (v241 != 40);
+              if (v239 <= 9)
               {
-                bzero(&v335.f32[v240], 40 - 4 * v240);
+                bzero(&v334.f32[v239], 40 - 4 * v239);
               }
 
-              v329 = v335;
-              v330 = v336;
+              v242 = 0;
+              v243 = 0;
+              v244 = 0;
+              *buf = vaddq_f32(v331, v334);
+              *&buf[16] = vaddq_f32(v332, v335);
+              *v348.f32 = vadd_f32(v333, v336);
+              v337 = 0u;
+              v338 = 0u;
+              v339 = 0;
+              do
+              {
+                if (v243 <= 9)
+                {
+                  v242 = v243 + 1;
+                  v337.i32[v243++] = *&buf[v244];
+                }
+
+                v244 += 4;
+              }
+
+              while (v244 != 40);
+              if (v242 <= 9)
+              {
+                bzero(&v337.f32[v242], 40 - 4 * v242);
+              }
+
               v331 = v337;
+              v332 = v338;
+              v333 = v339;
             }
           }
 
-          else if (v44 == 1)
+          else if (v46 == 1)
           {
-            v45 = **(a2 + 5);
-            if (!v45)
+            v47 = **(a2 + 5);
+            if (!v47)
             {
               goto LABEL_454;
             }
 
             for (k = 0; k != 30; ++k)
             {
-              v47 = (k * 0.10833) - (floorf((k * 0.10833) / 6.2832) * 6.2832);
-              if (v47 >= 6.2832)
+              v49 = (k * 0.10833) - (floorf((k * 0.10833) / 6.2832) * 6.2832);
+              if (v49 >= 6.2832)
               {
-                v48 = nextafterf(6.2832, 0.0);
+                v50 = nextafterf(6.2832, 0.0);
               }
 
               else
               {
-                v48 = v47 + 0.0;
+                v50 = v49 + 0.0;
               }
 
-              Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<10ul>(&v338, v45, 1.5708, v48);
-              v49.i32[0] = 977287680;
+              Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<10ul>(&v340, v47, 1.5708, v50);
+              v51.i32[0] = 977287680;
               if (k)
               {
-                v49.i32[0] = 977287680;
+                v51.i32[0] = 977287680;
                 if (k != 29)
                 {
-                  v50 = cosf(((k - 1) * 0.10833) + 0.054165);
-                  *v49.i32 = (v50 - cosf((k * 0.10833) + 0.054165)) * 0.5;
+                  v52 = cosf(((k - 1) * 0.10833) + 0.054165);
+                  *v51.i32 = (v52 - cosf((k * 0.10833) + 0.054165)) * 0.5;
                 }
               }
 
-              v51 = 0;
-              v52 = 0;
               v53 = 0;
-              *buf = vmulq_f32(v338, v338);
-              *&buf[16] = vmulq_f32(v339, v339);
-              *v346.f32 = vmul_f32(*v340.f32, *v340.f32);
-              v322 = 0u;
-              v323 = 0u;
-              v324.i64[0] = 0;
-              do
-              {
-                if (v52 <= 9)
-                {
-                  v51 = v52 + 1;
-                  v322.i32[v52++] = *&buf[v53];
-                }
-
-                v53 += 4;
-              }
-
-              while (v53 != 40);
-              if (v51 <= 9)
-              {
-                v311 = v49;
-                bzero(&v322.f32[v51], 40 - 4 * v51);
-                v49 = v311;
-              }
-
               v54 = 0;
               v55 = 0;
-              v56 = 0;
-              *buf = vmulq_n_f32(v322, *v49.i32);
-              *&buf[16] = vmulq_n_f32(v323, *v49.i32);
-              *v346.f32 = vmul_f32(*&vdupq_lane_s32(v49, 0), *v324.f32);
-              v332 = 0u;
-              v333 = 0u;
-              v334 = 0;
+              *buf = vmulq_f32(v340, v340);
+              *&buf[16] = vmulq_f32(v341, v341);
+              *v348.f32 = vmul_f32(*v342.f32, *v342.f32);
+              v324 = 0u;
+              v325 = 0u;
+              v326.i64[0] = 0;
               do
               {
-                if (v55 <= 9)
+                if (v54 <= 9)
                 {
-                  v54 = v55 + 1;
-                  v332.i32[v55++] = *&buf[v56];
+                  v53 = v54 + 1;
+                  v324.i32[v54++] = *&buf[v55];
                 }
 
-                v56 += 4;
+                v55 += 4;
               }
 
-              while (v56 != 40);
-              if (v54 <= 9)
+              while (v55 != 40);
+              if (v53 <= 9)
               {
-                bzero(&v332.f32[v54], 40 - 4 * v54);
+                v313 = v51;
+                bzero(&v324.f32[v53], 40 - 4 * v53);
+                v51 = v313;
               }
 
+              v56 = 0;
               v57 = 0;
               v58 = 0;
-              v59 = 0;
-              *buf = vaddq_f32(v329, v332);
-              *&buf[16] = vaddq_f32(v330, v333);
-              *v346.f32 = vadd_f32(v331, v334);
+              *buf = vmulq_n_f32(v324, *v51.i32);
+              *&buf[16] = vmulq_n_f32(v325, *v51.i32);
+              *v348.f32 = vmul_f32(*&vdupq_lane_s32(v51, 0), *v326.f32);
+              v334 = 0u;
               v335 = 0u;
-              v336 = 0u;
-              v337 = 0;
+              v336 = 0;
               do
               {
-                if (v58 <= 9)
+                if (v57 <= 9)
                 {
-                  v57 = v58 + 1;
-                  v335.i32[v58++] = *&buf[v59];
+                  v56 = v57 + 1;
+                  v334.i32[v57++] = *&buf[v58];
                 }
 
-                v59 += 4;
+                v58 += 4;
               }
 
-              while (v59 != 40);
-              if (v57 <= 9)
+              while (v58 != 40);
+              if (v56 <= 9)
               {
-                bzero(&v335.f32[v57], 40 - 4 * v57);
+                bzero(&v334.f32[v56], 40 - 4 * v56);
               }
 
-              v329 = v335;
-              v330 = v336;
+              v59 = 0;
+              v60 = 0;
+              v61 = 0;
+              *buf = vaddq_f32(v331, v334);
+              *&buf[16] = vaddq_f32(v332, v335);
+              *v348.f32 = vadd_f32(v333, v336);
+              v337 = 0u;
+              v338 = 0u;
+              v339 = 0;
+              do
+              {
+                if (v60 <= 9)
+                {
+                  v59 = v60 + 1;
+                  v337.i32[v60++] = *&buf[v61];
+                }
+
+                v61 += 4;
+              }
+
+              while (v61 != 40);
+              if (v59 <= 9)
+              {
+                bzero(&v337.f32[v59], 40 - 4 * v59);
+              }
+
               v331 = v337;
+              v332 = v338;
+              v333 = v339;
             }
           }
         }
@@ -6142,37 +6158,37 @@ void Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(Phase::Logger *a1,
         {
           __asm { FMOV            V0.4S, #1.0 }
 
-          v329 = _Q0;
-          v330 = _Q0;
+          v331 = _Q0;
+          v332 = _Q0;
           __asm { FMOV            V0.2S, #1.0 }
 
-          v331 = *_Q0.f32;
+          v333 = *_Q0.f32;
         }
 
-        v286 = *(v4 + 31);
-        if (v286 >= 0xA)
+        v288 = *(v6 + 31);
+        if (v288 >= 0xA)
         {
-          v287 = 10;
+          v289 = 10;
         }
 
         else
         {
-          v287 = v286;
+          v289 = v288;
         }
 
-        if (v286)
+        if (v288)
         {
-          v288 = &v329;
+          v290 = &v331;
           do
           {
-            v289 = v288->f32[0];
-            v288 = (v288 + 4);
-            *v4 = *v4 * (v289 * v289);
-            v4 = (v4 + 4);
-            --v287;
+            v291 = v290->f32[0];
+            v290 = (v290 + 4);
+            *v6 = *v6 * (v291 * v291);
+            v6 = (v6 + 4);
+            --v289;
           }
 
-          while (v287);
+          while (v289);
         }
 
         return;
@@ -6180,178 +6196,178 @@ void Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(Phase::Logger *a1,
 
       if (a3 == 31)
       {
+        v329 = 0u;
+        memset(v330, 0, 28);
         v327 = 0u;
-        memset(v328, 0, 28);
+        v328 = 0u;
         v325 = 0u;
         v326 = 0u;
-        v323 = 0u;
         v324 = 0u;
-        v322 = 0u;
         if (a2)
         {
-          v6 = *a2;
+          v8 = *a2;
           if (*a2 == 3)
           {
-            v243 = **(a2 + 5);
-            if (!v243)
+            v245 = **(a2 + 5);
+            if (!v245)
             {
               goto LABEL_454;
             }
 
             for (m = 0; m != 30; ++m)
             {
-              v245 = (m * 0.10833) - (floorf((m * 0.10833) / 6.2832) * 6.2832);
-              if (v245 >= 6.2832)
+              v247 = (m * 0.10833) - (floorf((m * 0.10833) / 6.2832) * 6.2832);
+              if (v247 >= 6.2832)
               {
-                v246 = nextafterf(6.2832, 0.0);
+                v248 = nextafterf(6.2832, 0.0);
               }
 
               else
               {
-                v246 = v245 + 0.0;
+                v248 = v247 + 0.0;
               }
 
-              v247 = *(v243 + 32);
-              v248 = cosf(v246);
-              v249 = acosf(v248);
-              v250 = Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>::GetValuesForAllDimensionsAt(*v247, 0, v249);
-              v251 = 0;
-              v252 = buf;
+              v249 = *(v245 + 32);
+              v250 = cosf(v248);
+              v251 = acosf(v250);
+              v252 = Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>::GetValuesForAllDimensionsAt(*v249, 0, v251);
+              v253 = 0;
+              v254 = buf;
               do
               {
-                v253 = *(v250 + v251);
-                *v252++ = v253;
-                v251 += 8;
+                v255 = *(v252 + v253);
+                *v254++ = v255;
+                v253 += 8;
               }
 
-              while (v251 != 248);
+              while (v253 != 248);
+              v344 = v350;
+              v345 = v351;
+              v346[0] = v352[0];
+              *(v346 + 12) = *(v352 + 12);
+              v340 = *buf;
+              v341 = *&buf[16];
               v342 = v348;
               v343 = v349;
-              v344[0] = v350[0];
-              *(v344 + 12) = *(v350 + 12);
-              v338 = *buf;
-              v339 = *&buf[16];
-              v340 = v346;
-              v341 = v347;
-              v254 = 0.00073329;
+              v256 = 0.00073329;
               if (m)
               {
-                v254 = 0.00073329;
+                v256 = 0.00073329;
                 if (m != 29)
                 {
-                  v255 = cosf(((m - 1) * 0.10833) + 0.054165);
-                  v254 = (v255 - cosf((m * 0.10833) + 0.054165)) * 0.5;
+                  v257 = cosf(((m - 1) * 0.10833) + 0.054165);
+                  v256 = (v257 - cosf((m * 0.10833) + 0.054165)) * 0.5;
                 }
               }
 
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v332, &v338, &v338);
-              *&v256 = v254;
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,float const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v335, &v332, v256);
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator+<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(buf, &v322, &v335);
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v334, &v340, &v340);
+              *&v258 = v256;
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,float const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v337, &v334, v258);
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator+<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(buf, &v324, &v337);
+              v328 = v350;
+              v329 = v351;
+              v330[0] = v352[0];
+              *(v330 + 12) = *(v352 + 12);
+              v324 = *buf;
+              v325 = *&buf[16];
               v326 = v348;
               v327 = v349;
-              v328[0] = v350[0];
-              *(v328 + 12) = *(v350 + 12);
-              v322 = *buf;
-              v323 = *&buf[16];
-              v324 = v346;
-              v325 = v347;
             }
           }
 
-          else if (v6 == 2)
+          else if (v8 == 2)
           {
-            v221 = **(a2 + 5);
-            if (!v221)
+            v223 = **(a2 + 5);
+            if (!v223)
             {
               goto LABEL_454;
             }
 
             for (n = 0; n != 30; ++n)
             {
-              v223 = (n * 0.10833) - (floorf((n * 0.10833) / 6.2832) * 6.2832);
-              if (v223 >= 6.2832)
+              v225 = (n * 0.10833) - (floorf((n * 0.10833) / 6.2832) * 6.2832);
+              if (v225 >= 6.2832)
               {
-                v224 = nextafterf(6.2832, 0.0);
+                v226 = nextafterf(6.2832, 0.0);
               }
 
               else
               {
-                v224 = v223 + 0.0;
+                v226 = v225 + 0.0;
               }
 
-              Phase::Geometry::ConeDirectivity::CalculateSubbandGains<31ul>(buf, v221, v224);
-              v225 = 0.00073329;
+              Phase::Geometry::ConeDirectivity::CalculateSubbandGains<31ul>(buf, v223, v226);
+              v227 = 0.00073329;
               if (n)
               {
-                v225 = 0.00073329;
+                v227 = 0.00073329;
                 if (n != 29)
                 {
-                  v226 = cosf(((n - 1) * 0.10833) + 0.054165);
-                  v225 = (v226 - cosf((n * 0.10833) + 0.054165)) * 0.5;
+                  v228 = cosf(((n - 1) * 0.10833) + 0.054165);
+                  v227 = (v228 - cosf((n * 0.10833) + 0.054165)) * 0.5;
                 }
               }
 
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v332, buf, buf);
-              *&v227 = v225;
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,float const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v335, &v332, v227);
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator+<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v338, &v322, &v335);
-              v326 = v342;
-              v327 = v343;
-              v328[0] = v344[0];
-              *(v328 + 12) = *(v344 + 12);
-              v322 = v338;
-              v323 = v339;
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v334, buf, buf);
+              *&v229 = v227;
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,float const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v337, &v334, v229);
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator+<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v340, &v324, &v337);
+              v328 = v344;
+              v329 = v345;
+              v330[0] = v346[0];
+              *(v330 + 12) = *(v346 + 12);
               v324 = v340;
               v325 = v341;
+              v326 = v342;
+              v327 = v343;
             }
           }
 
-          else if (v6 == 1)
+          else if (v8 == 1)
           {
-            v7 = **(a2 + 5);
-            if (!v7)
+            v9 = **(a2 + 5);
+            if (!v9)
             {
               goto LABEL_454;
             }
 
             for (ii = 0; ii != 30; ++ii)
             {
-              v9 = (ii * 0.10833) - (floorf((ii * 0.10833) / 6.2832) * 6.2832);
-              if (v9 >= 6.2832)
+              v11 = (ii * 0.10833) - (floorf((ii * 0.10833) / 6.2832) * 6.2832);
+              if (v11 >= 6.2832)
               {
-                v10 = nextafterf(6.2832, 0.0);
+                v12 = nextafterf(6.2832, 0.0);
               }
 
               else
               {
-                v10 = v9 + 0.0;
+                v12 = v11 + 0.0;
               }
 
-              Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<31ul>(buf, v7, 1.5708, v10);
-              v11 = 0.00073329;
+              Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<31ul>(buf, v9, 1.5708, v12);
+              v13 = 0.00073329;
               if (ii)
               {
-                v11 = 0.00073329;
+                v13 = 0.00073329;
                 if (ii != 29)
                 {
-                  v12 = cosf(((ii - 1) * 0.10833) + 0.054165);
-                  v11 = (v12 - cosf((ii * 0.10833) + 0.054165)) * 0.5;
+                  v14 = cosf(((ii - 1) * 0.10833) + 0.054165);
+                  v13 = (v14 - cosf((ii * 0.10833) + 0.054165)) * 0.5;
                 }
               }
 
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v332, buf, buf);
-              *&v13 = v11;
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,float const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v335, &v332, v13);
-              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator+<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v338, &v322, &v335);
-              v326 = v342;
-              v327 = v343;
-              v328[0] = v344[0];
-              *(v328 + 12) = *(v344 + 12);
-              v322 = v338;
-              v323 = v339;
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v334, buf, buf);
+              *&v15 = v13;
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator*<float,31ul>(Phase::PackedSubbands<float,31ul> const&,float const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v337, &v334, v15);
+              Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float,31ul> Phase::operator+<float,31ul>(Phase::PackedSubbands<float,31ul> const&,Phase::PackedSubbands<float,31ul> const&)::{lambda(float)#1} const&,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(&v340, &v324, &v337);
+              v328 = v344;
+              v329 = v345;
+              v330[0] = v346[0];
+              *(v330 + 12) = *(v346 + 12);
               v324 = v340;
               v325 = v341;
+              v326 = v342;
+              v327 = v343;
             }
           }
         }
@@ -6360,51 +6376,51 @@ void Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(Phase::Logger *a1,
         {
           __asm { FMOV            V0.4S, #1.0 }
 
-          v322 = _Q0;
-          v323 = _Q0;
           v324 = _Q0;
           v325 = _Q0;
           v326 = _Q0;
           v327 = _Q0;
-          v328[0] = _Q0;
+          v328 = _Q0;
+          v329 = _Q0;
+          v330[0] = _Q0;
           __asm { FMOV            V0.2S, #1.0 }
 
-          *&v328[1] = _Q0.i64[0];
-          DWORD2(v328[1]) = 1065353216;
+          *&v330[1] = _Q0.i64[0];
+          DWORD2(v330[1]) = 1065353216;
         }
 
-        v257 = *(v4 + 31);
-        if (v257 >= 0x1F)
+        v259 = *(v6 + 31);
+        if (v259 >= 0x1F)
         {
-          v258 = 31;
+          v260 = 31;
         }
 
         else
         {
-          v258 = v257;
+          v260 = v259;
         }
 
-        if (v257)
+        if (v259)
         {
-          v259 = &v322;
+          v261 = &v324;
           do
           {
-            v260 = v259->f32[0];
-            v259 = (v259 + 4);
-            *v4 = *v4 * (v260 * v260);
-            v4 = (v4 + 4);
-            --v258;
+            v262 = v261->f32[0];
+            v261 = (v261 + 4);
+            *v6 = *v6 * (v262 * v262);
+            v6 = (v6 + 4);
+            --v260;
           }
 
-          while (v258);
+          while (v260);
         }
 
         return;
       }
 
 LABEL_66:
-      v38 = **(Phase::Logger::GetInstance(a1) + 1264);
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v40 = **(Phase::Logger::GetInstance(a1) + 1264);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
         *&buf[4] = "RayTracingMath.cpp";
@@ -6412,242 +6428,242 @@ LABEL_66:
         *&buf[14] = 373;
         *&buf[18] = 2048;
         *&buf[20] = a3;
-        _os_log_impl(&dword_23A302000, v38, OS_LOG_TYPE_ERROR, "%25s:%-5d Unsupported subband count: %lu\n", buf, 0x1Cu);
+        _os_log_impl(&dword_23A302000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d Unsupported subband count: %lu\n", buf, 0x1Cu);
       }
 
       return;
     }
 
-    v329 = 0uLL;
-    v330.i64[0] = 0;
+    v331 = 0uLL;
+    v332.i64[0] = 0;
     if (a2)
     {
-      v37 = *a2;
+      v39 = *a2;
       if (*a2 == 1)
       {
-        v83 = **(a2 + 5);
-        if (!v83)
+        v85 = **(a2 + 5);
+        if (!v85)
         {
           goto LABEL_454;
         }
 
         for (jj = 0; jj != 30; ++jj)
         {
-          v85 = (jj * 0.10833) - (floorf((jj * 0.10833) / 6.2832) * 6.2832);
-          if (v85 >= 6.2832)
+          v87 = (jj * 0.10833) - (floorf((jj * 0.10833) / 6.2832) * 6.2832);
+          if (v87 >= 6.2832)
           {
-            v86 = nextafterf(6.2832, 0.0);
+            v88 = nextafterf(6.2832, 0.0);
           }
 
           else
           {
-            v86 = v85 + 0.0;
+            v88 = v87 + 0.0;
           }
 
-          Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<6ul>(&v338, v83, 1.5708, v86);
-          v87.i32[0] = 977287680;
+          Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<6ul>(&v340, v85, 1.5708, v88);
+          v89.i32[0] = 977287680;
           if (jj)
           {
-            v87.i32[0] = 977287680;
+            v89.i32[0] = 977287680;
             if (jj != 29)
             {
-              v88 = cosf(((jj - 1) * 0.10833) + 0.054165);
-              *v87.i32 = (v88 - cosf((jj * 0.10833) + 0.054165)) * 0.5;
+              v90 = cosf(((jj - 1) * 0.10833) + 0.054165);
+              *v89.i32 = (v90 - cosf((jj * 0.10833) + 0.054165)) * 0.5;
             }
           }
 
-          v89 = 0;
-          v90 = 0;
           v91 = 0;
-          *buf = vmulq_f32(v338, v338);
-          *&buf[16] = vmul_f32(*v339.f32, *v339.f32);
-          v323.i64[0] = 0;
-          v322 = 0uLL;
-          do
-          {
-            if (v90 <= 5)
-            {
-              v89 = v90 + 1;
-              v322.i32[v90++] = *&buf[v91];
-            }
-
-            v91 += 4;
-          }
-
-          while (v91 != 24);
-          if (v89 <= 5)
-          {
-            v313 = v87;
-            bzero(&v322.f32[v89], 24 - 4 * v89);
-            v87 = v313;
-          }
-
           v92 = 0;
           v93 = 0;
-          v94 = 0;
-          *buf = vmulq_n_f32(v322, *v87.i32);
-          *&buf[16] = vmul_f32(*&vdupq_lane_s32(v87, 0), *v323.f32);
-          v333.i64[0] = 0;
-          v332 = 0uLL;
+          *buf = vmulq_f32(v340, v340);
+          *&buf[16] = vmul_f32(*v341.f32, *v341.f32);
+          v325.i64[0] = 0;
+          v324 = 0uLL;
           do
           {
-            if (v93 <= 5)
+            if (v92 <= 5)
             {
-              v92 = v93 + 1;
-              v332.i32[v93++] = *&buf[v94];
+              v91 = v92 + 1;
+              v324.i32[v92++] = *&buf[v93];
             }
 
-            v94 += 4;
+            v93 += 4;
           }
 
-          while (v94 != 24);
-          if (v92 <= 5)
+          while (v93 != 24);
+          if (v91 <= 5)
           {
-            bzero(&v332.f32[v92], 24 - 4 * v92);
+            v315 = v89;
+            bzero(&v324.f32[v91], 24 - 4 * v91);
+            v89 = v315;
           }
 
+          v94 = 0;
           v95 = 0;
           v96 = 0;
-          v97 = 0;
-          *buf = vaddq_f32(v329, v332);
-          *&buf[16] = vadd_f32(*v330.f32, *v333.f32);
-          v336.i64[0] = 0;
-          v335 = 0uLL;
+          *buf = vmulq_n_f32(v324, *v89.i32);
+          *&buf[16] = vmul_f32(*&vdupq_lane_s32(v89, 0), *v325.f32);
+          v335.i64[0] = 0;
+          v334 = 0uLL;
           do
           {
-            if (v96 <= 5)
+            if (v95 <= 5)
             {
-              v95 = v96 + 1;
-              v335.i32[v96++] = *&buf[v97];
+              v94 = v95 + 1;
+              v334.i32[v95++] = *&buf[v96];
             }
 
-            v97 += 4;
+            v96 += 4;
           }
 
-          while (v97 != 24);
-          if (v95 <= 5)
+          while (v96 != 24);
+          if (v94 <= 5)
           {
-            bzero(&v335.f32[v95], 24 - 4 * v95);
+            bzero(&v334.f32[v94], 24 - 4 * v94);
           }
 
-          v329 = v335;
-          v330.i64[0] = v336.i64[0];
+          v97 = 0;
+          v98 = 0;
+          v99 = 0;
+          *buf = vaddq_f32(v331, v334);
+          *&buf[16] = vadd_f32(*v332.f32, *v335.f32);
+          v338.i64[0] = 0;
+          v337 = 0uLL;
+          do
+          {
+            if (v98 <= 5)
+            {
+              v97 = v98 + 1;
+              v337.i32[v98++] = *&buf[v99];
+            }
+
+            v99 += 4;
+          }
+
+          while (v99 != 24);
+          if (v97 <= 5)
+          {
+            bzero(&v337.f32[v97], 24 - 4 * v97);
+          }
+
+          v331 = v337;
+          v332.i64[0] = v338.i64[0];
         }
       }
 
-      else if (v37 == 2)
+      else if (v39 == 2)
       {
-        v68 = **(a2 + 5);
-        if (!v68)
+        v70 = **(a2 + 5);
+        if (!v70)
         {
           goto LABEL_454;
         }
 
         for (kk = 0; kk != 30; ++kk)
         {
-          v70 = (kk * 0.10833) - (floorf((kk * 0.10833) / 6.2832) * 6.2832);
-          if (v70 >= 6.2832)
+          v72 = (kk * 0.10833) - (floorf((kk * 0.10833) / 6.2832) * 6.2832);
+          if (v72 >= 6.2832)
           {
-            v71 = nextafterf(6.2832, 0.0);
+            v73 = nextafterf(6.2832, 0.0);
           }
 
           else
           {
-            v71 = v70 + 0.0;
+            v73 = v72 + 0.0;
           }
 
-          Phase::Geometry::ConeDirectivity::CalculateSubbandGains<6ul>(&v338, v68, v71);
-          v72.i32[0] = 977287680;
+          Phase::Geometry::ConeDirectivity::CalculateSubbandGains<6ul>(&v340, v70, v73);
+          v74.i32[0] = 977287680;
           if (kk)
           {
-            v72.i32[0] = 977287680;
+            v74.i32[0] = 977287680;
             if (kk != 29)
             {
-              v73 = cosf(((kk - 1) * 0.10833) + 0.054165);
-              *v72.i32 = (v73 - cosf((kk * 0.10833) + 0.054165)) * 0.5;
+              v75 = cosf(((kk - 1) * 0.10833) + 0.054165);
+              *v74.i32 = (v75 - cosf((kk * 0.10833) + 0.054165)) * 0.5;
             }
           }
 
-          v74 = 0;
-          v75 = 0;
           v76 = 0;
-          *buf = vmulq_f32(v338, v338);
-          *&buf[16] = vmul_f32(*v339.f32, *v339.f32);
-          v323.i64[0] = 0;
-          v322 = 0uLL;
-          do
-          {
-            if (v75 <= 5)
-            {
-              v74 = v75 + 1;
-              v322.i32[v75++] = *&buf[v76];
-            }
-
-            v76 += 4;
-          }
-
-          while (v76 != 24);
-          if (v74 <= 5)
-          {
-            v312 = v72;
-            bzero(&v322.f32[v74], 24 - 4 * v74);
-            v72 = v312;
-          }
-
           v77 = 0;
           v78 = 0;
-          v79 = 0;
-          *buf = vmulq_n_f32(v322, *v72.i32);
-          *&buf[16] = vmul_f32(*&vdupq_lane_s32(v72, 0), *v323.f32);
-          v333.i64[0] = 0;
-          v332 = 0uLL;
+          *buf = vmulq_f32(v340, v340);
+          *&buf[16] = vmul_f32(*v341.f32, *v341.f32);
+          v325.i64[0] = 0;
+          v324 = 0uLL;
           do
           {
-            if (v78 <= 5)
+            if (v77 <= 5)
             {
-              v77 = v78 + 1;
-              v332.i32[v78++] = *&buf[v79];
+              v76 = v77 + 1;
+              v324.i32[v77++] = *&buf[v78];
             }
 
-            v79 += 4;
+            v78 += 4;
           }
 
-          while (v79 != 24);
-          if (v77 <= 5)
+          while (v78 != 24);
+          if (v76 <= 5)
           {
-            bzero(&v332.f32[v77], 24 - 4 * v77);
+            v314 = v74;
+            bzero(&v324.f32[v76], 24 - 4 * v76);
+            v74 = v314;
           }
 
+          v79 = 0;
           v80 = 0;
           v81 = 0;
-          v82 = 0;
-          *buf = vaddq_f32(v329, v332);
-          *&buf[16] = vadd_f32(*v330.f32, *v333.f32);
-          v336.i64[0] = 0;
-          v335 = 0uLL;
+          *buf = vmulq_n_f32(v324, *v74.i32);
+          *&buf[16] = vmul_f32(*&vdupq_lane_s32(v74, 0), *v325.f32);
+          v335.i64[0] = 0;
+          v334 = 0uLL;
           do
           {
-            if (v81 <= 5)
+            if (v80 <= 5)
             {
-              v80 = v81 + 1;
-              v335.i32[v81++] = *&buf[v82];
+              v79 = v80 + 1;
+              v334.i32[v80++] = *&buf[v81];
             }
 
-            v82 += 4;
+            v81 += 4;
           }
 
-          while (v82 != 24);
-          if (v80 <= 5)
+          while (v81 != 24);
+          if (v79 <= 5)
           {
-            bzero(&v335.f32[v80], 24 - 4 * v80);
+            bzero(&v334.f32[v79], 24 - 4 * v79);
           }
 
-          v329 = v335;
-          v330.i64[0] = v336.i64[0];
+          v82 = 0;
+          v83 = 0;
+          v84 = 0;
+          *buf = vaddq_f32(v331, v334);
+          *&buf[16] = vadd_f32(*v332.f32, *v335.f32);
+          v338.i64[0] = 0;
+          v337 = 0uLL;
+          do
+          {
+            if (v83 <= 5)
+            {
+              v82 = v83 + 1;
+              v337.i32[v83++] = *&buf[v84];
+            }
+
+            v84 += 4;
+          }
+
+          while (v84 != 24);
+          if (v82 <= 5)
+          {
+            bzero(&v337.f32[v82], 24 - 4 * v82);
+          }
+
+          v331 = v337;
+          v332.i64[0] = v338.i64[0];
         }
       }
 
-      else if (v37 == 3)
+      else if (v39 == 3)
       {
         if (**(a2 + 5))
         {
@@ -6663,36 +6679,36 @@ LABEL_454:
     {
       __asm { FMOV            V0.4S, #1.0 }
 
-      v329 = _Q0;
+      v331 = _Q0;
       __asm { FMOV            V0.2S, #1.0 }
 
-      v330.i64[0] = _Q0.i64[0];
+      v332.i64[0] = _Q0.i64[0];
     }
 
-    v98 = *(v4 + 31);
-    if (v98 >= 6)
+    v100 = *(v6 + 31);
+    if (v100 >= 6)
     {
-      v99 = 6;
+      v101 = 6;
     }
 
     else
     {
-      v99 = v98;
+      v101 = v100;
     }
 
-    if (v98)
+    if (v100)
     {
-      v100 = &v329;
+      v102 = &v331;
       do
       {
-        v101 = v100->f32[0];
-        v100 = (v100 + 4);
-        *v4 = *v4 * (v101 * v101);
-        v4 = (v4 + 4);
-        --v99;
+        v103 = v102->f32[0];
+        v102 = (v102 + 4);
+        *v6 = *v6 * (v103 * v103);
+        v6 = (v6 + 4);
+        --v101;
       }
 
-      while (v99);
+      while (v101);
     }
 
     return;
@@ -6702,426 +6718,426 @@ LABEL_454:
   {
     if (a2)
     {
-      v14 = *a2;
+      v16 = *a2;
       if (*a2 == 3)
       {
-        v198 = **(a2 + 5);
-        if (!v198)
+        v200 = **(a2 + 5);
+        if (!v200)
         {
           goto LABEL_454;
         }
 
-        v199 = 0;
-        v17 = 0;
-        v15 = 0.0;
+        v201 = 0;
+        v19 = 0;
+        v17 = 0.0;
         do
         {
-          v318 = v17;
-          v200 = (v199 * 0.10833) - (floorf((v199 * 0.10833) / 6.2832) * 6.2832);
-          if (v200 >= 6.2832)
+          v320 = v19;
+          v202 = (v201 * 0.10833) - (floorf((v201 * 0.10833) / 6.2832) * 6.2832);
+          if (v202 >= 6.2832)
           {
-            v201 = nextafterf(6.2832, 0.0);
+            v203 = nextafterf(6.2832, 0.0);
           }
 
           else
           {
-            v201 = v200 + 0.0;
+            v203 = v202 + 0.0;
           }
 
-          v202.f32[0] = Phase::Geometry::SphericalCapDirectivity::GetSubbandGainsFromDatabase<3ul>(v198, 1.5708, v201);
-          v205 = v204;
-          v206 = 0.00073329;
-          if (v199)
+          v204.f32[0] = Phase::Geometry::SphericalCapDirectivity::GetSubbandGainsFromDatabase<3ul>(v200, 1.5708, v203);
+          v207 = v206;
+          v208 = 0.00073329;
+          if (v201)
           {
-            v206 = 0.00073329;
-            if (v199 != 29)
+            v208 = 0.00073329;
+            if (v201 != 29)
             {
-              v298 = v203;
-              v307 = v202.i32[0];
-              v207 = cosf(((v199 - 1) * 0.10833) + 0.054165);
-              v206 = (v207 - cosf((v199 * 0.10833) + 0.054165)) * 0.5;
-              v203 = v298;
-              v202.i32[0] = v307;
+              v300 = v205;
+              v309 = v204.i32[0];
+              v209 = cosf(((v201 - 1) * 0.10833) + 0.054165);
+              v208 = (v209 - cosf((v201 * 0.10833) + 0.054165)) * 0.5;
+              v205 = v300;
+              v204.i32[0] = v309;
             }
           }
 
-          v208 = 0;
-          v209 = 0;
           v210 = 0;
-          v202.i32[1] = v203;
-          *v338.f32 = vmul_f32(v202, v202);
-          v338.f32[2] = v205 * v205;
-          *buf = 0;
-          *&buf[8] = 0;
-          do
-          {
-            if (v209 <= 2)
-            {
-              v208 = v209 + 1;
-              *&buf[4 * v209++] = v338.i32[v210];
-            }
-
-            ++v210;
-          }
-
-          while (v210 != 3);
-          if (v208 <= 2)
-          {
-            v308 = v206;
-            bzero(&buf[4 * v208], 12 - 4 * v208);
-            v206 = v308;
-          }
-
           v211 = 0;
           v212 = 0;
-          v213 = 0;
-          *v338.f32 = vmul_n_f32(*buf, v206);
-          v338.f32[2] = v206 * *&buf[8];
+          v204.i32[1] = v205;
+          *v340.f32 = vmul_f32(v204, v204);
+          v340.f32[2] = v207 * v207;
           *buf = 0;
           *&buf[8] = 0;
           do
           {
-            if (v212 <= 2)
+            if (v211 <= 2)
             {
-              v211 = v212 + 1;
-              *&buf[4 * v212++] = v338.i32[v213];
+              v210 = v211 + 1;
+              *&buf[4 * v211++] = v340.i32[v212];
             }
 
-            ++v213;
+            ++v212;
           }
 
-          while (v213 != 3);
-          if (v211 <= 2)
+          while (v212 != 3);
+          if (v210 <= 2)
           {
-            bzero(&buf[4 * v211], 12 - 4 * v211);
+            v310 = v208;
+            bzero(&buf[4 * v210], 12 - 4 * v210);
+            v208 = v310;
           }
 
+          v213 = 0;
           v214 = 0;
           v215 = 0;
-          v216 = 0;
-          *v338.f32 = vadd_f32(v318, *buf);
-          v338.f32[2] = v15 + *&buf[8];
+          *v340.f32 = vmul_n_f32(*buf, v208);
+          v340.f32[2] = v208 * *&buf[8];
           *buf = 0;
           *&buf[8] = 0;
           do
           {
-            if (v215 <= 2)
+            if (v214 <= 2)
             {
-              v214 = v215 + 1;
-              *&buf[4 * v215++] = v338.i32[v216];
+              v213 = v214 + 1;
+              *&buf[4 * v214++] = v340.i32[v215];
             }
 
-            ++v216;
+            ++v215;
           }
 
-          while (v216 != 3);
-          if (v214 <= 2)
+          while (v215 != 3);
+          if (v213 <= 2)
           {
-            bzero(&buf[4 * v214], 12 - 4 * v214);
+            bzero(&buf[4 * v213], 12 - 4 * v213);
           }
 
-          v17 = *buf;
-          v15 = *&buf[8];
-          ++v199;
+          v216 = 0;
+          v217 = 0;
+          v218 = 0;
+          *v340.f32 = vadd_f32(v320, *buf);
+          v340.f32[2] = v17 + *&buf[8];
+          *buf = 0;
+          *&buf[8] = 0;
+          do
+          {
+            if (v217 <= 2)
+            {
+              v216 = v217 + 1;
+              *&buf[4 * v217++] = v340.i32[v218];
+            }
+
+            ++v218;
+          }
+
+          while (v218 != 3);
+          if (v216 <= 2)
+          {
+            bzero(&buf[4 * v216], 12 - 4 * v216);
+          }
+
+          v19 = *buf;
+          v17 = *&buf[8];
+          ++v201;
         }
 
-        while (v199 != 30);
+        while (v201 != 30);
       }
 
-      else if (v14 == 2)
+      else if (v16 == 2)
       {
-        v179 = **(a2 + 5);
-        if (!v179)
+        v181 = **(a2 + 5);
+        if (!v181)
         {
           goto LABEL_454;
         }
 
-        v180 = 0;
-        v17 = 0;
-        v15 = 0.0;
+        v182 = 0;
+        v19 = 0;
+        v17 = 0.0;
         do
         {
-          v317 = v17;
-          v181 = (v180 * 0.10833) - (floorf((v180 * 0.10833) / 6.2832) * 6.2832);
-          if (v181 >= 6.2832)
+          v319 = v19;
+          v183 = (v182 * 0.10833) - (floorf((v182 * 0.10833) / 6.2832) * 6.2832);
+          if (v183 >= 6.2832)
           {
-            v182 = nextafterf(6.2832, 0.0);
+            v184 = nextafterf(6.2832, 0.0);
           }
 
           else
           {
-            v182 = v181 + 0.0;
+            v184 = v183 + 0.0;
           }
 
-          v183.f32[0] = Phase::Geometry::ConeDirectivity::CalculateSubbandGains<3ul>(v179, v182);
-          v186 = v185;
-          v187 = 0.00073329;
-          if (v180)
+          v185.f32[0] = Phase::Geometry::ConeDirectivity::CalculateSubbandGains<3ul>(v181, v184);
+          v188 = v187;
+          v189 = 0.00073329;
+          if (v182)
           {
-            v187 = 0.00073329;
-            if (v180 != 29)
+            v189 = 0.00073329;
+            if (v182 != 29)
             {
-              v297 = v184;
-              v305 = v183.i32[0];
-              v188 = cosf(((v180 - 1) * 0.10833) + 0.054165);
-              v187 = (v188 - cosf((v180 * 0.10833) + 0.054165)) * 0.5;
-              v184 = v297;
-              v183.i32[0] = v305;
+              v299 = v186;
+              v307 = v185.i32[0];
+              v190 = cosf(((v182 - 1) * 0.10833) + 0.054165);
+              v189 = (v190 - cosf((v182 * 0.10833) + 0.054165)) * 0.5;
+              v186 = v299;
+              v185.i32[0] = v307;
             }
           }
 
-          v189 = 0;
-          v190 = 0;
           v191 = 0;
-          v183.i32[1] = v184;
-          *v338.f32 = vmul_f32(v183, v183);
-          v338.f32[2] = v186 * v186;
-          *buf = 0;
-          *&buf[8] = 0;
-          do
-          {
-            if (v190 <= 2)
-            {
-              v189 = v190 + 1;
-              *&buf[4 * v190++] = v338.i32[v191];
-            }
-
-            ++v191;
-          }
-
-          while (v191 != 3);
-          if (v189 <= 2)
-          {
-            v306 = v187;
-            bzero(&buf[4 * v189], 12 - 4 * v189);
-            v187 = v306;
-          }
-
           v192 = 0;
           v193 = 0;
-          v194 = 0;
-          *v338.f32 = vmul_n_f32(*buf, v187);
-          v338.f32[2] = v187 * *&buf[8];
+          v185.i32[1] = v186;
+          *v340.f32 = vmul_f32(v185, v185);
+          v340.f32[2] = v188 * v188;
           *buf = 0;
           *&buf[8] = 0;
           do
           {
-            if (v193 <= 2)
+            if (v192 <= 2)
             {
-              v192 = v193 + 1;
-              *&buf[4 * v193++] = v338.i32[v194];
+              v191 = v192 + 1;
+              *&buf[4 * v192++] = v340.i32[v193];
             }
 
-            ++v194;
+            ++v193;
           }
 
-          while (v194 != 3);
-          if (v192 <= 2)
+          while (v193 != 3);
+          if (v191 <= 2)
           {
-            bzero(&buf[4 * v192], 12 - 4 * v192);
+            v308 = v189;
+            bzero(&buf[4 * v191], 12 - 4 * v191);
+            v189 = v308;
           }
 
+          v194 = 0;
           v195 = 0;
           v196 = 0;
-          v197 = 0;
-          *v338.f32 = vadd_f32(v317, *buf);
-          v338.f32[2] = v15 + *&buf[8];
+          *v340.f32 = vmul_n_f32(*buf, v189);
+          v340.f32[2] = v189 * *&buf[8];
           *buf = 0;
           *&buf[8] = 0;
           do
           {
-            if (v196 <= 2)
+            if (v195 <= 2)
             {
-              v195 = v196 + 1;
-              *&buf[4 * v196++] = v338.i32[v197];
+              v194 = v195 + 1;
+              *&buf[4 * v195++] = v340.i32[v196];
             }
 
-            ++v197;
+            ++v196;
           }
 
-          while (v197 != 3);
-          if (v195 <= 2)
+          while (v196 != 3);
+          if (v194 <= 2)
           {
-            bzero(&buf[4 * v195], 12 - 4 * v195);
+            bzero(&buf[4 * v194], 12 - 4 * v194);
           }
 
-          v17 = *buf;
-          v15 = *&buf[8];
-          ++v180;
+          v197 = 0;
+          v198 = 0;
+          v199 = 0;
+          *v340.f32 = vadd_f32(v319, *buf);
+          v340.f32[2] = v17 + *&buf[8];
+          *buf = 0;
+          *&buf[8] = 0;
+          do
+          {
+            if (v198 <= 2)
+            {
+              v197 = v198 + 1;
+              *&buf[4 * v198++] = v340.i32[v199];
+            }
+
+            ++v199;
+          }
+
+          while (v199 != 3);
+          if (v197 <= 2)
+          {
+            bzero(&buf[4 * v197], 12 - 4 * v197);
+          }
+
+          v19 = *buf;
+          v17 = *&buf[8];
+          ++v182;
         }
 
-        while (v180 != 30);
+        while (v182 != 30);
       }
 
       else
       {
-        v15 = 0.0;
-        v16 = 0.0;
-        v17.i32[0] = 0;
-        if (v14 != 1)
+        v17 = 0.0;
+        v18 = 0.0;
+        v19.i32[0] = 0;
+        if (v16 != 1)
         {
           goto LABEL_355;
         }
 
-        v18 = **(a2 + 5);
-        if (!v18)
+        v20 = **(a2 + 5);
+        if (!v20)
         {
           goto LABEL_454;
         }
 
+        v21 = 0;
         v19 = 0;
-        v17 = 0;
         do
         {
-          v310 = v17;
-          v20 = (v19 * 0.10833) - (floorf((v19 * 0.10833) / 6.2832) * 6.2832);
-          if (v20 >= 6.2832)
+          v312 = v19;
+          v22 = (v21 * 0.10833) - (floorf((v21 * 0.10833) / 6.2832) * 6.2832);
+          if (v22 >= 6.2832)
           {
-            v21 = nextafterf(6.2832, 0.0);
+            v23 = nextafterf(6.2832, 0.0);
           }
 
           else
           {
-            v21 = v20 + 0.0;
+            v23 = v22 + 0.0;
           }
 
-          Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<3ul>(v18, 1.5708, v21);
-          v25 = v24;
-          v26 = 0.00073329;
-          if (v19)
+          Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<3ul>(v20, 1.5708, v23);
+          v27 = v26;
+          v28 = 0.00073329;
+          if (v21)
           {
-            v26 = 0.00073329;
-            if (v19 != 29)
+            v28 = 0.00073329;
+            if (v21 != 29)
             {
-              v294 = v23;
-              v299 = v22.i32[0];
-              v27 = cosf(((v19 - 1) * 0.10833) + 0.054165);
-              v26 = (v27 - cosf((v19 * 0.10833) + 0.054165)) * 0.5;
-              v23 = v294;
-              v22.i32[0] = v299;
+              v296 = v25;
+              v301 = v24.i32[0];
+              v29 = cosf(((v21 - 1) * 0.10833) + 0.054165);
+              v28 = (v29 - cosf((v21 * 0.10833) + 0.054165)) * 0.5;
+              v25 = v296;
+              v24.i32[0] = v301;
             }
           }
 
-          v28 = 0;
-          v29 = 0;
           v30 = 0;
-          v22.i32[1] = v23;
-          *v338.f32 = vmul_f32(v22, v22);
-          v338.f32[2] = v25 * v25;
-          *buf = 0;
-          *&buf[8] = 0;
-          do
-          {
-            if (v29 <= 2)
-            {
-              v28 = v29 + 1;
-              *&buf[4 * v29++] = v338.i32[v30];
-            }
-
-            ++v30;
-          }
-
-          while (v30 != 3);
-          if (v28 <= 2)
-          {
-            v300 = v26;
-            bzero(&buf[4 * v28], 12 - 4 * v28);
-            v26 = v300;
-          }
-
           v31 = 0;
           v32 = 0;
-          v33 = 0;
-          *v338.f32 = vmul_n_f32(*buf, v26);
-          v338.f32[2] = v26 * *&buf[8];
+          v24.i32[1] = v25;
+          *v340.f32 = vmul_f32(v24, v24);
+          v340.f32[2] = v27 * v27;
           *buf = 0;
           *&buf[8] = 0;
           do
           {
-            if (v32 <= 2)
+            if (v31 <= 2)
             {
-              v31 = v32 + 1;
-              *&buf[4 * v32++] = v338.i32[v33];
+              v30 = v31 + 1;
+              *&buf[4 * v31++] = v340.i32[v32];
             }
 
-            ++v33;
+            ++v32;
           }
 
-          while (v33 != 3);
-          if (v31 <= 2)
+          while (v32 != 3);
+          if (v30 <= 2)
           {
-            bzero(&buf[4 * v31], 12 - 4 * v31);
+            v302 = v28;
+            bzero(&buf[4 * v30], 12 - 4 * v30);
+            v28 = v302;
           }
 
+          v33 = 0;
           v34 = 0;
           v35 = 0;
-          v36 = 0;
-          *v338.f32 = vadd_f32(v310, *buf);
-          v338.f32[2] = v15 + *&buf[8];
+          *v340.f32 = vmul_n_f32(*buf, v28);
+          v340.f32[2] = v28 * *&buf[8];
           *buf = 0;
           *&buf[8] = 0;
           do
           {
-            if (v35 <= 2)
+            if (v34 <= 2)
             {
-              v34 = v35 + 1;
-              *&buf[4 * v35++] = v338.i32[v36];
+              v33 = v34 + 1;
+              *&buf[4 * v34++] = v340.i32[v35];
             }
 
-            ++v36;
+            ++v35;
           }
 
-          while (v36 != 3);
-          if (v34 <= 2)
+          while (v35 != 3);
+          if (v33 <= 2)
           {
-            bzero(&buf[4 * v34], 12 - 4 * v34);
+            bzero(&buf[4 * v33], 12 - 4 * v33);
           }
 
-          v17 = *buf;
-          v15 = *&buf[8];
-          ++v19;
+          v36 = 0;
+          v37 = 0;
+          v38 = 0;
+          *v340.f32 = vadd_f32(v312, *buf);
+          v340.f32[2] = v17 + *&buf[8];
+          *buf = 0;
+          *&buf[8] = 0;
+          do
+          {
+            if (v37 <= 2)
+            {
+              v36 = v37 + 1;
+              *&buf[4 * v37++] = v340.i32[v38];
+            }
+
+            ++v38;
+          }
+
+          while (v38 != 3);
+          if (v36 <= 2)
+          {
+            bzero(&buf[4 * v36], 12 - 4 * v36);
+          }
+
+          v19 = *buf;
+          v17 = *&buf[8];
+          ++v21;
         }
 
-        while (v19 != 30);
+        while (v21 != 30);
       }
 
-      v16 = v17.f32[1];
+      v18 = v19.f32[1];
     }
 
     else
     {
-      v15 = 1.0;
-      v16 = 1.0;
-      v17.i32[0] = 1.0;
+      v17 = 1.0;
+      v18 = 1.0;
+      v19.i32[0] = 1.0;
     }
 
 LABEL_355:
-    *buf = v17.i32[0];
-    *&buf[4] = v16;
-    *&buf[8] = v15;
-    v217 = *(v4 + 31);
-    if (v217 >= 3)
+    *buf = v19.i32[0];
+    *&buf[4] = v18;
+    *&buf[8] = v17;
+    v219 = *(v6 + 31);
+    if (v219 >= 3)
     {
-      v218 = 3;
+      v220 = 3;
     }
 
     else
     {
-      v218 = v217;
+      v220 = v219;
     }
 
-    if (v217)
+    if (v219)
     {
-      v219 = buf;
+      v221 = buf;
       do
       {
-        v220 = *v219++;
-        *v4 = *v4 * (v220 * v220);
-        v4 = (v4 + 4);
-        --v218;
+        v222 = *v221++;
+        *v6 = *v6 * (v222 * v222);
+        v6 = (v6 + 4);
+        --v220;
       }
 
-      while (v218);
+      while (v220);
     }
 
     return;
@@ -7131,148 +7147,148 @@ LABEL_355:
   {
     if (!a2)
     {
-      v40 = 1.0;
-      v41 = 1.0;
       v42 = 1.0;
       v43 = 1.0;
+      v44 = 1.0;
+      v45 = 1.0;
       goto LABEL_292;
     }
 
-    v39 = *a2;
+    v41 = *a2;
     if (*a2 == 1)
     {
-      v155 = **(a2 + 5);
-      if (!v155)
+      v157 = **(a2 + 5);
+      if (!v157)
       {
         goto LABEL_454;
       }
 
-      v156 = 0;
-      v315 = 0u;
+      v158 = 0;
+      v317 = 0u;
       do
       {
-        v157 = (v156 * 0.10833) - (floorf((v156 * 0.10833) / 6.2832) * 6.2832);
-        if (v157 >= 6.2832)
+        v159 = (v158 * 0.10833) - (floorf((v158 * 0.10833) / 6.2832) * 6.2832);
+        if (v159 >= 6.2832)
         {
-          v158 = nextafterf(6.2832, 0.0);
+          v160 = nextafterf(6.2832, 0.0);
         }
 
         else
         {
-          v158 = v157 + 0.0;
+          v160 = v159 + 0.0;
         }
 
-        Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<4ul>(v155, 1.5708, v158);
-        v163 = v162;
-        v164 = 0.00073329;
-        if (v156)
+        Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<4ul>(v157, 1.5708, v160);
+        v165 = v164;
+        v166 = 0.00073329;
+        if (v158)
         {
-          v164 = 0.00073329;
-          if (v156 != 29)
+          v166 = 0.00073329;
+          if (v158 != 29)
           {
-            v296 = v161;
-            v303 = v159.i32[0];
-            v291 = v163;
-            v293 = v160;
-            v165 = cosf(((v156 - 1) * 0.10833) + 0.054165);
-            v159.f32[0] = cosf((v156 * 0.10833) + 0.054165);
-            v163 = v291;
-            v160 = v293;
-            v164 = (v165 - v159.f32[0]) * 0.5;
-            v161 = v296;
-            v159.i32[0] = v303;
+            v298 = v163;
+            v305 = v161.i32[0];
+            v293 = v165;
+            v295 = v162;
+            v167 = cosf(((v158 - 1) * 0.10833) + 0.054165);
+            v161.f32[0] = cosf((v158 * 0.10833) + 0.054165);
+            v165 = v293;
+            v162 = v295;
+            v166 = (v167 - v161.f32[0]) * 0.5;
+            v163 = v298;
+            v161.i32[0] = v305;
           }
         }
 
-        v166 = 0;
-        v167 = 0;
         v168 = 0;
-        v159.i32[1] = v163;
-        v159.i64[1] = __PAIR64__(v161, v160);
-        v338 = vmulq_f32(v159, v159);
-        *&buf[8] = 0;
-        *buf = 0;
-        do
-        {
-          if (v167 <= 3)
-          {
-            v166 = v167 + 1;
-            *&buf[4 * v167++] = v338.i32[v168];
-          }
-
-          ++v168;
-        }
-
-        while (v168 != 4);
-        if (v166 <= 3)
-        {
-          v304 = v164;
-          bzero(&buf[4 * v166], 16 - 4 * v166);
-          v164 = v304;
-        }
-
         v169 = 0;
         v170 = 0;
-        v171 = 0;
-        v338 = vmulq_n_f32(*buf, v164);
+        v161.i32[1] = v165;
+        v161.i64[1] = __PAIR64__(v163, v162);
+        v340 = vmulq_f32(v161, v161);
         *&buf[8] = 0;
         *buf = 0;
         do
         {
-          if (v170 <= 3)
+          if (v169 <= 3)
           {
-            v169 = v170 + 1;
-            *&buf[4 * v170++] = v338.i32[v171];
+            v168 = v169 + 1;
+            *&buf[4 * v169++] = v340.i32[v170];
           }
 
-          ++v171;
+          ++v170;
         }
 
-        while (v171 != 4);
-        if (v169 <= 3)
+        while (v170 != 4);
+        if (v168 <= 3)
         {
-          bzero(&buf[4 * v169], 16 - 4 * v169);
+          v306 = v166;
+          bzero(&buf[4 * v168], 16 - 4 * v168);
+          v166 = v306;
         }
 
+        v171 = 0;
         v172 = 0;
         v173 = 0;
-        v174 = 0;
-        v338 = vaddq_f32(v315, *buf);
+        v340 = vmulq_n_f32(*buf, v166);
         *&buf[8] = 0;
         *buf = 0;
         do
         {
-          if (v173 <= 3)
+          if (v172 <= 3)
           {
-            v172 = v173 + 1;
-            *&buf[4 * v173++] = v338.i32[v174];
+            v171 = v172 + 1;
+            *&buf[4 * v172++] = v340.i32[v173];
           }
 
-          ++v174;
+          ++v173;
         }
 
-        while (v174 != 4);
-        if (v172 <= 3)
+        while (v173 != 4);
+        if (v171 <= 3)
         {
-          bzero(&buf[4 * v172], 16 - 4 * v172);
+          bzero(&buf[4 * v171], 16 - 4 * v171);
         }
 
-        v315 = *buf;
-        ++v156;
+        v174 = 0;
+        v175 = 0;
+        v176 = 0;
+        v340 = vaddq_f32(v317, *buf);
+        *&buf[8] = 0;
+        *buf = 0;
+        do
+        {
+          if (v175 <= 3)
+          {
+            v174 = v175 + 1;
+            *&buf[4 * v175++] = v340.i32[v176];
+          }
+
+          ++v176;
+        }
+
+        while (v176 != 4);
+        if (v174 <= 3)
+        {
+          bzero(&buf[4 * v174], 16 - 4 * v174);
+        }
+
+        v317 = *buf;
+        ++v158;
       }
 
-      while (v156 != 30);
+      while (v158 != 30);
     }
 
     else
     {
-      if (v39 != 2)
+      if (v41 != 2)
       {
-        v40 = 0.0;
-        v41 = 0.0;
         v42 = 0.0;
         v43 = 0.0;
-        if (v39 == 3)
+        v44 = 0.0;
+        v45 = 0.0;
+        if (v41 == 3)
         {
           if (**(a2 + 5))
           {
@@ -7283,164 +7299,164 @@ LABEL_355:
         }
 
 LABEL_292:
-        *buf = v43;
-        *&buf[4] = v42;
-        *&buf[8] = v41;
-        *&buf[12] = v40;
-        v175 = *(v4 + 31);
-        if (v175 >= 4)
+        *buf = v45;
+        *&buf[4] = v44;
+        *&buf[8] = v43;
+        *&buf[12] = v42;
+        v177 = *(v6 + 31);
+        if (v177 >= 4)
         {
-          v176 = 4;
+          v178 = 4;
         }
 
         else
         {
-          v176 = v175;
+          v178 = v177;
         }
 
-        if (v175)
+        if (v177)
         {
-          v177 = buf;
+          v179 = buf;
           do
           {
-            v178 = *v177++;
-            *v4 = *v4 * (v178 * v178);
-            v4 = (v4 + 4);
-            --v176;
+            v180 = *v179++;
+            *v6 = *v6 * (v180 * v180);
+            v6 = (v6 + 4);
+            --v178;
           }
 
-          while (v176);
+          while (v178);
         }
 
         return;
       }
 
-      v117 = **(a2 + 5);
-      if (!v117)
+      v119 = **(a2 + 5);
+      if (!v119)
       {
         goto LABEL_454;
       }
 
-      v118 = 0;
-      v315 = 0u;
+      v120 = 0;
+      v317 = 0u;
       do
       {
-        v119 = (v118 * 0.10833) - (floorf((v118 * 0.10833) / 6.2832) * 6.2832);
-        if (v119 >= 6.2832)
+        v121 = (v120 * 0.10833) - (floorf((v120 * 0.10833) / 6.2832) * 6.2832);
+        if (v121 >= 6.2832)
         {
-          v120 = nextafterf(6.2832, 0.0);
+          v122 = nextafterf(6.2832, 0.0);
         }
 
         else
         {
-          v120 = v119 + 0.0;
+          v122 = v121 + 0.0;
         }
 
-        v121.f32[0] = Phase::Geometry::ConeDirectivity::CalculateSubbandGains<4ul>(v117, v120);
-        v125 = 0.00073329;
-        if (v118)
+        v123.f32[0] = Phase::Geometry::ConeDirectivity::CalculateSubbandGains<4ul>(v119, v122);
+        v127 = 0.00073329;
+        if (v120)
         {
-          v125 = 0.00073329;
-          if (v118 != 29)
+          v127 = 0.00073329;
+          if (v120 != 29)
           {
-            v295 = v124;
-            v301 = v121.i32[0];
-            v290 = v122;
-            v292 = v123;
-            v126 = cosf(((v118 - 1) * 0.10833) + 0.054165);
-            v121.f32[0] = cosf((v118 * 0.10833) + 0.054165);
-            v122 = v290;
-            v123 = v292;
-            v125 = (v126 - v121.f32[0]) * 0.5;
-            v124 = v295;
-            v121.i32[0] = v301;
+            v297 = v126;
+            v303 = v123.i32[0];
+            v292 = v124;
+            v294 = v125;
+            v128 = cosf(((v120 - 1) * 0.10833) + 0.054165);
+            v123.f32[0] = cosf((v120 * 0.10833) + 0.054165);
+            v124 = v292;
+            v125 = v294;
+            v127 = (v128 - v123.f32[0]) * 0.5;
+            v126 = v297;
+            v123.i32[0] = v303;
           }
         }
 
-        v127 = 0;
-        v128 = 0;
         v129 = 0;
-        v121.i32[1] = v122;
-        v121.i64[1] = __PAIR64__(v124, v123);
-        v338 = vmulq_f32(v121, v121);
-        *&buf[8] = 0;
-        *buf = 0;
-        do
-        {
-          if (v128 <= 3)
-          {
-            v127 = v128 + 1;
-            *&buf[4 * v128++] = v338.i32[v129];
-          }
-
-          ++v129;
-        }
-
-        while (v129 != 4);
-        if (v127 <= 3)
-        {
-          v302 = v125;
-          bzero(&buf[4 * v127], 16 - 4 * v127);
-          v125 = v302;
-        }
-
         v130 = 0;
         v131 = 0;
-        v132 = 0;
-        v338 = vmulq_n_f32(*buf, v125);
+        v123.i32[1] = v124;
+        v123.i64[1] = __PAIR64__(v126, v125);
+        v340 = vmulq_f32(v123, v123);
         *&buf[8] = 0;
         *buf = 0;
         do
         {
-          if (v131 <= 3)
+          if (v130 <= 3)
           {
-            v130 = v131 + 1;
-            *&buf[4 * v131++] = v338.i32[v132];
+            v129 = v130 + 1;
+            *&buf[4 * v130++] = v340.i32[v131];
           }
 
-          ++v132;
+          ++v131;
         }
 
-        while (v132 != 4);
-        if (v130 <= 3)
+        while (v131 != 4);
+        if (v129 <= 3)
         {
-          bzero(&buf[4 * v130], 16 - 4 * v130);
+          v304 = v127;
+          bzero(&buf[4 * v129], 16 - 4 * v129);
+          v127 = v304;
         }
 
+        v132 = 0;
         v133 = 0;
         v134 = 0;
-        v135 = 0;
-        v338 = vaddq_f32(v315, *buf);
+        v340 = vmulq_n_f32(*buf, v127);
         *&buf[8] = 0;
         *buf = 0;
         do
         {
-          if (v134 <= 3)
+          if (v133 <= 3)
           {
-            v133 = v134 + 1;
-            *&buf[4 * v134++] = v338.i32[v135];
+            v132 = v133 + 1;
+            *&buf[4 * v133++] = v340.i32[v134];
           }
 
-          ++v135;
+          ++v134;
         }
 
-        while (v135 != 4);
-        if (v133 <= 3)
+        while (v134 != 4);
+        if (v132 <= 3)
         {
-          bzero(&buf[4 * v133], 16 - 4 * v133);
+          bzero(&buf[4 * v132], 16 - 4 * v132);
         }
 
-        v315 = *buf;
-        ++v118;
+        v135 = 0;
+        v136 = 0;
+        v137 = 0;
+        v340 = vaddq_f32(v317, *buf);
+        *&buf[8] = 0;
+        *buf = 0;
+        do
+        {
+          if (v136 <= 3)
+          {
+            v135 = v136 + 1;
+            *&buf[4 * v136++] = v340.i32[v137];
+          }
+
+          ++v137;
+        }
+
+        while (v137 != 4);
+        if (v135 <= 3)
+        {
+          bzero(&buf[4 * v135], 16 - 4 * v135);
+        }
+
+        v317 = *buf;
+        ++v120;
       }
 
-      while (v118 != 30);
+      while (v120 != 30);
     }
 
-    v43 = v315.f32[0];
-    v40 = v315.f32[3];
-    v41 = v315.f32[2];
-    v42 = v315.f32[1];
+    v45 = v317.f32[0];
+    v42 = v317.f32[3];
+    v43 = v317.f32[2];
+    v44 = v317.f32[1];
     goto LABEL_292;
   }
 
@@ -7449,236 +7465,236 @@ LABEL_292:
     goto LABEL_66;
   }
 
-  v329 = 0uLL;
-  v330.i32[0] = 0;
+  v331 = 0uLL;
+  v332.i32[0] = 0;
   if (a2)
   {
-    v5 = *a2;
+    v7 = *a2;
     if (*a2 == 1)
     {
-      v136 = **(a2 + 5);
-      if (!v136)
+      v138 = **(a2 + 5);
+      if (!v138)
       {
         goto LABEL_454;
       }
 
       for (mm = 0; mm != 30; ++mm)
       {
-        v138 = (mm * 0.10833) - (floorf((mm * 0.10833) / 6.2832) * 6.2832);
-        if (v138 >= 6.2832)
+        v140 = (mm * 0.10833) - (floorf((mm * 0.10833) / 6.2832) * 6.2832);
+        if (v140 >= 6.2832)
         {
-          v139 = nextafterf(6.2832, 0.0);
+          v141 = nextafterf(6.2832, 0.0);
         }
 
         else
         {
-          v139 = v138 + 0.0;
+          v141 = v140 + 0.0;
         }
 
-        Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<5ul>(&v338, v136, 1.5708, v139);
-        v140 = 0.00073329;
+        Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<5ul>(&v340, v138, 1.5708, v141);
+        v142 = 0.00073329;
         if (mm)
         {
-          v140 = 0.00073329;
+          v142 = 0.00073329;
           if (mm != 29)
           {
-            v141 = cosf(((mm - 1) * 0.10833) + 0.054165);
-            v140 = (v141 - cosf((mm * 0.10833) + 0.054165)) * 0.5;
+            v143 = cosf(((mm - 1) * 0.10833) + 0.054165);
+            v142 = (v143 - cosf((mm * 0.10833) + 0.054165)) * 0.5;
           }
         }
 
-        v142 = 0;
-        v143 = 0;
         v144 = 0;
-        *buf = vmulq_f32(v338, v338);
-        *&buf[16] = v339.f32[0] * v339.f32[0];
-        v322 = 0uLL;
-        v323.i32[0] = 0;
-        do
-        {
-          if (v143 <= 4)
-          {
-            v142 = v143 + 1;
-            v322.i32[v143++] = *&buf[v144];
-          }
-
-          v144 += 4;
-        }
-
-        while (v144 != 20);
-        if (v142 <= 4)
-        {
-          v316 = v140;
-          bzero(&v322.f32[v142], 20 - 4 * v142);
-          v140 = v316;
-        }
-
         v145 = 0;
         v146 = 0;
-        v147 = 0;
-        *buf = vmulq_n_f32(v322, v140);
-        *&buf[16] = v140 * v323.f32[0];
-        v332 = 0uLL;
-        v333.i32[0] = 0;
+        *buf = vmulq_f32(v340, v340);
+        *&buf[16] = v341.f32[0] * v341.f32[0];
+        v324 = 0uLL;
+        v325.i32[0] = 0;
         do
         {
-          if (v146 <= 4)
+          if (v145 <= 4)
           {
-            v145 = v146 + 1;
-            v332.i32[v146++] = *&buf[v147];
+            v144 = v145 + 1;
+            v324.i32[v145++] = *&buf[v146];
           }
 
-          v147 += 4;
+          v146 += 4;
         }
 
-        while (v147 != 20);
-        if (v145 <= 4)
+        while (v146 != 20);
+        if (v144 <= 4)
         {
-          bzero(&v332.f32[v145], 20 - 4 * v145);
+          v318 = v142;
+          bzero(&v324.f32[v144], 20 - 4 * v144);
+          v142 = v318;
         }
 
+        v147 = 0;
         v148 = 0;
         v149 = 0;
-        v150 = 0;
-        *buf = vaddq_f32(v329, v332);
-        *&buf[16] = v330.f32[0] + v333.f32[0];
-        v335 = 0uLL;
-        v336.i32[0] = 0;
+        *buf = vmulq_n_f32(v324, v142);
+        *&buf[16] = v142 * v325.f32[0];
+        v334 = 0uLL;
+        v335.i32[0] = 0;
         do
         {
-          if (v149 <= 4)
+          if (v148 <= 4)
           {
-            v148 = v149 + 1;
-            v335.i32[v149++] = *&buf[v150];
+            v147 = v148 + 1;
+            v334.i32[v148++] = *&buf[v149];
           }
 
-          v150 += 4;
+          v149 += 4;
         }
 
-        while (v150 != 20);
-        if (v148 <= 4)
+        while (v149 != 20);
+        if (v147 <= 4)
         {
-          bzero(&v335.f32[v148], 20 - 4 * v148);
+          bzero(&v334.f32[v147], 20 - 4 * v147);
         }
 
-        v329 = v335;
-        v330.i32[0] = v336.i32[0];
+        v150 = 0;
+        v151 = 0;
+        v152 = 0;
+        *buf = vaddq_f32(v331, v334);
+        *&buf[16] = v332.f32[0] + v335.f32[0];
+        v337 = 0uLL;
+        v338.i32[0] = 0;
+        do
+        {
+          if (v151 <= 4)
+          {
+            v150 = v151 + 1;
+            v337.i32[v151++] = *&buf[v152];
+          }
+
+          v152 += 4;
+        }
+
+        while (v152 != 20);
+        if (v150 <= 4)
+        {
+          bzero(&v337.f32[v150], 20 - 4 * v150);
+        }
+
+        v331 = v337;
+        v332.i32[0] = v338.i32[0];
       }
     }
 
-    else if (v5 == 2)
+    else if (v7 == 2)
     {
-      v102 = **(a2 + 5);
-      if (!v102)
+      v104 = **(a2 + 5);
+      if (!v104)
       {
         goto LABEL_454;
       }
 
       for (nn = 0; nn != 30; ++nn)
       {
-        v104 = (nn * 0.10833) - (floorf((nn * 0.10833) / 6.2832) * 6.2832);
-        if (v104 >= 6.2832)
+        v106 = (nn * 0.10833) - (floorf((nn * 0.10833) / 6.2832) * 6.2832);
+        if (v106 >= 6.2832)
         {
-          v105 = nextafterf(6.2832, 0.0);
+          v107 = nextafterf(6.2832, 0.0);
         }
 
         else
         {
-          v105 = v104 + 0.0;
+          v107 = v106 + 0.0;
         }
 
-        Phase::Geometry::ConeDirectivity::CalculateSubbandGains<5ul>(&v338, v102, v105);
-        v106 = 0.00073329;
+        Phase::Geometry::ConeDirectivity::CalculateSubbandGains<5ul>(&v340, v104, v107);
+        v108 = 0.00073329;
         if (nn)
         {
-          v106 = 0.00073329;
+          v108 = 0.00073329;
           if (nn != 29)
           {
-            v107 = cosf(((nn - 1) * 0.10833) + 0.054165);
-            v106 = (v107 - cosf((nn * 0.10833) + 0.054165)) * 0.5;
+            v109 = cosf(((nn - 1) * 0.10833) + 0.054165);
+            v108 = (v109 - cosf((nn * 0.10833) + 0.054165)) * 0.5;
           }
         }
 
-        v108 = 0;
-        v109 = 0;
         v110 = 0;
-        *buf = vmulq_f32(v338, v338);
-        *&buf[16] = v339.f32[0] * v339.f32[0];
-        v322 = 0uLL;
-        v323.i32[0] = 0;
-        do
-        {
-          if (v109 <= 4)
-          {
-            v108 = v109 + 1;
-            v322.i32[v109++] = *&buf[v110];
-          }
-
-          v110 += 4;
-        }
-
-        while (v110 != 20);
-        if (v108 <= 4)
-        {
-          v314 = v106;
-          bzero(&v322.f32[v108], 20 - 4 * v108);
-          v106 = v314;
-        }
-
         v111 = 0;
         v112 = 0;
-        v113 = 0;
-        *buf = vmulq_n_f32(v322, v106);
-        *&buf[16] = v106 * v323.f32[0];
-        v332 = 0uLL;
-        v333.i32[0] = 0;
+        *buf = vmulq_f32(v340, v340);
+        *&buf[16] = v341.f32[0] * v341.f32[0];
+        v324 = 0uLL;
+        v325.i32[0] = 0;
         do
         {
-          if (v112 <= 4)
+          if (v111 <= 4)
           {
-            v111 = v112 + 1;
-            v332.i32[v112++] = *&buf[v113];
+            v110 = v111 + 1;
+            v324.i32[v111++] = *&buf[v112];
           }
 
-          v113 += 4;
+          v112 += 4;
         }
 
-        while (v113 != 20);
-        if (v111 <= 4)
+        while (v112 != 20);
+        if (v110 <= 4)
         {
-          bzero(&v332.f32[v111], 20 - 4 * v111);
+          v316 = v108;
+          bzero(&v324.f32[v110], 20 - 4 * v110);
+          v108 = v316;
         }
 
+        v113 = 0;
         v114 = 0;
         v115 = 0;
-        v116 = 0;
-        *buf = vaddq_f32(v329, v332);
-        *&buf[16] = v330.f32[0] + v333.f32[0];
-        v335 = 0uLL;
-        v336.i32[0] = 0;
+        *buf = vmulq_n_f32(v324, v108);
+        *&buf[16] = v108 * v325.f32[0];
+        v334 = 0uLL;
+        v335.i32[0] = 0;
         do
         {
-          if (v115 <= 4)
+          if (v114 <= 4)
           {
-            v114 = v115 + 1;
-            v335.i32[v115++] = *&buf[v116];
+            v113 = v114 + 1;
+            v334.i32[v114++] = *&buf[v115];
           }
 
-          v116 += 4;
+          v115 += 4;
         }
 
-        while (v116 != 20);
-        if (v114 <= 4)
+        while (v115 != 20);
+        if (v113 <= 4)
         {
-          bzero(&v335.f32[v114], 20 - 4 * v114);
+          bzero(&v334.f32[v113], 20 - 4 * v113);
         }
 
-        v329 = v335;
-        v330.i32[0] = v336.i32[0];
+        v116 = 0;
+        v117 = 0;
+        v118 = 0;
+        *buf = vaddq_f32(v331, v334);
+        *&buf[16] = v332.f32[0] + v335.f32[0];
+        v337 = 0uLL;
+        v338.i32[0] = 0;
+        do
+        {
+          if (v117 <= 4)
+          {
+            v116 = v117 + 1;
+            v337.i32[v117++] = *&buf[v118];
+          }
+
+          v118 += 4;
+        }
+
+        while (v118 != 20);
+        if (v116 <= 4)
+        {
+          bzero(&v337.f32[v116], 20 - 4 * v116);
+        }
+
+        v331 = v337;
+        v332.i32[0] = v338.i32[0];
       }
     }
 
-    else if (v5 == 3)
+    else if (v7 == 3)
     {
       if (**(a2 + 5))
       {
@@ -7693,39 +7709,40 @@ LABEL_292:
   {
     __asm { FMOV            V0.4S, #1.0 }
 
-    v329 = _Q0;
-    v330.i32[0] = 1065353216;
+    v331 = _Q0;
+    v332.i32[0] = 1065353216;
   }
 
-  v151 = *(v4 + 31);
-  if (v151 >= 5)
+  v153 = *(v6 + 31);
+  if (v153 >= 5)
   {
-    v152 = 5;
+    v154 = 5;
   }
 
   else
   {
-    v152 = v151;
+    v154 = v153;
   }
 
-  if (v151)
+  if (v153)
   {
-    v153 = &v329;
+    v155 = &v331;
     do
     {
-      v154 = v153->f32[0];
-      v153 = (v153 + 4);
-      *v4 = *v4 * (v154 * v154);
-      v4 = (v4 + 4);
-      --v152;
+      v156 = v155->f32[0];
+      v155 = (v155 + 4);
+      *v6 = *v6 * (v156 * v156);
+      v6 = (v6 + 4);
+      --v154;
     }
 
-    while (v152);
+    while (v154);
   }
 }
 
-void Phase::SpatialModeler::getSoundPowerRelativeToOmni(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
+void Phase::SpatialModeler::getSoundPowerRelativeToOmni(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>, __n128 a5@<Q1>)
 {
+  v9 = 0.0;
   *(a4 + 108) = 0u;
   a4[5] = 0u;
   a4[6] = 0u;
@@ -7740,17 +7757,17 @@ void Phase::SpatialModeler::getSoundPowerRelativeToOmni(uint64_t a1@<X0>, uint64
     memset_pattern16(a4, &memset_pattern, 4 * a3);
   }
 
-  if (*(a1 + 64) > a2 && (v8 = *(a1 + 48) + 24 * a2, *(v8 + 20) == HIDWORD(a2)))
+  if (*(a1 + 64) > a2 && (v10 = *(a1 + 48) + 24 * a2, *(v10 + 20) == HIDWORD(a2)))
   {
-    v9 = *v8;
+    v11 = *v10;
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(a4, v9, a3);
+  Phase::SpatialModeler::CalculateSoundPowerRelativeToOmni(a4, v11, a3, v9, a5);
 }
 
 void Phase::SpatialModeler::applyScatteringFrequencyWeighting(_OWORD *a1@<X0>, float *a2@<X1>, _OWORD *a3@<X8>)
@@ -7877,148 +7894,148 @@ float Phase::SpatialModeler::getMeanAbsorptionCoefficient(float *a1)
   return v2;
 }
 
-void Phase::SpatialModeler::GetFullSceneAABB(Phase::SpatialModeler *this@<X0>, uint64_t a2@<X8>)
+void Phase::SpatialModeler::GetFullSceneAABB(float32x2_t *__return_ptr a1@<X8>, Phase::SpatialModeler *this@<X0>)
 {
-  *a2 = xmmword_23A555810;
-  *(a2 + 16) = 0x80000000800000;
-  v5 = *(this + 21);
-  v6 = *(this + 46);
-  v7 = &v5[3 * v6];
-  if (v6)
+  *a1->f32 = xmmword_23A555810;
+  a1[2] = 0x80000000800000;
+  v7 = *(this + 21);
+  v8 = *(this + 46);
+  v9 = &v7[3 * v8];
+  if (v8)
   {
-    v8 = *v5;
-    if (!*v5)
+    v10 = *v7;
+    if (!*v7)
     {
-      v9 = v5 + 3;
+      v11 = v7 + 3;
       while (1)
       {
-        v5 = v9;
-        if (v9 >= v7)
+        v7 = v11;
+        if (v11 >= v9)
         {
           break;
         }
 
-        v9 += 3;
-        v8 = *v5;
-        if (*v5)
+        v11 += 3;
+        v10 = *v7;
+        if (*v7)
         {
           goto LABEL_9;
         }
       }
 
-      v8 = 0;
+      v10 = 0;
     }
 
 LABEL_9:
-    v10 = v7;
+    v12 = v9;
   }
 
   else
   {
-    v8 = 0;
-    v10 = *(this + 21);
+    v10 = 0;
+    v12 = *(this + 21);
   }
 
-  if (v5 != v7)
+  if (v7 != v9)
   {
-    v11 = 0x80000000800000;
-    v12 = vneg_f32(0x80000000800000);
-    v13 = 3.4028e38;
-    v14 = -3.4028e38;
-    v28 = v7;
+    v13 = 0x80000000800000;
+    v14 = vneg_f32(0x80000000800000);
+    v15 = 3.4028e38;
+    v16 = -3.4028e38;
+    v30 = v9;
     do
     {
-      if (v8 && v8->i32[0] == 4)
+      if (v10 && v10->i32[0] == 4)
       {
-        v15 = v8[16];
-        v16 = v8[15];
-        if (v15 == v16)
+        v17 = v10[16];
+        v18 = v10[15];
+        if (v17 == v18)
         {
-          v24 = v8[9].f32[0];
-          v13 = fminf(v13, v24);
-          v14 = fmaxf(v14, v24);
-          v25 = v8[8];
-          v11 = vmaxnm_f32(v11, v25);
-          v12 = vminnm_f32(v12, v25);
-          *a2 = v12;
-          *(a2 + 8) = v13;
-          *(a2 + 12) = v11;
-          *(a2 + 20) = v14;
+          v26 = v10[9].f32[0];
+          v15 = fminf(v15, v26);
+          v16 = fmaxf(v16, v26);
+          v27 = v10[8];
+          v13 = vmaxnm_f32(v13, v27);
+          v14 = vminnm_f32(v14, v27);
+          *a1 = v14;
+          a1[1].f32[0] = v15;
+          *(a1 + 12) = v13;
+          a1[2].f32[1] = v16;
         }
 
         else
         {
           do
           {
-            v17 = *v16;
-            if (*(this + 40) > *v16)
+            v19 = *v18;
+            if (*(this + 40) > *v18)
             {
-              v18 = *(this + 18) + 24 * v17;
-              if (*(v18 + 20) == HIDWORD(v17))
+              v20 = *(this + 18) + 24 * v19;
+              if (*(v20 + 20) == HIDWORD(v19))
               {
-                v19 = *v18;
-                if (*v18)
+                v21 = *v20;
+                if (*v20)
                 {
                   for (i = 0; i != 8; ++i)
                   {
-                    Phase::GetVertex<float>((v19 + 24), i, v29);
-                    Phase::operator*<float>(&v8[6], v29, &v30);
-                    v21 = v8[9].f32[1];
-                    v22 = (v21 * v31) + v8[9].f32[0];
-                    v23 = vadd_f32(vmul_n_f32(v30, v21), v8[8]);
-                    v12 = vminnm_f32(*a2, v23);
-                    v13 = fminf(*(a2 + 8), v22);
-                    v11 = vmaxnm_f32(*(a2 + 12), v23);
-                    v14 = fmaxf(*(a2 + 20), v22);
-                    *a2 = v12;
-                    *(a2 + 8) = v13;
-                    *(a2 + 12) = v11;
-                    *(a2 + 20) = v14;
+                    Phase::GetVertex<float>((v21 + 24), i, &v31);
+                    Phase::operator*<float>(&v10[6], &v31, &v32);
+                    v23 = v10[9].f32[1];
+                    v24 = (v23 * v33) + v10[9].f32[0];
+                    v25 = vadd_f32(vmul_n_f32(v32, v23), v10[8]);
+                    v14 = vminnm_f32(*a1, v25);
+                    v15 = fminf(a1[1].f32[0], v24);
+                    v13 = vmaxnm_f32(*(a1 + 12), v25);
+                    v16 = fmaxf(a1[2].f32[1], v24);
+                    *a1 = v14;
+                    a1[1].f32[0] = v15;
+                    *(a1 + 12) = v13;
+                    a1[2].f32[1] = v16;
                   }
                 }
               }
             }
 
-            ++v16;
+            ++v18;
           }
 
-          while (v16 != v15);
+          while (v18 != v17);
         }
       }
 
-      if (v5 >= v10)
+      if (v7 >= v12)
       {
-        v27 = v28;
+        v29 = v30;
       }
 
       else
       {
-        v26 = v5 + 3;
-        v27 = v28;
+        v28 = v7 + 3;
+        v29 = v30;
         while (1)
         {
-          v5 = v26;
-          if (v26 >= v10)
+          v7 = v28;
+          if (v28 >= v12)
           {
             break;
           }
 
-          v26 += 3;
-          v8 = *v5;
-          if (*v5)
+          v28 += 3;
+          v10 = *v7;
+          if (*v7)
           {
             goto LABEL_30;
           }
         }
 
-        v8 = 0;
+        v10 = 0;
       }
 
 LABEL_30:
       ;
     }
 
-    while (v5 != v27);
+    while (v7 != v29);
   }
 }
 
@@ -8495,11 +8512,11 @@ uint64_t Phase::SpatialModeler::calculateAbsorptionCorrectionToMatchReverbTime(_
 
         v24 = (v22 * a5) / a6;
         v25 = 1.0 - expf(v24 - (v19 / (v20 * fminf(fmaxf(v21, 0.05), v23 * 0.95))));
-        v26 = v16[v18] * (a8 + (a9 * (v25 / (1.0 - expf(v24 - (v19 / (v20 * *(v15 + 4 * v18))))))));
-        v16[v18] = v26;
+        v26 = *&v16[4 * v18] * (a8 + (a9 * (v25 / (1.0 - expf(v24 - (v19 / (v20 * *(v15 + 4 * v18))))))));
+        *&v16[4 * v18] = v26;
         if ((LODWORD(v26) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
         {
-          v16[v18] = fminf(fmaxf(v26, 0.001), 1000.0);
+          *&v16[4 * v18] = fminf(fmaxf(v26, 0.001), 1000.0);
           goto LABEL_19;
         }
 
@@ -8738,7 +8755,7 @@ LABEL_13:
     v12 = v9;
     v13 = vcgeq_u64(v6, v8);
     v14 = vmovn_s64(v13);
-    *v9.f32 = vuzp1_s16(v14, *&a3);
+    *v9.i8 = vuzp1_s16(v14, *&a3);
     if (v9.i8[0])
     {
       v9.i32[0] = *(v10 - 2);
@@ -8808,7 +8825,7 @@ float Phase::SpatialModeler::GetMaximumEnergy(Phase::SpatialModeler *this, const
   do
   {
     v26 = *(v3 + 56 * v5);
-    Phase::SpatialModeler::RayTracerState::GetSourceListenerResult(this, &v26, v22);
+    Phase::SpatialModeler::RayTracerState::GetSourceListenerResult(&v22, this, &v26);
     if (v24 && (*(v24 + 36) & 1) == 0)
     {
       v7 = (*(v24 + 28) * *(v24 + 24));
@@ -8825,7 +8842,7 @@ float Phase::SpatialModeler::GetMaximumEnergy(Phase::SpatialModeler *this, const
           v14 = v13;
           v15 = vcgeq_u64(v9, v11);
           v16 = vmovn_s64(v15);
-          *v13.f32 = vuzp1_s16(v16, *v9.i8);
+          *v13.i8 = vuzp1_s16(v16, *v9.i8);
           if (v13.i8[0])
           {
             v13.i32[0] = *(v10 - 2);
@@ -9682,16 +9699,17 @@ void Phase::details::ReturnForEachSubband<float,31ul,Phase::PackedSubbands<float
 uint64_t Phase::Controller::DVM23::RendererController::DestroyGraph(Phase::Controller::DVM23::RendererController *this, Phase::Controller::DVM23::DspVoiceManager23 *a2)
 {
   Phase::Controller::DVM23::DspVoiceManager23::CancelCallback(a2, *(this + 5));
+  v4 = *(this + 3);
 
-  return Phase::Controller::DVM23::DspVoiceManager23::RemoveGraph(a2);
+  return Phase::Controller::DVM23::DspVoiceManager23::RemoveGraph(a2, v4);
 }
 
 uint64_t Phase::Controller::DVM23::RendererController::ConfigureGraphWithChannels(uint64_t a1, Phase::Controller::DVM23::VoiceGraph **a2, void *a3, int a4, int a5)
 {
   *(a1 + 24) = -1;
   v9 = (a1 + 24);
-  *(&v24.__r_.__value_.__s + 23) = 11;
-  strcpy(&v24, "RendererId ");
+  *(&v26.__r_.__value_.__s + 23) = 11;
+  strcpy(&v26, "RendererId ");
   std::to_string(&__p, *(a1 + 8));
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -9713,10 +9731,10 @@ uint64_t Phase::Controller::DVM23::RendererController::ConfigureGraphWithChannel
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  v12 = std::string::append(&v24, p_p, size);
+  v12 = std::string::append(&v26, p_p, size);
   v13 = *&v12->__r_.__value_.__l.__data_;
-  v26 = v12->__r_.__value_.__r.__words[2];
-  *v25 = v13;
+  v28 = v12->__r_.__value_.__r.__words[2];
+  *v27 = v13;
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
@@ -9725,26 +9743,26 @@ uint64_t Phase::Controller::DVM23::RendererController::ConfigureGraphWithChannel
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  if (v26 >= 0)
+  if (v28 >= 0)
   {
-    v14 = v25;
+    v14 = v27;
   }
 
   else
   {
-    v14 = v25[0];
+    v14 = v27[0];
   }
 
   Phase::Controller::DVM23::DspVoiceManager23::AddGraph(a2, v9, *(*a2 + 8), a4, a5, v14);
   if (a4 < 1)
   {
 LABEL_21:
-    v21 = 0;
+    v23 = 0;
   }
 
   else
@@ -9755,24 +9773,26 @@ LABEL_21:
     while (1)
     {
       v18 = (*a3 + 16 * v15);
-      v24.__r_.__value_.__r.__words[0] = v18[1];
-      if (Phase::Controller::DVM23::DspVoiceManager23::AddVoice(a2, &v24, *v18))
+      v26.__r_.__value_.__r.__words[0] = v18[1];
+      v19 = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(a2, &v26, *v18, *v9);
+      v20 = *v9;
+      if (v19)
       {
         break;
       }
 
-      v19 = v24.__r_.__value_.__r.__words[0];
-      Phase::Controller::DVM23::DspVoiceManager23::AddConnection(a2, *v9, v15, v24.__r_.__value_.__l.__data_, 0);
+      v21 = v26.__r_.__value_.__r.__words[0];
+      Phase::Controller::DVM23::DspVoiceManager23::AddConnection(a2, v20, v15, v26.__r_.__value_.__l.__data_, 0);
       if (a5 >= 1)
       {
-        v20 = 0;
+        v22 = 0;
         do
         {
-          Phase::Controller::DVM23::DspVoiceManager23::AddConnection(a2, v19, v20, *v9, v20);
-          v20 = (v20 + 1);
+          Phase::Controller::DVM23::DspVoiceManager23::AddConnection(a2, v21, v22, *v9, v22);
+          v22 = (v22 + 1);
         }
 
-        while (a5 != v20);
+        while (a5 != v22);
       }
 
       v17 = ++v15 < v16;
@@ -9782,67 +9802,22 @@ LABEL_21:
       }
     }
 
-    Phase::Controller::DVM23::DspVoiceManager23::RemoveGraph(a2);
+    Phase::Controller::DVM23::DspVoiceManager23::RemoveGraph(a2, v20);
     if (v17)
     {
-      v21 = 2;
+      v23 = 2;
     }
 
     else
     {
-      v21 = 0;
+      v23 = 0;
     }
   }
 
-  if (SHIBYTE(v26) < 0)
+  if (SHIBYTE(v28) < 0)
   {
-    operator delete(v25[0]);
+    operator delete(v27[0]);
   }
 
-  return v21;
-}
-
-void sub_23A4D0BBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
-{
-  if (a26 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Phase::Controller::DVM23::RendererController::SetPlaystate(uint64_t a1, Phase::Controller::DVM23::DspVoiceManager23 *this, int a3, uint64_t a4)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v7 = a1 + 40;
-  Phase::Controller::DVM23::DspVoiceManager23::CancelCallback(this, *(a1 + 40));
-  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::__value_func[abi:ne200100](v15, a4);
-  v16 = *(v7 - 32);
-  if ((a3 - 1) < 2)
-  {
-    if (Phase::Controller::DVM23::DspVoiceManager23::GetTailDelayMs(this) == 0.0)
-    {
-      std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::__value_func[abi:ne200100](v10, v15);
-      v11 = v16;
-      v14 = 0;
-      operator new();
-    }
-
-    std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::__value_func[abi:ne200100](v9, v15);
-    v9[2] = v16;
-    v14 = 0;
-    operator new();
-  }
-
-  if (!a3)
-  {
-    std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::__value_func[abi:ne200100](v12, v15);
-    v13 = v16;
-    v14 = 0;
-    operator new();
-  }
-
-  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v15);
-  return 0;
+  return v23;
 }

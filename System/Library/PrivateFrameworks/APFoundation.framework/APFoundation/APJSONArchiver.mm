@@ -2,12 +2,14 @@
 + (id)JSONObjectWithObject:(id)object;
 - (APJSONArchiver)initWithArray;
 - (APJSONArchiver)initWithDictionary;
-- (BOOL)_containerIsArray;
 - (id)_JSONObjectWithObject:(id)object;
 - (void)_addClassToContainer:(Class)container;
 - (void)_addValueToContainer:(id)container forKey:(id)key;
+- (void)encodeBool:(BOOL)bool forKey:(id)key;
 - (void)encodeDouble:(double)double forKey:(id)key;
+- (void)encodeInt32:(int)int32 forKey:(id)key;
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key;
+- (void)encodeInt:(int)int forKey:(id)key;
 - (void)encodeObject:(id)object forKey:(id)key;
 @end
 
@@ -41,13 +43,6 @@
   }
 
   return v5;
-}
-
-- (BOOL)_containerIsArray
-{
-  container = self->_container;
-  objc_opt_class();
-  return objc_opt_isKindOfClass() & 1;
 }
 
 - (void)_addClassToContainer:(Class)container
@@ -234,6 +229,24 @@ LABEL_9:
   return v13;
 }
 
+- (void)encodeInt:(int)int forKey:(id)key
+{
+  v4 = *&int;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v11 = objc_msgSend_numberWithInt_(v6, v8, v4, v9);
+  objc_msgSend__addValueToContainer_forKey_(self, v10, v11, keyCopy);
+}
+
+- (void)encodeInt32:(int)int32 forKey:(id)key
+{
+  v4 = *&int32;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v11 = objc_msgSend_numberWithInt_(v6, v8, v4, v9);
+  objc_msgSend__addValueToContainer_forKey_(self, v10, v11, keyCopy);
+}
+
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key
 {
   v6 = MEMORY[0x1E696AD98];
@@ -249,6 +262,15 @@ LABEL_9:
   v15 = objc_msgSend_numberWithDouble_(v6, v8, v9, v10, double);
   v13 = objc_msgSend__valueForNumber_(self, v11, v15, v12);
   objc_msgSend__addValueToContainer_forKey_(self, v14, v13, keyCopy);
+}
+
+- (void)encodeBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v11 = objc_msgSend_numberWithBool_(v6, v8, boolCopy, v9);
+  objc_msgSend__addValueToContainer_forKey_(self, v10, v11, keyCopy);
 }
 
 - (void)encodeObject:(id)object forKey:(id)key

@@ -1060,16 +1060,16 @@ LABEL_11:
   recordsCopy = records;
   if (objc_opt_class() == class || (-[NSDictionary objectForKeyedSubscript:](self->_allSharedAndPrivateCKKeys, "objectForKeyedSubscript:", class), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 containsObject:recordsCopy], v7, (v8 & 1) != 0))
   {
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v10 = sub_100061744();
-    v9 = [v10 containsObject:recordsCopy];
+    v11 = sub_100061744(v9);
+    v10 = [v11 containsObject:recordsCopy];
   }
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)shouldUpdateKeyOnPrivateRecord:(id)record recordClass:(Class)class
@@ -1108,15 +1108,16 @@ LABEL_11:
     else
     {
       v9 = [(NSDictionary *)self->_allResourcesCKKeys objectForKeyedSubscript:class];
-      if ([v9 containsObject:recordCopy])
+      v10 = [v9 containsObject:recordCopy];
+      if (v10)
       {
         v8 = 1;
       }
 
       else
       {
-        v10 = sub_100061744();
-        v8 = [v10 containsObject:recordCopy];
+        v11 = sub_100061744(v10);
+        v8 = [v11 containsObject:recordCopy];
       }
     }
   }

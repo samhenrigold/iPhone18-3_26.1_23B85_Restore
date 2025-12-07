@@ -7,6 +7,7 @@
 - (id)dictionaryRepresentation;
 - (int)actionTypesToShowAtIndex:(unint64_t)index;
 - (unint64_t)hash;
+- (void)addActionTypesToShow:(int)show;
 - (void)setActionTypesToShow:(id)show;
 - (void)setContactIdentifier:(id)identifier;
 - (void)writeTo:(id)to;
@@ -16,7 +17,7 @@
 
 - (_SFPBContactButtonItem)initWithFacade:(id)facade
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBContactButtonItem *)self init];
   if (v5)
@@ -50,32 +51,32 @@
       v13 = 0;
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     actionTypesToShow2 = [facadeCopy actionTypesToShow];
-    v15 = [actionTypesToShow2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v15 = [actionTypesToShow2 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(actionTypesToShow2);
           }
 
-          if (*(*(&v22 + 1) + 8 * i))
+          if (*(*(&v21 + 1) + 8 * i))
           {
             [v13 addObject:?];
           }
         }
 
-        v16 = [actionTypesToShow2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v16 = [actionTypesToShow2 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v16);
@@ -90,17 +91,16 @@
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBContactButtonItem)initWithDictionary:(id)dictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v26.receiver = self;
-  v26.super_class = _SFPBContactButtonItem;
-  v5 = [(_SFPBContactButtonItem *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = _SFPBContactButtonItem;
+  v5 = [(_SFPBContactButtonItem *)&v25 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"contactIdentifier"];
@@ -123,28 +123,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = v6;
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
+      v20 = v6;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v23;
+        v14 = *v22;
         do
         {
           v15 = 0;
           do
           {
-            if (*v23 != v14)
+            if (*v22 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v22 + 1) + 8 * v15);
+            v16 = *(*(&v21 + 1) + 8 * v15);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -155,13 +155,13 @@
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
         }
 
         while (v13);
       }
 
-      v6 = v21;
+      v6 = v20;
     }
 
     v17 = [dictionaryCopy objectForKeyedSubscript:@"uniqueId"];
@@ -174,7 +174,6 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -358,7 +357,7 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   contactIdentifier = [(_SFPBContactButtonItem *)self contactIdentifier];
   if (contactIdentifier)
@@ -373,32 +372,32 @@ LABEL_18:
   }
 
   actionTypesToShows = [(_SFPBContactButtonItem *)self actionTypesToShows];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [actionTypesToShows countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [actionTypesToShows countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(actionTypesToShows);
         }
 
-        [*(*(&v13 + 1) + 8 * v11) intValue];
+        [*(*(&v12 + 1) + 8 * v11) intValue];
         PBDataWriterWriteInt32Field();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [actionTypesToShows countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [actionTypesToShows countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -408,8 +407,6 @@ LABEL_18:
   {
     PBDataWriterWriteUint64Field();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (int)actionTypesToShowAtIndex:(unint64_t)index
@@ -420,20 +417,33 @@ LABEL_18:
   return intValue;
 }
 
+- (void)addActionTypesToShow:(int)show
+{
+  v3 = *&show;
+  actionTypesToShows = self->_actionTypesToShows;
+  if (!actionTypesToShows)
+  {
+    array = [MEMORY[0x1E695DF70] array];
+    v7 = self->_actionTypesToShows;
+    self->_actionTypesToShows = array;
+
+    actionTypesToShows = self->_actionTypesToShows;
+  }
+
+  v8 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  [(NSArray *)actionTypesToShows addObject:v8];
+}
+
 - (void)setActionTypesToShow:(id)show
 {
-  v4 = [show copy];
-  actionTypesToShows = self->_actionTypesToShows;
-  self->_actionTypesToShows = v4;
+  self->_actionTypesToShows = [show copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setContactIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  contactIdentifier = self->_contactIdentifier;
-  self->_contactIdentifier = v4;
+  self->_contactIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

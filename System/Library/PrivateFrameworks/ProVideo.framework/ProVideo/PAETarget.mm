@@ -99,7 +99,7 @@ LABEL_17:
   [v8 getFloatValue:&v20 fromParm:2 atFxTime:var1];
   v19 = 0;
   [v8 getBoolValue:&v19 fromParm:3 atFxTime:var1];
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+  objc_msgSend_getPixelTransformForImage_(self);
   __sincos_stret(v20);
   v16 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
   if (v16)
@@ -108,7 +108,7 @@ LABEL_17:
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       v17 = HGObject::operator new(0x1C0uLL);

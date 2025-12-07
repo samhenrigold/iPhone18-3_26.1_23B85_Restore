@@ -1,9 +1,9 @@
-double TSDClampPointInRect()
+double TSDClampPointInRect(__n128 a1, double a2, double a3, double a4, double a5, double a6)
 {
   TSUClamp();
-  v1 = v0;
+  v7 = v6;
   TSUClamp();
-  return v1;
+  return v7;
 }
 
 double TSDTranslatedRectMaximizingOverlapWithRect(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8)
@@ -305,7 +305,7 @@ double TSDOriginRotate(double *a1, double a2, double a3)
   return result;
 }
 
-double TSDNiceAngleFromDelta(long double a1, long double a2)
+long double TSDNiceAngleFromDelta(long double a1, long double a2)
 {
   if (a2 != 0.0)
   {
@@ -733,57 +733,57 @@ void TSDVisibleUnscaledRectForNewScale(CGFloat a1, CGFloat a2, CGFloat a3, CGFlo
 
 double TSDRectByExpandingBoundingRectToContentRect(double a1, double a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, double a12)
 {
-  v25 = a1 + a5 * a3;
-  v36.origin.x = a5;
-  v36.origin.y = a6;
-  v36.size.width = a7;
-  v36.size.height = a8;
-  MaxX = CGRectGetMaxX(v36);
-  v37.origin.x = a5;
-  v37.origin.y = a6;
-  v37.size.width = a7;
-  v37.size.height = a8;
-  CGRectGetMaxY(v37);
-  v26 = a1 + MaxX * a3;
-  if (v25 >= v26)
+  v17 = a1 + a5 * a3;
+  v28.origin.x = a5;
+  v28.origin.y = a6;
+  v28.size.width = a7;
+  v28.size.height = a8;
+  MaxX = CGRectGetMaxX(v28);
+  v29.origin.x = a5;
+  v29.origin.y = a6;
+  v29.size.width = a7;
+  v29.size.height = a8;
+  CGRectGetMaxY(v29);
+  v18 = a1 + MaxX * a3;
+  if (v17 >= v18)
   {
-    v27 = a1 + MaxX * a3;
+    v19 = a1 + MaxX * a3;
   }
 
   else
   {
-    v27 = v25;
+    v19 = v17;
   }
 
-  if (v25 > v26)
+  if (v17 > v18)
   {
-    v26 = v25;
+    v18 = v17;
   }
 
-  v35 = v27;
-  v28 = v26 - v27;
-  v29 = -a9 / a11 * (v26 - v27);
-  v38.origin.x = -a9 / a11;
-  v38.origin.y = -a10 / a12;
-  v38.size.width = 1.0 / a11;
-  v38.size.height = 1.0 / a12;
-  v30 = CGRectGetMaxX(v38);
-  v39.origin.x = -a9 / a11;
-  v39.origin.y = -a10 / a12;
-  v39.size.width = 1.0 / a11;
-  v39.size.height = 1.0 / a12;
-  CGRectGetMaxY(v39);
-  if (v29 >= v30 * v28)
+  v27 = v19;
+  v20 = v18 - v19;
+  v21 = -a9 / a11 * (v18 - v19);
+  v30.origin.x = -a9 / a11;
+  v30.origin.y = -a10 / a12;
+  v30.size.width = 1.0 / a11;
+  v30.size.height = 1.0 / a12;
+  v22 = CGRectGetMaxX(v30);
+  v31.origin.x = -a9 / a11;
+  v31.origin.y = -a10 / a12;
+  v31.size.width = 1.0 / a11;
+  v31.size.height = 1.0 / a12;
+  CGRectGetMaxY(v31);
+  if (v21 >= v22 * v20)
   {
-    v31 = v30 * v28;
+    v23 = v22 * v20;
   }
 
   else
   {
-    v31 = v29;
+    v23 = v21;
   }
 
-  return v35 + v31;
+  return v27 + v23;
 }
 
 double TSDAliasRound(double a1)
@@ -816,67 +816,67 @@ double TSDAliasRoundedPoint(double a1)
   }
 }
 
-double TSDRoundedPoint()
+double TSDRoundedPoint(uint64_t a1, double a2, double a3)
 {
   TSURound();
-  v1 = v0;
+  v4 = v3;
   TSURound();
-  return v1;
+  return v4;
 }
 
-double TSDRoundedPointForView(double a1, double a2)
+double TSDRoundedPointForView(uint64_t a1, double a2, double a3)
 {
-  TSUScreenScale();
+  v5 = TSUScreenScale();
 
-  return TSDRoundedPointForScale(a1, a2, v4);
+  return TSDRoundedPointForScale(v5, a2, a3, v6);
 }
 
-double TSDRoundedPointForScale(double a1, double a2, double a3)
+double TSDRoundedPointForScale(uint64_t a1, double a2, double a3, double a4)
 {
-  if (a3 == 0.0)
+  if (a4 == 0.0)
   {
-    v4 = [MEMORY[0x277D6C290] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGPoint TSDRoundedPointForScale(CGPoint, CGFloat)"}];
-    [v4 handleFailureInFunction:v5 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDGeometry.m"), 1150, @"cannot give scale = 0 for TSDRoundedPointForScale!"}];
+    v5 = [MEMORY[0x277D6C290] currentHandler];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGPoint TSDRoundedPointForScale(CGPoint, CGFloat)"}];
+    [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDGeometry.m"), 1150, @"cannot give scale = 0 for TSDRoundedPointForScale!"}];
   }
 
   else
   {
     TSURound();
-    v8 = v7;
+    v9 = v8;
     TSURound();
-    return 1.0 / a3 * v8;
+    return 1.0 / a4 * v9;
   }
 
-  return a1;
+  return a2;
 }
 
-double TSDRoundedSize()
+double TSDRoundedSize(uint64_t a1, double a2, double a3)
 {
   TSURound();
-  v1 = v0;
+  v4 = v3;
   TSURound();
-  return v1;
+  return v4;
 }
 
-double TSDRoundedSizeForScale(double a1, double a2, double a3)
+double TSDRoundedSizeForScale(uint64_t a1, double a2, double a3, double a4)
 {
-  if (a3 == 0.0)
+  if (a4 == 0.0)
   {
-    v4 = [MEMORY[0x277D6C290] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGSize TSDRoundedSizeForScale(CGSize, CGFloat)"}];
-    [v4 handleFailureInFunction:v5 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDGeometry.m"), 1172, @"cannot give scale = 0 for TSDRoundedSizeForScale!"}];
+    v5 = [MEMORY[0x277D6C290] currentHandler];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGSize TSDRoundedSizeForScale(CGSize, CGFloat)"}];
+    [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDGeometry.m"), 1172, @"cannot give scale = 0 for TSDRoundedSizeForScale!"}];
   }
 
   else
   {
     TSURound();
-    v8 = v7;
+    v9 = v8;
     TSURound();
-    return 1.0 / a3 * v8;
+    return 1.0 / a4 * v9;
   }
 
-  return a1;
+  return a2;
 }
 
 double TSDRoundedRectForScale(double a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5)
@@ -925,18 +925,18 @@ double TSDRoundedRectForScale(double a1, CGFloat a2, CGFloat a3, CGFloat a4, dou
   return v8;
 }
 
-double TSDRoundedRectForView(double a1, CGFloat a2, CGFloat a3, CGFloat a4)
+double TSDRoundedRectForView(uint64_t a1, double a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   TSUScreenScale();
 
-  return TSDRoundedRectForScale(a1, a2, a3, a4, v8);
+  return TSDRoundedRectForScale(a2, a3, a4, a5, v9);
 }
 
-double TSDRoundedRectForMainScreen(double a1, CGFloat a2, CGFloat a3, CGFloat a4)
+double TSDRoundedRectForMainScreen(uint64_t a1, double a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   TSUScreenScale();
 
-  return TSDRoundedRectForScale(a1, a2, a3, a4, v8);
+  return TSDRoundedRectForScale(a2, a3, a4, a5, v9);
 }
 
 double TSDAliasRoundedRectForScale(double a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5)
@@ -1027,73 +1027,79 @@ double TSDAliasRoundedRectForScale(double a1, CGFloat a2, CGFloat a3, CGFloat a4
   return v8;
 }
 
-uint64_t TSDRoundedMinX(double a1, double a2, double a3, double a4)
+double TSDRoundedMinX(double a1, double a2, double a3, double a4)
 {
   CGRectGetMinX(*&a1);
 
-  return TSURound();
+  TSURound();
+  return result;
 }
 
-uint64_t TSDRoundedMidX(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
+double TSDRoundedMidX(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   TSURound();
-  v10.origin.x = a1;
-  v10.origin.y = a2;
-  v10.size.width = a3;
-  v10.size.height = a4;
-  CGRectGetMaxX(v10);
+  v11.origin.x = a2;
+  v11.origin.y = a3;
+  v11.size.width = a4;
+  v11.size.height = a5;
+  CGRectGetMaxX(v11);
   TSURound();
 
-  return TSURound();
+  TSURound();
+  return result;
 }
 
-uint64_t TSDRoundedMaxX(double a1, double a2, double a3, double a4)
+double TSDRoundedMaxX(double a1, double a2, double a3, double a4)
 {
   CGRectGetMaxX(*&a1);
 
-  return TSURound();
+  TSURound();
+  return result;
 }
 
-uint64_t TSDRoundedMinY(double a1, double a2, double a3, double a4)
+double TSDRoundedMinY(double a1, double a2, double a3, double a4)
 {
   CGRectGetMinY(*&a1);
 
-  return TSURound();
+  TSURound();
+  return result;
 }
 
-uint64_t TSDRoundedMidY(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
+double TSDRoundedMidY(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   TSURound();
-  v10.origin.x = a1;
-  v10.origin.y = a2;
-  v10.size.width = a3;
-  v10.size.height = a4;
-  CGRectGetMaxY(v10);
+  v11.origin.x = a2;
+  v11.origin.y = a3;
+  v11.size.width = a4;
+  v11.size.height = a5;
+  CGRectGetMaxY(v11);
   TSURound();
 
-  return TSURound();
+  TSURound();
+  return result;
 }
 
-uint64_t TSDRoundedMaxY(double a1, double a2, double a3, double a4)
+double TSDRoundedMaxY(double a1, double a2, double a3, double a4)
 {
   CGRectGetMaxY(*&a1);
 
-  return TSURound();
-}
-
-double TSDFloorForMainScreen()
-{
-  TSUScreenScale();
-  v1 = v0;
   TSURound();
-  return v2 / v1;
+  return result;
 }
 
-double TSDCeilForMainScreen(double a1)
+double TSDFloorForMainScreen(uint64_t a1, double a2)
 {
   TSUScreenScale();
-  v3 = v2 * a1;
-  return ceilf(v3) / v2;
+  v3 = v2;
+  TSURound();
+  return v4 / v3;
+}
+
+double TSDCeilForMainScreen(uint64_t a1, double a2)
+{
+  TSUScreenScale();
+  v4 = v3 * a2;
+  return ceilf(v4) / v3;
 }
 
 void p_evaluateGradient(void *a1, double *a2, void *a3)
@@ -1140,9 +1146,9 @@ uint64_t gradientStopCompare(void *a1, void *a2)
   }
 }
 
-void sub_26C7C0750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7C0750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1276,23 +1282,32 @@ CGPath *TSDCreateTransformedPath(const CGPath *a1, const CGAffineTransform *a2)
   return Mutable;
 }
 
-void TSDCreateAADefeatedRectPoints(int8x16_t a1, double a2, int8x16_t a3, double a4, double a5, double a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void TSDCreateAADefeatedRectPoints(double *a1, uint64_t a2, uint64_t a3, int8x16_t a4, double a5, int8x16_t a6, double a7, double a8, double a9)
 {
-  if (a9 >= 1)
+  if (a3 >= 1)
   {
-    v9 = a9;
-    *a1.i64 = a5 * a6;
-    *a1.i32 = a5 * a6;
-    *a3.i32 = *a1.i32 + (truncf(*a1.i32 * 0.5) * -2.0);
-    v10.i64[0] = 0x8000000080000000;
-    v10.i64[1] = 0x8000000080000000;
-    v11 = (*vbslq_s8(v10, a3, a1).i32 * 0.5);
-    v12 = (a8 + 8);
+    v9 = a3;
+    *a4.i64 = a8 * a9;
+    *a4.i32 = a8 * a9;
+    *a6.i32 = *a4.i32 + (truncf(*a4.i32 * 0.5) * -2.0);
+    v11.i64[0] = 0x8000000080000000;
+    v11.i64[1] = 0x8000000080000000;
+    v12 = (*vbslq_s8(v11, a6, a4).i32 * 0.5);
+    v13 = (a2 + 8);
     do
     {
-      *(v12 - 1) = TSDRoundedPoint() + v11;
-      *v12 = v13 + v11;
-      v12 += 2;
+      v14 = *(v13 - 1);
+      v15 = *v13;
+      if (a1)
+      {
+        v16 = a1[4] + v15 * a1[2] + *a1 * v14;
+        v15 = a1[5] + v15 * a1[3] + a1[1] * v14;
+        v14 = v16;
+      }
+
+      *(v13 - 1) = TSDRoundedPoint(a1, v14, v15) + v12;
+      *v13 = v17 + v12;
+      v13 += 2;
       --v9;
     }
 
@@ -1300,7 +1315,7 @@ void TSDCreateAADefeatedRectPoints(int8x16_t a1, double a2, int8x16_t a3, double
   }
 }
 
-void TSDCreateAADefeatedRect(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, double a7)
+void TSDCreateAADefeatedRect(double *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, double a7)
 {
   v18[4] = *MEMORY[0x277D85DE8];
   v18[0] = CGRectGetMinX(*&a2);
@@ -1320,10 +1335,10 @@ void TSDCreateAADefeatedRect(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CG
   v21.size.height = a5;
   *v14.i64 = CGRectGetMaxY(v21);
   v18[3] = v14.i64[0];
-  TSDCreateAADefeatedRectPoints(v14, v15, v16, v17, a6, a7, a1, v18, 2);
+  TSDCreateAADefeatedRectPoints(a1, v18, 2, v14, v15, v16, v17, a6, a7);
 }
 
-CGPath *TSDCreateAADefeatedRectPath(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, double a7)
+CGPath *TSDCreateAADefeatedRectPath(double *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, double a7)
 {
   v23[8] = *MEMORY[0x277D85DE8];
   v23[0] = CGRectGetMinX(*&a2);
@@ -1363,7 +1378,7 @@ CGPath *TSDCreateAADefeatedRectPath(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat
   v30.size.height = a5;
   *v14.i64 = CGRectGetMaxY(v30);
   v23[7] = v14.i64[0];
-  TSDCreateAADefeatedRectPoints(v14, v15, v16, v17, a6, a7, a1, v23, 4);
+  TSDCreateAADefeatedRectPoints(a1, v23, 4, v14, v15, v16, v17, a6, a7);
   Mutable = CGPathCreateMutable();
   for (i = 0; i != 8; i += 2)
   {
@@ -1418,23 +1433,23 @@ double TSDPathBoundsIncludingStrokeWithParameters(const CGPath *a1, int a2, int 
   height = BoundingBox.size.height;
   if (!CGPathIsEmpty(a1))
   {
-    v22.origin.x = x;
-    v22.origin.y = y;
-    v22.size.width = width;
-    v22.size.height = height;
-    v23 = CGRectInset(v22, -(a4 * 0.5), -(a4 * 0.5));
-    x = v23.origin.x;
-    v14 = v23.origin.y;
-    v15 = v23.size.width;
-    v16 = v23.size.height;
+    v23.origin.x = x;
+    v23.origin.y = y;
+    v23.size.width = width;
+    v23.size.height = height;
+    v24 = CGRectInset(v23, -(a4 * 0.5), -(a4 * 0.5));
+    x = v24.origin.x;
+    v14 = v24.origin.y;
+    v15 = v24.size.width;
+    v16 = v24.size.height;
     if (!a3)
     {
-      memset(&v20[40], 0, 200);
-      *&v20[24] = *MEMORY[0x277CBF348];
-      *&v20[8] = *&v20[24];
-      v19 = a4 * 0.5;
-      *v20 = a5;
-      info = v23;
+      memset(&v21[40], 0, 200);
+      *&v21[24] = *MEMORY[0x277CBF348];
+      *&v21[8] = *&v21[24];
+      v20 = a4 * 0.5;
+      *v21 = a5;
+      info = v24;
       CGPathApply(a1, &info, TSDPathCornerBoundsApplier);
       v14 = info.origin.y;
       x = info.origin.x;
@@ -1444,16 +1459,16 @@ double TSDPathBoundsIncludingStrokeWithParameters(const CGPath *a1, int a2, int 
 
     if (a2 == 2)
     {
-      memset(&v20[32], 0, 112);
-      *v20 = *MEMORY[0x277CBF348];
-      *&v20[16] = *v20;
+      memset(&v21[32], 0, 112);
+      *v21 = *MEMORY[0x277CBF348];
+      *&v21[16] = *v21;
       info.size.height = v16;
-      v19 = a4 * 0.5;
+      v20 = a4 * 0.5;
       info.origin.x = x;
       info.origin.y = v14;
       info.size.width = v15;
       CGPathApply(a1, &info, TSDPathEndBoundsApplier);
-      TSDPathEndBoundsApplierFinishSubpath(&info);
+      TSDPathEndBoundsApplierFinishSubpath(&info, v17);
       return info.origin.x;
     }
   }
@@ -1461,30 +1476,30 @@ double TSDPathBoundsIncludingStrokeWithParameters(const CGPath *a1, int a2, int 
   return x;
 }
 
-void TSDPathCornerBoundsApplier(uint64_t a1, uint64_t a2)
+void TSDPathCornerBoundsApplier(uint64_t result, int *a2)
 {
   v3 = *a2;
   if ((*a2 - 1) >= 3)
   {
     if (v3 == 4)
     {
-      if (*(a1 + 80))
+      if (*(result + 80))
       {
-        if (*(a1 + 64) != *(a1 + 48) || *(a1 + 72) != *(a1 + 56))
+        if (*(result + 64) != *(result + 48) || *(result + 72) != *(result + 56))
         {
-          v12 = a1 + 48;
+          v12 = result + 48;
           v11 = 1;
-          TSDPathCornerBoundsApplierProcessSegment(a1, &v11);
+          TSDPathCornerBoundsApplierProcessSegment(result, &v11);
         }
 
-        v10 = *(a1 + 224);
-        v12 = a1 + 232;
+        v10 = *(result + 224);
+        v12 = result + 232;
         v11 = v10;
-        TSDPathCornerBoundsApplierProcessSegment(a1, &v11);
+        TSDPathCornerBoundsApplierProcessSegment(result, &v11);
       }
 
-      *(a1 + 80) = 0;
-      v8 = *(a1 + 48);
+      *(result + 80) = 0;
+      v8 = *(result + 48);
     }
 
     else
@@ -1494,21 +1509,21 @@ void TSDPathCornerBoundsApplier(uint64_t a1, uint64_t a2)
         return;
       }
 
-      *(a1 + 80) = 0;
-      v7 = *(a2 + 8);
-      *(a1 + 48) = *v7;
+      *(result + 80) = 0;
+      v7 = *(a2 + 1);
+      *(result + 48) = *v7;
       v8 = *v7;
     }
 
-    *(a1 + 64) = v8;
+    *(result + 64) = v8;
   }
 
   else
   {
-    if (!*(a1 + 80))
+    if (!*(result + 80))
     {
       v4 = 0;
-      *(a1 + 224) = v3;
+      *(result + 224) = v3;
       v5 = kPointCountsByElementType[v3];
       if (v5 <= 1)
       {
@@ -1518,142 +1533,144 @@ void TSDPathCornerBoundsApplier(uint64_t a1, uint64_t a2)
       v6 = 16 * v5;
       do
       {
-        *(a1 + 232 + v4) = *(*(a2 + 8) + v4);
+        *(result + 232 + v4) = *(*(a2 + 1) + v4);
         v4 += 16;
       }
 
       while (v6 != v4);
     }
 
-    TSDPathCornerBoundsApplierProcessSegment(a1, a2);
+    TSDPathCornerBoundsApplierProcessSegment(result, a2);
   }
 }
 
-void TSDPathEndBoundsApplier(uint64_t a1, int *a2)
+void TSDPathEndBoundsApplier(uint64_t result, int *a2, __n128 a3)
 {
-  v4 = *a2;
+  v5 = *a2;
   if ((*a2 - 1) < 3)
   {
-    if ((*(a1 + 72) & 1) == 0)
+    if ((*(result + 72) & 1) == 0)
     {
-      *(a1 + 72) = 1;
-      *(a1 + 76) = v4;
-      *(a1 + 80) = *(a1 + 56);
-      v5 = *a2;
-      if (v5 == 4)
+      *(result + 72) = 1;
+      *(result + 76) = v5;
+      *(result + 80) = *(result + 56);
+      v6 = *a2;
+      if (v6 == 4)
       {
-        v4 = 4;
+        v5 = 4;
       }
 
       else
       {
-        v8 = 0;
-        v9 = kPointCountsByElementType[v5];
-        if (v9 <= 1)
+        v9 = 0;
+        v10 = kPointCountsByElementType[v6];
+        if (v10 <= 1)
         {
-          v9 = 1;
+          v10 = 1;
         }
 
-        v10 = 16 * v9;
+        v11 = 16 * v10;
         do
         {
-          *(a1 + 96 + v8) = *(*(a2 + 1) + v8);
-          v8 += 16;
+          *(result + 96 + v9) = *(*(a2 + 1) + v9);
+          v9 += 16;
         }
 
-        while (v10 != v8);
-        v4 = *a2;
+        while (v11 != v9);
+        v5 = *a2;
       }
     }
 
-    *(a1 + 128) = v4;
-    *(a1 + 136) = *(a1 + 56);
-    v11 = *a2;
-    v12 = kPointCountsByElementType[v11];
-    if (v11 != 4)
+    *(result + 128) = v5;
+    *(result + 136) = *(result + 56);
+    v12 = *a2;
+    v13 = kPointCountsByElementType[v12];
+    if (v12 != 4)
     {
-      v13 = 0;
-      if (v12 <= 1)
+      v14 = 0;
+      if (v13 <= 1)
       {
-        v12 = 1;
+        v13 = 1;
       }
 
-      v14 = 16 * v12;
+      v15 = 16 * v13;
       do
       {
-        *(a1 + 152 + v13) = *(*(a2 + 1) + v13);
-        v13 += 16;
+        *(result + 152 + v14) = *(*(a2 + 1) + v14);
+        v14 += 16;
       }
 
-      while (v14 != v13);
-      v12 = kPointCountsByElementType[*a2];
+      while (v15 != v14);
+      v13 = kPointCountsByElementType[*a2];
     }
 
-    v7 = *(*(a2 + 1) + 16 * v12 - 16);
+    v8 = *(*(a2 + 1) + 16 * v13 - 16);
     goto LABEL_21;
   }
 
-  if (v4 == 4)
+  if (v5 == 4)
   {
-    *(a1 + 72) = 0;
-    v7 = *(a1 + 40);
+    *(result + 72) = 0;
+    v8 = *(result + 40);
 LABEL_21:
-    *(a1 + 56) = v7;
+    *(result + 56) = v8;
     return;
   }
 
-  if (!v4)
+  if (!v5)
   {
-    TSDPathEndBoundsApplierFinishSubpath(a1);
-    *(a1 + 72) = 0;
-    v6 = *(a2 + 1);
-    *(a1 + 56) = *v6;
-    *(a1 + 40) = *v6;
+    TSDPathEndBoundsApplierFinishSubpath(result, a3);
+    *(result + 72) = 0;
+    v7 = *(a2 + 1);
+    *(result + 56) = *v7;
+    *(result + 40) = *v7;
   }
 }
 
-void TSDPathEndBoundsApplierFinishSubpath(uint64_t a1)
+void TSDPathEndBoundsApplierFinishSubpath(uint64_t a1, __n128 a2)
 {
   if (*(a1 + 72) == 1)
   {
-    v2 = *(a1 + 80);
-    v3 = *(a1 + 88);
-    v4 = gradientAtTFromTypeAndPoints(*(a1 + 76), (a1 + 80));
-    v6 = TSDMultiplyPointScalar(v4, v5, *(a1 + 32));
-    v8 = v7;
-    v9 = TSDSubtractPoints(v2, v3, v6);
-    v11 = v10;
-    v12 = TSDRotatePoint90Degrees(1, v6, v8);
-    v13 = TSDAddPoints(v9, v11, v12);
-    v15 = TSDGrowRectToPoint(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), v13, v14);
-    v17 = v16;
-    v19 = v18;
-    v21 = v20;
-    v22 = TSDSubtractPoints(v9, v11, v12);
-    *a1 = TSDGrowRectToPoint(v15, v17, v19, v21, v22, v23);
-    *(a1 + 8) = v24;
-    *(a1 + 16) = v25;
-    *(a1 + 24) = v26;
-    v27 = *(a1 + 128);
-    v28 = (a1 + 136 + 16 * kPointCountsByElementType[v27]);
-    v29 = *v28;
-    v30 = v28[1];
-    v31 = gradientAtTFromTypeAndPoints(v27, (a1 + 136));
-    v33 = TSDMultiplyPointScalar(v31, v32, *(a1 + 32));
-    v35 = v34;
-    v36 = TSDAddPoints(v29, v30, v33);
-    v38 = v37;
-    v39 = TSDRotatePoint90Degrees(1, v33, v35);
-    v40 = TSDAddPoints(v36, v38, v39);
-    v42 = TSDGrowRectToPoint(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), v40, v41);
-    v44 = v43;
+    v3 = *(a1 + 80);
+    v4 = *(a1 + 88);
+    a2.n128_u64[0] = 0;
+    v5 = gradientAtTFromTypeAndPoints(*(a1 + 76), (a1 + 80), a2);
+    v7 = TSDMultiplyPointScalar(v5, v6, *(a1 + 32));
+    v9 = v8;
+    v10 = TSDSubtractPoints(v3, v4, v7);
+    v12 = v11;
+    v13 = TSDRotatePoint90Degrees(1, v7, v9);
+    v14 = TSDAddPoints(v10, v12, v13);
+    v16 = TSDGrowRectToPoint(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), v14, v15);
+    v18 = v17;
+    v20 = v19;
+    v22 = v21;
+    v23 = TSDSubtractPoints(v10, v12, v13);
+    *a1 = TSDGrowRectToPoint(v16, v18, v20, v22, v23, v24);
+    *(a1 + 8) = v25;
+    *(a1 + 16) = v26;
+    *(a1 + 24) = v27;
+    v28 = *(a1 + 128);
+    v29 = (a1 + 136 + 16 * kPointCountsByElementType[v28]);
+    v30 = *v29;
+    v31 = v29[1];
+    v32.n128_u64[0] = 1.0;
+    v33 = gradientAtTFromTypeAndPoints(v28, (a1 + 136), v32);
+    v35 = TSDMultiplyPointScalar(v33, v34, *(a1 + 32));
+    v37 = v36;
+    v38 = TSDAddPoints(v30, v31, v35);
+    v40 = v39;
+    v41 = TSDRotatePoint90Degrees(1, v35, v37);
+    v42 = TSDAddPoints(v38, v40, v41);
+    v44 = TSDGrowRectToPoint(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), v42, v43);
     v46 = v45;
     v48 = v47;
-    v49 = TSDSubtractPoints(v36, v38, v39);
-    *a1 = TSDGrowRectToPoint(v42, v44, v46, v48, v49, v50);
-    *(a1 + 8) = v51;
-    *(a1 + 16) = v52;
-    *(a1 + 24) = v53;
+    v50 = v49;
+    v51 = TSDSubtractPoints(v38, v40, v41);
+    *a1 = TSDGrowRectToPoint(v44, v46, v48, v50, v51, v52);
+    *(a1 + 8) = v53;
+    *(a1 + 16) = v54;
+    *(a1 + 24) = v55;
   }
 }
 
@@ -2007,25 +2024,25 @@ LABEL_5:
   return result;
 }
 
-void TSDPathApplyToSegmentsApplier(uint64_t a1, uint64_t a2)
+void TSDPathApplyToSegmentsApplier(uint64_t result, int *a2)
 {
   v3 = *a2;
   if ((*a2 - 1) >= 3)
   {
     if (v3 == 4)
     {
-      if (*(a1 + 48))
+      if (*(result + 48))
       {
-        if (*(a1 + 32) != *(a1 + 16) || *(a1 + 40) != *(a1 + 24))
+        if (*(result + 32) != *(result + 16) || *(result + 40) != *(result + 24))
         {
-          v7[1] = a1 + 16;
+          v7[1] = result + 16;
           v7[0] = 1;
-          processSegmentElement(a1, v7);
+          processSegmentElement(result, v7);
         }
       }
 
-      *(a1 + 48) = 0;
-      v5 = *(a1 + 16);
+      *(result + 48) = 0;
+      v5 = *(result + 16);
     }
 
     else
@@ -2035,19 +2052,19 @@ void TSDPathApplyToSegmentsApplier(uint64_t a1, uint64_t a2)
         return;
       }
 
-      *(a1 + 48) = 0;
-      v4 = *(a2 + 8);
-      *(a1 + 16) = *v4;
+      *(result + 48) = 0;
+      v4 = *(a2 + 1);
+      *(result + 16) = *v4;
       v5 = *v4;
     }
 
-    *(a1 + 32) = v5;
+    *(result + 32) = v5;
   }
 
   else
   {
 
-    processSegmentElement(a1, a2);
+    processSegmentElement(result, a2);
   }
 }
 
@@ -2145,49 +2162,52 @@ void TSDPathCornerBoundsApplierProcessSegment(uint64_t a1, int *a2)
     v7 = kPointCountsByElementType[*a2];
   }
 
-  *(a1 + 64) = *(*(a2 + 1) + 16 * v7 - 16);
+  v10 = *(*(a2 + 1) + 16 * v7 - 16);
+  *(a1 + 64) = v10;
   *(a1 + 80) = v4 + 1;
   if ((v4 + 1) > 1)
   {
-    v10 = gradientAtTFromTypeAndPoints(*(a1 + 84), (a1 + 88));
-    v12 = v11;
-    v13 = gradientAtTFromTypeAndPoints(*(a1 + 152), (a1 + 160));
-    v15 = v14;
-    v16 = TSDSubtractPoints(v10, v12, v13);
-    v18 = TSDNormalizePoint(v16, v17);
-    v20 = v19;
-    v21 = -1.0 / TSDCrossPoints(v18, v19, v13, v15);
-    if (v21 * v21 < *(a1 + 40) * *(a1 + 40))
+    v10.n128_u64[0] = 1.0;
+    v11 = gradientAtTFromTypeAndPoints(*(a1 + 84), (a1 + 88), v10);
+    v13 = v12;
+    v14.n128_u64[0] = 0;
+    v15 = gradientAtTFromTypeAndPoints(*(a1 + 152), (a1 + 160), v14);
+    v17 = v16;
+    v18 = TSDSubtractPoints(v11, v13, v15);
+    v20 = TSDNormalizePoint(v18, v19);
+    v22 = v21;
+    v23 = -1.0 / TSDCrossPoints(v20, v21, v15, v17);
+    if (v23 * v23 < *(a1 + 40) * *(a1 + 40))
     {
-      v22 = TSDMultiplyPointScalar(v18, v20, v21 * *(a1 + 32));
-      v23 = *(a1 + 160);
-      v24 = *(a1 + 168);
-      v25 = TSDAddPoints(v23, v24, v22);
-      v27 = TSDGrowRectToPoint(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), v25, v26);
-      v29 = v28;
+      v24 = TSDMultiplyPointScalar(v20, v22, v23 * *(a1 + 32));
+      v25 = *(a1 + 160);
+      v26 = *(a1 + 168);
+      v27 = TSDAddPoints(v25, v26, v24);
+      v29 = TSDGrowRectToPoint(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), v27, v28);
       v31 = v30;
       v33 = v32;
-      v34 = TSDSubtractPoints(v23, v24, v22);
-      *a1 = TSDGrowRectToPoint(v27, v29, v31, v33, v34, v35);
-      *(a1 + 8) = v36;
-      *(a1 + 16) = v37;
-      *(a1 + 24) = v38;
+      v35 = v34;
+      v36 = TSDSubtractPoints(v25, v26, v24);
+      *a1 = TSDGrowRectToPoint(v29, v31, v33, v35, v36, v37);
+      *(a1 + 8) = v38;
+      *(a1 + 16) = v39;
+      *(a1 + 24) = v40;
     }
   }
 }
 
-double gradientAtTFromTypeAndPoints(int a1, float64x2_t *a2)
+double gradientAtTFromTypeAndPoints(int a1, float64x2_t *a2, __n128 a3)
 {
-  v3 = *MEMORY[0x277CBF348];
+  v4 = *MEMORY[0x277CBF348];
   if (a1 <= 1)
   {
     if (!a1)
     {
-      v17 = *MEMORY[0x277CBF348];
-      v14 = [MEMORY[0x277D6C290] currentHandler];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGPoint gradientAtTFromTypeAndPoints(CGFloat, CGPathElementType, CGPoint *)"}];
-      [v14 handleFailureInFunction:v15 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/CGPathAdditions.m"), 220, @"path gradient can't handle moveTo element"}];
-      v3 = v17;
+      v18 = *MEMORY[0x277CBF348];
+      v15 = [MEMORY[0x277D6C290] currentHandler];
+      v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGPoint gradientAtTFromTypeAndPoints(CGFloat, CGPathElementType, CGPoint *)"}];
+      [v15 handleFailureInFunction:v16 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/CGPathAdditions.m"), 220, @"path gradient can't handle moveTo element"}];
+      v4 = v18;
       goto LABEL_13;
     }
 
@@ -2197,8 +2217,8 @@ double gradientAtTFromTypeAndPoints(int a1, float64x2_t *a2)
     }
 
 LABEL_8:
-    v3.f64[0] = TSDSubtractPoints(a2[1].f64[0], a2[1].f64[1], a2->f64[0]);
-    v3.f64[1] = v4;
+    v4.f64[0] = TSDSubtractPoints(a2[1].f64[0], a2[1].f64[1], a2->f64[0]);
+    v4.f64[1] = v5;
     goto LABEL_13;
   }
 
@@ -2206,10 +2226,10 @@ LABEL_8:
   {
     case 2:
       TSUClamp();
-      v6 = vmlaq_n_f64(vmulq_n_f64(vaddq_f64(a2[1], a2[1]), v5 * -2.0 + 1.0), vaddq_f64(*a2, *a2), v5 + -1.0);
-      v7 = vaddq_f64(a2[2], a2[2]);
+      v7 = vmlaq_n_f64(vmulq_n_f64(vaddq_f64(a2[1], a2[1]), v6 * -2.0 + 1.0), vaddq_f64(*a2, *a2), v6 + -1.0);
+      v8 = vaddq_f64(a2[2], a2[2]);
 LABEL_11:
-      v3 = vmlaq_n_f64(v6, v7, v5);
+      v4 = vmlaq_n_f64(v7, v8, v6);
       break;
     case 3:
       TSUClamp();
@@ -2219,8 +2239,8 @@ LABEL_11:
         FMOV            V5.2D, #3.0
       }
 
-      v6 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(vmulq_f64(a2[1], _Q5), v5 * -4.0 + 1.0 + v5 * 3.0 * v5), vmulq_n_f64(vmulq_f64(*a2, _Q4), v5 + -1.0), v5 + -1.0), vmulq_n_f64(vmulq_f64(a2[2], _Q5), v5), v5 * -3.0 + 2.0);
-      v7 = vmulq_n_f64(vmulq_f64(a2[3], _Q5), v5);
+      v7 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(vmulq_f64(a2[1], _Q5), v6 * -4.0 + 1.0 + v6 * 3.0 * v6), vmulq_n_f64(vmulq_f64(*a2, _Q4), v6 + -1.0), v6 + -1.0), vmulq_n_f64(vmulq_f64(a2[2], _Q5), v6), v6 * -3.0 + 2.0);
+      v8 = vmulq_n_f64(vmulq_f64(a2[3], _Q5), v6);
       goto LABEL_11;
     case 4:
       goto LABEL_8;
@@ -2228,7 +2248,7 @@ LABEL_11:
 
 LABEL_13:
 
-  return TSDNormalizePoint(v3.f64[0], v3.f64[1]);
+  return TSDNormalizePoint(v4.f64[0], v4.f64[1]);
 }
 
 __n128 processSegmentElement(uint64_t a1, unsigned int *a2)
@@ -2334,30 +2354,30 @@ double TSDPointOnCurve(float64x2_t *a1, double a2)
   return result;
 }
 
-void TSDCurveBetween(float64x2_t *a1, uint64_t a2, double a3, double a4)
+void TSDCurveBetween(double a1, double a2, float64x2_t *a3, uint64_t a4)
 {
-  v8 = 1.0 - a3;
-  *a2 = F(a1, 1.0 - a3, a3, 1.0 - a3, a3, 1.0 - a3, a3);
-  *(a2 + 8) = v9;
-  *(a2 + 16) = F(a1, v8, a3, v8, a3, 1.0 - a4, a4);
-  *(a2 + 24) = v10;
-  *(a2 + 32) = F(a1, v8, a3, 1.0 - a4, a4, 1.0 - a4, a4);
-  *(a2 + 40) = v11;
-  *(a2 + 48) = F(a1, 1.0 - a4, a4, 1.0 - a4, a4, 1.0 - a4, a4);
-  *(a2 + 56) = v12;
+  v8 = 1.0 - a1;
+  *a4 = F(a3, 1.0 - a1, a1, 1.0 - a1, a1, 1.0 - a1, a1);
+  *(a4 + 8) = v9;
+  *(a4 + 16) = F(a3, v8, a1, v8, a1, 1.0 - a2, a2);
+  *(a4 + 24) = v10;
+  *(a4 + 32) = F(a3, v8, a1, 1.0 - a2, a2, 1.0 - a2, a2);
+  *(a4 + 40) = v11;
+  *(a4 + 48) = F(a3, 1.0 - a2, a2, 1.0 - a2, a2, 1.0 - a2, a2);
+  *(a4 + 56) = v12;
 }
 
-void TSDDCurveBetween(float64x2_t *a1, uint64_t a2, double a3, double a4)
+void TSDDCurveBetween(double a1, double a2, float64x2_t *a3, uint64_t a4)
 {
-  v8 = 1.0 - a3;
-  *a2 = F(a1, 1.0 - a3, a3, 1.0 - a3, a3, 1.0 - a3, a3);
-  *(a2 + 8) = v9;
-  *(a2 + 16) = F(a1, v8, a3, v8, a3, 1.0 - a4, a4);
-  *(a2 + 24) = v10;
-  *(a2 + 32) = F(a1, v8, a3, 1.0 - a4, a4, 1.0 - a4, a4);
-  *(a2 + 40) = v11;
-  *(a2 + 48) = F(a1, 1.0 - a4, a4, 1.0 - a4, a4, 1.0 - a4, a4);
-  *(a2 + 56) = v12;
+  v8 = 1.0 - a1;
+  *a4 = F(a3, 1.0 - a1, a1, 1.0 - a1, a1, 1.0 - a1, a1);
+  *(a4 + 8) = v9;
+  *(a4 + 16) = F(a3, v8, a1, v8, a1, 1.0 - a2, a2);
+  *(a4 + 24) = v10;
+  *(a4 + 32) = F(a3, v8, a1, 1.0 - a2, a2, 1.0 - a2, a2);
+  *(a4 + 40) = v11;
+  *(a4 + 48) = F(a3, 1.0 - a2, a2, 1.0 - a2, a2, 1.0 - a2, a2);
+  *(a4 + 56) = v12;
 }
 
 uint64_t TSDIntersectionOfLines(double *a1, double *a2, double *a3, double *a4, double *a5)
@@ -2434,7 +2454,7 @@ double TSDDDistanceToPointFromLine(double *a1, double a2, double a3)
   return a3 * -(v6 * v8) + v5 * v8 * a2 - (v3 * -(v6 * v8) + v5 * v8 * v4);
 }
 
-uint64_t TSDNearestPointOnLineToPoint(double *a1, double a2, double a3)
+double TSDNearestPointOnLineToPoint(double *a1, double a2, double a3)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -2446,7 +2466,8 @@ uint64_t TSDNearestPointOnLineToPoint(double *a1, double a2, double a3)
   TSDDotPoints(v6, v8, v11, v12);
   TSDDistanceSquared(v9, v10, v4, v5);
 
-  return TSUClamp();
+  TSUClamp();
+  return result;
 }
 
 double TSDNearestPointOnCurveToPoint(float64x2_t *a1, double a2, double a3, double a4)
@@ -2554,10 +2575,10 @@ double TSDPathGetElementLengthAtIndex(const CGPath *a1, uint64_t a2)
   return v4;
 }
 
-void TSDPathGetLengthApplierFunction(uint64_t a1, int *a2)
+void TSDPathGetLengthApplierFunction(double *result, int *a2)
 {
-  v3 = *(a1 + 16);
-  if (v3 >= *a1 && v3 <= *(a1 + 8))
+  v3 = *(result + 2);
+  if (v3 >= *result && v3 <= *(result + 1))
   {
     v4 = *a2;
     if (*a2 == 4)
@@ -2584,10 +2605,10 @@ LABEL_6:
     }
 
 LABEL_8:
-    *(a1 + 24) = v5 + *(a1 + 24);
+    result[3] = v5 + result[3];
   }
 
-  *(a1 + 16) = v3 + 1;
+  *(result + 2) = v3 + 1;
 }
 
 double TSDPathGetLength(const CGPath *a1)
@@ -2860,7 +2881,7 @@ double F(float64x2_t *a1, double a2, double a3, double a4, double a5, double a6,
   return result;
 }
 
-uint64_t recursiveSubdivideCurve(float64x2_t *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6, int a7, uint64_t a8)
+void *recursiveSubdivideCurve(float64x2_t *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6, int a7, uint64_t a8)
 {
   v109 = *MEMORY[0x277D85DE8];
   v99 = 0.0;
@@ -2989,10 +3010,10 @@ uint64_t recursiveSubdivideCurve(float64x2_t *a1, void *a2, uint64_t a3, uint64_
 
   else
   {
-    TSDCurveBetween(a1, v101, 0.0, 0.5);
-    TSDCurveBetween(a1, v100, 0.5, 1.0);
-    recursiveSubdivideCurve(v101, a2, a3, a4, a5, a6, (a7 + 1), a8);
-    return recursiveSubdivideCurve(v100, a2, a3, a4, a5, a6, (a7 + 1), 0);
+    TSDCurveBetween(0.0, 0.5, a1, v101);
+    TSDCurveBetween(0.5, 1.0, a1, v100);
+    recursiveSubdivideCurve(v101, a2, a3, a4, a5, a6, a7 + 1, a8);
+    return recursiveSubdivideCurve(v100, a2, a3, a4, a5, a6, a7 + 1, 0);
   }
 }
 
@@ -3238,12 +3259,12 @@ LABEL_23:
 
     do
     {
-      f64 = a1[v98].f64;
-      v137 = vld2q_f64(f64);
+      v117 = &a1[v98];
+      v137 = vld2q_f64(v117->f64);
       v118 = vdivq_f64(vsubq_f64(v137.val[0], v109), v110);
       v119 = vminnmq_f64(vbslq_s8(vcgeq_s64(vandq_s8(v118, v114), v99), _Q7, v118), _Q16);
       v137.val[0] = vmlaq_f64(v137.val[0], v137.val[1], vmulq_n_f64(vmlaq_f64(v112, v111, vbicq_s8(v119, vcltzq_f64(v119))), v105));
-      *f64 = v137.val[0].f64[0];
+      v117->f64[0] = v137.val[0].f64[0];
       a1[v98 + 1].f64[0] = v137.val[0].f64[1];
       v98 += 2;
     }
@@ -3411,11 +3432,11 @@ void curveIntersectCurveR(float64x2_t *a1, double *a2, uint64_t a3, uint64_t a4,
         if (v39 - v40 >= 0.8)
         {
           v35 = (v40 + v39) * 0.5;
-          TSDDCurveBetween(a1, v41, v40, v35);
-          curveIntersectCurveR(a2, v41, a4, a3, a5 ^ 1u, a6, a9, a10, (v21 - v35) * a7, a8 + v20 * a7);
-          TSDDCurveBetween(a1, v41, (v20 + v21) * 0.5, v21);
+          TSDDCurveBetween(v40, v35, a1, v41);
+          curveIntersectCurveR(a2, v41, a4, a3, a5 ^ 1, a6, a9, a10, (v21 - v35) * a7, a8 + v20 * a7);
+          TSDDCurveBetween((v20 + v21) * 0.5, v21, a1, v41);
           v28 = a8 + v35 * a7;
-          v29 = a5 ^ 1u;
+          v29 = a5 ^ 1;
           v30 = a2;
           v31 = a9;
           v32 = a10;
@@ -3425,9 +3446,9 @@ void curveIntersectCurveR(float64x2_t *a1, double *a2, uint64_t a3, uint64_t a4,
 
         else
         {
-          TSDDCurveBetween(a1, v41, v40, v39);
+          TSDDCurveBetween(v40, v39, a1, v41);
           v28 = a8 + v20 * a7;
-          v29 = a5 ^ 1u;
+          v29 = a5 ^ 1;
           v30 = a2;
           v31 = a9;
           v32 = a10;
@@ -3442,7 +3463,7 @@ void curveIntersectCurveR(float64x2_t *a1, double *a2, uint64_t a3, uint64_t a4,
       {
         v37 = 0.0;
         v38 = 0.0;
-        TSDDCurveBetween(a1, v41, v40, v39);
+        TSDDCurveBetween(v40, v39, a1, v41);
         clipToFatCurve(a2, v41, &v38, &v37);
         if ((v37 - v38) * a9 < 0.1)
         {
@@ -3569,50 +3590,48 @@ double *shrinkIntervalWithIntersectionsFromCurve(double *result, double *a2, uin
   return result;
 }
 
-double *curveIntersectLineR(float64x2_t *a1, uint64_t a2, void *a3, double a4)
+void curveIntersectLineR(float64x2_t *a1, uint64_t a2, void *a3, double a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = -1.0;
-  v15 = 2.0;
-  result = shrinkIntervalWithIntersectionsFromCurve(&v15, &v14, a2, 0.0);
-  v8 = v15;
-  if (v15 <= 1.0)
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = -1.0;
+  v14 = 2.0;
+  shrinkIntervalWithIntersectionsFromCurve(&v14, &v13, a2, 0.0);
+  v7 = v14;
+  if (v14 <= 1.0)
   {
-    v9 = v14;
-    if (v14 >= 0.0)
+    v8 = v13;
+    if (v13 >= 0.0)
     {
-      if (v14 - v15 >= 0.00005)
+      if (v13 - v14 >= 0.00005)
       {
-        if (v14 - v15 >= a4 * 0.8)
+        if (v13 - v14 >= a4 * 0.8)
         {
-          v13 = (v15 + v14) * 0.5;
-          TSDDCurveBetween(a1, v16, v15, v13);
-          curveIntersectLineR(a1, v16, a3, v13 - v8);
-          TSDDCurveBetween(a1, v16, (v8 + v9) * 0.5, v9);
-          v12 = v9 - v13;
-          v11 = a1;
+          v12 = (v14 + v13) * 0.5;
+          TSDDCurveBetween(v14, v12, a1, v15);
+          curveIntersectLineR(a1, v15, a3, v12 - v7);
+          TSDDCurveBetween((v7 + v8) * 0.5, v8, a1, v15);
+          v11 = v8 - v12;
+          v10 = a1;
         }
 
         else
         {
-          TSDDCurveBetween(a1, v16, v15, v14);
-          v11 = a1;
-          v12 = v9 - v8;
+          TSDDCurveBetween(v14, v13, a1, v15);
+          v10 = a1;
+          v11 = v8 - v7;
         }
 
-        return curveIntersectLineR(v11, v16, a3, v12);
+        curveIntersectLineR(v10, v15, a3, v11);
       }
 
       else
       {
-        v10 = [MEMORY[0x277CCABB0] numberWithDouble:(v15 + v14) * 0.5];
+        v9 = [MEMORY[0x277CCABB0] numberWithDouble:(v14 + v13) * 0.5];
 
-        return [a3 addObject:v10];
+        [a3 addObject:v9];
       }
     }
   }
-
-  return result;
 }
 
 uint64_t TSDAdjustGeometryForAlignPathSourceToOrigin(void *a1, void *a2)
@@ -3630,7 +3649,7 @@ uint64_t TSDAdjustGeometryForAlignPathSourceToOrigin(void *a1, void *a2)
   memset(&v31, 0, sizeof(v31));
   if (a2)
   {
-    [a2 pathFlipTransform];
+    objc_msgSend_pathFlipTransform(a2);
   }
 
   v16 = *(MEMORY[0x277CBF2C0] + 16);
@@ -3644,7 +3663,7 @@ uint64_t TSDAdjustGeometryForAlignPathSourceToOrigin(void *a1, void *a2)
   CGAffineTransformConcat(&v30, &t1, &t2);
   if (a1)
   {
-    [a1 transform];
+    objc_msgSend_transform(a1);
   }
 
   else
@@ -3713,37 +3732,37 @@ uint64_t TSDAdjustGeometryForAlignPathSourceToOrigin(void *a1, void *a2)
   return [a1 setSize:{v24, v25, v23}];
 }
 
-void sub_26C7E1EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7E1EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t TSDSpatialDrawableComparator_block_invoke()
+uint64_t TSDSpatialDrawableComparator_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = TSUProtocolCast();
-  v1 = TSUProtocolCast();
-  [objc_msgSend(v0 "geometry")];
-  v3 = v2;
-  v5 = v4;
-  [objc_msgSend(v1 "geometry")];
-  if (v5 < v7)
+  v3 = TSUProtocolCast();
+  v4 = TSUProtocolCast();
+  [objc_msgSend(v3 "geometry")];
+  v6 = v5;
+  v8 = v7;
+  [objc_msgSend(v4 "geometry")];
+  if (v8 < v10)
   {
     return -1;
   }
 
-  if (v5 > v7)
+  if (v8 > v10)
   {
     return 1;
   }
 
-  if (v3 < v6)
+  if (v6 < v9)
   {
     return -1;
   }
 
-  return v3 > v6;
+  return v6 > v9;
 }
 
 uint64_t TSDKnobTagByRotating270Degrees(uint64_t a1)
@@ -3835,16 +3854,16 @@ uint64_t TSDKnobTagForAngle(double a1)
   }
 }
 
-uint64_t TSDKnobTagByRotatingKnobByAngle(uint64_t a1)
+uint64_t TSDKnobTagByRotatingKnobByAngle(uint64_t a1, double a2)
 {
   TSURound();
-  TSDNormalizeAngleInDegrees(v2 * 90.0);
-  if (fabs(v3 + -90.0) >= 0.00999999978)
+  TSDNormalizeAngleInDegrees(v3 * 90.0);
+  if (fabs(v4 + -90.0) >= 0.00999999978)
   {
-    if (fabs(v3 + -180.0) >= 0.00999999978)
+    if (fabs(v4 + -180.0) >= 0.00999999978)
     {
       result = a1;
-      if (fabs(v3 + -270.0) < 0.00999999978)
+      if (fabs(v4 + -270.0) < 0.00999999978)
       {
 
         return TSDKnobTagByRotating270Degrees(a1);
@@ -3957,48 +3976,49 @@ LABEL_17:
   return v1;
 }
 
-void sub_26C7EF198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C7EF198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C7F0C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_26C7F0C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C7F1010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C7F12BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C7F1D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C7F7E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7F1010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 48), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C7F12BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 48), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C7F1D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C7F7E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4075,15 +4095,15 @@ void FitCubic(uint64_t a1, uint64_t a2, uint64_t a3, double ***a4, __n128 a5, __
   while (1)
   {
     v9 = a4;
-    v81 = a8;
-    v82 = a7;
+    v82 = a8;
+    v83 = a7;
     v10 = a3;
     v11 = a2;
     v12 = a1;
-    v94[2] = *MEMORY[0x277D85DE8];
+    v94 = *MEMORY[0x277D85DE8];
     v13 = a3 - a2;
-    v83 = a6;
-    v84 = a5;
+    v84 = a6;
+    v85 = a5;
     if (a3 - a2 == 1)
     {
       break;
@@ -4094,7 +4114,7 @@ void FitCubic(uint64_t a1, uint64_t a2, uint64_t a3, double ***a4, __n128 a5, __
     v26 = malloc_type_malloc(size & 0x7FFFFFFF8, 0x100004000313F17uLL);
     v27 = v26;
     *v26 = 0.0;
-    v87 = v11;
+    v88 = v11;
     if (v10 > v11)
     {
       v28 = v26 + 1;
@@ -4122,10 +4142,10 @@ void FitCubic(uint64_t a1, uint64_t a2, uint64_t a3, double ***a4, __n128 a5, __
       while (v33);
     }
 
-    v89 = 0;
-    GenerateBezier(v12, v11, v10, v26, v9, v84.n128_f64[0], v83.n128_f64[0], v82.n128_f64[0], v81.n128_f64[0]);
+    v90 = 0;
+    GenerateBezier(v12, v11, v10, v26, v9, v85.n128_f64[0], v84.n128_f64[0], v83.n128_f64[0], v82.n128_f64[0]);
     v35 = v34;
-    v36.n128_f64[0] = ComputeMaxError(v12, v11, v10, v34, v27, &v89, v9);
+    v36.n128_f64[0] = ComputeMaxError(v12, v11, v10, v34, v27, &v90, v9);
     if (v36.n128_f64[0] < v25)
     {
       DrawBezierCurve(v35, v9, v36);
@@ -4135,18 +4155,18 @@ LABEL_34:
       goto LABEL_35;
     }
 
-    v86 = v12;
-    v78 = v9;
+    v87 = v12;
+    v79 = v9;
     if (v36.n128_f64[0] < v25 * v25)
     {
       v37 = v27;
       v38 = 0;
       __asm { FMOV            V0.2D, #3.0 }
 
-      v85 = _Q0;
+      v86 = _Q0;
       while (1)
       {
-        v80 = v38;
+        v81 = v38;
         v27 = malloc_type_malloc(size, 0x100004000313F17uLL);
         v44 = v11;
         if (v10 >= v11)
@@ -4154,7 +4174,7 @@ LABEL_34:
           v45 = v11;
           do
           {
-            v46 = (v86 + 16 * v45);
+            v46 = (v87 + 16 * v45);
             v47 = v45 - v44;
             v48 = v37[v47];
             v49 = *v46;
@@ -4166,31 +4186,31 @@ LABEL_34:
             do
             {
               v56 = v35[v54 + 1];
-              v92[v54++] = vmulq_f64(vsubq_f64(v56, v55), v85);
+              v93[v54++] = vmulq_f64(vsubq_f64(v56, v55), v86);
               v55 = v56;
             }
 
             while (v54 != 3);
-            v57 = v90;
+            v57 = v91;
             v58 = 1;
-            v59 = v92[0];
-            v60 = &v93;
+            v59 = v93[0];
+            v60 = &v93[1];
             do
             {
               v61 = v58;
               v62 = *v60;
               v63 = vsubq_f64(*v60, v59);
               *v57 = vaddq_f64(v63, v63);
-              v57 = &v91;
-              v60 = v94;
+              v57 = &v92;
+              v60 = &v93[2];
               v59 = v62;
               v58 = 0;
             }
 
             while ((v61 & 1) != 0);
-            v64 = BezierII(2, v92, v48);
+            v64 = BezierII(2, v93, v48);
             v66 = v65;
-            v67 = BezierII(1, v90, v48);
+            v67 = BezierII(1, v91, v48);
             v69 = v66 * v66 + v64 * v64 + (v51 - v49) * v67 + (v53 - v50) * v68;
             if (v69 != 0.0)
             {
@@ -4206,9 +4226,9 @@ LABEL_34:
         }
 
         free(v35);
-        GenerateBezier(v86, v44, v10, v27, v78, v84.n128_f64[0], v83.n128_f64[0], v82.n128_f64[0], v81.n128_f64[0]);
+        GenerateBezier(v87, v44, v10, v27, v79, v85.n128_f64[0], v84.n128_f64[0], v83.n128_f64[0], v82.n128_f64[0]);
         v35 = v70;
-        v71.n128_f64[0] = ComputeMaxError(v86, v44, v10, v70, v27, &v89, v78);
+        v71.n128_f64[0] = ComputeMaxError(v87, v44, v10, v70, v27, &v90, v79);
         if (v71.n128_f64[0] < v25)
         {
           break;
@@ -4216,14 +4236,14 @@ LABEL_34:
 
         free(v37);
         v37 = v27;
-        v38 = v80 + 1;
-        if (v80 == 3)
+        v38 = v81 + 1;
+        if (v81 == 3)
         {
           goto LABEL_28;
         }
       }
 
-      DrawBezierCurve(v35, v78, v71);
+      DrawBezierCurve(v35, v79, v71);
       free(v37);
       goto LABEL_34;
     }
@@ -4231,30 +4251,31 @@ LABEL_34:
 LABEL_28:
     free(v27);
     free(v35);
-    v72 = v89;
+    v73 = v90;
     __asm { FMOV            V1.2D, #0.5 }
 
-    v74 = vmulq_f64(vaddq_f64(vsubq_f64(*(v86 + 16 * v89 - 16), *(v86 + 16 * v89)), vsubq_f64(*(v86 + 16 * v89), *(v86 + 16 * v89 + 16))), _Q1);
-    v75 = sqrt(COERCE_DOUBLE(*&vmulq_f64(*&v74, *&v74).f64[1]) + v74.n128_f64[0] * v74.n128_f64[0]);
-    if (v75 != 0.0)
+    v75 = vmulq_f64(vaddq_f64(vsubq_f64(*(v87 + 16 * v90 - 16), *(v87 + 16 * v90)), vsubq_f64(*(v87 + 16 * v90), *(v87 + 16 * v90 + 16))), _Q1);
+    v76 = sqrt(COERCE_DOUBLE(*&vmulq_f64(*&v75, *&v75).f64[1]) + v75.n128_f64[0] * v75.n128_f64[0]);
+    if (v76 != 0.0)
     {
-      v74 = vdivq_f64(v74, vdupq_lane_s64(*&v75, 0));
+      v75 = vdivq_f64(v75, vdupq_lane_s64(*&v76, 0));
     }
 
-    v76 = v74.n128_f64[1];
-    v77 = v87;
-    v88 = v74;
-    FitCubic(v86, v77, v89, v78, v84, v83, v74, v74.n128_f64[1], v25);
-    a5.n128_u64[1] = v88.n128_u64[1];
-    a5.n128_f64[0] = -v88.n128_f64[0];
-    a6.n128_f64[0] = -v76;
-    a1 = v86;
-    a2 = v72;
+    v77 = v75.n128_f64[1];
+    v78 = v88;
+    v89 = v75;
+    v72.n128_u64[0] = v75.n128_u64[1];
+    FitCubic(v87, v78, v90, v79, v85, v84, v75, v72, v25);
+    a5.n128_u64[1] = v89.n128_u64[1];
+    a5.n128_f64[0] = -v89.n128_f64[0];
+    a6.n128_f64[0] = -v77;
+    a1 = v87;
+    a2 = v73;
     a3 = v10;
-    a8 = v81;
-    a7 = v82;
+    a8 = v82;
+    a7 = v83;
     a9 = v25;
-    a4 = v78;
+    a4 = v79;
   }
 
   v14 = (a1 + 16 * a3);
@@ -4264,18 +4285,18 @@ LABEL_28:
   v18 = v17;
   *v17 = *v15;
   v17[3] = *v14;
-  *&v20.f64[0] = v84.n128_u64[0];
-  v19 = sqrt(v83.n128_f64[0] * v83.n128_f64[0] + v20.f64[0] * v20.f64[0]);
-  *&v20.f64[1] = v83.n128_u64[0];
+  *&v20.f64[0] = v85.n128_u64[0];
+  v19 = sqrt(v84.n128_f64[0] * v84.n128_f64[0] + v20.f64[0] * v20.f64[0]);
+  *&v20.f64[1] = v84.n128_u64[0];
   if (v19 != 0.0)
   {
     v20 = vmulq_n_f64(v20, v16 / v19);
   }
 
   v17[1] = vaddq_f64(v20, *v17);
-  *&v22.f64[0] = v82.n128_u64[0];
-  v21 = sqrt(v81.n128_f64[0] * v81.n128_f64[0] + v22.f64[0] * v22.f64[0]);
-  *&v22.f64[1] = v81.n128_u64[0];
+  *&v22.f64[0] = v83.n128_u64[0];
+  v21 = sqrt(v82.n128_f64[0] * v82.n128_f64[0] + v22.f64[0] * v22.f64[0]);
+  *&v22.f64[1] = v82.n128_u64[0];
   if (v21 != 0.0)
   {
     v22 = vmulq_n_f64(v22, v16 / v21);
@@ -4772,8 +4793,8 @@ int *polygonFromBezier(void *a1)
       {
         NSLog(@"Warning: Path should be flat. Illegal NSCurveToBezierPathElement.");
 LABEL_21:
-        v9 = *&v7;
-        v10 = *&v6;
+        v10 = v7;
+        v9 = v6;
 LABEL_22:
         v11 = v5;
         goto LABEL_23;
@@ -4787,13 +4808,13 @@ LABEL_22:
       LODWORD(v13) = v5;
       TSDgpc_add_contour(v3, &v13, 0);
       v11 = -1;
-      v9 = 0x7FF0000000000000;
-      v10 = 0x7FF0000000000000;
+      v10 = INFINITY;
+      v9 = INFINITY;
 LABEL_23:
       ++v4;
       v5 = v11 + 1;
-      v6 = *&v10;
-      v7 = *&v9;
+      v6 = v9;
+      v7 = v10;
       if ((v2 & 0x7FFFFFFF) == v4)
       {
         if (v11 >= 1)
@@ -4815,13 +4836,13 @@ LABEL_28:
         goto LABEL_21;
       }
 
-      v9 = *&v15[1];
-      v10 = *&v15[0];
+      v9 = v15[0];
+      v10 = v15[1];
       if (vabdd_f64(v15[0], v6) <= 0.699999988 && vabdd_f64(v15[1], v7) <= 0.699999988)
       {
         v11 = v5 - 1;
-        v9 = *&v7;
-        v10 = *&v6;
+        v10 = v7;
+        v9 = v6;
         goto LABEL_23;
       }
 
@@ -4838,8 +4859,8 @@ LABEL_28:
       }
 
       *(v14 + v5) = *v15;
-      v9 = *&v15[1];
-      v10 = *&v15[0];
+      v9 = v15[0];
+      v10 = v15[1];
     }
 
     goto LABEL_22;
@@ -6544,7 +6565,7 @@ uint64_t FloatLigne::Reset(uint64_t this)
   return this;
 }
 
-uint64_t FloatLigne::AddBord(FloatLigne *this, float a2, float a3, float a4, float a5, signed int a6)
+uint64_t FloatLigne::AddBord(FloatLigne *this, float a2, float a3, float a4, float a5, int a6)
 {
   if (a2 >= a4)
   {
@@ -6605,9 +6626,9 @@ uint64_t FloatLigne::AddBord(FloatLigne *this, float a2, float a3, float a4, flo
   return v15;
 }
 
-unsigned int *FloatLigne::InsertBord(unsigned int *this, unsigned int a2, float a3, unsigned int a4)
+unsigned int *FloatLigne::InsertBord(unsigned int *this, int a2, float a3, int a4)
 {
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     return this;
   }
@@ -6628,7 +6649,7 @@ unsigned int *FloatLigne::InsertBord(unsigned int *this, unsigned int a2, float 
   }
 
   v6 = a4;
-  if ((a4 & 0x80000000) != 0 || v4 <= a4)
+  if (a4 < 0 || v4 <= a4)
   {
     do
     {
@@ -6988,7 +7009,7 @@ uint64_t FloatLigne::AppendBord(FloatLigne *this, float a2, float a3, float a4, 
   return result;
 }
 
-float FloatLigne::RemainingValAt(FloatLigne *this, float a2, int a3)
+float FloatLigne::RemainingValAt(FloatLigne *this, float a2, unsigned int a3)
 {
   if (a3 < 1)
   {
@@ -7339,7 +7360,7 @@ void **FloatLigne::Copy(void **result, uint64_t a2)
   return result;
 }
 
-void FloatLigne::Booleen(uint64_t a1, uint64_t a2, FloatLigne *a3, int a4)
+void FloatLigne::Booleen(uint64_t a1, uint64_t a2, FloatLigne *a3, unsigned int a4)
 {
   v5 = a3;
   *a1 = 0;
@@ -8820,7 +8841,7 @@ uint64_t IntLigne::Affiche(IntLigne *this)
   return putchar(10);
 }
 
-uint64_t IntLigne::Booleen(uint64_t result, uint64_t a2, IntLigne *a3, int a4)
+uint64_t IntLigne::Booleen(uint64_t result, uint64_t a2, IntLigne *a3, unsigned int a4)
 {
   v5 = a3;
   *result = 0;
@@ -9805,43 +9826,4 @@ Path *Path::CloseSubpath(Path *this, int a2)
   this->var0 &= ~2u;
   this->var5 = -1;
   return this;
-}
-
-double Path::ForcePoint(Path *this)
-{
-  var0 = this->var0;
-  if (this->var0)
-  {
-    if ((var0 & 4) != 0)
-    {
-      var0 &= 0xFFFFFFFA;
-      this->var0 = var0;
-      var4 = this->var4;
-      if ((var4 & 0x80000000) == 0)
-      {
-        this->var2 = var4;
-        this->var4 = -1;
-      }
-    }
-
-    else
-    {
-      this->var4 = -1;
-      var0 &= 0xFFFFFFFA;
-      this->var0 = var0;
-    }
-  }
-
-  if ((var0 & 2) != 0)
-  {
-    Path::Alloue(this, 1);
-    var2 = this->var2;
-    v5 = (this->var3 + 44 * var2);
-    this->var2 = var2 + 1;
-    result = 0.0078125;
-    *v5 = 0xFFFFFFFF00000007;
-    v5[1] = 0x3F80000000000000;
-  }
-
-  return result;
 }

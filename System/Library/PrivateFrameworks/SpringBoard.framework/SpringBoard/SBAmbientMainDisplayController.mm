@@ -118,7 +118,7 @@
 void __72__SBAmbientMainDisplayController__updateCoreBrightnessAmbientModeForce___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAmbientPresentation();
+  v2 = SBLogAmbientPresentation(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);

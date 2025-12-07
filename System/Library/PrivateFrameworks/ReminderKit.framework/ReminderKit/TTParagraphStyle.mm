@@ -1,5 +1,6 @@
 @interface TTParagraphStyle
 + (id)defaultParagraphStyle;
++ (id)paragraphStyleNamed:(unsigned int)named;
 + (int)paragraphStyleAlignmentForTextAlignment:(int64_t)alignment;
 + (int64_t)textAlignmentForParagraphStyleAlignment:(int)alignment;
 - (BOOL)isEqual:(id)equal;
@@ -55,7 +56,8 @@
   dataCopy = data;
   topotext::ParagraphStyle::ParagraphStyle(v10);
   bytes = [dataCopy bytes];
-  v6 = TTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  TTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v10, bytes, v6))
   {
     self = [(TTParagraphStyle *)self initWithArchive:v10];
@@ -198,14 +200,16 @@
 
 - (id)serialize
 {
-  [(TTParagraphStyle *)self saveToArchive:v6, topotext::ParagraphStyle::ParagraphStyle(v6)];
-  v2 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:topotext::ParagraphStyle::ByteSize(v6)];
-  mutableBytes = [v2 mutableBytes];
-  v4 = TTBoundedCheckedCastNSUIntegerToUInt32([v2 length]);
-  google::protobuf::MessageLite::SerializeToArray(v6, mutableBytes, v4);
-  topotext::ParagraphStyle::~ParagraphStyle(v6);
+  [(TTParagraphStyle *)self saveToArchive:v8, topotext::ParagraphStyle::ParagraphStyle(v8)];
+  v2 = objc_alloc(MEMORY[0x1E695DF88]);
+  v4 = [v2 initWithLength:{topotext::ParagraphStyle::ByteSize(v8, v3)}];
+  mutableBytes = [v4 mutableBytes];
+  [v4 length];
+  TTBoundedCheckedCastNSUIntegerToUInt32();
+  google::protobuf::MessageLite::SerializeToArray(v8, mutableBytes, v6);
+  topotext::ParagraphStyle::~ParagraphStyle(v8);
 
-  return v2;
+  return v4;
 }
 
 - (TTParagraphStyle)initWithCoder:(id)coder
@@ -258,6 +262,15 @@ uint64_t __41__TTParagraphStyle_defaultParagraphStyle__block_invoke()
   }
 
   return result;
+}
+
++ (id)paragraphStyleNamed:(unsigned int)named
+{
+  v3 = *&named;
+  v4 = objc_alloc_init(TTParagraphStyle);
+  [(TTParagraphStyle *)v4 setStyle:v3];
+
+  return v4;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone

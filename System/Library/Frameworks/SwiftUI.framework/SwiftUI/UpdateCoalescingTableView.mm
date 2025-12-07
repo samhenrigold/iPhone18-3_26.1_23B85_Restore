@@ -16,7 +16,7 @@
 - (BOOL)_sectionContentInsetFollowsLayoutMargins
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for UpdateCoalescingTableView();
+  v3.super_class = type metadata accessor for UpdateCoalescingTableView(0);
   return [(UpdateCoalescingTableView *)&v3 _sectionContentInsetFollowsLayoutMargins];
 }
 
@@ -31,7 +31,7 @@
   else
   {
     v5.receiver = selfCopy;
-    v5.super_class = type metadata accessor for UpdateCoalescingTableView();
+    v5.super_class = type metadata accessor for UpdateCoalescingTableView(0);
     [(UpdateCoalescingTableView *)&v5 _setSectionContentInsetFollowsLayoutMargins:marginsCopy];
   }
 }
@@ -39,7 +39,7 @@
 - (CGRect)bounds
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for UpdateCoalescingTableView();
+  v6.super_class = type metadata accessor for UpdateCoalescingTableView(0);
   [(UpdateCoalescingTableView *)&v6 bounds];
   result.size.height = v5;
   result.size.width = v4;
@@ -88,7 +88,7 @@
   }
 
   v3.receiver = self;
-  v3.super_class = type metadata accessor for UpdateCoalescingTableView();
+  v3.super_class = type metadata accessor for UpdateCoalescingTableView(0);
   [(UpdateCoalescingTableView *)&v3 _rowSpacing];
   return result;
 }
@@ -96,7 +96,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for UpdateCoalescingTableView();
+  v3.super_class = type metadata accessor for UpdateCoalescingTableView(0);
   v2 = v3.receiver;
   [(UpdateCoalescingTableView *)&v3 layoutSubviews];
   UpdateCoalescingTableView.updateInsetStyleIfNeeded()();
@@ -139,8 +139,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   UpdateCoalescingTableView.performBatchUpdates(_:completion:)(v6, v9, v11, v10);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v11);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v6);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v11, v10);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v6, v9);
 }
 
 @end

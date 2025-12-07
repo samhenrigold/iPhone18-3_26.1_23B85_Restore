@@ -162,19 +162,19 @@
   v8 = sub_1AFDFCEF8();
   v10 = v9;
   selfCopy = self;
-  sub_1AFC7FA7C(v5, v7, v8, v10, v20);
+  sub_1AFC7FA7C(v5, v7, v8, v10, &v20);
 
   v12 = v21;
   if (v21)
   {
-    v13 = sub_1AF441150(v20, v21);
+    v13 = sub_1AF441150(&v20, v21);
     v14 = *(v12 - 8);
-    v15 = MEMORY[0x1EEE9AC00](v13, v13);
-    v17 = v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = MEMORY[0x1EEE9AC00](v13);
+    v17 = &v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v14 + 16))(v17, v15);
     v18 = sub_1AFDFEE08();
     (*(v14 + 8))(v17, v12);
-    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v20);
+    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(&v20);
   }
 
   else
@@ -202,19 +202,20 @@
 
 - (int64_t)lookupObjectIDByName:(id)name
 {
-  sub_1AFDFCEF8();
+  v4 = sub_1AFDFCEF8();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_1AFC80090();
-  v7 = v6;
+  v8 = sub_1AFC80090(v4, v6);
+  v10 = v9;
 
-  if (v7)
+  if (v10)
   {
     return 0;
   }
 
   else
   {
-    return v5;
+    return v8;
   }
 }
 
@@ -277,15 +278,16 @@
 - (void)withPointerToParameterOf:(id)of named:(id)named block:(id)block
 {
   v6 = _Block_copy(block);
-  sub_1AFDFCEF8();
   v7 = sub_1AFDFCEF8();
   v9 = v8;
-  v17 = v6;
+  v10 = sub_1AFDFCEF8();
+  v12 = v11;
+  v19 = v6;
   selfCopy = self;
-  v11 = sub_1AFC80090();
-  v13 = v12;
+  v14 = sub_1AFC80090(v7, v9);
+  LOBYTE(v7) = v15;
 
-  if (v13)
+  if (v7)
   {
 
     _Block_release(v6);
@@ -293,12 +295,12 @@
 
   else
   {
-    v14 = swift_allocObject();
-    *(v14 + 16) = sub_1AFC88F04;
-    *(v14 + 24) = &v16;
-    v15 = sub_1AFC7C4B8();
+    v16 = swift_allocObject();
+    *(v16 + 16) = sub_1AFC88F04;
+    *(v16 + 24) = &v18;
+    v17 = sub_1AFC7C4B8();
 
-    sub_1AF661BB4(v15, v15, v11, v7, v9, 23, 0, sub_1AFC892B0, v14);
+    sub_1AF661BB4(v17, v17, v14, v10, v12, 23, 0, sub_1AFC892B0, v16);
 
     _Block_release(v6);
   }

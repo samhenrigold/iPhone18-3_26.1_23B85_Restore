@@ -5,6 +5,7 @@
 - (id)animationControllerForPresentedController:(id)controller presentingController:(id)presentingController sourceController:(id)sourceController;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
+- (void)beginAppearanceTransition:(BOOL)transition animated:(BOOL)animated;
 - (void)didChangedChunkFileSliderValue:(id)value;
 - (void)didChangedMaxLogsSlider:(id)slider;
 - (void)didTapConfig;
@@ -14,6 +15,7 @@
 - (void)endAppearanceTransition;
 - (void)sliderValueChangedSinope:(id)sinope;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CellularLoggingViewController
@@ -24,11 +26,38 @@
   sub_10027D5B0();
 }
 
+- (void)beginAppearanceTransition:(BOOL)transition animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  transitionCopy = transition;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for CellularLoggingViewController();
+  [(CellularLoggingViewController *)&v6 beginAppearanceTransition:transitionCopy animated:animatedCopy];
+}
+
 - (void)endAppearanceTransition
 {
   v2.receiver = self;
   v2.super_class = type metadata accessor for CellularLoggingViewController();
   [(CellularLoggingViewController *)&v2 endAppearanceTransition];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for CellularLoggingViewController();
+  v4 = v5.receiver;
+  [(CellularLoggingViewController *)&v5 viewWillDisappear:disappearCopy];
+  if (qword_100375018 != -1)
+  {
+    swift_once();
+  }
+
+  if (*(qword_100382500 + 154) == 1)
+  {
+    sub_10027E0C4();
+  }
 }
 
 - (void)didTapStart
@@ -43,14 +72,14 @@
   selfCopy = self;
   if (v2 != -1)
   {
-    v6 = selfCopy;
+    v8 = selfCopy;
     swift_once();
-    selfCopy = v6;
+    selfCopy = v8;
   }
 
   if (*(qword_100382500 + 154) == 1)
   {
-    v5 = selfCopy;
+    v7 = selfCopy;
     v4 = sub_10027CD44();
     sub_1001D54B4();
 
@@ -59,10 +88,11 @@
       swift_once();
     }
 
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v5 = qword_100382478;
+    v6 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("CellularLoggingViewController - didTapStop", 42, 2, &_mh_execute_header, v5, v6, _swiftEmptyArrayStorage);
     sub_10027E0C4();
-    selfCopy = v5;
+    selfCopy = v7;
   }
 }
 
@@ -121,11 +151,10 @@
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return 60.0;
 }
 
@@ -139,34 +168,28 @@
     return 0;
   }
 
-  if (!(v6 >> 62))
+  if (v6 >> 62)
   {
-    return *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    return _CocoaArrayWrapper.endIndex.getter();
   }
 
-  if (v6 < 0)
-  {
-    v8 = *(&self->super.super.super.super.isa + v5);
-  }
-
-  return _CocoaArrayWrapper.endIndex.getter();
+  return *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_100281FB8(viewCopy);
+  v12 = sub_100281FB8(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (id)animationControllerForPresentedController:(id)controller presentingController:(id)presentingController sourceController:(id)sourceController

@@ -36,10 +36,10 @@
       {
         v7 = objc_opt_class();
         block = MEMORY[0x1E69E9820];
-        v19 = 3221225472;
-        v20 = __26__PLTimer_handleTimerFire__block_invoke;
-        v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-        v22 = v7;
+        v20 = 3221225472;
+        v21 = __26__PLTimer_handleTimerFire__block_invoke;
+        v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+        v23 = v7;
         if (handleTimerFire_defaultOnce != -1)
         {
           dispatch_once(&handleTimerFire_defaultOnce, &block);
@@ -49,15 +49,15 @@
         {
           v8 = MEMORY[0x1E696AEC0];
           queue2 = [(PLTimer *)self queue];
-          v10 = [v8 stringWithFormat:@"PLTimer::%@::TimerFire", queue2, block, v19, v20, v21, v22];
+          v10 = [v8 stringWithFormat:@"PLTimer::%@::TimerFire", queue2, block, v20, v21, v22, v23];
 
           v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Operators/Compositions/PLTimer.m"];
           lastPathComponent = [v11 lastPathComponent];
           v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimer handleTimerFire]"];
           [PLCoreStorage logMessage:v10 fromFile:lastPathComponent fromFunction:v13 fromLineNumber:146];
 
-          v14 = PLLogCommon();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v15 = PLLogCommon(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
           }
@@ -92,10 +92,10 @@
   {
     v3 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v14 = 3221225472;
-    v15 = __21__PLTimer_invalidate__block_invoke;
-    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v17 = v3;
+    v15 = 3221225472;
+    v16 = __21__PLTimer_invalidate__block_invoke;
+    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v18 = v3;
     if (invalidate_defaultOnce != -1)
     {
       dispatch_once(&invalidate_defaultOnce, &block);
@@ -105,15 +105,15 @@
     {
       v4 = MEMORY[0x1E696AEC0];
       queue = [(PLTimer *)selfCopy queue];
-      v6 = [v4 stringWithFormat:@"PLTimer::%@:: invalidate", queue, block, v14, v15, v16, v17];
+      v6 = [v4 stringWithFormat:@"PLTimer::%@:: invalidate", queue, block, v15, v16, v17, v18];
 
       v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Operators/Compositions/PLTimer.m"];
       lastPathComponent = [v7 lastPathComponent];
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimer invalidate]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:70];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -124,7 +124,7 @@
   if (timer)
   {
     dispatch_source_cancel(timer);
-    v12 = selfCopy->_timer;
+    v13 = selfCopy->_timer;
     selfCopy->_timer = 0;
   }
 
@@ -157,8 +157,8 @@
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimer dealloc]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:57];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -166,9 +166,9 @@
   }
 
   [(PLTimer *)self setTimerActive:0];
-  v11.receiver = self;
-  v11.super_class = PLTimer;
-  [(PLTimer *)&v11 dealloc];
+  v12.receiver = self;
+  v12.super_class = PLTimer;
+  [(PLTimer *)&v12 dealloc];
 }
 
 - (PLTimer)initWithFireDate:(id)date withInterval:(double)interval withTolerance:(double)tolerance repeats:(BOOL)repeats withUserInfo:(id)info withQueue:(id)queue withBlock:(id)block
@@ -324,13 +324,12 @@ void __26__PLTimer_setTimerActive___block_invoke(uint64_t a1)
   dispatch_activate(*(*(a1 + 32) + 40));
   if (+[PLDefaults debugEnabled])
   {
-    v17 = *(a1 + 32);
-    v18 = objc_opt_class();
+    v17 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
     v28 = 3221225472;
     v29 = __26__PLTimer_setTimerActive___block_invoke_3;
     v30 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v31 = v18;
+    v31 = v17;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_2 != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_2, &block);
@@ -338,17 +337,17 @@ void __26__PLTimer_setTimerActive___block_invoke(uint64_t a1)
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_2 == 1)
     {
-      v19 = MEMORY[0x1E696AEC0];
-      v20 = [*(a1 + 32) queue];
-      v21 = [*(a1 + 32) fireDate];
-      v22 = [v19 stringWithFormat:@"PLTimer::%@::setTimerActive: created timer with fireDate=%@", v20, v21, block, v28, v29, v30, v31];
+      v18 = MEMORY[0x1E696AEC0];
+      v19 = [*(a1 + 32) queue];
+      v20 = [*(a1 + 32) fireDate];
+      v21 = [v18 stringWithFormat:@"PLTimer::%@::setTimerActive: created timer with fireDate=%@", v19, v20, block, v28, v29, v30, v31];
 
-      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Operators/Compositions/PLTimer.m"];
-      v24 = [v23 lastPathComponent];
-      v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimer setTimerActive:]_block_invoke"];
-      [PLCoreStorage logMessage:v22 fromFile:v24 fromFunction:v25 fromLineNumber:116];
+      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Operators/Compositions/PLTimer.m"];
+      v23 = [v22 lastPathComponent];
+      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimer setTimerActive:]_block_invoke"];
+      [PLCoreStorage logMessage:v21 fromFile:v23 fromFunction:v24 fromLineNumber:116];
 
-      v26 = PLLogCommon();
+      v26 = PLLogCommon(v25);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -389,13 +388,12 @@ void __26__PLTimer_setTimerActive___block_invoke_23(uint64_t a1)
   [*(a1 + 32) invalidate];
   if (+[PLDefaults debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
     v12 = 3221225472;
     v13 = __26__PLTimer_setTimerActive___block_invoke_2_24;
     v14 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v15 = v3;
+    v15 = v2;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce, &block);
@@ -403,16 +401,16 @@ void __26__PLTimer_setTimerActive___block_invoke_23(uint64_t a1)
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled == 1)
     {
-      v4 = MEMORY[0x1E696AEC0];
-      v5 = [*(a1 + 32) queue];
-      v6 = [v4 stringWithFormat:@"PLTimer::%@::setTimerActive: invalidate", v5, block, v12, v13, v14, v15];
+      v3 = MEMORY[0x1E696AEC0];
+      v4 = [*(a1 + 32) queue];
+      v5 = [v3 stringWithFormat:@"PLTimer::%@::setTimerActive: invalidate", v4, block, v12, v13, v14, v15];
 
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Operators/Compositions/PLTimer.m"];
-      v8 = [v7 lastPathComponent];
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimer setTimerActive:]_block_invoke"];
-      [PLCoreStorage logMessage:v6 fromFile:v8 fromFunction:v9 fromLineNumber:122];
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Operators/Compositions/PLTimer.m"];
+      v7 = [v6 lastPathComponent];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimer setTimerActive:]_block_invoke"];
+      [PLCoreStorage logMessage:v5 fromFile:v7 fromFunction:v8 fromLineNumber:122];
 
-      v10 = PLLogCommon();
+      v10 = PLLogCommon(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];

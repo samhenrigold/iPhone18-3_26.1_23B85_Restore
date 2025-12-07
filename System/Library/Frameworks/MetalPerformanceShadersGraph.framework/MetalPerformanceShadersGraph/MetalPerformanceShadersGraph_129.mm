@@ -3884,10 +3884,10 @@ LABEL_93:
   return result;
 }
 
-unint64_t mlir::mps::arithmeticBinaryTileBaseKernel<int,int,int,(mlir::mps::arithmeticOp)5>(unint64_t result, uint64_t **a2, uint64_t a3, void **a4)
+uint64_t **mlir::mps::arithmeticBinaryTileBaseKernel<int,int,int,(mlir::mps::arithmeticOp)5>(uint64_t **result, uint64_t **a2, uint64_t a3, void **a4)
 {
   v4 = **result;
-  v5 = *(*result + 8);
+  v5 = (*result)[1];
   v6 = **a2;
   v7 = *(v6 + 16);
   v8 = v7 - 1;
@@ -4308,10 +4308,10 @@ LABEL_93:
   return result;
 }
 
-unint64_t mlir::mps::arithmeticBinaryTileBaseKernel<short,short,short,(mlir::mps::arithmeticOp)5>(unint64_t result, uint64_t **a2, uint64_t a3, void **a4)
+uint64_t **mlir::mps::arithmeticBinaryTileBaseKernel<short,short,short,(mlir::mps::arithmeticOp)5>(uint64_t **result, uint64_t **a2, uint64_t a3, void **a4)
 {
   v4 = **result;
-  v5 = *(*result + 8);
+  v5 = (*result)[1];
   v6 = **a2;
   v7 = *(v6 + 16);
   v8 = v7 - 1;
@@ -4735,10 +4735,10 @@ LABEL_93:
   return result;
 }
 
-unint64_t mlir::mps::arithmeticBinaryTileBaseKernel<signed char,signed char,signed char,(mlir::mps::arithmeticOp)5>(unint64_t result, uint64_t **a2, uint64_t a3, void **a4)
+uint64_t **mlir::mps::arithmeticBinaryTileBaseKernel<signed char,signed char,signed char,(mlir::mps::arithmeticOp)5>(uint64_t **result, uint64_t **a2, uint64_t a3, void **a4)
 {
   v4 = **result;
-  v5 = *(*result + 8);
+  v5 = (*result)[1];
   v6 = **a2;
   v7 = *(v6 + 16);
   v8 = v7 - 1;
@@ -9527,10 +9527,10 @@ LABEL_93:
   return result;
 }
 
-unint64_t mlir::mps::arithmeticBinaryTileBaseKernel<__emulated_bf16,__emulated_bf16,__emulated_bf16,(mlir::mps::arithmeticOp)15>(unint64_t result, uint64_t **a2, uint64_t a3, void **a4)
+uint64_t **mlir::mps::arithmeticBinaryTileBaseKernel<__emulated_bf16,__emulated_bf16,__emulated_bf16,(mlir::mps::arithmeticOp)15>(uint64_t **result, uint64_t **a2, uint64_t a3, void **a4)
 {
   v4 = **result;
-  v5 = *(*result + 8);
+  v5 = (*result)[1];
   v6 = **a2;
   v7 = *(v6 + 16);
   v8 = v7 - 1;

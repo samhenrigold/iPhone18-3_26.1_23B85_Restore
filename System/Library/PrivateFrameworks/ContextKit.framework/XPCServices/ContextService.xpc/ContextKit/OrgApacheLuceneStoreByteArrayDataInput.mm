@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneStoreByteArrayDataInput
 - (OrgApacheLuceneStoreByteArrayDataInput)initWithByteArray:(id)array;
+- (OrgApacheLuceneStoreByteArrayDataInput)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (char)readByte;
 - (int)readInt;
 - (int)readVInt;
@@ -15,8 +16,17 @@
 
 - (OrgApacheLuceneStoreByteArrayDataInput)initWithByteArray:(id)array
 {
-  OrgApacheLuceneStoreDataInput_init(self, a2);
+  OrgApacheLuceneStoreDataInput_init();
   [(OrgApacheLuceneStoreByteArrayDataInput *)self resetWithByteArray:array];
+  return self;
+}
+
+- (OrgApacheLuceneStoreByteArrayDataInput)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  OrgApacheLuceneStoreDataInput_init();
+  [(OrgApacheLuceneStoreByteArrayDataInput *)self resetWithByteArray:array withInt:v6 withInt:v5];
   return self;
 }
 

@@ -1,5 +1,7 @@
 @interface HKSPSleepEvent
 + (id)sleepEventWithIdentifier:(id)identifier dueDate:(id)date context:(id)context;
++ (id)sleepEventWithIdentifier:(id)identifier dueDate:(id)date context:(id)context type:(unint64_t)type expirationDate:(id)expirationDate isUserVisible:(BOOL)visible;
++ (id)sleepEventWithIdentifier:(id)identifier dueDate:(id)date type:(unint64_t)type isUserVisible:(BOOL)visible;
 + (id)standardEventIdentifiers;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isExpired:(id)expired;
@@ -25,6 +27,29 @@
   v12 = [self sleepEventWithIdentifier:identifierCopy dueDate:dateCopy context:contextCopy type:0 expirationDate:v11 isUserVisible:1];
 
   return v12;
+}
+
++ (id)sleepEventWithIdentifier:(id)identifier dueDate:(id)date type:(unint64_t)type isUserVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  dateCopy = date;
+  identifierCopy = identifier;
+  v12 = [dateCopy dateByAddingTimeInterval:900.0];
+  v13 = [self sleepEventWithIdentifier:identifierCopy dueDate:dateCopy type:type expirationDate:v12 isUserVisible:visibleCopy];
+
+  return v13;
+}
+
++ (id)sleepEventWithIdentifier:(id)identifier dueDate:(id)date context:(id)context type:(unint64_t)type expirationDate:(id)expirationDate isUserVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  expirationDateCopy = expirationDate;
+  contextCopy = context;
+  dateCopy = date;
+  identifierCopy = identifier;
+  v17 = [objc_alloc(objc_opt_class()) initWithIdentifier:identifierCopy dueDate:dateCopy context:contextCopy type:type expirationDate:expirationDateCopy isUserVisible:visibleCopy];
+
+  return v17;
 }
 
 - (HKSPSleepEvent)initWithIdentifier:(id)identifier dueDate:(id)date context:(id)context type:(unint64_t)type expirationDate:(id)expirationDate isUserVisible:(BOOL)visible
@@ -190,11 +215,11 @@
 
 - (HKSPSleepEvent)initWithCoder:(id)coder
 {
-  v23[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = HKSPSleepEvent;
-  v5 = [(HKSPSleepEvent *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = HKSPSleepEvent;
+  v5 = [(HKSPSleepEvent *)&v23 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
@@ -206,11 +231,11 @@
     v5->_dueDate = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v23[2] = objc_opt_class();
-    v23[3] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v24[2] = objc_opt_class();
+    v24[3] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"context"];
     context = v5->_context;
@@ -221,15 +246,15 @@
     v5->_expirationDate = v15;
 
     v5->_isUserVisible = [coderCopy decodeBoolForKey:@"isUserVisible"];
-    v5->_type = [coderCopy decodeIntegerForKey:@"type"];
-    v17 = [coderCopy decodeObjectOfClass:HKSPSyncAnchorClass() forKey:@"syncAnchor"];
+    v17 = [coderCopy decodeIntegerForKey:@"type"];
+    v5->_type = v17;
+    v19 = [coderCopy decodeObjectOfClass:HKSPSyncAnchorClass(v17 forKey:{v18), @"syncAnchor"}];
     syncAnchor = v5->_syncAnchor;
-    v5->_syncAnchor = v17;
+    v5->_syncAnchor = v19;
 
-    v19 = v5;
+    v21 = v5;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -247,17 +272,15 @@
 
 void __42__HKSPSleepEvent_standardEventIdentifiers__block_invoke()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"HKSPSleepEventIdentifierWakeUp";
-  v5[1] = @"HKSPSleepEventIdentifierBedtime";
-  v5[2] = @"HKSPSleepEventIdentifierWindDown";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
+  v4[0] = @"HKSPSleepEventIdentifierWakeUp";
+  v4[1] = @"HKSPSleepEventIdentifierBedtime";
+  v4[2] = @"HKSPSleepEventIdentifierWindDown";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
   v2 = [v0 setWithArray:v1];
   v3 = _MergedGlobals_9;
   _MergedGlobals_9 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash

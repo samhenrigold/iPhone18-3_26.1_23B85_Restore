@@ -10,11 +10,11 @@
 
 - (MKCrypto)initWithKey:(id)key
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v26.receiver = self;
-  v26.super_class = MKCrypto;
-  v5 = [(MKCrypto *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = MKCrypto;
+  v5 = [(MKCrypto *)&v25 init];
   if (!v5)
   {
 LABEL_18:
@@ -24,25 +24,25 @@ LABEL_18:
 
   if ([keyCopy length] > 0xF)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v14 = [&unk_286AAD338 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v14 = [&unk_286AAD338 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v23;
+      v16 = *v22;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(&unk_286AAD338);
           }
 
-          unsignedIntegerValue = [*(*(&v22 + 1) + 8 * i) unsignedIntegerValue];
+          unsignedIntegerValue = [*(*(&v21 + 1) + 8 * i) unsignedIntegerValue];
           if ([keyCopy length] > unsignedIntegerValue)
           {
             v19 = [keyCopy subdataWithRange:{0, unsignedIntegerValue}];
@@ -57,7 +57,7 @@ LABEL_18:
           }
         }
 
-        v15 = [&unk_286AAD338 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v15 = [&unk_286AAD338 countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v15)
         {
           continue;
@@ -81,7 +81,6 @@ LABEL_17:
   v13 = 0;
 LABEL_19:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

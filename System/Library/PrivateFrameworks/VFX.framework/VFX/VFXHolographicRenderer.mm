@@ -2,7 +2,7 @@
 - (BOOL)isNodeInsideFrustum:(id)frustum withPointOfView:(id)view;
 - (CGRect)currentViewport;
 - (VFXHolographicRenderer)initWithDevice:(id)device options:(id)options;
-- (double)projectPoint:(uint64_t)point;
+- (double)projectPoint:(const char *)point;
 - (id)hitTest:(CGPoint)test options:(id)options;
 - (id)nodesInsideFrustumWithPointOfView:(id)view;
 - (uint64_t)unprojectPoint:(uint64_t)point;
@@ -16,36 +16,36 @@
 
 - (VFXHolographicRenderer)initWithDevice:(id)device options:(id)options
 {
-  v26.receiver = self;
-  v26.super_class = VFXHolographicRenderer;
-  v8 = [(VFXHolographicRenderer *)&v26 init];
-  if (v8)
+  v21.receiver = self;
+  v21.super_class = VFXHolographicRenderer;
+  v7 = [(VFXHolographicRenderer *)&v21 init];
+  if (v7)
   {
-    if (device || (device = objc_msgSend_deviceForOptions_(VFXView, v6, options, v7)) != 0)
+    if (device || (device = objc_msgSend_deviceForOptions_(VFXView, v6, options)) != 0)
     {
-      if (!objc_msgSend_objectForKeyedSubscript_(options, v6, @"maxInFlightFrameCount", v7))
+      if (!objc_msgSend_objectForKeyedSubscript_(options, v6, @"maxInFlightFrameCount"))
       {
         if (options)
         {
-          v12 = objc_msgSend_mutableCopy(options, v9, v10, v11);
+          v10 = objc_msgSend_mutableCopy(options, v8, v9);
         }
 
         else
         {
-          v14 = objc_alloc(MEMORY[0x1E695DF90]);
-          v12 = objc_msgSend_initWithCapacity_(v14, v15, 1, v16);
+          v12 = objc_alloc(MEMORY[0x1E695DF90]);
+          v10 = objc_msgSend_initWithCapacity_(v12, v13, 1);
         }
 
-        v17 = v12;
-        objc_msgSend_setObject_forKeyedSubscript_(v12, v13, &unk_1F25D4510, @"maxInFlightFrameCount");
-        options = v17;
+        v14 = v10;
+        objc_msgSend_setObject_forKeyedSubscript_(v10, v11, &unk_1F25D4510, @"maxInFlightFrameCount");
+        options = v14;
       }
 
-      v18 = [VFXRenderer alloc];
-      isPrivateRenderer_privateRendererOwner_clearsOnDraw = objc_msgSend__initWithDevice_options_isPrivateRenderer_privateRendererOwner_clearsOnDraw_(v18, v19, device, options, 1, v8, 0);
-      v8->_renderer = isPrivateRenderer_privateRendererOwner_clearsOnDraw;
-      objc_msgSend_setRendererKind_(isPrivateRenderer_privateRendererOwner_clearsOnDraw, v21, 3, v22);
-      objc_msgSend_setShouldLoadFinalTexture_(v8->_renderer, v23, 1, v24);
+      v15 = [VFXRenderer alloc];
+      isPrivateRenderer_privateRendererOwner_clearsOnDraw = objc_msgSend__initWithDevice_options_isPrivateRenderer_privateRendererOwner_clearsOnDraw_(v15, v16, device, options, 1, v7, 0);
+      v7->_renderer = isPrivateRenderer_privateRendererOwner_clearsOnDraw;
+      objc_msgSend_setRendererKind_(isPrivateRenderer_privateRendererOwner_clearsOnDraw, v18, 3);
+      objc_msgSend_setShouldLoadFinalTexture_(v7->_renderer, v19, 1);
     }
 
     else
@@ -54,7 +54,7 @@
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)dealloc
@@ -66,10 +66,10 @@
 
 - (id)hitTest:(CGPoint)test options:(id)options
 {
-  objc_msgSend__backingSize(self->_renderer, a2, options, v4);
+  objc_msgSend__backingSize(self->_renderer, a2, options);
   renderer = self->_renderer;
 
-  return MEMORY[0x1EEE66B58](renderer, sel__hitTest_viewport_options_, options, v7);
+  return MEMORY[0x1EEE66B58](renderer, sel__hitTest_viewport_options_, options);
 }
 
 - (CGRect)currentViewport
@@ -85,34 +85,34 @@
 - (BOOL)isNodeInsideFrustum:(id)frustum withPointOfView:(id)view
 {
   renderer = self->_renderer;
-  objc_msgSend__viewport(renderer, a2, frustum, view);
+  objc_msgSend__viewport(renderer, a2, frustum);
 
-  return MEMORY[0x1EEE66B58](renderer, sel__isNodeInsideFrustum_withPointOfView_viewport_, frustum, view);
+  return MEMORY[0x1EEE66B58](renderer, sel__isNodeInsideFrustum_withPointOfView_viewport_, frustum);
 }
 
 - (id)nodesInsideFrustumWithPointOfView:(id)view
 {
   renderer = self->_renderer;
-  objc_msgSend__viewport(renderer, a2, view, v3);
+  objc_msgSend__viewport(renderer, a2, view);
 
-  return MEMORY[0x1EEE66B58](renderer, sel__nodesInsideFrustumWithPointOfView_viewport_, view, v6);
+  return MEMORY[0x1EEE66B58](renderer, sel__nodesInsideFrustumWithPointOfView_viewport_, view);
 }
 
-- (double)projectPoint:(uint64_t)point
+- (double)projectPoint:(const char *)point
 {
-  objc_msgSend__viewport(*(self + 24), a2, point, a4);
-  objc_msgSend__projectPoint_viewport_(*(self + 24), v6, v7, v8, a5, v9, *&v9, v10);
-  LODWORD(v12) = v11;
-  *(&v12 + 1) = v15 - v13;
-  return v12;
+  objc_msgSend__viewport(*(self + 24), point, a4);
+  objc_msgSend__projectPoint_viewport_(*(self + 24), v5, v6, a2, v7, *&v7, v8);
+  LODWORD(v10) = v9;
+  *(&v10 + 1) = v13 - v11;
+  return v10;
 }
 
 - (uint64_t)unprojectPoint:(uint64_t)point
 {
-  objc_msgSend__viewport(*(self + 24), a2, point, a4);
-  v7 = *(self + 24);
+  objc_msgSend__viewport(*(self + 24), a2, point);
+  v5 = *(self + 24);
 
-  return MEMORY[0x1EEE66B58](v7, sel__unprojectPoint_viewport_, v5, v6);
+  return MEMORY[0x1EEE66B58](v5, sel__unprojectPoint_viewport_, v4);
 }
 
 - (void)setPointOfView:(id)view
@@ -126,7 +126,7 @@
 {
   if (enabled)
   {
-    v4 = sub_1AF0D5194();
+    v4 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDFB978(self, v4);
@@ -139,7 +139,7 @@
   v5 = sub_1AF0D5C40(0) | statistics;
   renderer = self->_renderer;
 
-  objc_msgSend_setShowsStatistics_(renderer, v4, v5, v6);
+  objc_msgSend_setShowsStatistics_(renderer, v4, v5);
 }
 
 @end

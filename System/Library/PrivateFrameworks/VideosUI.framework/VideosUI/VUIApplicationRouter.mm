@@ -118,19 +118,21 @@ LABEL_11:
 
 + (void)_performForType:(int64_t)type targetResponder:(id)responder appContext:(id)context eventDataSource:(id)source documentOptions:(id)options
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   responderCopy = responder;
   contextCopy = context;
   sourceCopy = source;
   optionsCopy = options;
-  v16 = 3;
+  v16 = optionsCopy;
+  v17 = 3;
   if (type > 1)
   {
     if (type == 2)
     {
       postActionDocumentDataSource = [sourceCopy postActionDocumentDataSource];
-      postAction = [sourceCopy postAction];
-      v16 = 3;
+      optionsCopy = [sourceCopy postAction];
+      v19 = optionsCopy;
+      v17 = 3;
       if (!postActionDocumentDataSource)
       {
         goto LABEL_14;
@@ -145,35 +147,36 @@ LABEL_11:
     }
 
 LABEL_23:
-    v34 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = VUIDefaultLogObject(optionsCopy);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       if (type > 2)
       {
-        v35 = @"unknown";
+        v36 = @"unknown";
       }
 
       else
       {
-        v35 = off_1E872E490[type];
+        v36 = off_1E872E490[type];
       }
 
       *buf = 138412546;
-      v55 = v35;
-      v56 = 2112;
-      v57 = 0;
-      _os_log_impl(&dword_1E323F000, v34, OS_LOG_TYPE_DEFAULT, "VUIApplicationRouter - VUIApplicationRouter::skipping empty event [%@] with %@", buf, 0x16u);
+      v56 = v36;
+      v57 = 2112;
+      v58 = 0;
+      _os_log_impl(&dword_1E323F000, v35, OS_LOG_TYPE_DEFAULT, "VUIApplicationRouter - VUIApplicationRouter::skipping empty event [%@] with %@", buf, 0x16u);
     }
 
-    [objc_opt_class() _performForType:v16 targetResponder:responderCopy appContext:contextCopy eventDataSource:sourceCopy documentOptions:optionsCopy];
+    [objc_opt_class() _performForType:v17 targetResponder:responderCopy appContext:contextCopy eventDataSource:sourceCopy documentOptions:v16];
     goto LABEL_29;
   }
 
   if (!type)
   {
     postActionDocumentDataSource = [sourceCopy preActionDocumentDataSource];
-    postAction = [sourceCopy preAction];
-    v16 = 1;
+    optionsCopy = [sourceCopy preAction];
+    v19 = optionsCopy;
+    v17 = 1;
     if (!postActionDocumentDataSource)
     {
       goto LABEL_14;
@@ -188,57 +191,57 @@ LABEL_23:
   }
 
   postActionDocumentDataSource = [sourceCopy documentDataSource];
-  postAction = [sourceCopy action];
-  v16 = 2;
+  optionsCopy = [sourceCopy action];
+  v19 = optionsCopy;
+  v17 = 2;
   if (!postActionDocumentDataSource)
   {
 LABEL_14:
-    if (postAction)
+    if (v19)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v27 = [optionsCopy objectForKeyedSubscript:@"playlistCollectionViewModel"];
-        [postAction setCollectionViewModel:v27];
+        v28 = [v16 objectForKeyedSubscript:@"playlistCollectionViewModel"];
+        [v19 setCollectionViewModel:v28];
       }
 
-      [postAction setDocumentOptions:optionsCopy];
-      v28 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = VUIDefaultLogObject([v19 setDocumentOptions:v16]);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = off_1E872E490[type];
+        v30 = off_1E872E490[type];
         *buf = 138412546;
-        v55 = v29;
-        v56 = 2112;
-        v57 = postAction;
-        _os_log_impl(&dword_1E323F000, v28, OS_LOG_TYPE_DEFAULT, "VUIApplicationRouter - VUIApplicationRouter::performing event [%@] with %@", buf, 0x16u);
+        v56 = v30;
+        v57 = 2112;
+        v58 = v19;
+        _os_log_impl(&dword_1E323F000, v29, OS_LOG_TYPE_DEFAULT, "VUIApplicationRouter - VUIApplicationRouter::performing event [%@] with %@", buf, 0x16u);
       }
 
       action = [sourceCopy action];
-      v31 = action;
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __99__VUIApplicationRouter__performForType_targetResponder_appContext_eventDataSource_documentOptions___block_invoke_67;
-      v38[3] = &unk_1E872E380;
+      v32 = action;
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __99__VUIApplicationRouter__performForType_targetResponder_appContext_eventDataSource_documentOptions___block_invoke_67;
+      v39[3] = &unk_1E872E380;
       if (action)
       {
-        v32 = action;
+        v33 = action;
       }
 
       else
       {
-        v32 = postAction;
+        v33 = v19;
       }
 
-      v39 = postAction;
+      v40 = v19;
       selfCopy = self;
-      v45 = v16;
-      v40 = responderCopy;
-      v41 = contextCopy;
-      v42 = sourceCopy;
-      v43 = optionsCopy;
-      v33 = postAction;
-      [VUIApplicationRouter invokeAction:v33 primaryAction:v32 targetResponder:v40 completion:v38];
+      v46 = v17;
+      v41 = responderCopy;
+      v42 = contextCopy;
+      v43 = sourceCopy;
+      v44 = v16;
+      v34 = v19;
+      [VUIApplicationRouter invokeAction:v34 primaryAction:v33 targetResponder:v41 completion:v39];
 
       goto LABEL_29;
     }
@@ -247,42 +250,42 @@ LABEL_14:
   }
 
 LABEL_10:
-  v36 = postAction;
-  v37 = responderCopy;
-  v19 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v37 = v19;
+  v38 = responderCopy;
+  v20 = VUIDefaultLogObject(optionsCopy);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = optionsCopy;
-    v21 = contextCopy;
-    v22 = off_1E872E490[type];
+    v21 = v16;
+    v22 = contextCopy;
+    v23 = off_1E872E490[type];
     uiConfiguration = [postActionDocumentDataSource uiConfiguration];
-    v24 = NSStringFromVUIPresentationType([uiConfiguration type]);
+    v25 = NSStringFromVUIPresentationType([uiConfiguration type]);
     *buf = 138412802;
-    v55 = v22;
-    contextCopy = v21;
-    optionsCopy = v20;
-    v56 = 2112;
-    v57 = postActionDocumentDataSource;
-    v58 = 2112;
-    v59 = v24;
-    _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "VUIApplicationRouter - VUIApplicationRouter::performing event [%@] with %@ (%@)", buf, 0x20u);
+    v56 = v23;
+    contextCopy = v22;
+    v16 = v21;
+    v57 = 2112;
+    v58 = postActionDocumentDataSource;
+    v59 = 2112;
+    v60 = v25;
+    _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUIApplicationRouter - VUIApplicationRouter::performing event [%@] with %@ (%@)", buf, 0x20u);
   }
 
-  v25 = objc_opt_class();
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __99__VUIApplicationRouter__performForType_targetResponder_appContext_eventDataSource_documentOptions___block_invoke;
-  v46[3] = &unk_1E872E380;
-  v47 = postActionDocumentDataSource;
+  v26 = objc_opt_class();
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __99__VUIApplicationRouter__performForType_targetResponder_appContext_eventDataSource_documentOptions___block_invoke;
+  v47[3] = &unk_1E872E380;
+  v48 = postActionDocumentDataSource;
   selfCopy2 = self;
-  v53 = v16;
-  responderCopy = v37;
-  v48 = v37;
-  v49 = contextCopy;
-  v50 = sourceCopy;
-  v51 = optionsCopy;
-  v26 = postActionDocumentDataSource;
-  [v25 handleDocumentDataSource:v26 targetResponder:v48 appContext:v49 documentOptions:v51 completion:v46];
+  v54 = v17;
+  responderCopy = v38;
+  v49 = v38;
+  v50 = contextCopy;
+  v51 = sourceCopy;
+  v52 = v16;
+  v27 = postActionDocumentDataSource;
+  [v26 handleDocumentDataSource:v27 targetResponder:v49 appContext:v50 documentOptions:v52 completion:v47];
 
 LABEL_29:
 }
@@ -290,7 +293,7 @@ LABEL_29:
 void __99__VUIApplicationRouter__performForType_targetResponder_appContext_eventDataSource_documentOptions___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -334,7 +337,7 @@ uint64_t __99__VUIApplicationRouter__performForType_targetResponder_appContext_e
 void __99__VUIApplicationRouter__performForType_targetResponder_appContext_eventDataSource_documentOptions___block_invoke_67(uint64_t a1, int a2)
 {
   v23 = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"NO";
@@ -419,8 +422,7 @@ uint64_t __99__VUIApplicationRouter__performForType_targetResponder_appContext_e
     v19 = completionCopy;
     v13 = primaryActionCopy;
     v18 = v13;
-    [VUIAuthenticationManager requestAuthenticationAlwaysPrompt:1 withCompletionHandler:v15];
-    v14 = VUIDefaultLogObject();
+    v14 = VUIDefaultLogObject([VUIAuthenticationManager requestAuthenticationAlwaysPrompt:1 withCompletionHandler:v15]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -460,34 +462,35 @@ void __78__VUIApplicationRouter_invokeAction_primaryAction_targetResponder_compl
 
 void __78__VUIApplicationRouter_invokeAction_primaryAction_targetResponder_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __78__VUIApplicationRouter_invokeAction_primaryAction_targetResponder_completion___block_invoke_3;
-    v10[3] = &unk_1E872DE58;
-    objc_copyWeak(&v12, (a1 + 64));
-    v11 = *(a1 + 56);
-    [v6 performWithTargetResponder:v7 completionHandler:v10];
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __78__VUIApplicationRouter_invokeAction_primaryAction_targetResponder_completion___block_invoke_3;
+    v11[3] = &unk_1E872DE58;
+    objc_copyWeak(&v13, (a1 + 64));
+    v12 = *(a1 + 56);
+    [v7 performWithTargetResponder:v8 completionHandler:v11];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
   }
 
   else
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 48);
+      v10 = *(a1 + 48);
       *buf = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIApplicationRouter - VUIApplicationRouter::Authentication request failed for action: %@, error: %@", buf, 0x16u);
+      v15 = v10;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIApplicationRouter - VUIApplicationRouter::Authentication request failed for action: %@, error: %@", buf, 0x16u);
     }
 
     (*(*(a1 + 56) + 16))();

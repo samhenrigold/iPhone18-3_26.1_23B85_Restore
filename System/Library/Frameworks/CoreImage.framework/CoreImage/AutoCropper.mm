@@ -214,49 +214,51 @@ LABEL_23:
   v16 = rect.size.width;
   v17 = rect.origin.y;
   v18 = rect.origin.x;
-  acLog("scaleRect:inner=(%.3f,%.3f,%.3f,%.3f), size=(%.3f,%.3f), anchor=(%.3f,%.3f)\n", a2, v5, v6, v7, v8, v9, v10, SLOBYTE(rect.origin.x));
-  if (v17 <= y && v17 + v16 >= y && v18 + v16 >= x && v18 <= x)
+  acLog("scaleRect:inner=(%.3f,%.3f,%.3f,%.3f), size=(%.3f,%.3f), anchor=(%.3f,%.3f)\n", a2, v5, v6, v7, v8, v9, v10, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, *&size.width, *&size.height, *&point.x, *&point.y);
+  v26 = v18 + v16;
+  v27 = v17 + v16;
+  if (v17 <= y && v27 >= y && v26 >= x && v18 <= x)
   {
-    v29 = v15 - (y - v17);
-    v30 = x - v18;
-    v31 = v16 - (x - v18);
-    v32 = y / (y - v17);
-    if ((height - y) / v29 < v32)
+    v31 = v15 - (y - v17);
+    v32 = x - v18;
+    v33 = v16 - (x - v18);
+    v34 = y / (y - v17);
+    if ((height - y) / v31 < v34)
     {
-      v32 = (height - y) / v29;
+      v34 = (height - y) / v31;
     }
 
-    if (x / v30 < v32)
+    if (x / v32 < v34)
     {
-      v32 = x / v30;
+      v34 = x / v32;
     }
 
-    if ((width - x) / v31 < v32)
+    if ((width - x) / v33 < v34)
     {
-      v32 = (width - x) / v31;
+      v34 = (width - x) / v33;
     }
 
-    v33 = (y - v17) * v32;
-    v34 = v30 * v32;
-    v18 = x - v34;
-    v17 = y - v33;
-    v16 = v34 + v31 * v32;
-    v15 = v33 + v29 * v32;
+    v35 = (y - v17) * v34;
+    v36 = v32 * v34;
+    v18 = x - v36;
+    v17 = y - v35;
+    v16 = v36 + v33 * v34;
+    v15 = v35 + v31 * v34;
   }
 
   else
   {
-    acLog("ERROR <AutoCropper>: Point should be within rect", v19, v20, v21, v22, v23, v24, v25, v39);
+    acLog("ERROR <AutoCropper>: Point should be within rect", v19, v20, v21, v22, v23, v24, v25, v26, v27);
   }
 
-  v35 = v18;
-  v36 = v17;
-  v37 = v16;
-  v38 = v15;
-  result.size.height = v38;
-  result.size.width = v37;
-  result.origin.y = v36;
-  result.origin.x = v35;
+  v37 = v18;
+  v38 = v17;
+  v39 = v16;
+  v40 = v15;
+  result.size.height = v40;
+  result.size.width = v39;
+  result.origin.y = v38;
+  result.origin.x = v37;
   return result;
 }
 
@@ -493,23 +495,23 @@ LABEL_5:
 
 - (CGRect)computeClippingWithinSize:(CGSize)size andImportantRects:(id)rects
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   [objc_msgSend(standardUserDefaults valueForKey:{@"AspectRatioCutoff", "floatValue"}];
-  v76 = v7;
+  v75 = v7;
   [objc_msgSend(standardUserDefaults valueForKey:{@"MinimumCroppedArea", "floatValue"}];
   v9 = v8;
   [objc_msgSend(standardUserDefaults valueForKey:{@"ProximityToCenter", "floatValue"}];
   v11 = v10;
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
   v84 = 0u;
-  v85 = 0u;
-  v12 = [rects countByEnumeratingWithState:&v82 objects:v86 count:16];
+  v12 = [rects countByEnumeratingWithState:&v81 objects:v85 count:16];
   if (v12)
   {
     v20 = v12;
-    v21 = *v83;
+    v21 = *v82;
     v22 = 0.0;
     v23 = 0.0;
     v24 = 0.0;
@@ -518,25 +520,25 @@ LABEL_5:
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v83 != v21)
+        if (*v82 != v21)
         {
           objc_enumerationMutation(rects);
         }
 
-        v27 = *(*(&v82 + 1) + 8 * i);
+        v27 = *(*(&v81 + 1) + 8 * i);
+        v79 = 0u;
         v80 = 0u;
-        v81 = 0u;
-        [v27 getValue:&v80];
-        if (*(&v81 + 1) * *&v81 > v22 * v23)
+        [v27 getValue:&v79];
+        if (*(&v80 + 1) * *&v80 > v22 * v23)
         {
-          v24 = *(&v80 + 1);
-          v25 = *&v80;
-          v22 = *(&v81 + 1);
-          v23 = *&v81;
+          v24 = *(&v79 + 1);
+          v25 = *&v79;
+          v22 = *(&v80 + 1);
+          v23 = *&v80;
         }
       }
 
-      v20 = [rects countByEnumeratingWithState:&v82 objects:v86 count:{16, *(&v81 + 1), *&v81, *(&v81 + 1) * *&v81}];
+      v20 = [rects countByEnumeratingWithState:&v81 objects:v85 count:{16, *(&v80 + 1), *&v80, *(&v80 + 1) * *&v80}];
     }
 
     while (v20);
@@ -553,17 +555,17 @@ LABEL_5:
   v28 = v23 * 0.5 + v25;
   v29 = v22 * 0.5 + v24;
   v30 = v22 * v23;
-  acLog("Face area is %f, Total is %f\n", v13, v14, v15, v16, v17, v18, v19, SLOBYTE(v30));
-  v78 = size.width * size.height;
-  if (v30 * 1.1 < size.width * size.height / 9.0 || (acLog("Large Face!\n", v31, v32, v33, v34, v35, v36, v37, v72), v38 = 0.0, (size.height * size.height + size.width * size.width) * v11 <= (v29 - size.height * 0.5) * (v29 - size.height * 0.5) + (v28 - size.width * 0.5) * (v28 - size.width * 0.5)))
+  acLog("Face area is %f, Total is %f\n", v13, v14, v15, v16, v17, v18, v19, *&v30, size.width * size.height);
+  v77 = size.width * size.height;
+  if (v30 * 1.1 < size.width * size.height / 9.0 || (acLog("Large Face!\n", v31, v32, v33, v34, v35, v36, v37), v38 = 0.0, (size.height * size.height + size.width * size.width) * v11 <= (v29 - size.height * 0.5) * (v29 - size.height * 0.5) + (v28 - size.width * 0.5) * (v28 - size.width * 0.5)))
   {
     v40 = 0;
-    v73 = *(MEMORY[0x1E695F058] + 8);
-    v74 = *MEMORY[0x1E695F058];
+    v72 = *(MEMORY[0x1E695F058] + 8);
+    v73 = *MEMORY[0x1E695F058];
     v41 = size.width * size.height;
-    v42 = v76 + 1.0;
-    v75 = *(MEMORY[0x1E695F058] + 16);
-    v77 = *(MEMORY[0x1E695F058] + 24);
+    v42 = v75 + 1.0;
+    v74 = *(MEMORY[0x1E695F058] + 16);
+    v76 = *(MEMORY[0x1E695F058] + 24);
     v43 = v42;
     v44 = 7;
     do
@@ -647,14 +649,14 @@ LABEL_5:
       {
         [(AutoCropper *)self rectWithSize:v52 andPoint:v50 inPosition:v51 fromOriginalSize:v28, v29, size.width, size.height];
         [AutoCropper scaleRect:"scaleRect:toFitSize:withAnchorPoint:" toFitSize:? withAnchorPoint:?];
-        if ((v78 - v62 * v63) * v43 < v41 || v44 == 7)
+        if ((v77 - v62 * v63) * v43 < v41 || v44 == 7)
         {
-          v41 = v78 - v62 * v63;
-          v75 = v62;
-          v77 = v63;
+          v41 = v77 - v62 * v63;
+          v74 = v62;
+          v76 = v63;
           v44 = v40;
-          v73 = v61;
-          v74 = v60;
+          v72 = v61;
+          v73 = v60;
         }
 
         v52 = (v52 + 1);
@@ -665,9 +667,9 @@ LABEL_5:
     }
 
     while (v40 != 7);
-    v66 = v75;
-    v65 = v77;
-    if (v77 * v75 < v78 * v9)
+    v66 = v74;
+    v65 = v76;
+    if (v76 * v74 < v77 * v9)
     {
       v38 = 0.0;
       v67 = "No Crop. Reduces area too much\n";
@@ -675,7 +677,7 @@ LABEL_5:
       v66 = size.width;
       v65 = size.height;
 LABEL_50:
-      acLog(v67, v53, v54, v55, v56, v57, v58, v59, v72);
+      acLog(v67, v53, v54, v55, v56, v57, v58, v59, v76 * v74);
       size.width = v66;
       size.height = v65;
       goto LABEL_51;
@@ -683,8 +685,8 @@ LABEL_50:
 
     if (v44 <= 2)
     {
-      v39 = v73;
-      v38 = v74;
+      v39 = v72;
+      v38 = v73;
       switch(v44)
       {
         case 0:
@@ -701,8 +703,8 @@ LABEL_50:
 
     else
     {
-      v39 = v73;
-      v38 = v74;
+      v39 = v72;
+      v38 = v73;
       if (v44 <= 4)
       {
         if (v44 == 3)
@@ -752,11 +754,11 @@ LABEL_51:
 {
   height = size.height;
   width = size.width;
-  v88 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v8 = rect.origin.x + rect.size.width * 0.5;
   v9 = rect.origin.y + rect.size.height * 0.5;
   v10 = (getCFPreferenceNumber(@"MinCropPercentage", @"com.apple.mobileslideshow", 75) / 100.0);
-  acLog("determineBestPositionWithinSize:size=%.3f,%.3f, center=%.3f,%.3f, minPercentage=%.3f, restrict=%.3f,%.3f,%.3f,%.3f\n", v11, v12, v13, v14, v15, v16, v17, SLOBYTE(width));
+  acLog("determineBestPositionWithinSize:size=%.3f,%.3f, center=%.3f,%.3f, minPercentage=%.3f, restrict=%.3f,%.3f,%.3f,%.3f\n", v11, v12, v13, v14, v15, v16, v17, *&width, *&height, *&v8, *&v9, *&v10, *&restrictRect.origin.x, *&restrictRect.origin.y, *&restrictRect.size.width, *&restrictRect.size.height);
   if (self->originalImageSize.height * self->originalImageSize.width == 0.0)
   {
     v25 = height * width;
@@ -767,7 +769,7 @@ LABEL_51:
     v25 = self->originalImageSize.height * self->originalImageSize.width;
   }
 
-  acLog("originalArea = %.2f\n", v18, v19, v20, v21, v22, v23, v24, SLOBYTE(v25));
+  acLog("originalArea = %.2f\n", v18, v19, v20, v21, v22, v23, v24, *&v25);
   v26 = 0;
   v27 = 0.0;
   v28 = 15;
@@ -775,8 +777,8 @@ LABEL_51:
   {
     [(AutoCropper *)self rectWithSize:v26 andPoint:width inPosition:height fromOriginalSize:v8, v9, width, height];
     v31 = v30 * v29;
-    acLog("pos = %d, rect=(%.2f,%.2f,%.2f,%.2f), area=%.2f\n", v32, v33, v34, v35, v36, v37, v38, v26);
-    v78[v26] = v31;
+    acLog("pos = %d, rect=(%.2f,%.2f,%.2f,%.2f), area=%.2f\n", v32, v33, v34, v35, v36, v37, v38, v26, v39, v40, *&v29, *&v30, v30 * v29);
+    v65[v26] = v31;
     if (v31 > v27)
     {
       v27 = v31;
@@ -792,7 +794,7 @@ LABEL_51:
     return 15;
   }
 
-  v47 = v25 * v10;
+  v49 = v25 * v10;
   if (v28 <= 2)
   {
     if (v28)
@@ -804,17 +806,16 @@ LABEL_51:
           return v28;
         }
 
-        v48 = v81;
-        v49 = v79;
-        v50 = v86;
-        if (v81 > v79)
+        v50 = v68;
+        v51 = v66;
+        v52 = v73;
+        if (v68 > v66)
         {
-          if (v81 <= v86)
+          if (v68 <= v73)
           {
 LABEL_55:
-            v73 = v86 / v25;
-            acLog("    leftcenter=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v73));
-            if (v50 <= v47)
+            acLog("    leftcenter=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v73 / v25);
+            if (v52 <= v49)
             {
               return v28;
             }
@@ -825,14 +826,13 @@ LABEL_55:
           goto LABEL_35;
         }
 
-        if (v79 <= v86)
+        if (v66 <= v73)
         {
           goto LABEL_55;
         }
 
-        v71 = v79 / v25;
-        acLog("    topleft=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v71));
-        if (v49 <= v47)
+        acLog("    topleft=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v66 / v25);
+        if (v51 <= v49)
         {
           return v28;
         }
@@ -840,17 +840,16 @@ LABEL_55:
         return 4;
       }
 
-      v48 = v81;
-      v59 = v82;
-      v60 = v85;
-      if (v81 > v82)
+      v50 = v68;
+      v61 = v69;
+      v62 = v72;
+      if (v68 > v69)
       {
-        if (v81 > v85)
+        if (v68 > v72)
         {
 LABEL_35:
-          v66 = v48 / v25;
-          acLog("    bottomleft=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v66));
-          if (v48 > v47)
+          acLog("    bottomleft=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v50 / v25);
+          if (v50 > v49)
           {
             return 6;
           }
@@ -861,12 +860,11 @@ LABEL_35:
         goto LABEL_65;
       }
 
-      if (v82 <= v85)
+      if (v69 <= v72)
       {
 LABEL_65:
-        v77 = v85 / v25;
-        acLog("    bottomcenter=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v77));
-        if (v60 <= v47)
+        acLog("    bottomcenter=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v72 / v25);
+        if (v62 <= v49)
         {
           return v28;
         }
@@ -874,9 +872,8 @@ LABEL_65:
         return 10;
       }
 
-      v74 = v82 / v25;
-      acLog("    bottomright=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v74));
-      if (v59 <= v47)
+      acLog("    bottomright=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v69 / v25);
+      if (v61 <= v49)
       {
         return v28;
       }
@@ -884,16 +881,15 @@ LABEL_65:
       return 7;
     }
 
-    v54 = v79;
-    v55 = v80;
-    v56 = v84;
-    if (v79 > v80)
+    v56 = v66;
+    v57 = v67;
+    v58 = v71;
+    if (v66 > v67)
     {
-      if (v79 > v84)
+      if (v66 > v71)
       {
-        v64 = v79 / v25;
-        acLog("    topleft=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v64));
-        if (v54 <= v47)
+        acLog("    topleft=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v66 / v25);
+        if (v56 <= v49)
         {
           return v28;
         }
@@ -904,12 +900,11 @@ LABEL_65:
       goto LABEL_42;
     }
 
-    if (v80 <= v84)
+    if (v67 <= v71)
     {
 LABEL_42:
-      v68 = v84 / v25;
-      acLog("    topcenter=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v68));
-      if (v56 <= v47)
+      acLog("    topcenter=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v71 / v25);
+      if (v58 <= v49)
       {
         return v28;
       }
@@ -922,17 +917,16 @@ LABEL_42:
 
   if (v28 == 3)
   {
-    v57 = v82;
-    v55 = v80;
-    v58 = v87;
-    if (v82 <= v80)
+    v59 = v69;
+    v57 = v67;
+    v60 = v74;
+    if (v69 <= v67)
     {
-      if (v80 > v87)
+      if (v67 > v74)
       {
 LABEL_45:
-        v69 = v55 / v25;
-        acLog("    topright=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v69));
-        if (v55 > v47)
+        acLog("    topright=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v57 / v25);
+        if (v57 > v49)
         {
           return 5;
         }
@@ -941,11 +935,10 @@ LABEL_45:
       }
     }
 
-    else if (v82 > v87)
+    else if (v69 > v74)
     {
-      v65 = v82 / v25;
-      acLog("    bottomright=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v65));
-      if (v57 <= v47)
+      acLog("    bottomright=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v69 / v25);
+      if (v59 <= v49)
       {
         return v28;
       }
@@ -953,9 +946,8 @@ LABEL_45:
       return 7;
     }
 
-    v70 = v87 / v25;
-    acLog("    rightcenter=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v70));
-    if (v58 <= v47)
+    acLog("    rightcenter=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v74 / v25);
+    if (v60 <= v49)
     {
       return v28;
     }
@@ -965,16 +957,15 @@ LABEL_45:
 
   if (v28 == 13)
   {
-    v62 = v84;
-    v61 = v85;
-    v53 = v83;
-    if (v85 <= v84)
+    v64 = v71;
+    v63 = v72;
+    v55 = v70;
+    if (v72 <= v71)
     {
-      if (v84 > v83)
+      if (v71 > v70)
       {
-        v75 = v84 / v25;
-        acLog("    topcenter=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v75));
-        if (v62 <= v47)
+        acLog("    topcenter=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v71 / v25);
+        if (v64 <= v49)
         {
           return v28;
         }
@@ -983,11 +974,10 @@ LABEL_45:
       }
     }
 
-    else if (v85 > v83)
+    else if (v72 > v70)
     {
-      v67 = v85 / v25;
-      acLog("    bottomcenter=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v67));
-      if (v61 <= v47)
+      acLog("    bottomcenter=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v72 / v25);
+      if (v63 <= v49)
       {
         return v28;
       }
@@ -1003,16 +993,15 @@ LABEL_45:
     return v28;
   }
 
-  v52 = v86;
-  v51 = v87;
-  v53 = v83;
-  if (v86 > v87)
+  v54 = v73;
+  v53 = v74;
+  v55 = v70;
+  if (v73 > v74)
   {
-    if (v86 > v83)
+    if (v73 > v70)
     {
-      v63 = v86 / v25;
-      acLog("    leftcenter=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v63));
-      if (v52 <= v47)
+      acLog("    leftcenter=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v73 / v25);
+      if (v54 <= v49)
       {
         return v28;
       }
@@ -1023,11 +1012,10 @@ LABEL_45:
     goto LABEL_63;
   }
 
-  if (v87 > v83)
+  if (v74 > v70)
   {
-    v72 = v87 / v25;
-    acLog("    rightcenter=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v72));
-    if (v51 <= v47)
+    acLog("    rightcenter=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v74 / v25);
+    if (v53 <= v49)
     {
       return v28;
     }
@@ -1036,9 +1024,8 @@ LABEL_45:
   }
 
 LABEL_63:
-  v76 = v53 / v25;
-  acLog("    center=%.2f\n", v39, v40, v41, v42, v43, v44, v45, SLOBYTE(v76));
-  if (v53 > v47)
+  acLog("    center=%.2f\n", v41, v42, v43, v44, v45, v46, v47, v55 / v25);
+  if (v55 > v49)
   {
     return 8;
   }
@@ -1140,7 +1127,7 @@ LABEL_22:
     }
 
 LABEL_21:
-    acLog("Want bottom\n", v9, v10, v11, v12, v13, v14, v15, v37);
+    acLog("Want bottom\n", v9, v10, v11, v12, v13, v14, v15, 0.0);
     v28 = 0.0;
     goto LABEL_22;
   }

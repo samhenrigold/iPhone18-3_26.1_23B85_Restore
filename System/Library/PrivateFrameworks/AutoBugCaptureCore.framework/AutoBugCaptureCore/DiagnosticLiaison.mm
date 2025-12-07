@@ -1,6 +1,7 @@
 @interface DiagnosticLiaison
 - (DiagnosticLiaison)init;
 - (DiagnosticLiaisonDelegate)delegate;
+- (id)abcPayloadForIDSTransport:(BOOL)transport;
 - (id)basicSignatureFrom:(id)from;
 - (id)caseSignatureForRemoteSignature:(id)signature groupIdentifier:(id)identifier;
 - (id)homeKitAgent;
@@ -81,22 +82,20 @@
     idsTransport = [(DiagnosticLiaison *)self idsTransport];
     idsService = [idsTransport idsService];
 
-    v6 = liaisonLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = liaisonLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v11 = 138412290;
       v12 = idsService;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "Creating HomeKitAgent with IDSService %@", &v11, 0xCu);
+      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Creating HomeKitAgent with IDSService %@", &v11, 0xCu);
     }
 
-    v7 = [[HomeKitAgent alloc] initWithIDSService:idsService];
-    v8 = self->_homeKitAgent;
-    self->_homeKitAgent = v7;
+    v8 = [[HomeKitAgent alloc] initWithIDSService:idsService];
+    v9 = self->_homeKitAgent;
+    self->_homeKitAgent = v8;
 
     homeKitAgent = self->_homeKitAgent;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return homeKitAgent;
 }
@@ -118,25 +117,8 @@
 - (void)registerAdministrativeTransports
 {
   v3 = +[SystemProperties sharedInstance];
-  if ([v3 deviceClass] == 7)
+  if ([v3 deviceClass] == 7 && (+[ABCAdministrator sharedInstance](ABCAdministrator, "sharedInstance"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "configurationManager"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "autoBugCaptureAvailable"), v5, v4, (v6 & 1) != 0) || (+[ABCAdministrator sharedInstance](ABCAdministrator, "sharedInstance"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "configurationManager"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "autoBugCaptureEnabled"), v8, v7, v9))
   {
-    v4 = +[ABCAdministrator sharedInstance];
-    configurationManager = [v4 configurationManager];
-    autoBugCaptureAvailable = [configurationManager autoBugCaptureAvailable];
-
-    if (autoBugCaptureAvailable)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  v7 = +[ABCAdministrator sharedInstance];
-  configurationManager2 = [v7 configurationManager];
-  autoBugCaptureEnabled = [configurationManager2 autoBugCaptureEnabled];
-
-  if (autoBugCaptureEnabled)
-  {
-LABEL_4:
     queue = self->_queue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -176,24 +158,25 @@ void __53__DiagnosticLiaison_registerAdministrativeTransports__block_invoke(uint
 void __54__DiagnosticLiaison_registerAutoBugCaptureTransports___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) idsTransport];
+  v3 = v2;
   if (v2)
   {
-    v3 = liaisonLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = liaisonLogHandle(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_DEFAULT, "Registering with IDS service", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "Registering with IDS service", v6, 2u);
     }
 
-    [v2 registerIDSService];
-    [v2 addDelegate:*(a1 + 32) endpoint:@"HomeKit"];
-    [v2 addDelegate:*(a1 + 32) endpoint:@"Trigger"];
+    [v3 registerIDSService];
+    [v3 addDelegate:*(a1 + 32) endpoint:@"HomeKit"];
+    [v3 addDelegate:*(a1 + 32) endpoint:@"Trigger"];
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    (*(v4 + 16))();
+    (*(v5 + 16))();
   }
 }
 
@@ -208,11 +191,11 @@ void __54__DiagnosticLiaison_registerAutoBugCaptureTransports___block_invoke(uin
     [(IDSCrossDeviceTransport *)v4 removeDelegate:self endpoint:@"Trigger"];
     [(IDSCrossDeviceTransport *)v4 unregisterIDSService];
 
-    v5 = liaisonLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = liaisonLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Unregistered with IDS service", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "Unregistered with IDS service", v7, 2u);
     }
   }
 }
@@ -263,7 +246,7 @@ uint64_t __45__DiagnosticLiaison_unregisterAllTransports___block_invoke(uint64_t
   v16 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v9 = [(DiagnosticLiaison *)self caseSignatureForRemoteSignature:signature groupIdentifier:identifier];
-  v10 = liaisonLogHandle();
+  v10 = liaisonLogHandle(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(v14) = 0;
@@ -271,20 +254,19 @@ uint64_t __45__DiagnosticLiaison_unregisterAllTransports___block_invoke(uint64_t
   }
 
   delegate = [(DiagnosticLiaison *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
-    v12 = liaisonLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = liaisonLogHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
       v15 = v9;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "Starting a remotely triggered case with signature: %@", &v14, 0xCu);
+      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, "Starting a remotely triggered case with signature: %@", &v14, 0xCu);
     }
 
     [delegate requestSnapshotWithSignature:v9 flags:3 events:eventsCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remotelyTriggerSessionWithSignature:(id)signature forDestinations:(id)destinations groupIdentifier:(id)identifier validFor:(double)for queue:(id)queue reply:(id)reply
@@ -383,7 +365,7 @@ void __110__DiagnosticLiaison_remotelyTriggerSessionWithSignature_forDestination
 
 uint64_t __110__DiagnosticLiaison_remotelyTriggerSessionWithSignature_forDestinations_groupIdentifier_validFor_queue_reply___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   v3 = [MEMORY[0x277CBEAA8] date];
   [v3 timeIntervalSince1970];
@@ -401,38 +383,34 @@ uint64_t __110__DiagnosticLiaison_remotelyTriggerSessionWithSignature_forDestina
   else
   {
     [v5 setObject:@"failure" forKeyedSubscript:@"result"];
-    [*(a1 + 32) setObject:@"Finished" forKeyedSubscript:@"status"];
+    v7 = [*(a1 + 32) setObject:@"Finished" forKeyedSubscript:@"status"];
     if (*(a1 + 48))
     {
-      v7 = liaisonLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = liaisonLogHandle(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 48);
-        v14 = 138412290;
-        v15 = v8;
-        _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEFAULT, "Failed to send remote IDS trigger message with error %@", &v14, 0xCu);
+        v9 = *(a1 + 48);
+        v12 = 138412290;
+        v13 = v9;
+        _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Failed to send remote IDS trigger message with error %@", &v12, 0xCu);
       }
 
       [*(a1 + 32) setObject:*(a1 + 48) forKeyedSubscript:@"errorObj"];
-      v9 = [*(a1 + 48) localizedDescription];
-      [*(a1 + 32) setObject:v9 forKeyedSubscript:@"error"];
+      v10 = [*(a1 + 48) localizedDescription];
+      [*(a1 + 32) setObject:v10 forKeyedSubscript:@"error"];
     }
   }
 
-  v10 = *(a1 + 64);
-  v11 = *(a1 + 32);
-  result = (*(*(a1 + 56) + 16))();
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 uint64_t __110__DiagnosticLiaison_remotelyTriggerSessionWithSignature_forDestinations_groupIdentifier_validFor_queue_reply___block_invoke_19(uint64_t a1)
 {
-  v2 = liaisonLogHandle();
+  v2 = liaisonLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "No IDS destinations to send remote trigger.", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_INFO, "No IDS destinations to send remote trigger.", v7, 2u);
   }
 
   v3 = MEMORY[0x277CCABB0];
@@ -444,7 +422,6 @@ uint64_t __110__DiagnosticLiaison_remotelyTriggerSessionWithSignature_forDestina
   [*(a1 + 32) setObject:@"failure" forKeyedSubscript:@"result"];
   [*(a1 + 32) setObject:@"Cancelled" forKeyedSubscript:@"status"];
   [*(a1 + 32) setObject:@"No valid destinations" forKeyedSubscript:@"error"];
-  v6 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -493,67 +470,67 @@ uint64_t __110__DiagnosticLiaison_remotelyTriggerSessionWithSignature_forDestina
 
 void __90__DiagnosticLiaison_remotelyTriggerSessionForSignature_groupIdentifier_event_queue_reply___block_invoke(id *a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if ((*(a1[4] + 8) & 1) == 0)
   {
-    v15 = +[SystemProperties sharedInstance];
-    v16 = [v15 deviceClass];
+    v17 = +[SystemProperties sharedInstance];
+    v18 = [v17 deviceClass];
 
-    v17 = liaisonLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = liaisonLogHandle(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v43) = v16;
-      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEFAULT, "Remotely triggering sessions is not supported on this device (%d)", buf, 8u);
+      LODWORD(v45) = v18;
+      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEFAULT, "Remotely triggering sessions is not supported on this device (%d)", buf, 8u);
     }
 
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unsupported device class (%d)", v16];
-    [a1[5] setObject:v18 forKeyedSubscript:@"error"];
+    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unsupported device class (%d)", v18];
+    [a1[5] setObject:v21 forKeyedSubscript:@"error"];
 
     goto LABEL_22;
   }
 
   if (![a1[6] count])
   {
-    v19 = liaisonLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = liaisonLogHandle(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v20 = a1[6];
+      v23 = a1[6];
       *buf = 138412290;
-      v43 = v20;
-      _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_ERROR, "Remote trigger requested for a case, but a valid signature was not provided. %@", buf, 0xCu);
+      v45 = v23;
+      _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_ERROR, "Remote trigger requested for a case, but a valid signature was not provided. %@", buf, 0xCu);
     }
 
-    v21 = a1[5];
-    v22 = @"Empty Signature";
+    v24 = a1[5];
+    v25 = @"Empty Signature";
     goto LABEL_21;
   }
 
   v2 = [a1[7] length];
-  v3 = liaisonLogHandle();
+  v3 = liaisonLogHandle(v2);
   v4 = v3;
   if (!v2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v23 = a1[6];
+      v26 = a1[6];
       *buf = 138412290;
-      v43 = v23;
+      v45 = v26;
       _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_ERROR, "Remote trigger requested for a case, but a valid group identifier was not provided. %@", buf, 0xCu);
     }
 
-    v21 = a1[5];
-    v22 = @"Missing group identifier";
+    v24 = a1[5];
+    v25 = @"Missing group identifier";
 LABEL_21:
-    [v21 setObject:v22 forKeyedSubscript:@"error"];
+    [v24 setObject:v25 forKeyedSubscript:@"error"];
 LABEL_22:
-    v24 = a1[9];
-    if (v24)
+    v27 = a1[9];
+    if (v27)
     {
-      v24[2](v24, 0, a1[5]);
+      v27[2](v27, 0, a1[5]);
     }
 
-    goto LABEL_24;
+    return;
   }
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -561,9 +538,9 @@ LABEL_22:
     v6 = a1[6];
     v5 = a1[7];
     *buf = 138412546;
-    v43 = v5;
-    v44 = 2112;
-    v45 = v6;
+    v45 = v5;
+    v46 = 2112;
+    v47 = v6;
     _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEBUG, "Remotely triggering a session for group identifier %@ and signature %@", buf, 0x16u);
   }
 
@@ -572,90 +549,87 @@ LABEL_22:
 
   if (v8)
   {
-    v9 = [*(a1[4] + 5) idsService];
+    v10 = [*(a1[4] + 5) idsService];
 
-    if (v9)
+    if (v10)
     {
-      v10 = liaisonLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = liaisonLogHandle(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v11 = a1[6];
+        v13 = a1[6];
         *buf = 138412290;
-        v43 = v11;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Cannot use IDS transport for signature %@", buf, 0xCu);
+        v45 = v13;
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Cannot use IDS transport for signature %@", buf, 0xCu);
       }
 
       [a1[5] setObject:@"remoteTrigger" forKeyedSubscript:@"type"];
       [a1[5] setObject:@"IDS transport not ready" forKeyedSubscript:@"error"];
-      v12 = a1[9];
-      if (v12)
+      v14 = a1[9];
+      if (v14)
       {
-        v13 = a1[8];
+        v15 = a1[8];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __90__DiagnosticLiaison_remotelyTriggerSessionForSignature_groupIdentifier_event_queue_reply___block_invoke_39;
         block[3] = &unk_278CEFF50;
-        v41 = v12;
-        v40 = a1[5];
-        dispatch_async(v13, block);
+        v43 = v14;
+        v42 = a1[5];
+        dispatch_async(v15, block);
 
-        v14 = v41;
+        v16 = v43;
 LABEL_29:
       }
     }
 
     else
     {
-      v30 = [a1[4] remoteCasePayloadForIDSTransport:a1[6] groupID:a1[7]];
-      v31 = liaisonLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v32 = [a1[4] remoteCasePayloadForIDSTransport:a1[6] groupID:a1[7]];
+      v33 = liaisonLogHandle(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_INFO, "Selecting IDS transport for HomeKit cases", buf, 2u);
+        _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_INFO, "Selecting IDS transport for HomeKit cases", buf, 2u);
       }
 
-      v32 = a1[4];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __90__DiagnosticLiaison_remotelyTriggerSessionForSignature_groupIdentifier_event_queue_reply___block_invoke_40;
-      v36[3] = &unk_278CEFFA0;
-      v38 = a1[9];
-      v37 = a1[8];
-      [v32 sendPayloadToHomeKitRelays:v30 additionalPredicate:0 toEndpoint:@"HomeKit" reply:v36];
+      v34 = a1[4];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __90__DiagnosticLiaison_remotelyTriggerSessionForSignature_groupIdentifier_event_queue_reply___block_invoke_40;
+      v38[3] = &unk_278CEFFA0;
+      v40 = a1[9];
+      v39 = a1[8];
+      [v34 sendPayloadToHomeKitRelays:v32 additionalPredicate:0 toEndpoint:@"HomeKit" reply:v38];
     }
   }
 
   else
   {
-    v26 = liaisonLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = liaisonLogHandle(v9);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v27 = a1[6];
+      v29 = a1[6];
       *buf = 138412290;
-      v43 = v27;
-      _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_ERROR, "Unable to determine appropriate transport for signature %@", buf, 0xCu);
+      v45 = v29;
+      _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_ERROR, "Unable to determine appropriate transport for signature %@", buf, 0xCu);
     }
 
     [a1[5] setObject:@"No appropriate transport for signature" forKeyedSubscript:@"error"];
-    v28 = a1[9];
-    if (v28)
+    v30 = a1[9];
+    if (v30)
     {
-      v29 = a1[8];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __90__DiagnosticLiaison_remotelyTriggerSessionForSignature_groupIdentifier_event_queue_reply___block_invoke_45;
-      v33[3] = &unk_278CEFF50;
-      v35 = v28;
-      v34 = a1[5];
-      dispatch_async(v29, v33);
+      v31 = a1[8];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __90__DiagnosticLiaison_remotelyTriggerSessionForSignature_groupIdentifier_event_queue_reply___block_invoke_45;
+      v35[3] = &unk_278CEFF50;
+      v37 = v30;
+      v36 = a1[5];
+      dispatch_async(v31, v35);
 
-      v14 = v35;
+      v16 = v37;
       goto LABEL_29;
     }
   }
-
-LABEL_24:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __90__DiagnosticLiaison_remotelyTriggerSessionForSignature_groupIdentifier_event_queue_reply___block_invoke_40(uint64_t a1, char a2, void *a3)
@@ -678,32 +652,34 @@ void __90__DiagnosticLiaison_remotelyTriggerSessionForSignature_groupIdentifier_
 
 - (void)sendPayloadToHomeKitRelays:(id)relays additionalPredicate:(id)predicate toEndpoint:(id)endpoint reply:(id)reply
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   relaysCopy = relays;
   predicateCopy = predicate;
   endpointCopy = endpoint;
   replyCopy = reply;
+  v14 = replyCopy;
   if (!self->_allowRemoteTrigger)
   {
-    v16 = liaisonLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = liaisonLogHandle(replyCopy);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = +[SystemProperties sharedInstance];
+      v20 = +[SystemProperties sharedInstance];
       *buf = 67109120;
-      LODWORD(v36) = [v17 deviceClass];
-      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEFAULT, "Sending remote ABC messages are not supported on this device (%d)", buf, 8u);
+      LODWORD(v38) = [v20 deviceClass];
+      _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEFAULT, "Sending remote ABC messages are not supported on this device (%d)", buf, 8u);
     }
 
     goto LABEL_14;
   }
 
-  if (![endpointCopy length])
+  v15 = [endpointCopy length];
+  if (!v15)
   {
-    v16 = liaisonLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = liaisonLogHandle(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v18 = "Missing or invalid endpoint";
+      v21 = "Missing or invalid endpoint";
       goto LABEL_13;
     }
 
@@ -712,15 +688,15 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (!relaysCopy || ![relaysCopy count])
+  if (!relaysCopy || (v15 = [relaysCopy count]) == 0)
   {
-    v16 = liaisonLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = liaisonLogHandle(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v18 = "Missing required message payload";
+      v21 = "Missing required message payload";
 LABEL_13:
-      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_ERROR, v18, buf, 2u);
+      _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_ERROR, v21, buf, 2u);
       goto LABEL_14;
     }
 
@@ -731,54 +707,53 @@ LABEL_13:
   homekitRelayTimer = self->_homekitRelayTimer;
   if (homekitRelayTimer)
   {
-    v15 = dispatch_time(0, 60000000000);
-    dispatch_source_set_timer(homekitRelayTimer, v15, 0xFFFFFFFFFFFFFFFFLL, 0x2540BE400uLL);
+    v17 = dispatch_time(0, 60000000000);
+    dispatch_source_set_timer(homekitRelayTimer, v17, 0xFFFFFFFFFFFFFFFFLL, 0x2540BE400uLL);
   }
 
   else
   {
     queue = [(DiagnosticLiaison *)self queue];
-    v21 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, queue);
+    v23 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, queue);
 
-    v22 = dispatch_time(0, 60000000000);
-    dispatch_source_set_timer(v21, v22, 0xFFFFFFFFFFFFFFFFLL, 0x2540BE400uLL);
+    v24 = dispatch_time(0, 60000000000);
+    dispatch_source_set_timer(v23, v24, 0xFFFFFFFFFFFFFFFFLL, 0x2540BE400uLL);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEndpoint_reply___block_invoke;
     handler[3] = &unk_278CEFFF0;
     handler[4] = self;
-    v33 = endpointCopy;
-    v34 = replyCopy;
-    dispatch_source_set_event_handler(v21, handler);
-    v23 = self->_homekitRelayTimer;
-    self->_homekitRelayTimer = v21;
-    v24 = v21;
+    v35 = endpointCopy;
+    v36 = v14;
+    dispatch_source_set_event_handler(v23, handler);
+    v25 = self->_homekitRelayTimer;
+    self->_homekitRelayTimer = v23;
+    v26 = v23;
 
-    dispatch_resume(v24);
+    dispatch_resume(v26);
   }
 
-  v25 = liaisonLogHandle();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  v27 = liaisonLogHandle(v18);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v36 = predicateCopy;
-    _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_INFO, "Looking up IDS identifiers for HomeKit relay devices (additional predicate: %@)", buf, 0xCu);
+    v38 = predicateCopy;
+    _os_log_impl(&dword_241804000, v27, OS_LOG_TYPE_INFO, "Looking up IDS identifiers for HomeKit relay devices (additional predicate: %@)", buf, 0xCu);
   }
 
   homeKitAgent = [(DiagnosticLiaison *)self homeKitAgent];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEndpoint_reply___block_invoke_49;
-  v27[3] = &unk_278CF0068;
-  v27[4] = self;
-  v28 = predicateCopy;
-  v29 = relaysCopy;
-  v30 = endpointCopy;
-  v31 = replyCopy;
-  [homeKitAgent fetchResidentDevicesIDSIdentifiersWithReply:v27];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEndpoint_reply___block_invoke_49;
+  v29[3] = &unk_278CF0068;
+  v29[4] = self;
+  v30 = predicateCopy;
+  v31 = relaysCopy;
+  v32 = endpointCopy;
+  v33 = v14;
+  [homeKitAgent fetchResidentDevicesIDSIdentifiersWithReply:v29];
 
 LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEndpoint_reply___block_invoke(void *a1)
@@ -788,11 +763,11 @@ uint64_t __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_
   *(v2 + 16) = 0;
 
   *(a1[4] + 24) = 1;
-  v4 = liaisonLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = liaisonLogHandle(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_ERROR, "Timed out waiting for all resident devices IDS Identifiers", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_ERROR, "Timed out waiting for all resident devices IDS Identifiers", v7, 2u);
   }
 
   [0 setObject:@"remoteTrigger" forKeyedSubscript:@"type"];
@@ -844,7 +819,7 @@ void __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEn
 void __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEndpoint_reply___block_invoke_2(uint64_t a1)
 {
   v25 = *MEMORY[0x277D85DE8];
-  v2 = liaisonLogHandle();
+  v2 = liaisonLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
@@ -855,40 +830,40 @@ void __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEn
 
   if (*(*(a1 + 40) + 24))
   {
-    v4 = liaisonLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = liaisonLogHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v5 = "Relay service reply came in after timeout. Dropping";
-      v6 = v4;
-      v7 = OS_LOG_TYPE_ERROR;
+      v6 = "Relay service reply came in after timeout. Dropping";
+      v7 = v5;
+      v8 = OS_LOG_TYPE_ERROR;
 LABEL_11:
-      _os_log_impl(&dword_241804000, v6, v7, v5, buf, 2u);
+      _os_log_impl(&dword_241804000, v7, v8, v6, buf, 2u);
     }
   }
 
   else if ([*(a1 + 32) count])
   {
-    v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"uniqueID IN %@", *(a1 + 32)];
-    v4 = v8;
-    v9 = *(a1 + 48);
-    if (v9)
+    v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"uniqueID IN %@", *(a1 + 32)];
+    v5 = v9;
+    v10 = *(a1 + 48);
+    if (v10)
     {
-      v10 = MEMORY[0x277CCA920];
-      v22[0] = v8;
-      v22[1] = v9;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
-      v12 = [v10 andPredicateWithSubpredicates:v11];
+      v11 = MEMORY[0x277CCA920];
+      v22[0] = v9;
+      v22[1] = v10;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+      v13 = [v11 andPredicateWithSubpredicates:v12];
     }
 
     else
     {
-      v12 = v8;
+      v13 = v9;
     }
 
-    v13 = [*(a1 + 40) idsTransport];
-    v14 = *(a1 + 56);
-    v15 = *(a1 + 64);
+    v14 = [*(a1 + 40) idsTransport];
+    v15 = *(a1 + 56);
+    v16 = *(a1 + 64);
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
     v17[2] = __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEndpoint_reply___block_invoke_56;
@@ -897,31 +872,29 @@ LABEL_11:
     v19 = *(a1 + 56);
     v21 = *(a1 + 72);
     v20 = *(a1 + 64);
-    [v13 sendMessage:v14 toIDSDevicesMatching:v12 toEndpoint:v15 reply:v17];
+    [v14 sendMessage:v15 toIDSDevicesMatching:v13 toEndpoint:v16 reply:v17];
   }
 
   else
   {
-    v4 = liaisonLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = liaisonLogHandle(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v5 = "No IDS identifiers for HomeKit relay devices found.";
-      v6 = v4;
-      v7 = OS_LOG_TYPE_INFO;
+      v6 = "No IDS identifiers for HomeKit relay devices found.";
+      v7 = v5;
+      v8 = OS_LOG_TYPE_INFO;
       goto LABEL_11;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEndpoint_reply___block_invoke_56(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = [a3 objectForKeyedSubscript:@"count"];
-  v9 = liaisonLogHandle();
+  v9 = liaisonLogHandle(v8);
   v10 = v9;
   if (a2)
   {
@@ -929,57 +902,57 @@ void __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEn
     {
       v11 = [v8 unsignedLongValue];
       v12 = [*(a1 + 32) count];
-      v22 = 134218240;
-      v23 = v11;
-      v24 = 2048;
-      v25 = v12;
-      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "Successfully sent payload to %ld device(s) (%lu total HomeKit relay devices)", &v22, 0x16u);
+      v23 = 134218240;
+      v24 = v11;
+      v25 = 2048;
+      v26 = v12;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "Successfully sent payload to %ld device(s) (%lu total HomeKit relay devices)", &v23, 0x16u);
     }
 
-    v13 = liaisonLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = liaisonLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(a1 + 40);
-      v22 = 138412290;
-      v23 = v14;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Message payload: %@", &v22, 0xCu);
+      v15 = *(a1 + 40);
+      v23 = 138412290;
+      v24 = v15;
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Message payload: %@", &v23, 0xCu);
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v16 = [v8 unsignedLongValue];
-      v17 = [*(a1 + 32) count];
-      v22 = 134218498;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v17;
-      v26 = 2112;
-      v27 = v7;
-      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Failed to send payload to %ld devices(s) (%lu total HomeKit relay devices): %@", &v22, 0x20u);
+      v17 = [v8 unsignedLongValue];
+      v18 = [*(a1 + 32) count];
+      v23 = 134218498;
+      v24 = v17;
+      v25 = 2048;
+      v26 = v18;
+      v27 = 2112;
+      v28 = v7;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Failed to send payload to %ld devices(s) (%lu total HomeKit relay devices): %@", &v23, 0x20u);
     }
 
-    v18 = liaisonLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = liaisonLogHandle(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v19 = *(a1 + 40);
-      v22 = 138412290;
-      v23 = v19;
-      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEBUG, "Message payload: %@", &v22, 0xCu);
+      v21 = *(a1 + 40);
+      v23 = 138412290;
+      v24 = v21;
+      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEBUG, "Message payload: %@", &v23, 0xCu);
     }
 
     if (v7)
     {
-      v15 = [v7 localizedDescription];
+      v16 = [v7 localizedDescription];
     }
 
     else
     {
-      v15 = @"No matching IDS devices.";
+      v16 = @"No matching IDS devices.";
     }
   }
 
@@ -988,65 +961,62 @@ void __85__DiagnosticLiaison_sendPayloadToHomeKitRelays_additionalPredicate_toEn
     [0 setObject:@"remoteTrigger" forKeyedSubscript:@"type"];
     [0 setObject:@"IDSTransportSend" forKeyedSubscript:@"name"];
     [0 setObject:*(a1 + 48) forKeyedSubscript:@"endpoint"];
-    v20 = kSymptomDiagnosticEventResultSuccess;
+    v22 = kSymptomDiagnosticEventResultSuccess;
     if (!a2)
     {
-      v20 = kSymptomDiagnosticEventResultFailure;
+      v22 = kSymptomDiagnosticEventResultFailure;
     }
 
-    [0 setObject:*v20 forKeyedSubscript:@"result"];
+    [0 setObject:*v22 forKeyedSubscript:@"result"];
     [0 setObject:v8 forKeyedSubscript:@"count"];
-    [0 setObject:v15 forKeyedSubscript:@"error"];
+    [0 setObject:v16 forKeyedSubscript:@"error"];
     (*(*(a1 + 56) + 16))();
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remotelyEnableAutoBugCapture:(id)capture
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   captureCopy = capture;
+  v5 = captureCopy;
   if (self->_allowRemoteTrigger)
   {
     idsTransport = [(DiagnosticLiaison *)self idsTransport];
 
     if (idsTransport)
     {
-      v6 = [(DiagnosticLiaison *)self abcPayloadForIDSTransport:1];
-      v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"modelIdentifier BEGINSWITH 'AudioAccessory'"];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __50__DiagnosticLiaison_remotelyEnableAutoBugCapture___block_invoke;
-      v10[3] = &unk_278CF0090;
-      v11 = captureCopy;
-      [(DiagnosticLiaison *)self sendPayloadToHomeKitRelays:v6 additionalPredicate:v7 toEndpoint:@"AutoBugCapture" reply:v10];
+      v8 = [(DiagnosticLiaison *)self abcPayloadForIDSTransport:1];
+      v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"modelIdentifier BEGINSWITH 'AudioAccessory'"];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __50__DiagnosticLiaison_remotelyEnableAutoBugCapture___block_invoke;
+      v11[3] = &unk_278CF0090;
+      v12 = v5;
+      [(DiagnosticLiaison *)self sendPayloadToHomeKitRelays:v8 additionalPredicate:v9 toEndpoint:@"AutoBugCapture" reply:v11];
     }
 
     else
     {
-      v6 = liaisonLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = liaisonLogHandle(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "IDS transport is not available. Cannot remotely enable ABC.", buf, 2u);
+        _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "IDS transport is not available. Cannot remotely enable ABC.", buf, 2u);
       }
     }
   }
 
   else
   {
-    v6 = liaisonLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = liaisonLogHandle(captureCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = +[SystemProperties sharedInstance];
+      v10 = +[SystemProperties sharedInstance];
       *buf = 67109120;
-      deviceClass = [v8 deviceClass];
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "Sending remote ABC toggle is not supported on this device (%d)", buf, 8u);
+      deviceClass = [v10 deviceClass];
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Sending remote ABC toggle is not supported on this device (%d)", buf, 8u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__DiagnosticLiaison_remotelyEnableAutoBugCapture___block_invoke(uint64_t result, int a2)
@@ -1054,7 +1024,7 @@ uint64_t __50__DiagnosticLiaison_remotelyEnableAutoBugCapture___block_invoke(uin
   if (a2)
   {
     v2 = result;
-    v3 = liaisonLogHandle();
+    v3 = liaisonLogHandle(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -1073,48 +1043,47 @@ uint64_t __50__DiagnosticLiaison_remotelyEnableAutoBugCapture___block_invoke(uin
 
 - (void)remotelyDisableAutoBugCapture:(id)capture
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   captureCopy = capture;
+  v5 = captureCopy;
   if (self->_allowRemoteTrigger)
   {
     idsTransport = [(DiagnosticLiaison *)self idsTransport];
 
     if (idsTransport)
     {
-      v6 = [(DiagnosticLiaison *)self abcPayloadForIDSTransport:0];
-      v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"modelIdentifier BEGINSWITH 'AudioAccessory'"];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke;
-      v10[3] = &unk_278CF0090;
-      v11 = captureCopy;
-      [(DiagnosticLiaison *)self sendPayloadToHomeKitRelays:v6 additionalPredicate:v7 toEndpoint:@"AutoBugCapture" reply:v10];
+      v8 = [(DiagnosticLiaison *)self abcPayloadForIDSTransport:0];
+      v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"modelIdentifier BEGINSWITH 'AudioAccessory'"];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke;
+      v11[3] = &unk_278CF0090;
+      v12 = v5;
+      [(DiagnosticLiaison *)self sendPayloadToHomeKitRelays:v8 additionalPredicate:v9 toEndpoint:@"AutoBugCapture" reply:v11];
     }
 
     else
     {
-      v6 = liaisonLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = liaisonLogHandle(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "IDS transport is not available. Cannot remotely disable ABC.", buf, 2u);
+        _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "IDS transport is not available. Cannot remotely disable ABC.", buf, 2u);
       }
     }
   }
 
   else
   {
-    v6 = liaisonLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = liaisonLogHandle(captureCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = +[SystemProperties sharedInstance];
+      v10 = +[SystemProperties sharedInstance];
       *buf = 67109120;
-      deviceClass = [v8 deviceClass];
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "sending remote ABC toggle is not supported on this device (%d)", buf, 8u);
+      deviceClass = [v10 deviceClass];
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "sending remote ABC toggle is not supported on this device (%d)", buf, 8u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(uint64_t result, int a2)
@@ -1122,7 +1091,7 @@ uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(ui
   if (a2)
   {
     v2 = result;
-    v3 = liaisonLogHandle();
+    v3 = liaisonLogHandle(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -1156,13 +1125,13 @@ uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(ui
 
 - (void)messageReceivedFromIDS:(id)s
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sCopy = s;
-  v5 = liaisonLogHandle();
+  v5 = liaisonLogHandle(sCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v14 = sCopy;
+    v13 = sCopy;
     _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "Received message from IDS transport: %@", buf, 0xCu);
   }
 
@@ -1175,13 +1144,11 @@ uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(ui
     block[2] = __44__DiagnosticLiaison_messageReceivedFromIDS___block_invoke;
     block[3] = &unk_278CF00E0;
     block[4] = self;
-    v11 = sCopy;
-    v12 = date;
+    v10 = sCopy;
+    v11 = date;
     v8 = date;
     dispatch_async(queue, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageWithIdentifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
@@ -1322,7 +1289,7 @@ uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(ui
 
   else
   {
-    v12 = liaisonLogHandle();
+    v12 = liaisonLogHandle(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *v13 = 0;
@@ -1331,6 +1298,22 @@ uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(ui
 
     dictionary = 0;
   }
+
+  return dictionary;
+}
+
+- (id)abcPayloadForIDSTransport:(BOOL)transport
+{
+  transportCopy = transport;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  [dictionary setObject:@"AutoBugCapture" forKeyedSubscript:@"type"];
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:transportCopy];
+  [dictionary setObject:v5 forKeyedSubscript:@"UserConsent"];
+
+  date = [MEMORY[0x277CBEAA8] date];
+  [dictionary setObject:date forKeyedSubscript:@"time"];
+
+  [dictionary setObject:&unk_28537A008 forKeyedSubscript:@"vers"];
 
   return dictionary;
 }
@@ -1358,7 +1341,7 @@ uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(ui
 
 - (void)processPayloadVersionOneFromIDSTransport:(id)transport incomingTime:(id)time
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   transportCopy = transport;
   timeCopy = time;
   if (!timeCopy)
@@ -1368,84 +1351,88 @@ uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(ui
 
   v7 = [(__CFString *)transportCopy objectForKeyedSubscript:@"sig"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v8 = v7;
+    v9 = v7;
   }
 
   else
   {
-    v9 = liaisonLogHandle();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+    v10 = liaisonLogHandle(isKindOfClass);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
     if (v7)
     {
-      if (v10)
+      if (v11)
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138412802;
-        v41 = v7;
-        v42 = 2112;
-        v43 = v12;
-        v44 = 2112;
-        v45 = @"sig";
-        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "Found unexpected object %@ (%@) for key %@ in IDS payload.", buf, 0x20u);
+        v44 = v7;
+        v45 = 2112;
+        v46 = v13;
+        v47 = 2112;
+        v48 = @"sig";
+        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Found unexpected object %@ (%@) for key %@ in IDS payload.", buf, 0x20u);
       }
     }
 
-    else if (v10)
+    else if (v11)
     {
       *buf = 138412290;
-      v41 = @"sig";
-      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "Missing object for key %@ in IDS payload.", buf, 0xCu);
+      v44 = @"sig";
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Missing object for key %@ in IDS payload.", buf, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  v13 = [(__CFString *)transportCopy objectForKeyedSubscript:@"time"];
+  v14 = [(__CFString *)transportCopy objectForKeyedSubscript:@"time"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v15 = objc_opt_isKindOfClass();
+  if (v15)
   {
-    v14 = v13;
+    v16 = v14;
   }
 
   else
   {
-    v15 = liaisonLogHandle();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
-    if (v13)
+    v17 = liaisonLogHandle(v15);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+    if (v14)
     {
-      if (v16)
+      if (v18)
       {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138412802;
-        v41 = v13;
-        v42 = 2112;
-        v43 = v18;
-        v44 = 2112;
-        v45 = @"time";
-        _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Found unexpected object %@ (%@) for key %@ in IDS payload.", buf, 0x20u);
+        v44 = v14;
+        v45 = 2112;
+        v46 = v20;
+        v47 = 2112;
+        v48 = @"time";
+        _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_INFO, "Found unexpected object %@ (%@) for key %@ in IDS payload.", buf, 0x20u);
       }
     }
 
-    else if (v16)
+    else if (v18)
     {
       *buf = 138412290;
-      v41 = @"sig";
-      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Missing object for key %@ in IDS payload.", buf, 0xCu);
+      v44 = @"sig";
+      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_INFO, "Missing object for key %@ in IDS payload.", buf, 0xCu);
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
-  v19 = [(__CFString *)transportCopy objectForKeyedSubscript:@"gid"];
+  v21 = [(__CFString *)transportCopy objectForKeyedSubscript:@"gid"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v22 = objc_opt_isKindOfClass();
+  if (v22)
   {
-    v20 = v19;
-    if (!v14)
+    v23 = v21;
+    v24 = v23;
+    if (!v16)
     {
       goto LABEL_31;
     }
@@ -1453,84 +1440,87 @@ uint64_t __51__DiagnosticLiaison_remotelyDisableAutoBugCapture___block_invoke(ui
 
   else
   {
-    v21 = liaisonLogHandle();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
-    if (v19)
+    v25 = liaisonLogHandle(v22);
+    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
+    if (v21)
     {
-      if (v22)
+      if (v26)
       {
-        v23 = objc_opt_class();
-        v24 = NSStringFromClass(v23);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         *buf = 138412802;
-        v41 = v19;
-        v42 = 2112;
-        v43 = v24;
-        v44 = 2112;
-        v45 = @"gid";
-        _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_INFO, "Found unexpected object %@ (%@) for key %@ in IDS payload.", buf, 0x20u);
+        v44 = v21;
+        v45 = 2112;
+        v46 = v28;
+        v47 = 2112;
+        v48 = @"gid";
+        _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_INFO, "Found unexpected object %@ (%@) for key %@ in IDS payload.", buf, 0x20u);
       }
     }
 
-    else if (v22)
+    else if (v26)
     {
       *buf = 138412290;
-      v41 = @"gid";
-      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_INFO, "Missing object for key %@ in IDS payload.", buf, 0xCu);
+      v44 = @"gid";
+      _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_INFO, "Missing object for key %@ in IDS payload.", buf, 0xCu);
     }
 
-    v20 = 0;
-    if (!v14)
+    v24 = 0;
+    if (!v16)
     {
       goto LABEL_31;
     }
   }
 
-  if ([(__CFString *)v8 count]&& [(__CFString *)v20 length])
+  v23 = [(__CFString *)v9 count];
+  if (v23)
   {
-    v33 = v7;
-    v38[0] = @"type";
-    v38[1] = @"name";
-    v39[0] = @"remoteTrigger";
-    v39[1] = @"IDSTransportSend";
-    v38[2] = @"timestamp";
-    v25 = MEMORY[0x277CCABB0];
-    [(__CFString *)v14 timeIntervalSince1970];
-    v26 = [v25 numberWithDouble:?];
-    v39[2] = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
+    v23 = [(__CFString *)v24 length];
+    if (v23)
+    {
+      v36 = v7;
+      v41[0] = @"type";
+      v41[1] = @"name";
+      v42[0] = @"remoteTrigger";
+      v42[1] = @"IDSTransportSend";
+      v41[2] = @"timestamp";
+      v29 = MEMORY[0x277CCABB0];
+      [(__CFString *)v16 timeIntervalSince1970];
+      v30 = [v29 numberWithDouble:?];
+      v42[2] = v30;
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
 
-    v36[0] = @"type";
-    v36[1] = @"name";
-    v37[0] = @"remoteTrigger";
-    v37[1] = @"IDSTransportReceive";
-    v36[2] = @"timestamp";
-    v28 = MEMORY[0x277CCABB0];
-    [timeCopy timeIntervalSince1970];
-    v29 = [v28 numberWithDouble:?];
-    v37[2] = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
+      v39[0] = @"type";
+      v39[1] = @"name";
+      v40[0] = @"remoteTrigger";
+      v40[1] = @"IDSTransportReceive";
+      v39[2] = @"timestamp";
+      v32 = MEMORY[0x277CCABB0];
+      [timeCopy timeIntervalSince1970];
+      v33 = [v32 numberWithDouble:?];
+      v40[2] = v33;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
 
-    v35[0] = v27;
-    v35[1] = v30;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
-    [(DiagnosticLiaison *)self startRemotelyTriggeredSessionForSignature:v8 groupIdentifier:v20 events:v31];
+      v38[0] = v31;
+      v38[1] = v34;
+      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+      [(DiagnosticLiaison *)self startRemotelyTriggeredSessionForSignature:v9 groupIdentifier:v24 events:v35];
 
-    v7 = v33;
-    goto LABEL_33;
+      v7 = v36;
+      goto LABEL_33;
+    }
   }
 
 LABEL_31:
-  v27 = liaisonLogHandle();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v31 = liaisonLogHandle(v23);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v41 = transportCopy;
-    _os_log_impl(&dword_241804000, v27, OS_LOG_TYPE_ERROR, "Received a cross device trigger message over IDS that was malformed: %@", buf, 0xCu);
+    v44 = transportCopy;
+    _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_ERROR, "Received a cross device trigger message over IDS that was malformed: %@", buf, 0xCu);
   }
 
 LABEL_33:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processPayloadVersionTwoFromIDSTransport:(id)transport incomingTime:(id)time
@@ -1551,54 +1541,53 @@ LABEL_33:
     goto LABEL_16;
   }
 
-  if ([(__CFString *)v9 isEqualToString:@"AutoBugCapture"])
+  v8 = [(__CFString *)v9 isEqualToString:@"AutoBugCapture"];
+  if (v8)
   {
     v10 = [transportCopy objectForKeyedSubscript:@"UserConsent"];
     bOOLValue = [v10 BOOLValue];
 
-    v12 = liaisonLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = liaisonLogHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v13 = @"NO";
+      v14 = @"NO";
       if (bOOLValue)
       {
-        v13 = @"YES";
+        v14 = @"YES";
       }
 
       v18 = 138412290;
-      v19 = v13;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Received an ABC IDS message with UserConsent = %@", &v18, 0xCu);
+      v19 = v14;
+      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Received an ABC IDS message with UserConsent = %@", &v18, 0xCu);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     if (bOOLValue)
     {
-      v15 = @"com.apple.autobugcapture.UserConsentYES";
+      v16 = @"com.apple.autobugcapture.UserConsentYES";
     }
 
     else
     {
-      v15 = @"com.apple.autobugcapture.UserConsentNO";
+      v16 = @"com.apple.autobugcapture.UserConsentNO";
     }
 
-    CFNotificationCenterPostNotification(DarwinNotifyCenter, v15, 0, 0, 4u);
+    CFNotificationCenterPostNotification(DarwinNotifyCenter, v16, 0, 0, 4u);
   }
 
   else
   {
 LABEL_13:
-    v16 = liaisonLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = liaisonLogHandle(v8);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = 138412290;
       v19 = v9;
-      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_ERROR, "Received an IDS message with unknown type: %@", &v18, 0xCu);
+      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_ERROR, "Received an IDS message with unknown type: %@", &v18, 0xCu);
     }
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkForUIImpactScenarioForCase:(id)case
@@ -1610,16 +1599,16 @@ LABEL_16:
   {
     if ([(PrimaryInterfaceUtils *)self->_interfaceUtils primaryInterfaceType]== 1)
     {
-      [interfaceBecamePrimaryDate timeIntervalSinceNow];
-      if (v6 > -180.0)
+      timeIntervalSinceNow = [interfaceBecamePrimaryDate timeIntervalSinceNow];
+      if (v7 > -180.0)
       {
-        v7 = -v6;
-        v8 = liaisonLogHandle();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v8 = -v7;
+        v9 = liaisonLogHandle(timeIntervalSinceNow);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v21 = 134217984;
-          v22 = v7;
-          _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "UIPerformance case seen within TH Period (%f since primary interface change)", &v21, 0xCu);
+          v22 = v8;
+          _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "UIPerformance case seen within TH Period (%f since primary interface change)", &v21, 0xCu);
         }
 
         symptom_framework_init();
@@ -1628,9 +1617,9 @@ LABEL_16:
         [(PrimaryInterfaceUtils *)self->_interfaceUtils primaryInterfaceType];
         symptom_set_qualifier();
         signature = [caseCopy signature];
-        v10 = [signature objectForKeyedSubscript:@"detected"];
+        v11 = [signature objectForKeyedSubscript:@"detected"];
 
-        uTF8String = [v10 UTF8String];
+        uTF8String = [v11 UTF8String];
         if (uTF8String)
         {
           strlen(uTF8String);
@@ -1638,9 +1627,9 @@ LABEL_16:
         }
 
         signature2 = [caseCopy signature];
-        v13 = [signature2 objectForKeyedSubscript:@"subtype"];
+        v14 = [signature2 objectForKeyedSubscript:@"subtype"];
 
-        uTF8String2 = [v13 UTF8String];
+        uTF8String2 = [v14 UTF8String];
         if (uTF8String2)
         {
           strlen(uTF8String2);
@@ -1648,20 +1637,20 @@ LABEL_16:
         }
 
         deParametersFromPayloads = [caseCopy deParametersFromPayloads];
-        v16 = deParametersFromPayloads;
+        v17 = deParametersFromPayloads;
         if (deParametersFromPayloads)
         {
-          v17 = [deParametersFromPayloads objectForKeyedSubscript:@"com.apple.DiagnosticExtensions.tailspin"];
-          if ([v17 count])
+          v18 = [deParametersFromPayloads objectForKeyedSubscript:@"com.apple.DiagnosticExtensions.tailspin"];
+          if ([v18 count])
           {
-            Data = CFPropertyListCreateData(*MEMORY[0x277CBECE8], v16, kCFPropertyListXMLFormat_v1_0, 0, 0);
+            Data = CFPropertyListCreateData(*MEMORY[0x277CBECE8], v17, kCFPropertyListXMLFormat_v1_0, 0, 0);
             if (Data)
             {
-              v19 = Data;
+              v20 = Data;
               CFDataGetLength(Data);
-              CFDataGetBytePtr(v19);
+              CFDataGetBytePtr(v20);
               symptom_set_additional_qualifier();
-              CFRelease(v19);
+              CFRelease(v20);
             }
           }
         }
@@ -1670,8 +1659,6 @@ LABEL_16:
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (DiagnosticLiaisonDelegate)delegate

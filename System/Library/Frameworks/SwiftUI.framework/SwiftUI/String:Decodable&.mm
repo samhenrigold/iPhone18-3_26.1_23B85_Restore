@@ -9,10 +9,10 @@
   if (!lazy cache variable for type metadata for [String : Decodable & Encodable.Type])
   {
     type metadata accessor for Decodable & Encodable.Type();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : Decodable & Encodable.Type]);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : Decodable & Encodable.Type]);
     }
   }
 }

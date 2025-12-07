@@ -141,7 +141,7 @@
     v19 = OSLogForCategory();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      sub_1001B8258();
+      sub_1001B8258(recordingTime);
     }
 
     v20 = OSLogForCategory();

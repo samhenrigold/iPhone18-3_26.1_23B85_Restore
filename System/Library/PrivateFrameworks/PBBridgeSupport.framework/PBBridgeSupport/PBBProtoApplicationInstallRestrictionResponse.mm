@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    allowed = self->_allowed;
     PBDataWriterWriteBOOLField();
   }
 }

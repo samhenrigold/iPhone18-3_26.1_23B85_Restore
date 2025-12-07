@@ -14,7 +14,11 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  sub_10010AE0C(x, y, width, height);
+  v7.n128_f64[0] = x;
+  v8.n128_f64[0] = y;
+  v9.n128_f64[0] = width;
+  v10.n128_f64[0] = height;
+  sub_10010AE0C(v7, v8, v9, v10);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

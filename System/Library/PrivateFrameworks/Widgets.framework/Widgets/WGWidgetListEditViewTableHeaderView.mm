@@ -139,13 +139,13 @@
   [font _scaledValueForValue:43.0];
   [(UILabel *)self->_headlineLabel _firstLineBaselineOffsetFromBoundsTop];
 
-  _WGMainScreenScale();
+  _WGMainScreenScale(v8, v9);
 
   UIRectIntegralWithScale();
-  result.size.height = v11;
-  result.size.width = v10;
-  result.origin.y = v9;
-  result.origin.x = v8;
+  result.size.height = v13;
+  result.size.width = v12;
+  result.origin.y = v11;
+  result.origin.x = v10;
   return result;
 }
 
@@ -155,7 +155,7 @@
   width = frame.size.width;
   x = frame.origin.x;
   y = frame.origin.y;
-  v37 = *(MEMORY[0x277CBF3A0] + 8);
+  v39 = *(MEMORY[0x277CBF3A0] + 8);
   v7 = width + -60.0;
   [(UILabel *)self->_explanationLabel sizeThatFits:width + -60.0, 1.79769313e308];
   v9 = v8;
@@ -173,36 +173,36 @@
   v24 = v23;
   v26 = v25;
   v28 = v27;
-  v39.origin.x = x;
-  v39.origin.y = y;
-  v39.size.width = width;
-  v39.size.height = height;
-  CGRectGetMaxY(v39);
-  v40.origin.x = v22;
-  v40.origin.y = v24;
-  v40.size.width = v26;
-  v40.size.height = v28;
-  CGRectGetMaxY(v40);
-  v41.origin.x = v22;
-  v41.origin.y = v24;
-  v41.size.width = v26;
-  v41.size.height = v28;
-  CGRectGetHeight(v41);
+  v41.origin.x = x;
+  v41.origin.y = y;
+  v41.size.width = width;
+  v41.size.height = height;
+  CGRectGetMaxY(v41);
+  v42.origin.x = v22;
+  v42.origin.y = v24;
+  v42.size.width = v26;
+  v42.size.height = v28;
+  CGRectGetMaxY(v42);
+  v43.origin.x = v22;
+  v43.origin.y = v24;
+  v43.size.width = v26;
+  v43.size.height = v28;
+  CGRectGetHeight(v43);
   font3 = [(UILabel *)self->_explanationLabel font];
   [font3 descender];
 
-  [(UILabel *)self->_explanationLabel setFrame:30.0, v37, v7, v15];
+  [(UILabel *)self->_explanationLabel setFrame:30.0, v39, v7, v15];
   font4 = [(UILabel *)self->_explanationLabel font];
   [font4 _scaledValueForValue:26.0];
   [(UILabel *)self->_explanationLabel _firstLineBaselineOffsetFromBoundsTop];
 
-  _WGMainScreenScale();
+  _WGMainScreenScale(v31, v32);
 
   UIRectIntegralWithScale();
-  result.size.height = v34;
-  result.size.width = v33;
-  result.origin.y = v32;
-  result.origin.x = v31;
+  result.size.height = v36;
+  result.size.width = v35;
+  result.origin.y = v34;
+  result.origin.x = v33;
   return result;
 }
 

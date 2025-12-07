@@ -24,27 +24,26 @@
 - (void)siriEndpointProfile:(id)profile didUpdateSessionHubIdentifier:(id)identifier
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EED7900, &qword_24910EB50);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v13 - v8;
+  v8 = &v12 - v7;
   if (identifier)
   {
     sub_24910C2CC();
-    v10 = sub_24910C2FC();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v9 = sub_24910C2FC();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v11 = sub_24910C2FC();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v10 = sub_24910C2FC();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
   profileCopy = profile;
 
   DTTransportDaemon.siriEndpointProfile(_:didUpdateSessionHubIdentifier:)(profileCopy);
 
-  sub_2490A487C(v9, &qword_27EED7900, &qword_24910EB50);
+  sub_2490A487C(v8, &qword_27EED7900, &qword_24910EB50);
 }
 
 - (_TtC23DistributedTimersDaemon17DTTransportDaemon)init

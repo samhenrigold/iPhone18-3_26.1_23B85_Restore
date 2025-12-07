@@ -39,33 +39,33 @@
 
 - (void)resetEventCounters
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   allKeys = [(NSMutableDictionary *)self->_mutableEventCounters allKeys];
   v4 = 0;
-  v5 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       v7 = 0;
       do
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v4 |= [(HMDEventCounterGroup *)self _resetEventCounterForEventName:*(*(&v21 + 1) + 8 * v7++)];
+        v4 |= [(HMDEventCounterGroup *)self _resetEventCounterForEventName:*(*(&v20 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v5);
@@ -76,30 +76,30 @@
   [uptimeProvider uptime];
   v10 = [v8 numberWithDouble:?];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   allKeys2 = [(NSMutableDictionary *)self->_runningDurationCounters allKeys];
-  v12 = [allKeys2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [allKeys2 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v12)
   {
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        [(NSMutableDictionary *)self->_runningDurationCounters setObject:v10 forKeyedSubscript:*(*(&v17 + 1) + 8 * v14++)];
+        [(NSMutableDictionary *)self->_runningDurationCounters setObject:v10 forKeyedSubscript:*(*(&v16 + 1) + 8 * v14++)];
       }
 
       while (v12 != v14);
-      v12 = [allKeys2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v12 = [allKeys2 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v12);
@@ -111,13 +111,11 @@
     context = [(HMDEventCounterGroup *)self context];
     [context counterChanged];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_resetEventCounterForEventName:(id)name
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   os_unfair_lock_assert_owner(&self->_lock);
   v5 = [(NSMutableDictionary *)self->_mutableEventCounters objectForKeyedSubscript:nameCopy];
@@ -136,9 +134,9 @@
         block[1] = 3221225472;
         block[2] = __55__HMDEventCounterGroup__resetEventCounterForEventName___block_invoke;
         block[3] = &unk_279732F10;
-        v20 = observers;
-        v21 = nameCopy;
-        v22 = v7;
+        v19 = observers;
+        v20 = nameCopy;
+        v21 = v7;
         dispatch_async(workQueue, block);
       }
 
@@ -151,7 +149,7 @@
         {
           v16 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v24 = v16;
+          v23 = v16;
           _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Can't call observers; context has been deallocated", buf, 0xCu);
         }
 
@@ -177,7 +175,6 @@
     v11 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -250,41 +247,40 @@ void __50__HMDEventCounterGroup_iterateCountersUsingBlock___block_invoke(uint64_
 
 - (unint64_t)summedEventCounters
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(HMDEventCounterGroup *)self updateAllDurationCounters];
   os_unfair_lock_lock_with_options();
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   allValues = [(NSMutableDictionary *)self->_mutableEventCounters allValues];
   v4 = 0;
-  v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v4 += [*(*(&v10 + 1) + 8 * v7++) count];
+        v4 += [*(*(&v9 + 1) + 8 * v7++) count];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -303,7 +299,7 @@ void __50__HMDEventCounterGroup_iterateCountersUsingBlock___block_invoke(uint64_
   [(NSMutableDictionary *)mutableEventCounters enumerateKeysAndObjectsUsingBlock:v8];
   if ([v5 count])
   {
-    v6 = [v5 copy];
+    v6 = objc_msgSend_copy(v5);
   }
 
   else
@@ -339,53 +335,51 @@ void __37__HMDEventCounterGroup_eventCounters__block_invoke(uint64_t a1, void *a
 
 - (void)updateAllDurationCounters
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   uptimeProvider = [(HMDEventCounterGroup *)self uptimeProvider];
   [uptimeProvider uptime];
   v5 = v4;
 
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:v5];
   os_unfair_lock_lock_with_options();
-  v7 = [(NSMutableDictionary *)self->_runningDurationCounters copy];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v7 = objc_msgSend_copy(self->_runningDurationCounters);
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allKeys = [(NSMutableDictionary *)self->_runningDurationCounters allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(NSMutableDictionary *)self->_runningDurationCounters setObject:v6 forKeyedSubscript:*(*(&v14 + 1) + 8 * v11++)];
+        [(NSMutableDictionary *)self->_runningDurationCounters setObject:v6 forKeyedSubscript:*(*(&v13 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __49__HMDEventCounterGroup_updateAllDurationCounters__block_invoke;
-  v13[3] = &unk_2797295E8;
-  v13[4] = self;
-  *&v13[5] = v5;
-  [v7 enumerateKeysAndObjectsUsingBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __49__HMDEventCounterGroup_updateAllDurationCounters__block_invoke;
+  v12[3] = &unk_2797295E8;
+  v12[4] = self;
+  *&v12[5] = v5;
+  [v7 enumerateKeysAndObjectsUsingBlock:v12];
 }
 
 void __49__HMDEventCounterGroup_updateAllDurationCounters__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -583,7 +577,7 @@ void __49__HMDEventCounterGroup_updateAllDurationCounters__block_invoke(uint64_t
   }
 
   [v10 addObject:observerCopy];
-  v13 = [v10 copy];
+  v13 = objc_msgSend_copy(v10);
   [v7 setObservers:v13];
 
   os_unfair_lock_unlock(&self->_lock);

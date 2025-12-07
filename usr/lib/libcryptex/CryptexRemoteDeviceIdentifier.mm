@@ -7,14 +7,14 @@
 
 - (CryptexRemoteDeviceIdentifier)initWithChipInstance:(const _img4_chip_instance *)instance
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v12.receiver = self;
-  v12.super_class = CryptexRemoteDeviceIdentifier;
-  v4 = [(CryptexRemoteDeviceIdentifier *)&v12 init];
+  v14 = *MEMORY[0x29EDCA608];
+  v11.receiver = self;
+  v11.super_class = CryptexRemoteDeviceIdentifier;
+  v4 = [(CryptexRemoteDeviceIdentifier *)&v11 init];
   v5 = malloc_type_calloc(1uLL, 0x90uLL, 0x8709206FuLL);
   if (!v5)
   {
-    [(CryptexRemoteDeviceIdentifier *)&v13 initWithChipInstance:v14];
+    [(CryptexRemoteDeviceIdentifier *)&v12 initWithChipInstance:v13];
   }
 
   v4->_inst = v5;
@@ -31,7 +31,6 @@
   v9 = *&instance->var2;
   *&v5->var0 = *&instance->var0;
   *&v5->var2 = v9;
-  v10 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -56,8 +55,8 @@
   v2 = __error();
   strerror(*v2);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5_0();
+  v9 = OUTLINED_FUNCTION_0(v3, v4, v5, v6, &dword_2986C0000, v7, v8, "allocation failed: obj = %s, size = %lu, error = %s");
+  OUTLINED_FUNCTION_5_0(v9);
   __break(1u);
 }
 

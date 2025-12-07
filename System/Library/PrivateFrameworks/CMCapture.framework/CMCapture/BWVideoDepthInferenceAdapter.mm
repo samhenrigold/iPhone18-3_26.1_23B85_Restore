@@ -96,12 +96,12 @@
             }
 
             v26 = *(*(&v162 + 1) + 8 * i);
-            if ([objc_msgSend(v26 "attachedMediaKey")])
+            if (objc_msgSend_isEqualToString_([v26 attachedMediaKey]))
             {
               v23 = v26;
             }
 
-            if ([objc_msgSend(v26 "attachedMediaKey")])
+            if (objc_msgSend_isEqualToString_([v26 attachedMediaKey]))
             {
               v22 = v26;
             }
@@ -137,7 +137,7 @@
                   }
 
                   v33 = *(*(&v157 + 1) + 8 * j);
-                  if ([objc_msgSend(v33 "attachedMediaKey")])
+                  if (objc_msgSend_isEqualToString_([v33 attachedMediaKey]))
                   {
                     v27 = v33;
                   }
@@ -199,16 +199,16 @@ LABEL_109:
                   goto LABEL_126;
                 }
 
-                [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+                [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
                 goto LABEL_126;
               }
 
-              [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+              [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
             }
 
             else
             {
-              [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+              [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
             }
 
 LABEL_144:
@@ -217,13 +217,13 @@ LABEL_144:
             goto LABEL_126;
           }
 
-          [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+          [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
         }
 
         else
         {
 LABEL_129:
-          [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+          [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
         }
 
 LABEL_125:
@@ -296,12 +296,12 @@ LABEL_60:
         }
 
         v68 = *(*(&v133 + 1) + 8 * k);
-        if ([objc_msgSend(v68 "attachedMediaKey")])
+        if (objc_msgSend_isEqualToString_([v68 attachedMediaKey]))
         {
           v65 = v68;
         }
 
-        if ([objc_msgSend(v68 "attachedMediaKey")])
+        if (objc_msgSend_isEqualToString_([v68 attachedMediaKey]))
         {
           v64 = v68;
         }
@@ -315,13 +315,13 @@ LABEL_60:
     if (!v65)
     {
 LABEL_130:
-      [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+      [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
       goto LABEL_125;
     }
 
     if (!v64)
     {
-      [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+      [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
       goto LABEL_125;
     }
 
@@ -364,7 +364,7 @@ LABEL_130:
     v78 = -[BWDisparityPostProcessingInferenceProvider initWithDisparityInputRequirement:displacementInputRequirement:stateInputRequirement:stateOutputRequirement:disparityOutputRequirement:portType:resourceProvider:configuration:]([BWDisparityPostProcessingInferenceProvider alloc], "initWithDisparityInputRequirement:displacementInputRequirement:stateInputRequirement:stateOutputRequirement:disparityOutputRequirement:portType:resourceProvider:configuration:", v117, v75, -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:]([BWInferenceVideoRequirement alloc], "initWithAttachedMediaKey:videoFormat:", 0x1F219EB70, v74), -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:]([BWInferenceVideoRequirement alloc], "initWithAttachedMediaKey:videoFormat:", 0x1F219EB90, v74), v77, [v119 portType], providerCopy2, v119);
     if (!v78)
     {
-      [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+      [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
       goto LABEL_144;
     }
 
@@ -375,7 +375,7 @@ LABEL_130:
       v79 = [[BWDisparityFilteringInferenceProvider alloc] initWithDisparityInputRequirement:v77 disparityOutputRequirement:[[BWInferenceVideoRequirement alloc] initWithAttachedMediaKey:@"Depth" videoFormat:v70] resourceProvider:providerCopy2 configuration:v119 isPreprocessing:0];
       if (!v79)
       {
-        [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+        [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
         goto LABEL_125;
       }
 
@@ -385,7 +385,7 @@ LABEL_130:
     v80 = [[BWDisparityFilteringInferenceProvider alloc] initWithDisparityInputRequirement:[[BWInferenceLazyVideoRequirement alloc] initWithAttachedMediaKey:0x1F219EAD0 preparedByAttachedMediaKey:0x1F219EAD0 videoFormatProvider:&__block_literal_global_126] disparityOutputRequirement:v65 resourceProvider:providerCopy2 configuration:v119 isPreprocessing:1];
     if (!v80)
     {
-      [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+      [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
       goto LABEL_125;
     }
 
@@ -457,7 +457,7 @@ LABEL_124:
           }
 
           v56 = *(*(&v147 + 1) + 8 * m);
-          if ([objc_msgSend(v56 "attachedMediaKey")])
+          if (objc_msgSend_isEqualToString_([v56 attachedMediaKey]))
           {
             v53 = v56;
           }
@@ -495,7 +495,7 @@ LABEL_124:
           }
 
           v103 = *(*(&v142 + 1) + 8 * n);
-          if ([objc_msgSend(v103 "attachedMediaKey")])
+          if (objc_msgSend_isEqualToString_([v103 attachedMediaKey]))
           {
             v100 = v103;
           }
@@ -538,7 +538,7 @@ LABEL_124:
     v111 = -[BWDisparityPostProcessingInferenceProvider initWithDisparityInputRequirement:displacementInputRequirement:stateInputRequirement:stateOutputRequirement:disparityOutputRequirement:portType:resourceProvider:configuration:]([BWDisparityPostProcessingInferenceProvider alloc], "initWithDisparityInputRequirement:displacementInputRequirement:stateInputRequirement:stateOutputRequirement:disparityOutputRequirement:portType:resourceProvider:configuration:", v104, -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:]([BWInferenceVideoRequirement alloc], "initWithAttachedMediaKey:videoFormat:", 0x1F219EA90, v108), -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:]([BWInferenceVideoRequirement alloc], "initWithAttachedMediaKey:videoFormat:", 0x1F219EB70, v110), -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:]([BWInferenceVideoRequirement alloc], "initWithAttachedMediaKey:videoFormat:", 0x1F219EB90, v110), -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:]([BWInferenceVideoRequirement alloc], "initWithAttachedMediaKey:videoFormat:", @"Depth", v106), [configurationCopy3 portType], provider, configurationCopy3);
     if (!v111)
     {
-      [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+      [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
       goto LABEL_144;
     }
 
@@ -614,7 +614,7 @@ LABEL_124:
     v92 = -[BWInferenceVideoScalingProvider initWithInputRequirement:derivedFromRequirement:outputRequirements:enableFencing:filterType:](v91, "initWithInputRequirement:derivedFromRequirement:outputRequirements:enableFencing:filterType:", v90, 0, [MEMORY[0x1E695DEC8] arrayWithObjects:&v125 count:1], 1, 3);
     if (!v92)
     {
-      [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+      [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
       goto LABEL_125;
     }
 
@@ -644,7 +644,7 @@ LABEL_124:
     goto LABEL_109;
   }
 
-  [BWVideoDepthInferenceAdapter inferenceProvidersForType:version:configuration:resourceProvider:status:];
+  [BWVideoDepthInferenceAdapter inferenceProvidersForType:v166 version:? configuration:? resourceProvider:? status:?];
 LABEL_126:
   if (status)
   {
@@ -712,170 +712,6 @@ id __104__BWVideoDepthInferenceAdapter_inferenceProvidersForType_version_configu
   [(BWInferenceVideoFormatRequirements *)v4 setIncludesInvalidContent:0];
   v10 = v4;
   return +[BWInferenceVideoFormat formatByResolvingRequirements:](BWInferenceVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1]);
-}
-
-- (uint64_t)inferenceProvidersForType:(_DWORD *)a1 version:configuration:resourceProvider:status:.cold.1(_DWORD *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  result = FigDebugAssert3();
-  *a1 = -31710;
-  return result;
-}
-
-- (uint64_t)inferenceProvidersForType:(_DWORD *)a1 version:configuration:resourceProvider:status:.cold.2(_DWORD *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  result = FigDebugAssert3();
-  *a1 = -31710;
-  return result;
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1_110();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1_110();
-}
-
-- (uint64_t)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1_110();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1_110();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1_110();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_100();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_100();
-}
-
-- (uint64_t)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.11()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.12()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.13()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1_110();
-}
-
-- (uint64_t)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.14()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.15()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.16()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1_110();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.17()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_1_110();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.18()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_100();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.19()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_100();
-}
-
-- (void)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.20()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_100();
-}
-
-- (uint64_t)inferenceProvidersForType:version:configuration:resourceProvider:status:.cold.21()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

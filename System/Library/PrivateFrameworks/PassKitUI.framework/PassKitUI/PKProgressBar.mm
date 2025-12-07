@@ -49,30 +49,32 @@
 - (void)layoutSubviews
 {
   [(PKProgressBar *)self bounds];
-  x = v12.origin.x;
-  y = v12.origin.y;
-  width = v12.size.width;
-  height = v12.size.height;
-  v7 = CGRectGetHeight(v12);
-  v13.origin.x = x;
-  v13.origin.y = y;
-  v13.size.width = width;
-  v13.size.height = height;
-  CGRectGetWidth(v13);
-  PKFloatRoundToPixel();
-  v9 = v8;
+  x = v15.origin.x;
+  y = v15.origin.y;
+  width = v15.size.width;
+  height = v15.size.height;
+  v7 = CGRectGetHeight(v15);
+  v16.origin.x = x;
+  v16.origin.y = y;
+  v16.size.width = width;
+  v16.size.height = height;
+  v8 = CGRectGetWidth(v16);
+  v9.n128_u64[0] = *&self->_progress;
+  v10.n128_f64[0] = v8 * v9.n128_f64[0];
+  PKFloatRoundToPixel(v10, v9);
+  v12 = v11;
   if ([(PKProgressBar *)self _shouldReverseLayoutDirection])
   {
-    *&v10.b = 0uLL;
-    v10.a = 1.0;
-    *&v10.d = xmmword_1BE1153F0;
-    v10.ty = height;
-    CGAffineTransformRotate(&v11, &v10, 3.14159265);
-    v10 = v11;
-    [(PKProgressBar *)self setTransform:&v10];
+    *&v13.b = 0uLL;
+    v13.a = 1.0;
+    *&v13.d = xmmword_1BE1153F0;
+    v13.ty = height;
+    CGAffineTransformRotate(&v14, &v13, 3.14159265);
+    v13 = v14;
+    [(PKProgressBar *)self setTransform:&v13];
   }
 
-  [(CAGradientLayer *)self->_fillLayer setFrame:0.0, 0.0, v9, v7];
+  [(CAGradientLayer *)self->_fillLayer setFrame:0.0, 0.0, v12, v7];
 }
 
 - (void)setCornerRadius:(double)radius

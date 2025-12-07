@@ -9,9 +9,9 @@
 
 - (MXRoutingContextCallbackHelper)initWithRoutingContext:(OpaqueFigRoutingContext *)context routeConfigUpdateID:(id)d correlationID:(id)iD callback:(void *)callback context:(void *)a7
 {
-  v24.receiver = self;
-  v24.super_class = MXRoutingContextCallbackHelper;
-  v12 = [(MXRoutingContextCallbackHelper *)&v24 init];
+  v22.receiver = self;
+  v22.super_class = MXRoutingContextCallbackHelper;
+  v12 = [(MXRoutingContextCallbackHelper *)&v22 init];
   v12->mRouteConfigUpdateID = d;
   if (context)
   {
@@ -31,23 +31,21 @@
   v12->mRoutingContextModificationMetrics = v14;
   -[MXRoutingContextModificationMetrics setServerModificationStartedTimestamp:](v14, "setServerModificationStartedTimestamp:", [MEMORY[0x1E696AD98] numberWithLongLong:FigGetUpTimeNanoseconds()]);
   mFigRoutingContext = v12->mFigRoutingContext;
-  VTable = CMBaseObjectGetVTable();
-  v17 = *(*(VTable + 16) + 64);
-  if (v17)
+  v16 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+  if (v16)
   {
-    v18 = *(VTable + 16) + 64;
-    v17(mFigRoutingContext, &v12->mPreviousRouteDescriptors);
+    v16(mFigRoutingContext, &v12->mPreviousRouteDescriptors);
   }
 
   objc_initWeak(&location, v12);
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __108__MXRoutingContextCallbackHelper_initWithRoutingContext_routeConfigUpdateID_correlationID_callback_context___block_invoke;
-  v21[3] = &unk_1E7AEB980;
-  objc_copyWeak(&v22, &location);
-  v12->mFigRoutingContextToken = [defaultCenter addObserverForName:@"routeConfigUpdated" object:context queue:0 usingBlock:v21];
-  objc_destroyWeak(&v22);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __108__MXRoutingContextCallbackHelper_initWithRoutingContext_routeConfigUpdateID_correlationID_callback_context___block_invoke;
+  v19[3] = &unk_1E7AEB980;
+  objc_copyWeak(&v20, &location);
+  v12->mFigRoutingContextToken = [defaultCenter addObserverForName:@"routeConfigUpdated" object:context queue:0 usingBlock:v19];
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
   return v12;
 }
@@ -96,7 +94,7 @@ id __45__MXRoutingContextCallbackHelper__sharedLock__block_invoke()
 
 - (void)_routeConfigUpdated:(id)updated
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   userInfo = [updated userInfo];
   v5 = [userInfo objectForKey:@"routeConfigUpdateID"];
   v6 = [userInfo objectForKey:@"routeConfigUpdateReason"];
@@ -127,8 +125,6 @@ id __45__MXRoutingContextCallbackHelper__sharedLock__block_invoke()
     self->mCallback = 0;
     self->mContext = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -65,7 +65,7 @@ void __45__AAUIAppleIDRepairController__prepareAction__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_alloc_init(MEMORY[0x1E698DCC0]);
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -87,7 +87,7 @@ void __45__AAUIAppleIDRepairController__prepareAction__block_invoke_30(uint64_t 
   v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {

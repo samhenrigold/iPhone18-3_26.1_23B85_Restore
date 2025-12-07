@@ -188,15 +188,15 @@ LABEL_15:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x277D85DE8];
-  v17[0] = @"identifier";
+  v17[5] = *MEMORY[0x277D85DE8];
+  v16[0] = @"identifier";
   identifier = [(ATXWidget *)self identifier];
-  v18[0] = identifier;
-  v17[1] = @"chsWidget";
+  v17[0] = identifier;
+  v16[1] = @"chsWidget";
   chsWidget = [(ATXWidget *)self chsWidget];
   v3 = [chsWidget description];
-  v18[1] = v3;
-  v17[2] = @"intent";
+  v17[1] = v3;
+  v16[2] = @"intent";
   chsWidget2 = [(ATXWidget *)self chsWidget];
   intentReference = [chsWidget2 intentReference];
   intent = [intentReference intent];
@@ -207,11 +207,11 @@ LABEL_15:
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[2] = null;
-  v17[3] = @"isSuggestedWidget";
+  v17[2] = null;
+  v16[3] = @"isSuggestedWidget";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXWidget isSuggestedWidget](self, "isSuggestedWidget")}];
-  v18[3] = v9;
-  v17[4] = @"source";
+  v17[3] = v9;
+  v16[4] = @"source";
   source = [(ATXWidget *)self source];
   null2 = source;
   if (!source)
@@ -219,8 +219,8 @@ LABEL_15:
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[4] = null2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = null2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
   if (!source)
   {
   }
@@ -228,8 +228,6 @@ LABEL_15:
   if (!v7)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

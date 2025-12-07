@@ -10,22 +10,28 @@
 {
   ObjectType = swift_getObjectType();
   v4 = *(&self->super.isa + OBJC_IVAR____TtCC9MusicCore30ExplicitRestrictionsControllerP33_49A4F392108DD8BCF77701E27C86571422AgeVerificationWrapper_completion);
-  selfCopy = self;
   if (v4)
   {
-    sub_307CC(v4);
+    v5 = *&self->completion[OBJC_IVAR____TtCC9MusicCore30ExplicitRestrictionsControllerP33_49A4F392108DD8BCF77701E27C86571422AgeVerificationWrapper_completion];
+    selfCopy = self;
+    sub_307CC(v4, v5);
     v4(0, 0);
-    sub_17654(v4);
+    sub_17654(v4, v5);
   }
 
-  v6.receiver = self;
-  v6.super_class = ObjectType;
-  [(ExplicitRestrictionsController.AgeVerificationWrapper *)&v6 dealloc];
+  else
+  {
+    selfCopy2 = self;
+  }
+
+  v8.receiver = self;
+  v8.super_class = ObjectType;
+  [(ExplicitRestrictionsController.AgeVerificationWrapper *)&v8 dealloc];
 }
 
 - (void)cloudServiceSetupViewControllerDidDismiss:(id)dismiss
 {
-  sub_13C80(0, &qword_E103C0);
+  sub_13C80(0, &qword_E103C0, OS_dispatch_queue_ptr);
   v4 = swift_allocObject();
   *(v4 + 16) = self;
   selfCopy = self;

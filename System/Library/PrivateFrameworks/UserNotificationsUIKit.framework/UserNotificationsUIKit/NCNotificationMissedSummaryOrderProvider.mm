@@ -196,7 +196,7 @@ void __107__NCNotificationMissedSummaryOrderProvider_generateDigestForATXUserNot
   v3 = a2;
   v4 = [v2 summaryHeading];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0_0(&dword_21E77E000, v5, v6, "Error creating missed notification ranking for %{public}@! [error=%@]", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_21E77E000, v5, v6, "Error creating missed notification ranking for %{public}@! [error=%@]", v7, v8, v9, v10);
 }
 
 @end

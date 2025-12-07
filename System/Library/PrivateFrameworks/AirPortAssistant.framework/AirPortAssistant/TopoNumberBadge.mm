@@ -22,9 +22,9 @@
 
   v3 = MEMORY[0x277CCA8D8];
   v4 = objc_opt_class();
-  v6 = objc_msgSend_bundleForClass_(v3, v5, v4);
-  v8 = objc_msgSend_imageNamed_inBundle_(ImageStore, v7, @"TopoBadgeBG", v6);
-  if (v8 && (qword_27E3834D0 = objc_msgSend_resizableImageWithCapInsets_(v8, v9, v10, 0.0, 14.0, 0.0, 14.0)) != 0)
+  v7 = objc_msgSend_bundleForClass_(v3, v5, v4, v6);
+  v9 = objc_msgSend_imageNamed_inBundle_(ImageStore, v8, @"TopoBadgeBG", v7);
+  if (v9 && (qword_27E3834D0 = objc_msgSend_resizableImageWithCapInsets_(v9, v10, v11, v12, 0.0, 14.0, 0.0, 14.0)) != 0)
   {
     return 0;
   }
@@ -37,30 +37,30 @@
 
 - (TopoNumberBadge)initWithOwningView:(id)view
 {
-  v15.receiver = self;
-  v15.super_class = TopoNumberBadge;
-  v4 = [(TopoNumberBadge *)&v15 init];
-  v6 = v4;
+  v19.receiver = self;
+  v19.super_class = TopoNumberBadge;
+  v4 = [(TopoNumberBadge *)&v19 init];
+  v7 = v4;
   if (v4)
   {
-    objc_msgSend_setOwningView_(v4, v5, view);
-    v9 = objc_msgSend_boldSystemFontOfSize_(MEMORY[0x277D74300], v7, v8, 17.0);
-    v6->_font = v9;
-    v10 = v9;
-    objc_msgSend_setNeedsDisplayOnBoundsChange_(v6, v11, 1);
-    objc_msgSend_initImageCache(TopoNumberBadge, v12, v13);
+    objc_msgSend_setOwningView_(v4, v5, view, v6);
+    v11 = objc_msgSend_boldSystemFontOfSize_(MEMORY[0x277D74300], v8, v9, v10, 17.0);
+    v7->_font = v11;
+    v12 = v11;
+    objc_msgSend_setNeedsDisplayOnBoundsChange_(v7, v13, 1, v14);
+    objc_msgSend_initImageCache(TopoNumberBadge, v15, v16, v17);
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setOwningView:(id)view
 {
   self->_owningView = view;
-  v4 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], a2, view);
-  objc_msgSend_scale(v4, v5, v6);
+  v5 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], a2, view, v3);
+  objc_msgSend_scale(v5, v6, v7, v8);
 
-  MEMORY[0x2821F9670](self, sel_setContentsScale_, v7);
+  MEMORY[0x2821F9670](self, sel_setContentsScale_, v9, v10);
 }
 
 - (CGSize)preferredFrameSize
@@ -90,21 +90,21 @@
   if (self->_count != count)
   {
     self->_count = count;
-    MEMORY[0x2821F9670](self, sel_calculateBadgeMetrics, count);
+    (MEMORY[0x2821F9670])(self, sel_calculateBadgeMetrics, count);
   }
 }
 
 - (void)layoutSublayers
 {
-  v4 = objc_msgSend_newNumberBadge(self, a2, v2);
-  objc_msgSend_setContents_(self, v5, v4);
+  v5 = objc_msgSend_newNumberBadge(self, a2, v2, v3);
+  objc_msgSend_setContents_(self, v6, v5, v7);
 
-  CGImageRelease(v4);
+  CGImageRelease(v5);
 }
 
 - (void)calculateBadgeMetrics
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   count = self->_count;
   if (count < 1)
   {
@@ -113,45 +113,45 @@
 
   else
   {
-    v5 = sub_23EB6CDA8(count, a2);
-    v8 = objc_msgSend_length(v5, v6, v7);
+    v6 = sub_23EB6CDA8(count, a2, v2, v3);
+    v10 = objc_msgSend_length(v6, v7, v8, v9);
     font = self->_font;
-    v27 = *MEMORY[0x277D740A8];
-    v28[0] = font;
-    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, v28, &v27, 1);
-    objc_msgSend_sizeWithAttributes_(v5, v12, v11);
-    v14 = v13;
-    objc_msgSend_capHeight(self->_font, v15, v16);
-    self->_textSize.width = v14;
-    self->_textSize.height = v17;
-    if (v8)
+    v32 = *MEMORY[0x277D740A8];
+    v33[0] = font;
+    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v33, &v32, 1);
+    objc_msgSend_sizeWithAttributes_(v6, v14, v13, v15);
+    v17 = v16;
+    objc_msgSend_capHeight(self->_font, v18, v19, v20);
+    self->_textSize.width = v17;
+    self->_textSize.height = v21;
+    if (v10)
     {
-      if (objc_msgSend_characterAtIndex_(v5, a2, 0) == 49)
+      if (objc_msgSend_characterAtIndex_(v6, a2, 0, v3) == 49)
       {
-        v14 = v14 + 1.0;
+        v17 = v17 + 1.0;
       }
 
-      if (objc_msgSend_characterAtIndex_(v5, v18, v8 - 1) == 49)
+      if (objc_msgSend_characterAtIndex_(v6, v22, v10 - 1, v23) == 49)
       {
-        v14 = v14 + -1.0;
+        v17 = v17 + -1.0;
       }
     }
 
-    v19 = v14 + 20.0;
-    v20 = floorf(v19);
-    if (v20 <= 23.0)
+    v24 = v17 + 20.0;
+    v25 = floorf(v24);
+    if (v25 <= 23.0)
     {
-      v20 = 23.0;
+      v25 = 23.0;
     }
 
-    v21 = v20;
+    v26 = v25;
     __asm { FMOV            V0.2D, #31.0 }
 
-    _Q0.width = v21;
+    _Q0.width = v26;
   }
 
   self->_imageSize = _Q0;
-  objc_msgSend_setNeedsLayout(self, a2, v2);
+  objc_msgSend_setNeedsLayout(self, a2, v2, v3);
 }
 
 + (id)imageBadgeForCount:(int64_t)count
@@ -160,17 +160,17 @@
   if (count)
   {
     v4 = objc_alloc_init(TopoNumberBadge);
-    v6 = v4;
+    v7 = v4;
     if (v4)
     {
-      objc_msgSend_setCount_(v4, v5, countCopy);
-      v7 = *MEMORY[0x277CBF348];
-      v8 = *(MEMORY[0x277CBF348] + 8);
-      objc_msgSend_preferredFrameSize(v6, v9, v10);
-      objc_msgSend_setFrame_(v6, v11, v12, v7, v8, v13, v14);
-      v17 = objc_msgSend_newNumberBadge(v6, v15, v16);
-      countCopy = objc_msgSend_imageWithCGImage_(MEMORY[0x277D755B8], v18, v17);
-      CGImageRelease(v17);
+      objc_msgSend_setCount_(v4, v5, countCopy, v6);
+      v8 = *MEMORY[0x277CBF348];
+      v9 = *(MEMORY[0x277CBF348] + 8);
+      objc_msgSend_preferredFrameSize(v7, v10, v11, v12);
+      objc_msgSend_setFrame_(v7, v13, v14, v15, v8, v9, v16, v17);
+      v21 = objc_msgSend_newNumberBadge(v7, v18, v19, v20);
+      countCopy = objc_msgSend_imageWithCGImage_(MEMORY[0x277D755B8], v22, v21, v23);
+      CGImageRelease(v21);
     }
 
     else
@@ -181,7 +181,7 @@
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   return countCopy;
@@ -189,59 +189,59 @@
 
 - (CGImage)newNumberBadge
 {
-  v63[2] = *MEMORY[0x277D85DE8];
-  objc_msgSend_bounds(self, a2, v2);
-  if (CGRectIsEmpty(v65))
+  v80[2] = *MEMORY[0x277D85DE8];
+  objc_msgSend_bounds(self, a2, v2, v3);
+  if (CGRectIsEmpty(v82))
   {
     return 0;
   }
 
-  objc_msgSend_bounds(self, v4, v5);
-  v8 = v7;
+  objc_msgSend_bounds(self, v5, v6, v7);
   v10 = v9;
-  objc_msgSend_scale(qword_27E3834D0, v11, v12);
-  v14 = v13;
-  v64.width = v8;
-  v64.height = v10;
-  UIGraphicsBeginImageContextWithOptions(v64, 0, v14);
-  v15 = qword_27E3834D0;
-  objc_msgSend_bounds(self, v16, v17);
-  objc_msgSend_drawInRect_(v15, v18, v19);
-  v21 = sub_23EB6CDA8(self->_count, v20);
-  objc_msgSend_bounds(self, v22, v23);
-  v25 = (v24 - self->_textSize.height) * 0.5 + -4.0;
-  v26 = floorf(v25);
-  objc_msgSend_leading(self->_font, v27, v28);
-  v30 = v29;
-  objc_msgSend_ascender(self->_font, v31, v32);
-  v34 = v33;
-  objc_msgSend_descender(self->_font, v35, v36);
-  v38 = v30 - (v34 - v37);
-  objc_msgSend_ascender(self->_font, v39, v40);
-  v42 = v41;
-  objc_msgSend_capHeight(self->_font, v43, v44);
-  *&v45 = v38 + v42 - v45;
-  *&v38 = v26 - floorf(*&v45);
-  objc_msgSend_bounds(self, v46, v47);
-  v49 = (v48 - self->_textSize.width) * 0.5;
-  v50 = roundf(v49);
+  v12 = v11;
+  objc_msgSend_scale(qword_27E3834D0, v13, v14, v15);
+  v17 = v16;
+  v81.width = v10;
+  v81.height = v12;
+  UIGraphicsBeginImageContextWithOptions(v81, 0, v17);
+  v18 = qword_27E3834D0;
+  objc_msgSend_bounds(self, v19, v20, v21);
+  objc_msgSend_drawInRect_(v18, v22, v23, v24);
+  v28 = sub_23EB6CDA8(self->_count, v25, v26, v27);
+  objc_msgSend_bounds(self, v29, v30, v31);
+  v33 = (v32 - self->_textSize.height) * 0.5 + -4.0;
+  v34 = floorf(v33);
+  objc_msgSend_leading(self->_font, v35, v36, v37);
+  v39 = v38;
+  objc_msgSend_ascender(self->_font, v40, v41, v42);
+  v44 = v43;
+  objc_msgSend_descender(self->_font, v45, v46, v47);
+  v49 = v39 - (v44 - v48);
+  objc_msgSend_ascender(self->_font, v50, v51, v52);
+  v54 = v53;
+  objc_msgSend_capHeight(self->_font, v55, v56, v57);
+  *&v58 = v49 + v54 - v58;
+  *&v49 = v34 - floorf(*&v58);
+  objc_msgSend_bounds(self, v59, v60, v61);
+  v63 = (v62 - self->_textSize.width) * 0.5;
+  v64 = roundf(v63);
   font = self->_font;
-  v52 = *MEMORY[0x277D740C0];
-  v62[0] = *MEMORY[0x277D740A8];
-  v62[1] = v52;
-  v63[0] = font;
-  v63[1] = objc_msgSend_whiteColor(MEMORY[0x277D75348], v53, v54);
-  v56 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v55, v63, v62, 2);
-  objc_msgSend_drawAtPoint_withAttributes_(v21, v57, v56, v50, *&v38);
+  v66 = *MEMORY[0x277D740C0];
+  v79[0] = *MEMORY[0x277D740A8];
+  v79[1] = v66;
+  v80[0] = font;
+  v80[1] = objc_msgSend_whiteColor(MEMORY[0x277D75348], v67, v68, v69);
+  v71 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v70, v80, v79, 2);
+  objc_msgSend_drawAtPoint_withAttributes_(v28, v72, v71, v73, v64, *&v49);
   ImageFromCurrentImageContext = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
   if (ImageFromCurrentImageContext)
   {
-    v60 = objc_msgSend_CGImage(ImageFromCurrentImageContext, v58, v59);
-    ImageFromCurrentImageContext = v60;
-    if (v60)
+    v77 = objc_msgSend_CGImage(ImageFromCurrentImageContext, v74, v75, v76);
+    ImageFromCurrentImageContext = v77;
+    if (v77)
     {
-      CGImageRetain(v60);
+      CGImageRetain(v77);
     }
   }
 

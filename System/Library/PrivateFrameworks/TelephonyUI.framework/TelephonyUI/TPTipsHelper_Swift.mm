@@ -30,12 +30,11 @@
   v2 = sub_1B48D2024();
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A2610, &qword_1B48EBF70);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v8 - v6;
-  (*(v4 + 16))(&v8 - v6, v2, v3);
+  v6 = &v7 - v5;
+  (*(v4 + 16))(&v7 - v5, v2, v3);
   sub_1B48E68C4();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (TPTipsHelper_Swift)init
@@ -56,22 +55,20 @@
   RecentsSaveAsContactTip.init()();
   v0 = sub_1B48E67C4();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   MEMORY[0x1EEE9AC00](v0);
-  v4 = &v12 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v1 + 104))(v4, *MEMORY[0x1E6982AE8], v0);
+  v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v1 + 104))(v3, *MEMORY[0x1E6982AE8], v0);
   sub_1B48CBB64();
   sub_1B48E6654();
-  (*(v1 + 8))(v4, v0);
-  v5 = sub_1B48CD3B0();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A2610, &qword_1B48EBF70);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - v9;
-  (*(v7 + 16))(&v12 - v9, v5, v6);
+  (*(v1 + 8))(v3, v0);
+  v4 = sub_1B48CD3B0();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A2610, &qword_1B48EBF70);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v10 - v7;
+  (*(v6 + 16))(&v10 - v7, v4, v5);
   sub_1B48E68C4();
-  return (*(v7 + 8))(v10, v6);
+  return (*(v6 + 8))(v8, v5);
 }
 
 @end

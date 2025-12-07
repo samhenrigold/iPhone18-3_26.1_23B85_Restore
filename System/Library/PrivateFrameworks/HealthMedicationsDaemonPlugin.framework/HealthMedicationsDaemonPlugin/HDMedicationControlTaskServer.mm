@@ -1,4 +1,5 @@
 @interface HDMedicationControlTaskServer
+- (void)remote_accountDevicesInfoTriggeringUpdate:(BOOL)update completion:(id)completion;
 - (void)remote_allDismissedDrugInteractionsWithCompletion:(id)completion;
 - (void)remote_allDismissedPregnancyLactationInteractionsWithCompletion:(id)completion;
 - (void)remote_allDismissedRemoteScheduleUnavailableRecordsWithCompletion:(id)completion;
@@ -24,6 +25,20 @@
   v8 = [deviceScopedStorageManager updateLocalDeviceValuesNowWithError:&v10];
   v9 = v10;
   completionCopy[2](completionCopy, v8, v9);
+}
+
+- (void)remote_accountDevicesInfoTriggeringUpdate:(BOOL)update completion:(id)completion
+{
+  updateCopy = update;
+  completionCopy = completion;
+  profile = [(HDStandardTaskServer *)self profile];
+  healthMedicationsProfileExtension = [profile healthMedicationsProfileExtension];
+  deviceScopedStorageManager = [healthMedicationsProfileExtension deviceScopedStorageManager];
+
+  v12 = 0;
+  v10 = [deviceScopedStorageManager accountDevicesInfoTriggeringUpdate:updateCopy error:&v12];
+  v11 = v12;
+  completionCopy[2](completionCopy, v10, v11);
 }
 
 - (void)remote_markRemoteScheduleUnavailableRecordsAsDismissed:(id)dismissed completion:(id)completion
@@ -82,7 +97,7 @@ BOOL __99__HDMedicationControlTaskServer_remote_allDismissedRemoteScheduleUnavai
 
 - (void)remote_deleteDismissedRemoteScheduleUnavailableForMedication:(id)medication completion:(id)completion
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   medicationCopy = medication;
   completionCopy = completion;
   semanticIdentifier = [medicationCopy semanticIdentifier];
@@ -92,15 +107,15 @@ BOOL __99__HDMedicationControlTaskServer_remote_allDismissedRemoteScheduleUnavai
   {
     semanticIdentifier2 = [medicationCopy semanticIdentifier];
     stringValue2 = [semanticIdentifier2 stringValue];
-    v22[0] = stringValue2;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = stringValue2;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     v14 = HDDismissedRemoteScheduleUnavailableRecordsForMedicationSemanticIdentifiers(v13);
 
     profile = [(HDStandardTaskServer *)self profile];
     database = [profile database];
-    v21 = 0;
-    v17 = [(HDHealthEntity *)HDDismissedRemoteScheduleUnavailableRecordEntity deleteEntitiesWithPredicate:v14 healthDatabase:database error:&v21];
-    v18 = v21;
+    v20 = 0;
+    v17 = [(HDHealthEntity *)HDDismissedRemoteScheduleUnavailableRecordEntity deleteEntitiesWithPredicate:v14 healthDatabase:database error:&v20];
+    v18 = v20;
 
     completionCopy[2](completionCopy, v17, v18);
   }
@@ -110,8 +125,6 @@ BOOL __99__HDMedicationControlTaskServer_remote_allDismissedRemoteScheduleUnavai
     v19 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:{@"%@: medication.semanticIdentifier must not be nil", self}];
     completionCopy[2](completionCopy, 0, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_markDrugInteractionAsDismissed:(id)dismissed completion:(id)completion
@@ -261,7 +274,7 @@ BOOL __97__HDMedicationControlTaskServer_remote_allDismissedPregnancyLactationIn
 
 - (void)remote_deleteDismissedPregnancyLactationInteractionsForMedication:(id)medication interactionTypes:(id)types completion:(id)completion
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   medicationCopy = medication;
   typesCopy = types;
   completionCopy = completion;
@@ -270,15 +283,15 @@ BOOL __97__HDMedicationControlTaskServer_remote_allDismissedPregnancyLactationIn
   if (firstConceptIdentifier)
   {
     firstConceptIdentifier2 = [medicationCopy firstConceptIdentifier];
-    v23[0] = firstConceptIdentifier2;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = firstConceptIdentifier2;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     v15 = HDDismissedPregnancyLactationInteractionPredicateForMedicationIdentifiersAndInteractionTypes(v14, typesCopy);
 
     profile = [(HDStandardTaskServer *)self profile];
     database = [profile database];
-    v22 = 0;
-    v18 = [(HDHealthEntity *)HDDismissedPregnancyLactationInteractionEntity deleteEntitiesWithPredicate:v15 healthDatabase:database error:&v22];
-    v19 = v22;
+    v21 = 0;
+    v18 = [(HDHealthEntity *)HDDismissedPregnancyLactationInteractionEntity deleteEntitiesWithPredicate:v15 healthDatabase:database error:&v21];
+    v19 = v21;
 
     completionCopy[2](completionCopy, v18, v19);
   }
@@ -288,8 +301,6 @@ BOOL __97__HDMedicationControlTaskServer_remote_allDismissedPregnancyLactationIn
     v20 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:{@"%@: medication.firstConceptIdentifier must not be nil", self}];
     completionCopy[2](completionCopy, 0, v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

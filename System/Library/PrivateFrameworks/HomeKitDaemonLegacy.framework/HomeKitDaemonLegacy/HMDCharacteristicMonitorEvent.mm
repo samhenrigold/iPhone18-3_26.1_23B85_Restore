@@ -27,7 +27,7 @@
 
 - (BOOL)_evaluateNewValue:(id)value
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   previousValue = [(HMDCharacteristicEventBase *)self previousValue];
   if (valueCopy)
@@ -46,33 +46,32 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v10 = v19 = previousValue;
+    v10 = v18 = previousValue;
     v11 = HMFBooleanToString();
     characteristic = [(HMDCharacteristicEventBase *)selfCopy characteristic];
     value = [characteristic value];
     [(HMDCharacteristicEvent *)selfCopy eventValue];
-    v14 = v18 = v7;
+    v14 = v17 = v7;
     characteristic2 = [(HMDCharacteristicEventBase *)selfCopy characteristic];
     *buf = 138544642;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v19;
-    v26 = 2112;
-    v27 = value;
-    v28 = 2112;
-    v29 = v14;
-    v30 = 2112;
-    v31 = characteristic2;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v18;
+    v25 = 2112;
+    v26 = value;
+    v27 = 2112;
+    v28 = v14;
+    v29 = 2112;
+    v30 = characteristic2;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Evaluated event, should fire: %@, previous value: %@, current value: %@, event monitor value: %@, %@", buf, 0x3Eu);
 
-    v7 = v18;
-    previousValue = v19;
+    v7 = v17;
+    previousValue = v18;
   }
 
   objc_autoreleasePoolPop(v7);
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -102,12 +101,11 @@
 
 uint64_t __44__HMDCharacteristicMonitorEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_20958;
-  logCategory__hmf_once_v1_20958 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_20958;
+  logCategory__hmf_once_v1_20958 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

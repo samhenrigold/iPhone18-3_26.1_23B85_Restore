@@ -1,4 +1,5 @@
 @interface FSFNluResponseFeature
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (FSFNluResponseFeature)initWithContent:(id)content dataVersion:(unsigned int)version;
 - (FSFNluResponseFeature)initWithContentJson:(id)json dataVersion:(unsigned int)version;
 - (FSFNluResponseFeature)initWithData:(id)data dataVersion:(unsigned int)version;
@@ -101,6 +102,15 @@
   }
 
   return v3;
+}
+
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version
+{
+  v4 = *&version;
+  dataCopy = data;
+  v6 = [[FSFNluResponseFeature alloc] initWithData:dataCopy dataVersion:v4];
+
+  return v6;
 }
 
 - (id)json

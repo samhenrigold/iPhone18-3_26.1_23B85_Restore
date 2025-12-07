@@ -26,7 +26,7 @@
 
 - (void)handleForBinaryPath:(id)path
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CCA8A8]);
   objc_sync_enter(self);
   v6 = [(NSMutableDictionary *)self->handleSoFar objectForKeyedSubscript:path];
@@ -37,29 +37,29 @@
   }
 
   dlHandle = dlopen([path UTF8String], 1);
-  if (VRTraceGetErrorLogLevelForModule("") >= 3 && (v10 = VRTraceErrorLogLevelToCSTR(3u), v11 = gVRTraceOSLog, os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR)))
+  if (VRTraceGetErrorLogLevelForModule("") >= 3 && (v9 = VRTraceErrorLogLevelToCSTR(3u), v10 = gVRTraceOSLog, os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR)))
   {
-    v17 = 136316162;
-    v18 = v10;
-    v19 = 2080;
-    v20 = "[GKSLinkingSingleton handleForBinaryPath:]";
-    v21 = 1024;
-    v22 = 47;
-    v23 = 2080;
+    v16 = 136316162;
+    v17 = v9;
+    v18 = 2080;
+    v19 = "[GKSLinkingSingleton handleForBinaryPath:]";
+    v20 = 1024;
+    v21 = 47;
+    v22 = 2080;
     uTF8String = [path UTF8String];
-    v25 = 2048;
-    v26 = dlHandle;
-    _os_log_error_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_ERROR, " [%s] %s:%d ViceroyTrace: Attempting to get symbols out of path %s, handle = %p", &v17, 0x30u);
+    v24 = 2048;
+    v25 = dlHandle;
+    _os_log_error_impl(&dword_23D4DF000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d ViceroyTrace: Attempting to get symbols out of path %s, handle = %p", &v16, 0x30u);
     if (dlHandle)
     {
 LABEL_7:
       if (!self->handleSoFar)
       {
-        v12 = objc_alloc_init(GKSDLHandleWrapper);
-        [(GKSDLHandleWrapper *)v12 setDlHandle:dlHandle];
-        v13 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:1];
-        self->handleSoFar = v13;
-        [(NSMutableDictionary *)v13 setObject:v12 forKeyedSubscript:path];
+        v11 = objc_alloc_init(GKSDLHandleWrapper);
+        [(GKSDLHandleWrapper *)v11 setDlHandle:dlHandle];
+        v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:1];
+        self->handleSoFar = v12;
+        [(NSMutableDictionary *)v12 setObject:v11 forKeyedSubscript:path];
       }
 
       goto LABEL_3;
@@ -73,12 +73,12 @@ LABEL_7:
 
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    v14 = VRTraceErrorLogLevelToCSTR(3u);
-    v15 = gVRTraceOSLog;
+    v13 = VRTraceErrorLogLevelToCSTR(3u);
+    v14 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v16 = dlerror();
-      [(GKSLinkingSingleton *)v14 handleForBinaryPath:v16, &v17, v15];
+      v15 = dlerror();
+      [(GKSLinkingSingleton *)v13 handleForBinaryPath:v15, &v16, v14];
     }
   }
 
@@ -86,7 +86,6 @@ LABEL_7:
 LABEL_3:
   objc_sync_exit(self);
 
-  v8 = *MEMORY[0x277D85DE8];
   return dlHandle;
 }
 

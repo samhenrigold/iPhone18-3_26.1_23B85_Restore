@@ -144,14 +144,14 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v18[7] = *MEMORY[0x277D85DE8];
-  v17[0] = @"disabled";
-  v16 = [MEMORY[0x277CCABB0] numberWithBool:{-[CAFSelectableNotificationEntry disabled](self, "disabled")}];
-  v18[0] = v16;
-  v17[1] = @"offSymbolColor";
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFSelectableNotificationEntry offSymbolColor](self, "offSymbolColor")}];
-  v18[1] = v15;
-  v17[2] = @"offSymbolName";
+  v17[7] = *MEMORY[0x277D85DE8];
+  v16[0] = @"disabled";
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:{-[CAFSelectableNotificationEntry disabled](self, "disabled")}];
+  v17[0] = v15;
+  v16[1] = @"offSymbolColor";
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFSelectableNotificationEntry offSymbolColor](self, "offSymbolColor")}];
+  v17[1] = v14;
+  v16[2] = @"offSymbolName";
   offSymbolName = [(CAFSelectableNotificationEntry *)self offSymbolName];
   null = offSymbolName;
   if (!offSymbolName)
@@ -159,8 +159,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[2] = null;
-  v17[3] = @"offUserVisibleLabel";
+  v17[2] = null;
+  v16[3] = @"offUserVisibleLabel";
   offUserVisibleLabel = [(CAFSelectableNotificationEntry *)self offUserVisibleLabel];
   null2 = offUserVisibleLabel;
   if (!offUserVisibleLabel)
@@ -168,11 +168,11 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[3] = null2;
-  v17[4] = @"onSymbolColor";
+  v17[3] = null2;
+  v16[4] = @"onSymbolColor";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFSelectableNotificationEntry onSymbolColor](self, "onSymbolColor")}];
-  v18[4] = v7;
-  v17[5] = @"onSymbolName";
+  v17[4] = v7;
+  v16[5] = @"onSymbolName";
   onSymbolName = [(CAFSelectableNotificationEntry *)self onSymbolName];
   null3 = onSymbolName;
   if (!onSymbolName)
@@ -180,8 +180,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[5] = null3;
-  v17[6] = @"onUserVisibleLabel";
+  v17[5] = null3;
+  v16[6] = @"onUserVisibleLabel";
   onUserVisibleLabel = [(CAFSelectableNotificationEntry *)self onUserVisibleLabel];
   null4 = onUserVisibleLabel;
   if (!onUserVisibleLabel)
@@ -189,8 +189,8 @@
     null4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[6] = null4;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
+  v17[6] = null4;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
   if (!onUserVisibleLabel)
   {
   }
@@ -206,8 +206,6 @@
   if (!offSymbolName)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

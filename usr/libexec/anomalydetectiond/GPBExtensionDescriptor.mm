@@ -154,7 +154,7 @@
           return valueData;
         }
 
-        result = GPBEmptyNSData();
+        result = GPBEmptyNSData(self, a2);
         break;
       case 0xEu:
         valueData = self->defaultValue_.valueData;

@@ -7,7 +7,7 @@
 
 - (void)rem_addParagraphNamedStyle:()REMTTParagraphStyle inRange:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v9 = [self length];
   if (a4 >= v9)
   {
@@ -41,25 +41,23 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       innerStyle2 = [(REMTTParagraphStyle *)v11 innerStyle];
-      v25.location = a4;
-      v25.length = a5;
-      v16 = NSStringFromRange(v25);
-      v18 = 134218498;
+      v24.location = a4;
+      v24.length = a5;
+      v16 = NSStringFromRange(v24);
+      v17 = 134218498;
       selfCopy = self;
-      v20 = 2112;
-      v21 = innerStyle2;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_INFO, "Added REMTTParagraphStyle to this NSMutableAttributedString {self: %p, paragraphStyle: %@, range: %@}", &v18, 0x20u);
+      v19 = 2112;
+      v20 = innerStyle2;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_INFO, "Added REMTTParagraphStyle to this NSMutableAttributedString {self: %p, paragraphStyle: %@, range: %@}", &v17, 0x20u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rem_removeParagraphNamedStyleFromRange:()REMTTParagraphStyle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v7 = [self length];
   if (a3 >= v7)
   {
@@ -82,18 +80,16 @@
     v9 = +[REMLog crdt];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v17.location = a3;
-      v17.length = v8;
-      v10 = NSStringFromRange(v17);
-      v12 = 134218242;
+      v16.location = a3;
+      v16.length = v8;
+      v10 = NSStringFromRange(v16);
+      v11 = 134218242;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_INFO, "Remove REMTTParagraphStyle from this NSMutableAttributedString {self: %p, range: %@}", &v12, 0x16u);
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_INFO, "Remove REMTTParagraphStyle from this NSMutableAttributedString {self: %p, range: %@}", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

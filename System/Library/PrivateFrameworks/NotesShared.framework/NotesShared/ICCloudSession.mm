@@ -38,7 +38,7 @@
 - (NSError)error
 {
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D98);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41D98, &qword_2150C2718);
   sub_2150A55B0();
 
   if (v5)
@@ -70,29 +70,29 @@
 {
   v3 = sub_2150A3A00();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = OBJC_IVAR___ICCloudSession_identifier;
+  MEMORY[0x28223BE20](v3, v5);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = OBJC_IVAR___ICCloudSession_identifier;
   swift_beginAccess();
-  (*(v4 + 16))(v6, self + v7, v3);
-  v8 = sub_2150A39A0();
-  (*(v4 + 8))(v6, v3);
+  (*(v4 + 16))(v7, self + v8, v3);
+  v9 = sub_2150A39A0();
+  (*(v4 + 8))(v7, v3);
 
-  return v8;
+  return v9;
 }
 
 - (void)setIdentifier:(id)identifier
 {
   v4 = sub_2150A3A00();
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4, v6);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2150A39C0();
-  v8 = OBJC_IVAR___ICCloudSession_identifier;
+  v9 = OBJC_IVAR___ICCloudSession_identifier;
   swift_beginAccess();
-  v9 = *(v5 + 40);
+  v10 = *(v5 + 40);
   selfCopy = self;
-  v9(self + v8, v7, v4);
+  v10(self + v9, v8, v4);
   swift_endAccess();
 }
 

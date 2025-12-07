@@ -65,7 +65,7 @@ LABEL_9:
 
 - (id)_subtitleStringFromEntry:(void *)entry andETA:
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   entryCopy = entry;
   v7 = entryCopy;
@@ -74,72 +74,79 @@ LABEL_9:
     [entryCopy seconds];
     v9 = NSStringFromMapsSuggestionsShortETA(v8);
     undecoratedSubtitle = [v5 undecoratedSubtitle];
-    if ([v9 length] && objc_msgSend(self, "shouldDecorateEntry:withETA:", v5, v7))
+    v11 = [v9 length];
+    if (v11)
     {
-      v11 = [v5 dateForKey:@"MapsSuggestionsScheduledTimeKey"];
-      if (([v5 BOOLeanForKey:@"MapsSuggestionsCalendarAllDayEventKey" is:1] & 1) != 0 || MapsSuggestionsIsInThePast(v11))
+      v11 = [self shouldDecorateEntry:v5 withETA:v7];
+      if (v11)
       {
-        v12 = MapsSuggestionsLocalizedStringFromGEOTransportType([v7 transportType]);
-        v13 = MapsSuggestionsLocalizedETAFormatString(v9, v12);
-
-        if (MapsSuggestionsLoggingIsVerbose())
+        v13 = [v5 dateForKey:@"MapsSuggestionsScheduledTimeKey"];
+        if (([v5 BOOLeanForKey:@"MapsSuggestionsCalendarAllDayEventKey" is:1] & 1) != 0 || (v11 = MapsSuggestionsIsInThePast(v13), v11))
         {
-          v14 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-          {
-            HIDWORD(v35) = HIDWORD(v13);
-            OUTLINED_FUNCTION_0_4(&dword_1C5126000, v15, v16, "Subtitle from decoration: %@", v17, v18, v19, v20, 2u);
-          }
-        }
+          v14 = MapsSuggestionsLocalizedStringFromGEOTransportType([v7 transportType]);
+          v15 = MapsSuggestionsLocalizedETAFormatString(v9, v14);
 
-        v21 = v13;
+          if (MapsSuggestionsLoggingIsVerbose(v16, v17))
+          {
+            v18 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+            {
+              *v40 = 138412290;
+              *&v40[4] = v15;
+              OUTLINED_FUNCTION_0_4(&dword_1C5126000, v19, v20, "Subtitle from decoration: %@", v21, v22, v23, v24, *v40);
+            }
+          }
+
+          v25 = v15;
 LABEL_11:
 
 LABEL_23:
-        goto LABEL_24;
-      }
-
-      if (v11)
-      {
-        v22 = NSStringFromMapsSuggestionsEventTime(v11);
-        v23 = MapsSuggestionsLocalizedStringFromGEOTransportType([v7 transportType]);
-        v24 = MapsSuggestionsLocalizedETAFormatStringWithTime(v22, v9, v23);
-
-        if (MapsSuggestionsLoggingIsVerbose())
-        {
-          v25 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
-          {
-            HIDWORD(v35) = HIDWORD(v24);
-            OUTLINED_FUNCTION_0_4(&dword_1C5126000, v26, v27, "Subtitle from decoration: %@", v28, v29, v30, v31, 2u);
-          }
+          goto LABEL_24;
         }
 
-        v21 = v24;
+        if (v13)
+        {
+          v26 = NSStringFromMapsSuggestionsEventTime(v13);
+          v27 = MapsSuggestionsLocalizedStringFromGEOTransportType([v7 transportType]);
+          v28 = MapsSuggestionsLocalizedETAFormatStringWithTime(v26, v9, v27);
 
-        goto LABEL_11;
+          if (MapsSuggestionsLoggingIsVerbose(v29, v30))
+          {
+            v31 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+            {
+              *v40 = 138412290;
+              *&v40[4] = v28;
+              OUTLINED_FUNCTION_0_4(&dword_1C5126000, v32, v33, "Subtitle from decoration: %@", v34, v35, v36, v37, *v40);
+            }
+          }
+
+          v25 = v28;
+
+          goto LABEL_11;
+        }
       }
     }
 
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(v11, v12))
     {
-      v32 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v38 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        v34 = 138412290;
-        v35 = undecoratedSubtitle;
-        _os_log_impl(&dword_1C5126000, v32, OS_LOG_TYPE_DEBUG, "Subtitle from decoration: %@", &v34, 0xCu);
+        *v40 = 138412290;
+        *&v40[4] = undecoratedSubtitle;
+        _os_log_impl(&dword_1C5126000, v38, OS_LOG_TYPE_DEBUG, "Subtitle from decoration: %@", v40, 0xCu);
       }
     }
 
-    v21 = undecoratedSubtitle;
+    v25 = undecoratedSubtitle;
     goto LABEL_23;
   }
 
-  v21 = 0;
+  v25 = 0;
 LABEL_24:
 
-  return v21;
+  return v25;
 }
 
 @end

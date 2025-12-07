@@ -21,7 +21,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_21E086D94();
+  sub_21E086D94(delegate);
 }
 
 - (VIUVisualIntelligenceView)overlayView

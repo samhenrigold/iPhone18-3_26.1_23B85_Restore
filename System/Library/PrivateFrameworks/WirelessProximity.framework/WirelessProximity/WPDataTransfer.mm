@@ -35,7 +35,7 @@
 
 - (BOOL)addNewData:(id)data
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length])
   {
@@ -82,9 +82,9 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      v30 = 0;
-      [dataCopy getBytes:&v30 length:2];
-      [(WPDataTransfer *)self setCurrentDataSize:v30];
+      v29 = 0;
+      [dataCopy getBytes:&v29 length:2];
+      [(WPDataTransfer *)self setCurrentDataSize:v29];
       v11 = [dataCopy subdataWithRange:{2, objc_msgSend(dataCopy, "length") - 2}];
       [(WPDataTransfer *)self currentDataSize];
       kdebug_trace();
@@ -96,16 +96,16 @@ LABEL_18:
       v12 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
       {
-        v13 = v30;
+        v13 = v29;
         v14 = v12;
         v15 = [v11 length];
         peerUUID = [(WPDataTransfer *)self peerUUID];
         *buf = 67109634;
-        *v32 = v13;
-        *&v32[4] = 2048;
-        *&v32[6] = v15;
-        *&v32[14] = 2114;
-        *&v32[16] = peerUUID;
+        *v31 = v13;
+        *&v31[4] = 2048;
+        *&v31[6] = v15;
+        *&v31[14] = 2114;
+        *&v31[16] = peerUUID;
         _os_log_impl(&dword_274327000, v14, OS_LOG_TYPE_INFO, "BEGIN receiving data of total length %d, first packet length %ld from peer %{public}@", buf, 0x1Cu);
       }
 
@@ -120,7 +120,7 @@ LABEL_18:
         v18 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
         {
-          [(WPDataTransfer *)&v30 addNewData:v18, v11];
+          [(WPDataTransfer *)&v29 addNewData:v18, v11];
         }
 
         goto LABEL_35;
@@ -152,11 +152,11 @@ LABEL_18:
       peerUUID2 = [(WPDataTransfer *)self peerUUID];
       currentDataSize = [(WPDataTransfer *)self currentDataSize];
       *buf = 134218498;
-      *v32 = v24;
-      *&v32[8] = 2114;
-      *&v32[10] = peerUUID2;
-      *&v32[18] = 1024;
-      *&v32[20] = currentDataSize;
+      *v31 = v24;
+      *&v31[8] = 2114;
+      *&v31[10] = peerUUID2;
+      *&v31[18] = 1024;
+      *&v31[20] = currentDataSize;
       _os_log_impl(&dword_274327000, v22, OS_LOG_TYPE_INFO, "Length of data received %ld from peer %{public}@, length of data remaining to receive: %d", buf, 0x1Cu);
     }
 
@@ -189,46 +189,39 @@ LABEL_36:
   v9 = 0;
 LABEL_37:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)addNewData:(void *)a3 .cold.3(unsigned __int16 *a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = a2;
-  v7[0] = 67109376;
-  v7[1] = v4;
-  v8 = 2048;
-  v9 = [a3 length];
-  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "FIRST Packet - Data size expected: %d, but received: %lu", v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = 67109376;
+  v6[1] = v4;
+  v7 = 2048;
+  v8 = [a3 length];
+  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "FIRST Packet - Data size expected: %d, but received: %lu", v6, 0x12u);
 }
 
 - (void)addNewData:(void *)a1 .cold.5(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v5 = 134217984;
-  v6 = [a2 length];
-  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "Received data length is too small: %ld, Min length required: 2", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134217984;
+  v5 = [a2 length];
+  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "Received data length is too small: %ld, Min length required: 2", &v4, 0xCu);
 }
 
 - (void)addNewData:(void *)a3 .cold.8(void *a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v7[0] = 67109376;
-  v7[1] = [a2 currentDataSize];
-  v8 = 2048;
-  v9 = [a3 length];
-  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "Data size expected: %d, but received: %lu", v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = 67109376;
+  v6[1] = [a2 currentDataSize];
+  v7 = 2048;
+  v8 = [a3 length];
+  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "Data size expected: %d, but received: %lu", v6, 0x12u);
 }
 
 @end

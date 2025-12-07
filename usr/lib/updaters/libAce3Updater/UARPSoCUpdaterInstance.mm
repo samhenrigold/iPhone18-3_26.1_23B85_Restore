@@ -14,6 +14,7 @@
 - (id)name;
 - (uarpRestoreLayer4Callbacks)uarpRestoreLayer4Callbacks;
 - (void)printUpdaterMode;
+- (void)stagingCompleteWithStatus:(unsigned int)status reason:(unsigned int)reason;
 - (void)tssRequestWithOptions:(id)options serverURL:(id)l assetCtx:(void *)ctx siliconCtx:(_UARPSiliconContext *)siliconCtx;
 - (void)uarpRestoreInitOptions;
 - (void)updateAppleProperty:(unsigned int)property siliconCtx:(_UARPSiliconContext *)ctx;
@@ -347,9 +348,7 @@ LABEL_7:
       return;
     }
 
-    v5 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:UarpRestoreInfoPropertyTicketLongName(ctx)];
-    ticketLongName = self->_ticketLongName;
-    self->_ticketLongName = v5;
+    self->_ticketLongName = [MEMORY[0x29EDBA0F8] stringWithUTF8String:UarpRestoreInfoPropertyTicketLongName(ctx)];
   }
 
   else
@@ -369,9 +368,7 @@ LABEL_7:
       return;
     }
 
-    v7 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:UarpRestoreInfoPropertyManifestPrefix(ctx)];
-    manifestPrefixName = self->_manifestPrefixName;
-    self->_manifestPrefixName = v7;
+    self->_manifestPrefixName = [MEMORY[0x29EDBA0F8] stringWithUTF8String:UarpRestoreInfoPropertyManifestPrefix(ctx)];
   }
 
   MEMORY[0x2A1C71028]();
@@ -532,7 +529,7 @@ LABEL_7:
         }
 
         selfCopy = self;
-        v9 = UarpRestoreInitializeEndpoint(selfCopy, v6, v7, [(UARPSoCUpdaterInstance *)selfCopy uarpRestoreQueueName]);
+        v9 = UarpRestoreInitializeEndpoint(selfCopy, v6, v7, [(UARPSoCUpdaterInstance *)selfCopy uarpRestoreQueueName], 0);
         self->_uarpContext = v9;
         if (v9)
         {
@@ -639,6 +636,42 @@ LABEL_7:
 
     self->_nextUpdateProgressReportPercentThreshold = self->_lastPercentComplete + 10;
   }
+}
+
+- (void)stagingCompleteWithStatus:(unsigned int)status reason:(unsigned int)reason
+{
+  v4 = *&reason;
+  v5 = *&status;
+  if (self->_lastPercentComplete <= 0x63)
+  {
+    log = self->_log;
+    name = [(UARPSoCUpdaterInstance *)self name];
+    [(SoCUpdaterHelper *)log log:@"%@ Update: 100%%", name];
+  }
+
+  if (v5 == 1)
+  {
+    v9 = self->_log;
+    name2 = [(UARPSoCUpdaterInstance *)self name];
+    [(SoCUpdaterHelper *)v9 log:@"%@ Staging Complete", name2];
+
+    self->_stagingResult = 1;
+  }
+
+  else
+  {
+    v11 = uarpProcessingStatusToString(v5);
+    v12 = uarpProcessingFlagsToString(v4);
+    v13 = self->_log;
+    name3 = [(UARPSoCUpdaterInstance *)self name];
+    [(SoCUpdaterHelper *)v13 log:@"%@: Firmware staging failed. Status: 0x%08x (%s), Reason: 0x%08x (%s)", name3, v5, v11, v4, v12];
+  }
+
+  v15 = self->_log;
+  name4 = [(UARPSoCUpdaterInstance *)self name];
+  [(SoCUpdaterHelper *)v15 log:@"%@: staging complete signaling waiting callbacks", name4];
+
+  [(UARPSoCUpdaterInstance *)self assetTransferUARPComplete];
 }
 
 @end

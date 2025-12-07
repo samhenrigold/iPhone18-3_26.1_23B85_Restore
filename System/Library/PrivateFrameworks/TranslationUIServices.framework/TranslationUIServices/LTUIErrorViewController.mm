@@ -3,6 +3,7 @@
 - (void)_updateBackground;
 - (void)drawCloseButton;
 - (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -10,10 +11,10 @@
 
 - (LTUIErrorViewController)initWithError:(id)error
 {
-  v37[3] = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = LTUIErrorViewController;
-  v3 = [(LTUIErrorViewController *)&v35 initWithNibName:0 bundle:0];
+  v36[3] = *MEMORY[0x277D85DE8];
+  v34.receiver = self;
+  v34.super_class = LTUIErrorViewController;
+  v3 = [(LTUIErrorViewController *)&v34 initWithNibName:0 bundle:0];
   if (v3)
   {
     clearColor = [MEMORY[0x277D75348] clearColor];
@@ -33,50 +34,49 @@
     [v8 setFont:v10];
 
     [v8 setMaximumContentSizeCategory:*MEMORY[0x277D76820]];
-    v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v11 = [v34 localizedStringForKey:@"UNAVAILABLE_ERROR" value:&stru_287F854E0 table:0];
+    v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v11 = [v33 localizedStringForKey:@"UNAVAILABLE_ERROR" value:&stru_287F854E0 table:0];
     [v8 setText:v11];
 
     view2 = [v6 view];
     [view2 addSubview:v8];
 
-    v27 = MEMORY[0x277CCAAD0];
+    v26 = MEMORY[0x277CCAAD0];
     leadingAnchor = [v8 leadingAnchor];
     view3 = [v6 view];
     safeAreaLayoutGuide = [view3 safeAreaLayoutGuide];
     leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
-    v29 = [leadingAnchor constraintEqualToSystemSpacingAfterAnchor:leadingAnchor2 multiplier:1.0];
-    v37[0] = v29;
-    v26 = v6;
+    v28 = [leadingAnchor constraintEqualToSystemSpacingAfterAnchor:leadingAnchor2 multiplier:1.0];
+    v36[0] = v28;
+    v25 = v6;
     view4 = [v6 view];
     safeAreaLayoutGuide2 = [view4 safeAreaLayoutGuide];
     trailingAnchor = [safeAreaLayoutGuide2 trailingAnchor];
     trailingAnchor2 = [v8 trailingAnchor];
     v15 = [trailingAnchor constraintEqualToSystemSpacingAfterAnchor:trailingAnchor2 multiplier:1.0];
-    v37[1] = v15;
+    v36[1] = v15;
     centerYAnchor = [v8 centerYAnchor];
     view5 = [v6 view];
     centerYAnchor2 = [view5 centerYAnchor];
     v19 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v37[2] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
-    [v27 activateConstraints:v20];
+    v36[2] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+    [v26 activateConstraints:v20];
 
-    v36 = v26;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+    v35 = v25;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
     [(LTUIErrorViewController *)v3 setViewControllers:v21];
 
     [(LTUIErrorViewController *)v3 _updateBackground];
     v22 = v3;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)_updateBackground
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   viewControllers = [(LTUIErrorViewController *)self viewControllers];
   firstObject = [viewControllers firstObject];
 
@@ -98,39 +98,50 @@
 
     else
     {
-      v30 = [MEMORY[0x277D75210] effectWithStyle:9];
-      v9 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:v30];
+      v29 = [MEMORY[0x277D75210] effectWithStyle:9];
+      v9 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:v29];
       [v9 setTranslatesAutoresizingMaskIntoConstraints:0];
       view2 = [firstObject view];
       [view2 insertSubview:v9 atIndex:0];
 
-      v22 = MEMORY[0x277CCAAD0];
+      v21 = MEMORY[0x277CCAAD0];
       topAnchor = [v9 topAnchor];
       view3 = [firstObject view];
       topAnchor2 = [view3 topAnchor];
-      v26 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v31[0] = v26;
+      v25 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v30[0] = v25;
       bottomAnchor = [v9 bottomAnchor];
       view4 = [firstObject view];
       bottomAnchor2 = [view4 bottomAnchor];
-      v21 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v31[1] = v21;
+      v20 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+      v30[1] = v20;
       leadingAnchor = [v9 leadingAnchor];
       view5 = [firstObject view];
       leadingAnchor2 = [view5 leadingAnchor];
       v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v31[2] = v12;
+      v30[2] = v12;
       trailingAnchor = [v9 trailingAnchor];
       view6 = [firstObject view];
       trailingAnchor2 = [view6 trailingAnchor];
       v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v31[3] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
-      [v22 activateConstraints:v17];
+      v30[3] = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+      [v21 activateConstraints:v17];
     }
   }
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = LTUIErrorViewController;
+  [(LTUIErrorViewController *)&v5 viewWillAppear:appear];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __42__LTUIErrorViewController_viewWillAppear___block_invoke;
+  v4[3] = &unk_279DD8628;
+  v4[4] = self;
+  [MEMORY[0x277D75D18] performWithoutAnimation:v4];
 }
 
 - (void)viewDidAppear:(BOOL)appear

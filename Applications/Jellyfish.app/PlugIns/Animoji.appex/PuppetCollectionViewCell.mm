@@ -308,7 +308,7 @@
   v8 = contentContainerView;
   if (contentContainerView)
   {
-    [contentContainerView transform];
+    objc_msgSend_transform(contentContainerView);
   }
 
   else

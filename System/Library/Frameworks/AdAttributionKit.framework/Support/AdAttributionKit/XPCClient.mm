@@ -12,7 +12,7 @@
   v5 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = v6;
 
-  _s20AttributionKitCommon9XPCClientC14handleMessagesyy10Foundation4DataVF_0();
+  _s20AttributionKitCommon9XPCClientC14handleMessagesyy10Foundation4DataVF_0(v5, v7);
   sub_10001BABC(v5, v7);
 }
 

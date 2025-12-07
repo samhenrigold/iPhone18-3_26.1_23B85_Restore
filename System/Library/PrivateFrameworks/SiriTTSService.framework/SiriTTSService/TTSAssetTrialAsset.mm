@@ -119,8 +119,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_1B1B2BFB4(optionsCopy, v8, v11, v10, v12);
-  sub_1B1A949B4(v10);
-  sub_1B1A949B4(v8);
+  sub_1B1A949B4(v10, v12);
+  sub_1B1A949B4(v8, v11);
 }
 
 - (void)cancelDownloadingThen:(id)then
@@ -137,18 +137,21 @@ LABEL_6:
   v4 = _Block_copy(then);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1B1A95AD0;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1B1A95AD0;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
   sub_1B1B2D370();
-  sub_1B1A949B4(v5);
+  sub_1B1A949B4(v7, v6);
 }
 
 - (void)setPurgeCondition:(int64_t)condition

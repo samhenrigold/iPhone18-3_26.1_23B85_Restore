@@ -60,20 +60,21 @@
   }
 
   iterator = [(JavaUtilCollection *)c iterator];
-  if (![JavaUtilListIterator_class_() isInstance:iterator])
+  v6 = [JavaUtilListIterator_class_(iterator v5)];
+  if (!v6)
   {
     return iterator;
   }
 
-  v5 = JavaUtilListIterator_class_();
-  if (iterator && ([v5 isInstance:iterator] & 1) == 0)
+  v8 = JavaUtilListIterator_class_(v6, v7);
+  if (iterator && ([v8 isInstance:iterator] & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  v6 = sub_1001C7E30(iterator, self->type_);
+  v9 = sub_1001C7E30(iterator, self->type_);
 
-  return v6;
+  return v9;
 }
 
 - (id)toArray
@@ -163,8 +164,8 @@ LABEL_12:
   }
 
   v10 = JavaUtilArrays_asListWithNSObjectArray_(v5);
-  v11 = JavaUtilList_class_();
-  if (v10 && ([v11 isInstance:v10] & 1) == 0)
+  v12 = JavaUtilList_class_(v10, v11);
+  if (v10 && ([v12 isInstance:v10] & 1) == 0)
   {
     JreThrowClassCastException();
   }

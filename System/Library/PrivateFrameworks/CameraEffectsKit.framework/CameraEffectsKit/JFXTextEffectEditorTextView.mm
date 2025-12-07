@@ -146,7 +146,7 @@
     v46 = effectFrame2;
     if (effectFrame2)
     {
-      [effectFrame2 transform];
+      objc_msgSend_transform(effectFrame2);
     }
 
     else
@@ -266,7 +266,7 @@
   {
     if (propertiesCopy)
     {
-      [propertiesCopy partialTransformNoScaleNoTranslation];
+      objc_msgSend_partialTransformNoScaleNoTranslation(propertiesCopy);
     }
 
     else

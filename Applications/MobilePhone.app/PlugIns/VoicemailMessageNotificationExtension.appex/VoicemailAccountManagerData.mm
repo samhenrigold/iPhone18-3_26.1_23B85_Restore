@@ -11,7 +11,7 @@
 
 - (NSArray)accounts
 {
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
 
   v2.super.isa = sub_1000608BC().super.isa;
 
@@ -39,7 +39,7 @@
 - (_TtC37VoicemailMessageNotificationExtension27VoicemailAccountManagerData)initWithAnyAccountSubscribed:(BOOL)subscribed online:(BOOL)online isMessageWaiting:(BOOL)waiting storageUsage:(unint64_t)usage transcriptionEnabled:(BOOL)enabled transcriptionProgress:(id)progress accounts:(id)accounts
 {
   ObjectType = swift_getObjectType();
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
   v17 = sub_1000608CC();
   *(self + OBJC_IVAR____TtC37VoicemailMessageNotificationExtension27VoicemailAccountManagerData_anyAccountSubscribed) = subscribed;
   *(self + OBJC_IVAR____TtC37VoicemailMessageNotificationExtension27VoicemailAccountManagerData_online) = online;

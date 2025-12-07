@@ -60,10 +60,10 @@
         v10 = v9;
         v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v9 options:0];
 
-        v12 = [AKAnnotationClass() annotationWithData:v11];
+        v13 = [AKAnnotationClass(v12) annotationWithData:v11];
 
         objc_autoreleasePoolPop(v8);
-        if (!((v12 == 0) | IsVersioned & 1) && ([self _shouldUseAKAnnotation:v12 toRepresentCGPDFDictionary:dictionary] & 1) == 0)
+        if (!((v13 == 0) | IsVersioned & 1) && ([self _shouldUseAKAnnotation:v13 toRepresentCGPDFDictionary:dictionary] & 1) == 0)
         {
           goto LABEL_15;
         }
@@ -72,18 +72,18 @@
       else
       {
         objc_autoreleasePoolPop(v8);
-        v12 = 0;
+        v13 = 0;
       }
 
-      v12 = v12;
-      v4 = v12;
+      v13 = v13;
+      v4 = v13;
 LABEL_16:
 
       goto LABEL_17;
     }
 
     objc_autoreleasePoolPop(v8);
-    v12 = 0;
+    v13 = 0;
 LABEL_15:
     v4 = 0;
     goto LABEL_16;
@@ -97,22 +97,27 @@ LABEL_17:
 + (BOOL)_annotationClassHasSeniority:(id)seniority
 {
   seniorityCopy = seniority;
-  if ([seniorityCopy isMemberOfClass:AKInkAnnotationClass()])
+  v4 = [seniorityCopy isMemberOfClass:AKInkAnnotationClass(seniorityCopy)];
+  if (v4)
   {
-    v4 = 0;
-  }
-
-  else if ([seniorityCopy isMemberOfClass:AKDoodleAnnotationClass()] & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKArrowAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKRectAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKOvalAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKTextBoxAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKTextFieldAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKArrowShapeAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKBorderMaskAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKCropAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKHeartAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKImageAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKLoupeAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKPolygonAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKSignatureAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKSpeechBubbleAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKStarAnnotationClass()) & 1) != 0 || (objc_msgSend(seniorityCopy, "isMemberOfClass:", AKThoughtBubbleAnnotationClass()))
-  {
-    v4 = 1;
+    v5 = 0;
   }
 
   else
   {
-    v4 = [seniorityCopy isMemberOfClass:AKTriangleAnnotationClass()];
+    v6 = [seniorityCopy isMemberOfClass:AKDoodleAnnotationClass(v4)];
+    if (v6 & 1) != 0 || (v7 = [seniorityCopy isMemberOfClass:AKArrowAnnotationClass(v6)], (v7) || (v8 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKRectAnnotationClass(v7)), (v8) || (v9 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKOvalAnnotationClass(v8)), (v9) || (v10 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKTextBoxAnnotationClass(v9)), (v10) || (v11 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKTextFieldAnnotationClass(v10)), (v11) || (v12 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKArrowShapeAnnotationClass(v11)), (v12) || (v13 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKBorderMaskAnnotationClass(v12)), (v13) || (v14 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKCropAnnotationClass(v13)), (v14) || (v15 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKHeartAnnotationClass(v14)), (v15) || (v16 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKImageAnnotationClass(v15)), (v16) || (v17 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKLoupeAnnotationClass(v16)), (v17) || (v18 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKPolygonAnnotationClass(v17)), (v18) || (v19 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKSignatureAnnotationClass(v18)), (v19) || (v20 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKSpeechBubbleAnnotationClass(v19)), (v20) || (v21 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKStarAnnotationClass(v20)), (v21) || (v22 = objc_msgSend(seniorityCopy, "isMemberOfClass:", AKThoughtBubbleAnnotationClass(v21)), (v22))
+    {
+      v5 = 1;
+    }
+
+    else
+    {
+      v5 = [seniorityCopy isMemberOfClass:AKTriangleAnnotationClass(v22)];
+    }
   }
 
-  return v4;
+  return v5;
 }
 
 + (BOOL)_shouldUseAKAnnotation:(id)annotation toRepresentCGPDFDictionary:(CGPDFDictionary *)dictionary
@@ -127,64 +132,66 @@ LABEL_17:
   if (!CGPDFDictionaryGetDictionary(dictionary, "AAPL:AKExtras", &value))
   {
 LABEL_9:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_13;
   }
 
-  v28 = 0;
-  if (!CGPDFDictionaryGetDictionary(value, "AAPL:AKPDFAnnotationDictionary", &v28))
+  v31 = 0;
+  Dictionary = CGPDFDictionaryGetDictionary(value, "AAPL:AKPDFAnnotationDictionary", &v31);
+  if (!Dictionary)
   {
-    AKBorderMaskAnnotationClass();
+    AKBorderMaskAnnotationClass(Dictionary);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v11 = *(MEMORY[0x1E695F058] + 16);
-      v26 = *MEMORY[0x1E695F058];
-      v27 = v11;
+      v12 = *(MEMORY[0x1E695F058] + 16);
+      v29 = *MEMORY[0x1E695F058];
+      v30 = v12;
       if (CGPDFDictionaryGetRect())
       {
         [annotationCopy drawingBounds];
-        v24 = v12;
+        v27 = v13;
         [annotationCopy drawingBounds];
-        v23 = v13;
+        v26 = v14;
         [annotationCopy drawingBounds];
-        v22 = v14;
-        [annotationCopy drawingBounds];
-        v15.f64[0] = v24;
-        v15.f64[1] = v23;
-        v16.f64[1] = v22;
-        v17 = vabdq_f64(v27, v16);
-        v18 = vdupq_n_s64(0x3F747AE147AE147BuLL);
-        if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vcgeq_f64(v18, vabdq_f64(v26, v15)), vcgeq_f64(v18, v17))))))
+        v25 = v15;
+        drawingBounds = [annotationCopy drawingBounds];
+        v17.f64[0] = v27;
+        v17.f64[1] = v26;
+        v18.f64[1] = v25;
+        v19 = vabdq_f64(v30, v18);
+        v20 = vdupq_n_s64(0x3F747AE147AE147BuLL);
+        if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vcgeq_f64(v20, vabdq_f64(v29, v17)), vcgeq_f64(v20, v19))))))
         {
           goto LABEL_9;
         }
 
-        AKArrowShapeAnnotationClass();
+        AKArrowShapeAnnotationClass(drawingBounds);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
-          AKArrowAnnotationClass();
+          AKArrowAnnotationClass(isKindOfClass);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            if ((objc_opt_respondsToSelector() & 1) == 0 || ([annotationCopy annotationText], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "string"), v6 = objc_claimAutoreleasedReturnValue(), v20, !v6))
+            if ((objc_opt_respondsToSelector() & 1) == 0 || ([annotationCopy annotationText], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "string"), v7 = objc_claimAutoreleasedReturnValue(), v23, !v7))
             {
-              v6 = &stru_1F416DF70;
+              v7 = &stru_1F416DF70;
             }
 
             string = 0;
-            v7 = &stru_1F416DF70;
+            v8 = &stru_1F416DF70;
             if (CGPDFDictionaryGetString(dictionary, "Contents", &string))
             {
-              v21 = CGPDFStringCopyTextString(string);
-              if (v21)
+              v24 = CGPDFStringCopyTextString(string);
+              if (v24)
               {
-                v7 = v21;
+                v8 = v24;
               }
             }
 
-            v10 = [(__CFString *)v6 isEqualToString:v7];
+            v11 = [(__CFString *)v7 isEqualToString:v8];
             goto LABEL_5;
           }
         }
@@ -192,26 +199,26 @@ LABEL_9:
     }
 
 LABEL_12:
-    v10 = 1;
+    v11 = 1;
     goto LABEL_13;
   }
 
-  v6 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:512];
-  v7 = _dictionaryForPDFDictionary(v28, v6);
-  v8 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:512];
-  v9 = _dictionaryForPDFDictionary(dictionary, v8);
-  [(__CFString *)v7 removeObjectForKey:@"AAPL:AKExtras"];
-  [v9 removeObjectForKey:@"AAPL:AKExtras"];
-  [v9 removeObjectForKey:@"AP"];
-  [(__CFString *)v7 removeObjectForKey:@"AP"];
-  [v9 removeObjectForKey:@"Parent"];
-  [(__CFString *)v7 removeObjectForKey:@"Popup"];
-  v10 = [v9 isEqualToDictionary:v7];
+  v7 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:512];
+  v8 = _dictionaryForPDFDictionary(v31, v7);
+  v9 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:512];
+  v10 = _dictionaryForPDFDictionary(dictionary, v9);
+  [(__CFString *)v8 removeObjectForKey:@"AAPL:AKExtras"];
+  [v10 removeObjectForKey:@"AAPL:AKExtras"];
+  [v10 removeObjectForKey:@"AP"];
+  [(__CFString *)v8 removeObjectForKey:@"AP"];
+  [v10 removeObjectForKey:@"Parent"];
+  [(__CFString *)v8 removeObjectForKey:@"Popup"];
+  v11 = [v10 isEqualToDictionary:v8];
 
 LABEL_5:
 LABEL_13:
 
-  return v10;
+  return v11;
 }
 
 @end

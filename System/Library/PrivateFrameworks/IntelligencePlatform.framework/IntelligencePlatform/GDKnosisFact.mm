@@ -8,7 +8,7 @@
 
 - (GDKnosisFact)initWithCoder:(id)coder
 {
-  v92[1] = *MEMORY[0x1E69E9840];
+  v91[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_factId);
@@ -34,9 +34,9 @@ LABEL_59:
       }
 
       v61 = MEMORY[0x1E696ABC0];
-      v89 = *MEMORY[0x1E696A578];
-      v90 = @"GDKnosisFact score is nil";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+      v88 = *MEMORY[0x1E696A578];
+      v89 = @"GDKnosisFact score is nil";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
       v18 = [v61 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v13];
       [coderCopy failWithError:v18];
       goto LABEL_26;
@@ -84,12 +84,12 @@ LABEL_57:
 
         if (v26 || ([coderCopy error], v64 = objc_claimAutoreleasedReturnValue(), v64, !v64))
         {
-          v82 = v26;
+          v81 = v26;
           v27 = objc_opt_class();
           v28 = NSStringFromSelector(sel_predicateId);
           v29 = [coderCopy decodeObjectOfClass:v27 forKey:v28];
 
-          v83 = v29;
+          v82 = v29;
           if (v29 || ([coderCopy error], v65 = objc_claimAutoreleasedReturnValue(), v65, !v65))
           {
             v30 = MEMORY[0x1E695DFD8];
@@ -98,21 +98,21 @@ LABEL_57:
             v33 = NSStringFromSelector(sel_predicateAlias);
             v34 = [coderCopy decodeObjectOfClasses:v32 forKey:v33];
 
-            v81 = v34;
+            v80 = v34;
             if (v34 || ([coderCopy error], v66 = objc_claimAutoreleasedReturnValue(), v66, !v66))
             {
               v35 = objc_opt_class();
               v36 = NSStringFromSelector(sel_predicatePopularity);
               v37 = [coderCopy decodeObjectOfClass:v35 forKey:v36];
 
-              v80 = v37;
+              v79 = v37;
               if (v37 || ([coderCopy error], v67 = objc_claimAutoreleasedReturnValue(), v67, !v67))
               {
                 v38 = objc_opt_class();
                 v39 = NSStringFromSelector(sel_objectID);
                 v40 = [coderCopy decodeObjectOfClass:v38 forKey:v39];
 
-                v79 = v40;
+                v78 = v40;
                 if (v40 || ([coderCopy error], v68 = objc_claimAutoreleasedReturnValue(), v68, !v68))
                 {
                   v41 = MEMORY[0x1E695DFD8];
@@ -121,16 +121,16 @@ LABEL_57:
                   v44 = NSStringFromSelector(sel_objectAlias);
                   v45 = [coderCopy decodeObjectOfClasses:v43 forKey:v44];
 
-                  v46 = v83;
-                  v78 = v45;
+                  v46 = v82;
+                  v77 = v45;
                   if (v45 || ([coderCopy error], v69 = objc_claimAutoreleasedReturnValue(), v69, !v69))
                   {
                     v47 = objc_opt_class();
                     v48 = NSStringFromSelector(sel_objectPopularity);
                     v49 = [coderCopy decodeObjectOfClass:v47 forKey:v48];
 
-                    v26 = v82;
-                    v77 = v49;
+                    v26 = v81;
+                    v76 = v49;
                     if (v49 || ([coderCopy error], v70 = objc_claimAutoreleasedReturnValue(), v70, !v70))
                     {
                       v50 = MEMORY[0x1E695DFD8];
@@ -141,7 +141,7 @@ LABEL_57:
 
                       if (v54)
                       {
-                        self = [(GDKnosisFact *)selfCopy initWithFactId:v7 score:v10 subjectId:v13 subjectAlias:v18 subjectPopularity:v21 subjectIsa:v82 predicateId:v83 predicateAlias:v81 predicatePopularity:v80 objectID:v79 objectAlias:v78 objectPopularity:v77 qualifiers:v54];
+                        self = [(GDKnosisFact *)selfCopy initWithFactId:v7 score:v10 subjectId:v13 subjectAlias:v18 subjectPopularity:v21 subjectIsa:v81 predicateId:v82 predicateAlias:v80 predicatePopularity:v79 objectID:v78 objectAlias:v77 objectPopularity:v76 qualifiers:v54];
                         selfCopy2 = self;
                       }
 
@@ -153,9 +153,9 @@ LABEL_57:
                         if (!error3)
                         {
                           v72 = MEMORY[0x1E696ABC0];
-                          v85 = *MEMORY[0x1E696A578];
-                          v86 = @"GDKnosisFact qualifiers is nil";
-                          v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+                          v84 = *MEMORY[0x1E696A578];
+                          v85 = @"GDKnosisFact qualifiers is nil";
+                          v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
                           v74 = [v72 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v73];
                           [coderCopy failWithError:v74];
 
@@ -165,7 +165,7 @@ LABEL_57:
                         selfCopy2 = 0;
                       }
 
-                      v46 = v83;
+                      v46 = v82;
                     }
 
                     else
@@ -179,34 +179,34 @@ LABEL_57:
                   {
                     selfCopy2 = 0;
                     self = selfCopy;
-                    v26 = v82;
+                    v26 = v81;
                   }
                 }
 
                 else
                 {
                   selfCopy2 = 0;
-                  v46 = v83;
+                  v46 = v82;
                   self = selfCopy;
-                  v26 = v82;
+                  v26 = v81;
                 }
               }
 
               else
               {
                 selfCopy2 = 0;
-                v46 = v83;
+                v46 = v82;
                 self = selfCopy;
-                v26 = v82;
+                v26 = v81;
               }
             }
 
             else
             {
               selfCopy2 = 0;
-              v46 = v83;
+              v46 = v82;
               self = selfCopy;
-              v26 = v82;
+              v26 = v81;
             }
           }
 
@@ -240,9 +240,9 @@ LABEL_56:
     if (!error4)
     {
       v63 = MEMORY[0x1E696ABC0];
-      v87 = *MEMORY[0x1E696A578];
-      v88 = @"GDKnosisFact subjectId is nil";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+      v86 = *MEMORY[0x1E696A578];
+      v87 = @"GDKnosisFact subjectId is nil";
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
       v21 = [v63 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v18];
       [coderCopy failWithError:v21];
       goto LABEL_30;
@@ -261,9 +261,9 @@ LABEL_58:
   if (!error5)
   {
     v59 = MEMORY[0x1E696ABC0];
-    v91 = *MEMORY[0x1E696A578];
-    v92[0] = @"GDKnosisFact factId is nil";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:&v91 count:1];
+    v90 = *MEMORY[0x1E696A578];
+    v91[0] = @"GDKnosisFact factId is nil";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:&v90 count:1];
     v13 = [v59 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v10];
     [coderCopy failWithError:v13];
     goto LABEL_22;
@@ -272,7 +272,6 @@ LABEL_58:
   selfCopy2 = 0;
 LABEL_60:
 
-  v75 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

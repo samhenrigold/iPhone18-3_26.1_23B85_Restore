@@ -2,6 +2,7 @@
 + (id)resourceExceptionFromLogFileHandle:(id)handle error:(id *)error;
 + (id)resourceExceptionFromTask:(unsigned int)task error:(id *)error;
 + (void)extractExecNameAndBundleIDMinimal:(unsigned int)minimal execNameOut:(id *)out bundleIDOut:(id *)dOut;
+- (BOOL)generateMemoryGraphWithContentLevel:(unsigned int)level memgraphFailedReasonOut:(unint64_t *)out;
 - (BOOL)isFirstParty;
 - (id)_symbolOwners;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -12,6 +13,7 @@
 - (id)prettyPrintIOAccelMemoryInfo;
 - (id)prettyPrintIOSurfaceInfo;
 - (int64_t)_saveLogFileWithHandle:(id)handle error:(id *)error;
+- (void)_generateMemgraphWithContentLevel:(unsigned int)level timeoutSecs:(unint64_t)secs memgraphFailedReasonOut:(unint64_t *)out;
 - (void)_populateAddtionalMetadataWithOptions:(unint64_t)options timeoutSecs:(unint64_t)secs;
 - (void)dealloc;
 - (void)populateAdditionalMetadataWithDiagnostics:(BOOL)diagnostics;
@@ -123,39 +125,250 @@
   return v3;
 }
 
+- (BOOL)generateMemoryGraphWithContentLevel:(unsigned int)level memgraphFailedReasonOut:(unint64_t *)out
+{
+  v5 = *&level;
+  v33 = *MEMORY[0x29EDCA608];
+  if (!self->_task && !self->_gcoreCapture)
+  {
+    return 0;
+  }
+
+  v7 = VMUGetFlagsForAllVMRegionStatistics();
+  if (!self->_gcoreCapture)
+  {
+    0x5C000 = [objc_alloc(MEMORY[0x29EDC6DA8]) initWithTask:self->_task options:v7 | 0x5C000];
+    if (!0x5C000)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (!self->_gcoreFilePath || ([MEMORY[0x29EDB9FB8] defaultManager], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "fileExistsAtPath:", self->_gcoreFilePath), v8, (v9 & 1) == 0))
+  {
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+    {
+      gcoreFilePath = self->_gcoreFilePath;
+      *buf = 138412546;
+      *v32 = gcoreFilePath;
+      *&v32[8] = 1024;
+      *&v32[10] = 4;
+      _os_log_error_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Invalid gcore file path (%@). Aborting memgraph generation. (RME Error #%i: MREMemgraphFailedReasonFailedGCoreGeneration)", buf, 0x12u);
+      if (!out)
+      {
+        return 0;
+      }
+    }
+
+    else if (!out)
+    {
+      return 0;
+    }
+
+    v20 = 0;
+    *out = 4;
+    return v20;
+  }
+
+  v10 = objc_alloc(MEMORY[0x29EDC6DA0]);
+  v11 = self->_gcoreFilePath;
+  v30 = 0;
+  v12 = [v10 initWithCorePath:v11 originalBinaryPaths:0 error:&v30];
+  v13 = v30;
+  if (v13 || !v12)
+  {
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109378;
+      *v32 = 5;
+      *&v32[4] = 2112;
+      *&v32[6] = v13;
+      _os_log_error_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Error generating VMUTask from gcore. Aborting memgraph generation. (RME Error #%i: MREMemgraphFailedReasonFailedGCoreTaskMemoryScanner) Error: %@", buf, 0x12u);
+      if (!out)
+      {
+        goto LABEL_43;
+      }
+    }
+
+    else if (!out)
+    {
+LABEL_43:
+
+      return 0;
+    }
+
+    *out = 5;
+    goto LABEL_43;
+  }
+
+  0x5C000 = [objc_alloc(MEMORY[0x29EDC6DA8]) initWithVMUTask:v12 options:v7 | 0x5C000];
+
+  if (!0x5C000)
+  {
+LABEL_9:
+    if (out)
+    {
+      v15 = 2;
+      if (self->_gcoreCapture)
+      {
+        v15 = 5;
+      }
+
+      *out = v15;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134217984;
+      *v32 = 2;
+      _os_log_error_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Error generating VMUTaskMemoryScanner. Aborting memgraph generation. (%lu: MREMemgraphFailedReasonFailedCreateTaskMemoryScanner)", buf, 0xCu);
+    }
+
+    return 0;
+  }
+
+LABEL_16:
+  [0x5C000 setScanningMask:VMUScanningMaskForAllReferences()];
+  [0x5C000 setExactScanningEnabled:1];
+  [0x5C000 setAbandonedMarkingEnabled:0];
+  [0x5C000 setMaxInteriorOffset:*MEMORY[0x29EDCA6D0]];
+  [0x5C000 setObjectContentLevel:v5];
+  if ((v5 & 0xFFFFFFFE) == 2)
+  {
+    v16 = os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT);
+    if (v5 == 3)
+    {
+      if (v16)
+      {
+        v17 = sub_297E279C8(self);
+        *buf = 138412290;
+        *v32 = v17;
+        v18 = MEMORY[0x29EDCA988];
+        v19 = "Generating fullContent memgraph for %@";
+LABEL_26:
+        _os_log_impl(&dword_297E24000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, 0xCu);
+      }
+    }
+
+    else if (v16)
+    {
+      v17 = sub_297E279C8(self);
+      *buf = 138412290;
+      *v32 = v17;
+      v18 = MEMORY[0x29EDCA988];
+      v19 = "Generating readOnlyContent memgraph for %@";
+      goto LABEL_26;
+    }
+
+    v21 = 7;
+    goto LABEL_28;
+  }
+
+  v21 = 5;
+LABEL_28:
+  v29 = 0;
+  v22 = [0x5C000 addAllNodesFromTaskWithError:&v29];
+  v23 = v29;
+  if (v22)
+  {
+    v24 = [0x5C000 processSnapshotGraphWithOptions:v21];
+    v20 = v24 != 0;
+    if (v24)
+    {
+      if (!self->_gcoreCapture)
+      {
+        [0x5C000 detachFromTask];
+      }
+
+      objc_storeStrong(&self->_memoryGraph, v24);
+    }
+
+    else
+    {
+      [0x5C000 detachFromTask];
+      if (out)
+      {
+        v26 = 3;
+        if (self->_gcoreCapture)
+        {
+          v26 = 6;
+        }
+
+        *out = v26;
+      }
+
+      if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134217984;
+        *v32 = 3;
+        _os_log_error_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Error generating VMUProcessObjectGraph. Aborting memgraph generation. (%lu: MREMemgraphFailedReasonFailedCreateObjectGraph)", buf, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    if (out)
+    {
+      v25 = 3;
+      if (self->_gcoreCapture)
+      {
+        v25 = 6;
+      }
+
+      *out = v25;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218242;
+      *v32 = 3;
+      *&v32[8] = 2112;
+      *&v32[10] = v23;
+      _os_log_error_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Error adding nodes to VMUTaskMemoryScanner. Aborting memgraph generation. (%lu: MREMemgraphFailedReasonFailedCreateObjectGraph) Error: %@", buf, 0x16u);
+    }
+
+    v20 = 0;
+  }
+
+  return v20;
+}
+
 - (id)_symbolOwners
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v2 = [(NSDictionary *)self->_executionStack objectForKeyedSubscript:qword_2A13A5518];
   v3 = v2;
   if (v2)
   {
     [MEMORY[0x29EDB8E00] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
-    v26 = v25 = v3;
+    v23 = v22 = v3;
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v30;
+      v7 = *v27;
       v8 = *MEMORY[0x29EDB8ED8];
       v9 = *MEMORY[0x29EDC0E50];
-      v27 = *MEMORY[0x29EDC0E50];
-      v28 = *v30;
+      v24 = *MEMORY[0x29EDC0E50];
+      v25 = *v27;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v30 != v7)
+          if (*v27 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v11 = *(*(&v29 + 1) + 8 * i);
+          v11 = *(*(&v26 + 1) + 8 * i);
           v12 = CFUUIDCreateFromString(v8, v11);
           if (v12)
           {
@@ -178,8 +391,6 @@
               }
 
               CFRelease(v13);
-              v20 = *v19;
-              v21 = v19[1];
               if (CSIsNull())
               {
                 free(v19);
@@ -187,12 +398,12 @@
 
               else
               {
-                v22 = [objc_alloc(MEMORY[0x29EDB8DA0]) initWithBytesNoCopy:v19 length:16 deallocator:&unk_2A1E8F930];
-                [v26 setObject:v22 forKeyedSubscript:v11];
+                v20 = [objc_alloc(MEMORY[0x29EDB8DA0]) initWithBytesNoCopy:v19 length:16 deallocator:&unk_2A1E8F930];
+                [v23 setObject:v20 forKeyedSubscript:v11];
               }
 
-              v9 = v27;
-              v7 = v28;
+              v9 = v24;
+              v7 = v25;
             }
 
             else
@@ -202,23 +413,21 @@
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v6);
     }
 
-    v3 = v25;
+    v3 = v22;
   }
 
   else
   {
-    v26 = 0;
+    v23 = 0;
   }
 
-  v23 = *MEMORY[0x29EDCA608];
-
-  return v26;
+  return v23;
 }
 
 - (id)prettyPrintBacktrace:(BOOL)backtrace
@@ -226,8 +435,8 @@
   backtraceCopy = backtrace;
   array = [MEMORY[0x29EDB8DE8] array];
   v6 = [(NSDictionary *)self->_executionStack objectForKeyedSubscript:qword_2A13A5500];
-  v42 = [(NSDictionary *)self->_executionStack objectForKeyedSubscript:qword_2A13A5508];
-  v50 = [(NSDictionary *)self->_executionStack objectForKeyedSubscript:qword_2A13A5518];
+  v38 = [(NSDictionary *)self->_executionStack objectForKeyedSubscript:qword_2A13A5508];
+  v46 = [(NSDictionary *)self->_executionStack objectForKeyedSubscript:qword_2A13A5518];
   v7 = [(NSDictionary *)self->_executionStack objectForKeyedSubscript:qword_2A13A5510];
   if (backtraceCopy)
   {
@@ -242,15 +451,15 @@
   if ([v6 count])
   {
     v8 = 0;
-    v48 = array;
-    v49 = *MEMORY[0x29EDC0E58];
+    v44 = array;
+    v45 = *MEMORY[0x29EDC0E58];
     selfCopy = self;
-    v40 = v7;
-    v41 = v6;
+    v36 = v7;
+    v37 = v6;
     while (1)
     {
       context = objc_autoreleasePoolPush();
-      v9 = [v42 objectAtIndex:v8];
+      v9 = [v38 objectAtIndex:v8];
       if ([v9 length])
       {
         v10 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Thread %d name:  %@", v8, v9];
@@ -258,7 +467,7 @@
       }
 
       v11 = MEMORY[0x29EDBA0F8];
-      v43 = v9;
+      v39 = v9;
       if (v7)
       {
         integerValue = [v7 integerValue];
@@ -277,28 +486,28 @@
       v14 = [v11 stringWithFormat:@"Thread %d%@:", v8, v13];
       [array addObject:v14];
 
-      v45 = v8;
+      v41 = v8;
       v15 = [v6 objectAtIndex:v8];
       if ([v15 count])
       {
         break;
       }
 
-LABEL_42:
+LABEL_41:
       [array addObject:&stru_2A1E8FC50];
 
       objc_autoreleasePoolPop(context);
-      v8 = v45 + 1;
-      v6 = v41;
-      v7 = v40;
-      if ([v41 count] <= (v45 + 1))
+      v8 = v41 + 1;
+      v6 = v37;
+      v7 = v36;
+      if ([v37 count] <= (v41 + 1))
       {
-        goto LABEL_45;
+        goto LABEL_44;
       }
     }
 
     v16 = 0;
-    v52 = v15;
+    v48 = v15;
     while (1)
     {
       v17 = [v15 objectAtIndex:v16];
@@ -311,14 +520,14 @@ LABEL_42:
         break;
       }
 
-      v20 = [v50 objectForKeyedSubscript:v19];
+      v20 = [v46 objectForKeyedSubscript:v19];
       v21 = v20;
       if (!v20)
       {
         goto LABEL_20;
       }
 
-      v22 = [v20 objectForKey:v49];
+      v22 = [v20 objectForKey:v45];
       if (!v22)
       {
         goto LABEL_20;
@@ -351,24 +560,17 @@ LABEL_21:
         if (v19)
         {
           v31 = [_symbolOwners objectForKeyedSubscript:v19];
-          bytes = [v31 bytes];
-
-          if (bytes)
-          {
-            v33 = *bytes;
-            v34 = bytes[1];
-          }
+          [v31 bytes];
         }
 
-        if (CSIsNull() & 1) != 0 || (v47 = unsignedLongLongValue2 - CSSymbolOwnerGetBaseAddress(), CSSymbolOwnerGetSymbolWithAddress(), (CSIsNull()) || (Name = CSSymbolGetName()) == 0 || ([MEMORY[0x29EDBA0F8] stringWithUTF8String:Name], v28 = objc_claimAutoreleasedReturnValue(), unsignedLongLongValue3 = CSSymbolGetRange() + v47, !v28))
+        if (CSIsNull() & 1) != 0 || (v43 = unsignedLongLongValue2 - CSSymbolOwnerGetBaseAddress(), CSSymbolOwnerGetSymbolWithAddress(), (CSIsNull()) || (Name = CSSymbolGetName()) == 0 || ([MEMORY[0x29EDBA0F8] stringWithUTF8String:Name], v28 = objc_claimAutoreleasedReturnValue(), unsignedLongLongValue3 = CSSymbolGetRange() + v43, !v28))
         {
           v28 = @"???";
         }
 
-        array = v48;
+        array = v44;
       }
 
-      is64Bit = selfCopy->_is64Bit;
       if (unsignedLongLongValue3)
       {
         if (selfCopy->_is64Bit)
@@ -391,14 +593,14 @@ LABEL_21:
       {
         [MEMORY[0x29EDBA0F8] stringWithFormat:@"%-3d %@\t%#010lx %#lx + %ld%@", v16, v25, unsignedLongLongValue, unsignedLongLongValue2, unsignedLongLongValue - unsignedLongLongValue2, &stru_2A1E8FC50];
       }
-      v37 = ;
-      [array addObject:v37];
+      v33 = ;
+      [array addObject:v33];
 
       ++v16;
-      v15 = v52;
-      if ([v52 count] <= v16)
+      v15 = v48;
+      if ([v48 count] <= v16)
       {
-        goto LABEL_42;
+        goto LABEL_41;
       }
     }
 
@@ -409,155 +611,152 @@ LABEL_20:
   }
 
   [array addObject:@"Backtrace not available"];
-LABEL_45:
-  v38 = [array componentsJoinedByString:@"\n"];
+LABEL_44:
+  v34 = [array componentsJoinedByString:@"\n"];
 
-  return v38;
+  return v34;
 }
 
 - (id)prettyPrintBinaryImages
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   v2 = [(NSDictionary *)self->_executionStack objectForKeyedSubscript:qword_2A13A5518];
   v3 = v2;
   if (v2 && [v2 count])
   {
-    v32 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{objc_msgSend(v3, "count") + 1}];
-    [v32 addObject:@"Binary Images:"];
-    v40 = 0u;
-    v41 = 0u;
+    v30 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{objc_msgSend(v3, "count") + 1}];
+    [v30 addObject:@"Binary Images:"];
     v38 = 0u;
     v39 = 0u;
-    v29 = v3;
+    v36 = 0u;
+    v37 = 0u;
+    v27 = v3;
     obj = [v3 allValues];
-    v4 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v4 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v39;
-      v35 = *MEMORY[0x29EDC0E48];
-      v7 = *MEMORY[0x29EDC0E50];
-      v30 = *MEMORY[0x29EDC0E50];
-      v31 = *MEMORY[0x29EDC0E58];
+      v6 = *v37;
+      v33 = *MEMORY[0x29EDC0E48];
+      v28 = *MEMORY[0x29EDC0E50];
+      v29 = *MEMORY[0x29EDC0E58];
       do
       {
-        v8 = 0;
-        v33 = v5;
+        v7 = 0;
+        v31 = v5;
         do
         {
-          if (*v39 != v6)
+          if (*v37 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v38 + 1) + 8 * v8);
-          v10 = objc_autoreleasePoolPush();
-          v11 = [v9 objectForKey:@"StartAddress"];
-          if (v11)
+          v8 = *(*(&v36 + 1) + 8 * v7);
+          v9 = objc_autoreleasePoolPush();
+          v10 = [v8 objectForKey:@"StartAddress"];
+          if (v10)
           {
-            v12 = [v9 objectForKey:v35];
-            v13 = [v12 stringByReplacingOccurrencesOfString:@"-" withString:&stru_2A1E8FC50];
+            v11 = [v8 objectForKey:v33];
+            v12 = [v11 stringByReplacingOccurrencesOfString:@"-" withString:&stru_2A1E8FC50];
 
-            lowercaseString = [v13 lowercaseString];
+            lowercaseString = [v12 lowercaseString];
 
             if (lowercaseString)
             {
-              unsignedLongLongValue = [v11 unsignedLongLongValue];
-              v16 = [v9 objectForKey:v31];
-              v17 = [v9 objectForKey:@"Size"];
-              v37 = v10;
-              unsignedLongLongValue2 = [v17 unsignedLongLongValue];
+              unsignedLongLongValue = [v10 unsignedLongLongValue];
+              v15 = [v8 objectForKey:v29];
+              v16 = [v8 objectForKey:@"Size"];
+              v35 = v9;
+              unsignedLongLongValue2 = [v16 unsignedLongLongValue];
 
-              v36 = MEMORY[0x29EDBA0F8];
-              v19 = unsignedLongLongValue + unsignedLongLongValue2 - 1;
-              v20 = v6;
-              if (v16)
+              v34 = MEMORY[0x29EDBA0F8];
+              v18 = unsignedLongLongValue + unsignedLongLongValue2 - 1;
+              v19 = v6;
+              if (v15)
               {
-                v21 = v16;
+                v20 = v15;
               }
 
               else
               {
-                v21 = @"???";
+                v20 = @"???";
               }
 
-              v22 = [v9 objectForKey:qword_2A13A54F0];
-              v23 = [v9 objectForKey:v30];
-              v28 = v21;
-              v6 = v20;
-              v24 = [v36 stringWithFormat:@"%p - %p %@ %@  <%@> %@", unsignedLongLongValue, v19, v28, v22, lowercaseString, v23];
-              [v32 addObject:v24];
+              v21 = [v8 objectForKey:qword_2A13A54F0];
+              v22 = [v8 objectForKey:v28];
+              v26 = v20;
+              v6 = v19;
+              v23 = [v34 stringWithFormat:@"%p - %p %@ %@  <%@> %@", unsignedLongLongValue, v18, v26, v21, lowercaseString, v22];
+              [v30 addObject:v23];
 
-              v5 = v33;
-              v10 = v37;
+              v5 = v31;
+              v9 = v35;
             }
           }
 
-          objc_autoreleasePoolPop(v10);
-          ++v8;
+          objc_autoreleasePoolPop(v9);
+          ++v7;
         }
 
-        while (v5 != v8);
-        v5 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        while (v5 != v7);
+        v5 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v5);
     }
 
-    v25 = [v32 componentsJoinedByString:@"\n"];
+    v24 = [v30 componentsJoinedByString:@"\n"];
 
-    v3 = v29;
+    v3 = v27;
   }
 
   else
   {
-    v25 = @"Binary Images not found";
+    v24 = @"Binary Images not found";
   }
 
-  v26 = *MEMORY[0x29EDCA608];
-
-  return v25;
+  return v24;
 }
 
 - (id)prettyPrintIOSurfaceInfo
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (self->_ioSurfaceInfo)
   {
     string = [MEMORY[0x29EDBA050] string];
     v4 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"IOSurface info for %@ [%d] (Count: %lu):\n", self->_execName, self->_pid, -[NSArray count](self->_ioSurfaceInfo, "count")];
-    v26 = string;
+    v25 = string;
     [string appendString:v4];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     obj = self->_ioSurfaceInfo;
-    v27 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-    if (!v27)
+    v26 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (!v26)
     {
       goto LABEL_14;
     }
 
-    v25 = *v33;
+    v24 = *v32;
     while (1)
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v32 + 1) + 8 * i);
+        v6 = *(*(&v31 + 1) + 8 * i);
         v7 = [v6 objectForKeyedSubscript:qword_2A13A5520];
         v8 = [v6 objectForKeyedSubscript:qword_2A13A5530];
         v9 = [v6 objectForKeyedSubscript:qword_2A13A5538];
         v10 = [v6 objectForKeyedSubscript:qword_2A13A5548];
         v11 = [v6 objectForKeyedSubscript:qword_2A13A5540];
         v12 = [v6 objectForKeyedSubscript:qword_2A13A5528];
-        v30 = v10;
+        v29 = v10;
         unsignedIntValue = [v10 unsignedIntValue];
         v14 = unsignedIntValue;
         v15 = HIBYTE(unsignedIntValue);
@@ -584,19 +783,19 @@ LABEL_9:
 LABEL_12:
         v16 = MEMORY[0x29EDBA0F8];
         intValue = [v7 intValue];
-        v29 = v7;
+        v28 = v7;
         intValue2 = [v8 intValue];
-        v28 = v8;
+        v27 = v8;
         intValue3 = [v9 intValue];
         [v11 unsignedLongLongValue];
         v20 = NSLocalizedFileSizeDescription();
         v21 = [v16 stringWithFormat:@"  Surface ID: %08x, dims: %4d x %4d, fmt: %s, size: %7s, name: %-40.40s\n", intValue, intValue2, intValue3, __str, objc_msgSend(v20, "UTF8String"), objc_msgSend(v12, "UTF8String")];
 
-        [v26 appendString:v21];
+        [v25 appendString:v21];
       }
 
-      v27 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-      if (!v27)
+      v26 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      if (!v26)
       {
 LABEL_14:
 
@@ -605,16 +804,15 @@ LABEL_14:
     }
   }
 
-  v26 = 0;
+  v25 = 0;
 LABEL_16:
-  v22 = *MEMORY[0x29EDCA608];
 
-  return v26;
+  return v25;
 }
 
 - (id)prettyPrintIOAccelMemoryInfo
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v58 = *MEMORY[0x29EDCA608];
   ioAccelMemoryInfo = self->_ioAccelMemoryInfo;
   if (ioAccelMemoryInfo && [(NSArray *)ioAccelMemoryInfo count])
   {
@@ -623,86 +821,86 @@ LABEL_16:
     [string appendString:v5];
 
     v6 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s %s %s %s %s %s\n", "Size      ", "Resident  ", "Dirty     ", "IOSurfaceID", "     State", "Description"];
-    v35 = string;
+    v34 = string;
     [string appendString:v6];
 
     v7 = [@"\n" stringByPaddingToLength:57 withString:@" " startingAtIndex:0];
     [(NSArray *)self->_ioAccelMemoryInfo sortedArrayUsingComparator:&unk_2A1E8F950];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    obj = v56 = 0u;
-    v36 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
-    if (v36)
+    obj = v55 = 0u;
+    v35 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+    if (v35)
     {
-      v34 = *v54;
+      v33 = *v53;
       do
       {
         v8 = 0;
         do
         {
-          if (*v54 != v34)
+          if (*v53 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v47 = v8;
-          v9 = *(*(&v53 + 1) + 8 * v8);
+          v46 = v8;
+          v9 = *(*(&v52 + 1) + 8 * v8);
           v10 = [v9 objectForKeyedSubscript:qword_2A13A5568];
           v11 = [v9 objectForKeyedSubscript:qword_2A13A5578];
-          v48 = [v9 objectForKeyedSubscript:qword_2A13A5570];
+          v47 = [v9 objectForKeyedSubscript:qword_2A13A5570];
           v12 = [v9 objectForKeyedSubscript:qword_2A13A5550];
           v13 = [v9 objectForKeyedSubscript:qword_2A13A5580];
           v14 = [v9 objectForKeyedSubscript:qword_2A13A5588];
           v15 = [v9 objectForKeyedSubscript:qword_2A13A5558];
           if ([v12 unsignedLongLongValue])
           {
-            v43 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%llu", objc_msgSend(v12, "unsignedLongLongValue")];
+            v42 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%llu", objc_msgSend(v12, "unsignedLongLongValue")];
           }
 
           else
           {
-            v43 = @"-";
+            v42 = @"-";
           }
 
-          bOOLValue = [v13 BOOLValue];
+          v16 = objc_msgSend_BOOLValue(v13);
           v17 = @"Wired";
-          if ((bOOLValue & 1) == 0)
+          if ((v16 & 1) == 0)
           {
-            bOOLValue2 = [v14 BOOLValue];
+            v18 = objc_msgSend_BOOLValue(v14);
             v17 = @"Normal";
-            if (bOOLValue2)
+            if (v18)
             {
               v17 = @"Purgeable";
             }
           }
 
-          v42 = v17;
-          v44 = v14;
-          v45 = v13;
-          v46 = v12;
+          v41 = v17;
+          v43 = v14;
+          v44 = v13;
+          v45 = v12;
           string2 = [MEMORY[0x29EDBA050] string];
+          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
           v20 = v15;
-          v21 = [v20 countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v48 objects:v56 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v50;
+            v23 = *v49;
             v24 = 1;
             do
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v50 != v23)
+                if (*v49 != v23)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                v26 = *(*(&v49 + 1) + 8 * i);
+                v26 = *(*(&v48 + 1) + 8 * i);
                 if ((v24 & 1) == 0)
                 {
                   [string2 appendString:v7];
@@ -712,46 +910,44 @@ LABEL_16:
                 v24 = 0;
               }
 
-              v22 = [v20 countByEnumeratingWithState:&v49 objects:v57 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v48 objects:v56 count:16];
               v24 = 0;
             }
 
             while (v22);
           }
 
-          v39 = MEMORY[0x29EDBA0F8];
+          v38 = MEMORY[0x29EDBA0F8];
           [v10 unsignedLongLongValue];
-          v38 = NSLocalizedFileSizeDescription();
-          uTF8String = [v38 UTF8String];
+          v37 = NSLocalizedFileSizeDescription();
+          uTF8String = [v37 UTF8String];
           [v11 unsignedLongLongValue];
           NSLocalizedFileSizeDescription();
-          v27 = v41 = v10;
+          v27 = v40 = v10;
           uTF8String2 = [v27 UTF8String];
-          [v48 unsignedLongLongValue];
+          [v47 unsignedLongLongValue];
           NSLocalizedFileSizeDescription();
-          v29 = v40 = v11;
-          v30 = [v39 stringWithFormat:@"%-*s %-*s %-*s %*s %*s %s\n", 10, uTF8String, 10, uTF8String2, 10, objc_msgSend(v29, "UTF8String"), 11, -[__CFString UTF8String](v43, "UTF8String"), 10, -[__CFString UTF8String](v42, "UTF8String"), objc_msgSend(string2, "UTF8String")];
+          v29 = v39 = v11;
+          v30 = [v38 stringWithFormat:@"%-*s %-*s %-*s %*s %*s %s\n", 10, uTF8String, 10, uTF8String2, 10, objc_msgSend(v29, "UTF8String"), 11, -[__CFString UTF8String](v42, "UTF8String"), 10, -[__CFString UTF8String](v41, "UTF8String"), objc_msgSend(string2, "UTF8String")];
 
-          [v35 appendString:v30];
-          v8 = v47 + 1;
+          [v34 appendString:v30];
+          v8 = v46 + 1;
         }
 
-        while (v47 + 1 != v36);
-        v36 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+        while (v46 + 1 != v35);
+        v35 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
   }
 
   else
   {
-    v35 = 0;
+    v34 = 0;
   }
 
-  v31 = *MEMORY[0x29EDCA608];
-
-  return v35;
+  return v34;
 }
 
 - (id)createLiteMetaDataDict
@@ -776,7 +972,7 @@ LABEL_16:
 
 - (int64_t)_saveLogFileWithHandle:(id)handle error:(id *)error
 {
-  v19[1] = *MEMORY[0x29EDCA608];
+  v18[1] = *MEMORY[0x29EDCA608];
   handleCopy = handle;
   if (handleCopy)
   {
@@ -842,9 +1038,9 @@ LABEL_16:
   {
     v11 = MEMORY[0x29EDB9FA0];
     v12 = MREErrorDomain;
-    v18 = *MEMORY[0x29EDB9ED8];
-    v19[0] = @"File handle is nil";
-    v9 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x29EDB9ED8];
+    v18[0] = @"File handle is nil";
+    v9 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     *error = [v11 errorWithDomain:v12 code:2 userInfo:v9];
     v10 = 2;
 LABEL_21:
@@ -855,7 +1051,6 @@ LABEL_21:
   v10 = 2;
 LABEL_22:
 
-  v15 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -869,7 +1064,7 @@ LABEL_22:
 
 + (id)resourceExceptionFromTask:(unsigned int)task error:(id *)error
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v57 = *MEMORY[0x29EDCA608];
   if (task - 1 >= 0xFFFFFFFE)
   {
     if (error)
@@ -912,22 +1107,22 @@ LABEL_7:
     goto LABEL_12;
   }
 
-  v13 = [MemoryResourceException alloc];
-  if (!v13)
+  v12 = [MemoryResourceException alloc];
+  if (!v12)
   {
 LABEL_12:
     v10 = 0;
     goto LABEL_13;
   }
 
-  v14 = suspend_token;
-  v15 = [(MemoryResourceException *)v13 init];
-  v10 = v15;
-  if (v15)
+  v13 = suspend_token;
+  v14 = [(MemoryResourceException *)v12 init];
+  v10 = v14;
+  if (v14)
   {
-    *(v15 + 136) = 1;
-    *(v15 + 20) = task;
-    *(v15 + 24) = v14;
+    *(v14 + 136) = 1;
+    *(v14 + 20) = task;
+    *(v14 + 24) = v13;
     if (qword_2A18A6018 != -1)
     {
       dispatch_once(&qword_2A18A6018, &unk_2A1E8F970);
@@ -939,93 +1134,92 @@ LABEL_12:
     *&buffer[0].tv_usec = 0;
     if (!gettimeofday(buffer, 0))
     {
-      v16 = sub_297E280B0(buffer[0].tv_sec, buffer[0].tv_usec);
-      v17 = *(v10 + 192);
-      *(v10 + 192) = v16;
+      v15 = sub_297E280B0(buffer[0].tv_sec, buffer[0].tv_usec);
+      v16 = *(v10 + 192);
+      *(v10 + 192) = v15;
     }
 
-    v18 = *(v10 + 20);
+    v17 = *(v10 + 20);
     buffer[0].tv_sec = MEMORY[0x29EDCA5F8];
     *&buffer[0].tv_usec = 3221225472;
     buffer[1].tv_sec = sub_297E284D4;
     *&buffer[1].tv_usec = &unk_29EE848F8;
-    v58 = v10;
-    if (sub_297E278A4(v18, buffer))
+    v56 = v10;
+    if (sub_297E278A4(v17, buffer))
     {
       [*(v10 + 192) timeIntervalSinceDate:*(v10 + 184)];
-      v20 = v19;
-      if (v19 <= 0.0)
+      v19 = v18;
+      if (v18 <= 0.0)
       {
-        v20 = -1;
+        v19 = -1;
       }
 
-      *(v10 + 112) = v20;
-      v21 = *(v10 + 200);
-      if (!v21)
+      *(v10 + 112) = v19;
+      v20 = *(v10 + 200);
+      if (!v20)
       {
         goto LABEL_44;
       }
 
-      if (v21 >> 61 != 3)
+      if (v20 >> 61 != 3)
       {
         goto LABEL_43;
       }
 
-      v22 = (v21 >> 58) & 7;
-      if (v22 == 1)
+      v21 = (v20 >> 58) & 7;
+      if (v21 == 1)
       {
-        v47 = (*(v10 + 36) & 0xD) == 1;
-        if ((v21 & 0xFF000000) != 0)
+        if ((v20 & 0xFF000000) != 0)
         {
-          v21 = 2;
+          v20 = 2;
         }
 
         else
         {
-          v21 = 4;
+          v20 = 4;
         }
 
         if ((*(v10 + 36) & 0xD) == 1)
         {
-          ++v21;
+          ++v20;
         }
 
         goto LABEL_44;
       }
 
-      if (v22 == 2)
+      if (v21 == 2)
       {
-        v21 = 7;
+        v20 = 7;
       }
 
       else
       {
 LABEL_43:
-        v21 = 8;
+        v20 = 8;
       }
 
 LABEL_44:
-      *(v10 + 96) = v21;
-      v36 = sub_297E28120(*(v10 + 176));
-      v42 = sub_297E28198(*(v10 + 32), *(v10 + 72), v36);
-      v43 = *(v10 + 80);
-      *(v10 + 80) = v42;
+      *(v10 + 96) = v20;
+      v35 = sub_297E28120(*(v10 + 176));
+      v41 = sub_297E28198(*(v10 + 32), *(v10 + 72), v35);
+      v42 = *(v10 + 80);
+      *(v10 + 80) = v41;
 
-      v44 = sub_297E282C8(v36);
-      v45 = *(v10 + 88);
-      *(v10 + 88) = v44;
+      v43 = sub_297E282C8(v35);
+      v44 = *(v10 + 88);
+      *(v10 + 88) = v43;
 
-      v46 = sub_297E28364(*(v10 + 20), *(v10 + 28), *(v10 + 64));
-      *(v10 + 17) = v46;
+      v45 = sub_297E28364(*(v10 + 20), *(v10 + 28), *(v10 + 64));
+      *(v10 + 17) = v45;
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG))
       {
-        v48 = *(v10 + 28);
+        v46 = *(v10 + 28);
         *buf = 136315650;
-        v52 = "[MemoryResourceException extractCorpseInfo]";
+        v50 = "[MemoryResourceException extractCorpseInfo]";
+        v51 = 1024;
+        v52 = v46;
         v53 = 1024;
-        v54 = v48;
-        v55 = 1024;
-        v56 = v46;
+        v54 = v45;
         _os_log_debug_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "%s - for pid (%i), isMSLEnabled = %{BOOL}d", buf, 0x18u);
       }
 
@@ -1034,43 +1228,43 @@ LABEL_46:
       goto LABEL_13;
     }
 
-    v23 = *(v10 + 20);
-    if (v23 && !pid_for_task(v23, (v10 + 28)) && !proc_get_dirty(*(v10 + 28), (v10 + 36)))
+    v22 = *(v10 + 20);
+    if (v22 && !pid_for_task(v22, (v10 + 28)) && !proc_get_dirty(*(v10 + 28), (v10 + 36)))
     {
-      v24 = sub_297E27F50(*(v10 + 28));
-      v25 = *(v10 + 72);
-      *(v10 + 72) = v24;
+      v23 = sub_297E27F50(*(v10 + 28));
+      v24 = *(v10 + 72);
+      *(v10 + 72) = v23;
 
       lastPathComponent = [*(v10 + 72) lastPathComponent];
-      v27 = *(v10 + 64);
+      v26 = *(v10 + 64);
       *(v10 + 64) = lastPathComponent;
 
-      v28 = sub_297E27FE0(*(v10 + 28));
-      if (v28)
+      v27 = sub_297E27FE0(*(v10 + 28));
+      if (v27)
       {
-        v29 = v28;
-        *(v10 + 32) = v28[140];
-        v30 = sub_297E280B0(*v28, v28[2]);
-        v31 = *(v10 + 184);
-        *(v10 + 184) = v30;
+        v28 = v27;
+        *(v10 + 32) = v27[140];
+        v29 = sub_297E280B0(*v27, v27[2]);
+        v30 = *(v10 + 184);
+        *(v10 + 184) = v29;
 
         [*(v10 + 192) timeIntervalSinceDate:*(v10 + 184)];
-        v33 = v32;
-        if (v32 <= 0.0)
+        v32 = v31;
+        if (v31 <= 0.0)
         {
-          v33 = -1;
+          v32 = -1;
         }
 
-        *(v10 + 112) = v33;
-        *(v10 + 16) = (v29[32] & 4) != 0;
-        free(v29);
+        *(v10 + 112) = v32;
+        *(v10 + 16) = (v28[32] & 4) != 0;
+        free(v28);
       }
 
       *(v10 + 96) = 0;
-      v34 = *(v10 + 28);
-      v58 = 0;
+      v33 = *(v10 + 28);
+      v56 = 0;
       memset(buffer, 0, sizeof(buffer));
-      if (proc_pidinfo(v34, 20, 1uLL, buffer, 40) == 40)
+      if (proc_pidinfo(v33, 20, 1uLL, buffer, 40) == 40)
       {
         tv_sec = buffer[0].tv_sec;
       }
@@ -1081,26 +1275,26 @@ LABEL_46:
       }
 
       *(v10 + 176) = tv_sec;
-      v36 = sub_297E28120(tv_sec);
-      v37 = sub_297E28198(*(v10 + 32), *(v10 + 72), v36);
-      v38 = *(v10 + 80);
-      *(v10 + 80) = v37;
+      v35 = sub_297E28120(tv_sec);
+      v36 = sub_297E28198(*(v10 + 32), *(v10 + 72), v35);
+      v37 = *(v10 + 80);
+      *(v10 + 80) = v36;
 
-      v39 = sub_297E282C8(v36);
-      v40 = *(v10 + 88);
-      *(v10 + 88) = v39;
+      v38 = sub_297E282C8(v35);
+      v39 = *(v10 + 88);
+      *(v10 + 88) = v38;
 
-      v41 = sub_297E28364(*(v10 + 20), *(v10 + 28), *(v10 + 64));
-      *(v10 + 17) = v41;
+      v40 = sub_297E28364(*(v10 + 20), *(v10 + 28), *(v10 + 64));
+      *(v10 + 17) = v40;
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG))
       {
-        v49 = *(v10 + 28);
+        v47 = *(v10 + 28);
         LODWORD(buffer[0].tv_sec) = 136315650;
         *(&buffer[0].tv_sec + 4) = "[MemoryResourceException extractTaskInfo]";
         *(&buffer[0].tv_usec + 2) = 1024;
-        *(&buffer[0].tv_usec + 6) = v49;
+        *(&buffer[0].tv_usec + 6) = v47;
         WORD1(buffer[1].tv_sec) = 1024;
-        HIDWORD(buffer[1].tv_sec) = v41;
+        HIDWORD(buffer[1].tv_sec) = v40;
         _os_log_debug_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "%s - for pid (%i), isMSLEnabled = %{BOOL}d", buffer, 0x18u);
       }
 
@@ -1110,7 +1304,6 @@ LABEL_46:
   }
 
 LABEL_13:
-  v11 = *MEMORY[0x29EDCA608];
 
   return v10;
 }
@@ -1129,12 +1322,12 @@ LABEL_13:
 - (void)_populateAddtionalMetadataWithOptions:(unint64_t)options timeoutSecs:(unint64_t)secs
 {
   optionsCopy = options;
-  v118 = *MEMORY[0x29EDCA608];
-  v81 = sub_297E279C8(self);
+  v116 = *MEMORY[0x29EDCA608];
+  v79 = sub_297E279C8(self);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *&buf[4] = v81;
+    *&buf[4] = v79;
     _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Generating footprint for %@", buf, 0xCu);
   }
 
@@ -1148,23 +1341,23 @@ LABEL_13:
     if (v4)
     {
       ledgerPageTable = self->_ledgerPageTable;
-      v109 = *&self->_ledgerPhysFootprint;
-      v110 = 0;
-      v111 = 0;
+      v107 = *&self->_ledgerPhysFootprint;
+      v108 = 0;
+      v109 = 0;
       *thread_info_outCnt = ledgerPageTable;
       [v4 addLedgerData:thread_info_outCnt count:5];
       v7 = [FPFootprint alloc];
-      v114 = v5;
-      v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v114 count:1];
+      v112 = v5;
+      v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v112 count:1];
       v9 = [(FPFootprint *)v7 initWithProcesses:v8];
 
       [(FPFootprint *)v9 gatherData:1];
       [(FPFootprint *)v9 analyzeData];
-      sub_297E36E10();
+      sub_297E36E10(FPSharedCache);
       v10 = sub_297E39E48(v9, 1);
       if (v10)
       {
-        v113 = 0u;
+        v111 = 0u;
         memset(buf, 0, sizeof(buf));
         sub_297E380A4(FPFootprint, v10, buf);
         v11 = objc_alloc_init(MREOutputFormatterInMemory);
@@ -1184,25 +1377,25 @@ LABEL_13:
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v81;
+      *&buf[4] = v79;
       _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Starting IOAccel memory info collection (asynchronous) for %@", buf, 0xCu);
     }
 
     v13 = MEMORY[0x29EDC55A0];
     v14 = dispatch_get_global_queue(0, 0);
-    v105[0] = MEMORY[0x29EDCA5F8];
-    v105[1] = 3221225472;
-    v105[2] = sub_297E2B808;
-    v105[3] = &unk_29EE84980;
-    v105[4] = self;
-    v106 = dsema;
-    [v13 collectDataWithCompletionQueue:v14 completionBlock:v105];
+    v103[0] = MEMORY[0x29EDCA5F8];
+    v103[1] = 3221225472;
+    v103[2] = sub_297E2B808;
+    v103[3] = &unk_29EE84980;
+    v103[4] = self;
+    v104 = dsema;
+    [v13 collectDataWithCompletionQueue:v14 completionBlock:v103];
   }
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *&buf[4] = v81;
+    *&buf[4] = v79;
     _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Generating backtrace info for %@", buf, 0xCu);
   }
 
@@ -1211,15 +1404,15 @@ LABEL_13:
     goto LABEL_72;
   }
 
-  v91 = [objc_alloc(MEMORY[0x29EDC6D98]) initWithPID:self->_pid task:self->_task processName:self->_execName is64Bit:self->_is64Bit options:64];
-  sampleAllThreadsOnce = [v91 sampleAllThreadsOnce];
-  v87 = [sampleAllThreadsOnce count];
-  if (!v87)
+  v89 = [objc_alloc(MEMORY[0x29EDC6D98]) initWithPID:self->_pid task:self->_task processName:self->_execName is64Bit:self->_is64Bit options:64];
+  sampleAllThreadsOnce = [v89 sampleAllThreadsOnce];
+  v85 = [sampleAllThreadsOnce count];
+  if (!v85)
   {
     goto LABEL_71;
   }
 
-  [v91 symbolicator];
+  [v89 symbolicator];
   if (!CSIsNull())
   {
     CSRetain();
@@ -1227,186 +1420,185 @@ LABEL_13:
   }
 
   CSSymbolicatorGetFlagsForNoSymbolOrSourceInfoData();
-  task = self->_task;
   CSSymbolicatorCreateWithTaskFlagsAndNotification();
   if (!CSIsNull())
   {
 LABEL_25:
-    v85 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:v87];
-    v86 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:v87];
-    v98 = objc_alloc_init(MEMORY[0x29EDB8E00]);
-    v16 = 0;
-    v89 = -1;
-    v83 = *MEMORY[0x29EDC0E58];
-    v84 = *MEMORY[0x29EDC0E48];
-    v82 = *MEMORY[0x29EDC0E50];
+    v83 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:v85];
+    v84 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:v85];
+    v96 = objc_alloc_init(MEMORY[0x29EDB8E00]);
+    v15 = 0;
+    v87 = -1;
+    v81 = *MEMORY[0x29EDC0E58];
+    v82 = *MEMORY[0x29EDC0E48];
+    v80 = *MEMORY[0x29EDC0E50];
     while (1)
     {
-      v92 = v16;
-      v96 = [sampleAllThreadsOnce objectAtIndexedSubscript:?];
-      thread = [v96 thread];
-      v18 = thread;
-      if (self->_crashedThreadId && (v89 & 0x80000000) != 0)
+      v90 = v15;
+      v94 = [sampleAllThreadsOnce objectAtIndexedSubscript:?];
+      thread = [v94 thread];
+      v17 = thread;
+      if (self->_crashedThreadId && (v87 & 0x80000000) != 0)
       {
         memset(buf, 0, 24);
         thread_info_outCnt[0] = 6;
-        v19 = thread_info(thread, 4u, buf, thread_info_outCnt);
-        v20 = *buf;
-        if (v19)
+        v18 = thread_info(thread, 4u, buf, thread_info_outCnt);
+        v19 = *buf;
+        if (v18)
         {
-          v20 = -1;
+          v19 = -1;
         }
 
-        if (v20 == self->_crashedThreadId)
+        if (v19 == self->_crashedThreadId)
         {
-          v21 = v92;
+          v20 = v90;
         }
 
         else
         {
-          v21 = v89;
+          v20 = v87;
         }
 
-        v89 = v21;
+        v87 = v20;
       }
 
-      v94 = [v91 threadNameForThread:v18];
-      v22 = [v94 length];
-      v93 = [v91 dispatchQueueNameForSerialNumber:{objc_msgSend(v96, "dispatchQueueSerialNumber")}];
-      v23 = [v93 length];
-      v95 = objc_alloc_init(MEMORY[0x29EDBA050]);
-      if (v22)
+      v92 = [v89 threadNameForThread:v17];
+      v21 = [v92 length];
+      v91 = [v89 dispatchQueueNameForSerialNumber:{objc_msgSend(v94, "dispatchQueueSerialNumber")}];
+      v22 = [v91 length];
+      v93 = objc_alloc_init(MEMORY[0x29EDBA050]);
+      if (v21)
       {
-        [v95 appendString:v94];
-        if (v23)
+        [v93 appendString:v92];
+        if (v22)
         {
-          [v95 appendString:@"  "];
+          [v93 appendString:@"  "];
 LABEL_38:
-          [v95 appendFormat:@"Dispatch queue: %@", v93];
+          [v93 appendFormat:@"Dispatch queue: %@", v91];
         }
       }
 
-      else if (v23)
+      else if (v22)
       {
         goto LABEL_38;
       }
 
-      [v86 addObject:v95];
-      backtrace = [v96 backtrace];
-      backtraceLength = [v96 backtraceLength];
+      [v84 addObject:v93];
+      backtrace = [v94 backtrace];
+      backtraceLength = [v94 backtraceLength];
       for (i = [MEMORY[0x29EDB8DE8] arrayWithCapacity:backtraceLength];
       {
-        v27 = *backtrace;
+        v26 = *backtrace;
         dictionary = [MEMORY[0x29EDB8E00] dictionary];
-        v29 = [MEMORY[0x29EDBA070] numberWithUnsignedLong:v27];
-        [dictionary setObject:v29 forKeyedSubscript:qword_2A13A54D8];
+        v28 = [MEMORY[0x29EDBA070] numberWithUnsignedLong:v26];
+        [dictionary setObject:v28 forKeyedSubscript:qword_2A13A54D8];
 
         CSSymbolicatorGetSymbolOwnerWithAddressAtTime();
-        v30 = v98;
-        v31 = dictionary;
+        v29 = v96;
+        v30 = dictionary;
         if ((CSIsNull() & 1) == 0)
         {
           CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
-          if (CFUUIDBytes && (v33 = CFUUIDCreateFromUUIDBytes(0, *CFUUIDBytes)) != 0)
+          if (CFUUIDBytes && (v32 = CFUUIDCreateFromUUIDBytes(0, *CFUUIDBytes)) != 0)
           {
-            v34 = CFUUIDCreateString(0, v33);
-            CFRelease(v33);
-            if (v34)
+            v33 = CFUUIDCreateString(0, v32);
+            CFRelease(v32);
+            if (v33)
             {
-              [v31 setObject:v34 forKeyedSubscript:qword_2A13A54F8];
-              v35 = [v30 objectForKeyedSubscript:v34];
-              v36 = v35 == 0;
+              [v30 setObject:v33 forKeyedSubscript:qword_2A13A54F8];
+              v34 = [v29 objectForKeyedSubscript:v33];
+              v35 = v34 == 0;
 
-              if (v36)
+              if (v35)
               {
-                v97 = objc_alloc_init(MEMORY[0x29EDB8E00]);
-                [v97 setObject:v34 forKeyedSubscript:v84];
-                [v30 setObject:v97 forKeyedSubscript:v34];
+                v95 = objc_alloc_init(MEMORY[0x29EDB8E00]);
+                [v95 setObject:v33 forKeyedSubscript:v82];
+                [v29 setObject:v95 forKeyedSubscript:v33];
                 Name = CSSymbolOwnerGetName();
                 if (Name)
                 {
-                  v38 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:Name];
-                  v39 = v38;
-                  if (v38)
+                  v37 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:Name];
+                  v38 = v37;
+                  if (v37)
                   {
-                    v40 = v38;
+                    v39 = v37;
                   }
 
                   else
                   {
-                    v40 = @"nonprintable-binary";
+                    v39 = @"nonprintable-binary";
                   }
 
-                  [v97 setObject:v40 forKeyedSubscript:v83];
+                  [v95 setObject:v39 forKeyedSubscript:v81];
                 }
 
                 Path = CSSymbolOwnerGetPath();
                 if (Path)
                 {
-                  v42 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:Path];
-                  stringByStandardizingPath = [v42 stringByStandardizingPath];
+                  v41 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:Path];
+                  stringByStandardizingPath = [v41 stringByStandardizingPath];
 
                   if (stringByStandardizingPath)
                   {
-                    v44 = stringByStandardizingPath;
+                    v43 = stringByStandardizingPath;
                   }
 
                   else
                   {
-                    v44 = @"nonprintable-path";
+                    v43 = @"nonprintable-path";
                   }
 
-                  [v97 setObject:v44 forKeyedSubscript:v82];
+                  [v95 setObject:v43 forKeyedSubscript:v80];
                 }
 
                 Architecture = CSSymbolOwnerGetArchitecture();
-                v46 = macho_arch_name_for_cpu_type(Architecture, SHIDWORD(Architecture));
+                v45 = macho_arch_name_for_cpu_type(Architecture, SHIDWORD(Architecture));
+                if (v45)
+                {
+                  v46 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v45];
+                }
+
+                else
+                {
+                  v46 = @"unknown-arch";
+                }
+
                 if (v46)
                 {
-                  v47 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v46];
+                  v47 = v46;
                 }
 
                 else
                 {
-                  v47 = @"unknown-arch";
+                  v47 = @"nonprintable-arch";
                 }
 
-                if (v47)
-                {
-                  v48 = v47;
-                }
-
-                else
-                {
-                  v48 = @"nonprintable-arch";
-                }
-
-                [v97 setObject:v48 forKeyedSubscript:qword_2A13A54F0];
+                [v95 setObject:v47 forKeyedSubscript:qword_2A13A54F0];
                 *thread_info_outCnt = 0;
-                *&v109 = thread_info_outCnt;
-                *(&v109 + 1) = 0x2020000000;
-                v110 = 0;
-                v114 = 0;
-                v115 = &v114;
-                v116 = 0x2020000000;
-                v117 = 0;
+                *&v107 = thread_info_outCnt;
+                *(&v107 + 1) = 0x2020000000;
+                v108 = 0;
+                v112 = 0;
+                v113 = &v112;
+                v114 = 0x2020000000;
+                v115 = 0;
                 *buf = MEMORY[0x29EDCA5F8];
                 *&buf[8] = 3221225472;
                 *&buf[16] = sub_297E2D314;
                 *&buf[24] = &unk_29EE849A8;
-                *&v113 = thread_info_outCnt;
-                *(&v113 + 1) = &v114;
+                *&v111 = thread_info_outCnt;
+                *(&v111 + 1) = &v112;
                 CSSymbolOwnerForeachSegment();
-                if (*(v109 + 24) || v115[3])
+                if (*(v107 + 24) || v113[3])
                 {
-                  v49 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:?];
-                  [v97 setObject:v49 forKeyedSubscript:@"StartAddress"];
+                  v48 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:?];
+                  [v95 setObject:v48 forKeyedSubscript:@"StartAddress"];
 
-                  v50 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:v115[3] - *(v109 + 24) + 1];
-                  [v97 setObject:v50 forKeyedSubscript:@"Size"];
+                  v49 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:v113[3] - *(v107 + 24) + 1];
+                  [v95 setObject:v49 forKeyedSubscript:@"Size"];
                 }
 
-                _Block_object_dispose(&v114, 8);
+                _Block_object_dispose(&v112, 8);
                 _Block_object_dispose(thread_info_outCnt, 8);
               }
             }
@@ -1414,29 +1606,29 @@ LABEL_38:
 
           else
           {
-            v34 = 0;
+            v33 = 0;
           }
         }
 
-        [i addObject:v31];
+        [i addObject:v30];
         ++backtrace;
       }
 
-      [v85 addObject:i];
+      [v83 addObject:i];
 
-      v16 = v92 + 1;
-      if (v92 + 1 == v87)
+      v15 = v90 + 1;
+      if (v90 + 1 == v85)
       {
         CSRelease();
-        v51 = objc_alloc_init(MEMORY[0x29EDB8E00]);
-        [(NSDictionary *)v51 setObject:v85 forKeyedSubscript:qword_2A13A5500];
-        [(NSDictionary *)v51 setObject:v86 forKeyedSubscript:qword_2A13A5508];
-        v52 = [MEMORY[0x29EDBA070] numberWithInt:v89];
-        [(NSDictionary *)v51 setObject:v52 forKeyedSubscript:qword_2A13A5510];
+        v50 = objc_alloc_init(MEMORY[0x29EDB8E00]);
+        [(NSDictionary *)v50 setObject:v83 forKeyedSubscript:qword_2A13A5500];
+        [(NSDictionary *)v50 setObject:v84 forKeyedSubscript:qword_2A13A5508];
+        v51 = [MEMORY[0x29EDBA070] numberWithInt:v87];
+        [(NSDictionary *)v50 setObject:v51 forKeyedSubscript:qword_2A13A5510];
 
-        [(NSDictionary *)v51 setObject:v98 forKeyedSubscript:qword_2A13A5518];
+        [(NSDictionary *)v50 setObject:v96 forKeyedSubscript:qword_2A13A5518];
         executionStack = self->_executionStack;
-        self->_executionStack = v51;
+        self->_executionStack = v50;
 
         goto LABEL_71;
       }
@@ -1455,70 +1647,70 @@ LABEL_72:
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *&buf[4] = v81;
+    *&buf[4] = v79;
     _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Collecting IOSurface info for %@", buf, 0xCu);
   }
 
   surfaceDescriptions = [MEMORY[0x29EDBB120] surfaceDescriptions];
-  v54 = [MEMORY[0x29EDBA070] numberWithInt:self->_pid];
-  v100 = [surfaceDescriptions objectForKeyedSubscript:v54];
+  v53 = [MEMORY[0x29EDBA070] numberWithInt:self->_pid];
+  v98 = [surfaceDescriptions objectForKeyedSubscript:v53];
 
-  if (v100)
+  if (v98)
   {
-    v55 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(v100, "count")}];
-    v103 = 0u;
-    v104 = 0u;
+    v54 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(v98, "count")}];
     v101 = 0u;
     v102 = 0u;
-    v56 = v100;
-    v57 = [v56 countByEnumeratingWithState:&v101 objects:v107 count:16];
-    if (v57)
+    v99 = 0u;
+    v100 = 0u;
+    v55 = v98;
+    v56 = [v55 countByEnumeratingWithState:&v99 objects:v105 count:16];
+    if (v56)
     {
-      v58 = *v102;
+      v57 = *v100;
       do
       {
-        for (j = 0; j != v57; ++j)
+        for (j = 0; j != v56; ++j)
         {
-          if (*v102 != v58)
+          if (*v100 != v57)
           {
-            objc_enumerationMutation(v56);
+            objc_enumerationMutation(v55);
           }
 
-          v60 = *(*(&v101 + 1) + 8 * j);
+          v59 = *(*(&v99 + 1) + 8 * j);
           objc_opt_self();
           dictionary2 = [MEMORY[0x29EDB8E00] dictionary];
-          v62 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{objc_msgSend(v60, "surfaceID")}];
-          [dictionary2 setObject:v62 forKeyedSubscript:qword_2A13A5520];
+          v61 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{objc_msgSend(v59, "surfaceID")}];
+          [dictionary2 setObject:v61 forKeyedSubscript:qword_2A13A5520];
 
-          v63 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{objc_msgSend(v60, "pixelFormat")}];
-          [dictionary2 setObject:v63 forKeyedSubscript:qword_2A13A5548];
+          v62 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{objc_msgSend(v59, "pixelFormat")}];
+          [dictionary2 setObject:v62 forKeyedSubscript:qword_2A13A5548];
 
-          name = [v60 name];
+          name = [v59 name];
           [dictionary2 setObject:name forKeyedSubscript:qword_2A13A5528];
 
-          v65 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:{objc_msgSend(v60, "width")}];
-          [dictionary2 setObject:v65 forKeyedSubscript:qword_2A13A5530];
+          v64 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:{objc_msgSend(v59, "width")}];
+          [dictionary2 setObject:v64 forKeyedSubscript:qword_2A13A5530];
 
-          v66 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:{objc_msgSend(v60, "height")}];
-          [dictionary2 setObject:v66 forKeyedSubscript:qword_2A13A5538];
+          v65 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:{objc_msgSend(v59, "height")}];
+          [dictionary2 setObject:v65 forKeyedSubscript:qword_2A13A5538];
 
-          v67 = MEMORY[0x29EDBA070];
-          allocationSize = [v60 allocationSize];
+          v66 = MEMORY[0x29EDBA070];
+          allocationSize = [v59 allocationSize];
 
-          v69 = [v67 numberWithUnsignedLongLong:allocationSize];
-          [dictionary2 setObject:v69 forKeyedSubscript:qword_2A13A5540];
+          v68 = [v66 numberWithUnsignedLongLong:allocationSize];
+          [dictionary2 setObject:v68 forKeyedSubscript:qword_2A13A5540];
 
-          [(NSArray *)v55 addObject:dictionary2];
+          [(NSArray *)v54 addObject:dictionary2];
         }
 
-        v57 = [v56 countByEnumeratingWithState:&v101 objects:v107 count:16];
+        v56 = [v55 countByEnumeratingWithState:&v99 objects:v105 count:16];
       }
 
-      while (v57);
+      while (v56);
     }
 
     ioSurfaceInfo = self->_ioSurfaceInfo;
-    self->_ioSurfaceInfo = v55;
+    self->_ioSurfaceInfo = v54;
   }
 
   if ((optionsCopy & 2) != 0)
@@ -1529,28 +1721,28 @@ LABEL_72:
       _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Waiting for IOAccel memory info collection to finish...", buf, 2u);
     }
 
-    v71 = dispatch_time(0, 1000000000 * secs);
-    dispatch_semaphore_wait(dsema, v71);
+    v70 = dispatch_time(0, 1000000000 * secs);
+    dispatch_semaphore_wait(dsema, v70);
+    v71 = MEMORY[0x29EDCA988];
     v72 = MEMORY[0x29EDCA988];
-    v73 = MEMORY[0x29EDCA988];
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
     {
       ioAccelMemoryInfo = self->_ioAccelMemoryInfo;
       if (ioAccelMemoryInfo)
       {
-        v75 = [(NSArray *)ioAccelMemoryInfo count];
+        v74 = [(NSArray *)ioAccelMemoryInfo count];
       }
 
       else
       {
-        v75 = 0;
+        v74 = 0;
       }
 
-      v76 = sub_297E279C8(self);
+      v75 = sub_297E279C8(self);
       *buf = 134218242;
-      *&buf[4] = v75;
+      *&buf[4] = v74;
       *&buf[12] = 2112;
-      *&buf[14] = v76;
+      *&buf[14] = v75;
       _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOAccel memory info collection complete. Found a total of %lu entries for %@", buf, 0x16u);
     }
   }
@@ -1560,11 +1752,32 @@ LABEL_72:
     *buf = 136315394;
     *&buf[4] = "[MemoryResourceException _populateAddtionalMetadataWithOptions:timeoutSecs:]";
     *&buf[12] = 2112;
-    *&buf[14] = v81;
+    *&buf[14] = v79;
     _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Finished %s for %@", buf, 0x16u);
   }
+}
 
-  v77 = *MEMORY[0x29EDCA608];
+- (void)_generateMemgraphWithContentLevel:(unsigned int)level timeoutSecs:(unint64_t)secs memgraphFailedReasonOut:(unint64_t *)out
+{
+  v6 = *&level;
+  v13 = *MEMORY[0x29EDCA608];
+  v8 = sub_297E279C8(self);
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Generating memgraph for %@", &v9, 0xCu);
+  }
+
+  [(MemoryResourceException *)self generateMemoryGraphWithContentLevel:v6 memgraphFailedReasonOut:out];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 136315394;
+    v10 = "[MemoryResourceException _generateMemgraphWithContentLevel:timeoutSecs:memgraphFailedReasonOut:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_297E24000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Finished %s for %@", &v9, 0x16u);
+  }
 }
 
 - (BOOL)isFirstParty
@@ -1597,7 +1810,7 @@ LABEL_72:
 
 + (id)resourceExceptionFromLogFileHandle:(id)handle error:(id *)error
 {
-  v39[1] = *MEMORY[0x29EDCA608];
+  v38[1] = *MEMORY[0x29EDCA608];
   handleCopy = handle;
   v6 = handleCopy;
   if (handleCopy)
@@ -1623,9 +1836,9 @@ LABEL_27:
 
         v16 = MEMORY[0x29EDB9FA0];
         v17 = MREErrorDomain;
-        v36 = *MEMORY[0x29EDB9ED8];
-        v37 = v9;
-        v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v35 = *MEMORY[0x29EDB9ED8];
+        v36 = v9;
+        v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
         [v16 errorWithDomain:v17 code:1 userInfo:v10];
         *error = v11 = 0;
 LABEL_26:
@@ -1649,11 +1862,11 @@ LABEL_25:
 
           v23 = MEMORY[0x29EDB9FA0];
           v24 = MREErrorDomain;
-          v34 = *MEMORY[0x29EDB9ED8];
-          v35 = @"Metadata is malformed";
+          v33 = *MEMORY[0x29EDB9ED8];
+          v34 = @"Metadata is malformed";
           v25 = MEMORY[0x29EDB8DC0];
-          v26 = &v35;
-          v27 = &v34;
+          v26 = &v34;
+          v27 = &v33;
 LABEL_24:
           v28 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:1];
           *error = [v23 errorWithDomain:v24 code:1 userInfo:v28];
@@ -1670,9 +1883,9 @@ LABEL_24:
         v18 = v9;
         if (v11)
         {
-          v31.receiver = v11;
-          v31.super_class = MemoryResourceException;
-          v11 = objc_msgSendSuper2(&v31, sel_init);
+          v30.receiver = v11;
+          v30.super_class = MemoryResourceException;
+          v11 = objc_msgSendSuper2(&v30, sel_init);
           if (v11)
           {
             processName = [v18 processName];
@@ -1706,11 +1919,11 @@ LABEL_24:
 
       v23 = MEMORY[0x29EDB9FA0];
       v24 = MREErrorDomain;
-      v32 = *MEMORY[0x29EDB9ED8];
-      v33 = @"Unable to analyze diagnostic";
+      v31 = *MEMORY[0x29EDB9ED8];
+      v32 = @"Unable to analyze diagnostic";
       v25 = MEMORY[0x29EDB8DC0];
-      v26 = &v33;
-      v27 = &v32;
+      v26 = &v32;
+      v27 = &v31;
       goto LABEL_24;
     }
 
@@ -1727,9 +1940,9 @@ LABEL_24:
 
     v12 = MEMORY[0x29EDB9FA0];
     v13 = MREErrorDomain;
-    v38 = *MEMORY[0x29EDB9ED8];
-    v39[0] = @"File does not exist";
-    v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x29EDB9ED8];
+    v38[0] = @"File does not exist";
+    v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     [v12 errorWithDomain:v13 code:11 userInfo:v7];
     *error = v11 = 0;
   }
@@ -1737,7 +1950,6 @@ LABEL_24:
 LABEL_28:
 
 LABEL_29:
-  v29 = *MEMORY[0x29EDCA608];
 
   return v11;
 }

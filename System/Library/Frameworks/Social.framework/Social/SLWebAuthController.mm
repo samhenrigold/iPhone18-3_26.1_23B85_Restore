@@ -82,42 +82,41 @@
   tubeCopy = tube;
   usernameCopy = username;
   descriptionCopy = description;
-  _SLLog(v6, 5, @"SLWebAuthController initializing for description %@ username %@");
-  v13 = objc_alloc_init(MEMORY[0x1E696ABE0]);
-  v14 = [MEMORY[0x1E695DF90] dictionaryWithObject:descriptionCopy forKey:{@"description", descriptionCopy, usernameCopy}];
+  _SLLog(v6, 5, @"SLWebAuthController initializing for description %@ username %@", v13, v14, v15, v16, v17, descriptionCopy);
+  v18 = objc_alloc_init(MEMORY[0x1E696ABE0]);
+  v19 = [MEMORY[0x1E695DF90] dictionaryWithObject:descriptionCopy forKey:@"description"];
 
   if (account)
   {
-    [v14 setObject:usernameCopy forKeyedSubscript:@"username"];
+    [v19 setObject:usernameCopy forKeyedSubscript:@"username"];
   }
 
   if (tubeCopy)
   {
-    [v14 setObject:@"YES" forKeyedSubscript:@"youTube"];
+    [v19 setObject:@"YES" forKeyedSubscript:@"youTube"];
   }
 
-  v15 = MEMORY[0x1E696ACC8];
+  v20 = MEMORY[0x1E696ACC8];
   _webClient = [(SLWebAuthController *)self _webClient];
-  v21 = 0;
-  v17 = [v15 archivedDataWithRootObject:_webClient requiringSecureCoding:1 error:&v21];
-  v18 = v21;
-  [v14 setObject:v17 forKeyedSubscript:@"webClient"];
+  v30 = 0;
+  v22 = [v20 archivedDataWithRootObject:_webClient requiringSecureCoding:1 error:&v30];
+  v23 = v30;
+  [v19 setObject:v22 forKeyedSubscript:@"webClient"];
 
-  if (v18)
+  if (v23)
   {
-    v20 = v18;
-    _SLLog(v6, 3, @"Error while archiving we client, error: %@");
+    _SLLog(v6, 3, @"Error while archiving we client, error: %@", v24, v25, v26, v27, v28, v23);
   }
 
-  [v13 setUserInfo:{v14, v20}];
+  [v18 setUserInfo:v19];
 
-  return v13;
+  return v18;
 }
 
 - (void)_commonInitializationWithAccount:(id)account accountStore:(id)store username:(id)username accountDescription:(id)description youTube:(BOOL)tube presentationBlock:(id)block
 {
   tubeCopy = tube;
-  v41[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   storeCopy = store;
   usernameCopy = username;
@@ -131,33 +130,32 @@
 
   if (!self->_presentationBlock)
   {
-    _SLLog(v8, 3, @"SLWebAuthController Client did not pass a presentationBlock to the init method. Your presentation animation will probably look horrible. Please pass a presentationBlock.");
+    _SLLog(v8, 3, @"SLWebAuthController Client did not pass a presentationBlock to the init method. Your presentation animation will probably look horrible. Please pass a presentationBlock.", v21, v22, v23, v24, v25, v40);
   }
 
   [(SLWebAuthController *)self setModalPresentationStyle:0];
-  v21 = MEMORY[0x1E696ABD0];
+  v26 = MEMORY[0x1E696ABD0];
   _extentionIdentifier = [(SLWebAuthController *)self _extentionIdentifier];
-  v40 = 0;
-  v23 = [v21 extensionWithIdentifier:_extentionIdentifier error:&v40];
-  v31 = v40;
+  v50 = 0;
+  v28 = [v26 extensionWithIdentifier:_extentionIdentifier error:&v50];
+  v41 = v50;
   extension = self->_extension;
-  self->_extension = v23;
+  self->_extension = v28;
 
-  v30 = self->_extension;
-  _SLLog(v8, 7, @"SLWebAuthController got extension %@");
+  _SLLog(v8, 7, @"SLWebAuthController got extension %@", v30, v31, v32, v33, v34, self->_extension);
   objc_initWeak(&location, self);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __123__SLWebAuthController__commonInitializationWithAccount_accountStore_username_accountDescription_youTube_presentationBlock___block_invoke;
-  v37[3] = &unk_1E8175B70;
-  objc_copyWeak(&v38, &location);
-  [(NSExtension *)self->_extension setRequestCancellationBlock:v37, v30];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __123__SLWebAuthController__commonInitializationWithAccount_accountStore_username_accountDescription_youTube_presentationBlock___block_invoke_3;
-  v35[3] = &unk_1E8175BC0;
-  objc_copyWeak(&v36, &location);
-  [(NSExtension *)self->_extension set_requestPostCompletionBlockWithItems:v35];
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __123__SLWebAuthController__commonInitializationWithAccount_accountStore_username_accountDescription_youTube_presentationBlock___block_invoke;
+  v47[3] = &unk_1E8175B70;
+  objc_copyWeak(&v48, &location);
+  [(NSExtension *)self->_extension setRequestCancellationBlock:v47];
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __123__SLWebAuthController__commonInitializationWithAccount_accountStore_username_accountDescription_youTube_presentationBlock___block_invoke_3;
+  v45[3] = &unk_1E8175BC0;
+  objc_copyWeak(&v46, &location);
+  [(NSExtension *)self->_extension set_requestPostCompletionBlockWithItems:v45];
   if (accountCopy)
   {
     username = [accountCopy username];
@@ -173,19 +171,19 @@
     descriptionCopy = &stru_1F41EC300;
   }
 
-  v27 = [(SLWebAuthController *)self _extensionItemForAccount:accountCopy accountDescription:descriptionCopy username:usernameCopy youTube:tubeCopy];
-  v28 = self->_extension;
-  v41[0] = v27;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __123__SLWebAuthController__commonInitializationWithAccount_accountStore_username_accountDescription_youTube_presentationBlock___block_invoke_5;
-  v34[3] = &unk_1E8175BE8;
-  v34[4] = self;
-  [(NSExtension *)v28 instantiateViewControllerWithInputItems:v29 listenerEndpoint:0 connectionHandler:v34];
+  v37 = [(SLWebAuthController *)self _extensionItemForAccount:accountCopy accountDescription:descriptionCopy username:usernameCopy youTube:tubeCopy];
+  v38 = self->_extension;
+  v51[0] = v37;
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:1];
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __123__SLWebAuthController__commonInitializationWithAccount_accountStore_username_accountDescription_youTube_presentationBlock___block_invoke_5;
+  v44[3] = &unk_1E8175BE8;
+  v44[4] = self;
+  [(NSExtension *)v38 instantiateViewControllerWithInputItems:v39 listenerEndpoint:0 connectionHandler:v44];
 
-  objc_destroyWeak(&v36);
-  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v46);
+  objc_destroyWeak(&v48);
   objc_destroyWeak(&location);
 }
 
@@ -212,12 +210,10 @@ void __123__SLWebAuthController__commonInitializationWithAccount_accountStore_us
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v6 = WeakRetained;
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    _SLLog(v1, 7, @"SLWebAuthController extension requestCancellationBlock requestIdentifier %@ error %{public}@");
-    [v6 _extensionRequestDidCancelWithError:{*(a1 + 40), v4, v5}];
-    WeakRetained = v6;
+    v9 = WeakRetained;
+    _SLLog(v1, 7, @"SLWebAuthController extension requestCancellationBlock requestIdentifier %@ error %{public}@", v4, v5, v6, v7, v8, *(a1 + 32));
+    [v9 _extensionRequestDidCancelWithError:*(a1 + 40)];
+    WeakRetained = v9;
   }
 }
 
@@ -247,23 +243,21 @@ void __123__SLWebAuthController__commonInitializationWithAccount_accountStore_us
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    v6 = WeakRetained;
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    _SLLog(v1, 7, @"SLWebAuthController extension _requestPostCompletionBlockWithItems requestIdentifier %@ items %@");
-    [v6 _extensionRequestDidCompleteWithTokens:*(a1 + 40) extensionCompletion:{*(a1 + 48), v4, v5}];
-    WeakRetained = v6;
+    v9 = WeakRetained;
+    _SLLog(v1, 7, @"SLWebAuthController extension _requestPostCompletionBlockWithItems requestIdentifier %@ items %@", v4, v5, v6, v7, v8, *(a1 + 32));
+    [v9 _extensionRequestDidCompleteWithTokens:*(a1 + 40) extensionCompletion:*(a1 + 48)];
+    WeakRetained = v9;
   }
 }
 
 void __123__SLWebAuthController__commonInitializationWithAccount_accountStore_username_accountDescription_youTube_presentationBlock___block_invoke_5(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v10 = a3;
-  _SLLog(v4, 5, @"SLWebAuthController finished instantiate remote view controller %@ error %{public}@ extension request identifier %@");
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 1016);
-  *(v8 + 1016) = v10;
-  v11 = v10;
+  v6 = a3;
+  _SLLog(v4, 5, @"SLWebAuthController finished instantiate remote view controller %@ error %{public}@ extension request identifier %@", v7, v8, v9, v10, v11, v6);
+  v12 = *(a1 + 32);
+  v13 = *(v12 + 1016);
+  *(v12 + 1016) = v6;
+  v14 = v6;
 
   [*(a1 + 32) _didInstantiateRemoteViewController];
 }
@@ -339,10 +333,10 @@ void __58__SLWebAuthController__didInstantiateRemoteViewController__block_invoke
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && (WeakRetained[1040] & 1) == 0)
   {
-    v3 = WeakRetained;
-    _SLLog(v1, 3, @"SLWebAuthController observed unexpected extension termination. Probably a crash.");
-    [v3 _extensionRequestDidCompleteWithTokens:0 extensionCompletion:0];
-    WeakRetained = v3;
+    v9 = WeakRetained;
+    _SLLog(v1, 3, @"SLWebAuthController observed unexpected extension termination. Probably a crash.", v3, v4, v5, v6, v7, v8);
+    [v9 _extensionRequestDidCompleteWithTokens:0 extensionCompletion:0];
+    WeakRetained = v9;
   }
 }
 
@@ -397,19 +391,19 @@ void __58__SLWebAuthController__didInstantiateRemoteViewController__block_invoke
 void __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke(uint64_t a1)
 {
   v3 = *(*(a1 + 32) + 1032);
-  v4 = *(*(a1 + 32) + 1032);
-  v8 = v3;
-  if (v4)
+  v9 = *(*(a1 + 32) + 1032);
+  v13 = v3;
+  if (v9)
   {
-    v5 = [v4 domain];
-    if ([v5 isEqualToString:*MEMORY[0x1E696A978]])
+    v10 = [v9 domain];
+    if ([v10 isEqualToString:*MEMORY[0x1E696A978]])
     {
-      v6 = [*(*(a1 + 32) + 1032) code];
+      v11 = [*(*(a1 + 32) + 1032) code];
 
-      v3 = v8;
-      if (v6 == -1009)
+      v3 = v13;
+      if (v11 == -1009)
       {
-        _SLLog(v1, 3, @"SLWebAuthController will dismiss because not connected to internet.");
+        _SLLog(v1, 3, @"SLWebAuthController will dismiss because not connected to internet.", v4, v5, v6, v7, v8, v12);
         [*(a1 + 32) _presentInternetOfflineError];
 
         goto LABEL_9;
@@ -419,64 +413,63 @@ void __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionC
     else
     {
 
-      v3 = v8;
+      v3 = v13;
     }
   }
 
   if (v3)
   {
-    v7 = v3;
-    _SLLog(v1, 3, @"SLWebAuthController will dismiss because of error %{public}@");
+    _SLLog(v1, 3, @"SLWebAuthController will dismiss because of error %{public}@", v4, v5, v6, v7, v8, v3);
     goto LABEL_10;
   }
 
-  _SLLog(v1, 5, @"SLWebAuthController will dismiss because of user cancel.");
+  _SLLog(v1, 5, @"SLWebAuthController will dismiss because of user cancel.", v4, v5, v6, v7, v8, v12);
 LABEL_9:
-  v8 = 0;
+  v13 = 0;
 LABEL_10:
-  [*(a1 + 32) _dismissAndCompleteWithIdentity:0 error:v8 extensionCompletion:{*(a1 + 40), v7}];
+  [*(a1 + 32) _dismissAndCompleteWithIdentity:0 error:v13 extensionCompletion:*(a1 + 40)];
 }
 
 void __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_2(uint64_t a1)
 {
   v3 = dispatch_semaphore_create(0);
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy_;
-  v58 = __Block_byref_object_dispose_;
-  v59 = 0;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = __Block_byref_object_copy_;
+  v69 = __Block_byref_object_dispose_;
+  v70 = 0;
   v4 = *(a1 + 32);
   v5 = *MEMORY[0x1E6963798];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_73;
-  v51[3] = &unk_1E8175C38;
-  v53 = &v54;
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3221225472;
+  v62[2] = __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_73;
+  v62[3] = &unk_1E8175C38;
+  v64 = &v65;
   v6 = v3;
-  v52 = v6;
-  [v4 loadItemForTypeIdentifier:v5 options:0 completionHandler:v51];
+  v63 = v6;
+  [v4 loadItemForTypeIdentifier:v5 options:0 completionHandler:v62];
   dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy_;
-  v49 = __Block_byref_object_dispose_;
-  v50 = [v55[5] objectForKeyedSubscript:@"token"];
-  v7 = [v55[5] objectForKeyedSubscript:@"refreshToken"];
-  v8 = [v55[5] objectForKeyedSubscript:@"usernames"];
-  v9 = [v55[5] objectForKeyedSubscript:@"displayName"];
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x3032000000;
-  v43[3] = __Block_byref_object_copy_;
-  v43[4] = __Block_byref_object_dispose_;
-  v44 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy_;
+  v60 = __Block_byref_object_dispose_;
+  v61 = [v66[5] objectForKeyedSubscript:@"token"];
+  v7 = [v66[5] objectForKeyedSubscript:@"refreshToken"];
+  v8 = [v66[5] objectForKeyedSubscript:@"usernames"];
+  v9 = [v66[5] objectForKeyedSubscript:@"displayName"];
+  v54[0] = 0;
+  v54[1] = v54;
+  v54[2] = 0x3032000000;
+  v54[3] = __Block_byref_object_copy_;
+  v54[4] = __Block_byref_object_dispose_;
+  v55 = 0;
   v10 = *(*(a1 + 40) + 992);
   if (v10)
   {
     v11 = [v10 objectID];
-    if (!v11 || !v46[5] || !v7)
+    if (!v11 || !v57[5] || !v7)
     {
       goto LABEL_8;
     }
@@ -492,49 +485,49 @@ void __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionC
       if (v15)
       {
         v16 = [*(*(a1 + 40) + 992) username];
-        v30 = [v8 firstObject];
-        _SLLog(v1, 3, @"SLWebAuthController got mismatch between _account.username %@ and attempted username %@");
+        v41 = [v8 firstObject];
+        _SLLog(v1, 3, @"SLWebAuthController got mismatch between _account.username %@ and attempted username %@", v17, v18, v19, v20, v21, v16);
 
         [*(a1 + 40) _presentUsernameMismatchAlert];
-        v11 = v46[5];
-        v46[5] = 0;
+        v11 = v57[5];
+        v57[5] = 0;
 LABEL_8:
       }
     }
   }
 
-  v17 = *(*(a1 + 40) + 992);
-  if (v17)
+  v22 = *(*(a1 + 40) + 992);
+  if (v22)
   {
-    v18 = [v17 objectID];
-    if (!v18 || !v46[5] || !v7)
+    v23 = [v22 objectID];
+    if (!v23 || !v57[5] || !v7)
     {
       goto LABEL_15;
     }
 
-    v19 = [v8 firstObject];
+    v24 = [v8 firstObject];
 
-    if (v19)
+    if (v24)
     {
       [*(*(a1 + 40) + 992) setAccountProperty:0 forKey:@"ACUISaysNotToSaveThis"];
-      v20 = objc_alloc(MEMORY[0x1E6959A30]);
-      v18 = [v20 initWithOAuth2Token:v46[5] refreshToken:v7 expiryDate:0];
-      [*(*(a1 + 40) + 992) setCredential:v18];
+      v25 = objc_alloc(MEMORY[0x1E6959A30]);
+      v23 = [v25 initWithOAuth2Token:v57[5] refreshToken:v7 expiryDate:0];
+      [*(*(a1 + 40) + 992) setCredential:v23];
       [*(*(a1 + 40) + 992) setSupportsAuthentication:1];
-      _SLLog(v1, 5, @"SLWebAuthController will save account with new credential");
-      v21 = *(a1 + 40);
-      v22 = *(v21 + 1000);
-      v23 = *(v21 + 992);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_2_106;
-      v39[3] = &unk_1E8175C60;
-      v41 = v43;
-      v42 = &v45;
-      v24 = v6;
-      v40 = v24;
-      [v22 saveAccount:v23 withCompletionHandler:v39];
-      dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
+      _SLLog(v1, 5, @"SLWebAuthController will save account with new credential", v26, v27, v28, v29, v30, v40);
+      v31 = *(a1 + 40);
+      v32 = *(v31 + 1000);
+      v33 = *(v31 + 992);
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_2_106;
+      v50[3] = &unk_1E8175C60;
+      v52 = v54;
+      v53 = &v56;
+      v34 = v6;
+      v51 = v34;
+      [v32 saveAccount:v33 withCompletionHandler:v50];
+      dispatch_semaphore_wait(v34, 0xFFFFFFFFFFFFFFFFLL);
 
 LABEL_15:
     }
@@ -544,76 +537,77 @@ LABEL_15:
   block[1] = 3221225472;
   block[2] = __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_3;
   block[3] = &unk_1E8175C88;
-  v32 = v8;
-  v33 = v9;
-  v25 = *(a1 + 40);
-  v26 = *(a1 + 48);
-  v34 = v7;
-  v35 = v25;
-  v37 = &v45;
-  v38 = v43;
-  v36 = v26;
-  v27 = v7;
-  v28 = v9;
-  v29 = v8;
+  v43 = v8;
+  v44 = v9;
+  v35 = *(a1 + 40);
+  v36 = *(a1 + 48);
+  v45 = v7;
+  v46 = v35;
+  v48 = &v56;
+  v49 = v54;
+  v47 = v36;
+  v37 = v7;
+  v38 = v9;
+  v39 = v8;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 
-  _Block_object_dispose(v43, 8);
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(v54, 8);
+  _Block_object_dispose(&v56, 8);
 
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v65, 8);
 }
 
 intptr_t __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_73(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    v5 = 3;
+    v6 = 3;
   }
 
   else
   {
-    v5 = 7;
+    v6 = 7;
   }
 
-  v6 = a2;
-  _SLLog(v3, v5, @"SLWebAuthController did loadItemForTypeIdentifier for response, got error %{public}@");
-  v7 = MEMORY[0x1E696ACD0];
-  v8 = MEMORY[0x1E695DFD8];
-  v9 = objc_opt_class();
-  v10 = objc_opt_class();
-  v11 = [v8 setWithObjects:{v9, v10, objc_opt_class(), 0}];
-  v12 = [v7 unarchivedObjectOfClasses:v11 fromData:v6 error:0];
+  v7 = a2;
+  _SLLog(v3, v6, @"SLWebAuthController did loadItemForTypeIdentifier for response, got error %{public}@", v8, v9, v10, v11, v12, a3);
+  v13 = MEMORY[0x1E696ACD0];
+  v14 = MEMORY[0x1E695DFD8];
+  v15 = objc_opt_class();
+  v16 = objc_opt_class();
+  objc_opt_class();
+  v17 = [v14 setWithObjects:v15];
+  v18 = [v13 unarchivedObjectOfClasses:v17 fromData:v7 error:0];
 
-  v13 = *(*(a1 + 40) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
+  v19 = *(*(a1 + 40) + 8);
+  v20 = *(v19 + 40);
+  *(v19 + 40) = v18;
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    _SLLog(v3, 3, @"SLWebAuthController loadItemForTypeIdentifier did not return a dictionary");
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = 0;
+    _SLLog(v3, 3, @"SLWebAuthController loadItemForTypeIdentifier did not return a dictionary", v21, v22, v23, v24, v25, v16);
+    v26 = *(*(a1 + 40) + 8);
+    v27 = *(v26 + 40);
+    *(v26 + 40) = 0;
   }
 
-  v17 = *(a1 + 32);
+  v28 = *(a1 + 32);
 
-  return dispatch_semaphore_signal(v17);
+  return dispatch_semaphore_signal(v28);
 }
 
 void __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionCompletion___block_invoke_2_106(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = a3;
-  v9 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-  _SLLog(v3, 5, @"SLWebAuthController did save account with success %@ error %{public}@");
+  v15 = a3;
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:a2];
+  _SLLog(v3, 5, @"SLWebAuthController did save account with success %@ error %{public}@", v8, v9, v10, v11, v12, v7);
 
   if ((a2 & 1) == 0)
   {
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = 0;
+    v13 = *(*(a1 + 48) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = 0;
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   }
@@ -645,69 +639,69 @@ void __82__SLWebAuthController__extensionRequestDidCompleteWithTokens_extensionC
   identityCopy = identity;
   errorCopy = error;
   completionCopy = completion;
-  _SLLog(v5, 5, @"SLWebAuthController will dismiss");
+  _SLLog(v5, 5, @"SLWebAuthController will dismiss", v12, v13, v14, v15, v16, v21[0]);
   presentingViewController = [(SLWebAuthController *)self presentingViewController];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __81__SLWebAuthController__dismissAndCompleteWithIdentity_error_extensionCompletion___block_invoke;
-  v16[3] = &unk_1E8175CB0;
-  v17 = errorCopy;
-  v18 = identityCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __81__SLWebAuthController__dismissAndCompleteWithIdentity_error_extensionCompletion___block_invoke;
+  v21[3] = &unk_1E8175CB0;
+  v22 = errorCopy;
+  v23 = identityCopy;
   selfCopy = self;
+  v25 = completionCopy;
+  v18 = identityCopy;
+  v19 = errorCopy;
   v20 = completionCopy;
-  v13 = identityCopy;
-  v14 = errorCopy;
-  v15 = completionCopy;
-  [presentingViewController dismissViewControllerAnimated:1 completion:v16];
+  [presentingViewController dismissViewControllerAnimated:1 completion:v21];
 }
 
-void __81__SLWebAuthController__dismissAndCompleteWithIdentity_error_extensionCompletion___block_invoke(uint64_t *a1)
+void __81__SLWebAuthController__dismissAndCompleteWithIdentity_error_extensionCompletion___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  _SLLog(v1, 5, @"SLWebAuthController did dismiss");
-  v3 = a1[7];
-  if (v3)
+  v27 = *MEMORY[0x1E69E9840];
+  _SLLog(v8, 5, @"SLWebAuthController did dismiss", a4, a5, a6, a7, a8, v24);
+  v15 = a1[7];
+  if (v15)
   {
-    (*(v3 + 16))();
+    (*(v15 + 16))();
   }
 
   if (a1[4])
   {
-    v4 = 3;
+    v16 = 3;
   }
 
   else
   {
-    v4 = 5;
+    v16 = 5;
   }
 
-  _SLLog(v1, v4, @"SLWebAuthController completing with success %d error %{public}@");
-  v5 = a1[4];
-  v6 = _ACLogSystem();
-  v7 = v6;
-  if (v5)
+  _SLLog(v8, v16, @"SLWebAuthController completing with success %d error %{public}@", v10, v11, v12, v13, v14, a1[5] != 0);
+  v17 = a1[4];
+  v18 = _ACLogSystem();
+  v19 = v18;
+  if (v17)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __81__SLWebAuthController__dismissAndCompleteWithIdentity_error_extensionCompletion___block_invoke_cold_1(a1 + 5, a1 + 4, v7);
+      __81__SLWebAuthController__dismissAndCompleteWithIdentity_error_extensionCompletion___block_invoke_cold_1(a1 + 5, a1 + 4, v19);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = a1[5] != 0;
+    v20 = a1[5] != 0;
     *buf = 67109120;
-    v13 = v8;
-    _os_log_impl(&dword_1C23AF000, v7, OS_LOG_TYPE_DEFAULT, "SLWebAuthController completing with success %d", buf, 8u);
+    v26 = v20;
+    _os_log_impl(&dword_1C23AF000, v19, OS_LOG_TYPE_DEFAULT, "SLWebAuthController completing with success %d", buf, 8u);
   }
 
-  v9 = *(a1[6] + 1048);
-  if (v9)
+  v21 = *(a1[6] + 1048);
+  if (v21)
   {
-    (*(v9 + 16))(v9, a1[5], a1[4]);
-    v10 = a1[6];
-    v11 = *(v10 + 1048);
-    *(v10 + 1048) = 0;
+    (*(v21 + 16))(v21, a1[5], a1[4]);
+    v22 = a1[6];
+    v23 = *(v22 + 1048);
+    *(v22 + 1048) = 0;
   }
 }
 

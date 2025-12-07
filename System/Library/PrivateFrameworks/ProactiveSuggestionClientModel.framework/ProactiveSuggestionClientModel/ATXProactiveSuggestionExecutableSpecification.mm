@@ -180,8 +180,8 @@
 
   else
   {
-    v19 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_blending(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXProactiveSuggestionExecutableSpecification initWithExecutable:expectedExecutableClassString:executableDescription:executableIdentifier:suggestionExecutableType:];
     }
@@ -266,14 +266,14 @@
   else
   {
     v8 = objc_autoreleasePoolPush();
-    v12 = 0;
-    v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objectCopy requiringSecureCoding:1 error:&v12];
-    v9 = v12;
+    v13 = 0;
+    v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objectCopy requiringSecureCoding:1 error:&v13];
+    v9 = v13;
     objc_autoreleasePoolPop(v8);
     if (!v7)
     {
-      v10 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_blending(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [ATXProactiveSuggestionExecutableSpecification executableDataFromExecutableObject:executableClassStringFromObject:];
       }
@@ -292,25 +292,25 @@
 
   if (v9)
   {
-    v10 = NSClassFromString(stringCopy);
-    if (v10)
+    v11 = NSClassFromString(stringCopy);
+    if (v11)
     {
       if ([(NSString *)stringCopy isEqualToString:@"NSString"])
       {
-        v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:dataCopy encoding:4];
+        v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:dataCopy encoding:4];
       }
 
       else
       {
-        v12 = objc_autoreleasePoolPush();
-        v16 = 0;
-        v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:v10 fromData:dataCopy error:&v16];
-        v13 = v16;
-        objc_autoreleasePoolPop(v12);
-        if (!v10 && v13)
+        v13 = objc_autoreleasePoolPush();
+        v18 = 0;
+        v11 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:v11 fromData:dataCopy error:&v18];
+        v14 = v18;
+        objc_autoreleasePoolPop(v13);
+        if (!v11 && v14)
         {
-          v14 = __atxlog_handle_blending();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v16 = __atxlog_handle_blending(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             [ATXProactiveSuggestionExecutableSpecification executableObjectFromData:executableClassString:];
           }
@@ -321,16 +321,16 @@
 
   else
   {
-    v11 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_blending(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXProactiveSuggestionExecutableSpecification initWithExecutable:expectedExecutableClassString:executableDescription:executableIdentifier:suggestionExecutableType:];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)description
@@ -523,25 +523,23 @@ LABEL_12:
 
 - (id)jsonRawData
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   executableType = self->_executableType;
-  v12[0] = self->_executableIdentifier;
-  v11[0] = @"executableIdentifier";
-  v11[1] = @"executableType";
+  v11[0] = self->_executableIdentifier;
+  v10[0] = @"executableIdentifier";
+  v10[1] = @"executableType";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:executableType];
   executableObjectHash = self->_executableObjectHash;
   executableClassString = self->_executableClassString;
-  v12[1] = v4;
-  v12[2] = executableClassString;
-  v11[2] = @"executableClassString";
-  v11[3] = @"executableDescription";
-  v12[3] = self->_executableDescription;
-  v11[4] = @"executableObjectHash";
+  v11[1] = v4;
+  v11[2] = executableClassString;
+  v10[2] = @"executableClassString";
+  v10[3] = @"executableDescription";
+  v11[3] = self->_executableDescription;
+  v10[4] = @"executableObjectHash";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:executableObjectHash];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }
@@ -584,10 +582,11 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [ATXProactiveSuggestion initWithProto:];
     }
@@ -595,90 +594,90 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v5 = protoCopy;
-  executable = [(ATXPBProactiveSuggestionExecutableSpecification *)v5 executable];
-  executableObjectHash = [(ATXPBProactiveSuggestionExecutableSpecification *)v5 executableObjectHash];
-  executableClassString = [(ATXPBProactiveSuggestionExecutableSpecification *)v5 executableClassString];
-  executableDescription = [(ATXPBProactiveSuggestionExecutableSpecification *)v5 executableDescription];
-  executableIdentifier = [(ATXPBProactiveSuggestionExecutableSpecification *)v5 executableIdentifier];
-  executableType = [(ATXPBProactiveSuggestionExecutableSpecification *)v5 executableType];
+  v6 = protoCopy;
+  executable = [(ATXPBProactiveSuggestionExecutableSpecification *)v6 executable];
+  executableObjectHash = [(ATXPBProactiveSuggestionExecutableSpecification *)v6 executableObjectHash];
+  executableClassString = [(ATXPBProactiveSuggestionExecutableSpecification *)v6 executableClassString];
+  executableDescription = [(ATXPBProactiveSuggestionExecutableSpecification *)v6 executableDescription];
+  executableIdentifier = [(ATXPBProactiveSuggestionExecutableSpecification *)v6 executableIdentifier];
+  executableType = [(ATXPBProactiveSuggestionExecutableSpecification *)v6 executableType];
   if (executableType >= 0xB)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", executableType];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", executableType];
   }
 
   else
   {
-    v12 = off_1E86A4850[executableType];
+    v13 = off_1E86A4850[executableType];
   }
 
-  v15 = v12;
-  if (([(__CFString *)v15 isEqualToString:@"Unknown"]& 1) != 0)
+  v16 = v13;
+  if (([(__CFString *)v16 isEqualToString:@"Unknown"]& 1) != 0)
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"App"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"App"]& 1) != 0)
   {
-    v16 = 1;
+    v17 = 1;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"Action"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"Action"]& 1) != 0)
   {
-    v16 = 2;
+    v17 = 2;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"Widget"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"Widget"]& 1) != 0)
   {
-    v16 = 3;
+    v17 = 3;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"Tip"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"Tip"]& 1) != 0)
   {
-    v16 = 4;
+    v17 = 4;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"AppClip"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"AppClip"]& 1) != 0)
   {
-    v16 = 5;
+    v17 = 5;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"Interaction"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"Interaction"]& 1) != 0)
   {
-    v16 = 6;
+    v17 = 6;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"ContextualAction"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"ContextualAction"]& 1) != 0)
   {
-    v16 = 7;
+    v17 = 7;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"SpotlightAction"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"SpotlightAction"]& 1) != 0)
   {
-    v16 = 8;
+    v17 = 8;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"ShortcutsAction"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"ShortcutsAction"]& 1) != 0)
   {
-    v16 = 9;
+    v17 = 9;
   }
 
-  else if (([(__CFString *)v15 isEqualToString:@"LinkAction"]& 1) != 0)
+  else if (([(__CFString *)v16 isEqualToString:@"LinkAction"]& 1) != 0)
   {
-    v16 = 10;
+    v17 = 10;
   }
 
-  else if ([(__CFString *)v15 isEqualToString:@"Max"])
+  else if ([(__CFString *)v16 isEqualToString:@"Max"])
   {
-    v16 = 11;
+    v17 = 11;
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  self = [(ATXProactiveSuggestionExecutableSpecification *)self initWithExecutable:executable executableObjectHash:executableObjectHash expectedExecutableClassString:executableClassString executableDescription:executableDescription executableIdentifier:executableIdentifier suggestionExecutableType:v16];
+  self = [(ATXProactiveSuggestionExecutableSpecification *)self initWithExecutable:executable executableObjectHash:executableObjectHash expectedExecutableClassString:executableClassString executableDescription:executableDescription executableIdentifier:executableIdentifier suggestionExecutableType:v17];
   selfCopy = self;
 LABEL_36:
 
@@ -687,7 +686,7 @@ LABEL_36:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -704,11 +703,11 @@ LABEL_36:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -719,13 +718,12 @@ LABEL_36:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -742,11 +740,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -757,13 +755,12 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSUInteger:(unint64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -780,11 +777,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -795,7 +792,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -813,30 +809,6 @@ LABEL_7:
 
   v6 = [(ATXProactiveSuggestionExecutableSpecification *)self initWithProtoData:v5];
   return v6;
-}
-
-- (void)initWithExecutable:expectedExecutableClassString:executableDescription:executableIdentifier:suggestionExecutableType:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Executable object in ATXProactiveSuggestion's executableSpec was of unsupported type. Type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)executableDataFromExecutableObject:executableClassStringFromObject:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Unable to archive executable object from ATXProactiveSuggestion. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)executableObjectFromData:executableClassString:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0(&dword_1DEFC4000, v0, v1, "Unable to unarchive executable object from ATXProactiveSuggestion. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

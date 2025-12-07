@@ -34,19 +34,16 @@
 {
   v3 = OBJC_IVAR____TtC5Media28RadioFavoritesViewController_cancelSet;
   swift_beginAccess();
-  v4 = *(&self->super.super.super.isa + v3);
   *(&self->super.super.super.isa + v3) = &_swiftEmptySetSingleton;
   selfCopy = self;
 
-  v6 = OBJC_IVAR____TtC5Media28RadioFavoritesViewController_favoritesCancelSet;
+  v5 = OBJC_IVAR____TtC5Media28RadioFavoritesViewController_favoritesCancelSet;
   swift_beginAccess();
-  v7 = *(&selfCopy->super.super.super.isa + v6);
-  *(&selfCopy->super.super.super.isa + v6) = &_swiftEmptySetSingleton;
+  *(&selfCopy->super.super.super.isa + v5) = &_swiftEmptySetSingleton;
 
-  v8 = OBJC_IVAR____TtC5Media28RadioFavoritesViewController_favoritesObserverSet;
+  v6 = OBJC_IVAR____TtC5Media28RadioFavoritesViewController_favoritesObserverSet;
   swift_beginAccess();
-  v9 = *(&selfCopy->super.super.super.isa + v8);
-  *(&selfCopy->super.super.super.isa + v8) = &_swiftEmptySetSingleton;
+  *(&selfCopy->super.super.super.isa + v6) = &_swiftEmptySetSingleton;
 }
 
 - (void)longPressGestureChangedWithGesture:(id)gesture
@@ -60,53 +57,51 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __chkstk_darwin(v9);
-  v14 = &v20 - v13;
-  __chkstk_darwin(v12);
-  v16 = &v20 - v15;
+  v8 = __chkstk_darwin(v6);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __chkstk_darwin(v8);
+  v13 = &v19 - v12;
+  __chkstk_darwin(v11);
+  v15 = &v19 - v14;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = *(v7 + 8);
-  v17(v11, v6);
-  v17(v14, v6);
-  v18.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  v17(v16, v6);
+  v16 = *(v7 + 8);
+  v16(v10, v6);
+  v16(v13, v6);
+  v17.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
+  v16(v15, v6);
 
-  return v18.super.isa;
+  return v17.super.isa;
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100050FD8();
+  sub_100050FD8(v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (BOOL)collectionView:(id)view shouldSelectItemAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_100051154();
+  sub_100051154();
+  LOBYTE(self) = v12;
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
   return self & 1;
 }
 
@@ -114,20 +109,19 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = __chkstk_darwin(v7);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = &v18 - v13;
+  v9 = __chkstk_darwin(v7);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v13 = &v17 - v12;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10005129C(v14, v12);
+  sub_10005129C(v13, v11);
 
-  v17 = *(v8 + 8);
-  v17(v12, v7);
-  v17(v14, v7);
+  v16 = *(v8 + 8);
+  v16(v11, v7);
+  v16(v13, v7);
 }
 
 - (UIEdgeInsets)collectionView:(id)view layout:(id)layout insetForSectionAtIndex:(int64_t)index
@@ -147,20 +141,19 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = *(v7 + 8);
+  v10 = *(v7 + 8);
   selfCopy = self;
-  v11(v10, v6);
-  v13 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC5Media28RadioFavoritesViewController_itemSize);
-  v14 = *&selfCopy->carManager[OBJC_IVAR____TtC5Media28RadioFavoritesViewController_itemSize];
+  v10(v9, v6);
+  v12 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC5Media28RadioFavoritesViewController_itemSize);
+  v13 = *&selfCopy->carManager[OBJC_IVAR____TtC5Media28RadioFavoritesViewController_itemSize];
 
+  v14 = v12;
   v15 = v13;
-  v16 = v14;
-  result.height = v16;
-  result.width = v15;
+  result.height = v15;
+  result.width = v14;
   return result;
 }
 
@@ -168,11 +161,10 @@
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return 1;
 }
 
@@ -181,45 +173,41 @@
   v5 = OBJC_IVAR____TtC5Media28RadioFavoritesViewController_favorites;
   swift_beginAccess();
   v6 = *(&self->super.super.super.isa + v5);
-  if (!(v6 >> 62))
+  if (v6 >> 62)
+  {
+    return _CocoaArrayWrapper.endIndex.getter();
+  }
+
+  else
   {
     return *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
-
-  if (v6 < 0)
-  {
-    v8 = *(&self->super.super.super.isa + v5);
-  }
-
-  return _CocoaArrayWrapper.endIndex.getter();
 }
 
 - (id)collectionView:(id)view cellForItemAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_10004F798(viewCopy);
+  v12 = sub_10004F798(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (BOOL)collectionView:(id)view canEditItemAtIndexPath:(id)path
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return 0;
 }
 

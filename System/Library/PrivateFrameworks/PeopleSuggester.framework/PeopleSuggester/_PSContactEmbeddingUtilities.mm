@@ -56,37 +56,37 @@
 
 + (id)prepareFeatureInputFromFeatureDict:(id)dict
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   modelFeatures = [self modelFeatures];
   v6 = [modelFeatures count];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2050000000;
   v7 = getMLMultiArrayClass_softClass_0;
-  v26 = getMLMultiArrayClass_softClass_0;
+  v25 = getMLMultiArrayClass_softClass_0;
   if (!getMLMultiArrayClass_softClass_0)
   {
-    v21[1] = MEMORY[0x1E69E9820];
-    v21[2] = 3221225472;
-    v21[3] = __getMLMultiArrayClass_block_invoke_0;
-    v21[4] = &unk_1E7C23BF0;
-    v22 = &v23;
+    v20[1] = MEMORY[0x1E69E9820];
+    v20[2] = 3221225472;
+    v20[3] = __getMLMultiArrayClass_block_invoke_0;
+    v20[4] = &unk_1E7C23BF0;
+    v21 = &v22;
     CoreMLLibraryCore_1();
-    v24[3] = objc_getClass("MLMultiArray");
-    getMLMultiArrayClass_softClass_0 = *(v22[1] + 24);
-    v7 = v24[3];
+    v23[3] = objc_getClass("MLMultiArray");
+    getMLMultiArrayClass_softClass_0 = *(v21[1] + 24);
+    v7 = v23[3];
   }
 
   v8 = v7;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   v9 = [v7 alloc];
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v6];
-  v27[0] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
-  v21[0] = 0;
-  v12 = [v9 initWithShape:v11 dataType:65600 error:v21];
-  v13 = v21[0];
+  v26[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+  v20[0] = 0;
+  v12 = [v9 initWithShape:v11 dataType:65600 error:v20];
+  v13 = v20[0];
 
   if (v13)
   {
@@ -123,8 +123,6 @@ LABEL_7:
   v15 = v12;
 LABEL_13:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
@@ -156,24 +154,21 @@ LABEL_13:
 
 + (void)loadModelFromUrlResource:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 absoluteString];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_ERROR, "Error loading compiled CoreML Model from path %@ : %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_ERROR, "Error loading compiled CoreML Model from path %@ : %@", &v6, 0x16u);
 }
 
 + (void)prepareFeatureInputFromFeatureDict:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Error while creating input MultiArray : %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Error while creating input MultiArray : %@", &v2, 0xCu);
 }
 
 @end

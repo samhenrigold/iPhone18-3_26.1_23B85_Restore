@@ -13,9 +13,11 @@
 - (void)_runningMetadataChanged:(id)changed;
 - (void)refreshUUID;
 - (void)setBufferMode:(unint64_t)mode;
+- (void)setDiscardHeartbeatsWhenPossible:(BOOL)possible;
 - (void)setIsDeferredDisplay:(BOOL)display;
 - (void)setPollingInterval:(unint64_t)interval;
 - (void)setRunningMetadataChangedHandler:(id)handler;
+- (void)setSpoolToDiskWhenPossible:(BOOL)possible;
 - (void)setStatusHandler:(id)handler;
 - (void)setWindowSize:(unint64_t)size;
 @end
@@ -212,12 +214,24 @@
   return bOOLValue;
 }
 
+- (void)setSpoolToDiskWhenPossible:(BOOL)possible
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:possible];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"s2d"];
+}
+
 - (BOOL)discardHeartbeatsWhenPossible
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"nohb"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDiscardHeartbeatsWhenPossible:(BOOL)possible
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:possible];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"nohb"];
 }
 
 - (void)setPollingInterval:(unint64_t)interval

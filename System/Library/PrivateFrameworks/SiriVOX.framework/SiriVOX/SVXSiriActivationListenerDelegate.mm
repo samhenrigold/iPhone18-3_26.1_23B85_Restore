@@ -11,7 +11,7 @@
 
 - (void)siriActivationListener:(id)listener myriadEventWithRequestInfo:(id)info context:(id)context completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   contextCopy = context;
   completionCopy = completion;
@@ -19,29 +19,27 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]";
-    v24 = 2112;
-    v25 = infoCopy;
-    v26 = 2112;
-    v27 = contextCopy;
+    v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]";
+    v23 = 2112;
+    v24 = infoCopy;
+    v25 = 2112;
+    v26 = contextCopy;
     _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s requestInfo = %@, context = %@", buf, 0x20u);
   }
 
   mainQueuePerformer = self->_mainQueuePerformer;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEventWithRequestInfo_context_completion___block_invoke;
-  v18[3] = &unk_279C69038;
-  v18[4] = self;
-  v19 = contextCopy;
-  v20 = infoCopy;
-  v21 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEventWithRequestInfo_context_completion___block_invoke;
+  v17[3] = &unk_279C69038;
+  v17[4] = self;
+  v18 = contextCopy;
+  v19 = infoCopy;
+  v20 = completionCopy;
   v14 = infoCopy;
   v15 = completionCopy;
   v16 = contextCopy;
-  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v18 withOptions:2];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v17 withOptions:2];
 }
 
 void __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEventWithRequestInfo_context_completion___block_invoke(uint64_t a1)
@@ -60,7 +58,7 @@ void __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEvent
 
 void __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEventWithRequestInfo_context_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -78,21 +76,21 @@ void __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEvent
         if (v9)
         {
           *buf = 136315394;
-          v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke";
-          v24 = 2112;
-          v25 = v4;
+          v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke";
+          v23 = 2112;
+          v24 = v4;
           _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s Handling continuous voice trigger %@...", buf, 0x16u);
         }
 
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEventWithRequestInfo_context_completion___block_invoke_15;
-        v19[3] = &unk_279C68EF8;
-        v20 = v4;
-        v21 = *(a1 + 48);
-        [v5 continuousVoiceTriggerDetectedWithCompletion:v19];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEventWithRequestInfo_context_completion___block_invoke_15;
+        v18[3] = &unk_279C68EF8;
+        v19 = v4;
+        v20 = *(a1 + 48);
+        [v5 continuousVoiceTriggerDetectedWithCompletion:v18];
 
-        v10 = v20;
+        v10 = v19;
         goto LABEL_19;
       }
 
@@ -101,11 +99,11 @@ void __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEvent
         v15 = *(a1 + 32);
         v16 = v8;
         *buf = 136315650;
-        v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke";
-        v24 = 2048;
-        v25 = [v15 source];
-        v26 = 2112;
-        v27 = v4;
+        v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke";
+        v23 = 2048;
+        v24 = [v15 source];
+        v25 = 2112;
+        v26 = v4;
         _os_log_impl(&dword_2695B9000, v16, OS_LOG_TYPE_INFO, "%s Unknown myriad source %ld or event %@...", buf, 0x20u);
       }
 
@@ -127,9 +125,9 @@ LABEL_19:
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke";
-      v24 = 2112;
-      v25 = v4;
+      v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke";
+      v23 = 2112;
+      v24 = v4;
       _os_log_error_impl(&dword_2695B9000, v13, OS_LOG_TYPE_ERROR, "%s Unable to get the myriad event handler from virtual device %@.", buf, 0x16u);
     }
 
@@ -148,11 +146,11 @@ LABEL_20:
   v11 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v18 = *(a1 + 32);
+    v17 = *(a1 + 32);
     *buf = 136315394;
-    v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke_2";
-    v24 = 2112;
-    v25 = v18;
+    v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke_2";
+    v23 = 2112;
+    v24 = v17;
     _os_log_error_impl(&dword_2695B9000, v11, OS_LOG_TYPE_ERROR, "%s Unable to find a virtual device for context %@.", buf, 0x16u);
   }
 
@@ -165,37 +163,34 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadEventWithRequestInfo_context_completion___block_invoke_15(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Continuous voice trigger handled %@.", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SVXSiriActivationListenerDelegate siriActivationListener:myriadEventWithRequestInfo:context:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Continuous voice trigger handled %@.", &v5, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0);
+    return (*(result + 16))(result, 0);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)siriActivationListener:(id)listener deactivateForReason:(int64_t)reason options:(unint64_t)options context:(id)context completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v13 = *MEMORY[0x277CEF098];
@@ -205,31 +200,29 @@ uint64_t __106__SVXSiriActivationListenerDelegate_siriActivationListener_myriadE
     v15 = AFSiriDeactivationReasonGetName();
     v16 = AFSiriDeactivationOptionsGetNames();
     *buf = 136315906;
-    v27 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]";
-    v28 = 2112;
-    v29 = v15;
-    v30 = 2112;
-    v31 = v16;
-    v32 = 2112;
-    v33 = contextCopy;
+    v26 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]";
+    v27 = 2112;
+    v28 = v15;
+    v29 = 2112;
+    v30 = v16;
+    v31 = 2112;
+    v32 = contextCopy;
     _os_log_impl(&dword_2695B9000, v14, OS_LOG_TYPE_INFO, "%s reason = %@, options = %@, context = %@", buf, 0x2Au);
   }
 
   mainQueuePerformer = self->_mainQueuePerformer;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateForReason_options_context_completion___block_invoke;
-  v21[3] = &unk_279C66C60;
-  v21[4] = self;
-  v22 = contextCopy;
-  v23 = completionCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateForReason_options_context_completion___block_invoke;
+  v20[3] = &unk_279C66C60;
+  v20[4] = self;
+  v21 = contextCopy;
+  v22 = completionCopy;
   reasonCopy = reason;
   optionsCopy = options;
   v18 = completionCopy;
   v19 = contextCopy;
-  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v21 withOptions:2];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v20 withOptions:2];
 }
 
 void __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateForReason_options_context_completion___block_invoke(uint64_t a1)
@@ -250,7 +243,7 @@ void __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateF
 
 void __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateForReason_options_context_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -262,22 +255,22 @@ void __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateF
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v18 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]_block_invoke";
-        v19 = 2112;
-        v20 = v4;
+        v17 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]_block_invoke";
+        v18 = 2112;
+        v19 = v4;
         _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s Deactivating %@...", buf, 0x16u);
       }
 
       v7 = [*(*(a1 + 40) + 48) createDeactivationContextWithReason:*(a1 + 56) options:*(a1 + 64) context:*(a1 + 32)];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateForReason_options_context_completion___block_invoke_13;
-      v14[3] = &unk_279C68EF8;
-      v15 = v4;
-      v16 = *(a1 + 48);
-      [v5 deactivateWithContext:v7 completion:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateForReason_options_context_completion___block_invoke_13;
+      v13[3] = &unk_279C68EF8;
+      v14 = v4;
+      v15 = *(a1 + 48);
+      [v5 deactivateWithContext:v7 completion:v13];
 
-      v8 = v15;
+      v8 = v14;
     }
 
     else
@@ -285,9 +278,9 @@ void __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateF
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]_block_invoke";
-        v19 = 2112;
-        v20 = v4;
+        v17 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]_block_invoke";
+        v18 = 2112;
+        v19 = v4;
         _os_log_error_impl(&dword_2695B9000, v6, OS_LOG_TYPE_ERROR, "%s Unable to get the deactivation handler from virtual device %@.", buf, 0x16u);
       }
 
@@ -309,11 +302,11 @@ LABEL_15:
   v9 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     *buf = 136315394;
-    v18 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]_block_invoke_2";
-    v19 = 2112;
-    v20 = v13;
+    v17 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]_block_invoke_2";
+    v18 = 2112;
+    v19 = v12;
     _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s Unable to find a virtual device for context %@.", buf, 0x16u);
   }
 
@@ -326,37 +319,34 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactivateForReason_options_context_completion___block_invoke_13(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Deactivated %@.", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SVXSiriActivationListenerDelegate siriActivationListener:deactivateForReason:options:context:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Deactivated %@.", &v5, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0);
+    return (*(result + 16))(result, 0);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)siriActivationListener:(id)listener activateWithRequestInfo:(id)info context:(id)context completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   contextCopy = context;
   completionCopy = completion;
@@ -364,29 +354,27 @@ uint64_t __107__SVXSiriActivationListenerDelegate_siriActivationListener_deactiv
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]";
-    v24 = 2112;
-    v25 = infoCopy;
-    v26 = 2112;
-    v27 = contextCopy;
+    v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]";
+    v23 = 2112;
+    v24 = infoCopy;
+    v25 = 2112;
+    v26 = contextCopy;
     _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s requestInfo = %@, context = %@", buf, 0x20u);
   }
 
   mainQueuePerformer = self->_mainQueuePerformer;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWithRequestInfo_context_completion___block_invoke;
-  v18[3] = &unk_279C69038;
-  v18[4] = self;
-  v19 = contextCopy;
-  v20 = infoCopy;
-  v21 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWithRequestInfo_context_completion___block_invoke;
+  v17[3] = &unk_279C69038;
+  v17[4] = self;
+  v18 = contextCopy;
+  v19 = infoCopy;
+  v20 = completionCopy;
   v14 = infoCopy;
   v15 = completionCopy;
   v16 = contextCopy;
-  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v18 withOptions:2];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v17 withOptions:2];
 }
 
 void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWithRequestInfo_context_completion___block_invoke(uint64_t a1)
@@ -411,7 +399,7 @@ void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWit
 
 void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWithRequestInfo_context_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -426,34 +414,34 @@ void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWit
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
-          v24 = 2112;
-          v25 = v4;
+          v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
+          v23 = 2112;
+          v24 = v4;
           _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s Activating %@...", buf, 0x16u);
         }
 
         v8 = [*(*(a1 + 40) + 48) createActivationContextWithRequestInfo:*(a1 + 48) context:*(a1 + 32)];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWithRequestInfo_context_completion___block_invoke_10;
-        v19[3] = &unk_279C68310;
-        v20 = v4;
-        v21 = *(a1 + 56);
-        [v5 activateWithContext:v8 completion:v19];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWithRequestInfo_context_completion___block_invoke_10;
+        v18[3] = &unk_279C68310;
+        v19 = v4;
+        v20 = *(a1 + 56);
+        [v5 activateWithContext:v8 completion:v18];
 
-        v9 = v20;
+        v9 = v19;
         goto LABEL_20;
       }
 
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
       {
-        v18 = *(a1 + 32);
+        v17 = *(a1 + 32);
         *buf = 136315650;
-        v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
-        v24 = 2112;
-        v25 = v18;
-        v26 = 2112;
-        v27 = v4;
+        v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
+        v23 = 2112;
+        v24 = v17;
+        v25 = 2112;
+        v26 = v4;
         _os_log_error_impl(&dword_2695B9000, v7, OS_LOG_TYPE_ERROR, "%s Unable to activate with context %@ for virtual device %@.", buf, 0x20u);
       }
 
@@ -473,9 +461,9 @@ void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWit
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
-        v24 = 2112;
-        v25 = v4;
+        v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
+        v23 = 2112;
+        v24 = v4;
         _os_log_error_impl(&dword_2695B9000, v12, OS_LOG_TYPE_ERROR, "%s Unable to get the activation handler from virtual device %@.", buf, 0x16u);
       }
 
@@ -500,11 +488,11 @@ LABEL_20:
   v10 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v17 = *(a1 + 32);
+    v16 = *(a1 + 32);
     *buf = 136315394;
-    v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke_2";
-    v24 = 2112;
-    v25 = v17;
+    v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke_2";
+    v23 = 2112;
+    v24 = v16;
     _os_log_error_impl(&dword_2695B9000, v10, OS_LOG_TYPE_ERROR, "%s Unable to find a virtual device for context %@.", buf, 0x16u);
   }
 
@@ -515,13 +503,11 @@ LABEL_20:
     (*(v11 + 16))(v11, v5);
 LABEL_21:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWithRequestInfo_context_completion___block_invoke_10(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (v3)
@@ -529,24 +515,24 @@ void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWit
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
-      v11 = 2112;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s Failed to activate %@. (error = %@)", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
+      v10 = 2112;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s Failed to activate %@. (error = %@)", &v8, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v9 = 136315394;
-    v10 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Activated %@.", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SVXSiriActivationListenerDelegate siriActivationListener:activateWithRequestInfo:context:completion:]_block_invoke";
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Activated %@.", &v8, 0x16u);
   }
 
   v7 = *(a1 + 40);
@@ -554,13 +540,11 @@ void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWit
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriActivationListener:(id)listener prewarmWithRequestInfo:(id)info context:(id)context completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   contextCopy = context;
   completionCopy = completion;
@@ -568,29 +552,27 @@ void __103__SVXSiriActivationListenerDelegate_siriActivationListener_activateWit
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v23 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]";
-    v24 = 2112;
-    v25 = infoCopy;
-    v26 = 2112;
-    v27 = contextCopy;
+    v22 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]";
+    v23 = 2112;
+    v24 = infoCopy;
+    v25 = 2112;
+    v26 = contextCopy;
     _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s requestInfo = %@, context = %@", buf, 0x20u);
   }
 
   mainQueuePerformer = self->_mainQueuePerformer;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWithRequestInfo_context_completion___block_invoke;
-  v18[3] = &unk_279C69038;
-  v18[4] = self;
-  v19 = contextCopy;
-  v20 = infoCopy;
-  v21 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWithRequestInfo_context_completion___block_invoke;
+  v17[3] = &unk_279C69038;
+  v17[4] = self;
+  v18 = contextCopy;
+  v19 = infoCopy;
+  v20 = completionCopy;
   v14 = infoCopy;
   v15 = completionCopy;
   v16 = contextCopy;
-  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v18 withOptions:2];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v17 withOptions:2];
 }
 
 void __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWithRequestInfo_context_completion___block_invoke(uint64_t a1)
@@ -615,7 +597,7 @@ void __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWith
 
 void __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWithRequestInfo_context_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -627,22 +609,22 @@ void __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWith
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v18 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]_block_invoke";
-        v19 = 2112;
-        v20 = v4;
+        v17 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]_block_invoke";
+        v18 = 2112;
+        v19 = v4;
         _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s Prewarming %@...", buf, 0x16u);
       }
 
       v7 = [*(*(a1 + 40) + 48) createActivationContextWithRequestInfo:*(a1 + 48) context:*(a1 + 32)];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWithRequestInfo_context_completion___block_invoke_7;
-      v14[3] = &unk_279C68EF8;
-      v15 = v4;
-      v16 = *(a1 + 56);
-      [v5 prewarmWithContext:v7 completion:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWithRequestInfo_context_completion___block_invoke_7;
+      v13[3] = &unk_279C68EF8;
+      v14 = v4;
+      v15 = *(a1 + 56);
+      [v5 prewarmWithContext:v7 completion:v13];
 
-      v8 = v15;
+      v8 = v14;
     }
 
     else
@@ -650,9 +632,9 @@ void __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWith
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]_block_invoke";
-        v19 = 2112;
-        v20 = v4;
+        v17 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]_block_invoke";
+        v18 = 2112;
+        v19 = v4;
         _os_log_error_impl(&dword_2695B9000, v6, OS_LOG_TYPE_ERROR, "%s Unable to get the prewarm handler from virtual device %@.", buf, 0x16u);
       }
 
@@ -674,11 +656,11 @@ LABEL_15:
   v9 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     *buf = 136315394;
-    v18 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]_block_invoke_2";
-    v19 = 2112;
-    v20 = v13;
+    v17 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]_block_invoke_2";
+    v18 = 2112;
+    v19 = v12;
     _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s Unable to find a virtual device for context %@.", buf, 0x16u);
   }
 
@@ -691,31 +673,28 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __102__SVXSiriActivationListenerDelegate_siriActivationListener_prewarmWithRequestInfo_context_completion___block_invoke_7(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Prewarmed %@.", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SVXSiriActivationListenerDelegate siriActivationListener:prewarmWithRequestInfo:context:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Prewarmed %@.", &v5, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0);
+    return (*(result + 16))(result, 0);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 

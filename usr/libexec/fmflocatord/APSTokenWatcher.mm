@@ -17,7 +17,7 @@
   v2 = qword_100070360;
   if (!qword_100070360)
   {
-    v3 = sub_100002830();
+    v3 = sub_100002830(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -91,11 +91,11 @@
     prodToken = [(APSTokenWatcher *)self prodToken];
     if (prodToken)
     {
-      v13 = prodToken;
+      v14 = prodToken;
       prodToken2 = [(APSTokenWatcher *)self prodToken];
-      v15 = [prodToken2 isEqualToString:fm_hexString];
+      v16 = [prodToken2 isEqualToString:fm_hexString];
 
-      if (v15)
+      if (v16)
       {
         goto LABEL_10;
       }
@@ -104,9 +104,9 @@
     [(APSTokenWatcher *)self setProdToken:fm_hexString];
 LABEL_12:
 
-    v10 = [NSNotification notificationWithName:@"kAPSTokenWatcherUpdatedNotification" object:self userInfo:0];
-    v20 = +[NSNotificationQueue defaultQueue];
-    [v20 enqueueNotification:v10 postingStyle:2 coalesceMask:3 forModes:0];
+    v11 = [NSNotification notificationWithName:@"kAPSTokenWatcherUpdatedNotification" object:self userInfo:0];
+    v21 = +[NSNotificationQueue defaultQueue];
+    [v21 enqueueNotification:v11 postingStyle:2 coalesceMask:3 forModes:0];
 
 LABEL_13:
     goto LABEL_14;
@@ -116,10 +116,10 @@ LABEL_13:
 
   if (devConnection != connectionCopy)
   {
-    v10 = sub_100002830();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002830(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_100038EF8(connectionCopy, v10);
+      sub_100038EF8(connectionCopy, v11);
     }
 
     goto LABEL_13;
@@ -127,7 +127,7 @@ LABEL_13:
 
   fm_hexString = [tokenCopy fm_hexString];
   devToken = [(APSTokenWatcher *)self devToken];
-  if (!devToken || (v17 = devToken, -[APSTokenWatcher devToken](self, "devToken"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v18 isEqualToString:fm_hexString], v18, v17, (v19 & 1) == 0))
+  if (!devToken || (v18 = devToken, -[APSTokenWatcher devToken](self, "devToken"), v19 = objc_claimAutoreleasedReturnValue(), v20 = [v19 isEqualToString:fm_hexString], v19, v18, (v20 & 1) == 0))
   {
     [(APSTokenWatcher *)self setDevToken:fm_hexString];
     goto LABEL_12;

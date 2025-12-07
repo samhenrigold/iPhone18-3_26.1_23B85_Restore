@@ -20,19 +20,19 @@
   v4 = MEMORY[0x277CCACA8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v9 = v6;
+  v8 = v6;
   if (hasReading)
   {
-    objc_msgSend_stringWithFormat_(v4, v7, @"<%@: %p>(vertical: %f, horizontal: %f, timestamp: %f)", v8, v6, self, *&self->_verticalTilt, *&self->_horizontalTilt, *&self->_timestamp);
+    objc_msgSend_stringWithFormat_(v4, v7, @"<%@: %p>(vertical: %f, horizontal: %f, timestamp: %f)", v6, self, *&self->_verticalTilt, *&self->_horizontalTilt, *&self->_timestamp);
   }
 
   else
   {
-    objc_msgSend_stringWithFormat_(v4, v7, @"<%@: %p>(no reading)", v8, v6, self);
+    objc_msgSend_stringWithFormat_(v4, v7, @"<%@: %p>(no reading)", v6, self);
   }
-  v10 = ;
+  v9 = ;
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)updateHasSignificantChange:(id)change
@@ -42,56 +42,56 @@
     return 1;
   }
 
-  objc_msgSend_gravity(change, a2, change, v3);
+  objc_msgSend_gravity(change, a2, change);
   x = self->_gravity.x;
   y = self->_gravity.y;
   z = self->_gravity.z;
 
-  return sub_23BD36DF0(v7, v8, v9, x, y, z);
+  return sub_23BD36DF0(v6, v7, v8, x, y, z);
 }
 
 + (id)newIncline:(id)incline
 {
   inclineCopy = incline;
   v4 = objc_opt_new();
-  v7 = v4;
+  v6 = v4;
   if (inclineCopy)
   {
-    objc_msgSend_setHasReading_(v4, v5, 1, v6);
-    objc_msgSend_gravity(inclineCopy, v8, v9, v10);
-    objc_msgSend_setGravity_(v7, v11, v12, v13);
-    objc_msgSend_timestamp(inclineCopy, v14, v15, v16);
-    objc_msgSend_setTimestamp_(v7, v17, v18, v19);
+    objc_msgSend_setHasReading_(v4, v5, 1);
+    objc_msgSend_gravity(inclineCopy, v7, v8);
+    objc_msgSend_setGravity_(v6, v9, v10);
+    objc_msgSend_timestamp(inclineCopy, v11, v12);
+    objc_msgSend_setTimestamp_(v6, v13, v14);
   }
 
-  return v7;
+  return v6;
 }
 
 - (NCIncline)initWithNCIncline:(id)incline
 {
   inclineCopy = incline;
-  v49.receiver = self;
-  v49.super_class = NCIncline;
-  v8 = [(NCIncline *)&v49 init];
-  if (v8)
+  v35.receiver = self;
+  v35.super_class = NCIncline;
+  v7 = [(NCIncline *)&v35 init];
+  if (v7)
   {
-    objc_msgSend_gravity(inclineCopy, v5, v6, v7);
-    objc_msgSend_setGravity_(v8, v9, v10, v11);
-    v15 = objc_msgSend_orientation(inclineCopy, v12, v13, v14);
-    objc_msgSend_setOrientation_(v8, v16, v15, v17);
-    objc_msgSend_verticalTilt(inclineCopy, v18, v19, v20);
-    objc_msgSend_setVerticalTilt_(v8, v21, v22, v23);
-    objc_msgSend_horizontalOffset(inclineCopy, v24, v25, v26);
-    objc_msgSend_setHorizontalOffset_(v8, v27, v28, v29);
-    objc_msgSend_horizontalTilt(inclineCopy, v30, v31, v32);
-    objc_msgSend_setHorizontalTilt_(v8, v33, v34, v35);
-    objc_msgSend_timestamp(inclineCopy, v36, v37, v38);
-    objc_msgSend_setTimestamp_(v8, v39, v40, v41);
-    hasReading = objc_msgSend_hasReading(inclineCopy, v42, v43, v44);
-    objc_msgSend_setHasReading_(v8, v46, hasReading, v47);
+    objc_msgSend_gravity(inclineCopy, v5, v6);
+    objc_msgSend_setGravity_(v7, v8, v9);
+    v12 = objc_msgSend_orientation(inclineCopy, v10, v11);
+    objc_msgSend_setOrientation_(v7, v13, v12);
+    objc_msgSend_verticalTilt(inclineCopy, v14, v15);
+    objc_msgSend_setVerticalTilt_(v7, v16, v17);
+    objc_msgSend_horizontalOffset(inclineCopy, v18, v19);
+    objc_msgSend_setHorizontalOffset_(v7, v20, v21);
+    objc_msgSend_horizontalTilt(inclineCopy, v22, v23);
+    objc_msgSend_setHorizontalTilt_(v7, v24, v25);
+    objc_msgSend_timestamp(inclineCopy, v26, v27);
+    objc_msgSend_setTimestamp_(v7, v28, v29);
+    hasReading = objc_msgSend_hasReading(inclineCopy, v30, v31);
+    objc_msgSend_setHasReading_(v7, v33, hasReading);
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)setGravity:(id)gravity
@@ -99,41 +99,41 @@
   var1 = gravity.var1;
   var0 = gravity.var0;
   self->_gravity = gravity;
-  v8 = acos(gravity.var2);
-  v9 = v8 + -1.57079633;
-  if (v8 + -1.57079633 < 0.0)
+  v7 = acos(gravity.var2);
+  v8 = v7 + -1.57079633;
+  if (v7 + -1.57079633 < 0.0)
   {
-    v9 = -v9;
+    v8 = -v8;
   }
 
-  if (v9 <= 0.610865238)
+  if (v8 <= 0.610865238)
   {
-    v18 = atan2(var0, -var1);
-    objc_msgSend_setOrientation_(self, v19, 0, v20);
-    v24 = 1.57079633;
-    if (v18 <= 1.57079633)
+    v15 = atan2(var0, -var1);
+    objc_msgSend_setOrientation_(self, v16, 0);
+    v19 = 1.57079633;
+    if (v15 <= 1.57079633)
     {
-      v24 = v18;
+      v19 = v15;
     }
 
-    v25 = fmax(v24, -1.57079633) * 180.0 / 3.14159265;
+    v20 = fmax(v19, -1.57079633) * 180.0 / 3.14159265;
 
-    objc_msgSend_setVerticalTilt_(self, v21, v22, v23, v25);
+    objc_msgSend_setVerticalTilt_(self, v17, v18, v20);
   }
 
   else
   {
-    objc_msgSend_setOrientation_(self, v6, 1, v7);
-    objc_msgSend_setHorizontalOffset_(self, v10, v11, v12, -var0, var1);
-    v16 = v8 + -3.14159265;
-    if (v8 <= 1.57079633)
+    objc_msgSend_setOrientation_(self, v6, 1);
+    objc_msgSend_setHorizontalOffset_(self, v9, v10, -var0, var1);
+    v13 = v7 + -3.14159265;
+    if (v7 <= 1.57079633)
     {
-      v16 = v8;
+      v13 = v7;
     }
 
-    v17 = v16 * 180.0 / 3.14159265;
+    v14 = v13 * 180.0 / 3.14159265;
 
-    objc_msgSend_setHorizontalTilt_(self, v13, v14, v15, v17);
+    objc_msgSend_setHorizontalTilt_(self, v11, v12, v14);
   }
 }
 
@@ -143,20 +143,20 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    objc_msgSend_gravity(equalCopy, v5, v6, v7);
-    v9 = v8;
-    v11 = v10;
-    v13 = v12;
-    objc_msgSend_gravity(self, v14, v15, v16);
-    v20 = !sub_23BD36DF0(v9, v11, v13, v17, v18, v19);
+    objc_msgSend_gravity(equalCopy, v5, v6);
+    v8 = v7;
+    v10 = v9;
+    v12 = v11;
+    objc_msgSend_gravity(self, v13, v14);
+    v18 = !sub_23BD36DF0(v8, v10, v12, v15, v16, v17);
   }
 
   else
   {
-    LOBYTE(v20) = 0;
+    LOBYTE(v18) = 0;
   }
 
-  return v20;
+  return v18;
 }
 
 + (NCIncline)idealizedIncline
@@ -174,24 +174,24 @@
 + (id)randomizedIncline
 {
   v2 = objc_opt_new();
-  objc_msgSend_setHasReading_(v2, v3, 1, v4);
+  objc_msgSend_setHasReading_(v2, v3, 1);
   if (arc4random())
   {
-    objc_msgSend_setOrientation_(v2, v5, 0, v6);
-    v14 = arc4random_uniform(0xB4u);
-    objc_msgSend_setVerticalTilt_(v2, v15, v16, v17, (v14 - 90));
+    objc_msgSend_setOrientation_(v2, v4, 0);
+    v10 = arc4random_uniform(0xB4u);
+    objc_msgSend_setVerticalTilt_(v2, v11, v12, (v10 - 90));
   }
 
   else
   {
-    objc_msgSend_setOrientation_(v2, v5, 1, v6);
-    v7 = arc4random_uniform(0x37u);
-    objc_msgSend_setHorizontalTilt_(v2, v8, v9, v10, v7);
+    objc_msgSend_setOrientation_(v2, v4, 1);
+    v5 = arc4random_uniform(0x37u);
+    objc_msgSend_setHorizontalTilt_(v2, v6, v7, v5);
   }
 
-  v18 = objc_msgSend_date(MEMORY[0x277CBEAA8], v11, v12, v13);
-  objc_msgSend_timeIntervalSinceReferenceDate(v18, v19, v20, v21);
-  objc_msgSend_setTimestamp_(v2, v22, v23, v24);
+  v13 = objc_msgSend_date(MEMORY[0x277CBEAA8], v8, v9);
+  objc_msgSend_timeIntervalSinceReferenceDate(v13, v14, v15);
+  objc_msgSend_setTimestamp_(v2, v16, v17);
 
   return v2;
 }
@@ -200,7 +200,7 @@
 {
   v4 = [NCIncline alloc];
 
-  return MEMORY[0x2821F9670](v4, sel_initWithNCIncline_, self, v5);
+  return MEMORY[0x2821F9670](v4, sel_initWithNCIncline_, self);
 }
 
 - ($1AB5FA073B851C12C2339EC22442E995)gravity

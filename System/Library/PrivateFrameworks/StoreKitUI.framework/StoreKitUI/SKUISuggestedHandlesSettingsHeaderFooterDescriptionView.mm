@@ -184,68 +184,8 @@ void __115__SKUISuggestedHandlesSettingsHeaderFooterDescriptionView_reloadWithSe
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUISuggestedHandlesSettingsHeaderFooterDescriptionView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v41.receiver = self;
-  v41.super_class = SKUISuggestedHandlesSettingsHeaderFooterDescriptionView;
-  [(SKUISuggestedHandlesSettingsHeaderFooterDescriptionView *)&v41 layoutSubviews];
-  [(SKUISuggestedHandlesSettingsHeaderFooterDescriptionView *)self bounds];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  [(SKUISuggestedHandlesSettingsHeaderFooterDescriptionView *)self layoutMargins];
-  v37 = v20;
-  v38 = v19;
-  v22 = v21;
-  v24 = v23;
-  v42.origin.x = v12;
-  v42.origin.y = v14;
-  v42.size.width = v16;
-  v42.size.height = v18;
-  v25 = CGRectGetWidth(v42) - v22 - v24;
-  v26 = *MEMORY[0x277D769E0];
-  v27 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D769E0]];
-  [v27 _scaledValueForValue:22.0];
-  v29 = v28;
-  [(UILabel *)self->_label _firstBaselineOffsetFromTop];
-  v31 = v29 - v30;
-  [(UILabel *)self->_label sizeThatFits:v25, 1.0];
-  [(UILabel *)self->_label setFrame:v22, v31, v25, v32];
-  v33 = [MEMORY[0x277D74300] preferredFontForTextStyle:v26];
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x2020000000;
-  [(UILabel *)self->_label _lastLineBaselineFrameOriginY];
-  v40[3] = v34;
-  [v33 _scaledValueForValue:30.0];
-  buttons = self->_buttons;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __73__SKUISuggestedHandlesSettingsHeaderFooterDescriptionView_layoutSubviews__block_invoke;
-  v39[3] = &unk_278200B88;
-  v39[4] = v40;
-  v39[5] = v36;
-  *&v39[6] = v12;
-  *&v39[7] = v14;
-  *&v39[8] = v16;
-  *&v39[9] = v18;
-  v39[10] = v38;
-  *&v39[11] = v22;
-  v39[12] = v37;
-  *&v39[13] = v24;
-  [(NSMutableArray *)buttons enumerateObjectsUsingBlock:v39];
-  _Block_object_dispose(v40, 8);
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISuggestedHandlesSettingsHeaderFooterDescriptionView layoutSubviews]";
 }
 
 void __73__SKUISuggestedHandlesSettingsHeaderFooterDescriptionView_layoutSubviews__block_invoke(uint64_t a1, void *a2)
@@ -285,6 +225,42 @@ void __73__SKUISuggestedHandlesSettingsHeaderFooterDescriptionView_layoutSubview
   [v7 setFrame:{0.0, 0.0, width, v11}];
 
   return v7;
+}
+
++ (void)prefetchResourcesForSettingsHeaderFooterDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISuggestedHandlesSettingsHeaderFooterDescriptionView prefetchResourcesForSettingsHeaderFooterDescription:reason:context:]";
+}
+
++ (void)preferredSizeForSettingsHeaderFooterDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISuggestedHandlesSettingsHeaderFooterDescriptionView preferredSizeForSettingsHeaderFooterDescription:context:]";
+}
+
++ (void)requestLayoutForSettingsHeaderFooterDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISuggestedHandlesSettingsHeaderFooterDescriptionView requestLayoutForSettingsHeaderFooterDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingsHeaderFooterDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISuggestedHandlesSettingsHeaderFooterDescriptionView sizeThatFitsWidth:settingsHeaderFooterDescription:context:]";
+}
+
+- (void)reloadWithSettingsHeaderFooterDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISuggestedHandlesSettingsHeaderFooterDescriptionView reloadWithSettingsHeaderFooterDescription:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISuggestedHandlesSettingsHeaderFooterDescriptionView setImage:forArtworkRequest:context:]";
 }
 
 @end

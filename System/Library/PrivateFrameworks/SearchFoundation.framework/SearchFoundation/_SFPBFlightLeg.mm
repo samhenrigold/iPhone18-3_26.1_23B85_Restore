@@ -1662,54 +1662,42 @@ LABEL_120:
 
 - (void)setBaggageClaim:(id)claim
 {
-  v4 = [claim copy];
-  baggageClaim = self->_baggageClaim;
-  self->_baggageClaim = v4;
+  self->_baggageClaim = [claim copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setArrivalGate:(id)gate
 {
-  v4 = [gate copy];
-  arrivalGate = self->_arrivalGate;
-  self->_arrivalGate = v4;
+  self->_arrivalGate = [gate copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setArrivalTerminal:(id)terminal
 {
-  v4 = [terminal copy];
-  arrivalTerminal = self->_arrivalTerminal;
-  self->_arrivalTerminal = v4;
+  self->_arrivalTerminal = [terminal copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDepartureGate:(id)gate
 {
-  v4 = [gate copy];
-  departureGate = self->_departureGate;
-  self->_departureGate = v4;
+  self->_departureGate = [gate copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDepartureTerminal:(id)terminal
 {
-  v4 = [terminal copy];
-  departureTerminal = self->_departureTerminal;
-  self->_departureTerminal = v4;
+  self->_departureTerminal = [terminal copy];
 
   MEMORY[0x1EEE66BB8]();
 }

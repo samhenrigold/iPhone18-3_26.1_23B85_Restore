@@ -30,19 +30,19 @@ uint64_t HUDUIWindowAddLabelKeyValuePair2LA(uint64_t a1, __int128 *a2, int a3, _
   return HUDUIWindowAddSegmentedLabel(a1, &v13, 4u, a8, a9, a10, a11);
 }
 
-double HUDUIWindowBeginRow(uint64_t a1, float a2)
+double HUDUIWindowBeginRow(uint64_t a1)
 {
   if (!a1)
   {
     return 0.0;
   }
 
-  v2 = *(a1 + 5852);
-  v3 = *(a1 + 40);
-  if (v2 == -1)
+  v1 = *(a1 + 5852);
+  v2 = *(a1 + 40);
+  if (v1 == -1)
   {
-    v5 = *(a1 + 32);
-    if (v5 == v3)
+    v4 = *(a1 + 32);
+    if (v4 == v2)
     {
       return 0.0;
     }
@@ -50,24 +50,20 @@ double HUDUIWindowBeginRow(uint64_t a1, float a2)
 
   else
   {
-    v4 = *(a1 + 32);
-    if (0xF0F0F0F0F0F0F0F1 * ((v3 - v4) >> 3) <= v2)
+    v3 = *(a1 + 32);
+    if (0xF0F0F0F0F0F0F0F1 * ((v2 - v3) >> 3) <= v1)
     {
       return 0.0;
     }
 
-    v5 = v4 + 136 * v2;
+    v4 = (v3 + 136 * v1);
   }
 
-  if (v5)
+  if (v4)
   {
-    v6 = *(*(v5 + 40) + 5848) * a2;
-    v7 = *(v5 + 56) + *(v5 + 52);
-    *(v5 + 52) = v7;
-    *&result = *v5 + 6.0;
-    v9 = (v7 + *(v5 + 4)) + 2.0;
-    v10 = *(v5 + 8) + -12.0;
-    *(v5 + 56) = 0;
+    v4[13] = v4[14] + v4[13];
+    *&result = *v4 + 6.0;
+    v4[14] = 0.0;
     return result;
   }
 
@@ -121,21 +117,21 @@ float HUDUIWindowEmptyRow(uint64_t a1, float result)
   return result;
 }
 
-uint64_t HUDUIWindowAddLineChart(uint64_t result, __int128 *a2, uint64_t a3, double a4, double a5, float32_t a6, float32_t a7, float a8, double a9, double a10, double a11, uint64_t a12, unint64_t a13)
+uint64_t HUDUIWindowAddLineChart(uint64_t result, __n128 *a2, uint64_t a3, double a4, double a5, float a6, float a7, float a8, __n128 a9, __n128 a10, __n128 a11, uint64_t a12, unint64_t a13)
 {
   if (!result)
   {
     return result;
   }
 
-  v13 = *&a9;
-  v22 = result;
-  v23 = *(result + 5852);
-  v24 = *(result + 40);
-  if (v23 == -1)
+  v13 = a9.n128_f32[0];
+  v23 = result;
+  v24 = *(result + 5852);
+  v25 = *(result + 40);
+  if (v24 == -1)
   {
-    v26 = *(result + 32);
-    if (v26 == v24)
+    v27 = *(result + 32);
+    if (v27 == v25)
     {
       return 0;
     }
@@ -143,40 +139,43 @@ uint64_t HUDUIWindowAddLineChart(uint64_t result, __int128 *a2, uint64_t a3, dou
 
   else
   {
-    v25 = *(result + 32);
-    if (0xF0F0F0F0F0F0F0F1 * ((v24 - v25) >> 3) <= v23)
+    v26 = *(result + 32);
+    if (0xF0F0F0F0F0F0F0F1 * ((v25 - v26) >> 3) <= v24)
     {
       return 0;
     }
 
-    v26 = v25 + 136 * v23;
+    v27 = v26 + 136 * v24;
   }
 
-  if (!v26)
+  if (!v27)
   {
     return 0;
   }
 
-  v27 = *(v26 + 56);
-  if (v27 < *&a9)
+  v28 = *(v27 + 56);
+  if (v28 < a9.n128_f32[0])
   {
-    v27 = *&a9;
+    v28 = a9.n128_f32[0];
   }
 
-  *(v26 + 56) = v27;
-  if (*a2)
+  *(v27 + 56) = v28;
+  if (a2->n128_u64[0])
   {
-    v39 = *a2;
-    v40 = *(a2 + 2);
-    v41 = 0;
-    HUDUIWindowGetLabelSize(result, &v39, &v41 + 1, &v41);
-    if (*&v41 <= v13)
+    v41 = *a2;
+    v42 = a2[1].n128_u64[0];
+    v43 = 0;
+    HUDUIWindowGetLabelSize(result, &v41, &v43 + 1, &v43);
+    if (*&v43 <= v13)
     {
-      v39 = *a2;
-      v40 = *(a2 + 2);
-      HUDUIWindowAddLabelAtPoint(v22, &v39, -1, a6, a7, v28, v29);
-      a7 = a7 + *&v41;
-      v13 = v13 - *&v41;
+      v41 = *a2;
+      v32 = v41;
+      v42 = a2[1].n128_u64[0];
+      v32.n128_f32[0] = a6;
+      v29.n128_f32[0] = a7;
+      HUDUIWindowAddLabelAtPoint(v23, &v41, 0xFFFFFFFFLL, v32, v29, v30, v31);
+      a7 = a7 + *&v43;
+      v13 = v13 - *&v43;
       goto LABEL_12;
     }
 
@@ -186,33 +185,33 @@ uint64_t HUDUIWindowAddLineChart(uint64_t result, __int128 *a2, uint64_t a3, dou
 LABEL_12:
   if (a4 == a5)
   {
-    v30 = 0;
+    v33 = 0;
     a5 = 0.0;
     a4 = 99999.0;
     do
     {
       if (a3)
       {
-        v31 = *(a3 + v30);
-        if (v31)
+        v34 = *(a3 + v33);
+        if (v34)
         {
-          v32 = (v31 + 972);
-          if (a4 >= *v32)
+          v35 = (v34 + 972);
+          if (a4 >= *v35)
           {
-            a4 = *v32;
+            a4 = *v35;
           }
 
-          if (a5 < v32[1])
+          if (a5 < v35[1])
           {
-            a5 = v32[1];
+            a5 = v35[1];
           }
         }
       }
 
-      v30 += 40;
+      v33 += 40;
     }
 
-    while (v30 != 320);
+    while (v33 != 320);
   }
 
   if (a5 < a4)
@@ -220,52 +219,52 @@ LABEL_12:
     return 0;
   }
 
-  v33 = 0;
-  v34 = a3 + 12;
+  v36 = 0;
+  v37 = a3 + 12;
   do
   {
     if (a3)
     {
-      v35 = *(v34 - 12);
-      if (v35)
+      v38 = *(v37 - 12);
+      if (v38)
       {
-        HUDUIWindowAddGraph(v22, v35, 0x78u, *(v35 + 960), *(v34 - 4), *(v34 + 12), v33 != 0, a4, a5, *v34, *(v34 + 4), *(v34 + 8), a9, a10, a11, a6, a7, a8, v13);
+        HUDUIWindowAddGraph(v23, v38, 120, *(v38 + 960), *(v37 - 4), *(v37 + 12), v36 != 0, a4, a5, *v37, *(v37 + 4), *(v37 + 8), a9, a10, a11, a6, a7, a8, v13);
       }
     }
 
-    ++v33;
-    v34 += 40;
+    ++v36;
+    v37 += 40;
   }
 
-  while (v33 != 8);
+  while (v36 != 8);
   if (a13)
   {
-    v36 = a6 + 6.0;
+    v39 = a6 + 6.0;
     if (a13 == 1)
     {
-      HUDUITemporaryStringWithFormat(v22, 0, "%llu%s", &v39, SLOBYTE(a5));
+      HUDUITemporaryStringWithFormat(v23, 0, "%llu%s", &v41, *&a5, a12);
     }
 
     else
     {
-      v38 = 1.0 / a13 * a5;
-      HUDUITemporaryStringWithFormat(v22, 0, "%.2f%s", &v39, SLOBYTE(v38));
+      HUDUITemporaryStringWithFormat(v23, 0, "%.2f%s", &v41, 1.0 / a13 * a5, a12);
     }
 
-    *&v37 = v13;
-    HUDUIWindowAddLabelInRect(v22, &v39, -1, 0, 0, v36, a7, a8, v37);
+    *&v40 = v13;
+    HUDUIWindowAddLabelInRect(v23, &v41, -1, 0, 0, v39, a7, a8, v40);
   }
 
   return 1;
 }
 
-uint64_t HUDUIWindowAddTimeline(uint64_t result, unint64_t a2, unint64_t a3, void *a4, float a5, float a6, float a7, float a8)
+uint64_t HUDUIWindowAddTimeline(uint64_t result, unint64_t a2, unint64_t a3, void *a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8)
 {
   if (!result)
   {
     return result;
   }
 
+  v8 = a8.n128_f32[0];
   v9 = *(result + 5852);
   v10 = *(result + 40);
   if (v9 != -1)
@@ -292,13 +291,13 @@ LABEL_6:
     return 0;
   }
 
-  result = HUDUIVertexBufferAddTimeline(**(v12 + 40), *(v12 + 96), a2, a3, a4, *(v12 + 40), a5, a6, a7, a8);
+  result = HUDUIVertexBufferAddTimeline(**(v12 + 40), *(v12 + 96), a2, a3, a4, *(v12 + 40), a5.n128_f32[0], a6.n128_f32[0], a7.n128_f32[0], a8.n128_f32[0]);
   if (result)
   {
     v13 = *(v12 + 56);
-    if (v13 < a8)
+    if (v13 < v8)
     {
-      v13 = a8;
+      v13 = v8;
     }
 
     *(v12 + 56) = v13;
@@ -952,13 +951,14 @@ LABEL_71:
   return 1;
 }
 
-uint64_t HUDUIWindowAddHistogram(uint64_t result, float *a2, float a3, float32_t a4, __n128 a5, float a6, double a7, __n128 a8)
+uint64_t HUDUIWindowAddHistogram(uint64_t result, __n128 a2, __n128 a3, __n128 a4, __n128 a5, float *a6, double a7, __n128 a8)
 {
   if (!result)
   {
     return result;
   }
 
+  v8 = a5.n128_f32[0];
   v9 = *(result + 5852);
   v10 = *(result + 40);
   if (v9 != -1)
@@ -987,13 +987,13 @@ LABEL_6:
 
   v13 = *(v12 + 40);
   LODWORD(a7) = *(v13 + 5844);
-  result = HUDUIVertexBufferAddHistogram(result, *v13, *(v12 + 96), a2, a3, a4, a5, a6, a7, a8);
+  result = HUDUIVertexBufferAddHistogram(result, *v13, *(v12 + 96), a6, a2.n128_f32[0], a3.n128_f32[0], a4, a5.n128_f32[0], a7, a8);
   if (result)
   {
     v14 = *(v12 + 56);
-    if (v14 < a6)
+    if (v14 < v8)
     {
-      v14 = a6;
+      v14 = v8;
     }
 
     *(v12 + 56) = v14;
@@ -1003,7 +1003,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t HUDUIVertexBufferAddHistogram(uint64_t *a1, uint64_t a2, uint64_t a3, float *a4, float a5, float32_t a6, __n128 a7, float a8, double a9, __n128 a10)
+uint64_t HUDUIVertexBufferAddHistogram(uint64_t *a1, uint64_t a2, int16x4_t *a3, float *a4, float a5, float32_t a6, __n128 a7, float a8, double a9, __n128 a10)
 {
   if (!a4)
   {
@@ -1018,7 +1018,7 @@ uint64_t HUDUIVertexBufferAddHistogram(uint64_t *a1, uint64_t a2, uint64_t a3, f
 
   v13 = a7.n128_f32[0];
   v18 = 0;
-  v19 = 0;
+  LODWORD(v19) = 0;
   v20 = 0;
   v21 = *(a2 + 5496);
   v22 = *(a2 + 5520);
@@ -1036,7 +1036,7 @@ uint64_t HUDUIVertexBufferAddHistogram(uint64_t *a1, uint64_t a2, uint64_t a3, f
       v18 = *(v27 + 4 * v20);
     }
 
-    v19 += v28;
+    v19 = v28 + v19;
     ++v20;
   }
 
@@ -1055,7 +1055,7 @@ uint64_t HUDUIVertexBufferAddHistogram(uint64_t *a1, uint64_t a2, uint64_t a3, f
     }
   }
 
-  if (!*(a3 + 8) || !*a3)
+  if (!*&a3[1] || !*a3)
   {
     return 0;
   }
@@ -1065,71 +1065,71 @@ uint64_t HUDUIVertexBufferAddHistogram(uint64_t *a1, uint64_t a2, uint64_t a3, f
   v36 = 4 * v11;
   v37 = 3 * v11;
   v38 = 6 * v11;
-  v39 = 4 * v11 + *(a3 + 16);
-  v40 = *(a3 + 24);
+  v39 = 4 * v11 + a3[2].u32[0];
+  v40 = a3[3].u32[0];
   a7.n128_f32[0] = (a6 + (v23 * 2.0)) + v26;
-  v131 = a7;
+  v130 = a7;
   a10.n128_f32[0] = a5 + 2.0;
-  v132 = a10;
-  v129 = v26;
-  v130 = v32;
-  v125 = v37;
+  v131 = a10;
+  v128 = v26;
+  v129 = v32;
+  v124 = v37;
   if (v39 >= v40)
   {
-    LODWORD(v41) = *(a3 + 28);
+    LODWORD(v41) = a3[3].i32[1];
     goto LABEL_18;
   }
 
-  v41 = *(a3 + 28);
-  if (v38 + *(a3 + 20) >= v41)
+  v41 = a3[3].u32[1];
+  if (v38 + a3[2].u32[1] >= v41)
   {
 LABEL_18:
     HUDSimpleVertexBufferChunkRelocate(a2, a3, 2 * v40, 2 * v41);
-    v40 = *(a3 + 24);
-    v39 = v36 + *(a3 + 16);
+    v40 = a3[3].u32[0];
+    v39 = v36 + a3[2].u32[0];
   }
 
-  if (v39 >= v40 || v38 + *(a3 + 20) >= *(a3 + 28))
+  if (v39 >= v40 || v38 + a3[2].u32[1] >= a3[3].u32[1])
   {
     return 0;
   }
 
-  v121 = a1;
-  v42 = ([*a3 contents] + 24 * *(a3 + 16));
-  v43 = [*(a3 + 8) contents];
-  v119 = *(a3 + 20);
-  v120 = v43;
+  v120 = a1;
+  v42 = ([*a3 contents] + 24 * a3[2].u32[0]);
+  v43 = [*&a3[1] contents];
+  v118 = a3[2].u32[1];
+  v119 = v43;
   if (v36)
   {
-    bzero(v42, 32 * v125);
+    bzero(v42, 32 * v124);
   }
 
   v44 = v38;
   if (v38)
   {
-    bzero(v42, 4 * v125);
+    bzero(v42, 4 * v124);
     v44 = v38;
   }
 
-  v45 = *(a3 + 16);
+  v45 = a3[2].i32[0];
   v46 = (v45 + v36);
-  v47 = (*(a3 + 20) + v44);
-  *(a3 + 16) = v46;
-  *(a3 + 20) = v47;
+  v47 = (a3[2].i32[1] + v44);
+  a3[2].i32[0] = v46;
+  a3[2].i32[1] = v47;
   v48 = *(a4 + 3);
   if (v29 < v48)
   {
-    v49 = &v120[2 * v119];
+    v49 = &v119[2 * v118];
     v50 = v48 - v30;
     v51 = (*a4 + 4 * v30);
-    v52 = v132.n128_f32[0];
+    v52 = v131.n128_f32[0];
     do
     {
       v53 = *v51++;
       v54.f32[0] = v52;
-      v54.f32[1] = v131.n128_f32[0] + ((-v53 / v18) * v129);
-      v55.f32[0] = v130 + v52;
-      v55.i32[1] = v131.n128_u32[0];
+      v54.f32[1] = v130.n128_f32[0] + ((-v53 / v18) * v128);
+      v55.f32[0] = v129 + v52;
+      v55.i32[1] = v130.n128_u32[0];
       v42[1].i32[0] = v34;
       v42[1].i32[1] = v35;
       v56 = vmul_n_f32(v54, *&a9);
@@ -1157,7 +1157,7 @@ LABEL_18:
       *(v49 + 3) = v45;
       *(v49 + 5) = v45 + 3;
       v45 += 4;
-      v52 = (v130 + 2.0) + v52;
+      v52 = (v129 + 2.0) + v52;
       v42 += 12;
       v49 += 12;
       --v50;
@@ -1166,22 +1166,22 @@ LABEL_18:
     while (v50);
   }
 
-  if (!*(a3 + 8) || !*a3)
+  if (!*&a3[1] || !*a3)
   {
     return 0;
   }
 
   v59 = v46 + 8;
-  v60 = *(a3 + 24);
+  v60 = a3[3].u32[0];
   if (v59 >= v60)
   {
-    LODWORD(v62) = *(a3 + 28);
+    LODWORD(v62) = a3[3].i32[1];
   }
 
   else
   {
     v61 = v47 + 12;
-    v62 = *(a3 + 28);
+    v62 = a3[3].u32[1];
     if (v61 < v62)
     {
       goto LABEL_35;
@@ -1189,16 +1189,16 @@ LABEL_18:
   }
 
   HUDSimpleVertexBufferChunkRelocate(a2, a3, 2 * v60, 2 * v62);
-  v60 = *(a3 + 24);
-  v59 = *(a3 + 16) + 8;
+  v60 = a3[3].u32[0];
+  v59 = a3[2].u32[0] + 8;
 LABEL_35:
-  if (v59 >= v60 || *(a3 + 20) + 12 >= *(a3 + 28))
+  if (v59 >= v60 || a3[2].u32[1] + 12 >= a3[3].u32[1])
   {
     return 0;
   }
 
-  v63 = [*a3 contents] + 24 * *(a3 + 16);
-  v64 = ([*(a3 + 8) contents] + 2 * *(a3 + 20));
+  v63 = [*a3 contents] + 24 * a3[2].u32[0];
+  v64 = ([*&a3[1] contents] + 2 * a3[2].u32[1]);
   *(v63 + 10) = 0u;
   *(v63 + 11) = 0u;
   *(v63 + 8) = 0u;
@@ -1211,17 +1211,17 @@ LABEL_35:
   *(v63 + 3) = 0u;
   *v63 = 0u;
   *(v63 + 1) = 0u;
-  v65 = *(a3 + 16);
-  v66.i32[0] = v132.n128_u32[0];
-  v126 = a6 + a8;
+  v65 = a3[2];
+  v66.i32[0] = v131.n128_u32[0];
+  v125 = a6 + a8;
   v66.f32[1] = a6 + a8;
   v67 = vmul_n_f32(0x3F0000003F000000, *&a9);
-  v68 = vmla_n_f32(v67, __PAIR64__(LODWORD(a6), v132.n128_u32[0]), *&a9);
+  v68 = vmla_n_f32(v67, __PAIR64__(LODWORD(a6), v131.n128_u32[0]), *&a9);
   v69 = vmla_n_f32(v67, v66, *&a9);
   v70 = vsub_f32(v69, v68);
   v71 = vmul_f32(v70, v70);
   v71.i32[0] = vadd_f32(v71, vdup_lane_s32(v71, 1)).u32[0];
-  *(a3 + 16) = vadd_s32(v65, 0xC00000008);
+  a3[2] = vadd_s32(v65, 0xC00000008);
   v72 = vrsqrte_f32(v71.u32[0]);
   v73 = vmul_f32(v72, vrsqrts_f32(v71.u32[0], vmul_f32(v72, v72)));
   v74 = vmul_n_f32(v70, vmul_f32(v73, vrsqrts_f32(v71.u32[0], vmul_f32(v73, v73))).f32[0]);
@@ -1249,9 +1249,9 @@ LABEL_35:
   v64->i16[0] = v65.i16[0];
   v64->i16[1] = v65.i16[0] + 1;
   v69.f32[0] = a5 + v13;
-  v69.i32[1] = v131.n128_u32[0];
-  v76 = vmla_n_f32(v67, __PAIR64__(v131.n128_u32[0], v132.n128_u32[0]), *&a9);
-  v122 = v67;
+  v69.i32[1] = v130.n128_u32[0];
+  v76 = vmla_n_f32(v67, __PAIR64__(v130.n128_u32[0], v131.n128_u32[0]), *&a9);
+  v121 = v67;
   v77 = vmla_n_f32(v67, v69, *&a9);
   v78 = vsub_f32(v77, v76);
   v79 = vmul_f32(v78, v78);
@@ -1287,198 +1287,201 @@ LABEL_35:
   v64[2].i16[0] = v75 + 6;
   v64[2].i16[2] = v75 + 6;
   v64[2].i16[3] = v75 + 7;
-  HUDUITemporaryStringWithFormat(v121, 0, "Total = %d", &v137, v19);
+  HUDUITemporaryStringWithFormat(v120, 0, "Total = %d", &v136, v19);
   *&v84 = a8;
-  HUDUIWindowAddLabelInRect(v121, &v137, -1, 0, 0, v132.n128_f32[0], a6, v24 + -2.0, v84);
-  v85 = v132;
-  if (v132.n128_f32[0] < (v132.n128_f32[0] + v31))
+  HUDUIWindowAddLabelInRect(v120, &v136, -1, 0, 0, v131.n128_f32[0], a6, v24 + -2.0, v84);
+  v85 = v131;
+  if (v131.n128_f32[0] < (v131.n128_f32[0] + v31))
   {
     v86 = vdup_lane_s32(*&a9, 0);
-    v87 = v130;
-    v88 = v130 + 2.0;
-    v89 = v131;
-    v89.n128_u32[0] = v132.n128_u32[0];
+    v87 = v129;
+    v88 = v129 + 2.0;
+    v89 = v130;
+    v89.n128_u32[0] = v131.n128_u32[0];
     while (!*(*a4 + 4 * v30))
     {
       v30 = (v30 + 1);
-      v96 = *(a4 + 3);
-      if (v96 <= v30)
+      v97 = *(a4 + 3);
+      if (v97 <= v30)
       {
-        goto LABEL_60;
+        goto LABEL_62;
       }
 
       v89.n128_f32[0] = v88 + v89.n128_f32[0];
-LABEL_56:
-      if (v89.n128_f32[0] >= (v132.n128_f32[0] + v31))
+LABEL_58:
+      if (v89.n128_f32[0] >= (v131.n128_f32[0] + v31))
       {
-        goto LABEL_60;
+        goto LABEL_62;
       }
     }
 
-    v128 = v89;
-    v137 = 0uLL;
-    v138 = 0;
+    v127 = v89;
+    v136 = 0uLL;
+    v137 = 0;
     LODWORD(v30) = v30 + 1;
-    *(a4 + 1);
-    v118 = (a4[8] + (a4[9] * v30));
-    HUDUITemporaryStringWithFormat(v121, 0, "%.1f%s", &v137, SLOBYTE(v118));
-    v136 = 0.0;
+    v90 = *(a4 + 1);
+    if (!v90)
+    {
+      v90 = "";
+    }
+
+    HUDUITemporaryStringWithFormat(v120, 0, "%.1f%s", &v136, (a4[8] + (a4[9] * v30)), v90);
+    v135 = 0.0;
+    v133 = v136;
     v134 = v137;
-    v135 = v138;
-    HUDUIWindowGetLabelSize(v121, &v134, &v136, 0);
-    v91 = v130 + 2.0;
-    if (v88 < v136)
+    HUDUIWindowGetLabelSize(v120, &v133, &v135, 0);
+    v92 = v129 + 2.0;
+    if (v88 < v135)
     {
       do
       {
-        v91 = v88 + v91;
+        v92 = v88 + v92;
         LODWORD(v30) = v30 + 1;
       }
 
-      while (v91 < v136);
+      while (v92 < v135);
     }
 
+    v133 = v136;
     v134 = v137;
-    v135 = v138;
-    *&v90 = v23;
-    HUDUIWindowAddLabelInRect(v121, &v134, -1, 0, 1, v128.n128_f32[0], v131.n128_f32[0] + -2.0, v91, v90);
-    v92 = v131.n128_u32[0];
-    v85 = v132;
-    v87 = v130;
-    if (!*(a3 + 8) || !*a3)
+    *&v91 = v23;
+    HUDUIWindowAddLabelInRect(v120, &v133, -1, 0, 1, v127.n128_f32[0], v130.n128_f32[0] + -2.0, v92, v91);
+    v93 = v130.n128_u32[0];
+    v85 = v131;
+    v87 = v129;
+    if (!*&a3[1] || !*a3)
     {
-LABEL_54:
-      v96 = *(a4 + 3);
-      if (v96 <= v30)
+LABEL_56:
+      v97 = *(a4 + 3);
+      if (v97 <= v30)
       {
-        goto LABEL_60;
+        goto LABEL_62;
       }
 
-      v89 = v128;
-      v89.n128_f32[0] = v128.n128_f32[0] + v91;
-      goto LABEL_56;
+      v89 = v127;
+      v89.n128_f32[0] = v127.n128_f32[0] + v92;
+      goto LABEL_58;
     }
 
-    v93 = *(a3 + 16) + 4;
-    v94 = *(a3 + 24);
-    if (v93 >= v94)
+    v94 = a3[2].u32[0] + 4;
+    v95 = a3[3].u32[0];
+    if (v94 >= v95)
     {
-      LODWORD(v95) = *(a3 + 28);
+      LODWORD(v96) = a3[3].i32[1];
     }
 
     else
     {
-      v95 = *(a3 + 28);
-      if (*(a3 + 20) + 6 < v95)
+      v96 = a3[3].u32[1];
+      if (a3[2].u32[1] + 6 < v96)
       {
-        goto LABEL_51;
+        goto LABEL_53;
       }
     }
 
-    HUDSimpleVertexBufferChunkRelocate(a2, a3, 2 * v94, 2 * v95);
-    v87 = v130;
-    v92 = v131.n128_u32[0];
-    v85 = v132;
-    v94 = *(a3 + 24);
-    v93 = *(a3 + 16) + 4;
-LABEL_51:
-    if (v93 < v94 && *(a3 + 20) + 6 < *(a3 + 28))
+    HUDSimpleVertexBufferChunkRelocate(a2, a3, 2 * v95, 2 * v96);
+    v87 = v129;
+    v93 = v130.n128_u32[0];
+    v85 = v131;
+    v95 = a3[3].u32[0];
+    v94 = a3[2].u32[0] + 4;
+LABEL_53:
+    if (v94 < v95 && a3[2].u32[1] + 6 < a3[3].u32[1])
     {
-      v124 = __PAIR64__(v92, v128.n128_u32[0]);
-      v97 = [*a3 contents] + 24 * *(a3 + 16);
-      v98 = [*(a3 + 8) contents] + 2 * *(a3 + 20);
-      *(v97 + 2) = 0u;
-      *(v97 + 3) = 0u;
-      *v97 = 0u;
-      *(v97 + 1) = 0u;
-      *(v97 + 4) = 0u;
-      *(v97 + 5) = 0u;
-      v99 = *(a3 + 16);
-      *(a3 + 16) = vadd_s32(v99, 0x600000004);
-      v100 = *(a2 + 5500);
-      v101 = *(a2 + 5504);
-      v102 = vmla_f32(v122, v86, v124);
-      v103 = vmla_f32(v122, v86, __PAIR64__(LODWORD(v126), v128.n128_u32[0]));
-      v104 = vsub_f32(v103, v102);
-      v105 = vmul_f32(v104, v104);
-      v105.i32[0] = vadd_f32(v105, vdup_lane_s32(v105, 1)).u32[0];
-      v106 = vrsqrte_f32(v105.u32[0]);
-      v107 = vmul_f32(v106, vrsqrts_f32(v105.u32[0], vmul_f32(v106, v106)));
-      v108 = vmul_f32(vmul_n_f32(v104, vmul_f32(v107, vrsqrts_f32(v105.u32[0], vmul_f32(v107, v107))).f32[0]), 0x3F0000003F000000);
-      v109 = vrev64_s32(v108);
-      v110 = vadd_f32(v102, v109);
-      v111 = vsub_f32(v102, v109);
-      *v97 = __PAIR64__(v111.u32[1], v110.u32[0]);
-      *(v97 + 2) = v100;
-      *(v97 + 3) = v101;
-      *(v97 + 4) = -1;
-      *(v97 + 6) = vadd_f32(v103, v109).u32[0];
-      *(v97 + 7) = v103.f32[1] - *v108.i32;
-      *(v97 + 8) = v100;
-      *(v97 + 9) = v101;
-      *(v97 + 10) = -1;
-      v103.i32[0] = vsub_f32(v103, v109).u32[0];
-      v87 = v130;
-      *(v97 + 12) = v103.i32[0];
-      *(v97 + 13) = v103.f32[1] + *v108.i32;
-      v85 = v132;
-      *(v97 + 14) = v100;
-      *(v97 + 15) = v101;
-      *(v97 + 16) = -1;
-      v111.i32[1] = v110.i32[1];
-      *(v97 + 9) = v111;
-      *(v97 + 20) = v100;
-      *(v97 + 21) = v101;
-      *(v97 + 22) = -1;
-      *v98 = v99.i16[0];
-      v98[1] = v99.i16[0] + 1;
-      v98[2] = v99.i16[0] + 2;
-      v98[3] = v99.i16[0];
-      v98[4] = v99.i16[0] + 2;
-      v98[5] = v99.i16[0] + 3;
+      v123 = __PAIR64__(v93, v127.n128_u32[0]);
+      v98 = [*a3 contents] + 24 * a3[2].u32[0];
+      v99 = [*&a3[1] contents] + 2 * a3[2].u32[1];
+      *(v98 + 2) = 0u;
+      *(v98 + 3) = 0u;
+      *v98 = 0u;
+      *(v98 + 1) = 0u;
+      *(v98 + 4) = 0u;
+      *(v98 + 5) = 0u;
+      v100 = a3[2];
+      a3[2] = vadd_s32(v100, 0x600000004);
+      v101 = *(a2 + 5500);
+      v102 = *(a2 + 5504);
+      v103 = vmla_f32(v121, v86, v123);
+      v104 = vmla_f32(v121, v86, __PAIR64__(LODWORD(v125), v127.n128_u32[0]));
+      v105 = vsub_f32(v104, v103);
+      v106 = vmul_f32(v105, v105);
+      v106.i32[0] = vadd_f32(v106, vdup_lane_s32(v106, 1)).u32[0];
+      v107 = vrsqrte_f32(v106.u32[0]);
+      v108 = vmul_f32(v107, vrsqrts_f32(v106.u32[0], vmul_f32(v107, v107)));
+      v109 = vmul_f32(vmul_n_f32(v105, vmul_f32(v108, vrsqrts_f32(v106.u32[0], vmul_f32(v108, v108))).f32[0]), 0x3F0000003F000000);
+      v110 = vrev64_s32(v109);
+      v111 = vadd_f32(v103, v110);
+      v112 = vsub_f32(v103, v110);
+      *v98 = __PAIR64__(v112.u32[1], v111.u32[0]);
+      *(v98 + 2) = v101;
+      *(v98 + 3) = v102;
+      *(v98 + 4) = -1;
+      *(v98 + 6) = vadd_f32(v104, v110).u32[0];
+      *(v98 + 7) = v104.f32[1] - *v109.i32;
+      *(v98 + 8) = v101;
+      *(v98 + 9) = v102;
+      *(v98 + 10) = -1;
+      v104.i32[0] = vsub_f32(v104, v110).u32[0];
+      v87 = v129;
+      *(v98 + 12) = v104.i32[0];
+      *(v98 + 13) = v104.f32[1] + *v109.i32;
+      v85 = v131;
+      *(v98 + 14) = v101;
+      *(v98 + 15) = v102;
+      *(v98 + 16) = -1;
+      v112.i32[1] = v111.i32[1];
+      *(v98 + 9) = v112;
+      *(v98 + 20) = v101;
+      *(v98 + 21) = v102;
+      *(v98 + 22) = -1;
+      *v99 = v100.i16[0];
+      v99[1] = v100.i16[0] + 1;
+      v99[2] = v100.i16[0] + 2;
+      v99[3] = v100.i16[0];
+      v99[4] = v100.i16[0] + 2;
+      v99[5] = v100.i16[0] + 3;
     }
 
-    goto LABEL_54;
+    goto LABEL_56;
   }
 
-  v96 = *(a4 + 3);
-  v87 = v130;
-LABEL_60:
-  if (v29 >= v96)
+  v97 = *(a4 + 3);
+  v87 = v129;
+LABEL_62:
+  if (v29 >= v97)
   {
     return 1;
   }
 
-  v112 = v87 + 2.0;
+  v113 = v87 + 2.0;
   do
   {
-    v113 = *(*a4 + 4 * v29);
-    if (v113)
+    v114 = *(*a4 + 4 * v29);
+    if (v114)
     {
-      v114 = v113;
-      v115 = (v113 / v19) * 100.0;
-      if (roundf(v115) > 0.0)
+      v115 = v114;
+      v116 = (v114 / v19) * 100.0;
+      if (roundf(v116) > 0.0)
       {
-        v116 = v115;
-        v133 = v85;
-        HUDUITemporaryStringWithFormat(v121, 0, "%.0f%%", &v137, SLOBYTE(v116));
+        v132 = v85;
+        HUDUITemporaryStringWithFormat(v120, 0, "%.0f%%", &v136, v116);
         *&v117 = v23;
-        HUDUIWindowAddLabelInRect(v121, &v137, -1, 1, 1, v133.n128_f32[0], ((v131.n128_f32[0] + ((-v114 / v18) * v129)) - v23) + -2.0, v130, v117);
-        v85 = v133;
-        v96 = *(a4 + 3);
+        HUDUIWindowAddLabelInRect(v120, &v136, -1, 1, 1, v132.n128_f32[0], ((v130.n128_f32[0] + ((-v115 / v18) * v128)) - v23) + -2.0, v129, v117);
+        v85 = v132;
+        v97 = *(a4 + 3);
       }
     }
 
-    v85.n128_f32[0] = v112 + v85.n128_f32[0];
+    v85.n128_f32[0] = v113 + v85.n128_f32[0];
     ++v29;
     result = 1;
   }
 
-  while (v29 < v96);
+  while (v29 < v97);
   return result;
 }
 
-uint64_t HUDUIWindowAddStackedBarGraph(uint64_t result, void *a2, uint64_t a3, _DWORD *a4, float32_t a5, float32_t a6, double a7, float a8, double a9)
+uint64_t HUDUIWindowAddStackedBarGraph(uint64_t result, __n128 *a2, uint64_t a3, _DWORD *a4, float a5, float a6, double a7, float a8, double a9)
 {
   if (!result)
   {
@@ -1522,46 +1525,49 @@ uint64_t HUDUIWindowAddStackedBarGraph(uint64_t result, void *a2, uint64_t a3, _
   }
 
   *(v20 + 56) = v21;
-  if (!*a2)
+  if (!a2->n128_u64[0])
   {
     goto LABEL_12;
   }
 
-  v26 = *a2;
-  v27 = a2[2];
-  v28 = 0;
-  HUDUIWindowGetLabelSize(result, &v26, &v28 + 1, &v28);
-  if (*&v28 > v9)
+  v28 = *a2;
+  v29 = a2[1].n128_u64[0];
+  v30 = 0;
+  HUDUIWindowGetLabelSize(result, &v28, &v30 + 1, &v30);
+  if (*&v30 > v9)
   {
     return 0;
   }
 
-  v26 = *a2;
-  v27 = a2[2];
-  HUDUIWindowAddLabelAtPoint(v16, &v26, -1, a5, a6, v22, v23);
-  a6 = a6 + *&v28;
-  v9 = v9 - *&v28;
+  v28 = *a2;
+  v25 = v28;
+  v29 = a2[1].n128_u64[0];
+  v25.n128_f32[0] = a5;
+  v22.n128_f32[0] = a6;
+  HUDUIWindowAddLabelAtPoint(v16, &v28, 0xFFFFFFFFLL, v25, v22, v23, v24);
+  a6 = a6 + *&v30;
+  v9 = v9 - *&v30;
 LABEL_12:
-  v24 = *(v20 + 40);
-  LODWORD(a9) = *(v24 + 5844);
+  v26 = *(v20 + 40);
+  LODWORD(a9) = *(v26 + 5844);
   LODWORD(a7) = v10;
-  result = HUDUIWindowAddStackedBarGraph(v16, *v24, *(v20 + 96), a5, a6, a7, v9, a9, a3, a4);
+  result = HUDUIWindowAddStackedBarGraph(v16, *v26, *(v20 + 96), a5, a6, a7, v9, a9, a3, a4);
   if (result)
   {
-    v25 = *(v20 + 56);
-    if (v25 < v9)
+    v27 = *(v20 + 56);
+    if (v27 < v9)
     {
-      v25 = v9;
+      v27 = v9;
     }
 
-    *(v20 + 56) = v25;
+    *(v20 + 56) = v27;
     return 1;
   }
 
   return result;
 }
 
-uint64_t HUDUIWindowAddStackedBarGraph(uint64_t *a1, uint64_t a2, uint64_t a3, float a4, float a5, double a6, float a7, double a8, uint64_t a9, _DWORD *a10)
+uint64_t HUDUIWindowAddStackedBarGraph(uint64_t *a1, uint64_t a2, int16x4_t *a3, float a4, float a5, double a6, float a7, double a8, uint64_t a9, _DWORD *a10)
 {
   if (!*a10)
   {
@@ -1569,399 +1575,397 @@ uint64_t HUDUIWindowAddStackedBarGraph(uint64_t *a1, uint64_t a2, uint64_t a3, f
   }
 
   v11 = a5;
-  v17 = 0;
   v18 = 0;
-  v113 = *&a6;
-  v19 = *&a6 + a4;
-  v20 = 1;
-  v21 = 0.0;
-  v22 = a4;
-  v23 = a5;
+  v19 = 0;
+  v112 = *&a6;
+  v20 = *&a6 + a4;
+  v21 = 1;
+  v22 = 0.0;
+  v23 = a4;
+  v24 = a5;
   do
   {
-    v24 = *&a10[v17];
-    if (v24)
+    v25 = *&a10[v18];
+    if (v25)
     {
-      v25 = v24 + 980;
-      v26 = *v25 + v21;
-      if (v26 > v21)
+      v26 = v25 + 980;
+      v27 = *v26 + v22;
+      if (v27 > v22)
       {
-        v21 = v26;
+        v22 = v27;
       }
 
-      ++v18;
-      v27 = *&a10[v17 + 8];
-      if (v27)
+      ++v19;
+      v28 = *&a10[v18 + 8];
+      if (v28)
       {
-        v118 = 0uLL;
-        v119 = 0;
-        v107 = *(v25 + 8);
-        HUDUITemporaryStringWithFormat(a1, 0, "%s %.1f%s", &v118, v27);
+        v117 = 0uLL;
+        v118 = 0;
+        HUDUITemporaryStringWithFormat(a1, 0, "%s %.1f%s", &v117, v28, *(v26 + 8), a9);
+        v114 = v117;
         v115 = v118;
-        v116 = v119;
-        v117 = 0;
-        HUDUIWindowGetLabelSize(a1, &v115, &v117 + 1, &v117);
-        LODWORD(v28) = v117;
-        v29 = (v22 + *(&v117 + 1)) < v19;
-        if ((v22 + *(&v117 + 1)) < v19)
+        v116 = 0;
+        HUDUIWindowGetLabelSize(a1, &v114, &v116 + 1, &v116);
+        LODWORD(v29) = v116;
+        v30 = (v23 + *(&v116 + 1)) < v20;
+        if ((v23 + *(&v116 + 1)) < v20)
         {
-          v30 = v11;
+          v31 = v11;
         }
 
         else
         {
-          v23 = v23 + *&v117;
-          v22 = a4;
-          v30 = v11 + *&v117;
+          v24 = v24 + *&v116;
+          v23 = a4;
+          v31 = v11 + *&v116;
         }
 
-        if (v29)
+        if (v30)
         {
-          v31 = a7;
+          v32 = a7;
         }
 
         else
         {
-          v31 = a7 - *&v117;
+          v32 = a7 - *&v116;
         }
 
-        if (v20)
+        if (v21)
         {
-          v11 = v30 + *&v117;
+          v11 = v31 + *&v116;
         }
 
         else
         {
-          v11 = v30;
+          v11 = v31;
         }
 
-        if (v20)
+        if (v21)
         {
-          a7 = v31 - *&v117;
+          a7 = v32 - *&v116;
         }
 
         else
         {
-          a7 = v31;
+          a7 = v32;
         }
 
+        v114 = v117;
         v115 = v118;
-        v116 = v119;
-        HUDUIWindowAddLabelInRect(a1, &v115, a10[v17 + 2], 0, 0, v22, v23, *(&v117 + 1), v28);
-        v20 = 0;
-        v22 = v22 + (*(&v117 + 1) + 10.0);
+        HUDUIWindowAddLabelInRect(a1, &v114, a10[v18 + 2], 0, 0, v23, v24, *(&v116 + 1), v29);
+        v21 = 0;
+        v23 = v23 + (*(&v116 + 1) + 10.0);
       }
     }
 
-    v17 += 10;
+    v18 += 10;
   }
 
-  while (v17 != 80);
-  if (!*(a3 + 8) || !*a3)
+  while (v18 != 80);
+  if (!*&a3[1] || !*a3)
   {
     return 0;
   }
 
-  v32 = *&HUDUIWindowAddStackedBarGraph(HUDUIFrame_t,HUDUIOverlay *,HUDSimpleVertexBufferChunk *,char const*,HUDUILineChart *,HUDUIRect,float)::graphPadding;
-  v33 = *(*a10 + 960);
-  v34 = (720 * v18);
-  v35 = 480 * v18;
-  v36 = *(a3 + 16) + v35;
-  v37 = *(a3 + 24);
-  if (v36 >= v37)
+  v33 = *&HUDUIWindowAddStackedBarGraph(HUDUIFrame_t,HUDUIOverlay *,HUDSimpleVertexBufferChunk *,char const*,HUDUILineChart *,HUDUIRect,float)::graphPadding;
+  v34 = *(*a10 + 960);
+  v35 = (720 * v19);
+  v36 = 480 * v19;
+  v37 = a3[2].u32[0] + v36;
+  v38 = a3[3].u32[0];
+  if (v37 >= v38)
   {
-    LODWORD(v38) = *(a3 + 28);
+    LODWORD(v39) = a3[3].i32[1];
     goto LABEL_28;
   }
 
-  v38 = *(a3 + 28);
-  if (*(a3 + 20) + v34 >= v38)
+  v39 = a3[3].u32[1];
+  if (a3[2].u32[1] + v35 >= v39)
   {
 LABEL_28:
-    HUDSimpleVertexBufferChunkRelocate(a2, a3, 2 * v37, 2 * v38);
-    v37 = *(a3 + 24);
-    v36 = *(a3 + 16) + v35;
+    HUDSimpleVertexBufferChunkRelocate(a2, a3, 2 * v38, 2 * v39);
+    v38 = a3[3].u32[0];
+    v37 = a3[2].u32[0] + v36;
   }
 
-  if (v36 >= v37 || *(a3 + 20) + v34 >= *(a3 + 28))
+  if (v37 >= v38 || a3[2].u32[1] + v35 >= a3[3].u32[1])
   {
     return 0;
   }
 
-  v108 = a2;
-  *&a6 = a4 + v32;
-  v40 = v19 + (v32 * -2.0);
-  v109 = v11 + v32;
-  v110 = (v11 + a7) - v32;
-  v112 = a6;
-  v41 = ([*a3 contents] + 24 * *(a3 + 16));
-  v42 = [*(a3 + 8) contents];
-  v43 = *(a3 + 20);
+  v107 = a2;
+  *&a6 = a4 + v33;
+  v41 = v20 + (v33 * -2.0);
+  v108 = v11 + v33;
+  v109 = (v11 + a7) - v33;
+  v111 = a6;
+  v42 = ([*a3 contents] + 24 * a3[2].u32[0]);
+  v43 = [*&a3[1] contents];
+  v44 = a3[2].u32[1];
+  if (v36)
+  {
+    bzero(v42, 24 * v36);
+  }
+
+  v45 = (v11 + a7) - v33;
+  v110 = __PAIR64__(LODWORD(v108), a4 + v33);
+  v46 = &v43[2 * v44];
+  HIDWORD(v47) = HIDWORD(v111);
   if (v35)
   {
-    bzero(v41, 24 * v35);
+    bzero(v42, 2 * v35);
+    v45 = (v11 + a7) - v33;
   }
 
-  v44 = (v11 + a7) - v32;
-  v111 = __PAIR64__(LODWORD(v109), a4 + v32);
-  v45 = &v42[2 * v43];
-  HIDWORD(v46) = HIDWORD(v112);
-  if (v34)
-  {
-    bzero(v41, 2 * v34);
-    v44 = (v11 + a7) - v32;
-  }
-
-  v47 = 0;
-  v48 = *(a3 + 16);
-  v49 = (v48 + v35);
-  v50 = (*(a3 + 20) + v34);
-  *(a3 + 16) = v49;
-  *(a3 + 20) = v50;
-  *&v46 = ((v40 - *&v112) + -2.0) / 120.0;
-  v51 = *(v108 + 5500);
-  v52 = *(v108 + 5504);
-  v53 = (*&v112 + 1.0);
-  v54 = v53 + *&v46 * 0.5;
-  v55 = v53 + *&v46 * 1.5;
-  v56 = ((v110 - v109) / v21);
-  v57 = vdup_lane_s32(*&a8, 0);
+  v48 = 0;
+  v49 = a3[2].i32[0];
+  v50 = (v49 + v36);
+  v51 = (a3[2].i32[1] + v35);
+  a3[2].i32[0] = v50;
+  a3[2].i32[1] = v51;
+  *&v47 = ((v41 - *&v111) + -2.0) / 120.0;
+  v52 = *(v107 + 5500);
+  v53 = *(v107 + 5504);
+  v54 = (*&v111 + 1.0);
+  v55 = v54 + *&v47 * 0.5;
+  v56 = v54 + *&v47 * 1.5;
+  v57 = ((v109 - v108) / v22);
+  v58 = vdup_lane_s32(*&a8, 0);
   do
   {
-    v58 = (v47 + v33 + 1) % 0x78;
-    if (v58 == 119)
+    v59 = (v48 + v34 + 1) % 0x78;
+    if (v59 == 119)
     {
-      v59 = 0;
+      v60 = 0;
     }
 
     else
     {
-      v59 = v58 + 1;
+      v60 = v59 + 1;
     }
 
-    v60 = (*&v46 * v47);
-    *&v61 = v54 + v60;
-    *(&v61 + 1) = v44;
-    *&v62 = v55 + v60;
-    *(&v62 + 1) = v44;
-    v63 = 8;
-    v64 = a10 + 2;
+    v61 = (*&v47 * v48);
+    *&v62 = v55 + v61;
+    *(&v62 + 1) = v45;
+    *&v63 = v56 + v61;
+    *(&v63 + 1) = v45;
+    v64 = 8;
+    v65 = a10 + 2;
     do
     {
-      v65 = *(v64 - 1);
-      if (v65)
+      v66 = *(v65 - 1);
+      if (v66)
       {
-        v66 = *(v65 + 8 * v58);
-        v67 = *(v65 + 8 * v59);
-        v68 = v66 * v56;
-        v69 = v67 * v56;
-        v70 = *v64;
-        v71 = vmul_n_f32(*&v61, *&a8);
+        v67 = *(v66 + 8 * v59);
+        v68 = *(v66 + 8 * v60);
+        v69 = v67 * v57;
+        v70 = v68 * v57;
+        v71 = *v65;
         v72 = vmul_n_f32(*&v62, *&a8);
-        v41->i32[0] = v71.i32[0];
-        v41->f32[1] = v71.f32[1] - (v68 * *&a8);
-        v41[1].i32[0] = v51;
-        v41[1].i32[1] = v52;
-        v41[2].i32[0] = v70;
-        v41[2].i32[1] = 0;
-        v41[3].i32[0] = v72.i32[0];
-        v41[3].f32[1] = v72.f32[1] - (v69 * *&a8);
-        v41[4].i32[0] = v51;
-        v41[4].i32[1] = v52;
-        v41[5].i32[0] = v70;
-        v41[5].i32[1] = 0;
-        v41[6] = v72;
-        v41[7].i32[0] = v51;
-        v41[7].i32[1] = v52;
-        v41[8].i32[0] = v70;
-        v41[8].i32[1] = 0;
-        v41[9] = v71;
-        v41[10].i32[0] = v51;
-        v41[10].i32[1] = v52;
-        v41[11].i32[0] = v70;
-        v41[11].i32[1] = 0;
-        *v45 = v48;
-        *(v45 + 1) = v48 + 1;
-        *(v45 + 2) = v48 + 2;
-        *(v45 + 3) = v48;
-        *(v45 + 4) = v48 + 2;
-        *(v45 + 5) = v48 + 3;
-        v48 += 4;
-        v41 += 12;
-        v45 += 12;
-        *&v66 = *(&v61 + 1) - v66 * v56;
-        HIDWORD(v61) = LODWORD(v66);
-        *&v67 = *(&v62 + 1) - v67 * v56;
+        v73 = vmul_n_f32(*&v63, *&a8);
+        v42->i32[0] = v72.i32[0];
+        v42->f32[1] = v72.f32[1] - (v69 * *&a8);
+        v42[1].i32[0] = v52;
+        v42[1].i32[1] = v53;
+        v42[2].i32[0] = v71;
+        v42[2].i32[1] = 0;
+        v42[3].i32[0] = v73.i32[0];
+        v42[3].f32[1] = v73.f32[1] - (v70 * *&a8);
+        v42[4].i32[0] = v52;
+        v42[4].i32[1] = v53;
+        v42[5].i32[0] = v71;
+        v42[5].i32[1] = 0;
+        v42[6] = v73;
+        v42[7].i32[0] = v52;
+        v42[7].i32[1] = v53;
+        v42[8].i32[0] = v71;
+        v42[8].i32[1] = 0;
+        v42[9] = v72;
+        v42[10].i32[0] = v52;
+        v42[10].i32[1] = v53;
+        v42[11].i32[0] = v71;
+        v42[11].i32[1] = 0;
+        *v46 = v49;
+        *(v46 + 1) = v49 + 1;
+        *(v46 + 2) = v49 + 2;
+        *(v46 + 3) = v49;
+        *(v46 + 4) = v49 + 2;
+        *(v46 + 5) = v49 + 3;
+        v49 += 4;
+        v42 += 12;
+        v46 += 12;
+        *&v67 = *(&v62 + 1) - v67 * v57;
         HIDWORD(v62) = LODWORD(v67);
+        *&v68 = *(&v63 + 1) - v68 * v57;
+        HIDWORD(v63) = LODWORD(v68);
       }
 
-      v64 += 10;
-      --v63;
+      v65 += 10;
+      --v64;
     }
 
-    while (v63);
-    ++v47;
+    while (v64);
+    ++v48;
   }
 
-  while (v47 != 120);
-  if (!*(a3 + 8) || !*a3)
+  while (v48 != 120);
+  if (!*&a3[1] || !*a3)
   {
     return 0;
   }
 
-  v73 = v49 + 12;
-  v74 = *(a3 + 24);
-  if (v73 >= v74)
+  v74 = v50 + 12;
+  v75 = a3[3].u32[0];
+  if (v74 >= v75)
   {
-    LODWORD(v76) = *(a3 + 28);
+    LODWORD(v77) = a3[3].i32[1];
   }
 
   else
   {
-    v75 = v50 + 18;
-    v76 = *(a3 + 28);
-    if (v75 < v76)
+    v76 = v51 + 18;
+    v77 = a3[3].u32[1];
+    if (v76 < v77)
     {
       goto LABEL_51;
     }
   }
 
-  HUDSimpleVertexBufferChunkRelocate(v108, a3, 2 * v74, 2 * v76);
-  v74 = *(a3 + 24);
-  v73 = *(a3 + 16) + 12;
+  HUDSimpleVertexBufferChunkRelocate(v107, a3, 2 * v75, 2 * v77);
+  v75 = a3[3].u32[0];
+  v74 = a3[2].u32[0] + 12;
 LABEL_51:
-  if (v73 < v74 && *(a3 + 20) + 18 < *(a3 + 28))
+  if (v74 < v75 && a3[2].u32[1] + 18 < a3[3].u32[1])
   {
-    v77 = [*a3 contents] + 24 * *(a3 + 16);
-    v78 = [*(a3 + 8) contents] + 2 * *(a3 + 20);
-    *(v77 + 16) = 0u;
-    *(v77 + 17) = 0u;
-    *(v77 + 14) = 0u;
-    *(v77 + 15) = 0u;
-    *(v77 + 12) = 0u;
-    *(v77 + 13) = 0u;
-    *(v77 + 10) = 0u;
-    *(v77 + 11) = 0u;
-    *(v77 + 8) = 0u;
-    *(v77 + 9) = 0u;
-    *(v77 + 6) = 0u;
-    *(v77 + 7) = 0u;
-    *(v77 + 4) = 0u;
-    *(v77 + 5) = 0u;
-    *(v77 + 2) = 0u;
-    *(v77 + 3) = 0u;
-    *v77 = 0u;
-    *(v77 + 1) = 0u;
-    v79 = *(a3 + 16);
-    *(a3 + 16) = vadd_s32(v79, 0x120000000CLL);
-    v80 = vmul_n_f32(0x3F0000003F000000, *&a8);
-    v81 = vmla_f32(v80, v57, v111);
-    v82 = vmla_f32(v80, v57, __PAIR64__(LODWORD(v110), LODWORD(v112)));
-    v83 = vsub_f32(v82, v81);
-    v84 = vmul_f32(v83, v83);
-    v84.i32[0] = vadd_f32(v84, vdup_lane_s32(v84, 1)).u32[0];
-    v85 = vrsqrte_f32(v84.u32[0]);
-    v86 = vmul_f32(v85, vrsqrts_f32(v84.u32[0], vmul_f32(v85, v85)));
-    v87 = vmul_n_f32(v83, vmul_f32(v86, vrsqrts_f32(v84.u32[0], vmul_f32(v86, v86))).f32[0]);
-    *v77 = v81.f32[0] + v87.f32[1];
-    *(v77 + 1) = v81.f32[1] - v87.f32[0];
-    *(v77 + 2) = v51;
-    *(v77 + 3) = v52;
-    *(v77 + 4) = -1;
-    *(v77 + 6) = v82.f32[0] + v87.f32[1];
-    *(v77 + 7) = v82.f32[1] - v87.f32[0];
-    *(v77 + 8) = v51;
-    *(v77 + 9) = v52;
-    *(v77 + 10) = -1;
-    *(v77 + 12) = v82.f32[0] - v87.f32[1];
-    *(v77 + 13) = v82.f32[1] + v87.f32[0];
-    *(v77 + 14) = v51;
-    *(v77 + 15) = v52;
-    *(v77 + 16) = -1;
-    *(v77 + 18) = v81.f32[0] - v87.f32[1];
-    *(v77 + 19) = v81.f32[1] + v87.f32[0];
-    *(v77 + 20) = v51;
-    *(v77 + 21) = v52;
-    *(v77 + 22) = -1;
-    v88 = v79.i16[0];
-    *v78 = v79.i16[0];
-    *(v78 + 1) = v79.i16[0] + 1;
-    *(v78 + 3) = v79.i16[0];
-    v81.f32[0] = v40 + -1.0;
-    v87.f32[0] = v40 + -1.0;
-    v87.f32[1] = v109;
-    v81.f32[1] = v110;
-    v89 = vmla_f32(v80, v57, v87);
-    v90 = vmla_f32(v80, v57, v81);
-    v91 = vsub_f32(v90, v89);
-    v92 = vmul_f32(v91, v91);
-    v92.i32[0] = vadd_f32(v92, vdup_lane_s32(v92, 1)).u32[0];
-    v93 = vrsqrte_f32(v92.u32[0]);
-    v94 = vmul_f32(v93, vrsqrts_f32(v92.u32[0], vmul_f32(v93, v93)));
-    v95 = vmul_n_f32(v91, vmul_f32(v94, vrsqrts_f32(v92.u32[0], vmul_f32(v94, v94))).f32[0]);
-    *(v77 + 24) = v89.f32[0] + v95.f32[1];
-    *(v77 + 25) = v89.f32[1] - v95.f32[0];
-    *(v77 + 26) = v51;
-    *(v77 + 27) = v52;
-    *(v77 + 28) = -1;
-    *(v77 + 30) = v90.f32[0] + v95.f32[1];
-    *(v77 + 31) = v90.f32[1] - v95.f32[0];
-    *(v77 + 32) = v51;
-    *(v77 + 33) = v52;
-    *(v77 + 34) = -1;
-    *(v77 + 36) = v90.f32[0] - v95.f32[1];
-    *(v77 + 37) = v90.f32[1] + v95.f32[0];
-    *(v77 + 38) = v51;
-    *(v77 + 39) = v52;
-    *(v77 + 40) = -1;
-    *(v77 + 42) = v89.f32[0] - v95.f32[1];
-    *(v77 + 43) = v89.f32[1] + v95.f32[0];
-    *(v77 + 44) = v51;
-    *(v77 + 45) = v52;
-    *(v77 + 46) = -1;
-    v96 = vdup_lane_s16(v79, 0);
-    v97 = vadd_s16(v96, 0x5000400030002);
-    *(v78 + 2) = v97.i16[0];
-    *(v78 + 1) = v97;
-    *(v78 + 9) = v97.i16[2];
-    v98 = vmla_f32(v80, v57, __PAIR64__(LODWORD(v110), LODWORD(v40)));
-    v99 = vsub_f32(v98, v82);
-    v100 = vmul_f32(v99, v99);
-    v100.i32[0] = vadd_f32(v100, vdup_lane_s32(v100, 1)).u32[0];
-    v101 = vrsqrte_f32(v100.u32[0]);
-    v102 = vmul_f32(v101, vrsqrts_f32(v100.u32[0], vmul_f32(v101, v101)));
-    v103 = vmul_n_f32(v99, vmul_f32(v102, vrsqrts_f32(v100.u32[0], vmul_f32(v102, v102))).f32[0]);
-    *(v77 + 48) = v82.f32[0] + v103.f32[1];
-    *(v77 + 49) = v82.f32[1] - v103.f32[0];
-    *(v77 + 50) = v51;
-    *(v77 + 51) = v52;
-    *(v77 + 52) = -1;
-    *(v77 + 54) = v98.f32[0] + v103.f32[1];
-    *(v77 + 55) = v98.f32[1] - v103.f32[0];
-    *(v77 + 56) = v51;
-    *(v77 + 57) = v52;
-    *(v77 + 58) = -1;
-    *(v77 + 60) = v98.f32[0] - v103.f32[1];
-    *(v77 + 61) = v98.f32[1] + v103.f32[0];
-    *(v77 + 62) = v51;
-    *(v77 + 63) = v52;
-    *(v77 + 64) = -1;
-    *(v77 + 66) = v82.f32[0] - v103.f32[1];
-    *(v77 + 67) = v82.f32[1] + v103.f32[0];
-    *(v77 + 68) = v51;
-    *(v77 + 69) = v52;
-    *(v77 + 70) = -1;
-    v104 = vadd_s16(v96, 0x9000800070006);
-    *(v78 + 8) = v104.i16[0];
-    *(v78 + 20) = v104;
-    *(v78 + 14) = v88 + 10;
-    *(v78 + 15) = v104.i16[2];
-    *(v78 + 16) = v88 + 10;
-    *(v78 + 17) = v88 + 11;
-    v106 = v21;
-    HUDUITemporaryStringWithFormat(a1, 0, "%.2f%s", &v118, SLOBYTE(v106));
-    *&v105 = a7;
-    HUDUIWindowAddLabelInRect(a1, &v118, -1, 0, 0, a4 + 2.0, v11, v113, v105);
+    v78 = [*a3 contents] + 24 * a3[2].u32[0];
+    v79 = [*&a3[1] contents] + 2 * a3[2].u32[1];
+    *(v78 + 16) = 0u;
+    *(v78 + 17) = 0u;
+    *(v78 + 14) = 0u;
+    *(v78 + 15) = 0u;
+    *(v78 + 12) = 0u;
+    *(v78 + 13) = 0u;
+    *(v78 + 10) = 0u;
+    *(v78 + 11) = 0u;
+    *(v78 + 8) = 0u;
+    *(v78 + 9) = 0u;
+    *(v78 + 6) = 0u;
+    *(v78 + 7) = 0u;
+    *(v78 + 4) = 0u;
+    *(v78 + 5) = 0u;
+    *(v78 + 2) = 0u;
+    *(v78 + 3) = 0u;
+    *v78 = 0u;
+    *(v78 + 1) = 0u;
+    v80 = a3[2];
+    a3[2] = vadd_s32(v80, 0x120000000CLL);
+    v81 = vmul_n_f32(0x3F0000003F000000, *&a8);
+    v82 = vmla_f32(v81, v58, v110);
+    v83 = vmla_f32(v81, v58, __PAIR64__(LODWORD(v109), LODWORD(v111)));
+    v84 = vsub_f32(v83, v82);
+    v85 = vmul_f32(v84, v84);
+    v85.i32[0] = vadd_f32(v85, vdup_lane_s32(v85, 1)).u32[0];
+    v86 = vrsqrte_f32(v85.u32[0]);
+    v87 = vmul_f32(v86, vrsqrts_f32(v85.u32[0], vmul_f32(v86, v86)));
+    v88 = vmul_n_f32(v84, vmul_f32(v87, vrsqrts_f32(v85.u32[0], vmul_f32(v87, v87))).f32[0]);
+    *v78 = v82.f32[0] + v88.f32[1];
+    *(v78 + 1) = v82.f32[1] - v88.f32[0];
+    *(v78 + 2) = v52;
+    *(v78 + 3) = v53;
+    *(v78 + 4) = -1;
+    *(v78 + 6) = v83.f32[0] + v88.f32[1];
+    *(v78 + 7) = v83.f32[1] - v88.f32[0];
+    *(v78 + 8) = v52;
+    *(v78 + 9) = v53;
+    *(v78 + 10) = -1;
+    *(v78 + 12) = v83.f32[0] - v88.f32[1];
+    *(v78 + 13) = v83.f32[1] + v88.f32[0];
+    *(v78 + 14) = v52;
+    *(v78 + 15) = v53;
+    *(v78 + 16) = -1;
+    *(v78 + 18) = v82.f32[0] - v88.f32[1];
+    *(v78 + 19) = v82.f32[1] + v88.f32[0];
+    *(v78 + 20) = v52;
+    *(v78 + 21) = v53;
+    *(v78 + 22) = -1;
+    v89 = v80.i16[0];
+    *v79 = v80.i16[0];
+    *(v79 + 1) = v80.i16[0] + 1;
+    *(v79 + 3) = v80.i16[0];
+    v82.f32[0] = v41 + -1.0;
+    v88.f32[0] = v41 + -1.0;
+    v88.f32[1] = v108;
+    v82.f32[1] = v109;
+    v90 = vmla_f32(v81, v58, v88);
+    v91 = vmla_f32(v81, v58, v82);
+    v92 = vsub_f32(v91, v90);
+    v93 = vmul_f32(v92, v92);
+    v93.i32[0] = vadd_f32(v93, vdup_lane_s32(v93, 1)).u32[0];
+    v94 = vrsqrte_f32(v93.u32[0]);
+    v95 = vmul_f32(v94, vrsqrts_f32(v93.u32[0], vmul_f32(v94, v94)));
+    v96 = vmul_n_f32(v92, vmul_f32(v95, vrsqrts_f32(v93.u32[0], vmul_f32(v95, v95))).f32[0]);
+    *(v78 + 24) = v90.f32[0] + v96.f32[1];
+    *(v78 + 25) = v90.f32[1] - v96.f32[0];
+    *(v78 + 26) = v52;
+    *(v78 + 27) = v53;
+    *(v78 + 28) = -1;
+    *(v78 + 30) = v91.f32[0] + v96.f32[1];
+    *(v78 + 31) = v91.f32[1] - v96.f32[0];
+    *(v78 + 32) = v52;
+    *(v78 + 33) = v53;
+    *(v78 + 34) = -1;
+    *(v78 + 36) = v91.f32[0] - v96.f32[1];
+    *(v78 + 37) = v91.f32[1] + v96.f32[0];
+    *(v78 + 38) = v52;
+    *(v78 + 39) = v53;
+    *(v78 + 40) = -1;
+    *(v78 + 42) = v90.f32[0] - v96.f32[1];
+    *(v78 + 43) = v90.f32[1] + v96.f32[0];
+    *(v78 + 44) = v52;
+    *(v78 + 45) = v53;
+    *(v78 + 46) = -1;
+    v97 = vdup_lane_s16(v80, 0);
+    v98 = vadd_s16(v97, 0x5000400030002);
+    *(v79 + 2) = v98.i16[0];
+    *(v79 + 1) = v98;
+    *(v79 + 9) = v98.i16[2];
+    v99 = vmla_f32(v81, v58, __PAIR64__(LODWORD(v109), LODWORD(v41)));
+    v100 = vsub_f32(v99, v83);
+    v101 = vmul_f32(v100, v100);
+    v101.i32[0] = vadd_f32(v101, vdup_lane_s32(v101, 1)).u32[0];
+    v102 = vrsqrte_f32(v101.u32[0]);
+    v103 = vmul_f32(v102, vrsqrts_f32(v101.u32[0], vmul_f32(v102, v102)));
+    v104 = vmul_n_f32(v100, vmul_f32(v103, vrsqrts_f32(v101.u32[0], vmul_f32(v103, v103))).f32[0]);
+    *(v78 + 48) = v83.f32[0] + v104.f32[1];
+    *(v78 + 49) = v83.f32[1] - v104.f32[0];
+    *(v78 + 50) = v52;
+    *(v78 + 51) = v53;
+    *(v78 + 52) = -1;
+    *(v78 + 54) = v99.f32[0] + v104.f32[1];
+    *(v78 + 55) = v99.f32[1] - v104.f32[0];
+    *(v78 + 56) = v52;
+    *(v78 + 57) = v53;
+    *(v78 + 58) = -1;
+    *(v78 + 60) = v99.f32[0] - v104.f32[1];
+    *(v78 + 61) = v99.f32[1] + v104.f32[0];
+    *(v78 + 62) = v52;
+    *(v78 + 63) = v53;
+    *(v78 + 64) = -1;
+    *(v78 + 66) = v83.f32[0] - v104.f32[1];
+    *(v78 + 67) = v83.f32[1] + v104.f32[0];
+    *(v78 + 68) = v52;
+    *(v78 + 69) = v53;
+    *(v78 + 70) = -1;
+    v105 = vadd_s16(v97, 0x9000800070006);
+    *(v79 + 8) = v105.i16[0];
+    *(v79 + 20) = v105;
+    *(v79 + 14) = v89 + 10;
+    *(v79 + 15) = v105.i16[2];
+    *(v79 + 16) = v89 + 10;
+    *(v79 + 17) = v89 + 11;
+    HUDUITemporaryStringWithFormat(a1, 0, "%.2f%s", &v117, v22, a9);
+    *&v106 = a7;
+    HUDUIWindowAddLabelInRect(a1, &v117, -1, 0, 0, a4 + 2.0, v11, v112, v106);
     return 1;
   }
 
@@ -2103,36 +2107,36 @@ id *HUDUIOverlayGetCommandQueue(id *a1)
   return a1;
 }
 
-void std::vector<HUDUIVertex>::resize(void *a1, unint64_t a2)
+void std::vector<HUDUIVertex>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<HUDUIVertex>::__append(a1, v4);
+    std::vector<HUDUIVertex>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 24 * a2;
+    result[1] = *result + 24 * a2;
   }
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v2);
+    std::vector<unsigned short>::__append(result, a2 - v2);
   }
 }
 
@@ -2309,7 +2313,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIOverlay::Reusabl
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<HUDUIWindow>::__emplace_back_slow_path<HUDUIWindow>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<HUDUIWindow>::__emplace_back_slow_path<HUDUIWindow>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xF0F0F0F0F0F0F0F1 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -2382,9 +2386,9 @@ uint64_t std::vector<HUDUIWindow>::__emplace_back_slow_path<HUDUIWindow>(uint64_
   return v18;
 }
 
-void sub_26F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<HUDUIWindow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2537,7 +2541,7 @@ void ___Z37_HUDUIVertexBufferAddRoundedRectangleP11HUDUIVertexPt9HUDUIRectjfffjf
   }
 }
 
-uint64_t std::vector<HUDUIVertex>::__init_with_size[abi:ne200100]<HUDUIVertex*,HUDUIVertex*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<HUDUIVertex>::__init_with_size[abi:ne200100]<HUDUIVertex*,HUDUIVertex*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2559,7 +2563,7 @@ void sub_272EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<HUDUIVertex>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<HUDUIVertex>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2569,7 +2573,7 @@ void std::vector<HUDUIVertex>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<HUDGPUTimeTrackerEncoder>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -2591,7 +2595,7 @@ void sub_273B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2601,17 +2605,17 @@ void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_
   std::vector<HUDGPUTimeTrackerEncoder>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<HUDUIVertex>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<HUDUIVertex>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<HUDUIVertex>::__vallocate[abi:ne200100](result, a2);
+    std::vector<HUDUIVertex>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_27488(_Unwind_Exception *exception_object)
@@ -2626,17 +2630,17 @@ void sub_27488(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_27500(_Unwind_Exception *exception_object)
@@ -2876,7 +2880,6 @@ void *std::__hash_table<std::__hash_value_type<unsigned long,HUDUIStringInternal
   if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<unsigned long,HUDUIStringInternal>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,HUDUIStringInternal>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,HUDUIStringInternal>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,HUDUIStringInternal>>>::__construct_node_hash<std::pair<unsigned long,HUDUIStringInternal>>();
   }
 
@@ -2922,14 +2925,14 @@ LABEL_17:
   return v7;
 }
 
-void sub_27D2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_27D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long,HUDUIStringInternal>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long,HUDUIStringInternal>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long,HUDUIStringInternal>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long,HUDUIStringInternal>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long,HUDUIStringInternal>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long,HUDUIStringInternal>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3030,7 +3033,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -3039,8 +3042,8 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -3078,23 +3081,24 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -3109,14 +3113,14 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -3131,11 +3135,11 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -3155,7 +3159,7 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -3178,19 +3182,15 @@ unint64_t HUDTimeRangeIntersect(unint64_t *a1, unint64_t *a2)
 {
   v2 = *a1;
   v3 = *a2;
-  if (*a1 > *a2 && v2 < a2[1])
+  if ((*a1 <= *a2 || v2 >= a2[1]) && (v3 <= v2 || v3 >= a1[1]))
   {
-    v4 = a1[1];
-    return fmax(v2, v3);
+    return HUDInvalidTimeRange;
   }
 
-  if (v3 > v2 && v3 < a1[1])
+  else
   {
-    v5 = a2[1];
     return fmax(v2, v3);
   }
-
-  return HUDInvalidTimeRange;
 }
 
 double HUDUILineChartInit(_OWORD *a1)
@@ -3234,6 +3234,13 @@ uint64_t HUDUILineChartSet(uint64_t result, unint64_t a2, uint64_t a3, int a4, i
   }
 
   return result;
+}
+
+void sub_2BB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void _HUDTopObjectTempLabel(void *a1)
@@ -3454,7 +3461,7 @@ uint64_t HUDInterposeEnableCompilerStats(uint64_t a1)
   result = MTLHudIsVirtualDevice();
   if ((result & 1) == 0)
   {
-    result = HUDGetGlobalConfig();
+    result = HUDGetGlobalConfig(result, v3);
     if ((*(result + 26) & 1) == 0)
     {
 
@@ -3482,43 +3489,45 @@ void nextDrawableCommon(CAMetalLayer *a1)
     objc_setAssociatedObject(object, _HUDMTLLayerNextDrawableKey, &off_6F340, &stru_2E8.segname[9]);
   }
 
-  v5 = *(HUDGetGlobalConfig() + 28);
+  v7 = *(HUDGetGlobalConfig(v5, v6) + 28);
   if ([v2 unsignedIntValue] >= 0x14)
   {
     [(CAMetalLayer *)object drawableSize];
-    v6 = v5;
-    if (v7 >= v6)
+    v8 = v7;
+    if (v9 >= v8)
     {
       [(CAMetalLayer *)object drawableSize];
-      if (v8 >= v6)
+      if (v10 >= v8)
       {
-        v9 = HUDMTLLayerTrackingForLayer(object);
-        if (!v9)
+        v11 = HUDMTLLayerTrackingForLayer(object);
+        if (!v11)
         {
-          v10 = [HUDMTLLayerOverlay alloc];
-          v11 = [(CAMetalLayer *)object device];
-          v12 = [(HUDMTLLayerOverlay *)v10 initWithDevice:v11];
+          v12 = [HUDMTLLayerOverlay alloc];
+          v13 = [(CAMetalLayer *)object device];
+          v14 = [(HUDMTLLayerOverlay *)v12 initWithDevice:v13];
 
-          v9 = [[HUDMTLLayerTracking alloc] initWithLayer:object client:v12 frameNumber:0];
+          v15 = [[HUDMTLLayerTracking alloc] initWithLayer:object client:v14 frameNumber:0];
+          v11 = v15;
           if ((nextDrawableCommon(CAMetalLayer *)::firstLayer & 1) == 0)
           {
-            v13 = *(HUDGetGlobalConfig() + 17);
-            if (*(HUDGetGlobalConfig() + 37) || !v13 || (+[HUDAlternateWindow instance](HUDAlternateWindow, "instance"), v14 = objc_claimAutoreleasedReturnValue(), [v14 layer], v15 = objc_claimAutoreleasedReturnValue(), v15, v14, v15 != object))
+            v17 = HUDGetGlobalConfig(v15, v16);
+            v18 = *(v17 + 17);
+            if (*(HUDGetGlobalConfig(v17, v19) + 37) || !v18 || (+[HUDAlternateWindow instance](HUDAlternateWindow, "instance"), v20 = objc_claimAutoreleasedReturnValue(), [v20 layer], v21 = objc_claimAutoreleasedReturnValue(), v21, v20, v21 != object))
             {
-              [(HUDMTLLayerTracking *)v9 setIsMainLayer:1];
+              [v11 setIsMainLayer:1];
               nextDrawableCommon(CAMetalLayer *)::firstLayer = 1;
               HUDInitInterposeMetal();
-              HUDInsightsCreatePrototypes();
-              GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+              HUDInsightsCreatePrototypes(v22, v23);
+              GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v24, v25);
               HUDGPUTimeTrackerReset(GlobalInstance);
             }
           }
 
           _HUDHasMainLayer = 1;
-          objc_setAssociatedObject(object, _HUDMTLLayerKey, v9, &stru_2E8.segname[9]);
+          objc_setAssociatedObject(object, _HUDMTLLayerKey, v11, &stru_2E8.segname[9]);
         }
 
-        [(HUDMTLLayerTracking *)v9 nextDrawable];
+        [v11 nextDrawable];
       }
     }
   }
@@ -3567,14 +3576,14 @@ void HUDInitInterposeMetal()
         v11 = InstanceMethod;
         if (InstanceMethod)
         {
-          v73 = _NSConcreteStackBlock;
-          v74 = 3221225472;
-          v75 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP26MTLCommandBufferDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
-          v76 = &__block_descriptor_56_e39__24__0_8__MTLCommandBufferDescriptor_16l;
-          v77 = MTLCommandQueue_commandBufferWithDescriptor;
+          v80 = _NSConcreteStackBlock;
+          v81 = 3221225472;
+          v82 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP26MTLCommandBufferDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
+          v83 = &__block_descriptor_56_e39__24__0_8__MTLCommandBufferDescriptor_16l;
+          v84 = MTLCommandQueue_commandBufferWithDescriptor;
           Implementation = method_getImplementation(InstanceMethod);
-          v79 = "commandBufferWithDescriptor:";
-          v12 = objc_retainBlock(&v73);
+          v86 = "commandBufferWithDescriptor:";
+          v12 = objc_retainBlock(&v80);
           v13 = imp_implementationWithBlock(v12);
 
           TypeEncoding = method_getTypeEncoding(v11);
@@ -3598,14 +3607,14 @@ void HUDInitInterposeMetal()
         if (v19)
         {
           v21 = method_getImplementation(v19);
-          v73 = _NSConcreteStackBlock;
-          v74 = 3221225472;
-          v75 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP23MTLRenderPassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
-          v76 = &__block_descriptor_56_e36__24__0_8__MTLRenderPassDescriptor_16l;
-          v77 = MTLCommandBuffer_renderCommandEncoderWithDescriptor;
+          v80 = _NSConcreteStackBlock;
+          v81 = 3221225472;
+          v82 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP23MTLRenderPassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
+          v83 = &__block_descriptor_56_e36__24__0_8__MTLRenderPassDescriptor_16l;
+          v84 = MTLCommandBuffer_renderCommandEncoderWithDescriptor;
           Implementation = v21;
-          v79 = "renderCommandEncoderWithDescriptor:";
-          v22 = objc_retainBlock(&v73);
+          v86 = "renderCommandEncoderWithDescriptor:";
+          v22 = objc_retainBlock(&v80);
           v23 = imp_implementationWithBlock(v22);
 
           v24 = method_getTypeEncoding(v20);
@@ -3627,14 +3636,14 @@ void HUDInitInterposeMetal()
         if (v28)
         {
           v30 = method_getImplementation(v28);
-          v73 = _NSConcreteStackBlock;
-          v74 = 3221225472;
-          v75 = ___ZL13replaceMethodIU8__strongP11objc_objectJ15MTLDispatchTypeEEvP10objc_classP13objc_selectorPFT_PFvvES1_S7_DpT0_E_block_invoke;
-          v76 = &__block_descriptor_56_e11__24__0_8Q16l;
-          v77 = MTLCommandBuffer_computeCommandEncoderWithDispatchType;
+          v80 = _NSConcreteStackBlock;
+          v81 = 3221225472;
+          v82 = ___ZL13replaceMethodIU8__strongP11objc_objectJ15MTLDispatchTypeEEvP10objc_classP13objc_selectorPFT_PFvvES1_S7_DpT0_E_block_invoke;
+          v83 = &__block_descriptor_56_e11__24__0_8Q16l;
+          v84 = MTLCommandBuffer_computeCommandEncoderWithDispatchType;
           Implementation = v30;
-          v79 = "computeCommandEncoderWithDispatchType:";
-          v31 = objc_retainBlock(&v73);
+          v86 = "computeCommandEncoderWithDispatchType:";
+          v31 = objc_retainBlock(&v80);
           v32 = imp_implementationWithBlock(v31);
 
           v33 = method_getTypeEncoding(v29);
@@ -3654,14 +3663,14 @@ void HUDInitInterposeMetal()
         if (v36)
         {
           v38 = method_getImplementation(v36);
-          v73 = _NSConcreteStackBlock;
-          v74 = 3221225472;
-          v75 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP24MTLComputePassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
-          v76 = &__block_descriptor_56_e37__24__0_8__MTLComputePassDescriptor_16l;
-          v77 = MTLCommandBuffer_computeCommandEncoderWithDescriptor;
+          v80 = _NSConcreteStackBlock;
+          v81 = 3221225472;
+          v82 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP24MTLComputePassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
+          v83 = &__block_descriptor_56_e37__24__0_8__MTLComputePassDescriptor_16l;
+          v84 = MTLCommandBuffer_computeCommandEncoderWithDescriptor;
           Implementation = v38;
-          v79 = "computeCommandEncoderWithDescriptor:";
-          v39 = objc_retainBlock(&v73);
+          v86 = "computeCommandEncoderWithDescriptor:";
+          v39 = objc_retainBlock(&v80);
           v40 = imp_implementationWithBlock(v39);
 
           v41 = method_getTypeEncoding(v37);
@@ -3683,14 +3692,14 @@ void HUDInitInterposeMetal()
         if (v45)
         {
           v47 = method_getImplementation(v45);
-          v73 = _NSConcreteStackBlock;
-          v74 = 3221225472;
-          v75 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP21MTLBlitPassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
-          v76 = &__block_descriptor_56_e34__24__0_8__MTLBlitPassDescriptor_16l;
-          v77 = MTLCommandBuffer_blitCommandEncoderWithDescriptor;
+          v80 = _NSConcreteStackBlock;
+          v81 = 3221225472;
+          v82 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP21MTLBlitPassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
+          v83 = &__block_descriptor_56_e34__24__0_8__MTLBlitPassDescriptor_16l;
+          v84 = MTLCommandBuffer_blitCommandEncoderWithDescriptor;
           Implementation = v47;
-          v79 = "blitCommandEncoderWithDescriptor:";
-          v48 = objc_retainBlock(&v73);
+          v86 = "blitCommandEncoderWithDescriptor:";
+          v48 = objc_retainBlock(&v80);
           v49 = imp_implementationWithBlock(v48);
 
           v50 = method_getTypeEncoding(v46);
@@ -3712,14 +3721,14 @@ void HUDInitInterposeMetal()
         if (v54)
         {
           v56 = method_getImplementation(v54);
-          v73 = _NSConcreteStackBlock;
-          v74 = 3221225472;
-          v75 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP30MTLResourceStatePassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
-          v76 = &__block_descriptor_56_e43__24__0_8__MTLResourceStatePassDescriptor_16l;
-          v77 = MTLCommandBuffer_resourceStateCommandEncoderWithDescriptor;
+          v80 = _NSConcreteStackBlock;
+          v81 = 3221225472;
+          v82 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP30MTLResourceStatePassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
+          v83 = &__block_descriptor_56_e43__24__0_8__MTLResourceStatePassDescriptor_16l;
+          v84 = MTLCommandBuffer_resourceStateCommandEncoderWithDescriptor;
           Implementation = v56;
-          v79 = "resourceStateCommandEncoderWithDescriptor:";
-          v57 = objc_retainBlock(&v73);
+          v86 = "resourceStateCommandEncoderWithDescriptor:";
+          v57 = objc_retainBlock(&v80);
           v58 = imp_implementationWithBlock(v57);
 
           v59 = method_getTypeEncoding(v55);
@@ -3741,14 +3750,14 @@ void HUDInitInterposeMetal()
         if (v63)
         {
           v65 = method_getImplementation(v63);
-          v73 = _NSConcreteStackBlock;
-          v74 = 3221225472;
-          v75 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP38MTLAccelerationStructurePassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
-          v76 = &__block_descriptor_56_e51__24__0_8__MTLAccelerationStructurePassDescriptor_16l;
-          v77 = MTLCommandBuffer_accelerationStructureCommandEncoderWithDescriptor;
+          v80 = _NSConcreteStackBlock;
+          v81 = 3221225472;
+          v82 = ___ZL13replaceMethodIU8__strongP11objc_objectJU8__strongP38MTLAccelerationStructurePassDescriptorEEvP10objc_classP13objc_selectorPFT_PFvvES1_S9_DpT0_E_block_invoke;
+          v83 = &__block_descriptor_56_e51__24__0_8__MTLAccelerationStructurePassDescriptor_16l;
+          v84 = MTLCommandBuffer_accelerationStructureCommandEncoderWithDescriptor;
           Implementation = v65;
-          v79 = "accelerationStructureCommandEncoderWithDescriptor:";
-          v66 = objc_retainBlock(&v73);
+          v86 = "accelerationStructureCommandEncoderWithDescriptor:";
+          v66 = objc_retainBlock(&v80);
           v67 = imp_implementationWithBlock(v66);
 
           v68 = method_getTypeEncoding(v64);
@@ -3758,33 +3767,35 @@ void HUDInitInterposeMetal()
     }
 
     v69 = objc_opt_class();
-    replaceMethod<void>(v69, "endEncoding", MTLCommandEncoder_EndEncoding);
-    if ((*(HUDGetGlobalConfig() + 27) & 1) == 0)
+    v70 = replaceMethod<void>(v69, "endEncoding", MTLCommandEncoder_EndEncoding);
+    v72 = HUDGetGlobalConfig(v70, v71);
+    if ((*(v72 + 27) & 1) == 0)
     {
       HUDInitInterposeMTL4(v3);
     }
 
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    if (HUDGPUTimeTrackerInitGPUTimeSampling(GlobalInstance, v3))
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v72, v73);
+    inited = HUDGPUTimeTrackerInitGPUTimeSampling(GlobalInstance, v3);
+    if (inited)
     {
-      v71 = HUDGPUTimeTrackerGetGlobalInstance();
-      v72 = HUDGetGlobalConfig();
-      HUDGPUTimeTrackerEnableEncoderGPUTimeSampling(v71, *(v72 + 4));
+      v77 = HUDGPUTimeTrackerGetGlobalInstance(inited, v76);
+      v79 = HUDGetGlobalConfig(v77, v78);
+      HUDGPUTimeTrackerEnableEncoderGPUTimeSampling(v77, *(v79 + 4));
     }
 
-    HUDInternalPerfMetricsReset();
+    HUDInternalPerfMetricsReset(inited, v76);
     HUDRegisterGlobalMetrics();
   }
 }
 
-void HUDInitInterposeCA()
+void HUDInitInterposeCA(uint64_t a1, uint64_t a2)
 {
-  if ((MTLHudIsExcluded() & 1) == 0 && (HUDInitInterposeCA::interposed & 1) == 0)
+  if ((MTLHudIsExcluded(a1, a2) & 1) == 0 && (HUDInitInterposeCA::interposed & 1) == 0)
   {
     HUDInitInterposeCA::interposed = 1;
-    v0 = dispatch_time(0, 0);
+    v2 = dispatch_time(0, 0);
 
-    dispatch_after(v0, &_dispatch_main_q, &__block_literal_global_6);
+    dispatch_after(v2, &_dispatch_main_q, &__block_literal_global_6);
   }
 }
 
@@ -3815,7 +3826,7 @@ objc_class *replaceMethod<objc_object * {__strong}>(objc_class *result, SEL name
   return result;
 }
 
-id CAMetalLayer_nextDrawable(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id CAMetalLayer_nextDrawable(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v5 = a2;
   nextDrawableCommon(v5);
@@ -3824,7 +3835,7 @@ id CAMetalLayer_nextDrawable(void (*a1)(objc_object *, objc_selector *), objc_ob
   return v6;
 }
 
-id CAMetalDisplayLinkUpdate_drawable(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id CAMetalDisplayLinkUpdate_drawable(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v3 = a1(a2, a3);
   v4 = [v3 layer];
@@ -3833,7 +3844,7 @@ id CAMetalDisplayLinkUpdate_drawable(void (*a1)(objc_object *, objc_selector *),
   return v3;
 }
 
-id CAMetalLayer_shimDrawable(void (*a1)(CAMetalLayer *, uint64_t, id), void *a2, uint64_t a3, void *a4)
+id CAMetalLayer_shimDrawable(uint64_t (*a1)(CAMetalLayer *, uint64_t, id), void *a2, uint64_t a3, void *a4)
 {
   v7 = a2;
   v8 = a4;
@@ -3922,56 +3933,60 @@ objc_class *replaceMethod<void>(objc_class *result, SEL name, uint64_t a3)
   return result;
 }
 
-void MTLCommandBuffer_commit(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+void MTLCommandBuffer_commit(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
-  v6 = a2;
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v10 = a2;
+  v5 = [_sharedCaptureManager isCapturing];
+  if ((v5 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPUTimeTrackerCommandBufferCommit(GlobalInstance, v6);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v5, v6);
+    HUDGPUTimeTrackerCommandBufferCommit(GlobalInstance, v10);
   }
 
-  a1(v6, a3);
-  HUDGetGlobalConfig();
+  v8 = a1(v10, a3);
+  HUDGetGlobalConfig(v8, v9);
 }
 
-id MTLCommandQueue_commandBuffer(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTLCommandQueue_commandBuffer(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v3 = a1(a2, a3);
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v4 = [_sharedCaptureManager isCapturing];
+  if ((v4 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v4, v5);
     HUDGPUTimeTrackerCommandBufferCreate(GlobalInstance, v3);
   }
 
   return v3;
 }
 
-id MTLCommandQueue_commandBufferWithDescriptor(void (*a1)(objc_object *, objc_selector *, MTLCommandBufferDescriptor *), objc_object *a2, objc_selector *a3, MTLCommandBufferDescriptor *a4)
+id MTLCommandQueue_commandBufferWithDescriptor(uint64_t (*a1)(objc_object *, objc_selector *, MTLCommandBufferDescriptor *), objc_object *a2, objc_selector *a3, MTLCommandBufferDescriptor *a4)
 {
   v4 = a1(a2, a3, a4);
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v5 = [_sharedCaptureManager isCapturing];
+  if ((v5 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v5, v6);
     HUDGPUTimeTrackerCommandBufferCreate(GlobalInstance, v4);
   }
 
   return v4;
 }
 
-id MTLCommandQueue_commandBufferWithUnretainedReferences(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTLCommandQueue_commandBufferWithUnretainedReferences(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v3 = a1(a2, a3);
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v4 = [_sharedCaptureManager isCapturing];
+  if ((v4 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v4, v5);
     HUDGPUTimeTrackerCommandBufferCreate(GlobalInstance, v3);
   }
 
   return v3;
 }
 
-id MTLCommandBuffer_renderCommandEncoder(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTLCommandBuffer_renderCommandEncoder(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v5 = a2;
   isCreatingRenderEncoder();
@@ -3989,37 +4004,38 @@ id MTLCommandBuffer_renderCommandEncoder(void (*a1)(objc_object *, objc_selector
   return v7;
 }
 
-id MTLCommandBuffer_renderCommandEncoderWithDescriptor(void (*a1)(objc_object *, objc_selector *, MTLRenderPassDescriptor *), objc_object *a2, objc_selector *a3, MTLRenderPassDescriptor *a4)
+id MTLCommandBuffer_renderCommandEncoderWithDescriptor(uint64_t (*a1)(objc_object *, objc_selector *, MTLRenderPassDescriptor *), objc_object *a2, objc_selector *a3, MTLRenderPassDescriptor *a4)
 {
   v7 = a2;
   v8 = a4;
   isCreatingRenderEncoder();
   v10 = v9;
   *v9 = 1;
-  if (([_sharedCaptureManager isCapturing] & 1) != 0 || _HUDHasMainLayer != 1)
+  v11 = [_sharedCaptureManager isCapturing];
+  if ((v11 & 1) != 0 || _HUDHasMainLayer != 1)
   {
-    v12 = a1(v7, a3, v8);
+    v14 = a1(v7, a3, v8);
   }
 
   else
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = ___ZL51MTLCommandBuffer_renderCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP23MTLRenderPassDescriptor_block_invoke;
-    v14[3] = &unk_69320;
-    v16 = a1;
-    v15 = v7;
-    v17 = a3;
-    v12 = HUDGPUTimeTrackerCreateRenderEncder(GlobalInstance, v15, v8, v14);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v11, v12);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = ___ZL51MTLCommandBuffer_renderCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP23MTLRenderPassDescriptor_block_invoke;
+    v16[3] = &unk_69320;
+    v18 = a1;
+    v17 = v7;
+    v19 = a3;
+    v14 = HUDGPUTimeTrackerCreateRenderEncder(GlobalInstance, v17, v8, v16);
   }
 
   *v10 = 0;
 
-  return v12;
+  return v14;
 }
 
-id MTLCommandBuffer_computeCommandEncoder(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTLCommandBuffer_computeCommandEncoder(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v5 = a2;
   isCreatingComputeEncoderEncoder();
@@ -4037,7 +4053,7 @@ id MTLCommandBuffer_computeCommandEncoder(void (*a1)(objc_object *, objc_selecto
   return v7;
 }
 
-id MTLCommandBuffer_computeCommandEncoderWithDispatchType(void (*a1)(objc_object *, objc_selector *, MTLDispatchType), objc_object *a2, objc_selector *a3, MTLDispatchType a4)
+id MTLCommandBuffer_computeCommandEncoderWithDispatchType(uint64_t (*a1)(objc_object *, objc_selector *, MTLDispatchType), objc_object *a2, objc_selector *a3, MTLDispatchType a4)
 {
   v7 = a2;
   isCreatingComputeEncoderEncoder();
@@ -4056,37 +4072,38 @@ id MTLCommandBuffer_computeCommandEncoderWithDispatchType(void (*a1)(objc_object
   return v9;
 }
 
-id MTLCommandBuffer_computeCommandEncoderWithDescriptor(void (*a1)(objc_object *, objc_selector *, MTLComputePassDescriptor *), objc_object *a2, objc_selector *a3, MTLComputePassDescriptor *a4)
+id MTLCommandBuffer_computeCommandEncoderWithDescriptor(uint64_t (*a1)(objc_object *, objc_selector *, MTLComputePassDescriptor *), objc_object *a2, objc_selector *a3, MTLComputePassDescriptor *a4)
 {
   v7 = a2;
   v8 = a4;
   isCreatingComputeEncoderEncoder();
   v10 = v9;
   *v9 = 1;
-  if (([_sharedCaptureManager isCapturing] & 1) != 0 || _HUDHasMainLayer != 1)
+  v11 = [_sharedCaptureManager isCapturing];
+  if ((v11 & 1) != 0 || _HUDHasMainLayer != 1)
   {
-    v12 = a1(v7, a3, v8);
+    v14 = a1(v7, a3, v8);
   }
 
   else
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = ___ZL52MTLCommandBuffer_computeCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP24MTLComputePassDescriptor_block_invoke;
-    v14[3] = &unk_69348;
-    v16 = a1;
-    v15 = v7;
-    v17 = a3;
-    v12 = HUDGPUTimeTrackerCreateComputeEncder(GlobalInstance, v15, v8, v14);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v11, v12);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = ___ZL52MTLCommandBuffer_computeCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP24MTLComputePassDescriptor_block_invoke;
+    v16[3] = &unk_69348;
+    v18 = a1;
+    v17 = v7;
+    v19 = a3;
+    v14 = HUDGPUTimeTrackerCreateComputeEncder(GlobalInstance, v17, v8, v16);
   }
 
   *v10 = 0;
 
-  return v12;
+  return v14;
 }
 
-id MTLCommandBuffer_blitCommandEncoder(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTLCommandBuffer_blitCommandEncoder(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v5 = a2;
   isCreatingBlitEncoder();
@@ -4104,37 +4121,38 @@ id MTLCommandBuffer_blitCommandEncoder(void (*a1)(objc_object *, objc_selector *
   return v7;
 }
 
-id MTLCommandBuffer_blitCommandEncoderWithDescriptor(void (*a1)(objc_object *, objc_selector *, MTLBlitPassDescriptor *), objc_object *a2, objc_selector *a3, MTLBlitPassDescriptor *a4)
+id MTLCommandBuffer_blitCommandEncoderWithDescriptor(uint64_t (*a1)(objc_object *, objc_selector *, MTLBlitPassDescriptor *), objc_object *a2, objc_selector *a3, MTLBlitPassDescriptor *a4)
 {
   v7 = a2;
   v8 = a4;
   isCreatingBlitEncoder();
   v10 = v9;
   *v9 = 1;
-  if (([_sharedCaptureManager isCapturing] & 1) != 0 || _HUDHasMainLayer != 1)
+  v11 = [_sharedCaptureManager isCapturing];
+  if ((v11 & 1) != 0 || _HUDHasMainLayer != 1)
   {
-    v12 = a1(v7, a3, v8);
+    v14 = a1(v7, a3, v8);
   }
 
   else
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = ___ZL49MTLCommandBuffer_blitCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP21MTLBlitPassDescriptor_block_invoke;
-    v14[3] = &unk_69370;
-    v16 = a1;
-    v15 = v7;
-    v17 = a3;
-    v12 = HUDGPUTimeTrackerCreateBlitEncder(GlobalInstance, v15, v8, v14);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v11, v12);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = ___ZL49MTLCommandBuffer_blitCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP21MTLBlitPassDescriptor_block_invoke;
+    v16[3] = &unk_69370;
+    v18 = a1;
+    v17 = v7;
+    v19 = a3;
+    v14 = HUDGPUTimeTrackerCreateBlitEncder(GlobalInstance, v17, v8, v16);
   }
 
   *v10 = 0;
 
-  return v12;
+  return v14;
 }
 
-id MTLCommandBuffer_resourceStateCommandEncoder(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTLCommandBuffer_resourceStateCommandEncoder(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v5 = a2;
   isCreatingResourceStateEncoder();
@@ -4152,37 +4170,38 @@ id MTLCommandBuffer_resourceStateCommandEncoder(void (*a1)(objc_object *, objc_s
   return v7;
 }
 
-id MTLCommandBuffer_resourceStateCommandEncoderWithDescriptor(void (*a1)(objc_object *, objc_selector *, MTLResourceStatePassDescriptor *), objc_object *a2, objc_selector *a3, MTLResourceStatePassDescriptor *a4)
+id MTLCommandBuffer_resourceStateCommandEncoderWithDescriptor(uint64_t (*a1)(objc_object *, objc_selector *, MTLResourceStatePassDescriptor *), objc_object *a2, objc_selector *a3, MTLResourceStatePassDescriptor *a4)
 {
   v7 = a2;
   v8 = a4;
   isCreatingResourceStateEncoder();
   v10 = v9;
   *v9 = 1;
-  if (([_sharedCaptureManager isCapturing] & 1) != 0 || _HUDHasMainLayer != 1)
+  v11 = [_sharedCaptureManager isCapturing];
+  if ((v11 & 1) != 0 || _HUDHasMainLayer != 1)
   {
-    v12 = a1(v7, a3, v8);
+    v14 = a1(v7, a3, v8);
   }
 
   else
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = ___ZL58MTLCommandBuffer_resourceStateCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP30MTLResourceStatePassDescriptor_block_invoke;
-    v14[3] = &unk_69398;
-    v16 = a1;
-    v15 = v7;
-    v17 = a3;
-    v12 = HUDGPUTimeTrackerCreateResourceStateEncder(GlobalInstance, v15, v8, v14);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v11, v12);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = ___ZL58MTLCommandBuffer_resourceStateCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP30MTLResourceStatePassDescriptor_block_invoke;
+    v16[3] = &unk_69398;
+    v18 = a1;
+    v17 = v7;
+    v19 = a3;
+    v14 = HUDGPUTimeTrackerCreateResourceStateEncder(GlobalInstance, v17, v8, v16);
   }
 
   *v10 = 0;
 
-  return v12;
+  return v14;
 }
 
-id MTLCommandBuffer_accelerationStructureCommandEncoder(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTLCommandBuffer_accelerationStructureCommandEncoder(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v5 = a2;
   isCreatingAccelerationStructureEncoder();
@@ -4200,46 +4219,48 @@ id MTLCommandBuffer_accelerationStructureCommandEncoder(void (*a1)(objc_object *
   return v7;
 }
 
-id MTLCommandBuffer_accelerationStructureCommandEncoderWithDescriptor(void (*a1)(objc_object *, objc_selector *, MTLAccelerationStructurePassDescriptor *), objc_object *a2, objc_selector *a3, MTLAccelerationStructurePassDescriptor *a4)
+id MTLCommandBuffer_accelerationStructureCommandEncoderWithDescriptor(uint64_t (*a1)(objc_object *, objc_selector *, MTLAccelerationStructurePassDescriptor *), objc_object *a2, objc_selector *a3, MTLAccelerationStructurePassDescriptor *a4)
 {
   v7 = a2;
   v8 = a4;
   isCreatingAccelerationStructureEncoder();
   v10 = v9;
   *v9 = 1;
-  if (([_sharedCaptureManager isCapturing] & 1) != 0 || _HUDHasMainLayer != 1)
+  v11 = [_sharedCaptureManager isCapturing];
+  if ((v11 & 1) != 0 || _HUDHasMainLayer != 1)
   {
-    v12 = a1(v7, a3, v8);
+    v14 = a1(v7, a3, v8);
   }
 
   else
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = ___ZL66MTLCommandBuffer_accelerationStructureCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP38MTLAccelerationStructurePassDescriptor_block_invoke;
-    v14[3] = &unk_693C0;
-    v16 = a1;
-    v15 = v7;
-    v17 = a3;
-    v12 = HUDGPUTimeTrackerCreateAccelerationStructureEncder(GlobalInstance, v15, v8, v14);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v11, v12);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = ___ZL66MTLCommandBuffer_accelerationStructureCommandEncoderWithDescriptorPFvvEP11objc_objectP13objc_selectorP38MTLAccelerationStructurePassDescriptor_block_invoke;
+    v16[3] = &unk_693C0;
+    v18 = a1;
+    v17 = v7;
+    v19 = a3;
+    v14 = HUDGPUTimeTrackerCreateAccelerationStructureEncder(GlobalInstance, v17, v8, v16);
   }
 
   *v10 = 0;
 
-  return v12;
+  return v14;
 }
 
 void MTLCommandEncoder_EndEncoding(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
-  v6 = a2;
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v8 = a2;
+  v5 = [_sharedCaptureManager isCapturing];
+  if ((v5 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPUTimeTrackerEndEncoding(GlobalInstance, v6);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v5, v6);
+    HUDGPUTimeTrackerEndEncoding(GlobalInstance, v8);
   }
 
-  a1(v6, a3);
+  a1(v8, a3);
 }
 
 void HUDInitInterposeMTL4(void *a1)
@@ -4495,12 +4516,13 @@ void HUDInitInterposeMTL4(void *a1)
   }
 }
 
-id MTL4Device_newCommandBuffer(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTL4Device_newCommandBuffer(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v3 = a1(a2, a3);
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v4 = [_sharedCaptureManager isCapturing];
+  if ((v4 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v4, v5);
     HUDGPUTimeTrackerMTL4CommandBufferCreate(GlobalInstance, v3);
   }
 
@@ -4543,19 +4565,20 @@ void MTL4CommandQueue_signalDrawable(void (*a1)(id, uint64_t, id), void *a2, uin
   a1(v14, a3, v7);
 }
 
-void MTL4CommandQueue_commit_count_options(void (*a1)(id, uint64_t, id *, unint64_t, id), void *a2, uint64_t a3, id *a4, unint64_t a5, void *a6)
+void MTL4CommandQueue_commit_count_options(void (*a1)(id, uint64_t, id *, uint64_t, id), void *a2, uint64_t a3, id *a4, unint64_t a5, void *a6)
 {
-  v14 = a2;
+  v16 = a2;
   v11 = a6;
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v12 = [_sharedCaptureManager isCapturing];
+  if ((v12 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v13 = HUDGPUTimeTrackerMTL4CommandBufferCommit(GlobalInstance, v14, a4, a5, v11);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v12, v13);
+    v15 = HUDGPUTimeTrackerMTL4CommandBufferCommit(GlobalInstance, v16, a4, a5, v11);
 
-    v11 = v13;
+    v11 = v15;
   }
 
-  a1(v14, a3, a4, a5, v11);
+  a1(v16, a3, a4, a5, v11);
 }
 
 void MTL4CommandBuffer_begin(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -4577,25 +4600,27 @@ void sub_2FCC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
 
 void MTL4CommandBuffer_begin_options(void (*a1)(id, uint64_t, id, id), void *a2, uint64_t a3, void *a4, void *a5)
 {
-  v12 = a2;
+  v14 = a2;
   v9 = a4;
   v10 = a5;
-  a1(v12, a3, v9, v10);
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  a1(v14, a3, v9, v10);
+  v11 = [_sharedCaptureManager isCapturing];
+  if ((v11 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPUTimeTrackerMTL4CommandBufferBegin(GlobalInstance, v12, v9);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v11, v12);
+    HUDGPUTimeTrackerMTL4CommandBufferBegin(GlobalInstance, v14, v9);
   }
 }
 
 void MTL4CommandBuffer_end(void (*a1)(void), objc_object *a2, objc_selector *a3)
 {
-  v5 = a2;
+  v7 = a2;
   a1();
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v4 = [_sharedCaptureManager isCapturing];
+  if ((v4 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPUTimeTrackerMTL4CommandBufferEnd(GlobalInstance, v5);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v4, v5);
+    HUDGPUTimeTrackerMTL4CommandBufferEnd(GlobalInstance, v7);
   }
 }
 
@@ -4606,114 +4631,120 @@ id MTL4CommandBuffer_renderCommandEncoderWithDescriptor(uint64_t a1, void *a2, u
   return v4;
 }
 
-id MTL4CommandBuffer_renderCommandEncoderWithDescriptor_options(void (*a1)(id, uint64_t, id, uint64_t), void *a2, uint64_t a3, void *a4, uint64_t a5)
+id MTL4CommandBuffer_renderCommandEncoderWithDescriptor_options(uint64_t (*a1)(id, uint64_t, id, uint64_t), void *a2, uint64_t a3, void *a4, uint64_t a5)
 {
   v9 = a2;
   v10 = a4;
-  if (([_sharedCaptureManager isCapturing] & 1) != 0 || _HUDHasMainLayer != 1)
+  v11 = [_sharedCaptureManager isCapturing];
+  if ((v11 & 1) != 0 || _HUDHasMainLayer != 1)
   {
-    v12 = a1(v9, a3, v10, a5);
+    v14 = a1(v9, a3, v10, a5);
   }
 
   else
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = ___ZL60MTL4CommandBuffer_renderCommandEncoderWithDescriptor_optionsPFvvEP11objc_objectP13objc_selectorP24MTL4RenderPassDescriptorm_block_invoke;
-    v14[3] = &unk_693E8;
-    v16 = a1;
-    v15 = v9;
-    v17 = a3;
-    v18 = a5;
-    v12 = HUDGPUTimeTrackerCreateMTL4RenderEncder(GlobalInstance, v15, v10, v14);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v11, v12);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = ___ZL60MTL4CommandBuffer_renderCommandEncoderWithDescriptor_optionsPFvvEP11objc_objectP13objc_selectorP24MTL4RenderPassDescriptorm_block_invoke;
+    v16[3] = &unk_693E8;
+    v18 = a1;
+    v17 = v9;
+    v19 = a3;
+    v20 = a5;
+    v14 = HUDGPUTimeTrackerCreateMTL4RenderEncder(GlobalInstance, v17, v10, v16);
   }
 
-  return v12;
+  return v14;
 }
 
-id MTL4CommandBuffer_computeCommandEncoder(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTL4CommandBuffer_computeCommandEncoder(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v5 = a2;
-  if (([_sharedCaptureManager isCapturing] & 1) != 0 || _HUDHasMainLayer != 1)
+  v6 = [_sharedCaptureManager isCapturing];
+  if ((v6 & 1) != 0 || _HUDHasMainLayer != 1)
   {
-    v7 = a1(v5, a3);
+    v9 = a1(v5, a3);
   }
 
   else
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = ___ZL39MTL4CommandBuffer_computeCommandEncoderPFvvEP11objc_objectP13objc_selector_block_invoke;
-    v9[3] = &unk_69410;
-    v11 = a1;
-    v10 = v5;
-    v12 = a3;
-    v7 = HUDGPUTimeTrackerCreateMTL4ComputeEncoder(GlobalInstance, v10, v9);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v6, v7);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = ___ZL39MTL4CommandBuffer_computeCommandEncoderPFvvEP11objc_objectP13objc_selector_block_invoke;
+    v11[3] = &unk_69410;
+    v13 = a1;
+    v12 = v5;
+    v14 = a3;
+    v9 = HUDGPUTimeTrackerCreateMTL4ComputeEncoder(GlobalInstance, v12, v11);
   }
 
-  return v7;
+  return v9;
 }
 
-id MTL4CommandBuffer_mlEncoder(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
+id MTL4CommandBuffer_mlEncoder(uint64_t (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
   v5 = a2;
-  if (([_sharedCaptureManager isCapturing] & 1) != 0 || _HUDHasMainLayer != 1)
+  v6 = [_sharedCaptureManager isCapturing];
+  if ((v6 & 1) != 0 || _HUDHasMainLayer != 1)
   {
-    v7 = a1(v5, a3);
+    v9 = a1(v5, a3);
   }
 
   else
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = ___ZL27MTL4CommandBuffer_mlEncoderPFvvEP11objc_objectP13objc_selector_block_invoke;
-    v9[3] = &unk_69410;
-    v11 = a1;
-    v10 = v5;
-    v12 = a3;
-    v7 = HUDGPUTimeTrackerCreateMTL4MLEncoder(GlobalInstance, v10, v9);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v6, v7);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = ___ZL27MTL4CommandBuffer_mlEncoderPFvvEP11objc_objectP13objc_selector_block_invoke;
+    v11[3] = &unk_69410;
+    v13 = a1;
+    v12 = v5;
+    v14 = a3;
+    v9 = HUDGPUTimeTrackerCreateMTL4MLEncoder(GlobalInstance, v12, v11);
   }
 
-  return v7;
+  return v9;
 }
 
 void MTL4RenderCommandEncoder_EndEncoding(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
-  v6 = a2;
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v8 = a2;
+  v5 = [_sharedCaptureManager isCapturing];
+  if ((v5 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPOUTimeTrackerEndMTL4RenderEncoder(GlobalInstance, v6);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v5, v6);
+    HUDGPOUTimeTrackerEndMTL4RenderEncoder(GlobalInstance, v8);
   }
 
-  a1(v6, a3);
+  a1(v8, a3);
 }
 
 void MTL4ComputeCommandEncoder_EndEncoding(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
-  v6 = a2;
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v8 = a2;
+  v5 = [_sharedCaptureManager isCapturing];
+  if ((v5 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPOUTimeTrackerEndMTL4ComputeEncoder(GlobalInstance, v6);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v5, v6);
+    HUDGPOUTimeTrackerEndMTL4ComputeEncoder(GlobalInstance, v8);
   }
 
-  a1(v6, a3);
+  a1(v8, a3);
 }
 
 void MTL4MLCommandEncoder_EndEncoding(void (*a1)(objc_object *, objc_selector *), objc_object *a2, objc_selector *a3)
 {
-  v6 = a2;
-  if (([_sharedCaptureManager isCapturing] & 1) == 0 && _HUDHasMainLayer == 1)
+  v8 = a2;
+  v5 = [_sharedCaptureManager isCapturing];
+  if ((v5 & 1) == 0 && _HUDHasMainLayer == 1)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPOUTimeTrackerEndMTL4MLEncoder(GlobalInstance, v6);
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v5, v6);
+    HUDGPOUTimeTrackerEndMTL4MLEncoder(GlobalInstance, v8);
   }
 
-  a1(v6, a3);
+  a1(v8, a3);
 }
 
 void CAMetalDrawablePresentCommon(void *a1)
@@ -5025,7 +5056,7 @@ void _HUDIOReportDieAddCPUCore(HUDIOReportDie *a1, unsigned int a2, unsigned int
   j[a2] = a5;
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5074,7 +5105,7 @@ void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -5108,17 +5139,18 @@ void sub_31E80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void sub_3287C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_3287C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
-  v29 = *(v27 - 80);
-  if (v29)
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
+  v28 = *(v26 - 80);
+  if (v28)
   {
-    *(v27 - 72) = v29;
-    operator delete(v29);
+    *(v26 - 72) = v28;
+    operator delete(v28);
   }
 
   _Unwind_Resume(a1);
@@ -5126,14 +5158,12 @@ void sub_3287C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
 
 __n128 __Block_byref_object_copy__1(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -5148,7 +5178,7 @@ void __Block_byref_object_dispose__1(uint64_t a1)
   }
 }
 
-uint64_t std::vector<HUDIOReportDie>::__emplace_back_slow_path<HUDIOReportDie>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<HUDIOReportDie>::__emplace_back_slow_path<HUDIOReportDie>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -5218,9 +5248,9 @@ uint64_t std::vector<HUDIOReportDie>::__emplace_back_slow_path<HUDIOReportDie>(u
   return v14;
 }
 
-void sub_32D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_32D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<HUDIOReportDie>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5312,15 +5342,15 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::_AllocatorDestroyRangeReverse<std::allocator<HUDIOReportDie>,HUDIOReportDie*>::operator()[abi:ne200100](uint64_t *a1)
+void std::_AllocatorDestroyRangeReverse<std::allocator<HUDIOReportDie>,HUDIOReportDie*>::operator()[abi:ne200100](uint64_t *result)
 {
-  v2 = a1[1];
-  v1 = a1[2];
+  v2 = result[1];
+  v1 = result[2];
   v3 = *v1;
   v4 = *v2;
   if (*v1 != *v2)
   {
-    v5 = *a1;
+    v5 = *result;
     do
     {
       v3 -= 72;
@@ -5342,13 +5372,13 @@ void **std::__split_buffer<HUDIOReportDie>::~__split_buffer(void **a1)
   return a1;
 }
 
-void std::__split_buffer<HUDIOReportDie>::clear[abi:ne200100](void *a1)
+void std::__split_buffer<HUDIOReportDie>::clear[abi:ne200100](void *result)
 {
-  v2 = a1[1];
-  for (i = a1[2]; i != v2; i = a1[2])
+  v2 = result[1];
+  for (i = result[2]; i != v2; i = result[2])
   {
-    v4 = a1[4];
-    a1[2] = i - 72;
+    v4 = result[4];
+    result[2] = i - 72;
     std::allocator<HUDIOReportDie>::destroy[abi:ne200100](v4, i - 72);
   }
 }
@@ -5410,7 +5440,7 @@ void std::allocator<HUDIOReportDie::Cluster>::destroy[abi:ne200100](uint64_t a1,
   }
 }
 
-uint64_t std::vector<HUDIOReportDie::Cluster>::__emplace_back_slow_path<HUDIOReportDie::Cluster>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<HUDIOReportDie::Cluster>::__emplace_back_slow_path<HUDIOReportDie::Cluster>(void *a1, uint64_t a2)
 {
   v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -5479,9 +5509,9 @@ uint64_t std::vector<HUDIOReportDie::Cluster>::__emplace_back_slow_path<HUDIORep
   return v14;
 }
 
-void sub_332C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_332C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<HUDIOReportDie::Cluster>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5636,15 +5666,15 @@ void std::vector<HUDIOReportDie>::__destroy_vector::operator()[abi:ne200100](voi
   }
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, const char *a2, int a3)
+void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, char *a2, int a3)
 {
-  v5 = std::regex_traits<char>::regex_traits(a1);
-  LODWORD(v5[1].__loc_.__locale_) = a3;
-  *(&v5[1].__loc_.__locale_ + 4) = 0u;
-  *(&v5[1].__col_ + 4) = 0u;
-  HIDWORD(v5[2].__ct_) = 0;
-  strlen(a2);
-  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+  v6 = std::regex_traits<char>::regex_traits(a1);
+  LODWORD(v6[1].__loc_.__locale_) = a3;
+  *(&v6[1].__loc_.__locale_ + 4) = 0u;
+  *(&v6[1].__col_ + 4) = 0u;
+  HIDWORD(v6[2].__ct_) = 0;
+  v7 = strlen(a2);
+  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(a1, a2, &a2[v7]);
 }
 
 void sub_3368C(_Unwind_Exception *a1)
@@ -5758,7 +5788,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, a2, a3);
@@ -5772,7 +5802,7 @@ LABEL_8:
   while (v8 != a3 && *v8 == 124)
   {
     v9 = a1->__end_;
-    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, (v8 + 1), a3);
+    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, v8 + 1, a3);
     if (v10 == v8 + 1)
     {
       goto LABEL_8;
@@ -5845,7 +5875,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<ch
   return v8;
 }
 
-std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *__s, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, unsigned __int8 *__s, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = memchr(__s, 10, a3 - __s);
@@ -5867,7 +5897,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
   std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, __s, v8);
   if (v8 != a3)
   {
-    v8 = (v8 + 1);
+    ++v8;
   }
 
   while (v8 != a3)
@@ -5898,7 +5928,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
 
     else
     {
-      v8 = (&v10->__traits_.__loc_.__locale_ + 1);
+      v8 = v10 + 1;
     }
   }
 
@@ -6713,38 +6743,37 @@ void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(&v23, 0, 17);
+  memset(&v22, 0, 17);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   memset(&__p, 0, sizeof(__p));
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  v19.first = *(a2 + 24);
-  v19.second = v19.first;
-  v19.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
   v20 = v5;
-  v21 = v5;
-  v22 = 0;
-  v23 = v19;
-  v25 = v5;
-  v24 = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -6755,8 +6784,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v10 < 2)
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -6767,21 +6796,21 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &begin[v14];
-    v16 = v12 + 24 * v11;
-    *v16 = v15->std::pair<const char *, const char *>;
-    *(v16 + 16) = v15->matched;
-    v14 = v13;
-    ++v11;
+    v14 = &begin[v13];
+    v15 = v11 + 24 * v10;
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
+    ++v10;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
   __p.__end_ = begin;
   operator delete(begin);
@@ -7085,7 +7114,7 @@ void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_matc
   }
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7105,10 +7134,10 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::sub_match<char c
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(a1, a2);
   }
@@ -7140,7 +7169,7 @@ uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, u
     result = v3 + 96;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -7208,21 +7237,21 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)16
   std::regex_error::regex_error(exception, __re_err_unknown);
 }
 
-uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
   if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
   {
     std::vector<HUDGPUTimeTrackerEncoder>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
   {
     v6 = 0x2AAAAAAAAAAAAAALL;
   }
@@ -7265,14 +7294,14 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   *(v7 + 85) = *(a2 + 85);
   *(v7 + 80) = v9;
   *&v18 = 96 * v2 + 96;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 96 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__state<char>>,std::__state<char>*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -7281,9 +7310,9 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   return v15;
 }
 
-void sub_360D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_360D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::__state<char>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7316,29 +7345,29 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<st
     v7 = a2;
     do
     {
-      v8 = *(v7 + 1);
+      v8 = *(v7 + 16);
       *a4 = *v7;
       *(a4 + 16) = v8;
       *(a4 + 40) = 0;
       *(a4 + 48) = 0;
       *(a4 + 32) = 0;
-      *(a4 + 32) = *(v7 + 2);
-      *(a4 + 48) = v7[6];
-      v7[4] = 0;
-      v7[5] = 0;
-      v7[6] = 0;
+      *(a4 + 32) = *(v7 + 32);
+      *(a4 + 48) = *(v7 + 48);
+      *(v7 + 32) = 0;
+      *(v7 + 40) = 0;
+      *(v7 + 48) = 0;
       *(a4 + 56) = 0;
       *(a4 + 64) = 0;
       *(a4 + 72) = 0;
-      *(a4 + 56) = *(v7 + 7);
-      *(a4 + 72) = v7[9];
-      v7[7] = 0;
-      v7[8] = 0;
-      v7[9] = 0;
-      v9 = v7[10];
+      *(a4 + 56) = *(v7 + 56);
+      *(a4 + 72) = *(v7 + 72);
+      *(v7 + 56) = 0;
+      *(v7 + 64) = 0;
+      *(v7 + 72) = 0;
+      v9 = *(v7 + 80);
       *(a4 + 85) = *(v7 + 85);
       *(a4 + 80) = v9;
-      v7 += 12;
+      v7 += 96;
       a4 += 96;
     }
 
@@ -7595,7 +7624,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7617,7 +7646,7 @@ void sub_366E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7639,7 +7668,7 @@ void sub_36754(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7956,7 +7985,7 @@ LABEL_19:
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, std::string *this)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this)
 {
   v4 = a2;
   if (a2 == a3)
@@ -8014,7 +8043,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_charact
           goto LABEL_72;
         }
 
-        v4 = a2 + 2;
+        v4 = (a2 + 2);
         if (a2 + 2 == a3)
         {
           goto LABEL_72;
@@ -8450,7 +8479,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -8460,17 +8488,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -8740,7 +8768,7 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__exec(const std::
     v112 = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v6);
   }
 
-  std::regex_traits<char>::__lookup_collatename<char *>(&this->__traits_, &v111, &v113, &__p);
+  std::regex_traits<char>::__lookup_collatename<char *>(&this->__traits_, &v111, &__p, &v113);
   if ((v110 & 0x80000000) == 0)
   {
     if (v110)
@@ -9601,12 +9629,12 @@ void sub_38E3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, _BYTE *a3@<X2>, uint64_t a4@<X8>)
+void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X8>, _BYTE *a4@<X2>)
 {
-  std::string::__init_with_size[abi:ne200100]<char *,char *>(&__s, a2, a3, a3 - a2);
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  std::string::__init_with_size[abi:ne200100]<char *,char *>(&__s, a2, a4, a4 - a2);
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     if (!__s.__r_.__value_.__l.__size_)
@@ -9628,13 +9656,13 @@ void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BY
   }
 
   std::__get_collation_name(&v11, p_s);
-  *a4 = *&v11.__r_.__value_.__l.__data_;
+  *a3 = *&v11.__r_.__value_.__l.__data_;
   v7 = v11.__r_.__value_.__r.__words[2];
-  *(a4 + 16) = *(&v11.__r_.__value_.__l + 2);
+  *(a3 + 16) = *(&v11.__r_.__value_.__l + 2);
   v8 = HIBYTE(v7);
   if ((v8 & 0x80u) != 0)
   {
-    v8 = *(a4 + 8);
+    v8 = *(a3 + 8);
   }
 
   if (v8)
@@ -9656,53 +9684,38 @@ void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BY
   }
 
   (*(**(a1 + 16) + 32))(&v11);
-  if (*(a4 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    operator delete(*a4);
+    operator delete(*a3);
   }
 
-  *a4 = v11;
-  if ((*(a4 + 23) & 0x80000000) == 0)
+  *a3 = v11;
+  if ((*(a3 + 23) & 0x80000000) == 0)
   {
-    v9 = *(a4 + 23);
+    v9 = *(a3 + 23);
     if (v9 != 12 && v9 != 1)
     {
-      *a4 = 0;
-      *(a4 + 23) = 0;
+      *a3 = 0;
+      *(a3 + 23) = 0;
       goto LABEL_9;
     }
 
     goto LABEL_23;
   }
 
-  v10 = *(a4 + 8);
+  v10 = *(a3 + 8);
   if (v10 == 1 || v10 == 12)
   {
 LABEL_23:
-    std::string::operator=(a4, &__s);
+    std::string::operator=(a3, &__s);
     goto LABEL_9;
   }
 
-  **a4 = 0;
-  *(a4 + 8) = 0;
+  **a3 = 0;
+  *(a3 + 8) = 0;
 LABEL_9:
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__s.__r_.__value_.__l.__data_);
   }
-}
-
-void sub_38FD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (*(v17 + 23) < 0)
-  {
-    operator delete(*v17);
-  }
-
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
 }

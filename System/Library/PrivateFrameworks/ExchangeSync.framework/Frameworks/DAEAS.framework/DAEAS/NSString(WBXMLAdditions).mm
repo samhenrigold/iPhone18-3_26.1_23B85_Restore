@@ -96,7 +96,7 @@
 
 - (id)initWithASParseContext:()WBXMLAdditions root:parent:callbackDict:streamCallbackDict:lengthUntilEndOfTerminator:
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v14 = a3;
   v15 = a4;
   v16 = a5;
@@ -104,7 +104,7 @@
   v18 = a7;
   currentByte = [v14 currentByte];
   [v14 advanceOffsetByAmount:1];
-  v40 = v16;
+  v39 = v16;
   if ([v14 currentByte] != 3)
   {
     v25 = v15;
@@ -132,8 +132,8 @@
 
   [v14 advanceOffsetByAmount:1];
   v20 = (a8 - 2);
-  v41 = 0;
-  v21 = [v14 bufferForLength:v20 shouldFree:&v41];
+  v40 = 0;
+  v21 = [v14 bufferForLength:v20 shouldFree:&v40];
   v22 = v21;
   v23 = 0;
   v24 = (v21 + v20 - 1);
@@ -168,7 +168,7 @@
     self = [0 initWithString:&stru_285D39BD0];
   }
 
-  if (v41 == 1)
+  if (v40 == 1)
   {
     free(v22);
   }
@@ -217,7 +217,6 @@ LABEL_25:
     selfCopy = self;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

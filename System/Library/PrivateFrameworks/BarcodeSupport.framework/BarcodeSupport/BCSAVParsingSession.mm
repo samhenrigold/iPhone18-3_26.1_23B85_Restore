@@ -13,10 +13,10 @@
 
 - (BCSAVParsingSession)init
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = BCSAVParsingSession;
-  v2 = [(BCSAVParsingSession *)&v8 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = BCSAVParsingSession;
+  v2 = [(BCSAVParsingSession *)&v7 init];
   if (v2)
   {
     v3 = objc_alloc_init(BCSQRCodeParser);
@@ -26,20 +26,19 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v10 = v2;
+      v9 = v2;
       _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSAVParsingSession (%p): Created", buf, 0xCu);
     }
 
     v5 = v2;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   [(BCSQRCodeParser *)self->_parser stopQRCodeParsingSession];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
@@ -48,10 +47,9 @@
     _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSAVParsingSession (%p): Deallocated", buf, 0xCu);
   }
 
-  v4.receiver = self;
-  v4.super_class = BCSAVParsingSession;
-  [(BCSAVParsingSession *)&v4 dealloc];
-  v3 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = BCSAVParsingSession;
+  [(BCSAVParsingSession *)&v3 dealloc];
 }
 
 - (BOOL)_isLikelyLastScannedObject:(id)object
@@ -114,7 +112,7 @@ LABEL_6:
 
 void __74__BCSAVParsingSession__updateSessionWithMetadataObject_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v8 = a2;
   v5 = a3;
   v6 = *(a1 + 40);
   if (v5)
@@ -134,7 +132,6 @@ void __74__BCSAVParsingSession__updateSessionWithMetadataObject_completionHandle
       goto LABEL_7;
     }
 
-    v8 = *(a1 + 32);
     v7 = *(v6 + 16);
   }
 
@@ -275,11 +272,10 @@ void __45__BCSAVParsingSession__bestObjectForParsing___block_invoke(uint64_t a1,
 
 - (void)_updateSessionWithMetadataObject:(uint64_t)a1 completionHandler:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = a1;
-  _os_log_debug_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BCSAVParsingSession (%p): Skip processing of same QR code", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = a1;
+  _os_log_debug_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BCSAVParsingSession (%p): Skip processing of same QR code", &v1, 0xCu);
 }
 
 @end

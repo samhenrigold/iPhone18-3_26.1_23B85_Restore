@@ -9,28 +9,25 @@
 
 + (id)_propertiesForEntity
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v5[0] = @"sync_identity_id";
-  v5[1] = @"device_record_id";
-  v5[2] = @"domain";
-  v5[3] = @"key";
-  v5[4] = @"value";
-  v5[5] = @"date_modified";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
+  v4[0] = @"sync_identity_id";
+  v4[1] = @"device_record_id";
+  v4[2] = @"domain";
+  v4[3] = @"key";
+  v4[4] = @"value";
+  v4[5] = @"date_modified";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
 
   return v2;
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"device_record_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"device_record_id";
   v2 = +[(HDHealthEntity *)HDDeviceContextEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

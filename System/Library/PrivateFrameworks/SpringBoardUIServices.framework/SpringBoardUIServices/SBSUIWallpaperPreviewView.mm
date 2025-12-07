@@ -397,95 +397,95 @@
   objc_destroyWeak(&location);
 }
 
-void __75__SBSUIWallpaperPreviewView_displayInstructionsForEffect_enabled_animated___block_invoke(uint64_t a1)
+void __75__SBSUIWallpaperPreviewView_displayInstructionsForEffect_enabled_animated___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = 0.0;
+  v3 = 0.0;
   if (*(a1 + 56))
   {
-    v3 = 0.25;
+    v4 = 0.25;
   }
 
   else
   {
-    v3 = 0.0;
+    v4 = 0.0;
   }
 
-  v4 = *(a1 + 48);
-  if (v4 == 1)
+  v5 = *(a1 + 48);
+  if (v5 == 1)
   {
     if (*(*(a1 + 32) + 472) == 1)
     {
       if (*(a1 + 57))
       {
-        v2 = 1.0;
+        v3 = 1.0;
       }
 
       else
       {
-        v2 = 0.0;
+        v3 = 0.0;
       }
 
-      v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-      v6 = v5;
-      v7 = *(a1 + 57);
-      v8 = @"WALLPAPER_LIVE_PHOTO_OFF";
-      v9 = @"WALLPAPER_LIVE_PHOTO_ON";
+      v6 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v7 = v6;
+      v8 = *(a1 + 57);
+      v9 = @"WALLPAPER_LIVE_PHOTO_OFF";
+      v10 = @"WALLPAPER_LIVE_PHOTO_ON";
       goto LABEL_13;
     }
 
 LABEL_17:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_18;
   }
 
-  if (v4 || *(*(a1 + 32) + 473) != 1)
+  if (v5 || *(*(a1 + 32) + 473) != 1)
   {
     goto LABEL_17;
   }
 
-  v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v6 = v5;
-  v7 = *(a1 + 57);
-  v8 = @"WALLPAPER_PERSPECTIVE_ZOOM_OFF";
-  v9 = @"WALLPAPER_PERSPECTIVE_ZOOM_ON";
+  v6 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v7 = v6;
+  v8 = *(a1 + 57);
+  v9 = @"WALLPAPER_PERSPECTIVE_ZOOM_OFF";
+  v10 = @"WALLPAPER_PERSPECTIVE_ZOOM_ON";
 LABEL_13:
-  if (v7)
+  if (v8)
   {
-    v10 = v9;
+    v11 = v10;
   }
 
   else
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  v11 = [v5 localizedStringForKey:v10 value:&stru_1F1D7ED48 table:@"SpringBoardUIServices"];
+  v12 = [v6 localizedStringForKey:v11 value:&stru_1F1D7ED48 table:@"SpringBoardUIServices"];
 
 LABEL_18:
-  [*(*(a1 + 32) + 448) setText:v11];
+  [*(*(a1 + 32) + 448) setText:v12];
   [*(a1 + 32) setNeedsLayout];
-  v12 = objc_alloc(MEMORY[0x1E69DD278]);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __75__SBSUIWallpaperPreviewView_displayInstructionsForEffect_enabled_animated___block_invoke_2;
-  v23[3] = &unk_1E789DD70;
-  v23[4] = *(a1 + 32);
-  *&v23[5] = v2;
-  v13 = [v12 initWithDuration:0 curve:v23 animations:v3];
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 416);
-  *(v14 + 416) = v13;
+  v13 = objc_alloc(MEMORY[0x1E69DD278]);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __75__SBSUIWallpaperPreviewView_displayInstructionsForEffect_enabled_animated___block_invoke_2;
+  v24[3] = &unk_1E789DD70;
+  v24[4] = *(a1 + 32);
+  *&v24[5] = v3;
+  v14 = [v13 initWithDuration:0 curve:v24 animations:v4];
+  v15 = *(a1 + 32);
+  v16 = *(v15 + 416);
+  *(v15 + 416) = v14;
 
-  v16 = *(*(a1 + 32) + 416);
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __75__SBSUIWallpaperPreviewView_displayInstructionsForEffect_enabled_animated___block_invoke_3;
-  v20 = &unk_1E789F7E8;
-  objc_copyWeak(&v22, (a1 + 40));
-  v21 = *(a1 + 32);
-  [v16 addCompletion:&v17];
+  v17 = *(*(a1 + 32) + 416);
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __75__SBSUIWallpaperPreviewView_displayInstructionsForEffect_enabled_animated___block_invoke_3;
+  v21 = &unk_1E789F7E8;
+  objc_copyWeak(&v23, (a1 + 40));
+  v22 = *(a1 + 32);
+  [v17 addCompletion:&v18];
   [*(*(a1 + 32) + 416) startAnimation];
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v23);
 }
 
 uint64_t __75__SBSUIWallpaperPreviewView_displayInstructionsForEffect_enabled_animated___block_invoke_2(uint64_t a1)

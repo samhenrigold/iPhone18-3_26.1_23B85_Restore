@@ -79,7 +79,7 @@
   [v19 setLabel:@"LilypadTimePipeline"];
   [v19 setVertexFunction:v17];
   [v19 setFragmentFunction:v18];
-  v98 = viewCopy;
+  v96 = viewCopy;
   colorPixelFormat = [viewCopy colorPixelFormat];
   colorAttachments = [v19 colorAttachments];
   v22 = [colorAttachments objectAtIndexedSubscript:0];
@@ -113,9 +113,9 @@
   v36 = [colorAttachments8 objectAtIndexedSubscript:0];
   [v36 setDestinationAlphaBlendFactor:5];
 
-  v101 = 0;
-  v37 = [v14 newRenderPipelineStateWithDescriptor:v19 error:&v101];
-  v38 = v101;
+  v99 = 0;
+  v37 = [v14 newRenderPipelineStateWithDescriptor:v19 error:&v99];
+  v38 = v99;
   timeRenderPipelineState = self->_timeRenderPipelineState;
   self->_timeRenderPipelineState = v37;
 
@@ -129,9 +129,9 @@
   }
 
   v41 = [v16 newFunctionWithName:@"lilypad_strand_compute_shader"];
-  v100 = 0;
-  v42 = [v14 newComputePipelineStateWithFunction:v41 error:&v100];
-  v43 = v100;
+  v98 = 0;
+  v42 = [v14 newComputePipelineStateWithFunction:v41 error:&v98];
+  v43 = v98;
   strandsComputePipelineState = self->_strandsComputePipelineState;
   self->_strandsComputePipelineState = v42;
 
@@ -150,7 +150,7 @@
   [v48 setLabel:@"LilypadStrandPipeline"];
   [v48 setVertexFunction:v46];
   [v48 setFragmentFunction:v47];
-  colorPixelFormat2 = [v98 colorPixelFormat];
+  colorPixelFormat2 = [v96 colorPixelFormat];
   colorAttachments9 = [v48 colorAttachments];
   v51 = [colorAttachments9 objectAtIndexedSubscript:0];
   [v51 setPixelFormat:colorPixelFormat2];
@@ -183,9 +183,9 @@
   v65 = [colorAttachments16 objectAtIndexedSubscript:0];
   [v65 setDestinationAlphaBlendFactor:1];
 
-  v99 = 0;
-  v66 = [v14 newRenderPipelineStateWithDescriptor:v48 error:&v99];
-  v67 = v99;
+  v97 = 0;
+  v66 = [v14 newRenderPipelineStateWithDescriptor:v48 error:&v97];
+  v67 = v97;
   strandsRenderPipelineState = self->_strandsRenderPipelineState;
   self->_strandsRenderPipelineState = v66;
 
@@ -198,7 +198,7 @@
     }
   }
 
-  v97 = v16;
+  v95 = v16;
 
   v70 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:10 width:self->_screenWidth / 3u height:self->_screenHeight / 3u mipmapped:0];
   [v70 setUsage:5];
@@ -246,12 +246,12 @@
     v91 = &xmmword_8920;
     do
     {
-      v92 = *v91++;
+      ++v91;
       CLKUIConvertToRGBfFromSRGBf_fast();
-      *contents++ = v93;
-      v94 = *v89++;
+      *contents++ = v92;
+      ++v89;
       CLKUIConvertToRGBfFromSRGBf_fast();
-      *v88++ = v95;
+      *v88++ = v93;
       --v90;
     }
 
@@ -950,7 +950,7 @@
   v9 = HIDWORD(v8);
   v14[0] = 0;
   v15 = 0u;
-  *v16 = 0;
+  v16[0] = 0;
   v14[1] = v13;
   LOWORD(v15) = WORD2(v8);
   BYTE2(v15) = v8;
@@ -958,7 +958,7 @@
   *(&v15 + 2) = v11;
   colorMode = self->_colorMode;
   HIDWORD(v15) = LODWORD(self->_tritiumProgress);
-  v16[0] = colorMode;
+  *v16 = colorMode;
   [encoderCopy setRenderPipelineState:self->_strandsRenderPipelineState];
   [encoderCopy setVertexBytes:v14 length:40 atIndex:0];
   [encoderCopy setVertexBuffer:self->_lightColors offset:0 atIndex:1];

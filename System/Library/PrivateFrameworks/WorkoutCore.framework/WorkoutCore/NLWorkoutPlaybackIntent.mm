@@ -79,7 +79,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __41__NLWorkoutPlaybackIntent_setPlaylistID___block_invoke(id *a1, void *a2)
@@ -119,7 +118,6 @@ void __41__NLWorkoutPlaybackIntent_setPlaylistID___block_invoke_2(void *a1, void
   objc_storeStrong(&location, 0);
   v3 = MEMORY[0x277D82BE0](v5[0]);
   objc_storeStrong(v5, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }

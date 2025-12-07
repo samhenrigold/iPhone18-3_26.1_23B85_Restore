@@ -60,9 +60,9 @@ LABEL_3:
   neuron = self->_neuron;
   if (neuron)
   {
-    memset(v21, 0, sizeof(v21));
+    memset(v22, 0, sizeof(v22));
     objc_msgSend_neuronInfo(neuron, a2, norm, v3, v4, v5, v6, v7);
-    v10 = sub_239BF0728(v21);
+    v10 = sub_239BF0728(v22, v12);
     if (!v10)
     {
       return v10;
@@ -74,9 +74,9 @@ LABEL_3:
   self->_batchNorm = norm;
   if (objc_opt_respondsToSelector())
   {
-    v18 = objc_msgSend_performSelector_(self->_batchNorm, v12, sel_fusedNeuronDescriptor, v13, v14, v15, v16, v17);
-    self->_neuron = v18;
-    v19 = v18;
+    v19 = objc_msgSend_performSelector_(self->_batchNorm, v13, sel_fusedNeuronDescriptor, v14, v15, v16, v17, v18);
+    self->_neuron = v19;
+    v20 = v19;
   }
 
   LOBYTE(v10) = 1;
@@ -87,40 +87,40 @@ LABEL_3:
 {
   if (!self->_convolution)
   {
-    v75[5] = v8;
-    v75[6] = v9;
+    v84[5] = v8;
+    v84[6] = v9;
     if ((objc_msgSend_load(self, a2, v2, v3, v4, v5, v6, v7) & 1) == 0 && MTLReportFailureTypeEnabled())
     {
-      v55 = objc_opt_class();
-      v71 = NSStringFromClass(v55);
-      v73 = objc_msgSend_debugDescription(self->_dataSource, v56, v57, v58, v59, v60, v61, v62);
-      MTLReportFailure();
+      v56 = objc_opt_class();
+      v80 = NSStringFromClass(v56);
+      v82 = objc_msgSend_debugDescription(self->_dataSource, v57, v58, v59, v60, v61, v62, v63);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/DataSourceWrappers.mm", 0x8A, @"Error: [%@ load] returned NO.  MPS can wait no longer for data and can not proceed.\n%@\n", v64, v65, v66, v67);
     }
 
-    v18 = objc_msgSend_descriptor(self->_dataSource, v11, v12, v13, v14, v15, v16, v17, v71, v73);
+    v18 = objc_msgSend_descriptor(self->_dataSource, v11, v12, v13, v14, v15, v16, v17, v80, v82);
     self->_convolution = v18;
     if (!v18 && MTLReportFailureTypeEnabled())
     {
-      v63 = objc_opt_class();
-      v72 = NSStringFromClass(v63);
-      v74 = objc_msgSend_debugDescription(self->_dataSource, v64, v65, v66, v67, v68, v69, v70);
-      MTLReportFailure();
+      v68 = objc_opt_class();
+      v81 = NSStringFromClass(v68);
+      v83 = objc_msgSend_debugDescription(self->_dataSource, v69, v70, v71, v72, v73, v74, v75);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/DataSourceWrappers.mm", 0x90, @"Error: [%@ descriptor] returned nil.  MPS can wait no longer for data and can not proceed.\n%@\n", v76, v77, v78, v79);
     }
 
-    v26 = objc_msgSend_fusedNeuronDescriptor(self->_convolution, v19, v20, v21, v22, v23, v24, v25, v72, v74);
+    v26 = objc_msgSend_fusedNeuronDescriptor(self->_convolution, v19, v20, v21, v22, v23, v24, v25, v81, v83);
     if (v26)
     {
-      memset(v75, 0, 24);
+      memset(v84, 0, 24);
       objc_msgSend_neuronInfo(v26, v27, v28, v29, v30, v31, v32, v33);
-      if ((sub_239BF0728(v75) & 1) == 0)
+      if ((sub_239BF0728(v84, v34) & 1) == 0)
       {
-        v41 = objc_msgSend_fusedNeuronDescriptor(self->_convolution, v34, v35, v36, v37, v38, v39, v40);
-        self->_neuron = objc_msgSend_copyWithZone_(v41, v42, 0, v43, v44, v45, v46, v47);
+        v42 = objc_msgSend_fusedNeuronDescriptor(self->_convolution, v35, v36, v37, v38, v39, v40, v41);
+        self->_neuron = objc_msgSend_copyWithZone_(v42, v43, 0, v44, v45, v46, v47, v48);
       }
     }
 
     self->_batchNorm = self->_convolution->_batchNormalizationData;
-    objc_msgSend_purge(self, v48, v49, v50, v51, v52, v53, v54);
+    objc_msgSend_purge(self, v49, v50, v51, v52, v53, v54, v55);
   }
 }
 
@@ -218,13 +218,11 @@ LABEL_12:
   }
 
   neuronType = neuron->_neuronType;
-  v43 = *&neuron->_a;
+  v41 = *&neuron->_a;
   c = neuron->_c;
   data = neuron->_data;
   v38 = *(descriptorCopy + 8);
-  v39 = *(descriptorCopy + 12);
-  v40 = *(descriptorCopy + 20);
-  v41 = *(descriptorCopy + 24);
+  v39 = *(descriptorCopy + 24);
   if (!sub_239BF0850(&neuronType, &v38))
   {
     goto LABEL_16;
@@ -240,8 +238,8 @@ LABEL_12:
 
   else
   {
-    LODWORD(v19) = HIDWORD(v43);
-    LODWORD(v18) = v43;
+    LODWORD(v19) = HIDWORD(v41);
+    LODWORD(v18) = v41;
     *&v20 = c;
     descriptorCopy = objc_msgSend_cnnNeuronDescriptorWithType_a_b_c_(MPSNNNeuronDescriptor, v12, neuronType, v13, v14, v15, v16, v17, v18, v19, v20);
     v21 = data;
@@ -380,7 +378,7 @@ LABEL_7:
     if (MTLReportFailureTypeEnabled())
     {
       objc_msgSend_debugDescription(self->_convolution, v60, v61, v62, v63, v64, v65, v66);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/DataSourceWrappers.mm", 0x110, @"Error: [MPSCNNConvolutionDescriptor copyWithZone:] failed\n\t%@\n", v67, v68, v69, v70);
     }
 
     return self->_convolution;
@@ -447,7 +445,7 @@ LABEL_7:
     if (MTLReportFailureTypeEnabled())
     {
       objc_msgSend_debugDescription(self->_dataSource, v11, v12, v13, v14, v15, v16, v17);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/DataSourceWrappers.mm", 0x15A, @"Error: convolution data source over purged: \n%@", v18, v19, v20, v21);
     }
   }
 

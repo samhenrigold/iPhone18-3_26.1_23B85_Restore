@@ -24,68 +24,77 @@
 + (id)localizedMaskStringForEffectWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKHappyBirthdayEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKHappyBirthdayEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_BALLOONS_MESSAGE";
+    v5 = @"SUMMARY_BALLOONS_MESSAGE";
 LABEL_19:
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:v4 value:&stru_1F04268F8 table:@"ChatKit"];
+    v6 = CKFrameworkBundle(v4);
+    v7 = [v6 localizedStringForKey:v5 value:&stru_1F04268F8 table:@"ChatKit"];
 
     goto LABEL_20;
   }
 
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKConfettiEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKConfettiEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_CONFETTI_MESSAGE";
+    v5 = @"SUMMARY_CONFETTI_MESSAGE";
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKLasersEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKLasersEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_LASERS_MESSAGE";
+    v5 = @"SUMMARY_LASERS_MESSAGE";
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKFireworksEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKFireworksEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_FIREWORKS_MESSAGE";
+    v5 = @"SUMMARY_FIREWORKS_MESSAGE";
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKShootingStarEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKShootingStarEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_SHOOTING_STAR_MESSAGE";
+    v5 = @"SUMMARY_SHOOTING_STAR_MESSAGE";
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKSparklesEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKSparklesEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_CELEBRATION_MESSAGE";
+    v5 = @"SUMMARY_CELEBRATION_MESSAGE";
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKHeartEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKHeartEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_LOVE_MESSAGE";
+    v5 = @"SUMMARY_LOVE_MESSAGE";
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKEchoEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKEchoEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_ECHO_MESSAGE";
+    v5 = @"SUMMARY_ECHO_MESSAGE";
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqualToString:@"com.apple.messages.effect.CKSpotlightEffect"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.messages.effect.CKSpotlightEffect"];
+  if (v4)
   {
-    v4 = @"SUMMARY_SPOTLIGHT_MESSAGE";
+    v5 = @"SUMMARY_SPOTLIGHT_MESSAGE";
     goto LABEL_19;
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_20:
 
-  return v6;
+  return v7;
 }
 
 - (CKFullScreenEffectManager)init
@@ -564,83 +573,83 @@ void __71__CKFullScreenEffectManager_startFullscreenEffectForChatItem_language__
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __71__CKFullScreenEffectManager_startFullscreenEffectForChatItem_language___block_invoke_2(uint64_t a1)
+void __71__CKFullScreenEffectManager_startFullscreenEffectForChatItem_language___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v1 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v2 = *(a1 + 32);
+      v3 = *(a1 + 32);
       *buf = 138412290;
-      v27 = v2;
-      _os_log_impl(&dword_19020E000, v1, OS_LOG_TYPE_INFO, "Starting effect for RK responses: %@", buf, 0xCu);
+      v28 = v3;
+      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Starting effect for RK responses: %@", buf, 0xCu);
     }
   }
 
   if ([*(a1 + 32) count] == 1)
   {
-    v18 = [*(a1 + 32) firstObject];
-    v3 = [v18 attributes];
+    v19 = [*(a1 + 32) firstObject];
+    v4 = [v19 attributes];
     if (IMOSLoggingEnabled())
     {
-      v4 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v27 = v3;
-        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "RK attributes: %@", buf, 0xCu);
+        v28 = v4;
+        _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "RK attributes: %@", buf, 0xCu);
       }
     }
 
-    v5 = [v3 objectForKey:@"type"];
-    v6 = [v5 isEqualToString:@"moment"];
+    v6 = [v4 objectForKey:@"type"];
+    v7 = [v6 isEqualToString:@"moment"];
 
-    if (v6)
+    if (v7)
     {
-      v23 = 0u;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
-      v7 = [*(a1 + 40) fullscreenEffectMap];
-      obj = [v7 allValues];
+      v23 = 0u;
+      v8 = [*(a1 + 40) fullscreenEffectMap];
+      obj = [v8 allValues];
 
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v8)
+      v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      if (v9)
       {
-        v9 = *v22;
+        v10 = *v23;
         while (2)
         {
-          for (i = 0; i != v8; ++i)
+          for (i = 0; i != v9; ++i)
           {
-            if (*v22 != v9)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v21 + 1) + 8 * i);
-            v12 = [v11 infoDictionary];
-            v13 = [v12 objectForKey:@"Triggers"];
+            v12 = *(*(&v22 + 1) + 8 * i);
+            v13 = [v12 infoDictionary];
+            v14 = [v13 objectForKey:@"Triggers"];
 
-            v14 = [v3 objectForKey:@"subtype"];
-            v15 = [v13 containsObject:v14];
+            v15 = [v4 objectForKey:@"subtype"];
+            v16 = [v14 containsObject:v15];
 
-            if (v15)
+            if (v16)
             {
-              v16 = *(a1 + 48);
-              if (v16)
+              v17 = *(a1 + 48);
+              if (v17)
               {
-                v17 = [v11 bundleIdentifier];
-                (*(v16 + 16))(v16, v17, 1);
+                v18 = [v12 bundleIdentifier];
+                (*(v17 + 16))(v17, v18, 1);
               }
 
               goto LABEL_23;
             }
           }
 
-          v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
-          if (v8)
+          v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+          if (v9)
           {
             continue;
           }
@@ -675,7 +684,7 @@ LABEL_23:
 - (void)fullScreenEffectDidPrepareSoundEffect:(id)effect
 {
   effectCopy = effect;
-  [effectCopy duration];
+  objc_msgSend_duration(effectCopy);
   v5 = v4;
   if (__CurrentTestName)
   {

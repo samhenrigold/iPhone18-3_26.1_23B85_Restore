@@ -80,10 +80,10 @@
 
 - (void)dealloc
 {
-  objc_msgSend_setEncoder_(self, a2, 0, v2);
-  v4.receiver = self;
-  v4.super_class = RGCachedRenderCommandEncoder;
-  [(RGCachedRenderCommandEncoder *)&v4 dealloc];
+  objc_msgSend_setEncoder_(self, a2, 0);
+  v3.receiver = self;
+  v3.super_class = RGCachedRenderCommandEncoder;
+  [(RGCachedRenderCommandEncoder *)&v3 dealloc];
 }
 
 - (void)setCounters:(__RGRenderCounters *)counters
@@ -95,14 +95,14 @@
 
 - (void)beginEncodingWithCommandBuffer:(id)buffer renderPassDescriptor:(id)descriptor label:(id)label
 {
-  v7 = objc_msgSend_renderCommandEncoderWithDescriptor_(buffer, a2, descriptor, descriptor);
-  v10 = v7;
+  v7 = objc_msgSend_renderCommandEncoderWithDescriptor_(buffer, a2, descriptor);
+  v9 = v7;
   if (label)
   {
-    objc_msgSend_setLabel_(v7, v8, label, v9);
+    objc_msgSend_setLabel_(v7, v8, label);
   }
 
-  objc_msgSend__setEncoder_alreadyUsed_(self, v8, v10, 0);
+  objc_msgSend__setEncoder_alreadyUsed_(self, v8, v9, 0);
 }
 
 - (void)_setEncoder:(id)encoder alreadyUsed:(BOOL)used
@@ -115,18 +115,18 @@
   }
 
   self->_encoder = encoder;
-  objc_msgSend_clear(self, v8, v9, v10);
+  objc_msgSend_clear(self, v8, v9);
   if (self->_encoder)
   {
-    v12 = !usedCopy;
+    v11 = !usedCopy;
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
-  if (!v12)
+  if (!v11)
   {
     LOWORD(self[22].super.isa) |= 0x9Eu;
   }
@@ -141,24 +141,23 @@
 
 - (void)endEncoding
 {
-  objc_msgSend_endEncoding(self->_encoder, a2, v2, v3);
+  objc_msgSend_endEncoding(self->_encoder, a2, v2);
 
   self->_encoder = 0;
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(id)buffer indexBufferOffset:(unint64_t)offset
 {
-  countCopy = count;
-  objc_msgSend_applyChangedStates(self, a2, primitives, count);
-  objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_(self->_encoder, v13, primitives, countCopy, type, buffer, offset);
+  objc_msgSend_applyChangedStates(self, a2, primitives);
+  objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_(self->_encoder, v13, primitives, count, type, buffer, offset);
   impl = self->_counters.storage.impl;
   if (!impl)
   {
     return;
   }
 
-  vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-  v15 = self->_counters.storage.impl;
+  vfx_counters_update(impl, self->_counters.drawCount, v14, v15, v16, v17, v18, v19, 1.0);
+  v27 = self->_counters.storage.impl;
   primitiveCount = self->_counters.primitiveCount;
   if (primitives <= 1)
   {
@@ -169,24 +168,24 @@
 
     if (primitives == 1)
     {
-      countCopy >>= 1;
+      count >>= 1;
       goto LABEL_14;
     }
 
 LABEL_13:
-    countCopy = 0;
+    count = 0;
     goto LABEL_14;
   }
 
   if (primitives == 2)
   {
-    --countCopy;
+    --count;
     goto LABEL_14;
   }
 
   if (primitives == 3)
   {
-    countCopy /= 3uLL;
+    count /= 3uLL;
     goto LABEL_14;
   }
 
@@ -195,25 +194,24 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  countCopy -= 2;
+  count -= 2;
 LABEL_14:
 
-  vfx_counters_update(v15, primitiveCount, countCopy);
+  vfx_counters_update(v27, primitiveCount, v21, v22, v23, v24, v25, v26, count);
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(id)buffer indexBufferOffset:(unint64_t)offset instanceCount:(unint64_t)instanceCount
 {
-  countCopy = count;
-  objc_msgSend_applyChangedStates(self, a2, primitives, count);
-  objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_(self->_encoder, v15, primitives, countCopy, type, buffer, offset, instanceCount);
+  objc_msgSend_applyChangedStates(self, a2, primitives);
+  objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_(self->_encoder, v15, primitives, count, type, buffer, offset, instanceCount);
   impl = self->_counters.storage.impl;
   if (!impl)
   {
     return;
   }
 
-  vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-  v17 = self->_counters.storage.impl;
+  vfx_counters_update(impl, self->_counters.drawCount, v16, v17, v18, v19, v20, v21, 1.0);
+  v29 = self->_counters.storage.impl;
   primitiveCount = self->_counters.primitiveCount;
   if (primitives <= 1)
   {
@@ -224,24 +222,24 @@ LABEL_14:
 
     if (primitives == 1)
     {
-      countCopy >>= 1;
+      count >>= 1;
       goto LABEL_14;
     }
 
 LABEL_13:
-    countCopy = 0;
+    count = 0;
     goto LABEL_14;
   }
 
   if (primitives == 2)
   {
-    --countCopy;
+    --count;
     goto LABEL_14;
   }
 
   if (primitives == 3)
   {
-    countCopy /= 3uLL;
+    count /= 3uLL;
     goto LABEL_14;
   }
 
@@ -250,35 +248,34 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  countCopy -= 2;
+  count -= 2;
 LABEL_14:
 
-  vfx_counters_update(v17, primitiveCount, (countCopy * instanceCount));
+  vfx_counters_update(v29, primitiveCount, v23, v24, v25, v26, v27, v28, (count * instanceCount));
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(id)buffer indexBufferOffset:(unint64_t)offset instanceCount:(unint64_t)instanceCount baseVertex:(int64_t)vertex baseInstance:(unint64_t)self0
 {
-  countCopy = count;
-  objc_msgSend_applyChangedStates(self, a2, primitives, count);
-  if (countCopy)
+  objc_msgSend_applyChangedStates(self, a2, primitives);
+  if (count)
   {
     encoder = self->_encoder;
     if (vertex <= 0 && instance == 0)
     {
-      objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_(encoder, v17, primitives, countCopy, type, buffer, offset, instanceCount);
+      objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_(encoder, v17, primitives, count, type, buffer, offset, instanceCount);
     }
 
     else
     {
-      objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_baseVertex_baseInstance_(encoder, v17, primitives, countCopy, type, buffer, offset, instanceCount, vertex, instance);
+      objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_baseVertex_baseInstance_(encoder, v17, primitives, count, type, buffer, offset, instanceCount, vertex, instance);
     }
   }
 
   impl = self->_counters.storage.impl;
   if (impl)
   {
-    vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-    v21 = self->_counters.storage.impl;
+    vfx_counters_update(impl, self->_counters.drawCount, v18, v19, v20, v21, v22, v23, 1.0);
+    v33 = self->_counters.storage.impl;
     primitiveCount = self->_counters.primitiveCount;
     if (primitives <= 1)
     {
@@ -289,7 +286,7 @@ LABEL_14:
 
       if (primitives == 1)
       {
-        countCopy >>= 1;
+        count >>= 1;
         goto LABEL_21;
       }
     }
@@ -299,58 +296,58 @@ LABEL_14:
       switch(primitives)
       {
         case 2uLL:
-          --countCopy;
+          --count;
           goto LABEL_21;
         case 3uLL:
-          countCopy /= 3uLL;
+          count /= 3uLL;
           goto LABEL_21;
         case 4uLL:
-          countCopy -= 2;
+          count -= 2;
 LABEL_21:
 
-          vfx_counters_update(v21, primitiveCount, (countCopy * instanceCount));
+          vfx_counters_update(v33, primitiveCount, v27, v28, v29, v30, v31, v32, (count * instanceCount));
           return;
       }
     }
 
-    countCopy = 0;
+    count = 0;
     goto LABEL_21;
   }
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexType:(unint64_t)type indexBuffer:(id)buffer indexBufferOffset:(unint64_t)offset indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)bufferOffset
 {
-  objc_msgSend_applyChangedStates(self, a2, primitives, type);
+  objc_msgSend_applyChangedStates(self, a2, primitives);
   objc_msgSend_drawIndexedPrimitives_indexType_indexBuffer_indexBufferOffset_indirectBuffer_indirectBufferOffset_(self->_encoder, v15, primitives, type, buffer, offset, indirectBuffer, bufferOffset);
   impl = self->_counters.storage.impl;
   if (impl)
   {
-    vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-    v17 = self->_counters.storage.impl;
+    vfx_counters_update(impl, self->_counters.drawCount, v16, v17, v18, v19, v20, v21, 1.0);
+    v29 = self->_counters.storage.impl;
     indirectDrawCount = self->_counters.indirectDrawCount;
 
-    vfx_counters_update(v17, indirectDrawCount, 1.0);
+    vfx_counters_update(v29, indirectDrawCount, v23, v24, v25, v26, v27, v28, 1.0);
   }
 }
 
 - (void)drawPrimitives:(unint64_t)primitives indirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset
 {
-  objc_msgSend_applyChangedStates(self, a2, primitives, buffer);
+  objc_msgSend_applyChangedStates(self, a2, primitives);
   objc_msgSend_drawPrimitives_indirectBuffer_indirectBufferOffset_(self->_encoder, v9, primitives, buffer, offset);
   impl = self->_counters.storage.impl;
   if (impl)
   {
-    vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-    v11 = self->_counters.storage.impl;
+    vfx_counters_update(impl, self->_counters.drawCount, v10, v11, v12, v13, v14, v15, 1.0);
+    v23 = self->_counters.storage.impl;
     indirectDrawCount = self->_counters.indirectDrawCount;
 
-    vfx_counters_update(v11, indirectDrawCount, 1.0);
+    vfx_counters_update(v23, indirectDrawCount, v17, v18, v19, v20, v21, v22, 1.0);
   }
 }
 
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count
 {
-  objc_msgSend_applyChangedStates(self, a2, primitives, start);
+  objc_msgSend_applyChangedStates(self, a2, primitives);
   objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_encoder, v9, primitives, start, count);
   impl = self->_counters.storage.impl;
   if (!impl)
@@ -358,8 +355,8 @@ LABEL_21:
     return;
   }
 
-  vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-  v11 = self->_counters.storage.impl;
+  vfx_counters_update(impl, self->_counters.drawCount, v10, v11, v12, v13, v14, v15, 1.0);
+  v23 = self->_counters.storage.impl;
   primitiveCount = self->_counters.primitiveCount;
   if (primitives <= 1)
   {
@@ -399,12 +396,12 @@ LABEL_13:
   count -= 2;
 LABEL_14:
 
-  vfx_counters_update(v11, primitiveCount, count);
+  vfx_counters_update(v23, primitiveCount, v17, v18, v19, v20, v21, v22, count);
 }
 
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount
 {
-  objc_msgSend_applyChangedStates(self, a2, primitives, start);
+  objc_msgSend_applyChangedStates(self, a2, primitives);
   objc_msgSend_drawPrimitives_vertexStart_vertexCount_instanceCount_(self->_encoder, v11, primitives, start, count, instanceCount);
   impl = self->_counters.storage.impl;
   if (!impl)
@@ -412,8 +409,8 @@ LABEL_14:
     return;
   }
 
-  vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-  v13 = self->_counters.storage.impl;
+  vfx_counters_update(impl, self->_counters.drawCount, v12, v13, v14, v15, v16, v17, 1.0);
+  v25 = self->_counters.storage.impl;
   primitiveCount = self->_counters.primitiveCount;
   if (primitives <= 1)
   {
@@ -453,12 +450,12 @@ LABEL_13:
   count -= 2;
 LABEL_14:
 
-  vfx_counters_update(v13, primitiveCount, (count * instanceCount));
+  vfx_counters_update(v25, primitiveCount, v19, v20, v21, v22, v23, v24, (count * instanceCount));
 }
 
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount baseInstance:(unint64_t)instance
 {
-  objc_msgSend_applyChangedStates(self, a2, primitives, start);
+  objc_msgSend_applyChangedStates(self, a2, primitives);
   encoder = self->_encoder;
   if (instance)
   {
@@ -476,8 +473,8 @@ LABEL_14:
     return;
   }
 
-  vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-  v16 = self->_counters.storage.impl;
+  vfx_counters_update(impl, self->_counters.drawCount, v15, v16, v17, v18, v19, v20, 1.0);
+  v28 = self->_counters.storage.impl;
   primitiveCount = self->_counters.primitiveCount;
   if (primitives <= 1)
   {
@@ -517,119 +514,119 @@ LABEL_16:
   count -= 2;
 LABEL_17:
 
-  vfx_counters_update(v16, primitiveCount, (count * instanceCount));
+  vfx_counters_update(v28, primitiveCount, v22, v23, v24, v25, v26, v27, (count * instanceCount));
 }
 
 - (void)drawIndexedPatches:(unint64_t)patches patchIndexBuffer:(id)buffer patchIndexBufferOffset:(unint64_t)offset controlPointIndexBuffer:(id)indexBuffer controlPointIndexBufferOffset:(unint64_t)bufferOffset indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)indirectBufferOffset
 {
-  objc_msgSend_applyChangedStates(self, a2, patches, buffer);
+  objc_msgSend_applyChangedStates(self, a2, patches);
   objc_msgSend_drawIndexedPatches_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_indirectBuffer_indirectBufferOffset_(self->_encoder, v16, patches, buffer, offset, indexBuffer, bufferOffset, indirectBuffer, indirectBufferOffset);
   impl = self->_counters.storage.impl;
   if (impl)
   {
-    vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-    v18 = self->_counters.storage.impl;
+    vfx_counters_update(impl, self->_counters.drawCount, v17, v18, v19, v20, v21, v22, 1.0);
+    v30 = self->_counters.storage.impl;
     indirectDrawCount = self->_counters.indirectDrawCount;
 
-    vfx_counters_update(v18, indirectDrawCount, 1.0);
+    vfx_counters_update(v30, indirectDrawCount, v24, v25, v26, v27, v28, v29, 1.0);
   }
 }
 
 - (void)drawIndexedPatches:(unint64_t)patches patchStart:(unint64_t)start patchCount:(unint64_t)count patchIndexBuffer:(id)buffer patchIndexBufferOffset:(unint64_t)offset controlPointIndexBuffer:(id)indexBuffer controlPointIndexBufferOffset:(unint64_t)bufferOffset instanceCount:(unint64_t)self0 baseInstance:(unint64_t)self1
 {
-  objc_msgSend_applyChangedStates(self, a2, patches, start);
+  objc_msgSend_applyChangedStates(self, a2, patches);
   objc_msgSend_drawIndexedPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_instanceCount_baseInstance_(self->_encoder, v18, patches, start, count, buffer, offset, indexBuffer, bufferOffset, instanceCount, instance);
   impl = self->_counters.storage.impl;
   if (impl)
   {
     drawCount = self->_counters.drawCount;
 
-    vfx_counters_update(impl, drawCount, 1.0);
+    vfx_counters_update(impl, drawCount, v19, v20, v21, v22, v23, v24, 1.0);
   }
 }
 
 - (void)drawMeshThreadgroups:(id *)threadgroups threadsPerObjectThreadgroup:(id *)threadgroup threadsPerMeshThreadgroup:(id *)meshThreadgroup
 {
-  objc_msgSend_applyChangedStates(self, a2, threadgroups, threadgroup);
+  objc_msgSend_applyChangedStates(self, a2, threadgroups);
   encoder = self->_encoder;
-  v14 = *threadgroups;
-  v13 = *threadgroup;
-  v12 = *meshThreadgroup;
-  objc_msgSend_drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_(encoder, v10, &v14, &v13, &v12);
+  v20 = *threadgroups;
+  v19 = *threadgroup;
+  v18 = *meshThreadgroup;
+  objc_msgSend_drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_(encoder, v10, &v20, &v19, &v18);
   impl = self->_counters.storage.impl;
   if (impl)
   {
-    vfx_counters_update(impl, self->_counters.drawCount, 1.0);
+    vfx_counters_update(impl, self->_counters.drawCount, v11, v12, v13, v14, v15, v16, 1.0);
   }
 }
 
 - (void)drawMeshThreadgroupsWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset threadsPerObjectThreadgroup:(id *)threadgroup threadsPerMeshThreadgroup:(id *)meshThreadgroup
 {
-  objc_msgSend_applyChangedStates(self, a2, buffer, offset);
+  objc_msgSend_applyChangedStates(self, a2, buffer);
   encoder = self->_encoder;
-  v15 = *threadgroup;
-  v14 = *meshThreadgroup;
-  objc_msgSend_drawMeshThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_(encoder, v12, buffer, offset, &v15, &v14);
+  v27 = *threadgroup;
+  v26 = *meshThreadgroup;
+  objc_msgSend_drawMeshThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_(encoder, v12, buffer, offset, &v27, &v26);
   impl = self->_counters.storage.impl;
   if (impl)
   {
-    vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-    vfx_counters_update(self->_counters.storage.impl, self->_counters.indirectDrawCount, 1.0);
+    vfx_counters_update(impl, self->_counters.drawCount, v13, v14, v15, v16, v17, v18, 1.0);
+    vfx_counters_update(self->_counters.storage.impl, self->_counters.indirectDrawCount, v20, v21, v22, v23, v24, v25, 1.0);
   }
 }
 
 - (void)drawMeshThreads:(id *)threads threadsPerObjectThreadgroup:(id *)threadgroup threadsPerMeshThreadgroup:(id *)meshThreadgroup
 {
-  objc_msgSend_applyChangedStates(self, a2, threads, threadgroup);
+  objc_msgSend_applyChangedStates(self, a2, threads);
   encoder = self->_encoder;
-  v14 = *threads;
-  v13 = *threadgroup;
-  v12 = *meshThreadgroup;
-  objc_msgSend_drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_(encoder, v10, &v14, &v13, &v12);
+  v20 = *threads;
+  v19 = *threadgroup;
+  v18 = *meshThreadgroup;
+  objc_msgSend_drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_(encoder, v10, &v20, &v19, &v18);
   impl = self->_counters.storage.impl;
   if (impl)
   {
-    vfx_counters_update(impl, self->_counters.drawCount, 1.0);
+    vfx_counters_update(impl, self->_counters.drawCount, v11, v12, v13, v14, v15, v16, 1.0);
   }
 }
 
 - (void)drawPatches:(unint64_t)patches patchIndexBuffer:(id)buffer patchIndexBufferOffset:(unint64_t)offset indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)bufferOffset
 {
-  objc_msgSend_applyChangedStates(self, a2, patches, buffer);
+  objc_msgSend_applyChangedStates(self, a2, patches);
   objc_msgSend_drawPatches_patchIndexBuffer_patchIndexBufferOffset_indirectBuffer_indirectBufferOffset_(self->_encoder, v13, patches, buffer, offset, indirectBuffer, bufferOffset);
   impl = self->_counters.storage.impl;
   if (impl)
   {
-    vfx_counters_update(impl, self->_counters.drawCount, 1.0);
-    v15 = self->_counters.storage.impl;
+    vfx_counters_update(impl, self->_counters.drawCount, v14, v15, v16, v17, v18, v19, 1.0);
+    v27 = self->_counters.storage.impl;
     indirectDrawCount = self->_counters.indirectDrawCount;
 
-    vfx_counters_update(v15, indirectDrawCount, 1.0);
+    vfx_counters_update(v27, indirectDrawCount, v21, v22, v23, v24, v25, v26, 1.0);
   }
 }
 
 - (void)drawPatches:(unint64_t)patches patchStart:(unint64_t)start patchCount:(unint64_t)count patchIndexBuffer:(id)buffer patchIndexBufferOffset:(unint64_t)offset instanceCount:(unint64_t)instanceCount baseInstance:(unint64_t)instance
 {
-  objc_msgSend_applyChangedStates(self, a2, patches, start);
+  objc_msgSend_applyChangedStates(self, a2, patches);
   objc_msgSend_drawPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_instanceCount_baseInstance_(self->_encoder, v16, patches, start, count, buffer, offset, instanceCount, instance);
   impl = self->_counters.storage.impl;
   if (impl)
   {
     drawCount = self->_counters.drawCount;
 
-    vfx_counters_update(impl, drawCount, 1.0);
+    vfx_counters_update(impl, drawCount, v17, v18, v19, v20, v21, v22, 1.0);
   }
 }
 
 - (void)setBlendColorRed:(float)red green:(float)green blue:(float)blue alpha:(float)alpha
 {
-  v8.f32[0] = red;
-  v8.f32[1] = green;
-  v8.i64[1] = __PAIR64__(LODWORD(alpha), LODWORD(blue));
-  if ((vmaxvq_u32(vmvnq_s8(vceqq_f32(*&self->_cache.material, v8))) & 0x80000000) != 0)
+  v7.f32[0] = red;
+  v7.f32[1] = green;
+  v7.i64[1] = __PAIR64__(LODWORD(alpha), LODWORD(blue));
+  if ((vmaxvq_u32(vmvnq_s8(vceqq_f32(*&self->_cache.material, v7))) & 0x80000000) != 0)
   {
-    *&self->_cache.material = v8;
-    objc_msgSend_setBlendColorRed_green_blue_alpha_(self->_encoder, a2, v6, v7);
+    *&self->_cache.material = v7;
+    objc_msgSend_setBlendColorRed_green_blue_alpha_(self->_encoder, a2, v6);
   }
 }
 
@@ -657,7 +654,7 @@ LABEL_17:
   if (self->_cache.rasterizerStates != state)
   {
     self->_cache.rasterizerStates = state;
-    objc_msgSend_setDepthStencilState_(self->_encoder, a2, state, v3);
+    objc_msgSend_setDepthStencilState_(self->_encoder, a2, state);
   }
 }
 
@@ -675,7 +672,7 @@ LABEL_17:
   if (self->_cache.geometry != state)
   {
     self->_cache.geometry = state;
-    objc_msgSend_setRenderPipelineState_(self->_encoder, a2, state, v3);
+    objc_msgSend_setRenderPipelineState_(self->_encoder, a2, state);
   }
 }
 
@@ -690,10 +687,10 @@ LABEL_17:
 - (void)setScissorRect:(id *)rect
 {
   encoder = self->_encoder;
-  v5 = *&rect->var2;
-  v6[0] = *&rect->var0;
-  v6[1] = v5;
-  objc_msgSend_setScissorRect_(encoder, a2, v6, v3);
+  v4 = *&rect->var2;
+  v5[0] = *&rect->var0;
+  v5[1] = v4;
+  objc_msgSend_setScissorRect_(encoder, a2, v5);
 }
 
 - (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue
@@ -702,7 +699,7 @@ LABEL_17:
   {
     LODWORD(self->_cache.metalShadable) = value;
     HIDWORD(self->_cache.metalShadable) = referenceValue;
-    objc_msgSend_setStencilFrontReferenceValue_backReferenceValue_(self->_encoder, a2, *&value, *&referenceValue);
+    objc_msgSend_setStencilFrontReferenceValue_backReferenceValue_(self->_encoder, a2, *&value);
   }
 }
 
@@ -712,7 +709,7 @@ LABEL_17:
   {
     LODWORD(self->_cache.metalShadable) = value;
     HIDWORD(self->_cache.metalShadable) = value;
-    (MEMORY[0x1EEE66B58])(self->_encoder, sel_setStencilReferenceValue_, *&value);
+    MEMORY[0x1EEE66B58](self->_encoder, sel_setStencilReferenceValue_, *&value);
   }
 }
 
@@ -734,7 +731,7 @@ LABEL_17:
     if (*(&self[13]._cache.geometry + 2 * index) != offset)
     {
       *(&self[13]._cache.geometry + 2 * index) = offset;
-      MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentBufferOffset_atIndex_, offset, index);
+      MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentBufferOffset_atIndex_, offset);
     }
   }
 
@@ -742,7 +739,7 @@ LABEL_17:
   {
     *v5 = buffer;
     *(&self[13]._cache.geometry + 2 * index) = offset;
-    objc_msgSend_setFragmentBuffer_offset_atIndex_(self->_encoder, a2, buffer, offset);
+    objc_msgSend_setFragmentBuffer_offset_atIndex_(self->_encoder, a2, buffer);
   }
 }
 
@@ -752,7 +749,7 @@ LABEL_17:
   if (*(v4 + 319) != offset)
   {
     *(v4 + 319) = offset;
-    MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentBufferOffset_atIndex_, offset, index);
+    MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentBufferOffset_atIndex_, offset);
   }
 }
 
@@ -762,13 +759,12 @@ LABEL_17:
   {
     v5 = &self[13]._cache.geometry + 2 * range.location;
     buffersCopy = buffers;
-    offsetsCopy = offsets;
     length = range.length;
     do
     {
       v10 = *buffersCopy++;
       v9 = v10;
-      v11 = *offsetsCopy++;
+      v11 = *offsets++;
       *(v5 - 1) = v9;
       *v5 = v11;
       v5 += 2;
@@ -778,7 +774,7 @@ LABEL_17:
     while (length);
   }
 
-  MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentBuffers_offsets_withRange_, buffers, offsets);
+  MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentBuffers_offsets_withRange_, buffers);
 }
 
 - (void)setFragmentBytes:(const void *)bytes length:(unint64_t)length atIndex:(unint64_t)index
@@ -794,7 +790,7 @@ LABEL_17:
   if (*(&self[21]._counters.primitiveCount + index) != state)
   {
     *(&self[21]._counters.primitiveCount + index) = state;
-    objc_msgSend_setFragmentSamplerState_atIndex_(self->_encoder, a2, state, index);
+    objc_msgSend_setFragmentSamplerState_atIndex_(self->_encoder, a2, state);
   }
 }
 
@@ -816,7 +812,7 @@ LABEL_17:
     while (length);
   }
 
-  MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentSamplerStates_lodMinClamps_lodMaxClamps_withRange_, states, clamps);
+  MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentSamplerStates_lodMinClamps_lodMaxClamps_withRange_, states);
 }
 
 - (void)setFragmentSamplerStates:(const void *)states withRange:(_NSRange)range
@@ -837,7 +833,7 @@ LABEL_17:
     while (length);
   }
 
-  MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentSamplerStates_withRange_, states, range.location);
+  MEMORY[0x1EEE66B58](self->_encoder, sel_setFragmentSamplerStates_withRange_, states);
 }
 
 - (void)setFragmentTexture:(id)texture atIndex:(unint64_t)index
@@ -854,7 +850,7 @@ LABEL_17:
 
     else
     {
-      objc_msgSend_setFragmentTexture_atIndex_(self->_encoder, a2, texture, index);
+      objc_msgSend_setFragmentTexture_atIndex_(self->_encoder, a2, texture);
     }
   }
 }
@@ -886,7 +882,7 @@ LABEL_17:
   {
     *(&self[15]._cache.deformerStack + index) = texture;
     v6[508] = state;
-    objc_msgSend_setFragmentTexture_atTextureIndex_samplerState_atSamplerIndex_(self->_encoder, a2, texture, index);
+    objc_msgSend_setFragmentTexture_atTextureIndex_samplerState_atSamplerIndex_(self->_encoder, a2, texture);
   }
 }
 
@@ -906,7 +902,7 @@ LABEL_17:
   {
     *v5 = buffer;
     *(&self[4]._cache.colorBufferWriteMask + 2 * index) = offset;
-    objc_msgSend_setVertexBuffer_offset_atIndex_(self->_encoder, a2, buffer, offset);
+    objc_msgSend_setVertexBuffer_offset_atIndex_(self->_encoder, a2, buffer);
   }
 }
 
@@ -916,7 +912,7 @@ LABEL_17:
   if (*(v4 + 113) != offset)
   {
     *(v4 + 113) = offset;
-    objc_msgSend_setVertexBufferOffset_atIndex_(self->_encoder, a2, offset, index);
+    objc_msgSend_setVertexBufferOffset_atIndex_(self->_encoder, a2, offset);
   }
 }
 
@@ -996,7 +992,7 @@ LABEL_17:
   if (*(&self[12]._cache.metalShadable + index) != state)
   {
     *(&self[12]._cache.metalShadable + index) = state;
-    objc_msgSend_setVertexSamplerState_atIndex_(self->_encoder, a2, state, index);
+    objc_msgSend_setVertexSamplerState_atIndex_(self->_encoder, a2, state);
   }
 }
 
@@ -1017,7 +1013,7 @@ LABEL_17:
     while (length);
   }
 
-  MEMORY[0x1EEE66B58](self->_encoder, sel_setVertexSamplerStates_lodMinClamps_lodMaxClamps_withRange_, states, clamps);
+  MEMORY[0x1EEE66B58](self->_encoder, sel_setVertexSamplerStates_lodMinClamps_lodMaxClamps_withRange_, states);
 }
 
 - (void)setVertexSamplerStates:(const void *)states withRange:(_NSRange)range
@@ -1037,7 +1033,7 @@ LABEL_17:
     while (length);
   }
 
-  MEMORY[0x1EEE66B58](self->_encoder, sel_setVertexSamplerStates_withRange_, states, range.location);
+  MEMORY[0x1EEE66B58](self->_encoder, sel_setVertexSamplerStates_withRange_, states);
 }
 
 - (void)setVertexTexture:(id)texture atIndex:(unint64_t)index
@@ -1054,7 +1050,7 @@ LABEL_17:
 
     else
     {
-      objc_msgSend_setVertexTexture_atIndex_(self->_encoder, a2, texture, index);
+      objc_msgSend_setVertexTexture_atIndex_(self->_encoder, a2, texture);
     }
   }
 }
@@ -1113,10 +1109,10 @@ LABEL_5:
 
 - (void)dispatchThreadsPerTile:(id *)tile
 {
-  objc_msgSend_applyChangedStates(self, a2, tile, v3);
+  objc_msgSend_applyChangedStates(self, a2, tile);
   encoder = self->_encoder;
-  v9 = *tile;
-  objc_msgSend_dispatchThreadsPerTile_(encoder, v7, &v9, v8);
+  v7 = *tile;
+  objc_msgSend_dispatchThreadsPerTile_(encoder, v6, &v7);
 }
 
 - (void)applyChangedStates
@@ -1125,7 +1121,7 @@ LABEL_5:
   if ((isa & 2) != 0)
   {
     LOWORD(self[22].super.isa) = isa & 0xFFFD;
-    objc_msgSend_setFrontFacingWinding_(self->_encoder, a2, self->_cache.metalMesh, v2);
+    objc_msgSend_setFrontFacingWinding_(self->_encoder, a2, self->_cache.metalMesh);
     isa = self[22].super.isa;
     if ((isa & 8) == 0)
     {
@@ -1145,7 +1141,7 @@ LABEL_3:
   }
 
   LOWORD(self[22].super.isa) = isa & 0xFFF7;
-  objc_msgSend_setTriangleFillMode_(self->_encoder, a2, self->_cache.metalMeshElement, v2);
+  objc_msgSend_setTriangleFillMode_(self->_encoder, a2, self->_cache.metalMeshElement);
   isa = self[22].super.isa;
   if ((isa & 4) == 0)
   {
@@ -1160,7 +1156,7 @@ LABEL_4:
 
 LABEL_9:
   LOWORD(self[22].super.isa) = isa & 0xFFFB;
-  objc_msgSend_setCullMode_(self->_encoder, a2, self->_cache.meshElement, v2);
+  objc_msgSend_setCullMode_(self->_encoder, a2, self->_cache.meshElement);
   isa = self[22].super.isa;
   if ((isa & 0x10) == 0)
   {
@@ -1175,7 +1171,7 @@ LABEL_5:
 
 LABEL_10:
   LOWORD(self[22].super.isa) = isa & 0xFFEF;
-  objc_msgSend_setDepthClipMode_(self->_encoder, a2, self->_cache.program, v2);
+  objc_msgSend_setDepthClipMode_(self->_encoder, a2, self->_cache.program);
   isa = self[22].super.isa;
   if ((isa & 0x80) == 0)
   {
@@ -1183,11 +1179,10 @@ LABEL_10:
   }
 
 LABEL_11:
-  commonProfile = self[4]._cache.commonProfile;
-  if (commonProfile)
+  if (self[4]._cache.commonProfile)
   {
     LOWORD(self[22].super.isa) = isa & 0xFF7F;
-    objc_msgSend_setViewports_count_(self->_encoder, a2, &self->_cache.commonProfile, commonProfile);
+    objc_msgSend_setViewports_count_(self->_encoder, a2, &self->_cache.commonProfile);
     isa = self[22].super.isa;
   }
 

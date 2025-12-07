@@ -172,17 +172,17 @@ LABEL_12:
 + (BOOL)_supportsArchivingStructType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"CGPoint"] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"CGSize"))
+  if (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = [typeCopy isEqualToString:@"CGRect"];
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (id)_archiveDictionaryForObject:(id)object ofCustomClass:(Class)class
@@ -214,7 +214,7 @@ LABEL_7:
 {
   valueCopy = value;
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"CGPoint"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     [valueCopy CGPointValue];
     DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v11);
@@ -223,14 +223,14 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([typeCopy isEqualToString:@"CGSize"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     [valueCopy CGSizeValue];
     DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v12);
     goto LABEL_7;
   }
 
-  if ([typeCopy isEqualToString:@"CGRect"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     [valueCopy CGRectValue];
     DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v13);
@@ -272,7 +272,7 @@ LABEL_7:
 {
   typeCopy = type;
   dictionaryCopy = dictionary;
-  if ([typeCopy isEqualToString:@"CGPoint"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v11.origin = *MEMORY[0x1E695EFF8];
     if (CGPointMakeWithDictionaryRepresentation(dictionaryCopy, &v11.origin))
@@ -284,7 +284,7 @@ LABEL_10:
     }
   }
 
-  else if ([typeCopy isEqualToString:@"CGSize"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v11.origin = *MEMORY[0x1E695F060];
     if (CGSizeMakeWithDictionaryRepresentation(dictionaryCopy, &v11))
@@ -294,7 +294,7 @@ LABEL_10:
     }
   }
 
-  else if ([typeCopy isEqualToString:@"CGRect"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v8 = *(MEMORY[0x1E695F058] + 16);
     v11.origin = *MEMORY[0x1E695F058];

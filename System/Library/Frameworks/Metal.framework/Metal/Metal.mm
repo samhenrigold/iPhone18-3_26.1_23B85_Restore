@@ -26,7 +26,7 @@ void *MTLDispatchListAppendBlock(void *result, void **a2, const void *a3)
   return result;
 }
 
-void MTLDeviceArrayInitialize(void)
+void MTLDeviceArrayInitialize(uint64_t a1)
 {
   if (MTLDeviceArrayInitialize(void)::pred != -1)
   {
@@ -45,147 +45,147 @@ void MTLDeviceArrayInitialize(void)
   }
 
   os_unfair_lock_unlock(&MTLInitializeInterpose(void)::lock);
-  v0 = 1;
+  v1 = 1;
   if (!MTLGetEnvDefault("METAL_CAPTURE_ENABLED", 0) && !MTLGetEnvDefault("MTL_CAPTURE_ENABLED", 0))
   {
-    v13 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
+    v14 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ([v13 BOOLValue] & 1) == 0)
+    if ((objc_opt_isKindOfClass() & 1) == 0 || ([v14 BOOLValue] & 1) == 0)
     {
-      v14 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
+      v15 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || ([v14 BOOLValue] & 1) == 0)
+      if ((objc_opt_isKindOfClass() & 1) == 0 || ([v15 BOOLValue] & 1) == 0)
       {
-        v0 = 0;
+        v1 = 0;
       }
     }
   }
 
-  v1 = getenv("MTL_CAPTURE_PATH");
-  if (v1)
+  v2 = getenv("MTL_CAPTURE_PATH");
+  if (v2)
   {
-    v0 = 1;
+    v1 = 1;
   }
 
   if (MTLGetEnvDefault("METAL_LOAD_INTERPOSER", 0))
   {
-    v2 = getenv("DYMTL_TOOLS_DYLIB_PATH");
-    if (v1)
+    v3 = getenv("DYMTL_TOOLS_DYLIB_PATH");
+    if (v2)
     {
-      v3 = 1;
+      v4 = 1;
     }
 
     else
     {
-      v3 = v2 == 0;
+      v4 = v3 == 0;
     }
 
-    v4 = v3;
-    if (!v3)
+    v5 = v4;
+    if (!v4)
     {
-      v1 = v2;
+      v2 = v3;
     }
 
-    if ((v0 | v4 ^ 1))
+    if ((v1 | v5 ^ 1))
     {
 LABEL_21:
-      if (v1)
+      if (v2)
       {
-        v5 = v1;
-        v6 = 272;
+        v6 = v2;
+        v7 = 272;
       }
 
       else
       {
         if ((_MTLIsInternalBuild() & 1) == 0 && [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")] == 0x7FFFFFFFFFFFFFFFLL)
         {
-          MTLReportFailure(2, "LoadCaptureLayer", 350, @"Metal GPU Frame Capture is not allowed for App Store apps, try deploying through TestFlight", v9, v10, v11, v12, v32);
-          v8 = 0;
+          MTLReportFailure(2uLL, "LoadCaptureLayer", 350, @"Metal GPU Frame Capture is not allowed for App Store apps, try deploying through TestFlight", v10, v11, v12, v13, v33);
+          v9 = 0;
 LABEL_35:
-          v7 = 1;
+          v8 = 1;
           goto LABEL_36;
         }
 
-        v5 = "/System/Library/PrivateFrameworks/GPUToolsCapture.framework/GPUToolsCapture";
-        v6 = 4;
+        v6 = "/System/Library/PrivateFrameworks/GPUToolsCapture.framework/GPUToolsCapture";
+        v7 = 4;
       }
 
-      v8 = dlopen(v5, v6);
+      v9 = dlopen(v6, v7);
       goto LABEL_35;
     }
   }
 
-  else if (v0)
+  else if (v1)
   {
     goto LABEL_21;
   }
 
-  v7 = 0;
   v8 = 0;
+  v9 = 0;
 LABEL_36:
-  v15 = MTLGetEnvDefault("MTL_HUD_ENABLED", 0);
-  v16 = getenv("MTL_HUD_PATH");
-  v17 = (v16 | v15) != 0;
-  v18 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
+  v16 = MTLGetEnvDefault("MTL_HUD_ENABLED", 0);
+  v17 = getenv("MTL_HUD_PATH");
+  v18 = (v17 | v16) != 0;
+  v19 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v19 = [v18 BOOLValue];
+    v20 = [v19 BOOLValue];
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  v20 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
+  v21 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = [v20 BOOLValue];
+    v22 = [v21 BOOLValue];
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
   }
 
-  if (((v17 | v19) & 1) != 0 || v21)
+  if (((v18 | v20) & 1) != 0 || v22)
   {
-    if (v16)
+    if (v17)
     {
-      v26 = dlopen(v16, 272);
+      v27 = dlopen(v17, 272);
     }
 
     else
     {
-      v27 = 0;
       v28 = 0;
+      v29 = 0;
       do
       {
-        v29 = dlopen(off_1E6EEB8E8[v28], 4);
-        v26 = v29;
-        if (v27)
+        v30 = dlopen(off_1E6EEB8E8[v29], 4);
+        v27 = v30;
+        if (v28)
         {
           break;
         }
 
-        v27 = 1;
         v28 = 1;
+        v29 = 1;
       }
 
-      while (!v29);
+      while (!v30);
     }
 
     os_unfair_lock_lock(&MTLInitializeInterpose(void)::lock);
     if ((MTLInitializeInterpose(void)::interposeInitialized & 1) == 0)
     {
 LABEL_56:
-      if (v7)
+      if (v8)
       {
-        if (!v8 || (_getWrappedDeviceFn = dlsym(v8, "DYMTLWrapDeviceWithDebugLayer")) == 0)
+        if (!v9 || (_getWrappedDeviceFn = dlsym(v9, "DYMTLWrapDeviceWithDebugLayer")) == 0)
         {
-          MTLReportFailure(2, "MTLInitializeInterpose", 486, @"Metal GPU Frame Capture could not be enabled", v22, v23, v24, v25, v32);
+          MTLReportFailure(2uLL, "MTLInitializeInterpose", 486, @"Metal GPU Frame Capture could not be enabled", v23, v24, v25, v26, v33);
         }
 
         goto LABEL_74;
@@ -196,16 +196,16 @@ LABEL_56:
         switch(wrapperType)
         {
           case 3:
-            v30 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
-            v31 = MTLWrapWithCountersDevice;
+            v31 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
+            v32 = MTLWrapWithCountersDevice;
             goto LABEL_73;
           case 4:
-            v30 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
-            v31 = MTLWrapWithGPUDebugDevice;
+            v31 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
+            v32 = MTLWrapWithGPUDebugDevice;
             goto LABEL_73;
           case 5:
-            v30 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
-            v31 = MTLWrapWithAllDebugDevice;
+            v31 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
+            v32 = MTLWrapWithAllDebugDevice;
             goto LABEL_73;
         }
       }
@@ -230,25 +230,25 @@ LABEL_74:
             MTLInitializeInterpose(void)::interposeInitialized = 1;
             goto LABEL_79;
           case 1:
-            v30 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
-            v31 = MTLWrapWithDebugDevice;
+            v31 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
+            v32 = MTLWrapWithDebugDevice;
             goto LABEL_73;
           case 2:
-            v30 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
-            v31 = MTLWrapWithTelemetryDevice;
+            v31 = &OBJC_PROTOCOL___MTLCommandBufferEncoderInfo;
+            v32 = MTLWrapWithTelemetryDevice;
 LABEL_73:
-            v30[38].isa = v31;
+            v31[38].isa = v32;
             goto LABEL_74;
         }
       }
 
-      MTLReportFailure(0, "MTLInitializeInterpose", 522, @"Unknown Wrapper Type : %d", v22, v23, v24, v25, wrapperType);
+      MTLReportFailure(0, "MTLInitializeInterpose", 522, @"Unknown Wrapper Type : %d", v23, v24, v25, v26, wrapperType);
       goto LABEL_74;
     }
 
-    if (v26)
+    if (v27)
     {
-      dlclose(v26);
+      dlclose(v27);
     }
   }
 
@@ -261,9 +261,9 @@ LABEL_73:
     }
   }
 
-  if (v8)
+  if (v9)
   {
-    dlclose(v8);
+    dlclose(v9);
   }
 
 LABEL_79:
@@ -274,22 +274,22 @@ LABEL_79:
 
 id MTLCreateSystemDefaultDevice(void)
 {
-  MTLDeviceArrayInitialize();
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x3052000000;
-  v6 = __Block_byref_object_copy__5;
-  v7 = __Block_byref_object_dispose__5;
-  v8 = 0;
+  MTLDeviceArrayInitialize(v0);
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3052000000;
+  v7 = __Block_byref_object_copy__5;
+  v8 = __Block_byref_object_dispose__5;
+  v9 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __MTLCreateSystemDefaultDevice_block_invoke;
   block[3] = &unk_1E6EEB598;
-  block[4] = &v3;
+  block[4] = &v4;
   dispatch_sync(_deviceArrayQueue, block);
-  v0 = v4[5];
-  _Block_object_dispose(&v3, 8);
-  return v0;
+  v1 = v5[5];
+  _Block_object_dispose(&v4, 8);
+  return v1;
 }
 
 void MTLRegisterDevices()

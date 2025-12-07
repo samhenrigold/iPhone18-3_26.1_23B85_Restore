@@ -20,12 +20,12 @@
 
 - (void)fetchEnrollmentStatusForSiriProfileId:(id)id forLanguageCode:(id)code completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   idCopy = id;
   codeCopy = code;
   completionCopy = completion;
   *keys = xmmword_278578910;
-  v31 = "siriProfileId";
+  v30 = "siriProfileId";
   values[0] = xpc_int64_create(1);
   if (codeCopy)
   {
@@ -52,16 +52,16 @@
   values[2] = v13;
 
   v14 = xpc_dictionary_create(keys, values, 3uLL);
-  *v28 = xmmword_278578928;
-  v27[0] = xpc_int64_create(2);
+  *v27 = xmmword_278578928;
+  v26[0] = xpc_int64_create(2);
   v15 = v14;
-  v27[1] = v15;
-  v16 = xpc_dictionary_create(v28, v27, 2uLL);
+  v26[1] = v15;
+  v16 = xpc_dictionary_create(v27, v26, 2uLL);
   v17 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SSRVoiceProfileXPCClient fetchEnrollmentStatusForSiriProfileId:forLanguageCode:completion:]";
+    v25 = "[SSRVoiceProfileXPCClient fetchEnrollmentStatusForSiriProfileId:forLanguageCode:completion:]";
     _os_log_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEFAULT, "%s Sending xpc message", buf, 0xCu);
   }
 
@@ -71,7 +71,7 @@
   handler[2] = __93__SSRVoiceProfileXPCClient_fetchEnrollmentStatusForSiriProfileId_forLanguageCode_completion___block_invoke;
   handler[3] = &unk_278578940;
   v19 = completionCopy;
-  v24 = v19;
+  v23 = v19;
   xpc_connection_send_message_with_reply(xpcConnection, v16, 0, handler);
 
   for (i = 1; i != -1; --i)
@@ -81,8 +81,6 @@
   for (j = 2; j != -1; --j)
   {
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __93__SSRVoiceProfileXPCClient_fetchEnrollmentStatusForSiriProfileId_forLanguageCode_completion___block_invoke(uint64_t a1, void *a2)
@@ -112,7 +110,7 @@ void __93__SSRVoiceProfileXPCClient_fetchEnrollmentStatusForSiriProfileId_forLan
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   xpcConnection = self->_xpcConnection;
   if (xpcConnection)
   {
@@ -120,7 +118,7 @@ void __93__SSRVoiceProfileXPCClient_fetchEnrollmentStatusForSiriProfileId_forLan
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v9 = "[SSRVoiceProfileXPCClient dealloc]";
+      v8 = "[SSRVoiceProfileXPCClient dealloc]";
       _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s disconnect VoiceProfileXPCClient", buf, 0xCu);
       xpcConnection = self->_xpcConnection;
     }
@@ -130,10 +128,9 @@ void __93__SSRVoiceProfileXPCClient_fetchEnrollmentStatusForSiriProfileId_forLan
     self->_xpcConnection = 0;
   }
 
-  v7.receiver = self;
-  v7.super_class = SSRVoiceProfileXPCClient;
-  [(SSRVoiceProfileXPCClient *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = SSRVoiceProfileXPCClient;
+  [(SSRVoiceProfileXPCClient *)&v6 dealloc];
 }
 
 - (void)_handleListenerDisconnectedError:(id)error
@@ -150,7 +147,7 @@ void __93__SSRVoiceProfileXPCClient_fetchEnrollmentStatusForSiriProfileId_forLan
 
 - (void)_handleListenerError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (!errorCopy)
@@ -161,10 +158,10 @@ void __93__SSRVoiceProfileXPCClient_fetchEnrollmentStatusForSiriProfileId_forLan
       goto LABEL_13;
     }
 
-    v13 = 136315394;
-    v14 = "[SSRVoiceProfileXPCClient _handleListenerError:]";
-    v15 = 2050;
-    v16 = 0;
+    v12 = 136315394;
+    v13 = "[SSRVoiceProfileXPCClient _handleListenerError:]";
+    v14 = 2050;
+    v15 = 0;
     v8 = "%s cannot handle error : error = %{public}p";
     goto LABEL_15;
   }
@@ -178,33 +175,31 @@ void __93__SSRVoiceProfileXPCClient_fetchEnrollmentStatusForSiriProfileId_forLan
       goto LABEL_13;
     }
 
-    v13 = 136315394;
-    v14 = "[SSRVoiceProfileXPCClient _handleListenerError:]";
-    v15 = 2082;
-    v16 = string;
+    v12 = 136315394;
+    v13 = "[SSRVoiceProfileXPCClient _handleListenerError:]";
+    v14 = 2082;
+    v15 = string;
     v8 = "%s connection error: %{public}s";
 LABEL_15:
-    _os_log_error_impl(&dword_225E12000, v10, OS_LOG_TYPE_ERROR, v8, &v13, 0x16u);
+    _os_log_error_impl(&dword_225E12000, v10, OS_LOG_TYPE_ERROR, v8, &v12, 0x16u);
     goto LABEL_13;
   }
 
   v7 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SSRVoiceProfileXPCClient _handleListenerError:]";
-    _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Listener connection disconnected", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SSRVoiceProfileXPCClient _handleListenerError:]";
+    _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Listener connection disconnected", &v12, 0xCu);
   }
 
   [(SSRVoiceProfileXPCClient *)self _handleListenerDisconnectedError:v5];
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleListenerEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = eventCopy;
   if (eventCopy)
@@ -218,13 +213,13 @@ LABEL_13:
     v6 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[SSRVoiceProfileXPCClient _handleListenerEvent:]";
+      v11 = 136315138;
+      v12 = "[SSRVoiceProfileXPCClient _handleListenerEvent:]";
       v7 = "%s ignore unknown types of message ";
       v8 = v6;
       v9 = 12;
 LABEL_7:
-      _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, v7, &v12, v9);
+      _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, v7, &v11, v9);
     }
   }
 
@@ -233,10 +228,10 @@ LABEL_7:
     v10 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[SSRVoiceProfileXPCClient _handleListenerEvent:]";
-      v14 = 2050;
-      v15 = 0;
+      v11 = 136315394;
+      v12 = "[SSRVoiceProfileXPCClient _handleListenerEvent:]";
+      v13 = 2050;
+      v14 = 0;
       v7 = "%s cannot handle event : event = %{public}p";
       v8 = v10;
       v9 = 22;
@@ -245,8 +240,6 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect

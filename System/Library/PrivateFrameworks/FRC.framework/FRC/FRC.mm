@@ -284,7 +284,7 @@ LABEL_10:
   }
 }
 
-uint64_t loadTexture(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
+void *loadTexture(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   if (a5)
   {
@@ -882,7 +882,7 @@ float compareCVPixelBuffers(__CVBuffer *a1, __CVBuffer *a2, unint64_t a3, int a4
 
 float compareBGRAPixelBuffers(__CVBuffer *a1, __CVBuffer *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   CVPixelBufferLockBaseAddress(a1, 1uLL);
   CVPixelBufferLockBaseAddress(a2, 1uLL);
   Width = CVPixelBufferGetWidth(a1);
@@ -890,16 +890,16 @@ float compareBGRAPixelBuffers(__CVBuffer *a1, __CVBuffer *a2)
   BytesPerRow = CVPixelBufferGetBytesPerRow(a1);
   BaseAddress = CVPixelBufferGetBaseAddress(a1);
   v8 = CVPixelBufferGetBaseAddress(a2);
-  v31 = 0;
   v30 = 0;
   v29 = 0;
   v28 = 0;
   v27 = 0;
-  v26 = 2139095039;
-  v25 = 0;
+  v26 = 0;
+  v25 = 2139095039;
   v24 = 0;
   v23 = 0;
-  v22 = 2139095039;
+  v22 = 0;
+  v21 = 2139095039;
   if (Height)
   {
     LODWORD(v11) = 0;
@@ -921,14 +921,14 @@ float compareBGRAPixelBuffers(__CVBuffer *a1, __CVBuffer *a2)
             *&v9 = v9;
             v10 = *&v10 / 255.0;
             *&v10 = v10;
-            *(&v30 + i) = *(&v30 + i) + ((*&v9 - *&v10) * (*&v9 - *&v10));
+            *(&v29 + i) = *(&v29 + i) + ((*&v9 - *&v10) * (*&v9 - *&v10));
             *&v10 = vabds_f32(*&v9, *&v10);
-            *(&v26 + i) = fminf(*&v10, *(&v26 + i));
-            *(&v28 + i) = fmaxf(*&v10, *(&v28 + i));
-            *(&v22 + i) = fminf(*&v9, *(&v22 + i));
-            LODWORD(v10) = *(&v24 + i);
+            *(&v25 + i) = fminf(*&v10, *(&v25 + i));
+            *(&v27 + i) = fmaxf(*&v10, *(&v27 + i));
+            *(&v21 + i) = fminf(*&v9, *(&v21 + i));
+            LODWORD(v10) = *(&v23 + i);
             *&v9 = fmaxf(*&v9, *&v10);
-            *(&v24 + i) = LODWORD(v9);
+            *(&v23 + i) = LODWORD(v9);
           }
 
           ++v13;
@@ -951,29 +951,26 @@ float compareBGRAPixelBuffers(__CVBuffer *a1, __CVBuffer *a2)
   CVPixelBufferUnlockBaseAddress(a2, 1uLL);
   for (j = 0; j != 3; ++j)
   {
-    v18 = *(&v30 + j) / (Height * Width);
-    v21[j] = v18;
-    printf("[%d]\tDynamic Range [%6.3f, %6.3f]", j, *(&v22 + j), *(&v24 + j));
-    printf("\tMax Diff = %6.6f, Min Diff = %6.6f, MSE = %6.6f\n", *(&v28 + j), *(&v26 + j), v18);
+    v18 = *(&v29 + j) / (Height * Width);
+    v20[j] = v18;
+    printf("[%d]\tDynamic Range [%6.3f, %6.3f]", j, *(&v21 + j), *(&v23 + j));
+    printf("\tMax Diff = %6.6f, Min Diff = %6.6f, MSE = %6.6f\n", *(&v27 + j), *(&v25 + j), v18);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return ((v21[0] + v21[1]) + v21[2]) / 3.0;
+  return ((v20[0] + v20[1]) + v20[2]) / 3.0;
 }
 
 uint64_t checkMemoryLeaks()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = getpid();
   snprintf(__str, 0x1F3uLL, "/usr/bin/leaks %d", v0);
-  result = system(__str);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return system(__str);
 }
 
 void checkMemoryFootPrint()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = NSUserName();
   if ([v0 isEqualToString:@"root"])
   {
@@ -981,8 +978,6 @@ void checkMemoryFootPrint()
     snprintf(__str, 0x1F3uLL, "/usr/local/bin/jetsam_priority -p %d", v1);
     system(__str);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t readYUVPlanar(FILE *a1, CVPixelBufferRef pixelBuffer)
@@ -1228,7 +1223,7 @@ LABEL_5:
 
 uint64_t saveTensorBufferWithChannelOffset(__CVBuffer *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6, const char *a7)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   __sprintf_chk(__filename, 0, 0x100uLL, "%s/%s%ldx%ldx%ld.yuv", a7, a6, a2, a3, a4);
   printf("\tfile name = %s\n", __filename);
   if (CVPixelBufferGetWidth(a1) != a2)
@@ -1250,9 +1245,7 @@ uint64_t saveTensorBufferWithChannelOffset(__CVBuffer *a1, uint64_t a2, uint64_t
 
   v14 = v13;
   writeBufferWithVerticalOffset(v13, a1, a5 * a3, v12);
-  result = fclose(v14);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return fclose(v14);
 }
 
 uint64_t readYUV10bit(FILE *a1, CVPixelBufferRef pixelBuffer)
@@ -1428,7 +1421,7 @@ uint64_t writeYUV10bit(FILE *a1, CVPixelBufferRef pixelBuffer)
 
 CVPixelBufferRef readPNG(uint64_t a1)
 {
-  v60[3] = *MEMORY[0x277D85DE8];
+  v59[3] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = MEMORY[0x277CBEBC0];
@@ -1443,10 +1436,10 @@ CVPixelBufferRef readPNG(uint64_t a1)
       PixelBuffer = 0;
 LABEL_21:
 
-      goto LABEL_22;
+      return PixelBuffer;
     }
 
-    v46 = v4;
+    v45 = v4;
     v7 = [v5 properties];
     v8 = [v6 colorSpace];
     v9 = [v7 objectForKeyedSubscript:@"PixelWidth"];
@@ -1455,7 +1448,7 @@ LABEL_21:
     v11 = [v7 objectForKeyedSubscript:@"PixelHeight"];
     v12 = [v11 integerValue];
 
-    v45 = v7;
+    v44 = v7;
     v13 = [v7 objectForKeyedSubscript:@"Depth"];
     v14 = [v13 integerValue];
 
@@ -1475,39 +1468,39 @@ LABEL_21:
     v19 = *MEMORY[0x277CC4C00];
     v20 = *MEMORY[0x277CC4C20];
     v21 = *MEMORY[0x277CC4CC0];
-    v59[0] = *MEMORY[0x277CC4C00];
-    v59[1] = v21;
+    v58[0] = *MEMORY[0x277CC4C00];
+    v58[1] = v21;
     v22 = *MEMORY[0x277CC4CD8];
-    v43 = v20;
-    v60[0] = v20;
-    v60[1] = v22;
-    v41 = v22;
+    v42 = v20;
+    v59[0] = v20;
+    v59[1] = v22;
+    v40 = v22;
     v23 = *MEMORY[0x277CC4D10];
-    v59[2] = *MEMORY[0x277CC4D10];
+    v58[2] = *MEMORY[0x277CC4D10];
     v24 = *MEMORY[0x277CC4D28];
-    v60[2] = *MEMORY[0x277CC4D28];
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:3];
+    v59[2] = *MEMORY[0x277CC4D28];
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:3];
     ColorSpaceFromAttachments = CVImageBufferCreateColorSpaceFromAttachments(v25);
     cf = CGColorSpaceCreateWithName(*MEMORY[0x277CBF3E0]);
-    v49 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF478]);
-    v48 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF470]);
-    v47 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF488]);
+    v48 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF478]);
+    v47 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF470]);
+    v46 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF488]);
     Name = CGColorSpaceGetName(v16);
     if (Name && CFEqual(Name, *MEMORY[0x277CBF4B8]))
     {
-      v57[0] = v19;
-      v57[1] = v21;
+      v56[0] = v19;
+      v56[1] = v21;
       v27 = *MEMORY[0x277CC4D08];
-      v58[0] = v43;
-      v58[1] = v27;
-      v57[2] = v23;
-      v58[2] = v24;
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:3];
+      v57[0] = v42;
+      v57[1] = v27;
+      v56[2] = v23;
+      v57[2] = v24;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
     }
 
     else
     {
-      v42 = v25;
+      v41 = v25;
       v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:a1];
       v30 = [v29 pathExtension];
       if ([v30 isEqual:@"png"])
@@ -1522,32 +1515,32 @@ LABEL_21:
           if ((CGColorSpaceEqualToColorSpace() & 1) != 0 || CGColorSpaceEqualToColorSpace())
           {
             v34 = *MEMORY[0x277CC4C18];
-            v53[0] = v19;
-            v53[1] = v21;
+            v52[0] = v19;
+            v52[1] = v21;
             v35 = *MEMORY[0x277CC4CD0];
-            v54[0] = v34;
-            v54[1] = v35;
-            v53[2] = v23;
-            v54[2] = *MEMORY[0x277CC4D18];
-            v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:3];
-            v25 = v42;
+            v53[0] = v34;
+            v53[1] = v35;
+            v52[2] = v23;
+            v53[2] = *MEMORY[0x277CC4D18];
+            v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:3];
+            v25 = v41;
           }
 
           else
           {
-            v25 = v42;
+            v25 = v41;
             if ((CGColorSpaceEqualToColorSpace() & 1) == 0 && !CGColorSpaceEqualToColorSpace())
             {
               goto LABEL_20;
             }
 
-            v51[0] = v19;
-            v51[1] = v21;
-            v52[0] = v43;
-            v52[1] = v41;
-            v51[2] = v23;
-            v52[2] = v24;
-            v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3];
+            v50[0] = v19;
+            v50[1] = v21;
+            v51[0] = v42;
+            v51[1] = v40;
+            v50[2] = v23;
+            v51[2] = v24;
+            v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
             v16 = ColorSpaceFromAttachments;
           }
 
@@ -1559,12 +1552,12 @@ LABEL_20:
           [v6 extent];
           [v38 render:v6 toCVPixelBuffer:PixelBuffer bounds:v16 colorSpace:?];
           CFRelease(cf);
-          CFRelease(v49);
           CFRelease(v48);
           CFRelease(v47);
+          CFRelease(v46);
           CFRelease(v33);
 
-          v4 = v46;
+          v4 = v45;
           goto LABEL_21;
         }
       }
@@ -1575,16 +1568,16 @@ LABEL_20:
       }
 
       v36 = *MEMORY[0x277CC4C30];
-      v55[0] = v19;
-      v55[1] = v21;
+      v54[0] = v19;
+      v54[1] = v21;
       v37 = *MEMORY[0x277CC4D08];
-      v56[0] = v36;
-      v56[1] = v37;
-      v55[2] = v23;
-      v56[2] = *MEMORY[0x277CC4D20];
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
+      v55[0] = v36;
+      v55[1] = v37;
+      v54[2] = v23;
+      v55[2] = *MEMORY[0x277CC4D20];
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:3];
       v16 = v31;
-      v25 = v42;
+      v25 = v41;
     }
 
     v33 = ColorSpaceFromAttachments;
@@ -1592,10 +1585,7 @@ LABEL_20:
   }
 
   NSLog(&cfstr_ReadpngErrorFi.isa);
-  PixelBuffer = 0;
-LABEL_22:
-  v39 = *MEMORY[0x277D85DE8];
-  return PixelBuffer;
+  return 0;
 }
 
 void writePNG(FILE *a1, CVPixelBufferRef pixelBuffer)
@@ -1658,53 +1648,47 @@ LABEL_10:
 
 void writeGrayscaldTiff(FILE *a1, uint64_t a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   DeviceGray = CGColorSpaceCreateDeviceGray();
   v5 = *MEMORY[0x277CBF988];
-  v12 = *MEMORY[0x277CBFA40];
-  v13[0] = DeviceGray;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CBFA40];
+  v12[0] = DeviceGray;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v7 = [MEMORY[0x277CBF758] imageWithCVPixelBuffer:a2 options:v6];
   v8 = [MEMORY[0x277CBF740] context];
   v9 = objc_alloc_init(MEMORY[0x277CBEAC0]);
   v10 = [v8 TIFFRepresentationOfImage:v7 format:v5 colorSpace:DeviceGray options:v9];
   CFRelease(DeviceGray);
   fwrite([v10 bytes], 1uLL, objc_msgSend(v10, "length"), a1);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 __CVBuffer *create420vBufferFromFile(void *a1, size_t a2, size_t a3)
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  if (a1)
+  v15[3] = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v5 = a1;
-    PixelBuffer = createPixelBuffer(a2, a3, 0x34323066u, 0);
-    v7 = [v5 UTF8String];
-
-    v8 = fopen(v7, "rb");
-    readYUVPlanar(v8, PixelBuffer);
-    fclose(v8);
-    v9 = *MEMORY[0x277CC4C20];
-    v10 = *MEMORY[0x277CC4CC0];
-    v15[0] = *MEMORY[0x277CC4C00];
-    v15[1] = v10;
-    v11 = *MEMORY[0x277CC4CD8];
-    v16[0] = v9;
-    v16[1] = v11;
-    v15[2] = *MEMORY[0x277CC4D10];
-    v16[2] = *MEMORY[0x277CC4D28];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-    CMSetAttachments(PixelBuffer, v12, 1u);
+    return 0;
   }
 
-  else
-  {
-    PixelBuffer = 0;
-  }
+  v5 = a1;
+  PixelBuffer = createPixelBuffer(a2, a3, 0x34323066u, 0);
+  v7 = [v5 UTF8String];
 
-  v13 = *MEMORY[0x277D85DE8];
+  v8 = fopen(v7, "rb");
+  readYUVPlanar(v8, PixelBuffer);
+  fclose(v8);
+  v9 = *MEMORY[0x277CC4C20];
+  v10 = *MEMORY[0x277CC4CC0];
+  v14[0] = *MEMORY[0x277CC4C00];
+  v14[1] = v10;
+  v11 = *MEMORY[0x277CC4CD8];
+  v15[0] = v9;
+  v15[1] = v11;
+  v14[2] = *MEMORY[0x277CC4D10];
+  v15[2] = *MEMORY[0x277CC4D28];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  CMSetAttachments(PixelBuffer, v12, 1u);
+
   return PixelBuffer;
 }
 
@@ -1926,15 +1910,15 @@ uint64_t convertOneComponet16HalfToTwoComponent16Half(__CVBuffer *a1, __CVBuffer
   return CVPixelBufferUnlockBaseAddress(a2, 0);
 }
 
-void getPortShape(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void getPortShape(uint64_t a1, void *a2, void *a3, uint64_t *a4, unint64_t *a5)
 {
-  v20 = 0;
+  v21 = 0;
   is_tensor = e5rt_io_port_is_tensor();
   if (is_tensor)
   {
-    v9 = is_tensor;
+    v10 = is_tensor;
     last_error_message = e5rt_get_last_error_message();
-    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_io_port_is_tensor(port, &is_tensor)", v9, last_error_message);
+    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_io_port_is_tensor(port, &is_tensor)", v10, last_error_message);
     goto LABEL_15;
   }
 
@@ -1945,42 +1929,42 @@ void getPortShape(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   }
 
   *buf = 0;
-  v6 = e5rt_io_port_retain_surface_desc();
-  if (v6)
+  v7 = e5rt_io_port_retain_surface_desc();
+  if (v7)
   {
-    v11 = v6;
-    v12 = e5rt_get_last_error_message();
-    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_io_port_retain_surface_desc(port, &surface_desc)", v11, v12);
+    v12 = v7;
+    v13 = e5rt_get_last_error_message();
+    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_io_port_retain_surface_desc(port, &surface_desc)", v12, v13);
     goto LABEL_15;
   }
 
   width = e5rt_surface_desc_get_width();
   if (width)
   {
-    v13 = width;
-    v14 = e5rt_get_last_error_message();
-    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_surface_desc_get_width(surface_desc, width)", v13, v14);
+    v14 = width;
+    v15 = e5rt_get_last_error_message();
+    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_surface_desc_get_width(surface_desc, width)", v14, v15);
     goto LABEL_15;
   }
 
   height = e5rt_surface_desc_get_height();
   if (height)
   {
-    v15 = height;
-    v16 = e5rt_get_last_error_message();
-    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_surface_desc_get_height(surface_desc, height)", v15, v16);
+    v16 = height;
+    v17 = e5rt_get_last_error_message();
+    printf("FAILURE: %s returned error = %u. msg = %s\n", "e5rt_surface_desc_get_height(surface_desc, height)", v16, v17);
 LABEL_15:
     exit(1);
   }
 
   *a4 = 1;
-  LODWORD(v18) = 0;
+  LODWORD(v19) = 0;
   if (e5rt_surface_desc_get_format())
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_24A8C8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[OpticalFlowE5] failed to get surface format", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_24A8C8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[OpticalFlowE5] failed to get surface format", v18, 2u);
     }
   }
 }
@@ -2164,24 +2148,24 @@ uint64_t deinterleave2(uint64_t result, uint64_t a2, unint64_t a3, unint64_t a4,
 
 id findIRAPs(void *a1)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v41 = [MEMORY[0x277CBEB18] array];
+  v40 = [MEMORY[0x277CBEB18] array];
   v2 = [v1 tracksWithMediaType:*MEMORY[0x277CE5EA8]];
   v3 = [v2 objectAtIndexedSubscript:0];
 
-  v36 = v1;
+  v35 = v1;
   v4 = [MEMORY[0x277CE6410] assetReaderWithAsset:v1 error:0];
-  v35 = v3;
+  v34 = v3;
   v5 = [MEMORY[0x277CE6428] assetReaderSampleReferenceOutputWithTrack:v3];
   [v4 addOutput:v5];
-  v34 = v4;
+  v33 = v4;
   [v4 startReading];
   v6 = MEMORY[0x277CC0898];
   v7 = *MEMORY[0x277CC0898];
   v8 = *(MEMORY[0x277CC0898] + 12);
-  v53 = **&MEMORY[0x277CC08A0];
-  v45 = v5;
+  v52 = **&MEMORY[0x277CC08A0];
+  v44 = v5;
   v9 = [v5 copyNextSampleBuffer];
   if (v9)
   {
@@ -2189,12 +2173,12 @@ id findIRAPs(void *a1)
     v11 = *(v6 + 8);
     v12 = *(v6 + 16);
     flags = v8;
-    v40 = v7;
+    v39 = v7;
     value = v7;
-    v38 = v11;
-    v39 = v8;
+    v37 = v11;
+    v38 = v8;
     timescale = v11;
-    v37 = v12;
+    v36 = v12;
     epoch = v12;
     while (1)
     {
@@ -2203,32 +2187,32 @@ id findIRAPs(void *a1)
         goto LABEL_32;
       }
 
-      memset(&v52, 0, sizeof(v52));
-      CMSampleBufferGetPresentationTimeStamp(&v52, v10);
+      memset(&v51, 0, sizeof(v51));
+      CMSampleBufferGetPresentationTimeStamp(&v51, v10);
       v14 = CMSampleBufferGetSampleAttachmentsArray(v10, 1u);
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
       v15 = v14;
-      v16 = [v15 countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v47 objects:v53 count:16];
       if (!v16)
       {
         goto LABEL_13;
       }
 
       v17 = v16;
-      v18 = *v49;
+      v18 = *v48;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v49 != v18)
+          if (*v48 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v48 + 1) + 8 * i);
+          v20 = *(*(&v47 + 1) + 8 * i);
           v21 = [v20 objectForKeyedSubscript:@"HEVCSyncSampleNALUnitType"];
           if (v21)
           {
@@ -2244,14 +2228,14 @@ id findIRAPs(void *a1)
                 time1.flags = flags;
                 time1.epoch = epoch;
                 v29 = [MEMORY[0x277CCAE60] valueWithCMTime:&time1];
-                [v41 addObject:v29];
+                [v40 addObject:v29];
               }
 
-              value = v52.value;
-              flags = v52.flags;
-              timescale = v52.timescale;
-              v53 = v52;
-              epoch = v52.epoch;
+              value = v51.value;
+              flags = v51.flags;
+              timescale = v51.timescale;
+              v52 = v51;
+              epoch = v51.epoch;
               goto LABEL_31;
             }
 
@@ -2262,8 +2246,8 @@ id findIRAPs(void *a1)
 
 LABEL_29:
             v24 = MEMORY[0x277CCAE60];
-            *&time1.value = *&v52.value;
-            v25 = v52.epoch;
+            *&time1.value = *&v51.value;
+            v25 = v51.epoch;
             goto LABEL_30;
           }
 
@@ -2277,7 +2261,7 @@ LABEL_29:
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v48 objects:v54 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v47 objects:v53 count:16];
         if (v17)
         {
           continue;
@@ -2289,21 +2273,21 @@ LABEL_29:
 LABEL_13:
 
 LABEL_14:
-      time1 = v52;
-      time2 = v53;
+      time1 = v51;
+      time2 = v52;
       if (CMTimeCompare(&time1, &time2) == -1)
       {
-        time1 = v52;
+        time1 = v51;
         time2.value = value;
         time2.timescale = timescale;
         time2.flags = flags;
         time2.epoch = epoch;
         if (CMTimeCompare(&time1, &time2) == -1)
         {
-          value = v52.value;
-          flags = v52.flags;
-          timescale = v52.timescale;
-          epoch = v52.epoch;
+          value = v51.value;
+          flags = v51.flags;
+          timescale = v51.timescale;
+          epoch = v51.epoch;
         }
       }
 
@@ -2317,19 +2301,19 @@ LABEL_14:
 LABEL_30:
         time1.epoch = v25;
         v30 = [v24 valueWithCMTime:&time1];
-        [v41 addObject:v30];
+        [v40 addObject:v30];
 
-        epoch = v37;
-        flags = v39;
-        timescale = v38;
-        value = v40;
+        epoch = v36;
+        flags = v38;
+        timescale = v37;
+        value = v39;
       }
 
 LABEL_31:
 
 LABEL_32:
       CFRelease(v10);
-      v10 = [v45 copyNextSampleBuffer];
+      v10 = [v44 copyNextSampleBuffer];
       if (!v10)
       {
         if (flags)
@@ -2347,14 +2331,12 @@ LABEL_32:
   {
 LABEL_34:
     v31 = [MEMORY[0x277CCABB0] numberWithLongLong:value];
-    [v41 addObject:v31];
+    [v40 addObject:v31];
   }
 
 LABEL_35:
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v40;
 }
 
 float32x2_t calcNormalizationParams@<D0>(unint64_t a1@<X0>, float32x2_t *a2@<X8>, double a3@<D0>, double a4@<D1>, float a5@<S2>, float a6@<S3>, double a7@<D6>)
@@ -2389,11 +2371,11 @@ BOOL isTextureYUV420(void *a1)
   return v2;
 }
 
-void sub_24A8DD7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_24A8DD7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3367,11 +3349,12 @@ id uniformTimeScales(unint64_t a1)
   return v3;
 }
 
-void sub_24A8E3C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_24A8E3C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, ...)
 {
+  va_start(va, a62);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a63, 8);
-  _Block_object_dispose((v63 - 240), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v62 - 240), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3638,10 +3621,11 @@ void getSynthesisTensorSize(__int16 a1, int a2, unint64_t *a3)
   a3[2] = 3;
 }
 
-void sub_24A8F5100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_24A8F5100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a19, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3667,28 +3651,7 @@ CFMutableDictionaryRef createPixelBufferPoolWithExtendedPixels(uint64_t a1, uint
   {
     v8 = result;
     v9 = CFNumberCreate(v6, kCFNumberIntType, &valuePtr);
-    if (!v9)
-    {
-      goto LABEL_6;
-    }
-
-    v10 = v9;
-    CFDictionarySetValue(v8, *MEMORY[0x277CC4E30], v9);
-    CFRelease(v10);
-    Mutable = CFDictionaryCreateMutable(v6, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    CFDictionaryAddValue(v8, *MEMORY[0x277CC4DE8], Mutable);
-    CFRelease(Mutable);
-    v12 = CFNumberCreate(v6, kCFNumberLongType, &v25);
-    if (!v12)
-    {
-      goto LABEL_6;
-    }
-
-    v13 = v12;
-    CFDictionarySetValue(v8, *MEMORY[0x277CC4EC8], v12);
-    CFRelease(v13);
-    v14 = CFNumberCreate(v6, kCFNumberLongType, &v24);
-    if (v14)
+    if (v9 && (v10 = v9, CFDictionarySetValue(v8, *MEMORY[0x277CC4E30], v9), CFRelease(v10), Mutable = CFDictionaryCreateMutable(v6, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]), CFDictionaryAddValue(v8, *MEMORY[0x277CC4DE8], Mutable), CFRelease(Mutable), (v12 = CFNumberCreate(v6, kCFNumberLongType, &v25)) != 0) && (v13 = v12, CFDictionarySetValue(v8, *MEMORY[0x277CC4EC8], v12), CFRelease(v13), (v14 = CFNumberCreate(v6, kCFNumberLongType, &v24)) != 0))
     {
       v15 = v14;
       CFDictionarySetValue(v8, *MEMORY[0x277CC4DD8], v14);
@@ -3709,7 +3672,6 @@ CFMutableDictionaryRef createPixelBufferPoolWithExtendedPixels(uint64_t a1, uint
 
     else
     {
-LABEL_6:
       CFRelease(v8);
       return 0;
     }
@@ -4163,7 +4125,7 @@ LABEL_13:
   return v10;
 }
 
-void deserializeLivePhotoMetadata(const __CFData *a1, void *a2, void *a3)
+void deserializeLivePhotoMetadata(const __CFData *a1, void *a2, size_t *a3)
 {
   CFDataGetBytePtr(a1);
   CFDataGetLength(a1);
@@ -4201,7 +4163,7 @@ LABEL_8:
   *a3 = 0;
 }
 
-uint64_t getFigLivePhotoMetadataV3(_DWORD *a1)
+int32x4_t *getFigLivePhotoMetadataV3(_DWORD *a1)
 {
   if (*a1 < 3u)
   {
@@ -4210,15 +4172,6 @@ uint64_t getFigLivePhotoMetadataV3(_DWORD *a1)
 
   v2 = &a1[8 * a1[11]];
   return &v2[2 * vaddvq_s32(v2[3]) + 4];
-}
-
-void getPortShape_cold_1(void *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = 8 * *a1;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 CGRect CVImageBufferGetCleanRect(CVImageBufferRef imageBuffer)

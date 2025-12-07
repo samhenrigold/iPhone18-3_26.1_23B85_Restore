@@ -4,9 +4,11 @@
 - (BOOL)_isSilenceOnlyInBuffer:(AudioQueueBuffer *)buffer packetCount:(unsigned int)count;
 - (BOOL)createAudioBuffersWithBufferByteSize:(unsigned int)size error:(id *)error;
 - (int64_t)_findSilencePacketOffset:(AudioQueueBuffer *)offset packetCount:(unsigned int)count silentSamplesMin:(int64_t)min zeroOffsetOnly:(BOOL)only;
+- (void)_appendBuffer:(AudioQueueBuffer *)buffer offsetInPackets:(unsigned int)packets packetCount:(unsigned int)count;
 - (void)_calcHistogramForBuffer:(AudioQueueBuffer *)buffer packetCount:(unsigned int)count isSilence:(BOOL)silence;
 - (void)_pauseSpeechRecognition;
 - (void)cleanup;
+- (void)handleAudioBuffer:(AudioQueueBuffer *)buffer audioQueue:(OpaqueAudioQueue *)queue timestamp:(const AudioTimeStamp *)timestamp packetCount:(unsigned int)count packetDesc:(const AudioStreamPacketDescription *)desc;
 - (void)setupTranscriberIfNeeded;
 @end
 
@@ -104,7 +106,7 @@
 
 void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = AXLogLiveTranscription();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -113,20 +115,8 @@ void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke(uint64
   }
 
   v5 = [*(a1 + 32) textLogTime];
-  if (!v5)
+  if (!v5 || (v6 = v5, [MEMORY[0x277CBEAA8] now], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "textLogTime"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "timeIntervalSinceDate:", v8), v10 = v9, v8, v7, v6, v10 > 5.0))
   {
-    goto LABEL_5;
-  }
-
-  v6 = v5;
-  v7 = [MEMORY[0x277CBEAA8] now];
-  v8 = [*(a1 + 32) textLogTime];
-  [v7 timeIntervalSinceDate:v8];
-  v10 = v9;
-
-  if (v10 > 5.0)
-  {
-LABEL_5:
     v11 = AXLogLiveTranscription();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
@@ -135,11 +125,11 @@ LABEL_5:
       v14 = [v12 numberWithUnsignedInteger:{objc_msgSend(v13, "length")}];
       v15 = [v3 source];
       v16 = [v15 description];
-      v20 = 138412546;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_impl(&dword_256022000, v11, OS_LOG_TYPE_DEFAULT, "AudioTranscriber: caption %@ %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&dword_256022000, v11, OS_LOG_TYPE_DEFAULT, "AudioTranscriber: caption %@ %@", &v19, 0x16u);
     }
 
     v17 = [MEMORY[0x277CBEAA8] now];
@@ -148,8 +138,6 @@ LABEL_5:
 
   v18 = [*(a1 + 32) delegate];
   [v18 liveCaptionsResult:v3];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke_289(uint64_t a1)
@@ -175,33 +163,21 @@ void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke_289(ui
 
 void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 formattedString];
   v7 = [*(a1 + 32) textLogTime];
-  if (!v7)
+  if (!v7 || (v8 = v7, [MEMORY[0x277CBEAA8] now], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "textLogTime"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "timeIntervalSinceDate:", v10), v12 = v11, v10, v9, v8, v12 > 5.0))
   {
-    goto LABEL_3;
-  }
-
-  v8 = v7;
-  v9 = [MEMORY[0x277CBEAA8] now];
-  v10 = [*(a1 + 32) textLogTime];
-  [v9 timeIntervalSinceDate:v10];
-  v12 = v11;
-
-  if (v12 > 5.0)
-  {
-LABEL_3:
     v13 = AXLogLiveTranscription();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "length")}];
       v15 = [*(a1 + 32) appName];
       *buf = 138412546;
-      v30 = v14;
-      v31 = 2112;
-      v32 = v15;
+      v29 = v14;
+      v30 = 2112;
+      v31 = v15;
       _os_log_impl(&dword_256022000, v13, OS_LOG_TYPE_DEFAULT, "AudioTranscriber: Transcribed text: %@ for app: %@", buf, 0x16u);
     }
 
@@ -219,52 +195,102 @@ LABEL_3:
   v22 = [*(a1 + 32) pid];
   v23 = [*(a1 + 32) appID];
   v24 = [*(a1 + 32) appName];
-  LOBYTE(v28) = 0;
-  v25 = [(AXLTTranscribedData *)v20 initWithTranscription:v5 requestType:1 timestamp:v21 pid:v22 appID:v23 appName:v24 assetState:a3 silence:v28];
+  LOBYTE(v27) = 0;
+  v25 = [(AXLTTranscribedData *)v20 initWithTranscription:v5 requestType:1 timestamp:v21 pid:v22 appID:v23 appName:v24 assetState:a3 silence:v27];
 
   v26 = [*(a1 + 32) delegate];
   [v26 transcriberOutputData:v25];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke_293(uint64_t a1)
+void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke_293(uint64_t a1, uint64_t a2)
 {
   v15 = *MEMORY[0x277D85DE8];
-  v2 = AXLogLiveTranscription();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = AXLogLiveTranscription();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) appName];
+    v4 = [*(a1 + 32) appName];
     *buf = 138412290;
-    v14 = v3;
-    _os_log_impl(&dword_256022000, v2, OS_LOG_TYPE_DEFAULT, "AudioTranscriber: Recognized text for app: %@", buf, 0xCu);
+    v14 = v4;
+    _os_log_impl(&dword_256022000, v3, OS_LOG_TYPE_DEFAULT, "AudioTranscriber: Recognized text for app: %@", buf, 0xCu);
   }
 
-  v4 = [AXLTTranscribedData alloc];
-  v5 = [MEMORY[0x277CBEAA8] date];
-  v6 = [*(a1 + 32) pid];
-  v7 = [*(a1 + 32) appID];
-  v8 = [*(a1 + 32) appName];
+  v5 = [AXLTTranscribedData alloc];
+  v6 = [MEMORY[0x277CBEAA8] date];
+  v7 = [*(a1 + 32) pid];
+  v8 = [*(a1 + 32) appID];
+  v9 = [*(a1 + 32) appName];
   LOBYTE(v12) = 0;
-  v9 = [(AXLTTranscribedData *)v4 initWithTranscription:0 requestType:1 timestamp:v5 pid:v6 appID:v7 appName:v8 assetState:-2 silence:v12];
+  v10 = [(AXLTTranscribedData *)v5 initWithTranscription:0 requestType:1 timestamp:v6 pid:v7 appID:v8 appName:v9 assetState:-2 silence:v12];
 
-  v10 = [*(a1 + 32) delegate];
-  [v10 transcriberOutputData:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = [*(a1 + 32) delegate];
+  [v11 transcriberOutputData:v10];
 }
 
 - (void)cleanup
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = AXLogLiveTranscription();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = [(AXLTAudioOutTranscriber *)self pid];
+    appName = [(AXLTAudioOutTranscriber *)self appName];
+    v13[0] = 67109378;
+    v13[1] = v4;
+    v14 = 2112;
+    v15 = appName;
+    _os_log_impl(&dword_256022000, v3, OS_LOG_TYPE_DEFAULT, "AudioTranscriber: clean up pid %d, app: %@", v13, 0x12u);
+  }
+
+  if ([(AXLTAudioOutTranscriber *)self transcriberVersion])
+  {
+    transcriberV2 = [(AXLTAudioOutTranscriber *)self transcriberV2];
+    source = [(AXLTAudioOutTranscriber *)self source];
+    [transcriberV2 stopTranscriptionFor:source];
+  }
+
+  if (![(AXLTAudioOutTranscriber *)self transcriberVersion])
+  {
+    transcriber = [(AXLTAudioOutTranscriber *)self transcriber];
+    [transcriber stopTranscriptionForPID:{-[AXLTAudioOutTranscriber pid](self, "pid")}];
+  }
+
+  if ([(AXLTAudioOutTranscriber *)self audioQueue])
+  {
+    if (AudioQueueStop([(AXLTAudioOutTranscriber *)self audioQueue], 1u))
+    {
+      v9 = AXLogLiveTranscription();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        [AXLTAudioOutTranscriber cleanup];
+      }
+    }
+
+    if (AudioQueueFreeBuffer([(AXLTAudioOutTranscriber *)self audioQueue], self->_mBuffers[0]))
+    {
+      v10 = AXLogLiveTranscription();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        [AXLTAudioOutTranscriber cleanup];
+      }
+    }
+
+    if ([(AXLTAudioOutTranscriber *)self audioQueue]&& AudioQueueDispose([(AXLTAudioOutTranscriber *)self audioQueue], 1u))
+    {
+      v11 = AXLogLiveTranscription();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [AXLTAudioOutTranscriber cleanup];
+      }
+    }
+  }
+
+  v12 = +[AXLTAudioTextDumper sharedInstance];
+  [v12 cleanUp];
 }
 
 - (BOOL)createAudioBuffersWithBufferByteSize:(unsigned int)size error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   outBuffer = 0;
   v6 = AudioQueueAllocateBuffer([(AXLTAudioOutTranscriber *)self audioQueue], size, &outBuffer);
   if (v6)
@@ -277,24 +303,21 @@ void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke_293(ui
     }
 
     v9 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA068];
-    v23[0] = v7;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x277CCA068];
+    v22[0] = v7;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v11 = v9;
     v12 = 8;
+LABEL_9:
+    *error = [v11 errorWithDomain:@"com.apple.accessibility.LiveTranscription" code:v12 userInfo:v10];
+
+    return 0;
   }
 
-  else
+  audioQueue = [(AXLTAudioOutTranscriber *)self audioQueue];
+  v14 = AudioQueueEnqueueBuffer(audioQueue, outBuffer, 0, 0);
+  if (v14)
   {
-    audioQueue = [(AXLTAudioOutTranscriber *)self audioQueue];
-    v14 = AudioQueueEnqueueBuffer(audioQueue, outBuffer, 0, 0);
-    if (!v14)
-    {
-      self->_mBuffers[0] = outBuffer;
-      result = 1;
-      goto LABEL_10;
-    }
-
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to enqueue buffer: %d", v14];
     v15 = AXLogLiveTranscription();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -303,24 +326,57 @@ void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke_293(ui
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA068];
-    v21 = v7;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA068];
+    v20 = v7;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v11 = v16;
     v12 = 9;
+    goto LABEL_9;
   }
 
-  *error = [v11 errorWithDomain:@"com.apple.accessibility.LiveTranscription" code:v12 userInfo:v10];
+  self->_mBuffers[0] = outBuffer;
+  return 1;
+}
 
-  result = 0;
-LABEL_10:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+- (void)handleAudioBuffer:(AudioQueueBuffer *)buffer audioQueue:(OpaqueAudioQueue *)queue timestamp:(const AudioTimeStamp *)timestamp packetCount:(unsigned int)count packetDesc:(const AudioStreamPacketDescription *)desc
+{
+  v7 = *&count;
+  v10 = AXLogLiveTranscription();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [AXLTAudioOutTranscriber handleAudioBuffer:buffer audioQueue:v7 timestamp:v10 packetCount:? packetDesc:?];
+  }
+
+  if ([(AXLTAudioOutTranscriber *)self _isSilenceOnlyInBuffer:buffer packetCount:v7])
+  {
+    if (self->_silentBuffersCount <= 9)
+    {
+      [(AXLTAudioOutTranscriber *)self _appendBuffer:buffer offsetInPackets:0 packetCount:v7];
+    }
+
+    v11 = [(AXLTAudioOutTranscriber *)self pid];
+    silentBuffersCount = self->_silentBuffersCount;
+    if (v11 != -2 && silentBuffersCount >= 11)
+    {
+      [(AXLTAudioOutTranscriber *)self _pauseSpeechRecognition];
+      silentBuffersCount = self->_silentBuffersCount;
+    }
+
+    self->_silentBuffersCount = silentBuffersCount + 1;
+  }
+
+  else
+  {
+    [(AXLTAudioOutTranscriber *)self _appendBuffer:buffer offsetInPackets:0 packetCount:v7];
+    self->_silentBuffersCount = 0;
+  }
+
+  AudioQueueEnqueueBuffer([(AXLTAudioOutTranscriber *)self audioQueue], buffer, 0, 0);
 }
 
 - (void)_pauseSpeechRecognition
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = AXLogLiveTranscription();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -328,11 +384,11 @@ LABEL_10:
     v5 = [(AXLTAudioOutTranscriber *)self pid];
     appName = [(AXLTAudioOutTranscriber *)self appName];
     *buf = 138412802;
-    v10 = v4;
-    v11 = 1024;
-    v12 = v5;
-    v13 = 2112;
-    v14 = appName;
+    v9 = v4;
+    v10 = 1024;
+    v11 = v5;
+    v12 = 2112;
+    v13 = appName;
     _os_log_impl(&dword_256022000, v3, OS_LOG_TYPE_DEFAULT, "Pause recognition for silence %@, pid %d, app: %@", buf, 0x1Cu);
   }
 
@@ -345,8 +401,6 @@ LABEL_10:
     block[4] = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __50__AXLTAudioOutTranscriber__pauseSpeechRecognition__block_invoke(uint64_t a1)
@@ -499,23 +553,93 @@ LABEL_13:
   }
 }
 
-void __73__AXLTAudioOutTranscriber__calcHistogramForBuffer_packetCount_isSilence___block_invoke(uint64_t a1)
+void __73__AXLTAudioOutTranscriber__calcHistogramForBuffer_packetCount_isSilence___block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = AXLogLiveTranscription();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = AXLogLiveTranscription();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 32) appName];
+    v4 = [*(a1 + 32) appName];
     v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_256022000, v2, OS_LOG_TYPE_INFO, "Histogram for app: %@", &v7, 0xCu);
+    v8 = v4;
+    _os_log_impl(&dword_256022000, v3, OS_LOG_TYPE_INFO, "Histogram for app: %@", &v7, 0xCu);
   }
 
-  v4 = -[AXLTAudioInfo initWithAudioInfo:requestType:pid:]([AXLTAudioInfo alloc], "initWithAudioInfo:requestType:pid:", *(a1 + 40), 1, [*(a1 + 32) pid]);
-  v5 = [*(a1 + 32) delegate];
-  [v5 audioInfoData:v4];
+  v5 = -[AXLTAudioInfo initWithAudioInfo:requestType:pid:]([AXLTAudioInfo alloc], "initWithAudioInfo:requestType:pid:", *(a1 + 40), 1, [*(a1 + 32) pid]);
+  v6 = [*(a1 + 32) delegate];
+  [v6 audioInfoData:v5];
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)_appendBuffer:(AudioQueueBuffer *)buffer offsetInPackets:(unsigned int)packets packetCount:(unsigned int)count
+{
+  v5 = *&count;
+  v43 = *MEMORY[0x277D85DE8];
+  [(AXLTAudioOutTranscriber *)self setupTranscriberIfNeeded];
+  tapFormat = [(AXLTAudioOutTranscriber *)self tapFormat];
+  streamDescription = [tapFormat streamDescription];
+  v11 = *(streamDescription + 32);
+  v12 = *(streamDescription + 16);
+  v37 = *streamDescription;
+  v38 = v12;
+  v39 = v11;
+
+  v13 = [objc_alloc(MEMORY[0x277CB83A8]) initWithStreamDescription:&v37];
+  v14 = objc_alloc(MEMORY[0x277CB83C8]);
+  v15 = [v14 initWithPCMFormat:v13 frameCapacity:v5, v37, v38, v39];
+  [v15 setFrameLength:v5];
+  v16 = *([v15 mutableAudioBufferList] + 16);
+  v17 = 2 * packets;
+  v18 = (2 * v5);
+  v19 = AXLogLiveTranscription();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  {
+    mAudioDataByteSize = buffer->mAudioDataByteSize;
+    *buf = 67109632;
+    *v41 = v17;
+    *&v41[4] = 1024;
+    *&v41[6] = v18;
+    LOWORD(v42) = 1024;
+    *(&v42 + 2) = mAudioDataByteSize;
+    _os_log_debug_impl(&dword_256022000, v19, OS_LOG_TYPE_DEBUG, "Copy offsetInBytes = %d, dataByteSize = %d, full data size = %d", buf, 0x14u);
+  }
+
+  memcpy(v16, buffer->mAudioData + v17, v18);
+  bufferLogTime = [(AXLTAudioOutTranscriber *)self bufferLogTime];
+  if (!bufferLogTime || (v21 = bufferLogTime, [MEMORY[0x277CBEAA8] now], v22 = objc_claimAutoreleasedReturnValue(), -[AXLTAudioOutTranscriber bufferLogTime](self, "bufferLogTime"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "timeIntervalSinceDate:", v23), v25 = v24, v23, v22, v21, v25 > 5.0))
+  {
+    v26 = AXLogLiveTranscription();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v15, "frameCapacity")}];
+      appName = [(AXLTAudioOutTranscriber *)self appName];
+      *buf = 138412546;
+      *v41 = v27;
+      *&v41[8] = 2112;
+      v42 = appName;
+      _os_log_impl(&dword_256022000, v26, OS_LOG_TYPE_DEFAULT, "Sent audio buffer with size: %@ for app: %@", buf, 0x16u);
+    }
+
+    v29 = [MEMORY[0x277CBEAA8] now];
+    [(AXLTAudioOutTranscriber *)self setBufferLogTime:v29];
+  }
+
+  if ([(AXLTAudioOutTranscriber *)self transcriberVersion])
+  {
+    transcriberV2 = [(AXLTAudioOutTranscriber *)self transcriberV2];
+    source = [(AXLTAudioOutTranscriber *)self source];
+    [transcriberV2 addAudioPCMBuffer:v15 for:source];
+  }
+
+  if (![(AXLTAudioOutTranscriber *)self transcriberVersion])
+  {
+    transcriber = [(AXLTAudioOutTranscriber *)self transcriber];
+    [transcriber appendAudioPCMBuffer:v15 forPID:{-[AXLTAudioOutTranscriber pid](self, "pid")}];
+  }
+
+  v33 = +[AXLTAudioTextDumper sharedInstance];
+  appName2 = [(AXLTAudioOutTranscriber *)self appName];
+  sessionStartTime = [(AXLTAudioOutTranscriber *)self sessionStartTime];
+  [v33 saveAudioBuffer:v15 appName:appName2 sessionStartTime:sessionStartTime];
 }
 
 - (AXLTTranscriberDelegateProtocol)delegate
@@ -527,49 +651,37 @@ void __73__AXLTAudioOutTranscriber__calcHistogramForBuffer_packetCount_isSilence
 
 void __51__AXLTAudioOutTranscriber_setupTranscriberIfNeeded__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [a1 source];
   v5 = [v4 description];
   v6 = [a1 text];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_256022000, a2, OS_LOG_TYPE_DEBUG, "AudioTranscriber: caption %@ %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createAudioBuffersWithBufferByteSize:error:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_256022000, a2, OS_LOG_TYPE_DEBUG, "AudioTranscriber: caption %@ %@", &v7, 0x16u);
 }
 
 - (void)handleAudioBuffer:(os_log_t)log audioQueue:timestamp:packetCount:packetDesc:.cold.1(int *a1, int a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
   v4 = *a1;
-  v6[0] = 67109632;
-  v6[1] = a2;
-  v7 = 1024;
-  v8 = v3;
-  v9 = 1024;
-  v10 = v4;
-  _os_log_debug_impl(&dword_256022000, log, OS_LOG_TYPE_DEBUG, "handleAudioBuffer packets: %i, data size: %i, buffer capacity: %i", v6, 0x14u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109632;
+  v5[1] = a2;
+  v6 = 1024;
+  v7 = v3;
+  v8 = 1024;
+  v9 = v4;
+  _os_log_debug_impl(&dword_256022000, log, OS_LOG_TYPE_DEBUG, "handleAudioBuffer packets: %i, data size: %i, buffer capacity: %i", v5, 0x14u);
 }
 
 - (void)_isSilenceOnlyInBuffer:(unsigned __int16)a1 packetCount:(NSObject *)a2 .cold.1(unsigned __int16 a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_256022000, a2, OS_LOG_TYPE_DEBUG, "Found a sample of %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_256022000, a2, OS_LOG_TYPE_DEBUG, "Found a sample of %d", v2, 8u);
 }
 
 @end

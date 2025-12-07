@@ -85,7 +85,7 @@
     statusButton = IMLogHandleForCategory();
     if (os_log_type_enabled(statusButton, OS_LOG_TYPE_ERROR))
     {
-      [CKTranscriptStatusCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKTranscriptStatusCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
   }
 }
@@ -816,8 +816,7 @@ LABEL_13:
   transcriptStatusCellButtonConfiguration = [v2 transcriptStatusCellButtonConfiguration];
 
   v4 = [CKTranscriptLegibilityButton buttonWithConfiguration:transcriptStatusCellButtonConfiguration primaryAction:0];
-  [v4 setConfigurationUpdateHandler:&__block_literal_global_280];
-  [v4 setEnabled:CKIsRunningInMessagesNotificationExtension() == 0];
+  [v4 setEnabled:{CKIsRunningInMessagesNotificationExtension(objc_msgSend(v4, "setConfigurationUpdateHandler:", &__block_literal_global_280)) == 0}];
 
   return v4;
 }

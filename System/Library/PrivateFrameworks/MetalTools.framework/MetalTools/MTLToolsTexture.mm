@@ -71,12 +71,12 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = MEMORY[0x277CCACA8];
   v7 = [-[MTLToolsObject baseObject](self "baseObject")];
-  v11[0] = v5;
-  v11[1] = @"label =";
+  v10[0] = v5;
+  v10[1] = @"label =";
   if ([(MTLToolsResource *)self label])
   {
     label = [(MTLToolsResource *)self label];
@@ -87,10 +87,8 @@
     label = @"<none>";
   }
 
-  v11[2] = label;
-  result = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v11, 3), "componentsJoinedByString:", @" "];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v10[2] = label;
+  return [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v10, 3), "componentsJoinedByString:", @" "];
 }
 
 - (MTLToolsTexture)initWithBaseObject:(id)object parent:(id)parent parentTexture:(id)texture

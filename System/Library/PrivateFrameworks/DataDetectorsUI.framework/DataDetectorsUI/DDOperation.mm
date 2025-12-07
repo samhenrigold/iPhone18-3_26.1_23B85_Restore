@@ -148,10 +148,9 @@ LABEL_26:
 
 - (void)main
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Got an exception during scanning: %@", v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Got an exception during scanning: %@", v0, 0xCu);
 }
 
 - (void)cleanup
@@ -201,7 +200,7 @@ LABEL_26:
   return v4;
 }
 
-uint64_t __41__DDOperation_shouldUrlifyBlockForTypes___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
+uint64_t __41__DDOperation_shouldUrlifyBlockForTypes___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
@@ -273,14 +272,13 @@ LABEL_22:
 
     if (v11 == -1)
     {
-      v15 = *MEMORY[0x277D04048];
       if (DDResultHasType())
       {
-        v16 = [MEMORY[0x277CCA8D8] mainBundle];
-        v17 = [v16 bundleIdentifier];
-        v18 = [v17 isEqualToString:@"com.apple.MobileSMS"];
+        v15 = [MEMORY[0x277CCA8D8] mainBundle];
+        v16 = [v15 bundleIdentifier];
+        v17 = [v16 isEqualToString:@"com.apple.MobileSMS"];
 
-        if (v18)
+        if (v17)
         {
           goto LABEL_16;
         }
@@ -289,78 +287,70 @@ LABEL_22:
 
     if ((~*(a1 + 32) & 0x1FFLL) == 0)
     {
-      v19 = *MEMORY[0x277D040B8];
       if (DDResultHasType())
       {
-        v20 = [MEMORY[0x277CCA8D8] mainBundle];
-        v21 = [v20 bundleIdentifier];
-        v22 = [v21 isEqualToString:@"com.apple.MobileSMS"];
+        v18 = [MEMORY[0x277CCA8D8] mainBundle];
+        v19 = [v18 bundleIdentifier];
+        v20 = [v19 isEqualToString:@"com.apple.MobileSMS"];
 
-        if (v22)
+        if (v20)
         {
           goto LABEL_16;
         }
       }
     }
 
-    v23 = *(a1 + 32);
-    if ((v23 & 0x40000) == 0)
+    v21 = *(a1 + 32);
+    if ((v21 & 0x40000) == 0)
     {
       goto LABEL_35;
     }
 
-    v24 = *MEMORY[0x277D04048];
     if ((DDResultHasType() & 1) == 0)
     {
-      v23 = *(a1 + 32);
+      v21 = *(a1 + 32);
 LABEL_35:
-      if ((~v23 & 0x1FF) == 0)
+      if ((~v21 & 0x1FF) == 0)
       {
-        v25 = *MEMORY[0x277D041B8];
         if (DDResultHasType())
         {
-          v26 = DDUPIAction;
+          v22 = DDUPIAction;
 LABEL_43:
-          v27 = [(__objc2_class *)v26 actionAvailableForResult:a2 url:0 context:0];
+          v23 = [(__objc2_class *)v22 actionAvailableForResult:a2 url:0 context:0];
 LABEL_51:
-          v12 = v27;
+          v12 = v23;
           goto LABEL_53;
         }
 
-        v23 = *(a1 + 32);
+        v21 = *(a1 + 32);
       }
 
-      if ((~v23 & 0x1FF) == 0)
+      if ((~v21 & 0x1FF) == 0)
       {
         if (DDResultHasType())
         {
-          v26 = DDEventsAction;
+          v22 = DDEventsAction;
           goto LABEL_43;
         }
 
-        v23 = *(a1 + 32);
+        v21 = *(a1 + 32);
       }
 
-      if ((v23 & 0x80) != 0)
+      if ((v21 & 0x80) != 0)
       {
-        v28 = *MEMORY[0x277D04140];
         if (DDResultHasType())
         {
 LABEL_50:
-          v27 = [DDConversionAction actionAvailableForResult:a2];
+          v23 = [DDConversionAction actionAvailableForResult:a2];
           goto LABEL_51;
         }
 
-        v23 = *(a1 + 32);
+        v21 = *(a1 + 32);
       }
 
-      if ((v23 & 0x100) != 0)
+      if ((v21 & 0x100) != 0 && DDResultHasType())
       {
-        v29 = *MEMORY[0x277D04168];
-        if (DDResultHasType())
-        {
-          goto LABEL_50;
-        }
+        goto LABEL_50;
       }
 
 LABEL_52:
@@ -379,7 +369,7 @@ LABEL_16:
     goto LABEL_22;
   }
 
-  v13 = _DDURLFromResult(a2);
+  v13 = _DDURLFromResult(a2, 1u);
   v14 = v13;
   if (v13)
   {
@@ -417,16 +407,15 @@ id __41__DDOperation_urlificationBlockForTypes___block_invoke(uint64_t a1, uint6
   v12 = [DDOperation shouldUrlifyBlockForTypes:*(a1 + 32)];
   if ((v12)[2](v12, a2, v10, v11))
   {
-    v13 = *(a1 + 32);
-    v14 = DDURLStringForResult();
+    v13 = DDURLStringForResult();
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)doURLificationOnDocument
@@ -552,36 +541,31 @@ void __60__DDOperation_dispatchScanQueryCreationWithCompletionBlock___block_invo
 
 - (void)_createScanQuery
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_21AB70000, MEMORY[0x277D86220], v0, "operation %p is discarded", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  [self _rangeValidForContainer];
+  [self generationNumber];
+  OUTLINED_FUNCTION_3_0();
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
 }
 
 - (void)newOperationForStartingOver
 {
-  v8 = *MEMORY[0x277D85DE8];
   container = [self container];
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __60__DDOperation_dispatchScanQueryCreationWithCompletionBlock___block_invoke_cold_1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_1(&dword_21AB70000, MEMORY[0x277D86220], a3, "Calling the completion block for %p", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_21AB70000, MEMORY[0x277D86220], a3, "Calling the completion block for %p", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __60__DDOperation_dispatchScanQueryCreationWithCompletionBlock___block_invoke_cold_2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_1(&dword_21AB70000, MEMORY[0x277D86220], a3, "Should retry operation %p", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_21AB70000, MEMORY[0x277D86220], a3, "Should retry operation %p", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

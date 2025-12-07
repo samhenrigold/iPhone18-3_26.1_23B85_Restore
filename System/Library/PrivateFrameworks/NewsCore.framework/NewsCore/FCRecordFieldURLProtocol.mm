@@ -14,20 +14,20 @@
 
 + (void)setupWithArticleDatabase:(id)database
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   if (!databaseCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record field URL protocol requires a non-nil database"];
-    v11 = 136315906;
-    v12 = "+[FCRecordFieldURLProtocol setupWithArticleDatabase:]";
-    v13 = 2080;
-    v14 = "FCRecordFieldURLProtocol.m";
-    v15 = 1024;
-    v16 = 36;
-    v17 = 2114;
-    v18 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record field URL protocol requires a non-nil database"];
+    v10 = 136315906;
+    v11 = "+[FCRecordFieldURLProtocol setupWithArticleDatabase:]";
+    v12 = 2080;
+    v13 = "FCRecordFieldURLProtocol.m";
+    v14 = 1024;
+    v15 = 36;
+    v16 = 2114;
+    v17 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
   }
 
   WeakRetained = objc_loadWeakRetained(&s_database);
@@ -38,23 +38,21 @@
 
     if (!v7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record field URL protocol has already been setup"];
-      v11 = 136315906;
-      v12 = "+[FCRecordFieldURLProtocol setupWithArticleDatabase:]";
-      v13 = 2080;
-      v14 = "FCRecordFieldURLProtocol.m";
-      v15 = 1024;
-      v16 = 37;
-      v17 = 2114;
-      v18 = v10;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record field URL protocol has already been setup"];
+      v10 = 136315906;
+      v11 = "+[FCRecordFieldURLProtocol setupWithArticleDatabase:]";
+      v12 = 2080;
+      v13 = "FCRecordFieldURLProtocol.m";
+      v14 = 1024;
+      v15 = 37;
+      v16 = 2114;
+      v17 = v9;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
     }
   }
 
   objc_storeWeak(&s_database, databaseCopy);
   [MEMORY[0x1E695AC60] registerClass:self];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unregister
@@ -72,7 +70,7 @@
 
 + (id)URLForRecordID:(id)d fieldName:(id)name
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   nameCopy = name;
   WeakRetained = objc_loadWeakRetained(&s_database);
@@ -82,16 +80,16 @@
 
   else if (!NSClassFromString(&cfstr_Xctest.isa) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't construct a URL without a database"];
-    v15 = 136315906;
-    v16 = "+[FCRecordFieldURLProtocol URLForRecordID:fieldName:]";
-    v17 = 2080;
-    v18 = "FCRecordFieldURLProtocol.m";
-    v19 = 1024;
-    v20 = 56;
-    v21 = 2114;
-    v22 = v14;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't construct a URL without a database"];
+    v14 = 136315906;
+    v15 = "+[FCRecordFieldURLProtocol URLForRecordID:fieldName:]";
+    v16 = 2080;
+    v17 = "FCRecordFieldURLProtocol.m";
+    v18 = 1024;
+    v19 = 56;
+    v20 = 2114;
+    v21 = v13;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v14, 0x26u);
   }
 
   v8 = objc_loadWeakRetained(&s_database);
@@ -107,8 +105,6 @@
 
     v8 = [v9 URL];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -149,20 +145,20 @@
 
 - (void)startLoading
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   fetchOperation = [(FCRecordFieldURLProtocol *)self fetchOperation];
 
   if (fetchOperation && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't have a fetch operation yet"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't have a fetch operation yet"];
     *buf = 136315906;
     *&buf[4] = "[FCRecordFieldURLProtocol startLoading]";
     *&buf[12] = 2080;
     *&buf[14] = "FCRecordFieldURLProtocol.m";
     *&buf[22] = 1024;
-    LODWORD(v32) = 99;
-    WORD2(v32) = 2114;
-    *(&v32 + 6) = v22;
+    LODWORD(v31) = 99;
+    WORD2(v31) = 2114;
+    *(&v31 + 6) = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -172,12 +168,12 @@
   pathComponents = [v5 pathComponents];
   if ([pathComponents count] <= 2)
   {
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __40__FCRecordFieldURLProtocol_startLoading__block_invoke;
-    v30[3] = &unk_1E7C36EA0;
-    v30[4] = self;
-    __40__FCRecordFieldURLProtocol_startLoading__block_invoke(v30);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __40__FCRecordFieldURLProtocol_startLoading__block_invoke;
+    v29[3] = &unk_1E7C36EA0;
+    v29[4] = self;
+    __40__FCRecordFieldURLProtocol_startLoading__block_invoke(v29);
   }
 
   else
@@ -193,15 +189,15 @@
     WeakRetained = objc_loadWeakRetained(&s_database);
     [(FCCKContentFetchOperation *)v12 setDatabase:?];
 
-    v35[0] = v9;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+    v34[0] = v9;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
     if (v12)
     {
       objc_setProperty_nonatomic_copy(v12, v14, v15, 384);
     }
 
-    v34 = v11;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+    v33 = v11;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
     if (v12)
     {
       objc_setProperty_nonatomic_copy(v12, v16, v17, 400);
@@ -211,9 +207,9 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    *&v32 = __Block_byref_object_copy__31;
-    *(&v32 + 1) = __Block_byref_object_dispose__31;
-    v33 = 0;
+    *&v31 = __Block_byref_object_copy__31;
+    *(&v31 + 1) = __Block_byref_object_dispose__31;
+    v32 = 0;
     newValue[0] = MEMORY[0x1E69E9820];
     newValue[1] = 3221225472;
     newValue[2] = __40__FCRecordFieldURLProtocol_startLoading__block_invoke_34;
@@ -224,30 +220,28 @@
       objc_setProperty_nonatomic_copy(v12, v18, newValue, 416);
     }
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __40__FCRecordFieldURLProtocol_startLoading__block_invoke_2;
-    v23[3] = &unk_1E7C3F610;
-    objc_copyWeak(&v27, &location);
-    v26 = buf;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __40__FCRecordFieldURLProtocol_startLoading__block_invoke_2;
+    v22[3] = &unk_1E7C3F610;
+    objc_copyWeak(&v26, &location);
+    v25 = buf;
     v19 = v11;
-    v24 = v19;
-    v25 = v5;
+    v23 = v19;
+    v24 = v5;
     if (v12)
     {
-      objc_setProperty_nonatomic_copy(v12, v20, v23, 424);
+      objc_setProperty_nonatomic_copy(v12, v20, v22, 424);
     }
 
     [(FCRecordFieldURLProtocol *)self setFetchOperation:v12];
     [(FCOperation *)v12 start];
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     _Block_object_dispose(buf, 8);
 
     objc_destroyWeak(&location);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __40__FCRecordFieldURLProtocol_startLoading__block_invoke(uint64_t a1)

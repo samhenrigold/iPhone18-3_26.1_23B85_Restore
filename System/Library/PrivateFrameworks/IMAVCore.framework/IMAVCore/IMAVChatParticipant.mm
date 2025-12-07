@@ -7,10 +7,13 @@
 - (BOOL)matchesAVConferenceCallID:(int64_t)d;
 - (CGRect)_remoteLandscapeContentRect;
 - (CGRect)_remotePortraitContentRect;
+- (CGRect)contentRectForCameraOrientation:(unsigned int)orientation cameraType:(unsigned int)type;
 - (CGSize)_remoteLandscapeOrientation;
 - (CGSize)_remotePIPLandscapeOrientation;
 - (CGSize)_remotePIPPortraitOrientation;
 - (CGSize)_remotePortraitOrientation;
+- (CGSize)aspectRatioForCameraOrientation:(unsigned int)orientation cameraType:(unsigned int)type;
+- (CGSize)localAspectRatioForCameraOrientation:(unsigned int)orientation cameraType:(unsigned int)type;
 - (IMAVChatParticipant)init;
 - (id)_callInfoForCallID:(int64_t)d;
 - (id)_callInfoForReinitiate;
@@ -25,6 +28,7 @@
 - (id)description;
 - (id)initAs:(id)as invitedBy:(id)by toChat:(id)chat account:(id)account;
 - (int64_t)bestCallID;
+- (void)_cancelInvitationWithReason:(unsigned int)reason response:(id)response;
 - (void)_cleanupOrphanedCallInfos;
 - (void)_connectTimeout:(id)timeout;
 - (void)_handleIMAVResponse:(unsigned int)response;
@@ -35,15 +39,20 @@
 - (void)_registerCallInfo:(id)info;
 - (void)_sendResponse:(unsigned int)response callInfo:(id)info;
 - (void)_setConferenceID:(id)d;
+- (void)_setState:(unsigned int)state withReason:(unsigned int)reason andError:(int)error;
 - (void)_switchToUseNewIMHandle:(id)handle;
 - (void)_updateProperties:(id)properties;
+- (void)cancelInvitationWithResponse:(unsigned int)response;
 - (void)dealloc;
 - (void)reinitializeCallForCallID:(unsigned int)d;
 - (void)requestIconIfNecessary;
 - (void)resetWaitingToConnectTimer;
+- (void)sendAVMessage:(unsigned int)message userInfo:(id)info;
 - (void)sendInvitation;
 - (void)setInFrequencyLevel:(id)level;
 - (void)setOutFrequencyLevel:(id)level;
+- (void)setState:(unsigned int)state;
+- (void)setStateToEndedWithReason:(unsigned int)reason andError:(int)error;
 - (void)setVideoBackLayer:(void *)layer;
 - (void)setVideoLayer:(void *)layer;
 - (void)setWaitingToConnect:(BOOL)connect;
@@ -140,35 +149,35 @@
 
 - (id)callInfoBeingHandedOff
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_participantsCallInfo;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v16, v20, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v15, v19, 16);
   if (v10)
   {
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v4);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        if (objc_msgSend_isBeingHandedOff(v13, v6, v7, v8, v9, v16))
+        v13 = *(*(&v15 + 1) + 8 * i);
+        if (objc_msgSend_isBeingHandedOff(v13, v6, v7, v8, v9, v15))
         {
           v10 = v13;
           goto LABEL_11;
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v16, v20, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v15, v19, 16);
       if (v10)
       {
         continue;
@@ -181,7 +190,6 @@
 LABEL_11:
 
   objc_autoreleasePoolPop(v3);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -206,51 +214,6 @@ LABEL_11:
 
 - (BOOL)hasUnfinishedSessions
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v2 = self->_participantsCallInfo;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v14, v18, 16);
-  if (v8)
-  {
-    v9 = *v15;
-    while (2)
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        if (*v15 != v9)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if (objc_msgSend_state(v11, v4, v5, v6, v7, v14) != 4 && objc_msgSend_state(v11, v4, v5, v6, v7))
-        {
-          LOBYTE(v8) = 1;
-          goto LABEL_12;
-        }
-      }
-
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v4, &v14, v18, 16);
-      if (v8)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_12:
-
-  v12 = *MEMORY[0x277D85DE8];
-  return v8;
-}
-
-- (BOOL)hasConnectingSessions
-{
   v18 = *MEMORY[0x277D85DE8];
   v13 = 0u;
   v14 = 0u;
@@ -270,10 +233,11 @@ LABEL_12:
           objc_enumerationMutation(v2);
         }
 
-        if (objc_msgSend_state(*(*(&v13 + 1) + 8 * i), v4, v5, v6, v7, v13) < 3)
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if (objc_msgSend_state(v11, v4, v5, v6, v7, v13) != 4 && objc_msgSend_state(v11, v4, v5, v6, v7))
         {
           LOBYTE(v8) = 1;
-          goto LABEL_11;
+          goto LABEL_12;
         }
       }
 
@@ -287,21 +251,63 @@ LABEL_12:
     }
   }
 
+LABEL_12:
+
+  return v8;
+}
+
+- (BOOL)hasConnectingSessions
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v2 = self->_participantsCallInfo;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v12, v16, 16);
+  if (v8)
+  {
+    v9 = *v13;
+    while (2)
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        if (objc_msgSend_state(*(*(&v12 + 1) + 8 * i), v4, v5, v6, v7, v12) < 3)
+        {
+          LOBYTE(v8) = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v4, &v12, v16, 16);
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (int64_t)bestCallID
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v2 = self->_participantsCallInfo;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v39, v43, 16);
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v38, v42, 16);
   if (!v4)
   {
     v32 = 0;
@@ -312,18 +318,18 @@ LABEL_11:
   v10 = 0;
   v11 = 0;
   v12 = 0;
-  v13 = *v40;
+  v13 = *v39;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v40 != v13)
+      if (*v39 != v13)
       {
         objc_enumerationMutation(v2);
       }
 
-      v15 = *(*(&v39 + 1) + 8 * i);
-      if ((objc_msgSend_isFinished(v15, v5, v6, v7, v8, v39) & 1) == 0)
+      v15 = *(*(&v38 + 1) + 8 * i);
+      if ((objc_msgSend_isFinished(v15, v5, v6, v7, v8, v38) & 1) == 0)
       {
         v20 = v15;
 
@@ -348,7 +354,7 @@ LABEL_11:
     }
 
     v32 = v31;
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v39, v43, 16);
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v38, v42, 16);
   }
 
   while (v9);
@@ -360,7 +366,7 @@ LABEL_11:
     v2 = v10;
 LABEL_22:
 
-    goto LABEL_23;
+    return v32;
   }
 
   if (v11)
@@ -378,42 +384,40 @@ LABEL_22:
     goto LABEL_22;
   }
 
-LABEL_23:
-  v37 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
 - (id)_callInfoForCallID:(int64_t)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = self->_participantsCallInfo;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v18, v22, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v17, v21, 16);
   if (v6)
   {
     v11 = v6;
-    v12 = *v19;
+    v12 = *v18;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v4);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        if (objc_msgSend_callID(v14, v7, v8, v9, v10, v18) == d)
+        v14 = *(*(&v17 + 1) + 8 * i);
+        if (objc_msgSend_callID(v14, v7, v8, v9, v10, v17) == d)
         {
           v15 = v14;
           goto LABEL_11;
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v18, v22, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v17, v21, 16);
       if (v11)
       {
         continue;
@@ -425,8 +429,6 @@ LABEL_23:
 
   v15 = 0;
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -554,8 +556,8 @@ LABEL_17:
 
 - (void)dealloc
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v3 = sub_254761764();
+  v28 = *MEMORY[0x277D85DE8];
+  v3 = sub_254761764(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -592,10 +594,9 @@ LABEL_17:
 
   objc_msgSend_disconnectFromAVChat(self, v18, v19, v20, v21);
   objc_msgSend_setVCPartyID_(self, v22, 0, v23, v24);
-  v26.receiver = self;
-  v26.super_class = IMAVChatParticipant;
-  [(IMAVChatParticipant *)&v26 dealloc];
-  v25 = *MEMORY[0x277D85DE8];
+  v25.receiver = self;
+  v25.super_class = IMAVChatParticipant;
+  [(IMAVChatParticipant *)&v25 dealloc];
 }
 
 - (BOOL)isLocalParticipant
@@ -610,13 +611,13 @@ LABEL_17:
 
 - (void)requestIconIfNecessary
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = sub_254761764();
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = sub_254761764(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
+    v16 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_254743000, v3, OS_LOG_TYPE_DEFAULT, "participant: %@", &v17, 0xCu);
+    _os_log_impl(&dword_254743000, v3, OS_LOG_TYPE_DEFAULT, "participant: %@", &v16, 0xCu);
   }
 
   v8 = objc_msgSend_imHandle(self, v4, v5, v6, v7);
@@ -624,41 +625,39 @@ LABEL_17:
   {
     objc_msgSend_requestValueOfProperty_(v8, v13, *MEMORY[0x277D193B8], v14, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_callInfoWithState:(int64_t)state
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = self->_participantsCallInfo;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v18, v22, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v17, v21, 16);
   if (v6)
   {
     v11 = v6;
-    v12 = *v19;
+    v12 = *v18;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v4);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        if (objc_msgSend_state(v14, v7, v8, v9, v10, v18) == state)
+        v14 = *(*(&v17 + 1) + 8 * i);
+        if (objc_msgSend_state(v14, v7, v8, v9, v10, v17) == state)
         {
           v15 = v14;
           goto LABEL_11;
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v18, v22, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v17, v21, 16);
       if (v11)
       {
         continue;
@@ -670,8 +669,6 @@ LABEL_17:
 
   v15 = 0;
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -708,14 +705,14 @@ LABEL_11:
 
 - (id)_processIncomingCallProperties:(id)properties
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
-  v5 = sub_254761764();
+  v5 = sub_254761764(propertiesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v66 = 138412290;
-    v67 = propertiesCopy;
-    _os_log_impl(&dword_254743000, v5, OS_LOG_TYPE_DEFAULT, "_processIncomingCallProperties: %@", &v66, 0xCu);
+    v65 = 138412290;
+    v66 = propertiesCopy;
+    _os_log_impl(&dword_254743000, v5, OS_LOG_TYPE_DEFAULT, "_processIncomingCallProperties: %@", &v65, 0xCu);
   }
 
   v6 = objc_alloc_init(IMAVChatParticipantCallInfo);
@@ -742,17 +739,15 @@ LABEL_11:
   v60 = objc_msgSend_BOOLValue(v55, v56, v57, v58, v59);
   objc_msgSend_setHasReinitiateCapability_(self, v61, v60, v62, v63);
 
-  v64 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (BOOL)_processResponseDictionary:(id)dictionary allowSecondConnection:(BOOL)connection
 {
   connectionCopy = connection;
-  v198 = *MEMORY[0x277D85DE8];
+  v201 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v7 = sub_254761764();
+  v7 = sub_254761764(dictionaryCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -769,139 +764,138 @@ LABEL_11:
 
     if (!v25)
     {
-      v26 = sub_254761764();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_254761764(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = objc_msgSend__participantsCallInfo(self, v27, v28, v29, v30);
+        v32 = objc_msgSend__participantsCallInfo(self, v28, v29, v30, v31);
         *buf = 138412546;
         selfCopy3 = self;
-        v196 = 2112;
-        selfCopy2 = v31;
-        _os_log_impl(&dword_254743000, v26, OS_LOG_TYPE_DEFAULT, "[WARN] *** No call info found for participant: %@  (All: %@)", buf, 0x16u);
+        v199 = 2112;
+        selfCopy2 = v32;
+        _os_log_impl(&dword_254743000, v27, OS_LOG_TYPE_DEFAULT, "[WARN] *** No call info found for participant: %@  (All: %@)", buf, 0x16u);
       }
     }
 
-    v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v33 = *MEMORY[0x277D19570];
-    v37 = objc_msgSend_objectForKey_(v15, v34, *MEMORY[0x277D19570], v35, v36);
-    if (v37)
+    v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v34 = *MEMORY[0x277D19570];
+    v38 = objc_msgSend_objectForKey_(v15, v35, *MEMORY[0x277D19570], v36, v37);
+    if (v38)
     {
-      CFDictionarySetValue(v32, v33, v37);
+      CFDictionarySetValue(v33, v34, v38);
     }
 
-    v41 = objc_msgSend_objectForKey_(v15, v38, *MEMORY[0x277D194D0], v39, v40);
-    objc_msgSend_setPeerCN_(v25, v42, v41, v43, v44);
+    v42 = objc_msgSend_objectForKey_(v15, v39, *MEMORY[0x277D194D0], v40, v41);
+    objc_msgSend_setPeerCN_(v25, v43, v42, v44, v45);
 
-    v48 = objc_msgSend_objectForKey_(v15, v45, *MEMORY[0x277D194F0], v46, v47);
-    objc_msgSend_setRemoteICEData_(v25, v49, v48, v50, v51);
+    v49 = objc_msgSend_objectForKey_(v15, v46, *MEMORY[0x277D194F0], v47, v48);
+    objc_msgSend_setRemoteICEData_(v25, v50, v49, v51, v52);
 
-    v55 = objc_msgSend_objectForKey_(v15, v52, *MEMORY[0x277D19510], v53, v54);
-    objc_msgSend_setRemoteNATType_(v25, v56, v55, v57, v58);
+    v56 = objc_msgSend_objectForKey_(v15, v53, *MEMORY[0x277D19510], v54, v55);
+    objc_msgSend_setRemoteNATType_(v25, v57, v56, v58, v59);
 
-    v62 = objc_msgSend_objectForKey_(v15, v59, *MEMORY[0x277D19508], v60, v61);
-    objc_msgSend_setRemoteNATIP_(v25, v63, v62, v64, v65);
+    v63 = objc_msgSend_objectForKey_(v15, v60, *MEMORY[0x277D19508], v61, v62);
+    objc_msgSend_setRemoteNATIP_(v25, v64, v63, v65, v66);
 
-    v69 = objc_msgSend_objectForKey_(v15, v66, *MEMORY[0x277D194F8], v67, v68);
-    objc_msgSend_setRelayInitiate_(v25, v70, v69, v71, v72);
+    v70 = objc_msgSend_objectForKey_(v15, v67, *MEMORY[0x277D194F8], v68, v69);
+    objc_msgSend_setRelayInitiate_(v25, v71, v70, v72, v73);
 
-    v76 = objc_msgSend_objectForKey_(v15, v73, *MEMORY[0x277D19560], v74, v75);
-    objc_msgSend_setRemoteSKEData_(v25, v77, v76, v78, v79);
+    v77 = objc_msgSend_objectForKey_(v15, v74, *MEMORY[0x277D19560], v75, v76);
+    objc_msgSend_setRemoteSKEData_(v25, v78, v77, v79, v80);
 
-    v83 = objc_msgSend_objectForKey_(v15, v80, *MEMORY[0x277D19540], v81, v82);
-    objc_msgSend_setPeerProtocolVersion_(v25, v84, v83, v85, v86);
+    v84 = objc_msgSend_objectForKey_(v15, v81, *MEMORY[0x277D19540], v82, v83);
+    objc_msgSend_setPeerProtocolVersion_(v25, v85, v84, v86, v87);
 
-    objc_msgSend_setState_(v25, v87, 1, v88, v89);
-    if (objc_msgSend_count(v32, v90, v91, v92, v93))
+    objc_msgSend_setState_(v25, v88, 1, v89, v90);
+    if (objc_msgSend_count(v33, v91, v92, v93, v94))
     {
-      objc_msgSend_setProperties_(self, v94, v32, v95, v96);
+      objc_msgSend_setProperties_(self, v95, v33, v96, v97);
     }
 
-    v97 = objc_msgSend_objectForKey_(dictionaryCopy, v94, *MEMORY[0x277D19550], v95, v96);
-    v102 = objc_msgSend_intValue(v97, v98, v99, v100, v101);
+    v98 = objc_msgSend_objectForKey_(dictionaryCopy, v95, *MEMORY[0x277D19550], v96, v97);
+    v103 = objc_msgSend_intValue(v98, v99, v100, v101, v102);
 
-    v107 = objc_msgSend_state(self, v103, v104, v105, v106);
-    v111 = objc_msgSend_objectForKey_(v15, v108, *MEMORY[0x277D194E8], v109, v110);
-    v116 = objc_msgSend_BOOLValue(v111, v112, v113, v114, v115);
-    objc_msgSend_setHasReinitiateCapability_(self, v117, v116, v118, v119);
+    v108 = objc_msgSend_state(self, v104, v105, v106, v107);
+    v112 = objc_msgSend_objectForKey_(v15, v109, *MEMORY[0x277D194E8], v110, v111);
+    v117 = objc_msgSend_BOOLValue(v112, v113, v114, v115, v116);
+    objc_msgSend_setHasReinitiateCapability_(self, v118, v117, v119, v120);
 
-    v120 = sub_254761764();
-    if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
+    v122 = sub_254761764(v121);
+    if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
     {
-      _NSStringDescriptionForIMAVResponse(v102);
-      v193 = v14;
-      v121 = dictionaryCopy;
-      v122 = v32;
-      v124 = v123 = connectionCopy;
+      _NSStringDescriptionForIMAVResponse(v103);
+      v196 = v14;
+      v123 = dictionaryCopy;
+      v124 = v33;
+      v126 = v125 = connectionCopy;
       *buf = 138412546;
-      selfCopy3 = v124;
-      v196 = 2112;
+      selfCopy3 = v126;
+      v199 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&dword_254743000, v120, OS_LOG_TYPE_DEFAULT, "Handling response: %@ from participant: %@", buf, 0x16u);
+      _os_log_impl(&dword_254743000, v122, OS_LOG_TYPE_DEFAULT, "Handling response: %@ from participant: %@", buf, 0x16u);
 
-      connectionCopy = v123;
-      v32 = v122;
-      dictionaryCopy = v121;
-      v14 = v193;
+      connectionCopy = v125;
+      v33 = v124;
+      dictionaryCopy = v123;
+      v14 = v196;
     }
 
-    objc_msgSend__handleIMAVResponse_(self, v125, v102, v126, v127);
-    if (!v102)
+    v130 = objc_msgSend__handleIMAVResponse_(self, v127, v103, v128, v129);
+    if (!v103)
     {
-      if (v107 < 3 || connectionCopy)
+      if (v108 < 3 || connectionCopy)
       {
-        if (v107 >= 3 && connectionCopy)
+        if (v108 >= 3 && connectionCopy)
         {
-          v133 = objc_msgSend__callInfoWithState_(self, v128, 3, v130, v131);
-          v138 = v133;
-          if (v133)
+          v136 = objc_msgSend__callInfoWithState_(self, v131, 3, v133, v134);
+          v141 = v136;
+          if (v136)
           {
-            objc_msgSend_setIsBeingHandedOff_(v133, v134, 1, v136, v137);
-            objc_msgSend_setIsReinitiate_(v25, v139, 1, v140, v141);
+            objc_msgSend_setIsBeingHandedOff_(v136, v137, 1, v139, v140);
+            objc_msgSend_setIsReinitiate_(v25, v142, 1, v143, v144);
           }
 
-          v142 = objc_msgSend_sharedInstance(IMAVInterface, v134, v135, v136, v137);
-          v147 = objc_msgSend_avChat(self, v143, v144, v145, v146);
-          v152 = objc_msgSend_callID(v138, v148, v149, v150, v151);
-          objc_msgSend_endAVConferenceWithChat_callID_(v142, v153, v147, v152, v154);
+          v145 = objc_msgSend_sharedInstance(IMAVInterface, v137, v138, v139, v140);
+          v150 = objc_msgSend_avChat(self, v146, v147, v148, v149);
+          v155 = objc_msgSend_callID(v141, v151, v152, v153, v154);
+          objc_msgSend_endAVConferenceWithChat_callID_(v145, v156, v150, v155, v157);
 
-          v155 = sub_254761764();
-          if (os_log_type_enabled(v155, OS_LOG_TYPE_DEFAULT))
+          v159 = sub_254761764(v158);
+          if (os_log_type_enabled(v159, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            selfCopy3 = v138;
-            _os_log_impl(&dword_254743000, v155, OS_LOG_TYPE_DEFAULT, "Officially stopping the call we're handing off from %@", buf, 0xCu);
+            selfCopy3 = v141;
+            _os_log_impl(&dword_254743000, v159, OS_LOG_TYPE_DEFAULT, "Officially stopping the call we're handing off from %@", buf, 0xCu);
           }
 
-          v160 = objc_msgSend_avChat(self, v156, v157, v158, v159);
-          v165 = objc_msgSend_vcPartyID(self, v161, v162, v163, v164);
-          objc_msgSend_conferencePersonWithID_mediaDidStall_(v160, v166, v165, 1, v167);
+          v164 = objc_msgSend_avChat(self, v160, v161, v162, v163);
+          v169 = objc_msgSend_vcPartyID(self, v165, v166, v167, v168);
+          objc_msgSend_conferencePersonWithID_mediaDidStall_(v164, v170, v169, 1, v171);
 
-          v172 = objc_msgSend_avChat(self, v168, v169, v170, v171);
-          objc_msgSend__setIsAudioInterrupted_(v172, v173, 1, v174, v175);
+          v176 = objc_msgSend_avChat(self, v172, v173, v174, v175);
+          objc_msgSend__setIsAudioInterrupted_(v176, v177, 1, v178, v179);
 
-          v180 = objc_msgSend_avChat(self, v176, v177, v178, v179);
-          objc_msgSend__setIsVideoInterrupted_(v180, v181, 1, v182, v183);
+          v184 = objc_msgSend_avChat(self, v180, v181, v182, v183);
+          objc_msgSend__setIsVideoInterrupted_(v184, v185, 1, v186, v187);
         }
 
-        v132 = objc_msgSend_sharedInstance(IMAVInterface, v128, v129, v130, v131);
-        v188 = objc_msgSend_avChat(self, v184, v185, v186, v187);
-        objc_msgSend_avChat_prepareConnectionWithCallInfo_(v132, v189, v188, v25, v190);
+        v135 = objc_msgSend_sharedInstance(IMAVInterface, v131, v132, v133, v134);
+        v192 = objc_msgSend_avChat(self, v188, v189, v190, v191);
+        objc_msgSend_avChat_prepareConnectionWithCallInfo_(v135, v193, v192, v25, v194);
       }
 
       else
       {
-        v132 = sub_254761764();
-        if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+        v135 = sub_254761764(v130);
+        if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           selfCopy3 = self;
-          _os_log_impl(&dword_254743000, v132, OS_LOG_TYPE_DEFAULT, "Received accept for participant (%@) who was already connecting, ignoring this", buf, 0xCu);
+          _os_log_impl(&dword_254743000, v135, OS_LOG_TYPE_DEFAULT, "Received accept for participant (%@) who was already connecting, ignoring this", buf, 0xCu);
         }
       }
     }
   }
 
-  v191 = *MEMORY[0x277D85DE8];
   return v14 != 0;
 }
 
@@ -909,7 +903,7 @@ LABEL_11:
 {
   v46 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v5 = sub_254761764();
+  v5 = sub_254761764(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v42 = 138412546;
@@ -925,21 +919,20 @@ LABEL_11:
   v25 = objc_msgSend_service(self->_imHandle, v21, v22, v23, v24);
   v27 = objc_msgSend_avChat_generateCallInfoForID_service_usingRelay_callInfo_(v10, v26, v15, v20, v25, 0, infoCopy);
 
-  v28 = sub_254761764();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = sub_254761764(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = objc_msgSend_localICEData(infoCopy, v29, v30, v31, v32);
+    v34 = objc_msgSend_localICEData(infoCopy, v30, v31, v32, v33);
     v42 = 138412546;
-    selfCopy = v33;
+    selfCopy = v34;
     v44 = 2112;
     selfCopy2 = self;
-    _os_log_impl(&dword_254743000, v28, OS_LOG_TYPE_DEFAULT, "    result: %@ participant: %@", &v42, 0x16u);
+    _os_log_impl(&dword_254743000, v29, OS_LOG_TYPE_DEFAULT, "    result: %@ participant: %@", &v42, 0x16u);
   }
 
-  v38 = objc_msgSend_avChat(self, v34, v35, v36, v37);
-  objc_msgSend__postNotificationName_participant_userInfo_(v38, v39, @"__kIMAVChatParticipantCallInfoChangedNotification", self, 0);
+  v39 = objc_msgSend_avChat(self, v35, v36, v37, v38);
+  objc_msgSend__postNotificationName_participant_userInfo_(v39, v40, @"__kIMAVChatParticipantCallInfoChangedNotification", self, 0);
 
-  v40 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -980,7 +973,7 @@ LABEL_11:
     {
       if (response == 1)
       {
-        v27 = sub_254761764();
+        v27 = sub_254761764(self);
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *v33 = 0;
@@ -1000,7 +993,7 @@ LABEL_20:
           return;
         }
 
-        v8 = sub_254761764();
+        v8 = sub_254761764(self);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -1013,7 +1006,7 @@ LABEL_20:
 
     else
     {
-      v11 = sub_254761764();
+      v11 = sub_254761764(self);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *v36 = 0;
@@ -1030,7 +1023,7 @@ LABEL_20:
     {
       if (response == 4)
       {
-        v5 = sub_254761764();
+        v5 = sub_254761764(self);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           *v32 = 0;
@@ -1044,7 +1037,7 @@ LABEL_20:
 
       if (response == 5)
       {
-        v5 = sub_254761764();
+        v5 = sub_254761764(self);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           v31 = 0;
@@ -1065,7 +1058,7 @@ LABEL_25:
     {
       if (response == 11)
       {
-        v5 = sub_254761764();
+        v5 = sub_254761764(self);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           v30 = 0;
@@ -1085,7 +1078,7 @@ LABEL_26:
       goto LABEL_20;
     }
 
-    v24 = sub_254761764();
+    v24 = sub_254761764(self);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *v34 = 0;
@@ -1146,21 +1139,22 @@ LABEL_3:
       goto LABEL_18;
     }
 
-    if (objc_msgSend_isReinitiate(v15, v16, v17, v18, v19))
+    isReinitiate = objc_msgSend_isReinitiate(v15, v16, v17, v18, v19);
+    if (isReinitiate)
     {
-      v24 = sub_254761764();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_254761764(isReinitiate);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v100 = v15;
-        _os_log_impl(&dword_254743000, v24, OS_LOG_TYPE_DEFAULT, "Ending call info %@ since the re-initiate failed", buf, 0xCu);
+        _os_log_impl(&dword_254743000, v25, OS_LOG_TYPE_DEFAULT, "Ending call info %@ since the re-initiate failed", buf, 0xCu);
       }
 
-      objc_msgSend_setState_(v15, v25, 4, v26, v27);
-      v32 = objc_msgSend_sharedInstance(IMAVInterface, v28, v29, v30, v31);
-      v37 = objc_msgSend_avChat(self, v33, v34, v35, v36);
-      v42 = objc_msgSend_callID(v15, v38, v39, v40, v41);
-      objc_msgSend_endAVConferenceWithChat_callID_(v32, v43, v37, v42, v44);
+      objc_msgSend_setState_(v15, v26, 4, v27, v28);
+      v33 = objc_msgSend_sharedInstance(IMAVInterface, v29, v30, v31, v32);
+      v38 = objc_msgSend_avChat(self, v34, v35, v36, v37);
+      v43 = objc_msgSend_callID(v15, v39, v40, v41, v42);
+      objc_msgSend_endAVConferenceWithChat_callID_(v33, v44, v38, v43, v45);
     }
   }
 
@@ -1169,36 +1163,38 @@ LABEL_17:
   if (delivered)
   {
 LABEL_18:
-    if ((objc_msgSend__inviteDelivered(self, v20, v21, v22, v23, v95) & 1) == 0)
+    if (objc_msgSend__inviteDelivered(self, v20, v21, v22, v23, v95))
     {
-      v49 = objc_msgSend_avChat(self, v45, v46, v47, v48);
-      v54 = objc_msgSend_localParticipant(v49, v50, v51, v52, v53);
-      if (!objc_msgSend_isInitiator(v54, v55, v56, v57, v58))
-      {
+      return;
+    }
 
-        goto LABEL_23;
+    v50 = objc_msgSend_avChat(self, v46, v47, v48, v49);
+    v55 = objc_msgSend_localParticipant(v50, v51, v52, v53, v54);
+    if (objc_msgSend_isInitiator(v55, v56, v57, v58, v59))
+    {
+      v64 = objc_msgSend_state(self, v60, v61, v62, v63);
+
+      if (v64 > 3)
+      {
+        return;
       }
 
-      v63 = objc_msgSend_state(self, v59, v60, v61, v62);
+      v69 = objc_msgSend_avChat(self, v65, v66, v67, v68);
+      objc_msgSend__postNotificationName_participant_userInfo_(v69, v70, @"__kIMAVChatParticipantInvitationDeliveredNotification", self, 0);
 
-      if (v63 <= 3)
-      {
-        v68 = objc_msgSend_avChat(self, v64, v65, v66, v67);
-        objc_msgSend__postNotificationName_participant_userInfo_(v68, v69, @"__kIMAVChatParticipantInvitationDeliveredNotification", self, 0);
+      v75 = objc_msgSend_avChat(self, v71, v72, v73, v74);
+      v80 = objc_msgSend__timings(v75, v76, v77, v78, v79);
+      objc_msgSend_stopTimingForKey_(v80, v81, @"invitation-delivery-time", v82, v83);
 
-        v74 = objc_msgSend_avChat(self, v70, v71, v72, v73);
-        v79 = objc_msgSend__timings(v74, v75, v76, v77, v78);
-        objc_msgSend_stopTimingForKey_(v79, v80, @"invitation-delivery-time", v81, v82);
+      objc_msgSend__setInviteDelivered_(self, v84, 1, v85, v86);
+      v50 = objc_msgSend_sharedInstance(IMAVCallManager, v87, v88, v89, v90);
+      objc_msgSend__sendProxyUpdate(v50, v91, v92, v93, v94);
+    }
 
-        objc_msgSend__setInviteDelivered_(self, v83, 1, v84, v85);
-        v49 = objc_msgSend_sharedInstance(IMAVCallManager, v86, v87, v88, v89);
-        objc_msgSend__sendProxyUpdate(v49, v90, v91, v92, v93);
-LABEL_23:
-      }
+    else
+    {
     }
   }
-
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupOrphanedCallInfos
@@ -1226,21 +1222,22 @@ LABEL_23:
         }
 
         v17 = *(*(&v41 + 1) + 8 * i);
-        if (objc_msgSend_state(v17, v9, v10, v11, v12, v40) <= 1)
+        v18 = objc_msgSend_state(v17, v9, v10, v11, v12, v40);
+        if (v18 <= 1)
         {
-          v18 = sub_254761764();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = sub_254761764(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v40;
             v46 = v17;
-            _os_log_impl(&dword_254743000, v18, OS_LOG_TYPE_DEFAULT, "Cleaning up call info because it has not started connecting: %@", buf, 0xCu);
+            _os_log_impl(&dword_254743000, v19, OS_LOG_TYPE_DEFAULT, "Cleaning up call info because it has not started connecting: %@", buf, 0xCu);
           }
 
-          objc_msgSend_setState_(v17, v19, 4, v20, v21);
-          v26 = objc_msgSend_sharedInstance(IMAVInterface, v22, v23, v24, v25);
-          v31 = objc_msgSend_avChat(self, v27, v28, v29, v30);
-          v36 = objc_msgSend_callID(v17, v32, v33, v34, v35);
-          objc_msgSend_endAVConferenceWithChat_callID_(v26, v37, v31, v36, v38);
+          objc_msgSend_setState_(v17, v20, 4, v21, v22);
+          v27 = objc_msgSend_sharedInstance(IMAVInterface, v23, v24, v25, v26);
+          v32 = objc_msgSend_avChat(self, v28, v29, v30, v31);
+          v37 = objc_msgSend_callID(v17, v33, v34, v35, v36);
+          objc_msgSend_endAVConferenceWithChat_callID_(v27, v38, v32, v37, v39);
         }
       }
 
@@ -1249,8 +1246,6 @@ LABEL_23:
 
     while (v14);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hangupCallLaterIfReinitiateFailsForCallInfo:(id)info
@@ -1287,24 +1282,269 @@ LABEL_23:
         objc_msgSend__hangupCallLaterIfReinitiateFailsForCallInfo_(self, v39, v32, v40, v41);
       }
 
-      if ((objc_msgSend_hasReinitiateCapability(self, v24, v25, v26, v27) & 1) == 0)
+      hasReinitiateCapability = objc_msgSend_hasReinitiateCapability(self, v24, v25, v26, v27);
+      if ((hasReinitiateCapability & 1) == 0)
       {
-        v42 = sub_254761764();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        v43 = sub_254761764(hasReinitiateCapability);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
-          *v43 = 0;
-          _os_log_impl(&dword_254743000, v42, OS_LOG_TYPE_DEFAULT, " We don't have re-initiate capability...", v43, 2u);
+          *v44 = 0;
+          _os_log_impl(&dword_254743000, v43, OS_LOG_TYPE_DEFAULT, " We don't have re-initiate capability...", v44, 2u);
         }
       }
     }
   }
 }
 
+- (void)setState:(unsigned int)state
+{
+  v29 = *MEMORY[0x277D85DE8];
+  if (self->_state == state)
+  {
+    return;
+  }
+
+  v3 = *&state;
+  v5 = sub_254761764(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = _NSStringDescriptionForIMAVChatParticipantState(v3);
+    v7 = _NSStringDescriptionForIMAVChatParticipantState(self->_state);
+    *v27 = 138412802;
+    *&v27[4] = self;
+    *&v27[12] = 2112;
+    *&v27[14] = v6;
+    *&v27[22] = 2112;
+    v28 = v7;
+    _os_log_impl(&dword_254743000, v5, OS_LOG_TYPE_DEFAULT, "participant: %@   state: %@   oldState: %@", v27, 0x20u);
+  }
+
+  state = self->_state;
+  if (state != 5)
+  {
+    if (v3 > 2)
+    {
+      switch(v3)
+      {
+        case 3:
+          if (state - 1 >= 2)
+          {
+            v15 = sub_254761764(v8);
+            if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_44;
+            }
+
+            v17 = _NSStringDescriptionForIMAVChatParticipantState(self->_state);
+            v18 = _NSStringDescriptionForIMAVChatParticipantState(3u);
+            *v27 = 138412546;
+            *&v27[4] = v17;
+            *&v27[12] = 2112;
+            *&v27[14] = v18;
+            goto LABEL_25;
+          }
+
+          break;
+        case 4:
+          if (state != 3)
+          {
+            v15 = sub_254761764(v8);
+            if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_44;
+            }
+
+            v17 = _NSStringDescriptionForIMAVChatParticipantState(self->_state);
+            v18 = _NSStringDescriptionForIMAVChatParticipantState(4u);
+            *v27 = 138412546;
+            *&v27[4] = v17;
+            *&v27[12] = 2112;
+            *&v27[14] = v18;
+LABEL_25:
+            _os_log_impl(&dword_254743000, v15, OS_LOG_TYPE_DEFAULT, "[WARN] IMAVChatParticipant: invalid state transition:  from state (%@) to state (%@)!", v27, 0x16u);
+
+            goto LABEL_35;
+          }
+
+          break;
+        case 5:
+          v15 = sub_254761764(v8);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          {
+            *v27 = 0;
+            v16 = "[WARN] IMAVChatParticipant: do not use setState:IMAVChatStateEnded.  Use setStateToEndedWithReason:andError: instead.";
+LABEL_43:
+            _os_log_impl(&dword_254743000, v15, OS_LOG_TYPE_DEFAULT, v16, v27, 2u);
+            goto LABEL_44;
+          }
+
+          goto LABEL_44;
+        default:
+          goto LABEL_33;
+      }
+
+LABEL_45:
+      objc_msgSend__setState_withReason_andError_(self, v9, v3, 0, 0, *v27, *&v27[8]);
+      return;
+    }
+
+    if (v3 == 1)
+    {
+      if (state)
+      {
+        v19 = sub_254761764(v8);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          v20 = _NSStringDescriptionForIMAVChatParticipantState(self->_state);
+          v21 = _NSStringDescriptionForIMAVChatParticipantState(1u);
+          *v27 = 138412546;
+          *&v27[4] = v20;
+          *&v27[12] = 2112;
+          *&v27[14] = v21;
+          _os_log_impl(&dword_254743000, v19, OS_LOG_TYPE_DEFAULT, "[WARN] IMAVChatParticipant: invalid state transition:  from state (%@) to state (%@)!", v27, 0x16u);
+        }
+      }
+
+      isInitiator = objc_msgSend_isInitiator(self, v9, v10, v11, v12);
+      if (!isInitiator)
+      {
+        goto LABEL_45;
+      }
+
+      v15 = sub_254761764(isInitiator);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_44;
+      }
+
+      *v27 = 0;
+      v16 = "[WARN] IMAVChatParticipant: the initiator of a chat should never be invited!";
+      goto LABEL_43;
+    }
+
+    if (v3 != 2)
+    {
+LABEL_33:
+      v15 = sub_254761764(v8);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_44;
+      }
+
+      v17 = _NSStringDescriptionForIMAVChatParticipantState(v3);
+      *v27 = 138412290;
+      *&v27[4] = v17;
+      _os_log_impl(&dword_254743000, v15, OS_LOG_TYPE_DEFAULT, "[WARN] IMAVChatParticipant: invalid state (%@)", v27, 0xCu);
+LABEL_35:
+
+      goto LABEL_44;
+    }
+
+    if (state - 3 >= 2)
+    {
+      if (!state)
+      {
+        goto LABEL_40;
+      }
+    }
+
+    else
+    {
+      v8 = objc_msgSend_isInitiator(self, v9, v10, v11, v12);
+      if (v8)
+      {
+        goto LABEL_40;
+      }
+    }
+
+    v23 = sub_254761764(v8);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      v24 = _NSStringDescriptionForIMAVChatParticipantState(self->_state);
+      v25 = _NSStringDescriptionForIMAVChatParticipantState(2u);
+      *v27 = 138412546;
+      *&v27[4] = v24;
+      *&v27[12] = 2112;
+      *&v27[14] = v25;
+      _os_log_impl(&dword_254743000, v23, OS_LOG_TYPE_DEFAULT, "[WARN] IMAVChatParticipant: invalid state transition:  from state (%@) to state (%@)!", v27, 0x16u);
+    }
+
+LABEL_40:
+    v26 = objc_msgSend_isInitiator(self, v9, v10, v11, v12);
+    if ((v26 & 1) == 0)
+    {
+      v15 = sub_254761764(v26);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        *v27 = 0;
+        v16 = "[WARN] IMAVChatParticipant: only the initiator of a chat should ever be waiting!";
+        goto LABEL_43;
+      }
+
+LABEL_44:
+
+      goto LABEL_45;
+    }
+
+    goto LABEL_45;
+  }
+
+  v14 = sub_254761764(v8);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *v27 = 0;
+    _os_log_impl(&dword_254743000, v14, OS_LOG_TYPE_DEFAULT, "[WARN] IMAVChatParticipant: invalid state transition: cannot transition out of end state!", v27, 2u);
+  }
+}
+
+- (void)setStateToEndedWithReason:(unsigned int)reason andError:(int)error
+{
+  state = self->_state;
+  if (state != 5)
+  {
+    v12 = v4;
+    v13 = v5;
+    v7 = *&error;
+    v8 = *&reason;
+    if (!state)
+    {
+      v10 = sub_254761764(self);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        *v11 = 0;
+        _os_log_impl(&dword_254743000, v10, OS_LOG_TYPE_DEFAULT, "[WARN] IMAVChatParticipant: Invalid state transition: from zero state to end state.", v11, 2u);
+      }
+    }
+
+    objc_msgSend__setState_withReason_andError_(self, a2, 5, v8, v7);
+  }
+}
+
+- (void)_setState:(unsigned int)state withReason:(unsigned int)reason andError:(int)error
+{
+  v5 = *&state;
+  state = self->_state;
+  self->_state = state;
+  self->_chatEndedReason = reason;
+  v8 = objc_msgSend_account(self->_imHandle, a2, *&state, *&reason, *&error);
+  v13 = objc_msgSend_arrayOfAllIMHandles(v8, v9, v10, v11, v12);
+  v17 = objc_msgSend_indexOfObjectIdenticalTo_(v13, v14, self->_imHandle, v15, v16);
+
+  if (v5 == 5 && v17 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    objc_msgSend_setCapabilities_(self->_imHandle, v18, 0, v20, v21);
+    objc_msgSend_setPersonStatus_(self->_imHandle, v22, 0, v23, v24);
+  }
+
+  v26 = objc_msgSend_avChat(self, v18, v19, v20, v21);
+  objc_msgSend_participant_changedFromState_toState_(v26, v25, self, state, v5);
+}
+
 - (void)_processPropertyUpdate:(id)update
 {
   v24 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_objectForKey_(update, a2, *MEMORY[0x277D19528], v3, v4);
-  v7 = sub_254761764();
+  v7 = sub_254761764(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v22 = 138412290;
@@ -1312,21 +1552,20 @@ LABEL_23:
     _os_log_impl(&dword_254743000, v7, OS_LOG_TYPE_DEFAULT, "kFZVCPropertyPeerMayRequireCTBreak: %@", &v22, 0xCu);
   }
 
-  if (objc_msgSend_BOOLValue(v6, v8, v9, v10, v11))
+  v12 = objc_msgSend_BOOLValue(v6, v8, v9, v10, v11);
+  if (v12)
   {
-    v12 = sub_254761764();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_254761764(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v22 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_254743000, v12, OS_LOG_TYPE_DEFAULT, "%@ may require break before make!", &v22, 0xCu);
+      _os_log_impl(&dword_254743000, v13, OS_LOG_TYPE_DEFAULT, "%@ may require break before make!", &v22, 0xCu);
     }
 
-    v17 = objc_msgSend_avChat(self, v13, v14, v15, v16);
-    objc_msgSend_setMayRequireBreakBeforeMake_(v17, v18, 1, v19, v20);
+    v18 = objc_msgSend_avChat(self, v14, v15, v16, v17);
+    objc_msgSend_setMayRequireBreakBeforeMake_(v18, v19, 1, v20, v21);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateProperties:(id)properties
@@ -1355,7 +1594,7 @@ LABEL_23:
     conferenceID = self->_conferenceID;
     self->_conferenceID = v7;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v7, conferenceID);
   }
 }
 
@@ -1407,6 +1646,129 @@ LABEL_23:
       handleCopy = v8;
     }
   }
+}
+
+- (void)sendAVMessage:(unsigned int)message userInfo:(id)info
+{
+  v4 = *&message;
+  infoCopy = info;
+  v47 = objc_msgSend_avChat(self, v7, v8, v9, v10);
+  v15 = objc_msgSend_sharedInstance(MEMORY[0x277D18D68], v11, v12, v13, v14);
+  v20 = objc_msgSend_imHandle(self, v16, v17, v18, v19);
+  v25 = objc_msgSend_ID(v20, v21, v22, v23, v24);
+  v30 = objc_msgSend_sessionID(v47, v26, v27, v28, v29);
+  v35 = objc_msgSend_conferenceID(v47, v31, v32, v33, v34);
+  v40 = objc_msgSend_account(v47, v36, v37, v38, v39);
+  v45 = objc_msgSend_uniqueID(v40, v41, v42, v43, v44);
+  objc_msgSend_sendAVMessageToPerson_sessionID_type_userInfo_conference_account_(v15, v46, v25, v30, v4, infoCopy, v35, v45);
+}
+
+- (CGRect)contentRectForCameraOrientation:(unsigned int)orientation cameraType:(unsigned int)type
+{
+  isLocalParticipant = objc_msgSend_isLocalParticipant(self, a2, *&orientation, *&type, v4);
+  v8 = 0.0;
+  v9 = 0.0;
+  v10 = 0.0;
+  v11 = 0.0;
+  if ((isLocalParticipant & 1) == 0)
+  {
+    v12 = 240;
+    if (orientation < 2)
+    {
+      v12 = 208;
+    }
+
+    v13 = 248;
+    if (orientation < 2)
+    {
+      v13 = 216;
+    }
+
+    v14 = 256;
+    if (orientation < 2)
+    {
+      v14 = 224;
+    }
+
+    v15 = 264;
+    if (orientation < 2)
+    {
+      v15 = 232;
+    }
+
+    v8 = *(&self->super.isa + v12);
+    v9 = *(&self->super.isa + v13);
+    v10 = *(&self->super.isa + v14);
+    v11 = *(&self->super.isa + v15);
+  }
+
+  result.size.height = v11;
+  result.size.width = v10;
+  result.origin.y = v9;
+  result.origin.x = v8;
+  return result;
+}
+
+- (CGSize)aspectRatioForCameraOrientation:(unsigned int)orientation cameraType:(unsigned int)type
+{
+  v5 = *&type;
+  v6 = *&orientation;
+  if (objc_msgSend_isLocalParticipant(self, a2, *&orientation, *&type, v4))
+  {
+    v12 = objc_msgSend_avChat(self, v8, v9, v10, v11);
+    objc_msgSend_localAspectRatioForCameraOrientation_cameraType_(v12, v13, v6, v5, v14);
+    width = v15;
+    height = v17;
+  }
+
+  else if (v6 > 1)
+  {
+    width = self->_remoteLandscapeOrientation.width;
+    height = self->_remoteLandscapeOrientation.height;
+  }
+
+  else
+  {
+    width = self->_remotePortraitOrientation.width;
+    height = self->_remotePortraitOrientation.height;
+  }
+
+  v19 = width;
+  v20 = height;
+  result.height = v20;
+  result.width = v19;
+  return result;
+}
+
+- (CGSize)localAspectRatioForCameraOrientation:(unsigned int)orientation cameraType:(unsigned int)type
+{
+  v5 = *&type;
+  v6 = *&orientation;
+  if (objc_msgSend_isLocalParticipant(self, a2, *&orientation, *&type, v4))
+  {
+    v12 = objc_msgSend_avChat(self, v8, v9, v10, v11);
+    objc_msgSend_localAspectRatioForCameraOrientation_cameraType_(v12, v13, v6, v5, v14);
+    width = v15;
+    height = v17;
+  }
+
+  else if (v6 > 1)
+  {
+    width = self->_remotePIPLandscapeOrientation.width;
+    height = self->_remotePIPLandscapeOrientation.height;
+  }
+
+  else
+  {
+    width = self->_remotePIPPortraitOrientation.width;
+    height = self->_remotePIPPortraitOrientation.height;
+  }
+
+  v19 = width;
+  v20 = height;
+  result.height = v20;
+  result.width = v19;
+  return result;
 }
 
 - (CGSize)_remotePortraitOrientation
@@ -1513,18 +1875,83 @@ LABEL_23:
   }
 }
 
+- (void)cancelInvitationWithResponse:(unsigned int)response
+{
+  v8 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], a2, *&response, v3, v4);
+  objc_msgSend__cancelInvitationWithReason_response_(self, v6, 1, v8, v7);
+}
+
+- (void)_cancelInvitationWithReason:(unsigned int)reason response:(id)response
+{
+  v4 = *&reason;
+  v92 = *MEMORY[0x277D85DE8];
+  responseCopy = response;
+  objc_msgSend_setStateToEndedWithReason_andError_(self, v7, v4, 0, v8);
+  v13 = objc_msgSend_avChat(self, v9, v10, v11, v12);
+  v18 = objc_msgSend_endedReason(v13, v14, v15, v16, v17);
+
+  if (v18 <= 0x18 && ((1 << v18) & 0x1811000) != 0)
+  {
+    v24 = sub_254761764(v19);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = objc_msgSend_avChat(self, v25, v26, v27, v28);
+      v34 = objc_msgSend_endedReason(v29, v30, v31, v32, v33);
+      v39 = _NSStringDescriptionForIMAVChatEndedReason(v34, v35, v36, v37, v38);
+      v88 = 138412290;
+      v89 = v39;
+      _os_log_impl(&dword_254743000, v24, OS_LOG_TYPE_DEFAULT, "No need to send cancel since chat ended with reason %@", &v88, 0xCu);
+    }
+  }
+
+  else
+  {
+    v24 = objc_msgSend_imHandle(self, v20, v21, v22, v23);
+    v40 = sub_254761764(v24);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    {
+      v45 = objc_msgSend_ID(v24, v41, v42, v43, v44);
+      v88 = 138412290;
+      v89 = v45;
+      _os_log_impl(&dword_254743000, v40, OS_LOG_TYPE_DEFAULT, "Sending cancel invite for %@ to service", &v88, 0xCu);
+    }
+
+    v47 = sub_254761764(v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    {
+      v52 = objc_msgSend_ID(v24, v48, v49, v50, v51);
+      v88 = 138412546;
+      v89 = v52;
+      v90 = 2112;
+      v91 = responseCopy;
+      _os_log_impl(&dword_254743000, v47, OS_LOG_TYPE_DEFAULT, "Sending cancel invite to %@ with response %@", &v88, 0x16u);
+    }
+
+    v57 = objc_msgSend_avChat(self, v53, v54, v55, v56);
+    v62 = objc_msgSend_sharedInstance(IMAVController, v58, v59, v60, v61);
+    v63 = MEMORY[0x277CBEAC0];
+    v64 = MEMORY[0x277CCABB0];
+    v69 = objc_msgSend_sessionID(v57, v65, v66, v67, v68);
+    v73 = objc_msgSend_numberWithUnsignedInt_(v64, v70, v69, v71, v72);
+    v76 = objc_msgSend_dictionaryWithObject_forKey_(v63, v74, v73, *MEMORY[0x277D19568], v75);
+    v81 = objc_msgSend_account(v24, v77, v78, v79, v80);
+    v86 = objc_msgSend_conferenceID(v57, v82, v83, v84, v85);
+    objc_msgSend_cancelVCRequestWithBuddy_vcProps_forAccount_conferenceID_reason_(v62, v87, v24, v76, v81, v86, responseCopy);
+  }
+}
+
 - (void)_sendResponse:(unsigned int)response callInfo:(id)info
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v7 = sub_254761764();
+  v7 = sub_254761764(infoCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = _NSStringDescriptionForIMAVResponse(response);
     *buf = 138412546;
     selfCopy = self;
-    v47 = 2112;
-    v48 = v8;
+    v46 = 2112;
+    v47 = v8;
     _os_log_impl(&dword_254743000, v7, OS_LOG_TYPE_DEFAULT, "participant: %@   response: %@", buf, 0x16u);
   }
 
@@ -1547,33 +1974,31 @@ LABEL_23:
     v29 = objc_msgSend_GUID(v18, v25, v26, v27, v28);
     v34 = objc_msgSend_vcPartyID(self, v30, v31, v32, v33);
     isReinitiate = objc_msgSend_isReinitiate(infoCopy, v35, v36, v37, v38);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = sub_25475F788;
-    v42[3] = &unk_2797836C0;
-    v44 = 0;
-    v43 = infoCopy;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = sub_25475F788;
+    v41[3] = &unk_2797836C0;
+    v43 = 0;
+    v42 = infoCopy;
     v40 = dispatch_get_global_queue(0, 0);
-    sub_25475E518(v29, v34, isReinitiate, v42, v40);
+    sub_25475E518(v29, v34, isReinitiate, v41, v40);
 
-    v19 = v43;
+    v19 = v42;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWaitingToConnect:(BOOL)connect
 {
   connectCopy = connect;
-  v29 = *MEMORY[0x277D85DE8];
-  v5 = sub_254761764();
+  v28 = *MEMORY[0x277D85DE8];
+  v5 = sub_254761764(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412546;
+    v24 = 138412546;
     selfCopy = self;
-    v27 = 1024;
-    v28 = connectCopy;
-    _os_log_impl(&dword_254743000, v5, OS_LOG_TYPE_DEFAULT, "participant: %@  waiting: %d", &v25, 0x12u);
+    v26 = 1024;
+    v27 = connectCopy;
+    _os_log_impl(&dword_254743000, v5, OS_LOG_TYPE_DEFAULT, "participant: %@  waiting: %d", &v24, 0x12u);
   }
 
   v10 = objc_msgSend__connectTimeoutTimer(self, v6, v7, v8, v9);
@@ -1594,19 +2019,17 @@ LABEL_23:
 
     objc_msgSend__setConnectTimeoutTimer_(self, v21, 0, v22, v23);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetWaitingToConnectTimer
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v3 = sub_254761764();
+  v23 = *MEMORY[0x277D85DE8];
+  v3 = sub_254761764(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
+    v21 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_254743000, v3, OS_LOG_TYPE_DEFAULT, "participant: %@", &v22, 0xCu);
+    _os_log_impl(&dword_254743000, v3, OS_LOG_TYPE_DEFAULT, "participant: %@", &v21, 0xCu);
   }
 
   v8 = objc_msgSend__connectTimeoutTimer(self, v4, v5, v6, v7);
@@ -1615,25 +2038,22 @@ LABEL_23:
   objc_msgSend__setConnectTimeoutTimer_(self, v13, 0, v14, v15);
   v17 = objc_msgSend_scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(MEMORY[0x277CBEBB8], v16, self, sel__connectTimeout_, 0, 0, 180.0);
   objc_msgSend__setConnectTimeoutTimer_(self, v18, v17, v19, v20);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectTimeout:(id)timeout
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v4 = sub_254761764();
+  v17 = *MEMORY[0x277D85DE8];
+  v4 = sub_254761764(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_msgSend_name(self, v5, v6, v7, v8);
-    v16 = 138412290;
-    v17 = v9;
-    _os_log_impl(&dword_254743000, v4, OS_LOG_TYPE_DEFAULT, "Participant %@ _connectTimeout", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v9;
+    _os_log_impl(&dword_254743000, v4, OS_LOG_TYPE_DEFAULT, "Participant %@ _connectTimeout", &v15, 0xCu);
   }
 
   objc_msgSend__setConnectTimeoutTimer_(self, v10, 0, v11, v12);
   objc_msgSend_setStateToEndedWithReason_andError_(self, v13, 6, 1008, v14);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)videoLayer

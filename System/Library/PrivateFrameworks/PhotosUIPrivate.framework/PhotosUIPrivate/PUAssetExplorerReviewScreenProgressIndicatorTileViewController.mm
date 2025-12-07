@@ -362,7 +362,7 @@ LABEL_32:
   }
 }
 
-uint64_t __99__PUAssetExplorerReviewScreenProgressIndicatorTileViewController__setProgressViewVisible_animated___block_invoke_3(uint64_t a1)
+void *__99__PUAssetExplorerReviewScreenProgressIndicatorTileViewController__setProgressViewVisible_animated___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) alpha];
   if (v3 == 0.0)

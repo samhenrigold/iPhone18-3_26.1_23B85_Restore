@@ -6,52 +6,52 @@
 
 - (__CFString)px_localizedComposedStringThatFitsWidth:()PXLocalization maxCount:useUndefinedMoreCount:withMeasuringBlock:
 {
-  v7 = a5;
-  v8 = [self count];
-  if (v8)
+  v8 = a6;
+  v9 = [self count];
+  if (v9)
   {
-    if (v8 == 1)
+    if (v9 == 1)
     {
-      v9 = [self objectAtIndex:0];
+      v10 = [self objectAtIndex:0];
     }
 
     else
     {
-      if (v8 >= a3)
+      if (v9 >= a4)
       {
-        v10 = a3;
+        v11 = a4;
       }
 
       else
       {
-        v10 = v8;
+        v11 = v9;
       }
 
-      if (v10 <= 1)
+      if (v11 <= 1)
       {
-        v11 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v11 = v10;
+        v12 = v11;
       }
 
-      if (v11 >= 1)
+      if (v12 >= 1)
       {
         PXLocalizedComposedString();
       }
 
-      v9 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v9 = &stru_1F1741150;
+    v10 = &stru_1F1741150;
   }
 
-  return v9;
+  return v10;
 }
 
 @end

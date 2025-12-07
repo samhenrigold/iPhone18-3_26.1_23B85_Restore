@@ -44,12 +44,12 @@
 
 - (void)fetchDataForAttachment:(id)attachment consumer:(id)consumer progress:(id)progress completion:(id)completion
 {
-  v27[1] = *MEMORY[0x277D85DE8];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __89__MFDecryptedAttachmentDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke;
-  v24[3] = &unk_2798B7298;
-  v24[4] = progress;
+  v26[1] = *MEMORY[0x277D85DE8];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __89__MFDecryptedAttachmentDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke;
+  v23[3] = &unk_2798B7298;
+  v23[4] = progress;
   messageStore = [(MFMailMessage *)self->_message messageStore];
   part = [attachment part];
   [part setMimeBody:{-[MFMailMessage messageBody](self->_message, "messageBody")}];
@@ -71,10 +71,10 @@
   {
     v20 = [attachment decodeFilterWithDataConsumer:consumer];
     v21 = objc_alloc(MEMORY[0x277D24F88]);
-    v27[0] = v20;
+    v26[0] = v20;
     v19 = 1;
-    v17 = [v21 initWithConsumers:objc_msgSend(MEMORY[0x277CBEA60] expectedSize:{"arrayWithObjects:count:", v27, 1), objc_msgSend(attachment, "encodedFileSize")}];
-    [v17 setProgressBlock:v24];
+    v17 = [v21 initWithConsumers:objc_msgSend(MEMORY[0x277CBEA60] expectedSize:{"arrayWithObjects:count:", v26, 1), objc_msgSend(attachment, "encodedFileSize")}];
+    [v17 setProgressBlock:v23];
     [part range];
     if ([messageStore dataForMimePart:part inRange:0 withConsumer:v22 downloadIfNecessary:{v17, 1}])
     {
@@ -84,9 +84,9 @@
 
     else
     {
-      v25 = *MEMORY[0x277CCA7E8];
-      v26 = [+[MFActivityMonitor currentMonitor](MFActivityMonitor "currentMonitor")];
-      v18 = +[MFError errorWithDomain:code:localizedDescription:title:userInfo:](MFError, "errorWithDomain:code:localizedDescription:title:userInfo:", @"MFMessageErrorDomain", 1030, @"Could not retrieve decrypted data for attachment.", @"No Data Found", [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1]);
+      v24 = *MEMORY[0x277CCA7E8];
+      v25 = [+[MFActivityMonitor currentMonitor](MFActivityMonitor "currentMonitor")];
+      v18 = +[MFError errorWithDomain:code:localizedDescription:title:userInfo:](MFError, "errorWithDomain:code:localizedDescription:title:userInfo:", @"MFMessageErrorDomain", 1030, @"Could not retrieve decrypted data for attachment.", @"No Data Found", [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1]);
       v19 = 0;
       v16 = 0;
     }
@@ -95,7 +95,6 @@
   [v17 done];
   [consumer done];
   (*(completion + 2))(completion, v19, v18, v16);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __89__MFDecryptedAttachmentDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)

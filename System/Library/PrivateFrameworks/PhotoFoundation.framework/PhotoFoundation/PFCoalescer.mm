@@ -41,66 +41,64 @@ id __45__PFCoalescer_mutableCollectionBufferDrainer__block_invoke(uint64_t a1, v
 
 - (id)stateCaptureDictionary
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary setObject:self->_label forKeyedSubscript:@"label"];
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:self->_state];
-  v21 = dictionary;
+  v20 = dictionary;
   [dictionary setObject:v4 forKeyedSubscript:@"state"];
 
   array = [MEMORY[0x1E695DF70] array];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   selfCopy = self;
   obj = [(PFCoalescerContext *)self->_context pendingActivityTokensSnapshot];
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
-        v27[0] = @"reason";
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v26[0] = @"reason";
         reason = [v10 reason];
-        v28[0] = reason;
-        v27[1] = @"ageTimeInterval";
+        v27[0] = reason;
+        v26[1] = @"ageTimeInterval";
         v12 = MEMORY[0x1E696AD98];
         date = [MEMORY[0x1E695DF00] date];
         creationDate = [v10 creationDate];
         [date timeIntervalSinceDate:creationDate];
         v15 = [v12 numberWithDouble:?];
-        v28[1] = v15;
-        v27[2] = @"callStackReturnAddresses";
+        v27[1] = v15;
+        v26[2] = @"callStackReturnAddresses";
         callStackReturnAddresses = [v10 callStackReturnAddresses];
-        v28[2] = callStackReturnAddresses;
-        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+        v27[2] = callStackReturnAddresses;
+        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
 
         [array addObject:v17];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  [v21 setObject:array forKeyedSubscript:@"pendingActivityTokens"];
-  [v21 setObject:selfCopy->_lastTransactionStartDate forKeyedSubscript:@"lastTransactionStartDate"];
-  [v21 setObject:selfCopy->_lastTransactionEndDate forKeyedSubscript:@"lastTransactionEndDate"];
+  [v20 setObject:array forKeyedSubscript:@"pendingActivityTokens"];
+  [v20 setObject:selfCopy->_lastTransactionStartDate forKeyedSubscript:@"lastTransactionStartDate"];
+  [v20 setObject:selfCopy->_lastTransactionEndDate forKeyedSubscript:@"lastTransactionEndDate"];
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v20;
 }
 
 - (void)_resetWhileLocked
@@ -351,14 +349,10 @@ void __44__PFCoalescer_performEventActionWithTarget___block_invoke(void *a1)
   }
 }
 
-void __44__PFCoalescer_performEventActionWithTarget___block_invoke_2(void *a1)
+void __44__PFCoalescer_performEventActionWithTarget___block_invoke_2(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v4 = a1[4];
-  v3 = a1[5];
-  v5 = *(*(a1[6] + 8) + 40);
-  v6 = *(v4 + 136);
-  (*(*(v4 + 128) + 16))();
+  (*(*(*(a1 + 32) + 128) + 16))();
 
   objc_autoreleasePoolPop(v2);
 }

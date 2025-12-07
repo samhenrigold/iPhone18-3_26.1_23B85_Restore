@@ -70,17 +70,17 @@
 - (int)StringAsDeviceType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"PHONE"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
-    v4 = [typeCopy isEqualToString:@"WATCH"];
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)setHasSupportedRadioTechnologies:(BOOL)technologies

@@ -3,6 +3,7 @@
 - (void)_presentViewControllerForMemoryUUID:(id)d photoLibraryURLString:(id)string;
 - (void)_updatePreferredContentSizeForPreferredPreviewSize:(CGSize)size;
 - (void)didReceiveNotification:(id)notification;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation PhotosMemoriesNotificationsUpdatesViewController
@@ -27,6 +28,14 @@
   }
 
   [(PhotosMemoriesNotificationsUpdatesViewController *)self _presentViewControllerForMemoryUUID:v7 photoLibraryURLString:v8];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PhotosMemoriesNotificationsUpdatesViewController;
+  [(PhotosMemoriesNotificationsUpdatesViewController *)&v4 viewDidDisappear:disappear];
+  [(PhotosMemoriesNotificationsUpdatesViewController *)self _dismissOneUpViewController];
 }
 
 - (void)_dismissOneUpViewController
@@ -60,22 +69,9 @@
   v11 = [NSURL URLWithString:stringCopy];
   v12 = [v10 initWithPhotoLibraryURL:v11];
 
-  if (![v12 openAndWaitWithUpgrade:0 error:0])
+  if ([v12 openAndWaitWithUpgrade:0 error:0] && (objc_msgSend(v12, "librarySpecificFetchOptions"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "setIncludePendingMemories:", 1), v31 = v9, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v31, 1), v14 = objc_claimAutoreleasedReturnValue(), +[PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:options:](PHAssetCollection, "fetchAssetCollectionsWithLocalIdentifiers:options:", v14, v13), v15 = objc_claimAutoreleasedReturnValue(), v14, objc_msgSend(v15, "firstObject"), v16 = objc_claimAutoreleasedReturnValue(), v15, v13, v16))
   {
-    goto LABEL_8;
-  }
-
-  librarySpecificFetchOptions = [v12 librarySpecificFetchOptions];
-  [librarySpecificFetchOptions setIncludePendingMemories:1];
-  v31 = v9;
-  v14 = [NSArray arrayWithObjects:&v31 count:1];
-  v15 = [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:v14 options:librarySpecificFetchOptions];
-
-  firstObject = [v15 firstObject];
-
-  if (firstObject)
-  {
-    v17 = [PXPhotosDetailsContext photosDetailsContextForMemory:firstObject];
+    v17 = [PXPhotosDetailsContext photosDetailsContextForMemory:v16];
     v18 = [[PXPhotosDetailsUIViewController alloc] initWithContext:v17 options:8];
     previewViewController = self->_previewViewController;
     self->_previewViewController = v18;
@@ -102,13 +98,12 @@
 
   else
   {
-LABEL_8:
-    firstObject = PLUIGetLog();
-    if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
+    v16 = PLUIGetLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v30 = dCopy;
-      _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_ERROR, "No memory was fetchable with memory UUID: %@, hence can't present detail view context for that memory.", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "No memory was fetchable with memory UUID: %@, hence can't present detail view context for that memory.", buf, 0xCu);
     }
   }
 }

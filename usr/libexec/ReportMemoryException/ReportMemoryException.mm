@@ -6,9 +6,9 @@ void sub_100001098(uint64_t a1)
   v4 = *(a1 + 81);
   v5 = *(a1 + 82);
   v6 = *(a1 + 64);
-  v86 = *(a1 + 72);
+  v87 = *(a1 + 72);
   v7 = *(a1 + 32);
-  v88 = v1;
+  v89 = v1;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [v7 execName];
@@ -20,8 +20,8 @@ void sub_100001098(uint64_t a1)
   }
 
   sub_100005BDC(v7);
-  v87 = [qword_100014630 objectForKeyedSubscript:off_1000144A0[0]];
-  if ([v87 BOOLValue])
+  v88 = [qword_100014630 objectForKeyedSubscript:off_1000144A0[0]];
+  if ([v88 BOOLValue])
   {
     v9 = 2;
   }
@@ -32,7 +32,7 @@ void sub_100001098(uint64_t a1)
   }
 
   [v7 _populateAddtionalMetadataWithOptions:v9 timeoutSecs:v6];
-  v91 = v7;
+  v92 = v7;
   if (v3 && v4 && (v5 & 1) == 0)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -46,14 +46,14 @@ void sub_100001098(uint64_t a1)
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Attempting to save lite diagnostic before generating a memgraph for process %@ [%d]", buf, 0x12u);
     }
 
-    v95 = 0;
-    v12 = sub_100001F94(v7, 1, 0, &v95);
-    v13 = v95;
+    v96 = 0;
+    v12 = sub_100001F94(v7, 1, 0, &v96);
+    v13 = v96;
     if (v12)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = [v91 execName];
+        v14 = [v92 execName];
         *buf = 138412546;
         *&buf[4] = v14;
         *&buf[12] = 2112;
@@ -61,12 +61,12 @@ void sub_100001098(uint64_t a1)
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Successfully saved initial lite diagnostic for process %@ at %@", buf, 0x16u);
       }
 
-      [v91 setLiteDiagFilePath:v12];
+      [v92 setLiteDiagFilePath:v12];
     }
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v76 = [v91 execName];
+      v76 = [v92 execName];
       v77 = [v13 localizedDescription];
       *buf = 138412546;
       *&buf[4] = v76;
@@ -75,11 +75,11 @@ void sub_100001098(uint64_t a1)
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Failed to save initial lite diagnostic for process %@: %{public}@", buf, 0x16u);
     }
 
-    v7 = v91;
+    v7 = v92;
   }
 
-  v90 = v4;
-  v94 = 0;
+  v91 = v4;
+  v95 = 0;
   v15 = [v7 execName];
   v16 = 2;
   if (v15)
@@ -102,11 +102,11 @@ void sub_100001098(uint64_t a1)
 
   if (v5)
   {
-    v21 = v91;
+    v21 = v92;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = [v91 execName];
-      v23 = [v91 pid];
+      v22 = [v92 execName];
+      v23 = [v92 pid];
       *buf = 138412546;
       *&buf[4] = v22;
       *&buf[12] = 1024;
@@ -114,13 +114,13 @@ void sub_100001098(uint64_t a1)
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Attempting to create a gcore for process %@ [%d]", buf, 0x12u);
     }
 
-    v93 = 0;
-    v24 = v91;
+    v94 = 0;
+    v24 = v92;
     v25 = [RMECacheEnumerator getGcoreSpoolWithCreateIfNecessary:1];
     v26 = v25;
     if (v25)
     {
-      v27 = sub_10000284C(v25, &v93, @".core", v24);
+      v27 = sub_10000284C(v25, &v94, @".core", v24);
       if (v27)
       {
         v28 = v27;
@@ -148,17 +148,17 @@ void sub_100001098(uint64_t a1)
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Failed to get gcore spool directory", buf, 2u);
       }
 
-      v96[0] = NSLocalizedDescriptionKey;
+      v97[0] = NSLocalizedDescriptionKey;
       *buf = @"Failed to get gcore spool directory";
-      v28 = [NSDictionary dictionaryWithObjects:buf forKeys:v96 count:1];
+      v28 = [NSDictionary dictionaryWithObjects:buf forKeys:v97 count:1];
       [NSError errorWithDomain:@"ReportMemoryExceptionError" code:1 userInfo:v28];
-      v93 = v29 = 0;
+      v94 = v29 = 0;
     }
 
-    v30 = v93;
+    v30 = v94;
     if (!v29)
     {
-      v31 = v90;
+      v31 = v91;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         v74 = [v24 execName];
@@ -175,7 +175,7 @@ void sub_100001098(uint64_t a1)
       goto LABEL_55;
     }
 
-    if (sub_100005E58() && sub_100005F28())
+    if (sub_100005E58(0) && sub_100005F28())
     {
       v32 = objc_alloc_init(NSMutableDictionary);
       v33 = [[NSNumber alloc] initWithInt:{objc_msgSend(v24, "task")}];
@@ -188,8 +188,8 @@ void sub_100001098(uint64_t a1)
       v35 = sub_100005F28();
       if (!v35)
       {
-        dlerror();
-        abort_report_np();
+        v78 = dlerror();
+        abort_report_np("%s", v78);
       }
 
       v36 = v35(v34);
@@ -212,9 +212,9 @@ void sub_100001098(uint64_t a1)
 
         [v24 setGcoreCapture:1];
         [v24 setGcoreFilePath:v29];
-        [v24 _generateMemgraphWithContentLevel:v16 timeoutSecs:v6 memgraphFailedReasonOut:&v94];
+        [v24 _generateMemgraphWithContentLevel:v16 timeoutSecs:v6 memgraphFailedReasonOut:&v95];
 LABEL_51:
-        v31 = v90;
+        v31 = v91;
         unlink([v29 UTF8String]);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
@@ -251,19 +251,19 @@ LABEL_55:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Cannot create a gcore for %{public}@ [%d] ", buf, 0x12u);
     }
 
-    v94 = 4;
+    v95 = 4;
     goto LABEL_51;
   }
 
-  v21 = v91;
-  if (v90)
+  v21 = v92;
+  if (v91)
   {
-    [v91 _generateMemgraphWithContentLevel:v16 timeoutSecs:v6 memgraphFailedReasonOut:&v94];
+    [v92 _generateMemgraphWithContentLevel:v16 timeoutSecs:v6 memgraphFailedReasonOut:&v95];
   }
 
-  [v91 releaseAnalyzedTask];
+  [v92 releaseAnalyzedTask];
   v30 = 0;
-  v31 = v90;
+  v31 = v91;
 LABEL_56:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
@@ -277,14 +277,14 @@ LABEL_56:
   }
 
   os_unfair_lock_lock(v2 + 8);
-  v92 = v30;
-  v43 = sub_100001F94(v21, v3, v31, &v92);
-  v44 = v92;
+  v93 = v30;
+  v43 = sub_100001F94(v21, v3, v31, &v93);
+  v44 = v93;
 
   os_unfair_lock_unlock(v2 + 8);
   v45 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
-  v89 = v43;
-  v85 = v44;
+  v90 = v43;
+  v86 = v44;
   if (v43)
   {
     if (v45)
@@ -296,14 +296,14 @@ LABEL_56:
       *&buf[12] = 1024;
       *&buf[14] = v47;
       *&buf[18] = 2114;
-      *&buf[20] = v89;
+      *&buf[20] = v90;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Memory Resource Exception log for %{public}@ [%d] saved at %{public}@", buf, 0x1Cu);
     }
 
     if (sub_100002DD4() && v31)
     {
       v48 = v21;
-      v49 = v89;
+      v49 = v90;
       v50 = objc_alloc_init(SDRDiagnosticReporter);
       [v48 exceptionType];
       v51 = MREExceptionTypeToString();
@@ -332,11 +332,11 @@ LABEL_56:
 
       if (v56)
       {
-        v99 = v49;
-        v100 = kSymptomDiagnosticKeyPayloadPath;
-        v57 = [NSArray arrayWithObjects:&v99 count:1];
-        v101 = v57;
-        v58 = [NSDictionary dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+        v100 = v49;
+        v101 = kSymptomDiagnosticKeyPayloadPath;
+        v57 = [NSArray arrayWithObjects:&v100 count:1];
+        v102 = v57;
+        v58 = [NSDictionary dictionaryWithObjects:&v102 forKeys:&v101 count:1];
       }
 
       else
@@ -356,23 +356,23 @@ LABEL_56:
       if (v63)
       {
         v64 = [v48 cachedMetaDataDict];
-        v98 = v64;
-        v63 = [NSArray arrayWithObjects:&v98 count:1];
+        v99 = v64;
+        v63 = [NSArray arrayWithObjects:&v99 count:1];
       }
 
-      v96[0] = kSymptomDiagnosticActionLogArchive;
-      v96[1] = kSymptomDiagnosticActionGetNetworkInfo;
+      v97[0] = kSymptomDiagnosticActionLogArchive;
+      v97[1] = kSymptomDiagnosticActionGetNetworkInfo;
       *buf = &__kCFBooleanFalse;
       *&buf[8] = &__kCFBooleanFalse;
-      v96[2] = kSymptomDiagnosticActionCrashAndSpinLogs;
-      v96[3] = kSymptomDiagnosticActionDiagnosticExtensions;
+      v97[2] = kSymptomDiagnosticActionCrashAndSpinLogs;
+      v97[3] = kSymptomDiagnosticActionDiagnosticExtensions;
       *&buf[16] = &__kCFBooleanFalse;
       *&buf[24] = &__kCFBooleanFalse;
-      v65 = [NSDictionary dictionaryWithObjects:buf forKeys:v96 count:4];
+      v65 = [NSDictionary dictionaryWithObjects:buf forKeys:v97 count:4];
       [v50 snapshotWithSignature:v55 duration:v63 events:v58 payload:v65 actions:&stru_100010698 reply:0.0];
 
-      v21 = v91;
-      v31 = v90;
+      v21 = v92;
+      v31 = v91;
     }
   }
 
@@ -394,10 +394,10 @@ LABEL_56:
     sub_100002DD4();
   }
 
-  v84 = [v21 execName];
-  v81 = [v21 bundleID];
-  v83 = [v21 exceptionType];
-  v82 = [v21 ledgerPhysFootprint];
+  v85 = [v21 execName];
+  v82 = [v21 bundleID];
+  v84 = [v21 exceptionType];
+  v83 = [v21 ledgerPhysFootprint];
   v66 = [v21 ledgerPhysFootprintPeak];
   v67 = [v21 limitValue];
   v68 = v31;
@@ -408,7 +408,7 @@ LABEL_56:
 
   else
   {
-    v69 = v86;
+    v69 = v87;
   }
 
   v70 = [v21 memoryGraph];
@@ -416,33 +416,33 @@ LABEL_56:
   v72 = 0;
   if (!v71)
   {
-    if (v94 > 6)
+    if (v95 > 6)
     {
       v72 = 3;
     }
 
     else
     {
-      v72 = qword_10000B350[v94];
+      v72 = qword_10000B350[v95];
     }
 
-    v21 = v91;
-    v68 = v90;
+    v21 = v92;
+    v68 = v91;
   }
 
   v73 = [v21 isMSLEnabled];
-  BYTE1(v80) = [v21 gcoreCapture];
-  LOBYTE(v80) = v73;
-  LOBYTE(v79) = v70 != 0;
-  LOBYTE(v78) = v68;
-  [RMETelemetry emitTelemetryForExecName:v84 bundleID:v81 exceptionType:v83 footprint:v82 footprintPeak:v66 jetsamLimit:v67 memgraphAttempted:v78 memgraphSkippedReason:v69 memgraphSucceeded:v79 memgraphFailedReason:v72 diagFilePath:v89 isMSLEnabled:v80 isGcoreCapture:?];
+  BYTE1(v81) = [v21 gcoreCapture];
+  LOBYTE(v81) = v73;
+  LOBYTE(v80) = v70 != 0;
+  LOBYTE(v79) = v68;
+  [RMETelemetry emitTelemetryForExecName:v85 bundleID:v82 exceptionType:v84 footprint:v83 footprintPeak:v66 jetsamLimit:v67 memgraphAttempted:v79 memgraphSkippedReason:v69 memgraphSucceeded:v80 memgraphFailedReason:v72 diagFilePath:v90 isMSLEnabled:v81 isGcoreCapture:?];
 
   free(qword_100014668);
   qword_100014668 = 0;
   qword_1000144C8 = "Bulk analysis completed.";
-  if (v88)
+  if (v89)
   {
-    v88[2](v88, v85);
+    v89[2](v89, v86);
   }
 
   ++qword_100014658;
@@ -2324,7 +2324,7 @@ void sub_100005E0C(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100005E58()
+uint64_t sub_100005E58(uint64_t a1)
 {
   if (!qword_100014610)
   {
@@ -2356,16 +2356,15 @@ uint64_t sub_100005F28()
   return v0;
 }
 
-void sub_100005FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100005FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100005FF0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100014610 = result;
   return result;
@@ -2373,11 +2372,19 @@ uint64_t sub_100005FF0(uint64_t a1)
 
 void *sub_100006064(uint64_t a1)
 {
-  v2 = sub_100005E58();
+  v5 = 0;
+  v2 = sub_100005E58(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "create_gcore_with_options");
@@ -2877,32 +2884,32 @@ void sub_100007238(void *a1, void *a2)
     if (!v6)
     {
 LABEL_5:
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       v9 = [v3 allKeys];
-      v10 = [v9 countByEnumeratingWithState:&v56 objects:v66 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v55 objects:v65 count:16];
       if (!v10)
       {
         goto LABEL_81;
       }
 
       v11 = v10;
-      v12 = *v57;
-      v46 = v3;
+      v12 = *v56;
+      v45 = v3;
       while (1)
       {
         v13 = 0;
         do
         {
-          if (*v57 != v12)
+          if (*v56 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v56 + 1) + 8 * v13);
-          if (([(__CFString *)v14 isEqualToString:off_100014478[0], v44]& 1) != 0 || ([(__CFString *)v14 isEqualToString:off_100014480[0]]& 1) != 0 || ([(__CFString *)v14 isEqualToString:off_100014470[0]]& 1) != 0 || ([(__CFString *)v14 isEqualToString:off_100014488[0]]& 1) != 0 || ([(__CFString *)v14 isEqualToString:off_100014490[0]]& 1) != 0 || ([(__CFString *)v14 isEqualToString:@"PerProcessLimit"]& 1) != 0 || ([(__CFString *)v14 isEqualToString:@"LitePerProcessLimit"]& 1) != 0 || ([(__CFString *)v14 isEqualToString:@"PerCriticalProcessLimit"]& 1) != 0 || [(__CFString *)v14 isEqualToString:@"AllowAllProcessesInSysdiagnose"])
+          v14 = *(*(&v55 + 1) + 8 * v13);
+          if (([(__CFString *)v14 isEqualToString:off_100014478[0], v43]& 1) != 0 || ([(__CFString *)v14 isEqualToString:off_100014480[0]]& 1) != 0 || ([(__CFString *)v14 isEqualToString:off_100014470[0]]& 1) != 0 || ([(__CFString *)v14 isEqualToString:off_100014488[0]]& 1) != 0 || ([(__CFString *)v14 isEqualToString:off_100014490[0]]& 1) != 0 || ([(__CFString *)v14 isEqualToString:@"PerProcessLimit"]& 1) != 0 || ([(__CFString *)v14 isEqualToString:@"LitePerProcessLimit"]& 1) != 0 || ([(__CFString *)v14 isEqualToString:@"PerCriticalProcessLimit"]& 1) != 0 || [(__CFString *)v14 isEqualToString:@"AllowAllProcessesInSysdiagnose"])
           {
             v15 = [v4 objectForKeyedSubscript:v14];
             if (v15)
@@ -2924,17 +2931,16 @@ LABEL_23:
             v15 = [v4 objectForKeyedSubscript:v14];
             if (v15)
             {
-              v19 = v5[143];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
                 [v3 objectForKeyedSubscript:v14];
-                v20 = v9;
-                v22 = v21 = v5;
-                sub_1000081D4(v22, v15);
+                v19 = v9;
+                v21 = v20 = v5;
+                sub_1000081D4(v21, v15);
 
-                v5 = v21;
-                v9 = v20;
+                v5 = v20;
+                v9 = v19;
               }
             }
           }
@@ -2947,61 +2953,61 @@ LABEL_23:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v44 = v6;
-                v45 = v9;
-                v54 = 0u;
-                v55 = 0u;
-                v52 = 0u;
+                v43 = v6;
+                v44 = v9;
                 v53 = 0u;
+                v54 = 0u;
+                v51 = 0u;
+                v52 = 0u;
                 v15 = v15;
-                v23 = [v15 countByEnumeratingWithState:&v52 objects:v65 count:16];
-                if (v23)
+                v22 = [v15 countByEnumeratingWithState:&v51 objects:v64 count:16];
+                if (v22)
                 {
-                  v24 = v23;
-                  v47 = *v53;
+                  v23 = v22;
+                  v46 = *v52;
                   do
                   {
-                    for (i = 0; i != v24; i = i + 1)
+                    for (i = 0; i != v23; i = i + 1)
                     {
-                      if (*v53 != v47)
+                      if (*v52 != v46)
                       {
                         objc_enumerationMutation(v15);
                       }
 
-                      v26 = *(*(&v52 + 1) + 8 * i);
+                      v25 = *(*(&v51 + 1) + 8 * i);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        if (!-[__CFString isEqualToString:](v14, "isEqualToString:", off_1000144A8[0]) || os_variant_has_internal_diagnostics() && ([v26 isEqualToString:@"mediaserverd"] & 1) != 0)
+                        if (!-[__CFString isEqualToString:](v14, "isEqualToString:", off_1000144A8[0]) || os_variant_has_internal_diagnostics() && ([v25 isEqualToString:@"mediaserverd"] & 1) != 0)
                         {
-                          v27 = [v3 objectForKeyedSubscript:{v14, v44}];
-                          [v27 addObject:v26];
+                          v26 = [v3 objectForKeyedSubscript:{v14, v43}];
+                          [v26 addObject:v25];
 
-                          v3 = v46;
+                          v3 = v45;
                           if ([(__CFString *)v14 isEqualToString:off_100014498[0]])
                           {
-                            v28 = [v46 objectForKeyedSubscript:@"ProcessesAllowedInSysdiagnose"];
-                            [v28 addObject:v26];
+                            v27 = [v45 objectForKeyedSubscript:@"ProcessesAllowedInSysdiagnose"];
+                            [v27 addObject:v25];
 
-                            v3 = v46;
+                            v3 = v45;
                           }
                         }
 
                         else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 138412546;
-                          v62 = v26;
-                          v63 = 2112;
-                          v64 = off_1000144A8[0];
+                          v61 = v25;
+                          v62 = 2112;
+                          v63 = off_1000144A8[0];
                           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Ignoring process %@ for %@ key, since it isn't know to have received privacy approval for collecting fullContent memgraphs for this OS configuration.", buf, 0x16u);
                         }
                       }
                     }
 
-                    v24 = [v15 countByEnumeratingWithState:&v52 objects:v65 count:16];
+                    v23 = [v15 countByEnumeratingWithState:&v51 objects:v64 count:16];
                   }
 
-                  while (v24);
+                  while (v23);
                 }
 
                 goto LABEL_51;
@@ -3017,48 +3023,48 @@ LABEL_23:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v44 = v6;
-                v45 = v9;
-                v50 = 0u;
-                v51 = 0u;
-                v48 = 0u;
+                v43 = v6;
+                v44 = v9;
                 v49 = 0u;
+                v50 = 0u;
+                v47 = 0u;
+                v48 = 0u;
                 v15 = v15;
-                v29 = [v15 countByEnumeratingWithState:&v48 objects:v60 count:16];
-                if (v29)
+                v28 = [v15 countByEnumeratingWithState:&v47 objects:v59 count:16];
+                if (v28)
                 {
-                  v30 = v29;
-                  v31 = *v49;
+                  v29 = v28;
+                  v30 = *v48;
                   do
                   {
-                    for (j = 0; j != v30; j = j + 1)
+                    for (j = 0; j != v29; j = j + 1)
                     {
-                      if (*v49 != v31)
+                      if (*v48 != v30)
                       {
                         objc_enumerationMutation(v15);
                       }
 
-                      v33 = *(*(&v48 + 1) + 8 * j);
+                      v32 = *(*(&v47 + 1) + 8 * j);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v34 = [v46 objectForKeyedSubscript:@"ProcessesAllowedInSysdiagnose"];
-                        [v34 addObject:v33];
+                        v33 = [v45 objectForKeyedSubscript:@"ProcessesAllowedInSysdiagnose"];
+                        [v33 addObject:v32];
                       }
                     }
 
-                    v30 = [v15 countByEnumeratingWithState:&v48 objects:v60 count:16];
+                    v29 = [v15 countByEnumeratingWithState:&v47 objects:v59 count:16];
                   }
 
-                  while (v30);
+                  while (v29);
                 }
 
-                v3 = v46;
+                v3 = v45;
 LABEL_51:
-                v6 = v44;
+                v6 = v43;
                 v5 = &AnalyticsSendEventLazy_ptr;
 LABEL_52:
-                v9 = v45;
+                v9 = v44;
               }
             }
           }
@@ -3067,15 +3073,15 @@ LABEL_52:
           {
             if (![(__CFString *)v14 isEqualToString:off_1000144A0[0]])
             {
-              v45 = v9;
-              v35 = v5;
-              v36 = [(__CFString *)v14 isEqualToString:@"BoostCriticalProcessCollection"];
-              v37 = [v4 objectForKeyedSubscript:v14];
-              v15 = v37;
-              if (v36)
+              v44 = v9;
+              v34 = v5;
+              v35 = [(__CFString *)v14 isEqualToString:@"BoostCriticalProcessCollection"];
+              v36 = [v4 objectForKeyedSubscript:v14];
+              v15 = v36;
+              if (v35)
               {
                 objc_opt_class();
-                v5 = v35;
+                v5 = v34;
                 if (objc_opt_isKindOfClass())
                 {
                   [v3 setObject:v15 forKeyedSubscript:@"BoostCriticalProcessCollection"];
@@ -3084,16 +3090,16 @@ LABEL_52:
                 goto LABEL_52;
               }
 
-              if (v37)
+              if (v36)
               {
-                v44 = v6;
-                v38 = [v3 objectForKeyedSubscript:v14];
-                v39 = [v15 objectForKeyedSubscript:@"PerProcessLimit"];
-                if (v39 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                v43 = v6;
+                v37 = [v3 objectForKeyedSubscript:v14];
+                v38 = [v15 objectForKeyedSubscript:@"PerProcessLimit"];
+                if (v38 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                 {
-                  if ([v39 integerValue] + 1 <= 0x2711)
+                  if ([v38 integerValue] + 1 <= 0x2711)
                   {
-                    [v38 setObject:v39 forKeyedSubscript:@"PerProcessLimit"];
+                    [v37 setObject:v38 forKeyedSubscript:@"PerProcessLimit"];
                     goto LABEL_77;
                   }
                 }
@@ -3101,17 +3107,17 @@ LABEL_52:
                 else
                 {
 LABEL_77:
-                  v40 = [v38 objectForKeyedSubscript:@"ExecNameList"];
-                  v41 = [v15 objectForKeyedSubscript:@"ExecNameList"];
-                  sub_1000081D4(v40, v41);
+                  v39 = [v37 objectForKeyedSubscript:@"ExecNameList"];
+                  v40 = [v15 objectForKeyedSubscript:@"ExecNameList"];
+                  sub_1000081D4(v39, v40);
 
-                  v3 = v46;
+                  v3 = v45;
                 }
 
-                v6 = v44;
+                v6 = v43;
               }
 
-              v5 = v35;
+              v5 = v34;
               goto LABEL_52;
             }
 
@@ -3130,9 +3136,9 @@ LABEL_77:
         }
 
         while (v13 != v11);
-        v42 = [v9 countByEnumeratingWithState:&v56 objects:v66 count:16];
-        v11 = v42;
-        if (!v42)
+        v41 = [v9 countByEnumeratingWithState:&v55 objects:v65 count:16];
+        v11 = v41;
+        if (!v41)
         {
 LABEL_81:
 
@@ -3158,7 +3164,7 @@ LABEL_81:
       }
 
       *buf = 0;
-      v43 = "The input preferences have expired. Skipping.";
+      v42 = "The input preferences have expired. Skipping.";
     }
 
     else
@@ -3171,10 +3177,10 @@ LABEL_85:
       }
 
       *buf = 0;
-      v43 = "The input preferences are malformed. Skipping.";
+      v42 = "The input preferences are malformed. Skipping.";
     }
 
-    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, v43, buf, 2u);
+    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, v42, buf, 2u);
     goto LABEL_85;
   }
 

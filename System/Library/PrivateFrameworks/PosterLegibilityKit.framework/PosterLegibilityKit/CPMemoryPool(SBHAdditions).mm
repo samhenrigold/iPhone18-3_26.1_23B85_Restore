@@ -1,6 +1,6 @@
 @interface CPMemoryPool(SBHAdditions)
-+ (id)plk_sharedMemoryPoolForDescriptor:()SBHAdditions;
 + (id)plk_sharedMemoryPoolForMaxSize:()SBHAdditions scale:contextType:;
++ (void)plk_sharedMemoryPoolForDescriptor:()SBHAdditions;
 - (BOOL)plk_compatibleWithDescriptor:()SBHAdditions;
 @end
 
@@ -8,16 +8,12 @@
 
 + (id)plk_sharedMemoryPoolForMaxSize:()SBHAdditions scale:contextType:
 {
-  *v8 = a2;
-  *&v8[1] = a3;
-  *&v8[2] = a4;
-  v8[3] = a6;
-  v6 = [self plk_sharedMemoryPoolForDescriptor:v8];
+  v6 = [self plk_sharedMemoryPoolForDescriptor:{*&a2, *&a3, *&a4, a6}];
 
   return v6;
 }
 
-+ (id)plk_sharedMemoryPoolForDescriptor:()SBHAdditions
++ (void)plk_sharedMemoryPoolForDescriptor:()SBHAdditions
 {
   if (plk_sharedMemoryPoolForDescriptor__onceToken != -1)
   {
@@ -31,16 +27,19 @@
   v8 = MEMORY[0x277CCACA8];
   v9 = PLKGraphicsContextCalculateBytesNeededForSize(v7, *a3, v5, v6);
   v10 = PLKGraphicsContextTypeDescription(*(a3 + 24));
-  v11 = [v8 stringWithFormat:@"PosterLegibilityKit-%zu-%@", v9, v10];
+  v11 = [v8 stringWithFormat:v9, v10];
 
   os_unfair_lock_lock(&plk_sharedMemoryPoolForDescriptor__lock);
-  v12 = [plk_sharedMemoryPoolForDescriptor__sharedMemoryPoolsForDescriptor objectForKey:v11];
+  v12 = [plk_sharedMemoryPoolForDescriptor__sharedMemoryPoolsForDescriptor objectForKey:?];
   if (!v12)
   {
-    v12 = [objc_alloc(MEMORY[0x277CEC5B0]) initWithLabel:objc_msgSend(v11 slotLength:{"UTF8String"), PLKGraphicsContextCalculateBytesNeededForSize(v7, v4, v5, v6)}];
+    PLKGraphicsContextCalculateBytesNeededForSize(v7, v4, v5, v6);
+    v13 = objc_alloc(MEMORY[0x277CEC5B0]);
+    [v11 UTF8String];
+    v12 = [v13 initWithLabel:? slotLength:?];
     if (v12)
     {
-      [plk_sharedMemoryPoolForDescriptor__sharedMemoryPoolsForDescriptor setObject:v12 forKey:v11];
+      [plk_sharedMemoryPoolForDescriptor__sharedMemoryPoolsForDescriptor setObject:? forKey:?];
     }
   }
 

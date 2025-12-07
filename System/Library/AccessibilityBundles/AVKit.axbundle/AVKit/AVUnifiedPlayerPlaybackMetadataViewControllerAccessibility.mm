@@ -15,42 +15,40 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v16 = *MEMORY[0x29EDCA608];
-  v14.receiver = self;
-  v14.super_class = AVUnifiedPlayerPlaybackMetadataViewControllerAccessibility;
-  [(AVUnifiedPlayerPlaybackMetadataViewControllerAccessibility *)&v14 _accessibilityLoadAccessibilityInformation];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v15 = *MEMORY[0x29EDCA608];
+  v13.receiver = self;
+  v13.super_class = AVUnifiedPlayerPlaybackMetadataViewControllerAccessibility;
+  [(AVUnifiedPlayerPlaybackMetadataViewControllerAccessibility *)&v13 _accessibilityLoadAccessibilityInformation];
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   accessibilityHeaderElements = [(AVUnifiedPlayerPlaybackMetadataViewControllerAccessibility *)self accessibilityHeaderElements];
-  v4 = [accessibilityHeaderElements countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v4 = [accessibilityHeaderElements countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     v7 = *MEMORY[0x29EDC7F80];
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(accessibilityHeaderElements);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setAccessibilityTraits:v7];
+        [*(*(&v9 + 1) + 8 * v8++) setAccessibilityTraits:v7];
       }
 
       while (v5 != v8);
-      v5 = [accessibilityHeaderElements countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v5 = [accessibilityHeaderElements countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (id)accessibilityHeaderElements

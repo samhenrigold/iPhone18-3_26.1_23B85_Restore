@@ -18,20 +18,19 @@
 
 - (BOOL)shouldAcceptXPCConnection:(id)connection
 {
-  connectionCopy = connection;
-  v4 = _EXDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v3 = _EXDefaultLog(connection);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v8 = 136315906;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXExtensionContext.m";
-    v10 = 1024;
-    v11 = 24;
-    v12 = 2080;
-    v13 = "[_EXExtensionContext shouldAcceptXPCConnection:]";
-    v14 = 2112;
-    v15 = v6;
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v7 = 136315906;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXExtensionContext.m";
+    v9 = 1024;
+    v10 = 24;
+    v11 = 2080;
+    v12 = "[_EXExtensionContext shouldAcceptXPCConnection:]";
+    v13 = 2112;
+    v14 = v5;
   }
 
   __break(1u);
@@ -62,12 +61,13 @@
 - (void)completeRequestReturningItems:(id)items completionHandler:(id)handler
 {
   handlerCopy = handler;
-  if ([items count])
+  v7 = [items count];
+  if (v7)
   {
-    v7 = _EXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = _EXDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [_EXExtensionContext completeRequestReturningItems:v7 completionHandler:?];
+      [_EXExtensionContext completeRequestReturningItems:v8 completionHandler:?];
     }
 
     [(_EXExtensionContext *)self invalidate];
@@ -83,11 +83,10 @@
 
 - (void)completeRequestReturningItems:(os_log_t)log completionHandler:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136446210;
-  v3 = "[_EXExtensionContext completeRequestReturningItems:completionHandler:]";
-  _os_log_fault_impl(&dword_1847D1000, log, OS_LOG_TYPE_FAULT, "'%{public}s' called with items. This is not supported!", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136446210;
+  v2 = "[_EXExtensionContext completeRequestReturningItems:completionHandler:]";
+  _os_log_fault_impl(&dword_1847D1000, log, OS_LOG_TYPE_FAULT, "'%{public}s' called with items. This is not supported!", &v1, 0xCu);
 }
 
 @end

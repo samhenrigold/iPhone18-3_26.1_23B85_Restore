@@ -268,8 +268,8 @@ LABEL_21:
 
 - (id)phoneCallContainer:(id)container avatarViewControllerForViewCellAtIndex:(unint64_t)index
 {
-  v18 = 0;
-  v4 = [(PHCarPlayPhoneCallGalleryView *)self phoneCallForIndex:index isMerged:&v18];
+  v19 = 0;
+  v4 = [(PHCarPlayPhoneCallGalleryView *)self phoneCallForIndex:index isMerged:&v19];
   v5 = v4;
   if (!v4)
   {
@@ -279,7 +279,7 @@ LABEL_21:
   contactIdentifier = [v4 contactIdentifier];
   if ([contactIdentifier length])
   {
-    v7 = v18;
+    v7 = v19;
 
     if (v7)
     {
@@ -291,19 +291,19 @@ LABEL_4:
     contactIdentifier = [CNContactStoreConfiguration tu_contactStoreConfigurationForCall:v5];
     v9 = [[CNContactStore alloc] initWithConfiguration:contactIdentifier];
     contactIdentifier2 = [v5 contactIdentifier];
-    v26 = CNContactImageDataAvailableKey;
-    v11 = [NSArray arrayWithObjects:&v26 count:1];
-    v17 = 0;
-    v12 = [v9 unifiedContactWithIdentifier:contactIdentifier2 keysToFetch:v11 error:&v17];
-    v13 = v17;
+    v27 = CNContactImageDataAvailableKey;
+    v11 = [NSArray arrayWithObjects:&v27 count:1];
+    v18 = 0;
+    v12 = [v9 unifiedContactWithIdentifier:contactIdentifier2 keysToFetch:v11 error:&v18];
+    v13 = v18;
 
-    if (v12 && [v12 imageDataAvailable])
+    if (v12 && (v14 = [v12 imageDataAvailable], v14))
     {
-      v14 = [CNAvatarViewControllerSettings settingsWithContactStore:v9 threeDTouchEnabled:0];
-      v8 = [[CNAvatarViewController alloc] initWithSettings:v14];
-      v25 = v12;
-      v15 = [NSArray arrayWithObjects:&v25 count:1];
-      [v8 setContacts:v15];
+      v15 = [CNAvatarViewControllerSettings settingsWithContactStore:v9 threeDTouchEnabled:0];
+      v8 = [[CNAvatarViewController alloc] initWithSettings:v15];
+      v26 = v12;
+      v16 = [NSArray arrayWithObjects:&v26 count:1];
+      [v8 setContacts:v16];
     }
 
     else
@@ -314,16 +314,16 @@ LABEL_4:
         goto LABEL_15;
       }
 
-      v14 = sub_100004F84();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100004F84(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v20 = v9;
-        v21 = 2112;
-        v22 = v5;
-        v23 = 2112;
-        v24 = v13;
-        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Could not retrieve a contact using contact store (%@) call (%@) error (%@)", buf, 0x20u);
+        v21 = v9;
+        v22 = 2112;
+        v23 = v5;
+        v24 = 2112;
+        v25 = v13;
+        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Could not retrieve a contact using contact store (%@) call (%@) error (%@)", buf, 0x20u);
       }
 
       v8 = 0;

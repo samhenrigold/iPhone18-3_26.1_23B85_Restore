@@ -342,7 +342,7 @@ uint64_t i40e_aq_add_vsi(uint64_t a1, uint64_t a2, _OWORD *a3)
   LOBYTE(v10) = *(a2 + 13);
   HIWORD(v10) = *(a2 + 10);
   v7[0] |= 0x1400u;
-  result = i40e_asq_send_command(a1, v7, (a2 + 16), 0x80u, a3);
+  result = i40e_asq_send_command(a1, v7, (a2 + 16), 128, a3);
   if (!result)
   {
     *a2 = v8;
@@ -603,7 +603,7 @@ uint64_t i40e_aq_get_vsi_params(uint64_t a1, __int16 *a2)
   i40e_fill_default_direct_cmd_desc(v5, 530);
   v6 = *a2;
   v5[0] |= 0x1000u;
-  result = i40e_asq_send_command(a1, v5, a2 + 8, 0x80u, 0);
+  result = i40e_asq_send_command(a1, v5, a2 + 8, 128, 0);
   if (!result)
   {
     *a2 = v6;
@@ -619,12 +619,12 @@ uint64_t i40e_aq_update_vsi_params(uint64_t a1, uint64_t a2, _OWORD *a3)
   i40e_fill_default_direct_cmd_desc(v7, 529);
   v7[8] = *a2;
   v7[0] |= 0x1400u;
-  result = i40e_asq_send_command(a1, v7, (a2 + 16), 0x80u, a3);
+  result = i40e_asq_send_command(a1, v7, (a2 + 16), 128, a3);
   *(a2 + 6) = v8;
   return result;
 }
 
-uint64_t i40e_aq_get_switch_config(uint64_t a1, void *a2, unsigned int a3, __int16 *a4, _OWORD *a5)
+uint64_t i40e_aq_get_switch_config(uint64_t a1, void *a2, uint64_t a3, __int16 *a4, _OWORD *a5)
 {
   i40e_fill_default_direct_cmd_desc(v12, 512);
   if (a3 <= 0x200)
@@ -715,7 +715,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t i40e_aq_send_driver_version(uint64_t a1, _DWORD *a2, _OWORD *a3)
+uint64_t i40e_aq_send_driver_version(uint64_t a1, int *a2, _OWORD *a3)
 {
   if (!a2)
   {
@@ -726,11 +726,11 @@ uint64_t i40e_aq_send_driver_version(uint64_t a1, _DWORD *a2, _OWORD *a3)
   v6 = 0;
   v10[0] |= 0x1400u;
   v8 = *a2;
-  v7 = (a2 + 1);
+  v7 = a2 + 1;
   v11 = v8;
   do
   {
-    if (v7[v6] < 1)
+    if (*(v7 + v6) < 1)
     {
       break;
     }
@@ -941,7 +941,7 @@ uint64_t i40e_aq_remove_macvlan(uint64_t a1, __int16 a2, void *a3, int a4, _OWOR
   return result;
 }
 
-uint64_t i40e_aq_add_mirrorrule(uint64_t a1, __int16 a2, __int16 a3, __int16 a4, int a5, void *a6, _OWORD *a7, _WORD *a8, _WORD *a9, _WORD *a10)
+uint64_t i40e_aq_add_mirrorrule(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4, int a5, void *a6, _OWORD *a7, _WORD *a8, __int16 *a9, __int16 *a10)
 {
   if ((a3 & 0xFFFE) == 4 || a5 && a6)
   {
@@ -954,7 +954,7 @@ uint64_t i40e_aq_add_mirrorrule(uint64_t a1, __int16 a2, __int16 a3, __int16 a4,
   }
 }
 
-uint64_t i40e_mirrorrule_op(uint64_t a1, __int16 a2, __int16 a3, char a4, __int16 a5, __int16 a6, void *a7, _OWORD *a8, _WORD *a9, _WORD *a10, _WORD *a11)
+uint64_t i40e_mirrorrule_op(uint64_t a1, __int16 a2, __int16 a3, char a4, __int16 a5, __int16 a6, void *a7, _OWORD *a8, _WORD *a9, __int16 *a10, __int16 *a11)
 {
   v18 = 2 * a6;
   i40e_fill_default_direct_cmd_desc(v21, a2);
@@ -994,7 +994,7 @@ uint64_t i40e_mirrorrule_op(uint64_t a1, __int16 a2, __int16 a3, char a4, __int1
   return result;
 }
 
-uint64_t i40e_aq_delete_mirrorrule(uint64_t a1, __int16 a2, int a3, __int16 a4, int a5, void *a6, _OWORD *a7, _WORD *a8, _WORD *a9)
+uint64_t i40e_aq_delete_mirrorrule(uint64_t a1, __int16 a2, int a3, __int16 a4, int a5, void *a6, _OWORD *a7, __int16 *a8, __int16 *a9)
 {
   if (a3 != 3 || a5 && a6)
   {
@@ -1059,7 +1059,7 @@ uint64_t i40e_aq_remove_vlan(uint64_t a1, __int16 a2, void *a3, unsigned int a4,
   return result;
 }
 
-uint64_t i40e_aq_send_msg_to_vf(uint64_t a1, int a2, int a3, int a4, void *a5, unsigned int a6, _OWORD *a7)
+uint64_t i40e_aq_send_msg_to_vf(uint64_t a1, int a2, int a3, int a4, void *a5, uint64_t a6, _OWORD *a7)
 {
   i40e_fill_default_direct_cmd_desc(v17, 2050);
   v19 = a4;
@@ -1146,7 +1146,7 @@ uint64_t i40e_aq_release_resource(uint64_t a1, __int16 a2, int a3, _OWORD *a4)
   return i40e_asq_send_command(a1, v9, 0, 0, a4);
 }
 
-uint64_t i40e_aq_read_nvm(uint64_t a1, char a2, unsigned int a3, unsigned int a4, void *a5, int a6, _OWORD *a7)
+uint64_t i40e_aq_read_nvm(uint64_t a1, char a2, unsigned int a3, uint64_t a4, void *a5, int a6, _OWORD *a7)
 {
   if ((pcindkll & 0x100000) != 0)
   {
@@ -1181,7 +1181,7 @@ uint64_t i40e_aq_read_nvm(uint64_t a1, char a2, unsigned int a3, unsigned int a4
   return i40e_asq_send_command(a1, v16, a5, a4, a7);
 }
 
-uint64_t i40e_aq_read_nvm_config(uint64_t a1, __int16 a2, int a3, void *a4, unsigned int a5, _WORD *a6, _OWORD *a7)
+uint64_t i40e_aq_read_nvm_config(uint64_t a1, __int16 a2, int a3, void *a4, uint64_t a5, _WORD *a6, _OWORD *a7)
 {
   i40e_fill_default_direct_cmd_desc(v16, 1796);
   if (a5 <= 0x200)
@@ -1210,7 +1210,7 @@ uint64_t i40e_aq_read_nvm_config(uint64_t a1, __int16 a2, int a3, void *a4, unsi
   return result;
 }
 
-uint64_t i40e_aq_write_nvm_config(uint64_t a1, __int16 a2, void *a3, unsigned int a4, __int16 a5, _OWORD *a6)
+uint64_t i40e_aq_write_nvm_config(uint64_t a1, __int16 a2, void *a3, uint64_t a4, __int16 a5, _OWORD *a6)
 {
   i40e_fill_default_direct_cmd_desc(v14, 1797);
   if (a4 <= 0x200)
@@ -1284,16 +1284,16 @@ uint64_t i40e_aq_erase_nvm(uint64_t a1, char a2, unsigned int a3, __int16 a4, in
   return i40e_asq_send_command(a1, v13, 0, 0, a6);
 }
 
-uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned int a3, _WORD *a4, int a5, _OWORD *a6)
+uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, uint64_t a3, _WORD *a4, int a5, _OWORD *a6)
 {
   if ((a5 - 12) < 0xFFFFFFFE)
   {
     return 4294967291;
   }
 
-  v50 = v6;
-  v51 = v7;
-  i40e_fill_default_direct_cmd_desc(v46, a5);
+  v34 = v6;
+  v35 = v7;
+  i40e_fill_default_direct_cmd_desc(v30, a5);
   if (a3 <= 0x200)
   {
     v15 = 4096;
@@ -1304,13 +1304,13 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
     v15 = 4608;
   }
 
-  v46[0] |= v15;
-  result = i40e_asq_send_command(a1, v46, a2, a3, a6);
-  *a4 = v46[2];
+  v30[0] |= v15;
+  result = i40e_asq_send_command(a1, v30, a2, a3, a6);
+  *a4 = v30[2];
   if (!result)
   {
-    v16 = v47;
-    v49 = 0;
+    v16 = v31;
+    v33 = 0;
     v17 = 416;
     if (a5 == 11)
     {
@@ -1318,7 +1318,7 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
     }
 
     v18 = a1 + v17;
-    if (v47)
+    if (v31)
     {
       do
       {
@@ -1357,7 +1357,6 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
 
               if ((pcindkll & 0x100000) != 0)
               {
-                v44 = *(v18 + 4);
                 IOLog("ixl:%s(%d): HW Capability: Management Mode = %d\n\n");
               }
 
@@ -1406,7 +1405,6 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
 
               if ((pcindkll & 0x100000) != 0)
               {
-                v38 = *(v18 + 24);
                 IOLog("ixl:%s(%d): HW Capability: SR-IOV = %d\n\n");
               }
 
@@ -1419,7 +1417,6 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
                 IOLog("ixl:%s(%d): HW Capability: VF count = %d\n\n", "i40e_parse_discover_capabilities", 3850, v20);
                 if ((pcindkll & 0x100000) != 0)
                 {
-                  v37 = *(v18 + 144);
                   IOLog("ixl:%s(%d): HW Capability: VF base_id = %d\n\n");
                 }
               }
@@ -1433,7 +1430,6 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
 
               if ((pcindkll & 0x100000) != 0)
               {
-                v36 = *(v18 + 25);
                 IOLog("ixl:%s(%d): HW Capability: VMDQ = %d\n\n");
               }
 
@@ -1486,7 +1482,6 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
                   IOLog("ixl:%s(%d): HW Capability: TC Mapping = %d\n\n", "i40e_parse_discover_capabilities", 3889, v21);
                   if ((pcindkll & 0x100000) != 0)
                   {
-                    v35 = *(v18 + 196);
                     IOLog("ixl:%s(%d): HW Capability: TC Max = %d\n\n");
                   }
                 }
@@ -1501,7 +1496,6 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
 
               if ((pcindkll & 0x100000) != 0)
               {
-                v34 = *(v18 + 29);
                 IOLog("ixl:%s(%d): HW Capability: FCOE = %d\n\n");
               }
 
@@ -1514,16 +1508,15 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
 
               if ((pcindkll & 0x100000) != 0)
               {
-                v39 = *(v18 + 30);
                 IOLog("ixl:%s(%d): HW Capability: iSCSI = %d\n\n");
               }
 
               break;
             default:
-              goto LABEL_144;
+              goto LABEL_143;
           }
 
-          goto LABEL_144;
+          goto LABEL_143;
         }
 
         if (*a2 > 0x60u)
@@ -1539,7 +1532,7 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
                   if (v20 == 1)
                   {
                     *(v18 + 31) = 1;
-                    goto LABEL_140;
+                    goto LABEL_139;
                   }
                 }
 
@@ -1552,7 +1545,7 @@ uint64_t i40e_aq_discover_capabilities(uint64_t a1, unsigned int *a2, unsigned i
 
                   if ((v20 & 2) != 0)
                   {
-LABEL_140:
+LABEL_139:
                     *(v18 + 32) = 1;
                   }
                 }
@@ -1564,12 +1557,11 @@ LABEL_140:
                   IOLog("ixl:%s(%d): HW Capability: Flex10 mode = %d\n\n", "i40e_parse_discover_capabilities", 3965, v21);
                   if ((pcindkll & 0x100000) != 0)
                   {
-                    v45 = *(v18 + 40);
                     IOLog("ixl:%s(%d): HW Capability: Flex10 status = %d\n\n");
                   }
                 }
 
-                goto LABEL_144;
+                goto LABEL_143;
               }
 
               if (v19 == 242)
@@ -1581,7 +1573,6 @@ LABEL_140:
 
                 if ((pcindkll & 0x100000) != 0)
                 {
-                  v33 = *(v18 + 46);
                   IOLog("ixl:%s(%d): HW Capability: CEM = %d\n\n");
                 }
               }
@@ -1625,7 +1616,6 @@ LABEL_140:
                 IOLog("ixl:%s(%d): HW Capability: MDIO port number = %d\n\n", "i40e_parse_discover_capabilities", 4001, *(v18 + 180));
                 if ((pcindkll & 0x100000) != 0)
                 {
-                  v42 = *(v18 + 184);
                   IOLog("ixl:%s(%d): HW Capability: MDIO port mode = %d\n\n");
                 }
               }
@@ -1683,7 +1673,6 @@ LABEL_140:
 
                 if ((pcindkll & 0x100000) != 0)
                 {
-                  v43 = *(v18 + 47);
                   IOLog("ixl:%s(%d): HW Capability: IEEE 1588 = %d\n\n");
                 }
               }
@@ -1697,7 +1686,6 @@ LABEL_140:
 
                 if ((pcindkll & 0x100000) != 0)
                 {
-                  v32 = *(v18 + 48);
                   IOLog("ixl:%s(%d): HW Capability: iWARP = %d\n\n");
                 }
               }
@@ -1722,13 +1710,12 @@ LABEL_140:
                 IOLog("ixl:%s(%d): HW Capability: Flow Director = 1\n\n", "i40e_parse_discover_capabilities", 4018);
                 if ((pcindkll & 0x100000) != 0)
                 {
-                  v31 = *(v18 + 52);
                   IOLog("ixl:%s(%d): HW Capability: Guaranteed FD filters = %d\n\n");
                 }
               }
             }
 
-            goto LABEL_144;
+            goto LABEL_143;
           }
 
           if (*a2 > 0x41u)
@@ -1741,7 +1728,7 @@ LABEL_140:
                 IOLog("ixl:%s(%d): HW Capability: MSIX vector count = %d\n\n");
               }
 
-              goto LABEL_144;
+              goto LABEL_143;
             }
 
             *(v18 + 156) = v20;
@@ -1751,8 +1738,7 @@ LABEL_140:
               IOLog("ixl:%s(%d): HW Capability: Tx QP = %d\n\n", "i40e_parse_discover_capabilities", 3931, v20);
               if ((pcindkll & 0x100000) != 0)
               {
-                v41 = *(v18 + 160);
-                goto LABEL_121;
+                goto LABEL_120;
               }
             }
           }
@@ -1772,13 +1758,12 @@ LABEL_140:
                   IOLog("ixl:%s(%d): HW Capability: RSS table size = %d\n\n", "i40e_parse_discover_capabilities", 3913, *(v18 + 64));
                   if ((pcindkll & 0x100000) != 0)
                   {
-                    v40 = *(v18 + 68);
                     IOLog("ixl:%s(%d): HW Capability: RSS table width = %d\n\n");
                   }
                 }
               }
 
-              goto LABEL_144;
+              goto LABEL_143;
             }
 
             if (v19 == 65)
@@ -1790,8 +1775,7 @@ LABEL_140:
                 IOLog("ixl:%s(%d): HW Capability: Rx QP = %d\n\n", "i40e_parse_discover_capabilities", 3922, v20);
                 if ((pcindkll & 0x100000) != 0)
                 {
-                  v30 = *(v18 + 160);
-LABEL_121:
+LABEL_120:
                   IOLog("ixl:%s(%d): HW Capability: base_queue = %d\n\n");
                 }
               }
@@ -1799,7 +1783,7 @@ LABEL_121:
           }
         }
 
-LABEL_144:
+LABEL_143:
         a2 += 8;
         --v16;
       }
@@ -1818,9 +1802,9 @@ LABEL_144:
     v25 = 4;
     do
     {
-      v48 = 0;
-      i40e_aq_debug_read_register(a1, v24, &v48, 0);
-      if ((v48 & 1) == 0)
+      v32 = 0;
+      i40e_aq_debug_read_register(a1, v24, &v32, 0);
+      if ((v32 & 1) == 0)
       {
         ++*(a1 + 650);
       }
@@ -1832,7 +1816,7 @@ LABEL_144:
     while (v25);
     if (*(a1 + 80) == 3 && !i40e_acquire_nvm(a1, 1))
     {
-      if (!i40e_aq_read_nvm(a1, 72, 0x56u, 2u, &v49, 1, 0) && v49 < 0)
+      if (!i40e_aq_read_nvm(a1, 72, 0x56u, 2, &v33, 1, 0) && v33 < 0)
       {
         *(a1 + 650) = 4;
       }
@@ -1873,7 +1857,7 @@ LABEL_144:
   return result;
 }
 
-uint64_t i40e_aq_update_nvm(uint64_t a1, char a2, unsigned int a3, unsigned int a4, void *a5, int a6, int a7, _OWORD *a8)
+uint64_t i40e_aq_update_nvm(uint64_t a1, char a2, unsigned int a3, uint64_t a4, void *a5, int a6, int a7, _OWORD *a8)
 {
   if ((pcindkll & 0x100000) != 0)
   {
@@ -1924,7 +1908,7 @@ LABEL_12:
   return i40e_asq_send_command(a1, v19, a5, a4, a8);
 }
 
-uint64_t i40e_aq_get_lldp_mib(uint64_t a1, char a2, char a3, void *a4, unsigned int a5, _WORD *a6, _WORD *a7, _OWORD *a8)
+uint64_t i40e_aq_get_lldp_mib(uint64_t a1, char a2, char a3, void *a4, uint64_t a5, _WORD *a6, _WORD *a7, _OWORD *a8)
 {
   result = 4294967291;
   if (a4 && a5)
@@ -1953,7 +1937,7 @@ uint64_t i40e_aq_get_lldp_mib(uint64_t a1, char a2, char a3, void *a4, unsigned 
   return result;
 }
 
-uint64_t i40e_aq_set_lldp_mib(uint64_t a1, char a2, void *a3, unsigned int a4, _OWORD *a5)
+uint64_t i40e_aq_set_lldp_mib(uint64_t a1, char a2, void *a3, uint64_t a4, _OWORD *a5)
 {
   result = 4294967291;
   if (a3 && a4)
@@ -2084,7 +2068,7 @@ uint64_t i40e_aq_set_dcb_parameters(uint64_t a1, int a2, _OWORD *a3)
   return i40e_asq_send_command(a1, v9, 0, 0, a3);
 }
 
-uint64_t i40e_aq_get_cee_dcb_config(uint64_t a1, void *a2, unsigned int a3, _OWORD *a4)
+uint64_t i40e_aq_get_cee_dcb_config(uint64_t a1, void *a2, uint64_t a3, _OWORD *a4)
 {
   result = 4294967291;
   if (a2)
@@ -2137,7 +2121,7 @@ uint64_t i40e_aq_del_udp_tunnel(uint64_t a1, char a2, _OWORD *a3)
 
 uint64_t i40e_aq_get_switch_resource_alloc(uint64_t a1, _BYTE *a2, void *a3, __int16 a4, _OWORD *a5)
 {
-  v9 = 16 * (a4 & 0xFFF);
+  v9 = 16 * (a4 & 0xFFFu);
   i40e_fill_default_direct_cmd_desc(v12, 516);
   if (v9 <= 0x200)
   {
@@ -2175,7 +2159,7 @@ uint64_t i40e_aq_delete_element(uint64_t a1, int a2, _OWORD *a3)
   return i40e_asq_send_command(a1, v7, 0, 0, a3);
 }
 
-uint64_t i40e_aq_add_pvirt(uint64_t a1, __int16 a2, __int16 a3, int a4, _WORD *a5)
+uint64_t i40e_aq_add_pvirt(uint64_t a1, __int16 a2, __int16 a3, int a4, __int16 *a5)
 {
   if (!a4)
   {
@@ -2278,7 +2262,7 @@ uint64_t i40e_aq_add_mcast_etag(uint64_t a1, int a2, __int16 a3, int a4, void *a
         v17[9] = a3;
         LOBYTE(v18) = a4;
         v17[0] |= 0x1400u;
-        result = i40e_asq_send_command(a1, v17, a5, 2 * a4, a8);
+        result = i40e_asq_send_command(a1, v17, a5, (2 * a4), a8);
         if (!result)
         {
           if (a6)
@@ -2358,7 +2342,7 @@ uint64_t i40e_aq_update_tag(uint64_t a1, int a2, __int16 a3, __int16 a4, _WORD *
   return result;
 }
 
-uint64_t i40e_aq_dcb_ignore_pfc(uint64_t a1, char a2, int a3, _BYTE *a4, _OWORD *a5)
+uint64_t i40e_aq_dcb_ignore_pfc(uint64_t a1, char a2, int a3, char *a4, _OWORD *a5)
 {
   i40e_fill_default_direct_cmd_desc(v11, 769);
   if (a3)
@@ -2456,7 +2440,7 @@ uint64_t i40e_aq_config_vsi_ets_sla_bw_limit(uint64_t a1, __int16 a2, void *a3, 
   v9[0] |= 0x1400u;
   v9[2] = 64;
   v9[8] = a2;
-  return i40e_asq_send_command(a1, v9, a3, 0x40u, a4);
+  return i40e_asq_send_command(a1, v9, a3, 64, a4);
 }
 
 uint64_t i40e_aq_config_vsi_tc_bw(uint64_t a1, __int16 a2, void *a3, _OWORD *a4)
@@ -2465,7 +2449,7 @@ uint64_t i40e_aq_config_vsi_tc_bw(uint64_t a1, __int16 a2, void *a3, _OWORD *a4)
   v9[0] |= 0x1400u;
   v9[2] = 32;
   v9[8] = a2;
-  return i40e_asq_send_command(a1, v9, a3, 0x20u, a4);
+  return i40e_asq_send_command(a1, v9, a3, 32, a4);
 }
 
 uint64_t i40e_aq_config_switch_comp_ets_bw_limit(uint64_t a1, __int16 a2, void *a3, _OWORD *a4)
@@ -2474,7 +2458,7 @@ uint64_t i40e_aq_config_switch_comp_ets_bw_limit(uint64_t a1, __int16 a2, void *
   v9[0] |= 0x1400u;
   v9[2] = 64;
   v9[8] = a2;
-  return i40e_asq_send_command(a1, v9, a3, 0x40u, a4);
+  return i40e_asq_send_command(a1, v9, a3, 64, a4);
 }
 
 uint64_t i40e_aq_query_vsi_bw_config(uint64_t a1, __int16 a2, void *a3, _OWORD *a4)
@@ -2483,7 +2467,7 @@ uint64_t i40e_aq_query_vsi_bw_config(uint64_t a1, __int16 a2, void *a3, _OWORD *
   v9[0] |= 0x1000u;
   v9[2] = 64;
   v9[8] = a2;
-  return i40e_asq_send_command(a1, v9, a3, 0x40u, a4);
+  return i40e_asq_send_command(a1, v9, a3, 64, a4);
 }
 
 uint64_t i40e_aq_query_vsi_ets_sla_config(uint64_t a1, __int16 a2, void *a3, _OWORD *a4)
@@ -2492,7 +2476,7 @@ uint64_t i40e_aq_query_vsi_ets_sla_config(uint64_t a1, __int16 a2, void *a3, _OW
   v9[0] |= 0x1000u;
   v9[2] = 32;
   v9[8] = a2;
-  return i40e_asq_send_command(a1, v9, a3, 0x20u, a4);
+  return i40e_asq_send_command(a1, v9, a3, 32, a4);
 }
 
 uint64_t i40e_aq_query_switch_comp_ets_config(uint64_t a1, __int16 a2, void *a3, _OWORD *a4)
@@ -2501,7 +2485,7 @@ uint64_t i40e_aq_query_switch_comp_ets_config(uint64_t a1, __int16 a2, void *a3,
   v9[0] |= 0x1000u;
   v9[2] = 64;
   v9[8] = a2;
-  return i40e_asq_send_command(a1, v9, a3, 0x40u, a4);
+  return i40e_asq_send_command(a1, v9, a3, 64, a4);
 }
 
 uint64_t i40e_aq_query_port_ets_config(uint64_t a1, __int16 a2, void *a3, _OWORD *a4)
@@ -2510,7 +2494,7 @@ uint64_t i40e_aq_query_port_ets_config(uint64_t a1, __int16 a2, void *a3, _OWORD
   v9[0] |= 0x1000u;
   v9[2] = 68;
   v9[8] = a2;
-  return i40e_asq_send_command(a1, v9, a3, 0x44u, a4);
+  return i40e_asq_send_command(a1, v9, a3, 68, a4);
 }
 
 uint64_t i40e_aq_query_switch_comp_bw_config(uint64_t a1, __int16 a2, void *a3, _OWORD *a4)
@@ -2519,7 +2503,7 @@ uint64_t i40e_aq_query_switch_comp_bw_config(uint64_t a1, __int16 a2, void *a3, 
   v9[0] |= 0x1000u;
   v9[2] = 32;
   v9[8] = a2;
-  return i40e_asq_send_command(a1, v9, a3, 0x20u, a4);
+  return i40e_asq_send_command(a1, v9, a3, 32, a4);
 }
 
 uint64_t i40e_set_filter_control(IOPCIDevice **a1, uint32x2_t *a2)
@@ -2828,7 +2812,7 @@ __n128 i40e_aq_replace_cloud_filters(uint64_t a1, int *a2, __n128 *a3)
       v10[0] |= 0x1400u;
       v11 = *a2;
       v12 = *(a2 + 4);
-      i40e_asq_send_command(a1, v10, a3, 0x40u, 0);
+      i40e_asq_send_command(a1, v10, a3, 64, 0);
       result = *a3;
       v9 = a3[1];
       a3[2] = *a3;
@@ -2976,7 +2960,7 @@ _DWORD *i40e_set_pci_config_data(_DWORD *result, __int16 a2)
   return result;
 }
 
-uint64_t i40e_aq_debug_dump(uint64_t a1, char a2, char a3, int a4, unsigned int a5, void *a6, _WORD *a7, _BYTE *a8, _DWORD *a9, _OWORD *a10)
+uint64_t i40e_aq_debug_dump(uint64_t a1, char a2, char a3, int a4, uint64_t a5, void *a6, _WORD *a7, char *a8, int *a9, _OWORD *a10)
 {
   result = 4294967291;
   if (a5 && a6)
@@ -3084,7 +3068,7 @@ uint64_t i40e_aq_configure_partition_bw(uint64_t a1, void *a2, _OWORD *a3)
   i40e_fill_default_direct_cmd_desc(v7, 1053);
   v7[0] |= 0x1400u;
   v7[2] = 34;
-  return i40e_asq_send_command(a1, v7, a2, 0x22u, a3);
+  return i40e_asq_send_command(a1, v7, a2, 34, a3);
 }
 
 uint64_t i40e_read_phy_register_clause22(uint64_t a1, int a2, int a3, _WORD *a4)
@@ -3395,7 +3379,7 @@ LABEL_8:
   }
 }
 
-uint64_t i40e_led_get_reg(uint64_t a1, int a2, _DWORD *a3)
+uint64_t i40e_led_get_reg(uint64_t a1, int a2, _WORD *a3)
 {
   *a3 = 0;
   if ((*(a1 + 1688) & 4) != 0)
@@ -3408,8 +3392,10 @@ uint64_t i40e_led_get_reg(uint64_t a1, int a2, _DWORD *a3)
   return i40e_read_phy_register_clause45(a1, 30, a2, phy_address, a3);
 }
 
-uint64_t i40e_aq_get_phy_register_ext(uint64_t a1, char a2, char a3, char a4, int a5, char a6, int a7, _DWORD *a8, _OWORD *a9)
+uint64_t i40e_aq_get_phy_register_ext(uint64_t a1, char a2, char a3, char a4, uint64_t a5, uint64_t a6, int a7, _DWORD *a8, _OWORD *a9)
 {
+  v11 = a6;
+  v12 = a5;
   i40e_fill_default_direct_cmd_desc(v18, 1577);
   v19[0] = a2;
   v19[1] = a3;
@@ -3419,7 +3405,7 @@ uint64_t i40e_aq_get_phy_register_ext(uint64_t a1, char a2, char a3, char a4, in
     v19[2] = 1;
   }
 
-  i40e_mdio_if_number_selection(a1, a5, a6, v19);
+  i40e_mdio_if_number_selection(a1, v12, v11, v19);
   result = i40e_asq_send_command(a1, v18, 0, 0, a9);
   if (!result)
   {
@@ -3429,8 +3415,9 @@ uint64_t i40e_aq_get_phy_register_ext(uint64_t a1, char a2, char a3, char a4, in
   return result;
 }
 
-uint64_t i40e_led_set_reg(uint64_t a1, int a2, unsigned __int16 a3)
+uint64_t i40e_led_set_reg(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   if ((*(a1 + 1688) & 4) != 0)
   {
     return i40e_aq_set_phy_register_ext(a1, 1, 30, 1, 0, 0, 50224, a3, 0);
@@ -3438,11 +3425,13 @@ uint64_t i40e_led_set_reg(uint64_t a1, int a2, unsigned __int16 a3)
 
   phy_address = i40e_get_phy_address(a1, *(a1 + 185));
 
-  return i40e_write_phy_register_clause45(a1, 30, a2, phy_address, a3);
+  return i40e_write_phy_register_clause45(a1, 30, a2, phy_address, v3);
 }
 
-uint64_t i40e_aq_set_phy_register_ext(uint64_t a1, char a2, char a3, char a4, int a5, char a6, int a7, int a8, _OWORD *a9)
+uint64_t i40e_aq_set_phy_register_ext(uint64_t a1, char a2, char a3, char a4, uint64_t a5, uint64_t a6, int a7, int a8, _OWORD *a9)
 {
+  v11 = a6;
+  v12 = a5;
   i40e_fill_default_direct_cmd_desc(v18, 1576);
   v19[0] = a2;
   v19[1] = a3;
@@ -3453,7 +3442,7 @@ uint64_t i40e_aq_set_phy_register_ext(uint64_t a1, char a2, char a3, char a4, in
     v19[2] = 1;
   }
 
-  i40e_mdio_if_number_selection(a1, a5, a6, v19);
+  i40e_mdio_if_number_selection(a1, v12, v11, v19);
   return i40e_asq_send_command(a1, v18, 0, 0, a9);
 }
 
@@ -3615,7 +3604,7 @@ uint64_t i40e_get_lpi_counters(uint64_t a1, uint32_t *a2, uint32_t *a3, _BYTE *a
   return result;
 }
 
-uint64_t i40e_aq_run_phy_activity(uint64_t a1, __int16 a2, int a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, _OWORD *a7)
+uint64_t i40e_aq_run_phy_activity(uint64_t a1, __int16 a2, int a3, int *a4, _DWORD *a5, _DWORD *a6, _OWORD *a7)
 {
   result = 4294967291;
   if (a4 && a5 && a6)
@@ -3768,7 +3757,7 @@ uint64_t i40e_mdio_if_number_selection(uint64_t result, int a2, char a3, _BYTE *
   return result;
 }
 
-uint64_t i40e_aq_send_msg_to_pf(uint64_t a1, int a2, int a3, void *a4, unsigned int a5, __int128 *a6)
+uint64_t i40e_aq_send_msg_to_pf(uint64_t a1, int a2, int a3, void *a4, uint64_t a5, __int128 *a6)
 {
   i40e_fill_default_direct_cmd_desc(v17, 2049);
   v12 = v17[0];
@@ -3852,7 +3841,7 @@ uint64_t i40e_aq_set_arp_proxy_config(uint64_t a1, void *a2, _OWORD *a3)
   v8 = HIDWORD(a2);
   v9 = a2;
   v7[2] = 20;
-  return i40e_asq_send_command(a1, v7, a2, 0x14u, a3);
+  return i40e_asq_send_command(a1, v7, a2, 20, a3);
 }
 
 uint64_t i40e_aq_set_ns_proxy_table_entry(uint64_t a1, void *a2, _OWORD *a3)
@@ -3867,7 +3856,7 @@ uint64_t i40e_aq_set_ns_proxy_table_entry(uint64_t a1, void *a2, _OWORD *a3)
   v8 = HIDWORD(a2);
   v9 = a2;
   v7[2] = 60;
-  return i40e_asq_send_command(a1, v7, a2, 0x3Cu, a3);
+  return i40e_asq_send_command(a1, v7, a2, 60, a3);
 }
 
 uint64_t i40e_aq_set_clear_wol_filter(uint64_t a1, unsigned int a2, void *a3, int a4, int a5, int a6, int a7, _OWORD *a8)
@@ -3920,7 +3909,7 @@ uint64_t i40e_aq_set_clear_wol_filter(uint64_t a1, unsigned int a2, void *a3, in
   v19[0] |= 0x1400u;
   v20 = HIDWORD(a3);
   v21 = a3;
-  return i40e_asq_send_command(a1, v19, a3, 0x90u, a8);
+  return i40e_asq_send_command(a1, v19, a3, 144, a8);
 }
 
 uint64_t i40e_aq_get_wake_event_reason(uint64_t a1, _WORD *a2, _OWORD *a3)
@@ -4144,8 +4133,9 @@ uint64_t i40e_poll_sr_srctl_done_bit(IOPCIDevice **a1)
   return 4294967259;
 }
 
-uint64_t __i40e_read_nvm_word(uint64_t a1, unsigned int a2, _WORD *a3)
+uint64_t __i40e_read_nvm_word(uint64_t a1, uint64_t a2, _WORD *a3)
 {
+  v4 = a2;
   if (*(a1 + 1688))
   {
     if ((pcindkll & 0x100000) != 0)
@@ -4153,7 +4143,7 @@ uint64_t __i40e_read_nvm_word(uint64_t a1, unsigned int a2, _WORD *a3)
       IOLog("ixl:%s(%d): %s\n", "i40e_read_nvm_word_aq", 282, "i40e_read_nvm_word_aq");
     }
 
-    return i40e_read_nvm_aq(a1, a2, 1u, a3, 1);
+    return i40e_read_nvm_aq(a1, v4, 1u, a3, 1);
   }
 
   else
@@ -4163,7 +4153,7 @@ uint64_t __i40e_read_nvm_word(uint64_t a1, unsigned int a2, _WORD *a3)
   }
 }
 
-uint64_t i40e_read_nvm_word(uint64_t a1, unsigned int a2, _WORD *a3)
+uint64_t i40e_read_nvm_word(uint64_t a1, uint64_t a2, _WORD *a3)
 {
   if ((*(a1 + 1688) & 8) == 0 || (nvm_word = i40e_acquire_nvm(a1, 1), !nvm_word))
   {
@@ -4177,7 +4167,7 @@ uint64_t i40e_read_nvm_word(uint64_t a1, unsigned int a2, _WORD *a3)
   return nvm_word;
 }
 
-uint64_t i40e_read_nvm_module_data(uint64_t a1, unsigned int a2, __int16 a3, __int16 a4, __int16 a5, _WORD *a6)
+uint64_t i40e_read_nvm_module_data(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4, __int16 a5, _WORD *a6)
 {
   v18 = a5;
   v17 = 0;
@@ -4233,7 +4223,7 @@ uint64_t i40e_read_nvm_module_data(uint64_t a1, unsigned int a2, __int16 a3, __i
     return 0xFFFFFFFFLL;
   }
 
-  v15 = i40e_read_nvm_buffer(a1, a4 + a3 + v16 + v17, &v18, a6);
+  v15 = i40e_read_nvm_buffer(a1, (a4 + a3 + v16 + v17), &v18, a6);
   v13 = v15;
   if (v15 && (pcindkll & 0x100000) != 0)
   {
@@ -4243,14 +4233,15 @@ uint64_t i40e_read_nvm_module_data(uint64_t a1, unsigned int a2, __int16 a3, __i
   return v13;
 }
 
-uint64_t i40e_read_nvm_buffer(uint64_t a1, __int16 a2, _WORD *a3, _WORD *a4)
+uint64_t i40e_read_nvm_buffer(uint64_t a1, uint64_t a2, _WORD *a3, _WORD *a4)
 {
+  v6 = a2;
   if (*(a1 + 1688))
   {
     result = i40e_acquire_nvm(a1, 1);
     if (!result)
     {
-      nvm_buffer_aq = i40e_read_nvm_buffer_aq(a1, a2, a3, a4);
+      nvm_buffer_aq = i40e_read_nvm_buffer_aq(a1, v6, a3, a4);
       i40e_release_nvm(a1);
       return nvm_buffer_aq;
     }
@@ -4427,28 +4418,30 @@ uint64_t __i40e_write_nvm_buffer(uint64_t a1, char a2, int a3, unsigned int a4, 
   return i40e_write_nvm_aq(a1, a2, a3, a4, a5, 0);
 }
 
-void i40e_calc_nvm_checksum()
+void i40e_calc_nvm_checksum(uint64_t a1, __int16 *a2)
 {
   if ((pcindkll & 0x100000) != 0)
   {
     IOLog("ixl:%s(%d): %s\n", "i40e_calc_nvm_checksum", 672, "i40e_calc_nvm_checksum");
   }
 
-  i40e_allocate_virt_mem();
+  i40e_allocate_virt_mem(a1, &v3, 0x1000u);
 }
 
-void i40e_update_nvm_checksum()
+void i40e_update_nvm_checksum(uint64_t a1)
 {
   if ((pcindkll & 0x100000) != 0)
   {
     IOLog("ixl:%s(%d): %s\n", "i40e_update_nvm_checksum", 750, "i40e_update_nvm_checksum");
   }
 
-  i40e_calc_nvm_checksum();
+  v2 = 0;
+  i40e_calc_nvm_checksum(a1, &v2);
 }
 
-uint64_t i40e_validate_nvm_checksum(uint64_t a1)
+uint64_t i40e_validate_nvm_checksum(uint64_t a1, _WORD *a2)
 {
+  v4 = 0;
   if ((pcindkll & 0x100000) != 0)
   {
     IOLog("ixl:%s(%d): %s\n", "i40e_validate_nvm_checksum", 777, "i40e_validate_nvm_checksum");
@@ -4457,7 +4450,7 @@ uint64_t i40e_validate_nvm_checksum(uint64_t a1)
   result = i40e_acquire_nvm(a1, 1);
   if (!result)
   {
-    i40e_calc_nvm_checksum();
+    i40e_calc_nvm_checksum(a1, &v4);
   }
 
   return result;
@@ -4539,7 +4532,7 @@ LABEL_58:
     *(a1 + 920) = 0;
   }
 
-  i40e_acquire_spinlock(a1 + 905);
+  i40e_acquire_spinlock();
   v10 = *(a1 + 920);
   if (v10 > 2)
   {
@@ -4588,7 +4581,6 @@ LABEL_86:
 
       if ((pcindkll & 0x100000) != 0)
       {
-        v52 = i40e_nvm_update_state_str[v26];
         IOLog("ixl:%s(%d): NVMUPD: bad cmd %s in reading state.\n\n");
       }
 
@@ -4610,12 +4602,12 @@ LABEL_86:
         {
           if (v12 == 10)
           {
-            i40e_update_nvm_checksum();
+            i40e_update_nvm_checksum(a1);
           }
 
           if (v12 == 12)
           {
-            i40e_update_nvm_checksum();
+            i40e_update_nvm_checksum(a1);
           }
         }
 
@@ -4716,7 +4708,6 @@ LABEL_44:
 LABEL_88:
     if ((pcindkll & 0x100000) != 0)
     {
-      v51 = *(a1 + 920);
       IOLog("ixl:%s(%d): NVMUPD: no such state %d\n\n");
     }
 
@@ -4744,8 +4735,8 @@ LABEL_98:
           v30 = a2[1];
           v29 = a2[2];
           readData = 0uLL;
-          v56 = 0;
-          v57 = a1 + 924;
+          v51 = 0;
+          v52 = a1 + 924;
           v14 = i40e_aq_erase_nvm(a1, v30, v29, *(a2 + 6), (v30 >> 9) & 1, &readData);
           if (!v14)
           {
@@ -4770,15 +4761,15 @@ LABEL_98:
 
           else
           {
-            v46 = *(a1 + 908);
-            if (v46 > 0x16)
+            v45 = *(a1 + 908);
+            if (v45 > 0x16)
             {
               v31 = -18;
             }
 
             else
             {
-              v31 = dword_10001CCB0[v46];
+              v31 = dword_10001CCB0[v45];
             }
           }
 
@@ -4940,33 +4931,33 @@ LABEL_169:
 
         if (v36 > 0x1F)
         {
-          v44 = *(a1 + 992);
-          v45 = &v44[v36 - 32];
+          v43 = *(a1 + 992);
+          v44 = &v43[v36 - 32];
         }
 
         else
         {
           if (32 - v36 >= v37)
           {
-            v43 = v37;
+            v42 = v37;
           }
 
           else
           {
-            v43 = 32 - v36;
+            v42 = 32 - v36;
           }
 
           if ((pcindkll & 0x100000) != 0)
           {
-            IOLog("ixl:%s(%d): %s: aq_desc bytes %d to %d\n\n", "i40e_nvmupd_get_aq_result", 1616, "i40e_nvmupd_get_aq_result", v36, v43 + v36);
+            IOLog("ixl:%s(%d): %s: aq_desc bytes %d to %d\n\n", "i40e_nvmupd_get_aq_result", 1616, "i40e_nvmupd_get_aq_result", v36, v42 + v36);
             v36 = a2[2];
           }
 
-          memcpy(a3, (a1 + 924 + v36), v43);
-          a3 += v43;
-          v37 -= v43;
-          v44 = *(a1 + 992);
-          v45 = v44;
+          memcpy(a3, (a1 + 924 + v36), v42);
+          a3 += v42;
+          v37 -= v42;
+          v43 = *(a1 + 992);
+          v44 = v43;
         }
 
         if (v37 < 1)
@@ -4976,18 +4967,17 @@ LABEL_169:
 
         if ((pcindkll & 0x100000) != 0)
         {
-          IOLog("ixl:%s(%d): %s: databuf bytes %d to %d\n\n", "i40e_nvmupd_get_aq_result", 1632, "i40e_nvmupd_get_aq_result", v45 - v44, v37 + v45 - v44);
+          IOLog("ixl:%s(%d): %s: databuf bytes %d to %d\n\n", "i40e_nvmupd_get_aq_result", 1632, "i40e_nvmupd_get_aq_result", v44 - v43, v37 + v44 - v43);
         }
 
         v23 = v37;
         v25 = a3;
-        v24 = v45;
+        v24 = v44;
         goto LABEL_169;
       }
 
       if ((pcindkll & 0x100000) != 0)
       {
-        v54 = a2[2];
         IOLog("ixl:%s(%d): %s: offset too big %d > %d\n\n");
       }
 
@@ -5008,8 +4998,8 @@ LABEL_135:
     }
 
     readData = 0uLL;
-    v56 = 0;
-    v57 = a1 + 924;
+    v51 = 0;
+    v52 = a1 + 924;
     *(a1 + 924) = 0u;
     *(a1 + 940) = 0u;
     v32 = a2[3];
@@ -5017,7 +5007,6 @@ LABEL_135:
     {
       if ((pcindkll & 0x100000) != 0)
       {
-        v53 = a2[3];
         IOLog("ixl:%s(%d): NVMUPD: not enough aq desc bytes for exec, size %d < %d\n\n");
       }
 
@@ -5040,8 +5029,7 @@ LABEL_135:
       v41 = *(a1 + 992);
       if (!v41)
       {
-        v42 = *(a1 + 890);
-        i40e_allocate_virt_mem();
+        i40e_allocate_virt_mem(a1, (a1 + 992), *(a1 + 890));
       }
 
       memcpy(v41, a3 + 32, v39);
@@ -5058,15 +5046,15 @@ LABEL_135:
       *(a1 + 972) = 0u;
     }
 
-    v47 = i40e_asq_send_command(a1, a3, v41, v40, &readData);
-    if (v47)
+    v46 = i40e_asq_send_command(a1, a3, v41, v40, &readData);
+    if (v46)
     {
-      v14 = v47;
+      v14 = v46;
       if ((pcindkll & 0x100000) != 0)
       {
-        v48 = i40e_stat_str(a1, v47);
-        v49 = i40e_aq_str(a1, *(a1 + 908));
-        IOLog("ixl:%s(%d): i40e_nvmupd_exec_aq err %s aq_err %s\n\n", "i40e_nvmupd_exec_aq", 1556, v48, v49);
+        v47 = i40e_stat_str(a1, v46);
+        v48 = i40e_aq_str(a1, *(a1 + 908));
+        IOLog("ixl:%s(%d): i40e_nvmupd_exec_aq err %s aq_err %s\n\n", "i40e_nvmupd_exec_aq", 1556, v47, v48);
       }
 
       goto LABEL_126;
@@ -5110,7 +5098,7 @@ LABEL_147:
     v27 = i40e_acquire_nvm(a1, 2);
     if (!v27)
     {
-      i40e_update_nvm_checksum();
+      i40e_update_nvm_checksum(a1);
     }
 
     goto LABEL_125;
@@ -5125,7 +5113,7 @@ LABEL_136:
   *a4 = -3;
   v14 = 0xFFFFFFFFLL;
 LABEL_184:
-  i40e_release_spinlock(a1 + 905);
+  i40e_release_spinlock();
   return v14;
 }
 
@@ -5492,13 +5480,13 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::allocateRings(DriverKit_AppleEt
 {
   if (*(this + 641))
   {
-    DriverKit_AppleEthernetIXL_NetIf_IVars::allocateRings(void)::$_0::operator()(*(*(this + 3) + 35328), this + 344, 512, 0x2000uLL);
+    DriverKit_AppleEthernetIXL_NetIf_IVars::allocateRings(void)::$_0::operator()(*(*(this + 3) + 35328), this + 344, 0x200u, 0x2000uLL);
   }
 
   return 0;
 }
 
-void DriverKit_AppleEthernetIXL_NetIf_IVars::allocateRings(void)::$_0::operator()(IOService *a1, uint64_t a2, int a3, uint64_t capacity)
+void DriverKit_AppleEthernetIXL_NetIf_IVars::allocateRings(void)::$_0::operator()(IOService *a1, uint64_t a2, unsigned int a3, uint64_t capacity)
 {
   *(a2 + 256) = a3;
   segmentsCount = 1;
@@ -5740,7 +5728,7 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::getHardwareAddress(DriverKit_Ap
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::enable(DriverKit_AppleEthernetIXL_IVars **this)
+uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::enable(IOUserNetworkPacketQueue **this)
 {
   DriverKit_AppleEthernetIXL_NetIf_IVars::allocateRings(this);
   v2 = DriverKit_AppleEthernetIXL_NetIf_IVars::up(this);
@@ -5755,7 +5743,7 @@ LABEL_2:
   if (*(this + 641))
   {
     v5 = 0;
-    v6 = (this + 41);
+    v6 = this + 41;
     do
     {
       v2 = IOUserNetworkPacketQueue::SetEnable(v6[38], 1, 0);
@@ -6399,15 +6387,13 @@ void DriverKit_AppleEthernetIXL_NetIf::SetInterfaceEnable_Impl()
   }
 }
 
-void DriverKit_AppleEthernetIXL_NetIf::SetInterfaceEnable_Impl(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = *(*a1 + 24);
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x22u);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x22u);
   }
 }
 
@@ -6507,16 +6493,14 @@ void DriverKit_AppleEthernetIXL_IVars::reset_hw()
   }
 }
 
-void DriverKit_AppleEthernetIXL_IVars::load(uint64_t a1)
+void DriverKit_AppleEthernetIXL_IVars::load()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = *(a1 + 35444);
-    v3 = *(a1 + 35446);
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_2();
-    _os_log_impl(v4, v5, v6, v7, v8, 0x28u);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x28u);
   }
 }
 
@@ -6553,22 +6537,11 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::up()
   __assert_rtn("up", "AppleEthernetIXL.cpp", 517, "0");
 }
 
-void DriverKit_AppleEthernetIXL_NetIf_IVars::up(unsigned __int16 *a1, unsigned __int8 *a2)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *a1;
-    v10 = a1[1];
-    v11 = a1[2];
-    v12 = a1[3];
-    v13 = a1[4];
-    v14 = a1[5];
-    v15 = *a2;
-    v16 = *(a1 + 13);
-    v17 = a1[64];
-    v18 = *(a1 + 98);
     OUTLINED_FUNCTION_2();
-    _os_log_impl(v4, v5, v6, v7, v8, 0x58u);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x58u);
   }
 }
 

@@ -14,6 +14,7 @@
 - (void)handlePlugin:(id)plugin authenticationCompleteWithResults:(id)results status:(int)status andError:(id)error;
 - (void)handlePlugin:(id)plugin didAttachIPCWithEndpoint:(id)endpoint;
 - (void)handlePlugin:(id)plugin didStartWithPID:(int)d error:(id)error;
+- (void)handlePlugin:(id)plugin statusDidChangeToDisconnectedWithReason:(int)reason;
 - (void)handlePlugin:(id)plugin statusDidChangeToDisconnectingWithReason:(int)reason;
 - (void)handlePluginDidDetachIPC:(id)c;
 - (void)handlePluginDisposeComplete:(id)complete;
@@ -889,6 +890,93 @@ LABEL_9:
   }
 }
 
+- (void)handlePlugin:(id)plugin statusDidChangeToDisconnectedWithReason:(int)reason
+{
+  v4 = *&reason;
+  pluginCopy = plugin;
+  v7 = ne_log_obj();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    if (self)
+    {
+      Property = objc_getProperty(self, v8, 16, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v21 = 138413058;
+    v22 = Property;
+    v23 = 2112;
+    v24 = v11;
+    v25 = 2112;
+    v26 = pluginCopy;
+    v27 = 2080;
+    v28 = ne_session_stop_reason_to_string();
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ in state %@: plugin %@ disconnected with reason %s", &v21, 0x2Au);
+  }
+
+  if (self)
+  {
+    v13 = objc_getProperty(self, v12, 16, 1);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  [v13 setLastStopReason:v4];
+  if (v4 == 6)
+  {
+    v15 = ne_log_obj();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      if (self)
+      {
+        v17 = objc_getProperty(self, v16, 16, 1);
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      v21 = 138412290;
+      v22 = v17;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ re-setting on demand configuration because the plugin was disabled", &v21, 0xCu);
+    }
+
+    if (self)
+    {
+      v19 = objc_getProperty(self, v18, 16, 1);
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    sub_10008F168(v19, 1);
+  }
+
+  if (self)
+  {
+    v20 = objc_getProperty(self, v14, 16, 1);
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  [v20 setState:5];
+}
+
 - (void)handlePlugin:(id)plugin didAttachIPCWithEndpoint:(id)endpoint
 {
   pluginCopy = plugin;
@@ -1289,11 +1377,11 @@ LABEL_16:
         v8 = NSStringFromClass(v7);
         timeout = self->_timeout;
         *buf = 138412802;
-        v19 = sessionCopy;
-        v20 = 2112;
-        v21 = v8;
-        v22 = 2048;
-        v23 = timeout;
+        v18 = sessionCopy;
+        v19 = 2112;
+        v20 = v8;
+        v21 = 2048;
+        v22 = timeout;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@: Entering state %@, timeout %llu seconds", buf, 0x20u);
       }
 
@@ -1301,10 +1389,9 @@ LABEL_9:
       if (self->_timeout && (objc_opt_respondsToSelector() & 1) != 0)
       {
         queue = [sessionCopy queue];
-        v14 = self->_timeout;
-        v17 = sessionCopy;
-        v15 = NECreateTimerSource();
-        objc_setProperty_atomic(self, v16, v15, 32);
+        v16 = sessionCopy;
+        v14 = NECreateTimerSource();
+        objc_setProperty_atomic(self, v15, v14, 32);
       }
 
       goto LABEL_12;
@@ -1317,9 +1404,9 @@ LABEL_9:
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
     *buf = 138412546;
-    v19 = sessionCopy;
-    v20 = 2112;
-    v21 = v12;
+    v18 = sessionCopy;
+    v19 = 2112;
+    v20 = v12;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@: Entering state %@", buf, 0x16u);
   }
 

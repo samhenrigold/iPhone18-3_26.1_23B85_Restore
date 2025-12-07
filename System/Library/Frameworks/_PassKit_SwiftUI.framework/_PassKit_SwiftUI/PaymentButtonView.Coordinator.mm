@@ -6,10 +6,9 @@
 
 - (void)callback
 {
-  v3 = *self->action;
-  v2 = *&self->action[8];
+  v2 = *self->action;
 
-  v3(v4);
+  v2(v3);
 }
 
 @end

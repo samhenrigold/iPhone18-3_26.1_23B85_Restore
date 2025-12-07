@@ -11,11 +11,10 @@
 + (id)makeConsentViewControllerWithPaymentPass:(id)pass fkInstitution:(id)institution completion:(id)completion
 {
   v8 = type metadata accessor for BankConnectAuthorizationFlowConfig(0);
-  v9 = *(*(v8 - 1) + 64);
-  v10 = MEMORY[0x28223BE20](v8);
-  v12 = &v28 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v28 - v13;
+  MEMORY[0x28223BE20](v8);
+  v10 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v27 - v12;
   sub_23875ED50();
   sub_23875ED40();
   sub_23875ECE0();
@@ -24,29 +23,29 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v15 = _Block_copy(completion);
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v14 = _Block_copy(completion);
+  v15 = swift_allocObject();
+  *(v15 + 16) = v14;
   passCopy = pass;
   institutionCopy = institution;
   sub_23875EFB0();
-  v19 = v8[6];
-  v20 = sub_23875A9A0();
-  (*(*(v20 - 8) + 56))(&v14[v19], 1, 1, v20);
-  v21 = v8[7];
-  v22 = *MEMORY[0x277CC8260];
-  v23 = sub_23875AB40();
-  (*(*(v23 - 8) + 104))(&v14[v21], v22, v23);
-  *&v14[v8[5]] = passCopy;
-  v14[v8[8]] = 0;
-  sub_2384AD678(v14, v12, type metadata accessor for BankConnectAuthorizationFlowConfig);
-  v24 = objc_allocWithZone(type metadata accessor for BankConnectAuthorizationViewController(0));
-  v25 = passCopy;
-  v26 = sub_2384AC768(v12, sub_2384AD740, v16);
+  v18 = v8[6];
+  v19 = sub_23875A9A0();
+  (*(*(v19 - 8) + 56))(&v13[v18], 1, 1, v19);
+  v20 = v8[7];
+  v21 = *MEMORY[0x277CC8260];
+  v22 = sub_23875AB40();
+  (*(*(v22 - 8) + 104))(&v13[v20], v21, v22);
+  *&v13[v8[5]] = passCopy;
+  v13[v8[8]] = 0;
+  sub_2384AD678(v13, v10, type metadata accessor for BankConnectAuthorizationFlowConfig);
+  v23 = objc_allocWithZone(type metadata accessor for BankConnectAuthorizationViewController(0));
+  v24 = passCopy;
+  v25 = sub_2384AC768(v10, sub_2384AD740, v15);
 
-  sub_2384AD6E0(v14, type metadata accessor for BankConnectAuthorizationFlowConfig);
+  sub_2384AD6E0(v13, type metadata accessor for BankConnectAuthorizationFlowConfig);
 
-  return v26;
+  return v25;
 }
 
 + (id)makeReconsentViewControllerWithPaymentPass:(id)pass fkInstitution:(id)institution previousConsentUUID:(id)d completion:(id)completion

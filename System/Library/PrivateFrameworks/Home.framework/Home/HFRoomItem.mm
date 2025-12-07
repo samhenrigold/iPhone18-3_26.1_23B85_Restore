@@ -95,8 +95,8 @@
 
     v22 = MEMORY[0x277CCABB0];
     room8 = [(HFRoomItem *)self room];
-    home = [room8 home];
-    v25 = [v22 numberWithBool:{objc_msgSend(home, "hf_currentUserIsAdministrator")}];
+    v24 = objc_msgSend_home(room8);
+    v25 = [v22 numberWithBool:{objc_msgSend(v24, "hf_currentUserIsAdministrator")}];
     [dictionary setObject:v25 forKeyedSubscript:@"administrator"];
 
     room9 = [(HFRoomItem *)self room];
@@ -118,29 +118,29 @@
 
 - (id)_reorderableListsForAccessoryTypes
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = +[HFAccessoryListUtilities sortedAccessoryTypeGroups];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        uniqueIdentifier = [*(*(&v18 + 1) + 8 * i) uniqueIdentifier];
+        uniqueIdentifier = [*(*(&v17 + 1) + 8 * i) uniqueIdentifier];
         uUIDString = [uniqueIdentifier UUIDString];
 
         v11 = [@"roomServicesGroupedByType-" stringByAppendingString:uUIDString];
@@ -151,20 +151,18 @@
         [v4 setValue:v14 forKey:uUIDString];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)togglePowerState
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   room = [(HFRoomItem *)self room];
 
   if (!room)
@@ -176,118 +174,118 @@
   if (room2)
   {
     selfCopy = self;
-    home = [(HFRoomItem *)self home];
-    hf_characteristicValueManager = [home hf_characteristicValueManager];
+    v5 = objc_msgSend_home(self);
+    hf_characteristicValueManager = [v5 hf_characteristicValueManager];
 
     accessories = [room2 accessories];
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __30__HFRoomItem_togglePowerState__block_invoke;
-    v60[3] = &unk_277DF3888;
-    v34 = hf_characteristicValueManager;
-    v61 = v34;
-    v45 = [accessories na_all:v60];
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __30__HFRoomItem_togglePowerState__block_invoke;
+    v59[3] = &unk_277DF3888;
+    v33 = hf_characteristicValueManager;
+    v60 = v33;
+    v44 = [accessories na_all:v59];
 
-    v35 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v34 = objc_alloc_init(MEMORY[0x277D2C900]);
     v8 = objc_alloc_init(HFCharacteristicValueSet);
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
-    v36 = room2;
+    v35 = room2;
     obj = [room2 accessories];
-    v39 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
-    if (v39)
+    v38 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+    if (v38)
     {
-      v38 = *v57;
+      v37 = *v56;
       do
       {
         v9 = 0;
         do
         {
-          if (*v57 != v38)
+          if (*v56 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v40 = v9;
-          v10 = *(*(&v56 + 1) + 8 * v9);
+          v39 = v9;
+          v10 = *(*(&v55 + 1) + 8 * v9);
+          v51 = 0u;
           v52 = 0u;
           v53 = 0u;
           v54 = 0u;
-          v55 = 0u;
           services = [v10 services];
-          v43 = [services countByEnumeratingWithState:&v52 objects:v63 count:16];
-          if (v43)
+          v42 = [services countByEnumeratingWithState:&v51 objects:v62 count:16];
+          if (v42)
           {
-            v42 = *v53;
+            v41 = *v52;
             do
             {
               v11 = 0;
               do
               {
-                if (*v53 != v42)
+                if (*v52 != v41)
                 {
                   objc_enumerationMutation(services);
                 }
 
-                v44 = v11;
-                v12 = *(*(&v52 + 1) + 8 * v11);
+                v43 = v11;
+                v12 = *(*(&v51 + 1) + 8 * v11);
+                v47 = 0u;
                 v48 = 0u;
                 v49 = 0u;
                 v50 = 0u;
-                v51 = 0u;
                 characteristics = [v12 characteristics];
-                v14 = [characteristics countByEnumeratingWithState:&v48 objects:v62 count:16];
+                v14 = [characteristics countByEnumeratingWithState:&v47 objects:v61 count:16];
                 if (v14)
                 {
                   v15 = v14;
-                  v16 = *v49;
+                  v16 = *v48;
                   do
                   {
                     for (i = 0; i != v15; ++i)
                     {
-                      if (*v49 != v16)
+                      if (*v48 != v16)
                       {
                         objc_enumerationMutation(characteristics);
                       }
 
-                      v18 = *(*(&v48 + 1) + 8 * i);
+                      v18 = *(*(&v47 + 1) + 8 * i);
                       hf_powerStateCharacteristicTypes = [MEMORY[0x277CD1970] hf_powerStateCharacteristicTypes];
                       characteristicType = [v18 characteristicType];
                       v21 = [hf_powerStateCharacteristicTypes containsObject:characteristicType];
 
                       if (v21)
                       {
-                        v22 = [MEMORY[0x277CCABB0] numberWithBool:v45];
+                        v22 = [MEMORY[0x277CCABB0] numberWithBool:v44];
                         [(HFCharacteristicValueSet *)v8 setValue:v22 forCharacteristic:v18];
                       }
                     }
 
-                    v15 = [characteristics countByEnumeratingWithState:&v48 objects:v62 count:16];
+                    v15 = [characteristics countByEnumeratingWithState:&v47 objects:v61 count:16];
                   }
 
                   while (v15);
                 }
 
-                v11 = v44 + 1;
+                v11 = v43 + 1;
               }
 
-              while (v44 + 1 != v43);
-              v43 = [services countByEnumeratingWithState:&v52 objects:v63 count:16];
+              while (v43 + 1 != v42);
+              v42 = [services countByEnumeratingWithState:&v51 objects:v62 count:16];
             }
 
-            while (v43);
+            while (v42);
           }
 
-          v9 = v40 + 1;
+          v9 = v39 + 1;
         }
 
-        while (v40 + 1 != v39);
-        v39 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+        while (v39 + 1 != v38);
+        v38 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
       }
 
-      while (v39);
+      while (v38);
     }
 
     allCharacteristics = [(HFCharacteristicValueSet *)v8 allCharacteristics];
@@ -295,31 +293,31 @@
 
     if (v24)
     {
-      home2 = [(HFRoomItem *)selfCopy home];
-      hf_characteristicValueManager2 = [home2 hf_characteristicValueManager];
+      v25 = objc_msgSend_home(selfCopy);
+      hf_characteristicValueManager2 = [v25 hf_characteristicValueManager];
 
       [hf_characteristicValueManager2 beginTransactionWithReason:@"HFRoomItemTransactionReasonTogglePowerState"];
       v27 = [hf_characteristicValueManager2 writeValuesForCharacteristics:v8];
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __30__HFRoomItem_togglePowerState__block_invoke_4;
-      v46[3] = &unk_277DF4700;
-      futureWithNoResult = v35;
-      v47 = v35;
-      v29 = [v27 addCompletionBlock:v46];
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __30__HFRoomItem_togglePowerState__block_invoke_4;
+      v45[3] = &unk_277DF4700;
+      futureWithNoResult = v34;
+      v46 = v34;
+      v29 = [v27 addCompletionBlock:v45];
 
       [hf_characteristicValueManager2 commitTransactionWithReason:@"HFRoomItemTransactionReasonTogglePowerState"];
-      v30 = v47;
-      room2 = v36;
+      v30 = v46;
+      room2 = v35;
     }
 
     else
     {
       v30 = NAEmptyResult();
-      futureWithNoResult = v35;
-      [v35 finishWithResult:v30];
-      room2 = v36;
-      hf_characteristicValueManager2 = v34;
+      futureWithNoResult = v34;
+      [v34 finishWithResult:v30];
+      room2 = v35;
+      hf_characteristicValueManager2 = v33;
     }
   }
 
@@ -327,8 +325,6 @@
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }

@@ -162,7 +162,7 @@ uint64_t __35__HKCodedQuantity__numberFormatter__block_invoke()
 
 - (id)quantityRepresentationWithUCUMConverter:(id)converter error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   converterCopy = converter;
   if (self->_comparatorCoding)
   {
@@ -174,9 +174,9 @@ uint64_t __35__HKCodedQuantity__numberFormatter__block_invoke()
   unitCoding = self->_unitCoding;
   if (!unitCoding)
   {
-    v23 = +[HKUnit _nullUnit];
+    v27 = +[HKUnit _nullUnit];
     [(HKCodedQuantity *)self doubleValue];
-    v7 = [HKQuantity quantityWithUnit:v23 doubleValue:?];
+    v7 = [HKQuantity quantityWithUnit:v27 doubleValue:?];
 
     goto LABEL_23;
   }
@@ -194,28 +194,28 @@ uint64_t __35__HKCodedQuantity__numberFormatter__block_invoke()
       if (converterCopy)
       {
         code2 = [(HKMedicalCoding *)self->_unitCoding code];
-        v15 = [converterCopy hkUnitNameForUCUMUnitCode:code2];
+        v17 = [converterCopy hkUnitNameForUCUMUnitCode:code2];
 
-        displayString = v15;
-        if (v15)
+        displayString = v17;
+        if (v17)
         {
           goto LABEL_20;
         }
 
-        _HKInitializeLogging();
-        v16 = HKLogHealthRecords;
+        _HKInitializeLogging(v18, v19);
+        v20 = HKLogHealthRecords;
         if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
         {
-          v17 = self->_unitCoding;
-          v18 = v16;
-          code3 = [(HKMedicalCoding *)v17 code];
+          v21 = self->_unitCoding;
+          v22 = v20;
+          code3 = [(HKMedicalCoding *)v21 code];
           *buf = 138543362;
-          v29 = code3;
-          _os_log_impl(&dword_19197B000, v18, OS_LOG_TYPE_INFO, "Got a UCUM unit code the UCUM converter doesn't know: %{public}@", buf, 0xCu);
+          v32 = code3;
+          _os_log_impl(&dword_19197B000, v22, OS_LOG_TYPE_INFO, "Got a UCUM unit code the UCUM converter doesn't know: %{public}@", buf, 0xCu);
         }
 
         displayString2 = [(HKMedicalCoding *)self->_unitCoding displayString];
-        v21 = displayString2;
+        v25 = displayString2;
         if (displayString2)
         {
           code4 = displayString2;
@@ -231,12 +231,12 @@ uint64_t __35__HKCodedQuantity__numberFormatter__block_invoke()
 
       else
       {
-        _HKInitializeLogging();
-        v24 = HKLogHealthRecords;
+        _HKInitializeLogging(v14, v15);
+        v28 = HKLogHealthRecords;
         if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19197B000, v24, OS_LOG_TYPE_INFO, "Got a UCUM unit code but you didn't provide a UCUM code converter. Will prefer unitCoding.displayString to unitCoding.code.", buf, 2u);
+          _os_log_impl(&dword_19197B000, v28, OS_LOG_TYPE_INFO, "Got a UCUM unit code but you didn't provide a UCUM code converter. Will prefer unitCoding.displayString to unitCoding.code.", buf, 2u);
         }
 
         if (displayString)
@@ -256,14 +256,12 @@ uint64_t __35__HKCodedQuantity__numberFormatter__block_invoke()
   }
 
 LABEL_20:
-  v25 = [HKUnit unitFromString:displayString];
+  v29 = [HKUnit unitFromString:displayString];
   [(HKCodedQuantity *)self doubleValue];
-  v7 = [HKQuantity quantityWithUnit:v25 doubleValue:?];
+  v7 = [HKQuantity quantityWithUnit:v29 doubleValue:?];
 
 LABEL_22:
 LABEL_23:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

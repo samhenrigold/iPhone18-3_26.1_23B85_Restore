@@ -41,7 +41,7 @@
 
 - (void)_recordConnectionMethodForMetrics:(id)metrics
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   connMethodUsedHistory = self->_connMethodUsedHistory;
   if (!connMethodUsedHistory)
@@ -58,14 +58,12 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
     v9 = self->_connMethodUsedHistory;
-    v11 = 136315394;
-    v12 = "[SiriCoreSiriConnection _recordConnectionMethodForMetrics:]";
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, "%s %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[SiriCoreSiriConnection _recordConnectionMethodForMetrics:]";
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, "%s %@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriBackgroundConnection:(id)connection willStartConnectionWithHTTPHeader:(id)header
@@ -113,7 +111,7 @@ void __85__SiriCoreSiriConnection_siriBackgroundConnection_willStartConnectionWi
 
 void __81__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterIntermediateError___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) domain];
   if ([v2 isEqualToString:@"SiriCoreSiriConnectionErrorDomain"])
   {
@@ -159,11 +157,11 @@ void __81__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterIntermedi
       if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
       {
         v12 = *(a1 + 32);
-        v17 = 136315394;
-        v18 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterIntermediateError:]_block_invoke";
-        v19 = 2112;
-        v20 = v12;
-        _os_log_impl(&dword_2669D1000, v11, OS_LOG_TYPE_INFO, "%s Connection got intermediate error from active connection: %@", &v17, 0x16u);
+        v16 = 136315394;
+        v17 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterIntermediateError:]_block_invoke";
+        v18 = 2112;
+        v19 = v12;
+        _os_log_impl(&dword_2669D1000, v11, OS_LOG_TYPE_INFO, "%s Connection got intermediate error from active connection: %@", &v16, 0x16u);
       }
 
       v13 = objc_loadWeakRetained((*(a1 + 40) + 24));
@@ -177,15 +175,13 @@ void __81__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterIntermedi
     if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
     {
       v15 = *(a1 + 32);
-      v17 = 136315394;
-      v18 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterIntermediateError:]_block_invoke";
-      v19 = 2112;
-      v20 = v15;
-      _os_log_impl(&dword_2669D1000, v14, OS_LOG_TYPE_INFO, "%s Connection got intermediate error from inactive connection. Error: %@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterIntermediateError:]_block_invoke";
+      v18 = 2112;
+      v19 = v15;
+      _os_log_impl(&dword_2669D1000, v14, OS_LOG_TYPE_INFO, "%s Connection got intermediate error from inactive connection. Error: %@", &v16, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriBackgroundConnection:(id)connection didEncounterError:(id)error analysisInfo:(id)info
@@ -213,7 +209,7 @@ void __81__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterIntermedi
 
 void __82__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterError_analysisInfo___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = v2[17];
@@ -224,9 +220,9 @@ void __82__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterError_ana
     if (v6)
     {
       *buf = 136315394;
-      v22 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterError:analysisInfo:]_block_invoke";
-      v23 = 2112;
-      v24 = v4;
+      v21 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterError:analysisInfo:]_block_invoke";
+      v22 = 2112;
+      v23 = v4;
       _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Got error from active connection: %@", buf, 0x16u);
     }
 
@@ -254,59 +250,55 @@ void __82__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterError_ana
     if (v6)
     {
       *buf = 136315394;
-      v22 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterError:analysisInfo:]_block_invoke";
-      v23 = 2112;
-      v24 = v3;
+      v21 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterError:analysisInfo:]_block_invoke";
+      v22 = 2112;
+      v23 = v3;
       _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Got error from inactive connection: %@", buf, 0x16u);
       v2 = *(a1 + 32);
       v3 = *(a1 + 40);
     }
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __82__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterError_analysisInfo___block_invoke_20;
-    v18[3] = &unk_279BD5F50;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __82__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterError_analysisInfo___block_invoke_20;
+    v17[3] = &unk_279BD5F50;
     v7 = v3;
     *&v8 = v7;
     *(&v8 + 1) = *(a1 + 32);
-    v17 = v8;
+    v16 = v8;
     v9 = *(a1 + 48);
     v10 = *(a1 + 56);
     *&v11 = v9;
     *(&v11 + 1) = v10;
-    v19 = v17;
-    v20 = v11;
-    [v2 _handleLastEventFromBackgroundConnection:v7 pendingConnectionExhaustionHandler:v18];
+    v18 = v16;
+    v19 = v11;
+    [v2 _handleLastEventFromBackgroundConnection:v7 pendingConnectionExhaustionHandler:v17];
     v12 = *(a1 + 32);
     if (!v12[17])
     {
       [v12 _recordConnectionMethodForMetrics:*(a1 + 64)];
     }
 
-    WeakRetained = v19;
+    WeakRetained = v18;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __82__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterError_analysisInfo___block_invoke_20(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0A8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
     v3 = a1[4];
-    v6 = 136315394;
-    v7 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterError:analysisInfo:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s Ran out of pending connections; forwarding error from last connection %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriCoreSiriConnection siriBackgroundConnection:didEncounterError:analysisInfo:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s Ran out of pending connections; forwarding error from last connection %@", &v5, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1[5] + 24));
   [WeakRetained siriConnection:a1[5] didEncounterError:a1[6] analysisInfo:a1[7]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriBackgroundConnectionDidClose:(id)close
@@ -325,7 +317,7 @@ void __82__SiriCoreSiriConnection_siriBackgroundConnection_didEncounterError_ana
 
 void __59__SiriCoreSiriConnection_siriBackgroundConnectionDidClose___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(v2 + 136);
@@ -336,9 +328,9 @@ void __59__SiriCoreSiriConnection_siriBackgroundConnectionDidClose___block_invok
     if (v6)
     {
       *buf = 136315394;
-      v15 = "[SiriCoreSiriConnection siriBackgroundConnectionDidClose:]_block_invoke";
-      v16 = 2112;
-      v17 = v4;
+      v14 = "[SiriCoreSiriConnection siriBackgroundConnectionDidClose:]_block_invoke";
+      v15 = 2112;
+      v16 = v4;
       _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Closing from active connection: %@", buf, 0x16u);
       v2 = *(a1 + 32);
     }
@@ -352,59 +344,55 @@ void __59__SiriCoreSiriConnection_siriBackgroundConnectionDidClose___block_invok
     if (v6)
     {
       *buf = 136315394;
-      v15 = "[SiriCoreSiriConnection siriBackgroundConnectionDidClose:]_block_invoke";
-      v16 = 2112;
-      v17 = v3;
+      v14 = "[SiriCoreSiriConnection siriBackgroundConnectionDidClose:]_block_invoke";
+      v15 = 2112;
+      v16 = v3;
       _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Ignoring connection close from inactive connection: %@", buf, 0x16u);
       v2 = *(a1 + 32);
       v3 = *(a1 + 40);
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __59__SiriCoreSiriConnection_siriBackgroundConnectionDidClose___block_invoke_19;
-    v11[3] = &unk_279BD6540;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __59__SiriCoreSiriConnection_siriBackgroundConnectionDidClose___block_invoke_19;
+    v10[3] = &unk_279BD6540;
     v7 = v3;
     v8 = *(a1 + 32);
-    v12 = v7;
-    v13 = v8;
-    [v2 _handleLastEventFromBackgroundConnection:v7 pendingConnectionExhaustionHandler:v11];
-    WeakRetained = v12;
+    v11 = v7;
+    v12 = v8;
+    [v2 _handleLastEventFromBackgroundConnection:v7 pendingConnectionExhaustionHandler:v10];
+    WeakRetained = v11;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SiriCoreSiriConnection_siriBackgroundConnectionDidClose___block_invoke_19(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0A8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SiriCoreSiriConnection siriBackgroundConnectionDidClose:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s Ran out of pending connections, forwarding close from last connection %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriCoreSiriConnection siriBackgroundConnectionDidClose:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s Ran out of pending connections, forwarding close from last connection %@", &v5, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 24));
   [WeakRetained siriConnectionDidClose:*(a1 + 40)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriBackgroundConnection:(id)connection didReceiveAceObject:(id)object
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   objectCopy = object;
   v8 = *MEMORY[0x277CEF0A8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v17 = "[SiriCoreSiriConnection siriBackgroundConnection:didReceiveAceObject:]";
+    v16 = "[SiriCoreSiriConnection siriBackgroundConnection:didReceiveAceObject:]";
     _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -414,18 +402,16 @@ void __59__SiriCoreSiriConnection_siriBackgroundConnectionDidClose___block_invok
   block[2] = __71__SiriCoreSiriConnection_siriBackgroundConnection_didReceiveAceObject___block_invoke;
   block[3] = &unk_279BD5E20;
   block[4] = self;
-  v14 = connectionCopy;
-  v15 = objectCopy;
+  v13 = connectionCopy;
+  v14 = objectCopy;
   v10 = objectCopy;
   v11 = connectionCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SiriCoreSiriConnection_siriBackgroundConnection_didReceiveAceObject___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
   v2 = a1[5];
   v4 = *(v3 + 136);
@@ -435,11 +421,11 @@ void __71__SiriCoreSiriConnection_siriBackgroundConnection_didReceiveAceObject__
   {
     if (v6)
     {
-      v9 = 136315394;
-      v10 = "[SiriCoreSiriConnection siriBackgroundConnection:didReceiveAceObject:]_block_invoke";
-      v11 = 2112;
-      v12 = v4;
-      _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Received ace object from active connection: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriCoreSiriConnection siriBackgroundConnection:didReceiveAceObject:]_block_invoke";
+      v10 = 2112;
+      v11 = v4;
+      _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Received ace object from active connection: %@", &v8, 0x16u);
       v3 = a1[4];
     }
 
@@ -449,14 +435,12 @@ void __71__SiriCoreSiriConnection_siriBackgroundConnection_didReceiveAceObject__
 
   else if (v6)
   {
-    v9 = 136315394;
-    v10 = "[SiriCoreSiriConnection siriBackgroundConnection:didReceiveAceObject:]_block_invoke";
-    v11 = 2112;
-    v12 = v2;
-    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Ignoring ace object from inactive connection: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SiriCoreSiriConnection siriBackgroundConnection:didReceiveAceObject:]_block_invoke";
+    v10 = 2112;
+    v11 = v2;
+    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Ignoring ace object from inactive connection: %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriBackgroundConnection:(id)connection didOpenWithConnectionType:(id)type routeId:(id)id delay:(double)delay
@@ -485,7 +469,7 @@ void __71__SiriCoreSiriConnection_siriBackgroundConnection_didReceiveAceObject__
 
 void __91__SiriCoreSiriConnection_siriBackgroundConnection_didOpenWithConnectionType_routeId_delay___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 136);
   if (v3)
@@ -497,11 +481,11 @@ void __91__SiriCoreSiriConnection_siriBackgroundConnection_didOpenWithConnection
     {
       if (v6)
       {
-        v13 = 136315394;
-        v14 = "[SiriCoreSiriConnection siriBackgroundConnection:didOpenWithConnectionType:routeId:delay:]_block_invoke";
-        v15 = 2112;
-        v16 = v3;
-        _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Connection opened twice or connection became viable again. %@", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[SiriCoreSiriConnection siriBackgroundConnection:didOpenWithConnectionType:routeId:delay:]_block_invoke";
+        v14 = 2112;
+        v15 = v3;
+        _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Connection opened twice or connection became viable again. %@", &v12, 0x16u);
       }
     }
 
@@ -510,13 +494,13 @@ void __91__SiriCoreSiriConnection_siriBackgroundConnection_didOpenWithConnection
       if (v6)
       {
         v7 = *(a1 + 48);
-        v13 = 136315650;
-        v14 = "[SiriCoreSiriConnection siriBackgroundConnection:didOpenWithConnectionType:routeId:delay:]_block_invoke";
-        v15 = 2112;
-        v16 = v7;
-        v17 = 2112;
-        v18 = v4;
-        _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s A connection lost the race, canceling %@ connection %@", &v13, 0x20u);
+        v12 = 136315650;
+        v13 = "[SiriCoreSiriConnection siriBackgroundConnection:didOpenWithConnectionType:routeId:delay:]_block_invoke";
+        v14 = 2112;
+        v15 = v7;
+        v16 = 2112;
+        v17 = v4;
+        _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s A connection lost the race, canceling %@ connection %@", &v12, 0x20u);
         v4 = *(a1 + 40);
       }
 
@@ -532,13 +516,13 @@ void __91__SiriCoreSiriConnection_siriBackgroundConnection_didOpenWithConnection
     {
       v10 = *(a1 + 40);
       v9 = *(a1 + 48);
-      v13 = 136315650;
-      v14 = "[SiriCoreSiriConnection siriBackgroundConnection:didOpenWithConnectionType:routeId:delay:]_block_invoke";
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, "%s Connection opened and %@ won the race: %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "[SiriCoreSiriConnection siriBackgroundConnection:didOpenWithConnectionType:routeId:delay:]_block_invoke";
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v10;
+      _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, "%s Connection opened and %@ won the race: %@", &v12, 0x20u);
       v2 = *(a1 + 32);
     }
 
@@ -549,35 +533,31 @@ void __91__SiriCoreSiriConnection_siriBackgroundConnection_didOpenWithConnection
     [*(a1 + 32) _recordConnectionMethodForMetrics:*(a1 + 48)];
     dispatch_group_leave(*(*(a1 + 32) + 144));
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriBackgroundConnection:(id)connection willStartWithConnectionType:(id)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v6 = *MEMORY[0x277CEF0A8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "[SiriCoreSiriConnection siriBackgroundConnection:willStartWithConnectionType:]";
-    v14 = 2112;
-    v15 = typeCopy;
+    v12 = "[SiriCoreSiriConnection siriBackgroundConnection:willStartWithConnectionType:]";
+    v13 = 2112;
+    v14 = typeCopy;
     _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_INFO, "%s connectionType=%@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __79__SiriCoreSiriConnection_siriBackgroundConnection_willStartWithConnectionType___block_invoke;
-  v10[3] = &unk_279BD6540;
-  v10[4] = self;
-  v11 = typeCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __79__SiriCoreSiriConnection_siriBackgroundConnection_willStartWithConnectionType___block_invoke;
+  v9[3] = &unk_279BD6540;
+  v9[4] = self;
+  v10 = typeCopy;
   v8 = typeCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v9);
 }
 
 void __79__SiriCoreSiriConnection_siriBackgroundConnection_willStartWithConnectionType___block_invoke(uint64_t a1)
@@ -658,7 +638,7 @@ void __51__SiriCoreSiriConnection__waitForActiveConnection___block_invoke(uint64
 
 - (void)_accessPotentiallyActiveConnections:(id)connections
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   connectionsCopy = connections;
   v5 = connectionsCopy;
   if (!self->_isCanceledInternal)
@@ -670,39 +650,37 @@ void __51__SiriCoreSiriConnection__waitForActiveConnection___block_invoke(uint64
 
     else
     {
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
       v6 = [(NSMutableSet *)self->_pendingBackgroundConnections copy];
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v13;
+        v9 = *v12;
         do
         {
           v10 = 0;
           do
           {
-            if (*v13 != v9)
+            if (*v12 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v5[2](v5, *(*(&v12 + 1) + 8 * v10++));
+            v5[2](v5, *(*(&v11 + 1) + 8 * v10++));
           }
 
           while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
         while (v8);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getConnectionMetricsSynchronously:(BOOL)synchronously completion:(id)completion
@@ -732,13 +710,13 @@ void __51__SiriCoreSiriConnection__waitForActiveConnection___block_invoke(uint64
 
 void __71__SiriCoreSiriConnection_getConnectionMetricsSynchronously_completion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0A8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[SiriCoreSiriConnection getConnectionMetricsSynchronously:completion:]_block_invoke";
-    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SiriCoreSiriConnection getConnectionMetricsSynchronously:completion:]_block_invoke";
+    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s ", &v6, 0xCu);
   }
 
   v3 = [*(a1 + 32) _activeOrAnyPendingConnection];
@@ -750,14 +728,12 @@ void __71__SiriCoreSiriConnection_getConnectionMetricsSynchronously_completion__
 
   else
   {
-    v6 = *(a1 + 40);
-    if (v6)
+    v5 = *(a1 + 40);
+    if (v5)
     {
-      (*(v6 + 16))(v6, 0);
+      (*(v5 + 16))(v5, 0);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAnalysisInfo:(id)info
@@ -862,64 +838,64 @@ void __38__SiriCoreSiriConnection_analysisInfo__block_invoke(uint64_t a1)
 
 - (void)_cancelSynchronously:(id)synchronously
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   synchronouslyCopy = synchronously;
   [(SiriCoreSiriBackgroundConnection *)self->_activeBackgroundConnection cancel];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_pendingBackgroundConnections;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v20 + 1) + 8 * v9++) cancel];
+        [*(*(&v19 + 1) + 8 * v9++) cancel];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = self->_comatoseBackgroundConnections;
-  v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) cancel];
+        [*(*(&v15 + 1) + 8 * v14++) cancel];
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v12);
@@ -930,8 +906,6 @@ void __38__SiriCoreSiriConnection_analysisInfo__block_invoke(uint64_t a1)
   {
     synchronouslyCopy[2](synchronouslyCopy);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)probeConnection
@@ -1053,42 +1027,42 @@ void __51__SiriCoreSiriConnection_sendCommand_errorHandler___block_invoke(uint64
 
 - (void)start
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v96 = "[SiriCoreSiriConnection start]";
+    v95 = "[SiriCoreSiriConnection start]";
     _os_log_impl(&dword_2669D1000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   v4 = self->_connectionPolicy;
   routes = [(SAConnectionPolicy *)v4 routes];
   v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(routes, "count")}];
+  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
   obj = routes;
-  v7 = [obj countByEnumeratingWithState:&v84 objects:buf count:16];
+  v7 = [obj countByEnumeratingWithState:&v83 objects:buf count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v85;
-    v64 = *MEMORY[0x277D47CC8];
+    v10 = *v84;
+    v63 = *MEMORY[0x277D47CC8];
     *&v8 = 136315138;
-    v63 = v8;
+    v62 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v85 != v10)
+        if (*v84 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v84 + 1) + 8 * v11);
+        v12 = *(*(&v83 + 1) + 8 * v11);
         cname = [v12 cname];
         if ((_RouteHostStringIsAcceptable(cname) & 1) == 0)
         {
@@ -1100,10 +1074,10 @@ LABEL_17:
             goto LABEL_23;
           }
 
-          *v91 = 136315394;
-          v92 = "_PolicyRouteSetsForConnectionPolicy";
-          v93 = 2112;
-          v94 = v12;
+          *v90 = 136315394;
+          v91 = "_PolicyRouteSetsForConnectionPolicy";
+          v92 = 2112;
+          v93 = v12;
           v19 = v21;
           v20 = "%s Skipping connection route with unacceptable cname and/or host: %@";
           v22 = 22;
@@ -1119,7 +1093,7 @@ LABEL_17:
         }
 
         type = [v12 type];
-        v17 = [type isEqualToString:v64];
+        v17 = [type isEqualToString:v63];
 
         if (!v17)
         {
@@ -1136,14 +1110,14 @@ LABEL_17:
               goto LABEL_23;
             }
 
-            *v91 = v63;
-            v92 = "_PolicyRouteSetsForConnectionPolicy";
+            *v90 = v62;
+            v91 = "_PolicyRouteSetsForConnectionPolicy";
             v19 = v18;
             v20 = "%s Not using Tuscany policy as Tuscany is disabled in Internal Settings";
 LABEL_27:
             v22 = 12;
 LABEL_19:
-            _os_log_impl(&dword_2669D1000, v19, OS_LOG_TYPE_INFO, v20, v91, v22);
+            _os_log_impl(&dword_2669D1000, v19, OS_LOG_TYPE_INFO, v20, v90, v22);
             goto LABEL_23;
           }
 
@@ -1164,8 +1138,8 @@ LABEL_20:
         v25 = *MEMORY[0x277CEF0A8];
         if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
         {
-          *v91 = v63;
-          v92 = "_SiriCorePOPServiceExists";
+          *v90 = v62;
+          v91 = "_SiriCorePOPServiceExists";
           v19 = v25;
           v20 = "%s POP Service disabled.";
           goto LABEL_27;
@@ -1176,7 +1150,7 @@ LABEL_23:
       }
 
       while (v9 != v11);
-      v26 = [obj countByEnumeratingWithState:&v84 objects:buf count:16];
+      v26 = [obj countByEnumeratingWithState:&v83 objects:buf count:16];
       v9 = v26;
     }
 
@@ -1187,40 +1161,40 @@ LABEL_23:
   v28 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   v29 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v28, "count")}];
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   reverseObjectEnumerator = [v28 reverseObjectEnumerator];
-  v31 = [reverseObjectEnumerator countByEnumeratingWithState:&v80 objects:v91 count:16];
+  v31 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v90 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v81;
+    v33 = *v80;
     do
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v81 != v33)
+        if (*v80 != v33)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v35 = [v6 objectForKey:*(*(&v80 + 1) + 8 * i)];
+        v35 = [v6 objectForKey:*(*(&v79 + 1) + 8 * i)];
         if (v35)
         {
           [v29 addObject:v35];
         }
       }
 
-      v32 = [reverseObjectEnumerator countByEnumeratingWithState:&v80 objects:v91 count:16];
+      v32 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v90 count:16];
     }
 
     while (v32);
   }
 
   globalTimeout = [(SAConnectionPolicy *)v4 globalTimeout];
-  v65 = globalTimeout;
+  v64 = globalTimeout;
   if (globalTimeout)
   {
     [globalTimeout doubleValue];
@@ -1236,48 +1210,48 @@ LABEL_23:
   uUID = [MEMORY[0x277CCAD78] UUID];
   [v39 setNetworkConnectionId:uUID];
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   obja = v29;
-  v41 = [obja countByEnumeratingWithState:&v76 objects:v90 count:16];
+  v41 = [obja countByEnumeratingWithState:&v75 objects:v89 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v77;
+    v43 = *v76;
     v44 = 0.0;
     while (2)
     {
       for (j = 0; j != v42; ++j)
       {
-        if (*v77 != v43)
+        if (*v76 != v43)
         {
           objc_enumerationMutation(obja);
         }
 
-        v46 = *(*(&v76 + 1) + 8 * j);
+        v46 = *(*(&v75 + 1) + 8 * j);
+        v71 = 0u;
         v72 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v75 = 0u;
         v47 = v46;
-        v48 = [v47 countByEnumeratingWithState:&v72 objects:v89 count:16];
+        v48 = [v47 countByEnumeratingWithState:&v71 objects:v88 count:16];
         if (v48)
         {
           v49 = v48;
-          v50 = *v73;
+          v50 = *v72;
           v51 = 0.0;
           do
           {
             for (k = 0; k != v49; ++k)
             {
-              if (*v73 != v50)
+              if (*v72 != v50)
               {
                 objc_enumerationMutation(v47);
               }
 
-              timeout = [*(*(&v72 + 1) + 8 * k) timeout];
+              timeout = [*(*(&v71 + 1) + 8 * k) timeout];
               [timeout doubleValue];
               v55 = v54 / 1000.0;
 
@@ -1287,7 +1261,7 @@ LABEL_23:
               }
             }
 
-            v49 = [v47 countByEnumeratingWithState:&v72 objects:v89 count:16];
+            v49 = [v47 countByEnumeratingWithState:&v71 objects:v88 count:16];
           }
 
           while (v49);
@@ -1304,42 +1278,42 @@ LABEL_23:
           if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
           {
             *buf = 136315906;
-            v96 = "[SiriCoreSiriConnection start]";
-            v97 = 2048;
-            v98 = v44;
-            v99 = 2048;
-            v100 = v38;
-            v101 = 2112;
-            v102 = v47;
+            v95 = "[SiriCoreSiriConnection start]";
+            v96 = 2048;
+            v97 = v44;
+            v98 = 2048;
+            v99 = v38;
+            v100 = 2112;
+            v101 = v47;
             _os_log_impl(&dword_2669D1000, v61, OS_LOG_TYPE_INFO, "%s Skipping connection policy route because they would take too long (%.3fs >= %.3fs): %@", buf, 0x2Au);
           }
 
           goto LABEL_71;
         }
 
-        v70 = 0u;
-        v71 = 0u;
-        v68 = 0u;
         v69 = 0u;
+        v70 = 0u;
+        v67 = 0u;
+        v68 = 0u;
         v56 = v47;
-        v57 = [v56 countByEnumeratingWithState:&v68 objects:v88 count:16];
+        v57 = [v56 countByEnumeratingWithState:&v67 objects:v87 count:16];
         if (v57)
         {
           v58 = v57;
-          v59 = *v69;
+          v59 = *v68;
           do
           {
             for (m = 0; m != v58; ++m)
             {
-              if (*v69 != v59)
+              if (*v68 != v59)
               {
                 objc_enumerationMutation(v56);
               }
 
-              [(SiriCoreSiriConnection *)self _scheduleBackgroundConnectionWithRoute:*(*(&v68 + 1) + 8 * m) delay:v4 policy:v44];
+              [(SiriCoreSiriConnection *)self _scheduleBackgroundConnectionWithRoute:*(*(&v67 + 1) + 8 * m) delay:v4 policy:v44];
             }
 
-            v58 = [v56 countByEnumeratingWithState:&v68 objects:v88 count:16];
+            v58 = [v56 countByEnumeratingWithState:&v67 objects:v87 count:16];
           }
 
           while (v58);
@@ -1348,7 +1322,7 @@ LABEL_23:
         v44 = v44 + fmin(v51, 5.0);
       }
 
-      v42 = [obja countByEnumeratingWithState:&v76 objects:v90 count:16];
+      v42 = [obja countByEnumeratingWithState:&v75 objects:v89 count:16];
       if (v42)
       {
         continue;
@@ -1366,40 +1340,37 @@ LABEL_23:
 LABEL_71:
 
   [(SiriCoreSiriConnection *)self _scheduleBackgroundConnectionWithRoute:0 delay:v4 policy:v44];
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleBackgroundConnectionWithRoute:(id)route delay:(double)delay policy:(id)policy
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   policyCopy = policy;
   v10 = *MEMORY[0x277CEF0A8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v20 = "[SiriCoreSiriConnection _scheduleBackgroundConnectionWithRoute:delay:policy:]";
-    v21 = 2048;
-    v22 = delay * 1000.0;
-    v23 = 2112;
-    v24 = routeCopy;
+    v19 = "[SiriCoreSiriConnection _scheduleBackgroundConnectionWithRoute:delay:policy:]";
+    v20 = 2048;
+    v21 = delay * 1000.0;
+    v22 = 2112;
+    v23 = routeCopy;
     _os_log_impl(&dword_2669D1000, v10, OS_LOG_TYPE_INFO, "%s Scheduling connection after delay %.2f ms with route %@", buf, 0x20u);
   }
 
   queue = self->_queue;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __78__SiriCoreSiriConnection__scheduleBackgroundConnectionWithRoute_delay_policy___block_invoke;
-  v15[3] = &unk_279BD5E48;
-  v15[4] = self;
-  v16 = routeCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __78__SiriCoreSiriConnection__scheduleBackgroundConnectionWithRoute_delay_policy___block_invoke;
+  v14[3] = &unk_279BD5E48;
+  v14[4] = self;
+  v15 = routeCopy;
   delayCopy = delay;
-  v17 = policyCopy;
+  v16 = policyCopy;
   v12 = policyCopy;
   v13 = routeCopy;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v14);
 }
 
 void __78__SiriCoreSiriConnection__scheduleBackgroundConnectionWithRoute_delay_policy___block_invoke(uint64_t a1)
@@ -1446,7 +1417,7 @@ void __78__SiriCoreSiriConnection__scheduleBackgroundConnectionWithRoute_delay_p
 
 - (void)_startBackgroundConnectionWithRoute:(id)route policy:(id)policy
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   policyCopy = policy;
   scheduledRoutes = self->_scheduledRoutes;
@@ -1466,13 +1437,13 @@ void __78__SiriCoreSiriConnection__scheduleBackgroundConnectionWithRoute_delay_p
     v10 = *MEMORY[0x277CEF0A8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
     {
-      v21 = 136315138;
-      v22 = "[SiriCoreSiriConnection _startBackgroundConnectionWithRoute:policy:]";
+      v20 = 136315138;
+      v21 = "[SiriCoreSiriConnection _startBackgroundConnectionWithRoute:policy:]";
       v11 = "%s Not starting scheduled background connection because we're canceled or already have an active one";
       v12 = v10;
       v13 = OS_LOG_TYPE_INFO;
 LABEL_8:
-      _os_log_impl(&dword_2669D1000, v12, v13, v11, &v21, 0xCu);
+      _os_log_impl(&dword_2669D1000, v12, v13, v11, &v20, 0xCu);
     }
   }
 
@@ -1483,52 +1454,50 @@ LABEL_8:
 
     if (isDictationHIPAACompliant)
     {
-      v17 = *MEMORY[0x277CEF088];
+      v16 = *MEMORY[0x277CEF088];
       if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_9;
       }
 
-      v21 = 136315138;
-      v22 = "[SiriCoreSiriConnection _startBackgroundConnectionWithRoute:policy:]";
+      v20 = 136315138;
+      v21 = "[SiriCoreSiriConnection _startBackgroundConnectionWithRoute:policy:]";
       v11 = "%s Not starting scheduled background connection because we have HIPAA On-Device Dictation enabled";
-      v12 = v17;
+      v12 = v16;
       v13 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_8;
     }
 
-    v18 = [[SiriCoreSiriBackgroundConnection alloc] initWithQueue:self->_queue];
-    [(SiriCoreSiriBackgroundConnection *)v18 setPeerType:self->_peerType];
-    [(SiriCoreSiriBackgroundConnection *)v18 setPeerVersion:self->_peerVersion];
-    [(SiriCoreSiriBackgroundConnection *)v18 setPeerProviderClass:self->_peerProviderClass];
-    [(SiriCoreSiriBackgroundConnection *)v18 setProductTypePrefix:self->_productTypePrefix];
-    [(SiriCoreSiriBackgroundConnection *)v18 setDelegate:self];
-    [(SiriCoreSiriBackgroundConnection *)v18 setSiriConnectionUsesPeerManagedSync:self->_siriConnectionUsesPeerManagedSync];
-    [(SiriCoreSiriBackgroundConnection *)v18 setUsesProxyConnection:self->_usesProxyConnection];
-    [(SiriCoreSiriBackgroundConnection *)v18 setDeviceIsInWalkaboutExperimentGroup:self->_deviceIsInWalkaboutExperimentGroup];
-    [(NSMutableSet *)self->_pendingBackgroundConnections addObject:v18];
-    v19 = [(SiriCoreSiriConnection *)self _connectionInfoForRoute:routeCopy policy:policyCopy];
-    v20 = *MEMORY[0x277CEF0A8];
+    v17 = [[SiriCoreSiriBackgroundConnection alloc] initWithQueue:self->_queue];
+    [(SiriCoreSiriBackgroundConnection *)v17 setPeerType:self->_peerType];
+    [(SiriCoreSiriBackgroundConnection *)v17 setPeerVersion:self->_peerVersion];
+    [(SiriCoreSiriBackgroundConnection *)v17 setPeerProviderClass:self->_peerProviderClass];
+    [(SiriCoreSiriBackgroundConnection *)v17 setProductTypePrefix:self->_productTypePrefix];
+    [(SiriCoreSiriBackgroundConnection *)v17 setDelegate:self];
+    [(SiriCoreSiriBackgroundConnection *)v17 setSiriConnectionUsesPeerManagedSync:self->_siriConnectionUsesPeerManagedSync];
+    [(SiriCoreSiriBackgroundConnection *)v17 setUsesProxyConnection:self->_usesProxyConnection];
+    [(SiriCoreSiriBackgroundConnection *)v17 setDeviceIsInWalkaboutExperimentGroup:self->_deviceIsInWalkaboutExperimentGroup];
+    [(NSMutableSet *)self->_pendingBackgroundConnections addObject:v17];
+    v18 = [(SiriCoreSiriConnection *)self _connectionInfoForRoute:routeCopy policy:policyCopy];
+    v19 = *MEMORY[0x277CEF0A8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
     {
-      v21 = 136315394;
-      v22 = "[SiriCoreSiriConnection _startBackgroundConnectionWithRoute:policy:]";
-      v23 = 2112;
-      v24 = v19;
-      _os_log_impl(&dword_2669D1000, v20, OS_LOG_TYPE_INFO, "%s Starting background connection with connection info: %@", &v21, 0x16u);
+      v20 = 136315394;
+      v21 = "[SiriCoreSiriConnection _startBackgroundConnectionWithRoute:policy:]";
+      v22 = 2112;
+      v23 = v18;
+      _os_log_impl(&dword_2669D1000, v19, OS_LOG_TYPE_INFO, "%s Starting background connection with connection info: %@", &v20, 0x16u);
     }
 
-    [(SiriCoreSiriBackgroundConnection *)v18 startWithConnectionInfo:v19];
+    [(SiriCoreSiriBackgroundConnection *)v17 startWithConnectionInfo:v18];
   }
 
 LABEL_9:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_connectionInfoForRoute:(id)route policy:(id)policy
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   policyCopy = policy;
   v8 = objc_alloc_init(SiriCoreSiriConnectionInfo);
@@ -1586,20 +1555,18 @@ LABEL_9:
   {
     v19 = v18;
     host = [(NSURL *)v9 host];
-    v24 = 136315650;
-    v25 = "[SiriCoreSiriConnection _connectionInfoForRoute:policy:]";
-    v26 = 2112;
-    v27 = host;
-    v28 = 2112;
-    v29 = stringValue;
-    _os_log_impl(&dword_2669D1000, v19, OS_LOG_TYPE_INFO, "%s route host is %@ port is %@", &v24, 0x20u);
+    v23 = 136315650;
+    v24 = "[SiriCoreSiriConnection _connectionInfoForRoute:policy:]";
+    v25 = 2112;
+    v26 = host;
+    v27 = 2112;
+    v28 = stringValue;
+    _os_log_impl(&dword_2669D1000, v19, OS_LOG_TYPE_INFO, "%s route host is %@ port is %@", &v23, 0x20u);
   }
 
   [(SiriCoreSiriConnectionInfo *)v8 setUrl:v9];
   connectionId = [routeCopy connectionId];
   [(SiriCoreSiriConnectionInfo *)v8 setConnectionId:connectionId];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

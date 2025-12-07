@@ -13,9 +13,11 @@
 - (PRSRankingItem)rankingItem;
 - (float)getAllScores:(float)scores[3235];
 - (float)scoreForFeature:(unsigned __int16)feature;
+- (id)_dictionaryRepresentationWithoutDefaultValues:(BOOL)values;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)dealloc;
 - (void)restoreFromJazzkonPlusHacks:(float *)hacks;
+- (void)setAllDisplayNameFeatures:(float *)features withValue:(float)value;
 - (void)setDisplayNameFuzzySpecialInsertion:(BOOL)insertion;
 - (void)setIsAppInDock:(BOOL)dock;
 - (void)setIsSiriAction:(BOOL)action;
@@ -96,10 +98,9 @@ CFSetRef __37__PRSL2FeatureVector_getL2FeatureSet__block_invoke()
   }
 
   while (v0 != 3236);
-  v7 = *byte_1F556EAB0;
-  result = CFSetCreate(*MEMORY[0x1E695E480], values, 3235, &v7);
+  v6 = *byte_1F556EAB0;
+  result = CFSetCreate(*MEMORY[0x1E695E480], values, 3235, &v6);
   getL2FeatureSet_sL2FeatureSet = result;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -478,7 +479,7 @@ LABEL_28:
   v9 = v8;
   v11 = v10;
   v12 = v5;
-  v61 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(v5 + 2);
   v13 = v12 + 3;
   os_unfair_lock_opaque_low = LOWORD(v12[51]._os_unfair_lock_opaque);
@@ -487,7 +488,6 @@ LABEL_28:
     if (!v7)
     {
 LABEL_23:
-      v23 = *MEMORY[0x1E69E9840];
 
       os_unfair_lock_unlock(v12 + 2);
       return;
@@ -561,19 +561,19 @@ LABEL_18:
     }
   }
 
-  bzero(v60, 0x328CuLL);
-  decodeRankingScores(*&v12[52]._os_unfair_lock_opaque, LOWORD(v12[54]._os_unfair_lock_opaque), v60);
+  bzero(v58, 0x328CuLL);
+  decodeRankingScores(*&v12[52]._os_unfair_lock_opaque, LOWORD(v12[54]._os_unfair_lock_opaque), v58);
   if (os_unfair_lock_opaque_low)
   {
-    v24 = v12 + 19;
+    v23 = v12 + 19;
     do
     {
-      v25 = v24->_os_unfair_lock_opaque;
-      ++v24;
-      v26 = v25;
-      v27 = LOWORD(v13->_os_unfair_lock_opaque);
+      v24 = v23->_os_unfair_lock_opaque;
+      ++v23;
+      v25 = v24;
+      v26 = LOWORD(v13->_os_unfair_lock_opaque);
       v13 = (v13 + 2);
-      v60[v27] = v26;
+      v58[v26] = v25;
       --os_unfair_lock_opaque_low;
     }
 
@@ -582,54 +582,54 @@ LABEL_18:
 
   for (LOWORD(v12[51]._os_unfair_lock_opaque) = 0; v7; --v7)
   {
-    v29 = *v9++;
-    v28 = v29;
-    v30 = *v11;
-    v60[v29] = *v11;
-    if ((sFeatureFlags[v29] & 0x20) != 0)
+    v28 = *v9++;
+    v27 = v28;
+    v29 = *v11;
+    v58[v28] = *v11;
+    if ((sFeatureFlags[v28] & 0x20) != 0)
     {
-      if (v28 > 1930)
+      if (v27 > 1930)
       {
-        switch(v28)
+        switch(v27)
         {
           case 1931:
-            v31 = 1;
+            v30 = 1;
             goto LABEL_44;
           case 1965:
-            v31 = 4;
+            v30 = 4;
             goto LABEL_44;
           case 1966:
-            v31 = 2;
+            v30 = 2;
             goto LABEL_44;
         }
       }
 
       else
       {
-        switch(v28)
+        switch(v27)
         {
           case 1852:
-            v31 = 16;
+            v30 = 16;
             goto LABEL_44;
           case 1853:
-            v31 = 8;
+            v30 = 8;
             goto LABEL_44;
           case 1854:
-            v31 = 32;
+            v30 = 32;
 LABEL_44:
-            BYTE2(v12[54]._os_unfair_lock_opaque) |= v31;
-            v32 = v31 >> 1;
-            if (v30 == 1.0)
+            BYTE2(v12[54]._os_unfair_lock_opaque) |= v30;
+            v31 = v30 >> 1;
+            if (v29 == 1.0)
             {
-              v33 = HIBYTE(v12[54]._os_unfair_lock_opaque) | v32;
+              v32 = HIBYTE(v12[54]._os_unfair_lock_opaque) | v31;
             }
 
             else
             {
-              v33 = HIBYTE(v12[54]._os_unfair_lock_opaque) & ~v32;
+              v32 = HIBYTE(v12[54]._os_unfair_lock_opaque) & ~v31;
             }
 
-            HIBYTE(v12[54]._os_unfair_lock_opaque) = v33;
+            HIBYTE(v12[54]._os_unfair_lock_opaque) = v32;
             break;
         }
       }
@@ -638,165 +638,270 @@ LABEL_44:
     ++v11;
   }
 
-  v34 = *&v12[52]._os_unfair_lock_opaque;
-  v35 = __src;
+  v33 = *&v12[52]._os_unfair_lock_opaque;
+  v34 = __src;
   bzero(__src, 0x1F978uLL);
-  v36 = 0;
+  v35 = 0;
   while (1)
   {
-    v37 = &v60[v36];
-    v38 = *v37;
-    if (*v37 == sDefaultScores[v36])
+    v36 = &v58[v35];
+    v37 = *v36;
+    if (*v36 == sDefaultScores[v35])
     {
-      v39 = 128;
+      v38 = 128;
       goto LABEL_54;
     }
 
-    if (v38 == 0.0)
+    if (v37 == 0.0)
     {
       break;
     }
 
-    if (v38 == 2147500000.0 || ((v38 - 1) <= 0x3D ? (v45 = v38 == v38) : (v45 = 0), v45))
+    if (v37 == 2147500000.0 || ((v37 - 1) <= 0x3D ? (v44 = v37 == v37) : (v44 = 0), v44))
     {
-      if (v38 == 2147500000.0)
+      if (v37 == 2147500000.0)
       {
-        v54 = 127;
+        v53 = 127;
       }
 
       else
       {
-        v54 = v38 & 0x3F | 0x40;
+        v53 = v37 & 0x3F | 0x40;
       }
 
-      *v35++ = v54;
+      *v34++ = v53;
       goto LABEL_68;
     }
 
-    if (v36 > 0xCA1u)
+    if (v35 > 0xCA1u)
     {
-      v51 = 0;
-      v46 = 0;
+      v50 = 0;
+      v45 = 0;
 LABEL_95:
-      v53 = v35 + 1;
-      LOBYTE(v52) = v46;
+      v52 = v34 + 1;
+      LOBYTE(v51) = v45;
       goto LABEL_96;
     }
 
-    v46 = 0;
-    v47 = v36 + 1;
+    v45 = 0;
+    v46 = v35 + 1;
     while (1)
     {
-      v48 = *&v60[v47];
-      if (v48 == 2147500000.0)
+      v47 = *&v58[v46];
+      if (v47 == 2147500000.0)
       {
         break;
       }
 
-      if (v48 == 0.0 || v48 == sDefaultScores[v47])
+      if (v47 == 0.0 || v47 == sDefaultScores[v46])
       {
         break;
       }
 
-      if ((v48 - 1) <= 0x3D && v48 == v48)
+      if ((v47 - 1) <= 0x3D && v47 == v47)
       {
         break;
       }
 
-      ++v46;
-      if (++v47 == 3235)
+      ++v45;
+      if (++v46 == 3235)
       {
-        v46 = 3234 - v36;
+        v45 = 3234 - v35;
         break;
       }
     }
 
-    v51 = v46;
-    if (v46 < 0x20u)
+    v50 = v45;
+    if (v45 < 0x20u)
     {
       goto LABEL_95;
     }
 
-    v52 = (v46 >> 8) & 0x1F | 0x20;
-    v53 = v35 + 2;
-    v35[1] = v46;
+    v51 = (v45 >> 8) & 0x1F | 0x20;
+    v52 = v34 + 2;
+    v34[1] = v45;
 LABEL_96:
-    *v35 = v52;
-    v55 = 4 * v51 + 4;
-    memcpy(v53, v37, v55);
-    v35 = &v53[v55];
-    v36 += v46;
+    *v34 = v51;
+    v54 = 4 * v50 + 4;
+    memcpy(v52, v36, v54);
+    v34 = &v52[v54];
+    v35 += v45;
 LABEL_68:
-    if (++v36 >= 0xCA3u)
+    if (++v35 >= 0xCA3u)
     {
       goto LABEL_98;
     }
   }
 
-  v39 = 192;
+  v38 = 192;
 LABEL_54:
-  if ((v36 + 1) != 3235)
+  if ((v35 + 1) != 3235)
   {
-    v40 = 0;
-    v41 = (v36 + 1);
-    while (v41 <= 0xCA2)
+    v39 = 0;
+    v40 = (v35 + 1);
+    while (v40 <= 0xCA2)
     {
-      v42 = *&v60[v41];
-      if (v42 == sDefaultScores[v41])
+      v41 = *&v58[v40];
+      if (v41 == sDefaultScores[v40])
       {
-        v43 = 128;
+        v42 = 128;
       }
 
       else
       {
-        if (v42 != 0.0)
+        if (v41 != 0.0)
         {
           break;
         }
 
-        v43 = 192;
+        v42 = 192;
       }
 
-      if (v43 != v39)
+      if (v42 != v38)
       {
         break;
       }
 
-      --v40;
-      ++v41;
-      if (v40 == -2047)
+      --v39;
+      ++v40;
+      if (v39 == -2047)
       {
-        LODWORD(v44) = 2047;
+        LODWORD(v43) = 2047;
 LABEL_65:
-        *v35 = v39 | BYTE1(v44) & 0x1F | 0x20;
-        v35[1] = v44;
-        v35 += 2;
+        *v34 = v38 | BYTE1(v43) & 0x1F | 0x20;
+        v34[1] = v43;
+        v34 += 2;
         goto LABEL_67;
       }
     }
 
-    v44 = -v40;
-    if (v44 >= 0x20)
+    v43 = -v39;
+    if (v43 >= 0x20)
     {
       goto LABEL_65;
     }
 
-    *v35++ = v39 | v44;
+    *v34++ = v38 | v43;
 LABEL_67:
-    v36 += v44;
+    v35 += v43;
     goto LABEL_68;
   }
 
-  *v35++ = v39;
+  *v34++ = v38;
 LABEL_98:
-  v56 = v35 - __src;
-  v57 = malloc_type_malloc(v56, 0x23F7DD91uLL);
-  memcpy(v57, __src, v56);
-  *&v12[52]._os_unfair_lock_opaque = v57;
-  LOWORD(v12[54]._os_unfair_lock_opaque) = v56;
+  v55 = v34 - __src;
+  v56 = malloc_type_malloc(v55, 0x23F7DD91uLL);
+  memcpy(v56, __src, v55);
+  *&v12[52]._os_unfair_lock_opaque = v56;
+  LOWORD(v12[54]._os_unfair_lock_opaque) = v55;
   os_unfair_lock_unlock(v12 + 2);
-  free(v34);
-  v58 = *MEMORY[0x1E69E9840];
+  free(v33);
+}
+
+- (id)_dictionaryRepresentationWithoutDefaultValues:(BOOL)values
+{
+  v3 = (MEMORY[0x1EEE9AC00])(self, a2, values);
+  v5 = v4;
+  v6 = v3;
+  v25 = *MEMORY[0x1E69E9840];
+  v7 = objc_opt_new();
+  bzero(v24, 0x328CuLL);
+  v8 = [v6 getAllScores:v24];
+  v9 = &byte_1E8596CA2;
+  v10 = 3235;
+  do
+  {
+    v11 = *(v8 + 4 * *(v9 - 1));
+    if (v5)
+    {
+      if ((*(v9 - 1) - 2397) < 0x20u)
+      {
+        goto LABEL_27;
+      }
+
+      if (fabsf(v11 + 1.0) <= 0.001)
+      {
+        goto LABEL_27;
+      }
+
+      v12 = *(v9 - 1);
+      if ((v12 - 397) < 2 || v12 == 2391)
+      {
+        goto LABEL_27;
+      }
+
+      if ((*v9 & 0x10) != 0)
+      {
+        v13 = 4;
+        goto LABEL_16;
+      }
+
+      if ((*v9 & 8) != 0)
+      {
+        goto LABEL_14;
+      }
+
+      if ((*v9 & 4) != 0)
+      {
+        goto LABEL_15;
+      }
+
+      if ((*v9 & 0x40) != 0)
+      {
+        if (v11 <= 30.0)
+        {
+LABEL_14:
+          v13 = 2;
+        }
+
+        else
+        {
+LABEL_15:
+          v13 = 1;
+        }
+
+LABEL_16:
+        [PRSRankingUtilities floatValue:v13 withSigFigs:?];
+      }
+    }
+
+    if (v11 == 0.0 || v11 == 1.0 || v11 == -1.0)
+    {
+      [MEMORY[0x1E696AD98] numberWithInt:v11];
+    }
+
+    else
+    {
+      [MEMORY[0x1E696AD98] numberWithFloat:?];
+    }
+    v16 = ;
+    [v7 setObject:v16 forKeyedSubscript:*(v9 - 10)];
+
+LABEL_27:
+    v9 += 16;
+    --v10;
+  }
+
+  while (v10);
+  [v7 setObject:*(v6 + 248) forKeyedSubscript:@"bundleID"];
+  if ((v5 & 1) == 0)
+  {
+    LODWORD(v17) = *(v6 + 220);
+    v18 = [MEMORY[0x1E696AD98] numberWithFloat:v17];
+    [v7 setObject:v18 forKeyedSubscript:@"l2Score"];
+
+    LODWORD(v19) = *(v6 + 224);
+    v20 = [MEMORY[0x1E696AD98] numberWithFloat:v19];
+    [v7 setObject:v20 forKeyedSubscript:@"l2ScoreExperimental"];
+  }
+
+  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(v6 + 480)];
+  [v7 setObject:v21 forKeyedSubscript:@"lscore_0_2"];
+
+  v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(v6 + 488)];
+  [v7 setObject:v22 forKeyedSubscript:@"lscore_1_2"];
+
+  return v7;
 }
 
 - (void)restoreFromJazzkonPlusHacks:(float *)hacks
@@ -902,6 +1007,40 @@ LABEL_98:
   [(PRSL2FeatureVector *)self swapFeature:1979 withSubstitute:2353 scores:features];
 }
 
+- (void)setAllDisplayNameFeatures:(float *)features withValue:(float)value
+{
+  v4 = 1.0;
+  if (value == -1.0)
+  {
+    v4 = 0.0;
+  }
+
+  features[308] = v4;
+  features[131] = value;
+  features[203] = value;
+  features[165] = value;
+  features[95] = value;
+  features[77] = value;
+  v5 = vdupq_lane_s32(*&value, 0);
+  *(features + 198) = v5;
+  features[130] = value;
+  features[202] = value;
+  features[164] = value;
+  features[113] = value;
+  *(features + 410) = v5;
+  *(features + 414) = v5;
+  *(features + 418) = v5;
+  features[422] = value;
+  features[423] = value;
+  features[424] = value;
+  *(features + 673) = v5;
+  *(features + 665) = v5;
+  *(features + 669) = v5;
+  *(features + 2429) = v5;
+  features[2593] = value;
+  features[2594] = value;
+}
+
 - (void)swapFeature:(unsigned __int16)feature withSubstitute:(unsigned __int16)substitute scores:(float *)scores
 {
   v5 = scores[substitute];
@@ -919,9 +1058,9 @@ LABEL_98:
   v6 = v5;
   v8 = v7;
   v9 = v4;
-  v71 = *MEMORY[0x1E69E9840];
-  bzero(v70, 0x328CuLL);
-  v10 = [v9 getAllScores:v70];
+  v70 = *MEMORY[0x1E69E9840];
+  bzero(v69, 0x328CuLL);
+  v10 = [v9 getAllScores:v69];
   if ((v6 & 2) == 0)
   {
     [v9 restoreFromJazzkonPlusHacks:v10];
@@ -1142,26 +1281,26 @@ LABEL_48:
   json_writer_add_uint64(v8, *(v9 + 488));
   if ((v6 & 4) == 0)
   {
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     allKeys = [*(v9 + 272) allKeys];
-    v55 = [allKeys countByEnumeratingWithState:&v65 objects:v69 count:16];
+    v55 = [allKeys countByEnumeratingWithState:&v64 objects:v68 count:16];
     if (v55)
     {
       v56 = v55;
-      v57 = *v66;
+      v57 = *v65;
       do
       {
         for (j = 0; j != v56; ++j)
         {
-          if (*v66 != v57)
+          if (*v65 != v57)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v59 = *(*(&v65 + 1) + 8 * j);
+          v59 = *(*(&v64 + 1) + 8 * j);
           v60 = [*(v9 + 272) objectForKey:v59];
           [v60 floatValue];
           v62 = v61;
@@ -1169,14 +1308,13 @@ LABEL_48:
           json_writer_add_double(v8, v62);
         }
 
-        v56 = [allKeys countByEnumeratingWithState:&v65 objects:v69 count:16];
+        v56 = [allKeys countByEnumeratingWithState:&v64 objects:v68 count:16];
       }
 
       while (v56);
     }
   }
 
-  v63 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

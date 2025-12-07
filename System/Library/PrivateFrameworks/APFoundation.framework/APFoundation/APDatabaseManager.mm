@@ -3,12 +3,15 @@
 - (APDatabaseManager)init;
 - (BOOL)_bindParameters:(id)parameters toStatement:(sqlite3_stmt *)statement;
 - (BOOL)_executeQueryFromString:(id)string;
+- (BOOL)_handleEventTablesDynamicMigrationWithQuery:(id)query version:(int)version;
 - (BOOL)_isConnectionOpen;
 - (BOOL)_isConnectionValidWithErrorDescription:(id)description;
 - (BOOL)_setUserVersion:(int64_t)version;
 - (BOOL)_updateVersionForPath:(id)path;
 - (BOOL)executeQuery:(id)query withParameters:(id)parameters;
 - (BOOL)executeQueryFromString:(id)string;
+- (BOOL)executeTransactionQueryWithType:(int)type;
+- (BOOL)executeTransactionQueryWithType:(int)type result:(int *)result transactionBody:(id)body;
 - (BOOL)openConnectionIfFileExistsToDatabaseWithName:(id)name;
 - (BOOL)openDatabaseConnectionWithName:(id)name;
 - (BOOL)setUpDatabaseWithPath:(id)path;
@@ -119,7 +122,7 @@
 
 - (void)closeDatabaseConnection
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_lock(self, a2, v2, v3);
   objc_msgSend_lock(v5, v6, v7, v8);
   database = self->_database;
@@ -136,13 +139,11 @@
   v19 = APLogForCategory(0xCuLL);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138477827;
-    v23 = objc_opt_class();
-    v20 = v23;
-    _os_log_impl(&dword_1BADC1000, v19, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database connection closed sucessfully.", &v22, 0xCu);
+    v21 = 138477827;
+    v22 = objc_opt_class();
+    v20 = v22;
+    _os_log_impl(&dword_1BADC1000, v19, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database connection closed sucessfully.", &v21, 0xCu);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)executeSelectQuery:(id)query forTable:(id)table withParameters:(id)parameters
@@ -362,7 +363,7 @@ LABEL_6:
 
 - (id)executeSelectQuery:(id)query forTable:(id)table withParameters:(id)parameters groupedByColumn:(id)column
 {
-  v107[1] = *MEMORY[0x1E69E9840];
+  v106[1] = *MEMORY[0x1E69E9840];
   queryCopy = query;
   tableCopy = table;
   parametersCopy = parameters;
@@ -381,13 +382,13 @@ LABEL_6:
         goto LABEL_38;
       }
 
-      v101 = v15;
-      v102 = parametersCopy;
-      v103 = queryCopy;
-      v104 = v26;
+      v100 = v15;
+      v101 = parametersCopy;
+      v102 = queryCopy;
+      v103 = v26;
       while (1)
       {
-        v30 = objc_alloc(objc_msgSend_rowClass(tableCopy, v27, v28, v29, v101, v102, v103));
+        v30 = objc_alloc(objc_msgSend_rowClass(tableCopy, v27, v28, v29, v100, v101, v102));
         v33 = objc_msgSend_initWithTable_(v30, v31, tableCopy, v32);
         v34 = sqlite3_column_count(v25);
         if (v34 >= 1)
@@ -397,8 +398,8 @@ LABEL_6:
 
         v39 = @"N/A";
 LABEL_31:
-        v26 = v104;
-        v83 = objc_msgSend_objectForKey_(v104, v35, v39, v36);
+        v26 = v103;
+        v83 = objc_msgSend_objectForKey_(v103, v35, v39, v36);
         if (v83)
         {
           v87 = v83;
@@ -406,21 +407,21 @@ LABEL_31:
           objc_msgSend_addObject_(v88, v89, v33, v90);
           v93 = objc_msgSend_arrayWithArray_(MEMORY[0x1E695DEC8], v91, v88, v92);
 
-          objc_msgSend_setObject_forKey_(v104, v94, v93, v39);
+          objc_msgSend_setObject_forKey_(v103, v94, v93, v39);
         }
 
         else
         {
-          v107[0] = v33;
-          v93 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v84, v107, 1);
-          objc_msgSend_setObject_forKey_(v104, v95, v93, v39);
+          v106[0] = v33;
+          v93 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v84, v106, 1);
+          objc_msgSend_setObject_forKey_(v103, v95, v93, v39);
         }
 
         if (sqlite3_step(v25) != 100)
         {
-          parametersCopy = v102;
-          queryCopy = v103;
-          v15 = v101;
+          parametersCopy = v101;
+          queryCopy = v102;
+          v15 = v100;
           goto LABEL_38;
         }
       }
@@ -540,8 +541,6 @@ LABEL_38:
     objc_msgSend_unlock(v15, v22, v23, v24);
     v26 = 0;
   }
-
-  v99 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -723,6 +722,43 @@ LABEL_9:
   return v33;
 }
 
+- (BOOL)executeTransactionQueryWithType:(int)type
+{
+  v4 = *&type;
+  v6 = objc_msgSend_lock(self, a2, *&type, v3);
+  objc_msgSend_lock(v6, v7, v8, v9);
+  if (objc_msgSend__isConnectionValidWithErrorDescription_(self, v10, @"No connection on commit transaction.", v11))
+  {
+    v15 = objc_msgSend__runTransactionStatement_(self, v12, v4, v14);
+    if (!v15)
+    {
+      objc_msgSend_unlock(v6, v16, v17, v18);
+      v36 = 1;
+      goto LABEL_6;
+    }
+
+    v19 = v15;
+    v20 = MEMORY[0x1E696AEC0];
+    v21 = sqlite3_errstr(v15);
+    v24 = objc_msgSend_stringWithFormat_(v20, v22, @"Execute commit transaction error: %s", v23, v21);
+    v28 = objc_msgSend_currentVersion(self, v25, v26, v27);
+    v32 = objc_msgSend_dbName(self, v29, v30, v31);
+    APDatabaseError(437, v19, v28, v32, v24, 0);
+
+    objc_msgSend_unlock(v6, v33, v34, v35);
+  }
+
+  else
+  {
+    objc_msgSend_unlock(v6, v12, v13, v14);
+  }
+
+  v36 = 0;
+LABEL_6:
+
+  return v36;
+}
+
 - (int)_runTransactionStatement:(int)statement
 {
   if ((statement - 1) <= 3)
@@ -733,9 +769,72 @@ LABEL_9:
   return self;
 }
 
+- (BOOL)executeTransactionQueryWithType:(int)type result:(int *)result transactionBody:(id)body
+{
+  v6 = *&type;
+  bodyCopy = body;
+  if (result)
+  {
+    *result = -1;
+  }
+
+  if (v6 != 4 && v6 != 1)
+  {
+    v39 = 0;
+    goto LABEL_14;
+  }
+
+  v12 = objc_msgSend_lock(self, v8, v9, v10);
+  objc_msgSend_lock(v12, v13, v14, v15);
+  if (objc_msgSend__isConnectionValidWithErrorDescription_(self, v16, @"No connection on Set Up DB with path.", v17))
+  {
+    v21 = objc_msgSend__runTransactionStatement_(self, v18, v6, v20);
+    v22 = v21;
+    if (result)
+    {
+      *result = v21;
+    }
+
+    if (!v21)
+    {
+      bodyCopy[2](bodyCopy);
+      v43 = objc_msgSend__runTransactionStatement_(self, v41, 2, v42);
+      v47 = v43;
+      if (result)
+      {
+        *result = v43;
+      }
+
+      objc_msgSend_unlock(v12, v44, v45, v46);
+      v39 = v47 == 0;
+      goto LABEL_12;
+    }
+
+    v23 = MEMORY[0x1E696AEC0];
+    v24 = sqlite3_errstr(v21);
+    v27 = objc_msgSend_stringWithFormat_(v23, v25, @"Execute commit transaction error: %s", v26, v24);
+    v31 = objc_msgSend_currentVersion(self, v28, v29, v30);
+    v35 = objc_msgSend_dbName(self, v32, v33, v34);
+    APDatabaseError(437, v22, v31, v35, v27, 0);
+
+    objc_msgSend_unlock(v12, v36, v37, v38);
+  }
+
+  else
+  {
+    objc_msgSend_unlock(v12, v18, v19, v20);
+  }
+
+  v39 = 0;
+LABEL_12:
+
+LABEL_14:
+  return v39;
+}
+
 - (void)incrementalVacuumIfNeeded
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_lock(self, a2, v2, v3);
   objc_msgSend_lock(v5, v6, v7, v8);
   if (objc_msgSend__isConnectionValidWithErrorDescription_(self, v9, @"No connection on incremental vacuum.", v10))
@@ -757,18 +856,18 @@ LABEL_9:
         v32 = v31;
         v36 = objc_msgSend_integerValue(v14, v33, v34, v35);
         v37 = @"WILL NOT";
-        *v47 = 138478339;
-        *&v47[4] = v31;
+        *v46 = 138478339;
+        *&v46[4] = v31;
         if (v28 >= v29)
         {
           v37 = @"WILL";
         }
 
-        *&v47[12] = 2048;
-        *&v47[14] = v36;
-        v48 = 2112;
-        v49 = v37;
-        _os_log_impl(&dword_1BADC1000, v30, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database has %ld free pages, %@. vacuum.", v47, 0x20u);
+        *&v46[12] = 2048;
+        *&v46[14] = v36;
+        v47 = 2112;
+        v48 = v37;
+        _os_log_impl(&dword_1BADC1000, v30, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database has %ld free pages, %@. vacuum.", v46, 0x20u);
       }
 
       if (v28 >= v29)
@@ -777,10 +876,10 @@ LABEL_9:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           v39 = objc_opt_class();
-          *v47 = 138477827;
-          *&v47[4] = v39;
+          *v46 = 138477827;
+          *&v46[4] = v39;
           v40 = v39;
-          _os_log_impl(&dword_1BADC1000, v38, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database vacuuming started.", v47, 0xCu);
+          _os_log_impl(&dword_1BADC1000, v38, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database vacuuming started.", v46, 0xCu);
         }
 
         objc_msgSend__executeQueryFromString_(self, v41, @"PRAGMA incremental_vacuum", v42);
@@ -788,28 +887,26 @@ LABEL_9:
         if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           v44 = objc_opt_class();
-          *v47 = 138477827;
-          *&v47[4] = v44;
+          *v46 = 138477827;
+          *&v46[4] = v44;
           v45 = v44;
-          _os_log_impl(&dword_1BADC1000, v43, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database vacuuming complete.", v47, 0xCu);
+          _os_log_impl(&dword_1BADC1000, v43, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database vacuuming complete.", v46, 0xCu);
         }
       }
     }
 
-    objc_msgSend_unlock(v5, v18, v19, v20, *v47);
+    objc_msgSend_unlock(v5, v18, v19, v20, *v46, *&v46[8]);
   }
 
   else
   {
     objc_msgSend_unlock(v5, v11, v12, v13);
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)optimize
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_lock(self, a2, v2, v3);
   objc_msgSend_lock(v5, v6, v7, v8);
   if (objc_msgSend__isConnectionValidWithErrorDescription_(self, v9, @"No connection on optimize.", v10))
@@ -817,18 +914,16 @@ LABEL_9:
     v14 = APLogForCategory(0xCuLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 138477827;
-      *&v19[4] = objc_opt_class();
-      v15 = *&v19[4];
-      _os_log_impl(&dword_1BADC1000, v14, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database optimize.", v19, 0xCu);
+      *v18 = 138477827;
+      *&v18[4] = objc_opt_class();
+      v15 = *&v18[4];
+      _os_log_impl(&dword_1BADC1000, v14, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database optimize.", v18, 0xCu);
     }
 
     objc_msgSend__executeQueryFromString_(self, v16, @"PRAGMA optimize", v17);
   }
 
-  objc_msgSend_unlock(v5, v11, v12, v13, *v19);
-
-  v18 = *MEMORY[0x1E69E9840];
+  objc_msgSend_unlock(v5, v11, v12, v13, *v18, *&v18[8]);
 }
 
 - (BOOL)executeQueryFromString:(id)string
@@ -888,7 +983,7 @@ LABEL_9:
 
 - (BOOL)_updateVersionForPath:(id)path
 {
-  v153 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v8 = objc_msgSend_lock(self, v5, v6, v7);
   objc_msgSend_lock(v8, v9, v10, v11);
@@ -911,9 +1006,9 @@ LABEL_9:
         v37 = objc_opt_class();
         v38 = v37;
         *buf = 138478083;
-        v148 = v37;
-        v149 = 2050;
-        v150 = objc_msgSend_integerValue(v19, v39, v40, v41);
+        v147 = v37;
+        v148 = 2050;
+        v149 = objc_msgSend_integerValue(v19, v39, v40, v41);
         _os_log_impl(&dword_1BADC1000, v35, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database up to date version %{public}ld.", buf, 0x16u);
       }
 
@@ -928,11 +1023,11 @@ LABEL_9:
         v54 = objc_opt_class();
         v55 = v54;
         *buf = 138478339;
-        v148 = v54;
-        v149 = 2050;
-        v150 = objc_msgSend_integerValue(v19, v56, v57, v58);
-        v151 = 2048;
-        v152 = Version;
+        v147 = v54;
+        v148 = 2050;
+        v149 = objc_msgSend_integerValue(v19, v56, v57, v58);
+        v150 = 2048;
+        v151 = Version;
         _os_log_impl(&dword_1BADC1000, v35, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Start Database migration from v%{public}ld to v%ld.", buf, 0x20u);
       }
 
@@ -940,34 +1035,34 @@ LABEL_9:
       v68 = objc_msgSend_getMigrationQueriesFromVersion_(v26, v63, v62, v64);
       if (v68)
       {
-        v137 = Version;
-        v140 = v26;
-        v141 = pathCopy;
+        v136 = Version;
+        v139 = v26;
+        v140 = pathCopy;
         objc_msgSend__executeQueryFromString_(self, v65, @"PRAGMA locking_mode = EXCLUSIVE", v67);
+        v141 = 0u;
         v142 = 0u;
         v143 = 0u;
         v144 = 0u;
-        v145 = 0u;
-        v139 = v68;
+        v138 = v68;
         v69 = v68;
-        v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v70, &v142, v146, 16);
+        v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v70, &v141, v145, 16);
         if (v71)
         {
           v74 = v71;
           v75 = 0;
-          v76 = *v143;
+          v76 = *v142;
 LABEL_12:
           v77 = 0;
           v78 = v75;
-          v138 = v75 + v74;
+          v137 = v75 + v74;
           while (1)
           {
-            if (*v143 != v76)
+            if (*v142 != v76)
             {
               objc_enumerationMutation(v69);
             }
 
-            v79 = *(*(&v142 + 1) + 8 * v77);
+            v79 = *(*(&v141 + 1) + 8 * v77);
             if (objc_msgSend_containsString_(v79, v72, @"{TableName}", v73))
             {
               v83 = objc_msgSend_intValue(v19, v80, v81, v82);
@@ -976,10 +1071,10 @@ LABEL_12:
                 objc_msgSend__executeQueryFromString_(self, v72, @"PRAGMA locking_mode = NORMAL", v73);
                 objc_msgSend_unlock(v8, v132, v133, v134);
 LABEL_26:
-                v26 = v140;
+                v26 = v139;
 
                 v45 = 0;
-                pathCopy = v141;
+                pathCopy = v140;
                 goto LABEL_27;
               }
             }
@@ -1002,8 +1097,8 @@ LABEL_26:
             v78 = (v78 + 1);
             if (v74 == ++v77)
             {
-              v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v72, &v142, v146, 16);
-              v75 = v138;
+              v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v72, &v141, v145, 16);
+              v75 = v137;
               if (v74)
               {
                 goto LABEL_12;
@@ -1014,27 +1109,27 @@ LABEL_26:
           }
         }
 
-        objc_msgSend_setCurrentVersion_(self, v86, v137, v87);
-        objc_msgSend__setUserVersion_(self, v88, v137, v89);
+        objc_msgSend_setCurrentVersion_(self, v86, v136, v87);
+        objc_msgSend__setUserVersion_(self, v88, v136, v89);
         objc_msgSend__executeQueryFromString_(self, v90, @"PRAGMA locking_mode = NORMAL", v91);
         v92 = APLogForCategory(0xCuLL);
         if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
         {
           v93 = objc_opt_class();
           *buf = 138478083;
-          v148 = v93;
-          v149 = 2048;
-          v150 = v137;
+          v147 = v93;
+          v148 = 2048;
+          v149 = v136;
           v94 = v93;
           _os_log_impl(&dword_1BADC1000, v92, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Database migration complete v%ld.", buf, 0x16u);
         }
 
         objc_msgSend_unlock(v8, v95, v96, v97);
         v45 = 1;
-        v26 = v140;
-        pathCopy = v141;
+        v26 = v139;
+        pathCopy = v140;
 LABEL_27:
-        v68 = v139;
+        v68 = v138;
       }
 
       else
@@ -1062,8 +1157,63 @@ LABEL_27:
     v45 = 0;
   }
 
-  v135 = *MEMORY[0x1E69E9840];
   return v45;
+}
+
+- (BOOL)_handleEventTablesDynamicMigrationWithQuery:(id)query version:(int)version
+{
+  v4 = *&version;
+  v40 = *MEMORY[0x1E69E9840];
+  queryCopy = query;
+  objc_msgSend_executeSelectStringsQuery_withParameters_(self, v7, @"SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'event_%'", MEMORY[0x1E695E0F0]);
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v8 = v36 = 0u;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v33, v39, 16);
+  if (v10)
+  {
+    v12 = v10;
+    v13 = *v34;
+    while (2)
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v34 != v13)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v15 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(queryCopy, v11, @"{TableName}", *(*(&v33 + 1) + 8 * i));
+        if ((objc_msgSend__executeQueryFromString_(self, v16, v15, v17) & 1) == 0)
+        {
+          v21 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v18, @"Migration failed on dynamic event tables from version %d", v19, v4);
+          v25 = objc_msgSend_currentVersion(self, v22, v23, v24);
+          v29 = objc_msgSend_dbName(self, v26, v27, v28);
+          v37 = @"Query";
+          v38 = v15;
+          v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, &v38, &v37, 1);
+          APDatabaseError(438, 0xFFFFFFFFLL, v25, v29, v21, v31);
+
+          v20 = 0;
+          goto LABEL_11;
+        }
+      }
+
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v33, v39, 16);
+      if (v12)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v20 = 1;
+LABEL_11:
+
+  return v20;
 }
 
 - (BOOL)_setUserVersion:(int64_t)version
@@ -1139,7 +1289,7 @@ LABEL_6:
 - (void)_openDBConnectionCanRepeat:(BOOL)repeat databasePath:(id)path
 {
   repeatCopy = repeat;
-  v124 = *MEMORY[0x1E69E9840];
+  v123 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = APLogForCategory(0xCuLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -1148,9 +1298,9 @@ LABEL_6:
     v9 = v8;
     v13 = objc_msgSend_databaseName(pathCopy, v10, v11, v12);
     *buf = 138478083;
-    v121 = v8;
-    v122 = 2113;
-    v123 = v13;
+    v120 = v8;
+    v121 = 2113;
+    v122 = v13;
     _os_log_impl(&dword_1BADC1000, v7, OS_LOG_TYPE_DEFAULT, "[%{private}@]: %{private}@ request to open connection.", buf, 0x16u);
   }
 
@@ -1172,7 +1322,7 @@ LABEL_6:
       {
         v41 = objc_opt_class();
         *buf = 138477827;
-        v121 = v41;
+        v120 = v41;
         v42 = v41;
         _os_log_impl(&dword_1BADC1000, v40, OS_LOG_TYPE_ERROR, "[%{private}@]: Open database called when connection is already open.", buf, 0xCu);
       }
@@ -1202,12 +1352,12 @@ LABEL_6:
           if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
           {
             v70 = objc_opt_class();
-            v119 = v70;
+            v118 = v70;
             v74 = objc_msgSend_dbName(self, v71, v72, v73);
             *buf = 138478083;
-            v121 = v70;
-            v122 = 2113;
-            v123 = v74;
+            v120 = v70;
+            v121 = 2113;
+            v122 = v74;
             v75 = v74;
             _os_log_impl(&dword_1BADC1000, v69, OS_LOG_TYPE_DEFAULT, "[%{private}@]: %{private}@ Error couldn't set incremental vacuum.", buf, 0x16u);
           }
@@ -1257,9 +1407,9 @@ LABEL_6:
           v113 = v112;
           v117 = objc_msgSend_dbName(self, v114, v115, v116);
           *buf = 138478083;
-          v121 = v112;
-          v122 = 2113;
-          v123 = v117;
+          v120 = v112;
+          v121 = 2113;
+          v122 = v117;
           _os_log_impl(&dword_1BADC1000, v90, OS_LOG_TYPE_DEFAULT, "[%{private}@]: %{private}@ connection opened sucessfully.", buf, 0x16u);
         }
       }
@@ -1272,8 +1422,6 @@ LABEL_6:
     v36 = objc_msgSend_dbName(self, v47, v48, v49);
     APDatabaseError(444, 0xFFFFFFFFLL, v46, v36, @"No Database path when trying to open connection.", 0);
   }
-
-  v118 = *MEMORY[0x1E69E9840];
 }
 
 - (sqlite3_stmt)_prepareStatementForQuery:(id)query
@@ -1309,28 +1457,28 @@ LABEL_5:
 
 - (BOOL)_bindParameters:(id)parameters toStatement:(sqlite3_stmt *)statement
 {
-  v150 = *MEMORY[0x1E69E9840];
+  v149 = *MEMORY[0x1E69E9840];
+  v142 = 0u;
   v143 = 0u;
   v144 = 0u;
   v145 = 0u;
-  v146 = 0u;
   obj = parameters;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v143, v149, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v142, v148, 16);
   if (v6)
   {
     v10 = v6;
     v11 = 1;
-    v12 = *v144;
+    v12 = *v143;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v144 != v12)
+      if (*v143 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v143 + 1) + 8 * v13);
+      v14 = *(*(&v142 + 1) + 8 * v13);
       v15 = objc_msgSend_value(v14, v7, v8, v9);
 
       if (v15)
@@ -1367,8 +1515,8 @@ LABEL_3:
 
               v31 = v84;
               v85 = MEMORY[0x1E696AEC0];
-              v138 = sqlite3_errstr(v84);
-              objc_msgSend_stringWithFormat_(v85, v86, @"Bind Date error: %s", v87, v138);
+              v137 = sqlite3_errstr(v84);
+              objc_msgSend_stringWithFormat_(v85, v86, @"Bind Date error: %s", v87, v137);
             }
 
             else
@@ -1398,8 +1546,8 @@ LABEL_3:
 
               v31 = v44;
               v45 = MEMORY[0x1E696AEC0];
-              v135 = sqlite3_errstr(v44);
-              objc_msgSend_stringWithFormat_(v45, v46, @"Bind Bool error: %s", v47, v135);
+              v134 = sqlite3_errstr(v44);
+              objc_msgSend_stringWithFormat_(v45, v46, @"Bind Bool error: %s", v47, v134);
             }
 
             goto LABEL_38;
@@ -1437,8 +1585,8 @@ LABEL_57:
 
             v31 = v115;
             v116 = MEMORY[0x1E696AEC0];
-            v140 = sqlite3_errstr(v115);
-            objc_msgSend_stringWithFormat_(v116, v117, @"Bind Blob error: %s", v118, v140);
+            v139 = sqlite3_errstr(v115);
+            objc_msgSend_stringWithFormat_(v116, v117, @"Bind Blob error: %s", v118, v139);
             v119 = LABEL_38:;
             v123 = objc_msgSend_currentVersion(self, v120, v121, v122);
             v127 = objc_msgSend_dbName(self, v124, v125, v126);
@@ -1475,8 +1623,8 @@ LABEL_26:
 
             v31 = v71;
             v72 = MEMORY[0x1E696AEC0];
-            v137 = sqlite3_errstr(v71);
-            objc_msgSend_stringWithFormat_(v72, v73, @"Bind Integer error: %s", v74, v137);
+            v136 = sqlite3_errstr(v71);
+            objc_msgSend_stringWithFormat_(v72, v73, @"Bind Integer error: %s", v74, v136);
             goto LABEL_38;
           }
         }
@@ -1512,8 +1660,8 @@ LABEL_26:
 
               v31 = v97;
               v98 = MEMORY[0x1E696AEC0];
-              v139 = sqlite3_errstr(v97);
-              objc_msgSend_stringWithFormat_(v98, v99, @"Bind Real error: %s", v100, v139);
+              v138 = sqlite3_errstr(v97);
+              objc_msgSend_stringWithFormat_(v98, v99, @"Bind Real error: %s", v100, v138);
             }
 
             else
@@ -1544,8 +1692,8 @@ LABEL_26:
 
               v31 = v58;
               v59 = MEMORY[0x1E696AEC0];
-              v136 = sqlite3_errstr(v58);
-              objc_msgSend_stringWithFormat_(v59, v60, @"Bind Text error: %s", v61, v136);
+              v135 = sqlite3_errstr(v58);
+              objc_msgSend_stringWithFormat_(v59, v60, @"Bind Text error: %s", v61, v135);
             }
 
             goto LABEL_38;
@@ -1573,7 +1721,7 @@ LABEL_26:
 LABEL_56:
               v130 = objc_opt_class();
               *buf = 138477827;
-              v148 = v130;
+              v147 = v130;
               v131 = v130;
               _os_log_impl(&dword_1BADC1000, v129, OS_LOG_TYPE_ERROR, "[%{private}@]: Error - Bind parameter column type class type mismatch.", buf, 0xCu);
 
@@ -1587,8 +1735,8 @@ LABEL_56:
             {
               v31 = v30;
               v32 = MEMORY[0x1E696AEC0];
-              v134 = sqlite3_errstr(v30);
-              objc_msgSend_stringWithFormat_(v32, v33, @"Bind Integer64 error: %s", v34, v134);
+              v133 = sqlite3_errstr(v30);
+              objc_msgSend_stringWithFormat_(v32, v33, @"Bind Integer64 error: %s", v34, v133);
               goto LABEL_38;
             }
 
@@ -1605,7 +1753,7 @@ LABEL_39:
       ++v11;
       if (v10 == ++v13)
       {
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v143, v149, 16);
+        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v142, v148, 16);
         if (v10)
         {
           goto LABEL_3;
@@ -1619,7 +1767,6 @@ LABEL_39:
   v128 = 1;
 LABEL_58:
 
-  v132 = *MEMORY[0x1E69E9840];
   return v128;
 }
 
@@ -1659,7 +1806,7 @@ LABEL_58:
 
 - (BOOL)_isConnectionValidWithErrorDescription:(id)description
 {
-  v45[2] = *MEMORY[0x1E69E9840];
+  v44[2] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   if (objc_msgSend_isAppleInternalInstall(APSystemInternal, v5, v6, v7))
   {
@@ -1685,11 +1832,11 @@ LABEL_58:
       objc_msgSend_stringWithFormat_(v15, v19, @"%@", v20, @"NO");
     }
     v21 = ;
-    v44[0] = @"ClassCDataAvaliable";
-    v44[1] = @"DeviceUnlockedSinceBoot";
-    v45[0] = v14;
-    v45[1] = v21;
-    v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v45, v44, 2);
+    v43[0] = @"ClassCDataAvaliable";
+    v43[1] = @"DeviceUnlockedSinceBoot";
+    v44[0] = v14;
+    v44[1] = v21;
+    v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v44, v43, 2);
   }
 
   else
@@ -1728,7 +1875,6 @@ LABEL_58:
   v41 = 0;
 LABEL_16:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v41;
 }
 

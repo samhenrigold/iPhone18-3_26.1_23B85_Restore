@@ -294,9 +294,10 @@ void __38__SBSRemoteAlertHandle__didDeactivate__block_invoke(uint64_t a1)
 
 uint64_t __43__SBSRemoteAlertHandle_defaultHandleClient__block_invoke()
 {
-  sDefaultXPCHandleClient = objc_alloc_init(SBSRemoteAlertHandleXPCClient);
+  v0 = objc_alloc_init(SBSRemoteAlertHandleXPCClient);
+  sDefaultXPCHandleClient = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (void)_invalidateWithError:(id)error shouldInvalidateHandleClient:(BOOL)client

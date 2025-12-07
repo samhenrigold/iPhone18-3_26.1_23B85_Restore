@@ -81,7 +81,6 @@ uint64_t __49__ASUSQLiteQueryResults_enumerateRowsUsingBlock___block_invoke(uint
   v2 = sqlite3_step(*(a1 + 48));
   if (v2 == 100)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -105,13 +104,13 @@ uint64_t __49__ASUSQLiteQueryResults_enumerateRowsUsingBlock___block_invoke(uint
   return v2;
 }
 
-uint64_t __40__ASUSQLiteQueryResults_firstInt64Value__block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__40__ASUSQLiteQueryResults_firstInt64Value__block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
   if (a2)
   {
     v5 = result;
     result = [a2 int64ForColumnIndex:0];
-    *(*(*(v5 + 32) + 8) + 24) = result;
+    *(*(v5[4] + 8) + 24) = result;
   }
 
   *a4 = 1;

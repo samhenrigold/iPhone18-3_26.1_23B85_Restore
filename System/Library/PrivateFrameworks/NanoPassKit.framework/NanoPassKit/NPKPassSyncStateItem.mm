@@ -5,7 +5,6 @@
 - (NPKPassSyncStateItem)initWithPass:(id)pass;
 - (NPKPassSyncStateItem)initWithPassTypeIdentifier:(id)identifier serialNumber:(id)number sequenceCounter:(id)counter manifestHash:(id)hash manifest:(id)manifest;
 - (NPKPassSyncStateItem)initWithProtoSyncStateItem:(id)item;
-- (NSString)uniqueID;
 - (id)description;
 - (id)protoSyncStateItem;
 - (id)shortDescription;
@@ -22,15 +21,14 @@
   [array safelyAddObject:self->_serialNumber];
   [array safelyAddObject:self->_sequenceCounter];
   [array safelyAddObject:self->_manifestHash];
-  v4 = *MEMORY[0x277D38638];
-  v5 = PKCombinedHash();
+  v4 = PKCombinedHash();
 
-  return v5;
+  return v4;
 }
 
 - (NPKPassSyncStateItem)initWithProtoSyncStateItem:(id)item
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v5 = itemCopy;
   if (itemCopy)
@@ -38,7 +36,7 @@
     passTypeIdentifier = [itemCopy passTypeIdentifier];
     [v5 serialNumber];
     selfCopy = self;
-    v21 = v23 = passTypeIdentifier;
+    v20 = v22 = passTypeIdentifier;
     if ([v5 hasSequenceCounter])
     {
       v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v5, "sequenceCounter")}];
@@ -51,38 +49,38 @@
 
     manifestHash = [v5 manifestHash];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     manifestEntrys = [v5 manifestEntrys];
-    v12 = [manifestEntrys countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [manifestEntrys countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(manifestEntrys);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
+          v16 = *(*(&v23 + 1) + 8 * i);
           fileHash = [v16 fileHash];
           relativePath = [v16 relativePath];
           [dictionary setObject:fileHash forKey:relativePath];
         }
 
-        v13 = [manifestEntrys countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [manifestEntrys countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v13);
     }
 
-    v8 = [(NPKPassSyncStateItem *)selfCopy initWithPassTypeIdentifier:v23 serialNumber:v21 sequenceCounter:v7 manifestHash:manifestHash manifest:dictionary];
+    v8 = [(NPKPassSyncStateItem *)selfCopy initWithPassTypeIdentifier:v22 serialNumber:v20 sequenceCounter:v7 manifestHash:manifestHash manifest:dictionary];
   }
 
   else
@@ -91,7 +89,6 @@
     v8 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -176,13 +173,6 @@ void __59__NPKPassSyncStateItem_ProtobufSupport__protoSyncStateItem__block_invok
   return v18;
 }
 
-- (NSString)uniqueID
-{
-  passTypeIdentifier = self->_passTypeIdentifier;
-  serialNumber = self->_serialNumber;
-  return PKGeneratePassUniqueID();
-}
-
 - (id)description
 {
   sequenceCounter = self->_sequenceCounter;
@@ -247,52 +237,46 @@ void __59__NPKPassSyncStateItem_ProtobufSupport__protoSyncStateItem__block_invok
 - (BOOL)isEqualToPassSyncStateItem:(id)item
 {
   itemCopy = item;
-  passTypeIdentifier = self->_passTypeIdentifier;
-  v6 = itemCopy[1];
   if (!PKEqualObjects())
   {
     goto LABEL_11;
   }
 
-  v7 = itemCopy[2];
-  v8 = self->_serialNumber;
-  v9 = v7;
-  v10 = v9;
-  if (v8 == v9)
+  v5 = itemCopy[2];
+  v6 = self->_serialNumber;
+  v7 = v5;
+  v8 = v7;
+  if (v6 == v7)
   {
   }
 
   else
   {
-    if (!v8 || !v9)
+    if (!v6 || !v7)
     {
 
       goto LABEL_11;
     }
 
-    v11 = [(NSString *)v8 isEqualToString:v9];
+    v9 = [(NSString *)v6 isEqualToString:v7];
 
-    if (!v11)
+    if (!v9)
     {
       goto LABEL_11;
     }
   }
 
-  sequenceCounter = self->_sequenceCounter;
-  v13 = itemCopy[3];
   if (!PKEqualObjects())
   {
 LABEL_11:
-    v16 = 0;
+    v10 = 0;
     goto LABEL_12;
   }
 
-  manifestHash = self->_manifestHash;
-  v15 = itemCopy[4];
-  v16 = PKEqualObjects();
+  v10 = PKEqualObjects();
 LABEL_12:
 
-  return v16;
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder

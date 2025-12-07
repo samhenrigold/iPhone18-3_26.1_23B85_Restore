@@ -331,7 +331,7 @@ void __50__PXLivePhotoTrimScrubberLoupeView__presentImage___block_invoke(uint64_
   v36 = 0;
   if (requestCopy)
   {
-    [requestCopy sourceTime];
+    objc_msgSend_sourceTime(requestCopy);
   }
 
   [requestCopy imageSize];

@@ -53,20 +53,20 @@
   Weak = objc_loadWeak(&self->_innerLayerNode);
   v6 = objc_loadWeak(&self->_outerLayerNode);
   parameters = self->_parameters;
-  v11 = objc_msgSend_nodeRef(Weak, v8, v9, v10);
-  v15 = objc_msgSend_nodeRef(v6, v12, v13, v14);
-  objc_msgSend_nodeRef(node, v16, v17, v18);
+  v10 = objc_msgSend_nodeRef(Weak, v8, v9);
+  objc_msgSend_nodeRef(v6, v11, v12);
+  objc_msgSend_nodeRef(node, v13, v14);
 
-  MEMORY[0x1EEE66B58](parameters, sel_initParametersIfNeededWithInnerLayerNodeRef_outerLayerNodeRef_deformedNodeRef_, v11, v15);
+  MEMORY[0x1EEE66B58](parameters, sel_initParametersIfNeededWithInnerLayerNodeRef_outerLayerNodeRef_deformedNodeRef_, v10);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   Weak = objc_loadWeak(&self->_innerLayerNode);
-  v5 = objc_loadWeak(&self->_outerLayerNode);
-  v6 = objc_alloc(objc_opt_class());
+  objc_loadWeak(&self->_outerLayerNode);
+  v5 = objc_alloc(objc_opt_class());
 
-  return MEMORY[0x1EEE66B58](v6, sel_initWithInnerLayerNode_outerLayerNode_parameters_, Weak, v5);
+  return MEMORY[0x1EEE66B58](v5, sel_initWithInnerLayerNode_outerLayerNode_parameters_, Weak);
 }
 
 - (void)dealloc
@@ -82,15 +82,15 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v12.receiver = self;
-  v12.super_class = VFXModelWrapDeformer;
-  [(VFXModelDeformer *)&v12 encodeWithCoder:?];
-  objc_msgSend_initParametersIfNeededForDeformedNode_(self, v5, 0, v6);
-  objc_msgSend_encodeObject_forKey_(coder, v7, self->_parameters, @"parameters");
+  v11.receiver = self;
+  v11.super_class = VFXModelWrapDeformer;
+  [(VFXModelDeformer *)&v11 encodeWithCoder:?];
+  objc_msgSend_initParametersIfNeededForDeformedNode_(self, v5, 0);
+  objc_msgSend_encodeObject_forKey_(coder, v6, self->_parameters, @"parameters");
   Weak = objc_loadWeak(&self->_innerLayerNode);
-  objc_msgSend_encodeObject_forKey_(coder, v9, Weak, @"innerLayerNode");
-  v10 = objc_loadWeak(&self->_outerLayerNode);
-  objc_msgSend_encodeObject_forKey_(coder, v11, v10, @"outerLayerNode");
+  objc_msgSend_encodeObject_forKey_(coder, v8, Weak, @"innerLayerNode");
+  v9 = objc_loadWeak(&self->_outerLayerNode);
+  objc_msgSend_encodeObject_forKey_(coder, v10, v9, @"outerLayerNode");
 }
 
 - (VFXModelWrapDeformer)initWithCoder:(id)coder
@@ -142,53 +142,53 @@
   if (self->_isLegacySingleLayerDeformer)
   {
     Weak = objc_loadWeak(&self->_legacyDrivingNode);
-    v9 = objc_msgSend_nodeRef(Weak, v6, v7, v8);
+    v8 = objc_msgSend_nodeRef(Weak, v6, v7);
 
-    LOBYTE(v10) = sub_1AF1B7A3C(v9, box);
+    LOBYTE(v9) = sub_1AF1B7A3C(v8, box);
   }
 
   else
   {
-    v11 = objc_loadWeak(&self->_innerLayerNode);
-    v12 = objc_loadWeak(&self->_outerLayerNode);
-    v16 = objc_msgSend_nodeRef(v11, v13, v14, v15);
-    v20 = objc_msgSend_nodeRef(v12, v17, v18, v19);
-    if (v16)
+    v10 = objc_loadWeak(&self->_innerLayerNode);
+    v11 = objc_loadWeak(&self->_outerLayerNode);
+    v14 = objc_msgSend_nodeRef(v10, v12, v13);
+    v17 = objc_msgSend_nodeRef(v11, v15, v16);
+    if (v14)
     {
-      v23 = v20 == 0;
+      v20 = v17 == 0;
     }
 
     else
     {
-      v23 = 1;
+      v20 = 1;
     }
 
-    if (v23)
+    if (v20)
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(v9) = 0;
     }
 
     else
     {
-      v24 = v20;
-      v10 = sub_1AF1B7A3C(v16, &v30);
-      if (v10)
+      v21 = v17;
+      v9 = sub_1AF1B7A3C(v14, &v27);
+      if (v9)
       {
-        LOBYTE(v10) = sub_1AF1B7A3C(v24, v29);
-        v22 = v29[0];
-        v21 = v29[1];
+        LOBYTE(v9) = sub_1AF1B7A3C(v21, v26);
+        v19 = v26[0];
+        v18 = v26[1];
       }
     }
 
-    v25 = vminnmq_f32(vsubq_f32(v30, v31), vsubq_f32(v22, v21));
-    v26 = vmaxnmq_f32(vaddq_f32(v30, v31), vaddq_f32(v22, v21));
-    v27.i64[0] = 0x3F0000003F000000;
-    v27.i64[1] = 0x3F0000003F000000;
-    *box = vmulq_f32(vaddq_f32(v25, v26), v27);
-    *(box + 1) = vmulq_f32(vsubq_f32(v26, v25), v27);
+    v22 = vminnmq_f32(vsubq_f32(v27, v28), vsubq_f32(v19, v18));
+    v23 = vmaxnmq_f32(vaddq_f32(v27, v28), vaddq_f32(v19, v18));
+    v24.i64[0] = 0x3F0000003F000000;
+    v24.i64[1] = 0x3F0000003F000000;
+    *box = vmulq_f32(vaddq_f32(v22, v23), v24);
+    *(box + 1) = vmulq_f32(vsubq_f32(v23, v22), v24);
   }
 
-  return v10;
+  return v9;
 }
 
 - (id)dependencyNodeAtIndex:(unint64_t)index

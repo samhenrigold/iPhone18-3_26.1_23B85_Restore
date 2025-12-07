@@ -518,45 +518,38 @@ uint64_t IOUSBDeviceInterfaceClass::unscheduleFromRunLoop(IOUSBDeviceInterfaceCl
 
 uint64_t IOUSBDeviceInterfaceClass::setDescription(IOUSBDeviceInterfaceClass *this, CFStringRef theString)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v7[14] = v3;
-  v7[15] = v3;
-  v7[12] = v3;
-  v7[13] = v3;
-  v7[10] = v3;
-  v7[11] = v3;
-  v7[8] = v3;
-  v7[9] = v3;
-  v7[6] = v3;
-  v7[7] = v3;
-  v7[4] = v3;
-  v7[5] = v3;
-  v7[2] = v3;
-  v7[3] = v3;
-  v7[0] = v3;
-  v7[1] = v3;
-  if (theString)
-  {
-    if (!CFStringGetCString(theString, v7, 256, 0x8000100u))
-    {
-      result = 3758096385;
-      goto LABEL_7;
-    }
-
-    v4 = strlen(v7);
-  }
-
-  else
+  v6[14] = v3;
+  v6[15] = v3;
+  v6[12] = v3;
+  v6[13] = v3;
+  v6[10] = v3;
+  v6[11] = v3;
+  v6[8] = v3;
+  v6[9] = v3;
+  v6[6] = v3;
+  v6[7] = v3;
+  v6[4] = v3;
+  v6[5] = v3;
+  v6[2] = v3;
+  v6[3] = v3;
+  v6[0] = v3;
+  v6[1] = v3;
+  if (!theString)
   {
     v4 = 0;
+    return IOConnectCallStructMethod(*(this + 13), 2u, v6, v4, 0, 0);
   }
 
-  result = IOConnectCallStructMethod(*(this + 13), 2u, v7, v4, 0, 0);
-LABEL_7:
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  if (CFStringGetCString(theString, v6, 256, 0x8000100u))
+  {
+    v4 = strlen(v6);
+    return IOConnectCallStructMethod(*(this + 13), 2u, v6, v4, 0, 0);
+  }
+
+  return 3758096385;
 }
 
 uint64_t IOUSBDeviceInterfaceClass::setClassForAlternateSetting(IOUSBDeviceInterfaceClass *this, unsigned int a2, unsigned int a3)
@@ -564,9 +557,7 @@ uint64_t IOUSBDeviceInterfaceClass::setClassForAlternateSetting(IOUSBDeviceInter
   input[2] = *MEMORY[0x29EDCA608];
   input[0] = a2;
   input[1] = a3;
-  result = IOConnectCallScalarMethod(*(this + 13), 3u, input, 2u, 0, 0);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return IOConnectCallScalarMethod(*(this + 13), 3u, input, 2u, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::setSubClassForAlternateSetting(IOUSBDeviceInterfaceClass *this, unsigned int a2, unsigned int a3)
@@ -574,9 +565,7 @@ uint64_t IOUSBDeviceInterfaceClass::setSubClassForAlternateSetting(IOUSBDeviceIn
   input[2] = *MEMORY[0x29EDCA608];
   input[0] = a2;
   input[1] = a3;
-  result = IOConnectCallScalarMethod(*(this + 13), 4u, input, 2u, 0, 0);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return IOConnectCallScalarMethod(*(this + 13), 4u, input, 2u, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::setProtocolForAlternateSetting(IOUSBDeviceInterfaceClass *this, unsigned int a2, unsigned int a3)
@@ -584,9 +573,7 @@ uint64_t IOUSBDeviceInterfaceClass::setProtocolForAlternateSetting(IOUSBDeviceIn
   input[2] = *MEMORY[0x29EDCA608];
   input[0] = a2;
   input[1] = a3;
-  result = IOConnectCallScalarMethod(*(this + 13), 5u, input, 2u, 0, 0);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return IOConnectCallScalarMethod(*(this + 13), 5u, input, 2u, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::appendStandardClassOrVendorDescriptor(IOUSBDeviceInterfaceClass *this, unsigned int a2, unsigned __int8 *inputStruct, size_t inputStructCnt, unsigned int a5)
@@ -594,9 +581,7 @@ uint64_t IOUSBDeviceInterfaceClass::appendStandardClassOrVendorDescriptor(IOUSBD
   input[2] = *MEMORY[0x29EDCA608];
   input[0] = a2;
   input[1] = a5;
-  result = IOConnectCallMethod(*(this + 13), 6u, input, 2u, inputStruct, inputStructCnt, 0, 0, 0, 0);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return IOConnectCallMethod(*(this + 13), 6u, input, 2u, inputStruct, inputStructCnt, 0, 0, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::appendNonStandardClassOrVendorDescriptor(IOUSBDeviceInterfaceClass *this, unsigned int a2, unsigned __int8 *inputStruct, size_t inputStructCnt, unsigned int a5)
@@ -604,18 +589,14 @@ uint64_t IOUSBDeviceInterfaceClass::appendNonStandardClassOrVendorDescriptor(IOU
   input[2] = *MEMORY[0x29EDCA608];
   input[0] = a2;
   input[1] = a5;
-  result = IOConnectCallMethod(*(this + 13), 7u, input, 2u, inputStruct, inputStructCnt, 0, 0, 0, 0);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return IOConnectCallMethod(*(this + 13), 7u, input, 2u, inputStruct, inputStructCnt, 0, 0, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::unlockConfiguration(IOUSBDeviceInterfaceClass *this, unsigned int a2)
 {
-  v4[1] = *MEMORY[0x29EDCA608];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(this + 13), 0x17u, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  v3[1] = *MEMORY[0x29EDCA608];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(this + 13), 0x17u, v3, 1u, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::createPipe(IOUSBDeviceInterfaceClass *this, int a2, int a3, int a4, int a5, int a6, int a7, unint64_t *a8)
@@ -629,21 +610,17 @@ uint64_t IOUSBDeviceInterfaceClass::createPipe(IOUSBDeviceInterfaceClass *this, 
   input[5] = a7;
   output = 0;
   outputCnt = 1;
-  if (a8)
+  if (!a8)
   {
-    result = IOConnectCallScalarMethod(*(this + 13), 0xAu, input, 6u, &output, &outputCnt);
-    if (!result)
-    {
-      *a8 = output;
-    }
+    return 3758097090;
   }
 
-  else
+  result = IOConnectCallScalarMethod(*(this + 13), 0xAu, input, 6u, &output, &outputCnt);
+  if (!result)
   {
-    result = 3758097090;
+    *a8 = output;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -655,27 +632,23 @@ uint64_t IOUSBDeviceInterfaceClass::findPipe(IOUSBDeviceInterfaceClass *this, in
   input[2] = a4;
   output = 0;
   outputCnt = 1;
-  if (a5)
+  if (!a5)
   {
-    result = IOConnectCallScalarMethod(*(this + 13), 0x19u, input, 3u, &output, &outputCnt);
-    if (!result)
-    {
-      *a5 = output;
-    }
+    return 3758097090;
   }
 
-  else
+  result = IOConnectCallScalarMethod(*(this + 13), 0x19u, input, 3u, &output, &outputCnt);
+  if (!result)
   {
-    result = 3758097090;
+    *a5 = output;
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t IOUSBDeviceInterfaceClass::setClassCommandCallbacks(mach_port_t *recvPort, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CFRunLoopRef rl, CFRunLoopMode mode)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v16 = recvPort[18];
   v17 = *(recvPort + 20);
   if (v17)
@@ -704,14 +677,13 @@ uint64_t IOUSBDeviceInterfaceClass::setClassCommandCallbacks(mach_port_t *recvPo
     v22 = IOCreateReceivePort(0x35u, recvPort + 34);
     if (v22)
     {
-      goto LABEL_14;
+      return v22;
     }
 
     v20 = *v21;
     if (!*v21)
     {
-      v22 = 3758097085;
-      goto LABEL_14;
+      return 3758097085;
     }
   }
 
@@ -750,177 +722,167 @@ LABEL_13:
       *(recvPort + 24) = a3;
       *context = 0;
       memset(&context[24], 0, 24);
-      v30 = 0u;
+      v29 = 0u;
       *&context[8] = IOUSBDeviceInterfaceClass::_classCommandCallbacksHandler;
       *&context[16] = recvPort;
       *shouldFreeInfo = a2 != 0;
-      v27 = a3 != 0;
-      v28 = a4 != 0;
-      v22 = IOConnectCallAsyncMethod(recvPort[13], 8u, v16, context, 3u, shouldFreeInfo, 3u, 0, 0, 0, 0, 0, 0);
+      v26 = a3 != 0;
+      v27 = a4 != 0;
+      return IOConnectCallAsyncMethod(recvPort[13], 8u, v16, context, 3u, shouldFreeInfo, 3u, 0, 0, 0, 0, 0, 0);
     }
   }
 
-LABEL_14:
-  v24 = *MEMORY[0x29EDCA608];
   return v22;
 }
 
 void IOUSBDeviceInterfaceClass::_classCommandCallbacksHandler(IOUSBDeviceInterfaceClass *this, void *a2, uint64_t *a3, unint64_t *a4)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v5 = *(a3 + 6);
-  v28 = v5;
-  v27 = 0;
-  v34 = 0xAAAAAAAAAAAAAAAALL;
+  v27 = v5;
+  v26 = 0;
+  v33 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *input = v6;
-  v33 = v6;
+  v32 = v6;
   v7 = *a3;
   v8 = a3[1];
-  v29[0] = BYTE3(v8);
-  v29[1] = BYTE2(v8);
+  v28[0] = BYTE3(v8);
+  v28[1] = BYTE2(v8);
   v9 = *(a3 + 4);
   HIDWORD(v10) = v9;
   LODWORD(v10) = v9;
-  v31 = v10 >> 16;
+  v30 = v10 >> 16;
   v11 = a3[4];
-  v30 = v8;
-  if (v7 == 2)
+  v29 = v8;
+  switch(v7)
   {
-    if ((v8 & 0x80000000) != 0)
-    {
-      sub_29D406404();
-    }
-
-    v18 = *(this + 25);
-    if (v18)
-    {
-      v18 = (v18)(*(this + 22), *(this + 26), v29, *(a3 + 10), v5, *(this + 27));
-    }
-
-    input[0] = v18;
-    input[1] = v11;
-    IOConnectCallScalarMethod(*(this + 13), 9u, input, 2u, 0, 0);
-  }
-
-  else
-  {
-    if (v7 != 1)
-    {
-      if (!v7)
+    case 2:
+      if ((v8 & 0x80000000) != 0)
       {
-        v13 = (this + 216);
-        v12 = *(this + 27);
-        if (v12)
-        {
-          CFRelease(v12);
-          *v13 = 0;
-        }
+        sub_29D406404();
+      }
 
-        v14 = *(this + 23);
-        if (v14)
-        {
-          v15 = v14(*(this + 22), *(this + 26), v29, &v28, this + 216, &v27) != 0;
-          v16 = HIWORD(v31);
-          v5 = v28;
-        }
+      v18 = *(this + 25);
+      if (v18)
+      {
+        v18 = (v18)(*(this + 22), *(this + 26), v28, *(a3 + 10), v5, *(this + 27));
+      }
 
-        else
-        {
-          v15 = 0;
-          v16 = v9;
-        }
+      input[0] = v18;
+      input[1] = v11;
+      IOConnectCallScalarMethod(*(this + 13), 9u, input, 2u, 0, 0);
+      goto LABEL_15;
+    case 1:
+      if ((v8 & 0x80000000) == 0)
+      {
+        sub_29D406430();
+      }
 
-        MapToken = 0;
-        if (v15 && v16 != 0)
-        {
-          v23 = v5;
-        }
+      v17 = *(this + 24);
+      if (v17)
+      {
+        v17(*(this + 22), *(this + 26), v28, *(a3 + 10), v5, *(this + 27));
+      }
 
-        else
-        {
-          v23 = 0;
-        }
+LABEL_15:
+      v21 = *(this + 27);
+      v20 = (this + 216);
+      v19 = v21;
+      if (!v21)
+      {
+        return;
+      }
 
-        input[0] = v15;
-        input[1] = v23;
-        if (v15)
+      v13 = v20;
+      goto LABEL_34;
+    case 0:
+      v13 = (this + 216);
+      v12 = *(this + 27);
+      if (v12)
+      {
+        CFRelease(v12);
+        *v13 = 0;
+      }
+
+      v14 = *(this + 23);
+      if (v14)
+      {
+        v15 = v14(*(this + 22), *(this + 26), v28, &v27, this + 216, &v26) != 0;
+        v16 = HIWORD(v30);
+        v5 = v27;
+      }
+
+      else
+      {
+        v15 = 0;
+        v16 = v9;
+      }
+
+      MapToken = 0;
+      if (v15 && v16 != 0)
+      {
+        v23 = v5;
+      }
+
+      else
+      {
+        v23 = 0;
+      }
+
+      input[0] = v15;
+      input[1] = v23;
+      if (v15)
+      {
+        if (v5)
         {
-          if (v5)
+          MapToken = *v13;
+          if (*v13)
           {
-            MapToken = *v13;
-            if (*v13)
-            {
-              MapToken = IOUSBDeviceDataGetMapToken();
-            }
-          }
-        }
-
-        v24 = v27;
-        if (!v15)
-        {
-          v24 = 0;
-        }
-
-        *&v33 = MapToken;
-        *(&v33 + 1) = v24;
-        v34 = v11;
-        IOConnectCallScalarMethod(*(this + 13), 9u, input, 5u, 0, 0);
-        v19 = *(this + 27);
-        if (v19)
-        {
-          if (!v28 || !v15)
-          {
-            goto LABEL_34;
-          }
-
-          if ((v8 & 0x80000000) != 0)
-          {
-            if (*(this + 24))
-            {
-              goto LABEL_35;
-            }
-
-            goto LABEL_34;
-          }
-
-          if (!*(this + 25))
-          {
-LABEL_34:
-            CFRelease(v19);
-            *v13 = 0;
-            goto LABEL_35;
+            MapToken = IOUSBDeviceDataGetMapToken();
           }
         }
       }
 
-      goto LABEL_35;
-    }
+      v24 = v26;
+      if (!v15)
+      {
+        v24 = 0;
+      }
 
-    if ((v8 & 0x80000000) == 0)
-    {
-      sub_29D406430();
-    }
+      *&v32 = MapToken;
+      *(&v32 + 1) = v24;
+      v33 = v11;
+      IOConnectCallScalarMethod(*(this + 13), 9u, input, 5u, 0, 0);
+      v19 = *(this + 27);
+      if (v19)
+      {
+        if (!v27 || !v15)
+        {
+          goto LABEL_34;
+        }
 
-    v17 = *(this + 24);
-    if (v17)
-    {
-      v17(*(this + 22), *(this + 26), v29, *(a3 + 10), v5, *(this + 27));
-    }
+        if ((v8 & 0x80000000) == 0)
+        {
+          if (*(this + 25))
+          {
+            return;
+          }
+
+          goto LABEL_34;
+        }
+
+        if (!*(this + 24))
+        {
+LABEL_34:
+          CFRelease(v19);
+          *v13 = 0;
+        }
+      }
+
+      break;
   }
-
-  v21 = *(this + 27);
-  v20 = (this + 216);
-  v19 = v21;
-  if (v21)
-  {
-    v13 = v20;
-    goto LABEL_34;
-  }
-
-LABEL_35:
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t IOUSBDeviceInterfaceClass::setMessageCallback(IOUSBDeviceInterfaceClass *this, void (*a2)(void *, unsigned int, void *, void *), void *a3, void *a4)
@@ -944,58 +906,49 @@ uint64_t IOUSBDeviceInterfaceClass::readPipe(uint64_t a1, uint64_t a2, uint64_t 
   input[3] = 0;
   result = IOConnectCallMethod(*(a1 + 52), 0xDu, input, 4u, 0, 0, &output, &outputCnt, 0, 0);
   *a4 = output;
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t IOUSBDeviceInterfaceClass::readPipeAsync(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   input[4] = *MEMORY[0x29EDCA608];
-  v16 = 0u;
-  v17 = 0u;
-  reference[0] = 0;
   v15 = 0u;
-  v13 = 0;
+  v16 = 0u;
+  reference[0] = 0;
+  v14 = 0u;
+  v12 = 0;
   outputCnt = 1;
   input[0] = a2;
   input[1] = IOUSBDeviceDataGetMapToken();
   input[2] = a4;
   input[3] = 0;
   reference[1] = a5;
-  *&v15 = a6;
-  result = IOConnectCallAsyncMethod(*(a1 + 52), 0xDu, *(a1 + 72), reference, 3u, input, 4u, 0, 0, &v13, &outputCnt, 0, 0);
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  *&v14 = a6;
+  return IOConnectCallAsyncMethod(*(a1 + 52), 0xDu, *(a1 + 72), reference, 3u, input, 4u, 0, 0, &v12, &outputCnt, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::readIsochPipeAsync(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  v24 = 0u;
-  v25 = 0u;
-  *reference = 0u;
+  v25 = *MEMORY[0x29EDCA608];
   v23 = 0u;
-  v17 = 0;
+  v24 = 0u;
+  *reference = 0u;
+  v22 = 0u;
+  v16 = 0;
   outputCnt = 1;
-  if (*(a1 + 72))
+  if (!*(a1 + 72))
   {
-    input[0] = a2;
-    input[1] = IOUSBDeviceDataGetMapToken();
-    v19 = a4;
-    v20 = a5;
-    v21 = a6;
-    reference[1] = a7;
-    *&v23 = a8;
-    result = IOConnectCallAsyncMethod(*(a1 + 52), 0x15u, *(a1 + 72), reference, 3u, input, 5u, 0, 0, &v17, &outputCnt, 0, 0);
+    return 3758096385;
   }
 
-  else
-  {
-    result = 3758096385;
-  }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  input[0] = a2;
+  input[1] = IOUSBDeviceDataGetMapToken();
+  v18 = a4;
+  v19 = a5;
+  v20 = a6;
+  reference[1] = a7;
+  *&v22 = a8;
+  return IOConnectCallAsyncMethod(*(a1 + 52), 0x15u, *(a1 + 72), reference, 3u, input, 5u, 0, 0, &v16, &outputCnt, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::writePipe(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
@@ -1011,58 +964,49 @@ uint64_t IOUSBDeviceInterfaceClass::writePipe(uint64_t a1, uint64_t a2, uint64_t
   input[3] = 0;
   result = IOConnectCallMethod(*(a1 + 52), 0xEu, input, 4u, 0, 0, &output, &outputCnt, 0, 0);
   *a4 = output;
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t IOUSBDeviceInterfaceClass::writePipeAsync(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v17 = 0u;
-  v18 = 0u;
-  reference[0] = 0;
+  v18 = *MEMORY[0x29EDCA608];
   v16 = 0u;
-  v13 = 0;
+  v17 = 0u;
+  reference[0] = 0;
+  v15 = 0u;
+  v12 = 0;
   input[0] = a2;
   outputCnt = 1;
   input[1] = IOUSBDeviceDataGetMapToken();
   input[2] = a4;
   input[3] = 0;
   reference[1] = a5;
-  *&v16 = a6;
-  result = IOConnectCallAsyncMethod(*(a1 + 52), 0xEu, *(a1 + 72), reference, 3u, input, 4u, 0, 0, &v13, &outputCnt, 0, 0);
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  *&v15 = a6;
+  return IOConnectCallAsyncMethod(*(a1 + 52), 0xEu, *(a1 + 72), reference, 3u, input, 4u, 0, 0, &v12, &outputCnt, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::writeIsochPipeAsync(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  v24 = 0u;
-  v25 = 0u;
-  *reference = 0u;
+  v25 = *MEMORY[0x29EDCA608];
   v23 = 0u;
-  v17 = 0;
+  v24 = 0u;
+  *reference = 0u;
+  v22 = 0u;
+  v16 = 0;
   outputCnt = 1;
-  if (*(a1 + 72))
+  if (!*(a1 + 72))
   {
-    input[0] = a2;
-    input[1] = IOUSBDeviceDataGetMapToken();
-    v19 = a4;
-    v20 = a5;
-    v21 = a6;
-    reference[1] = a7;
-    *&v23 = a8;
-    result = IOConnectCallAsyncMethod(*(a1 + 52), 0x16u, *(a1 + 72), reference, 3u, input, 5u, 0, 0, &v17, &outputCnt, 0, 0);
+    return 3758096385;
   }
 
-  else
-  {
-    result = 3758096385;
-  }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  input[0] = a2;
+  input[1] = IOUSBDeviceDataGetMapToken();
+  v18 = a4;
+  v19 = a5;
+  v20 = a6;
+  reference[1] = a7;
+  *&v22 = a8;
+  return IOConnectCallAsyncMethod(*(a1 + 52), 0x16u, *(a1 + 72), reference, 3u, input, 5u, 0, 0, &v16, &outputCnt, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::getPipeCurrentMaxPacketSize(IOUSBDeviceInterfaceClass *this, uint64_t a2, int *a3)
@@ -1078,51 +1022,41 @@ uint64_t IOUSBDeviceInterfaceClass::getPipeCurrentMaxPacketSize(IOUSBDeviceInter
 uint64_t IOUSBDeviceInterfaceClass::createData(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   output[3] = *MEMORY[0x29EDCA608];
-  if (a3)
+  if (!a3)
   {
-    input = a2;
-    memset(output, 0, 24);
-    outputCnt = 3;
-    v4 = IOConnectCallScalarMethod(*(a1 + 52), 0x12u, &input, 1u, output, &outputCnt);
-    if (!v4)
-    {
-      v5 = *MEMORY[0x29EDB8ED8];
-      *a3 = IOUSBDeviceDataCreate();
-    }
+    return 3758097090;
   }
 
-  else
+  input = a2;
+  memset(output, 0, 24);
+  outputCnt = 3;
+  v4 = IOConnectCallScalarMethod(*(a1 + 52), 0x12u, &input, 1u, output, &outputCnt);
+  if (!v4)
   {
-    v4 = 3758097090;
+    *a3 = IOUSBDeviceDataCreate();
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t IOUSBDeviceInterfaceClass::mapIOBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   input[2] = *MEMORY[0x29EDCA608];
-  if (a4)
+  if (!a4)
   {
-    input[0] = a3;
-    input[1] = a2;
-    memset(output, 170, sizeof(output));
-    outputCnt = 3;
-    v5 = IOConnectCallScalarMethod(*(a1 + 52), 0x1Au, input, 2u, output, &outputCnt);
-    if (!v5)
-    {
-      v6 = *MEMORY[0x29EDB8ED8];
-      *a4 = IOUSBDeviceDataCreate();
-    }
+    return 3758097090;
   }
 
-  else
+  input[0] = a3;
+  input[1] = a2;
+  memset(output, 170, sizeof(output));
+  outputCnt = 3;
+  v5 = IOConnectCallScalarMethod(*(a1 + 52), 0x1Au, input, 2u, output, &outputCnt);
+  if (!v5)
   {
-    v5 = 3758097090;
+    *a4 = IOUSBDeviceDataCreate();
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -1131,102 +1065,87 @@ uint64_t IOUSBDeviceInterfaceClass::setPipeProperty(uint64_t a1, uint64_t a2, un
   input[2] = *MEMORY[0x29EDCA608];
   input[0] = a2;
   input[1] = a3;
-  result = IOConnectCallScalarMethod(*(a1 + 52), 0x1Bu, input, 2u, 0, 0);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return IOConnectCallScalarMethod(*(a1 + 52), 0x1Bu, input, 2u, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::reportTimeout(IOUSBDeviceInterfaceClass *this, uint64_t a2)
 {
-  v4[1] = *MEMORY[0x29EDCA608];
-  v4[0] = a2;
-  result = IOConnectCallScalarMethod(*(this + 13), 0x1Cu, v4, 1u, 0, 0);
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  v3[1] = *MEMORY[0x29EDCA608];
+  v3[0] = a2;
+  return IOConnectCallScalarMethod(*(this + 13), 0x1Cu, v3, 1u, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::isActivated(IOUSBDeviceInterfaceClass *this, int *a2, int *a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  if (a2)
+  v9 = *MEMORY[0x29EDCA608];
+  if (!a2)
   {
-    output = 0xAAAAAAAAAAAAAAAALL;
-    v9 = 0xAAAAAAAAAAAAAAAALL;
-    outputCnt = 2;
-    result = IOConnectCallScalarMethod(*(this + 13), 0x14u, 0, 0, &output, &outputCnt);
-    if (!result)
+    return 3758097090;
+  }
+
+  output = 0xAAAAAAAAAAAAAAAALL;
+  v8 = 0xAAAAAAAAAAAAAAAALL;
+  outputCnt = 2;
+  result = IOConnectCallScalarMethod(*(this + 13), 0x14u, 0, 0, &output, &outputCnt);
+  if (!result)
+  {
+    *a2 = output;
+    if (*a3)
     {
-      *a2 = output;
-      if (*a3)
-      {
-        *a3 = v9;
-      }
+      *a3 = v8;
     }
   }
 
-  else
-  {
-    result = 3758097090;
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t IOUSBDeviceInterfaceClass::registerForDemandLaunch(IOUSBDeviceInterfaceClass *this, CFStringRef theString)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v2 = (this + 96);
   if (*(this + 24))
   {
-    v3 = 0;
+    return 0;
   }
 
-  else
+  context.version = 0;
+  context.info = 0;
+  *&v6 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *buffer = v6;
+  v11 = v6;
+  v12 = v6;
+  v13 = v6;
+  v14 = v6;
+  v15 = v6;
+  v16 = v6;
+  v17 = v6;
+  if (!CFStringGetCString(theString, buffer, 128, 0x600u))
   {
-    context.version = 0;
-    context.info = 0;
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *buffer = v7;
-    v12 = v7;
-    v13 = v7;
-    v14 = v7;
-    v15 = v7;
-    v16 = v7;
-    v17 = v7;
-    v18 = v7;
-    if (CFStringGetCString(theString, buffer, 128, 0x600u))
+    return 3758096385;
+  }
+
+  v3 = bootstrap_check_in(*MEMORY[0x29EDCA6A0], buffer, v2);
+  if (!v3)
+  {
+    v3 = 3758097085;
+    context.version = 1;
+    context.info = this;
+    memset(&context.retain, 0, 24);
+    v7 = CFMachPortCreateWithPort(0, *(this + 24), IOUSBDeviceInterfaceClass::_handleLodCallback, &context, 0);
+    *(this + 13) = v7;
+    if (v7)
     {
-      v3 = bootstrap_check_in(*MEMORY[0x29EDCA6A0], buffer, v2);
-      if (!v3)
+      RunLoopSource = CFMachPortCreateRunLoopSource(0, v7, 0);
+      *(this + 14) = RunLoopSource;
+      if (RunLoopSource)
       {
-        v3 = 3758097085;
-        context.version = 1;
-        context.info = this;
-        memset(&context.retain, 0, 24);
-        v8 = CFMachPortCreateWithPort(0, *(this + 24), IOUSBDeviceInterfaceClass::_handleLodCallback, &context, 0);
-        *(this + 13) = v8;
-        if (v8)
-        {
-          RunLoopSource = CFMachPortCreateRunLoopSource(0, v8, 0);
-          *(this + 14) = RunLoopSource;
-          if (RunLoopSource)
-          {
-            CFRunLoopAddSource(*(this + 15), RunLoopSource, *(this + 16));
-            v3 = MEMORY[0x29ED560F0](*(this + 13), 74565, *(this + 24), 3735932941);
-          }
-        }
+        CFRunLoopAddSource(*(this + 15), RunLoopSource, *(this + 16));
+        return MEMORY[0x29ED560F0](*(this + 13), 74565, *(this + 24), 3735932941);
       }
     }
-
-    else
-    {
-      v3 = 3758096385;
-    }
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -1243,28 +1162,25 @@ uint64_t IOUSBDeviceInterfaceClass::readPipeTO(uint64_t a1, uint64_t a2, uint64_
   input[3] = a5;
   result = IOConnectCallMethod(*(a1 + 52), 0xDu, input, 4u, 0, 0, &output, &outputCnt, 0, 0);
   *a4 = output;
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t IOUSBDeviceInterfaceClass::readPipeAsyncTO(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
   input[4] = *MEMORY[0x29EDCA608];
-  v18 = 0u;
-  v19 = 0u;
-  reference[0] = 0;
   v17 = 0u;
-  v15 = 0;
+  v18 = 0u;
+  reference[0] = 0;
+  v16 = 0u;
+  v14 = 0;
   outputCnt = 1;
   input[0] = a2;
   input[1] = IOUSBDeviceDataGetMapToken();
   input[2] = a4;
   input[3] = a5;
   reference[1] = a6;
-  *&v17 = a7;
-  result = IOConnectCallAsyncMethod(*(a1 + 52), 0xDu, *(a1 + 72), reference, 3u, input, 4u, 0, 0, &v15, &outputCnt, 0, 0);
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  *&v16 = a7;
+  return IOConnectCallAsyncMethod(*(a1 + 52), 0xDu, *(a1 + 72), reference, 3u, input, 4u, 0, 0, &v14, &outputCnt, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::writePipeTO(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unsigned int a5)
@@ -1280,55 +1196,48 @@ uint64_t IOUSBDeviceInterfaceClass::writePipeTO(uint64_t a1, uint64_t a2, uint64
   input[3] = a5;
   result = IOConnectCallMethod(*(a1 + 52), 0xEu, input, 4u, 0, 0, &output, &outputCnt, 0, 0);
   *a4 = output;
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t IOUSBDeviceInterfaceClass::writePipeAsyncTO(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19 = 0u;
-  v20 = 0u;
-  reference[0] = 0;
+  v20 = *MEMORY[0x29EDCA608];
   v18 = 0u;
-  v15 = 0;
+  v19 = 0u;
+  reference[0] = 0;
+  v17 = 0u;
+  v14 = 0;
   input[0] = a2;
   outputCnt = 1;
   input[1] = IOUSBDeviceDataGetMapToken();
   input[2] = a4;
   input[3] = a5;
   reference[1] = a6;
-  *&v18 = a7;
-  result = IOConnectCallAsyncMethod(*(a1 + 52), 0xEu, *(a1 + 72), reference, 3u, input, 4u, 0, 0, &v15, &outputCnt, 0, 0);
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  *&v17 = a7;
+  return IOConnectCallAsyncMethod(*(a1 + 52), 0xEu, *(a1 + 72), reference, 3u, input, 4u, 0, 0, &v14, &outputCnt, 0, 0);
 }
 
 uint64_t IOUSBDeviceInterfaceClass::isActive(IOUSBDeviceInterfaceClass *this, int *a2, int *a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  if (a2)
+  v9 = *MEMORY[0x29EDCA608];
+  if (!a2)
   {
-    output = 0xAAAAAAAAAAAAAAAALL;
-    v9 = 0xAAAAAAAAAAAAAAAALL;
-    outputCnt = 2;
-    result = IOConnectCallScalarMethod(*(this + 13), 0x18u, 0, 0, &output, &outputCnt);
-    if (!result)
+    return 3758097090;
+  }
+
+  output = 0xAAAAAAAAAAAAAAAALL;
+  v8 = 0xAAAAAAAAAAAAAAAALL;
+  outputCnt = 2;
+  result = IOConnectCallScalarMethod(*(this + 13), 0x18u, 0, 0, &output, &outputCnt);
+  if (!result)
+  {
+    *a2 = output;
+    if (a3)
     {
-      *a2 = output;
-      if (a3)
-      {
-        *a3 = v9;
-      }
+      *a3 = v8;
     }
   }
 
-  else
-  {
-    result = 3758097090;
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 

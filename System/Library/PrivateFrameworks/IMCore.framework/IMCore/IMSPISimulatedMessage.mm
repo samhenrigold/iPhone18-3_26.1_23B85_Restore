@@ -16,167 +16,161 @@
 
 - (id)_calculateSender
 {
-  if (objc_msgSend_fromMe(self, a2, v2))
+  if ([(IMSPISimulatedMessage *)self fromMe])
   {
-    v6 = 0;
+    sender2 = 0;
   }
 
   else
   {
-    v7 = objc_msgSend_sender(self, v4, v5);
+    sender = [(IMSPISimulatedMessage *)self sender];
 
-    if (v7)
+    if (sender)
     {
-      v6 = objc_msgSend_sender(self, v8, v9);
+      sender2 = [(IMSPISimulatedMessage *)self sender];
     }
 
     else
     {
-      v10 = objc_msgSend_handles(self, v8, v9);
-      v6 = objc_msgSend_firstObject(v10, v11, v12);
+      handles = [(IMSPISimulatedMessage *)self handles];
+      sender2 = [handles firstObject];
     }
   }
 
-  return v6;
+  return sender2;
 }
 
 - (id)_calculateServiceName
 {
-  v3 = objc_msgSend_serviceName(self, a2, v2);
-  v4 = v3;
-  if (v3)
+  serviceName = [(IMSPISimulatedMessage *)self serviceName];
+  v3 = serviceName;
+  if (serviceName)
   {
-    v5 = v3;
+    v4 = serviceName;
   }
 
   else
   {
-    v5 = *MEMORY[0x1E69A7AE0];
+    v4 = *MEMORY[0x1E69A7AE0];
   }
 
-  v6 = v5;
+  v5 = v4;
 
-  return v5;
+  return v4;
 }
 
 - (id)_calculateTimestamp
 {
-  v3 = objc_msgSend_date(self, a2, v2);
-  v6 = v3;
-  if (v3)
+  date = [(IMSPISimulatedMessage *)self date];
+  v3 = date;
+  if (date)
   {
-    v7 = v3;
+    v4 = date;
   }
 
   else
   {
-    v7 = objc_msgSend_now(MEMORY[0x1E695DF00], v4, v5);
+    v4 = [MEMORY[0x1E695DF00] now];
   }
 
-  v8 = v7;
+  v5 = v4;
 
-  return v8;
+  return v5;
 }
 
 - (id)_calculateGUID
 {
-  v3 = objc_msgSend_guid(self, a2, v2);
-  v6 = v3;
-  if (v3)
+  guid = [(IMSPISimulatedMessage *)self guid];
+  v3 = guid;
+  if (guid)
   {
-    v7 = v3;
+    stringGUID = guid;
   }
 
   else
   {
-    v7 = objc_msgSend_stringGUID(MEMORY[0x1E696AEC0], v4, v5);
+    stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
   }
 
-  v8 = v7;
+  v5 = stringGUID;
 
-  return v8;
+  return v5;
 }
 
 - (id)_createItem
 {
-  v4 = objc_msgSend__calculateSender(self, a2, v2);
-  v7 = objc_msgSend__calculateTimestamp(self, v5, v6);
-  v8 = objc_alloc(MEMORY[0x1E69A8138]);
-  v11 = objc_msgSend__calculateGUID(self, v9, v10);
-  v13 = objc_msgSend_initWithSender_time_guid_type_(v8, v12, v4, v7, v11, 0);
+  _calculateSender = [(IMSPISimulatedMessage *)self _calculateSender];
+  _calculateTimestamp = [(IMSPISimulatedMessage *)self _calculateTimestamp];
+  v5 = objc_alloc(MEMORY[0x1E69A8138]);
+  _calculateGUID = [(IMSPISimulatedMessage *)self _calculateGUID];
+  v7 = [v5 initWithSender:_calculateSender time:_calculateTimestamp guid:_calculateGUID type:0];
 
-  v16 = objc_msgSend__calculateServiceName(self, v14, v15);
-  objc_msgSend_setService_(v13, v17, v16);
+  _calculateServiceName = [(IMSPISimulatedMessage *)self _calculateServiceName];
+  [v7 setService:_calculateServiceName];
 
-  v20 = objc_msgSend_flags(self, v18, v19);
-  objc_msgSend_setFlags_(v13, v21, v20);
-  if (objc_msgSend_fromMe(self, v22, v23))
+  [v7 setFlags:{-[IMSPISimulatedMessage flags](self, "flags")}];
+  if ([(IMSPISimulatedMessage *)self fromMe])
   {
-    v26 = objc_msgSend_flags(v13, v24, v25);
-    objc_msgSend_setFlags_(v13, v27, v26 | 4);
-    v30 = objc_msgSend_flags(v13, v28, v29);
-    objc_msgSend_setFlags_(v13, v31, v30 | 0x8000);
+    [v7 setFlags:{objc_msgSend(v7, "flags") | 4}];
+    [v7 setFlags:{objc_msgSend(v7, "flags") | 0x8000}];
   }
 
-  v32 = objc_msgSend_accountID(self, v24, v25);
-  objc_msgSend_setAccountID_(v13, v33, v32);
+  accountID = [(IMSPISimulatedMessage *)self accountID];
+  [v7 setAccountID:accountID];
 
-  if (!objc_msgSend_flags(self, v34, v35))
+  if (![(IMSPISimulatedMessage *)self flags])
   {
-    v38 = objc_msgSend_flags(v13, v36, v37);
-    objc_msgSend_setFlags_(v13, v39, v38 | 1);
-    v42 = objc_msgSend_flags(v13, v40, v41);
-    objc_msgSend_setFlags_(v13, v43, v42 & 0xFFFFFFFFFFFFFFF7);
+    [v7 setFlags:{objc_msgSend(v7, "flags") | 1}];
+    [v7 setFlags:{objc_msgSend(v7, "flags") & 0xFFFFFFFFFFFFFFF7}];
   }
 
-  v44 = objc_alloc(MEMORY[0x1E69A82F8]);
-  v46 = objc_msgSend_initWithContent_(v44, v45, &stru_1F1B76F98);
-  v49 = objc_msgSend_text(self, v47, v48);
-  objc_msgSend_appendString_(v46, v50, v49);
+  v10 = [objc_alloc(MEMORY[0x1E69A82F8]) initWithContent:&stru_1F1B76F98];
+  text = [(IMSPISimulatedMessage *)self text];
+  [v10 appendString:text];
 
-  v53 = objc_msgSend_body(v46, v51, v52);
-  objc_msgSend_setBody_(v13, v54, v53);
+  body = [v10 body];
+  [v7 setBody:body];
 
-  v57 = objc_msgSend_body(v46, v55, v56);
-  v60 = objc_msgSend_string(v57, v58, v59);
-  objc_msgSend_setPlainBody_(v13, v61, v60);
+  body2 = [v10 body];
+  string = [body2 string];
+  [v7 setPlainBody:string];
 
-  v64 = objc_msgSend_lastAddressedHandle(self, v62, v63);
-  objc_msgSend_setDestinationCallerID_(v13, v65, v64);
+  lastAddressedHandle = [(IMSPISimulatedMessage *)self lastAddressedHandle];
+  [v7 setDestinationCallerID:lastAddressedHandle];
 
-  v68 = objc_msgSend_effectID(self, v66, v67);
-  objc_msgSend_setExpressiveSendStyleID_(v13, v69, v68);
+  effectID = [(IMSPISimulatedMessage *)self effectID];
+  [v7 setExpressiveSendStyleID:effectID];
 
-  v72 = objc_msgSend_bundleID(self, v70, v71);
-  objc_msgSend_setBalloonBundleID_(v13, v73, v72);
+  bundleID = [(IMSPISimulatedMessage *)self bundleID];
+  [v7 setBalloonBundleID:bundleID];
 
-  v76 = objc_msgSend_payloadData(self, v74, v75);
-  objc_msgSend_setPayloadData_(v13, v77, v76);
+  payloadData = [(IMSPISimulatedMessage *)self payloadData];
+  [v7 setPayloadData:payloadData];
 
-  v80 = objc_msgSend_threadIdentifier(self, v78, v79);
-  objc_msgSend_setThreadIdentifier_(v13, v81, v80);
+  threadIdentifier = [(IMSPISimulatedMessage *)self threadIdentifier];
+  [v7 setThreadIdentifier:threadIdentifier];
 
-  return v13;
+  return v7;
 }
 
 - (id)_createSimulatedMessage
 {
   v3 = objc_alloc_init(MEMORY[0x1E69A8290]);
-  v6 = objc_msgSend__createItem(self, v4, v5);
-  objc_msgSend_setItem_(v3, v7, v6);
+  _createItem = [(IMSPISimulatedMessage *)self _createItem];
+  [v3 setItem:_createItem];
 
-  v10 = objc_msgSend_groupID(self, v8, v9);
-  objc_msgSend_setGroupID_(v3, v11, v10);
+  groupID = [(IMSPISimulatedMessage *)self groupID];
+  [v3 setGroupID:groupID];
 
-  v14 = objc_msgSend_chatGUID(self, v12, v13);
-  objc_msgSend_setChatGUID_(v3, v15, v14);
+  chatGUID = [(IMSPISimulatedMessage *)self chatGUID];
+  [v3 setChatGUID:chatGUID];
 
-  v18 = objc_msgSend_handles(self, v16, v17);
-  v20 = objc_msgSend_arrayByApplyingSelector_(v18, v19, sel_lowercaseString);
-  objc_msgSend_setHandles_(v3, v21, v20);
+  handles = [(IMSPISimulatedMessage *)self handles];
+  v8 = [handles arrayByApplyingSelector:sel_lowercaseString];
+  [v3 setHandles:v8];
 
-  v24 = objc_msgSend_lastAddressedHandle(self, v22, v23);
-  objc_msgSend_setLastAddressedHandle_(v3, v25, v24);
+  lastAddressedHandle = [(IMSPISimulatedMessage *)self lastAddressedHandle];
+  [v3 setLastAddressedHandle:lastAddressedHandle];
 
   return v3;
 }
@@ -203,65 +197,62 @@
 - (IMSPISimulatedMessage)initWithDictionaryRepresentation:(id)representation
 {
   representationCopy = representation;
-  v8 = objc_msgSend_init(self, v5, v6);
-  if (v8)
+  v5 = [(IMSPISimulatedMessage *)self init];
+  if (v5)
   {
-    v9 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v7, @"guid");
-    objc_msgSend_setGuid_(v8, v10, v9);
+    v6 = [representationCopy objectForKeyedSubscript:@"guid"];
+    [(IMSPISimulatedMessage *)v5 setGuid:v6];
 
-    v12 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v11, @"text");
-    objc_msgSend_setText_(v8, v13, v12);
+    v7 = [representationCopy objectForKeyedSubscript:@"text"];
+    [(IMSPISimulatedMessage *)v5 setText:v7];
 
-    v15 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v14, @"sender");
-    objc_msgSend_setSender_(v8, v16, v15);
+    v8 = [representationCopy objectForKeyedSubscript:@"sender"];
+    [(IMSPISimulatedMessage *)v5 setSender:v8];
 
-    v18 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v17, @"serviceName");
-    objc_msgSend_setServiceName_(v8, v19, v18);
+    v9 = [representationCopy objectForKeyedSubscript:@"serviceName"];
+    [(IMSPISimulatedMessage *)v5 setServiceName:v9];
 
-    v21 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v20, @"accountID");
-    objc_msgSend_setAccountID_(v8, v22, v21);
+    v10 = [representationCopy objectForKeyedSubscript:@"accountID"];
+    [(IMSPISimulatedMessage *)v5 setAccountID:v10];
 
-    v24 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v23, @"fromMe");
-    v27 = objc_msgSend_BOOLValue(v24, v25, v26);
-    objc_msgSend_setFromMe_(v8, v28, v27);
+    v11 = [representationCopy objectForKeyedSubscript:@"fromMe"];
+    -[IMSPISimulatedMessage setFromMe:](v5, "setFromMe:", [v11 BOOLValue]);
 
-    v30 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v29, @"chatGUID");
-    objc_msgSend_setChatGUID_(v8, v31, v30);
+    v12 = [representationCopy objectForKeyedSubscript:@"chatGUID"];
+    [(IMSPISimulatedMessage *)v5 setChatGUID:v12];
 
-    v33 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v32, @"groupID");
-    objc_msgSend_setGroupID_(v8, v34, v33);
+    v13 = [representationCopy objectForKeyedSubscript:@"groupID"];
+    [(IMSPISimulatedMessage *)v5 setGroupID:v13];
 
-    v36 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v35, @"handles");
-    objc_msgSend_setHandles_(v8, v37, v36);
+    v14 = [representationCopy objectForKeyedSubscript:@"handles"];
+    [(IMSPISimulatedMessage *)v5 setHandles:v14];
 
-    v39 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v38, @"lastAddressedHandle");
-    objc_msgSend_setLastAddressedHandle_(v8, v40, v39);
+    v15 = [representationCopy objectForKeyedSubscript:@"lastAddressedHandle"];
+    [(IMSPISimulatedMessage *)v5 setLastAddressedHandle:v15];
 
-    v42 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v41, @"flags");
-    v45 = objc_msgSend_unsignedIntValue(v42, v43, v44);
-    objc_msgSend_setFlags_(v8, v46, v45);
+    v16 = [representationCopy objectForKeyedSubscript:@"flags"];
+    -[IMSPISimulatedMessage setFlags:](v5, "setFlags:", [v16 unsignedIntValue]);
 
-    v50 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v47, @"date");
-    if (v50)
+    v17 = [representationCopy objectForKeyedSubscript:@"date"];
+    if (v17)
     {
-      v51 = objc_msgSend__dateFormatter(IMSPISimulatedMessage, v48, v49);
-      v53 = objc_msgSend_dateFromString_(v51, v52, v50);
-      objc_msgSend_setDate_(v8, v54, v53);
+      v18 = +[IMSPISimulatedMessage _dateFormatter];
+      v19 = [v18 dateFromString:v17];
+      [(IMSPISimulatedMessage *)v5 setDate:v19];
     }
 
-    v55 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v48, @"effectID");
-    objc_msgSend_setEffectID_(v8, v56, v55);
+    v20 = [representationCopy objectForKeyedSubscript:@"effectID"];
+    [(IMSPISimulatedMessage *)v5 setEffectID:v20];
 
-    v58 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v57, @"bundleID");
-    objc_msgSend_setBundleID_(v8, v59, v58);
+    v21 = [representationCopy objectForKeyedSubscript:@"bundleID"];
+    [(IMSPISimulatedMessage *)v5 setBundleID:v21];
 
-    v61 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v60, @"payloadData");
+    v22 = [representationCopy objectForKeyedSubscript:@"payloadData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v62 = objc_alloc(MEMORY[0x1E695DEF0]);
-      v64 = objc_msgSend_initWithBase64EncodedString_options_(v62, v63, v61, 1);
-      objc_msgSend_setPayloadData_(v8, v65, v64);
+      v23 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v22 options:1];
+      [(IMSPISimulatedMessage *)v5 setPayloadData:v23];
     }
 
     else
@@ -269,188 +260,184 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        objc_msgSend_setPayloadData_(v8, v66, v61);
+        [(IMSPISimulatedMessage *)v5 setPayloadData:v22];
       }
     }
 
-    v67 = objc_msgSend_objectForKeyedSubscript_(representationCopy, v66, @"threadIdentifier");
-    objc_msgSend_setThreadIdentifier_(v8, v68, v67);
+    v24 = [representationCopy objectForKeyedSubscript:@"threadIdentifier"];
+    [(IMSPISimulatedMessage *)v5 setThreadIdentifier:v24];
   }
 
-  return v8;
+  return v5;
 }
 
 - (NSDictionary)dictionaryRepresentation
 {
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v6 = objc_msgSend_guid(self, v4, v5);
+  guid = [(IMSPISimulatedMessage *)self guid];
 
-  if (v6)
+  if (guid)
   {
-    v9 = objc_msgSend_guid(self, v7, v8);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v10, v9, @"guid");
+    guid2 = [(IMSPISimulatedMessage *)self guid];
+    [v3 setObject:guid2 forKeyedSubscript:@"guid"];
   }
 
-  v11 = objc_msgSend_text(self, v7, v8);
+  text = [(IMSPISimulatedMessage *)self text];
 
-  if (v11)
+  if (text)
   {
-    v14 = objc_msgSend_text(self, v12, v13);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v15, v14, @"text");
+    text2 = [(IMSPISimulatedMessage *)self text];
+    [v3 setObject:text2 forKeyedSubscript:@"text"];
   }
 
-  v16 = objc_msgSend_sender(self, v12, v13);
+  sender = [(IMSPISimulatedMessage *)self sender];
 
-  if (v16)
+  if (sender)
   {
-    v19 = objc_msgSend_sender(self, v17, v18);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v20, v19, @"sender");
+    sender2 = [(IMSPISimulatedMessage *)self sender];
+    [v3 setObject:sender2 forKeyedSubscript:@"sender"];
   }
 
-  v21 = objc_msgSend_serviceName(self, v17, v18);
+  serviceName = [(IMSPISimulatedMessage *)self serviceName];
 
-  if (v21)
+  if (serviceName)
   {
-    v24 = objc_msgSend_serviceName(self, v22, v23);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v25, v24, @"serviceName");
+    serviceName2 = [(IMSPISimulatedMessage *)self serviceName];
+    [v3 setObject:serviceName2 forKeyedSubscript:@"serviceName"];
   }
 
-  v26 = objc_msgSend_accountID(self, v22, v23);
+  accountID = [(IMSPISimulatedMessage *)self accountID];
 
-  if (v26)
+  if (accountID)
   {
-    v29 = objc_msgSend_accountID(self, v27, v28);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v30, v29, @"accountID");
+    accountID2 = [(IMSPISimulatedMessage *)self accountID];
+    [v3 setObject:accountID2 forKeyedSubscript:@"accountID"];
   }
 
-  v31 = MEMORY[0x1E696AD98];
-  v32 = objc_msgSend_fromMe(self, v27, v28);
-  v34 = objc_msgSend_numberWithBool_(v31, v33, v32);
-  objc_msgSend_setObject_forKeyedSubscript_(v3, v35, v34, @"fromMe");
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:{-[IMSPISimulatedMessage fromMe](self, "fromMe")}];
+  [v3 setObject:v14 forKeyedSubscript:@"fromMe"];
 
-  v38 = objc_msgSend_chatGUID(self, v36, v37);
+  chatGUID = [(IMSPISimulatedMessage *)self chatGUID];
 
-  if (v38)
+  if (chatGUID)
   {
-    v41 = objc_msgSend_chatGUID(self, v39, v40);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v42, v41, @"chatGUID");
+    chatGUID2 = [(IMSPISimulatedMessage *)self chatGUID];
+    [v3 setObject:chatGUID2 forKeyedSubscript:@"chatGUID"];
   }
 
-  v43 = objc_msgSend_groupID(self, v39, v40);
+  groupID = [(IMSPISimulatedMessage *)self groupID];
 
-  if (v43)
+  if (groupID)
   {
-    v46 = objc_msgSend_groupID(self, v44, v45);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v47, v46, @"groupID");
+    groupID2 = [(IMSPISimulatedMessage *)self groupID];
+    [v3 setObject:groupID2 forKeyedSubscript:@"groupID"];
   }
 
-  v48 = objc_msgSend_handles(self, v44, v45);
+  handles = [(IMSPISimulatedMessage *)self handles];
 
-  if (v48)
+  if (handles)
   {
-    v51 = objc_msgSend_handles(self, v49, v50);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v52, v51, @"handles");
+    handles2 = [(IMSPISimulatedMessage *)self handles];
+    [v3 setObject:handles2 forKeyedSubscript:@"handles"];
   }
 
-  v53 = objc_msgSend_lastAddressedHandle(self, v49, v50);
+  lastAddressedHandle = [(IMSPISimulatedMessage *)self lastAddressedHandle];
 
-  if (v53)
+  if (lastAddressedHandle)
   {
-    v56 = objc_msgSend_lastAddressedHandle(self, v54, v55);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v57, v56, @"lastAddressedHandle");
+    lastAddressedHandle2 = [(IMSPISimulatedMessage *)self lastAddressedHandle];
+    [v3 setObject:lastAddressedHandle2 forKeyedSubscript:@"lastAddressedHandle"];
   }
 
-  v58 = objc_msgSend_date(self, v54, v55);
+  date = [(IMSPISimulatedMessage *)self date];
 
-  if (v58)
+  if (date)
   {
-    v61 = objc_msgSend__dateFormatter(IMSPISimulatedMessage, v59, v60);
-    v64 = objc_msgSend_date(self, v62, v63);
-    v66 = objc_msgSend_stringFromDate_(v61, v65, v64);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v67, v66, @"date");
+    v24 = +[IMSPISimulatedMessage _dateFormatter];
+    date2 = [(IMSPISimulatedMessage *)self date];
+    v26 = [v24 stringFromDate:date2];
+    [v3 setObject:v26 forKeyedSubscript:@"date"];
   }
 
-  v68 = objc_msgSend_effectID(self, v59, v60);
+  effectID = [(IMSPISimulatedMessage *)self effectID];
 
-  if (v68)
+  if (effectID)
   {
-    v71 = objc_msgSend_effectID(self, v69, v70);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v72, v71, @"effectID");
+    effectID2 = [(IMSPISimulatedMessage *)self effectID];
+    [v3 setObject:effectID2 forKeyedSubscript:@"effectID"];
   }
 
-  if (objc_msgSend_flags(self, v69, v70))
+  if ([(IMSPISimulatedMessage *)self flags])
   {
-    v75 = MEMORY[0x1E696AD98];
-    v76 = objc_msgSend_flags(self, v73, v74);
-    v78 = objc_msgSend_numberWithUnsignedLongLong_(v75, v77, v76);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v79, v78, @"flags");
+    v29 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[IMSPISimulatedMessage flags](self, "flags")}];
+    [v3 setObject:v29 forKeyedSubscript:@"flags"];
   }
 
-  v80 = objc_msgSend_bundleID(self, v73, v74);
+  bundleID = [(IMSPISimulatedMessage *)self bundleID];
 
-  if (v80)
+  if (bundleID)
   {
-    v83 = objc_msgSend_bundleID(self, v81, v82);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v84, v83, @"bundleID");
+    bundleID2 = [(IMSPISimulatedMessage *)self bundleID];
+    [v3 setObject:bundleID2 forKeyedSubscript:@"bundleID"];
   }
 
-  v85 = objc_msgSend_payloadData(self, v81, v82);
+  payloadData = [(IMSPISimulatedMessage *)self payloadData];
 
-  if (v85)
+  if (payloadData)
   {
-    v88 = objc_msgSend_payloadData(self, v86, v87);
-    v90 = objc_msgSend_base64EncodedStringWithOptions_(v88, v89, 0);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v91, v90, @"payloadData");
+    payloadData2 = [(IMSPISimulatedMessage *)self payloadData];
+    v34 = [payloadData2 base64EncodedStringWithOptions:0];
+    [v3 setObject:v34 forKeyedSubscript:@"payloadData"];
   }
 
-  v92 = objc_msgSend_threadIdentifier(self, v86, v87);
+  threadIdentifier = [(IMSPISimulatedMessage *)self threadIdentifier];
 
-  if (v92)
+  if (threadIdentifier)
   {
-    v95 = objc_msgSend_threadIdentifier(self, v93, v94);
-    objc_msgSend_setObject_forKeyedSubscript_(v3, v96, v95, @"threadIdentifier");
+    threadIdentifier2 = [(IMSPISimulatedMessage *)self threadIdentifier];
+    [v3 setObject:threadIdentifier2 forKeyedSubscript:@"threadIdentifier"];
   }
 
-  v97 = objc_msgSend_copy(v3, v93, v94);
+  v37 = [v3 copy];
 
-  return v97;
+  return v37;
 }
 
 - (id)debugDescription
 {
-  v52 = MEMORY[0x1E696AEC0];
-  v51 = objc_msgSend_text(self, a2, v2);
-  v56 = objc_msgSend_sender(self, v4, v5);
-  v55 = objc_msgSend_serviceName(self, v6, v7);
-  v54 = objc_msgSend_accountID(self, v8, v9);
-  v12 = objc_msgSend_fromMe(self, v10, v11);
+  v20 = MEMORY[0x1E696AEC0];
+  text = [(IMSPISimulatedMessage *)self text];
+  sender = [(IMSPISimulatedMessage *)self sender];
+  serviceName = [(IMSPISimulatedMessage *)self serviceName];
+  accountID = [(IMSPISimulatedMessage *)self accountID];
+  fromMe = [(IMSPISimulatedMessage *)self fromMe];
+  v4 = @"YES";
+  if (!fromMe)
+  {
+    v4 = @"NO";
+  }
+
+  v18 = v4;
+  chatGUID = [(IMSPISimulatedMessage *)self chatGUID];
+  groupID = [(IMSPISimulatedMessage *)self groupID];
+  handles = [(IMSPISimulatedMessage *)self handles];
+  lastAddressedHandle = [(IMSPISimulatedMessage *)self lastAddressedHandle];
+  lastAddressedHandle2 = [(IMSPISimulatedMessage *)self lastAddressedHandle];
+  date = [(IMSPISimulatedMessage *)self date];
+  effectID = [(IMSPISimulatedMessage *)self effectID];
+  flags = [(IMSPISimulatedMessage *)self flags];
+  bundleID = [(IMSPISimulatedMessage *)self bundleID];
+  payloadData = [(IMSPISimulatedMessage *)self payloadData];
+  v14 = [payloadData length];
   v15 = @"YES";
-  if (!v12)
+  if (!v14)
   {
     v15 = @"NO";
   }
 
-  v50 = v15;
-  v49 = objc_msgSend_chatGUID(self, v13, v14);
-  v18 = objc_msgSend_groupID(self, v16, v17);
-  v21 = objc_msgSend_handles(self, v19, v20);
-  v24 = objc_msgSend_lastAddressedHandle(self, v22, v23);
-  v27 = objc_msgSend_lastAddressedHandle(self, v25, v26);
-  v30 = objc_msgSend_date(self, v28, v29);
-  v33 = objc_msgSend_effectID(self, v31, v32);
-  v36 = objc_msgSend_flags(self, v34, v35);
-  v39 = objc_msgSend_bundleID(self, v37, v38);
-  v42 = objc_msgSend_payloadData(self, v40, v41);
-  v45 = objc_msgSend_length(v42, v43, v44);
-  v47 = @"YES";
-  if (!v45)
-  {
-    v47 = @"NO";
-  }
+  v21 = [v20 stringWithFormat:@"<IMSPISimulatedMessage %p text: %@ sender: %@ service: %@ account: %@ fromMe: %@ chatGUID: %@ groupID: %@ handles: %@ lastAddressedHandle: %@ date: %@ effectID: %@ flags: %llu bundleID: %@ hasPayloadData: %@>", text, sender, serviceName, accountID, v18, chatGUID, groupID, handles, lastAddressedHandle, lastAddressedHandle2, date, effectID, flags, bundleID, v15];
 
-  v53 = objc_msgSend_stringWithFormat_(v52, v46, @"<IMSPISimulatedMessage %p text: %@ sender: %@ service: %@ account: %@ fromMe: %@ chatGUID: %@ groupID: %@ handles: %@ lastAddressedHandle: %@ date: %@ effectID: %@ flags: %llu bundleID: %@ hasPayloadData: %@>", v51, v56, v55, v54, v50, v49, v18, v21, v24, v27, v30, v33, v36, v39, v47);
-
-  return v53;
+  return v21;
 }
 
 @end

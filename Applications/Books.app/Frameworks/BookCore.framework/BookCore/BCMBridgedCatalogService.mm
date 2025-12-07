@@ -25,7 +25,7 @@
 
 - (void)fetchStoreURLForAdamID:(NSString *)d type:(int64_t)type metadata:(BFMRequestMetadata *)metadata completionHandler:(id)handler
 {
-  v11 = sub_18AFC0(&unk_341460);
+  v11 = sub_18AFC0(&unk_341460, &qword_2A58C0);
   __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
@@ -55,7 +55,7 @@
 
 - (void)fetchStoreURLOfUnknownTypeForAdamID:(NSString *)d metadata:(BFMRequestMetadata *)metadata completionHandler:(id)handler
 {
-  v9 = sub_18AFC0(&unk_341460);
+  v9 = sub_18AFC0(&unk_341460, &qword_2A58C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -127,7 +127,7 @@
 {
   sizeCopy = size;
   idsCopy = ids;
-  v16 = sub_18AFC0(&unk_341460);
+  v16 = sub_18AFC0(&unk_341460, &qword_2A58C0);
   __chkstk_darwin(v16 - 8);
   v18 = &sizeCopy - v17;
   v19 = _Block_copy(handler);
@@ -168,7 +168,7 @@
 {
   sizeCopy = size;
   idsCopy = ids;
-  v16 = sub_18AFC0(&unk_341460);
+  v16 = sub_18AFC0(&unk_341460, &qword_2A58C0);
   __chkstk_darwin(v16 - 8);
   v18 = &sizeCopy - v17;
   v19 = _Block_copy(handler);
@@ -207,7 +207,7 @@
 
 - (void)fetchResourcesWithAdamIDs:(NSArray *)ds relationships:(NSArray *)relationships views:(NSArray *)views additionalParameters:(NSDictionary *)parameters batchSize:(int64_t)size metadata:(BFMRequestMetadata *)metadata completionHandler:(id)handler
 {
-  v16 = sub_18AFC0(&unk_341460);
+  v16 = sub_18AFC0(&unk_341460, &qword_2A58C0);
   __chkstk_darwin(v16 - 8);
   v18 = &v30 - v17;
   v19 = _Block_copy(handler);

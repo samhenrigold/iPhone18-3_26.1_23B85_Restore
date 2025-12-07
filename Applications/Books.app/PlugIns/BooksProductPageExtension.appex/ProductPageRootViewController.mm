@@ -12,6 +12,7 @@
 - (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ProductPageRootViewController
@@ -59,6 +60,21 @@
 {
   selfCopy = self;
   sub_100009058();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for ProductPageRootViewController();
+  v4 = v7.receiver;
+  [(ProductPageRootViewController *)&v7 viewWillAppear:appearCopy];
+  v5 = *&v4[OBJC_IVAR____TtC25BooksProductPageExtension29ProductPageRootViewController_analyticsManager];
+  if (v5)
+  {
+    v6 = v5;
+    sub_10001FC7C();
+  }
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
@@ -182,16 +198,15 @@
   sub_100007778(&qword_100037D90, &qword_1000284F8);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100028400;
-  v4 = *&self->SKProductPageExtension_opaque[OBJC_IVAR____TtC25BooksProductPageExtension29ProductPageRootViewController_objectGraph];
   sub_100007778(&qword_100037D98, &qword_100028500);
   selfCopy = self;
   sub_10001FD7C();
   *(v3 + 56) = swift_getObjectType();
-  *(v3 + 32) = v8;
+  *(v3 + 32) = v7;
 
-  v6.super.isa = sub_10001FECC().super.isa;
+  v5.super.isa = sub_10001FECC().super.isa;
 
-  return v6.super.isa;
+  return v5.super.isa;
 }
 
 @end

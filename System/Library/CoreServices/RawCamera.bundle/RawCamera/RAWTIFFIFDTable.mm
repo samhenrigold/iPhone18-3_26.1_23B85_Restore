@@ -11,18 +11,18 @@
   blockCopy = block;
   namespaceCopy = namespace;
   reverseNamespaceCopy = reverseNamespace;
-  v23.receiver = self;
-  v23.super_class = RAWTIFFIFDTable;
-  v11 = [(RAWTIFFIFDTable *)&v23 init];
-  v15 = v11;
+  v14.receiver = self;
+  v14.super_class = RAWTIFFIFDTable;
+  v11 = [(RAWTIFFIFDTable *)&v14 init];
+  v12 = v11;
   if (v11)
   {
-    objc_msgSend_setMValueBlock_(v11, v12, blockCopy, v13, v14);
-    objc_msgSend_setMNamespace_(v15, v16, namespaceCopy, v17, v18);
-    objc_msgSend_setMNamespaceReverse_(v15, v19, reverseNamespaceCopy, v20, v21);
+    [(RAWTIFFIFDTable *)v11 setMValueBlock:blockCopy];
+    [(RAWTIFFIFDTable *)v12 setMNamespace:namespaceCopy];
+    [(RAWTIFFIFDTable *)v12 setMNamespaceReverse:reverseNamespaceCopy];
   }
 
-  return v15;
+  return v12;
 }
 
 - (id)objectAtIndexedSubscript:(unint64_t)subscript
@@ -36,7 +36,7 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = objc_msgSend_objectAtIndexedSubscript_(v6, v7, subscript, v8, v9);
+      v5 = [v6 objectAtIndexedSubscript:subscript];
     }
 
     else
@@ -51,15 +51,14 @@
 - (id)objectForKeyedSubscript:(id)subscript
 {
   subscriptCopy = subscript;
-  v9 = objc_msgSend_mNamespaceReverse(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_objectForKeyedSubscript_(v9, v10, subscriptCopy, v11, v12);
+  mNamespaceReverse = [(RAWTIFFIFDTable *)self mNamespaceReverse];
+  v6 = [mNamespaceReverse objectForKeyedSubscript:subscriptCopy];
 
-  v17 = objc_msgSend_objectForKeyedSubscript_(v13, v14, @"TagID", v15, v16);
-  v18 = (*(self->mValueBlock + 2))();
-  v23 = objc_msgSend_unsignedIntValue(v17, v19, v20, v21, v22);
-  v27 = objc_msgSend_objectAtIndexedSubscript_(v18, v24, v23, v25, v26);
+  v7 = [v6 objectForKeyedSubscript:@"TagID"];
+  v8 = (*(self->mValueBlock + 2))();
+  v9 = [v8 objectAtIndexedSubscript:{objc_msgSend(v7, "unsignedIntValue")}];
 
-  return v27;
+  return v9;
 }
 
 @end

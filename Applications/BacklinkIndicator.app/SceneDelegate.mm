@@ -14,8 +14,7 @@
     userActivities = [optionsCopy userActivities];
     anyObject = [userActivities anyObject];
 
-    [(SceneDelegate *)self _showBacklinkIndicatorForUserActivity:anyObject];
-    v11 = sub_100000DF0();
+    v11 = sub_100000DF0([(SceneDelegate *)self _showBacklinkIndicatorForUserActivity:anyObject]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -29,8 +28,7 @@
   activityCopy = activity;
   if ([BacklinkIndicator isBacklinkIndicatorRequestForScene:scene continueUserActivity:activityCopy])
   {
-    [(SceneDelegate *)self _showBacklinkIndicatorForUserActivity:activityCopy];
-    v7 = sub_100000DF0();
+    v7 = sub_100000DF0([(SceneDelegate *)self _showBacklinkIndicatorForUserActivity:activityCopy]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;

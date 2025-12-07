@@ -75,7 +75,7 @@
     memset(&v50, 0, sizeof(v50));
     if (state)
     {
-      [state transform];
+      objc_msgSend_transform(state);
     }
 
     v49 = v50;
@@ -144,7 +144,7 @@
     v48 = 0.0;
     if (state)
     {
-      [state preferredMediaChunkDuration];
+      objc_msgSend_preferredMediaChunkDuration(state);
       if (BYTE12(v47))
       {
         assetWriterTrack = v9->_assetWriterTrack;
@@ -345,14 +345,14 @@ void *__79__AVAssetWriterInputWritingHelper_requestMediaDataWhenReadyOnQueue_usi
   _Block_object_dispose(&v5, 8);
 }
 
-uint64_t __58__AVAssetWriterInputWritingHelper_stopRequestingMediaData__block_invoke(uint64_t result)
+void *__58__AVAssetWriterInputWritingHelper_stopRequestingMediaData__block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 32);
+  v1 = *(*(result + 4) + 32);
   if (v1)
   {
-    *(*(*(result + 40) + 8) + 40) = v1;
-    *(*(result + 32) + 32) = 0;
-    return [*(result + 32) _stopObservingReadyForMoreMediaDataKeyPath];
+    *(*(*(result + 5) + 8) + 40) = v1;
+    *(*(result + 4) + 32) = 0;
+    return [*(result + 4) _stopObservingReadyForMoreMediaDataKeyPath];
   }
 
   return result;
@@ -920,7 +920,7 @@ LABEL_18:
   return v7 ^ 1u;
 }
 
-- (uint64_t)appendCaption:(uint64_t *)a1 error:.cold.1(uint64_t *a1)
+- (void)appendCaption:(void *)a1 error:.cold.1(void *a1)
 {
   result = AVErrorForClientProgrammingError([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"readyForMoreMediaData is NO." userInfo:0]);
   *a1 = result;

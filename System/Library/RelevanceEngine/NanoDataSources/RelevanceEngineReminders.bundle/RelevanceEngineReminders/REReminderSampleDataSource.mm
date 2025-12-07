@@ -30,18 +30,18 @@
   v7 = +[NSDate date];
   v8 = [v6 dateBySettingHour:12 minute:30 second:0 ofDate:v7 options:0];
 
-  v9 = REReminderBundle();
-  v10 = [v9 localizedStringForKey:@"UP_NEXT_SAMPLE_REMINDERS_TITLE" value:&stru_4358 table:@"ReminderDataSource"];
+  v10 = REReminderBundle(v9);
+  v11 = [v10 localizedStringForKey:@"UP_NEXT_SAMPLE_REMINDERS_TITLE" value:&stru_4358 table:@"ReminderDataSource"];
 
-  v11 = REReminderContent(v10, v8, 0, 0);
-  v12 = [REElement alloc];
-  v17 = v5;
-  v13 = [NSArray arrayWithObjects:&v17 count:1];
-  v14 = [v12 initWithIdentifier:@"reminder.sample" content:v11 action:0 relevanceProviders:v13];
+  v12 = REReminderContent(v11, v8, 0, 0);
+  v13 = [REElement alloc];
+  v18 = v5;
+  v14 = [NSArray arrayWithObjects:&v18 count:1];
+  v15 = [v13 initWithIdentifier:@"reminder.sample" content:v12 action:0 relevanceProviders:v14];
 
-  v16 = v14;
-  v15 = [NSArray arrayWithObjects:&v16 count:1];
-  handlerCopy[2](handlerCopy, v15);
+  v17 = v15;
+  v16 = [NSArray arrayWithObjects:&v17 count:1];
+  handlerCopy[2](handlerCopy, v16);
 }
 
 @end

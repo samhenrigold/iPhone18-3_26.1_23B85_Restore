@@ -12,32 +12,32 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   os_unfair_lock_lock_with_options();
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   sessionsByUUID = [(HMDXPCMessageReportingSessionManager *)self sessionsByUUID];
-  v6 = [sessionsByUUID countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v6 = [sessionsByUUID countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (!v6)
   {
     uUID = 0;
     goto LABEL_19;
   }
 
-  v7 = *v27;
+  v7 = *v26;
   while (2)
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v27 != v7)
+      if (*v26 != v7)
       {
         objc_enumerationMutation(sessionsByUUID);
       }
 
-      v9 = *(*(&v26 + 1) + 8 * i);
+      v9 = *(*(&v25 + 1) + 8 * i);
       sessionsByUUID2 = [(HMDXPCMessageReportingSessionManager *)self sessionsByUUID];
       v11 = [sessionsByUUID2 objectForKeyedSubscript:v9];
 
@@ -53,9 +53,9 @@
         {
           v19 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v31 = v19;
-          v32 = 2112;
-          v33 = v9;
+          v30 = v19;
+          v31 = 2112;
+          v32 = v9;
           _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Results retrieval timed out for session with UUID: %@", buf, 0x16u);
         }
 
@@ -79,9 +79,9 @@
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v31 = v24;
-          v32 = 2112;
-          v33 = v9;
+          v30 = v24;
+          v31 = 2112;
+          v32 = v9;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@End timed out for session with UUID: %@", buf, 0x16u);
         }
 
@@ -93,7 +93,7 @@ LABEL_18:
       }
     }
 
-    v6 = [sessionsByUUID countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v6 = [sessionsByUUID countByEnumeratingWithState:&v25 objects:v33 count:16];
     uUID = 0;
     if (v6)
     {
@@ -110,37 +110,35 @@ LABEL_19:
   {
     [(HMDXPCMessageReportingSessionManager *)self endSessionWithUUID:uUID];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)consumeResponseMessagePayloadsForSessionWithReportContextRequestInfo:(id)info
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   os_unfair_lock_lock_with_options();
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   sessionsByUUID = [(HMDXPCMessageReportingSessionManager *)self sessionsByUUID];
   allKeys = [sessionsByUUID allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v7)
   {
-    v8 = *v30;
+    v8 = *v29;
     responseMessagePayloads2 = MEMORY[0x277CBEBF8];
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         sessionsByUUID2 = [(HMDXPCMessageReportingSessionManager *)self sessionsByUUID];
         v12 = [sessionsByUUID2 objectForKeyedSubscript:v10];
 
@@ -155,20 +153,20 @@ LABEL_19:
           v18 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
-            v26 = v16;
+            v25 = v16;
             v19 = HMFGetLogIdentifier();
             responseMessagePayloads = [v12 responseMessagePayloads];
             v20 = [responseMessagePayloads count];
             uUID = [v12 UUID];
             *buf = 138543874;
-            v34 = v19;
-            v35 = 2048;
-            v36 = v20;
-            v37 = 2112;
-            v38 = uUID;
+            v33 = v19;
+            v34 = 2048;
+            v35 = v20;
+            v36 = 2112;
+            v37 = uUID;
             _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Consuming %lu response message payloads for session with UUID: %@", buf, 0x20u);
 
-            v16 = v26;
+            v16 = v25;
           }
 
           objc_autoreleasePoolPop(v16);
@@ -182,7 +180,7 @@ LABEL_19:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v28 objects:v38 count:16];
       if (v7)
       {
         continue;
@@ -200,14 +198,13 @@ LABEL_19:
 LABEL_14:
 
   os_unfair_lock_unlock(&self->_lock);
-  v24 = *MEMORY[0x277D85DE8];
 
   return responseMessagePayloads2;
 }
 
 - (void)endSessionWithUUID:(id)d
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dCopy = d;
   os_unfair_lock_lock_with_options();
   sessionsByUUID = [(HMDXPCMessageReportingSessionManager *)self sessionsByUUID];
@@ -222,9 +219,9 @@ LABEL_14:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v14;
-      v50 = 2112;
-      v51 = dCopy;
+      v48 = v14;
+      v49 = 2112;
+      v50 = dCopy;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@No existing session to end with UUID: %@", buf, 0x16u);
     }
 
@@ -263,9 +260,9 @@ LABEL_14:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v28;
-      v50 = 2112;
-      v51 = dCopy;
+      v48 = v28;
+      v49 = 2112;
+      v50 = dCopy;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Ending session with UUID: %@", buf, 0x16u);
     }
 
@@ -281,9 +278,9 @@ LABEL_14:
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v49 = v34;
-        v50 = 2112;
-        v51 = dCopy;
+        v48 = v34;
+        v49 = 2112;
+        v50 = dCopy;
         _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@XPC client connection is still active so not reporting completion of session with UUID: %@", buf, 0x16u);
       }
     }
@@ -299,21 +296,21 @@ LABEL_14:
         {
           v38 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v49 = v38;
-          v50 = 2112;
-          v51 = requestInfo;
+          v48 = v38;
+          v49 = 2112;
+          v50 = requestInfo;
           _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Reporting completion of Siri request with requestInfo: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v35);
         v39 = dispatch_get_global_queue(0, 0);
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __59__HMDXPCMessageReportingSessionManager_endSessionWithUUID___block_invoke;
-        v46[3] = &unk_2797359B0;
-        v46[4] = v36;
-        v47 = requestInfo;
-        dispatch_async(v39, v46);
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __59__HMDXPCMessageReportingSessionManager_endSessionWithUUID___block_invoke;
+        v45[3] = &unk_2797359B0;
+        v45[4] = v36;
+        v46 = requestInfo;
+        dispatch_async(v39, v45);
 
         goto LABEL_26;
       }
@@ -327,9 +324,9 @@ LABEL_14:
         {
           v43 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v49 = v43;
-          v50 = 2112;
-          v51 = requestInfo;
+          v48 = v43;
+          v49 = 2112;
+          v50 = requestInfo;
           _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Reporting completion of HomeUtil request with requestInfo: %@", buf, 0x16u);
         }
 
@@ -345,11 +342,11 @@ LABEL_14:
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v49 = v44;
-        v50 = 2112;
-        v51 = reportDomain;
-        v52 = 2112;
-        v53 = requestInfo;
+        v48 = v44;
+        v49 = 2112;
+        v50 = reportDomain;
+        v51 = 2112;
+        v52 = requestInfo;
         _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Not reporting completion of request with unhandled domain: %@, requestInfo: %@", buf, 0x20u);
       }
     }
@@ -368,9 +365,9 @@ LABEL_26:
     v11 = HMFGetLogIdentifier();
     uUID = [v6 UUID];
     *buf = 138543618;
-    v49 = v11;
-    v50 = 2112;
-    v51 = uUID;
+    v48 = v11;
+    v49 = 2112;
+    v50 = uUID;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Not ending already-ended session with UUID: %@", buf, 0x16u);
   }
 
@@ -379,8 +376,6 @@ LABEL_7:
   objc_autoreleasePoolPop(v8);
   os_unfair_lock_unlock(&self->_lock);
 LABEL_27:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDXPCMessageReportingSessionManager_endSessionWithUUID___block_invoke(uint64_t a1)
@@ -398,7 +393,7 @@ void __59__HMDXPCMessageReportingSessionManager_endSessionWithUUID___block_invok
 
 void __59__HMDXPCMessageReportingSessionManager_endSessionWithUUID___block_invoke_2(uint64_t a1, int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
   v6 = HMFGetOSLogHandle();
@@ -409,15 +404,15 @@ void __59__HMDXPCMessageReportingSessionManager_endSessionWithUUID___block_invok
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v15 = 138543618;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
+      v14 = 138543618;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
       v10 = "%{public}@Successfully reported completion of request with requestInfo: %@";
       v11 = v7;
       v12 = OS_LOG_TYPE_INFO;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v15, 0x16u);
+      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v14, 0x16u);
     }
   }
 
@@ -425,10 +420,10 @@ LABEL_6:
   {
     v8 = HMFGetLogIdentifier();
     v13 = *(a1 + 40);
-    v15 = 138543618;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v13;
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v13;
     v10 = "%{public}@Failed to report completion of request with requestInfo: %@";
     v11 = v7;
     v12 = OS_LOG_TYPE_DEFAULT;
@@ -436,12 +431,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addResponseMessagePayload:(id)payload toSessionWithUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   dCopy = d;
   os_unfair_lock_lock_with_options();
@@ -457,11 +451,11 @@ LABEL_6:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = dCopy;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Adding response message payload to session with UUID: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = dCopy;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Adding response message payload to session with UUID: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -469,12 +463,11 @@ LABEL_6:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSessionWithUUID:(id)d reportContext:(id)context xpcClientConnection:(id)connection
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   connectionCopy = connection;
@@ -497,17 +490,17 @@ LABEL_6:
     v16 = HMFGetLogIdentifier();
     reportDomain = [contextCopy reportDomain];
     requestInfo = [contextCopy requestInfo];
-    v26 = 138544386;
-    v27 = v16;
-    v28 = 2112;
-    v29 = dCopy;
-    v30 = 2112;
-    v31 = reportDomain;
-    v32 = 2112;
-    v33 = requestInfo;
-    v34 = 2048;
-    v35 = v12;
-    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Starting reporting session with UUID: %@, reportDomain: %@, requestInfo: %@, timeout: %fs", &v26, 0x34u);
+    v25 = 138544386;
+    v26 = v16;
+    v27 = 2112;
+    v28 = dCopy;
+    v29 = 2112;
+    v30 = reportDomain;
+    v31 = 2112;
+    v32 = requestInfo;
+    v33 = 2048;
+    v34 = v12;
+    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Starting reporting session with UUID: %@, reportDomain: %@, requestInfo: %@, timeout: %fs", &v25, 0x34u);
   }
 
   objc_autoreleasePoolPop(v13);
@@ -527,7 +520,6 @@ LABEL_6:
   [sessionsByUUID setObject:v19 forKeyedSubscript:dCopy];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDXPCMessageReportingSessionManager)init
@@ -593,12 +585,11 @@ id __44__HMDXPCMessageReportingSessionManager_init__block_invoke(double a1, uint
 
 uint64_t __51__HMDXPCMessageReportingSessionManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v17;
-  logCategory__hmf_once_v17 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v17;
+  logCategory__hmf_once_v17 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

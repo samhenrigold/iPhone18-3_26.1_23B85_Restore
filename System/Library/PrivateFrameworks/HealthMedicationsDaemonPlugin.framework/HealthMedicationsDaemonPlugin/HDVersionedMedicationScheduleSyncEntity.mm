@@ -9,7 +9,7 @@
 + (id)syncEntityDependenciesForSyncProtocolVersion:(int)version;
 + (int64_t)nextSyncAnchorWithSession:(id)session startSyncAnchor:(int64_t)anchor profile:(id)profile error:(id *)error;
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error;
-+ (uint64_t)_insertCodableMedicationSchedules:(int)schedules version:(void *)version syncStore:(void *)store profile:(uint64_t)profile error:;
++ (uint64_t)_insertCodableMedicationSchedules:(uint64_t)schedules version:(void *)version syncStore:(void *)store profile:(uint64_t)profile error:;
 @end
 
 @implementation HDVersionedMedicationScheduleSyncEntity
@@ -18,7 +18,7 @@
 {
   var1 = range.var1;
   var0 = range.var0;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   profileCopy = profile;
   handlerCopy = handler;
@@ -36,7 +36,7 @@
       *&buf[12] = 2050;
       *&buf[14] = var0;
       *&buf[22] = 2050;
-      v40 = var1;
+      v39 = var1;
       _os_log_debug_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@] Generating sync objects for session with sync anchor: start=%{public}lld, end=%{public}lld", buf, 0x20u);
     }
   }
@@ -45,30 +45,30 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v40 = -1;
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x2020000000;
-  v38[3] = 0;
+  v39 = -1;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
+  v37[3] = 0;
   v19 = [sessionCopy maxEncodedBytesPerCodableChangeForSyncEntityClass:self];
   database = [profileCopy database];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __118__HDVersionedMedicationScheduleSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
-  v28[3] = &unk_2796CD250;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __118__HDVersionedMedicationScheduleSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
+  v27[3] = &unk_2796CD250;
   v21 = profileCopy;
-  v29 = v21;
+  v28 = v21;
   selfCopy = self;
   v22 = sessionCopy;
-  v35 = var0;
-  v36 = var1;
-  v30 = v22;
-  v32 = buf;
+  v34 = var0;
+  v35 = var1;
+  v29 = v22;
+  v31 = buf;
   v23 = v18;
-  v31 = v23;
-  v33 = v38;
-  v37 = v19;
-  LOBYTE(v19) = [(HDHealthEntity *)HDMedicationScheduleEntity performReadTransactionWithHealthDatabase:database error:error block:v28];
+  v30 = v23;
+  v32 = v37;
+  v36 = v19;
+  LOBYTE(v19) = [(HDHealthEntity *)HDMedicationScheduleEntity performReadTransactionWithHealthDatabase:database error:error block:v27];
 
   if (v19)
   {
@@ -80,10 +80,9 @@
     v24 = 0;
   }
 
-  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(v37, 8);
   _Block_object_dispose(buf, 8);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -133,7 +132,7 @@ BOOL __118__HDVersionedMedicationScheduleSyncEntity_generateSyncObjectsForSessio
 
 BOOL __118__HDVersionedMedicationScheduleSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, uint64_t a8)
 {
-  v10 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(a2 row:"persistentID") error:{a4, a8}];
+  v10 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(a2 row:"persistentID" error:{a3, a4, a5, a6), a4, a8}];
   if (v10)
   {
     [*(a1 + 40) addObject:v10];
@@ -168,7 +167,7 @@ BOOL __118__HDVersionedMedicationScheduleSyncEntity_generateSyncObjectsForSessio
 
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   storeCopy = store;
   profileCopy = profile;
@@ -181,33 +180,33 @@ BOOL __118__HDVersionedMedicationScheduleSyncEntity_generateSyncObjectsForSessio
     v17 = HKLogMedication();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objectsCopy, "count")}];
-      v22 = 138544130;
+      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objectsCopy, "count")}];
+      v21 = 138544130;
       selfCopy = self;
-      v24 = 2114;
-      v25 = v21;
-      v26 = 1026;
+      v23 = 2114;
+      v24 = v20;
+      v25 = 1026;
       var0 = version.var0;
-      v28 = 1026;
+      v27 = 1026;
       var1 = version.var1;
-      _os_log_debug_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@] Received %{public}@ sync objects for version: minimum=%{public}u, current=%{public}u", &v22, 0x22u);
+      _os_log_debug_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@] Received %{public}@ sync objects for version: minimum=%{public}u, current=%{public}u", &v21, 0x22u);
     }
   }
 
-  v18 = [(HDVersionedMedicationScheduleSyncEntity *)self _insertCodableMedicationSchedules:objectsCopy version:version.var0 syncStore:storeCopy profile:profileCopy error:error];
+  v18 = [(HDVersionedMedicationScheduleSyncEntity *)self _insertCodableMedicationSchedules:objectsCopy version:*&version syncStore:storeCopy profile:profileCopy error:error];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18 ^ 1u;
 }
 
-+ (uint64_t)_insertCodableMedicationSchedules:(int)schedules version:(void *)version syncStore:(void *)store profile:(uint64_t)profile error:
++ (uint64_t)_insertCodableMedicationSchedules:(uint64_t)schedules version:(void *)version syncStore:(void *)store profile:(uint64_t)profile error:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  schedulesCopy = schedules;
+  v30 = *MEMORY[0x277D85DE8];
   v10 = a2;
   versionCopy = version;
   storeCopy = store;
   v13 = objc_opt_self();
-  if (schedules < 3)
+  if (schedulesCopy < 3)
   {
     v18 = [v13 receiveCodableSchedules:v10 syncProvenance:objc_msgSend(versionCopy profile:"syncProvenance") error:{storeCopy, profile}];
   }
@@ -221,23 +220,22 @@ BOOL __118__HDVersionedMedicationScheduleSyncEntity_generateSyncObjectsForSessio
       v15 = [v10 count];
       v16 = HDSyncVersionRangeToString();
       v17 = HDSyncVersionRangeToString();
-      v21 = 138544386;
-      v22 = v13;
-      v23 = 2048;
-      v24 = v15;
-      v25 = 2114;
-      v26 = versionCopy;
-      v27 = 2114;
-      v28 = v16;
-      v29 = 2114;
-      v30 = v17;
-      _os_log_impl(&dword_25181C000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring %lu sync objects from sync store %{public}@ with version %{public}@ because our current version is %{public}@", &v21, 0x34u);
+      v20 = 138544386;
+      v21 = v13;
+      v22 = 2048;
+      v23 = v15;
+      v24 = 2114;
+      v25 = versionCopy;
+      v26 = 2114;
+      v27 = v16;
+      v28 = 2114;
+      v29 = v17;
+      _os_log_impl(&dword_25181C000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring %lu sync objects from sync store %{public}@ with version %{public}@ because our current version is %{public}@", &v20, 0x34u);
     }
 
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -328,29 +326,29 @@ uint64_t __133__HDVersionedMedicationScheduleSyncEntity_enumerateCodableObjectsF
 
 uint64_t __96__HDVersionedMedicationScheduleSyncEntity_receiveCodableSchedules_syncProvenance_profile_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = *(a1 + 40);
-        v11 = [*(a1 + 32) objectForKeyedSubscript:{v9, v17}];
+        v11 = [*(a1 + 32) objectForKeyedSubscript:{v9, v16}];
         v12 = *(a1 + 48);
         v13 = [v9 entity];
         LODWORD(v10) = [v10 insertMedicationSchedules:v11 syncProvenance:v12 syncIdentity:objc_msgSend(v13 error:{"persistentID"), a2}];
@@ -362,7 +360,7 @@ uint64_t __96__HDVersionedMedicationScheduleSyncEntity_receiveCodableSchedules_s
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -375,13 +373,12 @@ uint64_t __96__HDVersionedMedicationScheduleSyncEntity_receiveCodableSchedules_s
   v14 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (id)pruneSyncedObjectsThroughAnchor:(id)anchor limit:(unint64_t)limit nowDate:(id)date profile:(id)profile error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   dateCopy = date;
   profileCopy = profile;
@@ -394,52 +391,52 @@ LABEL_11:
     v17 = HKLogMedication();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
-      *v37 = 138544130;
-      *&v37[4] = self;
-      *&v37[12] = 2114;
-      *&v37[14] = anchorCopy;
-      *&v37[22] = 2114;
-      v38 = v28;
-      LOWORD(v39) = 2114;
-      *(&v39 + 2) = dateCopy;
-      _os_log_debug_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@] Pruning sync objects through anchor limit: %{public}@, limit: %{public}@, now date: %{public}@", v37, 0x2Au);
+      v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
+      *v36 = 138544130;
+      *&v36[4] = self;
+      *&v36[12] = 2114;
+      *&v36[14] = anchorCopy;
+      *&v36[22] = 2114;
+      v37 = v27;
+      LOWORD(v38) = 2114;
+      *(&v38 + 2) = dateCopy;
+      _os_log_debug_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@] Pruning sync objects through anchor limit: %{public}@, limit: %{public}@, now date: %{public}@", v36, 0x2Au);
     }
   }
 
   v18 = [(HDVersionedMedicationScheduleSyncEntity *)self _pruningPredicateThroughAnchor:anchorCopy nowDate:dateCopy];
-  *v37 = 0;
-  *&v37[8] = v37;
-  *&v37[16] = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  *&v39 = __Block_byref_object_dispose__0;
-  *(&v39 + 1) = &unk_2863C26F0;
+  *v36 = 0;
+  *&v36[8] = v36;
+  *&v36[16] = 0x3032000000;
+  v37 = __Block_byref_object_copy__0;
+  *&v38 = __Block_byref_object_dispose__0;
+  *(&v38 + 1) = &unk_2863C26F0;
   database = [profileCopy database];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __103__HDVersionedMedicationScheduleSyncEntity_pruneSyncedObjectsThroughAnchor_limit_nowDate_profile_error___block_invoke;
-  v29[3] = &unk_2796CD318;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __103__HDVersionedMedicationScheduleSyncEntity_pruneSyncedObjectsThroughAnchor_limit_nowDate_profile_error___block_invoke;
+  v28[3] = &unk_2796CD318;
   v20 = v18;
-  v31 = v37;
+  v30 = v36;
   limitCopy = limit;
-  v30 = v20;
-  v21 = [(HDHealthEntity *)HDMedicationScheduleEntity performWriteTransactionWithHealthDatabase:database error:error block:v29];
+  v29 = v20;
+  v21 = [(HDHealthEntity *)HDMedicationScheduleEntity performWriteTransactionWithHealthDatabase:database error:error block:v28];
 
   _HKInitializeLogging();
   v22 = HKLogMedication();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *(*&v37[8] + 40);
+    v23 = *(*&v36[8] + 40);
     *buf = 138543618;
     selfCopy = self;
-    v35 = 2112;
-    v36 = v23;
+    v34 = 2112;
+    v35 = v23;
     _os_log_impl(&dword_25181C000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleted %@ schedules", buf, 0x16u);
   }
 
   if (v21)
   {
-    v24 = *(*&v37[8] + 40);
+    v24 = *(*&v36[8] + 40);
   }
 
   else
@@ -449,15 +446,14 @@ LABEL_11:
 
   v25 = v24;
 
-  _Block_object_dispose(v37, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v36, 8);
 
   return v25;
 }
 
 + (id)_pruningPredicateThroughAnchor:(void *)anchor nowDate:
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v4 = a2;
   anchorCopy = anchor;
   objc_opt_self();
@@ -468,10 +464,10 @@ LABEL_11:
   if (v4)
   {
     v9 = MEMORY[0x277D10B20];
-    v18[0] = v7;
+    v17[0] = v7;
     v10 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10A40] lessThanOrEqualToValue:v4];
-    v18[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v12 = [v9 predicateMatchingAnyPredicates:v11];
 
     v8 = v12;
@@ -480,8 +476,6 @@ LABEL_11:
   v13 = MEMORY[0x277D10B70];
   v14 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" equalToValue:MEMORY[0x277CBEC38]];
   v15 = [v13 compoundPredicateWithPredicate:v8 otherPredicate:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

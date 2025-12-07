@@ -4,6 +4,7 @@
 - (void)requestMessageFor:(int64_t)for category:(unsigned int)category type:(unsigned __int16)type reply:(id)reply;
 - (void)sendWithMessage:(id)message with:(unsigned int)with and:(unsigned __int16)and for:(int64_t)for;
 - (void)setWithConfiguration:(id)configuration for:(int64_t)for;
+- (void)setWithServiceType:(unsigned __int16)type for:(int64_t)for;
 - (void)validateFor:(int64_t)for completion:(id)completion;
 @end
 
@@ -33,6 +34,13 @@
   v5 = sub_1C0BEC058();
 
   sub_1C0BDE668(v5, for);
+}
+
+- (void)setWithServiceType:(unsigned __int16)type for:(int64_t)for
+{
+  typeCopy = type;
+
+  sub_1C0BDE5D0(typeCopy, for);
 }
 
 - (void)sendWithMessage:(id)message with:(unsigned int)with and:(unsigned __int16)and for:(int64_t)for

@@ -46,62 +46,66 @@
 
 - (void)p_resetServerDataFlags
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v43 = objc_msgSend_context(self, a2, v2);
-  v45 = objc_msgSend_documentPackage(v43, v4, v5);
-  v8 = objc_msgSend_dataManager(v43, v6, v7);
+  v57 = *MEMORY[0x277D85DE8];
+  v45 = objc_msgSend_context(self, a2, v2);
+  v47 = objc_msgSend_documentPackage(v45, v4, v5);
+  v8 = objc_msgSend_dataManager(v45, v6, v7);
   v11 = objc_msgSend_allData(v8, v9, v10);
 
   p_dataCollaborationPropertiesMap = &self->_dataCollaborationPropertiesMap;
   sub_276AE1744(&self->_dataCollaborationPropertiesMap);
   v15 = objc_msgSend_count(v11, v13, v14);
   sub_2769AC06C(&self->_dataCollaborationPropertiesMap, vcvtps_u32_f32(v15 / self->_dataCollaborationPropertiesMap.__table_.__max_load_factor_));
-  v18 = objc_msgSend_documentRevision(v43, v16, v17);
-  objc_msgSend_sequence(v18, v19, v20);
+  v18 = objc_msgSend_documentRevision(v45, v16, v17);
+  v21 = objc_msgSend_sequence(v18, v19, v20);
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   obj = v11;
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v47, v51, 16);
-  if (v24)
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, &v52, v56, 16);
+  if (v25)
   {
-    v25 = *v48;
+    v26 = *v53;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v48 != v25)
+        if (*v53 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v47 + 1) + 8 * i);
-        v46 = objc_msgSend_digest(v27, v22, v23);
-        objc_msgSend_isInDocument(v27, v28, v29);
-        v32 = objc_msgSend_storage(v27, v30, v31);
-        objc_msgSend_isInPackage_(v32, v33, v45);
+        v28 = *(*(&v52 + 1) + 8 * i);
+        v51 = objc_msgSend_digest(v28, v23, v24);
+        v31 = objc_msgSend_isInDocument(v28, v29, v30);
+        v34 = objc_msgSend_storage(v28, v32, v33);
+        v36 = objc_msgSend_isInPackage_(v34, v35, v47);
 
-        sub_276AE17A0(p_dataCollaborationPropertiesMap, &v46, &v46);
-        if ((v34 & 1) == 0)
+        LOBYTE(v48) = v31;
+        BYTE1(v48) = v36;
+        DWORD1(v48) = v21;
+        DWORD2(v48) = v21;
+        v49 = v36;
+        v50 = 0;
+        sub_276AE17A0(p_dataCollaborationPropertiesMap, &v51, &v51, &v48);
+        if ((v37 & 1) == 0)
         {
-          v35 = MEMORY[0x277D81150];
-          v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[TSPSupportMetadata p_resetServerDataFlags]");
-          v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportMetadata.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v39, v36, v38, 73, 0, "Document has two TSPData with the same digest: %@", v46);
+          v38 = MEMORY[0x277D81150];
+          v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "[TSPSupportMetadata p_resetServerDataFlags]");
+          v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportMetadata.mm");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v42, v39, v41, 73, 0, "Document has two TSPData with the same digest: %@", v51);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v43, v44);
         }
       }
 
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, &v47, v51, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v52, v56, 16);
     }
 
-    while (v24);
+    while (v25);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateDataCollaborationProperties:(DataCollaborationProperties *)properties forData:(id)data
@@ -273,7 +277,7 @@ LABEL_5:
       v16 = *v13;
       v17 = [TSPDigest alloc];
       v20 = objc_msgSend_initFromProtobufString_(v17, v18, *&v16[3] & 0xFFFFFFFFFFFFFFFELL);
-      v43 = v20;
+      v41 = v20;
       if (v20)
       {
         v21 = objc_msgSend_dataForDigest_(v11, v19, v20);
@@ -286,18 +290,18 @@ LABEL_5:
           v37 = v16[4].u32[1];
           v26 = sub_276A7BDA8(&v37, v22);
           v27 = v16[4].i8[2];
-          v38 = v23;
-          v39 = v24;
-          v40 = vrev64_s32(v25);
-          v41 = v26;
-          v42 = v27;
-          sub_276AE17A0(&self->_dataCollaborationPropertiesMap.__table_.__bucket_list_.__ptr_, &v43, &v43);
+          LOBYTE(v38) = v23;
+          BYTE1(v38) = v24;
+          *(&v38 + 4) = vrev64_s32(v25);
+          v39 = v26;
+          v40 = v27;
+          sub_276AE17A0(&self->_dataCollaborationPropertiesMap.__table_.__bucket_list_.__ptr_, &v41, &v41, &v38);
           if ((v28 & 1) == 0)
           {
             v29 = MEMORY[0x277D81150];
             v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPSupportMetadata loadFromUnarchiver:]");
             v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportMetadata.mm");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v33, v30, v32, 186, 0, "Document has two TSPData with the same digest: %@", v43, unarchiverCopy);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v33, v30, v32, 186, 0, "Document has two TSPData with the same digest: %@", v41, unarchiverCopy);
 
             objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35);
           }

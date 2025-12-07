@@ -3,6 +3,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axUpdateViewAccessibilityElements;
 - (void)loadView;
+- (void)setDeviceLocked:(BOOL)locked;
 @end
 
 @implementation CHActivityTodayWidgetViewControllerAccessibility
@@ -124,6 +125,14 @@
   }
 
   [view setAccessibilityElements:v6];
+}
+
+- (void)setDeviceLocked:(BOOL)locked
+{
+  v4.receiver = self;
+  v4.super_class = CHActivityTodayWidgetViewControllerAccessibility;
+  [(CHActivityTodayWidgetViewControllerAccessibility *)&v4 setDeviceLocked:locked];
+  [(CHActivityTodayWidgetViewControllerAccessibility *)self _axUpdateViewAccessibilityElements];
 }
 
 @end

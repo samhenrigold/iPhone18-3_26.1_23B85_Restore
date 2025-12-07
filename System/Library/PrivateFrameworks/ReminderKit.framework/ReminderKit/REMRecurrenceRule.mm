@@ -5,8 +5,10 @@
 + (id)iCalendarValueFromRecurrenceType:(int64_t)type;
 + (id)iCalendarValueFromWeekday:(int64_t)weekday;
 + (id)newObjectID;
++ (id)nextRecurrentDueDateAfter:(id)after dueDate:(id)date timeZone:(id)zone allDay:(BOOL)day recurrenceRules:(id)rules;
 + (id)objectIDWithUUID:(id)d;
 + (id)previousRecurrentDueDateBefore:(id)before dueDate:(id)date timeZone:(id)zone allDay:(BOOL)day recurrenceRules:(id)rules;
++ (id)recurrenceGeneratorConfiguredForDueDate:(id)date timeZone:(id)zone allDay:(BOOL)day recurrenceRule:(id)rule;
 + (int)_convertREMRecurrenceFrequencyToCalRecurrenceFrequency:(int64_t)frequency;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRecurrenceRule:(id)rule;
@@ -17,6 +19,7 @@
 - (id)description;
 - (id)iCalendarDescription;
 - (id)initRecurrenceRuleWithObjectID:(id)d accountID:(id)iD reminderID:(id)reminderID frequency:(int64_t)frequency interval:(int64_t)interval firstDayOfTheWeek:(int64_t)week daysOfTheWeek:(id)theWeek daysOfTheMonth:(id)self0 monthsOfTheYear:(id)self1 weeksOfTheYear:(id)self2 daysOfTheYear:(id)self3 setPositions:(id)self4 end:(id)self5;
+- (id)stringValueAsDateOnly:(BOOL)only isFloating:(BOOL)floating;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -622,6 +625,175 @@ LABEL_8:
   return v4;
 }
 
+- (id)stringValueAsDateOnly:(BOOL)only isFloating:(BOOL)floating
+{
+  floatingCopy = floating;
+  onlyCopy = only;
+  string = [MEMORY[0x1E696AD60] string];
+  v8 = [REMRecurrenceRule iCalendarValueFromRecurrenceType:[(REMRecurrenceRule *)self frequency]];
+  [string appendFormat:@"FREQ=%@", v8];
+
+  if ([(REMRecurrenceRule *)self interval]!= 1)
+  {
+    [string appendFormat:@";INTERVAL=%lu", -[REMRecurrenceRule interval](self, "interval")];
+  }
+
+  recurrenceEnd = [(REMRecurrenceRule *)self recurrenceEnd];
+
+  if (recurrenceEnd)
+  {
+    recurrenceEnd2 = [(REMRecurrenceRule *)self recurrenceEnd];
+    endDate = [recurrenceEnd2 endDate];
+
+    recurrenceEnd3 = [(REMRecurrenceRule *)self recurrenceEnd];
+    if (endDate)
+    {
+      endDate2 = [recurrenceEnd3 endDate];
+      v14 = [REMRecurrenceRule iCalendarValueFromDate:endDate2 isDateOnly:onlyCopy isFloating:floatingCopy];
+      [string appendFormat:@";UNTIL=%@", v14];
+    }
+
+    else
+    {
+      [string appendFormat:@";COUNT=%lu", objc_msgSend(recurrenceEnd3, "occurrenceCount")];
+    }
+  }
+
+  monthsOfTheYear = [(REMRecurrenceRule *)self monthsOfTheYear];
+  v16 = [monthsOfTheYear count];
+
+  if (v16)
+  {
+    monthsOfTheYear2 = [(REMRecurrenceRule *)self monthsOfTheYear];
+    v18 = [monthsOfTheYear2 objectAtIndex:0];
+    [string appendFormat:@";BYMONTH=%@", v18];
+
+    if (v16 != 1)
+    {
+      for (i = 1; i != v16; ++i)
+      {
+        monthsOfTheYear3 = [(REMRecurrenceRule *)self monthsOfTheYear];
+        v21 = [monthsOfTheYear3 objectAtIndex:i];
+        [string appendFormat:@", %@", v21];
+      }
+    }
+  }
+
+  daysOfTheMonth = [(REMRecurrenceRule *)self daysOfTheMonth];
+  v23 = [daysOfTheMonth count];
+
+  if (v23)
+  {
+    daysOfTheMonth2 = [(REMRecurrenceRule *)self daysOfTheMonth];
+    v25 = [daysOfTheMonth2 objectAtIndex:0];
+    [string appendFormat:@";BYMONTHDAY=%@", v25];
+
+    if (v23 != 1)
+    {
+      for (j = 1; j != v23; ++j)
+      {
+        daysOfTheMonth3 = [(REMRecurrenceRule *)self daysOfTheMonth];
+        v28 = [daysOfTheMonth3 objectAtIndex:j];
+        [string appendFormat:@", %@", v28];
+      }
+    }
+  }
+
+  daysOfTheYear = [(REMRecurrenceRule *)self daysOfTheYear];
+  v30 = [daysOfTheYear count];
+
+  if (v30)
+  {
+    daysOfTheYear2 = [(REMRecurrenceRule *)self daysOfTheYear];
+    v32 = [daysOfTheYear2 objectAtIndex:0];
+    [string appendFormat:@";BYYEARDAY=%@", v32];
+
+    if (v30 != 1)
+    {
+      for (k = 1; k != v30; ++k)
+      {
+        daysOfTheYear3 = [(REMRecurrenceRule *)self daysOfTheYear];
+        v35 = [daysOfTheYear3 objectAtIndex:k];
+        [string appendFormat:@", %@", v35];
+      }
+    }
+  }
+
+  weeksOfTheYear = [(REMRecurrenceRule *)self weeksOfTheYear];
+  v37 = [weeksOfTheYear count];
+
+  if (v37)
+  {
+    weeksOfTheYear2 = [(REMRecurrenceRule *)self weeksOfTheYear];
+    v39 = [weeksOfTheYear2 objectAtIndex:0];
+    [string appendFormat:@";BYWEEKNO=%@", v39];
+
+    if (v37 != 1)
+    {
+      for (m = 1; m != v37; ++m)
+      {
+        weeksOfTheYear3 = [(REMRecurrenceRule *)self weeksOfTheYear];
+        v42 = [weeksOfTheYear3 objectAtIndex:m];
+        [string appendFormat:@", %@", v42];
+      }
+    }
+  }
+
+  daysOfTheWeek = [(REMRecurrenceRule *)self daysOfTheWeek];
+  v44 = [daysOfTheWeek count];
+
+  if (v44)
+  {
+    daysOfTheWeek2 = [(REMRecurrenceRule *)self daysOfTheWeek];
+    v46 = [daysOfTheWeek2 objectAtIndex:0];
+
+    iCalendarDescription = [v46 iCalendarDescription];
+    [string appendFormat:@";BYDAY=%@", iCalendarDescription];
+
+    if (v44 != 1)
+    {
+      for (n = 1; n != v44; ++n)
+      {
+        daysOfTheWeek3 = [(REMRecurrenceRule *)self daysOfTheWeek];
+        v50 = [daysOfTheWeek3 objectAtIndex:n];
+
+        iCalendarDescription2 = [v50 iCalendarDescription];
+        [string appendFormat:@", %@", iCalendarDescription2];
+      }
+    }
+  }
+
+  setPositions = [(REMRecurrenceRule *)self setPositions];
+  v53 = [setPositions count];
+
+  if (v53)
+  {
+    setPositions2 = [(REMRecurrenceRule *)self setPositions];
+    v55 = [setPositions2 objectAtIndex:0];
+    [string appendFormat:@";BYSETPOS=%@", v55];
+
+    if (v53 != 1)
+    {
+      for (ii = 1; ii != v53; ++ii)
+      {
+        setPositions3 = [(REMRecurrenceRule *)self setPositions];
+        v58 = [setPositions3 objectAtIndex:ii];
+        [string appendFormat:@", %@", v58];
+      }
+    }
+  }
+
+  if ([(REMRecurrenceRule *)self firstDayOfTheWeek])
+  {
+    v59 = [REMRecurrenceRule iCalendarValueFromWeekday:[(REMRecurrenceRule *)self firstDayOfTheWeek]];
+    [string appendFormat:@";WKST=%@", v59];
+  }
+
+  v60 = [MEMORY[0x1E696AEC0] stringWithString:string];
+
+  return v60;
+}
+
 + (id)iCalendarValueFromRecurrenceType:(int64_t)type
 {
   if (type > 4)
@@ -694,56 +866,211 @@ void __47__REMRecurrenceRule_iCalendarValueFromWeekday___block_invoke()
   iCalendarValueFromWeekday____iCalendarValuesForWeekday = &unk_1F0D999E8;
 }
 
++ (id)nextRecurrentDueDateAfter:(id)after dueDate:(id)date timeZone:(id)zone allDay:(BOOL)day recurrenceRules:(id)rules
+{
+  dayCopy = day;
+  v60 = *MEMORY[0x1E69E9840];
+  afterCopy = after;
+  dateCopy = date;
+  zoneCopy = zone;
+  rulesCopy = rules;
+  v48 = objc_opt_new();
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  obj = rulesCopy;
+  v16 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v55;
+    v44 = dayCopy;
+    selfCopy = self;
+    v45 = *v55;
+    do
+    {
+      v19 = 0;
+      v46 = v17;
+      do
+      {
+        if (*v55 != v18)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v20 = *(*(&v54 + 1) + 8 * v19);
+        if ([v20 frequency] == 4)
+        {
+          v21 = [self hourlyRecurrentDueDateAfter:afterCopy dueDate:dateCopy interval:{objc_msgSend(v20, "interval")}];
+          [v48 addObject:v21];
+        }
+
+        else
+        {
+          context = objc_autoreleasePoolPush();
+          v22 = [self recurrenceGeneratorConfiguredForDueDate:dateCopy timeZone:zoneCopy allDay:dayCopy recurrenceRule:v20];
+          recurrenceEnd = [v20 recurrenceEnd];
+          occurrenceCount = [recurrenceEnd occurrenceCount];
+
+          if (occurrenceCount)
+          {
+            recurrenceEnd2 = [v20 recurrenceEnd];
+            occurrenceCount2 = [recurrenceEnd2 occurrenceCount];
+
+            if (occurrenceCount2 >= 2)
+            {
+              v27 = 2;
+            }
+
+            else
+            {
+              v27 = occurrenceCount2;
+            }
+          }
+
+          else
+          {
+            v27 = 2;
+          }
+
+          distantFuture = [MEMORY[0x1E695DF00] distantFuture];
+          v29 = [v22 copyOccurrenceDatesWithInitialDate:dateCopy allDay:dayCopy rangeStart:afterCopy rangeEnd:distantFuture timeZone:zoneCopy limit:v27];
+
+          v52 = 0u;
+          v53 = 0u;
+          v50 = 0u;
+          v51 = 0u;
+          v30 = v29;
+          v31 = [v30 countByEnumeratingWithState:&v50 objects:v58 count:16];
+          v32 = v30;
+          if (v31)
+          {
+            v33 = v31;
+            v34 = dateCopy;
+            v35 = zoneCopy;
+            v36 = *v51;
+LABEL_15:
+            v37 = 0;
+            while (1)
+            {
+              if (*v51 != v36)
+              {
+                objc_enumerationMutation(v30);
+              }
+
+              v38 = *(*(&v50 + 1) + 8 * v37);
+              [v38 timeIntervalSinceDate:afterCopy];
+              if (v39 > 0.0)
+              {
+                break;
+              }
+
+              if (v33 == ++v37)
+              {
+                v33 = [v30 countByEnumeratingWithState:&v50 objects:v58 count:16];
+                if (v33)
+                {
+                  goto LABEL_15;
+                }
+
+                v32 = v30;
+                zoneCopy = v35;
+                dateCopy = v34;
+                dayCopy = v44;
+                self = selfCopy;
+                goto LABEL_24;
+              }
+            }
+
+            v32 = v38;
+
+            zoneCopy = v35;
+            dateCopy = v34;
+            dayCopy = v44;
+            self = selfCopy;
+            if (!v32)
+            {
+              goto LABEL_25;
+            }
+
+            [v48 addObject:v32];
+          }
+
+LABEL_24:
+
+LABEL_25:
+          objc_autoreleasePoolPop(context);
+          v18 = v45;
+          v17 = v46;
+        }
+
+        ++v19;
+      }
+
+      while (v19 != v17);
+      v17 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+    }
+
+    while (v17);
+  }
+
+  v40 = [v48 sortedArrayUsingSelector:sel_compare_];
+  firstObject = [v40 firstObject];
+
+  return firstObject;
+}
+
 + (id)previousRecurrentDueDateBefore:(id)before dueDate:(id)date timeZone:(id)zone allDay:(BOOL)day recurrenceRules:(id)rules
 {
   dayCopy = day;
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   beforeCopy = before;
   dateCopy = date;
   zoneCopy = zone;
   rulesCopy = rules;
-  v56 = beforeCopy;
-  v52 = dateCopy;
-  v45 = rulesCopy;
+  v55 = beforeCopy;
+  v51 = dateCopy;
+  v44 = rulesCopy;
   if ([beforeCopy compare:dateCopy] == 1)
   {
-    v46 = objc_opt_new();
+    v45 = objc_opt_new();
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     obj = rulesCopy;
-    v51 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
-    if (v51)
+    v50 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+    if (v50)
     {
-      v49 = *v68;
+      v48 = *v67;
       do
       {
         v13 = 0;
         do
         {
-          if (*v68 != v49)
+          if (*v67 != v48)
           {
             v14 = v13;
             objc_enumerationMutation(obj);
             v13 = v14;
           }
 
-          v53 = v13;
-          v15 = *(*(&v67 + 1) + 8 * v13);
+          v52 = v13;
+          v15 = *(*(&v66 + 1) + 8 * v13);
           if ([v15 frequency] == 4)
           {
-            v16 = [self hourlyRecurrentDueDateBefore:v56 dueDate:v52 interval:{objc_msgSend(v15, "interval")}];
+            v16 = [self hourlyRecurrentDueDateBefore:v55 dueDate:v51 interval:{objc_msgSend(v15, "interval")}];
             if (v16)
             {
-              [v46 addObject:v16];
+              [v45 addObject:v16];
             }
           }
 
           else
           {
             context = objc_autoreleasePoolPush();
-            v17 = [self recurrenceGeneratorConfiguredForDueDate:v52 timeZone:zoneCopy allDay:dayCopy recurrenceRule:v15];
+            v17 = [self recurrenceGeneratorConfiguredForDueDate:v51 timeZone:zoneCopy allDay:dayCopy recurrenceRule:v15];
             recurrenceEnd = [v15 recurrenceEnd];
             v19 = [recurrenceEnd occurrenceCount] == 0;
 
@@ -758,9 +1085,9 @@ void __47__REMRecurrenceRule_iCalendarValueFromWeekday___block_invoke()
               occurrenceCount = [recurrenceEnd2 occurrenceCount];
             }
 
-            v22 = v52;
+            v22 = v51;
             v23 = v22;
-            if (v52 && occurrenceCount >= 1)
+            if (v51 && occurrenceCount >= 1)
             {
               v24 = 0;
               v25 = v22;
@@ -778,7 +1105,7 @@ void __47__REMRecurrenceRule_iCalendarValueFromWeekday___block_invoke()
                   v28 = occurrenceCount + (v26 ^ 1u);
                 }
 
-                v29 = [v17 copyOccurrenceDatesWithInitialDate:v23 allDay:dayCopy rangeStart:v25 rangeEnd:v56 timeZone:zoneCopy limit:v28];
+                v29 = [v17 copyOccurrenceDatesWithInitialDate:v23 allDay:dayCopy rangeStart:v25 rangeEnd:v55 timeZone:zoneCopy limit:v28];
                 v30 = [v29 count];
                 if (v30 <= 1)
                 {
@@ -801,23 +1128,23 @@ void __47__REMRecurrenceRule_iCalendarValueFromWeekday___block_invoke()
                   v33 = v32;
                 }
 
-                v61 = 0;
-                v62 = &v61;
-                v63 = 0x3032000000;
-                v64 = __Block_byref_object_copy__10;
-                v65 = __Block_byref_object_dispose__10;
-                v66 = 0;
-                v57[0] = MEMORY[0x1E69E9820];
-                v57[1] = 3221225472;
-                v57[2] = __92__REMRecurrenceRule_previousRecurrentDueDateBefore_dueDate_timeZone_allDay_recurrenceRules___block_invoke;
-                v57[3] = &unk_1E75093E8;
+                v60 = 0;
+                v61 = &v60;
+                v62 = 0x3032000000;
+                v63 = __Block_byref_object_copy__10;
+                v64 = __Block_byref_object_dispose__10;
+                v65 = 0;
+                v56[0] = MEMORY[0x1E69E9820];
+                v56[1] = 3221225472;
+                v56[2] = __92__REMRecurrenceRule_previousRecurrentDueDateBefore_dueDate_timeZone_allDay_recurrenceRules___block_invoke;
+                v56[3] = &unk_1E75093E8;
                 v34 = v25;
-                v58 = v34;
-                v35 = v56;
-                v59 = v35;
-                v60 = &v61;
-                [v29 enumerateObjectsWithOptions:2 usingBlock:v57];
-                v36 = v62[5];
+                v57 = v34;
+                v35 = v55;
+                v58 = v35;
+                v59 = &v60;
+                [v29 enumerateObjectsWithOptions:2 usingBlock:v56];
+                v36 = v61[5];
                 if (v36)
                 {
                   v37 = v36;
@@ -843,7 +1170,7 @@ void __47__REMRecurrenceRule_iCalendarValueFromWeekday___block_invoke()
                   v25 = 0;
                 }
 
-                _Block_object_dispose(&v61, 8);
+                _Block_object_dispose(&v60, 8);
                 if (!v25)
                 {
                   break;
@@ -856,7 +1183,7 @@ void __47__REMRecurrenceRule_iCalendarValueFromWeekday___block_invoke()
               while (!v40);
               if (v24)
               {
-                [v46 addObject:v24];
+                [v45 addObject:v24];
               }
             }
 
@@ -868,17 +1195,17 @@ void __47__REMRecurrenceRule_iCalendarValueFromWeekday___block_invoke()
             objc_autoreleasePoolPop(context);
           }
 
-          v13 = v53 + 1;
+          v13 = v52 + 1;
         }
 
-        while (v53 + 1 != v51);
-        v51 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
+        while (v52 + 1 != v50);
+        v50 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
       }
 
-      while (v51);
+      while (v50);
     }
 
-    v41 = [v46 sortedArrayUsingSelector:sel_compare_];
+    v41 = [v45 sortedArrayUsingSelector:sel_compare_];
     lastObject2 = [v41 lastObject];
   }
 
@@ -886,8 +1213,6 @@ void __47__REMRecurrenceRule_iCalendarValueFromWeekday___block_invoke()
   {
     lastObject2 = 0;
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 
   return lastObject2;
 }
@@ -900,6 +1225,85 @@ void __92__REMRecurrenceRule_previousRecurrentDueDateBefore_dueDate_timeZone_all
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
     *a4 = 1;
   }
+}
+
++ (id)recurrenceGeneratorConfiguredForDueDate:(id)date timeZone:(id)zone allDay:(BOOL)day recurrenceRule:(id)rule
+{
+  dayCopy = day;
+  ruleCopy = rule;
+  v11 = MEMORY[0x1E6993038];
+  zoneCopy = zone;
+  dateCopy = date;
+  v14 = objc_alloc_init(v11);
+  [v14 setEventStartDate:dateCopy];
+  [v14 setEventEndDate:dateCopy];
+
+  [v14 setEventTimeZone:zoneCopy];
+  [v14 setAllDay:dayCopy];
+  daysOfTheWeek = [ruleCopy daysOfTheWeek];
+  [v14 setDaysOfTheWeek:daysOfTheWeek];
+
+  daysOfTheMonth = [ruleCopy daysOfTheMonth];
+  [v14 setDaysOfTheMonth:daysOfTheMonth];
+
+  daysOfTheYear = [ruleCopy daysOfTheYear];
+  [v14 setDaysOfTheYear:daysOfTheYear];
+
+  weeksOfTheYear = [ruleCopy weeksOfTheYear];
+  [v14 setWeeksOfTheYear:weeksOfTheYear];
+
+  monthsOfTheYear = [ruleCopy monthsOfTheYear];
+  [v14 setMonthsOfTheYear:monthsOfTheYear];
+
+  setPositions = [ruleCopy setPositions];
+  [v14 setSetPositions:setPositions];
+
+  interval = [ruleCopy interval];
+  if (interval <= 1)
+  {
+    v22 = 1;
+  }
+
+  else
+  {
+    v22 = interval;
+  }
+
+  [v14 setInterval:v22];
+  [v14 setFrequency:{objc_msgSend(self, "_convertREMRecurrenceFrequencyToCalRecurrenceFrequency:", objc_msgSend(ruleCopy, "frequency"))}];
+  [v14 setWeekStart:{objc_msgSend(ruleCopy, "firstDayOfTheWeek")}];
+  if (![v14 weekStart])
+  {
+    [v14 setWeekStart:2];
+  }
+
+  recurrenceEnd = [ruleCopy recurrenceEnd];
+  endDate = [recurrenceEnd endDate];
+
+  recurrenceEnd2 = [ruleCopy recurrenceEnd];
+  distantFuture = recurrenceEnd2;
+  if (endDate)
+  {
+    endDate2 = [recurrenceEnd2 endDate];
+    [v14 setEndDate:endDate2];
+  }
+
+  else
+  {
+    occurrenceCount = [recurrenceEnd2 occurrenceCount];
+
+    if (!occurrenceCount)
+    {
+      goto LABEL_11;
+    }
+
+    distantFuture = [MEMORY[0x1E695DF00] distantFuture];
+    [v14 setEndDate:distantFuture];
+  }
+
+LABEL_11:
+
+  return v14;
 }
 
 + (id)hourlyRecurrentDueDateToward:(id)toward dueDate:(id)date interval:(int64_t)interval adjustingStepsBy:(id)by
@@ -1013,11 +1417,10 @@ void __92__REMRecurrenceRule_previousRecurrentDueDateBefore_dueDate_timeZone_all
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMRecurrenceFrequency %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMRecurrenceFrequency %ld", &v2, 0xCu);
 }
 
 @end

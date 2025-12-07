@@ -46,96 +46,94 @@
 
 - (id)createStore:(id *)store
 {
-  selfCopy = self;
   dbInClassC = [(MAStorage *)self->_storage dbInClassC];
   v6 = dbInClassC;
-  name = selfCopy->_name;
+  name = self->_name;
   if (dbInClassC)
   {
-    v33 = selfCopy;
+    selfCopy = self;
     storeCopy = store;
-    v35 = dbInClassC;
-    v51[0] = @"assetHandle";
-    v51[1] = &off_10011DB08;
-    v51[2] = &off_10011DB20;
-    v32 = name;
-    v31 = [NSArray arrayWithObjects:v51 count:3];
-    v52[0] = v31;
-    v50[0] = @"assetId";
-    v50[1] = &off_10011DB08;
-    v50[2] = &off_10011DB20;
-    v30 = [NSArray arrayWithObjects:v50 count:3];
-    v52[1] = v30;
-    v49[0] = @"version";
-    v49[1] = &off_10011DB20;
-    v49[2] = &off_10011DAF0;
+    v33 = dbInClassC;
+    v49[0] = @"assetHandle";
+    v49[1] = &off_10011DB08;
+    v49[2] = &off_10011DB20;
+    v30 = name;
     v29 = [NSArray arrayWithObjects:v49 count:3];
-    v52[2] = v29;
-    v48[0] = @"state";
-    v48[1] = &off_10011DB20;
-    v48[2] = &off_10011DAF0;
+    v50[0] = v29;
+    v48[0] = @"assetId";
+    v48[1] = &off_10011DB08;
+    v48[2] = &off_10011DB20;
     v28 = [NSArray arrayWithObjects:v48 count:3];
-    v52[3] = v28;
-    v47[0] = @"createdDate";
+    v50[1] = v28;
+    v47[0] = @"version";
     v47[1] = &off_10011DB20;
     v47[2] = &off_10011DAF0;
     v27 = [NSArray arrayWithObjects:v47 count:3];
-    v52[4] = v27;
-    v46[0] = @"expiresDate";
+    v50[2] = v27;
+    v46[0] = @"state";
     v46[1] = &off_10011DB20;
     v46[2] = &off_10011DAF0;
     v26 = [NSArray arrayWithObjects:v46 count:3];
-    v52[5] = v26;
-    v45[0] = @"uploadedDate";
+    v50[3] = v26;
+    v45[0] = @"createdDate";
     v45[1] = &off_10011DB20;
     v45[2] = &off_10011DAF0;
-    v8 = [NSArray arrayWithObjects:v45 count:3];
-    v52[6] = v8;
-    v44[0] = @"assetKeyPath";
-    v44[1] = &off_10011DB08;
+    v25 = [NSArray arrayWithObjects:v45 count:3];
+    v50[4] = v25;
+    v44[0] = @"expiresDate";
+    v44[1] = &off_10011DB20;
     v44[2] = &off_10011DAF0;
-    v9 = [NSArray arrayWithObjects:v44 count:3];
-    v52[7] = v9;
-    v43[0] = @"encAssetPath";
-    v43[1] = &off_10011DB08;
+    v24 = [NSArray arrayWithObjects:v44 count:3];
+    v50[5] = v24;
+    v43[0] = @"uploadedDate";
+    v43[1] = &off_10011DB20;
     v43[2] = &off_10011DAF0;
-    v10 = [NSArray arrayWithObjects:v43 count:3];
-    v52[8] = v10;
-    v42[0] = @"encAssetHash";
-    v42[1] = &off_10011DB38;
+    v8 = [NSArray arrayWithObjects:v43 count:3];
+    v50[6] = v8;
+    v42[0] = @"assetKeyPath";
+    v42[1] = &off_10011DB08;
     v42[2] = &off_10011DAF0;
-    v11 = [NSArray arrayWithObjects:v42 count:3];
-    v52[9] = v11;
-    v41[0] = @"ownerID";
+    v9 = [NSArray arrayWithObjects:v42 count:3];
+    v50[7] = v9;
+    v41[0] = @"encAssetPath";
     v41[1] = &off_10011DB08;
     v41[2] = &off_10011DAF0;
-    v12 = [NSArray arrayWithObjects:v41 count:3];
-    v52[10] = v12;
-    v40[0] = @"signature";
+    v10 = [NSArray arrayWithObjects:v41 count:3];
+    v50[8] = v10;
+    v40[0] = @"encAssetHash";
     v40[1] = &off_10011DB38;
     v40[2] = &off_10011DAF0;
-    v13 = [NSArray arrayWithObjects:v40 count:3];
-    v52[11] = v13;
-    v39[0] = @"requestURL";
+    v11 = [NSArray arrayWithObjects:v40 count:3];
+    v50[9] = v11;
+    v39[0] = @"ownerID";
     v39[1] = &off_10011DB08;
     v39[2] = &off_10011DAF0;
-    v14 = [NSArray arrayWithObjects:v39 count:3];
-    v52[12] = v14;
-    v38[0] = @"fileSize";
-    v38[1] = &off_10011DB20;
+    v12 = [NSArray arrayWithObjects:v39 count:3];
+    v50[10] = v12;
+    v38[0] = @"signature";
+    v38[1] = &off_10011DB38;
     v38[2] = &off_10011DAF0;
-    v15 = [NSArray arrayWithObjects:v38 count:3];
-    v52[13] = v15;
-    v16 = [NSArray arrayWithObjects:v52 count:14];
+    v13 = [NSArray arrayWithObjects:v38 count:3];
+    v50[11] = v13;
+    v37[0] = @"requestURL";
+    v37[1] = &off_10011DB08;
+    v37[2] = &off_10011DAF0;
+    v14 = [NSArray arrayWithObjects:v37 count:3];
+    v50[12] = v14;
+    v36[0] = @"fileSize";
+    v36[1] = &off_10011DB20;
+    v36[2] = &off_10011DAF0;
+    v15 = [NSArray arrayWithObjects:v36 count:3];
+    v50[13] = v15;
+    v16 = [NSArray arrayWithObjects:v50 count:14];
 
-    v6 = v35;
-    v37 = 0;
-    LODWORD(v13) = [v35 upgradeTable:v32 fields:v16 attributes:0 missingNewColumn:@"encAssetHash" hasDeletedColumn:0 migrateData:0 error:&v37];
-    v17 = v37;
+    v6 = v33;
+    v35 = 0;
+    LODWORD(v13) = [v33 upgradeTable:v30 fields:v16 attributes:0 missingNewColumn:@"encAssetHash" hasDeletedColumn:0 migrateData:0 error:&v35];
+    v17 = v35;
 
     if (!v13)
     {
-      selfCopy = v33;
       store = storeCopy;
       if (v17)
       {
@@ -143,17 +141,15 @@
       }
 
 LABEL_14:
-      v25 = selfCopy->_name;
       v17 = createManagedAssetError();
       goto LABEL_7;
     }
 
     v18 = [MAKVStore alloc];
-    selfCopy = v33;
-    v19 = v33->_name;
-    v36 = v17;
-    v20 = [(MAKVStore *)v18 initWithName:v19 identifier:v19 profile:0 db:v35 attributes:0 error:&v36];
-    v21 = v36;
+    v19 = selfCopy->_name;
+    v34 = v17;
+    v20 = [(MAKVStore *)v18 initWithName:v19 identifier:v19 profile:0 db:v33 attributes:0 error:&v34];
+    v21 = v34;
 
     v17 = v21;
     store = storeCopy;
@@ -165,7 +161,6 @@ LABEL_14:
 
   else
   {
-    v24 = selfCopy->_name;
     v17 = createManagedAssetError();
   }
 
@@ -216,7 +211,7 @@ LABEL_10:
 
     if (v5 && os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
     {
-      sub_10000DF5C(self);
+      sub_10000DF5C();
     }
 
     store = self->_store;
@@ -297,7 +292,7 @@ LABEL_10:
   {
     if (os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
     {
-      sub_10000DFCC(self, error);
+      sub_10000DFCC();
     }
 
     v27 = 0;
@@ -362,7 +357,7 @@ LABEL_10:
       idCopy = v26;
       if (os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
       {
-        sub_10000E034(v26, error);
+        sub_10000E034();
       }
     }
 
@@ -373,7 +368,7 @@ LABEL_10:
   {
     if (os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
     {
-      sub_10000DFCC(self, error);
+      sub_10000DFCC();
     }
 
     v23 = 0;
@@ -781,7 +776,7 @@ LABEL_40:
     {
       if (os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
       {
-        sub_10000E194(selfCopy, error);
+        sub_10000E194();
       }
 
       v46 = 0;
@@ -792,7 +787,7 @@ LABEL_40:
   {
     if (os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
     {
-      sub_10000DFCC(self, error);
+      sub_10000DFCC();
     }
 
     v19 = 0;
@@ -864,7 +859,7 @@ LABEL_12:
 
   if (os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
   {
-    sub_10000DFCC(self, error);
+    sub_10000DFCC();
   }
 
   v13 = 0;
@@ -1278,7 +1273,7 @@ LABEL_54:
 
   else if (os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
   {
-    sub_10000E1FC(self);
+    sub_10000E1FC();
   }
 }
 
@@ -1334,7 +1329,7 @@ LABEL_15:
 
   if (os_log_type_enabled(off_100127CD0, OS_LOG_TYPE_ERROR))
   {
-    sub_10000DFCC(self, error);
+    sub_10000DFCC();
   }
 
   v19 = 0;

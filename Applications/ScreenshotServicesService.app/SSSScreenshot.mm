@@ -1750,12 +1750,12 @@ LABEL_10:
             v25 = v24;
             if (v24)
             {
-              [v24 cropInfo];
+              objc_msgSend_cropInfo(v24);
               v27 = *(&v40 + 1);
               v26 = *&v40;
               v28 = *(&v41 + 1);
               v29 = *&v41;
-              [v25 cropInfo];
+              objc_msgSend_cropInfo(v25);
               v30 = *(&v36 + 1);
               v31 = *&v36;
             }
@@ -2026,7 +2026,7 @@ LABEL_9:
   v7 = modelModificationInfo;
   if (modelModificationInfo)
   {
-    [modelModificationInfo cropInfo];
+    objc_msgSend_cropInfo(modelModificationInfo);
     v8 = v12;
     v9 = v11;
   }
@@ -2049,7 +2049,7 @@ LABEL_9:
   v5 = modelModificationInfo;
   if (modelModificationInfo)
   {
-    [modelModificationInfo cropInfo];
+    objc_msgSend_cropInfo(modelModificationInfo);
     v7 = v24;
     v6 = v23;
     v9 = v26;

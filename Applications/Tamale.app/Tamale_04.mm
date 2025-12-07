@@ -1,3 +1,647 @@
+void sub_10007655C(unint64_t a1)
+{
+  v125 = type metadata accessor for DispatchWorkItemFlags();
+  v124 = *(v125 - 8);
+  __chkstk_darwin(v125);
+  v122 = &v120 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v123 = type metadata accessor for DispatchQoS();
+  v121 = *(v123 - 8);
+  __chkstk_darwin(v123);
+  v120 = &v120 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_100072B00();
+  v6 = sub_100091230(a1, v5);
+
+  v7 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_captureDevice);
+  v127 = v1;
+  *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_captureDevice) = v6;
+  v8 = v6;
+
+  if (!v6)
+  {
+    goto LABEL_129;
+  }
+
+  v9 = [a1 outputs];
+  sub_10005BBC4(0, &qword_1001D81E0, AVCaptureOutput_ptr);
+  v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+  aBlock = _swiftEmptyArrayStorage;
+  v126 = v10;
+  if (v10 >> 62)
+  {
+    goto LABEL_110;
+  }
+
+  v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
+LABEL_4:
+  v12 = _swiftEmptyArrayStorage;
+  v136 = v8;
+  v129 = a1;
+  if (v11)
+  {
+    v13 = 0;
+    v132 = v126 & 0xFFFFFFFFFFFFFF8;
+    v133 = v126 & 0xC000000000000001;
+    v130 = v126 + 32;
+    v131 = AVMediaTypeVideo;
+    v128 = v11;
+    while (1)
+    {
+      while (1)
+      {
+        if (v133)
+        {
+          v14 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        }
+
+        else
+        {
+          if (v13 >= *(v132 + 16))
+          {
+            goto LABEL_107;
+          }
+
+          v14 = *(v130 + 8 * v13);
+        }
+
+        v15 = v14;
+        if (__OFADD__(v13++, 1))
+        {
+          goto LABEL_106;
+        }
+
+        v17 = [v14 connectionWithMediaType:v131];
+        if (v17)
+        {
+          break;
+        }
+
+        if (v13 == v11)
+        {
+          goto LABEL_37;
+        }
+      }
+
+      v134 = v15;
+      v135 = v13;
+      v18 = v17;
+      v19 = [v17 inputPorts];
+
+      sub_10005BBC4(0, &qword_1001D81E8, AVCaptureInputPort_ptr);
+      v20 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+      if (!(v20 >> 62))
+      {
+        v21 = *((v20 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        if (v21)
+        {
+          break;
+        }
+
+        goto LABEL_35;
+      }
+
+      v21 = _CocoaArrayWrapper.endIndex.getter();
+      if (v21)
+      {
+        break;
+      }
+
+LABEL_35:
+
+LABEL_36:
+      a1 = v129;
+      v11 = v128;
+      v13 = v135;
+      if (v135 == v128)
+      {
+LABEL_37:
+        v12 = aBlock;
+        goto LABEL_38;
+      }
+    }
+
+    a1 = 0;
+    v137 = v20 & 0xFFFFFFFFFFFFFF8;
+    v138 = v20 & 0xC000000000000001;
+    while (1)
+    {
+      if (v138)
+      {
+        v22 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      }
+
+      else
+      {
+        if (a1 >= *(v137 + 16))
+        {
+          goto LABEL_105;
+        }
+
+        v22 = *(v20 + 8 * a1 + 32);
+      }
+
+      v23 = v22;
+      v24 = (a1 + 1);
+      if (__OFADD__(a1, 1))
+      {
+        __break(1u);
+LABEL_105:
+        __break(1u);
+LABEL_106:
+        __break(1u);
+LABEL_107:
+        __break(1u);
+LABEL_108:
+        __break(1u);
+LABEL_109:
+        __break(1u);
+LABEL_110:
+        v11 = _CocoaArrayWrapper.endIndex.getter();
+        goto LABEL_4;
+      }
+
+      v25 = [v22 sourceDeviceType];
+      v26 = [v8 deviceType];
+      v27 = v26;
+      if (!v25)
+      {
+        break;
+      }
+
+      v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v30 = v29;
+      if (v28 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v30 == v31)
+      {
+
+        v8 = v136;
+      }
+
+      else
+      {
+        v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+        v8 = v136;
+        if ((v33 & 1) == 0)
+        {
+          goto LABEL_16;
+        }
+      }
+
+      v34 = [v23 sourceDevicePosition];
+      v35 = [v8 position];
+
+      if (v34 == v35)
+      {
+
+        specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
+        specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
+        specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+        specialized ContiguousArray._endMutation()();
+        goto LABEL_36;
+      }
+
+LABEL_17:
+      ++a1;
+      if (v24 == v21)
+      {
+        goto LABEL_35;
+      }
+    }
+
+LABEL_16:
+    goto LABEL_17;
+  }
+
+LABEL_38:
+
+  if ((v12 & 0x8000000000000000) != 0 || (v12 & 0x4000000000000000) != 0)
+  {
+    v36 = _CocoaArrayWrapper.endIndex.getter();
+    if (v36)
+    {
+LABEL_41:
+      v37 = 0;
+      do
+      {
+        if ((v12 & 0xC000000000000001) != 0)
+        {
+          v38 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        }
+
+        else
+        {
+          if (v37 >= v12[2])
+          {
+            goto LABEL_109;
+          }
+
+          v38 = v12[v37 + 4];
+        }
+
+        v39 = v38;
+        v8 = (v37 + 1);
+        if (__OFADD__(v37, 1))
+        {
+          goto LABEL_108;
+        }
+
+        objc_opt_self();
+        v40 = swift_dynamicCastObjCClass();
+        if (v40)
+        {
+          v41 = v40;
+          [v40 setMaxPhotoQualityPrioritization:3];
+          v138 = *(v127 + OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue);
+          v42 = swift_allocObject();
+          swift_unknownObjectWeakInit();
+          v43 = swift_allocObject();
+          *(v43 + 16) = v42;
+          *(v43 + 24) = v41;
+          v145 = sub_100092E8C;
+          v146 = v43;
+          aBlock = _NSConcreteStackBlock;
+          v142 = 1107296256;
+          v143 = sub_1000B5F04;
+          v144 = &unk_1001C27A8;
+          v44 = _Block_copy(&aBlock);
+
+          v45 = v39;
+          v46 = v120;
+          static DispatchQoS.unspecified.getter();
+          v140 = _swiftEmptyArrayStorage;
+          sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+          sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+          sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
+          v47 = v122;
+          v48 = v125;
+          dispatch thunk of SetAlgebra.init<A>(_:)();
+          OS_dispatch_queue.async(group:qos:flags:execute:)();
+          _Block_release(v44);
+
+          v49 = v47;
+          a1 = v129;
+          (*(v124 + 8))(v49, v48);
+          (*(v121 + 8))(v46, v123);
+
+          break;
+        }
+
+        ++v37;
+      }
+
+      while (v8 != v36);
+    }
+  }
+
+  else
+  {
+    v36 = v12[2];
+    if (v36)
+    {
+      goto LABEL_41;
+    }
+  }
+
+  v50 = v136;
+  sub_10007822C(a1, v136);
+  v51 = [v50 deviceType];
+  v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v54 = v53;
+  if (v52 != static String._unconditionallyBridgeFromObjectiveC(_:)() || v54 != v55)
+  {
+    v56 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v56)
+    {
+
+      goto LABEL_56;
+    }
+
+    v58 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v60 = v59;
+    if (v58 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v60 == v61)
+    {
+      goto LABEL_59;
+    }
+
+    v62 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if ((v62 & 1) == 0)
+    {
+      v63 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v65 = v64;
+      if (v63 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v65 == v66)
+      {
+LABEL_59:
+
+LABEL_65:
+        v68 = [v136 virtualDeviceSwitchOverVideoZoomFactors];
+        sub_10005BBC4(0, &qword_1001D81C0, NSNumber_ptr);
+        v69 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+        v70 = v69;
+        if (v69 >> 62)
+        {
+          goto LABEL_125;
+        }
+
+        if (!*((v69 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+          goto LABEL_126;
+        }
+
+        goto LABEL_67;
+      }
+
+      v67 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if ((v67 & 1) == 0)
+      {
+        goto LABEL_129;
+      }
+    }
+
+    goto LABEL_65;
+  }
+
+LABEL_56:
+  v57 = 1.0;
+  while (1)
+  {
+    v74 = v127;
+    *(v127 + OBJC_IVAR____TtC6Tamale14ARCameraSource_minimumZoomFactor) = v57;
+    v75 = OBJC_IVAR____TtC6Tamale14ARCameraSource_minimumZoomFactor;
+    v76 = OBJC_IVAR____TtC6Tamale14ARCameraSource_targetZoomFactor;
+    *(v74 + OBJC_IVAR____TtC6Tamale14ARCameraSource_targetZoomFactor) = v57;
+    v77 = v74 + OBJC_IVAR____TtC6Tamale14ARCameraSource_configuration;
+    swift_beginAccess();
+    v78 = *(v77 + *(type metadata accessor for CameraControllerConfiguration(0) + 44)) - 1;
+    v79 = [v136 deviceType];
+    v80 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v82 = v81;
+    v85 = v80 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v82 == v83;
+    if (v78 <= 1)
+    {
+      if (v85)
+      {
+
+LABEL_83:
+        v68 = [v136 virtualDeviceSwitchOverVideoZoomFactors];
+        sub_10005BBC4(0, &qword_1001D81C0, NSNumber_ptr);
+        v87 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+        v70 = v87;
+        if (v87 >> 62)
+        {
+          v88 = _CocoaArrayWrapper.endIndex.getter();
+          if (v88)
+          {
+LABEL_85:
+
+            v89 = v88 - 1;
+            if (__OFSUB__(v88, 1))
+            {
+              goto LABEL_117;
+            }
+
+            if ((v70 & 0xC000000000000001) != 0)
+            {
+              goto LABEL_119;
+            }
+
+            v90 = v136;
+            if ((v89 & 0x8000000000000000) != 0)
+            {
+              __break(1u);
+LABEL_122:
+              __break(1u);
+            }
+
+            else if (v89 < *((v70 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            {
+              v91 = *(v70 + 8 * v89 + 32);
+LABEL_90:
+
+              [v91 doubleValue];
+              v93 = v92;
+
+              v94 = v93 * 3.0;
+              goto LABEL_103;
+            }
+
+            __break(1u);
+            goto LABEL_124;
+          }
+        }
+
+        else
+        {
+          v88 = *((v87 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          if (v88)
+          {
+            goto LABEL_85;
+          }
+        }
+
+        __break(1u);
+        goto LABEL_115;
+      }
+
+      v86 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if (v86)
+      {
+        goto LABEL_83;
+      }
+
+      v102 = *(v127 + v75);
+      v103 = 6.0;
+LABEL_102:
+      v94 = v102 * v103;
+      v90 = v136;
+      goto LABEL_103;
+    }
+
+    if (v85)
+    {
+    }
+
+    else
+    {
+      v95 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if ((v95 & 1) == 0)
+      {
+
+        v102 = *(v127 + v75);
+        v103 = 3.0;
+        goto LABEL_102;
+      }
+    }
+
+    v68 = [v136 virtualDeviceSwitchOverVideoZoomFactors];
+    sub_10005BBC4(0, &qword_1001D81C0, NSNumber_ptr);
+    v96 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v70 = v96;
+    if (!(v96 >> 62))
+    {
+      v97 = *((v96 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (!v97)
+      {
+        goto LABEL_116;
+      }
+
+      goto LABEL_94;
+    }
+
+LABEL_115:
+    v97 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v97)
+    {
+LABEL_116:
+
+      __break(1u);
+LABEL_117:
+      __break(1u);
+LABEL_118:
+      __break(1u);
+LABEL_119:
+      v91 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v90 = v136;
+      goto LABEL_90;
+    }
+
+LABEL_94:
+
+    v98 = v97 - 1;
+    if (__OFSUB__(v97, 1))
+    {
+      goto LABEL_118;
+    }
+
+    if ((v70 & 0xC000000000000001) != 0)
+    {
+      break;
+    }
+
+    v90 = v136;
+    if ((v98 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_122;
+    }
+
+    if (v98 < *((v70 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    {
+      v99 = *(v70 + 8 * v98 + 32);
+      goto LABEL_99;
+    }
+
+LABEL_124:
+    __break(1u);
+LABEL_125:
+    if (!_CocoaArrayWrapper.endIndex.getter())
+    {
+LABEL_126:
+
+      __break(1u);
+      goto LABEL_127;
+    }
+
+LABEL_67:
+
+    if ((v70 & 0xC000000000000001) == 0)
+    {
+      if (*((v70 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      {
+        v71 = *(v70 + 32);
+        goto LABEL_70;
+      }
+
+      __break(1u);
+      while (1)
+      {
+LABEL_129:
+        _assertionFailure(_:_:file:line:flags:)();
+        __break(1u);
+      }
+    }
+
+LABEL_127:
+    v71 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+LABEL_70:
+    v72 = v71;
+
+    [v72 doubleValue];
+    v57 = v73;
+  }
+
+  v99 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+  v90 = v136;
+LABEL_99:
+
+  [v99 doubleValue];
+  v101 = v100;
+
+  v94 = v101;
+LABEL_103:
+  v104 = v127;
+  *(v127 + OBJC_IVAR____TtC6Tamale14ARCameraSource_maximumZoomFactor) = v94;
+  [v90 setMaxAvailableVideoZoomFactorOverride:?];
+  sub_10007C870(0, *(v104 + v76));
+  sub_10007BD28(a1, v90);
+  aBlock = v90;
+  swift_getKeyPath();
+  swift_allocObject();
+  swift_unknownObjectWeakInit();
+  v105 = _KeyValueCodingAndObserving.observe<A>(_:options:changeHandler:)();
+
+  v106 = *(v104 + OBJC_IVAR____TtC6Tamale14ARCameraSource_systemPressureObservation);
+  *(v104 + OBJC_IVAR____TtC6Tamale14ARCameraSource_systemPressureObservation) = v105;
+
+  [a1 setAutomaticallyRunsDeferredStart:0];
+  v107 = swift_allocObject();
+  swift_unknownObjectWeakInit();
+  v108 = swift_allocObject();
+  swift_unknownObjectWeakInit();
+  v109 = swift_allocObject();
+  *(v109 + 16) = v107;
+  *(v109 + 24) = v108;
+  v110 = [v90 activeFormat];
+  v111 = [v110 formatDescription];
+
+  Dimensions = CMVideoFormatDescriptionGetDimensions(v111);
+  v138 = *(v104 + OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue);
+  v113 = swift_allocObject();
+  swift_unknownObjectWeakInit();
+  v114 = swift_allocObject();
+  v114[2] = v113;
+  v114[3] = Dimensions;
+  v114[4] = sub_100092F78;
+  v114[5] = v109;
+  v145 = sub_100092FC0;
+  v146 = v114;
+  aBlock = _NSConcreteStackBlock;
+  v142 = 1107296256;
+  v143 = sub_1000B5F04;
+  v144 = &unk_1001C2848;
+  v115 = _Block_copy(&aBlock);
+
+  v116 = v120;
+  static DispatchQoS.unspecified.getter();
+  v139 = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
+  v117 = v90;
+  v118 = v122;
+  v119 = v125;
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  OS_dispatch_queue.async(group:qos:flags:execute:)();
+  _Block_release(v115);
+
+  (*(v124 + 8))(v118, v119);
+  (*(v121 + 8))(v116, v123);
+}
+
 uint64_t sub_1000777C4(uint64_t (*a1)(id *), uint64_t a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
@@ -31,59 +675,59 @@ uint64_t sub_1000777C4(uint64_t (*a1)(id *), uint64_t a2, uint64_t a3)
   return v9 & 1;
 }
 
-void sub_10007786C()
+void sub_10007786C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = type metadata accessor for DispatchWorkItemFlags();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v16 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for DispatchQoS();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for DispatchWorkItemFlags();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for DispatchQoS();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v9 = Strong;
-    v20 = v5;
-    sub_1000033A8(&qword_1001D8208);
+    v12 = Strong;
+    v23 = v8;
+    sub_1000033A8(&qword_1001D8208, &qword_100177280);
     NSKeyValueObservedChange.newValue.getter();
-    v10 = aBlock[0];
+    v13 = aBlock[0];
     if (aBlock[0])
     {
-      v19 = *&v9[OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue];
-      v11 = swift_allocObject();
-      v18 = v1;
-      v12 = v11;
+      v22 = *&v12[OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue];
+      v14 = swift_allocObject();
+      v21 = v4;
+      v15 = v14;
       swift_beginAccess();
-      v13 = swift_unknownObjectWeakLoadStrong();
+      v16 = swift_unknownObjectWeakLoadStrong();
       swift_unknownObjectWeakInit();
 
-      v14 = swift_allocObject();
-      *(v14 + 16) = v12;
-      *(v14 + 24) = v10;
+      v17 = swift_allocObject();
+      *(v17 + 16) = v15;
+      *(v17 + 24) = v13;
       aBlock[4] = sub_10009300C;
-      aBlock[5] = v14;
+      aBlock[5] = v17;
       aBlock[0] = _NSConcreteStackBlock;
       aBlock[1] = 1107296256;
       aBlock[2] = sub_1000B5F04;
       aBlock[3] = &unk_1001C2898;
-      v15 = _Block_copy(aBlock);
+      v18 = _Block_copy(aBlock);
 
-      v17 = v10;
+      v20 = v13;
       static DispatchQoS.unspecified.getter();
-      v21 = &_swiftEmptyArrayStorage;
-      sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-      v16 = v4;
-      sub_1000033A8(&unk_1001D8010);
-      sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+      v24 = _swiftEmptyArrayStorage;
+      sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      v19 = v7;
+      sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+      sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
       dispatch thunk of SetAlgebra.init<A>(_:)();
       OS_dispatch_queue.async(group:qos:flags:execute:)();
-      _Block_release(v15);
+      _Block_release(v18);
 
-      (*(v18 + 8))(v3, v0);
-      (*(v20 + 8))(v7, v16);
+      (*(v21 + 8))(v6, v3);
+      (*(v23 + 8))(v10, v19);
     }
 
     else
@@ -92,13 +736,13 @@ void sub_10007786C()
   }
 }
 
-void sub_100077C14()
+void sub_100077C14(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     *(Strong + OBJC_IVAR____TtC6Tamale14ARCameraSource_systemPressureLevel) = sub_100077C78();
   }
 }
@@ -194,37 +838,37 @@ LABEL_23:
   }
 }
 
-void sub_100077F4C()
+void sub_100077F4C(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for DispatchPredicate();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v10[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v2 = type metadata accessor for DispatchPredicate();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v12[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v5 = Strong;
+    v7 = Strong;
     swift_beginAccess();
-    v6 = swift_unknownObjectWeakLoadStrong();
-    if (v6)
+    v8 = swift_unknownObjectWeakLoadStrong();
+    if (v8)
     {
-      v7 = v6;
-      v8 = *&v5[OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue];
-      *v3 = v8;
-      (*(v1 + 104))(v3, enum case for DispatchPredicate.onQueue(_:), v0);
       v9 = v8;
-      LOBYTE(v8) = _dispatchPreconditionTest(_:)();
-      (*(v1 + 8))(v3, v0);
-      if ((v8 & 1) == 0)
+      v10 = *&v7[OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue];
+      *v5 = v10;
+      (*(v3 + 104))(v5, enum case for DispatchPredicate.onQueue(_:), v2);
+      v11 = v10;
+      LOBYTE(v10) = _dispatchPreconditionTest(_:)();
+      (*(v3 + 8))(v5, v2);
+      if ((v10 & 1) == 0)
       {
         __break(1u);
         return;
       }
 
-      [v7 runDeferredStartWhenNeeded];
+      [v9 runDeferredStartWhenNeeded];
 
-      v5 = v7;
+      v7 = v9;
     }
   }
 }
@@ -262,7 +906,7 @@ void sub_1000780CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 }
 
-id sub_10007822C(id a1, id a2)
+void sub_10007822C(id a1, id a2)
 {
   v99 = type metadata accessor for DispatchWorkItemFlags();
   v98 = *(v99 - 8);
@@ -273,7 +917,7 @@ id sub_10007822C(id a1, id a2)
   __chkstk_darwin(v97);
   v94 = &v94 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = [a1 outputs];
-  sub_10005BBC4(0, &qword_1001D81E0);
+  sub_10005BBC4(0, &qword_1001D81E0, AVCaptureOutput_ptr);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v103 = v7;
@@ -355,7 +999,7 @@ LABEL_6:
   v16 = v15;
   v17 = [v15 inputPorts];
 
-  sub_10005BBC4(0, &qword_1001D81E8);
+  sub_10005BBC4(0, &qword_1001D81E8, AVCaptureInputPort_ptr);
   v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v105 = v10;
@@ -489,7 +1133,7 @@ LABEL_65:
   v39 = v36;
   [a1 addOutputWithNoConnections:v39];
   v40 = [a1 inputs];
-  sub_10005BBC4(0, &qword_1001D81F0);
+  sub_10005BBC4(0, &qword_1001D81F0, AVCaptureInput_ptr);
   v41 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v42 = sub_100079024(v41);
@@ -605,12 +1249,12 @@ LABEL_58:
 
 LABEL_67:
 
-  sub_1000033A8(&qword_1001D5248);
+  sub_1000033A8(&qword_1001D5248, &qword_100172968);
   v60 = swift_allocObject();
   *(v60 + 16) = xmmword_100176B10;
   *(v60 + 32) = v44;
   v61 = objc_allocWithZone(AVCaptureConnection);
-  sub_10005BBC4(0, &qword_1001D81E8);
+  sub_10005BBC4(0, &qword_1001D81E8, AVCaptureInputPort_ptr);
   v62 = v44;
   isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -621,10 +1265,10 @@ LABEL_67:
 LABEL_76:
   v38 = 0;
 LABEL_77:
-  result = [v36 metadataObjectTypes];
-  if (result)
+  v65 = [v36 metadataObjectTypes];
+  if (v65)
   {
-    v66 = result;
+    v66 = v65;
     type metadata accessor for ObjectType(0);
     v67 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -738,10 +1382,10 @@ LABEL_77:
     v89 = v72;
     v90 = v94;
     static DispatchQoS.unspecified.getter();
-    v113 = &_swiftEmptyArrayStorage;
-    sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-    sub_1000033A8(&unk_1001D8010);
-    sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+    v113 = _swiftEmptyArrayStorage;
+    sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+    sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
     v91 = v96;
     v92 = v99;
     dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -756,8 +1400,6 @@ LABEL_77:
   {
     __break(1u);
   }
-
-  return result;
 }
 
 void *sub_100079024(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
@@ -774,7 +1416,7 @@ void *sub_100079024(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
     v28 = isUniquelyReferenced_nonNull_bridgeObject & 0xFFFFFFFFFFFFFF8;
     v29 = isUniquelyReferenced_nonNull_bridgeObject & 0xC000000000000001;
     v27 = isUniquelyReferenced_nonNull_bridgeObject + 32;
-    v3 = &_swiftEmptyArrayStorage;
+    v3 = _swiftEmptyArrayStorage;
     v26 = v1;
     while (1)
     {
@@ -802,7 +1444,7 @@ void *sub_100079024(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
       }
 
       v7 = [isUniquelyReferenced_nonNull_bridgeObject ports];
-      sub_10005BBC4(0, &qword_1001D81E8);
+      sub_10005BBC4(0, &qword_1001D81E8, AVCaptureInputPort_ptr);
       v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       v9 = v8 >> 62;
@@ -892,10 +1534,10 @@ LABEL_25:
               goto LABEL_44;
             }
 
-            sub_100013608(&qword_1001D8200, &qword_1001D81F8);
+            sub_100013608(&qword_1001D8200, &qword_1001D81F8, qword_100177238, &protocol conformance descriptor for [A]);
             for (i = 0; i != v16; ++i)
             {
-              sub_1000033A8(&qword_1001D81F8);
+              sub_1000033A8(&qword_1001D81F8, qword_100177238);
               v19 = sub_1000907D4(v31, i, v8);
               v21 = *v20;
               (v19)(v31, 0);
@@ -967,10 +1609,10 @@ LABEL_45:
     isUniquelyReferenced_nonNull_bridgeObject = v24;
   }
 
-  return &_swiftEmptyArrayStorage;
+  return _swiftEmptyArrayStorage;
 }
 
-void *sub_1000793B8(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
+void sub_1000793B8(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
 {
   if (isUniquelyReferenced_nonNull_bridgeObject >> 62)
   {
@@ -981,13 +1623,13 @@ void *sub_1000793B8(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
   while (v1)
   {
     v2 = 0;
-    v32 = isUniquelyReferenced_nonNull_bridgeObject & 0xFFFFFFFFFFFFFF8;
-    v33 = isUniquelyReferenced_nonNull_bridgeObject & 0xC000000000000001;
-    v3 = &_swiftEmptyArrayStorage;
-    v31 = v1;
+    v31 = isUniquelyReferenced_nonNull_bridgeObject & 0xFFFFFFFFFFFFFF8;
+    v32 = isUniquelyReferenced_nonNull_bridgeObject & 0xC000000000000001;
+    v3 = _swiftEmptyArrayStorage;
+    v30 = v1;
     while (1)
     {
-      if (v33)
+      if (v32)
       {
         isUniquelyReferenced_nonNull_bridgeObject = specialized _ArrayBuffer._getElementSlowPath(_:)();
         v4 = __OFADD__(v2, 1);
@@ -1000,7 +1642,7 @@ void *sub_1000793B8(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
 
       else
       {
-        if (v2 >= *(v32 + 16))
+        if (v2 >= *(v31 + 16))
         {
           goto LABEL_66;
         }
@@ -1021,7 +1663,7 @@ void *sub_1000793B8(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
         v7 = v6;
         swift_unknownObjectRetain();
         v8 = [v7 sensors];
-        sub_10005BBC4(0, &qword_1001D95A0);
+        sub_10005BBC4(0, &qword_1001D95A0, ARImageSensor_ptr);
         v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
         v10 = v9 & 0xFFFFFFFFFFFFFF8;
@@ -1041,7 +1683,7 @@ void *sub_1000793B8(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
           if (v28 != v26)
           {
             __break(1u);
-            return result;
+            return;
           }
 
 LABEL_11:
@@ -1064,7 +1706,7 @@ LABEL_11:
         if (v11)
         {
           v12 = v11;
-          sub_1000033A8(&qword_1001D5248);
+          sub_1000033A8(&qword_1001D5248, &qword_100172968);
           v10 = swift_allocObject();
           *(v10 + 16) = xmmword_100176B10;
           *(v10 + 32) = v12;
@@ -1079,8 +1721,8 @@ LABEL_11:
         swift_unknownObjectRelease();
       }
 
-      v10 = &_swiftEmptyArrayStorage;
-      if ((&_swiftEmptyArrayStorage & 0x8000000000000000) != 0)
+      v10 = _swiftEmptyArrayStorage;
+      if ((_swiftEmptyArrayStorage & 0x8000000000000000) != 0)
       {
         goto LABEL_54;
       }
@@ -1124,7 +1766,7 @@ LABEL_56:
 
 LABEL_22:
       isUniquelyReferenced_nonNull_bridgeObject = swift_isUniquelyReferenced_nonNull_bridgeObject();
-      v34 = v5;
+      v33 = v5;
       if (isUniquelyReferenced_nonNull_bridgeObject)
       {
         if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
@@ -1189,7 +1831,7 @@ LABEL_4:
         break;
       }
 
-      sub_10005BBC4(0, &qword_1001D95A0);
+      sub_10005BBC4(0, &qword_1001D95A0, ARImageSensor_ptr);
       swift_arrayInitWithCopy();
 
       if (v14 < 1)
@@ -1208,10 +1850,10 @@ LABEL_49:
 
       *(v16 + 16) = v24;
 LABEL_5:
-      v2 = v34;
-      if (v34 == v1)
+      v2 = v33;
+      if (v33 == v1)
       {
-        return v3;
+        return;
       }
     }
 
@@ -1234,7 +1876,7 @@ LABEL_39:
 
 LABEL_48:
 
-      v1 = v31;
+      v1 = v30;
       if (v14 < 1)
       {
         goto LABEL_5;
@@ -1284,12 +1926,10 @@ LABEL_70:
 LABEL_71:
     __break(1u);
 LABEL_72:
-    v30 = isUniquelyReferenced_nonNull_bridgeObject;
+    v29 = isUniquelyReferenced_nonNull_bridgeObject;
     v1 = _CocoaArrayWrapper.endIndex.getter();
-    isUniquelyReferenced_nonNull_bridgeObject = v30;
+    isUniquelyReferenced_nonNull_bridgeObject = v29;
   }
-
-  return &_swiftEmptyArrayStorage;
 }
 
 void sub_100079864(uint64_t a1, void *a2, uint64_t *a3)
@@ -1313,7 +1953,7 @@ uint64_t sub_1000798D8(uint64_t a1)
   v2[10] = type metadata accessor for CameraControllerConfiguration(0);
   v2[11] = swift_task_alloc();
   v2[12] = swift_task_alloc();
-  sub_1000033A8(&qword_1001D8020);
+  sub_1000033A8(&qword_1001D8020, &qword_1001728D0);
   v2[13] = swift_task_alloc();
 
   return _swift_task_switch(sub_1000799B0, 0, 0);
@@ -1325,15 +1965,15 @@ uint64_t sub_1000799B0()
   if (*(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_arCameraSourceReplay))
   {
     v2 = v0[13];
-    sub_1000138BC(v0[8] + *(v0[10] + 68), v2, &qword_1001D8020);
+    sub_1000138BC(v0[8] + *(v0[10] + 68), v2, &qword_1001D8020, &qword_1001728D0);
     v3 = type metadata accessor for URL();
     v4 = (*(*(v3 - 8) + 48))(v2, 1, v3);
-    sub_10001370C(v2, &qword_1001D8020);
+    v5 = sub_10001370C(v2, &qword_1001D8020, &qword_1001728D0);
     if (v4 == 1)
     {
-      sub_10006043C();
+      sub_10006043C(v5, v6, v7);
       swift_allocError();
-      *v5 = xmmword_100176B20;
+      *v8 = xmmword_100176B20;
 LABEL_18:
       swift_willThrow();
       goto LABEL_20;
@@ -1342,69 +1982,70 @@ LABEL_18:
     v1 = v0[9];
   }
 
-  v6 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState);
-  v7 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 8);
-  v8 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 16);
-  if (v8 == 1 || (v8 == 3 ? (v9 = v6 == 2) : (v9 = 0), v9 ? (v10 = v7 == 0) : (v10 = 0), v10))
+  v9 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState);
+  v10 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 8);
+  v11 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 16);
+  if (v11 == 1 || (v11 == 3 ? (v12 = v9 == 2) : (v12 = 0), v12 ? (v13 = v10 == 0) : (v13 = 0), v13))
   {
-    sub_100060424(v6, v7, v8);
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v18, v19))
+    sub_100060424(v9, v10, v11);
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v24, v25))
     {
-      v20 = swift_slowAlloc();
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v18, v19, "Reconfigure unsupported when running.", v20, 2u);
+      v26 = swift_slowAlloc();
+      *v26 = 0;
+      _os_log_impl(&_mh_execute_header, v24, v25, "Reconfigure unsupported when running.", v26, 2u);
     }
 
-    sub_10006043C();
+    sub_10006043C(v27, v28, v29);
     swift_allocError();
-    *v21 = 0xD000000000000020;
-    v21[1] = 0x800000010016D2C0;
+    *v30 = 0xD000000000000020;
+    v30[1] = 0x800000010016D2C0;
     goto LABEL_18;
   }
 
-  v11 = v0[12];
-  v12 = v0[10];
-  v13 = v0[8];
-  v14 = OBJC_IVAR____TtC6Tamale14ARCameraSource_configuration;
+  v14 = v0[12];
+  v15 = v0[10];
+  v16 = v0[8];
+  v17 = OBJC_IVAR____TtC6Tamale14ARCameraSource_configuration;
   swift_beginAccess();
-  sub_10009237C(v1 + v14, v11, type metadata accessor for CameraControllerConfiguration);
-  *(v11 + v12[6]) = *(v13 + v12[6]);
-  sub_100092D70(v13 + v12[21], v11 + v12[21]);
-  sub_100092D70(v13 + v12[17], v11 + v12[17]);
-  *(v11 + v12[13]) = *(v13 + v12[13]);
-  *(v11 + v12[15]) = *(v13 + v12[15]);
-  *(v11 + v12[19]) = *(v13 + v12[19]);
-  *(v11 + v12[9]) = *(v13 + v12[9]);
-  if (sub_10004B234(v11, v13))
+  sub_10009237C(v1 + v17, v14, type metadata accessor for CameraControllerConfiguration);
+  *(v14 + v15[6]) = *(v16 + v15[6]);
+  sub_100092D70(v16 + v15[21], v14 + v15[21]);
+  sub_100092D70(v16 + v15[17], v14 + v15[17]);
+  *(v14 + v15[13]) = *(v16 + v15[13]);
+  *(v14 + v15[15]) = *(v16 + v15[15]);
+  *(v14 + v15[19]) = *(v16 + v15[19]);
+  *(v14 + v15[9]) = *(v16 + v15[9]);
+  v18 = sub_10004B234(v14, v16);
+  if (v18)
   {
-    v15 = v0[12];
-    v16 = v0[11];
-    sub_10009237C(v0[8], v16, type metadata accessor for CameraControllerConfiguration);
+    v21 = v0[12];
+    v22 = v0[11];
+    sub_10009237C(v0[8], v22, type metadata accessor for CameraControllerConfiguration);
     swift_beginAccess();
-    sub_100092DE0(v16, v1 + v14, type metadata accessor for CameraControllerConfiguration);
+    sub_100092DE0(v22, v1 + v17, type metadata accessor for CameraControllerConfiguration);
     swift_endAccess();
     sub_100073560();
-    sub_100092314(v15, type metadata accessor for CameraControllerConfiguration);
+    sub_100092314(v21, type metadata accessor for CameraControllerConfiguration);
 
-    v17 = v0[1];
+    v23 = v0[1];
     goto LABEL_21;
   }
 
-  v22 = v0[12];
-  sub_10006043C();
+  v31 = v0[12];
+  sub_10006043C(v18, v19, v20);
   swift_allocError();
-  *v23 = 0xD000000000000039;
-  v23[1] = 0x800000010016D280;
+  *v32 = 0xD000000000000039;
+  v32[1] = 0x800000010016D280;
   swift_willThrow();
-  sub_100092314(v22, type metadata accessor for CameraControllerConfiguration);
+  sub_100092314(v31, type metadata accessor for CameraControllerConfiguration);
 LABEL_20:
 
-  v17 = v0[1];
+  v23 = v0[1];
 LABEL_21:
 
-  return v17();
+  return v23();
 }
 
 void sub_100079DCC(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1436,7 +2077,7 @@ id sub_100079E48(uint64_t a1, uint64_t a2)
 void sub_100079EC0()
 {
   v1 = v0;
-  v2 = sub_1000033A8(&qword_1001D41B0);
+  v2 = sub_1000033A8(&qword_1001D41B0, &qword_100170B60);
   __chkstk_darwin(v2 - 8);
   v4 = aBlock - v3;
   v5 = type metadata accessor for DispatchPredicate();
@@ -1469,7 +2110,7 @@ void sub_100079EC0()
 
           else
           {
-            v24 = v14;
+            v27 = v14;
           }
 
           sub_10009DDBC();
@@ -1477,47 +2118,47 @@ void sub_100079EC0()
           objc_opt_self();
           if (!swift_dynamicCastObjCClass())
           {
-            v25 = sub_100072B00();
-            v26 = swift_allocObject();
+            v28 = sub_100072B00();
+            v29 = swift_allocObject();
             swift_unknownObjectWeakInit();
             aBlock[4] = sub_100092CBC;
-            aBlock[5] = v26;
+            aBlock[5] = v29;
             aBlock[0] = _NSConcreteStackBlock;
             aBlock[1] = 1107296256;
             aBlock[2] = sub_10002C13C;
             aBlock[3] = &unk_1001C26E0;
-            v27 = _Block_copy(aBlock);
+            v30 = _Block_copy(aBlock);
 
-            [v25 setBeforeRunningAVCaptureSession:v27];
-            _Block_release(v27);
+            [v28 setBeforeRunningAVCaptureSession:v30];
+            _Block_release(v30);
           }
 
           if (*(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_arCameraSourceReplay))
           {
-            v28 = type metadata accessor for TaskPriority();
-            (*(*(v28 - 8) + 56))(v4, 1, 1, v28);
+            v31 = type metadata accessor for TaskPriority();
+            (*(*(v31 - 8) + 56))(v4, 1, 1, v31);
             type metadata accessor for MainActor();
-            v29 = static MainActor.shared.getter();
-            v30 = swift_allocObject();
-            *(v30 + 16) = v29;
-            *(v30 + 24) = &protocol witness table for MainActor;
-            sub_1000154EC(0, 0, v4, &unk_100177230, v30);
+            v32 = static MainActor.shared.getter();
+            v33 = swift_allocObject();
+            *(v33 + 16) = v32;
+            *(v33 + 24) = &protocol witness table for MainActor;
+            sub_1000154EC(0, 0, v4, &unk_100177230, v33);
           }
 
-          v31 = sub_100072B00();
-          [v31 runWithConfiguration:v14 options:7];
+          v34 = sub_100072B00();
+          [v34 runWithConfiguration:v14 options:7];
 
-          v32 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource____lazy_storage___session);
-          LOBYTE(v31) = sub_1000733F4(v32);
+          v35 = *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource____lazy_storage___session);
+          LOBYTE(v34) = sub_1000733F4(v35);
 
-          *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_localizationState) = v31;
-          v33 = *v11;
-          v34 = *(v11 + 8);
-          *v11 = v31;
+          *(v1 + OBJC_IVAR____TtC6Tamale14ARCameraSource_localizationState) = v34;
+          v36 = *v11;
+          v37 = *(v11 + 8);
+          *v11 = v34;
           *(v11 + 8) = 0;
-          v35 = *(v11 + 16);
+          v38 = *(v11 + 16);
           *(v11 + 16) = 1;
-          sub_1000616E4(v33, v34, v35);
+          sub_1000616E4(v36, v37, v38);
           sub_1000731B8();
         }
 
@@ -1533,15 +2174,15 @@ void sub_100079EC0()
           }
 
           LOBYTE(aBlock[0]) = 0;
-          sub_100092C68();
-          v19 = Error.localizedDescription.getter();
-          v20 = *v11;
-          v21 = *(v11 + 8);
-          *v11 = v19;
-          *(v11 + 8) = v22;
-          v23 = *(v11 + 16);
+          sub_100092C68(v19, v20, v21);
+          v22 = Error.localizedDescription.getter();
+          v23 = *v11;
+          v24 = *(v11 + 8);
+          *v11 = v22;
+          *(v11 + 8) = v25;
+          v26 = *(v11 + 16);
           *(v11 + 16) = 2;
-          sub_1000616E4(v20, v21, v23);
+          sub_1000616E4(v23, v24, v26);
           sub_1000731B8();
         }
       }
@@ -1554,20 +2195,20 @@ void sub_100079EC0()
   }
 }
 
-void sub_10007A378(unint64_t a1)
+void sub_10007A378(unint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = Strong;
+    v4 = Strong;
     sub_10007655C(a1);
   }
 }
 
-uint64_t sub_10007A3D4()
+double sub_10007A3D4()
 {
-  v1 = sub_1000033A8(&qword_1001D41B0);
+  v1 = sub_1000033A8(&qword_1001D41B0, &qword_100170B60);
   __chkstk_darwin(v1 - 8);
   v3 = &v10[-v2];
   v4 = swift_allocObject();
@@ -1594,16 +2235,16 @@ uint64_t sub_10007A3D4()
 
 BOOL sub_10007A56C(char *a1)
 {
-  v2 = sub_1000033A8(&qword_1001D8020);
+  v2 = sub_1000033A8(&qword_1001D8020, &qword_1001728D0);
   __chkstk_darwin(v2 - 8);
   v4 = &v36 - v3;
   v5 = &a1[OBJC_IVAR____TtC6Tamale14ARCameraSource_configuration];
   swift_beginAccess();
   v6 = type metadata accessor for CameraControllerConfiguration(0);
-  sub_1000138BC(&v5[*(v6 + 68)], v4, &qword_1001D8020);
+  sub_1000138BC(&v5[*(v6 + 68)], v4, &qword_1001D8020, &qword_1001728D0);
   v7 = type metadata accessor for URL();
   LODWORD(v5) = (*(*(v7 - 8) + 48))(v4, 1, v7);
-  sub_10001370C(v4, &qword_1001D8020);
+  sub_10001370C(v4, &qword_1001D8020, &qword_1001728D0);
   if (v5 != 1)
   {
     v8 = &a1[OBJC_IVAR____TtC6Tamale14ARCameraSource_runState];
@@ -1733,10 +2374,10 @@ uint64_t sub_10007AB20()
   v10 = v1;
 
   static DispatchQoS.unspecified.getter();
-  v0[8] = &_swiftEmptyArrayStorage;
-  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+  v0[8] = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v7);
@@ -1791,8 +2432,8 @@ void sub_10007ADC4(uint64_t a1, void *a2)
         v23 = a2;
         sub_100092260(v12, v13);
         sub_100060424(v16, v17, v29);
-        v18 = sub_10005BBC4(0, &qword_1001D7430);
-        v19 = sub_10008BB9C(&qword_1001D7438, &qword_1001D7430);
+        v18 = sub_10005BBC4(0, &qword_1001D7430, ARFrame_ptr);
+        v19 = sub_10008BB9C(&qword_1001D7438, &qword_1001D7430, ARFrame_ptr, &protocol conformance descriptor for ARFrame);
         v20(&v24, v25, v18, v19, ObjectType, v10);
 
         swift_unknownObjectRelease();
@@ -1807,10 +2448,10 @@ void sub_10007ADC4(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_10007AFB4(unsigned __int8 a1)
+void sub_10007AFB4(unsigned __int8 a1)
 {
   v2 = v1;
-  v4 = sub_1000033A8(&qword_1001D41B0);
+  v4 = sub_1000033A8(&qword_1001D41B0, &qword_100170B60);
   __chkstk_darwin(v4 - 8);
   v6 = aBlock - v5;
   v7 = type metadata accessor for DispatchPredicate();
@@ -1822,66 +2463,66 @@ uint64_t sub_10007AFB4(unsigned __int8 a1)
   (*(v8 + 104))(v10, enum case for DispatchPredicate.onQueue(_:), v7);
   v12 = v11;
   LOBYTE(v11) = _dispatchPreconditionTest(_:)();
-  result = (*(v8 + 8))(v10, v7);
+  (*(v8 + 8))(v10, v7);
   if (v11)
   {
-    v14 = v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState;
+    v13 = v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState;
     if (*(v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 16))
     {
-      v15 = *(v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_arCameraSourceRecording);
-      if (v15)
+      v14 = *(v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_arCameraSourceRecording);
+      if (v14)
       {
 
-        v16 = dispatch_semaphore_create(0);
-        v17 = *(v15 + 16);
-        if (v17)
+        v15 = dispatch_semaphore_create(0);
+        v16 = *(v14 + 16);
+        if (v16)
         {
-          v18 = swift_allocObject();
-          *(v18 + 16) = v16;
+          v17 = swift_allocObject();
+          *(v17 + 16) = v15;
           aBlock[4] = sub_100092BE0;
-          aBlock[5] = v18;
+          aBlock[5] = v17;
           aBlock[0] = _NSConcreteStackBlock;
           aBlock[1] = 1107296256;
           aBlock[2] = sub_10008DBBC;
           aBlock[3] = &unk_1001C2668;
-          v19 = _Block_copy(aBlock);
-          v20 = v17;
-          v21 = v16;
+          v18 = _Block_copy(aBlock);
+          v19 = v16;
+          v20 = v15;
 
-          [v20 finishRecordingWithHandler:v19];
-          _Block_release(v19);
+          [v19 finishRecordingWithHandler:v18];
+          _Block_release(v18);
         }
 
-        [*(v15 + OBJC_IVAR____TtC6Tamale23ARCameraSourceRecording_session) pause];
+        [*(v14 + OBJC_IVAR____TtC6Tamale23ARCameraSourceRecording_session) pause];
         OS_dispatch_semaphore.wait()();
       }
 
       else
       {
-        v16 = sub_100072B00();
-        [v16 pause];
+        v15 = sub_100072B00();
+        [v15 pause];
       }
 
       if (*(v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_arCameraSourceReplay))
       {
-        v22 = type metadata accessor for TaskPriority();
-        (*(*(v22 - 8) + 56))(v6, 1, 1, v22);
+        v21 = type metadata accessor for TaskPriority();
+        (*(*(v21 - 8) + 56))(v6, 1, 1, v21);
         type metadata accessor for MainActor();
-        v23 = static MainActor.shared.getter();
-        v24 = swift_allocObject();
-        *(v24 + 16) = v23;
-        *(v24 + 24) = &protocol witness table for MainActor;
-        sub_1000154EC(0, 0, v6, &unk_100177218, v24);
+        v22 = static MainActor.shared.getter();
+        v23 = swift_allocObject();
+        *(v23 + 16) = v22;
+        *(v23 + 24) = &protocol witness table for MainActor;
+        sub_1000154EC(0, 0, v6, &unk_100177218, v23);
       }
 
-      v25 = *v14;
-      v26 = *(v14 + 8);
-      *v14 = a1;
-      *(v14 + 8) = 0;
-      v27 = *(v14 + 16);
-      *(v14 + 16) = 0;
-      sub_1000616E4(v25, v26, v27);
-      return sub_1000731B8();
+      v24 = *v13;
+      v25 = *(v13 + 8);
+      *v13 = a1;
+      *(v13 + 8) = 0;
+      v26 = *(v13 + 16);
+      *(v13 + 16) = 0;
+      sub_1000616E4(v24, v25, v26);
+      sub_1000731B8();
     }
   }
 
@@ -1889,15 +2530,13 @@ uint64_t sub_10007AFB4(unsigned __int8 a1)
   {
     __break(1u);
   }
-
-  return result;
 }
 
-id sub_10007B334()
+void sub_10007B334()
 {
-  v1 = sub_1000033A8(&qword_1001D41B0);
+  v1 = sub_1000033A8(&qword_1001D41B0, &qword_100170B60);
   __chkstk_darwin(v1 - 8);
-  v3 = &v15 - v2;
+  v3 = &v14 - v2;
   v4 = OBJC_IVAR____TtC6Tamale14ARCameraSource_shutterSoundTask;
 
   Task.cancel()();
@@ -1938,13 +2577,11 @@ id sub_10007B334()
 
   else
   {
-    v14 = type metadata accessor for ARCameraSource(0);
-    v15.receiver = v12;
-    v15.super_class = v14;
-    return objc_msgSendSuper2(&v15, "dealloc");
+    v13 = type metadata accessor for ARCameraSource(0);
+    v14.receiver = v12;
+    v14.super_class = v13;
+    objc_msgSendSuper2(&v14, "dealloc");
   }
-
-  return result;
 }
 
 uint64_t sub_10007B5C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1986,7 +2623,7 @@ void sub_10007BD28(void *a1, uint64_t a2)
   {
     v30 = OBJC_IVAR____TtC6Tamale14ARCameraSource_systemZoomSlider;
     v28 = v6;
-    sub_10005BBC4(0, &qword_1001D6B40);
+    sub_10005BBC4(0, &qword_1001D6B40, OS_dispatch_queue_ptr);
     v31 = v2;
     v9 = static OS_dispatch_queue.main.getter();
     v10 = v31;
@@ -2007,7 +2644,7 @@ void sub_10007BD28(void *a1, uint64_t a2)
     v29 = [v13 initWithDevice:a2 action:v14];
     _Block_release(v14);
 
-    sub_1000033A8(&qword_1001D81B0);
+    sub_1000033A8(&qword_1001D81B0, &qword_100177200);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_100170800;
     v16 = OBJC_IVAR____TtC6Tamale14ARCameraSource_minimumZoomFactor;
@@ -2021,10 +2658,10 @@ void sub_10007BD28(void *a1, uint64_t a2)
     *(inited + 56) = [v19 initWithDouble:v18];
     sub_100097458(inited);
     swift_setDeallocating();
-    sub_1000033A8(&qword_1001D81B8);
+    sub_1000033A8(&qword_1001D81B8, &qword_100177208);
     swift_arrayDestroy();
-    sub_10005BBC4(0, &qword_1001D81C0);
-    sub_10008BB9C(&qword_1001D81C8, &qword_1001D81C0);
+    sub_10005BBC4(0, &qword_1001D81C0, NSNumber_ptr);
+    sub_10008BB9C(&qword_1001D81C8, &qword_1001D81C0, NSNumber_ptr, &protocol conformance descriptor for NSObject);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
     [v20 setDisplayValuesByZoomFactorValue:isa];
@@ -2059,184 +2696,182 @@ void sub_10007BD28(void *a1, uint64_t a2)
   }
 }
 
-void sub_10007C1DC(double a1)
+void sub_10007C1DC(uint64_t a1, double a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = Strong;
-    sub_10007C244(2, a1);
+    v4 = Strong;
+    sub_10007C244(2, a2);
   }
 }
 
-uint64_t sub_10007C244(int a1, double a2)
+void sub_10007C244(int a1, double a2)
 {
   v3 = v2;
   v6 = type metadata accessor for DispatchWorkItemFlags();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for DispatchQoS();
-  v48 = *(v10 - 8);
+  v47 = *(v10 - 8);
   __chkstk_darwin(v10);
-  v47 = &v40 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v46 = &v39 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for Logger();
   v13 = *(v12 - 8);
-  result = __chkstk_darwin(v12);
-  v16 = &v40 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_minimumZoomFactor);
-  if (v17 <= a2)
+  __chkstk_darwin(v12);
+  v15 = &v39 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = *(v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_minimumZoomFactor);
+  if (v16 <= a2)
   {
-    v17 = a2;
+    v16 = a2;
   }
 
-  if (*(v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_maximumZoomFactor) >= v17)
+  if (*(v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_maximumZoomFactor) >= v16)
   {
-    v18 = v17;
+    v17 = v16;
   }
 
   else
   {
-    v18 = *(v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_maximumZoomFactor);
+    v17 = *(v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_maximumZoomFactor);
   }
 
-  v19 = OBJC_IVAR____TtC6Tamale14ARCameraSource_targetZoomFactor;
-  if (v18 != *(v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_targetZoomFactor))
+  v18 = OBJC_IVAR____TtC6Tamale14ARCameraSource_targetZoomFactor;
+  if (v17 != *(v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_targetZoomFactor))
   {
-    v46 = a1;
-    v44 = v10;
-    v45 = v7;
+    v45 = a1;
+    v43 = v10;
+    v44 = v7;
     static Log.zoom.getter();
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.debug.getter();
-    v22 = os_log_type_enabled(v20, v21);
-    v43 = v9;
-    if (v22)
+    v19 = Logger.logObject.getter();
+    v20 = static os_log_type_t.debug.getter();
+    v21 = os_log_type_enabled(v19, v20);
+    v42 = v9;
+    if (v21)
     {
-      v42 = v6;
-      v23 = swift_slowAlloc();
-      v41 = swift_slowAlloc();
-      aBlock[0] = v41;
-      *v23 = 134218242;
-      *(v23 + 4) = v18;
-      *(v23 + 12) = 2080;
-      v24 = 0xE500000000000000;
-      v25 = 0x7465736572;
-      v26 = 0x800000010016D200;
-      v27 = 0x65727574736567;
-      if (v46 == 2)
+      v41 = v6;
+      v22 = swift_slowAlloc();
+      v40 = swift_slowAlloc();
+      aBlock[0] = v40;
+      *v22 = 134218242;
+      *(v22 + 4) = v17;
+      *(v22 + 12) = 2080;
+      v23 = 0xE500000000000000;
+      v24 = 0x7465736572;
+      v25 = 0x800000010016D200;
+      v26 = 0x65727574736567;
+      if (v45 == 2)
       {
-        v27 = 0xD000000000000013;
+        v26 = 0xD000000000000013;
       }
 
       else
       {
-        v26 = 0xE700000000000000;
+        v25 = 0xE700000000000000;
       }
 
-      if (!v46)
+      if (!v45)
       {
-        v25 = 0xD000000000000014;
-        v24 = 0x800000010016D220;
+        v24 = 0xD000000000000014;
+        v23 = 0x800000010016D220;
       }
 
-      if (v46 <= 1u)
+      if (v45 <= 1u)
+      {
+        v27 = v24;
+      }
+
+      else
+      {
+        v27 = v26;
+      }
+
+      if (v45 <= 1u)
+      {
+        v28 = v23;
+      }
+
+      else
       {
         v28 = v25;
       }
 
-      else
-      {
-        v28 = v27;
-      }
+      v29 = sub_1000E0FE0(v27, v28, aBlock);
 
-      if (v46 <= 1u)
-      {
-        v29 = v24;
-      }
+      *(v22 + 14) = v29;
+      _os_log_impl(&_mh_execute_header, v19, v20, "Setting zoom factor %f for %s", v22, 0x16u);
+      sub_100006B44(v40);
 
-      else
-      {
-        v29 = v26;
-      }
-
-      v30 = sub_1000E0FE0(v28, v29, aBlock);
-
-      *(v23 + 14) = v30;
-      _os_log_impl(&_mh_execute_header, v20, v21, "Setting zoom factor %f for %s", v23, 0x16u);
-      sub_100006B44(v41);
-
-      result = (*(v13 + 8))(v16, v12);
-      v6 = v42;
+      (*(v13 + 8))(v15, v12);
+      v6 = v41;
     }
 
     else
     {
 
-      result = (*(v13 + 8))(v16, v12);
+      (*(v13 + 8))(v15, v12);
     }
 
-    *(v3 + v19) = v18;
-    v31 = v45;
-    if (v46 >= 2u)
+    *(v3 + v18) = v17;
+    v30 = v44;
+    if (v45 >= 2u)
     {
-      if (v46 == 2)
+      if (v45 == 2)
       {
-        return result;
+        return;
       }
 
-      v32 = 1;
+      v31 = 1;
     }
 
     else
     {
-      v32 = 0;
+      v31 = 0;
     }
 
-    v33 = sub_100072B00();
-    v34 = [v33 stateQueue];
+    v32 = sub_100072B00();
+    v33 = [v32 stateQueue];
 
-    v35 = swift_allocObject();
+    v34 = swift_allocObject();
     swift_unknownObjectWeakInit();
-    v36 = swift_allocObject();
-    *(v36 + 16) = v35;
-    *(v36 + 24) = v18;
-    *(v36 + 32) = v32;
+    v35 = swift_allocObject();
+    *(v35 + 16) = v34;
+    *(v35 + 24) = v17;
+    *(v35 + 32) = v31;
     aBlock[4] = sub_100092AE4;
-    aBlock[5] = v36;
+    aBlock[5] = v35;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_1000B5F04;
     aBlock[3] = &unk_1001C25C8;
-    v37 = _Block_copy(aBlock);
+    v36 = _Block_copy(aBlock);
 
-    v38 = v47;
+    v37 = v46;
     static DispatchQoS.unspecified.getter();
-    v49 = &_swiftEmptyArrayStorage;
-    sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-    sub_1000033A8(&unk_1001D8010);
-    sub_100013608(&qword_1001D6B20, &unk_1001D8010);
-    v39 = v43;
+    v48 = _swiftEmptyArrayStorage;
+    sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+    sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
+    v38 = v42;
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
-    _Block_release(v37);
+    _Block_release(v36);
 
-    (*(v31 + 8))(v39, v6);
-    (*(v48 + 8))(v38, v44);
+    (*(v30 + 8))(v38, v6);
+    (*(v47 + 8))(v37, v43);
   }
-
-  return result;
 }
 
-void sub_10007C804(double a1, uint64_t a2, char a3)
+void sub_10007C804(uint64_t a1, char a2, double a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
     v6 = Strong;
-    sub_10007C870(a3 & 1, a1);
+    sub_10007C870(a2 & 1, a3);
   }
 }
 
@@ -2368,21 +3003,21 @@ LABEL_25:
   }
 }
 
-uint64_t sub_10007CD04(uint64_t a1, char a2)
+void sub_10007CD04(uint64_t a1, char a2)
 {
   v5 = type metadata accessor for Logger();
   v6 = *(v5 - 8);
-  result = __chkstk_darwin(v5);
+  v7 = __chkstk_darwin(v5);
   v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = &v2[OBJC_IVAR____TtC6Tamale14ARCameraSource_zoomGestureState];
   if (v2[OBJC_IVAR____TtC6Tamale14ARCameraSource_zoomGestureState + 8])
   {
     if (a2)
     {
-      return result;
+      return;
     }
 
-    v11 = result;
+    v11 = v7;
     static Log.zoom.getter();
     v12 = v2;
     v13 = v2;
@@ -2406,14 +3041,15 @@ uint64_t sub_10007CD04(uint64_t a1, char a2)
 LABEL_9:
     *v10 = *&a1;
     *(v10 + 8) = 0;
-    return sub_10007C244(3, *&v2[OBJC_IVAR____TtC6Tamale14ARCameraSource_zoomGestureInitialZoomFactor] * v18);
+    sub_10007C244(3, *&v2[OBJC_IVAR____TtC6Tamale14ARCameraSource_zoomGestureInitialZoomFactor] * v18);
+    return;
   }
 
   if (a2)
   {
     *v10 = *&a1;
     *(v10 + 8) = 1;
-    return result;
+    return;
   }
 
   v18 = *&a1;
@@ -2421,11 +3057,9 @@ LABEL_9:
   {
     goto LABEL_9;
   }
-
-  return result;
 }
 
-uint64_t sub_10007CF00(char a1)
+double sub_10007CF00(char a1)
 {
   v2 = type metadata accessor for DispatchWorkItemFlags();
   v16 = *(v2 - 8);
@@ -2452,10 +3086,10 @@ uint64_t sub_10007CF00(char a1)
   v11 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v17 = &_swiftEmptyArrayStorage;
-  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+  v17 = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   v12 = v14;
   OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -2463,6 +3097,8 @@ uint64_t sub_10007CF00(char a1)
 
   (*(v16 + 8))(v4, v2);
   (*(v5 + 8))(v7, v15);
+
+  return result;
 }
 
 void sub_10007D228(uint64_t a1, char a2)
@@ -2504,13 +3140,13 @@ uint64_t sub_10007D3E4@<X0>(uint64_t a1@<X8>)
 {
   v3 = *v1;
   v4 = OBJC_IVAR____TtC6Tamale14ARCameraSource_runStateStreamInternal;
-  v5 = sub_1000033A8(&qword_1001D6AF0);
+  v5 = sub_1000033A8(&qword_1001D6AF0, &qword_100175BA0);
   v6 = *(*(v5 - 8) + 16);
 
   return v6(a1, v3 + v4, v5);
 }
 
-uint64_t sub_10007D46C()
+void sub_10007D46C()
 {
   v1 = *v0;
   v2 = *(*v0 + OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue);
@@ -2519,13 +3155,13 @@ uint64_t sub_10007D46C()
   v4 = swift_allocObject();
   *(v4 + 16) = sub_10009075C;
   *(v4 + 24) = v3;
-  v8[4] = sub_100094180;
-  v8[5] = v4;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 1107296256;
-  v8[2] = sub_100071D78;
-  v8[3] = &unk_1001C2140;
-  v5 = _Block_copy(v8);
+  v7[4] = sub_100094180;
+  v7[5] = v4;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 1107296256;
+  v7[2] = sub_100071D78;
+  v7[3] = &unk_1001C2140;
+  v5 = _Block_copy(v7);
   v6 = v1;
 
   dispatch_sync(v2, v5);
@@ -2536,11 +3172,9 @@ uint64_t sub_10007D46C()
   {
     __break(1u);
   }
-
-  return result;
 }
 
-uint64_t sub_10007D5E8()
+void sub_10007D5E8()
 {
   v1 = *v0;
   v2 = *(*v0 + OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue);
@@ -2549,13 +3183,13 @@ uint64_t sub_10007D5E8()
   v4 = swift_allocObject();
   *(v4 + 16) = sub_1000906E4;
   *(v4 + 24) = v3;
-  v8[4] = sub_10009071C;
-  v8[5] = v4;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 1107296256;
-  v8[2] = sub_100071D78;
-  v8[3] = &unk_1001C20C8;
-  v5 = _Block_copy(v8);
+  v7[4] = sub_10009071C;
+  v7[5] = v4;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 1107296256;
+  v7[2] = sub_100071D78;
+  v7[3] = &unk_1001C20C8;
+  v5 = _Block_copy(v7);
   v6 = v1;
 
   dispatch_sync(v2, v5);
@@ -2566,8 +3200,6 @@ uint64_t sub_10007D5E8()
   {
     __break(1u);
   }
-
-  return result;
 }
 
 uint64_t sub_10007D7D0()
@@ -2609,7 +3241,7 @@ uint64_t sub_10007D7D0()
     strcpy(v14, "finalPosition ");
     HIBYTE(v14[1]) = -18;
 LABEL_7:
-    sub_100090580(&qword_1001D7FB8, &type metadata accessor for Corners);
+    sub_100090580(&qword_1001D7FB8, &type metadata accessor for Corners, &protocol conformance descriptor for Corners);
     v12._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v12);
 
@@ -2627,16 +3259,16 @@ LABEL_7:
   return v14[0];
 }
 
-void sub_10007DAC4()
+void sub_10007DAC4(uint64_t a1)
 {
-  v1 = type metadata accessor for Corners();
-  v2 = *(v1 - 8);
-  __chkstk_darwin(v1);
-  v4 = &v12 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for RaycastAccuracy(0);
-  __chkstk_darwin(v5);
-  v7 = (&v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  sub_10009237C(v0, v7, type metadata accessor for RaycastAccuracy);
+  v2 = type metadata accessor for Corners();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for RaycastAccuracy(0);
+  __chkstk_darwin(v6);
+  v8 = (&v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  sub_10009237C(v1, v8, type metadata accessor for RaycastAccuracy);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 1)
   {
@@ -2646,52 +3278,52 @@ void sub_10007DAC4()
       return;
     }
 
-    (*(v2 + 32))(v4, v7, v1);
-    v11 = 3;
+    (*(v3 + 32))(v5, v8, v2);
+    v12 = 3;
 LABEL_9:
-    Hasher._combine(_:)(v11);
-    sub_100090580(&qword_1001D7FB0, &type metadata accessor for Corners);
+    Hasher._combine(_:)(v12);
+    sub_100090580(&qword_1001D7FB0, &type metadata accessor for Corners, &protocol conformance descriptor for Corners);
     dispatch thunk of Hashable.hash(into:)();
-    (*(v2 + 8))(v4, v1);
+    (*(v3 + 8))(v5, v2);
     return;
   }
 
   if (EnumCaseMultiPayload)
   {
-    (*(v2 + 32))(v4, v7, v1);
-    v11 = 2;
+    (*(v3 + 32))(v5, v8, v2);
+    v12 = 2;
     goto LABEL_9;
   }
 
-  v9 = *v7;
+  v10 = *v8;
   Hasher._combine(_:)(1uLL);
-  v10 = 0.0;
-  if (v9 != 0.0)
+  v11 = 0.0;
+  if (v10 != 0.0)
   {
-    v10 = v9;
+    v11 = v10;
   }
 
-  Hasher._combine(_:)(*&v10);
+  Hasher._combine(_:)(*&v11);
 }
 
 Swift::Int sub_10007DCF4()
 {
   Hasher.init(_seed:)();
-  sub_10007DAC4();
+  sub_10007DAC4(v1);
   return Hasher._finalize()();
 }
 
 Swift::Int sub_10007DD38()
 {
   Hasher.init(_seed:)();
-  sub_10007DAC4();
+  sub_10007DAC4(v1);
   return Hasher._finalize()();
 }
 
-uint64_t sub_10007DD78(char a1, uint64_t a2)
+uint64_t sub_10007DD78(uint64_t a1, uint64_t a2)
 {
   v4 = v2;
-  v7 = sub_1000033A8(&qword_1001D8138);
+  v7 = sub_1000033A8(&qword_1001D8138, &qword_1001771A0);
   __chkstk_darwin(v7 - 8);
   v9 = &v42 - v8;
   v10 = type metadata accessor for RaycastAccuracy(0);
@@ -2772,10 +3404,10 @@ LABEL_24:
   }
 
   *(v25 + 8 * v18) = v27;
-  sub_1000138BC(a2, v9, &qword_1001D8138);
+  sub_1000138BC(a2, v9, &qword_1001D8138, &qword_1001771A0);
   if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    return sub_10001370C(v9, &qword_1001D8138);
+    return sub_10001370C(v9, &qword_1001D8138, &qword_1001771A0);
   }
 
   sub_1000923E4(v9, v15, type metadata accessor for RaycastAccuracy);
@@ -2857,181 +3489,180 @@ LABEL_18:
   return sub_100092314(v15, type metadata accessor for RaycastAccuracy);
 }
 
-uint64_t sub_10007E124(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_10007E124(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v103 = a3;
+  v102 = a3;
   v5 = type metadata accessor for RaycastAccuracy(0);
-  v108 = *(v5 - 8);
-  v109 = v5;
+  v107 = *(v5 - 8);
+  v108 = v5;
   __chkstk_darwin(v5);
-  v113 = v101 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v107 = sub_1000033A8(&unk_1001D8150);
-  v7 = __chkstk_darwin(v107);
-  v114 = v101 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v112 = v100 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v106 = sub_1000033A8(&unk_1001D8150, &unk_1001771B0);
+  v7 = __chkstk_darwin(v106);
+  v113 = v100 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
-  v106 = v101 - v9;
+  v105 = v100 - v9;
   v10 = *(a1 + 16);
-  v11 = &_swiftEmptyArrayStorage;
-  v110 = a2;
+  v11 = _swiftEmptyArrayStorage;
+  v109 = a2;
   if (v10)
   {
-    v119 = &_swiftEmptyArrayStorage;
+    v118 = _swiftEmptyArrayStorage;
     sub_1000595D0(0, v10, 0);
-    v12 = v119;
+    v12 = v118;
     v13 = a1 + 64;
-    result = _HashTable.startBucket.getter();
-    v15 = result;
-    v16 = 0;
-    v17 = *(a1 + 36);
-    v104 = 0x800000010016D1E0;
-    v105 = a1 + 72;
-    v111 = v10;
-    v112 = v17;
-    *&v115 = a1 + 64;
-    while ((v15 & 0x8000000000000000) == 0 && v15 < 1 << *(a1 + 32))
+    v14 = _HashTable.startBucket.getter();
+    v15 = 0;
+    v16 = *(a1 + 36);
+    v103 = 0x800000010016D1E0;
+    v104 = a1 + 72;
+    v110 = v10;
+    v111 = v16;
+    *&v114 = a1 + 64;
+    while ((v14 & 0x8000000000000000) == 0 && v14 < 1 << *(a1 + 32))
     {
-      v19 = v15 >> 6;
-      if ((*(v13 + 8 * (v15 >> 6)) & (1 << v15)) == 0)
+      v18 = v14 >> 6;
+      if ((*(v13 + 8 * (v14 >> 6)) & (1 << v14)) == 0)
       {
         goto LABEL_76;
       }
 
-      if (v17 != *(a1 + 36))
+      if (v16 != *(a1 + 36))
       {
         goto LABEL_77;
       }
 
-      v20 = *(*(a1 + 48) + v15);
-      v116 = *(*(a1 + 56) + 8 * v15);
-      v117 = dispatch thunk of CustomStringConvertible.description.getter();
-      v118 = v21;
-      v22._countAndFlagsBits = 32;
-      v22._object = 0xE100000000000000;
-      String.append(_:)(v22);
-      if (v20 <= 2)
+      v19 = *(*(a1 + 48) + v14);
+      v115 = *(*(a1 + 56) + 8 * v14);
+      v116 = dispatch thunk of CustomStringConvertible.description.getter();
+      v117 = v20;
+      v21._countAndFlagsBits = 32;
+      v21._object = 0xE100000000000000;
+      String.append(_:)(v21);
+      if (v19 <= 2)
       {
-        if (v20)
+        if (v19)
         {
-          if (v20 == 1)
+          if (v19 == 1)
           {
-            v24 = 0xD000000000000010;
-            v23 = v104;
+            v23 = 0xD000000000000010;
+            v22 = v103;
           }
 
           else
           {
-            v23 = 0xE700000000000000;
-            v24 = 0x64657461657263;
+            v22 = 0xE700000000000000;
+            v23 = 0x64657461657263;
           }
         }
 
         else
         {
-          v23 = 0xEA00000000006B6FLL;
-          v24 = 0x5F74736163796172;
+          v22 = 0xEA00000000006B6FLL;
+          v23 = 0x5F74736163796172;
         }
       }
 
-      else if (v20 > 4)
+      else if (v19 > 4)
       {
-        if (v20 == 5)
+        if (v19 == 5)
         {
-          v23 = 0xE800000000000000;
-          v24 = 0x6465737361707962;
+          v22 = 0xE800000000000000;
+          v23 = 0x6465737361707962;
         }
 
         else
         {
-          v24 = 0x726F68636E616E75;
-          v23 = 0xEA00000000006465;
+          v23 = 0x726F68636E616E75;
+          v22 = 0xEA00000000006465;
         }
       }
 
-      else if (v20 == 3)
+      else if (v19 == 3)
       {
-        v23 = 0xE800000000000000;
-        v24 = 0x646563616C706572;
+        v22 = 0xE800000000000000;
+        v23 = 0x646563616C706572;
       }
 
       else
       {
-        v23 = 0xE700000000000000;
-        v24 = 0x6465766F6D6572;
+        v22 = 0xE700000000000000;
+        v23 = 0x6465766F6D6572;
       }
 
-      v25 = v23;
-      String.append(_:)(*&v24);
+      v24 = v22;
+      String.append(_:)(*&v23);
 
+      v25 = v116;
       v26 = v117;
-      v27 = v118;
-      v28 = v12;
-      v119 = v12;
-      v29 = v12[2];
-      v30 = v28[3];
-      if (v29 >= v30 >> 1)
+      v27 = v12;
+      v118 = v12;
+      v28 = v12[2];
+      v29 = v27[3];
+      if (v28 >= v29 >> 1)
       {
-        result = sub_1000595D0((v30 > 1), v29 + 1, 1);
-        v28 = v119;
+        sub_1000595D0((v29 > 1), v28 + 1, 1);
+        v27 = v118;
       }
 
-      v28[2] = v29 + 1;
-      v31 = &v28[2 * v29];
-      *(v31 + 4) = v26;
-      *(v31 + 5) = v27;
-      v18 = 1 << *(a1 + 32);
-      if (v15 >= v18)
+      v27[2] = v28 + 1;
+      v30 = &v27[2 * v28];
+      v30[4] = v25;
+      v30[5] = v26;
+      v17 = 1 << *(a1 + 32);
+      if (v14 >= v17)
       {
         goto LABEL_78;
       }
 
-      v13 = v115;
-      v32 = *(v115 + 8 * v19);
-      if ((v32 & (1 << v15)) == 0)
+      v13 = v114;
+      v31 = *(v114 + 8 * v18);
+      if ((v31 & (1 << v14)) == 0)
       {
         goto LABEL_79;
       }
 
-      v12 = v28;
-      LODWORD(v17) = v112;
-      if (v112 != *(a1 + 36))
+      v12 = v27;
+      LODWORD(v16) = v111;
+      if (v111 != *(a1 + 36))
       {
         goto LABEL_80;
       }
 
-      v33 = v32 & (-2 << (v15 & 0x3F));
-      if (v33)
+      v32 = v31 & (-2 << (v14 & 0x3F));
+      if (v32)
       {
-        v18 = __clz(__rbit64(v33)) | v15 & 0x7FFFFFFFFFFFFFC0;
+        v17 = __clz(__rbit64(v32)) | v14 & 0x7FFFFFFFFFFFFFC0;
       }
 
       else
       {
-        v34 = v19 << 6;
-        v35 = v19 + 1;
-        v36 = (v105 + 8 * v19);
-        while (v35 < (v18 + 63) >> 6)
+        v33 = v18 << 6;
+        v34 = v18 + 1;
+        v35 = (v104 + 8 * v18);
+        while (v34 < (v17 + 63) >> 6)
         {
-          v38 = *v36++;
-          v37 = v38;
-          v34 += 64;
-          ++v35;
-          if (v38)
+          v37 = *v35++;
+          v36 = v37;
+          v33 += 64;
+          ++v34;
+          if (v37)
           {
-            result = sub_10009257C(v15, v112, 0);
-            v18 = __clz(__rbit64(v37)) + v34;
+            sub_10009257C(v14, v111, 0);
+            v17 = __clz(__rbit64(v36)) + v33;
             goto LABEL_4;
           }
         }
 
-        result = sub_10009257C(v15, v112, 0);
+        sub_10009257C(v14, v111, 0);
       }
 
 LABEL_4:
-      ++v16;
-      v15 = v18;
-      if (v16 == v111)
+      ++v15;
+      v14 = v17;
+      if (v15 == v110)
       {
-        a2 = v110;
+        a2 = v109;
         v11 = v12;
         goto LABEL_34;
       }
@@ -3052,283 +3683,282 @@ LABEL_80:
   }
 
 LABEL_34:
-  v117 = v11;
-  v39 = sub_1000033A8(&unk_1001D6300);
-  v40 = sub_100013608(&unk_1001D8160, &unk_1001D6300);
-  v104 = BidirectionalCollection<>.joined(separator:)();
-  v42 = v41;
+  v116 = v11;
+  v38 = sub_1000033A8(&unk_1001D6300, &unk_1001752C0);
+  v39 = sub_100013608(&unk_1001D8160, &unk_1001D6300, &unk_1001752C0, &protocol conformance descriptor for [A]);
+  v103 = BidirectionalCollection<>.joined(separator:)();
+  v41 = v40;
 
-  v43 = *(a2 + 16);
-  v44 = &_swiftEmptyArrayStorage;
-  if (!v43)
+  v42 = *(a2 + 16);
+  v43 = _swiftEmptyArrayStorage;
+  if (!v42)
   {
 LABEL_61:
-    v117 = v44;
-    v74 = BidirectionalCollection<>.joined(separator:)();
-    v76 = v75;
+    v116 = v43;
+    v73 = BidirectionalCollection<>.joined(separator:)();
+    v75 = v74;
 
-    v77 = *(v103 + 16);
-    if (!v77)
+    v76 = *(v102 + 16);
+    if (!v76)
     {
-      v80 = 0;
-      v81 = 0xE000000000000000;
+      v79 = 0;
+      v80 = 0xE000000000000000;
 LABEL_74:
-      v117 = 0;
-      v118 = 0xE000000000000000;
+      v116 = 0;
+      v117 = 0xE000000000000000;
       _StringGuts.grow(_:)(21);
 
-      v117 = 91;
-      v118 = 0xE100000000000000;
-      v96._countAndFlagsBits = v104;
-      v96._object = v42;
+      v116 = 91;
+      v117 = 0xE100000000000000;
+      v95._countAndFlagsBits = v103;
+      v95._object = v41;
+      String.append(_:)(v95);
+
+      v96._countAndFlagsBits = 0x617275636361205DLL;
+      v96._object = 0xED00005B203A7963;
       String.append(_:)(v96);
-
-      v97._countAndFlagsBits = 0x617275636361205DLL;
-      v97._object = 0xED00005B203A7963;
+      v97._countAndFlagsBits = v73;
+      v97._object = v75;
       String.append(_:)(v97);
-      v98._countAndFlagsBits = v74;
-      v98._object = v76;
+
+      v98._countAndFlagsBits = 93;
+      v98._object = 0xE100000000000000;
       String.append(_:)(v98);
-
-      v99._countAndFlagsBits = 93;
-      v99._object = 0xE100000000000000;
+      v99._countAndFlagsBits = v79;
+      v99._object = v80;
       String.append(_:)(v99);
-      v100._countAndFlagsBits = v80;
-      v100._object = v81;
-      String.append(_:)(v100);
 
-      return v117;
+      return;
     }
 
-    if (v77 > 7)
+    if (v76 > 7)
     {
-      v78 = v77 & 0x7FFFFFFFFFFFFFF8;
-      v82 = v103 + 48;
-      v79 = 0.0;
-      v83 = v77 & 0x7FFFFFFFFFFFFFF8;
+      v77 = v76 & 0x7FFFFFFFFFFFFFF8;
+      v81 = v102 + 48;
+      v78 = 0.0;
+      v82 = v76 & 0x7FFFFFFFFFFFFFF8;
       do
       {
-        v79 = (((((((v79 + COERCE_FLOAT(*(v82 - 16))) + COERCE_FLOAT(HIDWORD(*(v82 - 16)))) + COERCE_FLOAT(*(v82 - 8))) + COERCE_FLOAT(HIDWORD(*(v82 - 16)))) + COERCE_FLOAT(*v82)) + COERCE_FLOAT(HIDWORD(*v82))) + COERCE_FLOAT(*(v82 + 8))) + COERCE_FLOAT(HIDWORD(*v82));
-        v82 += 32;
-        v83 -= 8;
+        v78 = (((((((v78 + COERCE_FLOAT(*(v81 - 16))) + COERCE_FLOAT(HIDWORD(*(v81 - 16)))) + COERCE_FLOAT(*(v81 - 8))) + COERCE_FLOAT(HIDWORD(*(v81 - 16)))) + COERCE_FLOAT(*v81)) + COERCE_FLOAT(HIDWORD(*v81))) + COERCE_FLOAT(*(v81 + 8))) + COERCE_FLOAT(HIDWORD(*v81));
+        v81 += 32;
+        v82 -= 8;
       }
 
-      while (v83);
-      if (v77 == v78)
+      while (v82);
+      if (v76 == v77)
       {
 LABEL_70:
-        v87 = v79 / v77;
-        v88 = sub_10009CBC8(v103);
-        if ((v88 & &_mh_execute_header) != 0)
+        v86 = v78 / v76;
+        v87 = sub_10009CBC8(v102);
+        if ((v87 & &_mh_execute_header) != 0)
         {
-          v89 = 0.0;
+          v88 = 0.0;
         }
 
         else
         {
-          v89 = *&v88;
+          v88 = *&v87;
         }
 
-        v117 = 0;
-        v118 = 0xE000000000000000;
+        v116 = 0;
+        v117 = 0xE000000000000000;
         _StringGuts.grow(_:)(21);
 
-        v117 = 0x203A6776612820;
-        v118 = 0xE700000000000000;
-        sub_1000033A8(&qword_1001D58A0);
-        v90 = swift_allocObject();
-        v115 = xmmword_100171DA0;
-        *(v90 + 16) = xmmword_100171DA0;
-        *(v90 + 56) = &type metadata for Float;
-        *(v90 + 64) = &protocol witness table for Float;
-        *(v90 + 32) = v87;
-        v91._countAndFlagsBits = String.init(format:_:)();
+        v116 = 0x203A6776612820;
+        v117 = 0xE700000000000000;
+        sub_1000033A8(&qword_1001D58A0, &qword_1001771C0);
+        v89 = swift_allocObject();
+        v114 = xmmword_100171DA0;
+        *(v89 + 16) = xmmword_100171DA0;
+        *(v89 + 56) = &type metadata for Float;
+        *(v89 + 64) = &protocol witness table for Float;
+        *(v89 + 32) = v86;
+        v90._countAndFlagsBits = String.init(format:_:)();
+        String.append(_:)(v90);
+
+        v91._countAndFlagsBits = 0x203A78616D202C6DLL;
+        v91._object = 0xE800000000000000;
         String.append(_:)(v91);
+        v92 = swift_allocObject();
+        *(v92 + 16) = v114;
+        *(v92 + 56) = &type metadata for Float;
+        *(v92 + 64) = &protocol witness table for Float;
+        *(v92 + 32) = v88;
+        v93._countAndFlagsBits = String.init(format:_:)();
+        String.append(_:)(v93);
 
-        v92._countAndFlagsBits = 0x203A78616D202C6DLL;
-        v92._object = 0xE800000000000000;
-        String.append(_:)(v92);
-        v93 = swift_allocObject();
-        *(v93 + 16) = v115;
-        *(v93 + 56) = &type metadata for Float;
-        *(v93 + 64) = &protocol witness table for Float;
-        *(v93 + 32) = v89;
-        v94._countAndFlagsBits = String.init(format:_:)();
+        v94._countAndFlagsBits = 10605;
+        v94._object = 0xE200000000000000;
         String.append(_:)(v94);
-
-        v95._countAndFlagsBits = 10605;
-        v95._object = 0xE200000000000000;
-        String.append(_:)(v95);
+        v79 = v116;
         v80 = v117;
-        v81 = v118;
         goto LABEL_74;
       }
     }
 
     else
     {
-      v78 = 0;
-      v79 = 0.0;
+      v77 = 0;
+      v78 = 0.0;
     }
 
-    v84 = v77 - v78;
-    v85 = (v103 + 4 * v78 + 32);
+    v83 = v76 - v77;
+    v84 = (v102 + 4 * v77 + 32);
     do
     {
-      v86 = *v85++;
-      v79 = v79 + v86;
-      --v84;
+      v85 = *v84++;
+      v78 = v78 + v85;
+      --v83;
     }
 
-    while (v84);
+    while (v83);
     goto LABEL_70;
   }
 
-  v101[1] = v40;
-  v101[2] = v39;
-  v102 = v42;
-  v119 = &_swiftEmptyArrayStorage;
-  sub_1000595D0(0, v43, 0);
-  v44 = v119;
-  v45 = a2 + 64;
-  result = _HashTable.startBucket.getter();
-  v46 = result;
-  v47 = 0;
-  v105 = a2 + 72;
-  *&v115 = *(a2 + 36);
-  v111 = v43;
-  v112 = a2 + 64;
-  while ((v46 & 0x8000000000000000) == 0 && v46 < 1 << *(a2 + 32))
+  v100[1] = v39;
+  v100[2] = v38;
+  v101 = v41;
+  v118 = _swiftEmptyArrayStorage;
+  sub_1000595D0(0, v42, 0);
+  v43 = v118;
+  v44 = a2 + 64;
+  v45 = _HashTable.startBucket.getter();
+  v46 = 0;
+  v104 = a2 + 72;
+  *&v114 = *(a2 + 36);
+  v110 = v42;
+  v111 = a2 + 64;
+  while ((v45 & 0x8000000000000000) == 0 && v45 < 1 << *(a2 + 32))
   {
-    v49 = v46 >> 6;
-    if ((*(v45 + 8 * (v46 >> 6)) & (1 << v46)) == 0)
+    v48 = v45 >> 6;
+    if ((*(v44 + 8 * (v45 >> 6)) & (1 << v45)) == 0)
     {
       goto LABEL_82;
     }
 
-    if (v115 != *(a2 + 36))
+    if (v114 != *(a2 + 36))
     {
       goto LABEL_83;
     }
 
-    v50 = v106;
-    sub_10009237C(*(a2 + 48) + *(v108 + 72) * v46, v106, type metadata accessor for RaycastAccuracy);
-    v51 = *(*(a2 + 56) + 8 * v46);
-    v52 = v50;
-    v53 = v114;
-    sub_1000923E4(v52, v114, type metadata accessor for RaycastAccuracy);
-    *(v53 + *(v107 + 48)) = v51;
-    v116 = v51;
-    v117 = dispatch thunk of CustomStringConvertible.description.getter();
-    v118 = v54;
-    v55._countAndFlagsBits = 32;
-    v55._object = 0xE100000000000000;
-    String.append(_:)(v55);
-    sub_10009237C(v53, v113, type metadata accessor for RaycastAccuracy);
+    v49 = v105;
+    sub_10009237C(*(a2 + 48) + *(v107 + 72) * v45, v105, type metadata accessor for RaycastAccuracy);
+    v50 = *(*(a2 + 56) + 8 * v45);
+    v51 = v49;
+    v52 = v113;
+    sub_1000923E4(v51, v113, type metadata accessor for RaycastAccuracy);
+    *(v52 + *(v106 + 48)) = v50;
+    v115 = v50;
+    v116 = dispatch thunk of CustomStringConvertible.description.getter();
+    v117 = v53;
+    v54._countAndFlagsBits = 32;
+    v54._object = 0xE100000000000000;
+    String.append(_:)(v54);
+    sub_10009237C(v52, v112, type metadata accessor for RaycastAccuracy);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload > 1)
     {
       if (EnumCaseMultiPayload == 2)
       {
-        v59 = type metadata accessor for Corners();
-        (*(*(v59 - 8) + 8))(v113, v59);
-        v57 = 0xE800000000000000;
-        v58 = 0x656C626174736E75;
+        v58 = type metadata accessor for Corners();
+        (*(*(v58 - 8) + 8))(v112, v58);
+        v56 = 0xE800000000000000;
+        v57 = 0x656C626174736E75;
       }
 
       else
       {
-        v57 = 0xE400000000000000;
-        v58 = 1819047270;
+        v56 = 0xE400000000000000;
+        v57 = 1819047270;
       }
     }
 
     else if (EnumCaseMultiPayload)
     {
-      v60 = type metadata accessor for Corners();
-      (*(*(v60 - 8) + 8))(v113, v60);
-      v57 = 0xE500000000000000;
-      v58 = 0x6C616E6966;
+      v59 = type metadata accessor for Corners();
+      (*(*(v59 - 8) + 8))(v112, v59);
+      v56 = 0xE500000000000000;
+      v57 = 0x6C616E6966;
     }
 
     else
     {
-      v57 = 0xE500000000000000;
-      v58 = 0x656E616C70;
+      v56 = 0xE500000000000000;
+      v57 = 0x656E616C70;
     }
 
-    v61 = v57;
-    String.append(_:)(*&v58);
+    v60 = v56;
+    String.append(_:)(*&v57);
 
-    v63 = v117;
-    v62 = v118;
-    result = sub_10001370C(v114, &unk_1001D8150);
-    v119 = v44;
-    v65 = v44[2];
-    v64 = v44[3];
-    if (v65 >= v64 >> 1)
+    v62 = v116;
+    v61 = v117;
+    sub_10001370C(v113, &unk_1001D8150, &unk_1001771B0);
+    v118 = v43;
+    v64 = v43[2];
+    v63 = v43[3];
+    if (v64 >= v63 >> 1)
     {
-      result = sub_1000595D0((v64 > 1), v65 + 1, 1);
-      v44 = v119;
+      sub_1000595D0((v63 > 1), v64 + 1, 1);
+      v43 = v118;
     }
 
-    v44[2] = v65 + 1;
-    v66 = &v44[2 * v65];
-    v66[4] = v63;
-    v66[5] = v62;
-    a2 = v110;
-    v48 = 1 << *(v110 + 32);
-    if (v46 >= v48)
+    v43[2] = v64 + 1;
+    v65 = &v43[2 * v64];
+    v65[4] = v62;
+    v65[5] = v61;
+    a2 = v109;
+    v47 = 1 << *(v109 + 32);
+    if (v45 >= v47)
     {
       goto LABEL_84;
     }
 
-    v45 = v112;
-    v67 = *(v112 + 8 * v49);
-    if ((v67 & (1 << v46)) == 0)
+    v44 = v111;
+    v66 = *(v111 + 8 * v48);
+    if ((v66 & (1 << v45)) == 0)
     {
       goto LABEL_85;
     }
 
-    if (v115 != *(v110 + 36))
+    if (v114 != *(v109 + 36))
     {
       goto LABEL_86;
     }
 
-    v68 = v67 & (-2 << (v46 & 0x3F));
-    if (v68)
+    v67 = v66 & (-2 << (v45 & 0x3F));
+    if (v67)
     {
-      v48 = __clz(__rbit64(v68)) | v46 & 0x7FFFFFFFFFFFFFC0;
+      v47 = __clz(__rbit64(v67)) | v45 & 0x7FFFFFFFFFFFFFC0;
     }
 
     else
     {
-      v69 = v49 << 6;
-      v70 = v49 + 1;
-      v71 = (v105 + 8 * v49);
-      while (v70 < (v48 + 63) >> 6)
+      v68 = v48 << 6;
+      v69 = v48 + 1;
+      v70 = (v104 + 8 * v48);
+      while (v69 < (v47 + 63) >> 6)
       {
-        v73 = *v71++;
-        v72 = v73;
-        v69 += 64;
-        ++v70;
-        if (v73)
+        v72 = *v70++;
+        v71 = v72;
+        v68 += 64;
+        ++v69;
+        if (v72)
         {
-          result = sub_10009257C(v46, v115, 0);
-          v48 = __clz(__rbit64(v72)) + v69;
+          sub_10009257C(v45, v114, 0);
+          v47 = __clz(__rbit64(v71)) + v68;
           goto LABEL_37;
         }
       }
 
-      result = sub_10009257C(v46, v115, 0);
+      sub_10009257C(v45, v114, 0);
     }
 
 LABEL_37:
-    ++v47;
-    v46 = v48;
-    if (v47 == v111)
+    ++v46;
+    v45 = v47;
+    if (v46 == v110)
     {
-      v42 = v102;
+      v41 = v101;
       goto LABEL_61;
     }
   }
@@ -3345,24 +3975,23 @@ LABEL_85:
   __break(1u);
 LABEL_86:
   __break(1u);
-  return result;
 }
 
-uint64_t sub_10007EC5C(uint64_t a1)
+void sub_10007EC5C(uint64_t a1)
 {
   v2 = v1;
-  v32 = sub_1000033A8(&unk_1001D81A0);
-  v4 = *(v32 - 8);
-  __chkstk_darwin(v32);
-  v31 = v28 - v5;
-  v30 = sub_1000033A8(&unk_1001D8190);
-  v6 = *(v30 - 8);
-  __chkstk_darwin(v30);
-  v8 = v28 - v7;
+  v31 = sub_1000033A8(&unk_1001D81A0, &qword_1001771F0);
+  v4 = *(v31 - 8);
+  __chkstk_darwin(v31);
+  v30 = v27 - v5;
+  v29 = sub_1000033A8(&unk_1001D8190, &qword_1001771E0);
+  v6 = *(v29 - 8);
+  __chkstk_darwin(v29);
+  v8 = v27 - v7;
   v9 = type metadata accessor for DispatchPredicate();
   v10 = *(v9 - 8);
   __chkstk_darwin(v9);
-  v12 = (v28 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = (v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
   *(v2 + 64) = a1;
 
   v13 = *(v2 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue);
@@ -3370,58 +3999,62 @@ uint64_t sub_10007EC5C(uint64_t a1)
   (*(v10 + 104))(v12, enum case for DispatchPredicate.onQueue(_:), v9);
   v14 = v13;
   LOBYTE(a1) = _dispatchPreconditionTest(_:)();
-  result = (*(v10 + 8))(v12, v9);
+  (*(v10 + 8))(v12, v9);
   if (a1)
   {
-    v16 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_predictionsStreamContinuations;
+    v15 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_predictionsStreamContinuations;
     swift_beginAccess();
-    v29 = v2;
-    v17 = *(v2 + v16);
-    v18 = 1 << *(v17 + 32);
-    v19 = -1;
-    if (v18 < 64)
+    v28 = v2;
+    v16 = *(v2 + v15);
+    v17 = 1 << *(v16 + 32);
+    v18 = -1;
+    if (v17 < 64)
     {
-      v19 = ~(-1 << v18);
+      v18 = ~(-1 << v17);
     }
 
-    v20 = v19 & *(v17 + 64);
-    v21 = (v18 + 63) >> 6;
-    v22 = (v4 + 8);
-    v28[0] = v6 + 8;
-    v28[1] = v6 + 16;
-    result = swift_bridgeObjectRetain_n();
-    for (i = 0; v20; result = (*(v6 + 8))(v8, v26))
+    v19 = v18 & *(v16 + 64);
+    v20 = (v17 + 63) >> 6;
+    v21 = (v4 + 8);
+    v27[0] = v6 + 8;
+    v27[1] = v6 + 16;
+    swift_bridgeObjectRetain_n();
+    v22 = 0;
+    while (v19)
     {
-      v24 = i;
+      v23 = v22;
 LABEL_10:
-      v25 = __clz(__rbit64(v20));
-      v20 &= v20 - 1;
-      v26 = v30;
-      (*(v6 + 16))(v8, *(v17 + 56) + *(v6 + 72) * (v25 | (v24 << 6)), v30);
-      v33 = *(v29 + 64);
+      v24 = __clz(__rbit64(v19));
+      v19 &= v19 - 1;
+      v25 = v29;
+      (*(v6 + 16))(v8, *(v16 + 56) + *(v6 + 72) * (v24 | (v23 << 6)), v29);
+      v32 = *(v28 + 64);
 
-      v27 = v31;
+      v26 = v30;
       AsyncStream.Continuation.yield(_:)();
-      (*v22)(v27, v32);
+      (*v21)(v26, v31);
+      (*(v6 + 8))(v8, v25);
     }
 
     while (1)
     {
-      v24 = i + 1;
-      if (__OFADD__(i, 1))
+      v23 = v22 + 1;
+      if (__OFADD__(v22, 1))
       {
         break;
       }
 
-      if (v24 >= v21)
+      if (v23 >= v20)
       {
+
+        return;
       }
 
-      v20 = *(v17 + 64 + 8 * v24);
-      ++i;
-      if (v20)
+      v19 = *(v16 + 64 + 8 * v23);
+      ++v22;
+      if (v19)
       {
-        i = v24;
+        v22 = v23;
         goto LABEL_10;
       }
     }
@@ -3430,10 +4063,9 @@ LABEL_10:
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t sub_10007EFEC@<X0>(uint64_t a1@<X8>)
+double sub_10007EFEC@<D0>(uint64_t a1@<X8>)
 {
   v22[0] = a1;
   v25 = type metadata accessor for DispatchWorkItemFlags();
@@ -3444,18 +4076,18 @@ uint64_t sub_10007EFEC@<X0>(uint64_t a1@<X8>)
   v24 = *(v26 - 8);
   __chkstk_darwin(v26);
   v3 = v22 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_1000033A8(&unk_1001D9570);
+  v4 = sub_1000033A8(&unk_1001D9570, &qword_1001771D8);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = v22 - v6;
-  v8 = sub_1000033A8(&unk_1001D8190);
+  v8 = sub_1000033A8(&unk_1001D8190, &qword_1001771E0);
   v9 = *(v8 - 8);
   v10 = *(v9 + 64);
   v11 = __chkstk_darwin(v8);
   v12 = v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
   v14 = v22 - v13;
-  sub_1000033A8(&unk_1001D9580);
+  sub_1000033A8(&unk_1001D9580, &qword_1001771E8);
   (*(v5 + 104))(v7, enum case for AsyncStream.Continuation.BufferingPolicy.unbounded<A>(_:), v4);
   static AsyncStream.makeStream(of:bufferingPolicy:)();
   (*(v5 + 8))(v7, v4);
@@ -3476,10 +4108,10 @@ uint64_t sub_10007EFEC@<X0>(uint64_t a1@<X8>)
   v18 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v28 = &_swiftEmptyArrayStorage;
-  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+  v28 = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
   v19 = v23;
   v20 = v25;
   dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -3488,15 +4120,17 @@ uint64_t sub_10007EFEC@<X0>(uint64_t a1@<X8>)
   (*(v27 + 8))(v19, v20);
   (*(v24 + 8))(v3, v26);
   (*(v9 + 8))(v14, v8);
+
+  return result;
 }
 
 uint64_t sub_10007F508(uint64_t a1, uint64_t a2)
 {
-  v3 = sub_1000033A8(&unk_1001D81A0);
+  v3 = sub_1000033A8(&unk_1001D81A0, &qword_1001771F0);
   v30 = *(v3 - 8);
   __chkstk_darwin(v3);
   v29 = &v25 - v4;
-  v5 = sub_1000033A8(&unk_1001D9590);
+  v5 = sub_1000033A8(&unk_1001D9590, &qword_1001771F8);
   __chkstk_darwin(v5 - 8);
   v7 = &v25 - v6;
   v8 = type metadata accessor for UUID();
@@ -3516,7 +4150,7 @@ uint64_t sub_10007F508(uint64_t a1, uint64_t a2)
     v26 = *(v9 + 16);
     v27 = a2;
     v26(v12, v14, v8);
-    v17 = sub_1000033A8(&unk_1001D8190);
+    v17 = sub_1000033A8(&unk_1001D8190, &qword_1001771E0);
     v18 = *(v17 - 8);
     v28 = v3;
     v19 = v18;
@@ -3546,62 +4180,62 @@ uint64_t sub_10007F508(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_10007F8D0(uint64_t a1, uint64_t a2, uint64_t a3)
+double sub_10007F8D0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = type metadata accessor for DispatchWorkItemFlags();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for DispatchQoS();
-  v24 = *(v8 - 8);
-  v25 = v8;
+  v25 = *(v8 - 8);
+  v26 = v8;
   __chkstk_darwin(v8);
-  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = type metadata accessor for UUID();
   v12 = *(v11 - 8);
   v13 = *(v12 + 64);
   __chkstk_darwin(v11);
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  Strong = swift_weakLoadStrong();
+  if (Strong)
   {
-    v22 = *(result + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue);
-    v23 = result;
-    v15 = swift_allocObject();
-    v21 = v5;
-    v16 = v15;
+    v23 = *(Strong + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue);
+    v24 = Strong;
+    v16 = swift_allocObject();
+    v22 = v5;
+    v17 = v16;
     swift_weakInit();
-    (*(v12 + 16))(&v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), a3, v11);
-    v17 = (*(v12 + 80) + 24) & ~*(v12 + 80);
-    v18 = swift_allocObject();
-    *(v18 + 16) = v16;
-    (*(v12 + 32))(v18 + v17, &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
+    (*(v12 + 16))(&v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), a3, v11);
+    v18 = (*(v12 + 80) + 24) & ~*(v12 + 80);
+    v19 = swift_allocObject();
+    *(v19 + 16) = v17;
+    (*(v12 + 32))(v19 + v18, &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
     aBlock[4] = sub_100092A04;
-    aBlock[5] = v18;
+    aBlock[5] = v19;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_1000B5F04;
     aBlock[3] = &unk_1001C2528;
-    v19 = _Block_copy(aBlock);
+    v20 = _Block_copy(aBlock);
 
     static DispatchQoS.unspecified.getter();
-    v26 = &_swiftEmptyArrayStorage;
-    sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-    sub_1000033A8(&unk_1001D8010);
-    sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+    v27 = _swiftEmptyArrayStorage;
+    sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+    sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
-    _Block_release(v19);
-    (*(v21 + 8))(v7, v4);
-    (*(v24 + 8))(v10, v25);
+    _Block_release(v20);
+    (*(v22 + 8))(v7, v4);
+    (*(v25 + 8))(v10, v26);
   }
 
   return result;
 }
 
-uint64_t sub_10007FCD4(uint64_t a1, uint64_t a2)
+double sub_10007FCD4(uint64_t a1, uint64_t a2)
 {
-  v3 = sub_1000033A8(&unk_1001D9590);
+  v3 = sub_1000033A8(&unk_1001D9590, &qword_1001771F8);
   __chkstk_darwin(v3 - 8);
   v5 = &v12[-v4];
   v6 = type metadata accessor for UUID();
@@ -3609,11 +4243,10 @@ uint64_t sub_10007FCD4(uint64_t a1, uint64_t a2)
   __chkstk_darwin(v6);
   v9 = &v12[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  if (swift_weakLoadStrong())
   {
     (*(v7 + 16))(v9, a2, v6);
-    v11 = sub_1000033A8(&unk_1001D8190);
+    v11 = sub_1000033A8(&unk_1001D8190, &qword_1001771E0);
     (*(*(v11 - 8) + 56))(v5, 1, 1, v11);
     swift_beginAccess();
     sub_1000B7B68(v5, v9);
@@ -3640,22 +4273,22 @@ uint64_t sub_10007FE9C(uint64_t a1)
   *(v1 + 24) = 0;
   *(v1 + 32) = 0;
   *(v1 + 40) = 0;
-  sub_1000033A8(&qword_1001D80D8);
+  sub_1000033A8(&qword_1001D80D8, &qword_100177150);
   default argument 0 of CircularBuffer.init(data:index:sizeMax:)();
   default argument 1 of CircularBuffer.init(data:index:sizeMax:)();
   *(v1 + 56) = TimestampDataBuffer.__allocating_init(data:index:sizeMax:)();
-  *(v1 + 64) = sub_100096F20(&_swiftEmptyArrayStorage);
+  *(v1 + 64) = sub_100096F20(_swiftEmptyArrayStorage);
   *(v1 + 72) = 1084227584;
   *(v1 + 80) = 3;
   static Log.arKit.getter();
   *(v1 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_predictionsStreamContinuations) = &_swiftEmptyDictionarySingleton;
   v10 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue;
-  sub_10005BBC4(0, &qword_1001D6B40);
+  sub_10005BBC4(0, &qword_1001D6B40, OS_dispatch_queue_ptr);
   static DispatchQoS.unspecified.getter();
-  v15 = &_swiftEmptyArrayStorage;
-  sub_100090580(&unk_1001D8040, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_1000033A8(&unk_1001D6B50);
-  sub_100013608(&unk_1001D8050, &unk_1001D6B50);
+  v15 = _swiftEmptyArrayStorage;
+  sub_100090580(&unk_1001D8040, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_1000033A8(&unk_1001D6B50, &unk_100175C40);
+  sub_100013608(&unk_1001D8050, &unk_1001D6B50, &unk_100175C40, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v12 + 104))(v11, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v13);
   *(v1 + v10) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
@@ -3664,14 +4297,14 @@ uint64_t sub_10007FE9C(uint64_t a1)
   *(v1 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_lastAnchoredTracksUpdateFrameTime) = 0xFFF0000000000000;
   type metadata accessor for UUID();
   type metadata accessor for ARCameraSource.Tracker.TrackState(0);
-  sub_100090580(&unk_1001D9550, &type metadata accessor for UUID);
+  sub_100090580(&unk_1001D9550, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v8 = Dictionary.init(minimumCapacity:)();
   sub_100092314(v7, type metadata accessor for CameraControllerConfiguration);
   *(v2 + 48) = v8;
   return v2;
 }
 
-uint64_t sub_10008028C()
+double sub_10008028C()
 {
   v1 = v0;
   v2 = *v0;
@@ -3698,30 +4331,32 @@ uint64_t sub_10008028C()
   v11 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v16 = &_swiftEmptyArrayStorage;
-  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+  v16 = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v11);
   (*(v15 + 8))(v5, v3);
   (*(v6 + 8))(v8, v14);
+
+  return result;
 }
 
-void sub_1000805C0()
+void sub_1000805C0(uint64_t a1)
 {
-  v0 = type metadata accessor for ARCameraSource.Tracker.TrackState(0);
-  v59 = *(v0 - 8);
-  v60 = v0;
-  v1 = __chkstk_darwin(v0);
-  v3 = (&v53 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v1);
-  v58 = &v53 - v4;
-  v5 = type metadata accessor for DispatchPredicate();
-  v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = (&v53 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v1 = type metadata accessor for ARCameraSource.Tracker.TrackState(0);
+  v60 = *(v1 - 8);
+  v61 = v1;
+  v2 = __chkstk_darwin(v1);
+  v4 = (&v54 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v2);
+  v59 = &v54 - v5;
+  v6 = type metadata accessor for DispatchPredicate();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = (&v54 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   swift_beginAccess();
   Strong = swift_weakLoadStrong();
   if (!Strong)
@@ -3729,21 +4364,21 @@ void sub_1000805C0()
     return;
   }
 
-  v10 = Strong;
-  v55 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue;
-  v11 = *(Strong + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue);
-  *v8 = v11;
-  v12 = enum case for DispatchPredicate.onQueue(_:);
-  v13 = v6 + 104;
-  v57 = *(v6 + 104);
-  v57(v8, enum case for DispatchPredicate.onQueue(_:), v5);
-  v14 = v11;
-  v15 = _dispatchPreconditionTest(_:)();
-  v17 = *(v6 + 8);
-  v16 = v6 + 8;
-  v56 = v17;
-  v17(v8, v5);
-  if ((v15 & 1) == 0)
+  v11 = Strong;
+  v56 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue;
+  v12 = *(Strong + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue);
+  *v9 = v12;
+  v13 = enum case for DispatchPredicate.onQueue(_:);
+  v14 = v7 + 104;
+  v58 = *(v7 + 104);
+  v58(v9, enum case for DispatchPredicate.onQueue(_:), v6);
+  v15 = v12;
+  v16 = _dispatchPreconditionTest(_:)();
+  v18 = *(v7 + 8);
+  v17 = v7 + 8;
+  v57 = v18;
+  v18(v9, v6);
+  if ((v16 & 1) == 0)
   {
 LABEL_25:
     __break(1u);
@@ -3756,156 +4391,156 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v53 = v13;
-  v54 = v5;
-  v18 = *(v10 + 48);
-  v19 = v18 + 64;
-  v20 = 1 << *(v18 + 32);
-  v21 = -1;
-  if (v20 < 64)
+  v54 = v14;
+  v55 = v6;
+  v19 = *(v11 + 48);
+  v20 = v19 + 64;
+  v21 = 1 << *(v19 + 32);
+  v22 = -1;
+  if (v21 < 64)
   {
-    v21 = ~(-1 << v20);
+    v22 = ~(-1 << v21);
   }
 
-  v22 = v21 & *(v18 + 64);
-  v23 = (v20 + 63) >> 6;
-  v61 = v16;
-  v62 = v18;
+  v23 = v22 & *(v19 + 64);
+  v24 = (v21 + 63) >> 6;
+  v62 = v17;
+  v63 = v19;
 
-  v24 = 0;
+  v25 = 0;
 LABEL_6:
-  v25 = v57;
-  if (!v22)
+  v26 = v58;
+  if (!v23)
   {
     goto LABEL_8;
   }
 
   do
   {
-    v26 = v24;
+    v27 = v25;
 LABEL_11:
-    v27 = __clz(__rbit64(v22));
-    v22 &= v22 - 1;
-    v28 = v58;
-    sub_10009237C(*(v62 + 56) + *(v59 + 72) * (v27 | (v26 << 6)), v58, type metadata accessor for ARCameraSource.Tracker.TrackState);
-    sub_1000923E4(v28, v3, type metadata accessor for ARCameraSource.Tracker.TrackState);
+    v28 = __clz(__rbit64(v23));
+    v23 &= v23 - 1;
+    v29 = v59;
+    sub_10009237C(*(v63 + 56) + *(v60 + 72) * (v28 | (v27 << 6)), v59, type metadata accessor for ARCameraSource.Tracker.TrackState);
+    sub_1000923E4(v29, v4, type metadata accessor for ARCameraSource.Tracker.TrackState);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      v29 = v12;
-      v30 = *v3;
-      v31 = sub_1000033A8(&qword_1001D8100);
-      sub_100092314(v3 + *(v31 + 48), type metadata accessor for ARCameraSource.AnchorInformation);
-      v32 = swift_unknownObjectWeakLoadStrong();
-      if (v32)
+      v30 = v13;
+      v31 = *v4;
+      v32 = sub_1000033A8(&qword_1001D8100, &qword_100177168);
+      sub_100092314(v4 + *(v32 + 48), type metadata accessor for ARCameraSource.AnchorInformation);
+      v33 = swift_unknownObjectWeakLoadStrong();
+      if (v33)
       {
-        v33 = v32;
-        [v32 removeAnchor:v30];
+        v34 = v33;
+        [v33 removeAnchor:v31];
       }
 
-      v24 = v26;
-      v12 = v29;
+      v25 = v27;
+      v13 = v30;
       goto LABEL_6;
     }
 
-    sub_100092314(v3, type metadata accessor for ARCameraSource.Tracker.TrackState);
-    v24 = v26;
+    sub_100092314(v4, type metadata accessor for ARCameraSource.Tracker.TrackState);
+    v25 = v27;
   }
 
-  while (v22);
+  while (v23);
   while (1)
   {
 LABEL_8:
-    v26 = v24 + 1;
-    if (__OFADD__(v24, 1))
+    v27 = v25 + 1;
+    if (__OFADD__(v25, 1))
     {
       __break(1u);
       goto LABEL_25;
     }
 
-    if (v26 >= v23)
+    if (v27 >= v24)
     {
       break;
     }
 
-    v22 = *(v19 + 8 * v26);
-    ++v24;
-    if (v22)
+    v23 = *(v20 + 8 * v27);
+    ++v25;
+    if (v23)
     {
       goto LABEL_11;
     }
   }
 
-  v35 = v54;
-  v34 = v55;
-  v36 = *(v10 + v55);
-  *v8 = v36;
-  v25(v8, v12, v35);
-  v37 = v36;
-  v38 = _dispatchPreconditionTest(_:)();
-  v39 = v56;
-  v56(v8, v35);
-  if ((v38 & 1) == 0)
+  v36 = v55;
+  v35 = v56;
+  v37 = *(v11 + v56);
+  *v9 = v37;
+  v26(v9, v13, v36);
+  v38 = v37;
+  v39 = _dispatchPreconditionTest(_:)();
+  v40 = v57;
+  v57(v9, v36);
+  if ((v39 & 1) == 0)
   {
     goto LABEL_26;
   }
 
-  v40 = *(v10 + v34);
-  *v8 = v40;
-  v25(v8, v12, v35);
-  v41 = v40;
-  v42 = _dispatchPreconditionTest(_:)();
-  v39(v8, v35);
-  if ((v42 & 1) == 0)
+  v41 = *(v11 + v35);
+  *v9 = v41;
+  v26(v9, v13, v36);
+  v42 = v41;
+  v43 = _dispatchPreconditionTest(_:)();
+  v40(v9, v36);
+  if ((v43 & 1) == 0)
   {
     goto LABEL_27;
   }
 
-  *(v10 + 48) = &_swiftEmptyDictionarySingleton;
+  *(v11 + 48) = &_swiftEmptyDictionarySingleton;
 
-  v43 = *(v10 + v34);
-  *v8 = v43;
-  v25(v8, v12, v35);
-  v44 = v43;
-  v45 = _dispatchPreconditionTest(_:)();
-  v39(v8, v35);
-  if ((v45 & 1) == 0)
+  v44 = *(v11 + v35);
+  *v9 = v44;
+  v26(v9, v13, v36);
+  v45 = v44;
+  v46 = _dispatchPreconditionTest(_:)();
+  v40(v9, v36);
+  if ((v46 & 1) == 0)
   {
     goto LABEL_28;
   }
 
-  v63 = *(v10 + 48);
+  v64 = *(v11 + 48);
 
-  sub_1000033A8(&unk_1001D8180);
+  sub_1000033A8(&unk_1001D8180, &qword_1001771D0);
   Dictionary.reserveCapacity(_:)(24);
-  v46 = v63;
-  v47 = *(v10 + v34);
-  *v8 = v47;
-  v25(v8, v12, v35);
-  v48 = v47;
-  LOBYTE(v47) = _dispatchPreconditionTest(_:)();
-  v39(v8, v35);
-  if (v47)
+  v47 = v64;
+  v48 = *(v11 + v35);
+  *v9 = v48;
+  v26(v9, v13, v36);
+  v49 = v48;
+  LOBYTE(v48) = _dispatchPreconditionTest(_:)();
+  v40(v9, v36);
+  if (v48)
   {
-    *(v10 + 48) = v46;
+    *(v11 + 48) = v47;
 
-    sub_1000033A8(&qword_1001D80D8);
+    sub_1000033A8(&qword_1001D80D8, &qword_100177150);
     default argument 0 of CircularBuffer.init(data:index:sizeMax:)();
     default argument 1 of CircularBuffer.init(data:index:sizeMax:)();
-    v49 = TimestampDataBuffer.__allocating_init(data:index:sizeMax:)();
-    v50 = *(v10 + v34);
-    *v8 = v50;
-    v25(v8, v12, v35);
-    v51 = v50;
-    v52 = _dispatchPreconditionTest(_:)();
-    v56(v8, v35);
-    if ((v52 & 1) == 0)
+    v50 = TimestampDataBuffer.__allocating_init(data:index:sizeMax:)();
+    v51 = *(v11 + v35);
+    *v9 = v51;
+    v26(v9, v13, v36);
+    v52 = v51;
+    v53 = _dispatchPreconditionTest(_:)();
+    v57(v9, v36);
+    if ((v53 & 1) == 0)
     {
       goto LABEL_30;
     }
 
-    *(v10 + 56) = v49;
+    *(v11 + 56) = v50;
 
-    *(v10 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_lastAnchoredTracksUpdateFrameTime) = 0xFFF0000000000000;
+    *(v11 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_lastAnchoredTracksUpdateFrameTime) = 0xFFF0000000000000;
 
     return;
   }
@@ -3930,7 +4565,7 @@ void **sub_100080BA8(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v58 = 0;
   v17 = v5;
   v56 = a4;
-  v54 = sub_10008104C();
+  v54 = sub_10008104C(v5, a2, a3, a4);
   v19 = v18;
   if (v18)
   {
@@ -3943,7 +4578,7 @@ void **sub_100080BA8(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
   else
   {
     (*(v14 + 16))(v16, a2, a3);
-    sub_10005BBC4(0, &qword_1001D7430);
+    sub_10005BBC4(0, &qword_1001D7430, ARFrame_ptr);
     v21 = a2;
     if (swift_dynamicCast())
     {
@@ -4026,14 +4661,14 @@ LABEL_10:
   return v22;
 }
 
-uint64_t sub_10008104C()
+uint64_t sub_10008104C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  sub_1000033A8(&qword_1001D8178);
+  sub_1000033A8(&qword_1001D8178, &qword_1001771C8);
   OS_dispatch_queue.sync<A>(execute:)();
-  return v1;
+  return v5;
 }
 
-uint64_t sub_1000810D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void sub_1000810D0(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v26 = a4;
   v24 = a3;
@@ -4052,18 +4687,18 @@ uint64_t sub_1000810D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   v13 = v10;
   LOBYTE(v10) = _dispatchPreconditionTest(_:)();
   v14 = *(v7 + 8);
-  result = v14(v9, v6);
+  v14(v9, v6);
   if (v10)
   {
     *v28 = *(v27 + 48);
     *v9 = v13;
     v12(v9, v11, v6);
 
-    v16 = _dispatchPreconditionTest(_:)();
-    result = v14(v9, v6);
-    if (v16)
+    v15 = _dispatchPreconditionTest(_:)();
+    v16 = (v14)(v9, v6);
+    if (v15)
     {
-      __chkstk_darwin(result);
+      __chkstk_darwin(v16);
       v17 = v25;
       v18 = v26;
       *(&v23 - 4) = v24;
@@ -4076,7 +4711,7 @@ uint64_t sub_1000810D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
       v22 = v28;
       v28[1] = v19;
       v22[2] = v21;
-      return result;
+      return;
     }
   }
 
@@ -4086,7 +4721,6 @@ uint64_t sub_1000810D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   }
 
   __break(1u);
-  return result;
 }
 
 uint64_t sub_1000812F8(uint64_t *a1, uint64_t a2, uint64_t a3, id *a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -4129,7 +4763,7 @@ uint64_t sub_1000812F8(uint64_t *a1, uint64_t a2, uint64_t a3, id *a4, uint64_t 
     else
     {
       v34 = *v23;
-      v35 = *(sub_1000033A8(&qword_1001D8100) + 48);
+      v35 = *(sub_1000033A8(&qword_1001D8100, &qword_100177168) + 48);
       if (*v45)
       {
         v36 = *v45;
@@ -4165,7 +4799,7 @@ uint64_t sub_1000812F8(uint64_t *a1, uint64_t a2, uint64_t a3, id *a4, uint64_t 
       *v28 = 136315138;
       v48 = v20;
       type metadata accessor for CVTrackedDetection();
-      sub_100090580(&qword_1001D8170, &type metadata accessor for CVTrackedDetection);
+      sub_100090580(&qword_1001D8170, &type metadata accessor for CVTrackedDetection, &protocol conformance descriptor for CVTrackedDetection);
       v30 = CVTrackProviding.shortLoggingDescription.getter();
       v32 = sub_1000E0FE0(v30, v31, &v49);
 
@@ -4296,10 +4930,10 @@ void sub_1000818C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     v38 = v45;
     static DispatchQoS.unspecified.getter();
-    v60 = &_swiftEmptyArrayStorage;
-    sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-    sub_1000033A8(&unk_1001D8010);
-    sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+    v60 = _swiftEmptyArrayStorage;
+    sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+    sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
     v39 = v47;
     v40 = v50;
     dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -4310,25 +4944,24 @@ void sub_1000818C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 }
 
-BOOL sub_100082000()
+BOOL sub_100082000(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v0 = type metadata accessor for CVDetection();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for CVDetection();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   dispatch thunk of CVTrackProviding.latestDetection.getter();
   CVDetection.timestamp.getter();
-  v5 = v4;
-  (*(v1 + 8))(v3, v0);
+  v11 = v10;
+  (*(v7 + 8))(v9, v6);
   CameraSourceFrame.timestamp.getter();
-  return v5 == v6;
+  return v11 == v12;
 }
 
-uint64_t sub_100082130(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+double sub_100082130(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  if (swift_weakLoadStrong())
   {
     sub_1000821D4(a2, a3, a4, a5, a6, a7);
   }
@@ -4338,170 +4971,170 @@ uint64_t sub_100082130(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 void sub_1000821D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v438 = a6;
-  v493 = a5;
-  v432 = a2;
-  v490 = a1;
-  v9 = sub_1000033A8(&qword_1001D8130);
+  v439 = a6;
+  v494 = a5;
+  v433 = a2;
+  v491 = a1;
+  v9 = sub_1000033A8(&qword_1001D8130, &qword_100177198);
   __chkstk_darwin(v9 - 8);
-  v447 = &v404 - v10;
-  v443 = type metadata accessor for ARCameraSource.AnchorInformation(0);
-  v477 = *(v443 - 8);
-  v11 = __chkstk_darwin(v443);
-  v425 = &v404 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v448 = &v405 - v10;
+  v444 = type metadata accessor for ARCameraSource.AnchorInformation(0);
+  v478 = *(v444 - 8);
+  v11 = __chkstk_darwin(v444);
+  v426 = &v405 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = __chkstk_darwin(v11);
-  v441 = &v404 - v14;
+  v442 = &v405 - v14;
   __chkstk_darwin(v13);
-  v423 = &v404 - v15;
-  v459 = type metadata accessor for Corners();
-  v486 = *(v459 - 8);
-  __chkstk_darwin(v459);
-  v457 = &v404 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = sub_1000033A8(&qword_1001D8138);
+  v424 = &v405 - v15;
+  v460 = type metadata accessor for Corners();
+  v487 = *(v460 - 8);
+  __chkstk_darwin(v460);
+  v458 = &v405 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = sub_1000033A8(&qword_1001D8138, &qword_1001771A0);
   __chkstk_darwin(v17 - 8);
-  v488 = &v404 - v18;
-  v19 = sub_1000033A8(&qword_1001D8128);
+  v489 = &v405 - v18;
+  v19 = sub_1000033A8(&qword_1001D8128, &qword_100177190);
   v20 = __chkstk_darwin(v19 - 8);
-  v424 = &v404 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v425 = &v405 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   v22 = __chkstk_darwin(v20);
-  v431 = &v404 - v23;
+  v432 = &v405 - v23;
   v24 = __chkstk_darwin(v22);
-  v436 = &v404 - v25;
+  v437 = &v405 - v25;
   v26 = __chkstk_darwin(v24);
-  v419 = &v404 - v27;
+  v420 = &v405 - v27;
   v28 = __chkstk_darwin(v26);
-  v450 = &v404 - v29;
+  v451 = &v405 - v29;
   __chkstk_darwin(v28);
-  v472 = &v404 - v30;
-  v475 = type metadata accessor for UUID();
-  v454 = *(v475 - 8);
-  v31 = __chkstk_darwin(v475);
-  v442 = &v404 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v473 = &v405 - v30;
+  v476 = type metadata accessor for UUID();
+  v455 = *(v476 - 8);
+  v31 = __chkstk_darwin(v476);
+  v443 = &v405 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
   v33 = __chkstk_darwin(v31);
-  v460 = &v404 - v34;
+  v461 = &v405 - v34;
   v35 = __chkstk_darwin(v33);
-  v430 = &v404 - v36;
+  v431 = &v405 - v36;
   v37 = __chkstk_darwin(v35);
-  v428 = &v404 - v38;
+  v429 = &v405 - v38;
   __chkstk_darwin(v37);
-  v494 = &v404 - v39;
-  v480 = type metadata accessor for CVDetection();
-  v485 = *(v480 - 8);
-  __chkstk_darwin(v480);
-  v479 = &v404 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v484 = type metadata accessor for ARCameraSource.Tracker.TrackState(0);
-  v463 = *(v484 - 8);
-  v41 = __chkstk_darwin(v484);
-  v440 = (v404.i64 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v495 = &v405 - v39;
+  v481 = type metadata accessor for CVDetection();
+  v486 = *(v481 - 8);
+  __chkstk_darwin(v481);
+  v480 = &v405 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v485 = type metadata accessor for ARCameraSource.Tracker.TrackState(0);
+  v464 = *(v485 - 8);
+  v41 = __chkstk_darwin(v485);
+  v441 = (v405.i64 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0));
   v43 = __chkstk_darwin(v41);
-  v421 = (&v404 - v44);
+  v422 = (&v405 - v44);
   v45 = __chkstk_darwin(v43);
-  v422 = &v404 - v46;
+  v423 = &v405 - v46;
   v47 = __chkstk_darwin(v45);
-  v444 = &v404 - v48;
+  v445 = &v405 - v48;
   v49 = __chkstk_darwin(v47);
-  v435 = &v404 - v50;
+  v436 = &v405 - v50;
   v51 = __chkstk_darwin(v49);
-  v427 = &v404 - v52;
+  v428 = &v405 - v52;
   v53 = __chkstk_darwin(v51);
-  v465 = &v404 - v54;
+  v466 = &v405 - v54;
   __chkstk_darwin(v53);
-  v482 = &v404 - v55;
-  v492 = type metadata accessor for RaycastAccuracy(0);
-  v478 = *(v492 - 8);
-  v56 = __chkstk_darwin(v492);
-  v418 = &v404 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v483 = &v405 - v55;
+  v493 = type metadata accessor for RaycastAccuracy(0);
+  v479 = *(v493 - 8);
+  v56 = __chkstk_darwin(v493);
+  v419 = &v405 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
   v58 = __chkstk_darwin(v56);
-  v417 = &v404 - v59;
+  v418 = &v405 - v59;
   v60 = __chkstk_darwin(v58);
-  v466 = (v404.i64 - v61);
-  v487 = *(a3 - 8);
+  v467 = (v405.i64 - v61);
+  v488 = *(a3 - 8);
   v62 = __chkstk_darwin(v60);
-  v426 = &v404 - ((v63 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v427 = &v405 - ((v63 + 15) & 0xFFFFFFFFFFFFFFF0);
   v64 = __chkstk_darwin(v62);
-  v469 = &v404 - v65;
-  v407 = v66;
+  v470 = &v405 - v65;
+  v408 = v66;
   __chkstk_darwin(v64);
-  v470 = &v404 - v67;
+  v471 = &v405 - v67;
   v68 = type metadata accessor for ARCamera.TrackingState();
   v69 = __chkstk_darwin(v68 - 8);
-  v429 = &v404 - ((v70 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v430 = &v405 - ((v70 + 15) & 0xFFFFFFFFFFFFFFF0);
   v71 = __chkstk_darwin(v69);
-  v476 = &v404 - v72;
+  v477 = &v405 - v72;
   v73 = __chkstk_darwin(v71);
-  v474 = (&v404 - v74);
-  v433 = a4;
-  v437 = *(a4 - 8);
+  v475 = (&v405 - v74);
+  v434 = a4;
+  v438 = *(a4 - 8);
   v75 = __chkstk_darwin(v73);
-  v413 = &v404 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v414 = &v405 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0);
   v77 = __chkstk_darwin(v75);
-  v481.i64[0] = &v404 - v78;
+  v482.i64[0] = &v405 - v78;
   v79 = __chkstk_darwin(v77);
-  v489.i64[0] = &v404 - v80;
+  v490.i64[0] = &v405 - v80;
   v81 = __chkstk_darwin(v79);
-  v495.i64[0] = &v404 - v82;
+  v496.i64[0] = &v405 - v82;
   __chkstk_darwin(v81);
-  v84 = &v404 - v83;
+  v84 = &v405 - v83;
   v85 = type metadata accessor for CameraSourceFrameMetadata();
   v86 = *(v85 - 8);
   __chkstk_darwin(v85);
-  v88 = &v404 - ((v87 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v88 = &v405 - ((v87 + 15) & 0xFFFFFFFFFFFFFFF0);
   v89 = type metadata accessor for DispatchPredicate();
   v90 = *(v89 - 8);
   __chkstk_darwin(v89);
-  v92 = (v404.i64 - ((v91 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v92 = (v405.i64 - ((v91 + 15) & 0xFFFFFFFFFFFFFFF0));
   v93 = *(v6 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue);
   *v92 = v93;
   v94 = *(v90 + 104);
-  v499 = enum case for DispatchPredicate.onQueue(_:);
-  v498 = v90 + 104;
-  v497 = v94;
+  v500 = enum case for DispatchPredicate.onQueue(_:);
+  v499 = v90 + 104;
+  v498 = v94;
   v94(v92);
-  v473 = v93;
+  v474 = v93;
   LOBYTE(v93) = _dispatchPreconditionTest(_:)();
   v95 = *(v90 + 8);
-  v500 = v92;
-  v502 = v89;
-  v501 = v90 + 8;
-  v496 = v95;
+  v501 = v92;
+  v503 = v89;
+  v502 = v90 + 8;
+  v497 = v95;
   v95(v92, v89);
   if ((v93 & 1) == 0)
   {
     goto LABEL_136;
   }
 
-  v503 = v6;
-  v96 = sub_100097550(&_swiftEmptyArrayStorage);
-  v97 = sub_100097630(&_swiftEmptyArrayStorage);
-  v506 = v96;
-  v507 = v97;
-  v508 = &_swiftEmptyArrayStorage;
-  v98 = v432;
-  v99 = v433;
+  v504 = v6;
+  v96 = sub_100097550(_swiftEmptyArrayStorage);
+  v97 = sub_100097630(_swiftEmptyArrayStorage);
+  v507 = v96;
+  v508 = v97;
+  v509 = _swiftEmptyArrayStorage;
+  v98 = v433;
+  v99 = v434;
   dispatch thunk of CameraSourceFrame.metadata.getter();
-  v483 = CameraSourceFrameMetadata.isHighResolutionStill.getter();
+  v484 = CameraSourceFrameMetadata.isHighResolutionStill.getter();
   v100 = *(v86 + 8);
-  v415 = v88;
-  v416 = v85;
-  v420 = v86 + 8;
-  v414 = v100;
+  v416 = v88;
+  v417 = v85;
+  v421 = v86 + 8;
+  v415 = v100;
   v100(v88, v85);
-  v101 = v437 + 16;
-  v102 = *(v437 + 16);
+  v101 = v438 + 16;
+  v102 = *(v438 + 16);
   v102(v84, v98, v99);
-  sub_10005BBC4(0, &qword_1001D7430);
+  sub_10005BBC4(0, &qword_1001D7430, ARFrame_ptr);
   p_name = &stru_1001CFFF8.name;
-  v446 = swift_dynamicCast();
-  v411 = v101;
-  v410 = v102;
-  v491 = a3;
-  if (v446)
+  v447 = swift_dynamicCast();
+  v412 = v101;
+  v411 = v102;
+  v492 = a3;
+  if (v447)
   {
-    v104 = *&v504[0];
-    v102(v495.i64[0], v98, v99);
-    v105 = v489.i64[0];
-    v102(v489.i64[0], v98, v99);
-    v467 = v104;
+    v104 = *&v505[0];
+    v102(v496.i64[0], v98, v99);
+    v105 = v490.i64[0];
+    v102(v490.i64[0], v98, v99);
+    v468 = v104;
     v106 = v104;
 
     v107 = Logger.logObject.getter();
@@ -4509,73 +5142,73 @@ void sub_1000821D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     if (os_log_type_enabled(v107, v108))
     {
       v109 = swift_slowAlloc();
-      LODWORD(v471) = v108;
-      v464 = v106;
+      LODWORD(v472) = v108;
+      v465 = v106;
       v110 = v109;
-      v481.i64[0] = swift_slowAlloc();
-      v505 = v481.i64[0];
+      v482.i64[0] = swift_slowAlloc();
+      v506 = v482.i64[0];
       *v110 = 134219010;
       *(v110 + 4) = Array.count.getter();
 
       *(v110 + 12) = 2080;
-      v111 = v415;
-      v468 = v107;
-      v112 = v495.i64[0];
+      v111 = v416;
+      v469 = v107;
+      v112 = v496.i64[0];
       dispatch thunk of CameraSourceFrame.metadata.getter();
       v113 = CameraSourceFrameMetadata.timeDescription.getter();
       v115 = v114;
-      v116 = v416;
-      v117 = v414;
-      v414(v111, v416);
-      v118 = *(v437 + 8);
+      v116 = v417;
+      v117 = v415;
+      v415(v111, v417);
+      v118 = *(v438 + 8);
       v118(v112, v99);
-      v119 = sub_1000E0FE0(v113, v115, &v505);
+      v119 = sub_1000E0FE0(v113, v115, &v506);
       v120 = v116;
 
       *(v110 + 14) = v119;
       *(v110 + 22) = 2080;
-      v121 = v464;
-      v122 = [v464 camera];
+      v121 = v465;
+      v122 = [v465 camera];
       [v122 transform];
-      v495 = v123;
-      v462 = v124;
-      v461 = v125;
-      v458 = v126;
+      v496 = v123;
+      v463 = v124;
+      v462 = v125;
+      v459 = v126;
 
-      v504[0] = v495;
-      v504[1] = v462;
-      v504[2] = v461;
-      v504[3] = v458;
+      v505[0] = v496;
+      v505[1] = v463;
+      v505[2] = v462;
+      v505[3] = v459;
       type metadata accessor for simd_float4x4(0);
       v127 = String.init<A>(describing:)();
-      v129 = sub_1000E0FE0(v127, v128, &v505);
+      v129 = sub_1000E0FE0(v127, v128, &v506);
 
       *(v110 + 24) = v129;
       *(v110 + 32) = 2048;
-      v130 = v489.i64[0];
+      v130 = v490.i64[0];
       dispatch thunk of CameraSourceFrame.metadata.getter();
       CameraSourceFrameMetadata.timestamp.getter();
       v132 = v131;
       v117(v111, v120);
       p_name = &stru_1001CFFF8.name;
-      v409 = v118;
+      v410 = v118;
       v118(v130, v99);
       *(v110 + 34) = v132;
       *(v110 + 42) = 1024;
       v133 = [v121 camera];
-      v134 = v474;
+      v134 = v475;
       ARCamera.trackingState.getter();
 
       v135 = type metadata accessor for ARCamera.TrackingState.Reason();
-      v136 = v476;
-      (*(*(v135 - 8) + 56))(v476, 2, 2, v135);
+      v136 = v477;
+      (*(*(v135 - 8) + 56))(v477, 2, 2, v135);
       LOBYTE(v133) = static ARCamera.TrackingState.== infix(_:_:)();
       sub_100092314(v136, &type metadata accessor for ARCamera.TrackingState);
       sub_100092314(v134, &type metadata accessor for ARCamera.TrackingState);
 
       *(v110 + 44) = v133 & 1;
-      v137 = v468;
-      _os_log_impl(&_mh_execute_header, v468, v471, "Establishing %ld tracks @ %s, frame.camera.transform: %s @ %f, frame.camera.trackingState == .normal: %{BOOL}d", v110, 0x30u);
+      v137 = v469;
+      _os_log_impl(&_mh_execute_header, v469, v472, "Establishing %ld tracks @ %s, frame.camera.transform: %s @ %f, frame.camera.trackingState == .normal: %{BOOL}d", v110, 0x30u);
       swift_arrayDestroy();
     }
 
@@ -4583,35 +5216,35 @@ void sub_1000821D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     {
 
       v121 = v106;
-      v152 = *(v437 + 8);
+      v152 = *(v438 + 8);
       v152(v105, v99);
-      v409 = v152;
-      v152(v495.i64[0], v99);
+      v410 = v152;
+      v152(v496.i64[0], v99);
     }
 
-    v150 = v470;
-    v151 = v472;
-    v153 = v500;
-    v154 = v473;
-    *v500 = v473;
-    v155 = v502;
-    v497(v153, v499, v502);
+    v150 = v471;
+    v151 = v473;
+    v153 = v501;
+    v154 = v474;
+    *v501 = v474;
+    v155 = v503;
+    v498(v153, v500, v503);
     v156 = v154;
     LOBYTE(v154) = _dispatchPreconditionTest(_:)();
-    v157 = v496(v153, v155);
+    v157 = v497(v153, v155);
     if ((v154 & 1) == 0)
     {
       goto LABEL_139;
     }
 
     __chkstk_darwin(v157);
-    v158 = v433;
-    *(&v404 - 6) = v491;
-    *(&v404 - 5) = v158;
-    v159 = v438;
-    *(&v404 - 4) = v493;
-    *(&v404 - 3) = v159;
-    *(&v404 - 2) = v432;
+    v158 = v434;
+    *(&v405 - 6) = v492;
+    *(&v405 - 5) = v158;
+    v159 = v439;
+    *(&v405 - 4) = v494;
+    *(&v405 - 3) = v159;
+    *(&v405 - 2) = v433;
 
     v160 = sub_100071970(sub_100092534);
 
@@ -4624,96 +5257,96 @@ void sub_1000821D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     v162 = [v121 camera];
     [v162 transform];
-    v456 = v163;
-    v481 = v164;
-    v489 = v165;
-    v495 = v166;
+    v457 = v163;
+    v482 = v164;
+    v490 = v165;
+    v496 = v166;
 
-    v167 = vmulq_f32(v456, 0);
-    v456 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v456, 0, v481), 0, v489), 0, v495);
-    v168 = vmlaq_f32(v167, 0, v481);
-    v448 = vmlaq_f32(vaddq_f32(v489, v168), 0, v495);
+    v167 = vmulq_f32(v457, 0);
+    v457 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v457, 0, v482), 0, v490), 0, v496);
+    v168 = vmlaq_f32(v167, 0, v482);
+    v449 = vmlaq_f32(vaddq_f32(v490, v168), 0, v496);
     __asm { FMOV            V2.4S, #-1.0 }
 
-    v449 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v167, _Q2, v481), 0, v489), 0, v495);
+    v450 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v167, _Q2, v482), 0, v490), 0, v496);
     __asm { FMOV            V0.4S, #-5.0 }
 
-    v445 = vaddq_f32(v495, vmlaq_f32(v168, _Q0, v489));
-    v148 = v490;
-    v149 = v469;
-    a3 = v491;
+    v446 = vaddq_f32(v496, vmlaq_f32(v168, _Q0, v490));
+    v148 = v491;
+    v149 = v470;
+    a3 = v492;
   }
 
   else
   {
-    v138 = v481.i64[0];
-    v102(v481.i64[0], v98, v99);
-    v139 = v490;
+    v138 = v482.i64[0];
+    v102(v482.i64[0], v98, v99);
+    v139 = v491;
 
     v140 = Logger.logObject.getter();
     v141 = static os_log_type_t.info.getter();
     if (os_log_type_enabled(v140, v141))
     {
       v142 = swift_slowAlloc();
-      v495.i64[0] = swift_slowAlloc();
-      *&v504[0] = v495.i64[0];
+      v496.i64[0] = swift_slowAlloc();
+      *&v505[0] = v496.i64[0];
       *v142 = 134218242;
       *(v142 + 4) = Array.count.getter();
 
       *(v142 + 12) = 2080;
-      v143 = v415;
+      v143 = v416;
       dispatch thunk of CameraSourceFrame.metadata.getter();
       v144 = CameraSourceFrameMetadata.timeDescription.getter();
       v146 = v145;
-      v414(v143, v416);
-      v409 = *(v437 + 8);
-      v409(v138, v99);
-      v147 = sub_1000E0FE0(v144, v146, v504);
+      v415(v143, v417);
+      v410 = *(v438 + 8);
+      v410(v138, v99);
+      v147 = sub_1000E0FE0(v144, v146, v505);
       p_name = (&stru_1001CFFF8 + 8);
-      v148 = v490;
+      v148 = v491;
 
       *(v142 + 14) = v147;
       _os_log_impl(&_mh_execute_header, v140, v141, "Establishing %ld tracks @ %s", v142, 0x16u);
-      sub_100006B44(v495.i64[0]);
+      sub_100006B44(v496.i64[0]);
 
-      v467 = 0;
-      v456 = 0u;
-      v448 = 0u;
+      v468 = 0;
+      v457 = 0u;
       v449 = 0u;
-      v445 = 0u;
-      v149 = v469;
-      v150 = v470;
-      v151 = v472;
+      v450 = 0u;
+      v446 = 0u;
+      v149 = v470;
+      v150 = v471;
+      v151 = v473;
     }
 
     else
     {
 
-      v409 = *(v437 + 8);
-      v409(v138, v99);
-      v467 = 0;
-      v456 = 0u;
-      v448 = 0u;
+      v410 = *(v438 + 8);
+      v410(v138, v99);
+      v468 = 0;
+      v457 = 0u;
       v449 = 0u;
-      v445 = 0u;
-      v149 = v469;
-      v151 = v472;
+      v450 = 0u;
+      v446 = 0u;
+      v149 = v470;
+      v151 = v473;
       v148 = v139;
-      v150 = v470;
+      v150 = v471;
     }
   }
 
   if (!Array.endIndex.getter())
   {
 LABEL_119:
-    v386 = v506;
-    v387 = v507;
-    v388 = v508;
-    if (sub_1000914FC(v506))
+    v386 = v507;
+    v387 = v508;
+    v388 = v509;
+    if (sub_1000914FC(v507))
     {
-      v389 = v413;
-      v390 = v433;
-      v410(v413, v432, v433);
+      v389 = v414;
+      v390 = v434;
+      v411(v414, v433, v434);
 
       v391 = Logger.logObject.getter();
       v392 = static os_log_type_t.debug.getter();
@@ -4721,34 +5354,35 @@ LABEL_119:
       if (!os_log_type_enabled(v391, v392))
       {
 
-        v409(v389, v390);
+        v410(v389, v390);
         return;
       }
 
       v393 = swift_slowAlloc();
-      v503 = swift_slowAlloc();
-      *&v504[0] = v503;
+      v504 = swift_slowAlloc();
+      *&v505[0] = v504;
       *v393 = 134218498;
       *(v393 + 4) = Array.count.getter();
 
       *(v393 + 12) = 2080;
-      v394 = sub_10007E124(v386, v387, v388);
-      v396 = v395;
+      sub_10007E124(v386, v387, v388);
+      v395 = v394;
+      v397 = v396;
 
-      v397 = sub_1000E0FE0(v394, v396, v504);
+      v398 = sub_1000E0FE0(v395, v397, v505);
 
-      *(v393 + 14) = v397;
+      *(v393 + 14) = v398;
       *(v393 + 22) = 2080;
-      v398 = v415;
-      v399 = v413;
+      v399 = v416;
+      v400 = v414;
       dispatch thunk of CameraSourceFrame.metadata.getter();
-      v400 = CameraSourceFrameMetadata.timeDescription.getter();
-      v402 = v401;
-      v414(v398, v416);
-      v409(v399, v390);
-      v403 = sub_1000E0FE0(v400, v402, v504);
+      v401 = CameraSourceFrameMetadata.timeDescription.getter();
+      v403 = v402;
+      v415(v399, v417);
+      v410(v400, v390);
+      v404 = sub_1000E0FE0(v401, v403, v505);
 
-      *(v393 + 24) = v403;
+      *(v393 + 24) = v404;
       _os_log_impl(&_mh_execute_header, v391, v392, "Anchor operations for %ld tracks: %s @ %s", v393, 0x20u);
       swift_arrayDestroy();
     }
@@ -4761,20 +5395,20 @@ LABEL_119:
   }
 
   v176 = 0;
-  v489.i64[0] = v487 + 16;
-  *&v461 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_logger;
-  v481.i64[0] = v487 + 32;
-  v476 = (v485 + 1);
-  *&v458 = v486 + 1;
-  v486 = v478 + 7;
-  v478 = (v463 + 56);
-  v471 = (v463 + 48);
-  v474 = (v454 + 8);
-  v485 = (v487 + 8);
-  v439 = (v477 + 48);
-  v434 = v454 + 16;
+  v490.i64[0] = v488 + 16;
+  *&v462 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_logger;
+  v482.i64[0] = v488 + 32;
+  v477 = (v486 + 1);
+  *&v459 = v487 + 1;
+  v487 = v479 + 7;
+  v479 = (v464 + 56);
+  v472 = (v464 + 48);
+  v475 = (v455 + 8);
+  v486 = (v488 + 8);
+  v440 = (v478 + 48);
+  v435 = v455 + 16;
   *&v175 = 136315138;
-  v412 = v175;
+  v413 = v175;
   while (1)
   {
     IsNativeType = Array._hoistableIsNativeTypeChecked()();
@@ -4784,8 +5418,8 @@ LABEL_119:
       break;
     }
 
-    v179 = v148 + ((*(v487 + 80) + 32) & ~*(v487 + 80)) + *(v487 + 72) * v176;
-    v180 = *(v487 + 16);
+    v179 = v148 + ((*(v488 + 80) + 32) & ~*(v488 + 80)) + *(v488 + 72) * v176;
+    v180 = *(v488 + 16);
     v180(v150, v179, a3);
     v177 = (v176 + 1);
     if (__OFADD__(v176, 1))
@@ -4794,97 +5428,97 @@ LABEL_119:
     }
 
 LABEL_21:
-    (*v481.i64[0])(v149, v150, a3);
-    if (v483)
+    (*v482.i64[0])(v149, v150, a3);
+    if (v484)
     {
       v181 = v176;
       v182 = v150;
-      v477 = v181;
-      v495.i64[0] = v177;
-      v183 = *(sub_1000033A8(&qword_1001D8148) + 48);
-      v184 = v479;
+      v478 = v181;
+      v496.i64[0] = v177;
+      v183 = *(sub_1000033A8(&qword_1001D8148, &qword_1001771A8) + 48);
+      v184 = v480;
       v185 = v149;
       v186 = v151;
       dispatch thunk of CVTrackProviding.latestDetection.getter();
-      v187 = v482;
+      v187 = v483;
       CVDetection.corners.getter();
-      (*v476)(v184, v480);
+      (*v477)(v184, v481);
       *(v187 + v183) = 0;
-      v188 = v484;
+      v188 = v485;
       swift_storeEnumTagMultiPayload();
       v189 = v185;
       dispatch thunk of CVTrackIdentifying.id.getter();
       sub_10009237C(v187, v151, type metadata accessor for ARCameraSource.Tracker.TrackState);
-      v190 = *v478;
-      (*v478)(v151, 0, 1, v188);
-      v191 = v500;
-      v192 = v473;
-      *v500 = v473;
-      v193 = v502;
-      v497(v191, v499, v502);
+      v190 = *v479;
+      (*v479)(v151, 0, 1, v188);
+      v191 = v501;
+      v192 = v474;
+      *v501 = v474;
+      v193 = v503;
+      v498(v191, v500, v503);
       v194 = v192;
       LOBYTE(v192) = _dispatchPreconditionTest(_:)();
-      v496(v191, v193);
+      v497(v191, v193);
       if ((v192 & 1) == 0)
       {
         goto LABEL_126;
       }
 
-      v195 = *(v503 + 48);
-      if ((*v471)(v151, 1, v188) == 1)
+      v195 = *(v504 + 48);
+      if ((*v472)(v151, 1, v188) == 1)
       {
 
-        sub_10001370C(v151, &qword_1001D8128);
-        v196 = v494;
-        v197 = sub_100095B4C(v494);
+        sub_10001370C(v151, &qword_1001D8128, &qword_100177190);
+        v196 = v495;
+        v197 = sub_100095B4C(v495);
         if (v198)
         {
           v199 = v197;
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          *&v504[0] = v195;
+          *&v505[0] = v195;
           if (!isUniquelyReferenced_nonNull_native)
           {
             sub_1000C2630();
-            v195 = *&v504[0];
+            v195 = *&v505[0];
           }
 
-          v201 = *(v454 + 8);
-          v202 = v475;
-          v201(v195[6] + *(v454 + 72) * v199, v475);
-          v203 = v450;
-          sub_1000923E4(v195[7] + *(v463 + 72) * v199, v450, type metadata accessor for ARCameraSource.Tracker.TrackState);
+          v201 = *(v455 + 8);
+          v202 = v476;
+          v201(v195[6] + *(v455 + 72) * v199, v476);
+          v203 = v451;
+          sub_1000923E4(v195[7] + *(v464 + 72) * v199, v451, type metadata accessor for ARCameraSource.Tracker.TrackState);
           sub_1000C08B0(v199, v195);
-          v201(v494, v202);
+          v201(v495, v202);
           v204 = 0;
-          v205 = v484;
-          v150 = v470;
+          v205 = v485;
+          v150 = v471;
           p_name = (&stru_1001CFFF8 + 8);
         }
 
         else
         {
-          (*v474)(v196, v475);
+          (*v475)(v196, v476);
           v204 = 1;
-          v203 = v450;
+          v203 = v451;
           p_name = (&stru_1001CFFF8 + 8);
-          v205 = v484;
+          v205 = v485;
           v150 = v182;
         }
 
         v190(v203, v204, 1, v205);
-        sub_10001370C(v203, &qword_1001D8128);
-        v151 = v472;
-        v189 = v469;
-        v177 = v495.i64[0];
+        sub_10001370C(v203, &qword_1001D8128, &qword_100177190);
+        v151 = v473;
+        v189 = v470;
+        v177 = v496.i64[0];
       }
 
       else
       {
-        sub_1000923E4(v151, v465, type metadata accessor for ARCameraSource.Tracker.TrackState);
+        sub_1000923E4(v151, v466, type metadata accessor for ARCameraSource.Tracker.TrackState);
 
         v229 = swift_isUniquelyReferenced_nonNull_native();
-        *&v504[0] = v195;
-        v230 = sub_100095B4C(v494);
+        *&v505[0] = v195;
+        v230 = sub_100095B4C(v495);
         v232 = v195[2];
         v233 = (v231 & 1) == 0;
         _VF = __OFADD__(v232, v233);
@@ -4909,31 +5543,31 @@ LABEL_21:
         else
         {
           sub_1000BE6FC(v234, v229);
-          v230 = sub_100095B4C(v494);
+          v230 = sub_100095B4C(v495);
           if ((v235 & 1) != (v236 & 1))
           {
             goto LABEL_142;
           }
         }
 
-        v177 = v495.i64[0];
-        v195 = *&v504[0];
+        v177 = v496.i64[0];
+        v195 = *&v505[0];
         if (v235)
         {
-          sub_100092DE0(v465, *(*&v504[0] + 56) + *(v463 + 72) * v230, type metadata accessor for ARCameraSource.Tracker.TrackState);
-          (*v474)(v494, v475);
+          sub_100092DE0(v466, *(*&v505[0] + 56) + *(v464 + 72) * v230, type metadata accessor for ARCameraSource.Tracker.TrackState);
+          (*v475)(v495, v476);
           v150 = v182;
         }
 
         else
         {
-          *(*&v504[0] + 8 * (v230 >> 6) + 64) |= 1 << v230;
-          v240 = v454;
+          *(*&v505[0] + 8 * (v230 >> 6) + 64) |= 1 << v230;
+          v240 = v455;
           v241 = v230;
-          v242 = v494;
-          v243 = v475;
-          (*(v454 + 16))(v195[6] + *(v454 + 72) * v230, v494, v475);
-          sub_1000923E4(v465, v195[7] + *(v463 + 72) * v241, type metadata accessor for ARCameraSource.Tracker.TrackState);
+          v242 = v495;
+          v243 = v476;
+          (*(v455 + 16))(v195[6] + *(v455 + 72) * v230, v495, v476);
+          sub_1000923E4(v466, v195[7] + *(v464 + 72) * v241, type metadata accessor for ARCameraSource.Tracker.TrackState);
           (*(v240 + 8))(v242, v243);
           v244 = v195[2];
           _VF = __OFADD__(v244, 1);
@@ -4944,39 +5578,39 @@ LABEL_21:
           }
 
           v195[2] = v245;
-          v150 = v470;
+          v150 = v471;
           v151 = v186;
           p_name = (&stru_1001CFFF8 + 8);
         }
       }
 
-      v176 = v477;
-      v246 = v500;
-      *v500 = v194;
-      v247 = v502;
-      v497(v246, v499, v502);
+      v176 = v478;
+      v246 = v501;
+      *v501 = v194;
+      v247 = v503;
+      v498(v246, v500, v503);
       v248 = _dispatchPreconditionTest(_:)();
-      v496(v246, v247);
+      v497(v246, v247);
       if ((v248 & 1) == 0)
       {
         goto LABEL_127;
       }
 
-      *(v503 + 48) = v195;
+      *(v504 + 48) = v195;
 
-      v249 = v488;
-      (*v486)(v488, 1, 1, v492);
+      v249 = v489;
+      (*v487)(v489, 1, 1, v493);
       sub_10007DD78(6, v249);
-      sub_10001370C(v249, &qword_1001D8138);
-      sub_100092314(v482, type metadata accessor for ARCameraSource.Tracker.TrackState);
+      sub_10001370C(v249, &qword_1001D8138, &qword_1001771A0);
+      sub_100092314(v483, type metadata accessor for ARCameraSource.Tracker.TrackState);
       v149 = v189;
       v250 = v189;
-      a3 = v491;
-      (*v485)(v250, v491);
+      a3 = v492;
+      (*v486)(v250, v492);
       goto LABEL_53;
     }
 
-    if (!v467)
+    if (!v468)
     {
       v237 = Logger.logObject.getter();
       v238 = static os_log_type_t.error.getter();
@@ -4987,27 +5621,27 @@ LABEL_21:
         _os_log_impl(&_mh_execute_header, v237, v238, "Unexpected frame type: not ARFrame and not high-res still", v239, 2u);
       }
 
-      (*v485)(v149, a3);
+      (*v486)(v149, a3);
       goto LABEL_53;
     }
 
-    v206 = v467;
-    v207 = v479;
+    v206 = v468;
+    v207 = v480;
     dispatch thunk of CVTrackProviding.latestDetection.getter();
-    v208 = v457;
+    v208 = v458;
     CVDetection.corners.getter();
-    v462.i64[0] = *v476;
-    (v462.i64[0])(v207, v480);
+    v463.i64[0] = *v477;
+    (v463.i64[0])(v207, v481);
     Corners.center.getter();
     v210 = v209;
     v212 = v211;
-    v455.i64[0] = *v458;
-    (v455.i64[0])(v208, v459);
-    v477 = v206;
+    v456.i64[0] = *v459;
+    (v456.i64[0])(v208, v460);
+    v478 = v206;
     v213 = [v206 raycastQueryFromPoint:2 allowingTarget:2 alignment:{v210, v212}];
     Strong = swift_unknownObjectWeakLoadStrong();
-    v495.i64[0] = v177;
-    v468 = v213;
+    v496.i64[0] = v177;
+    v469 = v213;
     if (!Strong)
     {
       v251 = v149;
@@ -5017,7 +5651,7 @@ LABEL_21:
     v215 = Strong;
     v216 = [Strong raycast:v213];
 
-    sub_10005BBC4(0, &qword_1001D8140);
+    sub_10005BBC4(0, &qword_1001D8140, ARRaycastResult_ptr);
     v217 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     if (!(v217 >> 62))
@@ -5036,14 +5670,14 @@ LABEL_32:
       if ((v217 & 0xC000000000000001) != 0)
       {
         v220 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-        v218 = v447;
-        v219 = v503;
+        v218 = v448;
+        v219 = v504;
       }
 
       else
       {
-        v218 = v447;
-        v219 = v503;
+        v218 = v448;
+        v219 = v504;
         if (!*((v217 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_131;
@@ -5053,83 +5687,83 @@ LABEL_32:
       }
 
       [v220 worldTransform];
-      v453 = v221;
-      v452 = v222;
-      v451 = v223;
-      v462 = v224;
-      v225 = v466;
-      v226 = v492;
+      v454 = v221;
+      v453 = v222;
+      v452 = v223;
+      v463 = v224;
+      v225 = v467;
+      v226 = v493;
       swift_storeEnumTagMultiPayload();
       v227 = v225;
-      v228 = v488;
-      sub_10009237C(v227, v488, type metadata accessor for RaycastAccuracy);
-      v464 = *v486;
-      v464(v228, 0, 1, v226);
+      v228 = v489;
+      sub_10009237C(v227, v489, type metadata accessor for RaycastAccuracy);
+      v465 = *v487;
+      v465(v228, 0, 1, v226);
       sub_10007DD78(0, v228);
 
-      sub_10001370C(v228, &qword_1001D8138);
+      sub_10001370C(v228, &qword_1001D8138, &qword_1001771A0);
 LABEL_68:
       v281 = v149;
       dispatch thunk of CVTrackIdentifying.id.getter();
-      v282 = v500;
-      v283 = v473;
-      *v500 = v473;
-      v284 = v502;
-      v497(v282, v499, v502);
+      v282 = v501;
+      v283 = v474;
+      *v501 = v474;
+      v284 = v503;
+      v498(v282, v500, v503);
       v285 = v283;
       LOBYTE(v283) = _dispatchPreconditionTest(_:)();
-      v496(v282, v284);
-      v151 = v472;
+      v497(v282, v284);
+      v151 = v473;
       if ((v283 & 1) == 0)
       {
         goto LABEL_129;
       }
 
       v286 = *(v219 + 48);
-      v287 = v460;
+      v287 = v461;
       if (*(v286 + 16))
       {
 
         v288 = sub_100095B4C(v287);
         if (v289)
         {
-          v290 = v422;
-          sub_10009237C(*(v286 + 56) + *(v463 + 72) * v288, v422, type metadata accessor for ARCameraSource.Tracker.TrackState);
-          v468 = *v474;
-          (v468)(v287, v475);
+          v290 = v423;
+          sub_10009237C(*(v286 + 56) + *(v464 + 72) * v288, v423, type metadata accessor for ARCameraSource.Tracker.TrackState);
+          v469 = *v475;
+          (v469)(v287, v476);
 
-          v291 = v421;
-          sub_10009237C(v290, v421, type metadata accessor for ARCameraSource.Tracker.TrackState);
+          v291 = v422;
+          sub_10009237C(v290, v422, type metadata accessor for ARCameraSource.Tracker.TrackState);
           v149 = v281;
           if (swift_getEnumCaseMultiPayload() == 1)
           {
             sub_100092314(v290, type metadata accessor for ARCameraSource.Tracker.TrackState);
             sub_100092314(v291, type metadata accessor for ARCameraSource.Tracker.TrackState);
-            v218 = v447;
-            v151 = v472;
+            v218 = v448;
+            v151 = v473;
             goto LABEL_75;
           }
 
-          v408 = *v291;
-          v362 = sub_1000033A8(&qword_1001D8100);
-          sub_1000923E4(v291 + *(v362 + 48), v423, type metadata accessor for ARCameraSource.AnchorInformation);
-          sub_10009237C(v466, v417, type metadata accessor for RaycastAccuracy);
+          v409 = *v291;
+          v362 = sub_1000033A8(&qword_1001D8100, &qword_100177168);
+          sub_1000923E4(v291 + *(v362 + 48), v424, type metadata accessor for ARCameraSource.AnchorInformation);
+          sub_10009237C(v467, v418, type metadata accessor for RaycastAccuracy);
           EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-          a3 = v491;
+          a3 = v492;
           if (EnumCaseMultiPayload > 1)
           {
             p_name = (&stru_1001CFFF8 + 8);
             if (EnumCaseMultiPayload == 2)
             {
-              (v455.i64[0])(v417, v459);
-              v406.i32[0] = 1;
+              (v456.i64[0])(v418, v460);
+              v407.i32[0] = 1;
               v374 = 1;
               v364 = 1;
             }
 
             else
             {
-              v406.i32[0] = 0;
+              v407.i32[0] = 0;
               v364 = 0;
 LABEL_103:
               v374 = 1;
@@ -5142,43 +5776,43 @@ LABEL_103:
             if (!EnumCaseMultiPayload)
             {
               v364 = 0;
-              v406.i32[0] = 1;
+              v407.i32[0] = 1;
               goto LABEL_103;
             }
 
-            (v455.i64[0])(v417, v459);
-            v406.i32[0] = 0;
+            (v456.i64[0])(v418, v460);
+            v407.i32[0] = 0;
             v374 = 0;
             v364 = 0;
           }
 
-          sub_10009237C(v423, v418, type metadata accessor for RaycastAccuracy);
+          sub_10009237C(v424, v419, type metadata accessor for RaycastAccuracy);
           v375 = swift_getEnumCaseMultiPayload();
           if (v375 > 1)
           {
             if (v375 == 2)
             {
-              (v455.i64[0])(v418, v459);
+              (v456.i64[0])(v419, v460);
             }
 
-            else if (v406.i8[0])
+            else if (v407.i8[0])
             {
 LABEL_117:
 
-              sub_100092314(v423, type metadata accessor for ARCameraSource.AnchorInformation);
-              sub_100092314(v422, type metadata accessor for ARCameraSource.Tracker.TrackState);
-              sub_100092314(v466, type metadata accessor for RaycastAccuracy);
-              (*v485)(v149, a3);
-              v151 = v472;
-              v148 = v490;
-              v150 = v470;
+              sub_100092314(v424, type metadata accessor for ARCameraSource.AnchorInformation);
+              sub_100092314(v423, type metadata accessor for ARCameraSource.Tracker.TrackState);
+              sub_100092314(v467, type metadata accessor for RaycastAccuracy);
+              (*v486)(v149, a3);
+              v151 = v473;
+              v148 = v491;
+              v150 = v471;
               goto LABEL_18;
             }
           }
 
           else if (v375)
           {
-            (v455.i64[0])(v418, v459);
+            (v456.i64[0])(v419, v460);
             if (v374)
             {
               goto LABEL_117;
@@ -5190,25 +5824,25 @@ LABEL_117:
             goto LABEL_117;
           }
 
-          v376 = v408;
-          [v408 transform];
-          v510 = __invert_f4(v509);
-          v404 = v510.columns[0];
-          v405 = v510.columns[1];
-          v406 = v510.columns[2];
-          v455 = v510.columns[3];
-          v377 = v488;
-          sub_10009237C(v466, v488, type metadata accessor for RaycastAccuracy);
-          v464(v377, 0, 1, v492);
+          v376 = v409;
+          [v409 transform];
+          v511 = __invert_f4(v510);
+          v405 = v511.columns[0];
+          v406 = v511.columns[1];
+          v407 = v511.columns[2];
+          v456 = v511.columns[3];
+          v377 = v489;
+          sub_10009237C(v467, v489, type metadata accessor for RaycastAccuracy);
+          v465(v377, 0, 1, v493);
           sub_10007DD78(3, v377);
-          sub_10001370C(v377, &qword_1001D8138);
-          v378 = v508;
+          sub_10001370C(v377, &qword_1001D8138, &qword_1001771A0);
+          v378 = v509;
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
             v378 = sub_1000950B8(0, *(v378 + 2) + 1, 1, v378);
           }
 
-          v379 = v422;
+          v379 = v423;
           v381 = *(v378 + 2);
           v380 = *(v378 + 3);
           if (v381 >= v380 >> 1)
@@ -5216,26 +5850,26 @@ LABEL_117:
             v378 = sub_1000950B8((v380 > 1), v381 + 1, 1, v378);
           }
 
-          v382 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v404, v462.f32[0]), v405, *v462.f32, 1), v406, v462, 2), v455, v462, 3);
+          v382 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v405, v463.f32[0]), v406, *v463.f32, 1), v407, v463, 2), v456, v463, 3);
           v383 = vmulq_f32(v382, v382);
           *(v378 + 2) = v381 + 1;
           *&v378[4 * v381 + 32] = sqrtf(v383.f32[2] + vaddv_f32(*v383.f32));
-          v508 = v378;
+          v509 = v378;
           v384 = swift_unknownObjectWeakLoadStrong();
           [v384 removeAnchor:v376];
 
-          sub_100092314(v423, type metadata accessor for ARCameraSource.AnchorInformation);
+          sub_100092314(v424, type metadata accessor for ARCameraSource.AnchorInformation);
           sub_100092314(v379, type metadata accessor for ARCameraSource.Tracker.TrackState);
-          v218 = v447;
-          v151 = v472;
+          v218 = v448;
+          v151 = v473;
 LABEL_76:
           v292 = objc_allocWithZone(ARAnchor);
-          v293 = [v292 initWithTransform:{*v453.i64, *v452.i64, *v451.i64, *v462.i64}];
-          v294 = v477;
-          sub_100086134(v149, v293, v294, v466, a3, v493, v218);
-          if ((*v439)(v218, 1, v443) == 1)
+          v293 = [v292 initWithTransform:{*v454.i64, *v453.i64, *v452.i64, *v463.i64}];
+          v294 = v478;
+          sub_100086134(v149, v293, v294, v467, a3, v494, v218);
+          if ((*v440)(v218, 1, v444) == 1)
           {
-            sub_10001370C(v218, &qword_1001D8130);
+            sub_10001370C(v218, &qword_1001D8130, &qword_100177198);
             v295 = Logger.logObject.getter();
             v296 = static os_log_type_t.error.getter();
             if (os_log_type_enabled(v295, v296))
@@ -5245,139 +5879,139 @@ LABEL_76:
               _os_log_impl(&_mh_execute_header, v295, v296, "Could not get anchor points for corners", v297, 2u);
             }
 
-            sub_100092314(v466, type metadata accessor for RaycastAccuracy);
-            (*v485)(v149, a3);
+            sub_100092314(v467, type metadata accessor for RaycastAccuracy);
+            (*v486)(v149, a3);
           }
 
           else
           {
 
             v298 = v218;
-            v299 = v425;
-            sub_1000923E4(v298, v425, type metadata accessor for ARCameraSource.AnchorInformation);
+            v299 = v426;
+            sub_1000923E4(v298, v426, type metadata accessor for ARCameraSource.AnchorInformation);
             v300 = v299;
-            v301 = v441;
-            sub_1000923E4(v300, v441, type metadata accessor for ARCameraSource.AnchorInformation);
-            v302 = *(sub_1000033A8(&qword_1001D8100) + 48);
-            v303 = v440;
-            *v440 = v293;
+            v301 = v442;
+            sub_1000923E4(v300, v442, type metadata accessor for ARCameraSource.AnchorInformation);
+            v302 = *(sub_1000033A8(&qword_1001D8100, &qword_100177168) + 48);
+            v303 = v441;
+            *v441 = v293;
             sub_10009237C(v301, v303 + v302, type metadata accessor for ARCameraSource.AnchorInformation);
-            v304 = v484;
+            v304 = v485;
             swift_storeEnumTagMultiPayload();
             v305 = v293;
             dispatch thunk of CVTrackIdentifying.id.getter();
-            v306 = v424;
-            sub_10009237C(v303, v424, type metadata accessor for ARCameraSource.Tracker.TrackState);
-            (*v478)(v306, 0, 1, v304);
-            v307 = v500;
-            *v500 = v285;
-            v308 = v502;
-            v497(v307, v499, v502);
+            v306 = v425;
+            sub_10009237C(v303, v425, type metadata accessor for ARCameraSource.Tracker.TrackState);
+            (*v479)(v306, 0, 1, v304);
+            v307 = v501;
+            *v501 = v285;
+            v308 = v503;
+            v498(v307, v500, v503);
             v309 = v285;
             v310 = _dispatchPreconditionTest(_:)();
-            v496(v307, v308);
+            v497(v307, v308);
             if ((v310 & 1) == 0)
             {
               goto LABEL_134;
             }
 
-            v311 = *(v503 + 48);
-            *&v504[0] = v311;
-            if ((*v471)(v306, 1, v304) == 1)
+            v311 = *(v504 + 48);
+            *&v505[0] = v311;
+            if ((*v472)(v306, 1, v304) == 1)
             {
 
-              sub_10001370C(v306, &qword_1001D8128);
-              v312 = v436;
-              v313 = v442;
-              sub_1000BD898(v442, v436);
-              sub_10001370C(v312, &qword_1001D8128);
-              (v468)(v313, v475);
-              v314 = *&v504[0];
+              sub_10001370C(v306, &qword_1001D8128, &qword_100177190);
+              v312 = v437;
+              v313 = v443;
+              sub_1000BD898(v443, v437);
+              sub_10001370C(v312, &qword_1001D8128, &qword_100177190);
+              (v469)(v313, v476);
+              v314 = *&v505[0];
             }
 
             else
             {
-              v349 = v435;
-              sub_1000923E4(v306, v435, type metadata accessor for ARCameraSource.Tracker.TrackState);
+              v349 = v436;
+              sub_1000923E4(v306, v436, type metadata accessor for ARCameraSource.Tracker.TrackState);
 
               v350 = swift_isUniquelyReferenced_nonNull_native();
-              v505 = v311;
-              v351 = v442;
-              sub_1000C0F74(v349, v442, v350);
-              (v468)(v351, v475);
-              v314 = v505;
-              *&v504[0] = v505;
+              v506 = v311;
+              v351 = v443;
+              sub_1000C0F74(v349, v443, v350);
+              (v469)(v351, v476);
+              v314 = v506;
+              *&v505[0] = v506;
             }
 
-            v352 = v472;
-            v353 = v469;
-            v354 = v500;
-            *v500 = v309;
-            v355 = v502;
-            v497(v354, v499, v502);
+            v352 = v473;
+            v353 = v470;
+            v354 = v501;
+            *v501 = v309;
+            v355 = v503;
+            v498(v354, v500, v503);
             v356 = _dispatchPreconditionTest(_:)();
-            v496(v354, v355);
+            v497(v354, v355);
             if ((v356 & 1) == 0)
             {
               goto LABEL_135;
             }
 
-            *(v503 + 48) = v314;
+            *(v504 + 48) = v314;
 
-            v357 = v441;
-            v358 = v488;
-            sub_10009237C(v441, v488, type metadata accessor for RaycastAccuracy);
-            v464(v358, 0, 1, v492);
+            v357 = v442;
+            v358 = v489;
+            sub_10009237C(v442, v489, type metadata accessor for RaycastAccuracy);
+            v465(v358, 0, 1, v493);
             sub_10007DD78(2, v358);
             v359 = v358;
             v151 = v352;
-            sub_10001370C(v359, &qword_1001D8138);
+            sub_10001370C(v359, &qword_1001D8138, &qword_1001771A0);
             v360 = swift_unknownObjectWeakLoadStrong();
             [v360 addAnchor:v305];
 
-            sub_100092314(v440, type metadata accessor for ARCameraSource.Tracker.TrackState);
+            sub_100092314(v441, type metadata accessor for ARCameraSource.Tracker.TrackState);
             sub_100092314(v357, type metadata accessor for ARCameraSource.AnchorInformation);
-            sub_100092314(v466, type metadata accessor for RaycastAccuracy);
+            sub_100092314(v467, type metadata accessor for RaycastAccuracy);
             v149 = v353;
             v361 = v353;
-            a3 = v491;
-            (*v485)(v361, v491);
+            a3 = v492;
+            (*v486)(v361, v492);
           }
 
-          v148 = v490;
-          v150 = v470;
+          v148 = v491;
+          v150 = v471;
 LABEL_17:
           p_name = &stru_1001CFFF8.name;
-          v177 = v495.i64[0];
+          v177 = v496.i64[0];
           goto LABEL_18;
         }
       }
 
-      v468 = *v474;
-      (v468)(v287, v475);
+      v469 = *v475;
+      (v469)(v287, v476);
       v149 = v281;
 LABEL_75:
-      a3 = v491;
+      a3 = v492;
       goto LABEL_76;
     }
 
 LABEL_60:
     v251 = v149;
 LABEL_61:
-    v253 = v488;
-    v464 = *v486;
-    v464(v488, 1, 1, v492);
+    v253 = v489;
+    v465 = *v487;
+    v465(v489, 1, 1, v493);
     sub_10007DD78(1, v253);
-    sub_10001370C(v253, &qword_1001D8138);
-    v254 = v477;
-    v255 = [v477 p_name[189]];
+    sub_10001370C(v253, &qword_1001D8138, &qword_1001771A0);
+    v254 = v478;
+    v255 = [v478 p_name[189]];
     [v255 imageResolution];
 
     v256 = [v254 p_name[189]];
     [v256 imageResolution];
 
     CGPoint.scale(to:)();
-    if (!v446)
+    if (!v447)
     {
       goto LABEL_141;
     }
@@ -5390,69 +6024,69 @@ LABEL_61:
     v149 = v251;
     if (v262)
     {
-      v263 = *(sub_1000033A8(&qword_1001D8148) + 48);
-      v264 = v479;
-      a3 = v491;
+      v263 = *(sub_1000033A8(&qword_1001D8148, &qword_1001771A8) + 48);
+      v264 = v480;
+      a3 = v492;
       dispatch thunk of CVTrackProviding.latestDetection.getter();
-      v265 = v444;
+      v265 = v445;
       CVDetection.corners.getter();
-      (v462.i64[0])(v264, v480);
+      (v463.i64[0])(v264, v481);
       *(v265 + v263) = 2;
-      v266 = v484;
+      v266 = v485;
       swift_storeEnumTagMultiPayload();
-      v267 = v430;
+      v267 = v431;
       dispatch thunk of CVTrackIdentifying.id.getter();
-      v268 = v431;
-      sub_10009237C(v265, v431, type metadata accessor for ARCameraSource.Tracker.TrackState);
-      (*v478)(v268, 0, 1, v266);
-      v269 = v500;
-      v270 = v473;
-      *v500 = v473;
-      v271 = v502;
-      v497(v269, v499, v502);
+      v268 = v432;
+      sub_10009237C(v265, v432, type metadata accessor for ARCameraSource.Tracker.TrackState);
+      (*v479)(v268, 0, 1, v266);
+      v269 = v501;
+      v270 = v474;
+      *v501 = v474;
+      v271 = v503;
+      v498(v269, v500, v503);
       v272 = v270;
       LOBYTE(v270) = _dispatchPreconditionTest(_:)();
-      v496(v269, v271);
+      v497(v269, v271);
       if ((v270 & 1) == 0)
       {
         goto LABEL_132;
       }
 
-      v462.i64[0] = v272;
-      v273 = v503;
-      v274 = *(v503 + 48);
-      *&v504[0] = v274;
-      if ((*v471)(v268, 1, v266) == 1)
+      v463.i64[0] = v272;
+      v273 = v504;
+      v274 = *(v504 + 48);
+      *&v505[0] = v274;
+      if ((*v472)(v268, 1, v266) == 1)
       {
 
-        sub_10001370C(v268, &qword_1001D8128);
-        v275 = v436;
-        sub_1000BD898(v267, v436);
-        sub_10001370C(v275, &qword_1001D8128);
-        (*v474)(v267, v475);
-        v276 = *&v504[0];
+        sub_10001370C(v268, &qword_1001D8128, &qword_100177190);
+        v275 = v437;
+        sub_1000BD898(v267, v437);
+        sub_10001370C(v275, &qword_1001D8128, &qword_100177190);
+        (*v475)(v267, v476);
+        v276 = *&v505[0];
       }
 
       else
       {
-        v329 = v435;
-        sub_1000923E4(v268, v435, type metadata accessor for ARCameraSource.Tracker.TrackState);
+        v329 = v436;
+        sub_1000923E4(v268, v436, type metadata accessor for ARCameraSource.Tracker.TrackState);
 
         v330 = swift_isUniquelyReferenced_nonNull_native();
-        v505 = v274;
+        v506 = v274;
         sub_1000C0F74(v329, v267, v330);
-        (*v474)(v267, v475);
-        v276 = v505;
-        *&v504[0] = v505;
+        (*v475)(v267, v476);
+        v276 = v506;
+        *&v505[0] = v506;
       }
 
-      v331 = v469;
-      v332 = v500;
-      *v500 = v462.i64[0];
-      v333 = v502;
-      v497(v332, v499, v502);
+      v331 = v470;
+      v332 = v501;
+      *v501 = v463.i64[0];
+      v333 = v503;
+      v498(v332, v500, v503);
       v334 = _dispatchPreconditionTest(_:)();
-      v496(v332, v333);
+      v497(v332, v333);
       if ((v334 & 1) == 0)
       {
         goto LABEL_133;
@@ -5460,58 +6094,58 @@ LABEL_61:
 
       *(v273 + 48) = v276;
 
-      v335 = v488;
-      v464(v488, 1, 1, v492);
+      v335 = v489;
+      v465(v489, 1, 1, v493);
       sub_10007DD78(6, v335);
-      sub_10001370C(v335, &qword_1001D8138);
-      v336 = v426;
-      v180(v426, v331, a3);
+      sub_10001370C(v335, &qword_1001D8138, &qword_1001771A0);
+      v336 = v427;
+      v180(v427, v331, a3);
       v337 = Logger.logObject.getter();
       v338 = static os_log_type_t.error.getter();
       if (!os_log_type_enabled(v337, v338))
       {
 
-        v348 = *v485;
-        (*v485)(v336, a3);
-        sub_100092314(v444, type metadata accessor for ARCameraSource.Tracker.TrackState);
+        v348 = *v486;
+        (*v486)(v336, a3);
+        sub_100092314(v445, type metadata accessor for ARCameraSource.Tracker.TrackState);
         v348(v331, a3);
         v149 = v331;
-        v150 = v470;
-        v151 = v472;
+        v150 = v471;
+        v151 = v473;
         p_name = (&stru_1001CFFF8 + 8);
-        v177 = v495.i64[0];
+        v177 = v496.i64[0];
 LABEL_53:
-        v148 = v490;
+        v148 = v491;
         goto LABEL_18;
       }
 
       v339 = swift_slowAlloc();
       v340 = v336;
       v341 = swift_slowAlloc();
-      *&v504[0] = v341;
-      *v339 = v412;
+      *&v505[0] = v341;
+      *v339 = v413;
       v342 = CVTrackProviding.shortLoggingDescription.getter();
       v344 = v343;
-      v345 = *v485;
-      (*v485)(v340, a3);
+      v345 = *v486;
+      (*v486)(v340, a3);
       v346 = v342;
-      v149 = v469;
-      v347 = sub_1000E0FE0(v346, v344, v504);
+      v149 = v470;
+      v347 = sub_1000E0FE0(v346, v344, v505);
 
       *(v339 + 4) = v347;
       _os_log_impl(&_mh_execute_header, v337, v338, "Storing track %s as unanchored due to unprojectPoint failure", v339, 0xCu);
       sub_100006B44(v341);
 
-      sub_100092314(v444, type metadata accessor for ARCameraSource.Tracker.TrackState);
+      sub_100092314(v445, type metadata accessor for ARCameraSource.Tracker.TrackState);
       v345(v149, a3);
-      v148 = v490;
-      v150 = v470;
-      v151 = v472;
+      v148 = v491;
+      v150 = v471;
+      v151 = v473;
       goto LABEL_17;
     }
 
     v277 = [v254 p_name[189]];
-    v278 = v429;
+    v278 = v430;
     ARCamera.trackingState.getter();
 
     v279 = type metadata accessor for ARCamera.TrackingState.Reason();
@@ -5520,103 +6154,103 @@ LABEL_53:
 
       v280.i64[1] = __PAIR64__(1.0, v260);
       v280.i64[0] = v258;
-      v462 = v280;
+      v463 = v280;
       sub_100092314(v278, &type metadata accessor for ARCamera.TrackingState);
-      *v466 = 0x4014000000000000;
+      *v467 = 0x4014000000000000;
       swift_storeEnumTagMultiPayload();
-      v453 = v456;
-      v452 = v448;
-      v451 = v449;
-      v219 = v503;
-      v218 = v447;
-      v177 = v495.i64[0];
+      v454 = v457;
+      v453 = v449;
+      v452 = v450;
+      v219 = v504;
+      v218 = v448;
+      v177 = v496.i64[0];
       goto LABEL_68;
     }
 
     sub_100092314(v278, &type metadata accessor for ARCamera.TrackingState);
-    v315 = *(sub_1000033A8(&qword_1001D8148) + 48);
-    v316 = v479;
-    v317 = v491;
+    v315 = *(sub_1000033A8(&qword_1001D8148, &qword_1001771A8) + 48);
+    v316 = v480;
+    v317 = v492;
     dispatch thunk of CVTrackProviding.latestDetection.getter();
-    v318 = v427;
+    v318 = v428;
     CVDetection.corners.getter();
-    (v462.i64[0])(v316, v480);
+    (v463.i64[0])(v316, v481);
     *(v318 + v315) = 1;
-    v319 = v484;
+    v319 = v485;
     swift_storeEnumTagMultiPayload();
     dispatch thunk of CVTrackIdentifying.id.getter();
-    v320 = v419;
-    sub_10009237C(v318, v419, type metadata accessor for ARCameraSource.Tracker.TrackState);
-    (*v478)(v320, 0, 1, v319);
-    v321 = v500;
-    v322 = v473;
-    *v500 = v473;
-    v323 = v502;
-    v497(v321, v499, v502);
+    v320 = v420;
+    sub_10009237C(v318, v420, type metadata accessor for ARCameraSource.Tracker.TrackState);
+    (*v479)(v320, 0, 1, v319);
+    v321 = v501;
+    v322 = v474;
+    *v501 = v474;
+    v323 = v503;
+    v498(v321, v500, v503);
     v324 = v322;
     LOBYTE(v322) = _dispatchPreconditionTest(_:)();
-    v496(v321, v323);
+    v497(v321, v323);
     if ((v322 & 1) == 0)
     {
       goto LABEL_137;
     }
 
-    v325 = *(v503 + 48);
-    *&v504[0] = v325;
-    if ((*v471)(v320, 1, v319) == 1)
+    v325 = *(v504 + 48);
+    *&v505[0] = v325;
+    if ((*v472)(v320, 1, v319) == 1)
     {
 
-      sub_10001370C(v320, &qword_1001D8128);
-      v326 = v436;
-      v327 = v428;
-      sub_1000BD898(v428, v436);
-      sub_10001370C(v326, &qword_1001D8128);
-      (*v474)(v327, v475);
-      v328 = *&v504[0];
+      sub_10001370C(v320, &qword_1001D8128, &qword_100177190);
+      v326 = v437;
+      v327 = v429;
+      sub_1000BD898(v429, v437);
+      sub_10001370C(v326, &qword_1001D8128, &qword_100177190);
+      (*v475)(v327, v476);
+      v328 = *&v505[0];
     }
 
     else
     {
-      v365 = v435;
-      sub_1000923E4(v320, v435, type metadata accessor for ARCameraSource.Tracker.TrackState);
+      v365 = v436;
+      sub_1000923E4(v320, v436, type metadata accessor for ARCameraSource.Tracker.TrackState);
 
       v366 = swift_isUniquelyReferenced_nonNull_native();
-      v505 = v325;
-      v367 = v428;
-      sub_1000C0F74(v365, v428, v366);
-      (*v474)(v367, v475);
-      v328 = v505;
-      *&v504[0] = v505;
+      v506 = v325;
+      v367 = v429;
+      sub_1000C0F74(v365, v429, v366);
+      (*v475)(v367, v476);
+      v328 = v506;
+      *&v505[0] = v506;
     }
 
-    v368 = v469;
-    v151 = v472;
-    v150 = v470;
-    v369 = v500;
-    *v500 = v324;
-    v370 = v502;
-    v497(v369, v499, v502);
+    v368 = v470;
+    v151 = v473;
+    v150 = v471;
+    v369 = v501;
+    *v501 = v324;
+    v370 = v503;
+    v498(v369, v500, v503);
     v371 = _dispatchPreconditionTest(_:)();
-    v496(v369, v370);
+    v497(v369, v370);
     if ((v371 & 1) == 0)
     {
       goto LABEL_138;
     }
 
-    *(v503 + 48) = v328;
+    *(v504 + 48) = v328;
 
-    v372 = v488;
-    v464(v488, 1, 1, v492);
+    v372 = v489;
+    v465(v489, 1, 1, v493);
     sub_10007DD78(6, v372);
 
-    sub_10001370C(v372, &qword_1001D8138);
-    sub_100092314(v427, type metadata accessor for ARCameraSource.Tracker.TrackState);
+    sub_10001370C(v372, &qword_1001D8138, &qword_1001771A0);
+    sub_100092314(v428, type metadata accessor for ARCameraSource.Tracker.TrackState);
     v149 = v368;
     v373 = v368;
     a3 = v317;
-    (*v485)(v373, v317);
-    v177 = v495.i64[0];
-    v148 = v490;
+    (*v486)(v373, v317);
+    v177 = v496.i64[0];
+    v148 = v491;
     p_name = (&stru_1001CFFF8 + 8);
 LABEL_18:
     ++v176;
@@ -5627,14 +6261,14 @@ LABEL_18:
   }
 
   v252 = _ArrayBuffer._getElementSlowPath(_:)();
-  if (v407 != 8)
+  if (v408 != 8)
   {
     goto LABEL_140;
   }
 
-  *&v504[0] = v252;
-  v180 = *v489.i64[0];
-  (*v489.i64[0])(v150, v504, a3);
+  *&v505[0] = v252;
+  v180 = *v490.i64[0];
+  (*v490.i64[0])(v150, v505, a3);
   swift_unknownObjectRelease();
   v177 = (v176 + 1);
   if (!__OFADD__(v176, 1))
@@ -5681,64 +6315,66 @@ LABEL_142:
   __break(1u);
 }
 
-uint64_t sub_100086134@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+void sub_100086134(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  v58.i64[0] = a6;
-  v57.i64[0] = a5;
-  v56.i64[0] = a1;
-  v59.i64[0] = type metadata accessor for Corners();
-  v12 = *(v59.i64[0] - 8);
-  __chkstk_darwin(v59.i64[0]);
-  v14 = &v51 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v54 = type metadata accessor for CVDetection();
-  *&v53 = *(v54 - 8);
-  __chkstk_darwin(v54);
-  v16 = &v51 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57.i64[0] = a6;
+  v56.i64[0] = a5;
+  v55.i64[0] = a1;
+  v58.i64[0] = type metadata accessor for Corners();
+  v12 = *(v58.i64[0] - 8);
+  __chkstk_darwin(v58.i64[0]);
+  v14 = &v50 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = type metadata accessor for CVDetection();
+  *&v52 = *(v53 - 8);
+  __chkstk_darwin(v53);
+  v16 = &v50 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = type metadata accessor for RaycastAccuracy(0);
   __chkstk_darwin(v17);
-  v19 = &v51 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = &v50 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10009237C(a4, v19, type metadata accessor for RaycastAccuracy);
   if (swift_getEnumCaseMultiPayload() - 1 < 2)
   {
-    (*(v12 + 8))(v19, v59.i64[0]);
+    (*(v12 + 8))(v19, v58.i64[0]);
     sub_10009237C(a4, a7, type metadata accessor for RaycastAccuracy);
     v20 = type metadata accessor for ARCameraSource.AnchorInformation(0);
     v21 = v20;
     *(a7 + *(v20 + 20)) = 0;
-    return (*(*(v20 - 8) + 56))(a7, 0, 1, v21);
+LABEL_18:
+    (*(*(v20 - 8) + 56))(a7, 0, 1, v21);
+    return;
   }
 
-  v61 = a4;
-  v52 = a7;
-  v55 = v7;
+  v60 = a4;
+  v51 = a7;
+  v54 = v7;
   v22 = [a3 camera];
   [v22 imageResolution];
 
-  v60 = a3;
+  v59 = a3;
   v23 = [a3 camera];
   [v23 imageResolution];
 
   dispatch thunk of CVTrackProviding.latestDetection.getter();
   CVDetection.corners.getter();
-  (*(v53 + 8))(v16, v54);
+  (*(v52 + 8))(v16, v53);
   v24 = Corners.allPointsClockwise.getter();
-  (*(v12 + 8))(v14, v59.i64[0]);
+  (*(v12 + 8))(v14, v58.i64[0]);
   v26 = *(v24 + 16);
-  v51 = v24;
+  v50 = v24;
   if (v26)
   {
-    v54 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_logger;
+    v53 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_logger;
     v27 = v24 + 40;
-    v28 = &_swiftEmptyArrayStorage;
+    v28 = _swiftEmptyArrayStorage;
     p_name = (&stru_1001CFFF8 + 8);
     *&v25 = 134218240;
-    v53 = v25;
+    v52 = v25;
     do
     {
       CGPoint.scale(to:)();
       v32 = v31;
       v34 = v33;
-      v35 = [v60 camera];
+      v35 = [v59 camera];
       [a2 p_name[216]];
       v36 = ARCamera.unprojectPoint(_:ontoPlane:orientation:viewportSize:)();
       v38 = v37;
@@ -5751,7 +6387,7 @@ uint64_t sub_100086134@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint
         if (os_log_type_enabled(v41, v42))
         {
           v43 = swift_slowAlloc();
-          *v43 = v53;
+          *v43 = v52;
           *(v43 + 4) = v32;
           *(v43 + 12) = 2048;
           *(v43 + 14) = v34;
@@ -5762,11 +6398,11 @@ uint64_t sub_100086134@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint
       else
       {
         [a2 p_name[216]];
-        v63 = __invert_f4(v62);
-        v56 = v63.columns[0];
-        v57 = v63.columns[1];
-        v58 = v63.columns[3];
-        v59 = v63.columns[2];
+        v62 = __invert_f4(v61);
+        v55 = v62.columns[0];
+        v56 = v62.columns[1];
+        v57 = v62.columns[3];
+        v58 = v62.columns[2];
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
           v28 = sub_1000951BC(0, *(v28 + 2) + 1, 1, v28);
@@ -5781,13 +6417,13 @@ uint64_t sub_100086134@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint
 
         v46.i64[0] = v36;
         v46.i64[1] = v38;
-        v47 = vaddq_f32(v58, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_f32(vdupq_n_s32(v36), v56), v57, v36, 1), v59, v46, 2));
+        v47 = vaddq_f32(v57, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_f32(vdupq_n_s32(v36), v55), v56, v36, 1), v58, v46, 2));
         v47.i32[3] = 0;
         *(v28 + 2) = v45 + 1;
         *&v28[16 * v45 + 32] = v47;
       }
 
-      v30 = v61;
+      v30 = v60;
       v27 += 16;
       --v26;
       p_name = &stru_1001CFFF8.name;
@@ -5798,26 +6434,26 @@ uint64_t sub_100086134@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint
 
   else
   {
-    v28 = &_swiftEmptyArrayStorage;
-    v30 = v61;
+    v28 = _swiftEmptyArrayStorage;
+    v30 = v60;
   }
 
   if (*(v28 + 2) == 4)
   {
     v48 = v30;
-    a7 = v52;
-    sub_10009237C(v48, v52, type metadata accessor for RaycastAccuracy);
+    a7 = v51;
+    sub_10009237C(v48, v51, type metadata accessor for RaycastAccuracy);
     v20 = type metadata accessor for ARCameraSource.AnchorInformation(0);
     v21 = v20;
     *(a7 + *(v20 + 20)) = v28;
-    return (*(*(v20 - 8) + 56))(a7, 0, 1, v21);
+    goto LABEL_18;
   }
 
-  v50 = type metadata accessor for ARCameraSource.AnchorInformation(0);
-  (*(*(v50 - 8) + 56))(v52, 1, 1, v50);
+  v49 = type metadata accessor for ARCameraSource.AnchorInformation(0);
+  (*(*(v49 - 8) + 56))(v51, 1, 1, v49);
 }
 
-uint64_t sub_100086738(uint64_t a1)
+double sub_100086738(uint64_t a1)
 {
   v2 = v1;
   v4 = type metadata accessor for DispatchWorkItemFlags();
@@ -5843,20 +6479,22 @@ uint64_t sub_100086738(uint64_t a1)
   v12 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v17 = &_swiftEmptyArrayStorage;
-  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+  v17 = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v12);
   (*(v16 + 8))(v6, v4);
   (*(v7 + 8))(v9, v15);
+
+  return result;
 }
 
 void sub_100086A50(uint64_t a1, uint64_t a2)
 {
-  v3 = sub_1000033A8(&qword_1001D8128);
+  v3 = sub_1000033A8(&qword_1001D8128, &qword_100177190);
   __chkstk_darwin(v3 - 8);
   v84 = &v76 - v4;
   v102 = type metadata accessor for DispatchPredicate();
@@ -5890,7 +6528,7 @@ void sub_100086A50(uint64_t a1, uint64_t a2)
 
   v22 = Strong;
   v88 = v10;
-  v105 = &_swiftEmptyArrayStorage;
+  v105 = _swiftEmptyArrayStorage;
   v77 = a2;
   v23 = *(a2 + 16);
   sub_100087508(v23);
@@ -6009,7 +6647,7 @@ LABEL_49:
       else
       {
         v45 = *v44;
-        v46 = sub_1000033A8(&qword_1001D8100);
+        v46 = sub_1000033A8(&qword_1001D8100, &qword_100177168);
         sub_100092314(v44 + *(v46 + 48), type metadata accessor for ARCameraSource.AnchorInformation);
         v47 = v45;
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
@@ -6068,7 +6706,7 @@ LABEL_49:
 
       v12 = v81;
       (*v80)(v53, v60, 1, v91);
-      sub_10001370C(v53, &qword_1001D8128);
+      sub_10001370C(v53, &qword_1001D8128, &qword_100177190);
       v61 = v102;
       v62 = *(v49 + v101);
       *v7 = v62;
@@ -6210,7 +6848,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1000875A4(void *a1)
+double sub_1000875A4(void *a1)
 {
   v2 = v1;
   v4 = type metadata accessor for DispatchWorkItemFlags();
@@ -6237,22 +6875,23 @@ uint64_t sub_1000875A4(void *a1)
 
   v13 = a1;
   static DispatchQoS.unspecified.getter();
-  v18 = &_swiftEmptyArrayStorage;
-  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+  v18 = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v12);
   (*(v17 + 8))(v6, v4);
   (*(v7 + 8))(v9, v16);
+
+  return result;
 }
 
-uint64_t sub_1000878B8(uint64_t a1, void (*a2)(uint64_t, uint64_t))
+double sub_1000878B8(uint64_t a1, char *a2)
 {
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  if (swift_weakLoadStrong())
   {
     sub_100087918(a2);
   }
@@ -6260,90 +6899,90 @@ uint64_t sub_1000878B8(uint64_t a1, void (*a2)(uint64_t, uint64_t))
   return result;
 }
 
-void sub_100087918(void (*a1)(uint64_t, uint64_t))
+void sub_100087918(char *a1)
 {
-  v302 = type metadata accessor for ARCameraSource.Tracker.TrackState(0);
-  v297 = *(v302 - 8);
-  v5 = __chkstk_darwin(v302);
-  v7 = &v246 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v305 = type metadata accessor for ARCameraSource.Tracker.TrackState(0);
+  v300 = *(v305 - 8);
+  v5 = __chkstk_darwin(v305);
+  v7 = &v249 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
-  v296 = &v246 - v8;
-  v9 = sub_1000033A8(&qword_1001D8090);
+  v299 = &v249 - v8;
+  v9 = sub_1000033A8(&qword_1001D8090, &qword_100177128);
   v10 = __chkstk_darwin(v9 - 8);
-  v299 = &v246 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v302 = &v249 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
-  v298 = (&v246 - v12);
-  v261 = type metadata accessor for Corners();
-  v255 = *(v261 - 8);
-  v13 = __chkstk_darwin(v261);
-  v260 = &v246 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v301 = &v249 - v12;
+  v264 = type metadata accessor for Corners();
+  v258 = *(v264 - 8);
+  v13 = __chkstk_darwin(v264);
+  v263 = &v249 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v13);
-  v276 = &v246 - v15;
-  v288 = type metadata accessor for CVTrackedDetection.Prediction();
-  v263 = *(v288 - 8);
-  v16 = __chkstk_darwin(v288);
-  v259 = &v246 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v279 = &v249 - v15;
+  v291 = type metadata accessor for CVTrackedDetection.Prediction();
+  v266 = *(v291 - 8);
+  v16 = __chkstk_darwin(v291);
+  v262 = &v249 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   v18 = __chkstk_darwin(v16);
-  v258 = &v246 - v19;
+  v261 = &v249 - v19;
   v20 = __chkstk_darwin(v18);
-  v22 = &v246 - v21;
+  v22 = &v249 - v21;
   __chkstk_darwin(v20);
-  v264 = &v246 - v23;
-  v283 = sub_1000033A8(&qword_1001D8098);
-  v282 = *(v283 - 8);
+  v267 = &v249 - v23;
+  v286 = sub_1000033A8(&qword_1001D8098, &unk_100177130);
+  v285 = *(v286 - 8);
+  __chkstk_darwin(v286);
+  v284 = &v249 - v24;
+  v283 = sub_1000033A8(&unk_1001D80A0, &qword_100178A00);
   __chkstk_darwin(v283);
-  v281 = &v246 - v24;
-  v280 = sub_1000033A8(&unk_1001D80A0);
-  __chkstk_darwin(v280);
-  v279 = (&v246 - v25);
-  v278 = type metadata accessor for ARCameraSource.AnchorInformation(0);
-  __chkstk_darwin(v278);
-  v277 = &v246 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v306 = type metadata accessor for UUID();
-  v301 = *(v306 - 8);
-  v27 = __chkstk_darwin(v306);
-  v265 = &v246 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v282 = &v249 - v25;
+  v281 = type metadata accessor for ARCameraSource.AnchorInformation(0);
+  __chkstk_darwin(v281);
+  v280 = &v249 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v309 = type metadata accessor for UUID();
+  v304 = *(v309 - 8);
+  v27 = __chkstk_darwin(v309);
+  v268 = &v249 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   v29 = __chkstk_darwin(v27);
-  v303 = &v246 - v30;
+  v306 = &v249 - v30;
   v31 = __chkstk_darwin(v29);
-  v289 = (&v246 - v32);
+  v292 = (&v249 - v32);
   v33 = __chkstk_darwin(v31);
-  v254 = &v246 - v34;
+  v257 = &v249 - v34;
   v35 = __chkstk_darwin(v33);
-  v300 = &v246 - v36;
+  v303 = &v249 - v36;
   __chkstk_darwin(v35);
-  v275 = &v246 - v37;
+  v278 = &v249 - v37;
   v38 = type metadata accessor for ARCamera.TrackingState();
   v39 = __chkstk_darwin(v38 - 8);
-  v41 = &v246 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = &v249 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v39);
-  v43 = &v246 - v42;
+  v43 = &v249 - v42;
   p_name = type metadata accessor for DispatchPredicate();
   v45 = *(p_name - 8);
   __chkstk_darwin(p_name);
-  v47 = (&v246 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v292 = v1;
+  v47 = (v249.n128_u64 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v295 = v1;
   v48 = *(v1 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_workQueue);
   *v47 = v48;
   v49 = *(v45 + 104);
-  v285 = enum case for DispatchPredicate.onQueue(_:);
-  v267 = v45 + 104;
-  v284 = v49;
+  v288 = enum case for DispatchPredicate.onQueue(_:);
+  v270 = v45 + 104;
+  v287 = v49;
   v49(v47);
   v50 = v48;
   v51 = _dispatchPreconditionTest(_:)();
   v52 = *(v45 + 8);
-  v268 = v47;
-  v270 = p_name;
-  v269 = v45 + 8;
-  v266 = v52;
+  v271 = v47;
+  v273 = p_name;
+  v272 = v45 + 8;
+  v269 = v52;
   v52(v47, p_name);
   if ((v51 & 1) == 0)
   {
     goto LABEL_107;
   }
 
-  *&v304 = v7;
+  *&v307 = v7;
   p_name = &stru_1001CFFF8.name;
   v53 = [a1 camera];
   ARCamera.trackingState.getter();
@@ -6356,26 +6995,26 @@ void sub_100087918(void (*a1)(uint64_t, uint64_t))
   if (v53)
   {
     v55 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_lastAnchoredTracksUpdateFrameTime;
-    v56 = v292;
-    v57 = *(v292 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_lastAnchoredTracksUpdateFrameTime);
+    v56 = v295;
+    v57 = *(v295 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_lastAnchoredTracksUpdateFrameTime);
     [a1 timestamp];
     if (v57 >= v58)
     {
-      v159 = a1;
+      v162 = a1;
 
-      v160 = Logger.logObject.getter();
-      v161 = static os_log_type_t.error.getter();
+      v163 = Logger.logObject.getter();
+      v164 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v160, v161))
+      if (os_log_type_enabled(v163, v164))
       {
-        v162 = swift_slowAlloc();
-        *v162 = 134218240;
-        v163 = *(v56 + v55);
-        *(v162 + 4) = v163;
-        *(v162 + 12) = 2048;
-        [v159 timestamp];
-        *(v162 + 14) = v163 - v164;
-        _os_log_impl(&_mh_execute_header, v160, v161, "Received frame @ %f that is %f older than the last frame processed.", v162, 0x16u);
+        v165 = swift_slowAlloc();
+        *v165 = 134218240;
+        v166 = *(v56 + v55);
+        *(v165 + 4) = v166;
+        *(v165 + 12) = 2048;
+        [v162 timestamp];
+        *(v165 + 14) = v166 - v167;
+        _os_log_impl(&_mh_execute_header, v163, v164, "Received frame @ %f that is %f older than the last frame processed.", v165, 0x16u);
       }
 
       return;
@@ -6384,23 +7023,23 @@ void sub_100087918(void (*a1)(uint64_t, uint64_t))
     [a1 timestamp];
     *(v56 + v55) = v59;
     v60 = [a1 anchors];
-    sub_10005BBC4(0, &qword_1001D7D58);
-    v286 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    sub_10005BBC4(0, &qword_1001D7D58, ARAnchor_ptr);
+    v289 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v61 = v268;
-    *v268 = v50;
-    v62 = v270;
-    v284(v61, v285, v270);
+    v61 = v271;
+    *v271 = v50;
+    v62 = v273;
+    v287(v61, v288, v273);
     v63 = v50;
     LOBYTE(v60) = _dispatchPreconditionTest(_:)();
-    v266(v61, v62);
+    v269(v61, v62);
     if ((v60 & 1) == 0)
     {
       goto LABEL_112;
     }
 
     v64 = *(v56 + 80);
-    v295 = *(v56 + 48);
+    v298 = *(v56 + 48);
 
     v65 = [a1 camera];
     [v65 imageResolution];
@@ -6410,7 +7049,7 @@ void sub_100087918(void (*a1)(uint64_t, uint64_t))
     [v68 imageResolution];
     v70 = v69;
 
-    *&v305 = v64;
+    *&v308 = v64;
     if ((v64 - 1) >= 2)
     {
       v2 = v67;
@@ -6436,80 +7075,80 @@ void sub_100087918(void (*a1)(uint64_t, uint64_t))
       goto LABEL_119;
     }
 
-    v273 = sub_100089CC4(v295);
-    sub_100090580(&unk_1001D9550, &type metadata accessor for UUID);
-    v290 = Dictionary.init(minimumCapacity:)();
-    v313 = &_swiftEmptyDictionarySingleton;
-    v71 = v268;
-    *v268 = v63;
-    v72 = v270;
-    v284(v71, v285, v270);
+    v276 = sub_100089CC4(v298);
+    sub_100090580(&unk_1001D9550, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+    v293 = Dictionary.init(minimumCapacity:)();
+    v316 = &_swiftEmptyDictionarySingleton;
+    v71 = v271;
+    *v271 = v63;
+    v72 = v273;
+    v287(v71, v288, v273);
     p_name = v63;
     v73 = _dispatchPreconditionTest(_:)();
-    v74 = v266;
-    v266(v71, v72);
+    v74 = v269;
+    v269(v71, v72);
     if ((v73 & 1) == 0)
     {
       goto LABEL_113;
     }
 
-    v253 = v22;
+    v256 = v22;
 
     v75 = dispatch thunk of CircularBuffer.count.getter();
 
-    sub_1000033A8(&qword_1001D80B0);
+    sub_1000033A8(&qword_1001D80B0, &qword_100177140);
     Dictionary.reserveCapacity(_:)(v75);
-    v247 = p_name;
+    v250 = p_name;
     *v71 = p_name;
-    v284(v71, v285, v72);
+    v287(v71, v288, v72);
     LOBYTE(v75) = _dispatchPreconditionTest(_:)();
     v74(v71, v72);
     if (v75)
     {
 
-      sub_100071594(v76, &v313);
+      sub_100071594(v76, &v316);
 
-      p_name = v286;
-      if (!(v286 >> 62))
+      p_name = v289;
+      if (!(v289 >> 62))
       {
-        v77 = *((v286 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v77 = *((v289 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_17:
-        v78 = v306;
-        v256 = a1;
-        v79 = v273;
+        v78 = v309;
+        v259 = a1;
+        v79 = v276;
         if (v77)
         {
-          v252 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_logger;
-          v294 = (p_name & 0xC000000000000001);
-          v293 = v292 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_configuration;
+          v255 = OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_logger;
+          v297 = (p_name & 0xC000000000000001);
+          v296 = v295 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_configuration;
           swift_beginAccess();
           v80 = 0;
-          v272 = p_name & 0xFFFFFFFFFFFFFF8;
-          v271 = p_name + 32;
-          v291 = (v301 + 8);
-          v257 = (v301 + 32);
-          v249 = (v263 + 16);
-          v248 = (v263 + 8);
-          *&v81 = 136315138;
-          v246 = v81;
-          v274 = v77;
-          v251 = v2;
-          v250 = v3;
+          v275 = p_name & 0xFFFFFFFFFFFFFF8;
+          v274 = p_name + 32;
+          v294 = (v304 + 8);
+          v260 = (v304 + 32);
+          v252 = (v266 + 16);
+          v251 = (v266 + 8);
+          v81.n128_u64[0] = 136315138;
+          v249 = v81;
+          v277 = v77;
+          v254 = v2;
+          v253 = v3;
           do
           {
-            if (v294)
+            if (v297)
             {
               v91 = specialized _ArrayBuffer._getElementSlowPath(_:)();
             }
 
             else
             {
-              if (v80 >= *(v272 + 16))
+              if (v80 >= *(v275 + 16))
               {
                 goto LABEL_106;
               }
 
-              v91 = *(v271 + 8 * v80);
+              v91 = *(v274 + 8 * v80);
             }
 
             v92 = v91;
@@ -6537,7 +7176,7 @@ LABEL_113:
               goto LABEL_114;
             }
 
-            if (*(v293 + *(type metadata accessor for CameraControllerConfiguration(0) + 36)) == 1)
+            if (*(v296 + *(type metadata accessor for CameraControllerConfiguration(0) + 36)) == 1)
             {
               v94 = [v92 name];
               if (v94)
@@ -6549,71 +7188,71 @@ LABEL_113:
                 if (v96 == 0x636E41656D617266 && v98 == 0xEB00000000726F68)
                 {
 
-                  v101 = v291;
+                  v101 = v294;
 LABEL_44:
                   v131 = [v92 identifier];
-                  v132 = v275;
+                  v132 = v278;
                   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-                  v133 = v313;
-                  if (v313[2] && (v134 = sub_100095B4C(v132), (v135 & 1) != 0))
+                  v133 = v316;
+                  if (v316[2] && (v134 = sub_100095B4C(v132), (v135 & 1) != 0))
                   {
                     v136 = v133[7] + 16 * v134;
                     v137 = *(v136 + 8);
                     v138 = *v101;
-                    v307.i64[0] = *v136;
-                    v138(v132, v78);
-                    v139 = v268;
-                    v140 = v247;
-                    *v268 = v247;
-                    v141 = v270;
-                    v284(v139, v285, v270);
+                    v310.i64[0] = *v136;
+                    (v138)(v132, v78);
+                    v139 = v271;
+                    v140 = v250;
+                    *v271 = v250;
+                    v141 = v273;
+                    v287(v139, v288, v273);
                     v142 = v140;
                     LOBYTE(v140) = _dispatchPreconditionTest(_:)();
-                    v266(v139, v141);
+                    v143 = (v269)(v139, v141);
                     if ((v140 & 1) == 0)
                     {
                       goto LABEL_111;
                     }
 
-                    v310 = v92;
-                    v311 = v137;
-                    sub_10009244C();
+                    v313 = v92;
+                    v314 = v137;
+                    sub_10009244C(v143, v144, v145);
 
                     default argument 1 of TimestampDataBuffer.insert(_:replacementFunction:)();
                     TimestampDataBuffer.insert(_:replacementFunction:)();
 
-                    v143 = v312;
-                    if (!v312)
+                    v146 = v315;
+                    if (!v315)
                     {
 
                       goto LABEL_58;
                     }
 
-                    v144 = [v312 identifier];
-                    v145 = v300;
+                    v147 = [v315 identifier];
+                    v148 = v303;
                     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-                    v146 = [v92 identifier];
-                    v147 = v254;
+                    v149 = [v92 identifier];
+                    v150 = v257;
                     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-                    sub_100090580(&qword_1001D80D0, &type metadata accessor for UUID);
-                    LOBYTE(v146) = dispatch thunk of static Equatable.== infix(_:_:)();
-                    v138(v147, v78);
-                    v138(v145, v78);
-                    if (v146)
+                    sub_100090580(&qword_1001D80D0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+                    LOBYTE(v149) = dispatch thunk of static Equatable.== infix(_:_:)();
+                    (v138)(v150, v78);
+                    (v138)(v148, v78);
+                    if (v149)
                     {
 
-                      p_name = v286;
+                      p_name = v289;
 LABEL_58:
-                      v77 = v274;
+                      v77 = v277;
                       continue;
                     }
 
                     Strong = swift_unknownObjectWeakLoadStrong();
-                    p_name = v286;
-                    v77 = v274;
+                    p_name = v289;
+                    v77 = v277;
                     if (!Strong)
                     {
 
@@ -6621,8 +7260,8 @@ LABEL_51:
                       continue;
                     }
 
-                    v158 = Strong;
-                    [Strong removeAnchor:v143];
+                    v161 = Strong;
+                    [Strong removeAnchor:v146];
                   }
 
                   else
@@ -6630,37 +7269,37 @@ LABEL_51:
                     a1 = *v101;
                     (*v101)(v132, v78);
                     v92 = v92;
-                    v143 = Logger.logObject.getter();
-                    v148 = static os_log_type_t.error.getter();
+                    v146 = Logger.logObject.getter();
+                    v151 = static os_log_type_t.error.getter();
 
-                    if (!os_log_type_enabled(v143, v148))
+                    if (!os_log_type_enabled(v146, v151))
                     {
                       goto LABEL_51;
                     }
 
                     v82 = swift_slowAlloc();
                     v83 = swift_slowAlloc();
-                    v312 = v83;
-                    *v82 = v246;
+                    v315 = v83;
+                    *v82 = v249.n128_u32[0];
                     v84 = [v92 identifier];
-                    v85 = v300;
+                    v85 = v303;
                     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-                    sub_100090580(&qword_1001D80C0, &type metadata accessor for UUID);
+                    sub_100090580(&qword_1001D80C0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
                     v86 = dispatch thunk of CustomStringConvertible.description.getter();
                     v88 = v87;
                     v89 = v85;
-                    p_name = v286;
-                    a1(v89, v306);
-                    v90 = sub_1000E0FE0(v86, v88, &v312);
-                    v79 = v273;
+                    p_name = v289;
+                    (a1)(v89, v309);
+                    v90 = sub_1000E0FE0(v86, v88, &v315);
+                    v79 = v276;
 
                     *(v82 + 4) = v90;
-                    _os_log_impl(&_mh_execute_header, v143, v148, "Received invalid updated for %s", v82, 0xCu);
+                    _os_log_impl(&_mh_execute_header, v146, v151, "Received invalid updated for %s", v82, 0xCu);
                     sub_100006B44(v83);
-                    v77 = v274;
+                    v77 = v277;
 
-                    v78 = v306;
+                    v78 = v309;
                   }
 
 LABEL_20:
@@ -6670,7 +7309,7 @@ LABEL_20:
 
                 v100 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-                v101 = v291;
+                v101 = v294;
                 if (v100)
                 {
                   goto LABEL_44;
@@ -6689,47 +7328,47 @@ LABEL_20:
               goto LABEL_20;
             }
 
-            v287 = v80;
-            v104 = *(v79 + 56) + *(v282 + 72) * v102;
-            v105 = v281;
-            sub_1000138BC(v104, v281, &qword_1001D8098);
-            v106 = *(v283 + 48);
-            v107 = v280;
-            v108 = *(v280 + 48);
+            v290 = v80;
+            v104 = *(v79 + 56) + *(v285 + 72) * v102;
+            v105 = v284;
+            sub_1000138BC(v104, v284, &qword_1001D8098, &unk_100177130);
+            v106 = *(v286 + 48);
+            v107 = v283;
+            v108 = *(v283 + 48);
             v109 = v78;
-            v110 = *v257;
-            a1 = v279;
-            (*v257)(v279, v105, v109);
+            v110 = *v260;
+            a1 = v282;
+            (*v260)(v282, v105, v109);
             v111 = v105 + v106;
-            v112 = v277;
-            sub_1000923E4(v111, a1 + v108, type metadata accessor for ARCameraSource.AnchorInformation);
+            v112 = v280;
+            sub_1000923E4(v111, &a1[v108], type metadata accessor for ARCameraSource.AnchorInformation);
             v113 = *(v107 + 48);
-            v114 = v289;
-            v110(v289, a1, v109);
-            sub_1000923E4(a1 + v113, v112, type metadata accessor for ARCameraSource.AnchorInformation);
-            v115 = *(v112 + *(v278 + 20));
+            v114 = v292;
+            v110(v292, a1, v109);
+            sub_1000923E4(&a1[v113], v112, type metadata accessor for ARCameraSource.AnchorInformation);
+            v115 = *(v112 + *(v281 + 20));
             if (v115)
             {
               v116 = v115[1].i64[0];
-              a1 = v256;
-              v80 = v287;
+              a1 = v259;
+              v80 = v290;
               if (v116)
               {
-                v312 = &_swiftEmptyArrayStorage;
+                v315 = _swiftEmptyArrayStorage;
                 sub_100059610(0, v116, 0);
-                v117 = v312;
+                v117 = v315;
                 v118 = v115 + 2;
                 p_name = &stru_1001CFFF8.name;
                 do
                 {
-                  v307 = *v118;
+                  v310 = *v118;
                   [v92 transform];
-                  v307 = vaddq_f32(v122, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v119, v307.f32[0]), v120, *v307.f32, 1), v121, v307, 2));
+                  v310 = vaddq_f32(v122, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v119, v310.f32[0]), v120, *v310.f32, 1), v121, v310, 2));
                   v123 = [a1 camera];
-                  [v123 projectPoint:v305 orientation:*v307.i64 viewportSize:{v2, v3}];
+                  [v123 projectPoint:v308 orientation:*v310.i64 viewportSize:{v2, v3}];
 
                   CGPoint.normalize(by:)();
-                  v312 = v117;
+                  v315 = v117;
                   isa = v117[2].isa;
                   v126 = v117[3].isa;
                   if (isa >= v126 >> 1)
@@ -6739,7 +7378,7 @@ LABEL_20:
                     sub_100059610((v126 > 1), isa + 1, 1);
                     v125 = v130;
                     v124 = v129;
-                    v117 = v312;
+                    v117 = v315;
                   }
 
                   v117[2].isa = (isa + 1);
@@ -6751,136 +7390,136 @@ LABEL_20:
                 }
 
                 while (v116);
-                v114 = v289;
+                v114 = v292;
               }
 
               else
               {
-                v117 = &_swiftEmptyArrayStorage;
+                v117 = _swiftEmptyArrayStorage;
                 p_name = &stru_1001CFFF8.name;
               }
 
-              v149 = [a1 camera];
+              v152 = [a1 camera];
               [v92 transform];
-              [v149 projectPoint:v305 orientation:v150 viewportSize:{v2, v3}];
+              [v152 projectPoint:v308 orientation:v153 viewportSize:{v2, v3}];
 
               CGPoint.normalize(by:)();
-              v151 = v117[2].isa;
-              v78 = v306;
-              if (!v151)
+              v154 = v117[2].isa;
+              v78 = v309;
+              if (!v154)
               {
                 goto LABEL_108;
               }
 
-              if (v151 == 1)
+              if (v154 == 1)
               {
                 goto LABEL_109;
               }
 
-              if (v151 < 4)
+              if (v154 < 4)
               {
                 goto LABEL_110;
               }
 
-              *v307.f32 = v117[7];
-              v262 = v117[9].isa;
+              *v310.f32 = v117[7];
+              v265 = v117[9].isa;
 
-              v2 = v251;
-              v3 = v250;
+              v2 = v254;
+              v3 = v253;
               Corners.init(topLeft:topRight:bottomLeft:bottomRight:)();
               [a1 timestamp];
-              v152 = v264;
+              v155 = v267;
               CVTrackedDetection.Prediction.init(center:corners:timestamp:)();
-              v153 = v253;
-              v154 = v288;
-              (*v249)(v253, v152, v288);
-              v155 = v290;
+              v156 = v256;
+              v157 = v291;
+              (*v252)(v256, v155, v291);
+              v158 = v293;
               isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-              v312 = v155;
-              sub_1000C115C(v153, v114, isUniquelyReferenced_nonNull_native);
+              v315 = v158;
+              sub_1000C115C(v156, v114, isUniquelyReferenced_nonNull_native);
 
-              (*v248)(v152, v154);
-              (*v291)(v114, v78);
-              v290 = v312;
+              (*v251)(v155, v157);
+              (*v294)(v114, v78);
+              v293 = v315;
               sub_100092314(v112, type metadata accessor for ARCameraSource.AnchorInformation);
-              p_name = v286;
-              v79 = v273;
+              p_name = v289;
+              v79 = v276;
               goto LABEL_58;
             }
 
-            (*v291)(v114, v109);
+            (*v294)(v114, v109);
 
             sub_100092314(v112, type metadata accessor for ARCameraSource.AnchorInformation);
             v78 = v109;
-            p_name = v286;
-            v79 = v273;
-            v77 = v274;
-            v80 = v287;
+            p_name = v289;
+            v79 = v276;
+            v77 = v277;
+            v80 = v290;
           }
 
           while (v80 != v77);
         }
 
-        v165 = 0;
-        v166 = *(v295 + 64);
-        v291 = (v295 + 64);
-        v167 = 1 << *(v295 + 32);
-        v168 = -1;
-        if (v167 < 64)
+        v168 = 0;
+        v169 = *(v298 + 64);
+        v294 = (v298 + 64);
+        v170 = 1 << *(v298 + 32);
+        v171 = -1;
+        if (v170 < 64)
         {
-          v168 = ~(-1 << v167);
+          v171 = ~(-1 << v170);
         }
 
-        v169 = v168 & v166;
-        v170 = (v167 + 63) >> 6;
-        v294 = (v301 + 16);
-        v307.i64[0] = v301 + 32;
-        *&v305 = v301 + 8;
-        v289 = (v255 + 32);
-        v287 = (v255 + 16);
-        v286 = v263 + 16;
-        v281 = v263 + 32;
-        v283 = v263 + 8;
-        v282 = v255 + 8;
-        v280 = v263 + 40;
-        v171 = v299;
-        a1 = v298;
-        v293 = v170;
+        v172 = v171 & v169;
+        v173 = (v170 + 63) >> 6;
+        v297 = (v304 + 16);
+        v310.i64[0] = v304 + 32;
+        *&v308 = v304 + 8;
+        v292 = (v258 + 32);
+        v290 = (v258 + 16);
+        v289 = v266 + 16;
+        v284 = v266 + 32;
+        v286 = v266 + 8;
+        v285 = v258 + 8;
+        v283 = v266 + 40;
+        v174 = v302;
+        a1 = v301;
+        v296 = v173;
         while (1)
         {
-          v172 = v165;
-          if (!v169)
+          v175 = v168;
+          if (!v172)
           {
-            if (v170 <= v165 + 1)
+            if (v173 <= v168 + 1)
             {
-              v174 = v165 + 1;
+              v177 = v168 + 1;
             }
 
             else
             {
-              v174 = v170;
+              v177 = v173;
             }
 
-            v165 = v174 - 1;
+            v168 = v177 - 1;
             while (1)
             {
-              v173 = v172 + 1;
-              if (__OFADD__(v172, 1))
+              v176 = v175 + 1;
+              if (__OFADD__(v175, 1))
               {
                 break;
               }
 
-              if (v173 >= v170)
+              if (v176 >= v173)
               {
-                v190 = sub_1000033A8(&qword_1001D80B8);
-                (*(*(v190 - 8) + 56))(v171, 1, 1, v190);
-                v169 = 0;
+                v193 = sub_1000033A8(&qword_1001D80B8, &qword_100177148);
+                (*(*(v193 - 8) + 56))(v174, 1, 1, v193);
+                v172 = 0;
                 goto LABEL_79;
               }
 
-              v169 = v291[v173];
-              ++v172;
-              if (v169)
+              v172 = v294[v176];
+              ++v175;
+              if (v172)
               {
                 goto LABEL_78;
               }
@@ -6890,206 +7529,206 @@ LABEL_20:
             goto LABEL_105;
           }
 
-          v173 = v165;
+          v176 = v168;
 LABEL_78:
-          v175 = __clz(__rbit64(v169));
-          v169 &= v169 - 1;
-          v176 = v175 | (v173 << 6);
-          v177 = v295;
-          v178 = v301;
-          v179 = v300;
-          v180 = v306;
-          (*(v301 + 16))(v300, *(v295 + 48) + *(v301 + 72) * v176, v306);
-          v181 = v296;
-          sub_10009237C(*(v177 + 56) + *(v297 + 72) * v176, v296, type metadata accessor for ARCameraSource.Tracker.TrackState);
-          v182 = sub_1000033A8(&qword_1001D80B8);
-          v183 = *(v182 + 48);
-          v184 = *(v178 + 32);
-          v171 = v299;
-          v184(v299, v179, v180);
-          sub_1000923E4(v181, v171 + v183, type metadata accessor for ARCameraSource.Tracker.TrackState);
-          (*(*(v182 - 8) + 56))(v171, 0, 1, v182);
-          v165 = v173;
-          a1 = v298;
-          v170 = v293;
+          v178 = __clz(__rbit64(v172));
+          v172 &= v172 - 1;
+          v179 = v178 | (v176 << 6);
+          v180 = v298;
+          v181 = v304;
+          v182 = v303;
+          v183 = v309;
+          (*(v304 + 16))(v303, *(v298 + 48) + *(v304 + 72) * v179, v309);
+          v184 = v299;
+          sub_10009237C(*(v180 + 56) + *(v300 + 72) * v179, v299, type metadata accessor for ARCameraSource.Tracker.TrackState);
+          v185 = sub_1000033A8(&qword_1001D80B8, &qword_100177148);
+          v186 = *(v185 + 48);
+          v187 = *(v181 + 32);
+          v174 = v302;
+          v187(v302, v182, v183);
+          sub_1000923E4(v184, v174 + v186, type metadata accessor for ARCameraSource.Tracker.TrackState);
+          (*(*(v185 - 8) + 56))(v174, 0, 1, v185);
+          v168 = v176;
+          a1 = v301;
+          v173 = v296;
 LABEL_79:
-          sub_10002091C(v171, a1, &qword_1001D8090);
-          v185 = sub_1000033A8(&qword_1001D80B8);
-          v186 = (*(*(v185 - 8) + 48))(a1, 1, v185);
-          v187 = v304;
-          if (v186 == 1)
+          sub_10002091C(v174, a1, &qword_1001D8090, &qword_100177128);
+          v188 = sub_1000033A8(&qword_1001D80B8, &qword_100177148);
+          v189 = (*(*(v188 - 8) + 48))(a1, 1, v188);
+          v190 = v307;
+          if (v189 == 1)
           {
             break;
           }
 
-          v188 = *(v185 + 48);
-          v189 = v303;
-          p_name = v306;
-          (*v307.i64[0])(v303, a1, v306);
-          sub_1000923E4(a1 + v188, v187, type metadata accessor for ARCameraSource.Tracker.TrackState);
+          v191 = *(v188 + 48);
+          v192 = v306;
+          p_name = v309;
+          (*v310.i64[0])(v306, a1, v309);
+          sub_1000923E4(&a1[v191], v190, type metadata accessor for ARCameraSource.Tracker.TrackState);
           if (swift_getEnumCaseMultiPayload() == 1)
           {
-            v191 = v260;
-            v192 = v187;
-            v193 = v261;
-            (*v289)(v260, v192, v261);
+            v194 = v263;
+            v195 = v190;
+            v196 = v264;
+            (*v292)(v263, v195, v264);
             Corners.center.getter();
-            (*v287)(v276, v191, v193);
-            [v256 timestamp];
-            v194 = v258;
+            (*v290)(v279, v194, v196);
+            [v259 timestamp];
+            v197 = v261;
             CVTrackedDetection.Prediction.init(center:corners:timestamp:)();
-            v195 = v189;
-            v196 = *v294;
-            (*v294)(v265, v195, p_name);
-            (*v286)(v259, v194, v288);
-            v197 = v290;
-            v198 = swift_isUniquelyReferenced_nonNull_native();
-            v312 = v197;
-            v199 = sub_100095B4C(v265);
-            v201 = v197[2].isa;
-            v202 = (v200 & 1) == 0;
-            v93 = __OFADD__(v201, v202);
-            v203 = v201 + v202;
+            v198 = v192;
+            v199 = *v297;
+            (*v297)(v268, v198, p_name);
+            (*v289)(v262, v197, v291);
+            v200 = v293;
+            v201 = swift_isUniquelyReferenced_nonNull_native();
+            v315 = v200;
+            v202 = sub_100095B4C(v268);
+            v204 = v200[2].isa;
+            v205 = (v203 & 1) == 0;
+            v93 = __OFADD__(v204, v205);
+            v206 = v204 + v205;
             if (v93)
             {
               __break(1u);
               goto LABEL_117;
             }
 
-            v204 = v200;
-            if (v197[3].isa >= v203)
+            v207 = v203;
+            if (v200[3].isa >= v206)
             {
-              if ((v198 & 1) == 0)
+              if ((v201 & 1) == 0)
               {
-                v217 = v199;
+                v220 = v202;
                 sub_1000C2B6C();
-                v199 = v217;
+                v202 = v220;
               }
             }
 
             else
             {
-              sub_1000BEEB0(v203, v198);
-              v199 = sub_100095B4C(v265);
-              if ((v204 & 1) != (v205 & 1))
+              sub_1000BEEB0(v206, v201);
+              v202 = sub_100095B4C(v268);
+              if ((v207 & 1) != (v208 & 1))
               {
                 goto LABEL_122;
               }
             }
 
-            v290 = v312;
-            if (v204)
+            v293 = v315;
+            if (v207)
             {
-              v206 = v263;
-              v207 = v288;
-              (*(v263 + 40))(v312[7].isa + *(v263 + 72) * v199, v259, v288);
-              p_name = *v305;
-              (*v305)(v265, v306);
-              (*(v206 + 8))(v258, v207);
-              (*v282)(v260, v261);
-              (p_name)(v303, v306);
+              v209 = v266;
+              v210 = v291;
+              (*(v266 + 40))(v315[7].isa + *(v266 + 72) * v202, v262, v291);
+              p_name = *v308;
+              (*v308)(v268, v309);
+              (*(v209 + 8))(v261, v210);
+              (*v285)(v263, v264);
+              (p_name)(v306, v309);
             }
 
             else
             {
-              v312[(v199 >> 6) + 8].isa = (v312[(v199 >> 6) + 8].isa | (1 << v199));
-              v208 = v199;
-              v209 = v265;
-              v196(v290[6].isa + *(v301 + 72) * v199, v265, v306);
-              v210 = v263;
-              v211 = v290[7].isa + *(v263 + 72) * v208;
-              v212 = v288;
-              (*(v263 + 32))(v211, v259, v288);
-              v213 = *(v301 + 8);
-              v214 = v209;
-              p_name = v305;
-              v213(v214, v306);
-              (*(v210 + 8))(v258, v212);
-              (*v282)(v260, v261);
-              v213(v303, v306);
-              v215 = v290[2].isa;
-              v93 = __OFADD__(v215, 1);
-              v216 = (v215 + 1);
+              v315[(v202 >> 6) + 8].isa = (v315[(v202 >> 6) + 8].isa | (1 << v202));
+              v211 = v202;
+              v212 = v268;
+              v199(v293[6].isa + *(v304 + 72) * v202, v268, v309);
+              v213 = v266;
+              v214 = v293[7].isa + *(v266 + 72) * v211;
+              v215 = v291;
+              (*(v266 + 32))(v214, v262, v291);
+              v216 = *(v304 + 8);
+              v217 = v212;
+              p_name = v308;
+              v216(v217, v309);
+              (*(v213 + 8))(v261, v215);
+              (*v285)(v263, v264);
+              v216(v306, v309);
+              v218 = v293[2].isa;
+              v93 = __OFADD__(v218, 1);
+              v219 = (v218 + 1);
               if (v93)
               {
                 goto LABEL_118;
               }
 
-              v290[2].isa = v216;
+              v293[2].isa = v219;
             }
           }
 
           else
           {
-            (*v305)(v189, p_name);
-            sub_100092314(v187, type metadata accessor for ARCameraSource.Tracker.TrackState);
+            (*v308)(v192, p_name);
+            sub_100092314(v190, type metadata accessor for ARCameraSource.Tracker.TrackState);
           }
         }
 
-        v218 = v292;
-        sub_10007EC5C(v290);
-        v219 = v218 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_configuration;
+        v221 = v295;
+        sub_10007EC5C(v293);
+        v222 = v221 + OBJC_IVAR____TtCC6Tamale14ARCameraSource7Tracker_configuration;
         swift_beginAccess();
-        if (*(v219 + *(type metadata accessor for CameraControllerConfiguration(0) + 36)) != 1)
+        if (*(v222 + *(type metadata accessor for CameraControllerConfiguration(0) + 36)) != 1)
         {
 LABEL_102:
 
           return;
         }
 
-        v220 = v256;
-        v221 = Logger.logObject.getter();
-        v222 = static os_log_type_t.debug.getter();
+        v223 = v259;
+        v224 = Logger.logObject.getter();
+        v225 = static os_log_type_t.debug.getter();
 
-        if (os_log_type_enabled(v221, v222))
+        if (os_log_type_enabled(v224, v225))
         {
-          v223 = swift_slowAlloc();
-          *v223 = 134217984;
-          [v220 timestamp];
-          *(v223 + 4) = v224;
-          _os_log_impl(&_mh_execute_header, v221, v222, "Updating tracks for frame @ %f", v223, 0xCu);
+          v226 = swift_slowAlloc();
+          *v226 = 134217984;
+          [v223 timestamp];
+          *(v226 + 4) = v227;
+          _os_log_impl(&_mh_execute_header, v224, v225, "Updating tracks for frame @ %f", v226, 0xCu);
         }
 
-        v225 = [v220 camera];
-        [v225 transform];
-        v307 = v226;
-        v306 = v227;
-        v305 = v228;
-        v304 = v229;
+        v228 = [v223 camera];
+        [v228 transform];
+        v310 = v229;
+        v309 = v230;
+        v308 = v231;
+        v307 = v232;
 
-        v230 = objc_allocWithZone(ARAnchor);
-        v231 = String._bridgeToObjectiveC()();
-        v232 = [v230 initWithName:v231 transform:{*v307.i64, *&v306, *&v305, *&v304}];
+        v233 = objc_allocWithZone(ARAnchor);
+        v234 = String._bridgeToObjectiveC()();
+        v235 = [v233 initWithName:v234 transform:{*v310.i64, *&v309, *&v308, *&v307}];
 
-        [v220 timestamp];
-        v234 = v233;
-        v235 = swift_unknownObjectWeakLoadStrong();
-        [v235 addAnchor:v232];
+        [v223 timestamp];
+        v237 = v236;
+        v238 = swift_unknownObjectWeakLoadStrong();
+        [v238 addAnchor:v235];
 
-        v236 = v268;
-        v237 = v247;
-        *v268 = v247;
-        v238 = v270;
-        v284(v236, v285, v270);
-        v239 = v237;
-        LOBYTE(v237) = _dispatchPreconditionTest(_:)();
-        v266(v236, v238);
-        if (v237)
+        v239 = v271;
+        v240 = v250;
+        *v271 = v250;
+        v241 = v273;
+        v287(v239, v288, v273);
+        v242 = v240;
+        LOBYTE(v240) = _dispatchPreconditionTest(_:)();
+        v269(v239, v241);
+        if (v240)
         {
-          v308 = v232;
-          v309 = v234;
+          v311 = v235;
+          v312 = v237;
 
           TimestampDataBuffer.append(_:)();
 
-          v240 = v310;
-          if (v310)
+          v243 = v313;
+          if (v313)
           {
-            v241 = swift_unknownObjectWeakLoadStrong();
-            if (v241)
+            v244 = swift_unknownObjectWeakLoadStrong();
+            if (v244)
             {
-              v242 = v241;
-              v240 = v240;
-              [v242 removeAnchor:v240];
+              v245 = v244;
+              v243 = v243;
+              [v245 removeAnchor:v243];
             }
           }
 
@@ -7101,13 +7740,13 @@ LABEL_117:
 LABEL_118:
         __break(1u);
 LABEL_119:
-        v243 = Logger.logObject.getter();
-        v244 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v243, v244))
+        v246 = Logger.logObject.getter();
+        v247 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v246, v247))
         {
-          v245 = swift_slowAlloc();
-          *v245 = 0;
-          _os_log_impl(&_mh_execute_header, v243, v244, "ViewportSize not positive!", v245, 2u);
+          v248 = swift_slowAlloc();
+          *v248 = 0;
+          _os_log_impl(&_mh_execute_header, v246, v247, "ViewportSize not positive!", v248, 2u);
         }
 
         _assertionFailure(_:_:file:line:flags:)();
@@ -7130,9 +7769,9 @@ LABEL_114:
   }
 }
 
-uint64_t sub_100089CC4(uint64_t a1)
+unint64_t sub_100089CC4(uint64_t a1)
 {
-  v77 = sub_1000033A8(&unk_1001D80A0);
+  v77 = sub_1000033A8(&unk_1001D80A0, &qword_100178A00);
   v74 = *(v77 - 8);
   v2 = __chkstk_darwin(v77);
   v75 = &v71 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -7153,14 +7792,14 @@ uint64_t sub_100089CC4(uint64_t a1)
   v15 = &v71 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v13);
   v78 = &v71 - v16;
-  v17 = sub_1000033A8(&qword_1001D8090);
+  v17 = sub_1000033A8(&qword_1001D8090, &qword_100177128);
   v18 = __chkstk_darwin(v17 - 8);
   v86 = &v71 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v18);
   v88 = &v71 - v20;
   v95 = &_swiftEmptyDictionarySingleton;
   v21 = *(a1 + 16);
-  sub_1000033A8(&qword_1001D80F8);
+  sub_1000033A8(&qword_1001D80F8, &qword_100177160);
   Dictionary.reserveCapacity(_:)(v21);
   v22 = *(a1 + 64);
   v73 = a1 + 64;
@@ -7197,7 +7836,7 @@ LABEL_14:
     v36 = v11;
     v37 = v80;
     sub_10009237C(*(v33 + 56) + *(v81 + 72) * v32, v80, type metadata accessor for ARCameraSource.Tracker.TrackState);
-    v38 = sub_1000033A8(&qword_1001D80B8);
+    v38 = sub_1000033A8(&qword_1001D80B8, &qword_100177148);
     v39 = *(v38 + 48);
     v40 = *(v35 + 32);
     v41 = v86;
@@ -7209,8 +7848,8 @@ LABEL_14:
     v30 = v88;
     v15 = v89;
 LABEL_15:
-    sub_10002091C(v42, v30, &qword_1001D8090);
-    v43 = sub_1000033A8(&qword_1001D80B8);
+    sub_10002091C(v42, v30, &qword_1001D8090, &qword_100177128);
+    v43 = sub_1000033A8(&qword_1001D80B8, &qword_100177148);
     v44 = (*(*(v43 - 8) + 48))(v30, 1, v43);
     v45 = v87;
     if (v44 == 1)
@@ -7236,7 +7875,7 @@ LABEL_15:
     {
       v83 = v29;
       v47 = *v45;
-      v48 = sub_1000033A8(&qword_1001D8100);
+      v48 = sub_1000033A8(&qword_1001D8100, &qword_100177168);
       v49 = v85;
       sub_1000923E4(v45 + *(v48 + 48), v85, type metadata accessor for ARCameraSource.AnchorInformation);
       v50 = v76;
@@ -7245,7 +7884,7 @@ LABEL_15:
       sub_10009237C(v49, &v50[v51], type metadata accessor for ARCameraSource.AnchorInformation);
       v52 = v50;
       v53 = v75;
-      sub_10002091C(v52, v75, &unk_1001D80A0);
+      sub_10002091C(v52, v75, &unk_1001D80A0, &qword_100178A00);
       v54 = v95;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
       v94 = v54;
@@ -7283,7 +7922,7 @@ LABEL_15:
       v64 = v94;
       if (v61)
       {
-        sub_1000924A0(v53, v94[7] + *(v74 + 72) * v57, &unk_1001D80A0);
+        sub_1000924A0(v53, v94[7] + *(v74 + 72) * v57, &unk_1001D80A0, &qword_100178A00);
 
         sub_100092314(v85, type metadata accessor for ARCameraSource.AnchorInformation);
         v15 = v89;
@@ -7296,7 +7935,7 @@ LABEL_15:
       {
         v94[(v57 >> 6) + 8] |= 1 << v57;
         *(v64[6] + 8 * v57) = v47;
-        sub_10002091C(v53, v64[7] + *(v74 + 72) * v57, &unk_1001D80A0);
+        sub_10002091C(v53, v64[7] + *(v74 + 72) * v57, &unk_1001D80A0, &qword_100178A00);
         sub_100092314(v85, type metadata accessor for ARCameraSource.AnchorInformation);
         v15 = v89;
         (*v84)(v89, v11);
@@ -7337,7 +7976,7 @@ LABEL_15:
 
     if (v27 >= v72)
     {
-      v68 = sub_1000033A8(&qword_1001D80B8);
+      v68 = sub_1000033A8(&qword_1001D80B8, &qword_100177148);
       v42 = v86;
       (*(*(v68 - 8) + 56))(v86, 1, 1, v68);
       v25 = 0;
@@ -7358,7 +7997,7 @@ LABEL_30:
 LABEL_31:
   __break(1u);
 LABEL_32:
-  sub_10005BBC4(0, &qword_1001D7D58);
+  sub_10005BBC4(0, &qword_1001D7D58, ARAnchor_ptr);
   result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
   return result;
@@ -7366,18 +8005,18 @@ LABEL_32:
 
 unint64_t sub_10008A5E8(uint64_t a1)
 {
-  v2 = sub_1000033A8(&unk_1001D80A0);
+  v2 = sub_1000033A8(&unk_1001D80A0, &qword_100178A00);
   v98 = *(v2 - 8);
   v99 = v2;
   __chkstk_darwin(v2);
   v97 = &v82 - v3;
-  v96 = sub_1000033A8(&qword_1001D8108);
+  v96 = sub_1000033A8(&qword_1001D8108, &qword_100177170);
   __chkstk_darwin(v96);
   v95 = &v82 - v4;
-  v94 = sub_1000033A8(&qword_1001D8110);
+  v94 = sub_1000033A8(&qword_1001D8110, &qword_100177178);
   __chkstk_darwin(v94);
   v93 = &v82 - v5;
-  v92 = sub_1000033A8(&qword_1001D8098);
+  v92 = sub_1000033A8(&qword_1001D8098, &unk_100177130);
   v89 = *(v92 - 8);
   v6 = __chkstk_darwin(v92);
   v8 = &v82 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -7385,7 +8024,7 @@ unint64_t sub_10008A5E8(uint64_t a1)
   v11 = &v82 - v10;
   __chkstk_darwin(v9);
   v86 = (&v82 - v12);
-  v91 = sub_1000033A8(&qword_1001D8118);
+  v91 = sub_1000033A8(&qword_1001D8118, &qword_100177180);
   v13 = __chkstk_darwin(v91);
   v88 = (&v82 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
   v15 = __chkstk_darwin(v13);
@@ -7396,7 +8035,7 @@ unint64_t sub_10008A5E8(uint64_t a1)
   v83 = &v82 - v19;
   if (*(a1 + 16))
   {
-    sub_1000033A8(&qword_1001D8120);
+    sub_1000033A8(&qword_1001D8120, &qword_100177188);
     v20 = static _DictionaryStorage.allocate(capacity:)();
   }
 
@@ -7405,7 +8044,7 @@ unint64_t sub_10008A5E8(uint64_t a1)
     v20 = &_swiftEmptyDictionarySingleton;
   }
 
-  v21 = sub_10005BBC4(0, &qword_1001D7D58);
+  v21 = sub_10005BBC4(0, &qword_1001D7D58, ARAnchor_ptr);
   v22 = a1 + 64;
   v23 = 1 << *(a1 + 32);
   if (v23 < 64)
@@ -7439,24 +8078,24 @@ LABEL_33:
       v65 = *(a1 + 56) + *(v98 + 72) * v63;
       v66 = v91;
       v67 = v83;
-      sub_1000138BC(v65, &v83[*(v91 + 48)], &unk_1001D80A0);
+      sub_1000138BC(v65, &v83[*(v91 + 48)], &unk_1001D80A0, &qword_100178A00);
       *v67 = v64;
       v68 = v84;
-      sub_10002091C(v67, v84, &qword_1001D8118);
+      sub_10002091C(v67, v84, &qword_1001D8118, &qword_100177180);
       v69 = *(v96 + 48);
       v70 = *v68;
-      sub_10002091C(v68 + *(v66 + 48), v97, &unk_1001D80A0);
+      sub_10002091C(v68 + *(v66 + 48), v97, &unk_1001D80A0, &qword_100178A00);
       v71 = v64;
       v72 = v95;
       swift_dynamicCast();
       v73 = v93;
       v74 = *(v94 + 48);
-      sub_10002091C(&v72[v69], &v93[v74], &qword_1001D8098);
+      sub_10002091C(&v72[v69], &v93[v74], &qword_1001D8098, &unk_100177130);
       v75 = &v73[v74];
       v76 = v86;
-      sub_10002091C(v75, v86, &qword_1001D8098);
+      sub_10002091C(v75, v86, &qword_1001D8098, &unk_100177130);
       v77 = v82;
-      sub_10002091C(v76, v82, &qword_1001D8098);
+      sub_10002091C(v76, v82, &qword_1001D8098, &unk_100177130);
       result = sub_100095ED8(v70);
       if (v78)
       {
@@ -7465,7 +8104,7 @@ LABEL_33:
         *(v58 + 8 * result) = v70;
         v60 = result;
 
-        result = sub_1000924A0(v77, v20[7] + *(v89 + 72) * v60, &qword_1001D8098);
+        result = sub_1000924A0(v77, v20[7] + *(v89 + 72) * v60, &qword_1001D8098, &unk_100177130);
       }
 
       else
@@ -7477,7 +8116,7 @@ LABEL_33:
 
         *(v88 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << result;
         *(v20[6] + 8 * result) = v70;
-        result = sub_10002091C(v77, v20[7] + *(v89 + 72) * result, &qword_1001D8098);
+        result = sub_10002091C(v77, v20[7] + *(v89 + 72) * result, &qword_1001D8098, &unk_100177130);
         v79 = v20[2];
         v80 = __OFADD__(v79, 1);
         v81 = v79 + 1;
@@ -7535,24 +8174,24 @@ LABEL_16:
       v35 = *(*(a1 + 48) + 8 * v33);
       v36 = v91;
       v37 = v87;
-      sub_1000138BC(v34 + *(v98 + 72) * v33, &v87[*(v91 + 48)], &unk_1001D80A0);
+      sub_1000138BC(v34 + *(v98 + 72) * v33, &v87[*(v91 + 48)], &unk_1001D80A0, &qword_100178A00);
       *v37 = v35;
       v38 = v37;
       v39 = v88;
-      sub_10002091C(v38, v88, &qword_1001D8118);
+      sub_10002091C(v38, v88, &qword_1001D8118, &qword_100177180);
       v40 = *(v36 + 48);
       v41 = *(v96 + 48);
       v42 = *v39;
-      sub_10002091C(v39 + v40, v97, &unk_1001D80A0);
+      sub_10002091C(v39 + v40, v97, &unk_1001D80A0, &qword_100178A00);
       v43 = v35;
       v44 = v95;
       swift_dynamicCast();
       v45 = *(v94 + 48);
       v46 = &v44[v41];
       v47 = v93;
-      sub_10002091C(v46, &v93[v45], &qword_1001D8098);
+      sub_10002091C(v46, &v93[v45], &qword_1001D8098, &unk_100177130);
       v48 = v85;
-      sub_10002091C(&v47[v45], v85, &qword_1001D8098);
+      sub_10002091C(&v47[v45], v85, &qword_1001D8098, &unk_100177130);
       v20 = v86;
       result = NSObject._rawHashValue(seed:)(v86[5]);
       v49 = -1 << *(v20 + 32);
@@ -7591,7 +8230,7 @@ LABEL_10:
       v25 &= v25 - 1;
       *&v28[(v31 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v31;
       *(v20[6] + 8 * v31) = v42;
-      result = sub_10002091C(v48, v20[7] + *(v89 + 72) * v31, &qword_1001D8098);
+      result = sub_10002091C(v48, v20[7] + *(v89 + 72) * v31, &qword_1001D8098, &unk_100177130);
       ++v20[2];
       v27 = v83;
     }
@@ -7654,7 +8293,7 @@ uint64_t sub_10008AEE8()
 void sub_10008AF48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = type metadata accessor for CVTrackSnapshot();
-  v9 = sub_100090580(&qword_1001D7FA0, &type metadata accessor for CVTrackSnapshot);
+  v9 = sub_100090580(&qword_1001D7FA0, &type metadata accessor for CVTrackSnapshot, &protocol conformance descriptor for CVTrackSnapshot);
 
   sub_1000818C0(a1, a2, v8, a3, v9, a4);
 }
@@ -7662,7 +8301,7 @@ void sub_10008AF48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 uint64_t sub_10008AFF8()
 {
   v1 = [v0 availableSensors];
-  sub_1000033A8(&qword_1001D7FD8);
+  sub_1000033A8(&qword_1001D7FD8, &qword_1001770B0);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v2 >> 62)
@@ -7733,11 +8372,12 @@ LABEL_13:
     }
   }
 
-  v7 = sub_1000793B8(&_swiftEmptyArrayStorage);
+  sub_1000793B8(_swiftEmptyArrayStorage);
+  v8 = v7;
 
-  v8 = sub_10009159C(v7);
+  v9 = sub_10009159C(v8);
 
-  return v8;
+  return v9;
 }
 
 uint64_t ARFrame.cameraImage.getter@<X0>(uint64_t a1@<X8>)
@@ -7800,12 +8440,12 @@ uint64_t sub_10008B310()
 
   else
   {
-    sub_10001370C(v6, &unk_1001D8060);
+    sub_10001370C(v6, &unk_1001D8060, &qword_1001732E0);
     return 0;
   }
 }
 
-uint64_t sub_10008B3F4(char a1)
+double sub_10008B3F4(char a1)
 {
   v3 = sub_10008B310();
   if (!v3)
@@ -7825,6 +8465,8 @@ uint64_t sub_10008B3F4(char a1)
   }
 
   *(v3 + 16) = a1 & 1;
+
+  return result;
 }
 
 uint64_t ARFrame.metadata.getter()
@@ -7995,12 +8637,12 @@ ARFrame __swiftcall ARFrame.copyFrameWithoutImage()()
   return v4;
 }
 
-uint64_t sub_10008BB9C(unint64_t *a1, unint64_t *a2)
+uint64_t sub_10008BB9C(unint64_t *a1, unint64_t *a2, void *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    sub_10005BBC4(255, a2);
+    sub_10005BBC4(255, a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -8041,22 +8683,22 @@ ARFrame sub_10008BD50@<X0>(ARFrame *a1@<X8>)
   return result;
 }
 
-void sub_10008BDC8()
+void sub_10008BDC8(uint64_t a1)
 {
   type metadata accessor for CameraControllerConfiguration(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Logger();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for LoggingSignposter();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_10005FAB0(319, &unk_1001D6940, &type metadata accessor for AsyncStream);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_10005FAB0(319, &qword_1001D7630, &type metadata accessor for AsyncStream.Continuation);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_updateClassMetadata2();
           }
@@ -8066,13 +8708,13 @@ void sub_10008BDC8()
   }
 }
 
-uint64_t sub_10008C070()
+uint64_t sub_10008C070(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for CameraControllerConfiguration(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       return swift_updateClassMetadata2();
     }
@@ -8081,7 +8723,7 @@ uint64_t sub_10008C070()
   return result;
 }
 
-uint64_t sub_10008C1A4()
+double sub_10008C1A4()
 {
   v1 = type metadata accessor for DispatchWorkItemFlags();
   v2 = *(v1 - 8);
@@ -8103,18 +8745,20 @@ uint64_t sub_10008C1A4()
   v9 = _Block_copy(aBlock);
   v10 = v0;
   static DispatchQoS.unspecified.getter();
-  v14 = &_swiftEmptyArrayStorage;
-  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+  v14 = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v9);
   (*(v2 + 8))(v4, v1);
   (*(v5 + 8))(v7, v13);
+
+  return result;
 }
 
-uint64_t sub_10008C474(void *a1)
+void sub_10008C474(void *a1)
 {
   v1 = a1;
   v2 = Logger.logObject.getter();
@@ -8124,11 +8768,11 @@ uint64_t sub_10008C474(void *a1)
   {
     v4 = swift_slowAlloc();
     v5 = swift_slowAlloc();
-    v14 = v5;
+    v13 = v5;
     *v4 = 136315138;
     sub_100060424(*&v1[OBJC_IVAR____TtC6Tamale14ARCameraSource_runState], *&v1[OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 8], v1[OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 16]);
     v6 = String.init<A>(describing:)();
-    v8 = sub_1000E0FE0(v6, v7, &v14);
+    v8 = sub_1000E0FE0(v6, v7, &v13);
 
     *(v4 + 4) = v8;
     _os_log_impl(&_mh_execute_header, v2, v3, "willCapturePhoto: transitioning from %s to .pausing", v4, 0xCu);
@@ -8142,21 +8786,21 @@ uint64_t sub_10008C474(void *a1)
   v12 = v9[16];
   v9[16] = 3;
   sub_1000616E4(v10, v11, v12);
-  return sub_1000731B8();
+  sub_1000731B8();
 }
 
 uint64_t sub_10008C630(void *a1, void *a2)
 {
   v3 = v2;
-  v66 = a1;
-  v5 = sub_1000033A8(&qword_1001D8020);
+  v67 = a1;
+  v5 = sub_1000033A8(&qword_1001D8020, &qword_1001728D0);
   __chkstk_darwin(v5 - 8);
-  v7 = &v64 - v6;
+  v7 = &v65 - v6;
   v8 = type metadata accessor for ARCamera.TrackingState();
   v9 = __chkstk_darwin(v8 - 8);
-  v11 = &v64 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v65 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
-  v13 = &v64 - v12;
+  v13 = &v65 - v12;
   static LoggingSignposter.arCameraSourceFrameHandler.getter();
   default argument 2 of LoggingSignposter.beginInterval(_:shouldLog:enableTelemetry:)();
   v14 = v2;
@@ -8194,12 +8838,12 @@ uint64_t sub_10008C630(void *a1, void *a2)
 
     v22 = [a2 camera];
     [v22 transform];
-    v70 = v24;
-    v71 = v23;
-    v69 = v25;
-    v68 = v26;
+    v71 = v24;
+    v72 = v23;
+    v70 = v25;
+    v69 = v26;
 
-    v27 = sub_10009D414(v71, v70, v69, v68);
+    v27 = sub_10009D414(v72, v71, v70, v69);
     v29 = v28;
   }
 
@@ -8219,49 +8863,49 @@ uint64_t sub_10008C630(void *a1, void *a2)
   v31 = v14 + OBJC_IVAR____TtC6Tamale14ARCameraSource_configuration;
   swift_beginAccess();
   v32 = type metadata accessor for CameraControllerConfiguration(0);
-  sub_1000138BC(v31 + *(v32 + 68), v7, &qword_1001D8020);
+  sub_1000138BC(v31 + *(v32 + 68), v7, &qword_1001D8020, &qword_1001728D0);
   v33 = type metadata accessor for URL();
   LODWORD(v31) = (*(*(v33 - 8) + 48))(v7, 1, v33);
-  sub_10001370C(v7, &qword_1001D8020);
+  sub_10001370C(v7, &qword_1001D8020, &qword_1001728D0);
   v34 = v14 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState;
   v35 = *(v14 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState);
   v36 = *(v14 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 8);
   v37 = *(v14 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState + 16);
   if (v31 == 1)
   {
-    LODWORD(v67) = 0;
+    LODWORD(v68) = 0;
   }
 
   else
   {
     v40 = v35 == 1 && v36 == 0 && v37 == 3;
-    LODWORD(v67) = v40;
+    LODWORD(v68) = v40;
   }
 
-  v75[0] = v27;
-  v75[1] = v29;
-  v76 = v30;
-  v77 = v35;
-  v78 = v36;
-  v79 = v37;
-  v71.i64[0] = v14;
+  v76[0] = v27;
+  v76[1] = v29;
+  v77 = v30;
+  v78 = v35;
+  v79 = v36;
+  v80 = v37;
+  v72.i64[0] = v14;
   v41 = v14 + OBJC_IVAR____TtC6Tamale14ARCameraSource_synchronizer;
   Strong = swift_unknownObjectWeakLoadStrong();
-  v72 = a2;
-  v70.i32[0] = v37;
-  v69.n128_u64[0] = v36;
-  v68.i64[0] = v35;
+  v73 = a2;
+  v71.i32[0] = v37;
+  v70.n128_u64[0] = v36;
+  v69.i64[0] = v35;
   if (Strong)
   {
     v43 = v35;
     v44 = *(v41 + 8);
     ObjectType = swift_getObjectType();
-    v73 = a2;
-    v64 = *(v44 + 8);
+    v74 = a2;
+    v65 = *(v44 + 8);
     sub_100060424(v43, v36, v37);
-    v45 = sub_10005BBC4(0, &qword_1001D7430);
-    v46 = sub_10008BB9C(&qword_1001D7438, &qword_1001D7430);
-    v64(&v73, v75, v45, v46, ObjectType, v44);
+    v45 = sub_10005BBC4(0, &qword_1001D7430, ARFrame_ptr);
+    v46 = sub_10008BB9C(&qword_1001D7438, &qword_1001D7430, ARFrame_ptr, &protocol conformance descriptor for ARFrame);
+    v65(&v74, v76, v45, v46, ObjectType, v44);
     swift_unknownObjectRelease();
   }
 
@@ -8270,26 +8914,26 @@ uint64_t sub_10008C630(void *a1, void *a2)
     sub_100060424(v35, v36, v37);
   }
 
-  if (v67)
+  if (v68)
   {
-    v47 = v72;
+    v47 = v73;
     sub_10008B3F4(1);
     v48 = swift_unknownObjectWeakLoadStrong();
-    v49 = v69.n128_u64[0];
+    v49 = v70.n128_u64[0];
     if (v48)
     {
       v50 = *(v41 + 8);
       ObjectType = swift_getObjectType();
-      v73 = v47;
-      v64 = *(v50 + 8);
-      v67 = v29;
+      v74 = v47;
+      v65 = *(v50 + 8);
+      v68 = v29;
       v51 = v27;
-      v52 = sub_10005BBC4(0, &qword_1001D7430);
-      v53 = sub_10008BB9C(&qword_1001D7438, &qword_1001D7430);
-      v64(&v73, v75, v52, v53, ObjectType, v50);
+      v52 = sub_10005BBC4(0, &qword_1001D7430, ARFrame_ptr);
+      v53 = sub_10008BB9C(&qword_1001D7438, &qword_1001D7430, ARFrame_ptr, &protocol conformance descriptor for ARFrame);
+      v65(&v74, v76, v52, v53, ObjectType, v50);
       swift_unknownObjectRelease();
       v54 = v51;
-      v55 = v67;
+      v55 = v68;
     }
 
     else
@@ -8299,48 +8943,48 @@ uint64_t sub_10008C630(void *a1, void *a2)
     }
 
     sub_100092274(v54, v55);
-    sub_1000616E4(v68.i64[0], v49, v70.i8[0]);
-    [v66 pause];
-    v57 = *v34;
-    v58 = *(v34 + 8);
+    v57 = sub_1000616E4(v69.i64[0], v49, v71.i8[0]);
+    [v67 pause];
+    v58 = *v34;
+    v59 = *(v34 + 8);
     *v34 = 0;
     *(v34 + 8) = 0;
-    v59 = *(v34 + 16);
+    v60 = *(v34 + 16);
     *(v34 + 16) = 3;
-    sub_1000616E4(v57, v58, v59);
-    v56 = v71.i64[0];
+    sub_1000616E4(v58, v59, v60);
+    v56 = v72.i64[0];
     sub_1000731B8();
   }
 
   else
   {
     sub_100092274(v27, v29);
-    sub_1000616E4(v68.i64[0], v69.n128_i64[0], v70.i8[0]);
-    v47 = v72;
-    v56 = v71.i64[0];
+    sub_1000616E4(v69.i64[0], v70.n128_i64[0], v71.i8[0]);
+    v47 = v73;
+    v56 = v72.i64[0];
   }
 
-  v60 = *v34;
-  v61 = *(v34 + 8);
-  v62 = *(v34 + 16);
-  if (v62 == 1 || v62 == 3 && v60 == 2 && !v61)
+  v61 = *v34;
+  v62 = *(v34 + 8);
+  v63 = *(v34 + 16);
+  if (v63 == 1 || v63 == 3 && v61 == 2 && !v62)
   {
     if (*(v56 + OBJC_IVAR____TtC6Tamale14ARCameraSource_trackManagerSupporting))
     {
-      sub_100060424(v60, v61, v62);
+      sub_100060424(v61, v62, v63);
 
       sub_1000875A4(v47);
     }
 
     else
     {
-      sub_100060424(v60, v61, v62);
+      sub_100060424(v61, v62, v63);
     }
   }
 
-  sub_100006AAC(v74, v74[3]);
+  sub_100006AAC(v75, v75[3]);
   dispatch thunk of LoggingSignposter.Interval.end()();
-  return sub_100006B44(v74);
+  return sub_100006B44(v75);
 }
 
 void sub_10008CDEC()
@@ -8367,8 +9011,8 @@ void sub_10008CDEC()
   if ((v10 & 0xC000000000000001) != 0)
   {
     __CocoaSet.makeIterator()();
-    sub_10005BBC4(0, &qword_1001D95A0);
-    sub_10008BB9C(&unk_1001D8070, &qword_1001D95A0);
+    sub_10005BBC4(0, &qword_1001D95A0, ARImageSensor_ptr);
+    sub_10008BB9C(&unk_1001D8070, &qword_1001D95A0, ARImageSensor_ptr, &protocol conformance descriptor for NSObject);
     Set.Iterator.init(_cocoa:)();
     v11 = v37;
     v12 = v38;
@@ -8402,10 +9046,10 @@ void sub_10008CDEC()
   while (v11 < 0)
   {
     v29 = __CocoaSet.Iterator.next()();
-    if (!v29 || (*&v34 = v29, sub_10005BBC4(0, &qword_1001D95A0), swift_dynamicCast(), v28 = *&v36[0], v26 = v14, v27 = v15, !*&v36[0]))
+    if (!v29 || (*&v34 = v29, sub_10005BBC4(0, &qword_1001D95A0, ARImageSensor_ptr), swift_dynamicCast(), v28 = *&v36[0], v26 = v14, v27 = v15, !*&v36[0]))
     {
 LABEL_28:
-      sub_100037980();
+      sub_100037980(v11);
       return;
     }
 
@@ -8426,7 +9070,7 @@ LABEL_21:
     v36[1] = v35;
     if (!*(&v35 + 1))
     {
-      sub_10001370C(v36, &unk_1001D8060);
+      sub_10001370C(v36, &unk_1001D8060, &qword_1001732E0);
 LABEL_10:
       v20 = type metadata accessor for WeakARImageSensorDelegateWrapper();
       v21 = objc_allocWithZone(v20);
@@ -8527,13 +9171,13 @@ uint64_t sub_10008D288()
 
   else
   {
-    sub_10001370C(v5, &unk_1001D8060);
+    sub_10001370C(v5, &unk_1001D8060, &qword_1001732E0);
   }
 
   return 0;
 }
 
-uint64_t sub_10008D428(void *a1)
+void sub_10008D428(void *a1)
 {
   v2 = v1;
   v3 = a1;
@@ -8549,7 +9193,7 @@ uint64_t sub_10008D428(void *a1)
     *v7 = v3;
     v8 = v3;
     _os_log_impl(&_mh_execute_header, v4, v5, "Session '%@' was interrupted", v6, 0xCu);
-    sub_10001370C(v7, &unk_1001D8030);
+    sub_10001370C(v7, &unk_1001D8030, &qword_100177118);
   }
 
   v9 = v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState;
@@ -8560,10 +9204,10 @@ uint64_t sub_10008D428(void *a1)
   *(v9 + 16) = 0;
   sub_1000616E4(v10, v11, v12);
 
-  return sub_1000731B8();
+  sub_1000731B8();
 }
 
-uint64_t sub_10008D5C8(void *a1)
+void sub_10008D5C8(void *a1)
 {
   v2 = v1;
   swift_getObjectType();
@@ -8580,7 +9224,7 @@ uint64_t sub_10008D5C8(void *a1)
     *v8 = v4;
     v9 = v4;
     _os_log_impl(&_mh_execute_header, v5, v6, "Session '%@' is no longer interrupted", v7, 0xCu);
-    sub_10001370C(v8, &unk_1001D8030);
+    sub_10001370C(v8, &unk_1001D8030, &qword_100177118);
   }
 
   if (qword_1001D31A0 != -1)
@@ -8589,9 +9233,9 @@ uint64_t sub_10008D5C8(void *a1)
   }
 
   __chkstk_darwin(v10);
-  sub_1000033A8(&qword_1001D8028);
+  sub_1000033A8(&qword_1001D8028, &qword_100177110);
   OS_dispatch_queue.sync<A>(execute:)();
-  if (v16 == 2 || (v16 & 1) == 0)
+  if (v15 == 2 || (v15 & 1) == 0)
   {
     v11 = v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState;
     v12 = *(v2 + OBJC_IVAR____TtC6Tamale14ARCameraSource_runState);
@@ -8611,19 +9255,16 @@ uint64_t sub_10008D5C8(void *a1)
   v14 = *(v11 + 16);
   *(v11 + 16) = 1;
   sub_1000616E4(v12, v13, v14);
-  return sub_1000731B8();
+  sub_1000731B8();
 }
 
-uint64_t sub_10008D84C(uint64_t result, unint64_t a2, double a3)
+void sub_10008D84C(uint64_t a1, unint64_t a2, double a3)
 {
   if (*(*v3 + OBJC_IVAR____TtC6Tamale14ARCameraSource_arCameraSourceRecording))
   {
-    v6 = result;
 
-    sub_10008DC28(v6, a2 | ((HIDWORD(a2) & 1) << 32), a3);
+    sub_10008DC28(a1, a2 | ((HIDWORD(a2) & 1) << 32), a3);
   }
-
-  return result;
 }
 
 id sub_10008D8EC(uint64_t a1)
@@ -8693,18 +9334,18 @@ void sub_10008DBBC(uint64_t a1, void *a2)
   v3(a2);
 }
 
-uint64_t sub_10008DC28(uint64_t a1, uint64_t a2, double a3)
+void sub_10008DC28(uint64_t a1, uint64_t a2, double a3)
 {
   v4 = v3;
   v8 = type metadata accessor for DispatchWorkItemFlags();
-  v20 = *(v8 - 8);
+  v19 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = type metadata accessor for DispatchQoS();
-  v11 = *(v19 - 8);
-  __chkstk_darwin(v19);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = *(v4 + OBJC_IVAR____TtC6Tamale23ARCameraSourceRecording_frameQueue);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for DispatchQoS();
+  v11 = *(v18 - 8);
+  __chkstk_darwin(v18);
+  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = *(v4 + OBJC_IVAR____TtC6Tamale23ARCameraSourceRecording_frameQueue);
   v14 = swift_allocObject();
   swift_weakInit();
   v15 = swift_allocObject();
@@ -8722,18 +9363,18 @@ uint64_t sub_10008DC28(uint64_t a1, uint64_t a2, double a3)
   v16 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v21 = &_swiftEmptyArrayStorage;
-  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_100013608(&qword_1001D6B20, &unk_1001D8010);
+  v20 = _swiftEmptyArrayStorage;
+  sub_100090580(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_100013608(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v16);
-  (*(v20 + 8))(v10, v8);
-  (*(v11 + 8))(v13, v19);
+  (*(v19 + 8))(v10, v8);
+  (*(v11 + 8))(v13, v18);
 }
 
-void sub_10008DF60(double a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_10008DF60(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
   v7 = type metadata accessor for Logger();
   v8 = *(v7 - 8);
@@ -8763,7 +9404,7 @@ void sub_10008DF60(double a1, uint64_t a2, uint64_t a3, uint64_t a4)
           v21 = swift_slowAlloc();
           v27 = v16;
           *v21 = 134217984;
-          *(v21 + 4) = a1;
+          *(v21 + 4) = a4;
           _os_log_impl(&_mh_execute_header, v19, v20, "Logged custom metadata for frame timestamp %f", v21, 0xCu);
           v16 = v27;
         }
@@ -8773,15 +9414,15 @@ void sub_10008DF60(double a1, uint64_t a2, uint64_t a3, uint64_t a4)
         v23 = type metadata accessor for CustomARRecordingStreamingMetadata();
         v24 = objc_allocWithZone(v23);
         v25 = &v24[OBJC_IVAR____TtC6Tamale34CustomARRecordingStreamingMetadata_wrappedMetadata];
-        *v25 = a3;
-        v25[1] = a1;
-        *(v25 + 4) = a4;
-        *(v25 + 20) = BYTE4(a4) & 1;
+        *v25 = a2;
+        v25[1] = a4;
+        *(v25 + 4) = a3;
+        *(v25 + 20) = BYTE4(a3) & 1;
         v28.receiver = v24;
         v28.super_class = v23;
 
         v26 = objc_msgSendSuper2(&v28, "init");
-        [v22 recordCustomData:v26 forTimestamp:a1];
+        [v22 recordCustomData:v26 forTimestamp:a4];
 
         swift_unknownObjectRelease();
       }
@@ -8806,10 +9447,10 @@ uint64_t sub_10008E218()
   return swift_deallocClassInstance();
 }
 
-uint64_t sub_10008E304()
+uint64_t sub_10008E304(uint64_t a1)
 {
   result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -8863,7 +9504,7 @@ uint64_t sub_10008E590()
   return v1();
 }
 
-uint64_t sub_10008E610(void *a1, uint64_t a2)
+id sub_10008E610(void *a1, uint64_t a2)
 {
   v3 = v2;
   v6 = type metadata accessor for URL();
@@ -8882,7 +9523,7 @@ uint64_t sub_10008E610(void *a1, uint64_t a2)
 
   v13 = v12;
   v29 = v11;
-  sub_1000033A8(&qword_1001D7FD8);
+  sub_1000033A8(&qword_1001D7FD8, &qword_1001770B0);
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v30 = v3;
@@ -8936,19 +9577,19 @@ LABEL_4:
       if (v25)
       {
         v17 = v25;
-        sub_1000033A8(&qword_1001D7FE0);
+        sub_1000033A8(&qword_1001D7FE0, &qword_100175388);
         v18 = swift_allocObject();
         *(v18 + 16) = v31;
         v19 = type metadata accessor for CustomARRecordingStreamingMetadata();
-        *(v18 + 56) = sub_1000033A8(&qword_1001D7FE8);
+        *(v18 + 56) = sub_1000033A8(&qword_1001D7FE8, &qword_1001770D0);
         *(v18 + 32) = v19;
         v20 = objc_allocWithZone(NSSet);
         isa = Array._bridgeToObjectiveC()().super.isa;
 
         v22 = [v20 initWithArray:isa];
 
-        sub_10005BBC4(0, &qword_1001D7FF0);
-        sub_10008BB9C(&qword_1001D7FF8, &qword_1001D7FF0);
+        sub_10005BBC4(0, &qword_1001D7FF0, NSObject_ptr);
+        sub_10008BB9C(&qword_1001D7FF8, &qword_1001D7FF0, NSObject_ptr, &protocol conformance descriptor for NSObject);
         v23 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
         sub_10008EA28(v23);
 
@@ -8979,7 +9620,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_10008EA28(uint64_t a1)
+Swift::Int sub_10008EA28(uint64_t a1)
 {
   v1 = a1;
   v2 = a1 & 0xC000000000000001;
@@ -9024,7 +9665,7 @@ LABEL_7:
   }
 
 LABEL_3:
-  sub_1000033A8(&unk_1001D8000);
+  sub_1000033A8(&unk_1001D8000, &unk_1001770D8);
   v3 = static _SetStorage.allocate(capacity:)();
   if (!v2)
   {
@@ -9034,8 +9675,8 @@ LABEL_3:
 LABEL_4:
 
   __CocoaSet.makeIterator()();
-  sub_10005BBC4(0, &qword_1001D7FF0);
-  sub_10008BB9C(&qword_1001D7FF8, &qword_1001D7FF0);
+  sub_10005BBC4(0, &qword_1001D7FF0, NSObject_ptr);
+  sub_10008BB9C(&qword_1001D7FF8, &qword_1001D7FF0, NSObject_ptr, &protocol conformance descriptor for NSObject);
   result = Set.Iterator.init(_cocoa:)();
   v1 = v30;
   v5 = v31;
@@ -9050,16 +9691,16 @@ LABEL_11:
     if (!v16)
     {
 LABEL_34:
-      sub_100037980();
+      sub_100037980(v1);
 
       return v3;
     }
 
     *&v27 = v16;
-    sub_10005BBC4(0, &qword_1001D7FF0);
+    sub_10005BBC4(0, &qword_1001D7FF0, NSObject_ptr);
     swift_dynamicCast();
 LABEL_25:
-    sub_10005BBC4(0, &qword_1001D7FF0);
+    sub_10005BBC4(0, &qword_1001D7FF0, NSObject_ptr);
     swift_dynamicCast();
     result = AnyHashable._rawHashValue(seed:)(v3[5]);
     v20 = -1 << *(v3 + 32);
@@ -9138,667 +9779,6 @@ LABEL_24:
   }
 
 LABEL_35:
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_10008EDD0(void *a1)
-{
-  v3 = sub_1000033A8(&qword_1001D41B0);
-  __chkstk_darwin(v3 - 8);
-  p_name = (&v42 - v4);
-  v57 = type metadata accessor for Logger();
-  v55 = *(v57 - 8);
-  __chkstk_darwin(v57);
-  v51 = &v42 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v50 = sub_1000033A8(&unk_1001D6410);
-  v7 = *(v50 - 8);
-  __chkstk_darwin(v50);
-  v49 = &v42 - v8;
-  v48 = sub_1000033A8(&qword_1001D7FD0);
-  v9 = *(v48 - 8);
-  __chkstk_darwin(v48);
-  v47 = &v42 - v10;
-  [a1 timestamp];
-  v12 = v11;
-  v58 = v1;
-  v13 = [*(v1 + OBJC_IVAR____TtC6Tamale20ARCameraSourceReplay_session) availableSensors];
-  sub_1000033A8(&qword_1001D7FD8);
-  v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  if (v14 >> 62)
-  {
-    goto LABEL_27;
-  }
-
-  v15 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  for (i = v51; v15; i = v51)
-  {
-    v42 = a1;
-    v43 = p_name;
-    v17 = 0;
-    v59 = v14 & 0xFFFFFFFFFFFFFF8;
-    ++v55;
-    v56 = OBJC_IVAR____TtC6Tamale20ARCameraSourceReplay_cameraSource;
-    v46 = (v7 + 16);
-    v45 = (v7 + 8);
-    v44 = (v9 + 8);
-    v9 = v14 & 0xC000000000000001;
-    p_name = &stru_1001CFFF8.name;
-    v53 = v15;
-    v54 = v14;
-    v52 = v14 & 0xC000000000000001;
-    while (v9)
-    {
-      v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-      a1 = (v17 + 1);
-      if (__OFADD__(v17, 1))
-      {
-        goto LABEL_25;
-      }
-
-LABEL_12:
-      objc_opt_self();
-      v18 = swift_dynamicCastObjCClass();
-      if (v18 && [v18 p_name[201]])
-      {
-        _bridgeAnyObjectToAny(_:)();
-        swift_unknownObjectRelease();
-        sub_10005BB68(v64, v61);
-        type metadata accessor for CustomARRecordingStreamingMetadata();
-        if (swift_dynamicCast())
-        {
-          v19 = v60;
-          v20 = *&v60[OBJC_IVAR____TtC6Tamale34CustomARRecordingStreamingMetadata_wrappedMetadata];
-          v21 = *&v60[OBJC_IVAR____TtC6Tamale34CustomARRecordingStreamingMetadata_wrappedMetadata + 8];
-          v22 = *&v60[OBJC_IVAR____TtC6Tamale34CustomARRecordingStreamingMetadata_wrappedMetadata + 16];
-          v23 = v60[OBJC_IVAR____TtC6Tamale34CustomARRecordingStreamingMetadata_wrappedMetadata + 20];
-          Strong = swift_unknownObjectWeakLoadStrong();
-          if (Strong)
-          {
-            v25 = Strong;
-            v26 = swift_unknownObjectWeakLoadStrong();
-
-            if (v26)
-            {
-              v27 = v49;
-              v28 = v50;
-              (*v46)(v49, &v26[OBJC_IVAR____TtC6Tamale26StreamingMetadataProcessor_continuation], v50);
-              v61[0] = v21;
-              v61[1] = v20;
-              v61[2] = v21;
-              v62 = v22;
-              v63 = v23;
-
-              v29 = v47;
-              AsyncStream.Continuation.yield(_:)();
-
-              swift_unknownObjectRelease();
-              (*v45)(v27, v28);
-              (*v44)(v29, v48);
-              sub_100006B44(v64);
-            }
-
-            else
-            {
-              sub_100006B44(v64);
-
-              swift_unknownObjectRelease();
-            }
-
-            i = v51;
-            v9 = v52;
-            v15 = v53;
-            v14 = v54;
-            p_name = (&stru_1001CFFF8 + 8);
-          }
-
-          else
-          {
-
-            swift_unknownObjectRelease();
-            sub_100006B44(v64);
-            v15 = v53;
-            v14 = v54;
-            v9 = v52;
-          }
-        }
-
-        else
-        {
-          static Log.cameraSource.getter();
-          v30 = Logger.logObject.getter();
-          v31 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v30, v31))
-          {
-            v32 = swift_slowAlloc();
-            *v32 = 0;
-            _os_log_impl(&_mh_execute_header, v30, v31, "Unsupported custom metadata", v32, 2u);
-          }
-
-          swift_unknownObjectRelease();
-          (*v55)(i, v57);
-          sub_100006B44(v64);
-          p_name = (&stru_1001CFFF8 + 8);
-        }
-      }
-
-      else
-      {
-        swift_unknownObjectRelease();
-      }
-
-      ++v17;
-      if (a1 == v15)
-      {
-
-        p_name = v43;
-        a1 = v42;
-        goto LABEL_29;
-      }
-    }
-
-    if (v17 >= *(v59 + 16))
-    {
-      goto LABEL_26;
-    }
-
-    v7 = *(v14 + 8 * v17 + 32);
-    swift_unknownObjectRetain();
-    a1 = (v17 + 1);
-    if (!__OFADD__(v17, 1))
-    {
-      goto LABEL_12;
-    }
-
-LABEL_25:
-    __break(1u);
-LABEL_26:
-    __break(1u);
-LABEL_27:
-    v15 = _CocoaArrayWrapper.endIndex.getter();
-  }
-
-LABEL_29:
-  [a1 rawHeading];
-  v34 = v33;
-  v35 = [a1 geoTrackingStatus];
-  if (v35)
-  {
-    v36 = v35;
-    v37 = [v35 state];
-
-    if (v37 == 3)
-    {
-      [a1 heading];
-      v34 = v38;
-    }
-  }
-
-  v39 = type metadata accessor for TaskPriority();
-  (*(*(v39 - 8) + 56))(p_name, 1, 1, v39);
-  v40 = swift_allocObject();
-  v40[2] = 0;
-  v40[3] = 0;
-  v40[4] = v34;
-  sub_1000154EC(0, 0, p_name, &unk_1001770C0, v40);
-}
-
-uint64_t sub_10008F548()
-{
-  *(v0 + 24) = type metadata accessor for LocationsHandler();
-  type metadata accessor for MainActor();
-  *(v0 + 32) = static MainActor.shared.getter();
-  v2 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return _swift_task_switch(sub_10008F5E8, v2, v1);
-}
-
-uint64_t sub_10008F5E8()
-{
-
-  *(v0 + 40) = static LocationsHandler.shared.getter();
-
-  return _swift_task_switch(sub_10008F658, 0, 0);
-}
-
-uint64_t sub_10008F658()
-{
-  dispatch thunk of LocationsHandler.addSimulatedHeading(_:)();
-
-  v1 = *(v0 + 8);
-
-  return v1();
-}
-
-void sub_10008F6C4()
-{
-  v0 = sub_1000033A8(&qword_1001D41B0);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v13 - v1;
-  v3 = type metadata accessor for DispatchPredicate();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = (&v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v8 = Strong;
-    v9 = *(Strong + OBJC_IVAR____TtC6Tamale14ARCameraSource_frameQueue);
-    *v6 = v9;
-    (*(v4 + 104))(v6, enum case for DispatchPredicate.onQueue(_:), v3);
-    v10 = v9;
-    LOBYTE(v9) = _dispatchPreconditionTest(_:)();
-    (*(v4 + 8))(v6, v3);
-    if (v9)
-    {
-      if (sub_10007A56C(v8))
-      {
-        v11 = type metadata accessor for TaskPriority();
-        (*(*(v11 - 8) + 56))(v2, 1, 1, v11);
-        v12 = swift_allocObject();
-        v12[2] = 0;
-        v12[3] = 0;
-        v12[4] = v8;
-        sub_1000154EC(0, 0, v2, &unk_1001770F0, v12);
-      }
-
-      else
-      {
-      }
-    }
-
-    else
-    {
-      __break(1u);
-    }
-  }
-}
-
-id sub_10008FA18(void *a1)
-{
-  v2 = v1;
-  v4 = type metadata accessor for Logger();
-  __chkstk_darwin(v4);
-  v5 = [a1 decodeDataObject];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = v8;
-
-    type metadata accessor for PropertyListDecoder();
-    swift_allocObject();
-    PropertyListDecoder.init()();
-    sub_100090F94();
-    dispatch thunk of PropertyListDecoder.decode<A>(_:from:)();
-
-    sub_10005BC60(v7, v9);
-    v10 = v18;
-    v11 = v19;
-    v12 = v20;
-    v13 = &v2[OBJC_IVAR____TtC6Tamale34CustomARRecordingStreamingMetadata_wrappedMetadata];
-    *v13 = v17;
-    *(v13 + 1) = v10;
-    *(v13 + 4) = v11;
-    v13[20] = v12;
-    v16.receiver = v2;
-    v16.super_class = type metadata accessor for CustomARRecordingStreamingMetadata();
-    v14 = objc_msgSendSuper2(&v16, "init");
-
-    return v14;
-  }
-
-  else
-  {
-
-    type metadata accessor for CustomARRecordingStreamingMetadata();
-    swift_deallocPartialClassInstance();
-    return 0;
-  }
-}
-
-uint64_t sub_10008FD9C(void *a1)
-{
-  type metadata accessor for PropertyListEncoder();
-  swift_allocObject();
-  PropertyListEncoder.init()();
-  sub_100090F40();
-
-  v2 = dispatch thunk of PropertyListEncoder.encode<A>(_:)();
-  v4 = v3;
-
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  [a1 encodeDataObject:isa];
-
-  sub_10005BC60(v2, v4);
-}
-
-id sub_10008FF6C(uint64_t (*a1)(void))
-{
-  v3.receiver = v1;
-  v3.super_class = a1();
-  return objc_msgSendSuper2(&v3, "dealloc");
-}
-
-void sub_100090008()
-{
-  sub_10009007C();
-  if (v0 <= 0x3F)
-  {
-    sub_100090120();
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
-    }
-  }
-}
-
-void sub_10009007C()
-{
-  if (!qword_1001D7D50)
-  {
-    sub_10005BBC4(255, &qword_1001D7D58);
-    type metadata accessor for ARCameraSource.AnchorInformation(255);
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata2, &qword_1001D7D50);
-    }
-  }
-}
-
-void sub_100090120()
-{
-  if (!qword_1001D7D60)
-  {
-    type metadata accessor for Corners();
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata2, &qword_1001D7D60);
-    }
-  }
-}
-
-uint64_t sub_1000901B0(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for RaycastAccuracy(0);
-  v7 = *(v6 - 8);
-  if (*(v7 + 84) == a2)
-  {
-    v8 = *(v7 + 48);
-
-    return v8(a1, a2, v6);
-  }
-
-  else
-  {
-    v10 = *(a1 + *(a3 + 20));
-    if (v10 >= 0xFFFFFFFF)
-    {
-      LODWORD(v10) = -1;
-    }
-
-    v11 = v10 - 1;
-    if (v11 < 0)
-    {
-      v11 = -1;
-    }
-
-    return (v11 + 1);
-  }
-}
-
-uint64_t sub_1000902AC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
-{
-  result = type metadata accessor for RaycastAccuracy(0);
-  v9 = *(result - 8);
-  if (*(v9 + 84) == a3)
-  {
-    v10 = *(v9 + 56);
-
-    return v10(a1, a2, a2, result);
-  }
-
-  else
-  {
-    *(a1 + *(a4 + 20)) = a2;
-  }
-
-  return result;
-}
-
-void sub_100090364()
-{
-  type metadata accessor for RaycastAccuracy(319);
-  if (v0 <= 0x3F)
-  {
-    sub_1000903E8();
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-    }
-  }
-}
-
-void sub_1000903E8()
-{
-  if (!qword_1001D7DF8)
-  {
-    sub_10001276C(&unk_1001D7E00);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
-    {
-      atomic_store(v0, &qword_1001D7DF8);
-    }
-  }
-}
-
-void sub_10009044C()
-{
-  sub_1000904C0();
-  if (v0 <= 0x3F)
-  {
-    sub_1000904F0();
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
-    }
-  }
-}
-
-void *sub_1000904C0()
-{
-  result = qword_1001D7EB0;
-  if (!qword_1001D7EB0)
-  {
-    result = &type metadata for Double;
-    atomic_store(&type metadata for Double, &qword_1001D7EB0);
-  }
-
-  return result;
-}
-
-void sub_1000904F0()
-{
-  if (!qword_1001D7EB8)
-  {
-    v0 = type metadata accessor for Corners();
-    if (!v1)
-    {
-      atomic_store(v0, &qword_1001D7EB8);
-    }
-  }
-}
-
-uint64_t sub_100090580(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000905CC()
-{
-  result = qword_1001D7EF0;
-  if (!qword_1001D7EF0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1001D7EF0);
-  }
-
-  return result;
-}
-
-uint64_t sub_1000906AC()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100090744(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
-}
-
-uint64_t sub_100090780(uint64_t a1, double a2)
-{
-  v3 = *(a1 + 32);
-
-  v3(v4, a2);
-}
-
-uint64_t (*sub_1000907D4(uint64_t (*result)(), unint64_t a2, uint64_t a3))()
-{
-  v3 = result;
-  if ((a3 & 0xC000000000000001) != 0)
-  {
-    v4 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-    goto LABEL_5;
-  }
-
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) > a2)
-  {
-    v4 = *(a3 + 8 * a2 + 32);
-LABEL_5:
-    *v3 = v4;
-    return sub_100094184;
-  }
-
-  __break(1u);
-  return result;
-}
-
-void (*sub_100090854(void (*result)(id *a1), unint64_t a2, uint64_t a3))(id *a1)
-{
-  v3 = result;
-  if ((a3 & 0xC000000000000001) != 0)
-  {
-    v4 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-    goto LABEL_5;
-  }
-
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) > a2)
-  {
-    v4 = *(a3 + 8 * a2 + 32);
-LABEL_5:
-    *v3 = v4;
-    return sub_1000908D4;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1000908DC(uint64_t result, uint64_t a2, unint64_t a3)
-{
-  v4 = result;
-  v5 = a3 >> 62;
-  if (a3 >> 62)
-  {
-    v12 = a2;
-    result = _CocoaArrayWrapper.endIndex.getter();
-    a2 = v12;
-    v6 = result;
-    if (!result)
-    {
-      return a3;
-    }
-  }
-
-  else
-  {
-    v6 = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v6)
-    {
-      return a3;
-    }
-  }
-
-  if (v4)
-  {
-    if (v5)
-    {
-      v7 = a2;
-      result = _CocoaArrayWrapper.endIndex.getter();
-      if (result <= v7)
-      {
-        if (v6 >= 1)
-        {
-          sub_100013608(&qword_1001D8088, &qword_1001D8080);
-          for (i = 0; i != v6; ++i)
-          {
-            sub_1000033A8(&qword_1001D8080);
-            v9 = sub_100090854(v13, i, a3);
-            v11 = *v10;
-            (v9)(v13, 0);
-            *(v4 + 8 * i) = v11;
-          }
-
-          return a3;
-        }
-
-        goto LABEL_16;
-      }
-    }
-
-    else
-    {
-      if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a2)
-      {
-        sub_10005BBC4(0, &qword_1001D95A0);
-        swift_arrayInitWithCopy();
-        return a3;
-      }
-
-      __break(1u);
-    }
-
-    __break(1u);
-LABEL_16:
-    __break(1u);
-  }
-
   __break(1u);
   return result;
 }

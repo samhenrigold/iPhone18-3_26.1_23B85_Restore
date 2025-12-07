@@ -1,5 +1,6 @@
 @interface BRCSharedServerZone
 - (BOOL)_propagateFolderDeletesToTheirChildren;
+- (BOOL)allocateRanksWhenCaughtUp:(BOOL)up;
 - (BRCSharedServerZone)initWithMangledID:(id)d dbRowID:(id)iD plist:(id)plist session:(id)session;
 - (BRCSyncContext)transferSyncContext;
 - (BRCSyncContext)transferSyncContextIfExists;
@@ -30,7 +31,7 @@
 
 - (int64_t)_propagateDeleteToChildrenOfItemID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([(BRCPQLConnection *)self->super._db execute:@"UPDATE server_items SET item_state = 1, item_rank = NULL WHERE item_parent_id = %@ AND zone_rowid = %@ AND item_state = 0", dCopy, self->super._dbRowID])
   {
@@ -45,24 +46,23 @@
     {
       lastError = [(BRCPQLConnection *)self->super._db lastError];
       *buf = 138412802;
-      v12 = dCopy;
-      v13 = 2112;
-      v14 = lastError;
-      v15 = 2112;
-      v16 = v6;
+      v11 = dCopy;
+      v12 = 2112;
+      v13 = lastError;
+      v14 = 2112;
+      v15 = v6;
       _os_log_error_impl(&dword_223E7A000, v7, 0x90u, "[ERROR] failed saving sharing options update %@: %@%@", buf, 0x20u);
     }
 
     changes = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return changes;
 }
 
 - (BOOL)_propagateFolderDeletesToTheirChildren
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   mangledID = [(BRCServerZone *)self mangledID];
   v4 = [BRCUserDefaults defaultsForMangledID:mangledID];
   maxRelativePathDepth = [v4 maxRelativePathDepth];
@@ -77,9 +77,9 @@
     {
       changes = [(BRCPQLConnection *)self->super._db changes];
       *buf = 134218242;
-      v30 = changes;
-      v31 = 2112;
-      v32 = v8;
+      v29 = changes;
+      v30 = 2112;
+      v31 = v8;
       _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Forced %lld orphans to be tombstones in the shared zone%@", buf, 0x16u);
     }
   }
@@ -87,8 +87,8 @@
   v11 = [(BRCPQLConnection *)self->super._db fetch:@"SELECT item_id   FROM server_items  WHERE zone_rowid = %@    AND item_state = 1    AND item_type = 0    AND item_rank IS NULL", self->super._dbRowID];
   if ([v11 next])
   {
-    v26 = v7;
-    v27 = v6;
+    v25 = v7;
+    v26 = v6;
 LABEL_7:
     context = objc_autoreleasePoolPush();
     v12 = [v11 objectOfClass:objc_opt_class() atIndex:0];
@@ -108,11 +108,11 @@ LABEL_7:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134218498;
-            v30 = v15;
-            v31 = 2112;
-            v32 = v12;
-            v33 = 2112;
-            v34 = v20;
+            v29 = v15;
+            v30 = 2112;
+            v31 = v12;
+            v32 = 2112;
+            v33 = v20;
             _os_log_debug_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] propagated delete of %lld recursive children of %@%@", buf, 0x20u);
           }
         }
@@ -120,8 +120,8 @@ LABEL_7:
         objc_autoreleasePoolPop(context);
         if (([v11 next] & 1) == 0)
         {
-          v6 = v27;
-          v7 = v26;
+          v6 = v26;
+          v7 = v25;
           break;
         }
 
@@ -148,7 +148,7 @@ LABEL_7:
           objc_autoreleasePoolPop(v16);
           objc_autoreleasePoolPop(context);
           v7 = 0;
-          v6 = v27;
+          v6 = v26;
           break;
         }
 
@@ -164,8 +164,20 @@ LABEL_7:
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v7;
+}
+
+- (BOOL)allocateRanksWhenCaughtUp:(BOOL)up
+{
+  upCopy = up;
+  if (up)
+  {
+    [(BRCSharedServerZone *)self _propagateFolderDeletesToTheirChildren];
+  }
+
+  v6.receiver = self;
+  v6.super_class = BRCSharedServerZone;
+  return [(BRCServerZone *)&v6 allocateRanksWhenCaughtUp:upCopy];
 }
 
 - (void)sideCarZoneWasReset
@@ -222,11 +234,10 @@ LABEL_7:
 
 - (void)_propagateFolderDeletesToTheirChildren
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Path depth overflow%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Path depth overflow%@", &v2, 0xCu);
 }
 
 @end

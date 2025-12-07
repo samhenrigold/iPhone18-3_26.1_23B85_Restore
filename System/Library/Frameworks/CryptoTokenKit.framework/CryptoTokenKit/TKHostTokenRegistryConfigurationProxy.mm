@@ -6,6 +6,7 @@
 - (id)ensureTokenWithTokenID:(id)d;
 - (void)_updateRegisteredToken:(id)token withNewKeychainItems:(id)items transaction:(id)transaction tokenID:(id)d;
 - (void)beginTransactionWithReply:(id)reply;
+- (void)createTokenID:(id)d persistent:(BOOL)persistent reply:(id)reply;
 - (void)endTransactionWithReply:(id)reply;
 - (void)getClassIDsWithReply:(id)reply;
 - (void)getKeychainItemsForTokenID:(id)d reply:(id)reply;
@@ -58,23 +59,24 @@
   tokenExtensions = [v8 tokenExtensions];
   v10 = [tokenExtensions objectForKeyedSubscript:dCopy];
 
-  [v8 commit];
+  commit = [v8 commit];
   if (v10)
   {
     _plugIn = [v10 _plugIn];
-    v12 = [_plugIn url];
+    v13 = [_plugIn url];
 
     if ((_os_feature_enabled_impl() & 1) == 0)
     {
-      if (!-[NSObject isFileURL](v12, "isFileURL") || (-[NSObject path](v12, "path"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 hasPrefix:@"/System/"], v20, (v21 & 1) == 0))
+      isFileURL = [v13 isFileURL];
+      if (!isFileURL || (-[NSObject path](v13, "path"), v22 = objc_claimAutoreleasedReturnValue(), v23 = [v22 hasPrefix:@"/System/"], v22, (v23 & 1) == 0))
       {
-        identifier = sub_1000049CC();
+        identifier = sub_1000049CC(isFileURL);
         if (os_log_type_enabled(identifier, OS_LOG_TYPE_ERROR))
         {
           sub_10001E4BC();
         }
 
-        LOBYTE(v19) = 0;
+        LOBYTE(v20) = 0;
 LABEL_41:
 
 LABEL_42:
@@ -82,7 +84,7 @@ LABEL_42:
       }
     }
 
-    v45 = verboseCopy;
+    v48 = verboseCopy;
     _plugIn2 = [v10 _plugIn];
     identifier = [_plugIn2 identifier];
 
@@ -92,123 +94,127 @@ LABEL_42:
     {
       _plugIn4 = [v10 _plugIn];
       containingUrl2 = [_plugIn4 containingUrl];
-      v18 = [NSBundle bundleWithURL:containingUrl2];
+      v19 = [NSBundle bundleWithURL:containingUrl2];
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
 
-    bundleIdentifier = [v18 bundleIdentifier];
+    bundleIdentifier = [v19 bundleIdentifier];
     callerBundleID = selfCopy->_callerBundleID;
     if (bundleIdentifier)
     {
-      v24 = bundleIdentifier;
-      bundleIdentifier2 = [v18 bundleIdentifier];
+      v26 = bundleIdentifier;
+      bundleIdentifier2 = [v19 bundleIdentifier];
       if ([(NSString *)callerBundleID hasPrefix:bundleIdentifier2])
       {
 
 LABEL_20:
-        LODWORD(v19) = 1;
+        LODWORD(v20) = 1;
 LABEL_37:
-        if (v45)
+        if (v48)
         {
-          v35 = sub_1000049CC();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v38 = sub_1000049CC(v28);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
-            if (v19)
+            if (v20)
             {
-              v37 = @"Allowing";
+              v40 = @"Allowing";
             }
 
             else
             {
-              v37 = @"Refusing";
+              v40 = @"Refusing";
             }
 
-            v38 = v12;
-            v39 = selfCopy->_callerBundleID;
-            bundleIdentifier3 = [v18 bundleIdentifier];
+            v41 = v13;
+            v42 = selfCopy->_callerBundleID;
+            bundleIdentifier3 = [v19 bundleIdentifier];
             allowedForBundles = selfCopy->_allowedForBundles;
             *buf = 138544642;
-            v53 = v37;
-            v54 = 2114;
-            v55 = v39;
-            v12 = v38;
-            v56 = 2114;
-            v57 = dCopy;
-            v58 = 2114;
-            v59 = identifier;
-            v60 = 2114;
-            v61 = bundleIdentifier3;
-            v42 = bundleIdentifier3;
-            v62 = 2114;
-            v63 = allowedForBundles;
-            _os_log_debug_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "%{public}@ caller %{public}@, to access token classID=%{public}@ identifier=%{public}@ containing=%{public}@ entitled for=%{public}@", buf, 0x3Eu);
+            v56 = v40;
+            v57 = 2114;
+            v58 = v42;
+            v13 = v41;
+            v59 = 2114;
+            v60 = dCopy;
+            v61 = 2114;
+            v62 = identifier;
+            v63 = 2114;
+            v64 = bundleIdentifier3;
+            v45 = bundleIdentifier3;
+            v65 = 2114;
+            v66 = allowedForBundles;
+            _os_log_debug_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "%{public}@ caller %{public}@, to access token classID=%{public}@ identifier=%{public}@ containing=%{public}@ entitled for=%{public}@", buf, 0x3Eu);
           }
         }
 
         goto LABEL_41;
       }
 
-      v26 = [identifier hasPrefix:selfCopy->_callerBundleID];
+      v29 = [identifier hasPrefix:selfCopy->_callerBundleID];
 
-      if (v26)
+      if (v29)
       {
         goto LABEL_20;
       }
     }
 
-    else if (([identifier hasPrefix:selfCopy->_callerBundleID]& 1) != 0)
+    else
     {
-      goto LABEL_20;
+      v28 = [identifier hasPrefix:selfCopy->_callerBundleID];
+      if (v28)
+      {
+        goto LABEL_20;
+      }
     }
 
-    v50 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v27 = selfCopy->_allowedForBundles;
-    v19 = [(NSArray *)v27 countByEnumeratingWithState:&v48 objects:v64 count:16];
-    if (v19)
+    v52 = 0u;
+    v30 = selfCopy->_allowedForBundles;
+    v20 = [(NSArray *)v30 countByEnumeratingWithState:&v51 objects:v67 count:16];
+    if (v20)
     {
-      v43 = v12;
-      v44 = dCopy;
-      v28 = *v49;
+      v46 = v13;
+      v47 = dCopy;
+      v31 = *v52;
       while (2)
       {
-        for (i = 0; i != v19; i = i + 1)
+        for (i = 0; i != v20; i = i + 1)
         {
-          if (*v49 != v28)
+          if (*v52 != v31)
           {
-            objc_enumerationMutation(v27);
+            objc_enumerationMutation(v30);
           }
 
-          v30 = *(*(&v48 + 1) + 8 * i);
-          bundleIdentifier4 = [v18 bundleIdentifier];
+          v33 = *(*(&v51 + 1) + 8 * i);
+          bundleIdentifier4 = [v19 bundleIdentifier];
           if (bundleIdentifier4)
           {
-            v32 = bundleIdentifier4;
-            bundleIdentifier5 = [v18 bundleIdentifier];
-            v34 = [v30 hasPrefix:bundleIdentifier5];
+            v35 = bundleIdentifier4;
+            bundleIdentifier5 = [v19 bundleIdentifier];
+            v37 = [v33 hasPrefix:bundleIdentifier5];
 
-            if (v34)
+            if (v37)
             {
               goto LABEL_34;
             }
           }
 
-          else if ([v30 isEqualToString:identifier])
+          else if ([v33 isEqualToString:identifier])
           {
 LABEL_34:
-            LODWORD(v19) = 1;
+            LODWORD(v20) = 1;
             goto LABEL_35;
           }
         }
 
-        v19 = [(NSArray *)v27 countByEnumeratingWithState:&v48 objects:v64 count:16];
-        if (v19)
+        v20 = [(NSArray *)v30 countByEnumeratingWithState:&v51 objects:v67 count:16];
+        if (v20)
         {
           continue;
         }
@@ -217,8 +223,8 @@ LABEL_34:
       }
 
 LABEL_35:
-      v12 = v43;
-      dCopy = v44;
+      v13 = v46;
+      dCopy = v47;
     }
 
     goto LABEL_37;
@@ -226,20 +232,20 @@ LABEL_35:
 
   if (verboseCopy)
   {
-    v12 = sub_1000049CC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_1000049CC(commit);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_10001E4F8(self, dCopy, v12);
+      sub_10001E4F8(self, dCopy, v13);
     }
 
-    LOBYTE(v19) = 0;
+    LOBYTE(v20) = 0;
     goto LABEL_42;
   }
 
-  LOBYTE(v19) = 0;
+  LOBYTE(v20) = 0;
 LABEL_43:
 
-  return v19;
+  return v20;
 }
 
 - (void)getClassIDsWithReply:(id)reply
@@ -379,6 +385,32 @@ LABEL_43:
   replyCopy[2](replyCopy, v18);
 }
 
+- (void)createTokenID:(id)d persistent:(BOOL)persistent reply:(id)reply
+{
+  persistentCopy = persistent;
+  dCopy = d;
+  replyCopy = reply;
+  WeakRetained = objc_loadWeakRetained(&self->_registry);
+  v10 = [WeakRetained beginTransaction:@"createTokenID"];
+
+  classID = [dCopy classID];
+  v12 = [(TKHostTokenRegistryConfigurationProxy *)self ensureAccessForClassID:classID];
+
+  if (v12)
+  {
+    registry = [(TKHostTokenRegistryConfigurationProxy *)self registry];
+    v14 = [registry createTokenWithTokenID:dCopy persistent:persistentCopy];
+
+    registry2 = [(TKHostTokenRegistryConfigurationProxy *)self registry];
+    delegate = [registry2 delegate];
+    registry3 = [(TKHostTokenRegistryConfigurationProxy *)self registry];
+    [delegate hostTokenRegistry:registry3 addedToken:dCopy persistent:persistentCopy];
+  }
+
+  [v10 commit];
+  replyCopy[2](replyCopy);
+}
+
 - (id)ensureTokenWithTokenID:(id)d
 {
   dCopy = d;
@@ -411,8 +443,8 @@ LABEL_43:
     pendingCreationTokens2 = [registry4 pendingCreationTokens];
     [pendingCreationTokens2 setObject:v11 forKeyedSubscript:dCopy];
 
-    v17 = sub_1000049CC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = sub_1000049CC(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       sub_10001E584();
     }
@@ -547,10 +579,11 @@ LABEL_43:
   itemsCopy = items;
   transactionCopy = transaction;
   dCopy = d;
-  if (![itemsCopy count] || (v14 = objc_msgSend(itemsCopy, "count"), objc_msgSend(tokenCopy, "keychainItems"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "count"), v15, v14 < v16))
+  v14 = [itemsCopy count];
+  if (!v14 || (v15 = [itemsCopy count], objc_msgSend(tokenCopy, "keychainItems"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "count"), v16, v15 < v17))
   {
-    v17 = sub_1000049CC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = sub_1000049CC(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       sub_10001E6B8();
     }
@@ -561,13 +594,13 @@ LABEL_5:
   }
 
   keychainItems = [tokenCopy keychainItems];
-  v19 = [(TKHostTokenRegistryConfigurationProxy *)self _areKeychainItemsDifferent:keychainItems comparedTo:itemsCopy];
+  v20 = [(TKHostTokenRegistryConfigurationProxy *)self _areKeychainItemsDifferent:keychainItems comparedTo:itemsCopy];
 
-  v17 = sub_1000049CC();
-  v20 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
-  if ((v19 & 1) == 0)
+  v18 = sub_1000049CC(v21);
+  v22 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+  if ((v20 & 1) == 0)
   {
-    if (v20)
+    if (v22)
     {
       sub_10001E5F4();
     }
@@ -575,13 +608,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if (v20)
+  if (v22)
   {
-    sub_10001E630(itemsCopy, v17);
+    sub_10001E630(itemsCopy, v18);
   }
 
   [tokenCopy setKeychainItems:itemsCopy];
-  v21 = [transactionCopy keychainItemsModified:dCopy];
+  v23 = [transactionCopy keychainItemsModified:dCopy];
 LABEL_6:
 }
 

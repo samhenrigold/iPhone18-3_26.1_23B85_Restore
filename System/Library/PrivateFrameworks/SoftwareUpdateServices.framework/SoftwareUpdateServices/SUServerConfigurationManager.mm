@@ -60,9 +60,11 @@
 
 uint64_t __46__SUServerConfigurationManager_sharedInstance__block_invoke()
 {
-  sharedInstance___instance_4 = objc_alloc_init(SUServerConfigurationManager);
+  v0 = objc_alloc_init(SUServerConfigurationManager);
+  v1 = sharedInstance___instance_4;
+  sharedInstance___instance_4 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)addListener:(id)listener
@@ -125,7 +127,7 @@ uint64_t __62__SUServerConfigurationManager_softwareUpdateAutoScanInterval__bloc
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (BOOL)defaultToOldInactivityPredictor
@@ -226,8 +228,8 @@ void __63__SUServerConfigurationManager_defaultToOldInactivityPredictor__block_i
 
 void __70__SUServerConfigurationManager_coreConfigServerSettingsUpdated_error___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v24 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v22 = 0;
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"Projects"];
   v3 = [v2 objectForKeyedSubscript:*MEMORY[0x277D64558]];
 
@@ -239,9 +241,9 @@ void __70__SUServerConfigurationManager_coreConfigServerSettingsUpdated_error___
     [v4 setObject:v5 forKeyedSubscript:@"Changed"];
     [v4 setObject:v6 forKeyedSubscript:@"Removed"];
     v7 = *MEMORY[0x277D64518];
-    if ([*(a1 + 40) _queue_didNumberValueChange:*MEMORY[0x277D64518] oldConfig:*(*(a1 + 40) + 32) newConfig:v3 valueRemoved:&v24])
+    if ([*(a1 + 40) _queue_didNumberValueChange:*MEMORY[0x277D64518] oldConfig:*(*(a1 + 40) + 32) newConfig:v3 valueRemoved:&v22])
     {
-      if (v24 == 1)
+      if (v22 == 1)
       {
         [v6 addObject:v7];
       }
@@ -253,42 +255,38 @@ void __70__SUServerConfigurationManager_coreConfigServerSettingsUpdated_error___
       }
 
       objc_storeStrong((*(a1 + 40) + 32), v3);
-      v22 = 0u;
-      v23 = 0u;
       v20 = 0u;
       v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v10 = *(*(a1 + 40) + 24);
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v12)
       {
         v13 = v12;
-        v19 = v6;
-        v14 = *v21;
+        v17 = v6;
+        v14 = *v19;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v21 != v14)
+            if (*v19 != v14)
             {
               objc_enumerationMutation(v10);
             }
 
-            v16 = *(*(&v20 + 1) + 8 * i);
-            if (v16)
+            v16 = *(*(&v18 + 1) + 8 * i);
+            if (v16 && (objc_opt_respondsToSelector() & 1) != 0)
             {
-              v17 = *(*(&v20 + 1) + 8 * i);
-              if (objc_opt_respondsToSelector())
-              {
-                [v16 serverConfigManager:*(a1 + 40) configValuesChanged:v4];
-              }
+              [v16 serverConfigManager:*(a1 + 40) configValuesChanged:v4];
             }
           }
 
-          v13 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v13 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
         }
 
         while (v13);
-        v6 = v19;
+        v6 = v17;
       }
     }
 
@@ -300,8 +298,6 @@ void __70__SUServerConfigurationManager_coreConfigServerSettingsUpdated_error___
       *(v8 + 32) = v9;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

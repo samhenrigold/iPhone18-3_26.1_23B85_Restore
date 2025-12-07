@@ -26,23 +26,24 @@
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in
 {
+  height = fitting.height;
   width = fitting.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_9084C(width);
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
+  v8 = sub_9084C(width, height);
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
   swift_unknownObjectRelease();
 
-  v14 = v7;
-  v15 = v9;
-  v16 = v11;
-  v17 = v13;
-  result.var3 = v17;
-  result.var2 = v16;
-  result.var1 = v15;
-  result.var0 = v14;
+  v15 = v8;
+  v16 = v10;
+  v17 = v12;
+  v18 = v14;
+  result.var3 = v18;
+  result.var2 = v17;
+  result.var1 = v16;
+  result.var0 = v15;
   return result;
 }
 
@@ -70,31 +71,36 @@
   if (label)
   {
     sub_13BB84();
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
-  sub_8F1CC();
+  sub_8F1CC(selfCopy, v5);
 }
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size withHorizontalFittingPriority:(float)priority verticalFittingPriority:(float)fittingPriority
 {
-  height = size.height;
-  width = size.width;
   selfCopy = self;
-  v10 = sub_90E10(width, height, priority, fittingPriority);
-  v12 = v11;
+  sub_90E10();
+  v7 = v6;
+  v9 = v8;
 
-  v13 = v10;
-  v14 = v12;
-  result.height = v14;
-  result.width = v13;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_90E80();
+  sub_90E80(selfCopy);
 }
 
 @end

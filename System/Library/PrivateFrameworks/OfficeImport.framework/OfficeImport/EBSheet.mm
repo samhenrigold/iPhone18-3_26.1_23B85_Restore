@@ -65,8 +65,9 @@
 
 + (void)readDelayedSheetWithIndex:(unsigned int)index state:(id)state
 {
+  v4 = *&index;
   stateCopy = state;
-  XlBinaryReader::setSheet([stateCopy xlReader], index);
+  XlBinaryReader::setSheet([stateCopy xlReader], v4);
   readerState = [stateCopy readerState];
   XlFormulaProcessor::clearBaseFormulas([readerState xlFormulaProcessor]);
 

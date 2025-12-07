@@ -176,7 +176,7 @@ void __16__AXOrator_init__block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __46__AXOrator_addAdditionalContentToSpeechQueue___block_invoke(uint64_t a1)
+void *__46__AXOrator_addAdditionalContentToSpeechQueue___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isSpeaking];
   if (result)
@@ -563,9 +563,11 @@ void __43__AXOrator_resumeSpeakingAfterDelay_error___block_invoke(uint64_t a1)
 
 uint64_t __41__AXOrator_speakStatusWithLanguage_rate___block_invoke()
 {
-  speakStatusWithLanguage_rate__QuickManager = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = speakStatusWithLanguage_rate__QuickManager;
+  speakStatusWithLanguage_rate__QuickManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)canResumeWithContent:(id)content
@@ -1147,7 +1149,7 @@ LABEL_39:
   return v16;
 }
 
-unint64_t __31__AXOrator__currentTokenIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+char *__31__AXOrator__currentTokenIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v8 = [a2 rangeValue];
   if (*(a1 + 48) != 1)

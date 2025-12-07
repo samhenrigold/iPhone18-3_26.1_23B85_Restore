@@ -24,23 +24,23 @@
 
 - (NLPLearnerEmojiClassificationData)initWithLocale:(id)locale
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   localeCopy = locale;
-  v18.receiver = self;
-  v18.super_class = NLPLearnerEmojiClassificationData;
-  v5 = [(NLPLearnerTextData *)&v18 initWithLocale:localeCopy];
+  v17.receiver = self;
+  v17.super_class = NLPLearnerEmojiClassificationData;
+  v5 = [(NLPLearnerTextData *)&v17 initWithLocale:localeCopy];
   if (!v5)
   {
     goto LABEL_4;
   }
 
   -[NLPLearnerTextData setMaxSequenceLength:](v5, "setMaxSequenceLength:", [objc_opt_class() defaultMaxSequenceLength]);
-  v20[0] = *MEMORY[0x277D00370];
+  v19[0] = *MEMORY[0x277D00370];
   locale = [(NLPLearnerTextData *)v5 locale];
-  v20[1] = *MEMORY[0x277D00378];
-  v21[0] = locale;
-  v21[1] = *MEMORY[0x277D00388];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[1] = *MEMORY[0x277D00378];
+  v20[0] = locale;
+  v20[1] = *MEMORY[0x277D00388];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   v8 = NLStringEmbeddingCreateWithOptions();
   nlp::CFScopedPtr<void *>::reset(&v5->_embedding.m_ref, v8);
@@ -70,7 +70,6 @@ LABEL_4:
   v12 = 0;
 LABEL_8:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -232,8 +231,9 @@ void __69__NLPLearnerEmojiClassificationData_loadFromCoreDuet_limitSamplesTo___b
 
     v9 = 4 * batch * [(NLPLearnerTextData *)self maxSequenceLength]* self->_embeddingDimension;
     v10 = malloc_type_malloc(v9, 0x100004052888210uLL);
-    std::vector<float>::vector[abi:ne200100](__p, self->_embeddingDimension);
-    m_ref = self->_embedding.m_ref;
+    embeddingDimension = self->_embeddingDimension;
+    v17 = 0;
+    std::vector<float>::vector[abi:ne200100](__p, embeddingDimension, &v17);
     [(NLPLearnerTextData *)self maxSequenceLength];
     NLStringEmbeddingFillWordVectors();
     v12 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v10 length:v9 freeWhenDone:1];
@@ -259,8 +259,6 @@ void __69__NLPLearnerEmojiClassificationData_loadFromCoreDuet_limitSamplesTo___b
     v6 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -282,8 +280,9 @@ void __69__NLPLearnerEmojiClassificationData_loadFromCoreDuet_limitSamplesTo___b
 
     v7 = 4 * [(NLPLearnerTextData *)self maxSequenceLength]* self->_embeddingDimension;
     v8 = malloc_type_malloc(v7, 0x100004052888210uLL);
-    std::vector<float>::vector[abi:ne200100](__p, self->_embeddingDimension);
-    m_ref = self->_embedding.m_ref;
+    embeddingDimension = self->_embeddingDimension;
+    v17 = 0;
+    std::vector<float>::vector[abi:ne200100](__p, embeddingDimension, &v17);
     [(NLPLearnerTextData *)self maxSequenceLength];
     NLStringEmbeddingFillWordVectors();
     v10 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v8 length:v7 freeWhenDone:1];
@@ -305,8 +304,6 @@ void __69__NLPLearnerEmojiClassificationData_loadFromCoreDuet_limitSamplesTo___b
       operator delete(__p[0]);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -433,27 +430,27 @@ void __49__NLPLearnerEmojiClassificationData_addResource___block_invoke_15(uint6
 
 - (BOOL)addExamples:(id)examples
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = examples;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [v8 objectForKeyedSubscript:@"sentence"];
         v10 = [v9 componentsSeparatedByString:@" "];
 
@@ -477,13 +474,12 @@ void __49__NLPLearnerEmojiClassificationData_addResource___block_invoke_15(uint6
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v4);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -496,23 +492,23 @@ void __49__NLPLearnerEmojiClassificationData_addResource___block_invoke_15(uint6
 
 - (void)addResource:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25AE22000, a2, a3, "Failed to load emoji mapping from '%@'", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_25AE22000, a2, a3, "Failed to load emoji mapping from '%@'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addResource:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25AE22000, a2, a3, "Unexpected format of emoji mapping in '%@'", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_25AE22000, a2, a3, "Unexpected format of emoji mapping in '%@'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addResource:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_25AE22000, a2, a3, "Emoji mapped to 0 in presence of NONE class in '%@'", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_25AE22000, a2, a3, "Emoji mapped to 0 in presence of NONE class in '%@'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

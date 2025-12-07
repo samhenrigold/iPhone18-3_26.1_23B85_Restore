@@ -273,10 +273,10 @@ LABEL_15:
   [(UIPreviewTarget *)self center];
   v13 = [v3 stringWithFormat:@"<%@: %p container = %@; center = (%g %g)", v4, self, v9, v11, v12];;
 
-  [(UIPreviewTarget *)self transform];
+  objc_msgSend_transform(self);
   if (!CGAffineTransformIsIdentity(&transform))
   {
-    [(UIPreviewTarget *)self transform];
+    objc_msgSend_transform(self);
     v14 = NSStringFromCGAffineTransform(&transform);
     [v13 appendFormat:@"; transform = %@", v14];
   }

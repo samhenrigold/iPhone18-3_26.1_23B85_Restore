@@ -24,7 +24,7 @@
     shrinkToFit = [renderCopy shrinkToFit];
     if (renderCopy)
     {
-      [renderCopy transform];
+      objc_msgSend_transform(renderCopy);
     }
 
     else
@@ -52,7 +52,7 @@
     shrinkToFit2 = [renderCopy shrinkToFit];
     if (renderCopy)
     {
-      [renderCopy transform];
+      objc_msgSend_transform(renderCopy);
     }
 
     else
@@ -100,7 +100,7 @@
   x = bounds.origin.x;
   v23 = anchor.y;
   v24 = anchor.x;
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   textureCopy = texture;
   encoderCopy = encoder;
   if (textureCopy)
@@ -118,38 +118,36 @@
     }
 
     v30 = [(GTMTLTextureRenderer *)self getPipelineStateFromCache:*(&self->super.isa + v28) withDescriptor:*(&self->super.isa + v29) withFormat:format];
-    memset(v50, 0, sizeof(v50));
+    memset(v49, 0, sizeof(v49));
     width = [textureCopy width];
     height = [textureCopy height];
     v33 = *&transform->m33;
-    v46 = *&transform->m31;
-    v47 = v33;
+    v45 = *&transform->m31;
+    v46 = v33;
     v34 = *&transform->m43;
-    v48 = *&transform->m41;
-    v49 = v34;
+    v47 = *&transform->m41;
+    v48 = v34;
     v35 = *&transform->m13;
-    v43[0] = *&transform->m11;
-    v43[1] = v35;
+    v42[0] = *&transform->m11;
+    v42[1] = v35;
     v37 = *&transform->m23;
-    v44 = *&transform->m21;
-    v36.f64[1] = *(&v44 + 1);
-    v45 = v37;
+    v43 = *&transform->m21;
+    v36.f64[1] = *(&v43 + 1);
+    v44 = v37;
     v36.f64[0] = v24;
     v38.f64[0] = x;
     v39.f64[0] = v20;
-    v41 = [(GTMTLTextureRenderer *)self wrapLinear:textureCopy, GetTextureRendererUniform(v50, v43, fitCopy, width, height, v36, v23, v38, y, v39, v19, scale, v40, width, height)];
-    [encoderCopy setVertexBytes:v50 length:112 atIndex:0];
+    v41 = [(GTMTLTextureRenderer *)self wrapLinear:textureCopy, GetTextureRendererUniform(v49, v42, fitCopy, width, height, v36, v23, v38, y, v39, v19, scale, v40, width, height)];
+    [encoderCopy setVertexBytes:v49 length:112 atIndex:0];
     [encoderCopy setRenderPipelineState:v30];
     [encoderCopy setFragmentTexture:v41 atIndex:0];
     [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:4];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)renderOverlay:(id)overlay color:(unsigned int)color shrinkToFit:(BOOL)fit withEncoder:(id)encoder withFormat:(unint64_t)format transform:(CATransform3D *)transform anchor:(CGPoint)anchor bounds:(CGRect)self0 renderTargetSize:(CGSize)self1 viewContentsScale:(double)self2
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (overlay)
   {
     fitCopy = fit;
@@ -161,41 +159,39 @@
     x = bounds.origin.x;
     v21 = anchor.y;
     v22 = anchor.x;
-    v50 = vdivq_f32(vcvtq_f32_u32(vandq_s8(vdupq_n_s32(color), xmmword_24DA8BB70)), xmmword_24DA8BB80);
+    v49 = vdivq_f32(vcvtq_f32_u32(vandq_s8(vdupq_n_s32(color), xmmword_24DA8BB70)), xmmword_24DA8BB80);
     overlayPipelines = self->_overlayPipelines;
     overlayPipelineDescriptor = self->_overlayPipelineDescriptor;
     encoderCopy = encoder;
     overlayCopy = overlay;
     v29 = [(GTMTLTextureRenderer *)self getPipelineStateFromCache:overlayPipelines withDescriptor:overlayPipelineDescriptor withFormat:format];
-    memset(v49, 0, sizeof(v49));
+    memset(v48, 0, sizeof(v48));
     width = [overlayCopy width];
     height = [overlayCopy height];
     v32 = *&transform->m33;
-    v45 = *&transform->m31;
-    v46 = v32;
+    v44 = *&transform->m31;
+    v45 = v32;
     v33 = *&transform->m43;
-    v47 = *&transform->m41;
-    v48 = v33;
+    v46 = *&transform->m41;
+    v47 = v33;
     v34 = *&transform->m13;
-    v42[0] = *&transform->m11;
-    v42[1] = v34;
+    v41[0] = *&transform->m11;
+    v41[1] = v34;
     v36 = *&transform->m23;
-    v43 = *&transform->m21;
-    v35.f64[1] = *(&v43 + 1);
-    v44 = v36;
+    v42 = *&transform->m21;
+    v35.f64[1] = *(&v42 + 1);
+    v43 = v36;
     v35.f64[0] = v22;
     v37.f64[0] = x;
     v38.f64[0] = v18;
-    v40 = [(GTMTLTextureRenderer *)self wrapLinear:overlayCopy, GetTextureRendererUniform(v49, v42, fitCopy, width, height, v35, v21, v37, y, v38, v17, scale, v39, width, height)];
+    v40 = [(GTMTLTextureRenderer *)self wrapLinear:overlayCopy, GetTextureRendererUniform(v48, v41, fitCopy, width, height, v35, v21, v37, y, v38, v17, scale, v39, width, height)];
 
-    [encoderCopy setVertexBytes:v49 length:112 atIndex:0];
+    [encoderCopy setVertexBytes:v48 length:112 atIndex:0];
     [encoderCopy setRenderPipelineState:v29];
     [encoderCopy setFragmentTexture:v40 atIndex:0];
-    [encoderCopy setFragmentBytes:&v50 length:16 atIndex:0];
+    [encoderCopy setFragmentBytes:&v49 length:16 atIndex:0];
     [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:4];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (id)wrapLinear:(id)linear

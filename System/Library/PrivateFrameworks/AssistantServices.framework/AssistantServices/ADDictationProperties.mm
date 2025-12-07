@@ -41,7 +41,7 @@
         }
 
         v10 = *(*(&v18 + 1) + 8 * i);
-        v11 = [enabledDictationLocales objectForKey:v10];
+        v11 = objc_msgSend_objectForKey_(enabledDictationLocales);
         bOOLValue = [v11 BOOLValue];
 
         if (bOOLValue)

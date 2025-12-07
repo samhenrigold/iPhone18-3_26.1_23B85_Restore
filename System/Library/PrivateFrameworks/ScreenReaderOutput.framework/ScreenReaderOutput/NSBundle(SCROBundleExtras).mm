@@ -61,29 +61,29 @@ LABEL_6:
 
 + (id)brailleDriverDeviceDetectionInfo
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   brailleDriverBundles = [self brailleDriverBundles];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = brailleDriverBundles;
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         bundleIdentifier = [v7 bundleIdentifier];
         if (bundleIdentifier)
         {
@@ -107,13 +107,11 @@ LABEL_6:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -137,27 +135,27 @@ LABEL_6:
 
 + (id)brailleTableBundleWithTableIdentifier:()SCROBundleExtras
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   _brailleTableBundles = [self _brailleTableBundles];
-  v6 = [_brailleTableBundles countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [_brailleTableBundles countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(_brailleTableBundles);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         bundleIdentifier = [v9 bundleIdentifier];
         if (bundleIdentifier && ([v4 hasPrefix:bundleIdentifier] & 1) != 0)
         {
@@ -167,7 +165,7 @@ LABEL_6:
         }
       }
 
-      v6 = [_brailleTableBundles countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [_brailleTableBundles countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -178,8 +176,6 @@ LABEL_6:
   }
 
 LABEL_12:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

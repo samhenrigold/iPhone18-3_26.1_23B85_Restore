@@ -27,8 +27,8 @@
     _os_log_debug_impl(&dword_199A75000, v3, OS_LOG_TYPE_DEBUG, "preparationSize: %ld", &v7, 0xCu);
   }
 
-  contacts = [(CNContactStoreSnapshot *)self contacts];
-  v5 = [contacts count];
+  v4 = objc_msgSend_contacts(self);
+  v5 = [v4 count];
 
   if (v5 >= 0x64)
   {
@@ -156,8 +156,8 @@
 
     if ([(CNContactStoreFilter *)selfCopy->_filter supportsSections])
     {
-      contacts = [(CNContactStoreSnapshot *)selfCopy contacts];
-      v6 = [contacts count];
+      v5 = objc_msgSend_contacts(selfCopy);
+      v6 = [v5 count];
 
       if (v6 >= 6)
       {
@@ -442,8 +442,8 @@
 
 - (void)prepareAllContacts
 {
-  contacts = [(CNContactStoreSnapshot *)self contacts];
-  -[CNContactStoreSnapshot _loadContactsInRange:inBackground:](self, "_loadContactsInRange:inBackground:", 0, [contacts count], 0);
+  v3 = objc_msgSend_contacts(self, a2);
+  -[CNContactStoreSnapshot _loadContactsInRange:inBackground:](self, "_loadContactsInRange:inBackground:", 0, [v3 count], 0);
 }
 
 - (void)_loadAllContacts

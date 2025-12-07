@@ -29,7 +29,9 @@
 - (void)_processQueueWithOptions:(id)options;
 - (void)_queueProcessingDidFinish:(id)finish;
 - (void)_reachabilityChanged:(id)changed;
+- (void)_sendProcessingFinishedNotificationWithSentMessages:(id)messages failedMessages:(id)failedMessages playSound:(BOOL)sound;
 - (void)_sendProcessingStartedNotification:(id)notification;
+- (void)_setDeliveryFlag:(id)flag state:(BOOL)state;
 - (void)_setErrorForMessage:(id)message error:(id)error;
 - (void)_setErrorForMessageLibraryID:(id)d error:(id)error;
 - (void)_updateCounts;
@@ -1012,6 +1014,34 @@ LABEL_48:
   v4 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
   v5 = +[NSNotificationCenter defaultCenter];
   [v5 postNotificationName:@"MFDeliveryQueueProcessingStartedNotification" object:v4];
+}
+
+- (void)_sendProcessingFinishedNotificationWithSentMessages:(id)messages failedMessages:(id)failedMessages playSound:(BOOL)sound
+{
+  soundCopy = sound;
+  messagesCopy = messages;
+  failedMessagesCopy = failedMessages;
+  v8 = +[NSMutableDictionary dictionary];
+  [v8 setValue:messagesCopy forKey:@"sent"];
+  [v8 setValue:failedMessagesCopy forKey:@"failed"];
+  v9 = [NSNumber numberWithInt:soundCopy];
+  [v8 setValue:v9 forKey:@"playSound"];
+
+  v10 = +[NSNotificationCenter defaultCenter];
+  [v10 postNotificationName:@"MFDeliveryQueueProcessingFinishedNotification" object:0 userInfo:v8];
+}
+
+- (void)_setDeliveryFlag:(id)flag state:(BOOL)state
+{
+  stateCopy = state;
+  flagCopy = flag;
+  _outboxStore = [(MFDeliveryQueue *)self _outboxStore];
+  [(MFDeliveryQueue *)self mf_lock];
+  v9 = flagCopy;
+  v8 = [NSArray arrayWithObjects:&v9 count:1];
+  [_outboxStore setFlag:MessageIsBeingDelivered state:stateCopy forMessages:v8];
+
+  [(MFDeliveryQueue *)self mf_unlock];
 }
 
 - (id)_append:(id)_append flags:(id)flags

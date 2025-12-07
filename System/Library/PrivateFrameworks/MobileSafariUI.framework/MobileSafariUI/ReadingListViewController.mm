@@ -901,7 +901,7 @@ uint64_t __46__ReadingListViewController__deleteBookmarks___block_invoke(uint64_
   return [v8 _updateTableViewByRemovingReadingListItemsAtIndexPaths:v9];
 }
 
-uint64_t __46__ReadingListViewController__deleteBookmarks___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__46__ReadingListViewController__deleteBookmarks___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(*(a1 + 32) + 1016) deleteBookmarks:a2 postChangeNotification:0];
   if (result)
@@ -1397,7 +1397,7 @@ void __68__ReadingListViewController__setIconForBookmark_cell_synchronously___bl
   }
 }
 
-uint64_t __68__ReadingListViewController__setIconForBookmark_cell_synchronously___block_invoke_2(uint64_t a1)
+void *__68__ReadingListViewController__setIconForBookmark_cell_synchronously___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) bookmarkID];
   if (result == *(a1 + 48))
@@ -1840,11 +1840,11 @@ void __63__ReadingListViewController__readingListItemAtIndexPathDelete___block_i
       v4 = +[Application sharedApplication];
       [v4 setReadingListWidgetNeedsReload];
 
-      v5 = WBS_LOG_CHANNEL_PREFIXWidgets();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = WBS_LOG_CHANNEL_PREFIXWidgets(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v6 = 0;
-        _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Requested widget update because of item deletion", v6, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Requested widget update because of item deletion", v8, 2u);
       }
     }
   }

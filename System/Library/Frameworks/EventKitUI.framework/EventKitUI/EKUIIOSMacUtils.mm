@@ -80,7 +80,7 @@
 void __106__EKUIIOSMacUtils_createNewEventInCalendarWithTitle_startDate_endDate_timeZone_allDay_location_notes_url___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
-  v5 = EKUIIOSMacLogHandle();
+  v5 = EKUIIOSMacLogHandle(v4);
   v6 = v5;
   if (v4 || (a2 & 1) == 0)
   {

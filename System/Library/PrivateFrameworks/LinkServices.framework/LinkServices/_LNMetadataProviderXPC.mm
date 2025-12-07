@@ -165,22 +165,21 @@
 
 - (id)appShortcutsProviderMangledTypeNameForBundleIdentifier:(id)identifier error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (error)
   {
     v6 = getLNLogCategoryMetadata();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = NSStringFromSelector(a2);
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_ERROR, "%@ not supported via XPC", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_ERROR, "%@ not supported via XPC", &v9, 0xCu);
     }
 
     *error = NSErrorFromMetadataProviderError(9000);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

@@ -8,37 +8,37 @@
 
 - (id)batchOfRecordsToWriteWithFilter:(unint64_t)filter limit:(int64_t)limit error:(id *)error
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v6 = [IMDMessageStore sharedInstance:filter];
   v7 = [v6 messagesPendingUpdateT3ToCloudKitWithLimit:limit];
 
-  v43 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v42 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
   recordNameToRowIDMap = self->_recordNameToRowIDMap;
   self->_recordNameToRowIDMap = v8;
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = v7;
-  v47 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
-  if (v47)
+  v46 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+  if (v46)
   {
-    v46 = *v50;
+    v45 = *v49;
     do
     {
-      for (i = 0; i != v47; ++i)
+      for (i = 0; i != v46; ++i)
       {
-        if (*v50 != v46)
+        if (*v49 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v49 + 1) + 8 * i);
-        v48 = [v11 objectForKeyedSubscript:@"MID"];
+        v11 = *(*(&v48 + 1) + 8 * i);
+        v47 = [v11 objectForKeyedSubscript:@"MID"];
         v12 = +[IMDMessageStore sharedInstance];
-        v13 = [v12 chatForMessageGUID:v48];
+        v13 = [v12 chatForMessageGUID:v47];
 
         if (v13)
         {
@@ -47,11 +47,11 @@
 
           if (v15)
           {
-            v53[0] = @"MID";
-            v53[1] = @"CHATID";
-            v54[0] = v48;
-            v54[1] = v15;
-            v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+            v52[0] = @"MID";
+            v52[1] = @"CHATID";
+            v53[0] = v47;
+            v53[1] = v15;
+            v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
             v17 = MEMORY[0x277D1AA28];
             v18 = +[IMDRecordZoneManager sharedInstance];
             updateRecordZoneID = [v18 updateRecordZoneID];
@@ -69,7 +69,7 @@
 
               if (v27)
               {
-                [v43 setObject:v22 forKey:v48];
+                [v42 setObject:v22 forKey:v47];
                 v28 = [v11 objectForKeyedSubscript:@"ROWID"];
                 recordNameToRowIDMap2 = [(IMDUpdateV3RecordStore *)self recordNameToRowIDMap];
                 recordID2 = [v22 recordID];
@@ -88,7 +88,7 @@
                 if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v56 = v11;
+                  v55 = v11;
                   _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "**** T3 Update item [%@] could not be converted to CKRecord, marking it as clean and moving on.", buf, 0xCu);
                 }
               }
@@ -110,7 +110,7 @@ LABEL_26:
               if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v56 = v11;
+                v55 = v11;
                 _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "**** T3 Update item [%@] chat had no cloudKitChatID!, marking it as clean and moving on.", buf, 0xCu);
               }
             }
@@ -131,7 +131,7 @@ LABEL_26:
           if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v56 = v11;
+            v55 = v11;
             _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "**** T3 Update item [%@] could not find a chat as a source of truth, marking it as clean and moving on.", buf, 0xCu);
           }
         }
@@ -144,15 +144,13 @@ LABEL_26:
 LABEL_29:
       }
 
-      v47 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v46 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
     }
 
-    while (v47);
+    while (v46);
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v43;
+  return v42;
 }
 
 - (void)recordUpdateSucceededWithRecord:(id)record
@@ -182,7 +180,7 @@ LABEL_29:
 
 - (void)recordUpdateFailedWithID:(id)d localGUID:(id)iD error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   errorCopy = error;
@@ -192,11 +190,11 @@ LABEL_29:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       recordName = [dCopy recordName];
-      v23 = 138412546;
-      v24 = errorCopy;
-      v25 = 2112;
-      v26 = recordName;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Error %@ while writing up record %@", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = errorCopy;
+      v24 = 2112;
+      v25 = recordName;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Error %@ while writing up record %@", &v22, 0x16u);
     }
   }
 
@@ -216,17 +214,15 @@ LABEL_29:
       v20 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v23 = 138412290;
-        v24 = errorCopy;
-        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Extracted record from server error %@", &v23, 0xCu);
+        v22 = 138412290;
+        v23 = errorCopy;
+        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Extracted record from server error %@", &v22, 0xCu);
       }
     }
 
     v21 = +[IMDChatRegistry sharedInstance];
     [v21 handleMessageUpdateConflictType:@"UT3" serverRecord:v14 localRowID:v19];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -7,36 +7,37 @@
 + (int64_t)snappedLabelAngleInDegrees:(float)degrees prefersVerticalAngles:(BOOL)angles
 {
   anglesCopy = angles;
-  LODWORD(v4) = 1135869952;
-  v6 = sub_27628C1E0(self, a2, *&degrees, 0.0, v4);
-  v7 = 70.0;
+  v5.n128_u32[0] = 1135869952;
+  v4.n128_u64[0] = 0;
+  v8 = sub_27628C1E0(*&degrees, v4, v5, v6, self, a2);
+  v9 = 70.0;
   if (anglesCopy)
   {
-    v7 = 20.0;
+    v9 = 20.0;
   }
 
-  if (v6 >= 0.0 && v6 <= v7)
+  if (v8 >= 0.0 && v8 <= v9)
   {
     return 0;
   }
 
-  if (v6 >= (360.0 - v7) && v6 <= 360.0)
+  if (v8 >= (360.0 - v9) && v8 <= 360.0)
   {
     return 0;
   }
 
-  v10 = v7 + 180.0;
-  if (v6 >= (180.0 - v7) && v6 <= v10)
+  v12 = v9 + 180.0;
+  if (v8 >= (180.0 - v9) && v8 <= v12)
   {
     return 180;
   }
 
-  if (v6 > v7 && v6 < (180.0 - v7))
+  if (v8 > v9 && v8 < (180.0 - v9))
   {
     return 90;
   }
 
-  if (v6 >= (360.0 - v7) || v6 <= v10)
+  if (v8 >= (360.0 - v9) || v8 <= v12)
   {
     return 0;
   }

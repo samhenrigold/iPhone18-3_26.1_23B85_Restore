@@ -47,7 +47,7 @@
 - (id)batchesSplitForError
 {
   v31[1] = *MEMORY[0x1E69E9840];
-  if ([(PLCloudPhotoLibraryBatchContainer *)self reachedMinSplit]|| [(PLCloudPhotoLibraryBatchContainer *)self count]<= 1)
+  if ([(PLCloudPhotoLibraryBatchContainer *)self reachedMinSplit]|| objc_msgSend_count(self) <= 1)
   {
     [(PLCloudPhotoLibraryBatchContainer *)self setWasSplit:1];
     [(PLCloudPhotoLibraryBatchContainer *)self incrementRetryCount];
@@ -56,7 +56,7 @@
     goto LABEL_31;
   }
 
-  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[PLCloudPhotoLibraryBatchContainer count](self, "count")}];
+  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(self)];
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
@@ -122,8 +122,8 @@
 
         else
         {
-          v18 = [(PLCloudPhotoLibraryBatchContainer *)v6 count];
-          v19 = [(PLCloudPhotoLibraryBatchContainer *)self count];
+          v18 = objc_msgSend_count(v6);
+          v19 = objc_msgSend_count(self);
 
           v8 = 0;
           if (v18 < v19 >> 1)

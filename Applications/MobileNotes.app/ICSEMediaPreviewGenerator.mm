@@ -77,7 +77,7 @@
   ic_previewImage = [v4 ic_previewImage];
   if (v4)
   {
-    [v4 duration];
+    objc_msgSend_duration(v4);
   }
 
   else

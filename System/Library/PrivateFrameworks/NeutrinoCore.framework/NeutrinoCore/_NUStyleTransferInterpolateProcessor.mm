@@ -432,7 +432,7 @@
   }
 
   firstObject = [stylesCopy firstObject];
-  [firstObject extent];
+  objc_msgSend_extent(firstObject);
   v13 = v12;
   v15 = v14;
   v17 = v16;
@@ -457,7 +457,7 @@
           objc_enumerationMutation(v20);
         }
 
-        [*(*(&v64 + 1) + 8 * i) extent];
+        objc_msgSend_extent(*(*(&v64 + 1) + 8 * i));
         v78.origin.x = v13;
         v78.origin.y = v15;
         v78.size.width = v17;

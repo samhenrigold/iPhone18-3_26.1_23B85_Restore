@@ -655,10 +655,11 @@ void sub_10000FBE8(uint64_t a1)
   }
 }
 
-void sub_10000FDF0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000FDF0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 BOOL sub_100010D7C(uint64_t a1, void *a2)
@@ -858,23 +859,21 @@ void sub_100015704(uint64_t a1)
 {
   if (*(a1 + 32) || !*(a1 + 40))
   {
-    v2 = *(a1 + 64);
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 64) + 16);
+    v2 = *(*(a1 + 64) + 16);
 
-    v4();
+    v2();
   }
 
   else
   {
-    v5 = cdui_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = cdui_default_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "[INFO] document is sub-item of folder share", v7, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "[INFO] document is sub-item of folder share", v5, 2u);
     }
 
-    v6 = [[BRCKShareSubitem alloc] initWithShare:*(a1 + 48)];
+    v4 = [[BRCKShareSubitem alloc] initWithShare:*(a1 + 48)];
     objc_storeStrong((*(a1 + 56) + 112), *(a1 + 48));
     objc_storeStrong((*(a1 + 56) + 16), *(a1 + 40));
     (*(*(a1 + 64) + 16))();
@@ -1130,29 +1129,28 @@ void sub_10001628C(uint64_t a1, void *a2)
 
 void sub_100016350(uint64_t a1)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = cdui_default_log();
-  v5 = v4;
-  if (v3)
+  v2 = *(a1 + 32);
+  v3 = cdui_default_log();
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      sub_10002CB90(v2);
+      sub_10002CB90();
     }
 
-    v6 = [*(a1 + 40) viewController];
-    [v6 presentError:*(a1 + 32)];
+    v5 = [*(a1 + 40) viewController];
+    [v5 presentError:*(a1 + 32)];
 
     [*(a1 + 40) shareViewControllerDismiss:0];
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "[INFO] existing subshare preflight check finished", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "[INFO] existing subshare preflight check finished", buf, 2u);
     }
 
     [*(a1 + 40) _prepareForFolderSharingIfNeeded];
@@ -1163,19 +1161,19 @@ void sub_100016350(uint64_t a1)
 
     else
     {
-      v7 = [*(a1 + 40) itemURL];
-      v8 = BRSharingCreateShareForItemAtURL();
-      v9 = 0;
+      v6 = [*(a1 + 40) itemURL];
+      v7 = BRSharingCreateShareForItemAtURL();
+      v8 = 0;
 
-      [v8 setPublicPermission:3];
+      [v7 setPublicPermission:3];
       (*(*(a1 + 56) + 16))();
     }
   }
 }
 
-void sub_1000165F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000165F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1225,40 +1223,40 @@ void sub_100016860(id *a1)
         v5 = [a1[4] userInfo];
         v6 = [v5 objectForKeyedSubscript:BRFailedURLsKey];
 
-        v29 = v6;
+        v28 = v6;
         if (![v6 count])
         {
           v7 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-          v13 = [v7 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_MESSAGE_UNKNOWN_ITEMS" value:@"This folder already contains shared items. People who currently have access to these items may lose it." table:@"Localizable"];
+          v12 = [v7 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_MESSAGE_UNKNOWN_ITEMS" value:@"This folder already contains shared items. People who currently have access to these items may lose it." table:@"Localizable"];
 LABEL_19:
 
-          v18 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-          v19 = [v18 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_TITLE" value:@"Sharing this folder will change who can read and edit all items within it." table:@"Localizable"];
-          v20 = [UIAlertController alertControllerWithTitle:v19 message:v13 preferredStyle:1];
+          v17 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+          v18 = [v17 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_TITLE" value:@"Sharing this folder will change who can read and edit all items within it." table:@"Localizable"];
+          v19 = [UIAlertController alertControllerWithTitle:v18 message:v12 preferredStyle:1];
 
-          v21 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-          v22 = [v21 localizedStringForKey:@"ALERT_SHARE_BUTTON_TITLE" value:@"Share" table:@"Localizable"];
-          v32[0] = _NSConcreteStackBlock;
-          v32[1] = 3221225472;
-          v32[2] = sub_100016D9C;
-          v32[3] = &unk_10004D118;
-          v23 = a1[6];
-          v32[4] = a1[5];
-          v33 = v23;
-          v24 = [UIAlertAction actionWithTitle:v22 style:0 handler:v32];
+          v20 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+          v21 = [v20 localizedStringForKey:@"ALERT_SHARE_BUTTON_TITLE" value:@"Share" table:@"Localizable"];
+          v31[0] = _NSConcreteStackBlock;
+          v31[1] = 3221225472;
+          v31[2] = sub_100016D9C;
+          v31[3] = &unk_10004D118;
+          v22 = a1[6];
+          v31[4] = a1[5];
+          v32 = v22;
+          v23 = [UIAlertAction actionWithTitle:v21 style:0 handler:v31];
 
-          v25 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-          v26 = [v25 localizedStringForKey:@"ALERT_CANCEL_BUTTON_TITLE" value:@"Cancel" table:@"Localizable"];
-          v30[0] = _NSConcreteStackBlock;
-          v30[1] = 3221225472;
-          v30[2] = sub_100016E38;
-          v30[3] = &unk_10004CB20;
-          v31 = a1[6];
-          v27 = [UIAlertAction actionWithTitle:v26 style:1 handler:v30];
+          v24 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+          v25 = [v24 localizedStringForKey:@"ALERT_CANCEL_BUTTON_TITLE" value:@"Cancel" table:@"Localizable"];
+          v29[0] = _NSConcreteStackBlock;
+          v29[1] = 3221225472;
+          v29[2] = sub_100016E38;
+          v29[3] = &unk_10004CB20;
+          v30 = a1[6];
+          v26 = [UIAlertAction actionWithTitle:v25 style:1 handler:v29];
 
-          [v20 addAction:v24];
-          [v20 addAction:v27];
-          [a1[5] presentViewController:v20 animated:1 completion:0];
+          [v19 addAction:v23];
+          [v19 addAction:v26];
+          [a1[5] presentViewController:v19 animated:1 completion:0];
 
           return;
         }
@@ -1269,33 +1267,33 @@ LABEL_19:
           v8 = [v7 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_MESSAGE_ONE_ITEM" value:@"This folder already contains a shared item “%@”. People who currently have access to this item may lose it." table:@"Localizable"];
           v9 = [v6 firstObject];
           v10 = [v9 lastPathComponent];
-          [NSString localizedStringWithFormat:v8, v10, v28, v6];
+          [NSString localizedStringWithFormat:v8, v10, v27, v6];
         }
 
         else
         {
-          v14 = [v6 count];
-          v15 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-          v7 = v15;
-          if (v14 == 2)
+          v13 = [v6 count];
+          v14 = [NSBundle bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+          v7 = v14;
+          if (v13 == 2)
           {
-            v8 = [v15 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_MESSAGE_TWO_ITEMS" value:@"This folder already contains shared items “%@” and “%@”. People who currently have access to these items may lose it." table:@"Localizable"];
+            v8 = [v14 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_MESSAGE_TWO_ITEMS" value:@"This folder already contains shared items “%@” and “%@”. People who currently have access to these items may lose it." table:@"Localizable"];
             v9 = [v6 objectAtIndexedSubscript:0];
             v10 = [v9 lastPathComponent];
-            v16 = [v6 objectAtIndexedSubscript:1];
-            v17 = [v16 lastPathComponent];
-            v13 = [NSString localizedStringWithFormat:v8, v10, v17, v6];
+            v15 = [v6 objectAtIndexedSubscript:1];
+            v16 = [v15 lastPathComponent];
+            v12 = [NSString localizedStringWithFormat:v8, v10, v16, v6];
 
 LABEL_18:
             goto LABEL_19;
           }
 
-          v8 = [v15 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_MESSAGE" value:@"This folder already contains shared items table:{including “%@” and %lu others. People who currently have access to these items may lose it.", @"Localizable"}];
+          v8 = [v14 localizedStringForKey:@"ALERT_EXISTING_SHARED_ITEMS_MESSAGE" value:@"This folder already contains shared items table:{including “%@” and %lu others. People who currently have access to these items may lose it.", @"Localizable"}];
           v9 = [v6 firstObject];
           v10 = [v9 lastPathComponent];
           +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v8, v10, [v6 count] - 1, v6);
         }
-        v13 = ;
+        v12 = ;
         goto LABEL_18;
       }
     }
@@ -1304,7 +1302,6 @@ LABEL_18:
     {
     }
 
-    v12 = a1[4];
     v11 = *(a1[6] + 2);
   }
 
@@ -1400,7 +1397,7 @@ void sub_100017E54(uint64_t a1, void *a2, void *a3)
     v9 = cdui_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      sub_10002CC00(a1);
+      sub_10002CC00();
     }
   }
 
@@ -1493,7 +1490,7 @@ void sub_10001860C(uint64_t a1)
   v8 = cdui_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
-    sub_10002CC78((a1 + 48));
+    sub_10002CC78();
   }
 
   [*(a1 + 40) shareViewController:0 presentError:*(a1 + 48)];
@@ -1966,9 +1963,6 @@ void sub_10001D198(uint64_t a1, uint64_t a2, void *a3)
 void sub_10001D278(uint64_t a1)
 {
   v2 = [*(a1 + 32) pathExtension];
-  v3 = *(*(a1 + 48) + 344);
-  v4 = *(a1 + 72);
-  v5 = v2;
   if (*(a1 + 40))
   {
     BRTelemetryReportShareInvitation();
@@ -2243,13 +2237,11 @@ uint64_t sub_10001EC20(uint64_t a1)
   if (!*(a1 + 32))
   {
     [*(a1 + 40) setInitialSharing:?];
-    v2 = *(a1 + 32);
   }
 
-  v3 = *(a1 + 48);
-  v4 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v4();
+  return v2();
 }
 
 void sub_10001EC70(uint64_t a1)
@@ -2295,13 +2287,11 @@ uint64_t sub_10001EE08(uint64_t a1)
   if (!*(a1 + 32))
   {
     [*(a1 + 40) setInitialSharing:?];
-    v2 = *(a1 + 32);
   }
 
-  v3 = *(a1 + 48);
-  v4 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v4();
+  return v2();
 }
 
 void sub_10001F14C(uint64_t a1, void *a2, void *a3)
@@ -2410,19 +2400,16 @@ void sub_10001FAEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_10001FB08(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v5 = a2;
   v3 = [*(a1 + 32) view];
   [v3 removeFromSuperview];
 
   (*(*(a1 + 64) + 16))();
-  if (v8)
+  if (v5)
   {
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v6 = *(a1 + 80);
     BRTelemetryReportShareInvitation();
     WeakRetained = objc_loadWeakRetained((a1 + 72));
-    [WeakRetained shareViewController:*(a1 + 56) presentError:v8];
+    [WeakRetained shareViewController:*(a1 + 56) presentError:v5];
   }
 }
 
@@ -2675,13 +2662,13 @@ void sub_100020714(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t sub_100020820(uint64_t a1)
 {
-  v2 = (a1 + 48);
+  v2 = a1 + 48;
   v3 = *(*(*(a1 + 48) + 8) + 40);
   if (v3)
   {
-    v12 = NSUnderlyingErrorKey;
-    v13 = v3;
-    v4 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = NSUnderlyingErrorKey;
+    v12 = v3;
+    v4 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     v5 = [NSError errorWithDomain:@"_UIShareErrorDomain" code:0 userInfo:v4];
     v6 = *(*v2 + 8);
     v7 = *(v6 + 40);
@@ -2690,7 +2677,7 @@ uint64_t sub_100020820(uint64_t a1)
     v8 = cdui_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      sub_10002D1B8(v2);
+      sub_10002D1B8();
     }
 
     [*(a1 + 32) presentError:*(*(*(a1 + 48) + 8) + 40)];
@@ -2705,7 +2692,6 @@ uint64_t sub_100020820(uint64_t a1)
     }
   }
 
-  v10 = *(*(*(a1 + 48) + 8) + 40);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -2730,17 +2716,11 @@ void sub_100021404(uint64_t a1, uint64_t a2, void *a3)
   [v5 replaceOccurrencesOfString:v7 withString:v6 options:2 range:{0, objc_msgSend(*(a1 + 32), "length")}];
 }
 
-void sub_1000214AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000214AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
-}
-
-uint64_t *sub_100021510@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_10002300C(uint64_t a1)
@@ -3416,31 +3396,27 @@ void sub_10002C9A0(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "[DEBUG] applyToShare has ACL: %@, share: %@", &v4, 0x16u);
 }
 
-void sub_10002CB90(uint64_t *a1)
+void sub_10002CB90()
 {
-  sub_100021510(a1, __stack_chk_guard);
+  sub_100021510(__stack_chk_guard);
   sub_1000214E8();
   sub_1000214F4();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10002CC00(uint64_t a1)
+void sub_10002CC00()
 {
-  v1 = *(a1 + 32);
   sub_1000214D4();
   sub_100021500();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10002CC78(uint64_t *a1)
+void sub_10002CC78()
 {
-  sub_100021510(a1, __stack_chk_guard);
-  v2 = *(v1 + 40);
-  v3 = *(v2 + 104);
-  v4 = *(v2 + 136);
+  sub_100021510(__stack_chk_guard);
   sub_1000214D4();
   sub_100021500();
-  _os_log_fault_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10002CD10()
@@ -3450,12 +3426,12 @@ void sub_10002CD10()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10002CDC0(uint64_t *a1)
+void sub_10002CDC0()
 {
-  sub_100021510(a1, __stack_chk_guard);
+  sub_100021510(__stack_chk_guard);
   sub_1000214D4();
   sub_100021500();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10002D0D4()
@@ -3465,13 +3441,12 @@ void sub_10002D0D4()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10002D1B8(uint64_t *a1)
+void sub_10002D1B8()
 {
-  sub_100021510(a1, __stack_chk_guard);
-  v2 = *(*(v1 + 8) + 40);
+  sub_100021510(__stack_chk_guard);
   sub_1000214E8();
   sub_1000214F4();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10002D264(uint64_t a1, uint64_t *a2, os_log_t log)

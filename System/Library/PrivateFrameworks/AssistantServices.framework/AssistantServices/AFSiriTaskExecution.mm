@@ -14,18 +14,18 @@
 
 - (void)_completeWithResponse:(id)response error:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   v8 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v17 = "[AFSiriTaskExecution _completeWithResponse:error:]";
-    v18 = 2112;
-    v19 = responseCopy;
-    v20 = 2112;
-    v21 = errorCopy;
+    v16 = "[AFSiriTaskExecution _completeWithResponse:error:]";
+    v17 = 2112;
+    v18 = responseCopy;
+    v19 = 2112;
+    v20 = errorCopy;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %@ %@", buf, 0x20u);
   }
 
@@ -35,27 +35,25 @@
   block[2] = __51__AFSiriTaskExecution__completeWithResponse_error___block_invoke;
   block[3] = &unk_1E73494B0;
   block[4] = self;
-  v14 = responseCopy;
-  v15 = errorCopy;
+  v13 = responseCopy;
+  v14 = errorCopy;
   v10 = errorCopy;
   v11 = responseCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __51__AFSiriTaskExecution__completeWithResponse_error___block_invoke(void *a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1[4] + 16);
-    v22 = 136315394;
-    v23 = "[AFSiriTaskExecution _completeWithResponse:error:]_block_invoke";
-    v24 = 2112;
-    v25 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s cancelling watchdog for %@", &v22, 0x16u);
+    v20 = 136315394;
+    v21 = "[AFSiriTaskExecution _completeWithResponse:error:]_block_invoke";
+    v22 = 2112;
+    v23 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s cancelling watchdog for %@", &v20, 0x16u);
   }
 
   [*(a1[4] + 72) cancel];
@@ -76,68 +74,65 @@ void __51__AFSiriTaskExecution__completeWithResponse_error___block_invoke(void *
         v9 = &stru_1F0512680;
       }
 
-      v22 = 136315906;
-      v23 = "[AFSiriTaskExecution _completeWithResponse:error:]_block_invoke";
+      v20 = 136315906;
+      v21 = "[AFSiriTaskExecution _completeWithResponse:error:]_block_invoke";
+      v22 = 2112;
+      v23 = v6;
       v24 = 2112;
-      v25 = v6;
+      v25 = v8;
       v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = v9;
-      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s %@ is already completed; not completing again with response %@ %@", &v22, 0x2Au);
+      v27 = v9;
+      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s %@ is already completed; not completing again with response %@ %@", &v20, 0x2Au);
     }
   }
 
   else
   {
     *(v6 + 56) = 3;
-    v10 = *(a1[4] + 24);
     if (objc_opt_respondsToSelector())
     {
       [*(a1[4] + 24) siriTaskDidFinish];
     }
 
-    v11 = a1[4];
-    v12 = *(v11 + 48);
-    if (v12)
+    v10 = a1[4];
+    v11 = *(v10 + 48);
+    if (v11)
     {
-      (*(v12 + 16))(v12, a1[5], a1[6]);
-      v11 = a1[4];
-      v13 = *(v11 + 48);
+      (*(v11 + 16))(v11, a1[5], a1[6]);
+      v10 = a1[4];
+      v12 = *(v10 + 48);
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
-    *(v11 + 48) = 0;
+    *(v10 + 48) = 0;
   }
 
-  v14 = AFSiriLogContextConnection;
-  v15 = os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO);
-  v16 = a1[4];
-  if (v15)
+  v13 = AFSiriLogContextConnection;
+  v14 = os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO);
+  v15 = a1[4];
+  if (v14)
   {
-    v22 = 136315394;
-    v23 = "[AFSiriTaskExecution _completeWithResponse:error:]_block_invoke";
-    v24 = 2048;
-    v25 = v16;
-    _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s <AFSiriTaskExecution %p> releasing listener", &v22, 0x16u);
-    v16 = a1[4];
+    v20 = 136315394;
+    v21 = "[AFSiriTaskExecution _completeWithResponse:error:]_block_invoke";
+    v22 = 2048;
+    v23 = v15;
+    _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s <AFSiriTaskExecution %p> releasing listener", &v20, 0x16u);
+    v15 = a1[4];
   }
 
-  [*(v16 + 80) setDelegate:0];
+  [*(v15 + 80) setDelegate:0];
   [*(a1[4] + 80) invalidate];
-  v17 = a1[4];
-  v18 = *(v17 + 80);
-  *(v17 + 80) = 0;
+  v16 = a1[4];
+  v17 = *(v16 + 80);
+  *(v16 + 80) = 0;
 
-  v19 = a1[4];
-  v20 = *(v19 + 64);
-  *(v19 + 64) = 0;
-
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = a1[4];
+  v19 = *(v18 + 64);
+  *(v18 + 64) = 0;
 }
 
 - (void)setCompletionHandler:(id)handler
@@ -259,7 +254,7 @@ void __28__AFSiriTaskExecution_start__block_invoke_2(uint64_t a1, void *a2)
 
 void __28__AFSiriTaskExecution_start__block_invoke_3(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 40);
   if (v2)
   {
@@ -276,16 +271,16 @@ void __28__AFSiriTaskExecution_start__block_invoke_3(uint64_t a1)
   {
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 48);
-      v18 = v6[3];
+      v16 = *(a1 + 48);
+      v17 = v6[3];
       *buf = 136315906;
-      v23 = "[AFSiriTaskExecution start]_block_invoke_3";
-      v24 = 2112;
-      v25 = v17;
-      v26 = 2112;
-      v27 = v18;
-      v28 = 2114;
-      v29 = v7;
+      v22 = "[AFSiriTaskExecution start]_block_invoke_3";
+      v23 = 2112;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2114;
+      v28 = v7;
       _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s Delivery of task %@ by %@ failed with error %{public}@", buf, 0x2Au);
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
@@ -301,11 +296,11 @@ void __28__AFSiriTaskExecution_start__block_invoke_3(uint64_t a1)
       v8 = *(a1 + 48);
       v9 = v6[3];
       *buf = 136315650;
-      v23 = "[AFSiriTaskExecution start]_block_invoke";
-      v24 = 2112;
-      v25 = v8;
-      v26 = 2112;
-      v27 = v9;
+      v22 = "[AFSiriTaskExecution start]_block_invoke";
+      v23 = 2112;
+      v24 = v8;
+      v25 = 2112;
+      v26 = v9;
       _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Task %@ was delivered successfully by %@", buf, 0x20u);
       v6 = *(a1 + 32);
     }
@@ -315,42 +310,40 @@ void __28__AFSiriTaskExecution_start__block_invoke_3(uint64_t a1)
       v10 = AFPreferencesSiriTaskResponseTimeout();
       v11 = [AFWatchdogTimer alloc];
       v12 = *(*(a1 + 32) + 8);
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __28__AFSiriTaskExecution_start__block_invoke_34;
-      v19[3] = &unk_1E73467D8;
-      objc_copyWeak(v21, (a1 + 56));
-      v20 = *(a1 + 48);
-      v21[1] = *&v10;
-      v13 = [(AFWatchdogTimer *)v11 initWithTimeoutInterval:v12 onQueue:v19 timeoutHandler:v10];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __28__AFSiriTaskExecution_start__block_invoke_34;
+      v18[3] = &unk_1E73467D8;
+      objc_copyWeak(v20, (a1 + 56));
+      v19 = *(a1 + 48);
+      v20[1] = *&v10;
+      v13 = [(AFWatchdogTimer *)v11 initWithTimeoutInterval:v12 onQueue:v18 timeoutHandler:v10];
       v14 = *(a1 + 32);
       v15 = *(v14 + 72);
       *(v14 + 72) = v13;
 
       [*(*(a1 + 32) + 72) start];
-      objc_destroyWeak(v21);
+      objc_destroyWeak(v20);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __28__AFSiriTaskExecution_start__block_invoke_34(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_FAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 48);
-    v10 = 136315650;
-    v11 = "[AFSiriTaskExecution start]_block_invoke";
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2050;
-    v15 = v9;
-    _os_log_fault_impl(&dword_1912FE000, v3, OS_LOG_TYPE_FAULT, "%s Handling of %@ timed out after %{public}.2f seconds", &v10, 0x20u);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 48);
+    v9 = 136315650;
+    v10 = "[AFSiriTaskExecution start]_block_invoke";
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2050;
+    v14 = v8;
+    _os_log_fault_impl(&dword_1912FE000, v3, OS_LOG_TYPE_FAULT, "%s Handling of %@ timed out after %{public}.2f seconds", &v9, 0x20u);
     if (!WeakRetained)
     {
       goto LABEL_4;
@@ -371,8 +364,6 @@ LABEL_3:
   }
 
 LABEL_4:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -451,7 +442,7 @@ uint64_t __59__AFSiriTaskExecution_handleFailureOfRequest_error_atTime___block_i
 
 void __49__AFSiriTaskExecution_handleSiriResponse_atTime___block_invoke(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v2 = +[AFAnalytics sharedAnalytics];
   v3 = *(a1 + 48);
   v4 = [*(*(a1 + 32) + 16) _af_analyticsContextDescription];
@@ -461,67 +452,64 @@ void __49__AFSiriTaskExecution_handleSiriResponse_atTime___block_invoke(uint64_t
   {
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v7 = *MEMORY[0x1E69E9840];
 
     [v5 _completeWithResponse:v6];
   }
 
   else
   {
-    v8 = MEMORY[0x1E696ABC0];
-    v9 = *(a1 + 40);
-    v10 = *(*(a1 + 32) + 16);
-    v14[0] = @"SiriRequest";
-    v14[1] = @"SiriResponse";
-    v15[0] = v10;
-    v15[1] = v9;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
-    v12 = [v8 errorWithDomain:@"kAFAssistantErrorDomain" code:704 userInfo:v11];
+    v7 = MEMORY[0x1E696ABC0];
+    v8 = *(a1 + 40);
+    v9 = *(*(a1 + 32) + 16);
+    v12[0] = @"SiriRequest";
+    v12[1] = @"SiriResponse";
+    v13[0] = v9;
+    v13[1] = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11 = [v7 errorWithDomain:@"kAFAssistantErrorDomain" code:704 userInfo:v10];
 
-    [*(a1 + 32) _completeWithError:v12];
-    v13 = *MEMORY[0x1E69E9840];
+    [*(a1 + 32) _completeWithError:v11];
   }
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "[AFSiriTaskExecution dealloc]";
-    v8 = 2048;
+    v6 = "[AFSiriTaskExecution dealloc]";
+    v7 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s <AFSiriTaskExecution %p>", buf, 0x16u);
   }
 
   [(NSXPCListener *)self->_taskResponseListener setDelegate:0];
   [(NSXPCListener *)self->_taskResponseListener invalidate];
-  v5.receiver = self;
-  v5.super_class = AFSiriTaskExecution;
-  [(AFSiriTaskExecution *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = AFSiriTaskExecution;
+  [(AFSiriTaskExecution *)&v4 dealloc];
 }
 
 - (AFSiriTaskExecution)initWithRequest:(id)request taskDeliverer:(id)deliverer usageResultListener:(id)listener
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   delivererCopy = deliverer;
   listenerCopy = listener;
-  v22.receiver = self;
-  v22.super_class = AFSiriTaskExecution;
-  v12 = [(AFSiriTaskExecution *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = AFSiriTaskExecution;
+  v12 = [(AFSiriTaskExecution *)&v21 init];
   if (v12)
   {
     v13 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v24 = "[AFSiriTaskExecution initWithRequest:taskDeliverer:usageResultListener:]";
-      v25 = 2048;
-      v26 = v12;
+      v23 = "[AFSiriTaskExecution initWithRequest:taskDeliverer:usageResultListener:]";
+      v24 = 2048;
+      v25 = v12;
       _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s <AFSiriTaskExecution %p>", buf, 0x16u);
     }
 
@@ -546,7 +534,6 @@ void __49__AFSiriTaskExecution_handleSiriResponse_atTime___block_invoke(uint64_t
     [(NSXPCListener *)v12->_taskResponseListener resume];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

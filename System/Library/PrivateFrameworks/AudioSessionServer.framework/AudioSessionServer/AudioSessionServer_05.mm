@@ -22,7 +22,7 @@ void sub_24176872C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *avas::server::LegacySessionManager::FindSessionAndVerifyOwnershipPriv<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>>>(uint64_t a1, void *a2, void *a3, unsigned int a4, __int128 *a5, uint64_t a6)
+void *avas::server::LegacySessionManager::FindSessionAndVerifyOwnershipPriv<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>>>(uint64_t a1, void *a2, void *a3, int a4, __int128 *a5, uint64_t a6)
 {
   v6 = a3;
   v13 = a4;
@@ -73,48 +73,48 @@ void *avas::server::LegacySessionManager::FindSessionAndVerifyOwnershipPriv<std:
   return v6;
 }
 
-void avas::server::AudioSessionInfo::GetSiblingSessions(avas::server::AudioSessionInfo *this@<X0>, void *a2@<X8>)
+void avas::server::AudioSessionInfo::GetSiblingSessions(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
   os_unfair_lock_lock(this + 102);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::weak_ptr<avas::server::AudioSessionInfo>>::__init_with_size[abi:ne200100]<std::weak_ptr<avas::server::AudioSessionInfo>*,std::weak_ptr<avas::server::AudioSessionInfo>*>(a2, *(this + 52), *(this + 53), (*(this + 53) - *(this + 52)) >> 4);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<std::weak_ptr<avas::server::AudioSessionInfo>>::__init_with_size[abi:ne200100]<std::weak_ptr<avas::server::AudioSessionInfo>*,std::weak_ptr<avas::server::AudioSessionInfo>*>(a1, *&this[104]._os_unfair_lock_opaque, *&this[106]._os_unfair_lock_opaque, (*&this[106]._os_unfair_lock_opaque - *&this[104]._os_unfair_lock_opaque) >> 4);
 
   os_unfair_lock_unlock(this + 102);
 }
 
-void avas::server::LegacySessionManager::RemoveSessionFromMicrophoneInjectionModeMap(avas::server::LegacySessionManager *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+void avas::server::LegacySessionManager::RemoveSessionFromMicrophoneInjectionModeMap(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>, unsigned int a3@<W1>)
 {
   os_unfair_lock_lock(this + 56);
-  v6 = *(this + 30);
+  v6 = *&this[60]._os_unfair_lock_opaque;
   if (!v6)
   {
     goto LABEL_9;
   }
 
-  v7 = this + 240;
+  v7 = this + 60;
   do
   {
-    v8 = *(v6 + 8);
-    v9 = v8 >= a2;
-    v10 = v8 < a2;
+    os_unfair_lock_opaque = v6[8]._os_unfair_lock_opaque;
+    v9 = os_unfair_lock_opaque >= a3;
+    v10 = os_unfair_lock_opaque < a3;
     if (v9)
     {
       v7 = v6;
     }
 
-    v6 = *&v6[8 * v10];
+    v6 = *&v6[2 * v10]._os_unfair_lock_opaque;
   }
 
   while (v6);
-  if (v7 != this + 240 && (v11 = *(v7 + 8), v11 <= a2))
+  if (v7 != &this[60] && (v11 = v7[8]._os_unfair_lock_opaque, v11 <= a3))
   {
-    v13 = *(v7 + 5);
-    std::__tree<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>::__remove_node_pointer(this + 29, v7);
+    v13 = *&v7[10]._os_unfair_lock_opaque;
+    std::__tree<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>::__remove_node_pointer(&this[58], v7);
     operator delete(v7);
-    *a3 = v11;
-    *(a3 + 8) = v13;
+    *a1 = v11;
+    a1[1] = v13;
     v12 = 1;
   }
 
@@ -122,17 +122,17 @@ void avas::server::LegacySessionManager::RemoveSessionFromMicrophoneInjectionMod
   {
 LABEL_9:
     v12 = 0;
-    *a3 = 0;
+    *a1 = 0;
   }
 
-  *(a3 + 16) = v12;
+  *(a1 + 16) = v12;
 
   os_unfair_lock_unlock(this + 56);
 }
 
 void avas::server::LegacySessionManager::PrivateRemoveSessionFromApplication(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   SessionType = avas::server::ConstAudioSessionInfo::GetSessionType(*a3);
   if ((avas::server::AudioApplicationInfo::IsSessionTypeIgnored(SessionType) & 1) == 0)
   {
@@ -142,17 +142,17 @@ void avas::server::LegacySessionManager::PrivateRemoveSessionFromApplication(uin
       v7 = v6;
       v8 = *(v6 + 72);
       v9 = *(a3 + 8);
-      v16 = *a3;
-      v17 = v9;
+      v15 = *a3;
+      v16 = v9;
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      avas::server::AudioApplicationInfo::RemoveSession(v8, &v16);
-      if (v17)
+      avas::server::AudioApplicationInfo::RemoveSession(v8, &v15);
+      if (v16)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v16);
       }
 
       if (!avas::server::AudioApplicationInfo::HasStrongClientOwner(*(v7 + 72)))
@@ -160,8 +160,8 @@ void avas::server::LegacySessionManager::PrivateRemoveSessionFromApplication(uin
         avas::server::AudioApplicationInfo::GetSessions(*(v7 + 72), buf);
         v11 = *buf;
         v10 = *&buf[8];
-        v18 = buf;
-        std::vector<std::shared_ptr<avas::server::AudioSessionInfo>>::__destroy_vector::operator()[abi:ne200100](&v18);
+        v17 = buf;
+        std::vector<std::shared_ptr<avas::server::AudioSessionInfo>>::__destroy_vector::operator()[abi:ne200100](&v17);
         if (v10 == v11)
         {
           v13 = *avas::server::gSessionServerLog(v12);
@@ -172,8 +172,8 @@ void avas::server::LegacySessionManager::PrivateRemoveSessionFromApplication(uin
             *&buf[4] = "ServerSessionManager.mm";
             *&buf[12] = 1024;
             *&buf[14] = 1086;
-            v20 = 2080;
-            v21 = v14;
+            v19 = 2080;
+            v20 = v14;
             _os_log_impl(&dword_241701000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d destroy audio app instance since was created implicitly by session creation and all sessions now gone (audio app: %s)", buf, 0x1Cu);
           }
 
@@ -182,8 +182,6 @@ void avas::server::LegacySessionManager::PrivateRemoveSessionFromApplication(uin
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN4avas6server20LegacySessionManager20PrivateRemoveSessionERN5caulk10sync_guardINS0_17SessionCollectionENS2_4mach11unfair_lockEEEjRKNS0_15ProcessIdentityEP19NSMutableDictionary_block_invoke(uint64_t a1)
@@ -199,24 +197,24 @@ void avas::server::LegacySessionManager::RemoveProxyClientsForInvalidatedXPCConn
 {
   v3 = a2;
   __src = 0;
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
   os_unfair_lock_lock(this + 2);
   *lock.val = this + 2;
   *&lock.val[2] = this + 4;
-  caulk::sync_guard<avas::server::SessionCollection,caulk::mach::unfair_lock>::get(&lock, &v32);
+  caulk::sync_guard<avas::server::SessionCollection,caulk::mach::unfair_lock>::get(&lock, &v31);
   if (*lock.val)
   {
     os_unfair_lock_unlock(*lock.val);
   }
 
-  v4 = *v32.val;
-  v30 = v3;
+  v4 = *v31.val;
+  v29 = v3;
   v5 = v3;
   v6 = v5;
-  if (v4 != &v32.val[2])
+  if (v4 != &v31.val[2])
   {
-    v31 = v5;
+    v30 = v5;
     do
     {
       v7 = v4[1].val[0];
@@ -230,8 +228,8 @@ void avas::server::LegacySessionManager::RemoveProxyClientsForInvalidatedXPCConn
       v10 = *(v8 + 96);
       if (!v10)
       {
-        v29 = _os_crash();
-        [AVAudioSessionRemoteXPCClient initWithServer:v29 process:? delegate:?];
+        _os_crash();
+        [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
       }
 
       v11 = *(v8 + 104);
@@ -243,20 +241,20 @@ void avas::server::LegacySessionManager::RemoveProxyClientsForInvalidatedXPCConn
       avas::server::AudioSessionRemoteClientManager::GetRemoteClient(v10, v7, &lock);
       if (*lock.val && *(*lock.val + 176) == v6 && *(*lock.val + 168) == 1886550137)
       {
-        v12 = v35;
-        if (v35 >= v36)
+        v12 = v34;
+        if (v34 >= v35)
         {
           v14 = __src;
-          v15 = v35 - __src;
-          v16 = (v35 - __src) >> 2;
+          v15 = v34 - __src;
+          v16 = (v34 - __src) >> 2;
           v17 = v16 + 1;
           if ((v16 + 1) >> 62)
           {
             std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
           }
 
-          v18 = v36 - __src;
-          if ((v36 - __src) >> 1 > v17)
+          v18 = v35 - __src;
+          if ((v35 - __src) >> 1 > v17)
           {
             v17 = v18 >> 1;
           }
@@ -278,23 +276,23 @@ void avas::server::LegacySessionManager::RemoveProxyClientsForInvalidatedXPCConn
           memcpy(0, v14, v15);
           v21 = __src;
           __src = 0;
-          v35 = v13;
-          v36 = 0;
+          v34 = v13;
+          v35 = 0;
           if (v21)
           {
             operator delete(v21);
           }
 
-          v6 = v31;
+          v6 = v30;
         }
 
         else
         {
-          *v35 = v7;
+          *v34 = v7;
           v13 = (v12 + 4);
         }
 
-        v35 = v13;
+        v34 = v13;
       }
 
       if (*&lock.val[2])
@@ -339,41 +337,41 @@ void avas::server::LegacySessionManager::RemoveProxyClientsForInvalidatedXPCConn
       v4 = v23;
     }
 
-    while (v23 != &v32.val[2]);
+    while (v23 != &v31.val[2]);
   }
 
-  std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>>>::destroy(&v32.val[6], v33);
-  std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>>>::destroy(&v32, *&v32.val[2]);
+  std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>>>::destroy(&v31.val[6], v32);
+  std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>>>::destroy(&v31, *&v31.val[2]);
   v25 = __src;
-  v26 = v35;
+  v26 = v34;
   for (i = v6; v25 != v26; ++v25)
   {
     v28 = *v25;
     if (i)
     {
-      [(NSXPCConnection *)i auditToken];
+      objc_msgSend_auditToken(i, v29);
     }
 
     else
     {
-      memset(&v37, 0, sizeof(v37));
+      memset(&v36, 0, sizeof(v36));
     }
 
-    v32 = v37;
-    LOBYTE(v33) = 1;
-    lock = v37;
-    HIDWORD(v33) = audit_token_to_pid(&lock);
-    avas::server::LegacySessionManager::RemoveSession(this, v28, &v32);
+    v31 = v36;
+    LOBYTE(v32) = 1;
+    lock = v36;
+    HIDWORD(v32) = audit_token_to_pid(&lock);
+    avas::server::LegacySessionManager::RemoveSession(this, v28, &v31);
   }
 
   if (__src)
   {
-    v35 = __src;
+    v34 = __src;
     operator delete(__src);
   }
 }
 
-void sub_241769030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, os_unfair_lock_t lock, std::__shared_weak_count *a26)
+void sub_241769030(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, os_unfair_lock_t lock, std::__shared_weak_count *a26)
 {
   if (a26)
   {
@@ -441,10 +439,10 @@ void avas::server::LegacySessionManager::RemoveSessionsForInvalidatedXPCConnecti
 
 void avas::server::LegacySessionManager::GetSessionIDsForToken(avas::server::LegacySessionManager *this@<X0>, const audit_token_t *a2@<X1>, const void **a3@<X8>)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = *&a2->val[4];
-  *v36.val = *a2->val;
-  *&v36.val[4] = v5;
+  *v35.val = *a2->val;
+  *&v35.val[4] = v5;
   v6 = *&a2->val[4];
   *atoken.val = *a2->val;
   *&atoken.val[4] = v6;
@@ -453,25 +451,25 @@ void avas::server::LegacySessionManager::GetSessionIDsForToken(avas::server::Leg
   a3[1] = 0;
   a3[2] = 0;
   os_unfair_lock_lock(this + 2);
-  avas::server::SessionCollection::SessionPresentingIterator::SessionPresentingIterator(v32, *(this + 2), this + 24, *(this + 5), this + 48);
-  avas::server::SessionCollection::SessionPresentingIterator::SessionPresentingIterator(v28, this + 24, this + 24, this + 48, this + 48);
-  atoken = v36;
-  v25 = 1;
-  v26 = v7;
-  v27 = a3;
-  while (v32[0] != v28[0] || v32[2] != v28[2])
+  avas::server::SessionCollection::SessionPresentingIterator::SessionPresentingIterator(v31, *(this + 2), this + 24, *(this + 5), this + 48);
+  avas::server::SessionCollection::SessionPresentingIterator::SessionPresentingIterator(v27, this + 24, this + 24, this + 48, this + 48);
+  atoken = v35;
+  v24 = 1;
+  v25 = v7;
+  v26 = a3;
+  while (v31[0] != v27[0] || v31[2] != v27[2])
   {
-    v9 = v32[5];
-    v8 = v33;
-    if (v33)
+    v9 = v31[5];
+    v8 = v32;
+    if (v32)
     {
-      atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v10 = (*(*v9 + 80))(v9);
     if (avas::server::ProcessIdentity::operator==(v10, &atoken))
     {
-      v11 = v27;
+      v11 = v26;
       v12 = (*(*v9 + 16))(v9);
       v14 = v11[1];
       v13 = v11[2];
@@ -534,12 +532,7 @@ void avas::server::LegacySessionManager::GetSessionIDsForToken(avas::server::Leg
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
-    avas::server::SessionCollection::SessionPresentingIterator::operator++(v32);
-  }
-
-  if (v31)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+    avas::server::SessionCollection::SessionPresentingIterator::operator++(v31);
   }
 
   if (v30)
@@ -552,9 +545,9 @@ void avas::server::LegacySessionManager::GetSessionIDsForToken(avas::server::Leg
     std::__shared_weak_count::__release_shared[abi:ne200100](v29);
   }
 
-  if (v35)
+  if (v28)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
   if (v34)
@@ -567,19 +560,24 @@ void avas::server::LegacySessionManager::GetSessionIDsForToken(avas::server::Leg
     std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
 
+  if (v32)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+  }
+
   os_unfair_lock_unlock(this + 2);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void sub_241769538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_241769538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  avas::server::SessionCollection::SessionPresentingIterator::~SessionPresentingIterator(&a30);
-  os_unfair_lock_unlock(v30 + 2);
-  v32 = *a10;
+  va_start(va, a29);
+  avas::server::SessionCollection::SessionPresentingIterator::~SessionPresentingIterator(va);
+  os_unfair_lock_unlock(v29 + 2);
+  v31 = *a10;
   if (*a10)
   {
-    *(a10 + 8) = v32;
-    operator delete(v32);
+    *(a10 + 8) = v31;
+    operator delete(v31);
   }
 
   _Unwind_Resume(a1);
@@ -613,17 +611,17 @@ void sub_241769624(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 id avas::server::LegacySessionManager::PrivateGetAllSessionInformation(uint64_t a1, int a2, uint64_t a3, avas::server::ProcessIdentity *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = objc_opt_new();
-  memset(v36, 0, sizeof(v36));
-  v37 = 1065353216;
+  memset(v34, 0, sizeof(v34));
+  v35 = 1065353216;
   HasEntitlement = avas::server::ProcessIdentity::ProcessHasEntitlement(a4, "com.apple.private.coreaudio.audiohud");
   if (HasEntitlement)
   {
     v9 = *(a3 + 8);
     v10 = *v9;
-    v34 = v7;
-    v35 = v9 + 1;
+    v32 = v7;
+    v33 = v9 + 1;
     if (*v9 != v9 + 1)
     {
       do
@@ -638,8 +636,8 @@ id avas::server::LegacySessionManager::PrivateGetAllSessionInformation(uint64_t 
         v13 = *(v11 + 96);
         if (!v13)
         {
-          v33 = _os_crash();
-          [AVAudioSessionRemoteXPCClient initWithServer:v33 process:? delegate:?];
+          _os_crash();
+          [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
         }
 
         v14 = *(v11 + 104);
@@ -648,14 +646,14 @@ id avas::server::LegacySessionManager::PrivateGetAllSessionInformation(uint64_t 
           atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        avas::server::AudioSessionRemoteClientManager::GetRemoteClients(v13, v38);
+        avas::server::AudioSessionRemoteClientManager::GetRemoteClients(v36, v13);
         if (v14)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v14);
         }
 
-        v15 = v38[0];
-        v16 = v38[1];
+        v15 = v36[0];
+        v16 = v36[1];
         while (v15 != v16)
         {
           v17 = v15[1];
@@ -668,19 +666,19 @@ id avas::server::LegacySessionManager::PrivateGetAllSessionInformation(uint64_t 
               v20 = *v15;
               if (*v15)
               {
-                v39 = *(v20 + 8);
-                if (!std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(v36, &v39))
+                v37 = *(v20 + 8);
+                if (!std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(v34, &v37))
                 {
-                  *buf = &v39;
-                  if ((*(std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v36, &v39) + 20) & 1) == 0)
+                  *buf = &v37;
+                  if ((*(std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v34, &v37, &std::piecewise_construct, buf) + 20) & 1) == 0)
                   {
-                    v42[0] = @"AudioHUD_SessionID";
-                    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v39];
+                    v40[0] = @"AudioHUD_SessionID";
+                    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v37];
                     *buf = v21;
-                    v42[1] = @"AudioHUD_SessionType";
+                    v40[1] = @"AudioHUD_SessionType";
                     v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v20 + 168)];
                     *&buf[8] = v22;
-                    v42[2] = @"AudioHUD_ClientProcessName";
+                    v40[2] = @"AudioHUD_ClientProcessName";
                     v23 = (v20 + 184);
                     if (*(v20 + 207) < 0)
                     {
@@ -689,12 +687,12 @@ id avas::server::LegacySessionManager::PrivateGetAllSessionInformation(uint64_t 
 
                     v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:v23];
                     *&buf[16] = v24;
-                    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v42 count:3];
+                    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v40 count:3];
 
-                    [v34 addObject:v25];
-                    v40 = v39;
-                    v41 = 1;
-                    std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,BOOL>>(v36, &v40);
+                    [v32 addObject:v25];
+                    v38 = v37;
+                    v39 = 1;
+                    std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,BOOL>>(v34, &v38, &v38);
                   }
                 }
               }
@@ -706,7 +704,7 @@ id avas::server::LegacySessionManager::PrivateGetAllSessionInformation(uint64_t 
           v15 += 2;
         }
 
-        *buf = v38;
+        *buf = v36;
         std::vector<std::weak_ptr<avas::server::AudioSessionInfo>>::__destroy_vector::operator()[abi:ne200100](buf);
         if (v12)
         {
@@ -740,11 +738,11 @@ id avas::server::LegacySessionManager::PrivateGetAllSessionInformation(uint64_t 
         v10 = v27;
       }
 
-      while (v27 != v35);
+      while (v27 != v33);
     }
 
-    v7 = v34;
-    v29 = v34;
+    v7 = v32;
+    v29 = v32;
   }
 
   else
@@ -764,22 +762,20 @@ id avas::server::LegacySessionManager::PrivateGetAllSessionInformation(uint64_t 
     v29 = 0;
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(v36);
-
-  v31 = *MEMORY[0x277D85DE8];
+  std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(v34);
 
   return v29;
 }
 
-void sub_2417699D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2417699D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(va);
 
   _Unwind_Resume(a1);
 }
 
-void *avas::server::LegacySessionManager::GenerateIOControllerEventForSessions(avas::server::LegacySessionManager *this, uint64_t a2, int **a3)
+void **avas::server::LegacySessionManager::GenerateIOControllerEventForSessions(avas::server::LegacySessionManager *this, uint64_t a2, int **a3)
 {
   v21 = 0;
   v22 = 0;
@@ -790,7 +786,7 @@ void *avas::server::LegacySessionManager::GenerateIOControllerEventForSessions(a
   {
     do
     {
-      avas::server::LegacySessionManager::FindSession(this, *v3, &v19);
+      avas::server::LegacySessionManager::FindSession(&v19, this, *v3);
       if (v19)
       {
         (*(*v19 + 72))(&v24);
@@ -807,7 +803,7 @@ void *avas::server::LegacySessionManager::GenerateIOControllerEventForSessions(a
           __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
         }
 
-        if (v17 == v21 + 16 * v22)
+        if (v17 == &v21[2 * v22])
         {
           v15 = v18;
           v16 = v8;
@@ -835,7 +831,7 @@ void *avas::server::LegacySessionManager::GenerateIOControllerEventForSessions(a
 
       if (v22)
       {
-        v11 = v21 + 16 * v22;
+        v11 = &v21[2 * v22];
         do
         {
           if (!v10)
@@ -843,11 +839,11 @@ void *avas::server::LegacySessionManager::GenerateIOControllerEventForSessions(a
             __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
           }
 
-          v12 = *(v10 + 8);
+          v12 = v10[1];
           v13 = [v12 remoteObjectProxy];
           [v13 IOControllerEvent:a2 sessions:v9 isDecoupledInput:*(a3 + 24)];
 
-          v10 += 16;
+          v10 += 2;
         }
 
         while (v10 != v11);
@@ -858,16 +854,16 @@ void *avas::server::LegacySessionManager::GenerateIOControllerEventForSessions(a
   return boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::~vector(&v21);
 }
 
-void sub_241769CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_241769CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::~vector(va);
   _Unwind_Resume(a1);
 }
 
-void avas::server::LegacySessionManager::CreateAudioApplication(os_unfair_lock_s *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+void avas::server::LegacySessionManager::CreateAudioApplication(os_unfair_lock_s *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, os_unfair_lock_s **a4@<X8>)
 {
-  *&v23[5] = *MEMORY[0x277D85DE8];
+  *&v22[5] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = v7;
   if ((*(a2 + 88) & 1) == 0)
@@ -879,12 +875,12 @@ void avas::server::LegacySessionManager::CreateAudioApplication(os_unfair_lock_s
       v12 = *(a2 + 8);
       *buf = 136315906;
       *&buf[4] = "ServerSessionManager.mm";
-      v20 = 1024;
-      v21 = 832;
-      v22 = 1024;
-      v23[0] = v11;
-      LOWORD(v23[1]) = 2112;
-      *(&v23[1] + 2) = v12;
+      v19 = 1024;
+      v20 = 832;
+      v21 = 1024;
+      v22[0] = v11;
+      LOWORD(v22[1]) = 2112;
+      *(&v22[1] + 2) = v12;
       _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - cannot create audio app since audit token invalid (pid: %d, bundle: %@)", buf, 0x22u);
     }
 
@@ -914,45 +910,43 @@ void avas::server::LegacySessionManager::CreateAudioApplication(os_unfair_lock_s
       *&buf[1] = v15;
       if ((v15 - 32) > 0x5E || ((v15 >> 8) - 32) > 0x5E || ((v15 << 8 >> 24) - 32) > 0x5E || ((v15 >> 24) - 32) > 0x5E)
       {
-        std::to_string(&v18, v14);
+        std::to_string(&v17, v14);
       }
 
       else
       {
         strcpy(&buf[5], "'");
         buf[0] = 39;
-        std::string::basic_string[abi:ne200100]<0>(&v18, buf);
+        std::string::basic_string[abi:ne200100]<0>(&v17, buf);
       }
 
-      v16 = &v18;
-      if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v16 = &v17;
+      if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v16 = v18.__r_.__value_.__r.__words[0];
+        v16 = v17.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136315650;
       *&buf[4] = "ServerSessionManager.mm";
-      v20 = 1024;
-      v21 = 844;
-      v22 = 2080;
-      *v23 = v16;
+      v19 = 1024;
+      v20 = 844;
+      v21 = 2080;
+      *v22 = v16;
       _os_log_impl(&dword_241701000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - cannot create unknown application type: %s", buf, 0x1Cu);
-      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v18.__r_.__value_.__l.__data_);
+        operator delete(v17.__r_.__value_.__l.__data_);
       }
     }
 
 LABEL_22:
     *a4 = 0u;
-    *(a4 + 16) = 0u;
+    *(a4 + 1) = 0u;
     goto LABEL_23;
   }
 
   avas::server::LegacySessionManager::PrivateExplicitCreatePrimaryAudioApp(a1, a2, v7, a4);
 LABEL_23:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241769FA8(_Unwind_Exception *exception_object, int a2)
@@ -967,7 +961,7 @@ void sub_241769FA8(_Unwind_Exception *exception_object, int a2)
 
 void avas::server::LegacySessionManager::PrivateExplicitCreatePrimaryAudioApp(os_unfair_lock_s *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
-  *&v26[5] = *MEMORY[0x277D85DE8];
+  *&v25[5] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = avas::server::ProcessIdentity::operator==(a2 + 16, a2 + 56);
   if (v8)
@@ -975,30 +969,30 @@ void avas::server::LegacySessionManager::PrivateExplicitCreatePrimaryAudioApp(os
     os_unfair_lock_lock(a1 + 2);
     lock[0] = a1 + 2;
     lock[1] = a1 + 4;
-    avas::server::LegacySessionManager::PrivateFindOrCreatePrimaryApplication(a1, lock, a2, v7, &v20);
-    v9 = v20;
-    if ((v22 & 1) == 0)
+    avas::server::LegacySessionManager::PrivateFindOrCreatePrimaryApplication(a1, lock, a2, v7, &v19);
+    v9 = v19;
+    if ((v21 & 1) == 0)
     {
-      v10 = avas::server::AudioApplicationInfo::SetPrimaryClient(v20, a2, v7);
+      v10 = avas::server::AudioApplicationInfo::SetPrimaryClient(v19, a2, v7);
       if (!v10)
       {
-        v18 = *avas::server::gSessionServerLog(v10);
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v17 = *avas::server::gSessionServerLog(v10);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v19 = avas::server::AudioApplicationInfo::DebugString(v9);
+          v18 = avas::server::AudioApplicationInfo::DebugString(v9);
           *buf = 136315650;
           *&buf[4] = "ServerSessionManager.mm";
           *&buf[12] = 1024;
           *&buf[14] = 868;
-          v25 = 2080;
-          *v26 = v19;
-          _os_log_impl(&dword_241701000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create primary client (app: %s)", buf, 0x1Cu);
+          v24 = 2080;
+          *v25 = v18;
+          _os_log_impl(&dword_241701000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create primary client (app: %s)", buf, 0x1Cu);
         }
 
         *a4 = 0u;
         *(a4 + 16) = 0u;
-        v13 = v21;
-        if (!v21)
+        v13 = v20;
+        if (!v20)
         {
           goto LABEL_11;
         }
@@ -1022,14 +1016,14 @@ LABEL_11:
         *&buf[4] = "ServerSessionManager.mm";
         *&buf[12] = 1024;
         *&buf[14] = 872;
-        v25 = 2080;
-        *v26 = v12;
+        v24 = 2080;
+        *v25 = v12;
         _os_log_impl(&dword_241701000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Explicitly created audio app from implicitly-created instance (app: %s)", buf, 0x1Cu);
       }
     }
 
     avas::server::AudioApplicationInfo::GetPrimaryClient(v9, buf);
-    v13 = v21;
+    v13 = v20;
     *a4 = v9;
     *(a4 + 8) = v13;
     if (v13)
@@ -1055,18 +1049,16 @@ LABEL_11:
     *&buf[4] = "ServerSessionManager.mm";
     *&buf[12] = 1024;
     *&buf[14] = 855;
-    v25 = 1024;
-    v26[0] = v15;
-    LOWORD(v26[1]) = 1024;
-    *(&v26[1] + 2) = v16;
+    v24 = 1024;
+    v25[0] = v15;
+    LOWORD(v25[1]) = 1024;
+    *(&v25[1] + 2) = v16;
     _os_log_impl(&dword_241701000, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - primary application instances should have matching source\t\t\t\t\t   and creator process ids (source: %d, creator: %d)", buf, 0x1Eu);
   }
 
   *a4 = 0u;
   *(a4 + 16) = 0u;
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24176A294(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, os_unfair_lock_t lock)
@@ -1086,7 +1078,7 @@ void sub_24176A294(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void avas::server::LegacySessionManager::PrivateCreateProxyAudioApp(os_unfair_lock_s *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = avas::server::ProcessIdentity::operator==(a2 + 16, a2 + 56);
   if (v8)
@@ -1096,15 +1088,15 @@ void avas::server::LegacySessionManager::PrivateCreateProxyAudioApp(os_unfair_lo
     {
       v10 = *(a2 + 92);
       v11 = *(a2 + 52);
-      *v19 = 136315906;
-      *&v19[4] = "ServerSessionManager.mm";
-      *&v19[12] = 1024;
-      *&v19[14] = 908;
-      v20 = 1024;
-      v21 = v10;
-      v22 = 1024;
-      v23 = v11;
-      _os_log_impl(&dword_241701000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - proxy application instances must not have matching source\t\t\t\t\t   and creator process ids (source: %d, creator: %d)", v19, 0x1Eu);
+      *v18 = 136315906;
+      *&v18[4] = "ServerSessionManager.mm";
+      *&v18[12] = 1024;
+      *&v18[14] = 908;
+      v19 = 1024;
+      v20 = v10;
+      v21 = 1024;
+      v22 = v11;
+      _os_log_impl(&dword_241701000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - proxy application instances must not have matching source\t\t\t\t\t   and creator process ids (source: %d, creator: %d)", v18, 0x1Eu);
     }
 
     *a4 = 0u;
@@ -1122,13 +1114,13 @@ void avas::server::LegacySessionManager::PrivateCreateProxyAudioApp(os_unfair_lo
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = *(a2 + 92);
-        *v19 = 136315650;
-        *&v19[4] = "ServerSessionManager.mm";
-        *&v19[12] = 1024;
-        *&v19[14] = 916;
-        v20 = 1024;
-        v21 = v17;
-        _os_log_impl(&dword_241701000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - cannot create proxy instance - primary app instance (pid:%d) not found", v19, 0x18u);
+        *v18 = 136315650;
+        *&v18[4] = "ServerSessionManager.mm";
+        *&v18[12] = 1024;
+        *&v18[14] = 916;
+        v19 = 1024;
+        v20 = v17;
+        _os_log_impl(&dword_241701000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - cannot create proxy instance - primary app instance (pid:%d) not found", v18, 0x18u);
       }
 
       *a4 = 0u;
@@ -1137,7 +1129,7 @@ void avas::server::LegacySessionManager::PrivateCreateProxyAudioApp(os_unfair_lo
 
     else
     {
-      avas::server::AudioApplicationInfo::AddProxyAudioApp(v12[9], a2, v7, v19);
+      avas::server::AudioApplicationInfo::AddProxyAudioApp(v12[9], a2, v7, v18);
       v14 = v13[10];
       *a4 = v13[9];
       *(a4 + 8) = v14;
@@ -1146,23 +1138,21 @@ void avas::server::LegacySessionManager::PrivateCreateProxyAudioApp(os_unfair_lo
         atomic_fetch_add_explicit(&v14[2], 1uLL, memory_order_relaxed);
       }
 
-      v15 = *&v19[8];
-      *(a4 + 16) = *v19;
+      v15 = *&v18[8];
+      *(a4 + 16) = *v18;
       *(a4 + 24) = v15;
       if (v15)
       {
         atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
-        if (*&v19[8])
+        if (*&v18[8])
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*&v19[8]);
+          std::__shared_weak_count::__release_shared[abi:ne200100](*&v18[8]);
         }
       }
     }
 
     os_unfair_lock_unlock(a1 + 2);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24176A50C(_Unwind_Exception *a1)
@@ -1174,7 +1164,7 @@ void sub_24176A50C(_Unwind_Exception *a1)
 
 void avas::server::LegacySessionManager::PrivateCreateDelegateAudioApp(os_unfair_lock_s *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, os_unfair_lock_s **a4@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = avas::server::ProcessIdentity::operator==(a2 + 16, a2 + 56);
   if (v8)
@@ -1188,10 +1178,10 @@ void avas::server::LegacySessionManager::PrivateCreateDelegateAudioApp(os_unfair
       *&buf[4] = "ServerSessionManager.mm";
       *&buf[12] = 1024;
       *&buf[14] = 930;
+      v20 = 1024;
+      v21 = v10;
       v22 = 1024;
-      v23 = v10;
-      v24 = 1024;
-      v25 = v11;
+      v23 = v11;
       _os_log_impl(&dword_241701000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Warning - delegate application instances not expected to have matching source\t\t\t\t   and creator process ids (source: %d, creator: %d)", buf, 0x1Eu);
     }
   }
@@ -1210,8 +1200,8 @@ void avas::server::LegacySessionManager::PrivateCreateDelegateAudioApp(os_unfair
       *&buf[4] = "ServerSessionManager.mm";
       *&buf[12] = 1024;
       *&buf[14] = 939;
-      v22 = 1024;
-      v23 = v16;
+      v20 = 1024;
+      v21 = v16;
       _os_log_impl(&dword_241701000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Warning - source app instance (pid:%d) not found, will create delegate for this audit token anyway", buf, 0x18u);
     }
 
@@ -1222,13 +1212,13 @@ void avas::server::LegacySessionManager::PrivateCreateDelegateAudioApp(os_unfair
   v13 = *(v12 + 10);
   if (v13)
   {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
   }
 
   if (!v14)
   {
-    v19 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v19 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
   avas::server::AudioApplicationInfo::AddDelegateAudioApp(v14, a2, v7, buf);
@@ -1236,7 +1226,7 @@ void avas::server::LegacySessionManager::PrivateCreateDelegateAudioApp(os_unfair
   a4[1] = v13;
   if (v13)
   {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
   }
 
   v17 = *&buf[8];
@@ -1260,8 +1250,6 @@ void avas::server::LegacySessionManager::PrivateCreateDelegateAudioApp(os_unfair
   {
     os_unfair_lock_unlock(lock[0]);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24176A798(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, os_unfair_lock_t lock)
@@ -1276,7 +1264,7 @@ void sub_24176A798(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(os_unfair_lock_s *a1@<X0>, uint64_t a2@<X1>, avas::server::ProcessIdentity *a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (avas::server::LegacySessionManager::VerifyAudioAppPermission(a1, a2, a3, a5))
   {
     os_unfair_lock_lock(a1 + 2);
@@ -1288,11 +1276,11 @@ void avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(
       {
         v18 = *(a2 + 36);
         *buf = 136315650;
-        v27 = "ServerSessionManager.mm";
+        v25 = "ServerSessionManager.mm";
+        v26 = 1024;
+        v27 = 961;
         v28 = 1024;
-        v29 = 961;
-        v30 = 1024;
-        v31 = v18;
+        v29 = v18;
         _os_log_impl(&dword_241701000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Error - app (pid:%d) not found!", buf, 0x18u);
       }
 
@@ -1311,13 +1299,13 @@ void avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(
 
       if (!v13)
       {
-        v23 = _os_crash();
-        [AVAudioSessionRemoteXPCClient initWithServer:v23 process:? delegate:?];
+        _os_crash();
+        [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
       }
 
-      avas::server::AudioApplicationInfo::FindAudioAppClient(v13, a4, &v24);
-      v15 = v24;
-      if (v24)
+      avas::server::AudioApplicationInfo::FindAudioAppClient(v13, a4, &v22);
+      v15 = v22;
+      if (v22)
       {
         *a6 = v13;
         *(a6 + 8) = v12;
@@ -1326,7 +1314,7 @@ void avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(
           atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v16 = v25;
+        v16 = v23;
         *(a6 + 16) = v15;
         *(a6 + 24) = v16;
         if (v16)
@@ -1343,15 +1331,15 @@ void avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(
           v20 = *(a2 + 36);
           v21 = *(a3 + 9);
           *buf = 136316162;
-          v27 = "ServerSessionManager.mm";
+          v25 = "ServerSessionManager.mm";
+          v26 = 1024;
+          v27 = 971;
           v28 = 1024;
-          v29 = 971;
+          v29 = v20;
           v30 = 1024;
-          v31 = v20;
+          v31 = a4;
           v32 = 1024;
-          v33 = a4;
-          v34 = 1024;
-          v35 = v21;
+          v33 = v21;
           _os_log_impl(&dword_241701000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Error - app (pid:%d) found but audio app client (id: %u) not found (caller pid: %d)", buf, 0x24u);
         }
 
@@ -1359,9 +1347,9 @@ void avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(
         *(a6 + 16) = 0u;
       }
 
-      if (v25)
+      if (v23)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
       }
 
       if (v12)
@@ -1378,8 +1366,6 @@ void avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(
     *a6 = 0u;
     *(a6 + 16) = 0u;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24176AA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -1400,11 +1386,11 @@ void sub_24176AA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 BOOL avas::server::LegacySessionManager::VerifyAudioAppPermission(uint64_t a1, uint64_t a2, avas::server::ProcessIdentity *a3, uint64_t a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = avas::server::ProcessIdentity::operator==(a2, a3);
   if (v7)
   {
-    goto LABEL_2;
+    return 1;
   }
 
   if (*(a4 + 4) != 1 || *a4 != 0)
@@ -1413,85 +1399,80 @@ BOOL avas::server::LegacySessionManager::VerifyAudioAppPermission(uint64_t a1, u
     result = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     if (!result)
     {
-      goto LABEL_13;
+      return result;
     }
 
     v11 = *(a2 + 36);
     v12 = *(a3 + 9);
-    v21 = 136315906;
-    v22 = "ServerSessionManager.mm";
-    v23 = 1024;
-    v24 = 999;
-    v25 = 1024;
-    v26 = v11;
-    v27 = 1024;
-    v28 = v12;
+    v20 = 136315906;
+    v21 = "ServerSessionManager.mm";
+    v22 = 1024;
+    v23 = 999;
+    v24 = 1024;
+    v25 = v11;
+    v26 = 1024;
+    v27 = v12;
     v13 = "%25s:%-5d Failed to verify access to application with pid: %d from caller with pid:%d";
     v14 = v10;
     v15 = OS_LOG_TYPE_DEFAULT;
-LABEL_12:
-    _os_log_impl(&dword_241701000, v14, v15, v13, &v21, 0x1Eu);
-    result = 0;
-    goto LABEL_13;
-  }
-
-  HasEntitlement = avas::server::ProcessIdentity::ProcessHasEntitlement(a3, "com.apple.private.coreaudio.borrowaudioapplication.allow");
-  if (!HasEntitlement)
-  {
-    v17 = *avas::server::gSessionServerLog(HasEntitlement);
-    result = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
-    if (!result)
-    {
-      goto LABEL_13;
-    }
-
-    v18 = *(a2 + 36);
-    v19 = *(a3 + 9);
-    v21 = 136315906;
-    v22 = "ServerSessionManager.mm";
-    v23 = 1024;
-    v24 = 993;
-    v25 = 1024;
-    v26 = v18;
-    v27 = 1024;
-    v28 = v19;
-    v13 = "%25s:%-5d Lookup of audio app (pid:%d) succeeded, but calling client (pid:%d) does not have entitlement to use it";
-    v14 = v17;
-    v15 = OS_LOG_TYPE_INFO;
     goto LABEL_12;
   }
 
-LABEL_2:
-  result = 1;
-LABEL_13:
-  v20 = *MEMORY[0x277D85DE8];
+  HasEntitlement = avas::server::ProcessIdentity::ProcessHasEntitlement(a3, "com.apple.private.coreaudio.borrowaudioapplication.allow");
+  if (HasEntitlement)
+  {
+    return 1;
+  }
+
+  v17 = *avas::server::gSessionServerLog(HasEntitlement);
+  result = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+  if (result)
+  {
+    v18 = *(a2 + 36);
+    v19 = *(a3 + 9);
+    v20 = 136315906;
+    v21 = "ServerSessionManager.mm";
+    v22 = 1024;
+    v23 = 993;
+    v24 = 1024;
+    v25 = v18;
+    v26 = 1024;
+    v27 = v19;
+    v13 = "%25s:%-5d Lookup of audio app (pid:%d) succeeded, but calling client (pid:%d) does not have entitlement to use it";
+    v14 = v17;
+    v15 = OS_LOG_TYPE_INFO;
+LABEL_12:
+    _os_log_impl(&dword_241701000, v14, v15, v13, &v20, 0x1Eu);
+    return 0;
+  }
+
   return result;
 }
 
-void avas::server::LegacySessionManager::RemoveApplicationForInvalidatedXPCConnection(avas::server::LegacySessionManager *this, NSXPCConnection *a2)
+void avas::server::LegacySessionManager::RemoveApplicationForInvalidatedXPCConnection(os_unfair_lock_s *this, NSXPCConnection *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   os_unfair_lock_lock(this + 2);
-  v4 = *(this + 8);
-  v5 = this + 72;
-  if (v4 != (this + 72))
+  v4 = *&this[16]._os_unfair_lock_opaque;
+  v5 = this + 18;
+  if (v4 != &this[18])
   {
     while (1)
     {
-      v6 = avas::server::AudioApplicationInfo::HandleXPCConnectionInvalidated(v4[9], v3);
+      v6 = avas::server::AudioApplicationInfo::HandleXPCConnectionInvalidated(*&v4[18]._os_unfair_lock_opaque, v3);
       if (v6)
       {
         break;
       }
 
-      v7 = v4[1];
+      v7 = *&v4[2]._os_unfair_lock_opaque;
       if (v7)
       {
         do
         {
           v8 = v7;
-          v7 = *v7;
+          v7 = *&v7->_os_unfair_lock_opaque;
         }
 
         while (v7);
@@ -1501,8 +1482,8 @@ void avas::server::LegacySessionManager::RemoveApplicationForInvalidatedXPCConne
       {
         do
         {
-          v8 = v4[2];
-          v9 = *v8 == v4;
+          v8 = *&v4[4]._os_unfair_lock_opaque;
+          v9 = *&v8->_os_unfair_lock_opaque == v4;
           v4 = v8;
         }
 
@@ -1521,24 +1502,22 @@ void avas::server::LegacySessionManager::RemoveApplicationForInvalidatedXPCConne
       v10 = *avas::server::gSessionServerLog(v6);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = avas::server::AudioApplicationInfo::DebugString(v4[9]);
-        v13 = 136315650;
-        v14 = "ServerSessionManager.mm";
-        v15 = 1024;
-        v16 = 1129;
-        v17 = 2080;
-        v18 = v11;
-        _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Removing audio application since all owning remote clients gone (app: %s)", &v13, 0x1Cu);
+        v11 = avas::server::AudioApplicationInfo::DebugString(*&v4[18]._os_unfair_lock_opaque);
+        v12 = 136315650;
+        v13 = "ServerSessionManager.mm";
+        v14 = 1024;
+        v15 = 1129;
+        v16 = 2080;
+        v17 = v11;
+        _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Removing audio application since all owning remote clients gone (app: %s)", &v12, 0x1Cu);
       }
 
-      std::__tree<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::__map_value_compare<avas::server::ProcessIdentity,std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::less<avas::server::ProcessIdentity>,true>,std::allocator<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>>>::erase(this + 8, v4);
+      std::__tree<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::__map_value_compare<avas::server::ProcessIdentity,std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::less<avas::server::ProcessIdentity>,true>,std::allocator<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>>>::erase(&this[16], v4);
     }
   }
 
 LABEL_14:
   os_unfair_lock_unlock(this + 2);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24176ADA8(_Unwind_Exception *a1)
@@ -1548,32 +1527,32 @@ void sub_24176ADA8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void avas::server::LegacySessionManager::RemoveApplicationUponAppTermination(uint64_t a1, void *a2)
+void avas::server::LegacySessionManager::RemoveApplicationUponAppTermination(os_unfair_lock_s *a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = *(*a2 + 64);
-  v23[0] = *(*a2 + 48);
-  v23[1] = v5;
-  v24 = *(v4 + 80);
-  os_unfair_lock_lock((a1 + 8));
-  v6 = std::__tree<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::__map_value_compare<avas::server::ProcessIdentity,std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::less<avas::server::ProcessIdentity>,true>,std::allocator<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>>>::find<avas::server::ProcessIdentity>(a1 + 64, v23);
+  v22[0] = *(*a2 + 48);
+  v22[1] = v5;
+  v23 = *(v4 + 80);
+  os_unfair_lock_lock(a1 + 2);
+  v6 = std::__tree<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::__map_value_compare<avas::server::ProcessIdentity,std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::less<avas::server::ProcessIdentity>,true>,std::allocator<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>>>::find<avas::server::ProcessIdentity>(&a1[16], v22);
   v7 = v6;
-  if ((a1 + 72) == v6)
+  if (&a1[18] == v6)
   {
     v15 = *avas::server::gSessionServerLog(v6);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = HIDWORD(v24);
+      v20 = HIDWORD(v23);
       v21 = (*(**a2 + 16))(*a2, v16, v17, v18, v19);
       *buf = 136315906;
-      v26 = "ServerSessionManager.mm";
-      v27 = 1024;
-      v28 = 1143;
-      v29 = 1024;
-      v30 = v20;
-      v31 = 1024;
-      LODWORD(v32) = v21;
+      v25 = "ServerSessionManager.mm";
+      v26 = 1024;
+      v27 = 1143;
+      v28 = 1024;
+      v29 = v20;
+      v30 = 1024;
+      LODWORD(v31) = v21;
       _os_log_impl(&dword_241701000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Warning - app (pid:%d) not found for sessionID: 0x%x", buf, 0x1Eu);
     }
   }
@@ -1586,32 +1565,31 @@ void avas::server::LegacySessionManager::RemoveApplicationUponAppTermination(uin
       v13 = (*(**a2 + 16))(*a2, v9, v10, v11, v12);
       v14 = avas::server::AudioApplicationInfo::DebugString(*(v7 + 9));
       *buf = 136315906;
-      v26 = "ServerSessionManager.mm";
-      v27 = 1024;
-      v28 = 1147;
-      v29 = 1024;
-      v30 = v13;
-      v31 = 2080;
-      v32 = v14;
+      v25 = "ServerSessionManager.mm";
+      v26 = 1024;
+      v27 = 1147;
+      v28 = 1024;
+      v29 = v13;
+      v30 = 2080;
+      v31 = v14;
       _os_log_impl(&dword_241701000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Removing application due to session (0x%x) received app state terminated (app: %s)", buf, 0x22u);
     }
 
-    std::__tree<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::__map_value_compare<avas::server::ProcessIdentity,std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::less<avas::server::ProcessIdentity>,true>,std::allocator<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>>>::erase((a1 + 64), v7);
+    std::__tree<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::__map_value_compare<avas::server::ProcessIdentity,std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>,std::less<avas::server::ProcessIdentity>,true>,std::allocator<std::__value_type<avas::server::ProcessIdentity,std::shared_ptr<avas::server::AudioApplicationInfo>>>>::erase(&a1[16], v7);
   }
 
-  os_unfair_lock_unlock((a1 + 8));
-  v22 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_unlock(a1 + 2);
 }
 
 id avas::server::LegacySessionManager::ToggleInputMuteForRecordingApplication(avas::server::LegacySessionManager *this, const audit_token_t *a2)
 {
   v32 = *MEMORY[0x277D85DE8];
   v4 = *avas::server::forbid_acq::SystemController::Instance(this);
-  v5 = v4;
+  v6 = v4;
   if (!v4)
   {
-    v11 = *avas::server::gSessionServerLog(0);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = *avas::server::gSessionServerLog(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *v29 = 136315650;
       *&v29[4] = "ServerSessionManager.mm";
@@ -1619,10 +1597,10 @@ id avas::server::LegacySessionManager::ToggleInputMuteForRecordingApplication(av
       *&v29[14] = 1189;
       *&v29[18] = 2112;
       *&v29[20] = @"Failed to get the MXSystemController instance";
-      _os_log_impl(&dword_241701000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d %@", v29, 0x1Cu);
+      _os_log_impl(&dword_241701000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d %@", v29, 0x1Cu);
     }
 
-    v12 = NSErrorWithString(&cfstr_FailedToGetThe.isa);
+    v13 = NSErrorWithString(&cfstr_FailedToGetThe.isa);
     goto LABEL_13;
   }
 
@@ -1635,15 +1613,15 @@ id avas::server::LegacySessionManager::ToggleInputMuteForRecordingApplication(av
 
   if ((avas::AudioSessionMuteEnabled(void)::enabled & 1) == 0)
   {
-    if (![v5 toggleInputMute])
+    if (![v6 toggleInputMute])
     {
-      v10 = 0;
+      v11 = 0;
       goto LABEL_17;
     }
 
-    v12 = NSErrorWithString(&cfstr_Mxsystemcontro.isa);
+    v13 = NSErrorWithString(&cfstr_Mxsystemcontro.isa);
 LABEL_13:
-    v10 = v12;
+    v11 = v13;
     goto LABEL_17;
   }
 
@@ -1653,46 +1631,44 @@ LABEL_13:
   *&v29[24] = __Block_byref_object_copy_;
   v30 = __Block_byref_object_dispose_;
   v31 = 0;
-  v6 = avas::server::GetAudioControlQueue(v4);
+  v7 = avas::server::GetAudioControlQueue(v4, v5);
   v15 = MEMORY[0x277D85DD0];
   v16 = 3221225472;
   v17 = ___ZN4avas6server20LegacySessionManager38ToggleInputMuteForRecordingApplicationERK13audit_token_t_block_invoke;
   v18 = &unk_278CEAF70;
   v21 = this;
-  v19 = v5;
+  v19 = v6;
   v20 = v29;
   v22 = a2;
-  avas::server::DispatchBlock(v6, &v15, 1, "ToggleInputMuteForRecordingApplication", "ServerSessionManager.mm", 1259, 0, 0);
+  avas::server::DispatchBlock(v7, &v15, 1, "ToggleInputMuteForRecordingApplication", "ServerSessionManager.mm", 1259, 0, 0);
 
   if (*(*&v29[8] + 40))
   {
-    v8 = *avas::server::gSessionServerLog(v7);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = *avas::server::gSessionServerLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = [*(*&v29[8] + 40) description];
+      v10 = [*(*&v29[8] + 40) description];
       *buf = 136315650;
       v24 = "ServerSessionManager.mm";
       v25 = 1024;
       v26 = 1261;
       v27 = 2112;
-      v28 = v9;
-      _os_log_impl(&dword_241701000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d %@", buf, 0x1Cu);
+      v28 = v10;
+      _os_log_impl(&dword_241701000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d %@", buf, 0x1Cu);
     }
 
-    v10 = *(*&v29[8] + 40);
+    v11 = *(*&v29[8] + 40);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   _Block_object_dispose(v29, 8);
 LABEL_17:
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 void sub_24176B374(_Unwind_Exception *a1)
@@ -1710,11 +1686,11 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 void ___ZN4avas6server20LegacySessionManager38ToggleInputMuteForRecordingApplicationERK13audit_token_t_block_invoke(uint64_t a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
-  v53 = 1;
-  v52 = 0;
-  if ([*(a1 + 32) copySessionIDsWithMuteValue:&v52 muteValue:&v53])
+  v52 = 1;
+  v51 = 0;
+  if ([*(a1 + 32) copySessionIDsWithMuteValue:&v51 muteValue:&v52])
   {
     v3 = NSErrorWithString(&cfstr_FailedToGetSes.isa);
     v4 = *(*(a1 + 40) + 8);
@@ -1725,32 +1701,32 @@ void ___ZN4avas6server20LegacySessionManager38ToggleInputMuteForRecordingApplica
   else
   {
     __p = 0;
+    v49 = 0;
     v50 = 0;
-    v51 = 0;
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v6 = v52;
-    v7 = [v6 countByEnumeratingWithState:&v45 objects:v61 count:16];
+    v6 = v51;
+    v7 = [v6 countByEnumeratingWithState:&v44 objects:v60 count:16];
     if (v7)
     {
-      v8 = *v46;
+      v8 = *v45;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v46 != v8)
+          if (*v45 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v45 + 1) + 8 * i);
-          LODWORD(v43) = [v10 unsignedIntegerValue];
-          boost::container::dtl::flat_tree<unsigned int,boost::move_detail::identity<unsigned int>,std::less<unsigned int>,void>::insert_unique(&__p, &v43, buf);
+          v10 = *(*(&v44 + 1) + 8 * i);
+          LODWORD(v42) = [v10 unsignedIntegerValue];
+          boost::container::dtl::flat_tree<unsigned int,boost::move_detail::identity<unsigned int>,std::less<unsigned int>,void>::insert_unique(&__p, &v42, buf);
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v45 objects:v61 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v44 objects:v60 count:16];
       }
 
       while (v7);
@@ -1763,12 +1739,12 @@ void ___ZN4avas6server20LegacySessionManager38ToggleInputMuteForRecordingApplica
       *&buf[4] = "ServerSessionManager.mm";
       *&buf[12] = 1024;
       *&buf[14] = 1218;
-      v55 = 2048;
-      v56 = v50;
+      v54 = 2048;
+      v55 = v49;
       _os_log_impl(&dword_241701000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d MX identified %lu sessions to mute", buf, 0x1Cu);
     }
 
-    if (v50)
+    if (v49)
     {
       v13 = __p;
       if (!__p)
@@ -1777,36 +1753,36 @@ void ___ZN4avas6server20LegacySessionManager38ToggleInputMuteForRecordingApplica
       }
 
       v14 = 0;
-      v15 = 4 * v50;
+      v15 = 4 * v49;
       do
       {
         avas::server::ConstAudioSessionInfoAccessor::ConstAudioSessionInfoAccessor(buf, *v13);
         if (*buf)
         {
-          v41 = *buf;
-          v42 = *&buf[8];
+          v40 = *buf;
+          v41 = *&buf[8];
           if (*&buf[8])
           {
             atomic_fetch_add_explicit((*&buf[8] + 8), 1uLL, memory_order_relaxed);
           }
 
-          avas::server::LegacySessionManager::FindAudioApplicationForSession(v2, &v41, 0, &v43);
-          v17 = v43;
-          v16 = v44;
+          avas::server::LegacySessionManager::FindAudioApplicationForSession(v2, &v40, 0, &v42);
+          v17 = v42;
+          v16 = v43;
+          v42 = 0;
           v43 = 0;
-          v44 = 0;
           if (v14)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-            if (v44)
+            if (v43)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v43);
             }
           }
 
-          if (v42)
+          if (v41)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v41);
           }
 
           if (*&buf[8])
@@ -1834,25 +1810,25 @@ void ___ZN4avas6server20LegacySessionManager38ToggleInputMuteForRecordingApplica
       v17 = 0;
       v16 = v14;
 LABEL_31:
-      v39 = v17;
-      v40 = v16;
+      v38 = v17;
+      v39 = v16;
       if (v16)
       {
         atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v18 = avas::server::require_acq::MuteAudioSessions(&v39, v53, &__p, *(a1 + 56));
-      v19 = v40;
-      if (v40)
+      v18 = avas::server::require_acq::MuteAudioSessions(&v38, v52, &__p, *(a1 + 56));
+      v19 = v39;
+      if (v39)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v39);
       }
 
       if (v18)
       {
         v20 = MEMORY[0x277CCACA8];
-        v21 = v53;
-        v22 = [v52 description];
+        v21 = v52;
+        v22 = [v51 description];
         v23 = v22;
         v24 = @"UNMUTED";
         if (v21)
@@ -1860,7 +1836,7 @@ LABEL_31:
           v24 = @"MUTED";
         }
 
-        v25 = [v20 stringWithFormat:@"Cannot toggle input mute, setting %@ failed {%@}", v24, v22, v39];
+        v25 = [v20 stringWithFormat:@"Cannot toggle input mute, setting %@ failed {%@}", v24, v22, v38];
         v26 = NSErrorWithString(v25);
         v27 = *(*(a1 + 40) + 8);
         v28 = *(v27 + 40);
@@ -1869,7 +1845,7 @@ LABEL_31:
 
       else if (v17)
       {
-        v32 = v53;
+        v32 = v52;
         v33 = *avas::server::gSessionServerLog(v19);
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
@@ -1879,21 +1855,21 @@ LABEL_31:
           v35 = "UNMUTED";
           *&buf[14] = 1245;
           *buf = 136316162;
-          v55 = 2080;
+          v54 = 2080;
           if (v32)
           {
             v35 = "MUTED";
           }
 
-          v56 = v35;
-          v57 = 2080;
-          v58 = v35;
-          v59 = 2080;
-          v60 = v34;
+          v55 = v35;
+          v56 = 2080;
+          v57 = v35;
+          v58 = 2080;
+          v59 = v34;
           _os_log_impl(&dword_241701000, v33, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AudioApp input mute toggle explicitly set %s, new sessions will be created %s (app: %s)", buf, 0x30u);
         }
 
-        v36 = [MEMORY[0x277CCABB0] numberWithBool:v53];
+        v36 = [MEMORY[0x277CCABB0] numberWithBool:v52];
         avas::server::AudioApplicationInfo::SetProperty(v17, @"NewSessionsShouldBeInputMuted", v36);
       }
 
@@ -1923,13 +1899,11 @@ LABEL_31:
       *(v30 + 40) = v29;
     }
 
-    if (v51)
+    if (v50)
     {
       operator delete(__p);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24176B938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32)
@@ -1947,7 +1921,7 @@ void sub_24176B938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t avas::server::LegacySessionManager::MuteInputsForRecordingApplications@<X0>(uint64_t a1@<X8>)
+uint64_t *avas::server::LegacySessionManager::MuteInputsForRecordingApplications@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
   result = NSErrorWithString(&cfstr_UnsupportedPla.isa);
   *a1 = result;
@@ -1957,7 +1931,7 @@ uint64_t avas::server::LegacySessionManager::MuteInputsForRecordingApplications@
 
 void ___ZN4avas6server20LegacySessionManager22StartProcessMonitoringEi_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1968,45 +1942,43 @@ void ___ZN4avas6server20LegacySessionManager22StartProcessMonitoringEi_block_inv
     {
       v9 = *(a1 + 32);
       v10 = [v5 name];
-      v12 = 136315906;
-      v13 = "ServerSessionManager.mm";
-      v14 = 1024;
-      v15 = 1327;
-      v16 = 1024;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_241701000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Monitored process died, pid = %d, name = %@", &v12, 0x22u);
+      v11 = 136315906;
+      v12 = "ServerSessionManager.mm";
+      v13 = 1024;
+      v14 = 1327;
+      v15 = 1024;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_241701000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Monitored process died, pid = %d, name = %@", &v11, 0x22u);
     }
   }
 
   avas::server::LegacySessionManager::Instance(v6);
   avas::server::LegacySessionManager::HandleProcessDeath(&avas::server::LegacySessionManager::Instance(void)::sManager, *(a1 + 32));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void avas::server::LegacySessionManager::HandleProcessDeath(avas::server::LegacySessionManager *this, signed int a2)
+void avas::server::LegacySessionManager::HandleProcessDeath(os_unfair_lock_s *this, int a2)
 {
   os_unfair_lock_lock(this + 26);
-  v4 = *(this + 15);
+  v4 = *&this[30]._os_unfair_lock_opaque;
   if (v4)
   {
-    v5 = (this + 120);
+    v5 = this + 30;
     do
     {
-      if (v4[8] >= a2)
+      if (v4[8]._os_unfair_lock_opaque >= a2)
       {
         v5 = v4;
       }
 
-      v4 = *&v4[2 * (v4[8] < a2)];
+      v4 = *&v4[2 * (v4[8]._os_unfair_lock_opaque < a2)]._os_unfair_lock_opaque;
     }
 
     while (v4);
-    if (v5 != (this + 120) && v5[8] <= a2)
+    if (v5 != &this[30] && v5[8]._os_unfair_lock_opaque <= a2)
     {
-      std::__tree<std::__value_type<int,RBSProcessHandle * {__strong}>,std::__map_value_compare<int,std::__value_type<int,RBSProcessHandle * {__strong}>,std::less<int>,true>,std::allocator<std::__value_type<int,RBSProcessHandle * {__strong}>>>::erase(this + 14, v5);
+      std::__tree<std::__value_type<int,RBSProcessHandle * {__strong}>,std::__map_value_compare<int,std::__value_type<int,RBSProcessHandle * {__strong}>,std::less<int>,true>,std::allocator<std::__value_type<int,RBSProcessHandle * {__strong}>>>::erase(&this[28], v5);
     }
   }
 
@@ -2015,14 +1987,14 @@ void avas::server::LegacySessionManager::HandleProcessDeath(avas::server::Legacy
   v33 = 0;
   v34 = 0;
   os_unfair_lock_lock(this + 2);
-  v6 = *(this + 2);
-  if (v6 != (this + 24))
+  v6 = *&this[4]._os_unfair_lock_opaque;
+  if (v6 != &this[6])
   {
     do
     {
-      v7 = *(v6 + 40);
+      v7 = *&v6[10]._os_unfair_lock_opaque;
       v31 = v7;
-      v8 = *(v6 + 6);
+      v8 = *&v6[12]._os_unfair_lock_opaque;
       if (*(&v7 + 1))
       {
         atomic_fetch_add_explicit((*(&v7 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -2096,13 +2068,13 @@ void avas::server::LegacySessionManager::HandleProcessDeath(avas::server::Legacy
         std::__shared_weak_count::__release_shared[abi:ne200100](v8);
       }
 
-      v20 = *(v6 + 1);
+      v20 = *&v6[2]._os_unfair_lock_opaque;
       if (v20)
       {
         do
         {
           v21 = v20;
-          v20 = *v20;
+          v20 = *&v20->_os_unfair_lock_opaque;
         }
 
         while (v20);
@@ -2112,8 +2084,8 @@ void avas::server::LegacySessionManager::HandleProcessDeath(avas::server::Legacy
       {
         do
         {
-          v21 = *(v6 + 2);
-          v22 = *v21 == v6;
+          v21 = *&v6[4]._os_unfair_lock_opaque;
+          v22 = *&v21->_os_unfair_lock_opaque == v6;
           v6 = v21;
         }
 
@@ -2123,7 +2095,7 @@ void avas::server::LegacySessionManager::HandleProcessDeath(avas::server::Legacy
       v6 = v21;
     }
 
-    while (v21 != (this + 24));
+    while (v21 != &this[6]);
   }
 
   os_unfair_lock_unlock(this + 2);
@@ -2158,20 +2130,20 @@ void avas::server::LegacySessionManager::HandleProcessDeath(avas::server::Legacy
   std::vector<std::weak_ptr<avas::server::AudioSessionInfo>>::__destroy_vector::operator()[abi:ne200100](v35);
 }
 
-void avas::server::LegacySessionManager::RemoveProcessFromMicrophoneInjectionNotificationSubscription(avas::server::LegacySessionManager *this, unsigned int a2)
+void avas::server::LegacySessionManager::RemoveProcessFromMicrophoneInjectionNotificationSubscription(os_unfair_lock_s *this, unsigned int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(this + 56);
-  v5 = *(this + 33);
-  v6 = this + 272;
-  if (v5 != (this + 272))
+  v5 = *&this[66]._os_unfair_lock_opaque;
+  v6 = this + 68;
+  if (v5 != &this[68])
   {
     while (1)
     {
       v7 = *(v5 + 56);
-      *v13.val = *(v5 + 40);
-      *&v13.val[4] = v7;
-      v4 = audit_token_to_pid(&v13);
+      *v12.val = *(v5 + 40);
+      *&v12.val[4] = v7;
+      v4 = audit_token_to_pid(&v12);
       if (v4 == a2)
       {
         break;
@@ -2183,7 +2155,7 @@ void avas::server::LegacySessionManager::RemoveProcessFromMicrophoneInjectionNot
         do
         {
           v9 = v8;
-          v8 = *v8;
+          v8 = *&v8->_os_unfair_lock_opaque;
         }
 
         while (v8);
@@ -2194,7 +2166,7 @@ void avas::server::LegacySessionManager::RemoveProcessFromMicrophoneInjectionNot
         do
         {
           v9 = *(v5 + 16);
-          v10 = *v9 == v5;
+          v10 = *&v9->_os_unfair_lock_opaque == v5;
           v5 = v9;
         }
 
@@ -2214,21 +2186,20 @@ void avas::server::LegacySessionManager::RemoveProcessFromMicrophoneInjectionNot
     v11 = *avas::server::gSessionServerLog(v4);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13.val[0] = 136315650;
-      *&v13.val[1] = "ServerSessionManager.mm";
-      LOWORD(v13.val[3]) = 1024;
-      *(&v13.val[3] + 2) = 1548;
-      HIWORD(v13.val[4]) = 1024;
-      v13.val[5] = a2;
-      _os_log_impl(&dword_241701000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Removing process with PID:%d from MicrophoneInjectionNotificationSubscription", &v13, 0x18u);
+      v12.val[0] = 136315650;
+      *&v12.val[1] = "ServerSessionManager.mm";
+      LOWORD(v12.val[3]) = 1024;
+      *(&v12.val[3] + 2) = 1548;
+      HIWORD(v12.val[4]) = 1024;
+      v12.val[5] = a2;
+      _os_log_impl(&dword_241701000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Removing process with PID:%d from MicrophoneInjectionNotificationSubscription", &v12, 0x18u);
     }
 
-    std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::erase(this + 33, v5);
+    std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::erase(&this[66], v5);
   }
 
 LABEL_14:
   os_unfair_lock_unlock(this + 56);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t avas::server::LegacySessionManager::GetPreferredMicrophoneInjectionMode(os_unfair_lock_s *this, unsigned int a2)
@@ -2267,56 +2238,55 @@ uint64_t avas::server::LegacySessionManager::GetPreferredMicrophoneInjectionMode
 
   else
   {
-    avas::server::LegacySessionManager::RemoveSessionFromMicrophoneInjectionModeMap(this, a2, v11);
+    avas::server::LegacySessionManager::RemoveSessionFromMicrophoneInjectionModeMap(v11, this, a2);
   }
 
   return 0;
 }
 
-BOOL avas::server::LegacySessionManager::SetPreferredMicrophoneInjectionMode(uint64_t a1, uint64_t a2, unsigned int a3)
+BOOL avas::server::LegacySessionManager::SetPreferredMicrophoneInjectionMode(os_unfair_lock_s *a1, uint64_t a2, unsigned int a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v11 = a2;
-  v10 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v10 = a2;
+  v9 = a3;
   v5 = avas::server::LegacySessionManager::SessionIDIsValid(a1, a3);
   if (v5)
   {
-    os_unfair_lock_lock((a1 + 224));
-    v6 = std::map<unsigned int,AVAudioSessionMicrophoneInjectionMode>::insert_or_assign[abi:ne200100]<AVAudioSessionMicrophoneInjectionMode&>((a1 + 232), &v10, &v11);
+    os_unfair_lock_lock(a1 + 56);
+    v6 = std::map<unsigned int,AVAudioSessionMicrophoneInjectionMode>::insert_or_assign[abi:ne200100]<AVAudioSessionMicrophoneInjectionMode&>(&a1[58], &v9, &v10);
     v7 = *avas::server::gSessionServerLog(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v13 = "ServerSessionManager.mm";
-      v14 = 1024;
-      v15 = 1443;
-      v16 = 2048;
-      v17 = v11;
-      v18 = 1024;
-      v19 = v10;
+      v12 = "ServerSessionManager.mm";
+      v13 = 1024;
+      v14 = 1443;
+      v15 = 2048;
+      v16 = v10;
+      v17 = 1024;
+      v18 = v9;
       _os_log_impl(&dword_241701000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d Setting for PreferredMicrophoneInjectionMode to %ld for session: 0x%x", buf, 0x22u);
     }
 
-    os_unfair_lock_unlock((a1 + 224));
+    os_unfair_lock_unlock(a1 + 56);
   }
 
   else
   {
-    avas::server::LegacySessionManager::RemoveSessionFromMicrophoneInjectionModeMap(a1, a3, buf);
+    avas::server::LegacySessionManager::RemoveSessionFromMicrophoneInjectionModeMap(buf, a1, a3);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t std::map<unsigned int,AVAudioSessionMicrophoneInjectionMode>::insert_or_assign[abi:ne200100]<AVAudioSessionMicrophoneInjectionMode&>(void *a1, unsigned int *a2, uint64_t *a3)
+uint64_t std::map<unsigned int,AVAudioSessionMicrophoneInjectionMode>::insert_or_assign[abi:ne200100]<AVAudioSessionMicrophoneInjectionMode&>(uint64_t a1, unsigned int *a2, void *a3)
 {
-  v5 = a1 + 1;
-  v6 = a1[1];
+  v5 = (a1 + 8);
+  v6 = *(a1 + 8);
   if (v6)
   {
     v7 = *a2;
-    v8 = a1 + 1;
+    v8 = a1 + 8;
     do
     {
       v9 = *(v6 + 32);
@@ -2331,16 +2301,16 @@ uint64_t std::map<unsigned int,AVAudioSessionMicrophoneInjectionMode>::insert_or
     }
 
     while (v6);
-    if (v8 != v5 && v7 >= *(v8 + 8))
+    if (v8 != v5 && v7 >= *(v8 + 32))
     {
-      v8[5] = *a3;
+      *(v8 + 40) = *a3;
       return v8;
     }
 
     v5 = v8;
   }
 
-  return std::__tree<std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>>>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&,AVAudioSessionMicrophoneInjectionMode&>(a1, v5, a2);
+  return std::__tree<std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>>>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&,AVAudioSessionMicrophoneInjectionMode&>(a1, v5, a2, a2, a3);
 }
 
 uint64_t avas::server::LegacySessionManager::MicrophoneInjectionIsEnabled(os_unfair_lock_s *this)
@@ -2353,22 +2323,20 @@ uint64_t avas::server::LegacySessionManager::MicrophoneInjectionIsEnabled(os_unf
 
 void avas::server::LegacySessionManager::SetMicrophoneInjectionIsEnabled(os_unfair_lock_s *this, uint64_t a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(this + 56);
   os_unfair_lock_opaque_low = LOBYTE(this[64]._os_unfair_lock_opaque);
   LOBYTE(this[64]._os_unfair_lock_opaque) = a2;
   os_unfair_lock_unlock(this + 56);
   if (os_unfair_lock_opaque_low != a2)
   {
-    v9 = @"AVAudioSessionMicrophoneInjectionIsAvailableKey";
+    v8 = @"AVAudioSessionMicrophoneInjectionIsAvailableKey";
     v5 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v10[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
     avas::server::HandleMicrophoneInjectionCapabilityChangeNotification(v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24176C440(_Unwind_Exception *a1)
@@ -2380,28 +2348,28 @@ void sub_24176C440(_Unwind_Exception *a1)
 
 void avas::server::LegacySessionManager::SubscribeToMicrophoneInjectionCapabilityChangeNotification(os_unfair_lock_s *this, audit_token_t *a2, NSString *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   os_unfair_lock_lock(this + 56);
   v7 = *&this[66]._os_unfair_lock_opaque;
-  v8 = &this[68];
+  v8 = this + 68;
   if (v7 != &this[68])
   {
     while (1)
     {
-      v6 = [*(v7 + 4) isEqualToString:v5];
+      v6 = [*&v7[8]._os_unfair_lock_opaque isEqualToString:v5];
       if (v6)
       {
         break;
       }
 
-      v9 = *(v7 + 1);
+      v9 = *&v7[2]._os_unfair_lock_opaque;
       if (v9)
       {
         do
         {
           v10 = v9;
-          v9 = *v9;
+          v9 = *&v9->_os_unfair_lock_opaque;
         }
 
         while (v9);
@@ -2411,8 +2379,8 @@ void avas::server::LegacySessionManager::SubscribeToMicrophoneInjectionCapabilit
       {
         do
         {
-          v10 = *(v7 + 2);
-          v11 = *v10 == v7;
+          v10 = *&v7[4]._os_unfair_lock_opaque;
+          v11 = *&v10->_os_unfair_lock_opaque == v7;
           v7 = v10;
         }
 
@@ -2430,35 +2398,33 @@ void avas::server::LegacySessionManager::SubscribeToMicrophoneInjectionCapabilit
   if (v7 == v8)
   {
 LABEL_12:
-    *v16 = v5;
+    *v15 = v5;
     v13 = *&a2->val[4];
-    *&v16[8] = *a2->val;
-    *&v16[24] = v13;
-    std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},audit_token_t>>(&this[66], v16);
+    *&v15[8] = *a2->val;
+    *&v15[24] = v13;
+    std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},audit_token_t>>(&this[66], v15, v15);
   }
 
   else
   {
     v12 = *a2->val;
-    *(v7 + 56) = *&a2->val[4];
-    *(v7 + 40) = v12;
+    *&v7[14]._os_unfair_lock_opaque = *&a2->val[4];
+    *&v7[10]._os_unfair_lock_opaque = v12;
   }
 
   v14 = *avas::server::gSessionServerLog(v6);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v16 = 136315650;
-    *&v16[4] = "ServerSessionManager.mm";
-    *&v16[12] = 1024;
-    *&v16[14] = 1515;
-    *&v16[18] = 2112;
-    *&v16[20] = v5;
-    _os_log_impl(&dword_241701000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Process :%@ has subscribed for MicrophoneInjectionCapabilityChangeNotification", v16, 0x1Cu);
+    *v15 = 136315650;
+    *&v15[4] = "ServerSessionManager.mm";
+    *&v15[12] = 1024;
+    *&v15[14] = 1515;
+    *&v15[18] = 2112;
+    *&v15[20] = v5;
+    _os_log_impl(&dword_241701000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Process :%@ has subscribed for MicrophoneInjectionCapabilityChangeNotification", v15, 0x1Cu);
   }
 
   os_unfair_lock_unlock(this + 56);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24176C5F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
@@ -2468,11 +2434,11 @@ void sub_24176C5F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void avas::server::LegacySessionManager::GetMicrophoneInjectionSubscribersList(os_unfair_lock_s *this@<X0>, uint64_t a2@<X8>)
+void avas::server::LegacySessionManager::GetMicrophoneInjectionSubscribersList(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v9[0] = 0;
   v9[1] = 0;
   v8 = v9;
@@ -2489,7 +2455,7 @@ void avas::server::LegacySessionManager::GetMicrophoneInjectionSubscribersList(o
     do
     {
       avas::server::LegacySessionManager::GetSessionIDsForToken(this, (v4 + 5), &__p);
-      std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned int const*>,std::__wrap_iter<unsigned int const*>>(a2, *(a2 + 8), __p, v11, (v11 - __p) >> 2);
+      std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned int const*>,std::__wrap_iter<unsigned int const*>>(a1, a1[1], __p, v11, (v11 - __p) >> 2);
       if (__p)
       {
         v11 = __p;
@@ -2693,7 +2659,7 @@ void sub_24176CBE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t *avas::server::SessionCollection::InsertIONode(avas::server *a1, unsigned int *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 1);
   if (v4)
   {
@@ -2701,7 +2667,7 @@ uint64_t *avas::server::SessionCollection::InsertIONode(avas::server *a1, unsign
     v6 = (a1 + 8);
     do
     {
-      v7 = *(v4 + 32);
+      v7 = *(v4 + 8);
       v8 = v7 >= v5;
       v9 = v7 < v5;
       if (v8)
@@ -2709,7 +2675,7 @@ uint64_t *avas::server::SessionCollection::InsertIONode(avas::server *a1, unsign
         v6 = v4;
       }
 
-      v4 = *(v4 + 8 * v9);
+      v4 = *&v4[8 * v9];
     }
 
     while (v4);
@@ -2719,76 +2685,75 @@ uint64_t *avas::server::SessionCollection::InsertIONode(avas::server *a1, unsign
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = *a2;
-        v14 = 136315650;
-        v15 = "SessionCollection.h";
-        v16 = 1024;
-        v17 = 93;
-        v18 = 1024;
-        v19 = v11;
-        _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d IONode ID 0x%x conflicts with existing session", &v14, 0x18u);
+        v13 = 136315650;
+        v14 = "SessionCollection.h";
+        v15 = 1024;
+        v16 = 93;
+        v17 = 1024;
+        v18 = v11;
+        _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d IONode ID 0x%x conflicts with existing session", &v13, 0x18u);
       }
 
       std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>>>::erase(a1, v6);
     }
   }
 
-  result = std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,std::shared_ptr<avas::server::AudioSessionInfo>> const&>(a1 + 24, a2);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,std::shared_ptr<avas::server::AudioSessionInfo>> const&>(a1 + 24, a2, a2);
 }
 
-uint64_t avas::server::LegacySessionManager::ReconfigureIONodeSession(uint64_t a1, os_unfair_lock_s **a2, uint64_t *a3, int a4, void *a5, void *a6)
+uint64_t avas::server::LegacySessionManager::ReconfigureIONodeSession(uint64_t a1, os_unfair_lock_s **a2, avas::server::ConstAudioSessionInfo **a3, uint64_t a4, void *a5, void *a6)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v7 = a4;
+  v31 = *MEMORY[0x277D85DE8];
   v11 = a5;
   v12 = a6;
   v13 = (*(*&(*a2)->_os_unfair_lock_opaque + 16))();
   v14 = *a2;
   v15 = a3[1];
-  v26 = *a3;
-  v27 = v15;
+  v25 = *a3;
+  v26 = v15;
   if (v15)
   {
     atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  avas::server::IONodeSessionInfo::Reconfigure(v14, &v26, a4, v11, v12);
-  if (v27)
+  avas::server::IONodeSessionInfo::Reconfigure(v14, &v25, v7, v11, v12, a1 + 88);
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
   v16 = (*(*&(*a2)->_os_unfair_lock_opaque + 16))();
   os_unfair_lock_lock((a1 + 8));
   *buf = v13;
-  std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>>>::__erase_unique<unsigned int>(a1 + 40, buf);
+  std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>>>::__erase_unique<unsigned int>((a1 + 40), buf);
   *buf = v16;
   v17 = a2[1];
-  *&v29[4] = *a2;
-  *&v29[12] = v17;
+  *&v28[4] = *a2;
+  *&v28[12] = v17;
   if (v17)
   {
     atomic_fetch_add_explicit(&v17[2], 1uLL, memory_order_relaxed);
   }
 
   avas::server::SessionCollection::InsertIONode((a1 + 16), buf);
-  v18 = *&v29[12];
-  if (*&v29[12])
+  v18 = *&v28[12];
+  if (*&v28[12])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v29[12]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v28[12]);
   }
 
   v19 = *avas::server::gSessionServerLog(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    *v29 = "ServerSessionManager.mm";
-    *&v29[8] = 1024;
-    *&v29[10] = 1638;
-    *&v29[14] = 1024;
-    *&v29[16] = v13;
-    v30 = 1024;
-    v31 = v16;
+    *v28 = "ServerSessionManager.mm";
+    *&v28[8] = 1024;
+    *&v28[10] = 1638;
+    *&v28[14] = 1024;
+    *&v28[16] = v13;
+    v29 = 1024;
+    v30 = v16;
     _os_log_impl(&dword_241701000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Reconfigured IONodeSession. old ID: 0x%x, new ID: 0x%x", buf, 0x1Eu);
   }
 
@@ -2797,17 +2762,17 @@ uint64_t avas::server::LegacySessionManager::ReconfigureIONodeSession(uint64_t a
   {
     os_unfair_lock_lock(*(a1 + 296));
     v21 = a2[1];
-    v24 = *a2;
-    v25 = v21;
+    v23 = *a2;
+    v24 = v21;
     if (v21)
     {
       atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    avas::server::DeviceTimeObserver::addNodeSession(&v20[2], &v24);
-    if (v25)
+    avas::server::DeviceTimeObserver::addNodeSession(&v20[2], &v23);
+    if (v24)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
 
     os_unfair_lock_unlock(v20);
@@ -2815,7 +2780,6 @@ uint64_t avas::server::LegacySessionManager::ReconfigureIONodeSession(uint64_t a
 
   os_unfair_lock_unlock((a1 + 8));
 
-  v22 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -2832,9 +2796,8 @@ void sub_24176CFD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void avas::server::LegacySessionManager::CreateIONodeSessionInSentinel(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5, void *a6)
+void avas::server::LegacySessionManager::CreateIONodeSessionInSentinel(os_unfair_lock_s *a1, int a2, void *a3, int a4, void *a5, void *a6)
 {
-  v8 = *MEMORY[0x277D85DE8];
   a3;
   a5;
   a6;
@@ -2851,14 +2814,16 @@ void sub_24176D228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void avas::server::LegacySessionManager::ReconfigureIONodeSessionInSentinel(uint64_t a1, os_unfair_lock_s **a2, uint64_t a3, void *a4, uint64_t a5, void *a6, void *a7)
+void avas::server::LegacySessionManager::ReconfigureIONodeSessionInSentinel(os_unfair_lock_s *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, void *a7)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = a4;
-  v13 = a6;
-  v14 = a7;
-  (*(*&(*a2)->_os_unfair_lock_opaque + 16))();
-  avas::server::IONodeSessionInfo::ReconfigureInSentinel(*a2, a3, v12, a5, v13, v14);
+  v9 = a5;
+  v10 = a3;
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = a4;
+  v14 = a6;
+  v15 = a7;
+  (*(**a2 + 16))();
+  avas::server::IONodeSessionInfo::ReconfigureInSentinel(*a2, v10, v13, v9, v14, v15, &a1[22]);
 }
 
 void sub_24176D474(_Unwind_Exception *a1)
@@ -2868,7 +2833,7 @@ void sub_24176D474(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t avas::server::LegacySessionManager::RemoveIONodeSession(avas::server::LegacySessionManager *this, unsigned int a2)
+uint64_t avas::server::LegacySessionManager::RemoveIONodeSession(avas::server::LegacySessionManager *this, int a2)
 {
   os_unfair_lock_lock(this + 2);
   v4 = *(this + 37);
@@ -2954,13 +2919,13 @@ void sub_24176D5FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void avas::server::LegacySessionManager::RemoveIONodeSessionsForInvalidatedXPCConnection(avas::server::LegacySessionManager *this, NSXPCConnection *a2)
+void avas::server::LegacySessionManager::RemoveIONodeSessionsForInvalidatedXPCConnection(os_unfair_lock_s *this, NSXPCConnection *a2)
 {
   v3 = a2;
   os_unfair_lock_lock(this + 2);
   v4 = v3;
-  v5 = *(this + 5);
-  if (v5 != (this + 48))
+  v5 = *&this[10]._os_unfair_lock_opaque;
+  if (v5 != &this[12])
   {
     do
     {
@@ -2985,7 +2950,7 @@ void avas::server::LegacySessionManager::RemoveIONodeSessionsForInvalidatedXPCCo
 
       if (v8 == v4)
       {
-        v10 = std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>>>::erase(this + 5, v5);
+        v10 = std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioAppRemoteClient>>>>::erase(&this[10], v5);
       }
 
       else
@@ -2996,7 +2961,7 @@ void avas::server::LegacySessionManager::RemoveIONodeSessionsForInvalidatedXPCCo
           do
           {
             v10 = v9;
-            v9 = *v9;
+            v9 = *&v9->_os_unfair_lock_opaque;
           }
 
           while (v9);
@@ -3007,7 +2972,7 @@ void avas::server::LegacySessionManager::RemoveIONodeSessionsForInvalidatedXPCCo
           do
           {
             v10 = v5[2];
-            v11 = *v10 == v5;
+            v11 = *&v10->_os_unfair_lock_opaque == v5;
             v5 = v10;
           }
 
@@ -3018,7 +2983,7 @@ void avas::server::LegacySessionManager::RemoveIONodeSessionsForInvalidatedXPCCo
       v5 = v10;
     }
 
-    while (v10 != (this + 48));
+    while (v10 != &this[12]);
   }
 
   os_unfair_lock_unlock(this + 2);
@@ -3092,7 +3057,7 @@ uint64_t caulk::synchronized<avas::server::SessionCollection,caulk::mach::unfair
   return a1;
 }
 
-uint64_t std::vector<std::weak_ptr<avas::server::AudioSessionInfo>>::__init_with_size[abi:ne200100]<std::weak_ptr<avas::server::AudioSessionInfo>*,std::weak_ptr<avas::server::AudioSessionInfo>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::weak_ptr<avas::server::AudioSessionInfo>>::__init_with_size[abi:ne200100]<std::weak_ptr<avas::server::AudioSessionInfo>*,std::weak_ptr<avas::server::AudioSessionInfo>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3164,33 +3129,33 @@ void std::vector<std::weak_ptr<avas::server::AudioSessionInfo>>::__vdeallocate(u
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3198,73 +3163,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,BOOL>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,BOOL>>(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3272,47 +3237,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void *boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::~vector(void *a1)
+void **boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::~vector(void **a1)
 {
   v2 = a1[1];
   if (v2)
@@ -3384,7 +3349,8 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
@@ -3479,19 +3445,19 @@ LABEL_34:
   return v5;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>>>::__erase_unique<unsigned int>(uint64_t a1, unsigned int *a2)
+uint64_t std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::IONodeSessionInfo>>>>::__erase_unique<unsigned int>(uint64_t **a1, unsigned int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
     return 0;
   }
 
   v3 = *a2;
-  v4 = a1 + 8;
+  v4 = a1 + 1;
   do
   {
-    v5 = *(v2 + 32);
+    v5 = *(v2 + 8);
     v6 = v5 >= v3;
     v7 = v5 < v3;
     if (v6)
@@ -3499,11 +3465,11 @@ uint64_t std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server
       v4 = v2;
     }
 
-    v2 = *(v2 + 8 * v7);
+    v2 = v2[v7];
   }
 
   while (v2);
-  if (v4 == a1 + 8 || v3 < *(v4 + 32))
+  if (v4 == a1 + 1 || v3 < *(v4 + 8))
   {
     return 0;
   }
@@ -3562,17 +3528,17 @@ void std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__m
   }
 }
 
-uint64_t *std::unique_ptr<caulk::synchronized<avas::server::DeviceTimeObserver,caulk::mach::unfair_lock,caulk::empty_atomic_interface<avas::server::DeviceTimeObserver>>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
+void ***std::unique_ptr<caulk::synchronized<avas::server::DeviceTimeObserver,caulk::mach::unfair_lock,caulk::empty_atomic_interface<avas::server::DeviceTimeObserver>>>::reset[abi:ne200100](void ***result, void **a2)
 {
   v2 = *result;
   *result = a2;
   if (v2)
   {
-    std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(v2 + 80);
-    v3 = (v2 + 56);
+    std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table((v2 + 10));
+    v3 = v2 + 7;
     std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::__destroy_vector::operator()[abi:ne200100](&v3);
-    boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::~vector((v2 + 32));
-    v3 = (v2 + 8);
+    boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::~vector(v2 + 4);
+    v3 = v2 + 1;
     std::vector<avas::server::DeviceTimeObserver::SharedBlockOwner>::__destroy_vector::operator()[abi:ne200100](&v3);
     return MEMORY[0x245CEEB60](v2, 0x10A0C402F24600CLL);
   }
@@ -3655,7 +3621,7 @@ void std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::ser
   a1[1] = v2;
 }
 
-void *boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::~vector(void *a1)
+void **boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::~vector(void **a1)
 {
   v2 = a1[1];
   if (v2)
@@ -3716,13 +3682,12 @@ void std::__shared_ptr_emplace<avas::server::AudioSessionInfo>::~__shared_ptr_em
   JUMPOUT(0x245CEEB60);
 }
 
-BOOL avas::server::LegacySessionManager::FindSessionAndVerifyOwnershipPriv<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>>>(std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>>,std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>>,unsigned int,avas::server::ProcessIdentity const&,std::optional<avas::server::LegacySessionManager::EntitlementExceptionType> const&)const::{lambda(std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>> const&)#1}::operator()<std::pair<unsigned int const,std::shared_ptr<avas::server::AudioSessionInfo>>>(unsigned int *a1, uint64_t a2)
+BOOL avas::server::LegacySessionManager::FindSessionAndVerifyOwnershipPriv<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>>>(std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>>,std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>>,unsigned int,avas::server::ProcessIdentity const&,std::optional<avas::server::LegacySessionManager::EntitlementExceptionType> const&)const::{lambda(std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__tree_node<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,void *> *,long>> const&)#1}::operator()<std::pair<unsigned int const,std::shared_ptr<avas::server::AudioSessionInfo>>>(int *a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*a2 != *a1)
   {
-    HasEntitlement = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   v3 = *(a2 + 8);
@@ -3730,53 +3695,52 @@ BOOL avas::server::LegacySessionManager::FindSessionAndVerifyOwnershipPriv<std::
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-    v5 = *a1;
   }
 
-  (*(*v3 + 64))(&v16);
-  if (!v16)
+  (*(*v3 + 64))(&v14);
+  if (!v14)
   {
     goto LABEL_14;
   }
 
-  v6 = avas::server::ProcessIdentity::operator==((a1 + 1), v16 + 232);
-  if (!v6)
+  v5 = avas::server::ProcessIdentity::operator==((a1 + 1), v14 + 232);
+  if (!v5)
   {
-    v8 = *(a1 + 6);
-    if (*(v8 + 4) == 1)
+    v7 = *(a1 + 6);
+    if (*(v7 + 4) == 1)
     {
-      v9 = *v8;
-      if (!v9)
+      v8 = *v7;
+      if (!v8)
       {
-        v10 = "com.apple.private.coreaudio.borrowaudioapplication.allow";
+        v9 = "com.apple.private.coreaudio.borrowaudioapplication.allow";
         goto LABEL_21;
       }
 
-      if (v9 == 1)
+      if (v8 == 1)
       {
-        v10 = "com.apple.private.coreaudio.borrowaudiosession.allow";
+        v9 = "com.apple.private.coreaudio.borrowaudiosession.allow";
 LABEL_21:
-        HasEntitlement = avas::server::ProcessIdentity::ProcessHasEntitlement((a1 + 1), v10);
+        HasEntitlement = avas::server::ProcessIdentity::ProcessHasEntitlement((a1 + 1), v9);
         goto LABEL_15;
       }
     }
 
     else
     {
-      v11 = *avas::server::gSessionServerLog(v6);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v10 = *avas::server::gSessionServerLog(v5);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v12 = *a1;
-        v13 = a1[10];
+        v11 = *a1;
+        v12 = a1[10];
         *buf = 136315906;
-        v19 = "ServerSessionManager.mm";
+        v17 = "ServerSessionManager.mm";
+        v18 = 1024;
+        v19 = 423;
         v20 = 1024;
-        v21 = 423;
+        v21 = v11;
         v22 = 1024;
         v23 = v12;
-        v24 = 1024;
-        v25 = v13;
-        _os_log_impl(&dword_241701000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Lookup of sessionID:0x%x succeeded, but the provided process PID or audit token does not match the owner of the session. Provided PID: %d", buf, 0x1Eu);
+        _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_INFO, "%25s:%-5d Lookup of sessionID:0x%x succeeded, but the provided process PID or audit token does not match the owner of the session. Provided PID: %d", buf, 0x1Eu);
       }
     }
 
@@ -3787,9 +3751,9 @@ LABEL_14:
 
   HasEntitlement = 1;
 LABEL_15:
-  if (v17)
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
   if (v4)
@@ -3797,8 +3761,6 @@ LABEL_15:
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
-LABEL_19:
-  v14 = *MEMORY[0x277D85DE8];
   return HasEntitlement;
 }
 
@@ -3908,7 +3870,7 @@ void boost::container::dtl::flat_tree<boost::container::dtl::pair<int,NSXPCConne
   *a4 = v4;
 }
 
-void boost::container::dtl::flat_tree<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::dtl::select1st<int>,std::less<int>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>>::insert_unique(uint64_t *a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
+void boost::container::dtl::flat_tree<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::dtl::select1st<int>,std::less<int>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>>::insert_unique(void **a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
 {
   *a3 = 0;
   *(a3 + 8) = 0;
@@ -3931,7 +3893,7 @@ void boost::container::dtl::flat_tree<boost::container::dtl::pair<int,NSXPCConne
     __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
   }
 
-  v12 = (v4 + 16 * v5);
+  v12 = &v4[4 * v5];
   inserted = boost::container::dtl::flat_tree<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::dtl::select1st<int>,std::less<int>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>>::priv_insert_unique_prepare(a1, &v13, &v12, a2, &v11);
   *(a3 + 8) = inserted;
   if (inserted)
@@ -4011,7 +3973,7 @@ void boost::container::dtl::flat_tree<boost::container::dtl::pair<int,NSXPCConne
   *a4 = v4;
 }
 
-void boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::emplace<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+void boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::emplace<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>(void **a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
 {
   v5 = *a2;
   v6 = *a1;
@@ -4036,7 +3998,7 @@ void boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * 
     __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
   }
 
-  v9 = v6 + 16 * v7;
+  v9 = &v6[16 * v7];
   if (v5 > v9)
   {
 LABEL_17:
@@ -4063,30 +4025,30 @@ LABEL_17:
       *v9 = *a3;
       v21 = *(a3 + 8);
       *(a3 + 8) = 0;
-      *(v9 + 8) = v21;
-      ++a1[1];
+      *(v9 + 1) = v21;
+      a1[1] = a1[1] + 1;
     }
 
     else
     {
       v13 = v9 - 16;
-      *v9 = *(v9 - 16);
-      v14 = *(v9 - 8);
-      *(v9 - 8) = 0;
-      *(v9 + 8) = v14;
-      ++a1[1];
+      *v9 = *(v9 - 4);
+      v14 = *(v9 - 1);
+      *(v9 - 1) = 0;
+      *(v9 + 1) = v14;
+      a1[1] = a1[1] + 1;
       if (v9 - 16 != v5)
       {
         v15 = v9 - 16;
         do
         {
-          v16 = *(v15 - 16);
+          v16 = *(v15 - 4);
           v15 -= 16;
           *v13 = v16;
-          v17 = *(v13 - 8);
-          *(v13 - 8) = 0;
-          v18 = *(v13 + 8);
-          *(v13 + 8) = v17;
+          v17 = *(v13 - 1);
+          *(v13 - 1) = 0;
+          v18 = *(v13 + 1);
+          *(v13 + 1) = v17;
 
           v13 = v15;
         }
@@ -4105,7 +4067,7 @@ LABEL_17:
   }
 }
 
-void boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>*,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>>(uint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>*,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>>(void **a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v10 = *a1;
   v11 = boost::container::vector_alloc_holder<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a1, a3);
@@ -4120,7 +4082,7 @@ void boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * 
   *a5 = *a1 + a2 - v10;
 }
 
-unint64_t boost::container::vector_alloc_holder<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
+const char *boost::container::vector_alloc_holder<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -4170,7 +4132,7 @@ unint64_t boost::container::vector_alloc_holder<boost::container::new_allocator<
   }
 }
 
-void boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>*,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void boost::container::vector<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>,boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>*,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>>(void **a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v10 = *a1;
   boost::container::uninitialized_move_and_insert_alloc<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>*,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>*,boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>*,boost::container::dtl::pair<int,NSXPCConnection * {__strong}>>>(a1, *a1, a4, *a1 + 16 * a1[1], a2, a5, a6);
@@ -4309,52 +4271,52 @@ uint64_t *std::__tree<std::__value_type<int,RBSProcessHandle * {__strong}>,std::
   return v3;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>>>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&,AVAudioSessionMicrophoneInjectionMode&>(void *a1, uint64_t *a2, unsigned int *a3)
+uint64_t std::__tree<std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,AVAudioSessionMicrophoneInjectionMode>>>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&,AVAudioSessionMicrophoneInjectionMode&>(uint64_t **a1, uint64_t *a2, unsigned int *a3, _DWORD *a4, void *a5)
 {
-  v3 = *std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>>>::__find_equal<unsigned int>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v5 = *std::__tree<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>>>::__find_equal<unsigned int>(a1, a2, &v8, &v7, a3);
+  if (!v5)
   {
     operator new();
   }
 
-  return v3;
+  return v5;
 }
 
-void *std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},audit_token_t>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},audit_token_t>>(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4377,15 +4339,15 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<NSString * {__strong
   return a1;
 }
 
-uint64_t **std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<NSString * {__strong},audit_token_t>,std::__tree_node<std::__value_type<NSString * {__strong},audit_token_t>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<NSString * {__strong},audit_token_t>,std::__tree_node<std::__value_type<NSString * {__strong},audit_token_t>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -4462,23 +4424,23 @@ uint64_t **std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,st
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__emplace_multi<std::pair<NSString * const {__strong},audit_token_t> const&>();
+    std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__emplace_multi<std::pair<NSString * const {__strong},audit_token_t> const&>(v5, (a2 + 4));
   }
 
   return result;
 }
 
-void sub_24176F79C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24176F79C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__node_insert_multi(uint64_t **a1, uint64_t *a2)
+uint64_t *std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},audit_token_t>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},audit_token_t>>>::__node_insert_multi(uint64_t a1, uint64_t *a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -4508,7 +4470,7 @@ uint64_t *std::__tree<std::__value_type<NSString * {__strong},audit_token_t>,std
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -4656,21 +4618,19 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef<unsigned int,AVAud
   return CFDictionaryRef;
 }
 
-void sub_24176FAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_24176FAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<applesauce::CF::TypeRefPair>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<applesauce::CF::TypeRefPair>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<applesauce::CF::TypeRefPair>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<applesauce::CF::TypeRefPair>>(result, a2);
     }
 
@@ -4680,14 +4640,14 @@ void *std::vector<applesauce::CF::TypeRefPair>::reserve(void *result, unint64_t 
   return result;
 }
 
-void sub_24176FB94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24176FB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
+CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(char **a1)
 {
   v2 = (a1[1] - *a1) >> 4;
   __p = 0;
@@ -4705,7 +4665,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
     do
     {
       v5 = *v3;
-      if (!*v3 || !v3[1])
+      if (!*v3 || !*(v3 + 1))
       {
         exception = __cxa_allocate_exception(0x10uLL);
         MEMORY[0x245CEE8B0](exception, "Could not construct");
@@ -4763,7 +4723,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
       }
 
       v31 = v7;
-      v14 = v3[1];
+      v14 = *(v3 + 1);
       v15 = v28;
       if (v28 >= v29)
       {
@@ -4816,7 +4776,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
       }
 
       v28 = v16;
-      v3 += 2;
+      v3 += 16;
     }
 
     while (v3 != v4);
@@ -4902,7 +4862,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ap
     while (v5 != a3)
     {
       std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::destroy[abi:ne200100]<applesauce::CF::TypeRefPair,void,0>(a1, v5);
-      v5 += 16;
+      v5 += 2;
     }
   }
 
@@ -5030,9 +4990,9 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<unsi
   return v14;
 }
 
-void sub_241770214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_241770214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5089,12 +5049,12 @@ void std::vector<applesauce::CF::TypeRefPair>::__base_destruct_at_end[abi:ne2001
   *(a1 + 8) = a2;
 }
 
-void *std::__shared_ptr_emplace<avas::server::IONodeSessionInfo>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<avas::server::AudioSessionInfo> &,AVAudioSessionClientPlayerType &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,std::allocator<avas::server::IONodeSessionInfo>,0>(void *a1, uint64_t *a2, unsigned int *a3, void *a4, void *a5)
+void *std::__shared_ptr_emplace<avas::server::IONodeSessionInfo>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<avas::server::AudioSessionInfo> &,AVAudioSessionClientPlayerType &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,std::allocator<avas::server::IONodeSessionInfo>,0>(void *a1, uint64_t *a2, unsigned int *a3, void **a4, void **a5, uint64_t a6)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_28535B488;
-  std::construct_at[abi:ne200100]<avas::server::IONodeSessionInfo,std::shared_ptr<avas::server::AudioSessionInfo> &,AVAudioSessionClientPlayerType &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,avas::server::IONodeSessionInfo*>((a1 + 3), a2, a3, a4, a5);
+  std::construct_at[abi:ne200100]<avas::server::IONodeSessionInfo,std::shared_ptr<avas::server::AudioSessionInfo> &,AVAudioSessionClientPlayerType &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,avas::server::IONodeSessionInfo*>((a1 + 3), a2, a3, a4, a5, a6);
   return a1;
 }
 
@@ -5106,20 +5066,20 @@ void std::__shared_ptr_emplace<avas::server::IONodeSessionInfo>::~__shared_ptr_e
   JUMPOUT(0x245CEEB60);
 }
 
-uint64_t std::construct_at[abi:ne200100]<avas::server::IONodeSessionInfo,std::shared_ptr<avas::server::AudioSessionInfo> &,AVAudioSessionClientPlayerType &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,avas::server::IONodeSessionInfo*>(uint64_t a1, uint64_t *a2, unsigned int *a3, void *a4, void *a5)
+uint64_t std::construct_at[abi:ne200100]<avas::server::IONodeSessionInfo,std::shared_ptr<avas::server::AudioSessionInfo> &,AVAudioSessionClientPlayerType &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,avas::server::IONodeSessionInfo*>(uint64_t a1, uint64_t *a2, unsigned int *a3, void **a4, void **a5, uint64_t a6)
 {
-  v6 = a2[1];
-  v8 = *a2;
-  v9 = v6;
-  if (v6)
+  v7 = a2[1];
+  v9 = *a2;
+  v10 = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  avas::server::IONodeSessionInfo::IONodeSessionInfo(a1, &v8, *a3, *a4, *a5);
-  if (v9)
+  avas::server::IONodeSessionInfo::IONodeSessionInfo(a1, &v9, *a3, *a4, *a5, a6);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   return a1;
@@ -5135,19 +5095,20 @@ void sub_241770610(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__shared_ptr_emplace<avas::server::IONodeSessionInfo>::__shared_ptr_emplace[abi:ne200100]<unsigned int &,NSNumber * {__strong}&,AVAudioSessionClientPlayerType &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,std::allocator<avas::server::IONodeSessionInfo>,0>(void *a1, unsigned int *a2, void *a3, unsigned int *a4, void *a5, void *a6)
+void *std::__shared_ptr_emplace<avas::server::IONodeSessionInfo>::__shared_ptr_emplace[abi:ne200100]<unsigned int &,NSNumber * {__strong}&,AVAudioSessionClientPlayerType &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,std::allocator<avas::server::IONodeSessionInfo>,0>(void *a1, unsigned int *a2, void **a3, unsigned int *a4, void **a5, void **a6, uint64_t a7)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_28535B488;
-  avas::server::IONodeSessionInfo::IONodeSessionInfo(a1 + 3, *a2, *a3, *a4, *a5, *a6);
+  avas::server::IONodeSessionInfo::IONodeSessionInfo((a1 + 3), *a2, *a3, *a4, *a5, *a6, a7);
   return a1;
 }
 
-uint64_t avas::server::IONodeSessionInfo::IONodeSessionInfo(uint64_t a1, uint64_t *a2, int a3, void *a4, void *a5)
+uint64_t avas::server::IONodeSessionInfo::IONodeSessionInfo(uint64_t a1, avas::server::ConstAudioSessionInfo **a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v9 = a4;
-  v10 = a5;
+  v8 = a3;
+  v11 = a4;
+  v12 = a5;
   *a1 = &unk_28535B4C0;
   *(a1 + 8) = xmmword_241782B90;
   *(a1 + 24) = 0;
@@ -5155,19 +5116,19 @@ uint64_t avas::server::IONodeSessionInfo::IONodeSessionInfo(uint64_t a1, uint64_
   *(a1 + 56) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  v11 = *a2;
-  v12 = a2[1];
-  v14[0] = v11;
-  v14[1] = v12;
-  if (v12)
+  v13 = *a2;
+  v14 = a2[1];
+  v16[0] = v13;
+  v16[1] = v14;
+  if (v14)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v14 + 1, 1uLL, memory_order_relaxed);
   }
 
-  avas::server::IONodeSessionInfo::Reconfigure(a1, v14, a3, v9, v10);
-  if (v12)
+  avas::server::IONodeSessionInfo::Reconfigure(a1, v16, v8, v11, v12, a6);
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
   return a1;
@@ -5185,76 +5146,71 @@ void sub_2417708E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void avas::server::IONodeSessionInfo::Reconfigure(os_unfair_lock_s *a1, void *a2, int a3, void *a4, void *a5)
+void avas::server::IONodeSessionInfo::Reconfigure(os_unfair_lock_s *a1, avas::server::ConstAudioSessionInfo **a2, uint32_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v44 = a4;
-  v9 = a5;
-  v43[2] = v9;
+  v43 = *MEMORY[0x277D85DE8];
+  v41 = a4;
+  v10 = a5;
+  v40[2] = v10;
   os_unfair_lock_opaque = a1[2]._os_unfair_lock_opaque;
   if (os_unfair_lock_opaque != (*(**a2 + 16))() || a1[5]._os_unfair_lock_opaque != a3)
   {
-    avas::server::IONodeSessionInfo::GetSiblingSession(a1, v43);
-    v11 = a1[2]._os_unfair_lock_opaque;
-    v12 = a1[4]._os_unfair_lock_opaque;
-    v13 = a1[5]._os_unfair_lock_opaque;
-    if (v44)
+    avas::server::IONodeSessionInfo::GetSiblingSession(v40, a1);
+    if (v41)
     {
-      [v44 auditToken];
+      objc_msgSend_auditToken(v41);
     }
 
     else
     {
-      memset(&v29, 0, sizeof(v29));
+      memset(&v26, 0, sizeof(v26));
     }
 
-    v30 = *v29.val;
-    *v31 = *&v29.val[4];
-    v31[16] = 1;
-    atoken = v29;
-    *&v31[20] = audit_token_to_pid(&atoken);
-    *&v31[24] = 1935830119;
+    v27 = *v26.val;
+    *v28 = *&v26.val[4];
+    v28[16] = 1;
+    atoken = v26;
+    *&v28[20] = audit_token_to_pid(&atoken);
+    *&v28[24] = 1935830119;
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
     v32 = 0;
     v33 = 0;
     v34 = 0;
-    v35 = 0;
-    v36 = 0;
-    v37 = 0;
-    v14 = a2[1];
-    v38 = *a2;
-    v39 = v14;
-    if (v14)
+    v12 = a2[1];
+    v35 = *a2;
+    v36 = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit(v14 + 1, 1uLL, memory_order_relaxed);
-      v14 = v32;
+      atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
+      v12 = v29;
     }
 
-    v40 = 0;
-    v41 = 0;
-    v42 = 0;
+    v37 = 0;
+    v38 = 0;
+    v39 = 0;
+    v13 = v27;
+    v14[0] = *v28;
+    *(v14 + 12) = *&v28[12];
+    v15 = v12;
     v16 = v30;
-    v17[0] = *v31;
-    *(v17 + 12) = *&v31[12];
-    v18 = v14;
+    v17 = v31;
+    v18 = v32;
     v19 = v33;
     v20 = v34;
     v21 = v35;
     v22 = v36;
+    if (v36)
+    {
+      atomic_fetch_add_explicit(v36 + 1, 1uLL, memory_order_relaxed);
+    }
+
     v23 = v37;
     v24 = v38;
     v25 = v39;
-    if (v39)
-    {
-      atomic_fetch_add_explicit(v39 + 1, 1uLL, memory_order_relaxed);
-    }
-
-    v26 = v40;
-    v27 = v41;
-    v28 = v42;
-    avas::server::IONodeSessionInfo::SetRemoteClient(a1, &v16, v44);
+    avas::server::IONodeSessionInfo::SetRemoteClient(a1, &v13, v41);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241771190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, os_unfair_lock_s *a41, uint64_t a42, uint64_t a43, uint64_t a44, id a45)
@@ -5271,11 +5227,13 @@ void sub_241771190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void avas::server::IONodeSessionInfo::IONodeSessionInfo(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5, void *a6)
+void avas::server::IONodeSessionInfo::IONodeSessionInfo(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5, void *a6, uint64_t a7)
 {
-  v11 = a3;
-  v12 = a5;
-  v13 = a6;
+  v10 = a4;
+  v11 = a2;
+  v13 = a3;
+  v14 = a5;
+  v15 = a6;
   *a1 = &unk_28535B4C0;
   *(a1 + 8) = xmmword_241782B90;
   *(a1 + 24) = 0;
@@ -5283,7 +5241,7 @@ void avas::server::IONodeSessionInfo::IONodeSessionInfo(uint64_t a1, uint64_t a2
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
   *(a1 + 40) = 0;
-  avas::server::IONodeSessionInfo::ReconfigureInSentinel(a1, a2, v11, a4, v12, v13);
+  avas::server::IONodeSessionInfo::ReconfigureInSentinel(a1, v11, v13, v10, v14, v15, a7);
 }
 
 void sub_241771580(_Unwind_Exception *a1)
@@ -5304,42 +5262,39 @@ void sub_241771580(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void avas::server::IONodeSessionInfo::ReconfigureInSentinel(os_unfair_lock_s *a1, uint64_t a2, void *a3, uint64_t a4, void *a5, void *a6)
+void avas::server::IONodeSessionInfo::ReconfigureInSentinel(os_unfair_lock_s *a1, uint32_t a2, void *a3, uint32_t a4, void *a5, void *a6, uint64_t a7)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v9 = a3;
-  v35[3] = a5;
-  v35[2] = a6;
-  avas::server::IONodeSessionInfo::GetSiblingSession(a1, v35);
-  os_unfair_lock_opaque = a1[2]._os_unfair_lock_opaque;
-  v11 = a1[4]._os_unfair_lock_opaque;
-  v12 = a1[5]._os_unfair_lock_opaque;
-  LOBYTE(v24) = 0;
-  v25[16] = 0;
-  *&v25[20] = [v9 longLongValue];
-  *&v25[24] = 1937012066;
+  v33[12] = *MEMORY[0x277D85DE8];
+  v10 = a3;
+  v33[3] = a5;
+  v33[2] = a6;
+  avas::server::IONodeSessionInfo::GetSiblingSession(v33, a1);
+  LOBYTE(v22) = 0;
+  v23[16] = 0;
+  *&v23[20] = [v10 longLongValue];
+  *&v23[24] = 1937012066;
+  v24 = 0;
+  v25 = 0;
   v26 = 0;
   v27 = 0;
   v28 = 0;
   v29 = 0;
-  v30 = 0;
-  v31 = 0;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0;
-  v13 = v24;
-  v14[0] = *v25;
-  *(v14 + 12) = *&v25[12];
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0;
+  v11 = v22;
+  v12[0] = *v23;
+  *(v12 + 12) = *&v23[12];
+  v13 = 0;
+  v14 = 0;
   v15 = 0;
   v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v20 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0;
-  avas::server::IONodeSessionInfo::SetRemoteClient(a1, &v13, 0);
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0;
+  avas::server::IONodeSessionInfo::SetRemoteClient(a1, &v11, 0);
 }
 
 void sub_241771A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, id a33)
@@ -5361,7 +5316,7 @@ void sub_241771A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t avas::server::IONodeSessionInfo::GetMXSessionID(os_unfair_lock_s *this)
 {
-  avas::server::IONodeSessionInfo::GetSiblingSession(this, &v3);
+  avas::server::IONodeSessionInfo::GetSiblingSession(&v3, this);
   if (v3)
   {
     v1 = (*(*v3 + 32))(v3);
@@ -5392,7 +5347,7 @@ void sub_241771B70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t avas::server::IONodeSessionInfo::GetSourceSessionID(os_unfair_lock_s *this)
 {
-  avas::server::IONodeSessionInfo::GetSiblingSession(this, &v3);
+  avas::server::IONodeSessionInfo::GetSiblingSession(&v3, this);
   if (v3)
   {
     v1 = (*(*v3 + 24))(v3);
@@ -5421,14 +5376,14 @@ void sub_241771BFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL avas::server::IONodeSessionInfo::BelongsToSessionID(os_unfair_lock_s *this, uint64_t a2)
+uint64_t avas::server::IONodeSessionInfo::BelongsToSessionID(os_unfair_lock_s *this, uint64_t a2)
 {
   if (this[4]._os_unfair_lock_opaque == a2)
   {
     return 1;
   }
 
-  avas::server::IONodeSessionInfo::GetSiblingSession(this, &v5);
+  avas::server::IONodeSessionInfo::GetSiblingSession(&v5, this);
   v2 = v5 && ((*(*v5 + 40))(v5, a2) & 1) != 0;
   if (v6)
   {
@@ -5450,7 +5405,7 @@ void sub_241771CA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t avas::server::IONodeSessionInfo::IsBackedByMXSession(os_unfair_lock_s *this, const void *a2)
 {
-  avas::server::IONodeSessionInfo::GetSiblingSession(this, &v5);
+  avas::server::IONodeSessionInfo::GetSiblingSession(&v5, this);
   if (v5)
   {
     v3 = (*(*v5 + 48))(v5, a2);
@@ -5481,7 +5436,7 @@ void sub_241771D3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t avas::server::IONodeSessionInfo::IsBackedByMXSessionID(os_unfair_lock_s *this, uint64_t a2)
 {
-  avas::server::IONodeSessionInfo::GetSiblingSession(this, &v5);
+  avas::server::IONodeSessionInfo::GetSiblingSession(&v5, this);
   if (v5)
   {
     v3 = (*(*v5 + 56))(v5, a2);
@@ -5510,9 +5465,9 @@ void sub_241771DD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t avas::server::IONodeSessionInfo::SetPlayState(os_unfair_lock_s *a1, int a2, int a3)
+uint64_t avas::server::IONodeSessionInfo::SetPlayState(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3)
 {
-  avas::server::IONodeSessionInfo::GetSiblingSession(a1, &v10);
+  avas::server::IONodeSessionInfo::GetSiblingSession(&v10, a1);
   if (v10)
   {
     v6 = v11;
@@ -5564,7 +5519,7 @@ void sub_241771E98(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t avas::server::IONodeSessionInfo::SetPlayStateInner(void *a1, unsigned int a2, int a3, int a4, int a5)
+uint64_t avas::server::IONodeSessionInfo::SetPlayStateInner(void *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a1[1];
   v8[0] = *a1;
@@ -5580,24 +5535,24 @@ uint64_t avas::server::IONodeSessionInfo::SetPlayStateInner(void *a1, unsigned i
   return v6;
 }
 
-void sub_241771F38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241771F38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void avas::server::IONodeSessionInfo::SetProperties(uint64_t a1@<X0>, void *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void avas::server::IONodeSessionInfo::SetProperties(uint64_t a1@<X0>, void *a2@<X1>, int a3@<W2>, void *a4@<X8>)
 {
   v7 = a2;
-  avas::server::IONodeSessionInfo::LockSession(a1, &v19);
+  avas::server::IONodeSessionInfo::LockSession(&v19, a1);
   v8 = v19;
   if (!v19)
   {
     v15 = -50;
 LABEL_13:
     *a4 = v15;
-    *(a4 + 8) = 0;
+    a4[1] = 0;
     goto LABEL_14;
   }
 
@@ -5655,10 +5610,10 @@ void sub_241772060(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void avas::server::IONodeSessionInfo::LockSession(os_unfair_lock_s *this@<X0>, uint64_t a2@<X8>)
+void avas::server::IONodeSessionInfo::LockSession(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
-  avas::server::IONodeSessionInfo::GetSiblingSession(this, &v3);
-  avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(a2, &v3);
+  avas::server::IONodeSessionInfo::GetSiblingSession(&v3, this);
+  avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(a1, &v3);
   if (v4)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -5681,8 +5636,8 @@ void avas::server::IONodeSessionInfo::SetPropertiesInner(uint64_t *a1@<X0>, void
   v6 = *a1;
   if (!*a1)
   {
-    v10 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v10 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
   v7 = a1[1];
@@ -5691,9 +5646,9 @@ void avas::server::IONodeSessionInfo::SetPropertiesInner(uint64_t *a1@<X0>, void
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v11 = 0;
-  v8 = avas::server::mx::MXAccessor::SetMXProperties(*(v6 + 120), v5, &v11);
-  v9 = v11;
+  v10 = 0;
+  v8 = avas::server::mx::MXAccessor::SetMXProperties(*(v6 + 120), v5, &v10);
+  v9 = v10;
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -5713,17 +5668,17 @@ void sub_2417721A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void avas::server::IONodeSessionInfo::GetProperties(uint64_t a1@<X0>, void *a2@<X1>, int a3@<W2>, void *a4@<X3>, uint64_t a5@<X8>)
+void avas::server::IONodeSessionInfo::GetProperties(uint64_t a1@<X0>, void *a2@<X1>, int a3@<W2>, void *a4@<X3>, void *a5@<X8>)
 {
   v9 = a2;
-  avas::server::IONodeSessionInfo::LockSession(a1, &v21);
+  avas::server::IONodeSessionInfo::LockSession(&v21, a1);
   v10 = v21;
   if (!v21)
   {
     v17 = -50;
 LABEL_13:
     *a5 = v17;
-    *(a5 + 8) = 0;
+    a5[1] = 0;
     goto LABEL_14;
   }
 
@@ -5783,13 +5738,13 @@ void sub_2417722E0(_Unwind_Exception *a1)
 
 void avas::server::IONodeSessionInfo::GetPropertiesInner(uint64_t *a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = *a1;
   if (!*a1)
   {
-    v19 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v19 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
   v9 = a1[1];
@@ -5798,9 +5753,9 @@ void avas::server::IONodeSessionInfo::GetPropertiesInner(uint64_t *a1@<X0>, void
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v25 = 0;
-  v20 = avas::server::ConstAudioSessionInfo::GetMXProperties(v8, v7, &v25);
-  v10 = v25;
+  v23 = 0;
+  v18 = avas::server::ConstAudioSessionInfo::GetMXProperties(v8, v7, &v23);
+  v10 = v23;
   if (v9)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
@@ -5820,25 +5775,25 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v23 = 0u;
-  v24 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v12)
   {
-    v13 = *v22;
+    v13 = *v20;
 LABEL_9:
     v14 = 0;
     while (1)
     {
-      if (*v22 != v13)
+      if (*v20 != v13)
       {
         objc_enumerationMutation(v11);
       }
 
-      v15 = [v11 objectForKeyedSubscript:*(*(&v21 + 1) + 8 * v14)];
+      v15 = [v11 objectForKeyedSubscript:*(*(&v19 + 1) + 8 * v14)];
       v16 = [v15 intValue];
 
       if (v16)
@@ -5848,7 +5803,7 @@ LABEL_9:
 
       if (v12 == ++v14)
       {
-        v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
         if (v12)
         {
           goto LABEL_9;
@@ -5872,9 +5827,7 @@ LABEL_15:
 
 LABEL_20:
   *a4 = v16;
-  *(a4 + 8) = v20;
-
-  v18 = *MEMORY[0x277D85DE8];
+  *(a4 + 8) = v18;
 }
 
 void avas::server::IONodeSessionInfo::SetRemoteClient(os_unfair_lock_s *a1, uint64_t a2, void *a3)
@@ -5908,23 +5861,22 @@ void avas::server::IONodeSessionInfo::SetContainerBinding(uint64_t a1, uint64_t 
 
 void avas::server::IONodeSessionInfo::SetInvalidated(os_unfair_lock_s *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   BindingType = avas::server::IONodeSessionInfo::GetBindingType(this);
   if (BindingType != 1651733091)
   {
     v3 = *avas::server::gSessionServerLog(BindingType);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "IONodeSessionInfo.mm";
-      v7 = 1024;
-      v8 = 314;
-      _os_log_impl(&dword_241701000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - only IONodeSessions with 'source' binding should be invalidated", &v5, 0x12u);
+      v4 = 136315394;
+      v5 = "IONodeSessionInfo.mm";
+      v6 = 1024;
+      v7 = 314;
+      _os_log_impl(&dword_241701000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - only IONodeSessions with 'source' binding should be invalidated", &v4, 0x12u);
     }
   }
 
   avas::server::IONodeSessionInfo::ResetBinding(this);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void avas::server::IONodeSessionInfo::ResetBinding(os_unfair_lock_s *this)
@@ -6097,12 +6049,12 @@ std::__shared_weak_count *avas::server::IONodeSessionInfo::SiblingBinding::GetSi
   return result;
 }
 
-void *std::__shared_ptr_emplace<avas::server::AudioSessionInfo>::__shared_ptr_emplace[abi:ne200100]<avas::server::SessionCreationDescription &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,avas::server::mx::MXAccessorFactory *,std::allocator<avas::server::AudioSessionInfo>,0>(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, void *a6)
+void *std::__shared_ptr_emplace<avas::server::AudioSessionInfo>::__shared_ptr_emplace[abi:ne200100]<avas::server::SessionCreationDescription &,NSXPCConnection * {__strong}&,objc_object  {objcproto28AVAudioSessionServerDelegate}* {__strong}&,std::shared_ptr<avas::server::SpatialManager> &,avas::server::mx::MXAccessorFactory *,std::allocator<avas::server::AudioSessionInfo>,0>(void *a1)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_28535B418;
-  avas::server::AudioSessionInfo::AudioSessionInfo(a1 + 3, a2, *a3, *a4, a5, *a6);
+  avas::server::AudioSessionInfo::AudioSessionInfo();
   return a1;
 }
 
@@ -6140,9 +6092,9 @@ uint64_t avas::server::IONodeSessionInfo::SourceBinding::GetSiblingSession@<X0>(
   return this;
 }
 
-void sub_241773048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_241773048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(va);
   _Unwind_Resume(a1);
@@ -6191,69 +6143,62 @@ void sub_241773B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void avas::server::HandleMXNotification(void **a1, uint64_t a2, void *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v6 = OUTLINED_FUNCTION_3(a1);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = OUTLINED_FUNCTION_3(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
+    v12 = 136315650;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241701000, v7, v8, "%25s:%-5d %s", v9, v10, v11, v12, 2u);
+    OUTLINED_FUNCTION_2(&dword_241701000, v6, v7, "%25s:%-5d %s", v8, v9, v10, v11, v12);
   }
 
   *a3 = a2;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v6 = OUTLINED_FUNCTION_3(a1);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = OUTLINED_FUNCTION_3(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
+    v12 = 136315650;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241701000, v7, v8, "%25s:%-5d %s", v9, v10, v11, v12, 2u);
+    OUTLINED_FUNCTION_2(&dword_241701000, v6, v7, "%25s:%-5d %s", v8, v9, v10, v11, v12);
   }
 
   *a3 = a2;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v6 = OUTLINED_FUNCTION_3(a1);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = OUTLINED_FUNCTION_3(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
+    v12 = 136315650;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_241701000, v7, v8, "%25s:%-5d %s", v9, v10, v11, v12, 2u);
+    OUTLINED_FUNCTION_2(&dword_241701000, v6, v7, "%25s:%-5d %s", v8, v9, v10, v11, v12);
   }
 
   *a3 = a2;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN12_GLOBAL__N_130HandleInterruptionNotificationEjP12NSDictionary_block_invoke_cold_8(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(*a1, OS_LOG_TYPE_ERROR))
   {
+    v7 = 136315394;
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_4(&dword_241701000, v1, v2, "%25s:%-5d Unexpected null session reference", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_4(&dword_241701000, v1, v2, "%25s:%-5d Unexpected null session reference", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN12_GLOBAL__N_130HandleInterruptionNotificationEjP12NSDictionary_block_invoke_105_cold_12(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(*a1, OS_LOG_TYPE_ERROR))
   {
+    v7 = 136315394;
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_4(&dword_241701000, v1, v2, "%25s:%-5d Unexpected null session reference", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_4(&dword_241701000, v1, v2, "%25s:%-5d Unexpected null session reference", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump()
@@ -6487,9 +6432,9 @@ void boost::container::uninitialized_move_and_insert_alloc<boost::container::new
   v9 = __dst;
   if (a2 && a2 != __src && __dst)
   {
-    v12 = (__src - a2);
+    v12 = __src - a2;
     memmove(__dst, a2, __src - a2);
-    v9 = &v12[v9];
+    v9 += v12;
   }
 
   v13 = *a7;
@@ -6517,9 +6462,9 @@ void boost::container::uninitialized_move_and_insert_alloc<boost::container::new
   v9 = __dst;
   if (a2 && a2 != __src && __dst)
   {
-    v12 = (__src - a2);
+    v12 = __src - a2;
     memmove(__dst, a2, __src - a2);
-    v9 = &v12[v9];
+    v9 += v12;
   }
 
   if (a6 != 1)
@@ -6559,12 +6504,11 @@ void avas::server::DeviceTimeObserver::unmapSessionToDevice()
 
 void avas::server::DeviceTimeObserver::xpcSharedMemoryObject(void *a1, void *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = (*a1 - *a2) >> 7;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_241701000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "DeviceTimeObserver: expected exactly 1 shared block, have %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_241701000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "DeviceTimeObserver: expected exactly 1 shared block, have %d", v3, 8u);
 }
 
 void boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::emplace<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>()
@@ -6656,9 +6600,9 @@ void boost::container::uninitialized_move_and_insert_alloc<boost::container::new
   v9 = __dst;
   if (a2 && a2 != __src && __dst)
   {
-    v12 = (__src - a2);
+    v12 = __src - a2;
     memmove(__dst, a2, __src - a2);
-    v9 = &v12[v9];
+    v9 += v12;
   }
 
   if (a6 != 1)
@@ -6676,20 +6620,18 @@ void boost::container::uninitialized_move_and_insert_alloc<boost::container::new
 
 void avas::server::mx::MXObjectBase::SetClientPID(id *a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   if (os_log_type_enabled(*a1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315650;
-    v6 = "MXObjectBase.mm";
-    v7 = 1024;
-    v8 = 262;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_241701000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Set of kMXSessionProperty_CoreSessionID failed: %d", &v5, 0x18u);
+    v4 = 136315650;
+    v5 = "MXObjectBase.mm";
+    v6 = 1024;
+    v7 = 262;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_241701000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Set of kMXSessionProperty_CoreSessionID failed: %d", &v4, 0x18u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::element_t::release()
@@ -6724,21 +6666,21 @@ void avas::server::SessionCollection::SessionPresentingIterator::SessionPresenti
   }
 }
 
-void avas::server::IONodeSessionInfo::IONodeSessionInfo(uint64_t **a1, uint64_t a2)
+void avas::server::IONodeSessionInfo::IONodeSessionInfo(uint64_t *a1, uint64_t a2)
 {
   v4 = *a1;
   *a1 = 0;
   if (v4)
   {
-    v5 = OUTLINED_FUNCTION_0_0(v4);
-    (*(v6 + 8))(v5);
+    OUTLINED_FUNCTION_0_0();
+    (*(v5 + 8))();
   }
 
-  v7 = *(a2 + 48);
-  if (v7)
+  v6 = *(a2 + 48);
+  if (v6)
   {
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 }
 

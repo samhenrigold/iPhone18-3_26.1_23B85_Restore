@@ -6,19 +6,19 @@
 
 + (id)imageForZ:(double)z
 {
-  objc_opt_self();
-  v2 = (z + 1.5) / 1.2;
-  if (v2 < 0.0)
+  v2 = objc_opt_self();
+  v3 = (z + 1.5) / 1.2;
+  if (v3 < 0.0)
   {
-    v2 = 0.0;
+    v3 = 0.0;
   }
 
-  v3 = MEMORY[0x1E69DCAB8];
-  v4 = imageTable[blurTable[vcvtad_u64_f64((1.0 - fmin(v2, 1.0)) * 9.0)]];
-  v5 = WKBundleForWallpaperKitFramework();
-  v6 = [v3 imageNamed:v4 inBundle:v5 compatibleWithTraitCollection:0];
+  v4 = MEMORY[0x1E69DCAB8];
+  v5 = imageTable[blurTable[vcvtad_u64_f64((1.0 - fmin(v3, 1.0)) * 9.0)]];
+  v6 = WKBundleForWallpaperKitFramework(v2);
+  v7 = [v4 imageNamed:v5 inBundle:v6 compatibleWithTraitCollection:0];
 
-  return v6;
+  return v7;
 }
 
 @end

@@ -8,7 +8,7 @@ void __77__BSUIPartialStylingLabelView_MTVisualStylingSupport__mt_applyVisualSty
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 contentLabel];
-  [v4 setTextColor:v3];
+  [v4 setTextColor:?];
 }
 
 @end

@@ -6,6 +6,7 @@
 - (CXCallDirectoryMutableLabeledPhoneNumberEntryData)pendingIdentificationEntryDataForAddition;
 - (CXCallDirectoryMutablePhoneNumberEntryData)pendingBlockingEntryData;
 - (CXCallDirectoryMutablePhoneNumberEntryData)pendingIdentificationEntryDataForRemoval;
+- (id)_remoteObjectProxyWithErrorHandler:(id)handler synchronous:(BOOL)synchronous;
 - (id)delegate;
 - (void)_flushPendingBlockingEntryData;
 - (void)_flushPendingIdentificationEntryData;
@@ -95,11 +96,21 @@ id __83__CXCallDirectoryExtensionContext_initWithInputItems_listenerEndpoint_con
 void __83__CXCallDirectoryExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CXDefaultLog();
+  v3 = CXDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __73__CXCallDirectoryExtensionHostContext_requestFailedWithError_completion___block_invoke_cold_1(v2, v3);
   }
+}
+
+- (id)_remoteObjectProxyWithErrorHandler:(id)handler synchronous:(BOOL)synchronous
+{
+  synchronousCopy = synchronous;
+  handlerCopy = handler;
+  remoteObjectProxyGenerator = [(CXCallDirectoryExtensionContext *)self remoteObjectProxyGenerator];
+  v8 = (remoteObjectProxyGenerator)[2](remoteObjectProxyGenerator, handlerCopy, synchronousCopy);
+
+  return v8;
 }
 
 - (CXCallDirectoryMutablePhoneNumberEntryData)pendingBlockingEntryData
@@ -304,12 +315,13 @@ LABEL_6:
 void __48__CXCallDirectoryExtensionContext_isIncremental__block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = CXDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CXDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __48__CXCallDirectoryExtensionContext_isIncremental__block_invoke_cold_1(v5, v6);
+      __48__CXCallDirectoryExtensionContext_isIncremental__block_invoke_cold_1(v6, v7);
     }
   }
 
@@ -412,7 +424,7 @@ void __65__CXCallDirectoryExtensionContext_removeAllIdentificationEntries__block
 - (void)completeRequestWithCompletionHandler:(void *)completion
 {
   v4 = completion;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -458,22 +470,21 @@ id __72__CXCallDirectoryExtensionContext_completeRequestWithCompletionHandler___
 
 - (void)requestFailedWithError:(id)error reply:(id)reply
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   replyCopy = reply;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = errorCopy;
-    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "request failed with error: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = errorCopy;
+    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "request failed with error: %@", &v10, 0xCu);
   }
 
   delegate = [(CXCallDirectoryExtensionContext *)self delegate];
   [delegate requestFailedForExtensionContext:self withError:errorCopy];
 
   replyCopy[2](replyCopy);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -523,11 +534,10 @@ uint64_t __66__CXCallDirectoryExtensionContext__extensionAuxiliaryHostProtocol__
 
 void __48__CXCallDirectoryExtensionContext_isIncremental__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error querying is incremental loading allowed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error querying is incremental loading allowed: %@", &v2, 0xCu);
 }
 
 @end

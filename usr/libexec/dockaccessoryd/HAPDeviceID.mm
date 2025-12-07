@@ -32,7 +32,7 @@
   [stringCopy length];
   if (TextToHardwareAddress())
   {
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = sub_10007FAFC(0);
@@ -78,7 +78,7 @@
 
   else
   {
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(0);

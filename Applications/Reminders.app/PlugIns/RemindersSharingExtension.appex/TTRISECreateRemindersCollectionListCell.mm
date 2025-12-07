@@ -16,13 +16,12 @@
 
 - (void)prepareForReuse
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for TTRISECreateRemindersCollectionListCell();
-  v2 = v4.receiver;
-  [(TTRISECreateRemindersCollectionListCell *)&v4 prepareForReuse];
+  v3.receiver = self;
+  v3.super_class = type metadata accessor for TTRISECreateRemindersCollectionListCell();
+  v2 = v3.receiver;
+  [(TTRISECreateRemindersCollectionListCell *)&v3 prepareForReuse];
   if (*&v2[OBJC_IVAR____TtC25RemindersSharingExtension39TTRISECreateRemindersCollectionListCell_viewModelObserver])
   {
-    v3 = *&v2[OBJC_IVAR____TtC25RemindersSharingExtension39TTRISECreateRemindersCollectionListCell_viewModelObserver];
 
     sub_10004A920();
   }

@@ -125,10 +125,9 @@ BOOL __65__USWebpageUsage_initWithURL_bundleIdentifier_profileIdentifier___block
 
 - (void)dealloc
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Tried to create Duet event with start date %@ later than end date %@", v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Tried to create Duet event with start date %@ later than end date %@", v0, 0x16u);
 }
 
 void __25__USWebpageUsage_dealloc__block_invoke(uint64_t a1, char a2, void *a3)
@@ -177,11 +176,11 @@ void __25__USWebpageUsage_dealloc__block_invoke(uint64_t a1, char a2, void *a3)
 
 - (void)changeState:(int64_t)state completionHandler:(id)handler
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v49 = objc_opt_new();
-  v52 = [(USWebpageUsage *)self URL];
-  host = [v52 host];
+  v48 = objc_opt_new();
+  v51 = [(USWebpageUsage *)self URL];
+  host = [v51 host];
   if (host)
   {
     appWebUsageType = [MEMORY[0x277CFE338] appWebUsageType];
@@ -190,13 +189,13 @@ void __25__USWebpageUsage_dealloc__block_invoke(uint64_t a1, char a2, void *a3)
     obj = v6;
     v7 = [(NSMutableDictionary *)self->_contextUsageRecord objectForKeyedSubscript:appWebUsageType];
     v8 = 0x277CFE000;
-    v44 = v7;
+    v43 = v7;
     switch(state)
     {
       case 0:
         if (v7)
         {
-          v46 = [(NSMutableDictionary *)self->_contextUsageRecord copy];
+          v45 = [(NSMutableDictionary *)self->_contextUsageRecord copy];
           [(NSMutableDictionary *)self->_contextUsageRecord removeAllObjects];
           v9 = 0;
         }
@@ -204,7 +203,7 @@ void __25__USWebpageUsage_dealloc__block_invoke(uint64_t a1, char a2, void *a3)
         else
         {
           v9 = 0;
-          v46 = 0;
+          v45 = 0;
         }
 
         v11 = 1;
@@ -216,19 +215,19 @@ void __25__USWebpageUsage_dealloc__block_invoke(uint64_t a1, char a2, void *a3)
           if (![v7 integerValue])
           {
             v9 = 0;
-            v46 = 0;
+            v45 = 0;
             v10 = 2;
             goto LABEL_18;
           }
 
-          v46 = [(NSMutableDictionary *)self->_contextUsageRecord copy];
+          v45 = [(NSMutableDictionary *)self->_contextUsageRecord copy];
           v11 = 0;
         }
 
         else
         {
           v11 = 0;
-          v46 = 0;
+          v45 = 0;
         }
 
         v10 = 2;
@@ -240,20 +239,20 @@ void __25__USWebpageUsage_dealloc__block_invoke(uint64_t a1, char a2, void *a3)
           if ([v7 integerValue] == 1)
           {
             v9 = 0;
-            v46 = 0;
+            v45 = 0;
             v10 = 3;
 LABEL_18:
             v11 = 1;
 LABEL_26:
             bundleIdentifier = [(USWebpageUsage *)self bundleIdentifier];
-            v43 = v9;
+            v42 = v9;
             profileIdentifier = [(USWebpageUsage *)self profileIdentifier];
             v13 = [MEMORY[0x277CCABB0] numberWithBool:{-[USWebpageUsage usageTrusted](self, "usageTrusted")}];
             if ([(USWebpageUsage *)self state]!= v10)
             {
               v14 = objc_alloc(MEMORY[0x277CF1010]);
               uniqueIdentifier = [(USWebpageUsage *)self uniqueIdentifier];
-              v16 = v52;
+              v16 = v51;
               absoluteString = [v16 absoluteString];
               v18 = absoluteString;
               if (absoluteString)
@@ -268,7 +267,7 @@ LABEL_26:
 
               v20 = relativeString;
 
-              v21 = [v14 initWithUniqueID:uniqueIdentifier absoluteTimestamp:v49 usageState:v10 webpageURL:v20 webDomain:host applicationID:bundleIdentifier deviceID:0 isUsageTrusted:v13 safariProfileID:profileIdentifier];
+              v21 = [v14 initWithUniqueID:uniqueIdentifier absoluteTimestamp:v48 usageState:v10 webpageURL:v20 webDomain:host applicationID:bundleIdentifier deviceID:0 isUsageTrusted:v13 safariProfileID:profileIdentifier];
               source = [(USWebpageUsage *)self source];
               [source sendEvent:v21];
 
@@ -294,71 +293,71 @@ LABEL_26:
               if (profileIdentifier)
               {
                 appUsageSafariProfileID = [MEMORY[0x277CFE338] appUsageSafariProfileID];
-                v64[0] = appWebUsageWepageURL;
-                v64[1] = appWebUsageWebDomain;
-                v65[0] = v52;
-                v65[1] = host;
-                v64[2] = appWebUsageType;
-                v64[3] = appWebUsageStartDate;
-                v65[2] = v43;
-                v65[3] = v49;
-                v64[4] = v29;
-                v64[5] = appUsageSafariProfileID;
-                v65[4] = bundleIdentifier;
-                v65[5] = profileIdentifier;
-                v64[6] = v31;
-                v65[6] = v13;
-                v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:7];
+                v63[0] = appWebUsageWepageURL;
+                v63[1] = appWebUsageWebDomain;
+                v64[0] = v51;
+                v64[1] = host;
+                v63[2] = appWebUsageType;
+                v63[3] = appWebUsageStartDate;
+                v64[2] = v42;
+                v64[3] = v48;
+                v63[4] = v29;
+                v63[5] = appUsageSafariProfileID;
+                v64[4] = bundleIdentifier;
+                v64[5] = profileIdentifier;
+                v63[6] = v31;
+                v64[6] = v13;
+                v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:7];
               }
 
               else
               {
-                v66[0] = appWebUsageWepageURL;
-                v66[1] = appWebUsageWebDomain;
-                v67[0] = v52;
-                v67[1] = host;
-                v66[2] = appWebUsageType;
-                v66[3] = appWebUsageStartDate;
-                v67[2] = v43;
-                v67[3] = v49;
-                v66[4] = v29;
-                v66[5] = isUsageTrusted;
-                v67[4] = bundleIdentifier;
-                v67[5] = v13;
-                v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:6];
+                v65[0] = appWebUsageWepageURL;
+                v65[1] = appWebUsageWebDomain;
+                v66[0] = v51;
+                v66[1] = host;
+                v65[2] = appWebUsageType;
+                v65[3] = appWebUsageStartDate;
+                v66[2] = v42;
+                v66[3] = v48;
+                v65[4] = v29;
+                v65[5] = isUsageTrusted;
+                v66[4] = bundleIdentifier;
+                v66[5] = v13;
+                v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:6];
               }
 
               [(NSMutableDictionary *)self->_contextUsageRecord setDictionary:v23];
             }
 
             objc_sync_exit(obj);
-            if (v46)
+            if (v45)
             {
-              v55[0] = MEMORY[0x277D85DD0];
-              v55[1] = 3221225472;
-              v55[2] = __48__USWebpageUsage_changeState_completionHandler___block_invoke;
-              v55[3] = &unk_279E0A690;
-              v33 = v46;
-              v56 = v33;
-              v57 = v49;
+              v54[0] = MEMORY[0x277D85DD0];
+              v54[1] = 3221225472;
+              v54[2] = __48__USWebpageUsage_changeState_completionHandler___block_invoke;
+              v54[3] = &unk_279E0A690;
+              v33 = v45;
+              v55 = v33;
+              v56 = v48;
               selfCopy = self;
-              v59 = handlerCopy;
-              v34 = MEMORY[0x2743AAC50](v55);
+              v58 = handlerCopy;
+              v34 = MEMORY[0x2743AAC50](v54);
               context = [(USWebpageUsage *)self context];
               if (v23)
               {
-                v63 = v23;
-                v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
-                v62 = v33;
-                keyPathForAppWebUsageDataDictionaries2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+                v62 = v23;
+                v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+                v61 = v33;
+                keyPathForAppWebUsageDataDictionaries2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
                 keyPathForAppWebUsageDataDictionaries = [MEMORY[0x277CFE338] keyPathForAppWebUsageDataDictionaries];
                 [context addObjects:v36 andRemoveObjects:keyPathForAppWebUsageDataDictionaries2 fromArrayAtKeyPath:keyPathForAppWebUsageDataDictionaries responseQueue:0 withCompletion:v34];
               }
 
               else
               {
-                v61 = v33;
-                v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+                v60 = v33;
+                v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
                 keyPathForAppWebUsageDataDictionaries2 = [MEMORY[0x277CFE338] keyPathForAppWebUsageDataDictionaries];
                 [context removeObjects:v36 fromArrayAtKeyPath:keyPathForAppWebUsageDataDictionaries2 responseQueue:0 withCompletion:v34];
               }
@@ -367,15 +366,15 @@ LABEL_26:
             else if (v23)
             {
               context2 = [(USWebpageUsage *)self context];
-              v60 = v23;
-              v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+              v59 = v23;
+              v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
               keyPathForAppWebUsageDataDictionaries3 = [MEMORY[0x277CFE338] keyPathForAppWebUsageDataDictionaries];
-              v53[0] = MEMORY[0x277D85DD0];
-              v53[1] = 3221225472;
-              v53[2] = __48__USWebpageUsage_changeState_completionHandler___block_invoke_3;
-              v53[3] = &unk_279E0A6B8;
-              v54 = handlerCopy;
-              [context2 addObjects:v40 toArrayAtKeyPath:keyPathForAppWebUsageDataDictionaries3 responseQueue:0 withCompletion:v53];
+              v52[0] = MEMORY[0x277D85DD0];
+              v52[1] = 3221225472;
+              v52[2] = __48__USWebpageUsage_changeState_completionHandler___block_invoke_3;
+              v52[3] = &unk_279E0A6B8;
+              v53 = handlerCopy;
+              [context2 addObjects:v40 toArrayAtKeyPath:keyPathForAppWebUsageDataDictionaries3 responseQueue:0 withCompletion:v52];
             }
 
             else if (handlerCopy)
@@ -386,14 +385,14 @@ LABEL_26:
             goto LABEL_45;
           }
 
-          v46 = [(NSMutableDictionary *)self->_contextUsageRecord copy];
+          v45 = [(NSMutableDictionary *)self->_contextUsageRecord copy];
           v11 = 0;
         }
 
         else
         {
           v11 = 0;
-          v46 = 0;
+          v45 = 0;
         }
 
         v10 = 3;
@@ -403,14 +402,14 @@ LABEL_26:
 
     v9 = 0;
     v10 = 0;
-    v46 = 0;
+    v45 = 0;
     goto LABEL_18;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138739971;
-    v69 = v52;
+    v68 = v51;
     _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "No hostname for URL %{sensitive}@", buf, 0xCu);
   }
 
@@ -420,32 +419,30 @@ LABEL_26:
   }
 
 LABEL_45:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __48__USWebpageUsage_changeState_completionHandler___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = *(a1 + 32);
   v3 = v1;
   v4 = [MEMORY[0x277CFE338] appWebUsageWepageURL];
-  v43 = [MEMORY[0x277CFE338] appWebUsageWebDomain];
+  v42 = [MEMORY[0x277CFE338] appWebUsageWebDomain];
   v5 = [MEMORY[0x277CFE338] appWebUsageType];
-  v42 = [MEMORY[0x277CFE338] isUsageTrusted];
+  v41 = [MEMORY[0x277CFE338] isUsageTrusted];
   v6 = [MEMORY[0x277CFE338] appWebUsageStartDate];
   v7 = [MEMORY[0x277CFE338] appWebUsageBundleID];
   v8 = [MEMORY[0x277CFE338] appUsageSafariProfileID];
   v9 = [MEMORY[0x277CFE1D0] webpageURL];
   v10 = [MEMORY[0x277CFE1D0] webDomain];
-  v41 = [MEMORY[0x277CFE1D0] usageType];
-  v39 = [MEMORY[0x277CFE1D0] safariProfileID];
-  v40 = [MEMORY[0x277CFE1D0] isUsageTrusted];
-  v35 = [MEMORY[0x277CFE298] appWebUsageStream];
-  v38 = v6;
+  v40 = [MEMORY[0x277CFE1D0] usageType];
+  v38 = [MEMORY[0x277CFE1D0] safariProfileID];
+  v39 = [MEMORY[0x277CFE1D0] isUsageTrusted];
+  v34 = [MEMORY[0x277CFE298] appWebUsageStream];
+  v37 = v6;
   v11 = [v2 objectForKeyedSubscript:v6];
-  v37 = v7;
+  v36 = v7;
   if ([v11 compare:v3] == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
@@ -455,81 +452,81 @@ void __48__USWebpageUsage_changeState_completionHandler___block_invoke(uint64_t 
 
     v12 = 0;
     v13 = v8;
-    v14 = v35;
+    v14 = v34;
   }
 
   else
   {
-    v33 = v3;
-    v34 = v5;
+    v32 = v3;
+    v33 = v5;
     v15 = MEMORY[0x277CFE1A8];
     v16 = [v2 objectForKeyedSubscript:v7];
-    v30 = [v15 withBundle:v16];
+    v29 = [v15 withBundle:v16];
 
-    v31 = v8;
+    v30 = v8;
     v17 = [v2 objectForKeyedSubscript:v8];
-    v32 = v4;
+    v31 = v4;
     if (v17)
     {
-      v47 = v9;
+      v46 = v9;
       v18 = [v2 objectForKeyedSubscript:v4];
-      v52 = v18;
-      v48 = v10;
-      v19 = [v2 objectForKeyedSubscript:v43];
-      v53 = v19;
-      v49 = v41;
-      v20 = [v2 objectForKeyedSubscript:v34];
-      v54 = v20;
-      v55 = v17;
+      v51 = v18;
+      v47 = v10;
+      v19 = [v2 objectForKeyedSubscript:v42];
+      v52 = v19;
+      v48 = v40;
+      v20 = [v2 objectForKeyedSubscript:v33];
+      v53 = v20;
+      v54 = v17;
+      v49 = v38;
       v50 = v39;
-      v51 = v40;
-      v21 = [v2 objectForKeyedSubscript:v42];
-      v56 = v21;
+      v21 = [v2 objectForKeyedSubscript:v41];
+      v55 = v21;
       v22 = MEMORY[0x277CBEAC0];
       v23 = 5;
     }
 
     else
     {
-      v47 = v9;
+      v46 = v9;
       v18 = [v2 objectForKeyedSubscript:v4];
-      v52 = v18;
-      v48 = v10;
-      v19 = [v2 objectForKeyedSubscript:v43];
-      v53 = v19;
-      v49 = v41;
-      v20 = [v2 objectForKeyedSubscript:v34];
-      v54 = v20;
-      v50 = v40;
-      v21 = [v2 objectForKeyedSubscript:v42];
-      v55 = v21;
+      v51 = v18;
+      v47 = v10;
+      v19 = [v2 objectForKeyedSubscript:v42];
+      v52 = v19;
+      v48 = v40;
+      v20 = [v2 objectForKeyedSubscript:v33];
+      v53 = v20;
+      v49 = v39;
+      v21 = [v2 objectForKeyedSubscript:v41];
+      v54 = v21;
       v22 = MEMORY[0x277CBEAC0];
       v23 = 4;
     }
 
-    v24 = [v22 dictionaryWithObjects:&v52 forKeys:&v47 count:{v23, v10}];
+    v24 = [v22 dictionaryWithObjects:&v51 forKeys:&v46 count:{v23, v10}];
 
-    v14 = v35;
-    v3 = v33;
-    v12 = [MEMORY[0x277CFE1D8] eventWithStream:v35 startDate:v11 endDate:v33 value:v30 metadata:v24];
+    v14 = v34;
+    v3 = v32;
+    v12 = [MEMORY[0x277CFE1D8] eventWithStream:v34 startDate:v11 endDate:v32 value:v29 metadata:v24];
 
-    v13 = v31;
-    v4 = v32;
-    v5 = v34;
-    v10 = v29;
+    v13 = v30;
+    v4 = v31;
+    v5 = v33;
+    v10 = v28;
   }
 
   if (v12)
   {
     v25 = [*(a1 + 48) eventStorage];
-    v46 = v12;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __48__USWebpageUsage_changeState_completionHandler___block_invoke_2;
-    v44[3] = &unk_279E0A668;
-    v45 = *(a1 + 56);
-    [v25 saveObjects:v26 responseQueue:0 withCompletion:v44];
+    v45 = v12;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __48__USWebpageUsage_changeState_completionHandler___block_invoke_2;
+    v43[3] = &unk_279E0A668;
+    v44 = *(a1 + 56);
+    [v25 saveObjects:v26 responseQueue:0 withCompletion:v43];
   }
 
   else
@@ -540,8 +537,6 @@ void __48__USWebpageUsage_changeState_completionHandler___block_invoke(uint64_t 
       (*(v27 + 16))(v27, 0);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__USWebpageUsage_changeState_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -568,17 +563,16 @@ uint64_t __48__USWebpageUsage_changeState_completionHandler___block_invoke_3(uin
 
 void __25__USWebpageUsage_dealloc__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v5 = 138740483;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to reset web page usage to not-in-use on dealloc for URL %{sensitive}@ and bundle identifier %@ with error: %@", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138740483;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to reset web page usage to not-in-use on dealloc for URL %{sensitive}@ and bundle identifier %@ with error: %@", &v4, 0x20u);
 }
 
 @end

@@ -24,9 +24,11 @@
 
 uint64_t __34__AXUserEventTimer_sharedInstance__block_invoke()
 {
-  sharedInstance_timer = objc_alloc_init(AXUserEventTimer);
+  v0 = objc_alloc_init(AXUserEventTimer);
+  v1 = sharedInstance_timer;
+  sharedInstance_timer = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (AXUserEventTimer)init

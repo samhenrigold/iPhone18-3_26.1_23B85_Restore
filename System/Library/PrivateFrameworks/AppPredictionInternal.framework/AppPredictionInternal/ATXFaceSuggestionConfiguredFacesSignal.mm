@@ -22,11 +22,10 @@
 
 - (void)_prepare
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ATXFaceSuggestionConfiguredFacesSignal _prepare]";
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "%s: no posters in configuration cache!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ATXFaceSuggestionConfiguredFacesSignal _prepare]";
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "%s: no posters in configuration cache!", &v1, 0xCu);
 }
 
 id __50__ATXFaceSuggestionConfiguredFacesSignal__prepare__block_invoke(uint64_t a1, void *a2)

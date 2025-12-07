@@ -818,10 +818,10 @@ LABEL_7:
     v7 = 0;
   }
 
-  configuration = [(UIButton *)self->_directionsButton configuration];
+  v8 = objc_msgSend_configuration(self->_directionsButton);
   v37 = v7;
-  [configuration setSubtitle:v7];
-  [(UIButton *)self->_directionsButton setConfiguration:configuration];
+  [v8 setSubtitle:v7];
+  [(UIButton *)self->_directionsButton setConfiguration:v8];
   v9 = [[NSMutableArray alloc] initWithCapacity:2];
   sharedTrip2 = [(SharedTripContaineeViewController *)self sharedTrip];
   destinationWaypointMapItem = [sharedTrip2 destinationWaypointMapItem];
@@ -879,16 +879,16 @@ LABEL_7:
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Will display Contact button for sender:%{private}@", buf, 0xCu);
     }
 
-    configuration2 = [(UIButton *)self->_contactButton configuration];
+    v29 = objc_msgSend_configuration(self->_contactButton);
 
     sharedTrip4 = [(SharedTripContaineeViewController *)self sharedTrip];
     senderInfo2 = [sharedTrip4 senderInfo];
     localName = [senderInfo2 localName];
-    [configuration2 setSubtitle:localName];
+    [v29 setSubtitle:localName];
 
-    [(UIButton *)self->_contactButton setConfiguration:configuration2];
+    [(UIButton *)self->_contactButton setConfiguration:v29];
     [v9 addObject:self->_contactButton];
-    configuration = configuration2;
+    v8 = v29;
   }
 
   else

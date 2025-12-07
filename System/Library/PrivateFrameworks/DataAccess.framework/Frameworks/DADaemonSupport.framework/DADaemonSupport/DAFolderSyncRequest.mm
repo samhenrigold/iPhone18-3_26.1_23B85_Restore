@@ -1,8 +1,30 @@
 @interface DAFolderSyncRequest
+- (DAFolderSyncRequest)initWithFolder:(id)folder hasRemoteChanges:(BOOL)changes isInitialUberSync:(BOOL)sync;
 - (id)description;
 @end
 
 @implementation DAFolderSyncRequest
+
+- (DAFolderSyncRequest)initWithFolder:(id)folder hasRemoteChanges:(BOOL)changes isInitialUberSync:(BOOL)sync
+{
+  syncCopy = sync;
+  changesCopy = changes;
+  folderCopy = folder;
+  v12.receiver = self;
+  v12.super_class = DAFolderSyncRequest;
+  v9 = [(DAFolderSyncRequest *)&v12 init];
+  v10 = v9;
+  if (v9)
+  {
+    [(DAFolderSyncRequest *)v9 setFolder:folderCopy];
+    [(DAFolderSyncRequest *)v10 setHasRemoteChanges:changesCopy];
+    [(DAFolderSyncRequest *)v10 setIsInitialUberSync:syncCopy];
+    [(DAFolderSyncRequest *)v10 setIsResyncAfterConnectionFailed:0];
+    [(DAFolderSyncRequest *)v10 setIsResyncAfterServerError:0];
+  }
+
+  return v10;
+}
 
 - (id)description
 {

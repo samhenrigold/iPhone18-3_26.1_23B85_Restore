@@ -272,7 +272,7 @@
   if ((isPlaying & 1) == 0)
   {
     audioMediaObject = [(CKMessageEntryRecordedAudioView *)self audioMediaObject];
-    [audioMediaObject duration];
+    objc_msgSend_duration(audioMediaObject);
     v4 = v8;
   }
 
@@ -507,7 +507,7 @@
   audioController = [(CKMessageEntryRecordedAudioView *)self audioController];
   [(CKMessageEntryRecordedAudioView *)self time];
   v6 = v5;
-  [audioMediaObject duration];
+  objc_msgSend_duration(audioMediaObject);
   v8 = v7;
   [CKAudioProgressView progressForTime:v6 duration:v7];
   v10 = v9;

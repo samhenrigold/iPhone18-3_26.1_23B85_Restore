@@ -3,8 +3,10 @@
 - (BOOL)_setChildren:(id)children forMailboxUid:(id)uid;
 - (BOOL)renameMailbox:(id)mailbox newName:(id)name parent:(id)parent;
 - (LocalAccount)initWithLibrary:(id)library;
+- (id)_copyMailboxUidWithParent:(id)parent name:(id)name attributes:(unsigned int)attributes existingMailboxUid:(id)uid dictionary:(id)dictionary;
 - (id)_infoForMatchingURL:(id)l;
 - (id)mailboxUidForFileSystemPath:(id)path;
+- (id)transientDraftsFolderShouldCreate:(BOOL)create;
 - (void)_synchronouslyLoadListingForParent:(id)parent;
 - (void)resetSpecialMailboxes;
 @end
@@ -33,7 +35,7 @@
 - (LocalAccount)initWithLibrary:(id)library
 {
   libraryCopy = library;
-  v5 = vm_imap_log();
+  v5 = vm_imap_log(libraryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -98,6 +100,20 @@
   else
   {
   }
+}
+
+- (id)_copyMailboxUidWithParent:(id)parent name:(id)name attributes:(unsigned int)attributes existingMailboxUid:(id)uid dictionary:(id)dictionary
+{
+  v10.receiver = self;
+  v10.super_class = LocalAccount;
+  v7 = [(MailAccount *)&v10 _copyMailboxUidWithParent:parent name:name attributes:*&attributes existingMailboxUid:uid dictionary:dictionary];
+  v8 = v7;
+  if (v7 && ([v7 isContainer] & 1) == 0)
+  {
+    [v8 setAttributes:{objc_msgSend(v8, "attributes") & 0xFFFFFFFELL}];
+  }
+
+  return v8;
 }
 
 - (BOOL)_setChildren:(id)children forMailboxUid:(id)uid
@@ -216,6 +232,23 @@ LABEL_11:
   v4.super_class = LocalAccount;
   [(MailAccount *)&v4 resetSpecialMailboxes];
   v3 = [(LocalAccount *)self transientDraftsFolderShouldCreate:0];
+}
+
+- (id)transientDraftsFolderShouldCreate:(BOOL)create
+{
+  createCopy = create;
+  [(LocalAccount *)self mf_lock];
+  v5 = [(MailAccount *)self mailboxUidForRelativePath:@"x-apple-transient-drafts" create:createCopy];
+  [v5 setType:5];
+  if ([v5 isValid])
+  {
+    account = [v5 account];
+    [account saveState];
+  }
+
+  [(LocalAccount *)self mf_unlock];
+
+  return v5;
 }
 
 - (id)_infoForMatchingURL:(id)l

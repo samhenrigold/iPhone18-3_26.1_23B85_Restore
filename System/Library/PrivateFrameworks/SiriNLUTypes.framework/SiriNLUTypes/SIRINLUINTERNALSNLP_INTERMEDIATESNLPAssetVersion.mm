@@ -105,7 +105,6 @@ LABEL_4:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0 || self->_osRelease != *(equalCopy + 5))
@@ -117,7 +116,7 @@ LABEL_4:
   else if ((*(equalCopy + 28) & 2) != 0)
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -150,17 +149,17 @@ LABEL_19:
   boltTaskId = self->_boltTaskId;
   if (boltTaskId | *(equalCopy + 1))
   {
-    v7 = [(NSString *)boltTaskId isEqual:?];
+    v6 = [(NSString *)boltTaskId isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -258,12 +257,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    osRelease = self->_osRelease;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -282,22 +280,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  ncvNumber = self->_ncvNumber;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    patchNumber = self->_patchNumber;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_boltTaskId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 

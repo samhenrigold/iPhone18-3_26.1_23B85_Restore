@@ -16,10 +16,10 @@
 
 - (void)completeRequestWithBroadcastURL:()RPBroadcastExtension broadcastConfiguration:setupInfo:
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCA9D8];
   v8 = a5;
-  v41 = a4;
+  v40 = a4;
   v9 = a3;
   v10 = objc_alloc_init(v7);
   v11 = objc_alloc(MEMORY[0x277CCA898]);
@@ -31,8 +31,8 @@
   v15 = *MEMORY[0x277CC2050];
   v16 = [v14 initWithItem:v9 typeIdentifier:*MEMORY[0x277CC2050]];
 
-  v47[0] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
+  v46[0] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
   [v10 setAttachments:v17];
 
   v18 = objc_alloc_init(MEMORY[0x277CCA9D8]);
@@ -42,8 +42,8 @@
   [v18 setAttributedTitle:v21];
 
   v22 = [objc_alloc(MEMORY[0x277CCAA88]) initWithItem:v8 typeIdentifier:v15];
-  v46 = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+  v45 = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
   [v18 setAttachments:v23];
 
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
@@ -56,11 +56,11 @@
   [v26 setAttributedTitle:v29];
 
   v30 = [objc_alloc(MEMORY[0x277CCAA88]) initWithItem:bundleIdentifier typeIdentifier:v15];
-  v45 = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+  v44 = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
   [v26 setAttachments:v31];
 
-  v32 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v41];
+  v32 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v40];
 
   v33 = objc_alloc_init(MEMORY[0x277CCA9D8]);
   v34 = objc_alloc(MEMORY[0x277CCA898]);
@@ -69,18 +69,16 @@
   [v33 setAttributedTitle:v36];
 
   v37 = [objc_alloc(MEMORY[0x277CCAA88]) initWithItem:v32 typeIdentifier:v15];
-  v44 = v37;
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+  v43 = v37;
+  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
   [v33 setAttachments:v38];
 
-  v43[0] = v18;
-  v43[1] = v26;
-  v43[2] = v33;
-  v43[3] = v10;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:4];
+  v42[0] = v18;
+  v42[1] = v26;
+  v42[2] = v33;
+  v42[3] = v10;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
   [self completeRequestReturningItems:v39 completionHandler:0];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadBroadcastingApplicationInfoWithCompletion:()RPBroadcastExtension

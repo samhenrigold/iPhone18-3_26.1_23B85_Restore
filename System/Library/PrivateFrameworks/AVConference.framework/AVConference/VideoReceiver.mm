@@ -85,60 +85,60 @@ __n128 ___VideoReceiver_RegisterStatistics_block_invoke(uint64_t a1, uint64_t a2
   return result;
 }
 
-uint64_t ___VideoReceiver_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1)
+unsigned int *___VideoReceiver_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x1EEE9AC00](a1);
   v3 = v2;
   v4 = v1;
-  v309 = *MEMORY[0x1E69E9840];
-  v5 = micro();
-  v304 = 0.0;
+  v310 = *MEMORY[0x1E69E9840];
+  v5 = micro(v1, v2);
+  v305 = 0.0;
   result = CheckInHandleDebug();
   if (result)
   {
     v7 = result;
     alloc = v3;
-    v8 = result + 40900;
-    VideoReceiver_GetFramerate(1.0, *(v4 + 32), &v304);
-    v10 = v304;
-    if (v304 > 0.0)
+    v8 = result + 10225;
+    VideoReceiver_GetFramerate(*(v4 + 32), &v305, 1.0);
+    v10 = v305;
+    if (v305 > 0.0)
     {
-      ++*(v8 + 1792);
-      LOWORD(v9) = *(v8 + 1790);
-      *(v8 + 1790) = (v10 + v9);
-      if (*(v8 + 1900) < v10)
+      ++*(v8 + 896);
+      LOWORD(v9) = *(v8 + 895);
+      *(v8 + 895) = (v10 + v9);
+      if (*(v8 + 475) < v10)
       {
-        *(v8 + 1900) = v10;
+        *(v8 + 475) = v10;
       }
 
-      if (*(v8 + 1908) > v10)
+      if (*(v8 + 477) > v10)
       {
-        *(v8 + 1908) = v10;
+        *(v8 + 477) = v10;
       }
     }
 
-    v303 = 0.0;
-    VideoReceiver_GetBitrate(1.0, *(v4 + 32), &v303, 0, 0, 0, 0);
-    v11 = v303;
-    if (*(v8 + 1924) < v303)
+    v304 = 0.0;
+    VideoReceiver_GetBitrate(*(v4 + 32), &v304, 0, 0, 0, 0, 1.0);
+    v11 = v304;
+    if (*(v8 + 481) < v304)
     {
-      *(v8 + 1924) = v303;
+      *(v8 + 481) = v304;
     }
 
-    v281 = (v8 + 1924);
-    v271 = (v8 + 1932);
-    if (*(v8 + 1932) > v11)
+    v282 = (v8 + 481);
+    v272 = (v8 + 483);
+    if (*(v8 + 483) > v11)
     {
-      *v271 = v11;
+      *v272 = v11;
     }
 
-    v301 = 0.0;
     v302 = 0.0;
-    v299 = 0.0;
+    v303 = 0.0;
     v300 = 0.0;
-    v275 = v8;
-    v269 = v8 + 1916;
-    VideoReceiver_GetBitrate(*(v8 + 2288), *(v4 + 32), v8 + 1916, &v302, &v301, &v300, &v299);
+    v301 = 0.0;
+    v276 = v8;
+    v270 = v8 + 479;
+    VideoReceiver_GetBitrate(*(v4 + 32), (v8 + 479), &v303, &v302, &v301, &v300, v8[572]);
     if (*v7)
     {
       v12 = 0;
@@ -150,19 +150,19 @@ uint64_t ___VideoReceiver_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1
       v18 = 436;
       do
       {
-        LODWORD(v307[0]) = -1431655766;
+        LODWORD(v308[0]) = -1431655766;
         __dst[0] = -1431655766;
-        LODWORD(v289[0]) = -1431655766;
+        LODWORD(v290[0]) = -1431655766;
         v19 = v15;
         v20 = v16;
-        RTPGetPacketLossMetrics(*&v7[v18], v307, __dst, v289);
+        RTPGetPacketLossMetrics(*&v7[v18], v308, __dst, v290);
         v13 += __dst[0];
-        v14 += LODWORD(v289[0]);
-        memset(v308, 0, 24);
-        RTPGetDownlinkReportingStats(*&v7[v18], v308);
-        v15 = *(&v308[0] + 1) + v19;
-        v16 = *&v308[1] + v20;
-        v17 += *&v308[0];
+        v14 += LODWORD(v290[0]);
+        memset(v309, 0, 24);
+        RTPGetDownlinkReportingStats(*&v7[v18], v309);
+        v15 = *(&v309[0] + 1) + v19;
+        v16 = *&v309[1] + v20;
+        v17 += *&v309[0];
         ++v12;
         v18 += 1088;
       }
@@ -179,48 +179,48 @@ uint64_t ___VideoReceiver_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1
       v13 = 0;
     }
 
-    v270 = v14;
-    v273 = v17;
-    v274 = v7;
-    v21 = v275;
-    v22 = *(v275 + 1796);
+    v271 = v14;
+    v274 = v17;
+    v275 = v7;
+    v21 = v276;
+    v22 = v276[449];
     v23 = v13 - v22;
     v24 = v13;
     if (v13 >= v22)
     {
-      v25 = v270 - *(v275 + 1800);
+      v25 = v271 - v276[450];
     }
 
     else
     {
-      *(v275 + 1796) = v13;
-      v25 = v270;
-      *(v275 + 1800) = v270;
+      v276[449] = v13;
+      v25 = v271;
+      v276[450] = v271;
       v23 = v13;
     }
 
-    v272 = v15;
-    if (v15 <= *(v275 + 1812))
+    v273 = v15;
+    if (v15 <= *(v276 + 453))
     {
       LODWORD(v26) = 0;
     }
 
     else
     {
-      v26 = *(v275 + 1812);
+      v26 = *(v276 + 453);
     }
 
-    v27 = *(v275 + 1820);
+    v27 = *(v276 + 455);
     if (v16 > v27)
     {
       LODWORD(v27) = v16 - v27;
     }
 
-    v266 = v27;
-    v267 = v16;
-    v28 = (v275 + 1828);
-    v29 = *(v275 + 1828);
-    if (v273 <= v29)
+    v267 = v27;
+    v268 = v16;
+    v28 = (v276 + 457);
+    v29 = *(v276 + 457);
+    if (v274 <= v29)
     {
       LODWORD(v29) = 0;
     }
@@ -249,8 +249,8 @@ uint64_t ___VideoReceiver_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1
         v32 = 100.0;
       }
 
-      v33 = (v275 + 1564);
-      v34 = *(v275 + 1564);
+      v33 = (v276 + 391);
+      v34 = *(v276 + 391);
       v35 = v34 == 0.0;
       v36 = v32 * 0.5 + v34 * 0.5;
       if (v35)
@@ -259,18 +259,18 @@ uint64_t ___VideoReceiver_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1
       }
 
       *v33 = v36;
-      if (*v275 == 1 && (v23 > 0xA || v36 > 0.0))
+      if (*v276 == 1 && (v23 > 0xA || v36 > 0.0))
       {
-        memset(&v308[2], 0, 40);
-        memset(&v308[5], 0, 120);
-        v37 = *(v274 + 162);
-        v38 = *(v275 + 2252);
-        *&v308[0] = 3;
-        *(v308 + 1) = v5;
-        *&v308[1] = 0;
-        *(&v308[1] + 1) = v36;
-        *(&v308[4] + 1) = v37;
-        VCRateControlSetStatistics(v38, v308);
+        memset(&v309[2], 0, 40);
+        memset(&v309[5], 0, 120);
+        v37 = *(v275 + 162);
+        v38 = *(v276 + 563);
+        *&v309[0] = 3;
+        *(v309 + 1) = v5;
+        *&v309[1] = 0;
+        *(&v309[1] + 1) = v36;
+        *(&v309[4] + 1) = v37;
+        VCRateControlSetStatistics(v38, v309);
       }
 
       if (!alloc)
@@ -278,7 +278,7 @@ uint64_t ___VideoReceiver_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1
         return CheckOutHandleDebug();
       }
 
-      v39 = *(v274 + 172);
+      v39 = *(v275 + 172);
       ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
       if (v39)
       {
@@ -288,35 +288,35 @@ uint64_t ___VideoReceiver_ReportingRegisterPeriodicTask_block_invoke(uint64_t a1
           v42 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            CStringPtr = CFStringGetCStringPtr(*(v274 + 172), 0x8000100u);
+            CStringPtr = CFStringGetCStringPtr(*(v275 + 172), 0x8000100u);
             v44 = *v33;
-            v45 = FourccToCStr(v274[348]);
-            LODWORD(v308[0]) = 136317442;
-            *(v308 + 4) = v41;
-            WORD6(v308[0]) = 2080;
-            *(v308 + 14) = "_VideoReceiver_ReportingRegisterPeriodicTask_block_invoke";
-            WORD3(v308[1]) = 1024;
-            DWORD2(v308[1]) = 5351;
-            WORD6(v308[1]) = 2048;
-            *(&v308[1] + 14) = v274;
-            WORD3(v308[2]) = 2080;
-            *(&v308[2] + 1) = CStringPtr;
-            v28 = (v275 + 1828);
-            LOWORD(v308[3]) = 2048;
-            *(&v308[3] + 2) = v44;
-            WORD5(v308[3]) = 2048;
-            *(&v308[3] + 12) = v32;
-            WORD2(v308[4]) = 1024;
-            *(&v308[4] + 6) = v23;
-            WORD5(v308[4]) = 1024;
-            HIDWORD(v308[4]) = v25;
-            LOWORD(v308[5]) = 2080;
-            *(&v308[5] + 2) = v45;
+            v45 = FourccToCStr(v275[348]);
+            LODWORD(v309[0]) = 136317442;
+            *(v309 + 4) = v41;
+            WORD6(v309[0]) = 2080;
+            *(v309 + 14) = "_VideoReceiver_ReportingRegisterPeriodicTask_block_invoke";
+            WORD3(v309[1]) = 1024;
+            DWORD2(v309[1]) = 5351;
+            WORD6(v309[1]) = 2048;
+            *(&v309[1] + 14) = v275;
+            WORD3(v309[2]) = 2080;
+            *(&v309[2] + 1) = CStringPtr;
+            v28 = (v276 + 457);
+            LOWORD(v309[3]) = 2048;
+            *(&v309[3] + 2) = v44;
+            WORD5(v309[3]) = 2048;
+            *(&v309[3] + 12) = v32;
+            WORD2(v309[4]) = 1024;
+            *(&v309[4] + 6) = v23;
+            WORD5(v309[4]) = 1024;
+            HIDWORD(v309[4]) = v25;
+            LOWORD(v309[5]) = 2080;
+            *(&v309[5] + 2) = v45;
             v46 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] FEC health report for participantId:%s with PLR percentage:%.2f, current percentage:%.2f (exp:%d, loss:%d) streamGroupID:%s";
             v47 = v42;
             v48 = 90;
 LABEL_48:
-            _os_log_impl(&dword_1DB56E000, v47, OS_LOG_TYPE_DEFAULT, v46, v308, v48);
+            _os_log_impl(&dword_1DB56E000, v47, OS_LOG_TYPE_DEFAULT, v46, v309, v48);
             goto LABEL_49;
           }
 
@@ -330,26 +330,26 @@ LABEL_48:
         v50 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v51 = *(v274 + 162);
+          v51 = *(v275 + 162);
           v52 = *v33;
-          LODWORD(v308[0]) = 136317186;
-          *(v308 + 4) = v49;
-          WORD6(v308[0]) = 2080;
-          *(v308 + 14) = "_VideoReceiver_ReportingRegisterPeriodicTask_block_invoke";
-          WORD3(v308[1]) = 1024;
-          DWORD2(v308[1]) = 5353;
-          WORD6(v308[1]) = 2048;
-          *(&v308[1] + 14) = v274;
-          WORD3(v308[2]) = 2048;
-          *(&v308[2] + 1) = v51;
-          LOWORD(v308[3]) = 2048;
-          *(&v308[3] + 2) = v52;
-          WORD5(v308[3]) = 2048;
-          *(&v308[3] + 12) = v32;
-          WORD2(v308[4]) = 1024;
-          *(&v308[4] + 6) = v23;
-          WORD5(v308[4]) = 1024;
-          HIDWORD(v308[4]) = v25;
+          LODWORD(v309[0]) = 136317186;
+          *(v309 + 4) = v49;
+          WORD6(v309[0]) = 2080;
+          *(v309 + 14) = "_VideoReceiver_ReportingRegisterPeriodicTask_block_invoke";
+          WORD3(v309[1]) = 1024;
+          DWORD2(v309[1]) = 5353;
+          WORD6(v309[1]) = 2048;
+          *(&v309[1] + 14) = v275;
+          WORD3(v309[2]) = 2048;
+          *(&v309[2] + 1) = v51;
+          LOWORD(v309[3]) = 2048;
+          *(&v309[3] + 2) = v52;
+          WORD5(v309[3]) = 2048;
+          *(&v309[3] + 12) = v32;
+          WORD2(v309[4]) = 1024;
+          *(&v309[4] + 6) = v23;
+          WORD5(v309[4]) = 1024;
+          HIDWORD(v309[4]) = v25;
           v46 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] FEC health report for participantId:%llu with PLR percentage:%.2f, current percentage:%.2f (exp:%d, loss:%d)";
           v47 = v50;
           v48 = 80;
@@ -357,14 +357,14 @@ LABEL_48:
         }
 
 LABEL_49:
-        v21 = v275;
+        v21 = v276;
       }
     }
 
-    v264 = v28;
-    v263 = v24;
+    v265 = v28;
+    v264 = v24;
     v53 = selectDestinationForRTMetrics();
-    if (*(v274 + 1558))
+    if (*(v275 + 1558))
     {
       v54 = 2;
     }
@@ -374,445 +374,440 @@ LABEL_49:
       v54 = 1;
     }
 
-    LODWORD(v308[0]) = v54;
+    LODWORD(v309[0]) = v54;
     v55 = *MEMORY[0x1E695E480];
-    v56 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v308);
+    v56 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v309);
     CFDictionaryAddValue(v53, @"CodecLayers", v56);
     CFRelease(v56);
-    v57 = (v301 / 1000.0 + 0.5);
-    v258 = (*v269 / 1000.0 + 0.5);
-    LODWORD(v308[0]) = v258;
-    v58 = CFNumberCreate(v55, kCFNumberIntType, v308);
+    v57 = (v302 / 1000.0 + 0.5);
+    v259 = (*v270 / 1000.0 + 0.5);
+    LODWORD(v309[0]) = v259;
+    v58 = CFNumberCreate(v55, kCFNumberIntType, v309);
     CFDictionaryAddValue(v53, @"VRxR", v58);
     CFRelease(v58);
-    LODWORD(v308[0]) = (*v281 / 1000.0 + 0.5);
-    v59 = CFNumberCreate(v55, kCFNumberIntType, v308);
+    LODWORD(v309[0]) = (*v282 / 1000.0 + 0.5);
+    v59 = CFNumberCreate(v55, kCFNumberIntType, v309);
     CFDictionaryAddValue(v53, @"VRxRMax", v59);
     CFRelease(v59);
     v60 = 0.0;
-    LODWORD(v308[0]) = (*v271 / 1000.0 + 0.5);
-    v61 = CFNumberCreate(v55, kCFNumberIntType, v308);
+    LODWORD(v309[0]) = (*v272 / 1000.0 + 0.5);
+    v61 = CFNumberCreate(v55, kCFNumberIntType, v309);
     CFDictionaryAddValue(v53, @"VRxRMin", v61);
     CFRelease(v61);
-    LODWORD(v308[0]) = (v302 / 1000.0 + 0.5);
-    v62 = CFNumberCreate(v55, kCFNumberIntType, v308);
+    LODWORD(v309[0]) = (v303 / 1000.0 + 0.5);
+    v62 = CFNumberCreate(v55, kCFNumberIntType, v309);
     CFDictionaryAddValue(v53, @"VRFECRxR", v62);
     CFRelease(v62);
-    v259 = v57;
-    LODWORD(v308[0]) = v57;
-    v63 = CFNumberCreate(v55, kCFNumberIntType, v308);
+    v260 = v57;
+    LODWORD(v309[0]) = v57;
+    v63 = CFNumberCreate(v55, kCFNumberIntType, v309);
     CFDictionaryAddValue(v53, @"VRxMetadataOverhead", v63);
     CFRelease(v63);
-    LODWORD(v308[0]) = (v300 / 1000.0 + 0.5);
-    v64 = CFNumberCreate(v55, kCFNumberIntType, v308);
+    LODWORD(v309[0]) = (v301 / 1000.0 + 0.5);
+    v64 = CFNumberCreate(v55, kCFNumberIntType, v309);
     CFDictionaryAddValue(v53, @"VRxMR", v64);
     CFRelease(v64);
-    LODWORD(v308[0]) = (v299 / 1000.0 + 0.5);
-    v65 = CFNumberCreate(v55, kCFNumberIntType, v308);
+    LODWORD(v309[0]) = (v300 / 1000.0 + 0.5);
+    v65 = CFNumberCreate(v55, kCFNumberIntType, v309);
     CFDictionaryAddValue(v53, @"VRxDMR", v65);
     CFRelease(v65);
-    _VideoReceiver_CheckIfVideoStalling(v274);
-    v67 = 0.0;
-    if (*(v21 + 1792))
+    _VideoReceiver_CheckIfVideoStalling(v275, v66);
+    v68 = 0.0;
+    if (v21[896])
     {
-      LOWORD(v66) = *(v21 + 1790);
-      v67 = v66 / *(v21 + 1792);
+      LOWORD(v67) = v21[895];
+      v68 = v67 / v21[896];
     }
 
-    v68 = *(v21 + 1908);
-    *v308 = v67;
-    v69 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v53, @"ARFr", v69);
-    CFRelease(v69);
-    v257 = (v21 + 1900);
-    LODWORD(v308[0]) = *(v21 + 1900);
-    v70 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"XRFr", v70);
+    v69 = *(v21 + 954);
+    *v309 = v68;
+    v70 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v53, @"ARFr", v70);
     CFRelease(v70);
-    LODWORD(v308[0]) = v68;
-    v71 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"NRFr", v71);
+    v258 = (v21 + 950);
+    LODWORD(v309[0]) = *(v21 + 950);
+    v71 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"XRFr", v71);
     CFRelease(v71);
-    v72 = *(v21 + 1940);
-    *v308 = v72;
-    v73 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v53, @"VST", v73);
-    CFRelease(v73);
-    v265 = (v21 + 1940);
-    v262 = (v21 + 1948);
-    v74 = *(v21 + 1948);
-    v75 = *(v21 + 1940) - v74;
-    LODWORD(v74) = *(v21 + 2288);
-    *&v75 = v75 / *&v74;
-    LODWORD(v308[0]) = LODWORD(v75);
-    v76 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v53, @"iVSP", v76);
-    CFRelease(v76);
-    v255 = (v21 + 1988);
-    v77 = *(v21 + 1988);
-    *v308 = v77;
-    v78 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v53, @"VSTSM", v78);
-    CFRelease(v78);
-    LODWORD(v308[0]) = *(v21 + 1964);
-    v79 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"VSTCNT", v79);
+    LODWORD(v309[0]) = v69;
+    v72 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"NRFr", v72);
+    CFRelease(v72);
+    v73 = *(v21 + 970);
+    *v309 = v73;
+    v74 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v53, @"VST", v74);
+    CFRelease(v74);
+    v266 = (v21 + 970);
+    v263 = v21 + 974;
+    v75 = *(v21 + 974);
+    v76 = *(v21 + 970) - v75;
+    LODWORD(v75) = *(v21 + 572);
+    *&v76 = v76 / *&v75;
+    LODWORD(v309[0]) = LODWORD(v76);
+    v77 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v53, @"iVSP", v77);
+    CFRelease(v77);
+    v256 = (v21 + 994);
+    v78 = *(v21 + 994);
+    *v309 = v78;
+    v79 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v53, @"VSTSM", v79);
     CFRelease(v79);
-    *(v21 + 1964) = 0;
-    v80 = *(v21 + 2408);
-    v81 = v80 - *(v21 + 2412);
-    *(v21 + 2412) = v80;
-    v256 = v81;
-    LODWORD(v308[0]) = v81;
-    v82 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"VFrErCnt", v82);
-    CFRelease(v82);
-    v254 = *(v21 + 1612);
-    PlaybackTimeOffset = VCVideoPlayer_GetPlaybackTimeOffset();
-    v297 = 0u;
+    LODWORD(v309[0]) = *(v21 + 491);
+    v80 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"VSTCNT", v80);
+    CFRelease(v80);
+    *(v21 + 491) = 0;
+    v81 = *(v21 + 602);
+    v82 = v81 - *(v21 + 603);
+    *(v21 + 603) = v81;
+    v257 = v82;
+    LODWORD(v309[0]) = v82;
+    v83 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"VFrErCnt", v83);
+    CFRelease(v83);
+    v255 = v21[806];
+    PlaybackTimeOffset = VCVideoPlayer_GetPlaybackTimeOffset(*(v21 + 38));
     v298 = 0u;
-    v296 = 0u;
-    v294 = 0u;
+    v299 = 0u;
+    v297 = 0u;
     v295 = 0u;
-    v292 = 0u;
+    v296 = 0u;
     v293 = 0u;
-    v290 = 0u;
+    v294 = 0u;
     v291 = 0u;
-    memset(v289, 0, sizeof(v289));
-    VCVideoPlayer_CollectVideoPlayerStatsForReporting(v5, *(v21 + 76), v289);
-    _VideoReceiver_ReportVideoPlayerStatsForReporting(v289, v53);
-    VCVideoPlayer_ResetVideoPlayerStatsForReporting(v5);
-    v84 = v273;
-    if (*(v274 + 1324) == 1)
+    v292 = 0u;
+    memset(v290, 0, sizeof(v290));
+    VCVideoPlayer_CollectVideoPlayerStatsForReporting(*(v21 + 38), v290, v5);
+    _VideoReceiver_ReportVideoPlayerStatsForReporting(v290, v53);
+    VCVideoPlayer_ResetVideoPlayerStatsForReporting(*(v21 + 38), v5);
+    v85 = v274;
+    if (*(v275 + 1324) == 1)
     {
-      v85 = v26;
-      v86 = (v21 + 1604);
+      v86 = v26;
+      v87 = (v21 + 802);
       v26 = v21;
-      v87 = (v21 + 1588);
-      v88 = *v87;
-      *v308 = v88;
-      v89 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-      CFDictionaryAddValue(v53, @"VJ", v89);
-      CFRelease(v89);
-      LODWORD(v308[0]) = *(v26 + 1612);
-      v90 = CFNumberCreate(v55, kCFNumberIntType, v308);
-      CFDictionaryAddValue(v53, @"VJBTC", v90);
+      v88 = (v21 + 794);
+      v89 = *v88;
+      *v309 = v89;
+      v90 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+      CFDictionaryAddValue(v53, @"VJ", v90);
       CFRelease(v90);
-      *(v26 + 1612) = 0;
-      v91 = v5 - *(v26 + 1620);
-      v92 = *v86;
-      v93 = (v26 + 1628);
-      v94 = *(v26 + 1628);
-      if (v92 != 0.0)
+      LODWORD(v309[0]) = v26[806];
+      v91 = CFNumberCreate(v55, kCFNumberIntType, v309);
+      CFDictionaryAddValue(v53, @"VJBTC", v91);
+      CFRelease(v91);
+      v26[806] = 0;
+      v92 = v5 - *(v26 + 810);
+      v93 = *v87;
+      v94 = (v26 + 814);
+      v95 = *(v26 + 814);
+      if (v93 != 0.0)
       {
-        v94 = v91 + v94;
-        *v93 = v94;
+        v95 = v92 + v95;
+        *v94 = v95;
       }
 
-      v95 = v94;
-      *v308 = v95;
-      v96 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-      CFDictionaryAddValue(v53, @"VJBTNZT", v96);
-      CFRelease(v96);
-      v253 = *v93;
-      v97 = *v87;
-      v21 = v275;
-      v98 = *(v275 + 1636);
-      v99 = v98 + v91 * v97;
-      *(v275 + 1636) = v99;
-      LODWORD(v98) = *(v275 + 2288);
-      v100 = v99 / *&v98;
-      *&v99 = v100;
-      LODWORD(v308[0]) = LODWORD(v99);
-      v101 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-      CFDictionaryAddValue(v53, @"VJBTWA", v101);
-      CFRelease(v101);
-      *v93 = 0.0;
-      *(v26 + 1636) = 0;
-      *(v26 + 1620) = v5;
-      v102 = PlaybackTimeOffset;
-      *v308 = v102;
-      v103 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-      CFDictionaryAddValue(v53, @"VPO", v103);
-      CFRelease(v103);
-      LODWORD(v26) = v85;
-      if (*(v274 + 1360) == 1 && *(v274 + 1361) == 1)
+      v96 = v95;
+      *v309 = v96;
+      v97 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+      CFDictionaryAddValue(v53, @"VJBTNZT", v97);
+      CFRelease(v97);
+      v254 = *v94;
+      v98 = *v88;
+      v21 = v276;
+      v99 = *(v276 + 409);
+      v100 = v99 + v92 * v98;
+      *(v276 + 409) = v100;
+      LODWORD(v99) = v276[572];
+      v101 = v100 / *&v99;
+      *&v100 = v101;
+      LODWORD(v309[0]) = LODWORD(v100);
+      v102 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+      CFDictionaryAddValue(v53, @"VJBTWA", v102);
+      CFRelease(v102);
+      *v94 = 0.0;
+      *(v26 + 818) = 0;
+      *(v26 + 810) = v5;
+      v103 = PlaybackTimeOffset;
+      *v309 = v103;
+      v104 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+      CFDictionaryAddValue(v53, @"VPO", v104);
+      CFRelease(v104);
+      LODWORD(v26) = v86;
+      if (*(v275 + 1360) == 1 && *(v275 + 1361) == 1)
       {
-        LODWORD(v308[0]) = *&v290;
-        v104 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v53, @"AVSyncOffsetMin", v104);
-        CFRelease(v104);
-        LODWORD(v308[0]) = *(&v290 + 1);
-        v105 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v53, @"AVSyncOffsetMax", v105);
+        LODWORD(v309[0]) = *&v291;
+        v105 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v53, @"AVSyncOffsetMin", v105);
         CFRelease(v105);
-        v106 = v292;
-        if (v292)
+        LODWORD(v309[0]) = *(&v291 + 1);
+        v106 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v53, @"AVSyncOffsetMax", v106);
+        CFRelease(v106);
+        v107 = v293;
+        if (v293)
         {
-          v106 = (*&v291 / v292);
+          v107 = (*&v292 / v293);
         }
 
-        LODWORD(v308[0]) = v106;
-        v107 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v53, @"AVSyncOffset", v107);
-        CFRelease(v107);
+        LODWORD(v309[0]) = v107;
+        v108 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v53, @"AVSyncOffset", v108);
+        CFRelease(v108);
       }
 
-      v60 = v100 * 1000.0;
-      v84 = v273;
+      v60 = v101 * 1000.0;
+      v85 = v274;
     }
 
     else
     {
-      v253 = 0.0;
+      v254 = 0.0;
     }
 
-    LODWORD(v308[0]) = *&v298;
-    v108 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"VPFDC", v108);
-    CFRelease(v108);
-    *&v308[0] = *(&v298 + 1);
-    v109 = CFNumberCreate(v55, kCFNumberDoubleType, v308);
-    CFDictionaryAddValue(v53, @"VPFDCD", v109);
+    LODWORD(v309[0]) = *&v299;
+    v109 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"VPFDC", v109);
     CFRelease(v109);
-    v110 = *(v21 + 2476);
-    if (v110)
-    {
-      VCNACKGenerator_GetStatistics(v110, v53);
-    }
-
-    bzero(v307, 0xC820uLL);
-    _VideoReceiver_GetVPBStats(v274);
-    v111 = *v274;
+    *&v309[0] = *(&v299 + 1);
+    v110 = CFNumberCreate(v55, kCFNumberDoubleType, v309);
+    CFDictionaryAddValue(v53, @"VPFDCD", v110);
+    CFRelease(v110);
+    v111 = *(v21 + 1238);
     if (v111)
     {
-      v112 = 0;
-      v113 = 456;
-      do
-      {
-        v114 = *&v274[v113];
-        if (v114)
-        {
-          VideoPacketBuffer_ResetStatistics(v114);
-          v111 = *v274;
-        }
-
-        ++v112;
-        v113 += 1088;
-      }
-
-      while (v112 < v111);
+      VCNACKGenerator_GetStatistics(v111, v53);
     }
 
-    v260 = v272 - v26;
-    v261 = v84 - theDict;
-    if (LODWORD(v307[1197]))
+    bzero(v308, 0xC820uLL);
+    _VideoReceiver_GetVPBStats(v275);
+    v112 = *v275;
+    if (v112)
     {
-      v307[1194] = v307[1193] / LODWORD(v307[1197]);
+      v113 = 0;
+      v114 = 456;
+      do
+      {
+        v115 = *&v275[v114];
+        if (v115)
+        {
+          VideoPacketBuffer_ResetStatistics(v115);
+          v112 = *v275;
+        }
+
+        ++v113;
+        v114 += 1088;
+      }
+
+      while (v113 < v112);
+    }
+
+    v261 = v273 - v26;
+    v262 = v85 - theDict;
+    if (LODWORD(v308[1197]))
+    {
+      v308[1194] = v308[1193] / LODWORD(v308[1197]);
     }
 
     Mutable = CFArrayCreateMutable(0, 23, MEMORY[0x1E695E9C0]);
-    v116 = 0;
-    v117 = &v307[1181] + 4;
+    v117 = 0;
+    v118 = &v308[1181] + 4;
     do
     {
-      v118 = CFNumberCreate(0, kCFNumberIntType, v117);
-      CFArraySetValueAtIndex(Mutable, v116, v118);
-      if (v118)
+      v119 = CFNumberCreate(0, kCFNumberIntType, v118);
+      CFArraySetValueAtIndex(Mutable, v117, v119);
+      if (v119)
       {
-        CFRelease(v118);
+        CFRelease(v119);
       }
 
-      ++v116;
-      v117 += 4;
+      ++v117;
+      v118 += 4;
     }
 
-    while (v116 != 23);
+    while (v117 != 23);
     CFDictionaryAddValue(v53, @"VFEVLtPktDelayHist", Mutable);
     if (Mutable)
     {
       CFRelease(Mutable);
     }
 
-    LODWORD(v308[0]) = HIDWORD(v307[1196]);
-    v119 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"VFEVTrCnt", v119);
-    CFRelease(v119);
-    v120 = v307[1194];
-    *v308 = v120;
-    v121 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v53, @"VFEVLtPktDelay", v121);
-    CFRelease(v121);
-    v122 = v307[1195];
-    *v308 = v122;
-    v123 = CFNumberCreate(v55, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v53, @"VFEVMaxLtPktDelay", v123);
-    CFRelease(v123);
-    LODWORD(v308[0]) = LODWORD(v307[1196]);
-    v124 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"VFrLateCount", v124);
+    LODWORD(v309[0]) = HIDWORD(v308[1196]);
+    v120 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"VFEVTrCnt", v120);
+    CFRelease(v120);
+    v121 = v308[1194];
+    *v309 = v121;
+    v122 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v53, @"VFEVLtPktDelay", v122);
+    CFRelease(v122);
+    v123 = v308[1195];
+    *v309 = v123;
+    v124 = CFNumberCreate(v55, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v53, @"VFEVMaxLtPktDelay", v124);
     CFRelease(v124);
-    LODWORD(v308[0]) = LODWORD(v307[1197]);
-    v125 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"VFEVRecoveredCnt", v125);
+    LODWORD(v309[0]) = LODWORD(v308[1196]);
+    v125 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"VFrLateCount", v125);
     CFRelease(v125);
-    LODWORD(v308[0]) = LODWORD(v307[1199]);
-    v126 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"NacksFrmsSchWithRTX", v126);
+    LODWORD(v309[0]) = LODWORD(v308[1197]);
+    v126 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"VFEVRecoveredCnt", v126);
     CFRelease(v126);
-    LODWORD(v308[0]) = HIDWORD(v307[1199]);
-    v127 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"NacksFrmsAssemWithRTX", v127);
+    LODWORD(v309[0]) = LODWORD(v308[1199]);
+    v127 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"NacksFrmsSchWithRTX", v127);
     CFRelease(v127);
-    LODWORD(v308[0]) = LODWORD(v307[1200]);
-    v128 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"NacksFrmsFailedAssemWithRTX", v128);
+    LODWORD(v309[0]) = HIDWORD(v308[1199]);
+    v128 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"NacksFrmsAssemWithRTX", v128);
     CFRelease(v128);
-    LODWORD(v308[0]) = HIDWORD(v307[6402]);
-    v129 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"VRxIDRC", v129);
+    LODWORD(v309[0]) = LODWORD(v308[1200]);
+    v129 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"NacksFrmsFailedAssemWithRTX", v129);
     CFRelease(v129);
-    LODWORD(v308[0]) = LODWORD(v307[6403]);
-    v130 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v53, @"LKFASC", v130);
+    LODWORD(v309[0]) = HIDWORD(v308[6402]);
+    v130 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"VRxIDRC", v130);
     CFRelease(v130);
-    LODWORD(v308[0]) = HIDWORD(v307[6403]);
-    v131 = CFNumberCreate(v55, kCFNumberIntType, v308);
-    v268 = v53;
-    CFDictionaryAddValue(v53, @"LPFASC", v131);
+    LODWORD(v309[0]) = LODWORD(v308[6403]);
+    v131 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v53, @"LKFASC", v131);
     CFRelease(v131);
-    v132 = MEMORY[0x1E695E9D8];
-    v133 = MEMORY[0x1E695E9E8];
-    v277 = CFDictionaryCreateMutable(v55, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    memcpy(__dst, v307, sizeof(__dst));
-    theDicta = CFDictionaryCreateMutable(v55, 0, v132, v133);
-    v282 = CFDictionaryCreateMutable(v55, 0, v132, v133);
-    v279 = CFDictionaryCreateMutable(v55, 0, v132, v133);
-    v134 = CFDictionaryCreateMutable(v55, 0, v132, v133);
-    v135 = CFDictionaryCreateMutable(v55, 0, v132, v133);
+    LODWORD(v309[0]) = HIDWORD(v308[6403]);
+    v132 = CFNumberCreate(v55, kCFNumberIntType, v309);
+    v269 = v53;
+    CFDictionaryAddValue(v53, @"LPFASC", v132);
+    CFRelease(v132);
+    v133 = MEMORY[0x1E695E9D8];
+    v134 = MEMORY[0x1E695E9E8];
+    v278 = CFDictionaryCreateMutable(v55, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    memcpy(__dst, v308, sizeof(__dst));
+    theDicta = CFDictionaryCreateMutable(v55, 0, v133, v134);
+    v283 = CFDictionaryCreateMutable(v55, 0, v133, v134);
+    v280 = CFDictionaryCreateMutable(v55, 0, v133, v134);
+    v135 = CFDictionaryCreateMutable(v55, 0, v133, v134);
+    v136 = CFDictionaryCreateMutable(v55, 0, v133, v134);
     alloca = v55;
-    v136 = CFDictionaryCreateMutable(v55, 0, v132, v133);
-    v137 = 0;
-    v138 = &__dst[131];
+    v137 = CFDictionaryCreateMutable(v55, 0, v133, v134);
+    v138 = 0;
+    v139 = &__dst[131];
     do
     {
-      v139 = *(v138 - 3);
-      if (v139)
+      v140 = *(v139 - 3);
+      if (v140)
       {
-        v140 = CFStringCreateWithFormat(v55, 0, @"%u", v137);
-        LODWORD(v308[0]) = *(v138 - 7);
-        v141 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(theDicta, v140, v141);
-        CFRelease(v141);
-        LODWORD(v308[0]) = *(v138 - 5);
-        v142 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v282, v140, v142);
+        v141 = CFStringCreateWithFormat(v55, 0, @"%u", v138);
+        LODWORD(v309[0]) = *(v139 - 7);
+        v142 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(theDicta, v141, v142);
         CFRelease(v142);
-        LODWORD(v308[0]) = v139;
-        v143 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v279, v140, v143);
+        LODWORD(v309[0]) = *(v139 - 5);
+        v143 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v283, v141, v143);
         CFRelease(v143);
-        LODWORD(v308[0]) = *(v138 - 2);
-        v144 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v134, v140, v144);
+        LODWORD(v309[0]) = v140;
+        v144 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v280, v141, v144);
         CFRelease(v144);
-        LODWORD(v308[0]) = *(v138 - 1);
-        v145 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v135, v140, v145);
+        LODWORD(v309[0]) = *(v139 - 2);
+        v145 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v135, v141, v145);
         CFRelease(v145);
-        LODWORD(v308[0]) = *v138;
-        v146 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v136, v140, v146);
+        LODWORD(v309[0]) = *(v139 - 1);
+        v146 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v136, v141, v146);
         CFRelease(v146);
-        CFRelease(v140);
+        LODWORD(v309[0]) = *v139;
+        v147 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v137, v141, v147);
+        CFRelease(v147);
+        CFRelease(v141);
       }
 
-      ++v137;
-      v138 += 12;
+      ++v138;
+      v139 += 12;
     }
 
-    while (v137 != 101);
-    CFDictionaryAddValue(v277, @"VFecDB", theDicta);
-    CFDictionaryAddValue(v277, @"VFecPB", v282);
-    CFDictionaryAddValue(v277, @"VFecTF", v279);
-    CFDictionaryAddValue(v277, @"VFecCF", v134);
-    CFDictionaryAddValue(v277, @"VFecNF", v135);
-    CFDictionaryAddValue(v277, @"VFecFF", v136);
+    while (v138 != 101);
+    CFDictionaryAddValue(v278, @"VFecDB", theDicta);
+    CFDictionaryAddValue(v278, @"VFecPB", v283);
+    CFDictionaryAddValue(v278, @"VFecTF", v280);
+    CFDictionaryAddValue(v278, @"VFecCF", v135);
+    CFDictionaryAddValue(v278, @"VFecNF", v136);
+    CFDictionaryAddValue(v278, @"VFecFF", v137);
     CFRelease(theDicta);
-    CFRelease(v282);
-    CFRelease(v279);
-    CFRelease(v134);
+    CFRelease(v283);
+    CFRelease(v280);
     CFRelease(v135);
     CFRelease(v136);
-    v147 = CFDictionaryCreateMutable(v55, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    CFRelease(v137);
+    v148 = CFDictionaryCreateMutable(v55, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     for (i = 0; i != 102; ++i)
     {
-      v149 = *(&__dst[2312] + i);
+      v150 = *(&__dst[2312] + i);
       if (*(&__dst[2312] + i))
       {
-        v150 = CFStringCreateWithFormat(v55, 0, @"%d", i);
-        LODWORD(v308[0]) = v149;
-        v151 = CFNumberCreate(v55, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v147, v150, v151);
+        v151 = CFStringCreateWithFormat(v55, 0, @"%d", i);
+        LODWORD(v309[0]) = v150;
+        v152 = CFNumberCreate(v55, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v148, v151, v152);
+        CFRelease(v152);
         CFRelease(v151);
-        CFRelease(v150);
       }
     }
 
-    CFDictionaryAddValue(v277, @"VRLossPattern", v147);
-    CFRelease(v147);
-    memcpy(v308, __dst, sizeof(v308));
-    v152 = MEMORY[0x1E695E9D8];
-    v153 = MEMORY[0x1E695E9E8];
-    v154 = CFDictionaryCreateMutable(v55, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v155 = CFDictionaryCreateMutable(v55, 0, v152, v153);
-    v156 = CFDictionaryCreateMutable(v55, 0, v152, v153);
-    v157 = CFDictionaryCreateMutable(v55, 0, v152, v153);
-    v158 = 0;
-    v159 = 334;
+    CFDictionaryAddValue(v278, @"VRLossPattern", v148);
+    CFRelease(v148);
+    memcpy(v309, __dst, sizeof(v309));
+    v153 = MEMORY[0x1E695E9D8];
+    v154 = MEMORY[0x1E695E9E8];
+    v155 = CFDictionaryCreateMutable(v55, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    v156 = CFDictionaryCreateMutable(v55, 0, v153, v154);
+    v157 = CFDictionaryCreateMutable(v55, 0, v153, v154);
+    v158 = CFDictionaryCreateMutable(v55, 0, v153, v154);
+    v159 = 0;
+    v160 = 334;
     do
     {
-      v160 = &v308[v159];
-      v161 = *(&v308[v159] + 1);
-      if (v161)
+      v161 = &v309[v160];
+      v162 = *(&v309[v160] + 1);
+      if (v162)
       {
-        v162 = CFStringCreateWithFormat(alloca, 0, @"%u", v158);
-        valuePtr = v161;
-        v163 = CFNumberCreate(alloca, kCFNumberIntType, &valuePtr);
-        CFDictionaryAddValue(v155, v162, v163);
-        CFRelease(v163);
-        valuePtr = *v160;
+        v163 = CFStringCreateWithFormat(alloca, 0, @"%u", v159);
+        valuePtr = v162;
         v164 = CFNumberCreate(alloca, kCFNumberIntType, &valuePtr);
-        CFDictionaryAddValue(v154, v162, v164);
+        CFDictionaryAddValue(v156, v163, v164);
         CFRelease(v164);
-        valuePtr = v160[3];
+        valuePtr = *v161;
         v165 = CFNumberCreate(alloca, kCFNumberIntType, &valuePtr);
-        CFDictionaryAddValue(v156, v162, v165);
+        CFDictionaryAddValue(v155, v163, v165);
         CFRelease(v165);
-        valuePtr = v160[2];
+        valuePtr = v161[3];
         v166 = CFNumberCreate(alloca, kCFNumberIntType, &valuePtr);
-        CFDictionaryAddValue(v157, v162, v166);
+        CFDictionaryAddValue(v157, v163, v166);
         CFRelease(v166);
-        if (v162)
+        valuePtr = v161[2];
+        v167 = CFNumberCreate(alloca, kCFNumberIntType, &valuePtr);
+        CFDictionaryAddValue(v158, v163, v167);
+        CFRelease(v167);
+        if (v163)
         {
-          CFRelease(v162);
+          CFRelease(v163);
         }
       }
 
-      ++v158;
-      v159 += 2;
+      ++v159;
+      v160 += 2;
     }
 
-    while (v158 != 122);
-    CFDictionaryAddValue(v277, @"VFecSVPC", v154);
-    CFDictionaryAddValue(v277, @"VFecSVFC", v155);
-    CFDictionaryAddValue(v277, @"VFecSVDPL", v156);
-    CFDictionaryAddValue(v277, @"VFecSVFAC", v157);
-    if (v154)
-    {
-      CFRelease(v154);
-    }
-
+    while (v159 != 122);
+    CFDictionaryAddValue(v278, @"VFecSVPC", v155);
+    CFDictionaryAddValue(v278, @"VFecSVFC", v156);
+    CFDictionaryAddValue(v278, @"VFecSVDPL", v157);
+    CFDictionaryAddValue(v278, @"VFecSVFAC", v158);
     if (v155)
     {
       CFRelease(v155);
@@ -823,460 +818,465 @@ LABEL_49:
       CFRelease(v156);
     }
 
-    v167 = v275;
     if (v157)
     {
       CFRelease(v157);
     }
 
-    _VideoReceiver_ComputePacketLoss2DHistogram(v277, @"VRLossHistogram", &__dst[2401]);
-    _VideoReceiver_ComputePacketLoss2DHistogram(v277, @"VRLossFecHistogram", &__dst[7603]);
-    CFDictionaryAddValue(v268, @"VFecStats", v277);
-    CFRelease(v277);
-    v168 = 0;
-    *(v275 + 2504) = 0;
-    v169 = &v307[6];
-    v170 = MEMORY[0x1E6986650];
+    v168 = v276;
+    if (v158)
+    {
+      CFRelease(v158);
+    }
+
+    _VideoReceiver_ComputePacketLoss2DHistogram(v278, @"VRLossHistogram", &__dst[2401]);
+    _VideoReceiver_ComputePacketLoss2DHistogram(v278, @"VRLossFecHistogram", &__dst[7603]);
+    CFDictionaryAddValue(v269, @"VFecStats", v278);
+    CFRelease(v278);
+    v169 = 0;
+    v276[626] = 0;
+    v170 = &v308[6];
+    v171 = MEMORY[0x1E6986650];
     do
     {
-      if (*(v169 - 4) || *(v169 - 4))
+      if (*(v170 - 4) || *(v170 - 4))
       {
-        v171 = FECUtil_GranularLevelToPrecentage(v168);
-        *(v167 + 2504) = v168;
+        v172 = FECUtil_GranularLevelToPrecentage(v169);
+        *(v168 + 626) = v169;
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v172 = VRTraceErrorLogLevelToCSTR();
-          v173 = *v170;
-          if (os_log_type_enabled(*v170, OS_LOG_TYPE_DEFAULT))
+          v173 = VRTraceErrorLogLevelToCSTR();
+          v174 = *v171;
+          if (os_log_type_enabled(*v171, OS_LOG_TYPE_DEFAULT))
           {
-            v174 = CFStringGetCStringPtr(*(v274 + 172), 0x8000100u);
-            v176 = *(v169 - 4);
-            v175 = *(v169 - 3);
-            v276 = *(v169 - 4);
-            v278 = *(v169 - 3);
-            v280 = *(v169 - 2);
-            v283 = *(v169 - 1);
-            theDictb = *v169;
-            v177 = FourccToCStr(v274[348]);
-            LODWORD(v308[0]) = 136318466;
-            *(v308 + 4) = v172;
-            WORD6(v308[0]) = 2080;
-            *(v308 + 14) = "_VideoReceiver_ReportingRegisterPeriodicTask_block_invoke";
-            WORD3(v308[1]) = 1024;
-            DWORD2(v308[1]) = 5504;
-            WORD6(v308[1]) = 2048;
-            *(&v308[1] + 14) = v274;
-            WORD3(v308[2]) = 2048;
-            *(&v308[2] + 1) = v171;
-            LOWORD(v308[3]) = 2080;
-            *(&v308[3] + 2) = v174;
-            WORD5(v308[3]) = 2048;
-            *(&v308[3] + 12) = v176;
-            v167 = v275;
-            WORD2(v308[4]) = 2048;
-            *(&v308[4] + 6) = v175;
-            v170 = MEMORY[0x1E6986650];
-            HIWORD(v308[4]) = 1024;
-            LODWORD(v308[5]) = v276;
-            WORD2(v308[5]) = 1024;
-            *(&v308[5] + 6) = v278;
-            WORD5(v308[5]) = 1024;
-            HIDWORD(v308[5]) = v280;
-            LOWORD(v308[6]) = 1024;
-            *(&v308[6] + 2) = v283;
-            WORD3(v308[6]) = 1024;
-            DWORD2(v308[6]) = theDictb;
-            WORD6(v308[6]) = 2080;
-            *(&v308[6] + 14) = v177;
-            _os_log_impl(&dword_1DB56E000, v173, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] FEC health report: fecLevel:%.2f participantID:%s data:%llu, parity:%llu, totalFrame:%d complete:%d, notRecoverable:%d, failedToRecover:%d, recovered:%d streamGroupId:%s", v308, 0x76u);
+            v175 = CFStringGetCStringPtr(*(v275 + 172), 0x8000100u);
+            v177 = *(v170 - 4);
+            v176 = *(v170 - 3);
+            v277 = *(v170 - 4);
+            v279 = *(v170 - 3);
+            v281 = *(v170 - 2);
+            v284 = *(v170 - 1);
+            theDictb = *v170;
+            v178 = FourccToCStr(v275[348]);
+            LODWORD(v309[0]) = 136318466;
+            *(v309 + 4) = v173;
+            WORD6(v309[0]) = 2080;
+            *(v309 + 14) = "_VideoReceiver_ReportingRegisterPeriodicTask_block_invoke";
+            WORD3(v309[1]) = 1024;
+            DWORD2(v309[1]) = 5504;
+            WORD6(v309[1]) = 2048;
+            *(&v309[1] + 14) = v275;
+            WORD3(v309[2]) = 2048;
+            *(&v309[2] + 1) = v172;
+            LOWORD(v309[3]) = 2080;
+            *(&v309[3] + 2) = v175;
+            WORD5(v309[3]) = 2048;
+            *(&v309[3] + 12) = v177;
+            v168 = v276;
+            WORD2(v309[4]) = 2048;
+            *(&v309[4] + 6) = v176;
+            v171 = MEMORY[0x1E6986650];
+            HIWORD(v309[4]) = 1024;
+            LODWORD(v309[5]) = v277;
+            WORD2(v309[5]) = 1024;
+            *(&v309[5] + 6) = v279;
+            WORD5(v309[5]) = 1024;
+            HIDWORD(v309[5]) = v281;
+            LOWORD(v309[6]) = 1024;
+            *(&v309[6] + 2) = v284;
+            WORD3(v309[6]) = 1024;
+            DWORD2(v309[6]) = theDictb;
+            WORD6(v309[6]) = 2080;
+            *(&v309[6] + 14) = v178;
+            _os_log_impl(&dword_1DB56E000, v174, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] FEC health report: fecLevel:%.2f participantID:%s data:%llu, parity:%llu, totalFrame:%d complete:%d, notRecoverable:%d, failedToRecover:%d, recovered:%d streamGroupId:%s", v309, 0x76u);
           }
         }
       }
 
-      ++v168;
-      v169 += 6;
+      ++v169;
+      v170 += 6;
     }
 
-    while (v168 != 10);
-    if (*(v274 + 653))
+    while (v169 != 10);
+    if (*(v275 + 653))
     {
-      v178 = *(v167 + 1888) / *(v274 + 653);
+      v179 = v168[944] / *(v275 + 653);
     }
 
     else
     {
-      v178 = 0;
+      v179 = 0;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
-      v179 = VRTraceErrorLogLevelToCSTR();
-      v180 = *v170;
-      if (os_log_type_enabled(v180, OS_LOG_TYPE_DEFAULT))
+      v180 = VRTraceErrorLogLevelToCSTR();
+      v181 = *v171;
+      if (os_log_type_enabled(v181, OS_LOG_TYPE_DEFAULT))
       {
-        v181 = CFStringGetCStringPtr(*(v274 + 172), 0x8000100u);
-        v182 = v274[290];
-        v183 = FourccToCStr(v274[348]);
-        v184 = *v257;
-        v185 = *v265 * 1000.0;
-        v186 = *v255 * 1000.0;
-        v187 = *(v275 + 1588) * 1000.0;
-        v188 = *(v275 + 1804);
-        v189 = *(v275 + 2312);
-        v190 = *(v275 + 2308);
-        v191 = *(v275 + 1888);
-        LODWORD(v308[0]) = 136321026;
-        *(v308 + 4) = v179;
-        WORD6(v308[0]) = 2080;
-        *(v308 + 14) = "_VideoReceiver_ReportingRegisterPeriodicTask_block_invoke";
-        WORD3(v308[1]) = 1024;
-        DWORD2(v308[1]) = 5510;
-        WORD6(v308[1]) = 2080;
-        *(&v308[1] + 14) = v181;
-        WORD3(v308[2]) = 1024;
-        DWORD2(v308[2]) = v182;
-        WORD6(v308[2]) = 2080;
-        *(&v308[2] + 14) = v183;
-        WORD3(v308[3]) = 2048;
-        *(&v308[3] + 1) = v67;
-        LOWORD(v308[4]) = 2048;
-        *(&v308[4] + 2) = v68;
-        WORD5(v308[4]) = 2048;
-        *(&v308[4] + 12) = v184;
-        WORD2(v308[5]) = 1024;
-        *(&v308[5] + 6) = v258;
-        WORD5(v308[5]) = 2048;
-        *(&v308[5] + 12) = v185;
-        WORD2(v308[6]) = 2048;
-        *(&v308[6] + 6) = v186;
-        HIWORD(v308[6]) = 2048;
-        *&v308[7] = v187;
-        WORD4(v308[7]) = 2048;
-        *(&v308[7] + 10) = PlaybackTimeOffset * 1000.0;
-        WORD1(v308[8]) = 1024;
-        DWORD1(v308[8]) = v254;
-        WORD4(v308[8]) = 2048;
-        *(&v308[8] + 10) = v253;
-        WORD1(v308[9]) = 2048;
-        *(&v308[9] + 4) = v60;
-        WORD6(v308[9]) = 1024;
-        *(&v308[9] + 14) = v256;
-        WORD1(v308[10]) = 1024;
-        DWORD1(v308[10]) = v188;
-        WORD4(v308[10]) = 1024;
-        *(&v308[10] + 10) = v189;
-        HIWORD(v308[10]) = 1024;
-        LODWORD(v308[11]) = v190;
-        WORD2(v308[11]) = 1024;
-        *(&v308[11] + 6) = v259;
-        WORD5(v308[11]) = 1024;
-        HIDWORD(v308[11]) = v191;
-        LOWORD(v308[12]) = 1024;
-        *(&v308[12] + 2) = v178;
-        _os_log_impl(&dword_1DB56E000, v180, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d @=@ Health: VideoReceiver participantID=%s, mode=%d, streamGroupId=%s, videoRxAvgFrameRate=%.2f, videoRxMinFrameRate=%.2f, videoRxMaxFrameRate=%.2f, videoRxBitrate=%d kbps, videoStallTime=%.1f ms, videoSegmentMaxStall=%.1f ms, videoJitterQueueSize=%.1f ms, playbackOffset=%f ms, numOfJitterQueueSizeChanges=%d, timeSpentInNonZeroJBQueueSize=%f s, averageJitterQueueSize=%f ms, frameErasureCount=%u, packetReceived=%u, callbackCount=%u significantOutOfOrderPacketCount=%d, metadataRxBitrateKbps=%u, decodedFrameCount=%d, decodedFullFrameCount=%d,", v308, 0xC6u);
+        v182 = CFStringGetCStringPtr(*(v275 + 172), 0x8000100u);
+        v183 = v275[290];
+        v184 = FourccToCStr(v275[348]);
+        v185 = *v258;
+        v186 = *v266 * 1000.0;
+        v187 = *v256 * 1000.0;
+        v188 = *(v276 + 397) * 1000.0;
+        v189 = v276[451];
+        v190 = v276[578];
+        v191 = v276[577];
+        v192 = *(v276 + 944);
+        LODWORD(v309[0]) = 136321026;
+        *(v309 + 4) = v180;
+        WORD6(v309[0]) = 2080;
+        *(v309 + 14) = "_VideoReceiver_ReportingRegisterPeriodicTask_block_invoke";
+        WORD3(v309[1]) = 1024;
+        DWORD2(v309[1]) = 5510;
+        WORD6(v309[1]) = 2080;
+        *(&v309[1] + 14) = v182;
+        WORD3(v309[2]) = 1024;
+        DWORD2(v309[2]) = v183;
+        WORD6(v309[2]) = 2080;
+        *(&v309[2] + 14) = v184;
+        WORD3(v309[3]) = 2048;
+        *(&v309[3] + 1) = v68;
+        LOWORD(v309[4]) = 2048;
+        *(&v309[4] + 2) = v69;
+        WORD5(v309[4]) = 2048;
+        *(&v309[4] + 12) = v185;
+        WORD2(v309[5]) = 1024;
+        *(&v309[5] + 6) = v259;
+        WORD5(v309[5]) = 2048;
+        *(&v309[5] + 12) = v186;
+        WORD2(v309[6]) = 2048;
+        *(&v309[6] + 6) = v187;
+        HIWORD(v309[6]) = 2048;
+        *&v309[7] = v188;
+        WORD4(v309[7]) = 2048;
+        *(&v309[7] + 10) = PlaybackTimeOffset * 1000.0;
+        WORD1(v309[8]) = 1024;
+        DWORD1(v309[8]) = v255;
+        WORD4(v309[8]) = 2048;
+        *(&v309[8] + 10) = v254;
+        WORD1(v309[9]) = 2048;
+        *(&v309[9] + 4) = v60;
+        WORD6(v309[9]) = 1024;
+        *(&v309[9] + 14) = v257;
+        WORD1(v309[10]) = 1024;
+        DWORD1(v309[10]) = v189;
+        WORD4(v309[10]) = 1024;
+        *(&v309[10] + 10) = v190;
+        HIWORD(v309[10]) = 1024;
+        LODWORD(v309[11]) = v191;
+        WORD2(v309[11]) = 1024;
+        *(&v309[11] + 6) = v260;
+        WORD5(v309[11]) = 1024;
+        HIDWORD(v309[11]) = v192;
+        LOWORD(v309[12]) = 1024;
+        *(&v309[12] + 2) = v179;
+        _os_log_impl(&dword_1DB56E000, v181, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d @=@ Health: VideoReceiver participantID=%s, mode=%d, streamGroupId=%s, videoRxAvgFrameRate=%.2f, videoRxMinFrameRate=%.2f, videoRxMaxFrameRate=%.2f, videoRxBitrate=%d kbps, videoStallTime=%.1f ms, videoSegmentMaxStall=%.1f ms, videoJitterQueueSize=%.1f ms, playbackOffset=%f ms, numOfJitterQueueSizeChanges=%d, timeSpentInNonZeroJBQueueSize=%f s, averageJitterQueueSize=%f ms, frameErasureCount=%u, packetReceived=%u, callbackCount=%u significantOutOfOrderPacketCount=%d, metadataRxBitrateKbps=%u, decodedFrameCount=%d, decodedFullFrameCount=%d,", v309, 0xC6u);
       }
     }
 
-    if (*(v274 + 1325) == 1)
+    if (*(v275 + 1325) == 1)
     {
-      VCVideoJitterBuffer_HealthPrint(*(v275 + 2372));
+      VCVideoJitterBuffer_HealthPrint(*(v276 + 593));
     }
 
-    v192 = *(v275 + 1564);
-    *v308 = v192;
-    v193 = CFNumberCreate(alloca, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v268, @"VRxAvgPktLoss", v193);
-    CFRelease(v193);
-    *v308 = v32;
-    v194 = CFNumberCreate(alloca, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v268, @"VRxPktLoss", v194);
+    v193 = *(v276 + 391);
+    *v309 = v193;
+    v194 = CFNumberCreate(alloca, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v269, @"VRxAvgPktLoss", v194);
     CFRelease(v194);
-    LODWORD(v308[0]) = 0;
-    v195 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VPktRx", v195);
+    *v309 = v32;
+    v195 = CFNumberCreate(alloca, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v269, @"VRxPktLoss", v195);
     CFRelease(v195);
-    v196 = *(v275 + 1876);
-    v197 = 0.0;
-    v198 = v196;
-    v199 = 0.0;
-    if ((v196 - *(v275 + 1874)) >= 1)
+    LODWORD(v309[0]) = 0;
+    v196 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VPktRx", v196);
+    CFRelease(v196);
+    v197 = *(v276 + 938);
+    v198 = 0.0;
+    v199 = v197;
+    v200 = 0.0;
+    if ((v197 - *(v276 + 937)) >= 1)
     {
-      v199 = (v196 - *(v275 + 1874)) / v198;
+      v200 = (v197 - *(v276 + 937)) / v199;
     }
 
-    v200 = (v196 - *(v275 + 1872));
-    if (v200 >= 1)
+    v201 = (v197 - *(v276 + 936));
+    if (v201 >= 1)
     {
-      v197 = v200 / v198;
+      v198 = v201 / v199;
     }
 
-    *v308 = v199;
-    v201 = CFNumberCreate(alloca, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v268, @"VRFrLoss", v201);
-    CFRelease(v201);
-    *v308 = v197;
-    v202 = CFNumberCreate(alloca, kCFNumberFloat32Type, v308);
-    CFDictionaryAddValue(v268, @"VRFrShown", v202);
+    *v309 = v200;
+    v202 = CFNumberCreate(alloca, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v269, @"VRFrLoss", v202);
     CFRelease(v202);
-    LODWORD(v308[0]) = *(v275 + 1876);
-    v203 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VRFrExpected", v203);
+    *v309 = v198;
+    v203 = CFNumberCreate(alloca, kCFNumberFloat32Type, v309);
+    CFDictionaryAddValue(v269, @"VRFrShown", v203);
     CFRelease(v203);
-    v205 = *(v275 + 2112);
-    if (*(v275 + 2112))
+    LODWORD(v309[0]) = *(v276 + 938);
+    v204 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VRFrExpected", v204);
+    CFRelease(v204);
+    v206 = *(v276 + 1056);
+    if (*(v276 + 1056))
     {
-      v206 = *(v275 + 1792);
-      if (*(v275 + 1792))
+      v207 = *(v276 + 896);
+      if (*(v276 + 896))
       {
-        LOWORD(v204) = *(v275 + 2110);
-        v207 = (*(v275 + 2108) / v205);
-        v208 = -v204 / v205;
-        v209 = (1.0 - expf((v208 * (*(v275 + 1790) / v206 - 1)) / 30.0)) * v207;
-        v210 = v209 / (1.0 - expf(v208));
-        if (v210 <= 0xA)
+        LOWORD(v205) = *(v276 + 1055);
+        v208 = (*(v276 + 1054) / v206);
+        v209 = -v205 / v206;
+        v210 = (1.0 - expf((v209 * (*(v276 + 895) / v207 - 1)) / 30.0)) * v208;
+        v211 = v210 / (1.0 - expf(v209));
+        if (v211 <= 0xA)
         {
-          LOBYTE(v206) = 5 * v210 + 50;
+          LOBYTE(v207) = 5 * v211 + 50;
         }
 
         else
         {
-          LOBYTE(v206) = 100;
+          LOBYTE(v207) = 100;
         }
 
-        v206 = v206;
-        *(v275 + 2108) = 0;
-        *(v275 + 2112) = 0;
+        v207 = v207;
+        *(v276 + 1054) = 0;
+        *(v276 + 1056) = 0;
       }
     }
 
     else
     {
-      v206 = 0;
+      v207 = 0;
     }
 
-    LODWORD(v308[0]) = v206;
-    v211 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VQS", v211);
-    CFRelease(v211);
-    LODWORD(v308[0]) = *(v275 + 2308);
-    v212 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VRSOOOCnt", v212);
+    LODWORD(v309[0]) = v207;
+    v212 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VQS", v212);
     CFRelease(v212);
-    LODWORD(v308[0]) = LODWORD(v307[0]);
-    v213 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VFIRDCnt", v213);
+    LODWORD(v309[0]) = v276[577];
+    v213 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VRSOOOCnt", v213);
     CFRelease(v213);
-    LODWORD(v308[0]) = *(v275 + 1836);
-    v214 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VFIRCnt", v214);
+    LODWORD(v309[0]) = LODWORD(v308[0]);
+    v214 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VFIRDCnt", v214);
     CFRelease(v214);
-    LODWORD(v308[0]) = *(v275 + 1844);
-    v215 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VFIRFSCnt", v215);
+    LODWORD(v309[0]) = v276[459];
+    v215 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VFIRCnt", v215);
     CFRelease(v215);
-    LODWORD(v308[0]) = *(v275 + 1880);
-    v216 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VFDBSCnt", v216);
+    LODWORD(v309[0]) = v276[461];
+    v216 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VFIRFSCnt", v216);
     CFRelease(v216);
-    LODWORD(v308[0]) = HIDWORD(v307[0]);
-    v217 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VFTICnt", v217);
+    LODWORD(v309[0]) = v276[470];
+    v217 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VFDBSCnt", v217);
     CFRelease(v217);
-    LODWORD(v308[0]) = *(v275 + 1888);
-    v218 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"DecOutFrameCnt", v218);
+    LODWORD(v309[0]) = HIDWORD(v308[0]);
+    v218 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VFTICnt", v218);
     CFRelease(v218);
-    LODWORD(v308[0]) = *(v275 + 1872);
-    v219 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"DVFECnt", v219);
+    LODWORD(v309[0]) = *(v276 + 944);
+    v219 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"DecOutFrameCnt", v219);
     CFRelease(v219);
-    LODWORD(v308[0]) = *(v275 + 1874);
-    v220 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VFRxCnt", v220);
+    LODWORD(v309[0]) = *(v276 + 936);
+    v220 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"DVFECnt", v220);
     CFRelease(v220);
-    LODWORD(v308[0]) = HIDWORD(v307[1]);
-    v221 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VNoFecTF", v221);
+    LODWORD(v309[0]) = *(v276 + 937);
+    v221 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VFRxCnt", v221);
     CFRelease(v221);
-    LODWORD(v308[0]) = LODWORD(v307[1]);
-    v222 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VNoFecCF", v222);
+    LODWORD(v309[0]) = HIDWORD(v308[1]);
+    v222 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VNoFecTF", v222);
     CFRelease(v222);
-    LODWORD(v308[0]) = *(v275 + 1892);
-    v223 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"DecNoShowFrameCnt", v223);
+    LODWORD(v309[0]) = LODWORD(v308[1]);
+    v223 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VNoFecCF", v223);
     CFRelease(v223);
-    LODWORD(v308[0]) = *(v275 + 1664);
-    v224 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"Width", v224);
+    LODWORD(v309[0]) = v276[473];
+    v224 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"DecNoShowFrameCnt", v224);
     CFRelease(v224);
-    LODWORD(v308[0]) = *(v275 + 1668);
-    v225 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"Height", v225);
+    LODWORD(v309[0]) = v276[416];
+    v225 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"Width", v225);
     CFRelease(v225);
-    _VideoReceiver_AddMLStatsToReportingDictionary(v274, v268);
-    LODWORD(v308[0]) = (*(v275 + 1862) - *(v275 + 1864));
-    v226 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VFExCnt", v226);
+    LODWORD(v309[0]) = v276[417];
+    v226 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"Height", v226);
     CFRelease(v226);
-    LODWORD(v308[0]) = *(v275 + 1884);
-    v227 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VRxSinglePktFrame", v227);
+    _VideoReceiver_AddMLStatsToReportingDictionary(v275, v269);
+    LODWORD(v309[0]) = (*(v276 + 931) - *(v276 + 932));
+    v227 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VFExCnt", v227);
     CFRelease(v227);
-    LODWORD(v308[0]) = 0;
-    v228 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"APRL", v228);
+    LODWORD(v309[0]) = v276[471];
+    v228 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VRxSinglePktFrame", v228);
     CFRelease(v228);
-    LODWORD(v308[0]) = 0;
-    v229 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"AVDL", v229);
+    LODWORD(v309[0]) = 0;
+    v229 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"APRL", v229);
     CFRelease(v229);
-    LODWORD(v308[0]) = 0;
-    v230 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"ADL", v230);
+    LODWORD(v309[0]) = 0;
+    v230 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"AVDL", v230);
     CFRelease(v230);
-    LODWORD(v308[0]) = 0;
-    v231 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"ATRL", v231);
+    LODWORD(v309[0]) = 0;
+    v231 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"ADL", v231);
     CFRelease(v231);
-    LODWORD(v308[0]) = 0;
-    v232 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"MPRL", v232);
+    LODWORD(v309[0]) = 0;
+    v232 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"ATRL", v232);
     CFRelease(v232);
-    LODWORD(v308[0]) = 0;
-    v233 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"MVDL", v233);
+    LODWORD(v309[0]) = 0;
+    v233 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"MPRL", v233);
     CFRelease(v233);
-    LODWORD(v308[0]) = 0;
-    v234 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"MDL", v234);
+    LODWORD(v309[0]) = 0;
+    v234 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"MVDL", v234);
     CFRelease(v234);
-    LODWORD(v308[0]) = 0;
-    v235 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"MTRL", v235);
+    LODWORD(v309[0]) = 0;
+    v235 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"MDL", v235);
     CFRelease(v235);
-    LODWORD(v308[0]) = (_VideoReceiver_GetTotalPLR(v274) * 10000.0);
-    v236 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"VRxPLR", v236);
+    LODWORD(v309[0]) = 0;
+    v236 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"MTRL", v236);
     CFRelease(v236);
-    LODWORD(v308[0]) = v260;
-    v237 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"RTPDownlinkIngressVideoPkts", v237);
+    LODWORD(v309[0]) = (_VideoReceiver_GetTotalPLR(v275) * 10000.0);
+    v237 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"VRxPLR", v237);
     CFRelease(v237);
-    LODWORD(v308[0]) = v266;
-    v238 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"RTPDownlinkEgressVideoPkts", v238);
+    LODWORD(v309[0]) = v261;
+    v238 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"RTPDownlinkIngressVideoPkts", v238);
     CFRelease(v238);
-    LODWORD(v308[0]) = v261;
-    v239 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-    CFDictionaryAddValue(v268, @"RTPDownlinkIngressNonDupMediaPkts", v239);
+    LODWORD(v309[0]) = v267;
+    v239 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"RTPDownlinkEgressVideoPkts", v239);
     CFRelease(v239);
-    v240 = *v274;
-    if (v240)
+    LODWORD(v309[0]) = v262;
+    v240 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+    CFDictionaryAddValue(v269, @"RTPDownlinkIngressNonDupMediaPkts", v240);
+    CFRelease(v240);
+    v241 = *v275;
+    if (v241)
     {
-      v241 = 0;
       v242 = 0;
-      v243 = v274 + 1494;
-      v244 = v272;
+      v243 = 0;
+      v244 = v275 + 1494;
+      v245 = v273;
       do
       {
-        v241 += *(v243 - 1);
-        v242 += *v243;
-        v243 += 1088;
-        --v240;
+        v242 += *(v244 - 1);
+        v243 += *v244;
+        v244 += 1088;
+        --v241;
       }
 
-      while (v240);
-      if (v241)
-      {
-        LODWORD(v308[0]) = v241;
-        v245 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v268, @"LTRAckTx", v245);
-        CFRelease(v245);
-        v244 = v272;
-      }
-
+      while (v241);
       if (v242)
       {
-        LODWORD(v308[0]) = v242;
-        v246 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-        CFDictionaryAddValue(v268, @"LossFbTx", v246);
+        LODWORD(v309[0]) = v242;
+        v246 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v269, @"LTRAckTx", v246);
         CFRelease(v246);
-        v244 = v272;
+        v245 = v273;
       }
 
-      LODWORD(v240) = *v274;
-      if (*v274)
+      if (v243)
       {
-        v247 = 0;
-        v248 = 1495;
-        v249 = *v274;
+        LODWORD(v309[0]) = v243;
+        v247 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+        CFDictionaryAddValue(v269, @"LossFbTx", v247);
+        CFRelease(v247);
+        v245 = v273;
+      }
+
+      LODWORD(v241) = *v275;
+      if (*v275)
+      {
+        v248 = 0;
+        v249 = 1495;
+        v250 = *v275;
         do
         {
-          v247 += v274[v248];
-          v248 += 1088;
-          --v249;
+          v248 += v275[v249];
+          v249 += 1088;
+          --v250;
         }
 
-        while (v249);
-        if (v247)
+        while (v250);
+        if (v248)
         {
-          LODWORD(v308[0]) = v247;
-          v250 = CFNumberCreate(alloca, kCFNumberIntType, v308);
-          CFDictionaryAddValue(v268, @"RtcpAppLTRAckTx", v250);
-          CFRelease(v250);
-          v244 = v272;
-          LODWORD(v240) = *v274;
+          LODWORD(v309[0]) = v248;
+          v251 = CFNumberCreate(alloca, kCFNumberIntType, v309);
+          CFDictionaryAddValue(v269, @"RtcpAppLTRAckTx", v251);
+          CFRelease(v251);
+          v245 = v273;
+          LODWORD(v241) = *v275;
         }
       }
     }
 
     else
     {
-      v244 = v272;
+      v245 = v273;
     }
 
-    *(v275 + 1864) = *(v275 + 1862);
-    *(v275 + 1836) = 0;
-    *(v275 + 1844) = 0;
-    *(v275 + 1880) = 0u;
-    *(v275 + 1790) = 0;
-    *(v274 + 2675) = xmmword_1DBD480B0;
-    *(v275 + 1872) = 0;
-    *v269 = 0;
-    *(v269 + 8) = 0;
-    *v271 = NAN;
-    *(v275 + 2308) = 0;
-    *v262 = *v265;
-    *(v275 + 1796) = v263;
-    *(v275 + 1800) = v270;
-    *(v275 + 1812) = v244;
-    *(v275 + 1820) = v267;
-    *v264 = v273;
-    if (v240)
+    *(v276 + 932) = *(v276 + 931);
+    v276[459] = 0;
+    v276[461] = 0;
+    *(v276 + 470) = 0u;
+    *(v276 + 1790) = 0;
+    *(v275 + 2675) = xmmword_1DBD480B0;
+    v276[468] = 0;
+    *v270 = 0;
+    *(v270 + 1) = 0;
+    *v272 = NAN;
+    v276[577] = 0;
+    *v263 = *v266;
+    v276[449] = v264;
+    v276[450] = v271;
+    *(v276 + 453) = v245;
+    *(v276 + 455) = v268;
+    *v265 = v274;
+    if (v241)
     {
-      v251 = v274;
-      v240 = v240;
+      v252 = v275;
+      v241 = v241;
       do
       {
-        v251[468] = v251[467];
-        *(v251 + 930) = v251[466];
-        *(v251 + 1493) = 0;
-        v251[1495] = 0;
-        v251 += 1088;
-        --v240;
+        v252[468] = v252[467];
+        *(v252 + 930) = v252[466];
+        *(v252 + 1493) = 0;
+        v252[1495] = 0;
+        v252 += 1088;
+        --v241;
       }
 
-      while (v240);
+      while (v241);
     }
 
-    if (!*(v275 + 2508))
+    if (!*(v276 + 627))
     {
       if (VCOverlayManager_isOverlayEnabled())
       {
-        OverlaySourceForToken = VCOverlayManager_createOverlaySourceForToken(*(v274 + 187), 1u);
-        *(v275 + 2508) = OverlaySourceForToken;
-        VCOverlaySource_SetParticipantID(OverlaySourceForToken, *(v274 + 172));
+        OverlaySourceForToken = VCOverlayManager_createOverlaySourceForToken(*(v275 + 187), 1u);
+        *(v276 + 627) = OverlaySourceForToken;
+        VCOverlaySource_SetParticipantID(OverlaySourceForToken, *(v275 + 172));
       }
     }
 

@@ -8,52 +8,52 @@
 {
   v8 = **arguments;
   v9 = *(*arguments + 8);
-  v37 = 0;
-  v11 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v10, context, spec, 0, &v37);
-  v12 = v37;
-  v36 = v12;
-  v14 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v9, v13, context, spec, 1, &v36);
-  v15 = v36;
+  v33 = 0;
+  v11 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v10, context, spec, 0, &v33);
+  v12 = v33;
+  v32 = v12;
+  v14 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v9, v13, context, spec, 1, &v32);
+  v15 = v32;
 
   if (v15)
   {
-    v19 = objc_msgSend_raiseErrorOrConvert_(context, v16, v15, v17, v18);
+    v18 = objc_msgSend_raiseErrorOrConvert_(context, v16, v15, v17);
     goto LABEL_9;
   }
 
-  v19 = objc_msgSend_multiply_context_(v11, v16, v14, context, v18);
+  v18 = objc_msgSend_multiply_context_(v11, v16, v14, context);
   if (!v8)
   {
-    memset(&v34, 0, sizeof(v34));
+    memset(&v30, 0, sizeof(v30));
     if (v9)
     {
       goto LABEL_5;
     }
 
 LABEL_7:
-    memset(&v33, 0, sizeof(v33));
+    memset(&v29, 0, sizeof(v29));
     goto LABEL_8;
   }
 
-  objc_msgSend_formatWithContext_(v8, v20, context, v22, v23);
+  objc_msgSend_formatWithContext_(v8, v19, context, v21);
   if (!v9)
   {
     goto LABEL_7;
   }
 
 LABEL_5:
-  objc_msgSend_formatWithContext_(v9, v20, context, v22, v23);
+  objc_msgSend_formatWithContext_(v9, v19, context, v21);
 LABEL_8:
-  TSCEFormat::formatByMergingWithFormat(&v34, &v33, v21, v22, v23, &v35);
-  v28 = objc_msgSend_locale(context, v24, v25, v26, v27);
-  TSCEFormat::formatByModifyingFormatAccordingToCurrencyStateOfValue(&v35, v19, v28, &v34);
-  TSCEFormat::operator=(&v35, &v34);
+  TSCEFormat::formatByMergingWithFormat(&v31, &v30, &v29, v20, v21);
+  v25 = objc_msgSend_locale(context, v22, v23, v24);
+  TSCEFormat::formatByModifyingFormatAccordingToCurrencyStateOfValue(&v30, &v31, v18, v25);
+  TSCEFormat::operator=(&v31, &v30);
 
-  TSCEFormat::TSCEFormat(&v34, &v35);
-  objc_msgSend_setFormat_(v19, v29, &v34, v30, v31);
+  TSCEFormat::TSCEFormat(&v30, &v31);
+  objc_msgSend_setFormat_(v18, v26, &v30, v27);
 LABEL_9:
 
-  return v19;
+  return v18;
 }
 
 @end

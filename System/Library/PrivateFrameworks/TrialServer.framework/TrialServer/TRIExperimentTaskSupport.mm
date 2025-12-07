@@ -44,14 +44,12 @@
 
 - (id)tags
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   taskTag = [(TRIExperimentDeployment *)self->_experimentDeployment taskTag];
-  v8[0] = taskTag;
+  v7[0] = taskTag;
   experimentId = [(TRIExperimentDeployment *)self->_experimentDeployment experimentId];
-  v8[1] = experimentId;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = experimentId;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
 
   return v5;
 }
@@ -184,10 +182,7 @@ void *__35__TRIExperimentTaskSupport_metrics__block_invoke(uint64_t a1, uint64_t
   result = *(a2 + 8);
   if (result)
   {
-    v4 = [result copy];
-    v5 = *(*(a1 + 32) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    *(*(*(a1 + 32) + 8) + 40) = [result copy];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -224,11 +219,11 @@ void *__35__TRIExperimentTaskSupport_metrics__block_invoke(uint64_t a1, uint64_t
   return v8;
 }
 
-uint64_t __38__TRIExperimentTaskSupport_dimensions__block_invoke(uint64_t result, uint64_t a2)
+id *__38__TRIExperimentTaskSupport_dimensions__block_invoke(id *result, uint64_t a2)
 {
   if (*(a2 + 16))
   {
-    return [*(result + 32) addObjectsFromArray:?];
+    return [result[4] addObjectsFromArray:?];
   }
 
   return result;

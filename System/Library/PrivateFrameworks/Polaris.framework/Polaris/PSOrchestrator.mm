@@ -1,4 +1,5 @@
 @interface PSOrchestrator
+- (PSOrchestrator)initWithQueue:(id)queue withBuilder:(id)builder withGSTManager:(id)manager isSessionForLocalReplay:(BOOL)replay;
 - (id)applyPolicyConstraints:(id)constraints withDesiredStride:(id)stride;
 - (id)evaluateInputDrivenGraphPolicy;
 - (void)addedGraphs:(id)graphs removedGraphs:(id)removedGraphs;
@@ -352,21 +353,21 @@ LABEL_17:
 
   [(PSOrchestrator *)self addedGraphs:0 removedGraphs:v6];
   builder2 = [(PSOrchestrator *)self builder];
-  v13 = 0;
-  v8 = [builder2 removeGraphsWithIDs:v6 error:&v13];
-  v9 = v13;
+  v15 = 0;
+  v8 = [builder2 removeGraphsWithIDs:v6 error:&v15];
+  v9 = v15;
 
   if ((v8 & 1) == 0)
   {
-    v10 = sub_100013BF4();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100013BF4(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v11 = [v9 description];
+      v13 = [v9 description];
       *buf = 136315394;
-      v15 = "[PSOrchestrator(PSSG) execSessionRemoved:]";
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s: builder removeGraphsWithIDs call failed with: %@", buf, 0x16u);
+      v17 = "[PSOrchestrator(PSSG) execSessionRemoved:]";
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%s: builder removeGraphsWithIDs call failed with: %@", buf, 0x16u);
     }
   }
 
@@ -919,6 +920,42 @@ LABEL_17:
 
     while (v51);
   }
+}
+
+- (PSOrchestrator)initWithQueue:(id)queue withBuilder:(id)builder withGSTManager:(id)manager isSessionForLocalReplay:(BOOL)replay
+{
+  replayCopy = replay;
+  queueCopy = queue;
+  builderCopy = builder;
+  managerCopy = manager;
+  v22.receiver = self;
+  v22.super_class = PSOrchestrator;
+  v13 = [(PSOrchestrator *)&v22 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(PSOrchestrator *)v13 setQueue:queueCopy];
+    v15 = objc_alloc_init(NSMutableDictionary);
+    [(PSOrchestrator *)v14 setResourceState:v15];
+
+    v16 = objc_alloc_init(NSMutableDictionary);
+    [(PSOrchestrator *)v14 setGraphState:v16];
+
+    v17 = objc_alloc_init(NSMutableDictionary);
+    [(PSOrchestrator *)v14 setPolicyRequests:v17];
+
+    [(PSOrchestrator *)v14 setBuilder:builderCopy];
+    [(PSOrchestrator *)v14 setGstManager:managerCopy];
+    [(PSOrchestrator *)v14 setIsSessionForLocalReplay:replayCopy];
+    v18 = +[PLSSettings currentSettings];
+    v19 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v18 systemPulseRate]);
+    [(PSOrchestrator *)v14 setSystemPulseRate:v19];
+
+    v20 = objc_alloc_init(PSOrchestratorStatisticsDelegate);
+    [(PSOrchestrator *)v14 setStatisticsDelegate:v20];
+  }
+
+  return v14;
 }
 
 - (void)addedGraphs:(id)graphs removedGraphs:(id)removedGraphs

@@ -26,7 +26,7 @@
 
 - (Offset<siri::speech::schema_fb::ShortcutFuzzyMatchRequest_::StringTokenPair>)addObjectToBuffer:(void *)buffer
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   raw_string = [(QSSShortcutFuzzyMatchRequest_StringTokenPair *)self raw_string];
   v6 = raw_string;
   if (!raw_string)
@@ -38,52 +38,52 @@
   v8 = strlen(uTF8String);
   String = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v8);
 
-  memset(&v31, 0, sizeof(v31));
+  memset(&v30, 0, sizeof(v30));
   tokens = [(QSSShortcutFuzzyMatchRequest_StringTokenPair *)self tokens];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v31, [tokens count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v30, [tokens count]);
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   tokens2 = [(QSSShortcutFuzzyMatchRequest_StringTokenPair *)self tokens];
-  v12 = [tokens2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v12 = [tokens2 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v12)
   {
-    v13 = *v28;
+    v13 = *v27;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v28 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(tokens2);
         }
 
-        uTF8String2 = [*(*(&v27 + 1) + 8 * i) UTF8String];
+        uTF8String2 = [*(*(&v26 + 1) + 8 * i) UTF8String];
         v16 = strlen(uTF8String2);
-        v26 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v16);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v31, &v26);
+        v25 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v16);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v30, &v25);
       }
 
-      v12 = [tokens2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v12 = [tokens2 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v12);
   }
 
-  begin = v31.__begin_;
-  if (v31.__end_ == v31.__begin_)
+  begin = v30.__begin_;
+  if (v30.__end_ == v30.__begin_)
   {
     v18 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    v18 = v31.__begin_;
+    v18 = v30.__begin_;
   }
 
-  v19 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v18, v31.__end_ - v31.__begin_);
+  v19 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v18, v30.__end_ - v30.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v20 = *(buffer + 8);
@@ -97,7 +97,6 @@
     operator delete(begin);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

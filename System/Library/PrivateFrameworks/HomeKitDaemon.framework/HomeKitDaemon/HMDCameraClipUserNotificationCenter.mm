@@ -15,29 +15,29 @@
 
 - (id)_firstAvailableHeroFrameURLForSignificantEvents:(id)events cameraProfile:(id)profile
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   profileCopy = profile;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = eventsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v22 != v11)
+      if (*v21 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v21 + 1) + 8 * v12);
+      v13 = *(*(&v20 + 1) + 8 * v12);
       clipManager = [profileCopy clipManager];
       uniqueIdentifier = [v13 uniqueIdentifier];
       v16 = [clipManager heroFrameURLForSignificantEventWithUUID:uniqueIdentifier];
@@ -55,7 +55,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -72,14 +72,12 @@ LABEL_10:
     v16 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (void)_insertClipSignificantEventBulletin:(id)bulletin
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   workQueue = [(HMDCameraClipUserNotificationCenter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -92,20 +90,18 @@ LABEL_10:
     v9 = HMFGetLogIdentifier();
     significantEvents = [bulletinCopy significantEvents];
     previewImageFilePathURL = [bulletinCopy previewImageFilePathURL];
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 2112;
-    v17 = significantEvents;
-    v18 = 2112;
-    v19 = previewImageFilePathURL;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Inserting bulletin with clip significant events: %@ hero frame URL: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2112;
+    v16 = significantEvents;
+    v17 = 2112;
+    v18 = previewImageFilePathURL;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Inserting bulletin with clip significant events: %@ hero frame URL: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   bulletinBoard = [(HMDCameraClipUserNotificationCenter *)selfCopy bulletinBoard];
   [bulletinBoard insertCameraClipSignificantEventBulletin:bulletinCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCachedHeroFrameImages
@@ -126,7 +122,7 @@ LABEL_10:
 
 - (void)removeEventNotificationsForCameraProfile:(id)profile
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   workQueue = [(HMDCameraClipUserNotificationCenter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -137,23 +133,21 @@ LABEL_10:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = profileCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Removing camera clip bulletins for camera profile: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = profileCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Removing camera clip bulletins for camera profile: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   bulletinBoard = [(HMDCameraClipUserNotificationCenter *)selfCopy bulletinBoard];
   [bulletinBoard removeCameraClipBulletinsForCameraProfile:profileCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeEventNotificationForClipWithUUID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workQueue = [(HMDCameraClipUserNotificationCenter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -164,24 +158,22 @@ LABEL_10:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v9;
-    v15 = 2112;
-    v16 = dCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Removing bulletin for clip with UUID: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2112;
+    v15 = dCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Removing bulletin for clip with UUID: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   bulletinBoard = [(HMDCameraClipUserNotificationCenter *)selfCopy bulletinBoard];
   uUIDString = [dCopy UUIDString];
   [bulletinBoard removeBulletinWithRecordID:uUIDString];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postNotificationForBulletin:(id)bulletin significantEvent:(id)event
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   eventCopy = event;
   previewImageFilePathURL = [bulletinCopy previewImageFilePathURL];
@@ -200,9 +192,9 @@ LABEL_10:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v12;
-      v24 = 2112;
-      v25 = eventCopy;
+      v22 = v12;
+      v23 = 2112;
+      v24 = eventCopy;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Fetching hero frame URL to post notification for significant event: %@", buf, 0x16u);
     }
 
@@ -211,28 +203,26 @@ LABEL_10:
     clipManager = [camera clipManager];
     uniqueIdentifier = [eventCopy uniqueIdentifier];
     v16 = [clipManager fetchHeroFrameURLForSignificantEventWithUUID:uniqueIdentifier];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __84__HMDCameraClipUserNotificationCenter_postNotificationForBulletin_significantEvent___block_invoke;
-    v19[3] = &unk_278685810;
-    v19[4] = selfCopy;
-    v20 = bulletinCopy;
-    v21 = eventCopy;
-    v17 = [v16 addCompletionBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __84__HMDCameraClipUserNotificationCenter_postNotificationForBulletin_significantEvent___block_invoke;
+    v18[3] = &unk_278685810;
+    v18[4] = selfCopy;
+    v19 = bulletinCopy;
+    v20 = eventCopy;
+    v17 = [v16 addCompletionBlock:v18];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDCameraClipUserNotificationCenter_postNotificationForBulletin_significantEvent___block_invoke(id *a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v27 = v6;
+    v26 = v6;
     v8 = objc_autoreleasePoolPush();
     v9 = a1[4];
     v10 = HMFGetOSLogHandle();
@@ -241,16 +231,16 @@ void __84__HMDCameraClipUserNotificationCenter_postNotificationForBulletin_signi
       v11 = HMFGetLogIdentifier();
       v12 = [a1[6] uniqueIdentifier];
       *buf = 138543874;
-      v29 = v11;
-      v30 = 2112;
-      v31 = v12;
-      v32 = 2112;
-      v33 = v5;
+      v28 = v11;
+      v29 = 2112;
+      v30 = v12;
+      v31 = 2112;
+      v32 = v5;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Posting notification after fetching hero frame URL for significant event %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
-    v25 = [HMDCameraClipSignificantEventBulletin alloc];
+    v24 = [HMDCameraClipSignificantEventBulletin alloc];
     v13 = [a1[5] significantEvents];
     v14 = [a1[5] previewImageNotificationUUID];
     v15 = [a1[5] dateOfOccurrence];
@@ -259,27 +249,25 @@ void __84__HMDCameraClipUserNotificationCenter_postNotificationForBulletin_signi
     v18 = [a1[5] accessory];
     v19 = [a1[5] recordingService];
     v20 = [a1[5] clipUUID];
-    LOBYTE(v24) = [a1[5] shouldShowProvideFeedbackButton];
-    v21 = [(HMDCameraClipSignificantEventBulletin *)v25 initWithSignificantEvents:v13 previewImageNotificationUUID:v14 previewImageFilePathURL:v5 dateOfOccurrence:v15 camera:v16 home:v17 accessory:v18 recordingService:v19 clipUUID:v20 shouldShowProvideFeedbackButton:v24];
-    v26 = v5;
+    LOBYTE(v23) = [a1[5] shouldShowProvideFeedbackButton];
+    v21 = [(HMDCameraClipSignificantEventBulletin *)v24 initWithSignificantEvents:v13 previewImageNotificationUUID:v14 previewImageFilePathURL:v5 dateOfOccurrence:v15 camera:v16 home:v17 accessory:v18 recordingService:v19 clipUUID:v20 shouldShowProvideFeedbackButton:v23];
+    v25 = v5;
     v22 = v21;
 
     [a1[4] _insertClipSignificantEventBulletin:v22];
-    v5 = v26;
-    v7 = v27;
+    v5 = v25;
+    v7 = v26;
   }
 
   else
   {
     [a1[4] _insertClipSignificantEventBulletin:a1[5]];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createBulletinForSignificantEvents:(id)events cameraProfile:(id)profile
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   profileCopy = profile;
   accessory = [profileCopy accessory];
@@ -296,10 +284,10 @@ void __84__HMDCameraClipUserNotificationCenter_postNotificationForBulletin_signi
         v12 = [allObjects sortedArrayUsingComparator:&__block_literal_global_252212];
 
         [(HMDCameraClipUserNotificationCenter *)self _firstAvailableHeroFrameURLForSignificantEvents:v12 cameraProfile:profileCopy];
-        v37 = v36 = v12;
+        v36 = v35 = v12;
         firstObject = [v12 firstObject];
         [firstObject uniqueIdentifier];
-        v14 = v39 = profileCopy;
+        v14 = v38 = profileCopy;
 
         lastObject = [v12 lastObject];
         dateOfOccurrence = [lastObject dateOfOccurrence];
@@ -309,11 +297,11 @@ void __84__HMDCameraClipUserNotificationCenter_postNotificationForBulletin_signi
         anyObject = [eventsCopy anyObject];
         [anyObject clipUUID];
         v20 = v19 = home;
-        LOBYTE(v35) = lastObject;
-        v21 = [(HMDCameraClipSignificantEventBulletin *)v17 initWithSignificantEvents:eventsCopy previewImageNotificationUUID:v14 previewImageFilePathURL:v37 dateOfOccurrence:dateOfOccurrence camera:v39 home:v19 accessory:v9 recordingService:recordingManagementService clipUUID:v20 shouldShowProvideFeedbackButton:v35];
+        LOBYTE(v34) = lastObject;
+        v21 = [(HMDCameraClipSignificantEventBulletin *)v17 initWithSignificantEvents:eventsCopy previewImageNotificationUUID:v14 previewImageFilePathURL:v36 dateOfOccurrence:dateOfOccurrence camera:v38 home:v19 accessory:v9 recordingService:recordingManagementService clipUUID:v20 shouldShowProvideFeedbackButton:v34];
 
         home = v19;
-        profileCopy = v39;
+        profileCopy = v38;
 
 LABEL_14:
         goto LABEL_15;
@@ -326,7 +314,7 @@ LABEL_14:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v41 = v29;
+        v40 = v29;
         v30 = "%{public}@Could not create a bulletin for empty set of significant events";
         v31 = v28;
         v32 = 12;
@@ -343,9 +331,9 @@ LABEL_14:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v41 = v29;
-        v42 = 2112;
-        v43 = v9;
+        v40 = v29;
+        v41 = 2112;
+        v42 = v9;
         v30 = "%{public}@Could not create a bulletin for significant events because the home is nil for accessory: %@";
         v31 = v28;
         v32 = 22;
@@ -366,17 +354,15 @@ LABEL_12:
   {
     v25 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v41 = v25;
-    v42 = 2112;
-    v43 = profileCopy;
+    v40 = v25;
+    v41 = 2112;
+    v42 = profileCopy;
     _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Could not create a bulletin for significant events because the accessory is nil for camera profile: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v22);
   v21 = 0;
 LABEL_15:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -437,10 +423,9 @@ uint64_t __88__HMDCameraClipUserNotificationCenter_createBulletinForSignificantE
 
 void __50__HMDCameraClipUserNotificationCenter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_252225;
-  logCategory__hmf_once_v9_252225 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_252225;
+  logCategory__hmf_once_v9_252225 = v0;
 }
 
 @end

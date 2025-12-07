@@ -1,4 +1,4 @@
-int64_t _s4VDAF12VDAFProtocolPAAE22decodeMeasurementShare_12aggregatorID5countSayqd__GAA0E0Oyqd__G_s5UInt8VSitKAA12FieldElementRd__lFZAA4PINEVyAA7Field32VSRySfGAA19XofHmacSha256Aes128CG_AQTt2g5(int64_t a1, char a2, char a3, int64_t a4)
+uint64_t _s4VDAF12VDAFProtocolPAAE22decodeMeasurementShare_12aggregatorID5countSayqd__GAA0E0Oyqd__G_s5UInt8VSitKAA12FieldElementRd__lFZAA4PINEVyAA7Field32VSRySfGAA19XofHmacSha256Aes128CG_AQTt2g5(uint64_t a1, char a2, char a3, uint64_t a4)
 {
   v5 = a1;
   if (a2)
@@ -86,7 +86,7 @@ unint64_t _s4VDAF12VDAFProtocolPAAE22decodeMeasurementShare_12aggregatorID5count
   return v5;
 }
 
-unint64_t _s4VDAF12VDAFProtocolPAAE22decodeMeasurementShare_12aggregatorID5countSayqd__GAA0E0Oyqd__G_s5UInt8VSitKAA12FieldElementRd__lFZAA4PINEVyAA7Field40VSRySfGAA19XofHmacSha256Aes128CG_AQTt2g5Tm(unint64_t a1, char a2, char a3, unint64_t a4, int a5, void (*a6)(BOOL, unint64_t, uint64_t), void (*a7)(uint64_t *__return_ptr, uint64_t))
+unint64_t _s4VDAF12VDAFProtocolPAAE22decodeMeasurementShare_12aggregatorID5countSayqd__GAA0E0Oyqd__G_s5UInt8VSitKAA12FieldElementRd__lFZAA4PINEVyAA7Field40VSRySfGAA19XofHmacSha256Aes128CG_AQTt2g5Tm(unint64_t a1, char a2, char a3, unint64_t a4, uint64_t a5, void (*a6)(BOOL, unint64_t, uint64_t), void (*a7)(uint64_t *__return_ptr, uint64_t))
 {
   v8 = a1;
   if (a2)
@@ -982,7 +982,7 @@ LABEL_40:
   return result;
 }
 
-uint64_t _s4VDAF12FieldElementPAAE11integerFrom10floatValue18fractionalBitCount06FiniteB0_11IntegerTypeQZqd___SitKSBRd__lFZAA7Field40V_SfTt2g5(unint64_t a1, float a2)
+unint64_t _s4VDAF12FieldElementPAAE11integerFrom10floatValue18fractionalBitCount06FiniteB0_11IntegerTypeQZqd___SitKSBRd__lFZAA7Field40V_SfTt2g5(unint64_t a1, float a2)
 {
   if ((LODWORD(a2) >> 23) == 255)
   {
@@ -1249,7 +1249,7 @@ LABEL_17:
   }
 }
 
-uint64_t _s4VDAF12FieldElementPAAE11integerFrom10floatValue18fractionalBitCount06FiniteB0_11IntegerTypeQZqd___SitKSBRd__lFZAA7Field64V_SfTt2g5(unint64_t a1, float a2)
+unint64_t _s4VDAF12FieldElementPAAE11integerFrom10floatValue18fractionalBitCount06FiniteB0_11IntegerTypeQZqd___SitKSBRd__lFZAA7Field64V_SfTt2g5(unint64_t a1, float a2)
 {
   if ((LODWORD(a2) >> 23) == 255)
   {
@@ -1387,19 +1387,19 @@ LABEL_20:
   }
 }
 
-uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field40V_Tt1g5@<X0>(uint64_t a1@<X1>, int64_t a2@<X2>, unint64_t a3@<X3>, unint64_t *a4@<X8>)
+uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field40V_Tt1g5@<X0>(uint64_t a2@<X1>, int64_t a3@<X2>, unint64_t a4@<X3>, unint64_t *a5@<X8>)
 {
-  v8 = a3 >> 1;
-  if (__OFSUB__(a3 >> 1, a2))
+  v9 = a4 >> 1;
+  if (__OFSUB__(a4 >> 1, a3))
   {
     goto LABEL_51;
   }
 
-  v6 = a2;
-  v7 = a1;
-  v4 = a4;
-  _s4VDAF12FieldElementPAAE20assertValidBitLengthyySiKFZAA7Field40V_Tt0g5((a3 >> 1) - a2);
-  if (v5)
+  v7 = a3;
+  v8 = a2;
+  v5 = a5;
+  _s4VDAF12FieldElementPAAE20assertValidBitLengthyySiKFZAA7Field40V_Tt0g5((a4 >> 1) - a3);
+  if (v6)
   {
     return swift_unknownObjectRelease();
   }
@@ -1411,125 +1411,125 @@ uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field4
 
   while (2)
   {
-    v10 = static Field40.one;
-    result = _s4VDAF12FieldElementPAAEyx06FiniteB0_11IntegerTypeQZcfCAA7Field40V_Tt1g5(2uLL, &v29);
-    v11 = v8 - v6;
-    if (v8 != v6)
+    v11 = static Field40.one;
+    result = _s4VDAF12FieldElementPAAEyx06FiniteB0_11IntegerTypeQZcfCAA7Field40V_Tt1g5(2uLL, &v30);
+    v12 = v9 - v7;
+    if (v9 != v7)
     {
-      if (v8 <= v6)
+      if (v9 <= v7)
       {
         __break(1u);
         return result;
       }
 
-      v8 = 0;
-      v12 = (v7 + 8 * v6);
+      v9 = 0;
+      v13 = (v8 + 8 * v7);
       while (1)
       {
-        v15 = *v12++;
-        v16 = (v15 * v10) >> 64;
-        v17 = (0xCFFE47FFFEAFFFFFLL * v15 * v10 * 0xFFFEB00001uLL) >> 64;
-        v18 = __CFADD__(-(v15 * v10), v15 * v10);
-        v19 = __CFADD__(v17, v16);
-        v20 = v17 + v16;
-        if (v19)
+        v16 = *v13++;
+        v17 = (v16 * v11) >> 64;
+        v18 = (0xCFFE47FFFEAFFFFFLL * v16 * v11 * 0xFFFEB00001uLL) >> 64;
+        v19 = __CFADD__(-(v16 * v11), v16 * v11);
+        v20 = __CFADD__(v18, v17);
+        v21 = v18 + v17;
+        if (v20)
         {
           goto LABEL_18;
         }
 
-        if (v20 == -1)
+        if (v21 == -1)
         {
           break;
         }
 
-        v22 = v20 + v18;
-        if (v22 >= 0xFFFEB00001)
+        v23 = v21 + v19;
+        if (v23 >= 0xFFFEB00001)
         {
-          v22 -= 0xFFFEB00001;
+          v23 -= 0xFFFEB00001;
         }
 
-        if (!v22)
+        if (!v23)
         {
           goto LABEL_34;
         }
 
 LABEL_20:
-        v19 = v22 <= 0xFFFEB00001;
-        v23 = 0xFFFEB00001 - v22;
-        if (!v19)
+        v20 = v23 <= 0xFFFEB00001;
+        v24 = 0xFFFEB00001 - v23;
+        if (!v20)
         {
           goto LABEL_46;
         }
 
-        if (v8 >= v23)
+        if (v9 >= v24)
         {
-          v8 -= v23;
+          v9 -= v24;
         }
 
         else
         {
-          v19 = v23 <= 0xFFFEB00001;
-          v24 = 0xFFFEB00001 - v23;
-          if (!v19)
+          v20 = v24 <= 0xFFFEB00001;
+          v25 = 0xFFFEB00001 - v24;
+          if (!v20)
           {
             goto LABEL_49;
           }
 
-          v19 = __CFADD__(v8, v24);
-          v8 += v24;
-          if (v19)
+          v20 = __CFADD__(v9, v25);
+          v9 += v25;
+          if (v20)
           {
             goto LABEL_50;
           }
         }
 
 LABEL_34:
-        v25 = (v10 * v29) >> 64;
-        v26 = (0xCFFE47FFFEAFFFFFLL * v10 * v29 * 0xFFFEB00001uLL) >> 64;
-        v13 = __CFADD__(-(v10 * v29), v10 * v29);
-        v27 = v26 + v25;
-        if (!__CFADD__(v26, v25))
+        v26 = (v11 * v30) >> 64;
+        v27 = (0xCFFE47FFFEAFFFFFLL * v11 * v30 * 0xFFFEB00001uLL) >> 64;
+        v14 = __CFADD__(-(v11 * v30), v11 * v30);
+        v28 = v27 + v26;
+        if (!__CFADD__(v27, v26))
         {
-          if (v27 != -1)
+          if (v28 != -1)
           {
-            v28 = v27 + v13;
-            if (v28 >= 0xFFFEB00001)
+            v29 = v28 + v14;
+            if (v29 >= 0xFFFEB00001)
             {
-              v10 = v28 - 0xFFFEB00001;
+              v11 = v29 - 0xFFFEB00001;
             }
 
             else
             {
-              v10 = v28;
+              v11 = v29;
             }
 
             goto LABEL_12;
           }
 
-          if (!v13)
+          if (!v14)
           {
-            v10 = 0xFFFFFF00014FFFFELL;
+            v11 = 0xFFFFFF00014FFFFELL;
             goto LABEL_12;
           }
 
-          v13 = 1;
+          v14 = 1;
         }
 
-        v14 = v13 + v27;
-        v10 = v14 - 0xFFFEB00001;
-        if (v14 >= 0xFFFEB00001)
+        v15 = v14 + v28;
+        v11 = v15 - 0xFFFEB00001;
+        if (v15 >= 0xFFFEB00001)
         {
           goto LABEL_48;
         }
 
 LABEL_12:
-        if (!--v11)
+        if (!--v12)
         {
           goto LABEL_7;
         }
       }
 
-      if (!v18)
+      if (!v19)
       {
 LABEL_46:
         __break(1u);
@@ -1548,17 +1548,17 @@ LABEL_52:
         continue;
       }
 
-      v18 = 1;
+      v19 = 1;
 LABEL_18:
-      v21 = v18 + v20;
-      v19 = __CFADD__(v21, 0xFFFFFF00014FFFFFLL);
-      v22 = v21 - 0xFFFEB00001;
-      if (v19)
+      v22 = v19 + v21;
+      v20 = __CFADD__(v22, 0xFFFFFF00014FFFFFLL);
+      v23 = v22 - 0xFFFEB00001;
+      if (v20)
       {
         goto LABEL_47;
       }
 
-      if (!v22)
+      if (!v23)
       {
         goto LABEL_34;
       }
@@ -1569,27 +1569,27 @@ LABEL_18:
     break;
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_7:
   result = swift_unknownObjectRelease();
-  *v4 = v8;
+  *v5 = v9;
   return result;
 }
 
-uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field32V_Tt1g5@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, unsigned int *a4@<X8>)
+uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field32V_Tt1g5@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, unsigned int *a5@<X8>)
 {
-  v8 = a3 >> 1;
-  if (__OFSUB__(a3 >> 1, a2))
+  v9 = a4 >> 1;
+  if (__OFSUB__(a4 >> 1, a3))
   {
     __break(1u);
     goto LABEL_9;
   }
 
-  v6 = a2;
-  v7 = a1;
-  v4 = a4;
-  result = _s4VDAF12FieldElementPAAE20assertValidBitLengthyySiKFZAA7Field32V_Tt0g5((a3 >> 1) - a2);
-  if (v5)
+  v7 = a3;
+  v8 = a2;
+  v5 = a5;
+  result = _s4VDAF12FieldElementPAAE20assertValidBitLengthyySiKFZAA7Field32V_Tt0g5((a4 >> 1) - a3);
+  if (v6)
   {
     return swift_unknownObjectRelease();
   }
@@ -1598,49 +1598,49 @@ uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field3
   {
 LABEL_9:
     result = swift_once();
-    v11 = v8 - v6;
-    v10 = v8 <= v6;
-    if (v8 == v6)
+    v12 = v9 - v7;
+    v11 = v9 <= v7;
+    if (v9 == v7)
     {
 LABEL_6:
-      v12 = 0;
+      v13 = 0;
 LABEL_7:
       result = swift_unknownObjectRelease();
-      *v4 = v12;
+      *v5 = v13;
       return result;
     }
 
     goto LABEL_10;
   }
 
-  v11 = v8 - v6;
-  v10 = v8 <= v6;
-  if (v8 == v6)
+  v12 = v9 - v7;
+  v11 = v9 <= v7;
+  if (v9 == v7)
   {
     goto LABEL_6;
   }
 
 LABEL_10:
-  if (v10)
+  if (v11)
   {
     goto LABEL_39;
   }
 
-  v12 = 0;
-  LODWORD(v13) = static Field32.one;
-  v14 = (v7 + 4 * v6);
+  v13 = 0;
+  LODWORD(v14) = static Field32.one;
+  v15 = (v8 + 4 * v7);
   while (1)
   {
-    v15 = *v14++;
-    v16 = v15 * v13;
-    v17 = 4293918721 * (-1048577 * v16);
-    v18 = __CFADD__(v17, v16);
-    v19 = v17 + v16;
-    v20 = HIDWORD(v19);
-    if (v18)
+    v16 = *v15++;
+    v17 = v16 * v14;
+    v18 = 4293918721 * (-1048577 * v17);
+    v19 = __CFADD__(v18, v17);
+    v20 = v18 + v17;
+    v21 = HIDWORD(v20);
+    if (v19)
     {
-      LODWORD(v20) = HIDWORD(v19) + 0xFFFFF;
-      if (HIDWORD(v19) >= 0xFFF00001)
+      LODWORD(v21) = HIDWORD(v20) + 0xFFFFF;
+      if (HIDWORD(v20) >= 0xFFF00001)
       {
         goto LABEL_36;
       }
@@ -1648,72 +1648,72 @@ LABEL_10:
 
     else
     {
-      if (v19 >= 0xFFF0000100000000)
+      if (v20 >= 0xFFF0000100000000)
       {
-        LODWORD(v20) = HIDWORD(v19) + 0xFFFFF;
+        LODWORD(v21) = HIDWORD(v20) + 0xFFFFF;
       }
 
-      if (!v20)
+      if (!v21)
       {
         goto LABEL_31;
       }
     }
 
-    v18 = v20 <= 0xFFF00001;
-    v21 = -1048575 - v20;
-    if (!v18)
+    v19 = v21 <= 0xFFF00001;
+    v22 = -1048575 - v21;
+    if (!v19)
     {
       goto LABEL_35;
     }
 
-    if (v12 >= v21)
+    if (v13 >= v22)
     {
-      v12 -= v21;
+      v13 -= v22;
     }
 
     else
     {
-      v18 = v21 <= 0xFFF00001;
-      v22 = -1048575 - v21;
-      if (!v18)
+      v19 = v22 <= 0xFFF00001;
+      v23 = -1048575 - v22;
+      if (!v19)
       {
         goto LABEL_37;
       }
 
-      v18 = __CFADD__(v12, v22);
-      v12 += v22;
-      if (v18)
+      v19 = __CFADD__(v13, v23);
+      v13 += v23;
+      if (v19)
       {
         goto LABEL_38;
       }
     }
 
 LABEL_31:
-    v23 = v13 << 21;
-    v24 = 2 * v13;
-    v25 = v23 - v24;
-    v26 = 4293918721 * v24;
-    v18 = __CFADD__(v26, v25);
-    v27 = v26 + v25;
-    v13 = HIDWORD(v27);
-    if (!v18)
+    v24 = v14 << 21;
+    v25 = 2 * v14;
+    v26 = v24 - v25;
+    v27 = 4293918721 * v25;
+    v19 = __CFADD__(v27, v26);
+    v28 = v27 + v26;
+    v14 = HIDWORD(v28);
+    if (!v19)
     {
-      if (v27 >= 0xFFF0000100000000)
+      if (v28 >= 0xFFF0000100000000)
       {
-        LODWORD(v13) = HIDWORD(v27) + 0xFFFFF;
+        LODWORD(v14) = HIDWORD(v28) + 0xFFFFF;
       }
 
       goto LABEL_14;
     }
 
-    LODWORD(v13) = HIDWORD(v27) + 0xFFFFF;
-    if (HIDWORD(v27) >= 0xFFF00001)
+    LODWORD(v14) = HIDWORD(v28) + 0xFFFFF;
+    if (HIDWORD(v28) >= 0xFFF00001)
     {
       break;
     }
 
 LABEL_14:
-    if (!--v11)
+    if (!--v12)
     {
       goto LABEL_7;
     }
@@ -1733,19 +1733,19 @@ LABEL_39:
   return result;
 }
 
-uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field64V_Tt1g5@<X0>(uint64_t a1@<X1>, int64_t a2@<X2>, unint64_t a3@<X3>, unint64_t *a4@<X8>)
+uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field64V_Tt1g5@<X0>(uint64_t a2@<X1>, int64_t a3@<X2>, unint64_t a4@<X3>, unint64_t *a5@<X8>)
 {
-  v8 = a3 >> 1;
-  if (__OFSUB__(a3 >> 1, a2))
+  v9 = a4 >> 1;
+  if (__OFSUB__(a4 >> 1, a3))
   {
     goto LABEL_51;
   }
 
-  v6 = a2;
-  v7 = a1;
-  v4 = a4;
-  _s4VDAF12FieldElementPAAE20assertValidBitLengthyySiKFZAA7Field64V_Tt0g5((a3 >> 1) - a2);
-  if (v5)
+  v7 = a3;
+  v8 = a2;
+  v5 = a5;
+  _s4VDAF12FieldElementPAAE20assertValidBitLengthyySiKFZAA7Field64V_Tt0g5((a4 >> 1) - a3);
+  if (v6)
   {
     return swift_unknownObjectRelease();
   }
@@ -1756,45 +1756,45 @@ uint64_t _s4VDAF12FieldElementPAAE11inputVectorxs10ArraySliceVyxG_tKcfCAA7Field6
   }
 
 LABEL_5:
-  v10 = static Field64.one;
-  result = _s4VDAF12FieldElementPAAEyx06FiniteB0_11IntegerTypeQZcfCAA7Field64V_Tt1g5(2uLL, &v29);
-  v11 = v8 - v6;
-  if (v8 != v6)
+  v11 = static Field64.one;
+  result = _s4VDAF12FieldElementPAAEyx06FiniteB0_11IntegerTypeQZcfCAA7Field64V_Tt1g5(2uLL, &v30);
+  v12 = v9 - v7;
+  if (v9 != v7)
   {
-    if (v8 <= v6)
+    if (v9 <= v7)
     {
       __break(1u);
       return result;
     }
 
-    v8 = 0;
-    v12 = (v7 + 8 * v6);
+    v9 = 0;
+    v13 = (v8 + 8 * v7);
     while (1)
     {
-      v15 = *v12++;
-      v16 = (v15 * v10) >> 64;
-      v17 = (0xFFFFFFFEFFFFFFFFLL * v15 * v10 * 0xFFFFFFFF00000001) >> 64;
-      v18 = __CFADD__(-(v15 * v10), v15 * v10);
-      v19 = v17 + v16;
-      if (!__CFADD__(v17, v16))
+      v16 = *v13++;
+      v17 = (v16 * v11) >> 64;
+      v18 = (0xFFFFFFFEFFFFFFFFLL * v16 * v11 * 0xFFFFFFFF00000001) >> 64;
+      v19 = __CFADD__(-(v16 * v11), v16 * v11);
+      v20 = v18 + v17;
+      if (!__CFADD__(v18, v17))
       {
-        if (v19 != -1)
+        if (v20 != -1)
         {
-          v22 = v19 + v18;
-          if (v22 >= 0xFFFFFFFF00000001)
+          v23 = v20 + v19;
+          if (v23 >= 0xFFFFFFFF00000001)
           {
-            v22 += 0xFFFFFFFFLL;
+            v23 += 0xFFFFFFFFLL;
           }
 
-          if (!v22)
+          if (!v23)
           {
             goto LABEL_34;
           }
 
 LABEL_20:
-          v21 = v22 <= 0xFFFFFFFF00000001;
-          v23 = 0xFFFFFFFF00000001 - v22;
-          if (!v21)
+          v22 = v23 <= 0xFFFFFFFF00000001;
+          v24 = 0xFFFFFFFF00000001 - v23;
+          if (!v22)
           {
             __break(1u);
 LABEL_47:
@@ -1813,23 +1813,23 @@ LABEL_52:
           }
 
 LABEL_22:
-          if (v8 >= v23)
+          if (v9 >= v24)
           {
-            v8 -= v23;
+            v9 -= v24;
           }
 
           else
           {
-            v21 = v23 <= 0xFFFFFFFF00000001;
-            v24 = 0xFFFFFFFF00000001 - v23;
-            if (!v21)
+            v22 = v24 <= 0xFFFFFFFF00000001;
+            v25 = 0xFFFFFFFF00000001 - v24;
+            if (!v22)
             {
               goto LABEL_49;
             }
 
-            v21 = __CFADD__(v8, v24);
-            v8 += v24;
-            if (v21)
+            v22 = __CFADD__(v9, v25);
+            v9 += v25;
+            if (v22)
             {
               goto LABEL_50;
             }
@@ -1838,79 +1838,79 @@ LABEL_22:
           goto LABEL_34;
         }
 
-        if (!v18)
+        if (!v19)
         {
-          v23 = 0xFFFFFFFE00000003;
+          v24 = 0xFFFFFFFE00000003;
           goto LABEL_22;
         }
 
-        v18 = 1;
+        v19 = 1;
       }
 
-      v20 = v18 + v19;
-      v21 = __CFADD__(v20, 0xFFFFFFFFLL);
-      v22 = v20 + 0xFFFFFFFFLL;
-      if (v21)
+      v21 = v19 + v20;
+      v22 = __CFADD__(v21, 0xFFFFFFFFLL);
+      v23 = v21 + 0xFFFFFFFFLL;
+      if (v22)
       {
         goto LABEL_47;
       }
 
-      if (v22)
+      if (v23)
       {
         goto LABEL_20;
       }
 
 LABEL_34:
-      v25 = (v10 * v29) >> 64;
-      v26 = (0xFFFFFFFEFFFFFFFFLL * v10 * v29 * 0xFFFFFFFF00000001) >> 64;
-      v13 = __CFADD__(-(v10 * v29), v10 * v29);
-      v27 = v26 + v25;
-      if (!__CFADD__(v26, v25))
+      v26 = (v11 * v30) >> 64;
+      v27 = (0xFFFFFFFEFFFFFFFFLL * v11 * v30 * 0xFFFFFFFF00000001) >> 64;
+      v14 = __CFADD__(-(v11 * v30), v11 * v30);
+      v28 = v27 + v26;
+      if (!__CFADD__(v27, v26))
       {
-        if (v27 != -1)
+        if (v28 != -1)
         {
-          v28 = v27 + v13;
-          if (v28 >= 0xFFFFFFFF00000001)
+          v29 = v28 + v14;
+          if (v29 >= 0xFFFFFFFF00000001)
           {
-            v10 = v28 + 0xFFFFFFFF;
+            v11 = v29 + 0xFFFFFFFF;
           }
 
           else
           {
-            v10 = v28;
+            v11 = v29;
           }
 
           goto LABEL_12;
         }
 
-        if (!v13)
+        if (!v14)
         {
-          v10 = 4294967294;
+          v11 = 4294967294;
           goto LABEL_12;
         }
 
-        v13 = 1;
+        v14 = 1;
       }
 
-      v14 = v13 + v27;
-      v10 = v14 + 0xFFFFFFFF;
-      if (v14 >= 0xFFFFFFFF00000001)
+      v15 = v14 + v28;
+      v11 = v15 + 0xFFFFFFFF;
+      if (v15 >= 0xFFFFFFFF00000001)
       {
         goto LABEL_48;
       }
 
 LABEL_12:
-      if (!--v11)
+      if (!--v12)
       {
         goto LABEL_7;
       }
     }
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_7:
   result = swift_unknownObjectRelease();
-  *v4 = v8;
+  *v5 = v9;
   return result;
 }
 
@@ -2299,7 +2299,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t specialized FieldElement.pow(_:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t *a3@<X8>)
+uint64_t specialized FieldElement.pow(_:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t *a3@<X8>)
 {
   v3 = a2;
   v4 = a1;
@@ -2423,7 +2423,7 @@ LABEL_33:
   return result;
 }
 
-uint64_t specialized FieldElement.pow(_:)@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, unsigned int *a3@<X8>)
+void *specialized FieldElement.pow(_:)@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, unsigned int *a3@<X8>)
 {
   v3 = a2;
   LODWORD(v4) = a1;
@@ -2506,7 +2506,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t specialized FieldElement.pow(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t specialized FieldElement.pow(_:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v3 = a2;
   v4 = a1;
@@ -2644,26 +2644,24 @@ uint64_t specialized Array<A>.elementwiseSubtract(_:)(uint64_t result)
 LABEL_12:
     _StringGuts.grow(_:)(28);
 
-    v15 = *(v2 + 16);
+    v11 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x2743B25F0](v11);
+
+    MEMORY[0x2743B25F0](540877088, 0xE400000000000000);
     v12 = dispatch thunk of CustomStringConvertible.description.getter();
     MEMORY[0x2743B25F0](v12);
 
-    MEMORY[0x2743B25F0](540877088, 0xE400000000000000);
-    v13 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x2743B25F0](v13);
-
     lazy protocol witness table accessor for type FieldElementError and conformance FieldElementError();
     swift_allocError();
-    *v14 = 0xD000000000000020;
-    *(v14 + 8) = 0x8000000270C52260;
-    *(v14 + 16) = 1;
+    *v13 = 0xD000000000000020;
+    *(v13 + 8) = 0x8000000270C52260;
+    *(v13 + 16) = 1;
     return swift_willThrow();
   }
 
   if (v3)
   {
     v4 = result;
-    v5 = *v1;
     result = swift_isUniquelyReferenced_nonNull_native();
     if ((result & 1) == 0)
     {
@@ -2680,16 +2678,16 @@ LABEL_12:
 
       for (i = 32; ; i += 8)
       {
-        v7 = *(v4 + i);
-        v8 = *(v2 + i);
-        v9 = v8 - v7;
-        if (v8 < v7)
+        v6 = *(v4 + i);
+        v7 = *(v2 + i);
+        v8 = v7 - v6;
+        if (v7 < v6)
         {
           break;
         }
 
 LABEL_6:
-        *(v2 + i) = v9;
+        *(v2 + i) = v8;
         if (!--v3)
         {
           *v1 = v2;
@@ -2697,8 +2695,8 @@ LABEL_6:
         }
       }
 
-      v10 = 0xFFFEB00001 - v7;
-      if (v7 <= 0xFFFEB00001)
+      v9 = 0xFFFEB00001 - v6;
+      if (v6 <= 0xFFFEB00001)
       {
         break;
       }
@@ -2709,9 +2707,9 @@ LABEL_16:
       v2 = result;
     }
 
-    v11 = __CFADD__(v8, v10);
-    v9 = v8 + v10;
-    if (v11)
+    v10 = __CFADD__(v7, v9);
+    v8 = v7 + v9;
+    if (v10)
     {
       __break(1u);
       goto LABEL_12;
@@ -2731,26 +2729,24 @@ LABEL_16:
 LABEL_12:
     _StringGuts.grow(_:)(28);
 
-    v15 = *(v2 + 16);
+    v11 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x2743B25F0](v11);
+
+    MEMORY[0x2743B25F0](540877088, 0xE400000000000000);
     v12 = dispatch thunk of CustomStringConvertible.description.getter();
     MEMORY[0x2743B25F0](v12);
 
-    MEMORY[0x2743B25F0](540877088, 0xE400000000000000);
-    v13 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x2743B25F0](v13);
-
     lazy protocol witness table accessor for type FieldElementError and conformance FieldElementError();
     swift_allocError();
-    *v14 = 0xD000000000000020;
-    *(v14 + 8) = 0x8000000270C521B0;
-    *(v14 + 16) = 1;
+    *v13 = 0xD000000000000020;
+    *(v13 + 8) = 0x8000000270C521B0;
+    *(v13 + 16) = 1;
     return swift_willThrow();
   }
 
   if (v3)
   {
     v4 = result;
-    v5 = *v1;
     result = swift_isUniquelyReferenced_nonNull_native();
     if ((result & 1) == 0)
     {
@@ -2767,16 +2763,16 @@ LABEL_12:
 
       for (i = 32; ; i += 4)
       {
-        v7 = *(v4 + i);
-        v8 = *(v2 + i);
-        v9 = v8 - v7;
-        if (v8 < v7)
+        v6 = *(v4 + i);
+        v7 = *(v2 + i);
+        v8 = v7 - v6;
+        if (v7 < v6)
         {
           break;
         }
 
 LABEL_6:
-        *(v2 + i) = v9;
+        *(v2 + i) = v8;
         if (!--v3)
         {
           *v1 = v2;
@@ -2784,8 +2780,8 @@ LABEL_6:
         }
       }
 
-      v10 = -1048575 - v7;
-      if (v7 <= 0xFFF00001)
+      v9 = -1048575 - v6;
+      if (v6 <= 0xFFF00001)
       {
         break;
       }
@@ -2796,9 +2792,9 @@ LABEL_16:
       v2 = result;
     }
 
-    v11 = __CFADD__(v8, v10);
-    v9 = v8 + v10;
-    if (v11)
+    v10 = __CFADD__(v7, v9);
+    v8 = v7 + v9;
+    if (v10)
     {
       __break(1u);
       goto LABEL_12;
@@ -2818,26 +2814,24 @@ LABEL_16:
 LABEL_12:
     _StringGuts.grow(_:)(28);
 
-    v15 = *(v2 + 16);
+    v11 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x2743B25F0](v11);
+
+    MEMORY[0x2743B25F0](540877088, 0xE400000000000000);
     v12 = dispatch thunk of CustomStringConvertible.description.getter();
     MEMORY[0x2743B25F0](v12);
 
-    MEMORY[0x2743B25F0](540877088, 0xE400000000000000);
-    v13 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x2743B25F0](v13);
-
     lazy protocol witness table accessor for type FieldElementError and conformance FieldElementError();
     swift_allocError();
-    *v14 = 0xD000000000000020;
-    *(v14 + 8) = 0x8000000270C51A10;
-    *(v14 + 16) = 1;
+    *v13 = 0xD000000000000020;
+    *(v13 + 8) = 0x8000000270C51A10;
+    *(v13 + 16) = 1;
     return swift_willThrow();
   }
 
   if (v3)
   {
     v4 = result;
-    v5 = *v1;
     result = swift_isUniquelyReferenced_nonNull_native();
     if ((result & 1) == 0)
     {
@@ -2854,16 +2848,16 @@ LABEL_12:
 
       for (i = 32; ; i += 8)
       {
-        v7 = *(v4 + i);
-        v8 = *(v2 + i);
-        v9 = v8 - v7;
-        if (v8 < v7)
+        v6 = *(v4 + i);
+        v7 = *(v2 + i);
+        v8 = v7 - v6;
+        if (v7 < v6)
         {
           break;
         }
 
 LABEL_6:
-        *(v2 + i) = v9;
+        *(v2 + i) = v8;
         if (!--v3)
         {
           *v1 = v2;
@@ -2871,8 +2865,8 @@ LABEL_6:
         }
       }
 
-      v10 = 0xFFFFFFFF00000001 - v7;
-      if (v7 <= 0xFFFFFFFF00000001)
+      v9 = 0xFFFFFFFF00000001 - v6;
+      if (v6 <= 0xFFFFFFFF00000001)
       {
         break;
       }
@@ -2883,9 +2877,9 @@ LABEL_16:
       v2 = result;
     }
 
-    v11 = __CFADD__(v8, v10);
-    v9 = v8 + v10;
-    if (v11)
+    v10 = __CFADD__(v7, v9);
+    v8 = v7 + v9;
+    if (v10)
     {
       __break(1u);
       goto LABEL_12;
@@ -2897,7 +2891,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+unint64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(unint64_t result@<X0>, void *a2@<X8>)
 {
   v3 = *(v2 + 16);
   if (!v3)
@@ -3129,12 +3123,12 @@ LABEL_71:
   return result;
 }
 
-unint64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(unint64_t result@<X0>, unint64_t *a2@<X8>)
+void *specialized ParallelSum.evaluate<A>(at:)@<X0>(void *result@<X0>, unint64_t *a2@<X8>)
 {
   v3 = *(v2 + 16);
   if (v3)
   {
-    v5 = *(result + 16);
+    v5 = result[2];
     v6 = 0;
     if (v3 < 1 || v5 == 0)
     {
@@ -3145,7 +3139,7 @@ LABEL_7:
 
     v8 = 0;
     v9 = *(v2 + 32);
-    v10 = result + 32;
+    v10 = result + 4;
     v11 = 1;
     while (1)
     {
@@ -3222,7 +3216,7 @@ LABEL_7:
       {
         if (*(v9 + 8 * v19-- + 24))
         {
-          result = specialized evaluateUsingHorner<A, B>(_:atInput:)(v9, *(v10 + 8 * v12), &v22);
+          result = specialized evaluateUsingHorner<A, B>(_:atInput:)(v9, v10[v12], &v22);
           if (v22)
           {
             v21 = 0xFFFEB00001 - v22;
@@ -3294,230 +3288,162 @@ LABEL_55:
 
 {
   v3 = *(v2 + 16);
-  if (!v3)
+  if (v3)
   {
-    goto LABEL_70;
-  }
-
-  v4 = *(result + 16);
-  v5 = 0;
-  if (v3 < 1 || v4 == 0)
-  {
-LABEL_7:
-    *a2 = v5;
-    return result;
-  }
-
-  v7 = 0;
-  v8 = result + 32;
-  v9 = 1;
-  while (1)
-  {
-    v10 = v7;
-    result = v4 - v7;
-    v11 = __OFSUB__(v4, v7);
-    v12 = __OFADD__(v7, v3);
-    v7 += v3;
-    if (v12)
+    v5 = result[2];
+    v6 = 0;
+    if (v3 < 1 || v5 == 0)
     {
-      if (v11)
-      {
-        goto LABEL_67;
-      }
-
-      if ((result & 0x8000000000000000) != 0)
-      {
-        goto LABEL_71;
-      }
-
-      v13 = result >= v3;
-      result = result >= v3 ? v7 : v4;
-      if (v13)
-      {
-        goto LABEL_71;
-      }
-
-      v7 = 0x7FFFFFFFFFFFFFFFLL;
-      if (result < v10)
-      {
-        goto LABEL_59;
-      }
+LABEL_7:
+      *a2 = v6;
+      return result;
     }
 
-    else
+    v8 = 0;
+    v9 = *(v2 + 32);
+    v10 = result + 4;
+    v11 = 1;
+    while (1)
     {
-      if (v11)
+      v12 = v8;
+      v13 = v5 - v8;
+      v14 = __OFSUB__(v5, v8);
+      v15 = __OFADD__(v8, v3);
+      v8 += v3;
+      if (v15)
       {
-        goto LABEL_66;
-      }
-
-      if ((result & 0x8000000000000000) != 0)
-      {
-        result = v7;
-        if (v7 < v10)
+        if (v14)
         {
-          goto LABEL_59;
+          goto LABEL_50;
         }
+
+        if ((v13 & 0x8000000000000000) != 0)
+        {
+          goto LABEL_55;
+        }
+
+        v16 = v13 >= v3;
+        v17 = v13 >= v3 ? v8 : v5;
+        if (v16)
+        {
+          goto LABEL_55;
+        }
+
+        v8 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        if (result >= v3)
+        if (v14)
         {
-          result = v7;
+          goto LABEL_51;
         }
 
-        else
-        {
-          result = v4;
-        }
+        v18 = v13 >= v3 ? v8 : v5;
+        v17 = (v13 & 0x8000000000000000) == 0 ? v18 : v8;
+      }
 
-        if (result < v10)
+      if (v17 < v12)
+      {
+        break;
+      }
+
+      if (!v11)
+      {
+        goto LABEL_45;
+      }
+
+      if (v12 < 0)
+      {
+        goto LABEL_46;
+      }
+
+      if (v5 < v17)
+      {
+        goto LABEL_47;
+      }
+
+      if (v12 >= v17)
+      {
+        goto LABEL_48;
+      }
+
+      v19 = *(v9 + 16);
+      if (!v19)
+      {
+        goto LABEL_49;
+      }
+
+      while (v19 >= 1)
+      {
+        if (*(v9 + 8 * v19-- + 24))
         {
-          goto LABEL_59;
+          result = specialized evaluateUsingHorner<A, B>(_:atInput:)(v9, v10[v12], &v22);
+          if (v22)
+          {
+            v21 = 0xFFFFFFFF00000001 - v22;
+            if (v22 > 0xFFFFFFFF00000001)
+            {
+              goto LABEL_52;
+            }
+
+            if (v6 >= v21)
+            {
+              v6 -= v21;
+            }
+
+            else
+            {
+              if (v21 > 0xFFFFFFFF00000001)
+              {
+                goto LABEL_53;
+              }
+
+              v16 = __CFADD__(v6, v22);
+              v6 += v22;
+              if (v16)
+              {
+                __break(1u);
+                goto LABEL_44;
+              }
+            }
+          }
+
+          break;
         }
+      }
+
+      v11 = v5 >= v8;
+      if (v8 >= v5)
+      {
+        goto LABEL_7;
       }
     }
 
-    if (!v9)
-    {
-      goto LABEL_60;
-    }
-
-    if (v10 < 0)
-    {
-      goto LABEL_61;
-    }
-
-    if (v4 < result)
-    {
-      goto LABEL_62;
-    }
-
-    if (v10 >= result)
-    {
-      goto LABEL_63;
-    }
-
-    v14 = v10 + 1;
-    if (v10 + 1 >= result)
-    {
-      goto LABEL_64;
-    }
-
-    v15 = *(v8 + 8 * v10);
-    v16 = *(v8 + 8 * v14);
-    result = (v16 * v15) >> 64;
-    v17 = (0xFFFFFFFEFFFFFFFFLL * v16 * v15 * 0xFFFFFFFF00000001) >> 64;
-    v18 = __CFADD__(-(v16 * v15), v16 * v15);
-    v19 = v17 + result;
-    if (__CFADD__(v17, result))
-    {
-      goto LABEL_41;
-    }
-
-    if (v19 != -1)
-    {
-      break;
-    }
-
-    if (!v18)
-    {
-      v22 = 0xFFFFFFFE00000003;
-      goto LABEL_45;
-    }
-
-    v18 = 1;
-LABEL_41:
-    v20 = v18 + v19;
-    v13 = __CFADD__(v20, 0xFFFFFFFFLL);
-    v21 = v20 + 0xFFFFFFFFLL;
-    if (v13)
-    {
-      goto LABEL_65;
-    }
-
-    if (v21)
-    {
-      goto LABEL_43;
-    }
-
-LABEL_9:
-    v9 = v4 >= v7;
-    if (v7 >= v4)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v21 = v19 + v18;
-  if (v21 >= 0xFFFFFFFF00000001)
-  {
-    v21 += 0xFFFFFFFFLL;
-  }
-
-  if (!v21)
-  {
-    goto LABEL_9;
-  }
-
-LABEL_43:
-  v13 = v21 <= 0xFFFFFFFF00000001;
-  v22 = 0xFFFFFFFF00000001 - v21;
-  if (v13)
-  {
+LABEL_44:
+    __break(1u);
 LABEL_45:
-    if (v5 >= v22)
-    {
-      v5 -= v22;
-    }
-
-    else
-    {
-      v13 = v22 <= 0xFFFFFFFF00000001;
-      v23 = 0xFFFFFFFF00000001 - v22;
-      if (!v13)
-      {
-        goto LABEL_68;
-      }
-
-      v13 = __CFADD__(v5, v23);
-      v5 += v23;
-      if (v13)
-      {
-        goto LABEL_69;
-      }
-    }
-
-    goto LABEL_9;
+    __break(1u);
+LABEL_46:
+    __break(1u);
+LABEL_47:
+    __break(1u);
+LABEL_48:
+    __break(1u);
+LABEL_49:
+    __break(1u);
+LABEL_50:
+    __break(1u);
+LABEL_51:
+    __break(1u);
+LABEL_52:
+    __break(1u);
+LABEL_53:
+    __break(1u);
   }
 
   __break(1u);
-LABEL_59:
-  __break(1u);
-LABEL_60:
-  __break(1u);
-LABEL_61:
-  __break(1u);
-LABEL_62:
-  __break(1u);
-LABEL_63:
-  __break(1u);
-LABEL_64:
-  __break(1u);
-LABEL_65:
-  __break(1u);
-LABEL_66:
-  __break(1u);
-LABEL_67:
-  __break(1u);
-LABEL_68:
-  __break(1u);
-LABEL_69:
-  __break(1u);
-LABEL_70:
-  __break(1u);
-LABEL_71:
+LABEL_55:
   __break(1u);
   return result;
 }
@@ -4000,7 +3926,7 @@ LABEL_7:
   *a4 = v9;
 }
 
-unint64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, unint64_t *a4@<X8>)
+void *specialized ParallelSum.evaluate<A>(at:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, unint64_t *a4@<X8>)
 {
   v5 = a3 >> 1;
   v6 = (a3 >> 1) - a2;
@@ -4165,6 +4091,207 @@ LABEL_25:
             else
             {
               if (v24 > 0xFFFEB00001)
+              {
+                goto LABEL_52;
+              }
+
+              v25 = __CFADD__(v10, v26);
+              v10 += v26;
+              if (v25)
+              {
+                __break(1u);
+                goto LABEL_41;
+              }
+            }
+          }
+
+          break;
+        }
+      }
+
+      v15 = v6 >= v13;
+      if (v7 > 0)
+      {
+        v15 = v13 >= v6;
+      }
+
+      if (v15)
+      {
+        goto LABEL_7;
+      }
+    }
+  }
+
+  v10 = 0;
+LABEL_7:
+  *a4 = v10;
+  return result;
+}
+
+{
+  v5 = a3 >> 1;
+  v6 = (a3 >> 1) - a2;
+  if (__OFSUB__(a3 >> 1, a2))
+  {
+    goto LABEL_53;
+  }
+
+  v7 = *(v4 + 16);
+  if (!v7)
+  {
+LABEL_54:
+    __break(1u);
+    return result;
+  }
+
+  v9 = v6 >= 0;
+  if (v7 > 0)
+  {
+    v9 = v6 < 1;
+  }
+
+  if (!v9)
+  {
+    v10 = 0;
+    v13 = 0;
+    v14 = *(v4 + 32);
+    while (1)
+    {
+      v16 = v13;
+      if (__OFADD__(v13, v7))
+      {
+        v13 = ((v13 + v7) >> 63) ^ 0x8000000000000000;
+      }
+
+      else
+      {
+        v13 += v7;
+      }
+
+      v17 = __OFADD__(a2, v16);
+      v18 = a2 + v16;
+      if (v17)
+      {
+LABEL_41:
+        __break(1u);
+LABEL_42:
+        __break(1u);
+LABEL_43:
+        __break(1u);
+LABEL_44:
+        __break(1u);
+LABEL_45:
+        __break(1u);
+LABEL_46:
+        __break(1u);
+LABEL_47:
+        __break(1u);
+LABEL_48:
+        __break(1u);
+LABEL_49:
+        __break(1u);
+LABEL_50:
+        __break(1u);
+LABEL_51:
+        __break(1u);
+LABEL_52:
+        __break(1u);
+LABEL_53:
+        __break(1u);
+        goto LABEL_54;
+      }
+
+      v19 = v5 - v18;
+      if (__OFSUB__(v5, v18))
+      {
+        goto LABEL_42;
+      }
+
+      if (v7 < 1)
+      {
+        if (v19 <= 0)
+        {
+          v20 = v5;
+          if (v7 < v19)
+          {
+            goto LABEL_25;
+          }
+        }
+      }
+
+      else if ((v19 & 0x8000000000000000) == 0)
+      {
+        v20 = v5;
+        if (v19 < v7)
+        {
+          goto LABEL_25;
+        }
+      }
+
+      v20 = v18 + v7;
+      if (__OFADD__(v18, v7))
+      {
+        goto LABEL_50;
+      }
+
+LABEL_25:
+      if (v20 < v18)
+      {
+        goto LABEL_43;
+      }
+
+      if (v5 < v18)
+      {
+        goto LABEL_44;
+      }
+
+      if (v18 < a2)
+      {
+        goto LABEL_45;
+      }
+
+      if (v5 < v20)
+      {
+        goto LABEL_46;
+      }
+
+      if (v20 < 0)
+      {
+        goto LABEL_47;
+      }
+
+      if (v18 >= v20)
+      {
+        goto LABEL_48;
+      }
+
+      v21 = *(v14 + 16);
+      if (!v21)
+      {
+        goto LABEL_49;
+      }
+
+      while (v21 >= 1)
+      {
+        if (*(v14 + 8 * v21-- + 24))
+        {
+          result = specialized evaluateUsingHorner<A, B>(_:atInput:)(v14, *(a1 + 8 * v18), &v26);
+          if (v26)
+          {
+            v24 = 0xFFFFFFFF00000001 - v26;
+            if (v26 > 0xFFFFFFFF00000001)
+            {
+              goto LABEL_51;
+            }
+
+            if (v10 >= v24)
+            {
+              v10 -= v24;
+            }
+
+            else
+            {
+              if (v24 > 0xFFFFFFFF00000001)
               {
                 goto LABEL_52;
               }
@@ -4411,12 +4538,12 @@ LABEL_65:
   return result;
 }
 
-uint64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(uint64_t result@<X0>, unsigned int *a2@<X8>)
+void *specialized ParallelSum.evaluate<A>(at:)@<X0>(void *result@<X0>, unsigned int *a2@<X8>)
 {
   v3 = *(v2 + 16);
   if (v3)
   {
-    v5 = *(result + 16);
+    v5 = result[2];
     v6 = 0;
     if (v3 < 1 || v5 == 0)
     {
@@ -4427,7 +4554,7 @@ LABEL_7:
 
     v8 = 0;
     v9 = *(v2 + 32);
-    v10 = result + 32;
+    v10 = result + 4;
     v11 = 1;
     while (1)
     {
@@ -4504,7 +4631,7 @@ LABEL_7:
       {
         if (*(v9 + 4 * v19-- + 28))
         {
-          result = specialized evaluateUsingHorner<A, B>(_:atInput:)(v9, *(v10 + 4 * v12), &v22);
+          result = specialized evaluateUsingHorner<A, B>(_:atInput:)(v9, *(v10 + v12), &v22);
           if (v22)
           {
             v21 = -1048575 - v22;
@@ -4795,7 +4922,7 @@ LABEL_7:
   *a4 = v9;
 }
 
-uint64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, unsigned int *a4@<X8>)
+void *specialized ParallelSum.evaluate<A>(at:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, unsigned int *a4@<X8>)
 {
   v5 = a3 >> 1;
   v6 = (a3 >> 1) - a2;
@@ -4997,368 +5124,234 @@ LABEL_7:
   return result;
 }
 
-uint64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(uint64_t result@<X0>, unint64_t *a2@<X8>)
+int64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(int64_t result@<X0>, unint64_t *a2@<X8>)
 {
   v3 = *(v2 + 16);
-  if (v3)
+  if (!v3)
   {
-    v5 = *(result + 16);
-    v6 = 0;
-    if (v3 < 1 || v5 == 0)
-    {
+    goto LABEL_70;
+  }
+
+  v4 = *(result + 16);
+  v5 = 0;
+  if (v3 < 1 || v4 == 0)
+  {
 LABEL_7:
-      *a2 = v6;
-      return result;
-    }
-
-    v8 = 0;
-    v9 = *(v2 + 32);
-    v10 = result + 32;
-    v11 = 1;
-    while (1)
-    {
-      v12 = v8;
-      v13 = v5 - v8;
-      v14 = __OFSUB__(v5, v8);
-      v15 = __OFADD__(v8, v3);
-      v8 += v3;
-      if (v15)
-      {
-        if (v14)
-        {
-          goto LABEL_50;
-        }
-
-        if ((v13 & 0x8000000000000000) != 0)
-        {
-          goto LABEL_55;
-        }
-
-        v16 = v13 >= v3;
-        v17 = v13 >= v3 ? v8 : v5;
-        if (v16)
-        {
-          goto LABEL_55;
-        }
-
-        v8 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        if (v14)
-        {
-          goto LABEL_51;
-        }
-
-        v18 = v13 >= v3 ? v8 : v5;
-        v17 = (v13 & 0x8000000000000000) == 0 ? v18 : v8;
-      }
-
-      if (v17 < v12)
-      {
-        break;
-      }
-
-      if (!v11)
-      {
-        goto LABEL_45;
-      }
-
-      if (v12 < 0)
-      {
-        goto LABEL_46;
-      }
-
-      if (v5 < v17)
-      {
-        goto LABEL_47;
-      }
-
-      if (v12 >= v17)
-      {
-        goto LABEL_48;
-      }
-
-      v19 = *(v9 + 16);
-      if (!v19)
-      {
-        goto LABEL_49;
-      }
-
-      while (v19 >= 1)
-      {
-        if (*(v9 + 8 * v19-- + 24))
-        {
-          result = specialized evaluateUsingHorner<A, B>(_:atInput:)(v9, *(v10 + 8 * v12), &v22);
-          if (v22)
-          {
-            v21 = 0xFFFFFFFF00000001 - v22;
-            if (v22 > 0xFFFFFFFF00000001)
-            {
-              goto LABEL_52;
-            }
-
-            if (v6 >= v21)
-            {
-              v6 -= v21;
-            }
-
-            else
-            {
-              if (v21 > 0xFFFFFFFF00000001)
-              {
-                goto LABEL_53;
-              }
-
-              v16 = __CFADD__(v6, v22);
-              v6 += v22;
-              if (v16)
-              {
-                __break(1u);
-                goto LABEL_44;
-              }
-            }
-          }
-
-          break;
-        }
-      }
-
-      v11 = v5 >= v8;
-      if (v8 >= v5)
-      {
-        goto LABEL_7;
-      }
-    }
-
-LABEL_44:
-    __break(1u);
-LABEL_45:
-    __break(1u);
-LABEL_46:
-    __break(1u);
-LABEL_47:
-    __break(1u);
-LABEL_48:
-    __break(1u);
-LABEL_49:
-    __break(1u);
-LABEL_50:
-    __break(1u);
-LABEL_51:
-    __break(1u);
-LABEL_52:
-    __break(1u);
-LABEL_53:
-    __break(1u);
-  }
-
-  __break(1u);
-LABEL_55:
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized ParallelSum.evaluate<A>(at:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, unint64_t *a4@<X8>)
-{
-  v5 = a3 >> 1;
-  v6 = (a3 >> 1) - a2;
-  if (__OFSUB__(a3 >> 1, a2))
-  {
-    goto LABEL_53;
-  }
-
-  v7 = *(v4 + 16);
-  if (!v7)
-  {
-LABEL_54:
-    __break(1u);
+    *a2 = v5;
     return result;
   }
 
-  v9 = v6 >= 0;
-  if (v7 > 0)
+  v7 = 0;
+  v8 = result + 32;
+  v9 = 1;
+  while (1)
   {
-    v9 = v6 < 1;
-  }
-
-  if (!v9)
-  {
-    v10 = 0;
-    v13 = 0;
-    v14 = *(v4 + 32);
-    while (1)
+    v10 = v7;
+    result = v4 - v7;
+    v11 = __OFSUB__(v4, v7);
+    v12 = __OFADD__(v7, v3);
+    v7 += v3;
+    if (v12)
     {
-      v16 = v13;
-      if (__OFADD__(v13, v7))
+      if (v11)
       {
-        v13 = ((v13 + v7) >> 63) ^ 0x8000000000000000;
+        goto LABEL_67;
+      }
+
+      if (result < 0)
+      {
+        goto LABEL_71;
+      }
+
+      v13 = result >= v3;
+      result = result >= v3 ? v7 : v4;
+      if (v13)
+      {
+        goto LABEL_71;
+      }
+
+      v7 = 0x7FFFFFFFFFFFFFFFLL;
+      if (result < v10)
+      {
+        goto LABEL_59;
+      }
+    }
+
+    else
+    {
+      if (v11)
+      {
+        goto LABEL_66;
+      }
+
+      if (result < 0)
+      {
+        result = v7;
+        if (v7 < v10)
+        {
+          goto LABEL_59;
+        }
       }
 
       else
       {
-        v13 += v7;
-      }
+        if (result >= v3)
+        {
+          result = v7;
+        }
 
-      v17 = __OFADD__(a2, v16);
-      v18 = a2 + v16;
-      if (v17)
-      {
+        else
+        {
+          result = v4;
+        }
+
+        if (result < v10)
+        {
+          goto LABEL_59;
+        }
+      }
+    }
+
+    if (!v9)
+    {
+      goto LABEL_60;
+    }
+
+    if (v10 < 0)
+    {
+      goto LABEL_61;
+    }
+
+    if (v4 < result)
+    {
+      goto LABEL_62;
+    }
+
+    if (v10 >= result)
+    {
+      goto LABEL_63;
+    }
+
+    v14 = v10 + 1;
+    if (v10 + 1 >= result)
+    {
+      goto LABEL_64;
+    }
+
+    v15 = *(v8 + 8 * v10);
+    v16 = *(v8 + 8 * v14);
+    result = (v16 * v15) >> 64;
+    v17 = (0xFFFFFFFEFFFFFFFFLL * v16 * v15 * 0xFFFFFFFF00000001) >> 64;
+    v18 = __CFADD__(-(v16 * v15), v16 * v15);
+    v19 = v17 + result;
+    if (__CFADD__(v17, result))
+    {
+      goto LABEL_41;
+    }
+
+    if (v19 != -1)
+    {
+      break;
+    }
+
+    if (!v18)
+    {
+      v22 = 0xFFFFFFFE00000003;
+      goto LABEL_45;
+    }
+
+    v18 = 1;
 LABEL_41:
-        __break(1u);
-LABEL_42:
-        __break(1u);
-LABEL_43:
-        __break(1u);
-LABEL_44:
-        __break(1u);
-LABEL_45:
-        __break(1u);
-LABEL_46:
-        __break(1u);
-LABEL_47:
-        __break(1u);
-LABEL_48:
-        __break(1u);
-LABEL_49:
-        __break(1u);
-LABEL_50:
-        __break(1u);
-LABEL_51:
-        __break(1u);
-LABEL_52:
-        __break(1u);
-LABEL_53:
-        __break(1u);
-        goto LABEL_54;
-      }
+    v20 = v18 + v19;
+    v13 = __CFADD__(v20, 0xFFFFFFFFLL);
+    v21 = v20 + 0xFFFFFFFFLL;
+    if (v13)
+    {
+      goto LABEL_65;
+    }
 
-      v19 = v5 - v18;
-      if (__OFSUB__(v5, v18))
-      {
-        goto LABEL_42;
-      }
+    if (v21)
+    {
+      goto LABEL_43;
+    }
 
-      if (v7 < 1)
-      {
-        if (v19 <= 0)
-        {
-          v20 = v5;
-          if (v7 < v19)
-          {
-            goto LABEL_25;
-          }
-        }
-      }
-
-      else if ((v19 & 0x8000000000000000) == 0)
-      {
-        v20 = v5;
-        if (v19 < v7)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      v20 = v18 + v7;
-      if (__OFADD__(v18, v7))
-      {
-        goto LABEL_50;
-      }
-
-LABEL_25:
-      if (v20 < v18)
-      {
-        goto LABEL_43;
-      }
-
-      if (v5 < v18)
-      {
-        goto LABEL_44;
-      }
-
-      if (v18 < a2)
-      {
-        goto LABEL_45;
-      }
-
-      if (v5 < v20)
-      {
-        goto LABEL_46;
-      }
-
-      if (v20 < 0)
-      {
-        goto LABEL_47;
-      }
-
-      if (v18 >= v20)
-      {
-        goto LABEL_48;
-      }
-
-      v21 = *(v14 + 16);
-      if (!v21)
-      {
-        goto LABEL_49;
-      }
-
-      while (v21 >= 1)
-      {
-        if (*(v14 + 8 * v21-- + 24))
-        {
-          result = specialized evaluateUsingHorner<A, B>(_:atInput:)(v14, *(a1 + 8 * v18), &v26);
-          if (v26)
-          {
-            v24 = 0xFFFFFFFF00000001 - v26;
-            if (v26 > 0xFFFFFFFF00000001)
-            {
-              goto LABEL_51;
-            }
-
-            if (v10 >= v24)
-            {
-              v10 -= v24;
-            }
-
-            else
-            {
-              if (v24 > 0xFFFFFFFF00000001)
-              {
-                goto LABEL_52;
-              }
-
-              v25 = __CFADD__(v10, v26);
-              v10 += v26;
-              if (v25)
-              {
-                __break(1u);
-                goto LABEL_41;
-              }
-            }
-          }
-
-          break;
-        }
-      }
-
-      v15 = v6 >= v13;
-      if (v7 > 0)
-      {
-        v15 = v13 >= v6;
-      }
-
-      if (v15)
-      {
-        goto LABEL_7;
-      }
+LABEL_9:
+    v9 = v4 >= v7;
+    if (v7 >= v4)
+    {
+      goto LABEL_7;
     }
   }
 
-  v10 = 0;
-LABEL_7:
-  *a4 = v10;
+  v21 = v19 + v18;
+  if (v21 >= 0xFFFFFFFF00000001)
+  {
+    v21 += 0xFFFFFFFFLL;
+  }
+
+  if (!v21)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_43:
+  v13 = v21 <= 0xFFFFFFFF00000001;
+  v22 = 0xFFFFFFFF00000001 - v21;
+  if (v13)
+  {
+LABEL_45:
+    if (v5 >= v22)
+    {
+      v5 -= v22;
+    }
+
+    else
+    {
+      v13 = v22 <= 0xFFFFFFFF00000001;
+      v23 = 0xFFFFFFFF00000001 - v22;
+      if (!v13)
+      {
+        goto LABEL_68;
+      }
+
+      v13 = __CFADD__(v5, v23);
+      v5 += v23;
+      if (v13)
+      {
+        goto LABEL_69;
+      }
+    }
+
+    goto LABEL_9;
+  }
+
+  __break(1u);
+LABEL_59:
+  __break(1u);
+LABEL_60:
+  __break(1u);
+LABEL_61:
+  __break(1u);
+LABEL_62:
+  __break(1u);
+LABEL_63:
+  __break(1u);
+LABEL_64:
+  __break(1u);
+LABEL_65:
+  __break(1u);
+LABEL_66:
+  __break(1u);
+LABEL_67:
+  __break(1u);
+LABEL_68:
+  __break(1u);
+LABEL_69:
+  __break(1u);
+LABEL_70:
+  __break(1u);
+LABEL_71:
+  __break(1u);
   return result;
 }
 
@@ -5372,54 +5365,53 @@ void specialized ParallelSum.chunkEvaluateSum(_:for:_:)(uint64_t a1@<X0>, uint64
 
   if (v9)
   {
-    v13 = *v7;
-    v14 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(v14 + 16) = v9;
-    bzero((v14 + 32), 8 * v9);
+    v13 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    v13[2] = v9;
+    bzero(v13 + 4, 8 * v9);
   }
 
   else
   {
-    v14 = MEMORY[0x277D84F90];
+    v13 = MEMORY[0x277D84F90];
   }
 
-  v39 = v14;
-  v15 = *(v34 + 40);
-  if (v15)
+  v38 = v13;
+  v14 = *(v33 + 40);
+  if (v14)
   {
-    v32 = a7;
-    v16 = a4 >> 1;
-    v17 = (a4 >> 1) >= a3;
-    v18 = 0;
-    if (v15 > 0)
+    v31 = a7;
+    v15 = a4 >> 1;
+    v16 = (a4 >> 1) >= a3;
+    v17 = 0;
+    if (v14 > 0)
     {
-      v17 = (a4 >> 1) <= a3;
+      v16 = (a4 >> 1) <= a3;
     }
 
-    if (v17)
+    if (v16)
     {
 LABEL_9:
 
-      *v32 = v18;
+      *v31 = v17;
       return;
     }
 
-    v19 = a5 >> 62;
-    v20 = a3;
+    v18 = a5 >> 62;
+    v19 = a3;
     while (1)
     {
-      v22 = v20 + v15;
-      if (__OFADD__(v20, v15))
+      v21 = v19 + v14;
+      if (__OFADD__(v19, v14))
       {
-        v23 = ((v20 + v15) >> 63) ^ 0x8000000000000000;
+        v22 = ((v19 + v14) >> 63) ^ 0x8000000000000000;
       }
 
       else
       {
-        v23 = v20 + v15;
+        v22 = v19 + v14;
       }
 
-      if (__OFADD__(v20, v15))
+      if (__OFADD__(v19, v14))
       {
         __break(1u);
 LABEL_43:
@@ -5437,27 +5429,27 @@ LABEL_48:
         break;
       }
 
-      if (v16 >= v22)
+      if (v15 >= v21)
       {
-        v24 = v20 + v15;
+        v23 = v19 + v14;
       }
 
       else
       {
-        v24 = v16;
+        v23 = v15;
       }
 
-      if (v24 < v20)
+      if (v23 < v19)
       {
         goto LABEL_43;
       }
 
-      if (v20 < a3)
+      if (v19 < a3)
       {
         goto LABEL_44;
       }
 
-      if (v22 < 0)
+      if (v21 < 0)
       {
         goto LABEL_45;
       }
@@ -5468,14 +5460,14 @@ LABEL_48:
         goto LABEL_41;
       }
 
-      v25 = v39;
-      if (v19)
+      v24 = v38;
+      if (v18)
       {
-        if (v19 != 1)
+        if (v18 != 1)
         {
-          specialized ParallelSum.evaluate<A>(at:)(v39, &v38);
-          v28 = v38;
-          if (!v38)
+          specialized ParallelSum.evaluate<A>(at:)(v38, &v37);
+          v27 = v37;
+          if (!v37)
           {
             goto LABEL_12;
           }
@@ -5483,47 +5475,47 @@ LABEL_48:
           goto LABEL_33;
         }
 
-        specialized QueryGadget.evaluate<A>(at:)(v26, specialized _ArrayBuffer._consumeAndCreateNew(), specialized _ArrayBuffer._consumeAndCreateNew(), &v38);
+        specialized QueryGadget.evaluate<A>(at:)(v25, specialized _ArrayBuffer._consumeAndCreateNew(), specialized _ArrayBuffer._consumeAndCreateNew(), &v37);
       }
 
       else
       {
 
-        specialized GadgetWireInputs.update<A>(_:)(v27, specialized _ArrayBuffer._consumeAndCreateNew(), specialized _ArrayBuffer._consumeAndCreateNew());
-        specialized ParallelSum.evaluate<A>(at:)(v25, &v38);
+        specialized GadgetWireInputs.update<A>(_:)(v26, specialized _ArrayBuffer._consumeAndCreateNew(), specialized _ArrayBuffer._consumeAndCreateNew());
+        specialized ParallelSum.evaluate<A>(at:)(v24, &v37);
       }
 
-      v28 = v38;
-      if (!v38)
+      v27 = v37;
+      if (!v37)
       {
         goto LABEL_12;
       }
 
 LABEL_33:
-      v29 = v28 <= 0xFFFEB00001;
-      v30 = 0xFFFEB00001 - v28;
-      if (!v29)
+      v28 = v27 <= 0xFFFEB00001;
+      v29 = 0xFFFEB00001 - v27;
+      if (!v28)
       {
         goto LABEL_46;
       }
 
-      if (v18 >= v30)
+      if (v17 >= v29)
       {
-        v18 -= v30;
+        v17 -= v29;
       }
 
       else
       {
-        v29 = v30 <= 0xFFFEB00001;
-        v31 = 0xFFFEB00001 - v30;
-        if (!v29)
+        v28 = v29 <= 0xFFFEB00001;
+        v30 = 0xFFFEB00001 - v29;
+        if (!v28)
         {
           goto LABEL_47;
         }
 
-        v29 = __CFADD__(v18, v31);
-        v18 += v31;
-        if (v29)
+        v28 = __CFADD__(v17, v30);
+        v17 += v30;
+        if (v28)
         {
           __break(1u);
 LABEL_41:
@@ -5533,14 +5525,14 @@ LABEL_41:
       }
 
 LABEL_12:
-      v21 = v16 >= v23;
-      if (v15 > 0)
+      v20 = v15 >= v22;
+      if (v14 > 0)
       {
-        v21 = v23 >= v16;
+        v20 = v22 >= v15;
       }
 
-      v20 = v23;
-      if (v21)
+      v19 = v22;
+      if (v20)
       {
         goto LABEL_9;
       }
@@ -5559,54 +5551,53 @@ LABEL_12:
 
   if (v9)
   {
-    v13 = *v7;
-    v14 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(v14 + 16) = v9;
-    bzero((v14 + 32), 8 * v9);
+    v13 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    v13[2] = v9;
+    bzero(v13 + 4, 8 * v9);
   }
 
   else
   {
-    v14 = MEMORY[0x277D84F90];
+    v13 = MEMORY[0x277D84F90];
   }
 
-  v39 = v14;
-  v15 = *(v34 + 40);
-  if (v15)
+  v38 = v13;
+  v14 = *(v33 + 40);
+  if (v14)
   {
-    v32 = a7;
-    v16 = a4 >> 1;
-    v17 = (a4 >> 1) >= a3;
-    v18 = 0;
-    if (v15 > 0)
+    v31 = a7;
+    v15 = a4 >> 1;
+    v16 = (a4 >> 1) >= a3;
+    v17 = 0;
+    if (v14 > 0)
     {
-      v17 = (a4 >> 1) <= a3;
+      v16 = (a4 >> 1) <= a3;
     }
 
-    if (v17)
+    if (v16)
     {
 LABEL_9:
 
-      *v32 = v18;
+      *v31 = v17;
       return;
     }
 
-    v19 = a5 >> 62;
-    v20 = a3;
+    v18 = a5 >> 62;
+    v19 = a3;
     while (1)
     {
-      v22 = v20 + v15;
-      if (__OFADD__(v20, v15))
+      v21 = v19 + v14;
+      if (__OFADD__(v19, v14))
       {
-        v23 = ((v20 + v15) >> 63) ^ 0x8000000000000000;
+        v22 = ((v19 + v14) >> 63) ^ 0x8000000000000000;
       }
 
       else
       {
-        v23 = v20 + v15;
+        v22 = v19 + v14;
       }
 
-      if (__OFADD__(v20, v15))
+      if (__OFADD__(v19, v14))
       {
         __break(1u);
 LABEL_43:
@@ -5624,27 +5615,27 @@ LABEL_48:
         break;
       }
 
-      if (v16 >= v22)
+      if (v15 >= v21)
       {
-        v24 = v20 + v15;
+        v23 = v19 + v14;
       }
 
       else
       {
-        v24 = v16;
+        v23 = v15;
       }
 
-      if (v24 < v20)
+      if (v23 < v19)
       {
         goto LABEL_43;
       }
 
-      if (v20 < a3)
+      if (v19 < a3)
       {
         goto LABEL_44;
       }
 
-      if (v22 < 0)
+      if (v21 < 0)
       {
         goto LABEL_45;
       }
@@ -5655,14 +5646,14 @@ LABEL_48:
         goto LABEL_41;
       }
 
-      v25 = v39;
-      if (v19)
+      v24 = v38;
+      if (v18)
       {
-        if (v19 != 1)
+        if (v18 != 1)
         {
-          specialized ParallelSum.evaluate<A>(at:)(v39, &v38);
-          v28 = v38;
-          if (!v38)
+          specialized ParallelSum.evaluate<A>(at:)(v38, &v37);
+          v27 = v37;
+          if (!v37)
           {
             goto LABEL_12;
           }
@@ -5670,47 +5661,47 @@ LABEL_48:
           goto LABEL_33;
         }
 
-        specialized QueryGadget.evaluate<A>(at:)(v26, specialized _ArrayBuffer._consumeAndCreateNew(), specialized _ArrayBuffer._consumeAndCreateNew(), &v38);
+        specialized QueryGadget.evaluate<A>(at:)(v25, specialized _ArrayBuffer._consumeAndCreateNew(), specialized _ArrayBuffer._consumeAndCreateNew(), &v37);
       }
 
       else
       {
 
-        specialized GadgetWireInputs.update<A>(_:)(v27, specialized _ArrayBuffer._consumeAndCreateNew(), specialized _ArrayBuffer._consumeAndCreateNew());
-        specialized ParallelSum.evaluate<A>(at:)(v25, &v38);
+        specialized GadgetWireInputs.update<A>(_:)(v26, specialized _ArrayBuffer._consumeAndCreateNew(), specialized _ArrayBuffer._consumeAndCreateNew());
+        specialized ParallelSum.evaluate<A>(at:)(v24, &v37);
       }
 
-      v28 = v38;
-      if (!v38)
+      v27 = v37;
+      if (!v37)
       {
         goto LABEL_12;
       }
 
 LABEL_33:
-      v29 = v28 <= 0xFFFFFFFF00000001;
-      v30 = 0xFFFFFFFF00000001 - v28;
-      if (!v29)
+      v28 = v27 <= 0xFFFFFFFF00000001;
+      v29 = 0xFFFFFFFF00000001 - v27;
+      if (!v28)
       {
         goto LABEL_46;
       }
 
-      if (v18 >= v30)
+      if (v17 >= v29)
       {
-        v18 -= v30;
+        v17 -= v29;
       }
 
       else
       {
-        v29 = v30 <= 0xFFFFFFFF00000001;
-        v31 = 0xFFFFFFFF00000001 - v30;
-        if (!v29)
+        v28 = v29 <= 0xFFFFFFFF00000001;
+        v30 = 0xFFFFFFFF00000001 - v29;
+        if (!v28)
         {
           goto LABEL_47;
         }
 
-        v29 = __CFADD__(v18, v31);
-        v18 += v31;
-        if (v29)
+        v28 = __CFADD__(v17, v30);
+        v17 += v30;
+        if (v28)
         {
           __break(1u);
 LABEL_41:
@@ -5720,14 +5711,14 @@ LABEL_41:
       }
 
 LABEL_12:
-      v21 = v16 >= v23;
-      if (v15 > 0)
+      v20 = v15 >= v22;
+      if (v14 > 0)
       {
-        v21 = v23 >= v16;
+        v20 = v22 >= v15;
       }
 
-      v20 = v23;
-      if (v21)
+      v19 = v22;
+      if (v20)
       {
         goto LABEL_9;
       }
@@ -5747,54 +5738,53 @@ void specialized ParallelSum.chunkEvaluateSum(_:for:_:)(uint64_t a1@<X0>, uint64
 
   if (v9)
   {
-    v13 = *v7;
-    v14 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(v14 + 16) = v9;
-    bzero((v14 + 32), 4 * v9);
+    v13 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    v13[2] = v9;
+    bzero(v13 + 4, 4 * v9);
   }
 
   else
   {
-    v14 = MEMORY[0x277D84F90];
+    v13 = MEMORY[0x277D84F90];
   }
 
-  v39 = v14;
-  v15 = *(v34 + 40);
-  if (v15)
+  v38 = v13;
+  v14 = *(v33 + 40);
+  if (v14)
   {
-    v32 = a7;
-    v16 = a4 >> 1;
-    v17 = (a4 >> 1) >= a3;
-    v18 = 0;
-    if (v15 > 0)
+    v31 = a7;
+    v15 = a4 >> 1;
+    v16 = (a4 >> 1) >= a3;
+    v17 = 0;
+    if (v14 > 0)
     {
-      v17 = (a4 >> 1) <= a3;
+      v16 = (a4 >> 1) <= a3;
     }
 
-    if (v17)
+    if (v16)
     {
 LABEL_9:
 
-      *v32 = v18;
+      *v31 = v17;
       return;
     }
 
-    v19 = a5 >> 62;
-    v20 = a3;
+    v18 = a5 >> 62;
+    v19 = a3;
     while (1)
     {
-      v22 = v20 + v15;
-      if (__OFADD__(v20, v15))
+      v21 = v19 + v14;
+      if (__OFADD__(v19, v14))
       {
-        v23 = ((v20 + v15) >> 63) ^ 0x8000000000000000;
+        v22 = ((v19 + v14) >> 63) ^ 0x8000000000000000;
       }
 
       else
       {
-        v23 = v20 + v15;
+        v22 = v19 + v14;
       }
 
-      if (__OFADD__(v20, v15))
+      if (__OFADD__(v19, v14))
       {
         __break(1u);
 LABEL_43:
@@ -5812,27 +5802,27 @@ LABEL_48:
         break;
       }
 
-      if (v16 >= v22)
+      if (v15 >= v21)
       {
-        v24 = v20 + v15;
+        v23 = v19 + v14;
       }
 
       else
       {
-        v24 = v16;
+        v23 = v15;
       }
 
-      if (v24 < v20)
+      if (v23 < v19)
       {
         goto LABEL_43;
       }
 
-      if (v20 < a3)
+      if (v19 < a3)
       {
         goto LABEL_44;
       }
 
-      if (v22 < 0)
+      if (v21 < 0)
       {
         goto LABEL_45;
       }
@@ -5843,14 +5833,14 @@ LABEL_48:
         goto LABEL_41;
       }
 
-      v25 = v39;
-      if (v19)
+      v24 = v38;
+      if (v18)
       {
-        if (v19 != 1)
+        if (v18 != 1)
         {
-          specialized ParallelSum.evaluate<A>(at:)(v39, &v38);
-          v28 = v38;
-          if (!v38)
+          specialized ParallelSum.evaluate<A>(at:)(v38, &v37);
+          v27 = v37;
+          if (!v37)
           {
             goto LABEL_12;
           }
@@ -5858,47 +5848,47 @@ LABEL_48:
           goto LABEL_33;
         }
 
-        specialized QueryGadget.evaluate<A>(at:)(v26, &v38);
+        specialized QueryGadget.evaluate<A>(at:)(v25, &v37);
       }
 
       else
       {
 
-        specialized GadgetWireInputs.update<A>(_:)(v27);
-        specialized ParallelSum.evaluate<A>(at:)(v25, &v38);
+        specialized GadgetWireInputs.update<A>(_:)(v26);
+        specialized ParallelSum.evaluate<A>(at:)(v24, &v37);
       }
 
-      v28 = v38;
-      if (!v38)
+      v27 = v37;
+      if (!v37)
       {
         goto LABEL_12;
       }
 
 LABEL_33:
-      v29 = v28 <= 0xFFF00001;
-      v30 = -1048575 - v28;
-      if (!v29)
+      v28 = v27 <= 0xFFF00001;
+      v29 = -1048575 - v27;
+      if (!v28)
       {
         goto LABEL_46;
       }
 
-      if (v18 >= v30)
+      if (v17 >= v29)
       {
-        v18 -= v30;
+        v17 -= v29;
       }
 
       else
       {
-        v29 = v30 <= 0xFFF00001;
-        v31 = -1048575 - v30;
-        if (!v29)
+        v28 = v29 <= 0xFFF00001;
+        v30 = -1048575 - v29;
+        if (!v28)
         {
           goto LABEL_47;
         }
 
-        v29 = __CFADD__(v18, v31);
-        v18 += v31;
-        if (v29)
+        v28 = __CFADD__(v17, v30);
+        v17 += v30;
+        if (v28)
         {
           __break(1u);
 LABEL_41:
@@ -5908,14 +5898,14 @@ LABEL_41:
       }
 
 LABEL_12:
-      v21 = v16 >= v23;
-      if (v15 > 0)
+      v20 = v15 >= v22;
+      if (v14 > 0)
       {
-        v21 = v23 >= v16;
+        v20 = v22 >= v15;
       }
 
-      v20 = v23;
-      if (v21)
+      v19 = v22;
+      if (v20)
       {
         goto LABEL_9;
       }
@@ -7178,7 +7168,7 @@ LABEL_86:
   return result;
 }
 
-unint64_t specialized inverseDiscreteFourierTransform<A, B, C>(input:size:output:)(uint64_t a1, unint64_t a2, char **a3)
+uint64_t specialized inverseDiscreteFourierTransform<A, B, C>(input:size:output:)(uint64_t a1, unint64_t a2, char **a3)
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -7305,7 +7295,6 @@ LABEL_38:
   return specialized inverseDiscreteFourierTransformFinish<A, B>(size:sizeInverse:output:)(a2, v7, a3);
 }
 
-uint64_t specialized inverseDiscreteFourierTransform<A, B, C>(input:size:output:)(uint64_t a1, unint64_t a2, char **a3)
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -7585,13 +7574,13 @@ LABEL_46:
   if (v6 != -1)
   {
     v9 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(v9 + 2) = v7;
-    bzero(v9 + 32, 8 * v6 + 8);
+    *(v9 + 16) = v7;
+    bzero((v9 + 32), 8 * v6 + 8);
 LABEL_9:
     v10 = 0;
     v11 = 0;
     v12 = a1 + 32;
-    *(v9 + 4) = *(v12 + 8 * (v2 - 1));
+    *(v9 + 32) = *(v12 + 8 * (v2 - 1));
     v21 = v9;
     for (i = v2 - 2; ; i = v15)
     {
@@ -7651,7 +7640,7 @@ LABEL_42:
 
       v17 = (2 * v16) | 1;
 
-      specialized convolveDirectly<A, B, C, D>(_:withKernel:result:)((v9 + 32), 0, v17, a2, &v21);
+      specialized convolveDirectly<A, B, C, D>(_:withKernel:result:)(v9 + 32, 0, v17, a2, &v21);
 
       if (__OFADD__(v10, v5))
       {
@@ -7667,7 +7656,7 @@ LABEL_42:
       v9 = v21;
       if (swift_isUniquelyReferenced_nonNull_native())
       {
-        v7 = *(v9 + 2);
+        v7 = *(v9 + 16);
         if (!v7)
         {
           goto LABEL_32;
@@ -7677,7 +7666,7 @@ LABEL_42:
       else
       {
         v9 = specialized _ArrayBuffer._consumeAndCreateNew()(v9);
-        v7 = *(v9 + 2);
+        v7 = *(v9 + 16);
         if (!v7)
         {
 LABEL_32:
@@ -7686,7 +7675,7 @@ LABEL_32:
         }
       }
 
-      v14 = *(v9 + 4);
+      v14 = *(v9 + 32);
       if (v18)
       {
         v19 = 0xFFFEB00001 - v18;
@@ -7716,7 +7705,7 @@ LABEL_32:
         }
       }
 
-      *(v9 + 4) = v14;
+      *(v9 + 32) = v14;
       v21 = v9;
       v10 += v5;
     }
@@ -7775,13 +7764,13 @@ LABEL_46:
   if (v6 != -1)
   {
     v9 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(v9 + 2) = v7;
-    bzero(v9 + 32, 4 * v6 + 4);
+    *(v9 + 16) = v7;
+    bzero((v9 + 32), 4 * v6 + 4);
 LABEL_9:
     v10 = 0;
     v11 = 0;
     v12 = a1 + 32;
-    *(v9 + 8) = *(v12 + 4 * (v2 - 1));
+    *(v9 + 32) = *(v12 + 4 * (v2 - 1));
     v21 = v9;
     for (i = v2 - 2; ; i = v15)
     {
@@ -7841,7 +7830,7 @@ LABEL_42:
 
       v17 = (2 * v16) | 1;
 
-      specialized convolveDirectly<A, B, C, D>(_:withKernel:result:)((v9 + 32), 0, v17, a2, &v21);
+      specialized convolveDirectly<A, B, C, D>(_:withKernel:result:)(v9 + 32, 0, v17, a2, &v21);
 
       if (__OFADD__(v10, v5))
       {
@@ -7857,7 +7846,7 @@ LABEL_42:
       v9 = v21;
       if (swift_isUniquelyReferenced_nonNull_native())
       {
-        v7 = *(v9 + 2);
+        v7 = *(v9 + 16);
         if (!v7)
         {
           goto LABEL_32;
@@ -7867,7 +7856,7 @@ LABEL_42:
       else
       {
         v9 = specialized _ArrayBuffer._consumeAndCreateNew()(v9);
-        v7 = *(v9 + 2);
+        v7 = *(v9 + 16);
         if (!v7)
         {
 LABEL_32:
@@ -7876,7 +7865,7 @@ LABEL_32:
         }
       }
 
-      v14 = *(v9 + 8);
+      v14 = *(v9 + 32);
       if (v18)
       {
         v19 = -1048575 - v18;
@@ -7906,7 +7895,7 @@ LABEL_32:
         }
       }
 
-      *(v9 + 8) = v14;
+      *(v9 + 32) = v14;
       v21 = v9;
       v10 += v5;
     }
@@ -7965,13 +7954,13 @@ LABEL_46:
   if (v6 != -1)
   {
     v9 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(v9 + 2) = v7;
-    bzero(v9 + 32, 8 * v6 + 8);
+    *(v9 + 16) = v7;
+    bzero((v9 + 32), 8 * v6 + 8);
 LABEL_9:
     v10 = 0;
     v11 = 0;
     v12 = a1 + 32;
-    *(v9 + 4) = *(v12 + 8 * (v2 - 1));
+    *(v9 + 32) = *(v12 + 8 * (v2 - 1));
     v21 = v9;
     for (i = v2 - 2; ; i = v15)
     {
@@ -8031,7 +8020,7 @@ LABEL_42:
 
       v17 = (2 * v16) | 1;
 
-      specialized convolveDirectly<A, B, C, D>(_:withKernel:result:)((v9 + 32), 0, v17, a2, &v21);
+      specialized convolveDirectly<A, B, C, D>(_:withKernel:result:)(v9 + 32, 0, v17, a2, &v21);
 
       if (__OFADD__(v10, v5))
       {
@@ -8047,7 +8036,7 @@ LABEL_42:
       v9 = v21;
       if (swift_isUniquelyReferenced_nonNull_native())
       {
-        v7 = *(v9 + 2);
+        v7 = *(v9 + 16);
         if (!v7)
         {
           goto LABEL_32;
@@ -8057,7 +8046,7 @@ LABEL_42:
       else
       {
         v9 = specialized _ArrayBuffer._consumeAndCreateNew()(v9);
-        v7 = *(v9 + 2);
+        v7 = *(v9 + 16);
         if (!v7)
         {
 LABEL_32:
@@ -8066,7 +8055,7 @@ LABEL_32:
         }
       }
 
-      v14 = *(v9 + 4);
+      v14 = *(v9 + 32);
       if (v18)
       {
         v19 = 0xFFFFFFFF00000001 - v18;
@@ -8096,7 +8085,7 @@ LABEL_32:
         }
       }
 
-      *(v9 + 4) = v14;
+      *(v9 + 32) = v14;
       v21 = v9;
       v10 += v5;
     }
@@ -8230,7 +8219,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t specialized evaluateUsingHorner<A, B>(_:atInput:)@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, _DWORD *a3@<X8>)
+unint64_t specialized evaluateUsingHorner<A, B>(_:atInput:)@<X0>(unint64_t result@<X0>, unsigned int a2@<W1>, _DWORD *a3@<X8>)
 {
   v3 = *(result + 16);
   if (v3)
@@ -8463,9 +8452,9 @@ LABEL_36:
 
 uint64_t specialized evaluateUsingDFT<A, B, C>(_:atInput:)(uint64_t result, uint64_t a2)
 {
-  v57 = *(result + 16);
-  v58 = result;
-  if (!v57)
+  v56 = *(result + 16);
+  v57 = result;
+  if (!v56)
   {
 LABEL_93:
     __break(1u);
@@ -8480,8 +8469,8 @@ LABEL_94:
     goto LABEL_95;
   }
 
-  v4 = (v3 - 1) * (v57 - 1);
-  if (((v3 - 1) * (v57 - 1)) >> 64 != v4 >> 63)
+  v4 = (v3 - 1) * (v56 - 1);
+  if (((v3 - 1) * (v56 - 1)) >> 64 != v4 >> 63)
   {
 LABEL_95:
     __break(1u);
@@ -8496,9 +8485,9 @@ LABEL_96:
     goto LABEL_97;
   }
 
-  v56 = v3 - 1;
+  v55 = v3 - 1;
   result = specialized FixedWidthInteger.nextPowerOfTwo.getter(result);
-  if (v57 != 1)
+  if (v56 != 1)
   {
     v5 = result;
     if (result < 0)
@@ -8562,18 +8551,18 @@ LABEL_14:
           while (v13);
         }
 
-        v61 = v7;
+        v60 = v7;
         if (v5)
         {
           v18 = static Array._allocateBufferUninitialized(minimumCapacity:)();
           *(v18 + 16) = v5;
           bzero((v18 + 32), 8 * v5);
 LABEL_22:
-          v60 = v18;
-          specialized discreteFourierTransform<A, B, C>(input:size:output:)(a2, v5, &v60);
-          v19 = v60;
-          v20 = *(v58 + 32);
-          v59 = v58 + 32;
+          v59 = v18;
+          specialized discreteFourierTransform<A, B, C>(input:size:output:)(a2, v5, &v59);
+          v19 = v59;
+          v20 = *(v57 + 32);
+          v58 = v57 + 32;
           v21 = *(v6 + 16);
 
           if (!v21)
@@ -8585,7 +8574,7 @@ LABEL_98:
 
           *(v6 + 32) = v20;
           v22 = 1;
-          v23 = v56;
+          v23 = v55;
           v24 = v19;
 LABEL_26:
           if ((v23 & 0x8000000000000000) != 0)
@@ -8593,13 +8582,13 @@ LABEL_26:
             goto LABEL_88;
           }
 
-          v25 = *(v61 + 2);
+          v25 = *(v60 + 2);
           if (v25)
           {
             v26 = 0;
             v27 = v22 + 1;
-            v28 = *(v59 + 8 * v22);
-            v29 = v61 + 32;
+            v28 = *(v58 + 8 * v22);
+            v29 = v60 + 32;
             v30 = (v6 + 32);
             do
             {
@@ -8634,7 +8623,6 @@ LABEL_26:
                     goto LABEL_82;
                   }
 
-                  v44 = *v30;
                   goto LABEL_83;
                 }
 
@@ -8690,7 +8678,7 @@ LABEL_40:
               *v30 = v40;
               if (v23 == v26)
               {
-                if (v22 == v57 - 1)
+                if (v22 == v56 - 1)
                 {
 
                   return v6;
@@ -8699,15 +8687,15 @@ LABEL_40:
                 if (!v5)
                 {
 LABEL_78:
-                  result = specialized inverseDiscreteFourierTransform<A, B, C>(input:size:output:)(v24, v5, &v61);
-                  if (__OFADD__(v23, v56))
+                  result = specialized inverseDiscreteFourierTransform<A, B, C>(input:size:output:)(v24, v5, &v60);
+                  if (__OFADD__(v23, v55))
                   {
                     goto LABEL_90;
                   }
 
-                  v23 += v56;
+                  v23 += v55;
                   v22 = v27;
-                  if (v27 == v57)
+                  if (v27 == v56)
                   {
                     goto LABEL_89;
                   }
@@ -8729,31 +8717,31 @@ LABEL_78:
                     v24 = result;
                   }
 
-                  v45 = 32;
-                  v46 = v5;
+                  v44 = 32;
+                  v45 = v5;
                   while (1)
                   {
-                    v50 = *(v24 + v45);
-                    v51 = *&v19[v45];
-                    v52 = (v50 * v51) >> 64;
-                    v53 = v50 * v51;
-                    v54 = (0xCFFE47FFFEAFFFFFLL * v53 * 0xFFFEB00001uLL) >> 64;
-                    v47 = __CFADD__(-v53, v53);
-                    v55 = v54 + v52;
-                    if (__CFADD__(v54, v52))
+                    v49 = *(v24 + v44);
+                    v50 = *&v19[v44];
+                    v51 = (v49 * v50) >> 64;
+                    v52 = v49 * v50;
+                    v53 = (0xCFFE47FFFEAFFFFFLL * v52 * 0xFFFEB00001uLL) >> 64;
+                    v46 = __CFADD__(-v52, v52);
+                    v54 = v53 + v51;
+                    if (__CFADD__(v53, v51))
                     {
                       goto LABEL_66;
                     }
 
-                    if (v55 == -1)
+                    if (v54 == -1)
                     {
-                      if (v47)
+                      if (v46)
                       {
-                        v47 = 1;
+                        v46 = 1;
 LABEL_66:
-                        v48 = v47 + v55;
-                        v41 = __CFADD__(v48, 0xFFFFFF00014FFFFFLL);
-                        v49 = v48 - 0xFFFEB00001;
+                        v47 = v46 + v54;
+                        v41 = __CFADD__(v47, 0xFFFFFF00014FFFFFLL);
+                        v48 = v47 - 0xFFFEB00001;
                         if (v41)
                         {
                           goto LABEL_85;
@@ -8762,22 +8750,22 @@ LABEL_66:
                         goto LABEL_67;
                       }
 
-                      v49 = 0xFFFFFF00014FFFFELL;
+                      v48 = 0xFFFFFF00014FFFFELL;
                     }
 
                     else
                     {
-                      v49 = v55 + v47;
-                      if (v49 >= 0xFFFEB00001)
+                      v48 = v54 + v46;
+                      if (v48 >= 0xFFFEB00001)
                       {
-                        v49 -= 0xFFFEB00001;
+                        v48 -= 0xFFFEB00001;
                       }
                     }
 
 LABEL_67:
-                    *(v24 + v45) = v49;
-                    v45 += 8;
-                    if (!--v46)
+                    *(v24 + v44) = v48;
+                    v44 += 8;
+                    if (!--v45)
                     {
                       goto LABEL_78;
                     }
@@ -8843,7 +8831,7 @@ LABEL_21:
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy4VDAF7Field40VGMd, &_ss23_ContiguousArrayStorageCy4VDAF7Field40VGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_270C44540;
-  *(v6 + 32) = *(v58 + 32);
+  *(v6 + 32) = *(v57 + 32);
   return v6;
 }
 

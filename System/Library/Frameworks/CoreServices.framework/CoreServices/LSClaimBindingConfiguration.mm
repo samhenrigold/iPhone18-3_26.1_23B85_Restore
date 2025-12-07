@@ -12,6 +12,7 @@
 - (NSString)maximumHandlerRank;
 - (NSString)minimumHandlerRank;
 - (void)encodeWithCoder:(id)coder;
+- (void)setAllowNoneHandlerRank:(BOOL)rank;
 - (void)setHonorPreferenceForNoHandler:(BOOL)handler;
 - (void)setIgnoreStrongBindingPreferences:(BOOL)preferences;
 - (void)setIgnoreWeakBindingPreferences:(BOOL)preferences;
@@ -155,6 +156,15 @@
   return v7;
 }
 
+- (void)setAllowNoneHandlerRank:(BOOL)rank
+{
+  rankCopy = rank;
+  if ([(LSClaimBindingConfiguration *)self allowNoneHandlerRank]!= rank)
+  {
+    self->_minimumNumericHandlerRank = rankCopy ^ 1;
+  }
+}
+
 - (NSString)minimumHandlerRank
 {
   v2 = _LSCopyHandlerRankStringFromNumericHandlerRank(self->_minimumNumericHandlerRank);
@@ -271,9 +281,10 @@
     else if (styleCopy == 3)
     {
       bindable = v7->_bindable;
-      v14 = 0;
-      v10 = [(LSClaimBindingBindable *)bindable typeRecordWithError:&v14];
-      v11 = v14;
+      v15 = 0;
+      v10 = [(LSClaimBindingBindable *)bindable typeRecordWithError:&v15];
+      v11 = v15;
+      v12 = v11;
       if (v10)
       {
         if (([v10 _isOneTapOpenable] & 1) == 0)
@@ -285,8 +296,8 @@
 
       else
       {
-        v12 = _LSDefaultLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = _LSDefaultLog(v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           [LSClaimBindingConfiguration(BindingEvaluator) initWithDocumentProxy:bindingStyle:];
         }
@@ -478,9 +489,9 @@ BOOL __79__LSClaimBindingConfiguration_BindingEvaluator__bindingEvaluatorForAudi
   {
     v8 = [bindableCopy URL];
     v9 = v8;
-    if (!v8 || [v8 isFileURL])
+    if (!v8 || (v8 = [v8 isFileURL], v8))
     {
-      v10 = _LSDefaultLog();
+      v10 = _LSDefaultLog(v8);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         +[LSClaimBindingConfiguration(CannedConfigurations) oneTapOpenClaimBindingConfigurationForBindable:];

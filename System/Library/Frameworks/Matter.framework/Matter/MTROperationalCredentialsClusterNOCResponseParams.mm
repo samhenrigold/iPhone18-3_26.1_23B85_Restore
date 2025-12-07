@@ -39,8 +39,8 @@
   statusCode = [(MTROperationalCredentialsClusterNOCResponseParams *)self statusCode];
   [(MTROperationalCredentialsClusterNOCResponseParams *)v4 setStatusCode:statusCode];
 
-  fabricIndex = [(MTROperationalCredentialsClusterNOCResponseParams *)self fabricIndex];
-  [(MTROperationalCredentialsClusterNOCResponseParams *)v4 setFabricIndex:fabricIndex];
+  v6 = objc_msgSend_fabricIndex(self);
+  [(MTROperationalCredentialsClusterNOCResponseParams *)v4 setFabricIndex:v6];
 
   debugText = [(MTROperationalCredentialsClusterNOCResponseParams *)self debugText];
   [(MTROperationalCredentialsClusterNOCResponseParams *)v4 setDebugText:debugText];
@@ -73,11 +73,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:62 commandID:8 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v15)
   {
     sub_2393C5AAC(v14);
-    sub_2393C5ADC(v14, *(v15 + 1), *(v15 + 3));
+    sub_2393C5ADC(v14, *(v15 + 8), *(v15 + 24));
     v8 = sub_2393C6FD0(v14, 256);
     if (!v8)
     {
@@ -137,8 +137,8 @@ LABEL_6:
 
   if (*(struct + 1) == 1)
   {
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(struct + 1)];
-    [(MTROperationalCredentialsClusterNOCResponseParams *)self setFabricIndex:v6];
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(struct + 1, v6)->super.isa)}];
+    [(MTROperationalCredentialsClusterNOCResponseParams *)self setFabricIndex:v7];
   }
 
   else
@@ -146,37 +146,37 @@ LABEL_6:
     [(MTROperationalCredentialsClusterNOCResponseParams *)self setFabricIndex:0];
   }
 
-  v8 = *(struct + 8);
-  v7 = struct + 8;
-  if (v8 != 1)
+  v10 = *(struct + 8);
+  v9 = struct + 8;
+  if (v10 != 1)
   {
     [(MTROperationalCredentialsClusterNOCResponseParams *)self setDebugText:0];
     goto LABEL_8;
   }
 
-  v9 = sub_238DE36B8(v7);
-  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v9 length:v9[1] encoding:4];
-  [(MTROperationalCredentialsClusterNOCResponseParams *)self setDebugText:v10];
+  v11 = sub_238DE36B8(v9, v8);
+  v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v11 length:v11[1] encoding:4];
+  [(MTROperationalCredentialsClusterNOCResponseParams *)self setDebugText:v12];
 
   debugText = [(MTROperationalCredentialsClusterNOCResponseParams *)self debugText];
 
   if (debugText)
   {
 LABEL_8:
-    v13 = 0;
+    v15 = 0;
+    v16 = 0;
     v14 = 0;
-    v12 = 0;
     goto LABEL_9;
   }
 
-  v12 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-  v13 = 0x24BB00000000;
-  v14 = 47;
+  v14 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+  v15 = 0x24BB00000000;
+  v16 = 47;
 LABEL_9:
-  v15 = v14 | v13;
-  result.mFile = v12;
-  result.mError = v15;
-  result.mLine = HIDWORD(v15);
+  v17 = v16 | v15;
+  result.mFile = v14;
+  result.mError = v17;
+  result.mLine = HIDWORD(v17);
   return result;
 }
 

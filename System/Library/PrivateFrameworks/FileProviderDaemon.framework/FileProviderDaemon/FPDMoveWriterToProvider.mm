@@ -115,7 +115,7 @@
 
 - (void)_importURL:(id)l source:(id)source target:(id)target as:(id)as lastUsedDate:(id)date initialImportFinished:(id)finished progressAvailable:(id)available completion:(id)self0
 {
-  v115 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   lCopy = l;
   sourceCopy = source;
   targetCopy = target;
@@ -129,9 +129,9 @@
   operation = [WeakRetained operation];
   manager = [operation manager];
 
-  v77 = [manager domainForActionOperationLocator:sourceCopy];
+  v74 = [manager domainForActionOperationLocator:sourceCopy];
   v19 = [manager domainForActionOperationLocator:targetCopy];
-  nsDomain = [v77 nsDomain];
+  nsDomain = [v74 nsDomain];
   personaIdentifier = [nsDomain personaIdentifier];
   nsDomain2 = [v19 nsDomain];
   personaIdentifier2 = [nsDomain2 personaIdentifier];
@@ -139,7 +139,7 @@
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v110 = 0;
+  v107 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   nsDomain3 = [v19 nsDomain];
   personaIdentifier3 = [nsDomain3 personaIdentifier];
@@ -148,7 +148,7 @@
   {
 
 LABEL_13:
-    v70 = 0;
+    v67 = 0;
     goto LABEL_14;
   }
 
@@ -161,11 +161,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v109 = 0;
-  v31 = [currentPersona copyCurrentPersonaContextWithError:&v109];
-  v32 = v109;
-  v33 = v110;
-  v110 = v31;
+  v106 = 0;
+  v31 = [currentPersona copyCurrentPersonaContextWithError:&v106];
+  v32 = v106;
+  v33 = v107;
+  v107 = v31;
 
   if (v32)
   {
@@ -178,9 +178,9 @@ LABEL_13:
 
   nsDomain5 = [v19 nsDomain];
   personaIdentifier5 = [nsDomain5 personaIdentifier];
-  v70 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:personaIdentifier5];
+  v67 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:personaIdentifier5];
 
-  if (!v70)
+  if (!v67)
   {
     goto LABEL_13;
   }
@@ -191,9 +191,9 @@ LABEL_13:
     nsDomain6 = [v19 nsDomain];
     personaIdentifier6 = [nsDomain6 personaIdentifier];
     *buf = 138412546;
-    v112 = personaIdentifier6;
-    v113 = 2112;
-    v114 = v70;
+    v109 = personaIdentifier6;
+    v110 = 2112;
+    v111 = v67;
     _os_log_error_impl(&dword_1CEFC7000, v37, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", buf, 0x16u);
   }
 
@@ -206,30 +206,30 @@ LABEL_14:
     aBlock[3] = &unk_1E83C1330;
     aBlock[4] = self;
     v38 = lCopy;
-    v94 = v38;
-    v95 = sourceCopy;
+    v91 = v38;
+    v92 = sourceCopy;
     v39 = _remoteProxy;
-    v96 = v39;
+    v93 = v39;
     v40 = completionCopy;
-    v97 = v40;
-    v98 = availableCopy;
+    v94 = v40;
+    v95 = availableCopy;
     v41 = _Block_copy(aBlock);
-    v83[0] = MEMORY[0x1E69E9820];
-    v83[1] = 3221225472;
-    v83[2] = __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke_8;
-    v83[3] = &unk_1E83C13D0;
-    v90 = finishedCopy;
+    v80[0] = MEMORY[0x1E69E9820];
+    v80[1] = 3221225472;
+    v80[2] = __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke_8;
+    v80[3] = &unk_1E83C13D0;
+    v87 = finishedCopy;
     v42 = v38;
-    v84 = v42;
+    v81 = v42;
     selfCopy = self;
-    v91 = v40;
-    v86 = v39;
-    v87 = targetCopy;
-    v88 = asCopy;
-    v89 = dateCopy;
+    v88 = v40;
+    v83 = v39;
+    v84 = targetCopy;
+    v85 = asCopy;
+    v86 = dateCopy;
     v43 = v41;
-    v92 = v43;
-    v44 = _Block_copy(v83);
+    v89 = v43;
+    v44 = _Block_copy(v80);
     fp_isPackage = [v42 fp_isPackage];
     v46 = MEMORY[0x1E695DFF8];
     if (fp_isPackage)
@@ -278,61 +278,58 @@ LABEL_14:
         path = [lCopy path];
         v54 = path;
         fileSystemRepresentation = [path fileSystemRepresentation];
-        v56 = (*MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BC8]);
-        v69 = fileSystemRepresentation;
         v48 = sandbox_check() == 1;
       }
     }
 
-    v99[0] = MEMORY[0x1E69E9820];
-    v99[1] = 3221225472;
-    v99[2] = __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke;
-    v99[3] = &unk_1E83C1268;
-    v106 = finishedCopy;
-    v57 = lCopy;
-    v100 = v57;
+    v96[0] = MEMORY[0x1E69E9820];
+    v96[1] = 3221225472;
+    v96[2] = __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke;
+    v96[3] = &unk_1E83C1268;
+    v103 = finishedCopy;
+    v55 = lCopy;
+    v97 = v55;
     selfCopy2 = self;
-    v107 = completionCopy;
-    v102 = _remoteProxy;
-    v103 = targetCopy;
-    v58 = asCopy;
-    v104 = v58;
-    v105 = dateCopy;
-    v108 = v48;
-    v59 = _Block_copy(v99);
+    v104 = completionCopy;
+    v99 = _remoteProxy;
+    v100 = targetCopy;
+    v56 = asCopy;
+    v101 = v56;
+    v102 = dateCopy;
+    v105 = v48;
+    v57 = _Block_copy(v96);
     requiresCrossDeviceCopy = [sourceCopy requiresCrossDeviceCopy];
     if (personaIdentifier == personaIdentifier2)
     {
-      v61 = requiresCrossDeviceCopy;
+      v59 = requiresCrossDeviceCopy;
     }
 
     else
     {
-      v61 = 1;
+      v59 = 1;
     }
 
-    v62 = objc_loadWeakRetained(&self->_writer);
-    queue = [v62 queue];
-    if (v61)
+    v60 = objc_loadWeakRetained(&self->_writer);
+    queue = [v60 queue];
+    if (v59)
     {
-      v64 = [sourceCopy size];
+      v62 = [sourceCopy size];
     }
 
     else
     {
-      v64 = 0;
+      v62 = 0;
     }
 
-    v65 = [v57 fp_copyToTempFolderWithFilename:v58 queue:queue precomputedItemSize:v64 completion:{v59, v69, v70}];
+    v63 = [v55 fp_copyToTempFolderWithFilename:v56 queue:queue precomputedItemSize:v62 completion:{v57, fileSystemRepresentation, v67}];
 
-    if (v61)
+    if (v59)
     {
-      (*(availableCopy + 2))(availableCopy, v65);
+      (*(availableCopy + 2))(availableCopy, v63);
     }
   }
 
   _FPRestorePersona();
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 void __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -817,7 +814,7 @@ void __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_ini
 
 void __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_tempFolder_wasCopyRequested_error_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -826,7 +823,7 @@ void __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_t
     v8 = fp_current_or_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_tempFolder_wasCopyRequested_error_completion___block_invoke_cold_1((a1 + 32), v6);
+      __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_tempFolder_wasCopyRequested_error_completion___block_invoke_cold_1(a1 + 32, v6);
     }
 
     v9 = v7;
@@ -834,36 +831,36 @@ void __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_t
     goto LABEL_5;
   }
 
-  v19 = *(a1 + 40);
-  v31 = 0;
-  [v5 fp_associateThumbnailFromDocumentAtURL:v19 error:&v31];
-  v10 = v31;
+  v18 = *(a1 + 40);
+  v30 = 0;
+  [v5 fp_associateThumbnailFromDocumentAtURL:v18 error:&v30];
+  v10 = v30;
   if (v10)
   {
-    v20 = fp_current_or_default_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = fp_current_or_default_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v24 = [*(a1 + 40) fp_shortDescription];
-      v25 = [v10 fp_prettyDescription];
+      v23 = [*(a1 + 40) fp_shortDescription];
+      v24 = [v10 fp_prettyDescription];
       *buf = 138412802;
-      v33 = v5;
-      v34 = 2112;
-      v35 = v24;
-      v36 = 2112;
-      v37 = v25;
-      _os_log_error_impl(&dword_1CEFC7000, v20, OS_LOG_TYPE_ERROR, "[ERROR] couldn't generate thumbnail for %@ from %@; %@", buf, 0x20u);
+      v32 = v5;
+      v33 = 2112;
+      v34 = v23;
+      v35 = 2112;
+      v36 = v24;
+      _os_log_error_impl(&dword_1CEFC7000, v19, OS_LOG_TYPE_ERROR, "[ERROR] couldn't generate thumbnail for %@ from %@; %@", buf, 0x20u);
     }
   }
 
   if ((*(a1 + 72) & 1) == 0)
   {
-    v22 = *(a1 + 40);
-    v21 = *(a1 + 48);
-    v30 = v10;
-    v23 = [v21 removeItemAtURL:v22 error:&v30];
-    v9 = v30;
+    v21 = *(a1 + 40);
+    v20 = *(a1 + 48);
+    v29 = v10;
+    v22 = [v20 removeItemAtURL:v21 error:&v29];
+    v9 = v29;
 
-    if (v23)
+    if (v22)
     {
       goto LABEL_6;
     }
@@ -891,14 +888,12 @@ LABEL_6:
   block[2] = __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_tempFolder_wasCopyRequested_error_completion___block_invoke_35;
   block[3] = &unk_1E83C13F8;
   v15 = *(a1 + 64);
-  v28 = v6;
-  v29 = v15;
-  v27 = v7;
+  v27 = v6;
+  v28 = v15;
+  v26 = v7;
   v16 = v6;
   v17 = v7;
   dispatch_async(v14, block);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_tempFolder_wasCopyRequested_error_completion___block_invoke_35(void *a1)
@@ -1124,18 +1119,17 @@ void __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOpt
   dispatch_async(v8, block);
 }
 
-void __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_2(uint64_t a1)
+void __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = fp_current_or_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_2_cold_1(a1, v2);
+      __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_2_cold_1(a1, v3);
     }
 
-    v4 = *(a1 + 32);
     (*(*(a1 + 80) + 16))();
   }
 
@@ -1287,21 +1281,21 @@ void __58__FPDMoveWriterToProvider__createFolder_under_completion___block_invoke
   dispatch_async(v11, block);
 }
 
-void __58__FPDMoveWriterToProvider__createFolder_under_completion___block_invoke_2(void *a1)
+void __58__FPDMoveWriterToProvider__createFolder_under_completion___block_invoke_2(void *a1, uint64_t a2)
 {
-  v2 = (a1 + 4);
+  v3 = (a1 + 4);
   if (a1[4])
   {
-    v3 = fp_current_or_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __58__FPDMoveWriterToProvider__createFolder_under_completion___block_invoke_2_cold_1(a1, v2);
+      __58__FPDMoveWriterToProvider__createFolder_under_completion___block_invoke_2_cold_1(a1, v3);
     }
   }
 
-  v4 = a1[8];
-  v5 = [MEMORY[0x1E69672A8] locatorForItem:a1[7]];
-  (*(v4 + 16))(v4, v5, a1[4]);
+  v5 = a1[8];
+  v6 = [MEMORY[0x1E69672A8] locatorForItem:a1[7]];
+  (*(v5 + 16))(v5, v6, a1[4]);
 }
 
 - (void)performMoveOfFolder:(id)folder to:(id)to as:(id)as sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)materializeOption atomically:(BOOL)atomically completion:(id)completion
@@ -1337,85 +1331,66 @@ void __58__FPDMoveWriterToProvider__createFolder_under_completion___block_invoke
 void __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_8(v2) fp_shortDescription];
+  [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_8(v2) fp_shortDescription];
+  [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke_8_cold_2()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_8(v2) fp_shortDescription];
+  [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke_2_20_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_8(v2) fp_shortDescription];
+  [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_initialImportFinished_progressAvailable_completion___block_invoke_2_22_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(v1 + 32);
   [*(v1 + 40) fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
-  v9 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
+  v7 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 - (void)_postImportStepForItem:sourceURL:targetURL:tempFolder:wasCopyRequested:error:completion:.cold.1()
 {
   OUTLINED_FUNCTION_11();
-  v9 = *MEMORY[0x1E69E9840];
   [v1 fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postImportStepForItem:(uint64_t)a1 sourceURL:(uint64_t)a2 targetURL:tempFolder:wasCopyRequested:error:completion:.cold.2(uint64_t a1, uint64_t a2)
@@ -1424,89 +1399,63 @@ void __119__FPDMoveWriterToProvider__importURL_source_target_as_lastUsedDate_ini
   [v4 handleFailureInMethod:a1 object:a2 file:@"FPDMoveWriterToProvider.m" lineNumber:290 description:@"byCopy set but wasCopyRequested NO"];
 }
 
-void __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_tempFolder_wasCopyRequested_error_completion___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_tempFolder_wasCopyRequested_error_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __115__FPDMoveWriterToProvider__postImportStepForItem_sourceURL_targetURL_tempFolder_wasCopyRequested_error_completion___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_11();
-  v9 = *MEMORY[0x1E69E9840];
   [*v1 fp_shortDescription];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_5_4() fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __110__FPDMoveWriterToProvider_performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_2_cold_1(void *a1, id *a2)
+void __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_2_cold_1(uint64_t a1, id *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = a1[5];
-  v3 = a1[6];
-  v4 = a1[7];
-  v5 = [*a2 fp_prettyDescription];
+  v2 = [*a2 fp_prettyDescription];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x2Au);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
 }
 
 void __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_2_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer: forcing ingestion of %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer: forcing ingestion of %@", &v3, 0xCu);
 }
 
 void __110__FPDMoveWriterToProvider_performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_completion___block_invoke_2_43_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 fp_prettyDescription];
+  v6 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __58__FPDMoveWriterToProvider__createFolder_under_completion___block_invoke_2_cold_1(uint64_t a1, id *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = [*a2 fp_prettyDescription];
+  v2 = [*a2 fp_prettyDescription];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 @end

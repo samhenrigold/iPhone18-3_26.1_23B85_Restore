@@ -543,7 +543,7 @@
   affinityCopy = affinity;
   v9 = sub_1A7E22290();
   v11 = v10;
-  sub_1A7CC79C8(0, &qword_1EB2B28F0);
+  sub_1A7CC79C8(0, &qword_1EB2B28F0, off_1E77DC130);
   v12 = sub_1A7E22530();
   selfCopy = self;
   sub_1A7DE36B8(v9, v11, affinityCopy, remoteAffinityCopy, v12);
@@ -630,10 +630,10 @@
       deltaCopy = delta;
       selfCopy = self;
 
-      sub_1A7CD3B24(v11);
+      sub_1A7CD3B24(v11, v12);
       sub_1A7DE0D40(v11, v12, v8, v9);
 
-      sub_1A7CD3BC0(v11);
+      sub_1A7CD3BC0(v11, v12);
       return;
     }
   }
@@ -657,31 +657,31 @@
 
 - (void)didReceiveStatsTestPacketWithPayload:(NSData *)payload linkName:(NSString *)name completionHandler:(id)handler
 {
-  v9 = sub_1A7CC7FFC(&unk_1EB2B61C0);
-  MEMORY[0x1EEE9AC00](v9 - 8, v10);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = payload;
-  v14[3] = name;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_1A7E226D0();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v9 = sub_1A7CC7FFC(&unk_1EB2B61C0, &qword_1A7E451A0);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = payload;
+  v13[3] = name;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_1A7E226D0();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_1A7E53FC0;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_1A7E53FC0;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_1A7E48E60;
-  v17[5] = v16;
+  v16[4] = &unk_1A7E48E60;
+  v16[5] = v15;
   payloadCopy = payload;
   nameCopy = name;
   selfCopy = self;
-  sub_1A7DE5274(0, 0, v12, &unk_1A7E45700, v17);
+  sub_1A7DE5274(0, 0, v11, &unk_1A7E45700, v16);
 }
 
 - (id)compactLinkQualityEvents
@@ -689,7 +689,7 @@
   selfCopy = self;
   sub_1A7DE46E8();
 
-  sub_1A7CC7FFC(&unk_1EB2B66C0);
+  sub_1A7CC7FFC(&unk_1EB2B66C0, &qword_1A7E41BD0);
   v3 = sub_1A7E22520();
 
   return v3;

@@ -13,32 +13,28 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"source";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"source";
   v2 = +[(HDHealthEntity *)HDSourceEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)indices
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
   v4 = *MEMORY[0x277D10A40];
-  v11[0] = @"data_type";
-  v11[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = @"data_type";
+  v10[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v6 = [v2 initWithEntity:v3 name:@"data_type" columns:v5];
 
-  v10 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
 
   return v7;
 }
@@ -91,57 +87,56 @@ uint64_t __87__HDDataTypeSourceOrderEntity_updateOrderedSourcesForType_profile_e
 {
   v5 = *(a1 + 40);
   v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 32);
-  v9 = v5;
-  v10 = a2;
-  v11 = v6;
-  v12 = objc_opt_self();
-  v13 = [v8 code];
-  v14 = [v10 databaseForEntityClass:v12];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __100__HDDataTypeSourceOrderEntity__updateOrderedSourcesForType_profile_transaction_error_updateHandler___block_invoke;
-  v37[3] = &__block_descriptor_40_e15___NSString_8__0l;
-  v37[4] = v12;
+  v7 = *(a1 + 32);
+  v8 = v5;
+  v9 = a2;
+  v10 = v6;
+  v11 = objc_opt_self();
+  v12 = [v7 code];
+  v13 = [v9 databaseForEntityClass:v11];
   v36[0] = MEMORY[0x277D85DD0];
   v36[1] = 3221225472;
-  v36[2] = __100__HDDataTypeSourceOrderEntity__updateOrderedSourcesForType_profile_transaction_error_updateHandler___block_invoke_2;
-  v36[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v36[4] = v13;
-  if ([v14 executeCachedStatementForKey:&_updateOrderedSourcesForType_profile_transaction_error_updateHandler__deleteKey error:a3 SQLGenerator:v37 bindingHandler:v36 enumerationHandler:0])
+  v36[2] = __100__HDDataTypeSourceOrderEntity__updateOrderedSourcesForType_profile_transaction_error_updateHandler___block_invoke;
+  v36[3] = &__block_descriptor_40_e15___NSString_8__0l;
+  v36[4] = v11;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __100__HDDataTypeSourceOrderEntity__updateOrderedSourcesForType_profile_transaction_error_updateHandler___block_invoke_2;
+  v35[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+  v35[4] = v12;
+  if ([v13 executeCachedStatementForKey:&_updateOrderedSourcesForType_profile_transaction_error_updateHandler__deleteKey error:a3 SQLGenerator:v36 bindingHandler:v35 enumerationHandler:0])
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 1;
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__125;
-    v30 = __Block_byref_object_dispose__125;
     v31 = 0;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __100__HDDataTypeSourceOrderEntity__updateOrderedSourcesForType_profile_transaction_error_updateHandler___block_invoke_348;
-    v20[3] = &unk_278624D28;
-    v22 = &v32;
-    v21 = v14;
-    v23 = &v26;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 1;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__125;
+    v29 = __Block_byref_object_dispose__125;
+    v30 = 0;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __100__HDDataTypeSourceOrderEntity__updateOrderedSourcesForType_profile_transaction_error_updateHandler___block_invoke_348;
+    v19[3] = &unk_278624D28;
+    v21 = &v31;
+    v20 = v13;
+    v22 = &v25;
+    v23 = v11;
     v24 = v12;
-    v25 = v13;
-    v11[2](v11, v20);
-    v15 = *(v33 + 24);
-    if ((v15 & 1) == 0)
+    v10[2](v10, v19);
+    v14 = *(v32 + 24);
+    if ((v14 & 1) == 0)
     {
-      v16 = v27[5];
-      v17 = v16;
-      if (v16)
+      v15 = v26[5];
+      v16 = v15;
+      if (v15)
       {
         if (a3)
         {
-          v18 = v16;
-          *a3 = v17;
+          v17 = v15;
+          *a3 = v16;
         }
 
         else
@@ -151,16 +146,16 @@ uint64_t __87__HDDataTypeSourceOrderEntity_updateOrderedSourcesForType_profile_e
       }
     }
 
-    _Block_object_dispose(&v26, 8);
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v31, 8);
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  return v15;
+  return v14;
 }
 
 id __100__HDDataTypeSourceOrderEntity__updateOrderedSourcesForType_profile_transaction_error_updateHandler___block_invoke(uint64_t a1)
@@ -246,39 +241,37 @@ uint64_t __100__HDDataTypeSourceOrderEntity__updateOrderedSourcesForType_profile
 
 void __83__HDDataTypeSourceOrderEntity_saveOrderedSourceIDs_type_userOrdered_profile_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(v3 + 2))(v3, [*(*(&v10 + 1) + 8 * v8++) longLongValue], *(a1 + 48), 0, *(a1 + 40));
+        (*(v3 + 2))(v3, [*(*(&v9 + 1) + 8 * v8++) longLongValue], *(a1 + 48), 0, *(a1 + 40));
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)enumerateOrderedSourceIDsForType:(id)type profile:(id)profile error:(id *)error block:(id)block

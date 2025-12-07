@@ -3,7 +3,7 @@
 
 @implementation PSTableCellAccessibility
 
-uint64_t __76__PSTableCellAccessibility__ScreenTimeUI__Preferences_accessibilityActivate__block_invoke(uint64_t a1)
+void *__76__PSTableCellAccessibility__ScreenTimeUI__Preferences_accessibilityActivate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) sendActionsForControlEvents:64];
   *(*(*(a1 + 40) + 8) + 24) = 1;

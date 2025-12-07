@@ -123,7 +123,7 @@ uint64_t __35__PKDASessionManager_createSession__block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-uint64_t __45__PKDASessionManager_session_didChangeState___block_invoke(uint64_t a1)
+void *__45__PKDASessionManager_session_didChangeState___block_invoke(uint64_t a1)
 {
   v21 = *MEMORY[0x1E69E9840];
   v2 = PKLogFacilityTypeGetObject(0x17uLL);

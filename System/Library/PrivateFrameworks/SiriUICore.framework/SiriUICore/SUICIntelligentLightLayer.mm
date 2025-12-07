@@ -26,20 +26,16 @@
 
 - (void)endReducedFramerateForPerformance
 {
-  v2 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_ERROR))
-  {
-    [(SUICIntelligentLightLayer *)v2 endReducedFramerateForPerformance:v3];
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICIntelligentLightLayer endReducedFramerateForPerformance]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, self, a3, "%s IntelligentLight reduced framerate is not supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startReducedFramerateForPerformance
 {
-  v2 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_ERROR))
-  {
-    [(SUICIntelligentLightLayer *)v2 startReducedFramerateForPerformance:v3];
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICIntelligentLightLayer startReducedFramerateForPerformance]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, self, a3, "%s IntelligentLight reduced framerate is not supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_loadMetalPipelines
@@ -173,56 +169,9 @@
 
 + (void)prewarm
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E698D0A0];
-  v3 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v21 = 136315138;
-    v22 = "+[SUICIntelligentLightLayer prewarm]";
-    _os_log_impl(&dword_1C432B000, v3, OS_LOG_TYPE_DEFAULT, "%s #edgeLight Creating temporary light layer for prewarming", &v21, 0xCu);
-  }
-
-  v4 = objc_opt_new();
-  [v4 setColorPalette:500];
-  commandQueue = [v4 commandQueue];
-  commandBuffer = [commandQueue commandBuffer];
-
-  if (commandBuffer)
-  {
-    renderPassDesc = [v4 renderPassDesc];
-    [renderPassDesc setRenderTargetWidth:1];
-
-    renderPassDesc2 = [v4 renderPassDesc];
-    [renderPassDesc2 setRenderTargetHeight:1];
-
-    renderPassDesc3 = [v4 renderPassDesc];
-    [renderPassDesc3 setDefaultRasterSampleCount:1];
-
-    renderPassDesc4 = [v4 renderPassDesc];
-    v11 = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDesc4];
-
-    [v11 endEncoding];
-    [commandBuffer commit];
-    v12 = *v2;
-    if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v21 = 136315138;
-      v22 = "+[SUICIntelligentLightLayer prewarm]";
-      _os_log_impl(&dword_1C432B000, v12, OS_LOG_TYPE_DEFAULT, "%s #edgeLight Cleanup of temp layer", &v21, 0xCu);
-    }
-
-    [v4 invalidate];
-  }
-
-  else
-  {
-    v13 = *v2;
-    if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
-    {
-      [(SUICIntelligentLightLayer *)v13 prewarm:v14];
-    }
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SUICIntelligentLightLayer prewarm]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, self, a3, "%s #edgeLight Failed to create command buffer skipping prewarm", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setColorPalette:(unint64_t)palette
@@ -814,6 +763,34 @@ void __40__SUICIntelligentLightLayer__drawFrame___block_invoke(uint64_t a1, void
     v12 = v7 - v5;
     _os_signpost_emit_with_name_impl(&dword_1C432B000, v9, OS_SIGNPOST_INTERVAL_END, v10, "IntelligentLightLayerFirstFrame", "GPU time:%f", &v11, 0xCu);
   }
+}
+
+- (void)_commonInitWithScreen:(uint64_t)a3 commandQueue:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICIntelligentLightLayer _commonInitWithScreen:commandQueue:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s Failed to get Metal device for GPU rendering", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithLayer:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICIntelligentLightLayer initWithLayer:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s initWithLayer not implemented", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_updateScreen:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICIntelligentLightLayer _updateScreen:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s Siri Intelligent Light found no screen. Defaulting to backup values.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_drawFrame:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICIntelligentLightLayer _drawFrame:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s Failed to create command buffer, dropping frame", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

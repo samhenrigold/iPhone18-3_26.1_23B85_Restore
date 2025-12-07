@@ -16,9 +16,9 @@
     +[CNiOSEncodedPeopleCounter os_log];
   }
 
-  v0 = os_log_cn_once_object_0_25;
+  v1 = os_log_cn_once_object_0_25;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __35__CNiOSEncodedPeopleCounter_os_log__block_invoke()

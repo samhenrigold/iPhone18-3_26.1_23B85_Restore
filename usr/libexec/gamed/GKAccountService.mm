@@ -153,7 +153,7 @@
   v32 = @"timestamp";
   v14 = +[NSDate _gkServerTimestamp];
   v33 = v14;
-  v15 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+  v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v16 = [NSString stringWithFormat:@"%s:%d %s", "GKAccountService.m", 215, "[GKAccountService signOutPlayerWithOptOut:handler:]"];
   v17 = [GKDispatchGroup dispatchGroupWithName:v16];

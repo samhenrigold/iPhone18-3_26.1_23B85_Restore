@@ -29,28 +29,27 @@
           v6 = off_100195508[v3];
         }
 
-        v8 = v6;
-        LogPrintF();
+        LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptMainController dismissWithAction:]", 30, "PerformAction start: %s\n", v6);
       }
 
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_10011B120;
-      v11[3] = &unk_1001954E8;
-      v12 = v3;
-      v11[4] = self;
-      [(SFProxCardSessionServer *)v5 performAction:v3 completion:v11, v8];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10011B120;
+      v10[3] = &unk_1001954E8;
+      v11 = v3;
+      v10[4] = self;
+      [(SFProxCardSessionServer *)v5 performAction:v3 completion:v10];
     }
 
     else
     {
       [(ShareAudioAcceptMainController *)self _remoteViewControllerProxy];
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_10011B250;
-      v10 = v9[3] = &unk_100195AC0;
-      v7 = v10;
-      [(ShareAudioAcceptMainController *)self dismissViewControllerAnimated:1 completion:v9];
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_10011B250;
+      v9 = v8[3] = &unk_100195AC0;
+      v7 = v9;
+      [(ShareAudioAcceptMainController *)self dismissViewControllerAnimated:1 completion:v8];
     }
   }
 }
@@ -64,7 +63,7 @@
     v5 = startedCopy;
     if (dword_1001BEE38 != -1 || (startedCopy = _LogCategory_Initialize(), v4 = v5, startedCopy))
     {
-      startedCopy = LogPrintF();
+      startedCopy = LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptMainController xpcStarted:]", 30, "Main XPC started: %{error}\n", v4);
       v4 = v5;
     }
   }
@@ -108,7 +107,7 @@
   disappearCopy = disappear;
   if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   [(CUBluetoothClient *)self->_btClient invalidate];
@@ -119,7 +118,7 @@
   {
     if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(ShareAudioAcceptMainController *)self dismiss:21];
@@ -142,7 +141,7 @@
   appearCopy = appear;
   if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v12.receiver = self;

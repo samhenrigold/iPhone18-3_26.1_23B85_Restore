@@ -56,37 +56,35 @@
   v3 = v2;
   if (*__globalGPUCommPage)
   {
-    v4 = *(v2 + 48);
-    v5 = *(v2 + 172);
-    IOGPUDeviceTraceEventStart();
+    IOGPUDeviceTraceEventStart(0, 8, 32, *(v2 + 48), *(v2 + 172), 0, 0);
   }
 
-  v6 = (v3 + 104);
-  v7 = *(v3 + 176);
-  if (v7)
+  v4 = (v3 + 104);
+  v5 = *(v3 + 176);
+  if (v5)
   {
-    if (v7 > 0x100)
+    if (v5 > 0x100)
     {
-      v8 = malloc_type_malloc(16 * v7, 0x80040B8603338uLL);
-      v10 = *(v3 + 176);
-      v37 = v8;
-      v9 = &v8[8 * v7];
-      if (!v10)
+      v6 = malloc_type_malloc(16 * v5, 0x80040B8603338uLL);
+      v8 = *(v3 + 176);
+      v34 = v6;
+      v7 = &v6[8 * v5];
+      if (!v8)
       {
-        v11 = 0;
-        v12 = 0;
+        v9 = 0;
+        v10 = 0;
 LABEL_29:
-        if (v11 | v12)
+        if (v9 | v10)
         {
           [v3 _commitAddedAllocations:? count:? removedAllocations:? count:?];
-          for (; v11; --v11)
+          for (; v9; --v9)
           {
           }
         }
 
-        if (v37 != v36)
+        if (v34 != v33)
         {
-          free(v37);
+          free(v34);
         }
 
         goto LABEL_34;
@@ -95,124 +93,122 @@ LABEL_29:
 
     else
     {
-      v8 = v36;
-      v37 = v36;
-      v9 = &v36[v7];
+      v6 = v33;
+      v34 = v33;
+      v7 = &v33[v5];
     }
 
+    v9 = 0;
+    v10 = 0;
     v11 = 0;
     v12 = 0;
-    v13 = 0;
-    v14 = 0;
-    v15 = *(v3 + 144);
+    v13 = *(v3 + 144);
     do
     {
-      v16 = *(v15 + 8 * v14);
-      if (v16)
+      v14 = *(v13 + 8 * v12);
+      if (v14)
       {
-        v17 = 0;
+        v15 = 0;
         do
         {
-          v18 = __clz(__rbit64(v16));
-          v19 = 1 << v18;
-          v20 = (v14 << 6) | v18;
-          if (v20 <= *(v3 + 160))
+          v16 = __clz(__rbit64(v14));
+          v17 = 1 << v16;
+          v18 = (v12 << 6) | v16;
+          if (v18 <= *(v3 + 160))
           {
-            v21 = *(*(v3 + 136) + 8 * v20);
-            if (v21)
+            v19 = *(*(v3 + 136) + 8 * v18);
+            if (v19)
             {
-              v22 = *(*(v3 + 136) + 8 * v20);
+              v20 = *(*(v3 + 136) + 8 * v18);
               do
               {
-                v23 = __clz(__rbit64(v22));
-                v24 = 1 << v23;
-                v25 = ~(1 << v23);
-                v26 = (v20 << 6) | v23;
-                v27 = *v6;
-                v28 = *(*v6 + 8 * v26);
-                if ((v28 & 3) == 1)
+                v21 = __clz(__rbit64(v20));
+                v22 = 1 << v21;
+                v23 = ~(1 << v21);
+                v24 = (v18 << 6) | v21;
+                v25 = *v4;
+                v26 = *(*v4 + 8 * v24);
+                if ((v26 & 3) == 1)
                 {
-                  if (*(*(v3 + 112) + 8 * v26) <= *(v3 + 200))
+                  if (*(*(v3 + 112) + 8 * v24) <= *(v3 + 200))
                   {
-                    v29 = v28 & 0xFFFFFFFFFFFFFFFCLL;
-                    v30 = (0x9E3779B97F4A7C15 * (v28 & 0xFFFFFFFFFFFFFFFCLL)) >> -*(v3 + 168);
-                    *(v27 + 8 * v26) = 0;
-                    v9[v11] = v29;
-                    *(v27 + 8 * v26) &= ~1uLL;
-                    v31 = v26 - v30;
-                    if (v31 < 0)
+                    v27 = v26 & 0xFFFFFFFFFFFFFFFCLL;
+                    v28 = (0x9E3779B97F4A7C15 * (v26 & 0xFFFFFFFFFFFFFFFCLL)) >> -*(v3 + 168);
+                    *(v25 + 8 * v24) = 0;
+                    v7[v9] = v27;
+                    *(v25 + 8 * v24) &= ~1uLL;
+                    v29 = v24 - v28;
+                    if (v29 < 0)
                     {
-                      v31 += *(v3 + 152);
+                      v29 += *(v3 + 152);
                     }
 
-                    ++v11;
-                    *&v21 &= v25;
-                    v32 = *(v3 + 128);
-                    *(*(v3 + 120) + 4 * v30) &= ~(1 << v31);
-                    *(v32 + 8 * v20) &= v25;
+                    ++v9;
+                    *&v19 &= v23;
+                    v30 = *(v3 + 128);
+                    *(*(v3 + 120) + 4 * v28) &= ~(1 << v29);
+                    *(v30 + 8 * v18) &= v23;
                     --*(v3 + 172);
                   }
                 }
 
-                else if ((v28 & 3) == 2)
+                else if ((v26 & 3) == 2)
                 {
-                  *&v8[8 * v12++] = v28 & 0xFFFFFFFFFFFFFFFCLL;
-                  *(v27 + 8 * v26) |= 1uLL;
-                  *&v21 &= v25;
+                  *&v6[8 * v10++] = v26 & 0xFFFFFFFFFFFFFFFCLL;
+                  *(v25 + 8 * v24) |= 1uLL;
+                  *&v19 &= v23;
                 }
 
-                v22 &= ~v24;
+                v20 &= ~v22;
               }
 
-              while (v22);
-              v33 = vcnt_s8(v21);
-              v33.i16[0] = vaddlv_u8(v33);
-              v13 += v33.i32[0];
-              *(*(v3 + 136) + 8 * v20) = v21;
-              if (v21)
+              while (v20);
+              v31 = vcnt_s8(v19);
+              v31.i16[0] = vaddlv_u8(v31);
+              v11 += v31.i32[0];
+              *(*(v3 + 136) + 8 * v18) = v19;
+              if (v19)
               {
-                v34 = v19;
+                v32 = v17;
               }
 
               else
               {
-                v34 = 0;
+                v32 = 0;
               }
 
-              v17 |= v34;
+              v15 |= v32;
             }
           }
 
-          v16 &= ~v19;
+          v14 &= ~v17;
         }
 
-        while (v16);
-        v15 = *(v3 + 144);
-        *(v15 + 8 * v14) = v17;
+        while (v14);
+        v13 = *(v3 + 144);
+        *(v13 + 8 * v12) = v15;
       }
 
-      ++v14;
+      ++v12;
     }
 
-    while (v14 <= *(v3 + 164));
-    *(v3 + 176) = v13;
+    while (v12 <= *(v3 + 164));
+    *(v3 + 176) = v11;
     goto LABEL_29;
   }
 
 LABEL_34:
   if (*__globalGPUCommPage)
   {
-    v35 = *(v3 + 48);
-    [v3 allocatedSize];
-    IOGPUDeviceTraceEventEnd();
+    IOGPUDeviceTraceEventEnd(0, 8, 32, *(v3 + 48), [v3 allocatedSize], 0, 0);
   }
 }
 
 - (IOGPUMetalResidencySet)initWithDevice:(id)device descriptor:(id)descriptor args:(IOGPUNewResourceArgs *)args argsSize:(unint64_t)size
 {
-  v23.receiver = self;
-  v23.super_class = IOGPUMetalResidencySet;
-  v10 = [(_MTLObjectWithLabel *)&v23 init];
+  v19.receiver = self;
+  v19.super_class = IOGPUMetalResidencySet;
+  v10 = [(_MTLObjectWithLabel *)&v19 init];
   if (v10)
   {
     deviceCopy = device;
@@ -258,19 +254,13 @@ LABEL_34:
       v17 = __globalGPUCommPage;
       if (*__globalGPUCommPage)
       {
-        v18 = *(v10 + 6);
-        [descriptor initialCapacity];
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 27, *(v10 + 6), [descriptor initialCapacity], 0, 0);
         v17 = __globalGPUCommPage;
       }
 
       if (*v17)
       {
-        deviceRef = [*(v10 + 9) deviceRef];
-        v20 = *(v10 + 6);
-        v21 = *(v10 + 7);
-        [objc_msgSend(descriptor "label")];
-        *(v10 + 7) = IOGPUDeviceTraceObjectLabel(deviceRef, 8, 0, v20, v21);
+        *(v10 + 7) = IOGPUDeviceTraceObjectLabel([*(v10 + 9) deviceRef], 8, 0, *(v10 + 6), *(v10 + 7), objc_msgSend(objc_msgSend(descriptor, "label"), "cStringUsingEncoding:", 1));
       }
     }
 
@@ -287,23 +277,21 @@ LABEL_14:
 
 - (void)endResidency
 {
-  v4 = 2;
-  IOGPUResourceSetPurgeable(self->_groupRef, 6uLL, &v4);
+  v3 = 2;
+  IOGPUResourceSetPurgeable(self->_groupRef, 6uLL, &v3);
   if (*__globalGPUCommPage)
   {
-    globalTraceObjectID = self->_globalTraceObjectID;
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 33, self->_globalTraceObjectID, 0, 0, 0);
   }
 }
 
 - (void)requestResidency
 {
-  v4 = 4;
-  IOGPUResourceSetPurgeable(self->_groupRef, 5uLL, &v4);
+  v3 = 4;
+  IOGPUResourceSetPurgeable(self->_groupRef, 5uLL, &v3);
   if (*__globalGPUCommPage)
   {
-    globalTraceObjectID = self->_globalTraceObjectID;
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 31, self->_globalTraceObjectID, 0, 0, 0);
   }
 }
 
@@ -415,10 +403,10 @@ LABEL_30:
 
           m_usedInfo[m_usedMask & (v36 >> 6)] |= 1 << v36;
           v34 = v36 & v39;
-          *(m_keyTable + v34) = v25;
+          *(m_keyTable + 8 * v34) = v25;
           v22 = v20;
           m_generationTable[v34] = v26;
-          *(m_keyTable + (v20 & v39)) = 2;
+          *(m_keyTable + 8 * (v20 & v39)) = 2;
           m_usedInfo[m_usedMask & (v20 >> 6)] &= ~(1 << v20);
         }
 
@@ -452,16 +440,14 @@ LABEL_30:
 LABEL_34:
       if (*__globalGPUCommPage)
       {
-        v54 = v6;
-        if (*(v6 + *MEMORY[0x1E6974268]) == 2)
+        v54 = *(v6 + *MEMORY[0x1E6974268]);
+        v55 = v6;
+        if (v54 == 2)
         {
-          v54 = *(v6 + 56);
+          v55 = *(v6 + 56);
         }
 
-        globalTraceObjectID = self->_globalTraceObjectID;
-        v56 = *(v54 + 128);
-        [v6 allocatedSize];
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 28, self->_globalTraceObjectID, *(v55 + 128), v54, [v6 allocatedSize]);
       }
 
       ++v4;
@@ -482,10 +468,10 @@ LABEL_34:
     do
     {
       v8 = allocationsCopy2[v6];
-      v9 = self->_hashTable.m_hashSize - 1;
-      v10 = (0x9E3779B97F4A7C15 * (v8 & 0xFFFFFFFFFFFFFFFCLL)) >> -LOBYTE(self->_hashTable.m_hashShift);
+      v9 = p_hashTable->m_hashSize - 1;
+      v10 = (0x9E3779B97F4A7C15 * (v8 & 0xFFFFFFFFFFFFFFFCLL)) >> -LOBYTE(p_hashTable->m_hashShift);
       v11 = v10;
-      v12 = self->_hashTable.m_hopInfo[v10];
+      v12 = p_hashTable->m_hopInfo[v10];
       while (v12)
       {
         v13 = __clz(__rbit32(v12));
@@ -500,15 +486,15 @@ LABEL_34:
           *(m_keyTable + v16) = v18 & 0xFFFFFFFFFFFFFFFDLL;
           if (v18)
           {
-            m_usedMask = self->_hashTable.m_usedMask;
-            self->_hashTable.m_generationTable[self->_hashTable.m_hashMask & v15] = self->_hashTable.m_currentGeneration;
+            m_usedMask = p_hashTable->m_usedMask;
+            p_hashTable->m_generationTable[p_hashTable->m_hashMask & v15] = p_hashTable->m_currentGeneration;
             v22 = m_usedMask & (v15 >> 6);
-            m_dirtyInfoH = self->_hashTable.m_dirtyInfoH;
-            self->_hashTable.m_dirtyInfo[v22] |= 1 << v15;
+            m_dirtyInfoH = p_hashTable->m_dirtyInfoH;
+            p_hashTable->m_dirtyInfo[v22] |= 1 << v15;
             v24 = 1 << v22;
-            v25 = self->_hashTable.m_dirtyHMask & (v22 >> 6);
+            v25 = p_hashTable->m_dirtyHMask & (v22 >> 6);
             m_dirtyInfoH[v25] |= v24;
-            ++self->_hashTable.m_dirtyCount;
+            ++p_hashTable->m_dirtyCount;
           }
 
           else
@@ -516,12 +502,12 @@ LABEL_34:
             v19 = ~v14;
 
             *(m_keyTable + v16) = 0;
-            m_usedInfo = self->_hashTable.m_usedInfo;
-            self->_hashTable.m_hopInfo[v11] &= v19;
+            m_usedInfo = p_hashTable->m_usedInfo;
+            p_hashTable->m_hopInfo[v11] &= v19;
             allocationsCopy2 = allocations;
             countCopy2 = count;
-            m_usedInfo[self->_hashTable.m_usedMask & (v15 >> 6)] &= ~(1 << v15);
-            --self->_hashTable.m_count;
+            m_usedInfo[p_hashTable->m_usedMask & (v15 >> 6)] &= ~(1 << v15);
+            --p_hashTable->m_count;
           }
 
           break;
@@ -530,14 +516,13 @@ LABEL_34:
 
       if (*__globalGPUCommPage)
       {
-        if (*(v8 + *MEMORY[0x1E6974268]) == 2)
+        v26 = *(v8 + *MEMORY[0x1E6974268]);
+        if (v26 == 2)
         {
           v8 = *(v8 + 56);
         }
 
-        globalTraceObjectID = self->_globalTraceObjectID;
-        v27 = *(v8 + 128);
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 29, self->_globalTraceObjectID, *(v8 + 128), v26, 0);
       }
 
       ++v6;
@@ -651,10 +636,10 @@ LABEL_10:
 
       m_usedInfo[m_usedMask & (v24 >> 6)] |= 1 << v24;
       v46 = v24 & v16;
-      *(m_keyTable + v46) = v37;
+      *(m_keyTable + 8 * v46) = v37;
       v34 = v32;
       m_generationTable[v46] = v38;
-      *(m_keyTable + (v32 & v16)) = 2;
+      *(m_keyTable + 8 * (v32 & v16)) = 2;
       m_usedInfo[m_usedMask & (v32 >> 6)] &= ~(1 << v32);
     }
 
@@ -689,16 +674,17 @@ LABEL_32:
   if (*__globalGPUCommPage)
   {
     globalTraceObjectID = self->_globalTraceObjectID;
+    v56 = *(allocation + *MEMORY[0x1E6974268]);
     allocationCopy = allocation;
-    if (*(allocation + *MEMORY[0x1E6974268]) == 2)
+    if (v56 == 2)
     {
       allocationCopy = *(allocation + 7);
     }
 
-    v57 = allocationCopy[16];
-    [allocation allocatedSize];
+    v58 = allocationCopy[16];
+    allocatedSize = [allocation allocatedSize];
 
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 28, globalTraceObjectID, v58, v56, allocatedSize);
   }
 }
 
@@ -753,14 +739,15 @@ LABEL_32:
   if (*__globalGPUCommPage)
   {
     globalTraceObjectID = self->_globalTraceObjectID;
-    if (*(allocationCopy + *MEMORY[0x1E6974268]) == 2)
+    v24 = *(allocationCopy + *MEMORY[0x1E6974268]);
+    if (v24 == 2)
     {
       allocationCopy = allocationCopy[7];
     }
 
-    v24 = allocationCopy[16];
+    v25 = allocationCopy[16];
 
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 29, globalTraceObjectID, v25, v24, 0);
   }
 }
 
@@ -848,32 +835,31 @@ LABEL_32:
     do
     {
       v5 = m_usedInfo[v3];
-      for (i = v3; v5; v5 &= ~v14)
+      for (i = v3; v5; v5 &= ~v13)
       {
         v7 = __clz(__rbit64(v5));
         v8 = (i << 6) | v7;
         m_keyTable = p_hashTable->m_keyTable;
         v10 = *(p_hashTable->m_keyTable + v8);
-        v11 = -p_hashTable->m_hashShift;
-        v12 = (0x9E3779B97F4A7C15 * (v10 & 0xFFFFFFFFFFFFFFFCLL)) >> -LOBYTE(p_hashTable->m_hashShift);
-        v13 = v8 - v12;
-        if (v8 - v12 < 0)
+        v11 = (0x9E3779B97F4A7C15 * (v10 & 0xFFFFFFFFFFFFFFFCLL)) >> -LOBYTE(p_hashTable->m_hashShift);
+        v12 = v8 - v11;
+        if (v8 - v11 < 0)
         {
-          v13 += p_hashTable->m_hashSize;
+          v12 += p_hashTable->m_hashSize;
         }
 
-        v14 = 1 << v7;
+        v13 = 1 << v7;
         *(m_keyTable + v8) = v10 & 0xFFFFFFFFFFFFFFFDLL;
         if (v10)
         {
           m_usedMask = p_hashTable->m_usedMask;
           p_hashTable->m_generationTable[p_hashTable->m_hashMask & v8] = p_hashTable->m_currentGeneration;
-          v16 = m_usedMask & (v8 >> 6);
+          v15 = m_usedMask & (v8 >> 6);
           m_dirtyInfoH = p_hashTable->m_dirtyInfoH;
-          p_hashTable->m_dirtyInfo[v16] |= 1 << ((i << 6) | v7);
-          v18 = 1 << v16;
-          v19 = p_hashTable->m_dirtyHMask & (v16 >> 6);
-          m_dirtyInfoH[v19] |= v18;
+          p_hashTable->m_dirtyInfo[v15] |= 1 << ((i << 6) | v7);
+          v17 = 1 << v15;
+          v18 = p_hashTable->m_dirtyHMask & (v15 >> 6);
+          m_dirtyInfoH[v18] |= v17;
           ++p_hashTable->m_dirtyCount;
         }
 
@@ -882,8 +868,8 @@ LABEL_32:
 
           *(m_keyTable + v8) = 0;
           m_usedInfo = p_hashTable->m_usedInfo;
-          p_hashTable->m_hopInfo[v12] &= ~(1 << v13);
-          m_usedInfo[i] &= ~v14;
+          p_hashTable->m_hopInfo[v11] &= ~(1 << v12);
+          m_usedInfo[i] &= ~v13;
           --p_hashTable->m_count;
         }
       }
@@ -898,7 +884,7 @@ LABEL_32:
   {
     globalTraceObjectID = self->_globalTraceObjectID;
 
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 30, globalTraceObjectID, 0, 0, 0);
   }
 }
 
@@ -1277,22 +1263,20 @@ LABEL_17:
 
 - (void)addAllocations:(int *)a1 count:.cold.1(int *a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v1 = *a1;
-  v3[0] = 67109120;
-  v3[1] = v1;
-  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unable to add allocation to set, current allocation count: %u", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = v1;
+  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unable to add allocation to set, current allocation count: %u", v2, 8u);
 }
 
 - (void)addAllocation:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 68);
-  v3[0] = 67109120;
-  v3[1] = v1;
-  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unable to add allocation to set, current resource count: %u", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = v1;
+  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unable to add allocation to set, current resource count: %u", v2, 8u);
 }
 
 @end

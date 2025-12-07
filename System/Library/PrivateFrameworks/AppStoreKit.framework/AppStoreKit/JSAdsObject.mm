@@ -14,7 +14,7 @@
 
 - (id)fetchInstallStatesForAdverts:(id)adverts
 {
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   advertsCopy = adverts;
   selfCopy = self;
   v7 = sub_1E1AF6D4C();
@@ -42,7 +42,7 @@
   v20 = sub_1E1AF482C();
   sub_1E1AF0F3C();
 
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   v21 = sub_1E1AF6D4C();
   v26 = selfCopy;
   v27 = searchCopy;
@@ -98,7 +98,7 @@
 
 - (id)isNativeAdLoggingEnabled
 {
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   selfCopy = self;
   v4 = sub_1E1AF6D4C();
   v5 = sub_1E1AF6D5C();
@@ -116,7 +116,7 @@
 
 - (id)fetchAppBinaryTraitsOverride
 {
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   v2 = sub_1E1AF6D4C();
   v3 = sub_1E1AF6D5C();
 
@@ -126,7 +126,7 @@
 - (id)getIdentifierForMissedOpportunity:(id)opportunity
 {
   sub_1E1AF5DFC();
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   selfCopy = self;
   v5 = sub_1E1AF6D4C();
   v6 = sub_1E1AF6D5C();

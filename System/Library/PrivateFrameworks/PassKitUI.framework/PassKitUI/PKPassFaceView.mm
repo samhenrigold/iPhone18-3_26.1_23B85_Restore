@@ -458,7 +458,7 @@ LABEL_22:
 
 - (void)layoutSubviews
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   [(PKPassFaceView *)self shadowInsets];
   [(PKPassFaceView *)self bounds];
   [(PKPassFaceView *)self alignmentRectForFrame:?];
@@ -524,7 +524,11 @@ LABEL_22:
       }
 
       [(UIImage *)self->_partialFaceImage size];
-      PKSizeAlignedInRect();
+      v24.n128_f64[0] = v4;
+      v25.n128_f64[0] = v6;
+      v26.n128_f64[0] = v8;
+      v27.n128_f64[0] = v10;
+      PKSizeAlignedInRect(1, v28, v29, v24, v25, v26, v27, v30);
       backgroundView = self->_backgroundView;
     }
 
@@ -537,143 +541,159 @@ LABEL_22:
   }
 
   [(UIView *)self->_contentView setHidden:(*&flags >> 5) & 1];
-  v25 = self->_flags;
-  if ((v25 & 0x10) == 0)
+  v32 = self->_flags;
+  if ((v32 & 0x10) == 0)
   {
     [(PKLiveRenderedCardFaceView *)self->_liveBackgroundView clearFaceImage];
     liveBackgroundView = self->_liveBackgroundView;
-    v27 = (v25 & 8) == 0;
+    v34 = (v32 & 8) == 0;
     goto LABEL_34;
   }
 
-  v28 = 536;
+  v35 = 536;
   if (self->_faceImage)
   {
-    v29 = self->_liveBackgroundView;
+    v36 = self->_liveBackgroundView;
     p_faceImageAlignmentInsets = &self->_faceImageAlignmentInsets;
-    v31 = 72;
+    v38 = 72;
 LABEL_27:
-    [(PKLiveRenderedCardFaceView *)v29 setFaceImage:p_faceImageAlignmentInsets->top withAverageColor:p_faceImageAlignmentInsets->left alignmentInsets:p_faceImageAlignmentInsets->bottom contentInsets:p_faceImageAlignmentInsets->right, *(&self->super.super.super.super.isa + v31 * 8), *(&self->super.super.super._responderFlags + v31 * 8), *&(&self->super.super._constraintsExceptingSubviewAutoresizingConstraints)[v31], *&(&self->super.super._cachedTraitCollection)[v31]];
+    [(PKLiveRenderedCardFaceView *)v36 setFaceImage:p_faceImageAlignmentInsets->top withAverageColor:p_faceImageAlignmentInsets->left alignmentInsets:p_faceImageAlignmentInsets->bottom contentInsets:p_faceImageAlignmentInsets->right, *(&self->super.super.super.super.isa + v38 * 8), *(&self->super.super.super._responderFlags + v38 * 8), *&(&self->super.super._constraintsExceptingSubviewAutoresizingConstraints)[v38], *&(&self->super.super._cachedTraitCollection)[v38]];
     goto LABEL_28;
   }
 
   if (self->_backgroundMode == 1 && self->_modallyPresented)
   {
-    v29 = self->_liveBackgroundView;
+    v36 = self->_liveBackgroundView;
   }
 
   else
   {
-    v28 = 624;
-    v29 = self->_liveBackgroundView;
+    v35 = 624;
+    v36 = self->_liveBackgroundView;
     if (self->_partialFaceImage)
     {
-      v31 = 83;
+      v38 = 83;
       p_faceImageAlignmentInsets = &self->_partialFaceImageAlignmentInsets;
       goto LABEL_27;
     }
   }
 
-  [(PKLiveRenderedCardFaceView *)v29 clearFaceImage];
+  [(PKLiveRenderedCardFaceView *)v36 clearFaceImage];
 LABEL_28:
   liveBackgroundView = self->_liveBackgroundView;
-  if ((v25 & 8) != 0)
+  if ((v32 & 8) != 0)
   {
-    if (*(&self->super.super.super.super.isa + v28))
+    if (*(&self->super.super.super.super.isa + v35))
     {
-      v27 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v27 = self->_backgroundPlaceholderView != 0;
+      v34 = self->_backgroundPlaceholderView != 0;
     }
   }
 
   else
   {
-    v27 = 1;
+    v34 = 1;
   }
 
 LABEL_34:
-  [(PKLiveRenderedCardFaceView *)liveBackgroundView setHidden:v27];
+  [(PKLiveRenderedCardFaceView *)liveBackgroundView setHidden:v34];
   [(UIView *)self->_contentView setFrame:v4, v6, v8, v10];
   primaryAccountNumberSuffixView = self->_primaryAccountNumberSuffixView;
   if (primaryAccountNumberSuffixView)
   {
     [(UIView *)primaryAccountNumberSuffixView frame];
+    v41 = v40;
+    v43 = v42;
     PKPaymentPassContentInsets();
+    v45 = v44;
+    v47 = v46;
+    v49 = v48;
+    v51 = v50;
     [(UIView *)self->_contentView bounds];
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v53 = v47 + v52;
+    v55 = v45 + v54;
+    v57 = v56 - (v47 + v51);
+    v59 = v58 - (v45 + v49);
+    v60 = PKContentAlignmentMake();
+    v61.n128_u64[0] = v41;
+    v62.n128_u64[0] = v43;
+    v63.n128_f64[0] = v53;
+    v64.n128_f64[0] = v55;
+    v65.n128_f64[0] = v57;
+    v66.n128_f64[0] = v59;
+    PKSizeAlignedInRect(v60, v61, v62, v63, v64, v65, v66, v67);
     [(UIView *)self->_primaryAccountNumberSuffixView setFrame:?];
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v33 = self->_headerBucketViews;
-  v34 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v52 objects:v57 count:16];
-  if (v34)
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v68 = self->_headerBucketViews;
+  v69 = [(NSMutableArray *)v68 countByEnumeratingWithState:&v87 objects:v92 count:16];
+  if (v69)
   {
-    v35 = v34;
-    v36 = *v53;
+    v70 = v69;
+    v71 = *v88;
     do
     {
-      for (i = 0; i != v35; ++i)
+      for (i = 0; i != v70; ++i)
       {
-        if (*v53 != v36)
+        if (*v88 != v71)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v68);
         }
 
-        v38 = *(*(&v52 + 1) + 8 * i);
-        bucketTemplate = [v38 bucketTemplate];
+        v73 = *(*(&v87 + 1) + 8 * i);
+        bucketTemplate = [v73 bucketTemplate];
         [bucketTemplate bucketRect];
-        [v38 setFrame:?];
+        [v73 setFrame:?];
       }
 
-      v35 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v70 = [(NSMutableArray *)v68 countByEnumeratingWithState:&v87 objects:v92 count:16];
     }
 
-    while (v35);
+    while (v70);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v40 = self->_bodyBucketViews;
-  v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v48 objects:v56 count:16];
-  if (v41)
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v75 = self->_bodyBucketViews;
+  v76 = [(NSMutableArray *)v75 countByEnumeratingWithState:&v83 objects:v91 count:16];
+  if (v76)
   {
-    v42 = v41;
-    v43 = *v49;
+    v77 = v76;
+    v78 = *v84;
     do
     {
-      for (j = 0; j != v42; ++j)
+      for (j = 0; j != v77; ++j)
       {
-        if (*v49 != v43)
+        if (*v84 != v78)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v75);
         }
 
-        v45 = *(*(&v48 + 1) + 8 * j);
-        bucketTemplate2 = [v45 bucketTemplate];
+        v80 = *(*(&v83 + 1) + 8 * j);
+        bucketTemplate2 = [v80 bucketTemplate];
         [bucketTemplate2 bucketRect];
-        [v45 setFrame:?];
+        [v80 setFrame:?];
       }
 
-      v42 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v77 = [(NSMutableArray *)v75 countByEnumeratingWithState:&v83 objects:v91 count:16];
     }
 
-    while (v42);
+    while (v77);
   }
 
-  v47.receiver = self;
-  v47.super_class = PKPassFaceView;
-  [(PKPassFaceView *)&v47 layoutSubviews];
+  v82.receiver = self;
+  v82.super_class = PKPassFaceView;
+  [(PKPassFaceView *)&v82 layoutSubviews];
 }
 
 void __43__PKPassFaceView__loadFaceImageIfNecessary__block_invoke(uint64_t a1, void *a2)
@@ -851,62 +871,63 @@ void __43__PKPassFaceView__loadFaceImageIfNecessary__block_invoke_4(uint64_t a1)
 void __43__PKPassFaceView__loadFaceImageIfNecessary__block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v30 = v3;
+  v31 = v3;
   if ((v3[61] & 0x400) == 0)
   {
     *(v3 + 244) |= 0x600u;
     v4 = MEMORY[0x1E69DCAB8];
     v5 = [v3[55] frontFaceImage];
     v6 = [v4 imageWithPKImage:v5];
-    v7 = v30[67];
-    v30[67] = v6;
+    v7 = v31[67];
+    v31[67] = v6;
 
     v8 = MEMORY[0x1E69DC888];
-    v9 = [v30[55] frontFaceImageAverageColor];
+    v9 = [v31[55] frontFaceImageAverageColor];
     v10 = [v8 pkui_colorWithPKColor:v9];
-    v11 = v30[76];
-    v30[76] = v10;
+    v11 = v31[76];
+    v31[76] = v10;
 
     PKPassFaceShadowInsets();
-    v30[68] = v12;
-    v30[69] = v13;
-    v30[70] = v14;
-    v30[71] = v15;
-    [v30[67] size];
-    v18 = v17 - (*(v30 + 68) + *(v30 + 70));
+    v31[68] = v12;
+    v31[69] = v13;
+    v31[70] = v14;
+    v31[71] = v15;
+    [v31[67] size];
+    v18.n128_f64[0] = v17 - (*(v31 + 68) + *(v31 + 70));
     v19 = *(a1 + 48);
-    v20 = *(a1 + 40) - (v16 - (*(v30 + 69) + *(v30 + 71)));
-    v30[72] = 0;
-    *(v30 + 74) = v19 - v18;
-    PKFloatRoundToPixel();
-    *(v30 + 73) = v21;
-    *(v30 + 75) = v20 - v21;
-    v22 = MEMORY[0x1E69DCAB8];
-    v23 = [v30[55] frontFaceShadowImage];
-    v24 = [v22 imageWithPKImage:v23];
-    v25 = v30[77];
-    v30[77] = v24;
+    v20 = *(a1 + 40) - (v16 - (*(v31 + 69) + *(v31 + 71)));
+    v31[72] = 0;
+    *(v31 + 74) = v19 - v18.n128_f64[0];
+    v21.n128_f64[0] = v20 * 0.5;
+    PKFloatRoundToPixel(v21, v18);
+    *(v31 + 73) = v22;
+    *(v31 + 75) = v20 - v22;
+    v23 = MEMORY[0x1E69DCAB8];
+    v24 = [v31[55] frontFaceShadowImage];
+    v25 = [v23 imageWithPKImage:v24];
+    v26 = v31[77];
+    v31[77] = v25;
 
-    v26 = v30[78];
-    v30[78] = 0;
+    v27 = v31[78];
+    v31[78] = 0;
 
-    v27 = v30[66];
-    v30[66] = 0;
+    v28 = v31[66];
+    v31[66] = 0;
 
-    v28 = v30[63];
-    if (v28)
+    v29 = v31[63];
+    if (v29)
     {
-      [v28 removeFromSuperview];
-      v29 = v30[63];
-      v30[63] = 0;
+      [v29 removeFromSuperview];
+      v30 = v31[63];
+      v31[63] = 0;
     }
 
-    if (([v30[94] isLoaded] & 1) == 0)
+    if (([v31[94] isLoaded] & 1) == 0)
     {
-      [v30[94] loadContent];
+      [v31[94] loadContent];
     }
 
-    [v30 setNeedsLayout];
+    [v31 setNeedsLayout];
   }
 }
 
@@ -956,45 +977,46 @@ void __43__PKPassFaceView__loadFaceImageIfNecessary__block_invoke_2(uint64_t a1,
     if ((v4 & 0x400) == 0)
     {
       v5 = MEMORY[0x1E69DCAB8];
-      v25 = v3;
+      v26 = v3;
       v6 = [*(v3 + 55) partialFrontFaceImage];
       v7 = [v5 imageWithPKImage:v6];
-      v8 = *(v25 + 78);
-      *(v25 + 78) = v7;
+      v8 = *(v26 + 78);
+      *(v26 + 78) = v7;
 
       v9 = MEMORY[0x1E69DC888];
-      v10 = [*(v25 + 55) partialFrontFaceImageAverageColor];
+      v10 = [*(v26 + 55) partialFrontFaceImageAverageColor];
       v11 = [v9 pkui_colorWithPKColor:v10];
-      v12 = *(v25 + 76);
-      *(v25 + 76) = v11;
+      v12 = *(v26 + 76);
+      *(v26 + 76) = v11;
 
       PKPassFaceShadowInsets();
-      *(v25 + 79) = v13;
-      *(v25 + 80) = v14;
-      *(v25 + 82) = v15;
-      *(v25 + 81) = 0;
-      [*(v25 + 78) size];
-      v18 = v17 - (*(v25 + 79) + *(v25 + 81));
+      *(v26 + 79) = v13;
+      *(v26 + 80) = v14;
+      *(v26 + 82) = v15;
+      *(v26 + 81) = 0;
+      [*(v26 + 78) size];
+      v18.n128_f64[0] = v17 - (*(v26 + 79) + *(v26 + 81));
       v19 = *(a1 + 48);
-      v20 = *(a1 + 40) - (v16 - (*(v25 + 80) + *(v25 + 82)));
-      *(v25 + 83) = 0;
-      *(v25 + 85) = v19 - v18;
-      PKFloatRoundToPixel();
-      *(v25 + 84) = v21;
-      *(v25 + 86) = v20 - v21;
-      v22 = *(v25 + 66);
-      *(v25 + 66) = 0;
+      v20 = *(a1 + 40) - (v16 - (*(v26 + 80) + *(v26 + 82)));
+      *(v26 + 83) = 0;
+      *(v26 + 85) = v19 - v18.n128_f64[0];
+      v21.n128_f64[0] = v20 * 0.5;
+      PKFloatRoundToPixel(v21, v18);
+      *(v26 + 84) = v22;
+      *(v26 + 86) = v20 - v22;
+      v23 = *(v26 + 66);
+      *(v26 + 66) = 0;
 
-      v23 = *(v25 + 63);
-      if (v23)
+      v24 = *(v26 + 63);
+      if (v24)
       {
-        [v23 removeFromSuperview];
-        v24 = *(v25 + 63);
-        *(v25 + 63) = 0;
+        [v24 removeFromSuperview];
+        v25 = *(v26 + 63);
+        *(v26 + 63) = 0;
       }
 
-      [v25 setNeedsLayout];
-      v3 = v25;
+      [v26 setNeedsLayout];
+      v3 = v26;
     }
   }
 }

@@ -532,18 +532,17 @@ void __63__TKRepository_unpackBundleWithURL_destinationPath_completion___block_i
 
 void __63__TKRepository_unpackBundleWithURL_destinationPath_completion___block_invoke_2(uint64_t a1)
 {
-  v3[2] = a1;
-  v3[1] = a1;
+  v2[2] = a1;
+  v2[1] = a1;
   if (*(a1 + 64))
   {
-    v3[0] = [[TKRepository alloc] initWithURL:*(a1 + 32) bundlePath:*(a1 + 40)];
+    v2[0] = [[TKRepository alloc] initWithURL:*(a1 + 32) bundlePath:*(a1 + 40)];
     (*(*(a1 + 56) + 16))();
-    objc_storeStrong(v3, 0);
+    objc_storeStrong(v2, 0);
   }
 
   else
   {
-    v1 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 }

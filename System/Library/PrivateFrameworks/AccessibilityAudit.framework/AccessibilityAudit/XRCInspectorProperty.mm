@@ -112,14 +112,14 @@ uint64_t __100__XRCInspectorProperty__continueFetchingProperties_fetchedProperti
 
 - (id)_spacedStringFromCamelCase:(id)case
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   v4 = [caseCopy length];
   v5 = objc_opt_new();
   v6 = v5;
   if (v4 >= 1)
   {
-    v27 = v5;
+    v26 = v5;
     v7 = 0;
     v8 = 1;
     v9 = -1;
@@ -136,7 +136,7 @@ uint64_t __100__XRCInspectorProperty__continueFetchingProperties_fetchedProperti
         if (v9 != -1)
         {
           v15 = [caseCopy substringWithRange:{v9, v7 - v9}];
-          [v27 addObject:v15];
+          [v26 addObject:v15];
         }
 
         v14 = 0;
@@ -148,35 +148,35 @@ uint64_t __100__XRCInspectorProperty__continueFetchingProperties_fetchedProperti
     }
 
     while (v4 != v7);
-    v6 = v27;
+    v6 = v26;
     if (v9 != -1)
     {
       v16 = [caseCopy substringWithRange:{v9, objc_msgSend(caseCopy, "length") - v9}];
-      [v27 addObject:v16];
+      [v26 addObject:v16];
     }
   }
 
   v17 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v18 = v6;
-  v19 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v29;
+    v21 = *v28;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v29 != v21)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v28 + 1) + 8 * i);
+        v23 = *(*(&v27 + 1) + 8 * i);
         if ([v17 length])
         {
           [v17 appendString:@" "];
@@ -190,13 +190,11 @@ uint64_t __100__XRCInspectorProperty__continueFetchingProperties_fetchedProperti
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v20);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

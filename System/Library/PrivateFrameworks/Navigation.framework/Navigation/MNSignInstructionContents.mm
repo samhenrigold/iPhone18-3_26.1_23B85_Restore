@@ -44,7 +44,7 @@
 
 - (id)_instructionsForFormats:(id)formats
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   formatsCopy = formats;
   if ([formatsCopy count])
   {
@@ -76,34 +76,34 @@
       [v7 setObject:roadName2 forKey:@"{Road}"];
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v15 = formatsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v16)
     {
       v17 = v16;
       v18 = 2 * v6;
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = [MEMORY[0x1E696AEC0] _navigation_stringForServerFormattedString:*(*(&v25 + 1) + 8 * i) abbreviatedUnits:0 detail:v18 spoken:0 overrideVariables:v7];
+          v21 = [MEMORY[0x1E696AEC0] _navigation_stringForServerFormattedString:*(*(&v24 + 1) + 8 * i) abbreviatedUnits:0 detail:v18 spoken:0 overrideVariables:v7];
           if ([v21 length] && (objc_msgSend(v21, "_navigation_containsVariables") & 1) == 0)
           {
             [v5 addObject:v21];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v17);
@@ -114,8 +114,6 @@
   {
     v5 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

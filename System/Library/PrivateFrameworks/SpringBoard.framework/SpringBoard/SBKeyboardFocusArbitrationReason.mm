@@ -409,7 +409,7 @@
   [v5 appendProem:0 block:v6];
 }
 
-uint64_t __62__SBKeyboardFocusArbitrationReason_appendDescriptionToStream___block_invoke(uint64_t a1)
+void *__62__SBKeyboardFocusArbitrationReason_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) appendString:*(*(a1 + 40) + 24) withName:0];
   if (*(*(a1 + 40) + 8))

@@ -10,9 +10,11 @@
 
 uint64_t __51__SBHSimpleApplicationPolicyMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_0 = objc_alloc_init(SBHSimpleApplicationPolicyMonitor);
+  v0 = objc_alloc_init(SBHSimpleApplicationPolicyMonitor);
+  v1 = sharedInstance_sharedInstance_0;
+  sharedInstance_sharedInstance_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (SBHSimpleApplicationPolicyMonitor)init

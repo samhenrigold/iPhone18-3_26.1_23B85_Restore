@@ -7,7 +7,7 @@
 
 - (BOOL)visibleForUse:(int64_t)use
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   currentDevice = [MEMORY[0x1E69E0A90] currentDevice];
   isChineseRegionDevice = [currentDevice isChineseRegionDevice];
 
@@ -17,22 +17,19 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v12 = "[WFLinkWritingToolsAction visibleForUse:]";
+      v11 = "[WFLinkWritingToolsAction visibleForUse:]";
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEBUG, "%s Writing Tools action is not visible due to feature flag disablement", buf, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = WFLinkWritingToolsAction;
-    result = [(WFAppIntentExecutionAction *)&v10 visibleForUse:use];
+    v9.receiver = self;
+    v9.super_class = WFLinkWritingToolsAction;
+    return [(WFAppIntentExecutionAction *)&v9 visibleForUse:use];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)requiredResources

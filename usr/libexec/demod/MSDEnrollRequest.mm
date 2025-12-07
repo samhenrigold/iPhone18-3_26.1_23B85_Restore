@@ -52,10 +52,10 @@
       [v4 setObject:pairingCredentials2 forKey:@"PairingCredential"];
     }
 
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100063A54(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000E58C0(v4, v11);
+      sub_1000E58C0(v4, v12);
     }
 
     convertToNSData = [v4 convertToNSData];
@@ -73,25 +73,25 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v25.receiver = self;
-  v25.super_class = MSDEnrollRequest;
-  v8 = [(MSDServerRequest *)&v25 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v28.receiver = self;
+  v28.super_class = MSDEnrollRequest;
+  v8 = [(MSDServerRequest *)&v28 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (error)
   {
     v10 = 0;
-    v12 = 0;
+    v13 = 0;
     goto LABEL_27;
   }
 
-  v24 = errorCopy;
-  v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v24];
-  v11 = v24;
+  v27 = errorCopy;
+  v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v27];
+  v11 = v27;
 
   if (!v10)
   {
-    v12 = 0;
+    v13 = 0;
 LABEL_26:
     errorCopy = v11;
 LABEL_27:
@@ -104,9 +104,9 @@ LABEL_27:
 
     else
     {
-      v22 = errorCopy;
-      sub_1000C1390(&v22, 3727744512, @"Unexpected server response.");
-      v11 = v22;
+      v25 = errorCopy;
+      sub_1000C1390(&v25, 3727744512, @"Unexpected server response.");
+      v11 = v25;
 
       [v8 setError:v11];
     }
@@ -114,61 +114,65 @@ LABEL_27:
     goto LABEL_14;
   }
 
-  v12 = [v10 objectForKey:@"Credential"];
-  if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = [v10 objectForKey:@"Credential"];
+  v13 = isKindOfClass;
+  if (!isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v17 = sub_100063A54();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_100063A54(isKindOfClass);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_1000E5938(self);
     }
 
-    v18 = [v10 objectForKey:@"Error"];
-    if (v18)
+    v20 = [v10 objectForKey:@"Error"];
+    v21 = v20;
+    if (v20)
     {
-      v19 = sub_100063A54();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = sub_100063A54(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         sub_1000E59C8(self);
       }
 
-      v23 = v11;
-      sub_1000C1390(&v23, 3727744512, v18);
-      v20 = v23;
+      v26 = v11;
+      sub_1000C1390(&v26, 3727744512, v21);
+      v23 = v26;
 
-      v11 = v20;
+      v11 = v23;
     }
 
     goto LABEL_26;
   }
 
-  [v8 setCredential:v12];
-  v13 = [v10 objectForKey:@"Settings"];
-  if (v13)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      [v8 setSettingsDict:v13];
-    }
-  }
-
-  v14 = [payloadCopy objectForKey:@"protocolVersion"];
+  [v8 setCredential:v13];
+  v14 = [v10 objectForKey:@"Settings"];
   if (v14)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v8 setHubProtocolVersion:v14];
+      [v8 setSettingsDict:v14];
     }
   }
 
-  v15 = sub_100063A54();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = [payloadCopy objectForKey:@"protocolVersion"];
+  v16 = v15;
+  if (v15)
+  {
+    objc_opt_class();
+    v15 = objc_opt_isKindOfClass();
+    if (v15)
+    {
+      v15 = [v8 setHubProtocolVersion:v16];
+    }
+  }
+
+  v17 = sub_100063A54(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = v10;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Enroll succeeded with response: %{public}@", buf, 0xCu);
+    v30 = v10;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Enroll succeeded with response: %{public}@", buf, 0xCu);
   }
 
 LABEL_14:

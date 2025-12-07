@@ -34,8 +34,16 @@
 
 - (void)updateSectionsBlurWithVisibleRect:(CGRect)rect safeAreaInsets:(UIEdgeInsets)insets interSectionSpacing:(double)spacing
 {
+  right = insets.right;
+  bottom = insets.bottom;
+  left = insets.left;
+  top = insets.top;
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
   selfCopy = self;
-  sub_1A46165DC();
+  sub_1A46165DC(x, y, width, height, top, left, bottom, right);
 }
 
 - (PXSectionsBlurController)init

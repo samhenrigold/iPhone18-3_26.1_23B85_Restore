@@ -167,22 +167,7 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
-  {
-    goto LABEL_12;
-  }
-
-  routingKey = self->_routingKey;
-  v9 = equalCopy[4];
-  if (routingKey | v9)
-  {
-    if (!objc_msgSend_isEqual_(routingKey, v7, v9))
-    {
-      goto LABEL_12;
-    }
-  }
-
-  if (((shortTokenHash = self->_shortTokenHash, v11 = equalCopy[5], !(shortTokenHash | v11)) || objc_msgSend_isEqual_(shortTokenHash, v7, v11)) && ((protectedFullToken = self->_protectedFullToken, v13 = equalCopy[3], !(protectedFullToken | v13)) || objc_msgSend_isEqual_(protectedFullToken, v7, v13)) && ((encryptedPublicSharingKey = self->_encryptedPublicSharingKey, v15 = equalCopy[2], !(encryptedPublicSharingKey | v15)) || objc_msgSend_isEqual_(encryptedPublicSharingKey, v7, v15)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5) && ((routingKey = self->_routingKey, v9 = equalCopy[4], !(routingKey | v9)) || objc_msgSend_isEqual_(routingKey, v7, v9)) && ((shortTokenHash = self->_shortTokenHash, v11 = equalCopy[5], !(shortTokenHash | v11)) || objc_msgSend_isEqual_(shortTokenHash, v7, v11)) && ((protectedFullToken = self->_protectedFullToken, v13 = equalCopy[3], !(protectedFullToken | v13)) || objc_msgSend_isEqual_(protectedFullToken, v7, v13)) && ((encryptedPublicSharingKey = self->_encryptedPublicSharingKey, v15 = equalCopy[2], !(encryptedPublicSharingKey | v15)) || objc_msgSend_isEqual_(encryptedPublicSharingKey, v7, v15)))
   {
     displayedHostname = self->_displayedHostname;
     v17 = equalCopy[1];
@@ -199,7 +184,6 @@
 
   else
   {
-LABEL_12:
     isEqual = 0;
   }
 

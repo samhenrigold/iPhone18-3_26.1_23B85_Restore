@@ -23,9 +23,11 @@
 
 uint64_t __37__PXPreloadScheduler_sharedScheduler__block_invoke()
 {
-  sharedScheduler_scheduler = objc_alloc_init(PXPreloadScheduler);
+  v0 = objc_alloc_init(PXPreloadScheduler);
+  v1 = sharedScheduler_scheduler;
+  sharedScheduler_scheduler = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (PXPreloadScheduler)sharedScheduler
@@ -410,12 +412,12 @@ uint64_t __48__PXPreloadScheduler_scheduleTaskWithQoS_block___block_invoke(void 
   dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
 }
 
-intptr_t __51__PXPreloadScheduler_scheduleMainQueueTaskAndWait___block_invoke(uint64_t a1)
+intptr_t __51__PXPreloadScheduler_scheduleMainQueueTaskAndWait___block_invoke(void *a1)
 {
   kdebug_trace();
-  (*(*(a1 + 48) + 16))();
+  (*(a1[6] + 16))();
   kdebug_trace();
-  v2 = *(a1 + 40);
+  v2 = a1[5];
 
   return dispatch_semaphore_signal(v2);
 }

@@ -26,7 +26,7 @@
 {
   if (result)
   {
-    v1 = result;
+    v10 = result;
     if (*(result + 32) == 1)
     {
       if (*(result + 56))
@@ -36,54 +36,55 @@
 
       else
       {
+        v16 = qword_1ED844568;
 
-        return FigSignalErrorAtGM();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, 0xFFFFCE11, "<<<< BWPixelBufferPool >>>>", 0x1B1, v9, a7, a8, a9);
       }
     }
 
     else
     {
       os_unfair_lock_lock((result + 48));
-      if (!*(v1 + 56))
+      if (!*(v10 + 56))
       {
-        v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
-        v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 16)];
-        [v2 setObject:v3 forKeyedSubscript:*MEMORY[0x1E6966160]];
-        [v2 setObject:&unk_1F2242AC0 forKeyedSubscript:*MEMORY[0x1E6966158]];
-        v4 = *(v1 + 24);
-        if (v4)
+        v11 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
+        v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v10 + 16)];
+        [v11 setObject:v12 forKeyedSubscript:*MEMORY[0x1E6966160]];
+        [v11 setObject:&unk_1F2242AC0 forKeyedSubscript:*MEMORY[0x1E6966158]];
+        v13 = *(v10 + 24);
+        if (v13)
         {
-          [v2 setObject:v4 forKeyedSubscript:*MEMORY[0x1E6966170]];
+          [v11 setObject:v13 forKeyedSubscript:*MEMORY[0x1E6966170]];
         }
 
-        pixelBufferAttributes = [*(v1 + 8) pixelBufferAttributes];
-        if (*(v1 + 88) && ([*(v1 + 8) memoryPoolUseAllowed] & 1) != 0 || *(v1 + 40) || objc_msgSend(*(v1 + 8), "colorSpaceProperties"))
+        pixelBufferAttributes = [*(v10 + 8) pixelBufferAttributes];
+        if (*(v10 + 88) && ([*(v10 + 8) memoryPoolUseAllowed] & 1) != 0 || *(v10 + 40) || objc_msgSend(*(v10 + 8), "colorSpaceProperties"))
         {
           pixelBufferAttributes = [MEMORY[0x1E695DF90] dictionaryWithDictionary:pixelBufferAttributes];
-          if (*(v1 + 40))
+          if (*(v10 + 40))
           {
             FigCFDictionaryAddEntriesToDictionaryWithRecursion();
           }
 
-          if ([*(v1 + 8) colorSpaceProperties] && !FigCapturePixelFormatIsPackedBayerRaw(objc_msgSend(*(v1 + 8), "pixelFormat")))
+          if ([*(v10 + 8) colorSpaceProperties] && !FigCapturePixelFormatIsPackedBayerRaw(objc_msgSend(*(v10 + 8), "pixelFormat")))
           {
-            v6 = +[BWVideoFormat pixelBufferAttachmentsForColorSpaceProperties:](BWVideoFormat, "pixelBufferAttachmentsForColorSpaceProperties:", [*(v1 + 8) colorSpaceProperties]);
-            [pixelBufferAttributes setObject:v6 forKeyedSubscript:*MEMORY[0x1E6965C70]];
+            v15 = +[BWVideoFormat pixelBufferAttachmentsForColorSpaceProperties:](BWVideoFormat, "pixelBufferAttachmentsForColorSpaceProperties:", [*(v10 + 8) colorSpaceProperties]);
+            [pixelBufferAttributes setObject:v15 forKeyedSubscript:*MEMORY[0x1E6965C70]];
           }
 
-          if ([*(v1 + 8) memoryPoolUseAllowed])
+          if ([*(v10 + 8) memoryPoolUseAllowed])
           {
-            [*(v1 + 88) enableForPixelBufferAttributes:pixelBufferAttributes];
+            [*(v10 + 88) enableForPixelBufferAttributes:pixelBufferAttributes];
           }
         }
 
-        *(v1 + 80) = CVPixelBufferPoolCreate(*MEMORY[0x1E695E480], v2, pixelBufferAttributes, (v1 + 56));
-        v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{*(v1 + 16), *MEMORY[0x1E6966150]}];
-        *(v1 + 64) = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+        *(v10 + 80) = CVPixelBufferPoolCreate(*MEMORY[0x1E695E480], v11, pixelBufferAttributes, (v10 + 56));
+        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{*(v10 + 16), *MEMORY[0x1E6966150]}];
+        *(v10 + 64) = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
       }
 
-      os_unfair_lock_unlock((v1 + 48));
-      return *(v1 + 80);
+      os_unfair_lock_unlock((v10 + 48));
+      return *(v10 + 80);
     }
   }
 
@@ -107,37 +108,38 @@
 {
   if (result)
   {
-    v1 = result;
+    v8 = result;
     pixelBufferOut = 0;
-    if ([(BWPixelBufferPool *)result _ensurePool])
+    if ([(BWPixelBufferPool *)result _ensurePool:a2])
     {
       OUTLINED_FUNCTION_1_8();
+      LODWORD(v13) = v11;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v13);
     }
 
     else
     {
-      [(BWPixelBufferPool *)v1 _waitForBackPressureSemaphoreIfNeededAndReportIfWaited:?];
-      v2 = CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(*MEMORY[0x1E695E480], *(v1 + 56), *(v1 + 64), &pixelBufferOut);
-      if (*(v1 + 96) == 1)
+      [(BWPixelBufferPool *)v8 _waitForBackPressureSemaphoreIfNeededAndReportIfWaited:?];
+      v9 = CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(*MEMORY[0x1E695E480], *(v8 + 7), *(v8 + 8), &pixelBufferOut);
+      if (*(v8 + 96) == 1)
       {
-        v3 = *(v1 + 104);
-        v4[0] = MEMORY[0x1E69E9820];
-        v4[1] = 3221225472;
-        v4[2] = __36__BWPixelBufferPool__newPixelBuffer__block_invoke;
-        v4[3] = &unk_1E798F870;
-        v4[4] = v3;
-        [BWIOSurfaceTracking trackPixelBuffer:pixelBufferOut surfaceUseCountIsZeroHandler:v4];
+        v10 = *(v8 + 13);
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __36__BWPixelBufferPool__newPixelBuffer__block_invoke;
+        v14[3] = &unk_1E798F870;
+        v14[4] = v10;
+        [BWIOSurfaceTracking trackPixelBuffer:pixelBufferOut surfaceUseCountIsZeroHandler:v14];
       }
 
-      if (!v2)
+      if (v9)
       {
-        return pixelBufferOut;
+        OUTLINED_FUNCTION_1_8();
+        LODWORD(v13) = v9;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v13);
       }
-
-      OUTLINED_FUNCTION_1_8();
     }
 
-    FigDebugAssert3();
     return pixelBufferOut;
   }
 
@@ -303,16 +305,16 @@ LABEL_22:
 void __54__BWPixelBufferPool_preallocateWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = [(BWPixelBufferPool *)*(a1 + 32) _ensurePool];
-  if (!v3)
+  v10 = [(BWPixelBufferPool *)*(a1 + 32) _ensurePool:v3];
+  if (!v10)
   {
-    v3 = CVPixelBufferPoolPreAllocate();
+    v10 = CVPixelBufferPoolPreAllocate();
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    (*(v4 + 16))(v4, v3);
+    (*(v11 + 16))(v11, v10);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -328,8 +330,8 @@ void __54__BWPixelBufferPool_preallocateWithCompletionHandler___block_invoke(uin
   capacity = self->_capacity;
   if ((capacity - [(NSMutableSet *)self->_prefetchedSurfaceIDs count]) <= prefetch)
   {
-    v7 = self->_capacity;
-    prefetch = v7 - [(NSMutableSet *)self->_prefetchedSurfaceIDs count];
+    v8 = self->_capacity;
+    prefetch = v8 - [(NSMutableSet *)self->_prefetchedSurfaceIDs count];
   }
 
   if (prefetch < 1)
@@ -337,40 +339,41 @@ void __54__BWPixelBufferPool_preallocateWithCompletionHandler___block_invoke(uin
     return prefetch < 1;
   }
 
-  v21[1] = v21;
-  v9 = 8 * prefetch;
-  v10 = (v21 - ((v9 + 15) & 0xFFFFFFFF0));
-  if (v9 >= 0x200)
+  v31 = &v30;
+  v10 = 8 * prefetch;
+  v11 = (&v30 - ((v10 + 15) & 0xFFFFFFFF0));
+  if (v10 >= 0x200)
   {
-    v11 = 512;
+    v12 = 512;
   }
 
   else
   {
-    v11 = 8 * prefetch;
+    v12 = 8 * prefetch;
   }
 
-  bzero(v21 - ((v9 + 15) & 0xFFFFFFFF0), v11);
-  if ([(BWPixelBufferPool *)self _ensurePool])
+  bzero(&v30 - ((v10 + 15) & 0xFFFFFFFF0), v12);
+  v20 = [(BWPixelBufferPool *)self _ensurePool:v13];
+  if (v20)
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v4, v30, v31, v32, v33, v34, v35);
     return 0;
   }
 
   else
   {
     prefetchCopy = prefetch;
-    v13 = [(NSDictionary *)self->_pixelBufferPoolAuxAttributes mutableCopy];
-    v14 = *MEMORY[0x1E6966178];
-    v23 = v13;
-    [(__CFDictionary *)v13 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v14];
-    bzero(v21 - ((v9 + 15) & 0xFFFFFFFF0), 8 * prefetch);
-    v22 = *MEMORY[0x1E695E480];
+    v22 = [(NSDictionary *)self->_pixelBufferPoolAuxAttributes mutableCopy];
+    v23 = *MEMORY[0x1E6966178];
+    v33 = v22;
+    [v22 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v23];
+    bzero(&v30 - ((v10 + 15) & 0xFFFFFFFF0), 8 * prefetch);
+    v32 = *MEMORY[0x1E695E480];
     prefetchCopy2 = prefetch;
-    v16 = (v21 - ((v9 + 15) & 0xFFFFFFFF0));
+    v25 = (&v30 - ((v10 + 15) & 0xFFFFFFFF0));
     do
     {
-      PixelBufferWithAuxAttributes = CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(v22, self->_pixelBufferPool, v23, v16);
+      PixelBufferWithAuxAttributes = CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(v32, self->_pixelBufferPool, v33, v25);
       if (PixelBufferWithAuxAttributes)
       {
         break;
@@ -381,8 +384,8 @@ void __54__BWPixelBufferPool_preallocateWithCompletionHandler___block_invoke(uin
         self->_prefetchedSurfaceIDs = objc_alloc_init(MEMORY[0x1E695DFA8]);
       }
 
-      v18 = *v16++;
-      IOSurface = CVPixelBufferGetIOSurface(v18);
+      v27 = *v25++;
+      IOSurface = CVPixelBufferGetIOSurface(v27);
       ID = IOSurfaceGetID(IOSurface);
       -[NSMutableSet containsObject:](self->_prefetchedSurfaceIDs, "containsObject:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:ID]);
       -[NSMutableSet addObject:](self->_prefetchedSurfaceIDs, "addObject:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:ID]);
@@ -392,12 +395,12 @@ void __54__BWPixelBufferPool_preallocateWithCompletionHandler___block_invoke(uin
     while (prefetchCopy2);
     do
     {
-      if (*v10)
+      if (*v11)
       {
-        CVPixelBufferRelease(*v10);
+        CVPixelBufferRelease(*v11);
       }
 
-      ++v10;
+      ++v11;
       --prefetchCopy;
     }
 
@@ -469,7 +472,7 @@ void __54__BWPixelBufferPool_preallocateWithCompletionHandler___block_invoke(uin
 
   else
   {
-    [(BWPixelBufferPool *)self setCapacity:capacity];
+    [(BWPixelBufferPool *)self setCapacity:capacity, capacity, v3, v4, v5, v6, v7];
   }
 }
 
@@ -483,16 +486,16 @@ void __54__BWPixelBufferPool_preallocateWithCompletionHandler___block_invoke(uin
 void __51__BWPixelBufferPool_prefetchWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = [(BWPixelBufferPool *)*(a1 + 32) _ensurePool];
-  if (!v3)
+  v10 = [(BWPixelBufferPool *)*(a1 + 32) _ensurePool:v3];
+  if (!v10)
   {
-    v3 = CVPixelBufferPoolPrefetchPages();
+    v10 = CVPixelBufferPoolPrefetchPages();
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    (*(v4 + 16))(v4, v3);
+    (*(v11 + 16))(v11, v10);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -533,14 +536,14 @@ void __51__BWPixelBufferPool_prefetchWithCompletionHandler___block_invoke(uint64
               if (dword_1ED844570)
               {
                 v10 = OUTLINED_FUNCTION_1_28();
-                if (os_log_type_enabled(v10, v18))
+                if (os_log_type_enabled(v10, v25))
                 {
-                  v11 = v19;
+                  v11 = v26;
                 }
 
                 else
                 {
-                  v11 = v19 & 0xFFFFFFFE;
+                  v11 = v26 & 0xFFFFFFFE;
                 }
 
                 if (v11)
@@ -571,14 +574,14 @@ void __51__BWPixelBufferPool_prefetchWithCompletionHandler___block_invoke(uint64
             if (dword_1ED844570)
             {
               v15 = OUTLINED_FUNCTION_1_28();
-              if (os_log_type_enabled(v15, v18))
+              if (os_log_type_enabled(v15, v25))
               {
-                v16 = v19;
+                v16 = v26;
               }
 
               else
               {
-                v16 = v19 & 0xFFFFFFFE;
+                v16 = v26 & 0xFFFFFFFE;
               }
 
               if (v16)
@@ -602,7 +605,7 @@ void __51__BWPixelBufferPool_prefetchWithCompletionHandler___block_invoke(uint64
     else
     {
       OUTLINED_FUNCTION_1_8();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v18, v19, v20, v21, v22, v23, v24);
     }
   }
 
@@ -612,27 +615,27 @@ void __51__BWPixelBufferPool_prefetchWithCompletionHandler___block_invoke(uint64
 - (void)preallocate
 {
   v4 = objc_autoreleasePoolPush();
-  _ensurePool = [(BWPixelBufferPool *)self _ensurePool];
-  if (_ensurePool)
+  v12 = [(BWPixelBufferPool *)self _ensurePool:v5];
+  if (v12)
   {
-    v6 = _ensurePool;
+    v13 = v12;
     OUTLINED_FUNCTION_1_8();
+    LODWORD(v16) = v14;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16);
   }
 
   else
   {
-    v6 = CVPixelBufferPoolPreAllocate();
-    if (!v6)
+    v13 = CVPixelBufferPoolPreAllocate();
+    if (v13)
     {
-      goto LABEL_3;
+      OUTLINED_FUNCTION_1_8();
+      LODWORD(v16) = v13;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16);
     }
-
-    OUTLINED_FUNCTION_1_8();
   }
 
-  FigDebugAssert3();
-LABEL_3:
-  *a2 = v6;
+  *a2 = v13;
 
   objc_autoreleasePoolPop(v4);
 }
@@ -645,18 +648,18 @@ LABEL_3:
   return dispatch_semaphore_signal(v3);
 }
 
-- (uint64_t)setCapacity:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
+- (void)setCapacity:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  [(BWPixelBufferPool *)a1 _ensurePool];
+  [(BWPixelBufferPool *)a1 _ensurePool:a2];
   result = CVPixelBufferPoolSetMinBufferCount();
   if (!result)
   {
     *(a1 + 16) = a2;
-    v5 = [*(a1 + 64) mutableCopy];
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a2];
-    [v5 setObject:v6 forKeyedSubscript:*MEMORY[0x1E6966150]];
+    v11 = [*(a1 + 64) mutableCopy];
+    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a2];
+    [v11 setObject:v12 forKeyedSubscript:*MEMORY[0x1E6966150]];
 
-    result = [v5 copy];
+    result = [v11 copy];
     *(a1 + 64) = result;
   }
 

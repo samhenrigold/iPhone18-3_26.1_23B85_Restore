@@ -119,67 +119,67 @@
 - (void)renderShadowScene:(id)scene
 {
   sceneCopy = scene;
-  v8 = objc_msgSend_viewport(TSCH3DSceneRenderSetup, v4, v5, v6, v7);
-  objc_msgSend_setSetup_(sceneCopy, v9, v10, v11, v12, v8);
+  v7 = objc_msgSend_viewport(TSCH3DSceneRenderSetup, v4, v5, v6);
+  objc_msgSend_setSetup_(sceneCopy, v8, v9, v10, v11, v7);
 
-  v17 = objc_msgSend_processor(sceneCopy, v13, v14, v15, v16);
-  v22 = objc_msgSend_scene(sceneCopy, v18, v19, v20, v21);
-  v27 = objc_msgSend_camera(v22, v23, v24, v25, v26);
-  v32 = v27;
-  if (v27)
+  v16 = objc_msgSend_processor(sceneCopy, v12, v13, v14, v15);
+  v21 = objc_msgSend_scene(sceneCopy, v17, v18, v19, v20);
+  v26 = objc_msgSend_camera(v21, v22, v23, v24, v25);
+  v31 = v26;
+  if (v26)
   {
-    objc_msgSend_projection(v27, v28, v29, v30, v31);
+    objc_msgSend_projection(v26, v28, v29, v30);
   }
 
   else
   {
-    v33 = 0.0;
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
+    v32 = 0.0;
     v79 = 0u;
-  }
-
-  objc_msgSend_projection_(v17, v28, v33, v30, v31, &v78);
-
-  v38 = objc_msgSend_processor(sceneCopy, v34, v35, v36, v37);
-  v43 = objc_msgSend_scene(sceneCopy, v39, v40, v41, v42);
-  v48 = objc_msgSend_camera(v43, v44, v45, v46, v47);
-  v53 = v48;
-  if (v48)
-  {
-    objc_msgSend_space(v48, v49, v50, v51, v52);
-  }
-
-  else
-  {
-    v54 = 0.0;
     v80 = 0u;
-    v81 = 0u;
+    v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
   }
 
-  objc_msgSend_replace_(v38, v49, v54, v51, v52, &v78);
+  objc_msgSend_projection_(v16, v27, v32, v29, v30, &v77);
 
-  v59 = objc_msgSend_scene(sceneCopy, v55, v56, v57, v58);
-  v64 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v60, v61, v62, v63, v59);
-
-  v70 = objc_msgSend_processor(sceneCopy, v65, v66, v67, v68);
-  if (v64)
+  v37 = objc_msgSend_processor(sceneCopy, v33, v34, v35, v36);
+  v42 = objc_msgSend_scene(sceneCopy, v38, v39, v40, v41);
+  v47 = objc_msgSend_camera(v42, v43, v44, v45, v46);
+  v52 = v47;
+  if (v47)
   {
-    objc_msgSend_stageScale(v64, v69, v71, v72, v73);
+    objc_msgSend_space(v47, v49, v50, v51);
   }
 
   else
   {
-    DWORD2(v78) = 0;
-    *&v78 = 0;
+    v53 = 0.0;
+    v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
   }
 
-  objc_msgSend_scale_(v70, v69, v71, v72, v73, &v78);
+  objc_msgSend_replace_(v37, v48, v53, v50, v51, &v77);
 
-  objc_msgSend_run(sceneCopy, v74, v75, v76, v77);
+  v58 = objc_msgSend_scene(sceneCopy, v54, v55, v56, v57);
+  v63 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v59, v60, v61, v62, v58);
+
+  v69 = objc_msgSend_processor(sceneCopy, v64, v65, v66, v67);
+  if (v63)
+  {
+    objc_msgSend_stageScale(v63, v70, v71, v72);
+  }
+
+  else
+  {
+    DWORD2(v77) = 0;
+    *&v77 = 0;
+  }
+
+  objc_msgSend_scale_(v69, v68, v70, v71, v72, &v77);
+
+  objc_msgSend_run(sceneCopy, v73, v74, v75, v76);
 }
 
 - (void)prerenderShadows:(id)shadows blurslack:(float)blurslack angle:(float)angle quality:(float)quality targetFBO:(id)o
@@ -202,50 +202,51 @@
   if ((objc_msgSend_shadowPlaneValid(v24, v57, v58, v59, v60) & 1) == 0)
   {
     v65 = objc_msgSend_camera(v24, v61, v62, v63, v64);
-    *v130 = 1065353216;
-    *&v130[4] = 0uLL;
-    *&v130[20] = 1065353216;
+    *v129 = 1065353216;
+    *&v129[12] = 0;
+    *&v129[4] = 0;
+    *&v129[20] = 1065353216;
+    v130 = 0;
     v131 = 0;
-    v132 = 0;
-    v135 = 0;
     v134 = 0;
-    v133 = 1065353216;
-    v136 = 1065353216;
-    objc_msgSend_setTransform_(v65, v66, v67, v68, v69, v130);
+    v133 = 0;
+    v132 = 1065353216;
+    v135 = 1065353216;
+    objc_msgSend_setTransform_(v65, v66, v67, v68, v69, v129);
 
     v74 = objc_msgSend_clone(v34, v70, v71, v72, v73);
     objc_msgSend_resetDelegates(v74, v75, v76, v77, v78);
     v83 = objc_msgSend_scene(shadowsCopy, v79, v80, v81, v82);
-    objc_msgSend_p_shadowPlanePaddingForScene_(self, v84, v85, v86, v87, v83);
+    objc_msgSend_p_shadowPlanePaddingForScene_(self, v84, v85, v86);
 
-    v92 = objc_msgSend_quad(v24, v88, v89, v90, v91);
-    v97 = objc_msgSend_texcoords(v24, v93, v94, v95, v96);
-    v128 = *v130;
-    v129 = *&v130[16];
-    *&v98 = angle;
-    *&v99 = quality;
-    objc_msgSend_updateShadowPlane_texcoords_scene_blurslack_angle_quality_planePadding_(self, v100, COERCE_DOUBLE(__PAIR64__(*&v130[20], LODWORD(blurslack))), v98, v99, v92, v97, v74, &v128);
+    v91 = objc_msgSend_quad(v24, v87, v88, v89, v90);
+    v96 = objc_msgSend_texcoords(v24, v92, v93, v94, v95);
+    v127 = *v129;
+    v128 = *&v129[16];
+    *&v97 = angle;
+    *&v98 = quality;
+    objc_msgSend_updateShadowPlane_texcoords_scene_blurslack_angle_quality_planePadding_(self, v99, COERCE_DOUBLE(__PAIR64__(*&v129[20], LODWORD(blurslack))), v97, v98, v91, v96, v74, &v127);
   }
 
   if (oCopy)
   {
-    v101 = objc_msgSend_processor(TSCH3DChartShadowsRenderProcessor, v61, v62, v63, v64);
-    v106 = objc_msgSend_baseRecloneWithRetargetProcessor_scene_(shadowsCopy, v102, v103, v104, v105, v101, v34);
-    v107 = a2;
-    objc_msgSend_setFramebuffer_(v106, v108, v109, v110, v111, oCopy);
-    v116 = objc_msgSend_session(v106, v112, v113, v114, v115);
-    v123[0] = MEMORY[0x277D85DD0];
-    v123[1] = 3221225472;
-    v123[2] = sub_27618DFA0;
-    v123[3] = &unk_27A6B6660;
-    v123[4] = self;
-    v117 = v106;
+    v100 = objc_msgSend_processor(TSCH3DChartShadowsRenderProcessor, v61, v62, v63, v64);
+    v105 = objc_msgSend_baseRecloneWithRetargetProcessor_scene_(shadowsCopy, v101, v102, v103, v104, v100, v34);
+    v106 = a2;
+    objc_msgSend_setFramebuffer_(v105, v107, v108, v109, v110, oCopy);
+    v115 = objc_msgSend_session(v105, v111, v112, v113, v114);
+    v122[0] = MEMORY[0x277D85DD0];
+    v122[1] = 3221225472;
+    v122[2] = sub_27618DFA0;
+    v122[3] = &unk_27A6B6660;
+    v122[4] = self;
+    v116 = v105;
+    v123 = v116;
+    v117 = v100;
     v124 = v117;
-    v118 = v101;
-    v125 = v118;
-    v127 = v107;
-    v126 = shadowsCopy;
-    objc_msgSend_performBlockWithFBO_session_block_(TSCH3DProtectFBOSession, v119, v120, v121, v122, oCopy, v116, v123);
+    v126 = v106;
+    v125 = shadowsCopy;
+    objc_msgSend_performBlockWithFBO_session_block_(TSCH3DProtectFBOSession, v118, v119, v120, v121, oCopy, v115, v122);
   }
 }
 
@@ -325,7 +326,7 @@
 
 - (void)render:(id)render
 {
-  v196 = *MEMORY[0x277D85DE8];
+  v195 = *MEMORY[0x277D85DE8];
   renderCopy = render;
   v10 = objc_msgSend_scene(renderCopy, v6, v7, v8, v9);
   v15 = objc_msgSend_TSDShadowFromScene_(self, v11, v12, v13, v14, v10);
@@ -335,108 +336,108 @@
 
   if (objc_msgSend_hasShadow_(TSCHStyleUtilities, v26, v27, v28, v29, v15) && (objc_msgSend_enabled(v25, v30, v31, v32, v33) & 1) != 0)
   {
-    v39 = objc_msgSend_processor(renderCopy, v34, v35, v36, v37);
+    v38 = objc_msgSend_processor(renderCopy, v34, v35, v36, v37);
     if (byte_280A46430 == 1)
     {
-      v43 = objc_opt_class();
-      v44 = NSStringFromSelector(a2);
-      NSLog(&cfstr_PShadowIsRende.isa, v43, self, v44, v39);
+      v42 = objc_opt_class();
+      v43 = NSStringFromSelector(a2);
+      NSLog(&cfstr_PShadowIsRende.isa, v42, self, v43, v38);
     }
 
-    v181 = objc_msgSend_color(v15, v38, v40, v41, v42);
-    objc_msgSend_redComponent(v181, v45, v46, v47, v48);
-    v50 = v49;
-    objc_msgSend_greenComponent(v181, v51, v49, v52, v53);
-    v55 = v54;
-    objc_msgSend_blueComponent(v181, v56, v54, v57, v58);
-    v60 = v59;
-    objc_msgSend_opacity(v15, v61, v59, v62, v63);
-    v65 = v64;
-    objc_msgSend_opacity(v15, v66, v64, v67, v68);
-    v70 = v69;
-    v74 = objc_msgSend_scene(renderCopy, v71, v69, v72, v73);
-    objc_msgSend_p_chartOpacityForScene_(self, v75, v76, v77, v78, v74);
-    v80 = v65 * v70 * v79;
+    v180 = objc_msgSend_color(v15, v39, v40, v41);
+    objc_msgSend_redComponent(v180, v44, v45, v46, v47);
+    v49 = v48;
+    objc_msgSend_greenComponent(v180, v50, v48, v51, v52);
+    v54 = v53;
+    objc_msgSend_blueComponent(v180, v55, v53, v56, v57);
+    v59 = v58;
+    objc_msgSend_opacity(v15, v60, v58, v61, v62);
+    v64 = v63;
+    objc_msgSend_opacity(v15, v65, v63, v66, v67);
+    v69 = v68;
+    v73 = objc_msgSend_scene(renderCopy, v70, v68, v71, v72);
+    objc_msgSend_p_chartOpacityForScene_(self, v74, v75, v76, v77, v73);
+    v79 = v64 * v69 * v78;
 
-    LODWORD(v84) = 1065353212;
-    if (v80 >= 1.0)
+    LODWORD(v83) = 1065353212;
+    if (v79 >= 1.0)
     {
-      v80 = 1.0;
+      v79 = 1.0;
     }
 
-    *v187 = 1;
-    v188[0] = 0;
-    *(v188 + 5) = 0;
-    *&v187[7] = 0;
-    v182 = objc_msgSend_context(renderCopy, v81, v84, v82, v83);
-    v89 = objc_msgSend_renderer(v25, v85, v86, v87, v88);
-    v183 = objc_msgSend_shadowsFBOForContext_(v89, v90, v91, v92, v93, v182);
+    *v186 = 1;
+    v187[0] = 0;
+    *(v187 + 5) = 0;
+    *&v186[7] = 0;
+    v181 = objc_msgSend_context(renderCopy, v80, v83, v81, v82);
+    v88 = objc_msgSend_renderer(v25, v84, v85, v86, v87);
+    v182 = objc_msgSend_shadowsFBOForContext_(v88, v89, v90, v91, v92, v181);
 
-    v98 = objc_msgSend_session(renderCopy, v94, v95, v96, v97);
-    v103 = objc_msgSend_validForSession_(v183, v99, v100, v101, v102, v98);
+    v97 = objc_msgSend_session(renderCopy, v93, v94, v95, v96);
+    v102 = objc_msgSend_validForSession_(v182, v98, v99, v100, v101, v97);
 
-    if ((v103 & 1) == 0)
+    if ((v102 & 1) == 0)
     {
-      v108 = MEMORY[0x277D81150];
-      v109 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v104, v105, v106, v107, "[TSCH3DChartShadowsSceneObject render:]");
-      v114 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v110, v111, v112, v113, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartShadowsSceneObject.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v108, v115, v116, v117, v118, v109, v114, 531, 0, "Framebuffer is not valid for this session");
+      v107 = MEMORY[0x277D81150];
+      v108 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v103, v104, v105, v106, "[TSCH3DChartShadowsSceneObject render:]");
+      v113 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v109, v110, v111, v112, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartShadowsSceneObject.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v107, v114, v115, v116, v117, v108, v113, 531, 0, "Framebuffer is not valid for this session");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v119, v120, v121, v122);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v118, v119, v120, v121);
     }
 
-    v123 = objc_msgSend_variableTexture(TSCH3DProjectiveTextureShaderEffect, v104, v105, v106, v107);
-    v128 = objc_msgSend_texture_resource_attributes_(v39, v124, v125, v126, v127, v123, v183, v187);
+    v122 = objc_msgSend_variableTexture(TSCH3DProjectiveTextureShaderEffect, v103, v104, v105, v106);
+    v127 = objc_msgSend_texture_resource_attributes_(v38, v123, v124, v125, v126, v122, v182, v186);
 
-    objc_msgSend_radius(v15, v129, v130, v131, v132);
-    v133 = v50;
-    v134 = v55;
-    v135 = v60;
-    *&v136 = v136 / 100.0;
-    *v184 = v133;
-    *&v184[1] = v134;
-    *&v184[2] = v135;
-    *&v184[3] = v80;
-    v185 = v128;
-    v137 = vmul_n_f32(0x3DCCCCCD3D4CCCCDLL, *&v136);
-    v138 = vdup_n_s32(0x3A83126Fu);
-    v139 = vcgt_f32(v138, v137);
-    v186 = COERCE_DOUBLE(vbsl_s8(v139, v138, v137));
-    v141 = objc_msgSend_effectsStates(v39, v140, v186, *&v138, *&v139);
-    v146 = objc_msgSend_stateSharingID(TSCH3DProjectiveTextureShaderEffect, v142, v143, v144, v145);
-    v147 = v141;
-    v152 = objc_msgSend_valueWithBytes_objCType_(MEMORY[0x277CCAE60], v148, v149, v150, v151, v184, "{ProjectiveTextureShaderEffectState={tvec4<float>=(?=fff)(?=fff)(?=fff)(?=fff)}q{tvec2<float>=(?=fff)(?=fff)}}");
-    objc_msgSend_setValueState_forKey_(v147, v153, v154, v155, v156, v152, v146);
+    objc_msgSend_radius(v15, v128, v129, v130, v131);
+    v132 = v49;
+    v133 = v54;
+    v134 = v59;
+    *&v135 = v135 / 100.0;
+    *v183 = v132;
+    *&v183[1] = v133;
+    *&v183[2] = v134;
+    *&v183[3] = v79;
+    v184 = v127;
+    v136 = vmul_n_f32(0x3DCCCCCD3D4CCCCDLL, *&v135);
+    v137 = vdup_n_s32(0x3A83126Fu);
+    v138 = vcgt_f32(v137, v136);
+    v185 = COERCE_DOUBLE(vbsl_s8(v138, v137, v136));
+    v140 = objc_msgSend_effectsStates(v38, v139, v185, *&v137, *&v138);
+    v145 = objc_msgSend_stateSharingID(TSCH3DProjectiveTextureShaderEffect, v141, v142, v143, v144);
+    v146 = v140;
+    v151 = objc_msgSend_valueWithBytes_objCType_(MEMORY[0x277CCAE60], v147, v148, v149, v150, v183, "{ProjectiveTextureShaderEffectState={tvec4<float>=(?=fff)(?=fff)(?=fff)(?=fff)}q{tvec2<float>=(?=fff)(?=fff)}}");
+    objc_msgSend_setValueState_forKey_(v146, v152, v153, v154, v155, v151, v145);
 
-    if (v39)
+    if (v38)
     {
-      objc_msgSend_renderState(v39, v157, v158, v159, v160);
+      objc_msgSend_renderState(v38, v157, v158, v159);
     }
 
     else
     {
+      v188 = 0;
       v189 = 0;
-      v190 = 0;
-      v192 = 257;
+      v191 = 257;
+      v192 = 0;
       v193 = 0;
       v194 = 0;
-      v195 = 0;
     }
 
-    v191 = 0;
-    LOBYTE(v189) = 1;
-    HIDWORD(v189) = 2;
-    objc_msgSend_setRenderState_(v39, v157, v158, v159, v160, &v189);
-    objc_msgSend_renderShadows_(self, v161, v162, v163, v164, renderCopy);
-    v169 = objc_msgSend_renderer(v25, v165, v166, v167, v168);
-    v174 = objc_msgSend_session(renderCopy, v170, v171, v172, v173);
-    objc_msgSend_unprotectShadowInSession_(v169, v175, v176, v177, v178, v174);
+    v190 = 0;
+    LOBYTE(v188) = 1;
+    HIDWORD(v188) = 2;
+    objc_msgSend_setRenderState_(v38, v156, v157, v158, v159, &v188);
+    objc_msgSend_renderShadows_(self, v160, v161, v162, v163, renderCopy);
+    v168 = objc_msgSend_renderer(v25, v164, v165, v166, v167);
+    v173 = objc_msgSend_session(renderCopy, v169, v170, v171, v172);
+    objc_msgSend_unprotectShadowInSession_(v168, v174, v175, v176, v177, v173);
 
     if (byte_280A46430 == 1)
     {
-      v179 = objc_opt_class();
-      v180 = NSStringFromSelector(a2);
-      NSLog(&cfstr_PEndShadowRend.isa, v179, self, v180);
+      v178 = objc_opt_class();
+      v179 = NSStringFromSelector(a2);
+      NSLog(&cfstr_PEndShadowRend.isa, v178, self, v179);
     }
   }
 }

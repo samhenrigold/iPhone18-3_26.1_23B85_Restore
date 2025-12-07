@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"countofNotes";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"countofNotes";
   countofNotes = [(ICASMiniSnapshotAccountItemData *)self countofNotes];
   if (countofNotes)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = countofNotes2;
-  v19[0] = countofNotes2;
-  v18[1] = @"counfOfFolders";
+  v18[0] = countofNotes2;
+  v17[1] = @"counfOfFolders";
   counfOfFolders = [(ICASMiniSnapshotAccountItemData *)self counfOfFolders];
   if (counfOfFolders)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = counfOfFolders2;
-  v19[1] = counfOfFolders2;
-  v18[2] = @"countOfAttachments";
+  v18[1] = counfOfFolders2;
+  v17[2] = @"countOfAttachments";
   countOfAttachments = [(ICASMiniSnapshotAccountItemData *)self countOfAttachments];
   if (countOfAttachments)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = countOfAttachments2;
-  v19[2] = countOfAttachments2;
-  v18[3] = @"privateAccountID";
+  v18[2] = countOfAttachments2;
+  v17[3] = @"privateAccountID";
   privateAccountID = [(ICASMiniSnapshotAccountItemData *)self privateAccountID];
   if (privateAccountID)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = privateAccountID2;
-  v19[3] = privateAccountID2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = privateAccountID2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

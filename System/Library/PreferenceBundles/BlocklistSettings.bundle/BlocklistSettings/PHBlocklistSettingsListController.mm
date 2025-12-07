@@ -25,6 +25,7 @@
 - (void)refreshBlocklistEntries;
 - (void)setBlocklistEditing:(BOOL)editing;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PHBlocklistSettingsListController
@@ -114,6 +115,24 @@
   }
 
   [(PHBlocklistSettingsListController *)self _updateEditDoneButton];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(PHBlocklistSettingsListController *)self reloadSpecifiers];
+  v8.receiver = self;
+  v8.super_class = PHBlocklistSettingsListController;
+  [(PHBlocklistSettingsListController *)&v8 viewWillAppear:appearCopy];
+  specifier = [(PHBlocklistSettingsListController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(PHBlocklistSettingsListController *)self emitBlocklistNavigationEvent];
+  }
 }
 
 - (id)specifiers
@@ -590,8 +609,8 @@ LABEL_27:
 
 - (void)createBlocklistSettingsViewWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(sub_D2B8(&qword_190D8, &qword_10E80) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_D2B8(&qword_190D8, &qword_10E80);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
@@ -622,7 +641,7 @@ LABEL_27:
 - (void)setBlocklistEditing:(BOOL)editing
 {
   selfCopy = self;
-  sub_5C50();
+  sub_5C50(editing);
 }
 
 - (void)presentContactPicker
@@ -651,11 +670,12 @@ LABEL_27:
 
 - (id)searchController:(id)controller composeRecipientForAddress:(id)address
 {
-  sub_EB40();
+  v5 = sub_EB40();
+  v7 = v6;
   selfCopy = self;
-  v6 = sub_CF24();
+  v9 = sub_CF24(v5, v7);
 
-  return v6;
+  return v9;
 }
 
 - (void)didTapTextViewAccessoryButtonForSearchController:(id)controller anchoredToView:(id)view

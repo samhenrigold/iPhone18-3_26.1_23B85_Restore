@@ -8,26 +8,25 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *&self->_domain;
-  v6[0] = @"domain";
-  v6[1] = @"feature";
-  v7 = v2;
-  v6[2] = @"value";
+  v5[0] = @"domain";
+  v5[1] = @"feature";
+  v6 = v2;
+  v5[2] = @"value";
   value = self->_value;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:v6 count:3];
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v6 forKeys:v5 count:3];
 
   return v3;
 }
 
 - (SBSFeatureFlag)initWithDictionaryRepresentation:(id)representation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
-  v20.receiver = self;
-  v20.super_class = SBSFeatureFlag;
-  v5 = [(SBSFeatureFlag *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = SBSFeatureFlag;
+  v5 = [(SBSFeatureFlag *)&v19 init];
   if (!v5)
   {
     goto LABEL_6;
@@ -77,16 +76,15 @@ LABEL_9:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v22 = "[SBSFeatureFlag initWithDictionaryRepresentation:]";
-    v23 = 2112;
-    v24 = representationCopy;
+    v21 = "[SBSFeatureFlag initWithDictionaryRepresentation:]";
+    v22 = 2112;
+    v23 = representationCopy;
     _os_log_error_impl(&dword_26B246000, v17, OS_LOG_TYPE_ERROR, "%s: Trying to set feature flag with incorrect entry: %@", buf, 0x16u);
   }
 
   v16 = 0;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

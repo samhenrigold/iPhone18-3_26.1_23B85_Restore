@@ -10,7 +10,7 @@
 - (int64_t)selection
 {
   swift_getKeyPath();
-  sub_264C637F0(&qword_27FFA9028, type metadata accessor for STIntroCommunicationLimitsPickerViewModel);
+  sub_264C637F0(&qword_27FFA9028, type metadata accessor for STIntroCommunicationLimitsPickerViewModel, &protocol conformance descriptor for STIntroCommunicationLimitsPickerViewModel);
   selfCopy = self;
   sub_264CC308C();
 
@@ -22,7 +22,7 @@
 - (void)setSelection:(int64_t)selection
 {
   selfCopy = self;
-  sub_264C61260(selection);
+  sub_264C61260(selection, selfCopy);
 }
 
 - (_TtC20ScreenTimeSettingsUI41STIntroCommunicationLimitsPickerViewModel)initWithSelection:(int64_t)selection

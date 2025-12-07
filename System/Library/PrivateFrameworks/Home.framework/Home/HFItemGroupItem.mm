@@ -80,55 +80,54 @@
 
 void __47__HFItemGroupItem__subclass_updateWithOptions___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 1;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__27;
-  v26 = __Block_byref_object_dispose__27;
-  v27 = [MEMORY[0x277CBEB58] set];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__27;
-  v20 = __Block_byref_object_dispose__27;
-  v21 = [MEMORY[0x277CBEB58] set];
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 1;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__27;
+  v25 = __Block_byref_object_dispose__27;
+  v26 = [MEMORY[0x277CBEB58] set];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__27;
+  v19 = __Block_byref_object_dispose__27;
+  v20 = [MEMORY[0x277CBEB58] set];
   v7 = [*(a1 + 32) items];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __47__HFItemGroupItem__subclass_updateWithOptions___block_invoke_4;
-  v15[3] = &unk_277E027F8;
-  v15[4] = &v16;
-  v15[5] = &v22;
-  v15[6] = &v28;
-  [v7 na_each:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __47__HFItemGroupItem__subclass_updateWithOptions___block_invoke_4;
+  v14[3] = &unk_277E027F8;
+  v14[4] = &v15;
+  v14[5] = &v21;
+  v14[6] = &v27;
+  [v7 na_each:v14];
 
-  v8 = v17[5];
-  v32[0] = @"dependentHomeKitClasses";
-  v32[1] = @"dependentHomeKitObjects";
-  v9 = v23[5];
-  v33[0] = v8;
-  v33[1] = v9;
-  v32[2] = @"hidden";
-  v10 = [MEMORY[0x277CCABB0] numberWithBool:*(v29 + 24)];
-  v33[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
+  v8 = v16[5];
+  v31[0] = @"dependentHomeKitClasses";
+  v31[1] = @"dependentHomeKitObjects";
+  v9 = v22[5];
+  v32[0] = v8;
+  v32[1] = v9;
+  v31[2] = @"hidden";
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:*(v28 + 24)];
+  v32[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
 
   v12 = *(a1 + 40);
   v13 = [HFItemUpdateOutcome outcomeWithResults:v11];
   [v12 finishWithResult:v13];
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
 
-  _Block_object_dispose(&v28, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 }
 
 void __47__HFItemGroupItem__subclass_updateWithOptions___block_invoke_4(void *a1, void *a2)

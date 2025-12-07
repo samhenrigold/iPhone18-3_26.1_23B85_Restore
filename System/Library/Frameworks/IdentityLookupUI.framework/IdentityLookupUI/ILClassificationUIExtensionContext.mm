@@ -2,9 +2,18 @@
 - (id)remoteObjectProxyWithErrorHandler:(id)handler;
 - (void)classificationResponseForRequest:(id)request completion:(id)completion;
 - (void)prepareForClassificationRequest:(id)request;
+- (void)setReadyForClassificationResponse:(BOOL)readyForClassificationResponse;
 @end
 
 @implementation ILClassificationUIExtensionContext
+
+- (void)setReadyForClassificationResponse:(BOOL)readyForClassificationResponse
+{
+  v3 = readyForClassificationResponse;
+  self->_readyForClassificationResponse = readyForClassificationResponse;
+  v4 = [(ILClassificationUIExtensionContext *)self remoteObjectProxyWithErrorHandler:&__block_literal_global];
+  [v4 setReadyForClassificationResponse:v3];
+}
 
 void __72__ILClassificationUIExtensionContext_setReadyForClassificationResponse___block_invoke(uint64_t a1, void *a2)
 {
@@ -18,13 +27,13 @@ void __72__ILClassificationUIExtensionContext_setReadyForClassificationResponse_
 
 - (void)prepareForClassificationRequest:(id)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = ILDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = requestCopy;
+    v13 = requestCopy;
     _os_log_impl(&dword_238A6C000, v5, OS_LOG_TYPE_DEFAULT, "Asked to prepare view controller for classification request %@", buf, 0xCu);
   }
 
@@ -34,14 +43,14 @@ void __72__ILClassificationUIExtensionContext_setReadyForClassificationResponse_
 
   if (isKindOfClass)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __70__ILClassificationUIExtensionContext_prepareForClassificationRequest___block_invoke;
-    v10[3] = &unk_278A5F520;
-    v11 = requestCopy;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __70__ILClassificationUIExtensionContext_prepareForClassificationRequest___block_invoke;
+    v9[3] = &unk_278A5F520;
+    v10 = requestCopy;
     selfCopy = self;
-    dispatch_async(MEMORY[0x277D85CD0], v10);
-    v8 = v11;
+    dispatch_async(MEMORY[0x277D85CD0], v9);
+    v8 = v10;
   }
 
   else
@@ -52,26 +61,22 @@ void __72__ILClassificationUIExtensionContext_setReadyForClassificationResponse_
       [ILClassificationUIExtensionContext prepareForClassificationRequest:?];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ILClassificationUIExtensionContext_prepareForClassificationRequest___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = ILDefaultLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_238A6C000, v2, OS_LOG_TYPE_DEFAULT, "Asking extension to prepare for classification request: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_238A6C000, v2, OS_LOG_TYPE_DEFAULT, "Asking extension to prepare for classification request: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) viewController];
   [v4 prepareForClassificationRequest:*(a1 + 32)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)classificationResponseForRequest:(id)request completion:(id)completion
@@ -140,33 +145,26 @@ void __82__ILClassificationUIExtensionContext_classificationResponseForRequest_c
 
 void __72__ILClassificationUIExtensionContext_setReadyForClassificationResponse___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "remoteObjectProxy error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "remoteObjectProxy error: %@", &v2, 0xCu);
 }
 
 - (void)prepareForClassificationRequest:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 viewController];
   objc_opt_class();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_238A6C000, v2, v3, "View controller %@ is not of class %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_238A6C000, v2, v3, "View controller %@ is not of class %@", v4, v5, v6, v7);
 }
 
 - (void)classificationResponseForRequest:(void *)a1 completion:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 viewController];
   objc_opt_class();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_238A6C000, v2, v3, "View controller %@ is not of class %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_238A6C000, v2, v3, "View controller %@ is not of class %@", v4, v5, v6, v7);
 }
 
 @end

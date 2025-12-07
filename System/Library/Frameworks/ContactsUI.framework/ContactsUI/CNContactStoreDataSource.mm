@@ -572,9 +572,9 @@ LABEL_17:
 - (NSArray)contacts
 {
   currentSnapshot = [(CNContactStoreDataSource *)self currentSnapshot];
-  contacts = [currentSnapshot contacts];
+  v3 = objc_msgSend_contacts(currentSnapshot);
 
-  return contacts;
+  return v3;
 }
 
 - (NSDictionary)contactMatchInfos

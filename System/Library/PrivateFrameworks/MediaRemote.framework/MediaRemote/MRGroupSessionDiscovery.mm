@@ -27,7 +27,7 @@
   {
     v5->_lock._os_unfair_lock_opaque = 0;
     v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v8 = MRGroupSessionSubsystemGetNotificationQueue();
+    v8 = MRGroupSessionSubsystemGetNotificationQueue(v7);
     v9 = dispatch_queue_create_with_target_V2("com.apple.MediaRemote.MRGroupSessionDiscovery.callbackQueue", v7, v8);
     callbackQueue = v6->_callbackQueue;
     v6->_callbackQueue = v9;
@@ -99,7 +99,7 @@ uint64_t __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_8(uint
 
 void __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   os_unfair_lock_lock((*(a1 + 32) + 8));
@@ -110,19 +110,17 @@ void __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_2(uint64_t
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = *(a1 + 32);
-    v11 = 138412802;
-    v12 = v9;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_INFO, "[MRGroupSessionDiscovery] %@ XPC connection initialized with state: activeSession=%@, discoveredSessions=%@", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_INFO, "[MRGroupSessionDiscovery] %@ XPC connection initialized with state: activeSession=%@, discoveredSessions=%@", &v10, 0x20u);
   }
 
   [*(a1 + 32) notifyDelegateWithDiscoveredSessions:v6];
   [*(a1 + 32) notifyDelegateWithActiveSession:v7];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNotifications
@@ -133,17 +131,16 @@ void __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_2(uint64_t
 
 - (void)handleDidRestoreConnectionNotification
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(0xCuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionDiscovery] %@ Daemon connection restored. Re-initializing", &v5, 0xCu);
+    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionDiscovery] %@ Daemon connection restored. Re-initializing", &v4, 0xCu);
   }
 
   [(MRGroupSessionDiscovery *)self initializeConnection];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)debugDescription
@@ -185,7 +182,7 @@ void __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_2(uint64_t
 
 - (void)discoveredSessionsDidChange:(id)change
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   os_unfair_lock_lock(&self->_lock);
   objc_storeStrong(&self->_discoveredSessions, change);
@@ -193,20 +190,19 @@ void __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_2(uint64_t
   v6 = _MRLogForCategory(0xCuLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 2112;
-    v11 = changeCopy;
-    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_INFO, "[MRGroupSessionDiscovery] %@ Discovered sessions changed: %@", &v8, 0x16u);
+    v9 = 2112;
+    v10 = changeCopy;
+    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_INFO, "[MRGroupSessionDiscovery] %@ Discovered sessions changed: %@", &v7, 0x16u);
   }
 
   [(MRGroupSessionDiscovery *)self notifyDelegateWithDiscoveredSessions:changeCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activeSessionDidChange:(id)change
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   os_unfair_lock_lock(&self->_lock);
   objc_storeStrong(&self->_activeSession, change);
@@ -214,15 +210,14 @@ void __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_2(uint64_t
   v6 = _MRLogForCategory(0xCuLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 2112;
-    v11 = changeCopy;
-    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_INFO, "[MRGroupSessionDiscovery] %@ Active session changed: %@", &v8, 0x16u);
+    v9 = 2112;
+    v10 = changeCopy;
+    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_INFO, "[MRGroupSessionDiscovery] %@ Active session changed: %@", &v7, 0x16u);
   }
 
   [(MRGroupSessionDiscovery *)self notifyDelegateWithActiveSession:changeCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegateWithDiscoveredSessions:(id)sessions
@@ -270,11 +265,10 @@ void __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_2(uint64_t
 
 void __47__MRGroupSessionDiscovery_initializeConnection__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRGroupSessionDiscovery] %@ XPC connection invalidated", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRGroupSessionDiscovery] %@ XPC connection invalidated", &v2, 0xCu);
 }
 
 @end

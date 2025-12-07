@@ -57,7 +57,7 @@
 
 - (SUCoreDescriptor)initWithSUAsset:(id)asset releaseDate:(id)date prepareSize:(id)size snapshotPrepareSize:(id)prepareSize applySize:(id)applySize snapshotApplySize:(id)snapshotApplySize defaultValues:(id)values
 {
-  v168 = *MEMORY[0x277D85DE8];
+  v173 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   dateCopy = date;
   sizeCopy = size;
@@ -73,20 +73,24 @@
     {
       if ([sUCoreBorder_attributes count])
       {
-        v162 = sizeCopy;
-        v165.receiver = self;
-        v165.super_class = SUCoreDescriptor;
-        v23 = [(SUCoreDescriptor *)&v165 init];
+        v163 = sizeCopy;
+        v170.receiver = self;
+        v170.super_class = SUCoreDescriptor;
+        v23 = [(SUCoreDescriptor *)&v170 init];
         v24 = v23;
         if (!v23)
         {
-LABEL_60:
+LABEL_62:
           self = v24;
           selfCopy = self;
-          sizeCopy = v162;
-          goto LABEL_61;
+          sizeCopy = v163;
+          goto LABEL_63;
         }
 
+        v168 = 0;
+        v169 = 0;
+        v166 = 0;
+        v167 = 0;
         v23->_descriptorType = 1;
         assetType = [assetCopy assetType];
         v26 = [assetType isEqualToString:@"com.apple.MobileAsset.SFRSoftwareUpdate"];
@@ -179,8 +183,8 @@ LABEL_60:
         releaseDate = v24->_releaseDate;
         v24->_releaseDate = 0;
 
-        v160 = dateCopy;
-        v161 = applySizeCopy;
+        v161 = dateCopy;
+        v162 = applySizeCopy;
         if (dateCopy)
         {
           objc_opt_class();
@@ -278,7 +282,7 @@ LABEL_20:
         v24->_lastEmergencyOSVersion = v86;
 
         v88 = [v22 safeObjectForKey:@"MacBuddyEligibleUpdate" ofClass:objc_opt_class()];
-        v159 = v88;
+        v160 = v88;
         if (v88)
         {
           v89 = v88;
@@ -308,7 +312,7 @@ LABEL_20:
           v24->_mandatoryUpdateOptional = 0;
         }
 
-        dateCopy = v160;
+        dateCopy = v161;
         v24->_mandatoryUpdateRestrictedToOutOfTheBox = v94;
         v24->_oneShotBuddyDisabled = [v22 safeBooleanForKey:@"DisableOneShotBuddy"];
         v97 = [v22 safeObjectForKey:@"DisableOneShotBuddyBuilds" ofClass:objc_opt_class()];
@@ -363,9 +367,9 @@ LABEL_20:
             v117 = objc_alloc(MEMORY[0x277CCACA8]);
             v118 = [v22 safeStringForKey:@"__BaseURL"];
             v119 = [v22 safeStringForKey:@"__RelativePath"];
-            v159 = [v117 initWithFormat:@"%@%@", v118, v119, v159];
+            v160 = [v117 initWithFormat:@"%@%@", v118, v119, v160];
             v121 = v24->_softwareUpdateURL;
-            v24->_softwareUpdateURL = v159;
+            v24->_softwareUpdateURL = v160;
           }
         }
 
@@ -377,20 +381,20 @@ LABEL_20:
         measurementAlgorithm = v24->_measurementAlgorithm;
         v24->_measurementAlgorithm = v124;
 
-        if (v162)
+        if (v163)
         {
           mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
           oslog = [mEMORY[0x277D64460] oslog];
 
-          applySizeCopy = v161;
+          applySizeCopy = v162;
           if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v167 = v162;
+            v172 = v163;
             _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Override descriptor attribute msuPrepareSize with %{public}@", buf, 0xCu);
           }
 
-          v24->_msuPrepareSize = [v162 longLongValue];
+          v24->_msuPrepareSize = [v163 longLongValue];
           if (prepareSizeCopy)
           {
             mEMORY[0x277D64460]2 = [MEMORY[0x277D64460] sharedLogger];
@@ -399,30 +403,30 @@ LABEL_20:
             if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v167 = prepareSizeCopy;
+              v172 = prepareSizeCopy;
               _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "Override descriptor attribute msuSnapshotPrepareSize with %{public}@", buf, 0xCu);
             }
 
             v130 = 0;
             v24->_msuSnapshotPrepareSize = [prepareSizeCopy longLongValue];
-            if (!v161)
+            if (!v162)
             {
-              goto LABEL_45;
+              goto LABEL_47;
             }
 
 LABEL_38:
             mEMORY[0x277D64460]3 = [MEMORY[0x277D64460] sharedLogger];
             oslog3 = [mEMORY[0x277D64460]3 oslog];
 
-            applySizeCopy = v161;
+            applySizeCopy = v162;
             if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v167 = v161;
+              v172 = v162;
               _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "Override descriptor attribute installationSize with %{public}@", buf, 0xCu);
             }
 
-            v24->_installationSize = [v161 longLongValue];
+            v24->_installationSize = [v162 longLongValue];
             if (snapshotApplySizeCopy)
             {
               mEMORY[0x277D64460]4 = [MEMORY[0x277D64460] sharedLogger];
@@ -431,19 +435,19 @@ LABEL_38:
               if (os_log_type_enabled(oslog4, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v167 = snapshotApplySizeCopy;
+                v172 = snapshotApplySizeCopy;
                 _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "Override descriptor attribute installationSnapshotSize with %{public}@", buf, 0xCu);
               }
 
               v24->_installationSnapshotSize = [snapshotApplySizeCopy longLongValue];
-              applySizeCopy = v161;
+              applySizeCopy = v162;
             }
 
-            goto LABEL_48;
+            goto LABEL_50;
           }
 
           v130 = 0;
-          if (v161)
+          if (v162)
           {
             goto LABEL_38;
           }
@@ -451,69 +455,75 @@ LABEL_38:
 
         else
         {
-          v130 = SUCoreBorder_MSUAssetCalculatePrepareSize(v22);
-          applySizeCopy = v161;
-          if (v130)
+          v130 = SUCoreBorder_MSUAssetCalculatePrepareSize(v22, &v169, &v168);
+          applySizeCopy = v162;
+          if (!v130)
           {
-            v24->_msuPrepareSize = 0;
-            v24->_msuSnapshotPrepareSize = 0;
-            mEMORY[0x277D64428] = [MEMORY[0x277D64428] sharedDiag];
-            [mEMORY[0x277D64428] trackAnomaly:@"[DESCRIPTOR]" forReason:@"unable to determine prepare size for installation" withResult:8100 withError:v130];
-
-            if (v161)
+            v136 = v168;
+            if (!v168)
             {
-              goto LABEL_38;
+              v136 = v169;
             }
+
+            v24->_msuPrepareSize = v169;
+            v24->_msuSnapshotPrepareSize = v136;
+            if (!v162)
+            {
+              goto LABEL_47;
+            }
+
+            goto LABEL_38;
           }
 
-          else
+          v24->_msuPrepareSize = 0;
+          v24->_msuSnapshotPrepareSize = 0;
+          mEMORY[0x277D64428] = [MEMORY[0x277D64428] sharedDiag];
+          [mEMORY[0x277D64428] trackAnomaly:@"[DESCRIPTOR]" forReason:@"unable to determine prepare size for installation" withResult:8100 withError:v130];
+
+          if (v162)
           {
-            v24->_msuPrepareSize = 0;
-            v24->_msuSnapshotPrepareSize = 0;
-            if (v161)
-            {
-              goto LABEL_38;
-            }
+            goto LABEL_38;
           }
         }
 
-LABEL_45:
-        v136 = SUCoreBorder_MSUAssetCalculateApplySize(v22);
+LABEL_47:
+        v137 = SUCoreBorder_MSUAssetCalculateApplySize(v22, &v167, &v166);
 
-        if (v136)
+        if (v137)
         {
           v24->_installationSize = 0;
           v24->_installationSnapshotSize = 0;
           mEMORY[0x277D64428]2 = [MEMORY[0x277D64428] sharedDiag];
-          [mEMORY[0x277D64428]2 trackAnomaly:@"[DESCRIPTOR]" forReason:@"unable to determine apply size for installation" withResult:8100 withError:v136];
+          [mEMORY[0x277D64428]2 trackAnomaly:@"[DESCRIPTOR]" forReason:@"unable to determine apply size for installation" withResult:8100 withError:v137];
 
-          v130 = v136;
+          v130 = v137;
         }
 
         else
         {
           v130 = 0;
-          v24->_installationSize = 0;
-          v24->_installationSnapshotSize = 0;
+          v139 = v166;
+          v24->_installationSize = v167;
+          v24->_installationSnapshotSize = v139;
         }
 
-LABEL_48:
+LABEL_50:
         if ([SUCoreDescriptor isEmergencyUpdate:v22])
         {
-          v138 = 3;
+          v140 = 3;
         }
 
         else if (v24->_prerequisiteBuild || v24->_prerequisiteOSVersion)
         {
-          v138 = 1;
+          v140 = 1;
         }
 
         else
         {
-          v138 = 2;
+          v140 = 2;
         }
 
-        v24->_updateType = v138;
+        v24->_updateType = v140;
         objc_storeStrong(&v24->_softwareUpdateAsset, asset);
         documentationAsset = v24->_documentationAsset;
         v24->_documentationAsset = 0;
@@ -521,18 +531,18 @@ LABEL_48:
         documentation = v24->_documentation;
         v24->_documentation = 0;
 
-        v141 = [objc_alloc(MEMORY[0x277D64470]) initWithProductVersion:v24->_productVersion productBuildVersion:v24->_productBuildVersion releaseType:v24->_releaseType measurement:v24->_measurement measurementAlgorithm:v24->_measurementAlgorithm];
+        v143 = [objc_alloc(MEMORY[0x277D64470]) initWithProductVersion:v24->_productVersion productBuildVersion:v24->_productBuildVersion releaseType:v24->_releaseType measurement:v24->_measurement measurementAlgorithm:v24->_measurementAlgorithm];
         softwareUpdateAssetIdentifier = v24->_softwareUpdateAssetIdentifier;
-        v24->_softwareUpdateAssetIdentifier = v141;
+        v24->_softwareUpdateAssetIdentifier = v143;
 
         documentationAssetIdentifier = v24->_documentationAssetIdentifier;
         v24->_documentationAssetIdentifier = 0;
 
         v24->_promoteAlternateUpdate = [v22 safeBooleanForKey:@"PromoteAlternateUpdate"];
         v24->_enableAlternateAssetAudience = [v22 safeBooleanForKey:@"EnableAlternateAssetAudience"];
-        v144 = [v22 safeStringForKey:@"AlternateAssetAudienceUUID"];
+        v146 = [v22 safeStringForKey:@"AlternateAssetAudienceUUID"];
         alternateAssetAudienceUUID = v24->_alternateAssetAudienceUUID;
-        v24->_alternateAssetAudienceUUID = v144;
+        v24->_alternateAssetAudienceUUID = v146;
 
         assetAudienceUUID = v24->_assetAudienceUUID;
         v24->_assetAudienceUUID = 0;
@@ -545,9 +555,9 @@ LABEL_48:
 
         v24->_splatOnly = [v22 safeBooleanForKey:@"SplatOnly"];
         v24->_semiSplatEnabled = [v22 safeBooleanForKey:@"SemiSplatEnabled"];
-        v149 = [v22 safeObjectForKey:@"SemiSplatMustQuitApps" ofClass:objc_opt_class()];
+        v151 = [v22 safeObjectForKey:@"SemiSplatMustQuitApps" ofClass:objc_opt_class()];
         semiSplatMustQuitApps = v24->_semiSplatMustQuitApps;
-        v24->_semiSplatMustQuitApps = v149;
+        v24->_semiSplatMustQuitApps = v151;
 
         v24->_revoked = [v22 safeBooleanForKey:@"Revoked"];
         v24->_semiSplatRestartNow = 0;
@@ -555,9 +565,9 @@ LABEL_48:
         v24->_associatedSplatDescriptor = 0;
 
         v24->_disableSplatCombo = [v22 safeBooleanForKey:@"DisableSplombo" defaultValue:{objc_msgSend(valuesCopy, "safeBooleanForKey:defaultValue:", @"DisableSplombo", 0)}];
-        v152 = [v22 safeBooleanForKey:@"DisablePreSoftwareUpdateAssetStaging" defaultValue:{objc_msgSend(valuesCopy, "safeBooleanForKey:defaultValue:", @"DisablePreSoftwareUpdateAssetStaging", 0)}];
-        v24->_enablePreSUStaging = v152 ^ 1;
-        if (v152)
+        v154 = [v22 safeBooleanForKey:@"DisablePreSoftwareUpdateAssetStaging" defaultValue:{objc_msgSend(valuesCopy, "safeBooleanForKey:defaultValue:", @"DisablePreSoftwareUpdateAssetStaging", 0)}];
+        v24->_enablePreSUStaging = v154 ^ 1;
+        if (v154)
         {
           v24->_enablePreSUStagingForOptionalAssets = 0;
         }
@@ -566,28 +576,28 @@ LABEL_48:
         {
           if (valuesCopy)
           {
-            v153 = [valuesCopy safeBooleanForKey:@"EnablePSUSForOptionalAssets" defaultValue:1];
-            v154 = v22;
+            v155 = [valuesCopy safeBooleanForKey:@"EnablePSUSForOptionalAssets" defaultValue:1];
+            v156 = v22;
           }
 
           else
           {
-            v154 = v22;
-            v153 = 1;
+            v156 = v22;
+            v155 = 1;
           }
 
-          v24->_enablePreSUStagingForOptionalAssets = [v154 safeBooleanForKey:@"EnablePSUSForOptionalAssets" defaultValue:v153];
+          v24->_enablePreSUStagingForOptionalAssets = [v156 safeBooleanForKey:@"EnablePSUSForOptionalAssets" defaultValue:v155];
         }
 
         v24->_preSUStagingMaxSize = [v22 safeULLForKey:@"PreSUStagingMaxSize" defaultValue:12000000000];
         v24->_minFreeSpacePostStageOptionalAssets = [v22 safeULForKey:@"MinFreeSpacePostStageOptionalAssets" defaultValue:0];
         v24->_disableSecurityAdvisoryNotification = [v22 safeBooleanForKey:@"DisableSecurityAdvisoryNotification"];
         v24->_disableDeviceCompatibilityNotification = [v22 safeBooleanForKey:@"DisableDeviceCompatibilityNotification"];
-        v155 = [v22 safeObjectForKey:@"AlignediOSMajorVersion" ofClass:objc_opt_class()];
+        v157 = [v22 safeObjectForKey:@"AlignediOSMajorVersion" ofClass:objc_opt_class()];
         alignediOSMajorVersion = v24->_alignediOSMajorVersion;
-        v24->_alignediOSMajorVersion = v155;
+        v24->_alignediOSMajorVersion = v157;
 
-        goto LABEL_60;
+        goto LABEL_62;
       }
 
       mEMORY[0x277D64428]3 = [MEMORY[0x277D64428] sharedDiag];
@@ -605,18 +615,17 @@ LABEL_48:
     [mEMORY[0x277D64428]3 trackError:@"[DESCRIPTOR]" forReason:v71 withResult:8100 withError:0];
 
     selfCopy = 0;
-LABEL_61:
+LABEL_63:
 
-    goto LABEL_62;
+    goto LABEL_64;
   }
 
   mEMORY[0x277D64428]4 = [MEMORY[0x277D64428] sharedDiag];
   [mEMORY[0x277D64428]4 trackError:@"[DESCRIPTOR]" forReason:@"unable to create SU descriptor: nil update asset" withResult:8100 withError:0];
 
   selfCopy = 0;
-LABEL_62:
+LABEL_64:
 
-  v157 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -1498,7 +1507,7 @@ LABEL_13:
 
 - (NSString)productSystemName
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   productSystemName = self->_productSystemName;
   if (productSystemName)
   {
@@ -1518,9 +1527,9 @@ LABEL_13:
     {
       if (v8)
       {
-        v12 = 138543362;
-        v13 = marketingProductName;
-        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Falling back to marketingProductName:%{public}@", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = marketingProductName;
+        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Falling back to marketingProductName:%{public}@", &v11, 0xCu);
       }
 
       v3 = [MEMORY[0x277CCACA8] stringWithString:marketingProductName];
@@ -1530,9 +1539,9 @@ LABEL_13:
     {
       if (v8)
       {
-        v12 = 138543362;
-        v13 = @"OS";
-        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Falling back to kSUProductSystemNameDefault:%{public}@", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = @"OS";
+        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Falling back to kSUProductSystemNameDefault:%{public}@", &v11, 0xCu);
       }
 
       mEMORY[0x277D64428] = [MEMORY[0x277D64428] sharedDiag];
@@ -1541,8 +1550,6 @@ LABEL_13:
       v3 = @"OS";
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1612,8 +1619,10 @@ LABEL_13:
 
 - (unint64_t)refreshPrepareSize
 {
+  v9 = 0;
+  v10 = 0;
   bundleAttributes = [(SUCoreDescriptor *)self bundleAttributes];
-  v4 = SUCoreBorder_MSUAssetCalculatePrepareSize(bundleAttributes);
+  v4 = SUCoreBorder_MSUAssetCalculatePrepareSize(bundleAttributes, &v10, &v9);
 
   if (v4)
   {
@@ -1623,8 +1632,14 @@ LABEL_13:
 
   else
   {
-    self->_msuPrepareSize = 0;
-    self->_msuSnapshotPrepareSize = 0;
+    v6 = v9;
+    if (!v9)
+    {
+      v6 = v10;
+    }
+
+    self->_msuPrepareSize = v10;
+    self->_msuSnapshotPrepareSize = v6;
   }
 
   msuPrepareSize = [(SUCoreDescriptor *)self msuPrepareSize];
@@ -1634,8 +1649,10 @@ LABEL_13:
 
 - (unint64_t)refreshInstallationSize
 {
+  v9 = 0;
+  v10 = 0;
   bundleAttributes = [(SUCoreDescriptor *)self bundleAttributes];
-  v4 = SUCoreBorder_MSUAssetCalculateApplySize(bundleAttributes);
+  v4 = SUCoreBorder_MSUAssetCalculateApplySize(bundleAttributes, &v10, &v9);
 
   if (v4)
   {
@@ -1645,8 +1662,9 @@ LABEL_13:
 
   else
   {
-    self->_installationSize = 0;
-    self->_installationSnapshotSize = 0;
+    v6 = v9;
+    self->_installationSize = v10;
+    self->_installationSnapshotSize = v6;
   }
 
   installationSize = [(SUCoreDescriptor *)self installationSize];
@@ -1754,7 +1772,7 @@ LABEL_13:
 
 + (BOOL)isEmergencyUpdate:(id)update
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (updateCopy)
   {
@@ -1768,8 +1786,8 @@ LABEL_13:
 
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v27) = 0;
-        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "isEmergencyUpdate returns NO because currentBuild is nil", &v27, 2u);
+        LOWORD(v26) = 0;
+        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "isEmergencyUpdate returns NO because currentBuild is nil", &v26, 2u);
       }
 
       v15 = 0;
@@ -1786,8 +1804,8 @@ LABEL_13:
 
       if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v27) = 0;
-        _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "isEmergencyUpdate returns NO because currentOSVersion is nil", &v27, 2u);
+        LOWORD(v26) = 0;
+        _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "isEmergencyUpdate returns NO because currentOSVersion is nil", &v26, 2u);
       }
 
       v15 = 0;
@@ -1806,16 +1824,16 @@ LABEL_13:
 
         if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 138543618;
-          v28 = v10;
-          v29 = 2114;
-          v30 = oslog;
+          v26 = 138543618;
+          v27 = v10;
+          v28 = 2114;
+          v29 = oslog;
           v21 = "isEmergencyUpdate returns NO because lastEmergencyOSVersion:%{public}@ is less than currentOSVersion:%{public}@";
 LABEL_29:
           v22 = oslog3;
           v23 = 22;
 LABEL_30:
-          _os_log_impl(&dword_23193C000, v22, OS_LOG_TYPE_DEFAULT, v21, &v27, v23);
+          _os_log_impl(&dword_23193C000, v22, OS_LOG_TYPE_DEFAULT, v21, &v26, v23);
         }
       }
 
@@ -1830,8 +1848,8 @@ LABEL_30:
         {
           if (v14)
           {
-            LOWORD(v27) = 0;
-            _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "isEmergencyUpdate: YES", &v27, 2u);
+            LOWORD(v26) = 0;
+            _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "isEmergencyUpdate: YES", &v26, 2u);
           }
 
           v15 = 1;
@@ -1840,10 +1858,10 @@ LABEL_30:
 
         if (v14)
         {
-          v27 = 138543618;
-          v28 = oslog2;
-          v29 = 2114;
-          v30 = buildVersion;
+          v26 = 138543618;
+          v27 = oslog2;
+          v28 = 2114;
+          v29 = buildVersion;
           v21 = "isEmergencyUpdate returns NO because lastEmergencyBuild:%{public}@ is less than currentBuild:%{public}@";
           goto LABEL_29;
         }
@@ -1867,8 +1885,8 @@ LABEL_30:
           v20 = @"LastEmergencyBuild";
         }
 
-        v27 = 138543362;
-        v28 = v20;
+        v26 = 138543362;
+        v27 = v20;
         v21 = "isEmergencyUpdate returns NO because asset attributes does no contain %{public}@";
         v22 = oslog3;
         v23 = 12;
@@ -1890,14 +1908,13 @@ LABEL_34:
 
   if (os_log_type_enabled(buildVersion, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v27) = 0;
-    _os_log_impl(&dword_23193C000, buildVersion, OS_LOG_TYPE_DEFAULT, "isEmergencyUpdate returns NO because assetAttributes is nil", &v27, 2u);
+    LOWORD(v26) = 0;
+    _os_log_impl(&dword_23193C000, buildVersion, OS_LOG_TYPE_DEFAULT, "isEmergencyUpdate returns NO because assetAttributes is nil", &v26, 2u);
   }
 
   v15 = 0;
 LABEL_35:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2029,11 +2046,11 @@ LABEL_35:
 
 - (SUCoreDescriptor)initWithCoder:(id)coder
 {
-  v155[3] = *MEMORY[0x277D85DE8];
+  v154[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v154.receiver = self;
-  v154.super_class = SUCoreDescriptor;
-  v5 = [(SUCoreDescriptor *)&v154 init];
+  v153.receiver = self;
+  v153.super_class = SUCoreDescriptor;
+  v5 = [(SUCoreDescriptor *)&v153 init];
   if (v5)
   {
     v5->_descriptorType = [coderCopy decodeIntForKey:@"DescriptorType"];
@@ -2158,13 +2175,13 @@ LABEL_35:
 
     v5->_streamingZipCapable = [coderCopy decodeBoolForKey:@"StreamingZipCapable"];
     v62 = MEMORY[0x277CBEB98];
-    v155[0] = objc_opt_class();
-    v155[1] = objc_opt_class();
-    v155[2] = objc_opt_class();
-    v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v155 count:3];
-    v153 = [v62 setWithArray:v63];
+    v154[0] = objc_opt_class();
+    v154[1] = objc_opt_class();
+    v154[2] = objc_opt_class();
+    v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v154 count:3];
+    v152 = [v62 setWithArray:v63];
 
-    v64 = [coderCopy decodeObjectOfClasses:v153 forKey:@"SystemPartitionPadding"];
+    v64 = [coderCopy decodeObjectOfClasses:v152 forKey:@"SystemPartitionPadding"];
     systemPartitionPadding = v5->_systemPartitionPadding;
     v5->_systemPartitionPadding = v64;
 
@@ -2378,7 +2395,6 @@ LABEL_35:
     v5->_alignediOSMajorVersion = v149;
   }
 
-  v151 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

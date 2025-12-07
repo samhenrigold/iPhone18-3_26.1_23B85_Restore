@@ -35,8 +35,8 @@
 {
   MEMORY[0x1E69E5928](name);
   MEMORY[0x1E69E5928](self);
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  HeadphoneReplayDevice.name.setter();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  HeadphoneReplayDevice.name.setter(v4, v5);
   MEMORY[0x1E69E5920](name);
   MEMORY[0x1E69E5920](self);
 }
@@ -99,7 +99,7 @@
 - (void)setBatteryLevelMain:(float)main
 {
   MEMORY[0x1E69E5928](self);
-  HeadphoneReplayDevice.batteryLevelMain.setter();
+  HeadphoneReplayDevice.batteryLevelMain.setter(main);
   MEMORY[0x1E69E5920](self);
 }
 
@@ -114,7 +114,7 @@
 - (void)setBatteryLevelCase:(float)case
 {
   MEMORY[0x1E69E5928](self);
-  HeadphoneReplayDevice.batteryLevelCase.setter();
+  HeadphoneReplayDevice.batteryLevelCase.setter(case);
   MEMORY[0x1E69E5920](self);
 }
 
@@ -129,7 +129,7 @@
 - (void)setBatteryLevelLeft:(float)left
 {
   MEMORY[0x1E69E5928](self);
-  HeadphoneReplayDevice.batteryLevelLeft.setter();
+  HeadphoneReplayDevice.batteryLevelLeft.setter(left);
   MEMORY[0x1E69E5920](self);
 }
 
@@ -144,7 +144,7 @@
 - (void)setBatteryLevelRight:(float)right
 {
   MEMORY[0x1E69E5928](self);
-  HeadphoneReplayDevice.batteryLevelRight.setter();
+  HeadphoneReplayDevice.batteryLevelRight.setter(right);
   MEMORY[0x1E69E5920](self);
 }
 

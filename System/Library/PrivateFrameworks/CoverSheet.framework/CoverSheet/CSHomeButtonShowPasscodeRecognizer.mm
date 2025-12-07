@@ -359,7 +359,7 @@ LABEL_9:
   _os_log_debug_impl(&dword_21EB05000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@] fingerOn", &v3, 0xCu);
 }
 
-- (void)noteAuthenticated:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
+- (void)noteAuthenticated:(NSObject *)a3 .cold.1(uint64_t a1, char a2, NSObject *a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 8);

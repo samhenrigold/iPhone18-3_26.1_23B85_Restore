@@ -156,7 +156,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v8 = _PTLogSystem();
+  v8 = _PTLogSystem(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [PTCinematographyDetection(Serialization) _detectionsFromInnerAtomStream:v8];
@@ -247,7 +247,7 @@ LABEL_10:
 {
   v3 = MEMORY[0x277CCACA8];
   focusIdentifier = [(PTCinematographyDetection *)self focusIdentifier];
-  [(PTCinematographyDetection *)self time];
+  objc_msgSend_time(self);
   v5 = NSStringFromCMTime(&v11);
   v6 = MEMORY[0x277CCAE60];
   [(PTCinematographyDetection *)self rect];
@@ -308,10 +308,10 @@ LABEL_10:
         goto LABEL_12;
       }
 
-      [(PTCinematographyDetection *)self time];
+      objc_msgSend_time(self);
       if (v5)
       {
-        [(PTCinematographyDetection *)v5 time];
+        objc_msgSend_time(v5);
       }
 
       else
@@ -346,7 +346,7 @@ LABEL_12:
 {
   trackIdentifier = [(PTCinematographyDetection *)self trackIdentifier];
   v4 = ([(PTCinematographyDetection *)self detectionType]+ trackIdentifier);
-  [(PTCinematographyDetection *)self time];
+  objc_msgSend_time(self);
   v5 = v4 + CMTimeGetSeconds(&time) * 600.0;
   [(PTCinematographyDetection *)self rect];
   v7 = v5 + v6;
@@ -357,7 +357,7 @@ LABEL_12:
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
   v4 = [PTCinematographyDetection alloc];
-  [(PTCinematographyDetection *)self time];
+  objc_msgSend_time(self);
   [(PTCinematographyDetection *)self rect];
   v6 = v5;
   v8 = v7;
@@ -410,7 +410,7 @@ LABEL_12:
   v8 = *MEMORY[0x277D85DE8];
   if (identifier == 0xFFFFFFFFLL)
   {
-    v4 = _PTLogSystem();
+    v4 = _PTLogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -573,7 +573,7 @@ LABEL_12:
   trackNumber = [(PTCinematographyDetection *)self trackNumber];
   [v3 setObject:trackNumber forKeyedSubscript:@"detected_object_id"];
 
-  [(PTCinematographyDetection *)self time];
+  objc_msgSend_time(self);
   v5 = PTCinematographyDictionaryFromCMTime(&v20);
   [v3 setObject:v5 forKeyedSubscript:@"ptime"];
 
@@ -697,10 +697,10 @@ LABEL_12:
 
   if (!trackNumber)
   {
-    v6 = _PTLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _PTLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(PTCinematographyDetection(Private) *)self _fixMissingTrackIdentifier:v6];
+      [(PTCinematographyDetection(Private) *)self _fixMissingTrackIdentifier:v7];
     }
 
     0xFF00000000 = [MEMORY[0x277CCABB0] numberWithInteger:identifier | 0xFF00000000];

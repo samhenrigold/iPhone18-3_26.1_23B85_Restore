@@ -199,7 +199,7 @@ LABEL_11:
       [tapCopy locationInView:self];
       v20 = 0uLL;
       v21 = 0;
-      [(PXLivePhotoTrimScrubber *)self timeAtPoint:?];
+      objc_msgSend_timeAtPoint_(self);
       delegate = [(PXLivePhotoTrimScrubber *)self delegate];
       v6 = objc_opt_respondsToSelector();
 
@@ -243,7 +243,7 @@ LABEL_11:
         [tapCopy locationInView:self];
         v20 = 0uLL;
         v21 = 0;
-        [(PXLivePhotoTrimScrubber *)self timeAtPoint:?];
+        objc_msgSend_timeAtPoint_(self);
         v18 = v20;
         v19 = v21;
         [(PXLivePhotoTrimScrubber *)self handleSetKeyTime:&v18];

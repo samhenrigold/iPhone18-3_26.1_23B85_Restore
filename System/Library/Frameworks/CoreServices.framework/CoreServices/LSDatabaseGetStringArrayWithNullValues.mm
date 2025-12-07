@@ -3,22 +3,17 @@
 
 @implementation LSDatabaseGetStringArrayWithNullValues
 
-void ___LSDatabaseGetStringArrayWithNullValues_block_invoke(uint64_t a1)
+void ___LSDatabaseGetStringArrayWithNullValues_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    v3 = v2[5];
-  }
-
-  v5 = _CSStringCopyCFString();
+  v4 = *(a1 + 40);
+  v6 = _CSStringCopyCFString();
   [*(a1 + 32) addPointer:?];
-  if (!v5)
+  if (!v6)
   {
-    v4 = *(a1 + 48);
-    if (v4)
+    v5 = *(a1 + 48);
+    if (v5)
     {
-      *v4 = 1;
+      *v5 = 1;
     }
   }
 }

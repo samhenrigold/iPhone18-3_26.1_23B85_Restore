@@ -7,53 +7,53 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_allocWithZone_(MDLSkeleton, a2, zone);
-  v7 = objc_msgSend_name(self, v5, v6);
-  v9 = objc_msgSend_initWithName_jointPaths_(v4, v8, v7, self->_jointPaths);
+  v13 = objc_msgSend_allocWithZone_(MDLSkeleton, a2, zone, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v25 = objc_msgSend_name(self, v14, v15, v16, v21, v22, v23, v24, v17, v18, v19, v20);
+  v35 = objc_msgSend_initWithName_jointPaths_(v13, v26, v25, self->_jointPaths, v31, v32, v33, v34, v27, v28, v29, v30);
 
-  v12 = objc_msgSend_copy(self->_jointBindTransforms, v10, v11);
-  v13 = v9[8];
-  v9[8] = v12;
+  v47 = objc_msgSend_copy(self->_jointBindTransforms, v36, v37, v38, v43, v44, v45, v46, v39, v40, v41, v42);
+  v48 = v35[8];
+  v35[8] = v47;
 
-  v16 = objc_msgSend_copy(self->_jointBindTransforms, v14, v15);
-  v17 = v9[9];
-  v9[9] = v16;
+  v60 = objc_msgSend_copy(self->_jointBindTransforms, v49, v50, v51, v56, v57, v58, v59, v52, v53, v54, v55);
+  v61 = v35[9];
+  v35[9] = v60;
 
-  return v9;
+  return v35;
 }
 
 - (MDLSkeleton)initWithName:(NSString *)name jointPaths:(NSArray *)jointPaths
 {
   v6 = name;
   v7 = jointPaths;
-  v33.receiver = self;
-  v33.super_class = MDLSkeleton;
-  v10 = [(MDLObject *)&v33 init];
-  if (v10)
+  v96.receiver = self;
+  v96.super_class = MDLSkeleton;
+  v15 = [(MDLObject *)&v96 init];
+  if (v15)
   {
-    v11 = objc_msgSend_copy(v6, v8, v9);
-    objc_msgSend_setName_(v10, v12, v11);
+    v20 = objc_msgSend_copy(v6, v8, v9, v10, v16, v17, v18, v19, v11, v12, v13, v14);
+    objc_msgSend_setName_(v15, v21, v20, v22, v27, v28, v29, v30, v23, v24, v25, v26);
 
-    v15 = objc_msgSend_copy(v7, v13, v14);
-    v16 = v10->_jointPaths;
-    v10->_jointPaths = v15;
+    v42 = objc_msgSend_copy(v7, v31, v32, v33, v38, v39, v40, v41, v34, v35, v36, v37);
+    v43 = v15->_jointPaths;
+    v15->_jointPaths = v42;
 
-    v17 = [MDLMatrix4x4Array alloc];
-    v20 = objc_msgSend_count(v10->_jointPaths, v18, v19);
-    v22 = objc_msgSend_initWithElementCount_(v17, v21, v20);
-    jointBindTransforms = v10->_jointBindTransforms;
-    v10->_jointBindTransforms = v22;
+    v44 = [MDLMatrix4x4Array alloc];
+    v56 = objc_msgSend_count(v15->_jointPaths, v45, v46, v47, v52, v53, v54, v55, v48, v49, v50, v51);
+    v67 = objc_msgSend_initWithElementCount_(v44, v57, v56, v58, v63, v64, v65, v66, v59, v60, v61, v62);
+    jointBindTransforms = v15->_jointBindTransforms;
+    v15->_jointBindTransforms = v67;
 
-    v24 = [MDLMatrix4x4Array alloc];
-    v27 = objc_msgSend_count(v10->_jointPaths, v25, v26);
-    v29 = objc_msgSend_initWithElementCount_(v24, v28, v27);
-    jointRestTransforms = v10->_jointRestTransforms;
-    v10->_jointRestTransforms = v29;
+    v69 = [MDLMatrix4x4Array alloc];
+    v81 = objc_msgSend_count(v15->_jointPaths, v70, v71, v72, v77, v78, v79, v80, v73, v74, v75, v76);
+    v92 = objc_msgSend_initWithElementCount_(v69, v82, v81, v83, v88, v89, v90, v91, v84, v85, v86, v87);
+    jointRestTransforms = v15->_jointRestTransforms;
+    v15->_jointRestTransforms = v92;
 
-    v31 = v10;
+    v94 = v15;
   }
 
-  return v10;
+  return v15;
 }
 
 @end

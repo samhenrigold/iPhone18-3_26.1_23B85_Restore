@@ -15,7 +15,7 @@
   v9.receiver = self;
   v9.super_class = type metadata accessor for BlurrableButton();
   height = [(BlurrableButton *)&v9 initWithFrame:x, y, width, height];
-  sub_18B7C46DC(height, type metadata accessor for BlurrableButton);
+  sub_18B7C46DC(height, type metadata accessor for BlurrableButton, sub_18BC0F510);
 
   return height;
 }
@@ -31,7 +31,7 @@
   if (v5)
   {
     v7 = v5;
-    sub_18B7C46DC(v7, type metadata accessor for BlurrableButton);
+    sub_18B7C46DC(v7, type metadata accessor for BlurrableButton, sub_18BC0F510);
   }
 
   return v6;

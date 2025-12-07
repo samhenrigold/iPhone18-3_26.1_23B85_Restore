@@ -22,7 +22,7 @@
   v8 = *(&self->super.isa + OBJC_IVAR____TtCV8RemoteUI14PinViewElement15ScriptInterface_valueBinding);
   v9 = v3;
   v10 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CD9D190);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CD9D190, &qword_21BA92F50);
   MEMORY[0x21CEFCD90](&v7, v4);
   v5 = sub_21BA87C8C();
 

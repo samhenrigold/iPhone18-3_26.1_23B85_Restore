@@ -9,7 +9,7 @@
 
 - (BOOL)isBlockedByUserFeedback
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   keyAsset = [(PGPotentialUpNextMemory *)self keyAsset];
   if (keyAsset)
   {
@@ -19,30 +19,30 @@
     if ([v5 count])
     {
       v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v22;
+        v10 = *v21;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v22 != v10)
+            if (*v21 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            uuid = [*(*(&v21 + 1) + 8 * i) uuid];
+            uuid = [*(*(&v20 + 1) + 8 * i) uuid];
             [v6 addObject:uuid];
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v9);
@@ -68,7 +68,6 @@
     LOBYTE(v18) = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

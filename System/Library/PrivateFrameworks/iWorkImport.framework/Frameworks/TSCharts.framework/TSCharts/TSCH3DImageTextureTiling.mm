@@ -88,20 +88,20 @@
   v9 = tilingCopy;
   if (tilingCopy)
   {
-    objc_msgSend_scale(tilingCopy, v5, v6, v7, v8);
-    v10 = v19;
+    objc_msgSend_scale(tilingCopy, v6, v7, v8);
+    v10 = v18;
   }
 
   else
   {
-    v19 = 0.0;
+    v18 = 0.0;
     v10 = 0.0;
   }
 
-  v20 = v10;
-  objc_msgSend_setScale_(self, v5, v10, v7, v8, &v20, *&v19);
-  objc_msgSend_rotation(v9, v11, v12, v13, v14);
-  objc_msgSend_setRotation_(self, v15, v16, v17, v18);
+  v19 = v10;
+  objc_msgSend_setScale_(self, v5, v10, v7, v8, &v19, *&v18);
+  objc_msgSend_rotation(v9, v11, v12, v13);
+  objc_msgSend_setRotation_(self, v14, v15, v16, v17);
 }
 
 + (id)instanceWithArchive:(const void *)archive unarchiver:(id)unarchiver

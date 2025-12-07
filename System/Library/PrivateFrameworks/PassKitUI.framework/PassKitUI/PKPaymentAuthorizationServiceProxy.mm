@@ -215,9 +215,9 @@ void __95__PKPaymentAuthorizationServiceProxy_authorizationDidRequestMerchantSes
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-void __89__PKPaymentAuthorizationServiceProxy_authorizationDidAuthorizeContextCompleteWithResult___block_invoke(uint64_t a1)
+void __89__PKPaymentAuthorizationServiceProxy_authorizationDidAuthorizeContextCompleteWithResult___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 40));
@@ -226,21 +226,21 @@ void __89__PKPaymentAuthorizationServiceProxy_authorizationDidAuthorizeContextCo
 
   else
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      v5 = [*(*(a1 + 40) + 24) merchantIdentifier];
+      *buf = 138412290;
+      v8 = v5;
+      _os_log_fault_impl(&dword_1BD026000, v3, OS_LOG_TYPE_FAULT, "PKPaymentAuthorizationResult was nil. This is a serious error: %@", buf, 0xCu);
+    }
+
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [*(*(a1 + 40) + 24) merchantIdentifier];
       *buf = 138412290;
-      v7 = v4;
-      _os_log_fault_impl(&dword_1BD026000, v2, OS_LOG_TYPE_FAULT, "PKPaymentAuthorizationResult was nil. This is a serious error: %@", buf, 0xCu);
-    }
-
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [*(*(a1 + 40) + 24) merchantIdentifier];
-      *buf = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationResult was nil. This is a serious error: %@", buf, 0xCu);
+      v8 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationResult was nil. This is a serious error: %@", buf, 0xCu);
     }
   }
 }
@@ -258,9 +258,9 @@ void __89__PKPaymentAuthorizationServiceProxy_authorizationDidAuthorizeContextCo
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-void __89__PKPaymentAuthorizationServiceProxy_authorizationDidAuthorizePaymentCompleteWithResult___block_invoke(uint64_t a1)
+void __89__PKPaymentAuthorizationServiceProxy_authorizationDidAuthorizePaymentCompleteWithResult___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 40));
@@ -269,21 +269,21 @@ void __89__PKPaymentAuthorizationServiceProxy_authorizationDidAuthorizePaymentCo
 
   else
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      v5 = [*(*(a1 + 40) + 24) merchantIdentifier];
+      *buf = 138412290;
+      v8 = v5;
+      _os_log_fault_impl(&dword_1BD026000, v3, OS_LOG_TYPE_FAULT, "PKPaymentAuthorizationResult was nil. This is a serious error: %@", buf, 0xCu);
+    }
+
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [*(*(a1 + 40) + 24) merchantIdentifier];
       *buf = 138412290;
-      v7 = v4;
-      _os_log_fault_impl(&dword_1BD026000, v2, OS_LOG_TYPE_FAULT, "PKPaymentAuthorizationResult was nil. This is a serious error: %@", buf, 0xCu);
-    }
-
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = [*(*(a1 + 40) + 24) merchantIdentifier];
-      *buf = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationResult was nil. This is a serious error: %@", buf, 0xCu);
+      v8 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationResult was nil. This is a serious error: %@", buf, 0xCu);
     }
   }
 }

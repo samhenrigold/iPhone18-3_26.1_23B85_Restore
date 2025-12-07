@@ -447,24 +447,24 @@ BOOL __77__WBSFormAutoFillCorrectionsSQLiteStore__migrateToSchemaVersion_forData
 - (int)_setDatabaseSchemaVersion:(int)version forDatabase:(id)database
 {
   v4 = *&version;
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA user_version = %d", v4];
   v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(databaseCopy, 0, v6);
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       lastErrorMessage = [databaseCopy lastErrorMessage];
       *buf = 67109634;
-      v12 = v4;
-      v13 = 2112;
-      v14 = lastErrorMessage;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to set the AutoFill corrections database schema version to %d: %@ (%d)", buf, 0x18u);
+      v14 = v4;
+      v15 = 2112;
+      v16 = lastErrorMessage;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to set the AutoFill corrections database schema version to %d: %@ (%d)", buf, 0x18u);
     }
   }
 
@@ -476,9 +476,9 @@ BOOL __77__WBSFormAutoFillCorrectionsSQLiteStore__migrateToSchemaVersion_forData
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"CREATE TABLE whitelist (id INTEGER PRIMARY KEY AUTOINCREMENT,domain TEXT NOT NULL UNIQUE)");
   if (v3 != 101)
   {
-    v6 = v3;
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = v3;
+    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -488,27 +488,12 @@ BOOL __77__WBSFormAutoFillCorrectionsSQLiteStore__migrateToSchemaVersion_forData
     goto LABEL_17;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"CREATE TABLE hosts (id INTEGER PRIMARY KEY AUTOINCREMENT,domain TEXT NOT NULL UNIQUE)");
-  if (v4 != 101)
-  {
-    v6 = v4;
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      [WBSFormAutoFillCorrectionsSQLiteStore _createFreshParsecDatabaseSchema];
-    }
-
-    goto LABEL_17;
-  }
-
-  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"CREATE TABLE corrections (id INTEGER PRIMARY KEY AUTOINCREMENT,host_id INTEGER REFERENCES hosts(id) ON DELETE CASCADE,fingerprint TEXT NOT NULL,classification TEXT)");
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"CREATE TABLE hosts (id INTEGER PRIMARY KEY AUTOINCREMENT,domain TEXT NOT NULL UNIQUE)");
   if (v5 != 101)
   {
-    v6 = v5;
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = v5;
+    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -518,11 +503,27 @@ BOOL __77__WBSFormAutoFillCorrectionsSQLiteStore__migrateToSchemaVersion_forData
     goto LABEL_17;
   }
 
-  v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"CREATE TABLE metadata (key TEXT NOT NULL UNIQUE, value)");
-  if (v6 != 101)
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"CREATE TABLE corrections (id INTEGER PRIMARY KEY AUTOINCREMENT,host_id INTEGER REFERENCES hosts(id) ON DELETE CASCADE,fingerprint TEXT NOT NULL,classification TEXT)");
+  if (v7 != 101)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = v7;
+    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
+      objc_claimAutoreleasedReturnValue();
+      [WBSFormAutoFillCorrectionsSQLiteStore _createFreshParsecDatabaseSchema];
+    }
+
+    goto LABEL_17;
+  }
+
+  v9 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"CREATE TABLE metadata (key TEXT NOT NULL UNIQUE, value)");
+  v11 = v9;
+  if (v9 != 101)
+  {
+    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -531,11 +532,11 @@ BOOL __77__WBSFormAutoFillCorrectionsSQLiteStore__migrateToSchemaVersion_forData
 
 LABEL_17:
 
-    return v6;
+    return v11;
   }
 
   [(WBSFormAutoFillCorrectionsSQLiteStore *)self _setDatabaseSchemaVersion:1 forDatabase:self->_parsecDatabase];
-  return v6;
+  return v11;
 }
 
 - (int)_migrateToSchemaVersion_2
@@ -543,9 +544,9 @@ LABEL_17:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"DROP TABLE corrections");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v3;
+    v8 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -555,11 +556,12 @@ LABEL_17:
     goto LABEL_7;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"DROP TABLE hosts");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"DROP TABLE hosts");
+  v7 = v5;
+  if (v5 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -569,7 +571,7 @@ LABEL_17:
 LABEL_7:
   }
 
-  return v4;
+  return v7;
 }
 
 + (id)_obsoleteLocalDatabaseURLForRemoval
@@ -617,47 +619,48 @@ LABEL_7:
 
 void __63__WBSFormAutoFillCorrectionsSQLiteStore_removeObsoleteDatabase__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  MEMORY[0x1BFB13270](v13, @"com.apple.SafariShared.WBSFormAutoFillCorrectionsSQLiteStore");
+  v19 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1BFB13270](v17, @"com.apple.SafariShared.WBSFormAutoFillCorrectionsSQLiteStore");
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = [*(a1 + 32) path];
   v4 = [v2 fileExistsAtPath:v3];
 
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Deleting obsolete local AutoFill corrections database.", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Deleting obsolete local AutoFill corrections database.", buf, 2u);
     }
 
-    v6 = *(a1 + 32);
-    v12 = 0;
-    v7 = [v2 safari_removeFileOnlyAtURL:v6 error:&v12];
-    v8 = v12;
-    if (v7)
+    v8 = *(a1 + 32);
+    v16 = 0;
+    v9 = [v2 safari_removeFileOnlyAtURL:v8 error:&v16];
+    v10 = v16;
+    v12 = v10;
+    if (v9)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Successfully deleted obsolete local AutoFill corrections database.", buf, 2u);
+        _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Successfully deleted obsolete local AutoFill corrections database.", buf, 2u);
       }
     }
 
     else
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXAutoFill(v10, v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v11 = [v8 safari_privacyPreservingDescription];
-        __63__WBSFormAutoFillCorrectionsSQLiteStore_removeObsoleteDatabase__block_invoke_cold_1(v11, buf, v10);
+        v15 = [v12 safari_privacyPreservingDescription];
+        __63__WBSFormAutoFillCorrectionsSQLiteStore_removeObsoleteDatabase__block_invoke_cold_1(v15, buf, v14);
       }
     }
   }
 
-  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v13);
+  SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v17);
 }
 
 - (void)_openDatabasesIfNeeded
@@ -674,46 +677,47 @@ void __63__WBSFormAutoFillCorrectionsSQLiteStore_removeObsoleteDatabase__block_i
 - (void)_configureDatabase:(id)database currentSchemaVersion:(int)version
 {
   v4 = *&version;
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   v7 = [databaseCopy url];
   [databaseCopy setBusyTimeout:1.0];
-  v18 = 0;
-  v8 = [databaseCopy enableWAL:&v18];
-  v9 = v18;
+  v20 = 0;
+  v8 = [databaseCopy enableWAL:&v20];
+  v9 = v20;
   v10 = v9;
   if ((v8 & 1) == 0)
   {
-    if ([v9 code] == 5)
+    code = [v9 code];
+    if (code == 5)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(5, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         lastPathComponent = [v7 lastPathComponent];
-        [(WBSFormAutoFillCorrectionsSQLiteStore *)lastPathComponent _configureDatabase:buf currentSchemaVersion:v11];
+        [(WBSFormAutoFillCorrectionsSQLiteStore *)lastPathComponent _configureDatabase:buf currentSchemaVersion:v13];
       }
 
       [(WBSFormAutoFillCorrectionsSQLiteStore *)self _closeDatabases];
       goto LABEL_11;
     }
 
-    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXAutoFill(code, v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       lastPathComponent2 = [v7 lastPathComponent];
       safari_privacyPreservingDescription = [v10 safari_privacyPreservingDescription];
-      [(WBSFormAutoFillCorrectionsSQLiteStore *)lastPathComponent2 _configureDatabase:safari_privacyPreservingDescription currentSchemaVersion:buf, v13];
+      [(WBSFormAutoFillCorrectionsSQLiteStore *)lastPathComponent2 _configureDatabase:safari_privacyPreservingDescription currentSchemaVersion:buf, v15];
     }
   }
 
   SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(databaseCopy, 0, @"PRAGMA foreign_keys = ON");
-  v16 = [(WBSFormAutoFillCorrectionsSQLiteStore *)self _migrateToCurrentSchemaVersionIfNeededForDatabase:databaseCopy];
-  if (v16 != v4)
+  v18 = [(WBSFormAutoFillCorrectionsSQLiteStore *)self _migrateToCurrentSchemaVersionIfNeededForDatabase:databaseCopy];
+  if (v18 != v4)
   {
     lastPathComponent3 = [v7 lastPathComponent];
-    WTFLogAlways();
+    WTFLogAlways("AutoFill corrections SQLite schema version (%d) does not match our supported schema version (%d) in store at %{sensitive, mask.hash}@.", v18, v4, lastPathComponent3);
 
-    [(WBSFormAutoFillCorrectionsSQLiteStore *)self _closeDatabases:v16];
+    [(WBSFormAutoFillCorrectionsSQLiteStore *)self _closeDatabases];
   }
 
 LABEL_11:
@@ -742,10 +746,11 @@ LABEL_11:
     goto LABEL_9;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(databaseCopy, 0, @"BEGIN TRANSACTION") != 101)
+  v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(databaseCopy, 0, @"BEGIN TRANSACTION");
+  if (v8 != 101)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [databaseCopy lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -757,13 +762,14 @@ LABEL_11:
 
   if (!blockCopy[2](blockCopy))
   {
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(databaseCopy, 0, @"ROLLBACK TRANSACTION") == 101)
+    v15 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(databaseCopy, 0, @"ROLLBACK TRANSACTION");
+    if (v15 == 101)
     {
       goto LABEL_9;
     }
 
-    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v15, v16);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [databaseCopy lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -773,14 +779,15 @@ LABEL_11:
 LABEL_8:
 
 LABEL_9:
-    v8 = 0;
+    v12 = 0;
     goto LABEL_10;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(databaseCopy, 0, @"COMMIT TRANSACTION") != 101)
+  v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(databaseCopy, 0, @"COMMIT TRANSACTION");
+  if (v10 != 101)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [databaseCopy lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -790,65 +797,66 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v8 = 1;
+  v12 = 1;
 LABEL_10:
 
-  return v8;
+  return v12;
 }
 
 - (BOOL)_replaceDomainAllowListWithDomains:(id)domains retrievalURLString:(id)string
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   domainsCopy = domains;
   stringCopy = string;
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"DELETE FROM whitelist") == 101)
+  v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_parsecDatabase, 0, @"DELETE FROM whitelist");
+  if (v8 == 101)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke;
-    v20[3] = &unk_1E7FC5A00;
-    v20[4] = self;
-    v9 = array;
-    v21 = v9;
-    [domainsCopy enumerateObjectsUsingBlock:v20];
-    v10 = [v9 count];
-    if (v10 == [domainsCopy count])
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke;
+    v22[3] = &unk_1E7FC5A00;
+    v22[4] = self;
+    v11 = array;
+    v23 = v11;
+    [domainsCopy enumerateObjectsUsingBlock:v22];
+    v12 = [v11 count];
+    if (v12 == [domainsCopy count])
     {
       array2 = [MEMORY[0x1E695DF70] array];
-      v12 = [v9 count];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke_2;
-      v16[3] = &unk_1E7FB8B20;
-      v13 = array2;
+      v14 = [v11 count];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke_2;
+      v18[3] = &unk_1E7FB8B20;
+      v15 = array2;
       selfCopy = self;
-      v19 = v12;
-      v17 = v13;
-      [v9 enumerateObjectsUsingBlock:v16];
-      v14 = [(WBSFormAutoFillCorrectionsSQLiteStore *)self _setParsecMetadataStringValue:stringCopy forKey:@"lastWhitelistRetrievalURL"];
+      v21 = v14;
+      v19 = v15;
+      [v11 enumerateObjectsUsingBlock:v18];
+      v16 = [(WBSFormAutoFillCorrectionsSQLiteStore *)self _setParsecMetadataStringValue:stringCopy forKey:@"lastWhitelistRetrievalURL"];
     }
 
     else
     {
-      v14 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
       [WBSFormAutoFillCorrectionsSQLiteStore _replaceDomainAllowListWithDomains:retrievalURLString:];
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 void __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -868,35 +876,36 @@ void __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDoma
 
 void __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) addObject:a2];
   if (__ROR8__(0x1CAC083126E978D5 * (a3 - 499), 2) < 0x83126E978D4FDFuLL || *(a1 + 48) - 1 == a3)
   {
     v5 = [MEMORY[0x1E696AD60] string];
     [v5 appendString:@"INSERT INTO whitelist (domain) VALUES "];
     v6 = *(a1 + 32);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke_3;
-    v17[3] = &unk_1E7FC5A28;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke_3;
+    v19[3] = &unk_1E7FC5A28;
     v7 = v5;
-    v18 = v7;
-    [v6 enumerateObjectsUsingBlock:v17];
+    v20 = v7;
+    [v6 enumerateObjectsUsingBlock:v19];
     [v7 replaceCharactersInRange:objc_msgSend(v7 withString:{"length") - 1, 1, &stru_1F3A5E418}];
     v8 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:*(*(a1 + 40) + 16) query:v7];
     v9 = *(a1 + 32);
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke_4;
-    v15 = &unk_1E7FC5A28;
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDomains_retrievalURLString___block_invoke_4;
+    v17 = &unk_1E7FC5A28;
     v10 = v8;
-    v16 = v10;
-    [v9 enumerateObjectsUsingBlock:&v12];
+    v18 = v10;
+    [v9 enumerateObjectsUsingBlock:&v14];
     [*(a1 + 32) removeAllObjects];
-    if ([v10 execute] != 101)
+    v11 = [v10 execute];
+    if (v11 != 101)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [*(*(a1 + 40) + 16) lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -947,17 +956,18 @@ void __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDoma
 
 - (BOOL)_setParsecMetadataStringValue:(id)value forKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   parsecDatabase = self->_parsecDatabase;
   if (valueCopy)
   {
     v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&,NSString * {__strong}&>(parsecDatabase, 0, @"UPDATE metadata SET value = ? WHERE key = ?", &valueCopy, &keyCopy);
+    v9 = v7;
     if (v7 != 101)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_13;
       }
@@ -967,28 +977,29 @@ void __95__WBSFormAutoFillCorrectionsSQLiteStore__replaceDomainAllowListWithDoma
 
     if (![(WBSSQLiteDatabase *)self->_parsecDatabase changedRowCount])
     {
-      v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&,NSString * {__strong}&>(self->_parsecDatabase, 0, @"INSERT INTO metadata (key, value) VALUES (?, ?)", &keyCopy, &valueCopy);
-      if (v7 != 101)
+      v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&,NSString * {__strong}&>(self->_parsecDatabase, 0, @"INSERT INTO metadata (key, value) VALUES (?, ?)", &keyCopy, &valueCopy);
+      v9 = v10;
+      if (v10 != 101)
       {
-        v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v10, v11);
+        if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
 LABEL_13:
 
-          v12 = 0;
+          v18 = 0;
           goto LABEL_14;
         }
 
 LABEL_6:
-        v9 = keyCopy;
+        v13 = keyCopy;
         lastErrorMessage = [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
         *buf = 138412802;
-        v19 = v9;
-        v20 = 2112;
-        v21 = lastErrorMessage;
-        v22 = 1024;
-        v23 = v7;
-        _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to update metadata value %@: %@ (%d)", buf, 0x1Cu);
+        v25 = v13;
+        v26 = 2112;
+        v27 = lastErrorMessage;
+        v28 = 1024;
+        v29 = v9;
+        _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Failed to update metadata value %@: %@ (%d)", buf, 0x1Cu);
 
         goto LABEL_13;
       }
@@ -997,31 +1008,32 @@ LABEL_6:
 
   else
   {
-    v11 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&>(parsecDatabase, 0, @"DELETE FROM metadata WHERE key = ?", &keyCopy);
-    if (v11 != 101)
+    v15 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&>(parsecDatabase, 0, @"DELETE FROM metadata WHERE key = ?", &keyCopy);
+    v17 = v15;
+    if (v15 != 101)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v15, v16);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = keyCopy;
+        v20 = keyCopy;
         lastErrorMessage2 = [(WBSSQLiteDatabase *)self->_parsecDatabase lastErrorMessage];
         *buf = 138412802;
-        v19 = v14;
-        v20 = 2112;
-        v21 = lastErrorMessage2;
-        v22 = 1024;
-        v23 = v11;
-        _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to delete metadata value %@: %@ (%d)", buf, 0x1Cu);
+        v25 = v20;
+        v26 = 2112;
+        v27 = lastErrorMessage2;
+        v28 = 1024;
+        v29 = v17;
+        _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Failed to delete metadata value %@: %@ (%d)", buf, 0x1Cu);
       }
 
       goto LABEL_13;
     }
   }
 
-  v12 = 1;
+  v18 = 1;
 LABEL_14:
 
-  return v12;
+  return v18;
 }
 
 - (void)_createFreshParsecDatabaseSchema

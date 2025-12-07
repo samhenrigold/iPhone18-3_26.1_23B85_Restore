@@ -25,63 +25,58 @@
       v8 = 0;
       v9 = 0;
       v10 = 1;
-      do
+      while (1)
       {
         v11 = v8 + 2;
-        if (v8 + 2 < v7)
+        if (v8 + 2 < v7 && !(*(self->_isAscending + 2))())
         {
-          v12 = array[v10];
-          v13 = array[v11];
-          if (!(*(self->_isAscending + 2))())
-          {
-            goto LABEL_9;
-          }
-
-          array = self->_array;
+          goto LABEL_8;
         }
 
-        v14 = array[v10];
-        v15 = array[v9];
         if (((*(self->_isAscending + 2))() & 1) == 0)
         {
-          if (v11 >= v7)
-          {
-            return v5;
-          }
-
-LABEL_9:
-          v16 = self->_array;
-          v17 = v16[v9];
-          v18 = v16[v11];
-          v10 = v11;
-          if ((*(self->_isAscending + 2))())
-          {
-            return v5;
-          }
+          break;
         }
 
-        v19 = v10;
-        array = self->_array;
-        v20 = array[v10];
-        array[v10] = array[v9];
-        array[v9] = v20;
+LABEL_9:
+        v12 = v10;
+        v13 = self->_array;
+        v14 = v13[v10];
+        v13[v10] = v13[v9];
+        v13[v9] = v14;
         v8 = 2 * v10;
         v10 = (2 * v10) | 1;
         v7 = self->_count;
-        v9 = v19;
+        v9 = v12;
+        if (v10 >= v7)
+        {
+          return v5;
+        }
       }
 
-      while (v10 < v7);
+      if (v11 >= v7)
+      {
+        return v5;
+      }
+
+LABEL_8:
+      v10 = v11;
+      if ((*(self->_isAscending + 2))())
+      {
+        return v5;
+      }
+
+      goto LABEL_9;
     }
   }
 
   else
   {
-    v21 = __biome_log_for_category(1);
+    v15 = __biome_log_for_category(1);
     *buf = 0;
-    v26 = buf;
-    v27 = 0x2020000000;
-    v28 = 16;
+    v20 = buf;
+    v21 = 0x2020000000;
+    v22 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __21__BMIndirectHeap_pop__block_invoke;
@@ -92,12 +87,12 @@ LABEL_9:
       dispatch_once(&pop_onceToken, block);
     }
 
-    v22 = v26[24];
+    v16 = v20[24];
     _Block_object_dispose(buf, 8);
-    if (os_log_type_enabled(v21, v22))
+    if (os_log_type_enabled(v15, v16))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AC15D000, v21, v22, "BMIndirectHeap pop: empty", buf, 2u);
+      _os_log_impl(&dword_1AC15D000, v15, v16, "BMIndirectHeap pop: empty", buf, 2u);
     }
 
     return -1;
@@ -180,11 +175,11 @@ LABEL_9:
   count = self->_count;
   if (count >= self->_size)
   {
-    v10 = __biome_log_for_category(1);
+    v9 = __biome_log_for_category(1);
     *buf = 0;
-    v14 = buf;
-    v15 = 0x2020000000;
-    v16 = 16;
+    v13 = buf;
+    v14 = 0x2020000000;
+    v15 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __22__BMIndirectHeap_add___block_invoke;
@@ -195,40 +190,38 @@ LABEL_9:
       dispatch_once(&add__onceToken, block);
     }
 
-    v11 = v14[24];
+    v10 = v13[24];
     _Block_object_dispose(buf, 8);
-    if (os_log_type_enabled(v10, v11))
+    if (os_log_type_enabled(v9, v10))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AC15D000, v10, v11, "BMIndirectHeap add: full", buf, 2u);
+      _os_log_impl(&dword_1AC15D000, v9, v10, "BMIndirectHeap add: full", buf, 2u);
     }
   }
 
   else
   {
     self->_count = count + 1;
-    array = self->_array;
-    array[count] = add;
+    self->_array[count] = add;
     if (count)
     {
       do
       {
-        v6 = count - 1;
-        v7 = (count - 1) >> 1;
-        v8 = array[v7];
+        v5 = count - 1;
+        v6 = (count - 1) >> 1;
         if ((*(self->_isAscending + 2))())
         {
           break;
         }
 
         array = self->_array;
-        v9 = array[count];
-        array[count] = array[v7];
-        array[v7] = v9;
+        v8 = array[count];
+        array[count] = array[v6];
+        array[v6] = v8;
         count = (count - 1) >> 1;
       }
 
-      while (v6 > 1);
+      while (v5 > 1);
     }
   }
 }

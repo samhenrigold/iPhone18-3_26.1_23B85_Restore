@@ -16,15 +16,8 @@
   if (MSCanSendMail())
   {
     startDate = [(MFAssistantEmailSearch *)self startDate];
-    if (startDate)
+    if (startDate || ([(MFAssistantEmailSearch *)self endDate], (startDate = objc_claimAutoreleasedReturnValue()) != 0) || ([(MFAssistantEmailSearch *)self fromEmail], (startDate = objc_claimAutoreleasedReturnValue()) != 0) || ([(MFAssistantEmailSearch *)self subject], (startDate = objc_claimAutoreleasedReturnValue()) != 0) || ([(MFAssistantEmailSearch *)self toEmail], (startDate = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      goto LABEL_7;
-    }
-
-    startDate = [(MFAssistantEmailSearch *)self endDate];
-    if (startDate || ([(MFAssistantEmailSearch *)self fromEmail], (startDate = objc_claimAutoreleasedReturnValue()) != 0) || ([(MFAssistantEmailSearch *)self subject], (startDate = objc_claimAutoreleasedReturnValue()) != 0) || ([(MFAssistantEmailSearch *)self toEmail], (startDate = objc_claimAutoreleasedReturnValue()) != 0))
-    {
-LABEL_7:
     }
 
     else if (![(MFAssistantEmailSearch *)self status])

@@ -448,13 +448,13 @@ id __99__BWVisionInferenceAdapter_inferenceProviderForType_version_configuration
     [OUTLINED_FUNCTION_10_2() espressoBasedRequestProcessingDevice];
     v55 = OUTLINED_FUNCTION_1_15();
     v58 = OUTLINED_FUNCTION_3_3(v55, v56, &OBJC_METACLASS___EGStillImageDeepFusionNode, v57);
-    v173[0] = 0;
+    v173 = 0;
     v167[0] = MEMORY[0x1E69E9820];
     v167[1] = 3221225472;
     v167[2] = __99__BWVisionInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke_3_35;
     v167[3] = &__block_descriptor_40_e19_i16__0__VNRequest_8l;
     v167[4] = v44;
-    v59 = [BWVisionRequestInferenceCreator requestForDescriptor:v58 adapter:self requestInitializationCustomizer:v167 outStatus:v173];
+    v59 = [BWVisionRequestInferenceCreator requestForDescriptor:v58 adapter:self requestInitializationCustomizer:v167 outStatus:&v173];
     if (!v59)
     {
       goto LABEL_113;
@@ -915,14 +915,14 @@ LABEL_114:
 
   status = statusCopy3;
   v105 = [(BWVisionRequestInferenceDescriptor *)v28 initWithRequestClass:&OBJC_METACLASS___EGStillImageDeepFusionNode processingDevice:espressoBasedRequestProcessingDevice2 ioSurfaceMemoryPoolId:poolIdentifier revision:v152];
-  v173[0] = 0;
+  v173 = 0;
   v170[0] = MEMORY[0x1E69E9820];
   v170[1] = 3221225472;
   v170[2] = __99__BWVisionInferenceAdapter_inferenceProviderForType_version_configuration_resourceProvider_status___block_invoke_2;
   v170[3] = &unk_1E798F728;
   v170[4] = configuration;
   v171 = v15;
-  v106 = [BWVisionRequestInferenceCreator requestForDescriptor:v105 adapter:self requestInitializationCustomizer:v170 outStatus:v173];
+  v106 = [BWVisionRequestInferenceCreator requestForDescriptor:v105 adapter:self requestInitializationCustomizer:v170 outStatus:&v173];
   if (v106)
   {
     v107 = v106;
@@ -1062,7 +1062,7 @@ uint64_t __99__BWVisionInferenceAdapter_inferenceProviderForType_version_configu
     if (v3)
     {
       array = [MEMORY[0x1E695DF70] array];
-      v12 = OUTLINED_FUNCTION_11_2(array, v5, v6, v7, v8, v9, v10, v11, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, 0);
+      v12 = OUTLINED_FUNCTION_11_2(array, v5, v6, v7, v8, v9, v10, v11, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
       if (v12)
       {
         v13 = v12;
@@ -1076,13 +1076,10 @@ uint64_t __99__BWVisionInferenceAdapter_inferenceProviderForType_version_configu
               objc_enumerationMutation(a2);
             }
 
-            v16 = MEMORY[0x1E696AEC0];
-            v26 = *(8 * i);
-            v28 = [a2 objectForKeyedSubscript:v26];
-            v17 = [array addObject:{objc_msgSend(v16, "stringWithFormat:", @"%@:%@"}];
+            v16 = [array addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@:%@", *(8 * i), objc_msgSend(a2, "objectForKeyedSubscript:", *(8 * i)))}];
           }
 
-          v13 = OUTLINED_FUNCTION_11_2(v17, v18, v19, v20, v21, v22, v23, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v61);
+          v13 = OUTLINED_FUNCTION_11_2(v16, v17, v18, v19, v20, v21, v22, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
         }
 
         while (v13);

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rbPathTypeAsString:(int)string;
 - (int)StringAsRbPathType:(id)type;
 - (int)rbPathType;
 - (unint64_t)hash;
@@ -58,6 +59,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)rbPathTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003179A0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRbPathType:(id)type
@@ -222,7 +238,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    numDiscardPdu = self->_numDiscardPdu;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -242,7 +257,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numSuccessfulPdu = self->_numSuccessfulPdu;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -257,7 +271,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  rbPathType = self->_rbPathType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -272,12 +285,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  rbMode = self->_rbMode;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    rbId = self->_rbId;
     PBDataWriterWriteUint32Field();
   }
 

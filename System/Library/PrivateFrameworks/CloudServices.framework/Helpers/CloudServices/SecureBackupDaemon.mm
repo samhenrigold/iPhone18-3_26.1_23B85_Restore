@@ -102,11 +102,14 @@
 - (void)_removeUsesEscrow;
 - (void)_removeVeeTwoBackup;
 - (void)_restoreKeychainAsyncWithBackupBag:(id)bag password:(id)password keybagDigest:(id)digest haveBottledPeer:(BOOL)peer restoredViews:(id)views viewsNotToBeRestored:(id)restored;
+- (void)_restoreKeychainAsyncWithPassword:(id)password keybagDigest:(id)digest haveBottledPeer:(BOOL)peer viewsNotToBeRestored:(id)restored reply:(id)reply;
 - (void)_saveKeychainItem:(id)item forKey:(id)key;
 - (void)_setAutobackupEnabledWithReply:(id)reply;
+- (void)_setBackupEnabled:(BOOL)enabled iCDP:(BOOL)p;
 - (void)_setEMCSBackup:(id)backup keybag:(id)keybag;
 - (void)_setKVSKeybag:(id)keybag;
 - (void)_setMetadata:(id)metadata;
+- (void)_setUsesEscrow:(BOOL)escrow;
 - (void)_stashRecoveryDataWithRequest:(id)request reply:(id)reply;
 - (void)_storeProtectedKeychainInKVS:(id)s keybagDigest:(id)digest;
 - (void)_storeVeeTwoBackupInKVS:(id)s forViewName:(id)name withKeyStore:(id)store manifestDigest:(id)digest keybagDigest:(id)keybagDigest;
@@ -153,9 +156,11 @@
 - (void)registerForNotifyEvent:(id)event;
 - (void)removeRecoveryKeyFromBackupInDaemon:(id)daemon;
 - (void)restoreBackupName:(id)name peerID:(id)d keybag:(id)keybag password:(id)password backup:(id)backup reply:(id)reply;
+- (void)restoreKeychainAsyncWithPasswordInDaemon:(id)daemon keybagDigest:(id)digest haveBottledPeer:(BOOL)peer viewsNotToBeRestored:(id)restored reply:(id)reply;
 - (void)restoreKeychainWithBackupPasswordInDaemon:(id)daemon reply:(id)reply;
 - (void)saveTermsAcceptance:(id)acceptance reply:(id)reply;
 - (void)setBackOffDateWithRequest:(id)request reply:(id)reply;
+- (void)setBackupAllowed:(BOOL)allowed;
 - (void)setCachedPassphrase:(id)passphrase;
 - (void)setCachedRecordIDPassphrase:(id)passphrase;
 - (void)setCachedRecoveryKey:(id)key;
@@ -516,32 +521,12 @@ LABEL_9:
       keybagDigest = [(SecureBackupViewStore *)v9 keybagDigest];
       keybag = v11;
       v15 = backupDict;
-      if (keybag == v15)
+      if (keybag == v15 || (v16 = [keybag hash], v16 == objc_msgSend(v15, "hash")) && (objc_msgSend(keybag, "allKeys"), v17 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v17), v30 = objc_claimAutoreleasedReturnValue(), v17, objc_msgSend(v15, "allKeys"), v18 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v18), v19 = objc_claimAutoreleasedReturnValue(), v18, v29 = objc_msgSend(v30, "isEqualToSet:", v19), v19, v30, v29))
       {
-        goto LABEL_6;
-      }
-
-      v16 = [keybag hash];
-      if (v16 != [v15 hash])
-      {
-        goto LABEL_16;
-      }
-
-      allKeys = [keybag allKeys];
-      v30 = [NSSet setWithArray:allKeys];
-
-      allKeys2 = [v15 allKeys];
-      v19 = [NSSet setWithArray:allKeys2];
-
-      v29 = [v30 isEqualToSet:v19];
-      if (v29)
-      {
-LABEL_6:
       }
 
       else
       {
-LABEL_16:
 
         [(SecureBackupDaemon *)self _storeProtectedKeychainInKVS:v15 keybagDigest:keybagDigest];
       }
@@ -602,14 +587,14 @@ LABEL_16:
 - (id)_pushCachedKeychainToKVS
 {
   v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = sub_1000109EC;
-  v19[3] = sub_1000109FC;
-  v20 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_1000109EC;
+  v22 = sub_1000109FC;
+  v23 = 0;
   obj = 0;
   v3 = [(SecureBackupDaemon *)self copyMyPeerInfo:&obj];
-  objc_storeStrong(&v20, obj);
+  objc_storeStrong(&v23, obj);
   if (v3)
   {
     v4 = [(SecureBackupDaemon *)self copyPeerID:v3];
@@ -617,7 +602,7 @@ LABEL_16:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v4;
+      v25 = v4;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "backing up peer ID %@", buf, 0xCu);
     }
 
@@ -630,7 +615,7 @@ LABEL_16:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v22 = sha1Digest;
+        v25 = sha1Digest;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "using backup key: %@", buf, 0xCu);
       }
     }
@@ -641,7 +626,7 @@ LABEL_16:
     v7 = CloudServicesLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100049EC8(v19);
+      sub_100049EC8();
     }
 
     v4 = @"unknown";
@@ -658,7 +643,7 @@ LABEL_16:
   v11 = v4;
   dispatch_sync(kvsQueue, v14);
 
-  v12 = *(v19[0] + 40);
+  v12 = v19[5];
   _Block_object_dispose(&v18, 8);
 
   return v12;
@@ -772,6 +757,53 @@ LABEL_16:
   return v4;
 }
 
+- (void)_setBackupEnabled:(BOOL)enabled iCDP:(BOOL)p
+{
+  pCopy = p;
+  enabledCopy = enabled;
+  if (_os_feature_enabled_impl())
+  {
+    v7 = CloudServicesLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v11[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "SOS Compatibility Mode enabled, ignoring setting backup enabled bit", v11, 2u);
+    }
+  }
+
+  else
+  {
+    v7 = [(SecureBackupDaemon *)self kvs];
+    v8 = @"com.apple.securebackup.enabled";
+    if (pCopy)
+    {
+      v8 = @"com.apple.icdpbackup.enabled";
+    }
+
+    v9 = v8;
+    v10 = CloudServicesLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11[0] = 67109376;
+      v11[1] = [v7 BOOLForKey:v9];
+      v12 = 1024;
+      v13 = enabledCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Changing backup status %u->%u", v11, 0xEu);
+    }
+
+    [v7 setBool:enabledCopy forKey:v9];
+    if (enabledCopy)
+    {
+      [v7 setString:@"1" forKey:@"BackupVersion"];
+    }
+
+    else
+    {
+      [v7 removeObjectForKey:@"BackupVersion"];
+    }
+  }
+}
+
 - (BOOL)_backupEnabled
 {
   if (_os_feature_enabled_impl())
@@ -801,6 +833,23 @@ LABEL_16:
   }
 
   return v4;
+}
+
+- (void)_setUsesEscrow:(BOOL)escrow
+{
+  escrowCopy = escrow;
+  v4 = [(SecureBackupDaemon *)self kvs];
+  v5 = CloudServicesLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109376;
+    v6[1] = [v4 BOOLForKey:@"BackupUsesEscrow"];
+    v7 = 1024;
+    v8 = escrowCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Changing escrow usage %u->%u", v6, 0xEu);
+  }
+
+  [v4 setBool:escrowCopy forKey:@"BackupUsesEscrow"];
 }
 
 - (BOOL)_usesEscrow
@@ -1664,26 +1713,25 @@ LABEL_33:
 
 - (id)_gestaltValueForKey:(__CFString *)key
 {
-  v11 = 0;
-  v4 = MGCopyAnswerWithError();
-  if (!v4)
+  v3 = MGCopyAnswerWithError();
+  if (!v3)
   {
-    v5 = CloudServicesLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = CloudServicesLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10004A4C8(key, &v11);
+      sub_10004A4C8();
     }
 
-    v6 = +[CloudServicesAnalytics logger];
-    v7 = CloudServicesAnalyticsGestalt;
-    v12 = @"errorCode";
-    v8 = [NSNumber numberWithInt:v11];
-    v13 = v8;
-    v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-    [v6 logHardFailureForEventNamed:v7 withAttributes:v9];
+    v5 = +[CloudServicesAnalytics logger];
+    v6 = CloudServicesAnalyticsGestalt;
+    v10 = @"errorCode";
+    v7 = [NSNumber numberWithInt:0];
+    v11 = v7;
+    v8 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    [v5 logHardFailureForEventNamed:v6 withAttributes:v8];
   }
 
-  return v4;
+  return v3;
 }
 
 - (id)normalizeSMSTarget:(id)target error:(id *)error
@@ -1739,17 +1787,17 @@ LABEL_33:
 - (SecureBackupDaemon)initWithOperationsLogger:(id)logger
 {
   loggerCopy = logger;
-  v25.receiver = self;
-  v25.super_class = SecureBackupDaemon;
-  v6 = [(SecureBackupDaemon *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SecureBackupDaemon;
+  v6 = [(SecureBackupDaemon *)&v24 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_operationsLogger, logger);
     v8 = +[NSFileManager defaultManager];
-    v24 = 0;
-    v9 = [v8 URLForDirectory:14 inDomain:1 appropriateForURL:0 create:0 error:&v24];
-    v10 = v24;
+    v23 = 0;
+    v9 = [v8 URLForDirectory:14 inDomain:1 appropriateForURL:0 create:0 error:&v23];
+    v10 = v23;
     v11 = [v9 URLByAppendingPathComponent:@"com.apple.sbd" isDirectory:1];
     [(SecureBackupDaemon *)v7 setCacheDirURL:v11];
 
@@ -1769,10 +1817,9 @@ LABEL_33:
     v7->_kvsQueue = v19;
 
     *&v7->_cachedPassphraseFD = -1;
-    v21 = v7->_connectionQueue;
-    v23 = v7;
+    v22 = v7;
     os_state_add_handler();
-    [(SecureBackupDaemon *)v23 setupNotifyEvents:_NSConcreteStackBlock];
+    [(SecureBackupDaemon *)v22 setupNotifyEvents:_NSConcreteStackBlock];
   }
 
   return v7;
@@ -2952,62 +2999,62 @@ LABEL_52:
   v5 = [(SecureBackupDaemon *)self kvs];
   if (v5)
   {
-    kdebug_trace();
-    v6 = _CloudServicesSignpostLogSystem();
-    v7 = _CloudServicesSignpostCreate(v6);
-    v9 = v8;
+    v6 = kdebug_trace();
+    v7 = _CloudServicesSignpostLogSystem(v6);
+    v8 = _CloudServicesSignpostCreate(v7);
+    v10 = v9;
 
-    v10 = _CloudServicesSignpostLogSystem();
-    v11 = v10;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = _CloudServicesSignpostLogSystem(v11);
+    v13 = v12;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "KVSSynchronize", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "KVSSynchronize", " enableTelemetry=YES ", buf, 2u);
     }
 
-    v12 = _CloudServicesSignpostLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = _CloudServicesSignpostLogSystem(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v23 = v7;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: KVSSynchronize  enableTelemetry=YES ", buf, 0xCu);
+      v26 = v8;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: KVSSynchronize  enableTelemetry=YES ", buf, 0xCu);
     }
 
-    v13 = CloudServicesLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = CloudServicesLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "waiting for sync group", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "waiting for sync group", buf, 2u);
     }
 
     dispatch_group_wait(qword_100084A98, 0xFFFFFFFFFFFFFFFFLL);
     dispatch_group_enter(qword_100084A98);
-    v14 = CloudServicesLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = CloudServicesLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "calling synchronizeWithCompletionHandler", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "calling synchronizeWithCompletionHandler", buf, 2u);
     }
 
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_10001A8C0;
-    v17[3] = &unk_1000754E8;
-    v20 = v7;
-    v21 = v9;
-    v17[4] = self;
-    v19 = handlerCopy;
-    v18 = v5;
-    [v18 synchronizeWithCompletionHandler:v17];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10001A8C0;
+    v20[3] = &unk_1000754E8;
+    v23 = v8;
+    v24 = v10;
+    v20[4] = self;
+    v22 = handlerCopy;
+    v21 = v5;
+    [v21 synchronizeWithCompletionHandler:v20];
   }
 
   else
   {
-    v24 = NSLocalizedDescriptionKey;
-    v25 = @"KVS not available";
-    v15 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    v16 = [NSError errorWithDomain:kSecureBackupErrorDomain code:32 userInfo:v15];
-    (*(handlerCopy + 2))(handlerCopy, v16);
+    v27 = NSLocalizedDescriptionKey;
+    v28 = @"KVS not available";
+    v18 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v19 = [NSError errorWithDomain:kSecureBackupErrorDomain code:32 userInfo:v18];
+    (*(handlerCopy + 2))(handlerCopy, v19);
   }
 }
 
@@ -3311,7 +3358,7 @@ LABEL_53:
           v40 = CloudServicesLog();
           if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
-            sub_10004ACE8(buf);
+            sub_10004ACE8();
           }
 
           v38 = objc_alloc_init(NSMutableDictionary);
@@ -3407,76 +3454,76 @@ LABEL_17:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v70 = 0x3032000000;
-  v71 = sub_1000109EC;
-  v72 = sub_1000109FC;
-  v73 = 0;
+  v75 = 0x3032000000;
+  v76 = sub_1000109EC;
+  v77 = sub_1000109FC;
+  v78 = 0;
   if (alternateDSID)
   {
     v13 = [dictCopy mutableCopy];
     sha1Digest = [keybagCopy sha1Digest];
     [v13 setObject:sha1Digest forKeyedSubscript:@"digest"];
     v15 = +[NSDate date];
-    v47 = kSecureBackupTimestampKey;
+    v52 = kSecureBackupTimestampKey;
     [v13 setObject:v15 forKeyedSubscript:?];
-    v50 = sha1Digest;
+    v55 = sha1Digest;
 
-    v51 = objc_alloc_init(AKAppleIDAuthenticationController);
+    v56 = objc_alloc_init(AKAppleIDAuthenticationController);
     v16 = dispatch_semaphore_create(0);
-    kdebug_trace();
-    v17 = _CloudServicesSignpostLogSystem();
-    v18 = _CloudServicesSignpostCreate(v17);
-    v20 = v19;
+    v17 = kdebug_trace();
+    v18 = _CloudServicesSignpostLogSystem(v17);
+    v19 = _CloudServicesSignpostCreate(v18);
+    v21 = v20;
 
-    v21 = _CloudServicesSignpostLogSystem();
-    v22 = v21;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v23 = _CloudServicesSignpostLogSystem(v22);
+    v24 = v23;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
-      *v62 = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_BEGIN, v18, "EMCSKVSSynchronize", " enableTelemetry=YES ", v62, 2u);
+      *v67 = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_BEGIN, v19, "EMCSKVSSynchronize", " enableTelemetry=YES ", v67, 2u);
     }
 
-    v23 = _CloudServicesSignpostLogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v26 = _CloudServicesSignpostLogSystem(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      *v62 = 134217984;
-      *&v62[4] = v18;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: EMCSKVSSynchronize  enableTelemetry=YES ", v62, 0xCu);
+      *v67 = 134217984;
+      *&v67[4] = v19;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: EMCSKVSSynchronize  enableTelemetry=YES ", v67, 0xCu);
     }
 
-    v56[0] = _NSConcreteStackBlock;
-    v56[1] = 3221225472;
-    v56[2] = sub_10001C3EC;
-    v56[3] = &unk_100075560;
+    v61[0] = _NSConcreteStackBlock;
+    v61[1] = 3221225472;
+    v61[2] = sub_10001C3EC;
+    v61[3] = &unk_100075560;
     p_buf = &buf;
-    v24 = v16;
-    v57 = v24;
+    v27 = v16;
+    v62 = v27;
     selfCopy = self;
-    [v51 setConfigurationInfo:v13 forIdentifier:@"com.apple.idms.config.KCKey" forAltDSID:alternateDSID completion:v56];
-    dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
+    [v56 setConfigurationInfo:v13 forIdentifier:@"com.apple.idms.config.KCKey" forAltDSID:alternateDSID completion:v61];
+    dispatch_semaphore_wait(v27, 0xFFFFFFFFFFFFFFFFLL);
     kdebug_trace();
-    Nanoseconds = _CloudServicesSignpostGetNanoseconds(v18, v20);
-    v26 = _CloudServicesSignpostLogSystem();
-    v27 = v26;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    Nanoseconds = _CloudServicesSignpostGetNanoseconds(v19, v21);
+    v30 = _CloudServicesSignpostLogSystem(v29);
+    v31 = v30;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
     {
-      v28 = *(*(&buf + 1) + 40) == 0;
-      *v62 = 67240192;
-      *&v62[4] = v28;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v27, OS_SIGNPOST_INTERVAL_END, v18, "EMCSKVSSynchronize", " CloudServicesSignpostNameEMCSKVSSynchronize=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameEMCSKVSSynchronize}d ", v62, 8u);
+      v32 = *(*(&buf + 1) + 40) == 0;
+      *v67 = 67240192;
+      *&v67[4] = v32;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v31, OS_SIGNPOST_INTERVAL_END, v19, "EMCSKVSSynchronize", " CloudServicesSignpostNameEMCSKVSSynchronize=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameEMCSKVSSynchronize}d ", v67, 8u);
     }
 
-    v29 = _CloudServicesSignpostLogSystem();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v34 = _CloudServicesSignpostLogSystem(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = *(*(&buf + 1) + 40);
-      *v62 = 134218496;
-      *&v62[4] = v18;
-      v63 = 2048;
-      v64 = Nanoseconds / 1000000000.0;
-      v65 = 1026;
-      v66 = v30 == 0;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: EMCSKVSSynchronize  CloudServicesSignpostNameEMCSKVSSynchronize=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameEMCSKVSSynchronize}d ", v62, 0x1Cu);
+      v35 = *(*(&buf + 1) + 40);
+      *v67 = 134218496;
+      *&v67[4] = v19;
+      v68 = 2048;
+      v69 = Nanoseconds / 1000000000.0;
+      v70 = 1026;
+      v71 = v35 == 0;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: EMCSKVSSynchronize  CloudServicesSignpostNameEMCSKVSSynchronize=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameEMCSKVSSynchronize}d ", v67, 0x1Cu);
     }
 
     if (*(*(&buf + 1) + 40))
@@ -3488,55 +3535,55 @@ LABEL_17:
     {
       if (saveKeybagCopy)
       {
-        v34 = CloudServicesLog();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v39 = CloudServicesLog();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          *v62 = 0;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "creating backup bag", v62, 2u);
+          *v67 = 0;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "creating backup bag", v67, 2u);
         }
 
-        v35 = *(&buf + 1);
+        v40 = *(&buf + 1);
         obj = *(*(&buf + 1) + 40);
-        v36 = keybagCopy;
-        v37 = sub_1000328A4();
-        v74 = kSecValueData;
-        *v62 = v36;
-        v38 = [NSDictionary dictionaryWithObjects:v62 forKeys:&v74 count:1];
+        v41 = keybagCopy;
+        v42 = sub_1000328A4();
+        v79 = kSecValueData;
+        *v67 = v41;
+        v43 = [NSDictionary dictionaryWithObjects:v67 forKeys:&v79 count:1];
 
-        LOBYTE(v36) = sub_100002C4C(v37, v38, &obj);
-        objc_storeStrong((v35 + 40), obj);
-        if ((v36 & 1) == 0)
+        LOBYTE(v41) = sub_100002C4C(v42, v43, &obj);
+        objc_storeStrong((v40 + 40), obj);
+        if ((v41 & 1) == 0)
         {
-          v46 = CloudServicesLog();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v51 = CloudServicesLog();
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
           {
-            sub_10004AE04(&buf + 1);
+            sub_10004AE04();
           }
 
           (replyCopy[2])(replyCopy, *(*(&buf + 1) + 40));
           goto LABEL_30;
         }
 
-        v39 = +[CSDateUtilities posixDateFormatter];
-        v40 = +[NSDate date];
-        v41 = [v39 stringFromDate:v40];
-        v49 = v39;
+        v44 = +[CSDateUtilities posixDateFormatter];
+        v45 = +[NSDate date];
+        v46 = [v44 stringFromDate:v45];
+        v54 = v44;
 
-        v60[0] = kSecureBackupContainsEMCSDataKey;
-        v60[1] = v47;
-        v61[0] = &__kCFBooleanTrue;
-        v61[1] = v41;
-        v60[2] = kSecureBackupKeybagDigestKey;
-        v61[2] = v50;
-        v42 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:3];
-        [(SecureBackupDaemon *)self _setMetadata:v42];
-        v43 = sub_100002B84();
-        LODWORD(v39) = v43 == 0;
+        v65[0] = kSecureBackupContainsEMCSDataKey;
+        v65[1] = v52;
+        v66[0] = &__kCFBooleanTrue;
+        v66[1] = v46;
+        v65[2] = kSecureBackupKeybagDigestKey;
+        v66[2] = v55;
+        v47 = [NSDictionary dictionaryWithObjects:v66 forKeys:v65 count:3];
+        [(SecureBackupDaemon *)self _setMetadata:v47];
+        v48 = sub_100002B84();
+        LODWORD(v44) = v48 == 0;
 
-        if (v39)
+        if (v44)
         {
-          v44 = +[NSUUID UUID];
-          uUIDString = [v44 UUIDString];
+          v49 = +[NSUUID UUID];
+          uUIDString = [v49 UUIDString];
           sub_100002BE0(uUIDString);
         }
 
@@ -3552,18 +3599,18 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v31 = CloudServicesLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v36 = CloudServicesLog();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     sub_10004AE78();
   }
 
-  v67 = NSLocalizedDescriptionKey;
-  v68 = @"no alt DSID for setting IdMS info";
-  v13 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-  v32 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v13];
-  v33 = *(*(&buf + 1) + 40);
-  *(*(&buf + 1) + 40) = v32;
+  v72 = NSLocalizedDescriptionKey;
+  v73 = @"no alt DSID for setting IdMS info";
+  v13 = [NSDictionary dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+  v37 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v13];
+  v38 = *(*(&buf + 1) + 40);
+  *(*(&buf + 1) + 40) = v37;
 
   (replyCopy[2])(replyCopy, *(*(&buf + 1) + 40));
 LABEL_31:
@@ -3577,58 +3624,59 @@ LABEL_31:
   replyCopy = reply;
   if (![requestCopy guitarfish] || !objc_msgSend(requestCopy, "guitarfishToken"))
   {
-    if ([requestCopy guitarfishToken])
+    guitarfishToken = [requestCopy guitarfishToken];
+    if (guitarfishToken)
     {
       [(SecureBackupDaemon *)self enableGuitarfishTokenWithRequest:requestCopy reply:replyCopy];
       goto LABEL_180;
     }
 
-    v9 = _CloudServicesSignpostLogSystem();
-    v10 = _CloudServicesSignpostCreate(v9);
-    v12 = v11;
+    v10 = _CloudServicesSignpostLogSystem(guitarfishToken);
+    v11 = _CloudServicesSignpostCreate(v10);
+    v13 = v12;
 
-    v13 = _CloudServicesSignpostLogSystem();
-    v14 = v13;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v15 = _CloudServicesSignpostLogSystem(v14);
+    v16 = v15;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       activityLabel = [requestCopy activityLabel];
       *buf = 138543362;
-      *v173 = activityLabel;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "EnableWithRequest", " enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0xCu);
+      *v176 = activityLabel;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "EnableWithRequest", " enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0xCu);
     }
 
-    v16 = _CloudServicesSignpostLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = _CloudServicesSignpostLogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       activityLabel2 = [requestCopy activityLabel];
       *buf = 134218242;
-      *v173 = v10;
-      *&v173[8] = 2114;
-      v174 = activityLabel2;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: EnableWithRequest  enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0x16u);
+      *v176 = v11;
+      *&v176[8] = 2114;
+      v177 = activityLabel2;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: EnableWithRequest  enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0x16u);
     }
 
-    v18 = [[SBEscrowOperationStartEvent alloc] initWithRequest:requestCopy type:100];
+    v21 = [[SBEscrowOperationStartEvent alloc] initWithRequest:requestCopy type:100];
     operationsLogger = [(SecureBackupDaemon *)self operationsLogger];
-    [operationsLogger updateStoreWithEvent:v18];
+    [operationsLogger updateStoreWithEvent:v21];
 
-    v167[0] = _NSConcreteStackBlock;
-    v167[1] = 3221225472;
-    v167[2] = sub_10001E3B0;
-    v167[3] = &unk_100075588;
-    v170 = v10;
-    v171 = v12;
-    v167[4] = self;
-    v20 = v18;
-    v168 = v20;
-    v169 = replyCopy;
-    v21 = objc_retainBlock(v167);
-    v22 = CloudServicesLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v170[0] = _NSConcreteStackBlock;
+    v170[1] = 3221225472;
+    v170[2] = sub_10001E3B0;
+    v170[3] = &unk_100075588;
+    v173 = v11;
+    v174 = v13;
+    v170[4] = self;
+    v23 = v21;
+    v171 = v23;
+    v172 = replyCopy;
+    v24 = objc_retainBlock(v170);
+    v25 = CloudServicesLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      *v173 = "[SecureBackupDaemon enableWithRequest:reply:]";
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "In %s", buf, 0xCu);
+      *v176 = "[SecureBackupDaemon enableWithRequest:reply:]";
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "In %s", buf, 0xCu);
     }
 
     connectionQueue = [(SecureBackupDaemon *)self connectionQueue];
@@ -3638,13 +3686,13 @@ LABEL_31:
 
     if (error)
     {
-      v25 = objc_alloc_init(NSMutableDictionary);
-      [v25 setObject:@"error decoding request properties" forKeyedSubscript:NSLocalizedDescriptionKey];
+      v28 = objc_alloc_init(NSMutableDictionary);
+      [v28 setObject:@"error decoding request properties" forKeyedSubscript:NSLocalizedDescriptionKey];
       error2 = [requestCopy error];
-      [v25 setObject:error2 forKeyedSubscript:NSUnderlyingErrorKey];
+      [v28 setObject:error2 forKeyedSubscript:NSUnderlyingErrorKey];
 
-      v27 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v25];
-      (v21[2])(v21, v27);
+      v30 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v28];
+      (v24[2])(v24, v30);
 
 LABEL_179:
       goto LABEL_180;
@@ -3660,139 +3708,139 @@ LABEL_179:
       emcsDict = [requestCopy emcsDict];
       if (!emcsCred)
       {
-        v53 = CloudServicesLog();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        v56 = CloudServicesLog();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           sub_10004B180();
         }
 
-        v54 = objc_alloc_init(NSMutableDictionary);
-        [v54 setObject:@"Missing user credential for SecEMCSCreateDerivedKey()" forKeyedSubscript:NSLocalizedDescriptionKey];
-        v31 = [NSError errorWithDomain:kSecureBackupErrorDomain code:4 userInfo:v54];
-        (v21[2])(v21, v31);
+        v57 = objc_alloc_init(NSMutableDictionary);
+        [v57 setObject:@"Missing user credential for SecEMCSCreateDerivedKey()" forKeyedSubscript:NSLocalizedDescriptionKey];
+        v34 = [NSError errorWithDomain:kSecureBackupErrorDomain code:4 userInfo:v57];
+        (v24[2])(v24, v34);
         goto LABEL_178;
       }
 
-      v29 = +[MCProfileConnection sharedConnection];
-      v166 = 0;
-      v30 = [v29 changePasscodeFrom:oldEMCSCred to:emcsCred outError:&v166];
-      v31 = v166;
+      v32 = +[MCProfileConnection sharedConnection];
+      v169 = 0;
+      v33 = [v32 changePasscodeFrom:oldEMCSCred to:emcsCred outError:&v169];
+      v34 = v169;
 
-      if ((v30 & 1) == 0)
+      if ((v33 & 1) == 0)
       {
-        v57 = CloudServicesLog();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v60 = CloudServicesLog();
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
-          localizedDescription = [v31 localizedDescription];
-          sub_10004B0EC(localizedDescription, v179, v57);
+          localizedDescription = [v34 localizedDescription];
+          sub_10004B0EC(localizedDescription, v182, v60);
         }
 
-        v54 = objc_alloc_init(NSMutableDictionary);
-        [v54 setObject:@"Could not change device passcode" forKeyedSubscript:NSLocalizedDescriptionKey];
-        [v54 setObject:v31 forKeyedSubscript:NSUnderlyingErrorKey];
-        v59 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v54];
+        v57 = objc_alloc_init(NSMutableDictionary);
+        [v57 setObject:@"Could not change device passcode" forKeyedSubscript:NSLocalizedDescriptionKey];
+        [v57 setObject:v34 forKeyedSubscript:NSUnderlyingErrorKey];
+        v62 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v57];
 
-        (v21[2])(v21, v59);
-        v31 = v59;
+        (v24[2])(v24, v62);
+        v34 = v62;
         goto LABEL_178;
       }
 
-      v32 = 0;
+      v35 = 0;
       if (oldEMCSCred)
       {
         if (emcsDict)
         {
-          v32 = SecEMCSCreateDerivedEMCSKey();
-          if (!v32)
+          v35 = SecEMCSCreateDerivedEMCSKey();
+          if (!v35)
           {
-            v80 = CloudServicesLog();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+            v83 = CloudServicesLog();
+            if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
             {
               sub_10004B144();
             }
 
-            v54 = objc_alloc_init(NSMutableDictionary);
-            [v54 setObject:@"SecEMCSCreateDerivedEMCSKey() failed with old data" forKeyedSubscript:NSLocalizedDescriptionKey];
-            v81 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v54];
+            v57 = objc_alloc_init(NSMutableDictionary);
+            [v57 setObject:@"SecEMCSCreateDerivedEMCSKey() failed with old data" forKeyedSubscript:NSLocalizedDescriptionKey];
+            v84 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v57];
 
-            (v21[2])(v21, v81);
-            v31 = v81;
+            (v24[2])(v24, v84);
+            v34 = v84;
             goto LABEL_178;
           }
         }
       }
 
-      v165[1] = 0;
+      v168[1] = 0;
       iCloudIdentityData2 = SecEMCSCreateNewiDMSKey();
-      v34 = 0;
-      sha1Digest = v34;
-      v153 = v32;
+      v37 = 0;
+      sha1Digest = v37;
+      v156 = v35;
       if (!iCloudIdentityData2)
       {
-        v67 = CloudServicesLog();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+        v70 = CloudServicesLog();
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           sub_10004ACAC();
         }
 
-        v36 = objc_alloc_init(NSMutableDictionary);
-        [v36 setObject:@"SecEMCSCreateNewiDMSKey() failed" forKeyedSubscript:NSLocalizedDescriptionKey];
-        v68 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v36];
+        v39 = objc_alloc_init(NSMutableDictionary);
+        [v39 setObject:@"SecEMCSCreateNewiDMSKey() failed" forKeyedSubscript:NSLocalizedDescriptionKey];
+        v71 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v39];
 
-        (v21[2])(v21, v68);
-        v31 = v68;
+        (v24[2])(v24, v71);
+        v34 = v71;
         goto LABEL_163;
       }
 
-      if (!v34)
+      if (!v37)
       {
-        v78 = CloudServicesLog();
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+        v81 = CloudServicesLog();
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
         {
           sub_10004AC70();
         }
 
-        v36 = objc_alloc_init(NSMutableDictionary);
-        [v36 setObject:@"SecEMCSCreateNewiDMSKey() returned nil EMCS key" forKeyedSubscript:NSLocalizedDescriptionKey];
-        v79 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v36];
+        v39 = objc_alloc_init(NSMutableDictionary);
+        [v39 setObject:@"SecEMCSCreateNewiDMSKey() returned nil EMCS key" forKeyedSubscript:NSLocalizedDescriptionKey];
+        v82 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v39];
 
-        (v21[2])(v21, v79);
-        v31 = v79;
+        (v24[2])(v24, v82);
+        v34 = v82;
         goto LABEL_163;
       }
 
-      v36 = [(SecureBackupDaemon *)self _createBackupKeybagWithPassword:v34];
-      if (v36)
+      v39 = [(SecureBackupDaemon *)self _createBackupKeybagWithPassword:v37];
+      if (v39)
       {
-        [(SecureBackupDaemon *)self setEMCSDict:iCloudIdentityData2 backupKeybag:v36 saveKeybag:1 reply:v21];
+        [(SecureBackupDaemon *)self setEMCSDict:iCloudIdentityData2 backupKeybag:v39 saveKeybag:1 reply:v24];
 LABEL_163:
 
-        v77 = iCloudIdentityData2;
+        v80 = iCloudIdentityData2;
         iCloudIdentityData2 = sha1Digest;
 LABEL_176:
 
 LABEL_177:
-        v54 = v153;
+        v57 = v156;
         goto LABEL_178;
       }
 
-      v145 = 0;
-      v103 = CloudServicesLog();
-      if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+      v148 = 0;
+      v106 = CloudServicesLog();
+      if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "could not create backup keybag", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, "could not create backup keybag", buf, 2u);
       }
 
-      v104 = objc_alloc_init(NSMutableDictionary);
-      [v104 setObject:@"could not create backup keybag" forKeyedSubscript:NSLocalizedDescriptionKey];
-      v105 = [NSError errorWithDomain:kSecureBackupErrorDomain code:20 userInfo:v104];
+      v107 = objc_alloc_init(NSMutableDictionary);
+      [v107 setObject:@"could not create backup keybag" forKeyedSubscript:NSLocalizedDescriptionKey];
+      v108 = [NSError errorWithDomain:kSecureBackupErrorDomain code:20 userInfo:v107];
 
-      (v21[2])(v21, v105);
-      v31 = v105;
+      (v24[2])(v24, v108);
+      v34 = v108;
 LABEL_162:
 
-      v36 = v145;
+      v39 = v148;
       goto LABEL_163;
     }
 
@@ -3801,60 +3849,60 @@ LABEL_162:
       if ([(SecureBackupDaemon *)self _backupEnabled])
       {
         metadataHash = [requestCopy metadataHash];
-        v38 = metadataHash == 0;
+        v41 = metadataHash == 0;
 
-        if (v38)
+        if (v41)
         {
-          v86 = CloudServicesLog();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+          v89 = CloudServicesLog();
+          if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "Backup already enabled", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "Backup already enabled", buf, 2u);
           }
 
           [(SecureBackupDaemon *)self _backupKeychain];
-          (v21[2])(v21, 0);
+          (v24[2])(v24, 0);
           goto LABEL_179;
         }
       }
     }
 
-    if (([requestCopy stingray] & 1) == 0 && objc_msgSend(requestCopy, "usesRandomPassphrase") && (objc_msgSend(requestCopy, "metadataHash"), v39 = objc_claimAutoreleasedReturnValue(), v40 = v39 == 0, v39, v40))
+    if (([requestCopy stingray] & 1) == 0 && objc_msgSend(requestCopy, "usesRandomPassphrase") && (objc_msgSend(requestCopy, "metadataHash"), v42 = objc_claimAutoreleasedReturnValue(), v43 = v42 == 0, v42, v43))
     {
-      v149 = 0;
+      v152 = 0;
     }
 
     else
     {
       if (([requestCopy stingray] & 1) == 0 && objc_msgSend(requestCopy, "usesMultipleiCSC"))
       {
-        v41 = CloudServicesLog();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v44 = CloudServicesLog();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Heading down multi-icsc path", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Heading down multi-icsc path", buf, 2u);
         }
 
-        [(SecureBackupDaemon *)self doEnableEscrowMultiICSCWithRequest:requestCopy reply:v21];
+        [(SecureBackupDaemon *)self doEnableEscrowMultiICSCWithRequest:requestCopy reply:v24];
         goto LABEL_179;
       }
 
-      v149 = 1;
+      v152 = 1;
     }
 
-    v42 = CloudServicesLog();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v45 = CloudServicesLog();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       stingray = [requestCopy stingray];
       usesRandomPassphrase = [requestCopy usesRandomPassphrase];
       usesMultipleiCSC = [requestCopy usesMultipleiCSC];
       *buf = 67109632;
-      *v173 = stingray;
-      *&v173[4] = 1024;
-      *&v173[6] = usesRandomPassphrase;
-      LOWORD(v174) = 1024;
-      *(&v174 + 2) = usesMultipleiCSC;
-      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Heading down spaghetti path: s: %d, uRP: %d, uMiCSC:%d", buf, 0x14u);
+      *v176 = stingray;
+      *&v176[4] = 1024;
+      *&v176[6] = usesRandomPassphrase;
+      LOWORD(v177) = 1024;
+      *(&v177 + 2) = usesMultipleiCSC;
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Heading down spaghetti path: s: %d, uRP: %d, uMiCSC:%d", buf, 0x14u);
     }
 
     oldEMCSCred = [(SecureBackupDaemon *)self massageOutgoingMetadataFromRequest:requestCopy];
@@ -3864,7 +3912,7 @@ LABEL_162:
     metadataHash3 = [requestCopy metadataHash];
     emcsDict = [metadataHash3 objectForKeyedSubscript:@"duplicateEncodedMetadata"];
 
-    v153 = +[NSMutableDictionary dictionary];
+    v156 = +[NSMutableDictionary dictionary];
     if ([requestCopy stingray])
     {
       appleID = [requestCopy appleID];
@@ -3874,92 +3922,92 @@ LABEL_162:
         if ([iCloudPassword length])
         {
           iCloudIdentityData = [requestCopy iCloudIdentityData];
-          v51 = [iCloudIdentityData length] == 0;
+          v54 = [iCloudIdentityData length] == 0;
 
-          if (!v51)
+          if (!v54)
           {
             iCloudIdentityData2 = [requestCopy iCloudIdentityData];
             if ([requestCopy guitarfish])
             {
               sha256Digest = [iCloudIdentityData2 sha256Digest];
-              [v153 setObject:sha256Digest forKeyedSubscript:kSecureBackupKeybagSHA256Key];
-              v140 = sha256Digest;
-              v145 = 0;
+              [v156 setObject:sha256Digest forKeyedSubscript:kSecureBackupKeybagSHA256Key];
+              v143 = sha256Digest;
+              v148 = 0;
               sha1Digest = 0;
             }
 
             else
             {
               sha1Digest = [iCloudIdentityData2 sha1Digest];
-              [v153 setObject:sha1Digest forKeyedSubscript:kSecureBackupKeybagDigestKey];
-              v140 = 0;
-              v145 = 0;
+              [v156 setObject:sha1Digest forKeyedSubscript:kSecureBackupKeybagDigestKey];
+              v143 = 0;
+              v148 = 0;
             }
 
-            v142 = 0;
+            v145 = 0;
             goto LABEL_103;
           }
 
 LABEL_76:
-          v69 = CloudServicesLog();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+          v72 = CloudServicesLog();
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
           {
             appleID2 = [requestCopy appleID];
             iCloudPassword2 = [requestCopy iCloudPassword];
             iCloudIdentityData3 = [requestCopy iCloudIdentityData];
-            v121 = iCloudIdentityData3;
-            v122 = @"non-";
+            v124 = iCloudIdentityData3;
+            v125 = @"non-";
             if (iCloudPassword2)
             {
-              v123 = @"non-";
+              v126 = @"non-";
             }
 
             else
             {
-              v123 = &stru_1000767A0;
+              v126 = &stru_1000767A0;
             }
 
             *buf = 138412802;
-            *v173 = appleID2;
-            v174 = v123;
-            *&v173[8] = 2112;
+            *v176 = appleID2;
+            v177 = v126;
+            *&v176[8] = 2112;
             if (!iCloudIdentityData3)
             {
-              v122 = &stru_1000767A0;
+              v125 = &stru_1000767A0;
             }
 
-            v175 = 2112;
-            v176 = v122;
-            _os_log_error_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "attempted to store stingray identities, with invalid parameters: %@, %@nil iCloud password, %@nil iCloud identity data", buf, 0x20u);
+            v178 = 2112;
+            v179 = v125;
+            _os_log_error_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "attempted to store stingray identities, with invalid parameters: %@, %@nil iCloud password, %@nil iCloud identity data", buf, 0x20u);
           }
 
-          v70 = [NSString alloc];
+          v73 = [NSString alloc];
           appleID3 = [requestCopy appleID];
           iCloudPassword3 = [requestCopy iCloudPassword];
           iCloudIdentityData4 = [requestCopy iCloudIdentityData];
-          v74 = iCloudIdentityData4;
-          v75 = @"non-";
+          v77 = iCloudIdentityData4;
+          v78 = @"non-";
           if (iCloudPassword3)
           {
-            v76 = @"non-";
+            v79 = @"non-";
           }
 
           else
           {
-            v76 = &stru_1000767A0;
+            v79 = &stru_1000767A0;
           }
 
           if (!iCloudIdentityData4)
           {
-            v75 = &stru_1000767A0;
+            v78 = &stru_1000767A0;
           }
 
-          iCloudIdentityData2 = [v70 initWithFormat:@"attempted to store stingray identities, with invalid parameters: %@, %@nil iCloud password, %@nil iCloud identity data", appleID3, v76, v75];
+          iCloudIdentityData2 = [v73 initWithFormat:@"attempted to store stingray identities, with invalid parameters: %@, %@nil iCloud password, %@nil iCloud identity data", appleID3, v79, v78];
 
-          v77 = objc_alloc_init(NSMutableDictionary);
-          [v77 setObject:iCloudIdentityData2 forKeyedSubscript:NSLocalizedDescriptionKey];
-          v31 = [NSError errorWithDomain:kSecureBackupErrorDomain code:4 userInfo:v77];
-          (v21[2])(v21, v31);
+          v80 = objc_alloc_init(NSMutableDictionary);
+          [v80 setObject:iCloudIdentityData2 forKeyedSubscript:NSLocalizedDescriptionKey];
+          v34 = [NSError errorWithDomain:kSecureBackupErrorDomain code:4 userInfo:v80];
+          (v24[2])(v24, v34);
           goto LABEL_176;
         }
       }
@@ -3969,11 +4017,11 @@ LABEL_76:
 
     if ([(SecureBackupDaemon *)self forceICDP])
     {
-      v55 = CloudServicesLog();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v58 = CloudServicesLog();
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "FORCING ICDP + MULTIPLE ICSC", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "FORCING ICDP + MULTIPLE ICSC", buf, 2u);
       }
     }
 
@@ -3992,20 +4040,20 @@ LABEL_76:
         [requestCopy setPassphrase:cachedPassphrase];
 
         passphrase2 = [requestCopy passphrase];
-        v63 = [passphrase2 length] == 0;
+        v66 = [passphrase2 length] == 0;
 
-        if (v63)
+        if (v66)
         {
-          v113 = CloudServicesLog();
-          if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+          v116 = CloudServicesLog();
+          if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
           {
             sub_10004AFD0();
           }
 
           iCloudIdentityData2 = objc_alloc_init(NSMutableDictionary);
           [iCloudIdentityData2 setObject:@"Missing cached passphrase" forKeyedSubscript:NSLocalizedDescriptionKey];
-          v31 = [NSError errorWithDomain:kSecureBackupErrorDomain code:9 userInfo:iCloudIdentityData2];
-          (v21[2])(v21, v31);
+          v34 = [NSError errorWithDomain:kSecureBackupErrorDomain code:9 userInfo:iCloudIdentityData2];
+          (v24[2])(v24, v34);
           goto LABEL_177;
         }
       }
@@ -4014,7 +4062,7 @@ LABEL_76:
     passphrase3 = [requestCopy passphrase];
     if ([passphrase3 length])
     {
-      if (!v149)
+      if (!v152)
       {
 
         passphrase4 = [requestCopy passphrase];
@@ -4022,20 +4070,20 @@ LABEL_76:
 
         if (!iCloudIdentityData2)
         {
-          v102 = CloudServicesLog();
-          if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+          v105 = CloudServicesLog();
+          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
           {
             sub_10004AF94();
           }
 
           iCloudIdentityData2 = objc_alloc_init(NSMutableDictionary);
           [iCloudIdentityData2 setObject:@"could not create backup bag password" forKeyedSubscript:NSLocalizedDescriptionKey];
-          v31 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:iCloudIdentityData2];
-          (v21[2])(v21, v31);
+          v34 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:iCloudIdentityData2];
+          (v24[2])(v24, v34);
           goto LABEL_177;
         }
 
-        v142 = 0;
+        v145 = 0;
         goto LABEL_68;
       }
 
@@ -4043,253 +4091,253 @@ LABEL_76:
       {
 
 LABEL_64:
-        v165[0] = 0;
-        [(SecureBackupDaemon *)self createiCloudRecoveryPasswordWithError:v165];
-        iCloudIdentityData2 = v54 = v153;
-        v65 = v165[0];
-        v31 = v65;
+        v168[0] = 0;
+        [(SecureBackupDaemon *)self createiCloudRecoveryPasswordWithError:v168];
+        iCloudIdentityData2 = v57 = v156;
+        v68 = v168[0];
+        v34 = v68;
         if (!iCloudIdentityData2)
         {
-          (v21[2])(v21, v65);
+          (v24[2])(v24, v68);
 LABEL_178:
 
           goto LABEL_179;
         }
 
-        v142 = v65;
+        v145 = v68;
 LABEL_68:
         if ([requestCopy usesMultipleiCSC])
         {
-          v140 = 0;
-          v145 = 0;
+          v143 = 0;
+          v148 = 0;
         }
 
         else
         {
-          v85 = [(SecureBackupDaemon *)self _createBackupKeybagWithPassword:iCloudIdentityData2];
-          if (!v85)
+          v88 = [(SecureBackupDaemon *)self _createBackupKeybagWithPassword:iCloudIdentityData2];
+          if (!v88)
           {
-            v114 = CloudServicesLog();
-            if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+            v117 = CloudServicesLog();
+            if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
             {
               sub_10004AC34();
             }
 
-            v77 = objc_alloc_init(NSMutableDictionary);
-            [v77 setObject:@"could not create backup keybag" forKeyedSubscript:NSLocalizedDescriptionKey];
-            v31 = [NSError errorWithDomain:kSecureBackupErrorDomain code:20 userInfo:v77];
+            v80 = objc_alloc_init(NSMutableDictionary);
+            [v80 setObject:@"could not create backup keybag" forKeyedSubscript:NSLocalizedDescriptionKey];
+            v34 = [NSError errorWithDomain:kSecureBackupErrorDomain code:20 userInfo:v80];
 
-            (v21[2])(v21, v31);
+            (v24[2])(v24, v34);
             goto LABEL_176;
           }
 
-          v145 = v85;
-          v140 = 0;
+          v148 = v88;
+          v143 = 0;
         }
 
         sha1Digest = 0;
 LABEL_103:
-        v141 = +[CSDateUtilities posixDateFormatter];
-        v87 = +[NSDate date];
-        v148 = [v141 stringFromDate:v87];
+        v144 = +[CSDateUtilities posixDateFormatter];
+        v90 = +[NSDate date];
+        v151 = [v144 stringFromDate:v90];
 
-        v88 = kSecureBackupTimestampKey;
-        [v153 setObject:v148 forKeyedSubscript:kSecureBackupTimestampKey];
+        v91 = kSecureBackupTimestampKey;
+        [v156 setObject:v151 forKeyedSubscript:kSecureBackupTimestampKey];
         if (oldEMCSCred)
         {
-          [oldEMCSCred setObject:v148 forKeyedSubscript:kSecureBackupMetadataTimestampKey];
-          [v153 setObject:oldEMCSCred forKeyedSubscript:kSecureBackupClientMetadataKey];
+          [oldEMCSCred setObject:v151 forKeyedSubscript:kSecureBackupMetadataTimestampKey];
+          [v156 setObject:oldEMCSCred forKeyedSubscript:kSecureBackupClientMetadataKey];
         }
 
-        if (!v149)
+        if (!v152)
         {
-          [v153 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecureBackupUsesMultipleiCSCKey];
-          v157 = v142;
-          v95 = [(SecureBackupDaemon *)self registerSingleRecoverySecret:v145 iCDP:0 error:&v157];
-          v31 = v157;
+          [v156 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecureBackupUsesMultipleiCSCKey];
+          v160 = v145;
+          v98 = [(SecureBackupDaemon *)self registerSingleRecoverySecret:v148 iCDP:0 error:&v160];
+          v34 = v160;
 
-          if (v95)
+          if (v98)
           {
             [(SecureBackupDaemon *)self _setUsesEscrow:0];
-            [(SecureBackupDaemon *)self _setMetadata:v153];
-            v96 = sub_100002B84();
-            v97 = v96 == 0;
+            [(SecureBackupDaemon *)self _setMetadata:v156];
+            v99 = sub_100002B84();
+            v100 = v99 == 0;
 
-            if (v97)
+            if (v100)
             {
-              v98 = +[NSUUID UUID];
-              uUIDString = [v98 UUIDString];
+              v101 = +[NSUUID UUID];
+              uUIDString = [v101 UUIDString];
               sub_100002BE0(uUIDString);
             }
 
-            [(SecureBackupDaemon *)self _setKVSKeybag:v145];
+            [(SecureBackupDaemon *)self _setKVSKeybag:v148];
             [(SecureBackupDaemon *)self _removeProtectedKeychain];
             -[SecureBackupDaemon _setBackupEnabled:iCDP:](self, "_setBackupEnabled:iCDP:", 1, [requestCopy icdp]);
             if ([requestCopy synchronize])
             {
-              [(SecureBackupDaemon *)self _setAutobackupEnabledWithReply:v21];
+              [(SecureBackupDaemon *)self _setAutobackupEnabledWithReply:v24];
             }
 
             else
             {
               [(SecureBackupDaemon *)self _setAutobackupEnabled];
-              (v21[2])(v21, v31);
+              (v24[2])(v24, v34);
             }
           }
 
           else
           {
-            v100 = CloudServicesLog();
-            if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+            v103 = CloudServicesLog();
+            if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
             {
               sub_10004B00C();
             }
 
-            v151 = objc_alloc_init(NSMutableDictionary);
-            [v151 setObject:v31 forKeyedSubscript:NSUnderlyingErrorKey];
-            v101 = [NSError errorWithDomain:kSecureBackupErrorDomain code:20 userInfo:v151];
+            v154 = objc_alloc_init(NSMutableDictionary);
+            [v154 setObject:v34 forKeyedSubscript:NSUnderlyingErrorKey];
+            v104 = [NSError errorWithDomain:kSecureBackupErrorDomain code:20 userInfo:v154];
 
-            (v21[2])(v21, v101);
-            v31 = v101;
+            (v24[2])(v24, v104);
+            v34 = v104;
           }
 
           goto LABEL_161;
         }
 
-        v139 = v88;
-        v89 = [EscrowService alloc];
+        v142 = v91;
+        v92 = [EscrowService alloc];
         operationsLogger2 = [(SecureBackupDaemon *)self operationsLogger];
-        v150 = [(EscrowService *)v89 initWithOperationsLogger:operationsLogger2];
+        v153 = [(EscrowService *)v92 initWithOperationsLogger:operationsLogger2];
 
         smsTarget = [requestCopy smsTarget];
 
         if (smsTarget)
         {
           smsTarget2 = [requestCopy smsTarget];
-          v164 = v142;
-          v93 = [(SecureBackupDaemon *)self normalizeSMSTarget:smsTarget2 error:&v164];
-          v31 = v164;
+          v167 = v145;
+          v96 = [(SecureBackupDaemon *)self normalizeSMSTarget:smsTarget2 error:&v167];
+          v34 = v167;
 
-          [requestCopy setSmsTarget:v93];
+          [requestCopy setSmsTarget:v96];
           smsTarget3 = [requestCopy smsTarget];
           LODWORD(smsTarget2) = smsTarget3 == 0;
 
           if (smsTarget2)
           {
-            (v21[2])(v21, v31);
+            (v24[2])(v24, v34);
 LABEL_160:
 
 LABEL_161:
-            v104 = v140;
+            v107 = v143;
             goto LABEL_162;
           }
         }
 
         else
         {
-          v31 = v142;
+          v34 = v145;
         }
 
         if ([requestCopy stingray])
         {
-          v144 = v31;
+          v147 = v34;
         }
 
         else
         {
           if ([requestCopy usesMultipleiCSC])
           {
-            v112 = CloudServicesLog();
-            if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+            v115 = CloudServicesLog();
+            if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
             {
               sub_10004B07C();
             }
 
-            v106 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:&__NSDictionary0__struct];
-            (v21[2])(v21, v106);
+            v109 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:&__NSDictionary0__struct];
+            (v24[2])(v24, v109);
             goto LABEL_159;
           }
 
-          [v153 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecureBackupUsesMultipleiCSCKey];
+          [v156 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecureBackupUsesMultipleiCSCKey];
           icdp = [requestCopy icdp];
-          v163 = v31;
-          v116 = [(SecureBackupDaemon *)self registerSingleRecoverySecret:v145 iCDP:icdp error:&v163];
-          v144 = v163;
+          v166 = v34;
+          v119 = [(SecureBackupDaemon *)self registerSingleRecoverySecret:v148 iCDP:icdp error:&v166];
+          v147 = v166;
 
-          if ((v116 & 1) == 0)
+          if ((v119 & 1) == 0)
           {
-            v124 = CloudServicesLog();
-            if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+            v127 = CloudServicesLog();
+            if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
             {
               sub_10004B00C();
             }
 
-            v125 = objc_alloc_init(NSMutableDictionary);
-            [v125 setObject:@"SOSCCRegisterSingleRecoverySecret() failed" forKeyedSubscript:NSLocalizedDescriptionKey];
-            [v125 setObject:v144 forKeyedSubscript:NSUnderlyingErrorKey];
-            v31 = [NSError errorWithDomain:kSecureBackupErrorDomain code:20 userInfo:v125];
+            v128 = objc_alloc_init(NSMutableDictionary);
+            [v128 setObject:@"SOSCCRegisterSingleRecoverySecret() failed" forKeyedSubscript:NSLocalizedDescriptionKey];
+            [v128 setObject:v147 forKeyedSubscript:NSUnderlyingErrorKey];
+            v34 = [NSError errorWithDomain:kSecureBackupErrorDomain code:20 userInfo:v128];
 
-            (v21[2])(v21, v31);
-            v106 = v125;
+            (v24[2])(v24, v34);
+            v109 = v128;
             goto LABEL_159;
           }
 
-          sha1Digest2 = [v145 sha1Digest];
+          sha1Digest2 = [v148 sha1Digest];
 
-          [v153 setObject:sha1Digest2 forKeyedSubscript:kSecureBackupKeybagDigestKey];
+          [v156 setObject:sha1Digest2 forKeyedSubscript:kSecureBackupKeybagDigestKey];
           sha1Digest = sha1Digest2;
         }
 
-        v106 = [[NSMutableDictionary alloc] initWithCapacity:5];
+        v109 = [[NSMutableDictionary alloc] initWithCapacity:5];
         guitarfish = [requestCopy guitarfish];
         if (guitarfish)
         {
-          v108 = v140;
+          v111 = v143;
         }
 
         else
         {
-          v108 = sha1Digest;
+          v111 = sha1Digest;
         }
 
-        v109 = &kSecureBackupKeybagSHA256Key;
+        v112 = &kSecureBackupKeybagSHA256Key;
         if (!guitarfish)
         {
-          v109 = &kSecureBackupKeybagDigestKey;
+          v112 = &kSecureBackupKeybagDigestKey;
         }
 
-        [v106 setObject:v108 forKeyedSubscript:*v109];
-        [v106 setObject:iCloudIdentityData2 forKeyedSubscript:kSecureBackupBagPasswordKey];
-        [v106 setObject:@"1" forKeyedSubscript:@"BackupVersion"];
-        [v106 setObject:v148 forKeyedSubscript:v139];
-        [requestCopy setEscrowRecord:v106];
-        [requestCopy setMetadata:v153];
+        [v109 setObject:v111 forKeyedSubscript:*v112];
+        [v109 setObject:iCloudIdentityData2 forKeyedSubscript:kSecureBackupBagPasswordKey];
+        [v109 setObject:@"1" forKeyedSubscript:@"BackupVersion"];
+        [v109 setObject:v151 forKeyedSubscript:v142];
+        [requestCopy setEscrowRecord:v109];
+        [requestCopy setMetadata:v156];
         [requestCopy setEncodedMetadata:emcsCred];
         [requestCopy setDuplicateEncodedMetadata:emcsDict];
         encodedMetadata = [requestCopy encodedMetadata];
 
         if (encodedMetadata)
         {
-          v111 = CloudServicesLog();
-          if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+          v114 = CloudServicesLog();
+          if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "enableWithInfo(): beginning an update request", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, "enableWithInfo(): beginning an update request", buf, 2u);
           }
         }
 
-        v158[0] = _NSConcreteStackBlock;
-        v158[1] = 3221225472;
-        v158[2] = sub_10001E5DC;
-        v158[3] = &unk_1000755B0;
-        v158[4] = self;
-        v159 = requestCopy;
-        v160 = v153;
-        v161 = v145;
-        v162 = v21;
-        [(EscrowService *)v150 storeRecordWithRequest:v159 completionBlock:v158];
+        v161[0] = _NSConcreteStackBlock;
+        v161[1] = 3221225472;
+        v161[2] = sub_10001E5DC;
+        v161[3] = &unk_1000755B0;
+        v161[4] = self;
+        v162 = requestCopy;
+        v163 = v156;
+        v164 = v148;
+        v165 = v24;
+        [(EscrowService *)v153 storeRecordWithRequest:v162 completionBlock:v161];
 
-        v31 = v144;
+        v34 = v147;
 LABEL_159:
 
         goto LABEL_160;
@@ -4308,75 +4356,75 @@ LABEL_159:
             if ([appleID4 length])
             {
               iCloudPassword4 = [requestCopy iCloudPassword];
-              v143 = [iCloudPassword4 length] == 0;
+              v146 = [iCloudPassword4 length] == 0;
 
-              if (!v143)
+              if (!v146)
               {
                 goto LABEL_64;
               }
 
 LABEL_169:
-              v126 = CloudServicesLog();
-              if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+              v129 = CloudServicesLog();
+              if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
               {
                 passphrase5 = [requestCopy passphrase];
                 if (passphrase5)
                 {
-                  v135 = @"non-";
+                  v138 = @"non-";
                 }
 
                 else
                 {
-                  v135 = &stru_1000767A0;
+                  v138 = &stru_1000767A0;
                 }
 
                 smsTarget5 = [requestCopy smsTarget];
                 appleID5 = [requestCopy appleID];
                 iCloudPassword5 = [requestCopy iCloudPassword];
-                v138 = @"non-";
+                v141 = @"non-";
                 if (!iCloudPassword5)
                 {
-                  v138 = &stru_1000767A0;
+                  v141 = &stru_1000767A0;
                 }
 
                 *buf = 138413058;
-                *v173 = v135;
-                *&v173[8] = 2112;
-                v174 = smsTarget5;
-                v175 = 2112;
-                v176 = appleID5;
-                v177 = 2112;
-                v178 = v138;
-                _os_log_error_impl(&_mh_execute_header, v126, OS_LOG_TYPE_ERROR, "attempted to enable backup, with invalid parameters: %@nil recovery password, %@, %@, %@nil iCloud password", buf, 0x2Au);
+                *v176 = v138;
+                *&v176[8] = 2112;
+                v177 = smsTarget5;
+                v178 = 2112;
+                v179 = appleID5;
+                v180 = 2112;
+                v181 = v141;
+                _os_log_error_impl(&_mh_execute_header, v129, OS_LOG_TYPE_ERROR, "attempted to enable backup, with invalid parameters: %@nil recovery password, %@, %@, %@nil iCloud password", buf, 0x2Au);
               }
 
-              v127 = [NSString alloc];
+              v130 = [NSString alloc];
               passphrase6 = [requestCopy passphrase];
               if (passphrase6)
               {
-                v129 = @"non-";
+                v132 = @"non-";
               }
 
               else
               {
-                v129 = &stru_1000767A0;
+                v132 = &stru_1000767A0;
               }
 
               smsTarget6 = [requestCopy smsTarget];
               appleID6 = [requestCopy appleID];
               iCloudPassword6 = [requestCopy iCloudPassword];
-              v133 = @"non-";
+              v136 = @"non-";
               if (!iCloudPassword6)
               {
-                v133 = &stru_1000767A0;
+                v136 = &stru_1000767A0;
               }
 
-              iCloudIdentityData2 = [v127 initWithFormat:@"attempted to enable backup, with invalid parameters: %@nil recovery password, %@, %@, %@nil iCloud password", v129, smsTarget6, appleID6, v133];
+              iCloudIdentityData2 = [v130 initWithFormat:@"attempted to enable backup, with invalid parameters: %@nil recovery password, %@, %@, %@nil iCloud password", v132, smsTarget6, appleID6, v136];
 
-              v77 = objc_alloc_init(NSMutableDictionary);
-              [v77 setObject:iCloudIdentityData2 forKeyedSubscript:NSLocalizedDescriptionKey];
-              v31 = [NSError errorWithDomain:kSecureBackupErrorDomain code:4 userInfo:v77];
-              (v21[2])(v21, v31);
+              v80 = objc_alloc_init(NSMutableDictionary);
+              [v80 setObject:iCloudIdentityData2 forKeyedSubscript:NSLocalizedDescriptionKey];
+              v34 = [NSError errorWithDomain:kSecureBackupErrorDomain code:4 userInfo:v80];
+              (v24[2])(v24, v34);
               goto LABEL_176;
             }
           }
@@ -4461,7 +4509,7 @@ LABEL_180:
       v31 = CloudServicesLog();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v32[0] = 0;
+        *v32 = 0;
         _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "backing up the rest of the keychain!", v32, 2u);
       }
 
@@ -4482,6 +4530,25 @@ LABEL_180:
   }
 
   return v3 != -1;
+}
+
+- (void)setBackupAllowed:(BOOL)allowed
+{
+  v3 = sem_open("com.apple.sbd.backupAllowed", 512, allowed, 256, 0);
+  if (v3 == -1)
+  {
+    v4 = CloudServicesLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004B27C();
+    }
+  }
+
+  else
+  {
+
+    sem_close(v3);
+  }
 }
 
 - (void)backupForRecoveryKeyWithInfo:(id)info garbageCollect:(BOOL)collect reply:(id)reply
@@ -4506,9 +4573,9 @@ LABEL_180:
   v8 = CloudServicesLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v34 = 136315138;
-    *&v34[4] = "[SecureBackupDaemon backupWithInfo:garbageCollect:reply:]";
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "In %s", v34, 0xCu);
+    *v39 = 136315138;
+    *&v39[4] = "[SecureBackupDaemon backupWithInfo:garbageCollect:reply:]";
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "In %s", v39, 0xCu);
   }
 
   _metadata = [(SecureBackupDaemon *)self _metadata];
@@ -4528,8 +4595,8 @@ LABEL_36:
     v13 = CloudServicesLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v34 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "backup not allowed: skipping", v34, 2u);
+      *v39 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "backup not allowed: skipping", v39, 2u);
     }
 
     goto LABEL_35;
@@ -4539,75 +4606,75 @@ LABEL_36:
   if (v12)
   {
     v13 = v12;
+    v14 = kdebug_trace();
+    v15 = _CloudServicesSignpostLogSystem(v14);
+    v16 = _CloudServicesSignpostCreate(v15);
+    v18 = v17;
+
+    v20 = _CloudServicesSignpostLogSystem(v19);
+    v21 = v20;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    {
+      *v39 = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_BEGIN, v16, "CopyEMCSBackup", " enableTelemetry=YES ", v39, 2u);
+    }
+
+    v23 = _CloudServicesSignpostLogSystem(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      *v39 = 134217984;
+      *&v39[4] = v16;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: CopyEMCSBackup  enableTelemetry=YES ", v39, 0xCu);
+    }
+
+    v24 = _SecKeychainCopyEMCSBackup();
+    Nanoseconds = _CloudServicesSignpostGetNanoseconds(v16, v18);
+    v27 = _CloudServicesSignpostLogSystem(v26);
+    v28 = v27;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+    {
+      *v39 = 67240192;
+      *&v39[4] = v24 != 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_INTERVAL_END, v16, "CopyEMCSBackup", " CloudServicesSignpostNameSecKeychainCopyEMCSBackup=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecKeychainCopyEMCSBackup}d ", v39, 8u);
+    }
+
+    v30 = _CloudServicesSignpostLogSystem(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      *v39 = 134218496;
+      *&v39[4] = v16;
+      *&v39[12] = 2048;
+      *&v39[14] = Nanoseconds / 1000000000.0;
+      v40 = 1026;
+      v41 = v24 != 0;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: CopyEMCSBackup  CloudServicesSignpostNameSecKeychainCopyEMCSBackup=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecKeychainCopyEMCSBackup}d ", v39, 0x1Cu);
+    }
+
     kdebug_trace();
-    v14 = _CloudServicesSignpostLogSystem();
-    v15 = _CloudServicesSignpostCreate(v14);
-    v17 = v16;
-
-    v18 = _CloudServicesSignpostLogSystem();
-    v19 = v18;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    if (v24)
     {
-      *v34 = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_INTERVAL_BEGIN, v15, "CopyEMCSBackup", " enableTelemetry=YES ", v34, 2u);
-    }
-
-    v20 = _CloudServicesSignpostLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-    {
-      *v34 = 134217984;
-      *&v34[4] = v15;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: CopyEMCSBackup  enableTelemetry=YES ", v34, 0xCu);
-    }
-
-    v21 = _SecKeychainCopyEMCSBackup();
-    Nanoseconds = _CloudServicesSignpostGetNanoseconds(v15, v17);
-    v23 = _CloudServicesSignpostLogSystem();
-    v24 = v23;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
-    {
-      *v34 = 67240192;
-      *&v34[4] = v21 != 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_END, v15, "CopyEMCSBackup", " CloudServicesSignpostNameSecKeychainCopyEMCSBackup=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecKeychainCopyEMCSBackup}d ", v34, 8u);
-    }
-
-    v25 = _CloudServicesSignpostLogSystem();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-    {
-      *v34 = 134218496;
-      *&v34[4] = v15;
-      *&v34[12] = 2048;
-      *&v34[14] = Nanoseconds / 1000000000.0;
-      v35 = 1026;
-      v36 = v21 != 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: CopyEMCSBackup  CloudServicesSignpostNameSecKeychainCopyEMCSBackup=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecKeychainCopyEMCSBackup}d ", v34, 0x1Cu);
-    }
-
-    kdebug_trace();
-    if (v21)
-    {
-      v26 = [_metadata objectForKeyedSubscript:kSecureBackupKeybagDigestKey];
+      v31 = [_metadata objectForKeyedSubscript:kSecureBackupKeybagDigestKey];
       sha1Digest = [v13 sha1Digest];
-      v28 = CloudServicesLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v33 = CloudServicesLog();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
-        *v34 = 138412546;
-        *&v34[4] = sha1Digest;
-        *&v34[12] = 2112;
-        *&v34[14] = v26;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Pushing EMCS backup, keybag digest %@, metadata digest %@", v34, 0x16u);
+        *v39 = 138412546;
+        *&v39[4] = sha1Digest;
+        *&v39[12] = 2112;
+        *&v39[14] = v31;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Pushing EMCS backup, keybag digest %@, metadata digest %@", v39, 0x16u);
       }
 
-      if (([v26 isEqual:sha1Digest]& 1) == 0)
+      if (([v31 isEqual:sha1Digest]& 1) == 0)
       {
-        v29 = CloudServicesLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v34 = CloudServicesLog();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           sub_10004B304();
         }
       }
 
-      [(SecureBackupDaemon *)self _setEMCSBackup:v21 keybag:v13, *v34];
+      [(SecureBackupDaemon *)self _setEMCSBackup:v24 keybag:v13, *v39, *&v39[8]];
       if (collectCopy)
       {
         hexString = [sha1Digest hexString];
@@ -4617,8 +4684,8 @@ LABEL_36:
 
     else
     {
-      v26 = CloudServicesLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v31 = CloudServicesLog();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         sub_10004B340();
       }
@@ -4628,17 +4695,17 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v31 = CloudServicesLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v36 = CloudServicesLog();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     sub_10004B37C();
   }
 
-  v37 = NSLocalizedDescriptionKey;
-  v38 = @"attempting to back up with no keybag";
-  v32 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-  v33 = [NSError errorWithDomain:kSecureBackupErrorDomain code:22 userInfo:v32];
-  (replyCopy)[2](replyCopy, v33);
+  v42 = NSLocalizedDescriptionKey;
+  v43 = @"attempting to back up with no keybag";
+  v37 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+  v38 = [NSError errorWithDomain:kSecureBackupErrorDomain code:22 userInfo:v37];
+  (replyCopy)[2](replyCopy, v38);
 
 LABEL_37:
 }
@@ -4925,22 +4992,22 @@ LABEL_22:
 {
   passwordCopy = password;
   digestCopy = digest;
-  v46 = 0;
-  v47[0] = &v46;
-  v47[1] = 0x3032000000;
-  v47[2] = sub_1000109EC;
-  v47[3] = sub_1000109FC;
   v48 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_1000109EC;
-  v44 = sub_1000109FC;
-  v45 = objc_alloc_init(NSMutableSet);
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = sub_1000109EC;
+  v52 = sub_1000109FC;
+  v53 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = sub_1000109EC;
+  v46 = sub_1000109FC;
+  v47 = objc_alloc_init(NSMutableSet);
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   backupQueue = [(SecureBackupDaemon *)self backupQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -4948,20 +5015,20 @@ LABEL_22:
   block[3] = &unk_100075688;
   block[4] = self;
   v11 = passwordCopy;
-  v31 = v11;
+  v33 = v11;
   v12 = digestCopy;
-  v32 = v12;
-  v33 = &v40;
-  v34 = &v46;
-  v35 = &v36;
+  v34 = v12;
+  v35 = &v42;
+  v36 = &v48;
+  v37 = &v38;
   dispatch_sync(backupQueue, block);
 
   v13 = CloudServicesLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = v41[5];
+    v14 = v43[5];
     *buf = 138412290;
-    v50 = v14;
+    v55 = v14;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "restoredViews: %@", buf, 0xCu);
   }
 
@@ -4973,50 +5040,50 @@ LABEL_22:
   }
 
   backupQueue2 = [(SecureBackupDaemon *)self backupQueue];
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_10002094C;
-  v25[3] = &unk_1000756B0;
-  v25[4] = self;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10002094C;
+  v27[3] = &unk_1000756B0;
+  v27[4] = self;
   v17 = v12;
-  v26 = v17;
-  v28 = &v36;
+  v28 = v17;
+  v30 = &v38;
   v18 = v11;
-  v27 = v18;
-  v29 = &v40;
-  dispatch_async(backupQueue2, v25);
+  v29 = v18;
+  v31 = &v42;
+  dispatch_async(backupQueue2, v27);
 
-  if (sub_1000029CC())
+  if (sub_1000029CC(v19, v20))
   {
-    v19 = +[NSMutableDictionary dictionary];
-    v20 = [(SecureBackupDaemon *)self encodedStatsForViews:v41[5]];
-    [v19 setObject:v20 forKeyedSubscript:@"views"];
+    v21 = +[NSMutableDictionary dictionary];
+    v22 = [(SecureBackupDaemon *)self encodedStatsForViews:v43[5]];
+    [v21 setObject:v22 forKeyedSubscript:@"views"];
 
-    v21 = +[CloudServicesAnalytics logger];
-    [v21 logSoftFailureForEventNamed:CloudServicesSOSRestoreMetrics withAttributes:v19];
+    v23 = +[CloudServicesAnalytics logger];
+    [v23 logSoftFailureForEventNamed:CloudServicesSOSRestoreMetrics withAttributes:v21];
   }
 
-  if ((v37[3] & 1) == 0)
+  if ((v39[3] & 1) == 0)
   {
-    v22 = CloudServicesLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = CloudServicesLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      sub_10004B68C(v47);
+      sub_10004B68C();
     }
 
     if (error)
     {
-      *error = *(v47[0] + 40);
+      *error = v49[5];
     }
   }
 
-  v23 = *(v37 + 24);
+  v25 = *(v39 + 24);
 
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
 
-  _Block_object_dispose(&v46, 8);
-  return v23 & 1;
+  _Block_object_dispose(&v48, 8);
+  return v25 & 1;
 }
 
 - (id)secureBackups
@@ -5071,75 +5138,75 @@ LABEL_22:
   passwordCopy = password;
   keybagCopy = keybag;
   backupCopy = backup;
+  v10 = kdebug_trace();
+  v11 = _CloudServicesSignpostLogSystem(v10);
+  v12 = _CloudServicesSignpostCreate(v11);
+  v14 = v13;
+
+  v16 = _CloudServicesSignpostLogSystem(v15);
+  v17 = v16;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  {
+    LOWORD(v32) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_INTERVAL_BEGIN, v12, "RestoreEMCSBackup", " enableTelemetry=YES ", &v32, 2u);
+  }
+
+  v19 = _CloudServicesSignpostLogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = 134217984;
+    v33 = v12;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RestoreEMCSBackup  enableTelemetry=YES ", &v32, 0xCu);
+  }
+
+  v20 = _SecKeychainRestoreBackup();
+  Nanoseconds = _CloudServicesSignpostGetNanoseconds(v12, v14);
+  v23 = _CloudServicesSignpostLogSystem(v22);
+  v24 = v23;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+  {
+    v32 = 67240192;
+    LODWORD(v33) = v20 == 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_END, v12, "RestoreEMCSBackup", " CloudServicesSignpostNameRestoreEMCSBackup=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameRestoreEMCSBackup}d ", &v32, 8u);
+  }
+
+  v26 = _CloudServicesSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = 134218496;
+    v33 = v12;
+    v34 = 2048;
+    v35 = Nanoseconds / 1000000000.0;
+    v36 = 1026;
+    v37 = v20 == 0;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RestoreEMCSBackup  CloudServicesSignpostNameRestoreEMCSBackup=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameRestoreEMCSBackup}d ", &v32, 0x1Cu);
+  }
+
   kdebug_trace();
-  v10 = _CloudServicesSignpostLogSystem();
-  v11 = _CloudServicesSignpostCreate(v10);
-  v13 = v12;
-
-  v14 = _CloudServicesSignpostLogSystem();
-  v15 = v14;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v27 = CloudServicesLog();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v27) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v11, "RestoreEMCSBackup", " enableTelemetry=YES ", &v27, 2u);
+    v32 = 134217984;
+    v33 = v20;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "_SecKeychainRestoreBackup() returned %ld", &v32, 0xCu);
   }
 
-  v16 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  if (v20)
   {
-    v27 = 134217984;
-    v28 = v11;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RestoreEMCSBackup  enableTelemetry=YES ", &v27, 0xCu);
-  }
+    v28 = objc_alloc_init(NSMutableDictionary);
+    [v28 setObject:@"_SecKeychainRestoreBackup() failed" forKeyedSubscript:NSLocalizedDescriptionKey];
+    v29 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v20 userInfo:0];
+    [v28 setObject:v29 forKeyedSubscript:NSUnderlyingErrorKey];
 
-  v17 = _SecKeychainRestoreBackup();
-  Nanoseconds = _CloudServicesSignpostGetNanoseconds(v11, v13);
-  v19 = _CloudServicesSignpostLogSystem();
-  v20 = v19;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
-  {
-    v27 = 67240192;
-    LODWORD(v28) = v17 == 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_END, v11, "RestoreEMCSBackup", " CloudServicesSignpostNameRestoreEMCSBackup=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameRestoreEMCSBackup}d ", &v27, 8u);
-  }
-
-  v21 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-  {
-    v27 = 134218496;
-    v28 = v11;
-    v29 = 2048;
-    v30 = Nanoseconds / 1000000000.0;
-    v31 = 1026;
-    v32 = v17 == 0;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RestoreEMCSBackup  CloudServicesSignpostNameRestoreEMCSBackup=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameRestoreEMCSBackup}d ", &v27, 0x1Cu);
-  }
-
-  kdebug_trace();
-  v22 = CloudServicesLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-  {
-    v27 = 134217984;
-    v28 = v17;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "_SecKeychainRestoreBackup() returned %ld", &v27, 0xCu);
-  }
-
-  if (v17)
-  {
-    v23 = objc_alloc_init(NSMutableDictionary);
-    [v23 setObject:@"_SecKeychainRestoreBackup() failed" forKeyedSubscript:NSLocalizedDescriptionKey];
-    v24 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v17 userInfo:0];
-    [v23 setObject:v24 forKeyedSubscript:NSUnderlyingErrorKey];
-
-    v25 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v23];
+    v30 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v28];
   }
 
   else
   {
-    v25 = 0;
+    v30 = 0;
   }
 
-  return v25;
+  return v30;
 }
 
 - (id)restoreEMCSBackup:(id)backup withPassword:(id)password
@@ -5286,86 +5353,86 @@ LABEL_30:
 {
   requestCopy = request;
   replyCopy = reply;
-  v8 = _CloudServicesSignpostLogSystem();
+  v8 = _CloudServicesSignpostLogSystem(replyCopy);
   v9 = _CloudServicesSignpostCreate(v8);
   v11 = v10;
 
-  v12 = _CloudServicesSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = _CloudServicesSignpostLogSystem(v12);
+  v14 = v13;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     activityLabel = [requestCopy activityLabel];
     *buf = 138543362;
-    v42 = activityLabel;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RecoverEscrowWithRequest", " enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0xCu);
+    v47 = activityLabel;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RecoverEscrowWithRequest", " enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0xCu);
   }
 
-  v15 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = _CloudServicesSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     activityLabel2 = [requestCopy activityLabel];
     *buf = 134218242;
-    v42 = v9;
-    v43 = 2114;
-    v44 = activityLabel2;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RecoverEscrowWithRequest  enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0x16u);
+    v47 = v9;
+    v48 = 2114;
+    v49 = activityLabel2;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RecoverEscrowWithRequest  enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0x16u);
   }
 
-  v17 = CloudServicesLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = CloudServicesLog();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     recordID = [requestCopy recordID];
     metadata = [requestCopy metadata];
     *buf = 138412546;
-    v42 = recordID;
-    v43 = 2112;
-    v44 = metadata;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Attempting recovery of record %@ with metadata: %@", buf, 0x16u);
+    v47 = recordID;
+    v48 = 2112;
+    v49 = metadata;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Attempting recovery of record %@ with metadata: %@", buf, 0x16u);
   }
 
-  v20 = [EscrowService alloc];
+  v22 = [EscrowService alloc];
   operationsLogger = [(SecureBackupDaemon *)self operationsLogger];
-  v22 = [(EscrowService *)v20 initWithOperationsLogger:operationsLogger];
+  v24 = [(EscrowService *)v22 initWithOperationsLogger:operationsLogger];
 
-  v23 = _CloudServicesSignpostLogSystem();
-  v24 = _CloudServicesSignpostCreate(v23);
-  v26 = v25;
+  v26 = _CloudServicesSignpostLogSystem(v25);
+  v27 = _CloudServicesSignpostCreate(v26);
+  v29 = v28;
 
-  v27 = _CloudServicesSignpostLogSystem();
-  v28 = v27;
-  if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+  v31 = _CloudServicesSignpostLogSystem(v30);
+  v32 = v31;
+  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
   {
     activityLabel3 = [requestCopy activityLabel];
     *buf = 138543362;
-    v42 = activityLabel3;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_INTERVAL_BEGIN, v24, "RecoverRecordWithRequest", " enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0xCu);
+    v47 = activityLabel3;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v32, OS_SIGNPOST_INTERVAL_BEGIN, v27, "RecoverRecordWithRequest", " enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0xCu);
   }
 
-  v30 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v35 = _CloudServicesSignpostLogSystem(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     activityLabel4 = [requestCopy activityLabel];
     *buf = 134218242;
-    v42 = v24;
-    v43 = 2114;
-    v44 = activityLabel4;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RecoverRecordWithRequest  enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0x16u);
+    v47 = v27;
+    v48 = 2114;
+    v49 = activityLabel4;
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RecoverRecordWithRequest  enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0x16u);
   }
 
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_100021F58;
-  v34[3] = &unk_100075728;
-  v38 = v26;
-  v39 = v9;
-  v40 = v11;
-  v36 = replyCopy;
-  v37 = v24;
-  v34[4] = self;
-  v35 = requestCopy;
-  v32 = requestCopy;
-  v33 = replyCopy;
-  [(EscrowService *)v22 recoverRecordWithRequest:v32 completionBlock:v34];
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v39[2] = sub_100021F58;
+  v39[3] = &unk_100075728;
+  v43 = v29;
+  v44 = v9;
+  v45 = v11;
+  v41 = replyCopy;
+  v42 = v27;
+  v39[4] = self;
+  v40 = requestCopy;
+  v37 = requestCopy;
+  v38 = replyCopy;
+  [(EscrowService *)v24 recoverRecordWithRequest:v37 completionBlock:v39];
 }
 
 - (id)keysOfEntriesContainingObject:(id)object backups:(id)backups
@@ -6339,6 +6406,36 @@ LABEL_42:
   }
 }
 
+- (void)_restoreKeychainAsyncWithPassword:(id)password keybagDigest:(id)digest haveBottledPeer:(BOOL)peer viewsNotToBeRestored:(id)restored reply:(id)reply
+{
+  peerCopy = peer;
+  passwordCopy = password;
+  digestCopy = digest;
+  restoredCopy = restored;
+  replyCopy = reply;
+  v15 = CloudServicesLog();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v24 = "[SecureBackupDaemon _restoreKeychainAsyncWithPassword:keybagDigest:haveBottledPeer:viewsNotToBeRestored:reply:]";
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "In %s", buf, 0xCu);
+  }
+
+  v16 = os_transaction_create();
+  v17 = CloudServicesLog();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004BC58();
+  }
+
+  v18 = objc_alloc_init(NSMutableSet);
+  _KVSKeybag = [(SecureBackupDaemon *)self _KVSKeybag];
+  v20 = [restoredCopy mutableCopy];
+  v21 = [v18 mutableCopy];
+  [(SecureBackupDaemon *)self _restoreKeychainAsyncWithBackupBag:_KVSKeybag password:passwordCopy keybagDigest:digestCopy haveBottledPeer:peerCopy restoredViews:v21 viewsNotToBeRestored:v20];
+  replyCopy[2](replyCopy, 0);
+}
+
 - (void)_recoverWithRequest:(id)request reply:(id)reply
 {
   requestCopy = request;
@@ -6407,8 +6504,8 @@ LABEL_17:
       goto LABEL_10;
     }
 
+    v71 = 0;
     v72 = 0;
-    v73 = 0;
     if (MKBUserSessionRetrieveSecureBackupBlob())
     {
       v16 = CloudServicesLog();
@@ -6423,15 +6520,14 @@ LABEL_17:
     v29 = CloudServicesLog();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      sub_10004BDD4(&v73);
+      sub_10004BDD4();
     }
 
     v30 = objc_alloc_init(NSMutableDictionary);
-    v31 = v73;
-    [v30 setObject:v73 forKeyedSubscript:NSUnderlyingErrorKey];
+    [v30 setObject:v72 forKeyedSubscript:NSUnderlyingErrorKey];
 
-    v32 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v30];
-    replyCopy[2](replyCopy, 0, v32);
+    v31 = [NSError errorWithDomain:kSecureBackupErrorDomain code:24 userInfo:v30];
+    replyCopy[2](replyCopy, 0, v31);
   }
 
   else
@@ -6451,14 +6547,14 @@ LABEL_17:
       operationsLogger = [(SecureBackupDaemon *)self operationsLogger];
       v20 = [(EscrowService *)v18 initWithOperationsLogger:operationsLogger];
 
-      v68[0] = _NSConcreteStackBlock;
-      v68[1] = 3221225472;
-      v68[2] = sub_100027A94;
-      v68[3] = &unk_100075840;
-      v71 = replyCopy;
-      v69 = requestCopy;
+      v67[0] = _NSConcreteStackBlock;
+      v67[1] = 3221225472;
+      v67[2] = sub_100027A94;
+      v67[3] = &unk_100075840;
+      v70 = replyCopy;
+      v68 = requestCopy;
       selfCopy = self;
-      [(EscrowService *)v20 recoverRecordWithRequest:v69 completionBlock:v68];
+      [(EscrowService *)v20 recoverRecordWithRequest:v68 completionBlock:v67];
 
       goto LABEL_10;
     }
@@ -6477,12 +6573,12 @@ LABEL_17:
       operationsLogger2 = [(SecureBackupDaemon *)self operationsLogger];
       v24 = [(EscrowService *)v22 initWithOperationsLogger:operationsLogger2];
 
-      v66[0] = _NSConcreteStackBlock;
-      v66[1] = 3221225472;
-      v66[2] = sub_100028018;
-      v66[3] = &unk_100075450;
-      v67 = replyCopy;
-      [(EscrowService *)v24 recoverRecordWithRequest:requestCopy completionBlock:v66];
+      v65[0] = _NSConcreteStackBlock;
+      v65[1] = 3221225472;
+      v65[2] = sub_100028018;
+      v65[3] = &unk_100075450;
+      v66 = replyCopy;
+      [(EscrowService *)v24 recoverRecordWithRequest:requestCopy completionBlock:v65];
 
       goto LABEL_10;
     }
@@ -6500,12 +6596,12 @@ LABEL_17:
       operationsLogger3 = [(SecureBackupDaemon *)self operationsLogger];
       v28 = [(EscrowService *)v26 initWithOperationsLogger:operationsLogger3];
 
-      v64[0] = _NSConcreteStackBlock;
-      v64[1] = 3221225472;
-      v64[2] = sub_10002838C;
-      v64[3] = &unk_100075450;
-      v65 = replyCopy;
-      [(EscrowService *)v28 recoverRecordWithRequest:requestCopy completionBlock:v64];
+      v63[0] = _NSConcreteStackBlock;
+      v63[1] = 3221225472;
+      v63[2] = sub_10002838C;
+      v63[3] = &unk_100075450;
+      v64 = replyCopy;
+      [(EscrowService *)v28 recoverRecordWithRequest:requestCopy completionBlock:v63];
 
       goto LABEL_10;
     }
@@ -6515,11 +6611,11 @@ LABEL_17:
       goto LABEL_40;
     }
 
-    v33 = CloudServicesLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v32 = CloudServicesLog();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Using cached recovery key", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Using cached recovery key", &buf, 2u);
     }
 
     cachedRecoveryKey = [(SecureBackupDaemon *)self cachedRecoveryKey];
@@ -6532,24 +6628,24 @@ LABEL_17:
     {
 LABEL_40:
       passphrase = [requestCopy passphrase];
-      v37 = [passphrase length] == 0;
+      v36 = [passphrase length] == 0;
 
-      if (v37)
+      if (v36)
       {
         if (![requestCopy useCachedPassphrase])
         {
-          v49 = CloudServicesLog();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+          v48 = CloudServicesLog();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf) = 0;
-            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "attempted to recover with empty passphrase", &buf, 2u);
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "attempted to recover with empty passphrase", &buf, 2u);
           }
 
-          v74 = NSLocalizedDescriptionKey;
-          v75 = @"attempted to recover with empty passphrase";
-          v50 = [NSDictionary dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-          v51 = [NSError errorWithDomain:kSecureBackupErrorDomain code:4 userInfo:v50];
-          replyCopy[2](replyCopy, 0, v51);
+          v73 = NSLocalizedDescriptionKey;
+          v74 = @"attempted to recover with empty passphrase";
+          v49 = [NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+          v50 = [NSError errorWithDomain:kSecureBackupErrorDomain code:4 userInfo:v49];
+          replyCopy[2](replyCopy, 0, v50);
 
           goto LABEL_10;
         }
@@ -6558,22 +6654,22 @@ LABEL_40:
         [requestCopy setPassphrase:cachedPassphrase];
 
         passphrase2 = [requestCopy passphrase];
-        v45 = [passphrase2 length] == 0;
+        v44 = [passphrase2 length] == 0;
 
-        if (v45)
+        if (v44)
         {
-          v46 = CloudServicesLog();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+          v45 = CloudServicesLog();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf) = 0;
-            _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Missing cached passphrase", &buf, 2u);
+            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Missing cached passphrase", &buf, 2u);
           }
 
-          v76 = NSLocalizedDescriptionKey;
-          v77 = @"Missing cached passphrase";
-          v47 = [NSDictionary dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-          v48 = [NSError errorWithDomain:kSecureBackupErrorDomain code:9 userInfo:v47];
-          replyCopy[2](replyCopy, 0, v48);
+          v75 = NSLocalizedDescriptionKey;
+          v76 = @"Missing cached passphrase";
+          v46 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+          v47 = [NSError errorWithDomain:kSecureBackupErrorDomain code:9 userInfo:v46];
+          replyCopy[2](replyCopy, 0, v47);
 
           goto LABEL_10;
         }
@@ -6581,64 +6677,64 @@ LABEL_40:
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v79 = 0x3032000000;
-      v80 = sub_1000109EC;
-      v81 = sub_1000109FC;
-      v82 = os_transaction_create();
+      v78 = 0x3032000000;
+      v79 = sub_1000109EC;
+      v80 = sub_1000109FC;
+      v81 = os_transaction_create();
       if (([requestCopy icdp] & 1) != 0 || -[SecureBackupDaemon _usesEscrow](self, "_usesEscrow"))
       {
         if ([requestCopy icdp] && objc_msgSend(requestCopy, "silent"))
         {
-          v38 = CloudServicesLog();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v37 = CloudServicesLog();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             sub_10004BD5C();
           }
 
           passphrase3 = [requestCopy passphrase];
-          v40 = [passphrase3 length];
-          v59[0] = _NSConcreteStackBlock;
-          v59[1] = 3221225472;
-          v59[2] = sub_100028870;
-          v59[3] = &unk_100075890;
-          v62 = replyCopy;
-          v60 = requestCopy;
+          v39 = [passphrase3 length];
+          v58[0] = _NSConcreteStackBlock;
+          v58[1] = 3221225472;
+          v58[2] = sub_100028870;
+          v58[3] = &unk_100075890;
+          v61 = replyCopy;
+          v59 = requestCopy;
           selfCopy2 = self;
           p_buf = &buf;
-          [(SecureBackupDaemon *)self recordIDAndMetadataForSilentAttempt:v60 passphraseLength:v40 platform:1 reply:v59];
+          [(SecureBackupDaemon *)self recordIDAndMetadataForSilentAttempt:v59 passphraseLength:v39 platform:1 reply:v58];
 
-          v41 = v62;
+          v40 = v61;
         }
 
         else
         {
-          v42 = CloudServicesLog();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v41 = CloudServicesLog();
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             sub_10004BD20();
           }
 
-          v56[0] = _NSConcreteStackBlock;
-          v56[1] = 3221225472;
-          v56[2] = sub_100028AF0;
-          v56[3] = &unk_100075868;
-          v57 = replyCopy;
-          v58 = &buf;
-          [(SecureBackupDaemon *)self recoverEscrowWithRequest:requestCopy reply:v56];
-          v41 = v57;
+          v55[0] = _NSConcreteStackBlock;
+          v55[1] = 3221225472;
+          v55[2] = sub_100028AF0;
+          v55[3] = &unk_100075868;
+          v56 = replyCopy;
+          v57 = &buf;
+          [(SecureBackupDaemon *)self recoverEscrowWithRequest:requestCopy reply:v55];
+          v40 = v56;
         }
       }
 
       else
       {
-        v52 = CloudServicesLog();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        v51 = CloudServicesLog();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
           sub_10004BCE4();
         }
 
         replyCopy[2](replyCopy, 0, 0);
-        v41 = *(*(&buf + 1) + 40);
+        v40 = *(*(&buf + 1) + 40);
         *(*(&buf + 1) + 40) = 0;
       }
 
@@ -6646,16 +6742,16 @@ LABEL_40:
       goto LABEL_10;
     }
 
-    v53 = CloudServicesLog();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v52 = CloudServicesLog();
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       sub_10004BD98();
     }
 
-    v54 = objc_alloc_init(NSMutableDictionary);
-    [v54 setObject:@"silent attempt with missing cached recovery key" forKeyedSubscript:NSLocalizedDescriptionKey];
-    v55 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v54];
-    replyCopy[2](replyCopy, 0, v55);
+    v53 = objc_alloc_init(NSMutableDictionary);
+    [v53 setObject:@"silent attempt with missing cached recovery key" forKeyedSubscript:NSLocalizedDescriptionKey];
+    v54 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v53];
+    replyCopy[2](replyCopy, 0, v54);
   }
 
 LABEL_10:
@@ -6775,32 +6871,32 @@ LABEL_10:
 
 - (BOOL)removeRecoveryKey:(id *)key
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_1000109EC;
-  v23 = sub_1000109FC;
-  v24 = 0;
-  v16 = 0;
-  v17[0] = &v16;
-  v17[1] = 0x2020000000;
-  v18 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_1000109EC;
+  v25 = sub_1000109FC;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   v13 = 0;
-  v14[0] = &v13;
-  v14[1] = 0x2020000000;
-  v15 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   kvsQueue = [(SecureBackupDaemon *)self kvsQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100029758;
   block[3] = &unk_1000758B8;
   block[4] = self;
-  block[5] = &v19;
-  block[6] = &v16;
+  block[5] = &v21;
+  block[6] = &v17;
   block[7] = &v13;
   dispatch_sync(kvsQueue, block);
 
-  if (*(v17[0] + 24) == 1 && *(v14[0] + 24) == 1)
+  if (*(v18 + 24) == 1 && *(v14 + 24) == 1)
   {
     v6 = CloudServicesLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -6817,25 +6913,25 @@ LABEL_10:
     v8 = CloudServicesLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10004C134(v17);
+      sub_10004C134();
     }
 
     v9 = CloudServicesLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10004C1B0(v14);
+      sub_10004C1B0();
     }
 
     v7 = 0;
     if (key)
     {
-      *key = v20[5];
+      *key = v22[5];
     }
   }
 
   _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v7;
 }
@@ -6959,6 +7055,34 @@ LABEL_13:
   daemonCopy[2](daemonCopy, v6, v7);
 }
 
+- (void)restoreKeychainAsyncWithPasswordInDaemon:(id)daemon keybagDigest:(id)digest haveBottledPeer:(BOOL)peer viewsNotToBeRestored:(id)restored reply:(id)reply
+{
+  peerCopy = peer;
+  replyCopy = reply;
+  restoredCopy = restored;
+  digestCopy = digest;
+  daemonCopy = daemon;
+  kdebug_trace();
+  v16 = os_transaction_create();
+  v17 = CloudServicesLog();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v24 = "[SecureBackupDaemon restoreKeychainAsyncWithPasswordInDaemon:keybagDigest:haveBottledPeer:viewsNotToBeRestored:reply:]";
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "In %s", buf, 0xCu);
+  }
+
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10002A758;
+  v20[3] = &unk_100075538;
+  v21 = v16;
+  v22 = replyCopy;
+  v18 = v16;
+  v19 = replyCopy;
+  [(SecureBackupDaemon *)self _restoreKeychainAsyncWithPassword:daemonCopy keybagDigest:digestCopy haveBottledPeer:peerCopy viewsNotToBeRestored:restoredCopy reply:v20];
+}
+
 - (void)recoverRecordContentsWithRequest:(id)request reply:(id)reply
 {
   requestCopy = request;
@@ -7017,24 +7141,24 @@ LABEL_13:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    *v51 = "[SecureBackupDaemon createICDPRecordWithRequest:recordContents:reply:]";
+    *v53 = "[SecureBackupDaemon createICDPRecordWithRequest:recordContents:reply:]";
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "In %s", buf, 0xCu);
   }
 
-  if ((sub_1000029CC() & 1) == 0)
+  if ((sub_1000029CC(v13, v14) & 1) == 0)
   {
-    v17 = CloudServicesLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = CloudServicesLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      *v51 = "[SecureBackupDaemon createICDPRecordWithRequest:recordContents:reply:]";
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s is only available on internal releases", buf, 0xCu);
+      *v53 = "[SecureBackupDaemon createICDPRecordWithRequest:recordContents:reply:]";
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s is only available on internal releases", buf, 0xCu);
     }
 
-    v18 = objc_alloc_init(NSMutableDictionary);
-    v15 = v18;
-    v19 = NSLocalizedDescriptionKey;
-    v20 = @"Invalid OS version for call";
+    v20 = objc_alloc_init(NSMutableDictionary);
+    v17 = v20;
+    v21 = NSLocalizedDescriptionKey;
+    v22 = @"Invalid OS version for call";
     goto LABEL_34;
   }
 
@@ -7045,48 +7169,36 @@ LABEL_13:
 
   if (error)
   {
-    v15 = objc_alloc_init(NSMutableDictionary);
-    [v15 setObject:@"error decoding request properties" forKeyedSubscript:NSLocalizedDescriptionKey];
+    v17 = objc_alloc_init(NSMutableDictionary);
+    [v17 setObject:@"error decoding request properties" forKeyedSubscript:NSLocalizedDescriptionKey];
     error2 = [requestCopy error];
-    [v15 setObject:error2 forKeyedSubscript:NSUnderlyingErrorKey];
+    [v17 setObject:error2 forKeyedSubscript:NSUnderlyingErrorKey];
 
 LABEL_35:
-    v28 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v15];
-    replyCopy[2](replyCopy, v28);
+    v30 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v17];
+    replyCopy[2](replyCopy, v30);
     goto LABEL_36;
   }
 
   if (![requestCopy icdp] || !objc_msgSend(requestCopy, "usesMultipleiCSC"))
   {
 LABEL_23:
-    v38 = CloudServicesLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v40 = CloudServicesLog();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      *v51 = "[SecureBackupDaemon createICDPRecordWithRequest:recordContents:reply:]";
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "In %s, request doesn't look right", buf, 0xCu);
+      *v53 = "[SecureBackupDaemon createICDPRecordWithRequest:recordContents:reply:]";
+      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "In %s, request doesn't look right", buf, 0xCu);
     }
 
-    v39 = CloudServicesLog();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v41 = CloudServicesLog();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       icdp = [requestCopy icdp];
       usesMultipleiCSC = [requestCopy usesMultipleiCSC];
       passphrase = [requestCopy passphrase];
-      v41 = v11;
+      v43 = v11;
       if ([passphrase length])
-      {
-        v42 = @"present";
-      }
-
-      else
-      {
-        v42 = @"not present";
-      }
-
-      passcodeStashSecret = [requestCopy passcodeStashSecret];
-      *buf = 67109890;
-      if (passcodeStashSecret)
       {
         v44 = @"present";
       }
@@ -7096,23 +7208,35 @@ LABEL_23:
         v44 = @"not present";
       }
 
-      *v51 = icdp;
-      *&v51[4] = 1024;
-      *&v51[6] = usesMultipleiCSC;
-      v52 = 2112;
-      v53 = v42;
-      v11 = v41;
+      passcodeStashSecret = [requestCopy passcodeStashSecret];
+      *buf = 67109890;
+      if (passcodeStashSecret)
+      {
+        v46 = @"present";
+      }
+
+      else
+      {
+        v46 = @"not present";
+      }
+
+      *v53 = icdp;
+      *&v53[4] = 1024;
+      *&v53[6] = usesMultipleiCSC;
       v54 = 2112;
       v55 = v44;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "request: icdp:%d multipleICSC:%d passphrase:%@ stash:%@", buf, 0x22u);
+      v11 = v43;
+      v56 = 2112;
+      v57 = v46;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "request: icdp:%d multipleICSC:%d passphrase:%@ stash:%@", buf, 0x22u);
     }
 
-    v18 = objc_alloc_init(NSMutableDictionary);
-    v15 = v18;
-    v19 = NSLocalizedDescriptionKey;
-    v20 = @"Request must be a multiple-icsc request with a passphrase or a stash";
+    v20 = objc_alloc_init(NSMutableDictionary);
+    v17 = v20;
+    v21 = NSLocalizedDescriptionKey;
+    v22 = @"Request must be a multiple-icsc request with a passphrase or a stash";
 LABEL_34:
-    [v18 setObject:v20 forKeyedSubscript:v19];
+    [v20 setObject:v22 forKeyedSubscript:v21];
     goto LABEL_35;
   }
 
@@ -7134,61 +7258,61 @@ LABEL_14:
 
   if (!dsid)
   {
-    v24 = CloudServicesLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = CloudServicesLog();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "setting DSID", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "setting DSID", buf, 2u);
     }
 
-    v25 = sub_10000F044();
-    [requestCopy setDsid:v25];
+    v27 = sub_10000F044();
+    [requestCopy setDsid:v27];
   }
 
-  v15 = +[NSMutableDictionary dictionary];
-  [v15 setObject:&__kCFBooleanTrue forKeyedSubscript:kSecureBackupUsesMultipleiCSCKey];
-  v26 = +[NSDate now];
-  v27 = [CSDateUtilities localStringFromDate:v26];
-  [v15 setObject:v27 forKeyedSubscript:kSecureBackupTimestampKey];
+  v17 = +[NSMutableDictionary dictionary];
+  [v17 setObject:&__kCFBooleanTrue forKeyedSubscript:kSecureBackupUsesMultipleiCSCKey];
+  v28 = +[NSDate now];
+  v29 = [CSDateUtilities localStringFromDate:v28];
+  [v17 setObject:v29 forKeyedSubscript:kSecureBackupTimestampKey];
 
-  v28 = [(SecureBackupDaemon *)self massageOutgoingMetadataFromRequest:requestCopy];
-  if (v28)
+  v30 = [(SecureBackupDaemon *)self massageOutgoingMetadataFromRequest:requestCopy];
+  if (v30)
   {
-    v29 = +[NSDate now];
-    [v28 setObject:v29 forKeyedSubscript:kSecureBackupMetadataTimestampKey];
+    v31 = +[NSDate now];
+    [v30 setObject:v31 forKeyedSubscript:kSecureBackupMetadataTimestampKey];
 
-    [v15 setObject:v28 forKeyedSubscript:kSecureBackupClientMetadataKey];
+    [v17 setObject:v30 forKeyedSubscript:kSecureBackupClientMetadataKey];
   }
 
-  v30 = [(SecureBackupDaemon *)self _gestaltValueForKey:@"SerialNumber"];
-  [v15 setObject:v30 forKeyedSubscript:kSecureBackupSerialNumberKey];
+  v32 = [(SecureBackupDaemon *)self _gestaltValueForKey:@"SerialNumber"];
+  [v17 setObject:v32 forKeyedSubscript:kSecureBackupSerialNumberKey];
 
-  v31 = [(SecureBackupDaemon *)self _gestaltValueForKey:@"BuildVersion"];
-  [v15 setObject:v31 forKeyedSubscript:kSecureBackupBuildVersionKey];
+  v33 = [(SecureBackupDaemon *)self _gestaltValueForKey:@"BuildVersion"];
+  [v17 setObject:v33 forKeyedSubscript:kSecureBackupBuildVersionKey];
 
-  [requestCopy setMetadata:v15];
-  v32 = [contentsCopy mutableCopy];
+  [requestCopy setMetadata:v17];
+  v34 = [contentsCopy mutableCopy];
   if ([requestCopy requiresDoubleEnrollment])
   {
-    v33 = +[NSUUID UUID];
-    uUIDString = [v33 UUIDString];
-    [v32 setObject:uUIDString forKeyedSubscript:@"DoubleEnrollmentPassword"];
+    v35 = +[NSUUID UUID];
+    uUIDString = [v35 UUIDString];
+    [v34 setObject:uUIDString forKeyedSubscript:@"DoubleEnrollmentPassword"];
 
-    [v32 setObject:&off_10007A3E0 forKeyedSubscript:@"DoubleEnrollmentVersion"];
+    [v34 setObject:&off_10007A3E0 forKeyedSubscript:@"DoubleEnrollmentVersion"];
   }
 
-  [requestCopy setEscrowRecord:v32];
-  v35 = [EscrowService alloc];
+  [requestCopy setEscrowRecord:v34];
+  v37 = [EscrowService alloc];
   operationsLogger = [(SecureBackupDaemon *)self operationsLogger];
-  v37 = [(EscrowService *)v35 initWithOperationsLogger:operationsLogger];
+  v39 = [(EscrowService *)v37 initWithOperationsLogger:operationsLogger];
 
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_10002B25C;
-  v47[3] = &unk_100075510;
-  v49 = replyCopy;
-  v48 = v11;
-  [(EscrowService *)v37 storeRecordWithRequest:requestCopy completionBlock:v47];
+  v49[0] = _NSConcreteStackBlock;
+  v49[1] = 3221225472;
+  v49[2] = sub_10002B25C;
+  v49[3] = &unk_100075510;
+  v51 = replyCopy;
+  v50 = v11;
+  [(EscrowService *)v39 storeRecordWithRequest:requestCopy completionBlock:v49];
 
 LABEL_36:
 }
@@ -7478,56 +7602,56 @@ LABEL_36:
 {
   requestCopy = request;
   replyCopy = reply;
-  v8 = _CloudServicesSignpostLogSystem();
+  v8 = _CloudServicesSignpostLogSystem(replyCopy);
   v9 = _CloudServicesSignpostCreate(v8);
   v11 = v10;
 
-  v12 = _CloudServicesSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = _CloudServicesSignpostLogSystem(v12);
+  v14 = v13;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     activityLabel = [requestCopy activityLabel];
     *buf = 138543362;
-    v47 = activityLabel;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "DisableWithRequest", " enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0xCu);
+    v49 = activityLabel;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v9, "DisableWithRequest", " enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0xCu);
   }
 
-  v15 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = _CloudServicesSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     activityLabel2 = [requestCopy activityLabel];
     *buf = 134218242;
-    v47 = v9;
-    v48 = 2114;
-    v49 = activityLabel2;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: DisableWithRequest  enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0x16u);
+    v49 = v9;
+    v50 = 2114;
+    v51 = activityLabel2;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: DisableWithRequest  enableTelemetry=YES  Activity=%{public,signpost.telemetry:string1,name=Activity}@ ", buf, 0x16u);
   }
 
-  v17 = [[SBEscrowOperationStartEvent alloc] initWithRequest:requestCopy type:101];
+  v19 = [[SBEscrowOperationStartEvent alloc] initWithRequest:requestCopy type:101];
   operationsLogger = [(SecureBackupDaemon *)self operationsLogger];
-  [operationsLogger updateStoreWithEvent:v17];
+  [operationsLogger updateStoreWithEvent:v19];
 
-  v41[0] = _NSConcreteStackBlock;
-  v41[1] = 3221225472;
-  v41[2] = sub_10002C99C;
-  v41[3] = &unk_100075588;
-  v44 = v9;
-  v45 = v11;
-  v41[4] = self;
-  v19 = v17;
-  v42 = v19;
-  v20 = replyCopy;
-  v43 = v20;
-  v21 = objc_retainBlock(v41);
-  v22 = CloudServicesLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v43[0] = _NSConcreteStackBlock;
+  v43[1] = 3221225472;
+  v43[2] = sub_10002C99C;
+  v43[3] = &unk_100075588;
+  v46 = v9;
+  v47 = v11;
+  v43[4] = self;
+  v21 = v19;
+  v44 = v21;
+  v22 = replyCopy;
+  v45 = v22;
+  v23 = objc_retainBlock(v43);
+  v24 = CloudServicesLog();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v47 = "[SecureBackupDaemon disableWithRequest:reply:]";
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "In %s", buf, 0xCu);
+    v49 = "[SecureBackupDaemon disableWithRequest:reply:]";
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "In %s", buf, 0xCu);
   }
 
-  v23 = os_transaction_create();
+  v25 = os_transaction_create();
   connectionQueue = [(SecureBackupDaemon *)self connectionQueue];
   [requestCopy setQueue:connectionQueue];
 
@@ -7535,27 +7659,27 @@ LABEL_36:
 
   if (error)
   {
-    v26 = objc_alloc_init(NSMutableDictionary);
-    [v26 setObject:@"error decoding request properties" forKeyedSubscript:NSLocalizedDescriptionKey];
+    v28 = objc_alloc_init(NSMutableDictionary);
+    [v28 setObject:@"error decoding request properties" forKeyedSubscript:NSLocalizedDescriptionKey];
     error2 = [requestCopy error];
-    [v26 setObject:error2 forKeyedSubscript:NSUnderlyingErrorKey];
+    [v28 setObject:error2 forKeyedSubscript:NSUnderlyingErrorKey];
 
-    v28 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v26];
-    (v21[2])(v21, v28);
+    v30 = [NSError errorWithDomain:kSecureBackupErrorDomain code:5 userInfo:v28];
+    (v23[2])(v23, v30);
 
     goto LABEL_18;
   }
 
   if ([requestCopy icdp] && objc_msgSend(requestCopy, "deleteAll"))
   {
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_10002CBC8;
-    v38[3] = &unk_100075930;
-    v38[4] = self;
-    v40 = v21;
-    v39 = v23;
-    [(SecureBackupDaemon *)self deleteAlliCDPRecordsWithRequest:requestCopy reply:v38];
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_10002CBC8;
+    v40[3] = &unk_100075930;
+    v40[4] = self;
+    v42 = v23;
+    v41 = v25;
+    [(SecureBackupDaemon *)self deleteAlliCDPRecordsWithRequest:requestCopy reply:v40];
 
     goto LABEL_18;
   }
@@ -7563,19 +7687,19 @@ LABEL_36:
   if ([requestCopy stingray])
   {
 LABEL_17:
-    v30 = [EscrowService alloc];
+    v32 = [EscrowService alloc];
     operationsLogger2 = [(SecureBackupDaemon *)self operationsLogger];
-    v32 = [(EscrowService *)v30 initWithOperationsLogger:operationsLogger2];
+    v34 = [(EscrowService *)v32 initWithOperationsLogger:operationsLogger2];
 
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_10002CC30;
-    v33[3] = &unk_100075958;
-    v34 = requestCopy;
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_10002CC30;
+    v35[3] = &unk_100075958;
+    v36 = requestCopy;
     selfCopy = self;
-    v37 = v21;
-    v36 = v23;
-    [(EscrowService *)v32 deleteRecordWithRequest:v34 completionBlock:v33];
+    v39 = v23;
+    v38 = v25;
+    [(EscrowService *)v34 deleteRecordWithRequest:v36 completionBlock:v35];
 
     goto LABEL_18;
   }
@@ -7593,9 +7717,9 @@ LABEL_17:
   }
 
   [(SecureBackupDaemon *)self _disableBackup];
-  if (v21)
+  if (v23)
   {
-    (v21[2])(v21, 0);
+    (v23[2])(v23, 0);
   }
 
 LABEL_18:
@@ -8019,7 +8143,7 @@ LABEL_29:
     v10 = CloudServicesLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10004CB24(&v19.st_size);
+      sub_10004CB24();
     }
 
 LABEL_11:
@@ -9555,29 +9679,29 @@ LABEL_8:
   passwordCopy = password;
   keybagCopy = keybag;
   dCopy = d;
-  v19 = _CloudServicesSignpostLogSystem();
+  v19 = _CloudServicesSignpostLogSystem(dCopy);
   v20 = _CloudServicesSignpostCreate(v19);
 
-  v21 = _CloudServicesSignpostLogSystem();
-  v22 = v21;
-  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v22 = _CloudServicesSignpostLogSystem(v21);
+  v23 = v22;
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "BackupRestore", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_BEGIN, v20, "BackupRestore", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v23 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v25 = _CloudServicesSignpostLogSystem(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = v20;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BackupRestore  enableTelemetry=YES ", buf, 0xCu);
+    v31 = v20;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BackupRestore  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v26 = nameCopy;
-  v27 = replyCopy;
-  v24 = replyCopy;
-  v25 = nameCopy;
+  v28 = nameCopy;
+  v29 = replyCopy;
+  v26 = replyCopy;
+  v27 = nameCopy;
   SecItemBackupRestore();
 }
 
@@ -9601,7 +9725,7 @@ LABEL_8:
     v9 = CloudServicesLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10004E898(&v16);
+      sub_10004E898();
     }
 
 LABEL_13:
@@ -9624,7 +9748,7 @@ LABEL_13:
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_10004E830(&v16);
+      sub_10004E830();
     }
 
     goto LABEL_13;
@@ -9690,7 +9814,7 @@ LABEL_15:
       v13 = CloudServicesLog();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_10004E900(&v15);
+        sub_10004E900();
       }
 
       if (error)
@@ -9708,7 +9832,7 @@ LABEL_15:
     v7 = CloudServicesLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10004E898(&v16);
+      sub_10004E898();
     }
 
     v8 = 0;
@@ -9724,57 +9848,57 @@ LABEL_15:
 - (BOOL)backupWithRegisteredBackupsWithError:(id *)error handler:(id)handler
 {
   handlerCopy = handler;
-  v6 = _CloudServicesSignpostLogSystem();
+  v6 = _CloudServicesSignpostLogSystem(handlerCopy);
   v7 = _CloudServicesSignpostCreate(v6);
   v9 = v8;
 
-  v10 = _CloudServicesSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = _CloudServicesSignpostLogSystem(v10);
+  v12 = v11;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "BackupWithRegisteredBackups", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, v7, "BackupWithRegisteredBackups", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v12 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = _CloudServicesSignpostLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v22 = v7;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BackupWithRegisteredBackups  enableTelemetry=YES ", buf, 0xCu);
+    v26 = v7;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BackupWithRegisteredBackups  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v13 = handlerCopy;
-  v14 = SecItemBackupWithRegisteredBackups();
-  v15 = v14;
-  if (error && (v14 & 1) == 0)
+  v15 = handlerCopy;
+  v16 = SecItemBackupWithRegisteredBackups();
+  v17 = v16;
+  if (error && (v16 & 1) == 0)
   {
     *error = 0;
   }
 
   Nanoseconds = _CloudServicesSignpostGetNanoseconds(v7, v9);
-  v17 = _CloudServicesSignpostLogSystem();
-  v18 = v17;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v20 = _CloudServicesSignpostLogSystem(v19);
+  v21 = v20;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 67240192;
-    LODWORD(v22) = v15;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_END, v7, "BackupWithRegisteredBackups", " CloudServicesSignpostNameSecItemBackupWithRegisteredBackups=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupWithRegisteredBackups}d ", buf, 8u);
+    LODWORD(v26) = v17;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_END, v7, "BackupWithRegisteredBackups", " CloudServicesSignpostNameSecItemBackupWithRegisteredBackups=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupWithRegisteredBackups}d ", buf, 8u);
   }
 
-  v19 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v23 = _CloudServicesSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    v22 = v7;
-    v23 = 2048;
-    v24 = Nanoseconds / 1000000000.0;
-    v25 = 1026;
-    v26 = v15;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BackupWithRegisteredBackups  CloudServicesSignpostNameSecItemBackupWithRegisteredBackups=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupWithRegisteredBackups}d ", buf, 0x1Cu);
+    v26 = v7;
+    v27 = 2048;
+    v28 = Nanoseconds / 1000000000.0;
+    v29 = 1026;
+    v30 = v17;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BackupWithRegisteredBackups  CloudServicesSignpostNameSecItemBackupWithRegisteredBackups=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupWithRegisteredBackups}d ", buf, 0x1Cu);
   }
 
-  return v15;
+  return v17;
 }
 
 - (BOOL)backupWithRegisteredBackupViewWithError:(id)error error:(id *)a4
@@ -9844,61 +9968,61 @@ LABEL_15:
 {
   changesCopy = changes;
   handlerCopy = handler;
-  v9 = _CloudServicesSignpostLogSystem();
+  v9 = _CloudServicesSignpostLogSystem(handlerCopy);
   v10 = _CloudServicesSignpostCreate(v9);
   v12 = v11;
 
-  v13 = _CloudServicesSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = _CloudServicesSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "BackupWithChanges", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "BackupWithChanges", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v15 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = _CloudServicesSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v25 = v10;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BackupWithChanges  enableTelemetry=YES ", buf, 0xCu);
+    v29 = v10;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BackupWithChanges  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v16 = handlerCopy;
-  v17 = SecItemBackupWithChanges();
-  v18 = v17;
-  if (error && (v17 & 1) == 0)
+  v18 = handlerCopy;
+  v19 = SecItemBackupWithChanges();
+  v20 = v19;
+  if (error && (v19 & 1) == 0)
   {
     *error = 0;
   }
 
   Nanoseconds = _CloudServicesSignpostGetNanoseconds(v10, v12);
-  v20 = _CloudServicesSignpostLogSystem();
-  v21 = v20;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v23 = _CloudServicesSignpostLogSystem(v22);
+  v24 = v23;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
     *buf = 138543618;
-    v25 = changesCopy;
-    v26 = 1026;
-    LODWORD(v27) = v18;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_END, v10, "BackupWithChanges", " CloudServicesSignpostNameSecItemBackupWithChanges=%{public,signpost.telemetry:string1,name=CloudServicesSignpostNameSecItemBackupWithChanges}@  CloudServicesSignpostNameSecItemBackupWithChanges=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupWithChanges}d ", buf, 0x12u);
-  }
-
-  v22 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 134218754;
-    v25 = v10;
-    v26 = 2048;
-    v27 = Nanoseconds / 1000000000.0;
-    v28 = 2114;
     v29 = changesCopy;
     v30 = 1026;
-    v31 = v18;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BackupWithChanges  CloudServicesSignpostNameSecItemBackupWithChanges=%{public,signpost.telemetry:string1,name=CloudServicesSignpostNameSecItemBackupWithChanges}@  CloudServicesSignpostNameSecItemBackupWithChanges=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupWithChanges}d ", buf, 0x26u);
+    LODWORD(v31) = v20;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_END, v10, "BackupWithChanges", " CloudServicesSignpostNameSecItemBackupWithChanges=%{public,signpost.telemetry:string1,name=CloudServicesSignpostNameSecItemBackupWithChanges}@  CloudServicesSignpostNameSecItemBackupWithChanges=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupWithChanges}d ", buf, 0x12u);
   }
 
-  return v18;
+  v26 = _CloudServicesSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218754;
+    v29 = v10;
+    v30 = 2048;
+    v31 = Nanoseconds / 1000000000.0;
+    v32 = 2114;
+    v33 = changesCopy;
+    v34 = 1026;
+    v35 = v20;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BackupWithChanges  CloudServicesSignpostNameSecItemBackupWithChanges=%{public,signpost.telemetry:string1,name=CloudServicesSignpostNameSecItemBackupWithChanges}@  CloudServicesSignpostNameSecItemBackupWithChanges=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupWithChanges}d ", buf, 0x26u);
+  }
+
+  return v20;
 }
 
 - (id)copyMyPeerInfo:(id *)info
@@ -9951,24 +10075,24 @@ LABEL_15:
 
 - (id)copyMyPeerIDWithError:(id *)error
 {
-  v5 = [(SecureBackupDaemon *)self copyMyPeerInfo:?];
-  if (v5)
+  v4 = [(SecureBackupDaemon *)self copyMyPeerInfo:?];
+  if (v4)
   {
-    v6 = [(SecureBackupDaemon *)self copyPeerID:v5];
+    v5 = [(SecureBackupDaemon *)self copyPeerID:v4];
   }
 
   else
   {
-    v7 = CloudServicesLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = CloudServicesLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10004E9D4(error);
+      sub_10004E9D4();
     }
 
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)copyBackupKeyForNewDeviceRecoverySecret:(id)secret error:(id *)error
@@ -10088,11 +10212,9 @@ LABEL_15:
 
 - (id)createEncodedDirectBackupSliceKeybagFromData:(id)data error:(id *)error
 {
-  v11 = 0;
   Direct = SOSBackupSliceKeyBagCreateDirect();
   if (Direct)
   {
-    v11 = 0;
     v6 = SOSBSKBCopyEncoded();
     if (v6)
     {
@@ -10102,7 +10224,7 @@ LABEL_15:
     v7 = CloudServicesLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10004EA50(&v11);
+      sub_10004EA50();
     }
   }
 
@@ -10111,15 +10233,14 @@ LABEL_15:
     v7 = CloudServicesLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10004EAB8(&v11);
+      sub_10004EAB8();
     }
   }
 
   if (error)
   {
     v8 = objc_alloc_init(NSMutableDictionary);
-    v9 = v11;
-    [v8 setObject:v11 forKeyedSubscript:NSUnderlyingErrorKey];
+    [v8 setObject:0 forKeyedSubscript:NSUnderlyingErrorKey];
 
     *error = [NSError errorWithDomain:kSecureBackupErrorDomain code:19 userInfo:v8];
   }
@@ -10180,7 +10301,6 @@ LABEL_10:
 
 - (id)createiCloudRecoveryPasswordWithError:(id *)error
 {
-  v11 = 0;
   v4 = SecPasswordGenerate();
   v5 = v4;
   if (v4)
@@ -10193,13 +10313,12 @@ LABEL_10:
     v7 = CloudServicesLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10004EC18(&v11);
+      sub_10004EC18();
     }
 
     v8 = objc_alloc_init(NSMutableDictionary);
     [v8 setObject:@"SecPasswordGenerate() failed" forKeyedSubscript:NSLocalizedDescriptionKey];
-    v9 = v11;
-    [v8 setObject:v11 forKeyedSubscript:NSUnderlyingErrorKey];
+    [v8 setObject:0 forKeyedSubscript:NSUnderlyingErrorKey];
 
     if (error)
     {

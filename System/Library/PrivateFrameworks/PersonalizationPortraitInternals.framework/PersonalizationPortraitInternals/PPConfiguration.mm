@@ -66,6 +66,7 @@
 - (id)contactsLabelScoringMap;
 - (id)differentiallyPrivateEntityLogLevels;
 - (id)engagementKValues;
+- (id)extractionAlgorithmsForBundleId:(id)id sourceLanguage:(id)language conservative:(BOOL)conservative domain:(unsigned __int8)domain;
 - (id)feedbackSessionLogsSamplingRateOverrides;
 - (id)hyperparametersForMappingId:(id)id;
 - (id)naturalPortraitVariantName;
@@ -127,18 +128,18 @@ double __47__PPConfiguration_socialHighlightDecayInterval__block_invoke(uint64_t
 
 - (double)socialHighlightDecayInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x2020000000;
-  v12 = 0;
+  v10 = 0x2020000000;
+  v11 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__PPConfiguration_socialHighlightDecayInterval__block_invoke;
-  v9[3] = &unk_278979228;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __47__PPConfiguration_socialHighlightDecayInterval__block_invoke;
+  v8[3] = &unk_278979228;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
   v4 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.SocialLayer"];
@@ -156,7 +157,6 @@ double __47__PPConfiguration_socialHighlightDecayInterval__block_invoke(uint64_t
     v3 = v5;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1859,34 +1859,336 @@ double __48__PPConfiguration_portraitAnalyticsSamplingRate__block_invoke(uint64_
   return result;
 }
 
+- (id)extractionAlgorithmsForBundleId:(id)id sourceLanguage:(id)language conservative:(BOOL)conservative domain:(unsigned __int8)domain
+{
+  domainCopy = domain;
+  conservativeCopy = conservative;
+  v81 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  languageCopy = language;
+  context = objc_autoreleasePoolPush();
+  v8 = MEMORY[0x277CBEAF8];
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  localeIdentifier = [currentLocale localeIdentifier];
+  v11 = [v8 componentsFromLocaleIdentifier:localeIdentifier];
+  v12 = *MEMORY[0x277CBE6C8];
+  v13 = [v11 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
+  v14 = v13;
+  v15 = &stru_284759D38;
+  if (v13)
+  {
+    v15 = v13;
+  }
+
+  v68 = v15;
+
+  v16 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:languageCopy];
+  v17 = [v16 objectForKeyedSubscript:v12];
+  v18 = v17;
+  v19 = v68;
+  if (v17)
+  {
+    v19 = v17;
+  }
+
+  v64 = v19;
+
+  if (self)
+  {
+    if (domainCopy > 2)
+    {
+      v20 = @"UNK_ALGORITHM";
+    }
+
+    else
+    {
+      v20 = off_278979270[domainCopy];
+    }
+
+    v63 = v20;
+  }
+
+  else
+  {
+    v63 = 0;
+  }
+
+  v21 = pp_default_log_handle();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+    localeIdentifier2 = [currentLocale2 localeIdentifier];
+    *buf = 138413058;
+    *&buf[4] = v63;
+    *&buf[12] = 2112;
+    *&buf[14] = languageCopy;
+    *&buf[22] = 2112;
+    *&buf[24] = localeIdentifier2;
+    *&buf[32] = 2112;
+    *&buf[34] = idCopy;
+    _os_log_debug_impl(&dword_23224A000, v21, OS_LOG_TYPE_DEBUG, "PPConfiguration: %@: determining extraction algorithms based on detected language %@, system language %@, and bundle %@", buf, 0x2Au);
+  }
+
+  conservativeCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@:%@:%@:%d", v63, v64, idCopy, conservativeCopy];
+  v60 = [(_PASLRUCache *)self->_cachedAlgorithms objectForKey:conservativeCopy];
+  if (v60)
+  {
+    v22 = pp_default_log_handle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_debug_impl(&dword_23224A000, v22, OS_LOG_TYPE_DEBUG, "PPConfiguration: returning cached value for extraction algorithms.", buf, 2u);
+    }
+
+    v23 = pp_default_log_handle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412546;
+      *&buf[4] = v63;
+      *&buf[12] = 2112;
+      *&buf[14] = v60;
+      _os_log_debug_impl(&dword_23224A000, v23, OS_LOG_TYPE_DEBUG, "PPConfiguration: %@: running the following algorithms: %@", buf, 0x16u);
+    }
+
+    v24 = v60;
+    v25 = v60;
+  }
+
+  else
+  {
+    if (domainCopy == 2)
+    {
+      *buf = 0;
+      *&buf[8] = buf;
+      *&buf[16] = 0x3032000000;
+      *&buf[24] = __Block_byref_object_copy__25295;
+      *&buf[32] = __Block_byref_object_dispose__25296;
+      *&buf[40] = 0;
+      lock = self->_lock;
+      v73 = MEMORY[0x277D85DD0];
+      v74 = 3221225472;
+      v75 = __40__PPConfiguration__dictionaryForDomain___block_invoke_3;
+      v76 = &unk_278979228;
+      v77 = buf;
+      [(_PASLock *)lock runWithLockAcquired:&v73];
+      v57 = *(*&buf[8] + 40);
+      _Block_object_dispose(buf, 8);
+    }
+
+    else if (domainCopy == 1)
+    {
+      *buf = 0;
+      *&buf[8] = buf;
+      *&buf[16] = 0x3032000000;
+      *&buf[24] = __Block_byref_object_copy__25295;
+      *&buf[32] = __Block_byref_object_dispose__25296;
+      *&buf[40] = 0;
+      v27 = self->_lock;
+      v73 = MEMORY[0x277D85DD0];
+      v74 = 3221225472;
+      v75 = __40__PPConfiguration__dictionaryForDomain___block_invoke_2;
+      v76 = &unk_278979228;
+      v77 = buf;
+      [(_PASLock *)v27 runWithLockAcquired:&v73];
+      v57 = *(*&buf[8] + 40);
+      _Block_object_dispose(buf, 8);
+    }
+
+    else if (domainCopy)
+    {
+      objc_autoreleasePoolPop(objc_autoreleasePoolPush());
+      v57 = MEMORY[0x277CBEC10];
+    }
+
+    else
+    {
+      *buf = 0;
+      *&buf[8] = buf;
+      *&buf[16] = 0x3032000000;
+      *&buf[24] = __Block_byref_object_copy__25295;
+      *&buf[32] = __Block_byref_object_dispose__25296;
+      *&buf[40] = 0;
+      v26 = self->_lock;
+      v73 = MEMORY[0x277D85DD0];
+      v74 = 3221225472;
+      v75 = __40__PPConfiguration__dictionaryForDomain___block_invoke;
+      v76 = &unk_278979228;
+      v77 = buf;
+      [(_PASLock *)v26 runWithLockAcquired:&v73];
+      v57 = *(*&buf[8] + 40);
+      _Block_object_dispose(buf, 8);
+    }
+
+    v29 = pp_default_log_handle();
+    v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
+    if (conservativeCopy)
+    {
+      if (v30)
+      {
+        *buf = 138412290;
+        *&buf[4] = v63;
+        _os_log_debug_impl(&dword_23224A000, v29, OS_LOG_TYPE_DEBUG, "PPConfiguration: %@: running only conservative algorithms.", buf, 0xCu);
+      }
+
+      v31 = @"CONSERVATIVE";
+      v32 = @"CONSERVATIVE_RULES";
+    }
+
+    else
+    {
+      if (v30)
+      {
+        *buf = 138412290;
+        *&buf[4] = v63;
+        _os_log_debug_impl(&dword_23224A000, v29, OS_LOG_TYPE_DEBUG, "PPConfiguration: %@: running non-conservative algorithms.", buf, 0xCu);
+      }
+
+      v31 = @"AGGRESSIVE";
+      v32 = @"AGGRESSIVE_RULES";
+    }
+
+    v33 = [v57 objectForKeyedSubscript:v32];
+    v34 = objc_alloc(MEMORY[0x277CBEB58]);
+    v35 = [v57 objectForKeyedSubscript:v31];
+    v36 = [v34 initWithArray:v35];
+
+    v37 = objc_alloc(MEMORY[0x277CBEB70]);
+    v79[0] = @"*";
+    v79[1] = v68;
+    v79[2] = v64;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:3];
+    v39 = [v37 initWithArray:v38];
+
+    v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    obj = v39;
+    v40 = [obj countByEnumeratingWithState:&v69 objects:v78 count:16];
+    if (v40)
+    {
+      v41 = *v70;
+      do
+      {
+        for (i = 0; i != v40; ++i)
+        {
+          if (*v70 != v41)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v43 = *(*(&v69 + 1) + 8 * i);
+          v44 = objc_autoreleasePoolPush();
+          v45 = [v33 objectForKeyedSubscript:v43];
+          v46 = [(PPConfiguration *)self _algorithmsForNode:v43 bundleId:idCopy customRules:v45];
+
+          [v36 unionSet:v46];
+          if ([v43 isEqualToString:v68] && -[__CFString isEqualToString:](v68, "isEqualToString:", v64))
+          {
+            v47 = [v33 objectForKeyedSubscript:v43];
+            v48 = [(PPConfiguration *)self _algorithmsToDelete:v43 bundleId:idCopy customRules:v47];
+
+            v49 = pp_default_log_handle();
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+            {
+              *buf = 138413058;
+              *&buf[4] = v63;
+              *&buf[12] = 2112;
+              *&buf[14] = v48;
+              *&buf[22] = 2048;
+              *&buf[24] = domainCopy;
+              *&buf[32] = 2112;
+              *&buf[34] = v43;
+              _os_log_impl(&dword_23224A000, v49, OS_LOG_TYPE_INFO, "PPConfiguration: %@: removing algorithms %@ for domain %lu and language %@.", buf, 0x2Au);
+            }
+
+            [v36 minusSet:v48];
+          }
+
+          objc_autoreleasePoolPop(v44);
+        }
+
+        v40 = [obj countByEnumeratingWithState:&v69 objects:v78 count:16];
+      }
+
+      while (v40);
+    }
+
+    if ([v36 count])
+    {
+      v25 = [(PPConfiguration *)self _mapAlgorithmNamesToNumbers:v36 domain:domainCopy];
+      v50 = pp_default_log_handle();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412546;
+        *&buf[4] = v63;
+        *&buf[12] = 2112;
+        *&buf[14] = v25;
+        _os_log_debug_impl(&dword_23224A000, v50, OS_LOG_TYPE_DEBUG, "PPConfiguration: %@: running the following algorithms: %@", buf, 0x16u);
+      }
+
+      [(_PASLRUCache *)self->_cachedAlgorithms setObject:v25 forKey:conservativeCopy];
+    }
+
+    else
+    {
+      v51 = pp_default_log_handle();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138413058;
+        *&buf[4] = v63;
+        *&buf[12] = 1024;
+        *&buf[14] = domainCopy;
+        *&buf[18] = 2112;
+        *&buf[20] = v68;
+        *&buf[28] = 2112;
+        *&buf[30] = idCopy;
+        _os_log_impl(&dword_23224A000, v51, OS_LOG_TYPE_DEFAULT, "PPConfiguration: %@: not running any algorithms for domain %d as language %@ has no algorithms for bundle ID %@", buf, 0x26u);
+      }
+
+      cachedAlgorithms = self->_cachedAlgorithms;
+      v53 = objc_opt_new();
+      [(_PASLRUCache *)cachedAlgorithms setObject:v53 forKey:conservativeCopy];
+
+      v25 = objc_opt_new();
+    }
+
+    v24 = 0;
+  }
+
+  objc_autoreleasePoolPop(context);
+
+  return v25;
+}
+
 - (id)_mapAlgorithmNamesToNumbers:(id)numbers domain:(unsigned __int8)domain
 {
   domainCopy = domain;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   v6 = objc_autoreleasePoolPush();
   v7 = objc_opt_new();
   objc_autoreleasePoolPop(v6);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = numbersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v22 != v11)
+      if (*v21 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v21 + 1) + 8 * v12);
+      v13 = *(*(&v20 + 1) + 8 * v12);
       if (domainCopy == 2)
       {
         v14 = MEMORY[0x277D3A3F0];
@@ -1901,14 +2203,14 @@ LABEL_3:
       {
         if (domainCopy)
         {
-          v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{0, v21}];
+          v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{0, v20}];
           goto LABEL_14;
         }
 
         v14 = MEMORY[0x277D3A548];
       }
 
-      v15 = [v14 algorithmForName:{*(*(&v21 + 1) + 8 * v12), v21}];
+      v15 = [v14 algorithmForName:{*(*(&v20 + 1) + 8 * v12), v20}];
 LABEL_14:
       v16 = v15;
       if (![v15 unsignedIntegerValue])
@@ -1917,9 +2219,9 @@ LABEL_14:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v26 = v13;
-          v27 = 1024;
-          v28 = domainCopy;
+          v25 = v13;
+          v26 = 1024;
+          v27 = domainCopy;
           _os_log_fault_impl(&dword_23224A000, v18, OS_LOG_TYPE_FAULT, "PPConfiguration: unknown algorithm %@ in domain %d", buf, 0x12u);
         }
 
@@ -1931,7 +2233,7 @@ LABEL_14:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -1944,8 +2246,6 @@ LABEL_14:
 
   v17 = [v7 copy];
 LABEL_21:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2116,10 +2416,7 @@ uint64_t __57__PPConfiguration_topicsMultiplierForBundleId_algorithm___block_inv
   *(v7 + 40) = v6;
 
   v9 = v5[17];
-  v10 = [v9 objectForKeyedSubscript:a1[5]];
-  v11 = *(a1[7] + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v10;
+  *(*(a1[7] + 8) + 40) = [v9 objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2289,7 +2586,7 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (void)_loadTopicsConfigParamsWithGuardedData:(id)data
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   v6 = objc_autoreleasePoolPush();
@@ -2307,9 +2604,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v9 = pp_default_log_handle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = v8;
-      _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: Empty or missing asset contents for %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = v8;
+      _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: Empty or missing asset contents for %@", &v102, 0xCu);
     }
   }
 
@@ -2326,8 +2623,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
       v13 = pp_default_log_handle();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v103) = 0;
-        _os_log_error_impl(&dword_23224A000, v13, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad topics configuration plist from Trial. Falling back to assets in the build.", &v103, 2u);
+        LOWORD(v102) = 0;
+        _os_log_error_impl(&dword_23224A000, v13, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad topics configuration plist from Trial. Falling back to assets in the build.", &v102, 2u);
       }
 
       v14 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -2346,9 +2643,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v22 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"RemoteTopicsMultiplier";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"RemoteTopicsMultiplier";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v20 = &unk_284786140;
@@ -2366,9 +2663,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v29 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"TopicFeedbackUsesCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"TopicFeedbackUsesCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v27 = &unk_284786140;
@@ -2384,9 +2681,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v35 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"TopicMappingUsesCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"TopicMappingUsesCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v33 = &unk_284786140;
@@ -2402,9 +2699,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v41 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"TopicMappingCoreMLThreshold";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"TopicMappingCoreMLThreshold";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v39 = &unk_284786140;
@@ -2422,9 +2719,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v48 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"LinearModelHyperparameters";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"LinearModelHyperparameters";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v46 = MEMORY[0x277CBEC10];
@@ -2442,9 +2739,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v55 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"Use2StageScoreInterpreterForTPScoring";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"Use2StageScoreInterpreterForTPScoring";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v53 = &unk_284786140;
@@ -2460,9 +2757,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v61 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"FlattenTopicsForCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"FlattenTopicsForCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v59 = &unk_284786140;
@@ -2478,9 +2775,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v67 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"TopicScoringUsesCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"TopicScoringUsesCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v65 = &unk_284786140;
@@ -2496,9 +2793,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v73 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"TopicScoringUsesHybrid";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"TopicScoringUsesHybrid";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v71 = &unk_284786140;
@@ -2514,9 +2811,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v79 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"TopicDecayHalfLifeSeconds";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"TopicDecayHalfLifeSeconds";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v77 = &unk_284786140;
@@ -2534,9 +2831,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v86 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"ScoreThresholdForTopic";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"ScoreThresholdForTopic";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v84 = &unk_284786140;
@@ -2555,9 +2852,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v93 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"MaxNumberMappedTopics";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"MaxNumberMappedTopics";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v91 = &unk_284786140;
@@ -2573,9 +2870,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v99 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
     {
-      v103 = 138412290;
-      v104 = @"ExtractionAlgorithmConfiguration";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
+      v102 = 138412290;
+      v103 = @"ExtractionAlgorithmConfiguration";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v102, 0xCu);
     }
 
     v97 = MEMORY[0x277CBEC10];
@@ -2587,7 +2884,6 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   dataCopy[19] = v100;
 
   objc_autoreleasePoolPop(v5);
-  v102 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadTopicsConfigParams
@@ -2603,7 +2899,7 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (void)_loadNamedEntitiesConfigParamsWithGuardedData:(id)data
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   trialWrapperReloadingIfNeeded = [(PPConfiguration *)self trialWrapperReloadingIfNeeded];
@@ -2618,8 +2914,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
       v9 = pp_default_log_handle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v104) = 0;
-        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad named entities configuration plist from Trial. Falling back to assets in the build.", &v104, 2u);
+        LOWORD(v103) = 0;
+        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad named entities configuration plist from Trial. Falling back to assets in the build.", &v103, 2u);
       }
 
       v10 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -2638,9 +2934,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v18 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"NamedEntityFeedbackUsesCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"NamedEntityFeedbackUsesCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v16 = &unk_284786140;
@@ -2656,9 +2952,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v24 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"MaxNumberNamedEntities";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"MaxNumberNamedEntities";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v22 = &unk_284785190;
@@ -2674,9 +2970,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v30 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"Use2StageScoreInterpreterForNEScoring";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"Use2StageScoreInterpreterForNEScoring";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v28 = &unk_284786140;
@@ -2692,9 +2988,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v36 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"NamedEntityScoringUsesCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"NamedEntityScoringUsesCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v34 = &unk_284786140;
@@ -2710,9 +3006,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v42 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"NamedEntityDecayHalfLifeSeconds";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"NamedEntityDecayHalfLifeSeconds";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v40 = &unk_284786140;
@@ -2730,9 +3026,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v49 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"ScoreThresholdForNamedEntity";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"ScoreThresholdForNamedEntity";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v47 = &unk_284786140;
@@ -2750,9 +3046,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v56 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"FlattenNamedEntitiesForCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"FlattenNamedEntitiesForCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v54 = &unk_284786140;
@@ -2768,9 +3064,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v62 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"NamedEntityScoringUsesHybrid";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"NamedEntityScoringUsesHybrid";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v60 = &unk_284786140;
@@ -2786,9 +3082,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v68 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"DifferentiallyPrivateLogLevels";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"DifferentiallyPrivateLogLevels";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v66 = MEMORY[0x277CBEC10];
@@ -2806,9 +3102,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v75 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"CustomTaggerMaxTokenCount";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"CustomTaggerMaxTokenCount";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v73 = &unk_284786140;
@@ -2824,9 +3120,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v81 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"NamedEntityLoadAndMonitorInitialLoadLimit";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"NamedEntityLoadAndMonitorInitialLoadLimit";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v79 = &unk_2847851A8;
@@ -2842,9 +3138,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v87 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"MapsSearchQueryLimit";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"MapsSearchQueryLimit";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v85 = &unk_2847851A8;
@@ -2860,9 +3156,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v93 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"MapsSearchQueryFromDateInterval";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"MapsSearchQueryFromDateInterval";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v91 = &unk_2847851F0;
@@ -2880,9 +3176,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v100 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
     {
-      v104 = 138412290;
-      v105 = @"ExtractionAlgorithmConfiguration";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v104, 0xCu);
+      v103 = 138412290;
+      v104 = @"ExtractionAlgorithmConfiguration";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v103, 0xCu);
     }
 
     v98 = MEMORY[0x277CBEC10];
@@ -2894,7 +3190,6 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   *(dataCopy + 18) = v101;
 
   objc_autoreleasePoolPop(v5);
-  v103 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadNamedEntitiesConfigParams
@@ -2910,7 +3205,7 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (void)_loadQuickTypeConfigParamsWithGuardedData:(id)data
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   trialWrapperReloadingIfNeeded = [(PPConfiguration *)self trialWrapperReloadingIfNeeded];
@@ -2925,8 +3220,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
       v9 = pp_default_log_handle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v46) = 0;
-        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad contacts configuration plist from Trial. Falling back to assets in the build.", &v46, 2u);
+        LOWORD(v45) = 0;
+        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad contacts configuration plist from Trial. Falling back to assets in the build.", &v45, 2u);
       }
 
       v10 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -2943,9 +3238,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v46 = 138412290;
-      v47 = @"NavigationMinimumDistanceInMeters";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v46, 0xCu);
+      v45 = 138412290;
+      v46 = @"NavigationMinimumDistanceInMeters";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v45, 0xCu);
     }
 
     v16 = &unk_284786140;
@@ -2962,9 +3257,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v46 = 138412290;
-      v47 = @"NavigationMinimumDistanceInMeters";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v46, 0xCu);
+      v45 = 138412290;
+      v46 = @"NavigationMinimumDistanceInMeters";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v45, 0xCu);
     }
 
     v22 = &unk_284786140;
@@ -2979,9 +3274,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v46 = 138412290;
-      v47 = @"NextEventFuzzMinutes";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v46, 0xCu);
+      v45 = 138412290;
+      v46 = @"NextEventFuzzMinutes";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v45, 0xCu);
     }
 
     v27 = &unk_284786140;
@@ -2996,9 +3291,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v46 = 138412290;
-      v47 = @"QueryTimeNextToMinutes";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v46, 0xCu);
+      v45 = 138412290;
+      v46 = @"QueryTimeNextToMinutes";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v45, 0xCu);
     }
 
     v32 = &unk_284786140;
@@ -3013,9 +3308,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v46 = 138412290;
-      v47 = @"QueryTimeNextFromMinutes";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v46, 0xCu);
+      v45 = 138412290;
+      v46 = @"QueryTimeNextFromMinutes";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v45, 0xCu);
     }
 
     v37 = &unk_284786140;
@@ -3030,9 +3325,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v46 = 138412290;
-      v47 = @"QueryTimeOtherToMinutes";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v46, 0xCu);
+      v45 = 138412290;
+      v46 = @"QueryTimeOtherToMinutes";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v45, 0xCu);
     }
 
     v42 = &unk_284786140;
@@ -3044,7 +3339,6 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   *(dataCopy + 104) = unsignedIntegerValue3;
 
   objc_autoreleasePoolPop(v5);
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadQuickTypeConfigParams
@@ -3060,7 +3354,7 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (void)_loadSocialHighlightConfigParamsWithGuardedData:(id)data
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   trialWrapperReloadingIfNeeded = [(PPConfiguration *)self trialWrapperReloadingIfNeeded];
@@ -3075,8 +3369,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
       v9 = pp_default_log_handle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v60) = 0;
-        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad social highlights configuration plist from Trial. Falling back to assets in the build.", &v60, 2u);
+        LOWORD(v59) = 0;
+        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad social highlights configuration plist from Trial. Falling back to assets in the build.", &v59, 2u);
       }
 
       v10 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -3093,9 +3387,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v60 = 138412290;
-      v61 = @"MaxRelevantContacts";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v60, 0xCu);
+      v59 = 138412290;
+      v60 = @"MaxRelevantContacts";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v59, 0xCu);
     }
 
     v16 = &unk_284786140;
@@ -3110,9 +3404,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v60 = 138412290;
-      v61 = @"HighlightDecayInterval";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v60, 0xCu);
+      v59 = 138412290;
+      v60 = @"HighlightDecayInterval";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v59, 0xCu);
     }
 
     v21 = &unk_284785220;
@@ -3129,9 +3423,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v60 = 138412290;
-      v61 = @"RankedStorageMaxAge";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v60, 0xCu);
+      v59 = 138412290;
+      v60 = @"RankedStorageMaxAge";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v59, 0xCu);
     }
 
     v27 = &unk_284785250;
@@ -3148,9 +3442,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v60 = 138412290;
-      v61 = @"CacheTimeoutInterval";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v60, 0xCu);
+      v59 = 138412290;
+      v60 = @"CacheTimeoutInterval";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v59, 0xCu);
     }
 
     v33 = &unk_284785238;
@@ -3167,9 +3461,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v60 = 138412290;
-      v61 = @"FeedbackDeletionInterval";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v60, 0xCu);
+      v59 = 138412290;
+      v60 = @"FeedbackDeletionInterval";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v59, 0xCu);
     }
 
     v39 = &unk_284785208;
@@ -3186,9 +3480,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v60 = 138412290;
-      v61 = @"MetricReportingInterval";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v60, 0xCu);
+      v59 = 138412290;
+      v60 = @"MetricReportingInterval";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v59, 0xCu);
     }
 
     v45 = &unk_284785208;
@@ -3205,9 +3499,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v60 = 138412290;
-      v61 = @"MaxNumHighlights";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v60, 0xCu);
+      v59 = 138412290;
+      v60 = @"MaxNumHighlights";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v59, 0xCu);
     }
 
     v51 = &unk_2847851C0;
@@ -3222,9 +3516,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v60 = 138412290;
-      v61 = @"TopKCount";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v60, 0xCu);
+      v59 = 138412290;
+      v60 = @"TopKCount";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v59, 0xCu);
     }
 
     v56 = &unk_2847851D8;
@@ -3236,7 +3530,6 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   dataCopy[125] = unsignedIntegerValue3;
 
   objc_autoreleasePoolPop(v5);
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadSocialHighlightConfigParams
@@ -3252,7 +3545,7 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (void)_loadUniversalSearchConfigParamsWithGuardedData:(id)data
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   trialWrapperReloadingIfNeeded = [(PPConfiguration *)self trialWrapperReloadingIfNeeded];
@@ -3261,9 +3554,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   v8 = pp_default_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v58 = 138412290;
-    v59 = v7;
-    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "ppunivSearch %@", &v58, 0xCu);
+    v57 = 138412290;
+    v58 = v7;
+    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "ppunivSearch %@", &v57, 0xCu);
   }
 
   if ([(__CFString *)v7 count]<= 1)
@@ -3275,8 +3568,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
       v10 = pp_default_log_handle();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v58) = 0;
-        _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad universal search configuration plist from Trial. Falling back to assets in the build.", &v58, 2u);
+        LOWORD(v57) = 0;
+        _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad universal search configuration plist from Trial. Falling back to assets in the build.", &v57, 2u);
       }
 
       v11 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -3293,9 +3586,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v58 = 138412290;
-      v59 = @"MaxNEExtractions";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v58, 0xCu);
+      v57 = 138412290;
+      v58 = @"MaxNEExtractions";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v57, 0xCu);
     }
 
     v17 = &unk_284786140;
@@ -3310,9 +3603,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v58 = 138412290;
-      v59 = @"ScoreThreshold";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v58, 0xCu);
+      v57 = 138412290;
+      v58 = @"ScoreThreshold";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v57, 0xCu);
     }
 
     v22 = &unk_284786140;
@@ -3329,9 +3622,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v58 = 138412290;
-      v59 = @"StoreNewExtractions";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v58, 0xCu);
+      v57 = 138412290;
+      v58 = @"StoreNewExtractions";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v57, 0xCu);
     }
 
     v28 = &unk_284786140;
@@ -3346,9 +3639,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v58 = 138412290;
-      v59 = @"UseRawNEExtractionScores";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v58, 0xCu);
+      v57 = 138412290;
+      v58 = @"UseRawNEExtractionScores";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v57, 0xCu);
     }
 
     v33 = &unk_284786140;
@@ -3363,9 +3656,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v58 = 138412290;
-      v59 = @"UseCachedPortraitScores";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v58, 0xCu);
+      v57 = 138412290;
+      v58 = @"UseCachedPortraitScores";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v57, 0xCu);
     }
 
     v38 = &unk_284786140;
@@ -3380,9 +3673,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v58 = 138412290;
-      v59 = @"MaxItemsInFeatureDictionary";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v58, 0xCu);
+      v57 = 138412290;
+      v58 = @"MaxItemsInFeatureDictionary";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v57, 0xCu);
     }
 
     v43 = &unk_284786140;
@@ -3397,9 +3690,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v58 = 138412290;
-      v59 = @"SkipInsignificantEmailExtractions";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v58, 0xCu);
+      v57 = 138412290;
+      v58 = @"SkipInsignificantEmailExtractions";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v57, 0xCu);
     }
 
     v48 = &unk_284786140;
@@ -3414,9 +3707,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v58 = 138412290;
-      v59 = @"MaxEmailHarvestingEligiblityInterval";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v58, 0xCu);
+      v57 = 138412290;
+      v58 = @"MaxEmailHarvestingEligiblityInterval";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v57, 0xCu);
     }
 
     v53 = &unk_284785220;
@@ -3429,8 +3722,6 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
   *(dataCopy + 64) = v56;
   objc_autoreleasePoolPop(v5);
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadUniversalSearchConfigParams
@@ -3446,7 +3737,7 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (void)_loadContactsConfigParamsWithGuardedData:(id)data
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   trialWrapperReloadingIfNeeded = [(PPConfiguration *)self trialWrapperReloadingIfNeeded];
@@ -3461,8 +3752,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
       v9 = pp_default_log_handle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v37) = 0;
-        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad contacts configuration plist from Trial. Falling back to assets in the build.", &v37, 2u);
+        LOWORD(v36) = 0;
+        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad contacts configuration plist from Trial. Falling back to assets in the build.", &v36, 2u);
       }
 
       v10 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -3479,9 +3770,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v37 = 138412290;
-      v38 = @"ContactLabelScoringMap";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v37, 0xCu);
+      v36 = 138412290;
+      v37 = @"ContactLabelScoringMap";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v36, 0xCu);
     }
 
     v16 = MEMORY[0x277CBEC10];
@@ -3497,9 +3788,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v37 = 138412290;
-      v38 = @"RecordSourceContactsInitialScore";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v37, 0xCu);
+      v36 = 138412290;
+      v37 = @"RecordSourceContactsInitialScore";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v36, 0xCu);
     }
 
     v21 = &unk_284786140;
@@ -3516,9 +3807,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v37 = 138412290;
-      v38 = @"RecordSourceNonContactsInitialScore";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v37, 0xCu);
+      v36 = 138412290;
+      v37 = @"RecordSourceNonContactsInitialScore";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v36, 0xCu);
     }
 
     v27 = &unk_284786140;
@@ -3535,9 +3826,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v37 = 138412290;
-      v38 = @"PeopleSuggesterMaxCount";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v37, 0xCu);
+      v36 = 138412290;
+      v37 = @"PeopleSuggesterMaxCount";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v36, 0xCu);
     }
 
     v33 = &unk_284786140;
@@ -3549,7 +3840,6 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   *(dataCopy + 384) = unsignedIntValue;
 
   objc_autoreleasePoolPop(v5);
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadContactsConfigParams
@@ -3565,7 +3855,7 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (void)_loadLocationsConfigParamsWithGuardedData:(id)data
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   trialWrapperReloadingIfNeeded = [(PPConfiguration *)self trialWrapperReloadingIfNeeded];
@@ -3580,8 +3870,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
       v9 = pp_default_log_handle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v70) = 0;
-        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad locations configuration plist from Trial. Falling back to assets in the build.", &v70, 2u);
+        LOWORD(v69) = 0;
+        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad locations configuration plist from Trial. Falling back to assets in the build.", &v69, 2u);
       }
 
       v10 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -3598,9 +3888,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"Use2StageScoreInterpreterForLocationScoring";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"Use2StageScoreInterpreterForLocationScoring";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v16 = &unk_284786140;
@@ -3615,9 +3905,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"LocationDecayHalfLifeSeconds";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"LocationDecayHalfLifeSeconds";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v21 = &unk_284786140;
@@ -3634,9 +3924,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"ScoreThresholdForLocation";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"ScoreThresholdForLocation";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v27 = &unk_284786140;
@@ -3653,9 +3943,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"LocationScoringUsesCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"LocationScoringUsesCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v33 = &unk_284786140;
@@ -3670,9 +3960,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"LocationFeedbackUsesCoreML";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"LocationFeedbackUsesCoreML";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v38 = &unk_284786140;
@@ -3687,9 +3977,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"LocationScoringUsesHybrid";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"LocationScoringUsesHybrid";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v43 = &unk_284786140;
@@ -3704,9 +3994,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"RoutineExtractionScoreCountWeight";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"RoutineExtractionScoreCountWeight";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v48 = &unk_284786140;
@@ -3723,9 +4013,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"RoutineExtractionScoreDurationWeight";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"RoutineExtractionScoreDurationWeight";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v54 = &unk_284786140;
@@ -3742,9 +4032,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"RoutineExtractionScoreDecayHalfLifeDays";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"RoutineExtractionScoreDecayHalfLifeDays";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v60 = &unk_284786140;
@@ -3761,9 +4051,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v70 = 138412290;
-      v71 = @"ExtractionAlgorithmConfiguration";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v70, 0xCu);
+      v69 = 138412290;
+      v70 = @"ExtractionAlgorithmConfiguration";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v69, 0xCu);
     }
 
     v66 = MEMORY[0x277CBEC10];
@@ -3775,7 +4065,6 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
   *(dataCopy + 20) = v67;
 
   objc_autoreleasePoolPop(v5);
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadLocationsConfigParams
@@ -3791,7 +4080,7 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (void)_loadGlobalConfigParamsWithGuardedData:(id)data
 {
-  v201[1] = *MEMORY[0x277D85DE8];
+  v200[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   trialWrapperReloadingIfNeeded = [(PPConfiguration *)self trialWrapperReloadingIfNeeded];
@@ -3806,8 +4095,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
       v9 = pp_default_log_handle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v199) = 0;
-        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad configuration plist from Trial. Falling back to assets in the build.", &v199, 2u);
+        LOWORD(v198) = 0;
+        _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "PPConfiguration: loaded a bad configuration plist from Trial. Falling back to assets in the build.", &v198, 2u);
       }
 
       v10 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -3836,8 +4125,8 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
   objc_storeStrong(dataCopy + 12, v17);
   objc_storeStrong(dataCopy + 13, v17);
-  v201[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v201 count:1];
+  v200[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v200 count:1];
   v20 = dataCopy[14];
   dataCopy[14] = v19;
 
@@ -3848,9 +4137,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v25 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"HalfValuePosition";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"HalfValuePosition";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v23 = &unk_284786140;
@@ -3868,9 +4157,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v32 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"NonReaderTextWeight";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"NonReaderTextWeight";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v30 = &unk_284786140;
@@ -3888,9 +4177,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v39 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"AnalyticsSamplingRate";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"AnalyticsSamplingRate";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v37 = &unk_284786140;
@@ -3908,9 +4197,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v46 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"MusicDataCollectionSamplingRateForCTS";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"MusicDataCollectionSamplingRateForCTS";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v44 = &unk_284786140;
@@ -3928,9 +4217,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v53 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"MusicDataCollectionSamplingRateForAMP";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"MusicDataCollectionSamplingRateForAMP";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v51 = &unk_284786140;
@@ -3948,9 +4237,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v60 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"MusicDataCollectionMaximumRecordsPerType";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"MusicDataCollectionMaximumRecordsPerType";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v58 = &unk_284786140;
@@ -3966,9 +4255,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v66 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"MusicDataCollectionCollectNonAMPNowPlaying";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"MusicDataCollectionCollectNonAMPNowPlaying";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v64 = &unk_284786140;
@@ -3984,9 +4273,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v72 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"MusicDataCollectionAMPBundleIds";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"MusicDataCollectionAMPBundleIds";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v70 = MEMORY[0x277CBEBF8];
@@ -4004,9 +4293,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v79 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"SportsMetricsNumberOfTeamsLogged";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"SportsMetricsNumberOfTeamsLogged";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v77 = &unk_284786140;
@@ -4022,9 +4311,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v85 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"SportsMetricsNumberOfLeaguesLogged";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"SportsMetricsNumberOfLeaguesLogged";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v83 = &unk_284786140;
@@ -4040,9 +4329,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v91 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"SportsMetricsEventName";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"SportsMetricsEventName";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v89 = &stru_284759D38;
@@ -4060,9 +4349,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v98 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"SportsMetricsSamplingRate";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"SportsMetricsSamplingRate";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v96 = &unk_284786140;
@@ -4080,9 +4369,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v105 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"TopicsSourceMultiplier";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"TopicsSourceMultiplier";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v103 = MEMORY[0x277CBEC10];
@@ -4100,9 +4389,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v112 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"TopicsAlgorithmMultiplier";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"TopicsAlgorithmMultiplier";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v110 = MEMORY[0x277CBEC10];
@@ -4120,9 +4409,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v119 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"SafariDonationTitleExtractionEnabled";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"SafariDonationTitleExtractionEnabled";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v117 = &unk_284786140;
@@ -4138,9 +4427,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v125 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"SafariDataDetectorsEnabledForHighMemoryDevices";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"SafariDataDetectorsEnabledForHighMemoryDevices";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v123 = &unk_284786140;
@@ -4156,9 +4445,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v131 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"FeedbackSessionLogsSamplingRate";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"FeedbackSessionLogsSamplingRate";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v129 = &unk_284786140;
@@ -4176,9 +4465,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v138 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"FeedbackSessionLogsSamplingRateOverrides";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"FeedbackSessionLogsSamplingRateOverrides";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v136 = MEMORY[0x277CBEC10];
@@ -4196,9 +4485,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v145 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v144, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"FeedbackSessionLogsExtractionsSamplingRate";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"FeedbackSessionLogsExtractionsSamplingRate";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v143 = &unk_284786140;
@@ -4216,9 +4505,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v152 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"FeedbackSessionLogsGeohashLength";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"FeedbackSessionLogsGeohashLength";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v150 = &unk_284786140;
@@ -4234,9 +4523,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v158 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"AnalyticsMaximumNumberOfRecords";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"AnalyticsMaximumNumberOfRecords";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v156 = &unk_284786140;
@@ -4252,9 +4541,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v164 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"DecayedFeedbackCountsHalfLifeDays";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"DecayedFeedbackCountsHalfLifeDays";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v162 = &unk_284786140;
@@ -4272,9 +4561,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v171 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v170, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"NotificationExtractionEnabled";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"NotificationExtractionEnabled";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v169 = &unk_284786140;
@@ -4290,9 +4579,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v177 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"EngagementKValues";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"EngagementKValues";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v175 = MEMORY[0x277CBEBF8];
@@ -4310,9 +4599,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v184 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v183, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"SentenceEmbeddingVersion";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"SentenceEmbeddingVersion";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v182 = &unk_284786140;
@@ -4328,9 +4617,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v190 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v189, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"EnableECRMessageTokenCountsPlugin";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"EnableECRMessageTokenCountsPlugin";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v188 = &unk_284786140;
@@ -4346,9 +4635,9 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     v196 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v195, OS_LOG_TYPE_ERROR))
     {
-      v199 = 138412290;
-      v200 = @"MaxUniqueTokensInECRTokenCounts";
-      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v199, 0xCu);
+      v198 = 138412290;
+      v199 = @"MaxUniqueTokensInECRTokenCounts";
+      _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Param key not found: %@", &v198, 0xCu);
     }
 
     v194 = &unk_284785268;
@@ -4358,8 +4647,6 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
   dataCopy[66] = [v197 unsignedLongValue];
   objc_autoreleasePoolPop(v5);
-
-  v198 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadGlobalConfigParams
@@ -4391,11 +4678,11 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
 
 - (PPConfiguration)initWithTrialWrapper:(id)wrapper
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   wrapperCopy = wrapper;
-  v28.receiver = self;
-  v28.super_class = PPConfiguration;
-  v5 = [(PPConfiguration *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = PPConfiguration;
+  v5 = [(PPConfiguration *)&v27 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x277D425F8]);
@@ -4411,39 +4698,39 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     objc_storeStrong(&v5->_trialWrapper, wrapper);
     [(PPConfiguration *)v5 _loadConfigParams];
     objc_initWeak(&location, v5);
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v12 = [&unk_284785E20 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v12 = [&unk_284785E20 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v12)
     {
-      v13 = *v24;
+      v13 = *v23;
       do
       {
         v14 = 0;
         do
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(&unk_284785E20);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * v14);
+          v15 = *(*(&v22 + 1) + 8 * v14);
           trialWrapper = v5->_trialWrapper;
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __40__PPConfiguration_initWithTrialWrapper___block_invoke;
-          v21[3] = &unk_2789791D8;
-          v21[4] = v15;
-          objc_copyWeak(&v22, &location);
-          v17 = [(PPTrialWrapper *)trialWrapper addUpdateHandlerForNamespaceName:v15 block:v21];
-          objc_destroyWeak(&v22);
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __40__PPConfiguration_initWithTrialWrapper___block_invoke;
+          v20[3] = &unk_2789791D8;
+          v20[4] = v15;
+          objc_copyWeak(&v21, &location);
+          v17 = [(PPTrialWrapper *)trialWrapper addUpdateHandlerForNamespaceName:v15 block:v20];
+          objc_destroyWeak(&v21);
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [&unk_284785E20 countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v12 = [&unk_284785E20 countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
       while (v12);
@@ -4452,20 +4739,19 @@ void __36__PPConfiguration__loadConfigParams__block_invoke(uint64_t a1, void *a2
     objc_destroyWeak(&location);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void __40__PPConfiguration_initWithTrialWrapper___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_23224A000, v2, OS_LOG_TYPE_DEFAULT, "PPConfiguration: updating data in namespace %@ because of trial update.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_23224A000, v2, OS_LOG_TYPE_DEFAULT, "PPConfiguration: updating data in namespace %@ because of trial update.", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -4513,8 +4799,6 @@ void __40__PPConfiguration_initWithTrialWrapper___block_invoke(uint64_t a1)
 
     [WeakRetained[3] removeAllObjects];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)reload

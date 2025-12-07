@@ -575,17 +575,17 @@ void __30__PKWebService_setUrlSession___block_invoke(uint64_t a1)
   return accountStore;
 }
 
-void __36__PKWebService__sharedCookieStorage__block_invoke_2()
+void __36__PKWebService__sharedCookieStorage__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = CFHTTPCookieStorageCreateFromFile();
-  if (v0)
+  v2 = CFHTTPCookieStorageCreateFromFile();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [objc_alloc(MEMORY[0x1E695AC00]) _initWithCFHTTPCookieStorage:v0];
-    v3 = _MergedGlobals_221;
-    _MergedGlobals_221 = v2;
+    v3 = v2;
+    v4 = [objc_alloc(MEMORY[0x1E695AC00]) _initWithCFHTTPCookieStorage:v2];
+    v5 = _MergedGlobals_221;
+    _MergedGlobals_221 = v4;
 
-    CFRelease(v1);
+    CFRelease(v3);
   }
 }
 
@@ -1285,7 +1285,7 @@ void __88__PKWebService_URLSession_task_willPerformHTTPRedirection_newRequest_co
   handlerCopy = handler;
   protectionSpace = [challenge protectionSpace];
   authenticationMethod = [protectionSpace authenticationMethod];
-  if ([authenticationMethod isEqualToString:*MEMORY[0x1E695AB80]])
+  if (objc_msgSend_isEqualToString_(authenticationMethod))
   {
     if (-[PKWebService _evaluateTrust:](self, "_evaluateTrust:", [protectionSpace serverTrust]))
     {
@@ -1398,11 +1398,11 @@ void __36__PKWebService_addDiagnosticReason___block_invoke(uint64_t a1)
   dispatch_sync(diagnosticReasonsQueue, v7);
 }
 
-uint64_t __39__PKWebService_removeDiagnosticReason___block_invoke(uint64_t result)
+void *__39__PKWebService_removeDiagnosticReason___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(*(result + 40) + 64) removeObject:?];
+    return [*(result[5] + 64) removeObject:?];
   }
 
   return result;

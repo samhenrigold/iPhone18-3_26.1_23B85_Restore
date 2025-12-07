@@ -1190,41 +1190,45 @@ void __76__PKPaymentAuthorizationFooterView_setState_string_animated_withComplet
   [(PKGlyphView *)self->_glyphView setAlpha:0.0];
   [(UIView *)self->_lockupView addSubview:self->_glyphView];
   self->_emphasizedEdge = [(PKGlyphView *)self->_glyphView userIntentEdge];
-  PKFloatRoundToPixel();
-  v12 = v11;
-  v13 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC38]);
-  [v13 lineHeight];
-  PKFloatRoundToPixel();
-  v25 = v14;
-  v26 = xmmword_1BE0B69E0;
-  v27 = vdupq_n_s64(2uLL);
-  v15 = [[PKContinuousButton alloc] initWithConfiguration:&v25];
+  v11.n128_u64[0] = 8.0;
+  PKFloatRoundToPixel(v11, v12);
+  v14 = v13;
+  v15 = 16.0 - v13;
+  v16 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC38]);
+  [v16 lineHeight];
+  v18.n128_u64[0] = 0.5;
+  v19.n128_f64[0] = (v15 + v14 + v17) * 0.5;
+  PKFloatRoundToPixel(v19, v18);
+  v31 = v20;
+  v32 = xmmword_1BE0B69E0;
+  v33 = vdupq_n_s64(2uLL);
+  v21 = [[PKContinuousButton alloc] initWithConfiguration:&v31];
   payWithPasscodeButton = self->_payWithPasscodeButton;
-  self->_payWithPasscodeButton = &v15->super;
+  self->_payWithPasscodeButton = &v21->super;
 
-  [(UIButton *)self->_payWithPasscodeButton setContentEdgeInsets:v12, 25.0, 16.0 - v12, 25.0];
+  [(UIButton *)self->_payWithPasscodeButton setContentEdgeInsets:v14, 25.0, 16.0 - v14, 25.0];
   [(UIButton *)self->_payWithPasscodeButton addTarget:self action:sel__payWithPasscodePressed forControlEvents:64];
   [(UIButton *)self->_payWithPasscodeButton setTranslatesAutoresizingMaskIntoConstraints:0];
-  v17 = self->_payWithPasscodeButton;
-  v18 = [(PKPaymentAuthorizationFooterView *)self _payWithPasscodeTitleForState:self->_state];
-  [(UIButton *)v17 setTitle:v18 forState:0];
+  v23 = self->_payWithPasscodeButton;
+  v24 = [(PKPaymentAuthorizationFooterView *)self _payWithPasscodeTitleForState:self->_state];
+  [(UIButton *)v23 setTitle:v24 forState:0];
 
   titleLabel = [(UIButton *)self->_payWithPasscodeButton titleLabel];
-  [titleLabel setFont:v13];
+  [titleLabel setFont:v16];
   [titleLabel setLineBreakMode:4];
   [(UIButton *)self->_payWithPasscodeButton sizeToFit];
   [(UIButton *)self->_payWithPasscodeButton setAlpha:0.0];
   [(PKPaymentAuthorizationFooterView *)self addSubview:self->_payWithPasscodeButton];
-  v20 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+  v26 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   labelView = self->_labelView;
-  self->_labelView = v20;
+  self->_labelView = v26;
 
   [(UILabel *)self->_labelView setAlpha:0.0];
   [(UILabel *)self->_labelView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v22 = self->_labelView;
-  v23 = PKLocalizedPaymentString(&cfstr_InAppPaymentTo.isa);
-  v24 = [(PKPaymentAuthorizationFooterView *)self _titleLabelAttributedString:v23];
-  [(UILabel *)v22 setAttributedText:v24];
+  v28 = self->_labelView;
+  v29 = PKLocalizedPaymentString(&cfstr_InAppPaymentTo.isa);
+  v30 = [(PKPaymentAuthorizationFooterView *)self _titleLabelAttributedString:v29];
+  [(UILabel *)v28 setAttributedText:v30];
 
   [(UILabel *)self->_labelView setOpaque:0];
   [(UILabel *)self->_labelView setAdjustsFontSizeToFitWidth:1];
@@ -1458,7 +1462,7 @@ LABEL_28:
 
 - (void)_prepareConstraints
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_separatorView attribute:2 relatedBy:0 toItem:self attribute:2 multiplier:1.0 constant:0.0];
   [v3 addObject:v4];
@@ -1471,83 +1475,87 @@ LABEL_28:
 
   v7 = PKPaymentAuthorizationFooterViewFontForAuthorizationLayoutStyle([(PKPaymentAuthorizationLayout *)self->_layout style]);
   [v7 _bodyLeading];
+  v9 = v8;
 
   leadingAnchor = [(UIView *)self->_lockupView leadingAnchor];
   leadingAnchor2 = [(PKPaymentAuthorizationFooterView *)self leadingAnchor];
-  v10 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  [v3 addObject:v10];
+  v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  [v3 addObject:v12];
 
   trailingAnchor = [(UIView *)self->_lockupView trailingAnchor];
   trailingAnchor2 = [(PKPaymentAuthorizationFooterView *)self trailingAnchor];
-  v13 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  [v3 addObject:v13];
+  v15 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  [v3 addObject:v15];
 
   topAnchor = [(UIView *)self->_lockupView topAnchor];
   topAnchor2 = [(PKPaymentAuthorizationFooterView *)self topAnchor];
-  PKFloatRoundToPixel();
-  v16 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2 constant:?];
-  [v3 addObject:v16];
+  v18.n128_f64[0] = v9;
+  PKFloatRoundToPixel(v18, v19);
+  v20 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2 constant:?];
+  [v3 addObject:v20];
 
   centerYAnchor = [(UIView *)self->_lockupView centerYAnchor];
   centerYAnchor2 = [(PKPaymentAuthorizationFooterView *)self centerYAnchor];
-  v19 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v23 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
 
-  LODWORD(v20) = 1144750080;
-  [v19 setPriority:v20];
-  [v3 addObject:v19];
-  v21 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_glyphView attribute:9 relatedBy:0 toItem:self->_lockupView attribute:9 multiplier:1.0 constant:0.0];
-  [v3 addObject:v21];
+  LODWORD(v24) = 1144750080;
+  [v23 setPriority:v24];
+  [v3 addObject:v23];
+  v25 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_glyphView attribute:9 relatedBy:0 toItem:self->_lockupView attribute:9 multiplier:1.0 constant:0.0];
+  [v3 addObject:v25];
 
-  v22 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_glyphView attribute:3 relatedBy:0 toItem:self->_lockupView attribute:3 multiplier:1.0 constant:0.0];
-  [v3 addObject:v22];
-
-  v23 = MEMORY[0x1E696ACD8];
-  glyphView = self->_glyphView;
-  [(PKPaymentAuthorizationLayout *)self->_layout glyphDimension];
-  v26 = [v23 constraintWithItem:glyphView attribute:7 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:v25];
+  v26 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_glyphView attribute:3 relatedBy:0 toItem:self->_lockupView attribute:3 multiplier:1.0 constant:0.0];
   [v3 addObject:v26];
 
   v27 = MEMORY[0x1E696ACD8];
-  v28 = self->_glyphView;
+  glyphView = self->_glyphView;
   [(PKPaymentAuthorizationLayout *)self->_layout glyphDimension];
-  v30 = [v27 constraintWithItem:v28 attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:v29];
+  v30 = [v27 constraintWithItem:glyphView attribute:7 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:v29];
   [v3 addObject:v30];
 
-  v31 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_payWithPasscodeButton attribute:9 relatedBy:0 toItem:self->_lockupView attribute:9 multiplier:1.0 constant:0.0];
-  [v3 addObject:v31];
+  v31 = MEMORY[0x1E696ACD8];
+  v32 = self->_glyphView;
+  [(PKPaymentAuthorizationLayout *)self->_layout glyphDimension];
+  v34 = [v31 constraintWithItem:v32 attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:v33];
+  [v3 addObject:v34];
 
-  v32 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_payWithPasscodeButton attribute:7 relatedBy:-1 toItem:self attribute:7 multiplier:1.0 constant:-20.0];
-  [v3 addObject:v32];
+  v35 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_payWithPasscodeButton attribute:9 relatedBy:0 toItem:self->_lockupView attribute:9 multiplier:1.0 constant:0.0];
+  [v3 addObject:v35];
+
+  v36 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_payWithPasscodeButton attribute:7 relatedBy:-1 toItem:self attribute:7 multiplier:1.0 constant:-20.0];
+  [v3 addObject:v36];
 
   if ([(PKPaymentAuthorizationLayout *)self->_layout style])
   {
-    PKFloatRoundToPixel();
-    v34 = v33;
+    v38.n128_u64[0] = 0x4044000000000000;
+    v37.n128_f64[0] = v9 * 43.0 / 40.0;
+    PKFloatRoundToPixel(v37, v38);
+    v40 = v39;
   }
 
   else
   {
-    v34 = 30.0;
+    v40 = 30.0;
   }
 
-  v35 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_labelView attribute:5 relatedBy:0 toItem:self->_lockupView attribute:5 multiplier:1.0 constant:0.0];
-  [v3 addObject:v35];
+  v41 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_labelView attribute:5 relatedBy:0 toItem:self->_lockupView attribute:5 multiplier:1.0 constant:0.0];
+  [v3 addObject:v41];
 
-  v36 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_labelView attribute:6 relatedBy:0 toItem:self->_lockupView attribute:6 multiplier:1.0 constant:0.0];
-  [v3 addObject:v36];
+  v42 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_labelView attribute:6 relatedBy:0 toItem:self->_lockupView attribute:6 multiplier:1.0 constant:0.0];
+  [v3 addObject:v42];
 
-  v37 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_labelView attribute:12 relatedBy:0 toItem:self->_glyphView attribute:4 multiplier:1.0 constant:v34];
-  [v3 addObject:v37];
+  v43 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_labelView attribute:12 relatedBy:0 toItem:self->_glyphView attribute:4 multiplier:1.0 constant:v40];
+  [v3 addObject:v43];
 
-  v38 = [v3 copy];
+  v44 = [v3 copy];
   staticRegularConstraints = self->_staticRegularConstraints;
-  self->_staticRegularConstraints = v38;
+  self->_staticRegularConstraints = v44;
 
-  v40 = [MEMORY[0x1E696ACD8] constraintWithItem:self attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:0.0];
-  v43[0] = v40;
-  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
+  v46 = [MEMORY[0x1E696ACD8] constraintWithItem:self attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:0.0];
+  v49[0] = v46;
+  v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
   hiddenConstraints = self->_hiddenConstraints;
-  self->_hiddenConstraints = v41;
+  self->_hiddenConstraints = v47;
 
   [MEMORY[0x1E696ACD8] activateConstraints:self->_staticRegularConstraints];
   [(PKPaymentAuthorizationFooterView *)self setNeedsUpdateConstraints];

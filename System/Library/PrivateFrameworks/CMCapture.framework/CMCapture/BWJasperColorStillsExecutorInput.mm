@@ -13,46 +13,46 @@
 
 - (BWJasperColorStillsExecutorInput)initWithSettings:(id)settings portType:(id)type timeOfFlightCameraType:(int)cameraType
 {
-  v10.receiver = self;
-  v10.super_class = BWJasperColorStillsExecutorInput;
-  v6 = [(BWStillImageProcessorControllerInput *)&v10 initWithSettings:settings portType:type];
-  if (v6)
+  v11.receiver = self;
+  v11.super_class = BWJasperColorStillsExecutorInput;
+  v7 = [(BWStillImageProcessorControllerInput *)&v11 initWithSettings:settings portType:type];
+  if (v7)
   {
-    v6->_pointClouds = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v7->_pointClouds = objc_alloc_init(MEMORY[0x1E695DF70]);
     if (cameraType)
     {
       if (cameraType == 1)
       {
-        v7 = 4;
+        v8 = 4;
       }
 
       else
       {
-        v7 = 0;
+        v8 = 0;
       }
 
       if (cameraType == 2)
       {
-        v8 = 2;
+        v9 = 2;
       }
 
       else
       {
-        v8 = v7;
+        v9 = v8;
       }
 
-      v6->_numberOfPointCloudsRequired = v8;
+      v7->_numberOfPointCloudsRequired = v9;
     }
 
     else
     {
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -12780, v5, v11.receiver, v11.super_class, v12, v13, v14, v15);
 
       return 0;
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)dealloc
@@ -72,7 +72,7 @@
 {
   if (!cloud)
   {
-    [BWJasperColorStillsExecutorInput addPointCloud:];
+    [(BWJasperColorStillsExecutorInput *)self addPointCloud:a2];
     return;
   }
 
@@ -258,20 +258,20 @@ LABEL_11:
     OUTLINED_FUNCTION_10_19();
     OUTLINED_FUNCTION_9_20();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v44))
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v51))
     {
-      v39 = v45;
+      v41 = v52;
     }
 
     else
     {
-      v39 = v45 & 0xFFFFFFFE;
+      v41 = v52 & 0xFFFFFFFE;
     }
 
-    if (v39)
+    if (v41)
     {
       OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_5_0(v42, v43, &time, v44, &dword_1AC90E000);
     }
 
     goto LABEL_55;
@@ -283,22 +283,22 @@ LABEL_11:
   {
     OUTLINED_FUNCTION_10_19();
     OUTLINED_FUNCTION_9_20();
-    v40 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (OUTLINED_FUNCTION_12_21(v40))
+    v45 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    if (OUTLINED_FUNCTION_12_21(v45))
     {
-      v41 = v1;
+      v46 = v1;
     }
 
     else
     {
-      v41 = v1 & 0xFFFFFFFE;
+      v46 = v1 & 0xFFFFFFFE;
     }
 
-    if (v41)
+    if (v46)
     {
       [OUTLINED_FUNCTION_3_36() count];
       OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_5_0(v46, v47, &time, v48, &dword_1AC90E000);
     }
 
 LABEL_55:
@@ -342,7 +342,7 @@ LABEL_55:
       }
 
       OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_5_0(v7, v12, &time, v13, &dword_1AC90E000);
     }
 
     OUTLINED_FUNCTION_2_4();
@@ -351,12 +351,12 @@ LABEL_55:
   }
 
   [objc_msgSend(OUTLINED_FUNCTION_8_23(*(self + 88)) objectForKeyedSubscript:{*off_1E798B2A8), "doubleValue"}];
-  v13 = v12;
-  v14 = *(self + 88);
-  if (v14)
+  v15 = v14;
+  v16 = *(self + 88);
+  if (v16)
   {
-    v15 = [OUTLINED_FUNCTION_8_23(v14) objectForKeyedSubscript:*off_1E798A420];
-    CMTimeMakeFromDictionary(&time, v15);
+    v17 = [OUTLINED_FUNCTION_8_23(v16) objectForKeyedSubscript:*off_1E798A420];
+    CMTimeMakeFromDictionary(&time, v17);
     Seconds = CMTimeGetSeconds(&time);
   }
 
@@ -365,96 +365,96 @@ LABEL_55:
     Seconds = 0.0;
   }
 
-  memset(v42, 0, sizeof(v42));
-  v17 = *(self + 104);
-  if ([OUTLINED_FUNCTION_3_36() count] <= v17)
+  memset(v49, 0, sizeof(v49));
+  v19 = *(self + 104);
+  if ([OUTLINED_FUNCTION_3_36() count] <= v19)
   {
-    v18 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v18 = 0;
-    v19 = *off_1E798A420;
+    v20 = 0;
+    v21 = *off_1E798A420;
     do
     {
-      v20 = v18 % *(self + 104);
-      v21 = *(v42 + v20);
-      if (v21 == 0.0)
+      v22 = v20 % *(self + 104);
+      v23 = *(v49 + v22);
+      if (v23 == 0.0)
       {
-        v22 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v18];
-        if (v22)
+        v24 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v20];
+        if (v24)
         {
-          v23 = [OUTLINED_FUNCTION_8_23(v22) objectForKeyedSubscript:v19];
-          CMTimeMakeFromDictionary(&time, v23);
-          v21 = CMTimeGetSeconds(&time);
+          v25 = [OUTLINED_FUNCTION_8_23(v24) objectForKeyedSubscript:v21];
+          CMTimeMakeFromDictionary(&time, v25);
+          v23 = CMTimeGetSeconds(&time);
         }
 
         else
         {
-          v21 = 0.0;
+          v23 = 0.0;
         }
       }
 
-      v24 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v17 + v18];
-      if (v24)
+      v26 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v19 + v20];
+      if (v26)
       {
-        v25 = [OUTLINED_FUNCTION_8_23(v24) objectForKeyedSubscript:v19];
-        CMTimeMakeFromDictionary(&time, v25);
-        v26 = CMTimeGetSeconds(&time);
+        v27 = [OUTLINED_FUNCTION_8_23(v26) objectForKeyedSubscript:v21];
+        CMTimeMakeFromDictionary(&time, v27);
+        v28 = CMTimeGetSeconds(&time);
       }
 
       else
       {
-        v26 = 0.0;
+        v28 = 0.0;
       }
 
-      if (vabdd_f64(v13 * 0.5 + Seconds, v21) <= vabdd_f64(v13 * 0.5 + Seconds, v26))
+      if (vabdd_f64(v15 * 0.5 + Seconds, v23) <= vabdd_f64(v15 * 0.5 + Seconds, v28))
       {
         break;
       }
 
-      ++v18;
-      *(v42 + v20) = v26;
+      ++v20;
+      *(v49 + v22) = v28;
     }
 
-    while (v17 + v18 < [OUTLINED_FUNCTION_3_36() count]);
+    while (v19 + v20 < [OUTLINED_FUNCTION_3_36() count]);
   }
 
   if (dword_1EB58DEA0)
   {
     OUTLINED_FUNCTION_10_19();
     OUTLINED_FUNCTION_9_20();
-    v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v28 = v45;
-    if (os_log_type_enabled(v27, v44))
+    v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v30 = v52;
+    if (os_log_type_enabled(v29, v51))
     {
-      v29 = v28;
+      v31 = v30;
     }
 
     else
     {
-      v29 = v28 & 0xFFFFFFFE;
+      v31 = v30 & 0xFFFFFFFE;
     }
 
-    if (v29)
+    if (v31)
     {
-      v46.location = v18;
-      v46.length = v5;
-      NSStringFromRange(v46);
-      v30 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v18];
-      if (v30)
-      {
-        v31 = [OUTLINED_FUNCTION_8_23(v30) objectForKeyedSubscript:*off_1E798A420];
-        CMTimeMakeFromDictionary(&time, v31);
-        CMTimeGetSeconds(&time);
-      }
-
-      v32 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v5 + v18 - 1];
+      v53.location = v20;
+      v53.length = v5;
+      NSStringFromRange(v53);
+      v32 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v20];
       if (v32)
       {
         v33 = [OUTLINED_FUNCTION_8_23(v32) objectForKeyedSubscript:*off_1E798A420];
         CMTimeMakeFromDictionary(&time, v33);
+        CMTimeGetSeconds(&time);
+      }
+
+      v34 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v5 + v20 - 1];
+      if (v34)
+      {
+        v35 = [OUTLINED_FUNCTION_8_23(v34) objectForKeyedSubscript:*off_1E798A420];
+        CMTimeMakeFromDictionary(&time, v35);
         CMTimeGetSeconds(&time);
       }
 
@@ -466,16 +466,16 @@ LABEL_55:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if (v18 < v18 + v5)
+  if (v20 < v20 + v5)
   {
     do
     {
-      v34 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v18];
-      CVDataBuffer = BWSampleBufferGetCVDataBuffer(v34);
-      v36 = [objc_alloc(getADJasperPointCloudClass()) initWithDataBuffer:CVDataBuffer];
-      [array addObject:v36];
+      v36 = [OUTLINED_FUNCTION_3_36() objectAtIndexedSubscript:v20];
+      CVDataBuffer = BWSampleBufferGetCVDataBuffer(v36);
+      v38 = [objc_alloc(getADJasperPointCloudClass()) initWithDataBuffer:CVDataBuffer];
+      [array addObject:v38];
 
-      ++v18;
+      ++v20;
       --v5;
     }
 

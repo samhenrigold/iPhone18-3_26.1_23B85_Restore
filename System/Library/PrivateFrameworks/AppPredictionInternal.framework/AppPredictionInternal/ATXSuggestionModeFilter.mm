@@ -23,13 +23,13 @@
   return v3;
 }
 
-uint64_t __41__ATXSuggestionModeFilter_sharedInstance__block_invoke()
+uint64_t __41__ATXSuggestionModeFilter_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedInstance_filter;
-  sharedInstance_filter = v0;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_filter;
+  sharedInstance_filter = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (ATXSuggestionModeFilter)init
@@ -97,8 +97,8 @@ void __49__ATXSuggestionModeFilter_registerForModeChanges__block_invoke(uint64_t
 
   if (v3)
   {
-    v4 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_blending(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __49__ATXSuggestionModeFilter_registerForModeChanges__block_invoke_cold_1(v2);
     }
@@ -125,8 +125,8 @@ LABEL_6:
 
   if (!v9)
   {
-    v10 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_blending(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __49__ATXSuggestionModeFilter_registerForModeChanges__block_invoke_37_cold_1(v3);
     }
@@ -142,37 +142,38 @@ LABEL_7:
 - (BOOL)currentModeConfigurationAllowsBundleId:(id)id
 {
   v4 = ATXBundleIdReplacementForBundleId();
-  if (ATXBundleIdIsFakeContainerBundleId())
+  IsFakeContainerBundleId = ATXBundleIdIsFakeContainerBundleId();
+  if (IsFakeContainerBundleId)
   {
-    v5 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = __atxlog_handle_blending(IsFakeContainerBundleId);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [ATXSuggestionModeFilter currentModeConfigurationAllowsBundleId:];
     }
 
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
-    v15 = 1;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2020000000;
+    v16 = 1;
     lock = self->_lock;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___block_invoke;
-    v9[3] = &unk_27859B340;
-    v10 = v4;
-    v11 = &v12;
-    [(_PASLock *)lock runWithLockAcquired:v9];
-    v6 = *(v13 + 24);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___block_invoke;
+    v10[3] = &unk_27859B340;
+    v11 = v4;
+    v12 = &v13;
+    [(_PASLock *)lock runWithLockAcquired:v10];
+    v7 = *(v14 + 24);
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v13, 8);
   }
 
-  return v6 & 1;
+  return v7 & 1;
 }
 
 void __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___block_invoke(uint64_t a1, void *a2)
@@ -182,15 +183,16 @@ void __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___bloc
   v4 = v3[2];
   if (v4)
   {
-    if ([v4 exceptionForApplication:*(a1 + 32)])
+    v5 = [v4 exceptionForApplication:*(a1 + 32)];
+    if (v5)
     {
-      v5 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = __atxlog_handle_blending(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(a1 + 32);
+        v7 = *(a1 + 32);
         v15 = 138412290;
-        v16 = v6;
-        _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: filtering out disallowed bundleId %@", &v15, 0xCu);
+        v16 = v7;
+        _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: filtering out disallowed bundleId %@", &v15, 0xCu);
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -199,24 +201,22 @@ void __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___bloc
 
   else
   {
-    v7 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = __atxlog_handle_blending(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___block_invoke_cold_1(a1, v7, v8, v9, v10, v11, v12, v13);
+      __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___block_invoke_cold_1(a1, v8, v9, v10, v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)currentModeConfigurationAllowsSuggestion:(id)suggestion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   v5 = [ATXSuggestionPreprocessor bundleIdAssociatedWithSuggestion:suggestionCopy];
   if (!v5)
   {
-    v8 = __atxlog_handle_blending();
+    v8 = __atxlog_handle_blending(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [ATXSuggestionModeFilter currentModeConfigurationAllowsSuggestion:];
@@ -245,12 +245,12 @@ void __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___bloc
           goto LABEL_11;
         }
 
-        v12 = [MEMORY[0x277CEB3B0] isDebuggingAllowedForExtensionBundleId:widgetBundleIdentifier];
+        v13 = [MEMORY[0x277CEB3B0] isDebuggingAllowedForExtensionBundleId:widgetBundleIdentifier];
 
-        if (v12)
+        if (v13)
         {
 LABEL_11:
-          intent = __atxlog_handle_blending();
+          intent = __atxlog_handle_blending(v12);
           if (os_log_type_enabled(intent, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(keyExistsAndHasValidFormat) = 138412290;
@@ -273,31 +273,31 @@ LABEL_11:
 LABEL_23:
 
 LABEL_24:
-    v27 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v29 = __atxlog_handle_blending(v26);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       [ATXSuggestionModeFilter currentModeConfigurationAllowsSuggestion:];
     }
 
 LABEL_27:
-    v26 = 1;
+    v28 = 1;
     goto LABEL_28;
   }
 
   v10 = v7;
-  v14 = objc_alloc(MEMORY[0x277CBEB98]);
-  v15 = [MEMORY[0x277D42070] clientModelIdFromClientModelType:3];
-  *&keyExistsAndHasValidFormat = v15;
-  v16 = [MEMORY[0x277D42070] clientModelIdFromClientModelType:4];
-  *(&keyExistsAndHasValidFormat + 1) = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&keyExistsAndHasValidFormat count:2];
-  v18 = [v14 initWithArray:v17];
+  v15 = objc_alloc(MEMORY[0x277CBEB98]);
+  v16 = [MEMORY[0x277D42070] clientModelIdFromClientModelType:3];
+  *&keyExistsAndHasValidFormat = v16;
+  v17 = [MEMORY[0x277D42070] clientModelIdFromClientModelType:4];
+  *(&keyExistsAndHasValidFormat + 1) = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&keyExistsAndHasValidFormat count:2];
+  v19 = [v15 initWithArray:v18];
 
   clientModelSpecification = [v10 clientModelSpecification];
   clientModelId = [clientModelSpecification clientModelId];
-  LOBYTE(v16) = [v18 containsObject:clientModelId];
+  LOBYTE(v17) = [v19 containsObject:clientModelId];
 
-  if (v16)
+  if (v17)
   {
     atxActionExecutableObject = [v10 atxActionExecutableObject];
     intent = [atxActionExecutableObject intent];
@@ -311,9 +311,9 @@ LABEL_22:
     }
 
     _className = [intent _className];
-    v24 = [_className isEqualToString:@"DNDToggleDoNotDisturbIntent"];
+    v25 = [_className isEqualToString:@"DNDToggleDoNotDisturbIntent"];
 
-    if ((v24 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
       goto LABEL_24;
     }
@@ -325,38 +325,37 @@ LABEL_22:
 
   *&keyExistsAndHasValidFormat = 0;
   *(&keyExistsAndHasValidFormat + 1) = &keyExistsAndHasValidFormat;
-  v35 = 0x2020000000;
-  v36 = 1;
+  v36 = 0x2020000000;
+  v37 = 1;
   lock = self->_lock;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __68__ATXSuggestionModeFilter_currentModeConfigurationAllowsSuggestion___block_invoke;
-  v30[3] = &unk_27859B368;
-  v31 = v10;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __68__ATXSuggestionModeFilter_currentModeConfigurationAllowsSuggestion___block_invoke;
+  v31[3] = &unk_27859B368;
+  v32 = v10;
   v8 = v8;
-  v32 = v8;
+  v33 = v8;
   p_keyExistsAndHasValidFormat = &keyExistsAndHasValidFormat;
-  [(_PASLock *)lock runWithLockAcquired:v30];
-  v26 = *(*(&keyExistsAndHasValidFormat + 1) + 24);
+  [(_PASLock *)lock runWithLockAcquired:v31];
+  v28 = *(*(&keyExistsAndHasValidFormat + 1) + 24);
 
   _Block_object_dispose(&keyExistsAndHasValidFormat, 8);
 LABEL_28:
 
-  v28 = *MEMORY[0x277D85DE8];
-  return v26 & 1;
+  return v28 & 1;
 }
 
 void __68__ATXSuggestionModeFilter_currentModeConfigurationAllowsSuggestion___block_invoke(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[2];
   if (!v4)
   {
-    v8 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = __atxlog_handle_blending(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __68__ATXSuggestionModeFilter_currentModeConfigurationAllowsSuggestion___block_invoke_cold_1(a1, v8, v9, v10, v11, v12, v13, v14);
+      __68__ATXSuggestionModeFilter_currentModeConfigurationAllowsSuggestion___block_invoke_cold_1(a1, v9, v10, v11, v12, v13, v14, v15);
     }
 
 LABEL_21:
@@ -364,41 +363,43 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  if (![v4 exceptionForApplication:a1[5]])
+  v5 = [v4 exceptionForApplication:a1[5]];
+  if (!v5)
   {
     [ATXSuggestionPreprocessor contactIdsAssociatedWithSuggestion:a1[4]];
-    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v8 = v27 = 0u;
-    v15 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v15)
+    v27 = 0u;
+    v9 = v28 = 0u;
+    v16 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v16)
     {
-      v16 = v15;
-      v17 = *v25;
+      v17 = v16;
+      v18 = *v26;
       while (2)
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v25 != v17)
+          if (*v26 != v18)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * i);
-          v20 = objc_opt_new();
-          [v20 setContactIdentifier:{v19, v24}];
-          if ([v3[2] exceptionForContactHandle:v20])
+          v20 = *(*(&v25 + 1) + 8 * i);
+          v21 = objc_opt_new();
+          [v21 setContactIdentifier:{v20, v25}];
+          v22 = [v3[2] exceptionForContactHandle:v21];
+          if (v22)
           {
-            v21 = __atxlog_handle_blending();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v23 = __atxlog_handle_blending(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
-              v22 = a1[4];
+              v24 = a1[4];
               *buf = 138412546;
-              v30 = v19;
-              v31 = 2112;
-              v32 = v22;
-              _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: filtering out disallowed contactId %@ in suggestion: %@", buf, 0x16u);
+              v31 = v20;
+              v32 = 2112;
+              v33 = v24;
+              _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: filtering out disallowed contactId %@ in suggestion: %@", buf, 0x16u);
             }
 
             *(*(a1[6] + 8) + 24) = 0;
@@ -406,8 +407,8 @@ LABEL_21:
           }
         }
 
-        v16 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
-        if (v16)
+        v17 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        if (v17)
         {
           continue;
         }
@@ -421,22 +422,20 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v5 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_blending(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = a1[4];
-    v6 = a1[5];
+    v8 = a1[4];
+    v7 = a1[5];
     *buf = 138412546;
-    v30 = v6;
-    v31 = 2112;
-    v32 = v7;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: filtering out disallowed bundleId %@ in suggestion: %@", buf, 0x16u);
+    v31 = v7;
+    v32 = 2112;
+    v33 = v8;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: filtering out disallowed bundleId %@ in suggestion: %@", buf, 0x16u);
   }
 
   *(*(a1[6] + 8) + 24) = 0;
 LABEL_22:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer
@@ -482,150 +481,116 @@ LABEL_22:
 
 void __79__ATXSuggestionModeFilter__updateConfigurationWithModeUUID_notifyingObservers___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (!*(a1 + 32))
   {
-    v7 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_blending(v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: no current mode", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: no current mode", buf, 2u);
     }
 
     goto LABEL_9;
   }
 
-  v4 = [*(*(a1 + 40) + 16) modeConfigurationForDNDModeWithUUID:?];
-  v5 = [v4 configuration];
+  v5 = [*(*(a1 + 40) + 16) modeConfigurationForDNDModeWithUUID:?];
+  v6 = [v5 configuration];
 
-  v6 = __atxlog_handle_blending();
-  v7 = v6;
-  if (!v5)
+  v8 = __atxlog_handle_blending(v7);
+  v9 = v8;
+  if (!v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __79__ATXSuggestionModeFilter__updateConfigurationWithModeUUID_notifyingObservers___block_invoke_cold_1((a1 + 32), v7);
+      __79__ATXSuggestionModeFilter__updateConfigurationWithModeUUID_notifyingObservers___block_invoke_cold_1((a1 + 32), v9);
     }
 
 LABEL_9:
-    v5 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
+    v10 = *(a1 + 32);
     *buf = 138412290;
-    v21 = v8;
-    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: fetched configuration for mode: %@", buf, 0xCu);
+    v22 = v10;
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "ATXSuggestionModeFilter: fetched configuration for mode: %@", buf, 0xCu);
   }
 
 LABEL_10:
 
-  objc_storeStrong(v3 + 2, v5);
+  objc_storeStrong(v4 + 2, v6);
   if (*(a1 + 48) == 1)
   {
-    v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    v9 = v3[1];
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v10)
+    v17 = 0u;
+    v11 = v4[1];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v12)
     {
-      v11 = v10;
-      v12 = *v16;
+      v13 = v12;
+      v14 = *v17;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v16 != v12)
+          if (*v17 != v14)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v11);
           }
 
-          [*(*(&v15 + 1) + 8 * i) configurationDidChangeForFilter:{*(a1 + 40), v15}];
+          [*(*(&v16 + 1) + 8 * i) configurationDidChangeForFilter:{*(a1 + 40), v16}];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v11);
+      while (v13);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ATXSuggestionModeFilter_registerForModeChanges__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "ATXSuggestionModeFilter: unable to subscribe to computed mode stream: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "ATXSuggestionModeFilter: unable to subscribe to computed mode stream: %@", v4, v5, v6, v7);
 }
 
 void __49__ATXSuggestionModeFilter_registerForModeChanges__block_invoke_37_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 eventBody];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "ATXSuggestionModeFilter: could not create NSUUID from latest mode: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)currentModeConfigurationAllowsBundleId:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v0, v1, "ATXSuggestionModeFilter: allowing filter exception bundleId: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "ATXSuggestionModeFilter: could not create NSUUID from latest mode: %@", v4, v5, v6, v7);
 }
 
 void __66__ATXSuggestionModeFilter_currentModeConfigurationAllowsBundleId___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, a2, a3, "ATXSuggestionModeFilter: allowing bundleId, currently not in a mode: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)currentModeConfigurationAllowsSuggestion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v0, v1, "ATXSuggestionModeFilter: bypassing filter for suggestion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)currentModeConfigurationAllowsSuggestion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v0, v1, "ATXSuggestionModeFilter: allowing suggestion since we are unable to get its bundleId: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_2_4(&dword_2263AA000, a2, a3, "ATXSuggestionModeFilter: allowing bundleId, currently not in a mode: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __68__ATXSuggestionModeFilter_currentModeConfigurationAllowsSuggestion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, a2, a3, "ATXSuggestionModeFilter: allowing suggestion, currently not in a mode: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_2_4(&dword_2263AA000, a2, a3, "ATXSuggestionModeFilter: allowing suggestion, currently not in a mode: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __79__ATXSuggestionModeFilter__updateConfigurationWithModeUUID_notifyingObservers___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestionModeFilter: could not fetch configuration for mode: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestionModeFilter: could not fetch configuration for mode: %@", &v3, 0xCu);
 }
 
 @end

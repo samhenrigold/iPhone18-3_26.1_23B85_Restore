@@ -39,15 +39,14 @@
 {
   v3 = sub_2304A3FC4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23048BD04(v7);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23048BD04(v6);
   sub_2304A3F84();
-  (*(v4 + 8))(v7, v3);
-  v8 = sub_2304A5D14();
+  (*(v4 + 8))(v6, v3);
+  v7 = sub_2304A5D14();
 
-  return v8;
+  return v7;
 }
 
 @end

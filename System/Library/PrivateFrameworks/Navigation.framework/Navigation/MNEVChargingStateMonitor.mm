@@ -33,7 +33,7 @@
 
 void __68__MNEVChargingStateMonitor__updateForVehicle_forceDelegateCallback___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) currentVehicleState];
   if (v2)
   {
@@ -50,9 +50,9 @@ void __68__MNEVChargingStateMonitor__updateForVehicle_forceDelegateCallback___bl
         v7 = GEOFindOrCreateLog();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 67109120;
-          v22 = v6;
-          _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "VirtualGarage did change charging state: %d", &v21, 8u);
+          v20 = 67109120;
+          v21 = v6;
+          _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "VirtualGarage did change charging state: %d", &v20, 8u);
         }
 
         *(*(a1 + 40) + 16) = v6;
@@ -74,9 +74,9 @@ void __68__MNEVChargingStateMonitor__updateForVehicle_forceDelegateCallback___bl
           v15 = [MEMORY[0x1E696B030] kilowattHours];
           v16 = [v14 measurementByConvertingToUnit:v15];
           [v16 doubleValue];
-          v21 = 67109120;
-          v22 = (v17 * 1000.0);
-          _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_DEFAULT, "Target battery charge reached. Current battery: %d Wh", &v21, 8u);
+          v20 = 67109120;
+          v21 = (v17 * 1000.0);
+          _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_DEFAULT, "Target battery charge reached. Current battery: %d Wh", &v20, 8u);
         }
 
         v18 = [*(a1 + 40) delegate];
@@ -88,16 +88,14 @@ void __68__MNEVChargingStateMonitor__updateForVehicle_forceDelegateCallback___bl
         v19 = GEOFindOrCreateLog();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_DEFAULT, "Notify should show charging info because charging state set to true", &v21, 2u);
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_DEFAULT, "Notify should show charging info because charging state set to true", &v20, 2u);
         }
 
         [*(a1 + 40) _notifyShouldShowChargingInfo];
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyShouldShowChargingInfo
@@ -142,20 +140,18 @@ void __68__MNEVChargingStateMonitor__updateForVehicle_forceDelegateCallback___bl
 
 void __39__MNEVChargingStateMonitor__startTimer__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_DEFAULT, "Notifying should show charging info because max timer fired after %g seconds.", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_DEFAULT, "Notifying should show charging info because max timer fired after %g seconds.", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _notifyShouldShowChargingInfo];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateForLocation:(id)location
@@ -202,11 +198,11 @@ void __39__MNEVChargingStateMonitor__startTimer__block_invoke(uint64_t a1)
 
 - (MNEVChargingStateMonitor)initWithTargetBatteryCharge:(id)charge
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   chargeCopy = charge;
-  v19.receiver = self;
-  v19.super_class = MNEVChargingStateMonitor;
-  v6 = [(MNEVChargingStateMonitor *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MNEVChargingStateMonitor;
+  v6 = [(MNEVChargingStateMonitor *)&v18 init];
   v7 = v6;
   if (!v6)
   {
@@ -222,7 +218,7 @@ void __39__MNEVChargingStateMonitor__startTimer__block_invoke(uint64_t a1)
     v10 = [chargeCopy measurementByConvertingToUnit:kilowattHours];
     [v10 doubleValue];
     *buf = 67109120;
-    v21 = (v11 * 1000.0);
+    v20 = (v11 * 1000.0);
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "Monitoring battery charge updates. Target battery charge: %d Wh", buf, 8u);
   }
 
@@ -250,7 +246,6 @@ LABEL_6:
   v15 = 0;
 LABEL_10:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

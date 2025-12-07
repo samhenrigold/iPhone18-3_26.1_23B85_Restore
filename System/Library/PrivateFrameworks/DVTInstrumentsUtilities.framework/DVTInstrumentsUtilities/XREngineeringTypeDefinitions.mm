@@ -41,7 +41,7 @@
 
 - (NSDate)lastModificationDate
 {
-  v2 = sub_2480998F0();
+  v2 = sub_2480998F0(self);
   v7 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v3, v4, v5, v6);
   v12 = objc_msgSend_path(v2, v8, v9, v10, v11);
   v15 = objc_msgSend_attributesOfItemAtPath_error_(v7, v13, v12, 0, v14);
@@ -54,7 +54,7 @@
 
 - (id)checksum
 {
-  v2 = sub_2480998F0();
+  v2 = sub_2480998F0(self);
   v5 = objc_msgSend_fileHandleForReadingFromURL_error_(MEMORY[0x277CCA9F8], v3, v2, 0, v4);
   memset(&v42, 0, sizeof(v42));
   CC_MD5_Init(&v42);
@@ -96,7 +96,7 @@
 - (void)enumerateEngineeringTypeDefs:(id)defs
 {
   defsCopy = defs;
-  v17 = sub_2480998F0();
+  v17 = sub_2480998F0(defsCopy);
   v5 = MEMORY[0x24C1C5B20](defsCopy);
 
   etypeDefHandler = self->_etypeDefHandler;

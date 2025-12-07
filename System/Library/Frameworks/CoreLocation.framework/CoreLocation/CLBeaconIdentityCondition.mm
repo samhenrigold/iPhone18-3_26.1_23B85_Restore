@@ -3,7 +3,10 @@
 - (BOOL)isEqual:(id)equal;
 - (CLBeaconIdentityCondition)initWithCoder:(id)coder;
 - (CLBeaconIdentityCondition)initWithUUID:(NSUUID *)uuid;
+- (CLBeaconIdentityCondition)initWithUUID:(NSUUID *)uuid major:(CLBeaconMajorValue)major;
+- (CLBeaconIdentityCondition)initWithUUID:(NSUUID *)uuid major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor;
 - (id)_initWithUUID:(id)d major:(id)major minor:(id)minor;
+- (id)description;
 - (unint64_t)hash;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -22,10 +25,41 @@
 {
   if (!uuid)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v8 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v8, v9, a2, self, @"CLBeaconIdentityCondition.mm", 31, @"The UUID parameter is required");
   }
 
-  return [(CLBeaconIdentityCondition *)self _initWithUUID:uuid major:0 minor:0];
+  return objc_msgSend__initWithUUID_major_minor_(self, a2, uuid, 0, 0);
+}
+
+- (CLBeaconIdentityCondition)initWithUUID:(NSUUID *)uuid major:(CLBeaconMajorValue)major
+{
+  v4 = major;
+  if (!uuid)
+  {
+    v11 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, major);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v11, v12, a2, self, @"CLBeaconIdentityCondition.mm", 37, @"The UUID parameter is required");
+  }
+
+  v8 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], a2, v4, major);
+
+  return objc_msgSend__initWithUUID_major_minor_(self, v7, uuid, v8, 0);
+}
+
+- (CLBeaconIdentityCondition)initWithUUID:(NSUUID *)uuid major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor
+{
+  v5 = minor;
+  v6 = major;
+  if (!uuid)
+  {
+    v16 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, major);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v16, v17, a2, self, @"CLBeaconIdentityCondition.mm", 43, @"The UUID parameter is required");
+  }
+
+  v9 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], a2, v6, major);
+  v13 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v10, v5, v11);
+
+  return objc_msgSend__initWithUUID_major_minor_(self, v12, uuid, v9, v13);
 }
 
 - (id)_initWithUUID:(id)d major:(id)major minor:(id)minor
@@ -45,37 +79,52 @@
 
 + (id)any
 {
-  v2 = [[CLBeaconIdentityCondition alloc] _initWithUUID:0 major:0 minor:0];
+  v2 = [CLBeaconIdentityCondition alloc];
+  v4 = objc_msgSend__initWithUUID_major_minor_(v2, v3, 0, 0, 0);
 
-  return v2;
+  return v4;
 }
 
 - (CLBeaconIdentityCondition)initWithCoder:(id)coder
 {
-  if (([coder allowsKeyedCoding] & 1) == 0)
+  if ((objc_msgSend_allowsKeyedCoding(coder, a2, coder, v3) & 1) == 0)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v21 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v7, v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v21, v22, a2, self, @"CLBeaconIdentityCondition.mm", 76, @"Invalid parameter not satisfying: %@", @"[decoder allowsKeyedCoding]");
   }
 
-  v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLBeaconIdentityConstraintUUID"];
-  v7 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLBeaconIdentityConstraintMajor"];
-  v8 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLBeaconIdentityConstraintMinor"];
+  v10 = objc_opt_class();
+  v12 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v11, v10, @"kCLBeaconIdentityConstraintUUID");
+  v13 = objc_opt_class();
+  v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"kCLBeaconIdentityConstraintMajor");
+  v16 = objc_opt_class();
+  v19 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v17, v16, @"kCLBeaconIdentityConstraintMinor");
 
-  return [(CLBeaconIdentityCondition *)self _initWithUUID:v6 major:v7 minor:v8];
+  return objc_msgSend__initWithUUID_major_minor_(self, v18, v12, v15, v19);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (([coder allowsKeyedCoding] & 1) == 0)
+  if ((objc_msgSend_allowsKeyedCoding(coder, a2, coder, v3) & 1) == 0)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v13 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v7, v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, self, @"CLBeaconIdentityCondition.mm", 87, @"Invalid parameter not satisfying: %@", @"[encoder allowsKeyedCoding]");
   }
 
-  [coder encodeObject:self->_UUID forKey:@"kCLBeaconIdentityConstraintUUID"];
-  [coder encodeObject:self->_major forKey:@"kCLBeaconIdentityConstraintMajor"];
+  objc_msgSend_encodeObject_forKey_(coder, v7, self->_UUID, @"kCLBeaconIdentityConstraintUUID");
+  objc_msgSend_encodeObject_forKey_(coder, v10, self->_major, @"kCLBeaconIdentityConstraintMajor");
   minor = self->_minor;
 
-  [coder encodeObject:minor forKey:@"kCLBeaconIdentityConstraintMinor"];
+  objc_msgSend_encodeObject_forKey_(coder, v11, minor, @"kCLBeaconIdentityConstraintMinor");
+}
+
+- (id)description
+{
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = objc_msgSend_UUID(self, a2, v2, v3);
+  v10 = objc_msgSend_major(self, v7, v8, v9);
+  v14 = objc_msgSend_minor(self, v11, v12, v13);
+  return objc_msgSend_stringWithFormat_(v5, v15, @"CLBeaconIdentityCondition (uuid:%@, major:%@, minor:%@)", v16, v6, v10, v14);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -83,41 +132,47 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if (-[CLBeaconIdentityCondition UUID](self, "UUID") || [equal UUID])
+    if (objc_msgSend_UUID(self, v5, v6, v7) || objc_msgSend_UUID(equal, v8, v9, v10))
     {
-      v5 = -[NSUUID isEqual:](-[CLBeaconIdentityCondition UUID](self, "UUID"), "isEqual:", [equal UUID]);
+      v11 = objc_msgSend_UUID(self, v8, v9, v10);
+      v15 = objc_msgSend_UUID(equal, v12, v13, v14);
+      isEqual = objc_msgSend_isEqual_(v11, v16, v15, v17);
     }
 
     else
     {
-      v5 = 1;
+      isEqual = 1;
     }
 
-    if (-[CLBeaconIdentityCondition major](self, "major") || [equal major])
+    if (objc_msgSend_major(self, v8, v9, v10) || objc_msgSend_major(equal, v19, v20, v21))
     {
-      v6 = -[NSNumber isEqual:](-[CLBeaconIdentityCondition major](self, "major"), "isEqual:", [equal major]);
+      v22 = objc_msgSend_major(self, v19, v20, v21);
+      v26 = objc_msgSend_major(equal, v23, v24, v25);
+      v29 = objc_msgSend_isEqual_(v22, v27, v26, v28);
     }
 
     else
     {
-      v6 = 1;
+      v29 = 1;
     }
 
-    if (-[CLBeaconIdentityCondition minor](self, "minor") || [equal minor])
+    if (objc_msgSend_minor(self, v19, v20, v21) || objc_msgSend_minor(equal, v30, v31, v32))
     {
-      v7 = -[NSNumber isEqual:](-[CLBeaconIdentityCondition minor](self, "minor"), "isEqual:", [equal minor]);
-      if (v5)
+      v33 = objc_msgSend_minor(self, v30, v31, v32);
+      v37 = objc_msgSend_minor(equal, v34, v35, v36);
+      v40 = objc_msgSend_isEqual_(v33, v38, v37, v39);
+      if (isEqual)
       {
-        return v6 & v7;
+        return v29 & v40;
       }
     }
 
     else
     {
-      v7 = 1;
-      if (v5)
+      v40 = 1;
+      if (isEqual)
       {
-        return v6 & v7;
+        return v29 & v40;
       }
     }
   }
@@ -127,9 +182,12 @@
 
 - (unint64_t)hash
 {
-  v3 = [(NSUUID *)[(CLBeaconIdentityCondition *)self UUID] hash];
-  v4 = [(NSNumber *)[(CLBeaconIdentityCondition *)self major] hash]^ v3;
-  return v4 ^ [(NSNumber *)[(CLBeaconIdentityCondition *)self minor] hash];
+  v5 = objc_msgSend_UUID(self, a2, v2, v3);
+  v9 = objc_msgSend_hash(v5, v6, v7, v8);
+  v13 = objc_msgSend_major(self, v10, v11, v12);
+  v17 = objc_msgSend_hash(v13, v14, v15, v16) ^ v9;
+  v21 = objc_msgSend_minor(self, v18, v19, v20);
+  return v17 ^ objc_msgSend_hash(v21, v22, v23, v24);
 }
 
 @end

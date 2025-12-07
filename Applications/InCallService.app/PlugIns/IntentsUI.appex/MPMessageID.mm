@@ -14,7 +14,7 @@
   v3 = type metadata accessor for MessageID.Value(0);
   __chkstk_darwin(v3, v4);
   v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100030744(&qword_1000C4F48);
+  v7 = sub_100030744(&qword_1000C4F48, &qword_1000A14E0);
   __chkstk_darwin(v7 - 8, v8);
   v10 = &v18 - v9;
   sub_100042D2C(self + OBJC_IVAR___MPMessageID_value, v6);
@@ -110,7 +110,7 @@
 
   v6 = sub_10005BA4C(v8);
 
-  sub_1000316B8(v8, &qword_1000C5B58);
+  sub_1000316B8(v8, &qword_1000C5B58, &qword_1000A2730);
   return v6 & 1;
 }
 

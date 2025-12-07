@@ -1572,15 +1572,15 @@ LABEL_30:
             sub_101321FB0();
           }
 
-          v35 = off_1019EDA68;
+          v36 = off_1019EDA68;
           if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
           {
-            sub_10130F3A8(v35);
+            sub_10130F3A8(v36);
           }
 
-          v36 = [NSString stringWithUTF8String:"[CRLImageFill p_tintedImageWithScale:]"];
-          v37 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLImageFill.m"];
-          [CRLAssertionHandler handleFailureInFunction:v36 file:v37 lineNumber:824 isFatal:0 description:"Image provider has error for image fill."];
+          v37 = [NSString stringWithUTF8String:"[CRLImageFill p_tintedImageWithScale:]"];
+          v38 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLImageFill.m"];
+          [CRLAssertionHandler handleFailureInFunction:v37 file:v38 lineNumber:824 isFatal:0 description:"Image provider has error for image fill."];
         }
 
         goto LABEL_40;
@@ -1605,15 +1605,15 @@ LABEL_30:
         sub_101321DF0();
       }
 
-      v29 = off_1019EDA68;
+      v30 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10130F3A8(v29);
+        sub_10130F3A8(v30);
       }
 
-      v30 = [NSString stringWithUTF8String:"[CRLImageFill p_tintedImageWithScale:]"];
-      v31 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLImageFill.m"];
-      [CRLAssertionHandler handleFailureInFunction:v30 file:v31 lineNumber:822 isFatal:0 description:"Image fill has a null tint color."];
+      v31 = [NSString stringWithUTF8String:"[CRLImageFill p_tintedImageWithScale:]"];
+      v32 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLImageFill.m"];
+      [CRLAssertionHandler handleFailureInFunction:v31 file:v32 lineNumber:822 isFatal:0 description:"Image fill has a null tint color."];
 
       if (p_validatedImageProvider)
       {
@@ -1637,15 +1637,15 @@ LABEL_30:
       sub_101321ED0();
     }
 
-    v32 = off_1019EDA68;
+    v33 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10130F3A8(v32);
+      sub_10130F3A8(v33);
     }
 
-    v33 = [NSString stringWithUTF8String:"[CRLImageFill p_tintedImageWithScale:]"];
-    v34 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLImageFill.m"];
-    [CRLAssertionHandler handleFailureInFunction:v33 file:v34 lineNumber:823 isFatal:0 description:"Image provider for image fill could not be validated and is nil."];
+    v34 = [NSString stringWithUTF8String:"[CRLImageFill p_tintedImageWithScale:]"];
+    v35 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLImageFill.m"];
+    [CRLAssertionHandler handleFailureInFunction:v34 file:v35 lineNumber:823 isFatal:0 description:"Image provider for image fill could not be validated and is nil."];
 
     goto LABEL_30;
   }
@@ -1669,9 +1669,9 @@ LABEL_30:
   }
 
   v16 = sub_10011F340(v10, v12, scale);
-  v18 = sub_100122154(v16, v17);
-  v20 = sub_10011FBF0(v18, v19, 1.0);
-  v22 = v21;
+  v19 = sub_100122154(v17, v16, v18);
+  v21 = sub_10011FBF0(v19, v20, 1.0);
+  v23 = v22;
   tintColor3 = [(CRLImageFill *)self tintColor];
   colorRGBSpace = [tintColor3 colorRGBSpace];
 
@@ -1680,26 +1680,26 @@ LABEL_30:
 
   if (ColorSpace)
   {
-    v27 = CGColorSpaceGetModel(ColorSpace) != kCGColorSpaceModelMonochrome;
+    v28 = CGColorSpaceGetModel(ColorSpace) != kCGColorSpaceModelMonochrome;
   }
 
   else
   {
-    v27 = 1;
+    v28 = 1;
   }
 
-  v40 = objc_opt_class();
-  v41 = sub_100014370(v40, p_validatedImageProvider);
-  v42 = v41;
-  if (!v41)
+  v41 = objc_opt_class();
+  v42 = sub_100014370(v41, p_validatedImageProvider);
+  v43 = v42;
+  if (!v42)
   {
     goto LABEL_52;
   }
 
-  v43 = CGImageGetColorSpace([v41 CGImageOfAnySize]);
-  if (v43)
+  v44 = CGImageGetColorSpace([v42 CGImageOfAnySize]);
+  if (v44)
   {
-    v44 = (CGColorSpaceGetModel(v43) - 4) < 0xFFFFFFFD;
+    v45 = (CGColorSpaceGetModel(v44) - 4) < 0xFFFFFFFD;
     if (colorRGBSpace)
     {
       goto LABEL_52;
@@ -1708,53 +1708,53 @@ LABEL_30:
 
   else
   {
-    v44 = 1;
+    v45 = 1;
     if (colorRGBSpace)
     {
       goto LABEL_52;
     }
   }
 
-  if (!v27 || !v44)
+  if (!v28 || !v45)
   {
-    v45 = sub_10050E434([v42 CGImageOfAnySize], 11, v20, v22);
+    v46 = sub_10050E434([v43 CGImageOfAnySize], 11, v21, v23);
     goto LABEL_53;
   }
 
 LABEL_52:
-  v45 = sub_10050DF80(43, v20, v22);
+  v46 = sub_10050DF80(43, v21, v23);
 LABEL_53:
-  v46 = v45;
-  v47 = sub_10011ECB4();
-  v49 = v48;
-  v51 = v50;
-  v53 = v52;
-  CGContextSaveGState(v46);
-  [p_validatedImageProvider drawImageInContext:v46 rect:{v47, v49, v51, v53}];
-  CGContextRestoreGState(v46);
+  v47 = v46;
+  v48 = sub_10011ECB4();
+  v50 = v49;
+  v52 = v51;
+  v54 = v53;
+  CGContextSaveGState(v47);
+  [p_validatedImageProvider drawImageInContext:v47 rect:{v48, v50, v52, v54}];
+  CGContextRestoreGState(v47);
   tintColor5 = [(CRLImageFill *)self tintColor];
-  CGContextSetFillColorWithColor(v46, [tintColor5 CGColor]);
+  CGContextSetFillColorWithColor(v47, [tintColor5 CGColor]);
 
-  v57.origin.x = v47;
-  v57.origin.y = v49;
-  v57.size.width = v51;
-  v57.size.height = v53;
-  CGContextFillRect(v46, v57);
-  Image = CGBitmapContextCreateImage(v46);
-  CGContextRelease(v46);
+  v58.origin.x = v48;
+  v58.origin.y = v50;
+  v58.size.width = v52;
+  v58.size.height = v54;
+  CGContextFillRect(v47, v58);
+  Image = CGBitmapContextCreateImage(v47);
+  CGContextRelease(v47);
 
   if (!Image)
   {
 LABEL_40:
-    v38 = 0;
+    v39 = 0;
     goto LABEL_41;
   }
 
-  v38 = [CRLImage imageWithCGImage:Image];
+  v39 = [CRLImage imageWithCGImage:Image];
   CGImageRelease(Image);
 LABEL_41:
 
-  return v38;
+  return v39;
 }
 
 - (id)p_standardSizeCachedImage
@@ -1856,8 +1856,8 @@ LABEL_3:
 
   if (!technique)
   {
-    CGContextGetUserSpaceToDeviceSpaceTransform(&v35, context);
-    v18 = sub_100139B5C(&v35.a);
+    CGContextGetUserSpaceToDeviceSpaceTransform(&v37, context);
+    v18 = sub_100139B5C(&v37.a);
     v19 = sub_100120414(x, y, width, height);
     v21 = sub_10011EC70(v19, v20, v11);
     x = v21;
@@ -1866,29 +1866,29 @@ LABEL_3:
     height = v24;
     if (v18)
     {
-      v36 = CGContextConvertRectToDeviceSpace(context, *&v21);
-      v25 = v36.size.width;
-      v26 = v36.size.height;
-      v27 = sub_100122154(v36.origin.x, v36.origin.y);
-      v29 = v28;
-      v37.size.width = sub_100122154(v25, v26);
-      v37.size.height = v30;
-      v37.origin.x = v27;
-      v37.origin.y = v29;
-      *&v14 = CGContextConvertRectToUserSpace(context, v37);
+      v38 = CGContextConvertRectToDeviceSpace(context, *&v21);
+      v25 = v38.size.width;
+      v26 = v38.size.height;
+      v28 = sub_100122154(v27, v38.origin.x, v38.origin.y);
+      v30 = v29;
+      v39.size.width = sub_100122154(v31, v25, v26);
+      v39.size.height = v32;
+      v39.origin.x = v28;
+      v39.origin.y = v30;
+      *&v14 = CGContextConvertRectToUserSpace(context, v39);
       goto LABEL_3;
     }
   }
 
 LABEL_7:
-  v31 = x;
-  v32 = y;
-  v33 = width;
-  v34 = height;
-  result.size.height = v34;
-  result.size.width = v33;
-  result.origin.y = v32;
-  result.origin.x = v31;
+  v33 = x;
+  v34 = y;
+  v35 = width;
+  v36 = height;
+  result.size.height = v36;
+  result.size.width = v35;
+  result.origin.y = v34;
+  result.origin.x = v33;
   return result;
 }
 

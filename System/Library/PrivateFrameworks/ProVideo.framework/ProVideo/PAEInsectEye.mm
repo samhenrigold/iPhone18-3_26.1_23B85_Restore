@@ -92,79 +92,78 @@
 
 - (BOOL)canThrowRenderOutput:(id)output withInput:(id)input withInfo:(id *)info
 {
-  v9 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
-  if (v9)
+  v8 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
+  if (v8)
   {
-    v10 = v9;
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
-    v11 = fabs(v36[0]);
+    v9 = v8;
+    objc_msgSend_getPixelTransformForImage_(self);
+    v10 = fabs(v35[0]);
     [input width];
     [input height];
-    v35 = 0.0;
-    [v10 getFloatValue:&v35 fromParm:1 atFxTime:info->var0.var1];
-    v35 = v11 * v35;
     v34 = 0.0;
-    [v10 getFloatValue:&v34 fromParm:2 atFxTime:info->var0.var1];
-    v33 = 0;
-    [v10 getFloatValue:&v33 fromParm:3 atFxTime:info->var0.var1];
-    v31 = 0;
+    [v9 getFloatValue:&v34 fromParm:1 atFxTime:info->var0.var1];
+    v34 = v10 * v34;
+    v33 = 0.0;
+    [v9 getFloatValue:&v33 fromParm:2 atFxTime:info->var0.var1];
     v32 = 0;
+    [v9 getFloatValue:&v32 fromParm:3 atFxTime:info->var0.var1];
     v30 = 0;
-    [v10 getRedValue:&v32 greenValue:&v31 blueValue:&v30 fromParm:4 atFxTime:info->var0.var1];
-    LODWORD(v9) = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
-    if (v9)
+    v31 = 0;
+    v29 = 0;
+    [v9 getRedValue:&v31 greenValue:&v30 blueValue:&v29 fromParm:4 atFxTime:info->var0.var1];
+    LODWORD(v8) = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
+    if (v8)
     {
       if ([input imageType] == 3)
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else
         {
-          v29 = 0;
+          v28 = 0;
         }
 
         [input bounds];
-        v27.f64[0] = v12;
-        v27.f64[1] = v13;
-        v28.f64[0] = v14;
-        v28.f64[1] = v15;
-        PCMatrix44Tmpl<double>::transformRect<double>(v36, v27.f64, &v27);
-        if (v34 < 1.0)
+        v26.f64[0] = v11;
+        v26.f64[1] = v12;
+        v27.f64[0] = v13;
+        v27.f64[1] = v14;
+        PCMatrix44Tmpl<double>::transformRect<double>(v35, v26.f64, &v26);
+        if (v33 < 1.0)
         {
-          v25 = v29;
-          if (v29)
+          v24 = v28;
+          if (v28)
           {
-            (*(*v29 + 16))(v29);
+            (*(*v28 + 16))(v28);
           }
 
-          [(PAESharedDefaultBase *)self smear:&v25 fromImage:input toImage:input];
-          v16 = v26;
-          if (v29 == v26)
+          objc_msgSend_smear_fromImage_toImage_(self);
+          v15 = v25;
+          if (v28 == v25)
           {
-            if (v29)
+            if (v28)
             {
-              (*(*v26 + 24))(v26);
+              (*(*v25 + 24))();
             }
           }
 
           else
           {
-            if (v29)
+            if (v28)
             {
-              (*(*v29 + 24))();
-              v16 = v26;
+              (*(*v28 + 24))();
+              v15 = v25;
             }
 
-            v29 = v16;
-            v26 = 0;
+            v28 = v15;
           }
 
-          if (v25)
+          if (v24)
           {
-            (*(*v25 + 24))(v25);
+            (*(*v24 + 24))(v24);
           }
 
           __asm
@@ -173,20 +172,20 @@
             FMOV            V1.2D, #-1.0
           }
 
-          v27 = vaddq_f64(v27, _Q0);
-          v28 = vaddq_f64(v28, _Q1);
-          v23 = HGObject::operator new(0x1A0uLL);
-          HInsectEye_Base::HInsectEye_Base(v23);
+          v26 = vaddq_f64(v26, _Q0);
+          v27 = vaddq_f64(v27, _Q1);
+          v22 = HGObject::operator new(0x1A0uLL);
+          HInsectEye_Base::HInsectEye_Base(v22);
         }
 
         Fx_smearToRect();
       }
 
-      LOBYTE(v9) = 0;
+      LOBYTE(v8) = 0;
     }
   }
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)frameSetup:(id *)setup inputInfo:(id *)info hardware:(BOOL *)hardware software:(BOOL *)software

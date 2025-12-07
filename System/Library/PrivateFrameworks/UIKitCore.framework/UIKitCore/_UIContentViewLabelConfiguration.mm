@@ -319,9 +319,9 @@ LABEL_3:
         goto LABEL_15;
       }
 
-      v8 = [v5 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v5);
 
-      if (!v8)
+      if (!isEqual)
       {
         goto LABEL_16;
       }
@@ -347,7 +347,7 @@ LABEL_19:
 
       if (v14 && v15)
       {
-        v17 = [v14 isEqual:v15];
+        v17 = objc_msgSend_isEqual_(v14);
 
         if (v17)
         {
@@ -366,7 +366,7 @@ LABEL_16:
 
     if (v5 && v10)
     {
-      v11 = [v5 isEqual:v10];
+      v11 = objc_msgSend_isEqual_(v5);
 
       if (!v11)
       {
@@ -417,20 +417,20 @@ LABEL_22:
           goto LABEL_23;
         }
 
-        v9 = [v6 isEqual:v7];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (!v9)
+        if (!isEqual)
         {
           goto LABEL_22;
         }
       }
 
-      if (*(quick + 24) != *(v4 + 3) || *(quick + 32) != *(v4 + 4) || *(quick + 40) != *(v4 + 5) || *(quick + 48) != *(v4 + 6) || !_deferringTokenEqualToToken(*(quick + 56), *(v4 + 7)) || *(quick + 80) != *(v4 + 10) || *(quick + 64) != *(v4 + 8) || *(quick + 12) != v4[12] || *(quick + 72) != *(v4 + 9) || *(quick + 13) != v4[13])
+      if (*(quick + 24) != *(v4 + 3) || *(quick + 32) != *(v4 + 4) || *(quick + 40) != *(v4 + 5) || *(quick + 48) != *(v4 + 6) || !_deferringTokenEqualToToken(*(quick + 56), *(v4 + 7)) || *(quick + 80) != *(v4 + 10) || *(quick + 64) != *(v4 + 8) || *(quick + 12) != *(v4 + 12) || *(quick + 72) != v4[9] || *(quick + 13) != *(v4 + 13))
       {
         goto LABEL_22;
       }
 
-      quick = *(quick + 14) == v4[14];
+      quick = *(quick + 14) == *(v4 + 14);
     }
   }
 

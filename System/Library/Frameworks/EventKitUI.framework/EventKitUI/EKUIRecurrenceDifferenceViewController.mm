@@ -105,7 +105,7 @@ void __67__EKUIRecurrenceDifferenceViewController_shouldShowRecurrenceDiff___blo
   shouldShowRecurrenceDiff__changesToShowDiffFor = v10;
 }
 
-uint64_t __67__EKUIRecurrenceDifferenceViewController_shouldShowRecurrenceDiff___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__67__EKUIRecurrenceDifferenceViewController_shouldShowRecurrenceDiff___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [shouldShowRecurrenceDiff__changesToShowDiffFor containsObject:a2];
   if (result)
@@ -740,7 +740,7 @@ LABEL_32:
   return v6;
 }
 
-uint64_t __58__EKUIRecurrenceDifferenceViewController_stringForAlarms___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+char *__58__EKUIRecurrenceDifferenceViewController_stringForAlarms___block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
   v5 = *(a1 + 32);
   [a2 relativeOffset];
@@ -749,7 +749,7 @@ uint64_t __58__EKUIRecurrenceDifferenceViewController_stringForAlarms___block_in
   [v5 appendString:v6];
 
   result = [*(a1 + 48) count];
-  if (result - 1 > a3)
+  if ((result - 1) > a3)
   {
     v8 = *(a1 + 32);
 
@@ -778,7 +778,7 @@ uint64_t __58__EKUIRecurrenceDifferenceViewController_stringForAlarms___block_in
   return v5;
 }
 
-void __61__EKUIRecurrenceDifferenceViewController_stringForAttendees___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void __61__EKUIRecurrenceDifferenceViewController_stringForAttendees___block_invoke(uint64_t a1, uint64_t a2, char *a3)
 {
   v5 = [MEMORY[0x1E6966A88] participantForSortingWithEKParticipant:a2];
   v6 = *(a1 + 32);

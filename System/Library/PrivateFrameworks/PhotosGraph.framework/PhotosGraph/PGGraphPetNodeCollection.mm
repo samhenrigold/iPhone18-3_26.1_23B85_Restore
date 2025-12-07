@@ -100,17 +100,15 @@ void __44__PGGraphPetNodeCollection_localIdentifiers__block_invoke(uint64_t a1, 
 
 + (id)favoritedPetNodesInGraph:(id)graph
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v4 = +[PGGraphPetNode filter];
-  v10 = @"favorite";
-  v11[0] = MEMORY[0x277CBEC38];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"favorite";
+  v10[0] = MEMORY[0x277CBEC38];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v6 = [v4 filterBySettingProperties:v5];
 
   v7 = [(MANodeCollection *)PGGraphPetNodeCollection nodesMatchingFilter:v6 inGraph:graphCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -126,55 +124,49 @@ void __44__PGGraphPetNodeCollection_localIdentifiers__block_invoke(uint64_t a1, 
 
 + (id)petNodesForSpecies:(unint64_t)species inGraph:(id)graph
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v7 = +[PGGraphPetNode filter];
-  v14 = @"anml";
+  v13 = @"anml";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:species];
-  v15[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v10 = [v7 filterBySettingProperties:v9];
 
   v11 = [self nodesMatchingFilter:v10 inGraph:graphCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)petNodesForLocalIdentifier:(id)identifier inGraph:(id)graph
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB98];
   identifierCopy = identifier;
   v7 = MEMORY[0x277CBEA60];
   graphCopy = graph;
   identifierCopy2 = identifier;
   v10 = [v7 arrayWithObjects:&identifierCopy count:1];
-  v11 = [v6 setWithArray:{v10, identifierCopy, v16}];
+  v11 = [v6 setWithArray:{v10, identifierCopy, v15}];
 
   v12 = [self petNodesForLocalIdentifiers:v11 inGraph:graphCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)petNodesForLocalIdentifiers:(id)identifiers inGraph:(id)graph
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   identifiersCopy = identifiers;
   v8 = +[PGGraphPetNode filter];
-  v14 = @"localIdentifier";
-  v15[0] = identifiersCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"localIdentifier";
+  v14[0] = identifiersCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v10 = [v8 filterBySettingProperties:v9];
 
   v11 = [self nodesMatchingFilter:v10 inGraph:graphCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

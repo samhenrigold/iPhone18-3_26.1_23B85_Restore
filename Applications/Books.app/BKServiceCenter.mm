@@ -20,7 +20,7 @@
 {
   type metadata accessor for PriceTrackingService();
   selfCopy = self;
-  sub_1001F1160(&qword_100AEB0B0);
+  sub_1001F1160(&qword_100AEB0B0, &qword_100835520);
   v4 = sub_1007A22E4();
   v6 = sub_10057FB10(v4, v5, type metadata accessor for PriceTrackingService);
 
@@ -35,7 +35,7 @@
   *(&self->super.isa + OBJC_IVAR___BKServiceCenter_services) = _swiftEmptyDictionarySingleton;
   v4 = OBJC_IVAR___BKServiceCenter__setupState;
   v7 = 0;
-  sub_1001F1160(&qword_100AD1F38);
+  sub_1001F1160(&qword_100AD1F38, &unk_100832450);
   swift_allocObject();
   *(&self->super.isa + v4) = sub_100798B54();
   v6.receiver = self;
@@ -53,7 +53,7 @@
 
 - (void)deleteCloudDataWithCompletion:(id)completion
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(completion);

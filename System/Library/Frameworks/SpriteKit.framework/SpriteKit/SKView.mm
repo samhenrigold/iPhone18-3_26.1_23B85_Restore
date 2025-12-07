@@ -371,7 +371,7 @@
   renderer = self->_renderer;
   if (renderer)
   {
-    SKCRenderer::getBackingContext(renderer, &v47);
+    SKCRenderer::getBackingContext(&v47, renderer);
     v37 = (*(*v47 + 136))(v47);
     if (v48)
     {
@@ -442,7 +442,7 @@ LABEL_22:
 
 + (Class)layerClass
 {
-  if (SKGetShouldEnableMetal())
+  if (SKGetShouldEnableMetal(self, a2))
   {
     jet_isMetalSupported();
   }
@@ -462,7 +462,7 @@ LABEL_22:
     v4 = chooseViewRenderer;
     if (!self->_framebuffer.__ptr_)
     {
-      SKCRenderer::getBackingContext(self->_renderer, &v38);
+      SKCRenderer::getBackingContext(&v38, self->_renderer);
       v5 = (*(*v38 + 112))(v38);
       std::shared_ptr<jet_framebuffer>::shared_ptr[abi:ne200100]<jet_framebuffer,0>(&v39, v5);
     }
@@ -502,7 +502,7 @@ LABEL_22:
     }
 
     v35 = v15;
-    SKCRenderer::getBackingContext(v4, &v39);
+    SKCRenderer::getBackingContext(&v39, v4);
     v19 = (*(*v39 + 136))(v39);
     if (*(&v39 + 1))
     {
@@ -524,12 +524,12 @@ LABEL_22:
 
     if (![(SKView *)self disableDepthStencilBuffer])
     {
-      SKCRenderer::getBackingContext(self->_renderer, &v38);
+      SKCRenderer::getBackingContext(&v38, self->_renderer);
       texture_2d = jet_context::create_texture_2d();
       std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v39, texture_2d);
     }
 
-    SKCRenderer::getBackingContext(v4, &v39);
+    SKCRenderer::getBackingContext(&v39, v4);
     v22 = (*(*v39 + 136))(v39);
     if (*(&v39 + 1))
     {
@@ -541,7 +541,7 @@ LABEL_22:
       goto LABEL_26;
     }
 
-    SKCRenderer::getBackingContext(v4, &v39);
+    SKCRenderer::getBackingContext(&v39, v4);
     v23 = v39;
     if (*(&v39 + 1))
     {
@@ -949,7 +949,7 @@ LABEL_26:
           v39 = *(a1 + 32);
           if (v39)
           {
-            [v39 nextFramebuffer];
+            objc_msgSend_nextFramebuffer(v39);
             if (v44)
             {
               v40 = CACurrentMediaTime();
@@ -1173,7 +1173,7 @@ intptr_t __82__SKView__renderSynchronouslyForTime_preRender_postRender_withMTLSc
       v21 = *(a1 + 32);
       if (v21)
       {
-        [v21 nextFramebuffer];
+        objc_msgSend_nextFramebuffer(v21);
         if (v27._vptr$SKCStats)
         {
           [*(a1 + 32) frame];
@@ -1279,7 +1279,7 @@ intptr_t __82__SKView__renderSynchronouslyForTime_preRender_postRender_withMTLSc
           {
             v19 = chooseViewRenderer;
             [(SKView *)self getRootNode];
-            SKCRenderer::getBackingContext(v19, &v22);
+            SKCRenderer::getBackingContext(&v22, v19);
             v20 = (*(*v22 + 32))(v22, v10, Width, Height, 4, 0);
             std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v23, v20);
           }
@@ -1336,7 +1336,7 @@ intptr_t __89__SKView__renderToIOSurfaceID_scaleFactor_asynchronous_waitOnFence_
           {
             v10 = v9;
             [*(a1 + 32) getRootNode];
-            SKCRenderer::getBackingContext(v10, &v14);
+            SKCRenderer::getBackingContext(&v14, v10);
             v11 = (*(*v14 + 32))(v14, *(a1 + 56), Width, v7, 4, 0);
             std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v15, v11);
           }
@@ -1438,7 +1438,7 @@ intptr_t __86__SKView__dispatchRenderToIOSurfaceID_async_onQueue_waitOnFence_pre
           {
             v10 = v9;
             [*(a1 + 32) getRootNode];
-            SKCRenderer::getBackingContext(v10, &v14);
+            SKCRenderer::getBackingContext(&v14, v10);
             v11 = (*(*v14 + 32))(v14, *(a1 + 56), Width, v7, 4, 0);
             std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v15, v11);
           }
@@ -1494,7 +1494,7 @@ intptr_t __86__SKView__dispatchRenderToIOSurfaceID_async_onQueue_waitOnFence_pre
           {
             v10 = v9;
             [*(a1 + 32) getRootNode];
-            SKCRenderer::getBackingContext(v10, &v14);
+            SKCRenderer::getBackingContext(&v14, v10);
             v11 = (*(*v14 + 32))(v14, *(a1 + 56), Width, v7, 4, 0);
             std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v15, v11);
           }
@@ -1517,7 +1517,7 @@ intptr_t __86__SKView__dispatchRenderToIOSurfaceID_async_onQueue_waitOnFence_pre
 - (void)overrideMetalCommandQueue:(id)queue
 {
   queueCopy = queue;
-  SKCRenderer::getBackingContext(self->_renderer, &lpsrc);
+  SKCRenderer::getBackingContext(&lpsrc, self->_renderer);
   if (!lpsrc)
   {
     v5 = 0;
@@ -1694,7 +1694,7 @@ void __29__SKView_setUpRenderCallback__block_invoke(uint64_t a1, double a2)
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   beganCopy = began;
   eventCopy = event;
   v7 = eventCopy;
@@ -1709,7 +1709,7 @@ void __29__SKView_setUpRenderCallback__block_invoke(uint64_t a1, double a2)
     v34 = 0u;
     v35 = 0u;
     v8 = beganCopy;
-    v9 = [v8 countByEnumeratingWithState:&v32 objects:v39 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
     if (v9)
     {
       v10 = *v33;
@@ -1746,8 +1746,8 @@ void __29__SKView_setUpRenderCallback__block_invoke(uint64_t a1, double a2)
             if (v31)
             {
               [*&self->_prevBackingScaleFactor setObject:v31 forKey:v12];
-              v38[3] = &v31;
-              v17 = std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(&v37, &v31);
+              v39 = &v31;
+              v17 = std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(&v37, &v31, &std::piecewise_construct, &v39);
               std::vector<UITouch * {__strong}>::push_back[abi:ne200100](v17 + 5, &v36);
             }
           }
@@ -1755,7 +1755,7 @@ void __29__SKView_setUpRenderCallback__block_invoke(uint64_t a1, double a2)
 LABEL_14:
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v32 objects:v39 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
       while (v9);
@@ -1821,7 +1821,7 @@ LABEL_14:
 
 - (void)touchesMoved:(id)moved withEvent:(id)event
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   movedCopy = moved;
   eventCopy = event;
   if ((BYTE4(self->_transition) & 1) == 0 && *&self->_paused)
@@ -1834,7 +1834,7 @@ LABEL_14:
     v28 = 0u;
     v29 = 0u;
     v7 = movedCopy;
-    v8 = [v7 countByEnumeratingWithState:&v26 objects:v33 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v8)
     {
       v9 = *v27;
@@ -1852,13 +1852,13 @@ LABEL_14:
           v25 = [*&self->_prevBackingScaleFactor objectForKey:v11];
           if (v25)
           {
-            v32[3] = &v25;
-            v12 = std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(&v31, &v25);
+            v33 = &v25;
+            v12 = std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(&v31, &v25, &std::piecewise_construct, &v33);
             std::vector<UITouch * {__strong}>::push_back[abi:ne200100](v12 + 5, &v30);
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v26 objects:v33 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v8);
@@ -1923,7 +1923,7 @@ LABEL_14:
 
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   endedCopy = ended;
   eventCopy = event;
   v7 = eventCopy;
@@ -1938,7 +1938,7 @@ LABEL_14:
     v40 = 0u;
     v41 = 0u;
     v8 = endedCopy;
-    v9 = [v8 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v9)
     {
       v10 = *v39;
@@ -1956,13 +1956,13 @@ LABEL_14:
           v37 = [*&self->_prevBackingScaleFactor objectForKey:v12];
           if (v37)
           {
-            v44[3] = &v37;
-            v13 = std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(&v43, &v37);
+            v45 = &v37;
+            v13 = std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(&v43, &v37, &std::piecewise_construct, &v45);
             std::vector<UITouch * {__strong}>::push_back[abi:ne200100](v13 + 5, &v42);
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v9);
@@ -1995,7 +1995,7 @@ LABEL_14:
         v33 = 0u;
         v34 = 0u;
         v21 = v15;
-        v22 = [v21 countByEnumeratingWithState:&v33 objects:v45 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v33 objects:v46 count:16];
         if (v22)
         {
           v23 = *v34;
@@ -2011,7 +2011,7 @@ LABEL_14:
               [*&self->_prevBackingScaleFactor removeObjectForKey:{*(*(&v33 + 1) + 8 * j), endedCopy}];
             }
 
-            v22 = [v21 countByEnumeratingWithState:&v33 objects:v45 count:16];
+            v22 = [v21 countByEnumeratingWithState:&v33 objects:v46 count:16];
           }
 
           while (v22);
@@ -2058,7 +2058,7 @@ LABEL_14:
 
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   cancelledCopy = cancelled;
   eventCopy = event;
   v7 = eventCopy;
@@ -2073,7 +2073,7 @@ LABEL_14:
     v40 = 0u;
     v41 = 0u;
     v8 = cancelledCopy;
-    v9 = [v8 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v9)
     {
       v10 = *v39;
@@ -2091,13 +2091,13 @@ LABEL_14:
           v37 = [*&self->_prevBackingScaleFactor objectForKey:v12];
           if (v37)
           {
-            v44[3] = &v37;
-            v13 = std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(&v43, &v37);
+            v45 = &v37;
+            v13 = std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(&v43, &v37, &std::piecewise_construct, &v45);
             std::vector<UITouch * {__strong}>::push_back[abi:ne200100](v13 + 5, &v42);
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v9);
@@ -2130,7 +2130,7 @@ LABEL_14:
         v33 = 0u;
         v34 = 0u;
         v21 = v15;
-        v22 = [v21 countByEnumeratingWithState:&v33 objects:v45 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v33 objects:v46 count:16];
         if (v22)
         {
           v23 = *v34;
@@ -2146,7 +2146,7 @@ LABEL_14:
               [*&self->_prevBackingScaleFactor removeObjectForKey:{*(*(&v33 + 1) + 8 * j), cancelledCopy}];
             }
 
-            v22 = [v21 countByEnumeratingWithState:&v33 objects:v45 count:16];
+            v22 = [v21 countByEnumeratingWithState:&v33 objects:v46 count:16];
           }
 
           while (v22);
@@ -2902,7 +2902,7 @@ LABEL_15:
     v7 = self->_framebuffer.__ptr_;
     *(v7 + 26) = ptr;
     *(v7 + 29) = ptr;
-    SKCRenderer::getBackingContext([(SKView *)self chooseViewRenderer], &v18);
+    SKCRenderer::getBackingContext(&v18, [(SKView *)self chooseViewRenderer]);
     v8 = (*(*v18 + 136))(v18);
     self = *(&v18 + 1);
     if (*(&v18 + 1))
@@ -2912,7 +2912,7 @@ LABEL_15:
 
     if (v8 == 1)
     {
-      SKCRenderer::getBackingContext(selfCopy->_renderer, &v18);
+      SKCRenderer::getBackingContext(&v18, selfCopy->_renderer);
       v9 = v18;
       if (*(&v18 + 1))
       {

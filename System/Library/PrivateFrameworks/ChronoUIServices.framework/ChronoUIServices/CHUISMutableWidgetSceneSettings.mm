@@ -33,21 +33,31 @@
 - (unint64_t)supportedProximities;
 - (unint64_t)widgetPriority;
 - (void)setAdditionalSnapshotPresentationContext:(id)context;
+- (void)setAnimationsPaused:(BOOL)paused;
+- (void)setCanAppearInSecureEnvironment:(BOOL)environment;
 - (void)setClipBehavior:(unint64_t)behavior;
 - (void)setColorScheme:(unint64_t)scheme;
+- (void)setContentPaused:(BOOL)paused;
 - (void)setContentType:(unint64_t)type;
 - (void)setIdealizedDateComponents:(id)components;
 - (void)setInlineTextParameters:(id)parameters;
+- (void)setInteractionDisabled:(BOOL)disabled;
 - (void)setMetrics:(id)metrics;
+- (void)setPrefersUnredactedContentInLowLuminanceEnvironment:(BOOL)environment;
 - (void)setProximity:(int64_t)proximity;
 - (void)setRemoteViewControllerClassName:(id)name;
 - (void)setRenderScheme:(id)scheme;
 - (void)setRenderingScale:(double)scale;
+- (void)setSeparateLayers:(BOOL)layers;
+- (void)setShowsWidgetLabel:(BOOL)label;
 - (void)setSupportedColorSchemes:(unint64_t)schemes;
 - (void)setSupportedProximities:(unint64_t)proximities;
 - (void)setSupportedRenderSchemes:(id)schemes;
+- (void)setSupportsLowLuminance:(BOOL)luminance;
 - (void)setTintParameters:(id)parameters;
 - (void)setVisibility:(id)visibility;
+- (void)setVisibleEntryShouldSnapshot:(BOOL)snapshot;
+- (void)setWantsBaseContentTouchEvents:(BOOL)events;
 - (void)setWidget:(id)widget;
 - (void)setWidgetConfigurationIdentifier:(id)identifier;
 - (void)setWidgetHostIdentifier:(id)identifier;
@@ -145,6 +155,54 @@
   [otherSettings setObject:v4 forSetting:88906];
 }
 
+- (void)setAnimationsPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:pausedCopy];
+  [otherSettings setObject:v4 forSetting:88894];
+}
+
+- (void)setContentPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:pausedCopy];
+  [otherSettings setObject:v4 forSetting:88904];
+}
+
+- (void)setVisibleEntryShouldSnapshot:(BOOL)snapshot
+{
+  snapshotCopy = snapshot;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:snapshotCopy];
+  [otherSettings setObject:v4 forSetting:88895];
+}
+
+- (void)setCanAppearInSecureEnvironment:(BOOL)environment
+{
+  environmentCopy = environment;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:environmentCopy];
+  [otherSettings setObject:v4 forSetting:88897];
+}
+
+- (void)setSupportsLowLuminance:(BOOL)luminance
+{
+  luminanceCopy = luminance;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:luminanceCopy];
+  [otherSettings setObject:v4 forSetting:88902];
+}
+
+- (void)setPrefersUnredactedContentInLowLuminanceEnvironment:(BOOL)environment
+{
+  environmentCopy = environment;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:environmentCopy];
+  [otherSettings setObject:v4 forSetting:88903];
+}
+
 - (void)setTintParameters:(id)parameters
 {
   parametersCopy = parameters;
@@ -157,6 +215,22 @@
   parametersCopy = parameters;
   otherSettings = [(FBSSettings *)self otherSettings];
   [otherSettings setObject:parametersCopy forSetting:88899];
+}
+
+- (void)setShowsWidgetLabel:(BOOL)label
+{
+  labelCopy = label;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:labelCopy];
+  [otherSettings setObject:v4 forSetting:88905];
+}
+
+- (void)setInteractionDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:disabledCopy];
+  [otherSettings setObject:v4 forSetting:88907];
 }
 
 - (void)setAdditionalSnapshotPresentationContext:(id)context
@@ -187,6 +261,14 @@
   [otherSettings setObject:v4 forSetting:88909];
 }
 
+- (void)setWantsBaseContentTouchEvents:(BOOL)events
+{
+  eventsCopy = events;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:eventsCopy];
+  [otherSettings setObject:v4 forSetting:88910];
+}
+
 - (void)setRenderingScale:(double)scale
 {
   otherSettings = [(FBSSettings *)self otherSettings];
@@ -213,6 +295,14 @@
   otherSettings = [(FBSSettings *)self otherSettings];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:proximities];
   [otherSettings setObject:v4 forSetting:88915];
+}
+
+- (void)setSeparateLayers:(BOOL)layers
+{
+  layersCopy = layers;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:layersCopy];
+  [otherSettings setObject:v4 forSetting:88917];
 }
 
 - (CHSWidget)widget
@@ -975,7 +1065,7 @@
 
 - (NSArray)supportedRenderSchemes
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   otherSettings = [(FBSSettings *)self otherSettings];
   v3 = [otherSettings objectForSetting:88914];
   v4 = objc_opt_class();
@@ -1003,29 +1093,29 @@
   if (v7)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     value = [v7 value];
-    v10 = [value countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [value countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(value);
           }
 
-          v13 = [*(*(&v16 + 1) + 8 * i) copy];
+          v13 = [*(*(&v15 + 1) + 8 * i) copy];
           [v8 addObject:v13];
         }
 
-        v10 = [value countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [value countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -1036,8 +1126,6 @@
   {
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

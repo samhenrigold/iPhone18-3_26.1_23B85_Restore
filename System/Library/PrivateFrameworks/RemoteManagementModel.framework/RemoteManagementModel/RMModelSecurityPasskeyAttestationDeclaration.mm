@@ -13,15 +13,13 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[3] = *MEMORY[0x277D85DE8];
+  v6[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"AttestationIdentityAssetReference";
-  v7[1] = @"AttestationIdentityKeyIsExtractable";
-  v7[2] = @"RelyingParties";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  v6[0] = @"AttestationIdentityAssetReference";
+  v6[1] = @"AttestationIdentityKeyIsExtractable";
+  v6[2] = @"RelyingParties";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -40,14 +38,12 @@
 
 void __63__RMModelSecurityPasskeyAttestationDeclaration_assetReferences__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287467CA0 keyPath:@"$.payloadAttestationIdentityAssetReference"];
-  v4[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   v2 = assetReferences_assetPaths_13;
   assetReferences_assetPaths_13 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier attestationIdentityAssetReference:(id)reference attestationIdentityKeyIsExtractable:(id)extractable relyingParties:(id)parties
@@ -119,24 +115,22 @@ void __63__RMModelSecurityPasskeyAttestationDeclaration_assetReferences__block_i
 
 + (id)supportedOS
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = &unk_28746BB10;
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = &unk_28746BB10;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467CB8];
-  v12[0] = v2;
+  v11[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467CD0];
-  v12[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-  v13[1] = &unk_28746BB40;
-  v14[0] = v4;
+  v11[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v12[1] = &unk_28746BB40;
+  v13[0] = v4;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467CE8];
-  v11[0] = v5;
+  v10[0] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467D00];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-  v14[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v13[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v8;
 }

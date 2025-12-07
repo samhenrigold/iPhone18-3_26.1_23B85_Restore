@@ -16,34 +16,34 @@ void __90__SFOverlayProvider_SafariServicesExtras__requestOverlayWithPreferences
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __90__SFOverlayProvider_SafariServicesExtras__requestOverlayWithPreferencesVendor_completion___block_invoke_2(uint64_t a1)
+uint64_t __90__SFOverlayProvider_SafariServicesExtras__requestOverlayWithPreferencesVendor_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48))
   {
-    v2 = 1;
+    v3 = 1;
   }
 
   else
   {
-    v2 = [objc_opt_class() alwaysShowOverlayForDebug];
+    v3 = [objc_opt_class() alwaysShowOverlayForDebug];
   }
 
-  [*(a1 + 32) setAvailable:v2];
-  v3 = *(*(a1 + 40) + 16);
+  [*(a1 + 32) setAvailable:v3];
+  v4 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v4();
 }
 
-void __78__SFOverlayProvider_SafariServicesExtras___updateAppClipOverlayPreferenceHook__block_invoke(uint64_t a1)
+void __78__SFOverlayProvider_SafariServicesExtras___updateAppClipOverlayPreferenceHook__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAppStoreBanner();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXAppStoreBanner(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = 138477827;
-    v5 = v3;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "User disallows showing app clip info overlay for domain %{private}@", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138477827;
+    v6 = v4;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "User disallows showing app clip info overlay for domain %{private}@", &v5, 0xCu);
   }
 }
 

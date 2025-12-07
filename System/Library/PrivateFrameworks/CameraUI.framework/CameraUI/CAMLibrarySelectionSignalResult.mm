@@ -478,7 +478,7 @@ LABEL_28:
   regionCopy = region;
   dateCopy = date;
   [locationCopy coordinate];
-  if (locationCopy && CLLocationCoordinate2DIsValid(*&v10) && (!dateCopy ? (v15 = 0.0) : ([locationCopy timestamp], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dateCopy, "timeIntervalSinceDate:", v12), v14 = v13, v12, v14 <= 60.0) ? (v15 = 0.0) : (v15 = v14 * 30.0), objc_msgSend(locationCopy, "horizontalAccuracy"), v17 = v16, objc_msgSend(regionCopy, "center"), CLLocationCoordinate2DIsValid(v21)))
+  if (locationCopy && CLLocationCoordinate2DIsValid(*&v10) && (!dateCopy ? (v15 = 0.0) : (objc_msgSend_timestamp(locationCopy), v12 = objc_claimAutoreleasedReturnValue(), [dateCopy timeIntervalSinceDate:v12], v14 = v13, v12, v14 <= 60.0) ? (v15 = 0.0) : (v15 = v14 * 30.0), objc_msgSend(locationCopy, "horizontalAccuracy"), v17 = v16, objc_msgSend(regionCopy, "center"), CLLocationCoordinate2DIsValid(v21)))
   {
     CLLocationCoordinate2DGetDistanceFrom();
     v19 = fmin(v18, fmax(v18 - (v15 + v17), 0.0));

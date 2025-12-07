@@ -8,10 +8,9 @@
 - (void)finish
 {
   v3 = *(&self->super.isa + OBJC_IVAR____TtC7remindd42RDFeatureFlagsTemporaryOverrideObjcWrapper_backing);
-  v4 = *&self->backing[OBJC_IVAR____TtC7remindd42RDFeatureFlagsTemporaryOverrideObjcWrapper_backing];
   swift_getObjectType();
   selfCopy = self;
-  v5 = v3;
+  v4 = v3;
   dispatch thunk of REMFeatureFlagsTemporaryOverride.finish()();
 }
 

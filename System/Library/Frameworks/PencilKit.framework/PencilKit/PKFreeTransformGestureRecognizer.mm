@@ -89,7 +89,7 @@ LABEL_6:
     if (!isScaling)
     {
 
-      return [(PKFreeTransformGestureRecognizer *)self unscaledFreeTransform];
+      return objc_msgSend_unscaledFreeTransform(self);
     }
   }
 
@@ -123,7 +123,7 @@ LABEL_6:
     CGAffineTransformMakeTranslation(retstr, v25 - v17, v27 - v19);
     if ([(PKFreeTransformGestureRecognizer *)self axisAligned])
     {
-      [(PKFreeTransformGestureRecognizer *)self accumulatedTransform];
+      objc_msgSend_accumulatedTransform(self);
       v28 = sqrt(v89.b * v89.b + v89.a * v89.a);
       [(PKFreeTransformGestureRecognizer *)self minScale];
       v30 = v29 / v28;
@@ -132,7 +132,7 @@ LABEL_6:
       *&t1.a = *&retstr->a;
       *&t1.c = v31;
       *&t1.tx = *&retstr->tx;
-      [(PKFreeTransformGestureRecognizer *)self clampTransform:&t1 minScale:v30 maxScale:v32 / v28];
+      objc_msgSend_clampTransform_minScale_maxScale_(self, v30, v32 / v28);
       v33 = *&v89.c;
       *&retstr->a = *&v89.a;
       *&retstr->c = v33;
@@ -181,7 +181,7 @@ LABEL_6:
 
       if ([(PKFreeTransformGestureRecognizer *)self axisAligned])
       {
-        [(PKFreeTransformGestureRecognizer *)self accumulatedTransform];
+        objc_msgSend_accumulatedTransform(self);
         v85 = v51;
         v86 = v59;
         v68 = v43;
@@ -212,7 +212,7 @@ LABEL_6:
     }
   }
 
-  [(PKFreeTransformGestureRecognizer *)self accumulatedTransform];
+  objc_msgSend_accumulatedTransform(self);
   v83 = *&retstr->c;
   *&t2.a = *&retstr->a;
   *&t2.c = v83;
@@ -306,7 +306,7 @@ LABEL_6:
       *&retstr->a = *&v58.a;
       *&retstr->c = v48;
       *&retstr->tx = *&v58.tx;
-      [(PKFreeTransformGestureRecognizer *)self accumulatedTransform];
+      objc_msgSend_accumulatedTransform(self);
       v49 = *&retstr->c;
       *&t1.a = *&retstr->a;
       *&t1.c = v49;
@@ -322,7 +322,7 @@ LABEL_6:
   else
   {
 
-    return [(PKFreeTransformGestureRecognizer *)self freeTransform];
+    return objc_msgSend_freeTransform(self);
   }
 
   return result;
@@ -459,7 +459,7 @@ LABEL_6:
   v5 = 0u;
   v6 = 0u;
   v4 = 0u;
-  [(PKFreeTransformGestureRecognizer *)self freeTransform];
+  objc_msgSend_freeTransform(self, a2);
   [(PKFreeTransformGestureRecognizer *)self resetStartingTouches];
   v3[0] = v4;
   v3[1] = v5;
@@ -734,7 +734,7 @@ LABEL_7:
   v5.receiver = self;
   v5.super_class = PKFreeTransformGestureRecognizer;
   [(PKFreeTransformGestureRecognizer *)&v5 touchesMoved:moved withEvent:event];
-  [(PKFreeTransformGestureRecognizer *)self freeTransform:0];
+  objc_msgSend_freeTransform(self, 0, 0, 0, 0);
   if (![(PKFreeTransformGestureRecognizer *)self state])
   {
     if ([(PKFreeTransformGestureRecognizer *)self canBegin]&& ([(PKFreeTransformGestureRecognizer *)self startThreshold], [(PKFreeTransformGestureRecognizer *)self touchesMovedPastThreshold:?]))

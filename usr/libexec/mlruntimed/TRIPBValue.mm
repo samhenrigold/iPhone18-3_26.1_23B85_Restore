@@ -1,5 +1,6 @@
 @interface TRIPBValue
 + (id)mlr_listValueWithNSArray:(id)array;
++ (id)mlr_valueWithBoolValue:(BOOL)value;
 + (id)mlr_valueWithNullValue;
 + (id)mlr_valueWithObject:(id)object;
 @end
@@ -99,6 +100,15 @@ LABEL_9:
 LABEL_12:
 
   return v5;
+}
+
++ (id)mlr_valueWithBoolValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = objc_opt_new();
+  [v4 setBoolValue:valueCopy];
+
+  return v4;
 }
 
 + (id)mlr_valueWithNullValue

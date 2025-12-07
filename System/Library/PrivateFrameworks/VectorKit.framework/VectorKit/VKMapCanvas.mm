@@ -104,7 +104,7 @@ LABEL_13:
         v14 = cameraDelegate;
         if (cameraDelegate)
         {
-          [cameraDelegate willBeginRegionChangeAccess:0];
+          objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
         }
 
         else
@@ -125,7 +125,7 @@ LABEL_13:
         v25 = v24;
         if (v24)
         {
-          [(VKCamera *)v24 groundPointFromScreenPoint:0.5, 0.5];
+          objc_msgSend_groundPointFromScreenPoint_(v24, 0.5, 0.5);
         }
 
         else
@@ -137,10 +137,10 @@ LABEL_13:
         if (BYTE8(v38) == 1)
         {
           v26 = self->super._vkCamera._obj;
-          position = [(VKCamera *)v26 position];
-          v28 = *position;
-          v29 = position[1];
-          v30 = position[2];
+          v27 = objc_msgSend_position(v26);
+          v28 = *v27;
+          v29 = v27[1];
+          v30 = v27[2];
 
           if ((BYTE8(v38) & 1) == 0)
           {
@@ -374,8 +374,8 @@ LABEL_12:
     v5 = v4;
     canonicalSkyHeight = self->_canonicalSkyHeight;
     cameraController = [(VKScreenCanvas *)self cameraController];
-    vkCamera = [cameraController vkCamera];
-    [vkCamera setFractionOfScreenAboveFarClipPlaneAtCanonicalPitch:canonicalSkyHeight / v5];
+    v7 = objc_msgSend_vkCamera(cameraController);
+    [v7 setFractionOfScreenAboveFarClipPlaneAtCanonicalPitch:canonicalSkyHeight / v5];
   }
 }
 
@@ -531,12 +531,12 @@ void __111__VKMapCanvas_transitionToTracking_mapMode_startLocation_startCourse_c
   v11 = v10;
   [(MDRenderTarget *)self->super._displayTarget size];
   v13 = v12;
-  [(VKScreenCanvas *)self vkCamera];
+  objc_msgSend_vkCamera(self);
   v14 = v42;
   v15 = v14;
   if (v14)
   {
-    [(std::__shared_weak_count *)v14 groundPointFromScreenPoint:x / v9, (-1.0 - y + v11) / v13];
+    objc_msgSend_groundPointFromScreenPoint_(v14, x / v9, (-1.0 - y + v11) / v13);
   }
 
   else
@@ -1144,9 +1144,9 @@ BOOL __44__VKMapCanvas_globeAnnotationCoordinateTest__block_invoke(uint64_t a1, 
   v14 = v11 + 160;
   if (v12 != v13)
   {
-    while ((geo::_retain_ptr<VKOverlay * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::operator==(v12[1], &v20) & 1) == 0)
+    while ((geo::_retain_ptr<VKOverlay * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::operator==(*(v12 + 1), &v20) & 1) == 0)
     {
-      v12 += 3;
+      v12 += 24;
       if (v12 == v13)
       {
         v12 = v13;
@@ -1164,7 +1164,7 @@ BOOL __44__VKMapCanvas_globeAnnotationCoordinateTest__block_invoke(uint64_t a1, 
 
   else
   {
-    v15 = v12 + 3;
+    v15 = v12 + 24;
   }
 
   md::OverlayContainer::_insertOverlay(ptr, v9, v15);
@@ -1342,7 +1342,7 @@ BOOL __44__VKMapCanvas_globeAnnotationCoordinateTest__block_invoke(uint64_t a1, 
 
   if (v6)
   {
-    [v6 standardContainer];
+    objc_msgSend_standardContainer(v6);
     v29 = v33;
     v32 = 0;
     v33 = 0;
@@ -1574,21 +1574,21 @@ BOOL __44__VKMapCanvas_globeAnnotationCoordinateTest__block_invoke(uint64_t a1, 
         cameraController = self->super._cameraController;
         if (cameraController)
         {
-          [(VKCameraController *)cameraController camera];
-          if (*(&v60 + 1))
+          objc_msgSend_camera(cameraController);
+          if (v60.n128_u64[1])
           {
-            std::__shared_weak_count::__release_shared[abi:nn200100](*(&v60 + 1));
+            std::__shared_weak_count::__release_shared[abi:nn200100](v60.n128_u64[1]);
           }
 
-          if (v60)
+          if (v60.n128_u64[0])
           {
             v15 = *(v13 + 248);
             v16 = self->super._cameraController;
             if (v16)
             {
-              [(VKCameraController *)v16 camera];
-              v17 = *(&v60 + 1);
-              v16 = v60;
+              objc_msgSend_camera(v16);
+              v17 = v60.n128_u64[1];
+              v16 = v60.n128_u64[0];
             }
 
             else
@@ -1621,7 +1621,7 @@ BOOL __44__VKMapCanvas_globeAnnotationCoordinateTest__block_invoke(uint64_t a1, 
     v56 = v55;
     if (v55)
     {
-      [(VKCamera *)v55 groundPointFromScreenPoint:x / v8 atGroundLevel:1.0 - y / v10, -v12];
+      objc_msgSend_groundPointFromScreenPoint_atGroundLevel_(v55, x / v8, 1.0 - y / v10, -v12);
     }
 
     else
@@ -1632,20 +1632,20 @@ BOOL __44__VKMapCanvas_globeAnnotationCoordinateTest__block_invoke(uint64_t a1, 
 
     if (BYTE8(v61) == 1)
     {
-      v39 = *(&v60 + 1);
-      v38 = *&v60;
+      v39 = v60.n128_f64[1];
+      v38 = v60.n128_f64[0];
     }
 
     else
     {
 LABEL_23:
       v34 = self->super._vkCamera._obj;
-      position = [(VKCamera *)v34 position];
+      v35 = objc_msgSend_position(v34);
       v36 = self->super._vkCamera._obj;
-      position2 = [(VKCamera *)v36 position];
-      [(VKCamera *)self->super._vkCamera._obj position];
-      v38 = *position;
-      v39 = *(position2 + 8);
+      v37 = objc_msgSend_position(v36);
+      objc_msgSend_position(self->super._vkCamera._obj);
+      v38 = *v35;
+      v39 = *(v37 + 8);
     }
 
     v40 = exp(v39 * 6.28318531 + -3.14159265);
@@ -1683,8 +1683,8 @@ LABEL_23:
 
     v25 = gdc::Camera::cameraFrame(v23);
     md::MapDataAccess::groundCoordinateForScreenPoint(&v60, v19, v25, 0, 0, v59);
-    v27 = *(&v60 + 1);
-    v26 = *&v60;
+    v27 = v60.n128_f64[1];
+    v26 = v60.n128_f64[0];
     v28 = *&v61;
     if (v24)
     {
@@ -1738,7 +1738,7 @@ LABEL_21:
     v9 = v8;
     if (v8)
     {
-      [(VKCamera *)v8 groundPointFromScreenPoint:x / v5, 1.0 - y / v7];
+      objc_msgSend_groundPointFromScreenPoint_(v8, x / v5, 1.0 - y / v7);
     }
 
     else
@@ -1749,8 +1749,8 @@ LABEL_21:
 
     if (BYTE8(v28))
     {
-      *&v22.f64[0] = v27;
-      v22.f64[1] = 1.0 - *(&v27 + 1);
+      *&v22.f64[0] = v27.n128_u64[0];
+      v22.f64[1] = 1.0 - v27.n128_f64[1];
       v21 = vmulq_f64(v22, *MEMORY[0x1E69A1690]);
       goto LABEL_16;
     }
@@ -1781,14 +1781,14 @@ LABEL_15:
   }
 
   v17 = v27;
-  if (*&v27 == -3.14159265 && *(&v27 + 1) == -3.14159265 && *&v28 == 0.0)
+  if (v27.n128_f64[0] == -3.14159265 && v27.n128_f64[1] == -3.14159265 && *&v28 == 0.0)
   {
     goto LABEL_15;
   }
 
-  v18 = tan(*&v27 * 0.5 + 0.785398163);
+  v18 = tan(v27.n128_f64[0] * 0.5 + 0.785398163);
   v19 = log(v18);
-  v20.f32[0] = *(&v17 + 1) * 0.159154943 + 0.5;
+  v20.f32[0] = v17.n128_f64[1] * 0.159154943 + 0.5;
   *&v19 = v19 * 0.159154943 + 0.5;
   v20.f32[1] = 1.0 - *&v19;
   v21 = vmulq_f64(*MEMORY[0x1E69A1690], vcvtq_f64_f32(v20));
@@ -2208,7 +2208,7 @@ LABEL_30:
   v5 = cameraDelegate;
   if (cameraDelegate)
   {
-    [cameraDelegate willBeginRegionChangeAccess:0];
+    objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
   }
 
   else
@@ -2442,7 +2442,7 @@ LABEL_33:
           }
 
           v14 = *(*(&v28 + 1) + 8 * i);
-          if ([v14 style] == HIDWORD(v8) && objc_msgSend(v14, "identifier") == v8)
+          if (objc_msgSend_style(v14, v23) == HIDWORD(v8) && [v14 identifier] == v8)
           {
             v15 = v14;
 

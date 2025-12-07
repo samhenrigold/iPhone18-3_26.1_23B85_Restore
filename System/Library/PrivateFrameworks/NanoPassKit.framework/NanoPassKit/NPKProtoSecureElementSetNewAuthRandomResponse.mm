@@ -76,32 +76,30 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_cryptogram)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_challengeResponse)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -173,7 +171,6 @@
     goto LABEL_22;
   }
 
-  v5 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0)
@@ -181,7 +178,6 @@
       goto LABEL_22;
     }
 
-    v9 = *(equalCopy + 24);
     if (self->_pending)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -205,7 +201,6 @@
   {
     if ((*(equalCopy + 28) & 2) != 0)
     {
-      v10 = *(equalCopy + 25);
       if (self->_success)
       {
         if (*(equalCopy + 25))
@@ -221,7 +216,7 @@
     }
 
 LABEL_22:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_23;
   }
 
@@ -240,17 +235,17 @@ LABEL_6:
   challengeResponse = self->_challengeResponse;
   if (challengeResponse | *(equalCopy + 1))
   {
-    v8 = [(NSData *)challengeResponse isEqual:?];
+    v7 = [(NSData *)challengeResponse isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_23:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

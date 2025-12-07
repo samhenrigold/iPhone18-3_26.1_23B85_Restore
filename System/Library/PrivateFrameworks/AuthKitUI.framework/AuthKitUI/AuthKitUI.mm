@@ -114,11 +114,8 @@ uint64_t LocalAuthenticationEmbeddedUILibraryCore(uint64_t a1)
 
 uint64_t __LocalAuthenticationEmbeddedUILibraryCore_block_invoke(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LocalAuthenticationEmbeddedUILibraryCore_frameworkLibrary = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -184,14 +181,12 @@ uint64_t CoreFollowUpLibraryCore(uint64_t a1)
 
 uint64_t __CoreFollowUpLibraryCore_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, off_2784A5F18, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   CoreFollowUpLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -201,7 +196,7 @@ uint64_t CoreFollowUpLibrary()
   v1 = CoreFollowUpLibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -245,7 +240,7 @@ uint64_t __getFLFollowUpActionClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLFollowUpAction");
   }
 
   getFLFollowUpActionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -285,7 +280,7 @@ uint64_t __getFLFollowUpControllerClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLFollowUpController");
   }
 
   getFLFollowUpControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -325,7 +320,7 @@ uint64_t __getFLFollowUpItemClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLFollowUpItem");
   }
 
   getFLFollowUpItemClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -365,7 +360,7 @@ uint64_t __getFLFollowUpNotificationClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLFollowUpNotification");
   }
 
   getFLFollowUpNotificationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -405,7 +400,7 @@ uint64_t __getFLHSA2LoginNotificationClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLHSA2LoginNotification");
   }
 
   getFLHSA2LoginNotificationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -445,7 +440,7 @@ uint64_t __getFLHSA2PasswordResetNotificationClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLHSA2PasswordResetNotification");
   }
 
   getFLHSA2PasswordResetNotificationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -491,13 +486,13 @@ id getFLGroupIdentifierAccount()
   FLGroupIdentifierAccountSymbolLoc = getFLGroupIdentifierAccountSymbolLoc();
   if (!FLGroupIdentifierAccountSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *FLGroupIdentifierAccountSymbolLoc;
+  v1 = *FLGroupIdentifierAccountSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getFLGroupIdentifierNoGroupSymbolLoc()
@@ -539,13 +534,13 @@ id getFLGroupIdentifierNoGroup()
   FLGroupIdentifierNoGroupSymbolLoc = getFLGroupIdentifierNoGroupSymbolLoc();
   if (!FLGroupIdentifierNoGroupSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *FLGroupIdentifierNoGroupSymbolLoc;
+  v1 = *FLGroupIdentifierNoGroupSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getFLNotificationOptionForceSymbolLoc()
@@ -587,13 +582,13 @@ id getFLNotificationOptionForce()
   FLNotificationOptionForceSymbolLoc = getFLNotificationOptionForceSymbolLoc();
   if (!FLNotificationOptionForceSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *FLNotificationOptionForceSymbolLoc;
+  v1 = *FLNotificationOptionForceSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getFLNotificationOptionSpringboardAlertSymbolLoc()
@@ -635,13 +630,13 @@ id getFLNotificationOptionSpringboardAlert()
   FLNotificationOptionSpringboardAlertSymbolLoc = getFLNotificationOptionSpringboardAlertSymbolLoc();
   if (!FLNotificationOptionSpringboardAlertSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *FLNotificationOptionSpringboardAlertSymbolLoc;
+  v1 = *FLNotificationOptionSpringboardAlertSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getFLNotificationOptionSpringboardAlertActionOnlySymbolLoc()
@@ -683,13 +678,13 @@ id getFLNotificationOptionSpringboardAlertActionOnly()
   FLNotificationOptionSpringboardAlertActionOnlySymbolLoc = getFLNotificationOptionSpringboardAlertActionOnlySymbolLoc();
   if (!FLNotificationOptionSpringboardAlertActionOnlySymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *FLNotificationOptionSpringboardAlertActionOnlySymbolLoc;
+  v1 = *FLNotificationOptionSpringboardAlertActionOnlySymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getFLHSA2ActionChangePasswordSymbolLoc()
@@ -728,16 +723,16 @@ uint64_t __getFLHSA2ActionChangePasswordSymbolLoc_block_invoke(uint64_t a1)
 
 id getFLHSA2ActionChangePassword()
 {
-  v2 = getFLHSA2ActionChangePasswordSymbolLoc();
-  if (!v2)
+  v3 = getFLHSA2ActionChangePasswordSymbolLoc();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getFLNotificationOptionExtensionForNotificationSymbolLoc()
@@ -779,13 +774,13 @@ id getFLNotificationOptionExtensionForNotification()
   FLNotificationOptionExtensionForNotificationSymbolLoc = getFLNotificationOptionExtensionForNotificationSymbolLoc();
   if (!FLNotificationOptionExtensionForNotificationSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *FLNotificationOptionExtensionForNotificationSymbolLoc;
+  v1 = *FLNotificationOptionExtensionForNotificationSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getFLNotificationOptionExtensionActionsSymbolLoc()
@@ -827,13 +822,13 @@ id getFLNotificationOptionExtensionActions()
   FLNotificationOptionExtensionActionsSymbolLoc = getFLNotificationOptionExtensionActionsSymbolLoc();
   if (!FLNotificationOptionExtensionActionsSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *FLNotificationOptionExtensionActionsSymbolLoc;
+  v1 = *FLNotificationOptionExtensionActionsSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getFLNotificationOptionBannerAlertSymbolLoc()
@@ -875,13 +870,13 @@ id getFLNotificationOptionBannerAlert()
   FLNotificationOptionBannerAlertSymbolLoc = getFLNotificationOptionBannerAlertSymbolLoc();
   if (!FLNotificationOptionBannerAlertSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *FLNotificationOptionBannerAlertSymbolLoc;
+  v1 = *FLNotificationOptionBannerAlertSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t ProximityAppleIDSetupUILibraryCore(uint64_t a1)
@@ -912,14 +907,12 @@ uint64_t ProximityAppleIDSetupUILibraryCore(uint64_t a1)
 
 uint64_t __ProximityAppleIDSetupUILibraryCore_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, off_2784A5FC8, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   ProximityAppleIDSetupUILibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -929,7 +922,7 @@ uint64_t ProximityAppleIDSetupUILibrary()
   v1 = ProximityAppleIDSetupUILibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -973,7 +966,7 @@ uint64_t __getPASUIDependentViewPresenterClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "PASUIDependentViewPresenter");
   }
 
   getPASUIDependentViewPresenterClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -1142,9 +1135,9 @@ double AKSizeScaleAspectFit(double a1, double a2, double a3, double a4)
   return v7;
 }
 
-double AKRectRoundToPixelWithScale(double a1, double a2, double a3, double a4, double a5)
+double AKRectRoundToPixelWithScale(__n128 a1, __n128 a2, double a3, double a4, double a5)
 {
-  v9 = AKPointRoundToPixelWithScale(a1, a2, a5);
+  v9 = AKPointRoundToPixelWithScale(a1.n128_f64[0], a2.n128_f64[0], a5);
   AKSizeRoundToPixelWithScale(a3, a4, a5);
   return v9;
 }
@@ -1182,8 +1175,8 @@ void _AKAuthorizationContainerViewControllerInitialize(id obj)
   v2 = [v1 initWithTarget:location action:sel__handleTapGesture_];
   v3 = *(location + 128);
   *(location + 128) = v2;
-  MEMORY[0x277D82BD8](v3);
-  [*(location + 128) setCancelsTouchesInView:0];
+  *&v4 = MEMORY[0x277D82BD8](v3).n128_u64[0];
+  [*(location + 128) setCancelsTouchesInView:{0, v4}];
   objc_storeStrong(&location, 0);
 }
 
@@ -1226,14 +1219,12 @@ uint64_t BridgePreferencesLibraryCore(uint64_t a1)
 
 uint64_t __BridgePreferencesLibraryCore_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, off_2784A6330, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   BridgePreferencesLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1243,7 +1234,7 @@ uint64_t BridgePreferencesLibrary()
   v1 = BridgePreferencesLibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -1287,7 +1278,7 @@ uint64_t __getBPSRemoteUISetupStyleClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "BPSRemoteUISetupStyle");
   }
 
   getBPSRemoteUISetupStyleClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -1335,8 +1326,8 @@ void SBPSApplyStyleToNavBar(id obj)
   BPSApplyStyleToNavBarSymbolLoc = getBPSApplyStyleToNavBarSymbolLoc();
   if (!BPSApplyStyleToNavBarSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v1 = dlerror();
+    abort_report_np("%s", v1);
   }
 
   BPSApplyStyleToNavBarSymbolLoc(location);
@@ -1371,14 +1362,12 @@ uint64_t SafariFoundationLibraryCore(uint64_t a1)
 
 uint64_t __SafariFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, off_2784A65A0, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   SafariFoundationLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1388,7 +1377,7 @@ uint64_t SafariFoundationLibrary()
   v1 = SafariFoundationLibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -1432,7 +1421,7 @@ uint64_t __getSFStrongPasswordGeneratorClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SFStrongPasswordGenerator");
   }
 
   getSFStrongPasswordGeneratorClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -1490,14 +1479,12 @@ uint64_t AVKitLibraryCore(uint64_t a1)
 
 uint64_t __AVKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, off_2784A66C0, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   AVKitLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1507,7 +1494,7 @@ uint64_t AVKitLibrary()
   v1 = AVKitLibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -1551,7 +1538,7 @@ uint64_t __getAVPlayerViewControllerClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "AVPlayerViewController");
   }
 
   getAVPlayerViewControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -1609,9 +1596,7 @@ void sub_2223C4288(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, 
   if (*(v12 - 68) == 1)
   {
     v13 = objc_begin_catch(*(v12 - 64));
-    v14 = MEMORY[0x277D82BE0](v13);
-    v15 = *(v12 - 128);
-    *(v12 - 96) = v14;
+    *(v12 - 96) = MEMORY[0x277D82BE0](v13);
     a12 = [*(v12 - 96) description];
     a11 = a12;
     a9 = a11;
@@ -1655,14 +1640,12 @@ uint64_t AuthenticationServicesLibraryCore(uint64_t a1)
 
 uint64_t __AuthenticationServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, off_2784A6B08, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   AuthenticationServicesLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1672,7 +1655,7 @@ uint64_t AuthenticationServicesLibrary()
   v1 = AuthenticationServicesLibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -1716,7 +1699,7 @@ uint64_t __getASWebAuthenticationSessionClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "ASWebAuthenticationSession");
   }
 
   getASWebAuthenticationSessionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -1762,13 +1745,13 @@ id getASWebAuthenticationSessionErrorDomain()
   ASWebAuthenticationSessionErrorDomainSymbolLoc = getASWebAuthenticationSessionErrorDomainSymbolLoc();
   if (!ASWebAuthenticationSessionErrorDomainSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *ASWebAuthenticationSessionErrorDomainSymbolLoc;
+  v1 = *ASWebAuthenticationSessionErrorDomainSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 id _AKSafeCast_0(void *a1, void *a2)
@@ -1949,14 +1932,12 @@ uint64_t VisualPairingLibraryCore(uint64_t a1)
 
 uint64_t __VisualPairingLibraryCore_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, off_2784A7248, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   VisualPairingLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1966,7 +1947,7 @@ uint64_t VisualPairingLibrary()
   v1 = VisualPairingLibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -2010,7 +1991,7 @@ uint64_t __getVPPresenterViewClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "VPPresenterView");
   }
 
   getVPPresenterViewClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2045,14 +2026,12 @@ uint64_t AppleAccountUILibraryCore(uint64_t a1)
 
 uint64_t __AppleAccountUILibraryCore_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memcpy(__dst, off_2784A72D0, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   AppleAccountUILibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2062,7 +2041,7 @@ uint64_t AppleAccountUILibrary()
   v1 = AppleAccountUILibraryCore(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -2106,7 +2085,7 @@ uint64_t __getAAUICDPStingrayRemoteUIControllerClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "AAUICDPStingrayRemoteUIController");
   }
 
   getAAUICDPStingrayRemoteUIControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2588,14 +2567,15 @@ void AKDrawAppleIDButton(CGContext *a1, uint64_t a2, uint64_t a3, id obj, double
 
 void _DrawBorder(CGContext *a1, int a2, double a3, double a4, double a5, double a6, double a7, double a8)
 {
-  v10 = AKFloatRoundToPixelWithScale(0.5 * a7, 1.0);
-  v19.origin.x = AKRectRoundToPixelWithScale(a3, a4, a5, a6, 1.0);
-  v20 = CGRectInset(v19, v10 * 0.5, v10 * 0.5);
-  v8 = [AKRoundedPath pathWithRoundedRect:v20.origin.x cornerRadius:v20.origin.y, v20.size.width, v20.size.height, a8 * a7];
-  v9 = [(AKRoundedPath *)v8 CGPath];
-  MEMORY[0x277D82BD8](v8);
+  v11 = AKFloatRoundToPixelWithScale(0.5 * a7, 1.0);
+  v8.n128_f64[0] = a4;
+  v20.origin.x = AKRectRoundToPixelWithScale(*&a3, v8, a5, a6, 1.0);
+  v21 = CGRectInset(v20, v11 * 0.5, v11 * 0.5);
+  v9 = [AKRoundedPath pathWithRoundedRect:v21.origin.x cornerRadius:v21.origin.y, v21.size.width, v21.size.height, a8 * a7];
+  v10 = [(AKRoundedPath *)v9 CGPath];
+  MEMORY[0x277D82BD8](v9);
   CGContextBeginPath(a1);
-  CGContextAddPath(a1, v9);
+  CGContextAddPath(a1, v10);
   CGContextClosePath(a1);
   if (a2)
   {
@@ -2618,7 +2598,7 @@ void _DrawBorder(CGContext *a1, int a2, double a3, double a4, double a5, double 
     CGContextSetRGBStrokeColor(a1, 1.0, 1.0, 1.0, 1.0);
   }
 
-  CGContextSetLineWidth(a1, v10);
+  CGContextSetLineWidth(a1, v11);
   CGContextDrawPath(a1, kCGPathFillStroke);
 }
 
@@ -2768,7 +2748,6 @@ CFAttributedStringRef _CreateAttributedStringWithFontSize(const __CFString *a1, 
   CFRelease(cf);
   CGColorRelease(color);
   objc_storeStrong(&attributes, 0);
-  *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2909,11 +2888,11 @@ void sub_22243F048(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id sub_22243F3D4()
+id sub_22243F3D4(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ModalSignInViewControllerDelegateForPreviews();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for ModalSignInViewControllerDelegateForPreviews();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t sub_22243F444(uint64_t result, uint64_t a2)
@@ -2933,6 +2912,36 @@ uint64_t sub_22243F454(uint64_t result, uint64_t a2)
     return MEMORY[0x2821FEB70](a2);
   }
 
+  return result;
+}
+
+CGRect CGPDFPageGetBoxRect(CGPDFPageRef page, CGPDFBox box)
+{
+  MEMORY[0x282111360](page, *&box);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
+}
+
+CGRect CGRectOffset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x282111608](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
   return result;
 }
 

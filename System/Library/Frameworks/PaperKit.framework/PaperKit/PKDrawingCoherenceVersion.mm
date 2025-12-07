@@ -9,7 +9,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  v5 = UUID.data()();
+  v5 = UUID.data()(selfCopy);
   v7 = v6;
   isa = Data._bridgeToObjectiveC()().super.isa;
   outlined consume of Data._Representation(v5, v7);

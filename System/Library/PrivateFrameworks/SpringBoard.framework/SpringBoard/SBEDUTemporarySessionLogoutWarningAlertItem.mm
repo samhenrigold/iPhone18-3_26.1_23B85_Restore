@@ -43,7 +43,7 @@
   [alertController addAction:v17];
 }
 
-uint64_t __83__SBEDUTemporarySessionLogoutWarningAlertItem_configure_requirePasscodeForActions___block_invoke(uint64_t a1)
+void *__83__SBEDUTemporarySessionLogoutWarningAlertItem_configure_requirePasscodeForActions___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) deactivateForButton];
   v3 = *(a1 + 32);

@@ -157,7 +157,7 @@ LABEL_11:
 
 - (id)signatureWithProtectedHeader:(id)header payload:(id)payload
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   payload = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", header, payload];
   v6 = [payload dataUsingEncoding:4];
 
@@ -191,22 +191,22 @@ LABEL_11:
   *&v11 = 0xAAAAAAAAAAAAAAAALL;
   *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *buf = v11;
-  v27 = v11;
-  v20[0] = CFDataGetBytePtr(v7);
-  v20[1] = CFDataGetLength(v7);
-  v12 = DERParseSequence(v20, 2u, &DER_ECDSASigItemSpecs, buf, 0x20uLL);
-  if (v12 || !*buf || !*&buf[8] || !v27 || !*(&v27 + 1))
+  v26 = v11;
+  v19[0] = CFDataGetBytePtr(v7);
+  v19[1] = CFDataGetLength(v7);
+  v12 = DERParseSequence(v19, 2u, &DER_ECDSASigItemSpecs, buf, 0x20uLL);
+  if (v12 || !*buf || !*&buf[8] || !v26 || !*(&v26 + 1))
   {
     v14 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 67109120;
-      LODWORD(v23) = v12;
+      *v21 = 67109120;
+      LODWORD(v22) = v12;
       v15 = "Failed to parse signature: %d";
       v16 = v14;
       v17 = 8;
 LABEL_23:
-      _os_log_impl(&dword_1887D2000, v16, OS_LOG_TYPE_DEFAULT, v15, v22, v17);
+      _os_log_impl(&dword_1887D2000, v16, OS_LOG_TYPE_DEFAULT, v15, v21, v17);
       goto LABEL_24;
     }
 
@@ -218,10 +218,10 @@ LABEL_23:
     v14 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 134218240;
-      v23 = *&buf[8];
-      v24 = 2048;
-      v25 = 32;
+      *v21 = 134218240;
+      v22 = *&buf[8];
+      v23 = 2048;
+      v24 = 32;
       v15 = "Non-compliant signature: r is %lld bytes, expected %lld";
 LABEL_22:
       v16 = v14;
@@ -235,15 +235,15 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  if (![(SecJWSEncoder *)self appendPaddedToData:v10 ptr:v27 len:32 expected:?])
+  if (![(SecJWSEncoder *)self appendPaddedToData:v10 ptr:v26 len:32 expected:?])
   {
     v14 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 134218240;
-      v23 = *(&v27 + 1);
-      v24 = 2048;
-      v25 = 32;
+      *v21 = 134218240;
+      v22 = *(&v26 + 1);
+      v23 = 2048;
+      v24 = 32;
       v15 = "Non-compliant signature: s is %lld bytes, expected %lld";
       goto LABEL_22;
     }
@@ -256,7 +256,6 @@ LABEL_25:
   CFRelease(v7);
 
 LABEL_26:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -321,9 +320,9 @@ LABEL_14:
 
 - (id)jwkPublicKey
 {
-  v20[4] = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v3 = SecKeyCopyExternalRepresentation(self->_publicKey, &v18);
+  v19[4] = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v3 = SecKeyCopyExternalRepresentation(self->_publicKey, &v17);
   if (v3)
   {
     v4 = v3;
@@ -343,15 +342,15 @@ LABEL_14:
       v11 = [MEMORY[0x1E695DEF0] dataWithBytes:&v7[v8 >> 1] length:v9 + ~(v8 >> 1)];
       v12 = [(SecJWSEncoder *)self base64URLEncodedStringRepresentationWithData:v10];
       v13 = [(SecJWSEncoder *)self base64URLEncodedStringRepresentationWithData:v11];
-      v19[0] = @"kty";
-      v19[1] = @"crv";
-      v20[0] = @"EC";
-      v20[1] = @"P-256";
-      v19[2] = @"x";
-      v19[3] = @"y";
-      v20[2] = v12;
-      v20[3] = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
+      v18[0] = @"kty";
+      v18[1] = @"crv";
+      v19[0] = @"EC";
+      v19[1] = @"P-256";
+      v18[2] = @"x";
+      v18[3] = @"y";
+      v19[2] = v12;
+      v19[3] = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
     }
 
     CFRelease(v4);
@@ -363,21 +362,19 @@ LABEL_14:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)createKeyPair
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12[0] = @"type";
-  v12[1] = @"bsiz";
-  v13[0] = @"73";
-  v13[1] = &unk_1EFAAC760;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  RandomKey = SecKeyCreateRandomKey(v3, &v11);
+  v12[2] = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v11[0] = @"type";
+  v11[1] = @"bsiz";
+  v12[0] = @"73";
+  v12[1] = &unk_1EFAAC760;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  RandomKey = SecKeyCreateRandomKey(v3, &v10);
   self->_privateKey = RandomKey;
   if (RandomKey)
   {
@@ -385,9 +382,9 @@ LABEL_14:
     self->_publicKey = v5;
     if (self->_privateKey)
     {
-      if (v5 | v11)
+      if (v5 | v10)
       {
-        if (!v11)
+        if (!v10)
         {
           goto LABEL_12;
         }
@@ -396,8 +393,8 @@ LABEL_14:
       }
 
 LABEL_7:
-      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-26275 userInfo:0];
-      if (!v11)
+      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-26275 userInfo:0];
+      if (!v10)
       {
         goto LABEL_12;
       }
@@ -414,7 +411,7 @@ LABEL_8:
     }
   }
 
-  if (!v11)
+  if (!v10)
   {
     goto LABEL_7;
   }
@@ -428,9 +425,7 @@ LABEL_10:
   }
 
 LABEL_12:
-  v8 = v11;
-
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = v10;
 
   return v8;
 }

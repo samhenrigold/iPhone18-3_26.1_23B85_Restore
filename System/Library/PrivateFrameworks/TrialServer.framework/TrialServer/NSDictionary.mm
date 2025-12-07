@@ -13,28 +13,28 @@ void __51__NSDictionary_TRI__triKeys_values_fromDictionary___block_invoke(uint64
 
 void __38__NSDictionary_TRIDAG__triReversedDag__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         v12 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v11];
         if (!v12)
         {
@@ -45,13 +45,11 @@ void __38__NSDictionary_TRIDAG__triReversedDag__block_invoke(uint64_t a1, void *
         [v12 addObject:v5];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __52__NSDictionary_TRIDAG__triTransformValuesWithBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3)

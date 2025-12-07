@@ -302,7 +302,7 @@ LABEL_44:
           v23 = CCPBReaderReadStringNoCopy();
           v24 = 32;
 LABEL_38:
-          v35 = *(&self->super.super.isa + v24);
+          v34 = *(&self->super.super.isa + v24);
           *(&self->super.super.isa + v24) = v23;
 
 LABEL_39:
@@ -316,7 +316,6 @@ LABEL_39:
         v31 = objc_opt_class();
         NSStringFromClass(v31);
         v33 = v32 = dataCopy;
-        v34 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
         dataCopy = v32;
@@ -338,22 +337,21 @@ LABEL_39:
 LABEL_47:
   if (!*&v6[*v9])
   {
-    v39 = 1;
+    v37 = 1;
     goto LABEL_51;
   }
 
 LABEL_48:
-  v36 = objc_opt_class();
-  v10 = NSStringFromClass(v36);
-  v37 = *&v6[*v9];
-  v38 = CCInvalidBufferErrorForMessage();
+  v35 = objc_opt_class();
+  v10 = NSStringFromClass(v35);
+  v36 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_49:
-  v39 = 0;
+  v37 = 0;
 LABEL_51:
 
-  return v39;
+  return v37;
 }
 
 - (CCSerializedSetDevice)initWithDeviceUUID:(id)d idsDeviceIdentifier:(id)identifier platformString:(id)string options:(id)options error:(id *)error

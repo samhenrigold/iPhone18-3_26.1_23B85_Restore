@@ -13,12 +13,12 @@
 
 - (LSSDisplayLink)initWithDisplay:(id)display updateInterval:(double)interval target:(id)target action:(SEL)action
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   displayCopy = display;
   targetCopy = target;
-  v25.receiver = self;
-  v25.super_class = LSSDisplayLink;
-  v13 = [(LSSDisplayLink *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = LSSDisplayLink;
+  v13 = [(LSSDisplayLink *)&v24 init];
   v14 = v13;
   if (v13)
   {
@@ -48,12 +48,11 @@
 
     [(NSThread *)v14->_thread setName:v20];
     v21 = v14->_thread;
-    v26[0] = *MEMORY[0x277CBE738];
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = *MEMORY[0x277CBE738];
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     [(LSSDisplayLink *)v14 performSelector:sel_description onThread:v21 withObject:0 waitUntilDone:0 modes:v22];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -66,7 +65,7 @@
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (qword_280D2F4D0 != -1)
   {
     [LSSDisplayLink invalidate];
@@ -75,35 +74,34 @@
   v3 = _MergedGlobals_1;
   if (os_log_type_enabled(_MergedGlobals_1, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     selfCopy2 = self;
-    _os_log_impl(&dword_255E8B000, v3, OS_LOG_TYPE_DEFAULT, "LSSDisplayLink %p invalidate start ", &v6, 0xCu);
+    _os_log_impl(&dword_255E8B000, v3, OS_LOG_TYPE_DEFAULT, "LSSDisplayLink %p invalidate start ", &v5, 0xCu);
   }
 
   [(LSSDisplayLink *)self performSelector:sel__thread_invalidate onThread:self->_thread withObject:0 waitUntilDone:0];
-  if (qword_280D2F4D0 != -1)
+  if (qword_280D2F4D0 == -1)
+  {
+    v4 = _MergedGlobals_1;
+    if (!os_log_type_enabled(_MergedGlobals_1, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+  }
+
+  else
   {
     [LSSDisplayLink invalidate];
     v4 = _MergedGlobals_1;
     if (!os_log_type_enabled(_MergedGlobals_1, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_8;
+      return;
     }
-
-    goto LABEL_7;
   }
 
-  v4 = _MergedGlobals_1;
-  if (os_log_type_enabled(_MergedGlobals_1, OS_LOG_TYPE_DEFAULT))
-  {
-LABEL_7:
-    v6 = 134217984;
-    selfCopy2 = self;
-    _os_log_impl(&dword_255E8B000, v4, OS_LOG_TYPE_DEFAULT, "LSSDisplayLink %p invalidate finish", &v6, 0xCu);
-  }
-
-LABEL_8:
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134217984;
+  selfCopy2 = self;
+  _os_log_impl(&dword_255E8B000, v4, OS_LOG_TYPE_DEFAULT, "LSSDisplayLink %p invalidate finish", &v5, 0xCu);
 }
 
 - (void)setPaused:(BOOL)paused
@@ -127,11 +125,10 @@ LABEL_8:
 
 - (void)_thread_invalidate
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_error_impl(&dword_255E8B000, a2, OS_LOG_TYPE_ERROR, "LSSDisplayLink %p _thread_invalidate already invalid", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_255E8B000, a2, OS_LOG_TYPE_ERROR, "LSSDisplayLink %p _thread_invalidate already invalid", &v2, 0xCu);
 }
 
 - (void)_thread_displayLinkFired
@@ -154,7 +151,7 @@ LABEL_8:
 
 - (void)_thread_startRunLoop
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
   runLoop = self->_runLoop;
   self->_runLoop = currentRunLoop;
@@ -175,9 +172,9 @@ LABEL_8:
   if (os_log_type_enabled(_MergedGlobals_1, OS_LOG_TYPE_DEFAULT))
   {
 LABEL_3:
-    v10 = 134217984;
+    v9 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_255E8B000, v5, OS_LOG_TYPE_DEFAULT, "LSSDisplayLink %p _thread_startRunLoop", &v10, 0xCu);
+    _os_log_impl(&dword_255E8B000, v5, OS_LOG_TYPE_DEFAULT, "LSSDisplayLink %p _thread_startRunLoop", &v9, 0xCu);
   }
 
 LABEL_4:
@@ -194,7 +191,6 @@ LABEL_4:
 
   [(CADisplayLink *)self->_thread_displayLink addToRunLoop:self->_runLoop forMode:*MEMORY[0x277CBE738]];
   CFRunLoopRun();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

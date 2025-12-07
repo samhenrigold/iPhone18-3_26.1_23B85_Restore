@@ -22,9 +22,9 @@
 + (id)controlCellSelection
 {
   v2 = [self alloc];
-  v6 = objc_msgSend_initWithKeyboardShown_(v2, v3, 0, v4, v5);
+  v5 = objc_msgSend_initWithKeyboardShown_(v2, v3, 0, v4);
 
-  return v6;
+  return v5;
 }
 
 - (id)copy
@@ -32,7 +32,7 @@
   v3 = objc_alloc(objc_opt_class());
   keyboardShown = self->_keyboardShown;
 
-  return objc_msgSend_initWithKeyboardShown_(v3, v4, keyboardShown, v5, v6);
+  return objc_msgSend_initWithKeyboardShown_(v3, v4, keyboardShown, v5);
 }
 
 @end

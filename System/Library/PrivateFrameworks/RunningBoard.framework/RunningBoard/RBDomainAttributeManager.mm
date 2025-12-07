@@ -63,7 +63,7 @@ void __44__RBDomainAttributeManager_debugDescription__block_invoke(uint64_t a1, 
 
 - (id)attributesForDomain:(id)domain andName:(id)name context:(id)context withError:(id *)error
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   nameCopy = name;
   contextCopy = context;
@@ -75,40 +75,40 @@ void __44__RBDomainAttributeManager_debugDescription__block_invoke(uint64_t a1, 
     if (v15)
     {
       array = [MEMORY[0x277CBEB18] array];
+      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
       obj = [v15 attributeGroups];
-      v17 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v17 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
       if (!v17)
       {
         goto LABEL_35;
       }
 
       v18 = v17;
-      v41 = v15;
-      v42 = v14;
-      v43 = nameCopy;
-      v44 = domainCopy;
-      v46 = *v52;
+      v40 = v15;
+      v41 = v14;
+      v42 = nameCopy;
+      v43 = domainCopy;
+      v45 = *v51;
       v19 = obj;
       while (1)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v52 != v46)
+          if (*v51 != v45)
           {
             objc_enumerationMutation(v19);
           }
 
-          v21 = *(*(&v51 + 1) + 8 * i);
+          v21 = *(*(&v50 + 1) + 8 * i);
           if (!contextCopy)
           {
             goto LABEL_11;
           }
 
-          targetBundleProperties = [*(*(&v51 + 1) + 8 * i) targetBundleProperties];
+          targetBundleProperties = [*(*(&v50 + 1) + 8 * i) targetBundleProperties];
           if ([(RBDomainAttributeManager *)self _compareTargetBundleProperties:targetBundleProperties withContext:contextCopy])
           {
             restriction = [v21 restriction];
@@ -120,28 +120,28 @@ void __44__RBDomainAttributeManager_debugDescription__block_invoke(uint64_t a1, 
             }
 
 LABEL_11:
-            v49 = 0u;
-            v50 = 0u;
-            v47 = 0u;
             v48 = 0u;
+            v49 = 0u;
+            v46 = 0u;
+            v47 = 0u;
             targetBundleProperties = [v21 attributes];
-            v25 = [targetBundleProperties countByEnumeratingWithState:&v47 objects:v55 count:16];
+            v25 = [targetBundleProperties countByEnumeratingWithState:&v46 objects:v54 count:16];
             if (v25)
             {
               v26 = v25;
               v27 = contextCopy;
               selfCopy = self;
-              v29 = *v48;
+              v29 = *v47;
               do
               {
                 for (j = 0; j != v26; ++j)
                 {
-                  if (*v48 != v29)
+                  if (*v47 != v29)
                   {
                     objc_enumerationMutation(targetBundleProperties);
                   }
 
-                  v31 = *(*(&v47 + 1) + 8 * j);
+                  v31 = *(*(&v46 + 1) + 8 * j);
                   if (v31)
                   {
                     v32 = [v31 copy];
@@ -149,7 +149,7 @@ LABEL_11:
                   }
                 }
 
-                v26 = [targetBundleProperties countByEnumeratingWithState:&v47 objects:v55 count:16];
+                v26 = [targetBundleProperties countByEnumeratingWithState:&v46 objects:v54 count:16];
               }
 
               while (v26);
@@ -160,13 +160,13 @@ LABEL_11:
           }
         }
 
-        v18 = [v19 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v18 = [v19 countByEnumeratingWithState:&v50 objects:v55 count:16];
         if (!v18)
         {
-          nameCopy = v43;
-          domainCopy = v44;
-          v15 = v41;
-          v14 = v42;
+          nameCopy = v42;
+          domainCopy = v43;
+          v15 = v40;
+          v14 = v41;
           goto LABEL_35;
         }
       }
@@ -176,9 +176,9 @@ LABEL_11:
     {
       v36 = MEMORY[0x277CCA9B8];
       v37 = *MEMORY[0x277D47050];
-      v57 = *MEMORY[0x277CCA470];
-      v58 = @"Could not find attribute name in domain plist";
-      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+      v56 = *MEMORY[0x277CCA470];
+      v57 = @"Could not find attribute name in domain plist";
+      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
       *error = [v36 errorWithDomain:v37 code:2 userInfo:v38];
     }
 
@@ -198,9 +198,9 @@ LABEL_35:
     {
       v33 = MEMORY[0x277CCA9B8];
       v34 = *MEMORY[0x277D47050];
-      v59 = *MEMORY[0x277CCA470];
-      v60[0] = @"Could not find plist for domain attribute";
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+      v58 = *MEMORY[0x277CCA470];
+      v59[0] = @"Could not find plist for domain attribute";
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
       *error = [v33 errorWithDomain:v34 code:2 userInfo:v35];
     }
 
@@ -212,8 +212,6 @@ LABEL_35:
 
     array = 0;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -671,53 +669,44 @@ LABEL_64:
 
 - (void)attributesForDomain:(os_log_t)log andName:context:withError:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "Could not find attribute name %{public}@ in domain plist %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "Could not find attribute name %{public}@ in domain plist %{public}@", &v3, 0x16u);
 }
 
 - (void)attributesForDomain:(uint64_t)a1 andName:(NSObject *)a2 context:withError:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Could not find plist for domain %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Could not find plist for domain %{public}@", &v2, 0xCu);
 }
 
 void __71__RBDomainAttributeManager__compareTargetBundleProperties_withContext___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "Malformed domain plist - %{public}@ unrecognized", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "Malformed domain plist - %{public}@ unrecognized", &v2, 0xCu);
 }
 
 void __71__RBDomainAttributeManager__compareTargetBundleProperties_withContext___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_0_0();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0_16(v0);
-  OUTLINED_FUNCTION_1_17(&dword_262485000, v2, v3, "Malformed domain plist - %{public}@ is not of class %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_17(&dword_262485000, v2, v3, "Malformed domain plist - %{public}@ is not of class %{public}@", v4, v5, v6, v7);
 }
 
 void __71__RBDomainAttributeManager__compareTargetBundleProperties_withContext___block_invoke_cold_3()
 {
   OUTLINED_FUNCTION_0_0();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0_16(v0);
-  OUTLINED_FUNCTION_1_17(&dword_262485000, v2, v3, "Malformed domain plist - %{public}@ is not of class %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_17(&dword_262485000, v2, v3, "Malformed domain plist - %{public}@ is not of class %{public}@", v4, v5, v6, v7);
 }
 
 @end

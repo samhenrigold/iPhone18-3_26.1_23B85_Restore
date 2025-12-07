@@ -10,8 +10,8 @@
 - (MUAppleRatingRowSubtitleView)initWithArrangedSubviews:(id)subviews
 {
   sub_1C570CB68();
-  sub_1C584F770();
-  return sub_1C574960C();
+  v3 = sub_1C584F770();
+  return sub_1C574960C(v3);
 }
 
 - (void)layoutSubviews

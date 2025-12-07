@@ -52,56 +52,53 @@
 
 - (void)didReceiveNotification:(id)notification withCompletion:(id)completion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = wk_default_log();
+  v5 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[WKUserNotificationInterfaceController didReceiveNotification:withCompletion:]";
-    v9 = 1024;
-    v10 = 809;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling default implementation", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[WKUserNotificationInterfaceController didReceiveNotification:withCompletion:]";
+    v8 = 1024;
+    v9 = 809;
+    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling default implementation", &v6, 0x12u);
   }
 
   completionCopy[2](completionCopy, 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveRemoteNotification:(id)notification withCompletion:(id)completion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = wk_default_log();
+  v5 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[WKUserNotificationInterfaceController didReceiveRemoteNotification:withCompletion:]";
-    v9 = 1024;
-    v10 = 817;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling default implementation", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[WKUserNotificationInterfaceController didReceiveRemoteNotification:withCompletion:]";
+    v8 = 1024;
+    v9 = 817;
+    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling default implementation", &v6, 0x12u);
   }
 
   completionCopy[2](completionCopy, 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveLocalNotification:(id)notification withCompletion:(id)completion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = wk_default_log();
+  v5 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[WKUserNotificationInterfaceController didReceiveLocalNotification:withCompletion:]";
-    v9 = 1024;
-    v10 = 825;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling default implementation", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[WKUserNotificationInterfaceController didReceiveLocalNotification:withCompletion:]";
+    v8 = 1024;
+    v9 = 825;
+    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Calling default implementation", &v6, 0x12u);
   }
 
   completionCopy[2](completionCopy, 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

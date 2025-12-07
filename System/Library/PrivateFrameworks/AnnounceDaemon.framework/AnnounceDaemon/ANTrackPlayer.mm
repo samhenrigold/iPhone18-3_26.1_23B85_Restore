@@ -48,11 +48,11 @@
 
 - (ANTrackPlayer)initWithOptions:(unint64_t)options endpointUUID:(id)d
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v32.receiver = self;
-  v32.super_class = ANTrackPlayer;
-  v8 = [(ANTrackPlayer *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = ANTrackPlayer;
+  v8 = [(ANTrackPlayer *)&v31 init];
   v9 = v8;
   if (v8)
   {
@@ -94,7 +94,7 @@
     {
       v23 = v9->_audioSession;
       *buf = 138412290;
-      v34 = v23;
+      v33 = v23;
       _os_log_impl(&dword_23F525000, v22, OS_LOG_TYPE_DEFAULT, "Using Shared Audio Session for local playback: %@", buf, 0xCu);
     }
 
@@ -112,7 +112,6 @@
     [(ANTrackPlayer *)v9 _addObserverForPlayer:v9->_queuePlayer];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -132,7 +131,7 @@
 
 - (void)setPlaybackState:(unint64_t)state
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [(ANTrackPlayer *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -142,14 +141,13 @@
   }
 
   self->_playbackState = state;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __34__ANTrackPlayer_setPlaybackState___block_invoke;
-  v7[3] = &unk_278C87050;
-  v7[4] = self;
-  v7[5] = state;
-  [(ANTrackPlayer *)self _callDelegateWithBlock:v7];
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __34__ANTrackPlayer_setPlaybackState___block_invoke;
+  v6[3] = &unk_278C87050;
+  v6[4] = self;
+  v6[5] = state;
+  [(ANTrackPlayer *)self _callDelegateWithBlock:v6];
 }
 
 void __34__ANTrackPlayer_setPlaybackState___block_invoke(uint64_t a1)
@@ -163,17 +161,17 @@ void __34__ANTrackPlayer_setPlaybackState___block_invoke(uint64_t a1)
 
 - (BOOL)add:(id)add announcementID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   addCopy = add;
   dCopy = d;
   v8 = [(ANTrackPlayer *)self log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[ANTrackPlayer add:announcementID:]";
-    v14 = 2112;
-    v15 = addCopy;
-    _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%s: track %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[ANTrackPlayer add:announcementID:]";
+    v13 = 2112;
+    v14 = addCopy;
+    _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%s: track %@", &v11, 0x16u);
   }
 
   if ([(ANTrackPlayer *)self _insertAudioBetween])
@@ -186,29 +184,27 @@ void __34__ANTrackPlayer_setPlaybackState___block_invoke(uint64_t a1)
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)_add:(id)_add announcementID:(id)d trackType:(int64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _addCopy = _add;
   dCopy = d;
   v10 = [(ANTrackPlayer *)self log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "[ANTrackPlayer _add:announcementID:trackType:]";
-    v17 = 2112;
-    v18 = _addCopy;
-    _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%s: track %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[ANTrackPlayer _add:announcementID:trackType:]";
+    v16 = 2112;
+    v17 = _addCopy;
+    _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%s: track %@", &v14, 0x16u);
   }
 
   v11 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:_addCopy];
   v12 = [(ANTrackPlayer *)self _addURL:v11 announcementID:dCopy trackType:type];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -300,7 +296,7 @@ LABEL_6:
 
 void __43__ANTrackPlayer_playWithCompletionHandler___block_invoke(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if ([WeakRetained playbackState] == 1 || objc_msgSend(WeakRetained, "playbackState") == 2)
   {
@@ -308,7 +304,7 @@ void __43__ANTrackPlayer_playWithCompletionHandler___block_invoke(id *a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v8 = [WeakRetained playbackState];
+      v7 = [WeakRetained playbackState];
       _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "Already playing or interrupted. PlaybackState: %ld", buf, 0xCu);
     }
 
@@ -317,16 +313,14 @@ void __43__ANTrackPlayer_playWithCompletionHandler___block_invoke(id *a1)
 
   else
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __43__ANTrackPlayer_playWithCompletionHandler___block_invoke_26;
-    v5[3] = &unk_278C86530;
-    v5[4] = WeakRetained;
-    v6 = a1[5];
-    [WeakRetained _playWithCompletionHandler:v5];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __43__ANTrackPlayer_playWithCompletionHandler___block_invoke_26;
+    v4[3] = &unk_278C86530;
+    v4[4] = WeakRetained;
+    v5 = a1[5];
+    [WeakRetained _playWithCompletionHandler:v4];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ANTrackPlayer_playWithCompletionHandler___block_invoke_26(uint64_t a1, void *a2)
@@ -386,7 +380,7 @@ void __44__ANTrackPlayer__playWithCompletionHandler___block_invoke(uint64_t a1, 
 
 - (void)_handleReadyToPlayWithCompletionHandler:(id)handler
 {
-  *&v37[5] = *MEMORY[0x277D85DE8];
+  *&v36[5] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   mainQueue = [(ANTrackPlayer *)self mainQueue];
   dispatch_assert_queue_V2(mainQueue);
@@ -431,7 +425,7 @@ LABEL_8:
         queuePlayer5 = [(ANTrackPlayer *)self queuePlayer];
         currentItem2 = [queuePlayer5 currentItem];
         *buf = 138412290;
-        *v37 = currentItem2;
+        *v36 = currentItem2;
         _os_log_impl(&dword_23F525000, v17, OS_LOG_TYPE_DEFAULT, "Current Item = %@", buf, 0xCu);
       }
 
@@ -439,9 +433,9 @@ LABEL_8:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v37[0] = status == 1;
-        LOWORD(v37[1]) = 1024;
-        *(&v37[1] + 2) = status2 == 1;
+        v36[0] = status == 1;
+        LOWORD(v36[1]) = 1024;
+        *(&v36[1] + 2) = status2 == 1;
         _os_log_impl(&dword_23F525000, v20, OS_LOG_TYPE_DEFAULT, "QueuePlayerReady = %d, PlayerItemReady = %d", buf, 0xEu);
       }
 
@@ -457,20 +451,20 @@ LABEL_8:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          *v37 = "[ANTrackPlayer _handleReadyToPlayWithCompletionHandler:]";
+          *v36 = "[ANTrackPlayer _handleReadyToPlayWithCompletionHandler:]";
           _os_log_impl(&dword_23F525000, v22, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
         }
 
         objc_initWeak(buf, self);
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __57__ANTrackPlayer__handleReadyToPlayWithCompletionHandler___block_invoke_31;
-        v31[3] = &unk_278C87078;
-        objc_copyWeak(&v33, buf);
-        v32 = handlerCopy;
-        [(ANTrackPlayer *)self playInternalWithCompletionHandler:v31];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __57__ANTrackPlayer__handleReadyToPlayWithCompletionHandler___block_invoke_31;
+        v30[3] = &unk_278C87078;
+        objc_copyWeak(&v32, buf);
+        v31 = handlerCopy;
+        [(ANTrackPlayer *)self playInternalWithCompletionHandler:v30];
 
-        objc_destroyWeak(&v33);
+        objc_destroyWeak(&v32);
         objc_destroyWeak(buf);
       }
 
@@ -493,14 +487,14 @@ LABEL_8:
         objc_initWeak(buf, self);
         playerTimer2 = [(ANTrackPlayer *)self playerTimer];
         mainQueue2 = [(ANTrackPlayer *)self mainQueue];
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __57__ANTrackPlayer__handleReadyToPlayWithCompletionHandler___block_invoke;
-        v34[3] = &unk_278C86580;
-        objc_copyWeak(&v35, buf);
-        [playerTimer2 startWithValue:mainQueue2 queue:v34 handler:v27];
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __57__ANTrackPlayer__handleReadyToPlayWithCompletionHandler___block_invoke;
+        v33[3] = &unk_278C86580;
+        objc_copyWeak(&v34, buf);
+        [playerTimer2 startWithValue:mainQueue2 queue:v33 handler:v27];
 
-        objc_destroyWeak(&v35);
+        objc_destroyWeak(&v34);
         objc_destroyWeak(buf);
       }
     }
@@ -511,8 +505,6 @@ LABEL_8:
     v11 = [MEMORY[0x277CCA9B8] an_errorWithCode:1018];
     handlerCopy[2](handlerCopy, v11);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ANTrackPlayer__handleReadyToPlayWithCompletionHandler___block_invoke(uint64_t a1)
@@ -617,27 +609,25 @@ BOOL __46__ANTrackPlayer_activelyPlayingAnnouncementID__block_invoke_2(uint64_t 
 
 - (void)stopWithCompletionHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = [(ANTrackPlayer *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[ANTrackPlayer stopWithCompletionHandler:]";
+    v11 = "[ANTrackPlayer stopWithCompletionHandler:]";
     _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   mainQueue = [(ANTrackPlayer *)self mainQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __43__ANTrackPlayer_stopWithCompletionHandler___block_invoke;
-  v9[3] = &unk_278C86840;
-  v9[4] = self;
-  v10 = handlerCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __43__ANTrackPlayer_stopWithCompletionHandler___block_invoke;
+  v8[3] = &unk_278C86840;
+  v8[4] = self;
+  v9 = handlerCopy;
   v7 = handlerCopy;
-  dispatch_async(mainQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(mainQueue, v8);
 }
 
 uint64_t __43__ANTrackPlayer_stopWithCompletionHandler___block_invoke(uint64_t a1)
@@ -711,14 +701,14 @@ void __20__ANTrackPlayer_end__block_invoke(uint64_t a1)
 
 void __43__ANTrackPlayer_nextWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [*(a1 + 32) log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[ANTrackPlayer nextWithCompletionHandler:]_block_invoke";
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[ANTrackPlayer nextWithCompletionHandler:]_block_invoke";
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v4, 0xCu);
   }
 
   if ([WeakRetained playbackState] == 1)
@@ -727,8 +717,6 @@ void __43__ANTrackPlayer_nextWithCompletionHandler___block_invoke(uint64_t a1)
     [WeakRetained nextInternalSync];
     [WeakRetained _playWithCompletionHandler:*(a1 + 40)];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)previousWithCompletionHandler:(id)handler
@@ -752,14 +740,14 @@ void __43__ANTrackPlayer_nextWithCompletionHandler___block_invoke(uint64_t a1)
 
 void __47__ANTrackPlayer_previousWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [*(a1 + 32) log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[ANTrackPlayer previousWithCompletionHandler:]_block_invoke";
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[ANTrackPlayer previousWithCompletionHandler:]_block_invoke";
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v4, 0xCu);
   }
 
   if ([WeakRetained playbackState] == 1)
@@ -768,8 +756,6 @@ void __47__ANTrackPlayer_previousWithCompletionHandler___block_invoke(uint64_t a
     [WeakRetained previousInternalSync];
     [WeakRetained _playWithCompletionHandler:*(a1 + 40)];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (int)numberActiveTracks
@@ -800,47 +786,46 @@ void __47__ANTrackPlayer_previousWithCompletionHandler___block_invoke(uint64_t a
 
 void __35__ANTrackPlayer_numberActiveTracks__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __35__ANTrackPlayer_numberActiveTracks__block_invoke_cold_1(v2);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) playerItems];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         if (([v8 completed] & 1) == 0 && !objc_msgSend(v8, "trackType"))
         {
           ++*(*(*(a1 + 48) + 8) + 24);
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForNotificationsWithAudioSession:(id)session
@@ -891,10 +876,9 @@ void __35__ANTrackPlayer_numberActiveTracks__block_invoke(uint64_t a1)
 
 - (void)_configureAudioSession
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callDelegateWithBlock:(id)block
@@ -979,36 +963,34 @@ BOOL __44__ANTrackPlayer__playerInfoForAVPlayerItem___block_invoke(uint64_t a1, 
 
 - (void)_removeItemObserverForPlayer:(id)player
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   playerCopy = player;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   items = [playerCopy items];
-  v6 = [items countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [items countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(items);
         }
 
-        [*(*(&v10 + 1) + 8 * i) removeObserver:self forKeyPath:@"status" context:0];
+        [*(*(&v9 + 1) + 8 * i) removeObserver:self forKeyPath:@"status" context:0];
       }
 
-      v6 = [items countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [items countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_stringForTimeControlStatus:(int64_t)status
@@ -1130,7 +1112,7 @@ BOOL __44__ANTrackPlayer__playerInfoForAVPlayerItem___block_invoke(uint64_t a1, 
 
 void __64__ANTrackPlayer_observeValueForKeyPath_ofObject_change_context___block_invoke(id *a1)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [WeakRetained queuePlayer];
   [v3 rate];
@@ -1149,100 +1131,99 @@ void __64__ANTrackPlayer_observeValueForKeyPath_ofObject_change_context___block_
   v13 = [WeakRetained queuePlayer];
   v14 = [WeakRetained _stringForPlayerStatus:{objc_msgSend(v13, "status")}];
 
-  v15 = a1[4];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = [WeakRetained log];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = [WeakRetained log];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v14;
-      v18 = v12;
-      v19 = v10;
-      v20 = v8;
-      v21 = a1[5];
-      v47 = [WeakRetained queuePlayer];
-      v22 = [v47 error];
+      v16 = v14;
+      v17 = v12;
+      v18 = v10;
+      v19 = v8;
+      v20 = a1[5];
+      v44 = [WeakRetained queuePlayer];
+      v21 = [v44 error];
       *buf = 138414082;
-      v51 = v21;
-      v8 = v20;
-      v10 = v19;
-      v12 = v18;
-      v14 = v17;
-      v52 = 2048;
-      v53 = v5;
-      v54 = 2048;
-      v55 = *&v7;
-      v56 = 2112;
-      v57 = v8;
-      v58 = 2112;
-      v59 = v10;
-      v60 = 2112;
-      v61 = v12;
-      v62 = 2112;
-      v63 = v17;
-      v64 = 2112;
-      v65 = v22;
-      _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, "|> KeyPath (%@) changed                    \n    Queue Player Rate = %f                    \n    Time Control Status = (%ld) %@                    \n    Current Item = %@                    \n    Reason For Waiting To Play = %@                    \n    Player Status = %@                    \n    Error = %@", buf, 0x52u);
+      v48 = v20;
+      v8 = v19;
+      v10 = v18;
+      v12 = v17;
+      v14 = v16;
+      v49 = 2048;
+      v50 = v5;
+      v51 = 2048;
+      v52 = *&v7;
+      v53 = 2112;
+      v54 = v8;
+      v55 = 2112;
+      v56 = v10;
+      v57 = 2112;
+      v58 = v12;
+      v59 = 2112;
+      v60 = v16;
+      v61 = 2112;
+      v62 = v21;
+      _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, "|> KeyPath (%@) changed                    \n    Queue Player Rate = %f                    \n    Time Control Status = (%ld) %@                    \n    Current Item = %@                    \n    Reason For Waiting To Play = %@                    \n    Player Status = %@                    \n    Error = %@", buf, 0x52u);
     }
 
     if ([a1[5] isEqualToString:@"status"])
     {
-      v23 = a1[4];
-      if (!v23)
+      v22 = a1[4];
+      if (!v22)
       {
         goto LABEL_37;
       }
 
-      v24 = [WeakRetained queuePlayer];
+      v23 = [WeakRetained queuePlayer];
 
-      if (v23 != v24)
+      if (v22 != v23)
       {
         goto LABEL_37;
       }
 
-      v25 = [v23 status];
-      if (v25 != 2)
+      v24 = [v22 status];
+      if (v24 != 2)
       {
-        if (v25 == 1)
+        if (v24 == 1)
         {
-          v26 = [WeakRetained log];
-          if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v25 = [WeakRetained log];
+          if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_21;
           }
 
           *buf = 136315138;
-          v51 = "[ANTrackPlayer observeValueForKeyPath:ofObject:change:context:]_block_invoke";
-          v27 = "%s: Queue player is ready to play.";
+          v48 = "[ANTrackPlayer observeValueForKeyPath:ofObject:change:context:]_block_invoke";
+          v26 = "%s: Queue player is ready to play.";
           goto LABEL_20;
         }
 
         goto LABEL_37;
       }
 
-      v41 = [WeakRetained log];
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v39 = [WeakRetained log];
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         __64__ANTrackPlayer_observeValueForKeyPath_ofObject_change_context___block_invoke_cold_2();
       }
 
-      v42 = [v23 error];
-      v43 = v42;
-      if (v42)
+      v40 = [v22 error];
+      v41 = v40;
+      if (v40)
       {
-        v44 = v42;
+        v42 = v40;
       }
 
       else
       {
-        v44 = [MEMORY[0x277CCA9B8] an_errorWithCode:1055 component:*MEMORY[0x277CEA9A0]];
+        v42 = [MEMORY[0x277CCA9B8] an_errorWithCode:1055 component:*MEMORY[0x277CEA9A0]];
       }
 
-      v36 = v44;
+      v34 = v42;
 
-      v45 = [v23 currentItem];
-      [WeakRetained _stopPlaybackAndFailWithItem:v45 error:v36];
+      v43 = [v22 currentItem];
+      [WeakRetained _stopPlaybackAndFailWithItem:v43 error:v34];
 
       goto LABEL_36;
     }
@@ -1250,52 +1231,51 @@ void __64__ANTrackPlayer_observeValueForKeyPath_ofObject_change_context___block_
 
   else
   {
-    v28 = a1[4];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       if ([a1[5] isEqualToString:@"status"])
       {
-        v29 = a1[4];
-        if (v29)
+        v27 = a1[4];
+        if (v27)
         {
-          v23 = v29;
-          v30 = [WeakRetained log];
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v22 = v27;
+          v28 = [WeakRetained log];
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            v31 = [WeakRetained _stringForPlayerItemStatus:{objc_msgSend(v23, "status")}];
-            [v23 asset];
-            v32 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-            [v23 duration];
-            [v23 duration];
-            v33 = [v23 error];
+            v29 = [WeakRetained _stringForPlayerItemStatus:{objc_msgSend(v22, "status")}];
+            [v22 asset];
+            v30 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+            objc_msgSend_duration(v22);
+            objc_msgSend_duration(v22);
+            v31 = [v22 error];
             *buf = 138413058;
-            v51 = v31;
-            v52 = 2112;
-            v53 = v32;
-            v54 = 2048;
-            v55 = v49 / v48;
-            v56 = 2112;
-            v57 = v33;
-            _os_log_impl(&dword_23F525000, v30, OS_LOG_TYPE_DEFAULT, "|> AVPlayerItem Status = %@                        \n    Asset = %@                        \n    Duration (sec) = %f                        \n    Error = %@", buf, 0x2Au);
+            v48 = v29;
+            v49 = 2112;
+            v50 = v30;
+            v51 = 2048;
+            v52 = v46 / v45;
+            v53 = 2112;
+            v54 = v31;
+            _os_log_impl(&dword_23F525000, v28, OS_LOG_TYPE_DEFAULT, "|> AVPlayerItem Status = %@                        \n    Asset = %@                        \n    Duration (sec) = %f                        \n    Error = %@", buf, 0x2Au);
           }
 
-          v34 = [v23 status];
-          if (v34 != 2)
+          v32 = [v22 status];
+          if (v32 != 2)
           {
-            if (v34 == 1)
+            if (v32 == 1)
             {
-              v26 = [WeakRetained log];
-              if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v25 = [WeakRetained log];
+              if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_21;
               }
 
               *buf = 136315138;
-              v51 = "[ANTrackPlayer observeValueForKeyPath:ofObject:change:context:]_block_invoke";
-              v27 = "%s: Player Item is ready to play.";
+              v48 = "[ANTrackPlayer observeValueForKeyPath:ofObject:change:context:]_block_invoke";
+              v26 = "%s: Player Item is ready to play.";
 LABEL_20:
-              _os_log_impl(&dword_23F525000, v26, OS_LOG_TYPE_DEFAULT, v27, buf, 0xCu);
+              _os_log_impl(&dword_23F525000, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
 LABEL_21:
 
               if (![WeakRetained playbackPending])
@@ -1303,15 +1283,15 @@ LABEL_21:
                 goto LABEL_37;
               }
 
-              v35 = [WeakRetained handler];
+              v33 = [WeakRetained handler];
 
-              if (!v35)
+              if (!v33)
               {
                 goto LABEL_37;
               }
 
-              v36 = [WeakRetained handler];
-              [WeakRetained _playWithCompletionHandler:v36];
+              v34 = [WeakRetained handler];
+              [WeakRetained _playWithCompletionHandler:v34];
               goto LABEL_36;
             }
 
@@ -1320,27 +1300,27 @@ LABEL_37:
             goto LABEL_38;
           }
 
-          v37 = [WeakRetained log];
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v35 = [WeakRetained log];
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             __64__ANTrackPlayer_observeValueForKeyPath_ofObject_change_context___block_invoke_cold_1();
           }
 
-          v38 = [v23 error];
-          v39 = v38;
-          if (v38)
+          v36 = [v22 error];
+          v37 = v36;
+          if (v36)
           {
-            v40 = v38;
+            v38 = v36;
           }
 
           else
           {
-            v40 = [MEMORY[0x277CCA9B8] an_errorWithCode:1053 component:*MEMORY[0x277CEA9A0]];
+            v38 = [MEMORY[0x277CCA9B8] an_errorWithCode:1053 component:*MEMORY[0x277CEA9A0]];
           }
 
-          v36 = v40;
+          v34 = v38;
 
-          [WeakRetained _stopPlaybackAndFailWithItem:v23 error:v36];
+          [WeakRetained _stopPlaybackAndFailWithItem:v22 error:v34];
 LABEL_36:
 
           goto LABEL_37;
@@ -1350,34 +1330,31 @@ LABEL_36:
   }
 
 LABEL_38:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopInternalSync
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   mainQueue = [(ANTrackPlayer *)self mainQueue];
   dispatch_assert_queue_V2(mainQueue);
 
   v4 = [(ANTrackPlayer *)self log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[ANTrackPlayer stopInternalSync]";
-    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[ANTrackPlayer stopInternalSync]";
+    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   queuePlayer = [(ANTrackPlayer *)self queuePlayer];
   [queuePlayer pause];
 
   [(ANTrackPlayer *)self setPlaybackPending:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nextInternalSync
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mainQueue = [(ANTrackPlayer *)self mainQueue];
   dispatch_assert_queue_V2(mainQueue);
 
@@ -1385,7 +1362,7 @@ LABEL_38:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "[ANTrackPlayer nextInternalSync]";
+    v13 = "[ANTrackPlayer nextInternalSync]";
     _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -1401,16 +1378,14 @@ LABEL_38:
   queuePlayer2 = [(ANTrackPlayer *)self queuePlayer];
   [queuePlayer2 advanceToNextItem];
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __33__ANTrackPlayer_nextInternalSync__block_invoke;
-  v11[3] = &unk_278C87138;
-  v11[4] = self;
-  v12 = v7;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __33__ANTrackPlayer_nextInternalSync__block_invoke;
+  v10[3] = &unk_278C87138;
+  v10[4] = self;
+  v11 = v7;
   v9 = v7;
-  [(ANTrackPlayer *)self _callDelegateWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(ANTrackPlayer *)self _callDelegateWithBlock:v10];
 }
 
 void __33__ANTrackPlayer_nextInternalSync__block_invoke(uint64_t a1, void *a2)
@@ -1425,7 +1400,7 @@ void __33__ANTrackPlayer_nextInternalSync__block_invoke(uint64_t a1, void *a2)
 
 - (void)previousInternalSync
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   mainQueue = [(ANTrackPlayer *)self mainQueue];
   dispatch_assert_queue_V2(mainQueue);
 
@@ -1447,7 +1422,7 @@ void __33__ANTrackPlayer_nextInternalSync__block_invoke(uint64_t a1, void *a2)
   v10 = queuePlayer;
   if (queuePlayer)
   {
-    [queuePlayer currentTime];
+    objc_msgSend_currentTime(queuePlayer);
   }
 
   else
@@ -1468,38 +1443,38 @@ void __33__ANTrackPlayer_nextInternalSync__block_invoke(uint64_t a1, void *a2)
       _os_log_impl(&dword_23F525000, v13, OS_LOG_TYPE_DEFAULT, "%s: Going back to previous announcement.", &buf, 0xCu);
     }
 
-    v37 = allObjects;
+    v36 = allObjects;
 
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __37__ANTrackPlayer_previousInternalSync__block_invoke_67;
-    v43[3] = &unk_278C87138;
-    v43[4] = self;
-    v36 = v8;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __37__ANTrackPlayer_previousInternalSync__block_invoke_67;
+    v42[3] = &unk_278C87138;
+    v42[4] = self;
+    v35 = v8;
     v14 = v8;
-    v44 = v14;
-    [(ANTrackPlayer *)self _callDelegateWithBlock:v43];
+    v43 = v14;
+    [(ANTrackPlayer *)self _callDelegateWithBlock:v42];
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     playerItems2 = [(ANTrackPlayer *)self playerItems];
-    v17 = [playerItems2 countByEnumeratingWithState:&v39 objects:v46 count:16];
+    v17 = [playerItems2 countByEnumeratingWithState:&v38 objects:v45 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v40;
+      v19 = *v39;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v40 != v19)
+          if (*v39 != v19)
           {
             objc_enumerationMutation(playerItems2);
           }
 
-          v21 = *(*(&v39 + 1) + 8 * i);
+          v21 = *(*(&v38 + 1) + 8 * i);
           if (v21 == v14 || [v15 count])
           {
             [v21 setCompleted:0];
@@ -1514,7 +1489,7 @@ void __33__ANTrackPlayer_nextInternalSync__block_invoke(uint64_t a1, void *a2)
           }
         }
 
-        v18 = [playerItems2 countByEnumeratingWithState:&v39 objects:v46 count:16];
+        v18 = [playerItems2 countByEnumeratingWithState:&v38 objects:v45 count:16];
       }
 
       while (v18);
@@ -1538,25 +1513,23 @@ void __33__ANTrackPlayer_nextInternalSync__block_invoke(uint64_t a1, void *a2)
     queuePlayer6 = [(ANTrackPlayer *)selfCopy queuePlayer];
     [queuePlayer6 setAudioSession:audioSession];
 
-    queuePlayer7 = v44;
-    v8 = v36;
-    allObjects = v37;
+    queuePlayer7 = v43;
+    v8 = v35;
+    allObjects = v36;
   }
 
   else
   {
     queuePlayer7 = [(ANTrackPlayer *)self queuePlayer];
     currentItem = [queuePlayer7 currentItem];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __37__ANTrackPlayer_previousInternalSync__block_invoke_2;
-    v45[3] = &unk_278C86A38;
-    v45[4] = self;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __37__ANTrackPlayer_previousInternalSync__block_invoke_2;
+    v44[3] = &unk_278C86A38;
+    v44[4] = self;
     buf = **&MEMORY[0x277CC08F0];
-    [currentItem seekToTime:&buf completionHandler:v45];
+    [currentItem seekToTime:&buf completionHandler:v44];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__ANTrackPlayer_previousInternalSync__block_invoke(uint64_t a1, void *a2)
@@ -1577,7 +1550,7 @@ uint64_t __37__ANTrackPlayer_previousInternalSync__block_invoke(uint64_t a1, voi
 
 void __37__ANTrackPlayer_previousInternalSync__block_invoke_2(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1587,14 +1560,12 @@ void __37__ANTrackPlayer_previousInternalSync__block_invoke_2(uint64_t a1, int a
       v4 = "successful";
     }
 
-    v6 = 136315394;
-    v7 = "[ANTrackPlayer previousInternalSync]_block_invoke_2";
-    v8 = 2080;
-    v9 = v4;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%s: Attempt to restart announcement was %s.", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[ANTrackPlayer previousInternalSync]_block_invoke_2";
+    v7 = 2080;
+    v8 = v4;
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%s: Attempt to restart announcement was %s.", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ANTrackPlayer_previousInternalSync__block_invoke_67(uint64_t a1, void *a2)
@@ -1726,7 +1697,7 @@ void __55__ANTrackPlayer_audioSessionMediaServicesResetHandler___block_invoke(ui
 - (void)_handleInterruptionEndedAndShouldResume:(BOOL)resume
 {
   resumeCopy = resume;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   mainQueue = [(ANTrackPlayer *)self mainQueue];
   dispatch_assert_queue_V2(mainQueue);
 
@@ -1743,7 +1714,7 @@ void __55__ANTrackPlayer_audioSessionMediaServicesResetHandler___block_invoke(ui
   {
     v13 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
     *buf = 138412290;
-    v37 = v13;
+    v36 = v13;
     _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_DEFAULT, "Seconds elapsed since interruption began: %@", buf, 0xCu);
   }
 
@@ -1753,7 +1724,7 @@ void __55__ANTrackPlayer_audioSessionMediaServicesResetHandler___block_invoke(ui
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v37 = "[ANTrackPlayer _handleInterruptionEndedAndShouldResume:]";
+      v36 = "[ANTrackPlayer _handleInterruptionEndedAndShouldResume:]";
       _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%s: Interruption ended but we are not interrupted, don't do anything", buf, 0xCu);
     }
 
@@ -1766,87 +1737,84 @@ void __55__ANTrackPlayer_audioSessionMediaServicesResetHandler___block_invoke(ui
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v37 = "[ANTrackPlayer _handleInterruptionEndedAndShouldResume:]";
+      v36 = "[ANTrackPlayer _handleInterruptionEndedAndShouldResume:]";
       _os_log_impl(&dword_23F525000, v14, OS_LOG_TYPE_DEFAULT, "%s: Option to resume after interruption ended not set, don't do anything", buf, 0xCu);
     }
 
 LABEL_10:
 
-    goto LABEL_11;
+    return;
   }
 
   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
-  v17 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA948]];
-  [v17 doubleValue];
-  v19 = v18;
+  v16 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA948]];
+  [v16 doubleValue];
+  v18 = v17;
 
-  v20 = [(ANTrackPlayer *)self log];
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v19 = [(ANTrackPlayer *)self log];
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v37 = *&v19;
-    _os_log_impl(&dword_23F525000, v20, OS_LOG_TYPE_DEFAULT, "Resume Timeout After Audio Interruption End: %f", buf, 0xCu);
+    v36 = *&v18;
+    _os_log_impl(&dword_23F525000, v19, OS_LOG_TYPE_DEFAULT, "Resume Timeout After Audio Interruption End: %f", buf, 0xCu);
   }
 
-  if (resumeCopy && v12 < v19)
+  if (resumeCopy && v12 < v18)
   {
     mEMORY[0x277CEAB80]2 = [MEMORY[0x277CEAB80] sharedInstance];
-    v22 = [mEMORY[0x277CEAB80]2 numberForDefault:*MEMORY[0x277CEA890]];
-    [v22 doubleValue];
-    v24 = v23;
+    v21 = [mEMORY[0x277CEAB80]2 numberForDefault:*MEMORY[0x277CEA890]];
+    [v21 doubleValue];
+    v23 = v22;
 
     objc_initWeak(&location, self);
-    v25 = [(ANTrackPlayer *)self log];
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = [(ANTrackPlayer *)self log];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v37 = v24;
-      _os_log_impl(&dword_23F525000, v25, OS_LOG_TYPE_DEFAULT, "Resume Audio Session Delay %f seconds", buf, 0xCu);
+      v36 = v23;
+      _os_log_impl(&dword_23F525000, v24, OS_LOG_TYPE_DEFAULT, "Resume Audio Session Delay %f seconds", buf, 0xCu);
     }
 
-    v26 = dispatch_time(0, (*&v24 * 1000000000.0));
+    v25 = dispatch_time(0, (*&v23 * 1000000000.0));
     mainQueue2 = [(ANTrackPlayer *)self mainQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke;
     block[3] = &unk_278C87160;
     block[4] = self;
-    v34[1] = v24;
-    objc_copyWeak(v34, &location);
-    dispatch_after(v26, mainQueue2, block);
+    v33[1] = v23;
+    objc_copyWeak(v33, &location);
+    dispatch_after(v25, mainQueue2, block);
 
-    objc_destroyWeak(v34);
+    objc_destroyWeak(v33);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v28 = [(ANTrackPlayer *)self log];
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = [(ANTrackPlayer *)self log];
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23F525000, v28, OS_LOG_TYPE_DEFAULT, "Will not resume playback after Audio Session Interruption ended", buf, 2u);
+      _os_log_impl(&dword_23F525000, v27, OS_LOG_TYPE_DEFAULT, "Will not resume playback after Audio Session Interruption ended", buf, 2u);
     }
 
     [(ANTrackPlayer *)self _stopAndUpdatePlaybackState:0];
-    v29 = [MEMORY[0x277CCA9B8] an_errorWithCode:1027 component:*MEMORY[0x277CEA9A0]];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke_71;
-    v31[3] = &unk_278C87138;
-    v31[4] = self;
-    v32 = v29;
-    v30 = v29;
-    [(ANTrackPlayer *)self _callDelegateWithBlock:v31];
+    v28 = [MEMORY[0x277CCA9B8] an_errorWithCode:1027 component:*MEMORY[0x277CEA9A0]];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke_71;
+    v30[3] = &unk_278C87138;
+    v30[4] = self;
+    v31 = v28;
+    v29 = v28;
+    [(ANTrackPlayer *)self _callDelegateWithBlock:v30];
   }
-
-LABEL_11:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) playbackState];
   WeakRetained = [*(a1 + 32) log];
   v4 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT);
@@ -1855,9 +1823,9 @@ void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(
     if (v4)
     {
       v5 = *(a1 + 48);
-      v8 = 134217984;
-      v9 = v5;
-      _os_log_impl(&dword_23F525000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Still interrupted. Resuming playback after delaying for %f seconds", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = v5;
+      _os_log_impl(&dword_23F525000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Still interrupted. Resuming playback after delaying for %f seconds", &v7, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1868,17 +1836,15 @@ void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(
   else if (v4)
   {
     v6 = *(a1 + 48);
-    v8 = 134217984;
-    v9 = v6;
-    _os_log_impl(&dword_23F525000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Playback state is not interrupted. Will not resume playback after delaying for %f seconds", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v6;
+    _os_log_impl(&dword_23F525000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Playback state is not interrupted. Will not resume playback after delaying for %f seconds", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionInterruptionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   mainQueue = [(ANTrackPlayer *)self mainQueue];
   dispatch_assert_queue_V2(mainQueue);
@@ -1896,7 +1862,7 @@ void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(
       if (v10)
       {
         *buf = 138412290;
-        v35 = object;
+        v34 = object;
         _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "Received Audio Session Interruption Notification for Audio Session %@", buf, 0xCu);
       }
 
@@ -1904,20 +1870,20 @@ void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(
       v9 = userInfo;
       if (userInfo)
       {
-        v14 = [userInfo valueForKey:*MEMORY[0x277CB8080]];
-        v15 = v14;
-        if (v14)
+        v13 = [userInfo valueForKey:*MEMORY[0x277CB8080]];
+        v14 = v13;
+        if (v13)
         {
-          unsignedIntegerValue = [v14 unsignedIntegerValue];
+          unsignedIntegerValue = [v13 unsignedIntegerValue];
           if (unsignedIntegerValue)
           {
             if (unsignedIntegerValue == 1)
             {
-              v17 = [(ANTrackPlayer *)self log];
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              v16 = [(ANTrackPlayer *)self log];
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23F525000, v17, OS_LOG_TYPE_DEFAULT, "Audio Session Interruption: Began", buf, 2u);
+                _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, "Audio Session Interruption: Began", buf, 2u);
               }
 
               if ([(ANTrackPlayer *)self playbackState]== 1)
@@ -1929,48 +1895,48 @@ void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(
                 {
                   [(ANTrackPlayer *)self setPlaybackState:2];
                   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
-                  v25 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA948]];
-                  [v25 doubleValue];
-                  v27 = v26;
+                  v24 = [mEMORY[0x277CEAB80] numberForDefault:*MEMORY[0x277CEA948]];
+                  [v24 doubleValue];
+                  v26 = v25;
 
                   objc_initWeak(buf, self);
                   interruptionTimer = [(ANTrackPlayer *)self interruptionTimer];
                   mainQueue2 = [(ANTrackPlayer *)self mainQueue];
-                  v30[0] = MEMORY[0x277D85DD0];
-                  v30[1] = 3221225472;
-                  v30[2] = __49__ANTrackPlayer_audioSessionInterruptionHandler___block_invoke_2;
-                  v30[3] = &unk_278C868C0;
-                  objc_copyWeak(&v31, buf);
-                  v30[4] = self;
-                  [interruptionTimer startWithValue:mainQueue2 queue:v30 handler:v27];
+                  v29[0] = MEMORY[0x277D85DD0];
+                  v29[1] = 3221225472;
+                  v29[2] = __49__ANTrackPlayer_audioSessionInterruptionHandler___block_invoke_2;
+                  v29[3] = &unk_278C868C0;
+                  objc_copyWeak(&v30, buf);
+                  v29[4] = self;
+                  [interruptionTimer startWithValue:mainQueue2 queue:v29 handler:v26];
 
-                  objc_destroyWeak(&v31);
+                  objc_destroyWeak(&v30);
                   objc_destroyWeak(buf);
                 }
 
                 else
                 {
                   [(ANTrackPlayer *)self setPlaybackState:0];
-                  v18 = [MEMORY[0x277CCA9B8] an_errorWithCode:1027 component:*MEMORY[0x277CEA9A0]];
-                  v32[0] = MEMORY[0x277D85DD0];
-                  v32[1] = 3221225472;
-                  v32[2] = __49__ANTrackPlayer_audioSessionInterruptionHandler___block_invoke;
-                  v32[3] = &unk_278C87138;
-                  v32[4] = self;
-                  v33 = v18;
-                  v19 = v18;
-                  [(ANTrackPlayer *)self _callDelegateWithBlock:v32];
+                  v17 = [MEMORY[0x277CCA9B8] an_errorWithCode:1027 component:*MEMORY[0x277CEA9A0]];
+                  v31[0] = MEMORY[0x277D85DD0];
+                  v31[1] = 3221225472;
+                  v31[2] = __49__ANTrackPlayer_audioSessionInterruptionHandler___block_invoke;
+                  v31[3] = &unk_278C87138;
+                  v31[4] = self;
+                  v32 = v17;
+                  v18 = v17;
+                  [(ANTrackPlayer *)self _callDelegateWithBlock:v31];
                 }
               }
 
               else
               {
-                v23 = [(ANTrackPlayer *)self log];
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+                v22 = [(ANTrackPlayer *)self log];
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315138;
-                  v35 = "[ANTrackPlayer audioSessionInterruptionHandler:]";
-                  _os_log_impl(&dword_23F525000, v23, OS_LOG_TYPE_DEFAULT, "%s: Interruption while not playing, don't do anything", buf, 0xCu);
+                  v34 = "[ANTrackPlayer audioSessionInterruptionHandler:]";
+                  _os_log_impl(&dword_23F525000, v22, OS_LOG_TYPE_DEFAULT, "%s: Interruption while not playing, don't do anything", buf, 0xCu);
                 }
               }
             }
@@ -1978,26 +1944,26 @@ void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(
 
           else
           {
-            v20 = [v9 valueForKey:*MEMORY[0x277CB8070]];
-            v21 = [(ANTrackPlayer *)self log];
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v19 = [v9 valueForKey:*MEMORY[0x277CB8070]];
+            v20 = [(ANTrackPlayer *)self log];
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v35 = v20;
-              _os_log_impl(&dword_23F525000, v21, OS_LOG_TYPE_DEFAULT, "Audio Session Interruption: Ended. Should Resume: %@", buf, 0xCu);
+              v34 = v19;
+              _os_log_impl(&dword_23F525000, v20, OS_LOG_TYPE_DEFAULT, "Audio Session Interruption: Ended. Should Resume: %@", buf, 0xCu);
             }
 
-            if (v20)
+            if (v19)
             {
-              v22 = [v20 unsignedIntegerValue] == 1;
+              v21 = [v19 unsignedIntegerValue] == 1;
             }
 
             else
             {
-              v22 = 0;
+              v21 = 0;
             }
 
-            [(ANTrackPlayer *)self _handleInterruptionEndedAndShouldResume:v22];
+            [(ANTrackPlayer *)self _handleInterruptionEndedAndShouldResume:v21];
           }
         }
       }
@@ -2007,9 +1973,9 @@ void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(
     {
       audioSession2 = [(ANTrackPlayer *)self audioSession];
       *buf = 138412546;
-      v35 = audioSession2;
-      v36 = 2112;
-      v37 = object;
+      v34 = audioSession2;
+      v35 = 2112;
+      v36 = object;
       _os_log_impl(&dword_23F525000, v9, OS_LOG_TYPE_DEFAULT, "Received Audio Session Interruption Notification for different Audio Session. Expected: %@, Actual: %@", buf, 0x16u);
     }
   }
@@ -2022,8 +1988,6 @@ void __57__ANTrackPlayer__handleInterruptionEndedAndShouldResume___block_invoke(
       [ANTrackPlayer audioSessionInterruptionHandler:];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ANTrackPlayer_audioSessionInterruptionHandler___block_invoke_2(uint64_t a1)
@@ -2054,7 +2018,7 @@ void __49__ANTrackPlayer_audioSessionInterruptionHandler___block_invoke_2(uint64
 
 void __42__ANTrackPlayer_playerRateChangedHandler___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   if (v2)
   {
@@ -2066,18 +2030,18 @@ void __42__ANTrackPlayer_playerRateChangedHandler___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *(a1 + 32);
-        v16 = 138412290;
-        v17 = v5;
-        _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "|> Rate Changed Notification: %@", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v5;
+        _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "|> Rate Changed Notification: %@", &v15, 0xCu);
       }
 
       v6 = [*(a1 + 40) log];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         [v2 rate];
-        v16 = 134217984;
-        v17 = v7;
-        _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "|> Player Rate: %f", &v16, 0xCu);
+        v15 = 134217984;
+        v16 = v7;
+        _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "|> Player Rate: %f", &v15, 0xCu);
       }
 
       v8 = [*(a1 + 32) userInfo];
@@ -2099,8 +2063,6 @@ void __42__ANTrackPlayer_playerRateChangedHandler___block_invoke(uint64_t a1)
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playerItemPlayedToEndHandler:(id)handler
@@ -2119,14 +2081,14 @@ void __42__ANTrackPlayer_playerRateChangedHandler___block_invoke(uint64_t a1)
 
 void __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
     *buf = 138412290;
-    v23 = v4;
+    v22 = v4;
     _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "Player item played to end notification: %@", buf, 0xCu);
   }
 
@@ -2155,9 +2117,9 @@ void __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke(uint64_t a1
       {
         v12 = [*v2 queuePlayer];
         *buf = 138412546;
-        v23 = v12;
-        v24 = 2112;
-        v25 = v7;
+        v22 = v12;
+        v23 = 2112;
+        v24 = v7;
         _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_DEFAULT, "Marking player item as completed for player %@: %@", buf, 0x16u);
       }
 
@@ -2182,15 +2144,15 @@ void __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke(uint64_t a1
       }
 
       v17 = *v2;
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke_72;
-      v19[3] = &unk_278C87188;
-      v19[4] = v17;
-      v20 = v9;
-      v21 = v16;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke_72;
+      v18[3] = &unk_278C87188;
+      v18[4] = v17;
+      v19 = v9;
+      v20 = v16;
       v11 = v16;
-      [v17 _callDelegateWithBlock:v19];
+      [v17 _callDelegateWithBlock:v18];
     }
 
     else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -2207,8 +2169,6 @@ void __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke(uint64_t a1
       __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke_cold_2();
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke_72(uint64_t a1, void *a2)
@@ -2237,53 +2197,44 @@ void __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke_72(uint64_t
 
 void __44__ANTrackPlayer__playWithCompletionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleReadyToPlayWithCompletionHandler:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [a1 queuePlayer];
   v4 = [v3 error];
-  v6 = 136315394;
-  v7 = "[ANTrackPlayer _handleReadyToPlayWithCompletionHandler:]";
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_23F525000, a2, OS_LOG_TYPE_ERROR, "%s: Queue player error: %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315394;
+  v6 = "[ANTrackPlayer _handleReadyToPlayWithCompletionHandler:]";
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_23F525000, a2, OS_LOG_TYPE_ERROR, "%s: Queue player error: %@", &v5, 0x16u);
 }
 
 void __57__ANTrackPlayer__handleReadyToPlayWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 playerTimer];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ANTrackPlayer_activelyPlayingAnnouncementID__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_23F525000, v0, OS_LOG_TYPE_DEBUG, "Currently Playing: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23F525000, v0, OS_LOG_TYPE_DEBUG, "Currently Playing: %@", v1, 0xCu);
 }
 
 void __35__ANTrackPlayer_numberActiveTracks__block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ANTrackPlayer numberActiveTracks]_block_invoke";
-  _os_log_debug_impl(&dword_23F525000, log, OS_LOG_TYPE_DEBUG, "%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ANTrackPlayer numberActiveTracks]_block_invoke";
+  _os_log_debug_impl(&dword_23F525000, log, OS_LOG_TYPE_DEBUG, "%s", &v1, 0xCu);
 }
 
 void __64__ANTrackPlayer_observeValueForKeyPath_ofObject_change_context___block_invoke_cold_1()
@@ -2302,29 +2253,23 @@ void __64__ANTrackPlayer_observeValueForKeyPath_ofObject_change_context___block_
 
 void __64__ANTrackPlayer__resumePlaybackAfterInterruptionAtTimeInterval___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionMediaServicesLostHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionMediaServicesResetHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionInterruptionHandler:.cold.1()
@@ -2336,13 +2281,10 @@ void __64__ANTrackPlayer__resumePlaybackAfterInterruptionAtTimeInterval___block_
 
 void __49__ANTrackPlayer_audioSessionInterruptionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) interruptionTimer];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __42__ANTrackPlayer_playerRateChangedHandler___block_invoke_cold_1()
@@ -2354,22 +2296,17 @@ void __42__ANTrackPlayer_playerRateChangedHandler___block_invoke_cold_1()
 
 void __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 queuePlayer];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ANTrackPlayer_playerItemPlayedToEndHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

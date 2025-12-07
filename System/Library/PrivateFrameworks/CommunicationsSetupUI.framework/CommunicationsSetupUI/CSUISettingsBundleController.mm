@@ -186,7 +186,7 @@ void __58__CSUISettingsBundleController_bundleTappedWithSpecifier___block_invoke
 
 - (BOOL)_cnfreg_overrideForController:(id)controller withDictionary:(id)dictionary
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dictionaryCopy = dictionary;
   v8 = [dictionaryCopy objectForKey:@"path"];
@@ -205,46 +205,46 @@ void __58__CSUISettingsBundleController_bundleTappedWithSpecifier___block_invoke
 
     if (([v14 isEqualToString:@"CHANGE_PASSWORD"] & 1) != 0 || objc_msgSend(v14, "isEqualToString:", @"REAUTHORIZE"))
     {
-      v57 = v14;
-      v55 = v13;
+      v56 = v14;
+      v54 = v13;
       v16 = [dictionaryCopy objectForKey:@"appleID"];
       if (v16)
       {
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
         v68 = 0u;
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
         appleIDAccounts = [regController appleIDAccounts];
-        v18 = [appleIDAccounts countByEnumeratingWithState:&v67 objects:v72 count:16];
+        v18 = [appleIDAccounts countByEnumeratingWithState:&v66 objects:v71 count:16];
         if (v18)
         {
           v19 = v18;
-          v50 = v8;
-          v52 = v12;
-          v47 = controllerCopy;
-          v48 = v11;
-          v20 = *v68;
+          v49 = v8;
+          v51 = v12;
+          v46 = controllerCopy;
+          v47 = v11;
+          v20 = *v67;
           while (2)
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v68 != v20)
+              if (*v67 != v20)
               {
                 objc_enumerationMutation(appleIDAccounts);
               }
 
-              v22 = *(*(&v67 + 1) + 8 * i);
+              v22 = *(*(&v66 + 1) + 8 * i);
               loginDisplayString = [v22 loginDisplayString];
               v24 = [loginDisplayString isEqualToString:v16];
 
               if (v24)
               {
-                v56 = v22;
+                v55 = v22;
                 goto LABEL_16;
               }
             }
 
-            v19 = [appleIDAccounts countByEnumeratingWithState:&v67 objects:v72 count:16];
+            v19 = [appleIDAccounts countByEnumeratingWithState:&v66 objects:v71 count:16];
             if (v19)
             {
               continue;
@@ -253,41 +253,41 @@ void __58__CSUISettingsBundleController_bundleTappedWithSpecifier___block_invoke
             break;
           }
 
-          v56 = 0;
+          v55 = 0;
 LABEL_16:
-          controllerCopy = v47;
-          v11 = v48;
-          v8 = v50;
-          v12 = v52;
+          controllerCopy = v46;
+          v11 = v47;
+          v8 = v49;
+          v12 = v51;
         }
 
         else
         {
-          v56 = 0;
+          v55 = 0;
         }
       }
 
       else
       {
-        v56 = 0;
+        v55 = 0;
       }
 
       v35 = rootController;
-      if ([v57 isEqualToString:@"CHANGE_PASSWORD"])
+      if ([v56 isEqualToString:@"CHANGE_PASSWORD"])
       {
         v29 = [FTRegUtilities standaloneNewPasswordControllerWithRegController:regController appleID:v16];
       }
 
       else
       {
-        v54 = v12;
+        v53 = v12;
         v36 = [dictionaryCopy objectForKey:@"authID"];
         v37 = [dictionaryCopy objectForKey:@"authToken"];
         if ((!v36 || ![v36 length]) && (!v37 || !objc_msgSend(v37, "length")))
         {
-          authorizationID = [v56 authorizationID];
+          authorizationID = [v55 authorizationID];
 
-          [v56 authorizationToken];
+          [v55 authorizationToken];
           v39 = v11;
           v41 = v40 = v8;
 
@@ -300,7 +300,7 @@ LABEL_16:
 
         v29 = [FTRegUtilities standaloneAuthorizationControllerWithRegController:regController authID:v36 token:v37];
 
-        v12 = v54;
+        v12 = v53;
       }
     }
 
@@ -314,35 +314,35 @@ LABEL_46:
         goto LABEL_47;
       }
 
-      v57 = v14;
-      v55 = v13;
+      v56 = v14;
+      v54 = v13;
       v26 = controllerCopy;
       v16 = [dictionaryCopy objectForKey:@"guid"];
+      v62 = 0u;
       v63 = 0u;
       v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
-      v56 = v26;
+      v55 = v26;
       regController2 = [v26 regController];
       appleIDAccounts2 = [regController2 appleIDAccounts];
 
-      v29 = [appleIDAccounts2 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v29 = [appleIDAccounts2 countByEnumeratingWithState:&v62 objects:v70 count:16];
       if (v29)
       {
-        v51 = v8;
-        v53 = v12;
-        v49 = v11;
-        v30 = *v64;
+        v50 = v8;
+        v52 = v12;
+        v48 = v11;
+        v30 = *v63;
 LABEL_22:
         v31 = 0;
         while (1)
         {
-          if (*v64 != v30)
+          if (*v63 != v30)
           {
             objc_enumerationMutation(appleIDAccounts2);
           }
 
-          v32 = *(*(&v63 + 1) + 8 * v31);
+          v32 = *(*(&v62 + 1) + 8 * v31);
           uniqueID = [v32 uniqueID];
           v34 = [uniqueID isEqualToString:v16];
 
@@ -353,7 +353,7 @@ LABEL_22:
 
           if (v29 == ++v31)
           {
-            v29 = [appleIDAccounts2 countByEnumeratingWithState:&v63 objects:v71 count:16];
+            v29 = [appleIDAccounts2 countByEnumeratingWithState:&v62 objects:v70 count:16];
             if (v29)
             {
               goto LABEL_22;
@@ -363,23 +363,23 @@ LABEL_22:
           }
         }
 
-        v46 = v32;
+        v45 = v32;
 
-        if (v46)
+        if (v45)
         {
-          v29 = [v56 _localeChooserForAccount:v46];
-          appleIDAccounts2 = v46;
+          v29 = [v55 _localeChooserForAccount:v45];
+          appleIDAccounts2 = v45;
 LABEL_50:
-          v11 = v49;
-          v8 = v51;
-          v12 = v53;
+          v11 = v48;
+          v8 = v50;
+          v12 = v52;
           goto LABEL_51;
         }
 
         v29 = 0;
-        v11 = v49;
-        v8 = v51;
-        v12 = v53;
+        v11 = v48;
+        v8 = v50;
+        v12 = v52;
         v35 = rootController;
       }
 
@@ -394,18 +394,18 @@ LABEL_51:
     {
       presentedViewController = [v35 presentedViewController];
 
-      v13 = v55;
-      v14 = v57;
+      v13 = v54;
+      v14 = v56;
       if (presentedViewController)
       {
-        v60[0] = MEMORY[0x277D85DD0];
-        v60[1] = 3221225472;
-        v60[2] = __77__CSUISettingsBundleController__cnfreg_overrideForController_withDictionary___block_invoke;
-        v60[3] = &unk_278DE81E0;
-        v61 = v35;
-        v62 = v29;
+        v59[0] = MEMORY[0x277D85DD0];
+        v59[1] = 3221225472;
+        v59[2] = __77__CSUISettingsBundleController__cnfreg_overrideForController_withDictionary___block_invoke;
+        v59[3] = &unk_278DE81E0;
+        v60 = v35;
+        v61 = v29;
         v43 = v29;
-        [v61 dismissViewControllerAnimated:1 completion:v60];
+        [v60 dismissViewControllerAnimated:1 completion:v59];
       }
 
       else
@@ -419,8 +419,8 @@ LABEL_51:
     else
     {
       v25 = 0;
-      v13 = v55;
-      v14 = v57;
+      v13 = v54;
+      v14 = v56;
     }
 
     goto LABEL_46;
@@ -429,7 +429,6 @@ LABEL_51:
   v25 = 0;
 LABEL_47:
 
-  v44 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

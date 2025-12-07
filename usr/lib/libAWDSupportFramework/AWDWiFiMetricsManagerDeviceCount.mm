@@ -150,7 +150,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -170,7 +169,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  deviceCount = self->_deviceCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -182,7 +180,6 @@ LABEL_4:
     }
 
 LABEL_10:
-    deviceInitFailureReason = self->_deviceInitFailureReason;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 8) == 0)
     {
@@ -193,7 +190,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  timeSinceBoot = self->_timeSinceBoot;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -208,7 +204,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  deviceIdentifierMap = self->_deviceIdentifierMap;
 
   PBDataWriterWriteUint32Field();
 }

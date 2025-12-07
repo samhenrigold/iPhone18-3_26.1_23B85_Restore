@@ -7,6 +7,7 @@
 - (id)bluetoothDeviceForBLEDevice:(id)device;
 - (id)bluetoothManagerDeviceForBluetoothDevice:(id)device;
 - (id)newDiscovery;
+- (int64_t)profileWithVendorID:(unsigned __int16)d productID:(unsigned int)iD;
 - (void)connectToDeviceAddress:(id)address;
 - (void)dealloc;
 - (void)getAccessoriesWithCompletion:(id)completion;
@@ -124,42 +125,43 @@
 
 - (BOOL)_cbPoweredOff
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 1;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 1;
   v3 = dispatch_group_create();
   dispatch_group_enter(v3);
   btController = [(FMDBluetoothManager *)self btController];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1001856D0;
-  v10[3] = &unk_1002CFCC8;
-  v12 = &v13;
-  v10[4] = self;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1001856D0;
+  v11[3] = &unk_1002CFCC8;
+  v13 = &v14;
+  v11[4] = self;
   v5 = v3;
-  v11 = v5;
-  [btController getControllerInfoWithCompletion:v10];
+  v12 = v5;
+  [btController getControllerInfoWithCompletion:v11];
 
   v6 = dispatch_time(0, 10000000000);
-  if (dispatch_group_wait(v5, v6))
+  v7 = dispatch_group_wait(v5, v6);
+  if (v7)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10022B684();
     }
   }
 
-  v8 = *(v14 + 24);
+  v9 = *(v15 + 24);
 
-  _Block_object_dispose(&v13, 8);
-  return v8;
+  _Block_object_dispose(&v14, 8);
+  return v9;
 }
 
 - (void)startMonitoringDevices
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -273,8 +275,7 @@
   activeCopy = active;
   v12 = channelsCopy;
   v20 = v12;
-  [v11 enumerateObjectsUsingBlock:&v16];
-  v13 = sub_100002880();
+  v13 = sub_100002880([v11 enumerateObjectsUsingBlock:&v16]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = objc_opt_self();
@@ -392,6 +393,15 @@
   [(FMDInternalBluetoothManagerDevice *)v10 setAdvertisementStatusKey:v13];
 
   return v10;
+}
+
+- (int64_t)profileWithVendorID:(unsigned __int16)d productID:(unsigned int)iD
+{
+  v5 = [[FMDAccessoryIdentifier alloc] initWithVendorID:d productID:*&iD];
+  supportedAccessoryRegistry = [(FMDBluetoothManager *)self supportedAccessoryRegistry];
+  v7 = [supportedAccessoryRegistry profileForAccessoryIdentifier:v5];
+
+  return v7;
 }
 
 - (FMDBluetoothManagerDelegate)delegate

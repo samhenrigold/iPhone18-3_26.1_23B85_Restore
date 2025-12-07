@@ -8,13 +8,13 @@
 + (PKTextInputFeedbackRect)rectWithFrame:(CGFloat)frame
 {
   objc_opt_self();
-  v8 = objc_alloc_init(PKTextInputFeedbackRect);
-  v8->_rect.origin.x = self;
-  v8->_rect.origin.y = a2;
-  v8->_rect.size.width = frame;
-  v8->_rect.size.height = a4;
+  v9 = objc_alloc_init(PKTextInputFeedbackRect);
+  v9->_rect.origin.x = a2;
+  v9->_rect.origin.y = frame;
+  v9->_rect.size.width = a4;
+  v9->_rect.size.height = a5;
 
-  return v8;
+  return v9;
 }
 
 - (CGRect)rect

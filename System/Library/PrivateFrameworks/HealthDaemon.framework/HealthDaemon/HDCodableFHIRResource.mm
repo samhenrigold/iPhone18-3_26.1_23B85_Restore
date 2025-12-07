@@ -246,75 +246,72 @@ LABEL_25:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_gatewayExternalID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_resourceID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_rawContent)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    receivedDate = self->_receivedDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_resourceType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_fhirVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_receivedDateTimeZoneName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_sourceURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    extractionHints = self->_extractionHints;
     PBDataWriterWriteInt64Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_accountIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    originVersionMajor = self->_originVersionMajor;
     PBDataWriterWriteInt64Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -333,53 +330,50 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  originVersionMinor = self->_originVersionMinor;
   PBDataWriterWriteInt64Field();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_24:
-    originVersionPatch = self->_originVersionPatch;
     PBDataWriterWriteInt64Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_25:
   if (self->_originVersionBuild)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_messageVersion)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    firstSeenDate = self->_firstSeenDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_firstSeenDateTimeZoneName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_uniquenessChecksum)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 
@@ -661,7 +655,6 @@ LABEL_9:
     }
   }
 
-  v8 = *(equalCopy + 160);
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 160) & 0x20) == 0 || self->_receivedDate != *(equalCopy + 6))
@@ -709,7 +702,7 @@ LABEL_9:
   }
 
   has = self->_has;
-  v14 = *(equalCopy + 160);
+  v13 = *(equalCopy + 160);
   if (has)
   {
     if ((*(equalCopy + 160) & 1) == 0 || self->_extractionHints != *(equalCopy + 1))
@@ -729,49 +722,49 @@ LABEL_9:
     if (![(NSString *)accountIdentifier isEqual:?])
     {
 LABEL_59:
-      v22 = 0;
+      v20 = 0;
       goto LABEL_60;
     }
 
     has = self->_has;
-    v14 = *(equalCopy + 160);
+    v13 = *(equalCopy + 160);
   }
 
   if ((has & 4) != 0)
   {
-    if ((v14 & 4) == 0 || self->_originVersionMajor != *(equalCopy + 3))
+    if ((v13 & 4) == 0 || self->_originVersionMajor != *(equalCopy + 3))
     {
       goto LABEL_59;
     }
   }
 
-  else if ((v14 & 4) != 0)
+  else if ((v13 & 4) != 0)
   {
     goto LABEL_59;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v14 & 8) == 0 || self->_originVersionMinor != *(equalCopy + 4))
+    if ((v13 & 8) == 0 || self->_originVersionMinor != *(equalCopy + 4))
     {
       goto LABEL_59;
     }
   }
 
-  else if ((v14 & 8) != 0)
+  else if ((v13 & 8) != 0)
   {
     goto LABEL_59;
   }
 
   if ((has & 0x10) != 0)
   {
-    if ((v14 & 0x10) == 0 || self->_originVersionPatch != *(equalCopy + 5))
+    if ((v13 & 0x10) == 0 || self->_originVersionPatch != *(equalCopy + 5))
     {
       goto LABEL_59;
     }
   }
 
-  else if ((v14 & 0x10) != 0)
+  else if ((v13 & 0x10) != 0)
   {
     goto LABEL_59;
   }
@@ -791,7 +784,6 @@ LABEL_59:
     }
   }
 
-  v18 = *(equalCopy + 160);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 160) & 2) == 0 || self->_firstSeenDate != *(equalCopy + 2))
@@ -823,17 +815,17 @@ LABEL_59:
   uniquenessChecksum = self->_uniquenessChecksum;
   if (uniquenessChecksum | *(equalCopy + 19))
   {
-    v22 = [(NSData *)uniquenessChecksum isEqual:?];
+    v20 = [(NSData *)uniquenessChecksum isEqual:?];
   }
 
   else
   {
-    v22 = 1;
+    v20 = 1;
   }
 
 LABEL_60:
 
-  return v22;
+  return v20;
 }
 
 - (unint64_t)hash
@@ -1113,7 +1105,7 @@ LABEL_36:
       goto LABEL_46;
     }
 
-    [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
+    syncIdentity = [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
   }
 
   else
@@ -1123,17 +1115,18 @@ LABEL_36:
       goto LABEL_46;
     }
 
-    [(HDCodableFHIRResource *)self setSyncIdentity:?];
+    syncIdentity = [(HDCodableFHIRResource *)self setSyncIdentity:?];
   }
 
   fromCopy = v10;
 LABEL_46:
   if (*(fromCopy + 19))
   {
-    [(HDCodableFHIRResource *)self setUniquenessChecksum:?];
+    syncIdentity = [(HDCodableFHIRResource *)self setUniquenessChecksum:?];
+    fromCopy = v10;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](syncIdentity, fromCopy);
 }
 
 @end

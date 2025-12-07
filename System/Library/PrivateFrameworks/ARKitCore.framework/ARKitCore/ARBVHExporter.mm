@@ -48,7 +48,7 @@
 
 - (void)stop
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   [(NSOutputStream *)self->_framesStreamToFile close];
   self->_running = 0;
   v3 = [objc_alloc(MEMORY[0x1E695DFC0]) initToFileAtPath:self->_filePath append:0];
@@ -58,27 +58,27 @@
   {
     if (exportType == 1)
     {
-      v20 = [objc_opt_class() liftedSkeletonHeaderByApplyingScale:*&self->_scale[4]];
-      [(__CFString *)v20 dataUsingEncoding:4];
+      v21 = [objc_opt_class() liftedSkeletonHeaderByApplyingScale:*&self->_scale[4]];
+      [(__CFString *)v21 dataUsingEncoding:4];
     }
 
     else if (exportType == 2)
     {
-      v20 = [objc_opt_class() headerByApplyingScale:*&self->_scale[4]];
-      [(__CFString *)v20 dataUsingEncoding:4];
+      v21 = [objc_opt_class() headerByApplyingScale:*&self->_scale[4]];
+      [(__CFString *)v21 dataUsingEncoding:4];
     }
 
     else
     {
-      v20 = @"ERROR";
+      v21 = @"ERROR";
       [@"ERROR" dataUsingEncoding:4];
     }
   }
 
   else
   {
-    v20 = [objc_opt_class() stickFigureHeaderByApplyingScale:*&self->_scale[4]];
-    [(__CFString *)v20 dataUsingEncoding:4];
+    v21 = [objc_opt_class() stickFigureHeaderByApplyingScale:*&self->_scale[4]];
+    [(__CFString *)v21 dataUsingEncoding:4];
   }
   v5 = ;
   [v3 write:objc_msgSend(v5 maxLength:{"bytes"), objc_msgSend(v5, "length")}];
@@ -100,9 +100,9 @@
   [v3 close];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   tmpFilePath = self->_tmpFilePath;
-  v21 = 0;
-  [defaultManager removeItemAtPath:tmpFilePath error:&v21];
-  v12 = v21;
+  v22 = 0;
+  [defaultManager removeItemAtPath:tmpFilePath error:&v22];
+  v12 = v22;
 
   if (v12)
   {
@@ -111,36 +111,36 @@
       [ARBVHExporter stop];
     }
 
-    v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v14 = _ARLogGeneral();
-    v15 = v14;
-    if (v13 == 1)
+    v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v15 = _ARLogGeneral(v13);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138543874;
-        v23 = v17;
-        v24 = 2048;
+        v24 = v18;
+        v25 = 2048;
         selfCopy2 = self;
-        v26 = 2112;
-        v27 = v12;
-        _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not delete temporary file: %@", buf, 0x20u);
+        v27 = 2112;
+        v28 = v12;
+        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not delete temporary file: %@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
       *buf = 138543874;
-      v23 = v19;
-      v24 = 2048;
+      v24 = v20;
+      v25 = 2048;
       selfCopy2 = self;
-      v26 = 2112;
-      v27 = v12;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not delete temporary file: %@", buf, 0x20u);
+      v27 = 2112;
+      v28 = v12;
+      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not delete temporary file: %@", buf, 0x20u);
     }
   }
 }
@@ -159,15 +159,15 @@
   exportType = self->_exportType;
   if ((exportType - 1) < 2)
   {
-    [v74 transform];
+    objc_msgSend_transform(v74);
     v71 = v6;
     v7 = *&self->_scale[4];
-    [v74 transform];
+    objc_msgSend_transform(v74);
     v70 = v8;
     v69 = *&self->_scale[4];
-    [v74 transform];
+    objc_msgSend_transform(v74);
     [v75 appendFormat:@"%f %f %f ", (v7 * v71), vmuls_lane_f32(v70, *&v69, 1), vmuls_lane_f32(*&self->_scale[12], v9, 2)];
-    [v74 transform];
+    objc_msgSend_transform(v74);
     v13 = AREulerAnglesFromMatrix(v10, v11, v12);
     v14 = *&v13 * 0.318309886 * 180.0;
     v15 = *(&v13 + 1) * 0.318309886 * 180.0;
@@ -253,7 +253,7 @@ LABEL_7:
     jointCount2 = [v41 jointCount];
     v90 = 0uLL;
     v91 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v90, joints, joints2 + 8 * jointCount2, (joints2 + 8 * jointCount2 - joints) >> 3);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v90, joints, (joints2 + 8 * jointCount2), (joints2 + 8 * jointCount2 - joints) >> 3);
     if (__p[0])
     {
       __p[1] = __p[0];

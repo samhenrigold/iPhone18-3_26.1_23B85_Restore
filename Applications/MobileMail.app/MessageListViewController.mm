@@ -1957,8 +1957,8 @@ LABEL_5:
 {
   swift_getObjectType();
   _objc_retain(self);
-  _convertObjCBoolToBool(_:)();
-  sub_1000207D0();
+  v4 = _convertObjCBoolToBool(_:)();
+  sub_1000207D0(v4 & 1);
   _objc_release(self);
 }
 
@@ -2392,10 +2392,10 @@ LABEL_18:
     v6 = [v5 localizedStringForKey:@"NO_SEARCH_RESULTS" value:&stru_100662A88 table:@"Main"];
 LABEL_3:
     v7 = v6;
-LABEL_19:
+LABEL_20:
 
     v4 = v7;
-LABEL_20:
+LABEL_21:
   }
 
   else
@@ -2408,61 +2408,66 @@ LABEL_20:
       mailboxes = [(MessageListViewController *)self mailboxes];
       v5 = [mailboxes ef_firstObjectPassingTest:&stru_100652338];
 
-      switch([v5 smartMailboxType])
+      smartMailboxType = [v5 smartMailboxType];
+      v12 = @"No Messages to Send Later";
+      switch(smartMailboxType)
       {
         case 0uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_VIP_MAIL" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 1uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_FLAGGED_MAIL" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 2uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_UNREAD_MAIL" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 3uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_MESSAGES_TO_ME" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 4uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_MESSAGES_WITH_ATTACHMENTS" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 5uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_IMPORTANT_MAIL" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 6uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_MESSAGES_TODAY" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 7uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_MUTED_MAIL" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 9uLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_MESSAGES_READ_LATER" value:&stru_100662A88 table:@"Main"];
-          goto LABEL_18;
-        case 0xAuLL:
-          v11 = +[NSBundle mainBundle];
-          v12 = [v11 localizedStringForKey:@"NO_MESSAGES_FOLLOW_UP" value:&stru_100662A88 table:@"Main"];
-LABEL_18:
-          v7 = v12;
-
-          v4 = v11;
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_VIP_MAIL" value:&stru_100662A88 table:@"Main"];
           goto LABEL_19;
+        case 1uLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_FLAGGED_MAIL" value:&stru_100662A88 table:@"Main"];
+          goto LABEL_19;
+        case 2uLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_UNREAD_MAIL" value:&stru_100662A88 table:@"Main"];
+          goto LABEL_19;
+        case 3uLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_MESSAGES_TO_ME" value:&stru_100662A88 table:@"Main"];
+          goto LABEL_19;
+        case 4uLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_MESSAGES_WITH_ATTACHMENTS" value:&stru_100662A88 table:@"Main"];
+          goto LABEL_19;
+        case 5uLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_IMPORTANT_MAIL" value:&stru_100662A88 table:@"Main"];
+          goto LABEL_19;
+        case 6uLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_MESSAGES_TODAY" value:&stru_100662A88 table:@"Main"];
+          goto LABEL_19;
+        case 7uLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_MUTED_MAIL" value:&stru_100662A88 table:@"Main"];
+          goto LABEL_19;
+        case 9uLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_MESSAGES_READ_LATER" value:&stru_100662A88 table:@"Main"];
+          goto LABEL_19;
+        case 0xAuLL:
+          v13 = +[NSBundle mainBundle];
+          v14 = [v13 localizedStringForKey:@"NO_MESSAGES_FOLLOW_UP" value:&stru_100662A88 table:@"Main"];
+LABEL_19:
+          v7 = v14;
+
+          v4 = v13;
+          goto LABEL_20;
         case 0xBuLL:
+          goto LABEL_11;
         case 0xCuLL:
-          v6 = sub_10016D69C();
+          v12 = @"No Messages for Unsubscribing";
+LABEL_11:
+          v6 = sub_10016D69C(v12);
           goto LABEL_3;
         case 0xEuLL:
           v6 = sub_10016D6D8();
           goto LABEL_3;
         default:
-          goto LABEL_20;
+          goto LABEL_21;
       }
     }
   }
@@ -9373,9 +9378,9 @@ LABEL_15:
 - (void)validateCommand:(id)command
 {
   commandCopy = command;
-  v42.receiver = self;
-  v42.super_class = MessageListViewController;
-  [(MessageListViewController *)&v42 validateCommand:commandCopy];
+  v41.receiver = self;
+  v41.super_class = MessageListViewController;
+  [(MessageListViewController *)&v41 validateCommand:commandCopy];
   action = [commandCopy action];
   v6 = action;
   if (action == "delete:")
@@ -9398,10 +9403,10 @@ LABEL_15:
 LABEL_28:
     if (_hasSelectedMessages)
     {
-      goto LABEL_65;
+      goto LABEL_67;
     }
 
-    goto LABEL_55;
+    goto LABEL_57;
   }
 
   if (action == "_archiveShortcutInvoked:")
@@ -9444,9 +9449,9 @@ LABEL_28:
       if ([currentMessageListItemSelection isSelectAll])
       {
         propertyList = currentMessageListItemSelection;
-LABEL_64:
+LABEL_66:
 
-        goto LABEL_65;
+        goto LABEL_67;
       }
 
       conversationViewController = [(MessageListViewController *)self conversationViewController];
@@ -9455,8 +9460,8 @@ LABEL_64:
       v34 = [MSMessageListItemSelection alloc];
       if (referenceMessageListItem)
       {
-        v49 = referenceMessageListItem;
-        v35 = [NSArray arrayWithObjects:&v49 count:1];
+        v48 = referenceMessageListItem;
+        v35 = [NSArray arrayWithObjects:&v48 count:1];
       }
 
       else
@@ -9471,9 +9476,9 @@ LABEL_64:
       }
     }
 
-LABEL_63:
+LABEL_65:
 
-    goto LABEL_64;
+    goto LABEL_66;
   }
 
   if (action == "_markAllAsReadCommandInvoked:")
@@ -9500,7 +9505,7 @@ LABEL_63:
     v32 = ;
     [commandCopy setTitle:v32];
     referenceMessageListItem = v32;
-    goto LABEL_63;
+    goto LABEL_65;
   }
 
   if (action == "selectAll:")
@@ -9514,9 +9519,9 @@ LABEL_63:
     messageListSelectionModel2 = [(MessageListViewController *)self messageListSelectionModel];
     if ([messageListSelectionModel2 count] > 1)
     {
-LABEL_54:
+LABEL_56:
 
-      goto LABEL_55;
+      goto LABEL_57;
     }
 
     isEditing = [(MessageListViewController *)self isEditing];
@@ -9524,25 +9529,32 @@ LABEL_54:
 LABEL_31:
     if ((isEditing & 1) == 0)
     {
-      goto LABEL_65;
+      goto LABEL_67;
     }
 
-LABEL_55:
+LABEL_57:
     [commandCopy setAttributes:1];
-    goto LABEL_65;
+    goto LABEL_67;
   }
 
   if (action == "_openMessageCommandInvoked:")
   {
-    [(MessageListViewController *)self _shouldUsePluralPrompt];
-    v36 = sub_10016D69C();
-    v37 = v36;
+    if ([(MessageListViewController *)self _shouldUsePluralPrompt])
+    {
+      sub_10016D69C(@"Open Messages");
+    }
+
+    else
+    {
+      sub_10016D69C(@"Open Message");
+    }
+    v36 = ;
     [commandCopy setTitle:v36];
 
     messageListSelectionModel2 = [(MessageListViewController *)self messageListSelectionModel];
     if ([messageListSelectionModel2 isSelectAll])
     {
-      goto LABEL_54;
+      goto LABEL_56;
     }
 
     isEditing = [(MessageListViewController *)self shouldDisplayGroupedSenders];
@@ -9562,7 +9574,7 @@ LABEL_55:
         v8 = off_100651050;
       }
 
-      v41 = *v8;
+      v40 = *v8;
       v9 = [propertyList objectForKeyedSubscript:?];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -9589,38 +9601,38 @@ LABEL_55:
 
         if (referenceMessageListItem)
         {
-          goto LABEL_62;
+          goto LABEL_64;
         }
 
-        goto LABEL_59;
+        goto LABEL_61;
       }
     }
 
     v14 = 0;
-LABEL_59:
-    v38 = +[MessageListViewController log];
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+LABEL_61:
+    v37 = +[MessageListViewController log];
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
       *buf = 138412802;
-      v44 = v40;
-      v45 = 2048;
+      v43 = v39;
+      v44 = 2048;
       selfCopy = self;
-      v47 = 2114;
-      v48 = propertyList;
-      _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "<%@: %p> Unexpected request to validate favorite shortcut. plist = %{public}@", buf, 0x20u);
+      v46 = 2114;
+      v47 = propertyList;
+      _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "<%@: %p> Unexpected request to validate favorite shortcut. plist = %{public}@", buf, 0x20u);
     }
 
     referenceMessageListItem = 0;
-LABEL_62:
+LABEL_64:
     [commandCopy setTitle:referenceMessageListItem];
     [commandCopy setImage:v14];
 
-    goto LABEL_63;
+    goto LABEL_65;
   }
 
-LABEL_65:
+LABEL_67:
 }
 
 - (void)_refresh:(id)_refresh
@@ -13225,8 +13237,7 @@ LABEL_15:
     {
       v26 = sub_10048A100(self);
       [v26 preferredHeight];
-      UIRoundToViewScale();
-      v28 = v27;
+      v28 = UIRoundToViewScale(v27);
       [(MessageListViewController *)self setPreferredFocusBarHeight:?];
       v29 = v28 + 0.0;
     }

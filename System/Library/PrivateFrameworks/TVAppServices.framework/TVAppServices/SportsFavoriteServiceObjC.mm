@@ -19,15 +19,16 @@
     swift_once();
   }
 
-  sub_26CD3A99C();
+  v1 = qword_280BBCBD0;
+  v2 = sub_26CD3A99C();
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2804BCC00, &unk_26CD3C660);
-  v0 = swift_allocObject();
-  *(v0 + 16) = xmmword_26CD3C1E0;
-  *(v0 + 56) = MEMORY[0x277D837D0];
-  *(v0 + 64) = sub_26CC19E10();
-  *(v0 + 32) = 0xD000000000000038;
-  *(v0 + 40) = 0x800000026CD4E6D0;
-  sub_26CD3A3DC();
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_26CD3C1E0;
+  *(v3 + 56) = MEMORY[0x277D837D0];
+  *(v3 + 64) = sub_26CC19E10();
+  *(v3 + 32) = 0xD000000000000038;
+  *(v3 + 40) = 0x800000026CD4E6D0;
+  sub_26CD3A3DC(v2, &dword_26CC14000, v1, "%@", 2, 2, v3, 1, 2);
 
   if (qword_280BBB2D0 != -1)
   {

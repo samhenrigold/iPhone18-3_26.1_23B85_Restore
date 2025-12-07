@@ -55,12 +55,13 @@
 
   v8 = (&self->super.isa + OBJC_IVAR___NotificationAgent_callback);
   v9 = *(&self->super.isa + OBJC_IVAR___NotificationAgent_callback);
+  v10 = *&self->manager[OBJC_IVAR___NotificationAgent_callback];
   *v8 = 0;
   v8[1] = 0;
-  sub_224512308(v9);
-  v10.receiver = self;
-  v10.super_class = type metadata accessor for NotificationAgent();
-  [(NotificationAgent *)&v10 dealloc];
+  sub_224512308(v9, v10);
+  v11.receiver = self;
+  v11.super_class = type metadata accessor for NotificationAgent(0);
+  [(NotificationAgent *)&v11 dealloc];
 }
 
 - (void)stateEventWithInfo:(id)info connectedState:(int64_t)state dockState:(int64_t)dockState trackingButtonState:(int64_t)buttonState

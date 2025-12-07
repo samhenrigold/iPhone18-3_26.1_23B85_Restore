@@ -2,10 +2,10 @@
 - (_NUIViewContainerViewInfo)effectiveAlignmentRectInsets;
 - (_NUIViewContainerViewInfo)setCurrentEffectiveLayoutSizeFittingSizeShouldNotBeCached;
 - (double)_didInvalidateIntrinsicContentSize;
-- (uint64_t)effectiveBaselineOffsetFromContentBottom;
-- (uint64_t)effectiveFirstBaselineOffsetFromContentTop;
 - (uint64_t)systemSpacingToAdjecentSiblingView:()NUISubclassHelpers axis:baselineRelative:multiplier:;
 - (uint64_t)systemSpacingToSuperView:()NUISubclassHelpers edge:baselineRelative:multiplier:;
+- (void)effectiveBaselineOffsetFromContentBottom;
+- (void)effectiveFirstBaselineOffsetFromContentTop;
 @end
 
 @implementation UIView(NUISubclassHelpers)
@@ -82,7 +82,7 @@
   return result;
 }
 
-- (uint64_t)effectiveFirstBaselineOffsetFromContentTop
+- (void)effectiveFirstBaselineOffsetFromContentTop
 {
   result = [self effectiveFirstBaselineOffsetFromTop];
   v4 = v3;
@@ -105,7 +105,7 @@
   return result;
 }
 
-- (uint64_t)effectiveBaselineOffsetFromContentBottom
+- (void)effectiveBaselineOffsetFromContentBottom
 {
   result = [self effectiveBaselineOffsetFromBottom];
   v4 = v3;
@@ -176,7 +176,7 @@
         goto LABEL_20;
       }
 
-      return [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"Invalid edge %lu", a4}];
+      return [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"Invalid edge %lu", a5, a4}];
     }
 
     v10 = a5 == 0;
@@ -226,7 +226,7 @@ LABEL_17:
 
   if (a4 != 2)
   {
-    return [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"Invalid edge %lu", a4}];
+    return [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"Invalid edge %lu", a5, a4}];
   }
 
   v7 = 1;

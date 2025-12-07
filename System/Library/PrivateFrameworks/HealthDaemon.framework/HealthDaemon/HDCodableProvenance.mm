@@ -174,49 +174,48 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_originBuild)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sourceUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_deviceUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sourceVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_originProductType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_timeZoneName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    originMajorVersion = self->_originMajorVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -235,22 +234,20 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  originMinorVersion = self->_originMinorVersion;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_16:
-    originPatchVersion = self->_originPatchVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_17:
   if (self->_contributorUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -466,7 +463,6 @@ LABEL_5:
     }
   }
 
-  v11 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_originMajorVersion != *(equalCopy + 8))
@@ -478,7 +474,7 @@ LABEL_5:
   else if (*(equalCopy + 80))
   {
 LABEL_31:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_32;
   }
 
@@ -511,17 +507,17 @@ LABEL_31:
   contributorUUID = self->_contributorUUID;
   if (contributorUUID | *(equalCopy + 1))
   {
-    v13 = [(NSData *)contributorUUID isEqual:?];
+    v12 = [(NSData *)contributorUUID isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_32:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

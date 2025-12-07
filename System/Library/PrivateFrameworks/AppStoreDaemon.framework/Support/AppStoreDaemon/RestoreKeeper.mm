@@ -60,7 +60,7 @@
 
 - (void)handleActiveRestoreWithCoordinator:(IXRestoringAppInstallCoordinator *)coordinator userInitiated:(BOOL)initiated logKey:(_TtC9appstored6LogKey *)key completionHandler:(id)handler
 {
-  v11 = sub_100085D40(&qword_10059C3E0);
+  v11 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
@@ -101,7 +101,7 @@
 
 - (void)installForBundleID:(NSString *)d completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -142,7 +142,7 @@
   ObjectType = swift_getObjectType();
   v4 = self + OBJC_IVAR____TtC9appstored13RestoreKeeper_lockedRestores;
   *v4 = 0;
-  *(v4 + 1) = &_swiftEmptyDictionarySingleton;
+  *(v4 + 1) = _swiftEmptyDictionarySingleton;
   v6.receiver = self;
   v6.super_class = ObjectType;
   return [(RestoreKeeper *)&v6 init];

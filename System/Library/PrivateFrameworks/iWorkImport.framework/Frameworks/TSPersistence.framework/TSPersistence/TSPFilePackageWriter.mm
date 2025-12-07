@@ -1,6 +1,8 @@
 @interface TSPFilePackageWriter
 - (TSPFilePackageWriter)initWithURL:(id)l documentTargetURL:(id)rL relativeURLForExternalData:(id)data packageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties documentMetadata:(id)metadata fileFormatVersion:(unint64_t)version updateType:(int64_t)self0 cloneMode:(BOOL)self1 documentSaveValidationPolicy:(id)self2 encryptionKey:(id)self3 originalDocumentPackage:(id)self4 originalSupportPackage:(id)self5 fileCoordinatorDelegate:(id)self6 progress:(id)self7 error:(id *)self8;
 - (id)componentZipArchiveWriter;
+- (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate;
+- (id)newRawDataWriteChannelForRelativePath:(id)path originalLastModificationDate:(id)date originalSize:(unint64_t)size originalCRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate;
 - (id)zipArchiveWriter;
 - (void)closeWithQueue:(id)queue completion:(id)completion;
 - (void)finalizeComponentAndDataSectionWithCompletionHandler:(id)handler;
@@ -118,6 +120,44 @@ LABEL_17:
   return v37;
 }
 
+- (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate
+{
+  identifierCopy = identifier;
+  propertiesCopy = properties;
+  keyCopy = key;
+  delegateCopy = delegate;
+  v14 = [TSPFilePackage alloc];
+  isLazyLoading = objc_msgSend_initWithPackageIdentifier_documentProperties_fileFormatVersion_decryptionKey_fileCoordinatorDelegate_isLazyLoading_(v14, v15, identifierCopy, propertiesCopy, version, keyCopy, delegateCopy, 0);
+
+  return isLazyLoading;
+}
+
+- (id)newRawDataWriteChannelForRelativePath:(id)path originalLastModificationDate:(id)date originalSize:(unint64_t)size originalCRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate
+{
+  modificationDateCopy = modificationDate;
+  v8 = *&c;
+  pathCopy = path;
+  dateCopy = date;
+  if (!pathCopy)
+  {
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPFilePackageWriter newRawDataWriteChannelForRelativePath:originalLastModificationDate:originalSize:originalCRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]");
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPFilePackageWriter.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v20, v17, v19, 116, 0, "invalid nil value for '%{public}s'", "path");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22);
+  }
+
+  v23 = objc_msgSend_zipArchiveWriter(self, v13, v14);
+  objc_msgSend_beginEntryWithName_force32BitSize_lastModificationDate_size_CRC_forceCalculatingSizeAndCRCForPreservingLastModificationDate_(v23, v24, pathCopy, 0, dateCopy, size, v8, modificationDateCopy);
+
+  v25 = [TSPZipFileWriteChannel alloc];
+  v28 = objc_msgSend_zipArchiveWriter(self, v26, v27);
+  v30 = objc_msgSend_initWithArchiveWriter_(v25, v29, v28);
+
+  return v30;
+}
+
 - (id)componentZipArchiveWriter
 {
   delayedZipArchiveWriter = self->_delayedZipArchiveWriter;
@@ -222,37 +262,37 @@ LABEL_7:
 
 - (void)willWriteData:(id)data
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = dataCopy;
   if (self->_delayedZipArchiveWriter)
   {
-    v34 = dataCopy;
+    v33 = dataCopy;
     v6 = objc_alloc(MEMORY[0x277CBEB38]);
     v9 = objc_msgSend_count(v5, v7, v8);
     v11 = objc_msgSend_initWithCapacity_(v6, v10, v9);
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v12 = v5;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v35, v39, 16);
-    v33 = 144;
+    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v34, v38, 16);
+    v32 = 144;
     v17 = 0;
     if (v16)
     {
-      v18 = *v36;
+      v18 = *v35;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v36 != v18)
+          if (*v35 != v18)
           {
             objc_enumerationMutation(v12);
           }
 
-          v20 = *(*(&v35 + 1) + 8 * i);
-          v21 = objc_msgSend_lengthIfLocal(v20, v14, v15, v33);
+          v20 = *(*(&v34 + 1) + 8 * i);
+          v21 = objc_msgSend_lengthIfLocal(v20, v14, v15, v32);
           v24 = objc_msgSend_packageLocator(v20, v22, v23);
           v25 = v24 == 0;
 
@@ -265,24 +305,22 @@ LABEL_7:
           v17 += v21;
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v35, v39, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v34, v38, 16);
       }
 
       while (v16);
     }
 
-    if (v17 < objc_msgSend_archiveLength(*(&self->super.super.isa + v33), v28, v29))
+    if (v17 < objc_msgSend_archiveLength(*(&self->super.super.isa + v32), v28, v29))
     {
       self->_onlyWriteToDelayedZipArchive = 1;
       objc_msgSend_removeAllObjects(v11, v30, v31);
     }
 
-    objc_msgSend_truncateZipAtFirstDeletedData_(self, v30, v11, v33);
+    objc_msgSend_truncateZipAtFirstDeletedData_(self, v30, v11, v32);
 
-    v5 = v34;
+    v5 = v33;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finalizeComponentAndDataSectionWithCompletionHandler:(id)handler

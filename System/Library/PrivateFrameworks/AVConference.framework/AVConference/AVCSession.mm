@@ -211,7 +211,7 @@ LABEL_11:
   return v3;
 }
 
-uint64_t __27__AVCSession_configuration__block_invoke(uint64_t a1)
+void *__27__AVCSession_configuration__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedConfiguration];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -285,7 +285,7 @@ LABEL_11:
     }
   }
 
-  [(AVCSessionParticipant *)self->_localParticipant setAudioMuted:mutedCopy, *v13, *&v13[16], v14, selfCopy, v16, v17];
+  [(AVCSessionParticipant *)self->_localParticipant setAudioMuted:mutedCopy, *v13, *&v13[8], v14, selfCopy, v16, v17];
 }
 
 - (void)setVolume:(float)volume
@@ -355,7 +355,7 @@ LABEL_11:
   }
 
   *&v6 = volume;
-  [(AVCSessionParticipant *)self->_localParticipant setVolume:v6, *v14, *&v14[16], v15, selfCopy, v17];
+  [(AVCSessionParticipant *)self->_localParticipant setVolume:v6, *v14, *&v14[8], v15, selfCopy, v17];
 }
 
 - (void)setOneToOneEnabled:(BOOL)enabled
@@ -702,7 +702,7 @@ LABEL_11:
     }
   }
 
-  [(AVCSessionParticipant *)self->_localParticipant setAudioEnabled:enabledCopy, *v13, *&v13[16], v14, selfCopy, v16, v17];
+  [(AVCSessionParticipant *)self->_localParticipant setAudioEnabled:enabledCopy, *v13, *&v13[8], v14, selfCopy, v16, v17];
 }
 
 - (void)setVideoEnabled:(BOOL)enabled
@@ -772,7 +772,7 @@ LABEL_11:
     }
   }
 
-  [(AVCSessionParticipant *)self->_localParticipant setVideoEnabled:enabledCopy, *v13, *&v13[16], v14, selfCopy, v16, v17];
+  [(AVCSessionParticipant *)self->_localParticipant setVideoEnabled:enabledCopy, *v13, *&v13[8], v14, selfCopy, v16, v17];
 }
 
 - (void)setScreenEnabled:(BOOL)enabled
@@ -842,7 +842,7 @@ LABEL_11:
     }
   }
 
-  [(AVCSessionParticipant *)self->_localParticipant setScreenEnabled:enabledCopy, *v13, *&v13[16], v14, selfCopy, v16, v17];
+  [(AVCSessionParticipant *)self->_localParticipant setScreenEnabled:enabledCopy, *v13, *&v13[8], v14, selfCopy, v16, v17];
 }
 
 - (void)setAudioPaused:(BOOL)paused
@@ -912,7 +912,7 @@ LABEL_11:
     }
   }
 
-  [(AVCSessionParticipant *)self->_localParticipant setAudioPaused:pausedCopy, *v13, *&v13[16], v14, selfCopy, v16, v17];
+  [(AVCSessionParticipant *)self->_localParticipant setAudioPaused:pausedCopy, *v13, *&v13[8], v14, selfCopy, v16, v17];
 }
 
 - (void)setVideoPaused:(BOOL)paused
@@ -982,7 +982,7 @@ LABEL_11:
     }
   }
 
-  [(AVCSessionParticipant *)self->_localParticipant setVideoPaused:pausedCopy, *v13, *&v13[16], v14, selfCopy, v16, v17];
+  [(AVCSessionParticipant *)self->_localParticipant setVideoPaused:pausedCopy, *v13, *&v13[8], v14, selfCopy, v16, v17];
 }
 
 - (NSData)negotiationData
@@ -1092,7 +1092,7 @@ LABEL_11:
 
 - (BOOL)isAudioMuted
 {
-  if (VCFeatureFlagManager_SessionBasedMutingEnabled())
+  if (VCFeatureFlagManager_SessionBasedMutingEnabled(self))
   {
 
     return +[AVAudioClient isMicrophoneMuted];
@@ -1126,7 +1126,7 @@ LABEL_11:
   return v3;
 }
 
-uint64_t __31__AVCSession_isOneToOneEnabled__block_invoke(uint64_t a1)
+void *__31__AVCSession_isOneToOneEnabled__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) isOneToOneModeEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1160,26 +1160,26 @@ uint64_t __31__AVCSession_isOneToOneEnabled__block_invoke(uint64_t a1)
   return result;
 }
 
-__n128 __30__AVCSession_presentationInfo__block_invoke(uint64_t a1)
+__n128 __30__AVCSession_presentationInfo__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(*(a1 + 32) + 128);
-  if (v2)
+  v3 = *(*(a1 + 32) + 128);
+  if (v3)
   {
-    [v2 avcSessionPresentationInfo];
+    objc_msgSend_avcSessionPresentationInfo(v3, a2);
   }
 
   else
   {
-    v6 = 0u;
     v7 = 0u;
-    v5 = 0u;
+    v8 = 0u;
+    v6 = 0u;
   }
 
-  v3 = *(*(a1 + 40) + 8);
-  result = v7;
-  v3[2] = v5;
-  v3[3] = v6;
-  v3[4] = v7;
+  v4 = *(*(a1 + 40) + 8);
+  result = v8;
+  v4[2] = v6;
+  v4[3] = v7;
+  v4[4] = v8;
   return result;
 }
 
@@ -1259,51 +1259,51 @@ __n128 __30__AVCSession_presentationInfo__block_invoke(uint64_t a1)
   }
 }
 
-void __34__AVCSession_setPresentationInfo___block_invoke(uint64_t a1)
+void __34__AVCSession_setPresentationInfo___block_invoke(uint64_t a1, const char *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  *&v2 = -1;
-  *(&v2 + 1) = -1;
-  v8 = v2;
-  v9 = v2;
-  *&v10 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v3 = *(*(a1 + 32) + 128);
-  if (v3)
+  v13 = *MEMORY[0x1E69E9840];
+  *&v3 = -1;
+  *(&v3 + 1) = -1;
+  v9 = v3;
+  v10 = v3;
+  *&v11 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v4 = *(*(a1 + 32) + 128);
+  if (v4)
   {
-    [v3 avcSessionPresentationInfo];
+    objc_msgSend_avcSessionPresentationInfo(v4, a2, v9, v10, v11);
   }
 
   else
   {
-    v9 = 0u;
     v10 = 0u;
-    v8 = 0u;
+    v11 = 0u;
+    v9 = 0u;
   }
 
-  if (memcmp(&v8, (a1 + 40), 0x30uLL))
+  if (memcmp(&v9, (a1 + 40), 0x30uLL))
   {
-    v4 = *(a1 + 56);
+    v5 = *(a1 + 56);
     *buf = *(a1 + 40);
-    *&buf[16] = v4;
+    *&buf[16] = v5;
     *&buf[32] = *(a1 + 72);
     [*(*(a1 + 32) + 128) setAvcSessionPresentationInfo:buf];
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v5 = VRTraceErrorLogLevelToCSTR();
-      v6 = *MEMORY[0x1E6986650];
+      v6 = VRTraceErrorLogLevelToCSTR();
+      v7 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [*(*(a1 + 32) + 128) description];
+        v8 = [*(*(a1 + 32) + 128) description];
         *buf = 136315906;
-        *&buf[4] = v5;
+        *&buf[4] = v6;
         *&buf[12] = 2080;
         *&buf[14] = "[AVCSession setPresentationInfo:]_block_invoke";
         *&buf[22] = 1024;
         *&buf[24] = 310;
         *&buf[28] = 2112;
-        *&buf[30] = v7;
-        _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [AVC SPATIAL AUDIO] Presentation info updated: %@", buf, 0x26u);
+        *&buf[30] = v8;
+        _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [AVC SPATIAL AUDIO] Presentation info updated: %@", buf, 0x26u);
       }
     }
   }
@@ -1610,7 +1610,7 @@ LABEL_11:
     }
   }
 
-  [(AVCSessionParticipant *)self->_localParticipant setMediaState:v5 forMediaType:v4, *v15, *&v15[16], v16, selfCopy, v18, v19];
+  [(AVCSessionParticipant *)self->_localParticipant setMediaState:v5 forMediaType:v4, *v15, *&v15[8], v16, selfCopy, v18, v19];
 }
 
 - (void)addParticipant:(id)participant
@@ -1813,7 +1813,7 @@ LABEL_11:
         if ([*(a1 + 32) validateParticipantToAdd:v21])
         {
           [*(*(a1 + 32) + 16) setObject:v21 forKeyedSubscript:{objc_msgSend(v21, "uuid")}];
-          [v13 addObject:{objc_msgSend(*(v17 + 3872), "dictionaryWithDictionary:", objc_msgSend(v21, "config"))}];
+          [v13 addObject:{objc_msgSend(*(v17 + 3872), "dictionaryWithDictionary:", objc_msgSend_config(v21))}];
         }
 
         ++v20;
@@ -2206,9 +2206,9 @@ LABEL_11:
   }
 
 LABEL_12:
-  [*(*(a1 + 32) + 24) setSharedXPCConnection:{*(*(a1 + 32) + 80), *v16, *&v16[16], v17, v18}];
+  [*(*(a1 + 32) + 24) setSharedXPCConnection:{*(*(a1 + 32) + 80), *v16, *&v16[8], v17, v18}];
   v21 = @"vcSessionLocalParticipantConfig";
-  v22[0] = [*(*(a1 + 32) + 24) config];
+  v22[0] = objc_msgSend_config(*(*(a1 + 32) + 24));
   [*(*(a1 + 32) + 80) sendMessageAsync:"vcSessionStart" arguments:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v22, &v21, 1)}];
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCSession-start");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
@@ -3412,7 +3412,7 @@ LABEL_14:
   }
 
 LABEL_15:
-  v15 = [a2 objectForKeyedSubscript:{@"vcSessionSucceeded", *v19, *&v19[16], v20, v21}];
+  v15 = [a2 objectForKeyedSubscript:{@"vcSessionSucceeded", *v19, *&v19[8], v20, v21}];
   v16 = [a2 objectForKeyedSubscript:@"vcSessionParticipantID"];
   v17 = [objc_msgSend(v6 "remoteParticipantsMap")];
   [v17 setSharedXPCConnection:0];
@@ -3538,35 +3538,35 @@ LABEL_15:
   dispatch_async(v19, block);
 }
 
-uint64_t __44__AVCSession_registerBlocksForNotifications__block_invoke_165(uint64_t a1)
+uint64_t __44__AVCSession_registerBlocksForNotifications__block_invoke_165(uint64_t a1, const char *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = [*(a1 + 32) configuration];
+  v24 = *MEMORY[0x1E69E9840];
+  v3 = objc_msgSend_configuration(*(a1 + 32), a2);
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCSession-didUpdateConfiguration");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v3 = VRTraceErrorLogLevelToCSTR();
-    v4 = *MEMORY[0x1E6986650];
+    v4 = VRTraceErrorLogLevelToCSTR();
+    v5 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 48);
-      v6 = *(a1 + 32);
-      v7 = *(a1 + 40);
-      v9 = 136316674;
-      v10 = v3;
-      v11 = 2080;
-      v12 = "[AVCSession registerBlocksForNotifications]_block_invoke";
-      v13 = 1024;
-      v14 = 895;
-      v15 = 2048;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v2;
-      v19 = 1024;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&dword_1DB56E000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ AVCSession-didUpdateConfiguration (%p) configuration=%@, didSucceed=%{BOOL}d, error=%@", &v9, 0x40u);
+      v6 = *(a1 + 48);
+      v7 = *(a1 + 32);
+      v8 = *(a1 + 40);
+      v10 = 136316674;
+      v11 = v4;
+      v12 = 2080;
+      v13 = "[AVCSession registerBlocksForNotifications]_block_invoke";
+      v14 = 1024;
+      v15 = 895;
+      v16 = 2048;
+      v17 = v7;
+      v18 = 2112;
+      v19 = v3;
+      v20 = 1024;
+      v21 = v6;
+      v22 = 2112;
+      v23 = v8;
+      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ AVCSession-didUpdateConfiguration (%p) configuration=%@, didSucceed=%{BOOL}d, error=%@", &v10, 0x40u);
     }
   }
 
@@ -5271,7 +5271,7 @@ LABEL_11:
   }
 
 LABEL_18:
-  [(NSMutableDictionary *)self->_participantsToAdd setObject:0 forKeyedSubscript:v6, *v32];
+  [(NSMutableDictionary *)self->_participantsToAdd setObject:0 forKeyedSubscript:v6, *v32, *&v32[8]];
   if (v5)
   {
 LABEL_19:
@@ -5280,7 +5280,7 @@ LABEL_19:
   }
 
 LABEL_21:
-  v28 = -[AVCSession newNSErrorWithErrorDictionary:](self, "newNSErrorWithErrorDictionary:", [result objectForKeyedSubscript:{@"vcSessionError", *v32}]);
+  v28 = -[AVCSession newNSErrorWithErrorDictionary:](self, "newNSErrorWithErrorDictionary:", [result objectForKeyedSubscript:{@"vcSessionError", *v32, *&v32[8]}]);
 LABEL_22:
   if (v28)
   {
@@ -5298,7 +5298,7 @@ LABEL_22:
     v5 = 0;
   }
 
-  [(AVCSession *)self completeAddParticipant:v20 didSucceed:v5 error:v28, *v32];
+  [(AVCSession *)self completeAddParticipant:v20 didSucceed:v5 error:v28, *v32, *&v32[8]];
 }
 
 - (void)negotiationDataForProtocolVersion:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)

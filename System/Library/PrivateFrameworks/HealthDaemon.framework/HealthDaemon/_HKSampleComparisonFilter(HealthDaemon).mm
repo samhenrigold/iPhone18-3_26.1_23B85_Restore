@@ -14,7 +14,7 @@
 
   if (v7)
   {
-    v8 = HDSampleEntityPredicateForStartDate(v4);
+    v8 = HDSampleEntityPredicateForStartDate(v4, value);
   }
 
   else
@@ -30,7 +30,7 @@
 
       if (v14)
       {
-        HDSampleEntityPredicateForStartDate(v4);
+        HDSampleEntityPredicateForStartDate(v4, v14);
       }
 
       else
@@ -47,7 +47,7 @@
 
     if (v16)
     {
-      HDSampleEntityPredicateForEndDate(v4);
+      HDSampleEntityPredicateForEndDate(v4, value);
     }
 
     else

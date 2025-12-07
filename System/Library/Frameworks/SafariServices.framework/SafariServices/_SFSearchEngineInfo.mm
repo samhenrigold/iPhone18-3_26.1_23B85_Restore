@@ -8,7 +8,7 @@
 {
   if ((isWebFilterEnabled_determinedWebFilterState & 1) == 0)
   {
-    if (WebContentAnalysisLibraryCore())
+    if (WebContentAnalysisLibraryCore(0))
     {
       v9 = 0;
       v10 = &v9;

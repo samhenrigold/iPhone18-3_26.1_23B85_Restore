@@ -60,27 +60,28 @@
 
 - (id)description
 {
-  assertionID = self->_assertionID;
-  NSAppendPrintF();
-  v3 = 0;
+  v12 = 0;
+  NSAppendPrintF(&v12, "CLinkAssertion '%@'", self->_assertionID);
+  v3 = v12;
   v4 = v3;
-  if (self->_destinationID)
+  destinationID = self->_destinationID;
+  if (destinationID)
   {
     v11 = v3;
-    destinationID = self->_destinationID;
-    NSAppendPrintF();
-    v5 = v11;
+    NSAppendPrintF(&v11, ", Dest '%@'", destinationID);
+    v6 = v11;
 
-    v4 = v5;
+    v4 = v6;
   }
 
   if (self->_identifier)
   {
     identifier = self->_identifier;
-    NSAppendPrintF();
-    v6 = v4;
+    v10 = v4;
+    NSAppendPrintF(&v10, ", UUID '%@'", identifier);
+    v7 = v10;
 
-    v4 = v6;
+    v4 = v7;
   }
 
   return v4;

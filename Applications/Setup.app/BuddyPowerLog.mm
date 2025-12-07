@@ -6,9 +6,9 @@
 
 + (BOOL)removeLog
 {
-  selfCopy = self;
-  v37 = a2;
-  v36 = 1;
+  v36[2] = self;
+  v36[1] = a2;
+  v36[0] = 1;
   v35 = container_system_group_path_for_identifier();
   v34 = [NSString stringWithUTF8String:v35];
   v33 = 0;
@@ -45,8 +45,8 @@
         v4 = 0;
       }
 
-      sub_100071CBC(v42, v4);
-      _os_log_error_impl(&_mh_execute_header, v30, v29, "Failed to find contents of power log path: %{public}@", v42, 0xCu);
+      sub_100071CBC(v40, v4);
+      _os_log_error_impl(&_mh_execute_header, v30, v29, "Failed to find contents of power log path: %{public}@", v40, 0xCu);
       if (v25)
       {
       }
@@ -57,7 +57,7 @@
     }
 
     objc_storeStrong(&v30, 0);
-    v39 = 0;
+    v37 = 0;
     v24 = 1;
   }
 
@@ -65,7 +65,7 @@
   {
     memset(__b, 0, sizeof(__b));
     v5 = v32;
-    v6 = [v5 countByEnumeratingWithState:__b objects:v41 count:16];
+    v6 = [v5 countByEnumeratingWithState:__b objects:v39 count:16];
     if (v6)
     {
       v7 = *__b[2];
@@ -113,8 +113,8 @@
                 v13 = 0;
               }
 
-              sub_10010DD40(v40, v12, v13);
-              _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to remove power log item at path %@: %{public}@", v40, 0x16u);
+              sub_10010DD40(v38, v12, v13);
+              _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to remove power log item at path %@: %{public}@", v38, 0x16u);
               if (v15)
               {
               }
@@ -130,20 +130,20 @@
           objc_storeStrong(&v21, 0);
         }
 
-        v6 = [v5 countByEnumeratingWithState:__b objects:v41 count:16];
+        v6 = [v5 countByEnumeratingWithState:__b objects:v39 count:16];
       }
 
       while (v6);
     }
 
-    v39 = 1;
+    v37 = 1;
     v24 = 1;
   }
 
   objc_storeStrong(&v32, 0);
   objc_storeStrong(&v33, 0);
   objc_storeStrong(&v34, 0);
-  return v39 & 1;
+  return v37 & 1;
 }
 
 @end

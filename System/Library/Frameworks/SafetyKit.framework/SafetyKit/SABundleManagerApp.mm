@@ -35,10 +35,10 @@
 
     if (!v6)
     {
-      v7 = sa_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sa_default_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(SABundleManagerApp *)v7 getLocalizedName];
+        [(SABundleManagerApp *)v8 getLocalizedName];
       }
     }
 
@@ -121,12 +121,13 @@ void __68__SABundleManagerApp_getLocalizedNameForPairedDeviceWithCompletion___bl
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sa_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sa_default_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __68__SABundleManagerApp_getLocalizedNameForPairedDeviceWithCompletion___block_invoke_2_cold_1(a1);
+      __68__SABundleManagerApp_getLocalizedNameForPairedDeviceWithCompletion___block_invoke_2_cold_1();
     }
   }
 
@@ -143,21 +144,17 @@ void __68__SABundleManagerApp_getLocalizedNameForPairedDeviceWithCompletion___bl
 
 - (void)getLocalizedName
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_23AA4D000, log, OS_LOG_TYPE_ERROR, "Unable to get Bundle for app with previous authorization: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_23AA4D000, log, OS_LOG_TYPE_ERROR, "Unable to get Bundle for app with previous authorization: %@", &v1, 0xCu);
 }
 
-void __68__SABundleManagerApp_getLocalizedNameForPairedDeviceWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __68__SABundleManagerApp_getLocalizedNameForPairedDeviceWithCompletion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

@@ -11,18 +11,18 @@
 
 - (VFXRemoteRendererProxy)init
 {
-  v10.receiver = self;
-  v10.super_class = VFXRemoteRendererProxy;
-  v5 = [(VFXRemoteRendererProxy *)&v10 init];
-  if (v5)
+  v8.receiver = self;
+  v8.super_class = VFXRemoteRendererProxy;
+  v4 = [(VFXRemoteRendererProxy *)&v8 init];
+  if (v4)
   {
-    v5->_decoder = objc_msgSend_remoteDecoder(VFXRenderer, v2, v3, v4);
-    v6 = objc_alloc_init(VFXRenderOptions);
-    v5->_renderOptions = v6;
-    objc_msgSend_setWaitUntilCompleted_(v6, v7, 1, v8);
+    v4->_decoder = objc_msgSend_remoteDecoder(VFXRenderer, v2, v3);
+    v5 = objc_alloc_init(VFXRenderOptions);
+    v4->_renderOptions = v5;
+    objc_msgSend_setWaitUntilCompleted_(v5, v6, 1);
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)dealloc
@@ -46,31 +46,31 @@
 {
   region = 0;
   v6 = xpc_shmem_map(buffer, &region);
-  v10 = objc_msgSend_device(self->_decoder, v7, v8, v9);
-  v12 = objc_msgSend_newBufferWithBytesNoCopy_length_options_deallocator_(v10, v11, region, v6, 0, &unk_1F24EC248);
-  v13 = MEMORY[0x1E696AEC0];
-  v17 = objc_msgSend_unsignedIntegerValue(d, v14, v15, v16);
-  v20 = objc_msgSend_stringWithFormat_(v13, v18, @"shared_%lx", v19, v17);
-  objc_msgSend_setLabel_(v12, v21, v20, v22);
-  v26 = objc_msgSend_resourceConsumer(self->_decoder, v23, v24, v25);
-  v30 = objc_msgSend_unsignedIntegerValue(d, v27, v28, v29);
-  objc_msgSend_remoteRegisterBuffer_remoteID_(v26, v31, v12, v30);
+  v9 = objc_msgSend_device(self->_decoder, v7, v8);
+  v11 = objc_msgSend_newBufferWithBytesNoCopy_length_options_deallocator_(v9, v10, region, v6, 0, &unk_1F24EC248);
+  v12 = MEMORY[0x1E696AEC0];
+  v15 = objc_msgSend_unsignedIntegerValue(d, v13, v14);
+  v17 = objc_msgSend_stringWithFormat_(v12, v16, @"shared_%lx", v15);
+  objc_msgSend_setLabel_(v11, v18, v17);
+  v21 = objc_msgSend_resourceConsumer(self->_decoder, v19, v20);
+  v24 = objc_msgSend_unsignedIntegerValue(d, v22, v23);
+  objc_msgSend_remoteRegisterBuffer_remoteID_(v21, v25, v11, v24);
 }
 
 - (void)destroyBufferWithRemoteID:(id)d
 {
-  v5 = objc_msgSend_resourceConsumer(self->_decoder, a2, d, v3);
-  v9 = objc_msgSend_unsignedIntegerValue(d, v6, v7, v8);
+  v4 = objc_msgSend_resourceConsumer(self->_decoder, a2, d);
+  v7 = objc_msgSend_unsignedIntegerValue(d, v5, v6);
 
-  MEMORY[0x1EEE66B58](v5, sel_remoteUnregisterBuffer_, v9, v10);
+  MEMORY[0x1EEE66B58](v4, sel_remoteUnregisterBuffer_, v7);
 }
 
 - (void)destroyTextureWithRemoteID:(id)d
 {
-  v5 = objc_msgSend_resourceConsumer(self->_decoder, a2, d, v3);
-  v9 = objc_msgSend_unsignedIntegerValue(d, v6, v7, v8);
+  v4 = objc_msgSend_resourceConsumer(self->_decoder, a2, d);
+  v7 = objc_msgSend_unsignedIntegerValue(d, v5, v6);
 
-  MEMORY[0x1EEE66B58](v5, sel_remoteUnregisterTexture_, v9, v10);
+  MEMORY[0x1EEE66B58](v4, sel_remoteUnregisterTexture_, v7);
 }
 
 @end

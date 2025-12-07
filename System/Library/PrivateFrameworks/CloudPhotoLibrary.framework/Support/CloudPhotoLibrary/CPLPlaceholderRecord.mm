@@ -72,23 +72,7 @@ LABEL_13:
     v10 = [[CKRecordID alloc] initWithRecordName:identifierCopy zoneID:dCopy];
     v11 = [[CKRecord alloc] initWithRecordType:v9 recordID:v10];
     relatedIdentifier = [(CPLPlaceholderRecord *)self relatedIdentifier];
-    if (!relatedIdentifier)
-    {
-      goto LABEL_6;
-    }
-
-    v13 = CKRecordTypeForCPLRecordChangeClass([(CPLPlaceholderRecord *)self relatedRecordClass]);
-    if (!v13)
-    {
-      goto LABEL_6;
-    }
-
-    v14 = v13;
-    v15 = [[CKRecordID alloc] initWithRecordName:relatedIdentifier zoneID:dCopy];
-    v16 = [[CKRecord alloc] initWithRecordType:v14 recordID:v15];
-    [recordClass setRelatedValueOnRecord:v11 fromRelatedRecord:v16];
-
-    if (v16)
+    if (relatedIdentifier && (CKRecordTypeForCPLRecordChangeClass(-[CPLPlaceholderRecord relatedRecordClass](self, "relatedRecordClass")), (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, v15 = [[CKRecordID alloc] initWithRecordName:relatedIdentifier zoneID:dCopy], v16 = objc_msgSend([CKRecord alloc], "initWithRecordType:recordID:", v14, v15), objc_msgSend(recordClass, "setRelatedValueOnRecord:fromRelatedRecord:", v11, v16), v15, v14, v16))
     {
       v20[0] = v11;
       v20[1] = v16;
@@ -97,7 +81,6 @@ LABEL_13:
 
     else
     {
-LABEL_6:
       v19 = v11;
       v17 = [NSArray arrayWithObjects:&v19 count:1];
     }

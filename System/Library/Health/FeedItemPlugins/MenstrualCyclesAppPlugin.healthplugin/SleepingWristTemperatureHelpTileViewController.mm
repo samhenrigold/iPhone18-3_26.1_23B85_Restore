@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SleepingWristTemperatureHelpTileViewController();
+  v4.super_class = type metadata accessor for SleepingWristTemperatureHelpTileViewController(0);
   v2 = v4.receiver;
   [(SleepingWristTemperatureHelpTileViewController *)&v4 viewDidLoad];
   v3 = OBJC_IVAR____TtC24MenstrualCyclesAppPlugin46SleepingWristTemperatureHelpTileViewController_didSubmitAnalyticsEventForView;

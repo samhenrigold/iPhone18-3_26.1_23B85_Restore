@@ -104,9 +104,10 @@
   v6 = [currentCalendar startOfDayForDate:startCopy];
 
   self->_firstDayOfMonthCellIndex = -1;
-  if ([(HKCalendarWeekView *)self supportsRTL])
+  supportsRTL = [(HKCalendarWeekView *)self supportsRTL];
+  if (supportsRTL)
   {
-    IsRightToLeft = HKUICalendarLocaleIsRightToLeft();
+    IsRightToLeft = HKUICalendarLocaleIsRightToLeft(supportsRTL, v8);
   }
 
   else
@@ -116,32 +117,32 @@
 
   if ([(NSMutableArray *)self->_dayCells count])
   {
-    v8 = 0;
-    v9 = -1;
+    v10 = 0;
+    v11 = -1;
     do
     {
-      v10 = v8;
+      v12 = v10;
       if (IsRightToLeft)
       {
-        v10 = [(NSMutableArray *)self->_dayCells count]+ v9;
+        v12 = [(NSMutableArray *)self->_dayCells count]+ v11;
       }
 
-      v11 = [(NSMutableArray *)self->_dayCells objectAtIndexedSubscript:v10];
-      v12 = [currentCalendar dateByAddingUnit:16 value:v8 toDate:v6 options:0];
-      v13 = [currentCalendar component:16 fromDate:v12];
-      if (v13 == 1)
+      v13 = [(NSMutableArray *)self->_dayCells objectAtIndexedSubscript:v12];
+      v14 = [currentCalendar dateByAddingUnit:16 value:v10 toDate:v6 options:0];
+      v15 = [currentCalendar component:16 fromDate:v14];
+      if (v15 == 1)
       {
-        self->_firstDayOfMonthCellIndex = v10;
-        [(HKCalendarMonthTitleFormatting *)self->_monthTitleView setDate:v12];
+        self->_firstDayOfMonthCellIndex = v12;
+        [(HKCalendarMonthTitleFormatting *)self->_monthTitleView setDate:v14];
       }
 
-      [v11 updateWithDate:v12 dayOfMonth:v13];
+      [v13 updateWithDate:v14 dayOfMonth:v15];
 
-      ++v8;
-      --v9;
+      ++v10;
+      --v11;
     }
 
-    while (v8 < [(NSMutableArray *)self->_dayCells count]);
+    while (v10 < [(NSMutableArray *)self->_dayCells count]);
   }
 
   [(HKCalendarMonthTitleFormatting *)self->_monthTitleView setHidden:[(HKCalendarWeekView *)self containsMonthTitle]^ 1];
@@ -164,17 +165,18 @@
   v3 = 1.0;
   if ([(HKCalendarWeekView *)self containsMonthTitle])
   {
-    if ([(HKCalendarWeekView *)self supportsRTL]&& HKUICalendarLocaleIsRightToLeft())
+    supportsRTL = [(HKCalendarWeekView *)self supportsRTL];
+    if (supportsRTL && HKUICalendarLocaleIsRightToLeft(supportsRTL, v5))
     {
-      v4 = self->_firstDayOfMonthCellIndex < (*MEMORY[0x1E696B760] - 1);
+      v6 = self->_firstDayOfMonthCellIndex < (*MEMORY[0x1E696B760] - 1);
     }
 
     else
     {
-      v4 = self->_firstDayOfMonthCellIndex > 0;
+      v6 = self->_firstDayOfMonthCellIndex > 0;
     }
 
-    if (v4)
+    if (v6)
     {
       v3 = 2.0;
     }
@@ -186,31 +188,31 @@
   }
 
   [(HKCalendarWeekView *)self dateTopMargin];
-  v6 = v5;
+  v8 = v7;
   [(HKCalendarWeekView *)self dateDiameter];
-  v8 = v6 + v7;
-  [(HKCalendarWeekView *)self dateBottomMargin];
   v10 = v8 + v9;
+  [(HKCalendarWeekView *)self dateBottomMargin];
+  v12 = v10 + v11;
   [(HKCalendarWeekView *)self additionalSpacingPerRow];
-  v12 = v3 * (v10 + v11);
+  v14 = v3 * (v12 + v13);
   if ([(HKCalendarWeekView *)self containsMonthTitle])
   {
     monthTitleView = self->_monthTitleView;
     [(HKCalendarWeekView *)self bounds];
-    [(HKCalendarMonthTitleFormatting *)monthTitleView sizeThatFits:v14, v15];
-    v17 = v16;
-    [(HKCalendarWeekView *)self monthTitleTopMargin];
+    [(HKCalendarMonthTitleFormatting *)monthTitleView sizeThatFits:v16, v17];
     v19 = v18;
+    [(HKCalendarWeekView *)self monthTitleTopMargin];
+    v21 = v20;
     [(HKCalendarWeekView *)self monthTitleBottomMargin];
-    v12 = v12 + v17 + v19 + v20;
+    v14 = v14 + v19 + v21 + v22;
     if (!self->_firstDayOfMonthCellIndex)
     {
       [(HKCalendarWeekView *)self dateTopMargin];
-      return v12 + v21;
+      return v14 + v23;
     }
   }
 
-  return v12;
+  return v14;
 }
 
 - (BOOL)containsDate:(id)date
@@ -318,7 +320,8 @@ LABEL_13:
 
 - (id)currentWeekStartDate
 {
-  if ([(HKCalendarWeekView *)self supportsRTL]&& HKUICalendarLocaleIsRightToLeft())
+  supportsRTL = [(HKCalendarWeekView *)self supportsRTL];
+  if (supportsRTL && HKUICalendarLocaleIsRightToLeft(supportsRTL, v4))
   {
     lastObject = [(NSMutableArray *)self->_dayCells lastObject];
   }
@@ -328,7 +331,7 @@ LABEL_13:
     lastObject = [(NSMutableArray *)self->_dayCells firstObject];
   }
 
-  v4 = lastObject;
+  v6 = lastObject;
   date = [lastObject date];
 
   return date;

@@ -30,13 +30,13 @@
     v32 = sub_2080C;
     v33 = sub_2081C;
     v34 = +[NSMutableArray array];
-    [chapterCopy timeRangeInTrack];
+    objc_msgSend_timeRangeInTrack(chapterCopy);
     time = v27;
     Seconds = CMTimeGetSeconds(&time);
-    [chapterCopy timeRangeInTrack];
+    objc_msgSend_timeRangeInTrack(chapterCopy);
     time = v26;
     v13 = CMTimeGetSeconds(&time);
-    [chapterCopy timeRangeInAudiobook];
+    objc_msgSend_timeRangeInAudiobook(chapterCopy);
     time = v25;
     v14 = CMTimeGetSeconds(&time);
     v17[0] = _NSConcreteStackBlock;

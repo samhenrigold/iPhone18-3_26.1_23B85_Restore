@@ -1,11 +1,11 @@
 void CCPipeMonitor::resumeAllTapsFromQuiesced(CCPipeMonitor *this)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((this + 208));
   Count = CFDictionaryGetCount(*(this + 15));
   if (!Count)
   {
-    v11 = coreCaptureOsLog;
+    v10 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_DEFAULT))
@@ -14,7 +14,7 @@ void CCPipeMonitor::resumeAllTapsFromQuiesced(CCPipeMonitor *this)
       }
 
       *buf = 0;
-      v12 = v11;
+      v11 = v10;
     }
 
     else
@@ -25,28 +25,28 @@ void CCPipeMonitor::resumeAllTapsFromQuiesced(CCPipeMonitor *this)
       }
 
       *buf = 0;
-      v12 = MEMORY[0x277D86220];
+      v11 = MEMORY[0x277D86220];
     }
 
-    _os_log_impl(&dword_2452A3000, v12, OS_LOG_TYPE_DEFAULT, "resumeAllTapsFromQuiesced:no tap found", buf, 2u);
+    _os_log_impl(&dword_2452A3000, v11, OS_LOG_TYPE_DEFAULT, "resumeAllTapsFromQuiesced:no tap found", buf, 2u);
 LABEL_24:
     if (glog_fd)
     {
-      *&v17 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v29 = v17;
-      v30 = v17;
-      v27 = v17;
-      v28 = v17;
-      v25 = v17;
-      v26 = v17;
-      *buf = v17;
-      v24 = v17;
-      memset(&v22, 0, sizeof(v22));
-      v21 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v21);
-      localtime_r(&v21, &v22);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v22);
+      *&v16 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v27 = v16;
+      v28 = v16;
+      v25 = v16;
+      v26 = v16;
+      v23 = v16;
+      v24 = v16;
+      *buf = v16;
+      v22 = v16;
+      memset(&v20, 0, sizeof(v20));
+      v19 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v19);
+      localtime_r(&v19, &v20);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v20);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "resumeAllTapsFromQuiesced:no tap found");
     }
@@ -59,7 +59,7 @@ LABEL_24:
   v5 = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
   if (!v5)
   {
-    v13 = coreCaptureOsLog;
+    v12 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -68,7 +68,7 @@ LABEL_24:
       }
 
       *buf = 0;
-      v14 = v13;
+      v13 = v12;
     }
 
     else
@@ -79,136 +79,131 @@ LABEL_24:
       }
 
       *buf = 0;
-      v14 = MEMORY[0x277D86220];
+      v13 = MEMORY[0x277D86220];
     }
 
-    _os_log_error_impl(&dword_2452A3000, v14, OS_LOG_TYPE_ERROR, "resumeAllTapsFromQuiesced:Failed to malloc memory for keyArray", buf, 2u);
+    _os_log_error_impl(&dword_2452A3000, v13, OS_LOG_TYPE_ERROR, "resumeAllTapsFromQuiesced:Failed to malloc memory for keyArray", buf, 2u);
 LABEL_27:
     if (glog_fd)
     {
-      *&v18 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v29 = v18;
-      v30 = v18;
-      v27 = v18;
-      v28 = v18;
-      v25 = v18;
-      v26 = v18;
-      *buf = v18;
-      v24 = v18;
-      memset(&v22, 0, sizeof(v22));
-      v21 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v21);
-      localtime_r(&v21, &v22);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v22);
+      *&v17 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v27 = v17;
+      v28 = v17;
+      v25 = v17;
+      v26 = v17;
+      v23 = v17;
+      v24 = v17;
+      *buf = v17;
+      v22 = v17;
+      memset(&v20, 0, sizeof(v20));
+      v19 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v19);
+      localtime_r(&v19, &v20);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v20);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "resumeAllTapsFromQuiesced:Failed to malloc memory for keyArray");
     }
 
 LABEL_29:
     pthread_mutex_unlock((this + 208));
-LABEL_34:
-    v20 = *MEMORY[0x277D85DE8];
     return;
   }
 
   v6 = v5;
   v7 = malloc_type_malloc(v4, 0x80040B8603338uLL);
-  if (!v7)
+  if (v7)
   {
-    v15 = coreCaptureOsLog;
-    if (coreCaptureOsLog)
+    v8 = v7;
+    CFDictionaryGetKeysAndValues(*(this + 15), v6, v7);
+    if (v3 >= 1)
     {
-      if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
+      v9 = v8;
+      do
       {
-        *buf = 0;
-        v16 = v15;
-LABEL_38:
-        _os_log_error_impl(&dword_2452A3000, v16, OS_LOG_TYPE_ERROR, "resumeAllTapsFromQuiesced:Failed to malloc memory for valueArray", buf, 2u);
+        if (*v9)
+        {
+          (*(**v9 + 120))(*v9);
+        }
+
+        ++v9;
+        --v3;
       }
-    }
 
-    else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      v16 = MEMORY[0x277D86220];
-      goto LABEL_38;
-    }
-
-    if (glog_fd)
-    {
-      *&v19 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v29 = v19;
-      v30 = v19;
-      v27 = v19;
-      v28 = v19;
-      v25 = v19;
-      v26 = v19;
-      *buf = v19;
-      v24 = v19;
-      memset(&v22, 0, sizeof(v22));
-      v21 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v21);
-      localtime_r(&v21, &v22);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v22);
-      dprintf(glog_fd, "%s ", buf);
-      dprintf(glog_fd, "resumeAllTapsFromQuiesced:Failed to malloc memory for valueArray");
+      while (v3);
     }
 
     pthread_mutex_unlock((this + 208));
     free(v6);
-    goto LABEL_34;
+
+    free(v8);
+    return;
   }
 
-  v8 = v7;
-  CFDictionaryGetKeysAndValues(*(this + 15), v6, v7);
-  if (v3 >= 1)
+  v14 = coreCaptureOsLog;
+  if (coreCaptureOsLog)
   {
-    v9 = v8;
-    do
+    if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
     {
-      if (*v9)
-      {
-        (*(**v9 + 120))(*v9);
-      }
-
-      ++v9;
-      --v3;
+      *buf = 0;
+      v15 = v14;
+LABEL_37:
+      _os_log_error_impl(&dword_2452A3000, v15, OS_LOG_TYPE_ERROR, "resumeAllTapsFromQuiesced:Failed to malloc memory for valueArray", buf, 2u);
     }
+  }
 
-    while (v3);
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    v15 = MEMORY[0x277D86220];
+    goto LABEL_37;
+  }
+
+  if (glog_fd)
+  {
+    *&v18 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v27 = v18;
+    v28 = v18;
+    v25 = v18;
+    v26 = v18;
+    v23 = v18;
+    v24 = v18;
+    *buf = v18;
+    v22 = v18;
+    memset(&v20, 0, sizeof(v20));
+    v19 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v19);
+    localtime_r(&v19, &v20);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v20);
+    dprintf(glog_fd, "%s ", buf);
+    dprintf(glog_fd, "resumeAllTapsFromQuiesced:Failed to malloc memory for valueArray");
   }
 
   pthread_mutex_unlock((this + 208));
   free(v6);
-  v10 = *MEMORY[0x277D85DE8];
-
-  free(v8);
 }
 
-uint64_t CCSubmitLogToCrashTracer(const char *a1)
+uint64_t CCSubmitLogToCrashTracer(const char *a1, int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
   if (!a1 || !funcAddr(a1))
   {
-    v10 = 0;
-    goto LABEL_26;
+    return 0;
   }
 
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = CFUUIDCreate(*MEMORY[0x277CBECE8]);
-  v4 = CFUUIDCreateString(v2, v3);
-  v5 = v4;
-  CFRelease(v3);
-  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", a1];
-  v30 = v6;
-  v7 = __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer;
-  if (__MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer || (v8 = funcAddr(v6), v7 = v8, (__MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer = v8) != 0))
+  v3 = *MEMORY[0x277CBECE8];
+  v4 = CFUUIDCreate(*MEMORY[0x277CBECE8]);
+  v5 = CFUUIDCreateString(v3, v4);
+  v6 = v5;
+  CFRelease(v4);
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", a1];
+  v30 = v7;
+  v8 = __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer;
+  if (__MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer || (v9 = funcAddr(v7), v8 = v9, (__MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer = v9) != 0))
   {
-    v8 = v7(@"InverseDeviceID", 0);
-    v29 = v8;
-    v9 = __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer;
+    v9 = v8(@"InverseDeviceID", 0);
+    v29 = v9;
+    v10 = __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer;
     if (__MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer)
     {
       goto LABEL_11;
@@ -220,15 +215,15 @@ uint64_t CCSubmitLogToCrashTracer(const char *a1)
     v29 = 0;
   }
 
-  v11 = funcAddr(v8);
-  __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer = v11;
-  if (v11)
+  v12 = funcAddr(v9);
+  __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer = v12;
+  if (v12)
   {
-    v9 = v11;
+    v10 = v12;
 LABEL_11:
-    v11 = v9(@"ProductType", 0);
-    v12 = v11;
-    v13 = __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer;
+    v12 = v10(@"ProductType", 0);
+    v13 = v12;
+    v14 = __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer;
     if (__MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer)
     {
       goto LABEL_16;
@@ -237,41 +232,31 @@ LABEL_11:
     goto LABEL_14;
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_14:
-  v14 = funcAddr(v11);
-  __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer = v14;
-  if (!v14)
+  v15 = funcAddr(v12);
+  __MGCopyAnswer(__CFString const*,__CFDictionary const*)::_dl_mgcopyanswer = v15;
+  if (!v15)
   {
-    v15 = 0;
+    v16 = 0;
     goto LABEL_17;
   }
 
-  v13 = v14;
+  v14 = v15;
 LABEL_16:
-  v15 = v13(@"UniqueDeviceID", 0);
+  v16 = v14(@"UniqueDeviceID", 0);
 LABEL_17:
-  v16 = objc_opt_new();
-  v17 = [v16 descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S.%F %z"];
-  v18 = MEMORY[0x277CCACA8];
-  v19 = _CFCopySystemVersionDictionary();
-  v20 = [v19 objectForKeyedSubscript:*MEMORY[0x277CBEC88]];
-  v21 = [v19 objectForKeyedSubscript:*MEMORY[0x277CBEC78]];
-  v22 = [v19 objectForKeyedSubscript:*MEMORY[0x277CBEC70]];
-  v23 = @"???";
-  if (v21)
+  v17 = objc_opt_new();
+  v18 = [v17 descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S.%F %z"];
+  v19 = MEMORY[0x277CCACA8];
+  v20 = _CFCopySystemVersionDictionary();
+  v21 = [v20 objectForKeyedSubscript:*MEMORY[0x277CBEC88]];
+  v22 = [v20 objectForKeyedSubscript:*MEMORY[0x277CBEC78]];
+  v23 = [v20 objectForKeyedSubscript:*MEMORY[0x277CBEC70]];
+  v24 = @"???";
+  if (v22)
   {
-    v24 = v21;
-  }
-
-  else
-  {
-    v24 = @"???";
-  }
-
-  if (v20)
-  {
-    v25 = v20;
+    v25 = v22;
   }
 
   else
@@ -279,80 +264,81 @@ LABEL_17:
     v25 = @"???";
   }
 
-  if (v22)
+  if (v21)
   {
-    v23 = v22;
+    v26 = v21;
   }
 
-  v26 = [v18 stringWithFormat:@"\nIncident Identifier:     %@\nCrashReporter Key:       %@\nHardware Model:          %@\nProcess:                 WiFi Firmware\nPath:                    NA\nIdentifier:              WiFi Firmware Trap\nVersion:                 NA\nCode Type:               ARM-32\nRole                     NA\nParent Process:          NA\nCoalition:               NA\n\n\nDate/Time:               %@\nLauch Time:              NA\nOS Version:              %@\nBaseband Version:        NA\nUDID:                    %@\nReport Version:          NA\n", v4, v29, v12, v17, objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@ %@ (%@)", v24, v25, v23), v15];
-  [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n%@\n", v26, v30];
-  v10 = OSAWriteLogForSubmission();
+  else
+  {
+    v26 = @"???";
+  }
 
-LABEL_26:
-  v27 = *MEMORY[0x277D85DE8];
-  return v10;
+  if (v23)
+  {
+    v24 = v23;
+  }
+
+  v27 = [v19 stringWithFormat:@"\nIncident Identifier:     %@\nCrashReporter Key:       %@\nHardware Model:          %@\nProcess:                 WiFi Firmware\nPath:                    NA\nIdentifier:              WiFi Firmware Trap\nVersion:                 NA\nCode Type:               ARM-32\nRole                     NA\nParent Process:          NA\nCoalition:               NA\n\n\nDate/Time:               %@\nLauch Time:              NA\nOS Version:              %@\nBaseband Version:        NA\nUDID:                    %@\nReport Version:          NA\n", v5, v29, v13, v18, objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@ %@ (%@)", v25, v26, v24), v16];
+  [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n%@\n", v27, v30];
+  v11 = OSAWriteLogForSubmission();
+
+  return v11;
 }
 
 void *funcAddr(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   result = __loadMobileGestalt(void)::image;
-  if (__loadMobileGestalt(void)::image)
+  if (!__loadMobileGestalt(void)::image)
   {
-    goto LABEL_9;
-  }
-
-  v2 = getenv("DYLD_IMAGE_SUFFIX");
-  v3.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-  v3.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v7.st_blksize = v3;
-  *v7.st_qspare = v3;
-  v7.st_birthtimespec = v3;
-  *&v7.st_size = v3;
-  v7.st_mtimespec = v3;
-  v7.st_ctimespec = v3;
-  *&v7.st_uid = v3;
-  v7.st_atimespec = v3;
-  *&v7.st_dev = v3;
-  memset(&v6[32], 170, 0x3E0uLL);
-  if (!v2)
-  {
-    v4 = "/usr/lib/libMobileGestalt.dylib";
-LABEL_8:
-    result = dlopen(v4, 6);
-    __loadMobileGestalt(void)::image = result;
-    if (!result)
+    v2 = getenv("DYLD_IMAGE_SUFFIX");
+    v3.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+    v3.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+    *&v6.st_blksize = v3;
+    *v6.st_qspare = v3;
+    v6.st_birthtimespec = v3;
+    *&v6.st_size = v3;
+    v6.st_mtimespec = v3;
+    v6.st_ctimespec = v3;
+    *&v6.st_uid = v3;
+    v6.st_atimespec = v3;
+    *&v6.st_dev = v3;
+    memset(&v5[32], 170, 0x3E0uLL);
+    if (!v2)
     {
-      goto LABEL_10;
+      v4 = "/usr/lib/libMobileGestalt.dylib";
+      goto LABEL_8;
     }
 
-LABEL_9:
-    result = dlsym(result, "MGCopyAnswer");
-    goto LABEL_10;
-  }
-
-  strcpy(v6, "/usr/lib/libMobileGestalt.dylib");
-  if (strlcat(v6, v2, 0x400uLL) < 0x400)
-  {
-    if (stat(v6, &v7) < 0)
+    strcpy(v5, "/usr/lib/libMobileGestalt.dylib");
+    if (strlcat(v5, v2, 0x400uLL) >= 0x400)
     {
-      result = __loadMobileGestalt(void)::image;
-      if (!__loadMobileGestalt(void)::image)
+      return 0;
+    }
+
+    if ((stat(v5, &v6) & 0x80000000) == 0)
+    {
+      v4 = v5;
+LABEL_8:
+      result = dlopen(v4, 6);
+      __loadMobileGestalt(void)::image = result;
+      if (!result)
       {
-        goto LABEL_10;
+        return result;
       }
 
-      goto LABEL_9;
+      return dlsym(result, "MGCopyAnswer");
     }
 
-    v4 = v6;
-    goto LABEL_8;
+    result = __loadMobileGestalt(void)::image;
+    if (!__loadMobileGestalt(void)::image)
+    {
+      return result;
+    }
   }
 
-  result = 0;
-LABEL_10:
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return dlsym(result, "MGCopyAnswer");
 }
 
 uint64_t ___Z24CCSubmitLogToCrashTracerPKci_block_invoke(uint64_t a1, void *a2)
@@ -363,15 +349,13 @@ uint64_t ___Z24CCSubmitLogToCrashTracerPKci_block_invoke(uint64_t a1, void *a2)
   return [a2 writeData:v5];
 }
 
-uint64_t CCSubmitBinaryToCrashTracer(uint64_t result)
+uint64_t CCSubmitBinaryToCrashTracer(uint64_t result, int a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (result)
   {
-    result = OSAWriteLogForSubmission();
+    return OSAWriteLogForSubmission();
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -384,12 +368,12 @@ uint64_t ___Z27CCSubmitBinaryToCrashTracerPKci_block_invoke(uint64_t a1, void *a
 
 uint64_t isSeedAndiOS()
 {
-  v3[1] = *MEMORY[0x277D85DE8];
+  v2[1] = *MEMORY[0x277D85DE8];
   v0 = atomic_load(gBootArgsParsed);
   if ((v0 & 1) == 0)
   {
-    v3[0] = 256;
-    if (!sysctlbyname("kern.bootargs", gBootArgs, v3, 0, 0))
+    v2[0] = 256;
+    if (!sysctlbyname("kern.bootargs", gBootArgs, v2, 0, 0))
     {
       byte_27EE11C50 = 0;
       atomic_store(1u, gBootArgsParsed);
@@ -400,20 +384,17 @@ uint64_t isSeedAndiOS()
     }
   }
 
-  result = isSeedAndiOS::bootArgSet;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return isSeedAndiOS::bootArgSet;
 }
 
 uint64_t mkdirRecursive(const __CFString *a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
   v3 = malloc_type_malloc(Length + 1, 0x100004077774924uLL);
   if (!v3)
   {
-    v10 = 0;
-    goto LABEL_31;
+    return 0;
   }
 
   v4 = v3;
@@ -423,15 +404,15 @@ uint64_t mkdirRecursive(const __CFString *a1)
   v7 = v6;
   v8.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v8.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v36.st_blksize = v8;
-  *v36.st_qspare = v8;
-  v36.st_birthtimespec = v8;
-  *&v36.st_size = v8;
-  v36.st_mtimespec = v8;
-  v36.st_ctimespec = v8;
-  *&v36.st_uid = v8;
-  v36.st_atimespec = v8;
-  *&v36.st_dev = v8;
+  *&v33.st_blksize = v8;
+  *v33.st_qspare = v8;
+  v33.st_birthtimespec = v8;
+  *&v33.st_size = v8;
+  v33.st_mtimespec = v8;
+  v33.st_ctimespec = v8;
+  *&v33.st_uid = v8;
+  v33.st_atimespec = v8;
+  *&v33.st_dev = v8;
   if (*v6 == 47)
   {
     v9 = v6 + 1;
@@ -455,9 +436,9 @@ LABEL_15:
   }
 
   *v9 = 0;
-  if (stat(v7, &v36))
+  if (stat(v7, &v33))
   {
-    if (mkdir(v7, 0x1EDu) && (stat(v7, &v36) || (v36.st_mode & 0xF000) != 0x4000))
+    if (mkdir(v7, 0x1EDu) && (stat(v7, &v33) || (v33.st_mode & 0xF000) != 0x4000))
     {
       v11 = coreCaptureOsLog;
       if (coreCaptureOsLog)
@@ -476,11 +457,11 @@ LABEL_15:
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v25 = *__error();
+        v22 = *__error();
         *buf = 136315394;
         *&buf[4] = v7;
         *&buf[12] = 1024;
-        *&buf[14] = v25;
+        *&buf[14] = v22;
         v13 = MEMORY[0x277D86220];
 LABEL_33:
         _os_log_error_impl(&dword_2452A3000, v13, OS_LOG_TYPE_ERROR, "CCFile::mkdirRecursive Unable to mkdir on '%s', errno %d\n", buf, 0x12u);
@@ -490,22 +471,22 @@ LABEL_33:
       {
         *&v17 = 0xAAAAAAAAAAAAAAAALL;
         *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v34 = v17;
-        v35 = v17;
-        v32 = v17;
-        v33 = v17;
-        v30 = v17;
         v31 = v17;
+        v32 = v17;
+        v29 = v17;
+        v30 = v17;
+        v27 = v17;
+        v28 = v17;
         *buf = v17;
         *&buf[16] = v17;
-        memset(&v28, 0, sizeof(v28));
-        v27 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v27);
-        localtime_r(&v27, &v28);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v28);
+        memset(&v25, 0, sizeof(v25));
+        v24 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v24);
+        localtime_r(&v24, &v25);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v25);
         dprintf(glog_fd, "%s ", buf);
         v18 = glog_fd;
-        v19 = *__error();
+        __error();
         dprintf(v18, "CCFile::mkdirRecursive Unable to mkdir on '%s', errno %d\n");
       }
 
@@ -515,7 +496,7 @@ LABEL_33:
     goto LABEL_14;
   }
 
-  if ((v36.st_mode & 0xF000) == 0x4000)
+  if ((v33.st_mode & 0xF000) == 0x4000)
   {
 LABEL_14:
     *v9 = 47;
@@ -541,13 +522,13 @@ LABEL_14:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v26 = *__error();
+    v23 = *__error();
     *buf = 136315650;
     *&buf[4] = v4;
     *&buf[12] = 2080;
     *&buf[14] = v7;
     *&buf[22] = 1024;
-    *&buf[24] = v26;
+    *&buf[24] = v23;
     v16 = MEMORY[0x277D86220];
 LABEL_35:
     _os_log_error_impl(&dword_2452A3000, v16, OS_LOG_TYPE_ERROR, "CCFile::mkdirRecursive Unable to create path '%s' as '%s' is not a directory errno %d\n", buf, 0x1Cu);
@@ -555,25 +536,25 @@ LABEL_35:
 
   if (glog_fd)
   {
-    *&v20 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v34 = v20;
-    v35 = v20;
-    v32 = v20;
-    v33 = v20;
-    v30 = v20;
-    v31 = v20;
-    *buf = v20;
-    *&buf[16] = v20;
-    memset(&v28, 0, sizeof(v28));
-    v27 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v27);
-    localtime_r(&v27, &v28);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v28);
+    *&v19 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v31 = v19;
+    v32 = v19;
+    v29 = v19;
+    v30 = v19;
+    v27 = v19;
+    v28 = v19;
+    *buf = v19;
+    *&buf[16] = v19;
+    memset(&v25, 0, sizeof(v25));
+    v24 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v24);
+    localtime_r(&v24, &v25);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v25);
     dprintf(glog_fd, "%s ", buf);
-    v21 = glog_fd;
-    v22 = *__error();
-    dprintf(v21, "CCFile::mkdirRecursive Unable to create path '%s' as '%s' is not a directory errno %d\n");
+    v20 = glog_fd;
+    __error();
+    dprintf(v20, "CCFile::mkdirRecursive Unable to create path '%s' as '%s' is not a directory errno %d\n");
   }
 
 LABEL_29:
@@ -582,18 +563,16 @@ LABEL_29:
 LABEL_30:
   free(v7);
   free(v4);
-LABEL_31:
-  v23 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t shouldReduceLogRetention()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (shouldReduceLogRetention::parseChipsetInfo == 1)
   {
     LOBYTE(v0) = shouldReduceLogRetention::reduceRetention;
-    goto LABEL_18;
+    return v0 & 1;
   }
 
   v1 = IOServiceNameMatching("wlan");
@@ -634,33 +613,31 @@ LABEL_14:
   {
     *&v7 = 0xAAAAAAAAAAAAAAAALL;
     *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v18 = v7;
-    v19 = v7;
-    v16 = v7;
     v17 = v7;
-    v14 = v7;
+    v18 = v7;
     v15 = v7;
-    *buf = v7;
+    v16 = v7;
     v13 = v7;
-    memset(&v11, 0, sizeof(v11));
-    v10 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v10);
-    localtime_r(&v10, &v11);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v11);
+    v14 = v7;
+    *buf = v7;
+    v12 = v7;
+    memset(&v10, 0, sizeof(v10));
+    v9 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v9);
+    localtime_r(&v9, &v10);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v10);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "can reduce logging: %d\n", v0);
   }
 
   shouldReduceLogRetention::parseChipsetInfo = 1;
   shouldReduceLogRetention::reduceRetention = v0;
-LABEL_18:
-  v8 = *MEMORY[0x277D85DE8];
   return v0 & 1;
 }
 
 uint64_t getMaxPreservedCaptures()
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if (shouldReduceLogRetention())
   {
     v0 = 15;
@@ -671,7 +648,7 @@ uint64_t getMaxPreservedCaptures()
     v0 = 50;
   }
 
-  v13[0] = v0;
+  v12[0] = v0;
   v1 = CFStringCreateWithCString(0, "com.apple.corecaptured", 0x8000100u);
   v2 = CFStringCreateWithCString(0, "max_preserved_captures", 0);
   v3 = CFPreferencesCopyAppValue(v2, v1);
@@ -689,7 +666,7 @@ uint64_t getMaxPreservedCaptures()
     v8 = CFStringGetLength(v4);
     CFStringGetCString(v4, v7, v8 + 1, 0);
     v9 = strtoll(v7, 0, 10);
-    v13[0] = v9;
+    v12[0] = v9;
     if (v9)
     {
       goto LABEL_10;
@@ -697,7 +674,7 @@ uint64_t getMaxPreservedCaptures()
 
     if (*__error() == 22 || *__error() == 34)
     {
-      v13[0] = v0;
+      v12[0] = v0;
       v9 = v0;
 LABEL_10:
       if (!v7)
@@ -724,25 +701,25 @@ LABEL_11:
       goto LABEL_19;
     }
 
-    if (!CFNumberGetValue(v4, kCFNumberSInt64Type, v13))
+    if (!CFNumberGetValue(v4, kCFNumberSInt64Type, v12))
     {
       goto LABEL_18;
     }
 
-    v9 = v13[0];
+    v9 = v12[0];
   }
 
 LABEL_15:
   if (v9 < 0)
   {
 LABEL_18:
-    v13[0] = v0;
+    v12[0] = v0;
     goto LABEL_19;
   }
 
   if (!v9)
   {
-    v13[0] = 0x7FFFFFFFFFFFFFFFLL;
+    v12[0] = 0x7FFFFFFFFFFFFFFFLL;
   }
 
 LABEL_19:
@@ -761,9 +738,7 @@ LABEL_19:
     CFRelease(v4);
   }
 
-  result = v13[0];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v12[0];
 }
 
 CFComparisonResult sortByDirectoryName(CFComparisonResult result, uint64_t a2)
@@ -843,7 +818,7 @@ CFComparisonResult sortByDirectoryName(CFComparisonResult result, uint64_t a2)
 
 void deleteDirectory(const __CFString *a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     TypeID = CFStringGetTypeID();
@@ -910,10 +885,10 @@ void deleteDirectory(const __CFString *a1)
             rmdir(v5);
 LABEL_21:
             free(v5);
-            goto LABEL_22;
+            return;
           }
 
-          v27 = coreCaptureOsLog;
+          v26 = coreCaptureOsLog;
           if (coreCaptureOsLog)
           {
             if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -921,15 +896,15 @@ LABEL_21:
               goto LABEL_52;
             }
 
-            v28 = __error();
-            v29 = strerror(*v28);
+            v27 = __error();
+            v28 = strerror(*v27);
             *buf = 136315650;
             *&buf[4] = "deleteDirectory";
             *&buf[12] = 1024;
             *&buf[14] = 265;
             *&buf[18] = 2080;
-            *&buf[20] = v29;
-            v30 = v27;
+            *&buf[20] = v28;
+            v29 = v26;
           }
 
           else
@@ -939,47 +914,47 @@ LABEL_21:
               goto LABEL_52;
             }
 
-            v38 = __error();
-            v39 = strerror(*v38);
+            v37 = __error();
+            v38 = strerror(*v37);
             *buf = 136315650;
             *&buf[4] = "deleteDirectory";
             *&buf[12] = 1024;
             *&buf[14] = 265;
             *&buf[18] = 2080;
-            *&buf[20] = v39;
-            v30 = MEMORY[0x277D86220];
+            *&buf[20] = v38;
+            v29 = MEMORY[0x277D86220];
           }
 
-          _os_log_error_impl(&dword_2452A3000, v30, OS_LOG_TYPE_ERROR, "%s:%06u: opendir failure - %s\n", buf, 0x1Cu);
+          _os_log_error_impl(&dword_2452A3000, v29, OS_LOG_TYPE_ERROR, "%s:%06u: opendir failure - %s\n", buf, 0x1Cu);
 LABEL_52:
           if (glog_fd)
           {
-            *&v35 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v35 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v47 = v35;
-            v48 = v35;
-            v45 = v35;
-            v46 = v35;
-            v43 = v35;
-            v44 = v35;
-            *buf = v35;
-            *&buf[16] = v35;
-            memset(&v41, 0, sizeof(v41));
-            v40 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v40);
-            localtime_r(&v40, &v41);
-            strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+            *&v34 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v34 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v46 = v34;
+            v47 = v34;
+            v44 = v34;
+            v45 = v34;
+            v42 = v34;
+            v43 = v34;
+            *buf = v34;
+            *&buf[16] = v34;
+            memset(&v40, 0, sizeof(v40));
+            v39 = 0xAAAAAAAAAAAAAAAALL;
+            time(&v39);
+            localtime_r(&v39, &v40);
+            strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
             dprintf(glog_fd, "%s ", buf);
-            v36 = glog_fd;
-            v37 = __error();
-            strerror(*v37);
-            dprintf(v36, "%s:%06u: opendir failure - %s\n");
+            v35 = glog_fd;
+            v36 = __error();
+            strerror(*v36);
+            dprintf(v35, "%s:%06u: opendir failure - %s\n");
           }
 
           goto LABEL_21;
         }
 
-        v25 = coreCaptureOsLog;
+        v24 = coreCaptureOsLog;
         if (coreCaptureOsLog)
         {
           if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -991,7 +966,7 @@ LABEL_52:
           *&buf[4] = "deleteDirectory";
           *&buf[12] = 1024;
           *&buf[14] = 261;
-          v26 = v25;
+          v25 = v24;
         }
 
         else
@@ -1005,28 +980,28 @@ LABEL_52:
           *&buf[4] = "deleteDirectory";
           *&buf[12] = 1024;
           *&buf[14] = 261;
-          v26 = MEMORY[0x277D86220];
+          v25 = MEMORY[0x277D86220];
         }
 
-        _os_log_error_impl(&dword_2452A3000, v26, OS_LOG_TYPE_ERROR, "%s:%06u: CFStringGetCString failure\n", buf, 0x12u);
+        _os_log_error_impl(&dword_2452A3000, v25, OS_LOG_TYPE_ERROR, "%s:%06u: CFStringGetCString failure\n", buf, 0x12u);
 LABEL_49:
         if (glog_fd)
         {
-          *&v34 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v34 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v47 = v34;
-          v48 = v34;
-          v45 = v34;
-          v46 = v34;
-          v43 = v34;
-          v44 = v34;
-          *buf = v34;
-          *&buf[16] = v34;
-          memset(&v41, 0, sizeof(v41));
-          v40 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v40);
-          localtime_r(&v40, &v41);
-          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+          *&v33 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v33 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v46 = v33;
+          v47 = v33;
+          v44 = v33;
+          v45 = v33;
+          v42 = v33;
+          v43 = v33;
+          *buf = v33;
+          *&buf[16] = v33;
+          memset(&v40, 0, sizeof(v40));
+          v39 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v39);
+          localtime_r(&v39, &v40);
+          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
           dprintf(glog_fd, "%s ", buf);
           dprintf(glog_fd, "%s:%06u: CFStringGetCString failure\n");
         }
@@ -1034,7 +1009,7 @@ LABEL_49:
         goto LABEL_21;
       }
 
-      v23 = coreCaptureOsLog;
+      v22 = coreCaptureOsLog;
       if (coreCaptureOsLog)
       {
         if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -1046,7 +1021,7 @@ LABEL_49:
         *&buf[4] = "deleteDirectory";
         *&buf[12] = 1024;
         *&buf[14] = 258;
-        v24 = v23;
+        v23 = v22;
       }
 
       else
@@ -1060,36 +1035,36 @@ LABEL_49:
         *&buf[4] = "deleteDirectory";
         *&buf[12] = 1024;
         *&buf[14] = 258;
-        v24 = MEMORY[0x277D86220];
+        v23 = MEMORY[0x277D86220];
       }
 
-      _os_log_error_impl(&dword_2452A3000, v24, OS_LOG_TYPE_ERROR, "%s:%06u: Allocation failure\n", buf, 0x12u);
+      _os_log_error_impl(&dword_2452A3000, v23, OS_LOG_TYPE_ERROR, "%s:%06u: Allocation failure\n", buf, 0x12u);
 LABEL_45:
       if (glog_fd)
       {
-        *&v33 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v33 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v47 = v33;
-        v48 = v33;
-        v45 = v33;
-        v46 = v33;
-        v43 = v33;
-        v44 = v33;
-        *buf = v33;
-        *&buf[16] = v33;
-        memset(&v41, 0, sizeof(v41));
-        v40 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v40);
-        localtime_r(&v40, &v41);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+        *&v32 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v46 = v32;
+        v47 = v32;
+        v44 = v32;
+        v45 = v32;
+        v42 = v32;
+        v43 = v32;
+        *buf = v32;
+        *&buf[16] = v32;
+        memset(&v40, 0, sizeof(v40));
+        v39 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v39);
+        localtime_r(&v39, &v40);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "%s:%06u: Allocation failure\n");
       }
 
-      goto LABEL_22;
+      return;
     }
 
-    v21 = coreCaptureOsLog;
+    v20 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -1101,7 +1076,7 @@ LABEL_45:
       *&buf[4] = "deleteDirectory";
       *&buf[12] = 1024;
       *&buf[14] = 255;
-      v22 = v21;
+      v21 = v20;
     }
 
     else
@@ -1115,36 +1090,36 @@ LABEL_45:
       *&buf[4] = "deleteDirectory";
       *&buf[12] = 1024;
       *&buf[14] = 255;
-      v22 = MEMORY[0x277D86220];
+      v21 = MEMORY[0x277D86220];
     }
 
-    _os_log_error_impl(&dword_2452A3000, v22, OS_LOG_TYPE_ERROR, "%s:%06u: Invalid type\n", buf, 0x12u);
+    _os_log_error_impl(&dword_2452A3000, v21, OS_LOG_TYPE_ERROR, "%s:%06u: Invalid type\n", buf, 0x12u);
 LABEL_42:
     if (glog_fd)
     {
-      *&v32 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v47 = v32;
-      v48 = v32;
-      v45 = v32;
-      v46 = v32;
-      v43 = v32;
-      v44 = v32;
-      *buf = v32;
-      *&buf[16] = v32;
-      memset(&v41, 0, sizeof(v41));
-      v40 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v40);
-      localtime_r(&v40, &v41);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+      *&v31 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v46 = v31;
+      v47 = v31;
+      v44 = v31;
+      v45 = v31;
+      v42 = v31;
+      v43 = v31;
+      *buf = v31;
+      *&buf[16] = v31;
+      memset(&v40, 0, sizeof(v40));
+      v39 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v39);
+      localtime_r(&v39, &v40);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "%s:%06u: Invalid type\n");
     }
 
-    goto LABEL_22;
+    return;
   }
 
-  v19 = coreCaptureOsLog;
+  v18 = coreCaptureOsLog;
   if (coreCaptureOsLog)
   {
     if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -1156,7 +1131,7 @@ LABEL_42:
     *&buf[4] = "deleteDirectory";
     *&buf[12] = 1024;
     *&buf[14] = 254;
-    v20 = v19;
+    v19 = v18;
   }
 
   else
@@ -1170,39 +1145,36 @@ LABEL_42:
     *&buf[4] = "deleteDirectory";
     *&buf[12] = 1024;
     *&buf[14] = 254;
-    v20 = MEMORY[0x277D86220];
+    v19 = MEMORY[0x277D86220];
   }
 
-  _os_log_error_impl(&dword_2452A3000, v20, OS_LOG_TYPE_ERROR, "%s:%06u: Invalid argument\n", buf, 0x12u);
+  _os_log_error_impl(&dword_2452A3000, v19, OS_LOG_TYPE_ERROR, "%s:%06u: Invalid argument\n", buf, 0x12u);
 LABEL_39:
   if (glog_fd)
   {
-    *&v31 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v47 = v31;
-    v48 = v31;
-    v45 = v31;
-    v46 = v31;
-    v43 = v31;
-    v44 = v31;
-    *buf = v31;
-    *&buf[16] = v31;
-    memset(&v41, 0, sizeof(v41));
-    v40 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v40);
-    localtime_r(&v40, &v41);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+    *&v30 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v46 = v30;
+    v47 = v30;
+    v44 = v30;
+    v45 = v30;
+    v42 = v30;
+    v43 = v30;
+    *buf = v30;
+    *&buf[16] = v30;
+    memset(&v40, 0, sizeof(v40));
+    v39 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v39);
+    localtime_r(&v39, &v40);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "%s:%06u: Invalid argument\n");
   }
-
-LABEL_22:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t compressFile(const char *a1, const char *a2)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v6 = coreCaptureOsLog;
@@ -1248,16 +1220,16 @@ LABEL_37:
       buf.st_mtimespec = v33;
       *&buf.st_dev = v33;
       *&buf.st_uid = v33;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d dirPath is invalid\n");
     }
 
-    goto LABEL_68;
+    return 0;
   }
 
   v3 = coreCaptureOsLog;
@@ -1305,16 +1277,16 @@ LABEL_43:
       buf.st_mtimespec = v36;
       *&buf.st_dev = v36;
       *&buf.st_uid = v36;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d fileName is invalid\n");
     }
 
-    goto LABEL_68;
+    return 0;
   }
 
   if (coreCaptureOsLog)
@@ -1367,11 +1339,11 @@ LABEL_15:
     buf.st_mtimespec = v9;
     *&buf.st_dev = v9;
     *&buf.st_uid = v9;
-    memset(v73, 0, 56);
-    *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-    time(&v72.tm_sec);
-    localtime_r(&v72.tm_sec, v73);
-    strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+    memset(v72, 0, 56);
+    *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+    time(&v71.tm_sec);
+    localtime_r(&v71.tm_sec, v72);
+    strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
     dprintf(glog_fd, "%s ", &buf);
     dprintf(glog_fd, "CCDaemon::%s:%d Trying to compress file %s%s\n", "compressFile", 319, a1, a2);
   }
@@ -1426,16 +1398,16 @@ LABEL_66:
       buf.st_mtimespec = v47;
       *&buf.st_dev = v47;
       *&buf.st_uid = v47;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d fileName %s is already compressed...\n");
     }
 
-    goto LABEL_68;
+    return 0;
   }
 
   Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 512);
@@ -1484,18 +1456,16 @@ LABEL_55:
       buf.st_mtimespec = v43;
       *&buf.st_dev = v43;
       *&buf.st_uid = v43;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d unable to create filePathRef\n");
     }
 
-LABEL_68:
-    v48 = 0;
-    goto LABEL_69;
+    return 0;
   }
 
   v12 = Mutable;
@@ -1548,11 +1518,11 @@ LABEL_61:
       buf.st_mtimespec = v46;
       *&buf.st_dev = v46;
       *&buf.st_uid = v46;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d unable to allocate source buffer\n", "compressFile", 340);
     }
@@ -1595,21 +1565,21 @@ LABEL_132:
 
     if (glog_fd)
     {
-      v51.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-      v51.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&buf.st_size = v51;
-      *&buf.st_blksize = v51;
-      buf.st_ctimespec = v51;
-      buf.st_birthtimespec = v51;
-      buf.st_atimespec = v51;
-      buf.st_mtimespec = v51;
-      *&buf.st_dev = v51;
-      *&buf.st_uid = v51;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      v50.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+      v50.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+      *&buf.st_size = v50;
+      *&buf.st_blksize = v50;
+      buf.st_ctimespec = v50;
+      buf.st_birthtimespec = v50;
+      buf.st_atimespec = v50;
+      buf.st_mtimespec = v50;
+      *&buf.st_dev = v50;
+      *&buf.st_uid = v50;
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d unable to allocate destination buffer\n", "compressFile", 350);
     }
@@ -1652,21 +1622,21 @@ LABEL_134:
 
     if (glog_fd)
     {
-      v54.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-      v54.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&buf.st_size = v54;
-      *&buf.st_blksize = v54;
-      buf.st_ctimespec = v54;
-      buf.st_birthtimespec = v54;
-      buf.st_atimespec = v54;
-      buf.st_mtimespec = v54;
-      *&buf.st_dev = v54;
-      *&buf.st_uid = v54;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      v53.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+      v53.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+      *&buf.st_size = v53;
+      *&buf.st_blksize = v53;
+      buf.st_ctimespec = v53;
+      buf.st_birthtimespec = v53;
+      buf.st_atimespec = v53;
+      buf.st_mtimespec = v53;
+      *&buf.st_dev = v53;
+      *&buf.st_uid = v53;
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d unable to create class with protection flag\n", "compressFile", 357);
     }
@@ -1679,7 +1649,7 @@ LABEL_134:
   v22 = fopen(v15, "rb");
   if (!v22)
   {
-    v52 = coreCaptureOsLog;
+    v51 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -1693,7 +1663,7 @@ LABEL_134:
       *(&buf.st_ino + 6) = 364;
       HIWORD(buf.st_uid) = 2080;
       *&buf.st_gid = v15;
-      v53 = v52;
+      v52 = v51;
     }
 
     else
@@ -1709,28 +1679,28 @@ LABEL_134:
       *(&buf.st_ino + 6) = 364;
       HIWORD(buf.st_uid) = 2080;
       *&buf.st_gid = v15;
-      v53 = MEMORY[0x277D86220];
+      v52 = MEMORY[0x277D86220];
     }
 
-    _os_log_error_impl(&dword_2452A3000, v53, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d failed to open source buffer %s\n", &buf, 0x1Cu);
+    _os_log_error_impl(&dword_2452A3000, v52, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d failed to open source buffer %s\n", &buf, 0x1Cu);
 LABEL_88:
     if (glog_fd)
     {
-      v57.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-      v57.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&buf.st_size = v57;
-      *&buf.st_blksize = v57;
-      buf.st_ctimespec = v57;
-      buf.st_birthtimespec = v57;
-      buf.st_atimespec = v57;
-      buf.st_mtimespec = v57;
-      *&buf.st_dev = v57;
-      *&buf.st_uid = v57;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      v56.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+      v56.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+      *&buf.st_size = v56;
+      *&buf.st_blksize = v56;
+      buf.st_ctimespec = v56;
+      buf.st_birthtimespec = v56;
+      buf.st_atimespec = v56;
+      buf.st_mtimespec = v56;
+      *&buf.st_dev = v56;
+      *&buf.st_uid = v56;
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d failed to open source buffer %s\n", "compressFile", 364, v15);
     }
@@ -1739,11 +1709,11 @@ LABEL_88:
   }
 
   v23 = v22;
-  v70 = v19;
+  v69 = v19;
   v24 = gzopen(v19, "wb");
   if (!v24)
   {
-    v55 = coreCaptureOsLog;
+    v54 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -1754,9 +1724,9 @@ LABEL_88:
         *(&buf.st_ino + 6) = 370;
         HIWORD(buf.st_uid) = 2080;
         *&buf.st_gid = v15;
-        v56 = v55;
+        v55 = v54;
 LABEL_138:
-        _os_log_error_impl(&dword_2452A3000, v56, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d failed to open dest buffer %s\n", &buf, 0x1Cu);
+        _os_log_error_impl(&dword_2452A3000, v55, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d failed to open dest buffer %s\n", &buf, 0x1Cu);
       }
     }
 
@@ -1768,27 +1738,27 @@ LABEL_138:
       *(&buf.st_ino + 6) = 370;
       HIWORD(buf.st_uid) = 2080;
       *&buf.st_gid = v15;
-      v56 = MEMORY[0x277D86220];
+      v55 = MEMORY[0x277D86220];
       goto LABEL_138;
     }
 
     if (glog_fd)
     {
-      v60.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-      v60.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&buf.st_size = v60;
-      *&buf.st_blksize = v60;
-      buf.st_ctimespec = v60;
-      buf.st_birthtimespec = v60;
-      buf.st_atimespec = v60;
-      buf.st_mtimespec = v60;
-      *&buf.st_dev = v60;
-      *&buf.st_uid = v60;
-      memset(v73, 0, 56);
-      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72.tm_sec);
-      localtime_r(&v72.tm_sec, v73);
-      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+      v59.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+      v59.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+      *&buf.st_size = v59;
+      *&buf.st_blksize = v59;
+      buf.st_ctimespec = v59;
+      buf.st_birthtimespec = v59;
+      buf.st_atimespec = v59;
+      buf.st_mtimespec = v59;
+      *&buf.st_dev = v59;
+      *&buf.st_uid = v59;
+      memset(v72, 0, 56);
+      *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71.tm_sec);
+      localtime_r(&v71.tm_sec, v72);
+      strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
       dprintf(glog_fd, "%s ", &buf);
       dprintf(glog_fd, "CCDaemon::%s:%d failed to open dest buffer %s\n", "compressFile", 370, v15);
     }
@@ -1800,7 +1770,7 @@ LABEL_99:
   }
 
   v25 = v24;
-  v69 = v15;
+  v68 = v15;
   do
   {
     v26 = 1;
@@ -1814,10 +1784,10 @@ LABEL_99:
         goto LABEL_29;
       }
 
-      v58 = coreCaptureOsLog;
+      v57 = coreCaptureOsLog;
       if (coreCaptureOsLog)
       {
-        v15 = v69;
+        v15 = v68;
         if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_114;
@@ -1828,13 +1798,13 @@ LABEL_99:
         WORD2(buf.st_ino) = 1024;
         *(&buf.st_ino + 6) = 380;
         HIWORD(buf.st_uid) = 2080;
-        *&buf.st_gid = v69;
-        v59 = v58;
+        *&buf.st_gid = v68;
+        v58 = v57;
       }
 
       else
       {
-        v15 = v69;
+        v15 = v68;
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_114;
@@ -1845,29 +1815,29 @@ LABEL_99:
         WORD2(buf.st_ino) = 1024;
         *(&buf.st_ino + 6) = 380;
         HIWORD(buf.st_uid) = 2080;
-        *&buf.st_gid = v69;
-        v59 = MEMORY[0x277D86220];
+        *&buf.st_gid = v68;
+        v58 = MEMORY[0x277D86220];
       }
 
-      _os_log_error_impl(&dword_2452A3000, v59, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d Error reading from source buffer %s\n", &buf, 0x1Cu);
+      _os_log_error_impl(&dword_2452A3000, v58, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d Error reading from source buffer %s\n", &buf, 0x1Cu);
 LABEL_114:
       if (glog_fd)
       {
-        v66.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-        v66.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-        *&buf.st_size = v66;
-        *&buf.st_blksize = v66;
-        buf.st_ctimespec = v66;
-        buf.st_birthtimespec = v66;
-        buf.st_atimespec = v66;
-        buf.st_mtimespec = v66;
-        *&buf.st_dev = v66;
-        *&buf.st_uid = v66;
-        memset(v73, 0, 56);
-        *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-        time(&v72.tm_sec);
-        localtime_r(&v72.tm_sec, v73);
-        strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+        v65.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+        v65.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+        *&buf.st_size = v65;
+        *&buf.st_blksize = v65;
+        buf.st_ctimespec = v65;
+        buf.st_birthtimespec = v65;
+        buf.st_atimespec = v65;
+        buf.st_mtimespec = v65;
+        *&buf.st_dev = v65;
+        *&buf.st_uid = v65;
+        memset(v72, 0, 56);
+        *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+        time(&v71.tm_sec);
+        localtime_r(&v71.tm_sec, v72);
+        strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
         dprintf(glog_fd, "%s ", &buf);
         dprintf(glog_fd, "CCDaemon::%s:%d Error reading from source buffer %s\n", "compressFile", 380, v15);
       }
@@ -1882,8 +1852,8 @@ LABEL_29:
       v29 = gzerror(v25, errnum);
       if (errnum[0])
       {
-        v61 = v29;
-        v62 = coreCaptureOsLog;
+        v60 = v29;
+        v61 = coreCaptureOsLog;
         if (coreCaptureOsLog)
         {
           if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -1893,10 +1863,10 @@ LABEL_29:
             WORD2(buf.st_ino) = 1024;
             *(&buf.st_ino + 6) = 392;
             HIWORD(buf.st_uid) = 2080;
-            *&buf.st_gid = v70;
+            *&buf.st_gid = v69;
             *(&buf.st_rdev + 2) = 2080;
-            *(&buf.st_rdev + 6) = v61;
-            v63 = v62;
+            *(&buf.st_rdev + 6) = v60;
+            v62 = v61;
             goto LABEL_144;
           }
         }
@@ -1908,41 +1878,41 @@ LABEL_29:
           WORD2(buf.st_ino) = 1024;
           *(&buf.st_ino + 6) = 392;
           HIWORD(buf.st_uid) = 2080;
-          *&buf.st_gid = v70;
+          *&buf.st_gid = v69;
           *(&buf.st_rdev + 2) = 2080;
-          *(&buf.st_rdev + 6) = v61;
-          v63 = MEMORY[0x277D86220];
+          *(&buf.st_rdev + 6) = v60;
+          v62 = MEMORY[0x277D86220];
 LABEL_144:
-          _os_log_error_impl(&dword_2452A3000, v63, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d Error writing to destination buffer %s: %s\n", &buf, 0x26u);
+          _os_log_error_impl(&dword_2452A3000, v62, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d Error writing to destination buffer %s: %s\n", &buf, 0x26u);
         }
 
         if (glog_fd)
         {
-          v67.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-          v67.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-          *&buf.st_size = v67;
-          *&buf.st_blksize = v67;
-          buf.st_ctimespec = v67;
-          buf.st_birthtimespec = v67;
-          buf.st_atimespec = v67;
-          buf.st_mtimespec = v67;
-          *&buf.st_dev = v67;
-          *&buf.st_uid = v67;
-          memset(v73, 0, 56);
-          *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-          time(&v72.tm_sec);
-          localtime_r(&v72.tm_sec, v73);
-          strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v73);
+          v66.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+          v66.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+          *&buf.st_size = v66;
+          *&buf.st_blksize = v66;
+          buf.st_ctimespec = v66;
+          buf.st_birthtimespec = v66;
+          buf.st_atimespec = v66;
+          buf.st_mtimespec = v66;
+          *&buf.st_dev = v66;
+          *&buf.st_uid = v66;
+          memset(v72, 0, 56);
+          *&v71.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+          time(&v71.tm_sec);
+          localtime_r(&v71.tm_sec, v72);
+          strftime(&buf, 0x80uLL, "%b %d %H:%M:%S", v72);
           dprintf(glog_fd, "%s ", &buf);
-          dprintf(glog_fd, "CCDaemon::%s:%d Error writing to destination buffer %s: %s\n", "compressFile", 392, v70, v61);
+          dprintf(glog_fd, "CCDaemon::%s:%d Error writing to destination buffer %s: %s\n", "compressFile", 392, v69, v60);
         }
 
-        v15 = v69;
+        v15 = v68;
 LABEL_120:
         fclose(v23);
         gzclose(v25);
         v48 = 0;
-        v19 = v70;
+        v19 = v69;
         goto LABEL_127;
       }
     }
@@ -1952,69 +1922,69 @@ LABEL_120:
   fclose(v23);
   gzclose(v25);
   memset(&buf, 0, sizeof(buf));
-  v19 = v70;
-  v30 = stat(v70, &buf);
+  v19 = v69;
+  v30 = stat(v69, &buf);
   v31 = coreCaptureOsLog;
   if (!v30)
   {
     if (coreCaptureOsLog)
     {
-      v15 = v69;
+      v15 = v68;
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_124;
       }
 
-      *v73 = 136315906;
-      *&v73[4] = "compressFile";
-      *&v73[12] = 1024;
-      *&v73[14] = 420;
-      *&v73[18] = 2080;
-      *&v73[20] = a2;
-      *&v73[28] = 2048;
-      *&v73[30] = buf.st_size;
-      v64 = v31;
+      *v72 = 136315906;
+      *&v72[4] = "compressFile";
+      *&v72[12] = 1024;
+      *&v72[14] = 420;
+      *&v72[18] = 2080;
+      *&v72[20] = a2;
+      *&v72[28] = 2048;
+      *&v72[30] = buf.st_size;
+      v63 = v31;
     }
 
     else
     {
-      v15 = v69;
+      v15 = v68;
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_124;
       }
 
-      *v73 = 136315906;
-      *&v73[4] = "compressFile";
-      *&v73[12] = 1024;
-      *&v73[14] = 420;
-      *&v73[18] = 2080;
-      *&v73[20] = a2;
-      *&v73[28] = 2048;
-      *&v73[30] = buf.st_size;
-      v64 = MEMORY[0x277D86220];
+      *v72 = 136315906;
+      *&v72[4] = "compressFile";
+      *&v72[12] = 1024;
+      *&v72[14] = 420;
+      *&v72[18] = 2080;
+      *&v72[20] = a2;
+      *&v72[28] = 2048;
+      *&v72[30] = buf.st_size;
+      v63 = MEMORY[0x277D86220];
     }
 
-    _os_log_impl(&dword_2452A3000, v64, OS_LOG_TYPE_DEFAULT, "CCDaemon::%s:%d Compressed file with name %s and resulting length %lld bytes\n", v73, 0x26u);
+    _os_log_impl(&dword_2452A3000, v63, OS_LOG_TYPE_DEFAULT, "CCDaemon::%s:%d Compressed file with name %s and resulting length %lld bytes\n", v72, 0x26u);
 LABEL_124:
     if (glog_fd)
     {
-      *&v68 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v68 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v76 = v68;
-      v77 = v68;
-      v74 = v68;
-      v75 = v68;
-      *&v73[32] = v68;
-      *&v73[48] = v68;
-      *v73 = v68;
-      *&v73[16] = v68;
-      memset(&v72, 0, sizeof(v72));
+      *&v67 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v67 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v75 = v67;
+      v76 = v67;
+      v73 = v67;
+      v74 = v67;
+      *&v72[32] = v67;
+      *&v72[48] = v67;
+      *v72 = v67;
+      *&v72[16] = v67;
+      memset(&v71, 0, sizeof(v71));
       *errnum = 0xAAAAAAAAAAAAAAAALL;
       time(errnum);
-      localtime_r(errnum, &v72);
-      strftime(v73, 0x80uLL, "%b %d %H:%M:%S", &v72);
-      dprintf(glog_fd, "%s ", v73);
+      localtime_r(errnum, &v71);
+      strftime(v72, 0x80uLL, "%b %d %H:%M:%S", &v71);
+      dprintf(glog_fd, "%s ", v72);
       dprintf(glog_fd, "CCDaemon::%s:%d Compressed file with name %s and resulting length %lld bytes\n");
     }
 
@@ -2023,13 +1993,13 @@ LABEL_124:
 
   if (coreCaptureOsLog)
   {
-    v15 = v69;
+    v15 = v68;
     if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 136315394;
-      *&v73[4] = "compressFile";
-      *&v73[12] = 1024;
-      *&v73[14] = 422;
+      *v72 = 136315394;
+      *&v72[4] = "compressFile";
+      *&v72[12] = 1024;
+      *&v72[14] = 422;
       v32 = v31;
       goto LABEL_140;
     }
@@ -2037,37 +2007,37 @@ LABEL_124:
 
   else
   {
-    v15 = v69;
+    v15 = v68;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v73 = 136315394;
-      *&v73[4] = "compressFile";
-      *&v73[12] = 1024;
-      *&v73[14] = 422;
+      *v72 = 136315394;
+      *&v72[4] = "compressFile";
+      *&v72[12] = 1024;
+      *&v72[14] = 422;
       v32 = MEMORY[0x277D86220];
 LABEL_140:
-      _os_log_error_impl(&dword_2452A3000, v32, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d unable to stat dest path\n", v73, 0x12u);
+      _os_log_error_impl(&dword_2452A3000, v32, OS_LOG_TYPE_ERROR, "CCDaemon::%s:%d unable to stat dest path\n", v72, 0x12u);
     }
   }
 
   if (glog_fd)
   {
-    *&v65 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v65 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v76 = v65;
-    v77 = v65;
-    v74 = v65;
-    v75 = v65;
-    *&v73[32] = v65;
-    *&v73[48] = v65;
-    *v73 = v65;
-    *&v73[16] = v65;
-    memset(&v72, 0, sizeof(v72));
+    *&v64 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v64 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v75 = v64;
+    v76 = v64;
+    v73 = v64;
+    v74 = v64;
+    *&v72[32] = v64;
+    *&v72[48] = v64;
+    *v72 = v64;
+    *&v72[16] = v64;
+    memset(&v71, 0, sizeof(v71));
     *errnum = 0xAAAAAAAAAAAAAAAALL;
     time(errnum);
-    localtime_r(errnum, &v72);
-    strftime(v73, 0x80uLL, "%b %d %H:%M:%S", &v72);
-    dprintf(glog_fd, "%s ", v73);
+    localtime_r(errnum, &v71);
+    strftime(v72, 0x80uLL, "%b %d %H:%M:%S", &v71);
+    dprintf(glog_fd, "%s ", v72);
     dprintf(glog_fd, "CCDaemon::%s:%d unable to stat dest path\n");
   }
 
@@ -2084,8 +2054,6 @@ LABEL_129:
   free(v19);
 LABEL_130:
   CFRelease(v12);
-LABEL_69:
-  v49 = *MEMORY[0x277D85DE8];
   return v48;
 }
 
@@ -2142,7 +2110,7 @@ uint64_t deviceUnlockedSinceBoot(uint64_t a1, std::error_code *a2)
 
 void cleanupLogFile(const char *a1, const char *a2)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (a2)
@@ -2185,56 +2153,56 @@ LABEL_23:
         {
           *&v15 = 0xAAAAAAAAAAAAAAAALL;
           *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v30 = v15;
-          v31 = v15;
-          v28 = v15;
           v29 = v15;
-          v26 = v15;
+          v30 = v15;
           v27 = v15;
+          v28 = v15;
+          v25 = v15;
+          v26 = v15;
           *__str = v15;
           *&__str[16] = v15;
-          memset(v20, 0, 56);
-          *&v19.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-          time(&v19.tm_sec);
-          localtime_r(&v19.tm_sec, v20);
-          strftime(__str, 0x80uLL, "%b %d %H:%M:%S", v20);
+          memset(v19, 0, 56);
+          *&v18.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+          time(&v18.tm_sec);
+          localtime_r(&v18.tm_sec, v19);
+          strftime(__str, 0x80uLL, "%b %d %H:%M:%S", v19);
           dprintf(glog_fd, "%s ", __str);
           dprintf(glog_fd, "CCDaemon::%s:%d filePath may get truncated. Returning...");
         }
 
-        goto LABEL_32;
+        return;
       }
 
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
-      v50 = 0u;
+      v54 = 0u;
       v51 = 0u;
-      v48 = 0u;
+      v52 = 0u;
       v49 = 0u;
-      v46 = 0u;
+      v50 = 0u;
       v47 = 0u;
-      v44 = 0u;
+      v48 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       memset(__str, 0, sizeof(__str));
       snprintf(__str, 0x200uLL, "%s%s", a1, a2);
       v11 = coreCaptureOsLog;
@@ -2242,26 +2210,26 @@ LABEL_23:
       {
         if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_DEFAULT))
         {
-          *v20 = 136315650;
-          *&v20[4] = "cleanupLogFile";
-          *&v20[12] = 1024;
-          *&v20[14] = 455;
-          *&v20[18] = 2080;
-          *&v20[20] = __str;
+          *v19 = 136315650;
+          *&v19[4] = "cleanupLogFile";
+          *&v19[12] = 1024;
+          *&v19[14] = 455;
+          *&v19[18] = 2080;
+          *&v19[20] = __str;
           v12 = v11;
 LABEL_28:
-          _os_log_impl(&dword_2452A3000, v12, OS_LOG_TYPE_DEFAULT, "CCDaemon::%s:%d Deleting compressed file %s", v20, 0x1Cu);
+          _os_log_impl(&dword_2452A3000, v12, OS_LOG_TYPE_DEFAULT, "CCDaemon::%s:%d Deleting compressed file %s", v19, 0x1Cu);
         }
       }
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v20 = 136315650;
-        *&v20[4] = "cleanupLogFile";
-        *&v20[12] = 1024;
-        *&v20[14] = 455;
-        *&v20[18] = 2080;
-        *&v20[20] = __str;
+        *v19 = 136315650;
+        *&v19[4] = "cleanupLogFile";
+        *&v19[12] = 1024;
+        *&v19[14] = 455;
+        *&v19[18] = 2080;
+        *&v19[20] = __str;
         v12 = MEMORY[0x277D86220];
         goto LABEL_28;
       }
@@ -2270,25 +2238,25 @@ LABEL_28:
       {
         *&v16 = 0xAAAAAAAAAAAAAAAALL;
         *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v23 = v16;
-        v24 = v16;
-        v21 = v16;
         v22 = v16;
-        *&v20[32] = v16;
-        *&v20[48] = v16;
-        *v20 = v16;
-        *&v20[16] = v16;
-        memset(&v19, 0, sizeof(v19));
-        v18 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v18);
-        localtime_r(&v18, &v19);
-        strftime(v20, 0x80uLL, "%b %d %H:%M:%S", &v19);
-        dprintf(glog_fd, "%s ", v20);
+        v23 = v16;
+        v20 = v16;
+        v21 = v16;
+        *&v19[32] = v16;
+        *&v19[48] = v16;
+        *v19 = v16;
+        *&v19[16] = v16;
+        memset(&v18, 0, sizeof(v18));
+        v17 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v17);
+        localtime_r(&v17, &v18);
+        strftime(v19, 0x80uLL, "%b %d %H:%M:%S", &v18);
+        dprintf(glog_fd, "%s ", v19);
         dprintf(glog_fd, "CCDaemon::%s:%d Deleting compressed file %s", "cleanupLogFile", 455, __str);
       }
 
       unlink(__str);
-      goto LABEL_32;
+      return;
     }
 
     v9 = coreCaptureOsLog;
@@ -2326,24 +2294,24 @@ LABEL_20:
     {
       *&v14 = 0xAAAAAAAAAAAAAAAALL;
       *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v30 = v14;
-      v31 = v14;
-      v28 = v14;
       v29 = v14;
-      v26 = v14;
+      v30 = v14;
       v27 = v14;
+      v28 = v14;
+      v25 = v14;
+      v26 = v14;
       *__str = v14;
       *&__str[16] = v14;
-      memset(v20, 0, 56);
-      *&v19.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v19.tm_sec);
-      localtime_r(&v19.tm_sec, v20);
-      strftime(__str, 0x80uLL, "%b %d %H:%M:%S", v20);
+      memset(v19, 0, 56);
+      *&v18.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v18.tm_sec);
+      localtime_r(&v18.tm_sec, v19);
+      strftime(__str, 0x80uLL, "%b %d %H:%M:%S", v19);
       dprintf(glog_fd, "%s ", __str);
       dprintf(glog_fd, "CCDaemon::%s:%d fileName is invalid");
     }
 
-    goto LABEL_32;
+    return;
   }
 
   v7 = coreCaptureOsLog;
@@ -2381,25 +2349,22 @@ LABEL_17:
   {
     *&v13 = 0xAAAAAAAAAAAAAAAALL;
     *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v30 = v13;
-    v31 = v13;
-    v28 = v13;
     v29 = v13;
-    v26 = v13;
+    v30 = v13;
     v27 = v13;
+    v28 = v13;
+    v25 = v13;
+    v26 = v13;
     *__str = v13;
     *&__str[16] = v13;
-    memset(v20, 0, 56);
-    *&v19.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-    time(&v19.tm_sec);
-    localtime_r(&v19.tm_sec, v20);
-    strftime(__str, 0x80uLL, "%b %d %H:%M:%S", v20);
+    memset(v19, 0, 56);
+    *&v18.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+    time(&v18.tm_sec);
+    localtime_r(&v18.tm_sec, v19);
+    strftime(__str, 0x80uLL, "%b %d %H:%M:%S", v19);
     dprintf(glog_fd, "%s ", __str);
     dprintf(glog_fd, "CCDaemon::%s:%d dirPath is invalid");
   }
-
-LABEL_32:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void freeCCCommonResources()
@@ -2413,7 +2378,7 @@ void freeCCCommonResources()
 
 void cleanCaptureDirectory(const __CFString *a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
   v3 = malloc_type_malloc(Length + 1, 0x100004077774924uLL);
   v4 = CFStringGetLength(a1);
@@ -2447,13 +2412,13 @@ void cleanCaptureDirectory(const __CFString *a1)
   MaxPreservedCaptures = getMaxPreservedCaptures();
   if (!v6)
   {
-    goto LABEL_48;
+    return;
   }
 
   v9 = v6 - MaxPreservedCaptures;
   if (v6 < MaxPreservedCaptures)
   {
-    goto LABEL_48;
+    return;
   }
 
   v10 = malloc_type_calloc(v6, 8uLL, 0x2004093837F09uLL);
@@ -2529,19 +2494,19 @@ LABEL_25:
   {
     *&v23 = 0xAAAAAAAAAAAAAAAALL;
     *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v38 = v23;
-    v39 = v23;
-    v36 = v23;
     v37 = v23;
-    v34 = v23;
+    v38 = v23;
     v35 = v23;
+    v36 = v23;
+    v33 = v23;
+    v34 = v23;
     *buf = v23;
     *&buf[16] = v23;
-    memset(&v32, 0, sizeof(v32));
-    v31 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v31);
-    localtime_r(&v31, &v32);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v32);
+    memset(&v31, 0, sizeof(v31));
+    v30 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v30);
+    localtime_r(&v30, &v31);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v31);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "numberOfDirArrayEntries: %lld, readIndex %lld\n", v6, v15);
   }
@@ -2583,19 +2548,19 @@ LABEL_35:
     {
       *&v26 = 0xAAAAAAAAAAAAAAAALL;
       *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v38 = v26;
-      v39 = v26;
-      v36 = v26;
       v37 = v26;
-      v34 = v26;
+      v38 = v26;
       v35 = v26;
+      v36 = v26;
+      v33 = v26;
+      v34 = v26;
       *buf = v26;
       *&buf[16] = v26;
-      memset(&v32, 0, sizeof(v32));
-      v31 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v31);
-      localtime_r(&v31, &v32);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v32);
+      memset(&v31, 0, sizeof(v31));
+      v30 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v30);
+      localtime_r(&v30, &v31);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v31);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "Incorrect number [numberOfDirArrayEntries: %lld, readIndex %lld] of directory entries. Skip sorting.\n", v6, v15);
     }
@@ -2633,22 +2598,19 @@ LABEL_37:
     }
 
     while (v15);
-    goto LABEL_47;
   }
 
-  if (v10)
+  else if (!v10)
   {
-LABEL_47:
-    free(v10);
+    return;
   }
 
-LABEL_48:
-  v30 = *MEMORY[0x277D85DE8];
+  free(v10);
 }
 
 void pruneDirectoryOnOSUpgrade()
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   memset(__s1, 0, sizeof(__s1));
   memset(buffer, 0, sizeof(buffer));
   v0 = CFStringCreateWithCString(0, "com.apple.corecaptured", 0x8000100u);
@@ -2715,24 +2677,24 @@ LABEL_25:
     {
       *&v16 = 0xAAAAAAAAAAAAAAAALL;
       *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v47 = v16;
-      v48 = v16;
-      v45 = v16;
       v46 = v16;
+      v47 = v16;
       v44 = v16;
-      *&buf[16] = v16;
+      v45 = v16;
       v43 = v16;
+      *&buf[16] = v16;
+      v42 = v16;
       *buf = v16;
-      memset(&v41, 0, sizeof(v41));
+      memset(&v40, 0, sizeof(v40));
       SaveLocation = 0xAAAAAAAAAAAAAAAALL;
       time(&SaveLocation);
-      localtime_r(&SaveLocation, &v41);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+      localtime_r(&SaveLocation, &v40);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "pruneDirectoryOnOSUpgrade: activity disabled\n");
     }
 
-    goto LABEL_69;
+    return;
   }
 
   if (!getOsVersion(__s1))
@@ -2766,24 +2728,24 @@ LABEL_39:
     {
       *&v19 = 0xAAAAAAAAAAAAAAAALL;
       *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v47 = v19;
-      v48 = v19;
-      v45 = v19;
       v46 = v19;
+      v47 = v19;
       v44 = v19;
-      *&buf[16] = v19;
+      v45 = v19;
       v43 = v19;
+      *&buf[16] = v19;
+      v42 = v19;
       *buf = v19;
-      memset(&v41, 0, sizeof(v41));
+      memset(&v40, 0, sizeof(v40));
       SaveLocation = 0xAAAAAAAAAAAAAAAALL;
       time(&SaveLocation);
-      localtime_r(&SaveLocation, &v41);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+      localtime_r(&SaveLocation, &v40);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "pruneDirectoryOnOSUpgrade: activity enabled; failed to get osversion\n");
     }
 
-    goto LABEL_69;
+    return;
   }
 
   v5 = CFStringCreateWithCString(0, "com.apple.corecaptured", 0x8000100u);
@@ -2851,19 +2813,19 @@ LABEL_43:
     {
       *&v20 = 0xAAAAAAAAAAAAAAAALL;
       *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v47 = v20;
-      v48 = v20;
-      v45 = v20;
       v46 = v20;
+      v47 = v20;
       v44 = v20;
-      *&buf[16] = v20;
+      v45 = v20;
       v43 = v20;
+      *&buf[16] = v20;
+      v42 = v20;
       *buf = v20;
-      memset(&v41, 0, sizeof(v41));
+      memset(&v40, 0, sizeof(v40));
       SaveLocation = 0xAAAAAAAAAAAAAAAALL;
       time(&SaveLocation);
-      localtime_r(&SaveLocation, &v41);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+      localtime_r(&SaveLocation, &v40);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "pruneDirectoryOnOSUpgrade: activity enabled; upgraded from %s to %s\n", buffer, __s1);
     }
@@ -2882,7 +2844,7 @@ LABEL_43:
       }
     }
 
-    v38 = v21;
+    v37 = v21;
     v22 = *MEMORY[0x277CBECE8];
     p_SaveLocation = &SaveLocation;
     v24 = 1;
@@ -2917,19 +2879,19 @@ LABEL_57:
       {
         *&v30 = 0xAAAAAAAAAAAAAAAALL;
         *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v47 = v30;
-        v48 = v30;
-        v45 = v30;
         v46 = v30;
+        v47 = v30;
         v44 = v30;
-        *&buf[16] = v30;
+        v45 = v30;
         v43 = v30;
+        *&buf[16] = v30;
+        v42 = v30;
         *buf = v30;
-        memset(&v41, 0, sizeof(v41));
-        v39 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v39);
-        localtime_r(&v39, &v41);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+        memset(&v40, 0, sizeof(v40));
+        v38 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v38);
+        localtime_r(&v38, &v40);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "pruneDirectoryOnOSUpgrade %s\n", v27);
       }
@@ -2941,7 +2903,7 @@ LABEL_57:
       }
 
       v24 = 0;
-      p_SaveLocation = &v38;
+      p_SaveLocation = &v37;
       if ((v25 & 1) == 0)
       {
         goto LABEL_63;
@@ -2949,7 +2911,7 @@ LABEL_57:
     }
   }
 
-  v35 = coreCaptureOsLog;
+  v34 = coreCaptureOsLog;
   if (coreCaptureOsLog)
   {
     if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_DEFAULT))
@@ -2958,9 +2920,9 @@ LABEL_57:
       *&buf[4] = buffer;
       *&buf[12] = 2080;
       *&buf[14] = __s1;
-      v36 = v35;
+      v35 = v34;
 LABEL_75:
-      _os_log_impl(&dword_2452A3000, v36, OS_LOG_TYPE_DEFAULT, "pruneDirectoryOnOSUpgrade: activity enabled; snapshot %s, osversion %s\n", buf, 0x16u);
+      _os_log_impl(&dword_2452A3000, v35, OS_LOG_TYPE_DEFAULT, "pruneDirectoryOnOSUpgrade: activity enabled; snapshot %s, osversion %s\n", buf, 0x16u);
     }
   }
 
@@ -2970,27 +2932,27 @@ LABEL_75:
     *&buf[4] = buffer;
     *&buf[12] = 2080;
     *&buf[14] = __s1;
-    v36 = MEMORY[0x277D86220];
+    v35 = MEMORY[0x277D86220];
     goto LABEL_75;
   }
 
   if (glog_fd)
   {
-    *&v37 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v37 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v47 = v37;
-    v48 = v37;
-    v45 = v37;
-    v46 = v37;
-    v44 = v37;
-    *&buf[16] = v37;
-    v43 = v37;
-    *buf = v37;
-    memset(&v41, 0, sizeof(v41));
+    *&v36 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v36 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v46 = v36;
+    v47 = v36;
+    v44 = v36;
+    v45 = v36;
+    v43 = v36;
+    *&buf[16] = v36;
+    v42 = v36;
+    *buf = v36;
+    memset(&v40, 0, sizeof(v40));
     SaveLocation = 0xAAAAAAAAAAAAAAAALL;
     time(&SaveLocation);
-    localtime_r(&SaveLocation, &v41);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v41);
+    localtime_r(&SaveLocation, &v40);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v40);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "pruneDirectoryOnOSUpgrade: activity enabled; snapshot %s, osversion %s\n", buffer, __s1);
   }
@@ -3015,20 +2977,17 @@ LABEL_63:
   {
     CFRelease(v33);
   }
-
-LABEL_69:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 BOOL getOsVersion(char *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  *v25 = 0x4100000001;
-  v16 = 32;
-  v1 = sysctl(v25, 2u, a1, &v16, 0, 0);
+  v25 = *MEMORY[0x277D85DE8];
+  *v24 = 0x4100000001;
+  v15 = 32;
+  v1 = sysctl(v24, 2u, a1, &v15, 0, 0);
   if (!v1)
   {
-    goto LABEL_8;
+    return v1 == 0;
   }
 
   v2 = coreCaptureOsLog;
@@ -3053,10 +3012,10 @@ BOOL getOsVersion(char *a1)
       goto LABEL_6;
     }
 
-    v12 = __error();
-    v13 = strerror(*v12);
+    v11 = __error();
+    v12 = strerror(*v11);
     *buf = 136315138;
-    *&buf[4] = v13;
+    *&buf[4] = v12;
     v5 = MEMORY[0x277D86220];
   }
 
@@ -3066,19 +3025,19 @@ LABEL_6:
   {
     *&v6 = 0xAAAAAAAAAAAAAAAALL;
     *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23 = v6;
-    v24 = v6;
-    v21 = v6;
     v22 = v6;
-    v19 = v6;
+    v23 = v6;
     v20 = v6;
-    *buf = v6;
+    v21 = v6;
     v18 = v6;
-    memset(&v15, 0, sizeof(v15));
-    v14 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v14);
-    localtime_r(&v14, &v15);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v15);
+    v19 = v6;
+    *buf = v6;
+    v17 = v6;
+    memset(&v14, 0, sizeof(v14));
+    v13 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v13);
+    localtime_r(&v13, &v14);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v14);
     dprintf(glog_fd, "%s ", buf);
     v7 = glog_fd;
     v8 = __error();
@@ -3086,10 +3045,7 @@ LABEL_6:
     dprintf(v7, "getOsVersion %s\n", v9);
   }
 
-LABEL_8:
-  result = v1 == 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v1 == 0;
 }
 
 const char *getSaveLocation(uint64_t a1)
@@ -3141,37 +3097,36 @@ const char *isClientValid(const char *result)
 
 uint64_t isMegaWiFiProfileInstalled()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = objc_opt_class();
   if (result)
   {
     v1 = [objc_msgSend(MEMORY[0x277D26298] "sharedConnection")];
+    v6 = 0u;
     v7 = 0u;
     v8 = 0u;
     v9 = 0u;
-    v10 = 0u;
-    result = [v1 countByEnumeratingWithState:&v7 objects:v6 count:16];
+    result = [v1 countByEnumeratingWithState:&v6 objects:v5 count:16];
     if (result)
     {
       v2 = result;
-      v3 = *v8;
+      v3 = *v7;
       while (2)
       {
         for (i = 0; i != v2; ++i)
         {
-          if (*v8 != v3)
+          if (*v7 != v3)
           {
             objc_enumerationMutation(v1);
           }
 
-          if ([*(*(&v7 + 1) + 8 * i) containsString:@"wifi.megawifi"])
+          if ([*(*(&v6 + 1) + 8 * i) containsString:@"wifi.megawifi"])
           {
-            result = 1;
-            goto LABEL_12;
+            return 1;
           }
         }
 
-        v2 = [v1 countByEnumeratingWithState:&v7 objects:v6 count:16];
+        v2 = [v1 countByEnumeratingWithState:&v6 objects:v5 count:16];
         result = 0;
         if (v2)
         {
@@ -3183,44 +3138,41 @@ uint64_t isMegaWiFiProfileInstalled()
     }
   }
 
-LABEL_12:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t isBTLoggingProfileInstalled()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = objc_opt_class();
   if (result)
   {
     v1 = [objc_msgSend(MEMORY[0x277D26298] "sharedConnection")];
+    v6 = 0u;
     v7 = 0u;
     v8 = 0u;
     v9 = 0u;
-    v10 = 0u;
-    result = [v1 countByEnumeratingWithState:&v7 objects:v6 count:16];
+    result = [v1 countByEnumeratingWithState:&v6 objects:v5 count:16];
     if (result)
     {
       v2 = result;
-      v3 = *v8;
+      v3 = *v7;
       while (2)
       {
         for (i = 0; i != v2; ++i)
         {
-          if (*v8 != v3)
+          if (*v7 != v3)
           {
             objc_enumerationMutation(v1);
           }
 
-          if ([*(*(&v7 + 1) + 8 * i) containsString:@"bluetooth.logging"])
+          if ([*(*(&v6 + 1) + 8 * i) containsString:@"bluetooth.logging"])
           {
-            result = 1;
-            goto LABEL_12;
+            return 1;
           }
         }
 
-        v2 = [v1 countByEnumeratingWithState:&v7 objects:v6 count:16];
+        v2 = [v1 countByEnumeratingWithState:&v6 objects:v5 count:16];
         result = 0;
         if (v2)
         {
@@ -3232,8 +3184,6 @@ uint64_t isBTLoggingProfileInstalled()
     }
   }
 
-LABEL_12:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3273,7 +3223,7 @@ const char *getPossibleSaveLocation()
 
 void lowPriorityActivities()
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v0 = time(0);
   if (isSeedAndiOS())
   {
@@ -3332,19 +3282,19 @@ LABEL_40:
       {
         *&v13 = 0xAAAAAAAAAAAAAAAALL;
         *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v28 = v13;
-        v29 = v13;
-        v26 = v13;
         v27 = v13;
-        v24 = v13;
+        v28 = v13;
         v25 = v13;
-        *buf = v13;
+        v26 = v13;
         v23 = v13;
-        memset(&v21, 0, sizeof(v21));
-        v20 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v20);
-        localtime_r(&v20, &v21);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v21);
+        v24 = v13;
+        *buf = v13;
+        v22 = v13;
+        memset(&v20, 0, sizeof(v20));
+        v19 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v19);
+        localtime_r(&v19, &v20);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v20);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "pruneDirectoryNDaysRead strtol EINVAL\n");
       }
@@ -3401,19 +3351,19 @@ LABEL_29:
   {
     *&v16 = 0xAAAAAAAAAAAAAAAALL;
     *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v28 = v16;
-    v29 = v16;
-    v26 = v16;
     v27 = v16;
-    v24 = v16;
+    v28 = v16;
     v25 = v16;
-    *buf = v16;
+    v26 = v16;
     v23 = v16;
-    memset(&v21, 0, sizeof(v21));
-    v20 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v20);
-    localtime_r(&v20, &v21);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v21);
+    v24 = v16;
+    *buf = v16;
+    v22 = v16;
+    memset(&v20, 0, sizeof(v20));
+    v19 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v19);
+    localtime_r(&v19, &v20);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v20);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "pruneDirectoryNDaysRead cap %ld\n", v1);
   }
@@ -3437,13 +3387,11 @@ LABEL_29:
 
     pruneDirectoryNDaysDo(v18, 1, v0, v1);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void writeMetadataFiles(const __CFString *a1, const char *a2, time_t a3, uint64_t a4)
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   v8 = malloc_type_malloc(0x200uLL, 0x100004077774924uLL);
   if (!v8)
   {
@@ -3455,7 +3403,7 @@ void writeMetadataFiles(const __CFString *a1, const char *a2, time_t a3, uint64_
         goto LABEL_60;
       }
 
-      LOWORD(v106.st_dev) = 0;
+      LOWORD(v105.st_dev) = 0;
       v15 = v14;
     }
 
@@ -3466,40 +3414,40 @@ void writeMetadataFiles(const __CFString *a1, const char *a2, time_t a3, uint64_
         goto LABEL_60;
       }
 
-      LOWORD(v106.st_dev) = 0;
+      LOWORD(v105.st_dev) = 0;
       v15 = MEMORY[0x277D86220];
     }
 
-    _os_log_error_impl(&dword_2452A3000, v15, OS_LOG_TYPE_ERROR, "CCFile::writeMetadataFiles failed malloc\n", &v106, 2u);
+    _os_log_error_impl(&dword_2452A3000, v15, OS_LOG_TYPE_ERROR, "CCFile::writeMetadataFiles failed malloc\n", &v105, 2u);
 LABEL_60:
     if (glog_fd)
     {
       v47.tv_sec = 0xAAAAAAAAAAAAAAAALL;
       v47.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&v106.st_size = v47;
-      *&v106.st_blksize = v47;
-      v106.st_ctimespec = v47;
-      v106.st_birthtimespec = v47;
-      v106.st_atimespec = v47;
-      v106.st_mtimespec = v47;
-      *&v106.st_dev = v47;
-      *&v106.st_uid = v47;
-      memset(v101, 0, 56);
+      *&v105.st_size = v47;
+      *&v105.st_blksize = v47;
+      v105.st_ctimespec = v47;
+      v105.st_birthtimespec = v47;
+      v105.st_atimespec = v47;
+      v105.st_mtimespec = v47;
+      *&v105.st_dev = v47;
+      *&v105.st_uid = v47;
+      memset(v100, 0, 56);
       *&valuePtr.tm_sec = 0xAAAAAAAAAAAAAAAALL;
       time(&valuePtr.tm_sec);
-      localtime_r(&valuePtr.tm_sec, v101);
-      strftime(&v106, 0x80uLL, "%b %d %H:%M:%S", v101);
-      dprintf(glog_fd, "%s ", &v106);
+      localtime_r(&valuePtr.tm_sec, v100);
+      strftime(&v105, 0x80uLL, "%b %d %H:%M:%S", v100);
+      dprintf(glog_fd, "%s ", &v105);
       dprintf(glog_fd, "CCFile::writeMetadataFiles failed malloc\n");
     }
 
-    goto LABEL_139;
+    return;
   }
 
   v9 = v8;
-  memset(&v98, 0, sizeof(v98));
-  v97 = a3;
-  localtime_r(&v97, &v98);
+  memset(&v97, 0, sizeof(v97));
+  v96 = a3;
+  localtime_r(&v96, &v97);
   if (!CFStringGetLength(a1))
   {
     SaveLocation = getSaveLocation(0);
@@ -3514,25 +3462,25 @@ LABEL_60:
   if (!v11)
   {
 LABEL_9:
-    snprintf(v9, 0x200uLL, "%s/[%04d-%02d-%02d_%02d,%02d,%02d.%06llu]=%s/%s", SaveLocation, v98.tm_year + 1900, v98.tm_mon + 1, v98.tm_mday, v98.tm_hour, v98.tm_min, v98.tm_sec, a4, a2, "Metadata");
+    snprintf(v9, 0x200uLL, "%s/[%04d-%02d-%02d_%02d,%02d,%02d.%06llu]=%s/%s", SaveLocation, v97.tm_year + 1900, v97.tm_mon + 1, v97.tm_mday, v97.tm_hour, v97.tm_min, v97.tm_sec, a4, a2, "Metadata");
     goto LABEL_10;
   }
 
-  snprintf(v9, 0x200uLL, "%s/%s/[%04d-%02d-%02d_%02d,%02d,%02d.%06llu]=%s/%s", SaveLocation, v11, v98.tm_year + 1900, v98.tm_mon + 1, v98.tm_mday, v98.tm_hour, v98.tm_min, v98.tm_sec, a4, a2, "Metadata");
+  snprintf(v9, 0x200uLL, "%s/%s/[%04d-%02d-%02d_%02d,%02d,%02d.%06llu]=%s/%s", SaveLocation, v11, v97.tm_year + 1900, v97.tm_mon + 1, v97.tm_mday, v97.tm_hour, v97.tm_min, v97.tm_sec, a4, a2, "Metadata");
   free(v11);
 LABEL_10:
   v16 = strdup(v9);
   v17.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v17.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v106.st_blksize = v17;
-  *v106.st_qspare = v17;
-  v106.st_birthtimespec = v17;
-  *&v106.st_size = v17;
-  v106.st_mtimespec = v17;
-  v106.st_ctimespec = v17;
-  *&v106.st_uid = v17;
-  v106.st_atimespec = v17;
-  *&v106.st_dev = v17;
+  *&v105.st_blksize = v17;
+  *v105.st_qspare = v17;
+  v105.st_birthtimespec = v17;
+  *&v105.st_size = v17;
+  v105.st_mtimespec = v17;
+  v105.st_ctimespec = v17;
+  *&v105.st_uid = v17;
+  v105.st_atimespec = v17;
+  *&v105.st_dev = v17;
   for (i = *v16 == 47; v16[i] != 47; ++i)
   {
     if (!v16[i])
@@ -3561,9 +3509,9 @@ LABEL_10:
         CFRelease(v22);
       }
 
-      memset(&v106, 0, 80);
-      memset(v101, 0, 56);
-      v23 = localtime_r(&valuePtr.tm_sec, v101);
+      memset(&v105, 0, 80);
+      memset(v100, 0, 56);
+      v23 = localtime_r(&valuePtr.tm_sec, v100);
       v24 = asctime(v23);
       if (v24)
       {
@@ -3574,10 +3522,10 @@ LABEL_10:
           *v26 = 0;
         }
 
-        strlcpy(&v106, v25, 0x50uLL);
+        strlcpy(&v105, v25, 0x50uLL);
       }
 
-      v27 = CFStringCreateWithCString(0, &v106, 0);
+      v27 = CFStringCreateWithCString(0, &v105, 0);
       CFDictionarySetValue(Mutable, @"Time localtime", v27);
       if (v27)
       {
@@ -3653,74 +3601,74 @@ LABEL_10:
         CFRelease(MutableCopy);
       }
 
-      v116 = 0xAAAAAAAAAAAAAAAALL;
+      v115 = 0xAAAAAAAAAAAAAAAALL;
       *&v40 = 0xAAAAAAAAAAAAAAAALL;
       *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v115[0] = v40;
-      v115[1] = v40;
+      v114[0] = v40;
+      v114[1] = v40;
       *&valuePtr.tm_sec = 0x200000006;
-      *&v114[0] = 40;
-      if (!sysctl(&valuePtr.tm_sec, 2u, v115, v114, 0, 0))
+      *&v113[0] = 40;
+      if (!sysctl(&valuePtr.tm_sec, 2u, v114, v113, 0, 0))
       {
 LABEL_69:
         *&v53 = 0xAAAAAAAAAAAAAAAALL;
         *(&v53 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v114[0] = v53;
-        v114[1] = v53;
-        getOsVersion(v114);
+        v113[0] = v53;
+        v113[1] = v53;
+        getOsVersion(v113);
         v54 = CFDictionaryCreateMutable(v19, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         if (v54)
         {
           v55 = v54;
-          v56 = CFStringCreateWithCString(v19, v115, 0);
+          v56 = CFStringCreateWithCString(v19, v114, 0);
           if (v56)
           {
             v57 = v56;
             CFDictionarySetValue(v55, @"hw.model", v56);
             CFRelease(v57);
-            v58 = CFStringCreateWithCString(v19, v114, 0);
+            v58 = CFStringCreateWithCString(v19, v113, 0);
             if (v58)
             {
               v59 = v58;
               CFDictionarySetValue(v55, @"osversion", v58);
               CFRelease(v59);
               v60 = CCProfileMonitor::fProfileLoaded;
-              v112 = 0u;
-              v113 = 0u;
-              v110 = 0u;
               v111 = 0u;
-              v108 = 0u;
+              v112 = 0u;
               v109 = 0u;
+              v110 = 0u;
               v107 = 0u;
-              memset(&v106, 0, sizeof(v106));
+              v108 = 0u;
+              v106 = 0u;
+              memset(&v105, 0, sizeof(v105));
               if (CCProfileMonitor::fProfileLoaded)
               {
                 if (CCProfileMonitor::fProfileLoaded)
                 {
-                  v61 = strlen(&v106);
-                  strncat(&v106, "BT ", 255 - v61);
+                  v61 = strlen(&v105);
+                  strncat(&v105, "BT ", 255 - v61);
                 }
 
                 if ((v60 & 2) != 0)
                 {
-                  v62 = strlen(&v106);
-                  strncat(&v106, "WiFi ", 255 - v62);
+                  v62 = strlen(&v105);
+                  strncat(&v105, "WiFi ", 255 - v62);
                 }
 
-                v63 = strlen(&v106);
+                v63 = strlen(&v105);
                 if (v63)
                 {
-                  *(&v106 + v63 - 1) = 0;
+                  *(&v105 + v63 - 1) = 0;
                 }
               }
 
               else
               {
-                v71 = strlen(&v106);
-                strncat(&v106, "None", 255 - v71);
+                v71 = strlen(&v105);
+                strncat(&v105, "None", 255 - v71);
               }
 
-              v72 = CFStringCreateWithCString(v19, &v106, 0);
+              v72 = CFStringCreateWithCString(v19, &v105, 0);
               if (v72)
               {
                 v73 = v72;
@@ -3747,8 +3695,8 @@ LABEL_69:
               v75 = atomic_load(gBootArgsParsed);
               if ((v75 & 1) == 0)
               {
-                *v101 = 256;
-                if (!sysctlbyname("kern.bootargs", gBootArgs, v101, 0, 0))
+                *v100 = 256;
+                if (!sysctlbyname("kern.bootargs", gBootArgs, v100, 0, 0))
                 {
                   byte_27EE11C50 = 0;
                 }
@@ -3802,22 +3750,22 @@ LABEL_136:
                 {
                   if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
                   {
-                    *v101 = 136315394;
-                    *&v101[4] = "writeMetadataSystemPlist";
-                    *&v101[12] = 1024;
-                    *&v101[14] = 1043;
+                    *v100 = 136315394;
+                    *&v100[4] = "writeMetadataSystemPlist";
+                    *&v100[12] = 1024;
+                    *&v100[14] = 1043;
                     v89 = v88;
 LABEL_153:
-                    _os_log_error_impl(&dword_2452A3000, v89, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", v101, 0x12u);
+                    _os_log_error_impl(&dword_2452A3000, v89, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", v100, 0x12u);
                   }
                 }
 
                 else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
-                  *v101 = 136315394;
-                  *&v101[4] = "writeMetadataSystemPlist";
-                  *&v101[12] = 1024;
-                  *&v101[14] = 1043;
+                  *v100 = 136315394;
+                  *&v100[4] = "writeMetadataSystemPlist";
+                  *&v100[12] = 1024;
+                  *&v100[14] = 1043;
                   v89 = MEMORY[0x277D86220];
                   goto LABEL_153;
                 }
@@ -3826,20 +3774,20 @@ LABEL_153:
                 {
                   *&v93 = 0xAAAAAAAAAAAAAAAALL;
                   *(&v93 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                  v104 = v93;
-                  v105 = v93;
-                  v102 = v93;
                   v103 = v93;
-                  *&v101[32] = v93;
-                  *&v101[48] = v93;
-                  *v101 = v93;
-                  *&v101[16] = v93;
+                  v104 = v93;
+                  v101 = v93;
+                  v102 = v93;
+                  *&v100[32] = v93;
+                  *&v100[48] = v93;
+                  *v100 = v93;
+                  *&v100[16] = v93;
                   memset(&valuePtr, 0, sizeof(valuePtr));
-                  v99 = 0xAAAAAAAAAAAAAAAALL;
-                  time(&v99);
-                  localtime_r(&v99, &valuePtr);
-                  strftime(v101, 0x80uLL, "%b %d %H:%M:%S", &valuePtr);
-                  dprintf(glog_fd, "%s ", v101);
+                  v98 = 0xAAAAAAAAAAAAAAAALL;
+                  time(&v98);
+                  localtime_r(&v98, &valuePtr);
+                  strftime(v100, 0x80uLL, "%b %d %H:%M:%S", &valuePtr);
+                  dprintf(glog_fd, "%s ", v100);
                   dprintf(glog_fd, "%s:%06u failed to allocate memory\n", "writeMetadataSystemPlist", 1043);
                 }
 
@@ -3852,22 +3800,22 @@ LABEL_153:
               {
                 if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
                 {
-                  *v101 = 136315394;
-                  *&v101[4] = "writeMetadataSystemPlist";
-                  *&v101[12] = 1024;
-                  *&v101[14] = 1036;
+                  *v100 = 136315394;
+                  *&v100[4] = "writeMetadataSystemPlist";
+                  *&v100[12] = 1024;
+                  *&v100[14] = 1036;
                   v84 = v83;
 LABEL_151:
-                  _os_log_error_impl(&dword_2452A3000, v84, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", v101, 0x12u);
+                  _os_log_error_impl(&dword_2452A3000, v84, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", v100, 0x12u);
                 }
               }
 
               else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                *v101 = 136315394;
-                *&v101[4] = "writeMetadataSystemPlist";
-                *&v101[12] = 1024;
-                *&v101[14] = 1036;
+                *v100 = 136315394;
+                *&v100[4] = "writeMetadataSystemPlist";
+                *&v100[12] = 1024;
+                *&v100[14] = 1036;
                 v84 = MEMORY[0x277D86220];
                 goto LABEL_151;
               }
@@ -3876,20 +3824,20 @@ LABEL_151:
               {
                 *&v92 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v92 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v104 = v92;
-                v105 = v92;
-                v102 = v92;
                 v103 = v92;
-                *&v101[32] = v92;
-                *&v101[48] = v92;
-                *v101 = v92;
-                *&v101[16] = v92;
+                v104 = v92;
+                v101 = v92;
+                v102 = v92;
+                *&v100[32] = v92;
+                *&v100[48] = v92;
+                *v100 = v92;
+                *&v100[16] = v92;
                 memset(&valuePtr, 0, sizeof(valuePtr));
-                v99 = 0xAAAAAAAAAAAAAAAALL;
-                time(&v99);
-                localtime_r(&v99, &valuePtr);
-                strftime(v101, 0x80uLL, "%b %d %H:%M:%S", &valuePtr);
-                dprintf(glog_fd, "%s ", v101);
+                v98 = 0xAAAAAAAAAAAAAAAALL;
+                time(&v98);
+                localtime_r(&v98, &valuePtr);
+                strftime(v100, 0x80uLL, "%b %d %H:%M:%S", &valuePtr);
+                dprintf(glog_fd, "%s ", v100);
                 dprintf(glog_fd, "%s:%06u failed to allocate memory\n", "writeMetadataSystemPlist", 1036);
               }
 
@@ -3905,10 +3853,10 @@ LABEL_151:
                 goto LABEL_122;
               }
 
-              v106.st_dev = 136315394;
-              *&v106.st_mode = "writeMetadataSystemPlist";
-              WORD2(v106.st_ino) = 1024;
-              *(&v106.st_ino + 6) = 979;
+              v105.st_dev = 136315394;
+              *&v105.st_mode = "writeMetadataSystemPlist";
+              WORD2(v105.st_ino) = 1024;
+              *(&v105.st_ino + 6) = 979;
               v69 = v68;
             }
 
@@ -3919,33 +3867,33 @@ LABEL_151:
                 goto LABEL_122;
               }
 
-              v106.st_dev = 136315394;
-              *&v106.st_mode = "writeMetadataSystemPlist";
-              WORD2(v106.st_ino) = 1024;
-              *(&v106.st_ino + 6) = 979;
+              v105.st_dev = 136315394;
+              *&v105.st_mode = "writeMetadataSystemPlist";
+              WORD2(v105.st_ino) = 1024;
+              *(&v105.st_ino + 6) = 979;
               v69 = MEMORY[0x277D86220];
             }
 
-            _os_log_error_impl(&dword_2452A3000, v69, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", &v106, 0x12u);
+            _os_log_error_impl(&dword_2452A3000, v69, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", &v105, 0x12u);
 LABEL_122:
             if (glog_fd)
             {
               v90.tv_sec = 0xAAAAAAAAAAAAAAAALL;
               v90.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-              *&v106.st_size = v90;
-              *&v106.st_blksize = v90;
-              v106.st_ctimespec = v90;
-              v106.st_birthtimespec = v90;
-              v106.st_atimespec = v90;
-              v106.st_mtimespec = v90;
-              *&v106.st_dev = v90;
-              *&v106.st_uid = v90;
-              memset(v101, 0, 56);
+              *&v105.st_size = v90;
+              *&v105.st_blksize = v90;
+              v105.st_ctimespec = v90;
+              v105.st_birthtimespec = v90;
+              v105.st_atimespec = v90;
+              v105.st_mtimespec = v90;
+              *&v105.st_dev = v90;
+              *&v105.st_uid = v90;
+              memset(v100, 0, 56);
               *&valuePtr.tm_sec = 0xAAAAAAAAAAAAAAAALL;
               time(&valuePtr.tm_sec);
-              localtime_r(&valuePtr.tm_sec, v101);
-              strftime(&v106, 0x80uLL, "%b %d %H:%M:%S", v101);
-              dprintf(glog_fd, "%s ", &v106);
+              localtime_r(&valuePtr.tm_sec, v100);
+              strftime(&v105, 0x80uLL, "%b %d %H:%M:%S", v100);
+              dprintf(glog_fd, "%s ", &v105);
               v86 = glog_fd;
               v87 = 979;
               goto LABEL_124;
@@ -3962,10 +3910,10 @@ LABEL_122:
               goto LABEL_116;
             }
 
-            v106.st_dev = 136315394;
-            *&v106.st_mode = "writeMetadataSystemPlist";
-            WORD2(v106.st_ino) = 1024;
-            *(&v106.st_ino + 6) = 969;
+            v105.st_dev = 136315394;
+            *&v105.st_mode = "writeMetadataSystemPlist";
+            WORD2(v105.st_ino) = 1024;
+            *(&v105.st_ino + 6) = 969;
             v67 = v66;
           }
 
@@ -3976,33 +3924,33 @@ LABEL_122:
               goto LABEL_116;
             }
 
-            v106.st_dev = 136315394;
-            *&v106.st_mode = "writeMetadataSystemPlist";
-            WORD2(v106.st_ino) = 1024;
-            *(&v106.st_ino + 6) = 969;
+            v105.st_dev = 136315394;
+            *&v105.st_mode = "writeMetadataSystemPlist";
+            WORD2(v105.st_ino) = 1024;
+            *(&v105.st_ino + 6) = 969;
             v67 = MEMORY[0x277D86220];
           }
 
-          _os_log_error_impl(&dword_2452A3000, v67, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", &v106, 0x12u);
+          _os_log_error_impl(&dword_2452A3000, v67, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", &v105, 0x12u);
 LABEL_116:
           if (glog_fd)
           {
             v85.tv_sec = 0xAAAAAAAAAAAAAAAALL;
             v85.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-            *&v106.st_size = v85;
-            *&v106.st_blksize = v85;
-            v106.st_ctimespec = v85;
-            v106.st_birthtimespec = v85;
-            v106.st_atimespec = v85;
-            v106.st_mtimespec = v85;
-            *&v106.st_dev = v85;
-            *&v106.st_uid = v85;
-            memset(v101, 0, 56);
+            *&v105.st_size = v85;
+            *&v105.st_blksize = v85;
+            v105.st_ctimespec = v85;
+            v105.st_birthtimespec = v85;
+            v105.st_atimespec = v85;
+            v105.st_mtimespec = v85;
+            *&v105.st_dev = v85;
+            *&v105.st_uid = v85;
+            memset(v100, 0, 56);
             *&valuePtr.tm_sec = 0xAAAAAAAAAAAAAAAALL;
             time(&valuePtr.tm_sec);
-            localtime_r(&valuePtr.tm_sec, v101);
-            strftime(&v106, 0x80uLL, "%b %d %H:%M:%S", v101);
-            dprintf(glog_fd, "%s ", &v106);
+            localtime_r(&valuePtr.tm_sec, v100);
+            strftime(&v105, 0x80uLL, "%b %d %H:%M:%S", v100);
+            dprintf(glog_fd, "%s ", &v105);
             v86 = glog_fd;
             v87 = 969;
 LABEL_124:
@@ -4024,10 +3972,10 @@ LABEL_137:
             goto LABEL_89;
           }
 
-          v106.st_dev = 136315394;
-          *&v106.st_mode = "writeMetadataSystemPlist";
-          WORD2(v106.st_ino) = 1024;
-          *(&v106.st_ino + 6) = 963;
+          v105.st_dev = 136315394;
+          *&v105.st_mode = "writeMetadataSystemPlist";
+          WORD2(v105.st_ino) = 1024;
+          *(&v105.st_ino + 6) = 963;
           v65 = v64;
         }
 
@@ -4038,33 +3986,33 @@ LABEL_137:
             goto LABEL_89;
           }
 
-          v106.st_dev = 136315394;
-          *&v106.st_mode = "writeMetadataSystemPlist";
-          WORD2(v106.st_ino) = 1024;
-          *(&v106.st_ino + 6) = 963;
+          v105.st_dev = 136315394;
+          *&v105.st_mode = "writeMetadataSystemPlist";
+          WORD2(v105.st_ino) = 1024;
+          *(&v105.st_ino + 6) = 963;
           v65 = MEMORY[0x277D86220];
         }
 
-        _os_log_error_impl(&dword_2452A3000, v65, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", &v106, 0x12u);
+        _os_log_error_impl(&dword_2452A3000, v65, OS_LOG_TYPE_ERROR, "%s:%06u failed to allocate memory\n", &v105, 0x12u);
 LABEL_89:
         if (glog_fd)
         {
           v70.tv_sec = 0xAAAAAAAAAAAAAAAALL;
           v70.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-          *&v106.st_size = v70;
-          *&v106.st_blksize = v70;
-          v106.st_ctimespec = v70;
-          v106.st_birthtimespec = v70;
-          v106.st_atimespec = v70;
-          v106.st_mtimespec = v70;
-          *&v106.st_dev = v70;
-          *&v106.st_uid = v70;
-          memset(v101, 0, 56);
+          *&v105.st_size = v70;
+          *&v105.st_blksize = v70;
+          v105.st_ctimespec = v70;
+          v105.st_birthtimespec = v70;
+          v105.st_atimespec = v70;
+          v105.st_mtimespec = v70;
+          *&v105.st_dev = v70;
+          *&v105.st_uid = v70;
+          memset(v100, 0, 56);
           *&valuePtr.tm_sec = 0xAAAAAAAAAAAAAAAALL;
           time(&valuePtr.tm_sec);
-          localtime_r(&valuePtr.tm_sec, v101);
-          strftime(&v106, 0x80uLL, "%b %d %H:%M:%S", v101);
-          dprintf(glog_fd, "%s ", &v106);
+          localtime_r(&valuePtr.tm_sec, v100);
+          strftime(&v105, 0x80uLL, "%b %d %H:%M:%S", v100);
+          dprintf(glog_fd, "%s ", &v105);
           dprintf(glog_fd, "%s:%06u failed to allocate memory\n", "writeMetadataSystemPlist", 963);
         }
 
@@ -4081,8 +4029,8 @@ LABEL_89:
 
         v42 = __error();
         v43 = strerror(*v42);
-        v106.st_dev = 136315138;
-        *&v106.st_mode = v43;
+        v105.st_dev = 136315138;
+        *&v105.st_mode = v43;
         v44 = v41;
       }
 
@@ -4093,33 +4041,33 @@ LABEL_89:
           goto LABEL_67;
         }
 
-        v95 = __error();
-        v96 = strerror(*v95);
-        v106.st_dev = 136315138;
-        *&v106.st_mode = v96;
+        v94 = __error();
+        v95 = strerror(*v94);
+        v105.st_dev = 136315138;
+        *&v105.st_mode = v95;
         v44 = MEMORY[0x277D86220];
       }
 
-      _os_log_error_impl(&dword_2452A3000, v44, OS_LOG_TYPE_ERROR, "getHwModel %s\n", &v106, 0xCu);
+      _os_log_error_impl(&dword_2452A3000, v44, OS_LOG_TYPE_ERROR, "getHwModel %s\n", &v105, 0xCu);
 LABEL_67:
       if (glog_fd)
       {
         v49.tv_sec = 0xAAAAAAAAAAAAAAAALL;
         v49.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-        *&v106.st_size = v49;
-        *&v106.st_blksize = v49;
-        v106.st_ctimespec = v49;
-        v106.st_birthtimespec = v49;
-        v106.st_atimespec = v49;
-        v106.st_mtimespec = v49;
-        *&v106.st_dev = v49;
-        *&v106.st_uid = v49;
-        memset(v101, 0, 56);
-        v99 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v99);
-        localtime_r(&v99, v101);
-        strftime(&v106, 0x80uLL, "%b %d %H:%M:%S", v101);
-        dprintf(glog_fd, "%s ", &v106);
+        *&v105.st_size = v49;
+        *&v105.st_blksize = v49;
+        v105.st_ctimespec = v49;
+        v105.st_birthtimespec = v49;
+        v105.st_atimespec = v49;
+        v105.st_mtimespec = v49;
+        *&v105.st_dev = v49;
+        *&v105.st_uid = v49;
+        memset(v100, 0, 56);
+        v98 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v98);
+        localtime_r(&v98, v100);
+        strftime(&v105, 0x80uLL, "%b %d %H:%M:%S", v100);
+        dprintf(glog_fd, "%s ", &v105);
         v50 = glog_fd;
         v51 = __error();
         v52 = strerror(*v51);
@@ -4134,7 +4082,7 @@ LABEL_18:
   }
 
   v16[i] = 0;
-  if (stat(v16, &v106))
+  if (stat(v16, &v105))
   {
     mkdir(v16, 0x1EDu);
 LABEL_17:
@@ -4142,7 +4090,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  if ((v106.st_mode & 0xF000) == 0x4000)
+  if ((v105.st_mode & 0xF000) == 0x4000)
   {
     goto LABEL_17;
   }
@@ -4152,10 +4100,10 @@ LABEL_17:
   {
     if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
     {
-      *v101 = 136315394;
-      *&v101[4] = v9;
-      *&v101[12] = 2080;
-      *&v101[14] = v16;
+      *v100 = 136315394;
+      *&v100[4] = v9;
+      *&v100[12] = 2080;
+      *&v100[14] = v16;
       v46 = v45;
       goto LABEL_141;
     }
@@ -4163,41 +4111,39 @@ LABEL_17:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    *v101 = 136315394;
-    *&v101[4] = v9;
-    *&v101[12] = 2080;
-    *&v101[14] = v16;
+    *v100 = 136315394;
+    *&v100[4] = v9;
+    *&v100[12] = 2080;
+    *&v100[14] = v16;
     v46 = MEMORY[0x277D86220];
 LABEL_141:
-    _os_log_error_impl(&dword_2452A3000, v46, OS_LOG_TYPE_ERROR, "CCFile::mkpath fails to create path '%s' as '%s' is not a directory\n", v101, 0x16u);
+    _os_log_error_impl(&dword_2452A3000, v46, OS_LOG_TYPE_ERROR, "CCFile::mkpath fails to create path '%s' as '%s' is not a directory\n", v100, 0x16u);
   }
 
   if (glog_fd)
   {
     *&v48 = 0xAAAAAAAAAAAAAAAALL;
     *(&v48 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v104 = v48;
-    v105 = v48;
-    v102 = v48;
     v103 = v48;
-    *&v101[32] = v48;
-    *&v101[48] = v48;
-    *v101 = v48;
-    *&v101[16] = v48;
+    v104 = v48;
+    v101 = v48;
+    v102 = v48;
+    *&v100[32] = v48;
+    *&v100[48] = v48;
+    *v100 = v48;
+    *&v100[16] = v48;
     memset(&valuePtr, 0, sizeof(valuePtr));
-    *&v115[0] = 0xAAAAAAAAAAAAAAAALL;
-    time(v115);
-    localtime_r(v115, &valuePtr);
-    strftime(v101, 0x80uLL, "%b %d %H:%M:%S", &valuePtr);
-    dprintf(glog_fd, "%s ", v101);
+    *&v114[0] = 0xAAAAAAAAAAAAAAAALL;
+    time(v114);
+    localtime_r(v114, &valuePtr);
+    strftime(v100, 0x80uLL, "%b %d %H:%M:%S", &valuePtr);
+    dprintf(glog_fd, "%s ", v100);
     dprintf(glog_fd, "CCFile::mkpath fails to create path '%s' as '%s' is not a directory\n", v9, v16);
   }
 
   free(v16);
 LABEL_138:
   free(v9);
-LABEL_139:
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 void writeMetadataFile(const __CFDictionary *a1, CFStringRef theString)
@@ -4302,7 +4248,7 @@ LABEL_4:
 
 uint64_t validCFObjectReference(uint64_t a1, CFTypeRef cf, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!cf)
   {
     v7 = coreCaptureOsLog;
@@ -4336,141 +4282,136 @@ LABEL_11:
     {
       *&v11 = 0xAAAAAAAAAAAAAAAALL;
       *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v22 = v11;
-      v23 = v11;
-      v20 = v11;
       v21 = v11;
-      v18 = v11;
+      v22 = v11;
       v19 = v11;
+      v20 = v11;
+      v17 = v11;
+      v18 = v11;
       *buf = v11;
       *&buf[16] = v11;
-      memset(&v16, 0, sizeof(v16));
-      v15 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v15);
-      localtime_r(&v15, &v16);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v16);
+      memset(&v15, 0, sizeof(v15));
+      v14 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v14);
+      localtime_r(&v14, &v15);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v15);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "%s NULL value.\n");
     }
 
-    goto LABEL_16;
+    return 0;
   }
 
-  if (CFGetTypeID(cf) != a3)
+  if (CFGetTypeID(cf) == a3)
   {
-    v9 = coreCaptureOsLog;
-    if (coreCaptureOsLog)
-    {
-      if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_14;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = a1;
-      *&buf[12] = 2048;
-      *&buf[14] = a3;
-      *&buf[22] = 2048;
-      *&buf[24] = CFGetTypeID(cf);
-      v10 = v9;
-    }
-
-    else
-    {
-      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_14;
-      }
-
-      *buf = 136315650;
-      *&buf[4] = a1;
-      *&buf[12] = 2048;
-      *&buf[14] = a3;
-      *&buf[22] = 2048;
-      *&buf[24] = CFGetTypeID(cf);
-      v10 = MEMORY[0x277D86220];
-    }
-
-    _os_log_error_impl(&dword_2452A3000, v10, OS_LOG_TYPE_ERROR, "%s Unexpected CF object type ID. Expected (%lu), have (%lu) \n", buf, 0x20u);
-LABEL_14:
-    if (glog_fd)
-    {
-      *&v12 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v22 = v12;
-      v23 = v12;
-      v20 = v12;
-      v21 = v12;
-      v18 = v12;
-      v19 = v12;
-      *buf = v12;
-      *&buf[16] = v12;
-      memset(&v16, 0, sizeof(v16));
-      v15 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v15);
-      localtime_r(&v15, &v16);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v16);
-      dprintf(glog_fd, "%s ", buf);
-      v13 = glog_fd;
-      CFGetTypeID(cf);
-      dprintf(v13, "%s Unexpected CF object type ID. Expected (%lu), have (%lu) \n");
-    }
-
-LABEL_16:
-    result = 0;
-    goto LABEL_17;
+    return 1;
   }
 
-  result = 1;
-LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v9 = coreCaptureOsLog;
+  if (coreCaptureOsLog)
+  {
+    if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_14;
+    }
+
+    *buf = 136315650;
+    *&buf[4] = a1;
+    *&buf[12] = 2048;
+    *&buf[14] = a3;
+    *&buf[22] = 2048;
+    *&buf[24] = CFGetTypeID(cf);
+    v10 = v9;
+  }
+
+  else
+  {
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_14;
+    }
+
+    *buf = 136315650;
+    *&buf[4] = a1;
+    *&buf[12] = 2048;
+    *&buf[14] = a3;
+    *&buf[22] = 2048;
+    *&buf[24] = CFGetTypeID(cf);
+    v10 = MEMORY[0x277D86220];
+  }
+
+  _os_log_error_impl(&dword_2452A3000, v10, OS_LOG_TYPE_ERROR, "%s Unexpected CF object type ID. Expected (%lu), have (%lu) \n", buf, 0x20u);
+LABEL_14:
+  if (glog_fd)
+  {
+    *&v12 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v21 = v12;
+    v22 = v12;
+    v19 = v12;
+    v20 = v12;
+    v17 = v12;
+    v18 = v12;
+    *buf = v12;
+    *&buf[16] = v12;
+    memset(&v15, 0, sizeof(v15));
+    v14 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v14);
+    localtime_r(&v14, &v15);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v15);
+    dprintf(glog_fd, "%s ", buf);
+    v13 = glog_fd;
+    CFGetTypeID(cf);
+    dprintf(v13, "%s Unexpected CF object type ID. Expected (%lu), have (%lu) \n");
+  }
+
+  return 0;
 }
 
 void addSystemInformationToDict(__CFDictionary *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
     v5 = Mutable;
-    v10 = -1431655766;
+    v9 = -1431655766;
     *&v6 = 0xAAAAAAAAAAAAAAAALL;
     *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v14 = v6;
-    v15 = v6;
-    *v12 = v6;
-    v13 = v6;
-    v11[1] = 0xAAAAAAAAAAAAAAAALL;
+    *v13 = v6;
+    v14 = v6;
+    *v11 = v6;
+    v12 = v6;
+    v10[1] = 0xAAAAAAAAAAAAAAAALL;
     add_ull_to_dict("mach-absolute-time", a2, Mutable);
-    v11[0] = 0x1700000006;
-    v9 = 4;
-    if (!sysctl(v11, 2u, &v10, &v9, 0, 0))
+    v10[0] = 0x1700000006;
+    v8 = 4;
+    if (!sysctl(v10, 2u, &v9, &v8, 0, 0))
     {
-      add_ull_to_dict("tick-frequency", v10, v5);
+      add_ull_to_dict("tick-frequency", v9, v5);
     }
 
-    v11[0] = 0x4100000001;
-    v9 = 32;
-    if (!sysctl(v11, 2u, v14, &v9, 0, 0))
+    v10[0] = 0x4100000001;
+    v8 = 32;
+    if (!sysctl(v10, 2u, v13, &v8, 0, 0))
     {
-      HIBYTE(v15) = 0;
-      add_cstr_to_dict("os-version", v14, v5);
+      HIBYTE(v14) = 0;
+      add_cstr_to_dict("os-version", v13, v5);
     }
 
-    v11[0] = 0x200000006;
-    v9 = 32;
-    if (!sysctl(v11, 2u, v12, &v9, 0, 0))
+    v10[0] = 0x200000006;
+    v8 = 32;
+    if (!sysctl(v10, 2u, v11, &v8, 0, 0))
     {
-      HIBYTE(v13) = 0;
-      add_cstr_to_dict("hw-model", v12, v5);
+      HIBYTE(v12) = 0;
+      add_cstr_to_dict("hw-model", v11, v5);
     }
 
     v7 = atomic_load(gBootArgsParsed);
     if ((v7 & 1) == 0)
     {
-      v9 = 256;
-      if (!sysctlbyname("kern.bootargs", gBootArgs, &v9, 0, 0))
+      v8 = 256;
+      if (!sysctlbyname("kern.bootargs", gBootArgs, &v8, 0, 0))
       {
         byte_27EE11C50 = 0;
       }
@@ -4480,23 +4421,19 @@ void addSystemInformationToDict(__CFDictionary *a1, uint64_t a2)
     add_cftype_to_dict("DeviceInfo", v5, a1);
     CFRelease(v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void add_ull_to_dict(const char *a1, uint64_t a2, __CFDictionary *a3)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = a2;
-  v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberLongLongType, v8);
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = a2;
+  v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberLongLongType, v7);
   if (v5)
   {
     v6 = v5;
     add_cftype_to_dict(a1, v5, a3);
     CFRelease(v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void add_cstr_to_dict(const char *a1, char *a2, __CFDictionary *a3)
@@ -4566,7 +4503,7 @@ uint64_t CCIOReporterFormatter::initWithRegistryEntry(CCIOReporterFormatter *thi
 
 CFIndex CCIOReporterFormatter::writeLog(CCIOReporterFormatter *a1, uint64_t a2, const UInt8 *a3, size_t a4, const void *a5, size_t a6)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   if (!a2 || (v6 = a3) == 0)
   {
     v14 = coreCaptureOsLog;
@@ -4598,24 +4535,24 @@ LABEL_11:
     {
       *&v16 = 0xAAAAAAAAAAAAAAAALL;
       *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v86 = v16;
-      v87 = v16;
-      v84 = v16;
       v85 = v16;
-      v82 = v16;
+      v86 = v16;
       v83 = v16;
+      v84 = v16;
+      v81 = v16;
+      v82 = v16;
       *buffer = v16;
       *&buffer[16] = v16;
-      memset(v76, 0, 56);
-      *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v73.tm_sec);
-      localtime_r(&v73.tm_sec, v76);
-      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+      memset(v75, 0, 56);
+      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v72.tm_sec);
+      localtime_r(&v72.tm_sec, v75);
+      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
       dprintf(glog_fd, "%s ", buffer);
       dprintf(glog_fd, "CCIOReporterFormatter::writeLog Unexpected log data \n");
     }
 
-    goto LABEL_40;
+    return 0;
   }
 
   v9 = a4;
@@ -4655,19 +4592,19 @@ LABEL_14:
   {
     *&v17 = 0xAAAAAAAAAAAAAAAALL;
     *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v86 = v17;
-    v87 = v17;
-    v84 = v17;
     v85 = v17;
-    v82 = v17;
+    v86 = v17;
     v83 = v17;
+    v84 = v17;
+    v81 = v17;
+    v82 = v17;
     *buffer = v17;
     *&buffer[16] = v17;
-    memset(v76, 0, 56);
-    *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-    time(&v73.tm_sec);
-    localtime_r(&v73.tm_sec, v76);
-    strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+    memset(v75, 0, 56);
+    *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+    time(&v72.tm_sec);
+    localtime_r(&v72.tm_sec, v75);
+    strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
     dprintf(glog_fd, "%s ", buffer);
     dprintf(glog_fd, "CCIOReporterFormatter::writeLog  Inconsistent data (1) length=%lu\n", 0);
   }
@@ -4709,19 +4646,19 @@ LABEL_22:
   {
     *&v20 = 0xAAAAAAAAAAAAAAAALL;
     *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v86 = v20;
-    v87 = v20;
-    v84 = v20;
     v85 = v20;
-    v82 = v20;
+    v86 = v20;
     v83 = v20;
+    v84 = v20;
+    v81 = v20;
+    v82 = v20;
     *buffer = v20;
     *&buffer[16] = v20;
-    memset(v76, 0, 56);
-    *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-    time(&v73.tm_sec);
-    localtime_r(&v73.tm_sec, v76);
-    strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+    memset(v75, 0, 56);
+    *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+    time(&v72.tm_sec);
+    localtime_r(&v72.tm_sec, v75);
+    strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
     dprintf(glog_fd, "%s ", buffer);
     dprintf(glog_fd, "CCIOReporterFormatter::writeLog  Inconsistent data (2) lengthContinue=%lu\n", 0);
   }
@@ -4773,19 +4710,19 @@ LABEL_29:
   {
     *&v25 = 0xAAAAAAAAAAAAAAAALL;
     *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v86 = v25;
-    v87 = v25;
-    v84 = v25;
     v85 = v25;
-    v82 = v25;
+    v86 = v25;
     v83 = v25;
+    v84 = v25;
+    v81 = v25;
+    v82 = v25;
     *buffer = v25;
     *&buffer[16] = v25;
-    memset(v76, 0, 56);
-    *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-    time(&v73.tm_sec);
-    localtime_r(&v73.tm_sec, v76);
-    strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+    memset(v75, 0, 56);
+    *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+    time(&v72.tm_sec);
+    localtime_r(&v72.tm_sec, v75);
+    strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
     dprintf(glog_fd, "%s ", buffer);
     dprintf(glog_fd, "CCIOReporterFormatter::writeLog  Inconsistent data (3) payloadLength=%d, length=%lu, lengthContinue=%lu\n", *(a2 + 24), v9, a6);
   }
@@ -4826,26 +4763,24 @@ LABEL_38:
     {
       *&v30 = 0xAAAAAAAAAAAAAAAALL;
       *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v86 = v30;
-      v87 = v30;
-      v84 = v30;
       v85 = v30;
-      v82 = v30;
+      v86 = v30;
       v83 = v30;
+      v84 = v30;
+      v81 = v30;
+      v82 = v30;
       *buffer = v30;
       *&buffer[16] = v30;
-      memset(v76, 0, 56);
-      *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v73.tm_sec);
-      localtime_r(&v73.tm_sec, v76);
-      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+      memset(v75, 0, 56);
+      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v72.tm_sec);
+      localtime_r(&v72.tm_sec, v75);
+      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
       dprintf(*(v27 + 2856), "%s ", buffer);
       dprintf(*(v27 + 2856), "CCIOReporterFormatter::writeLog  Insufficient length=%lu to hold IOReporterHeader_t\n");
     }
 
-LABEL_40:
-    v31 = 0;
-    goto LABEL_41;
+    return 0;
   }
 
   if (a5)
@@ -4862,16 +4797,16 @@ LABEL_40:
     v29 = 0;
   }
 
-  v34 = *MEMORY[0x277CBECE8];
-  v35 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, v6);
+  v33 = *MEMORY[0x277CBECE8];
+  v34 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, v6);
   valuePtr = *(a2 + 35);
-  v36 = CFNumberCreate(v34, kCFNumberSInt32Type, &valuePtr);
-  v37 = CFDataCreateWithBytesNoCopy(0, v6 + 4, v9 - 4, *MEMORY[0x277CBED00]);
-  v38 = v37;
+  v35 = CFNumberCreate(v33, kCFNumberSInt32Type, &valuePtr);
+  v36 = CFDataCreateWithBytesNoCopy(0, v6 + 4, v9 - 4, *MEMORY[0x277CBED00]);
+  v37 = v36;
   err = 0;
-  if (!v37 || !CFDataGetLength(v37))
+  if (!v36 || !CFDataGetLength(v36))
   {
-    v51 = coreCaptureOsLog;
+    v50 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -4880,7 +4815,7 @@ LABEL_40:
       }
 
       *buffer = 0;
-      v52 = v51;
+      v51 = v50;
     }
 
     else
@@ -4891,28 +4826,28 @@ LABEL_40:
       }
 
       *buffer = 0;
-      v52 = MEMORY[0x277D86220];
+      v51 = MEMORY[0x277D86220];
     }
 
-    _os_log_error_impl(&dword_2452A3000, v52, OS_LOG_TYPE_ERROR, "CCIOReporterFormatter::writeLog  Can't copy rawData\n", buffer, 2u);
+    _os_log_error_impl(&dword_2452A3000, v51, OS_LOG_TYPE_ERROR, "CCIOReporterFormatter::writeLog  Can't copy rawData\n", buffer, 2u);
 LABEL_63:
     if (glog_fd)
     {
-      *&v55 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v86 = v55;
-      v87 = v55;
-      v84 = v55;
-      v85 = v55;
-      v82 = v55;
-      v83 = v55;
-      *buffer = v55;
-      *&buffer[16] = v55;
-      memset(v76, 0, 56);
-      *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v73.tm_sec);
-      localtime_r(&v73.tm_sec, v76);
-      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+      *&v54 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v54 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v85 = v54;
+      v86 = v54;
+      v83 = v54;
+      v84 = v54;
+      v81 = v54;
+      v82 = v54;
+      *buffer = v54;
+      *&buffer[16] = v54;
+      memset(v75, 0, 56);
+      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v72.tm_sec);
+      localtime_r(&v72.tm_sec, v75);
+      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
       dprintf(glog_fd, "%s ", buffer);
       dprintf(glog_fd, "CCIOReporterFormatter::writeLog  Can't copy rawData\n");
     }
@@ -4920,10 +4855,10 @@ LABEL_63:
     goto LABEL_68;
   }
 
-  ChannelsForStreamAndSubscription = CCIOReporterFormatter::getChannelsForStreamAndSubscription(a1, v36, v35);
+  ChannelsForStreamAndSubscription = CCIOReporterFormatter::getChannelsForStreamAndSubscription(a1, v35, v34);
   if (!ChannelsForStreamAndSubscription || !CFDictionaryGetCount(ChannelsForStreamAndSubscription))
   {
-    v53 = coreCaptureOsLog;
+    v52 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -4932,7 +4867,7 @@ LABEL_63:
       }
 
       *buffer = 0;
-      v54 = v53;
+      v53 = v52;
     }
 
     else
@@ -4943,144 +4878,144 @@ LABEL_63:
       }
 
       *buffer = 0;
-      v54 = MEMORY[0x277D86220];
+      v53 = MEMORY[0x277D86220];
     }
 
-    _os_log_error_impl(&dword_2452A3000, v54, OS_LOG_TYPE_ERROR, "CCIOReporterFormatter::writeLog  Didn't find channels\n", buffer, 2u);
+    _os_log_error_impl(&dword_2452A3000, v53, OS_LOG_TYPE_ERROR, "CCIOReporterFormatter::writeLog  Didn't find channels\n", buffer, 2u);
 LABEL_66:
     if (glog_fd)
     {
-      *&v56 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v56 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v86 = v56;
-      v87 = v56;
-      v84 = v56;
-      v85 = v56;
-      v82 = v56;
-      v83 = v56;
-      *buffer = v56;
-      *&buffer[16] = v56;
-      memset(v76, 0, 56);
-      *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v73.tm_sec);
-      localtime_r(&v73.tm_sec, v76);
-      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+      *&v55 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v85 = v55;
+      v86 = v55;
+      v83 = v55;
+      v84 = v55;
+      v81 = v55;
+      v82 = v55;
+      *buffer = v55;
+      *&buffer[16] = v55;
+      memset(v75, 0, 56);
+      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v72.tm_sec);
+      localtime_r(&v72.tm_sec, v75);
+      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
       dprintf(glog_fd, "%s ", buffer);
       dprintf(glog_fd, "CCIOReporterFormatter::writeLog  Didn't find channels\n");
     }
 
 LABEL_68:
-    v44 = 0;
-    v50 = 0;
-    v46 = 0;
-    v41 = 0;
+    v43 = 0;
+    v49 = 0;
+    v45 = 0;
+    v40 = 0;
 LABEL_69:
     v31 = 0;
     goto LABEL_70;
   }
 
   SamplesRaw = IOReportCreateSamplesRaw();
-  v41 = SamplesRaw;
+  v40 = SamplesRaw;
   if (!SamplesRaw)
   {
-    v43 = err;
+    v42 = err;
     goto LABEL_87;
   }
 
   Count = CFDictionaryGetCount(SamplesRaw);
-  v43 = err;
+  v42 = err;
   if (!Count || err)
   {
 LABEL_87:
-    v92 = xmmword_2452E9D60;
-    v93 = unk_2452E9D70;
-    v94 = xmmword_2452E9D80;
-    v95 = unk_2452E9D90;
-    v88 = xmmword_2452E9D20;
-    v89 = unk_2452E9D30;
-    v90 = xmmword_2452E9D40;
-    v91 = unk_2452E9D50;
-    v84 = xmmword_2452E9CE0;
-    v85 = unk_2452E9CF0;
-    v86 = xmmword_2452E9D00;
-    v87 = unk_2452E9D10;
+    v91 = xmmword_2452E9D60;
+    v92 = unk_2452E9D70;
+    v93 = xmmword_2452E9D80;
+    v94 = unk_2452E9D90;
+    v87 = xmmword_2452E9D20;
+    v88 = unk_2452E9D30;
+    v89 = xmmword_2452E9D40;
+    v90 = unk_2452E9D50;
+    v83 = xmmword_2452E9CE0;
+    v84 = unk_2452E9CF0;
+    v85 = xmmword_2452E9D00;
+    v86 = unk_2452E9D10;
     *buffer = *"<unknown>";
     *&buffer[16] = *&algn_2452E9CAA[6];
-    v82 = xmmword_2452E9CC0;
-    v83 = unk_2452E9CD0;
-    if (v43)
+    v81 = xmmword_2452E9CC0;
+    v82 = unk_2452E9CD0;
+    if (v42)
     {
-      v57 = CFErrorCopyFailureReason(v43);
-      if (v57)
+      v56 = CFErrorCopyFailureReason(v42);
+      if (v56)
       {
-        v58 = v57;
-        CFStringGetCString(v57, buffer, 256, 0x8000100u);
-        CFRelease(v58);
+        v57 = v56;
+        CFStringGetCString(v56, buffer, 256, 0x8000100u);
+        CFRelease(v57);
       }
 
       CFRelease(err);
     }
 
-    v59 = coreCaptureOsLog;
+    v58 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
       {
-        *v76 = 0;
-        v60 = v59;
+        *v75 = 0;
+        v59 = v58;
 LABEL_134:
-        _os_log_error_impl(&dword_2452A3000, v60, OS_LOG_TYPE_ERROR, "IOReportCreateSamplesRaw() returned 0 sized dictionary", v76, 2u);
+        _os_log_error_impl(&dword_2452A3000, v59, OS_LOG_TYPE_ERROR, "IOReportCreateSamplesRaw() returned 0 sized dictionary", v75, 2u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v76 = 0;
-      v60 = MEMORY[0x277D86220];
+      *v75 = 0;
+      v59 = MEMORY[0x277D86220];
       goto LABEL_134;
     }
 
     if (glog_fd)
     {
-      *&v61 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v61 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v79 = v61;
-      v80 = v61;
-      v77 = v61;
-      v78 = v61;
-      *&v76[48] = v61;
-      *&v76[16] = v61;
-      *&v76[32] = v61;
-      *v76 = v61;
-      memset(&v73, 0, sizeof(v73));
-      v72 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v72);
-      localtime_r(&v72, &v73);
-      strftime(v76, 0x80uLL, "%b %d %H:%M:%S", &v73);
-      dprintf(glog_fd, "%s ", v76);
+      *&v60 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v60 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v78 = v60;
+      v79 = v60;
+      v76 = v60;
+      v77 = v60;
+      *&v75[48] = v60;
+      *&v75[16] = v60;
+      *&v75[32] = v60;
+      *v75 = v60;
+      memset(&v72, 0, sizeof(v72));
+      v71 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v71);
+      localtime_r(&v71, &v72);
+      strftime(v75, 0x80uLL, "%b %d %H:%M:%S", &v72);
+      dprintf(glog_fd, "%s ", v75);
       dprintf(glog_fd, "IOReportCreateSamplesRaw() returned 0 sized dictionary");
     }
 
-    v44 = 0;
-    v46 = 0;
+    v43 = 0;
+    v45 = 0;
     v31 = 0;
-    v50 = v41;
-    v41 = 0;
+    v49 = v40;
+    v40 = 0;
     goto LABEL_70;
   }
 
-  addSystemInformationToDict(v41, *(a2 + 28) & 0xFFFFFFFFFFFFFFLL);
-  v44 = CCIOReporterFormatter::writeTimeString(a1, a2);
-  if (v44)
+  addSystemInformationToDict(v40, *(a2 + 28) & 0xFFFFFFFFFFFFFFLL);
+  v43 = CCIOReporterFormatter::writeTimeString(a1, a2);
+  if (v43)
   {
-    CFDictionarySetValue(v41, @"Time", v44);
+    CFDictionarySetValue(v40, @"Time", v43);
   }
 
-  Data = CFPropertyListCreateData(0, v41, kCFPropertyListXMLFormat_v1_0, 0, 0);
-  v46 = Data;
+  Data = CFPropertyListCreateData(0, v40, kCFPropertyListXMLFormat_v1_0, 0, 0);
+  v45 = Data;
   if (!Data)
   {
-    v62 = coreCaptureOsLog;
+    v61 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -5089,7 +5024,7 @@ LABEL_134:
       }
 
       *buffer = 0;
-      v63 = v62;
+      v62 = v61;
     }
 
     else
@@ -5100,74 +5035,74 @@ LABEL_134:
       }
 
       *buffer = 0;
-      v63 = MEMORY[0x277D86220];
+      v62 = MEMORY[0x277D86220];
     }
 
-    _os_log_error_impl(&dword_2452A3000, v63, OS_LOG_TYPE_ERROR, "CFPropertyListCreateData() failed", buffer, 2u);
+    _os_log_error_impl(&dword_2452A3000, v62, OS_LOG_TYPE_ERROR, "CFPropertyListCreateData() failed", buffer, 2u);
 LABEL_117:
     if (glog_fd)
     {
-      *&v66 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v66 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v86 = v66;
-      v87 = v66;
-      v84 = v66;
-      v85 = v66;
-      v82 = v66;
-      v83 = v66;
-      *buffer = v66;
-      *&buffer[16] = v66;
-      memset(v76, 0, 56);
-      *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v73.tm_sec);
-      localtime_r(&v73.tm_sec, v76);
-      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+      *&v65 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v65 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v85 = v65;
+      v86 = v65;
+      v83 = v65;
+      v84 = v65;
+      v81 = v65;
+      v82 = v65;
+      *buffer = v65;
+      *&buffer[16] = v65;
+      memset(v75, 0, 56);
+      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v72.tm_sec);
+      localtime_r(&v72.tm_sec, v75);
+      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
       dprintf(glog_fd, "%s ", buffer);
       dprintf(glog_fd, "CFPropertyListCreateData() failed");
     }
 
 LABEL_119:
-    v67 = coreCaptureOsLog;
+    v66 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
       {
         *buffer = 0;
-        v68 = v67;
+        v67 = v66;
 LABEL_136:
-        _os_log_error_impl(&dword_2452A3000, v68, OS_LOG_TYPE_ERROR, "CFDataGetBytePtr() failed", buffer, 2u);
+        _os_log_error_impl(&dword_2452A3000, v67, OS_LOG_TYPE_ERROR, "CFDataGetBytePtr() failed", buffer, 2u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buffer = 0;
-      v68 = MEMORY[0x277D86220];
+      v67 = MEMORY[0x277D86220];
       goto LABEL_136;
     }
 
     if (glog_fd)
     {
-      *&v69 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v69 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v86 = v69;
-      v87 = v69;
-      v84 = v69;
-      v85 = v69;
-      v82 = v69;
-      v83 = v69;
-      *buffer = v69;
-      *&buffer[16] = v69;
-      memset(v76, 0, 56);
-      *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v73.tm_sec);
-      localtime_r(&v73.tm_sec, v76);
-      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+      *&v68 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v68 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v85 = v68;
+      v86 = v68;
+      v83 = v68;
+      v84 = v68;
+      v81 = v68;
+      v82 = v68;
+      *buffer = v68;
+      *&buffer[16] = v68;
+      memset(v75, 0, 56);
+      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v72.tm_sec);
+      localtime_r(&v72.tm_sec, v75);
+      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
       dprintf(glog_fd, "%s ", buffer);
       dprintf(glog_fd, "CFDataGetBytePtr() failed");
     }
 
-    v50 = 0;
+    v49 = 0;
     goto LABEL_69;
   }
 
@@ -5176,15 +5111,15 @@ LABEL_136:
     goto LABEL_119;
   }
 
-  Length = CFDataGetLength(v46);
-  BytePtr = CFDataGetBytePtr(v46);
+  Length = CFDataGetLength(v45);
+  BytePtr = CFDataGetBytePtr(v45);
   v31 = Length - 173;
   ++*(a1 + 46);
-  v49 = (*(*a1 + 112))(a1, BytePtr + 164, v31);
-  if (v49 != v31)
+  v48 = (*(*a1 + 112))(a1, BytePtr + 164, v31);
+  if (v48 != v31)
   {
-    v71 = v49;
-    v64 = coreCaptureOsLog;
+    v70 = v48;
+    v63 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -5192,10 +5127,10 @@ LABEL_136:
         *buffer = 134218240;
         *&buffer[4] = v31;
         *&buffer[12] = 2048;
-        *&buffer[14] = v71;
-        v65 = v64;
+        *&buffer[14] = v70;
+        v64 = v63;
 LABEL_140:
-        _os_log_error_impl(&dword_2452A3000, v65, OS_LOG_TYPE_ERROR, "CCIOReporterFormatter::writeLog Failed to write(1) dsize=%lu, tempLength=%lu\n", buffer, 0x16u);
+        _os_log_error_impl(&dword_2452A3000, v64, OS_LOG_TYPE_ERROR, "CCIOReporterFormatter::writeLog Failed to write(1) dsize=%lu, tempLength=%lu\n", buffer, 0x16u);
       }
     }
 
@@ -5204,72 +5139,67 @@ LABEL_140:
       *buffer = 134218240;
       *&buffer[4] = v31;
       *&buffer[12] = 2048;
-      *&buffer[14] = v71;
-      v65 = MEMORY[0x277D86220];
+      *&buffer[14] = v70;
+      v64 = MEMORY[0x277D86220];
       goto LABEL_140;
     }
 
     if (glog_fd)
     {
-      *&v70 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v70 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v86 = v70;
-      v87 = v70;
-      v84 = v70;
-      v85 = v70;
-      v82 = v70;
-      v83 = v70;
-      *buffer = v70;
-      *&buffer[16] = v70;
-      memset(v76, 0, 56);
-      *&v73.tm_sec = 0xAAAAAAAAAAAAAAAALL;
-      time(&v73.tm_sec);
-      localtime_r(&v73.tm_sec, v76);
-      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v76);
+      *&v69 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v69 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v85 = v69;
+      v86 = v69;
+      v83 = v69;
+      v84 = v69;
+      v81 = v69;
+      v82 = v69;
+      *buffer = v69;
+      *&buffer[16] = v69;
+      memset(v75, 0, 56);
+      *&v72.tm_sec = 0xAAAAAAAAAAAAAAAALL;
+      time(&v72.tm_sec);
+      localtime_r(&v72.tm_sec, v75);
+      strftime(buffer, 0x80uLL, "%b %d %H:%M:%S", v75);
       dprintf(glog_fd, "%s ", buffer);
-      dprintf(glog_fd, "CCIOReporterFormatter::writeLog Failed to write(1) dsize=%lu, tempLength=%lu\n", v31, v71);
+      dprintf(glog_fd, "CCIOReporterFormatter::writeLog Failed to write(1) dsize=%lu, tempLength=%lu\n", v31, v70);
     }
 
-    v50 = 0;
-    v31 = v71;
+    v49 = 0;
+    v31 = v70;
     goto LABEL_70;
   }
 
-  v50 = 0;
+  v49 = 0;
 LABEL_70:
   if (v29)
   {
     free(v29);
   }
 
-  if (v38)
+  if (v37)
   {
-    CFRelease(v38);
+    CFRelease(v37);
   }
 
-  if (v44)
+  if (v43)
   {
-    CFRelease(v44);
+    CFRelease(v43);
   }
 
-  if (v41)
+  if (v40)
   {
-    CFRelease(v41);
+    CFRelease(v40);
   }
 
-  if (v46)
+  if (v45)
   {
-    CFRelease(v46);
+    CFRelease(v45);
   }
 
-  if (v50)
+  if (v49)
   {
-    CFRelease(v50);
-  }
-
-  if (v36)
-  {
-    CFRelease(v36);
+    CFRelease(v49);
   }
 
   if (v35)
@@ -5277,14 +5207,17 @@ LABEL_70:
     CFRelease(v35);
   }
 
-LABEL_41:
-  v32 = *MEMORY[0x277D85DE8];
+  if (v34)
+  {
+    CFRelease(v34);
+  }
+
   return v31;
 }
 
 const __CFArray *CCIOReporterFormatter::getChannelsForStreamAndSubscription(CCIOReporterFormatter *this, const __CFNumber *a2, const __CFNumber *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   result = *(this + 6);
   if (result)
   {
@@ -5292,22 +5225,20 @@ const __CFArray *CCIOReporterFormatter::getChannelsForStreamAndSubscription(CCIO
     {
       if (i >= CFArrayGetCount(result))
       {
-        goto LABEL_38;
+        return 0;
       }
 
       result = CFArrayGetValueAtIndex(*(this + 6), i);
       if (!result)
       {
-        goto LABEL_39;
+        return result;
       }
 
       v7 = result;
       v8 = CFGetTypeID(result);
       if (v8 != CFDictionaryGetTypeID())
       {
-LABEL_38:
-        result = 0;
-        goto LABEL_39;
+        return 0;
       }
 
       Value = CFDictionaryGetValue(v7, @"Id");
@@ -5345,19 +5276,19 @@ LABEL_26:
         {
           *&v21 = 0xAAAAAAAAAAAAAAAALL;
           *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v35 = v21;
-          v36 = v21;
-          v33 = v21;
           v34 = v21;
-          v31 = v21;
+          v35 = v21;
           v32 = v21;
-          *buf = v21;
+          v33 = v21;
           v30 = v21;
-          memset(&v28, 0, sizeof(v28));
-          v27 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v27);
-          localtime_r(&v27, &v28);
-          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v28);
+          v31 = v21;
+          *buf = v21;
+          v29 = v21;
+          memset(&v27, 0, sizeof(v27));
+          v26 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v26);
+          localtime_r(&v26, &v27);
+          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v27);
           dprintf(glog_fd, "%s ", buf);
           dprintf(glog_fd, "CCIOReporterFormatter::getChannelsForStreamAndSubscription  key %s has wrong type in dictionary\n");
         }
@@ -5395,30 +5326,30 @@ LABEL_35:
           {
             *&v24 = 0xAAAAAAAAAAAAAAAALL;
             *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v35 = v24;
-            v36 = v24;
-            v33 = v24;
             v34 = v24;
-            v31 = v24;
+            v35 = v24;
             v32 = v24;
-            *buf = v24;
+            v33 = v24;
             v30 = v24;
-            memset(&v28, 0, sizeof(v28));
-            v27 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v27);
-            localtime_r(&v27, &v28);
-            strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v28);
+            v31 = v24;
+            *buf = v24;
+            v29 = v24;
+            memset(&v27, 0, sizeof(v27));
+            v26 = 0xAAAAAAAAAAAAAAAALL;
+            time(&v26);
+            localtime_r(&v26, &v27);
+            strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v27);
             dprintf(glog_fd, "%s ", buf);
             dprintf(glog_fd, "CCIOReporterFormatter::getChannelsForStreamAndSubscription  Couldnt find %s\n", "CCIOReportStream");
           }
 
-          goto LABEL_38;
+          return 0;
         }
 
         result = CCIOReporterFormatter::getChannelsForSubscription(TypeID, v13, a3);
         if (result)
         {
-          goto LABEL_39;
+          return result;
         }
       }
 
@@ -5457,19 +5388,19 @@ LABEL_22:
     {
       *&v20 = 0xAAAAAAAAAAAAAAAALL;
       *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v35 = v20;
-      v36 = v20;
-      v33 = v20;
       v34 = v20;
-      v31 = v20;
+      v35 = v20;
       v32 = v20;
-      *buf = v20;
+      v33 = v20;
       v30 = v20;
-      memset(&v28, 0, sizeof(v28));
-      v27 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v27);
-      localtime_r(&v27, &v28);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v28);
+      v31 = v20;
+      *buf = v20;
+      v29 = v20;
+      memset(&v27, 0, sizeof(v27));
+      v26 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v26);
+      localtime_r(&v26, &v27);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v27);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCIOReporterFormatter::getChannelsForStreamAndSubscription  no key %s in dictionary\n");
     }
@@ -5477,39 +5408,34 @@ LABEL_22:
     goto LABEL_29;
   }
 
-LABEL_39:
-  v25 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 CFStringRef CCIOReporterFormatter::writeTimeString(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = *(a2 + 8);
-  memset(v9, 170, 20);
-  memset(&v6, 0, sizeof(v6));
-  localtime_r(&v7, &v6);
-  strftime(v9, 0x14uLL, "%b %d %H:%M:%S", &v6);
-  memset(v8, 170, sizeof(v8));
-  strftime(v8, 0x10uLL, "%z", &v6);
-  if (snprintf((a1 + 56), 0x80uLL, "%s.%06llu %s", v9, *(a2 + 16), v8))
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = *(a2 + 8);
+  memset(v8, 170, 20);
+  memset(&v5, 0, sizeof(v5));
+  localtime_r(&v6, &v5);
+  strftime(v8, 0x14uLL, "%b %d %H:%M:%S", &v5);
+  memset(v7, 170, sizeof(v7));
+  strftime(v7, 0x10uLL, "%z", &v5);
+  if (snprintf((a1 + 56), 0x80uLL, "%s.%06llu %s", v8, *(a2 + 16), v7))
   {
-    result = CFStringCreateWithCString(*MEMORY[0x277CBECE8], (a1 + 56), 0x8000100u);
+    return CFStringCreateWithCString(*MEMORY[0x277CBECE8], (a1 + 56), 0x8000100u);
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 const void *CCIOReporterFormatter::getChannelsForSubscription(CCIOReporterFormatter *this, CFArrayRef theArray, const __CFNumber *a3)
 {
   v5 = 0;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   while (1)
   {
     if (v5 >= CFArrayGetCount(theArray))
@@ -5551,19 +5477,19 @@ LABEL_21:
       {
         *&v21 = 0xAAAAAAAAAAAAAAAALL;
         *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v36 = v21;
-        v37 = v21;
-        v34 = v21;
         v35 = v21;
-        v32 = v21;
+        v36 = v21;
         v33 = v21;
+        v34 = v21;
+        v31 = v21;
+        v32 = v21;
         *buf = v21;
         *&buf[16] = v21;
-        memset(&v30, 0, sizeof(v30));
-        v29 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v29);
-        localtime_r(&v29, &v30);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v30);
+        memset(&v29, 0, sizeof(v29));
+        v28 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v28);
+        localtime_r(&v28, &v29);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v29);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "CCIOReporterFormatter::getChannelsForSubscription  didnt find or wrong type in array at i %ld\n");
       }
@@ -5593,7 +5519,7 @@ LABEL_21:
         v18 = CFGetTypeID(v16);
         if (v18 == CFDictionaryGetTypeID())
         {
-          goto LABEL_36;
+          return v17;
         }
       }
 
@@ -5632,19 +5558,19 @@ LABEL_27:
       {
         *&v23 = 0xAAAAAAAAAAAAAAAALL;
         *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v36 = v23;
-        v37 = v23;
-        v34 = v23;
         v35 = v23;
-        v32 = v23;
+        v36 = v23;
         v33 = v23;
+        v34 = v23;
+        v31 = v23;
+        v32 = v23;
         *buf = v23;
         *&buf[16] = v23;
-        memset(&v30, 0, sizeof(v30));
-        v29 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v29);
-        localtime_r(&v29, &v30);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v30);
+        memset(&v29, 0, sizeof(v29));
+        v28 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v28);
+        localtime_r(&v28, &v29);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v29);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "CCIOReporterFormatter::getChannelsForSubscription  didnt find or wrong type in dict at i %ld for %s\n");
       }
@@ -5680,19 +5606,19 @@ LABEL_42:
   {
     *&v22 = 0xAAAAAAAAAAAAAAAALL;
     *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v36 = v22;
-    v37 = v22;
-    v34 = v22;
     v35 = v22;
-    v32 = v22;
+    v36 = v22;
     v33 = v22;
+    v34 = v22;
+    v31 = v22;
+    v32 = v22;
     *buf = v22;
     *&buf[16] = v22;
-    memset(&v30, 0, sizeof(v30));
-    v29 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v29);
-    localtime_r(&v29, &v30);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v30);
+    memset(&v29, 0, sizeof(v29));
+    v28 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v28);
+    localtime_r(&v28, &v29);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v29);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "CCIOReporterFormatter::getChannelsForSubscription  didnt find %s\n");
   }
@@ -5721,27 +5647,24 @@ LABEL_38:
   {
     *&v26 = 0xAAAAAAAAAAAAAAAALL;
     *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v36 = v26;
-    v37 = v26;
-    v34 = v26;
     v35 = v26;
-    v32 = v26;
+    v36 = v26;
     v33 = v26;
+    v34 = v26;
+    v31 = v26;
+    v32 = v26;
     *buf = v26;
     *&buf[16] = v26;
-    memset(&v30, 0, sizeof(v30));
-    v29 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v29);
-    localtime_r(&v29, &v30);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v30);
+    memset(&v29, 0, sizeof(v29));
+    v28 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v28);
+    localtime_r(&v28, &v29);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v29);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "CCIOReporterFormatter::getChannelsForSubscription  didn't find matching subscription\n");
   }
 
-  v17 = 0;
-LABEL_36:
-  v27 = *MEMORY[0x277D85DE8];
-  return v17;
+  return 0;
 }
 
 uint64_t CCIOReporterFormatter::writeFileHeader(CCIOReporterFormatter *this)
@@ -5755,7 +5678,7 @@ uint64_t CCIOReporterFormatter::writeFileHeader(CCIOReporterFormatter *this)
 
 uint64_t CCIOReporterFormatter::refreshSubscriptionsFromStreamRegistry(CCIOReporterFormatter *this)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   iterator = 0;
   v2 = *(this + 8);
   v3 = coreCaptureOsLog;
@@ -5793,19 +5716,19 @@ LABEL_7:
   {
     *&v5 = 0xAAAAAAAAAAAAAAAALL;
     *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v40 = v5;
-    v41 = v5;
-    v38 = v5;
     v39 = v5;
-    v36 = v5;
+    v40 = v5;
     v37 = v5;
+    v38 = v5;
+    v35 = v5;
+    v36 = v5;
     *buf = v5;
     *&buf[16] = v5;
-    memset(&v33, 0, sizeof(v33));
-    v32 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v32);
-    localtime_r(&v32, &v33);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v33);
+    memset(&v32, 0, sizeof(v32));
+    v31 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v31);
+    localtime_r(&v31, &v32);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v32);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "%s::%s clearing out any previous subscriptions\n", "CCIOReporterFormatter", "refreshSubscriptionsFromStreamRegistry");
   }
@@ -5864,28 +5787,26 @@ LABEL_43:
     {
       *&v25 = 0xAAAAAAAAAAAAAAAALL;
       *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v40 = v25;
-      v41 = v25;
-      v38 = v25;
       v39 = v25;
-      v36 = v25;
+      v40 = v25;
       v37 = v25;
+      v38 = v25;
+      v35 = v25;
+      v36 = v25;
       *buf = v25;
       *&buf[16] = v25;
-      memset(&v33, 0, sizeof(v33));
-      v32 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v32);
-      localtime_r(&v32, &v33);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v33);
+      memset(&v32, 0, sizeof(v32));
+      v31 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v31);
+      localtime_r(&v31, &v32);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v32);
       dprintf(glog_fd, "%s ", buf);
       v26 = 3758097085;
       dprintf(glog_fd, "%s::%s channelStreamArray not valid\n");
-      goto LABEL_56;
+      return v26;
     }
 
-LABEL_55:
-    v26 = 3758097085;
-    goto LABEL_56;
+    return 3758097085;
   }
 
   if (!MEMORY[0x245D67870](v2, "IOService", &iterator))
@@ -5893,12 +5814,12 @@ LABEL_55:
     v15 = IOIteratorNext(iterator);
     *&v16 = 0xAAAAAAAAAAAAAAAALL;
     *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v40 = v16;
-    v41 = v16;
-    v38 = v16;
     v39 = v16;
-    v36 = v16;
+    v40 = v16;
     v37 = v16;
+    v38 = v16;
+    v35 = v16;
+    v36 = v16;
     *buf = v16;
     *&buf[16] = v16;
     if (v15)
@@ -5929,8 +5850,7 @@ LABEL_55:
     {
       if (!CCIOReporterFormatter::shapeIOReportLibraryFriendlyDictionary(this))
       {
-        v26 = 0;
-        goto LABEL_56;
+        return 0;
       }
 
       v11 = coreCaptureOsLog;
@@ -5969,24 +5889,24 @@ LABEL_50:
       {
         *&v28 = 0xAAAAAAAAAAAAAAAALL;
         *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v40 = v28;
-        v41 = v28;
-        v38 = v28;
         v39 = v28;
-        v36 = v28;
+        v40 = v28;
         v37 = v28;
+        v38 = v28;
+        v35 = v28;
+        v36 = v28;
         *buf = v28;
         *&buf[16] = v28;
-        memset(&v33, 0, sizeof(v33));
-        v32 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v32);
-        localtime_r(&v32, &v33);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v33);
+        memset(&v32, 0, sizeof(v32));
+        v31 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v31);
+        localtime_r(&v31, &v32);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v32);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "%s::%s shapeIOReportLibraryFriendlyDictionary failed\n");
       }
 
-      goto LABEL_56;
+      return v26;
     }
 
     v23 = coreCaptureOsLog;
@@ -6024,26 +5944,26 @@ LABEL_53:
     {
       *&v29 = 0xAAAAAAAAAAAAAAAALL;
       *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v40 = v29;
-      v41 = v29;
-      v38 = v29;
       v39 = v29;
-      v36 = v29;
+      v40 = v29;
       v37 = v29;
+      v38 = v29;
+      v35 = v29;
+      v36 = v29;
       *buf = v29;
       *&buf[16] = v29;
-      memset(&v33, 0, sizeof(v33));
-      v32 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v32);
-      localtime_r(&v32, &v33);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v33);
+      memset(&v32, 0, sizeof(v32));
+      v31 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v31);
+      localtime_r(&v31, &v32);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v32);
       dprintf(glog_fd, "%s ", buf);
       v26 = 3758097085;
       dprintf(glog_fd, "%s::%s rawStreamAndSubscriptionArray not valid\n");
-      goto LABEL_56;
+      return v26;
     }
 
-    goto LABEL_55;
+    return 3758097085;
   }
 
   v21 = coreCaptureOsLog;
@@ -6082,44 +6002,42 @@ LABEL_47:
   {
     *&v27 = 0xAAAAAAAAAAAAAAAALL;
     *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v40 = v27;
-    v41 = v27;
-    v38 = v27;
     v39 = v27;
-    v36 = v27;
+    v40 = v27;
     v37 = v27;
+    v38 = v27;
+    v35 = v27;
+    v36 = v27;
     *buf = v27;
     *&buf[16] = v27;
-    memset(&v33, 0, sizeof(v33));
-    v32 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v32);
-    localtime_r(&v32, &v33);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v33);
+    memset(&v32, 0, sizeof(v32));
+    v31 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v31);
+    localtime_r(&v31, &v32);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v32);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "%s::%s channelStreamArray empty\n");
   }
 
-LABEL_56:
-  v30 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 uint64_t CCIOReporterFormatter::addRegistryChildToChannelDictionary(CFMutableArrayRef *this, uint64_t entry)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CBECE8];
   CFProperty = IORegistryEntryCreateCFProperty(entry, @"CCIOReportRkey", *MEMORY[0x277CBECE8], 0);
   v6 = IORegistryEntryCreateCFProperty(entry, @"Id", v4, 0);
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v44[6] = v7;
-  v44[7] = v7;
-  v44[4] = v7;
-  v44[5] = v7;
-  v44[2] = v7;
-  v44[3] = v7;
-  v44[0] = v7;
-  v44[1] = v7;
+  v43[6] = v7;
+  v43[7] = v7;
+  v43[4] = v7;
+  v43[5] = v7;
+  v43[2] = v7;
+  v43[3] = v7;
+  v43[0] = v7;
+  v43[1] = v7;
   if (CFProperty)
   {
     Value = CFDictionaryGetValue(CFProperty, @"CCIOReportStream");
@@ -6169,19 +6087,19 @@ LABEL_29:
         {
           *&v22 = 0xAAAAAAAAAAAAAAAALL;
           *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v42 = v22;
-          v43 = v22;
-          v40 = v22;
           v41 = v22;
-          v38 = v22;
+          v42 = v22;
           v39 = v22;
+          v40 = v22;
+          v37 = v22;
+          v38 = v22;
           *buf = v22;
           *&buf[16] = v22;
-          memset(&v36, 0, sizeof(v36));
-          v35 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v35);
-          localtime_r(&v35, &v36);
-          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v36);
+          memset(&v35, 0, sizeof(v35));
+          v34 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v34);
+          localtime_r(&v34, &v35);
+          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v35);
           dprintf(glog_fd, "%s ", buf);
           v23 = glog_fd;
           Count = CFArrayGetCount(v9);
@@ -6235,21 +6153,21 @@ LABEL_42:
         {
           *&v30 = 0xAAAAAAAAAAAAAAAALL;
           *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v42 = v30;
-          v43 = v30;
-          v40 = v30;
           v41 = v30;
-          v38 = v30;
+          v42 = v30;
           v39 = v30;
+          v40 = v30;
+          v37 = v30;
+          v38 = v30;
           *buf = v30;
           *&buf[16] = v30;
-          memset(&v36, 0, sizeof(v36));
-          v35 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v35);
-          localtime_r(&v35, &v36);
-          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v36);
+          memset(&v35, 0, sizeof(v35));
+          v34 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v34);
+          localtime_r(&v34, &v35);
+          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v35);
           dprintf(glog_fd, "%s ", buf);
-          dprintf(glog_fd, "CCIOReporterFormatter::addRegistryChildToChannelDictionary  Cant create channelStreamDictionary\n", v34);
+          dprintf(glog_fd, "CCIOReporterFormatter::addRegistryChildToChannelDictionary  Cant create channelStreamDictionary\n", v33);
         }
 
         goto LABEL_44;
@@ -6283,21 +6201,21 @@ LABEL_36:
       {
         *&v27 = 0xAAAAAAAAAAAAAAAALL;
         *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v42 = v27;
-        v43 = v27;
-        v40 = v27;
         v41 = v27;
-        v38 = v27;
+        v42 = v27;
         v39 = v27;
+        v40 = v27;
+        v37 = v27;
+        v38 = v27;
         *buf = v27;
         *&buf[16] = v27;
-        memset(&v36, 0, sizeof(v36));
-        v35 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v35);
-        localtime_r(&v35, &v36);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v36);
+        memset(&v35, 0, sizeof(v35));
+        v34 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v34);
+        localtime_r(&v34, &v35);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v35);
         dprintf(glog_fd, "%s ", buf);
-        dprintf(glog_fd, "CCIOReporterFormatter::addRegistryChildToChannelDictionary  not array\n", v33);
+        dprintf(glog_fd, "CCIOReporterFormatter::addRegistryChildToChannelDictionary  not array\n", v32);
       }
 
       goto LABEL_44;
@@ -6334,19 +6252,19 @@ LABEL_24:
     {
       *&v21 = 0xAAAAAAAAAAAAAAAALL;
       *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v42 = v21;
-      v43 = v21;
-      v40 = v21;
       v41 = v21;
-      v38 = v21;
+      v42 = v21;
       v39 = v21;
+      v40 = v21;
+      v37 = v21;
+      v38 = v21;
       *buf = v21;
       *&buf[16] = v21;
-      memset(&v36, 0, sizeof(v36));
-      v35 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v35);
-      localtime_r(&v35, &v36);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v36);
+      memset(&v35, 0, sizeof(v35));
+      v34 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v34);
+      localtime_r(&v34, &v35);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v35);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCIOReporterFormatter::addRegistryChildToChannelDictionary  dictionary doesn't contain %s\n");
     }
@@ -6357,7 +6275,7 @@ LABEL_44:
     {
 LABEL_46:
       CFRelease(CFProperty);
-      goto LABEL_47;
+      return v20;
     }
 
 LABEL_45:
@@ -6365,7 +6283,7 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  MEMORY[0x245D67880](entry, v44);
+  MEMORY[0x245D67880](entry, v43);
   v14 = coreCaptureOsLog;
   if (coreCaptureOsLog)
   {
@@ -6377,7 +6295,7 @@ LABEL_45:
     *buf = 136315394;
     *&buf[4] = "CCIOReportRkey";
     *&buf[12] = 2080;
-    *&buf[14] = v44;
+    *&buf[14] = v43;
     v15 = v14;
   }
 
@@ -6391,7 +6309,7 @@ LABEL_45:
     *buf = 136315394;
     *&buf[4] = "CCIOReportRkey";
     *&buf[12] = 2080;
-    *&buf[14] = v44;
+    *&buf[14] = v43;
     v15 = MEMORY[0x277D86220];
   }
 
@@ -6401,21 +6319,21 @@ LABEL_19:
   {
     *&v19 = 0xAAAAAAAAAAAAAAAALL;
     *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v42 = v19;
-    v43 = v19;
-    v40 = v19;
     v41 = v19;
-    v38 = v19;
+    v42 = v19;
     v39 = v19;
+    v40 = v19;
+    v37 = v19;
+    v38 = v19;
     *buf = v19;
     *&buf[16] = v19;
-    memset(&v36, 0, sizeof(v36));
-    v35 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v35);
-    localtime_r(&v35, &v36);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v36);
+    memset(&v35, 0, sizeof(v35));
+    v34 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v34);
+    localtime_r(&v34, &v35);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v35);
     dprintf(glog_fd, "%s ", buf);
-    dprintf(glog_fd, "CCIOReporterFormatter::addRegistryChildToChannelDictionary  no %s found in %s\n", "CCIOReportRkey", v44);
+    dprintf(glog_fd, "CCIOReporterFormatter::addRegistryChildToChannelDictionary  no %s found in %s\n", "CCIOReportRkey", v43);
   }
 
   v20 = 0;
@@ -6425,22 +6343,20 @@ LABEL_19:
     goto LABEL_46;
   }
 
-LABEL_47:
-  v31 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 uint64_t CCIOReporterFormatter::shapeIOReportLibraryFriendlyDictionary(CFArrayRef *this)
 {
   v2 = 0;
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CBECE8];
   v4 = @"Id";
   while (2)
   {
     if (v2 >= CFArrayGetCount(this[5]))
     {
-      goto LABEL_74;
+      return 0;
     }
 
     ValueAtIndex = CFArrayGetValueAtIndex(this[5], v2);
@@ -6485,33 +6401,38 @@ LABEL_72:
       {
         *&v54 = 0xAAAAAAAAAAAAAAAALL;
         *(&v54 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v70 = v54;
-        v71 = v54;
-        v68 = v54;
         v69 = v54;
-        v66 = v54;
+        v70 = v54;
         v67 = v54;
+        v68 = v54;
+        v65 = v54;
+        v66 = v54;
         *buf = v54;
         *&buf[16] = v54;
-        memset(&v64, 0, sizeof(v64));
-        v63 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v63);
-        localtime_r(&v63, &v64);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+        memset(&v63, 0, sizeof(v63));
+        v62 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v62);
+        localtime_r(&v62, &v63);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "%s::%s channelStreamArray at i %ld not valid\n", "CCIOReporterFormatter", "shapeIOReportLibraryFriendlyDictionary", v2);
       }
 
-      goto LABEL_74;
+      return 0;
     }
 
     v8 = v4;
     Value = CFDictionaryGetValue(v6, v4);
-    if (!Value || (v10 = Value, v11 = CFGetTypeID(Value), v11 != CFNumberGetTypeID()))
+    if (!Value)
     {
-LABEL_74:
-      v39 = 0;
-      goto LABEL_75;
+      return 0;
+    }
+
+    v10 = Value;
+    v11 = CFGetTypeID(Value);
+    if (v11 != CFNumberGetTypeID())
+    {
+      return 0;
     }
 
     v12 = CFDictionaryGetValue(v6, @"CCIOReportStream");
@@ -6563,19 +6484,19 @@ LABEL_85:
               {
                 *&v40 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v70 = v40;
-                v71 = v40;
-                v68 = v40;
                 v69 = v40;
-                v66 = v40;
+                v70 = v40;
                 v67 = v40;
+                v68 = v40;
+                v65 = v40;
+                v66 = v40;
                 *buf = v40;
                 *&buf[16] = v40;
-                memset(&v64, 0, sizeof(v64));
-                v63 = 0xAAAAAAAAAAAAAAAALL;
-                time(&v63);
-                localtime_r(&v63, &v64);
-                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+                memset(&v63, 0, sizeof(v63));
+                v62 = 0xAAAAAAAAAAAAAAAALL;
+                time(&v62);
+                localtime_r(&v62, &v63);
+                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
                 dprintf(glog_fd, "%s ", buf);
                 dprintf(glog_fd, "%s::%s didn't find or wrong type in array at i %ld\n");
               }
@@ -6611,24 +6532,24 @@ LABEL_80:
               {
                 *&v51 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v51 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v70 = v51;
-                v71 = v51;
-                v68 = v51;
                 v69 = v51;
-                v66 = v51;
+                v70 = v51;
                 v67 = v51;
+                v68 = v51;
+                v65 = v51;
+                v66 = v51;
                 *buf = v51;
                 *&buf[16] = v51;
-                memset(&v64, 0, sizeof(v64));
-                v63 = 0xAAAAAAAAAAAAAAAALL;
-                time(&v63);
-                localtime_r(&v63, &v64);
-                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+                memset(&v63, 0, sizeof(v63));
+                v62 = 0xAAAAAAAAAAAAAAAALL;
+                time(&v62);
+                localtime_r(&v62, &v63);
+                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
                 dprintf(glog_fd, "%s ", buf);
                 dprintf(glog_fd, "%s::%s failed to store description\n");
               }
 
-              goto LABEL_75;
+              return v39;
             }
 
             v19 = CFDictionaryGetValue(v17, @"CCIOReportInterestSubscriptionIDx");
@@ -6645,8 +6566,8 @@ LABEL_80:
                   *&buf[14] = "shapeIOReportLibraryFriendlyDictionary";
                   *&buf[22] = 2080;
                   *&buf[24] = "CCIOReportInterestSubscriptionIDx";
-                  LOWORD(v66) = 2048;
-                  *(&v66 + 2) = i;
+                  LOWORD(v65) = 2048;
+                  *(&v65 + 2) = i;
                   v32 = v31;
                   goto LABEL_87;
                 }
@@ -6660,8 +6581,8 @@ LABEL_80:
                 *&buf[14] = "shapeIOReportLibraryFriendlyDictionary";
                 *&buf[22] = 2080;
                 *&buf[24] = "CCIOReportInterestSubscriptionIDx";
-                LOWORD(v66) = 2048;
-                *(&v66 + 2) = i;
+                LOWORD(v65) = 2048;
+                *(&v65 + 2) = i;
                 v32 = MEMORY[0x277D86220];
 LABEL_87:
                 _os_log_error_impl(&dword_2452A3000, v32, OS_LOG_TYPE_ERROR, "%s::%s didn't find %s or wrong type in array at i %ld\n", buf, 0x2Au);
@@ -6672,19 +6593,19 @@ LABEL_87:
               {
                 *&v41 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v41 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v70 = v41;
-                v71 = v41;
-                v68 = v41;
                 v69 = v41;
-                v66 = v41;
+                v70 = v41;
                 v67 = v41;
+                v68 = v41;
+                v65 = v41;
+                v66 = v41;
                 *buf = v41;
                 *&buf[16] = v41;
-                memset(&v64, 0, sizeof(v64));
-                v63 = 0xAAAAAAAAAAAAAAAALL;
-                time(&v63);
-                localtime_r(&v63, &v64);
-                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+                memset(&v63, 0, sizeof(v63));
+                v62 = 0xAAAAAAAAAAAAAAAALL;
+                time(&v62);
+                localtime_r(&v62, &v63);
+                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
                 dprintf(glog_fd, "%s ", buf);
                 dprintf(glog_fd, "%s::%s didn't find %s or wrong type in array at i %ld\n");
               }
@@ -6725,19 +6646,19 @@ LABEL_92:
               {
                 *&v46 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v46 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v70 = v46;
-                v71 = v46;
-                v68 = v46;
                 v69 = v46;
-                v66 = v46;
+                v70 = v46;
                 v67 = v46;
+                v68 = v46;
+                v65 = v46;
+                v66 = v46;
                 *buf = v46;
                 *&buf[16] = v46;
-                memset(&v64, 0, sizeof(v64));
-                v63 = 0xAAAAAAAAAAAAAAAALL;
-                time(&v63);
-                localtime_r(&v63, &v64);
-                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+                memset(&v63, 0, sizeof(v63));
+                v62 = 0xAAAAAAAAAAAAAAAALL;
+                time(&v62);
+                localtime_r(&v62, &v63);
+                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
                 dprintf(glog_fd, "%s ", buf);
                 dprintf(glog_fd, "%s@%d: bail - !legend\n");
               }
@@ -6777,19 +6698,19 @@ LABEL_94:
               {
                 *&v47 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v47 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v70 = v47;
-                v71 = v47;
-                v68 = v47;
                 v69 = v47;
-                v66 = v47;
+                v70 = v47;
                 v67 = v47;
+                v68 = v47;
+                v65 = v47;
+                v66 = v47;
                 *buf = v47;
                 *&buf[16] = v47;
-                memset(&v64, 0, sizeof(v64));
-                v63 = 0xAAAAAAAAAAAAAAAALL;
-                time(&v63);
-                localtime_r(&v63, &v64);
-                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+                memset(&v63, 0, sizeof(v63));
+                v62 = 0xAAAAAAAAAAAAAAAALL;
+                time(&v62);
+                localtime_r(&v62, &v63);
+                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
                 dprintf(glog_fd, "%s ", buf);
                 dprintf(glog_fd, "%s::%s Failed to create IOReporter library friendly channel list\n", "CCIOReporterFormatter", "shapeIOReportLibraryFriendlyDictionary");
               }
@@ -6831,19 +6752,19 @@ LABEL_96:
               {
                 *&v48 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v48 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v70 = v48;
-                v71 = v48;
-                v68 = v48;
                 v69 = v48;
-                v66 = v48;
+                v70 = v48;
                 v67 = v48;
+                v68 = v48;
+                v65 = v48;
+                v66 = v48;
                 *buf = v48;
                 *&buf[16] = v48;
-                memset(&v64, 0, sizeof(v64));
-                v63 = 0xAAAAAAAAAAAAAAAALL;
-                time(&v63);
-                localtime_r(&v63, &v64);
-                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+                memset(&v63, 0, sizeof(v63));
+                v62 = 0xAAAAAAAAAAAAAAAALL;
+                time(&v62);
+                localtime_r(&v62, &v63);
+                strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
                 dprintf(glog_fd, "%s ", buf);
                 dprintf(glog_fd, "%s::%s Can't create subscriptionLegendDictionary\n", "CCIOReporterFormatter", "shapeIOReportLibraryFriendlyDictionary");
               }
@@ -6876,7 +6797,7 @@ LABEL_96:
             continue;
           }
 
-          v59 = coreCaptureOsLog;
+          v58 = coreCaptureOsLog;
           if (coreCaptureOsLog)
           {
             if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_ERROR))
@@ -6885,9 +6806,9 @@ LABEL_96:
               *&buf[4] = "CCIOReporterFormatter";
               *&buf[12] = 2080;
               *&buf[14] = "shapeIOReportLibraryFriendlyDictionary";
-              v60 = v59;
+              v59 = v58;
 LABEL_108:
-              _os_log_error_impl(&dword_2452A3000, v60, OS_LOG_TYPE_ERROR, "%s::%s Can't create channelStreamDictionary\n", buf, 0x16u);
+              _os_log_error_impl(&dword_2452A3000, v59, OS_LOG_TYPE_ERROR, "%s::%s Can't create channelStreamDictionary\n", buf, 0x16u);
             }
           }
 
@@ -6897,34 +6818,33 @@ LABEL_108:
             *&buf[4] = "CCIOReporterFormatter";
             *&buf[12] = 2080;
             *&buf[14] = "shapeIOReportLibraryFriendlyDictionary";
-            v60 = MEMORY[0x277D86220];
+            v59 = MEMORY[0x277D86220];
             goto LABEL_108;
           }
 
           if (glog_fd)
           {
-            *&v61 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v61 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v70 = v61;
-            v71 = v61;
-            v68 = v61;
-            v69 = v61;
-            v66 = v61;
-            v67 = v61;
-            *buf = v61;
-            *&buf[16] = v61;
-            memset(&v64, 0, sizeof(v64));
-            v63 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v63);
-            localtime_r(&v63, &v64);
-            strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+            *&v60 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v60 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v69 = v60;
+            v70 = v60;
+            v67 = v60;
+            v68 = v60;
+            v65 = v60;
+            v66 = v60;
+            *buf = v60;
+            *&buf[16] = v60;
+            memset(&v63, 0, sizeof(v63));
+            v62 = 0xAAAAAAAAAAAAAAAALL;
+            time(&v62);
+            localtime_r(&v62, &v63);
+            strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
             dprintf(glog_fd, "%s ", buf);
             dprintf(glog_fd, "%s::%s Can't create channelStreamDictionary\n", "CCIOReporterFormatter", "shapeIOReportLibraryFriendlyDictionary");
           }
 
           CFRelease(theArray);
-          v39 = 3758097085;
-          goto LABEL_75;
+          return 3758097085;
         }
 
         v52 = coreCaptureOsLog;
@@ -6961,26 +6881,26 @@ LABEL_82:
         v39 = 3758097084;
         if (glog_fd)
         {
-          *&v58 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v58 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v70 = v58;
-          v71 = v58;
-          v68 = v58;
-          v69 = v58;
-          v66 = v58;
-          v67 = v58;
-          *buf = v58;
-          *&buf[16] = v58;
-          memset(&v64, 0, sizeof(v64));
-          v63 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v63);
-          localtime_r(&v63, &v64);
-          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+          *&v57 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v57 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v69 = v57;
+          v70 = v57;
+          v67 = v57;
+          v68 = v57;
+          v65 = v57;
+          v66 = v57;
+          *buf = v57;
+          *&buf[16] = v57;
+          memset(&v63, 0, sizeof(v63));
+          v62 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v62);
+          localtime_r(&v62, &v63);
+          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
           dprintf(glog_fd, "%s ", buf);
           dprintf(glog_fd, "%s::%s !subscriptionLegendDictionaryArray\n");
         }
 
-        goto LABEL_75;
+        return v39;
       }
     }
 
@@ -7025,27 +6945,25 @@ LABEL_77:
   v39 = 3758097136;
   if (glog_fd)
   {
-    *&v57 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v57 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v70 = v57;
-    v71 = v57;
-    v68 = v57;
-    v69 = v57;
-    v66 = v57;
-    v67 = v57;
-    *buf = v57;
-    *&buf[16] = v57;
-    memset(&v64, 0, sizeof(v64));
-    v63 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v63);
-    localtime_r(&v63, &v64);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v64);
+    *&v56 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v56 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v69 = v56;
+    v70 = v56;
+    v67 = v56;
+    v68 = v56;
+    v65 = v56;
+    v66 = v56;
+    *buf = v56;
+    *&buf[16] = v56;
+    memset(&v63, 0, sizeof(v63));
+    v62 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v62);
+    localtime_r(&v62, &v63);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v63);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "%s::%s didn't find %s\n");
   }
 
-LABEL_75:
-  v55 = *MEMORY[0x277D85DE8];
   return v39;
 }
 
@@ -7053,7 +6971,7 @@ uint64_t CCIOReporterFormatter::storeChannelDescriptionFromStreamAndSubscription
 {
   v5 = 0;
   v6 = 0;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   while (v5 < CFArrayGetCount(this[5]))
   {
     ValueAtIndex = CFArrayGetValueAtIndex(this[5], v5);
@@ -7105,19 +7023,19 @@ LABEL_19:
       {
         *&v19 = 0xAAAAAAAAAAAAAAAALL;
         *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v34 = v19;
-        v35 = v19;
-        v32 = v19;
         v33 = v19;
-        v30 = v19;
+        v34 = v19;
         v31 = v19;
+        v32 = v19;
+        v29 = v19;
+        v30 = v19;
         *buf = v19;
         *&buf[16] = v19;
-        memset(&v28, 0, sizeof(v28));
-        v27 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v27);
-        localtime_r(&v27, &v28);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v28);
+        memset(&v27, 0, sizeof(v27));
+        v26 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v26);
+        localtime_r(&v26, &v27);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v27);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "%s::%s no key %s in dictionary\n");
       }
@@ -7162,19 +7080,19 @@ LABEL_26:
       {
         *&v20 = 0xAAAAAAAAAAAAAAAALL;
         *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v34 = v20;
-        v35 = v20;
-        v32 = v20;
         v33 = v20;
-        v30 = v20;
+        v34 = v20;
         v31 = v20;
+        v32 = v20;
+        v29 = v20;
+        v30 = v20;
         *buf = v20;
         *&buf[16] = v20;
-        memset(&v28, 0, sizeof(v28));
-        v27 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v27);
-        localtime_r(&v27, &v28);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v28);
+        memset(&v27, 0, sizeof(v27));
+        v26 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v26);
+        localtime_r(&v26, &v27);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v27);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "%s::%s key %s has wrong type in dictionary\n");
       }
@@ -7213,19 +7131,19 @@ LABEL_31:
       {
         *&v21 = 0xAAAAAAAAAAAAAAAALL;
         *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v34 = v21;
-        v35 = v21;
-        v32 = v21;
         v33 = v21;
-        v30 = v21;
+        v34 = v21;
         v31 = v21;
+        v32 = v21;
+        v29 = v21;
+        v30 = v21;
         *buf = v21;
         *&buf[16] = v21;
-        memset(&v28, 0, sizeof(v28));
-        v27 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v27);
-        localtime_r(&v27, &v28);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v28);
+        memset(&v27, 0, sizeof(v27));
+        v26 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v26);
+        localtime_r(&v26, &v27);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v27);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "%s::%s not a matching Stream id\n");
       }
@@ -7236,20 +7154,19 @@ LABEL_31:
     v6 = CCIOReporterFormatter::storeChannelDescriptionFromSubscription(0, a2, v8, a4);
     if (!v6)
     {
-      break;
+      return v6;
     }
 
 LABEL_34:
     ++v5;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t CCIOReporterFormatter::storeChannelDescriptionFromSubscription(CCIOReporterFormatter *this, __CFDictionary *a2, CFDictionaryRef theDict, const __CFNumber *a4)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   Value = CFDictionaryGetValue(theDict, @"CCIOReportStream");
   if (!Value || (v7 = Value, v8 = CFGetTypeID(Value), v8 != CFArrayGetTypeID()))
   {
@@ -7292,24 +7209,24 @@ LABEL_40:
     {
       *&v37 = 0xAAAAAAAAAAAAAAAALL;
       *(&v37 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v60 = v37;
-      v61 = v37;
-      v58 = v37;
       v59 = v37;
-      v56 = v37;
+      v60 = v37;
       v57 = v37;
+      v58 = v37;
+      v55 = v37;
+      v56 = v37;
       *buf = v37;
       *&buf[16] = v37;
-      memset(&v54, 0, sizeof(v54));
-      v53 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v53);
-      localtime_r(&v53, &v54);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v54);
+      memset(&v53, 0, sizeof(v53));
+      v52 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v52);
+      localtime_r(&v52, &v53);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v53);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "%s::%s didn't find %s\n");
     }
 
-    goto LABEL_56;
+    return 3758097136;
   }
 
   v9 = 0;
@@ -7324,7 +7241,7 @@ LABEL_40:
         goto LABEL_50;
       }
 
-      goto LABEL_57;
+      return v10;
     }
 
     ValueAtIndex = CFArrayGetValueAtIndex(v7, v9);
@@ -7418,19 +7335,19 @@ LABEL_35:
                   {
                     *&v34 = 0xAAAAAAAAAAAAAAAALL;
                     *(&v34 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                    v60 = v34;
-                    v61 = v34;
-                    v58 = v34;
                     v59 = v34;
-                    v56 = v34;
+                    v60 = v34;
                     v57 = v34;
+                    v58 = v34;
+                    v55 = v34;
+                    v56 = v34;
                     *buf = v34;
                     *&buf[16] = v34;
-                    memset(&v54, 0, sizeof(v54));
-                    v53 = 0xAAAAAAAAAAAAAAAALL;
-                    time(&v53);
-                    localtime_r(&v53, &v54);
-                    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v54);
+                    memset(&v53, 0, sizeof(v53));
+                    v52 = 0xAAAAAAAAAAAAAAAALL;
+                    time(&v52);
+                    localtime_r(&v52, &v53);
+                    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v53);
                     dprintf(*(v28 + 2856), "%s ", buf);
                     dprintf(*(v28 + 2856), "%s::%s failed to store Channel Description\n");
                   }
@@ -7479,26 +7396,26 @@ LABEL_33:
 
               *&v33 = 0xAAAAAAAAAAAAAAAALL;
               *(&v33 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v60 = v33;
-              v61 = v33;
-              v58 = v33;
               v59 = v33;
-              v56 = v33;
+              v60 = v33;
               v57 = v33;
+              v58 = v33;
+              v55 = v33;
+              v56 = v33;
               *buf = v33;
               *&buf[16] = v33;
-              memset(&v54, 0, sizeof(v54));
-              v53 = 0xAAAAAAAAAAAAAAAALL;
-              time(&v53);
-              localtime_r(&v53, &v54);
-              strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v54);
+              memset(&v53, 0, sizeof(v53));
+              v52 = 0xAAAAAAAAAAAAAAAALL;
+              time(&v52);
+              localtime_r(&v52, &v53);
+              strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v53);
               dprintf(glog_fd, "%s ", buf);
               v26 = 3758097136;
               dprintf(glog_fd, "%s::%s didn't find or not a dict in array\n");
               goto LABEL_30;
             }
 
-            v49 = coreCaptureOsLog;
+            v48 = coreCaptureOsLog;
             if (coreCaptureOsLog)
             {
               v39 = 0x27EE11000;
@@ -7508,7 +7425,7 @@ LABEL_33:
                 *&buf[4] = "CCIOReporterFormatter";
                 *&buf[12] = 2080;
                 *&buf[14] = "storeChannelDescriptionFromSubscription";
-                v50 = v49;
+                v49 = v48;
                 goto LABEL_79;
               }
             }
@@ -7522,29 +7439,29 @@ LABEL_33:
                 *&buf[4] = "CCIOReporterFormatter";
                 *&buf[12] = 2080;
                 *&buf[14] = "storeChannelDescriptionFromSubscription";
-                v50 = MEMORY[0x277D86220];
+                v49 = MEMORY[0x277D86220];
 LABEL_79:
-                _os_log_error_impl(&dword_2452A3000, v50, OS_LOG_TYPE_ERROR, "%s::%s empty array\n", buf, 0x16u);
+                _os_log_error_impl(&dword_2452A3000, v49, OS_LOG_TYPE_ERROR, "%s::%s empty array\n", buf, 0x16u);
               }
             }
 
             if (*(v39 + 2856))
             {
-              *&v52 = 0xAAAAAAAAAAAAAAAALL;
-              *(&v52 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v60 = v52;
-              v61 = v52;
-              v58 = v52;
-              v59 = v52;
-              v56 = v52;
-              v57 = v52;
-              *buf = v52;
-              *&buf[16] = v52;
-              memset(&v54, 0, sizeof(v54));
-              v53 = 0xAAAAAAAAAAAAAAAALL;
-              time(&v53);
-              localtime_r(&v53, &v54);
-              strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v54);
+              *&v51 = 0xAAAAAAAAAAAAAAAALL;
+              *(&v51 + 1) = 0xAAAAAAAAAAAAAAAALL;
+              v59 = v51;
+              v60 = v51;
+              v57 = v51;
+              v58 = v51;
+              v55 = v51;
+              v56 = v51;
+              *buf = v51;
+              *&buf[16] = v51;
+              memset(&v53, 0, sizeof(v53));
+              v52 = 0xAAAAAAAAAAAAAAAALL;
+              time(&v52);
+              localtime_r(&v52, &v53);
+              strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v53);
               dprintf(*(v39 + 2856), "%s ", buf);
               dprintf(*(v39 + 2856), "%s::%s empty array\n");
             }
@@ -7553,7 +7470,7 @@ LABEL_79:
           }
         }
 
-        v47 = coreCaptureOsLog;
+        v46 = coreCaptureOsLog;
         v39 = 0x27EE11000uLL;
         if (coreCaptureOsLog)
         {
@@ -7565,9 +7482,9 @@ LABEL_79:
             *&buf[14] = "storeChannelDescriptionFromSubscription";
             *&buf[22] = 2048;
             *&buf[24] = v9;
-            LOWORD(v56) = 2080;
-            *(&v56 + 2) = "CCIOReportInterests";
-            v48 = v47;
+            LOWORD(v55) = 2080;
+            *(&v55 + 2) = "CCIOReportInterests";
+            v47 = v46;
             goto LABEL_77;
           }
         }
@@ -7580,30 +7497,30 @@ LABEL_79:
           *&buf[14] = "storeChannelDescriptionFromSubscription";
           *&buf[22] = 2048;
           *&buf[24] = v9;
-          LOWORD(v56) = 2080;
-          *(&v56 + 2) = "CCIOReportInterests";
-          v48 = MEMORY[0x277D86220];
+          LOWORD(v55) = 2080;
+          *(&v55 + 2) = "CCIOReportInterests";
+          v47 = MEMORY[0x277D86220];
 LABEL_77:
-          _os_log_error_impl(&dword_2452A3000, v48, OS_LOG_TYPE_ERROR, "%s::%s  didn't find or wrong type in dict at i %ld for %s\n", buf, 0x2Au);
+          _os_log_error_impl(&dword_2452A3000, v47, OS_LOG_TYPE_ERROR, "%s::%s  didn't find or wrong type in dict at i %ld for %s\n", buf, 0x2Au);
         }
 
         if (glog_fd)
         {
-          *&v51 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v51 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v60 = v51;
-          v61 = v51;
-          v58 = v51;
-          v59 = v51;
-          v56 = v51;
-          v57 = v51;
-          *buf = v51;
-          *&buf[16] = v51;
-          memset(&v54, 0, sizeof(v54));
-          v53 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v53);
-          localtime_r(&v53, &v54);
-          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v54);
+          *&v50 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v50 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v59 = v50;
+          v60 = v50;
+          v57 = v50;
+          v58 = v50;
+          v55 = v50;
+          v56 = v50;
+          *buf = v50;
+          *&buf[16] = v50;
+          memset(&v53, 0, sizeof(v53));
+          v52 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v52);
+          localtime_r(&v52, &v53);
+          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v53);
           dprintf(glog_fd, "%s ", buf);
           dprintf(glog_fd, "%s::%s  didn't find or wrong type in dict at i %ld for %s\n");
         }
@@ -7650,19 +7567,19 @@ LABEL_72:
   {
     *&v41 = 0xAAAAAAAAAAAAAAAALL;
     *(&v41 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v60 = v41;
-    v61 = v41;
-    v58 = v41;
     v59 = v41;
-    v56 = v41;
+    v60 = v41;
     v57 = v41;
+    v58 = v41;
+    v55 = v41;
+    v56 = v41;
     *buf = v41;
     *&buf[16] = v41;
-    memset(&v54, 0, sizeof(v54));
-    v53 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v53);
-    localtime_r(&v53, &v54);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v54);
+    memset(&v53, 0, sizeof(v53));
+    v52 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v52);
+    localtime_r(&v52, &v53);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v53);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "%s::%s didn't find or wrong type in array at i %ld\n");
   }
@@ -7697,37 +7614,33 @@ LABEL_70:
   {
     *&v44 = 0xAAAAAAAAAAAAAAAALL;
     *(&v44 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v60 = v44;
-    v61 = v44;
-    v58 = v44;
     v59 = v44;
-    v56 = v44;
+    v60 = v44;
     v57 = v44;
+    v58 = v44;
+    v55 = v44;
+    v56 = v44;
     *buf = v44;
     *&buf[16] = v44;
-    memset(&v54, 0, sizeof(v54));
-    v53 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v53);
-    localtime_r(&v53, &v54);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v54);
+    memset(&v53, 0, sizeof(v53));
+    v52 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v52);
+    localtime_r(&v52, &v53);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v53);
     dprintf(*(v39 + 2856), "%s ", buf);
     dprintf(*(v39 + 2856), "%s::%s didn't find matching subscription\n");
   }
 
-LABEL_56:
-  v10 = 3758097136;
-LABEL_57:
-  v45 = *MEMORY[0x277D85DE8];
-  return v10;
+  return 3758097136;
 }
 
 uint64_t CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup(CCIOReporterFormatter *this, __CFDictionary *a2, CFDictionaryRef theDict)
 {
-  v130 = *MEMORY[0x277D85DE8];
-  v121 = 0;
+  v129 = *MEMORY[0x277D85DE8];
+  v120 = 0;
   valuePtr = 0;
   v4 = 3758097136;
-  v120 = 0;
+  v119 = 0;
   Value = CFDictionaryGetValue(theDict, @"IOReportGroupName");
   if (!Value)
   {
@@ -7762,19 +7675,19 @@ LABEL_11:
     {
       *&v13 = 0xAAAAAAAAAAAAAAAALL;
       *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v13;
-      v129 = v13;
-      v126 = v13;
       v127 = v13;
+      v128 = v13;
       v125 = v13;
-      *&cStr[16] = v13;
+      v126 = v13;
       v124 = v13;
+      *&cStr[16] = v13;
+      v123 = v13;
       *cStr = v13;
-      memset(&v119, 0, sizeof(v119));
-      v118 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v118);
-      localtime_r(&v118, &v119);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+      memset(&v118, 0, sizeof(v118));
+      v117 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v117);
+      localtime_r(&v117, &v118);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
       dprintf(glog_fd, "%s ", cStr);
       dprintf(glog_fd, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup %s expected \n");
     }
@@ -7804,8 +7717,8 @@ LABEL_11:
     *&cStr[14] = " NOT";
     *&cStr[22] = 2048;
     *&cStr[24] = CFStringGetTypeID();
-    LOWORD(v124) = 2048;
-    *(&v124 + 2) = CFGetTypeID(v6);
+    LOWORD(v123) = 2048;
+    *(&v123 + 2) = CFGetTypeID(v6);
     v12 = v11;
   }
 
@@ -7822,8 +7735,8 @@ LABEL_11:
     *&cStr[14] = " NOT";
     *&cStr[22] = 2048;
     *&cStr[24] = CFStringGetTypeID();
-    LOWORD(v124) = 2048;
-    *(&v124 + 2) = CFGetTypeID(v6);
+    LOWORD(v123) = 2048;
+    *(&v123 + 2) = CFGetTypeID(v6);
     v12 = MEMORY[0x277D86220];
   }
 
@@ -7833,19 +7746,19 @@ LABEL_14:
   {
     *&v14 = 0xAAAAAAAAAAAAAAAALL;
     *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v128 = v14;
-    v129 = v14;
-    v126 = v14;
     v127 = v14;
+    v128 = v14;
     v125 = v14;
-    *&cStr[16] = v14;
+    v126 = v14;
     v124 = v14;
+    *&cStr[16] = v14;
+    v123 = v14;
     *cStr = v14;
-    memset(&v119, 0, sizeof(v119));
-    v118 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v118);
-    localtime_r(&v118, &v119);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+    memset(&v118, 0, sizeof(v118));
+    v117 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v117);
+    localtime_r(&v117, &v118);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
     dprintf(glog_fd, "%s ", cStr);
     v15 = glog_fd;
     CFStringGetTypeID();
@@ -7891,19 +7804,19 @@ LABEL_26:
     {
       *&v25 = 0xAAAAAAAAAAAAAAAALL;
       *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v25;
-      v129 = v25;
-      v126 = v25;
       v127 = v25;
+      v128 = v25;
       v125 = v25;
-      *&cStr[16] = v25;
+      v126 = v25;
       v124 = v25;
+      *&cStr[16] = v25;
+      v123 = v25;
       *cStr = v25;
-      memset(&v119, 0, sizeof(v119));
-      v118 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v118);
-      localtime_r(&v118, &v119);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+      memset(&v118, 0, sizeof(v118));
+      v117 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v117);
+      localtime_r(&v117, &v118);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
       dprintf(glog_fd, "%s ", cStr);
       dprintf(glog_fd, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup %s expected \n");
     }
@@ -7934,8 +7847,8 @@ LABEL_26:
     *&cStr[14] = " NOT";
     *&cStr[22] = 2048;
     *&cStr[24] = TypeID;
-    LOWORD(v124) = 2048;
-    *(&v124 + 2) = v21;
+    LOWORD(v123) = 2048;
+    *(&v123 + 2) = v21;
     v22 = v19;
   }
 
@@ -7946,16 +7859,16 @@ LABEL_26:
       goto LABEL_29;
     }
 
-    v106 = CFStringGetTypeID();
-    v107 = CFGetTypeID(v17);
+    v105 = CFStringGetTypeID();
+    v106 = CFGetTypeID(v17);
     *cStr = 136315906;
     *&cStr[4] = "IOReportSubGroupName";
     *&cStr[12] = 2080;
     *&cStr[14] = " NOT";
     *&cStr[22] = 2048;
-    *&cStr[24] = v106;
-    LOWORD(v124) = 2048;
-    *(&v124 + 2) = v107;
+    *&cStr[24] = v105;
+    LOWORD(v123) = 2048;
+    *(&v123 + 2) = v106;
     v22 = MEMORY[0x277D86220];
   }
 
@@ -7965,19 +7878,19 @@ LABEL_29:
   {
     *&v26 = 0xAAAAAAAAAAAAAAAALL;
     *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v128 = v26;
-    v129 = v26;
-    v126 = v26;
     v127 = v26;
+    v128 = v26;
     v125 = v26;
-    *&cStr[16] = v26;
+    v126 = v26;
     v124 = v26;
+    *&cStr[16] = v26;
+    v123 = v26;
     *cStr = v26;
-    memset(&v119, 0, sizeof(v119));
-    v118 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v118);
-    localtime_r(&v118, &v119);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+    memset(&v118, 0, sizeof(v118));
+    v117 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v117);
+    localtime_r(&v117, &v118);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
     dprintf(glog_fd, "%s ", cStr);
     v27 = glog_fd;
     CFStringGetTypeID();
@@ -8025,19 +7938,19 @@ LABEL_156:
       {
         *&v42 = 0xAAAAAAAAAAAAAAAALL;
         *(&v42 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v128 = v42;
-        v129 = v42;
-        v126 = v42;
         v127 = v42;
+        v128 = v42;
         v125 = v42;
-        *&cStr[16] = v42;
+        v126 = v42;
         v124 = v42;
+        *&cStr[16] = v42;
+        v123 = v42;
         *cStr = v42;
-        memset(&v119, 0, sizeof(v119));
-        v118 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v118);
-        localtime_r(&v118, &v119);
-        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+        memset(&v118, 0, sizeof(v118));
+        v117 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v117);
+        localtime_r(&v117, &v118);
+        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
         dprintf(glog_fd, "%s ", cStr);
         dprintf(glog_fd, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup kIOReportDriverIDKey invalid value \n");
       }
@@ -8072,14 +7985,14 @@ LABEL_156:
         goto LABEL_48;
       }
 
-      v108 = CFNumberGetTypeID();
-      v109 = CFGetTypeID(v29);
+      v107 = CFNumberGetTypeID();
+      v108 = CFGetTypeID(v29);
       *cStr = 136315650;
       *&cStr[4] = " NOT";
       *&cStr[12] = 2048;
-      *&cStr[14] = v108;
+      *&cStr[14] = v107;
       *&cStr[22] = 2048;
-      *&cStr[24] = v109;
+      *&cStr[24] = v108;
       v38 = MEMORY[0x277D86220];
     }
 
@@ -8090,19 +8003,19 @@ LABEL_48:
     {
       *&v40 = 0xAAAAAAAAAAAAAAAALL;
       *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v40;
-      v129 = v40;
-      v126 = v40;
       v127 = v40;
+      v128 = v40;
       v125 = v40;
-      *&cStr[16] = v40;
+      v126 = v40;
       v124 = v40;
+      *&cStr[16] = v40;
+      v123 = v40;
       *cStr = v40;
-      memset(&v119, 0, sizeof(v119));
-      v118 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v118);
-      localtime_r(&v118, &v119);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+      memset(&v118, 0, sizeof(v118));
+      v117 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v117);
+      localtime_r(&v117, &v118);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
       dprintf(glog_fd, "%s ", cStr);
       v41 = glog_fd;
       CFNumberGetTypeID();
@@ -8143,19 +8056,19 @@ LABEL_45:
   {
     *&v39 = 0xAAAAAAAAAAAAAAAALL;
     *(&v39 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v128 = v39;
-    v129 = v39;
-    v126 = v39;
     v127 = v39;
+    v128 = v39;
     v125 = v39;
-    *&cStr[16] = v39;
+    v126 = v39;
     v124 = v39;
+    *&cStr[16] = v39;
+    v123 = v39;
     *cStr = v39;
-    memset(&v119, 0, sizeof(v119));
-    v118 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v118);
-    localtime_r(&v118, &v119);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+    memset(&v118, 0, sizeof(v118));
+    v117 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v117);
+    localtime_r(&v117, &v118);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
     dprintf(glog_fd, "%s ", cStr);
     dprintf(glog_fd, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup kIOReportDriverIDKey expected \n");
   }
@@ -8172,13 +8085,13 @@ LABEL_54:
       {
         *&v48 = 0xAAAAAAAAAAAAAAAALL;
         *(&v48 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v128 = v48;
-        v129 = v48;
-        v126 = v48;
         v127 = v48;
+        v128 = v48;
         v125 = v48;
-        *&cStr[16] = v48;
+        v126 = v48;
         v124 = v48;
+        *&cStr[16] = v48;
+        v123 = v48;
         *cStr = v48;
         MEMORY[0x245D67880](MatchingService, cStr);
         v44 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], cStr, 0);
@@ -8215,19 +8128,19 @@ LABEL_70:
     {
       *&v57 = 0xAAAAAAAAAAAAAAAALL;
       *(&v57 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v57;
-      v129 = v57;
-      v126 = v57;
       v127 = v57;
+      v128 = v57;
       v125 = v57;
-      *&cStr[16] = v57;
+      v126 = v57;
       v124 = v57;
+      *&cStr[16] = v57;
+      v123 = v57;
       *cStr = v57;
-      memset(&v119, 0, sizeof(v119));
-      v118 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v118);
-      localtime_r(&v118, &v119);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+      memset(&v118, 0, sizeof(v118));
+      v117 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v117);
+      localtime_r(&v117, &v118);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
       dprintf(glog_fd, "%s ", cStr);
       dprintf(glog_fd, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup kIOReportDriverNameKey expected, couldn't resolve device \n");
     }
@@ -8265,14 +8178,14 @@ LABEL_70:
         goto LABEL_67;
       }
 
-      v110 = CFStringGetTypeID();
-      v111 = CFGetTypeID(v44);
+      v109 = CFStringGetTypeID();
+      v110 = CFGetTypeID(v44);
       *cStr = 136315650;
       *&cStr[4] = " NOT";
       *&cStr[12] = 2048;
-      *&cStr[14] = v110;
+      *&cStr[14] = v109;
       *&cStr[22] = 2048;
-      *&cStr[24] = v111;
+      *&cStr[24] = v110;
       v52 = MEMORY[0x277D86220];
     }
 
@@ -8282,19 +8195,19 @@ LABEL_67:
     {
       *&v55 = 0xAAAAAAAAAAAAAAAALL;
       *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v55;
-      v129 = v55;
-      v126 = v55;
       v127 = v55;
+      v128 = v55;
       v125 = v55;
-      *&cStr[16] = v55;
+      v126 = v55;
       v124 = v55;
+      *&cStr[16] = v55;
+      v123 = v55;
       *cStr = v55;
-      memset(&v119, 0, sizeof(v119));
-      v118 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v118);
-      localtime_r(&v118, &v119);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+      memset(&v118, 0, sizeof(v118));
+      v117 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v117);
+      localtime_r(&v117, &v118);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
       dprintf(glog_fd, "%s ", cStr);
       v56 = glog_fd;
       CFStringGetTypeID();
@@ -8339,8 +8252,8 @@ LABEL_73:
     *&cStr[14] = " NOT";
     *&cStr[22] = 2048;
     *&cStr[24] = v62;
-    LOWORD(v124) = 2048;
-    *(&v124 + 2) = v63;
+    LOWORD(v123) = 2048;
+    *(&v123 + 2) = v63;
     v64 = v61;
   }
 
@@ -8351,16 +8264,16 @@ LABEL_73:
       goto LABEL_79;
     }
 
-    v112 = CFDictionaryGetTypeID();
-    v113 = CFGetTypeID(v59);
+    v111 = CFDictionaryGetTypeID();
+    v112 = CFGetTypeID(v59);
     *cStr = 136315906;
     *&cStr[4] = "IOReportChannelInfo";
     *&cStr[12] = 2080;
     *&cStr[14] = " NOT";
     *&cStr[22] = 2048;
-    *&cStr[24] = v112;
-    LOWORD(v124) = 2048;
-    *(&v124 + 2) = v113;
+    *&cStr[24] = v111;
+    LOWORD(v123) = 2048;
+    *(&v123 + 2) = v112;
     v64 = MEMORY[0x277D86220];
   }
 
@@ -8370,19 +8283,19 @@ LABEL_79:
   {
     *&v65 = 0xAAAAAAAAAAAAAAAALL;
     *(&v65 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v128 = v65;
-    v129 = v65;
-    v126 = v65;
     v127 = v65;
+    v128 = v65;
     v125 = v65;
-    *&cStr[16] = v65;
+    v126 = v65;
     v124 = v65;
+    *&cStr[16] = v65;
+    v123 = v65;
     *cStr = v65;
-    memset(&v119, 0, sizeof(v119));
-    v118 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v118);
-    localtime_r(&v118, &v119);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+    memset(&v118, 0, sizeof(v118));
+    v117 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v117);
+    localtime_r(&v117, &v118);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
     dprintf(glog_fd, "%s ", cStr);
     v66 = glog_fd;
     v67 = CFDictionaryGetTypeID();
@@ -8399,7 +8312,7 @@ LABEL_81:
     if (v71 == CFArrayGetTypeID())
     {
       v72 = 0;
-      v116 = v44;
+      v115 = v44;
       while (1)
       {
         if (CFArrayGetCount(v70) <= v72)
@@ -8424,7 +8337,7 @@ LABEL_81:
           v80 = CFGetTypeID(v78);
           if (v80 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v79, kCFNumberSInt64Type, &v121);
+            CFNumberGetValue(v79, kCFNumberSInt64Type, &v120);
           }
         }
 
@@ -8435,7 +8348,7 @@ LABEL_81:
           v83 = CFGetTypeID(v81);
           if (v83 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v82, kCFNumberSInt64Type, &v120);
+            CFNumberGetValue(v82, kCFNumberSInt64Type, &v119);
           }
         }
 
@@ -8452,15 +8365,15 @@ LABEL_81:
           v87 = 0;
         }
 
-        v88 = v121;
+        v88 = v120;
         v89 = valuePtr;
-        v90 = v120;
-        if (!a2 || v8 || !valuePtr || !v116 || !v121 || !v120 || !v87)
+        v90 = v119;
+        if (!a2 || v8 || !valuePtr || !v115 || !v120 || !v119 || !v87)
         {
           break;
         }
 
-        v44 = v116;
+        v44 = v115;
         v6 = v77;
         v17 = v76;
         v91 = IOReportAddChannelDescription();
@@ -8471,12 +8384,12 @@ LABEL_81:
         }
 
         v8 = 0;
+        v119 = 0;
         v120 = 0;
-        v121 = 0;
         ++v72;
       }
 
-      v103 = coreCaptureOsLog;
+      v102 = coreCaptureOsLog;
       if (coreCaptureOsLog)
       {
         v4 = 3758097136;
@@ -8490,14 +8403,14 @@ LABEL_81:
         *&cStr[8] = 1024;
         *&cStr[10] = v89 != 0;
         *&cStr[14] = 1024;
-        *&cStr[16] = v116 != 0;
+        *&cStr[16] = v115 != 0;
         *&cStr[20] = 1024;
         *&cStr[22] = v88 != 0;
         *&cStr[26] = 1024;
         *&cStr[28] = v90 != 0;
-        LOWORD(v124) = 1024;
-        *(&v124 + 2) = v87 != 0;
-        v104 = v103;
+        LOWORD(v123) = 1024;
+        *(&v123 + 2) = v87 != 0;
+        v103 = v102;
       }
 
       else
@@ -8513,43 +8426,43 @@ LABEL_81:
         *&cStr[8] = 1024;
         *&cStr[10] = v89 != 0;
         *&cStr[14] = 1024;
-        *&cStr[16] = v116 != 0;
+        *&cStr[16] = v115 != 0;
         *&cStr[20] = 1024;
         *&cStr[22] = v88 != 0;
         *&cStr[26] = 1024;
         *&cStr[28] = v90 != 0;
-        LOWORD(v124) = 1024;
-        *(&v124 + 2) = v87 != 0;
-        v104 = MEMORY[0x277D86220];
+        LOWORD(v123) = 1024;
+        *(&v123 + 2) = v87 != 0;
+        v103 = MEMORY[0x277D86220];
       }
 
-      _os_log_error_impl(&dword_2452A3000, v104, OS_LOG_TYPE_ERROR, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup failed to find required objects legend %d && providerID %d && providerName %d && channelID %d && channelType %d && channelName %d\n", cStr, 0x26u);
+      _os_log_error_impl(&dword_2452A3000, v103, OS_LOG_TYPE_ERROR, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup failed to find required objects legend %d && providerID %d && providerName %d && channelID %d && channelType %d && channelName %d\n", cStr, 0x26u);
 LABEL_130:
       if (glog_fd)
       {
-        *&v105 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v105 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v128 = v105;
-        v129 = v105;
-        v44 = v116;
-        v126 = v105;
-        v127 = v105;
-        v125 = v105;
-        *&cStr[16] = v105;
-        v124 = v105;
-        *cStr = v105;
-        memset(&v119, 0, sizeof(v119));
-        v118 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v118);
-        localtime_r(&v118, &v119);
-        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+        *&v104 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v104 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v127 = v104;
+        v128 = v104;
+        v44 = v115;
+        v125 = v104;
+        v126 = v104;
+        v124 = v104;
+        *&cStr[16] = v104;
+        v123 = v104;
+        *cStr = v104;
+        memset(&v118, 0, sizeof(v118));
+        v117 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v117);
+        localtime_r(&v117, &v118);
+        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
         dprintf(glog_fd, "%s ", cStr);
         dprintf(glog_fd, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup failed to find required objects legend %d && providerID %d && providerName %d && channelID %d && channelType %d && channelName %d\n");
       }
 
       else
       {
-        v44 = v116;
+        v44 = v115;
       }
 
       goto LABEL_121;
@@ -8571,8 +8484,8 @@ LABEL_130:
       *&cStr[14] = " NOT";
       *&cStr[22] = 2048;
       *&cStr[24] = v95;
-      LOWORD(v124) = 2048;
-      *(&v124 + 2) = v96;
+      LOWORD(v123) = 2048;
+      *(&v123 + 2) = v96;
       v97 = v94;
     }
 
@@ -8583,16 +8496,16 @@ LABEL_130:
         goto LABEL_119;
       }
 
-      v114 = CFArrayGetTypeID();
-      v115 = CFGetTypeID(v70);
+      v113 = CFArrayGetTypeID();
+      v114 = CFGetTypeID(v70);
       *cStr = 136315906;
       *&cStr[4] = "IOReportChannels";
       *&cStr[12] = 2080;
       *&cStr[14] = " NOT";
       *&cStr[22] = 2048;
-      *&cStr[24] = v114;
-      LOWORD(v124) = 2048;
-      *(&v124 + 2) = v115;
+      *&cStr[24] = v113;
+      LOWORD(v123) = 2048;
+      *(&v123 + 2) = v114;
       v97 = MEMORY[0x277D86220];
     }
 
@@ -8602,19 +8515,19 @@ LABEL_119:
     {
       *&v99 = 0xAAAAAAAAAAAAAAAALL;
       *(&v99 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v99;
-      v129 = v99;
-      v126 = v99;
       v127 = v99;
+      v128 = v99;
       v125 = v99;
-      *&cStr[16] = v99;
+      v126 = v99;
       v124 = v99;
+      *&cStr[16] = v99;
+      v123 = v99;
       *cStr = v99;
-      memset(&v119, 0, sizeof(v119));
-      v118 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v118);
-      localtime_r(&v118, &v119);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+      memset(&v118, 0, sizeof(v118));
+      v117 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v117);
+      localtime_r(&v117, &v118);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
       dprintf(glog_fd, "%s ", cStr);
       v100 = glog_fd;
       CFArrayGetTypeID();
@@ -8656,19 +8569,19 @@ LABEL_116:
   {
     *&v98 = 0xAAAAAAAAAAAAAAAALL;
     *(&v98 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v128 = v98;
-    v129 = v98;
-    v126 = v98;
     v127 = v98;
+    v128 = v98;
     v125 = v98;
-    *&cStr[16] = v98;
+    v126 = v98;
     v124 = v98;
+    *&cStr[16] = v98;
+    v123 = v98;
     *cStr = v98;
-    memset(&v119, 0, sizeof(v119));
-    v118 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v118);
-    localtime_r(&v118, &v119);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v119);
+    memset(&v118, 0, sizeof(v118));
+    v117 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v117);
+    localtime_r(&v117, &v118);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", &v118);
     dprintf(glog_fd, "%s ", cStr);
     dprintf(glog_fd, "CCIOReporterFormatter::storeChannelDescriptionFromDriverGroup %s expected \n");
   }
@@ -8680,7 +8593,6 @@ LABEL_122:
     CFRelease(v44);
   }
 
-  v101 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -8705,7 +8617,7 @@ uint64_t CCIOReporterFormatter::ccfree(CCIOReporterFormatter *this)
 
 BOOL CCProfileMonitor::initWithConfigure(CCProfileMonitor *this, CCConfigure *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = pthread_mutex_init((this + 16), 0);
   if (v4)
   {
@@ -8735,25 +8647,24 @@ LABEL_14:
     {
       *&v10 = 0xAAAAAAAAAAAAAAAALL;
       *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v22 = v10;
-      v23 = v10;
-      v20 = v10;
       v21 = v10;
-      v18 = v10;
+      v22 = v10;
       v19 = v10;
-      *buf = v10;
+      v20 = v10;
       v17 = v10;
-      memset(&v15, 0, sizeof(v15));
-      v14 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v14);
-      localtime_r(&v14, &v15);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v15);
+      v18 = v10;
+      *buf = v10;
+      v16 = v10;
+      memset(&v14, 0, sizeof(v14));
+      v13 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v13);
+      localtime_r(&v13, &v14);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v14);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::initWithConfigure ERROR INIT MUTEX: %d\n", v5);
     }
 
-    v8 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   *(this + 11) = a2;
@@ -8772,14 +8683,12 @@ LABEL_14:
   block[3] = &__block_descriptor_40_e5_v8__0l;
   block[4] = this;
   dispatch_after(v9, MEMORY[0x277D85CD0], block);
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void CCProfileMonitor::setStreamEventHandler(CCProfileMonitor *this)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   v3 = coreCaptureOsLog;
   if (DarwinNotifyCenter)
@@ -8813,19 +8722,19 @@ LABEL_11:
     {
       *&v7 = 0xAAAAAAAAAAAAAAAALL;
       *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v23 = v7;
-      v24 = v7;
-      v21 = v7;
       v22 = v7;
-      v19 = v7;
+      v23 = v7;
       v20 = v7;
-      *buf = v7;
+      v21 = v7;
       v18 = v7;
-      memset(&v16, 0, sizeof(v16));
-      v15 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v15);
-      localtime_r(&v15, &v16);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v16);
+      v19 = v7;
+      *buf = v7;
+      v17 = v7;
+      memset(&v15, 0, sizeof(v15));
+      v14 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v14);
+      localtime_r(&v14, &v15);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v15);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::setStreamEventHandler \n");
     }
@@ -8867,24 +8776,24 @@ LABEL_19:
     {
       *&v11 = 0xAAAAAAAAAAAAAAAALL;
       *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v23 = v11;
-      v24 = v11;
-      v21 = v11;
       v22 = v11;
-      v19 = v11;
+      v23 = v11;
       v20 = v11;
-      *buf = v11;
+      v21 = v11;
       v18 = v11;
-      memset(&v16, 0, sizeof(v16));
-      v15 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v15);
-      localtime_r(&v15, &v16);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v16);
+      v19 = v11;
+      *buf = v11;
+      v17 = v11;
+      memset(&v15, 0, sizeof(v15));
+      v14 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v14);
+      localtime_r(&v14, &v15);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v15);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::setStreamEventHandler Registered for notification callback.\n");
     }
 
-    goto LABEL_24;
+    return;
   }
 
   if (coreCaptureOsLog)
@@ -8915,44 +8824,39 @@ LABEL_22:
   {
     *&v12 = 0xAAAAAAAAAAAAAAAALL;
     *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23 = v12;
-    v24 = v12;
-    v21 = v12;
     v22 = v12;
-    v19 = v12;
+    v23 = v12;
     v20 = v12;
-    *buf = v12;
+    v21 = v12;
     v18 = v12;
-    memset(&v16, 0, sizeof(v16));
-    v15 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v15);
-    localtime_r(&v15, &v16);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v16);
+    v19 = v12;
+    *buf = v12;
+    v17 = v12;
+    memset(&v15, 0, sizeof(v15));
+    v14 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v14);
+    localtime_r(&v14, &v15);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v15);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "CCProfileMonitor::setStreamEventHandler Unable to get notification center for configuration reader.");
   }
-
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 BOOL CCProfileMonitor::initializeProfilePort(CCProfileMonitor *this)
 {
-  v5[5] = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
   global_queue = dispatch_get_global_queue(0, 0);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = ___ZN16CCProfileMonitor21initializeProfilePortEv_block_invoke;
-  v5[3] = &__block_descriptor_40_e8_v12__0i8l;
-  v5[4] = this;
-  result = notify_register_dispatch("com.apple.ManagedConfiguration.profileListChanged", this + 20, global_queue, v5) == 0;
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN16CCProfileMonitor21initializeProfilePortEv_block_invoke;
+  v4[3] = &__block_descriptor_40_e8_v12__0i8l;
+  v4[4] = this;
+  return notify_register_dispatch("com.apple.ManagedConfiguration.profileListChanged", this + 20, global_queue, v4) == 0;
 }
 
 void CCProfileMonitor::freeResources(CCProfileMonitor *this)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = coreCaptureOsLog;
   if (coreCaptureOsLog)
   {
@@ -8982,19 +8886,19 @@ LABEL_7:
   {
     *&v4 = 0xAAAAAAAAAAAAAAAALL;
     *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v21 = v4;
-    v22 = v4;
-    v19 = v4;
     v20 = v4;
-    v17 = v4;
+    v21 = v4;
     v18 = v4;
-    *buf = v4;
+    v19 = v4;
     v16 = v4;
-    memset(&v14, 0, sizeof(v14));
-    v13 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v13);
-    localtime_r(&v13, &v14);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v14);
+    v17 = v4;
+    *buf = v4;
+    v15 = v4;
+    memset(&v13, 0, sizeof(v13));
+    v12 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v12);
+    localtime_r(&v12, &v13);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v13);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "CCProfileMonitor::freeResources Entered\n");
   }
@@ -9061,30 +8965,28 @@ LABEL_24:
     {
       *&v11 = 0xAAAAAAAAAAAAAAAALL;
       *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v21 = v11;
-      v22 = v11;
-      v19 = v11;
       v20 = v11;
-      v17 = v11;
+      v21 = v11;
       v18 = v11;
-      *buf = v11;
+      v19 = v11;
       v16 = v11;
-      memset(&v14, 0, sizeof(v14));
-      v13 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v13);
-      localtime_r(&v13, &v14);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v14);
+      v17 = v11;
+      *buf = v11;
+      v15 = v11;
+      memset(&v13, 0, sizeof(v13));
+      v12 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v12);
+      localtime_r(&v12, &v13);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v13);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::freeResources done\n");
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN16CCProfileMonitor17initWithConfigureEP11CCConfigure_block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = coreCaptureOsLog;
   if (coreCaptureOsLog)
@@ -9115,30 +9017,29 @@ LABEL_7:
   {
     *&v4 = 0xAAAAAAAAAAAAAAAALL;
     *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v14 = v4;
-    v15 = v4;
-    v12 = v4;
     v13 = v4;
-    v10 = v4;
+    v14 = v4;
     v11 = v4;
-    *buf = v4;
+    v12 = v4;
     v9 = v4;
-    memset(&v7, 0, sizeof(v7));
-    v6 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v6);
-    localtime_r(&v6, &v7);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v7);
+    v10 = v4;
+    *buf = v4;
+    v8 = v4;
+    memset(&v6, 0, sizeof(v6));
+    v5 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v5);
+    localtime_r(&v5, &v6);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v6);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "CCProfileMonitor 10 seconds since CCProfileMonitor initted, calling profileCallback(1) to check for installed profiles\n");
   }
 
   CCProfileMonitor::profileCallback(v1, 2);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void CCProfileMonitor::profileCallback(CCProfileMonitor *this, int a2)
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   cf = 0;
   resourceData = 0;
   v4 = coreCaptureOsLog;
@@ -9157,7 +9058,7 @@ void CCProfileMonitor::profileCallback(CCProfileMonitor *this, int a2)
     *&buf[8] = 1024;
     *&buf[10] = CCProfileMonitor::fProfileLoaded;
     *&buf[14] = 1024;
-    LODWORD(v87) = v7;
+    LODWORD(v85) = v7;
     v8 = v4;
   }
 
@@ -9176,7 +9077,7 @@ void CCProfileMonitor::profileCallback(CCProfileMonitor *this, int a2)
     *&buf[8] = 1024;
     *&buf[10] = CCProfileMonitor::fProfileLoaded;
     *&buf[14] = 1024;
-    LODWORD(v87) = v10;
+    LODWORD(v85) = v10;
     v8 = MEMORY[0x277D86220];
   }
 
@@ -9186,19 +9087,19 @@ LABEL_7:
   {
     *&v11 = 0xAAAAAAAAAAAAAAAALL;
     *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v92 = v11;
-    v93 = v11;
     v90 = v11;
     v91 = v11;
+    v88 = v11;
     v89 = v11;
     v87 = v11;
-    v88 = v11;
+    v85 = v11;
+    v86 = v11;
     *buf = v11;
-    memset(&v83, 0, sizeof(v83));
-    v82 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v82);
-    localtime_r(&v82, &v83);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+    memset(&v81, 0, sizeof(v81));
+    v80 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v80);
+    localtime_r(&v80, &v81);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
     v12 = dprintf(glog_fd, "%s ", buf);
     v13 = glog_fd;
     v14 = atomic_load_explicit((CCDaemon::getInstance(v12) + 304), memory_order_acquire) & 1;
@@ -9236,24 +9137,24 @@ LABEL_18:
     {
       *&v20 = 0xAAAAAAAAAAAAAAAALL;
       *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v92 = v20;
-      v93 = v20;
       v90 = v20;
       v91 = v20;
+      v88 = v20;
       v89 = v20;
       v87 = v20;
-      v88 = v20;
+      v85 = v20;
+      v86 = v20;
       *buf = v20;
-      memset(&v83, 0, sizeof(v83));
-      v82 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v82);
-      localtime_r(&v82, &v83);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+      memset(&v81, 0, sizeof(v81));
+      v80 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v80);
+      localtime_r(&v80, &v81);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::profileCallback during shutdown (1)\n");
     }
 
-    goto LABEL_55;
+    return;
   }
 
   *(this + 104) = 1;
@@ -9289,19 +9190,19 @@ LABEL_25:
     {
       *&v23 = 0xAAAAAAAAAAAAAAAALL;
       *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v92 = v23;
-      v93 = v23;
       v90 = v23;
       v91 = v23;
+      v88 = v23;
       v89 = v23;
       v87 = v23;
-      v88 = v23;
+      v85 = v23;
+      v86 = v23;
       *buf = v23;
-      memset(&v83, 0, sizeof(v83));
-      v82 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v82);
-      localtime_r(&v82, &v83);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+      memset(&v81, 0, sizeof(v81));
+      v80 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v80);
+      localtime_r(&v80, &v81);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::profileCallback failed to get fMutex, exiting\n");
     }
@@ -9344,19 +9245,19 @@ LABEL_34:
     {
       *&v31 = 0xAAAAAAAAAAAAAAAALL;
       *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v92 = v31;
-      v93 = v31;
       v90 = v31;
       v91 = v31;
+      v88 = v31;
       v89 = v31;
       v87 = v31;
-      v88 = v31;
+      v85 = v31;
+      v86 = v31;
       *buf = v31;
-      memset(&v83, 0, sizeof(v83));
-      v82 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v82);
-      localtime_r(&v82, &v83);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+      memset(&v81, 0, sizeof(v81));
+      v80 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v80);
+      localtime_r(&v80, &v81);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::profileCallback during shutdown (2)\n");
     }
@@ -9396,27 +9297,27 @@ LABEL_34:
     v28 = 0;
   }
 
-  v46 = CFURLCreateWithString(v24, @"file:///private/var/Managed%20Preferences/mobile/com.apple.corecapture.configure.bt.plist", 0);
-  if (v46)
+  v45 = CFURLCreateWithString(v24, @"file:///private/var/Managed%20Preferences/mobile/com.apple.corecapture.configure.bt.plist", 0);
+  if (v45)
   {
-    v47 = v46;
-    if (CFURLCreateDataAndPropertiesFromResource(v24, v46, &cf, 0, 0, 0))
+    v46 = v45;
+    if (CFURLCreateDataAndPropertiesFromResource(v24, v45, &cf, 0, 0, 0))
     {
-      v48 = cf == 0;
+      v47 = cf == 0;
     }
 
     else
     {
-      v48 = 1;
+      v47 = 1;
     }
 
-    v49 = !v48;
-    CFRelease(v47);
+    v48 = !v47;
+    CFRelease(v46);
   }
 
   else
   {
-    v49 = 0;
+    v48 = 0;
   }
 
   if (cf)
@@ -9425,22 +9326,22 @@ LABEL_34:
     cf = 0;
   }
 
-  if (v49 && (v50 = CFURLCreateWithFileSystemPath(v24, @"/private/var/tmp/com.apple.corecaptured/com.apple.bluetooth.logging.plist", kCFURLPOSIXPathStyle, 0)) != 0)
+  if (v48 && (v49 = CFURLCreateWithFileSystemPath(v24, @"/private/var/tmp/com.apple.corecaptured/com.apple.bluetooth.logging.plist", kCFURLPOSIXPathStyle, 0)) != 0)
   {
-    v81 = v50;
+    v79 = v49;
     v33 = 0;
-    if (CFURLCreateDataAndPropertiesFromResource(v24, v50, &cf, 0, 0, 0))
+    if (CFURLCreateDataAndPropertiesFromResource(v24, v49, &cf, 0, 0, 0))
     {
       if (cf)
       {
-        v51 = CFPropertyListCreateWithData(v24, cf, 0, 0, 0);
-        v33 = v51;
-        if (v51)
+        v50 = CFPropertyListCreateWithData(v24, cf, 0, 0, 0);
+        v33 = v50;
+        if (v50)
         {
-          if (CFPropertyListIsValid(v51, kCFPropertyListXMLFormat_v1_0))
+          if (CFPropertyListIsValid(v50, kCFPropertyListXMLFormat_v1_0))
           {
-            v52 = CFGetTypeID(v33);
-            if (v52 == CFDictionaryGetTypeID())
+            v51 = CFGetTypeID(v33);
+            if (v51 == CFDictionaryGetTypeID())
             {
               ++v27;
             }
@@ -9453,10 +9354,10 @@ LABEL_34:
   else
   {
     v33 = 0;
-    v81 = 0;
+    v79 = 0;
   }
 
-  v53 = coreCaptureOsLog;
+  v52 = coreCaptureOsLog;
   if (CCProfileMonitor::fProfileLoaded != v27)
   {
     if (coreCaptureOsLog)
@@ -9470,7 +9371,7 @@ LABEL_34:
       *&buf[4] = resourceData != 0;
       *&buf[8] = 1024;
       *&buf[10] = v27;
-      v55 = v53;
+      v54 = v52;
     }
 
     else
@@ -9484,33 +9385,33 @@ LABEL_34:
       *&buf[4] = resourceData != 0;
       *&buf[8] = 1024;
       *&buf[10] = v27;
-      v55 = MEMORY[0x277D86220];
+      v54 = MEMORY[0x277D86220];
     }
 
-    _os_log_impl(&dword_2452A3000, v55, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback read WiFi profile plist valid: %d mask: %d\n", buf, 0xEu);
+    _os_log_impl(&dword_2452A3000, v54, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback read WiFi profile plist valid: %d mask: %d\n", buf, 0xEu);
 LABEL_96:
     if (glog_fd)
     {
-      *&v57 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v57 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v92 = v57;
-      v93 = v57;
-      v90 = v57;
-      v91 = v57;
-      v89 = v57;
-      v87 = v57;
-      v88 = v57;
-      *buf = v57;
-      memset(&v83, 0, sizeof(v83));
-      v82 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v82);
-      localtime_r(&v82, &v83);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+      *&v56 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v56 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v90 = v56;
+      v91 = v56;
+      v88 = v56;
+      v89 = v56;
+      v87 = v56;
+      v85 = v56;
+      v86 = v56;
+      *buf = v56;
+      memset(&v81, 0, sizeof(v81));
+      v80 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v80);
+      localtime_r(&v80, &v81);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::profileCallback read WiFi profile plist valid: %d mask: %d\n", resourceData != 0, v27);
     }
 
-    v58 = coreCaptureOsLog;
+    v57 = coreCaptureOsLog;
     if (coreCaptureOsLog)
     {
       if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_DEFAULT))
@@ -9522,7 +9423,7 @@ LABEL_96:
       *&buf[4] = cf != 0;
       *&buf[8] = 1024;
       *&buf[10] = v27;
-      v59 = v58;
+      v58 = v57;
     }
 
     else
@@ -9536,33 +9437,33 @@ LABEL_96:
       *&buf[4] = cf != 0;
       *&buf[8] = 1024;
       *&buf[10] = v27;
-      v59 = MEMORY[0x277D86220];
+      v58 = MEMORY[0x277D86220];
     }
 
-    _os_log_impl(&dword_2452A3000, v59, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback read BT profile plist valid: %d mask: %d\n", buf, 0xEu);
+    _os_log_impl(&dword_2452A3000, v58, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback read BT profile plist valid: %d mask: %d\n", buf, 0xEu);
 LABEL_104:
     if (glog_fd)
     {
-      *&v60 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v60 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v92 = v60;
-      v93 = v60;
-      v90 = v60;
-      v91 = v60;
-      v89 = v60;
-      v87 = v60;
-      v88 = v60;
-      *buf = v60;
-      memset(&v83, 0, sizeof(v83));
-      v82 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v82);
-      localtime_r(&v82, &v83);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+      *&v59 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v59 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v90 = v59;
+      v91 = v59;
+      v88 = v59;
+      v89 = v59;
+      v87 = v59;
+      v85 = v59;
+      v86 = v59;
+      *buf = v59;
+      memset(&v81, 0, sizeof(v81));
+      v80 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v80);
+      localtime_r(&v80, &v81);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::profileCallback read BT profile plist valid: %d mask: %d\n", cf != 0, v27);
     }
 
-    v61 = coreCaptureOsLog;
+    v60 = coreCaptureOsLog;
     if (v27)
     {
       if (coreCaptureOsLog)
@@ -9574,7 +9475,7 @@ LABEL_104:
 
         *buf = 67109120;
         *&buf[4] = a2;
-        v62 = v61;
+        v61 = v60;
       }
 
       else
@@ -9586,28 +9487,28 @@ LABEL_104:
 
         *buf = 67109120;
         *&buf[4] = a2;
-        v62 = MEMORY[0x277D86220];
+        v61 = MEMORY[0x277D86220];
       }
 
-      _os_log_impl(&dword_2452A3000, v62, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback Entered token:%d\n", buf, 8u);
+      _os_log_impl(&dword_2452A3000, v61, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback Entered token:%d\n", buf, 8u);
 LABEL_118:
       if (glog_fd)
       {
-        *&v64 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v64 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v92 = v64;
-        v93 = v64;
-        v90 = v64;
-        v91 = v64;
-        v89 = v64;
-        v87 = v64;
-        v88 = v64;
-        *buf = v64;
-        memset(&v83, 0, sizeof(v83));
-        v82 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v82);
-        localtime_r(&v82, &v83);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+        *&v63 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v63 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v90 = v63;
+        v91 = v63;
+        v88 = v63;
+        v89 = v63;
+        v87 = v63;
+        v85 = v63;
+        v86 = v63;
+        *buf = v63;
+        memset(&v81, 0, sizeof(v81));
+        v80 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v80);
+        localtime_r(&v80, &v81);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "CCProfileMonitor::profileCallback Entered token:%d\n", a2);
       }
@@ -9615,7 +9516,7 @@ LABEL_118:
       v32 = CCProfileMonitor::mergeProfilePlist(this, v28, v33);
       Count = CFDictionaryGetCount(v32);
       *(this + 12) = Count;
-      v66 = coreCaptureOsLog;
+      v65 = coreCaptureOsLog;
       if (Count)
       {
         if (coreCaptureOsLog)
@@ -9629,7 +9530,7 @@ LABEL_118:
           *&buf[4] = CCProfileMonitor::fProfileLoaded;
           *&buf[8] = 1024;
           *&buf[10] = v27;
-          v67 = v66;
+          v66 = v65;
         }
 
         else
@@ -9643,28 +9544,28 @@ LABEL_118:
           *&buf[4] = CCProfileMonitor::fProfileLoaded;
           *&buf[8] = 1024;
           *&buf[10] = v27;
-          v67 = MEMORY[0x277D86220];
+          v66 = MEMORY[0x277D86220];
         }
 
-        _os_log_impl(&dword_2452A3000, v67, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback changed. previous state: %d, current state: %d\n", buf, 0xEu);
+        _os_log_impl(&dword_2452A3000, v66, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback changed. previous state: %d, current state: %d\n", buf, 0xEu);
 LABEL_132:
         if (glog_fd)
         {
-          *&v70 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v70 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v92 = v70;
-          v93 = v70;
-          v90 = v70;
-          v91 = v70;
-          v89 = v70;
-          v87 = v70;
-          v88 = v70;
-          *buf = v70;
-          memset(&v83, 0, sizeof(v83));
-          v82 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v82);
-          localtime_r(&v82, &v83);
-          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+          *&v69 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v69 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v90 = v69;
+          v91 = v69;
+          v88 = v69;
+          v89 = v69;
+          v87 = v69;
+          v85 = v69;
+          v86 = v69;
+          *buf = v69;
+          memset(&v81, 0, sizeof(v81));
+          v80 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v80);
+          localtime_r(&v80, &v81);
+          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
           dprintf(glog_fd, "%s ", buf);
           dprintf(glog_fd, "CCProfileMonitor::profileCallback changed. previous state: %d, current state: %d\n", CCProfileMonitor::fProfileLoaded, v27);
         }
@@ -9673,42 +9574,42 @@ LABEL_132:
         if (CCProfileMonitor::getOwnersFromProfile(this, v32))
         {
           *(this + 12) = CFDictionaryGetCount(v32);
-          v71 = coreCaptureOsLog;
+          v70 = coreCaptureOsLog;
           if (coreCaptureOsLog)
           {
             if (os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              v72 = v71;
+              v71 = v70;
 LABEL_149:
-              _os_log_impl(&dword_2452A3000, v72, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback Loaded \n", buf, 2u);
+              _os_log_impl(&dword_2452A3000, v71, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback Loaded \n", buf, 2u);
             }
           }
 
           else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            v72 = MEMORY[0x277D86220];
+            v71 = MEMORY[0x277D86220];
             goto LABEL_149;
           }
 
           if (glog_fd)
           {
-            *&v76 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v76 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v92 = v76;
-            v93 = v76;
-            v90 = v76;
-            v91 = v76;
-            v89 = v76;
-            v87 = v76;
-            v88 = v76;
-            *buf = v76;
-            memset(&v83, 0, sizeof(v83));
-            v82 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v82);
-            localtime_r(&v82, &v83);
-            strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+            *&v75 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v75 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v90 = v75;
+            v91 = v75;
+            v88 = v75;
+            v89 = v75;
+            v87 = v75;
+            v85 = v75;
+            v86 = v75;
+            *buf = v75;
+            memset(&v81, 0, sizeof(v81));
+            v80 = 0xAAAAAAAAAAAAAAAALL;
+            time(&v80);
+            localtime_r(&v80, &v81);
+            strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
             dprintf(glog_fd, "%s ", buf);
             dprintf(glog_fd, "CCProfileMonitor::profileCallback Loaded \n");
           }
@@ -9722,7 +9623,7 @@ LABEL_149:
           goto LABEL_165;
         }
 
-        v73 = coreCaptureOsLog;
+        v72 = coreCaptureOsLog;
         if (coreCaptureOsLog)
         {
           if (!os_log_type_enabled(coreCaptureOsLog, OS_LOG_TYPE_DEFAULT))
@@ -9731,7 +9632,7 @@ LABEL_149:
           }
 
           *buf = 0;
-          v74 = v73;
+          v73 = v72;
         }
 
         else
@@ -9742,28 +9643,28 @@ LABEL_149:
           }
 
           *buf = 0;
-          v74 = MEMORY[0x277D86220];
+          v73 = MEMORY[0x277D86220];
         }
 
-        _os_log_impl(&dword_2452A3000, v74, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback getting owners from profile failed", buf, 2u);
+        _os_log_impl(&dword_2452A3000, v73, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback getting owners from profile failed", buf, 2u);
 LABEL_163:
         if (glog_fd)
         {
-          *&v79 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v79 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v92 = v79;
-          v93 = v79;
-          v90 = v79;
-          v91 = v79;
-          v89 = v79;
-          v87 = v79;
-          v88 = v79;
-          *buf = v79;
-          memset(&v83, 0, sizeof(v83));
-          v82 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v82);
-          localtime_r(&v82, &v83);
-          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+          *&v78 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v78 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v90 = v78;
+          v91 = v78;
+          v88 = v78;
+          v89 = v78;
+          v87 = v78;
+          v85 = v78;
+          v86 = v78;
+          *buf = v78;
+          memset(&v81, 0, sizeof(v81));
+          v80 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v80);
+          localtime_r(&v80, &v81);
+          strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
           dprintf(glog_fd, "%s ", buf);
           dprintf(glog_fd, "CCProfileMonitor::profileCallback getting owners from profile failed");
         }
@@ -9778,12 +9679,12 @@ LABEL_163:
           goto LABEL_156;
         }
 
-        v68 = *(this + 105);
+        v67 = *(this + 105);
         *buf = 67109376;
         *&buf[4] = CCProfileMonitor::fProfileLoaded;
         *&buf[8] = 1024;
-        *&buf[10] = v68;
-        v69 = v66;
+        *&buf[10] = v67;
+        v68 = v65;
       }
 
       else
@@ -9793,33 +9694,33 @@ LABEL_163:
           goto LABEL_156;
         }
 
-        v77 = *(this + 105);
+        v76 = *(this + 105);
         *buf = 67109376;
         *&buf[4] = CCProfileMonitor::fProfileLoaded;
         *&buf[8] = 1024;
-        *&buf[10] = v77;
-        v69 = MEMORY[0x277D86220];
+        *&buf[10] = v76;
+        v68 = MEMORY[0x277D86220];
       }
 
-      _os_log_impl(&dword_2452A3000, v69, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback empty dictionary. fProfileLoaded %d fProfileRemoveApplied %d\n", buf, 0xEu);
+      _os_log_impl(&dword_2452A3000, v68, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback empty dictionary. fProfileLoaded %d fProfileRemoveApplied %d\n", buf, 0xEu);
 LABEL_156:
       if (glog_fd)
       {
-        *&v78 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v78 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v92 = v78;
-        v93 = v78;
-        v90 = v78;
-        v91 = v78;
-        v89 = v78;
-        v87 = v78;
-        v88 = v78;
-        *buf = v78;
-        memset(&v83, 0, sizeof(v83));
-        v82 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v82);
-        localtime_r(&v82, &v83);
-        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+        *&v77 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v77 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v90 = v77;
+        v91 = v77;
+        v88 = v77;
+        v89 = v77;
+        v87 = v77;
+        v85 = v77;
+        v86 = v77;
+        *buf = v77;
+        memset(&v81, 0, sizeof(v81));
+        v80 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v80);
+        localtime_r(&v80, &v81);
+        strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
         dprintf(glog_fd, "%s ", buf);
         dprintf(glog_fd, "CCProfileMonitor::profileCallback empty dictionary. fProfileLoaded %d fProfileRemoveApplied %d\n", CCProfileMonitor::fProfileLoaded, *(this + 105));
       }
@@ -9841,9 +9742,9 @@ LABEL_158:
         *&buf[4] = CCProfileMonitor::fProfileLoaded;
         *&buf[8] = 1024;
         *&buf[10] = 0;
-        v63 = v61;
+        v62 = v60;
 LABEL_143:
-        _os_log_impl(&dword_2452A3000, v63, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback no profile installed. previous state: %d, current state: %d\n", buf, 0xEu);
+        _os_log_impl(&dword_2452A3000, v62, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback no profile installed. previous state: %d, current state: %d\n", buf, 0xEu);
       }
     }
 
@@ -9853,27 +9754,27 @@ LABEL_143:
       *&buf[4] = CCProfileMonitor::fProfileLoaded;
       *&buf[8] = 1024;
       *&buf[10] = 0;
-      v63 = MEMORY[0x277D86220];
+      v62 = MEMORY[0x277D86220];
       goto LABEL_143;
     }
 
     if (glog_fd)
     {
-      *&v75 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v75 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v92 = v75;
-      v93 = v75;
-      v90 = v75;
-      v91 = v75;
-      v89 = v75;
-      v87 = v75;
-      v88 = v75;
-      *buf = v75;
-      memset(&v83, 0, sizeof(v83));
-      v82 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v82);
-      localtime_r(&v82, &v83);
-      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+      *&v74 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v74 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v90 = v74;
+      v91 = v74;
+      v88 = v74;
+      v89 = v74;
+      v87 = v74;
+      v85 = v74;
+      v86 = v74;
+      *buf = v74;
+      memset(&v81, 0, sizeof(v81));
+      v80 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v80);
+      localtime_r(&v80, &v81);
+      strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
       dprintf(glog_fd, "%s ", buf);
       dprintf(glog_fd, "CCProfileMonitor::profileCallback no profile installed. previous state: %d, current state: %d\n", CCProfileMonitor::fProfileLoaded, 0);
     }
@@ -9890,9 +9791,9 @@ LABEL_143:
       *&buf[4] = v27;
       *&buf[8] = 1024;
       *&buf[10] = v27;
-      v54 = v53;
+      v53 = v52;
 LABEL_89:
-      _os_log_impl(&dword_2452A3000, v54, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback unchanged mask. previous state: %d, current state: %d\n", buf, 0xEu);
+      _os_log_impl(&dword_2452A3000, v53, OS_LOG_TYPE_DEFAULT, "CCProfileMonitor::profileCallback unchanged mask. previous state: %d, current state: %d\n", buf, 0xEu);
     }
   }
 
@@ -9902,36 +9803,36 @@ LABEL_89:
     *&buf[4] = v27;
     *&buf[8] = 1024;
     *&buf[10] = v27;
-    v54 = MEMORY[0x277D86220];
+    v53 = MEMORY[0x277D86220];
     goto LABEL_89;
   }
 
   if (glog_fd)
   {
-    *&v56 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v56 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v92 = v56;
-    v93 = v56;
-    v90 = v56;
-    v91 = v56;
-    v89 = v56;
-    v87 = v56;
-    v88 = v56;
-    *buf = v56;
-    memset(&v83, 0, sizeof(v83));
-    v82 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v82);
-    localtime_r(&v82, &v83);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+    *&v55 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v90 = v55;
+    v91 = v55;
+    v88 = v55;
+    v89 = v55;
+    v87 = v55;
+    v85 = v55;
+    v86 = v55;
+    *buf = v55;
+    memset(&v81, 0, sizeof(v81));
+    v80 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v80);
+    localtime_r(&v80, &v81);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
     dprintf(glog_fd, "%s ", buf);
     dprintf(glog_fd, "CCProfileMonitor::profileCallback unchanged mask. previous state: %d, current state: %d\n", CCProfileMonitor::fProfileLoaded, v27);
   }
 
   v32 = 0;
 LABEL_165:
-  if (v81)
+  if (v79)
   {
-    CFRelease(v81);
+    CFRelease(v79);
   }
 
 LABEL_37:
@@ -9980,7 +9881,7 @@ LABEL_37:
     *&buf[8] = 1024;
     *&buf[10] = CCProfileMonitor::fProfileLoaded;
     *&buf[14] = 1024;
-    LODWORD(v87) = v37;
+    LODWORD(v85) = v37;
     v38 = v34;
   }
 
@@ -9999,7 +9900,7 @@ LABEL_37:
     *&buf[8] = 1024;
     *&buf[10] = CCProfileMonitor::fProfileLoaded;
     *&buf[14] = 1024;
-    LODWORD(v87) = v41;
+    LODWORD(v85) = v41;
     v38 = MEMORY[0x277D86220];
   }
 
@@ -10009,26 +9910,22 @@ LABEL_53:
   {
     *&v42 = 0xAAAAAAAAAAAAAAAALL;
     *(&v42 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v92 = v42;
-    v93 = v42;
     v90 = v42;
     v91 = v42;
+    v88 = v42;
     v89 = v42;
     v87 = v42;
-    v88 = v42;
+    v85 = v42;
+    v86 = v42;
     *buf = v42;
-    memset(&v83, 0, sizeof(v83));
-    v82 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v82);
-    localtime_r(&v82, &v83);
-    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v83);
+    memset(&v81, 0, sizeof(v81));
+    v80 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v80);
+    localtime_r(&v80, &v81);
+    strftime(buf, 0x80uLL, "%b %d %H:%M:%S", &v81);
     v43 = dprintf(glog_fd, "%s ", buf);
     v44 = glog_fd;
     atomic_load_explicit((CCDaemon::getInstance(v43) + 304), memory_order_acquire);
-    v80 = *(this + 105);
     dprintf(v44, "CCProfileMonitor::profileCallback exiting states CCDaemon::getInstance().isShutdownPending() %d fProfileLoaded %d fProfileRemoveApplied %d\n");
   }
-
-LABEL_55:
-  v45 = *MEMORY[0x277D85DE8];
 }

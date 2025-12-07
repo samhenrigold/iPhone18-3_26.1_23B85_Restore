@@ -79,10 +79,7 @@ LABEL_16:
 uint64_t __52__CalUMCalendarDataContainerInfo_initWithPersonaID___block_invoke(uint64_t a1, void *a2)
 {
   *(*(a1 + 32) + 8) = [a2 isDataSeparatedPersona];
-  v3 = +[CalUMCalendarDataContainerInfo _calendarGroupContainer];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 32);
-  *(v4 + 32) = v3;
+  *(*(a1 + 32) + 32) = +[CalUMCalendarDataContainerInfo _calendarGroupContainer];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -97,12 +94,11 @@ uint64_t __52__CalUMCalendarDataContainerInfo_initWithPersonaID___block_invoke(u
 
 - (void)initWithPersonaID:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Couldn't restore personal persona %@. Assuming we're already running in that persona and hoping for the best.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Couldn't restore personal persona %@. Assuming we're already running in that persona and hoping for the best.", &v3, 0xCu);
 }
 
 @end

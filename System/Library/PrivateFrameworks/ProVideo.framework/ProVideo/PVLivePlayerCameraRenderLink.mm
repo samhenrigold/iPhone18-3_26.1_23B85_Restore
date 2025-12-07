@@ -25,7 +25,7 @@
   v5 = setCopy;
   if (setCopy)
   {
-    [setCopy presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(setCopy);
   }
 
   else

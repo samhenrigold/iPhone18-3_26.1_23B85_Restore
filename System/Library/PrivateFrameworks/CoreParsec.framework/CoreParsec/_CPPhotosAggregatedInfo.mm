@@ -28,19 +28,16 @@
   to;
   if ([(_CPPhotosAggregatedInfo *)self totalNumberOfAssets])
   {
-    totalNumberOfAssets = self->_totalNumberOfAssets;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPPhotosAggregatedInfo *)self totalNumberOfEmbeddingMatchedAssets])
   {
-    totalNumberOfEmbeddingMatchedAssets = self->_totalNumberOfEmbeddingMatchedAssets;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPPhotosAggregatedInfo *)self totalNumberOfMetadataMatchedAssets])
   {
-    totalNumberOfMetadataMatchedAssets = self->_totalNumberOfMetadataMatchedAssets;
     PBDataWriterWriteInt32Field();
   }
 

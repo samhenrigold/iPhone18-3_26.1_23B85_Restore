@@ -28,7 +28,7 @@
 
 - (void)_mkcalendarAfterFailureCount:(unint64_t)count
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (count)
   {
     v5 = &OBJC_IVAR___CalDAVMkcalendarWithFallbackTaskGroup__fallbackElements;
@@ -39,37 +39,37 @@
     v5 = &OBJC_IVAR___CalDAVMkcalendarWithFallbackTaskGroup__primaryElements;
   }
 
-  v17 = *(&self->super.super.isa + *v5);
-  v6 = [[CalDAVMkcalendarTask alloc] initWithPropertiesToSet:v17 atURL:self->_url];
+  v16 = *(&self->super.super.isa + *v5);
+  v6 = [[CalDAVMkcalendarTask alloc] initWithPropertiesToSet:v16 atURL:self->_url];
   accountInfoProvider = [(CoreDAVTaskGroup *)self accountInfoProvider];
   [(CalDAVMkcalendarTask *)v6 setAccountInfoProvider:accountInfoProvider];
 
   [(CalDAVMkcalendarTask *)v6 setSupportForEvents:self->_shouldSupportVEVENT tasks:self->_shouldSupportVTODO];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   headersToOverride = [(CalDAVMkcalendarWithFallbackTaskGroup *)self headersToOverride];
-  v9 = [headersToOverride countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [headersToOverride countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(headersToOverride);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         headersToOverride2 = [(CalDAVMkcalendarWithFallbackTaskGroup *)self headersToOverride];
         v14 = [headersToOverride2 valueForKey:v12];
         [(CalDAVMkcalendarTask *)v6 overrideRequestHeader:v12 withValue:v14];
       }
 
-      v9 = [headersToOverride countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [headersToOverride countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v9);
@@ -77,23 +77,21 @@
 
   objc_initWeak(&location, self);
   objc_initWeak(&from, v6);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __70__CalDAVMkcalendarWithFallbackTaskGroup__mkcalendarAfterFailureCount___block_invoke;
-  v18[3] = &unk_278D663B8;
-  objc_copyWeak(&v19, &from);
-  v20[1] = count;
-  objc_copyWeak(v20, &location);
-  [(CalDAVMkcalendarTask *)v6 setCompletionBlock:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __70__CalDAVMkcalendarWithFallbackTaskGroup__mkcalendarAfterFailureCount___block_invoke;
+  v17[3] = &unk_278D663B8;
+  objc_copyWeak(&v18, &from);
+  v19[1] = count;
+  objc_copyWeak(v19, &location);
+  [(CalDAVMkcalendarTask *)v6 setCompletionBlock:v17];
   taskManager = [(CoreDAVTaskGroup *)self taskManager];
   [taskManager submitQueuedCoreDAVTask:v6];
 
-  objc_destroyWeak(v20);
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CalDAVMkcalendarWithFallbackTaskGroup__mkcalendarAfterFailureCount___block_invoke(uint64_t a1)

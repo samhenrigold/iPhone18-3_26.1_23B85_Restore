@@ -82,7 +82,7 @@ void __81__NLSessionBackgroundPermissionsChecker_resetAndFetchMotionCalibrationP
   objc_storeStrong(&v10, 0);
 }
 
-uint64_t __81__NLSessionBackgroundPermissionsChecker_resetAndFetchMotionCalibrationPermission__block_invoke_2(uint64_t a1)
+double __81__NLSessionBackgroundPermissionsChecker_resetAndFetchMotionCalibrationPermission__block_invoke_2(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
   oslog[2] = a1;
@@ -102,8 +102,7 @@ uint64_t __81__NLSessionBackgroundPermissionsChecker_resetAndFetchMotionCalibrat
   v2 = *(a1 + 32);
   v3 = *(v2 + 8);
   *(v2 + 8) = v1;
-  result = MEMORY[0x277D82BD8](v3);
-  *MEMORY[0x277D85DE8];
+  *&result = MEMORY[0x277D82BD8](v3).n128_u64[0];
   return result;
 }
 
@@ -197,7 +196,6 @@ void __74__NLSessionBackgroundPermissionsChecker__needsMotionCalibrationPermissi
 
   dispatch_semaphore_signal(*(a1 + 32));
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)needsMotionCalibrationPermission
@@ -216,7 +214,7 @@ void __74__NLSessionBackgroundPermissionsChecker__needsMotionCalibrationPermissi
     }
 
     objc_storeStrong(&oslog, 0);
-    bOOLValue = [(NSNumber *)selfCopy->_motionCalibrationResult BOOLValue];
+    return [(NSNumber *)selfCopy->_motionCalibrationResult BOOLValue];
   }
 
   else
@@ -233,11 +231,8 @@ void __74__NLSessionBackgroundPermissionsChecker__needsMotionCalibrationPermissi
     }
 
     objc_storeStrong(location, 0);
-    bOOLValue = 0;
+    return 0;
   }
-
-  *MEMORY[0x277D85DE8];
-  return bOOLValue & 1;
 }
 
 @end

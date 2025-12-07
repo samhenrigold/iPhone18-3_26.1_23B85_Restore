@@ -58,7 +58,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_23E82173C(v7);
+  sub_23E82173C(v7, v8);
 }
 
 + (id)sharedInstance
@@ -78,20 +78,19 @@
 - (void)stopListening
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E35A618, &qword_23E831730);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v11 - v5;
+  v5 = &v10 - v4;
   selfCopy = self;
   sub_23E82EB7C();
-  v8 = sub_23E82EB9C();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = swift_allocObject();
+  v7 = sub_23E82EB9C();
+  (*(*(v7 - 8) + 56))(v5, 0, 1, v7);
+  v8 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = v9;
-  sub_23E80C7D8(0, 0, v6, &unk_23E831778, v10);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = v8;
+  sub_23E80C7D8(0, 0, v5, &unk_23E831778, v9);
 }
 
 - (void)pauseListening
@@ -108,7 +107,6 @@
 
 - (void)resumeListening
 {
-  v2 = *(self + OBJC_IVAR___AVSTriggerController_audioProvider);
   selfCopy = self;
   sub_23E81B720();
 }

@@ -49,38 +49,36 @@ LABEL_7:
 
 - (void)addItems:(id)items
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [itemsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [itemsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        [(FedStatsDataSampler *)self addItem:*(*(&v10 + 1) + 8 * v8++)];
+        [(FedStatsDataSampler *)self addItem:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [itemsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [itemsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)pickSamplesFrom:(id)from length:(unint64_t)length

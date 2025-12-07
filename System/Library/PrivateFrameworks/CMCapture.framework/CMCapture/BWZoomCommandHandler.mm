@@ -22,7 +22,7 @@
 - (float)updateZoomModelForNextFrameWithPTS:(id *)s captureID:(int)d;
 - (int)rampTuning;
 - (int64_t)timeForLastRequestedZoomFactor;
-- (uint64_t)_updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:(float)factor zoomFactorChangedOut:;
+- (uint64_t)_updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:(__n128)factor zoomFactorChangedOut:;
 - (void)dealloc;
 - (void)rampToVideoZoomFactor:(float)factor usingSpringWithTension:(float)tension friction:(float)friction snapFraction:(float)fraction rampTuning:(int)tuning earlySwitchOverScaleFactorForZoomIn:(float)in allowableMinimumDigitalZoomFactorDuringZoomOut:(float)out rampStartFrameDelayAt30fps:(int)self0 commandID:(int)self1;
 - (void)rampToVideoZoomFactor:(float)factor withRampType:(int)type rate:(float)rate duration:(double)duration snapToTargetZoomFactorWithinRampFraction:(float)fraction rampTuning:(int)tuning earlySwitchOverScaleFactorForZoomIn:(float)in allowableMinimumDigitalZoomFactorDuringZoomOut:(float)self0 commandID:(int)self1;
@@ -358,33 +358,35 @@
 
 - (void)updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:(float)factor
 {
-  v9 = 0;
+  v10 = 0;
   os_unfair_lock_lock(&self->_zoomLock);
-  [(BWZoomCommandHandler *)self _updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:factor zoomFactorChangedOut:?];
-  v6 = v5;
+  v5.n128_f32[0] = factor;
+  [(BWZoomCommandHandler *)self _updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:v5 zoomFactorChangedOut:?];
+  v7 = v6;
   os_unfair_lock_unlock(&self->_zoomLock);
-  if (v9)
+  if (v10)
   {
     zoomCompletionDelegate = self->_zoomCompletionDelegate;
     [(BWZoomCommandHandler *)self appliedZoomFactor];
-    [BWZoomCompletionDelegate zoomCommandHandler:"zoomCommandHandler:didApplyZoomFactor:zoomFactorWithoutFudge:targetZoomFactor:rampComplete:rampCommandID:" didApplyZoomFactor:self zoomFactorWithoutFudge:HIDWORD(v6) & 1 targetZoomFactor:v6 rampComplete:? rampCommandID:?];
+    [BWZoomCompletionDelegate zoomCommandHandler:"zoomCommandHandler:didApplyZoomFactor:zoomFactorWithoutFudge:targetZoomFactor:rampComplete:rampCommandID:" didApplyZoomFactor:self zoomFactorWithoutFudge:HIDWORD(v7) & 1 targetZoomFactor:v7 rampComplete:? rampCommandID:?];
     zoomCompletionDelegateForStereoAudio = self->_zoomCompletionDelegateForStereoAudio;
     [(BWZoomCommandHandler *)self appliedZoomFactor];
-    [BWZoomCompletionDelegate zoomCommandHandler:"zoomCommandHandler:didApplyZoomFactor:zoomFactorWithoutFudge:targetZoomFactor:rampComplete:rampCommandID:" didApplyZoomFactor:self zoomFactorWithoutFudge:HIDWORD(v6) & 1 targetZoomFactor:v6 rampComplete:? rampCommandID:?];
+    [BWZoomCompletionDelegate zoomCommandHandler:"zoomCommandHandler:didApplyZoomFactor:zoomFactorWithoutFudge:targetZoomFactor:rampComplete:rampCommandID:" didApplyZoomFactor:self zoomFactorWithoutFudge:HIDWORD(v7) & 1 targetZoomFactor:v7 rampComplete:? rampCommandID:?];
   }
 }
 
 - (float)updateZoomModelAndAppliedZoomFactorForNextFrameWithPTS:(id *)s captureID:(int)d delayedISPAppliedZoomFactor:(float)factor
 {
-  v26 = 0;
+  v27 = 0;
   os_unfair_lock_lock(&self->_zoomLock);
   if (!self || d == -1 || (lastFrameCaptureID = self->_lastFrameCaptureID, v16 = __OFSUB__(lastFrameCaptureID, d), v17 = lastFrameCaptureID - d, (v17 < 0) ^ v16) || v17 >= 1000)
   {
-    v24 = *&s->var0;
+    v25 = *&s->var0;
     var3 = s->var3;
     v19 = [(BWZoomCommandHandler *)self _updateZoomModelForNextFrameWithPTS:v9, v10, v11, v12, v13, v14];
-    [(BWZoomCommandHandler *)self _updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:factor zoomFactorChangedOut:?];
-    v18 = v20;
+    v20.n128_f32[0] = factor;
+    [(BWZoomCommandHandler *)self _updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:v20 zoomFactorChangedOut:?];
+    v18 = v21;
     self->_lastFrameCaptureID = d;
   }
 
@@ -395,7 +397,7 @@
   }
 
   os_unfair_lock_unlock(&self->_zoomLock);
-  if (v26)
+  if (v27)
   {
     zoomCompletionDelegate = self->_zoomCompletionDelegate;
     [(BWZoomCommandHandler *)self appliedZoomFactor];
@@ -416,7 +418,7 @@
   }
 
   v10 = *(self + 208);
-  v11 = OUTLINED_FUNCTION_2_0(self, a2, factor, a4, a5, a6, a7, a8, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, 0);
+  v11 = OUTLINED_FUNCTION_2_0(self, a2, factor, a4, a5, a6, a7, a8, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
   if (v11)
   {
     v12 = v11;
@@ -444,7 +446,7 @@
         }
       }
 
-      v12 = OUTLINED_FUNCTION_2_0(lowerBound, v17, v18, v19, v20, v21, v22, v23, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v60);
+      v12 = OUTLINED_FUNCTION_2_0(lowerBound, v17, v18, v19, v20, v21, v22, v23, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
       if (v12)
       {
         continue;
@@ -460,9 +462,9 @@
 - (float)applyFudgeToZoomFactor:(float)factor
 {
   os_unfair_lock_lock(&self->_zoomLock);
-  v12 = OUTLINED_FUNCTION_4_87(v4, v5, v6, v7, v8, v9, v10, v11);
+  v13 = OUTLINED_FUNCTION_4_87(v12, v4, v5, v6, v7, v8, v9, v10, v11);
   os_unfair_lock_unlock(&self->_zoomLock);
-  return v12;
+  return v13;
 }
 
 - (float)_removeFudgeFromZoomFactor:(uint64_t)factor
@@ -473,7 +475,7 @@
   }
 
   v10 = *(self + 208);
-  v11 = OUTLINED_FUNCTION_2_0(self, a2, factor, a4, a5, a6, a7, a8, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, 0);
+  v11 = OUTLINED_FUNCTION_2_0(self, a2, factor, a4, a5, a6, a7, a8, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
   if (v11)
   {
     v12 = v11;
@@ -501,7 +503,7 @@
         }
       }
 
-      v12 = OUTLINED_FUNCTION_2_0(fudgedLowerBound, v17, v18, v19, v20, v21, v22, v23, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v60);
+      v12 = OUTLINED_FUNCTION_2_0(fudgedLowerBound, v17, v18, v19, v20, v21, v22, v23, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
       if (v12)
       {
         continue;
@@ -592,7 +594,7 @@ LABEL_10:
 
   *(self + 80) = *(self + 56);
   *(self + 96) = *(self + 72);
-  v9 = *(a2 + 16);
+  v9 = *(a2 + 2);
   *(self + 56) = *a2;
   *(self + 72) = v9;
   if (*(self + 160) == 0.0 && *(self + 196) == 0.0 && *(self + 184) == 0.0 && !*(self + 164))
@@ -604,7 +606,7 @@ LABEL_10:
   else
   {
     v23 = *a2;
-    v24 = *(a2 + 16);
+    v24 = *(a2 + 2);
     v12 = [BWZoomCommandHandler _zoomFactorForRampAtPTS:self updateCurrentZoomRampState:&v23];
     if (v12 >= 1.0 && v12 != *(self + 16))
     {
@@ -656,13 +658,13 @@ LABEL_10:
   return v21;
 }
 
-- (uint64_t)_updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:(float)factor zoomFactorChangedOut:
+- (uint64_t)_updateAppliedZoomFactorForDelayedISPAppliedZoomFactor:(__n128)factor zoomFactorChangedOut:
 {
   if (result)
   {
     v4 = result;
     v5 = *(result + 24);
-    result = [(BWZoomDelayBuffer *)v5 zoomRequestForISPAppliedZoomFactor:factor earlySwitchOverScaleFactorForZoomIn:*(result + 240)];
+    result = [(BWZoomDelayBuffer *)v5 zoomRequestForISPAppliedZoomFactor:*(result + 240) earlySwitchOverScaleFactorForZoomIn:?];
     v7 = *(v4 + 12);
     if (v7 != *&result)
     {
@@ -697,7 +699,8 @@ LABEL_10:
 
   OUTLINED_FUNCTION_0_112(self, a2, s, state, a5, a6, a7, a8, v30, v31, v32, v33, v34, time.value);
   Seconds = CMTimeGetSeconds(&time);
-  v19 = 1.0 - pow(0.00499999523, Seconds / *(v8 + 184));
+  v19.n128_f64[0] = 1.0 - pow(0.00499999523, Seconds / *(v8 + 184));
+  v19.n128_f32[0] = v19.n128_f64[0];
   v20 = *(v8 + 148);
   v21 = *(v8 + 156);
   if (v20 < v21)
@@ -710,19 +713,19 @@ LABEL_10:
     v22 = v20 > v21;
   }
 
-  if ((1.0 - *(v8 + 192)) <= v19)
+  if ((1.0 - *(v8 + 192)) <= v19.n128_f32[0])
   {
     v23 = *(v8 + 156);
   }
 
   else
   {
-    v23 = v20 + (v19 * (v21 - v20));
+    v23 = v20 + (v19.n128_f32[0] * (v21 - v20));
   }
 
   if (Seconds != 0.0 && v9 != 0)
   {
-    OUTLINED_FUNCTION_4_87(v11, v12, v13, v14, v15, v16, v17, v18);
+    OUTLINED_FUNCTION_4_87(v19, v11, v12, v13, v14, v15, v16, v17, v18);
     OUTLINED_FUNCTION_3_99();
     if (!v26)
     {
@@ -810,21 +813,21 @@ LABEL_10:
   }
 
   v25 = v24 * 0.693147181 * Seconds;
-  v34 = v14 * expf(v25);
-  if (v34 < 1.0)
+  v34.n128_f32[0] = v14 * expf(v25);
+  if (v34.n128_f32[0] < 1.0)
   {
-    v34 = 1.0;
+    v34.n128_f32[0] = 1.0;
   }
 
-  v35 = v20 == v34 > v12;
-  if (v34 < v12)
+  v35 = v20 == v34.n128_f32[0] > v12;
+  if (v34.n128_f32[0] < v12)
   {
     v35 = v14 < v12;
   }
 
   if (v35)
   {
-    v36 = v34;
+    v36 = v34.n128_f32[0];
   }
 
   else
@@ -834,7 +837,7 @@ LABEL_10:
 
   if (v9)
   {
-    OUTLINED_FUNCTION_4_87(v26, v27, v28, v29, v30, v31, v32, v33);
+    OUTLINED_FUNCTION_4_87(v34, v26, v27, v28, v29, v30, v31, v32, v33);
     OUTLINED_FUNCTION_3_99();
     if (!v40)
     {
@@ -863,7 +866,7 @@ LABEL_10:
     return 0.0;
   }
 
-  OUTLINED_FUNCTION_0_112(self, a2, s, state, a5, a6, a7, a8, v36, v37, v38, v39, v40, time.value);
+  OUTLINED_FUNCTION_0_112(self, a2, s, state, a5, a6, a7, a8, v35, v36, v37, v38, v39, time.value);
   Seconds = CMTimeGetSeconds(&time);
   v11 = *(v8 + 156);
   v12 = *(v8 + 148);
@@ -893,7 +896,7 @@ LABEL_10:
       if (*(v8 + 192) > 0.0)
       {
         output = [(BWSpringSimulation *)v15 output];
-        if (v27 >= 1.0 - *(v8 + 192))
+        if (v27.n128_f64[0] >= 1.0 - *(v8 + 192))
         {
           break;
         }
@@ -915,29 +918,29 @@ LABEL_11:
 LABEL_14:
     if (Seconds != 0.0)
     {
-      OUTLINED_FUNCTION_4_87(output, v20, v21, v22, v23, v24, v25, v26);
+      OUTLINED_FUNCTION_4_87(v27, output, v20, v21, v22, v23, v24, v25, v26);
       OUTLINED_FUNCTION_3_99();
-      if (!v33)
+      if (!v32)
       {
-        if (v31 >= v32)
+        if (v30 >= v31)
         {
-          v34 = v13 == v31 > v32;
+          v33 = v13 == v30 > v31;
         }
 
         else
         {
-          v34 = v12 < v11;
+          v33 = v12 < v11;
         }
 
-        if (!v34)
+        if (!v33)
         {
           *(v8 + 200) = 0;
         }
       }
 
       [(BWSpringSimulation *)v15 velocity];
-      *&v35 = v35 * -v13;
-      *(v8 + 196) = LODWORD(v35);
+      *&v34 = v34 * -v13;
+      *(v8 + 196) = LODWORD(v34);
     }
 
     goto LABEL_15;
@@ -951,8 +954,8 @@ LABEL_10:
   }
 
   output = [(BWSpringSimulation *)v15 output];
-  *&v29 = v29;
-  v28 = *(v8 + 148) + (*&v29 * (*(v8 + 156) - *(v8 + 148)));
+  v27.n128_f32[0] = v27.n128_f64[0];
+  v28 = *(v8 + 148) + (v27.n128_f32[0] * (*(v8 + 156) - *(v8 + 148)));
   if (v9)
   {
     goto LABEL_14;

@@ -35,56 +35,56 @@ void __32__BMLibraryStreamsPruner_domain__block_invoke()
 
 + (void)_enumerateAllPruningTriggersForPolicy:(id)policy block:(id)block
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   policyCopy = policy;
   blockCopy = block;
   context = objc_autoreleasePoolPush();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v7 = BiomeLibraryAndInternalLibraryNode();
   allStreams = [v7 allStreams];
 
   obj = allStreams;
-  v25 = [allStreams countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v25)
+  v24 = [allStreams countByEnumeratingWithState:&v30 objects:v35 count:16];
+  if (v24)
   {
-    v24 = *v32;
+    v23 = *v31;
     do
     {
       v9 = 0;
       do
       {
-        if (*v32 != v24)
+        if (*v31 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = v9;
-        v10 = *(*(&v31 + 1) + 8 * v9);
+        v25 = v9;
+        v10 = *(*(&v30 + 1) + 8 * v9);
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
         configuration = [v10 configuration];
         pruningTriggers = [configuration pruningTriggers];
 
-        v13 = [pruningTriggers countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v13 = [pruningTriggers countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v28;
+          v15 = *v27;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v28 != v15)
+              if (*v27 != v15)
               {
                 objc_enumerationMutation(pruningTriggers);
               }
 
-              v17 = *(*(&v27 + 1) + 8 * i);
+              v17 = *(*(&v26 + 1) + 8 * i);
               identifier = [v17 identifier];
               v19 = [identifier isEqual:policyCopy];
 
@@ -96,35 +96,34 @@ void __32__BMLibraryStreamsPruner_domain__block_invoke()
               }
             }
 
-            v14 = [pruningTriggers countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v14 = [pruningTriggers countByEnumeratingWithState:&v26 objects:v34 count:16];
           }
 
           while (v14);
         }
 
-        v9 = v26 + 1;
+        v9 = v25 + 1;
       }
 
-      while (v26 + 1 != v25);
-      v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      while (v25 + 1 != v24);
+      v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
 
   objc_autoreleasePoolPop(context);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_pruneStreamsWithPolicy:(id)policy parameters:(id)parameters
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   policyCopy = policy;
   parametersCopy = parameters;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   v8 = __biome_log_for_category();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -132,25 +131,25 @@ void __32__BMLibraryStreamsPruner_domain__block_invoke()
     v9 = BMStringForServiceDomain();
     *buf = 138543874;
     selfCopy = self;
-    v25 = 2114;
-    v26 = v9;
-    v27 = 2114;
-    v28 = policyCopy;
+    v24 = 2114;
+    v25 = v9;
+    v26 = 2114;
+    v27 = policyCopy;
     _os_log_impl(&dword_1848EE000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ pruning all streams in %{public}@ domain with policy: %{public}@", buf, 0x20u);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __61__BMLibraryStreamsPruner__pruneStreamsWithPolicy_parameters___block_invoke;
-  v14[3] = &unk_1E6E53890;
-  v17 = &v19;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __61__BMLibraryStreamsPruner__pruneStreamsWithPolicy_parameters___block_invoke;
+  v13[3] = &unk_1E6E53890;
+  v16 = &v18;
   selfCopy2 = self;
   v10 = policyCopy;
-  v15 = v10;
+  v14 = v10;
   v11 = parametersCopy;
-  v16 = v11;
-  [self _enumerateAllPruningTriggersForPolicy:v10 block:v14];
-  if (!v20[3])
+  v15 = v11;
+  [self _enumerateAllPruningTriggersForPolicy:v10 block:v13];
+  if (!v19[3])
   {
     v12 = __biome_log_for_category();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -159,13 +158,12 @@ void __32__BMLibraryStreamsPruner_domain__block_invoke()
     }
   }
 
-  _Block_object_dispose(&v19, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
 }
 
 + (void)_pruneStream:(id)stream policy:(id)policy trigger:(id)trigger parameters:(id)parameters
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
   policyCopy = policy;
   triggerCopy = trigger;
@@ -179,8 +177,8 @@ void __32__BMLibraryStreamsPruner_domain__block_invoke()
       identifier = [streamCopy identifier];
       *buf = 138543618;
       selfCopy2 = self;
-      v34 = 2114;
-      v35 = identifier;
+      v33 = 2114;
+      v34 = identifier;
       _os_log_impl(&dword_1848EE000, pruningPredicate, OS_LOG_TYPE_INFO, "%{public}@ - no pruning needed for %{public}@ - trigger condition evaluated to NO", buf, 0x16u);
     }
   }
@@ -193,10 +191,10 @@ void __32__BMLibraryStreamsPruner_domain__block_invoke()
       identifier2 = [streamCopy identifier];
       *buf = 138543874;
       selfCopy2 = self;
-      v34 = 2114;
-      v35 = identifier2;
-      v36 = 2114;
-      v37 = policyCopy;
+      v33 = 2114;
+      v34 = identifier2;
+      v35 = 2114;
+      v36 = policyCopy;
       _os_log_impl(&dword_1848EE000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ pruning stream: %{public}@ with policy: %{public}@", buf, 0x20u);
     }
 
@@ -204,17 +202,17 @@ void __32__BMLibraryStreamsPruner_domain__block_invoke()
     if (pruningPredicate && ([MEMORY[0x1E696AE18] predicateWithValue:1], v21 = objc_claimAutoreleasedReturnValue(), v22 = -[NSObject isEqual:](pruningPredicate, "isEqual:", v21), v21, !v22))
     {
       pruner = [streamCopy pruner];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___block_invoke_2;
-      v27[3] = &unk_1E6E538D8;
-      v28 = pruningPredicate;
-      v29 = parametersCopy;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___block_invoke_2;
+      v26[3] = &unk_1E6E538D8;
+      v27 = pruningPredicate;
+      v28 = parametersCopy;
       selfCopy3 = self;
-      v30 = streamCopy;
-      [pruner deleteWithPolicy:policyCopy eventsPassingTest:v27];
+      v29 = streamCopy;
+      [pruner deleteWithPolicy:policyCopy eventsPassingTest:v26];
 
-      pruner2 = v28;
+      pruner2 = v27;
     }
 
     else
@@ -223,56 +221,51 @@ void __32__BMLibraryStreamsPruner_domain__block_invoke()
       [pruner2 deleteWithPolicy:policyCopy eventsPassingTest:&__block_literal_global_5];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 eventBody];
   v5 = [*(a1 + 32) evaluateWithObject:v4 substitutionVariables:*(a1 + 40)];
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (void)pruneWithInstalledApplications:(id)applications installedAppExtensions:(id)extensions
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   applicationsCopy = applications;
   extensionsCopy = extensions;
   v8 = __biome_log_for_category();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16.opaque[0]) = 0;
-    _os_log_impl(&dword_1848EE000, v8, OS_LOG_TYPE_DEFAULT, "BMLibraryStreamsPruner running pruneWithInstalledApplications:installedAppExtensions:", &v16, 2u);
+    LOWORD(v15.opaque[0]) = 0;
+    _os_log_impl(&dword_1848EE000, v8, OS_LOG_TYPE_DEFAULT, "BMLibraryStreamsPruner running pruneWithInstalledApplications:installedAppExtensions:", &v15, 2u);
   }
 
   v9 = _os_activity_create(&dword_1848EE000, "pruneWithInstalledApplications:installedAppExtensions:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v16.opaque[0] = 0;
-  v16.opaque[1] = 0;
-  os_activity_scope_enter(v9, &v16);
+  v15.opaque[0] = 0;
+  v15.opaque[1] = 0;
+  os_activity_scope_enter(v9, &v15);
   v10 = [applicationsCopy setByAddingObjectsFromSet:extensionsCopy];
-  v19[0] = &stru_1EF2B2408;
+  v18[0] = &stru_1EF2B2408;
   null = [MEMORY[0x1E695DFB0] null];
-  v19[1] = null;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[1] = null;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v13 = [v10 setByAddingObjectsFromArray:v12];
 
-  v17 = @"installed";
-  v18 = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v16 = @"installed";
+  v17 = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
   [self _pruneStreamsWithPolicy:@"app-uninstall-nightly" parameters:v14];
 
-  os_activity_scope_leave(&v16);
-  v15 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v15);
 }
 
 + (void)pruneWithUninstalledBundleIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -286,18 +279,17 @@ uint64_t __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___b
   buf.opaque[0] = 0;
   buf.opaque[1] = 0;
   os_activity_scope_enter(v6, &buf);
-  v9 = @"uninstalled";
-  v10 = identifierCopy;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v8 = @"uninstalled";
+  v9 = identifierCopy;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
   [self _pruneStreamsWithPolicy:@"app-uninstall" parameters:v7];
 
   os_activity_scope_leave(&buf);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pruneWithDeletedIntentIdentifiers:(id)identifiers bundleId:(id)id
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   idCopy = id;
   v8 = __biome_log_for_category();
@@ -315,17 +307,16 @@ uint64_t __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___b
   *&buf[8] = 0;
   os_activity_scope_enter(v9, buf);
   v10 = [MEMORY[0x1E695DFD8] set];
-  v14[2] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:3];
+  v13[2] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:3];
   [self _pruneStreamsWithPolicy:@"intent-deletion" parameters:v11];
 
   os_activity_scope_leave(buf);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pruneWithDeletedIntentGroupIdentifiers:(id)identifiers bundleId:(id)id
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   idCopy = id;
   v8 = __biome_log_for_category();
@@ -342,16 +333,15 @@ uint64_t __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___b
   *buf = 0;
   *&buf[8] = 0;
   os_activity_scope_enter(v9, buf);
-  v14[0] = idCopy;
+  v13[0] = idCopy;
   v10 = [MEMORY[0x1E695DFD8] set];
-  v13[2] = @"intentGroupIdentifiers";
-  v14[1] = v10;
-  v14[2] = identifiersCopy;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v12[2] = @"intentGroupIdentifiers";
+  v13[1] = v10;
+  v13[2] = identifiersCopy;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   [self _pruneStreamsWithPolicy:@"intent-deletion" parameters:v11];
 
   os_activity_scope_leave(buf);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pruneSiriAndDictationHistory
@@ -407,7 +397,7 @@ uint64_t __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___b
 
 + (void)pruneLearnFromThisAppDisabled:(id)disabled
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   disabledCopy = disabled;
   if ([disabledCopy count])
   {
@@ -423,15 +413,13 @@ uint64_t __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___b
     buf.opaque[0] = 0;
     buf.opaque[1] = 0;
     os_activity_scope_enter(v6, &buf);
-    v9 = @"disabledApps";
-    v10 = disabledCopy;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+    v8 = @"disabledApps";
+    v9 = disabledCopy;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
     [self _pruneStreamsWithPolicy:@"learn-from-this-app" parameters:v7];
 
     os_activity_scope_leave(&buf);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pruneForResetKeyboardDictionary
@@ -453,7 +441,7 @@ uint64_t __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___b
 
 + (void)pruneWithDeletedContactIdentifiers:(id)identifiers
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -467,13 +455,12 @@ uint64_t __65__BMLibraryStreamsPruner__pruneStream_policy_trigger_parameters___b
   buf.opaque[0] = 0;
   buf.opaque[1] = 0;
   os_activity_scope_enter(v6, &buf);
-  v9 = @"deleted";
-  v10 = identifiersCopy;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v8 = @"deleted";
+  v9 = identifiersCopy;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
   [self _pruneStreamsWithPolicy:@"contact-deleted" parameters:v7];
 
   os_activity_scope_leave(&buf);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

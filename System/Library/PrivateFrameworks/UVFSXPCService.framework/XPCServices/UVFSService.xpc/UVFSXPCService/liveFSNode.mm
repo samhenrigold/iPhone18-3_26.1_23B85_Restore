@@ -2,8 +2,12 @@
 + (id)FileProviderFileHandleForFileID:(unint64_t)d;
 - (BOOL)verifyFileIsFSCompressed:(int *)compressed;
 - (NSData)getAttrData;
+- (int)blockmapWithRange:(_NSRange)range flags:(unsigned int)flags operationID:(unint64_t)d extentCount:(unsigned int *)count extents:(id)extents;
+- (int)cloneFileToDirectory:(id)directory withName:(id)name attrs:(id)attrs flags:(unsigned int)flags andResultingNode:(id *)node;
 - (int)createDirEntry:(id)entry withAttrs:(id)attrs withData:(id)data withResultingNode:(id *)node;
 - (int)decmpfsFetchCompressedHeader:(id *)header;
+- (int)endIOWithRange:(_NSRange)range status:(int)status flags:(unsigned int)flags operationID:(unint64_t)d;
+- (int)fetchUncompressedData:(id *)data offset:(unint64_t)offset length:(unint64_t)length vectorSize:(int)size vector:(id *)vector withLengthOut:(unint64_t *)out;
 - (int)getAttribute:(id *)attribute;
 - (int)getDeviceFD;
 - (int)getFileSystemAttribute:(id)attribute andResult:(id *)result;
@@ -20,9 +24,12 @@
 - (int)readUncompressedData:(unint64_t)data intoDataBuffer:(id)buffer withLengthOut:(unint64_t *)out;
 - (int)reclaim;
 - (int)remove:(int)remove named:(id)named node:(id)node usingFlags:(int)flags;
+- (int)rename:(id)rename named:(id)named withToDirNode:(id)node withToNode:(id)toNode withToName:(id)name andFlags:(unsigned int)flags;
 - (int)scanDirectoryForMatches:(id)matches withScanDirCookie:(unint64_t *)cookie withScanDirCookieVerifier:(unint64_t *)verifier withSearchResultType:(int *)type withSearchResult:(id *)result withSearchResultAttr:(_LIFileAttributes *)attr;
+- (int)scanVolumeForFileIDs:(const unint64_t *)ds count:(unsigned int)count returningAttributes:(unint64_t)attributes withBlock:(id)block;
 - (int)setAttributeTo:(id)to withResultingAttribute:(id *)attribute;
 - (int)setFileSystemAttributes:(id)attributes toValue:(id)value andResult:(id *)result;
+- (int)setXAttr:(id)attr withXAttr:(id)xAttr how:(int)how;
 - (int)statFS:(id *)s;
 - (int)syncTheFileSystem:(unint64_t)system;
 - (int)unloadFileSystem:(int)system;
@@ -581,13 +588,13 @@ LABEL_16:
 
       if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100023A3C(header);
+        sub_100023A3C();
       }
     }
 
     else if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_1000239B0(header);
+      sub_1000239B0();
     }
 
     v10 = 22;
@@ -649,7 +656,7 @@ LABEL_20:
       goto LABEL_16;
     }
 
-    sub_100023AF0(compressed);
+    sub_100023AF0();
     goto LABEL_2;
   }
 
@@ -731,7 +738,7 @@ LABEL_20:
         {
           if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
           {
-            sub_100023BF4(&v10);
+            sub_100023BF4();
           }
 
           goto LABEL_20;
@@ -916,7 +923,7 @@ LABEL_36:
       *v20 = v25;
       if (v21 != v25 && os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
       {
-        sub_100023E14(v20);
+        sub_100023E14();
       }
     }
 
@@ -1165,6 +1172,45 @@ LABEL_3:
   return v11;
 }
 
+- (int)fetchUncompressedData:(id *)data offset:(unint64_t)offset length:(unint64_t)length vectorSize:(int)size vector:(id *)vector withLengthOut:(unint64_t *)out
+{
+  *out = 0;
+  v8 = *(&data->var2 + 1);
+  if (v8 <= offset)
+  {
+    return 0;
+  }
+
+  v10 = length + offset <= v8 ? length : v8 - offset;
+  if (!v10)
+  {
+    return 0;
+  }
+
+  v13 = *&size;
+  Func = decmpGetFunc(data->var2, 1);
+  if (Func)
+  {
+    v17 = Func(self->streamNode, self->FSOps, data, offset, v10, v13, vector, out);
+    if (v17 && os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_100024078();
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000240E8();
+    }
+
+    return 45;
+  }
+
+  return v17;
+}
+
 - (int)readUncompressedData:(unint64_t)data intoDataBuffer:(id)buffer withLengthOut:(unint64_t *)out
 {
   bufferCopy = buffer;
@@ -1189,7 +1235,7 @@ LABEL_3:
   {
     if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_100024194(&v18);
+      sub_100024194();
     }
 
     goto LABEL_18;
@@ -1538,6 +1584,83 @@ LABEL_8:
 LABEL_13:
 
   return v11;
+}
+
+- (int)rename:(id)rename named:(id)named withToDirNode:(id)node withToNode:(id)toNode withToName:(id)name andFlags:(unsigned int)flags
+{
+  v8 = *&flags;
+  renameCopy = rename;
+  namedCopy = named;
+  nodeCopy = node;
+  toNodeCopy = toNode;
+  nameCopy = name;
+  FSOps = self->FSOps;
+  if (FSOps && FSOps->var22)
+  {
+    if ([(userFSVolume *)self->volume readOnly])
+    {
+      v20 = 30;
+    }
+
+    else
+    {
+      UVFSNode = self->_UVFSNode;
+      if (UVFSNode)
+      {
+        if (toNodeCopy)
+        {
+          v31 = toNodeCopy[10];
+        }
+
+        else
+        {
+          v31 = 0;
+        }
+
+        v20 = (self->FSOps->var22)(UVFSNode, renameCopy[10], [namedCopy UTF8String], nodeCopy[10], v31, objc_msgSend(nameCopy, "UTF8String"), v8);
+        v23 = renameCopy;
+        objc_sync_enter(v23);
+        v24 = v23[3];
+        v23[3] = 0;
+
+        objc_sync_exit(v23);
+        selfCopy = self;
+        objc_sync_enter(selfCopy);
+        attrsData = selfCopy->attrsData;
+        selfCopy->attrsData = 0;
+
+        objc_sync_exit(selfCopy);
+        if (toNodeCopy)
+        {
+          v27 = toNodeCopy;
+          objc_sync_enter(v27);
+          v28 = v27[3];
+          v27[3] = 0;
+
+          objc_sync_exit(v27);
+        }
+
+        v29 = nodeCopy;
+        objc_sync_enter(v29);
+        v30 = v29[3];
+        v29[3] = 0;
+
+        objc_sync_exit(v29);
+      }
+
+      else
+      {
+        v20 = 22;
+      }
+    }
+  }
+
+  else
+  {
+    v20 = 45;
+  }
+
+  return v20;
 }
 
 - (int)link:(id)link withName:(id)name fileAttrOut:(id *)out dirAttrOut:(id *)attrOut
@@ -1920,6 +2043,50 @@ LABEL_13:
   return v11;
 }
 
+- (int)setXAttr:(id)attr withXAttr:(id)xAttr how:(int)how
+{
+  v5 = *&how;
+  attrCopy = attr;
+  xAttrCopy = xAttr;
+  FSOps = self->FSOps;
+  if (FSOps && FSOps->var28)
+  {
+    if (self->isFSCompressed)
+    {
+      v11 = 1;
+    }
+
+    else if ([(userFSVolume *)self->volume readOnly])
+    {
+      v11 = 30;
+    }
+
+    else
+    {
+      v11 = 22;
+      if (v5 <= 3 && self->_UVFSNode)
+      {
+        if ([attrCopy length] <= 0x7F)
+        {
+          v11 = (self->FSOps->var28)(self->_UVFSNode, [attrCopy UTF8String], objc_msgSend(xAttrCopy, "bytes"), objc_msgSend(xAttrCopy, "length"), v5);
+        }
+
+        else
+        {
+          v11 = 63;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v11 = 45;
+  }
+
+  return v11;
+}
+
 - (int)listXattr:(id *)xattr
 {
   *xattr = &__NSArray0__struct;
@@ -2214,6 +2381,90 @@ LABEL_9:
   return v16;
 }
 
+- (int)cloneFileToDirectory:(id)directory withName:(id)name attrs:(id)attrs flags:(unsigned int)flags andResultingNode:(id *)node
+{
+  v8 = *&flags;
+  directoryCopy = directory;
+  nameCopy = name;
+  attrsCopy = attrs;
+  v15 = attrsCopy;
+  *node = 0;
+  FSOps = self->FSOps;
+  if (FSOps && FSOps->var31)
+  {
+    if (self->_UVFSNode)
+    {
+      v25 = 0;
+      bytes = [attrsCopy bytes];
+      v18 = bytes[1];
+      if ((v18 & 2) == 0)
+      {
+        bytes[1] = v18 | 2;
+        *(bytes + 7) |= 0x1C0u;
+      }
+
+      v19 = (self->FSOps->var31)(self->_UVFSNode, directoryCopy[10], [nameCopy UTF8String], bytes, v8, &v25);
+      if (!v19)
+      {
+        v20 = [liveFSNode alloc];
+        v21 = [(liveFSNode *)v20 initWithVolume:self->volume andParent:directoryCopy andName:nameCopy andUVFSNode:v25];
+        v22 = v21;
+        if (v21)
+        {
+          v23 = v21;
+          v19 = 0;
+          *node = v22;
+        }
+
+        else
+        {
+          (self->FSOps->var13)(v25, 0);
+          v19 = 12;
+        }
+      }
+    }
+
+    else
+    {
+      v19 = 22;
+    }
+  }
+
+  else
+  {
+    v19 = 45;
+  }
+
+  return v19;
+}
+
+- (int)scanVolumeForFileIDs:(const unint64_t *)ds count:(unsigned int)count returningAttributes:(unint64_t)attributes withBlock:(id)block
+{
+  v7 = *&count;
+  blockCopy = block;
+  FSOps = self->FSOps;
+  if (FSOps && (var33 = FSOps->var33) != 0)
+  {
+    UVFSNode = self->_UVFSNode;
+    if (UVFSNode)
+    {
+      v14 = var33(UVFSNode, attributes, ds, v7, blockCopy);
+    }
+
+    else
+    {
+      v14 = 22;
+    }
+  }
+
+  else
+  {
+    v14 = 45;
+  }
+
+  return v14;
+}
+
 - (int)setFileSystemAttributes:(id)attributes toValue:(id)value andResult:(id *)result
 {
   attributesCopy = attributes;
@@ -2254,6 +2505,76 @@ LABEL_9:
   }
 
   return v14;
+}
+
+- (int)blockmapWithRange:(_NSRange)range flags:(unsigned int)flags operationID:(unint64_t)d extentCount:(unsigned int *)count extents:(id)extents
+{
+  v9 = *&flags;
+  length = range.length;
+  location = range.location;
+  extentsCopy = extents;
+  FSOps = self->FSOps;
+  if (FSOps && FSOps->var37)
+  {
+    readOnly = [(userFSVolume *)self->volume readOnly];
+    if (v9 & 0x200) != 0 && (readOnly)
+    {
+      v16 = 30;
+    }
+
+    else
+    {
+      v16 = 22;
+      if (extentsCopy)
+      {
+        if (count)
+        {
+          UVFSNode = self->_UVFSNode;
+          if (UVFSNode)
+          {
+            v16 = (self->FSOps->var37)(UVFSNode, location, length, v9, d, [extentsCopy mutableBytes], count);
+          }
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v16 = 45;
+  }
+
+  return v16;
+}
+
+- (int)endIOWithRange:(_NSRange)range status:(int)status flags:(unsigned int)flags operationID:(unint64_t)d
+{
+  FSOps = self->FSOps;
+  if (!FSOps)
+  {
+    return 45;
+  }
+
+  var38 = FSOps->var38;
+  if (!var38)
+  {
+    return 45;
+  }
+
+  UVFSNode = self->_UVFSNode;
+  if (!UVFSNode)
+  {
+    return 22;
+  }
+
+  v10 = var38(UVFSNode, range.location, range.length, *&status, *&flags, d);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  attrsData = selfCopy->attrsData;
+  selfCopy->attrsData = 0;
+
+  objc_sync_exit(selfCopy);
+  return v10;
 }
 
 @end

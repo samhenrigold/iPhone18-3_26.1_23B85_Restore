@@ -97,7 +97,7 @@ LABEL_3:
     v6 = dataSource2;
     if (dataSource2)
     {
-      [dataSource2 firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(dataSource2);
     }
 
     else

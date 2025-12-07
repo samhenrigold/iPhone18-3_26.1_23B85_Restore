@@ -54,16 +54,16 @@
 
 - (TSCEValueGrid)init
 {
-  v10.receiver = self;
-  v10.super_class = TSCEValueGrid;
-  v2 = [(TSCEValueGrid *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = TSCEValueGrid;
+  v2 = [(TSCEValueGrid *)&v9 init];
   if (v2)
   {
     v3 = [TSCEValueGridIndexer alloc];
-    v9 = 0x8000000080000000;
-    v6 = objc_msgSend_initWithTopLeft_dimensions_(v3, v4, &v9, 0, v5);
+    v8 = 0x8000000080000000;
+    v5 = objc_msgSend_initWithTopLeft_dimensions_(v3, v4, &v8, 0);
     indexer = v2->_indexer;
-    v2->_indexer = v6;
+    v2->_indexer = v5;
   }
 
   return v2;
@@ -72,48 +72,48 @@
 - (TSCEValueGrid)initWithMatrix:(id)matrix
 {
   matrixCopy = matrix;
-  v37.receiver = self;
-  v37.super_class = TSCEValueGrid;
-  v5 = [(TSCEValueGrid *)&v37 init];
+  v31.receiver = self;
+  v31.super_class = TSCEValueGrid;
+  v5 = [(TSCEValueGrid *)&v31 init];
   if (v5)
   {
     v6 = [TSCEValueGridIndexer alloc];
-    v34[0] = 0;
-    v11 = objc_msgSend_dimensions(matrixCopy, v7, v8, v9, v10);
-    v14 = objc_msgSend_initWithTopLeft_dimensions_(v6, v12, v34, v11, v13);
+    v28[0] = 0;
+    v10 = objc_msgSend_dimensions(matrixCopy, v7, v8, v9);
+    v12 = objc_msgSend_initWithTopLeft_dimensions_(v6, v11, v28, v10);
     indexer = v5->_indexer;
-    v5->_indexer = v14;
+    v5->_indexer = v12;
 
-    v20 = objc_msgSend_dimensions(matrixCopy, v16, v17, v18, v19);
-    v36 = 0;
-    sub_22130B75C(&v5->_valueForIndex.__begin_, (HIDWORD(v20) * v20), &v36);
+    v17 = objc_msgSend_dimensions(matrixCopy, v14, v15, v16);
+    v30 = 0;
+    sub_22130B75C(&v5->_valueForIndex.__begin_, (HIDWORD(v17) * v17), &v30);
 
-    v24 = v5->_indexer;
-    if (v24)
+    v20 = v5->_indexer;
+    if (v20)
     {
-      v24 = v24->_dimensions;
+      v20 = v20->_dimensions;
     }
 
-    if (HIDWORD(v24) * v24)
+    if (HIDWORD(v20) * v20)
     {
-      v35 = 0;
+      v29 = 0;
       do
       {
-        v34[0] = objc_msgSend_valueAtCoord_(matrixCopy, v21, &v35, v22, v23);
-        v34[1] = v25;
-        v28 = objc_msgSend_numberWithDecimal_(TSCENumberValue, v25, v34, v26, v27);
-        objc_msgSend_setValue_atCoord_(v5, v29, v28, &v35, v30);
-        v31 = v5->_indexer;
-        if (v31)
+        v28[0] = objc_msgSend_valueAtCoord_(matrixCopy, v18, &v29, v19);
+        v28[1] = v21;
+        v23 = objc_msgSend_numberWithDecimal_(TSCENumberValue, v21, v28, v22);
+        objc_msgSend_setValue_atCoord_(v5, v24, v23, &v29);
+        v25 = v5->_indexer;
+        if (v25)
         {
-          v31 = *(*&v31 + 16);
+          v25 = *(*&v25 + 16);
         }
 
-        v33 = v31;
-        v35 = TSCEGridDimensions::nextCoordRowMajorOrder(&v33, &v35);
+        v27 = v25;
+        v29 = TSCEGridDimensions::nextCoordRowMajorOrder(&v27, &v29);
       }
 
-      while (v35.column != 0x7FFFFFFF && v35.row != 0x7FFFFFFF);
+      while (v29.column != 0x7FFFFFFF && v29.row != 0x7FFFFFFF);
     }
   }
 
@@ -126,102 +126,102 @@
   location = rowRange.location;
   v6 = range.length;
   v7 = range.location;
-  v31.receiver = self;
-  v31.super_class = TSCEValueGrid;
-  v11 = [(TSCEValueGrid *)&v31 init];
-  if (v11)
+  v27.receiver = self;
+  v27.super_class = TSCEValueGrid;
+  v10 = [(TSCEValueGrid *)&v27 init];
+  if (v10)
   {
     if (v7 == 0x7FFFFFFFFFFFFFFFLL || location == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v12 = MEMORY[0x277D81150];
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCEValueGrid initWithColumnRange:rowRange:]", v9, v10);
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v15, v16);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 164, 0, "Can't set an extent with invalid ranges");
+      v11 = MEMORY[0x277D81150];
+      v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCEValueGrid initWithColumnRange:rowRange:]", v9);
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v14);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 164, 0, "Can't set an extent with invalid ranges");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
     }
 
-    v30[0] = v7;
-    v30[1] = location;
-    v23 = [TSCEValueGridIndexer alloc];
-    v26 = objc_msgSend_initWithTopLeft_dimensions_(v23, v24, v30, v6 | (length << 32), v25);
-    indexer = v11->_indexer;
-    v11->_indexer = v26;
+    v26[0] = v7;
+    v26[1] = location;
+    v20 = [TSCEValueGridIndexer alloc];
+    v22 = objc_msgSend_initWithTopLeft_dimensions_(v20, v21, v26, v6 | (length << 32));
+    indexer = v10->_indexer;
+    v10->_indexer = v22;
 
-    v29 = 0;
-    sub_22130B75C(&v11->_valueForIndex.__begin_, length * v6, &v29);
+    v25 = 0;
+    sub_22130B75C(&v10->_valueForIndex.__begin_, length * v6, &v25);
   }
 
-  return v11;
+  return v10;
 }
 
 - (TSCEValueGrid)initWithValueVector:(const void *)vector
 {
-  v5[0] = (*(vector + 1) - *vector) >> 3;
-  v5[1] = 1;
-  return objc_msgSend_initWithValueVector_dimensions_(self, a2, vector, v5, v3);
+  v4[0] = (*(vector + 1) - *vector) >> 3;
+  v4[1] = 1;
+  return objc_msgSend_initWithValueVector_dimensions_(self, a2, vector, v4);
 }
 
 - (TSCEValueGrid)initWithValueVector:(const void *)vector dimensions:(const TSCEGridDimensions *)dimensions
 {
-  v7 = objc_msgSend_init(self, a2, vector, dimensions, v4);
-  v8 = v7;
-  if (v7)
+  v6 = objc_msgSend_init(self, a2, vector, dimensions);
+  v7 = v6;
+  if (v6)
   {
     if (dimensions->height * dimensions->width < ((*(vector + 1) - *vector) >> 3))
     {
-      TSUSetCrashReporterInfo();
-      v23 = MEMORY[0x277D81150];
-      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSCEValueGrid initWithValueVector:dimensions:]", v25, v26, "[TSCEValueGrid initWithValueVector:dimensions:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", 181);
-      v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v29, v30);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v32, v27, v31, 181, 1, "Too many values for the provided dimensions!");
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Too many values for the provided dimensions!", "[TSCEValueGrid initWithValueVector:dimensions:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", 181);
+      v20 = MEMORY[0x277D81150];
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSCEValueGrid initWithValueVector:dimensions:]", v22);
+      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v25);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v27, v23, v26, 181, 1, "Too many values for the provided dimensions!");
 
       TSUCrashBreakpoint();
       abort();
     }
 
-    v9 = *(v7 + 48);
-    if (v9)
+    v8 = *(v6 + 48);
+    if (v8)
     {
-      *(v9 + 8) = 0;
-      v10 = *(v7 + 48);
-      if (v10)
+      *(v8 + 8) = 0;
+      v9 = *(v6 + 48);
+      if (v9)
       {
-        v10[2] = *dimensions;
+        v9[2] = *dimensions;
       }
     }
 
-    v11 = dimensions->height * dimensions->width;
-    v34 = 0;
-    sub_22130B75C((v7 + 56), v11, &v34);
+    v10 = dimensions->height * dimensions->width;
+    v29 = 0;
+    sub_22130B75C((v6 + 56), v10, &v29);
 
-    v16 = *vector;
-    v15 = *(vector + 1);
+    v14 = *vector;
+    v13 = *(vector + 1);
     height = dimensions->height;
-    if (height * dimensions->width == (v15 - *vector) >> 3)
+    if (height * dimensions->width == (v13 - *vector) >> 3)
     {
-      v33.column = dimensions->width - 1;
-      v33.row = height - 1;
-      sub_2216AEB78(v8, &v33, v12, v13, v14);
-      v18 = v8;
-      sub_2216AF054(v18, vector, dimensions);
+      v28.column = dimensions->width - 1;
+      v28.row = height - 1;
+      sub_2216AEB78(v7, &v28, v11, v12);
+      v16 = v7;
+      sub_2216AF054(v16, vector, dimensions);
     }
 
     else
     {
-      v33 = 0;
-      while (v16 != v15)
+      v28 = 0;
+      while (v14 != v13)
       {
-        v20 = *v16;
-        objc_msgSend_setValue_atCoord_(v8, v21, v20, &v33, v22);
-        v33 = TSCEGridDimensions::nextCoordRowMajorOrder(dimensions, &v33);
+        v18 = *v14;
+        objc_msgSend_setValue_atCoord_(v7, v19, v18, &v28);
+        v28 = TSCEGridDimensions::nextCoordRowMajorOrder(dimensions, &v28);
 
-        ++v16;
+        ++v14;
       }
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)clearPopulatedCache
@@ -246,26 +246,26 @@
 
 - (void)dealloc
 {
-  objc_msgSend_clearPopulatedCache(self, a2, v2, v3, v4);
-  v6.receiver = self;
-  v6.super_class = TSCEValueGrid;
-  [(TSCEValueGrid *)&v6 dealloc];
+  objc_msgSend_clearPopulatedCache(self, a2, v2, v3);
+  v5.receiver = self;
+  v5.super_class = TSCEValueGrid;
+  [(TSCEValueGrid *)&v5 dealloc];
 }
 
 - (unsigned)numberOfPopulatedColumns
 {
-  objc_msgSend_populatedColumns(self, a2, v2, v3, v4);
-  v5 = TSUIndexSet::count(&v7);
-  TSUIndexSet::~TSUIndexSet(&v7);
-  return v5;
+  objc_msgSend_populatedColumns(self, a2, v2, v3);
+  v4 = TSUIndexSet::count(&v6);
+  TSUIndexSet::~TSUIndexSet(&v6);
+  return v4;
 }
 
 - (unsigned)numberOfPopulatedRows
 {
-  objc_msgSend_populatedRows(self, a2, v2, v3, v4);
-  v5 = TSUIndexSet::count(&v7);
-  TSUIndexSet::~TSUIndexSet(&v7);
-  return v5;
+  objc_msgSend_populatedRows(self, a2, v2, v3);
+  v4 = TSUIndexSet::count(&v6);
+  TSUIndexSet::~TSUIndexSet(&v6);
+  return v4;
 }
 
 - (TSUIndexSet)populatedColumns
@@ -302,16 +302,16 @@
 
 - (BOOL)hasValueAtColumn:(unsigned int)column row:(unsigned int)row
 {
-  v6[0] = column;
-  v6[1] = row;
-  return objc_msgSend_hasValueAtCoord_(self, a2, v6, *&row, v4);
+  v5[0] = column;
+  v5[1] = row;
+  return objc_msgSend_hasValueAtCoord_(self, a2, v5, *&row);
 }
 
 - (void)clearValueAtColumn:(unsigned int)column row:(unsigned int)row
 {
-  v5[0] = column;
-  v5[1] = row;
-  objc_msgSend_clearValueAtCoord_(self, a2, v5, *&row, v4);
+  v4[0] = column;
+  v4[1] = row;
+  objc_msgSend_clearValueAtCoord_(self, a2, v4, *&row);
 }
 
 - (BOOL)hasValueAtCoord:(const TSCEGridCoord *)coord
@@ -331,7 +331,7 @@
   p_coords = &self->_coords;
   if (v8 == 0x7FFFFFFF)
   {
-    LODWORD(row) = 0;
+    row = 0;
     v6 = column;
     v7 = 999999;
     return sub_2215C3704(p_coords, column, row, v6, v7, 0) != 0;
@@ -344,32 +344,32 @@
 {
   column = coord->column;
   row = coord->row;
-  v9 = column == 0x7FFFFFFF || row == 0x7FFFFFFF;
-  if (!v9 || (v10 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], column, "[TSCEValueGrid clearValueAtCoord:]", v3, v4), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v13, v14), v15 = objc_claimAutoreleasedReturnValue(), sub_2211786FC(coord, v16, v17, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v11, v15, 286, 0, "Can't clear value with a spanning coordinate: %@", v20), v20, v15, v11, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25), column = coord->column, column != 0x7FFFFFFF) && (row = coord->row, row != 0x7FFFFFFF))
+  v8 = column == 0x7FFFFFFF || row == 0x7FFFFFFF;
+  if (!v8 || (v9 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], column, "[TSCEValueGrid clearValueAtCoord:]", v3), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v12), v13 = objc_claimAutoreleasedReturnValue(), sub_2211786FC(coord, v14, v15, v16), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v18, v10, v13, 286, 0, "Can't clear value with a spanning coordinate: %@", v17), v17, v13, v10, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21), column = coord->column, column != 0x7FFFFFFF) && (row = coord->row, row != 0x7FFFFFFF))
   {
     sub_2215C3280(&self->_coords, column, row);
     indexer = self->_indexer;
     if (indexer)
     {
-      v27 = vsub_s32(*coord, indexer->_topLeft);
-      indexer = (v27.i32[0] + v27.i32[1] * indexer->_dimensions.width);
+      v23 = vsub_s32(*coord, indexer->_topLeft);
+      indexer = (v23.i32[0] + v23.i32[1] * indexer->_dimensions.width);
     }
 
     begin = self->_valueForIndex.__begin_;
-    v29 = begin[indexer];
+    v25 = begin[indexer];
     begin[indexer] = 0;
 
-    objc_msgSend_clearPopulatedCache(self, v30, v31, v32, v33);
+    objc_msgSend_clearPopulatedCache(self, v26, v27, v28);
   }
 }
 
 - (id)valueAtColumn:(unsigned int)column row:(unsigned int)row
 {
-  v7[0] = column;
-  v7[1] = row;
-  v5 = objc_msgSend_valueAtCoord_(self, a2, v7, *&row, v4);
+  v6[0] = column;
+  v6[1] = row;
+  v4 = objc_msgSend_valueAtCoord_(self, a2, v6, *&row);
 
-  return v5;
+  return v4;
 }
 
 - (id)valueAtCoord:(const TSCEGridCoord *)coord
@@ -378,152 +378,152 @@
   row = coord->row;
   if (column == 0x7FFFFFFF || row == 0x7FFFFFFF)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], column, "[TSCEValueGrid valueAtCoord:]", v3, v4);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v13, v14);
-    v20 = sub_2211786FC(coord, v16, v17, v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v11, v15, 303, 0, "Can't read value with a spanning coordinate: %@", v20);
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], column, "[TSCEValueGrid valueAtCoord:]", v3);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v12);
+    v17 = sub_2211786FC(coord, v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v18, v10, v13, 303, 0, "Can't read value with a spanning coordinate: %@", v17);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21);
     LODWORD(column) = coord->column;
     row = coord->row;
   }
 
   if (sub_2215C3528(&self->_coords._tiles.__begin_, column, row))
   {
-    sub_22170B04C(self, coord, &v33, v28, v29, v30);
-    v31 = v33;
+    sub_22170B04C(self, coord, &v28, v25, v24);
+    v26 = v28;
   }
 
   else
   {
-    v31 = objc_msgSend_nilValue(TSCENilValue, v26, v27, v28, v29);
+    v26 = objc_msgSend_nilValue(TSCENilValue, v22, v23, v24);
   }
 
-  return v31;
+  return v26;
 }
 
 - (id)valueAt1DIndex:(unint64_t)index
 {
-  v7 = objc_msgSend_area(self, a2, index, v3, v4);
-  if (!v7)
+  v6 = objc_msgSend_area(self, a2, index, v3);
+  if (!v6)
   {
-    v29 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCEValueGrid valueAt1DIndex:]", v9, v10);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v31, v32);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v33, v18, v22, 330, 0, "Can't use valueAt1DIndex: with no dimensions set");
+    v24 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSCEValueGrid valueAt1DIndex:]", v8);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v26);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v27, v15, v18, 330, 0, "Can't use valueAt1DIndex: with no dimensions set");
     goto LABEL_6;
   }
 
-  v11 = v7;
-  if (v7 <= index)
+  v9 = v6;
+  if (v6 <= index)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCEValueGrid valueAt1DIndex:]", v9, v10);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v20, v21);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v23, v18, v22, 320, 0, "Index %lu exceeds area: %lu", index, v11);
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSCEValueGrid valueAt1DIndex:]", v8);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 320, 0, "Index %lu exceeds area: %lu", index, v9);
 LABEL_6:
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
-    v12 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
+    v10 = 0;
     goto LABEL_7;
   }
 
-  v12 = self->_valueForIndex.__begin_[index];
-  if (!v12)
+  v10 = self->_valueForIndex.__begin_[index];
+  if (!v10)
   {
-    v12 = objc_msgSend_emptyCellValue(TSCEEmptyCellValue, v13, v14, v15, v16);
+    v10 = objc_msgSend_emptyCellValue(TSCEEmptyCellValue, v11, v12, v13);
   }
 
 LABEL_7:
 
-  return v12;
+  return v10;
 }
 
 - (id)firstValue
 {
-  if (sub_2215C25E8(&self->_coords) || (v9 = 0, (sub_2215C3590(&self->_coords, &v9 + 1, &v9) & 1) == 0))
+  if (sub_2215C25E8(&self->_coords) || (v8 = 0, (sub_2215C3590(&self->_coords, &v8 + 4, &v8) & 1) == 0))
   {
-    v7 = objc_msgSend_nilValue(TSCENilValue, v3, v4, v5, v6);
+    v6 = objc_msgSend_nilValue(TSCENilValue, v3, v4, v5);
   }
 
   else
   {
-    v7 = objc_msgSend_valueAtColumn_row_(self, v3, HIDWORD(v9), v9, v6);
+    v6 = objc_msgSend_valueAtColumn_row_(self, v3, HIDWORD(v8), v8);
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)intersectionWithEvalContext:(id)context rangeContext:(unsigned __int8)rangeContext
 {
-  v6 = objc_msgSend_containingCell(context, a2, context, rangeContext, v4);
-  v7 = *v6;
-  v8 = *(v6 + 2);
-  v13 = objc_msgSend_dimensions(self, v9, v10, v11, v12);
-  if (v13 == 1 && v7 < HIDWORD(v13))
+  v5 = objc_msgSend_containingCell(context, a2, context, rangeContext);
+  v6 = *v5;
+  v7 = *(v5 + 2);
+  v11 = objc_msgSend_dimensions(self, v8, v9, v10);
+  if (v11 == 1 && v6 < HIDWORD(v11))
   {
-    objc_msgSend_valueAtColumn_row_(self, v14, 0, v7, v17);
-    v18 = LABEL_4:;
+    objc_msgSend_valueAtColumn_row_(self, v12, 0, v6);
+    v15 = LABEL_4:;
     goto LABEL_9;
   }
 
-  if (HIDWORD(v13) == 1 && v13 > v8)
+  if (HIDWORD(v11) == 1 && v11 > v7)
   {
-    objc_msgSend_valueAtColumn_row_(self, v14, v8, 0, v17);
+    objc_msgSend_valueAtColumn_row_(self, v12, v7, 0);
     goto LABEL_4;
   }
 
-  v18 = objc_msgSend_firstValue(self, v14, v15, v16, v17);
+  v15 = objc_msgSend_firstValue(self, v12, v13, v14);
 LABEL_9:
 
-  return v18;
+  return v15;
 }
 
 - (vector<TSCEValue)allValues
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x4812000000;
-  v12 = sub_2216AFD08;
-  v13 = sub_2216AFD2C;
-  v14 = &unk_22188E88F;
-  memset(v15, 0, sizeof(v15));
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_2216AFD58;
-  v8[3] = &unk_2784688F8;
-  v8[4] = &v9;
-  objc_msgSend_enumerateValuesUsingBlock_(self, a3, v8, v3, v4);
-  v6 = v10;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x4812000000;
+  v11 = sub_2216AFD08;
+  v12 = sub_2216AFD2C;
+  v13 = &unk_22188E88F;
+  memset(v14, 0, sizeof(v14));
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_2216AFD58;
+  v7[3] = &unk_2784688F8;
+  v7[4] = &v8;
+  objc_msgSend_enumerateValuesUsingBlock_(self, a3, v7, v3);
+  v5 = v9;
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->__begin_ = 0;
-  sub_2213F5020(retstr, v6[6], v6[7], (v6[7] - v6[6]) >> 3);
-  _Block_object_dispose(&v9, 8);
-  v16 = v15;
-  sub_22107C2C0(&v16);
+  sub_2213F5020(retstr, v5[6], v5[7], (v5[7] - v5[6]) >> 3);
+  _Block_object_dispose(&v8, 8);
+  v15 = v14;
+  sub_22107C2C0(&v15);
   return result;
 }
 
 - (id)allWarnings
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = sub_2216AFEC0;
-  v11 = sub_2216AFED0;
-  v12 = 0;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = sub_2216AFED8;
-  v6[3] = &unk_2784688F8;
-  v6[4] = &v7;
-  objc_msgSend_enumerateValuesUsingBlock_(self, a2, v6, v2, v3);
-  v4 = v8[5];
-  _Block_object_dispose(&v7, 8);
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = sub_2216AFEC0;
+  v10 = sub_2216AFED0;
+  v11 = 0;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = sub_2216AFED8;
+  v5[3] = &unk_2784688F8;
+  v5[4] = &v6;
+  objc_msgSend_enumerateValuesUsingBlock_(self, a2, v5, v2);
+  v3 = v7[5];
+  _Block_object_dispose(&v6, 8);
 
-  return v4;
+  return v3;
 }
 
 - (void)setValue:(id)value atCoord:(const TSCEGridCoord *)coord
@@ -531,18 +531,18 @@ LABEL_9:
   column = coord->column;
   row = coord->row;
   p_row = &coord->row;
-  v8 = row;
-  if (column == 0x7FFFFFFF || v8 == 0x7FFFFFFF)
+  v7 = row;
+  if (column == 0x7FFFFFFF || v7 == 0x7FFFFFFF)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEValueGrid setValue:atCoord:]", p_row, v4);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v14, v15);
-    v21 = sub_2211786FC(coord, v17, v18, v19, v20);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v12, v16, 547, 0, "Can't set a value at a spanning coordinate: %@", v21);
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEValueGrid setValue:atCoord:]", p_row);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v13);
+    v18 = sub_2211786FC(coord, v15, v16, v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v19, v11, v14, 547, 0, "Can't set a value at a spanning coordinate: %@", v18);
 
-    v27 = MEMORY[0x277D81150];
+    v23 = MEMORY[0x277D81150];
 
-    objc_msgSend_logBacktraceThrottled(v27, v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(v23, v20, v21, v22);
   }
 
   else
@@ -559,59 +559,59 @@ LABEL_9:
   {
     v8 = dimensions->width - 1;
     v9 = height - 1;
-    v20 = v8 | (v9 << 32);
-    if ((sub_22170AC80(self->_indexer, &v20) & 1) == 0)
+    v19 = v8 | (v9 << 32);
+    if ((sub_22170AC80(self->_indexer, &v19) & 1) == 0)
     {
-      sub_2216AEB78(self, &v20, v11, v12, v13);
+      sub_2216AEB78(self, &v19, v11, v12);
       v8 = dimensions->width - 1;
       v9 = dimensions->height - 1;
-      v20 = v8 | (v9 << 32);
+      v19 = v8 | (v9 << 32);
     }
 
-    v14 = 0;
+    v13 = 0;
     do
     {
-      v15 = v8;
+      v14 = v8;
       do
       {
-        v18 = v15;
-        v19 = v14;
-        if (objc_msgSend_hasValueAtCoord_(self, v10, &v18, v12, v13))
+        v17 = v14;
+        v18 = v13;
+        if (objc_msgSend_hasValueAtCoord_(self, v10, &v17, v12))
         {
           break;
         }
 
-        objc_msgSend_setValue_atCoord_(self, v10, valueCopy, &v18, v13);
-        --v15;
+        objc_msgSend_setValue_atCoord_(self, v10, valueCopy, &v17);
+        --v14;
       }
 
-      while (v15 != -1);
-      ++v14;
+      while (v14 != -1);
+      ++v13;
     }
 
-    while (v14 <= v9);
-    v16 = 0;
+    while (v13 <= v9);
+    v15 = 0;
     do
     {
-      v17 = v9;
+      v16 = v9;
       do
       {
+        v17 = v15;
         v18 = v16;
-        v19 = v17;
-        if (objc_msgSend_hasValueAtCoord_(self, v10, &v18, v12, v13))
+        if (objc_msgSend_hasValueAtCoord_(self, v10, &v17, v12))
         {
           break;
         }
 
-        objc_msgSend_setValue_atCoord_(self, v10, valueCopy, &v18, v13);
-        --v17;
+        objc_msgSend_setValue_atCoord_(self, v10, valueCopy, &v17);
+        --v16;
       }
 
-      while (v17 != -1);
-      ++v16;
+      while (v16 != -1);
+      ++v15;
     }
 
-    while (v16 <= v8);
+    while (v15 <= v8);
   }
 }
 
@@ -619,54 +619,54 @@ LABEL_9:
 {
   if (coord->column == 0x7FFFFFFF || (p_row = &coord->row, coord->row == 0x7FFFFFFF))
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEValueGrid setEmptyValueAtCoord:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v10, v11);
-    v17 = sub_2211786FC(coord, v13, v14, v15, v16);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v18, v8, v12, 616, 0, "Can't set a value at a spanning coordinate: %@", v17);
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEValueGrid setEmptyValueAtCoord:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v9);
+    v14 = sub_2211786FC(coord, v11, v12, v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v15, v7, v10, 616, 0, "Can't set a value at a spanning coordinate: %@", v14);
 
-    v23 = MEMORY[0x277D81150];
+    v19 = MEMORY[0x277D81150];
 
-    objc_msgSend_logBacktraceThrottled(v23, v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(v19, v16, v17, v18);
   }
 
   else
   {
-    sub_22170B17C(self, coord, p_row, v3, v4);
+    sub_22170B17C(self, coord, p_row, v3);
   }
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEValueGrid isEqual:]", v3, v4);
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v8, v9);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 626, 0, "-isEqual: not implemented for TSCEValueGrid");
+  v4 = MEMORY[0x277D81150];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEValueGrid isEqual:]", v3);
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v7);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v5, v8, 626, 0, "-isEqual: not implemented for TSCEValueGrid");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14, v15);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11, v12);
   return 0;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  if (objc_msgSend_numberOfColumns(self, a2, zone, v3, v4) || objc_msgSend_numberOfRows(self, v6, v7, v8, v9))
+  if (objc_msgSend_numberOfColumns(self, a2, zone, v3) || objc_msgSend_numberOfRows(self, v5, v6, v7))
   {
-    v10 = objc_msgSend_topLeftCoord(self, v6, v7, v8, v9);
-    v11 = v10;
-    v12 = HIDWORD(v10);
-    v13 = [TSCEValueGrid alloc];
-    v18 = objc_msgSend_numberOfColumns(self, v14, v15, v16, v17);
-    v23 = objc_msgSend_numberOfRows(self, v19, v20, v21, v22);
-    v25 = objc_msgSend_initWithColumnRange_rowRange_(v13, v24, v11, v18, v12, v23);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = sub_2216B0514;
-    v31[3] = &unk_278468920;
-    v26 = v25;
-    v32 = v26;
-    objc_msgSend_enumerateValuesUsingBlock_(self, v27, v31, v28, v29);
+    v8 = objc_msgSend_topLeftCoord(self, v5, v6, v7);
+    v9 = v8;
+    v10 = HIDWORD(v8);
+    v11 = [TSCEValueGrid alloc];
+    v15 = objc_msgSend_numberOfColumns(self, v12, v13, v14);
+    v19 = objc_msgSend_numberOfRows(self, v16, v17, v18);
+    v21 = objc_msgSend_initWithColumnRange_rowRange_(v11, v20, v9, v15, v10, v19);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = sub_2216B0514;
+    v26[3] = &unk_278468920;
+    v22 = v21;
+    v27 = v22;
+    objc_msgSend_enumerateValuesUsingBlock_(self, v23, v26, v24);
 
-    return v26;
+    return v22;
   }
 
   else
@@ -678,81 +678,81 @@ LABEL_9:
 
 - (id)subGridAtGridCoord:(const TSCEGridCoord *)coord width:(int)width height:(int)height
 {
-  v85.width = width;
-  v85.height = height;
+  v72.width = width;
+  v72.height = height;
   v9 = [TSCEValueGrid alloc];
   v11 = objc_msgSend_initWithColumnRange_rowRange_(v9, v10, 0, width, 0, height);
-  v81 = v11;
+  v68 = v11;
   coordCopy = coord;
   LODWORD(coord) = coord->row;
-  v16 = objc_msgSend_topLeftCoord(self, v12, v13, v14, v15) >> 32;
-  v25 = 0x277D81000uLL;
-  if (coord + height > ((objc_msgSend_dimensions(self, v17, v18, v19, v20) >> 32) + v16))
+  v15 = objc_msgSend_topLeftCoord(self, v12, v13, v14) >> 32;
+  v22 = 0x277D81000uLL;
+  if (coord + height > ((objc_msgSend_dimensions(self, v16, v17, v18) >> 32) + v15))
   {
-    v26 = MEMORY[0x277D81150];
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSCEValueGrid subGridAtGridCoord:width:height:]", v23, v24);
-    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v29, v30);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v32, v27, v31, 652, 0, "can't access beyond the end of a vector");
+    v23 = MEMORY[0x277D81150];
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSCEValueGrid subGridAtGridCoord:width:height:]", v21);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v26);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v28, v24, v27, 652, 0, "can't access beyond the end of a vector");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31);
   }
 
   column = coordCopy->column;
-  v38 = objc_msgSend_topLeftCoord(self, v21, v22, v23, v24);
-  if (column + width > objc_msgSend_dimensions(self, v39, v40, v41, v42) + v38)
+  v33 = objc_msgSend_topLeftCoord(self, v19, v20, v21);
+  if (column + width > objc_msgSend_dimensions(self, v34, v35, v36) + v33)
   {
-    v46 = MEMORY[0x277D81150];
-    v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "[TSCEValueGrid subGridAtGridCoord:width:height:]", v44, v45);
-    v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v49, v50);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v52, v47, v51, 653, 0, "can't access beyond the end of a vector");
+    v39 = MEMORY[0x277D81150];
+    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "[TSCEValueGrid subGridAtGridCoord:width:height:]", v38);
+    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v42);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v44, v40, v43, 653, 0, "can't access beyond the end of a vector");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v53, v54, v55, v56);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47);
   }
 
-  v57 = width + coordCopy->column - 1;
-  v58 = height + coordCopy->row - 1;
-  v59 = *coordCopy;
-  v83 = 0;
-  v84 = v59;
+  v48 = width + coordCopy->column - 1;
+  v49 = height + coordCopy->row - 1;
+  v50 = *coordCopy;
+  v70 = 0;
+  v71 = v50;
   do
   {
-    v60 = objc_msgSend_valueAtCoord_(self, v43, &v84, v44, v45);
-    objc_msgSend_setValue_atCoord_(v11, v61, v60, &v83, v62);
-    v63 = TSCEGridDimensions::nextCoordRowMajorOrder(&v85, &v83);
-    v83 = v63;
-    if (v63 != 0x7FFFFFFF && (v63 & 0xFFFFFFFF00000000) != 0x7FFFFFFF00000000)
+    v51 = objc_msgSend_valueAtCoord_(self, v37, &v71, v38);
+    objc_msgSend_setValue_atCoord_(v11, v52, v51, &v70);
+    v53 = TSCEGridDimensions::nextCoordRowMajorOrder(&v72, &v70);
+    v70 = v53;
+    if (v53 != 0x7FFFFFFF && (v53 & 0xFFFFFFFF00000000) != 0x7FFFFFFF00000000)
     {
-      if (v84.column >= v57)
+      if (v71.column >= v48)
       {
-        if (v84.row >= v58)
+        if (v71.row >= v49)
         {
-          v67 = *(v25 + 336);
-          v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "[TSCEValueGrid subGridAtGridCoord:width:height:]", v65, v66);
-          v69 = v25;
-          v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v71, v72);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v67, v74, v68, v73, 675, 0, "Exceeded rowLimit: %d", v58);
+          v56 = *(v22 + 336);
+          v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "[TSCEValueGrid subGridAtGridCoord:width:height:]", v55);
+          v58 = v22;
+          v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v60);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v62, v57, v61, 675, 0, "Exceeded rowLimit: %d", v49);
 
-          v25 = v69;
-          v75 = *(v69 + 336);
-          v11 = v81;
-          objc_msgSend_logBacktraceThrottled(v75, v76, v77, v78, v79);
+          v22 = v58;
+          v63 = *(v58 + 336);
+          v11 = v68;
+          objc_msgSend_logBacktraceThrottled(v63, v64, v65, v66);
         }
 
         else
         {
-          v84.column = coordCopy->column;
-          ++v84.row;
+          v71.column = coordCopy->column;
+          ++v71.row;
         }
       }
 
       else
       {
-        ++v84.column;
+        ++v71.column;
       }
     }
   }
 
-  while (v83.column != 0x7FFFFFFF && v83.row != 0x7FFFFFFF);
+  while (v70.column != 0x7FFFFFFF && v70.row != 0x7FFFFFFF);
 
   return v11;
 }
@@ -761,176 +761,176 @@ LABEL_9:
 {
   if (row)
   {
-    objc_msgSend_populatedRows(self, a2, index, row, v4);
-    TSUIndexSet::nthIndex(&v32);
-    TSUIndexSet::~TSUIndexSet(&v32);
-    objc_msgSend_populatedColumns(self, v6, v7, v8, v9);
-    v10 = TSUIndexSet::count(&v32);
-    TSUIndexSet::~TSUIndexSet(&v32);
-    v11 = [TSCEValueGrid alloc];
-    v13 = objc_msgSend_initWithColumnRange_rowRange_(v11, v12, 0, v10, 0, 1);
-    *&v32 = 0;
-    v32._singleRange._begin = &v32;
-    v32._singleRange._end = 0x3812000000;
-    v32._multipleRanges = sub_2216B0BEC;
-    v33 = nullsub_87;
-    v34 = &unk_22188E88F;
-    v35 = 0;
-    objc_msgSend_populatedColumns(self, v14, v15, v16, v17);
+    objc_msgSend_populatedRows(self, a2, index, row);
+    TSUIndexSet::nthIndex(&v27);
+    TSUIndexSet::~TSUIndexSet(&v27);
+    objc_msgSend_populatedColumns(self, v5, v6, v7);
+    v8 = TSUIndexSet::count(&v27);
+    TSUIndexSet::~TSUIndexSet(&v27);
+    v9 = [TSCEValueGrid alloc];
+    v11 = objc_msgSend_initWithColumnRange_rowRange_(v9, v10, 0, v8, 0, 1);
+    *&v27 = 0;
+    v27._singleRange._begin = &v27;
+    v27._singleRange._end = 0x3812000000;
+    v27._multipleRanges = sub_2216B0BEC;
+    v28 = nullsub_87;
+    v29 = &unk_22188E88F;
+    v30 = 0;
+    objc_msgSend_populatedColumns(self, v12, v13, v14);
   }
 
   else
   {
-    objc_msgSend_populatedColumns(self, a2, index, row, v4);
-    TSUIndexSet::nthIndex(&v32);
-    TSUIndexSet::~TSUIndexSet(&v32);
-    objc_msgSend_populatedRows(self, v19, v20, v21, v22);
-    v23 = TSUIndexSet::count(&v32);
-    TSUIndexSet::~TSUIndexSet(&v32);
-    v24 = [TSCEValueGrid alloc];
-    v13 = objc_msgSend_initWithColumnRange_rowRange_(v24, v25, 0, 1, 0, v23);
-    *&v32 = 0;
-    v32._singleRange._begin = &v32;
-    v32._singleRange._end = 0x3812000000;
-    v32._multipleRanges = sub_2216B0BEC;
-    v33 = nullsub_87;
-    v34 = &unk_22188E88F;
-    v35 = 0;
-    objc_msgSend_populatedRows(self, v26, v27, v28, v29);
+    objc_msgSend_populatedColumns(self, a2, index, row);
+    TSUIndexSet::nthIndex(&v27);
+    TSUIndexSet::~TSUIndexSet(&v27);
+    objc_msgSend_populatedRows(self, v16, v17, v18);
+    v19 = TSUIndexSet::count(&v27);
+    TSUIndexSet::~TSUIndexSet(&v27);
+    v20 = [TSCEValueGrid alloc];
+    v11 = objc_msgSend_initWithColumnRange_rowRange_(v20, v21, 0, 1, 0, v19);
+    *&v27 = 0;
+    v27._singleRange._begin = &v27;
+    v27._singleRange._end = 0x3812000000;
+    v27._multipleRanges = sub_2216B0BEC;
+    v28 = nullsub_87;
+    v29 = &unk_22188E88F;
+    v30 = 0;
+    objc_msgSend_populatedRows(self, v22, v23, v24);
   }
 
-  v18 = v13;
+  v15 = v11;
   TSUIndexSet::enumerateIndexesUsingBlock();
-  TSUIndexSet::~TSUIndexSet(&v31);
+  TSUIndexSet::~TSUIndexSet(&v26);
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v27, 8);
 
-  return v18;
+  return v15;
 }
 
 - (id)intersectionWithCellRect:(TSUCellRect)rect
 {
   rectCopy = rect;
   selfCopy = self;
-  v8 = objc_msgSend_topLeftCoord(selfCopy, v4, v5, v6, v7);
-  v13 = objc_msgSend_topLeftCoord(selfCopy, v9, v10, v11, v12);
-  v18 = objc_msgSend_dimensions(selfCopy, v14, v15, v16, v17);
-  v23 = objc_msgSend_dimensions(selfCopy, v19, v20, v21, v22);
-  *(&v24 + 1) = v8;
-  *&v24 = v13;
-  v44.origin = ((v24 >> 32) & 0xFFFFFFFFFFFFLL);
-  v44.size = (v23 & 0xFFFFFFFF00000000 | v18);
-  if (TSUCellRect::intersects(&rectCopy, &v44))
+  v7 = objc_msgSend_topLeftCoord(selfCopy, v4, v5, v6);
+  v11 = objc_msgSend_topLeftCoord(selfCopy, v8, v9, v10);
+  v15 = objc_msgSend_dimensions(selfCopy, v12, v13, v14);
+  v19 = objc_msgSend_dimensions(selfCopy, v16, v17, v18);
+  *(&v20 + 1) = v7;
+  *&v20 = v11;
+  v39.origin = ((v20 >> 32) & 0xFFFFFFFFFFFFLL);
+  v39.size = (v19 & 0xFFFFFFFF00000000 | v15);
+  if (TSUCellRect::intersects(&rectCopy, &v39))
   {
-    if ((TSUCellRect::contains(&rectCopy, &v44) & 1) == 0)
+    if ((TSUCellRect::contains(&rectCopy, &v39) & 1) == 0)
     {
-      v43 = objc_msgSend_topLeftCoord(selfCopy, v25, v26, v27, v28);
-      v29 = TSUCellRect::firstColumn(&rectCopy);
-      if (v29 > TSUCellRect::firstColumn(&v44))
+      v38 = objc_msgSend_topLeftCoord(selfCopy, v21, v22, v23);
+      v24 = TSUCellRect::firstColumn(&rectCopy);
+      if (v24 > TSUCellRect::firstColumn(&v39))
       {
-        v30 = TSUCellRect::firstColumn(&rectCopy);
-        v18 = v18 - v30 + TSUCellRect::firstColumn(&v44);
-        LODWORD(v43) = TSUCellRect::firstColumn(&rectCopy);
+        v25 = TSUCellRect::firstColumn(&rectCopy);
+        v15 = v15 - v25 + TSUCellRect::firstColumn(&v39);
+        LODWORD(v38) = TSUCellRect::firstColumn(&rectCopy);
       }
 
-      v31 = TSUCellRect::lastColumn(&v44);
-      if (v31 > TSUCellRect::lastColumn(&rectCopy))
+      v26 = TSUCellRect::lastColumn(&v39);
+      if (v26 > TSUCellRect::lastColumn(&rectCopy))
       {
-        v32 = TSUCellRect::lastColumn(&v44);
-        v18 = v18 - v32 + TSUCellRect::lastColumn(&rectCopy);
+        v27 = TSUCellRect::lastColumn(&v39);
+        v15 = v15 - v27 + TSUCellRect::lastColumn(&rectCopy);
       }
 
-      v33 = TSUCellRect::firstRow(&rectCopy);
-      v34 = HIDWORD(v23);
-      if (v33 > TSUCellRect::firstRow(&v44))
+      v28 = TSUCellRect::firstRow(&rectCopy);
+      v29 = HIDWORD(v19);
+      if (v28 > TSUCellRect::firstRow(&v39))
       {
-        v35 = TSUCellRect::firstRow(&rectCopy);
-        v34 = v34 - v35 + TSUCellRect::firstRow(&v44);
-        HIDWORD(v43) = TSUCellRect::firstRow(&rectCopy);
+        v30 = TSUCellRect::firstRow(&rectCopy);
+        v29 = v29 - v30 + TSUCellRect::firstRow(&v39);
+        HIDWORD(v38) = TSUCellRect::firstRow(&rectCopy);
       }
 
-      v36 = TSUCellRect::lastRow(&v44);
-      if (v36 > TSUCellRect::lastRow(&rectCopy))
+      v31 = TSUCellRect::lastRow(&v39);
+      if (v31 > TSUCellRect::lastRow(&rectCopy))
       {
-        v38 = TSUCellRect::lastRow(&v44);
-        v34 = v34 - v38 + TSUCellRect::lastRow(&rectCopy);
+        v33 = TSUCellRect::lastRow(&v39);
+        v29 = v29 - v33 + TSUCellRect::lastRow(&rectCopy);
       }
 
-      v39 = objc_msgSend_subGridAtGridCoord_width_height_(selfCopy, v37, &v43, v18, v34);
+      v34 = objc_msgSend_subGridAtGridCoord_width_height_(selfCopy, v32, &v38, v15, v29);
 
-      selfCopy = v39;
+      selfCopy = v34;
     }
 
-    v40 = selfCopy;
-    selfCopy = v40;
+    v35 = selfCopy;
+    selfCopy = v35;
   }
 
   else
   {
-    v40 = objc_opt_new();
+    v35 = objc_opt_new();
   }
 
-  v41 = v40;
+  v36 = v35;
 
-  return v41;
+  return v36;
 }
 
 - (id)compressToPopulatedRowsAndColumns
 {
-  objc_msgSend_populatedRows(self, a2, v2, v3, v4);
-  objc_msgSend_populatedColumns(self, v6, v7, v8, v9);
-  v14 = objc_msgSend_numberOfRows(self, v10, v11, v12, v13);
-  if (TSUIndexSet::count(&v51) == v14 && (v19 = objc_msgSend_numberOfColumns(self, v15, v16, v17, v18), TSUIndexSet::count(&v50) == v19))
+  objc_msgSend_populatedRows(self, a2, v2, v3);
+  objc_msgSend_populatedColumns(self, v5, v6, v7);
+  v11 = objc_msgSend_numberOfRows(self, v8, v9, v10);
+  if (TSUIndexSet::count(&v43) == v11 && (v15 = objc_msgSend_numberOfColumns(self, v12, v13, v14), TSUIndexSet::count(&v42) == v15))
   {
-    objc_msgSend_compressToZeroBased(self, v20, v21, v22, v23);
+    objc_msgSend_compressToZeroBased(self, v16, v17, v18);
     selfCopy = self;
   }
 
   else
   {
-    v25 = [TSCEValueGrid alloc];
-    v26 = TSUIndexSet::count(&v50);
-    v27 = TSUIndexSet::count(&v51);
-    v29 = objc_msgSend_initWithColumnRange_rowRange_(v25, v28, 0, v26, 0, v27);
-    selfCopy = v29;
+    v20 = [TSCEValueGrid alloc];
+    v21 = TSUIndexSet::count(&v42);
+    v22 = TSUIndexSet::count(&v43);
+    v24 = objc_msgSend_initWithColumnRange_rowRange_(v20, v23, 0, v21, 0, v22);
+    selfCopy = v24;
     indexer = self->_indexer;
     if (indexer)
     {
       indexer = indexer->_topLeft;
     }
 
-    v49 = indexer;
-    v47 = 0;
-    v48 = 0;
-    v46 = objc_msgSend_dimensions(v29, v30, v31, v32, v33);
-    v35 = 0;
+    v41 = indexer;
+    v39 = 0;
+    v40 = 0;
+    v38 = objc_msgSend_dimensions(v24, v25, v26, v27);
+    v29 = 0;
     do
     {
-      v45 = v35;
-      sub_2211786BC(&v45, &v49);
-      if (TSUIndexSet::containsIndex(&v51) && TSUIndexSet::containsIndex(&v50))
+      v37 = v29;
+      sub_2211786BC(&v37, &v41);
+      if (TSUIndexSet::containsIndex(&v43) && TSUIndexSet::containsIndex(&v42))
       {
-        v39 = objc_msgSend_valueAtCoord_(self, v36, &v45, v37, v38);
-        objc_msgSend_setValue_atCoord_(selfCopy, v40, v39, &v48, v41);
-        v48 = TSCEGridDimensions::nextCoordRowMajorOrder(&v46, &v48);
+        v32 = objc_msgSend_valueAtCoord_(self, v30, &v37, v31);
+        objc_msgSend_setValue_atCoord_(selfCopy, v33, v32, &v40);
+        v40 = TSCEGridDimensions::nextCoordRowMajorOrder(&v38, &v40);
       }
 
-      v42 = self->_indexer;
-      if (v42)
+      v34 = self->_indexer;
+      if (v34)
       {
-        v42 = v42->_dimensions;
+        v34 = v34->_dimensions;
       }
 
-      v44 = v42;
-      v35 = TSCEGridDimensions::nextCoordRowMajorOrder(&v44, &v47);
-      v47 = v35;
+      v36 = v34;
+      v29 = TSCEGridDimensions::nextCoordRowMajorOrder(&v36, &v39);
+      v39 = v29;
     }
 
-    while (v35 != 0x7FFFFFFF && (v35 & 0xFFFFFFFF00000000) != 0x7FFFFFFF00000000 && v48.column != 0x7FFFFFFF && v48.row != 0x7FFFFFFF);
+    while (v29 != 0x7FFFFFFF && (v29 & 0xFFFFFFFF00000000) != 0x7FFFFFFF00000000 && v40.column != 0x7FFFFFFF && v40.row != 0x7FFFFFFF);
   }
 
-  TSUIndexSet::~TSUIndexSet(&v50);
-  TSUIndexSet::~TSUIndexSet(&v51);
+  TSUIndexSet::~TSUIndexSet(&v42);
+  TSUIndexSet::~TSUIndexSet(&v43);
 
   return selfCopy;
 }
@@ -938,30 +938,30 @@ LABEL_9:
 - (void)enumerateValuesUsingBlock:(id)block
 {
   blockCopy = block;
-  v13 = 0;
   v12 = 0;
   v11 = 0;
-  sub_2215C2BFC(v10, &self->_coords);
+  v10 = 0;
+  sub_2215C2BFC(v9, &self->_coords);
   do
   {
-    if (!sub_2215C2C08(v10, &v13, &v12))
+    if (!sub_2215C2C08(v9, &v12, &v11))
     {
       break;
     }
 
-    v9[0] = v13;
-    v9[1] = v12;
-    v8 = objc_msgSend_valueAtCoord_(self, v5, v9, v6, v7);
-    blockCopy[2](blockCopy, v9, v8, &v11);
+    v8[0] = v12;
+    v8[1] = v11;
+    v7 = objc_msgSend_valueAtCoord_(self, v5, v8, v6);
+    blockCopy[2](blockCopy, v8, v7, &v10);
   }
 
-  while ((v11 & 1) == 0);
+  while ((v10 & 1) == 0);
 }
 
 - (void)enumerateValuesForRow:(unsigned int)row usingBlock:(id)block
 {
   blockCopy = block;
-  v15 = 0;
+  v14 = 0;
   indexer = self->_indexer;
   if (indexer)
   {
@@ -970,29 +970,29 @@ LABEL_9:
     {
       do
       {
-        v12 = self->_indexer;
-        if (v12)
+        v11 = self->_indexer;
+        if (v11)
         {
-          LODWORD(v12) = v12->_dimensions.width + v12->_topLeft.column;
+          LODWORD(v11) = v11->_dimensions.width + v11->_topLeft.column;
         }
 
-        if (topLeft.column >= v12)
+        if (topLeft.column >= v11)
         {
           break;
         }
 
-        v14[0] = topLeft.column;
-        v14[1] = row;
-        if (objc_msgSend_hasValueAtCoord_(self, v6, v14, v7, v8))
+        v13[0] = topLeft.column;
+        v13[1] = row;
+        if (objc_msgSend_hasValueAtCoord_(self, v6, v13, v7))
         {
-          v13 = objc_msgSend_valueAtCoord_(self, v6, v14, v7, v8);
-          blockCopy[2](blockCopy, v14, v13, &v15);
+          v12 = objc_msgSend_valueAtCoord_(self, v6, v13, v7);
+          blockCopy[2](blockCopy, v13, v12, &v14);
         }
 
         ++topLeft.column;
       }
 
-      while ((v15 & 1) == 0);
+      while ((v14 & 1) == 0);
     }
   }
 }
@@ -1006,33 +1006,33 @@ LABEL_9:
     topLeft = indexer->_topLeft;
     if (topLeft.column <= column && indexer->_dimensions.width + topLeft.column > column)
     {
-      v16 = 0;
-      v12 = HIDWORD(*&topLeft);
+      v15 = 0;
+      v11 = HIDWORD(*&topLeft);
       do
       {
-        v13 = self->_indexer;
-        if (v13)
+        v12 = self->_indexer;
+        if (v12)
         {
-          LODWORD(v13) = v13->_dimensions.height + v13->_topLeft.row;
+          LODWORD(v12) = v12->_dimensions.height + v12->_topLeft.row;
         }
 
-        if (v12 >= v13)
+        if (v11 >= v12)
         {
           break;
         }
 
-        v15[0] = column;
-        v15[1] = v12;
-        if (objc_msgSend_hasValueAtCoord_(self, v6, v15, v7, v8))
+        v14[0] = column;
+        v14[1] = v11;
+        if (objc_msgSend_hasValueAtCoord_(self, v6, v14, v7))
         {
-          v14 = objc_msgSend_valueAtCoord_(self, v6, v15, v7, v8);
-          blockCopy[2](blockCopy, v15, v14, &v16);
+          v13 = objc_msgSend_valueAtCoord_(self, v6, v14, v7);
+          blockCopy[2](blockCopy, v14, v13, &v15);
         }
 
-        LODWORD(v12) = v12 + 1;
+        LODWORD(v11) = v11 + 1;
       }
 
-      while ((v16 & 1) == 0);
+      while ((v15 & 1) == 0);
     }
   }
 }
@@ -1044,46 +1044,46 @@ LABEL_9:
     return;
   }
 
-  hasValueAtCoord = objc_msgSend_hasValueAtCoord_(self, a2, coord, withCoord, v4);
-  v12 = objc_msgSend_hasValueAtCoord_(self, v9, withCoord, v10, v11);
-  v16 = v12;
-  if (v12)
+  hasValueAtCoord = objc_msgSend_hasValueAtCoord_(self, a2, coord, withCoord);
+  v10 = objc_msgSend_hasValueAtCoord_(self, v8, withCoord, v9);
+  v13 = v10;
+  if (v10)
   {
-    v23 = objc_msgSend_valueAtCoord_(self, v13, withCoord, v14, v15);
+    v18 = objc_msgSend_valueAtCoord_(self, v11, withCoord, v12);
     if ((hasValueAtCoord & 1) == 0)
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    v20 = objc_msgSend_valueAtCoord_(self, v13, coord, v14, v15);
-    objc_msgSend_setValue_atCoord_(self, v21, v20, withCoord, v22);
+    v16 = objc_msgSend_valueAtCoord_(self, v11, coord, v12);
+    objc_msgSend_setValue_atCoord_(self, v17, v16, withCoord);
 
-    if (v16)
+    if (v13)
     {
       goto LABEL_5;
     }
 
 LABEL_8:
-    objc_msgSend_clearValueAtCoord_(self, v17, coord, v18, v19);
+    objc_msgSend_clearValueAtCoord_(self, v14, coord, v15);
     goto LABEL_9;
   }
 
-  v23 = 0;
+  v18 = 0;
   if (hasValueAtCoord)
   {
     goto LABEL_7;
   }
 
 LABEL_4:
-  objc_msgSend_clearValueAtCoord_(self, v13, withCoord, v14, v15);
-  if ((v16 & 1) == 0)
+  objc_msgSend_clearValueAtCoord_(self, v11, withCoord, v12);
+  if ((v13 & 1) == 0)
   {
     goto LABEL_8;
   }
 
 LABEL_5:
-  objc_msgSend_setValue_atCoord_(self, v17, v23, coord, v19);
+  objc_msgSend_setValue_atCoord_(self, v14, v18, coord);
 LABEL_9:
 }
 
@@ -1091,31 +1091,31 @@ LABEL_9:
 {
   if (index != atIndex)
   {
+    v12 = v4;
     v13 = v5;
-    v14 = v6;
-    v12[1] = index;
-    v11[1] = atIndex;
+    v11[1] = index;
+    v10[1] = atIndex;
     indexer = self->_indexer;
     if (indexer)
     {
-      v9 = indexer->_dimensions.width - 1;
+      v8 = indexer->_dimensions.width - 1;
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v10 = 0;
+    v9 = 0;
     do
     {
-      v12[0] = v10;
-      v11[0] = v10;
-      objc_msgSend_swapValueAtCoord_withCoord_(self, a2, v12, v11, v4);
-      ++v10;
+      v11[0] = v9;
+      v10[0] = v9;
+      objc_msgSend_swapValueAtCoord_withCoord_(self, a2, v11, v10);
+      ++v9;
     }
 
-    while (v10 <= v9);
+    while (v9 <= v8);
   }
 }
 
@@ -1123,115 +1123,115 @@ LABEL_9:
 {
   if (index != atIndex)
   {
+    v12 = v4;
     v13 = v5;
-    v14 = v6;
-    v12[0] = index;
-    v11[0] = atIndex;
+    v11[0] = index;
+    v10[0] = atIndex;
     indexer = self->_indexer;
     if (indexer)
     {
-      v9 = indexer->_dimensions.height - 1;
+      v8 = indexer->_dimensions.height - 1;
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v10 = 0;
+    v9 = 0;
     do
     {
-      v12[1] = v10;
-      v11[1] = v10;
-      objc_msgSend_swapValueAtCoord_withCoord_(self, a2, v12, v11, v4);
-      ++v10;
+      v11[1] = v9;
+      v10[1] = v9;
+      objc_msgSend_swapValueAtCoord_withCoord_(self, a2, v11, v10);
+      ++v9;
     }
 
-    while (v10 <= v9);
+    while (v9 <= v8);
   }
 }
 
 - (void)rearrangeRowsWithMapping:(id)mapping
 {
   mappingCopy = mapping;
-  v9 = objc_msgSend_mapping(mappingCopy, v5, v6, v7, v8);
-  v14 = objc_msgSend_mappingSize(mappingCopy, v10, v11, v12, v13);
+  v8 = objc_msgSend_mapping(mappingCopy, v5, v6, v7);
+  v12 = objc_msgSend_mappingSize(mappingCopy, v9, v10, v11);
   __p = 0;
-  v27 = 0;
-  v28 = 0;
-  sub_2214AEE5C(&__p, *v9, v9[1], (v9[1] - *v9) >> 2);
-  started = objc_msgSend_startIndex(mappingCopy, v15, v16, v17, v18);
-  if (v14)
+  v23 = 0;
+  v24 = 0;
+  sub_2214AEE5C(&__p, *v8, *(v8 + 8), (*(v8 + 8) - *v8) >> 2);
+  started = objc_msgSend_startIndex(mappingCopy, v13, v14, v15);
+  if (v12)
   {
-    v22 = started;
-    for (i = 0; i != v14; ++i)
+    v18 = started;
+    for (i = 0; i != v12; ++i)
     {
       while (1)
       {
-        v24 = __p;
-        v25 = *(__p + i);
-        if (i == v25)
+        v20 = __p;
+        v21 = *(__p + i);
+        if (i == v21)
         {
           break;
         }
 
-        *(__p + i) = *(__p + v25);
-        v24[v25] = v25;
-        objc_msgSend_swapRowAtIndex_withRowAtIndex_(self, v20, (v22 + i), (v25 + v22), v21);
+        *(__p + i) = *(__p + v21);
+        v20[v21] = v21;
+        objc_msgSend_swapRowAtIndex_withRowAtIndex_(self, v17, (v18 + i), (v21 + v18));
       }
     }
 
     goto LABEL_8;
   }
 
-  v24 = __p;
+  v20 = __p;
   if (__p)
   {
 LABEL_8:
-    v27 = v24;
-    operator delete(v24);
+    v23 = v20;
+    operator delete(v20);
   }
 }
 
 - (void)rearrangeColumnsWithMapping:(id)mapping
 {
   mappingCopy = mapping;
-  v9 = objc_msgSend_mapping(mappingCopy, v5, v6, v7, v8);
-  v14 = objc_msgSend_mappingSize(mappingCopy, v10, v11, v12, v13);
+  v8 = objc_msgSend_mapping(mappingCopy, v5, v6, v7);
+  v12 = objc_msgSend_mappingSize(mappingCopy, v9, v10, v11);
   __p = 0;
-  v27 = 0;
-  v28 = 0;
-  sub_2214AEE5C(&__p, *v9, v9[1], (v9[1] - *v9) >> 2);
-  started = objc_msgSend_startIndex(mappingCopy, v15, v16, v17, v18);
-  if (v14)
+  v23 = 0;
+  v24 = 0;
+  sub_2214AEE5C(&__p, *v8, *(v8 + 8), (*(v8 + 8) - *v8) >> 2);
+  started = objc_msgSend_startIndex(mappingCopy, v13, v14, v15);
+  if (v12)
   {
-    v22 = started;
-    for (i = 0; i != v14; ++i)
+    v18 = started;
+    for (i = 0; i != v12; ++i)
     {
       while (1)
       {
-        v24 = __p;
-        v25 = *(__p + i);
-        if (i == v25)
+        v20 = __p;
+        v21 = *(__p + i);
+        if (i == v21)
         {
           break;
         }
 
-        *(__p + i) = *(__p + v25);
-        v24[v25] = v25;
-        objc_msgSend_swapColumnAtIndex_withColumnAtIndex_(self, v20, (v22 + i), (v25 + v22), v21);
+        *(__p + i) = *(__p + v21);
+        v20[v21] = v21;
+        objc_msgSend_swapColumnAtIndex_withColumnAtIndex_(self, v17, (v18 + i), (v21 + v18));
       }
     }
 
     goto LABEL_8;
   }
 
-  v24 = __p;
+  v20 = __p;
   if (__p)
   {
 LABEL_8:
-    v27 = v24;
-    operator delete(v24);
+    v23 = v20;
+    operator delete(v20);
   }
 }
 
@@ -1251,78 +1251,78 @@ LABEL_8:
   v7 = objc_opt_new();
   var6 = grid->var6;
   grid->var6 = 1;
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x3812000000;
-  v24[3] = sub_2216B0BEC;
-  v24[4] = nullsub_87;
-  v24[5] = &unk_22188E88F;
-  v24[6] = 0;
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x3032000000;
-  v22[3] = sub_2216AFEC0;
-  v22[4] = sub_2216AFED0;
-  v23 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_2216B1B7C;
-  v16[3] = &unk_278468998;
-  v18 = v22;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3812000000;
+  v23[3] = sub_2216B0BEC;
+  v23[4] = nullsub_87;
+  v23[5] = &unk_22188E88F;
+  v23[6] = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = sub_2216AFEC0;
+  v21[4] = sub_2216AFED0;
+  v22 = 0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_2216B1B7C;
+  v15[3] = &unk_278468998;
+  v17 = v21;
   gridCopy = grid;
   formatCopy = format;
   v9 = v7;
-  v17 = v9;
-  v19 = v24;
-  objc_msgSend_enumerateValuesUsingBlock_(self, v10, v16, v11, v12);
+  v16 = v9;
+  v18 = v23;
+  objc_msgSend_enumerateValuesUsingBlock_(self, v10, v15, v11);
   grid->var6 = var6;
-  v13 = v17;
-  v14 = v9;
+  v12 = v16;
+  v13 = v9;
 
-  _Block_object_dispose(v22, 8);
-  _Block_object_dispose(v24, 8);
+  _Block_object_dispose(v21, 8);
+  _Block_object_dispose(v23, 8);
 
-  return v14;
+  return v13;
 }
 
 - (void)deepResolveInPlace:(id)place
 {
   placeCopy = place;
-  v41 = 0;
-  v42 = objc_msgSend_dimensions(self, v5, v6, v7, v8);
+  v32 = 0;
+  v33 = objc_msgSend_dimensions(self, v5, v6, v7);
   do
   {
-    v12 = objc_msgSend_valueAtCoord_(self, v9, &v41, v10, v11);
-    v17 = objc_msgSend_nativeType(v12, v13, v14, v15, v16);
-    if (v17 <= 0x11)
+    v10 = objc_msgSend_valueAtCoord_(self, v8, &v32, v9);
+    v14 = objc_msgSend_nativeType(v10, v11, v12, v13);
+    if (v14 <= 0x11)
     {
-      if (((1 << v17) & 0x12042) != 0)
+      if (((1 << v14) & 0x12042) != 0)
       {
-        v21 = objc_msgSend_deepResolveInPlace_(v12, v18, placeCopy, v19, v20);
+        v17 = objc_msgSend_deepResolveInPlace_(v10, v15, placeCopy, v16);
 
-        v12 = v21;
-        objc_msgSend_setValue_atCoord_(self, v22, v21, &v41, v23);
+        v10 = v17;
+        objc_msgSend_setValue_atCoord_(self, v18, v17, &v32);
       }
 
-      else if (((1 << v17) & 0x24000) != 0)
+      else if (((1 << v14) & 0x24000) != 0)
       {
-        v24 = MEMORY[0x277D81150];
-        v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSCEValueGrid(AbstractGrid) deepResolveInPlace:]", v19, v20);
-        v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v27, v28);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v30, v25, v29, 1067, 0, "Does this happen - a grid of unresolved categoryRefs / pivot references - I don't think its possible");
+        v19 = MEMORY[0x277D81150];
+        v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSCEValueGrid(AbstractGrid) deepResolveInPlace:]", v16);
+        v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEValueGrid.mm", v22);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 1067, 0, "Does this happen - a grid of unresolved categoryRefs / pivot references - I don't think its possible");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
-        v38 = objc_msgSend_deepResolveInPlace_(v12, v35, placeCopy, v36, v37);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
+        v30 = objc_msgSend_deepResolveInPlace_(v10, v28, placeCopy, v29);
 
-        v12 = v38;
-        objc_msgSend_setValue_atCoord_(self, v39, v38, &v41, v40);
+        v10 = v30;
+        objc_msgSend_setValue_atCoord_(self, v31, v30, &v32);
       }
     }
 
-    v41 = TSCEGridDimensions::nextCoordRowMajorOrder(&v42, &v41);
+    v32 = TSCEGridDimensions::nextCoordRowMajorOrder(&v33, &v32);
   }
 
-  while (v41 != 0x7FFFFFFF && HIDWORD(v41) != 0x7FFFFFFF);
+  while (v32 != 0x7FFFFFFF && HIDWORD(v32) != 0x7FFFFFFF);
 }
 
 - (TSCEGridCoord)topLeftCoord
@@ -1398,18 +1398,18 @@ LABEL_8:
   if (indexer)
   {
     topLeft = indexer->_topLeft;
-    v8 = topLeft.column == 0x7FFFFFFF || (*&topLeft & 0xFFFFFFFF00000000) == 0x7FFFFFFF00000000;
-    if (!v8 && topLeft != 0)
+    v7 = topLeft.column == 0x7FFFFFFF || (*&topLeft & 0xFFFFFFFF00000000) == 0x7FFFFFFF00000000;
+    if (!v7 && topLeft != 0)
     {
-      v11 = objc_msgSend_topLeftCoord(self, a2, v2, v3, v4);
-      sub_2215C2834(&self->_coords, v11, HIDWORD(v11));
-      v16 = self->_indexer;
-      if (v16)
+      v10 = objc_msgSend_topLeftCoord(self, a2, v2, v3);
+      sub_2215C2834(&self->_coords, v10, HIDWORD(v10));
+      v14 = self->_indexer;
+      if (v14)
       {
-        v16->_topLeft = 0;
+        v14->_topLeft = 0;
       }
 
-      objc_msgSend_clearPopulatedCache(self, v12, v13, v14, v15);
+      objc_msgSend_clearPopulatedCache(self, v11, v12, v13);
     }
   }
 }
@@ -1423,14 +1423,14 @@ LABEL_8:
     indexer = indexer->_dimensions;
   }
 
-  v54[0] = indexer;
-  v12 = objc_msgSend_initWithDimensions_(v7, v8, v54, v9, v10);
-  v56 = 0;
-  v16 = context->var0;
-  if (v56.column == 0x7FFFFFFF || v56.row == 0x7FFFFFFF)
+  v46[0] = indexer;
+  v11 = objc_msgSend_initWithDimensions_(v7, v8, v46, v9);
+  v48 = 0;
+  v14 = context->var0;
+  if (v48.column == 0x7FFFFFFF || v48.row == 0x7FFFFFFF)
   {
 LABEL_25:
-    v48 = v12;
+    v41 = v11;
     goto LABEL_29;
   }
 
@@ -1438,65 +1438,65 @@ LABEL_25:
   var3 = context->var3;
   while (1)
   {
-    v20 = objc_msgSend_valueAtCoord_(self, v13, &v56, v14, v15);
-    if (objc_msgSend_isError(v20, v21, v22, v23, v24))
+    v18 = objc_msgSend_valueAtCoord_(self, v12, &v48, v13);
+    if (objc_msgSend_isError(v18, v19, v20, v21))
     {
-      v36 = objc_msgSend_asErrorValue(v20, v25, v26, v27, v28);
-      *error = objc_msgSend_error(v36, v49, v50, v51, v52);
+      v31 = objc_msgSend_asErrorValue(v18, v22, v23, v24);
+      *error = objc_msgSend_error(v31, v42, v43, v44);
       goto LABEL_28;
     }
 
-    if ((objc_msgSend_valueIsEmptyWithContext_(v20, v25, v16, v27, v28) & 1) == 0)
+    if ((objc_msgSend_valueIsEmptyWithContext_(v18, v22, v14, v24) & 1) == 0)
     {
       break;
     }
 
 LABEL_18:
-    v46 = self->_indexer;
-    if (v46)
+    v39 = self->_indexer;
+    if (v39)
     {
-      v46 = v46->_dimensions;
+      v39 = v39->_dimensions;
     }
 
-    v54[0] = v46;
-    v56 = TSCEGridDimensions::nextCoordRowMajorOrder(v54, &v56);
+    v46[0] = v39;
+    v48 = TSCEGridDimensions::nextCoordRowMajorOrder(v46, &v48);
 
-    if (v56.column == 0x7FFFFFFF || v56.row == 0x7FFFFFFF)
+    if (v48.column == 0x7FFFFFFF || v48.row == 0x7FFFFFFF)
     {
       goto LABEL_25;
     }
   }
 
-  v55 = 0;
-  v30 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v20, v29, v16, var1, var3, &v55);
-  v31 = v55;
-  v36 = v31;
-  if (!v31)
+  v47 = 0;
+  v26 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v18, v25, v14, var1, var3, &v47);
+  v27 = v47;
+  v31 = v27;
+  if (!v27)
   {
 LABEL_17:
-    v54[0] = objc_msgSend_decimalRepresentation(v30, v32, v33, v34, v35);
-    v54[1] = v44;
-    objc_msgSend_setValue_atCoord_(v12, v44, v54, &v56, v45);
+    v46[0] = objc_msgSend_decimalRepresentation(v26, v28, v29, v30);
+    v46[1] = v38;
+    objc_msgSend_setValue_atCoord_(v11, v38, v46, &v48);
 
     goto LABEL_18;
   }
 
-  v37 = objc_msgSend_errorType(v31, v32, v33, v34, v35);
-  v42 = v37 == 8 || v37 == 11;
-  if (!v42 && v37 != 169)
+  v32 = objc_msgSend_errorType(v27, v28, v29, v30);
+  v36 = v32 == 8 || v32 == 11;
+  if (!v36 && v32 != 169)
   {
-    v43 = v36;
-    *error = v36;
+    v37 = v31;
+    *error = v31;
     goto LABEL_17;
   }
 
-  *error = objc_msgSend_matrixMustBeNumbersError(TSCEError, v38, v39, v40, v41);
+  *error = objc_msgSend_matrixMustBeNumbersError(TSCEError, v33, v34, v35);
 
 LABEL_28:
-  v48 = 0;
+  v41 = 0;
 LABEL_29:
 
-  return v48;
+  return v41;
 }
 
 @end

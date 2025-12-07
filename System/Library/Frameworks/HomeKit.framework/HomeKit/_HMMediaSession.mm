@@ -243,20 +243,20 @@ LABEL_22:
 
 - (void)updateMediaState:(id)state
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   context = [(_HMMediaSession *)self context];
   v6 = context;
   if (context)
   {
     queue = [context queue];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __36___HMMediaSession_updateMediaState___block_invoke;
-    v13[3] = &unk_1E754E5C0;
-    v13[4] = self;
-    v14 = stateCopy;
-    dispatch_async(queue, v13);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __36___HMMediaSession_updateMediaState___block_invoke;
+    v12[3] = &unk_1E754E5C0;
+    v12[4] = self;
+    v13 = stateCopy;
+    dispatch_async(queue, v12);
   }
 
   else
@@ -268,34 +268,32 @@ LABEL_22:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v11;
-      v17 = 2080;
-      v18 = "[_HMMediaSession updateMediaState:]";
+      v15 = v11;
+      v16 = 2080;
+      v17 = "[_HMMediaSession updateMediaState:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePlaybackState:(id)state
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   context = [(_HMMediaSession *)self context];
   v6 = context;
   if (context)
   {
     queue = [context queue];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __39___HMMediaSession_updatePlaybackState___block_invoke;
-    v13[3] = &unk_1E754E5C0;
-    v14 = stateCopy;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __39___HMMediaSession_updatePlaybackState___block_invoke;
+    v12[3] = &unk_1E754E5C0;
+    v13 = stateCopy;
     selfCopy = self;
-    dispatch_async(queue, v13);
+    dispatch_async(queue, v12);
   }
 
   else
@@ -307,25 +305,23 @@ LABEL_22:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v11;
-      v18 = 2080;
-      v19 = "[_HMMediaSession updatePlaybackState:]";
+      v16 = v11;
+      v17 = 2080;
+      v18 = "[_HMMediaSession updatePlaybackState:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateMediaState:(id)state completion:(id)completion
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   completionCopy = completion;
   v7 = [stateCopy hmf_numberForKey:@"pb-state"];
-  v56 = v7;
+  v55 = v7;
   if (v7 && (v8 = v7, v9 = -[_HMMediaSession playbackState](self, "playbackState"), v10 = [v8 unsignedIntegerValue], v9 != v10))
   {
     v12 = v10;
@@ -336,11 +332,11 @@ LABEL_22:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v60 = v16;
-      v61 = 2048;
-      v62 = v9;
-      v63 = 2048;
-      v64 = v12;
+      v59 = v16;
+      v60 = 2048;
+      v61 = v9;
+      v62 = 2048;
+      v63 = v12;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@_updateMediaState playback state changed from %tu to %tu", buf, 0x20u);
     }
 
@@ -408,7 +404,7 @@ LABEL_22:
     }
   }
 
-  v55 = v17;
+  v54 = v17;
   v31 = [stateCopy hmf_numberForKey:@"ms-muted"];
   if (v31)
   {
@@ -423,21 +419,21 @@ LABEL_22:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v37 = v53 = v20;
+        v37 = v52 = v20;
         v38 = HMFBooleanToString();
         [v31 BOOLValue];
         HMFBooleanToString();
-        v39 = v54 = v34;
+        v39 = v53 = v34;
         *buf = 138543874;
-        v60 = v37;
-        v61 = 2112;
-        v62 = v38;
-        v63 = 2112;
-        v64 = v39;
+        v59 = v37;
+        v60 = 2112;
+        v61 = v38;
+        v62 = 2112;
+        v63 = v39;
         _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_INFO, "%{public}@_updateMediaState muted changed from %@ to %@", buf, 0x20u);
 
-        v34 = v54;
-        v20 = v53;
+        v34 = v53;
+        v20 = v52;
       }
 
       objc_autoreleasePoolPop(v34);
@@ -446,18 +442,18 @@ LABEL_22:
 
       audioControl5 = [(_HMMediaSession *)selfCopy2 audioControl];
       bOOLValue = [v31 BOOLValue];
-      v58[0] = MEMORY[0x1E69E9820];
-      v58[1] = 3221225472;
-      v58[2] = __48___HMMediaSession__updateMediaState_completion___block_invoke;
-      v58[3] = &unk_1E754E148;
-      v58[4] = selfCopy2;
-      [audioControl5 updateMuted:bOOLValue completionHandler:v58];
+      v57[0] = MEMORY[0x1E69E9820];
+      v57[1] = 3221225472;
+      v57[2] = __48___HMMediaSession__updateMediaState_completion___block_invoke;
+      v57[3] = &unk_1E754E148;
+      v57[4] = selfCopy2;
+      [audioControl5 updateMuted:bOOLValue completionHandler:v57];
 
       v11 = 1;
     }
   }
 
-  v43 = [stateCopy hmf_numberForKey:{@"HMMediaSessionSleepWakeStateMessageKey", v53}];
+  v43 = [stateCopy hmf_numberForKey:{@"HMMediaSessionSleepWakeStateMessageKey", v52}];
   if (v43 && (v44 = -[_HMMediaSession sleepWakeState](self, "sleepWakeState"), v45 = [v43 unsignedIntegerValue], v44 != v45))
   {
     [(_HMMediaSession *)self setSleepWakeState:v45];
@@ -486,9 +482,9 @@ LABEL_34:
   {
     v49 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v60 = v49;
-    v61 = 2112;
-    v62 = v56;
+    v59 = v49;
+    v60 = 2112;
+    v61 = v55;
     _os_log_impl(&dword_19BB39000, v48, OS_LOG_TYPE_INFO, "%{public}@_updateMediaState calling completion with state: %@", buf, 0x16u);
   }
 
@@ -498,7 +494,6 @@ LABEL_34:
   [delegateCaller callCompletion:completionCopy error:0];
 
 LABEL_35:
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSessionPlaybackUpdated:(id)updated
@@ -538,7 +533,7 @@ LABEL_35:
 
 - (void)_notifyDelegateOfUpdatedPlaybackState:(int64_t)state
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   delegate = [(_HMMediaSession *)self delegate];
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -558,11 +553,11 @@ LABEL_35:
 
     v11 = v10;
     *buf = 138543874;
-    v24 = v9;
-    v25 = 2112;
-    v26 = v11;
-    v27 = 2112;
-    v28 = delegate;
+    v23 = v9;
+    v24 = 2112;
+    v25 = v11;
+    v26 = 2112;
+    v27 = delegate;
     _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Notify client of did update playback state: %@ delegate: %@", buf, 0x20u);
   }
 
@@ -573,14 +568,14 @@ LABEL_35:
   {
     if (objc_opt_respondsToSelector())
     {
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __57___HMMediaSession__notifyDelegateOfUpdatedPlaybackState___block_invoke;
-      v19[3] = &unk_1E754E120;
-      v20 = delegate;
-      v21 = selfCopy;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __57___HMMediaSession__notifyDelegateOfUpdatedPlaybackState___block_invoke;
+      v18[3] = &unk_1E754E120;
+      v19 = delegate;
+      v20 = selfCopy;
       stateCopy = state;
-      [delegateCaller invokeBlock:v19];
+      [delegateCaller invokeBlock:v18];
     }
   }
 
@@ -593,42 +588,40 @@ LABEL_35:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v17;
-      v25 = 2112;
-      v26 = context;
+      v23 = v17;
+      v24 = 2112;
+      v25 = context;
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify client of did update playback state due to no delegate caller from context: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshPlaybackStateWithCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(_HMMediaSession *)self context];
   if (!handlerCopy)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMMediaSession refreshPlaybackStateWithCompletionHandler:]", @"completionHandler"];
-    v15 = objc_autoreleasePoolPush();
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMMediaSession refreshPlaybackStateWithCompletionHandler:]", @"completionHandler"];
+    v14 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v18;
-      v25 = 2112;
-      v26 = v14;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v23 = v17;
+      v24 = 2112;
+      v25 = v13;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
-    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
-    objc_exception_throw(v19);
+    objc_autoreleasePoolPop(v14);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v13 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v6 = context;
@@ -640,8 +633,8 @@ LABEL_35:
     block[2] = __61___HMMediaSession_refreshPlaybackStateWithCompletionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v22 = handlerCopy;
-    v21 = v6;
+    v21 = handlerCopy;
+    v20 = v6;
     dispatch_async(queue, block);
   }
 
@@ -654,9 +647,9 @@ LABEL_35:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v11;
-      v25 = 2080;
-      v26 = "[_HMMediaSession refreshPlaybackStateWithCompletionHandler:]";
+      v23 = v11;
+      v24 = 2080;
+      v25 = "[_HMMediaSession refreshPlaybackStateWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -664,34 +657,32 @@ LABEL_35:
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPlaybackState:(int64_t)state completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(_HMMediaSession *)self context];
   if (!handlerCopy)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMMediaSession setPlaybackState:completionHandler:]", @"completionHandler"];
-    v17 = objc_autoreleasePoolPush();
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMMediaSession setPlaybackState:completionHandler:]", @"completionHandler"];
+    v16 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v16;
-      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v19;
+      v27 = 2112;
+      v28 = v15;
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
-    objc_exception_throw(v21);
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
+    objc_exception_throw(v20);
   }
 
   v8 = context;
@@ -704,8 +695,8 @@ LABEL_35:
     block[3] = &unk_1E754E0D0;
     stateCopy = state;
     block[4] = self;
-    v24 = handlerCopy;
-    v23 = v8;
+    v23 = handlerCopy;
+    v22 = v8;
     dispatch_async(queue, block);
   }
 
@@ -718,9 +709,9 @@ LABEL_35:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v13;
-      v28 = 2080;
-      v29 = "[_HMMediaSession setPlaybackState:completionHandler:]";
+      v26 = v13;
+      v27 = 2080;
+      v28 = "[_HMMediaSession setPlaybackState:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -728,8 +719,6 @@ LABEL_35:
     v14 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v14);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)messageDestination

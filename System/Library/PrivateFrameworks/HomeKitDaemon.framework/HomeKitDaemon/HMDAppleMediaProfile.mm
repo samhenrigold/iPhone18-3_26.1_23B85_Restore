@@ -19,19 +19,19 @@
 
 - (void)didUpdateSleepWakeState:(unint64_t)state
 {
-  v55[2] = *MEMORY[0x277D85DE8];
+  v54[2] = *MEMORY[0x277D85DE8];
   mediaSession = [(HMDMediaProfile *)self mediaSession];
   v6 = mediaSession;
   if (mediaSession)
   {
     v7 = MEMORY[0x277CBEB38];
-    v54[0] = *MEMORY[0x277CD09A8];
+    v53[0] = *MEMORY[0x277CD09A8];
     uuid = [mediaSession uuid];
     uUIDString = [uuid UUIDString];
-    v54[1] = @"force-notify";
-    v55[0] = uUIDString;
-    v55[1] = MEMORY[0x277CBEC38];
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
+    v53[1] = @"force-notify";
+    v54[0] = uUIDString;
+    v54[1] = MEMORY[0x277CBEC38];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
     v11 = [v7 dictionaryWithDictionary:v10];
 
     if (state)
@@ -40,7 +40,7 @@
       [v11 setValue:v12 forKey:*MEMORY[0x277CD09A0]];
     }
 
-    v13 = [v11 copy];
+    v13 = objc_msgSend_copy(v11);
     [(HMDMediaProfile *)self handleSessionUpdatedNotification:v13];
 
     accessory = [(HMDAccessoryProfile *)self accessory];
@@ -49,7 +49,7 @@
 
     if (uuid2)
     {
-      v47 = v11;
+      v46 = v11;
       v17 = [objc_alloc(MEMORY[0x277CD1730]) initWithSleepWakeState:state];
       [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
       v19 = v18;
@@ -59,9 +59,9 @@
       v23 = [v20 initWithSource:uUIDString2 cachePolicy:2 combineType:2 timestamp:v19];
 
       v24 = objc_alloc(MEMORY[0x277D174A0]);
-      v46 = v17;
+      v45 = v17;
       protoData = [v17 protoData];
-      v45 = v23;
+      v44 = v23;
       v26 = [v24 initWithEventData:protoData metadata:v23];
 
       v27 = MEMORY[0x277CD16F0];
@@ -79,23 +79,23 @@
       {
         v35 = HMFGetLogIdentifier();
         [v6 uuid];
-        v36 = v44 = uuid2;
+        v36 = v43 = uuid2;
         [v36 UUIDString];
-        v37 = v43 = v26;
+        v37 = v42 = v26;
         *buf = 138543874;
-        v49 = v35;
-        v50 = 2112;
-        v51 = v37;
-        v52 = 2048;
+        v48 = v35;
+        v49 = 2112;
+        v50 = v37;
+        v51 = 2048;
         stateCopy = state;
         _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@didUpdateSleepWakeState called for mediaSession: %@ sw:%tu", buf, 0x20u);
 
-        v26 = v43;
-        uuid2 = v44;
+        v26 = v42;
+        uuid2 = v43;
       }
 
       objc_autoreleasePoolPop(v32);
-      v11 = v47;
+      v11 = v46;
     }
 
     else
@@ -107,28 +107,26 @@
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v49 = v41;
-        v50 = 2112;
-        v51 = accessory;
+        v48 = v41;
+        v49 = 2112;
+        v50 = accessory;
         _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Unable to post sleep wake state event for accessory without home: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v38);
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFinishLoadingRequestForController:(id)controller
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   mediaSession = [(HMDMediaProfile *)self mediaSession];
   if (mediaSession)
   {
     response = [controllerCopy response];
-    v6 = [response copy];
+    v6 = objc_msgSend_copy(response);
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     uuid = [mediaSession uuid];
@@ -208,7 +206,7 @@
     volume = [state2 volume];
     [dictionary setObject:volume forKeyedSubscript:*MEMORY[0x277CD09B0]];
 
-    v27 = [dictionary copy];
+    v27 = objc_msgSend_copy(dictionary);
     [(HMDMediaProfile *)self handleSessionUpdatedNotification:v27];
 
     v28 = objc_autoreleasePoolPush();
@@ -228,37 +226,35 @@
       volume2 = [state4 volume];
       tracklist6 = [v6 tracklist];
       [tracklist6 uniqueIdentifier];
-      v35 = v44 = v28;
+      v35 = v43 = v28;
       *buf = 138545154;
-      v47 = v31;
-      v48 = 2112;
-      v49 = uUIDString2;
-      v50 = 2048;
-      v51 = state3;
-      v52 = 2048;
-      v53 = shuffleType2;
-      v54 = 2048;
-      v55 = repeatType2;
-      v56 = 2112;
-      v57 = volume2;
-      v58 = 2112;
-      v59 = v35;
-      v60 = 2112;
-      v61 = dictionary;
+      v46 = v31;
+      v47 = 2112;
+      v48 = uUIDString2;
+      v49 = 2048;
+      v50 = state3;
+      v51 = 2048;
+      v52 = shuffleType2;
+      v53 = 2048;
+      v54 = repeatType2;
+      v55 = 2112;
+      v56 = volume2;
+      v57 = 2112;
+      v58 = v35;
+      v59 = 2112;
+      v60 = dictionary;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@didFinishLoadingRequestForController called for mediaSession:%@ pb:%tu s:%tu r:%tu v:%@ m:%@ userInfo:%@", buf, 0x52u);
 
-      v28 = v44;
+      v28 = v43;
     }
 
     objc_autoreleasePoolPop(v28);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionAudioControlUpdated:(id)updated
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   mediaSystem = [(HMDAppleMediaProfile *)self mediaSystem];
 
@@ -271,7 +267,7 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v9;
+      v12 = v9;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Media profile is part of a media system - passing on handling the audio control  update notification for session", buf, 0xCu);
     }
 
@@ -280,17 +276,15 @@
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = HMDAppleMediaProfile;
-    [(HMDMediaProfile *)&v11 sessionAudioControlUpdated:updatedCopy];
+    v10.receiver = self;
+    v10.super_class = HMDAppleMediaProfile;
+    [(HMDMediaProfile *)&v10 sessionAudioControlUpdated:updatedCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSetValue:(id)value withRequestProperty:(id)property withCompletionHandler:(id)handler
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   propertyCopy = property;
   handlerCopy = handler;
@@ -302,7 +296,7 @@
   v11 = handlerCopy;
   mediaAccessory = [(HMDAppleMediaProfile *)self mediaAccessory];
   device = [(__CFString *)mediaAccessory device];
-  v51 = device;
+  v50 = device;
   if (device)
   {
     v14 = device;
@@ -315,11 +309,11 @@
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v56 = v18;
-        v57 = 2112;
-        v58 = @"HMDMediaProfileSetPowerRequestKey";
-        v59 = 2112;
-        v60 = mediaAccessory;
+        v55 = v18;
+        v56 = 2112;
+        v57 = @"HMDMediaProfileSetPowerRequestKey";
+        v58 = 2112;
+        v59 = mediaAccessory;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Attempting to send message: %@ to unreachable accessory: %@", buf, 0x20u);
       }
 
@@ -342,11 +336,11 @@
 
     if (v21)
     {
-      v49 = valueCopy;
-      v50 = propertyCopy;
-      v52 = propertyCopy;
-      v53 = v21;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+      v48 = valueCopy;
+      v49 = propertyCopy;
+      v51 = propertyCopy;
+      v52 = v21;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
       v23 = MEMORY[0x277D0F848];
       v24 = [HMDRemoteDeviceMessageDestination alloc];
       uniqueIdentifier = [(HMDAccessoryProfile *)self uniqueIdentifier];
@@ -368,23 +362,23 @@
         {
           v45 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v56 = v45;
-          v57 = 2112;
-          v58 = v14;
-          v59 = 2112;
-          v60 = v50;
+          v55 = v45;
+          v56 = 2112;
+          v57 = v14;
+          v58 = 2112;
+          v59 = v49;
           _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Sending remote message to device (%@) for set value execution with request property %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v42);
         [v27 setSecureRemote:1];
         v46 = +[HMDSecureRemoteMessageTransport defaultTransport];
-        v47 = [v27 copy];
+        v47 = objc_msgSend_copy(v27);
         [v46 sendMessage:v47 completionHandler:0];
       }
 
-      valueCopy = v49;
-      v32 = v50;
+      valueCopy = v48;
+      v32 = v49;
     }
 
     else
@@ -396,9 +390,9 @@
       {
         v38 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v56 = v38;
-        v57 = 2112;
-        v58 = v19;
+        v55 = v38;
+        v56 = 2112;
+        v57 = v19;
         _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@The value %@ passed in is either nil or non NSNumber", buf, 0x16u);
       }
 
@@ -408,8 +402,8 @@
       v39 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
       v27 = [HMDMediaPropertyResponse responseWithRequest:v22 error:v39];
 
-      v54 = v27;
-      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+      v53 = v27;
+      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
       v41 = [HMDMediaPropertyResponse serializeResponses:v40];
       (v11)[2](v11, 0, v41);
 
@@ -426,9 +420,9 @@
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v56 = v31;
-      v57 = 2112;
-      v58 = mediaAccessory;
+      v55 = v31;
+      v56 = 2112;
+      v57 = mediaAccessory;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@The device of Media Accessory %@ is not found", buf, 0x16u);
     }
 
@@ -438,22 +432,20 @@
     v33 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     v22 = [HMDMediaPropertyResponse responseWithRequest:v21 error:v33];
 
-    v61[0] = v22;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
+    v60[0] = v22;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
     v34 = [HMDMediaPropertyResponse serializeResponses:v27];
     (v11)[2](v11, 0, v34);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateRefreshPlayback:(id)playback
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   playbackCopy = playback;
-  v30.receiver = self;
-  v30.super_class = HMDAppleMediaProfile;
-  if (![(HMDMediaProfile *)&v30 _updateRefreshPlayback:playbackCopy])
+  v29.receiver = self;
+  v29.super_class = HMDAppleMediaProfile;
+  if (![(HMDMediaProfile *)&v29 _updateRefreshPlayback:playbackCopy])
   {
     v5 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -462,38 +454,38 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v8;
+      v32 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@No local session for mediaProfile - attempting to redispatch the command to resident/device", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
-    v29 = 0;
-    v9 = __lookupDeviceForRemoteCommands(selfCopy, &v29);
-    v21 = v29;
+    v28 = 0;
+    v9 = __lookupDeviceForRemoteCommands(selfCopy, &v28);
+    v20 = v28;
     if (v9)
     {
       array = [MEMORY[0x277CBEB18] array];
       [playbackCopy arrayForKey:*MEMORY[0x277CD0948]];
+      v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
-      v11 = v26 = 0u;
-      v12 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v24 = 0u;
+      v11 = v25 = 0u;
+      v12 = [v11 countByEnumeratingWithState:&v24 objects:v30 count:16];
       if (v12)
       {
-        v13 = *v26;
+        v13 = *v25;
         v14 = *MEMORY[0x277CD0938];
         do
         {
           v15 = 0;
           do
           {
-            if (*v26 != v13)
+            if (*v25 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            if ([*(*(&v25 + 1) + 8 * v15) isEqual:v14])
+            if ([*(*(&v24 + 1) + 8 * v15) isEqual:v14])
             {
               v16 = [HMDMediaPropertyRequest requestWithProperty:v14 mediaProfile:selfCopy];
               [array addObject:v16];
@@ -503,7 +495,7 @@
           }
 
           while (v12 != v15);
-          v12 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v24 objects:v30 count:16];
         }
 
         while (v12);
@@ -512,15 +504,15 @@
       accessory = [(HMDAccessoryProfile *)selfCopy accessory];
       home = [accessory home];
       objc_initWeak(buf, selfCopy);
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __47__HMDAppleMediaProfile__updateRefreshPlayback___block_invoke;
-      v22[3] = &unk_278689618;
-      objc_copyWeak(&v24, buf);
-      v23 = playbackCopy;
-      [home redispatchMediaReadRequests:array viaDevice:v21 completion:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __47__HMDAppleMediaProfile__updateRefreshPlayback___block_invoke;
+      v21[3] = &unk_278689618;
+      objc_copyWeak(&v23, buf);
+      v22 = playbackCopy;
+      [home redispatchMediaReadRequests:array viaDevice:v20 completion:v21];
 
-      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v23);
       objc_destroyWeak(buf);
     }
 
@@ -531,7 +523,6 @@
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -555,11 +546,11 @@ void __47__HMDAppleMediaProfile__updateRefreshPlayback___block_invoke(uint64_t a
 
 - (BOOL)_updatePlayback:(id)playback
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   playbackCopy = playback;
-  v24.receiver = self;
-  v24.super_class = HMDAppleMediaProfile;
-  if (![(HMDMediaProfile *)&v24 _updatePlayback:playbackCopy])
+  v23.receiver = self;
+  v23.super_class = HMDAppleMediaProfile;
+  if (![(HMDMediaProfile *)&v23 _updatePlayback:playbackCopy])
   {
     v6 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -568,7 +559,7 @@ void __47__HMDAppleMediaProfile__updateRefreshPlayback___block_invoke(uint64_t a
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v9;
+      v26 = v9;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@No local session for mediaProfile - attempting to redispatch the command to resident/device", buf, 0xCu);
     }
 
@@ -577,9 +568,9 @@ void __47__HMDAppleMediaProfile__updateRefreshPlayback___block_invoke(uint64_t a
     v11 = [playbackCopy numberForKey:*MEMORY[0x277CD0938]];
     if (v11)
     {
-      v23 = 0;
-      v12 = __lookupDeviceForRemoteCommands(selfCopy, &v23);
-      v13 = v23;
+      v22 = 0;
+      v12 = __lookupDeviceForRemoteCommands(selfCopy, &v22);
+      v13 = v22;
       if (!v12)
       {
         v5 = 0;
@@ -590,17 +581,17 @@ void __47__HMDAppleMediaProfile__updateRefreshPlayback___block_invoke(uint64_t a
       accessory = [(HMDAccessoryProfile *)selfCopy accessory];
       home = [accessory home];
       objc_initWeak(buf, selfCopy);
-      v25 = v14;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __40__HMDAppleMediaProfile__updatePlayback___block_invoke;
-      v20[3] = &unk_278689618;
-      objc_copyWeak(&v22, buf);
-      v21 = playbackCopy;
-      [home redispatchMediaWriteRequests:v17 viaDevice:v13 completion:v20];
+      v24 = v14;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __40__HMDAppleMediaProfile__updatePlayback___block_invoke;
+      v19[3] = &unk_278689618;
+      objc_copyWeak(&v21, buf);
+      v20 = playbackCopy;
+      [home redispatchMediaWriteRequests:v17 viaDevice:v13 completion:v19];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(buf);
     }
 
@@ -619,7 +610,6 @@ LABEL_11:
   v5 = 1;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -679,7 +669,7 @@ void __40__HMDAppleMediaProfile__updatePlayback___block_invoke(uint64_t a1, void
 
 - (void)setMediaSystem:(id)system
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -687,13 +677,13 @@ void __40__HMDAppleMediaProfile__updatePlayback___block_invoke(uint64_t a1, void
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543874;
-    v12 = v8;
-    v13 = 2112;
-    v14 = systemCopy;
-    v15 = 2112;
-    v16 = selfCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Setting media system %@ on profile %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v8;
+    v12 = 2112;
+    v13 = systemCopy;
+    v14 = 2112;
+    v15 = selfCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Setting media system %@ on profile %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -702,8 +692,6 @@ void __40__HMDAppleMediaProfile__updatePlayback___block_invoke(uint64_t a1, void
   os_unfair_lock_unlock(&selfCopy->super._lock.lock);
   msgDispatcher = [(HMDAccessoryProfile *)selfCopy msgDispatcher];
   [(HMDAppleMediaProfile *)selfCopy configureWithMessageDispatcher:msgDispatcher configurationTracker:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleMediaAccessory)mediaAccessory
@@ -727,7 +715,7 @@ void __40__HMDAppleMediaProfile__updatePlayback___block_invoke(uint64_t a1, void
 
 - (void)registerForMessages
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   accessory = [(HMDAccessoryProfile *)self accessory];
   home = [accessory home];
   featuresDataSource = [home featuresDataSource];
@@ -735,19 +723,17 @@ void __40__HMDAppleMediaProfile__updatePlayback___block_invoke(uint64_t a1, void
 
   if ((isMessageBindingsEnabled & 1) == 0)
   {
-    v12.receiver = self;
-    v12.super_class = HMDAppleMediaProfile;
-    [(HMDMediaProfile *)&v12 registerForMessages];
+    v11.receiver = self;
+    v11.super_class = HMDAppleMediaProfile;
+    [(HMDMediaProfile *)&v11 registerForMessages];
     msgDispatcher = [(HMDAccessoryProfile *)self msgDispatcher];
     v8 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
-    v13[0] = v8;
+    v12[0] = v8;
     v9 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-    v13[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     [msgDispatcher registerForMessage:@"HMDMediaProfileSetPowerRequestKey" receiver:self policies:v10 selector:sel__handleSetPower_];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithMessageDispatcher:(id)dispatcher configurationTracker:(id)tracker
@@ -813,7 +799,7 @@ void __76__HMDAppleMediaProfile_configureWithMessageDispatcher_configurationTrac
 
 + (id)messageBindingForDispatcher:(id)dispatcher message:(id)message receiver:(id)receiver
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   receiverCopy = receiver;
   messageCopy = message;
@@ -840,10 +826,10 @@ void __76__HMDAppleMediaProfile_configureWithMessageDispatcher_configurationTrac
     name2 = [messageCopy name];
 
     v17 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
-    v23[0] = v17;
+    v22[0] = v17;
     v18 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-    v23[1] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[1] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v20 = HMFCreateMessageBinding();
   }
 
@@ -851,8 +837,6 @@ void __76__HMDAppleMediaProfile_configureWithMessageDispatcher_configurationTrac
   {
     v20 = [HMDMediaProfile messageBindingForDispatcher:dispatcherCopy message:messageCopy receiver:receiverCopy];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

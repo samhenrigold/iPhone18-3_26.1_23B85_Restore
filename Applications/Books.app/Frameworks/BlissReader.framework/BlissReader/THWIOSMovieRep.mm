@@ -428,14 +428,22 @@ LABEL_8:
 - (void)setChildReps:(id)reps
 {
   repsCopy = reps;
-  if (self->_childReps != repsCopy && ![(NSArray *)repsCopy isEqualToArray:?])
+  v6 = repsCopy;
+  if (self->_childReps != repsCopy)
   {
-    [(NSArray *)self->_childReps makeObjectsPerformSelector:"setParentRep:" withObject:0];
-    objc_storeStrong(&self->_childReps, reps);
-    [(NSArray *)self->_childReps makeObjectsPerformSelector:"setParentRep:" withObject:self];
+    v7 = repsCopy;
+    repsCopy = [(NSArray *)repsCopy isEqualToArray:?];
+    v6 = v7;
+    if ((repsCopy & 1) == 0)
+    {
+      [(NSArray *)self->_childReps makeObjectsPerformSelector:"setParentRep:" withObject:0];
+      objc_storeStrong(&self->_childReps, reps);
+      repsCopy = [(NSArray *)self->_childReps makeObjectsPerformSelector:"setParentRep:" withObject:self];
+      v6 = v7;
+    }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(repsCopy, v6);
 }
 
 - (BOOL)isVisibleOnCanvas
@@ -828,7 +836,7 @@ LABEL_6:
     v12 = v11;
     if (v11)
     {
-      [v11 currentTransform];
+      objc_msgSend_currentTransform(v11);
     }
 
     else
@@ -879,7 +887,7 @@ LABEL_6:
   {
     freeTransformableHandler2 = [(THWIOSMovieRep *)self freeTransformableHandler];
     v6 = [freeTransformableHandler2 ftc];
-    [v6 completionTargetRect];
+    objc_msgSend_completionTargetRect(v6);
     x = v7;
     y = v9;
     width = v11;
@@ -1051,7 +1059,7 @@ LABEL_5:
 - (id)buttonControl:(id)control imageForState:(int)state highlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v7 = THBundle();
+  v7 = THBundle(self, a2);
   v8 = @"ib_media_btn_small_pause-N";
   if (highlightedCopy)
   {
@@ -1449,7 +1457,7 @@ LABEL_12:
     v12 = player2;
     if (player2)
     {
-      [player2 currentTime];
+      objc_msgSend_currentTime(player2);
     }
 
     else

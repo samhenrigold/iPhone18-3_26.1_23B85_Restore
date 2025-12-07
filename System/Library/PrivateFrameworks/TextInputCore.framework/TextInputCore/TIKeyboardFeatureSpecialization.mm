@@ -13,6 +13,8 @@
 - (id)clauseDelimitingCharacters;
 - (id)compositionMapForLayout:(id)layout reverse:(BOOL)reverse;
 - (id)externalStringToInternal:(id)internal;
+- (id)externalStringToInternal:(id)internal byConvertingEagerly:(BOOL)eagerly;
+- (id)findPrefixMatchesFor:(id)for fromIndex:(unint64_t)index usingCompositionMap:(id)map matchesInputAsPrefix:(BOOL)prefix;
 - (id)getComposedStringFor:(id)for usingMap:(id)map;
 - (id)getComposedStringFor:(id)for usingMap:(id)map byConvertingEagerly:(BOOL)eagerly;
 - (id)internalStringToExternal:(id)external;
@@ -121,12 +123,11 @@ uint64_t __74__TIKeyboardFeatureSpecialization_reloadPrecomposedCharacterSetWith
   return [a3 enumerateObjectsUsingBlock:v4];
 }
 
-uint64_t __74__TIKeyboardFeatureSpecialization_reloadPrecomposedCharacterSetWithIdiom___block_invoke_2(uint64_t a1, void *a2)
+void *__74__TIKeyboardFeatureSpecialization_reloadPrecomposedCharacterSetWithIdiom___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 _firstLongCharacter];
   if (result)
   {
-    v4 = *(*(a1 + 32) + 16);
 
     JUMPOUT(0x2318BF250);
   }
@@ -249,9 +250,11 @@ void __70__TIKeyboardFeatureSpecialization_ar_ars_terminatorsDeletingAutospace__
 
 uint64_t __80__TIKeyboardFeatureSpecialization_ZephyrSpecialization__spaceDeletingCharacters__block_invoke(uint64_t a1)
 {
-  -[TIKeyboardFeatureSpecialization(ZephyrSpecialization) spaceDeletingCharacters]::result = [objc_alloc(MEMORY[0x277D6F330]) initWithCharactersInString:*(a1 + 32)];
+  v1 = [objc_alloc(MEMORY[0x277D6F330]) initWithCharactersInString:*(a1 + 32)];
+  v2 = [TIKeyboardFeatureSpecialization(ZephyrSpecialization) spaceDeletingCharacters]::result;
+  [TIKeyboardFeatureSpecialization(ZephyrSpecialization) spaceDeletingCharacters]::result = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (id)terminatorsDeletingAutospace
@@ -417,7 +420,7 @@ void __85__TIKeyboardFeatureSpecialization_ZephyrSpecialization__terminatorsDele
 
 - (id)internalStringToExternal:(id)external
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   externalCopy = external;
   if ([(TIKeyboardFeatureSpecialization *)self doesComposeText])
   {
@@ -429,17 +432,17 @@ void __85__TIKeyboardFeatureSpecialization_ZephyrSpecialization__terminatorsDele
 
     else
     {
-      KB::utf8_string(externalCopy, v10);
-      KB::compose_diacritics(v10, [(TIKeyboardFeatureSpecialization *)self precomposedCharacterSet], v12);
-      v6 = KB::ns_string(v12, v7);
-      if (v13 && v12[6] == 1)
+      KB::utf8_string(externalCopy, v9);
+      KB::compose_diacritics(v9, [(TIKeyboardFeatureSpecialization *)self precomposedCharacterSet], v11);
+      v6 = KB::ns_string(v11, v7);
+      if (v12 && v11[6] == 1)
       {
-        free(v13);
+        free(v12);
       }
 
-      if (v11 && v10[6] == 1)
+      if (v10 && v9[6] == 1)
       {
-        free(v11);
+        free(v10);
       }
     }
   }
@@ -449,9 +452,54 @@ void __85__TIKeyboardFeatureSpecialization_ZephyrSpecialization__terminatorsDele
     v6 = externalCopy;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v6;
+}
+
+- (id)externalStringToInternal:(id)internal byConvertingEagerly:(BOOL)eagerly
+{
+  eagerlyCopy = eagerly;
+  v20 = *MEMORY[0x277D85DE8];
+  internalCopy = internal;
+  if ([(TIKeyboardFeatureSpecialization *)self doesComposeText])
+  {
+    v7 = [(TIKeyboardFeatureSpecialization *)self compositionMapForLayout:self->m_softwareLayout reverse:1];
+    if ([v7 count])
+    {
+      v8 = [(TIKeyboardFeatureSpecialization *)self getComposedStringFor:internalCopy usingMap:v7 byConvertingEagerly:eagerlyCopy];
+    }
+
+    else
+    {
+      memset(v13, 0, sizeof(v13));
+      memset(v12, 0, sizeof(v12));
+      allAccentKeyStrings = [(TIKeyboardFeatureSpecialization *)self allAccentKeyStrings];
+      if ([allAccentKeyStrings countByEnumeratingWithState:v12 objects:v19 count:16])
+      {
+        [**(&v12[0] + 1) _firstLongCharacter];
+        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(1uLL);
+      }
+
+      KB::utf8_string(internalCopy, v14);
+      KB::decompose_diacritics(v14, v13, [(TIKeyboardFeatureSpecialization *)self precomposedCharacterSet], v17);
+      v8 = KB::ns_string(v17, v10);
+      if (v18 && v17[6] == 1)
+      {
+        free(v18);
+      }
+
+      if (v16 && v15 == 1)
+      {
+        free(v16);
+      }
+    }
+  }
+
+  else
+  {
+    v8 = internalCopy;
+  }
+
+  return v8;
 }
 
 - (id)externalStringToInternal:(id)internal
@@ -464,38 +512,38 @@ void __85__TIKeyboardFeatureSpecialization_ZephyrSpecialization__terminatorsDele
 
 - (BOOL)shouldClearInput:(id)input
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   v5 = [(TIKeyboardFeatureSpecialization *)self compositionMapForLayout:self->m_softwareLayout reverse:0];
   v6 = [v5 count];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     v11 = 20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         if (v11 <= [v13 length])
         {
           v11 = [v13 length];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -529,8 +577,50 @@ void __85__TIKeyboardFeatureSpecialization_ZephyrSpecialization__terminatorsDele
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
+}
+
+- (id)findPrefixMatchesFor:(id)for fromIndex:(unint64_t)index usingCompositionMap:(id)map matchesInputAsPrefix:(BOOL)prefix
+{
+  prefixCopy = prefix;
+  v27 = *MEMORY[0x277D85DE8];
+  forCopy = for;
+  mapCopy = map;
+  array = [MEMORY[0x277CBEB18] array];
+  v21 = forCopy;
+  v12 = [objc_opt_class() findPrefixMatchesFor:forCopy fromIndex:index usingCompositionMap:mapCopy matchesInputAsPrefix:prefixCopy];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v23;
+    do
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v23 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v17 = *(*(&v22 + 1) + 8 * i);
+        v18 = [mapCopy objectForKeyedSubscript:v17];
+        v19 = [TICompositionMapItem itemWithKey:v17 value:v18];
+
+        [array addObject:v19];
+      }
+
+      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    }
+
+    while (v14);
+  }
+
+  return array;
 }
 
 - (id)getComposedStringFor:(id)for usingMap:(id)map byConvertingEagerly:(BOOL)eagerly
@@ -650,7 +740,7 @@ LABEL_12:
 
 id __89__TIKeyboardFeatureSpecialization_ZephyrSpecialization__compositionMapForLayout_reverse___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) objectForKeyedSubscript:v3];
   if (![v4 count])
@@ -693,32 +783,32 @@ id __89__TIKeyboardFeatureSpecialization_ZephyrSpecialization__compositionMapFor
     if ([v14 count])
     {
       v15 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v14, "count")}];
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
-      v26 = v14;
+      v25 = v14;
       v16 = v14;
-      v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v28;
+        v19 = *v27;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v28 != v19)
+            if (*v27 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v27 + 1) + 8 * i);
+            v21 = *(*(&v26 + 1) + 8 * i);
             v22 = [v16 objectForKeyedSubscript:v21];
             [v15 setObject:v21 forKeyedSubscript:v22];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v18);
@@ -728,11 +818,9 @@ id __89__TIKeyboardFeatureSpecialization_ZephyrSpecialization__compositionMapFor
       [*(a1 + 32) setObject:v23 forKeyedSubscript:v3];
 
       v4 = v23;
-      v14 = v26;
+      v14 = v25;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -759,7 +847,7 @@ id __89__TIKeyboardFeatureSpecialization_ZephyrSpecialization__compositionMapFor
   m_softwareLayout = self->m_softwareLayout;
   self->m_softwareLayout = softwareLayout;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](softwareLayout, m_softwareLayout);
 }
 
 + (USet)createAcceptableCharacterSetForKeyboardLocale:(id)locale
@@ -798,40 +886,40 @@ id __89__TIKeyboardFeatureSpecialization_ZephyrSpecialization__compositionMapFor
 + (id)findPrefixMatchesFor:(id)for fromIndex:(unint64_t)index usingCompositionMap:(id)map matchesInputAsPrefix:(BOOL)prefix
 {
   prefixCopy = prefix;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   forCopy = for;
   mapCopy = map;
   if ([forCopy length] && objc_msgSend(forCopy, "length") > index)
   {
     v11 = [forCopy substringFromIndex:index];
     array = [MEMORY[0x277CBEB18] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v13 = mapCopy;
-    v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v23;
+      v16 = *v22;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v22 + 1) + 8 * i);
-          if (([v11 hasPrefix:{v18, v22}] & 1) != 0 || prefixCopy && objc_msgSend(v18, "hasPrefix:", v11))
+          v18 = *(*(&v21 + 1) + 8 * i);
+          if (([v11 hasPrefix:{v18, v21}] & 1) != 0 || prefixCopy && objc_msgSend(v18, "hasPrefix:", v11))
           {
             [array addObject:v18];
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v15);
@@ -844,8 +932,6 @@ id __89__TIKeyboardFeatureSpecialization_ZephyrSpecialization__compositionMapFor
   {
     v19 = MEMORY[0x277CBEBF8];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

@@ -40,17 +40,15 @@
 
 - (void)predicateWithProfile:()HDSQLitePredicate .cold.1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [a1 coding];
   v5 = [v4 codingSystem];
   v6 = HKSensitiveLogItem();
-  v8 = 138543618;
-  v9 = a1;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_2514A1000, a2, OS_LOG_TYPE_ERROR, "%{public}@ received no attribute identifier for %{public}@, will return 'false' predicate", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = a1;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_2514A1000, a2, OS_LOG_TYPE_ERROR, "%{public}@ received no attribute identifier for %{public}@, will return 'false' predicate", &v7, 0x16u);
 }
 
 @end

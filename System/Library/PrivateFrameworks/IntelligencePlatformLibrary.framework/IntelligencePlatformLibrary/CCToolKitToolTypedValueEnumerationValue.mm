@@ -248,9 +248,9 @@ LABEL_21:
           {
             v24 = [CCToolKitToolTypeIdentifier alloc];
             caseValue = CCPBReaderReadDataNoCopy();
-            v40 = 0;
-            v26 = [(CCItemMessage *)v24 initWithData:caseValue error:&v40];
-            v10 = v40;
+            v38 = 0;
+            v26 = [(CCItemMessage *)v24 initWithData:caseValue error:&v38];
+            v10 = v38;
             v27 = 16;
 LABEL_27:
             v30 = *(&self->super.super.isa + v27);
@@ -273,7 +273,6 @@ LABEL_29:
 
           v31 = objc_opt_class();
           caseValue = NSStringFromClass(v31);
-          v32 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
         }
 
@@ -284,9 +283,9 @@ LABEL_28:
 
       v29 = [CCToolKitToolDisplayRepresentation alloc];
       caseValue = CCPBReaderReadDataNoCopy();
-      v39 = 0;
-      v26 = [(CCItemMessage *)v29 initWithData:caseValue error:&v39];
-      v10 = v39;
+      v37 = 0;
+      v26 = [(CCItemMessage *)v29 initWithData:caseValue error:&v37];
+      v10 = v37;
       v27 = 32;
       goto LABEL_27;
     }
@@ -304,23 +303,22 @@ LABEL_36:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v37 = 1;
+    v35 = 1;
     goto LABEL_40;
   }
 
 LABEL_37:
-  v33 = objc_opt_class();
-  v34 = NSStringFromClass(v33);
-  v35 = *&v6[*v9];
-  v36 = CCInvalidBufferErrorForMessage();
+  v32 = objc_opt_class();
+  v33 = NSStringFromClass(v32);
+  v34 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_38:
-  v37 = 0;
+  v35 = 0;
 LABEL_40:
 
-  return v37;
+  return v35;
 }
 
 - (CCToolKitToolTypedValueEnumerationValue)initWithType:(id)type caseValue:(id)value displayRepresentation:(id)representation error:(id *)error

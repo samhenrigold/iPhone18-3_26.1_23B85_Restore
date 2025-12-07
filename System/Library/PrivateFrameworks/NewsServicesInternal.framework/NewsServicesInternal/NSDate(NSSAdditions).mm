@@ -27,7 +27,7 @@
 
 - (void)nss_gregorianDescriptionWithFlags:()NSSAdditions options:completion:
 {
-  v56 = a5;
+  v57 = a5;
   [self timeIntervalSinceNow];
   v9 = v8;
   v10 = -v8;
@@ -59,14 +59,14 @@
 
   if (v9 >= 0.0 || v11 < 60.0)
   {
-    v19 = NSSBundleInternal();
-    v20 = [v19 localizedStringForKey:@"now" value:&stru_286D8BB50 table:0];
+    v20 = NSSBundleInternal(v15);
+    v21 = [v20 localizedStringForKey:@"now" value:&stru_286D8BB50 table:0];
 
-    v21 = v20;
-LABEL_12:
     v22 = v21;
+LABEL_12:
     v23 = v22;
-    v18 = v22;
+    v24 = v23;
+    v19 = v23;
     goto LABEL_59;
   }
 
@@ -80,27 +80,28 @@ LABEL_12:
         {
           if (a3)
           {
-            v18 = [v14 stringFromTimeInterval:v11];
+            v15 = [v14 stringFromTimeInterval:v11];
+            v19 = v15;
           }
 
           else
           {
-            v18 = 0;
+            v19 = 0;
           }
 
-          v46 = v11 / 31449600.0;
-          v31 = floorf(v46);
+          v47 = v11 / 31449600.0;
+          v32 = floorf(v47);
           if ((a3 & 2) != 0)
           {
-            v53 = MEMORY[0x277CCACA8];
-            v54 = NSSBundleInternal();
-            v55 = [v54 localizedStringForKey:@"%d year/years ago medium" value:&stru_286D8BB50 table:0];
-            v23 = [v53 localizedStringWithFormat:v55, v31];
+            v54 = MEMORY[0x277CCACA8];
+            v55 = NSSBundleInternal(v15);
+            v56 = [v55 localizedStringForKey:@"%d year/years ago medium" value:&stru_286D8BB50 table:0];
+            v24 = [v54 localizedStringWithFormat:v56, v32];
           }
 
           else
           {
-            v23 = 0;
+            v24 = 0;
           }
 
           if ((a3 & 4) == 0)
@@ -108,37 +109,38 @@ LABEL_12:
             goto LABEL_58;
           }
 
-          v36 = MEMORY[0x277CCACA8];
-          v37 = NSSBundleInternal();
-          v38 = v37;
-          v39 = @"%d year/years ago long";
+          v37 = MEMORY[0x277CCACA8];
+          v38 = NSSBundleInternal(v15);
+          v39 = v38;
+          v40 = @"%d year/years ago long";
         }
 
         else
         {
           if (a3)
           {
-            v18 = [v14 stringFromTimeInterval:v11];
+            v15 = [v14 stringFromTimeInterval:v11];
+            v19 = v15;
           }
 
           else
           {
-            v18 = 0;
+            v19 = 0;
           }
 
-          v45 = v11 / 604800.0;
-          v31 = floorf(v45);
+          v46 = v11 / 604800.0;
+          v32 = floorf(v46);
           if ((a3 & 2) != 0)
           {
-            v50 = MEMORY[0x277CCACA8];
-            v51 = NSSBundleInternal();
-            v52 = [v51 localizedStringForKey:@"%d week/weeks ago medium" value:&stru_286D8BB50 table:0];
-            v23 = [v50 localizedStringWithFormat:v52, v31];
+            v51 = MEMORY[0x277CCACA8];
+            v52 = NSSBundleInternal(v15);
+            v53 = [v52 localizedStringForKey:@"%d week/weeks ago medium" value:&stru_286D8BB50 table:0];
+            v24 = [v51 localizedStringWithFormat:v53, v32];
           }
 
           else
           {
-            v23 = 0;
+            v24 = 0;
           }
 
           if ((a3 & 4) == 0)
@@ -146,10 +148,10 @@ LABEL_12:
             goto LABEL_58;
           }
 
-          v36 = MEMORY[0x277CCACA8];
-          v37 = NSSBundleInternal();
-          v38 = v37;
-          v39 = @"%d week/weeks ago long";
+          v37 = MEMORY[0x277CCACA8];
+          v38 = NSSBundleInternal(v15);
+          v39 = v38;
+          v40 = @"%d week/weeks ago long";
         }
 
         goto LABEL_27;
@@ -157,22 +159,23 @@ LABEL_12:
 
       if (a3)
       {
-        v18 = [v14 stringFromTimeInterval:v11];
+        v15 = [v14 stringFromTimeInterval:v11];
+        v19 = v15;
       }
 
       else
       {
-        v18 = 0;
+        v19 = 0;
       }
 
-      v32 = v11 / 86400.0;
-      v31 = floorf(v32);
+      v33 = v11 / 86400.0;
+      v32 = floorf(v33);
       if ((a3 & 2) != 0)
       {
-        v47 = MEMORY[0x277CCACA8];
-        v48 = NSSBundleInternal();
-        v49 = [v48 localizedStringForKey:@"%d day/days ago medium" value:&stru_286D8BB50 table:0];
-        v23 = [v47 localizedStringWithFormat:v49, v31];
+        v48 = MEMORY[0x277CCACA8];
+        v49 = NSSBundleInternal(v15);
+        v50 = [v49 localizedStringForKey:@"%d day/days ago medium" value:&stru_286D8BB50 table:0];
+        v24 = [v48 localizedStringWithFormat:v50, v32];
 
         if ((a3 & 4) == 0)
         {
@@ -182,48 +185,49 @@ LABEL_12:
 
       else
       {
-        v23 = 0;
+        v24 = 0;
         if ((a3 & 4) == 0)
         {
           goto LABEL_58;
         }
       }
 
-      v36 = MEMORY[0x277CCACA8];
-      v37 = NSSBundleInternal();
-      v38 = v37;
-      v39 = @"%d day/days ago long";
+      v37 = MEMORY[0x277CCACA8];
+      v38 = NSSBundleInternal(v15);
+      v39 = v38;
+      v40 = @"%d day/days ago long";
       goto LABEL_27;
     }
 
-    v24 = v11 / 3600.0;
-    v25 = floorf(v24);
-    if ((a4 & 1) != 0 && v25 > 6.0)
+    v25 = v11 / 3600.0;
+    v26 = floorf(v25);
+    if ((a4 & 1) != 0 && v26 > 6.0)
     {
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-      v27 = [currentCalendar isDateInToday:self];
+      v28 = [currentCalendar isDateInToday:self];
 
-      if (v27)
+      if (v28)
       {
         _todayStringDateFormatterForThread = [MEMORY[0x277CBEAA8] _todayStringDateFormatterForThread];
         date = [MEMORY[0x277CBEAA8] date];
-        v30 = [_todayStringDateFormatterForThread stringFromDate:date];
+        v31 = [_todayStringDateFormatterForThread stringFromDate:date];
 
-        v21 = v30;
+        v22 = v31;
         goto LABEL_12;
       }
     }
 
     if (a3)
     {
-      v18 = [v14 stringFromTimeInterval:v11];
+      v15 = [v14 stringFromTimeInterval:v11];
+      v19 = v15;
       if ((a3 & 2) != 0)
       {
 LABEL_31:
-        v42 = MEMORY[0x277CCACA8];
-        v43 = NSSBundleInternal();
-        v44 = [v43 localizedStringForKey:@"%d hour/hours ago medium" value:&stru_286D8BB50 table:0];
-        v23 = [v42 localizedStringWithFormat:v44, v25];
+        v43 = MEMORY[0x277CCACA8];
+        v44 = NSSBundleInternal(v15);
+        v45 = [v44 localizedStringForKey:@"%d hour/hours ago medium" value:&stru_286D8BB50 table:0];
+        v24 = [v43 localizedStringWithFormat:v45, v26];
 
         if ((a3 & 4) == 0)
         {
@@ -236,42 +240,43 @@ LABEL_31:
 
     else
     {
-      v18 = 0;
+      v19 = 0;
       if ((a3 & 2) != 0)
       {
         goto LABEL_31;
       }
     }
 
-    v23 = 0;
+    v24 = 0;
     if ((a3 & 4) == 0)
     {
       goto LABEL_58;
     }
 
 LABEL_38:
-    v36 = MEMORY[0x277CCACA8];
-    v38 = NSSBundleInternal();
-    v40 = [v38 localizedStringForKey:@"%d hour/hours ago long" value:&stru_286D8BB50 table:0];
-    v41 = v25;
+    v37 = MEMORY[0x277CCACA8];
+    v39 = NSSBundleInternal(v15);
+    v41 = [v39 localizedStringForKey:@"%d hour/hours ago long" value:&stru_286D8BB50 table:0];
+    v42 = v26;
     goto LABEL_28;
   }
 
   if (a3)
   {
-    v18 = [v14 stringFromTimeInterval:v11];
+    v15 = [v14 stringFromTimeInterval:v11];
+    v19 = v15;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v17 = v11 / 60.0;
-  v31 = floorf(v17);
+  v18 = v11 / 60.0;
+  v32 = floorf(v18);
   if ((a3 & 2) == 0)
   {
-    v23 = 0;
+    v24 = 0;
     if ((a3 & 4) == 0)
     {
       goto LABEL_58;
@@ -280,33 +285,33 @@ LABEL_38:
     goto LABEL_26;
   }
 
-  v33 = MEMORY[0x277CCACA8];
-  v34 = NSSBundleInternal();
-  v35 = [v34 localizedStringForKey:@"%d minute/minutes ago medium" value:&stru_286D8BB50 table:0];
-  v23 = [v33 localizedStringWithFormat:v35, v31];
+  v34 = MEMORY[0x277CCACA8];
+  v35 = NSSBundleInternal(v15);
+  v36 = [v35 localizedStringForKey:@"%d minute/minutes ago medium" value:&stru_286D8BB50 table:0];
+  v24 = [v34 localizedStringWithFormat:v36, v32];
 
   if ((a3 & 4) != 0)
   {
 LABEL_26:
-    v36 = MEMORY[0x277CCACA8];
-    v37 = NSSBundleInternal();
-    v38 = v37;
-    v39 = @"%d minute/minutes ago long";
+    v37 = MEMORY[0x277CCACA8];
+    v38 = NSSBundleInternal(v15);
+    v39 = v38;
+    v40 = @"%d minute/minutes ago long";
 LABEL_27:
-    v40 = [v37 localizedStringForKey:v39 value:&stru_286D8BB50 table:0];
-    v41 = v31;
+    v41 = [v38 localizedStringForKey:v40 value:&stru_286D8BB50 table:0];
+    v42 = v32;
 LABEL_28:
-    v22 = [v36 localizedStringWithFormat:v40, v41];
+    v23 = [v37 localizedStringWithFormat:v41, v42];
 
     goto LABEL_59;
   }
 
 LABEL_58:
-  v22 = 0;
+  v23 = 0;
 LABEL_59:
-  if (v56)
+  if (v57)
   {
-    v56[2](v56, v18, v23, v22);
+    v57[2](v57, v19, v24, v23);
   }
 }
 

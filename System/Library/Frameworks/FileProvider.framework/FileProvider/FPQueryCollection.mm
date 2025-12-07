@@ -3,6 +3,7 @@
 + (void)enableMountPointQueries;
 + (void)resumeAllQueries;
 + (void)suspendAllQueries;
+- (FPQueryCollection)initWithQueryDescriptorClass:(Class)class predicate:(id)predicate paced:(BOOL)paced;
 - (NSArray)allowedFileTypes;
 - (NSArray)allowedProviderIdentifiers;
 - (NSArray)excludedFileTypes;
@@ -56,7 +57,7 @@
 
 uint64_t __50__FPQueryCollection__enumerationSettingsPredicate__block_invoke(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -75,26 +76,26 @@ uint64_t __50__FPQueryCollection__enumerationSettingsPredicate__block_invoke(uin
     goto LABEL_28;
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v6 = [*(a1 + 40) excludedFileTypes];
-  v7 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = *v35;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * i);
+        v11 = *(*(&v34 + 1) + 8 * i);
         v12 = [v4 contentType];
         v13 = [MEMORY[0x1E6982C40] fp_cachedTypeWithIdentifier:v11];
         v14 = [v12 conformsToType:v13];
@@ -106,7 +107,7 @@ uint64_t __50__FPQueryCollection__enumerationSettingsPredicate__block_invoke(uin
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v8)
       {
         continue;
@@ -117,17 +118,7 @@ uint64_t __50__FPQueryCollection__enumerationSettingsPredicate__block_invoke(uin
   }
 
   v15 = [*(a1 + 40) allowedProviders];
-  if (!v15)
-  {
-    goto LABEL_16;
-  }
-
-  v16 = v15;
-  v17 = [*(a1 + 40) allowedProviders];
-  v18 = [v4 providerID];
-  v19 = [v17 containsObject:v18];
-
-  if (!v19)
+  if (v15 && (v16 = v15, [*(a1 + 40) allowedProviders], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "providerID"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v17, "containsObject:", v18), v18, v17, v16, !v19))
   {
 LABEL_28:
     v22 = 0;
@@ -135,31 +126,30 @@ LABEL_28:
 
   else
   {
-LABEL_16:
     v20 = [*(a1 + 40) allowedFileTypes];
     v21 = [v20 count];
 
     if (v21)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v6 = [*(a1 + 40) allowedFileTypes];
-      v22 = [v6 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v22 = [v6 countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v22)
       {
-        v23 = *v32;
+        v23 = *v31;
         while (2)
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v32 != v23)
+            if (*v31 != v23)
             {
               objc_enumerationMutation(v6);
             }
 
-            v25 = *(*(&v31 + 1) + 8 * j);
+            v25 = *(*(&v30 + 1) + 8 * j);
             v26 = [v4 contentType];
             v27 = [MEMORY[0x1E6982C40] fp_cachedTypeWithIdentifier:v25];
             v28 = [v26 conformsToType:v27];
@@ -171,7 +161,7 @@ LABEL_16:
             }
           }
 
-          v22 = [v6 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v22 = [v6 countByEnumeratingWithState:&v30 objects:v38 count:16];
           if (v22)
           {
             continue;
@@ -190,21 +180,37 @@ LABEL_27:
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v22;
+}
+
+- (FPQueryCollection)initWithQueryDescriptorClass:(Class)class predicate:(id)predicate paced:(BOOL)paced
+{
+  pacedCopy = paced;
+  predicateCopy = predicate;
+  v14.receiver = self;
+  v14.super_class = FPQueryCollection;
+  v10 = [(FPItemCollection *)&v14 initWithPacing:pacedCopy];
+  if (v10)
+  {
+    v11 = objc_opt_new();
+    settings = v10->_settings;
+    v10->_settings = v11;
+
+    v10->_descriptorClass = class;
+    objc_storeStrong(&v10->_predicate, predicate);
+  }
+
+  return v10;
 }
 
 - (id)description
 {
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  descriptionName = selfCopy->_descriptionName;
-  v6 = [v3 stringWithFormat:@"<%@:%p %@ %@>", v4, selfCopy, descriptionName, selfCopy->_settings];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@:%p %@ %@>", objc_opt_class(), selfCopy, selfCopy->_descriptionName, selfCopy->_settings];
   objc_sync_exit(selfCopy);
 
-  return v6;
+  return v3;
 }
 
 - (id)createDataSourceWithSortDescriptors:(id)descriptors

@@ -1,206 +1,3 @@
-void sub_22D3AAA54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
-{
-  if (a22 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a28 < 0)
-  {
-    operator delete(a23);
-  }
-
-  std::ostringstream::~ostringstream(&a29);
-  _Unwind_Resume(a1);
-}
-
-void ___ZL37ML3LibraryPinDefaultActionDescriptionx_block_invoke()
-{
-  v3[3] = *MEMORY[0x277D85DE8];
-  v2[0] = &unk_2840C86F0;
-  v2[1] = &unk_2840C8708;
-  v3[0] = @"Play";
-  v3[1] = @"Drillin";
-  v2[2] = &unk_2840C8720;
-  v3[2] = @"Shuffle";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
-  v1 = ML3LibraryPinDefaultActionDescription(long long)::__pinnedEntityDefaultActionDescription;
-  ML3LibraryPinDefaultActionDescription(long long)::__pinnedEntityDefaultActionDescription = v0;
-}
-
-void ___ZL37ML3LibraryPinnedEntityTypeDescription13ML3EntityType_block_invoke()
-{
-  v3[4] = *MEMORY[0x277D85DE8];
-  v2[0] = &unk_2840C86A8;
-  v2[1] = &unk_2840C86C0;
-  v3[0] = @"Track";
-  v3[1] = @"Album";
-  v2[2] = &unk_2840C86D8;
-  v2[3] = &unk_2840C86F0;
-  v3[2] = @"Artist";
-  v3[3] = @"Playlist";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
-  v1 = ML3LibraryPinnedEntityTypeDescription(ML3EntityType)::__pinnedEntityTypeDescription;
-  ML3LibraryPinnedEntityTypeDescription(ML3EntityType)::__pinnedEntityTypeDescription = v0;
-}
-
-BOOL ML3MatchLibraryPinImportItem::hasValue(ML3MatchLibraryPinImportItem *this, int a2)
-{
-  result = 0;
-  if (a2 <= 419430402)
-  {
-    if (a2 == 419430401)
-    {
-      v6 = *(this + 8);
-      v5 = (this + 64);
-      if (std::__tree<std::__value_type<unsigned int,std::shared_ptr<ML3CPP::Element>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<ML3CPP::Element>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<ML3CPP::Element>>>>::__count_multi<unsigned int>(v6 + 96, 0x61726964u))
-      {
-        return 1;
-      }
-
-      v4 = 1634353513;
-    }
-
-    else
-    {
-      if (a2 != 419430402)
-      {
-        return result;
-      }
-
-      v5 = (this + 64);
-      v4 = 1835624804;
-    }
-  }
-
-  else
-  {
-    switch(a2)
-    {
-      case 419430403:
-        v5 = (this + 64);
-        v4 = 419430403;
-        break;
-      case 419430404:
-        v5 = (this + 64);
-        v4 = 1634366576;
-        break;
-      case 419430405:
-        v4 = 1634364528;
-        v5 = (this + 64);
-        break;
-      default:
-        return result;
-    }
-  }
-
-  return std::__tree<std::__value_type<unsigned int,std::shared_ptr<ML3CPP::Element>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<ML3CPP::Element>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<ML3CPP::Element>>>>::__count_multi<unsigned int>(*v5 + 96, v4) != 0;
-}
-
-unint64_t ML3MatchLibraryPinImportItem::getIntegerValue(ML3MatchLibraryPinImportItem *this, int a2)
-{
-  switch(a2)
-  {
-    case 419430402:
-      v2 = *(this + 8);
-      v3 = 1835624804;
-      break;
-    case 419430404:
-      v2 = *(this + 8);
-      v3 = 1634366576;
-      break;
-    case 419430403:
-      v2 = *(this + 8);
-      v3 = 1835625316;
-      break;
-    default:
-      return 0;
-  }
-
-  ML3CPP::Element::childElementForCode(&v7, v2, v3);
-  v4 = v8;
-  if (v7)
-  {
-    v5 = ML3CPP::Element::integerValue(v7);
-    if (!v4)
-    {
-      return v5;
-    }
-
-    goto LABEL_11;
-  }
-
-  v5 = 0;
-  if (v8)
-  {
-LABEL_11:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  return v5;
-}
-
-void ML3MatchLibraryPinImportItem::getStringValue(ML3MatchLibraryPinImportItem *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
-{
-  *a3 = &unk_28408AC60;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  v5 = (a3 + 16);
-  *(a3 + 24) = 0;
-  *(a3 + 32) = 0;
-  if (a2 == 419430405)
-  {
-    ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x616A6C70u);
-    size = __str.__r_.__value_.__l.__size_;
-    if (__str.__r_.__value_.__r.__words[0])
-    {
-LABEL_10:
-      ML3CPP::Element::stringValue(&__str, *(__str.__r_.__value_.__r.__words[0] + 48), *(__str.__r_.__value_.__r.__words[0] + 64));
-      std::string::operator=(v5, &__str);
-      *(a3 + 8) = 1;
-      if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__str.__r_.__value_.__l.__data_);
-      }
-    }
-  }
-
-  else
-  {
-    if (a2 != 419430401)
-    {
-      return;
-    }
-
-    v6 = (*(*this + 32))(this, 419430403);
-    if (v6 == 6)
-    {
-      ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61726964u);
-    }
-
-    else
-    {
-      if (v6 != 7)
-      {
-        return;
-      }
-
-      ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x616A4169u);
-    }
-
-    size = __str.__r_.__value_.__l.__size_;
-    if (__str.__r_.__value_.__r.__words[0])
-    {
-      goto LABEL_10;
-    }
-  }
-
-  if (size)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](size);
-  }
-}
-
 void sub_22D3AAFEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   *v15 = v16;
@@ -331,7 +128,7 @@ void ML3MatchLibraryPinImportItem::~ML3MatchLibraryPinImportItem(ML3DAAPImportIt
   JUMPOUT(0x2318CD250);
 }
 
-void std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(void *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -356,7 +153,7 @@ void sub_22D3AB400(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::unordered_set<std::string>>::__init_with_size[abi:ne200100]<std::unordered_set<std::string>*,std::unordered_set<std::string>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::unordered_set<std::string>>::__init_with_size[abi:ne200100]<std::unordered_set<std::string>*,std::unordered_set<std::string>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -377,41 +174,41 @@ uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, uint64_t a2
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, i + 2);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, void *a2)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, void *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -419,45 +216,42 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](v12 + 2, a2))
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1)
@@ -3553,7 +3347,7 @@ void sub_22D3B623C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3567,17 +3361,17 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-BOOL ML3StoreImportItem::isValid(ML3StoreImportItem *this)
+uint64_t ML3StoreImportItem::isValid(ML3StoreImportItem *this)
 {
   if ((*(*this + 32))(this, 100663297) || (*(*this + 32))(this, 100663337))
   {
@@ -5751,51 +5545,43 @@ void *std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,s
     return 0;
   }
 
-  result = *v9;
-  if (*v9)
+  for (result = *v9; result; result = *result)
   {
-    do
+    v11 = result[1];
+    if (v6 == v11)
     {
-      v11 = result[1];
-      if (v6 == v11)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v7.u32[0] > 1uLL)
+      {
+        if (v11 >= *&v2)
         {
-          return result;
+          v11 %= *&v2;
         }
       }
 
       else
       {
-        if (v7.u32[0] > 1uLL)
-        {
-          if (v11 >= *&v2)
-          {
-            v11 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v11 &= *&v2 - 1;
-        }
-
-        if (v11 != v8)
-        {
-          return 0;
-        }
+        v11 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v11 != v8)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-uint64_t _compatible_genre_constraint::parse_config(_compatible_genre_constraint *this, unsigned __int8 *a2, unint64_t *a3)
+void _compatible_genre_constraint::parse_config(_compatible_genre_constraint *this, unsigned __int8 *a2, unint64_t *a3)
 {
   v6 = *(this + 1);
   v7 = *a3;
@@ -5807,80 +5593,78 @@ uint64_t _compatible_genre_constraint::parse_config(_compatible_genre_constraint
   v9 = *a3;
   LODWORD(v22) = *&a2[*a3];
   *a3 = v9 + 4;
-  result = (*(*v8 + 72))(v8[1], &v22, 4, 1);
-  v11 = v22;
+  (*(*v8 + 72))(v8[1], &v22, 4, 1);
+  v10 = v22;
   if (v22)
   {
-    v12 = 0;
+    v11 = 0;
     do
     {
-      v13 = *(this + 1);
-      v14 = *a3;
+      v12 = *(this + 1);
+      v13 = *a3;
       v22 = *&a2[*a3];
-      *a3 = v14 + 8;
-      (*(*v13 + 72))(v13[1], &v22, 8, 1);
-      v15 = v22;
-      v16 = *(this + 1);
-      v17 = *a3;
+      *a3 = v13 + 8;
+      (*(*v12 + 72))(v12[1], &v22, 8, 1);
+      v14 = v22;
+      v15 = *(this + 1);
+      v16 = *a3;
       LODWORD(v22) = *&a2[*a3];
-      *a3 = v17 + 4;
-      (*(*v16 + 72))(v16[1], &v22, 4, 1);
-      v18 = v22;
-      result = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,echo_hash_shift<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::find<unsigned long long>(*(this + 3), v15);
-      if (!result)
+      *a3 = v16 + 4;
+      (*(*v15 + 72))(v15[1], &v22, 4, 1);
+      v17 = v22;
+      v18 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,echo_hash_shift<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::find<unsigned long long>(*(this + 3), v14);
+      if (!v18)
       {
         operator new();
       }
 
-      for (i = *(result + 24); v18; --v18)
+      for (i = v18[3]; v17; --v17)
       {
         v20 = *(this + 1);
         v21 = *a3;
         v22 = *&a2[*a3];
         *a3 = v21 + 8;
         (*(*v20 + 72))(v20[1], &v22, 8, 1);
-        result = std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(i, v22);
+        std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(i, v22, &v22);
       }
 
-      ++v12;
+      ++v11;
     }
 
-    while (v12 != v11);
+    while (v11 != v10);
   }
-
-  return result;
 }
 
-uint64_t std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, uint64_t a2)
+uint64_t std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, uint64_t a2, void *a3)
 {
-  v2 = (~(a2 << 32) + a2) ^ ((~(a2 << 32) + a2) >> 22);
-  v3 = 9 * ((v2 + ~(v2 << 13)) ^ ((v2 + ~(v2 << 13)) >> 8));
-  v4 = (v3 ^ (v3 >> 15)) + ~((v3 ^ (v3 >> 15)) << 27);
-  v5 = v4 ^ (v4 >> 31);
-  v6 = a1[1];
-  if (!*&v6)
+  v3 = (~(a2 << 32) + a2) ^ ((~(a2 << 32) + a2) >> 22);
+  v4 = 9 * ((v3 + ~(v3 << 13)) ^ ((v3 + ~(v3 << 13)) >> 8));
+  v5 = (v4 ^ (v4 >> 15)) + ~((v4 ^ (v4 >> 15)) << 27);
+  v6 = v5 ^ (v5 >> 31);
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v8 = v4 ^ (v4 >> 31);
-    if (v5 >= *&v6)
+    v9 = v5 ^ (v5 >> 31);
+    if (v6 >= *&v7)
     {
-      v8 = v5 % *&v6;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -5888,39 +5672,39 @@ LABEL_18:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v7.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v11 >= *&v6)
+      if (v12 >= *&v7)
       {
-        v11 %= *&v6;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v11 &= *&v6 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v10 = *v10;
-    if (!v10)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v10[2] != a2)
+  if (v11[2] != a2)
   {
     goto LABEL_17;
   }
@@ -6054,9 +5838,9 @@ uint64_t _distance_constraint::reset(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t _distance_constraint::register_track(_distance_constraint *this, _constraint_state *a2, _track *a3)
+void _distance_constraint::register_track(_distance_constraint *this, _constraint_state *a2, _track *a3)
 {
-  result = (*(*this + 80))(this, a3);
+  v4 = (*(*this + 80))(this, a3);
   v5 = *(a2 + 6);
   v6 = v5[2];
   if (!v6)
@@ -6067,14 +5851,14 @@ uint64_t _distance_constraint::register_track(_distance_constraint *this, _const
   v7 = 0;
   do
   {
-    while (v6[2] == result)
+    while (v6[2] == v4)
     {
       v7 = 1;
       *(v6 + 6) = 1;
       v6 = *v6;
       if (!v6)
       {
-        return result;
+        return;
       }
     }
 
@@ -6086,7 +5870,7 @@ uint64_t _distance_constraint::register_track(_distance_constraint *this, _const
   if ((v7 & 1) == 0)
   {
 LABEL_9:
-    v8 = (result + ~(result << 32)) ^ ((result + ~(result << 32)) >> 22);
+    v8 = (v4 + ~(v4 << 32)) ^ ((v4 + ~(v4 << 32)) >> 22);
     v9 = 9 * ((v8 + ~(v8 << 13)) ^ ((v8 + ~(v8 << 13)) >> 8));
     v10 = (v9 ^ (v9 >> 15)) + ~((v9 ^ (v9 >> 15)) << 27);
     v11 = v10 ^ (v10 >> 31);
@@ -6117,9 +5901,9 @@ LABEL_9:
           v17 = i[1];
           if (v17 == v11)
           {
-            if (i[2] == result)
+            if (i[2] == v4)
             {
-              return result;
+              return;
             }
           }
 
@@ -6149,8 +5933,6 @@ LABEL_9:
 
     operator new();
   }
-
-  return result;
 }
 
 BOOL _distance_constraint::relax(uint64_t a1, uint64_t a2)
@@ -6214,45 +5996,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,
     return 0;
   }
 
-  result = *v9;
-  if (*v9)
+  for (result = *v9; result; result = *result)
   {
-    do
+    v11 = result[1];
+    if (v11 == v6)
     {
-      v11 = result[1];
-      if (v11 == v6)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v7.u32[0] > 1uLL)
+      {
+        if (v11 >= *&v2)
         {
-          return result;
+          v11 %= *&v2;
         }
       }
 
       else
       {
-        if (v7.u32[0] > 1uLL)
-        {
-          if (v11 >= *&v2)
-          {
-            v11 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v11 &= *&v2 - 1;
-        }
-
-        if (v11 != v8)
-        {
-          return 0;
-        }
+        v11 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v11 != v8)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6469,7 +6243,7 @@ BOOL _skip_count_constraint::passes(uint64_t a1, void *a2, uint64_t a3, uint64_t
   if (*(a1 + 16) < v6)
   {
     v11 = *(a4 + 44);
-    if (*(a1 + 28) - 1 >= (*(a4 + 36) - v11) && (*(**(a1 + 8) + 56))(*(*(a1 + 8) + 8)) - v11 < *(a1 + 24))
+    if (*(a1 + 28) - 1 >= (*(a4 + 36) - v11) && (*(**(a1 + 8) + 56))(*(*(a1 + 8) + 8), a2, a3) - v11 < *(a1 + 24))
     {
       return 100 * v6 > *(a1 + 32) * (v7 + v6);
     }
@@ -6651,17 +6425,15 @@ uint64_t _echo_context::fetch_track(_echo_context *this, uint64_t a2)
   return 0;
 }
 
-void *std::vector<unsigned long long>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned long long>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     std::__allocate_at_least[abi:ne200100]<std::allocator<long long>>(a2);
   }
-
-  return result;
 }
 
-void std::vector<unsigned long long>::push_back[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<unsigned long long>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -7384,7 +7156,7 @@ uint64_t _playlist::add_candidate_id(_playlist *this, uint64_t a2)
   if (!v4 || (result = std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v4, a2)) != 0)
   {
     v6 = *(this + 3);
-    if (v6 && std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v6, a2) || (std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(*(this + 17), a2) & 1) == 0)
+    if (v6 && std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v6, a2) || (std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(*(this + 17), a2, &v11) & 1) == 0)
     {
       return 0;
     }
@@ -7430,9 +7202,9 @@ uint64_t _playlist::add_candidate_id(_playlist *this, uint64_t a2)
   return result;
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(uint64_t a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > *(a1 + 16) << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -7441,8 +7213,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<long long>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t echo_playlist_close(uint64_t result)
@@ -7960,12 +7730,12 @@ void ML3PurchaseHistoryImportItem::getDataValue(ML3DAAPImportItem *this@<X0>, ui
   a3[1] = 0;
   if (a2 != 134217729)
   {
-    ML3DAAPImportItem::getDataValue(this, a2, __p);
+    ML3DAAPImportItem::getDataValue(__p, this, a2);
     *a3 = *__p;
     return;
   }
 
-  ML3CPP::Element::childElementForCode(&v14, *(this + 8), 0x61654375u);
+  ML3CPP::Element::childElementForCode(&v14, *(this + 8), 1634026357);
   if (v14)
   {
     ML3CPP::Element::stringValue(__p, *(v14 + 48), *(v14 + 64));
@@ -8002,7 +7772,7 @@ void ML3PurchaseHistoryImportItem::getDataValue(ML3DAAPImportItem *this@<X0>, ui
 
   if (!v11)
   {
-    ML3DAAPImportItem::getDataValue(this, 134217729, __p);
+    ML3DAAPImportItem::getDataValue(__p, this, 134217729);
     *a3 = *__p;
     v10 = *(&v11 + 1);
     if (!*(&v11 + 1))
@@ -8037,13 +7807,13 @@ void sub_22D3BE84C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float ML3PurchaseHistoryImportItem::getFloatValue(ML3PurchaseHistoryImportItem **this, uint64_t a2)
+float ML3PurchaseHistoryImportItem::getFloatValue(ML3DAAPImportItem *this, uint64_t a2)
 {
   if (a2 == 33554437)
   {
-    if (ML3PurchaseHistoryImportItem::_hasFlavorValue(this[12], 0x2000005))
+    if (ML3PurchaseHistoryImportItem::_hasFlavorValue(*(this + 12), 0x2000005))
     {
-      return ML3PurchaseHistoryImportItem::_getIntegerFlavorValue(this[12], 0x2000005);
+      return ML3PurchaseHistoryImportItem::_getIntegerFlavorValue(*(this + 12), 0x2000005);
     }
 
     else
@@ -8202,7 +7972,7 @@ LABEL_14:
   return result;
 }
 
-unint64_t ML3PurchaseHistoryImportItem::getIntegerValue(ML3PurchaseHistoryImportItem *this, ML3PurchaseHistoryImportItem *a2)
+unint64_t ML3PurchaseHistoryImportItem::getIntegerValue(ML3DAAPImportItem *this, ML3PurchaseHistoryImportItem *a2)
 {
   if (a2 > 83886092)
   {
@@ -8344,7 +8114,7 @@ LABEL_54:
         goto LABEL_58;
       }
 
-      ML3CPP::Element::childElementForCode(&v34, *(this + 8), 0x61654D6Bu);
+      ML3CPP::Element::childElementForCode(&v34, *(this + 8), 1634028907);
       if (v34 && (ML3CPP::Element::integerValue(v34) & 0x20) != 0)
       {
         v6 = 5;
@@ -8677,12 +8447,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -8696,22 +8466,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -8745,13 +8515,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -8813,19 +8583,19 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
 
 void ___ZNK28ML3PurchaseHistoryImportItem16_getLocationKindEv_block_invoke()
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(v14, "pdf");
-  v15 = 55;
-  std::string::basic_string[abi:ne200100]<0>(v16, "itlp");
-  v17 = 54;
-  std::string::basic_string[abi:ne200100]<0>(v18, "ite");
-  v19 = 53;
-  std::string::basic_string[abi:ne200100]<0>(v20, "m4b");
-  v21 = 49;
-  std::string::basic_string[abi:ne200100]<0>(v22, "aax");
-  v23 = 35;
-  std::string::basic_string[abi:ne200100]<0>(v24, ".epub");
-  v25 = 51;
+  v14[3] = 55;
+  std::string::basic_string[abi:ne200100]<0>(v15, "itlp");
+  v15[3] = 54;
+  std::string::basic_string[abi:ne200100]<0>(v16, "ite");
+  v16[3] = 53;
+  std::string::basic_string[abi:ne200100]<0>(v17, "m4b");
+  v17[3] = 49;
+  std::string::basic_string[abi:ne200100]<0>(v18, "aax");
+  v18[3] = 35;
+  std::string::basic_string[abi:ne200100]<0>(v19, ".epub");
+  v19[3] = 51;
   if (!qword_27D9FD688)
   {
     goto LABEL_16;
@@ -8870,7 +8640,7 @@ LABEL_16:
 
     v4 = v3;
     std::string::operator=((v1 + 4), &v14[v2]);
-    v1[7] = *&v14[v2 + 24];
+    v1[7] = v14[v2 + 3];
     std::__tree<std::__value_type<std::string,long long>,std::__map_value_compare<std::string,std::__value_type<std::string,long long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long long>>>::__insert_node_at(v13, v4, v1);
     v1 = v11;
     v12 = v11;
@@ -8881,11 +8651,11 @@ LABEL_16:
 
     v11 = std::__tree<std::__value_type<std::string,long long>,std::__map_value_compare<std::string,std::__value_type<std::string,long long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long long>>>::_DetachedTreeCache::__detach_next(v11);
 LABEL_11:
-    v5 = v2 + 32;
+    v5 = v2 * 8 + 32;
     if (v1)
     {
-      v6 = v2 == 160;
-      v2 += 32;
+      v6 = v2 == 20;
+      v2 += 4;
       if (!v6)
       {
         continue;
@@ -8895,13 +8665,13 @@ LABEL_11:
     goto LABEL_18;
   }
 
-  v5 = v2 + 32;
+  v5 = v2 * 8 + 32;
 LABEL_18:
   std::__tree<std::__value_type<std::string,long long>,std::__map_value_compare<std::string,std::__value_type<std::string,long long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long long>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](&v10);
   if (v5 != 192)
   {
 LABEL_19:
-    v7 = &v14[v5];
+    v7 = (v14 + v5);
     v8 = v5 - 192;
     do
     {
@@ -8917,11 +8687,11 @@ LABEL_19:
     while (v8);
   }
 
-  for (i = 0; i != -192; i -= 32)
+  for (i = 0; i != -24; i -= 4)
   {
-    if (v24[i + 23] < 0)
+    if (SHIBYTE(v19[i + 2]) < 0)
     {
-      operator delete(*&v24[i]);
+      operator delete(v19[i]);
     }
   }
 }
@@ -9061,14 +8831,14 @@ LABEL_10:
   {
     if ((*(*this + 32))(this, 16777217) == 512 && _os_feature_enabled_impl())
     {
-      ML3DAAPImportItem::getStringValue(this, 167772192, &__str);
+      ML3DAAPImportItem::getStringValue(&__str, this, 167772192);
       *(a3 + 8) = __str.__r_.__value_.__s.__data_[8];
       std::string::operator=(v5, &__str.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      ML3DAAPImportItem::getStringValue(this, 167772183, &__str);
+      ML3DAAPImportItem::getStringValue(&__str, this, 167772183);
       *(a3 + 8) = __str.__r_.__value_.__s.__data_[8];
       std::string::operator=(v5, &__str.__r_.__value_.__r.__words[2]);
     }
@@ -9084,7 +8854,7 @@ LABEL_10:
   if (a2 != 100663304)
   {
 LABEL_15:
-    ML3DAAPImportItem::getStringValue(this, a2, &__str);
+    ML3DAAPImportItem::getStringValue(&__str, this, a2);
     *(a3 + 8) = __str.__r_.__value_.__s.__data_[8];
     std::string::operator=(v5, &__str.__r_.__value_.__r.__words[2]);
 LABEL_17:
@@ -9102,7 +8872,7 @@ LABEL_17:
   v6 = *(this + 12);
   if (v6)
   {
-    ML3CPP::Element::childElementForCode(&__str, v6, 0x61655270u);
+    ML3CPP::Element::childElementForCode(&__str, v6, 1634030192);
     size = __str.__r_.__value_.__l.__size_;
     v8 = __str.__r_.__value_.__r.__words[0];
     if (__str.__r_.__value_.__r.__words[0])
@@ -9119,7 +8889,7 @@ LABEL_23:
     size = 0;
   }
 
-  ML3CPP::Element::childElementForCode(&__str, *(this + 8), 0x61655270u);
+  ML3CPP::Element::childElementForCode(&__str, *(this + 8), 1634030192);
   v10 = __str.__r_.__value_.__l.__size_;
   v8 = __str.__r_.__value_.__r.__words[0];
   if (size)
@@ -9167,7 +8937,7 @@ void sub_22D3BFE10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ML3PurchaseHistoryImportItem::isValid(ML3PurchaseHistoryImportItem *this)
 {
-  ML3CPP::Element::childElementForCode(&v7, *(this + 8), 0x6D61766Cu);
+  ML3CPP::Element::childElementForCode(&v7, *(this + 8), 1835103852);
   if (v7)
   {
     v2 = ML3CPP::Element::integerValue(v7) != 0;
@@ -9241,11 +9011,11 @@ void ML3PurchaseHistoryImportItem::~ML3PurchaseHistoryImportItem(ML3DAAPImportIt
   ML3DAAPImportItem::~ML3DAAPImportItem(this);
 }
 
-void ML3DAAPImportItem::_createImportItemValue(unsigned int a1@<W1>, void *a2@<X8>)
+void ML3DAAPImportItem::_createImportItemValue(unsigned int a2@<W1>, void *a4@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  if (a1 >> 1 == 184549379)
+  *a4 = 0;
+  a4[1] = 0;
+  if (a2 >> 1 == 184549379)
   {
     operator new();
   }
@@ -9321,7 +9091,7 @@ void std::__shared_ptr_pointer<ML3DAAPChildImportItem *,std::shared_ptr<ML3Impor
   JUMPOUT(0x2318CD250);
 }
 
-void ML3DAAPImportItem::getImportItemArrayValue(ML3DAAPImportItem *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void ML3DAAPImportItem::getImportItemArrayValue(ML3DAAPImportItem *this@<X0>, uint64_t a2@<X1>, ML3CPP::Element **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -9333,7 +9103,7 @@ void ML3DAAPImportItem::getImportItemArrayValue(ML3DAAPImportItem *this@<X0>, ui
     goto LABEL_14;
   }
 
-  ML3CPP::Element::childElementForCode(&v12, *v14, 0x6D6C636Cu);
+  ML3CPP::Element::childElementForCode(&v12, *v14, 1835819884);
   v4 = v12;
   if (v12)
   {
@@ -9355,7 +9125,7 @@ void ML3DAAPImportItem::getImportItemArrayValue(ML3DAAPImportItem *this@<X0>, ui
 
   else
   {
-    ML3CPP::Element::childElementForCode(&v16, v3, 0x6D72636Fu);
+    ML3CPP::Element::childElementForCode(&v16, v3, 1836213103);
     if (v16)
     {
       v10 = ML3CPP::Element::integerValue(v16);
@@ -9407,7 +9177,7 @@ LABEL_14:
   }
 }
 
-void sub_22D3C0700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, std::__shared_weak_count *a19)
+void sub_22D3C0700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, std::__shared_weak_count *a19)
 {
   if (a17)
   {
@@ -9532,4 +9302,228 @@ void std::vector<std::shared_ptr<ML3ImportItem>>::clear[abi:ne200100](uint64_t *
   }
 
   a1[1] = v2;
+}
+
+void ML3DAAPImportItem::getImportItemValue(ML3DAAPImportItem *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  *a3 = 0;
+  a3[1] = 0;
+  v6.n128_f64[0] = ML3DAAPImportItem::_getChildElement(&v12, this, a2);
+  if (!v12)
+  {
+    v7 = v13;
+    if (!v13)
+    {
+      return;
+    }
+
+    goto LABEL_7;
+  }
+
+  v7 = v13;
+  v9 = v12;
+  v10 = v13;
+  if (v13)
+  {
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(*this + 216))(&v11, this, a2, &v9, v6);
+  v8 = v11;
+  v11 = 0uLL;
+  *a3 = v8;
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  if (v7)
+  {
+LABEL_7:
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+}
+
+void sub_22D3C0A88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL ML3DAAPImportItem::hasValue(ML3DAAPImportItem *this, uint64_t a2)
+{
+  ML3DAAPImportItem::_getChildElement(&v4, this, a2);
+  v2 = v4;
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+  return v2 != 0;
+}
+
+void ML3DAAPImportItem::getDataValue(uint64_t *__return_ptr a1@<X8>, ML3DAAPImportItem *this@<X0>, uint64_t a3@<X1>)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  ML3DAAPImportItem::_getChildElement(&v3, this, a3);
+  if (v3)
+  {
+    operator new();
+  }
+
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  }
+}
+
+void sub_22D3C0B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  MEMORY[0x2318CD250](v12, 0x1091C40934DB768, a3, a4, a5, a6, a7, a8);
+  if (a12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+float ML3DAAPImportItem::getFloatValue(ML3DAAPImportItem *this, uint64_t a2)
+{
+  ML3DAAPImportItem::_getChildElement(&v4, this, a2);
+  if (v4)
+  {
+    v2 = ML3CPP::Element::integerValue(v4);
+  }
+
+  else
+  {
+    v2 = 0.0;
+  }
+
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+  return v2;
+}
+
+uint64_t ML3DAAPChildImportItem::getIntegerValue(ML3DAAPImportItem *this, uint64_t a2)
+{
+  v2 = a2;
+  result = ML3DAAPImportItem::getIntegerValue(this, a2);
+  if (v2 == 385875974)
+  {
+    return *(this + 10);
+  }
+
+  return result;
+}
+
+uint64_t ML3DAAPImportItem::getIntegerValue(ML3DAAPImportItem *this, uint64_t a2)
+{
+  v2 = a2;
+  ML3DAAPImportItem::_getChildElement(&v6, this, a2);
+  if (v6)
+  {
+    v3 = ML3CPP::Element::integerValue(v6);
+    v4 = v3;
+    if (v2 == 268435459 && v3)
+    {
+      v4 = ((v3 / 1000) + -978307200.0);
+    }
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  return v4;
+}
+
+void ML3DAAPImportItem::getStringValue(uint64_t *__return_ptr a1@<X8>, ML3DAAPImportItem *this@<X0>, uint64_t a3@<X1>)
+{
+  ML3DAAPImportItem::_getChildElement(&v8, this, a3);
+  if (v8)
+  {
+    ML3CPP::Element::stringValue(&v6, *(v8 + 48), *(v8 + 64));
+    *a1 = &unk_28408AC60;
+    *(a1 + 8) = 1;
+    if (SHIBYTE(v7) < 0)
+    {
+      v4 = v6;
+      std::string::__init_copy_ctor_external((a1 + 2), v6, *(&v6 + 1));
+      operator delete(v4);
+    }
+
+    else
+    {
+      *(a1 + 1) = v6;
+      a1[4] = v7;
+    }
+  }
+
+  else
+  {
+    *a1 = &unk_28408AC60;
+    *(a1 + 8) = 0;
+    a1[3] = 0;
+    a1[4] = 0;
+    a1[2] = 0;
+  }
+
+  v5 = v9;
+  if (v9)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+}
+
+void sub_22D3C0E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+{
+  operator delete(v14);
+  if (a14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ML3DAAPChildImportItem::~ML3DAAPChildImportItem(ML3DAAPImportItem *this)
+{
+  ML3DAAPImportItem::~ML3DAAPImportItem(this);
+
+  JUMPOUT(0x2318CD250);
+}
+
+uint64_t std::__shared_ptr_pointer<ML3DAAPPersonImportItem *,std::shared_ptr<ML3ImportItem>::__shared_ptr_default_delete<ML3ImportItem,ML3DAAPPersonImportItem>,std::allocator<ML3DAAPPersonImportItem>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "NSt3__110shared_ptrI13ML3ImportItemE27__shared_ptr_default_deleteIS1_23ML3DAAPPersonImportItemEE"))
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
 }

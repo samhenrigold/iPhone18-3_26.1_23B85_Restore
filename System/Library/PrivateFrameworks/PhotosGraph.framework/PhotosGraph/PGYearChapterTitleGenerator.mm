@@ -60,21 +60,19 @@ void __52__PGYearChapterTitleGenerator_generateChapterTitles__block_invoke(uint6
 
 - (id)momentNodesByChapterYearNodeWithMomentNodes:(id)nodes
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   v4 = +[PGGraphMomentNode dateOfMoment];
   v5 = +[PGGraphDateNode yearOfDate];
   v6 = objc_alloc(MEMORY[0x277D22C00]);
-  v13[0] = v4;
-  v13[1] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = v4;
+  v12[1] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v8 = [v6 initWithSteps:v7];
 
   v9 = [MEMORY[0x277D22BF8] adjacencyWithSources:nodesCopy relation:v8 targetsClass:objc_opt_class()];
 
   transposed = [v9 transposed];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return transposed;
 }

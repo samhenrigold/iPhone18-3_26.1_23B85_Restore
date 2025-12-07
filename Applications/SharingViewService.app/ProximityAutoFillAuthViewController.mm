@@ -70,7 +70,7 @@
   showCopy = show;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillAuthViewController _handleKeyboardWillShow:]", 30, "Keyboard will show\n");
   }
 
   v30[0] = _NSConcreteStackBlock;
@@ -127,7 +127,7 @@
   buttonCopy = button;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillAuthViewController handleDismissButton:]", 30, "Auth Dismiss button\n");
   }
 
   [*(&self->_infoLabel + 1) setDisabled:1];
@@ -139,7 +139,7 @@
   disappearCopy = disappear;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillAuthViewController viewDidDisappear:]", 30, "Auth ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -154,7 +154,7 @@
   appearCopy = appear;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillAuthViewController viewWillAppear:]", 30, "Auth ViewWillAppear\n");
   }
 
   v13.receiver = self;

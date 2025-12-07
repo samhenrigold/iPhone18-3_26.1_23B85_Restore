@@ -27,7 +27,7 @@
     v2->_calloutQueue = v8;
 
     v10 = [TestFlightFeedbackDatabaseStore alloc];
-    v11 = sub_1001C0DF0();
+    v11 = sub_1001C0DF0(Environment);
     v12 = sub_1001C0EC4(v11);
     v13 = [(SQLiteDatabaseStore *)v10 initWithDatabase:v12];
     databaseStore = v2->_databaseStore;
@@ -44,7 +44,7 @@
 
 - (void)_handleNetworkStateDidChangeNotification:(id)notification
 {
-  v4 = sub_100227468();
+  v4 = sub_100227468(NetworkMonitor);
   isConnected = [v4 isConnected];
 
   if (isConnected)

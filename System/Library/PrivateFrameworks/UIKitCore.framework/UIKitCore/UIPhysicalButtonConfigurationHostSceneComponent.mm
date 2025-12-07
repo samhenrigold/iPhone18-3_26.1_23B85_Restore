@@ -3,7 +3,7 @@
 
 @implementation UIPhysicalButtonConfigurationHostSceneComponent
 
-uint64_t __78___UIPhysicalButtonConfigurationHostSceneComponent_appendDescriptionToStream___block_invoke(uint64_t a1)
+id __78___UIPhysicalButtonConfigurationHostSceneComponent_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) hasSuccinctStyle])
   {

@@ -25,38 +25,39 @@
 - (id)initWithXPCDictionary:()xpcdictConv
 {
   v4 = a3;
-  v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = __Block_byref_object_copy__3;
-  v16[3] = __Block_byref_object_dispose__3;
+  v16 = 0;
+  v17[0] = &v16;
+  v17[1] = 0x3032000000;
+  v17[2] = __Block_byref_object_copy__3;
+  v17[3] = __Block_byref_object_dispose__3;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __51__NSDictionary_xpcdictConv__initWithXPCDictionary___block_invoke;
-  v12 = &unk_2798EF8B0;
-  v14 = &v15;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __51__NSDictionary_xpcdictConv__initWithXPCDictionary___block_invoke;
+  v13 = &unk_2798EF8B0;
+  v15 = &v16;
   selfCopy = self;
-  v13 = selfCopy;
-  if (xpc_dictionary_apply(v4, &v9))
+  v14 = selfCopy;
+  v6 = xpc_dictionary_apply(v4, &v10);
+  if (v6)
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(NSDictionary(xpcdictConv) *)v16 initWithXPCDictionary:v6];
+      [(NSDictionary(xpcdictConv) *)v17 initWithXPCDictionary:v7];
     }
 
-    selfCopy = [selfCopy initWithDictionary:{*(v16[0] + 40), v9, v10, v11, v12}];
-    v7 = selfCopy;
+    selfCopy = [selfCopy initWithDictionary:{*(v17[0] + 40), v10, v11, v12, v13}];
+    v8 = selfCopy;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  _Block_object_dispose(&v15, 8);
-  return v7;
+  _Block_object_dispose(&v16, 8);
+  return v8;
 }
 
 - (id)createXPCDictionary
@@ -117,7 +118,7 @@
                 {
                   uTF8String = [v8 UTF8String];
                   [v10 doubleValue];
-                  xpc_dictionary_set_double(v2, uTF8String, v22);
+                  xpc_dictionary_set_double(v2, uTF8String, v23);
                 }
 
                 else
@@ -128,14 +129,14 @@
                     objCType4 = [v10 objCType];
                     if (*objCType4 != 99 || objCType4[1])
                     {
-                      v24 = defaultLogHandle();
-                      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+                      v25 = defaultLogHandle(objCType4);
+                      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                       {
                         [(NSDictionary(xpcdictConv) *)v10 createXPCDictionary];
                       }
 
 LABEL_41:
-                      v23 = 0;
+                      v24 = 0;
                       goto LABEL_42;
                     }
                   }
@@ -148,12 +149,13 @@ LABEL_41:
             else
             {
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              isKindOfClass = objc_opt_isKindOfClass();
+              if ((isKindOfClass & 1) == 0)
               {
-                v10 = defaultLogHandle();
+                v10 = defaultLogHandle(isKindOfClass);
                 if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
                 {
-                  [NSDictionary(xpcdictConv) createXPCDictionary];
+                  [(NSDictionary(xpcdictConv) *)v8 createXPCDictionary];
                 }
 
                 goto LABEL_41;
@@ -161,7 +163,7 @@ LABEL_41:
 
               uTF8String2 = [v8 UTF8String];
               [v9 timeIntervalSince1970];
-              xpc_dictionary_set_date(v2, uTF8String2, v20);
+              xpc_dictionary_set_date(v2, uTF8String2, v21);
             }
           }
         }
@@ -177,12 +179,10 @@ LABEL_41:
     }
   }
 
-  v23 = v2;
+  v24 = v2;
 LABEL_42:
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v24;
 }
 
 + (NSObject)dictionaryFromJsonData:()xpcdictConv
@@ -190,7 +190,7 @@ LABEL_42:
   v3 = a3;
   if (!v3)
   {
-    v6 = defaultLogHandle();
+    v6 = defaultLogHandle(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[NSDictionary(xpcdictConv) dictionaryFromJsonData:];
@@ -233,36 +233,37 @@ LABEL_5:
 
 - (NSObject)convertToNSData
 {
-  if ([MEMORY[0x277CCAAA0] isValidJSONObject:self])
+  v2 = [MEMORY[0x277CCAAA0] isValidJSONObject:self];
+  if (v2)
   {
-    v7 = 0;
-    v2 = [MEMORY[0x277CCAAA0] dataWithJSONObject:self options:0 error:&v7];
-    v3 = v7;
-    v4 = v3;
-    if (v2)
+    v8 = 0;
+    v3 = [MEMORY[0x277CCAAA0] dataWithJSONObject:self options:0 error:&v8];
+    v4 = v8;
+    v5 = v4;
+    if (v3)
     {
-      v5 = v2;
+      v6 = v3;
 
-      v4 = v5;
+      v5 = v6;
       goto LABEL_4;
     }
 
-    [(NSDictionary(xpcdictConv) *)v3 convertToNSData];
+    [(NSDictionary(xpcdictConv) *)v4 convertToNSData];
   }
 
   else
   {
-    v4 = defaultLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = defaultLogHandle(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [NSDictionary(xpcdictConv) convertToNSData];
     }
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_4:
 
-  return v5;
+  return v6;
 }
 
 + (id)dictionaryFromXPCDictionary:()xpcdictConv withDataFromKey:
@@ -319,94 +320,82 @@ LABEL_4:
 
 - (id)objectForKey:()xpcdictConv ofType:
 {
-  v1 = [self objectForKey:?];
-  if (v1 && (objc_opt_isKindOfClass() & 1) != 0)
+  v4 = [self objectForKey:a3];
+  if (v4 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v2 = v1;
+    v5 = v4;
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  return v2;
+  return v5;
 }
 
 - (void)initWithXPCDictionary:()xpcdictConv .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_259B7D000, a2, OS_LOG_TYPE_DEBUG, "Converted from xpc to NSDictionary: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_259B7D000, a2, OS_LOG_TYPE_DEBUG, "Converted from xpc to NSDictionary: %{public}@", &v3, 0xCu);
 }
 
 - (void)createXPCDictionary
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self objCType];
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)dictionaryFromJsonData:()xpcdictConv .cold.1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = defaultLogHandle();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = defaultLogHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6[0] = 136315394;
+    v5[0] = 136315394;
     OUTLINED_FUNCTION_0_0();
-    v7 = a1;
-    _os_log_error_impl(&dword_259B7D000, v4, OS_LOG_TYPE_ERROR, "%s: format not correct: %{public}@", v6, 0x16u);
+    v6 = a1;
+    _os_log_error_impl(&dword_259B7D000, v4, OS_LOG_TYPE_ERROR, "%s: format not correct: %{public}@", v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)dictionaryFromJsonData:()xpcdictConv .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = [a1 localizedDescription];
+    v3 = [a1 localizedDescription];
     [a1 code];
     OUTLINED_FUNCTION_1_4();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (void)dictionaryFromJsonData:()xpcdictConv .cold.3()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v3 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  v3 = 0;
-  _os_log_error_impl(&dword_259B7D000, v0, OS_LOG_TYPE_ERROR, "%s: Cannot convert %{public}@ to dictionary", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 0;
+  _os_log_error_impl(&dword_259B7D000, v0, OS_LOG_TYPE_ERROR, "%s: Cannot convert %{public}@ to dictionary", v1, 0x16u);
 }
 
 - (void)convertToNSData
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     localizedDescription = [self localizedDescription];
     [self code];
     OUTLINED_FUNCTION_1_4();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -34,7 +34,7 @@
       v24 = 0uLL;
       if (geometry)
       {
-        [geometry transform];
+        objc_msgSend_transform(geometry, 0.0, 0.0, 0.0);
         v23 = v38;
         v24 = v39;
         v22 = v40;
@@ -47,7 +47,7 @@
       v28 = 0uLL;
       if (geometry2)
       {
-        [geometry2 transform];
+        objc_msgSend_transform(geometry2, 0.0, 0.0);
         v26 = v38;
         v27 = v39;
         v28 = v40;

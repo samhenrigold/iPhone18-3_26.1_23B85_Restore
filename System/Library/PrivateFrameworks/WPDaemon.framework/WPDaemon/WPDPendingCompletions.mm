@@ -38,7 +38,7 @@
 
 - (unint64_t)addCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (completionCopy)
   {
@@ -77,13 +77,13 @@
       {
         name = selfCopy->_name;
         v10 = [(NSMutableArray *)selfCopy->_pendingCompletions count];
-        v13 = 138412802;
-        v14 = name;
-        v15 = 2048;
-        v16 = v7;
-        v17 = 2048;
-        v18 = v10;
-        _os_log_debug_impl(&dword_272965000, v8, OS_LOG_TYPE_DEBUG, "WPDSearchPartyAgent %@ added completion ID:%lu, outstanding:%lu", &v13, 0x20u);
+        v12 = 138412802;
+        v13 = name;
+        v14 = 2048;
+        v15 = v7;
+        v16 = 2048;
+        v17 = v10;
+        _os_log_debug_impl(&dword_272965000, v8, OS_LOG_TYPE_DEBUG, "WPDSearchPartyAgent %@ added completion ID:%lu, outstanding:%lu", &v12, 0x20u);
       }
     }
 
@@ -95,13 +95,12 @@
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)completeID:(unint64_t)d success:(BOOL)success
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (d)
   {
     successCopy = success;
@@ -128,29 +127,29 @@
       {
         lastID = selfCopy->_lastID;
         name = selfCopy->_name;
-        v19 = [(NSMutableArray *)selfCopy->_pendingCompletions count];
+        v18 = [(NSMutableArray *)selfCopy->_pendingCompletions count];
         *buf = 138413570;
-        v22 = name;
-        v23 = 2048;
+        v21 = name;
+        v22 = 2048;
         dCopy2 = d;
-        v25 = 2048;
-        v26 = v9;
-        v27 = 1024;
-        *v28 = successCopy;
-        *&v28[4] = 2048;
-        *&v28[6] = lastID;
-        v29 = 2048;
-        v30 = v19;
+        v24 = 2048;
+        v25 = v9;
+        v26 = 1024;
+        *v27 = successCopy;
+        *&v27[4] = 2048;
+        *&v27[6] = lastID;
+        v28 = 2048;
+        v29 = v18;
         _os_log_debug_impl(&dword_272965000, v12, OS_LOG_TYPE_DEBUG, "WPDSearchPartyAgent %@ will complete ID:%lu (count %lu), success:%d, last ID:%lU pending:%lu", buf, 0x3Au);
       }
 
       objc_sync_exit(selfCopy);
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __44__WPDPendingCompletions_completeID_success___block_invoke_137;
-      v20[3] = &__block_descriptor_40_e22_v32__0___v__q_8Q16_B24l;
-      v20[4] = !successCopy;
-      [(WPDPendingCompletions *)v11 enumerateObjectsUsingBlock:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __44__WPDPendingCompletions_completeID_success___block_invoke_137;
+      v19[3] = &__block_descriptor_40_e22_v32__0___v__q_8Q16_B24l;
+      v19[4] = !successCopy;
+      [(WPDPendingCompletions *)v11 enumerateObjectsUsingBlock:v19];
       selfCopy = v11;
     }
 
@@ -164,17 +163,17 @@
       v10 = WiProxLog;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v14 = selfCopy->_lastID;
-        v15 = selfCopy->_name;
-        v16 = [(NSMutableArray *)selfCopy->_pendingCompletions count];
+        v13 = selfCopy->_lastID;
+        v14 = selfCopy->_name;
+        v15 = [(NSMutableArray *)selfCopy->_pendingCompletions count];
         *buf = 138413058;
-        v22 = v15;
-        v23 = 2048;
+        v21 = v14;
+        v22 = 2048;
         dCopy2 = d;
-        v25 = 2048;
-        v26 = v14;
-        v27 = 2048;
-        *v28 = v16;
+        v24 = 2048;
+        v25 = v13;
+        v26 = 2048;
+        *v27 = v15;
         _os_log_error_impl(&dword_272965000, v10, OS_LOG_TYPE_ERROR, "WPDSearchPartyAgent %@ NOOP unexpected completion ID:%lu, last known ID:%lu, pending count:%lu", buf, 0x2Au);
       }
 
@@ -193,11 +192,9 @@
 
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
     {
-      [WPDPendingCompletions completeID:? success:?];
+      [WPDPendingCompletions completeID:success:];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCompletion:(uint64_t)a3 .cold.3(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)
@@ -209,15 +206,6 @@
   *(buf + 11) = 2048;
   *(buf + 3) = a3;
   _os_log_error_impl(&dword_272965000, log, OS_LOG_TYPE_ERROR, "WPDSearchPartyAgent %@ cannot increment completion ID:%lu, outstanding:%lu", buf, 0x20u);
-}
-
-- (void)completeID:(uint64_t)a1 success:.cold.4(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 24);
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

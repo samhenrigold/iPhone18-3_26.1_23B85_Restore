@@ -136,7 +136,6 @@
   [(AKCodeEntryView *)selfCopy setNeedsUpdateConstraints];
   objc_storeStrong(&generatorFieldFont, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncStringValueToLabels
@@ -233,7 +232,6 @@
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(v26, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)emitCodeEnteredNotification
@@ -248,7 +246,6 @@
   MEMORY[0x277D82BD8](v2);
   MEMORY[0x277D82BD8](stringValue);
   MEMORY[0x277D82BD8](defaultCenter);
-  *MEMORY[0x277D85DE8];
 }
 
 - (NSString)stringValue

@@ -76,22 +76,22 @@ void __47__PSYServiceSyncSession_syncDidCompleteSending__block_invoke(uint64_t a
 
 void __40__PSYServiceSyncSession_syncDidComplete__block_invoke(uint64_t a1)
 {
-  v2 = psy_log();
+  v2 = psy_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = psy_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = psy_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25DF25000, v4, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator client called syncDidComplete", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25DF25000, v5, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator client called syncDidComplete", v7, 2u);
     }
   }
 
   *(*(a1 + 32) + 16) = 1;
-  v5 = [*(a1 + 32) delegate];
-  [v5 syncSessionDidComplete:*(a1 + 32)];
+  v6 = [*(a1 + 32) delegate];
+  [v6 syncSessionDidComplete:*(a1 + 32)];
 }
 
 - (void)syncDidFailWithError:(id)error

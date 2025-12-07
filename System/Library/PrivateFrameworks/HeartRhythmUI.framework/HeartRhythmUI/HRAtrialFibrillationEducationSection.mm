@@ -78,7 +78,7 @@
   if (row <= 3)
   {
     v4 = off_2796FBA10[row];
-    v5 = HRHeartRhythmUIFrameworkBundle();
+    v5 = HRHeartRhythmUIFrameworkBundle(self);
     v3 = [v5 localizedStringForKey:v4 value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   }
 

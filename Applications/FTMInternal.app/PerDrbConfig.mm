@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)dlRlcPathAsString:(int)string;
+- (id)ulRlcPathAsString:(int)string;
 - (int)StringAsDlRlcPath:(id)path;
 - (int)StringAsUlRlcPath:(id)path;
 - (int)dlRlcPath;
@@ -67,6 +69,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFF7 | v3;
+}
+
+- (id)ulRlcPathAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100317228[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsUlRlcPath:(id)path
@@ -201,6 +218,21 @@
   {
     return 0;
   }
+}
+
+- (id)dlRlcPathAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100317228[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDlRlcPath:(id)path
@@ -502,7 +534,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    drbId = self->_drbId;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -522,7 +553,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  ulRlcPath = self->_ulRlcPath;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -537,7 +567,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  ulDataSplitThreshold = self->_ulDataSplitThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -552,7 +581,6 @@ LABEL_5:
   }
 
 LABEL_20:
-  ulPdcpDuplication = self->_ulPdcpDuplication;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -567,7 +595,6 @@ LABEL_6:
   }
 
 LABEL_21:
-  ulRohcEnabled = self->_ulRohcEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -582,7 +609,6 @@ LABEL_7:
   }
 
 LABEL_22:
-  ulIntegrityEnabled = self->_ulIntegrityEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -597,7 +623,6 @@ LABEL_8:
   }
 
 LABEL_23:
-  ulCipheringEnabled = self->_ulCipheringEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -612,7 +637,6 @@ LABEL_9:
   }
 
 LABEL_24:
-  ulMoreThanOneRlcPresent = self->_ulMoreThanOneRlcPresent;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -627,7 +651,6 @@ LABEL_10:
   }
 
 LABEL_25:
-  dlRlcPath = self->_dlRlcPath;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -642,7 +665,6 @@ LABEL_11:
   }
 
 LABEL_26:
-  dlRohcEnabled = self->_dlRohcEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -657,12 +679,10 @@ LABEL_12:
   }
 
 LABEL_27:
-  dlIntegrityEnabled = self->_dlIntegrityEnabled;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_13:
-    dlCipheringEnabled = self->_dlCipheringEnabled;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1072,7 +1092,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v7 = *(equalCopy + 30);
     if (self->_ulPdcpDuplication)
     {
       if ((*(equalCopy + 30) & 1) == 0)
@@ -1099,7 +1118,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v8 = *(equalCopy + 31);
     if (self->_ulRohcEnabled)
     {
       if ((*(equalCopy + 31) & 1) == 0)
@@ -1126,7 +1144,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v9 = *(equalCopy + 28);
     if (self->_ulIntegrityEnabled)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -1153,7 +1170,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v10 = *(equalCopy + 27);
     if (self->_ulCipheringEnabled)
     {
       if ((*(equalCopy + 27) & 1) == 0)
@@ -1180,7 +1196,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v11 = *(equalCopy + 29);
     if (self->_ulMoreThanOneRlcPresent)
     {
       if ((*(equalCopy + 29) & 1) == 0)
@@ -1220,7 +1235,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v13 = *(equalCopy + 26);
     if (self->_dlRohcEnabled)
     {
       if ((*(equalCopy + 26) & 1) == 0)
@@ -1247,7 +1261,6 @@ LABEL_13:
       goto LABEL_85;
     }
 
-    v14 = *(equalCopy + 25);
     if (self->_dlIntegrityEnabled)
     {
       if ((*(equalCopy + 25) & 1) == 0)
@@ -1282,20 +1295,20 @@ LABEL_13:
       else if (!*(equalCopy + 24))
       {
 LABEL_87:
-        v12 = 1;
+        v7 = 1;
         goto LABEL_86;
       }
     }
 
 LABEL_85:
-    v12 = 0;
+    v7 = 0;
     goto LABEL_86;
   }
 
-  v12 = (v6 & 0x10) == 0;
+  v7 = (v6 & 0x10) == 0;
 LABEL_86:
 
-  return v12;
+  return v7;
 }
 
 - (unint64_t)hash

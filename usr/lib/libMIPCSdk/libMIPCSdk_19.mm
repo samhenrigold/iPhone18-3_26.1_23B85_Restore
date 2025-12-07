@@ -39,7 +39,7 @@ LABEL_77:
 
   v55 = 0;
   v56 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x100u, &v55, "", 0, &v46);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 256, &v55, "", 0, &v46);
   v9 = v56;
   if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -124,7 +124,7 @@ LABEL_21:
 
   v55 = 0;
   v56 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x101u, &v55, "", 0, &v46);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 257, &v55, "", 0, &v46);
   v18 = v56;
   if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -209,7 +209,7 @@ LABEL_38:
 
   v55 = 0;
   v56 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x102u, &v55, "", 0, &v46);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 258, &v55, "", 0, &v46);
   v32 = v56;
   if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -358,15 +358,15 @@ LABEL_78:
   }
 }
 
-void sub_297B597B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B597B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 96);
-  if (v9)
+  v15 = *(v13 - 96);
+  if (v15)
   {
-    *(v7 - 88) = v9;
-    operator delete(v9);
+    *(v13 - 88) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -392,24 +392,24 @@ mipc::nw::Cell_Measurement_Cnf *mipc::nw::Cell_Measurement_Cnf::Cell_Measurement
   *(this + 200) = 0u;
   *(this + 216) = 0u;
   *(this + 80) = 1;
-  mipc::nw::Cell_Measurement_Cnf::deserialize(this, &v7);
-  v5 = v10;
-  if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mipc::nw::Cell_Measurement_Cnf::deserialize(v7, this);
+  v5 = v9;
+  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
     std::__shared_weak_count::__release_weak(v5);
-    if ((v9 & 0x80000000) == 0)
+    if ((v8 & 0x80000000) == 0)
     {
       return this;
     }
   }
 
-  else if ((v9 & 0x80000000) == 0)
+  else if ((v8 & 0x80000000) == 0)
   {
     return this;
   }
 
-  operator delete(__p);
+  operator delete(v7[1]);
   return this;
 }
 
@@ -477,33 +477,33 @@ LABEL_5:
   goto LABEL_6;
 }
 
-void mipc::nw::Cell_Measurement_Cnf::deserialize(mipc::nw::Cell_Measurement_Cnf *this@<X0>, uint64_t a2@<X8>)
+void mipc::nw::Cell_Measurement_Cnf::deserialize(uint64_t *__return_ptr a1@<X8>, mipc::nw::Cell_Measurement_Cnf *this@<X0>)
 {
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
-  *a2 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
   (*(*this + 40))(&v28);
-  *a2 = v28;
-  if (*(a2 + 31) < 0)
+  *a1 = v28;
+  if (*(a1 + 31) < 0)
   {
-    operator delete(*(a2 + 8));
+    operator delete(a1[1]);
   }
 
-  *(a2 + 8) = __p;
-  *(a2 + 24) = v30;
+  *(a1 + 1) = __p;
+  a1[3] = v30;
   HIBYTE(v30) = 0;
   LOBYTE(__p) = 0;
   v4 = v31;
   v31 = 0uLL;
-  v5 = *(a2 + 40);
-  *(a2 + 32) = v4;
+  v5 = a1[5];
+  *(a1 + 2) = v4;
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
     std::__shared_weak_count::__release_weak(v5);
   }
 
-  v6 = *a2;
+  v6 = *a1;
   v7 = *(&v31 + 1);
   if (*(&v31 + 1) && !atomic_fetch_add((*(&v31 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -534,27 +534,27 @@ LABEL_9:
 
 LABEL_13:
   mipc::Message::deserializeTlv<mipc::mipc_struct_array_t<mipc::mipc_cell_plmn_struct4,65535ul,false>,255ul,false>(&v28, this, this + 11, 0x105u);
-  *a2 = v28;
-  if (*(a2 + 31) < 0)
+  *a1 = v28;
+  if (*(a1 + 31) < 0)
   {
-    operator delete(*(a2 + 8));
+    operator delete(a1[1]);
   }
 
-  *(a2 + 8) = __p;
-  *(a2 + 24) = v30;
+  *(a1 + 1) = __p;
+  a1[3] = v30;
   HIBYTE(v30) = 0;
   LOBYTE(__p) = 0;
   v8 = v31;
   v31 = 0uLL;
-  v9 = *(a2 + 40);
-  *(a2 + 32) = v8;
+  v9 = a1[5];
+  *(a1 + 2) = v8;
   if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v9->__on_zero_shared)(v9);
     std::__shared_weak_count::__release_weak(v9);
   }
 
-  v10 = *a2;
+  v10 = *a1;
   v11 = *(&v31 + 1);
   if (!*(&v31 + 1) || atomic_fetch_add((*(&v31 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -588,27 +588,27 @@ LABEL_21:
 
 LABEL_25:
   mipc::Message::deserializeTlv<mipc::mipc_struct_array_t<mipc::mipc_cell_plmn_struct4,65535ul,false>,255ul,false>(&v28, this, this + 14, 0x108u);
-  *a2 = v28;
-  if (*(a2 + 31) < 0)
+  *a1 = v28;
+  if (*(a1 + 31) < 0)
   {
-    operator delete(*(a2 + 8));
+    operator delete(a1[1]);
   }
 
-  *(a2 + 8) = __p;
-  *(a2 + 24) = v30;
+  *(a1 + 1) = __p;
+  a1[3] = v30;
   HIBYTE(v30) = 0;
   LOBYTE(__p) = 0;
   v12 = v31;
   v31 = 0uLL;
-  v13 = *(a2 + 40);
-  *(a2 + 32) = v12;
+  v13 = a1[5];
+  *(a1 + 2) = v12;
   if (v13 && !atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v13->__on_zero_shared)(v13);
     std::__shared_weak_count::__release_weak(v13);
   }
 
-  v14 = *a2;
+  v14 = *a1;
   v15 = *(&v31 + 1);
   if (*(&v31 + 1) && !atomic_fetch_add((*(&v31 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -624,27 +624,27 @@ LABEL_25:
   if (!v14)
   {
     mipc::Message::deserializeTlv<mipc::mipc_nw_cellmeasurement_info_v1_struct8,255ul,false>(&v28, this, this + 17, 0x111u);
-    *a2 = v28;
-    if (*(a2 + 31) < 0)
+    *a1 = v28;
+    if (*(a1 + 31) < 0)
     {
-      operator delete(*(a2 + 8));
+      operator delete(a1[1]);
     }
 
-    *(a2 + 8) = __p;
-    *(a2 + 24) = v30;
+    *(a1 + 1) = __p;
+    a1[3] = v30;
     HIBYTE(v30) = 0;
     LOBYTE(__p) = 0;
     v16 = v31;
     v31 = 0uLL;
-    v17 = *(a2 + 40);
-    *(a2 + 32) = v16;
+    v17 = a1[5];
+    *(a1 + 2) = v16;
     if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v17->__on_zero_shared)(v17);
       std::__shared_weak_count::__release_weak(v17);
     }
 
-    v18 = *a2;
+    v18 = *a1;
     v19 = *(&v31 + 1);
     if (*(&v31 + 1) && !atomic_fetch_add((*(&v31 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -660,27 +660,27 @@ LABEL_25:
     if (!v18)
     {
       mipc::Message::deserializeTlv<mipc::mipc_nw_cellmeasurement_info_v1_struct8,255ul,false>(&v28, this, this + 20, 0x112u);
-      *a2 = v28;
-      if (*(a2 + 31) < 0)
+      *a1 = v28;
+      if (*(a1 + 31) < 0)
       {
-        operator delete(*(a2 + 8));
+        operator delete(a1[1]);
       }
 
-      *(a2 + 8) = __p;
-      *(a2 + 24) = v30;
+      *(a1 + 1) = __p;
+      a1[3] = v30;
       HIBYTE(v30) = 0;
       LOBYTE(__p) = 0;
       v20 = v31;
       v31 = 0uLL;
-      v21 = *(a2 + 40);
-      *(a2 + 32) = v20;
+      v21 = a1[5];
+      *(a1 + 2) = v20;
       if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
         (v21->__on_zero_shared)(v21);
         std::__shared_weak_count::__release_weak(v21);
       }
 
-      v22 = *a2;
+      v22 = *a1;
       v23 = *(&v31 + 1);
       if (*(&v31 + 1) && !atomic_fetch_add((*(&v31 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
@@ -696,27 +696,27 @@ LABEL_25:
       if (!v22)
       {
         mipc::Message::deserializeTlv<mipc::mipc_nw_cell_band_bandwidth_v1_struct4,255ul,false>(&v28, this, this + 23, 0x113u);
-        *a2 = v28;
-        if (*(a2 + 31) < 0)
+        *a1 = v28;
+        if (*(a1 + 31) < 0)
         {
-          operator delete(*(a2 + 8));
+          operator delete(a1[1]);
         }
 
-        *(a2 + 8) = __p;
-        *(a2 + 24) = v30;
+        *(a1 + 1) = __p;
+        a1[3] = v30;
         HIBYTE(v30) = 0;
         LOBYTE(__p) = 0;
         v24 = v31;
         v31 = 0uLL;
-        v25 = *(a2 + 40);
-        *(a2 + 32) = v24;
+        v25 = a1[5];
+        *(a1 + 2) = v24;
         if (v25 && !atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v25->__on_zero_shared)(v25);
           std::__shared_weak_count::__release_weak(v25);
         }
 
-        v26 = *a2;
+        v26 = *a1;
         v27 = *(&v31 + 1);
         if (*(&v31 + 1) && !atomic_fetch_add((*(&v31 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
@@ -732,7 +732,7 @@ LABEL_25:
         if (!v26)
         {
           mipc::Message::deserializeTlv<mipc::mipc_nw_cell_band_bandwidth_v1_struct4,255ul,false>(&v28, this, this + 26, 0x114u);
-          mipc::Error::operator=(a2, &v28);
+          mipc::Error::operator=(a1, &v28);
           mipc::Error::~Error(&v28);
         }
       }
@@ -740,14 +740,15 @@ LABEL_25:
   }
 }
 
-uint64_t mipc::nw::Cell_Measurement_Cnf::Cell_Measurement_Cnf(uint64_t a1, uint64_t a2, char a3)
+uint64_t mipc::nw::Cell_Measurement_Cnf::Cell_Measurement_Cnf(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -757,14 +758,14 @@ uint64_t mipc::nw::Cell_Measurement_Cnf::Cell_Measurement_Cnf(uint64_t a1, uint6
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -786,7 +787,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1100, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1100, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -842,9 +843,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B5A378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B5A378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -988,7 +990,7 @@ void mipc::Message::deserializeTlv<mipc::mipc_struct_array_t<mipc::mipc_cell_plm
   v72 = v8;
   *v70 = v8;
   *&v70[16] = v8;
-  mipc::Message::findTLV(this, a4, v70);
+  mipc::Message::findTLV(v70, this, a4);
   *&v69[16] = 0xAAAAAAAAAAAAAAAALL;
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -1418,43 +1420,43 @@ LABEL_88:
   }
 }
 
-void sub_297B5AC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_297B5AC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   mipc::Error::~Error(va);
   _Unwind_Resume(a1);
 }
 
-void sub_297B5ACA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_297B5ACA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
   v15 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
   std::shared_ptr<std::vector<unsigned char>>::~shared_ptr[abi:ne200100](va);
   mipc::Error::~Error(va1);
   mipc::Error::~Error(va2);
   _Unwind_Resume(a1);
 }
 
-void sub_297B5ACCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B5ACCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   mipc::Error::~Error(va);
   mipc::Error::~Error(va1);
   _Unwind_Resume(a1);
@@ -1469,7 +1471,7 @@ void mipc::Message::deserializeTlv<mipc::mipc_nw_cellmeasurement_info_v1_struct8
   v46 = v8;
   *v44 = v8;
   *&v44[16] = v8;
-  mipc::Message::findTLV(this, a4, v44);
+  mipc::Message::findTLV(v44, this, a4);
   *&v43[16] = 0xAAAAAAAAAAAAAAAALL;
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -1701,16 +1703,16 @@ LABEL_58:
   }
 }
 
-void sub_297B5B0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_297B5B0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   mipc::Error::~Error(va);
   mipc::Error::~Error(va1);
   _Unwind_Resume(a1);
@@ -1725,7 +1727,7 @@ void mipc::Message::deserializeTlv<mipc::mipc_nw_cell_band_bandwidth_v1_struct4,
   v44 = v8;
   *v42 = v8;
   *&v42[16] = v8;
-  mipc::Message::findTLV(this, a4, v42);
+  mipc::Message::findTLV(v42, this, a4);
   *&v41[16] = 0xAAAAAAAAAAAAAAAALL;
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -1948,16 +1950,16 @@ LABEL_57:
   }
 }
 
-void sub_297B5B530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_297B5B530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   mipc::Error::~Error(va);
   mipc::Error::~Error(va1);
   _Unwind_Resume(a1);
@@ -1965,17 +1967,15 @@ void sub_297B5B530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 unint64_t mipc::nw::Cell_Measurement_Cnf::getSize(mipc::nw::Cell_Measurement_Cnf *this)
 {
-  v1 = *(this + 88);
-  v2 = *(this + 12);
-  v3 = *(this + 11);
-  if (v3 == v2)
+  v1 = *(this + 12);
+  v2 = *(this + 11);
+  if (v2 == v1)
   {
-    v4 = 0;
-    v6 = *(this + 4);
-    v10 = *(this + 7);
-    v8 = *(this + 15);
-    v9 = *(this + 14);
-    if (v9 == v8)
+    v3 = 0;
+    v5 = *(this + 4);
+    v6 = *(this + 15);
+    v7 = *(this + 14);
+    if (v7 == v6)
     {
       goto LABEL_14;
     }
@@ -1983,24 +1983,23 @@ unint64_t mipc::nw::Cell_Measurement_Cnf::getSize(mipc::nw::Cell_Measurement_Cnf
 
   else
   {
-    v4 = 16;
+    v3 = 16;
     while (1)
     {
-      v5 = v3[1] - *v3;
-      if ((v5 + 4) >> 16)
+      v4 = v2[1] - *v2;
+      if ((v4 + 4) >> 16)
       {
         break;
       }
 
-      v4 += (v5 + 11) & 0xFFF8;
-      v3 += 3;
-      if (v3 == v2)
+      v3 += (v4 + 11) & 0xFFF8;
+      v2 += 3;
+      if (v2 == v1)
       {
-        v6 = *(this + 4);
-        v7 = *(this + 7);
-        v8 = *(this + 15);
-        v9 = *(this + 14);
-        if (v9 != v8)
+        v5 = *(this + 4);
+        v6 = *(this + 15);
+        v7 = *(this + 14);
+        if (v7 != v6)
         {
           goto LABEL_10;
         }
@@ -2009,94 +2008,93 @@ unint64_t mipc::nw::Cell_Measurement_Cnf::getSize(mipc::nw::Cell_Measurement_Cnf
       }
     }
 
-    v4 = 0;
-    v6 = *(this + 4);
-    v11 = *(this + 7);
-    v8 = *(this + 15);
-    v9 = *(this + 14);
-    if (v9 == v8)
+    v3 = 0;
+    v5 = *(this + 4);
+    v6 = *(this + 15);
+    v7 = *(this + 14);
+    if (v7 == v6)
     {
       goto LABEL_14;
     }
   }
 
 LABEL_10:
-  v12 = 16;
+  v8 = 16;
   while (1)
   {
-    v13 = v9[1] - *v9;
-    if ((v13 + 4) >> 16)
+    v9 = v7[1] - *v7;
+    if ((v9 + 4) >> 16)
     {
       break;
     }
 
-    v12 += (v13 + 11) & 0xFFF8;
-    v9 += 3;
-    if (v9 == v8)
+    v8 += (v9 + 11) & 0xFFF8;
+    v7 += 3;
+    if (v7 == v6)
     {
       goto LABEL_15;
     }
   }
 
 LABEL_14:
-  v12 = 0;
+  v8 = 0;
 LABEL_15:
-  v14 = *(this + 17);
-  v15 = *(this + 18);
-  if (v14 == v15)
+  v10 = *(this + 17);
+  v11 = *(this + 18);
+  if (v10 == v11)
   {
-    v16 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v16 = 40 * ((v15 - v14 - 32) >> 5) + 56;
+    v12 = 40 * ((v11 - v10 - 32) >> 5) + 56;
   }
 
-  v17 = *(this + 20);
-  v18 = *(this + 21);
-  if (v17 == v18)
+  v13 = *(this + 20);
+  v14 = *(this + 21);
+  if (v13 == v14)
   {
-    v19 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v19 = 40 * ((v18 - v17 - 32) >> 5) + 56;
+    v15 = 40 * ((v14 - v13 - 32) >> 5) + 56;
   }
 
-  v20 = *(this + 23);
-  v21 = *(this + 24);
-  if (v20 == v21)
+  v16 = *(this + 23);
+  v17 = *(this + 24);
+  if (v16 == v17)
   {
-    v22 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v22 = ((2 * (v21 - v20)) & 0xFFFFFFFFFFFFFFF0) + 16;
+    v18 = ((2 * (v17 - v16)) & 0xFFFFFFFFFFFFFFF0) + 16;
   }
 
-  v23 = *(this + 26);
-  v24 = *(this + 27);
-  if (v23 == v24)
+  v19 = *(this + 26);
+  v20 = *(this + 27);
+  if (v19 == v20)
   {
-    v25 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v25 = ((2 * (v24 - v23)) & 0xFFFFFFFFFFFFFFF0) + 16;
+    v21 = ((2 * (v20 - v19)) & 0xFFFFFFFFFFFFFFF0) + 16;
   }
 
-  v26 = HIDWORD(v6) == 0;
-  v27 = 24;
-  if (!v26)
+  v22 = HIDWORD(v5) == 0;
+  v23 = 24;
+  if (!v22)
   {
-    v27 = 32;
+    v23 = 32;
   }
 
-  return v4 + v12 + v16 + v19 + v27 + v22 + v25;
+  return v3 + v8 + v12 + v15 + v23 + v18 + v21;
 }
 
 double mipc::nw::Set_Roaming_Mode_Req::Set_Roaming_Mode_Req(uint64_t a1, char a2)
@@ -2313,7 +2311,7 @@ LABEL_35:
 
   v27 = 0;
   v28 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x100u, &v27, "", 0, &v18);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 256, &v27, "", 0, &v18);
   v9 = v28;
   if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -2456,15 +2454,15 @@ LABEL_36:
   }
 }
 
-void sub_297B5BFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B5BFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 96);
-  if (v9)
+  v15 = *(v13 - 96);
+  if (v15)
   {
-    *(v7 - 88) = v9;
-    operator delete(v9);
+    *(v13 - 88) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -2571,14 +2569,15 @@ double mipc::nw::Set_Roaming_Mode_Cnf::deserialize@<D0>(mipc::nw::Set_Roaming_Mo
   return result;
 }
 
-void *mipc::nw::Set_Roaming_Mode_Cnf::Set_Roaming_Mode_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Set_Roaming_Mode_Cnf::Set_Roaming_Mode_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -2588,14 +2587,14 @@ void *mipc::nw::Set_Roaming_Mode_Cnf::Set_Roaming_Mode_Cnf(void *a1, uint64_t a2
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -2617,7 +2616,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1110, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1110, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -2663,9 +2662,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B5C498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B5C498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -3040,15 +3040,15 @@ LABEL_14:
   }
 }
 
-void sub_297B5CE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B5CE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 80);
-  if (v9)
+  v15 = *(v13 - 80);
+  if (v15)
   {
-    *(v7 - 72) = v9;
-    operator delete(v9);
+    *(v13 - 72) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -3065,24 +3065,24 @@ mipc::nw::Get_Roaming_Mode_Cnf *mipc::nw::Get_Roaming_Mode_Cnf::Get_Roaming_Mode
 
   *this = &unk_2A1E6F0D8;
   *(this + 11) = 0;
-  mipc::nw::Get_Roaming_Mode_Cnf::deserialize(this, &v7);
-  v5 = v10;
-  if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mipc::nw::Get_Roaming_Mode_Cnf::deserialize(v7, this);
+  v5 = v9;
+  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
     std::__shared_weak_count::__release_weak(v5);
-    if ((v9 & 0x80000000) == 0)
+    if ((v8 & 0x80000000) == 0)
     {
       return this;
     }
   }
 
-  else if ((v9 & 0x80000000) == 0)
+  else if ((v8 & 0x80000000) == 0)
   {
     return this;
   }
 
-  operator delete(__p);
+  operator delete(v7[1]);
   return this;
 }
 
@@ -3099,34 +3099,34 @@ void sub_297B5CFA0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mipc::nw::Get_Roaming_Mode_Cnf::deserialize(void **this@<X0>, uint64_t a2@<X8>)
+void mipc::nw::Get_Roaming_Mode_Cnf::deserialize(uint64_t *__return_ptr a1@<X8>, void **this@<X0>)
 {
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
-  *a2 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
   (*(*this + 5))(&v8);
   v4 = v8;
-  *a2 = v8;
+  *a1 = v8;
   v5 = v11;
-  *(a2 + 8) = *__p;
-  *(a2 + 24) = v10;
-  *(a2 + 32) = v5;
+  *(a1 + 1) = *__p;
+  a1[3] = v10;
+  *(a1 + 2) = v5;
   if (!v4)
   {
-    mipc::Message::deserializeTlv<unsigned char,true>(this, this + 11, 0x100u, &v8);
-    *a2 = v8;
-    if (*(a2 + 31) < 0)
+    mipc::Message::deserializeTlv<unsigned char,true>(&v8, this, this + 11, 256);
+    *a1 = v8;
+    if (*(a1 + 31) < 0)
     {
-      operator delete(*(a2 + 8));
+      operator delete(a1[1]);
     }
 
-    *(a2 + 8) = *__p;
-    *(a2 + 24) = v10;
+    *(a1 + 1) = *__p;
+    a1[3] = v10;
     HIBYTE(v10) = 0;
     LOBYTE(__p[0]) = 0;
     v6 = v11;
     v11 = 0uLL;
-    *(a2 + 32) = v6;
+    *(a1 + 2) = v6;
     if (*(&v5 + 1) && !atomic_fetch_add((*(&v5 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
       (*(**(&v5 + 1) + 16))(*(&v5 + 1));
@@ -3153,14 +3153,15 @@ void mipc::nw::Get_Roaming_Mode_Cnf::deserialize(void **this@<X0>, uint64_t a2@<
   }
 }
 
-void *mipc::nw::Get_Roaming_Mode_Cnf::Get_Roaming_Mode_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Get_Roaming_Mode_Cnf::Get_Roaming_Mode_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -3170,14 +3171,14 @@ void *mipc::nw::Get_Roaming_Mode_Cnf::Get_Roaming_Mode_Cnf(void *a1, uint64_t a2
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -3199,7 +3200,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1112, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1112, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -3246,9 +3247,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B5D39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B5D39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -3622,7 +3624,7 @@ LABEL_50:
 
   v35 = 0;
   v36 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x100u, &v35, "", 0, &v26);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 256, &v35, "", 0, &v26);
   v10 = v36;
   if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -3703,7 +3705,7 @@ LABEL_21:
 
   v35 = 0;
   v36 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x101u, &v35, "", 0, &v26);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 257, &v35, "", 0, &v26);
   v16 = v36;
   if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -3826,15 +3828,15 @@ LABEL_51:
   }
 }
 
-void sub_297B5E240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B5E240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 96);
-  if (v9)
+  v15 = *(v13 - 96);
+  if (v15)
   {
-    *(v7 - 88) = v9;
-    operator delete(v9);
+    *(v13 - 88) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -3928,14 +3930,15 @@ double mipc::nw::Set_Urc_Enable_Cnf::deserialize@<D0>(mipc::nw::Set_Urc_Enable_C
   return result;
 }
 
-void *mipc::nw::Set_Urc_Enable_Cnf::Set_Urc_Enable_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Set_Urc_Enable_Cnf::Set_Urc_Enable_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -3945,14 +3948,14 @@ void *mipc::nw::Set_Urc_Enable_Cnf::Set_Urc_Enable_Cnf(void *a1, uint64_t a2, ch
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -3974,7 +3977,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1114, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1114, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -4020,9 +4023,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B5E714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B5E714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -4352,7 +4356,7 @@ LABEL_84:
 
   v56 = 0;
   v57 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x100u, &v56, "", 0, &v47);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 256, &v56, "", 0, &v47);
   v22 = v57;
   if (v57 && !atomic_fetch_add(&v57->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -4434,7 +4438,7 @@ LABEL_33:
 
   v56 = 0;
   v57 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x101u, &v56, "", 0, &v47);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 257, &v56, "", 0, &v47);
   v29 = v57;
   if (v57 && !atomic_fetch_add(&v57->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -4493,7 +4497,7 @@ LABEL_83:
   }
 
 LABEL_50:
-  mipc::Message::serializeTlv<mipc::mipc_string_t<7ul,false>,false>(this, v5, 0x102u, &v53, &v47);
+  mipc::Message::serializeTlv<mipc::mipc_string_t<7ul,false>,false>(this, v5, 258, &v53, &v47);
   __p[0] = v47;
   if (SHIBYTE(__p[3]) < 0)
   {
@@ -4636,7 +4640,7 @@ LABEL_85:
   }
 }
 
-void sub_297B5F580(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24)
+void sub_297B5F580(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24)
 {
   mipc::Error::~Error(&a15);
   if (__p)
@@ -4705,71 +4709,71 @@ void mipc::Message::serializeTlv<mipc::mipc_nw_arfcn_struct4,10ul,false>(uint64_
       goto LABEL_5;
     }
 
-    v18 = v11 + 1;
+    v17 = v11 + 1;
     **a4 = 261;
+    v18 = *a4 + 1;
+    *a4 = v18;
+    *v18 = 0;
     v19 = *a4 + 1;
     *a4 = v19;
     *v19 = 0;
-    v20 = *a4 + 1;
+    v20 = *a4 + 2;
     *a4 = v20;
     *v20 = 0;
     v21 = *a4 + 2;
     *a4 = v21;
-    *v21 = 0;
-    v22 = *a4 + 2;
+    *v21 = v11 + 1;
+    v22 = *a4 + 1;
     *a4 = v22;
-    *v22 = v11 + 1;
+    *v22 = v10;
     v23 = *a4 + 1;
     *a4 = v23;
-    *v23 = v10;
-    v24 = *a4 + 1;
-    *a4 = v24;
-    for (i = *a3; i != a3[1]; *a4 = v24)
+    for (i = *a3; i != a3[1]; *a4 = v23)
     {
-      *v24 = v18;
-      v26 = *a4 + 1;
-      *a4 = v26;
-      *v26 = 4;
-      v27 = (*a4)++;
-      ++v18;
-      v28 = *i++;
-      *(v27 + 1) = v28;
-      v24 = *a4 + 2;
+      *v23 = v17;
+      v25 = *a4 + 1;
+      *a4 = v25;
+      *v25 = 4;
+      v26 = (*a4)++;
+      ++v17;
+      v27 = *i++;
+      *(v26 + 1) = v27;
+      v23 = *a4 + 2;
     }
 
 LABEL_19:
     v8 = 0;
+    v29 = 0;
     v30 = 0;
-    v31 = 0;
     goto LABEL_20;
   }
 
   v8 = 0x100000010;
 LABEL_5:
+  v29 = 0xAAAAAAAAAAAAAAAALL;
   v30 = 0xAAAAAAAAAAAAAAAALL;
-  v31 = 0xAAAAAAAAAAAAAAAALL;
-  v32 = ((2 * v9) & 0xFFFFFFFFFFFFFFF8) + 16;
-  std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned long,0>(&v32, &v30);
-  v13 = v30;
-  v14 = *v30;
+  v31 = ((2 * v9) & 0xFFFFFFFFFFFFFFF8) + 16;
+  std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned long,0>(&v31, &v29);
+  v13 = v29;
+  v14 = *v29;
   v15 = *a3;
   if (*a3 != a3[1])
   {
     do
     {
+      v31 = 0xAAAAAAAAAAAAAAAALL;
       v32 = 0xAAAAAAAAAAAAAAAALL;
-      v33 = 0xAAAAAAAAAAAAAAAALL;
-      v34 = 4;
-      std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned long,0>(&v34, &v32);
-      **v32 = *v15;
-      if (v32)
+      v33 = 4;
+      std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned long,0>(&v33, &v31);
+      **v31 = *v15;
+      if (v31)
       {
-        memcpy(v14, *v32, *(v32 + 8) - *v32);
-        v14 += *(v32 + 8) - *v32;
+        memcpy(v14, *v31, *(v31 + 8) - *v31);
+        v14 += *(v31 + 8) - *v31;
       }
 
-      v16 = v33;
-      if (v33 && !atomic_fetch_add((v33 + 8), 0xFFFFFFFFFFFFFFFFLL))
+      v16 = v32;
+      if (v32 && !atomic_fetch_add((v32 + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
         (v16->__on_zero_shared)(v16);
         std::__shared_weak_count::__release_weak(v16);
@@ -4779,24 +4783,23 @@ LABEL_5:
     }
 
     while (v15 != a3[1]);
-    v13 = v30;
+    v13 = v29;
   }
 
   if (v14 != v13[1])
   {
-    v17 = v13[1];
     v13[1] = v14;
   }
 
 LABEL_20:
-  mipc::Message::handle<(mipc::Error::Type)1>(a2, v8, 0x105u, &v30, "", 0, a1);
-  v29 = v31;
-  if (v31)
+  mipc::Message::handle<(mipc::Error::Type)1>(a2, v8, 261, &v29, "", 0, a1);
+  v28 = v30;
+  if (v30)
   {
-    if (!atomic_fetch_add((v31 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add((v30 + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v29->__on_zero_shared)(v29);
-      std::__shared_weak_count::__release_weak(v29);
+      (v28->__on_zero_shared)(v28);
+      std::__shared_weak_count::__release_weak(v28);
     }
   }
 }
@@ -4889,14 +4892,15 @@ double mipc::nw::Set_Search_Store_Frequency_Info_Cnf::deserialize@<D0>(mipc::nw:
   return result;
 }
 
-void *mipc::nw::Set_Search_Store_Frequency_Info_Cnf::Set_Search_Store_Frequency_Info_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Set_Search_Store_Frequency_Info_Cnf::Set_Search_Store_Frequency_Info_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -4906,14 +4910,14 @@ void *mipc::nw::Set_Search_Store_Frequency_Info_Cnf::Set_Search_Store_Frequency_
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -4935,7 +4939,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1118, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1118, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -4981,9 +4985,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B5FDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B5FDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -5328,7 +5333,7 @@ LABEL_37:
 LABEL_10:
   v28 = 0;
   v29 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, v9, 0x100u, &v28, "", 0, &v19);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, v9, 256, &v28, "", 0, &v19);
   v10 = v29;
   if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -5471,15 +5476,15 @@ LABEL_38:
   }
 }
 
-void sub_297B60A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B60A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 96);
-  if (v9)
+  v15 = *(v13 - 96);
+  if (v15)
   {
-    *(v7 - 88) = v9;
-    operator delete(v9);
+    *(v13 - 88) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -5586,14 +5591,15 @@ double mipc::nw::Set_Network_Event_Cnf::deserialize@<D0>(mipc::nw::Set_Network_E
   return result;
 }
 
-void *mipc::nw::Set_Network_Event_Cnf::Set_Network_Event_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Set_Network_Event_Cnf::Set_Network_Event_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -5603,14 +5609,14 @@ void *mipc::nw::Set_Network_Event_Cnf::Set_Network_Event_Cnf(void *a1, uint64_t 
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -5632,7 +5638,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1128, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1128, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -5678,9 +5684,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B60EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B60EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -6017,7 +6024,7 @@ LABEL_35:
 
   v27 = 0;
   v28 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x100u, &v27, "", 0, &v18);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 256, &v27, "", 0, &v18);
   v9 = v28;
   if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -6160,15 +6167,15 @@ LABEL_36:
   }
 }
 
-void sub_297B61B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B61B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 96);
-  if (v9)
+  v15 = *(v13 - 96);
+  if (v15)
   {
-    *(v7 - 88) = v9;
-    operator delete(v9);
+    *(v13 - 88) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -6275,14 +6282,15 @@ double mipc::nw::Set_Nw_Ind_Report_Level_Cnf::deserialize@<D0>(mipc::nw::Set_Nw_
   return result;
 }
 
-void *mipc::nw::Set_Nw_Ind_Report_Level_Cnf::Set_Nw_Ind_Report_Level_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Set_Nw_Ind_Report_Level_Cnf::Set_Nw_Ind_Report_Level_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -6292,14 +6300,14 @@ void *mipc::nw::Set_Nw_Ind_Report_Level_Cnf::Set_Nw_Ind_Report_Level_Cnf(void *a
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -6321,7 +6329,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1148, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1148, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -6367,9 +6375,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B61FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B61FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -6700,7 +6709,7 @@ LABEL_15:
 
   v55 = 0;
   v56 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x100u, &v55, "", 0, &v46);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 256, &v55, "", 0, &v46);
   v16 = v56;
   if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -6782,7 +6791,7 @@ LABEL_33:
 
   v55 = 0;
   v56 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x101u, &v55, "", 0, &v46);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 257, &v55, "", 0, &v46);
   v23 = v56;
   if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -6855,7 +6864,7 @@ LABEL_50:
 
   v55 = 0;
   v56 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 0x102u, &v55, "", 0, &v46);
+  mipc::Message::handle<(mipc::Error::Type)1>(this, 0, 258, &v55, "", 0, &v46);
   v30 = v56;
   if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -7021,7 +7030,7 @@ LABEL_91:
   }
 }
 
-void sub_297B62FB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24)
+void sub_297B62FB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24)
 {
   mipc::Error::~Error(&a15);
   if (__p)
@@ -7064,7 +7073,7 @@ void mipc::Message::serializeTlv<mipc::mipc_nw_threshold_array_v1_struct4,false>
 
   v9 = 0;
   v10 = 0;
-  mipc::Message::handle<(mipc::Error::Type)1>(a2, 0, 0x106u, &v9, "", 0, a1);
+  mipc::Message::handle<(mipc::Error::Type)1>(a2, 0, 262, &v9, "", 0, a1);
   v8 = v10;
   if (v10)
   {
@@ -7164,14 +7173,15 @@ double mipc::nw::Set_Signal_Report_Criteria_Cnf::deserialize@<D0>(mipc::nw::Set_
   return result;
 }
 
-void *mipc::nw::Set_Signal_Report_Criteria_Cnf::Set_Signal_Report_Criteria_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Set_Signal_Report_Criteria_Cnf::Set_Signal_Report_Criteria_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -7181,14 +7191,14 @@ void *mipc::nw::Set_Signal_Report_Criteria_Cnf::Set_Signal_Report_Criteria_Cnf(v
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -7210,7 +7220,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1180, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1180, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -7256,9 +7266,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B635D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B635D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -7633,15 +7644,15 @@ LABEL_14:
   }
 }
 
-void sub_297B63F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B63F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 80);
-  if (v9)
+  v15 = *(v13 - 80);
+  if (v15)
   {
-    *(v7 - 72) = v9;
-    operator delete(v9);
+    *(v13 - 72) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -7659,7 +7670,7 @@ mipc::nw::Get_Lte_Rrc_State_Cnf *mipc::nw::Get_Lte_Rrc_State_Cnf::Get_Lte_Rrc_St
   *this = &unk_2A1E6F438;
   *(this + 11) = 0;
   *(this + 12) = 0;
-  mipc::nw::Get_Lte_Rrc_State_Cnf::deserialize(this, v7);
+  mipc::nw::Get_Lte_Rrc_State_Cnf::deserialize(v7, this);
   v5 = v9;
   if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -7712,44 +7723,44 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-void mipc::nw::Get_Lte_Rrc_State_Cnf::deserialize(void **this@<X0>, uint64_t *a2@<X8>)
+void mipc::nw::Get_Lte_Rrc_State_Cnf::deserialize(uint64_t *__return_ptr a1@<X8>, void **this@<X0>)
 {
-  *(a2 + 1) = 0u;
-  *(a2 + 2) = 0u;
-  *a2 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
   (*(*this + 5))(&v12);
   v4 = v12;
-  *a2 = v12;
+  *a1 = v12;
   v5 = v15;
-  *(a2 + 1) = *__p;
-  a2[3] = v14;
-  *(a2 + 2) = v5;
+  *(a1 + 1) = *__p;
+  a1[3] = v14;
+  *(a1 + 2) = v5;
   if (v4)
   {
     return;
   }
 
-  mipc::Message::deserializeTlv<unsigned char,true>(this, this + 11, 0x100u, &v12);
-  *a2 = v12;
-  if (*(a2 + 31) < 0)
+  mipc::Message::deserializeTlv<unsigned char,true>(&v12, this, this + 11, 256);
+  *a1 = v12;
+  if (*(a1 + 31) < 0)
   {
-    operator delete(a2[1]);
+    operator delete(a1[1]);
   }
 
-  *(a2 + 1) = *__p;
-  a2[3] = v14;
+  *(a1 + 1) = *__p;
+  a1[3] = v14;
   HIBYTE(v14) = 0;
   LOBYTE(__p[0]) = 0;
   v6 = v15;
   v15 = 0uLL;
-  *(a2 + 2) = v6;
+  *(a1 + 2) = v6;
   if (*(&v5 + 1) && !atomic_fetch_add((*(&v5 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(**(&v5 + 1) + 16))(*(&v5 + 1));
     std::__shared_weak_count::__release_weak(*(&v5 + 1));
   }
 
-  v7 = *a2;
+  v7 = *a1;
   v8 = *(&v15 + 1);
   if (!*(&v15 + 1) || atomic_fetch_add((*(&v15 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -7782,21 +7793,21 @@ LABEL_11:
   }
 
 LABEL_15:
-  mipc::Message::deserializeTlv<unsigned char,true>(this, this + 12, 0x101u, &v12);
-  *a2 = v12;
-  if (*(a2 + 31) < 0)
+  mipc::Message::deserializeTlv<unsigned char,true>(&v12, this, this + 12, 257);
+  *a1 = v12;
+  if (*(a1 + 31) < 0)
   {
-    operator delete(a2[1]);
+    operator delete(a1[1]);
   }
 
-  *(a2 + 1) = *__p;
-  a2[3] = v14;
+  *(a1 + 1) = *__p;
+  a1[3] = v14;
   HIBYTE(v14) = 0;
   LOBYTE(__p[0]) = 0;
   v9 = v15;
   v15 = 0uLL;
-  v10 = a2[5];
-  *(a2 + 2) = v9;
+  v10 = a1[5];
+  *(a1 + 2) = v9;
   if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v10->__on_zero_shared)(v10);
@@ -7816,14 +7827,15 @@ LABEL_15:
   }
 }
 
-void *mipc::nw::Get_Lte_Rrc_State_Cnf::Get_Lte_Rrc_State_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Get_Lte_Rrc_State_Cnf::Get_Lte_Rrc_State_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -7833,14 +7845,14 @@ void *mipc::nw::Get_Lte_Rrc_State_Cnf::Get_Lte_Rrc_State_Cnf(void *a1, uint64_t 
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -7862,7 +7874,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1190, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1190, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -7910,9 +7922,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B64630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B64630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -8330,15 +8343,15 @@ LABEL_14:
   }
 }
 
-void sub_297B650B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B650B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 80);
-  if (v9)
+  v15 = *(v13 - 80);
+  if (v15)
   {
-    *(v7 - 72) = v9;
-    operator delete(v9);
+    *(v13 - 72) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -8355,24 +8368,24 @@ mipc::nw::Get_Nr_Scs_Cnf *mipc::nw::Get_Nr_Scs_Cnf::Get_Nr_Scs_Cnf(mipc::nw::Get
 
   *this = &unk_2A1E6F4C8;
   *(this + 11) = 0;
-  mipc::nw::Get_Nr_Scs_Cnf::deserialize(this, &v7);
-  v5 = v10;
-  if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mipc::nw::Get_Nr_Scs_Cnf::deserialize(v7, this);
+  v5 = v9;
+  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
     std::__shared_weak_count::__release_weak(v5);
-    if ((v9 & 0x80000000) == 0)
+    if ((v8 & 0x80000000) == 0)
     {
       return this;
     }
   }
 
-  else if ((v9 & 0x80000000) == 0)
+  else if ((v8 & 0x80000000) == 0)
   {
     return this;
   }
 
-  operator delete(__p);
+  operator delete(v7[1]);
   return this;
 }
 
@@ -8389,34 +8402,34 @@ void sub_297B65208(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mipc::nw::Get_Nr_Scs_Cnf::deserialize(void **this@<X0>, uint64_t a2@<X8>)
+void mipc::nw::Get_Nr_Scs_Cnf::deserialize(uint64_t *__return_ptr a1@<X8>, mipc::nw::Get_Nr_Scs_Cnf *this@<X0>)
 {
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
-  *a2 = 0u;
-  (*(*this + 5))(&v8);
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  (*(*this + 40))(&v8);
   v4 = v8;
-  *a2 = v8;
+  *a1 = v8;
   v5 = v11;
-  *(a2 + 8) = *__p;
-  *(a2 + 24) = v10;
-  *(a2 + 32) = v5;
+  *(a1 + 1) = *__p;
+  a1[3] = v10;
+  *(a1 + 2) = v5;
   if (!v4)
   {
-    mipc::Message::deserializeTlv<int,false>(this, this + 11, 0x100u, &v8);
-    *a2 = v8;
-    if (*(a2 + 31) < 0)
+    mipc::Message::deserializeTlv<int,false>(&v8, this, this + 11, 0x100u);
+    *a1 = v8;
+    if (*(a1 + 31) < 0)
     {
-      operator delete(*(a2 + 8));
+      operator delete(a1[1]);
     }
 
-    *(a2 + 8) = *__p;
-    *(a2 + 24) = v10;
+    *(a1 + 1) = *__p;
+    a1[3] = v10;
     HIBYTE(v10) = 0;
     LOBYTE(__p[0]) = 0;
     v6 = v11;
     v11 = 0uLL;
-    *(a2 + 32) = v6;
+    *(a1 + 2) = v6;
     if (*(&v5 + 1) && !atomic_fetch_add((*(&v5 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
       (*(**(&v5 + 1) + 16))(*(&v5 + 1));
@@ -8443,14 +8456,15 @@ void mipc::nw::Get_Nr_Scs_Cnf::deserialize(void **this@<X0>, uint64_t a2@<X8>)
   }
 }
 
-void *mipc::nw::Get_Nr_Scs_Cnf::Get_Nr_Scs_Cnf(void *a1, uint64_t a2, char a3)
+void *mipc::nw::Get_Nr_Scs_Cnf::Get_Nr_Scs_Cnf(void *a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -8460,14 +8474,14 @@ void *mipc::nw::Get_Nr_Scs_Cnf::Get_Nr_Scs_Cnf(void *a1, uint64_t a2, char a3)
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -8489,7 +8503,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1222, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1222, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -8536,9 +8550,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B65604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B65604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }
@@ -8672,7 +8687,7 @@ LABEL_7:
   operator delete(v5);
 }
 
-void mipc::Message::deserializeTlv<int,false>(mipc::Message *a1@<X0>, void **a2@<X1>, unsigned int a3@<W2>, void *a4@<X8>)
+void mipc::Message::deserializeTlv<int,false>(uint64_t *__return_ptr a1@<X8>, std::__shared_weak_count **a2@<X0>, void **a3@<X1>, unsigned int a4@<W2>)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -8680,7 +8695,7 @@ void mipc::Message::deserializeTlv<int,false>(mipc::Message *a1@<X0>, void **a2@
   v27 = v8;
   *v25 = v8;
   *&v25[16] = v8;
-  mipc::Message::findTLV(a1, a3, v25);
+  mipc::Message::findTLV(v25, a2, a4);
   *&v24[16] = 0xAAAAAAAAAAAAAAAALL;
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -8707,15 +8722,15 @@ void mipc::Message::deserializeTlv<int,false>(mipc::Message *a1@<X0>, void **a2@
   v10 = v22;
   if (v22 && v22 != 0x10000000ELL)
   {
-    mipc::Message::handle<(mipc::Error::Type)2>(a1, &v22, a4);
+    mipc::Message::handle<(mipc::Error::Type)2>(a2, &v22, a1);
   }
 
   else
   {
     v11 = v27;
     v12 = *(&v27 + 1);
-    v13 = *a2;
-    *a2 = 0;
+    v13 = *a3;
+    *a3 = 0;
     if (v13)
     {
       operator delete(v13);
@@ -8733,12 +8748,12 @@ void mipc::Message::deserializeTlv<int,false>(mipc::Message *a1@<X0>, void **a2@
     {
       v14 = operator new(4uLL);
       *v14 = 0;
-      v15 = *a2;
-      *a2 = v14;
+      v15 = *a3;
+      *a3 = v14;
       if (v15)
       {
         operator delete(v15);
-        v14 = *a2;
+        v14 = *a3;
       }
 
       v10 = 0x100000011;
@@ -8757,15 +8772,15 @@ void mipc::Message::deserializeTlv<int,false>(mipc::Message *a1@<X0>, void **a2@
       }
     }
 
-    v16 = *(a1 + 3);
-    v20 = *(a1 + 2);
+    v16 = a2[3];
+    v20 = a2[2];
     v21 = v16;
     if (v16)
     {
       atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    mipc::Message::handle<(mipc::Error::Type)2>(a1, v10, a3, &v20, "", 0, a4);
+    mipc::Message::handle<(mipc::Error::Type)2>(a2, v10, a4, &v20, "", 0, a1);
     v17 = v21;
     if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -8814,33 +8829,34 @@ LABEL_32:
   }
 }
 
-void sub_297B65C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_297B65C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   mipc::Error::~Error(va);
   _Unwind_Resume(a1);
 }
 
-void sub_297B65C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297B65C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   mipc::Error::~Error(va);
   mipc::Error::~Error(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_297B65CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_297B65CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   std::shared_ptr<std::vector<unsigned char>>::~shared_ptr[abi:ne200100](&a9);
   mipc::Error::~Error(&a11);
-  mipc::Error::~Error(&a17);
+  mipc::Error::~Error(va);
   _Unwind_Resume(a1);
 }
 
@@ -9126,7 +9142,7 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  mipc::Message::serializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(&v27, this, v6, 0x100u, &v33);
+  mipc::Message::serializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(&v27, this, v6, 256, &v33);
   __p[0] = v27;
   if (SHIBYTE(__p[3]) < 0)
   {
@@ -9179,7 +9195,7 @@ LABEL_19:
   }
 
 LABEL_23:
-  mipc::Message::serializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(&v27, this, v10, 0x101u, &v33);
+  mipc::Message::serializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(&v27, this, v10, 257, &v33);
   __p[0] = v27;
   if (SHIBYTE(__p[3]) < 0)
   {
@@ -9295,15 +9311,15 @@ LABEL_48:
   }
 }
 
-void sub_297B666E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297B666E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   mipc::Error::~Error(va);
-  v9 = *(v7 - 96);
-  if (v9)
+  v15 = *(v13 - 96);
+  if (v15)
   {
-    *(v7 - 88) = v9;
-    operator delete(v9);
+    *(v13 - 88) = v15;
+    operator delete(v15);
   }
 
   _Unwind_Resume(a1);
@@ -9338,135 +9354,133 @@ unint64_t mipc::nw::Set_Pref_Nssai_Req::getSize(mipc::nw::Set_Pref_Nssai_Req *th
   return v3;
 }
 
-void mipc::Message::serializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(uint64_t a1, uint64_t a2, __int128 *a3, unsigned int a4, _WORD **a5)
+void mipc::Message::serializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(uint64_t a1, uint64_t a2, __int128 **a3, uint64_t a4, _WORD **a5)
 {
-  v8 = *a3;
-  v9 = *(a3 + 1);
-  if (*a3 == v9)
+  v8 = a3[1];
+  if (*a3 == v8)
   {
     goto LABEL_19;
   }
 
-  v11 = 0x100000002;
-  v12 = v9 - *a3;
-  if ((v12 >> 4) <= 0x40)
+  v10 = 0x100000002;
+  v11 = v8 - *a3;
+  if ((v11 >> 4) <= 0x40)
   {
-    v13 = v12 >> 4;
-    v14 = *(a2 + 14) - (v12 >> 4);
-    v15 = (*(a2 + 14) - (v12 >> 4));
-    *(a2 + 14) -= v12 >> 4;
-    if (v15 < 0x100)
+    v12 = v11 >> 4;
+    v13 = *(a2 + 14) - (v11 >> 4);
+    v14 = (*(a2 + 14) - (v11 >> 4));
+    *(a2 + 14) -= v11 >> 4;
+    if (v14 < 0x100)
     {
       goto LABEL_5;
     }
 
-    v21 = v14 + 1;
+    v19 = v13 + 1;
     **a5 = a4;
-    v22 = *a5 + 1;
+    v20 = *a5 + 1;
+    *a5 = v20;
+    *v20 = 0;
+    v21 = *a5 + 1;
+    *a5 = v21;
+    *v21 = 0;
+    v22 = *a5 + 2;
     *a5 = v22;
     *v22 = 0;
-    v23 = *a5 + 1;
+    v23 = *a5 + 2;
     *a5 = v23;
-    *v23 = 0;
-    v24 = *a5 + 2;
+    *v23 = v13 + 1;
+    v24 = *a5 + 1;
     *a5 = v24;
-    *v24 = 0;
-    v25 = *a5 + 2;
+    *v24 = v12;
+    v25 = *a5 + 1;
     *a5 = v25;
-    *v25 = v14 + 1;
-    v26 = *a5 + 1;
-    *a5 = v26;
-    *v26 = v13;
-    v27 = *a5 + 1;
-    *a5 = v27;
-    for (i = *a3; i != *(a3 + 1); *a5 = v27)
+    for (i = *a3; i != a3[1]; *a5 = v25)
     {
-      *v27 = v21;
-      v29 = *a5 + 1;
-      *a5 = v29;
-      *v29 = 16;
-      v30 = *a5 + 1;
-      *a5 = v30;
-      ++v21;
-      v31 = *i++;
-      *v30 = v31;
-      v27 = *a5 + 10;
+      *v25 = v19;
+      v27 = *a5 + 1;
+      *a5 = v27;
+      *v27 = 16;
+      v28 = *a5 + 1;
+      *a5 = v28;
+      ++v19;
+      v29 = *i++;
+      *v28 = v29;
+      v25 = *a5 + 10;
     }
 
 LABEL_19:
-    v11 = 0;
-    v33 = 0;
-    v34 = 0;
+    v10 = 0;
+    v31 = 0;
+    v32 = 0;
     goto LABEL_20;
   }
 
-  v11 = 0x100000010;
+  v10 = 0x100000010;
 LABEL_5:
-  v33 = 0xAAAAAAAAAAAAAAAALL;
-  v34 = 0xAAAAAAAAAAAAAAAALL;
-  v35 = 24 * ((v12 - 16) >> 4) + 40;
-  std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned long,0>(&v35, &v33);
-  v16 = v33;
-  v17 = *v33;
-  v18 = *a3;
-  if (*a3 != *(a3 + 1))
+  v31 = 0xAAAAAAAAAAAAAAAALL;
+  v32 = 0xAAAAAAAAAAAAAAAALL;
+  v33 = 24 * ((v11 - 16) >> 4) + 40;
+  std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned long,0>(&v33, &v31);
+  v15 = v31;
+  v16 = *v31;
+  v17 = *a3;
+  if (*a3 != a3[1])
   {
     do
     {
-      v35 = 0xAAAAAAAAAAAAAAAALL;
-      v36 = 0xAAAAAAAAAAAAAAAALL;
-      v37 = 16;
-      std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned long,0>(&v37, &v35);
-      **v35 = *v18;
-      if (v35)
+      v33 = 0xAAAAAAAAAAAAAAAALL;
+      v34 = 0xAAAAAAAAAAAAAAAALL;
+      v35 = 16;
+      std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned long,0>(&v35, &v33);
+      **v33 = *v17;
+      if (v33)
       {
-        memcpy(v17, *v35, *(v35 + 8) - *v35);
-        v17 += *(v35 + 8) - *v35;
+        memcpy(v16, *v33, *(v33 + 8) - *v33);
+        v16 += *(v33 + 8) - *v33;
       }
 
-      v19 = v36;
-      if (v36 && !atomic_fetch_add((v36 + 8), 0xFFFFFFFFFFFFFFFFLL))
+      v18 = v34;
+      if (v34 && !atomic_fetch_add((v34 + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v19->__on_zero_shared)(v19);
-        std::__shared_weak_count::__release_weak(v19);
+        (v18->__on_zero_shared)(v18);
+        std::__shared_weak_count::__release_weak(v18);
       }
 
-      ++v18;
+      ++v17;
     }
 
-    while (v18 != *(a3 + 1));
-    v16 = v33;
+    while (v17 != a3[1]);
+    v15 = v31;
   }
 
-  if (v17 != v16[1])
+  if (v16 != v15[1])
   {
-    v20 = v16[1];
-    v16[1] = v17;
+    v15[1] = v16;
   }
 
 LABEL_20:
-  mipc::Message::handle<(mipc::Error::Type)1>(a2, v11, a4, &v33, "", 0, a1);
-  v32 = v34;
-  if (v34)
+  mipc::Message::handle<(mipc::Error::Type)1>(a2, v10, a4, &v31, "", 0, a1);
+  v30 = v32;
+  if (v32)
   {
-    if (!atomic_fetch_add((v34 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add((v32 + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v32->__on_zero_shared)(v32);
-      std::__shared_weak_count::__release_weak(v32);
+      (v30->__on_zero_shared)(v30);
+      std::__shared_weak_count::__release_weak(v30);
     }
   }
 }
 
-void sub_297B66A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297B66A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::vector<unsigned char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_297B66AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297B66AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<std::vector<unsigned char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9484,7 +9498,7 @@ mipc::nw::Set_Pref_Nssai_Cnf *mipc::nw::Set_Pref_Nssai_Cnf::Set_Pref_Nssai_Cnf(m
   *(this + 88) = 0u;
   *(this + 104) = 0u;
   *(this + 120) = 0u;
-  mipc::nw::Set_Pref_Nssai_Cnf::deserialize(this, v7);
+  mipc::nw::Set_Pref_Nssai_Cnf::deserialize(v7, this);
   v5 = v9;
   if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -9536,44 +9550,44 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-void mipc::nw::Set_Pref_Nssai_Cnf::deserialize(mipc::nw::Set_Pref_Nssai_Cnf *this@<X0>, uint64_t *a2@<X8>)
+void mipc::nw::Set_Pref_Nssai_Cnf::deserialize(uint64_t *__return_ptr a1@<X8>, std::__shared_weak_count **this@<X0>)
 {
-  *(a2 + 1) = 0u;
-  *(a2 + 2) = 0u;
-  *a2 = 0u;
-  (*(*this + 40))(&v12);
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  ((*this)[1].__shared_weak_owners_)(&v12);
   v4 = v12;
-  *a2 = v12;
+  *a1 = v12;
   v5 = v15;
-  *(a2 + 1) = *__p;
-  a2[3] = v14;
-  *(a2 + 2) = v5;
+  *(a1 + 1) = *__p;
+  a1[3] = v14;
+  *(a1 + 2) = v5;
   if (v4)
   {
     return;
   }
 
-  mipc::Message::deserializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(this, this + 11, 0x100u, &v12);
-  *a2 = v12;
-  if (*(a2 + 31) < 0)
+  mipc::Message::deserializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(&v12, this, this + 11, 0x100u);
+  *a1 = v12;
+  if (*(a1 + 31) < 0)
   {
-    operator delete(a2[1]);
+    operator delete(a1[1]);
   }
 
-  *(a2 + 1) = *__p;
-  a2[3] = v14;
+  *(a1 + 1) = *__p;
+  a1[3] = v14;
   HIBYTE(v14) = 0;
   LOBYTE(__p[0]) = 0;
   v6 = v15;
   v15 = 0uLL;
-  *(a2 + 2) = v6;
+  *(a1 + 2) = v6;
   if (*(&v5 + 1) && !atomic_fetch_add((*(&v5 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(**(&v5 + 1) + 16))(*(&v5 + 1));
     std::__shared_weak_count::__release_weak(*(&v5 + 1));
   }
 
-  v7 = *a2;
+  v7 = *a1;
   v8 = *(&v15 + 1);
   if (!*(&v15 + 1) || atomic_fetch_add((*(&v15 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -9606,21 +9620,21 @@ LABEL_11:
   }
 
 LABEL_15:
-  mipc::Message::deserializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(this, this + 14, 0x101u, &v12);
-  *a2 = v12;
-  if (*(a2 + 31) < 0)
+  mipc::Message::deserializeTlv<mipc::mipc_s_nssai_struct_struct4,64ul,false>(&v12, this, this + 14, 0x101u);
+  *a1 = v12;
+  if (*(a1 + 31) < 0)
   {
-    operator delete(a2[1]);
+    operator delete(a1[1]);
   }
 
-  *(a2 + 1) = *__p;
-  a2[3] = v14;
+  *(a1 + 1) = *__p;
+  a1[3] = v14;
   HIBYTE(v14) = 0;
   LOBYTE(__p[0]) = 0;
   v9 = v15;
   v15 = 0uLL;
-  v10 = a2[5];
-  *(a2 + 2) = v9;
+  v10 = a1[5];
+  *(a1 + 2) = v9;
   if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v10->__on_zero_shared)(v10);
@@ -9640,14 +9654,15 @@ LABEL_15:
   }
 }
 
-uint64_t mipc::nw::Set_Pref_Nssai_Cnf::Set_Pref_Nssai_Cnf(uint64_t a1, uint64_t a2, char a3)
+uint64_t mipc::nw::Set_Pref_Nssai_Cnf::Set_Pref_Nssai_Cnf(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   v10 = *a2;
   if ((*(a2 + 31) & 0x80000000) == 0)
   {
-    v11 = *(a2 + 8);
-    v6 = *(a2 + 40);
-    v12 = *(a2 + 32);
+    v11 = *(a2 + 1);
+    v6 = a2[5];
+    v12 = a2[4];
     v13 = v6;
     if (!v6)
     {
@@ -9657,14 +9672,14 @@ uint64_t mipc::nw::Set_Pref_Nssai_Cnf::Set_Pref_Nssai_Cnf(uint64_t a1, uint64_t 
     goto LABEL_3;
   }
 
-  std::string::__init_copy_ctor_external(&v11, *(a2 + 8), *(a2 + 16));
-  v6 = *(a2 + 40);
-  v12 = *(a2 + 32);
+  std::string::__init_copy_ctor_external(&v11, a2[1], a2[2]);
+  v6 = a2[5];
+  v12 = a2[4];
   v13 = v6;
   if (v6)
   {
 LABEL_3:
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
 LABEL_4:
@@ -9686,7 +9701,7 @@ LABEL_4:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mipc::ResponseMessage::ResponseMessage(a1, 1234, &v14, a3, 2);
+  mipc::ResponseMessage::ResponseMessage(a1, 1234, &v14, v3, 2);
   v7 = v17;
   if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -9735,9 +9750,10 @@ LABEL_19:
   return a1;
 }
 
-void sub_297B67140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_297B67140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  mipc::Error::~Error(&a15);
+  va_start(va, a14);
+  mipc::Error::~Error(va);
   mipc::Error::~Error(&a9);
   _Unwind_Resume(a1);
 }

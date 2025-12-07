@@ -38,37 +38,37 @@
 {
   chatDictionaryCopy = chatDictionary;
   dictionaryCopy = dictionary;
-  v10 = objc_msgSend_timing(self, v8, v9);
-  objc_msgSend_startTimingForKey_(v10, v11, @"generate indexable item");
+  v11 = objc_msgSend_timing(self, v8, v9, v10);
+  objc_msgSend_startTimingForKey_(v11, v12, @"generate indexable item", v13);
 
-  v14 = objc_msgSend_sharedManager(IMDCoreSpotlightIndexingManager, v12, v13);
-  v17 = objc_msgSend_searchableItemGenerator(v14, v15, v16);
-  v20 = objc_msgSend_context(self, v18, v19);
-  v23 = objc_msgSend_rejectedItems(self, v21, v22);
-  v26 = objc_msgSend_populatedChatItems(self, v24, v25);
-  v36 = objc_msgSend_newSearchableItemsForMessageItemDictionary_chatDictionary_context_rejectedItems_populatedChatItems_(v17, v27, dictionaryCopy, chatDictionaryCopy, v20, v23, v26);
+  v17 = objc_msgSend_sharedManager(IMDCoreSpotlightIndexingManager, v14, v15, v16);
+  v21 = objc_msgSend_searchableItemGenerator(v17, v18, v19, v20);
+  v25 = objc_msgSend_context(self, v22, v23, v24);
+  v29 = objc_msgSend_rejectedItems(self, v26, v27, v28);
+  v33 = objc_msgSend_populatedChatItems(self, v30, v31, v32);
+  v47 = objc_msgSend_newSearchableItemsForMessageItemDictionary_chatDictionary_context_rejectedItems_populatedChatItems_(v21, v34, dictionaryCopy, chatDictionaryCopy, v25, v29, v33);
 
-  v30 = objc_msgSend_indexableItems(self, v28, v29);
-  objc_msgSend_addObjectsFromArray_(v30, v31, v36);
+  v38 = objc_msgSend_indexableItems(self, v35, v36, v37);
+  objc_msgSend_addObjectsFromArray_(v38, v39, v47, v40);
 
-  v34 = objc_msgSend_timing(self, v32, v33);
-  objc_msgSend_stopTimingForKey_(v34, v35, @"generate indexable item");
+  v44 = objc_msgSend_timing(self, v41, v42, v43);
+  objc_msgSend_stopTimingForKey_(v44, v45, @"generate indexable item", v46);
 }
 
 - (void)finishWithCompletion:(id)completion
 {
   completionCopy = completion;
   v5 = [IMDCoreSpotlightIndexingJob alloc];
-  v8 = objc_msgSend_context(self, v6, v7);
-  v19 = objc_msgSend_initWithContext_(v5, v9, v8);
+  v9 = objc_msgSend_context(self, v6, v7, v8);
+  v26 = objc_msgSend_initWithContext_(v5, v10, v9, v11);
 
-  v12 = objc_msgSend_indexableItems(self, v10, v11);
-  objc_msgSend_setSearchableItems_(v19, v13, v12);
+  v15 = objc_msgSend_indexableItems(self, v12, v13, v14);
+  objc_msgSend_setSearchableItems_(v26, v16, v15, v17);
 
-  v16 = objc_msgSend_rejectedItems(self, v14, v15);
-  objc_msgSend_setRejectedItems_(v19, v17, v16);
+  v21 = objc_msgSend_rejectedItems(self, v18, v19, v20);
+  objc_msgSend_setRejectedItems_(v26, v22, v21, v23);
 
-  objc_msgSend_runWithCompletion_(v19, v18, completionCopy);
+  objc_msgSend_runWithCompletion_(v26, v24, completionCopy, v25);
 }
 
 @end

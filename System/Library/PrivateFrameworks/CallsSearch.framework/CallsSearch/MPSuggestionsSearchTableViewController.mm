@@ -21,38 +21,33 @@
 
 - (NSArray)suggestions
 {
-  v2 = *(self + OBJC_IVAR___MPSuggestionsSearchTableViewController_suggestions);
   sub_1CFB5D38C(0, &unk_1EC4EC490, 0x1E6964EA8);
 
-  v3 = sub_1CFB8FB20();
+  v2 = sub_1CFB8FB20();
 
-  return v3;
+  return v2;
 }
 
 - (void)setSuggestions:(id)suggestions
 {
   sub_1CFB5D38C(0, &unk_1EC4EC490, 0x1E6964EA8);
-  v4 = sub_1CFB8FB30();
-  v5 = *(self + OBJC_IVAR___MPSuggestionsSearchTableViewController_suggestions);
-  *(self + OBJC_IVAR___MPSuggestionsSearchTableViewController_suggestions) = v4;
+  *(self + OBJC_IVAR___MPSuggestionsSearchTableViewController_suggestions) = sub_1CFB8FB30();
 }
 
 - (NSString)searchText
 {
   if (*(self + OBJC_IVAR___MPSuggestionsSearchTableViewController_searchText + 8))
   {
-    v2 = *(self + OBJC_IVAR___MPSuggestionsSearchTableViewController_searchText);
-    v3 = *(self + OBJC_IVAR___MPSuggestionsSearchTableViewController_searchText + 8);
 
-    v4 = sub_1CFB8FA80();
+    v2 = sub_1CFB8FA80();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setSearchText:(id)text
@@ -69,7 +64,6 @@
   }
 
   v6 = (self + OBJC_IVAR___MPSuggestionsSearchTableViewController_searchText);
-  v7 = *(self + OBJC_IVAR___MPSuggestionsSearchTableViewController_searchText + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -78,32 +72,30 @@
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   viewCopy = view;
   selfCopy = self;
-  v13 = MPSuggestionsSearchTableViewController.tableView(_:cellForRowAt:)(viewCopy);
+  v12 = MPSuggestionsSearchTableViewController.tableView(_:cellForRowAt:)(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   viewCopy = view;
   selfCopy = self;
-  sub_1CFB729A4(v10);
+  sub_1CFB729A4(v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (MPSuggestionsSearchTableViewController)initWithStyle:(int64_t)style

@@ -90,11 +90,11 @@
 
       if (v14)
       {
-        v15 = SSBOSLogRemoteConfiguration();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v17 = SSBOSLogRemoteConfiguration(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_2255EE000, v15, OS_LOG_TYPE_INFO, "Using Safe Browsing V5 for provider.", buf, 2u);
+          _os_log_impl(&dword_2255EE000, v17, OS_LOG_TYPE_INFO, "Using Safe Browsing V5 for provider.", buf, 2u);
         }
 
         self->_useV5 = 1;
@@ -102,7 +102,7 @@
     }
 
     isKindOfClass = [v5 objectForKey:@"Regions To Turn Off"];
-    v17 = isKindOfClass;
+    v19 = isKindOfClass;
     if (isKindOfClass)
     {
       objc_opt_class();
@@ -116,58 +116,58 @@ LABEL_41:
       }
     }
 
-    v28 = v9;
-    v29 = v6;
-    v18 = Backend::Google::SSBUtilities::currentCountryCode(isKindOfClass);
-    v27 = v18;
-    if (v17)
+    v30 = v9;
+    v31 = v6;
+    v20 = Backend::Google::SSBUtilities::currentCountryCode(isKindOfClass);
+    v29 = v20;
+    if (v19)
     {
-      v18 = [v17 containsObject:v18];
-      v19 = v18;
+      v20 = [v19 containsObject:v20];
+      v21 = v20;
     }
 
     else
     {
-      v19 = 0;
+      v21 = 0;
     }
 
-    v20 = Backend::Google::SSBUtilities::currentPlatformName(v18);
-    v21 = [v5 objectForKey:@"Platforms To Turn Off"];
-    v22 = v21;
-    if (v21)
+    v22 = Backend::Google::SSBUtilities::currentPlatformName(v20);
+    v23 = [v5 objectForKey:@"Platforms To Turn Off"];
+    v24 = v23;
+    if (v23)
     {
-      v23 = [v21 containsObject:v20];
+      v25 = [v23 containsObject:v22];
     }
 
     else
     {
-      v23 = 0;
+      v25 = 0;
     }
 
-    v24 = [v5 objectForKey:@"Web Browser Only"];
-    v25 = v24;
-    if (v24 && [v24 BOOLValue])
+    v26 = [v5 objectForKey:@"Web Browser Only"];
+    v27 = v26;
+    if (v26 && [v26 BOOLValue])
     {
       self->_isWebBrowserOnly = 1;
     }
 
-    v26 = [v5 objectForKey:@"Threat Types To Turn Off"];
-    if (v26)
+    v28 = [v5 objectForKey:@"Threat Types To Turn Off"];
+    if (v28)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if ([v26 containsObject:@"Social Engineering"])
+        if ([v28 containsObject:@"Social Engineering"])
         {
           self->_socialEngineeringThreatTypeOff = 1;
         }
 
-        if ([v26 containsObject:@"Malware"])
+        if ([v28 containsObject:@"Malware"])
         {
           self->_malwareThreatTypeOff = 1;
         }
 
-        if ([v26 containsObject:@"Unwanted Software"])
+        if ([v28 containsObject:@"Unwanted Software"])
         {
           self->_unwantedSoftwareThreatTypeOff = 1;
         }
@@ -180,10 +180,10 @@ LABEL_41:
 
     else
     {
-      if (!(((v17 | v22) == 0) | (v23 | v19) & 1))
+      if (!(((v19 | v24) == 0) | (v25 | v21) & 1))
       {
 LABEL_36:
-        if (self->_useV5 && ((v19 | v23) & 1) != 0)
+        if (self->_useV5 && ((v21 | v25) & 1) != 0)
         {
           self->_useV5 = 0;
         }
@@ -196,8 +196,8 @@ LABEL_36:
 
 LABEL_40:
 
-    v9 = v28;
-    v6 = v29;
+    v9 = v30;
+    v6 = v31;
     goto LABEL_41;
   }
 

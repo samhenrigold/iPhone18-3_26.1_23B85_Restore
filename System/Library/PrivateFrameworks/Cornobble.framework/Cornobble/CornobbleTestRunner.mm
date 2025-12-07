@@ -54,7 +54,7 @@
   namedCopy = named;
   streamCopy = stream;
   handlerCopy = handler;
-  if (RecapLibraryCore())
+  if (RecapLibraryCore(0))
   {
     if (namedCopy)
     {
@@ -139,7 +139,7 @@ uint64_t __74__CornobbleTestRunner_performTestNamed_withEventStream_completionHa
   namedCopy = named;
   composerCopy = composer;
   handlerCopy = handler;
-  if (RecapLibraryCore())
+  if (RecapLibraryCore(0))
   {
     v10 = [getRCPSyntheticEventStreamClass() eventStreamWithEventActions:composerCopy];
   }
@@ -157,7 +157,7 @@ uint64_t __74__CornobbleTestRunner_performTestNamed_withEventStream_completionHa
   namedCopy = named;
   fileCopy = file;
   handlerCopy = handler;
-  if (RecapLibraryCore())
+  if (RecapLibraryCore(0))
   {
     v11 = [getRCPSyntheticEventStreamClass() eventStreamWithFileURL:fileCopy error:0];
   }
@@ -175,7 +175,7 @@ uint64_t __74__CornobbleTestRunner_performTestNamed_withEventStream_completionHa
   namedCopy = named;
   stringCopy = string;
   handlerCopy = handler;
-  if (RecapLibraryCore())
+  if (RecapLibraryCore(0))
   {
     RCPSyntheticEventStreamClass = getRCPSyntheticEventStreamClass();
     v12 = [stringCopy componentsSeparatedByString:@" "];
@@ -193,7 +193,7 @@ uint64_t __74__CornobbleTestRunner_performTestNamed_withEventStream_completionHa
 + (void)performFingerOnGlassScrollWithParameters:(id)parameters
 {
   parametersCopy = parameters;
-  if (RecapLibraryCore())
+  if (RecapLibraryCore(0))
   {
     testName = [parametersCopy testName];
     eventStream = [parametersCopy eventStream];

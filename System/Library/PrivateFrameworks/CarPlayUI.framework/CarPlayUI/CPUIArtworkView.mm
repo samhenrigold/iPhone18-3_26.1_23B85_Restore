@@ -102,10 +102,11 @@
   v6 = (self + OBJC_IVAR____TtC9CarPlayUI15CPUIArtworkView_showVideoHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v8);
 }
 
 @end

@@ -86,18 +86,19 @@ uint64_t __40__LACTimer_dispatchAfter_inQueue_block___block_invoke(uint64_t a1)
   repeatCopy = repeat;
   queueCopy = queue;
   blockCopy = block;
+  v12 = blockCopy;
   if (after == 0.0)
   {
     if (repeatCopy)
     {
-      v12 = LACLogDefault();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v13 = LACLogDefault(blockCopy);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        [LACTimer _dispatchAfter:v12 inQueue:? repeat:? block:?];
+        [LACTimer _dispatchAfter:v13 inQueue:? repeat:? block:?];
       }
     }
 
-    dispatch_async(queueCopy, blockCopy);
+    dispatch_async(queueCopy, v12);
   }
 
   else
@@ -105,23 +106,23 @@ uint64_t __40__LACTimer_dispatchAfter_inQueue_block___block_invoke(uint64_t a1)
     os_unfair_lock_lock(&self->_timerLock);
     if (self->_timer)
     {
-      v13 = LACLogDefault();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v15 = LACLogDefault(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        [LACTimer _dispatchAfter:v13 inQueue:? repeat:? block:?];
+        [LACTimer _dispatchAfter:v15 inQueue:? repeat:? block:?];
       }
     }
 
     else
     {
-      v14 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 1uLL, queueCopy);
+      v16 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 1uLL, queueCopy);
       timer = self->_timer;
-      self->_timer = v14;
+      self->_timer = v16;
 
-      v16 = after * 1000000000.0;
-      v17 = dispatch_time(0, v16);
-      dispatch_source_set_timer(self->_timer, v17, v16, 0);
-      dispatch_source_set_event_handler(self->_timer, blockCopy);
+      v18 = after * 1000000000.0;
+      v19 = dispatch_time(0, v18);
+      dispatch_source_set_timer(self->_timer, v19, v18, 0);
+      dispatch_source_set_event_handler(self->_timer, v12);
       dispatch_activate(self->_timer);
     }
 

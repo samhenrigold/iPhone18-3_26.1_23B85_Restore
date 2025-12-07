@@ -15,22 +15,22 @@
     [(ATXApp2VecMapping *)a2 initWithPath:?];
   }
 
-  v20.receiver = self;
-  v20.super_class = ATXApp2VecMapping;
-  v6 = [(ATXApp2VecMapping *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = ATXApp2VecMapping;
+  v6 = [(ATXApp2VecMapping *)&v21 init];
   if (v6)
   {
-    v19 = 0;
-    v7 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:pathCopy options:1 error:&v19];
-    v8 = v19;
+    v20 = 0;
+    v7 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:pathCopy options:1 error:&v20];
+    v8 = v20;
     data = v6->_data;
     v6->_data = v7;
 
     v10 = v6->_data;
     if (!v10)
     {
-      v11 = __atxlog_handle_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_default(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [ATXApp2VecMapping initWithPath:];
       }
@@ -38,14 +38,15 @@
       goto LABEL_18;
     }
 
-    if ([(NSData *)v10 length]<= 0xF)
+    v11 = [(NSData *)v10 length];
+    if (v11 <= 0xF)
     {
-      v11 = __atxlog_handle_default();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_default(v11);
+      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
 LABEL_18:
 
-        v17 = 0;
+        v18 = 0;
         goto LABEL_19;
       }
 
@@ -56,14 +57,15 @@ LABEL_7:
 
     v6->_hdr = *[(NSData *)v6->_data bytes];
     bytes = [(NSData *)v6->_data bytes];
-    v13 = bytes + 16 + 2 * v6->_hdr.length * v6->_hdr.nvectors;
+    v14 = bytes + 16 + 2 * v6->_hdr.length * v6->_hdr.nvectors;
     v6->_matrix = (bytes + 16);
-    v6->_endOfMatrix = v13;
+    v6->_endOfMatrix = v14;
     bytes2 = [(NSData *)v6->_data bytes];
-    if (v13 >= bytes2 + [(NSData *)v6->_data length])
+    v16 = [(NSData *)v6->_data length];
+    if (v14 >= bytes2 + v16)
     {
-      v11 = __atxlog_handle_default();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_default(v16);
+      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_18;
       }
@@ -71,13 +73,12 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    endOfMatrix = v6->_endOfMatrix;
-    v16 = CFBurstTrieCreateFromMapBytes();
-    v6->_idxForBundleId = v16;
-    if (!v16)
+    v17 = CFBurstTrieCreateFromMapBytes();
+    v6->_idxForBundleId = v17;
+    if (!v17)
     {
-      v11 = __atxlog_handle_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_default(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [ATXApp2VecMapping initWithPath:];
       }
@@ -86,10 +87,10 @@ LABEL_7:
     }
   }
 
-  v17 = v6;
+  v18 = v6;
 LABEL_19:
 
-  return v17;
+  return v18;
 }
 
 - (void)dealloc
@@ -117,7 +118,7 @@ LABEL_19:
     }
 
 LABEL_12:
-    v12 = __atxlog_handle_default();
+    v12 = __atxlog_handle_default(idCopy);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [ATXApp2VecMapping getVectorForBundleId:v12 into:?];
@@ -133,9 +134,9 @@ LABEL_12:
   }
 
 LABEL_3:
-  idxForBundleId = self->_idxForBundleId;
   [v8 length];
-  if (!CFBurstTrieContains())
+  v9 = CFBurstTrieContains();
+  if (!v9)
   {
 LABEL_15:
     v16 = 0;
@@ -146,7 +147,7 @@ LABEL_15:
   v11 = &self->_matrix[-length];
   if (&v11[length] > self->_endOfMatrix)
   {
-    v12 = __atxlog_handle_default();
+    v12 = __atxlog_handle_default(v9);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXApp2VecMapping getVectorForBundleId:v12 into:?];
@@ -211,30 +212,13 @@ LABEL_16:
   [v4 handleFailureInMethod:a1 object:a2 file:@"ATXApp2VecMapping.m" lineNumber:54 description:{@"Invalid parameter not satisfying: %@", @"path"}];
 }
 
-- (void)initWithPath:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Truncated app2vec mapping: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPath:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Could not open app2vec trie: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithPath:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Could not read app2vec mapping %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Could not read app2vec mapping %@: %@", v2, 0x16u);
 }
 
 - (void)getVectorForBundleId:(uint64_t)a1 into:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

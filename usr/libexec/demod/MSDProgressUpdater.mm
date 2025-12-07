@@ -49,7 +49,7 @@
 
 - (void)markBundleInProgressAsBundleCompleted
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -76,42 +76,42 @@
 - (void)startBundleUpdateMonitor:(id)monitor inMode:(int)mode
 {
   monitorCopy = monitor;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(monitorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 138543362;
-    v29 = monitorCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "start content update monitor:%{public}@", &v28, 0xCu);
+    v32 = 138543362;
+    v33 = monitorCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "start content update monitor:%{public}@", &v32, 0xCu);
   }
 
-  v8 = sub_100063A54();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = sub_100063A54(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (mode)
   {
-    if (v9)
+    if (v10)
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Inside start content background", &v28, 2u);
+      LOWORD(v32) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Inside start content background", &v32, 2u);
     }
 
     backgroundBundle = [(MSDProgressUpdater *)self backgroundBundle];
-    v11 = [MSDBundleProgressTracker isBundleInstance:backgroundBundle identicalWithNewBundle:monitorCopy];
+    v12 = [MSDBundleProgressTracker isBundleInstance:backgroundBundle identicalWithNewBundle:monitorCopy];
 
-    if ((v11 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100063A54(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "not the same background bundle...", &v28, 2u);
+        LOWORD(v32) = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "not the same background bundle...", &v32, 2u);
       }
 
-      v13 = +[MSDTargetDevice sharedInstance];
-      [v13 cleanUpBackgroundState:1];
+      v15 = +[MSDTargetDevice sharedInstance];
+      [v15 cleanUpBackgroundState:1];
 
-      v14 = [MSDBundleProgressTracker alloc];
-      v15 = [(MSDBundleProgressTracker *)v14 initializeTrackerForBundle:monitorCopy withContentType:1];
-      [(MSDProgressUpdater *)self setBackgroundBundle:v15];
+      v16 = [MSDBundleProgressTracker alloc];
+      v17 = [(MSDBundleProgressTracker *)v16 initializeTrackerForBundle:monitorCopy withContentType:1];
+      [(MSDProgressUpdater *)self setBackgroundBundle:v17];
     }
 
     backgroundBundle2 = [(MSDProgressUpdater *)self backgroundBundle];
@@ -119,32 +119,32 @@
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Inside start content foreground", &v28, 2u);
+      LOWORD(v32) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Inside start content foreground", &v32, 2u);
     }
 
     installingBundle = [(MSDProgressUpdater *)self installingBundle];
-    v18 = [MSDBundleProgressTracker isBundleInstance:installingBundle identicalWithNewBundle:monitorCopy];
+    v20 = [MSDBundleProgressTracker isBundleInstance:installingBundle identicalWithNewBundle:monitorCopy];
 
-    if ((v18 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
-      v19 = sub_100063A54();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100063A54(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "not the same foreground bundle...", &v28, 2u);
+        LOWORD(v32) = 0;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "not the same foreground bundle...", &v32, 2u);
       }
 
-      v20 = [MSDBundleProgressTracker alloc];
-      v21 = [(MSDBundleProgressTracker *)v20 initializeTrackerForBundle:monitorCopy withContentType:2];
-      [(MSDProgressUpdater *)self setInstallingBundle:v21];
+      v23 = [MSDBundleProgressTracker alloc];
+      v24 = [(MSDBundleProgressTracker *)v23 initializeTrackerForBundle:monitorCopy withContentType:2];
+      [(MSDProgressUpdater *)self setInstallingBundle:v24];
 
       backgroundBundle3 = [(MSDProgressUpdater *)self backgroundBundle];
-      LODWORD(v20) = [MSDBundleProgressTracker isBundleInstance:backgroundBundle3 identicalWithNewBundle:monitorCopy];
+      LODWORD(v23) = [MSDBundleProgressTracker isBundleInstance:backgroundBundle3 identicalWithNewBundle:monitorCopy];
 
-      if (v20)
+      if (v23)
       {
         installingBundle2 = [(MSDProgressUpdater *)self installingBundle];
         backgroundBundle4 = [(MSDProgressUpdater *)self backgroundBundle];
@@ -156,16 +156,16 @@
     backgroundBundle2 = [(MSDProgressUpdater *)self installingBundle];
   }
 
-  v25 = backgroundBundle2;
+  v28 = backgroundBundle2;
   [(MSDProgressUpdater *)self setBundleInProgress:backgroundBundle2];
 
-  v26 = sub_100063A54();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v30 = sub_100063A54(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     bundleInProgress = [(MSDProgressUpdater *)self bundleInProgress];
-    v28 = 138543362;
-    v29 = bundleInProgress;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "bundleInProgress:%{public}@", &v28, 0xCu);
+    v32 = 138543362;
+    v33 = bundleInProgress;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "bundleInProgress:%{public}@", &v32, 0xCu);
   }
 }
 
@@ -209,19 +209,19 @@
   v13 = installingBundle;
   [(MSDProgressUpdater *)self setBundleInProgress:installingBundle];
 
-  v14 = sub_100063A54();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100063A54(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     installedBundle = [(MSDProgressUpdater *)self installedBundle];
     backgroundBundle2 = [(MSDProgressUpdater *)self backgroundBundle];
     installingBundle2 = [(MSDProgressUpdater *)self installingBundle];
-    v18 = 138543874;
-    v19 = installedBundle;
-    v20 = 2114;
-    v21 = backgroundBundle2;
-    v22 = 2114;
-    v23 = installingBundle2;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Bundles are: installedBundle:%{public}@ backgroundBundle:%{public}@ installingBundle:%{public}@", &v18, 0x20u);
+    v19 = 138543874;
+    v20 = installedBundle;
+    v21 = 2114;
+    v22 = backgroundBundle2;
+    v23 = 2114;
+    v24 = installingBundle2;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Bundles are: installedBundle:%{public}@ backgroundBundle:%{public}@ installingBundle:%{public}@", &v19, 0x20u);
   }
 }
 
@@ -493,15 +493,15 @@ LABEL_36:
     v7 = +[MSDServerRequestHandler sharedInstance];
     v8 = [v7 handleRequestSync:v6];
 
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       error = [v8 error];
-      v11 = 136315394;
-      v12 = "[MSDProgressUpdater demoUpdateFailed:]";
-      v13 = 2114;
-      v14 = error;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: sent error status to hub; error=%{public}@", &v11, 0x16u);
+      v12 = 136315394;
+      v13 = "[MSDProgressUpdater demoUpdateFailed:]";
+      v14 = 2114;
+      v15 = error;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: sent error status to hub; error=%{public}@", &v12, 0x16u);
     }
   }
 }

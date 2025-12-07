@@ -9,14 +9,14 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  WFVariableFieldParameter.userVisibleStrings(in:for:)();
+  WFVariableFieldParameter.userVisibleStrings(in:for:)(state);
   swift_unknownObjectRelease();
 
   type metadata accessor for WFUserVisibleString();
   sub_1CA3434EC();
-  v6 = sub_1CA94C8E8();
+  v7 = sub_1CA94C8E8();
 
-  return v6;
+  return v7;
 }
 
 - (id)rewriteParameterState:(id)state withStrings:(id)strings

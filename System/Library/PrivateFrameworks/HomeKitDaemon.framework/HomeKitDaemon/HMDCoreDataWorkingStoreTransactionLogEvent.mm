@@ -7,15 +7,13 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"transactionAuthor";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"transactionAuthor";
   transactionAuthor = [(HMDCoreDataWorkingStoreTransactionLogEvent *)self transactionAuthor];
-  v6[1] = @"transactionCount";
-  v7[0] = transactionAuthor;
-  v7[1] = &unk_283E74DF8;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = @"transactionCount";
+  v6[0] = transactionAuthor;
+  v6[1] = &unk_283E74DF8;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

@@ -1,7 +1,7 @@
 uint64_t start()
 {
   v0 = objc_autoreleasePoolPush();
-  v1 = sub_10000225C();
+  v1 = sub_10000225C(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -10,7 +10,7 @@ uint64_t start()
 
   v2 = _set_user_dir_suffix();
   v3 = confstr(65537, buf, 0x40uLL);
-  v4 = sub_10000225C();
+  v4 = sub_10000225C(v3);
   v5 = v4;
   if (v2 && v3)
   {
@@ -36,16 +36,15 @@ uint64_t start()
 
 id sub_100000FB4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   [objc_opt_class() connectToDaemon];
-  v3 = *(*(a1 + 32) + 8);
+  v2 = *(*(a1 + 32) + 8);
 
-  return [v3 start];
+  return [v2 start];
 }
 
 void sub_10000124C(uint64_t a1, uint64_t a2)
 {
-  v3 = sub_10000225C();
+  v3 = sub_10000225C(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -60,11 +59,12 @@ void sub_10000124C(uint64_t a1, uint64_t a2)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-void sub_1000018C4(uint64_t a1, int a2)
+void sub_1000018C4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10000225C();
+  v2 = a2;
+  v4 = sub_10000225C(a1);
   v5 = v4;
-  if (a2)
+  if (v2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
@@ -81,28 +81,28 @@ void sub_1000018C4(uint64_t a1, int a2)
   }
 }
 
-void sub_1000019A0(uint64_t a1)
+void sub_1000019A0(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_10000225C();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_10000225C(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 24);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Location status bar assertion invalidated: %@", &v4, 0xCu);
+    v4 = *(*(a1 + 32) + 24);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Location status bar assertion invalidated: %@", &v5, 0xCu);
   }
 }
 
-id sub_10000225C()
+id sub_10000225C(uint64_t a1)
 {
   if (qword_100008388 != -1)
   {
     sub_1000024A8();
   }
 
-  v1 = qword_100008380;
+  v2 = qword_100008380;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000022A0(id a1)

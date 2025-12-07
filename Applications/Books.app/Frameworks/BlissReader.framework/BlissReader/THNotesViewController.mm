@@ -45,7 +45,7 @@
 
 - (THNotesViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v6 = THBundle();
+  v6 = THBundle(self, a2);
   v9.receiver = self;
   v9.super_class = THNotesViewController;
   v7 = [(THNotesViewController *)&v9 initWithNibName:name bundle:v6];
@@ -374,7 +374,8 @@
   notesSidebarViewController = self->_notesSidebarViewController;
   if (!notesSidebarViewController)
   {
-    self->_notesSidebarViewController = [[THNotesSidebarViewController alloc] initWithNibName:0 bundle:THBundle()];
+    v4 = [THNotesSidebarViewController alloc];
+    self->_notesSidebarViewController = [(THNotesSidebarViewController *)v4 initWithNibName:0 bundle:THBundle(v4, v5)];
     [(THNotesSidebarViewController *)self->_notesSidebarViewController setSidebarDelegate:[(THNotesViewController *)self sizingDelegate]];
     notesSidebarViewController = self->_notesSidebarViewController;
   }
@@ -452,39 +453,40 @@
 - (id)annotationsForIndexPaths:(id)paths updateChapterTitle:(BOOL)title
 {
   titleCopy = title;
-  v18 = +[NSMutableArray array];
-  v19 = 0u;
-  v20 = 0u;
+  v20 = +[NSMutableArray array];
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   pathsCopy = paths;
-  v8 = [paths countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [paths countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
-    v16 = titleCopy;
+    v10 = *v22;
+    v18 = titleCopy;
     do
     {
       v11 = 0;
-      v17 = v9;
+      v19 = v9;
       do
       {
-        if (*v20 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(pathsCopy);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v11);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         v13 = [(THNotesDetailTableViewController *)self->_notesDetailViewController cachedAnnotationForIndexPath:v12];
         if (titleCopy)
         {
           v14 = [(THNotesDetailTableViewController *)self->_notesDetailViewController sectionTitleForIndexPath:v12];
           if (!v14)
           {
-            titleCopy = v16;
-            v9 = v17;
-            v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Chapter %lu: %@" value:&stru_471858 table:0], -[THNotesSidebarViewController providerIndex](self->_notesSidebarViewController, "providerIndex") + 1, objc_msgSend(-[NSMutableArray objectAtIndex:](self->_mutableSectionProviders, "objectAtIndex:", -[THNotesSidebarViewController providerIndex](self->_notesSidebarViewController, "providerIndex")), "title"));
+            v15 = [(NSMutableArray *)self->_mutableSectionProviders objectAtIndex:[(THNotesSidebarViewController *)self->_notesSidebarViewController providerIndex]];
+            titleCopy = v18;
+            v9 = v19;
+            v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v15 v16)], -[THNotesSidebarViewController providerIndex](self->_notesSidebarViewController, "providerIndex") + 1, objc_msgSend(v15, "title"));
           }
 
           v13 = [(THAnnotationStorageController *)[(THNotesViewController *)self annotationController] modifiedAnnotation:v13 withChapterTitle:v14 physicalPageNumber:[(THBookViewController *)self->_bookViewController pageNumberStringForAnnotation:v13]];
@@ -492,25 +494,26 @@
 
         if (v13)
         {
-          [v18 addObject:v13];
+          [v20 addObject:v13];
         }
 
         v11 = v11 + 1;
       }
 
       while (v9 != v11);
-      v9 = [pathsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [pathsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
   }
 
-  return v18;
+  return v20;
 }
 
 - (void)handleEmail:(id)email
 {
-  if (+[MFMailComposeViewController canSendMail])
+  v4 = +[MFMailComposeViewController canSendMail];
+  if (v4)
   {
     allKeys = [(NSMutableDictionary *)[(THNotesDetailTableViewController *)self->_notesDetailViewController selectedNotes] allKeys];
     if ([allKeys count])
@@ -524,11 +527,11 @@
       selectedAnnotations = self->_selectedAnnotations;
     }
 
-    v10 = [(NSMutableArray *)selectedAnnotations count];
-    v11 = self->_selectedAnnotations;
-    if (v10)
+    v14 = [(NSMutableArray *)selectedAnnotations count];
+    v15 = self->_selectedAnnotations;
+    if (v14)
     {
-      if (v11)
+      if (v15)
       {
 
         [(THNotesViewController *)self p_finishHandleEmail];
@@ -542,24 +545,24 @@
       self->_selectedAnnotations = 0;
     }
 
-    [+[TSUAssertionHandler currentHandler](TSUAssertionHandler "currentHandler")];
-    v12 = [THBundle() localizedStringForKey:@"Email Notes" value:&stru_471858 table:0];
-    v7 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v12, [THBundle() localizedStringForKey:@"Cannot email notes; no valid annotations were selected" value:&stru_471858 table:0], 1);
-    v8 = THBundle();
-    v9 = @"Cancel";
+    v16 = [+[TSUAssertionHandler currentHandler](TSUAssertionHandler "currentHandler")];
+    v18 = [THBundle(v16 v17)];
+    v10 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v18, [THBundle(v18 v19)], 1);
+    v12 = THBundle(v10, v20);
+    v13 = @"Cancel";
   }
 
   else
   {
-    v6 = [THBundle() localizedStringForKey:@"No email accounts configured" value:&stru_471858 table:0];
-    v7 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v6, [THBundle() localizedStringForKey:@"Add a mail account in Settings to send mail from Apple Books." value:&stru_471858 table:0], 1);
-    v8 = THBundle();
-    v9 = @"OK";
+    v8 = [THBundle(v4 v5)];
+    v10 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v8, [THBundle(v8 v9)], 1);
+    v12 = THBundle(v10, v11);
+    v13 = @"OK";
   }
 
-  -[UIAlertController addAction:](v7, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [v8 localizedStringForKey:v9 value:&stru_471858 table:0], 1, 0));
+  -[UIAlertController addAction:](v10, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [v12 localizedStringForKey:v13 value:&stru_471858 table:0], 1, 0));
 
-  [(THNotesViewController *)self presentViewController:v7 animated:1 completion:0];
+  [(THNotesViewController *)self presentViewController:v10 animated:1 completion:0];
 }
 
 - (id)p_subject
@@ -570,30 +573,34 @@
   bookTitle = [(THBookDescription *)bookDescription bookTitle];
   if (!bookTitle)
   {
-    bookTitle = [THBundle() localizedStringForKey:@"untitled book" value:@"Untitled" table:0];
+    bookTitle = [THBundle(0 v6)];
   }
 
-  if ([v5 isAllNotes])
+  isAllNotes = [v5 isAllNotes];
+  if (isAllNotes)
   {
-    v7 = THBundle();
-    v8 = @"Notes from \\U201C%@,\\U201D All Chapters";
-    return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v7 localizedStringForKey:v8 value:&stru_471858 table:0], bookTitle, v11, v12);
+    v10 = THBundle(isAllNotes, v9);
+    v11 = @"Notes from \\U201C%@,\\U201D All Chapters";
+    return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v10 localizedStringForKey:v11 value:&stru_471858 table:0], bookTitle, v18, v19);
   }
 
-  if ([v5 isOrphanedNotes])
+  isOrphanedNotes = [v5 isOrphanedNotes];
+  if (isOrphanedNotes)
   {
-    v7 = THBundle();
-    v8 = @"Old Notes from \\U201C%@\\U201D";
-    return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v7 localizedStringForKey:v8 value:&stru_471858 table:0], bookTitle, v11, v12);
+    v10 = THBundle(isOrphanedNotes, v13);
+    v11 = @"Old Notes from \\U201C%@\\U201D";
+    return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v10 localizedStringForKey:v11 value:&stru_471858 table:0], bookTitle, v18, v19);
   }
 
   title = [v5 title];
+  v17 = title;
   if (!title)
   {
-    title = [THBundle() localizedStringForKey:@"untitled chapter" value:@"Untitled" table:0];
+    title = [THBundle(0 v16)];
+    v17 = title;
   }
 
-  return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Notes from \\U201C%@ value:\\U201D Chapter %lu: %@" table:{&stru_471858, 0}], bookTitle, providerIndex + 1, title);
+  return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(title v16)], bookTitle, providerIndex + 1, v17);
 }
 
 - (void)mailComposeController:(id)controller didFinishWithResult:(int64_t)result error:(id)error
@@ -700,47 +707,48 @@
     countOfItemsToDelete = [(THNotesDetailTableViewController *)[(THNotesViewController *)self notesDetailViewController] countOfItemsToDelete];
     if (countOfItemsToDelete)
     {
-      if (countOfItemsToDelete == 1)
+      if (countOfItemsToDelete == &dword_0 + 1)
       {
-        v5 = @"Delete Highlight";
+        v6 = @"Delete Highlight";
       }
 
       else
       {
-        v5 = @"Delete Highlights";
+        v6 = @"Delete Highlights";
       }
 
-      if (countOfItemsToDelete == 1)
+      if (countOfItemsToDelete == &dword_0 + 1)
       {
-        v6 = @"The associated note will also be deleted.";
+        v7 = @"The associated note will also be deleted.";
       }
 
       else
       {
-        v6 = @"Any associated notes will also be deleted.";
+        v7 = @"Any associated notes will also be deleted.";
       }
 
-      v7 = [THBundle() localizedStringForKey:v5 value:&stru_471858 table:0];
-      v8 = [THBundle() localizedStringForKey:v6 value:&stru_471858 table:0];
+      v8 = [THBundle(countOfItemsToDelete v5)];
+      countOfItemsToDelete = [THBundle(v8 v9)];
+      v10 = countOfItemsToDelete;
     }
 
     else
     {
+      v10 = 0;
       v8 = 0;
-      v7 = 0;
     }
 
-    v9 = [THBundle() localizedStringForKey:@"Cancel" value:&stru_471858 table:0];
-    v10 = [THBundle() localizedStringForKey:@"Delete" value:&stru_471858 table:0];
-    v11 = [UIAlertController alertControllerWithTitle:v7 message:v8 preferredStyle:1];
-    [(UIAlertController *)v11 addAction:[UIAlertAction actionWithTitle:v9 style:1 handler:0]];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_13AF18;
-    v12[3] = &unk_45B358;
-    v12[4] = self;
-    [(UIAlertController *)v11 addAction:[UIAlertAction actionWithTitle:v10 style:2 handler:v12]];
-    [(THNotesViewController *)self presentViewController:v11 animated:1 completion:0];
+    v11 = [THBundle(countOfItemsToDelete v5)];
+    v13 = [THBundle(v11 v12)];
+    v14 = [UIAlertController alertControllerWithTitle:v8 message:v10 preferredStyle:1];
+    [(UIAlertController *)v14 addAction:[UIAlertAction actionWithTitle:v11 style:1 handler:0]];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_13AF18;
+    v15[3] = &unk_45B358;
+    v15[4] = self;
+    [(UIAlertController *)v14 addAction:[UIAlertAction actionWithTitle:v13 style:2 handler:v15]];
+    [(THNotesViewController *)self presentViewController:v14 animated:1 completion:0];
   }
 
   else

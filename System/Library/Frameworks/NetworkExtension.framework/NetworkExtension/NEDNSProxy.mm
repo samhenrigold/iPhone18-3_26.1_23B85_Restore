@@ -3,10 +3,25 @@
 - (NEDNSProxy)init;
 - (NEDNSProxy)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEDNSProxy
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyBOOL:-[NEDNSProxy isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  protocol = [(NEDNSProxy *)self protocol];
+  [v7 appendPrettyObject:protocol withName:@"protocol" andIndent:v5 options:options];
+
+  perApp = [(NEDNSProxy *)self perApp];
+  [v7 appendPrettyObject:perApp withName:@"per-app" andIndent:v5 options:options];
+
+  return v7;
+}
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {

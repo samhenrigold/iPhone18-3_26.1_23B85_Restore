@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_endFaceLibraryControllerPresentation;
+- (void)_showLibraryViewControllerAnimated:(BOOL)animated withCompletion:(id)completion;
 - (void)celebrationViewControllerStartedAnimation:(id)animation;
 @end
 
@@ -32,6 +33,14 @@
   [v2 _accessibilityLoadAccessibilityInformation];
 }
 
+- (void)_showLibraryViewControllerAnimated:(BOOL)animated withCompletion:(id)completion
+{
+  v4.receiver = self;
+  v4.super_class = NTKClockViewControllerAccessibility;
+  [(NTKClockViewControllerAccessibility *)&v4 _showLibraryViewControllerAnimated:animated withCompletion:completion];
+  UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, 0);
+}
+
 - (void)_endFaceLibraryControllerPresentation
 {
   v2.receiver = self;
@@ -42,21 +51,21 @@
 
 - (void)celebrationViewControllerStartedAnimation:(id)animation
 {
-  v10.receiver = self;
-  v10.super_class = NTKClockViewControllerAccessibility;
+  v9.receiver = self;
+  v9.super_class = NTKClockViewControllerAccessibility;
   animationCopy = animation;
-  [(NTKClockViewControllerAccessibility *)&v10 celebrationViewControllerStartedAnimation:animationCopy];
-  v4 = [animationCopy safeValueForKeyPath:{@"currentCelebration.celebration", v10.receiver, v10.super_class}];
+  [(NTKClockViewControllerAccessibility *)&v9 celebrationViewControllerStartedAnimation:animationCopy];
+  v4 = [animationCopy safeValueForKeyPath:{@"currentCelebration.celebration", v9.receiver, v9.super_class}];
 
   v5 = [v4 safeStringForKey:@"name"];
   if ([v5 isEqualToString:@"com.apple.watch.celebrations.fireworks"])
   {
-    v7 = @"celebration.fireworks";
+    v6 = @"celebration.fireworks";
   }
 
   else if ([v5 isEqualToString:@"com.apple.watch.celebrations.balloons"])
   {
-    v7 = @"celebration.balloons";
+    v6 = @"celebration.balloons";
   }
 
   else
@@ -66,14 +75,14 @@
       goto LABEL_9;
     }
 
-    v7 = @"celebration.sparkles";
+    v6 = @"celebration.sparkles";
   }
 
-  v8 = accessibilityLocalizedString(v7, v6);
-  if (v8)
+  v7 = accessibilityLocalizedString(v6);
+  if (v7)
   {
-    v9 = v8;
-    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, v8);
+    v8 = v7;
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, v7);
   }
 
 LABEL_9:

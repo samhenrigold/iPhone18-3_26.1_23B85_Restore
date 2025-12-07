@@ -8,19 +8,19 @@
 
 - (BOOL)crk_isInPast
 {
-  v2 = objc_opt_new();
-  v3 = [self earlierDate:v2];
-  v4 = v3 == self;
+  v3 = objc_opt_new();
+  v4 = [self earlierDate:v3];
+  v5 = v4 == self;
 
-  return v4;
+  return v5;
 }
 
 - (id)crk_JSONStringValue
 {
   crk_sharedDateFormatter = [objc_opt_class() crk_sharedDateFormatter];
-  v3 = [crk_sharedDateFormatter stringFromDate:self];
+  v4 = [crk_sharedDateFormatter stringFromDate:self];
 
-  return v3;
+  return v4;
 }
 
 + (id)crk_sharedDateFormatter
@@ -30,9 +30,9 @@
     +[NSDate(CRKAdditions) crk_sharedDateFormatter];
   }
 
-  v1 = crk_sharedDateFormatter_formatter;
+  v2 = crk_sharedDateFormatter_formatter;
 
-  return v1;
+  return v2;
 }
 
 @end

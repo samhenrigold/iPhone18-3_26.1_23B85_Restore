@@ -3,8 +3,10 @@
 + (NSNumberFormatter)integerFormatter;
 + (void)allowMultilineTitlesForSpecifiers:(id)specifiers;
 - (id)groupSpecifierWithTitle:(id)title footer:(id)footer identifier:(id)identifier;
+- (id)switchSpecifierWithLabel:(id)label key:(id)key domain:(id)domain defaultValue:(BOOL)value;
 - (void)reloadSpecifiers;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CameraSettingsBaseController
@@ -55,6 +57,19 @@
   v3.receiver = self;
   v3.super_class = CameraSettingsBaseController;
   [(CameraSettingsBaseController *)&v3 viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CameraSettingsBaseController;
+  [(CameraSettingsBaseController *)&v4 viewWillAppear:appear];
+  if ([(CameraSettingsBaseController *)self _didAppearAtLeastOnce])
+  {
+    [(CameraSettingsBaseController *)self reloadSpecifiers];
+  }
+
+  [(CameraSettingsBaseController *)self set_didAppearAtLeastOnce:1];
 }
 
 + (void)allowMultilineTitlesForSpecifiers:(id)specifiers
@@ -122,6 +137,22 @@
   }
 
   return v9;
+}
+
+- (id)switchSpecifierWithLabel:(id)label key:(id)key domain:(id)domain defaultValue:(BOOL)value
+{
+  valueCopy = value;
+  domainCopy = domain;
+  keyCopy = key;
+  v12 = sub_3A24(label);
+  v13 = [PSSpecifier preferenceSpecifierNamed:v12 target:self set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
+  [v13 setObject:domainCopy forKeyedSubscript:PSDefaultsKey];
+
+  [v13 setObject:keyCopy forKeyedSubscript:PSKeyNameKey];
+  v14 = [NSNumber numberWithBool:valueCopy];
+  [v13 setObject:v14 forKeyedSubscript:PSDefaultValueKey];
+
+  return v13;
 }
 
 @end

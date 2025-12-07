@@ -19,7 +19,7 @@
 - (void)setDeltasFetchedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -50,7 +50,7 @@ LABEL_9:
 
 - (id)deltasFetchedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -87,7 +87,7 @@ LABEL_9:
 - (void)setFetchMergeableDeltasCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -118,7 +118,7 @@ LABEL_9:
 
 - (id)fetchMergeableDeltasCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -231,7 +231,7 @@ LABEL_9:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_CKClientSuitableError(error, a2, error);
   if (ck_log_initialization_predicate != -1)
   {
@@ -241,13 +241,13 @@ LABEL_9:
   v5 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v5;
-    v17 = objc_msgSend_operationID(self, v15, v16);
+    v13 = v5;
+    v16 = objc_msgSend_operationID(self, v14, v15);
     *buf = 138543618;
-    v24 = v17;
-    v25 = 2112;
-    v26 = v4;
-    _os_log_debug_impl(&dword_1883EA000, v14, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling fetch completion block with error: %@", buf, 0x16u);
+    v23 = v16;
+    v24 = 2112;
+    v25 = v4;
+    _os_log_debug_impl(&dword_1883EA000, v13, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling fetch completion block with error: %@", buf, 0x16u);
   }
 
   v8 = objc_msgSend_fetchMergeableDeltasCompletionBlock(self, v6, v7);
@@ -266,20 +266,18 @@ LABEL_9:
   v12 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v12;
-    v21 = objc_msgSend_operationID(self, v19, v20);
+    v17 = v12;
+    v20 = objc_msgSend_operationID(self, v18, v19);
     *buf = 138543618;
-    v24 = v21;
-    v25 = 2112;
-    v26 = v4;
-    _os_log_debug_impl(&dword_1883EA000, v18, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished calling fetch completion block with error: %@", buf, 0x16u);
+    v23 = v20;
+    v24 = 2112;
+    v25 = v4;
+    _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished calling fetch completion block with error: %@", buf, 0x16u);
   }
 
-  v22.receiver = self;
-  v22.super_class = CKFetchMergeableDeltasOperation;
-  [(CKOperation *)&v22 _finishOnCallbackQueueWithError:v4];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = CKFetchMergeableDeltasOperation;
+  [(CKOperation *)&v21 _finishOnCallbackQueueWithError:v4];
 }
 
 - (id)activityCreate
@@ -304,7 +302,7 @@ LABEL_9:
 
 - (void)handleFetchForMergeableValueID:(id)d fetchedDeltas:(id)deltas error:(id)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   deltasCopy = deltas;
   v12 = objc_msgSend_CKClientSuitableError(error, v10, v11);
@@ -316,17 +314,17 @@ LABEL_9:
   v13 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v22 = v13;
-    v25 = objc_msgSend_operationID(self, v23, v24);
-    v32 = 138544130;
-    v33 = v25;
-    v34 = 2112;
-    v35 = dCopy;
-    v36 = 2048;
-    v37 = objc_msgSend_count(deltasCopy, v26, v27);
-    v38 = 2112;
-    v39 = v12;
-    _os_log_debug_impl(&dword_1883EA000, v22, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received deltas fetched callback for mergeable %@ with %ld deltas and error: %@", &v32, 0x2Au);
+    v21 = v13;
+    v24 = objc_msgSend_operationID(self, v22, v23);
+    v31 = 138544130;
+    v32 = v24;
+    v33 = 2112;
+    v34 = dCopy;
+    v35 = 2048;
+    v36 = objc_msgSend_count(deltasCopy, v25, v26);
+    v37 = 2112;
+    v38 = v12;
+    _os_log_debug_impl(&dword_1883EA000, v21, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received deltas fetched callback for mergeable %@ with %ld deltas and error: %@", &v31, 0x2Au);
   }
 
   v16 = objc_msgSend_deltasFetchedBlock(self, v14, v15);
@@ -345,18 +343,16 @@ LABEL_9:
   v20 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v28 = v20;
-    v31 = objc_msgSend_operationID(self, v29, v30);
-    v32 = 138543874;
-    v33 = v31;
-    v34 = 2112;
-    v35 = dCopy;
-    v36 = 2112;
-    v37 = v12;
-    _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished deltas fetched callback for mergeable %@ with error: %@", &v32, 0x20u);
+    v27 = v20;
+    v30 = objc_msgSend_operationID(self, v28, v29);
+    v31 = 138543874;
+    v32 = v30;
+    v33 = 2112;
+    v34 = dCopy;
+    v35 = 2112;
+    v36 = v12;
+    _os_log_debug_impl(&dword_1883EA000, v27, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished deltas fetched callback for mergeable %@ with error: %@", &v31, 0x20u);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

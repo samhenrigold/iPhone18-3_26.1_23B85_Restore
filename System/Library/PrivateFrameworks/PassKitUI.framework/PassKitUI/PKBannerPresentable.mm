@@ -30,21 +30,21 @@ void __43__PKBannerPresentable__postWithCompletion___block_invoke(uint64_t a1, v
 - (void)_revoke
 {
   v16 = *MEMORY[0x1E69E9840];
-  if (self && (*(self + 25) & 1) == 0)
+  if (result && (*(result + 25) & 1) == 0)
   {
-    *(self + 25) = 1;
-    if (*(self + 26) != 1)
+    *(result + 25) = 1;
+    if (*(result + 26) != 1)
     {
 LABEL_11:
-      [*(self + 40) setPresentable:0];
-      [*(self + 40) revoked];
-      [(PKBannerPresentable *)self _finish];
+      [*(result + 40) setPresentable:0];
+      [*(result + 40) revoked];
+      [(PKBannerPresentable *)result _finish];
       return;
     }
 
-    *(self + 26) = 0;
-    _source = [(PKBannerPresentationManager *)*(self + 8) _source];
-    v3 = *(self + 16);
+    *(result + 26) = 0;
+    _source = [(PKBannerPresentationManager *)*(result + 8) _source];
+    v3 = *(result + 16);
     v11 = 0;
     v4 = [_source revokePresentableWithRequestIdentifier:v3 reason:@"dismiss" animated:1 userInfo:0 error:&v11];
     v5 = v11;
@@ -56,7 +56,7 @@ LABEL_11:
       if (v7)
       {
         *buf = 134217984;
-        selfCopy2 = self;
+        v13 = result;
         v8 = "PKBannerPresentable (%p): revoked.";
         v9 = v6;
         v10 = 12;
@@ -68,7 +68,7 @@ LABEL_9:
     else if (v7)
     {
       *buf = 134218242;
-      selfCopy2 = self;
+      v13 = result;
       v14 = 2112;
       v15 = v5;
       v8 = "PKBannerPresentable (%p): failed to revoke - %@.";

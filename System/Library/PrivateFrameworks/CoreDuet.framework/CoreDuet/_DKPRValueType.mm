@@ -48,10 +48,8 @@
 
 - (void)writeTo:(id)to
 {
-  type = self->_type;
   toCopy = to;
   PBDataWriterWriteInt32Field();
-  typeCode = self->_typeCode;
   PBDataWriterWriteInt64Field();
 }
 

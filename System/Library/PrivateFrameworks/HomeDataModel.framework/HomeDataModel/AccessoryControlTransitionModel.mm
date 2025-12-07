@@ -12,7 +12,7 @@
   v5(self + v3, 1, 1, v4);
   v5(self + OBJC_IVAR____TtC13HomeDataModel31AccessoryControlTransitionModel_newAccessoryControlsBearer, 1, 1, v4);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for AccessoryControlTransitionModel();
+  v7.super_class = type metadata accessor for AccessoryControlTransitionModel(0);
   return [(AccessoryControlTransitionModel *)&v7 init];
 }
 

@@ -110,44 +110,43 @@
 
 - (GKBehavior)initWithGoals:(id)goals
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   goalsCopy = goals;
   v5 = [(GKBehavior *)self init];
   if (v5)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = goalsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
           LODWORD(v8) = 1.0;
-          [(GKBehavior *)v5 setWeight:*(*(&v14 + 1) + 8 * v11++) forGoal:v8, v14];
+          [(GKBehavior *)v5 setWeight:*(*(&v13 + 1) + 8 * v11++) forGoal:v8, v13];
         }
 
         while (v9 != v11);
-        v9 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

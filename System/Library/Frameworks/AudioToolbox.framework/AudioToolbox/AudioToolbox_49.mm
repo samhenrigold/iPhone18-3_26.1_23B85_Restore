@@ -3104,15 +3104,15 @@ void BeamformerTD::SelectBeam(float **this)
   *(this + 27) = v21;
 }
 
-uint64_t BeamformerTD::ECMixSwitch(BeamformerTD *this)
+void BeamformerTD::ECMixSwitch(BeamformerTD *this)
 {
   v23[1] = *MEMORY[0x1E69E9840];
-  result = MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](this);
   v4 = (v23 - ((v3 + 15) & 0x7FFFFFFF0));
   if (v2)
   {
-    v5 = *(result + 108);
-    v6 = (result + (v5 << 6) + 372144);
+    v5 = *(v1 + 108);
+    v6 = (v1 + (v5 << 6) + 372144);
     v7 = 2.2204e-16;
     v8 = v2;
     do
@@ -3123,7 +3123,7 @@ uint64_t BeamformerTD::ECMixSwitch(BeamformerTD *this)
     }
 
     while (v8);
-    v10 = (result + (v5 << 6) + 372144);
+    v10 = (v1 + (v5 << 6) + 372144);
     v11 = v4;
     v12 = v2;
     v13 = 1.0 / v7;
@@ -3135,8 +3135,8 @@ uint64_t BeamformerTD::ECMixSwitch(BeamformerTD *this)
     }
 
     while (v12);
-    v15 = *(result + 24 * v5 + 365232);
-    v16 = (result + 240);
+    v15 = *(v1 + 24 * v5 + 365232);
+    v16 = (v1 + 240);
     v17 = 0;
     v18 = 1.0;
     v19 = 0;
@@ -3167,10 +3167,9 @@ uint64_t BeamformerTD::ECMixSwitch(BeamformerTD *this)
     v19 = 0;
   }
 
-  *(result + 228) = v17;
-  *(result + 240) = v19;
-  *(result + 236) = v18;
-  return result;
+  *(v1 + 228) = v17;
+  *(v1 + 240) = v19;
+  *(v1 + 236) = v18;
 }
 
 uint64_t BeamformerTD::MakeLSDDBeam(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -3317,7 +3316,7 @@ void BeamformerTD::CrossfadeBeams(uint64_t a1, float **a2, uint64_t a3)
   vDSP_vrampmuladd(*a2, 1, &__Start, &__Step, *a3, 1, v11);
 }
 
-_DWORD *BeamformerTD::MakeABeam(uint64_t a1, unsigned int *a2, void *a3, unsigned int a4, int a5, int16x4_t a6)
+_DWORD *BeamformerTD::MakeABeam(uint64_t a1, unsigned int *a2, uint64_t *a3, unsigned int a4, int a5, int16x4_t a6)
 {
   v9 = *(a1 + 32);
   v26 = 0;
@@ -4247,7 +4246,7 @@ uint64_t BeamformerTD::Reset(BeamformerTD *this)
     v4 = 0;
     v5 = (this + 19624);
     v6 = *(this + 17) - 1;
-    v7 = this + 130224;
+    v7 = (this + 130224);
     do
     {
       if (*(this + 2))
@@ -4276,7 +4275,7 @@ uint64_t BeamformerTD::Reset(BeamformerTD *this)
       v12 = *(this + 4907);
       v19 = 0;
       std::vector<float>::assign(this + 3 * v4++ + 30102, v12, &v19, v3);
-      v7 += 384;
+      v7 += 48;
     }
 
     while (v4 < *(this + 3));
@@ -4373,7 +4372,7 @@ uint64_t BeamformerTD::Initialize(BeamformerTD *this, double a2, unsigned int a3
       v11 = 0;
       v12 = (this + 501176);
       v13 = (this + 390584);
-      v14 = this + 247728;
+      v14 = (this + 247728);
       LODWORD(v15) = *(this + 2);
       do
       {
@@ -4396,7 +4395,7 @@ uint64_t BeamformerTD::Initialize(BeamformerTD *this, double a2, unsigned int a3
         }
 
         ++v11;
-        v14 += 384;
+        v14 += 48;
         v13 += 48;
       }
 
@@ -4594,7 +4593,7 @@ uint64_t BeamformerTD::Initialize(BeamformerTD *this, double a2, unsigned int a3
     v58 = 0;
     v59 = (this + 247728);
     v60 = v54 - 1;
-    v61 = this + 130224;
+    v61 = (this + 130224);
     do
     {
       if (*(this + 2))
@@ -4624,7 +4623,7 @@ uint64_t BeamformerTD::Initialize(BeamformerTD *this, double a2, unsigned int a3
       LODWORD(buf.__r_.__value_.__l.__data_) = 0;
       std::vector<float>::assign(this + 3 * v58++ + 30102, v66, &buf, *&v9);
       v67 = *(this + 3);
-      v61 += 384;
+      v61 += 48;
     }
 
     while (v58 < v67);
@@ -6194,7 +6193,7 @@ uint64_t IR::Cache::initialize(IR::Cache *this, float a2)
       }
 
       std::vector<std::vector<float>>::resize(this + 26, v5);
-      std::vector<BOOL>::resize(this + 256, v5, 0);
+      std::vector<BOOL>::resize(this + 32, v5, 0);
       IR::IRData::getFilterLength(*(this + 20));
       if (v5 > v8)
       {

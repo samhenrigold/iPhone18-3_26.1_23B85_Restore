@@ -4,6 +4,8 @@
 - (HOOnboardingNewFeaturesViewController)initWithDelegate:(id)delegate;
 - (void)_continue:(id)_continue;
 - (void)nextButtonPressed;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HOOnboardingNewFeaturesViewController
@@ -51,6 +53,32 @@
   }
 
   return v6;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = HOOnboardingNewFeaturesViewController;
+  [(HOOnboardingNewFeaturesViewController *)&v5 viewWillAppear:appear];
+  v3 = HFLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[HOOnboardingNewFeaturesViewController-viewWillAppear]", v4, 2u);
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HOOnboardingNewFeaturesViewController;
+  [(HOOnboardingNewFeaturesViewController *)&v5 viewWillDisappear:disappear];
+  v3 = HFLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[HOOnboardingNewFeaturesViewController-viewWillDisappear]", v4, 2u);
+  }
 }
 
 - (void)nextButtonPressed

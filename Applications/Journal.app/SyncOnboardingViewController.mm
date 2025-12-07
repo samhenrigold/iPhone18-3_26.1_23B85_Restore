@@ -22,7 +22,6 @@
     swift_once();
   }
 
-  sub_1001946D0();
   presentingViewController = [(SyncOnboardingViewController *)selfCopy presentingViewController];
   if (presentingViewController)
   {

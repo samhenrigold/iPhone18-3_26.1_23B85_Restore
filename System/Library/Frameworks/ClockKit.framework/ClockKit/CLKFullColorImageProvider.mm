@@ -332,16 +332,16 @@ LABEL_9:
   return v12;
 }
 
-void __87__CLKFullColorImageProvider_fullColorImageProviderWithJSONObjectRepresentation_bundle___block_invoke()
+void __87__CLKFullColorImageProvider_fullColorImageProviderWithJSONObjectRepresentation_bundle___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = fullColorImageProviderWithJSONObjectRepresentation_bundle__allowedClasses;
-  fullColorImageProviderWithJSONObjectRepresentation_bundle__allowedClasses = v2;
+  v6[2] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = fullColorImageProviderWithJSONObjectRepresentation_bundle__allowedClasses;
+  fullColorImageProviderWithJSONObjectRepresentation_bundle__allowedClasses = v4;
 }
 
 - (CLKFullColorImageProvider)initWithJSONObjectRepresentation:(id)representation bundle:(id)bundle

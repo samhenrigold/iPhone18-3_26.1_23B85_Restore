@@ -5,7 +5,6 @@
 - (HMIVideoEncoderDataRate)dataRateLimit;
 - (HMIVideoEncoderDelegate)delegate;
 - (double)expectedDuration;
-- (double)quality;
 - (int)_getFloat64Property:(__CFString *)property propertyValueOut:(double *)out;
 - (int)_getProperty:(__CFString *)property propertyValue:(const void *)value;
 - (int)_getSInt32Property:(__CFString *)property propertyValueOut:(int *)out;
@@ -30,114 +29,94 @@
 
 - (HMIVideoEncoder)initWithDimensions:(id)dimensions codecType:(unsigned int)type useHardwareAcceleration:(BOOL)acceleration error:(id *)error
 {
-  accelerationCopy = acceleration;
-  v8 = *&type;
-  v17.receiver = self;
-  v17.super_class = HMIVideoEncoder;
-  v10 = [(HMIVideoEncoder *)&v17 init];
-  if (!v10)
+  v12.receiver = self;
+  v12.super_class = HMIVideoEncoder;
+  v6 = [(HMIVideoEncoder *)&v12 init];
+  if (!v6)
   {
     goto LABEL_4;
   }
 
-  v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v12 = dispatch_queue_create("HMIVideoEncoderWorkQueue", v11);
-  workQueue = v10->_workQueue;
-  v10->_workQueue = v12;
+  v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v8 = dispatch_queue_create("HMIVideoEncoderWorkQueue", v7);
+  workQueue = v6->_workQueue;
+  v6->_workQueue = v8;
 
-  v14 = [(HMIVideoEncoder *)v10 _initSessionWithDimensions:dimensions codecType:v8 useHardwareAcceleration:accelerationCopy error:error];
-  v15 = 0;
-  if (v14)
+  v10 = 0;
+  if ([HMIVideoEncoder _initSessionWithDimensions:v6 codecType:"_initSessionWithDimensions:codecType:useHardwareAcceleration:error:" useHardwareAcceleration:? error:?])
   {
-    v10->super.super._status = 2;
+    v6->super.super._status = 2;
 LABEL_4:
-    v15 = v10;
+    v10 = v6;
   }
 
-  return v15;
+  return v10;
 }
 
 - (BOOL)_initSessionWithDimensions:(id)dimensions codecType:(unsigned int)type useHardwareAcceleration:(BOOL)acceleration error:(id *)error
 {
-  accelerationCopy = acceleration;
-  v30[1] = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([(HMIVideoEncoder *)self session])
   {
     [HMIVideoEncoder _initSessionWithDimensions:codecType:useHardwareAcceleration:error:];
   }
 
   errorCopy = error;
-  v11 = *MEMORY[0x277CC4E30];
-  v29 = *MEMORY[0x277CC4E30];
-  v30[0] = &unk_284075120;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-  v13 = [v12 mutableCopy];
+  v24 = *MEMORY[0x277CC4E30];
+  v10 = v24;
+  v25 = &unk_284075120;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v12 = [v11 mutableCopy];
 
-  if (accelerationCopy)
+  [v12 setObject:? forKey:?];
+  session[1] = v10;
+  session[2] = &unk_284075120;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  session[0] = 0;
+  v14 = VTCompressionSessionCreate(0, dimensions.var0, dimensions.var1, type, v12, v13, 0, 0, 0, session);
+  if (!session[0] || v14)
   {
-    v14 = MEMORY[0x277CBEC38];
-  }
-
-  else
-  {
-    v14 = MEMORY[0x277CBEC28];
-  }
-
-  v15 = MEMORY[0x277CE2BB0];
-  if (!accelerationCopy)
-  {
-    v15 = MEMORY[0x277CE2BA8];
-  }
-
-  [v13 setObject:v14 forKey:*v15];
-  v27 = v11;
-  v28 = &unk_284075120;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-  session = 0;
-  v17 = VTCompressionSessionCreate(0, dimensions.var0, dimensions.var1, type, v13, v16, 0, 0, 0, &session);
-  if (!session || v17)
-  {
-    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"VTCompressionSessionCreate failed, err: %d", v17];
-    v21 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1023 description:v20];
-    v19 = errorCopy;
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:v14];
+    v18 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v16 = errorCopy;
     if (!errorCopy)
     {
-      goto LABEL_14;
+      goto LABEL_9;
     }
 
-LABEL_13:
-    v22 = v21;
-    *v19 = v21;
-    goto LABEL_14;
+LABEL_8:
+    v19 = v18;
+    *v16 = v18;
+    goto LABEL_9;
   }
 
-  v18 = VTCompressionSessionPrepareToEncodeFrames(session);
-  v19 = errorCopy;
-  if (!v18)
+  v15 = VTCompressionSessionPrepareToEncodeFrames(session[0]);
+  v16 = errorCopy;
+  if (!v15)
   {
-    [(HMIVideoEncoder *)self setSession:session];
-    [(HMIVideoEncoder *)self _setProperty:*MEMORY[0x277CE2528] propertyValue:*MEMORY[0x277CC4C20]];
-    [(HMIVideoEncoder *)self _setProperty:*MEMORY[0x277CE2600] propertyValue:*MEMORY[0x277CC4CD8]];
-    [(HMIVideoEncoder *)self _setProperty:*MEMORY[0x277CE2610] propertyValue:*MEMORY[0x277CC4D28]];
-    v23 = 1;
-    [(HMIVideoEncoder *)self setForceKeyFrameOnNextEncodedFrame:1];
-    goto LABEL_15;
+    [(HMIVideoEncoder *)self setSession:?];
+    [HMIVideoEncoder _setProperty:"_setProperty:propertyValue:" propertyValue:?];
+    [HMIVideoEncoder _setProperty:"_setProperty:propertyValue:" propertyValue:?];
+    [HMIVideoEncoder _setProperty:"_setProperty:propertyValue:" propertyValue:?];
+    v20 = 1;
+    [(HMIVideoEncoder *)self setForceKeyFrameOnNextEncodedFrame:?];
+    goto LABEL_10;
   }
 
-  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"VTCompressionSessionPrepareToEncodeFrames failed, err: %d", v18];
-  v21 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1023 description:v20];
+  v17 = [MEMORY[0x277CCACA8] stringWithFormat:v15];
+  v18 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
   if (errorCopy)
   {
-    goto LABEL_13;
+    goto LABEL_8;
   }
 
-LABEL_14:
-  HMIErrorLog(self, v21);
+LABEL_9:
+  HMIErrorLog(self, v18);
 
-  v23 = 0;
-LABEL_15:
+  v20 = 0;
+LABEL_10:
 
-  return v23;
+  return v20;
 }
 
 - (void)dealloc
@@ -153,7 +132,7 @@ LABEL_15:
     block[4] = session;
     dispatch_async(workQueue, block);
 
-    [(HMIVideoEncoder *)self setSession:0];
+    [(HMIVideoEncoder *)self setSession:?];
   }
 
   v5.receiver = self;
@@ -187,7 +166,7 @@ void __26__HMIVideoEncoder_dealloc__block_invoke(uint64_t a1)
     VTCompressionSessionInvalidate([(HMIVideoEncoder *)self session]);
     CFRelease([(HMIVideoEncoder *)self session]);
 
-    [(HMIVideoEncoder *)self setSession:0];
+    [(HMIVideoEncoder *)self setSession:?];
   }
 }
 
@@ -234,10 +213,10 @@ void __26__HMIVideoEncoder_dealloc__block_invoke(uint64_t a1)
 
 void __38__HMIVideoEncoder__invalidateWithErr___block_invoke(uint64_t a1)
 {
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Video encoding failed, err: %d", *(a1 + 40)];
-  v2 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1023 description:v4];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:*(a1 + 40)];
+  v2 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
   v3 = [*(a1 + 32) delegate];
-  [v3 encoder:*(a1 + 32) didFailWithError:v2];
+  [v3 encoder:? didFailWithError:?];
 }
 
 - (void)handleSampleBuffer:(opaqueCMSampleBuffer *)buffer
@@ -296,7 +275,7 @@ void __38__HMIVideoEncoder_handleSampleBuffer___block_invoke(uint64_t a1)
     {
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       CFDictionarySetValue(Mutable, *MEMORY[0x277CE27C0], *MEMORY[0x277CBED28]);
-      [*(a1 + 32) setForceKeyFrameOnNextEncodedFrame:0];
+      [*(a1 + 32) setForceKeyFrameOnNextEncodedFrame:?];
     }
 
     else
@@ -337,7 +316,7 @@ void __38__HMIVideoEncoder_handleSampleBuffer___block_invoke(uint64_t a1)
       }
 
       objc_autoreleasePoolPop(v7);
-      [*(a1 + 32) _invalidateWithErr:v6];
+      [*(a1 + 32) _invalidateWithErr:?];
     }
 
     objc_destroyWeak(&v13);
@@ -425,7 +404,7 @@ void __38__HMIVideoEncoder_handleSampleBuffer___block_invoke_2(uint64_t a1, int 
 void __38__HMIVideoEncoder_handleSampleBuffer___block_invoke_171(uint64_t a1)
 {
   v2 = [*(a1 + 32) delegate];
-  [v2 encoder:*(a1 + 32) didEncodeSampleBuffer:*(a1 + 40)];
+  [v2 encoder:? didEncodeSampleBuffer:?];
 
   v3 = *(a1 + 40);
 
@@ -443,7 +422,7 @@ void __38__HMIVideoEncoder_handleSampleBuffer___block_invoke_171(uint64_t a1)
   dispatch_sync(workQueue, block);
 }
 
-uint64_t __24__HMIVideoEncoder_flush__block_invoke(uint64_t a1)
+void *__24__HMIVideoEncoder_flush__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) session];
@@ -469,7 +448,7 @@ uint64_t __24__HMIVideoEncoder_flush__block_invoke(uint64_t a1)
       }
 
       objc_autoreleasePoolPop(v6);
-      [*(a1 + 32) _invalidateWithErr:v5];
+      [*(a1 + 32) _invalidateWithErr:?];
     }
 
     else
@@ -483,7 +462,7 @@ uint64_t __24__HMIVideoEncoder_flush__block_invoke(uint64_t a1)
       }
     }
 
-    return [*(a1 + 32) setForceKeyFrameOnNextEncodedFrame:1];
+    return [*(a1 + 32) setForceKeyFrameOnNextEncodedFrame:?];
   }
 
   return result;
@@ -613,156 +592,132 @@ void __26__HMIVideoEncoder_prepare__block_invoke(uint64_t a1)
 - (int)_setSInt32Property:(__CFString *)property propertyValue:(int)value
 {
   SInt32 = FigCFNumberCreateSInt32();
-  LODWORD(property) = [(HMIVideoEncoder *)self _setProperty:property propertyValue:SInt32];
+  v6 = [HMIVideoEncoder _setProperty:"_setProperty:propertyValue:" propertyValue:?];
   CFRelease(SInt32);
-  return property;
+  return v6;
 }
 
 - (int)_getSInt32Property:(__CFString *)property propertyValueOut:(int *)out
 {
-  number = 0;
-  v5 = [(HMIVideoEncoder *)self _getProperty:property propertyValue:&number];
+  v5 = [HMIVideoEncoder _getProperty:"_getProperty:propertyValue:" propertyValue:?];
   v6 = v5;
   if (out && !v5)
   {
-    CFNumberGetValue(number, kCFNumberSInt32Type, out);
+    CFNumberGetValue(0, kCFNumberSInt32Type, out);
   }
 
-  CFRelease(number);
+  CFRelease(0);
   return v6;
 }
 
 - (int)_setFloat64Property:(__CFString *)property propertyValue:(double)value
 {
   Float64 = FigCFNumberCreateFloat64();
-  LODWORD(property) = [(HMIVideoEncoder *)self _setProperty:property propertyValue:Float64];
+  v6 = [HMIVideoEncoder _setProperty:"_setProperty:propertyValue:" propertyValue:?];
   CFRelease(Float64);
-  return property;
+  return v6;
 }
 
 - (int)_getFloat64Property:(__CFString *)property propertyValueOut:(double *)out
 {
-  number = 0;
-  v5 = [(HMIVideoEncoder *)self _getProperty:property propertyValue:&number];
+  v5 = [HMIVideoEncoder _getProperty:"_getProperty:propertyValue:" propertyValue:?];
   v6 = v5;
   if (out && !v5)
   {
-    CFNumberGetValue(number, kCFNumberFloatType, out);
+    CFNumberGetValue(0, kCFNumberFloatType, out);
   }
 
-  CFRelease(number);
+  CFRelease(0);
   return v6;
 }
 
 - (int64_t)maxFrameDelayCount
 {
   v3 = 0;
-  [(HMIVideoEncoder *)self _getSInt32Property:*MEMORY[0x277CE2598] propertyValueOut:&v3];
+  [HMIVideoEncoder _getSInt32Property:"_getSInt32Property:propertyValueOut:" propertyValueOut:?];
   return v3;
 }
 
 - (int64_t)averageBitRate
 {
   v3 = 0;
-  [(HMIVideoEncoder *)self _getSInt32Property:*MEMORY[0x277CE2518] propertyValueOut:&v3];
-  return v3;
-}
-
-- (double)quality
-{
-  v3 = 0.0;
-  [(HMIVideoEncoder *)self _getFloat64Property:*MEMORY[0x277CE25E0] propertyValueOut:&v3];
+  [HMIVideoEncoder _getSInt32Property:"_getSInt32Property:propertyValueOut:" propertyValueOut:?];
   return v3;
 }
 
 - (int64_t)maxKeyFrameIntervalDuration
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"%@ is unavailable", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (int64_t)expectedFrameRate
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"%@ is unavailable", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (void)setExpectedDuration:(double)duration
 {
-  v4 = *MEMORY[0x277CE2540];
-  if (duration == 0.0)
+  if (duration != 0.0)
   {
-    v5 = *MEMORY[0x277CBEEE8];
+    [MEMORY[0x277CCABB0] numberWithDouble:?];
   }
 
-  else
-  {
-    v5 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-  }
-
-  [(HMIVideoEncoder *)self _setProperty:v4 propertyValue:v5];
+  [HMIVideoEncoder _setProperty:"_setProperty:propertyValue:" propertyValue:?];
 }
 
 - (double)expectedDuration
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"%@ is unavailable", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (void)setDataRateLimit:(HMIVideoEncoderDataRate)limit
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v4 = *MEMORY[0x277CE2538];
-  if (limit.var0 && (var1 = limit.var1) != 0)
+  if (limit.var0 && limit.var1)
   {
-    v6 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-    v10[0] = v6;
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:var1];
-    v10[1] = v7;
-    -[HMIVideoEncoder _setProperty:propertyValue:](self, "_setProperty:propertyValue:", v4, [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2]);
+    v4 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    v5 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    [HMIVideoEncoder _setProperty:"_setProperty:propertyValue:" propertyValue:?];
   }
 
   else
   {
-    v8 = *MEMORY[0x277CBEEE8];
-    v9 = *MEMORY[0x277CE2538];
 
-    [(HMIVideoEncoder *)self _setProperty:v9 propertyValue:v8];
+    [HMIVideoEncoder _setProperty:"_setProperty:propertyValue:" propertyValue:?];
   }
 }
 
 - (HMIVideoEncoderDataRate)dataRateLimit
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"%@ is unavailable", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (HMIVideoEncoderDelegate)delegate

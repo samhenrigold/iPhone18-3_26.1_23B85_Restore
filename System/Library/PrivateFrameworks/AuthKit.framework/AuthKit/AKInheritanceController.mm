@@ -131,7 +131,6 @@ void __81__AKInheritanceController_fetchManifestOptionsWithInheritanceContext_co
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setupBeneficiaryWithInheritanceContext:(id)context completion:(id)completion
@@ -210,7 +209,6 @@ void __77__AKInheritanceController_setupBeneficiaryWithInheritanceContext_comple
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateBeneficiaryWithInheritanceContext:(id)context completion:(id)completion
@@ -289,7 +287,6 @@ void __78__AKInheritanceController_updateBeneficiaryWithInheritanceContext_compl
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)removeBeneficiaryWithInheritanceContext:(id)context completion:(id)completion
@@ -368,7 +365,6 @@ void __78__AKInheritanceController_removeBeneficiaryWithInheritanceContext_compl
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupBeneficiaryAliasWithInheritanceContext:(id)context completion:(id)completion
@@ -478,7 +474,6 @@ void __83__AKInheritanceController__setupBeneficiaryAliasWithInheritanceContext_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

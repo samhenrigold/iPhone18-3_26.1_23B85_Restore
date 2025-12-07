@@ -168,67 +168,66 @@ LABEL_13:
 
 - (id)descriptionOfAllPossiblePathsToObjectIdentifier:(int64_t)identifier withLimit:(unint64_t)limit
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = objc_alloc_init(MEMORY[0x277CCAB68]);
   objc_msgSend_appendString_(v7, v8, @"(\n");
   v9 = objc_autoreleasePoolPush();
-  v25 = 0;
-  objc_msgSend_parentObjectPathsForObjectIdentifier_limit_totalParentObjects_(self, v10, identifier, limit, &v25);
+  v24 = 0;
+  objc_msgSend_parentObjectPathsForObjectIdentifier_limit_totalParentObjects_(self, v10, identifier, limit, &v24);
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v11 = v22 = 0u;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v21, v26, 16);
+  v20 = 0u;
+  v11 = v21 = 0u;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v20, v25, 16);
   if (v14)
   {
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        objc_msgSend_appendFormat_(v7, v13, @"    %@\n", *(*(&v21 + 1) + 8 * i));
+        objc_msgSend_appendFormat_(v7, v13, @"    %@\n", *(*(&v20 + 1) + 8 * i));
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v21, v26, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v20, v25, 16);
     }
 
     while (v14);
   }
 
-  if (v25 > limit)
+  if (v24 > limit)
   {
-    objc_msgSend_appendFormat_(v7, v17, @"    Total known parent objects: %tu\n", v25);
+    objc_msgSend_appendFormat_(v7, v17, @"    Total known parent objects: %tu\n", v24);
   }
 
   objc_autoreleasePoolPop(v9);
   objc_msgSend_appendString_(v7, v18, @""));
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)addReferencesFromObject:(id)object archiver:(id)archiver
 {
-  v12[0] = objc_msgSend_tsp_identifier(object, a2, object);
+  v12 = objc_msgSend_tsp_identifier(object, a2, object);
   v8 = objc_msgSend_aggregatedStrongReferences(archiver, v6, v7);
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
   v11[2] = sub_276A69150;
   v11[3] = &unk_27A6E54C0;
   v11[4] = self;
-  v11[5] = v12[0];
+  v11[5] = v12;
   objc_msgSend_enumerateItemsUsingBlock_(v8, v9, v11);
 
-  if (!sub_2769ABC64(&self->_classMap.__table_.__bucket_list_.__ptr_, v12))
+  if (!sub_2769ABC64(&self->_classMap.__table_.__bucket_list_.__ptr_, &v12))
   {
     v10 = objc_opt_class();
-    v12[2] = v12;
-    sub_276A6A438(&self->_classMap.__table_.__bucket_list_.__ptr_, v12)[3] = v10;
+    v13 = &v12;
+    sub_276A6A438(&self->_classMap.__table_.__bucket_list_.__ptr_, &v12, &unk_276C168C0, &v13)[3] = v10;
   }
 }
 
@@ -239,12 +238,14 @@ LABEL_13:
     for (i = *(map + 5); i; i = *i)
     {
       v5 = i[2];
-      v16 = v5;
+      v19 = v5;
       v6 = i[4];
       if (v6 >= 2)
       {
-        v15 = i[4];
-        sub_276A6A668();
+        v16[0] = 0;
+        v17 = v6;
+        v18 = 0;
+        sub_276A6A668(&self->_inverseReferenceMap, &v19, v16);
       }
 
       if (v6 != 1)
@@ -255,15 +256,16 @@ LABEL_13:
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 380, 0, "Unexpected empty info.");
 
         objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
-        v5 = v16;
+        v5 = v19;
       }
 
       objc_msgSend_addReferenceFromObjectIdentifier_toObjectIdentifier_(self, a2, i[5], v5);
     }
 
-    if (*(map + 10))
+    v14 = *(map + 10);
+    if (v14)
     {
-      sub_276A6A76C();
+      sub_276A6A76C(&self->_classMap, (v14 + 16), (v14 + 24));
     }
   }
 }
@@ -272,35 +274,41 @@ LABEL_13:
 {
   if (map)
   {
-    v3 = *(map + 5);
-    if (v3)
+    v4 = *(map + 5);
+    if (v4)
     {
-      v15 = v3[2];
-      sub_276A6A804(&self->_inverseReferenceMap.__table_.__bucket_list_.__ptr_, &v15);
-      v5 = v3[4];
-      if (v5 >= 2)
+      v19 = v4[2];
+      sub_276A6A804(&self->_inverseReferenceMap.__table_.__bucket_list_.__ptr_, &v19);
+      v6 = v4[4];
+      if (v6 >= 2)
       {
-        v13 = v3[4];
-        sub_276A6A668();
+        v16[0] = 0;
+        v17 = v6;
+        v18 = 0;
+        sub_276A6A668(&self->_inverseReferenceMap, &v19, v16);
       }
 
-      if (v5 != 1)
+      if (v6 != 1)
       {
-        v6 = MEMORY[0x277D81150];
-        v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSPObjectReferenceMap addObjectReferenceMap:]");
-        v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectReferenceMap.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 410, 0, "Unexpected empty info.");
+        v7 = MEMORY[0x277D81150];
+        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSPObjectReferenceMap addObjectReferenceMap:]");
+        v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObjectReferenceMap.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 410, 0, "Unexpected empty info.");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
       }
 
-      v14 = v3[5];
-      sub_276A6A668();
+      v14 = v4[5];
+      v16[0] = 0;
+      v17 = 1;
+      v18 = v14;
+      sub_276A6A668(&self->_inverseReferenceMap, &v19, v16);
     }
 
-    if (*(map + 10))
+    v15 = *(map + 10);
+    if (v15)
     {
-      sub_276A6A76C();
+      sub_276A6A76C(&self->_classMap, (v15 + 16), (v15 + 24));
     }
   }
 }
@@ -411,9 +419,9 @@ LABEL_21:
 {
   identifierCopy = identifier;
   objectIdentifierCopy = objectIdentifier;
-  v4 = 0;
+  v4[0] = 0;
   v5 = 1;
-  sub_276A6A850();
+  sub_276A6A850(&self->_inverseReferenceMap, &objectIdentifierCopy, v4);
 }
 
 - (id).cxx_construct

@@ -6,6 +6,7 @@
 - (id)_workoutBuilderSampleQueryClientWithErrorHandler:(id)handler;
 - (void)_queue_performHistoricalQuery;
 - (void)_queue_start;
+- (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available;
 - (void)didCreateTaskServer:(id)server;
 - (void)workoutBuilderServer:(id)server addedQuantities:(id)quantities;
 - (void)workoutBuilderServer:(id)server addedSamples:(id)samples;
@@ -101,10 +102,9 @@ LABEL_11:
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -124,155 +124,149 @@ LABEL_11:
 
 - (void)_queue_performHistoricalQuery
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained((self + 224));
 
     if (WeakRetained)
     {
-      if ((*(self + 208) & 1) == 0)
+      if (*(self + 208))
       {
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __66__HDWorkoutBuilderSampleQueryServer__queue_performHistoricalQuery__block_invoke;
-        v35[3] = &unk_2786138D0;
-        v35[4] = self;
-        v3 = [(HDWorkoutBuilderSampleQueryServer *)self _workoutBuilderSampleQueryClientWithErrorHandler:v35];
-        if (*(self + 211) == 1)
+        return;
+      }
+
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __66__HDWorkoutBuilderSampleQueryServer__queue_performHistoricalQuery__block_invoke;
+      v34[3] = &unk_2786138D0;
+      v34[4] = self;
+      v3 = [(HDWorkoutBuilderSampleQueryServer *)self _workoutBuilderSampleQueryClientWithErrorHandler:v34];
+      if (*(self + 211) == 1)
+      {
+        *buf = 0;
+        *&buf[8] = buf;
+        *&buf[16] = 0x3032000000;
+        v36 = __Block_byref_object_copy__31;
+        v37 = __Block_byref_object_dispose__31;
+        v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v4 = objc_loadWeakRetained((self + 224));
+        sampleType = [self sampleType];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __66__HDWorkoutBuilderSampleQueryServer__queue_performHistoricalQuery__block_invoke_309;
+        v29[3] = &unk_278617BA0;
+        v32 = buf;
+        v33 = 0;
+        v6 = v3;
+        v30 = v6;
+        selfCopy = self;
+        v7 = [v4 enumerateQuantitiesOfType:sampleType error:&v33 handler:v29];
+        v8 = v33;
+
+        if ([*(*&buf[8] + 40) count] || (*(self + 209) & 1) == 0)
         {
-          *buf = 0;
-          *&buf[8] = buf;
-          *&buf[16] = 0x3032000000;
-          v37 = __Block_byref_object_copy__31;
-          v38 = __Block_byref_object_dispose__31;
-          v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v4 = objc_loadWeakRetained((self + 224));
-          sampleType = [self sampleType];
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __66__HDWorkoutBuilderSampleQueryServer__queue_performHistoricalQuery__block_invoke_309;
-          v30[3] = &unk_278617BA0;
-          v33 = buf;
-          v34 = 0;
-          v6 = v3;
-          v31 = v6;
-          selfCopy = self;
-          v7 = [v4 enumerateQuantitiesOfType:sampleType error:&v34 handler:v30];
-          v8 = v34;
+          v9 = *(*&buf[8] + 40);
+          v10 = *(self + 208);
+          queryUUID = [self queryUUID];
+          [v6 client_deliverQuantities:v9 hasFinishedHistoricalFetch:v10 queryUUID:queryUUID];
 
-          if ([*(*&buf[8] + 40) count] || (*(self + 209) & 1) == 0)
-          {
-            v9 = *(*&buf[8] + 40);
-            v10 = *(self + 208);
-            queryUUID = [self queryUUID];
-            [v6 client_deliverQuantities:v9 hasFinishedHistoricalFetch:v10 queryUUID:queryUUID];
+          *(self + 209) = 1;
+        }
 
-            *(self + 209) = 1;
-          }
-
-          _Block_object_dispose(buf, 8);
-          if (v7)
-          {
+        _Block_object_dispose(buf, 8);
+        if (v7)
+        {
 LABEL_13:
-            *(self + 208) = 1;
+          *(self + 208) = 1;
 LABEL_18:
 
-            goto LABEL_19;
-          }
+          return;
         }
-
-        else
-        {
-          *buf = 0;
-          *&buf[8] = buf;
-          *&buf[16] = 0x3032000000;
-          v37 = __Block_byref_object_copy__31;
-          v38 = __Block_byref_object_dispose__31;
-          v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v13 = objc_loadWeakRetained((self + 224));
-          v14 = MEMORY[0x277CBEB98];
-          sampleType2 = [self sampleType];
-          v16 = [v14 setWithObject:sampleType2];
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __66__HDWorkoutBuilderSampleQueryServer__queue_performHistoricalQuery__block_invoke_2;
-          v25[3] = &unk_278617BC8;
-          v28 = buf;
-          v29 = 0;
-          v17 = v3;
-          v26 = v17;
-          selfCopy2 = self;
-          v18 = [v13 enumerateSamplesOfTypes:v16 error:&v29 handler:v25];
-          v19 = v29;
-
-          if ([*(*&buf[8] + 40) count] || (*(self + 209) & 1) == 0)
-          {
-            v20 = *(*&buf[8] + 40);
-            v21 = *(self + 208);
-            queryUUID2 = [self queryUUID];
-            [v17 client_deliverSamples:v20 hasFinishedHistoricalFetch:v21 queryUUID:queryUUID2];
-
-            *(self + 209) = 1;
-          }
-
-          _Block_object_dispose(buf, 8);
-          v8 = 0;
-          if (v18)
-          {
-            goto LABEL_13;
-          }
-        }
-
-        _HKInitializeLogging();
-        v23 = *MEMORY[0x277CCC308];
-        if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543618;
-          *&buf[4] = self;
-          *&buf[12] = 2114;
-          *&buf[14] = v8;
-          _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Failed to complete historical fetch: %{public}@", buf, 0x16u);
-        }
-
-        goto LABEL_18;
       }
+
+      else
+      {
+        *buf = 0;
+        *&buf[8] = buf;
+        *&buf[16] = 0x3032000000;
+        v36 = __Block_byref_object_copy__31;
+        v37 = __Block_byref_object_dispose__31;
+        v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v13 = objc_loadWeakRetained((self + 224));
+        v14 = MEMORY[0x277CBEB98];
+        sampleType2 = [self sampleType];
+        v16 = [v14 setWithObject:sampleType2];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __66__HDWorkoutBuilderSampleQueryServer__queue_performHistoricalQuery__block_invoke_2;
+        v24[3] = &unk_278617BC8;
+        v27 = buf;
+        v28 = 0;
+        v17 = v3;
+        v25 = v17;
+        selfCopy2 = self;
+        v18 = [v13 enumerateSamplesOfTypes:v16 error:&v28 handler:v24];
+        v19 = v28;
+
+        if ([*(*&buf[8] + 40) count] || (*(self + 209) & 1) == 0)
+        {
+          v20 = *(*&buf[8] + 40);
+          v21 = *(self + 208);
+          queryUUID2 = [self queryUUID];
+          [v17 client_deliverSamples:v20 hasFinishedHistoricalFetch:v21 queryUUID:queryUUID2];
+
+          *(self + 209) = 1;
+        }
+
+        _Block_object_dispose(buf, 8);
+        v8 = 0;
+        if (v18)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      _HKInitializeLogging();
+      v23 = *MEMORY[0x277CCC308];
+      if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        *&buf[4] = self;
+        *&buf[12] = 2114;
+        *&buf[14] = v8;
+        _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Failed to complete historical fetch: %{public}@", buf, 0x16u);
+      }
+
+      goto LABEL_18;
     }
 
-    else
+    _HKInitializeLogging();
+    v12 = *MEMORY[0x277CCC308];
+    if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEFAULT))
     {
-      _HKInitializeLogging();
-      v12 = *MEMORY[0x277CCC308];
-      if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138543362;
-        *&buf[4] = self;
-        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Unable to perform historical query: no workout builder server has been found yet.", buf, 0xCu);
-      }
+      *buf = 138543362;
+      *&buf[4] = self;
+      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Unable to perform historical query: no workout builder server has been found yet.", buf, 0xCu);
     }
   }
-
-LABEL_19:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDWorkoutBuilderSampleQueryServer__queue_performHistoricalQuery__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send historical samples to client: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send historical samples to client: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDWorkoutBuilderSampleQueryServer__queue_performHistoricalQuery__block_invoke_309(uint64_t a1, void *a2, void *a3)
@@ -402,21 +396,19 @@ uint64_t __71__HDWorkoutBuilderSampleQueryServer_workoutBuilderServer_addedSampl
 
 void __71__HDWorkoutBuilderSampleQueryServer_workoutBuilderServer_addedSamples___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send added samples to client: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send added samples to client: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutBuilderServer:(id)server addedQuantities:(id)quantities
@@ -477,21 +469,27 @@ id __74__HDWorkoutBuilderSampleQueryServer_workoutBuilderServer_addedQuantities_
 
 void __74__HDWorkoutBuilderSampleQueryServer_workoutBuilderServer_addedQuantities___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send added quantities to client: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to send added quantities to client: %{public}@", &v6, 0x16u);
   }
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
+{
+  v5 = [(HDQueryServer *)self queryQueue:database];
+  dispatch_assert_queue_V2(v5);
+
+  [(HDWorkoutBuilderSampleQueryServer *)self _queue_scheduleHistoricalQuery];
 }
 
 @end

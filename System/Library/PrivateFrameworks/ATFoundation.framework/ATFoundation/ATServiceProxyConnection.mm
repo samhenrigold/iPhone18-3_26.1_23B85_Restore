@@ -16,34 +16,34 @@
 
 - (void)fetchMessageLinksWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   service = [(ATServiceProxyConnection *)self service];
   if (objc_opt_respondsToSelector())
   {
-    v23 = service;
+    v22 = service;
     allMessageLinkProxyListeners = [service allMessageLinkProxyListeners];
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(allMessageLinkProxyListeners, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v8 = allMessageLinkProxyListeners;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * i);
+          v13 = *(*(&v23 + 1) + 8 * i);
           v14 = objc_alloc(MEMORY[0x277CEA450]);
           endpoint = [v13 endpoint];
           v16 = [v14 initWithEndpoint:endpoint];
@@ -64,17 +64,15 @@
           [v7 addObject:v16];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v10);
     }
 
     completionCopy[2](completionCopy, v7, 0);
-    service = v23;
+    service = v22;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service willOpenMessageLink:(id)link

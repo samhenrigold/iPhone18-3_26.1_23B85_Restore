@@ -72,7 +72,7 @@
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     LOBYTE(v2) = 1;
@@ -83,22 +83,21 @@
     v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
     if (v2)
     {
-      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline puzzle fetch operation requires a context"];
-      v6 = 136315906;
-      v7 = "[FCOfflinePuzzleFetchOperation validateOperation]";
-      v8 = 2080;
-      v9 = "FCOfflinePuzzleFetchOperation.m";
-      v10 = 1024;
-      v11 = 109;
-      v12 = 2114;
-      v13 = v4;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+      v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline puzzle fetch operation requires a context"];
+      v5 = 136315906;
+      v6 = "[FCOfflinePuzzleFetchOperation validateOperation]";
+      v7 = 2080;
+      v8 = "FCOfflinePuzzleFetchOperation.m";
+      v9 = 1024;
+      v10 = 109;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
 
       LOBYTE(v2) = 0;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -121,13 +120,13 @@
 
 - (void)performOperation
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy__34;
-  v27[4] = __Block_byref_object_dispose__34;
-  v28 = 0;
+  v36 = *MEMORY[0x1E69E9840];
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy__34;
+  v26[4] = __Block_byref_object_dispose__34;
+  v27 = 0;
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -160,60 +159,59 @@
     useSmallestPuzzleThumbnails = [(FCOfflineDownloadsConfiguration *)v9 useSmallestPuzzleThumbnails];
     v11 = @"normal";
     *buf = 138544130;
-    v30 = shortOperationDescription;
-    v31 = 2114;
+    v29 = shortOperationDescription;
+    v30 = 2114;
     if (useSmallestPuzzleThumbnails)
     {
       v11 = @"small";
     }
 
-    v32 = v5;
-    v33 = 2114;
-    v34 = v6;
-    v35 = 2114;
-    v36 = v11;
+    v31 = v5;
+    v32 = 2114;
+    v33 = v6;
+    v34 = 2114;
+    v35 = v11;
     _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will %{public}@ puzzle id=%{public}@, thumbnail variant=%{public}@", buf, 0x2Au);
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke;
-  v26[3] = &unk_1E7C396C0;
-  v26[4] = self;
-  v12 = [MEMORY[0x1E69B68F8] firstly:v26];
-  v13 = zalgo();
   v25[0] = MEMORY[0x1E69E9820];
   v25[1] = 3221225472;
-  v25[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_2;
-  v25[3] = &unk_1E7C40388;
+  v25[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke;
+  v25[3] = &unk_1E7C396C0;
   v25[4] = self;
-  v25[5] = v27;
-  v14 = [v12 thenOn:v13 then:v25];
-  v15 = zalgo();
+  v12 = [MEMORY[0x1E69B68F8] firstly:v25];
+  v13 = zalgo();
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
-  v24[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_3;
-  v24[3] = &unk_1E7C403B0;
+  v24[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_2;
+  v24[3] = &unk_1E7C40388;
   v24[4] = self;
-  v24[5] = v27;
-  v16 = [v14 thenOn:v15 then:v24];
-  v17 = zalgo();
+  v24[5] = v26;
+  v14 = [v12 thenOn:v13 then:v24];
+  v15 = zalgo();
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
-  v23[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_4;
-  v23[3] = &unk_1E7C403D8;
+  v23[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_3;
+  v23[3] = &unk_1E7C403B0;
   v23[4] = self;
-  v18 = [v16 thenOn:v17 then:v23];
-  v19 = zalgo();
+  v23[5] = v26;
+  v16 = [v14 thenOn:v15 then:v23];
+  v17 = zalgo();
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
-  v22[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_5;
-  v22[3] = &unk_1E7C36E50;
+  v22[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_4;
+  v22[3] = &unk_1E7C403D8;
   v22[4] = self;
-  v20 = [v18 errorOn:v19 error:v22];
+  v18 = [v16 thenOn:v17 then:v22];
+  v19 = zalgo();
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_5;
+  v21[3] = &unk_1E7C36E50;
+  v21[4] = self;
+  v20 = [v18 errorOn:v19 error:v21];
 
-  _Block_object_dispose(v27, 8);
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v26, 8);
 }
 
 id __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke(uint64_t a1)
@@ -241,20 +239,20 @@ id __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke(uint64_t a
 
 - (void)_updateProgress:(double *)progress
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (progress && ([progress isFinished] & 1) == 0)
   {
     if (progress[57] > a2 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch progress should never go backward"];
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch progress should never go backward"];
       *buf = 136315906;
-      v11 = "[FCOfflinePuzzleFetchOperation _updateProgress:]";
-      v12 = 2080;
-      v13 = "FCOfflinePuzzleFetchOperation.m";
-      v14 = 1024;
-      v15 = 308;
-      v16 = 2114;
-      v17 = v8;
+      v10 = "[FCOfflinePuzzleFetchOperation _updateProgress:]";
+      v11 = 2080;
+      v12 = "FCOfflinePuzzleFetchOperation.m";
+      v13 = 1024;
+      v14 = 308;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -265,28 +263,31 @@ id __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke(uint64_t a
 
     if (progressQueue)
     {
-      if (progressHandler)
+      if (!progressHandler)
       {
-        progressQueue2 = [progress progressQueue];
-        block[0] = MEMORY[0x1E69E9820];
-        block[1] = 3221225472;
-        block[2] = __49__FCOfflinePuzzleFetchOperation__updateProgress___block_invoke_57;
-        block[3] = &unk_1E7C36EA0;
-        block[4] = progress;
-        dispatch_async(progressQueue2, block);
-LABEL_11:
+        return;
       }
+
+      progressQueue2 = [progress progressQueue];
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __49__FCOfflinePuzzleFetchOperation__updateProgress___block_invoke_57;
+      block[3] = &unk_1E7C36EA0;
+      block[4] = progress;
+      dispatch_async(progressQueue2, block);
     }
 
-    else if (progressHandler)
+    else
     {
+      if (!progressHandler)
+      {
+        return;
+      }
+
       progressQueue2 = [progress progressHandler];
       (*(progressQueue2 + 16))(progress[57]);
-      goto LABEL_11;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 id __49__FCOfflinePuzzleFetchOperation_performOperation__block_invoke_2(uint64_t a1, void *a2)
@@ -403,7 +404,7 @@ void __62__FCOfflinePuzzleFetchOperation_operationWillFinishWithError___block_in
 
 void __54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(FCRecordChainFetchOperation);
@@ -426,19 +427,19 @@ void __54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke(uin
     v11 = v11[54];
   }
 
-  v31[0] = v11;
+  v30[0] = v11;
   v12 = MEMORY[0x1E695DEC8];
   v13 = v11;
-  v14 = [v12 arrayWithObjects:v31 count:1];
+  v14 = [v12 arrayWithObjects:v30 count:1];
 
   [(FCRecordChainFetchOperation *)v8 setTopLevelRecordIDs:v14];
-  v29[0] = @"Puzzle";
-  v28 = @"puzzleTypeID";
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-  v29[1] = @"PuzzleType";
-  v30[0] = v15;
-  v30[1] = MEMORY[0x1E695E0F0];
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v28[0] = @"Puzzle";
+  v27 = @"puzzleTypeID";
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+  v28[1] = @"PuzzleType";
+  v29[0] = v15;
+  v29[1] = MEMORY[0x1E695E0F0];
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
   [(FCRecordChainFetchOperation *)v8 setLinkKeysByRecordType:v16];
 
   if ([*(a1 + 32) cachedOnly])
@@ -447,20 +448,18 @@ void __54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke(uin
     [(FCRecordChainFetchOperation *)v8 setCachePolicy:v17];
   }
 
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke_2;
-  v24 = &unk_1E7C40450;
-  v25 = *(a1 + 32);
-  v26 = v6;
-  v27 = v5;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke_2;
+  v23 = &unk_1E7C40450;
+  v24 = *(a1 + 32);
+  v25 = v6;
+  v26 = v5;
   v18 = v5;
   v19 = v6;
-  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:&v21];
-  [*(a1 + 32) associateChildOperation:{v8, v21, v22, v23, v24, v25}];
+  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:&v20];
+  [*(a1 + 32) associateChildOperation:{v8, v20, v21, v22, v23, v24}];
   [(FCOperation *)v8 start];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -561,11 +560,11 @@ void __54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke_2_3
   [v4 enumerateObjectsUsingBlock:v5];
 }
 
-uint64_t __54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke_3_40(uint64_t result, uint64_t a2)
+void *__54__FCOfflinePuzzleFetchOperation__promisePuzzleRecords__block_invoke_3_40(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 448) addObject:a2];
@@ -688,11 +687,11 @@ void __68__FCOfflinePuzzleFetchOperation__promiseThumbnailsForPuzzleRecords___bl
   [(FCOperation *)v15 start];
 }
 
-uint64_t __68__FCOfflinePuzzleFetchOperation__promiseThumbnailsForPuzzleRecords___block_invoke_2(uint64_t result, uint64_t a2)
+void *__68__FCOfflinePuzzleFetchOperation__promiseThumbnailsForPuzzleRecords___block_invoke_2(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 448) addObject:a2];
@@ -804,11 +803,11 @@ void __71__FCOfflinePuzzleFetchOperation__promiseDataResourcesForPuzzleRecords__
   [v4 fc_safelyAddObject:v7];
 }
 
-uint64_t __71__FCOfflinePuzzleFetchOperation__promiseDataResourcesForPuzzleRecords___block_invoke_3(uint64_t result, uint64_t a2)
+void *__71__FCOfflinePuzzleFetchOperation__promiseDataResourcesForPuzzleRecords___block_invoke_3(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 448) addObject:a2];
@@ -844,39 +843,35 @@ void __71__FCOfflinePuzzleFetchOperation__promiseDataResourcesForPuzzleRecords__
 
 void __71__FCOfflinePuzzleFetchOperation__promiseDataResourcesForPuzzleRecords___block_invoke_6(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) status] == 1)
   {
     v2 = MEMORY[0x1E696ABC0];
     v3 = *(a1 + 48);
-    v14 = [*(a1 + 40) errorUserInfo];
+    v12 = [*(a1 + 40) errorUserInfo];
     v4 = [v2 fc_operationCancelledErrorWithAdditionalUserInfo:?];
     (*(v3 + 16))(v3, v4);
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v6 = FCOperationLog;
+    v5 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = v6;
-      v12 = [v10 shortOperationDescription];
-      v13 = [*(a1 + 32) missingObjectDescriptions];
+      v8 = *(a1 + 40);
+      v9 = v5;
+      v10 = [v8 shortOperationDescription];
+      v11 = [*(a1 + 32) missingObjectDescriptions];
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch ANF resources: %{public}@", buf, 0x16u);
+      v14 = v10;
+      v15 = 2114;
+      v16 = v11;
+      _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch ANF resources: %{public}@", buf, 0x16u);
     }
 
-    v7 = *(a1 + 48);
-    v8 = [*(a1 + 32) error];
-    (*(v7 + 16))(v7, v8);
-
-    v9 = *MEMORY[0x1E69E9840];
+    v6 = *(a1 + 48);
+    v7 = [*(a1 + 32) error];
+    (*(v6 + 16))(v6, v7);
   }
 }
 

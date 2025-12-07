@@ -28,11 +28,11 @@
 
 - (ASTSuiteResultComponent)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v37.receiver = self;
-  v37.super_class = ASTSuiteResultComponent;
-  v7 = [(ASTSuiteResultComponent *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = ASTSuiteResultComponent;
+  v7 = [(ASTSuiteResultComponent *)&v36 init];
   if (!v7)
   {
     goto LABEL_22;
@@ -60,29 +60,29 @@
             goto LABEL_10;
           }
 
-          v30 = v14;
+          v29 = v14;
           array = [MEMORY[0x277CBEB18] array];
+          v32 = 0u;
           v33 = 0u;
           v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
           obj = v10;
-          v15 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v15 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v34;
+            v17 = *v33;
             while (2)
             {
               v18 = 0;
               do
               {
-                if (*v34 != v17)
+                if (*v33 != v17)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v19 = [[ASTSuiteResultSection alloc] initWithDictionary:*(*(&v33 + 1) + 8 * v18) error:error];
+                v19 = [[ASTSuiteResultSection alloc] initWithDictionary:*(*(&v32 + 1) + 8 * v18) error:error];
                 if (!v19)
                 {
 
@@ -96,7 +96,7 @@
               }
 
               while (v16 != v18);
-              v16 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+              v16 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
               if (v16)
               {
                 continue;
@@ -115,8 +115,8 @@
           v24 = v9;
 
           status = v7->_status;
-          v7->_status = v30;
-          v26 = v30;
+          v7->_status = v29;
+          v26 = v29;
 
           sections = v7->_sections;
           v7->_sections = array;
@@ -146,7 +146,6 @@ LABEL_11:
   v13 = 0;
 LABEL_23:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

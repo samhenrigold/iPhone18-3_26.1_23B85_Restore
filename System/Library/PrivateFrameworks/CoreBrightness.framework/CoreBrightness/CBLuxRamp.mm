@@ -3,7 +3,9 @@
 - (BOOL)shouldRampFromStartLux:(float)lux toTargetLux:(float)targetLux;
 - (CBLuxRamp)initWithPolicy:(id)policy andLuxShape:(id)shape;
 - (float)targetLux;
+- (int)rampTimedFromLux:(float)lux toLux:(float)toLux atTime:(float)time forceRamp:(BOOL)ramp;
 - (int)updateRampWithProgress:(float)progress;
+- (int)updateTimedRamp:(float)ramp;
 - (void)dealloc;
 - (void)forceLux:(float)lux;
 @end
@@ -105,6 +107,80 @@
   self->_startTime = 0.0;
   self->_state = 1;
   return 3;
+}
+
+- (int)updateTimedRamp:(float)ramp
+{
+  if (self->_duration == 0.0)
+  {
+    return self->_state;
+  }
+
+  v5 = (ramp - self->_startTime) / self->_duration;
+  if (ramp > ((self->_startTime + self->_duration) + 0.05))
+  {
+    v5 = 1.0;
+  }
+
+  *&v3 = v5;
+  return [(CBLuxRamp *)self updateRampWithProgress:v3];
+}
+
+- (int)rampTimedFromLux:(float)lux toLux:(float)toLux atTime:(float)time forceRamp:(BOOL)ramp
+{
+  if (!ramp && ![(CBLuxRamp *)self shouldRampFromStartLux:*&lux toTargetLux:*&toLux])
+  {
+    return self->_state;
+  }
+
+  *&v6 = lux;
+  [(CBLuxRampPolicy *)self->_policy cappedRampStartLux:v6];
+  v20 = v7;
+  *&v8 = toLux;
+  [(CBLuxRampPolicy *)self->_policy cappedRampTargetLux:v8];
+  v18 = v9;
+  if (float_equal(v20, v9))
+  {
+    self->_lux = v18;
+    self->_targetLux = v18;
+    self->_startLux = v18;
+    self->_duration = 0.0;
+    self->_state = 1;
+    return 3;
+  }
+
+  else
+  {
+    *&v10 = v18;
+    if (v18 <= v20)
+    {
+      [(CBLuxRampPolicy *)self->_policy rampDownDuration];
+    }
+
+    else
+    {
+      [(CBLuxRampPolicy *)self->_policy rampUpDuration];
+    }
+
+    v15 = v11;
+    self->_duration = v11;
+    if ([(CBLuxRamp *)self rampIsRunning]&& vabds_f32(v18, v20) <= vabds_f32(self->_targetLux, self->_lux))
+    {
+      v14 = vabds_f32(self->_targetLux, self->_lux);
+      v13 = vabds_f32(self->_targetLux, self->_startLux);
+      if (v13 != 0.0)
+      {
+        self->_duration = v15 * (v14 / v13);
+      }
+    }
+
+    self->_startTime = time;
+    self->_lux = v20;
+    self->_startLux = v20;
+    self->_targetLux = v18;
+    self->_state = 0;
+    return 2;
+  }
 }
 
 - (BOOL)shouldRampFromStartLux:(float)lux toTargetLux:(float)targetLux

@@ -31,7 +31,7 @@
 {
   if (representation)
   {
-    v4 = [representation objectForKey:@"effectiveDate"];
+    v4 = objc_msgSend_objectForKey_(representation, a2, @"effectiveDate");
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

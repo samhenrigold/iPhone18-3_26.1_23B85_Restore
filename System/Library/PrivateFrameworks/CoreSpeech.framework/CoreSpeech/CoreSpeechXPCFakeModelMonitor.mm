@@ -9,7 +9,7 @@
 
 - (void)_registerForFakeAssetRollNotification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (CSIsInternalBuild() && self->_fakeAssetRollNotificationRegistrationToken == -1)
   {
     out_token = 0;
@@ -20,7 +20,7 @@
     handler[1] = 3221225472;
     handler[2] = __70__CoreSpeechXPCFakeModelMonitor__registerForFakeAssetRollNotification__block_invoke;
     handler[3] = &unk_2784C5588;
-    objc_copyWeak(&v9, &location);
+    objc_copyWeak(&v8, &location);
     v5 = notify_register_dispatch(uTF8String, &out_token, queue, handler);
     if (v5)
     {
@@ -28,17 +28,17 @@
       if (!os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
       {
 LABEL_11:
-        objc_destroyWeak(&v9);
+        objc_destroyWeak(&v8);
         objc_destroyWeak(&location);
-        goto LABEL_12;
+        return;
       }
 
       *buf = 136315650;
-      v13 = "[CoreSpeechXPCFakeModelMonitor _registerForFakeAssetRollNotification]";
-      v14 = 2112;
-      v15 = @"com.apple.corespeech.fakeasset.rolling";
-      v16 = 1024;
-      v17 = v5;
+      v12 = "[CoreSpeechXPCFakeModelMonitor _registerForFakeAssetRollNotification]";
+      v13 = 2112;
+      v14 = @"com.apple.corespeech.fakeasset.rolling";
+      v15 = 1024;
+      v16 = v5;
     }
 
     else
@@ -56,38 +56,33 @@ LABEL_11:
       }
 
       *buf = 136315650;
-      v13 = "[CoreSpeechXPCFakeModelMonitor _registerForFakeAssetRollNotification]";
-      v14 = 2112;
-      v15 = @"com.apple.corespeech.fakeasset.rolling";
-      v16 = 1024;
-      v17 = 0;
+      v12 = "[CoreSpeechXPCFakeModelMonitor _registerForFakeAssetRollNotification]";
+      v13 = 2112;
+      v14 = @"com.apple.corespeech.fakeasset.rolling";
+      v15 = 1024;
+      v16 = 0;
     }
 
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Failed to register for notification %@ (status=%d)", buf, 0x1Cu);
     goto LABEL_11;
   }
-
-LABEL_12:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CoreSpeechXPCFakeModelMonitor__registerForFakeAssetRollNotification__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[CoreSpeechXPCFakeModelMonitor _registerForFakeAssetRollNotification]_block_invoke";
-    v7 = 2112;
-    v8 = @"com.apple.corespeech.fakeasset.rolling";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Received notification %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CoreSpeechXPCFakeModelMonitor _registerForFakeAssetRollNotification]_block_invoke";
+    v6 = 2112;
+    v7 = @"com.apple.corespeech.fakeasset.rolling";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Received notification %@", &v4, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setShouldRollFakeModel:1];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop

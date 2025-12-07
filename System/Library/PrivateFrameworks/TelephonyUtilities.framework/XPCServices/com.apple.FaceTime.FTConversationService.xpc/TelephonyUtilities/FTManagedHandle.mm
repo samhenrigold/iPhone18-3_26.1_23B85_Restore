@@ -21,42 +21,42 @@
 
     if (v10)
     {
-      v11 = [objc_alloc(objc_opt_class()) initWithEntity:v10 insertIntoManagedObjectContext:contextCopy];
+      v13 = [objc_alloc(objc_opt_class()) initWithEntity:v10 insertIntoManagedObjectContext:contextCopy];
     }
 
     else
     {
-      v13 = FTCServiceLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = FTCServiceLog(v11, v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412546;
-        v19 = @"Handle";
-        v20 = 2112;
-        v21 = contextCopy;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Could not find entity description with name %@ in managed object context %@. Falling back to convenience initializer.", &v18, 0x16u);
+        v20 = 138412546;
+        v21 = @"Handle";
+        v22 = 2112;
+        v23 = contextCopy;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Could not find entity description with name %@ in managed object context %@. Falling back to convenience initializer.", &v20, 0x16u);
       }
 
-      v11 = [objc_alloc(objc_opt_class()) initWithContext:contextCopy];
+      v13 = [objc_alloc(objc_opt_class()) initWithContext:contextCopy];
     }
 
-    v12 = v11;
+    v14 = v13;
     isoCountryCode = [handleCopy isoCountryCode];
-    [v12 setIsoCountryCode:isoCountryCode];
+    [v14 setIsoCountryCode:isoCountryCode];
 
     normalizedValue = [handleCopy normalizedValue];
-    [v12 setNormalizedValue:normalizedValue];
+    [v14 setNormalizedValue:normalizedValue];
 
-    [v12 setType:{objc_msgSend(handleCopy, "type")}];
+    [v14 setType:{objc_msgSend(handleCopy, "type")}];
     value = [handleCopy value];
-    [v12 setValue:value];
+    [v14 setValue:value];
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 + (id)managedHandlesForTUHandles:(id)handles inManagedObjectContext:(id)context

@@ -13,17 +13,16 @@
   if (v2)
   {
     v3 = *(self + OBJC_IVAR____NSCoreDataCodableError_exceptionReason);
-    v4 = *(self + OBJC_IVAR____NSCoreDataCodableError_exceptionReason + 8);
 
-    v5 = MEMORY[0x1865F8600](v3, v2);
+    v4 = MEMORY[0x1865F8600](v3, v2);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (_NSCoreDataCodableError)initWithCoder:(id)coder

@@ -21,7 +21,7 @@
 
 - (BOOL)evaluate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   home = [(HMDAccessoryFirmwareUpdatePresencePolicy *)self home];
   presenceMonitor = [home presenceMonitor];
   currentHomePresence = [presenceMonitor currentHomePresence];
@@ -41,13 +41,13 @@
           v10 = HMFGetLogIdentifier();
           [currentHomePresence isAnyUserAtHome];
           v11 = HMFBooleanToString();
-          v26 = 138543618;
-          v27 = v10;
-          v28 = 2112;
-          v29 = v11;
+          v25 = 138543618;
+          v26 = v10;
+          v27 = 2112;
+          v28 = v11;
           v12 = "%{public}@final policy outcome: (presenceNeeded, resident, isAnyUserAtHome -> %@)";
 LABEL_11:
-          _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v12, &v26, 0x16u);
+          _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v12, &v25, 0x16u);
 
 LABEL_20:
           goto LABEL_40;
@@ -62,8 +62,8 @@ LABEL_20:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v19;
+        v25 = 138543362;
+        v26 = v19;
         v20 = "%{public}@(presenceNeeded, resident, currentHomePresence is nil) -> NO";
         goto LABEL_37;
       }
@@ -85,8 +85,8 @@ LABEL_39:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           v19 = HMFGetLogIdentifier();
-          v26 = 138543362;
-          v27 = v19;
+          v25 = 138543362;
+          v26 = v19;
           v20 = "%{public}@(presenceNeeded, non-resident, HMHomeLocationUnknown) -> NO";
           goto LABEL_37;
         }
@@ -102,12 +102,12 @@ LABEL_39:
         }
 
         v10 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v10;
+        v25 = 138543362;
+        v26 = v10;
         v16 = "%{public}@(presenceNeeded, non-resident, HMHomeLocationAtHome) -> YES";
         LOBYTE(homeLocation) = 1;
 LABEL_19:
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v16, &v26, 0xCu);
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v16, &v25, 0xCu);
         goto LABEL_20;
       }
 
@@ -116,11 +116,11 @@ LABEL_29:
       {
         v19 = HMFGetLogIdentifier();
         v22 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(home, "homeLocation")}];
-        v26 = 138543618;
-        v27 = v19;
-        v28 = 2112;
-        v29 = v22;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Bad configuration -- (presenceNeeded, non-resident, missing homeLocation %@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v19;
+        v27 = 2112;
+        v28 = v22;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Bad configuration -- (presenceNeeded, non-resident, missing homeLocation %@", &v25, 0x16u);
 
 LABEL_38:
         goto LABEL_39;
@@ -134,8 +134,8 @@ LABEL_38:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v19;
+        v25 = 138543362;
+        v26 = v19;
         v20 = "%{public}@(presenceNeeded, non-resident, HMHomeLocationAway) -> NO";
         goto LABEL_37;
       }
@@ -154,11 +154,11 @@ LABEL_38:
     }
 
     v19 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v19;
+    v25 = 138543362;
+    v26 = v19;
     v20 = "%{public}@(presenceNeeded, non-resident, HMHomeLocationNearbyHome) -> NO";
 LABEL_37:
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v20, &v26, 0xCu);
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v20, &v25, 0xCu);
     goto LABEL_38;
   }
 
@@ -174,8 +174,8 @@ LABEL_37:
     }
 
     v10 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v10;
+    v25 = 138543362;
+    v26 = v10;
     v16 = "%{public}@(presenceNotNeeded, !home.isResidentSupported) -> YES";
     goto LABEL_19;
   }
@@ -191,8 +191,8 @@ LABEL_37:
     }
 
     v19 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v19;
+    v25 = 138543362;
+    v26 = v19;
     v20 = "%{public}@(presenceNotNeeded, non-resident) -> NO";
     goto LABEL_37;
   }
@@ -205,8 +205,8 @@ LABEL_37:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v19;
+      v25 = 138543362;
+      v26 = v19;
       v20 = "%{public}@(presenceNotNeeded, resident, currentHomePresence is nil) -> NO";
       goto LABEL_37;
     }
@@ -223,10 +223,10 @@ LABEL_37:
     v10 = HMFGetLogIdentifier();
     [currentHomePresence isNoUserAtHome];
     v11 = HMFBooleanToString();
-    v26 = 138543618;
-    v27 = v10;
-    v28 = 2112;
-    v29 = v11;
+    v25 = 138543618;
+    v26 = v10;
+    v27 = 2112;
+    v28 = v11;
     v12 = "%{public}@final policy outcome: (presenceNotNeeded, resident, isNoUserAtHome -> %@)";
     goto LABEL_11;
   }
@@ -234,7 +234,6 @@ LABEL_37:
 LABEL_40:
 
   objc_autoreleasePoolPop(v7);
-  v24 = *MEMORY[0x277D85DE8];
   return homeLocation;
 }
 
@@ -254,7 +253,7 @@ LABEL_40:
 
 uint64_t __65__HMDAccessoryFirmwareUpdatePresencePolicy_handlePresenceChange___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -262,17 +261,15 @@ uint64_t __65__HMDAccessoryFirmwareUpdatePresencePolicy_handlePresenceChange___b
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) name];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling %@ -- presence has changed, updating policy status", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling %@ -- presence has changed, updating policy status", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) evaluateAndNotify];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) evaluateAndNotify];
 }
 
 - (void)registerForNotifications
@@ -400,12 +397,11 @@ LABEL_13:
 
 uint64_t __55__HMDAccessoryFirmwareUpdatePresencePolicy_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_108265;
-  logCategory__hmf_once_v1_108265 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_108265;
+  logCategory__hmf_once_v1_108265 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

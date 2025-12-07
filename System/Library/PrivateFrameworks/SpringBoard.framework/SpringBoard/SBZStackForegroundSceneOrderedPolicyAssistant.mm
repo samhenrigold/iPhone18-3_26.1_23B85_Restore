@@ -271,7 +271,7 @@
 - (void)scene:(id)scene didUpdateClientSettings:(id)settings
 {
   settingsCopy = settings;
-  if ([(NSArray *)self->_foregroundScenes containsObject:scene])
+  if (objc_msgSend_containsObject_(self->_foregroundScenes))
   {
     [(SBZStackForegroundSceneOrderedPolicyAssistant *)self _didUpdateClientSettings:settingsCopy];
   }
@@ -280,7 +280,7 @@
 - (void)sceneHandle:(id)handle didUpdateClientSettings:(id)settings
 {
   settingsCopy = settings;
-  if ([(NSArray *)self->_foregroundScenes containsObject:handle])
+  if (objc_msgSend_containsObject_(self->_foregroundScenes))
   {
     [(SBZStackForegroundSceneOrderedPolicyAssistant *)self _didUpdateClientSettings:settingsCopy];
   }

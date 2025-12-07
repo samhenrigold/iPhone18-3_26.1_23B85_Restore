@@ -10,32 +10,28 @@
 
 - (_TtC15PlatformSSOCore39POCryptoKitHPKE_P256_SHA256_AES_GCM_128)init
 {
-  v23 = sub_25E941698();
-  v3 = *(v23 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v23);
-  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = sub_25E941678();
-  v7 = *(v22 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v22);
-  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_25E941688();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_25E941668();
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v22 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = sub_25E941698();
+  v3 = *(v19 - 8);
+  MEMORY[0x28223BE20](v19);
+  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = sub_25E941678();
+  v6 = *(v18 - 8);
+  MEMORY[0x28223BE20](v18);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_25E941688();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_25E941668();
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(&self->super.super.isa + OBJC_IVAR____TtC15PlatformSSOCore39POCryptoKitHPKE_P256_SHA256_AES_GCM_128_encryptionAlgorithm) = &unk_2870A91F8;
-  (*(v12 + 104))(v15, *MEMORY[0x277CC5450], v11);
-  (*(v7 + 104))(v10, *MEMORY[0x277CC5438], v22);
-  (*(v3 + 104))(v6, *MEMORY[0x277CC5460], v23);
-  v20 = &unk_2870A91F8;
+  (*(v10 + 104))(v12, *MEMORY[0x277CC5450], v9);
+  (*(v6 + 104))(v8, *MEMORY[0x277CC5438], v18);
+  (*(v3 + 104))(v5, *MEMORY[0x277CC5460], v19);
+  v16 = &unk_2870A91F8;
   sub_25E941658();
-  return POCryptoKitHPKE.init(cipherSuite:)(v19);
+  return POCryptoKitHPKE.init(cipherSuite:)(v15);
 }
 
 - (void)addValuesTo:(id)to

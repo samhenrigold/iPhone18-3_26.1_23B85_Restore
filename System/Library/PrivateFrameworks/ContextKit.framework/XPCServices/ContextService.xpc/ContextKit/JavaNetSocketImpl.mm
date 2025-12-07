@@ -8,9 +8,8 @@
 - (NSString)description
 {
   [(JavaNetSocketImpl *)self getInetAddress];
-  port = self->port_;
   [(JavaNetSocketImpl *)self getLocalPort];
-  return JreStrcat("$@$I$IC", v4, v5, v6, v7, v8, v9, v10, @"Socket[address=");
+  return JreStrcat("$@$I$IC", v3, v4, v5, v6, v7, v8, v9, @"Socket[address=");
 }
 
 - (void)dealloc

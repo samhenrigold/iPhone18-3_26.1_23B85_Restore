@@ -1,15 +1,14 @@
 uint64_t sub_2400E1218()
 {
-  v1 = *(v0 + 24);
   sub_2400E53FC();
-  v2 = sub_2400E545C();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 80);
-  v5 = (v4 + 32) & ~v4;
-  v6 = *(v3 + 64);
-  (*(v3 + 8))(v0 + v5, v2);
+  v1 = sub_2400E545C();
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 32) & ~v3;
+  v5 = *(v2 + 64);
+  (*(v2 + 8))(v0 + v4, v1);
 
-  return MEMORY[0x2821FE8E8](v0, v5 + v6, v4 | 7);
+  return MEMORY[0x2821FE8E8](v0, v4 + v5, v3 | 7);
 }
 
 uint64_t sub_2400E12B0()
@@ -20,74 +19,70 @@ uint64_t sub_2400E12B0()
 
 uint64_t _AsyncKVOSequenceProtocol<>.changes<A>(for:options:bufferingPolicy:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(*a1 + *MEMORY[0x277D84DE8] + 8);
   sub_2400E53FC();
-  v8 = sub_2400E543C();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v14[-v11];
+  v7 = sub_2400E543C();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v12[-v9];
   swift_checkMetadataState();
-  (*(v9 + 16))(v12, a3, v8);
-  v15 = v3;
-  v16 = a1;
-  v17 = a2;
+  (*(v8 + 16))(v10, a3, v7);
+  v13 = v3;
+  v14 = a1;
+  v15 = a2;
   return sub_2400E546C();
 }
 
 uint64_t sub_2400E14BC(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v19[0] = a4;
+  v18[0] = a4;
   v6 = *a3;
   v7 = *(*a3 + *MEMORY[0x277D84DE8] + 8);
   sub_2400E53FC();
   v8 = sub_2400E545C();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = v19 - v11;
-  v19[1] = a2;
-  (*(v9 + 16))(v19 - v11, a1, v8);
-  v13 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-  v14 = swift_allocObject();
-  v15 = *(v6 + *MEMORY[0x277D84DE8]);
-  *(v14 + 16) = v15;
-  *(v14 + 24) = v7;
-  (*(v9 + 32))(v14 + v13, v12, v8);
-  v16 = sub_2400E540C();
+  v11 = v18 - v10;
+  v18[1] = a2;
+  (*(v9 + 16))(v18 - v10, a1, v8);
+  v12 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+  v13 = swift_allocObject();
+  v14 = *(v6 + *MEMORY[0x277D84DE8]);
+  *(v13 + 16) = v14;
+  *(v13 + 24) = v7;
+  (*(v9 + 32))(v13 + v12, v11, v8);
+  v15 = sub_2400E540C();
 
-  v17 = swift_allocObject();
-  v17[2] = v15;
-  v17[3] = v7;
-  v17[4] = v16;
+  v16 = swift_allocObject();
+  v16[2] = v14;
+  v16[3] = v7;
+  v16[4] = v15;
   return sub_2400E542C();
 }
 
-uint64_t sub_2400E16D4(uint64_t a1)
+uint64_t sub_2400E16D4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = sub_2400E53FC();
-  v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v4 = sub_2400E53FC();
+  v5 = *(v4 - 8);
   MEMORY[0x28223BE20]();
-  v6 = &v13 - v5;
-  v7 = sub_2400E541C();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = &v13 - v6;
+  v8 = sub_2400E541C();
+  v9 = *(v8 - 8);
   MEMORY[0x28223BE20]();
   v11 = &v13 - v10;
-  (*(v3 + 16))(v6, a1, v2);
+  (*(v5 + 16))(v7, a1, v4);
   sub_2400E545C();
   sub_2400E544C();
-  return (*(v8 + 8))(v11, v7);
+  return (*(v9 + 8))(v11, v8);
 }
 
 uint64_t sub_2400E1854(uint64_t a1, uint64_t a2)
 {
   v4 = *(v2 + 24);
   sub_2400E53FC();
-  v5 = *(*(sub_2400E545C() - 8) + 80);
+  v5 = *(sub_2400E545C() - 8);
+  v6 = v2 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
 
-  return sub_2400E16D4(a2);
+  return sub_2400E16D4(a2, v6, v4);
 }
 
 id ASFLogHandleForCategory()
@@ -134,9 +129,9 @@ uint64_t __ASFLogHandleForCategory_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_2400E4E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2400E4E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -166,7 +161,7 @@ uint64_t __readIdentifier_block_invoke(uint64_t result, _BYTE *a2, uint64_t a3, 
 
 void __readLength_block_invoke(uint64_t a1, _BYTE *a2, uint64_t a3, unint64_t a4, _BYTE *a5)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     if ((*a2 & 0x80000000) == 0)
@@ -222,15 +217,14 @@ LABEL_4:
     v9 = ASFLogHandleForCategory_logHandles_0_0;
     if (os_log_type_enabled(ASFLogHandleForCategory_logHandles_0_0, OS_LOG_TYPE_ERROR))
     {
-      v11[0] = 67109120;
-      v11[1] = v7;
-      _os_log_error_impl(&dword_2400E0000, v9, OS_LOG_TYPE_ERROR, "Byte count would result in overflow: %d", v11, 8u);
+      v10[0] = 67109120;
+      v10[1] = v7;
+      _os_log_error_impl(&dword_2400E0000, v9, OS_LOG_TYPE_ERROR, "Byte count would result in overflow: %d", v10, 8u);
     }
   }
 
 LABEL_18:
   *a5 = 1;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __ASFLogHandleForCategory_block_invoke_0()

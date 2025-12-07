@@ -47,7 +47,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFCurrentUserStatusObservable.currentUserStatusService(_:didUpdateHidden:)();
+  CAFCurrentUserStatusObservable.currentUserStatusService(_:didUpdateHidden:)(selfCopy, hidden);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

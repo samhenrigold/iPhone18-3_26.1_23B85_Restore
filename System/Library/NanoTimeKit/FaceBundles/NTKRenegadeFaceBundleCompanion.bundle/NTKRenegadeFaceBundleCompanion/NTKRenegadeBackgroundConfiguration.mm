@@ -19,7 +19,7 @@
 {
   v39.receiver = self;
   v39.super_class = NTKRenegadeBackgroundConfiguration;
-  v36 = objc_msgSendSuper2(&v39, "init");
+  v36 = objc_msgSendSuper2(&v39, "init", a11, a12, a13, a14, a15, a16);
   v37 = v36;
   if (v36)
   {

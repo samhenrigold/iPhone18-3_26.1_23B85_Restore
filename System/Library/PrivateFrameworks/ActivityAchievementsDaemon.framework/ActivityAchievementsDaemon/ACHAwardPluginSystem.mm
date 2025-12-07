@@ -9,7 +9,6 @@
 - (id)createProgressProviders;
 - (id)createTemplateAssetSources;
 - (void)_loadPlugins;
-- (void)_pluginClasses;
 @end
 
 @implementation ACHAwardPluginSystem
@@ -40,10 +39,9 @@
 
 - (id)_principalClassProtocols
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_28356FF18;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_28356FF18;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -76,7 +74,7 @@
 
 - (id)_loadPrincipalClassesConformingToProtocols:(id)protocols fromBundlesInDirectoryAtPath:(id)path error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   protocolsCopy = protocols;
   pathCopy = path;
   v8 = objc_alloc_init(MEMORY[0x277CCAA00]);
@@ -84,29 +82,29 @@
   v10 = [v8 contentsOfDirectoryAtPath:pathCopy error:error];
   if (v10)
   {
-    v25 = v8;
-    v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v24 = v8;
+    v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v24 = v10;
+    v23 = v10;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v30;
+      v14 = *v29;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v30 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v29 + 1) + 8 * i);
+          v16 = *(*(&v28 + 1) + 8 * i);
           v17 = objc_autoreleasePoolPush();
           pathExtension = [v16 pathExtension];
           v19 = [pathExtension isEqualToString:@"bundle"];
@@ -117,45 +115,43 @@
             v21 = [(ACHAwardPluginSystem *)self _loadPrincipalClassConformingToProtocols:protocolsCopy fromBundleAtPath:v20];
             if (v21)
             {
-              [v26 addObject:v21];
+              [v25 addObject:v21];
             }
           }
 
           objc_autoreleasePoolPop(v17);
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v13);
     }
 
-    v10 = v24;
-    v8 = v25;
+    v10 = v23;
+    v8 = v24;
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 - (Class)_loadPrincipalClassConformingToProtocols:(id)protocols fromBundleAtPath:(id)path
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   protocolsCopy = protocols;
   pathCopy = path;
   v7 = [objc_alloc(MEMORY[0x277CCA8D8]) initWithPath:pathCopy];
   v8 = v7;
   if (v7)
   {
-    v29 = 0;
-    v9 = [v7 loadAndReturnError:&v29];
-    v10 = v29;
+    v28 = 0;
+    v9 = [v7 loadAndReturnError:&v28];
+    v10 = v28;
     if (v9)
     {
       principalClass = [v8 principalClass];
@@ -168,26 +164,26 @@
         }
       }
 
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v13 = protocolsCopy;
-      v14 = [v13 countByEnumeratingWithState:&v25 objects:v36 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v24 objects:v35 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v26;
+        v16 = *v25;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v26 != v16)
+            if (*v25 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            if ([principalClass conformsToProtocol:{*(*(&v25 + 1) + 8 * i), v25}])
+            if ([principalClass conformsToProtocol:{*(*(&v24 + 1) + 8 * i), v24}])
             {
               v20 = ACHLogDefault();
               if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
@@ -200,7 +196,7 @@
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v25 objects:v36 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v24 objects:v35 count:16];
           if (v15)
           {
             continue;
@@ -215,21 +211,21 @@
       {
         if (principalClass)
         {
-          v23 = NSStringFromClass(principalClass);
+          v22 = NSStringFromClass(principalClass);
         }
 
         else
         {
-          v23 = @"<>";
+          v22 = @"<>";
         }
 
-        v24 = [v13 hk_map:&__block_literal_global_11, v25];
+        v23 = [v13 hk_map:&__block_literal_global_11, v24];
         *buf = 138543874;
-        v31 = pathCopy;
-        v32 = 2114;
-        v33 = v23;
-        v34 = 2114;
-        v35 = v24;
+        v30 = pathCopy;
+        v31 = 2114;
+        v32 = v22;
+        v33 = 2114;
+        v34 = v23;
         _os_log_error_impl(&dword_221DDC000, v18, OS_LOG_TYPE_ERROR, "Error: failed to load bundle %{public}@: principal class %{public}@ doesn't conform to any of: %{public}@", buf, 0x20u);
         if (principalClass)
         {
@@ -265,8 +261,6 @@ LABEL_26:
     v19 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
@@ -287,17 +281,17 @@ LABEL_26:
 
 id __50__ACHAwardPluginSystem__createPluginsFromClasses___block_invoke(uint64_t a1, objc_class *a2)
 {
-  if ([(objc_class *)a2 conformsToProtocol:*(a1 + 32)]&& ((v4 = *(a1 + 40), (objc_opt_respondsToSelector() & 1) == 0) || [(objc_class *)a2 shouldLoadPlugin]))
+  if ([(objc_class *)a2 conformsToProtocol:*(a1 + 32)]&& ((objc_opt_respondsToSelector() & 1) == 0 || [(objc_class *)a2 shouldLoadPlugin]))
   {
-    v5 = objc_alloc_init(a2);
+    v3 = objc_alloc_init(a2);
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  return v5;
+  return v3;
 }
 
 - (void)_loadPlugins
@@ -310,28 +304,28 @@ id __50__ACHAwardPluginSystem__createPluginsFromClasses___block_invoke(uint64_t 
 
 - (id)createTemplateAssetSources
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_plugins;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         templateAssetSource = [v9 templateAssetSource];
         if (templateAssetSource)
         {
@@ -340,41 +334,39 @@ id __50__ACHAwardPluginSystem__createPluginsFromClasses___block_invoke(uint64_t 
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)createProgressProviders
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_plugins;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           progressProvider = [v9 progressProvider];
@@ -390,55 +382,34 @@ id __50__ACHAwardPluginSystem__createPluginsFromClasses___block_invoke(uint64_t 
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v3;
-}
-
-- (void)_pluginClasses
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Failed to load plugins at %{public}@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_loadPrincipalClassConformingToProtocols:fromBundleAtPath:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Error: failed to load bundle %{public}@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadPrincipalClassConformingToProtocols:fromBundleAtPath:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Error: failed to get principal class from bundle %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Error: failed to get principal class from bundle %{public}@", v1, 0xCu);
 }
 
 - (void)_loadPrincipalClassConformingToProtocols:fromBundleAtPath:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_221DDC000, v0, OS_LOG_TYPE_DEBUG, "Loaded bundle %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221DDC000, v0, OS_LOG_TYPE_DEBUG, "Loaded bundle %{public}@", v1, 0xCu);
 }
 
 - (void)_loadPrincipalClassConformingToProtocols:fromBundleAtPath:.cold.4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Error: failed to instantiate bundle %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Error: failed to instantiate bundle %{public}@", v1, 0xCu);
 }
 
 @end

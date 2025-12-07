@@ -58,7 +58,6 @@
   if (self->_whichEvent_Type == 101)
   {
     self->_whichEvent_Type = 0;
-    usage = self->_usage;
     self->_usage = 0;
     MEMORY[0x2821F96F8]();
   }
@@ -75,11 +74,11 @@
     PBDataWriterWriteSubmessage();
   }
 
-  usage = [(POWSchemaProvisionalPOWClientEvent *)self usage];
+  v6 = objc_msgSend_usage(self);
 
-  if (usage)
+  if (v6)
   {
-    usage2 = [(POWSchemaProvisionalPOWClientEvent *)self usage];
+    v7 = objc_msgSend_usage(self);
     PBDataWriterWriteSubmessage();
   }
 }
@@ -123,12 +122,12 @@
   {
   }
 
-  link = [(POWSchemaProvisionalPOWClientEvent *)self usage];
-  link2 = [equalCopy usage];
+  link = objc_msgSend_usage(self);
+  link2 = objc_msgSend_usage(equalCopy);
   if ((link != 0) != (link2 == 0))
   {
-    usage = [(POWSchemaProvisionalPOWClientEvent *)self usage];
-    if (!usage)
+    v13 = objc_msgSend_usage(self);
+    if (!v13)
     {
 
 LABEL_16:
@@ -136,10 +135,10 @@ LABEL_16:
       goto LABEL_14;
     }
 
-    v14 = usage;
-    usage2 = [(POWSchemaProvisionalPOWClientEvent *)self usage];
-    usage3 = [equalCopy usage];
-    v17 = [usage2 isEqual:usage3];
+    v14 = v13;
+    v15 = objc_msgSend_usage(self);
+    v16 = objc_msgSend_usage(equalCopy);
+    v17 = [v15 isEqual:v16];
 
     if (v17)
     {
@@ -180,8 +179,8 @@ LABEL_14:
 
   if (self->_usage)
   {
-    usage = [(POWSchemaProvisionalPOWClientEvent *)self usage];
-    dictionaryRepresentation2 = [usage dictionaryRepresentation];
+    v7 = objc_msgSend_usage(self);
+    dictionaryRepresentation2 = [v7 dictionaryRepresentation];
     if (dictionaryRepresentation2)
     {
       [dictionary setObject:dictionaryRepresentation2 forKeyedSubscript:@"usage"];

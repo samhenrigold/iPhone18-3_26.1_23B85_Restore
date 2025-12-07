@@ -14,8 +14,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10001FCB0(appear);
+  sub_10001FCB0(appearCopy);
 }
 
 - (_TtC17ContinuityDisplay14SidebarPopover)initWithNibName:(id)name bundle:(id)bundle

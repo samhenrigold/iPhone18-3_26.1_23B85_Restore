@@ -26,7 +26,7 @@
 - (CGRect)frame
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for ResizableAttachmentView();
+  v6.super_class = type metadata accessor for ResizableAttachmentView(0);
   [(ResizableAttachmentView *)&v6 frame];
   result.size.height = v5;
   result.size.width = v4;
@@ -48,7 +48,7 @@
 - (void)didMoveToSuperview
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ResizableAttachmentView();
+  v5.super_class = type metadata accessor for ResizableAttachmentView(0);
   v2 = v5.receiver;
   [(ResizableAttachmentView *)&v5 didMoveToSuperview];
   superview = [v2 superview];

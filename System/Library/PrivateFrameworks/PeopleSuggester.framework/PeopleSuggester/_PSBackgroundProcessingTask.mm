@@ -83,7 +83,7 @@ LABEL_11:
 
 - (void)handleRepeatingTask:(id)task
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   taskCopy = task;
   v4 = +[_PSLogging psBackgroundProcessingChannel];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -91,33 +91,33 @@ LABEL_11:
     [_PSBackgroundProcessingTask handleRepeatingTask:v4];
   }
 
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3020000000;
-  v40 = 0;
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __51___PSBackgroundProcessingTask_handleRepeatingTask___block_invoke;
-  v36[3] = &unk_1E7C262F0;
-  v36[4] = self;
-  v36[5] = &v37;
-  [taskCopy setExpirationHandler:v36];
-  v32 = [MEMORY[0x1E696AE18] predicateWithFormat:@"startDate > %@ AND direction == %@ AND mechanism IN %@", self->_bookmark, &unk_1F2D8BCE8, &unk_1F2D8C5A0];
-  v35 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3020000000;
+  v39 = 0;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __51___PSBackgroundProcessingTask_handleRepeatingTask___block_invoke;
+  v35[3] = &unk_1E7C262F0;
+  v35[4] = self;
+  v35[5] = &v36;
+  [taskCopy setExpirationHandler:v35];
+  v31 = [MEMORY[0x1E696AE18] predicateWithFormat:@"startDate > %@ AND direction == %@ AND mechanism IN %@", self->_bookmark, &unk_1F2D8BCE8, &unk_1F2D8C5A0];
+  v34 = 0;
   interactionStore = self->_interactionStore;
   v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:1];
-  v43[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
-  v8 = [(_CDInteractionStore *)interactionStore queryInteractionsUsingPredicate:v32 sortDescriptors:v7 limit:-1 offset:0 objectIDs:&v35 error:0];
+  v42[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+  v8 = [(_CDInteractionStore *)interactionStore queryInteractionsUsingPredicate:v31 sortDescriptors:v7 limit:-1 offset:0 objectIDs:&v34 error:0];
 
   v9 = [v8 count];
-  if (v9 == [v35 count])
+  if (v9 == [v34 count])
   {
     v10 = 0;
     v11 = *MEMORY[0x1E696A388];
-    while ([v35 count] > v10)
+    while ([v34 count] > v10)
     {
-      if (*(v38 + 40) == 1)
+      if (*(v37 + 40) == 1)
       {
         v23 = +[_PSLogging psBackgroundProcessingChannel];
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
@@ -132,12 +132,12 @@ LABEL_11:
       storage = [(_CDInteractionStore *)self->_interactionStore storage];
       v14 = [storage managedObjectContextFor:v11];
       v15 = MEMORY[0x1E696AE18];
-      v16 = [v35 objectAtIndexedSubscript:v10];
-      v42 = v16;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+      v16 = [v34 objectAtIndexedSubscript:v10];
+      v41 = v16;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
       v18 = [v15 predicateWithFormat:@"self in %@", v17];
-      LOBYTE(v31) = 0;
-      v19 = [v12 updateObjectsInContext:v14 entityName:@"Interactions" predicate:v18 sortDescriptors:0 batchFetchLimit:-1 totalFetchLimit:-1 includeSubentities:v31 updateBlock:&__block_literal_global_39];
+      LOBYTE(v30) = 0;
+      v19 = [v12 updateObjectsInContext:v14 entityName:@"Interactions" predicate:v18 sortDescriptors:0 batchFetchLimit:-1 totalFetchLimit:-1 includeSubentities:v30 updateBlock:&__block_literal_global_39];
 
       if (!v19)
       {
@@ -146,7 +146,7 @@ LABEL_11:
         {
           v24 = [v8 objectAtIndexedSubscript:v10];
           uuid = [v24 uuid];
-          [(_PSBackgroundProcessingTask *)uuid handleRepeatingTask:v41, v23, v24];
+          [(_PSBackgroundProcessingTask *)uuid handleRepeatingTask:v40, v23, v24];
         }
 
 LABEL_14:
@@ -163,11 +163,11 @@ LABEL_14:
       ++v10;
     }
 
-    if (v38[5])
+    if (v37[5])
     {
-      v34 = 0;
-      v26 = [taskCopy setTaskExpiredWithRetryAfter:&v34 error:0.0];
-      v27 = v34;
+      v33 = 0;
+      v26 = [taskCopy setTaskExpiredWithRetryAfter:&v33 error:0.0];
+      v27 = v33;
       if ((v26 & 1) == 0)
       {
         [taskCopy setTaskCompleted];
@@ -195,18 +195,16 @@ LABEL_14:
     [taskCopy setTaskCompleted];
   }
 
-  _Block_object_dispose(&v37, 8);
-  v30 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v36, 8);
 }
 
 - (void)saveBookmark
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = *self;
-  v5 = 138412290;
-  v6 = v3;
-  OUTLINED_FUNCTION_0_10(&dword_1B5ED1000, a2, a3, "Could not update plist file for bookmark: %@", &v5);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  OUTLINED_FUNCTION_0_10(&dword_1B5ED1000, a2, a3, "Could not update plist file for bookmark: %@", &v4);
 }
 
 - (BOOL)updatePlistWithDict:(id)dict
@@ -238,41 +236,41 @@ LABEL_14:
 
 + (void)updateInteractionWithPhotoFeatures:(id)features
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
-  v25 = [_PSBackgroundProcessingTask attachmentsInObject:featuresCopy hasField:@"photoSceneDescriptor"];
-  v24 = [_PSBackgroundProcessingTask attachmentsInObject:featuresCopy hasField:@"personInPhoto"];
+  v24 = [_PSBackgroundProcessingTask attachmentsInObject:featuresCopy hasField:@"photoSceneDescriptor"];
+  v23 = [_PSBackgroundProcessingTask attachmentsInObject:featuresCopy hasField:@"personInPhoto"];
   v4 = objc_opt_new();
-  v22 = featuresCopy;
+  v21 = featuresCopy;
   v5 = [featuresCopy valueForKey:@"attachments"];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = @"photoLocalIdentifier";
-    v9 = *v27;
-    v23 = v4;
+    v9 = *v26;
+    v22 = v4;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         v12 = [v11 valueForKey:v8];
         if (v12 && ([v4 containsObject:v12] & 1) == 0)
         {
-          if (!v25)
+          if (!v24)
           {
-            v31 = v12;
-            v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+            v30 = v12;
+            v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
             v14 = [_PSPhotoUtils sceneTagsForPhotosWithIdentifiers:v13];
 
             if ([v14 count])
@@ -282,12 +280,12 @@ LABEL_14:
             }
           }
 
-          if (!v24)
+          if (!v23)
           {
             v16 = v8;
             v17 = v5;
-            v30 = v12;
-            v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+            v29 = v12;
+            v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
             v19 = [_PSPhotoUtils personIdentifiersForPeopleInPicturesWithIdentifiers:v18];
 
             if ([v19 count])
@@ -298,45 +296,43 @@ LABEL_14:
 
             v5 = v17;
             v8 = v16;
-            v4 = v23;
+            v4 = v22;
           }
 
           [v4 addObject:v12];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v7);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)attachmentsInObject:(id)object hasField:(id)field
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fieldCopy = field;
   [object valueForKey:@"attachments"];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = v16 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = v15 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) valueForKey:{fieldCopy, v13}];
+        v10 = [*(*(&v12 + 1) + 8 * i) valueForKey:{fieldCopy, v12}];
 
         if (v10)
         {
@@ -345,7 +341,7 @@ LABEL_14:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -357,28 +353,24 @@ LABEL_14:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (void)savedBookmark
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   localizedDescription = [self localizedDescription];
-  v6 = 138412290;
-  v7 = localizedDescription;
-  OUTLINED_FUNCTION_0_10(&dword_1B5ED1000, a2, v4, "Error encountered while reading bookmark: %@", &v6);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = localizedDescription;
+  OUTLINED_FUNCTION_0_10(&dword_1B5ED1000, a2, v4, "Error encountered while reading bookmark: %@", &v5);
 }
 
 - (void)handleRepeatingTask:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = @"com.apple.proactive.psbackgroundprocessingtask";
-  _os_log_debug_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_DEBUG, "Running background task: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = @"com.apple.proactive.psbackgroundprocessingtask";
+  _os_log_debug_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_DEBUG, "Running background task: %@", &v1, 0xCu);
 }
 
 - (void)handleRepeatingTask:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3, void *a4)
@@ -390,37 +382,33 @@ LABEL_11:
 
 - (void)handleRepeatingTask:(os_log_t)log .cold.4(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = @"com.apple.proactive.psbackgroundprocessingtask";
-  _os_log_debug_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_DEBUG, "Completed background task: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = @"com.apple.proactive.psbackgroundprocessingtask";
+  _os_log_debug_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_DEBUG, "Completed background task: %@", &v1, 0xCu);
 }
 
 - (void)handleRepeatingTask:(uint64_t)a3 .cold.5(__CFString *a1, NSObject *a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = @"Unknown";
   if (a1)
   {
     v3 = a1;
   }
 
-  v5 = 138412290;
-  v6 = v3;
-  OUTLINED_FUNCTION_0_10(&dword_1B5ED1000, a2, a3, "Failed to expire task with error: %@", &v5);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  OUTLINED_FUNCTION_0_10(&dword_1B5ED1000, a2, a3, "Failed to expire task with error: %@", &v4);
 }
 
 - (void)updatePlistWithDict:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [a1 localizedDescription];
-  v6 = 138412290;
-  v7 = v3;
-  OUTLINED_FUNCTION_0_10(&dword_1B5ED1000, a2, v4, "Error encountered while updating bookmark: %@", &v6);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v3;
+  OUTLINED_FUNCTION_0_10(&dword_1B5ED1000, a2, v4, "Error encountered while updating bookmark: %@", &v5);
 }
 
 @end

@@ -53,12 +53,12 @@
 
 void __62__BCSCoalesceHelper_enqueueCoalesceObject_isDuplicateRequest___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   v2 = a1[5];
   if (!v1)
   {
-    v16 = v2;
+    v15 = v2;
     v6 = 0;
     goto LABEL_13;
   }
@@ -77,9 +77,9 @@ void __62__BCSCoalesceHelper_enqueueCoalesceObject_isDuplicateRequest___block_in
   {
     if (v11)
     {
-      v17 = 136315138;
-      v18 = "[BCSCoalesceHelper _enqueueCoalesceObject:isDuplicateRequest:inCoalesceObjectPool:]";
-      _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "Coalesce Helper - Enqueue CoalesceObject to existing CoalesceObject array %s", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[BCSCoalesceHelper _enqueueCoalesceObject:isDuplicateRequest:inCoalesceObjectPool:]";
+      _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "Coalesce Helper - Enqueue CoalesceObject to existing CoalesceObject array %s", &v16, 0xCu);
     }
 
     [v8 addObject:v5];
@@ -95,9 +95,9 @@ void __62__BCSCoalesceHelper_enqueueCoalesceObject_isDuplicateRequest___block_in
   {
     if (v11)
     {
-      v17 = 136315138;
-      v18 = "[BCSCoalesceHelper _enqueueCoalesceObject:isDuplicateRequest:inCoalesceObjectPool:]";
-      _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "Coalesce Helper - Enqueue CoalesceObject to new CoalesceObject array %s", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[BCSCoalesceHelper _enqueueCoalesceObject:isDuplicateRequest:inCoalesceObjectPool:]";
+      _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "Coalesce Helper - Enqueue CoalesceObject to new CoalesceObject array %s", &v16, 0xCu);
     }
 
     v13 = objc_opt_new();
@@ -119,7 +119,6 @@ void __62__BCSCoalesceHelper_enqueueCoalesceObject_isDuplicateRequest___block_in
 LABEL_12:
 
 LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dequeueCoalesceObjectsForCoalesceKey:(id)key
@@ -159,17 +158,17 @@ LABEL_13:
 
 void __58__BCSCoalesceHelper_dequeueCoalesceObjectsForCoalesceKey___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2)
   {
     v3 = a1[5];
-    v13 = *(v2 + 8);
+    v12 = *(v2 + 8);
     v4 = v3;
-    v5 = [v13 objectForKey:v4];
+    v5 = [v12 objectForKey:v4];
     v6 = [v5 copy];
 
-    [v13 removeObjectForKey:v4];
+    [v12 removeObjectForKey:v4];
     v7 = [v6 count];
     v8 = ABSLogCommon();
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
@@ -178,7 +177,7 @@ void __58__BCSCoalesceHelper_dequeueCoalesceObjectsForCoalesceKey___block_invoke
       if (v9)
       {
         *buf = 136315138;
-        v15 = "[BCSCoalesceHelper _dequeueCoalesceObjectsForCoalesceKey:inCoalesceObjectPool:]";
+        v14 = "[BCSCoalesceHelper _dequeueCoalesceObjectsForCoalesceKey:inCoalesceObjectPool:]";
         _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "Coalesce Helper - Dequeue CoalesceObject array - Found %s", buf, 0xCu);
       }
     }
@@ -188,7 +187,7 @@ void __58__BCSCoalesceHelper_dequeueCoalesceObjectsForCoalesceKey___block_invoke
       if (v9)
       {
         *buf = 136315138;
-        v15 = "[BCSCoalesceHelper _dequeueCoalesceObjectsForCoalesceKey:inCoalesceObjectPool:]";
+        v14 = "[BCSCoalesceHelper _dequeueCoalesceObjectsForCoalesceKey:inCoalesceObjectPool:]";
         _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "Coalesce Helper - Dequeue CoalesceObject array - Not Found %s", buf, 0xCu);
       }
 
@@ -199,15 +198,13 @@ void __58__BCSCoalesceHelper_dequeueCoalesceObjectsForCoalesceKey___block_invoke
 
   else
   {
-    v13 = 0;
+    v12 = 0;
     v6 = 0;
   }
 
   v10 = *(a1[6] + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v6;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDuplicateRequest:(id)request

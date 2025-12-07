@@ -74,7 +74,7 @@ void __35___CDClientContext_clientInterface__block_invoke()
 
 void __62___CDClientContext_unprotectedSetUpXPCConnectionWithEndpoint___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -87,15 +87,13 @@ void __62___CDClientContext_unprotectedSetUpXPCConnectionWithEndpoint___block_in
         v4 = @"com.apple.coreduetd.context";
       }
 
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_DEFAULT, "Connection to %@ interrupted", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_DEFAULT, "Connection to %@ interrupted", &v5, 0xCu);
     }
 
     *(WeakRetained + 8) = 1;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __40___CDClientContext_defaultCallbackQueue__block_invoke()
@@ -228,7 +226,7 @@ void __52___CDClientContext_hasKnowledgeOfContextualKeyPath___block_invoke(uint6
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __52___CDClientContext_hasKnowledgeOfContextualKeyPath___block_invoke_cold_1(a1);
+    __52___CDClientContext_hasKnowledgeOfContextualKeyPath___block_invoke_cold_1();
   }
 }
 
@@ -237,7 +235,7 @@ void __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(a1);
+    __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1();
   }
 
   v4 = *(a1 + 56);
@@ -329,7 +327,7 @@ void __98___CDClientContext_lastModifiedDateForContextualKeyPath_synchronous_res
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __98___CDClientContext_lastModifiedDateForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(a1);
+    __98___CDClientContext_lastModifiedDateForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1();
   }
 
   v4 = *(a1 + 56);
@@ -510,29 +508,26 @@ void __38___CDClientContext_evaluatePredicate___block_invoke(uint64_t a1, void *
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __38___CDClientContext_evaluatePredicate___block_invoke_cold_1(a1);
+    __38___CDClientContext_evaluatePredicate___block_invoke_cold_1();
   }
 }
 
 void __56___CDClientContext_handleContextualChange_info_handler___block_invoke(uint64_t a1)
 {
-  v4 = [*(a1 + 32) informativeCallback];
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  __CDCLIENTCONTEXT_IS_CALLING_OUT_TO_CLIENT_BLOCK__(v4);
+  v1 = [*(a1 + 32) informativeCallback];
+  __CDCLIENTCONTEXT_IS_CALLING_OUT_TO_CLIENT_BLOCK__(v1);
 }
 
-uint64_t __56___CDClientContext_handleContextualChange_info_handler___block_invoke_145(void *a1)
+void *__56___CDClientContext_handleContextualChange_info_handler___block_invoke_145(void *a1)
 {
-  v2 = a1[4];
-  v3 = __CDCLIENTCONTEXT_IS_CALLING_OUT_TO_CLIENT_BLOCK__(a1[7]);
+  v2 = __CDCLIENTCONTEXT_IS_CALLING_OUT_TO_CLIENT_BLOCK__(a1[7]);
   result = (*(a1[8] + 16))();
-  if ((v3 & 1) == 0)
+  if ((v2 & 1) == 0)
   {
-    v5 = a1[5];
-    v6 = a1[6];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v5 cleanupInternalReferencesToRegistration:v6];
+    return [v4 cleanupInternalReferencesToRegistration:v5];
   }
 
   return result;
@@ -543,7 +538,7 @@ void __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQ
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(a1);
+    __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1();
   }
 
   v4 = *(a1 + 64);
@@ -611,19 +606,16 @@ void __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQ
 
 void __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1[7] + 8) + 24);
+  v6 = *MEMORY[0x1E69E9840];
   (*(a1[6] + 16))();
-  v3 = *(a1[4] + 104);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = *(a1[4] + 104);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = a1[5];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_INFO, "Finished completion handler after setting object for key path: %@", &v6, 0xCu);
+    v3 = a1[5];
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1A9611000, v2, OS_LOG_TYPE_INFO, "Finished completion handler after setting object for key path: %@", &v4, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -631,7 +623,7 @@ void __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueu
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(a1);
+    __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1();
   }
 
   v4 = *(a1 + 64);
@@ -699,19 +691,16 @@ void __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueu
 
 void __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1[7] + 8) + 24);
+  v6 = *MEMORY[0x1E69E9840];
   (*(a1[6] + 16))();
-  v3 = *(a1[4] + 104);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = *(a1[4] + 104);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = a1[5];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_INFO, "Finished completion handler after adding objects to key path: %@", &v6, 0xCu);
+    v3 = a1[5];
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1A9611000, v2, OS_LOG_TYPE_INFO, "Finished completion handler after adding objects to key path: %@", &v4, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -719,7 +708,7 @@ void __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_respons
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(a1);
+    __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1();
   }
 
   v4 = *(a1 + 64);
@@ -751,14 +740,14 @@ void __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_respons
 
 void __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_151(uint64_t a1, char a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 64) + 8) + 24) = a2;
   v3 = *(*(a1 + 32) + 104);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 40);
     *buf = 138412290;
-    v17 = v4;
+    v16 = v4;
     _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_INFO, "Done removing object from keypath: %@", buf, 0xCu);
   }
 
@@ -777,41 +766,36 @@ void __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_respons
       v5 = *(a1 + 56);
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_152;
-    v12[3] = &unk_1E78869E0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_152;
+    v11[3] = &unk_1E78869E0;
     v8 = v5;
     v9 = *(a1 + 64);
-    v14 = v8;
-    v15 = v9;
+    v13 = v8;
+    v14 = v9;
     v10 = *(a1 + 40);
-    v12[4] = *(a1 + 32);
-    v13 = v10;
-    dispatch_async(v7, v12);
+    v11[4] = *(a1 + 32);
+    v12 = v10;
+    dispatch_async(v7, v11);
     if (!v6)
     {
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_152(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1[7] + 8) + 24);
+  v6 = *MEMORY[0x1E69E9840];
   (*(a1[6] + 16))();
-  v3 = *(a1[4] + 104);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = *(a1[4] + 104);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = a1[5];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_INFO, "Finished completion handler after removing object from keypath: %@", &v6, 0xCu);
+    v3 = a1[5];
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1A9611000, v2, OS_LOG_TYPE_INFO, "Finished completion handler after removing object from keypath: %@", &v4, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -819,7 +803,7 @@ void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_s
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(a1);
+    __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1();
   }
 
   v4 = *(a1 + 64);
@@ -851,7 +835,7 @@ void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_s
 
 void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_154(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 64) + 8) + 40), a2);
   v5 = *(*(a1 + 32) + 104);
@@ -859,7 +843,7 @@ void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_s
   {
     v6 = *(a1 + 40);
     *buf = 138412290;
-    v20 = v6;
+    v19 = v6;
     _os_log_impl(&dword_1A9611000, v5, OS_LOG_TYPE_INFO, "Done removing objects matching predicate from keypath: %@", buf, 0xCu);
   }
 
@@ -878,41 +862,36 @@ void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_s
       v7 = *(a1 + 56);
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_155;
-    v14[3] = &unk_1E7886A58;
-    v18 = v7;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_155;
+    v13[3] = &unk_1E7886A58;
+    v17 = v7;
     v10 = v4;
     v11 = *(a1 + 32);
     v12 = *(a1 + 40);
-    v15 = v10;
-    v16 = v11;
-    v17 = v12;
-    dispatch_async(v9, v14);
+    v14 = v10;
+    v15 = v11;
+    v16 = v12;
+    dispatch_async(v9, v13);
     if (!v8)
     {
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_155(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = a1[4];
+  v6 = *MEMORY[0x1E69E9840];
   (*(a1[7] + 16))();
-  v3 = *(a1[5] + 104);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = *(a1[5] + 104);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = a1[6];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_INFO, "Finished completion handler after removing objects matching predicate from keypath: %@", &v6, 0xCu);
+    v3 = a1[6];
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1A9611000, v2, OS_LOG_TYPE_INFO, "Finished completion handler after removing objects matching predicate from keypath: %@", &v4, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -920,7 +899,7 @@ void __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_sync
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(a1);
+    __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1();
   }
 
   v4 = *(a1 + 72);
@@ -952,14 +931,14 @@ void __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_sync
 
 void __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_158(uint64_t a1, char a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 64) + 8) + 24) = a2;
   v3 = *(*(a1 + 32) + 104);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 40);
     *buf = 138412290;
-    v17 = v4;
+    v16 = v4;
     _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_INFO, "Done adding to and removing from keypath: %@", buf, 0xCu);
   }
 
@@ -978,41 +957,36 @@ void __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_sync
       v5 = *(a1 + 56);
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_159;
-    v12[3] = &unk_1E78869E0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_159;
+    v11[3] = &unk_1E78869E0;
     v8 = v5;
     v9 = *(a1 + 64);
-    v14 = v8;
-    v15 = v9;
+    v13 = v8;
+    v14 = v9;
     v10 = *(a1 + 40);
-    v12[4] = *(a1 + 32);
-    v13 = v10;
-    dispatch_async(v7, v12);
+    v11[4] = *(a1 + 32);
+    v12 = v10;
+    dispatch_async(v7, v11);
     if (!v6)
     {
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_159(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1[7] + 8) + 24);
+  v6 = *MEMORY[0x1E69E9840];
   (*(a1[6] + 16))();
-  v3 = *(a1[4] + 104);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = *(a1[4] + 104);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = a1[5];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_INFO, "Finished completion handler after adding to and removing from keypath: %@", &v6, 0xCu);
+    v3 = a1[5];
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1A9611000, v2, OS_LOG_TYPE_INFO, "Finished completion handler after adding to and removing from keypath: %@", &v4, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __66___CDClientContext_valuesForKeyPaths_inContextsMatchingPredicate___block_invoke(uint64_t a1, void *a2)
@@ -1098,19 +1072,16 @@ void __79___CDClientContext_valuesForKeyPaths_synchronous_responseQueue_withComp
 
 void __79___CDClientContext_valuesForKeyPaths_synchronous_responseQueue_withCompletion___block_invoke_3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1[7] + 8) + 40);
+  v6 = *MEMORY[0x1E69E9840];
   (*(a1[6] + 16))();
-  v3 = *(a1[4] + 104);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = *(a1[4] + 104);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = a1[5];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1A9611000, v3, OS_LOG_TYPE_INFO, "Finished completion handler after getting values for key paths: %@", &v6, 0xCu);
+    v3 = a1[5];
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1A9611000, v2, OS_LOG_TYPE_INFO, "Finished completion handler after getting values for key paths: %@", &v4, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke(uint64_t a1, void *a2)
@@ -1118,7 +1089,7 @@ void __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___bl
   v3 = a2;
   if (os_log_type_enabled(*(*(a1 + 32) + 104), OS_LOG_TYPE_ERROR))
   {
-    __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke_cold_1(a1);
+    __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke_cold_1();
   }
 }
 
@@ -1140,166 +1111,102 @@ void __77___CDClientContext_deactivateDevices_remoteUserContextProxySourceDevice
   }
 }
 
-void __43___CDClientContext_subscribeToEventStreams__block_invoke_cold_1()
+void __52___CDClientContext_hasKnowledgeOfContextualKeyPath___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_1A9611000, MEMORY[0x1E69E9C10], v0, "Registering xpc_set_event_stream_handler(%s", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __47___CDClientContext_handleFetchPropertiesEvent___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "Failed to fetch properties: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52___CDClientContext_hasKnowledgeOfContextualKeyPath___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(uint64_t a1)
+void __88___CDClientContext_objectForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __98___CDClientContext_lastModifiedDateForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(uint64_t a1)
+void __98___CDClientContext_lastModifiedDateForContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __37___CDClientContext_registerCallback___block_invoke_3_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = a2;
   v4 = [v2 identifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_8(&dword_1A9611000, v5, v6, "Error re-registering %@ (%@)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8(&dword_1A9611000, v5, v6, "Error re-registering %@ (%@)", v7, v8, v9, v10);
 }
 
 void __37___CDClientContext_registerCallback___block_invoke_2_141_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = a2;
   v4 = [v2 identifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_8(&dword_1A9611000, v5, v6, "Error registering %@ (%@)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8(&dword_1A9611000, v5, v6, "Error registering %@ (%@)", v7, v8, v9, v10);
 }
 
-void __38___CDClientContext_evaluatePredicate___block_invoke_cold_1(uint64_t a1)
+void __38___CDClientContext_evaluatePredicate___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(uint64_t a1)
+void __92___CDClientContext_setObject_forContextualKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(uint64_t a1)
+void __89___CDClientContext_addObjects_toArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(uint64_t a1)
+void __94___CDClientContext_removeObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(uint64_t a1)
+void __111___CDClientContext_removeObjectsMatchingPredicate_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1(uint64_t a1)
+void __108___CDClientContext_addObjects_andRemoveObjects_fromArrayAtKeyPath_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
 {
-  v1 = *(OUTLINED_FUNCTION_5(a1, *MEMORY[0x1E69E9840]) + 56);
+  OUTLINED_FUNCTION_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void __66___CDClientContext_valuesForKeyPaths_inContextsMatchingPredicate___block_invoke_cold_1()
+void __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "error getting values for key paths: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __79___CDClientContext_valuesForKeyPaths_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "error getting values for key paths : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68___CDClientContext_setObject_lastModifiedDate_forContextualKeyPath___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(OUTLINED_FUNCTION_5(a1, *MEMORY[0x1E69E9840]) + 56);
+  OUTLINED_FUNCTION_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __75___CDClientContext_activateDevices_remoteUserContextProxySourceDeviceUUID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "error activating devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __77___CDClientContext_deactivateDevices_remoteUserContextProxySourceDeviceUUID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "error deactivating devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 @end

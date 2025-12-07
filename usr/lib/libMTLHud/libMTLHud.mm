@@ -1,22 +1,22 @@
-void _HUDGPUTimeTrackerCommandBufferSnapshot(__int128 *a1, uint64_t a2)
+void _HUDGPUTimeTrackerCommandBufferSnapshot(__int128 *result, uint64_t a2)
 {
-  v3 = *a1;
-  v4 = a1[2];
-  *(a2 + 16) = a1[1];
+  v3 = *result;
+  v4 = result[2];
+  *(a2 + 16) = result[1];
   *(a2 + 32) = v4;
   *a2 = v3;
-  v5 = a1[3];
-  v6 = a1[4];
-  v7 = a1[5];
-  *(a2 + 96) = *(a1 + 12);
+  v5 = result[3];
+  v6 = result[4];
+  v7 = result[5];
+  *(a2 + 96) = *(result + 12);
   *(a2 + 64) = v6;
   *(a2 + 80) = v7;
   *(a2 + 48) = v5;
-  if (a2 != a1)
+  if (a2 != result)
   {
-    std::vector<HUDGPUTimeTrackerEncoder>::__assign_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>((a2 + 144), *(a1 + 18), *(a1 + 19), 0x6F96F96F96F96F97 * ((*(a1 + 19) - *(a1 + 18)) >> 3));
-    *(a2 + 136) = *(a1 + 34);
-    v10 = *(a1 + 15);
+    std::vector<HUDGPUTimeTrackerEncoder>::__assign_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>((a2 + 144), *(result + 18), *(result + 19), 0x6F96F96F96F96F97 * ((*(result + 19) - *(result + 18)) >> 3));
+    *(a2 + 136) = *(result + 34);
+    v10 = *(result + 15);
 
     std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned long long,unsigned long>,void *> *>>((a2 + 104), v10, 0);
   }
@@ -36,7 +36,7 @@ int64x2_t _HUDCompilerStatisticsAdd(HUDCompilerStatistics *a1, HUDCompilerStatis
   return result;
 }
 
-void _HUDCompilerStatisticsParse(HUDCompilerStatistics *a1@<X1>, void *a2@<X2>, void *a3@<X3>, uint64_t a4@<X8>)
+void _HUDCompilerStatisticsParse(HUDCompilerStatistics *a1@<X1>, void *a2@<X2>, void *a3@<X3>, HUDCompilerStatistics *a4@<X8>)
 {
   v7 = a2;
   v8 = a3;
@@ -70,7 +70,7 @@ void _HUDCompilerStatisticsParse(HUDCompilerStatistics *a1@<X1>, void *a2@<X2>, 
       v15 = v14 - v10->numDynamicLibraries;
     }
 
-    *a4 = v15;
+    a4->numDynamicLibraries = v15;
     _HUDCompileStatisticsParseArray(v11, @"Dylib", a4, v15, numDynamicLibraries, v8);
   }
 
@@ -102,7 +102,7 @@ void _HUDCompilerStatisticsParse(HUDCompilerStatistics *a1@<X1>, void *a2@<X2>, 
       v21 = v20 - numBinaryFunctions;
     }
 
-    *(a4 + 8) = v21;
+    a4->numBinaryFunctions = v21;
     _HUDCompileStatisticsParseArray(v16, @"BinaryFunction", a4, v21, numBinaryFunctions, v8);
   }
 
@@ -134,7 +134,7 @@ void _HUDCompilerStatisticsParse(HUDCompilerStatistics *a1@<X1>, void *a2@<X2>, 
       v27 = v26 - numLibrariesFromSource;
     }
 
-    *(a4 + 16) = v27;
+    a4->numLibrariesFromSource = v27;
     _HUDCompileStatisticsParseArray(v22, @"LibraryFromSource", a4, v27, numLibrariesFromSource, v8);
   }
 
@@ -172,7 +172,7 @@ void _HUDCompilerStatisticsParse(HUDCompilerStatistics *a1@<X1>, void *a2@<X2>, 
         v35 = v34 - numRenderPipelines;
       }
 
-      *(a4 + 24) = v35;
+      a4->numRenderPipelines = v35;
       _HUDCompileStatisticsParseRenderArray(v29, a4, v35, numRenderPipelines, v8);
     }
 
@@ -203,7 +203,7 @@ void _HUDCompilerStatisticsParse(HUDCompilerStatistics *a1@<X1>, void *a2@<X2>, 
         v40 = v39 - numComputePipelines;
       }
 
-      *(a4 + 32) = v40;
+      a4->numComputePipelines = v40;
       _HUDCompileStatisticsParseArray(v30, @"Compute", a4, v40, numComputePipelines, v8);
     }
 
@@ -259,14 +259,14 @@ void _HUDCompileStatisticsParseRenderArray(void *a1, void *a2, uint64_t a3, unin
   }
 }
 
-void _HUDGPUTimeTrackerGetMetricDescriptors(void)
+void _HUDGPUTimeTrackerGetMetricDescriptors(uint64_t result, uint64_t a2)
 {
   {
     _HUDGPUTimeTrackerGetMetricDescriptors();
   }
 }
 
-uint64_t HUDGPUTimeTrackerGetGlobalInstance()
+uint64_t HUDGPUTimeTrackerGetGlobalInstance(uint64_t a1, uint64_t a2)
 {
   if (_HUDGPUTimeTrackerGetInstance(void)::onceToken != -1)
   {
@@ -286,15 +286,15 @@ uint64_t HUDGPUTimeTrackerGetCurrentFrame(uint64_t result)
   return result;
 }
 
-void HUDGPUTimeTrackerReset(uint64_t a1)
+void HUDGPUTimeTrackerReset(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
     v1[0] = _NSConcreteStackBlock;
     v1[1] = 3221225472;
     v1[2] = __HUDGPUTimeTrackerReset_block_invoke;
     v1[3] = &__block_descriptor_40_e5_v8__0l;
-    v1[4] = a1;
+    v1[4] = result;
     HUDDispatchQueueAsync(v1);
   }
 }
@@ -344,8 +344,8 @@ unint64_t _HUDGPUTimeTrackerAddLabel(uint64_t a1, uint64_t a2, void *a3, uint64_
   v9 = v8;
   if (a1 && *(a1 + 26) == 1)
   {
-    v17[0] = a5 | (4 * [v8 hash]);
-    v10 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 96), v17);
+    v17 = a5 | (4 * [v8 hash]);
+    v10 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 96), &v17);
     if (v10)
     {
       ++*(v10 + 10);
@@ -354,10 +354,10 @@ unint64_t _HUDGPUTimeTrackerAddLabel(uint64_t a1, uint64_t a2, void *a3, uint64_
 
     else
     {
-      v12 = v17[0];
+      v12 = v17;
       v13 = v9;
-      v17[2] = v17;
-      v14 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 96), v17);
+      v18 = &v17;
+      v14 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 96), &v17, &std::piecewise_construct, &v18);
       v14[3] = a4;
       v14[4] = v12;
       *(v14 + 10) = 1;
@@ -366,7 +366,7 @@ unint64_t _HUDGPUTimeTrackerAddLabel(uint64_t a1, uint64_t a2, void *a3, uint64_
       v14[6] = v13;
     }
 
-    v11 = v17[0];
+    v11 = v17;
   }
 
   else
@@ -392,23 +392,23 @@ BOOL _HUDGPUTimetrackerHeapValueCompare(unint64_t *a1, unint64_t *a2)
 double _HUDGPUTimeTrackerPushTopObjectHeap(uint64_t *a1, __int128 *a2)
 {
   v6 = *a1;
-  v5 = (a1 + 1);
-  v7 = v5 + 40 * v6;
+  v5 = a1 + 1;
+  v7 = &v5[5 * v6];
   v8 = *a2;
   v9 = a2[1];
   if (v6 > 9)
   {
-    *(v7 - 8) = *(a2 + 4);
-    *(v7 - 24) = v9;
-    *(v7 - 40) = v8;
+    *(v7 - 1) = *(a2 + 4);
+    *(v7 - 3) = v9;
+    *(v7 - 5) = v8;
     v10 = *a1;
   }
 
   else
   {
-    *(v7 + 32) = *(a2 + 4);
+    v7[4] = *(a2 + 4);
     *v7 = v8;
-    *(v7 + 16) = v9;
+    *(v7 + 1) = v9;
     v10 = *a1 + 1;
     *a1 = v10;
   }
@@ -416,7 +416,7 @@ double _HUDGPUTimeTrackerPushTopObjectHeap(uint64_t *a1, __int128 *a2)
   v12[1] = v2;
   v12[2] = v3;
   v12[0] = _HUDGPUTimetrackerHeapValueCompare;
-  return std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(HUDGPUTimeTrackerTopObjectHeapValue const&,HUDGPUTimeTrackerTopObjectHeapValue const&),HUDGPUTimeTrackerTopObjectHeapValue*>(v5, v5 + 40 * v10, v12, v10);
+  return std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(HUDGPUTimeTrackerTopObjectHeapValue const&,HUDGPUTimeTrackerTopObjectHeapValue const&),HUDGPUTimeTrackerTopObjectHeapValue*>(v5, &v5[5 * v10], v12, v10);
 }
 
 void *_HUDGPUTimeTrackerGetCommonObjectRecord(uint64_t a1, unint64_t a2)
@@ -431,7 +431,7 @@ void *_HUDGPUTimeTrackerGetCommonObjectRecord(uint64_t a1, unint64_t a2)
 
   bzero(&v9, 0x8D8uLL);
   v8 = v10;
-  v6 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>>((a1 + 176), &v8);
+  v6 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>>((a1 + 176), &v8, &v8);
   if (v7)
   {
     v4 = v6;
@@ -477,11 +477,11 @@ void _HUDGPUTimeTrackerTopObjectHeapAssign(uint64_t a1, unint64_t *a2, void *a3,
     v8 = 0;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,false>((a2 + 1), &a2[5 * *a2 + 1], v8, 1);
+  std::__introsort<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,false>(a2 + 1, &a2[5 * *a2 + 1], v8, 1);
   if (*a2)
   {
     v9 = 0;
-    v10 = (a2 + 4);
+    v10 = a2 + 4;
     do
     {
       _HUDGPUTimeTrackerTopObjectAssignCommonObjectRecord(a1, v10 - 3);
@@ -494,12 +494,12 @@ void _HUDGPUTimeTrackerTopObjectHeapAssign(uint64_t a1, unint64_t *a2, void *a3,
   }
 }
 
-uint64_t _HUDGPUTimeTrackerPurgeOldLabels(uint64_t result, unint64_t a2)
+void *_HUDGPUTimeTrackerPurgeOldLabels(void *result, unint64_t a2)
 {
-  if (*(result + 120))
+  if (result[15])
   {
     v2 = result;
-    v3 = *(result + 112);
+    v3 = result[14];
     if (v3)
     {
       do
@@ -517,7 +517,7 @@ uint64_t _HUDGPUTimeTrackerPurgeOldLabels(uint64_t result, unint64_t a2)
 
           if (*(v3 + 10) >= 0x3Cu)
           {
-            result = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v2 + 17, v3 + 2);
+            result = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v2 + 17, v3 + 2, v3 + 2);
           }
 
           v3 = *v3;
@@ -552,16 +552,16 @@ uint64_t _HUDGPUTimeTrackerPurgeOldLabels(uint64_t result, unint64_t a2)
   return result;
 }
 
-void HUDGPUTimeTrackerEnableEncoderGPUTimeSampling(uint64_t a1, char a2)
+void HUDGPUTimeTrackerEnableEncoderGPUTimeSampling(uint64_t result, char a2)
 {
-  if (a1)
+  if (result)
   {
     v2[0] = _NSConcreteStackBlock;
     v2[1] = 3221225472;
     v2[2] = __HUDGPUTimeTrackerEnableEncoderGPUTimeSampling_block_invoke;
     v2[3] = &__block_descriptor_41_e5_v8__0l;
     v3 = a2;
-    v2[4] = a1;
+    v2[4] = result;
     HUDDispatchQueueAsync(v2);
   }
 }
@@ -693,11 +693,11 @@ void HUDGPUTimeTrackerCommandBufferCreate(os_unfair_lock_s *a1, void *a2)
   v4 = v3;
   if (a1)
   {
-    v19[0] = [v3 globalTraceObjectID];
+    v19 = [v3 globalTraceObjectID];
     os_unfair_lock_lock(a1 + 16756);
-    if (!std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, v19))
+    if (!std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, &v19))
     {
-      v6 = v19[0];
+      v6 = v19;
       v7 = *&a1->_os_unfair_lock_opaque;
       v8 = v7;
       v9 = HUDCurrentTimeInNs();
@@ -710,8 +710,8 @@ void HUDGPUTimeTrackerCommandBufferCreate(os_unfair_lock_s *a1, void *a2)
       v16 = 0u;
       memset(v17, 0, sizeof(v17));
       v18 = 1065353216;
-      v19[2] = v19;
-      v5 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&a1[14]._os_unfair_lock_opaque, v19);
+      v20 = &v19;
+      v5 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&a1[14]._os_unfair_lock_opaque, &v19, &std::piecewise_construct, &v20);
       HUDGPUTimeTrackerCommandBuffer::operator=((v5 + 3), &v6);
       std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::~__hash_table(v17);
       objc_destroyWeak(&v16 + 1);
@@ -797,50 +797,50 @@ uint64_t _HUDTimeRangeCompare(void *a1, void *a2)
   }
 }
 
-unint64_t _HUDGPUTimeTrackerPruneOldFramesUnlocked(unint64_t *a1)
+unint64_t _HUDGPUTimeTrackerPruneOldFramesUnlocked(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = HUDCurrentTimeInNs();
-  v3 = a1[9];
-  if (v3)
+  v6 = a1[9];
+  if (v6)
   {
-    v4 = result;
+    v7 = result;
     do
     {
       while (1)
       {
-        if (!*(v3 + 100))
+        if (!*(v6 + 100))
         {
-          v5 = *(v3 + 48);
-          if (v5 < 4)
+          v8 = *(v6 + 48);
+          if (v8 < 4)
           {
             break;
           }
 
-          v6 = *(v3 + 56);
-          v7 = v6 && v4 > v6;
-          if (v7 && v4 - v6 > 0x3B9ACA00)
+          v9 = *(v6 + 56);
+          v10 = v9 && v7 > v9;
+          if (v10 && v7 - v9 > 0x3B9ACA00)
           {
             break;
           }
 
-          v10 = *a1 >= v5;
-          v9 = *a1 - v5;
-          v10 = v9 != 0 && v10 && v9 >= 6;
-          if (v10)
+          v13 = *a1 >= v8;
+          v12 = *a1 - v8;
+          v13 = v12 != 0 && v13 && v12 >= 6;
+          if (v13)
           {
             break;
           }
         }
 
-        v3 = *v3;
-        if (!v3)
+        v6 = *v6;
+        if (!v6)
         {
           return result;
         }
       }
 
-      result = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::erase(a1 + 7, v3);
-      v3 = result;
+      result = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::erase(a1 + 7, v6);
+      v6 = result;
     }
 
     while (result);
@@ -851,34 +851,34 @@ unint64_t _HUDGPUTimeTrackerPruneOldFramesUnlocked(unint64_t *a1)
 
 void _HUDGPUTimeTrackerWrapupFrameForPresentedDrawable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x4812000000;
-  v36 = __Block_byref_object_copy_;
-  v37 = __Block_byref_object_dispose_;
-  v38 = &unk_5D621;
-  memset(v39, 0, sizeof(v39));
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x5812000000;
-  v28 = __Block_byref_object_copy__420;
-  v29 = __Block_byref_object_dispose__421;
-  v30 = &unk_5D621;
-  memset(v31, 0, sizeof(v31));
-  v32 = 1065353216;
-  std::vector<HUDGPUTimeTrackerCommandBuffer>::reserve(v39, 0xAuLL);
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = a2;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x4812000000;
+  v39 = __Block_byref_object_copy_;
+  v40 = __Block_byref_object_dispose_;
+  v41 = &unk_5D621;
+  memset(v42, 0, sizeof(v42));
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x5812000000;
+  v31 = __Block_byref_object_copy__420;
+  v32 = __Block_byref_object_dispose__421;
+  v33 = &unk_5D621;
+  memset(v34, 0, sizeof(v34));
+  v35 = 1065353216;
+  std::vector<HUDGPUTimeTrackerCommandBuffer>::reserve(v42, 0xAuLL);
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = a2;
   v20 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
   os_unfair_lock_lock((a1 + 67024));
   for (i = *(a1 + 72); i; i = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::erase((a1 + 56), i))
   {
@@ -886,32 +886,32 @@ void _HUDGPUTimeTrackerWrapupFrameForPresentedDrawable(uint64_t a1, uint64_t a2,
     {
       if (*(i + 100))
       {
-        v7 = *(i + 216);
-        if (v7)
+        v10 = *(i + 216);
+        if (v10)
         {
           while (1)
           {
-            while (*(v7 + 40) > v22[3])
+            while (*(v10 + 40) > v25[3])
             {
 LABEL_9:
-              v7 = *v7;
-              if (!v7)
+              v10 = *v10;
+              if (!v10)
               {
                 goto LABEL_16;
               }
             }
 
-            if (!*(v7 + 80))
+            if (!*(v10 + 80))
             {
-              *(v7 + 40) = *a1;
+              *(v10 + 40) = *a1;
               goto LABEL_9;
             }
 
-            ++*(v18 + 6);
-            *(v14 + 6) -= 1762037865 * ((*(v7 + 176) - *(v7 + 168)) >> 3);
-            std::vector<HUDGPUTimeTrackerCommandBuffer>::push_back[abi:ne200100](v34 + 6, (v7 + 24));
-            v7 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::erase((i + 200), v7);
-            if (!v7)
+            ++*(v21 + 6);
+            *(v17 + 6) -= 1762037865 * ((*(v10 + 176) - *(v10 + 168)) >> 3);
+            std::vector<HUDGPUTimeTrackerCommandBuffer>::push_back[abi:ne200100](v37 + 6, (v10 + 24));
+            v10 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::erase((i + 200), v10);
+            if (!v10)
             {
               goto LABEL_16;
             }
@@ -921,7 +921,7 @@ LABEL_9:
         goto LABEL_16;
       }
 
-      if (*(i + 40) <= v22[3])
+      if (*(i + 40) <= v25[3])
       {
         break;
       }
@@ -940,61 +940,61 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    ++*(v18 + 6);
-    *(v14 + 6) -= 1762037865 * ((*(i + 176) - *(i + 168)) >> 3);
-    std::vector<HUDGPUTimeTrackerCommandBuffer>::push_back[abi:ne200100](v34 + 6, (i + 24));
+    ++*(v21 + 6);
+    *(v17 + 6) -= 1762037865 * ((*(i + 176) - *(i + 168)) >> 3);
+    std::vector<HUDGPUTimeTrackerCommandBuffer>::push_back[abi:ne200100](v37 + 6, (i + 24));
   }
 
 LABEL_17:
-  _HUDGPUTimeTrackerPruneOldFramesUnlocked(a1);
-  v8 = v26 + 6;
-  if (v26 + 6 != (a1 + 136))
+  _HUDGPUTimeTrackerPruneOldFramesUnlocked(a1, v6, v7, v8);
+  v11 = v29 + 6;
+  if (v29 + 6 != (a1 + 136))
   {
-    *(v26 + 20) = *(a1 + 168);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v8, *(a1 + 152), 0);
+    *(v29 + 20) = *(a1 + 168);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v11, *(a1 + 152), 0);
   }
 
-  v9 = v22[3];
-  if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * v9, 1) <= 0x1999999999999999uLL)
+  v12 = v25[3];
+  if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * v12, 1) <= 0x1999999999999999uLL)
   {
-    _HUDGPUTimeTrackerPurgeOldLabels(a1, v9);
+    _HUDGPUTimeTrackerPurgeOldLabels(a1, v12);
   }
 
   os_unfair_lock_unlock((a1 + 67024));
-  v10 = *(a1 + 16);
+  v13 = *(a1 + 16);
   *(a1 + 16) = a3;
-  if (v22[3] != 0xFFFFFFFFLL && v34[6] != v34[7])
+  if (v25[3] != 0xFFFFFFFFLL && v37[6] != v37[7])
   {
-    v11 = a3 - v10;
-    if (v11 <= 0x3B9AC9FF)
+    v14 = a3 - v13;
+    if (v14 <= 0x3B9AC9FF)
     {
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = ___Z49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermy_block_invoke;
-      v12[3] = &unk_68B50;
-      v12[4] = &v21;
-      v12[5] = &v33;
-      v12[6] = &v17;
-      v12[7] = &v13;
-      v12[8] = &v25;
-      v12[9] = a3;
-      v12[10] = a1;
-      v12[11] = v11;
-      HUDDispatchQueueAsync(v12);
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = ___Z49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermy_block_invoke;
+      v15[3] = &unk_68B50;
+      v15[4] = &v24;
+      v15[5] = &v36;
+      v15[6] = &v20;
+      v15[7] = &v16;
+      v15[8] = &v28;
+      v15[9] = a3;
+      v15[10] = a1;
+      v15[11] = v14;
+      HUDDispatchQueueAsync(v15);
     }
   }
 
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(v31);
-  _Block_object_dispose(&v33, 8);
-  v25 = v39;
-  std::vector<HUDGPUTimeTrackerCommandBuffer>::__destroy_vector::operator()[abi:ne200100](&v25);
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(v34);
+  _Block_object_dispose(&v36, 8);
+  v28 = v42;
+  std::vector<HUDGPUTimeTrackerCommandBuffer>::__destroy_vector::operator()[abi:ne200100](&v28);
 }
 
-void sub_3530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, void **a33)
+void sub_3530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33)
 {
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
@@ -1008,26 +1008,22 @@ void sub_3530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 
 __n128 __Block_byref_object_copy_(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
 
-void *std::vector<HUDGPUTimeTrackerCommandBuffer>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<HUDGPUTimeTrackerCommandBuffer>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x84BDA12F684BDA13 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x12F684BDA12F685)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<HUDGPUTimeTrackerCommandBuffer>>(result, a2);
     }
 
@@ -1037,9 +1033,9 @@ void *std::vector<HUDGPUTimeTrackerCommandBuffer>::reserve(void *result, unint64
   return result;
 }
 
-void sub_36EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_36EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<HUDGPUTimeTrackerCommandBuffer>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1062,230 +1058,231 @@ uint64_t std::vector<HUDGPUTimeTrackerCommandBuffer>::push_back[abi:ne200100](ui
   return result;
 }
 
-void ___Z49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermy_block_invoke(void *a1)
+void ___Z49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermy_block_invoke(void *a1, uint64_t a2)
 {
-  if (*(HUDGetGlobalConfig() + 16) == 1)
+  v2 = a1;
+  if (*(HUDGetGlobalConfig(a1, a2) + 16) == 1)
   {
     _ZZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E17_timeTrackerBegin = HUDCurrentTimeInNs();
   }
 
-  bzero(&v337, 0x270uLL);
-  v374 = *(*(a1[4] + 8) + 24);
-  v373.i64[1] = a1[9];
-  v2 = *(HUDGetGlobalConfig() + 3);
-  v3 = *(a1[5] + 8);
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 56);
-  v6 = 126 - 2 * __clz(0x84BDA12F684BDA13 * ((v5 - v4) >> 3));
-  memset(v375, 0, sizeof(v375));
-  v376 = 0;
-  if (v5 == v4)
+  bzero(&v343, 0x270uLL);
+  v380 = *(*(v2[4] + 8) + 24);
+  v379.i64[1] = v2[9];
+  v5 = *(HUDGetGlobalConfig(v3, v4) + 3);
+  v6 = *(v2[5] + 8);
+  v7 = *(v6 + 48);
+  v8 = *(v6 + 56);
+  v9 = 126 - 2 * __clz(0x84BDA12F684BDA13 * (&v8[-v7] >> 3));
+  memset(v381, 0, sizeof(v381));
+  v382 = 0;
+  if (v8 == v7)
   {
-    v7 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v7 = v6;
+    v10 = v9;
   }
 
-  _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferLb0EEEvT1_S8_T0_NS_15iterator_traitsIS8_E15difference_typeEb(v4, v5, v7, 1);
-  v335 = 0u;
-  v334 = 0u;
-  v336 = 1065353216;
-  v333 = 0;
-  memset(v332, 0, sizeof(v332));
-  v331 = 0;
-  memset(v330, 0, sizeof(v330));
-  v280 = v2;
-  if (v2 == 1)
+  _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferLb0EEEvT1_S8_T0_NS_15iterator_traitsIS8_E15difference_typeEb(v7, v8, v10, 1);
+  v341 = 0u;
+  v340 = 0u;
+  v342 = 1065353216;
+  v339 = 0;
+  memset(v338, 0, sizeof(v338));
+  v337 = 0;
+  memset(v336, 0, sizeof(v336));
+  v290 = v5;
+  if (v5 == 1)
   {
-    HUDTargetRebindingInsightContextBeginFrame(a1[10] + 67424, *(*(a1[6] + 8) + 24), *(*(a1[7] + 8) + 24), *(*(a1[4] + 8) + 24));
-    HUDGameModeInsightCheck();
+    HUDTargetRebindingInsightContextBeginFrame(v2[10] + 67424, *(*(v2[6] + 8) + 24), *(*(v2[7] + 8) + 24), *(*(v2[4] + 8) + 24));
+    HUDGameModeInsightCheck(v11, v12);
   }
 
-  v8 = *(*(a1[5] + 8) + 48);
-  v282 = a1;
-  if (*(*(a1[5] + 8) + 56) != v8)
+  v13 = *(*(v2[5] + 8) + 48);
+  v292 = v2;
+  if (*(*(v2[5] + 8) + 56) != v13)
   {
-    v283 = 0;
-    v9 = 0;
+    v293 = 0;
+    v14 = 0;
     while (1)
     {
-      v278 = v9;
-      v10 = v8 + 216 * v9;
-      v281 = v10;
-      if (*(v10 + 72) != 1)
+      v288 = v14;
+      v15 = v13 + 216 * v14;
+      v291 = v15;
+      if (*(v15 + 72) != 1)
       {
-        std::vector<HUDTimeRange>::push_back[abi:ne200100](&v337, (v10 + 32));
-        std::vector<HUDTimeRange>::push_back[abi:ne200100](&__base, (v10 + 48));
-        std::vector<HUDTimeRange>::push_back[abi:ne200100](&v360[3 * *(v10 + 72) + 21], (v10 + 48));
-        if (std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((*(a1[8] + 8) + 48), (v10 + 8)))
+        std::vector<HUDTimeRange>::push_back[abi:ne200100](&v343, (v15 + 32));
+        std::vector<HUDTimeRange>::push_back[abi:ne200100](&__base, (v15 + 48));
+        std::vector<HUDTimeRange>::push_back[abi:ne200100](&v366[3 * *(v15 + 72) + 21], (v15 + 48));
+        if (std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((*(v2[8] + 8) + 48), (v15 + 8)))
         {
-          v11 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1[10] + 216), (v10 + 8));
-          if (v11 || (v12 = a1[10], v310[0].i64[0] = *(v10 + 8), memset(&v310[0].u64[1], 0, 40), (v11 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>((v12 + 216), v310)) != 0))
+          v16 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((v2[10] + 216), (v15 + 8));
+          if (v16 || (v17 = v2[10], v320.numDynamicLibraries = *(v15 + 8), memset(&v320.numBinaryFunctions, 0, 40), (v16 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>((v17 + 216), &v320.numDynamicLibraries, &v320)) != 0))
           {
-            v13 = *(v10 + 32);
-            v14 = v11[4];
-            v11[3] += *(v10 + 40) - v13;
-            if (v11[5] < v13)
+            v18 = *(v15 + 32);
+            v19 = v16[4];
+            v16[3] += *(v15 + 40) - v18;
+            if (v16[5] < v18)
             {
-              v13 = v11[5];
+              v18 = v16[5];
             }
 
-            v11[4] = *(v10 + 56) - *(v10 + 48) + v14;
-            v11[5] = v13;
-            v15 = v11[7] + 1;
-            v11[6] = *(v10 + 8);
-            v11[7] = v15;
+            v16[4] = *(v15 + 56) - *(v15 + 48) + v19;
+            v16[5] = v18;
+            v20 = v16[7] + 1;
+            v16[6] = *(v15 + 8);
+            v16[7] = v20;
           }
         }
 
-        if (v280)
+        if (v290)
         {
-          if (*(v10 + 8) && (v16 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1[10] + 96), (v10 + 8))) != 0)
+          if (*(v15 + 8) && (v21 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((v2[10] + 96), (v15 + 8))) != 0)
           {
-            v17 = v16[6];
+            v22 = v21[6];
           }
 
           else
           {
-            v17 = 0;
+            v22 = 0;
           }
 
-          HUDTargetRebindingInsightContextProcessCommandBuffer(a1[10] + 67424, *v10, *(v10 + 76), v17, *(v10 + 32), *(v10 + 40), *(v10 + 48), *(v10 + 56));
+          HUDTargetRebindingInsightContextProcessCommandBuffer(v2[10] + 67424, *v15, *(v15 + 76), v22, *(v15 + 32), *(v15 + 40), *(v15 + 48), *(v15 + 56));
         }
       }
 
-      v310[0].i64[0] = v10 + 88;
-      v18 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v334, (v10 + 88))[3];
-      v19 = *(v10 + 96);
-      v310[0].i64[0] = v10 + 88;
-      v20 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v334, (v10 + 88));
-      v21 = v18 <= v19 ? v19 : v18;
-      v20[3] = v21;
-      v22 = *(v10 + 144);
-      if (*(v10 + 152) != v22)
+      v320.numDynamicLibraries = v15 + 88;
+      v23 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v340, (v15 + 88), &std::piecewise_construct, &v320)[3];
+      v24 = *(v15 + 96);
+      v320.numDynamicLibraries = v15 + 88;
+      v25 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v340, (v15 + 88), &std::piecewise_construct, &v320);
+      v26 = v23 <= v24 ? v24 : v23;
+      v25[3] = v26;
+      v27 = *(v15 + 144);
+      if (*(v15 + 152) != v27)
       {
         break;
       }
 
 LABEL_91:
-      v9 = v278 + 1;
-      v8 = *(*(a1[5] + 8) + 48);
-      if (v278 + 1 >= 0x84BDA12F684BDA13 * ((*(*(a1[5] + 8) + 56) - v8) >> 3))
+      v14 = v288 + 1;
+      v13 = *(*(v2[5] + 8) + 48);
+      if (v288 + 1 >= 0x84BDA12F684BDA13 * ((*(*(v2[5] + 8) + 56) - v13) >> 3))
       {
-        v61 = v283;
+        v66 = v293;
         goto LABEL_94;
       }
     }
 
-    v23 = 0;
-    v24 = 0;
-    v279 = *(v10 + 56) - *(v10 + 48) + 1000;
+    v28 = 0;
+    v29 = 0;
+    v289 = *(v15 + 56) - *(v15 + 48) + 1000;
     while (1)
     {
-      if (*(v10 + 72) != 1)
+      if (*(v15 + 72) != 1)
       {
-        v25 = *(v22 + v23 + 8);
-        if (*(v22 + v23 + 16) < v25)
+        v30 = *(v27 + v28 + 8);
+        if (*(v27 + v28 + 16) < v30)
         {
-          *(v22 + v23 + 16) = v25;
+          *(v27 + v28 + 16) = v30;
         }
 
-        std::vector<HUDTimeRange>::push_back[abi:ne200100](&v351, (v22 + v23 + 8));
-        std::vector<HUDTimeRange>::push_back[abi:ne200100](&v360[3 * *(v22 + v23)], (v22 + v23 + 8));
+        std::vector<HUDTimeRange>::push_back[abi:ne200100](&v357, (v27 + v28 + 8));
+        std::vector<HUDTimeRange>::push_back[abi:ne200100](&v366[3 * *(v27 + v28)], (v27 + v28 + 8));
       }
 
-      v26 = *(&HUDInvalidTimeRange + 1);
-      v27 = HUDInvalidTimeRange;
-      v28 = v22 + v23;
-      if (*(v22 + v23 + 24) == 0xFFFFFFFFLL)
+      v31 = *(&HUDInvalidTimeRange + 1);
+      v32 = HUDInvalidTimeRange;
+      v33 = v27 + v28;
+      if (*(v27 + v28 + 24) == 0xFFFFFFFFLL)
       {
-        v29 = 0;
+        v34 = 0;
       }
 
       else
       {
-        v29 = 0;
-        v283 += *(v28 + 304);
-        v32 = *v28;
-        if (v32 <= 2)
+        v34 = 0;
+        v293 += *(v33 + 304);
+        v37 = *v33;
+        if (v37 <= 2)
         {
-          if (v32 == 1)
+          if (v37 == 1)
           {
-            v29 = 0;
-            v55 = (v22 + v23);
-            v56 = *(v22 + v23 + 32);
-            if (v56 == -1 || (v57 = v55[5], v57 == -1))
+            v34 = 0;
+            v60 = (v27 + v28);
+            v61 = *(v27 + v28 + 32);
+            if (v61 == -1 || (v62 = v60[5], v62 == -1))
             {
-              v31 = *(&HUDInvalidTimeRange + 1);
-              v30 = HUDInvalidTimeRange;
+              numBinaryFunctions = *(&HUDInvalidTimeRange + 1);
+              numDynamicLibraries = HUDInvalidTimeRange;
             }
 
             else
             {
-              v31 = *(&HUDInvalidTimeRange + 1);
-              v30 = HUDInvalidTimeRange;
-              if (v57 - v56 <= v279)
+              numBinaryFunctions = *(&HUDInvalidTimeRange + 1);
+              numDynamicLibraries = HUDInvalidTimeRange;
+              if (v62 - v61 <= v289)
               {
-                v58 = *(&HUDInvalidTimeRange + 1);
-                v310[0].i64[0] = *(v22 + v23 + 32);
-                v310[0].i64[1] = v57;
-                std::vector<HUDTimeRange>::push_back[abi:ne200100](&v365[3 * *(v22 + v23 + 280)], v310);
-                if (*(v22 + v23 + 280) != 1)
+                v63 = *(&HUDInvalidTimeRange + 1);
+                v320.numDynamicLibraries = *(v27 + v28 + 32);
+                v320.numBinaryFunctions = v62;
+                std::vector<HUDTimeRange>::push_back[abi:ne200100](&v371[3 * *(v27 + v28 + 280)], &v320);
+                if (*(v27 + v28 + 280) != 1)
                 {
-                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&__src, v310);
+                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&__src, &v320);
                 }
 
-                v31 = v310[0].i64[1];
-                v30 = v310[0].i64[0];
-                v29 = v310[0].i64[1] - v310[0].i64[0];
-                v26 = v58;
-                a1 = v282;
+                numBinaryFunctions = v320.numBinaryFunctions;
+                numDynamicLibraries = v320.numDynamicLibraries;
+                v34 = v320.numBinaryFunctions - v320.numDynamicLibraries;
+                v31 = v63;
+                v2 = v292;
               }
             }
 
-            v59 = v55[6];
-            if (v59 != -1)
+            v64 = v60[6];
+            if (v64 != -1)
             {
-              v60 = v55[7];
-              if (v60 != -1 && v60 - v59 <= v279)
+              v65 = v60[7];
+              if (v65 != -1 && v65 - v64 <= v289)
               {
-                v310[0].i64[0] = v55[6];
-                v310[0].i64[1] = v60;
-                std::vector<HUDTimeRange>::push_back[abi:ne200100](&v365[3 * *(v22 + v23 + 280)], v310);
-                if (*(v22 + v23 + 280) != 1)
+                v320.numDynamicLibraries = v60[6];
+                v320.numBinaryFunctions = v65;
+                std::vector<HUDTimeRange>::push_back[abi:ne200100](&v371[3 * *(v27 + v28 + 280)], &v320);
+                if (*(v27 + v28 + 280) != 1)
                 {
-                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v341, v310);
+                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v347, &v320);
                 }
 
-                v26 = v310[0].i64[1];
-                v27 = v310[0].i64[0];
-                v29 = v310[0].i64[1] + v29 - v310[0].i64[0];
+                v31 = v320.numBinaryFunctions;
+                v32 = v320.numDynamicLibraries;
+                v34 = v320.numBinaryFunctions + v34 - v320.numDynamicLibraries;
               }
             }
 
             goto LABEL_62;
           }
 
-          if (v32 == 2)
+          if (v37 == 2)
           {
-            v29 = 0;
-            v37 = *(v22 + v23 + 32);
-            if (v37 != -1)
+            v34 = 0;
+            v42 = *(v27 + v28 + 32);
+            if (v42 != -1)
             {
-              v38 = *(v22 + v23 + 40);
-              if (v38 != -1 && v38 - v37 <= v279)
+              v43 = *(v27 + v28 + 40);
+              if (v43 != -1 && v43 - v42 <= v289)
               {
-                v35 = a1;
-                v36 = *(&HUDInvalidTimeRange + 1);
-                v310[0].i64[0] = *(v22 + v23 + 32);
-                v310[0].i64[1] = v38;
-                std::vector<HUDTimeRange>::push_back[abi:ne200100](&v365[3 * *(v22 + v23 + 280)], v310);
-                if (*(v22 + v23 + 280) != 1)
+                v40 = v2;
+                v41 = *(&HUDInvalidTimeRange + 1);
+                v320.numDynamicLibraries = *(v27 + v28 + 32);
+                v320.numBinaryFunctions = v43;
+                std::vector<HUDTimeRange>::push_back[abi:ne200100](&v371[3 * *(v27 + v28 + 280)], &v320);
+                if (*(v27 + v28 + 280) != 1)
                 {
-                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v345, v310);
+                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v351, &v320);
                 }
 
                 goto LABEL_61;
@@ -1296,24 +1293,24 @@ LABEL_91:
 
         else
         {
-          switch(v32)
+          switch(v37)
           {
             case 3:
-              v29 = 0;
-              v39 = *(v22 + v23 + 32);
-              if (v39 != -1)
+              v34 = 0;
+              v44 = *(v27 + v28 + 32);
+              if (v44 != -1)
               {
-                v40 = *(v22 + v23 + 40);
-                if (v40 != -1 && v40 - v39 <= v279)
+                v45 = *(v27 + v28 + 40);
+                if (v45 != -1 && v45 - v44 <= v289)
                 {
-                  v35 = a1;
-                  v36 = *(&HUDInvalidTimeRange + 1);
-                  v310[0].i64[0] = *(v22 + v23 + 32);
-                  v310[0].i64[1] = v40;
-                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v365[3 * *(v22 + v23 + 280)], v310);
-                  if (*(v22 + v23 + 280) != 1)
+                  v40 = v2;
+                  v41 = *(&HUDInvalidTimeRange + 1);
+                  v320.numDynamicLibraries = *(v27 + v28 + 32);
+                  v320.numBinaryFunctions = v45;
+                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v371[3 * *(v27 + v28 + 280)], &v320);
+                  if (*(v27 + v28 + 280) != 1)
                   {
-                    std::vector<HUDTimeRange>::push_back[abi:ne200100](&v347, v310);
+                    std::vector<HUDTimeRange>::push_back[abi:ne200100](&v353, &v320);
                   }
 
                   goto LABEL_61;
@@ -1322,21 +1319,21 @@ LABEL_91:
 
               break;
             case 5:
-              v29 = 0;
-              v41 = *(v22 + v23 + 32);
-              if (v41 != -1)
+              v34 = 0;
+              v46 = *(v27 + v28 + 32);
+              if (v46 != -1)
               {
-                v42 = *(v22 + v23 + 40);
-                if (v42 != -1 && v42 - v41 <= v279)
+                v47 = *(v27 + v28 + 40);
+                if (v47 != -1 && v47 - v46 <= v289)
                 {
-                  v35 = a1;
-                  v36 = *(&HUDInvalidTimeRange + 1);
-                  v310[0].i64[0] = *(v22 + v23 + 32);
-                  v310[0].i64[1] = v42;
-                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v365[3 * *(v22 + v23 + 280)], v310);
-                  if (*(v22 + v23 + 280) != 1)
+                  v40 = v2;
+                  v41 = *(&HUDInvalidTimeRange + 1);
+                  v320.numDynamicLibraries = *(v27 + v28 + 32);
+                  v320.numBinaryFunctions = v47;
+                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v371[3 * *(v27 + v28 + 280)], &v320);
+                  if (*(v27 + v28 + 280) != 1)
                   {
-                    std::vector<HUDTimeRange>::push_back[abi:ne200100](&v349, v310);
+                    std::vector<HUDTimeRange>::push_back[abi:ne200100](&v355, &v320);
                   }
 
                   goto LABEL_61;
@@ -1345,29 +1342,29 @@ LABEL_91:
 
               break;
             case 6:
-              v29 = 0;
-              v33 = *(v22 + v23 + 32);
-              if (v33 != -1)
+              v34 = 0;
+              v38 = *(v27 + v28 + 32);
+              if (v38 != -1)
               {
-                v34 = *(v22 + v23 + 40);
-                if (v34 != -1 && v34 - v33 <= v279)
+                v39 = *(v27 + v28 + 40);
+                if (v39 != -1 && v39 - v38 <= v289)
                 {
-                  v35 = a1;
-                  v36 = *(&HUDInvalidTimeRange + 1);
-                  v310[0].i64[0] = *(v22 + v23 + 32);
-                  v310[0].i64[1] = v34;
-                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v365[3 * *(v22 + v23 + 280)], v310);
-                  if (*(v22 + v23 + 280) != 1)
+                  v40 = v2;
+                  v41 = *(&HUDInvalidTimeRange + 1);
+                  v320.numDynamicLibraries = *(v27 + v28 + 32);
+                  v320.numBinaryFunctions = v39;
+                  std::vector<HUDTimeRange>::push_back[abi:ne200100](&v371[3 * *(v27 + v28 + 280)], &v320);
+                  if (*(v27 + v28 + 280) != 1)
                   {
-                    std::vector<HUDTimeRange>::push_back[abi:ne200100](&v358, v310);
+                    std::vector<HUDTimeRange>::push_back[abi:ne200100](&v364, &v320);
                   }
 
 LABEL_61:
-                  v31 = v310[0].i64[1];
-                  v30 = v310[0].i64[0];
-                  v29 = v310[0].i64[1] - v310[0].i64[0];
-                  v26 = v36;
-                  a1 = v35;
+                  numBinaryFunctions = v320.numBinaryFunctions;
+                  numDynamicLibraries = v320.numDynamicLibraries;
+                  v34 = v320.numBinaryFunctions - v320.numDynamicLibraries;
+                  v31 = v41;
+                  v2 = v40;
                   goto LABEL_62;
                 }
               }
@@ -1377,1027 +1374,1027 @@ LABEL_61:
         }
       }
 
-      v31 = *(&HUDInvalidTimeRange + 1);
-      v30 = HUDInvalidTimeRange;
+      numBinaryFunctions = *(&HUDInvalidTimeRange + 1);
+      numDynamicLibraries = HUDInvalidTimeRange;
 LABEL_62:
-      if (*(v10 + 72) != 1)
+      if (*(v15 + 72) != 1)
       {
-        v43 = v31;
-        v44 = v30;
-        v45 = v26;
-        v46 = v22 + v23;
-        if (std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((*(a1[8] + 8) + 48), (v22 + v23 + 296)))
+        v48 = numBinaryFunctions;
+        v49 = numDynamicLibraries;
+        v50 = v31;
+        v51 = v27 + v28;
+        if (std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((*(v2[8] + 8) + 48), (v27 + v28 + 296)))
         {
-          v48 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1[10] + 256), (v46 + 296));
-          if (v48 || (v49 = a1[10], v310[0].i64[0] = *(v46 + 296), memset(&v310[0].u64[1], 0, 40), (v48 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>((v49 + 256), v310)) != 0))
+          v53 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((v2[10] + 256), (v51 + 296));
+          if (v53 || (v54 = v2[10], v320.numDynamicLibraries = *(v51 + 296), memset(&v320.numBinaryFunctions, 0, 40), (v53 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>((v54 + 256), &v320.numDynamicLibraries, &v320)) != 0))
           {
-            v50 = *(v22 + v23 + 8);
-            v51 = v48[4] + v29;
-            v48[3] += *(v22 + v23 + 16) - v50;
-            v48[4] = v51;
-            if (v48[5] < v50)
+            v55 = *(v27 + v28 + 8);
+            v56 = v53[4] + v34;
+            v53[3] += *(v27 + v28 + 16) - v55;
+            v53[4] = v56;
+            if (v53[5] < v55)
             {
-              v50 = v48[5];
+              v55 = v53[5];
             }
 
-            v48[5] = v50;
-            v52 = v48[7] + 1;
-            v48[6] = *(v46 + 296);
-            v48[7] = v52;
+            v53[5] = v55;
+            v57 = v53[7] + 1;
+            v53[6] = *(v51 + 296);
+            v53[7] = v57;
           }
         }
 
-        if (v280)
+        if (v290)
         {
-          *(v22 + v23 + 144) = *(v22 + v23);
-          if (*(v46 + 296) && (v53 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((v282[10] + 96), (v46 + 296))) != 0)
+          *(v27 + v28 + 144) = *(v27 + v28);
+          if (*(v51 + 296) && (v58 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((v292[10] + 96), (v51 + 296))) != 0)
           {
-            v54 = v53[6];
+            v59 = v58[6];
           }
 
           else
           {
-            v54 = 0;
+            v59 = 0;
           }
 
-          HUDTargetRebindingInsightContextProcessEncoder((v282[10] + 67424), (v22 + v23 + 64), v54, *(v22 + v23 + 8), *(v22 + v23 + 16), v44, v43, v47, v27, v45);
+          HUDTargetRebindingInsightContextProcessEncoder((v292[10] + 67424), (v27 + v28 + 64), v59, *(v27 + v28 + 8), *(v27 + v28 + 16), v49, v48, v52, v32, v50);
 
-          a1 = v282;
+          v2 = v292;
         }
 
-        ++*(v375 + *(v22 + v23));
-        v10 = v281;
+        ++*(v381 + *(v27 + v28));
+        v15 = v291;
       }
 
-      ++v24;
-      v22 = *(v10 + 144);
-      v23 += 312;
-      if (v24 >= 0x6F96F96F96F96F97 * ((*(v10 + 152) - v22) >> 3))
+      ++v29;
+      v27 = *(v15 + 144);
+      v28 += 312;
+      if (v29 >= 0x6F96F96F96F96F97 * ((*(v15 + 152) - v27) >> 3))
       {
         goto LABEL_91;
       }
     }
   }
 
-  v61 = 0.0;
+  v66 = 0.0;
 LABEL_94:
-  v372 = 0u;
-  v371 = 0u;
-  v370 = 0u;
-  v62 = __base;
-  v63 = v340;
-  v64 = (v340 - __base) >> 4;
-  qsort(__base, v64, 0x10uLL, _HUDTimeRangeCompare);
-  if (v63 == v62)
+  v378 = 0u;
+  v377 = 0u;
+  v376 = 0u;
+  v67 = __base;
+  v68 = v346;
+  v69 = (v346 - __base) >> 4;
+  qsort(__base, v69, 0x10uLL, _HUDTimeRangeCompare);
+  if (v68 == v67)
   {
-    v65 = 0;
-    v66 = 0;
+    v70 = 0;
+    v71 = 0;
   }
 
   else
   {
-    v65 = 0;
-    v66 = 0;
-    v67 = 0;
-    v68 = (v62 + 8);
+    v70 = 0;
+    v71 = 0;
+    v72 = 0;
+    v73 = (v67 + 8);
     do
     {
-      v70 = *(v68 - 1);
-      v69 = *v68;
-      v71 = *v68 - v70;
-      if (*v68 >= v70)
+      v75 = *(v73 - 1);
+      v74 = *v73;
+      v76 = *v73 - v75;
+      if (*v73 >= v75)
       {
-        if (v70 <= v67)
+        if (v75 <= v72)
         {
-          v70 = v67;
+          v75 = v72;
         }
 
-        v72 = v69 >= v70;
-        v73 = v69 - v70;
-        if (!v72)
+        v77 = v74 >= v75;
+        v78 = v74 - v75;
+        if (!v77)
         {
-          v73 = 0;
+          v78 = 0;
         }
 
-        v66 += v73;
-        if (v69 > v67)
+        v71 += v78;
+        if (v74 > v72)
         {
-          v67 = *v68;
+          v72 = *v73;
         }
 
-        v65 += v71;
+        v70 += v76;
       }
 
-      v68 += 2;
-      --v64;
+      v73 += 2;
+      --v69;
     }
 
-    while (v64);
+    while (v69);
   }
 
-  *&v370 = v65;
-  *(&v370 + 1) = v66;
-  v74 = a1[11];
-  v373.i64[0] = v74;
-  if (v340 != __base)
+  *&v376 = v70;
+  *(&v376 + 1) = v71;
+  v79 = v2[11];
+  v379.i64[0] = v79;
+  if (v346 != __base)
   {
-    v75 = v66;
-    if (!v74 || v74 * 2.5 >= v75)
+    v80 = v71;
+    if (!v79 || v79 * 2.5 >= v80)
     {
-      HUDValueHistoryRecordAddValue(a1[10] + 4984, v75);
-      HUDValueHistoryRecordAddValue(a1[10] + 6112, v65);
-      v76 = v337;
-      v77 = v338;
-      v78 = (v338 - v337) >> 4;
-      qsort(v337, v78, 0x10uLL, _HUDTimeRangeCompare);
-      if (v77 == v76)
+      HUDValueHistoryRecordAddValue(v2[10] + 4984, v80);
+      HUDValueHistoryRecordAddValue(v2[10] + 6112, v70);
+      v81 = v343;
+      v82 = v344;
+      v83 = (v344 - v343) >> 4;
+      qsort(v343, v83, 0x10uLL, _HUDTimeRangeCompare);
+      if (v82 == v81)
       {
-        v80 = 0;
-        v87 = 0.0;
+        v85 = 0;
+        v92 = 0.0;
       }
 
       else
       {
-        v79 = 0;
-        v80 = 0;
-        v81 = 0;
-        v82 = (v76 + 8);
+        v84 = 0;
+        v85 = 0;
+        v86 = 0;
+        v87 = (v81 + 8);
         do
         {
-          v84 = *(v82 - 1);
-          v83 = *v82;
-          v85 = *v82 - v84;
-          if (*v82 >= v84)
+          v89 = *(v87 - 1);
+          v88 = *v87;
+          v90 = *v87 - v89;
+          if (*v87 >= v89)
           {
-            if (v84 <= v81)
+            if (v89 <= v86)
             {
-              v84 = v81;
+              v89 = v86;
             }
 
-            v72 = v83 >= v84;
-            v86 = v83 - v84;
-            if (!v72)
+            v77 = v88 >= v89;
+            v91 = v88 - v89;
+            if (!v77)
             {
-              v86 = 0;
+              v91 = 0;
             }
 
-            v80 += v86;
-            if (v83 > v81)
+            v85 += v91;
+            if (v88 > v86)
             {
-              v81 = *v82;
+              v86 = *v87;
             }
 
-            v79 += v85;
+            v84 += v90;
           }
 
-          v82 += 2;
-          --v78;
+          v87 += 2;
+          --v83;
         }
 
-        while (v78);
-        v87 = v79;
+        while (v83);
+        v92 = v84;
       }
 
-      HUDValueHistoryRecordAddValue(a1[10] + 2728, v80);
-      HUDValueHistoryRecordAddValue(a1[10] + 3856, v87);
-      *(&v372 + 1) = v80;
-      v88 = v351;
-      v89 = v352;
-      v90 = (v352 - v351) >> 4;
-      qsort(v351, v90, 0x10uLL, _HUDTimeRangeCompare);
-      if (v89 == v88)
+      HUDValueHistoryRecordAddValue(v2[10] + 2728, v85);
+      HUDValueHistoryRecordAddValue(v2[10] + 3856, v92);
+      *(&v378 + 1) = v85;
+      v93 = v357;
+      v94 = v358;
+      v95 = (v358 - v357) >> 4;
+      qsort(v357, v95, 0x10uLL, _HUDTimeRangeCompare);
+      if (v94 == v93)
       {
-        v92 = 0;
-        v99 = 0.0;
+        v97 = 0;
+        v104 = 0.0;
       }
 
       else
       {
-        v91 = 0;
-        v92 = 0;
-        v93 = 0;
-        v94 = (v88 + 8);
+        v96 = 0;
+        v97 = 0;
+        v98 = 0;
+        v99 = (v93 + 8);
         do
         {
-          v96 = *(v94 - 1);
-          v95 = *v94;
-          v97 = *v94 - v96;
-          if (*v94 >= v96)
+          v101 = *(v99 - 1);
+          v100 = *v99;
+          v102 = *v99 - v101;
+          if (*v99 >= v101)
           {
-            if (v96 <= v93)
+            if (v101 <= v98)
             {
-              v96 = v93;
+              v101 = v98;
             }
 
-            v72 = v95 >= v96;
-            v98 = v95 - v96;
-            if (!v72)
+            v77 = v100 >= v101;
+            v103 = v100 - v101;
+            if (!v77)
             {
-              v98 = 0;
+              v103 = 0;
             }
 
-            v92 += v98;
-            if (v95 > v93)
+            v97 += v103;
+            if (v100 > v98)
             {
-              v93 = *v94;
+              v98 = *v99;
             }
 
-            v91 += v97;
+            v96 += v102;
           }
 
-          v94 += 2;
-          --v90;
+          v99 += 2;
+          --v95;
         }
 
-        while (v90);
-        v99 = v91;
+        while (v95);
+        v104 = v96;
       }
 
-      HUDValueHistoryRecordAddValue(a1[10] + 7240, v92);
-      HUDValueHistoryRecordAddValue(a1[10] + 8368, v99);
-      *&v372 = v92;
-      v100 = HUDValueHistoryRecordAddValue(a1[10] + 9496, ((v338 - v337) >> 4));
-      if (*(a1[10] + 26) == 1)
+      HUDValueHistoryRecordAddValue(v2[10] + 7240, v97);
+      HUDValueHistoryRecordAddValue(v2[10] + 8368, v104);
+      *&v378 = v97;
+      v105 = HUDValueHistoryRecordAddValue(v2[10] + 9496, ((v344 - v343) >> 4));
+      if (*(v2[10] + 26) == 1)
       {
-        v101 = v341;
-        v102 = v342;
-        v103 = (v342 - v341) >> 4;
-        qsort(v341, v103, 0x10uLL, _HUDTimeRangeCompare);
-        if (v102 == v101)
+        v106 = v347;
+        v107 = v348;
+        v108 = (v348 - v347) >> 4;
+        qsort(v347, v108, 0x10uLL, _HUDTimeRangeCompare);
+        if (v107 == v106)
         {
-          v113 = 0.0;
-          v112 = 0.0;
+          v118 = 0.0;
+          v117 = 0.0;
         }
 
         else
         {
-          v104 = 0;
-          v105 = 0;
-          v106 = 0;
-          v107 = (v101 + 8);
+          v109 = 0;
+          v110 = 0;
+          v111 = 0;
+          v112 = (v106 + 8);
           do
           {
-            v109 = *(v107 - 1);
-            v108 = *v107;
-            v110 = *v107 - v109;
-            if (*v107 >= v109)
+            v114 = *(v112 - 1);
+            v113 = *v112;
+            v115 = *v112 - v114;
+            if (*v112 >= v114)
             {
-              if (v109 <= v106)
+              if (v114 <= v111)
               {
-                v109 = v106;
+                v114 = v111;
               }
 
-              v72 = v108 >= v109;
-              v111 = v108 - v109;
-              if (!v72)
+              v77 = v113 >= v114;
+              v116 = v113 - v114;
+              if (!v77)
               {
-                v111 = 0;
+                v116 = 0;
               }
 
-              v105 += v111;
-              if (v108 > v106)
+              v110 += v116;
+              if (v113 > v111)
               {
-                v106 = *v107;
+                v111 = *v112;
               }
 
-              v104 += v110;
+              v109 += v115;
             }
 
-            v107 += 2;
-            --v103;
+            v112 += 2;
+            --v108;
           }
 
-          while (v103);
-          v112 = v105;
-          v113 = v104;
+          while (v108);
+          v117 = v110;
+          v118 = v109;
         }
 
-        HUDValueHistoryRecordAddValue(a1[10] + 19648, v112);
-        HUDValueHistoryRecordAddValue(a1[10] + 20776, v113);
-        v114 = __src;
-        v115 = v344;
-        v116 = (v344 - __src) >> 4;
-        qsort(__src, v116, 0x10uLL, _HUDTimeRangeCompare);
-        if (v115 == v114)
+        HUDValueHistoryRecordAddValue(v2[10] + 19648, v117);
+        HUDValueHistoryRecordAddValue(v2[10] + 20776, v118);
+        v119 = __src;
+        v120 = v350;
+        v121 = (v350 - __src) >> 4;
+        qsort(__src, v121, 0x10uLL, _HUDTimeRangeCompare);
+        if (v120 == v119)
         {
-          v126 = 0.0;
-          v125 = 0.0;
+          v131 = 0.0;
+          v130 = 0.0;
         }
 
         else
         {
-          v117 = 0;
-          v118 = 0;
-          v119 = 0;
-          v120 = (v114 + 8);
+          v122 = 0;
+          v123 = 0;
+          v124 = 0;
+          v125 = (v119 + 8);
           do
           {
-            v122 = *(v120 - 1);
-            v121 = *v120;
-            v123 = *v120 - v122;
-            if (*v120 >= v122)
+            v127 = *(v125 - 1);
+            v126 = *v125;
+            v128 = *v125 - v127;
+            if (*v125 >= v127)
             {
-              if (v122 <= v119)
+              if (v127 <= v124)
               {
-                v122 = v119;
+                v127 = v124;
               }
 
-              v72 = v121 >= v122;
-              v124 = v121 - v122;
-              if (!v72)
+              v77 = v126 >= v127;
+              v129 = v126 - v127;
+              if (!v77)
               {
-                v124 = 0;
+                v129 = 0;
               }
 
-              v118 += v124;
-              if (v121 > v119)
+              v123 += v129;
+              if (v126 > v124)
               {
-                v119 = *v120;
+                v124 = *v125;
               }
 
-              v117 += v123;
+              v122 += v128;
             }
 
-            v120 += 2;
-            --v116;
+            v125 += 2;
+            --v121;
           }
 
-          while (v116);
-          v125 = v118;
-          v126 = v117;
+          while (v121);
+          v130 = v123;
+          v131 = v122;
         }
 
-        HUDValueHistoryRecordAddValue(a1[10] + 17392, v125);
-        HUDValueHistoryRecordAddValue(a1[10] + 18520, v126);
-        v127 = v345;
-        v128 = v346;
-        v129 = (v346 - v345) >> 4;
-        qsort(v345, v129, 0x10uLL, _HUDTimeRangeCompare);
-        if (v128 == v127)
+        HUDValueHistoryRecordAddValue(v2[10] + 17392, v130);
+        HUDValueHistoryRecordAddValue(v2[10] + 18520, v131);
+        v132 = v351;
+        v133 = v352;
+        v134 = (v352 - v351) >> 4;
+        qsort(v351, v134, 0x10uLL, _HUDTimeRangeCompare);
+        if (v133 == v132)
         {
-          v139 = 0.0;
-          v138 = 0.0;
+          v144 = 0.0;
+          v143 = 0.0;
         }
 
         else
         {
-          v130 = 0;
-          v131 = 0;
-          v132 = 0;
-          v133 = (v127 + 8);
+          v135 = 0;
+          v136 = 0;
+          v137 = 0;
+          v138 = (v132 + 8);
           do
           {
-            v135 = *(v133 - 1);
-            v134 = *v133;
-            v136 = *v133 - v135;
-            if (*v133 >= v135)
+            v140 = *(v138 - 1);
+            v139 = *v138;
+            v141 = *v138 - v140;
+            if (*v138 >= v140)
             {
-              if (v135 <= v132)
+              if (v140 <= v137)
               {
-                v135 = v132;
+                v140 = v137;
               }
 
-              v72 = v134 >= v135;
-              v137 = v134 - v135;
-              if (!v72)
+              v77 = v139 >= v140;
+              v142 = v139 - v140;
+              if (!v77)
               {
-                v137 = 0;
+                v142 = 0;
               }
 
-              v131 += v137;
-              if (v134 > v132)
+              v136 += v142;
+              if (v139 > v137)
               {
-                v132 = *v133;
+                v137 = *v138;
               }
 
-              v130 += v136;
+              v135 += v141;
             }
 
-            v133 += 2;
-            --v129;
+            v138 += 2;
+            --v134;
           }
 
-          while (v129);
-          v138 = v131;
-          v139 = v130;
+          while (v134);
+          v143 = v136;
+          v144 = v135;
         }
 
-        HUDValueHistoryRecordAddValue(a1[10] + 21904, v138);
-        HUDValueHistoryRecordAddValue(a1[10] + 23032, v139);
-        v140 = v347;
-        v141 = v348;
-        v142 = (v348 - v347) >> 4;
-        qsort(v347, v142, 0x10uLL, _HUDTimeRangeCompare);
-        if (v141 == v140)
+        HUDValueHistoryRecordAddValue(v2[10] + 21904, v143);
+        HUDValueHistoryRecordAddValue(v2[10] + 23032, v144);
+        v145 = v353;
+        v146 = v354;
+        v147 = (v354 - v353) >> 4;
+        qsort(v353, v147, 0x10uLL, _HUDTimeRangeCompare);
+        if (v146 == v145)
         {
-          v152 = 0.0;
-          v151 = 0.0;
+          v157 = 0.0;
+          v156 = 0.0;
         }
 
         else
         {
-          v143 = 0;
-          v144 = 0;
-          v145 = 0;
-          v146 = (v140 + 8);
+          v148 = 0;
+          v149 = 0;
+          v150 = 0;
+          v151 = (v145 + 8);
           do
           {
-            v148 = *(v146 - 1);
-            v147 = *v146;
-            v149 = *v146 - v148;
-            if (*v146 >= v148)
+            v153 = *(v151 - 1);
+            v152 = *v151;
+            v154 = *v151 - v153;
+            if (*v151 >= v153)
             {
-              if (v148 <= v145)
+              if (v153 <= v150)
               {
-                v148 = v145;
+                v153 = v150;
               }
 
-              v72 = v147 >= v148;
-              v150 = v147 - v148;
-              if (!v72)
+              v77 = v152 >= v153;
+              v155 = v152 - v153;
+              if (!v77)
               {
-                v150 = 0;
+                v155 = 0;
               }
 
-              v144 += v150;
-              if (v147 > v145)
+              v149 += v155;
+              if (v152 > v150)
               {
-                v145 = *v146;
+                v150 = *v151;
               }
 
-              v143 += v149;
+              v148 += v154;
             }
 
-            v146 += 2;
-            --v142;
+            v151 += 2;
+            --v147;
           }
 
-          while (v142);
-          v151 = v144;
-          v152 = v143;
+          while (v147);
+          v156 = v149;
+          v157 = v148;
         }
 
-        HUDValueHistoryRecordAddValue(a1[10] + 24160, v151);
-        HUDValueHistoryRecordAddValue(a1[10] + 25288, v152);
-        v153 = v349;
-        v154 = v350;
-        v155 = (v350 - v349) >> 4;
-        qsort(v349, v155, 0x10uLL, _HUDTimeRangeCompare);
-        if (v154 == v153)
+        HUDValueHistoryRecordAddValue(v2[10] + 24160, v156);
+        HUDValueHistoryRecordAddValue(v2[10] + 25288, v157);
+        v158 = v355;
+        v159 = v356;
+        v160 = (v356 - v355) >> 4;
+        qsort(v355, v160, 0x10uLL, _HUDTimeRangeCompare);
+        if (v159 == v158)
         {
-          v165 = 0.0;
-          v164 = 0.0;
+          v170 = 0.0;
+          v169 = 0.0;
         }
 
         else
         {
-          v156 = 0;
-          v157 = 0;
-          v158 = 0;
-          v159 = (v153 + 8);
+          v161 = 0;
+          v162 = 0;
+          v163 = 0;
+          v164 = (v158 + 8);
           do
           {
-            v161 = *(v159 - 1);
-            v160 = *v159;
-            v162 = *v159 - v161;
-            if (*v159 >= v161)
+            v166 = *(v164 - 1);
+            v165 = *v164;
+            v167 = *v164 - v166;
+            if (*v164 >= v166)
             {
-              if (v161 <= v158)
+              if (v166 <= v163)
               {
-                v161 = v158;
+                v166 = v163;
               }
 
-              v72 = v160 >= v161;
-              v163 = v160 - v161;
-              if (!v72)
+              v77 = v165 >= v166;
+              v168 = v165 - v166;
+              if (!v77)
               {
-                v163 = 0;
+                v168 = 0;
               }
 
-              v157 += v163;
-              if (v160 > v158)
+              v162 += v168;
+              if (v165 > v163)
               {
-                v158 = *v159;
+                v163 = *v164;
               }
 
-              v156 += v162;
+              v161 += v167;
             }
 
-            v159 += 2;
-            --v155;
+            v164 += 2;
+            --v160;
           }
 
-          while (v155);
-          v164 = v157;
-          v165 = v156;
+          while (v160);
+          v169 = v162;
+          v170 = v161;
         }
 
-        HUDValueHistoryRecordAddValue(a1[10] + 26416, v164);
-        HUDValueHistoryRecordAddValue(a1[10] + 27544, v165);
-        v166 = v356;
-        v167 = v357;
-        v168 = (v357 - v356) >> 4;
-        qsort(v356, v168, 0x10uLL, _HUDTimeRangeCompare);
-        if (v167 == v166)
+        HUDValueHistoryRecordAddValue(v2[10] + 26416, v169);
+        HUDValueHistoryRecordAddValue(v2[10] + 27544, v170);
+        v171 = v362;
+        v172 = v363;
+        v173 = (v363 - v362) >> 4;
+        qsort(v362, v173, 0x10uLL, _HUDTimeRangeCompare);
+        if (v172 == v171)
         {
-          v178 = 0.0;
-          v177 = 0.0;
+          v183 = 0.0;
+          v182 = 0.0;
         }
 
         else
         {
-          v169 = 0;
-          v170 = 0;
-          v171 = 0;
-          v172 = (v166 + 8);
+          v174 = 0;
+          v175 = 0;
+          v176 = 0;
+          v177 = (v171 + 8);
           do
           {
-            v174 = *(v172 - 1);
-            v173 = *v172;
-            v175 = *v172 - v174;
-            if (*v172 >= v174)
+            v179 = *(v177 - 1);
+            v178 = *v177;
+            v180 = *v177 - v179;
+            if (*v177 >= v179)
             {
-              if (v174 <= v171)
+              if (v179 <= v176)
               {
-                v174 = v171;
+                v179 = v176;
               }
 
-              v72 = v173 >= v174;
-              v176 = v173 - v174;
-              if (!v72)
+              v77 = v178 >= v179;
+              v181 = v178 - v179;
+              if (!v77)
               {
-                v176 = 0;
+                v181 = 0;
               }
 
-              v170 += v176;
-              if (v173 > v171)
+              v175 += v181;
+              if (v178 > v176)
               {
-                v171 = *v172;
+                v176 = *v177;
               }
 
-              v169 += v175;
+              v174 += v180;
             }
 
-            v172 += 2;
-            --v168;
+            v177 += 2;
+            --v173;
           }
 
-          while (v168);
-          v177 = v170;
-          v178 = v169;
+          while (v173);
+          v182 = v175;
+          v183 = v174;
         }
 
-        HUDValueHistoryRecordAddValue(a1[10] + 47848, v177);
-        HUDValueHistoryRecordAddValue(a1[10] + 48976, v178);
-        v179 = v358;
-        v180 = v359;
-        v181 = (v359 - v358) >> 4;
-        qsort(v358, v181, 0x10uLL, _HUDTimeRangeCompare);
-        if (v180 == v179)
+        HUDValueHistoryRecordAddValue(v2[10] + 47848, v182);
+        HUDValueHistoryRecordAddValue(v2[10] + 48976, v183);
+        v184 = v364;
+        v185 = v365;
+        v186 = (v365 - v364) >> 4;
+        qsort(v364, v186, 0x10uLL, _HUDTimeRangeCompare);
+        if (v185 == v184)
         {
-          v188 = 0.0;
+          v193 = 0.0;
         }
 
         else
         {
-          v182 = 0;
-          v183 = 0;
-          v184 = (v179 + 8);
+          v187 = 0;
+          v188 = 0;
+          v189 = (v184 + 8);
           do
           {
-            v186 = *(v184 - 1);
-            v185 = *v184;
-            if (*v184 >= v186)
+            v191 = *(v189 - 1);
+            v190 = *v189;
+            if (*v189 >= v191)
             {
-              if (v186 <= v183)
+              if (v191 <= v188)
               {
-                v186 = v183;
+                v191 = v188;
               }
 
-              v72 = v185 >= v186;
-              v187 = v185 - v186;
-              if (!v72)
+              v77 = v190 >= v191;
+              v192 = v190 - v191;
+              if (!v77)
               {
-                v187 = 0;
+                v192 = 0;
               }
 
-              v182 += v187;
-              if (v185 > v183)
+              v187 += v192;
+              if (v190 > v188)
               {
-                v183 = *v184;
+                v188 = *v189;
               }
             }
 
-            v184 += 2;
-            --v181;
+            v189 += 2;
+            --v186;
           }
 
-          while (v181);
-          v188 = v182;
+          while (v186);
+          v193 = v187;
         }
 
-        v100 = HUDValueHistoryRecordAddValue(a1[10] + 58000, v188);
+        v105 = HUDValueHistoryRecordAddValue(v2[10] + 58000, v193);
       }
 
       for (i = 1; i != 7; ++i)
       {
-        LODWORD(v100) = *(v375 + i);
-        HUDValueHistoryRecordAddValue(v282[10] + 1128 * (i | 8) + 472, *&v100);
-        v190 = &v360[3 * i];
-        v191 = *v190;
-        v192 = v190[1];
-        v193 = (v192 - *v190) >> 4;
-        qsort(*v190, v193, 0x10uLL, _HUDTimeRangeCompare);
-        if (v192 == v191)
+        LODWORD(v105) = *(v381 + i);
+        HUDValueHistoryRecordAddValue(v292[10] + 1128 * (i | 8) + 472, *&v105);
+        v195 = &v366[3 * i];
+        v196 = *v195;
+        v197 = v195[1];
+        v198 = (v197 - *v195) >> 4;
+        qsort(*v195, v198, 0x10uLL, _HUDTimeRangeCompare);
+        if (v197 == v196)
         {
-          v203 = 0.0;
-          v202 = 0.0;
+          v208 = 0.0;
+          v207 = 0.0;
         }
 
         else
         {
-          v194 = 0;
-          v195 = 0;
-          v196 = 0;
-          v197 = (v191 + 8);
+          v199 = 0;
+          v200 = 0;
+          v201 = 0;
+          v202 = (v196 + 8);
           do
           {
-            v199 = *(v197 - 1);
-            v198 = *v197;
-            v200 = *v197 - v199;
-            if (*v197 >= v199)
+            v204 = *(v202 - 1);
+            v203 = *v202;
+            v205 = *v202 - v204;
+            if (*v202 >= v204)
             {
-              if (v199 <= v196)
+              if (v204 <= v201)
               {
-                v199 = v196;
+                v204 = v201;
               }
 
-              v72 = v198 >= v199;
-              v201 = v198 - v199;
-              if (!v72)
+              v77 = v203 >= v204;
+              v206 = v203 - v204;
+              if (!v77)
               {
-                v201 = 0;
+                v206 = 0;
               }
 
-              v195 += v201;
-              if (v198 > v196)
+              v200 += v206;
+              if (v203 > v201)
               {
-                v196 = *v197;
+                v201 = *v202;
               }
 
-              v194 += v200;
+              v199 += v205;
             }
 
-            v197 += 2;
-            --v193;
+            v202 += 2;
+            --v198;
           }
 
-          while (v193);
-          v202 = v195;
-          v203 = v194;
+          while (v198);
+          v207 = v200;
+          v208 = v199;
         }
 
-        HUDValueHistoryRecordAddValue(v282[10] + 2256 * i + 26416, v202);
-        v100 = HUDValueHistoryRecordAddValue(v282[10] + 2256 * i + 27544, v203);
+        HUDValueHistoryRecordAddValue(v292[10] + 2256 * i + 26416, v207);
+        v105 = HUDValueHistoryRecordAddValue(v292[10] + 2256 * i + 27544, v208);
       }
 
-      a1 = v282;
-      HUDValueHistoryRecordAddValue(v282[10] + 46720, v61);
-      HUDValueHistoryRecordAddValue(v282[10] + 1600, v370);
-      HUDValueHistoryRecordAddValue(v282[10] + 472, *(&v370 + 1));
-      std::vector<HUDTimeRange>::reserve(&v353, ((v342 - v341) >> 4) + ((v344 - __src) >> 4) + ((v346 - v345) >> 4) + ((v350 - v349) >> 4) + ((v348 - v347) >> 4));
-      if (v355 != v353 && *(v282[10] + 26) == 1)
+      v2 = v292;
+      HUDValueHistoryRecordAddValue(v292[10] + 46720, v66);
+      HUDValueHistoryRecordAddValue(v292[10] + 1600, v376);
+      HUDValueHistoryRecordAddValue(v292[10] + 472, *(&v376 + 1));
+      std::vector<HUDTimeRange>::reserve(&v359, ((v348 - v347) >> 4) + ((v350 - __src) >> 4) + ((v352 - v351) >> 4) + ((v356 - v355) >> 4) + ((v354 - v353) >> 4));
+      if (v361 != v359 && *(v292[10] + 26) == 1)
       {
-        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v353, __dst, __src, v344, (v344 - __src) >> 4);
-        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v353, __dst, v341, v342, (v342 - v341) >> 4);
-        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v353, __dst, v345, v346, (v346 - v345) >> 4);
-        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v353, __dst, v349, v350, (v350 - v349) >> 4);
-        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v353, __dst, v347, v348, (v348 - v347) >> 4);
-        v204 = v353;
-        v205 = __dst;
-        v206 = (__dst - v353) >> 4;
-        qsort(v353, v206, 0x10uLL, _HUDTimeRangeCompare);
-        if (v205 == v204)
+        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v359, __dst, __src, v350, (v350 - __src) >> 4);
+        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v359, __dst, v347, v348, (v348 - v347) >> 4);
+        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v359, __dst, v351, v352, (v352 - v351) >> 4);
+        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v359, __dst, v355, v356, (v356 - v355) >> 4);
+        std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(&v359, __dst, v353, v354, (v354 - v353) >> 4);
+        v211 = v359;
+        v212 = __dst;
+        v213 = (__dst - v359) >> 4;
+        qsort(v359, v213, 0x10uLL, _HUDTimeRangeCompare);
+        if (v212 == v211)
         {
-          v207 = 0;
-          v208 = 0;
+          v214 = 0;
+          v215 = 0;
         }
 
         else
         {
-          v207 = 0;
-          v208 = 0;
-          v209 = 0;
-          v210 = (v204 + 8);
+          v214 = 0;
+          v215 = 0;
+          v216 = 0;
+          v217 = (v211 + 8);
           do
           {
-            v212 = *(v210 - 1);
-            v211 = *v210;
-            v213 = *v210 - v212;
-            if (*v210 >= v212)
+            v219 = *(v217 - 1);
+            v218 = *v217;
+            v220 = *v217 - v219;
+            if (*v217 >= v219)
             {
-              if (v212 <= v209)
+              if (v219 <= v216)
               {
-                v212 = v209;
+                v219 = v216;
               }
 
-              v72 = v211 >= v212;
-              v214 = v211 - v212;
-              if (!v72)
+              v77 = v218 >= v219;
+              v221 = v218 - v219;
+              if (!v77)
               {
-                v214 = 0;
+                v221 = 0;
               }
 
-              v208 += v214;
-              if (v211 > v209)
+              v215 += v221;
+              if (v218 > v216)
               {
-                v209 = *v210;
+                v216 = *v217;
               }
 
-              v207 += v213;
+              v214 += v220;
             }
 
-            v210 += 2;
-            --v206;
+            v217 += 2;
+            --v213;
           }
 
-          while (v206);
+          while (v213);
         }
 
-        *&v371 = v207;
-        *(&v371 + 1) = v208;
-        HUDValueHistoryRecordAddValue(v282[10] + 51232, v207);
-        HUDValueHistoryRecordAddValue(v282[10] + 50104, *(&v371 + 1));
+        *&v377 = v214;
+        *(&v377 + 1) = v215;
+        HUDValueHistoryRecordAddValue(v292[10] + 51232, v214);
+        HUDValueHistoryRecordAddValue(v292[10] + 50104, *(&v377 + 1));
       }
 
-      v215 = v363;
-      v216 = v364 - v363;
-      if (v364 != v363)
+      v222 = v369;
+      v223 = v370 - v369;
+      if (v370 != v369)
       {
-        v217 = v216 >> 4;
-        qsort(v363, v216 >> 4, 0x10uLL, _HUDTimeRangeCompare);
-        v218 = 0;
-        v219 = 0;
-        v220 = (v215 + 8);
+        v224 = v223 >> 4;
+        qsort(v369, v223 >> 4, 0x10uLL, _HUDTimeRangeCompare);
+        v225 = 0;
+        v226 = 0;
+        v227 = (v222 + 8);
         do
         {
-          v222 = *(v220 - 1);
-          v221 = *v220;
-          if (*v220 >= v222)
+          v229 = *(v227 - 1);
+          v228 = *v227;
+          if (*v227 >= v229)
           {
-            if (v222 <= v219)
+            if (v229 <= v226)
             {
-              v222 = v219;
+              v229 = v226;
             }
 
-            v72 = v221 >= v222;
-            v223 = v221 - v222;
-            if (!v72)
+            v77 = v228 >= v229;
+            v230 = v228 - v229;
+            if (!v77)
             {
-              v223 = 0;
+              v230 = 0;
             }
 
-            v218 += v223;
-            if (v221 > v219)
+            v225 += v230;
+            if (v228 > v226)
             {
-              v219 = *v220;
+              v226 = *v227;
             }
           }
 
-          v220 += 2;
-          --v217;
+          v227 += 2;
+          --v224;
         }
 
-        while (v217);
-        HUDValueHistoryRecordAddValue(v282[10] + 54616, v218);
+        while (v224);
+        HUDValueHistoryRecordAddValue(v292[10] + 54616, v225);
       }
 
-      v224 = v368;
-      v225 = v369 - v368;
-      if (v369 != v368)
+      v231 = v374;
+      v232 = v375 - v374;
+      if (v375 != v374)
       {
-        v226 = v225 >> 4;
-        qsort(v368, v225 >> 4, 0x10uLL, _HUDTimeRangeCompare);
-        v227 = 0;
-        v228 = 0;
-        v229 = (v224 + 8);
+        v233 = v232 >> 4;
+        qsort(v374, v232 >> 4, 0x10uLL, _HUDTimeRangeCompare);
+        v234 = 0;
+        v235 = 0;
+        v236 = (v231 + 8);
         do
         {
-          v231 = *(v229 - 1);
-          v230 = *v229;
-          if (*v229 >= v231)
+          v238 = *(v236 - 1);
+          v237 = *v236;
+          if (*v236 >= v238)
           {
-            if (v231 <= v228)
+            if (v238 <= v235)
             {
-              v231 = v228;
+              v238 = v235;
             }
 
-            v72 = v230 >= v231;
-            v232 = v230 - v231;
-            if (!v72)
+            v77 = v237 >= v238;
+            v239 = v237 - v238;
+            if (!v77)
             {
-              v232 = 0;
+              v239 = 0;
             }
 
-            v227 += v232;
-            if (v230 > v228)
+            v234 += v239;
+            if (v237 > v235)
             {
-              v228 = *v229;
+              v235 = *v236;
             }
           }
 
-          v229 += 2;
-          --v226;
+          v236 += 2;
+          --v233;
         }
 
-        while (v226);
-        HUDValueHistoryRecordAddValue(v282[10] + 55744, v227);
+        while (v233);
+        HUDValueHistoryRecordAddValue(v292[10] + 55744, v234);
       }
 
-      v233 = v361;
-      v234 = v362 - v361;
-      if (v362 != v361)
+      v240 = v367;
+      v241 = v368 - v367;
+      if (v368 != v367)
       {
-        v235 = v234 >> 4;
-        qsort(v361, v234 >> 4, 0x10uLL, _HUDTimeRangeCompare);
-        v236 = 0;
-        v237 = 0;
-        v238 = (v233 + 8);
+        v242 = v241 >> 4;
+        qsort(v367, v241 >> 4, 0x10uLL, _HUDTimeRangeCompare);
+        v243 = 0;
+        v244 = 0;
+        v245 = (v240 + 8);
         do
         {
-          v240 = *(v238 - 1);
-          v239 = *v238;
-          if (*v238 >= v240)
+          v247 = *(v245 - 1);
+          v246 = *v245;
+          if (*v245 >= v247)
           {
-            if (v240 <= v237)
+            if (v247 <= v244)
             {
-              v240 = v237;
+              v247 = v244;
             }
 
-            v72 = v239 >= v240;
-            v241 = v239 - v240;
-            if (!v72)
+            v77 = v246 >= v247;
+            v248 = v246 - v247;
+            if (!v77)
             {
-              v241 = 0;
+              v248 = 0;
             }
 
-            v236 += v241;
-            if (v239 > v237)
+            v243 += v248;
+            if (v246 > v244)
             {
-              v237 = *v238;
+              v244 = *v245;
             }
           }
 
-          v238 += 2;
-          --v235;
+          v245 += 2;
+          --v242;
         }
 
-        while (v235);
-        HUDValueHistoryRecordAddValue(v282[10] + 52360, v236);
+        while (v242);
+        HUDValueHistoryRecordAddValue(v292[10] + 52360, v243);
       }
 
-      v242 = v366;
-      v243 = v367 - v366;
-      if (v367 != v366)
+      v249 = v372;
+      v250 = v373 - v372;
+      if (v373 != v372)
       {
-        v244 = v243 >> 4;
-        qsort(v366, v243 >> 4, 0x10uLL, _HUDTimeRangeCompare);
-        v245 = 0;
-        v246 = 0;
-        v247 = (v242 + 8);
+        v251 = v250 >> 4;
+        qsort(v372, v250 >> 4, 0x10uLL, _HUDTimeRangeCompare);
+        v252 = 0;
+        v253 = 0;
+        v254 = (v249 + 8);
         do
         {
-          v249 = *(v247 - 1);
-          v248 = *v247;
-          if (*v247 >= v249)
+          v256 = *(v254 - 1);
+          v255 = *v254;
+          if (*v254 >= v256)
           {
-            if (v249 <= v246)
+            if (v256 <= v253)
             {
-              v249 = v246;
+              v256 = v253;
             }
 
-            v72 = v248 >= v249;
-            v250 = v248 - v249;
-            if (!v72)
+            v77 = v255 >= v256;
+            v257 = v255 - v256;
+            if (!v77)
             {
-              v250 = 0;
+              v257 = 0;
             }
 
-            v245 += v250;
-            if (v248 > v246)
+            v252 += v257;
+            if (v255 > v253)
             {
-              v246 = *v247;
+              v253 = *v254;
             }
           }
 
-          v247 += 2;
-          --v244;
+          v254 += 2;
+          --v251;
         }
 
-        while (v244);
-        HUDValueHistoryRecordAddValue(v282[10] + 53488, v245);
+        while (v251);
+        HUDValueHistoryRecordAddValue(v292[10] + 53488, v252);
       }
 
-      if (*(HUDGetGlobalConfig() + 28) == 1)
+      if (*(HUDGetGlobalConfig(v209, v210) + 28) == 1)
       {
-        v251 = v335;
-        if (v335)
+        v258 = v341;
+        if (v341)
         {
-          v252 = 0;
+          v259 = 0;
           do
           {
-            v252 += v251[3];
-            v251 = *v251;
+            v259 += v258[3];
+            v258 = *v258;
           }
 
-          while (v251);
-          v253 = v252;
+          while (v258);
+          v260 = v259;
         }
 
         else
         {
-          v253 = 0.0;
+          v260 = 0.0;
         }
 
-        HUDValueHistoryRecordAddValue(v282[10] + 56872, v253);
+        HUDValueHistoryRecordAddValue(v292[10] + 56872, v260);
       }
 
-      v254 = *(v282[10] + 464);
-      if (v254)
+      v261 = *(v292[10] + 464);
+      if (v261)
       {
-        v310[0].i64[0] = v337;
-        v310[0].i64[1] = (v338 - v337) >> 4;
-        v310[2].i64[0] = __base;
-        v310[2].i64[1] = (v340 - __base) >> 4;
-        v310[1].i64[0] = v351;
-        v310[1].i64[1] = (v352 - v351) >> 4;
-        *&v312 = __src;
-        *(&v312 + 1) = (v344 - __src) >> 4;
-        *&v311 = v341;
-        *(&v311 + 1) = (v342 - v341) >> 4;
-        *&v313 = v345;
-        *(&v313 + 1) = (v346 - v345) >> 4;
-        *&v314 = v347;
-        *(&v314 + 1) = (v348 - v347) >> 4;
-        v318 = (v357 - v356) >> 4;
-        v319 = v358;
-        v320 = (v359 - v358) >> 4;
-        v315 = v349;
-        v316 = (v350 - v349) >> 4;
-        v317 = v356;
-        v325 = v374;
-        v321 = v370;
-        v322 = v371;
-        v323 = v372;
-        v324 = vextq_s8(v373, v373, 8uLL);
-        (*(v254 + 16))(v254, v310);
+        v320.numDynamicLibraries = v343;
+        v320.numBinaryFunctions = (v344 - v343) >> 4;
+        v320.numComputePipelines = __base;
+        v320.totalSyncShaderCompilations = (v346 - __base) >> 4;
+        v320.numLibrariesFromSource = v357;
+        v320.numRenderPipelines = (v358 - v357) >> 4;
+        v320.totalSyncCompileTime = __src;
+        v320.totalSyncCompileTimeFragment = (v350 - __src) >> 4;
+        v320.totalAsyncShaderCompilations = v347;
+        v320.totalCachedRequests = (v348 - v347) >> 4;
+        v320.totalSyncCompileTimeVertex = v351;
+        v320.totalSyncCompileTimeMesh = (v352 - v351) >> 4;
+        v320.totalSyncCompileTimeObject = v353;
+        v320.totalSyncCompileTimeCompute = (v354 - v353) >> 4;
+        v324 = (v363 - v362) >> 4;
+        v325 = v364;
+        v326 = (v365 - v364) >> 4;
+        v321 = v355;
+        v322 = (v356 - v355) >> 4;
+        v323 = v362;
+        v331 = v380;
+        v327 = v376;
+        v328 = v377;
+        v329 = v378;
+        v330 = vextq_s8(v379, v379, 8uLL);
+        (*(v261 + 16))(v261, &v320);
       }
 
-      if (v280)
+      if (v290)
       {
-        HUDBarrierInsightCheck(v282[10] + 68280);
-        HUDTessellationInsightCheck(v282[10] + 68304);
-        v285 = v337;
-        v286 = (v338 - v337) >> 4;
-        v289 = __base;
-        v290 = (v340 - __base) >> 4;
-        v287 = v351;
-        v288 = (v352 - v351) >> 4;
-        v293 = __src;
-        v294 = (v344 - __src) >> 4;
-        v291 = v341;
-        v292 = (v342 - v341) >> 4;
-        v295 = v345;
-        v296 = (v346 - v345) >> 4;
-        v297 = v347;
-        v298 = (v348 - v347) >> 4;
-        v301 = v356;
-        v302 = (v357 - v356) >> 4;
-        v303 = v358;
-        v304 = (v359 - v358) >> 4;
-        v299 = v349;
-        v300 = (v350 - v349) >> 4;
-        v309 = v374;
-        v305 = v370;
-        v306 = v371;
-        v307 = v372;
-        v308 = vextq_s8(v373, v373, 8uLL);
-        HUDTargetRebindingInsightContextNextFrame(v282[10] + 67424, v310, &v285, *(*(v282[4] + 8) + 24));
-        LODWORD(v255) = v326;
-        v256 = HUDValueHistoryRecordAddValue(v282[10] + 44464, v255);
-        LODWORD(v256) = v327;
-        v257 = HUDValueHistoryRecordAddValue(v282[10] + 45592, *&v256);
-        LODWORD(v257) = v328;
-        v258 = HUDValueHistoryRecordAddValue(v282[10] + 59128, *&v257);
-        LODWORD(v258) = v329;
-        HUDValueHistoryRecordAddValue(v282[10] + 60256, *&v258);
+        HUDBarrierInsightCheck(v292[10] + 68280);
+        HUDTessellationInsightCheck(v292[10] + 68304);
+        v295 = v343;
+        v296 = (v344 - v343) >> 4;
+        v299 = __base;
+        v300 = (v346 - __base) >> 4;
+        v297 = v357;
+        v298 = (v358 - v357) >> 4;
+        v303 = __src;
+        v304 = (v350 - __src) >> 4;
+        v301 = v347;
+        v302 = (v348 - v347) >> 4;
+        v305 = v351;
+        v306 = (v352 - v351) >> 4;
+        v307 = v353;
+        v308 = (v354 - v353) >> 4;
+        v311 = v362;
+        v312 = (v363 - v362) >> 4;
+        v313 = v364;
+        v314 = (v365 - v364) >> 4;
+        v309 = v355;
+        v310 = (v356 - v355) >> 4;
+        v319 = v380;
+        v315 = v376;
+        v316 = v377;
+        v317 = v378;
+        v318 = vextq_s8(v379, v379, 8uLL);
+        HUDTargetRebindingInsightContextNextFrame(v292[10] + 67424, &v320, &v295, *(*(v292[4] + 8) + 24));
+        LODWORD(v262) = v332;
+        v263 = HUDValueHistoryRecordAddValue(v292[10] + 44464, v262);
+        LODWORD(v263) = v333;
+        v264 = HUDValueHistoryRecordAddValue(v292[10] + 45592, *&v263);
+        LODWORD(v264) = v334;
+        v265 = HUDValueHistoryRecordAddValue(v292[10] + 59128, *&v264);
+        LODWORD(v265) = v335;
+        HUDValueHistoryRecordAddValue(v292[10] + 60256, *&v265);
       }
 
-      v259 = HUDCurrentTimeInNs();
-      v260 = v282[10];
-      if (v259 - *(v260 + 456) >= 0x3B9ACA01)
+      v266 = HUDCurrentTimeInNs();
+      v267 = v292[10];
+      if (v266 - *(v267 + 456) >= 0x3B9ACA01)
       {
-        for (j = (v260 + 272); ; _HUDGPUTimeTrackerPushTopObjectHeap(v330, (j + 3)))
+        for (j = (v267 + 272); ; _HUDGPUTimeTrackerPushTopObjectHeap(v336, (j + 3)))
         {
           j = *j;
           if (!j)
@@ -2405,14 +2402,14 @@ LABEL_94:
             break;
           }
 
-          v262 = j[7];
-          v263 = j[3] / v262;
-          v264 = j[4] / v262;
-          j[3] = v263;
-          j[4] = v264;
+          v269 = j[7];
+          v270 = j[3] / v269;
+          v271 = j[4] / v269;
+          j[3] = v270;
+          j[4] = v271;
         }
 
-        for (k = v282[10] + 232; ; _HUDGPUTimeTrackerPushTopObjectHeap(v332, (k + 24)))
+        for (k = v292[10] + 232; ; _HUDGPUTimeTrackerPushTopObjectHeap(v338, (k + 24)))
         {
           k = *k;
           if (!k)
@@ -2420,93 +2417,90 @@ LABEL_94:
             break;
           }
 
-          v266 = *(k + 56);
-          v267 = *(k + 24) / v266;
-          v268 = *(k + 32) / v266;
-          *(k + 24) = v267;
-          *(k + 32) = v268;
+          v273 = *(k + 56);
+          v274 = *(k + 24) / v273;
+          v275 = *(k + 32) / v273;
+          *(k + 24) = v274;
+          *(k + 32) = v275;
         }
 
-        _HUDGPUTimeTrackerTopObjectHeapAssign(v282[10], v330, (v282[10] + 376), 10);
-        _HUDGPUTimeTrackerTopObjectHeapAssign(v282[10], v332, (v282[10] + 296), 10);
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear((v282[10] + 256));
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear((v282[10] + 216));
-        *(v282[10] + 456) = HUDCurrentTimeInNs();
+        _HUDGPUTimeTrackerTopObjectHeapAssign(v292[10], v336, (v292[10] + 376), 10);
+        _HUDGPUTimeTrackerTopObjectHeapAssign(v292[10], v338, (v292[10] + 296), 10);
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear((v292[10] + 256));
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear((v292[10] + 216));
+        *(v292[10] + 456) = HUDCurrentTimeInNs();
       }
     }
   }
 
-  v269 = _MTLCompileTimeStatistics();
-  if (v269)
+  v276 = _MTLCompileTimeStatistics();
+  v278 = v276;
+  if (v276)
   {
-    v285 = 0;
-    v286 = &v285;
-    v287 = 0x3032000000;
-    v288 = __Block_byref_object_copy__423;
-    v289 = __Block_byref_object_dispose__424;
-    if (*(HUDGetGlobalConfig() + 2) == 1)
+    v295 = 0;
+    v296 = &v295;
+    v297 = 0x3032000000;
+    v298 = __Block_byref_object_copy__423;
+    v299 = __Block_byref_object_dispose__424;
+    if (*(HUDGetGlobalConfig(v276, v277) + 2) == 1)
     {
-      v290 = objc_opt_new();
+      v300 = objc_opt_new();
     }
 
     else
     {
-      v290 = 0;
+      v300 = 0;
     }
 
-    v313 = 0u;
-    v314 = 0u;
-    v311 = 0u;
-    v312 = 0u;
-    memset(v310, 0, sizeof(v310));
-    v270 = a1[10];
-    v284[0] = _NSConcreteStackBlock;
-    v284[1] = 3221225472;
-    v284[2] = ___Z49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermy_block_invoke_426;
-    v284[3] = &unk_68B28;
-    v284[4] = &v285;
-    _HUDCompilerStatisticsParse((v270 + 67032), v269, v284, v310);
-    v271 = *(v286 + 40);
-    if (v271 && [v271 length] >= 3)
+    memset(&v320, 0, sizeof(v320));
+    v279 = v2[10];
+    v294[0] = _NSConcreteStackBlock;
+    v294[1] = 3221225472;
+    v294[2] = ___Z49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermy_block_invoke_426;
+    v294[3] = &unk_68B28;
+    v294[4] = &v295;
+    _HUDCompilerStatisticsParse((v279 + 67032), v278, v294, &v320);
+    v280 = *(v296 + 40);
+    if (v280 && [v280 length] >= 3)
     {
-      v272 = [*(v286 + 40) substringToIndex:{objc_msgSend(*(v286 + 40), "length") - 2}];
-      NSLog(@"[MTLHUD] Compiled %@, total %.2fms", v272, v312 / 1000000.0);
+      v281 = [*(v296 + 40) substringToIndex:{objc_msgSend(*(v296 + 40), "length") - 2}];
+      NSLog(@"[MTLHUD] Compiled %@, total %.2fms", v281, v320.totalSyncCompileTime / 1000000.0);
     }
 
-    HUDValueHistoryRecordAddValue(a1[10] + 42208, v312);
-    HUDValueHistoryRecordAddValue(a1[10] + 43336, v310[2].u64[1]);
-    HUDValueHistoryRecordAddValue(a1[10] + 61384, *(a1[10] + 67072));
-    HUDValueHistoryRecordAddValue(a1[10] + 64768, *(a1[10] + 67080));
-    HUDValueHistoryRecordAddValue(a1[10] + 62512, *(a1[10] + 67088));
-    HUDValueHistoryRecordAddValue(a1[10] + 63640, (*(a1[10] + 67064) + *(a1[10] + 67056)));
-    HUDValueHistoryRecordAddValue(a1[10] + 65896, *(a1[10] + 67096));
-    v273 = a1[10] + 67144;
-    v274 = v313;
-    *(v273 + 64) = v312;
-    *(v273 + 80) = v274;
-    *(v273 + 96) = v314;
-    v275 = v310[1];
-    *v273 = v310[0];
-    *(v273 + 16) = v275;
-    v276 = v311;
-    *(v273 + 32) = v310[2];
-    *(v273 + 48) = v276;
-    if (v280)
+    HUDValueHistoryRecordAddValue(v2[10] + 42208, v320.totalSyncCompileTime);
+    HUDValueHistoryRecordAddValue(v2[10] + 43336, v320.totalSyncShaderCompilations);
+    HUDValueHistoryRecordAddValue(v2[10] + 61384, *(v2[10] + 67072));
+    HUDValueHistoryRecordAddValue(v2[10] + 64768, *(v2[10] + 67080));
+    HUDValueHistoryRecordAddValue(v2[10] + 62512, *(v2[10] + 67088));
+    HUDValueHistoryRecordAddValue(v2[10] + 63640, (*(v2[10] + 67064) + *(v2[10] + 67056)));
+    HUDValueHistoryRecordAddValue(v2[10] + 65896, *(v2[10] + 67096));
+    v282 = (v2[10] + 67144);
+    v283 = *&v320.totalSyncCompileTimeVertex;
+    v282[4] = *&v320.totalSyncCompileTime;
+    v282[5] = v283;
+    v282[6] = *&v320.totalSyncCompileTimeObject;
+    v284 = *&v320.numLibrariesFromSource;
+    *v282 = *&v320.numDynamicLibraries;
+    v282[1] = v284;
+    v285 = *&v320.totalAsyncShaderCompilations;
+    v282[2] = *&v320.numComputePipelines;
+    v282[3] = v285;
+    if (v290)
     {
-      HUDCompilerInsightHandleCompilerStatistics(a1[10] + 67256, v310, (a1[10] + 67032));
+      HUDCompilerInsightHandleCompilerStatistics(v2[10] + 67256, &v320, (v2[10] + 67032));
     }
 
-    _Block_object_dispose(&v285, 8);
+    _Block_object_dispose(&v295, 8);
   }
 
-  if (*(HUDGetGlobalConfig() + 16) == 1)
+  if (*(HUDGetGlobalConfig(v276, v277) + 16) == 1)
   {
-    v277 = HUDCurrentTimeInNs();
-    HUDInternalPerfMetricGPUTimeTrackerAdd(v277 - _ZZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E17_timeTrackerBegin);
+    v286 = HUDCurrentTimeInNs();
+    HUDInternalPerfMetricGPUTimeTrackerAdd(v286 - _ZZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E17_timeTrackerBegin, v287);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(&v334);
-  HUDGPUTimeTrackerFrameTimingDataStore::~HUDGPUTimeTrackerFrameTimingDataStore(&v337);
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(&v340);
+  HUDGPUTimeTrackerFrameTimingDataStore::~HUDGPUTimeTrackerFrameTimingDataStore(&v343);
 }
 
 void sub_5484(_Unwind_Exception *a1)
@@ -2575,20 +2569,17 @@ void std::vector<HUDTimeRange>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
   *(a1 + 8) = v6;
 }
 
-void *std::vector<HUDTimeRange>::reserve(void *result, unint64_t a2)
+void std::vector<HUDTimeRange>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDTimeRange>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDTimeRange>>(a1, a2);
     }
 
     std::vector<HUDGPUTimeTrackerEncoder>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t __Block_byref_object_copy__423(uint64_t result, uint64_t a2)
@@ -2604,36 +2595,36 @@ void ___Z49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTracker
   if (v3)
   {
     [v3 appendFormat:@"%@ (%.2fms), ", *(a3 + 16), *a3 / 1000000.0];
-    v5 = HUDSignpostGetOSLog(0);
-    if (os_signpost_enabled(v5))
+    v6 = HUDSignpostGetOSLog(0, v5);
+    if (os_signpost_enabled(v6))
     {
-      v6 = *(a3 + 16);
-      v7 = *a3;
-      v8 = *(a3 + 12);
+      v7 = *(a3 + 16);
+      v8 = *a3;
+      v9 = *(a3 + 12);
       *buf = 138543874;
-      v10 = v6;
-      v11 = 2050;
-      v12 = v7;
-      v13 = 1026;
-      v14 = v8;
-      _os_signpost_emit_with_name_impl(&dword_0, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CompileShader", "name: %{public, name=name}@\ncompilation-time: %{public, name=total-compilation-time}llu\ncached: %{public, name=cached}d\n", buf, 0x1Cu);
+      v11 = v7;
+      v12 = 2050;
+      v13 = v8;
+      v14 = 1026;
+      v15 = v9;
+      _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CompileShader", "name: %{public, name=name}@\ncompilation-time: %{public, name=total-compilation-time}llu\ncached: %{public, name=cached}d\n", buf, 0x1Cu);
     }
   }
 }
 
-void HUDGPUTimeTrackerEnumerateCompilerStatistics(uint64_t a1@<X0>, HUDCompilerStatistics *a2@<X1>, void *a3@<X2>, _OWORD *a4@<X8>)
+void HUDGPUTimeTrackerEnumerateCompilerStatistics(uint64_t a1@<X0>, HUDCompilerStatistics *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
   v7 = a3;
   HUDCompilerStatisticsInit(v12);
   if (a1)
   {
     v8 = _MTLCompileTimeStatistics();
-    a4[5] = 0u;
-    a4[6] = 0u;
-    a4[3] = 0u;
-    a4[4] = 0u;
-    a4[1] = 0u;
-    a4[2] = 0u;
+    *(a4 + 80) = 0u;
+    *(a4 + 96) = 0u;
+    *(a4 + 48) = 0u;
+    *(a4 + 64) = 0u;
+    *(a4 + 16) = 0u;
+    *(a4 + 32) = 0u;
     *a4 = 0u;
     _HUDCompilerStatisticsParse(a2, v8, v7, a4);
   }
@@ -2641,15 +2632,15 @@ void HUDGPUTimeTrackerEnumerateCompilerStatistics(uint64_t a1@<X0>, HUDCompilerS
   else
   {
     v9 = v12[5];
-    a4[4] = v12[4];
-    a4[5] = v9;
-    a4[6] = v12[6];
+    *(a4 + 64) = v12[4];
+    *(a4 + 80) = v9;
+    *(a4 + 96) = v12[6];
     v10 = v12[1];
     *a4 = v12[0];
-    a4[1] = v10;
+    *(a4 + 16) = v10;
     v11 = v12[3];
-    a4[2] = v12[2];
-    a4[3] = v11;
+    *(a4 + 32) = v12[2];
+    *(a4 + 48) = v11;
   }
 }
 
@@ -2683,90 +2674,90 @@ void _HUDGPUTimeTrackerCommandBufferComplete(uint64_t a1, void *a2)
   HUDDispatchQueueAsync(v9);
 }
 
-void ___Z39_HUDGPUTimeTrackerCommandBufferCompleteP17HUDGPUTimeTrackerPU27objcproto16MTLCommandBuffer11objc_object_block_invoke(void *a1)
+void ___Z39_HUDGPUTimeTrackerCommandBufferCompleteP17HUDGPUTimeTrackerPU27objcproto16MTLCommandBuffer11objc_object_block_invoke(void *a1, uint64_t a2)
 {
-  if (*(HUDGetGlobalConfig() + 16) == 1)
+  if (*(HUDGetGlobalConfig(a1, a2) + 16) == 1)
   {
     _ZZZ39_HUDGPUTimeTrackerCommandBufferCompleteP17HUDGPUTimeTrackerPU27objcproto16MTLCommandBuffer11objc_objectEUb0_E17_timeTrackerBegin = HUDCurrentTimeInNs();
   }
 
-  v15 = a1[4];
-  os_unfair_lock_lock(v15 + 16756);
-  v2 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1[4] + 56), a1 + 5);
-  if (v2)
+  v18 = a1[4];
+  os_unfair_lock_lock(v18 + 16756);
+  v3 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1[4] + 56), a1 + 5);
+  if (v3)
   {
-    v3 = v2;
-    v2[9] = a1[6];
-    v2[10] = a1[7];
-    v5 = v2[21];
-    v4 = v2[22];
-    if (v4 != v5)
+    v5 = v3;
+    v3[9] = a1[6];
+    v3[10] = a1[7];
+    v7 = v3[21];
+    v6 = v3[22];
+    if (v6 != v7)
     {
-      v6 = 0;
-      v7 = 32;
+      v8 = 0;
+      v9 = 32;
       do
       {
-        v8 = v5 + 312 * v6;
-        if (*(v8 + 24) != 0xFFFFFFFFLL)
+        v10 = v7 + 312 * v8;
+        if (*(v10 + 24) != 0xFFFFFFFFLL)
         {
-          if (*v8 == 1)
+          if (*v10 == 1)
           {
-            v9 = 4;
+            v11 = 4;
           }
 
           else
           {
-            v9 = 2;
+            v11 = 2;
           }
 
-          v10 = [*(a1[4] + 40) resolveCounterRange:?];
-          v11 = [v10 bytes];
-          if (v11)
+          v12 = [*(a1[4] + 40) resolveCounterRange:?];
+          v13 = [v12 bytes];
+          if (v13)
           {
-            v12 = (v5 + v7);
+            v14 = (v7 + v9);
             do
             {
-              v13 = *v11++;
-              *v12++ = v13;
-              --v9;
+              v15 = *v13++;
+              *v14++ = v15;
+              --v11;
             }
 
-            while (v9);
+            while (v11);
           }
 
-          v5 = v3[21];
-          v4 = v3[22];
+          v7 = v5[21];
+          v6 = v5[22];
         }
 
-        ++v6;
-        v7 += 312;
+        ++v8;
+        v9 += 312;
       }
 
-      while (v6 < 0x6F96F96F96F96F97 * ((v4 - v5) >> 3));
+      while (v8 < 0x6F96F96F96F96F97 * ((v6 - v7) >> 3));
     }
   }
 
-  if (*(HUDGetGlobalConfig() + 16) == 1)
+  if (*(HUDGetGlobalConfig(v3, v4) + 16) == 1)
   {
-    v14 = HUDCurrentTimeInNs();
-    HUDInternalPerfMetricGPUTimeTrackerAdd(v14 - _ZZZ39_HUDGPUTimeTrackerCommandBufferCompleteP17HUDGPUTimeTrackerPU27objcproto16MTLCommandBuffer11objc_objectEUb0_E17_timeTrackerBegin);
+    v16 = HUDCurrentTimeInNs();
+    HUDInternalPerfMetricGPUTimeTrackerAdd(v16 - _ZZZ39_HUDGPUTimeTrackerCommandBufferCompleteP17HUDGPUTimeTrackerPU27objcproto16MTLCommandBuffer11objc_objectEUb0_E17_timeTrackerBegin, v17);
   }
 
-  os_unfair_lock_unlock(v15 + 16756);
+  os_unfair_lock_unlock(v18 + 16756);
 }
 
-void _HUDGPUTimeTrackerCommandBufferScheduled(uint64_t a1, void *a2)
+void _HUDGPUTimeTrackerCommandBufferScheduled(os_unfair_lock_s *a1, void *a2)
 {
   v3 = a2;
   v5 = [v3 globalTraceObjectID];
-  os_unfair_lock_lock((a1 + 67024));
-  v4 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 56), &v5);
+  os_unfair_lock_lock(a1 + 16756);
+  v4 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, &v5);
   if (v4)
   {
     *(v4 + 88) = 1;
   }
 
-  os_unfair_lock_unlock((a1 + 67024));
+  os_unfair_lock_unlock(a1 + 16756);
 }
 
 void HUDGPUTimeTrackerCommandBufferCommit(uint64_t a1, void *a2)
@@ -2844,7 +2835,7 @@ _BYTE *HUDGPUTimeTrackerGetValueRecord(_BYTE *result, unsigned int a2)
   return result;
 }
 
-id HUDGPUTimeTrackerCreateRenderEncder(uint64_t a1, void *a2, void *a3, void *a4)
+id HUDGPUTimeTrackerCreateRenderEncder(os_unfair_lock_s *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
@@ -2958,18 +2949,18 @@ void sub_62F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void _HUDGPUTimeTrackerAddRenderEncoder(uint64_t a1, void *a2, void *a3, int a4, uint64_t a5, void *a6)
+void _HUDGPUTimeTrackerAddRenderEncoder(os_unfair_lock_s *a1, void *a2, void *a3, int a4, uint64_t a5, void *a6)
 {
   v11 = a2;
   v12 = a3;
   v13 = a6;
-  v35[0] = [v12 globalTraceObjectID];
+  v35 = [v12 globalTraceObjectID];
   v34 = [v11 globalTraceObjectID];
-  os_unfair_lock_lock((a1 + 67024));
+  os_unfair_lock_lock(a1 + 16756);
   isCreatingEncoder();
   v15 = v14;
   *v14 = 1;
-  v16 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 56), &v34);
+  v16 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, &v34);
   if (v16)
   {
     v17 = v16;
@@ -3092,20 +3083,20 @@ void _HUDGPUTimeTrackerAddRenderEncoder(uint64_t a1, void *a2, void *a3, int a4,
     *(v20 - 304) = HUDCurrentTimeInNs();
     *(v20 - 296) = HUDCurrentTimeInNs();
     *v31 = a4;
-    *(v20 - 24) = v35[0];
+    *(v20 - 24) = v35;
     *(v20 - 288) = a5;
     v33 = v17[21];
     v32 = v17[22];
-    v35[2] = v35;
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v17 + 16, v35)[3] = 0x6F96F96F96F96F97 * ((v32 - v33) >> 3) - 1;
+    v36 = &v35;
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v17 + 16, &v35, &std::piecewise_construct, &v36)[3] = 0x6F96F96F96F96F97 * ((v32 - v33) >> 3) - 1;
     HUDTargetRebindingInsightEncoderInitRender(v20 - 248, v13);
   }
 
   *v15 = 0;
-  os_unfair_lock_unlock((a1 + 67024));
+  os_unfair_lock_unlock(a1 + 16756);
 }
 
-id HUDGPUTimeTrackerCreateComputeEncder(uint64_t a1, void *a2, void *a3, void *a4)
+id HUDGPUTimeTrackerCreateComputeEncder(os_unfair_lock_s *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
@@ -3217,17 +3208,17 @@ void sub_6A48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void _HUDGPUTimeTrackerAddEncoder(uint64_t a1, void *a2, void *a3, int a4, uint64_t a5)
+void _HUDGPUTimeTrackerAddEncoder(os_unfair_lock_s *a1, void *a2, void *a3, int a4, uint64_t a5)
 {
   v9 = a2;
   v10 = a3;
-  v32[0] = [v10 globalTraceObjectID];
+  v32 = [v10 globalTraceObjectID];
   v31 = [v9 globalTraceObjectID];
-  os_unfair_lock_lock((a1 + 67024));
+  os_unfair_lock_lock(a1 + 16756);
   isCreatingEncoder();
   v12 = v11;
   *v11 = 1;
-  v13 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 56), &v31);
+  v13 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, &v31);
   if (v13)
   {
     v14 = v13;
@@ -3350,20 +3341,20 @@ void _HUDGPUTimeTrackerAddEncoder(uint64_t a1, void *a2, void *a3, int a4, uint6
     *(v17 - 304) = HUDCurrentTimeInNs();
     *(v17 - 296) = HUDCurrentTimeInNs();
     *v28 = a4;
-    *(v17 - 24) = v32[0];
+    *(v17 - 24) = v32;
     *(v17 - 288) = a5;
     *(v17 - 32) = *(v14 + 24);
     v30 = v14[21];
     v29 = v14[22];
-    v32[2] = v32;
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v14 + 16, v32)[3] = 0x6F96F96F96F96F97 * ((v29 - v30) >> 3) - 1;
+    v33 = &v32;
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v14 + 16, &v32, &std::piecewise_construct, &v33)[3] = 0x6F96F96F96F96F97 * ((v29 - v30) >> 3) - 1;
   }
 
   *v12 = 0;
-  os_unfair_lock_unlock((a1 + 67024));
+  os_unfair_lock_unlock(a1 + 16756);
 }
 
-id HUDGPUTimeTrackerCreateBlitEncder(uint64_t a1, void *a2, void *a3, void *a4)
+id HUDGPUTimeTrackerCreateBlitEncder(os_unfair_lock_s *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
@@ -3475,7 +3466,7 @@ void sub_7164(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id HUDGPUTimeTrackerCreateResourceStateEncder(uint64_t a1, void *a2, void *a3, void *a4)
+id HUDGPUTimeTrackerCreateResourceStateEncder(os_unfair_lock_s *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
@@ -3502,7 +3493,7 @@ id HUDGPUTimeTrackerCreateResourceStateEncder(uint64_t a1, void *a2, void *a3, v
   return v13;
 }
 
-id HUDGPUTimeTrackerCreateAccelerationStructureEncder(uint64_t a1, void *a2, void *a3, void *a4)
+id HUDGPUTimeTrackerCreateAccelerationStructureEncder(os_unfair_lock_s *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
@@ -3675,40 +3666,40 @@ void sub_7884(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void HUDGPUTimeTrackerMarkFrameBoundary(uint64_t a1)
+void HUDGPUTimeTrackerMarkFrameBoundary(os_unfair_lock_s *result)
 {
-  if (!a1)
+  if (!result)
   {
     return;
   }
 
-  os_unfair_lock_lock((a1 + 67024));
-  v2 = *(a1 + 68328);
-  if (v2 == 1)
+  os_unfair_lock_lock(result + 16756);
+  os_unfair_lock_opaque = result[17082]._os_unfair_lock_opaque;
+  if (os_unfair_lock_opaque == 1)
   {
     v4 = dispatch_time(0, 0);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = __HUDGPUTimeTrackerMarkFrameBoundary_block_invoke_2;
-    v12[3] = &__block_descriptor_40_e5_v8__0l;
-    v12[4] = a1;
-    dispatch_after(v4, &_dispatch_main_q, v12);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = __HUDGPUTimeTrackerMarkFrameBoundary_block_invoke_2;
+    v14[3] = &__block_descriptor_40_e5_v8__0l;
+    v14[4] = result;
+    dispatch_after(v4, &_dispatch_main_q, v14);
   }
 
-  else if (v2 == 2)
+  else if (os_unfair_lock_opaque == 2)
   {
     v3 = dispatch_time(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __HUDGPUTimeTrackerMarkFrameBoundary_block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0l;
-    block[4] = a1;
+    block[4] = result;
     dispatch_after(v3, &_dispatch_main_q, block);
-    *(a1 + 68328) = 0;
+    result[17082]._os_unfair_lock_opaque = 0;
   }
 
-  ++*a1;
-  v5 = *(a1 + 72);
+  ++*&result->_os_unfair_lock_opaque;
+  v5 = *&result[18]._os_unfair_lock_opaque;
   while (v5)
   {
     if (*(v5 + 88))
@@ -3718,7 +3709,7 @@ void HUDGPUTimeTrackerMarkFrameBoundary(uint64_t a1)
 
     if (*(v5 + 100))
     {
-      v6 = *a1;
+      v6 = *&result->_os_unfair_lock_opaque;
 LABEL_11:
       *(v5 + 40) = v6;
 LABEL_12:
@@ -3730,9 +3721,9 @@ LABEL_12:
       v7 = *(v5 + 48);
       if (v7 >= 4)
       {
-        v6 = *a1;
-        v9 = *a1 >= v7;
-        v8 = *a1 - v7;
+        v6 = *&result->_os_unfair_lock_opaque;
+        v9 = *&result->_os_unfair_lock_opaque >= v7;
+        v8 = *&result->_os_unfair_lock_opaque - v7;
         v9 = v8 != 0 && v9 && v8 >= 6;
         if (!v9)
         {
@@ -3740,19 +3731,19 @@ LABEL_12:
         }
       }
 
-      v5 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::erase((a1 + 56), v5);
+      v5 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::erase(&result[14]._os_unfair_lock_opaque, v5);
     }
   }
 
-  os_unfair_lock_unlock((a1 + 67024));
-  if (*(HUDGetGlobalConfig() + 37))
+  os_unfair_lock_unlock(result + 16756);
+  if (*(HUDGetGlobalConfig(v10, v11) + 37))
   {
-    v10 = *a1 - 1;
-    v11 = HUDCurrentTimeInNs();
-    if (*(a1 + 8) < v10)
+    v12 = *&result->_os_unfair_lock_opaque - 1;
+    v13 = HUDCurrentTimeInNs();
+    if (*&result[2]._os_unfair_lock_opaque < v12)
     {
-      *(a1 + 8) = v10;
-      _HUDGPUTimeTrackerWrapupFrameForPresentedDrawable(a1, v10, v11);
+      *&result[2]._os_unfair_lock_opaque = v12;
+      _HUDGPUTimeTrackerWrapupFrameForPresentedDrawable(result, v12, v13);
     }
   }
 }
@@ -3784,17 +3775,18 @@ void HUDGPUTimeTrackerFramePresented(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-const char *HUDGPUTimeTrackerGetRecordName(int a1)
+const char *HUDGPUTimeTrackerGetRecordName(uint64_t a1, uint64_t a2)
 {
   if (a1 > 58)
   {
     return "Unknown";
   }
 
-  _HUDGPUTimeTrackerGetMetricDescriptors();
-  v3 = _HUDGPUTimeTrackerGetMetricDescriptors(void)::_HUDGPUTimeTrackerMetricIdentifiers[9 * a1];
+  v3 = a1;
+  _HUDGPUTimeTrackerGetMetricDescriptors(a1, a2);
+  v4 = _HUDGPUTimeTrackerGetMetricDescriptors(void)::_HUDGPUTimeTrackerMetricIdentifiers[9 * v3];
 
-  return [(__CFString *)v3 UTF8String];
+  return [(__CFString *)v4 UTF8String];
 }
 
 uint64_t HUDGPUTimeTrackerGetTotalCompilerStatistics(uint64_t a1)
@@ -3810,25 +3802,25 @@ uint64_t HUDGPUTimeTrackerGetTotalCompilerStatistics(uint64_t a1)
   }
 }
 
-void HUDGPUTimeTrackerMarkCommandBuffer(uint64_t a1, void *a2, int a3)
+void HUDGPUTimeTrackerMarkCommandBuffer(os_unfair_lock_s *a1, void *a2, int a3)
 {
   v5 = a2;
   v6 = v5;
   if (a1)
   {
     v8 = [v5 globalTraceObjectID];
-    os_unfair_lock_lock((a1 + 67024));
-    v7 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 56), &v8);
+    os_unfair_lock_lock(a1 + 16756);
+    v7 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, &v8);
     if (v7)
     {
       *(v7 + 24) = a3;
     }
 
-    os_unfair_lock_unlock((a1 + 67024));
+    os_unfair_lock_unlock(a1 + 16756);
   }
 }
 
-void HUDGPUTimeTrackerMarkEncoder(uint64_t a1, void *a2, int a3)
+void HUDGPUTimeTrackerMarkEncoder(os_unfair_lock_s *a1, void *a2, int a3)
 {
   v5 = a2;
   v6 = v5;
@@ -3839,8 +3831,8 @@ void HUDGPUTimeTrackerMarkEncoder(uint64_t a1, void *a2, int a3)
     {
       v12 = [v6 globalTraceObjectID];
       v11 = [v7 globalTraceObjectID];
-      os_unfair_lock_lock((a1 + 67024));
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 56), &v11);
+      os_unfair_lock_lock(a1 + 16756);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, &v11);
       if (v8)
       {
         v9 = v8;
@@ -3851,7 +3843,7 @@ void HUDGPUTimeTrackerMarkEncoder(uint64_t a1, void *a2, int a3)
         }
       }
 
-      os_unfair_lock_unlock((a1 + 67024));
+      os_unfair_lock_unlock(a1 + 16756);
     }
   }
 }
@@ -3863,21 +3855,21 @@ void sub_7D40(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id HUDGPUTimeTrackerGetFrameCaptureScopeAndStartCapture(id a1)
+id HUDGPUTimeTrackerGetFrameCaptureScopeAndStartCapture(id a1, uint64_t a2)
 {
   if (a1)
   {
-    v1 = a1;
-    if (MTLHudIsCaptureEnabled())
+    v2 = a1;
+    if (MTLHudIsCaptureEnabled(a1, a2))
     {
-      *(v1 + 17082) = 1;
-      v2 = +[MTLCaptureManager sharedCaptureManager];
-      v3 = MTLCreateSystemDefaultDevice();
-      v4 = [v2 newCaptureScopeWithDevice:v3];
-      v5 = *(v1 + 8542);
-      *(v1 + 8542) = v4;
+      *(v2 + 17082) = 1;
+      v3 = +[MTLCaptureManager sharedCaptureManager];
+      v4 = MTLCreateSystemDefaultDevice();
+      v5 = [v3 newCaptureScopeWithDevice:v4];
+      v6 = *(v2 + 8542);
+      *(v2 + 8542) = v5;
 
-      a1 = *(v1 + 8542);
+      a1 = *(v2 + 8542);
     }
 
     else
@@ -4059,7 +4051,7 @@ void HUDGPUTimeTrackerMTL4CommandBufferCreate(os_unfair_lock_s *a1, void *a2)
       *__p = 0u;
       v22 = 1065353216;
       v26 = &v23;
-      v9 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&a1[14]._os_unfair_lock_opaque, &v23);
+      v9 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&a1[14]._os_unfair_lock_opaque, &v23, &std::piecewise_construct, &v26);
       HUDGPUTimeTrackerCommandBuffer::operator=((v9 + 3), &v10);
       std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::~__hash_table(v21);
       objc_destroyWeak(&v20 + 1);
@@ -4078,7 +4070,6 @@ void HUDGPUTimeTrackerMTL4CommandBufferCreate(os_unfair_lock_s *a1, void *a2)
 
 uint64_t __HUDGPUTimeTrackerMTL4CommandBufferCreate_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
@@ -4088,7 +4079,7 @@ uint64_t __HUDGPUTimeTrackerMTL4CommandBufferCreate_block_invoke(uint64_t a1)
   return result;
 }
 
-void _HUDGPUTimeTrackerMTL4CommandBufferComplete(uint64_t a1, void *a2, uint64_t *a3)
+void _HUDGPUTimeTrackerMTL4CommandBufferComplete(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
   [v5 GPUStartTime];
@@ -4104,7 +4095,7 @@ void _HUDGPUTimeTrackerMTL4CommandBufferComplete(uint64_t a1, void *a2, uint64_t
   v13 = 0;
   v14 = 0;
   __p = 0;
-  std::vector<MTL4CommandBufferCommit>::__init_with_size[abi:ne200100]<MTL4CommandBufferCommit*,MTL4CommandBufferCommit*>(&__p, *a3, a3[1], (a3[1] - *a3) >> 4);
+  std::vector<MTL4CommandBufferCommit>::__init_with_size[abi:ne200100]<MTL4CommandBufferCommit*,MTL4CommandBufferCommit*>(&__p, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 4);
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = ___Z43_HUDGPUTimeTrackerMTL4CommandBufferCompleteP17HUDGPUTimeTrackerPU29objcproto18MTL4CommitFeedback11objc_objectRKNSt3__16vectorI23MTL4CommandBufferCommitNS3_9allocatorIS5_EEEE_block_invoke;
@@ -4122,7 +4113,7 @@ void _HUDGPUTimeTrackerMTL4CommandBufferComplete(uint64_t a1, void *a2, uint64_t
   }
 }
 
-void sub_8408(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
+void sub_8408(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
 {
   _Block_object_dispose(&a18, 8);
   if (__p)
@@ -4136,14 +4127,12 @@ void sub_8408(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 
 __n128 __Block_byref_object_copy__439(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4245,167 +4234,167 @@ void ___Z43_HUDGPUTimeTrackerMTL4CommandBufferCompleteP17HUDGPUTimeTrackerPU29ob
   os_unfair_lock_unlock(v23 + 16756);
 }
 
-id HUDGPUTimeTrackerMTL4CommandBufferCommit(uint64_t a1, void *a2, id *a3, unint64_t a4, void *a5)
+os_unfair_lock_s *HUDGPUTimeTrackerMTL4CommandBufferCommit(os_unfair_lock_s *a1, void *a2, id *a3, unint64_t a4, void *a5)
 {
   v9 = a2;
   v10 = a5;
   if (a1)
   {
-    os_unfair_lock_lock((a1 + 67024));
-    *(HUDGetGlobalConfig() + 28) = 1;
+    os_unfair_lock_lock(a1 + 16756);
+    *(HUDGetGlobalConfig(v11, v12) + 28) = 1;
     if (!v10)
     {
       v10 = objc_opt_new();
     }
 
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x4812000000;
-    v45 = __Block_byref_object_copy__439;
-    v46 = __Block_byref_object_dispose__440;
-    v47 = &unk_5D621;
-    v49 = 0;
-    v50 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x4812000000;
+    v47 = __Block_byref_object_copy__439;
+    v48 = __Block_byref_object_dispose__440;
+    v49 = &unk_5D621;
+    v51 = 0;
+    v52 = 0;
     __p = 0;
     std::vector<MTL4CommandBufferCommit>::reserve(&__p, a4);
     for (; a4; --a4)
     {
-      v11 = *a3;
-      v12 = v11;
+      v13 = *a3;
+      v14 = v13;
       if (_mtl4HasGlobalTraceObjectId)
       {
-        v13 = [v11 globalTraceObjectID];
+        v15 = [v13 globalTraceObjectID];
       }
 
       else
       {
-        v13 = v11;
+        v15 = v13;
       }
 
-      v41 = v13;
-      v14 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 56), &v41);
-      if (v14)
+      v43 = v15;
+      v16 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, &v43);
+      if (v16)
       {
-        v15 = v14;
-        if (v14[7])
+        v17 = v16;
+        if (v16[7])
         {
-          v16 = v43;
-          v17 = *(v14 + 26);
-          v19 = v43[7];
-          v18 = v43[8];
-          if (v19 >= v18)
+          v18 = v45;
+          v19 = *(v16 + 26);
+          v21 = v45[7];
+          v20 = v45[8];
+          if (v21 >= v20)
           {
-            v21 = v43[6];
-            v22 = v19 - v21;
-            v23 = (v19 - v21) >> 4;
-            v24 = v23 + 1;
-            if ((v23 + 1) >> 60)
+            v23 = v45[6];
+            v24 = v21 - v23;
+            v25 = (v21 - v23) >> 4;
+            v26 = v25 + 1;
+            if ((v25 + 1) >> 60)
             {
               std::vector<HUDGPUTimeTrackerEncoder>::__throw_length_error[abi:ne200100]();
             }
 
-            v25 = v18 - v21;
-            if (v25 >> 3 > v24)
+            v27 = v20 - v23;
+            if (v27 >> 3 > v26)
             {
-              v24 = v25 >> 3;
+              v26 = v27 >> 3;
             }
 
-            v26 = v25 >= 0x7FFFFFFFFFFFFFF0;
-            v27 = 0xFFFFFFFFFFFFFFFLL;
-            if (!v26)
+            v28 = v27 >= 0x7FFFFFFFFFFFFFF0;
+            v29 = 0xFFFFFFFFFFFFFFFLL;
+            if (!v28)
             {
-              v27 = v24;
+              v29 = v26;
             }
 
-            if (v27)
+            if (v29)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<MTL4CommandBufferCommit>>((v43 + 6), v27);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<MTL4CommandBufferCommit>>((v45 + 6), v29);
             }
 
-            v28 = v23;
-            v29 = 16 * v23;
-            *v29 = v41;
-            *(v29 + 8) = v17;
-            v20 = 16 * v23 + 16;
-            v30 = (v29 - 16 * v28);
-            memcpy(v30, v21, v22);
-            v31 = v16[6];
-            v16[6] = v30;
-            v16[7] = v20;
-            v16[8] = 0;
-            if (v31)
+            v30 = v25;
+            v31 = 16 * v25;
+            *v31 = v43;
+            *(v31 + 8) = v19;
+            v22 = 16 * v25 + 16;
+            v32 = (v31 - 16 * v30);
+            memcpy(v32, v23, v24);
+            v33 = v18[6];
+            v18[6] = v32;
+            v18[7] = v22;
+            v18[8] = 0;
+            if (v33)
             {
-              operator delete(v31);
+              operator delete(v33);
             }
           }
 
           else
           {
-            *v19 = v41;
-            *(v19 + 8) = v17;
-            v20 = v19 + 16;
+            *v21 = v43;
+            *(v21 + 8) = v19;
+            v22 = v21 + 16;
           }
 
-          v16[7] = v20;
-          if (*(a1 + 26) == 1 && *(v15 + 24) != 1)
+          v18[7] = v22;
+          if (BYTE2(a1[6]._os_unfair_lock_opaque) == 1 && *(v17 + 24) != 1)
           {
-            v32 = [*a3 label];
-            if (v32)
+            v34 = [*a3 label];
+            if (v34)
             {
-              v33 = [*a3 label];
-              v34 = [v33 length];
+              v35 = [*a3 label];
+              v36 = [v35 length];
 
-              if (v34)
+              if (v36)
               {
-                v35 = [*a3 label];
-                v15[4] = _HUDGPUTimeTrackerAddLabel(a1, v36, v35, v15[5], 0);
+                v37 = [*a3 label];
+                v17[4] = _HUDGPUTimeTrackerAddLabel(a1, v38, v37, v17[5], 0);
               }
             }
           }
 
-          v40 = *(v15 + 26);
-          v51 = &v40;
-          v37 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 25, &v40);
-          _HUDGPUTimeTrackerCommandBufferSnapshot((v15 + 3), (v37 + 3));
-          v15[7] = 0;
-          v15[22] = v15[21];
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear(v15 + 16);
-          v15[14] = 0;
-          v15[15] = 0;
-          ++*(v15 + 26);
+          v42 = *(v17 + 26);
+          v53 = &v42;
+          v39 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v17 + 25, &v42, &std::piecewise_construct, &v53);
+          _HUDGPUTimeTrackerCommandBufferSnapshot((v17 + 3), (v39 + 3));
+          v17[7] = 0;
+          v17[22] = v17[21];
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear(v17 + 16);
+          v17[14] = 0;
+          v17[15] = 0;
+          ++*(v17 + 26);
         }
       }
 
       ++a3;
     }
 
-    if (v43[6] != v43[7])
+    if (v45[6] != v45[7])
     {
-      v39[0] = _NSConcreteStackBlock;
-      v39[1] = 3221225472;
-      v39[2] = __HUDGPUTimeTrackerMTL4CommandBufferCommit_block_invoke;
-      v39[3] = &unk_68C08;
-      v39[4] = &v42;
-      v39[5] = a1;
-      [v10 addFeedbackHandler:v39];
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = __HUDGPUTimeTrackerMTL4CommandBufferCommit_block_invoke;
+      v41[3] = &unk_68C08;
+      v41[4] = &v44;
+      v41[5] = a1;
+      [(os_unfair_lock_s *)v10 addFeedbackHandler:v41];
     }
 
     v10 = v10;
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v44, 8);
     if (__p)
     {
-      v49 = __p;
+      v51 = __p;
       operator delete(__p);
     }
 
-    os_unfair_lock_unlock((a1 + 67024));
+    os_unfair_lock_unlock(a1 + 16756);
     a1 = v10;
   }
 
   return a1;
 }
 
-void sub_8A68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26)
+void sub_8A68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26)
 {
   _Block_object_dispose(&a19, 8);
   if (__p)
@@ -4419,20 +4408,17 @@ void sub_8A68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-void *std::vector<MTL4CommandBufferCommit>::reserve(void *result, unint64_t a2)
+void std::vector<MTL4CommandBufferCommit>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<MTL4CommandBufferCommit>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<MTL4CommandBufferCommit>>(a1, a2);
     }
 
     std::vector<HUDGPUTimeTrackerEncoder>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void HUDGPUTimeTrackerMTL4CommandBufferBegin(uint64_t a1, void *a2, void *a3)
@@ -4504,7 +4490,7 @@ void HUDGPUTimeTrackerMTL4CommandBufferBegin(uint64_t a1, void *a2, void *a3)
     objc_storeWeak(v12 + 24, v15);
     v17 = v19;
     v22 = &v18;
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 68344), &v18)[3] = v17;
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 68344), &v18, &std::piecewise_construct, &v22)[3] = v17;
     os_unfair_lock_unlock((a1 + 67024));
   }
 
@@ -4513,7 +4499,6 @@ LABEL_17:
 
 uint64_t __HUDGPUTimeTrackerMTL4CommandBufferBegin_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
@@ -4567,7 +4552,7 @@ void sub_8F68(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void HUDGPUTimeTrackerMTL4CommandBufferEnd(uint64_t a1, void *a2)
+void HUDGPUTimeTrackerMTL4CommandBufferEnd(os_unfair_lock_s *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
@@ -4586,8 +4571,8 @@ void HUDGPUTimeTrackerMTL4CommandBufferEnd(uint64_t a1, void *a2)
     }
 
     v13 = v7;
-    os_unfair_lock_lock((a1 + 67024));
-    v8 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 56), &v13);
+    os_unfair_lock_lock(a1 + 16756);
+    v8 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[14]._os_unfair_lock_opaque, &v13);
     if (v8)
     {
       v9 = v8;
@@ -4600,14 +4585,14 @@ void HUDGPUTimeTrackerMTL4CommandBufferEnd(uint64_t a1, void *a2)
         v9[15] = [v11 allocatedSize];
       }
 
-      v12 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 68344), v9 + 14);
+      v12 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(&a1[17086]._os_unfair_lock_opaque, v9 + 14);
       if (v12)
       {
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::erase((a1 + 68344), v12);
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::erase(&a1[17086]._os_unfair_lock_opaque, v12);
       }
     }
 
-    os_unfair_lock_unlock((a1 + 67024));
+    os_unfair_lock_unlock(a1 + 16756);
   }
 }
 
@@ -4650,7 +4635,7 @@ void sub_91EC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void _HUDGPUTimeTrackerAddMTL4RenderEncoder(uint64_t a1, void *a2, void *a3, int a4, uint64_t a5, void *a6)
+void _HUDGPUTimeTrackerAddMTL4RenderEncoder(_BYTE *a1, void *a2, void *a3, int a4, uint64_t a5, void *a6)
 {
   v11 = a2;
   v12 = a3;
@@ -4667,7 +4652,7 @@ void _HUDGPUTimeTrackerAddMTL4RenderEncoder(uint64_t a1, void *a2, void *a3, int
     v16 = v14;
   }
 
-  v42[0] = v16;
+  v44 = v16;
   v17 = v11;
   v18 = v17;
   if (_mtl4HasGlobalTraceObjectId)
@@ -4680,8 +4665,8 @@ void _HUDGPUTimeTrackerAddMTL4RenderEncoder(uint64_t a1, void *a2, void *a3, int
     v19 = v17;
   }
 
-  v41 = v19;
-  v20 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 56), &v41);
+  v43 = v19;
+  v20 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>(a1 + 7, &v43);
   if (v20)
   {
     v21 = v20;
@@ -4804,36 +4789,37 @@ void _HUDGPUTimeTrackerAddMTL4RenderEncoder(uint64_t a1, void *a2, void *a3, int
     *(v24 - 304) = HUDCurrentTimeInNs();
     *(v24 - 296) = HUDCurrentTimeInNs();
     *v35 = a4;
-    *(v24 - 24) = v42[0];
+    *(v24 - 24) = v44;
     v36 = (v24 - 288);
     *(v24 - 288) = a5;
     v38 = v21[21];
     v37 = v21[22];
-    v42[2] = v42;
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v21 + 16, v42)[3] = 0x6F96F96F96F96F97 * ((v37 - v38) >> 3) - 1;
-    if (*(HUDGetGlobalConfig() + 3) == 1)
+    v45 = &v44;
+    v39 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v21 + 16, &v44, &std::piecewise_construct, &v45);
+    v39[3] = 0x6F96F96F96F96F97 * ((v37 - v38) >> 3) - 1;
+    if (*(HUDGetGlobalConfig(v39, v40) + 3) == 1)
     {
       HUDTargetRebindingInsightEncoderInitRender(v24 - 248, v13);
     }
 
     if (a1)
     {
-      if (*(a1 + 26) == 1 && *(a1 + 27) == 1 && *(a1 + 25) == 1)
+      if (a1[26] == 1 && a1[27] == 1 && a1[25] == 1)
       {
-        v39 = a1 + 0x10000;
-        if (*(v39 + 2848))
+        v41 = a1 + 0x10000;
+        if (*(v41 + 356))
         {
-          v40 = *(v39 + 2856);
-          if ((v40 - 4093) <= 0xFFFFFFFFFFFFEFFELL)
+          v42 = *(v41 + 357);
+          if ((v42 - 4093) <= 0xFFFFFFFFFFFFEFFELL)
           {
-            v40 = 0;
-            *(v39 + 2856) = 0;
+            v42 = 0;
+            *(v41 + 357) = 0;
           }
 
-          *v36 = v40;
+          *v36 = v42;
           [v15 writeTimestampWithGranularity:0 afterStage:1 intoHeap:? atIndex:?];
-          [v15 writeTimestampWithGranularity:0 afterStage:2 intoHeap:*(v39 + 2848) atIndex:*v36 + 2];
-          *(v39 + 2856) = (*(v39 + 2856) + 4) & 0xFFF;
+          [v15 writeTimestampWithGranularity:0 afterStage:2 intoHeap:*(v41 + 356) atIndex:*v36 + 2];
+          *(v41 + 357) = (*(v41 + 714) + 4) & 0xFFF;
         }
       }
     }
@@ -4886,7 +4872,7 @@ void _HUDGPUTimeTrackerAddMTL4ComputeEncoder(uint64_t a1, void *a2, void *a3, in
     v12 = v10;
   }
 
-  v36[0] = v12;
+  v36 = v12;
   v13 = v9;
   v14 = v13;
   if (_mtl4HasGlobalTraceObjectId)
@@ -5023,12 +5009,12 @@ void _HUDGPUTimeTrackerAddMTL4ComputeEncoder(uint64_t a1, void *a2, void *a3, in
     *(v20 - 304) = HUDCurrentTimeInNs();
     *(v20 - 296) = HUDCurrentTimeInNs();
     *v31 = a4;
-    *(v20 - 24) = v36[0];
+    *(v20 - 24) = v36;
     *(v20 - 288) = a5;
     v33 = v17[21];
     v32 = v17[22];
-    v36[2] = v36;
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v17 + 16, v36)[3] = 0x6F96F96F96F96F97 * ((v32 - v33) >> 3) - 1;
+    v37 = &v36;
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v17 + 16, &v36, &std::piecewise_construct, &v37)[3] = 0x6F96F96F96F96F97 * ((v32 - v33) >> 3) - 1;
     if (a1 && *(a1 + 26) == 1 && *(a1 + 27) == 1 && *(a1 + 25) == 1 && *(a1 + 68384))
     {
       if ((*(a1 + 68392) - 4095) >= 0xFFFFFFFFFFFFEFFFLL)
@@ -5095,7 +5081,7 @@ void _HUDGPUTimeTrackerAddMTL4MLEncoder(uint64_t a1, void *a2, void *a3, int a4,
     v12 = v10;
   }
 
-  v35[0] = v12;
+  v35 = v12;
   v13 = v9;
   v14 = v13;
   if (_mtl4HasGlobalTraceObjectId)
@@ -5232,12 +5218,12 @@ void _HUDGPUTimeTrackerAddMTL4MLEncoder(uint64_t a1, void *a2, void *a3, int a4,
     *(v20 - 304) = HUDCurrentTimeInNs();
     *(v20 - 296) = HUDCurrentTimeInNs();
     *v31 = a4;
-    *(v20 - 24) = v35[0];
+    *(v20 - 24) = v35;
     *(v20 - 288) = a5;
     v33 = v17[21];
     v32 = v17[22];
-    v35[2] = v35;
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v17 + 16, v35)[3] = 0x6F96F96F96F96F97 * ((v32 - v33) >> 3) - 1;
+    v36 = &v35;
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v17 + 16, &v35, &std::piecewise_construct, &v36)[3] = 0x6F96F96F96F96F97 * ((v32 - v33) >> 3) - 1;
   }
 }
 
@@ -5436,20 +5422,20 @@ uint64_t _HUDCompilerStatisticsParseDict(void *a1, void *a2, uint64_t a3, void *
   return v12;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,void *> *>>(void *a1, void *a2, void *a3)
+void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,void *> *>>(void *result, uint64_t *a2, uint64_t *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -5470,12 +5456,12 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrack
       do
       {
         v8[2] = v4[2];
-        HUDGPUTimeTrackerCommandBuffer::operator=(v8 + 3, v4 + 3);
+        HUDGPUTimeTrackerCommandBuffer::operator=((v8 + 3), (v4 + 3));
         v10 = *v8;
         v11 = v8[2];
         v8[1] = v11;
-        inserted = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__node_insert_multi_prepare(a1, v11, v8 + 2);
-        std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__node_insert_multi_perform(a1, v8, inserted);
+        inserted = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__node_insert_multi_prepare(result, v11, v8 + 2);
+        std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__node_insert_multi_perform(result, v8, inserted);
         v4 = *v4;
         if (!v10)
         {
@@ -5488,12 +5474,12 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrack
       while (v4 != a3);
     }
 
-    std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__deallocate_node(a1, v10);
+    std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__deallocate_node(result, v10);
   }
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_multi<std::pair<unsigned long long const,HUDGPUTimeTrackerCommandBuffer> const&>();
+    std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_multi<std::pair<unsigned long long const,HUDGPUTimeTrackerCommandBuffer> const&>(result);
   }
 }
 
@@ -5512,7 +5498,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrack
     do
     {
       v3 = *v2;
-      std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::~__hash_table(v2 + 25);
+      std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::~__hash_table((v2 + 25));
       objc_destroyWeak(v2 + 24);
       v4 = v2[21];
       if (v4)
@@ -5694,7 +5680,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5710,7 +5696,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrack
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5718,7 +5704,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrack
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5742,7 +5728,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrack
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -5811,7 +5797,7 @@ uint64_t std::pair<unsigned long long const,HUDGPUTimeTrackerCommandBuffer>::pai
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
-  std::vector<HUDGPUTimeTrackerEncoder>::__init_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>(a1 + 152, *(a2 + 152), *(a2 + 160), 0x6F96F96F96F96F97 * ((*(a2 + 160) - *(a2 + 152)) >> 3));
+  std::vector<HUDGPUTimeTrackerEncoder>::__init_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>((a1 + 152), *(a2 + 152), *(a2 + 160), 0x6F96F96F96F96F97 * ((*(a2 + 160) - *(a2 + 152)) >> 3));
   objc_copyWeak((a1 + 176), (a2 + 176));
   std::unordered_map<unsigned long long,HUDGPUTimeTrackerCommandBuffer>::unordered_map(a1 + 184, a2 + 184);
   return a1;
@@ -5839,13 +5825,13 @@ uint64_t std::unordered_map<unsigned long long,unsigned long>::unordered_map(uin
   std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,unsigned long> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,unsigned long> const&>(a1, i + 2, i + 1);
   }
 
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5861,7 +5847,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5869,7 +5855,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5893,7 +5879,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -5920,33 +5906,33 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
   *(a1 + 8) = 0;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,unsigned long> const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,unsigned long> const&>(void *a1, unint64_t *a2, _OWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -5954,44 +5940,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(uint64_t a1)
@@ -6019,7 +6005,7 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,unsigned lo
   return a1;
 }
 
-uint64_t std::vector<HUDGPUTimeTrackerEncoder>::__init_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<HUDGPUTimeTrackerEncoder>::__init_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6041,7 +6027,7 @@ void sub_B384(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<HUDGPUTimeTrackerEncoder>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<HUDGPUTimeTrackerEncoder>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xD20D20D20D20D3)
   {
@@ -6133,7 +6119,6 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrac
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__construct_node_hash<std::pair<unsigned long long const,HUDGPUTimeTrackerCommandBuffer> const&>();
   }
 
@@ -6330,33 +6315,33 @@ void HUDGPUTimeTrackerFrameTimingDataStore::~HUDGPUTimeTrackerFrameTimingDataSto
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6364,47 +6349,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::vector<HUDGPUTimeTrackerEncoder>::__assign_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<HUDGPUTimeTrackerEncoder>::__assign_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6525,7 +6510,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_multi<std::pair<unsigned long long const,unsigned long> const&>();
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_multi<std::pair<unsigned long long const,unsigned long> const&>(a1, a2 + 1);
   }
 }
 
@@ -6608,77 +6593,69 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrac
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6686,49 +6663,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_C2DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_C2DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6795,33 +6772,33 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(HUDGPUTimeT
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerCommonObjectRecord>>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -6829,54 +6806,54 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,false>(uint64_t a1, unint64_t a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,false>(unint64_t *result, unint64_t a2, uint64_t a3, char a4)
 {
 LABEL_1:
   v8 = (a2 - 40);
-  i = a1;
+  i = result;
   while (1)
   {
-    a1 = i;
+    result = i;
     v10 = a2 - i;
     v11 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - i) >> 3);
     if (v11 > 2)
@@ -7278,26 +7255,26 @@ LABEL_190:
     v13 = i + 40 * (v11 >> 1);
     if (v10 < 0x1401)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(v13, a1, (a2 - 40));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(v13, result, (a2 - 40));
     }
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, v13, (a2 - 40));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(result, v13, (a2 - 40));
       v14 = 5 * v12;
-      v15 = (a1 + 40 * v12 - 40);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>((a1 + 40), v15, (a2 - 80));
-      v16 = (a1 + 40 + 8 * v14);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>((a1 + 80), v16, (a2 - 120));
+      v15 = &result[5 * v12 - 5];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(result + 5, v15, (a2 - 80));
+      v16 = &result[v14 + 5];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(result + 10, v16, (a2 - 120));
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(v15, v13, v16);
-      v172 = *(a1 + 32);
-      v153 = *a1;
-      v162 = *(a1 + 16);
+      v172 = result[4];
+      v153 = *result;
+      v162 = *(result + 1);
       v17 = *v13;
       v18 = *(v13 + 16);
-      *(a1 + 32) = *(v13 + 32);
-      *a1 = v17;
-      *(a1 + 16) = v18;
+      result[4] = *(v13 + 32);
+      *result = v17;
+      *(result + 1) = v18;
       *(v13 + 32) = v172;
       *v13 = v153;
       *(v13 + 16) = v162;
@@ -7306,27 +7283,27 @@ LABEL_190:
     --a3;
     if (a4)
     {
-      v20 = *a1;
-      v19 = *(a1 + 8);
+      v20 = *result;
+      v19 = result[1];
 LABEL_20:
       v22 = 0;
-      v147 = *(a1 + 16);
-      v150 = *(a1 + 32);
+      v147 = *(result + 1);
+      v150 = result[4];
       while (1)
       {
-        v23 = *(a1 + v22 + 48);
+        v23 = result[v22 + 6];
         if (v23 | v19)
         {
           break;
         }
 
-        if (*(a1 + v22 + 40) <= v20)
+        if (result[v22 + 5] <= v20)
         {
           goto LABEL_26;
         }
 
 LABEL_25:
-        v22 += 40;
+        v22 += 5;
       }
 
       if (v23 > v19)
@@ -7335,9 +7312,9 @@ LABEL_25:
       }
 
 LABEL_26:
-      v24 = a1 + v22 + 40;
+      v24 = &result[v22 + 5];
       v25 = (a2 - 40);
-      if (v22)
+      if (v22 * 8)
       {
         do
         {
@@ -7455,13 +7432,13 @@ LABEL_54:
         while (i < v32);
       }
 
-      if (i - 40 != a1)
+      if ((i - 40) != result)
       {
         v39 = *(i - 40);
         v40 = *(i - 24);
-        *(a1 + 32) = *(i - 8);
-        *a1 = v39;
-        *(a1 + 16) = v40;
+        result[4] = *(i - 8);
+        *result = v39;
+        *(result + 1) = v40;
       }
 
       *(i - 40) = v20;
@@ -7471,13 +7448,13 @@ LABEL_54:
       if (v24 < v26)
       {
 LABEL_60:
-        std::__introsort<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,false>(a1, i - 40, a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,false>(result, i - 40, a3, a4 & 1);
         a4 = 0;
       }
 
       else
       {
-        v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *>(a1, i - 40);
+        v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *>(result, (i - 40));
         if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *>(i, a2))
         {
           a2 = i - 40;
@@ -7498,11 +7475,11 @@ LABEL_60:
 
     else
     {
-      v21 = *(a1 - 32);
-      v19 = *(a1 + 8);
+      v21 = *(result - 4);
+      v19 = result[1];
       if (v21 | v19)
       {
-        v20 = *a1;
+        v20 = *result;
         if (v21 > v19)
         {
           goto LABEL_20;
@@ -7511,23 +7488,23 @@ LABEL_60:
 
       else
       {
-        v20 = *a1;
-        if (*(a1 - 40) > *a1)
+        v20 = *result;
+        if (*(result - 5) > *result)
         {
           v19 = 0;
           goto LABEL_20;
         }
       }
 
-      v148 = *(a1 + 16);
-      v151 = *(a1 + 32);
+      v148 = *(result + 1);
+      v151 = result[4];
       v42 = *(a2 - 32);
       if (v19 | v42)
       {
         if (v19 > v42)
         {
 LABEL_71:
-          v44 = a1 + 40;
+          v44 = (result + 5);
           do
           {
             while (1)
@@ -7557,7 +7534,7 @@ LABEL_71:
         goto LABEL_71;
       }
 
-      for (i = a1 + 40; i < a2; i += 40)
+      for (i = (result + 5); i < a2; i += 40)
       {
         v43 = *(i + 8);
         if (v19 | v43)
@@ -7601,7 +7578,7 @@ LABEL_82:
       }
 
 LABEL_83:
-      v46 = v47 + 4;
+      v46 = (v47 + 4);
 LABEL_94:
       while (i < v46)
       {
@@ -7609,13 +7586,13 @@ LABEL_94:
         v155 = *i;
         v164 = *(i + 16);
         v49 = *v46;
-        v50 = *(v46 + 1);
-        *(i + 32) = v46[4];
+        v50 = *(v46 + 16);
+        *(i + 32) = *(v46 + 32);
         *i = v49;
         *(i + 16) = v50;
-        v46[4] = v174;
+        *(v46 + 32) = v174;
         *v46 = v155;
-        *(v46 + 1) = v164;
+        *(v46 + 16) = v164;
         v51 = i + 40;
         do
         {
@@ -7638,14 +7615,14 @@ LABEL_94:
 
         while (v19 <= v52);
 LABEL_89:
-        v53 = v46 - 5;
+        v53 = v46 - 40;
         do
         {
           while (1)
           {
             v46 = v53;
-            v54 = v53[1];
-            v53 -= 5;
+            v54 = *(v53 + 8);
+            v53 -= 40;
             if (v19 | v54)
             {
               break;
@@ -7661,13 +7638,13 @@ LABEL_89:
         while (v19 > v54);
       }
 
-      if (i - 40 != a1)
+      if ((i - 40) != result)
       {
         v55 = *(i - 40);
         v56 = *(i - 24);
-        *(a1 + 32) = *(i - 8);
-        *a1 = v55;
-        *(a1 + 16) = v56;
+        result[4] = *(i - 8);
+        *result = v55;
+        *(result + 1) = v56;
       }
 
       a4 = 0;
@@ -7689,8 +7666,8 @@ LABEL_89:
 
     while (1)
     {
-      v140 = a1;
-      a1 = v76;
+      v140 = result;
+      result = v76;
       v141 = *(v140 + 48);
       v142 = *(v140 + 8);
       if (v141 | v142)
@@ -7700,13 +7677,13 @@ LABEL_89:
           goto LABEL_212;
         }
 
-        v143 = *a1;
+        v143 = *result;
       }
 
       else
       {
-        v143 = *a1;
-        if (*a1 <= *v140)
+        v143 = *result;
+        if (*result <= *v140)
         {
           goto LABEL_212;
         }
@@ -7744,8 +7721,8 @@ LABEL_211:
       *(v144 + 16) = v161;
       *(v144 + 32) = v171;
 LABEL_212:
-      v76 = a1 + 40;
-      if (a1 + 40 == a2)
+      v76 = (result + 5);
+      if (result + 5 == a2)
       {
         return;
       }
@@ -8145,7 +8122,7 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopOb
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *>(__int128 *a1, __int128 *a2)
 {
   v4 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - a1) >> 3);
   if (v4 > 2)
@@ -8153,73 +8130,73 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDG
     switch(v4)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, (a1 + 40), (a2 - 40));
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, a1 + 5, a2 - 5);
         return 1;
       case 4:
-        v26 = (a2 - 40);
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, (a1 + 40), (a1 + 80));
-        v27 = *(a2 - 32);
-        v28 = *(a1 + 88);
+        v26 = a2 - 5;
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, a1 + 5, a1 + 10);
+        v27 = *(a2 - 4);
+        v28 = *(a1 + 11);
         if (!(v27 | v28))
         {
           v27 = *v26;
-          v28 = *(a1 + 80);
+          v28 = *(a1 + 10);
         }
 
         if (v27 > v28)
         {
-          v29 = *(a1 + 80);
-          v30 = *(a1 + 96);
-          v31 = *(a1 + 112);
-          v32 = *(a2 - 8);
+          v29 = a1[5];
+          v30 = a1[6];
+          v31 = *(a1 + 14);
+          v32 = *(a2 - 1);
           v33 = *(a2 - 24);
-          *(a1 + 80) = *v26;
-          *(a1 + 96) = v33;
-          *(a1 + 112) = v32;
-          *(a2 - 8) = v31;
+          a1[5] = *v26;
+          a1[6] = v33;
+          *(a1 + 14) = v32;
+          *(a2 - 1) = v31;
           *v26 = v29;
           *(a2 - 24) = v30;
-          v34 = *(a1 + 88);
-          v35 = *(a1 + 48);
+          v34 = *(a1 + 11);
+          v35 = *(a1 + 6);
           if (!(v34 | v35))
           {
-            v34 = *(a1 + 80);
-            v35 = *(a1 + 40);
+            v34 = *(a1 + 10);
+            v35 = *(a1 + 5);
           }
 
           if (v34 > v35)
           {
-            v36 = *(a1 + 72);
+            v36 = *(a1 + 9);
             v37 = *(a1 + 40);
-            v38 = *(a1 + 96);
-            *(a1 + 40) = *(a1 + 80);
+            v38 = a1[6];
+            *(a1 + 40) = a1[5];
             v39 = *(a1 + 56);
             *(a1 + 56) = v38;
-            *(a1 + 72) = *(a1 + 112);
-            *(a1 + 80) = v37;
-            *(a1 + 96) = v39;
-            *(a1 + 112) = v36;
-            v40 = *(a1 + 48);
-            v41 = *(a1 + 8);
+            *(a1 + 9) = *(a1 + 14);
+            a1[5] = v37;
+            a1[6] = v39;
+            *(a1 + 14) = v36;
+            v40 = *(a1 + 6);
+            v41 = *(a1 + 1);
             if (!(v40 | v41))
             {
-              v40 = *(a1 + 40);
+              v40 = *(a1 + 5);
               v41 = *a1;
             }
 
             if (v40 > v41)
             {
-              v42 = *(a1 + 32);
+              v42 = *(a1 + 4);
               v44 = *a1;
-              v43 = *(a1 + 16);
+              v43 = a1[1];
               v45 = *(a1 + 56);
               *a1 = *(a1 + 40);
-              *(a1 + 16) = v45;
-              *(a1 + 32) = *(a1 + 72);
+              a1[1] = v45;
+              *(a1 + 4) = *(a1 + 9);
               *(a1 + 40) = v44;
               *(a1 + 56) = v43;
               result = 1;
-              *(a1 + 72) = v42;
+              *(a1 + 9) = v42;
               return result;
             }
           }
@@ -8227,7 +8204,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDG
 
         return 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, a1 + 40, a1 + 80, a1 + 120, (a2 - 40));
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, a1 + 40, (a1 + 5), a1 + 120, a2 - 5);
         return 1;
     }
   }
@@ -8241,9 +8218,9 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDG
 
     if (v4 == 2)
     {
-      v5 = (a2 - 40);
-      v6 = *(a2 - 32);
-      v7 = *(a1 + 8);
+      v5 = a2 - 5;
+      v6 = *(a2 - 4);
+      v7 = *(a1 + 1);
       if (!(v6 | v7))
       {
         v6 = *v5;
@@ -8253,14 +8230,14 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDG
       if (v6 > v7)
       {
         v8 = *a1;
-        v9 = *(a1 + 16);
-        v10 = *(a1 + 32);
-        v11 = *(a2 - 8);
+        v9 = a1[1];
+        v10 = *(a1 + 4);
+        v11 = *(a2 - 1);
         v12 = *(a2 - 24);
         *a1 = *v5;
-        *(a1 + 16) = v12;
-        *(a1 + 32) = v11;
-        *(a2 - 8) = v10;
+        a1[1] = v12;
+        *(a1 + 4) = v11;
+        *(a2 - 1) = v10;
         result = 1;
         *v5 = v8;
         *(a2 - 24) = v9;
@@ -8271,10 +8248,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,_HUDG
     }
   }
 
-  v14 = a1 + 80;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, (a1 + 40), (a1 + 80));
+  v14 = (a1 + 5);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,_HUDGPUTimeTrackerTopObjectHeapAssign(HUDGPUTimeTracker *,HUDGPUTimeTrackerTopObjectHeap *,unsigned long long *,unsigned long)::$_0 &,HUDGPUTimeTrackerTopObjectHeapValue *,0>(a1, a1 + 5, a1 + 10);
   v15 = a1 + 120;
-  if (a1 + 120 == a2)
+  if ((a1 + 120) == a2)
   {
     return 1;
   }
@@ -8492,33 +8469,33 @@ LABEL_19:
   return result;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -8526,73 +8503,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8600,44 +8577,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::erase(void *a1, uint64_t *a2)
@@ -8883,7 +8860,7 @@ uint64_t std::vector<HUDGPUTimeTrackerCommandBuffer>::__construct_one_at_end[abi
   *(v4 + 144) = 0;
   *(v4 + 152) = 0;
   *(v4 + 160) = 0;
-  std::vector<HUDGPUTimeTrackerEncoder>::__init_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>(v4 + 144, *(a2 + 18), *(a2 + 19), 0x6F96F96F96F96F97 * ((*(a2 + 19) - *(a2 + 18)) >> 3));
+  std::vector<HUDGPUTimeTrackerEncoder>::__init_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>((v4 + 144), *(a2 + 18), *(a2 + 19), 0x6F96F96F96F96F97 * ((*(a2 + 19) - *(a2 + 18)) >> 3));
   objc_copyWeak((v4 + 168), a2 + 21);
   result = std::unordered_map<unsigned long long,HUDGPUTimeTrackerCommandBuffer>::unordered_map(v4 + 176, (a2 + 11));
   *(a1 + 8) = v4 + 216;
@@ -8955,7 +8932,7 @@ uint64_t std::vector<HUDGPUTimeTrackerCommandBuffer>::__emplace_back_slow_path<H
   *(v7 + 144) = 0;
   *(v7 + 152) = 0;
   *(v7 + 160) = 0;
-  std::vector<HUDGPUTimeTrackerEncoder>::__init_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>(216 * v2 + 144, *(a2 + 18), *(a2 + 19), 0x6F96F96F96F96F97 * ((*(a2 + 19) - *(a2 + 18)) >> 3));
+  std::vector<HUDGPUTimeTrackerEncoder>::__init_with_size[abi:ne200100]<HUDGPUTimeTrackerEncoder*,HUDGPUTimeTrackerEncoder*>((216 * v2 + 144), *(a2 + 18), *(a2 + 19), 0x6F96F96F96F96F97 * ((*(a2 + 19) - *(a2 + 18)) >> 3));
   objc_copyWeak((216 * v2 + 168), a2 + 21);
   std::unordered_map<unsigned long long,HUDGPUTimeTrackerCommandBuffer>::unordered_map(216 * v2 + 176, (a2 + 11));
   *&v21 = v21 + 216;
@@ -8975,18 +8952,18 @@ uint64_t std::vector<HUDGPUTimeTrackerCommandBuffer>::__emplace_back_slow_path<H
   return v18;
 }
 
-void sub_E624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_E624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  objc_destroyWeak((v5 + 168));
-  v7 = *v4;
-  if (*v4)
+  va_start(va, a7);
+  objc_destroyWeak((v8 + 168));
+  v10 = *v7;
+  if (*v7)
   {
-    *(v5 + 152) = v7;
-    operator delete(v7);
+    *(v8 + 152) = v10;
+    operator delete(v10);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(v5 + 104);
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::~__hash_table(v8 + 104);
   std::__split_buffer<HUDGPUTimeTrackerCommandBuffer>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9036,7 +9013,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_multi<unsigned long long const&>();
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_multi<unsigned long long const&>(a1, a2 + 2);
   }
 }
 
@@ -9054,20 +9031,20 @@ void sub_E740(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferLb0EEEvT1_S8_T0_NS_15iterator_traitsIS8_E15difference_typeEb(uint64_t result, uint64_t a2, uint64_t a3, char a4)
+uint64_t _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferLb0EEEvT1_S8_T0_NS_15iterator_traitsIS8_E15difference_typeEb(uint64_t result, char *a2, uint64_t a3, char a4)
 {
   v5 = result;
 LABEL_2:
   v6 = a2;
-  v232 = (a2 - 384);
+  v232 = a2 - 384;
   v233 = (a2 - 216);
-  v231 = (a2 - 600);
+  v231 = a2 - 600;
   v7 = v5;
   while (1)
   {
     v5 = v7;
-    v8 = v6 - v7;
-    v9 = 0x84BDA12F684BDA13 * ((v6 - v7) >> 3);
+    v8 = &v6[-v7];
+    v9 = 0x84BDA12F684BDA13 * (&v6[-v7] >> 3);
     v10 = v9 - 2;
     if (v9 <= 2)
     {
@@ -9079,7 +9056,7 @@ LABEL_2:
       v6 = a2;
       if (v9 == 2)
       {
-        if (*(a2 - 168) >= *(v5 + 48))
+        if (*(a2 - 21) >= *(v5 + 48))
         {
           return result;
         }
@@ -9137,7 +9114,7 @@ LABEL_10:
         if (v5 != v6)
         {
           v99 = v5 + 216;
-          if (v5 + 216 != a2)
+          if ((v5 + 216) != a2)
           {
             v100 = 0;
             v101 = v5;
@@ -9251,7 +9228,7 @@ LABEL_131:
               v101 = v102;
             }
 
-            while (v102 + 216 != a2);
+            while ((v102 + 216) != a2);
           }
         }
       }
@@ -9259,7 +9236,7 @@ LABEL_131:
       else if (v5 != v6)
       {
         v209 = v5 + 216;
-        if (v5 + 216 != a2)
+        if ((v5 + 216) != a2)
         {
           v210 = v5 - 168;
           do
@@ -9359,7 +9336,7 @@ LABEL_131:
             v5 = v211;
           }
 
-          while (v211 + 216 != v212);
+          while ((v211 + 216) != v212);
         }
       }
 
@@ -9619,40 +9596,40 @@ LABEL_131:
             v178 = *(v161 - 168);
             v179 = *(v161 - 152);
             v180 = *(v161 - 136);
-            *(v165 + 96) = *(v161 - 120);
+            *(v165 + 96) = *(v161 - 15);
             *(v165 + 64) = v179;
             *(v165 + 80) = v180;
             *(v165 + 48) = v178;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__move_assign(v165 + 104, (v161 - 112));
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__move_assign(v165 + 104, v161 - 14);
             std::vector<HUDGPUTimeTrackerEncoder>::__move_assign(v165 + 144, (v161 - 72));
-            v181 = objc_loadWeakRetained((v161 - 48));
+            v181 = objc_loadWeakRetained(v161 - 6);
             objc_storeWeak((v165 + 168), v181);
 
-            std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__move_assign(v165 + 176, (v161 - 40));
+            std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__move_assign(v165 + 176, v161 - 5);
             *(v161 - 200) = v237;
             *(v161 - 184) = v238;
             *v175 = v236;
-            *(v161 - 120) = v242;
+            *(v161 - 15) = v242;
             *(v161 - 152) = v240;
             *(v161 - 136) = v241;
             *(v161 - 168) = v239;
-            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__move_assign(v161 - 112, v243);
-            v182 = *(v161 - 72);
+            std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__move_assign((v161 - 112), v243);
+            v182 = *(v161 - 9);
             if (v182)
             {
-              *(v161 - 64) = v182;
+              *(v161 - 8) = v182;
               operator delete(v182);
             }
 
             *(v161 - 72) = *v244;
-            *(v161 - 56) = v245;
+            *(v161 - 7) = v245;
             v244[0] = 0;
             v244[1] = 0;
             v245 = 0;
             v183 = objc_loadWeakRetained(&v246);
-            objc_storeWeak((v161 - 48), v183);
+            objc_storeWeak(v161 - 6, v183);
 
-            std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__move_assign(v161 - 40, v247);
+            std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__move_assign((v161 - 40), v247);
             v184 = v165 + 216 - v5;
             if (v184 >= 217)
             {
@@ -9816,7 +9793,7 @@ LABEL_26:
       {
         if (v23 < v22)
         {
-          std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>(v21, (a2 - 432));
+          std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>(v21, a2 - 27);
           if (*(v21 + 48) < *(v5 + 264))
           {
             v24 = (v5 + 216);
@@ -9995,9 +9972,9 @@ LABEL_59:
       {
         while (v42 < v6)
         {
-          v44 = (v6 - 216);
+          v44 = v6 - 216;
           v46 = *(v6 - 21);
-          v6 = (v6 - 216);
+          v6 -= 216;
           if (v46 < v251)
           {
             goto LABEL_70;
@@ -10011,9 +9988,9 @@ LABEL_59:
       {
         do
         {
-          v44 = (v43 - 216);
+          v44 = v43 - 216;
           v45 = *(v43 - 21);
-          v43 = (v43 - 216);
+          v43 -= 216;
         }
 
         while (v45 >= v251);
@@ -10114,11 +10091,11 @@ LABEL_70:
         goto LABEL_85;
       }
 
-      v64 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferEEbT1_S8_T0_(v5, v7 - 216);
+      v64 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferEEbT1_S8_T0_(v5, (v7 - 216));
       result = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferEEbT1_S8_T0_(v7, a2);
       if (result)
       {
-        a2 = v7 - 216;
+        a2 = (v7 - 216);
         if (!v64)
         {
           goto LABEL_2;
@@ -10196,7 +10173,7 @@ LABEL_85:
         {
           v75 = (v6 - 216);
           v76 = *(v6 - 21);
-          v6 = (v6 - 216);
+          v6 -= 216;
         }
 
         while (v251 < v76);

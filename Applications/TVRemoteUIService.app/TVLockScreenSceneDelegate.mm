@@ -15,7 +15,7 @@
   sceneCopy = scene;
   sessionCopy = session;
   optionsCopy = options;
-  v11 = _TVRUIServiceAppLog();
+  v11 = _TVRUIServiceAppLog(optionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [sceneCopy description];
@@ -62,7 +62,7 @@
 
 - (void)sceneDidBecomeActive:(id)active
 {
-  v4 = _TVRUIServiceAppLog();
+  v4 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315138;
@@ -83,7 +83,7 @@
 
 - (void)sceneWillEnterForeground:(id)foreground
 {
-  v4 = _TVRUIServiceAppLog();
+  v4 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -97,7 +97,7 @@
 
 - (void)sceneWillResignActive:(id)active
 {
-  v4 = _TVRUIServiceAppLog();
+  v4 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -111,7 +111,7 @@
 
 - (void)sceneDidDisconnect:(id)disconnect
 {
-  v4 = _TVRUIServiceAppLog();
+  v4 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136315138;

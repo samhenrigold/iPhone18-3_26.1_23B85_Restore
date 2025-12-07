@@ -23,7 +23,7 @@
 
 - (void)scheduledBedTimeWithCallback:(id)callback
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v4 = +[ATXHeuristicDevice sharedAlarmManager];
   sleepAlarmSync = [v4 sleepAlarmSync];
@@ -34,11 +34,11 @@
   {
     if (v8)
     {
-      v11 = 134218240;
+      v10 = 134218240;
       bedtimeHour = [sleepAlarmSync bedtimeHour];
-      v13 = 2048;
+      v12 = 2048;
       bedtimeMinute = [sleepAlarmSync bedtimeMinute];
-      _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "changeAlarmBeforeHoliday: Found scheduled bed time: %ld:%ld", &v11, 0x16u);
+      _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "changeAlarmBeforeHoliday: Found scheduled bed time: %ld:%ld", &v10, 0x16u);
     }
 
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{3600 * objc_msgSend(sleepAlarmSync, "bedtimeHour") + 60 * objc_msgSend(sleepAlarmSync, "bedtimeMinute")}];
@@ -51,14 +51,12 @@
   {
     if (v8)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "changeAlarmBeforeHoliday: No scheduled bed time", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "changeAlarmBeforeHoliday: No scheduled bed time", &v10, 2u);
     }
 
     callbackCopy[2](callbackCopy, &unk_2850BA470, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)predictedBedTimeWithCallback:(id)callback
@@ -154,11 +152,10 @@ void __70__ATXChangeAlarmBeforeHolidayDataSource_predictedBedTimeWithCallback___
 
 void __70__ATXChangeAlarmBeforeHolidayDataSource_predictedBedTimeWithCallback___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "changeAlarmBeforeHoliday: Failed to get suggested sleep schedule with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "changeAlarmBeforeHoliday: Failed to get suggested sleep schedule with error: %@", &v2, 0xCu);
 }
 
 @end

@@ -89,10 +89,9 @@ LABEL_22:
   assetType = self->_assetType;
   v5 = [objc_opt_class() _stringFromSyncState:self->_syncState];
   v6 = [objc_opt_class() _stringFromWaitingSubstate:self->_syncWaitingSubstate];
-  numberOfAssetItems = self->_numberOfAssetItems;
-  v8 = [v3 stringWithFormat:@"NMSSyncProgressInfo [%@]: state %@, waitingSubstate:%@, progress %0.4f, assets %ld/%ld (need %ld)", assetType, v5, v6, self->_estimatedSyncProgress, self->_numberOfAssetItemsSynced, numberOfAssetItems, self->_numberOfAssetItemsNeedingDownload];
+  v7 = [v3 stringWithFormat:@"NMSSyncProgressInfo [%@]: state %@, waitingSubstate:%@, progress %0.4f, assets %ld/%ld (need %ld)", assetType, v5, v6, self->_estimatedSyncProgress, self->_numberOfAssetItemsSynced, self->_numberOfAssetItems, self->_numberOfAssetItemsNeedingDownload];
 
-  return v8;
+  return v7;
 }
 
 @end

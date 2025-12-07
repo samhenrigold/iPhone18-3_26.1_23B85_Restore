@@ -662,7 +662,7 @@ LABEL_8:
   modeCopy = mode;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v5 = &unk_101A34FE8;
+  v5 = &qword_101A34FE8;
   if (!modeCopy)
   {
     v5 = &qword_101A34FE0;
@@ -682,7 +682,7 @@ LABEL_8:
   v5 = &qword_101A34FF8;
   if (!modeCopy)
   {
-    v5 = &unk_101A34FF0;
+    v5 = &qword_101A34FF0;
   }
 
   v6 = *v5;
@@ -1003,7 +1003,7 @@ LABEL_8:
               v27 = v26;
               if (v18)
               {
-                [v18 transformToWP];
+                objc_msgSend_transformToWP(v18);
                 v28 = v43.f64[1];
                 v29 = v44.f64[1];
                 v30 = v44.f64[0];
@@ -1031,7 +1031,7 @@ LABEL_8:
               {
                 if (v18)
                 {
-                  [v18 transformFromWP];
+                  objc_msgSend_transformFromWP(v18);
                   v32 = v43;
                   v33 = v44;
                   v34 = v45;
@@ -1612,21 +1612,20 @@ LABEL_21:
   x = found.x;
   memcpy(retstr, &unk_101465F68, sizeof($D12B6492C59FD4124ECBBA05678185BF));
   v10 = [(CRLWPRep *)self closestColumnForPoint:x, y];
-  v14 = 0;
-  v11 = [v10 charIndexFromPoint:0 allowPastBreak:1 pastCenterGoesToNextChar:v5 allowNotFound:&v14 + 1 isAtEndOfLine:&v14 leadingEdge:{x, y}];
-  if (v11 != 0x7FFFFFFFFFFFFFFFLL)
+  v13 = 0;
+  if ([v10 charIndexFromPoint:0 allowPastBreak:1 pastCenterGoesToNextChar:v5 allowNotFound:&v13 + 1 isAtEndOfLine:&v13 leadingEdge:{x, y}] != 0x7FFFFFFFFFFFFFFFLL)
   {
     if (v10)
     {
-      [v10 lineMetricsAtCharIndex:v11 allowEndOfLine:HIBYTE(v14)];
+      objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(v10);
     }
 
     else
     {
-      memset(v13, 0, sizeof(v13));
+      memset(v12, 0, sizeof(v12));
     }
 
-    memcpy(retstr, v13, sizeof($D12B6492C59FD4124ECBBA05678185BF));
+    memcpy(retstr, v12, sizeof($D12B6492C59FD4124ECBBA05678185BF));
   }
 
   return result;
@@ -1634,11 +1633,11 @@ LABEL_21:
 
 - ($D12B6492C59FD4124ECBBA05678185BF)lineMetricsAtCharIndex:(SEL)index
 {
-  v6 = [(CRLWPRep *)self columnForCharIndex:?];
-  v8 = v6;
-  if (v6)
+  v5 = [(CRLWPRep *)self columnForCharIndex:?];
+  v7 = v5;
+  if (v5)
   {
-    [v6 lineMetricsAtCharIndex:a4 allowEndOfLine:0];
+    objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(v5);
   }
 
   else
@@ -1695,7 +1694,7 @@ LABEL_21:
   retstr->var0.size.width = v17;
   retstr->var0.size.height = v19;
   memset(v21, 0, sizeof(v21));
-  result = [(CRLWPRep *)self lineMetricsAtCharIndex:a4, 0, 0, 0, 0];
+  result = objc_msgSend_lineMetricsAtCharIndex_(self, 0, 0, 0, 0);
   retstr->var1 = 0.0;
   retstr->var2 = 0.0;
   retstr->var3 = 0.0;
@@ -1925,7 +1924,7 @@ LABEL_15:
           {
           }
 
-          [(CRLWPRep *)self transformToConvertNaturalToScaledRoot];
+          objc_msgSend_transformToConvertNaturalToScaledRoot(self);
           v55.origin.x = MaxX;
           v55.origin.y = MaxY;
           v55.size.width = v31;
@@ -2228,7 +2227,7 @@ LABEL_17:
     v29 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -2308,12 +2307,12 @@ LABEL_17:
     v71 = 0u;
     v72 = 0u;
     memset(&v70, 0, sizeof(v70));
-    [(CRLWPRep *)self p_lineMetricsAtPoint:1 allowNotFound:x, y];
+    objc_msgSend_p_lineMetricsAtPoint_allowNotFound_(self, x, y);
     layout2 = [(CRLWPRep *)self layout];
     v34 = layout2;
     if (layout2)
     {
-      [layout2 transformInRoot];
+      objc_msgSend_transformInRoot(layout2);
     }
 
     else
@@ -2919,7 +2918,7 @@ LABEL_16:
 
       pathByNormalizingClosedPathToRemoveSelfIntersections = [v33 pathByNormalizingClosedPathToRemoveSelfIntersections];
 
-      [(CRLWPRep *)self transformToConvertNaturalToScaledRoot];
+      objc_msgSend_transformToConvertNaturalToScaledRoot(self);
       [pathByNormalizingClosedPathToRemoveSelfIntersections transformUsingAffineTransform:&v52];
       -[CAShapeLayer setPath:](self->_dragAndDropCaretLayer, "setPath:", [pathByNormalizingClosedPathToRemoveSelfIntersections CGPath]);
       v35 = [CRLCanvasRenderable renderableFromLayer:self->_dragAndDropCaretLayer];
@@ -3464,7 +3463,7 @@ LABEL_23:
     v17 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -3737,7 +3736,7 @@ LABEL_7:
     columns = [(CRLWPRep *)self columns];
     v6 = [CRLWPColumn pathForHighlightWithRange:location columnArray:length pathStyle:columns, self->_secondaryHighlightPathStyle];
 
-    [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(self);
     [v6 transformUsingAffineTransform:&v7];
     -[CAShapeLayer setPath:](self->_secondaryHighlightLayer, "setPath:", [v6 CGPath]);
   }
@@ -4018,7 +4017,7 @@ LABEL_20:
     v24 = v23;
     v26 = v25;
     v28 = v27;
-    [(CRLWPRep *)self transformToConvertNaturalToScaledRoot];
+    objc_msgSend_transformToConvertNaturalToScaledRoot(self);
     v44.origin.x = v22;
     v44.origin.y = v24;
     v44.size.width = v26;
@@ -4201,7 +4200,7 @@ LABEL_20:
   v13 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -5165,7 +5164,7 @@ LABEL_10:
   y = rect.origin.y;
   x = rect.origin.x;
   selectionCopy = selection;
-  [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+  objc_msgSend_transformToConvertNaturalToLayerRelative(self);
   memset(&v40, 0, sizeof(v40));
   v42.origin.x = x;
   v42.origin.y = y;
@@ -5325,7 +5324,7 @@ LABEL_10:
   y = PathBoundingBox.origin.y;
   width = PathBoundingBox.size.width;
   height = PathBoundingBox.size.height;
-  [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+  objc_msgSend_transformToConvertNaturalToLayerRelative(self);
   memset(&v31, 0, sizeof(v31));
   v34.origin.x = x;
   v34.origin.y = y;
@@ -5527,16 +5526,16 @@ LABEL_10:
         [canvas viewScale];
         [(CRLWPHighlightArrayController *)self->_pulseArrayController setViewScale:?];
 
-        [(CRLWPHighlightArrayController *)self->_pulseArrayController reset];
-        v7 = sub_1002843F0();
-        v8[0] = _NSConcreteStackBlock;
-        v8[1] = 3221225472;
-        v8[2] = sub_1004715A8;
-        v8[3] = &unk_101865200;
-        v8[4] = self;
-        v8[5] = v7;
-        [(CRLWPRep *)self prepareLayoutForImagingSearchReferencesAsActive:1 usingBlock:v8];
-        CGColorRelease(v7);
+        reset = [(CRLWPHighlightArrayController *)self->_pulseArrayController reset];
+        v9 = sub_1002843F0(reset, v8);
+        v10[0] = _NSConcreteStackBlock;
+        v10[1] = 3221225472;
+        v10[2] = sub_1004715A8;
+        v10[3] = &unk_101865200;
+        v10[4] = self;
+        v10[5] = v9;
+        [(CRLWPRep *)self prepareLayoutForImagingSearchReferencesAsActive:1 usingBlock:v10];
+        CGColorRelease(v9);
         if (pulseCopy)
         {
           [(CRLWPHighlightArrayController *)self->_pulseArrayController startAnimating];
@@ -5646,7 +5645,7 @@ LABEL_10:
 
     else
     {
-      [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+      objc_msgSend_transformToConvertNaturalToLayerRelative(self);
     }
 
     canvas = [(CRLCanvasRep *)self canvas];
@@ -6932,7 +6931,7 @@ LABEL_16:
 
         if (v26)
         {
-          [v26 transformToWP];
+          objc_msgSend_transformToWP(v26);
         }
 
         else
@@ -7100,7 +7099,7 @@ LABEL_16:
   v34 = 0u;
   v35 = 0u;
   v33 = 0u;
-  [(CRLWPRep *)self transformToConvertNaturalToScaledRoot];
+  objc_msgSend_transformToConvertNaturalToScaledRoot(self);
   if (v15 <= 0.0 && v13 <= 0.0)
   {
     [(CRLWPRep *)self p_closestCaretRectForPoint:0 inSelection:0 allowPastBreak:x, y];
@@ -7224,12 +7223,12 @@ LABEL_16:
     memset(&v69, 0, sizeof(v69));
     if (relativeCopy)
     {
-      [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+      objc_msgSend_transformToConvertNaturalToLayerRelative(self);
     }
 
     else
     {
-      [(CRLWPRep *)self transformToConvertNaturalToScaledRoot];
+      objc_msgSend_transformToConvertNaturalToScaledRoot(self);
     }
 
     transform = v69;
@@ -7295,12 +7294,12 @@ LABEL_16:
       v58 = v75.size.height;
       if (relativeCopy)
       {
-        [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+        objc_msgSend_transformToConvertNaturalToLayerRelative(self);
       }
 
       else
       {
-        [(CRLWPRep *)self transformToConvertNaturalToScaledRoot];
+        objc_msgSend_transformToConvertNaturalToScaledRoot(self);
       }
 
       v76.origin.x = v55;
@@ -8228,7 +8227,7 @@ LABEL_14:
                   v64 = 0u;
                   v65 = 0u;
                   memset(buf, 0, sizeof(buf));
-                  [(CRLWPRep *)selfCopy lineMetricsAtCharIndex:range];
+                  objc_msgSend_lineMetricsAtCharIndex_(selfCopy);
                   v35 = [(CRLWPRep *)selfCopy columnForCharIndex:range];
                   textIsVertical = [v35 textIsVertical];
                   if ((textIsVertical & 1) == 0)
@@ -8261,7 +8260,7 @@ LABEL_14:
                     v57 = 0u;
                     v58 = 0u;
                     v56 = 0u;
-                    [(CRLCanvasRep *)selfCopy transformToConvertNaturalToLayerRelative];
+                    objc_msgSend_transformToConvertNaturalToLayerRelative(selfCopy);
                     v55[1] = v57;
                     v55[2] = v58;
                     v55[0] = v56;
@@ -8639,7 +8638,7 @@ LABEL_14:
   v6 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -8951,7 +8950,7 @@ LABEL_14:
     v10 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -9129,6 +9128,7 @@ LABEL_14:
     }
 
     layoutController = [v11 layoutController];
+    v17 = layoutController;
     if (!layoutController)
     {
       +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -9147,42 +9147,42 @@ LABEL_14:
         sub_10137AAC0();
       }
 
-      v16 = off_1019EDA68;
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = off_1019EDA68;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         +[CRLAssertionHandler packedBacktraceString];
         objc_claimAutoreleasedReturnValue();
         sub_10130E89C();
       }
 
-      v17 = [NSString stringWithUTF8String:"[CRLWPRep prepareLayoutForImagingSearchReferencesAsActive:usingBlock:]"];
-      v18 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPRep.mm"];
-      [CRLAssertionHandler handleFailureInFunction:v17 file:v18 lineNumber:4593 isFatal:0 description:"Building a imageSearchReference for a layout that has no layout controller"];
+      v19 = [NSString stringWithUTF8String:"[CRLWPRep prepareLayoutForImagingSearchReferencesAsActive:usingBlock:]"];
+      v20 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPRep.mm"];
+      [CRLAssertionHandler handleFailureInFunction:v19 file:v20 lineNumber:4593 isFatal:0 description:"Building a imageSearchReference for a layout that has no layout controller"];
     }
 
     if (activeCopy)
     {
-      v19 = sub_1002843F0();
+      v21 = sub_1002843F0(layoutController, v16);
     }
 
     else
     {
-      v19 = sub_100284410();
+      v21 = sub_100284410(layoutController, v16);
     }
 
-    v20 = v19;
-    v21 = [CRLColor colorWithCGColor:v19];
-    [(CRLWPRep *)self setBackgroundColor:v21];
+    v22 = v21;
+    v23 = [CRLColor colorWithCGColor:v21];
+    [(CRLWPRep *)self setBackgroundColor:v23];
 
-    [layoutController validateLayoutWithDependencies:v11];
+    [v17 validateLayoutWithDependencies:v11];
     if ([v11 layoutIsValid])
     {
       blockCopy[2](blockCopy);
     }
 
     [(CRLWPRep *)self setBackgroundColor:0];
-    CGColorRelease(v20);
-    [layoutController validateLayoutWithDependencies:v11];
+    CGColorRelease(v22);
+    [v17 validateLayoutWithDependencies:v11];
   }
 
   else
@@ -9210,21 +9210,21 @@ LABEL_14:
     v9 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
     {
-      v18 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v19 = 0u;
-      v17 = 0u;
     }
 
     v10 = self->_highlightArrayController;
-    v16[0] = v17;
-    v16[1] = v18;
-    v16[2] = v19;
-    [(CRLWPHighlightArrayController *)v10 setTransform:v16];
+    v18[0] = v19;
+    v18[1] = v20;
+    v18[2] = v21;
+    [(CRLWPHighlightArrayController *)v10 setTransform:v18];
 
     canvas = [(CRLCanvasRep *)self canvas];
     [canvas viewScale];
@@ -9236,15 +9236,15 @@ LABEL_14:
 
     if (v13)
     {
-      v14 = sub_100284410();
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_10047AD88;
-      v15[3] = &unk_101865200;
-      v15[4] = self;
-      v15[5] = v14;
-      [(CRLWPRep *)self prepareLayoutForImagingSearchReferencesAsActive:0 usingBlock:v15];
-      CGColorRelease(v14);
+      v16 = sub_100284410(v14, v15);
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_10047AD88;
+      v17[3] = &unk_101865200;
+      v17[4] = self;
+      v17[5] = v16;
+      [(CRLWPRep *)self prepareLayoutForImagingSearchReferencesAsActive:0 usingBlock:v17];
+      CGColorRelease(v16);
     }
   }
 
@@ -9322,7 +9322,7 @@ LABEL_7:
           goto LABEL_16;
         }
 
-        [v26 transformToWP];
+        objc_msgSend_transformToWP(v26);
         v27 = 0;
       }
 
@@ -9379,7 +9379,7 @@ LABEL_16:
 
       else
       {
-        [v26 transformFromWP];
+        objc_msgSend_transformFromWP(v26);
       }
 
       v47.size.width = height * 0.444444444;
@@ -9719,7 +9719,7 @@ LABEL_16:
   selfCopy = self;
   CRLWPRep.hyperlinkRegions.getter();
 
-  sub_100006370(0, &qword_101A13808);
+  sub_100006370(0, &qword_101A13808, off_10182F868);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

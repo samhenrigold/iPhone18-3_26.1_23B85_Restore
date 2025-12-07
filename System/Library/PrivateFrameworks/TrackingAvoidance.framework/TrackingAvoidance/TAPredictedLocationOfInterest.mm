@@ -80,25 +80,8 @@ LABEL_6:
     {
       v6 = equalCopy;
       type = [(TAPredictedLocationOfInterest *)self type];
-      if (type != [(TAPredictedLocationOfInterest *)v6 type])
+      if (type != [(TAPredictedLocationOfInterest *)v6 type]|| ([(TAPredictedLocationOfInterest *)self latitude], v9 = v8, [(TAPredictedLocationOfInterest *)v6 latitude], v9 != v10) || ([(TAPredictedLocationOfInterest *)self longitude], v12 = v11, [(TAPredictedLocationOfInterest *)v6 longitude], v12 != v13) || ([(TAPredictedLocationOfInterest *)self horizontalAccuracy], v15 = v14, [(TAPredictedLocationOfInterest *)v6 horizontalAccuracy], v15 != v16) || (v17 = [(TAPredictedLocationOfInterest *)self referenceFrame], v17 != [(TAPredictedLocationOfInterest *)v6 referenceFrame]) || ([(TAPredictedLocationOfInterest *)self confidence], v19 = v18, [(TAPredictedLocationOfInterest *)v6 confidence], v19 != v20))
       {
-        goto LABEL_14;
-      }
-
-      [(TAPredictedLocationOfInterest *)self latitude];
-      v9 = v8;
-      [(TAPredictedLocationOfInterest *)v6 latitude];
-      if (v9 != v10)
-      {
-        goto LABEL_14;
-      }
-
-      [(TAPredictedLocationOfInterest *)self longitude];
-      v12 = v11;
-      [(TAPredictedLocationOfInterest *)v6 longitude];
-      if (v12 != v13 || ([(TAPredictedLocationOfInterest *)self horizontalAccuracy], v15 = v14, [(TAPredictedLocationOfInterest *)v6 horizontalAccuracy], v15 != v16) || (v17 = [(TAPredictedLocationOfInterest *)self referenceFrame], v17 != [(TAPredictedLocationOfInterest *)v6 referenceFrame]) || ([(TAPredictedLocationOfInterest *)self confidence], v19 = v18, [(TAPredictedLocationOfInterest *)v6 confidence], v19 != v20))
-      {
-LABEL_14:
         v24 = 0;
 LABEL_15:
 
@@ -158,30 +141,30 @@ LABEL_16:
 
 - (id)descriptionDictionary
 {
-  v20[9] = *MEMORY[0x277D85DE8];
-  v19[0] = @"EventType";
+  v19[9] = *MEMORY[0x277D85DE8];
+  v18[0] = @"EventType";
   v4 = objc_opt_class();
-  v18 = NSStringFromClass(v4);
-  v20[0] = v18;
-  v19[1] = @"Type";
-  v17 = TALocationOfInterestTypeToString(self->_type);
-  v20[1] = v17;
-  v19[2] = @"Latitude";
-  v16 = [MEMORY[0x277CCABB0] numberWithDouble:self->_latitude];
-  v20[2] = v16;
-  v19[3] = @"Longitude";
+  v17 = NSStringFromClass(v4);
+  v19[0] = v17;
+  v18[1] = @"Type";
+  v16 = TALocationOfInterestTypeToString(self->_type);
+  v19[1] = v16;
+  v18[2] = @"Latitude";
+  v15 = [MEMORY[0x277CCABB0] numberWithDouble:self->_latitude];
+  v19[2] = v15;
+  v18[3] = @"Longitude";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_longitude];
-  v20[3] = v5;
-  v19[4] = @"HorizontalAccuracy";
+  v19[3] = v5;
+  v18[4] = @"HorizontalAccuracy";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_horizontalAccuracy];
-  v20[4] = v6;
-  v19[5] = @"ReferenceFrame";
+  v19[4] = v6;
+  v18[5] = @"ReferenceFrame";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_referenceFrame];
-  v20[5] = v7;
-  v19[6] = @"Confidence";
+  v19[5] = v7;
+  v18[6] = @"Confidence";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
-  v20[6] = v8;
-  v19[7] = @"NextEntryTime";
+  v19[6] = v8;
+  v18[7] = @"NextEntryTime";
   nextEntryTime = [(TAPredictedLocationOfInterest *)self nextEntryTime];
   if (nextEntryTime)
   {
@@ -194,18 +177,16 @@ LABEL_16:
     getDateString = &stru_287F632C0;
   }
 
-  v20[7] = getDateString;
-  v19[8] = @"Date";
+  v19[7] = getDateString;
+  v18[8] = @"Date";
   date = [(TAPredictedLocationOfInterest *)self date];
   getDateString2 = [date getDateString];
-  v20[8] = getDateString2;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:9];
+  v19[8] = getDateString2;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:9];
 
   if (nextEntryTime)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

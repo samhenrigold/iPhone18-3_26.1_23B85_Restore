@@ -3,8 +3,8 @@
 - (HDPeriodicCountryMonitor)initWithProfile:(id)profile nanoSyncManager:(id)manager;
 - (HDPeriodicCountryMonitor)initWithProfile:(id)profile nanoSyncManager:(id)manager countryCodeProvider:(id)provider userDefaults:(id)defaults;
 - (_HDPeriodicCountryMonitorPairedBuildIdentifiers)_currentPairedBuildIdentifiers;
+- (const)_lock_enterStateIfPossible:(const os_unfair_lock *)result;
 - (id)diagnosticDescription;
-- (uint64_t)_lock_enterStateIfPossible:(uint64_t)result;
 - (void)_enqueueMaintenanceOperationIfNeeded;
 - (void)_fetchCountryIfNeededWithCompletion:(uint64_t)completion;
 - (void)_recordSuccessfulFetchForCurrentPairedBuilds;
@@ -69,16 +69,16 @@
 
 - (void)fetchCurrentISOCountryCodeAndNotifyObserversWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = HKLogInfrastructure();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = objc_opt_class();
-    v6 = v14;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Client requesting immediate fetch", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = objc_opt_class();
+    v6 = v13;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Client requesting immediate fetch", &v12, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -96,31 +96,29 @@
     v8 = HKLogInfrastructure();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v13 = 138543362;
-      v14 = v11;
-      v12 = v11;
-      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to enter fetching state. Returning error to client.", &v13, 0xCu);
+      v10 = objc_opt_class();
+      v12 = 138543362;
+      v13 = v10;
+      v11 = v10;
+      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to enter fetching state. Returning error to client.", &v12, 0xCu);
     }
 
     v9 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"A fetch is already in progress"];
     (*(completionCopy + 2))(completionCopy, 0, 0, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_lock_enterStateIfPossible:(uint64_t)result
+- (const)_lock_enterStateIfPossible:(const os_unfair_lock *)result
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!result)
   {
-    goto LABEL_25;
+    return result;
   }
 
   v3 = result;
-  os_unfair_lock_assert_owner((result + 48));
-  v4 = *(v3 + 56);
+  os_unfair_lock_assert_owner(result + 12);
+  v4 = *&v3[14]._os_unfair_lock_opaque;
   v5 = v4 - 1;
   if (v4 <= 1)
   {
@@ -165,19 +163,18 @@ LABEL_11:
         v10 = off_278614E98[a2 - 1];
       }
 
-      v17 = 138543874;
-      v18 = v7;
-      v19 = 2114;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v10;
+      v16 = 138543874;
+      v17 = v7;
+      v18 = 2114;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v10;
       v11 = v7;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] State will change from %{public}@ to %{public}@", &v17, 0x20u);
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] State will change from %{public}@ to %{public}@", &v16, 0x20u);
     }
 
-    *(v3 + 56) = a2;
-    result = 1;
-    goto LABEL_25;
+    *&v3[14]._os_unfair_lock_opaque = a2;
+    return 1;
   }
 
   if (v4 == 2 || v4 == 3)
@@ -200,41 +197,38 @@ LABEL_15:
   v9 = HKLogInfrastructure();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v13 = objc_opt_class();
+    v12 = objc_opt_class();
     if (v5 > 3)
+    {
+      v13 = @"WaitingForPairingChanges";
+    }
+
+    else
+    {
+      v13 = off_278614E98[v5];
+    }
+
+    if ((a2 - 1) > 3)
     {
       v14 = @"WaitingForPairingChanges";
     }
 
     else
     {
-      v14 = off_278614E98[v5];
+      v14 = off_278614E98[a2 - 1];
     }
 
-    if ((a2 - 1) > 3)
-    {
-      v15 = @"WaitingForPairingChanges";
-    }
-
-    else
-    {
-      v15 = off_278614E98[a2 - 1];
-    }
-
-    v17 = 138543874;
-    v18 = v13;
-    v19 = 2114;
-    v20 = v14;
-    v21 = 2114;
-    v22 = v15;
-    v16 = v13;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Invalid attempt to change state from %{public}@ to %{public}@", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v13;
+    v20 = 2114;
+    v21 = v14;
+    v15 = v12;
+    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Invalid attempt to change state from %{public}@ to %{public}@", &v16, 0x20u);
   }
 
-  result = 0;
-LABEL_25:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)_fetchCountryIfNeededWithCompletion:(uint64_t)completion
@@ -256,27 +250,26 @@ LABEL_25:
 
 - (void)enqueueMaintenanceFetch
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKLogInfrastructure();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Client requesting maintenance fetch", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Client requesting maintenance fetch", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
   self->_lock_shouldBypassNextBuildVersionLimit = 1;
   os_unfair_lock_unlock(&self->_lock);
   [(HDPeriodicCountryMonitor *)self _enqueueMaintenanceOperationIfNeeded];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enqueueMaintenanceOperationIfNeeded
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock((self + 48));
@@ -286,12 +279,12 @@ LABEL_25:
     {
       v3 = objc_opt_class();
       v4 = NSStringFromClass(v3);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __64__HDPeriodicCountryMonitor__enqueueMaintenanceOperationIfNeeded__block_invoke;
-      v10[3] = &unk_278614DB0;
-      v10[4] = self;
-      v5 = [HDMaintenanceOperation maintenanceOperationWithName:v4 asynchronousBlock:v10];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __64__HDPeriodicCountryMonitor__enqueueMaintenanceOperationIfNeeded__block_invoke;
+      v9[3] = &unk_278614DB0;
+      v9[4] = self;
+      v5 = [HDMaintenanceOperation maintenanceOperationWithName:v4 asynchronousBlock:v9];
 
       WeakRetained = objc_loadWeakRetained((self + 8));
       daemon = [WeakRetained daemon];
@@ -309,15 +302,13 @@ LABEL_25:
       }
 
       *buf = 138543362;
-      v12 = objc_opt_class();
-      WeakRetained = v12;
+      v11 = objc_opt_class();
+      WeakRetained = v11;
       _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to enter maintenance operation state", buf, 0xCu);
     }
 
 LABEL_6:
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HDKeyValueDomain)_lastActivePairedBuildIdentifiersDomain
@@ -367,20 +358,20 @@ LABEL_6:
 
 - (void)_recordSuccessfulFetchForCurrentPairedBuilds
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   _currentPairedBuildIdentifiers = [(HDPeriodicCountryMonitor *)self _currentPairedBuildIdentifiers];
   buildIdentifier = [_currentPairedBuildIdentifiers buildIdentifier];
   pairingIdentifier = [_currentPairedBuildIdentifiers pairingIdentifier];
   v6 = pairingIdentifier;
-  v17 = 0;
+  v16 = 0;
   if (self)
   {
     v7 = pairingIdentifier;
     v8 = buildIdentifier;
     _lastActivePairedBuildIdentifiersDomain = [(HDPeriodicCountryMonitor *)self _lastActivePairedBuildIdentifiersDomain];
-    v10 = [_lastActivePairedBuildIdentifiersDomain setString:v8 forKey:v7 error:&v17];
+    v10 = [_lastActivePairedBuildIdentifiersDomain setString:v8 forKey:v7 error:&v16];
 
-    v11 = v17;
+    v11 = v16;
   }
 
   else
@@ -397,35 +388,32 @@ LABEL_6:
     v13 = HKLogInfrastructure();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_opt_class();
+      v14 = objc_opt_class();
       *buf = 138543362;
-      v19 = v15;
-      v16 = v15;
+      v18 = v14;
+      v15 = v14;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Error recording successful fetch for current paired builds", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nanoSyncManager:(id)manager pairedDevicesChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   _HKInitializeLogging();
   v6 = HKLogInfrastructure();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2112;
-    v12 = changedCopy;
-    v7 = v10;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed paired devices snapshot change: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = objc_opt_class();
+    v10 = 2112;
+    v11 = changedCopy;
+    v7 = v9;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed paired devices snapshot change: %@", &v8, 0x16u);
   }
 
   [(HDPeriodicCountryMonitor *)self _enqueueMaintenanceOperationIfNeeded];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HDPeriodicCountryMonitor__enqueueMaintenanceOperationIfNeeded__block_invoke(uint64_t a1, void *a2)
@@ -434,9 +422,9 @@ void __64__HDPeriodicCountryMonitor__enqueueMaintenanceOperationIfNeeded__block_
   v3 = a2;
   if (v2)
   {
-    os_unfair_lock_lock(v2 + 12);
+    os_unfair_lock_lock(&v2[12]);
     v4 = [(HDPeriodicCountryMonitor *)v2 _lock_enterStateIfPossible:?];
-    os_unfair_lock_unlock(v2 + 12);
+    os_unfair_lock_unlock(&v2[12]);
     if (v4)
     {
       v5[0] = MEMORY[0x277D85DD0];
@@ -456,7 +444,7 @@ void __64__HDPeriodicCountryMonitor__enqueueMaintenanceOperationIfNeeded__block_
 
 void __64__HDPeriodicCountryMonitor__fetchCountryIfNeededWithCompletion___block_invoke(uint64_t a1)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x277CBEAA8] date];
   if (v2)
@@ -465,34 +453,33 @@ void __64__HDPeriodicCountryMonitor__fetchCountryIfNeededWithCompletion___block_
   }
 
   v4 = [*(*(a1 + 32) + 40) allObservers];
-  v73[0] = MEMORY[0x277D85DD0];
-  v73[1] = 3221225472;
-  v73[2] = __64__HDPeriodicCountryMonitor__fetchCountryIfNeededWithCompletion___block_invoke_2;
-  v73[3] = &unk_278614E00;
-  v73[4] = *(a1 + 32);
-  v5 = [v4 hk_containsObjectPassingTest:v73];
+  v68[0] = MEMORY[0x277D85DD0];
+  v68[1] = 3221225472;
+  v68[2] = __64__HDPeriodicCountryMonitor__fetchCountryIfNeededWithCompletion___block_invoke_2;
+  v68[3] = &unk_278614E00;
+  v68[4] = *(a1 + 32);
+  v5 = [v4 hk_containsObjectPassingTest:v68];
 
   os_unfair_lock_lock((*(a1 + 32) + 48));
   if ((v5 & 1) == 0)
   {
     _HKInitializeLogging();
-    v19 = HKLogInfrastructure();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = HKLogInfrastructure();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(a1 + 32);
-      v21 = objc_opt_class();
+      v19 = objc_opt_class();
       *buf = 138543362;
-      *&buf[4] = v21;
-      v22 = v21;
-      _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping fetch as we have no observers", buf, 0xCu);
+      *&buf[4] = v19;
+      v20 = v19;
+      _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping fetch as we have no observers", buf, 0xCu);
     }
 
     [(HDPeriodicCountryMonitor *)*(a1 + 32) _lock_enterStateIfPossible:?];
     os_unfair_lock_unlock((*(a1 + 32) + 48));
-    v23 = *(a1 + 40);
-    v24 = MEMORY[0x277CCA9B8];
-    v25 = @"Skipped fetch due to no observers";
-    v26 = 11;
+    v21 = *(a1 + 40);
+    v22 = MEMORY[0x277CCA9B8];
+    v23 = @"Skipped fetch due to no observers";
+    v24 = 11;
     goto LABEL_31;
   }
 
@@ -509,60 +496,59 @@ void __64__HDPeriodicCountryMonitor__fetchCountryIfNeededWithCompletion___block_
     goto LABEL_7;
   }
 
-  v27 = [(HDPeriodicCountryMonitor *)v6 _currentPairedBuildIdentifiers];
-  v28 = [v27 buildIdentifier];
-  v29 = [v27 pairingIdentifier];
-  v30 = v28;
-  v74 = 0;
-  v31 = v29;
-  v32 = [(HDPeriodicCountryMonitor *)v6 _lastActivePairedBuildIdentifiersDomain];
-  v33 = [v32 stringForKey:v31 error:&v74];
+  v25 = [(HDPeriodicCountryMonitor *)v6 _currentPairedBuildIdentifiers];
+  v26 = [v25 buildIdentifier];
+  v27 = [v25 pairingIdentifier];
+  v28 = v26;
+  v69 = 0;
+  v29 = v27;
+  v30 = [(HDPeriodicCountryMonitor *)v6 _lastActivePairedBuildIdentifiersDomain];
+  v31 = [v30 stringForKey:v29 error:&v69];
 
-  v34 = v74;
-  v35 = v34;
-  if (!v33 && v34)
+  v32 = v69;
+  v33 = v32;
+  if (!v31 && v32)
   {
     _HKInitializeLogging();
-    v36 = HKLogInfrastructure();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v34 = HKLogInfrastructure();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v62 = objc_opt_class();
+      v57 = objc_opt_class();
       *buf = 138543618;
-      *&buf[4] = v62;
+      *&buf[4] = v57;
       *&buf[12] = 2114;
-      *&buf[14] = v35;
-      v63 = v62;
-      _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "[%{public}@] Error attempting to read last active paired build identifier: %{public}@", buf, 0x16u);
+      *&buf[14] = v33;
+      v58 = v57;
+      _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "[%{public}@] Error attempting to read last active paired build identifier: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_28;
   }
 
-  if (v33)
+  if (v31)
   {
-    v37 = [v33 isEqualToString:v30];
+    v35 = [v31 isEqualToString:v28];
 
-    if (v37)
+    if (v35)
     {
 LABEL_28:
       _HKInitializeLogging();
-      v38 = HKLogInfrastructure();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v36 = HKLogInfrastructure();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        v39 = *(a1 + 32);
-        v40 = objc_opt_class();
+        v37 = objc_opt_class();
         *buf = 138543362;
-        *&buf[4] = v40;
-        v41 = v40;
-        _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping fetch as we've already fetched for this paired build configuration", buf, 0xCu);
+        *&buf[4] = v37;
+        v38 = v37;
+        _os_log_impl(&dword_228986000, v36, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping fetch as we've already fetched for this paired build configuration", buf, 0xCu);
       }
 
       [(HDPeriodicCountryMonitor *)*(a1 + 32) _lock_enterStateIfPossible:?];
       os_unfair_lock_unlock((*(a1 + 32) + 48));
-      v23 = *(a1 + 40);
-      v24 = MEMORY[0x277CCA9B8];
-      v25 = @"Background check already performed on this build configuration";
-      v26 = 130;
+      v21 = *(a1 + 40);
+      v22 = MEMORY[0x277CCA9B8];
+      v23 = @"Background check already performed on this build configuration";
+      v24 = 130;
       goto LABEL_31;
     }
   }
@@ -580,186 +566,179 @@ LABEL_7:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v59 = *(a1 + 32);
-      v60 = objc_opt_class();
+      v55 = objc_opt_class();
       *buf = 138543362;
-      *&buf[4] = v60;
-      v61 = v60;
+      *&buf[4] = v55;
+      v56 = v55;
       _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to enter fetching state", buf, 0xCu);
     }
 
     os_unfair_lock_unlock((*(a1 + 32) + 48));
-    v23 = *(a1 + 40);
-    v24 = MEMORY[0x277CCA9B8];
-    v25 = @"A fetch is already in progress";
-    v26 = 100;
+    v21 = *(a1 + 40);
+    v22 = MEMORY[0x277CCA9B8];
+    v23 = @"A fetch is already in progress";
+    v24 = 100;
 LABEL_31:
-    v42 = [v24 hk_error:v26 description:v25];
-    (*(v23 + 16))(v23, 0, 0, v42);
+    v39 = [v22 hk_error:v24 description:v23];
+    (*(v21 + 16))(v21, 0, 0, v39);
     goto LABEL_32;
   }
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = objc_opt_class();
+    v10 = objc_opt_class();
     *buf = 138543362;
-    *&buf[4] = v11;
-    v12 = v11;
+    *&buf[4] = v10;
+    v11 = v10;
     _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Fetching country code during maintenance operation", buf, 0xCu);
   }
 
   os_unfair_lock_unlock((*(a1 + 32) + 48));
-  v69[0] = MEMORY[0x277D85DD0];
-  v69[1] = 3221225472;
-  v70 = __64__HDPeriodicCountryMonitor__fetchCountryIfNeededWithCompletion___block_invoke_332;
-  v71 = &unk_278614DD8;
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  v72 = v14;
-  if (v13)
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v65 = __64__HDPeriodicCountryMonitor__fetchCountryIfNeededWithCompletion___block_invoke_332;
+  v66 = &unk_278614DD8;
+  v12 = *(a1 + 32);
+  v13 = *(a1 + 40);
+  v67 = v13;
+  if (v12)
   {
-    v15 = v69;
-    os_unfair_lock_lock((v13 + 48));
-    if (*(v13 + 56) != 4)
+    v14 = v64;
+    os_unfair_lock_lock((v12 + 48));
+    if (*(v12 + 56) != 4)
     {
-      v66 = [MEMORY[0x277CCA890] currentHandler];
-      [v66 handleFailureInMethod:sel__fetchCountryCodeWithCompletion_ object:v13 file:@"HDPeriodicCountryMonitor.m" lineNumber:461 description:@"Must be in the fetching state"];
+      v61 = [MEMORY[0x277CCA890] currentHandler];
+      [v61 handleFailureInMethod:sel__fetchCountryCodeWithCompletion_ object:v12 file:@"HDPeriodicCountryMonitor.m" lineNumber:461 description:@"Must be in the fetching state"];
     }
 
-    v16 = (*(*(v13 + 32) + 16))();
-    v17 = *(v13 + 72);
-    *(v13 + 72) = v16;
+    v15 = (*(*(v12 + 32) + 16))();
+    v16 = *(v12 + 72);
+    *(v12 + 72) = v15;
 
-    os_unfair_lock_unlock((v13 + 48));
-    v18 = [*(v13 + 72) currentEstimate];
-    if (v18)
+    os_unfair_lock_unlock((v12 + 48));
+    v17 = [*(v12 + 72) currentEstimate];
+    if (v17)
     {
-      v68 = 0;
+      v63 = 0;
     }
 
     else
     {
       _HKInitializeLogging();
-      v44 = HKLogInfrastructure();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v40 = HKLogInfrastructure();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v64 = objc_opt_class();
+        v59 = objc_opt_class();
         *buf = 138543618;
-        *&buf[4] = v64;
+        *&buf[4] = v59;
         *&buf[12] = 2114;
         *&buf[14] = 0;
-        v65 = v64;
-        _os_log_error_impl(&dword_228986000, v44, OS_LOG_TYPE_ERROR, "[%{public}@] Error fetching mobile country code: %{public}@", buf, 0x16u);
+        v60 = v59;
+        _os_log_error_impl(&dword_228986000, v40, OS_LOG_TYPE_ERROR, "[%{public}@] Error fetching mobile country code: %{public}@", buf, 0x16u);
       }
 
-      v68 = [MEMORY[0x277CCA9B8] hk_error:109 description:@"Unexpectedly did not receive a countryCode"];
+      v63 = [MEMORY[0x277CCA9B8] hk_error:109 description:@"Unexpectedly did not receive a countryCode"];
     }
 
-    v45 = v18;
-    os_unfair_lock_lock((v13 + 48));
-    if (*(v13 + 56) != 4)
+    v41 = v17;
+    os_unfair_lock_lock((v12 + 48));
+    if (*(v12 + 56) != 4)
     {
-      v67 = [MEMORY[0x277CCA890] currentHandler];
-      [v67 handleFailureInMethod:sel__processCountryCodeResult_ object:v13 file:@"HDPeriodicCountryMonitor.m" lineNumber:482 description:@"Must be in the fetching state"];
+      v62 = [MEMORY[0x277CCA890] currentHandler];
+      [v62 handleFailureInMethod:sel__processCountryCodeResult_ object:v12 file:@"HDPeriodicCountryMonitor.m" lineNumber:482 description:@"Must be in the fetching state"];
     }
 
-    v46 = *(v13 + 72);
-    *(v13 + 72) = 0;
+    v42 = *(v12 + 72);
+    *(v12 + 72) = 0;
 
-    os_unfair_lock_unlock((v13 + 48));
-    if (v18)
+    os_unfair_lock_unlock((v12 + 48));
+    if (v17)
     {
-      v47 = [v45 provenance];
-      v48 = *(v13 + 80);
+      v43 = [v41 provenance];
+      v44 = *(v12 + 80);
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __54__HDPeriodicCountryMonitor__processCountryCodeResult___block_invoke;
-      v76 = &unk_278614E78;
-      v77 = v13;
-      v78 = v45;
-      v79 = v47;
-      dispatch_async(v48, buf);
-      [v13 _recordSuccessfulFetchForCurrentPairedBuilds];
+      v71 = &unk_278614E78;
+      v72 = v12;
+      v73 = v41;
+      v74 = v43;
+      dispatch_async(v44, buf);
+      [v12 _recordSuccessfulFetchForCurrentPairedBuilds];
     }
 
-    v49 = *(v13 + 88);
-    if (v49)
+    v45 = *(v12 + 88);
+    if (v45)
     {
-      v50 = v49;
+      v46 = v45;
     }
 
     else
     {
-      v50 = [MEMORY[0x277CBEAA8] date];
+      v46 = [MEMORY[0x277CBEAA8] date];
     }
 
-    v51 = v50;
-    os_unfair_lock_lock((v13 + 48));
-    [*(v13 + 24) setObject:v51 forKey:@"HDPeriodicCountryMonitor_LastFetchAttemptDate"];
+    v47 = v46;
+    os_unfair_lock_lock((v12 + 48));
+    [*(v12 + 24) setObject:v47 forKey:@"HDPeriodicCountryMonitor_LastFetchAttemptDate"];
 
-    v52 = *(v13 + 24);
-    WeakRetained = objc_loadWeakRetained((v13 + 8));
-    v54 = [WeakRetained healthDaemon];
-    v55 = [v54 behavior];
-    v56 = [v55 currentOSBuild];
-    [v52 setObject:v56 forKey:@"HDPeriodicCountryMonitor_LastFetchAttemptBuild"];
+    v48 = *(v12 + 24);
+    WeakRetained = objc_loadWeakRetained((v12 + 8));
+    v50 = [WeakRetained healthDaemon];
+    v51 = [v50 behavior];
+    v52 = [v51 currentOSBuild];
+    [v48 setObject:v52 forKey:@"HDPeriodicCountryMonitor_LastFetchAttemptBuild"];
 
-    os_unfair_lock_unlock((v13 + 48));
-    os_unfair_lock_lock((v13 + 48));
-    [(HDPeriodicCountryMonitor *)v13 _lock_enterStateIfPossible:?];
-    os_unfair_lock_unlock((v13 + 48));
+    os_unfair_lock_unlock((v12 + 48));
+    os_unfair_lock_lock((v12 + 48));
+    [(HDPeriodicCountryMonitor *)v12 _lock_enterStateIfPossible:?];
+    os_unfair_lock_unlock((v12 + 48));
 
-    v57 = [v45 ISOCode];
-    v58 = [v45 provenance];
-    (v70)(v15, v57, v58, v68);
+    v53 = [v41 ISOCode];
+    v54 = [v41 provenance];
+    (v65)(v14, v53, v54, v63);
 
-    v42 = v72;
+    v39 = v67;
   }
 
   else
   {
-    v42 = v14;
+    v39 = v13;
   }
 
 LABEL_32:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDPeriodicCountryMonitor__processCountryCodeResult___block_invoke(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = objc_opt_class();
-    v5 = a1[5];
+    v3 = objc_opt_class();
+    v4 = a1[5];
     *buf = 138543618;
+    v15 = v3;
+    v16 = 2112;
     v17 = v4;
-    v18 = 2112;
-    v19 = v5;
-    v6 = v4;
+    v5 = v3;
     _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying observers of country code: %@", buf, 0x16u);
   }
 
-  v8 = a1[4];
-  v7 = a1[5];
-  v9 = *(v8 + 40);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __54__HDPeriodicCountryMonitor__processCountryCodeResult___block_invoke_348;
-  v13[3] = &unk_278614E50;
-  v13[4] = v8;
-  v10 = v7;
-  v11 = a1[6];
-  v14 = v10;
-  v15 = v11;
-  [v9 notifyObservers:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v7 = a1[4];
+  v6 = a1[5];
+  v8 = *(v7 + 40);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __54__HDPeriodicCountryMonitor__processCountryCodeResult___block_invoke_348;
+  v11[3] = &unk_278614E50;
+  v11[4] = v7;
+  v9 = v6;
+  v10 = a1[6];
+  v12 = v9;
+  v13 = v10;
+  [v8 notifyObservers:v11];
 }
 
 void __54__HDPeriodicCountryMonitor__processCountryCodeResult___block_invoke_348(void *a1, void *a2)
@@ -796,7 +775,7 @@ void __54__HDPeriodicCountryMonitor__processCountryCodeResult___block_invoke_348
   lastFetchAttemptBuild = [(HDPeriodicCountryMonitor *)self lastFetchAttemptBuild];
   [v4 appendFormat:@"Last Build: %@\n", lastFetchAttemptBuild];
 
-  v10 = [v4 copy];
+  v10 = objc_msgSend_copy(v4);
 
   return v10;
 }

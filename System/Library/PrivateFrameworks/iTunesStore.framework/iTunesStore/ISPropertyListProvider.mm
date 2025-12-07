@@ -9,7 +9,7 @@
 
 - (ISPropertyListProvider)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISPropertyListProvider.m", 15, a2);
   v4.receiver = self;
   v4.super_class = ISPropertyListProvider;
   return [(ISProtocolDataProvider *)&v4 init];

@@ -65,7 +65,7 @@
 
 void __33__CPLCleanupTask__doOneIteration__block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) session];
   v5 = [v4 shouldDefer];
@@ -77,47 +77,44 @@ void __33__CPLCleanupTask__doOneIteration__block_invoke(uint64_t a1, void *a2)
       v6 = __CPLTaskOSLogDomain_5477();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
         *buf = 138412290;
-        v25 = objc_opt_class();
-        v8 = v25;
+        v23 = objc_opt_class();
+        v7 = v23;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Session has been deferred. Stopping %@ now", buf, 0xCu);
       }
     }
 
-    v9 = +[CPLErrors sessionHasBeenDeferredError];
-    [v3 setError:v9];
+    v8 = +[CPLErrors sessionHasBeenDeferredError];
+    [v3 setError:v8];
   }
 
   else
   {
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __33__CPLCleanupTask__doOneIteration__block_invoke_3;
-    v19 = &unk_1E86206C8;
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 56);
-    v20 = v10;
-    v23 = v11;
-    v12 = v3;
-    v13 = *(a1 + 32);
-    v21 = v12;
-    v22 = v13;
-    [v12 do:&v16];
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __33__CPLCleanupTask__doOneIteration__block_invoke_3;
+    v17 = &unk_1E86206C8;
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 56);
+    v18 = v9;
+    v21 = v10;
+    v11 = v3;
+    v12 = *(a1 + 32);
+    v19 = v11;
+    v20 = v12;
+    [v11 do:&v14];
     if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
     {
-      v14 = [*(a1 + 48) sharingScopeIdentifier];
+      v13 = [*(a1 + 48) sharingScopeIdentifier];
 
-      if (!v14)
+      if (!v13)
       {
         *(*(*(a1 + 64) + 8) + 24) = 1;
       }
     }
 
-    v9 = v20;
+    v8 = v18;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __33__CPLCleanupTask__doOneIteration__block_invoke_4(uint64_t a1, void *a2)
@@ -188,7 +185,7 @@ uint64_t __33__CPLCleanupTask__doOneIteration__block_invoke_3(uint64_t a1, uint6
   return v3;
 }
 
-uint64_t __33__CPLCleanupTask__doOneIteration__block_invoke_2(uint64_t result, uint64_t a2)
+void *__33__CPLCleanupTask__doOneIteration__block_invoke_2(void *result, uint64_t a2)
 {
   if (!a2)
   {
@@ -198,8 +195,8 @@ uint64_t __33__CPLCleanupTask__doOneIteration__block_invoke_2(uint64_t result, u
     v5[1] = 3221225472;
     v5[2] = __33__CPLCleanupTask__doOneIteration__block_invoke_3;
     v5[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
-    v4 = *(result + 32);
-    v5[4] = *(result + 40);
+    v4 = result[4];
+    v5[4] = result[5];
     return [v4 withThroughputReporter:v5];
   }
 
@@ -236,7 +233,7 @@ uint64_t __33__CPLCleanupTask__doOneIteration__block_invoke_2(uint64_t result, u
 
 void __38__CPLCleanupTask__cleanupSharingFlags__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) session];
   v5 = [v4 shouldDefer];
@@ -248,37 +245,34 @@ void __38__CPLCleanupTask__cleanupSharingFlags__block_invoke(uint64_t a1, void *
       v6 = __CPLTaskOSLogDomain_5477();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
         *buf = 138412290;
-        v18 = objc_opt_class();
-        v8 = v18;
+        v16 = objc_opt_class();
+        v7 = v16;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Session has been deferred. Stopping %@ now", buf, 0xCu);
       }
     }
 
-    v9 = +[CPLErrors sessionHasBeenDeferredError];
-    [v3 setError:v9];
+    v8 = +[CPLErrors sessionHasBeenDeferredError];
+    [v3 setError:v8];
     goto LABEL_9;
   }
 
-  v10 = [*(a1 + 40) sharingScopeIdentifier];
+  v9 = [*(a1 + 40) sharingScopeIdentifier];
 
-  if (!v10)
+  if (!v9)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __38__CPLCleanupTask__cleanupSharingFlags__block_invoke_1;
-    v14[3] = &unk_1E8620568;
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v15 = v11;
-    v16 = v12;
-    [v3 do:v14];
-    v9 = v15;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __38__CPLCleanupTask__cleanupSharingFlags__block_invoke_1;
+    v12[3] = &unk_1E8620568;
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    v13 = v10;
+    v14 = v11;
+    [v3 do:v12];
+    v8 = v13;
 LABEL_9:
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CPLCleanupTask__cleanupSharingFlags__block_invoke_2(uint64_t a1, void *a2)

@@ -7,7 +7,7 @@
 
 - (void)smartCoverStateDidChange:(int64_t)change
 {
-  v4 = sub_100017F4C();
+  v4 = sub_100017F4C(self, a2);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_1004A1AB8;

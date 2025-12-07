@@ -65,7 +65,7 @@ void __27__PBUIWallpaperServer_init__block_invoke(uint64_t a1, void *a2)
 {
   v18 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v7 = PBUILogCommon();
+  v7 = PBUILogCommon(connectionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
@@ -81,8 +81,8 @@ void __27__PBUIWallpaperServer_init__block_invoke(uint64_t a1, void *a2)
   [connectionCopy configureConnection:v15];
   clientAuthenticator = self->_clientAuthenticator;
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  LODWORD(clientAuthenticator) = [(FBServiceClientAuthenticator *)clientAuthenticator authenticateAuditToken:auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
+  LODWORD(clientAuthenticator) = [(FBServiceClientAuthenticator *)clientAuthenticator authenticateAuditToken:v10];
 
   if (clientAuthenticator)
   {
@@ -127,7 +127,7 @@ void __65__PBUIWallpaperServer_listener_didReceiveConnection_withContext___block
 {
   v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PBUILogCommon();
+  v4 = PBUILogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = 138543362;
@@ -142,7 +142,7 @@ void __65__PBUIWallpaperServer_listener_didReceiveConnection_withContext___block
 {
   v8 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 138543362;
@@ -158,7 +158,7 @@ void __65__PBUIWallpaperServer_listener_didReceiveConnection_withContext___block
 {
   v8 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 138543362;

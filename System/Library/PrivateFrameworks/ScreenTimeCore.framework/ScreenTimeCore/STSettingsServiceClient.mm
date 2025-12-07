@@ -7,6 +7,7 @@
 - (id)startCoreDataServerWithError:(id *)error;
 - (void)dealloc;
 - (void)processSettingsChangesSinceHistoryToken:(id)token withCompletion:(id)completion;
+- (void)setCloudSync:(BOOL)sync withCompletion:(id)completion;
 @end
 
 @implementation STSettingsServiceClient
@@ -343,6 +344,35 @@ void __63__STSettingsServiceClient_requestLegacyUsageForUser_withError___block_i
   }
 }
 
+- (void)setCloudSync:(BOOL)sync withCompletion:(id)completion
+{
+  syncCopy = sync;
+  completionCopy = completion;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v13 = 1;
+  v10[0] = 0;
+  v10[1] = v10;
+  v10[2] = 0x3032000000;
+  v10[3] = __Block_byref_object_copy__8;
+  v10[4] = __Block_byref_object_dispose__8;
+  v11 = 0;
+  connection = [(STSettingsServiceClient *)self connection];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __55__STSettingsServiceClient_setCloudSync_withCompletion___block_invoke;
+  v9[3] = &unk_1E7CE71C8;
+  v9[4] = v10;
+  v9[5] = v12;
+  v8 = [connection remoteObjectProxyWithErrorHandler:v9];
+
+  [v8 setCloudSync:syncCopy withCompletion:completionCopy];
+  _Block_object_dispose(v10, 8);
+
+  _Block_object_dispose(v12, 8);
+}
+
 void __55__STSettingsServiceClient_setCloudSync_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -494,30 +524,6 @@ void __57__STSettingsServiceClient_isRestrictAdultContentEnabled___block_invoke_
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), obj);
   v6 = obj;
   *(*(*(a1 + 40) + 8) + 24) = a2;
-}
-
-void __56__STSettingsServiceClient_startCoreDataServerWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "XPC error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__STSettingsServiceClient_startCoreDataServerWithError___block_invoke_24_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Error starting core data server : %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__STSettingsServiceClient_updateLegacyUsageWithError___block_invoke_26_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Error processing changes : %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

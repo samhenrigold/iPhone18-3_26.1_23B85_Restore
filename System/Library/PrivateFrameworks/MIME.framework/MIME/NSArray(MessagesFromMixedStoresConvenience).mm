@@ -6,27 +6,27 @@
 
 - (id)mf_dictionaryWithMessagesSortedByStore
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -45,13 +45,11 @@
         }
       }
 
-      v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

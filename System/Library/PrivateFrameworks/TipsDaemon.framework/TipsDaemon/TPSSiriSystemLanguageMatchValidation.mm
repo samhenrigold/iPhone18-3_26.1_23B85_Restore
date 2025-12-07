@@ -22,40 +22,32 @@
 
 - (BOOL)getCurrentState
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if (AFAssistantRestricted())
   {
-    v2 = 0;
+    return 0;
   }
 
-  else
+  systemLanguages = [MEMORY[0x277CBEAF8] systemLanguages];
+  if ([systemLanguages count])
   {
-    systemLanguages = [MEMORY[0x277CBEAF8] systemLanguages];
-    if ([systemLanguages count])
+    mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
+    languageCode = [mEMORY[0x277CEF368] languageCode];
+
+    if ([languageCode length])
     {
-      mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
-      languageCode = [mEMORY[0x277CEF368] languageCode];
+      v6 = MEMORY[0x277CCA8D8];
+      preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
+      v8 = [v6 preferredLocalizationsFromArray:systemLanguages forPreferences:preferredLanguages];
+      firstObject = [v8 firstObject];
 
-      if ([languageCode length])
-      {
-        v6 = MEMORY[0x277CCA8D8];
-        preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
-        v8 = [v6 preferredLocalizationsFromArray:systemLanguages forPreferences:preferredLanguages];
-        firstObject = [v8 firstObject];
+      v10 = MEMORY[0x277CCA8D8];
+      v15[0] = languageCode;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+      v12 = [v10 preferredLocalizationsFromArray:systemLanguages forPreferences:v11];
+      firstObject2 = [v12 firstObject];
 
-        v10 = MEMORY[0x277CCA8D8];
-        v16[0] = languageCode;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-        v12 = [v10 preferredLocalizationsFromArray:systemLanguages forPreferences:v11];
-        firstObject2 = [v12 firstObject];
-
-        v2 = [firstObject isEqualToString:firstObject2];
-      }
-
-      else
-      {
-        v2 = 0;
-      }
+      v2 = [firstObject isEqualToString:firstObject2];
     }
 
     else
@@ -64,7 +56,11 @@
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v2 = 0;
+  }
+
   return v2;
 }
 

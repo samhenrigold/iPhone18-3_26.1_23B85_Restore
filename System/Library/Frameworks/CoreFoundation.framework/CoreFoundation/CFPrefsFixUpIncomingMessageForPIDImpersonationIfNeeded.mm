@@ -5,7 +5,7 @@
 
 void ___CFPrefsFixUpIncomingMessageForPIDImpersonationIfNeeded_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ((*(a2 + 54) & 1) != 0 || (EntitlementForMessageWithLockedContext = _CFPrefsGetEntitlementForMessageWithLockedContext(*(a1 + 32), "com.apple.private.defaults-impersonate", a2)) != 0 && (v7 = EntitlementForMessageWithLockedContext, object_getClass(EntitlementForMessageWithLockedContext) == MEMORY[0x1E69E9E58]) && xpc_BOOL_get_value(v7))
   {
     xpc_dictionary_set_data(*(a1 + 32), "CFPreferencesAuditToken", *(a1 + 40), *(a1 + 48));
@@ -57,27 +57,27 @@ void ___CFPrefsFixUpIncomingMessageForPIDImpersonationIfNeeded_block_invoke(uint
       xpc_connection_get_audit_token();
     }
 
-    proc_name(*&buf[20], buffer, 0x100u);
-    v12 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v12 = proc_name(*&buf[20], buffer, 0x100u);
+    v14 = _CFPrefsDaemonLog(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v14 = *(a1 + 32);
+      v15 = *(a1 + 32);
       length = 0;
       memset(buf, 0, 32);
-      v15 = xpc_dictionary_get_data(v14, "CFPreferencesAuditToken", &length);
-      if (v15 && length == 32)
+      v16 = xpc_dictionary_get_data(v15, "CFPreferencesAuditToken", &length);
+      if (v16 && length == 32)
       {
-        v16 = v15[1];
-        *buf = *v15;
-        *&buf[16] = v16;
+        v17 = v16[1];
+        *buf = *v16;
+        *&buf[16] = v17;
       }
 
       else
       {
-        if (!xpc_dictionary_get_remote_connection(v14))
+        if (!xpc_dictionary_get_remote_connection(v15))
         {
-          v17 = xpc_dictionary_get_value(v14, "connection");
-          if (!v17 || object_getClass(v17) != MEMORY[0x1E69E9E68])
+          v18 = xpc_dictionary_get_value(v15, "connection");
+          if (!v18 || object_getClass(v18) != MEMORY[0x1E69E9E68])
           {
             ___CFPrefsFixUpIncomingMessageForPIDImpersonationIfNeeded_block_invoke_cold_2();
           }
@@ -90,11 +90,9 @@ void ___CFPrefsFixUpIncomingMessageForPIDImpersonationIfNeeded_block_invoke(uint
       *&buf[4] = buffer;
       *&buf[12] = 1026;
       *&buf[14] = *&buf[20];
-      _os_log_fault_impl(&dword_1830E6000, v12, OS_LOG_TYPE_FAULT, "Not allowing process impersonation by process %{public}s (%{public}d) due to missing com.apple.private.defaults-impersonate entitlement.", buf, 0x12u);
+      _os_log_fault_impl(&dword_1830E6000, v14, OS_LOG_TYPE_FAULT, "Not allowing process impersonation by process %{public}s (%{public}d) due to missing com.apple.private.defaults-impersonate entitlement.", buf, 0x12u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

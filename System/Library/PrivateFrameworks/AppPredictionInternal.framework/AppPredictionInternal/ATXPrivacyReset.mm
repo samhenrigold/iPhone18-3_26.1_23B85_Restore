@@ -117,12 +117,13 @@ void __63__ATXPrivacyReset__registerForResetPrivacyWarningsNotification__block_i
 void __50__ATXPrivacyReset__handlePrivacyResetNotification__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_default(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __50__ATXPrivacyReset__handlePrivacyResetNotification__block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      __50__ATXPrivacyReset__handlePrivacyResetNotification__block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 }
@@ -136,23 +137,23 @@ void __50__ATXPrivacyReset__handlePrivacyResetNotification__block_invoke(uint64_
 
 - (void)_removeAllBlendingUICaches
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXPrivacyReset: Error removing blending UI caches. Error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXPrivacyReset: Error removing blending UI caches. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_removeAllAppActionData
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXPrivacyReset: Error removing all app/action data. Error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXPrivacyReset: Error removing all app/action data. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __50__ATXPrivacyReset__handlePrivacyResetNotification__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "An error occurred while telling home screen clients to relinquish resources: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "An error occurred while telling home screen clients to relinquish resources: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

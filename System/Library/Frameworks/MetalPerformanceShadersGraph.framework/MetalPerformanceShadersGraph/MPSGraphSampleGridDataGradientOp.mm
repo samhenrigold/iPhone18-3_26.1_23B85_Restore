@@ -28,7 +28,7 @@
 {
   v37[38] = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphSampleGridDataGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphSampleGrid.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphSampleGridDataGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphSampleGrid.mm");
   v12 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::SampleGridOp>(table, builder, __p, 0x99u, nameCopy);
   if (v30 < 0)
   {
@@ -61,7 +61,7 @@
   mlir::OperationState::OperationState(v37, v12, v21);
   mlir::mps::SampleGridDataGradientOp::build(builder, v37, *v14, v14[1], v14[2], self->_relativeCoordinates, *(&self->_relativeCoordinates + 1), paddingMode, samplingMode);
   v23 = mlir::OpBuilder::create(builder, v37);
-  v24 = *(*(v23 + 48) + 16);
+  v24 = *(*(v23 + 6) + 16);
   mlir::OperationState::~OperationState(v37);
   if (v24 == &mlir::detail::TypeIDResolver<mlir::mps::SampleGridDataGradientOp,void>::id)
   {

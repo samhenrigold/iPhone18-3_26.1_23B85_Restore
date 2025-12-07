@@ -1,15 +1,15 @@
 @interface NSMutableAttributedString(NSMutableAttributedStringKitAdditions)
-- (uint64_t)_changeIntAttribute:()NSMutableAttributedStringKitAdditions by:range:;
+- (char)convertBidiControlCharactersToWritingDirectionForParagraphAtIndex:()NSMutableAttributedStringKitAdditions;
 - (uint64_t)convertBidiControlCharactersToWritingDirection;
 - (uint64_t)convertWritingDirectionToBidiControlCharacters;
-- (uint64_t)fixAttributesInRange:()NSMutableAttributedStringKitAdditions;
 - (uint64_t)fixFontAttributeInRange:()NSMutableAttributedStringKitAdditions;
-- (unint64_t)_fixGlyphInfo:()NSMutableAttributedStringKitAdditions inRange:;
-- (unint64_t)convertBidiControlCharactersToWritingDirectionForParagraphAtIndex:()NSMutableAttributedStringKitAdditions;
 - (unint64_t)convertWritingDirectionToBidiControlCharactersForParagraphAtIndex:()NSMutableAttributedStringKitAdditions;
-- (unint64_t)fixGlyphInfoAttributeInRange:()NSMutableAttributedStringKitAdditions;
-- (unint64_t)fixParagraphStyleAttributeInRange:()NSMutableAttributedStringKitAdditions;
+- (void)_changeIntAttribute:()NSMutableAttributedStringKitAdditions by:range:;
+- (void)_fixGlyphInfo:()NSMutableAttributedStringKitAdditions inRange:;
 - (void)fixAttachmentAttributeInRange:()NSMutableAttributedStringKitAdditions;
+- (void)fixAttributesInRange:()NSMutableAttributedStringKitAdditions;
+- (void)fixGlyphInfoAttributeInRange:()NSMutableAttributedStringKitAdditions;
+- (void)fixParagraphStyleAttributeInRange:()NSMutableAttributedStringKitAdditions;
 - (void)setAlignment:()NSMutableAttributedStringKitAdditions range:;
 - (void)setBaseWritingDirection:()NSMutableAttributedStringKitAdditions range:;
 @end
@@ -34,7 +34,7 @@
   return [self endEditing];
 }
 
-- (uint64_t)fixAttributesInRange:()NSMutableAttributedStringKitAdditions
+- (void)fixAttributesInRange:()NSMutableAttributedStringKitAdditions
 {
   _attributeFixingInProgress = [self _attributeFixingInProgress];
   if ((_attributeFixingInProgress & 1) == 0)
@@ -59,7 +59,7 @@
 
 - (uint64_t)fixFontAttributeInRange:()NSMutableAttributedStringKitAdditions
 {
-  v7 = MEMORY[0x193AD3F60](0);
+  v7 = MEMORY[0x193AD3F60](0, a2);
   *theSet = 0u;
   v219 = 0u;
   string = [self string];
@@ -344,7 +344,7 @@ LABEL_58:
             if (v48 != v201 + v37)
             {
               v51 = v48 - v211;
-              if ((v48 - v211) >= 0)
+              if (v48 - v211 >= 0)
               {
                 v52 = v230;
                 if (v230 > v51)
@@ -795,7 +795,7 @@ LABEL_287:
                       v118 = [(__CFString *)v204 rangeOfComposedCharacterSequenceAtIndex:v114];
                       v210 = v118;
                       v120 = v118 - v211;
-                      if ((v118 - v211) >= 0)
+                      if (v118 - v211 >= 0)
                       {
                         v121 = v230;
                         if (v120 + v119 <= v230)
@@ -1957,7 +1957,7 @@ LABEL_555:
   return MEMORY[0x193AD3F50](v7);
 }
 
-- (unint64_t)fixParagraphStyleAttributeInRange:()NSMutableAttributedStringKitAdditions
+- (void)fixParagraphStyleAttributeInRange:()NSMutableAttributedStringKitAdditions
 {
   if (a3)
   {
@@ -2497,7 +2497,7 @@ LABEL_105:
   }
 }
 
-- (unint64_t)_fixGlyphInfo:()NSMutableAttributedStringKitAdditions inRange:
+- (void)_fixGlyphInfo:()NSMutableAttributedStringKitAdditions inRange:
 {
   result = [objc_msgSend(a3 "_baseString")];
   if (result <= a5)
@@ -2532,7 +2532,7 @@ LABEL_105:
   return result;
 }
 
-- (unint64_t)fixGlyphInfoAttributeInRange:()NSMutableAttributedStringKitAdditions
+- (void)fixGlyphInfoAttributeInRange:()NSMutableAttributedStringKitAdditions
 {
   v12 = 0;
   v13 = 0;
@@ -2661,7 +2661,7 @@ LABEL_105:
   return result;
 }
 
-- (uint64_t)_changeIntAttribute:()NSMutableAttributedStringKitAdditions by:range:
+- (void)_changeIntAttribute:()NSMutableAttributedStringKitAdditions by:range:
 {
   result = [self zone];
   if (a6)
@@ -2704,7 +2704,7 @@ LABEL_105:
   return result;
 }
 
-- (unint64_t)convertBidiControlCharactersToWritingDirectionForParagraphAtIndex:()NSMutableAttributedStringKitAdditions
+- (char)convertBidiControlCharactersToWritingDirectionForParagraphAtIndex:()NSMutableAttributedStringKitAdditions
 {
   mutableString = [self mutableString];
   array = [MEMORY[0x1E695DF70] array];

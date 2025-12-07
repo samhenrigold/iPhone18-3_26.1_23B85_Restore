@@ -15,11 +15,13 @@
 - (void)cacheLocalResult:(id)result identifier:(id)identifier bundleIdentifier:(id)bundleIdentifier protectionClass:(id)class searchString:(id)string;
 - (void)cachePerson:(id)person personQueryIdentifier:(id)identifier score:(id)score searchString:(id)string;
 - (void)cacheResult:(id)result title:(id)title searchString:(id)string;
+- (void)cacheSuggestion:(id)suggestion type:(int)type score:(id)score searchString:(id)string;
 - (void)deleteAllResults;
 - (void)deleteContact:(id)contact contactIdentifier:(id)identifier score:(id)score;
 - (void)deleteLocalResult:(id)result identifier:(id)identifier bundleIdentifier:(id)bundleIdentifier protectionClass:(id)class;
 - (void)deletePerson:(id)person personQueryIdentifier:(id)identifier score:(id)score;
 - (void)deleteResult:(id)result title:(id)title;
+- (void)deleteSuggestion:(id)suggestion type:(int)type score:(id)score;
 - (void)enumerateRecentCompletionsWithSearchString:(id)string usingBlock:(id)block;
 - (void)enumerateRecentResultsUsingBlock:(id)block;
 - (void)updateRecentsWithBundleIdentifiers:(id)identifiers;
@@ -48,18 +50,18 @@ uint64_t __32__SPCacheManager_defaultManager__block_invoke()
 
 - (SPCacheManager)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = SPCacheManager;
-  v2 = [(SPCacheManager *)&v9 init];
+  v11 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = SPCacheManager;
+  v2 = [(SPCacheManager *)&v8 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277D007C8]) initWithId:@"com.apple.spotlight" userAgent:@"spotlight/1.0" factory:0];
-    v4 = logForSPLogCategoryDefault();
+    v4 = logForSPLogCategoryDefault(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v3;
+      v10 = v3;
       _os_log_impl(&dword_26B79D000, v4, OS_LOG_TYPE_DEFAULT, "spotlight cache: initializing session with configuration: %@", buf, 0xCu);
     }
 
@@ -75,7 +77,6 @@ uint64_t __32__SPCacheManager_defaultManager__block_invoke()
     notify_post([@"SPSpotlightRecentsCacheDidChange" UTF8String]);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -175,35 +176,34 @@ uint64_t __32__SPCacheManager_defaultManager__block_invoke()
 
 - (void)updateRecentsWithBundleIdentifiers:(id)identifiers
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v28 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v26 = objc_alloc_init(MEMORY[0x277CBEB58]);
   selfCopy = self;
   v5 = [(SPCacheManager *)self recentResultsWithOptions:MEMORY[0x277CBEC10]];
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v30;
     v9 = 0x277D4C000uLL;
     do
     {
       v10 = 0;
-      v30 = v7;
+      v28 = v7;
       do
       {
-        if (*v32 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * v10);
+        v11 = *(*(&v29 + 1) + 8 * v10);
         topic = [v11 topic];
-        v13 = *(v9 + 1064);
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
@@ -211,31 +211,31 @@ uint64_t __32__SPCacheManager_defaultManager__block_invoke()
         {
           topic2 = [v11 topic];
           identifier = [topic2 identifier];
-          v17 = searchResultWithTopicIdentifier(identifier, 1.0);
+          v16 = searchResultWithTopicIdentifier(identifier, 1.0);
 
-          if ([v17 type] == 2)
+          if ([v16 type] == 2)
           {
-            resultBundleId = [v17 resultBundleId];
-            v19 = [resultBundleId componentsSeparatedByString:@":"];
+            resultBundleId = [v16 resultBundleId];
+            v18 = [resultBundleId componentsSeparatedByString:@":"];
 
-            firstObject = [v19 firstObject];
-            lastObject = [v19 lastObject];
+            firstObject = [v18 firstObject];
+            lastObject = [v18 lastObject];
             if (([identifiersCopy containsObject:lastObject] & 1) == 0)
             {
-              [v17 identifier];
-              v22 = v8;
-              v23 = v9;
-              v24 = v5;
-              v26 = v25 = identifiersCopy;
-              [(SPCacheManager *)selfCopy deleteLocalResult:v17 identifier:v26 bundleIdentifier:lastObject protectionClass:firstObject];
+              [v16 identifier];
+              v21 = v8;
+              v22 = v9;
+              v23 = v5;
+              v25 = v24 = identifiersCopy;
+              [(SPCacheManager *)selfCopy deleteLocalResult:v16 identifier:v25 bundleIdentifier:lastObject protectionClass:firstObject];
 
-              identifiersCopy = v25;
-              v5 = v24;
-              v9 = v23;
-              v8 = v22;
+              identifiersCopy = v24;
+              v5 = v23;
+              v9 = v22;
+              v8 = v21;
             }
 
-            v7 = v30;
+            v7 = v28;
           }
         }
 
@@ -243,18 +243,16 @@ uint64_t __32__SPCacheManager_defaultManager__block_invoke()
       }
 
       while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v7);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheResult:(id)result title:(id)title searchString:(id)string
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   stringCopy = string;
   titleCopy = title;
@@ -264,8 +262,8 @@ uint64_t __32__SPCacheManager_defaultManager__block_invoke()
 
   if (!v13)
   {
-    v17 = logForSPLogCategoryCaching();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = logForSPLogCategoryCaching(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [SPCacheManager cacheResult:resultCopy title:? searchString:?];
     }
@@ -277,34 +275,33 @@ uint64_t __32__SPCacheManager_defaultManager__block_invoke()
 
   if (encodedNormalizedTopic)
   {
-    if ([stringCopy length])
+    v16 = [stringCopy length];
+    if (v16)
     {
-      [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
+      v16 = [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
     }
 
-    v15 = logForSPLogCategoryCaching();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = logForSPLogCategoryCaching(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       type = [resultCopy type];
-      _os_log_impl(&dword_26B79D000, v15, OS_LOG_TYPE_DEFAULT, "spotlight cache: spotlight cache: caching result with type: %d", buf, 8u);
+      _os_log_impl(&dword_26B79D000, v17, OS_LOG_TYPE_DEFAULT, "spotlight cache: spotlight cache: caching result with type: %d", buf, 8u);
     }
 
     session = self->_session;
-    v19 = v13;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-    [(PARSession *)session addEngagedResults:v17 completion:&__block_literal_global_35];
+    v20 = v13;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    [(PARSession *)session addEngagedResults:v19 completion:&__block_literal_global_35];
 LABEL_10:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SPCacheManager_cacheResult_title_searchString___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = logForSPLogCategoryCaching();
+    v2 = logForSPLogCategoryCaching(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __49__SPCacheManager_cacheResult_title_searchString___block_invoke_cold_1();
@@ -332,43 +329,42 @@ void __49__SPCacheManager_cacheResult_title_searchString___block_invoke(uint64_t
     v17 = [[SPCachedResult alloc] initWithResult:resultCopy identifier:identifierCopy bundleIdentifier:bundleIdentifierCopy protectionClass:classCopy searchString:stringCopy];
     if (v17)
     {
-      if ([stringCopy length])
+      v18 = [stringCopy length];
+      if (v18)
       {
-        [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
+        v18 = [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
       }
 
-      v18 = logForSPLogCategoryCaching();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = logForSPLogCategoryCaching(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
         type = [resultCopy type];
-        _os_log_impl(&dword_26B79D000, v18, OS_LOG_TYPE_DEFAULT, "spotlight cache: caching result with type: %d", buf, 8u);
+        _os_log_impl(&dword_26B79D000, v19, OS_LOG_TYPE_DEFAULT, "spotlight cache: caching result with type: %d", buf, 8u);
       }
 
       session = self->_session;
       v22 = v17;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-      [(PARSession *)session addEngagedResults:v20 completion:&__block_literal_global_43];
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+      [(PARSession *)session addEngagedResults:v21 completion:&__block_literal_global_43];
     }
 
     else
     {
-      v20 = logForSPLogCategoryCaching();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = logForSPLogCategoryCaching(0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [SPCacheManager cacheResult:resultCopy title:? searchString:?];
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __92__SPCacheManager_cacheLocalResult_identifier_bundleIdentifier_protectionClass_searchString___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = logForSPLogCategoryCaching();
+    v2 = logForSPLogCategoryCaching(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __92__SPCacheManager_cacheLocalResult_identifier_bundleIdentifier_protectionClass_searchString___block_invoke_cold_1();
@@ -385,7 +381,7 @@ void __92__SPCacheManager_cacheLocalResult_identifier_bundleIdentifier_protectio
 
 - (void)cachePerson:(id)person personQueryIdentifier:(id)identifier score:(id)score searchString:(id)string
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   scoreCopy = score;
   identifierCopy = identifier;
@@ -394,41 +390,40 @@ void __92__SPCacheManager_cacheLocalResult_identifier_bundleIdentifier_protectio
 
   if (v14)
   {
-    if ([stringCopy length])
+    v16 = [stringCopy length];
+    if (v16)
     {
-      [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
+      v16 = [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
     }
 
-    v15 = logForSPLogCategoryCaching();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = logForSPLogCategoryCaching(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_26B79D000, v15, OS_LOG_TYPE_DEFAULT, "spotlight cache: caching person with type", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_26B79D000, v17, OS_LOG_TYPE_DEFAULT, "spotlight cache: caching person with type", v20, 2u);
     }
 
     session = self->_session;
-    v20[0] = v14;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-    [(PARSession *)session addEngagedResults:v17 completion:&__block_literal_global_45];
+    v21[0] = v14;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    [(PARSession *)session addEngagedResults:v19 completion:&__block_literal_global_45];
   }
 
   else
   {
-    v17 = logForSPLogCategoryCaching();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = logForSPLogCategoryCaching(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [SPCacheManager cachePerson:personQueryIdentifier:score:searchString:];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SPCacheManager_cachePerson_personQueryIdentifier_score_searchString___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = logForSPLogCategoryCaching();
+    v2 = logForSPLogCategoryCaching(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __71__SPCacheManager_cachePerson_personQueryIdentifier_score_searchString___block_invoke_cold_1();
@@ -445,7 +440,7 @@ void __71__SPCacheManager_cachePerson_personQueryIdentifier_score_searchString__
 
 - (void)cacheContact:(id)contact contactIdentifier:(id)identifier score:(id)score searchString:(id)string
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   scoreCopy = score;
   identifierCopy = identifier;
@@ -454,41 +449,40 @@ void __71__SPCacheManager_cachePerson_personQueryIdentifier_score_searchString__
 
   if (v14)
   {
-    if ([stringCopy length])
+    v16 = [stringCopy length];
+    if (v16)
     {
-      [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
+      v16 = [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
     }
 
-    v15 = logForSPLogCategoryCaching();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = logForSPLogCategoryCaching(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_26B79D000, v15, OS_LOG_TYPE_DEFAULT, "spotlight cache: caching contact with type", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_26B79D000, v17, OS_LOG_TYPE_DEFAULT, "spotlight cache: caching contact with type", v20, 2u);
     }
 
     session = self->_session;
-    v20[0] = v14;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-    [(PARSession *)session addEngagedResults:v17 completion:&__block_literal_global_47];
+    v21[0] = v14;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    [(PARSession *)session addEngagedResults:v19 completion:&__block_literal_global_47];
   }
 
   else
   {
-    v17 = logForSPLogCategoryCaching();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = logForSPLogCategoryCaching(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [SPCacheManager cacheContact:contactIdentifier:score:searchString:];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SPCacheManager_cacheContact_contactIdentifier_score_searchString___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = logForSPLogCategoryCaching();
+    v2 = logForSPLogCategoryCaching(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __68__SPCacheManager_cacheContact_contactIdentifier_score_searchString___block_invoke_cold_1();
@@ -503,11 +497,52 @@ void __68__SPCacheManager_cacheContact_contactIdentifier_score_searchString___bl
   }
 }
 
+- (void)cacheSuggestion:(id)suggestion type:(int)type score:(id)score searchString:(id)string
+{
+  v7 = *&type;
+  v22 = *MEMORY[0x277D85DE8];
+  stringCopy = string;
+  scoreCopy = score;
+  suggestionCopy = suggestion;
+  v13 = [[SPCachedResult alloc] initWithTitle:suggestionCopy type:v7 score:scoreCopy searchString:stringCopy];
+
+  if (v13)
+  {
+    v15 = [stringCopy length];
+    if (v15)
+    {
+      v15 = [(PARSession *)self->_session clearEngagementsWithTitle:stringCopy type:&unk_287C3DEB0];
+    }
+
+    v16 = logForSPLogCategoryCaching(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      v21 = v7;
+      _os_log_impl(&dword_26B79D000, v16, OS_LOG_TYPE_DEFAULT, "spotlight cache: caching suggestion with type: %d", buf, 8u);
+    }
+
+    session = self->_session;
+    v19 = v13;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+    [(PARSession *)session addEngagedResults:v18 completion:&__block_literal_global_49];
+  }
+
+  else
+  {
+    v18 = logForSPLogCategoryCaching(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      [SPCacheManager cacheSuggestion:type:score:searchString:];
+    }
+  }
+}
+
 void __58__SPCacheManager_cacheSuggestion_type_score_searchString___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = logForSPLogCategoryCaching();
+    v2 = logForSPLogCategoryCaching(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __58__SPCacheManager_cacheSuggestion_type_score_searchString___block_invoke_cold_1();
@@ -533,12 +568,12 @@ void __58__SPCacheManager_cacheSuggestion_type_score_searchString___block_invoke
 
   if (v10)
   {
-    v11 = logForSPLogCategoryCaching();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = logForSPLogCategoryCaching(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       type = [resultCopy type];
-      _os_log_impl(&dword_26B79D000, v11, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting result with type: %d", buf, 8u);
+      _os_log_impl(&dword_26B79D000, v12, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting result with type: %d", buf, 8u);
     }
 
     session = self->_session;
@@ -551,63 +586,60 @@ void __58__SPCacheManager_cacheSuggestion_type_score_searchString___block_invoke
     selfCopy = self;
     [(PARSession *)session clearEngagedResult:v10 completion:v14];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __37__SPCacheManager_deleteResult_title___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v2 = logForSPLogCategoryCaching();
+    v2 = logForSPLogCategoryCaching(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __37__SPCacheManager_deleteResult_title___block_invoke_cold_1();
     }
-
-LABEL_11:
-    v11 = *MEMORY[0x277D85DE8];
-    return;
   }
 
-  v4 = [*(a1 + 32) requestedTopic];
-
-  if (v4)
+  else
   {
-    v5 = [SPCachedResult alloc];
-    v6 = *(a1 + 32);
-    v7 = [v6 requestedTopic];
-    v8 = [(SPCachedResult *)v5 initWithResult:v6 topic:v7 title:*(a1 + 40) searchString:0];
+    v4 = [*(a1 + 32) requestedTopic];
 
-    if (v8)
+    if (v4)
     {
-      v9 = logForSPLogCategoryCaching();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = [*(a1 + 32) type];
-        v14[0] = 67109120;
-        v14[1] = v10;
-        _os_log_impl(&dword_26B79D000, v9, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting result with type: %d", v14, 8u);
-      }
+      v5 = [SPCachedResult alloc];
+      v6 = *(a1 + 32);
+      v7 = [v6 requestedTopic];
+      v8 = [(SPCachedResult *)v5 initWithResult:v6 topic:v7 title:*(a1 + 40) searchString:0];
 
-      [*(*(a1 + 48) + 8) clearEngagedResult:v8 completion:&__block_literal_global_52];
+      if (v8)
+      {
+        v10 = logForSPLogCategoryCaching(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          v11 = [*(a1 + 32) type];
+          v13[0] = 67109120;
+          v13[1] = v11;
+          _os_log_impl(&dword_26B79D000, v10, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting result with type: %d", v13, 8u);
+        }
+
+        [*(*(a1 + 48) + 8) clearEngagedResult:v8 completion:&__block_literal_global_52];
+      }
     }
 
-    goto LABEL_11;
+    else
+    {
+      v12 = [@"SPSpotlightRecentsCacheDidChange" UTF8String];
+
+      notify_post(v12);
+    }
   }
-
-  v12 = [@"SPSpotlightRecentsCacheDidChange" UTF8String];
-  v13 = *MEMORY[0x277D85DE8];
-
-  notify_post(v12);
 }
 
 void __37__SPCacheManager_deleteResult_title___block_invoke_50(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = logForSPLogCategoryCaching();
+    v2 = logForSPLogCategoryCaching(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __37__SPCacheManager_deleteResult_title___block_invoke_cold_1();
@@ -631,15 +663,15 @@ void __37__SPCacheManager_deleteResult_title___block_invoke_50(uint64_t a1, uint
   identifierCopy = identifier;
   v14 = [[SPCachedResult alloc] initWithResult:resultCopy identifier:identifierCopy bundleIdentifier:bundleIdentifierCopy protectionClass:classCopy searchString:0];
 
-  v15 = logForSPLogCategoryCaching();
-  v16 = v15;
+  v16 = logForSPLogCategoryCaching(v15);
+  v17 = v16;
   if (v14)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v18[0] = 67109120;
       v18[1] = [resultCopy type];
-      _os_log_impl(&dword_26B79D000, v16, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting local result with type: %d", v18, 8u);
+      _os_log_impl(&dword_26B79D000, v17, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting local result with type: %d", v18, 8u);
     }
 
     [(PARSession *)self->_session clearEngagedResult:v14 completion:&__block_literal_global_54];
@@ -647,20 +679,18 @@ void __37__SPCacheManager_deleteResult_title___block_invoke_50(uint64_t a1, uint
 
   else
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SPCacheManager deleteLocalResult:resultCopy identifier:? bundleIdentifier:? protectionClass:?];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __80__SPCacheManager_deleteLocalResult_identifier_bundleIdentifier_protectionClass___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = logForSPLogCategoryCaching();
+    v2 = logForSPLogCategoryCaching(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __37__SPCacheManager_deleteResult_title___block_invoke_cold_1();
@@ -682,30 +712,30 @@ void __80__SPCacheManager_deleteLocalResult_identifier_bundleIdentifier_protecti
   personCopy = person;
   v11 = [[SPCachedResult alloc] initWithPersonName:personCopy personQueryIdentifier:identifierCopy score:scoreCopy searchString:0];
 
-  v12 = logForSPLogCategoryCaching();
-  v13 = v12;
+  v13 = logForSPLogCategoryCaching(v12);
+  v14 = v13;
   if (v11)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_26B79D000, v13, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting person with type", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_26B79D000, v14, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting person with type", v19, 2u);
     }
 
     session = self->_session;
     title = [(SPCachedResult *)v11 title];
     [(PARSession *)session clearEngagementsWithTitle:title type:&unk_287C3DEC8];
 
-    v16 = self->_session;
+    v17 = self->_session;
     title2 = [(SPCachedResult *)v11 title];
-    [(PARSession *)v16 clearEngagementsWithTitle:title2 type:&unk_287C3DEE0];
+    [(PARSession *)v17 clearEngagementsWithTitle:title2 type:&unk_287C3DEE0];
 
     notify_post([@"SPSpotlightRecentsCacheDidChange" UTF8String]);
   }
 
   else
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SPCacheManager deletePerson:personQueryIdentifier:score:];
     }
@@ -719,32 +749,59 @@ void __80__SPCacheManager_deleteLocalResult_identifier_bundleIdentifier_protecti
   contactCopy = contact;
   v11 = [[SPCachedResult alloc] initWithContactName:contactCopy contactIdentifier:identifierCopy score:scoreCopy searchString:0];
 
-  v12 = logForSPLogCategoryCaching();
-  v13 = v12;
+  v13 = logForSPLogCategoryCaching(v12);
+  v14 = v13;
   if (v11)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_26B79D000, v13, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting contact with type", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_26B79D000, v14, OS_LOG_TYPE_DEFAULT, "spotlight cache: deleting contact with type", v19, 2u);
     }
 
     session = self->_session;
     title = [(SPCachedResult *)v11 title];
     [(PARSession *)session clearEngagementsWithTitle:title type:&unk_287C3DEF8];
 
-    v16 = self->_session;
+    v17 = self->_session;
     title2 = [(SPCachedResult *)v11 title];
-    [(PARSession *)v16 clearEngagementsWithTitle:title2 type:&unk_287C3DF10];
+    [(PARSession *)v17 clearEngagementsWithTitle:title2 type:&unk_287C3DF10];
 
     notify_post([@"SPSpotlightRecentsCacheDidChange" UTF8String]);
   }
 
   else
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SPCacheManager deleteContact:contactIdentifier:score:];
+    }
+  }
+}
+
+- (void)deleteSuggestion:(id)suggestion type:(int)type score:(id)score
+{
+  v5 = *&type;
+  scoreCopy = score;
+  suggestionCopy = suggestion;
+  v10 = [[SPCachedResult alloc] initWithTitle:suggestionCopy type:v5 score:scoreCopy searchString:0];
+
+  if (v10)
+  {
+    session = self->_session;
+    title = [(SPCachedResult *)v10 title];
+    v14 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+    [(PARSession *)session clearEngagementsWithTitle:title type:v14];
+
+    notify_post([@"SPSpotlightRecentsCacheDidChange" UTF8String]);
+  }
+
+  else
+  {
+    v15 = logForSPLogCategoryCaching(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [SPCacheManager deleteSuggestion:type:score:];
     }
   }
 }
@@ -765,12 +822,12 @@ void __80__SPCacheManager_deleteLocalResult_identifier_bundleIdentifier_protecti
 {
   optionsCopy = options;
   deduplicateCopy = deduplicate;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy_;
-  v37 = __Block_byref_object_dispose_;
-  v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy_;
+  v38 = __Block_byref_object_dispose_;
+  v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
   session = self->_session;
   if (session && [(PARSession *)session enabledStatus]== 1)
   {
@@ -787,79 +844,79 @@ void __80__SPCacheManager_deleteLocalResult_identifier_bundleIdentifier_protecti
 
     v12 = dispatch_group_create();
     dispatch_group_enter(v12);
-    v13 = logForSPLogCategoryRecents();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = logForSPLogCategoryRecents(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SPCacheManager recentResultsWithOptions:rankAndDeduplicate:];
     }
 
-    v14 = self->_session;
-    if ((deduplicateCopy == 0) | ((objc_opt_respondsToSelector() & 1) == 0))
+    v15 = objc_opt_respondsToSelector();
+    if (deduplicateCopy == 0 || (v15 & 1) == 0)
     {
-      v18 = logForSPLogCategoryRecents();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = logForSPLogCategoryRecents(v15);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_26B79D000, v18, OS_LOG_TYPE_DEFAULT, "spotlight cache: getting top engaged results", buf, 2u);
+        _os_log_impl(&dword_26B79D000, v19, OS_LOG_TYPE_DEFAULT, "spotlight cache: getting top engaged results", buf, 2u);
       }
 
-      v19 = self->_session;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_invoke_71;
-      v23[3] = &unk_279D02648;
-      v25 = &v33;
-      v26 = intValue;
-      v23[4] = self;
-      v24 = v12;
-      [(PARSession *)v19 topEngagedResultsForInput:&stru_287C3D120 maxAmount:10 completion:v23];
-      v17 = v24;
+      v20 = self->_session;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_invoke_71;
+      v24[3] = &unk_279D02648;
+      v26 = &v34;
+      v27 = intValue;
+      v24[4] = self;
+      v25 = v12;
+      [(PARSession *)v20 topEngagedResultsForInput:&stru_287C3D120 maxAmount:10 completion:v24];
+      v18 = v25;
     }
 
     else
     {
-      v15 = logForSPLogCategoryRecents();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = logForSPLogCategoryRecents(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_26B79D000, v15, OS_LOG_TYPE_DEFAULT, "spotlight cache: ranking, getting all engaged results", buf, 2u);
+        _os_log_impl(&dword_26B79D000, v16, OS_LOG_TYPE_DEFAULT, "spotlight cache: ranking, getting all engaged results", buf, 2u);
       }
 
-      v16 = self->_session;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_invoke;
-      v27[3] = &unk_279D02620;
-      v29 = deduplicateCopy;
-      v30 = &v33;
-      v27[4] = self;
-      v31 = intValue;
-      v28 = v12;
-      [(PARSession *)v16 allEngagedResultsForInput:&stru_287C3D120 maxAmount:100 completion:v27];
+      v17 = self->_session;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_invoke;
+      v28[3] = &unk_279D02620;
+      v30 = deduplicateCopy;
+      v31 = &v34;
+      v28[4] = self;
+      v32 = intValue;
+      v29 = v12;
+      [(PARSession *)v17 allEngagedResultsForInput:&stru_287C3D120 maxAmount:100 completion:v28];
 
-      v17 = v29;
+      v18 = v30;
     }
 
-    v20 = dispatch_time(0, 10000000000);
-    if (dispatch_group_wait(v12, v20))
+    v21 = dispatch_time(0, 10000000000);
+    if (dispatch_group_wait(v12, v21))
     {
-      v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
     }
 
     else
     {
-      v21 = v34[5];
+      v22 = v35[5];
     }
 
-    v11 = v21;
+    v11 = v22;
   }
 
   else
   {
-    v11 = v34[5];
+    v11 = v35[5];
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v34, 8);
 
   return v11;
 }
@@ -868,7 +925,7 @@ void __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_in
 {
   v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = logForSPLogCategoryRecents();
+  v4 = logForSPLogCategoryRecents(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 134217984;
@@ -878,34 +935,33 @@ void __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_in
 
   v5 = (*(*(a1 + 48) + 16))();
 
-  v6 = logForSPLogCategoryRecents();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = logForSPLogCategoryRecents(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [v5 count];
+    v8 = [v5 count];
     v12 = 134217984;
-    v13 = v7;
-    _os_log_impl(&dword_26B79D000, v6, OS_LOG_TYPE_DEFAULT, "spotlight cache: filtered to %ld engaged results", &v12, 0xCu);
+    v13 = v8;
+    _os_log_impl(&dword_26B79D000, v7, OS_LOG_TYPE_DEFAULT, "spotlight cache: filtered to %ld engaged results", &v12, 0xCu);
   }
 
-  v8 = [*(a1 + 32) _createRecentsFromEngagedResults:v5 maxCount:*(a1 + 64)];
-  v9 = *(*(a1 + 56) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v9 = [*(a1 + 32) _createRecentsFromEngagedResults:v5 maxCount:*(a1 + 64)];
+  v10 = *(*(a1 + 56) + 8);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = v9;
 
   dispatch_group_leave(*(a1 + 40));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_invoke_71(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = logForSPLogCategoryRecents();
+  v4 = logForSPLogCategoryRecents(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = [v3 count];
-    _os_log_impl(&dword_26B79D000, v4, OS_LOG_TYPE_DEFAULT, "spotlight cache: found top %ld engaged results", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [v3 count];
+    _os_log_impl(&dword_26B79D000, v4, OS_LOG_TYPE_DEFAULT, "spotlight cache: found top %ld engaged results", &v8, 0xCu);
   }
 
   v5 = [*(a1 + 32) _createRecentsFromEngagedResults:v3 maxCount:*(a1 + 56)];
@@ -914,7 +970,6 @@ void __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_in
   *(v6 + 40) = v5;
 
   dispatch_group_leave(*(a1 + 40));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createRecentsFromEngagedResults:(id)results maxCount:(unint64_t)count
@@ -951,7 +1006,7 @@ void __62__SPCacheManager_recentResultsWithOptions_rankAndDeduplicate___block_in
         v13 = [[SPCachedResult alloc] initWithEngagedResult:v12];
         if (!v13)
         {
-          title = logForSPLogCategoryRecents();
+          title = logForSPLogCategoryRecents(0);
           if (os_log_type_enabled(title, OS_LOG_TYPE_ERROR))
           {
             [(SPCacheManager *)&v73 _createRecentsFromEngagedResults:v74 maxCount:title];
@@ -1116,13 +1171,13 @@ LABEL_14:
     while (v37);
   }
 
-  v41 = logForSPLogCategoryRecents();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v42 = logForSPLogCategoryRecents(v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = [v5 count];
+    v43 = [v5 count];
     *buf = 134217984;
-    v81 = v42;
-    _os_log_impl(&dword_26B79D000, v41, OS_LOG_TYPE_DEFAULT, "spotlight cache: returning %ld engaged completions", buf, 0xCu);
+    v81 = v43;
+    _os_log_impl(&dword_26B79D000, v42, OS_LOG_TYPE_DEFAULT, "spotlight cache: returning %ld engaged completions", buf, 0xCu);
   }
 
   [v5 sortUsingComparator:&__block_literal_global_74];
@@ -1130,19 +1185,19 @@ LABEL_14:
   v60 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v43 = v5;
-  v44 = [v43 countByEnumeratingWithState:&v57 objects:v79 count:16];
-  if (v44)
+  v44 = v5;
+  v45 = [v44 countByEnumeratingWithState:&v57 objects:v79 count:16];
+  if (v45)
   {
-    v45 = v44;
-    v46 = *v58;
+    v46 = v45;
+    v47 = *v58;
     while (2)
     {
-      for (m = 0; m != v45; ++m)
+      for (m = 0; m != v46; ++m)
       {
-        if (*v58 != v46)
+        if (*v58 != v47)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v44);
         }
 
         recentTopic = [*(*(&v57 + 1) + 8 * m) recentTopic];
@@ -1158,8 +1213,8 @@ LABEL_14:
         }
       }
 
-      v45 = [v43 countByEnumeratingWithState:&v57 objects:v79 count:16];
-      if (v45)
+      v46 = [v44 countByEnumeratingWithState:&v57 objects:v79 count:16];
+      if (v46)
       {
         continue;
       }
@@ -1169,8 +1224,6 @@ LABEL_14:
   }
 
 LABEL_72:
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v51;
 }
@@ -1187,210 +1240,210 @@ uint64_t __60__SPCacheManager__createRecentsFromEngagedResults_maxCount___block_
 
 - (void)enumerateRecentResultsUsingBlock:(id)block
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = [MEMORY[0x277CCABB0] numberWithInt:0xFFFFFFFFLL];
-  v101 = 1;
+  v102 = 1;
   session = self->_session;
   if (session && [(PARSession *)session enabledStatus]== 1)
   {
-    v95 = 0;
-    v96 = &v95;
-    v97 = 0x3032000000;
-    v98 = __Block_byref_object_copy_;
-    v99 = __Block_byref_object_dispose_;
-    v100 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v89 = 0;
-    v90 = &v89;
-    v91 = 0x3032000000;
-    v92 = __Block_byref_object_copy_;
-    v93 = __Block_byref_object_dispose_;
-    v94 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v83 = 0;
-    v84 = &v83;
-    v85 = 0x3032000000;
-    v86 = __Block_byref_object_copy_;
-    v87 = __Block_byref_object_dispose_;
-    v88 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v77 = 0;
-    v78 = &v77;
-    v79 = 0x3032000000;
-    v80 = __Block_byref_object_copy_;
-    v81 = __Block_byref_object_dispose_;
-    v82 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v71 = 0;
-    v72 = &v71;
-    v73 = 0x3032000000;
-    v74 = __Block_byref_object_copy_;
-    v75 = __Block_byref_object_dispose_;
-    v76 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x3032000000;
-    v68 = __Block_byref_object_copy_;
-    v69 = __Block_byref_object_dispose_;
-    v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v96 = 0;
+    v97 = &v96;
+    v98 = 0x3032000000;
+    v99 = __Block_byref_object_copy_;
+    v100 = __Block_byref_object_dispose_;
+    v101 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v90 = 0;
+    v91 = &v90;
+    v92 = 0x3032000000;
+    v93 = __Block_byref_object_copy_;
+    v94 = __Block_byref_object_dispose_;
+    v95 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v84 = 0;
+    v85 = &v84;
+    v86 = 0x3032000000;
+    v87 = __Block_byref_object_copy_;
+    v88 = __Block_byref_object_dispose_;
+    v89 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v78 = 0;
+    v79 = &v78;
+    v80 = 0x3032000000;
+    v81 = __Block_byref_object_copy_;
+    v82 = __Block_byref_object_dispose_;
+    v83 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v72 = 0;
+    v73 = &v72;
+    v74 = 0x3032000000;
+    v75 = __Block_byref_object_copy_;
+    v76 = __Block_byref_object_dispose_;
+    v77 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v66 = 0;
+    v67 = &v66;
+    v68 = 0x3032000000;
+    v69 = __Block_byref_object_copy_;
+    v70 = __Block_byref_object_dispose_;
+    v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v7 = dispatch_group_create();
     dispatch_group_enter(v7);
-    v8 = logForSPLogCategoryRecents();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = logForSPLogCategoryRecents(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26B79D000, v8, OS_LOG_TYPE_DEFAULT, "spotlight cache: getting top engaged results", buf, 2u);
+      _os_log_impl(&dword_26B79D000, v9, OS_LOG_TYPE_DEFAULT, "spotlight cache: getting top engaged results", buf, 2u);
     }
 
-    v9 = self->_session;
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __51__SPCacheManager_enumerateRecentResultsUsingBlock___block_invoke;
-    v57[3] = &unk_279D02690;
-    v59 = &v71;
-    v60 = &v65;
-    v61 = &v83;
-    v62 = &v77;
-    v63 = &v89;
-    v64 = &v95;
+    v10 = self->_session;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __51__SPCacheManager_enumerateRecentResultsUsingBlock___block_invoke;
+    v58[3] = &unk_279D02690;
+    v60 = &v72;
+    v61 = &v66;
+    v62 = &v84;
+    v63 = &v78;
+    v64 = &v90;
+    v65 = &v96;
     group = v7;
-    v58 = group;
-    [(PARSession *)v9 topEngagedResultsForInput:&stru_287C3D120 maxAmount:10 completion:v57];
-    v10 = dispatch_time(0, 10000000000);
-    if (dispatch_group_wait(group, v10))
+    v59 = group;
+    [(PARSession *)v10 topEngagedResultsForInput:&stru_287C3D120 maxAmount:10 completion:v58];
+    v11 = dispatch_time(0, 10000000000);
+    if (dispatch_group_wait(group, v11))
     {
-      blockCopy[2](blockCopy, 0, v5, &v101);
+      blockCopy[2](blockCopy, 0, v5, &v102);
     }
 
     else
     {
-      v55 = 0u;
       v56 = 0u;
-      v53 = 0u;
+      v57 = 0u;
       v54 = 0u;
-      v11 = v72[5];
-      v12 = [v11 countByEnumeratingWithState:&v53 objects:v106 count:16];
-      if (v12)
+      v55 = 0u;
+      v12 = v73[5];
+      v13 = [v12 countByEnumeratingWithState:&v54 objects:v107 count:16];
+      if (v13)
       {
-        v13 = *v54;
+        v14 = *v55;
         do
         {
-          for (i = 0; i != v12; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v54 != v13)
+            if (*v55 != v14)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v12);
             }
 
-            v15 = *(*(&v53 + 1) + 8 * i);
-            v16 = [v84[5] objectForKey:v15];
+            v16 = *(*(&v54 + 1) + 8 * i);
+            v17 = [v85[5] objectForKey:v16];
 
-            if (!v16)
+            if (!v17)
             {
-              v17 = [v72[5] objectForKeyedSubscript:v15];
-              v18 = [v66[5] objectForKeyedSubscript:v15];
+              v18 = [v73[5] objectForKeyedSubscript:v16];
+              v19 = [v67[5] objectForKeyedSubscript:v16];
 
-              v19 = [v90[5] count];
-              [v90[5] addObject:v17];
-              v20 = v96[5];
-              v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v19];
-              [v20 setObject:v18 forKey:v21];
+              v20 = [v91[5] count];
+              [v91[5] addObject:v18];
+              v21 = v97[5];
+              v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v20];
+              [v21 setObject:v19 forKey:v22];
 
-              v5 = v18;
+              v5 = v19;
             }
           }
 
-          v12 = [v11 countByEnumeratingWithState:&v53 objects:v106 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v54 objects:v107 count:16];
         }
 
-        while (v12);
+        while (v13);
       }
 
-      v51 = 0u;
       v52 = 0u;
-      v49 = 0u;
+      v53 = 0u;
       v50 = 0u;
-      v22 = v84[5];
-      v23 = [v22 countByEnumeratingWithState:&v49 objects:v105 count:16];
-      if (v23)
+      v51 = 0u;
+      v23 = v85[5];
+      v24 = [v23 countByEnumeratingWithState:&v50 objects:v106 count:16];
+      if (v24)
       {
-        v24 = *v50;
+        v25 = *v51;
         do
         {
-          v25 = 0;
-          v26 = v5;
+          v26 = 0;
+          v27 = v5;
           do
           {
-            if (*v50 != v24)
+            if (*v51 != v25)
             {
-              objc_enumerationMutation(v22);
+              objc_enumerationMutation(v23);
             }
 
-            v27 = *(*(&v49 + 1) + 8 * v25);
-            v28 = [v84[5] objectForKeyedSubscript:v27];
-            v5 = [v78[5] objectForKeyedSubscript:v27];
+            v28 = *(*(&v50 + 1) + 8 * v26);
+            v29 = [v85[5] objectForKeyedSubscript:v28];
+            v5 = [v79[5] objectForKeyedSubscript:v28];
 
-            v29 = [v90[5] count];
-            [v90[5] addObject:v28];
-            v30 = v96[5];
-            v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
-            [v30 setObject:v5 forKey:v31];
+            v30 = [v91[5] count];
+            [v91[5] addObject:v29];
+            v31 = v97[5];
+            v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
+            [v31 setObject:v5 forKey:v32];
 
-            ++v25;
-            v26 = v5;
+            ++v26;
+            v27 = v5;
           }
 
-          while (v23 != v25);
-          v23 = [v22 countByEnumeratingWithState:&v49 objects:v105 count:16];
+          while (v24 != v26);
+          v24 = [v23 countByEnumeratingWithState:&v50 objects:v106 count:16];
         }
 
-        while (v23);
+        while (v24);
       }
 
-      v32 = logForSPLogCategoryRecents();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v34 = logForSPLogCategoryRecents(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = [v96[5] count];
+        v35 = [v97[5] count];
         *buf = 134217984;
-        v104 = v33;
-        _os_log_impl(&dword_26B79D000, v32, OS_LOG_TYPE_DEFAULT, "spotlight cache: returning %ld engaged completions", buf, 0xCu);
+        v105 = v35;
+        _os_log_impl(&dword_26B79D000, v34, OS_LOG_TYPE_DEFAULT, "spotlight cache: returning %ld engaged completions", buf, 0xCu);
       }
 
-      v34 = [v96[5] keysSortedByValueUsingSelector:sel_compare_];
-      v47 = 0u;
+      v36 = [v97[5] keysSortedByValueUsingSelector:sel_compare_];
       v48 = 0u;
-      v45 = 0u;
+      v49 = 0u;
       v46 = 0u;
-      reverseObjectEnumerator = [v34 reverseObjectEnumerator];
-      v36 = [reverseObjectEnumerator countByEnumeratingWithState:&v45 objects:v102 count:16];
-      if (v36)
+      v47 = 0u;
+      reverseObjectEnumerator = [v36 reverseObjectEnumerator];
+      v38 = [reverseObjectEnumerator countByEnumeratingWithState:&v46 objects:v103 count:16];
+      if (v38)
       {
-        v37 = *v46;
+        v39 = *v47;
 LABEL_28:
-        v38 = 0;
-        v39 = v5;
+        v40 = 0;
+        v41 = v5;
         while (1)
         {
-          if (*v46 != v37)
+          if (*v47 != v39)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v40 = *(*(&v45 + 1) + 8 * v38);
-          v5 = [v96[5] objectForKeyedSubscript:v40];
+          v42 = *(*(&v46 + 1) + 8 * v40);
+          v5 = [v97[5] objectForKeyedSubscript:v42];
 
-          v41 = [v90[5] objectAtIndex:{objc_msgSend(v40, "intValue")}];
-          (blockCopy)[2](blockCopy, v41, v5, &v101);
-          v42 = v101;
+          v43 = [v91[5] objectAtIndex:{objc_msgSend(v42, "intValue")}];
+          (blockCopy)[2](blockCopy, v43, v5, &v102);
+          v44 = v102;
 
-          if (v42)
+          if (v44)
           {
             break;
           }
 
-          ++v38;
-          v39 = v5;
-          if (v36 == v38)
+          ++v40;
+          v41 = v5;
+          if (v38 == v40)
           {
-            v36 = [reverseObjectEnumerator countByEnumeratingWithState:&v45 objects:v102 count:16];
-            if (v36)
+            v38 = [reverseObjectEnumerator countByEnumeratingWithState:&v46 objects:v103 count:16];
+            if (v38)
             {
               goto LABEL_28;
             }
@@ -1401,29 +1454,27 @@ LABEL_28:
       }
     }
 
-    _Block_object_dispose(&v65, 8);
-    _Block_object_dispose(&v71, 8);
+    _Block_object_dispose(&v66, 8);
+    _Block_object_dispose(&v72, 8);
 
-    _Block_object_dispose(&v77, 8);
-    _Block_object_dispose(&v83, 8);
+    _Block_object_dispose(&v78, 8);
+    _Block_object_dispose(&v84, 8);
 
-    _Block_object_dispose(&v89, 8);
-    _Block_object_dispose(&v95, 8);
+    _Block_object_dispose(&v90, 8);
+    _Block_object_dispose(&v96, 8);
   }
 
   else
   {
-    blockCopy[2](blockCopy, 0, v5, &v101);
+    blockCopy[2](blockCopy, 0, v5, &v102);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SPCacheManager_enumerateRecentResultsUsingBlock___block_invoke(uint64_t a1, void *a2)
 {
   v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = logForSPLogCategoryRecents();
+  v4 = logForSPLogCategoryRecents(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -1459,53 +1510,53 @@ void __51__SPCacheManager_enumerateRecentResultsUsingBlock___block_invoke(uint64
         {
           if ([v10 type] == 36 || objc_msgSend(v10, "type") == 32)
           {
-            v13 = *(*(*(a1 + 40) + 8) + 40);
-            v14 = [v10 title];
-            [v13 setObject:v12 forKey:v14];
+            v14 = *(*(*(a1 + 40) + 8) + 40);
+            v15 = [v10 title];
+            [v14 setObject:v12 forKey:v15];
 
-            v15 = *(a1 + 48);
+            v16 = *(a1 + 48);
             goto LABEL_12;
           }
 
           if ([v10 type] == 37 || objc_msgSend(v10, "type") == 38)
           {
-            v21 = *(*(*(a1 + 56) + 8) + 40);
-            v22 = [v10 title];
-            [v21 setObject:v12 forKey:v22];
+            v22 = *(*(*(a1 + 56) + 8) + 40);
+            v23 = [v10 title];
+            [v22 setObject:v12 forKey:v23];
 
-            v15 = *(a1 + 64);
+            v16 = *(a1 + 64);
 LABEL_12:
-            v16 = *(*(v15 + 8) + 40);
-            v17 = MEMORY[0x277CCABB0];
+            v17 = *(*(v16 + 8) + 40);
+            v18 = MEMORY[0x277CCABB0];
             [v10 freshnessScore];
-            v18 = [v17 numberWithDouble:?];
-            v19 = [v10 title];
-            v20 = v16;
+            v19 = [v18 numberWithDouble:?];
+            v20 = [v10 title];
+            v21 = v17;
           }
 
           else
           {
             v28 = [*(*(*(a1 + 72) + 8) + 40) count];
             [*(*(*(a1 + 72) + 8) + 40) addObject:v12];
-            v23 = v5;
-            v24 = *(*(*(a1 + 80) + 8) + 40);
-            v25 = MEMORY[0x277CCABB0];
+            v24 = v5;
+            v25 = *(*(*(a1 + 80) + 8) + 40);
+            v26 = MEMORY[0x277CCABB0];
             [v10 freshnessScore];
-            v18 = [v25 numberWithDouble:?];
-            v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v28];
-            v20 = v24;
-            v5 = v23;
+            v19 = [v26 numberWithDouble:?];
+            v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v28];
+            v21 = v25;
+            v5 = v24;
           }
 
-          [v20 setObject:v18 forKey:v19];
+          [v21 setObject:v19 forKey:v20];
 
           goto LABEL_16;
         }
 
-        v18 = logForSPLogCategoryRecents();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v19 = logForSPLogCategoryRecents(v13);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [(SPCacheManager *)buf _createRecentsFromEngagedResults:v18 maxCount:?];
+          [(SPCacheManager *)buf _createRecentsFromEngagedResults:v19 maxCount:?];
         }
 
 LABEL_16:
@@ -1514,22 +1565,21 @@ LABEL_16:
       }
 
       while (v7 != v9);
-      v26 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
-      v7 = v26;
+      v27 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v7 = v27;
     }
 
-    while (v26);
+    while (v27);
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateRecentCompletionsWithSearchString:(id)string usingBlock:(id)block
 {
   stringCopy = string;
   blockCopy = block;
-  v8 = logForSPLogCategoryRecents();
+  v8 = logForSPLogCategoryRecents(blockCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1553,7 +1603,7 @@ void __72__SPCacheManager_enumerateRecentCompletionsWithSearchString_usingBlock_
 {
   v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = logForSPLogCategoryRecents();
+  v4 = logForSPLogCategoryRecents(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -1617,49 +1667,41 @@ LABEL_5:
     v8 = 0;
   }
 
-  v16 = logForSPLogCategoryRecents();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = logForSPLogCategoryRecents(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     v25 = v8;
-    _os_log_impl(&dword_26B79D000, v16, OS_LOG_TYPE_DEFAULT, "spotlight cache: returning %ld engaged completions", buf, 0xCu);
+    _os_log_impl(&dword_26B79D000, v17, OS_LOG_TYPE_DEFAULT, "spotlight cache: returning %ld engaged completions", buf, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheResult:(void *)a1 title:searchString:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 type];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26B79D000, v1, v2, "spotlight cache: could not create cached result with result: %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26B79D000, v1, v2, "spotlight cache: could not create cached result with result: %d", v3, v4, v5, v6);
 }
 
 - (void)cacheSuggestion:type:score:searchString:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_26B79D000, v0, OS_LOG_TYPE_ERROR, "spotlight cache: could not create cached result with suggestion: %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26B79D000, v0, OS_LOG_TYPE_ERROR, "spotlight cache: could not create cached result with suggestion: %d", v1, 8u);
 }
 
 - (void)deleteLocalResult:(void *)a1 identifier:bundleIdentifier:protectionClass:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 type];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26B79D000, v1, v2, "spotlight cache: could not delete cached result with result: %d", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26B79D000, v1, v2, "spotlight cache: could not delete cached result with result: %d", v3, v4, v5, v6);
 }
 
 - (void)deleteSuggestion:type:score:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_26B79D000, v0, OS_LOG_TYPE_ERROR, "spotlight cache: could not delete cached result with suggestion: %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26B79D000, v0, OS_LOG_TYPE_ERROR, "spotlight cache: could not delete cached result with suggestion: %d", v1, 8u);
 }
 
 - (void)_createRecentsFromEngagedResults:(os_log_t)log maxCount:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

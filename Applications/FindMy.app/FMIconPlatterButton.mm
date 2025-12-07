@@ -28,7 +28,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_10000905C(0, &qword_1006B0C30);
+  sub_10000905C(0, &qword_1006B0C30, UITouch_ptr);
   sub_1000D5BCC();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -36,7 +36,7 @@
   isa = Set._bridgeToObjectiveC()().super.isa;
 
   v14.receiver = selfCopy;
-  v14.super_class = type metadata accessor for FMIconPlatterButton();
+  v14.super_class = type metadata accessor for FMIconPlatterButton(0);
   [(FMPlatterButton *)&v14 touchesBegan:isa withEvent:eventCopy];
 
   v9 = objc_opt_self();
@@ -59,7 +59,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v11.receiver = self;
-  v11.super_class = type metadata accessor for FMIconPlatterButton();
+  v11.super_class = type metadata accessor for FMIconPlatterButton(0);
   changeCopy = change;
   v5 = v11.receiver;
   [(FMPlatterButton *)&v11 traitCollectionDidChange:changeCopy];

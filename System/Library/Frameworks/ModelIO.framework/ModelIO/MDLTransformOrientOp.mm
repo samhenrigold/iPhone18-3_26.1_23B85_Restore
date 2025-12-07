@@ -1,6 +1,6 @@
 @interface MDLTransformOrientOp
 - (MDLTransformOrientOp)initWithName:(id)name inverse:(BOOL)inverse data:(id)data;
-- (double)double4x4AtTime:(uint64_t)time@<X2>;
+- (double)double4x4AtTime:(uint64_t)time@<X8>;
 - (double)float4x4AtTime:(uint64_t)time;
 @end
 
@@ -27,72 +27,72 @@
 
 - (double)float4x4AtTime:(uint64_t)time
 {
-  objc_msgSend_floatQuaternionAtTime_(*(self + 24), a2, time);
-  v15.columns[1] = v15.columns[0];
-  v15.columns[3].f32[0] = vmulq_f32(v15.columns[0], v15.columns[0]).f32[0];
-  v4 = v15.columns[0].f32[1];
-  v5 = vmuls_lane_f32(v15.columns[0].f32[1], *v15.columns[0].f32, 1);
-  v6 = vmuls_lane_f32(v15.columns[0].f32[2], v15.columns[0], 2);
-  v7 = vmuls_lane_f32(v15.columns[0].f32[3], v15.columns[0], 3);
-  v8 = vmuls_lane_f32(v15.columns[1].f32[0], *v15.columns[1].f32, 1);
-  v9 = vmuls_lane_f32(v15.columns[0].f32[2], v15.columns[0], 3);
-  v10 = vmuls_lane_f32(v15.columns[1].f32[0], v15.columns[1], 2);
-  v11 = vmuls_lane_f32(v15.columns[0].f32[1], v15.columns[0], 3);
-  v15.columns[2].i32[3] = 0;
-  v15.columns[0].i32[3] = 0;
-  v15.columns[0].f32[0] = (v15.columns[3].f32[0] - (v5 + v6)) + v7;
-  v15.columns[0].f32[1] = (v8 + v9) + (v8 + v9);
-  v12 = (v8 - v9) + (v8 - v9);
-  v13 = vmuls_lane_f32(v4, v15.columns[1], 2);
-  v14 = vmuls_lane_f32(v15.columns[1].f32[0], v15.columns[1], 3);
-  v15.columns[1].i32[3] = 0;
-  v15.columns[1].f32[0] = v12;
-  v15.columns[1].f32[1] = (v5 + v7) - (v6 + v15.columns[3].f32[0]);
-  v15.columns[2].f32[0] = (v10 + v11) + (v10 + v11);
-  v15.columns[2].f32[1] = (v13 - v14) + (v13 - v14);
-  v15.columns[2].f32[2] = (v6 + v7) - (v15.columns[3].f32[0] + v5);
-  v15.columns[3] = xmmword_239F9C1B0;
-  if (*(self + 8))
+  objc_msgSend_floatQuaternionAtTime_(*(time + 24), v1, v2, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v24.columns[1] = v24.columns[0];
+  v24.columns[3].f32[0] = vmulq_f32(v24.columns[0], v24.columns[0]).f32[0];
+  v13 = v24.columns[0].f32[1];
+  v14 = vmuls_lane_f32(v24.columns[0].f32[1], *v24.columns[0].f32, 1);
+  v15 = vmuls_lane_f32(v24.columns[0].f32[2], v24.columns[0], 2);
+  v16 = vmuls_lane_f32(v24.columns[0].f32[3], v24.columns[0], 3);
+  v17 = vmuls_lane_f32(v24.columns[1].f32[0], *v24.columns[1].f32, 1);
+  v18 = vmuls_lane_f32(v24.columns[0].f32[2], v24.columns[0], 3);
+  v19 = vmuls_lane_f32(v24.columns[1].f32[0], v24.columns[1], 2);
+  v20 = vmuls_lane_f32(v24.columns[0].f32[1], v24.columns[0], 3);
+  v24.columns[2].i32[3] = 0;
+  v24.columns[0].i32[3] = 0;
+  v24.columns[0].f32[0] = (v24.columns[3].f32[0] - (v14 + v15)) + v16;
+  v24.columns[0].f32[1] = (v17 + v18) + (v17 + v18);
+  v21 = (v17 - v18) + (v17 - v18);
+  v22 = vmuls_lane_f32(v13, v24.columns[1], 2);
+  v23 = vmuls_lane_f32(v24.columns[1].f32[0], v24.columns[1], 3);
+  v24.columns[1].i32[3] = 0;
+  v24.columns[1].f32[0] = v21;
+  v24.columns[1].f32[1] = (v14 + v16) - (v15 + v24.columns[3].f32[0]);
+  v24.columns[2].f32[0] = (v19 + v20) + (v19 + v20);
+  v24.columns[2].f32[1] = (v22 - v23) + (v22 - v23);
+  v24.columns[2].f32[2] = (v15 + v16) - (v24.columns[3].f32[0] + v14);
+  v24.columns[3] = xmmword_239F9C1B0;
+  if (*(time + 8))
   {
-    v15.columns[0].f32[2] = (v10 - v11) + (v10 - v11);
-    v15.columns[1].f32[2] = (v13 + v14) + (v13 + v14);
-    v15.columns[0].i64[0] = __invert_f4(v15);
+    v24.columns[0].f32[2] = (v19 - v20) + (v19 - v20);
+    v24.columns[1].f32[2] = (v22 + v23) + (v22 + v23);
+    v24.columns[0].i64[0] = __invert_f4(v24);
   }
 
-  return *v15.columns[0].i64;
+  return *v24.columns[0].i64;
 }
 
-- (double)double4x4AtTime:(uint64_t)time@<X2>
+- (double)double4x4AtTime:(uint64_t)time@<X8>
 {
-  v6 = *(self + 24);
-  if (v6)
+  v15 = *(self + 24);
+  if (v15)
   {
-    objc_msgSend_doubleQuaternionAtTime_(v6, a2, time);
-    v7 = v24;
-    v8 = v25;
+    objc_msgSend_doubleQuaternionAtTime_(v15, v9, v10, v11, v12, a2, v3, v4, v5, v6, v7, v8);
+    v16 = v33;
+    v17 = v34;
   }
 
   else
   {
-    v7 = 0uLL;
-    v8 = 0uLL;
+    v16 = 0uLL;
+    v17 = 0uLL;
   }
 
-  v9 = vmuld_n_f64(v7.f64[0], v7.f64[0]);
-  v10 = vmuld_lane_f64(v7.f64[1], v7, 1);
-  v11 = vmuld_n_f64(v8.f64[0], v8.f64[0]);
-  v12 = vmuld_lane_f64(v8.f64[1], v8, 1);
-  *&v17 = v9 - (v10 + v11) + v12;
-  v13 = vmuld_lane_f64(v7.f64[0], v7, 1);
-  v14 = vmuld_lane_f64(v8.f64[0], v8, 1);
-  v15 = vmuld_n_f64(v7.f64[0], v8.f64[0]);
-  v16 = vmuld_lane_f64(v7.f64[1], v8, 1);
-  *(&v17 + 1) = v13 + v14 + v13 + v14;
-  *(&v18 + 1) = 0;
-  *&v19 = v13 - v14 + v13 - v14;
-  v20 = vmuld_lane_f64(v8.f64[0], v7, 1);
-  v21 = vmuld_lane_f64(v7.f64[0], v8, 1);
-  v7.f64[1] = 0.0;
+  v18 = vmuld_n_f64(v16.f64[0], v16.f64[0]);
+  v19 = vmuld_lane_f64(v16.f64[1], v16, 1);
+  v20 = vmuld_n_f64(v17.f64[0], v17.f64[0]);
+  v21 = vmuld_lane_f64(v17.f64[1], v17, 1);
+  *&v26 = v18 - (v19 + v20) + v21;
+  v22 = vmuld_lane_f64(v16.f64[0], v16, 1);
+  v23 = vmuld_lane_f64(v17.f64[0], v17, 1);
+  v24 = vmuld_n_f64(v16.f64[0], v17.f64[0]);
+  v25 = vmuld_lane_f64(v16.f64[1], v17, 1);
+  *(&v26 + 1) = v22 + v23 + v22 + v23;
+  *(&v27 + 1) = 0;
+  *&v28 = v22 - v23 + v22 - v23;
+  v29 = vmuld_lane_f64(v17.f64[0], v16, 1);
+  v30 = vmuld_lane_f64(v16.f64[0], v17, 1);
+  v16.f64[1] = 0.0;
   if (*(self + 8))
   {
     __invert_d4();
@@ -100,21 +100,21 @@
 
   else
   {
-    *a4 = v17;
-    *&v18 = v15 - v16 + v15 - v16;
-    *(a4 + 16) = v18;
-    *(&v19 + 1) = v10 + v12 - (v11 + v9);
-    *(a4 + 32) = v19;
-    v7.f64[0] = v20 + v21 + v20 + v21;
-    *(a4 + 48) = v7;
-    *(&v22 + 1) = v20 - v21 + v20 - v21;
-    *&v22 = v15 + v16 + v15 + v16;
-    *(a4 + 64) = v22;
-    *(a4 + 80) = COERCE_UNSIGNED_INT64(v11 + v12 - (v9 + v10));
-    *(a4 + 96) = 0;
-    *(a4 + 104) = 0;
+    *time = v26;
+    *&v27 = v24 - v25 + v24 - v25;
+    *(time + 16) = v27;
+    *(&v28 + 1) = v19 + v21 - (v20 + v18);
+    *(time + 32) = v28;
+    v16.f64[0] = v29 + v30 + v29 + v30;
+    *(time + 48) = v16;
+    *(&v31 + 1) = v29 - v30 + v29 - v30;
+    *&v31 = v24 + v25 + v24 + v25;
+    *(time + 64) = v31;
+    *(time + 80) = COERCE_UNSIGNED_INT64(v20 + v21 - (v18 + v19));
+    *(time + 96) = 0;
+    *(time + 104) = 0;
     result = 0.0;
-    *(a4 + 112) = xmmword_239F9C570;
+    *(time + 112) = xmmword_239F9C570;
   }
 
   return result;

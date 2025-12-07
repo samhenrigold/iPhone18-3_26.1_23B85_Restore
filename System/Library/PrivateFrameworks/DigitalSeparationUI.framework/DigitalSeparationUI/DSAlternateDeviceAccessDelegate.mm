@@ -47,7 +47,7 @@
 
 - (void)tearDown
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   navigationController = [(DSAlternateDeviceAccessDelegate *)self navigationController];
   visibleViewController = [navigationController visibleViewController];
 
@@ -68,13 +68,11 @@
         v6 = visibleViewController;
       }
 
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_248C7E000, v5, OS_LOG_TYPE_INFO, "Navigation controller is showing %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_248C7E000, v5, OS_LOG_TYPE_INFO, "Navigation controller is showing %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushPaneAfterPaneType:(Class)type
@@ -84,17 +82,8 @@
   v7 = v6 + 1;
   v8 = v6 == -1;
 
-  if (v8)
+  if (v8 || (-[DSAlternateDeviceAccessDelegate navigationOrder](self, "navigationOrder"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 count], v9, v7 >= v10) || (-[DSAlternateDeviceAccessDelegate navigationOrder](self, "navigationOrder"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "objectAtIndex:", v7), v11, !v12))
   {
-    goto LABEL_12;
-  }
-
-  navigationOrder2 = [(DSAlternateDeviceAccessDelegate *)self navigationOrder];
-  v10 = [navigationOrder2 count];
-
-  if (v7 >= v10 || (-[DSAlternateDeviceAccessDelegate navigationOrder](self, "navigationOrder"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 objectAtIndex:v7], v11, !v12))
-  {
-LABEL_12:
     if (os_log_type_enabled(DSLog_16, OS_LOG_TYPE_ERROR))
     {
       [DSAlternateDeviceAccessDelegate pushPaneAfterPaneType:];
@@ -112,7 +101,7 @@ LABEL_12:
 
 - (void)startFlowWithType:(int64_t)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (type == 2)
   {
     navigationOrder = [(DSAlternateDeviceAccessDelegate *)self navigationOrder];
@@ -122,35 +111,35 @@ LABEL_12:
     {
       [(DSAlternateDeviceAccessDelegate *)self pushPaneType:firstObject];
       v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       navigationController = [(DSAlternateDeviceAccessDelegate *)self navigationController];
       viewControllers = [navigationController viewControllers];
 
-      v9 = [viewControllers countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [viewControllers countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v19;
+        v11 = *v18;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v19 != v11)
+            if (*v18 != v11)
             {
               objc_enumerationMutation(viewControllers);
             }
 
-            v13 = *(*(&v18 + 1) + 8 * i);
+            v13 = *(*(&v17 + 1) + 8 * i);
             if ([v13 conformsToProtocol:&unk_285BCA3F8])
             {
               [v6 addObject:v13];
             }
           }
 
-          v10 = [viewControllers countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v10 = [viewControllers countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v10);
@@ -179,8 +168,6 @@ LABEL_12:
       [(DSAlternateDeviceAccessDelegate *)type startFlowWithType:v16];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushPaneType:(Class)type
@@ -275,11 +262,10 @@ LABEL_12:
 
 - (void)startFlowWithType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "DSAlternateDeviceAccessDelegate can't handle %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "DSAlternateDeviceAccessDelegate can't handle %ld", &v2, 0xCu);
 }
 
 @end

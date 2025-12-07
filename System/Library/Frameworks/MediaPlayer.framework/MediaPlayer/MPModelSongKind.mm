@@ -171,18 +171,18 @@ uint64_t __44__MPModelSongKind_kindWithVariants_options___block_invoke(uint64_t 
 
 - (shared_ptr<mlcore::Predicate>)predicateWithBaseProperty:(void *)property
 {
-  memset(v8, 0, 24);
+  memset(v9, 0, sizeof(v9));
   if (([(MPModelSongKind *)self variants:0]& 1) != 0)
   {
-    LODWORD(v7) = 8;
-    std::vector<int>::push_back[abi:ne200100](v8, &v7);
+    v8[0] = 8;
+    std::vector<int>::push_back[abi:ne200100](v9, v8);
   }
 
   variants = [(MPModelSongKind *)self variants];
   if ((variants & 2) != 0)
   {
-    LODWORD(v7) = 1032;
-    std::vector<int>::push_back[abi:ne200100](v8, &v7);
+    v8[0] = 1032;
+    std::vector<int>::push_back[abi:ne200100](v9, v8);
   }
 
   Property = mlcore::ItemPropertyMediaType(variants);
@@ -191,13 +191,13 @@ uint64_t __44__MPModelSongKind_kindWithVariants_options___block_invoke(uint64_t 
     Property = MPMediaLibraryGetProperty(property, Property);
   }
 
-  v8[4] = Property;
-  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<int>,std::allocator<mlcore::InPredicate<int>>,mlcore::ModelProperty<int> *&,std::vector<int> const&,0>();
+  v10 = Property;
+  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<int>,std::allocator<mlcore::InPredicate<int>>,mlcore::ModelProperty<int> *&,std::vector<int> const&,0>(&v7, &v10, v9);
 }
 
 - (shared_ptr<mlcore::Predicate>)representedSearchScopePredicate
 {
-  v2 = [(MPModelSongKind *)self predicateWithBaseProperty:0];
+  v2 = objc_msgSend_predicateWithBaseProperty_(self, a2, 0);
   result.var1 = v3;
   result.var0 = v2;
   return result;
@@ -206,22 +206,22 @@ uint64_t __44__MPModelSongKind_kindWithVariants_options___block_invoke(uint64_t 
 - (void)applyToView:(shared_ptr<mlcore:(id)view :LibraryView>)a3 withContext:
 {
   var0 = a3.var0;
-  v19 = *MEMORY[0x1E69E9840];
+  v20[8] = *MEMORY[0x1E69E9840];
   v6 = a3.var1;
   v7 = *(var0 + 1);
-  v14 = *var0;
-  v15 = v7;
+  v16 = *var0;
+  v17 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v13.receiver = self;
-  v13.super_class = MPModelSongKind;
-  [(MPModelKind *)&v13 applyToView:&v14 withContext:v6];
-  if (v15)
+  v15.receiver = self;
+  v15.super_class = MPModelSongKind;
+  [(MPModelKind *)&v15 applyToView:&v16 withContext:v6];
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   if (([(MPModelSongKind *)self options]& 2) == 0)
@@ -236,10 +236,11 @@ uint64_t __44__MPModelSongKind_kindWithVariants_options___block_invoke(uint64_t 
       [v11 entityClass];
       [v11 entityClass];
       v12 = mlcore::LibraryView::filterPredicateForEntityClass();
-      v18 = mlcore::ItemPropertyRemoteLocationID(v12);
-      v16 = 0;
-      v17 = 1;
-      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator &,long long const&,mlcore::ComparisonOptions &,0>();
+      v14 = 100;
+      v20[0] = mlcore::ItemPropertyRemoteLocationID(v12);
+      v18 = 0;
+      v19 = 1;
+      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator &,long long const&,mlcore::ComparisonOptions &,0>(v13, v20, &v19, &v14, &v18);
     }
   }
 }

@@ -51,17 +51,17 @@
 
 void __65__CESRCoalescedTask__runBlockForTask_completionQueue_completion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CEF0E8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 32);
-    v8 = 136315394;
-    v9 = "[CESRCoalescedTask _runBlockForTask:completionQueue:completion:]_block_invoke";
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Executing task - (%@)", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CESRCoalescedTask _runBlockForTask:completionQueue:completion:]_block_invoke";
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Executing task - (%@)", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -69,14 +69,12 @@ void __65__CESRCoalescedTask__runBlockForTask_completionQueue_completion___block
   if (os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 136315394;
-    v9 = "[CESRCoalescedTask _runBlockForTask:completionQueue:completion:]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_225EEB000, v5, OS_LOG_TYPE_INFO, "%s Finished executing task - (%@)", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CESRCoalescedTask _runBlockForTask:completionQueue:completion:]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_225EEB000, v5, OS_LOG_TYPE_INFO, "%s Finished executing task - (%@)", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__CESRCoalescedTask__runBlockForTask_completionQueue_completion___block_invoke_5(uint64_t a1)

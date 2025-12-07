@@ -1,19 +1,3 @@
-void std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(std::basic_regex<char> *this, int __i)
-{
-  flags = this->__flags_;
-  if ((flags & 1) == 0)
-  {
-    if ((flags & 8) == 0)
-    {
-      operator new();
-    }
-
-    operator new();
-  }
-
-  operator new();
-}
-
 uint64_t std::__match_char_icase<char,std::regex_traits<char>>::__match_char_icase[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *a1 = &unk_28671B498;
@@ -206,7 +190,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -216,17 +199,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -491,7 +474,7 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__exec(const std::
     v114 = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v6);
   }
 
-  std::regex_traits<char>::__lookup_collatename<char *>(&this->__traits_, &v113, &v115, &__p);
+  std::regex_traits<char>::__lookup_collatename<char *>(&this->__traits_, &v113, &__p, &v115);
   if ((v112 & 0x80000000) == 0)
   {
     if (v112)
@@ -691,7 +674,7 @@ LABEL_166:
     goto LABEL_199;
   }
 
-  std::regex_traits<char>::__transform_primary<char *>(&this->__traits_, &v113, &v115, &__p);
+  std::regex_traits<char>::__transform_primary<char *>(&this->__traits_, &v113, &__p, &v115);
   v88 = this->__equivalences_.__begin_;
   v89 = v112;
   v90 = this->__equivalences_.__end_ - v88;
@@ -1078,7 +1061,7 @@ LABEL_133:
   }
 
   v74 = &__p;
-  std::regex_traits<char>::__transform_primary<char *>(&this->__traits_, &v113, &v114, &__p);
+  std::regex_traits<char>::__transform_primary<char *>(&this->__traits_, &v113, &__p, &v114);
   v75 = this->__equivalences_.__begin_;
   v76 = this->__equivalences_.__end_ - v75;
   if (!v76)
@@ -1268,12 +1251,12 @@ void sub_254D3A0C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, _BYTE *a3@<X2>, uint64_t a4@<X8>)
+void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X8>, _BYTE *a4@<X2>)
 {
-  std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(&__s, a2, a3, a3 - a2);
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(&__s, a2, a4, a4 - a2);
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     if (!__s.__r_.__value_.__l.__size_)
@@ -1295,13 +1278,13 @@ void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BY
   }
 
   std::__get_collation_name(&v11, p_s);
-  *a4 = *&v11.__r_.__value_.__l.__data_;
+  *a3 = *&v11.__r_.__value_.__l.__data_;
   v7 = v11.__r_.__value_.__r.__words[2];
-  *(a4 + 16) = *(&v11.__r_.__value_.__l + 2);
+  *(a3 + 16) = *(&v11.__r_.__value_.__l + 2);
   v8 = HIBYTE(v7);
   if ((v8 & 0x80u) != 0)
   {
-    v8 = *(a4 + 8);
+    v8 = *(a3 + 8);
   }
 
   if (v8)
@@ -1323,35 +1306,35 @@ void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BY
   }
 
   (*(**(a1 + 16) + 32))(&v11);
-  if (*(a4 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    operator delete(*a4);
+    operator delete(*a3);
   }
 
-  *a4 = v11;
-  if ((*(a4 + 23) & 0x80000000) == 0)
+  *a3 = v11;
+  if ((*(a3 + 23) & 0x80000000) == 0)
   {
-    v9 = *(a4 + 23);
+    v9 = *(a3 + 23);
     if (v9 != 12 && v9 != 1)
     {
-      *a4 = 0;
-      *(a4 + 23) = 0;
+      *a3 = 0;
+      *(a3 + 23) = 0;
       goto LABEL_9;
     }
 
     goto LABEL_23;
   }
 
-  v10 = *(a4 + 8);
+  v10 = *(a3 + 8);
   if (v10 == 1 || v10 == 12)
   {
 LABEL_23:
-    std::string::operator=(a4, &__s);
+    std::string::operator=(a3, &__s);
     goto LABEL_9;
   }
 
-  **a4 = 0;
-  *(a4 + 8) = 0;
+  **a3 = 0;
+  *(a3 + 8) = 0;
 LABEL_9:
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -1374,9 +1357,9 @@ void sub_254D3A25C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::regex_traits<char>::__transform_primary<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, _BYTE *a3@<X2>, uint64_t a4@<X8>)
+void std::regex_traits<char>::__transform_primary<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X8>, _BYTE *a4@<X2>)
 {
-  std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(__p, a2, a3, a3 - a2);
+  std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(__p, a2, a4, a4 - a2);
   v6 = v12;
   if ((v12 & 0x80u) == 0)
   {
@@ -1394,11 +1377,11 @@ void std::regex_traits<char>::__transform_primary<char *>(uint64_t a1@<X0>, _BYT
   }
 
   (*(**(a1 + 16) + 32))(*(a1 + 16), v7, v7 + v6);
-  v8 = *(a4 + 23);
+  v8 = *(a3 + 23);
   v9 = v8;
   if ((v8 & 0x80u) != 0)
   {
-    v8 = *(a4 + 8);
+    v8 = *(a3 + 8);
   }
 
   if (v8 != 1)
@@ -1407,12 +1390,12 @@ void std::regex_traits<char>::__transform_primary<char *>(uint64_t a1@<X0>, _BYT
     {
       if (v9 >= 0)
       {
-        v10 = a4;
+        v10 = a3;
       }
 
       else
       {
-        v10 = *a4;
+        v10 = *a3;
       }
 
       v10[11] = v10[3];
@@ -1420,14 +1403,14 @@ void std::regex_traits<char>::__transform_primary<char *>(uint64_t a1@<X0>, _BYT
 
     else if (v9 < 0)
     {
-      **a4 = 0;
-      *(a4 + 8) = 0;
+      **a3 = 0;
+      *(a3 + 8) = 0;
     }
 
     else
     {
-      *a4 = 0;
-      *(a4 + 23) = 0;
+      *a3 = 0;
+      *(a3 + 23) = 0;
     }
   }
 
@@ -1447,7 +1430,7 @@ void sub_254D3A384(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -1762,7 +1745,7 @@ LABEL_32:
     std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
   }
 
-  std::regex_traits<char>::__lookup_collatename<char *>(a1, a2, v7, &v19);
+  std::regex_traits<char>::__lookup_collatename<char *>(a1, a2, &v19, v7);
   v10 = v21;
   if ((v21 & 0x8000000000000000) == 0)
   {
@@ -1784,7 +1767,7 @@ LABEL_33:
 
   v11 = v19;
 LABEL_13:
-  std::regex_traits<char>::__transform_primary<char *>(a1, v11, &v11[v10], __p);
+  std::regex_traits<char>::__transform_primary<char *>(a1, v11, __p, &v11[v10]);
   v12 = v18;
   if ((v18 & 0x80u) != 0)
   {
@@ -1927,7 +1910,7 @@ LABEL_14:
     std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
   }
 
-  std::regex_traits<char>::__lookup_collatename<char *>(a1, a2, v6, &v12);
+  std::regex_traits<char>::__lookup_collatename<char *>(a1, a2, &v12, v6);
   if (*(a4 + 23) < 0)
   {
     operator delete(*a4);
@@ -1950,7 +1933,7 @@ LABEL_14:
   return v6 + 2;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, std::string *this, uint64_t a5)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this, uint64_t a5)
 {
   if (a2 == a3)
   {
@@ -2432,11 +2415,11 @@ LABEL_74:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -2470,7 +2453,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)1>
   __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2483,14 +2466,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std:
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -2643,14 +2626,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }
@@ -3068,7 +3049,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     v8 = v6[1];
     if (v8 == 40)
     {
-      v9 = v6 + 2;
+      v9 = (v6 + 2);
       std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
       marked_count = a1->__marked_count_;
       do
@@ -3301,7 +3282,7 @@ BOOL std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(std::basic_
   return 1;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(a1, a2, a3);
   if (v6 == a2)
@@ -3319,7 +3300,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_bra
   return v7;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   marked_count = a1->__marked_count_;
@@ -3337,7 +3318,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_exp
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
         v11 = a1->__marked_count_;
         ++a1->__open_count_;
-        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, v9 + 1, a3);
+        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, (v9 + 1), a3);
         if (v12 == a3 || (v9 = v12, *v12 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -3474,7 +3455,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
   return std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<char const*>(a1, v4, a3, 0);
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -3518,7 +3499,7 @@ LABEL_19:
       do
       {
         std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0);
+        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0);
         begin = this->__matches_.__begin_;
         end = this->__matches_.__end_;
         if (v13)
@@ -3534,7 +3515,7 @@ LABEL_19:
 
     v12 = &this->__unmatched_;
     std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0))
+    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0))
     {
       begin = this->__matches_.__begin_;
       end = this->__matches_.__end_;
@@ -3843,6 +3824,13 @@ LABEL_71:
   return v49;
 }
 
+void sub_254D3D408(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  std::deque<std::__state<char>>::~deque[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
 {
   v52 = 0;
@@ -4083,50 +4071,49 @@ void sub_254D3D8E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 42 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 42 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<std::__state<char>>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x2A)) + 96 * (v8 % 0x2A);
-  v10 = *(a2 + 16);
-  *v9 = *a2;
-  *(v9 + 16) = v10;
-  *(v9 + 40) = 0;
-  *(v9 + 48) = 0;
-  *(v9 + 32) = 0;
-  *(v9 + 32) = *(a2 + 32);
-  *(v9 + 48) = *(a2 + 48);
+  v8 = *(v5 + 8 * (v7 / 0x2A)) + 96 * (v7 % 0x2A);
+  v9 = *(a2 + 16);
+  *v8 = *a2;
+  *(v8 + 16) = v9;
+  *(v8 + 40) = 0;
+  *(v8 + 48) = 0;
+  *(v8 + 32) = 0;
+  *(v8 + 32) = *(a2 + 32);
+  *(v8 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v9 + 56) = 0;
-  *(v9 + 64) = 0;
-  *(v9 + 72) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
+  *(v8 + 72) = 0;
   result = *(a2 + 56);
-  *(v9 + 56) = result;
-  *(v9 + 72) = *(a2 + 72);
+  *(v8 + 56) = result;
+  *(v8 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v12 = *(a2 + 80);
-  *(v9 + 85) = *(a2 + 85);
-  *(v9 + 80) = v12;
-  ++*(a1 + 40);
+  v11 = *(a2 + 80);
+  *(v8 + 85) = *(a2 + 85);
+  *(v8 + 80) = v11;
+  ++a1[5];
   return result;
 }
 
@@ -4188,19 +4175,19 @@ int64x2_t std::deque<std::__state<char>>::push_front(int64x2_t *a1, uint64_t a2)
   return result;
 }
 
-void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
+void std::deque<std::__state<char>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2A;
   v3 = v1 - 42;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -4208,25 +4195,25 @@ void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *&>(a1, &v9);
 }
 
 void sub_254D3DD4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -4279,10 +4266,10 @@ uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:ne200100]
   return v7 ^ 1u;
 }
 
-const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -4294,15 +4281,15 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
     v4 = 42 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x2A)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x2A)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -4310,24 +4297,24 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 42;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<YAML::Token *>::emplace_front<YAML::Token *>(a1, v11);
+  a1[4] = (v5 + 42);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<YAML::Token *>::emplace_front<YAML::Token *>(a1, v10);
 }
 
 void sub_254D3E014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -4420,7 +4407,7 @@ LABEL_16:
   return std::__split_buffer<YAML::CollectionType::value *>::~__split_buffer(a1);
 }
 
-_BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(void *a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -4469,7 +4456,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
     {
       *result = *v5;
       result[16] = *(v5 + 16);
-      v5 += 24;
+      v5 = (v5 + 24);
       result += 24;
     }
 
@@ -4485,7 +4472,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
       {
         *result = *v5;
         result[16] = *(v5 + 16);
-        v5 += 24;
+        v5 = (v5 + 24);
         result += 24;
       }
 
@@ -4519,7 +4506,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
   return result;
 }
 
-char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -4604,7 +4591,8 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
       v15 = v11;
       do
       {
-        v16 = *v12++;
+        v16 = *v12;
+        v12 += 2;
         *v11 = v16;
         v11 += 16;
         v15 += 16;
@@ -4619,7 +4607,7 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
   return result;
 }
 
-uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(char *__f, char *__l, uint64_t a3, uint64_t a4, int a5)
+uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(char *__f, char *__l, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   v5 = a5;
   memset(&__p.__prefix_, 0, 17);
@@ -4627,7 +4615,7 @@ uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::alloc
   __p.__ready_ = 0;
   __p.__position_start_ = 0;
   memset(&__p, 0, 41);
-  v9 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a4, __f, __l, &__p, a5 | 0x1040u);
+  v9 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a4, __f, __l, &__p, a5 | 0x1040);
   std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(a3, __f, __l, &__p, (v5 & 0x800) != 0);
   if (__p.__matches_.__begin_)
   {
@@ -5043,7 +5031,7 @@ void std::vector<std::string>::__move_range(std::vector<std::string> *this, std:
   }
 }
 
-void YAML::Scanner::Scanner(uint64_t a1, uint64_t a2)
+void YAML::Scanner::Scanner(uint64_t a1, void *a2)
 {
   YAML::Stream::Stream(a1, a2);
 }
@@ -5145,8 +5133,8 @@ void YAML::Scanner::ScanNextToken(YAML::Scanner *this)
     if (!*(this + 8) || *(*(*(this + 4) + ((*(this + 7) >> 9) & 0x7FFFFFFFFFFFF8)) + (*(this + 7) & 0xFFFLL)) != 37)
     {
       v4 = YAML::Exp::DocStart(AheadTo);
-      v15 = 0;
-      v16 = this;
+      *&v15 = 0;
+      *(&v15 + 1) = this;
       if (*(this + 8) || (AheadTo = YAML::Stream::_ReadAheadTo(this, 0), (AheadTo & 1) != 0))
       {
         AheadTo = YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(v4, &v15);
@@ -5160,8 +5148,8 @@ void YAML::Scanner::ScanNextToken(YAML::Scanner *this)
       if (!*(this + 4))
       {
         v7 = YAML::Exp::DocEnd(AheadTo);
-        v15 = 0;
-        v16 = this;
+        *&v15 = 0;
+        *(&v15 + 1) = this;
         if (*(this + 8) || (AheadTo = YAML::Stream::_ReadAheadTo(this, 0), (AheadTo & 1) != 0))
         {
           AheadTo = YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(v7, &v15);
@@ -5209,7 +5197,7 @@ LABEL_10:
       }
 
       YAML::Exp::BlockEntry(AheadTo);
-      v5 = YAML::RegEx::Matches(&unk_280AF4530, this);
+      v5 = YAML::RegEx::Matches(qword_280AF4530, this);
       if (v5)
       {
         YAML::Scanner::ScanBlockEntry(this);
@@ -5219,13 +5207,13 @@ LABEL_10:
       if (*(this + 39))
       {
         YAML::Exp::KeyInFlow(v5);
-        v6 = &unk_280AF4570;
+        v6 = qword_280AF4570;
       }
 
       else
       {
         YAML::Exp::Key(v5);
-        v6 = &unk_280AF4550;
+        v6 = qword_280AF4550;
       }
 
       if (YAML::RegEx::Matches(v6, this))
@@ -5258,10 +5246,10 @@ LABEL_57:
         {
           exception = __cxa_allocate_exception(0x38uLL);
           v14 = *(this + 4);
-          v17 = *(this + 1);
-          v18 = v14;
+          v16 = *(this + 1);
+          v17 = v14;
           std::string::basic_string[abi:ne200100]<0>(&v15, "unknown token");
-          YAML::Exception::Exception(exception, &v17, &v15);
+          YAML::Exception::Exception(exception, &v16, &v15);
           *exception = &unk_28671C278;
         }
 
@@ -5356,11 +5344,11 @@ void YAML::Scanner::StartStream(YAML::Scanner *this)
   operator new();
 }
 
-void sub_254D3F364(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_254D3F364(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x259C29D90](a10, v10);
+    MEMORY[0x259C29D90](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5506,26 +5494,26 @@ uint64_t YAML::Scanner::ScanToNextToken(YAML::Scanner *this)
   return result;
 }
 
-void sub_254D3F694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_254D3F694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void YAML::Scanner::PopIndentToHere(YAML::Scanner *this)
+void YAML::Scanner::PopIndentToHere(uint64_t this)
 {
-  if (!*(this + 39))
+  if (!*(this + 312))
   {
     v7[4] = v1;
     v7[5] = v2;
-    v4 = *(this + 30);
+    v4 = *(this + 240);
     if (v4)
     {
       while (1)
       {
-        v5 = *(*(*(this + 26) + (((v4 + *(this + 29) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v4 + *(this + 29) - 1) & 0x1FF));
-        v6 = *(this + 4);
+        v5 = *(*(*(this + 208) + (((v4 + *(this + 232) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v4 + *(this + 232) - 1) & 0x1FF));
+        v6 = *(this + 16);
         if (*v5 < v6)
         {
           goto LABEL_12;
@@ -5541,14 +5529,14 @@ void YAML::Scanner::PopIndentToHere(YAML::Scanner *this)
           YAML::Exp::BlockEntry(this);
           v7[0] = 0;
           v7[1] = this;
-          if ((*(this + 8) || YAML::Stream::_ReadAheadTo(this, 0)) && (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&unk_280AF4530, v7) & 0x80000000) == 0)
+          if ((*(this + 64) || YAML::Stream::_ReadAheadTo(this, 0)) && (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(qword_280AF4530, v7) & 0x80000000) == 0)
           {
             break;
           }
         }
 
         YAML::Scanner::PopIndent(this);
-        v4 = *(this + 30);
+        v4 = *(this + 240);
         if (!v4)
         {
           return;
@@ -5557,14 +5545,14 @@ void YAML::Scanner::PopIndentToHere(YAML::Scanner *this)
 
       while (1)
       {
-        v4 = *(this + 30);
+        v4 = *(this + 240);
         if (!v4)
         {
           break;
         }
 
 LABEL_12:
-        if (*(*(*(*(this + 26) + (((v4 + *(this + 29) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v4 + *(this + 29) - 1) & 0x1FF)) + 8) != 1)
+        if (*(*(*(*(this + 208) + (((v4 + *(this + 232) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v4 + *(this + 232) - 1) & 0x1FF)) + 8) != 1)
         {
           return;
         }
@@ -5602,13 +5590,13 @@ void *YAML::Exp::DocStart(YAML::Exp *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "---");
-    v2 = YAML::RegEx::RegEx(&v11, __p, 6);
+    v2 = YAML::RegEx::RegEx(v11, __p, 6);
     v3 = YAML::Exp::BlankOrBreak(v2);
     v4 = 0;
     v5 = 0;
     memset(v6, 0, sizeof(v6));
-    YAML::operator|(v3, &v4, &v7);
-    YAML::operator+(&v11, &v7, &YAML::Exp::DocStart(void)::e);
+    YAML::operator|(&v7, v3, &v4);
+    YAML::operator+(YAML::Exp::DocStart(void)::e, v11, &v7);
     v13 = &v8;
     std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v13);
     v13 = v6;
@@ -5620,10 +5608,10 @@ void *YAML::Exp::DocStart(YAML::Exp *this)
       operator delete(__p[0]);
     }
 
-    __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::DocStart(void)::e, &dword_254C81000);
+    __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::DocStart(void)::e, &dword_254C81000);
   }
 
-  return &YAML::Exp::DocStart(void)::e;
+  return YAML::Exp::DocStart(void)::e;
 }
 
 void sub_254D3F944(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -5664,13 +5652,13 @@ void *YAML::Exp::DocEnd(YAML::Exp *this)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "...");
-    v2 = YAML::RegEx::RegEx(&v11, __p, 6);
+    v2 = YAML::RegEx::RegEx(v11, __p, 6);
     v3 = YAML::Exp::BlankOrBreak(v2);
     v4 = 0;
     v5 = 0;
     memset(v6, 0, sizeof(v6));
-    YAML::operator|(v3, &v4, &v7);
-    YAML::operator+(&v11, &v7, &YAML::Exp::DocEnd(void)::e);
+    YAML::operator|(&v7, v3, &v4);
+    YAML::operator+(YAML::Exp::DocEnd(void)::e, v11, &v7);
     v13 = &v8;
     std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v13);
     v13 = v6;
@@ -5682,10 +5670,10 @@ void *YAML::Exp::DocEnd(YAML::Exp *this)
       operator delete(__p[0]);
     }
 
-    __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::DocEnd(void)::e, &dword_254C81000);
+    __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::DocEnd(void)::e, &dword_254C81000);
   }
 
-  return &YAML::Exp::DocEnd(void)::e;
+  return YAML::Exp::DocEnd(void)::e;
 }
 
 void sub_254D3FB3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -5718,27 +5706,27 @@ void YAML::Exp::BlockEntry(YAML::Exp *this)
       v3 = 0;
       v4 = 0;
       memset(v5, 0, sizeof(v5));
-      YAML::operator|(v2, &v3, &v6);
-      YAML::operator+(&v8, &v6, &unk_280AF4530);
+      YAML::operator|(&v6, v2, &v3);
+      YAML::operator+(qword_280AF4530, &v8, &v6);
       v11 = &v7;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v11);
       v11 = v5;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v11);
       v6 = v10;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v6);
-      __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF4530, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF4530, &dword_254C81000);
       __cxa_guard_release(&_MergedGlobals_13);
     }
   }
 }
 
-void sub_254D3FCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_254D3FCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  *(v8 - 40) = v7 + 8;
-  std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100]((v8 - 40));
-  *(v8 - 40) = v6;
-  std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100]((v8 - 40));
+  va_start(va, a11);
+  *(v13 - 40) = v12 + 8;
+  std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100]((v13 - 40));
+  *(v13 - 40) = v11;
+  std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100]((v13 - 40));
   std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](va);
   __cxa_guard_abort(&_MergedGlobals_13);
   _Unwind_Resume(a1);
@@ -5755,10 +5743,10 @@ void YAML::Exp::Key(YAML::Exp *this)
       v4 = 63;
       memset(v5, 0, sizeof(v5));
       v2 = YAML::Exp::BlankOrBreak(v1);
-      YAML::operator+(&v3, v2, &unk_280AF4550);
+      YAML::operator+(qword_280AF4550, &v3, v2);
       v6 = v5;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v6);
-      __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF4550, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF4550, &dword_254C81000);
       __cxa_guard_release(&qword_280AF4508);
     }
   }
@@ -5783,10 +5771,10 @@ void YAML::Exp::KeyInFlow(YAML::Exp *this)
       v4 = 63;
       memset(v5, 0, sizeof(v5));
       v2 = YAML::Exp::BlankOrBreak(v1);
-      YAML::operator+(&v3, v2, &unk_280AF4570);
+      YAML::operator+(qword_280AF4570, &v3, v2);
       v6 = v5;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v6);
-      __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF4570, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF4570, &dword_254C81000);
       __cxa_guard_release(&qword_280AF4510);
     }
   }
@@ -5827,7 +5815,7 @@ LABEL_15:
 
     else
     {
-      v1 = &unk_280AF45D0;
+      v1 = qword_280AF45D0;
       if ((atomic_load_explicit(&qword_280AF4528, memory_order_acquire) & 1) == 0)
       {
         v6 = __cxa_guard_acquire(&qword_280AF4528);
@@ -5841,8 +5829,8 @@ LABEL_15:
           v7 = YAML::Exp::BlankOrBreak(v6);
           std::string::basic_string[abi:ne200100]<0>(__p, ",}");
           YAML::RegEx::RegEx(&v10, __p, 3);
-          YAML::operator|(v7, &v10, &v13);
-          YAML::operator+(&v15, &v13, &unk_280AF45D0);
+          YAML::operator|(&v13, v7, &v10);
+          YAML::operator+(qword_280AF45D0, &v15, &v13);
           v20 = v14;
           std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v20);
           v20 = v12;
@@ -5855,7 +5843,7 @@ LABEL_15:
           v13 = &v17;
           std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v13);
           v2 = &qword_280AF4528;
-          v1 = &unk_280AF45D0;
+          v1 = qword_280AF45D0;
           goto LABEL_15;
         }
       }
@@ -5864,7 +5852,7 @@ LABEL_15:
 
   else
   {
-    v1 = &unk_280AF4590;
+    v1 = qword_280AF4590;
     if ((atomic_load_explicit(&qword_280AF4518, memory_order_acquire) & 1) == 0)
     {
       v3 = __cxa_guard_acquire(&qword_280AF4518);
@@ -5879,8 +5867,8 @@ LABEL_15:
         v10 = 0;
         v11 = 0;
         memset(v12, 0, sizeof(v12));
-        YAML::operator|(v4, &v10, &v13);
-        YAML::operator+(&v15, &v13, &unk_280AF4590);
+        YAML::operator|(&v13, v4, &v10);
+        YAML::operator+(qword_280AF4590, &v15, &v13);
         __p[0] = v14;
         std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](__p);
         __p[0] = v12;
@@ -5888,7 +5876,7 @@ LABEL_15:
         v13 = &v17;
         std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v13);
         v2 = &qword_280AF4518;
-        v1 = &unk_280AF4590;
+        v1 = qword_280AF4590;
         goto LABEL_15;
       }
     }
@@ -5919,18 +5907,18 @@ void *YAML::Exp::PlainScalar(YAML::Exp *this)
     if (v2)
     {
       v3 = YAML::Exp::BlankOrBreak(v2);
-      YAML::RegEx::RegEx(&v19, v17, 3);
-      YAML::operator|(v3, &v19, &v21);
+      YAML::RegEx::RegEx(v19, v17, 3);
+      YAML::operator|(&v21, v3, v19);
       std::string::basic_string[abi:ne200100]<0>(__p, "-?:");
-      v4 = YAML::RegEx::RegEx(&v13, __p, 3);
+      v4 = YAML::RegEx::RegEx(v13, __p, 3);
       v5 = YAML::Exp::BlankOrBreak(v4);
       v6 = 0;
       v7 = 0;
       memset(v8, 0, sizeof(v8));
-      YAML::operator|(v5, &v6, &v9);
-      YAML::operator+(&v13, &v9, &v15);
-      YAML::operator|(&v21, &v15, &v23);
-      YAML::operator!(&v23, &YAML::Exp::PlainScalar(void)::e);
+      YAML::operator|(&v9, v5, &v6);
+      YAML::operator+(&v15, v13, &v9);
+      YAML::operator|(&v23, &v21, &v15);
+      YAML::operator!(&v23, YAML::Exp::PlainScalar(void)::e);
       v25 = &v24;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v25);
       v25 = &v16;
@@ -5955,11 +5943,11 @@ void *YAML::Exp::PlainScalar(YAML::Exp *this)
         operator delete(v17[0]);
       }
 
-      __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::PlainScalar(void)::e, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::PlainScalar(void)::e, &dword_254C81000);
     }
   }
 
-  return &YAML::Exp::PlainScalar(void)::e;
+  return YAML::Exp::PlainScalar(void)::e;
 }
 
 void sub_254D403A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t *a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -5997,14 +5985,14 @@ void *YAML::Exp::PlainScalarInFlow(YAML::Exp *this)
     if (v2)
     {
       v3 = YAML::Exp::BlankOrBreak(v2);
-      YAML::RegEx::RegEx(&v14, v12, 3);
-      YAML::operator|(v3, &v14, &v16);
+      YAML::RegEx::RegEx(v14, v12, 3);
+      YAML::operator|(&v16, v3, v14);
       std::string::basic_string[abi:ne200100]<0>(__p, "-:");
-      v4 = YAML::RegEx::RegEx(&v8, __p, 3);
+      v4 = YAML::RegEx::RegEx(v8, __p, 3);
       v5 = YAML::Exp::Blank(v4);
-      YAML::operator+(&v8, v5, &v10);
-      YAML::operator|(&v16, &v10, &v18);
-      YAML::operator!(&v18, &YAML::Exp::PlainScalarInFlow(void)::e);
+      YAML::operator+(&v10, v8, v5);
+      YAML::operator|(&v18, &v16, &v10);
+      YAML::operator!(&v18, YAML::Exp::PlainScalarInFlow(void)::e);
       v20 = &v19;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v20);
       v20 = &v11;
@@ -6025,11 +6013,11 @@ void *YAML::Exp::PlainScalarInFlow(YAML::Exp *this)
         operator delete(v12[0]);
       }
 
-      __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::PlainScalarInFlow(void)::e, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::PlainScalarInFlow(void)::e, &dword_254C81000);
     }
   }
 
-  return &YAML::Exp::PlainScalarInFlow(void)::e;
+  return YAML::Exp::PlainScalarInFlow(void)::e;
 }
 
 void sub_254D40640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t *a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, char a30, uint64_t a31)
@@ -6057,7 +6045,7 @@ void sub_254D40640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *YAML::ParserException::ParserException(uint64_t a1, _DWORD *a2, uint64_t a3)
+void *YAML::ParserException::ParserException(uint64_t a1, uint64_t *a2, __int128 *a3)
 {
   result = YAML::Exception::Exception(a1, a2, a3);
   *result = &unk_28671C278;
@@ -6158,7 +6146,7 @@ unint64_t YAML::Scanner::PushToken(uint64_t a1, int a2)
   *__p = 0u;
   memset(v10, 0, sizeof(v10));
   v11 = 0;
-  std::deque<YAML::Token>::push_back(a1 + 96, &v7);
+  std::deque<YAML::Token>::push_back((a1 + 96), &v7);
   v12 = v10 + 1;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v12);
   if (SBYTE7(v10[0]) < 0)
@@ -6170,9 +6158,9 @@ unint64_t YAML::Scanner::PushToken(uint64_t a1, int a2)
   return *(*(a1 + 104) + 8 * (v5 / 0x33)) + 80 * (v5 % 0x33);
 }
 
-void sub_254D4098C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254D4098C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   YAML::Token::~Token(va);
   _Unwind_Resume(a1);
 }
@@ -6197,9 +6185,9 @@ uint64_t YAML::Scanner::GetStartTokenFor(uint64_t a1, int a2)
   return 3;
 }
 
-uint64_t YAML::Scanner::PushIndentTo(uint64_t a1)
+uint64_t YAML::Scanner::PushIndentTo(void *a1, int a2, int a3)
 {
-  if (!*(a1 + 312))
+  if (!a1[39])
   {
     operator new();
   }
@@ -6252,7 +6240,7 @@ void YAML::Scanner::PopIndent(YAML::Scanner *this)
       v16 = 0u;
       v17 = 0u;
       v18 = 0;
-      std::deque<YAML::Token>::push_back(this + 96, &v13);
+      std::deque<YAML::Token>::push_back(this + 12, &v13);
     }
 
     else
@@ -6266,7 +6254,7 @@ void YAML::Scanner::PopIndent(YAML::Scanner *this)
       v16 = 0u;
       v17 = 0u;
       v18 = 0;
-      std::deque<YAML::Token>::push_back(this + 96, &v13);
+      std::deque<YAML::Token>::push_back(this + 12, &v13);
     }
 
     v19 = &v16 + 1;
@@ -6278,9 +6266,9 @@ void YAML::Scanner::PopIndent(YAML::Scanner *this)
   }
 }
 
-void sub_254D40CC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254D40CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   YAML::Token::~Token(va);
   _Unwind_Resume(a1);
 }
@@ -6299,7 +6287,7 @@ uint64_t YAML::Scanner::GetTopIndent(YAML::Scanner *this)
   }
 }
 
-void YAML::Scanner::ThrowParserException(void *a1, uint64_t a2)
+void YAML::Scanner::ThrowParserException(void *a1, __int128 *a2)
 {
   v6 = -1;
   v7 = -1;
@@ -6583,70 +6571,67 @@ uint64_t std::deque<YAML::Token>::__maybe_remove_front_spare[abi:ne200100](uint6
   return v4 ^ 1u;
 }
 
-void *std::deque<YAML::Scanner::IndentMarker *>::push_back(void *result, void *a2)
+void std::deque<YAML::Scanner::IndentMarker *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<YAML::Scanner::IndentMarker *>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<YAML::Scanner::IndentMarker *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<YAML::Scanner::IndentMarker *>::__add_back_capacity(void *a1)
+void std::deque<YAML::Scanner::IndentMarker *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[3];
-    v7 = v6 - *a1;
-    if (a1[2] - a1[1] < v7)
+    v5 = a1[3];
+    v6 = v5 - *a1;
+    if (a1[2] - a1[1] < v6)
     {
       operator new();
     }
 
-    v8 = v7 >> 2;
-    if (v6 == *a1)
+    v7 = v6 >> 2;
+    if (v5 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8;
+      v8 = v7;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::IndentMarker **>>(v9);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::IndentMarker **>>(v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<YAML::Scanner::IndentMarker **>::emplace_back<YAML::Scanner::IndentMarker **&>(a1, &v10);
+  v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<YAML::Scanner::IndentMarker **>::emplace_back<YAML::Scanner::IndentMarker **&>(a1, &v9);
 }
 
 void sub_254D41740(_Unwind_Exception *a1)
@@ -6660,24 +6645,23 @@ void sub_254D41740(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<YAML::Scanner::IndentMarker **>::emplace_back<YAML::Scanner::IndentMarker **&>(void *result, void *a2)
+void std::__split_buffer<YAML::Scanner::IndentMarker **>::emplace_back<YAML::Scanner::IndentMarker **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::IndentMarker **>>(v11);
@@ -6689,18 +6673,17 @@ void *std::__split_buffer<YAML::Scanner::IndentMarker **>::emplace_back<YAML::Sc
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::IndentMarker **>>(unint64_t a1)
@@ -6757,7 +6740,7 @@ void sub_254D420B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-id ConvertTestResults(const siri::intelligence::TestSuite *a1, const siri::intelligence::TestResults *a2)
+IETestResults *ConvertTestResults(const siri::intelligence::TestSuite *a1, const siri::intelligence::TestResults *a2)
 {
   v33 = objc_opt_new();
   v35 = objc_opt_new();
@@ -6766,29 +6749,29 @@ id ConvertTestResults(const siri::intelligence::TestSuite *a1, const siri::intel
   v48 = 0;
   std::vector<siri::intelligence::TestParseError>::__init_with_size[abi:ne200100]<siri::intelligence::TestParseError*,siri::intelligence::TestParseError*>(&v46, *(a1 + 3), *(a1 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 4) - *(a1 + 3)) >> 4));
   v4 = v46;
-  for (i = v47; v4 != i; v4 = (v4 + 48))
+  for (i = v47; v4 != i; v4 += 48)
   {
     if (*(v4 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v38, *v4, *(v4 + 1));
+      std::string::__init_copy_ctor_external(&v38, *v4, *(v4 + 8));
     }
 
     else
     {
       v6 = *v4;
-      v38.__r_.__value_.__r.__words[2] = *(v4 + 2);
+      v38.__r_.__value_.__r.__words[2] = *(v4 + 16);
       *&v38.__r_.__value_.__l.__data_ = v6;
     }
 
     if (*(v4 + 47) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, *(v4 + 3), *(v4 + 4));
+      std::string::__init_copy_ctor_external(&__p, *(v4 + 24), *(v4 + 32));
     }
 
     else
     {
       v7 = *(v4 + 24);
-      __p.__r_.__value_.__r.__words[2] = *(v4 + 5);
+      __p.__r_.__value_.__r.__words[2] = *(v4 + 40);
       *&__p.__r_.__value_.__l.__data_ = v7;
     }
 
@@ -6875,7 +6858,7 @@ id ConvertTestResults(const siri::intelligence::TestSuite *a1, const siri::intel
   for (j = v47; v16 != j; v16 = (v16 + 184))
   {
     siri::intelligence::TestCase::TestCase(&v38, v16);
-    siri::intelligence::TestResult::GetDescriptions(v16, &v45);
+    siri::intelligence::TestResult::GetDescriptions(&v45, v16);
     size = v45.__r_.__value_.__l.__size_;
     for (k = v45.__r_.__value_.__r.__words[0]; k != size; k += 24)
     {
@@ -7029,7 +7012,7 @@ void sub_254D42924(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id MakeEmptyTestResults(void)
+IETestResults *MakeEmptyTestResults(void)
 {
   v0 = objc_opt_new();
   v1 = objc_opt_new();
@@ -7732,7 +7715,7 @@ siri::intelligence::Variable *siri::intelligence::Variable::Variable(siri::intel
   *this = &unk_28671B958;
   *(this + 2) = 0;
   *(this + 3) = 0;
-  std::string::basic_string[abi:ne200100]<0>(this + 32, siri::intelligence::TYPE_UNKNOWN);
+  std::string::basic_string[abi:ne200100]<0>(this + 4, siri::intelligence::TYPE_UNKNOWN);
   *(this + 7) = 0;
   *(this + 32) = 0;
   return this;
@@ -7805,8 +7788,7 @@ void siri::intelligence::Variable::GetKey(siri::intelligence::Variable *this@<X0
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 8);
-    a2->__r_.__value_.__r.__words[2] = *(this + 3);
+    *a2 = *(this + 8);
   }
 }
 
@@ -7819,14 +7801,13 @@ void siri::intelligence::Variable::GetType(siri::intelligence::Variable *this@<X
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 2);
-    a2->__r_.__value_.__r.__words[2] = *(this + 6);
+    *a2 = *(this + 32);
   }
 }
 
 void siri::intelligence::Variable::GetFullKey(siri::intelligence::Variable *this@<X0>, uint64_t a2@<X8>)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if (*(this + 31) < 0)
   {
     std::string::__init_copy_ctor_external(a2, *(this + 1), *(this + 2));
@@ -7845,13 +7826,13 @@ void siri::intelligence::Variable::GetFullKey(siri::intelligence::Variable *this
     {
       if (!*(i + 16))
       {
-        break;
+        return;
       }
     }
 
     else if (!*(i + 31))
     {
-      break;
+      return;
     }
 
     if (v5 >= 0)
@@ -7864,15 +7845,15 @@ void siri::intelligence::Variable::GetFullKey(siri::intelligence::Variable *this
       v6 = *(i + 16);
     }
 
-    std::string::basic_string[abi:ne200100](&v17, v6 + 1);
-    if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::basic_string[abi:ne200100](&v16, v6 + 1);
+    if ((v16.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v7 = &v17;
+      v7 = &v16;
     }
 
     else
     {
-      v7 = v17.__r_.__value_.__r.__words[0];
+      v7 = v16.__r_.__value_.__r.__words[0];
     }
 
     if (v6)
@@ -7912,10 +7893,10 @@ void siri::intelligence::Variable::GetFullKey(siri::intelligence::Variable *this
       v11 = *(a2 + 8);
     }
 
-    v12 = std::string::append(&v17, v10, v11);
+    v12 = std::string::append(&v16, v10, v11);
     v13 = v12->__r_.__value_.__r.__words[0];
-    v18[0] = v12->__r_.__value_.__l.__size_;
-    *(v18 + 7) = *(&v12->__r_.__value_.__r.__words[1] + 7);
+    v17[0] = v12->__r_.__value_.__l.__size_;
+    *(v17 + 7) = *(&v12->__r_.__value_.__r.__words[1] + 7);
     v14 = HIBYTE(v12->__r_.__value_.__r.__words[2]);
     v12->__r_.__value_.__l.__size_ = 0;
     v12->__r_.__value_.__r.__words[2] = 0;
@@ -7925,18 +7906,16 @@ void siri::intelligence::Variable::GetFullKey(siri::intelligence::Variable *this
       operator delete(*a2);
     }
 
-    v15 = v18[0];
+    v15 = v17[0];
     *a2 = v13;
     *(a2 + 8) = v15;
-    *(a2 + 15) = *(v18 + 7);
+    *(a2 + 15) = *(v17 + 7);
     *(a2 + 23) = v14;
-    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v17.__r_.__value_.__l.__data_);
+      operator delete(v16.__r_.__value_.__l.__data_);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_254D45078(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7961,27 +7940,26 @@ void sub_254D451A4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::Variable::FromProtobuf(uint64_t a1@<X1>, void *a2@<X8>)
+void siri::intelligence::Variable::FromProtobuf(uint64_t a1@<X0>, _DWORD *a2@<X1>, std::string **a3@<X8>)
 {
-  v4 = *(a1 + 16);
-  if ((v4 & 8) != 0)
+  v5 = a2[4];
+  if ((v5 & 8) != 0)
   {
-    v7 = *(a1 + 144);
     operator new();
   }
 
-  if ((v4 & 0x10) != 0)
+  if ((v5 & 0x10) != 0)
   {
-    v16 = 0uLL;
-    v17 = 0;
-    v14 = 0uLL;
-    v15 = 0;
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(&v14, a1 + 96);
-    if (DWORD2(v14))
+    v12 = 0uLL;
+    v13 = 0;
+    v10 = 0uLL;
+    v11 = 0;
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(&v10, (a2 + 24));
+    if (DWORD2(v10))
     {
-      if (v15)
+      if (v11)
       {
-        v8 = (v15 + 8);
+        v8 = (v11 + 8);
       }
 
       else
@@ -7991,10 +7969,10 @@ void siri::intelligence::Variable::FromProtobuf(uint64_t a1@<X1>, void *a2@<X8>)
 
       do
       {
-        std::vector<protobuf::Intelligence_KeyValueParameter>::push_back[abi:ne200100](&v16, *v8++);
-        if (v15)
+        std::vector<protobuf::Intelligence_KeyValueParameter>::push_back[abi:ne200100](&v12, *v8++);
+        if (v11)
         {
-          v9 = v15 + 8;
+          v9 = v11 + 8;
         }
 
         else
@@ -8003,80 +7981,76 @@ void siri::intelligence::Variable::FromProtobuf(uint64_t a1@<X1>, void *a2@<X8>)
         }
       }
 
-      while (v8 != (v9 + 8 * SDWORD2(v14)));
+      while (v8 != (v9 + 8 * SDWORD2(v10)));
     }
 
-    google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(&v14);
-    v10 = *(a1 + 152);
+    google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(&v10);
     std::allocate_shared[abi:ne200100]<siri::intelligence::VariableDictionary,std::allocator<siri::intelligence::VariableDictionary>,char const(&)[1],std::vector<protobuf::Intelligence_KeyValueParameter> &,0>();
   }
 
-  if ((v4 & 2) != 0)
+  if ((v5 & 2) != 0)
   {
-    v11 = *(a1 + 128);
     operator new();
   }
 
-  if ((v4 & 0x100) != 0)
+  if ((v5 & 0x100) != 0)
   {
-    v12 = *(a1 + 184);
     operator new();
   }
 
-  if ((v4 & 0x80) != 0)
+  if ((v5 & 0x80) != 0)
   {
-    v13 = *(a1 + 176);
     operator new();
   }
 
-  if (*(a1 + 80) >= 1)
+  if (a2[20] >= 1)
   {
-    v16 = 0uLL;
-    v17 = 0;
-    google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::RepeatedPtrField(&v14, a1 + 72);
-    if (DWORD2(v14))
+    v12 = 0uLL;
+    v13 = 0;
+    google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::RepeatedPtrField(&v10, (a2 + 18));
+    if (DWORD2(v10))
     {
-      if (v15)
+      if (v11)
       {
-        v5 = (v15 + 8);
+        v6 = (v11 + 8);
       }
 
       else
       {
-        v5 = 0;
+        v6 = 0;
       }
 
       do
       {
-        std::vector<protobuf::Intelligence_KeyValueParameter>::push_back[abi:ne200100](&v16, *v5++);
-        if (v15)
+        std::vector<protobuf::Intelligence_KeyValueParameter>::push_back[abi:ne200100](&v12, *v6++);
+        if (v11)
         {
-          v6 = v15 + 8;
+          v7 = v11 + 8;
         }
 
         else
         {
-          v6 = 0;
+          v7 = 0;
         }
       }
 
-      while (v5 != (v6 + 8 * SDWORD2(v14)));
+      while (v6 != (v7 + 8 * SDWORD2(v10)));
     }
 
-    google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(&v14);
-    std::allocate_shared[abi:ne200100]<siri::intelligence::VariableDictionary,std::allocator<siri::intelligence::VariableDictionary>,std::string const&,std::vector<protobuf::Intelligence_KeyValueParameter> &,0>();
+    google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(&v10);
+    std::allocate_shared[abi:ne200100]<siri::intelligence::VariableDictionary,std::allocator<siri::intelligence::VariableDictionary>,std::string const&,std::vector<protobuf::Intelligence_KeyValueParameter> &,0>(&v10, a1, &v12);
   }
 
-  if (*(a1 + 56) >= 1)
+  if (a2[14] >= 1)
   {
     std::allocate_shared[abi:ne200100]<siri::intelligence::VariableArray,std::allocator<siri::intelligence::VariableArray>,std::string const&,0>();
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  *a3 = 0;
+  a3[1] = 0;
 }
 
-void sub_254D455C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_254D455C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
 {
   a13 = &a17;
   std::vector<protobuf::Intelligence_KeyValueParameter>::__destroy_vector::operator()[abi:ne200100](&a13);
@@ -8120,15 +8094,15 @@ void std::vector<protobuf::Intelligence_KeyValueParameter>::__destroy_vector::op
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 192;
-      v7 = v4 - 192;
-      v8 = v4 - 192;
+      v6 = v4 - 24;
+      v7 = v4 - 24;
+      v8 = v4 - 24;
       do
       {
         v9 = *v8;
-        v8 -= 192;
+        v8 -= 24;
         (*v9)(v7);
-        v6 -= 192;
+        v6 -= 24;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -8143,30 +8117,30 @@ void std::vector<protobuf::Intelligence_KeyValueParameter>::__destroy_vector::op
   }
 }
 
-uint64_t google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::RepeatedPtrField(uint64_t a1, uint64_t a2)
+google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::RepeatedPtrField(google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  *(a1 + 1) = 0;
+  *(a1 + 2) = 0;
   google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(a1, a2);
   return a1;
 }
 
-uint64_t std::vector<protobuf::Intelligence_KeyValueParameter>::__emplace_back_slow_path<protobuf::Intelligence_KeyValueParameter const&>(uint64_t a1, const protobuf::Intelligence_KeyValueParameter *a2)
+uint64_t std::vector<protobuf::Intelligence_KeyValueParameter>::__emplace_back_slow_path<protobuf::Intelligence_KeyValueParameter const&>(protobuf::Intelligence_KeyValueParameter **a1, const protobuf::Intelligence_KeyValueParameter *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 6);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 6);
   v3 = v2 + 1;
   if (v2 + 1 > 0x155555555555555)
   {
     std::vector<siri::intelligence::FunctionArgument>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 6) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 6) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 6);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 6);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 6) >= 0xAAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 6) >= 0xAAAAAAAAAAAAAALL)
   {
     v6 = 0x155555555555555;
   }
@@ -8186,14 +8160,14 @@ uint64_t std::vector<protobuf::Intelligence_KeyValueParameter>::__emplace_back_s
   v14 = 192 * v2;
   protobuf::Intelligence_KeyValueParameter::Intelligence_KeyValueParameter((192 * v2), a2);
   v15 = 192 * v2 + 192;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = (192 * v2 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<protobuf::Intelligence_KeyValueParameter>,protobuf::Intelligence_KeyValueParameter*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -8202,9 +8176,9 @@ uint64_t std::vector<protobuf::Intelligence_KeyValueParameter>::__emplace_back_s
   return v12;
 }
 
-void sub_254D459B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_254D459B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<protobuf::Intelligence_KeyValueParameter>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8323,7 +8297,7 @@ void sub_254D45E30(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::Loader::LoadFile(uint64_t a1)
+void siri::intelligence::Loader::LoadFile(uint64_t *a1)
 {
   siri::intelligence::GetFormatForFilename(a1);
 
@@ -8347,13 +8321,13 @@ void std::__shared_ptr_emplace<protobuf::Intelligence>::~__shared_ptr_emplace(st
   JUMPOUT(0x259C29D90);
 }
 
-void siri::intelligence::Validator::Validate(uint64_t a1@<X2>, void *a2@<X8>)
+void siri::intelligence::Validator::Validate(siri::intelligence::ValidationData *a3@<X8>, uint64_t x2_0@<X2>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<siri::intelligence::ValidationResult>::__init_with_size[abi:ne200100]<siri::intelligence::ValidationResult*,siri::intelligence::ValidationResult*>(a2, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 6);
-  std::set<std::string>::set[abi:ne200100](a2 + 3, (a1 + 24));
+  *a3 = 0;
+  *(a3 + 1) = 0;
+  *(a3 + 2) = 0;
+  std::vector<siri::intelligence::ValidationResult>::__init_with_size[abi:ne200100]<siri::intelligence::ValidationResult*,siri::intelligence::ValidationResult*>(a3, *x2_0, *(x2_0 + 8), (*(x2_0 + 8) - *x2_0) >> 6);
+  std::set<std::string>::set[abi:ne200100](a3 + 3, (x2_0 + 24));
   _ZNSt3__115allocate_sharedB8ne200100IN4siri12intelligence18VariableDictionaryENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
 }
 
@@ -8376,7 +8350,7 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
     {
       google::protobuf::internal::LogMessage::LogMessage(&__p, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.h", 22110);
       v7 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || start_ != nullptr: ");
-      google::protobuf::internal::LogFinisher::operator=(&v765, &v7->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogFinisher::operator=(&v745, &v7->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&__p.__r_.__value_.__l.__data_);
       v6 = *(this + 67);
     }
@@ -8408,8 +8382,8 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
           v11 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v765, "");
-        siri::intelligence::GetLineNumFromUnknownField(v11, &v765, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v745, "");
+        siri::intelligence::GetLineNumFromUnknownField(v11, &v745, -1);
       }
 
       v12 = 0;
@@ -8431,8 +8405,8 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
             v16 = &google::protobuf::internal::fixed_address_empty_string;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v765, "responseIds");
-          siri::intelligence::GetLineNumFromUnknownField(v16, &v765, v12);
+          std::string::basic_string[abi:ne200100]<0>(&v745, "responseIds");
+          siri::intelligence::GetLineNumFromUnknownField(v16, &v745, v12);
         }
 
         ++v12;
@@ -8471,8 +8445,8 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
           v21 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "activityId");
-        siri::intelligence::GetLineNumFromUnknownField(v21, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "activityId");
+        siri::intelligence::GetLineNumFromUnknownField(v21, &v744, -1);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8484,7 +8458,7 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
 
   if (*(this + 62) >= 1)
   {
-    siri::intelligence::Utils::VersionLessThan(a2);
+    siri::intelligence::Utils::VersionLessThan(a2, siri::intelligence::sIntentRenameChange);
   }
 
   v22 = this;
@@ -8510,8 +8484,8 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
           v28 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v765, "");
-        siri::intelligence::GetLineNumFromUnknownField(v28, &v765, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v745, "");
+        siri::intelligence::GetLineNumFromUnknownField(v28, &v745, -1);
       }
 
       ++v23;
@@ -8531,44 +8505,43 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
       v32 = *(v31 + 16);
       if (v32)
       {
-        v33 = *(v31 + 120);
         std::operator+<char>();
-        v34 = std::string::append(&v764, "' ");
-        v35 = *&v34->__r_.__value_.__l.__data_;
-        v765.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
-        *&v765.__r_.__value_.__l.__data_ = v35;
-        v34->__r_.__value_.__l.__size_ = 0;
-        v34->__r_.__value_.__r.__words[2] = 0;
-        v34->__r_.__value_.__r.__words[0] = 0;
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v33 = std::string::append(&v744, "' ");
+        v34 = *&v33->__r_.__value_.__l.__data_;
+        v745.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
+        *&v745.__r_.__value_.__l.__data_ = v34;
+        v33->__r_.__value_.__l.__size_ = 0;
+        v33->__r_.__value_.__r.__words[2] = 0;
+        v33->__r_.__value_.__r.__words[0] = 0;
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v36 = &v765;
+          v35 = &v745;
         }
 
         else
         {
-          v36 = v765.__r_.__value_.__r.__words[0];
+          v35 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          size = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v765.__r_.__value_.__l.__size_;
+          size = v745.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&__p, v36, size);
-        if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(&__p, v35, size);
+        if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v765.__r_.__value_.__l.__data_);
+          operator delete(v745.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v764.__r_.__value_.__l.__data_);
+          operator delete(v744.__r_.__value_.__l.__data_);
         }
 
         v32 = *(v31 + 16);
@@ -8578,26 +8551,26 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v38 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v37 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v38 = __p.__r_.__value_.__l.__size_;
+          v37 = __p.__r_.__value_.__l.__size_;
         }
 
-        v39 = std::string::basic_string[abi:ne200100](&v765, v38 + 21);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v38 = std::string::basic_string[abi:ne200100](&v745, v37 + 21);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v40 = &v765;
+          v39 = &v745;
         }
 
         else
         {
-          v40 = v765.__r_.__value_.__r.__words[0];
+          v39 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v38)
+        if (v37)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
@@ -8609,552 +8582,569 @@ void siri::intelligence::ValidateAll(siri::intelligence *this, const protobuf::I
             p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          v39 = memmove(v40, p_p, v38);
+          v38 = memmove(v39, p_p, v37);
         }
 
-        strcpy(v40 + v38, "does not define an id");
-        v42 = *(v31 + 8);
-        if (v42)
+        strcpy(v39 + v37, "does not define an id");
+        v41 = *(v31 + 8);
+        if (v41)
         {
-          v43 = (v42 & 0xFFFFFFFFFFFFFFFELL);
+          v42 = (v41 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v39);
-          v43 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v38);
+          v42 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v43, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v42, &v744, -1);
       }
 
       if ((siri::intelligence::IsValidId(*(v31 + 120)) & 1) == 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v44 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v43 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v44 = __p.__r_.__value_.__l.__size_;
+          v43 = __p.__r_.__value_.__l.__size_;
         }
 
-        v45 = std::string::basic_string[abi:ne200100](&v765, v44 + 32);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v44 = std::string::basic_string[abi:ne200100](&v745, v43 + 32);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v46 = &v765;
+          v45 = &v745;
         }
 
         else
         {
-          v46 = v765.__r_.__value_.__r.__words[0];
+          v45 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v44)
+        if (v43)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v47 = &__p;
+            v46 = &__p;
           }
 
           else
           {
-            v47 = __p.__r_.__value_.__r.__words[0];
+            v46 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v45 = memmove(v46, v47, v44);
+          v44 = memmove(v45, v46, v43);
         }
 
-        strcpy(v46 + v44, "has invalid characters in the ID");
-        v48 = *(v31 + 8);
-        if (v48)
+        strcpy(v45 + v43, "has invalid characters in the ID");
+        v47 = *(v31 + 8);
+        if (v47)
         {
-          v49 = (v48 & 0xFFFFFFFFFFFFFFFELL);
+          v48 = (v47 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v45);
-          v49 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v44);
+          v48 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "id");
-        siri::intelligence::GetLineNumFromUnknownField(v49, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "id");
+        siri::intelligence::GetLineNumFromUnknownField(v48, &v744, -1);
       }
 
-      v50 = *(v31 + 120);
+      v49 = *(v31 + 120);
       if (*(v31 + 80) == 1)
       {
-        v51 = *(*(v31 + 88) + 8);
-        v52 = *(v50 + 8);
+        v50 = *(*(v31 + 88) + 8);
+        v51 = *(v49 + 8);
+        v52 = *(v49 + 23);
         v53 = *(v50 + 23);
-        v54 = *(v51 + 23);
-        if (v54 >= 0)
+        if (v53 >= 0)
         {
-          v55 = *(v51 + 23);
+          v54 = *(v50 + 23);
         }
 
         else
         {
-          v55 = *(v51 + 8);
+          v54 = *(v50 + 8);
         }
 
-        if (v53 >= 0)
+        if (v52 >= 0)
         {
-          v52 = *(v50 + 23);
+          v51 = *(v49 + 23);
         }
 
-        if (v55 == v52)
+        if (v54 == v51)
         {
-          v56 = v54 >= 0 ? *(*(v31 + 88) + 8) : *v51;
-          v57 = *v50;
-          v58 = v53 >= 0 ? *(v31 + 120) : *v50;
-          if (!memcmp(v56, v58, v55))
+          v55 = v53 >= 0 ? *(*(v31 + 88) + 8) : *v50;
+          v56 = v52 >= 0 ? *(v31 + 120) : *v49;
+          if (!memcmp(v55, v56, v54))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v59 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v57 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v59 = __p.__r_.__value_.__l.__size_;
+              v57 = __p.__r_.__value_.__l.__size_;
             }
 
-            v60 = std::string::basic_string[abi:ne200100](&v765, v59 + 42);
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            v58 = std::string::basic_string[abi:ne200100](&v745, v57 + 42);
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v61 = &v765;
+              v59 = &v745;
             }
 
             else
             {
-              v61 = v765.__r_.__value_.__r.__words[0];
+              v59 = v745.__r_.__value_.__r.__words[0];
             }
 
-            if (v59)
+            if (v57)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v62 = &__p;
+                v60 = &__p;
               }
 
               else
               {
-                v62 = __p.__r_.__value_.__r.__words[0];
+                v60 = __p.__r_.__value_.__r.__words[0];
               }
 
-              v60 = memmove(v61, v62, v59);
+              v58 = memmove(v59, v60, v57);
             }
 
-            strcpy(v61 + v59, "has a single next id that refers to itself");
-            v63 = *(v31 + 8);
-            if (v63)
+            strcpy(v59 + v57, "has a single next id that refers to itself");
+            v61 = *(v31 + 8);
+            if (v61)
             {
-              v64 = (v63 & 0xFFFFFFFFFFFFFFFELL);
+              v62 = (v61 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v60);
-              v64 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v58);
+              v62 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v764, "nextIds");
-            siri::intelligence::GetLineNumFromUnknownField(v64, &v764, 0);
+            std::string::basic_string[abi:ne200100]<0>(&v744, "nextIds");
+            siri::intelligence::GetLineNumFromUnknownField(v62, &v744, 0);
           }
         }
       }
 
-      v65 = std::__tree<std::string>::find<std::string>(a2 + 240, v50);
-      if ((a2 + 248) == v65)
+      v63 = std::__tree<std::string>::find<std::string>(a2 + 240, v49);
+      if ((a2 + 248) == v63)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v66 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v64 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v66 = __p.__r_.__value_.__l.__size_;
+          v64 = __p.__r_.__value_.__l.__size_;
         }
 
-        v67 = std::string::basic_string[abi:ne200100](&v765, v66 + 12);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v65 = std::string::basic_string[abi:ne200100](&v745, v64 + 12);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v68 = &v765;
+          v66 = &v745;
         }
 
         else
         {
-          v68 = v765.__r_.__value_.__r.__words[0];
+          v66 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v66)
+        if (v64)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v69 = &__p;
+            v67 = &__p;
           }
 
           else
           {
-            v69 = __p.__r_.__value_.__r.__words[0];
+            v67 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v67 = memmove(v68, v69, v66);
+          v65 = memmove(v66, v67, v64);
         }
 
-        strcpy(v68 + v66, "is not used.");
-        v70 = *(v31 + 8);
-        if (v70)
+        strcpy(v66 + v64, "is not used.");
+        v68 = *(v31 + 8);
+        if (v68)
         {
-          v71 = (v70 & 0xFFFFFFFFFFFFFFFELL);
+          v69 = (v68 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v67);
-          v71 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v65);
+          v69 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v71, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v69, &v744, -1);
       }
 
       if (*(v31 + 80) >= 1)
       {
-        v72 = 0;
+        v70 = 0;
         do
         {
-          v73 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v31 + 72, v72);
-          v65 = std::__tree<std::string>::find<std::string>(a2 + 72, v73);
-          if ((a2 + 80) == v65)
+          v71 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v31 + 72, v70);
+          v63 = std::__tree<std::string>::find<std::string>(a2 + 72, v71);
+          if ((a2 + 80) == v63)
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v74 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v72 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v74 = __p.__r_.__value_.__l.__size_;
+              v72 = __p.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v764, v74 + 29);
-            if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v744, v72 + 29);
+            if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v75 = &v764;
+              v73 = &v744;
             }
 
             else
             {
-              v75 = v764.__r_.__value_.__r.__words[0];
+              v73 = v744.__r_.__value_.__r.__words[0];
             }
 
-            if (v74)
+            if (v72)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v76 = &__p;
+                v74 = &__p;
               }
 
               else
               {
-                v76 = __p.__r_.__value_.__r.__words[0];
+                v74 = __p.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v75, v76, v74);
+              memmove(v73, v74, v72);
             }
 
-            strcpy(v75 + v74, "refers to undefined next id: ");
-            v77 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v31 + 72, v72);
-            v78 = *(v77 + 23);
-            if (v78 >= 0)
+            strcpy(v73 + v72, "refers to undefined next id: ");
+            v75 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v31 + 72, v70);
+            v76 = *(v75 + 23);
+            if (v76 >= 0)
             {
-              v79 = v77;
+              v77 = v75;
             }
 
             else
             {
-              v79 = *v77;
+              v77 = *v75;
             }
 
-            if (v78 >= 0)
+            if (v76 >= 0)
             {
-              v80 = *(v77 + 23);
+              v78 = *(v75 + 23);
             }
 
             else
             {
-              v80 = *(v77 + 8);
+              v78 = *(v75 + 8);
             }
 
-            v81 = std::string::append(&v764, v79, v80);
-            v765 = *v81;
-            v81->__r_.__value_.__l.__size_ = 0;
-            v81->__r_.__value_.__r.__words[2] = 0;
-            v81->__r_.__value_.__r.__words[0] = 0;
-            v82 = *(v31 + 8);
-            if (v82)
+            v79 = std::string::append(&v744, v77, v78);
+            v745 = *v79;
+            v79->__r_.__value_.__l.__size_ = 0;
+            v79->__r_.__value_.__r.__words[2] = 0;
+            v79->__r_.__value_.__r.__words[0] = 0;
+            v80 = *(v31 + 8);
+            if (v80)
             {
-              v83 = (v82 & 0xFFFFFFFFFFFFFFFELL);
+              v81 = (v80 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v81);
-              v83 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v79);
+              v81 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v763, "nextIds");
-            siri::intelligence::GetLineNumFromUnknownField(v83, &v763, v72);
+            std::string::basic_string[abi:ne200100]<0>(&v743, "nextIds");
+            siri::intelligence::GetLineNumFromUnknownField(v81, &v743, v70);
           }
 
-          ++v72;
+          ++v70;
         }
 
-        while (v72 < *(v31 + 80));
+        while (v70 < *(v31 + 80));
       }
 
-      v84 = *(v31 + 216);
-      if ((*(v84 + 23) & 0x8000000000000000) != 0)
+      v82 = *(v31 + 216);
+      if ((*(v82 + 23) & 0x8000000000000000) != 0)
       {
-        if (!*(v84 + 8))
+        if (!*(v82 + 8))
         {
           goto LABEL_179;
         }
       }
 
-      else if (!*(v84 + 23))
+      else if (!*(v82 + 23))
       {
         goto LABEL_179;
       }
 
-      v65 = std::__tree<std::string>::find<std::string>(a2 + 96, v84);
-      if ((a2 + 104) == v65)
+      v63 = std::__tree<std::string>::find<std::string>(a2 + 96, v82);
+      if ((a2 + 104) == v63)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v85 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v83 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v85 = __p.__r_.__value_.__l.__size_;
+          v83 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::basic_string[abi:ne200100](&v764, v85 + 33);
-        if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v744, v83 + 33);
+        if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v86 = &v764;
+          v84 = &v744;
         }
 
         else
         {
-          v86 = v764.__r_.__value_.__r.__words[0];
+          v84 = v744.__r_.__value_.__r.__words[0];
         }
 
-        if (v85)
+        if (v83)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v87 = &__p;
+            v85 = &__p;
           }
 
           else
           {
-            v87 = __p.__r_.__value_.__r.__words[0];
+            v85 = __p.__r_.__value_.__r.__words[0];
           }
 
-          memmove(v86, v87, v85);
+          memmove(v84, v85, v83);
         }
 
-        strcpy(v86 + v85, "refers to undefined input group: ");
-        v88 = *(v31 + 216);
-        v89 = *(v88 + 23);
-        if (v89 >= 0)
+        strcpy(v84 + v83, "refers to undefined input group: ");
+        v86 = *(v31 + 216);
+        v87 = *(v86 + 23);
+        if (v87 >= 0)
         {
-          v90 = *(v31 + 216);
+          v88 = *(v31 + 216);
         }
 
         else
         {
-          v90 = *v88;
+          v88 = *v86;
         }
 
-        if (v89 >= 0)
+        if (v87 >= 0)
         {
-          v91 = *(v88 + 23);
+          v89 = *(v86 + 23);
         }
 
         else
         {
-          v91 = *(v88 + 8);
+          v89 = *(v86 + 8);
         }
 
-        v92 = std::string::append(&v764, v90, v91);
-        v765 = *v92;
-        v92->__r_.__value_.__l.__size_ = 0;
-        v92->__r_.__value_.__r.__words[2] = 0;
-        v92->__r_.__value_.__r.__words[0] = 0;
-        v93 = *(v31 + 8);
-        if (v93)
+        v90 = std::string::append(&v744, v88, v89);
+        v745 = *v90;
+        v90->__r_.__value_.__l.__size_ = 0;
+        v90->__r_.__value_.__r.__words[2] = 0;
+        v90->__r_.__value_.__r.__words[0] = 0;
+        v91 = *(v31 + 8);
+        if (v91)
         {
-          v94 = (v93 & 0xFFFFFFFFFFFFFFFELL);
+          v92 = (v91 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v92);
-          v94 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v90);
+          v92 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v763, "inputGroupId");
-        siri::intelligence::GetLineNumFromUnknownField(v94, &v763, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v743, "inputGroupId");
+        siri::intelligence::GetLineNumFromUnknownField(v92, &v743, -1);
       }
 
 LABEL_179:
-      v95 = *(v31 + 208);
-      if ((*(v95 + 23) & 0x8000000000000000) != 0)
+      v93 = *(v31 + 208);
+      if ((*(v93 + 23) & 0x8000000000000000) != 0)
       {
-        if (!*(v95 + 8))
+        if (!*(v93 + 8))
         {
           goto LABEL_204;
         }
       }
 
-      else if (!*(v95 + 23))
+      else if (!*(v93 + 23))
       {
         goto LABEL_204;
       }
 
-      v65 = std::__tree<std::string>::find<std::string>(a2 + 168, v95);
-      if ((a2 + 176) == v65)
+      v63 = std::__tree<std::string>::find<std::string>(a2 + 168, v93);
+      if ((a2 + 176) == v63)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v96 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v94 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v96 = __p.__r_.__value_.__l.__size_;
+          v94 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::basic_string[abi:ne200100](&v764, v96 + 31);
-        if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v744, v94 + 31);
+        if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v97 = &v764;
+          v95 = &v744;
         }
 
         else
         {
-          v97 = v764.__r_.__value_.__r.__words[0];
+          v95 = v744.__r_.__value_.__r.__words[0];
         }
 
-        if (v96)
+        if (v94)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v98 = &__p;
+            v96 = &__p;
           }
 
           else
           {
-            v98 = __p.__r_.__value_.__r.__words[0];
+            v96 = __p.__r_.__value_.__r.__words[0];
           }
 
-          memmove(v97, v98, v96);
+          memmove(v95, v96, v94);
         }
 
-        strcpy(v97 + v96, "refers to undefined condition: ");
-        v99 = *(v31 + 208);
-        v100 = *(v99 + 23);
-        if (v100 >= 0)
+        strcpy(v95 + v94, "refers to undefined condition: ");
+        v97 = *(v31 + 208);
+        v98 = *(v97 + 23);
+        if (v98 >= 0)
         {
-          v101 = *(v31 + 208);
+          v99 = *(v31 + 208);
         }
 
         else
         {
-          v101 = *v99;
+          v99 = *v97;
         }
 
-        if (v100 >= 0)
+        if (v98 >= 0)
         {
-          v102 = *(v99 + 23);
+          v100 = *(v97 + 23);
         }
 
         else
         {
-          v102 = *(v99 + 8);
+          v100 = *(v97 + 8);
         }
 
-        v103 = std::string::append(&v764, v101, v102);
-        v765 = *v103;
-        v103->__r_.__value_.__l.__size_ = 0;
-        v103->__r_.__value_.__r.__words[2] = 0;
-        v103->__r_.__value_.__r.__words[0] = 0;
-        v104 = *(v31 + 8);
-        if (v104)
+        v101 = std::string::append(&v744, v99, v100);
+        v745 = *v101;
+        v101->__r_.__value_.__l.__size_ = 0;
+        v101->__r_.__value_.__r.__words[2] = 0;
+        v101->__r_.__value_.__r.__words[0] = 0;
+        v102 = *(v31 + 8);
+        if (v102)
         {
-          v105 = (v104 & 0xFFFFFFFFFFFFFFFELL);
+          v103 = (v102 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v103);
-          v105 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v101);
+          v103 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v763, "conditionId");
-        siri::intelligence::GetLineNumFromUnknownField(v105, &v763, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v743, "conditionId");
+        siri::intelligence::GetLineNumFromUnknownField(v103, &v743, -1);
       }
 
 LABEL_204:
-      v106 = *(v31 + 16);
-      if (*(v31 + 80) >= 1 && (v106 & 0x1000) != 0)
+      v104 = *(v31 + 16);
+      if (*(v31 + 80) >= 1 && (v104 & 0x1000) != 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v107 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v105 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v107 = __p.__r_.__value_.__l.__size_;
+          v105 = __p.__r_.__value_.__l.__size_;
         }
 
-        v108 = std::string::basic_string[abi:ne200100](&v765, v107 + 38);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v106 = std::string::basic_string[abi:ne200100](&v745, v105 + 38);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v109 = &v765;
+          v107 = &v745;
         }
 
         else
         {
-          v109 = v765.__r_.__value_.__r.__words[0];
+          v107 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v107)
+        if (v105)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v110 = &__p;
+            v108 = &__p;
           }
 
           else
           {
-            v110 = __p.__r_.__value_.__r.__words[0];
+            v108 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v108 = memmove(v109, v110, v107);
+          v106 = memmove(v107, v108, v105);
         }
 
-        strcpy(v109 + v107, "contains both nextIds and inputGroupId");
+        strcpy(v107 + v105, "contains both nextIds and inputGroupId");
+        v109 = *(v31 + 8);
+        if (v109)
+        {
+          v110 = (v109 & 0xFFFFFFFFFFFFFFFELL);
+        }
+
+        else
+        {
+          google::protobuf::internal::InitProtobufDefaults(v106);
+          v110 = &google::protobuf::internal::fixed_address_empty_string;
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v110, &v744, -1);
+      }
+
+      if ((v104 & 0x80) != 0)
+      {
         v111 = *(v31 + 8);
         if (v111)
         {
@@ -9163,148 +9153,170 @@ LABEL_204:
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v108);
+          google::protobuf::internal::InitProtobufDefaults(v63);
           v112 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v112, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v745, "text");
+        siri::intelligence::GetLineNumFromUnknownField(v112, &v745, -1);
       }
 
-      if ((v106 & 0x80) != 0)
-      {
-        v113 = *(v31 + 176);
-        v114 = *(v31 + 8);
-        if (v114)
-        {
-          v115 = (v114 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        else
-        {
-          google::protobuf::internal::InitProtobufDefaults(v65);
-          v115 = &google::protobuf::internal::fixed_address_empty_string;
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&v765, "text");
-        siri::intelligence::GetLineNumFromUnknownField(v115, &v765, -1);
-      }
-
-      if (*(v31 + 32) >= 1 && (v106 & 0x200) == 0)
+      if (*(v31 + 32) >= 1 && (v104 & 0x200) == 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v116 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v113 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v116 = __p.__r_.__value_.__l.__size_;
+          v113 = __p.__r_.__value_.__l.__size_;
         }
 
-        v117 = std::string::basic_string[abi:ne200100](&v765, v116 + 36);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v114 = std::string::basic_string[abi:ne200100](&v745, v113 + 36);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v118 = &v765;
+          v115 = &v745;
         }
 
         else
         {
-          v118 = v765.__r_.__value_.__r.__words[0];
+          v115 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v116)
+        if (v113)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v119 = &__p;
+            v116 = &__p;
           }
 
           else
           {
-            v119 = __p.__r_.__value_.__r.__words[0];
+            v116 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v117 = memmove(v118, v119, v116);
+          v114 = memmove(v115, v116, v113);
         }
 
-        strcpy(v118 + v116, "defines CAT parameters but no CAT ID");
-        v120 = *(v31 + 8);
-        if (v120)
+        strcpy(v115 + v113, "defines CAT parameters but no CAT ID");
+        v117 = *(v31 + 8);
+        if (v117)
         {
-          v121 = (v120 & 0xFFFFFFFFFFFFFFFELL);
+          v118 = (v117 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v117);
-          v121 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v114);
+          v118 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "catParameters");
-        siri::intelligence::GetLineNumFromUnknownField(v121, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "catParameters");
+        siri::intelligence::GetLineNumFromUnknownField(v118, &v744, -1);
       }
 
-      if (*(v31 + 56) >= 1 && (v106 & 0x400) == 0)
+      if (*(v31 + 56) >= 1 && (v104 & 0x400) == 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v122 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v119 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v122 = __p.__r_.__value_.__l.__size_;
+          v119 = __p.__r_.__value_.__l.__size_;
         }
 
-        v123 = std::string::basic_string[abi:ne200100](&v765, v122 + 44);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v120 = std::string::basic_string[abi:ne200100](&v745, v119 + 44);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v124 = &v765;
+          v121 = &v745;
         }
 
         else
         {
-          v124 = v765.__r_.__value_.__r.__words[0];
+          v121 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v122)
+        if (v119)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v125 = &__p;
+            v122 = &__p;
           }
 
           else
           {
-            v125 = __p.__r_.__value_.__r.__words[0];
+            v122 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v123 = memmove(v124, v125, v122);
+          v120 = memmove(v121, v122, v119);
         }
 
-        strcpy(v124 + v122, "defines Pattern parameters but no Pattern ID");
-        v126 = *(v31 + 8);
-        if (v126)
+        strcpy(v121 + v119, "defines Pattern parameters but no Pattern ID");
+        v123 = *(v31 + 8);
+        if (v123)
         {
-          v127 = (v126 & 0xFFFFFFFFFFFFFFFELL);
+          v124 = (v123 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v123);
-          v127 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v120);
+          v124 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "patternParameters");
-        siri::intelligence::GetLineNumFromUnknownField(v127, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "patternParameters");
+        siri::intelligence::GetLineNumFromUnknownField(v124, &v744, -1);
       }
 
-      if ((v106 & 0x200) != 0)
+      if ((v104 & 0x200) != 0)
       {
-        v128 = *(v31 + 192);
-        std::string::basic_string[abi:ne200100]<0>(&v765, "#");
-        if (siri::intelligence::StringContains(v128, &v765))
+        v125 = *(v31 + 192);
+        std::string::basic_string[abi:ne200100]<0>(&v745, "#");
+        if (siri::intelligence::StringContains(v125, &v745))
+        {
+          v126 = *(a2 + 47);
+          if (v126 < 0)
+          {
+            v126 = *(a2 + 4);
+          }
+
+          v127 = v126 != 0;
+        }
+
+        else
+        {
+          v127 = 0;
+        }
+
+        if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v745.__r_.__value_.__l.__data_);
+          if (!v127)
+          {
+            goto LABEL_268;
+          }
+        }
+
+        else if (!v127)
+        {
+          goto LABEL_268;
+        }
+
+        if (siri::intelligence::DirExists(a2 + 6))
+        {
+          siri::intelligence::FindPathForCatId(a2 + 48, *(v31 + 192));
+        }
+      }
+
+LABEL_268:
+      if ((*(v31 + 17) & 4) != 0)
+      {
+        v128 = *(v31 + 200);
+        std::string::basic_string[abi:ne200100]<0>(&v745, "#");
+        if (siri::intelligence::StringContains(v128, &v745))
         {
           v129 = *(a2 + 47);
           if (v129 < 0)
@@ -9320,154 +9332,113 @@ LABEL_204:
           v130 = 0;
         }
 
-        if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v765.__r_.__value_.__l.__data_);
-          if (!v130)
-          {
-            goto LABEL_268;
-          }
-        }
-
-        else if (!v130)
-        {
-          goto LABEL_268;
-        }
-
-        if (siri::intelligence::DirExists(a2 + 6))
-        {
-          siri::intelligence::FindPathForCatId(a2 + 48, *(v31 + 192));
-        }
-      }
-
-LABEL_268:
-      if ((*(v31 + 17) & 4) != 0)
-      {
-        v131 = *(v31 + 200);
-        std::string::basic_string[abi:ne200100]<0>(&v765, "#");
-        if (siri::intelligence::StringContains(v131, &v765))
-        {
-          v132 = *(a2 + 47);
-          if (v132 < 0)
-          {
-            v132 = *(a2 + 4);
-          }
-
-          v133 = v132 != 0;
-        }
-
-        else
-        {
-          v133 = 0;
-        }
-
-        if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v765.__r_.__value_.__l.__data_);
-          if (v133)
+          operator delete(v745.__r_.__value_.__l.__data_);
+          if (v130)
           {
 LABEL_278:
             if (siri::intelligence::DirExists(a2 + 6))
             {
-              siri::intelligence::FindFileForPatternId(*(v31 + 200), &v765);
-              if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              siri::intelligence::FindFileForPatternId(*(v31 + 200), &v745);
+              if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v134 = SHIBYTE(v765.__r_.__value_.__r.__words[2]);
+                v131 = SHIBYTE(v745.__r_.__value_.__r.__words[2]);
               }
 
               else
               {
-                v134 = v765.__r_.__value_.__l.__size_;
+                v131 = v745.__r_.__value_.__l.__size_;
               }
 
-              if ((SHIBYTE(v765.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+              if ((SHIBYTE(v745.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
               {
-                operator delete(v765.__r_.__value_.__l.__data_);
-                if (!v134)
+                operator delete(v745.__r_.__value_.__l.__data_);
+                if (!v131)
                 {
 LABEL_286:
                   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                   {
-                    v135 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+                    v132 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
                   }
 
                   else
                   {
-                    v135 = __p.__r_.__value_.__l.__size_;
+                    v132 = __p.__r_.__value_.__l.__size_;
                   }
 
-                  std::string::basic_string[abi:ne200100](&v764, v135 + 42);
-                  if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                  std::string::basic_string[abi:ne200100](&v744, v132 + 42);
+                  if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                   {
-                    v136 = &v764;
+                    v133 = &v744;
                   }
 
                   else
                   {
-                    v136 = v764.__r_.__value_.__r.__words[0];
+                    v133 = v744.__r_.__value_.__r.__words[0];
                   }
 
-                  if (v135)
+                  if (v132)
                   {
                     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                     {
-                      v137 = &__p;
+                      v134 = &__p;
                     }
 
                     else
                     {
-                      v137 = __p.__r_.__value_.__r.__words[0];
+                      v134 = __p.__r_.__value_.__r.__words[0];
                     }
 
-                    memmove(v136, v137, v135);
+                    memmove(v133, v134, v132);
                   }
 
-                  strcpy(v136 + v135, "defines a Pattern ID that does not exist: ");
-                  v138 = *(v31 + 200);
-                  v139 = *(v138 + 23);
-                  if (v139 >= 0)
+                  strcpy(v133 + v132, "defines a Pattern ID that does not exist: ");
+                  v135 = *(v31 + 200);
+                  v136 = *(v135 + 23);
+                  if (v136 >= 0)
                   {
-                    v140 = *(v31 + 200);
+                    v137 = *(v31 + 200);
                   }
 
                   else
                   {
-                    v140 = *v138;
+                    v137 = *v135;
                   }
 
-                  if (v139 >= 0)
+                  if (v136 >= 0)
                   {
-                    v141 = *(v138 + 23);
+                    v138 = *(v135 + 23);
                   }
 
                   else
                   {
-                    v141 = *(v138 + 8);
+                    v138 = *(v135 + 8);
                   }
 
-                  v142 = std::string::append(&v764, v140, v141);
-                  v765 = *v142;
-                  v142->__r_.__value_.__l.__size_ = 0;
-                  v142->__r_.__value_.__r.__words[2] = 0;
-                  v142->__r_.__value_.__r.__words[0] = 0;
-                  v143 = *(v31 + 8);
-                  if (v143)
+                  v139 = std::string::append(&v744, v137, v138);
+                  v745 = *v139;
+                  v139->__r_.__value_.__l.__size_ = 0;
+                  v139->__r_.__value_.__r.__words[2] = 0;
+                  v139->__r_.__value_.__r.__words[0] = 0;
+                  v140 = *(v31 + 8);
+                  if (v140)
                   {
-                    v144 = (v143 & 0xFFFFFFFFFFFFFFFELL);
+                    v141 = (v140 & 0xFFFFFFFFFFFFFFFELL);
                   }
 
                   else
                   {
-                    google::protobuf::internal::InitProtobufDefaults(v142);
-                    v144 = &google::protobuf::internal::fixed_address_empty_string;
+                    google::protobuf::internal::InitProtobufDefaults(v139);
+                    v141 = &google::protobuf::internal::fixed_address_empty_string;
                   }
 
-                  std::string::basic_string[abi:ne200100]<0>(&v763, "patternId");
-                  siri::intelligence::GetLineNumFromUnknownField(v144, &v763, -1);
+                  std::string::basic_string[abi:ne200100]<0>(&v743, "patternId");
+                  siri::intelligence::GetLineNumFromUnknownField(v141, &v743, -1);
                 }
               }
 
-              else if (!v134)
+              else if (!v131)
               {
                 goto LABEL_286;
               }
@@ -9475,7 +9446,7 @@ LABEL_286:
           }
         }
 
-        else if (v133)
+        else if (v130)
         {
           goto LABEL_278;
         }
@@ -9484,41 +9455,41 @@ LABEL_286:
       v29 = this;
       if (*(v31 + 32) >= 1)
       {
-        v145 = 0;
+        v142 = 0;
         do
         {
-          v146 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(v31 + 24, v145);
-          siri::intelligence::ValidateKeyValueParameter(&__p, v146, a2, a3);
-          ++v145;
+          v143 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(v31 + 24, v142);
+          siri::intelligence::ValidateKeyValueParameter(&__p, v143, a2, a3);
+          ++v142;
         }
 
-        while (v145 < *(v31 + 32));
+        while (v142 < *(v31 + 32));
       }
 
       if (*(v31 + 104) >= 1)
       {
-        v147 = 0;
+        v144 = 0;
         do
         {
-          v148 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(v31 + 96, v147);
-          siri::intelligence::ValidateKeyValueParameter(&__p, v148, a2, a3);
-          ++v147;
+          v145 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(v31 + 96, v144);
+          siri::intelligence::ValidateKeyValueParameter(&__p, v145, a2, a3);
+          ++v144;
         }
 
-        while (v147 < *(v31 + 104));
+        while (v144 < *(v31 + 104));
       }
 
       if (*(v31 + 56) >= 1)
       {
-        v149 = 0;
+        v146 = 0;
         do
         {
-          v150 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(v31 + 48, v149);
-          siri::intelligence::ValidateKeyValueParameter(&__p, v150, a2, a3);
-          ++v149;
+          v147 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(v31 + 48, v146);
+          siri::intelligence::ValidateKeyValueParameter(&__p, v147, a2, a3);
+          ++v146;
         }
 
-        while (v149 < *(v31 + 56));
+        while (v146 < *(v31 + 56));
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -9528,752 +9499,749 @@ LABEL_286:
     }
   }
 
-  v151 = v29;
+  v148 = v29;
   if (*(v29 + 20) >= 1)
   {
-    v152 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_BehaviorResponse>::TypeHandler>(v29 + 72, 0);
+    v149 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_BehaviorResponse>::TypeHandler>(v29 + 72, 0);
     std::string::basic_string[abi:ne200100]<0>(&__p, "behavior response ");
-    v153 = *(v152 + 16);
-    if (v153)
+    v150 = *(v149 + 16);
+    if (v150)
     {
-      v154 = *(v152 + 72);
       std::operator+<char>();
-      v155 = std::string::append(&v764, "' ");
-      v156 = *&v155->__r_.__value_.__l.__data_;
-      v765.__r_.__value_.__r.__words[2] = v155->__r_.__value_.__r.__words[2];
-      *&v765.__r_.__value_.__l.__data_ = v156;
-      v155->__r_.__value_.__l.__size_ = 0;
-      v155->__r_.__value_.__r.__words[2] = 0;
-      v155->__r_.__value_.__r.__words[0] = 0;
-      if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v151 = std::string::append(&v744, "' ");
+      v152 = *&v151->__r_.__value_.__l.__data_;
+      v745.__r_.__value_.__r.__words[2] = v151->__r_.__value_.__r.__words[2];
+      *&v745.__r_.__value_.__l.__data_ = v152;
+      v151->__r_.__value_.__l.__size_ = 0;
+      v151->__r_.__value_.__r.__words[2] = 0;
+      v151->__r_.__value_.__r.__words[0] = 0;
+      if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v157 = &v765;
+        v153 = &v745;
       }
 
       else
       {
-        v157 = v765.__r_.__value_.__r.__words[0];
+        v153 = v745.__r_.__value_.__r.__words[0];
       }
 
-      if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v158 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+        v154 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v158 = v765.__r_.__value_.__l.__size_;
+        v154 = v745.__r_.__value_.__l.__size_;
       }
 
-      std::string::append(&__p, v157, v158);
-      if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+      std::string::append(&__p, v153, v154);
+      if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v765.__r_.__value_.__l.__data_);
+        operator delete(v745.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v764.__r_.__value_.__l.__data_);
+        operator delete(v744.__r_.__value_.__l.__data_);
       }
 
-      v153 = *(v152 + 16);
+      v150 = *(v149 + 16);
     }
 
-    if ((v153 & 1) == 0)
+    if ((v150 & 1) == 0)
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v159 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v155 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v159 = __p.__r_.__value_.__l.__size_;
+        v155 = __p.__r_.__value_.__l.__size_;
       }
 
-      v160 = std::string::basic_string[abi:ne200100](&v765, v159 + 21);
-      if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v156 = std::string::basic_string[abi:ne200100](&v745, v155 + 21);
+      if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v161 = &v765;
+        v157 = &v745;
       }
 
       else
       {
-        v161 = v765.__r_.__value_.__r.__words[0];
+        v157 = v745.__r_.__value_.__r.__words[0];
       }
 
+      if (v155)
+      {
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v158 = &__p;
+        }
+
+        else
+        {
+          v158 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        v156 = memmove(v157, v158, v155);
+      }
+
+      strcpy(v157 + v155, "does not define an id");
+      v159 = *(v149 + 8);
       if (v159)
       {
+        v160 = (v159 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      else
+      {
+        google::protobuf::internal::InitProtobufDefaults(v156);
+        v160 = &google::protobuf::internal::fixed_address_empty_string;
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&v744, "");
+      siri::intelligence::GetLineNumFromUnknownField(v160, &v744, -1);
+    }
+
+    if ((siri::intelligence::IsValidId(*(v149 + 72)) & 1) == 0)
+    {
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v161 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v161 = __p.__r_.__value_.__l.__size_;
+      }
+
+      v162 = std::string::basic_string[abi:ne200100](&v745, v161 + 32);
+      if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v163 = &v745;
+      }
+
+      else
+      {
+        v163 = v745.__r_.__value_.__r.__words[0];
+      }
+
+      if (v161)
+      {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v162 = &__p;
+          v164 = &__p;
         }
 
         else
         {
-          v162 = __p.__r_.__value_.__r.__words[0];
+          v164 = __p.__r_.__value_.__r.__words[0];
         }
 
-        v160 = memmove(v161, v162, v159);
+        v162 = memmove(v163, v164, v161);
       }
 
-      strcpy(v161 + v159, "does not define an id");
-      v163 = *(v152 + 8);
-      if (v163)
-      {
-        v164 = (v163 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      else
-      {
-        google::protobuf::internal::InitProtobufDefaults(v160);
-        v164 = &google::protobuf::internal::fixed_address_empty_string;
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&v764, "");
-      siri::intelligence::GetLineNumFromUnknownField(v164, &v764, -1);
-    }
-
-    if ((siri::intelligence::IsValidId(*(v152 + 72)) & 1) == 0)
-    {
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v165 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        v165 = __p.__r_.__value_.__l.__size_;
-      }
-
-      v166 = std::string::basic_string[abi:ne200100](&v765, v165 + 32);
-      if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v167 = &v765;
-      }
-
-      else
-      {
-        v167 = v765.__r_.__value_.__r.__words[0];
-      }
-
+      strcpy(v163 + v161, "has invalid characters in the ID");
+      v165 = *(v149 + 8);
       if (v165)
       {
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v168 = &__p;
-        }
-
-        else
-        {
-          v168 = __p.__r_.__value_.__r.__words[0];
-        }
-
-        v166 = memmove(v167, v168, v165);
-      }
-
-      strcpy(v167 + v165, "has invalid characters in the ID");
-      v169 = *(v152 + 8);
-      if (v169)
-      {
-        v170 = (v169 & 0xFFFFFFFFFFFFFFFELL);
+        v166 = (v165 & 0xFFFFFFFFFFFFFFFELL);
       }
 
       else
       {
-        google::protobuf::internal::InitProtobufDefaults(v166);
-        v170 = &google::protobuf::internal::fixed_address_empty_string;
+        google::protobuf::internal::InitProtobufDefaults(v162);
+        v166 = &google::protobuf::internal::fixed_address_empty_string;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v764, "id");
-      siri::intelligence::GetLineNumFromUnknownField(v170, &v764, -1);
+      std::string::basic_string[abi:ne200100]<0>(&v744, "id");
+      siri::intelligence::GetLineNumFromUnknownField(v166, &v744, -1);
     }
 
-    v171 = *(v152 + 72);
-    if (*(v152 + 56) == 1)
+    v167 = *(v149 + 72);
+    if (*(v149 + 56) == 1)
     {
-      v172 = *(*(v152 + 64) + 8);
-      v173 = *(v171 + 8);
-      v174 = *(v171 + 23);
-      v175 = *(v172 + 23);
-      if (v175 >= 0)
+      v168 = *(*(v149 + 64) + 8);
+      v169 = *(v167 + 8);
+      v170 = *(v167 + 23);
+      v171 = *(v168 + 23);
+      if (v171 >= 0)
       {
-        v176 = *(v172 + 23);
+        v172 = *(v168 + 23);
       }
 
       else
       {
-        v176 = *(v172 + 8);
+        v172 = *(v168 + 8);
       }
 
-      if (v174 >= 0)
+      if (v170 >= 0)
       {
-        v173 = *(v171 + 23);
+        v169 = *(v167 + 23);
       }
 
-      if (v176 == v173)
+      if (v172 == v169)
       {
-        v177 = v175 >= 0 ? *(*(v152 + 64) + 8) : *v172;
-        v178 = *v171;
-        v179 = v174 >= 0 ? *(v152 + 72) : *v171;
-        if (!memcmp(v177, v179, v176))
+        v173 = v171 >= 0 ? *(*(v149 + 64) + 8) : *v168;
+        v174 = v170 >= 0 ? *(v149 + 72) : *v167;
+        if (!memcmp(v173, v174, v172))
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v180 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+            v175 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v180 = __p.__r_.__value_.__l.__size_;
+            v175 = __p.__r_.__value_.__l.__size_;
           }
 
-          v181 = std::string::basic_string[abi:ne200100](&v765, v180 + 42);
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          v176 = std::string::basic_string[abi:ne200100](&v745, v175 + 42);
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v182 = &v765;
+            v177 = &v745;
           }
 
           else
           {
-            v182 = v765.__r_.__value_.__r.__words[0];
+            v177 = v745.__r_.__value_.__r.__words[0];
           }
 
-          if (v180)
+          if (v175)
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v183 = &__p;
+              v178 = &__p;
             }
 
             else
             {
-              v183 = __p.__r_.__value_.__r.__words[0];
+              v178 = __p.__r_.__value_.__r.__words[0];
             }
 
-            v181 = memmove(v182, v183, v180);
+            v176 = memmove(v177, v178, v175);
           }
 
-          strcpy(v182 + v180, "has a single next id that refers to itself");
-          v184 = *(v152 + 8);
-          if (v184)
+          strcpy(v177 + v175, "has a single next id that refers to itself");
+          v179 = *(v149 + 8);
+          if (v179)
           {
-            v185 = (v184 & 0xFFFFFFFFFFFFFFFELL);
+            v180 = (v179 & 0xFFFFFFFFFFFFFFFELL);
           }
 
           else
           {
-            google::protobuf::internal::InitProtobufDefaults(v181);
-            v185 = &google::protobuf::internal::fixed_address_empty_string;
+            google::protobuf::internal::InitProtobufDefaults(v176);
+            v180 = &google::protobuf::internal::fixed_address_empty_string;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v764, "nextIds");
-          siri::intelligence::GetLineNumFromUnknownField(v185, &v764, 0);
+          std::string::basic_string[abi:ne200100]<0>(&v744, "nextIds");
+          siri::intelligence::GetLineNumFromUnknownField(v180, &v744, 0);
         }
       }
     }
 
-    if ((a2 + 248) == std::__tree<std::string>::find<std::string>(a2 + 240, v171))
+    if ((a2 + 248) == std::__tree<std::string>::find<std::string>(a2 + 240, v167))
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v186 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v181 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v186 = __p.__r_.__value_.__l.__size_;
+        v181 = __p.__r_.__value_.__l.__size_;
       }
 
-      v187 = std::string::basic_string[abi:ne200100](&v765, v186 + 12);
-      if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v182 = std::string::basic_string[abi:ne200100](&v745, v181 + 12);
+      if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v188 = &v765;
+        v183 = &v745;
       }
 
       else
       {
-        v188 = v765.__r_.__value_.__r.__words[0];
+        v183 = v745.__r_.__value_.__r.__words[0];
       }
 
-      if (v186)
+      if (v181)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v189 = &__p;
+          v184 = &__p;
         }
 
         else
         {
-          v189 = __p.__r_.__value_.__r.__words[0];
+          v184 = __p.__r_.__value_.__r.__words[0];
         }
 
-        v187 = memmove(v188, v189, v186);
+        v182 = memmove(v183, v184, v181);
       }
 
-      strcpy(v188 + v186, "is not used.");
-      v190 = *(v152 + 8);
-      if (v190)
+      strcpy(v183 + v181, "is not used.");
+      v185 = *(v149 + 8);
+      if (v185)
       {
-        v191 = (v190 & 0xFFFFFFFFFFFFFFFELL);
+        v186 = (v185 & 0xFFFFFFFFFFFFFFFELL);
       }
 
       else
       {
-        google::protobuf::internal::InitProtobufDefaults(v187);
-        v191 = &google::protobuf::internal::fixed_address_empty_string;
+        google::protobuf::internal::InitProtobufDefaults(v182);
+        v186 = &google::protobuf::internal::fixed_address_empty_string;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v764, "");
-      siri::intelligence::GetLineNumFromUnknownField(v191, &v764, -1);
+      std::string::basic_string[abi:ne200100]<0>(&v744, "");
+      siri::intelligence::GetLineNumFromUnknownField(v186, &v744, -1);
     }
 
-    if (*(v152 + 56) >= 1)
+    if (*(v149 + 56) >= 1)
     {
-      v192 = 0;
+      v187 = 0;
       do
       {
-        v193 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v152 + 48, v192);
-        if ((a2 + 80) == std::__tree<std::string>::find<std::string>(a2 + 72, v193))
+        v188 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v149 + 48, v187);
+        if ((a2 + 80) == std::__tree<std::string>::find<std::string>(a2 + 72, v188))
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v194 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+            v189 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v194 = __p.__r_.__value_.__l.__size_;
+            v189 = __p.__r_.__value_.__l.__size_;
           }
 
-          std::string::basic_string[abi:ne200100](&v764, v194 + 29);
-          if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::string::basic_string[abi:ne200100](&v744, v189 + 29);
+          if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v195 = &v764;
+            v190 = &v744;
           }
 
           else
           {
-            v195 = v764.__r_.__value_.__r.__words[0];
+            v190 = v744.__r_.__value_.__r.__words[0];
           }
 
-          if (v194)
+          if (v189)
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v196 = &__p;
+              v191 = &__p;
             }
 
             else
             {
-              v196 = __p.__r_.__value_.__r.__words[0];
+              v191 = __p.__r_.__value_.__r.__words[0];
             }
 
-            memmove(v195, v196, v194);
+            memmove(v190, v191, v189);
           }
 
-          strcpy(v195 + v194, "refers to undefined next id: ");
-          v197 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v152 + 48, v192);
-          v198 = *(v197 + 23);
-          if (v198 >= 0)
+          strcpy(v190 + v189, "refers to undefined next id: ");
+          v192 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v149 + 48, v187);
+          v193 = *(v192 + 23);
+          if (v193 >= 0)
           {
-            v199 = v197;
+            v194 = v192;
           }
 
           else
           {
-            v199 = *v197;
+            v194 = *v192;
           }
 
-          if (v198 >= 0)
+          if (v193 >= 0)
           {
-            v200 = *(v197 + 23);
+            v195 = *(v192 + 23);
           }
 
           else
           {
-            v200 = *(v197 + 8);
+            v195 = *(v192 + 8);
           }
 
-          v201 = std::string::append(&v764, v199, v200);
-          v765 = *v201;
-          v201->__r_.__value_.__l.__size_ = 0;
-          v201->__r_.__value_.__r.__words[2] = 0;
-          v201->__r_.__value_.__r.__words[0] = 0;
-          v202 = *(v152 + 8);
-          if (v202)
+          v196 = std::string::append(&v744, v194, v195);
+          v745 = *v196;
+          v196->__r_.__value_.__l.__size_ = 0;
+          v196->__r_.__value_.__r.__words[2] = 0;
+          v196->__r_.__value_.__r.__words[0] = 0;
+          v197 = *(v149 + 8);
+          if (v197)
           {
-            v203 = (v202 & 0xFFFFFFFFFFFFFFFELL);
+            v198 = (v197 & 0xFFFFFFFFFFFFFFFELL);
           }
 
           else
           {
-            google::protobuf::internal::InitProtobufDefaults(v201);
-            v203 = &google::protobuf::internal::fixed_address_empty_string;
+            google::protobuf::internal::InitProtobufDefaults(v196);
+            v198 = &google::protobuf::internal::fixed_address_empty_string;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v763, "nextIds");
-          siri::intelligence::GetLineNumFromUnknownField(v203, &v763, v192);
+          std::string::basic_string[abi:ne200100]<0>(&v743, "nextIds");
+          siri::intelligence::GetLineNumFromUnknownField(v198, &v743, v187);
         }
 
-        ++v192;
+        ++v187;
       }
 
-      while (v192 < *(v152 + 56));
+      while (v187 < *(v149 + 56));
     }
 
-    v204 = *(v152 + 144);
-    if ((*(v204 + 23) & 0x8000000000000000) != 0)
+    v199 = *(v149 + 144);
+    if ((*(v199 + 23) & 0x8000000000000000) != 0)
     {
-      if (!*(v204 + 8))
+      if (!*(v199 + 8))
       {
         goto LABEL_467;
       }
     }
 
-    else if (!*(v204 + 23))
+    else if (!*(v199 + 23))
     {
       goto LABEL_467;
     }
 
-    if ((a2 + 104) == std::__tree<std::string>::find<std::string>(a2 + 96, v204))
+    if ((a2 + 104) == std::__tree<std::string>::find<std::string>(a2 + 96, v199))
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v205 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v200 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v205 = __p.__r_.__value_.__l.__size_;
+        v200 = __p.__r_.__value_.__l.__size_;
       }
 
-      std::string::basic_string[abi:ne200100](&v764, v205 + 33);
-      if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v744, v200 + 33);
+      if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v206 = &v764;
+        v201 = &v744;
       }
 
       else
       {
-        v206 = v764.__r_.__value_.__r.__words[0];
+        v201 = v744.__r_.__value_.__r.__words[0];
       }
 
-      if (v205)
+      if (v200)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v207 = &__p;
+          v202 = &__p;
         }
 
         else
         {
-          v207 = __p.__r_.__value_.__r.__words[0];
+          v202 = __p.__r_.__value_.__r.__words[0];
         }
 
-        memmove(v206, v207, v205);
+        memmove(v201, v202, v200);
       }
 
-      strcpy(v206 + v205, "refers to undefined input group: ");
-      v208 = *(v152 + 144);
-      v209 = *(v208 + 23);
-      if (v209 >= 0)
+      strcpy(v201 + v200, "refers to undefined input group: ");
+      v203 = *(v149 + 144);
+      v204 = *(v203 + 23);
+      if (v204 >= 0)
       {
-        v210 = *(v152 + 144);
+        v205 = *(v149 + 144);
       }
 
       else
       {
-        v210 = *v208;
+        v205 = *v203;
       }
 
-      if (v209 >= 0)
+      if (v204 >= 0)
       {
-        v211 = *(v208 + 23);
+        v206 = *(v203 + 23);
       }
 
       else
       {
-        v211 = *(v208 + 8);
+        v206 = *(v203 + 8);
       }
 
-      v212 = std::string::append(&v764, v210, v211);
-      v765 = *v212;
-      v212->__r_.__value_.__l.__size_ = 0;
-      v212->__r_.__value_.__r.__words[2] = 0;
-      v212->__r_.__value_.__r.__words[0] = 0;
-      v213 = *(v152 + 8);
-      if (v213)
+      v207 = std::string::append(&v744, v205, v206);
+      v745 = *v207;
+      v207->__r_.__value_.__l.__size_ = 0;
+      v207->__r_.__value_.__r.__words[2] = 0;
+      v207->__r_.__value_.__r.__words[0] = 0;
+      v208 = *(v149 + 8);
+      if (v208)
       {
-        v214 = (v213 & 0xFFFFFFFFFFFFFFFELL);
+        v209 = (v208 & 0xFFFFFFFFFFFFFFFELL);
       }
 
       else
       {
-        google::protobuf::internal::InitProtobufDefaults(v212);
-        v214 = &google::protobuf::internal::fixed_address_empty_string;
+        google::protobuf::internal::InitProtobufDefaults(v207);
+        v209 = &google::protobuf::internal::fixed_address_empty_string;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v763, "inputGroupId");
-      siri::intelligence::GetLineNumFromUnknownField(v214, &v763, -1);
+      std::string::basic_string[abi:ne200100]<0>(&v743, "inputGroupId");
+      siri::intelligence::GetLineNumFromUnknownField(v209, &v743, -1);
     }
 
 LABEL_467:
-    v215 = *(v152 + 136);
-    if ((*(v215 + 23) & 0x8000000000000000) != 0)
+    v210 = *(v149 + 136);
+    if ((*(v210 + 23) & 0x8000000000000000) != 0)
     {
-      if (!*(v215 + 8))
+      if (!*(v210 + 8))
       {
         goto LABEL_492;
       }
     }
 
-    else if (!*(v215 + 23))
+    else if (!*(v210 + 23))
     {
       goto LABEL_492;
     }
 
-    if ((a2 + 176) == std::__tree<std::string>::find<std::string>(a2 + 168, v215))
+    if ((a2 + 176) == std::__tree<std::string>::find<std::string>(a2 + 168, v210))
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v216 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v211 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v216 = __p.__r_.__value_.__l.__size_;
+        v211 = __p.__r_.__value_.__l.__size_;
       }
 
-      std::string::basic_string[abi:ne200100](&v764, v216 + 31);
-      if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v744, v211 + 31);
+      if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v217 = &v764;
+        v212 = &v744;
       }
 
       else
       {
-        v217 = v764.__r_.__value_.__r.__words[0];
+        v212 = v744.__r_.__value_.__r.__words[0];
       }
 
-      if (v216)
+      if (v211)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v218 = &__p;
+          v213 = &__p;
         }
 
         else
         {
-          v218 = __p.__r_.__value_.__r.__words[0];
+          v213 = __p.__r_.__value_.__r.__words[0];
         }
 
-        memmove(v217, v218, v216);
+        memmove(v212, v213, v211);
       }
 
-      strcpy(v217 + v216, "refers to undefined condition: ");
-      v219 = *(v152 + 136);
-      v220 = *(v219 + 23);
-      if (v220 >= 0)
+      strcpy(v212 + v211, "refers to undefined condition: ");
+      v214 = *(v149 + 136);
+      v215 = *(v214 + 23);
+      if (v215 >= 0)
       {
-        v221 = *(v152 + 136);
-      }
-
-      else
-      {
-        v221 = *v219;
-      }
-
-      if (v220 >= 0)
-      {
-        v222 = *(v219 + 23);
+        v216 = *(v149 + 136);
       }
 
       else
       {
-        v222 = *(v219 + 8);
+        v216 = *v214;
       }
 
-      v223 = std::string::append(&v764, v221, v222);
-      v765 = *v223;
-      v223->__r_.__value_.__l.__size_ = 0;
-      v223->__r_.__value_.__r.__words[2] = 0;
-      v223->__r_.__value_.__r.__words[0] = 0;
-      v224 = *(v152 + 8);
-      if (v224)
+      if (v215 >= 0)
       {
-        v225 = (v224 & 0xFFFFFFFFFFFFFFFELL);
+        v217 = *(v214 + 23);
+      }
+
+      else
+      {
+        v217 = *(v214 + 8);
+      }
+
+      v218 = std::string::append(&v744, v216, v217);
+      v745 = *v218;
+      v218->__r_.__value_.__l.__size_ = 0;
+      v218->__r_.__value_.__r.__words[2] = 0;
+      v218->__r_.__value_.__r.__words[0] = 0;
+      v219 = *(v149 + 8);
+      if (v219)
+      {
+        v220 = (v219 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      else
+      {
+        google::protobuf::internal::InitProtobufDefaults(v218);
+        v220 = &google::protobuf::internal::fixed_address_empty_string;
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&v743, "conditionId");
+      siri::intelligence::GetLineNumFromUnknownField(v220, &v743, -1);
+    }
+
+LABEL_492:
+    v221 = *(v149 + 16);
+    if (*(v149 + 56) >= 1 && (v221 & 0x200) != 0)
+    {
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v222 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v222 = __p.__r_.__value_.__l.__size_;
+      }
+
+      v223 = std::string::basic_string[abi:ne200100](&v745, v222 + 38);
+      if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v224 = &v745;
+      }
+
+      else
+      {
+        v224 = v745.__r_.__value_.__r.__words[0];
+      }
+
+      if (v222)
+      {
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v225 = &__p;
+        }
+
+        else
+        {
+          v225 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        v223 = memmove(v224, v225, v222);
+      }
+
+      strcpy(v224 + v222, "contains both nextIds and inputGroupId");
+      v226 = *(v149 + 8);
+      if (v226)
+      {
+        v227 = (v226 & 0xFFFFFFFFFFFFFFFELL);
       }
 
       else
       {
         google::protobuf::internal::InitProtobufDefaults(v223);
-        v225 = &google::protobuf::internal::fixed_address_empty_string;
+        v227 = &google::protobuf::internal::fixed_address_empty_string;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v763, "conditionId");
-      siri::intelligence::GetLineNumFromUnknownField(v225, &v763, -1);
+      std::string::basic_string[abi:ne200100]<0>(&v744, "");
+      siri::intelligence::GetLineNumFromUnknownField(v227, &v744, -1);
     }
 
-LABEL_492:
-    v226 = *(v152 + 16);
-    if (*(v152 + 56) >= 1 && (v226 & 0x200) != 0)
+    if ((v221 & 0x80) == 0)
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v227 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v228 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v227 = __p.__r_.__value_.__l.__size_;
+        v228 = __p.__r_.__value_.__l.__size_;
       }
 
-      v228 = std::string::basic_string[abi:ne200100](&v765, v227 + 38);
-      if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v229 = std::string::basic_string[abi:ne200100](&v745, v228 + 22);
+      if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v229 = &v765;
+        v230 = &v745;
       }
 
       else
       {
-        v229 = v765.__r_.__value_.__r.__words[0];
+        v230 = v745.__r_.__value_.__r.__words[0];
       }
 
-      if (v227)
+      if (v228)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v230 = &__p;
+          v231 = &__p;
         }
 
         else
         {
-          v230 = __p.__r_.__value_.__r.__words[0];
+          v231 = __p.__r_.__value_.__r.__words[0];
         }
 
-        v228 = memmove(v229, v230, v227);
+        v229 = memmove(v230, v231, v228);
       }
 
-      strcpy(v229 + v227, "contains both nextIds and inputGroupId");
-      v231 = *(v152 + 8);
-      if (v231)
+      strcpy(v230 + v228, "does not define a name");
+      v232 = *(v149 + 8);
+      if (v232)
       {
-        v232 = (v231 & 0xFFFFFFFFFFFFFFFELL);
+        v233 = (v232 & 0xFFFFFFFFFFFFFFFELL);
       }
 
       else
       {
-        google::protobuf::internal::InitProtobufDefaults(v228);
-        v232 = &google::protobuf::internal::fixed_address_empty_string;
+        google::protobuf::internal::InitProtobufDefaults(v229);
+        v233 = &google::protobuf::internal::fixed_address_empty_string;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v764, "");
-      siri::intelligence::GetLineNumFromUnknownField(v232, &v764, -1);
+      std::string::basic_string[abi:ne200100]<0>(&v744, "");
+      siri::intelligence::GetLineNumFromUnknownField(v233, &v744, -1);
     }
 
-    if ((v226 & 0x80) == 0)
+    if (*(v149 + 32) >= 1)
     {
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v233 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        v233 = __p.__r_.__value_.__l.__size_;
-      }
-
-      v234 = std::string::basic_string[abi:ne200100](&v765, v233 + 22);
-      if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v235 = &v765;
-      }
-
-      else
-      {
-        v235 = v765.__r_.__value_.__r.__words[0];
-      }
-
-      if (v233)
-      {
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v236 = &__p;
-        }
-
-        else
-        {
-          v236 = __p.__r_.__value_.__r.__words[0];
-        }
-
-        v234 = memmove(v235, v236, v233);
-      }
-
-      strcpy(v235 + v233, "does not define a name");
-      v237 = *(v152 + 8);
-      if (v237)
-      {
-        v238 = (v237 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      else
-      {
-        google::protobuf::internal::InitProtobufDefaults(v234);
-        v238 = &google::protobuf::internal::fixed_address_empty_string;
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&v764, "");
-      siri::intelligence::GetLineNumFromUnknownField(v238, &v764, -1);
-    }
-
-    if (*(v152 + 32) >= 1)
-    {
-      v239 = 0;
+      v234 = 0;
       do
       {
-        v240 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(v152 + 24, v239);
-        siri::intelligence::ValidateKeyValueParameter(&__p, v240, a2, a3);
-        ++v239;
+        v235 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(v149 + 24, v234);
+        siri::intelligence::ValidateKeyValueParameter(&__p, v235, a2, a3);
+        ++v234;
       }
 
-      while (v239 < *(v152 + 32));
+      while (v234 < *(v149 + 32));
     }
 
-    memset(&v765, 0, sizeof(v765));
-    memset(&v764, 0, sizeof(v764));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(&v764, v152 + 24);
-    if (LODWORD(v764.__r_.__value_.__r.__words[1]))
+    memset(&v745, 0, sizeof(v745));
+    memset(&v744, 0, sizeof(v744));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(&v744, v149 + 24);
+    if (LODWORD(v744.__r_.__value_.__r.__words[1]))
     {
-      if (v764.__r_.__value_.__r.__words[2])
+      if (v744.__r_.__value_.__r.__words[2])
       {
-        v241 = (v764.__r_.__value_.__r.__words[2] + 8);
+        v236 = (v744.__r_.__value_.__r.__words[2] + 8);
       }
 
       else
       {
-        v241 = 0;
+        v236 = 0;
       }
 
       do
       {
-        std::vector<protobuf::Intelligence_KeyValueParameter>::push_back[abi:ne200100](&v765, *v241++);
-        if (v764.__r_.__value_.__r.__words[2])
+        std::vector<protobuf::Intelligence_KeyValueParameter>::push_back[abi:ne200100](&v745, *v236++);
+        if (v744.__r_.__value_.__r.__words[2])
         {
-          v242 = v764.__r_.__value_.__r.__words[2] + 8;
+          v237 = v744.__r_.__value_.__r.__words[2] + 8;
         }
 
         else
         {
-          v242 = 0;
+          v237 = 0;
         }
       }
 
-      while (v241 != (v242 + 8 * SLODWORD(v764.__r_.__value_.__r.__words[1])));
+      while (v236 != (v237 + 8 * SLODWORD(v744.__r_.__value_.__r.__words[1])));
     }
 
-    google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(&v764);
-    v243 = *(v152 + 128);
+    google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(&v744);
     std::allocate_shared[abi:ne200100]<siri::intelligence::VariableDictionary,std::allocator<siri::intelligence::VariableDictionary>,char const(&)[1],std::vector<protobuf::Intelligence_KeyValueParameter> &,0>();
   }
 
@@ -10281,698 +10249,696 @@ LABEL_492:
   {
     for (j = 0; j < *(this + 26); ++j)
     {
-      v245 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_ReferenceResponse>::TypeHandler>((v151 + 24), j);
+      v239 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_ReferenceResponse>::TypeHandler>((v148 + 24), j);
       std::string::basic_string[abi:ne200100]<0>(&__p, "reference response ");
-      v246 = *(v245 + 16);
-      if (v246)
+      v240 = *(v239 + 16);
+      if (v240)
       {
-        v247 = *(v245 + 48);
         std::operator+<char>();
-        v248 = std::string::append(&v764, "' ");
-        v249 = *&v248->__r_.__value_.__l.__data_;
-        v765.__r_.__value_.__r.__words[2] = v248->__r_.__value_.__r.__words[2];
-        *&v765.__r_.__value_.__l.__data_ = v249;
-        v248->__r_.__value_.__l.__size_ = 0;
-        v248->__r_.__value_.__r.__words[2] = 0;
-        v248->__r_.__value_.__r.__words[0] = 0;
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v241 = std::string::append(&v744, "' ");
+        v242 = *&v241->__r_.__value_.__l.__data_;
+        v745.__r_.__value_.__r.__words[2] = v241->__r_.__value_.__r.__words[2];
+        *&v745.__r_.__value_.__l.__data_ = v242;
+        v241->__r_.__value_.__l.__size_ = 0;
+        v241->__r_.__value_.__r.__words[2] = 0;
+        v241->__r_.__value_.__r.__words[0] = 0;
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v250 = &v765;
+          v243 = &v745;
         }
 
         else
         {
-          v250 = v765.__r_.__value_.__r.__words[0];
+          v243 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v251 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v244 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v251 = v765.__r_.__value_.__l.__size_;
+          v244 = v745.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&__p, v250, v251);
-        if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(&__p, v243, v244);
+        if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v765.__r_.__value_.__l.__data_);
+          operator delete(v745.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v764.__r_.__value_.__l.__data_);
+          operator delete(v744.__r_.__value_.__l.__data_);
         }
 
-        v246 = *(v245 + 16);
+        v240 = *(v239 + 16);
       }
 
-      if ((v246 & 1) == 0)
+      if ((v240 & 1) == 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v252 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v245 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v252 = __p.__r_.__value_.__l.__size_;
+          v245 = __p.__r_.__value_.__l.__size_;
         }
 
-        v253 = std::string::basic_string[abi:ne200100](&v765, v252 + 21);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v246 = std::string::basic_string[abi:ne200100](&v745, v245 + 21);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v254 = &v765;
+          v247 = &v745;
         }
 
         else
         {
-          v254 = v765.__r_.__value_.__r.__words[0];
+          v247 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v252)
+        if (v245)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v255 = &__p;
+            v248 = &__p;
           }
 
           else
           {
-            v255 = __p.__r_.__value_.__r.__words[0];
+            v248 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v253 = memmove(v254, v255, v252);
+          v246 = memmove(v247, v248, v245);
         }
 
-        strcpy(v254 + v252, "does not define an id");
-        v256 = *(v245 + 8);
-        if (v256)
+        strcpy(v247 + v245, "does not define an id");
+        v249 = *(v239 + 8);
+        if (v249)
         {
-          v257 = (v256 & 0xFFFFFFFFFFFFFFFELL);
+          v250 = (v249 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v253);
-          v257 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v246);
+          v250 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v257, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v250, &v744, -1);
       }
 
-      if ((siri::intelligence::IsValidId(*(v245 + 48)) & 1) == 0)
+      if ((siri::intelligence::IsValidId(*(v239 + 48)) & 1) == 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v258 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v251 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v258 = __p.__r_.__value_.__l.__size_;
+          v251 = __p.__r_.__value_.__l.__size_;
         }
 
-        v259 = std::string::basic_string[abi:ne200100](&v765, v258 + 32);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v252 = std::string::basic_string[abi:ne200100](&v745, v251 + 32);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v260 = &v765;
+          v253 = &v745;
         }
 
         else
         {
-          v260 = v765.__r_.__value_.__r.__words[0];
+          v253 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v258)
+        if (v251)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v261 = &__p;
+            v254 = &__p;
           }
 
           else
           {
-            v261 = __p.__r_.__value_.__r.__words[0];
+            v254 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v259 = memmove(v260, v261, v258);
+          v252 = memmove(v253, v254, v251);
         }
 
-        strcpy(v260 + v258, "has invalid characters in the ID");
-        v262 = *(v245 + 8);
-        if (v262)
+        strcpy(v253 + v251, "has invalid characters in the ID");
+        v255 = *(v239 + 8);
+        if (v255)
         {
-          v263 = (v262 & 0xFFFFFFFFFFFFFFFELL);
+          v256 = (v255 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v259);
-          v263 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v252);
+          v256 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "id");
-        siri::intelligence::GetLineNumFromUnknownField(v263, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "id");
+        siri::intelligence::GetLineNumFromUnknownField(v256, &v744, -1);
       }
 
-      v264 = *(v245 + 48);
-      if (*(v245 + 32) == 1)
+      v257 = *(v239 + 48);
+      if (*(v239 + 32) == 1)
       {
-        v265 = *(*(v245 + 40) + 8);
-        v266 = *(v264 + 8);
-        v267 = *(v264 + 23);
-        v268 = *(v265 + 23);
-        if (v268 >= 0)
+        v258 = *(*(v239 + 40) + 8);
+        v259 = *(v257 + 8);
+        v260 = *(v257 + 23);
+        v261 = *(v258 + 23);
+        if (v261 >= 0)
         {
-          v269 = *(v265 + 23);
+          v262 = *(v258 + 23);
         }
 
         else
         {
-          v269 = *(v265 + 8);
+          v262 = *(v258 + 8);
         }
 
-        if (v267 >= 0)
+        if (v260 >= 0)
         {
-          v266 = *(v264 + 23);
+          v259 = *(v257 + 23);
         }
 
-        if (v269 == v266)
+        if (v262 == v259)
         {
-          v270 = v268 >= 0 ? *(*(v245 + 40) + 8) : *v265;
-          v271 = *v264;
-          v272 = v267 >= 0 ? *(v245 + 48) : *v264;
-          if (!memcmp(v270, v272, v269))
+          v263 = v261 >= 0 ? *(*(v239 + 40) + 8) : *v258;
+          v264 = v260 >= 0 ? *(v239 + 48) : *v257;
+          if (!memcmp(v263, v264, v262))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v273 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v265 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v273 = __p.__r_.__value_.__l.__size_;
+              v265 = __p.__r_.__value_.__l.__size_;
             }
 
-            v274 = std::string::basic_string[abi:ne200100](&v765, v273 + 42);
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            v266 = std::string::basic_string[abi:ne200100](&v745, v265 + 42);
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v275 = &v765;
+              v267 = &v745;
             }
 
             else
             {
-              v275 = v765.__r_.__value_.__r.__words[0];
+              v267 = v745.__r_.__value_.__r.__words[0];
             }
 
-            if (v273)
+            if (v265)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v276 = &__p;
+                v268 = &__p;
               }
 
               else
               {
-                v276 = __p.__r_.__value_.__r.__words[0];
+                v268 = __p.__r_.__value_.__r.__words[0];
               }
 
-              v274 = memmove(v275, v276, v273);
+              v266 = memmove(v267, v268, v265);
             }
 
-            strcpy(v275 + v273, "has a single next id that refers to itself");
-            v277 = *(v245 + 8);
-            if (v277)
+            strcpy(v267 + v265, "has a single next id that refers to itself");
+            v269 = *(v239 + 8);
+            if (v269)
             {
-              v278 = (v277 & 0xFFFFFFFFFFFFFFFELL);
+              v270 = (v269 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v274);
-              v278 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v266);
+              v270 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v764, "nextIds");
-            siri::intelligence::GetLineNumFromUnknownField(v278, &v764, 0);
+            std::string::basic_string[abi:ne200100]<0>(&v744, "nextIds");
+            siri::intelligence::GetLineNumFromUnknownField(v270, &v744, 0);
           }
         }
       }
 
-      if ((a2 + 248) == std::__tree<std::string>::find<std::string>(a2 + 240, v264))
+      if ((a2 + 248) == std::__tree<std::string>::find<std::string>(a2 + 240, v257))
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v279 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v271 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v279 = __p.__r_.__value_.__l.__size_;
+          v271 = __p.__r_.__value_.__l.__size_;
         }
 
-        v280 = std::string::basic_string[abi:ne200100](&v765, v279 + 12);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v272 = std::string::basic_string[abi:ne200100](&v745, v271 + 12);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v281 = &v765;
+          v273 = &v745;
         }
 
         else
         {
-          v281 = v765.__r_.__value_.__r.__words[0];
+          v273 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v279)
+        if (v271)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v282 = &__p;
+            v274 = &__p;
           }
 
           else
           {
-            v282 = __p.__r_.__value_.__r.__words[0];
+            v274 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v280 = memmove(v281, v282, v279);
+          v272 = memmove(v273, v274, v271);
         }
 
-        strcpy(v281 + v279, "is not used.");
-        v283 = *(v245 + 8);
-        if (v283)
+        strcpy(v273 + v271, "is not used.");
+        v275 = *(v239 + 8);
+        if (v275)
         {
-          v284 = (v283 & 0xFFFFFFFFFFFFFFFELL);
+          v276 = (v275 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v280);
-          v284 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v272);
+          v276 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v284, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v276, &v744, -1);
       }
 
-      if (*(v245 + 32) >= 1)
+      if (*(v239 + 32) >= 1)
       {
-        v285 = 0;
+        v277 = 0;
         do
         {
-          v286 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v245 + 24, v285);
-          if ((a2 + 80) == std::__tree<std::string>::find<std::string>(a2 + 72, v286))
+          v278 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v239 + 24, v277);
+          if ((a2 + 80) == std::__tree<std::string>::find<std::string>(a2 + 72, v278))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v287 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v279 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v287 = __p.__r_.__value_.__l.__size_;
+              v279 = __p.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v764, v287 + 29);
-            if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v744, v279 + 29);
+            if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v288 = &v764;
+              v280 = &v744;
             }
 
             else
             {
-              v288 = v764.__r_.__value_.__r.__words[0];
+              v280 = v744.__r_.__value_.__r.__words[0];
             }
 
-            if (v287)
+            if (v279)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v289 = &__p;
+                v281 = &__p;
               }
 
               else
               {
-                v289 = __p.__r_.__value_.__r.__words[0];
+                v281 = __p.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v288, v289, v287);
+              memmove(v280, v281, v279);
             }
 
-            strcpy(v288 + v287, "refers to undefined next id: ");
-            v290 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v245 + 24, v285);
-            v291 = *(v290 + 23);
-            if (v291 >= 0)
+            strcpy(v280 + v279, "refers to undefined next id: ");
+            v282 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v239 + 24, v277);
+            v283 = *(v282 + 23);
+            if (v283 >= 0)
             {
-              v292 = v290;
+              v284 = v282;
             }
 
             else
             {
-              v292 = *v290;
+              v284 = *v282;
             }
 
-            if (v291 >= 0)
+            if (v283 >= 0)
             {
-              v293 = *(v290 + 23);
+              v285 = *(v282 + 23);
             }
 
             else
             {
-              v293 = *(v290 + 8);
+              v285 = *(v282 + 8);
             }
 
-            v294 = std::string::append(&v764, v292, v293);
-            v765 = *v294;
-            v294->__r_.__value_.__l.__size_ = 0;
-            v294->__r_.__value_.__r.__words[2] = 0;
-            v294->__r_.__value_.__r.__words[0] = 0;
-            v295 = *(v245 + 8);
-            if (v295)
+            v286 = std::string::append(&v744, v284, v285);
+            v745 = *v286;
+            v286->__r_.__value_.__l.__size_ = 0;
+            v286->__r_.__value_.__r.__words[2] = 0;
+            v286->__r_.__value_.__r.__words[0] = 0;
+            v287 = *(v239 + 8);
+            if (v287)
             {
-              v296 = (v295 & 0xFFFFFFFFFFFFFFFELL);
+              v288 = (v287 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v294);
-              v296 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v286);
+              v288 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v763, "nextIds");
-            siri::intelligence::GetLineNumFromUnknownField(v296, &v763, v285);
+            std::string::basic_string[abi:ne200100]<0>(&v743, "nextIds");
+            siri::intelligence::GetLineNumFromUnknownField(v288, &v743, v277);
           }
 
-          ++v285;
+          ++v277;
         }
 
-        while (v285 < *(v245 + 32));
+        while (v277 < *(v239 + 32));
       }
 
-      v297 = *(v245 + 128);
-      if ((*(v297 + 23) & 0x8000000000000000) != 0)
+      v289 = *(v239 + 128);
+      if ((*(v289 + 23) & 0x8000000000000000) != 0)
       {
-        if (!*(v297 + 8))
+        if (!*(v289 + 8))
         {
           goto LABEL_681;
         }
       }
 
-      else if (!*(v297 + 23))
+      else if (!*(v289 + 23))
       {
         goto LABEL_681;
       }
 
-      if ((a2 + 104) == std::__tree<std::string>::find<std::string>(a2 + 96, v297))
+      if ((a2 + 104) == std::__tree<std::string>::find<std::string>(a2 + 96, v289))
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v298 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v290 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v298 = __p.__r_.__value_.__l.__size_;
+          v290 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::basic_string[abi:ne200100](&v764, v298 + 33);
-        if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v744, v290 + 33);
+        if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v299 = &v764;
+          v291 = &v744;
         }
 
         else
         {
-          v299 = v764.__r_.__value_.__r.__words[0];
+          v291 = v744.__r_.__value_.__r.__words[0];
         }
 
-        if (v298)
+        if (v290)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v300 = &__p;
+            v292 = &__p;
           }
 
           else
           {
-            v300 = __p.__r_.__value_.__r.__words[0];
+            v292 = __p.__r_.__value_.__r.__words[0];
           }
 
-          memmove(v299, v300, v298);
+          memmove(v291, v292, v290);
         }
 
-        strcpy(v299 + v298, "refers to undefined input group: ");
-        v301 = *(v245 + 128);
-        v302 = *(v301 + 23);
-        if (v302 >= 0)
+        strcpy(v291 + v290, "refers to undefined input group: ");
+        v293 = *(v239 + 128);
+        v294 = *(v293 + 23);
+        if (v294 >= 0)
         {
-          v303 = *(v245 + 128);
+          v295 = *(v239 + 128);
         }
 
         else
         {
-          v303 = *v301;
+          v295 = *v293;
         }
 
-        if (v302 >= 0)
+        if (v294 >= 0)
         {
-          v304 = *(v301 + 23);
+          v296 = *(v293 + 23);
         }
 
         else
         {
-          v304 = *(v301 + 8);
+          v296 = *(v293 + 8);
         }
 
-        v305 = std::string::append(&v764, v303, v304);
-        v765 = *v305;
-        v305->__r_.__value_.__l.__size_ = 0;
-        v305->__r_.__value_.__r.__words[2] = 0;
-        v305->__r_.__value_.__r.__words[0] = 0;
-        v306 = *(v245 + 8);
-        if (v306)
+        v297 = std::string::append(&v744, v295, v296);
+        v745 = *v297;
+        v297->__r_.__value_.__l.__size_ = 0;
+        v297->__r_.__value_.__r.__words[2] = 0;
+        v297->__r_.__value_.__r.__words[0] = 0;
+        v298 = *(v239 + 8);
+        if (v298)
         {
-          v307 = (v306 & 0xFFFFFFFFFFFFFFFELL);
+          v299 = (v298 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v305);
-          v307 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v297);
+          v299 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v763, "inputGroupId");
-        siri::intelligence::GetLineNumFromUnknownField(v307, &v763, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v743, "inputGroupId");
+        siri::intelligence::GetLineNumFromUnknownField(v299, &v743, -1);
       }
 
 LABEL_681:
-      v308 = *(v245 + 120);
-      if ((*(v308 + 23) & 0x8000000000000000) != 0)
+      v300 = *(v239 + 120);
+      if ((*(v300 + 23) & 0x8000000000000000) != 0)
       {
-        if (*(v308 + 8))
+        if (*(v300 + 8))
         {
 LABEL_685:
-          if ((a2 + 176) == std::__tree<std::string>::find<std::string>(a2 + 168, v308))
+          if ((a2 + 176) == std::__tree<std::string>::find<std::string>(a2 + 168, v300))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v309 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v301 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v309 = __p.__r_.__value_.__l.__size_;
+              v301 = __p.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v764, v309 + 31);
-            if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v744, v301 + 31);
+            if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v310 = &v764;
+              v302 = &v744;
             }
 
             else
             {
-              v310 = v764.__r_.__value_.__r.__words[0];
+              v302 = v744.__r_.__value_.__r.__words[0];
             }
 
-            if (v309)
+            if (v301)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v311 = &__p;
+                v303 = &__p;
               }
 
               else
               {
-                v311 = __p.__r_.__value_.__r.__words[0];
+                v303 = __p.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v310, v311, v309);
+              memmove(v302, v303, v301);
             }
 
-            strcpy(v310 + v309, "refers to undefined condition: ");
-            v312 = *(v245 + 120);
-            v313 = *(v312 + 23);
-            if (v313 >= 0)
+            strcpy(v302 + v301, "refers to undefined condition: ");
+            v304 = *(v239 + 120);
+            v305 = *(v304 + 23);
+            if (v305 >= 0)
             {
-              v314 = *(v245 + 120);
+              v306 = *(v239 + 120);
             }
 
             else
             {
-              v314 = *v312;
+              v306 = *v304;
             }
 
-            if (v313 >= 0)
+            if (v305 >= 0)
             {
-              v315 = *(v312 + 23);
+              v307 = *(v304 + 23);
             }
 
             else
             {
-              v315 = *(v312 + 8);
+              v307 = *(v304 + 8);
             }
 
-            v316 = std::string::append(&v764, v314, v315);
-            v765 = *v316;
-            v316->__r_.__value_.__l.__size_ = 0;
-            v316->__r_.__value_.__r.__words[2] = 0;
-            v316->__r_.__value_.__r.__words[0] = 0;
-            v317 = *(v245 + 8);
-            if (v317)
+            v308 = std::string::append(&v744, v306, v307);
+            v745 = *v308;
+            v308->__r_.__value_.__l.__size_ = 0;
+            v308->__r_.__value_.__r.__words[2] = 0;
+            v308->__r_.__value_.__r.__words[0] = 0;
+            v309 = *(v239 + 8);
+            if (v309)
             {
-              v318 = (v317 & 0xFFFFFFFFFFFFFFFELL);
+              v310 = (v309 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v316);
-              v318 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v308);
+              v310 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v763, "conditionId");
-            siri::intelligence::GetLineNumFromUnknownField(v318, &v763, -1);
+            std::string::basic_string[abi:ne200100]<0>(&v743, "conditionId");
+            siri::intelligence::GetLineNumFromUnknownField(v310, &v743, -1);
           }
         }
       }
 
-      else if (*(v308 + 23))
+      else if (*(v300 + 23))
       {
         goto LABEL_685;
       }
 
-      v319 = *(v245 + 16);
-      if (*(v245 + 32) >= 1 && (v319 & 0x400) != 0)
+      v311 = *(v239 + 16);
+      if (*(v239 + 32) >= 1 && (v311 & 0x400) != 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v320 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v312 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v320 = __p.__r_.__value_.__l.__size_;
+          v312 = __p.__r_.__value_.__l.__size_;
         }
 
-        v321 = std::string::basic_string[abi:ne200100](&v765, v320 + 38);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v313 = std::string::basic_string[abi:ne200100](&v745, v312 + 38);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v322 = &v765;
+          v314 = &v745;
         }
 
         else
         {
-          v322 = v765.__r_.__value_.__r.__words[0];
+          v314 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v320)
+        if (v312)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v323 = &__p;
+            v315 = &__p;
           }
 
           else
           {
-            v323 = __p.__r_.__value_.__r.__words[0];
+            v315 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v321 = memmove(v322, v323, v320);
+          v313 = memmove(v314, v315, v312);
         }
 
-        strcpy(v322 + v320, "contains both nextIds and inputGroupId");
-        v324 = *(v245 + 8);
-        if (v324)
+        strcpy(v314 + v312, "contains both nextIds and inputGroupId");
+        v316 = *(v239 + 8);
+        if (v316)
         {
-          v325 = (v324 & 0xFFFFFFFFFFFFFFFELL);
+          v317 = (v316 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v321);
-          v325 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v313);
+          v317 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v325, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v317, &v744, -1);
       }
 
-      if ((v319 & 0x80) == 0)
+      if ((v311 & 0x80) == 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v326 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v318 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v326 = __p.__r_.__value_.__l.__size_;
+          v318 = __p.__r_.__value_.__l.__size_;
         }
 
-        v327 = std::string::basic_string[abi:ne200100](&v765, v326 + 23);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v319 = std::string::basic_string[abi:ne200100](&v745, v318 + 23);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v328 = &v765;
+          v320 = &v745;
         }
 
         else
         {
-          v328 = v765.__r_.__value_.__r.__words[0];
+          v320 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v326)
+        if (v318)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v329 = &__p;
+            v321 = &__p;
           }
 
           else
           {
-            v329 = __p.__r_.__value_.__r.__words[0];
+            v321 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v327 = memmove(v328, v329, v326);
+          v319 = memmove(v320, v321, v318);
         }
 
-        strcpy(v328 + v326, "does not define a refId");
-        v330 = *(v245 + 8);
-        if (v330)
+        strcpy(v320 + v318, "does not define a refId");
+        v322 = *(v239 + 8);
+        if (v322)
         {
-          v331 = (v330 & 0xFFFFFFFFFFFFFFFELL);
+          v323 = (v322 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v327);
-          v331 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v319);
+          v323 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v331, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v323, &v744, -1);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -10980,709 +10946,707 @@ LABEL_685:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v151 = this;
+      v148 = this;
     }
   }
 
-  if (v151[104] >= 1)
+  if (v148[104] >= 1)
   {
     for (k = 0; k < *(this + 104); ++k)
     {
-      v333 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_ResponseGroup>::TypeHandler>((v151 + 102), k);
+      v325 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_ResponseGroup>::TypeHandler>((v148 + 102), k);
       std::string::basic_string[abi:ne200100]<0>(&__p, "response group ");
-      v334 = *(v333 + 16);
-      if (v334)
+      v326 = *(v325 + 16);
+      if (v326)
       {
-        v335 = *(v333 + 48);
         std::operator+<char>();
-        v336 = std::string::append(&v764, "' ");
-        v337 = *&v336->__r_.__value_.__l.__data_;
-        v765.__r_.__value_.__r.__words[2] = v336->__r_.__value_.__r.__words[2];
-        *&v765.__r_.__value_.__l.__data_ = v337;
-        v336->__r_.__value_.__l.__size_ = 0;
-        v336->__r_.__value_.__r.__words[2] = 0;
-        v336->__r_.__value_.__r.__words[0] = 0;
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v327 = std::string::append(&v744, "' ");
+        v328 = *&v327->__r_.__value_.__l.__data_;
+        v745.__r_.__value_.__r.__words[2] = v327->__r_.__value_.__r.__words[2];
+        *&v745.__r_.__value_.__l.__data_ = v328;
+        v327->__r_.__value_.__l.__size_ = 0;
+        v327->__r_.__value_.__r.__words[2] = 0;
+        v327->__r_.__value_.__r.__words[0] = 0;
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v338 = &v765;
+          v329 = &v745;
         }
 
         else
         {
-          v338 = v765.__r_.__value_.__r.__words[0];
+          v329 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v339 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v330 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v339 = v765.__r_.__value_.__l.__size_;
+          v330 = v745.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&__p, v338, v339);
-        if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(&__p, v329, v330);
+        if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v765.__r_.__value_.__l.__data_);
+          operator delete(v745.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v764.__r_.__value_.__l.__data_);
+          operator delete(v744.__r_.__value_.__l.__data_);
         }
 
-        v334 = *(v333 + 16);
+        v326 = *(v325 + 16);
       }
 
-      if ((v334 & 1) == 0)
+      if ((v326 & 1) == 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v340 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v331 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v340 = __p.__r_.__value_.__l.__size_;
+          v331 = __p.__r_.__value_.__l.__size_;
         }
 
-        v341 = std::string::basic_string[abi:ne200100](&v765, v340 + 21);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v332 = std::string::basic_string[abi:ne200100](&v745, v331 + 21);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v342 = &v765;
+          v333 = &v745;
         }
 
         else
         {
-          v342 = v765.__r_.__value_.__r.__words[0];
+          v333 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v340)
+        if (v331)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v343 = &__p;
+            v334 = &__p;
           }
 
           else
           {
-            v343 = __p.__r_.__value_.__r.__words[0];
+            v334 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v341 = memmove(v342, v343, v340);
+          v332 = memmove(v333, v334, v331);
         }
 
-        strcpy(v342 + v340, "does not define an id");
-        v344 = *(v333 + 8);
-        if (v344)
+        strcpy(v333 + v331, "does not define an id");
+        v335 = *(v325 + 8);
+        if (v335)
         {
-          v345 = (v344 & 0xFFFFFFFFFFFFFFFELL);
+          v336 = (v335 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v341);
-          v345 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v332);
+          v336 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v345, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v336, &v744, -1);
       }
 
-      if ((siri::intelligence::IsValidId(*(v333 + 48)) & 1) == 0)
+      if ((siri::intelligence::IsValidId(*(v325 + 48)) & 1) == 0)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v346 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v337 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v346 = __p.__r_.__value_.__l.__size_;
+          v337 = __p.__r_.__value_.__l.__size_;
         }
 
-        v347 = std::string::basic_string[abi:ne200100](&v765, v346 + 32);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v338 = std::string::basic_string[abi:ne200100](&v745, v337 + 32);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v348 = &v765;
+          v339 = &v745;
         }
 
         else
         {
-          v348 = v765.__r_.__value_.__r.__words[0];
+          v339 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v346)
+        if (v337)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v349 = &__p;
+            v340 = &__p;
           }
 
           else
           {
-            v349 = __p.__r_.__value_.__r.__words[0];
+            v340 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v347 = memmove(v348, v349, v346);
+          v338 = memmove(v339, v340, v337);
         }
 
-        strcpy(v348 + v346, "has invalid characters in the ID");
-        v350 = *(v333 + 8);
-        if (v350)
+        strcpy(v339 + v337, "has invalid characters in the ID");
+        v341 = *(v325 + 8);
+        if (v341)
         {
-          v351 = (v350 & 0xFFFFFFFFFFFFFFFELL);
+          v342 = (v341 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v347);
-          v351 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v338);
+          v342 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "id");
-        siri::intelligence::GetLineNumFromUnknownField(v351, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "id");
+        siri::intelligence::GetLineNumFromUnknownField(v342, &v744, -1);
       }
 
-      v352 = *(v333 + 48);
-      if (*(v333 + 32) == 1)
+      v343 = *(v325 + 48);
+      if (*(v325 + 32) == 1)
       {
-        v353 = *(*(v333 + 40) + 8);
-        v354 = *(v352 + 8);
-        v355 = *(v352 + 23);
-        v356 = *(v353 + 23);
-        if (v356 >= 0)
+        v344 = *(*(v325 + 40) + 8);
+        v345 = *(v343 + 8);
+        v346 = *(v343 + 23);
+        v347 = *(v344 + 23);
+        if (v347 >= 0)
         {
-          v357 = *(v353 + 23);
+          v348 = *(v344 + 23);
         }
 
         else
         {
-          v357 = *(v353 + 8);
+          v348 = *(v344 + 8);
         }
 
-        if (v355 >= 0)
+        if (v346 >= 0)
         {
-          v354 = *(v352 + 23);
+          v345 = *(v343 + 23);
         }
 
-        if (v357 == v354)
+        if (v348 == v345)
         {
-          v358 = v356 >= 0 ? *(*(v333 + 40) + 8) : *v353;
-          v359 = *v352;
-          v360 = v355 >= 0 ? *(v333 + 48) : *v352;
-          if (!memcmp(v358, v360, v357))
+          v349 = v347 >= 0 ? *(*(v325 + 40) + 8) : *v344;
+          v350 = v346 >= 0 ? *(v325 + 48) : *v343;
+          if (!memcmp(v349, v350, v348))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v361 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v351 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v361 = __p.__r_.__value_.__l.__size_;
+              v351 = __p.__r_.__value_.__l.__size_;
             }
 
-            v362 = std::string::basic_string[abi:ne200100](&v765, v361 + 42);
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            v352 = std::string::basic_string[abi:ne200100](&v745, v351 + 42);
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v363 = &v765;
+              v353 = &v745;
             }
 
             else
             {
-              v363 = v765.__r_.__value_.__r.__words[0];
+              v353 = v745.__r_.__value_.__r.__words[0];
             }
 
-            if (v361)
+            if (v351)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v364 = &__p;
+                v354 = &__p;
               }
 
               else
               {
-                v364 = __p.__r_.__value_.__r.__words[0];
+                v354 = __p.__r_.__value_.__r.__words[0];
               }
 
-              v362 = memmove(v363, v364, v361);
+              v352 = memmove(v353, v354, v351);
             }
 
-            strcpy(v363 + v361, "has a single next id that refers to itself");
-            v365 = *(v333 + 8);
-            if (v365)
+            strcpy(v353 + v351, "has a single next id that refers to itself");
+            v355 = *(v325 + 8);
+            if (v355)
             {
-              v366 = (v365 & 0xFFFFFFFFFFFFFFFELL);
+              v356 = (v355 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v362);
-              v366 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v352);
+              v356 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v764, "nextIds");
-            siri::intelligence::GetLineNumFromUnknownField(v366, &v764, 0);
+            std::string::basic_string[abi:ne200100]<0>(&v744, "nextIds");
+            siri::intelligence::GetLineNumFromUnknownField(v356, &v744, 0);
           }
         }
       }
 
-      if ((a2 + 248) == std::__tree<std::string>::find<std::string>(a2 + 240, v352))
+      if ((a2 + 248) == std::__tree<std::string>::find<std::string>(a2 + 240, v343))
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v367 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v357 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v367 = __p.__r_.__value_.__l.__size_;
+          v357 = __p.__r_.__value_.__l.__size_;
         }
 
-        v368 = std::string::basic_string[abi:ne200100](&v765, v367 + 12);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v358 = std::string::basic_string[abi:ne200100](&v745, v357 + 12);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v369 = &v765;
+          v359 = &v745;
         }
 
         else
         {
-          v369 = v765.__r_.__value_.__r.__words[0];
+          v359 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v367)
+        if (v357)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v370 = &__p;
+            v360 = &__p;
           }
 
           else
           {
-            v370 = __p.__r_.__value_.__r.__words[0];
+            v360 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v368 = memmove(v369, v370, v367);
+          v358 = memmove(v359, v360, v357);
         }
 
-        strcpy(v369 + v367, "is not used.");
-        v371 = *(v333 + 8);
-        if (v371)
+        strcpy(v359 + v357, "is not used.");
+        v361 = *(v325 + 8);
+        if (v361)
         {
-          v372 = (v371 & 0xFFFFFFFFFFFFFFFELL);
+          v362 = (v361 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v368);
-          v372 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v358);
+          v362 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v372, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v362, &v744, -1);
       }
 
-      if (*(v333 + 32) >= 1)
+      if (*(v325 + 32) >= 1)
       {
-        v373 = 0;
+        v363 = 0;
         do
         {
-          v374 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v333 + 24, v373);
-          if ((a2 + 80) == std::__tree<std::string>::find<std::string>(a2 + 72, v374))
+          v364 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v325 + 24, v363);
+          if ((a2 + 80) == std::__tree<std::string>::find<std::string>(a2 + 72, v364))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v375 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v365 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v375 = __p.__r_.__value_.__l.__size_;
+              v365 = __p.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v764, v375 + 29);
-            if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v744, v365 + 29);
+            if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v376 = &v764;
+              v366 = &v744;
             }
 
             else
             {
-              v376 = v764.__r_.__value_.__r.__words[0];
+              v366 = v744.__r_.__value_.__r.__words[0];
             }
 
-            if (v375)
+            if (v365)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v377 = &__p;
+                v367 = &__p;
               }
 
               else
               {
-                v377 = __p.__r_.__value_.__r.__words[0];
+                v367 = __p.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v376, v377, v375);
+              memmove(v366, v367, v365);
             }
 
-            strcpy(v376 + v375, "refers to undefined next id: ");
-            v378 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v333 + 24, v373);
-            v379 = *(v378 + 23);
-            if (v379 >= 0)
+            strcpy(v366 + v365, "refers to undefined next id: ");
+            v368 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v325 + 24, v363);
+            v369 = *(v368 + 23);
+            if (v369 >= 0)
             {
-              v380 = v378;
+              v370 = v368;
             }
 
             else
             {
-              v380 = *v378;
+              v370 = *v368;
             }
 
-            if (v379 >= 0)
+            if (v369 >= 0)
             {
-              v381 = *(v378 + 23);
+              v371 = *(v368 + 23);
             }
 
             else
             {
-              v381 = *(v378 + 8);
+              v371 = *(v368 + 8);
             }
 
-            v382 = std::string::append(&v764, v380, v381);
-            v765 = *v382;
-            v382->__r_.__value_.__l.__size_ = 0;
-            v382->__r_.__value_.__r.__words[2] = 0;
-            v382->__r_.__value_.__r.__words[0] = 0;
-            v383 = *(v333 + 8);
-            if (v383)
+            v372 = std::string::append(&v744, v370, v371);
+            v745 = *v372;
+            v372->__r_.__value_.__l.__size_ = 0;
+            v372->__r_.__value_.__r.__words[2] = 0;
+            v372->__r_.__value_.__r.__words[0] = 0;
+            v373 = *(v325 + 8);
+            if (v373)
             {
-              v384 = (v383 & 0xFFFFFFFFFFFFFFFELL);
+              v374 = (v373 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v382);
-              v384 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v372);
+              v374 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v763, "nextIds");
-            siri::intelligence::GetLineNumFromUnknownField(v384, &v763, v373);
+            std::string::basic_string[abi:ne200100]<0>(&v743, "nextIds");
+            siri::intelligence::GetLineNumFromUnknownField(v374, &v743, v363);
           }
 
-          ++v373;
+          ++v363;
         }
 
-        while (v373 < *(v333 + 32));
+        while (v363 < *(v325 + 32));
       }
 
-      v385 = *(v333 + 112);
-      if ((*(v385 + 23) & 0x8000000000000000) != 0)
+      v375 = *(v325 + 112);
+      if ((*(v375 + 23) & 0x8000000000000000) != 0)
       {
-        if (!*(v385 + 8))
+        if (!*(v375 + 8))
         {
           goto LABEL_887;
         }
       }
 
-      else if (!*(v385 + 23))
+      else if (!*(v375 + 23))
       {
         goto LABEL_887;
       }
 
-      if ((a2 + 104) == std::__tree<std::string>::find<std::string>(a2 + 96, v385))
+      if ((a2 + 104) == std::__tree<std::string>::find<std::string>(a2 + 96, v375))
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v386 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v376 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v386 = __p.__r_.__value_.__l.__size_;
+          v376 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::basic_string[abi:ne200100](&v764, v386 + 33);
-        if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v744, v376 + 33);
+        if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v387 = &v764;
+          v377 = &v744;
         }
 
         else
         {
-          v387 = v764.__r_.__value_.__r.__words[0];
+          v377 = v744.__r_.__value_.__r.__words[0];
         }
 
-        if (v386)
+        if (v376)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v388 = &__p;
+            v378 = &__p;
           }
 
           else
           {
-            v388 = __p.__r_.__value_.__r.__words[0];
+            v378 = __p.__r_.__value_.__r.__words[0];
           }
 
-          memmove(v387, v388, v386);
+          memmove(v377, v378, v376);
         }
 
-        strcpy(v387 + v386, "refers to undefined input group: ");
-        v389 = *(v333 + 112);
-        v390 = *(v389 + 23);
-        if (v390 >= 0)
+        strcpy(v377 + v376, "refers to undefined input group: ");
+        v379 = *(v325 + 112);
+        v380 = *(v379 + 23);
+        if (v380 >= 0)
         {
-          v391 = *(v333 + 112);
+          v381 = *(v325 + 112);
         }
 
         else
         {
-          v391 = *v389;
+          v381 = *v379;
         }
 
-        if (v390 >= 0)
+        if (v380 >= 0)
         {
-          v392 = *(v389 + 23);
+          v382 = *(v379 + 23);
         }
 
         else
         {
-          v392 = *(v389 + 8);
+          v382 = *(v379 + 8);
         }
 
-        v393 = std::string::append(&v764, v391, v392);
-        v765 = *v393;
-        v393->__r_.__value_.__l.__size_ = 0;
-        v393->__r_.__value_.__r.__words[2] = 0;
-        v393->__r_.__value_.__r.__words[0] = 0;
-        v394 = *(v333 + 8);
-        if (v394)
+        v383 = std::string::append(&v744, v381, v382);
+        v745 = *v383;
+        v383->__r_.__value_.__l.__size_ = 0;
+        v383->__r_.__value_.__r.__words[2] = 0;
+        v383->__r_.__value_.__r.__words[0] = 0;
+        v384 = *(v325 + 8);
+        if (v384)
         {
-          v395 = (v394 & 0xFFFFFFFFFFFFFFFELL);
+          v385 = (v384 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v393);
-          v395 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v383);
+          v385 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v763, "inputGroupId");
-        siri::intelligence::GetLineNumFromUnknownField(v395, &v763, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v743, "inputGroupId");
+        siri::intelligence::GetLineNumFromUnknownField(v385, &v743, -1);
       }
 
 LABEL_887:
-      v396 = *(v333 + 104);
-      if ((*(v396 + 23) & 0x8000000000000000) != 0)
+      v386 = *(v325 + 104);
+      if ((*(v386 + 23) & 0x8000000000000000) != 0)
       {
-        if (*(v396 + 8))
+        if (*(v386 + 8))
         {
 LABEL_891:
-          if ((a2 + 176) == std::__tree<std::string>::find<std::string>(a2 + 168, v396))
+          if ((a2 + 176) == std::__tree<std::string>::find<std::string>(a2 + 168, v386))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v397 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v387 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v397 = __p.__r_.__value_.__l.__size_;
+              v387 = __p.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v764, v397 + 31);
-            if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v744, v387 + 31);
+            if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v398 = &v764;
+              v388 = &v744;
             }
 
             else
             {
-              v398 = v764.__r_.__value_.__r.__words[0];
+              v388 = v744.__r_.__value_.__r.__words[0];
             }
 
-            if (v397)
+            if (v387)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v399 = &__p;
+                v389 = &__p;
               }
 
               else
               {
-                v399 = __p.__r_.__value_.__r.__words[0];
+                v389 = __p.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v398, v399, v397);
+              memmove(v388, v389, v387);
             }
 
-            strcpy(v398 + v397, "refers to undefined condition: ");
-            v400 = *(v333 + 104);
-            v401 = *(v400 + 23);
-            if (v401 >= 0)
+            strcpy(v388 + v387, "refers to undefined condition: ");
+            v390 = *(v325 + 104);
+            v391 = *(v390 + 23);
+            if (v391 >= 0)
             {
-              v402 = *(v333 + 104);
+              v392 = *(v325 + 104);
             }
 
             else
             {
-              v402 = *v400;
+              v392 = *v390;
             }
 
-            if (v401 >= 0)
+            if (v391 >= 0)
             {
-              v403 = *(v400 + 23);
+              v393 = *(v390 + 23);
             }
 
             else
             {
-              v403 = *(v400 + 8);
+              v393 = *(v390 + 8);
             }
 
-            v404 = std::string::append(&v764, v402, v403);
-            v765 = *v404;
-            v404->__r_.__value_.__l.__size_ = 0;
-            v404->__r_.__value_.__r.__words[2] = 0;
-            v404->__r_.__value_.__r.__words[0] = 0;
-            v405 = *(v333 + 8);
-            if (v405)
+            v394 = std::string::append(&v744, v392, v393);
+            v745 = *v394;
+            v394->__r_.__value_.__l.__size_ = 0;
+            v394->__r_.__value_.__r.__words[2] = 0;
+            v394->__r_.__value_.__r.__words[0] = 0;
+            v395 = *(v325 + 8);
+            if (v395)
             {
-              v406 = (v405 & 0xFFFFFFFFFFFFFFFELL);
+              v396 = (v395 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v404);
-              v406 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v394);
+              v396 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v763, "conditionId");
-            siri::intelligence::GetLineNumFromUnknownField(v406, &v763, -1);
+            std::string::basic_string[abi:ne200100]<0>(&v743, "conditionId");
+            siri::intelligence::GetLineNumFromUnknownField(v396, &v743, -1);
           }
         }
       }
 
-      else if (*(v396 + 23))
+      else if (*(v386 + 23))
       {
         goto LABEL_891;
       }
 
-      v407 = *(v333 + 32);
-      if (v407 < 1)
+      v397 = *(v325 + 32);
+      if (v397 < 1)
       {
-        if (!v407 && (*(v333 + 17) & 1) == 0)
+        if (!v397 && (*(v325 + 17) & 1) == 0)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v414 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+            v404 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v414 = __p.__r_.__value_.__l.__size_;
+            v404 = __p.__r_.__value_.__l.__size_;
           }
 
-          v415 = std::string::basic_string[abi:ne200100](&v765, v414 + 51);
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          v405 = std::string::basic_string[abi:ne200100](&v745, v404 + 51);
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v416 = &v765;
+            v406 = &v745;
           }
 
           else
           {
-            v416 = v765.__r_.__value_.__r.__words[0];
+            v406 = v745.__r_.__value_.__r.__words[0];
           }
 
-          if (v414)
+          if (v404)
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v417 = &__p;
+              v407 = &__p;
             }
 
             else
             {
-              v417 = __p.__r_.__value_.__r.__words[0];
+              v407 = __p.__r_.__value_.__r.__words[0];
             }
 
-            v415 = memmove(v416, v417, v414);
+            v405 = memmove(v406, v407, v404);
           }
 
-          strcpy(v416 + v414, "has not effect: no nextIds and inputGroupId defined");
-          v418 = *(v333 + 8);
-          if (v418)
+          strcpy(v406 + v404, "has not effect: no nextIds and inputGroupId defined");
+          v408 = *(v325 + 8);
+          if (v408)
           {
-            v419 = (v418 & 0xFFFFFFFFFFFFFFFELL);
+            v409 = (v408 & 0xFFFFFFFFFFFFFFFELL);
           }
 
           else
           {
-            google::protobuf::internal::InitProtobufDefaults(v415);
-            v419 = &google::protobuf::internal::fixed_address_empty_string;
+            google::protobuf::internal::InitProtobufDefaults(v405);
+            v409 = &google::protobuf::internal::fixed_address_empty_string;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v764, "");
-          siri::intelligence::GetLineNumFromUnknownField(v419, &v764, -1);
+          std::string::basic_string[abi:ne200100]<0>(&v744, "");
+          siri::intelligence::GetLineNumFromUnknownField(v409, &v744, -1);
         }
       }
 
-      else if (*(v333 + 17))
+      else if (*(v325 + 17))
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v408 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v398 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v408 = __p.__r_.__value_.__l.__size_;
+          v398 = __p.__r_.__value_.__l.__size_;
         }
 
-        v409 = std::string::basic_string[abi:ne200100](&v765, v408 + 38);
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v399 = std::string::basic_string[abi:ne200100](&v745, v398 + 38);
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v410 = &v765;
+          v400 = &v745;
         }
 
         else
         {
-          v410 = v765.__r_.__value_.__r.__words[0];
+          v400 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if (v408)
+        if (v398)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v411 = &__p;
+            v401 = &__p;
           }
 
           else
           {
-            v411 = __p.__r_.__value_.__r.__words[0];
+            v401 = __p.__r_.__value_.__r.__words[0];
           }
 
-          v409 = memmove(v410, v411, v408);
+          v399 = memmove(v400, v401, v398);
         }
 
-        strcpy(v410 + v408, "contains both nextIds and inputGroupId");
-        v412 = *(v333 + 8);
-        if (v412)
+        strcpy(v400 + v398, "contains both nextIds and inputGroupId");
+        v402 = *(v325 + 8);
+        if (v402)
         {
-          v413 = (v412 & 0xFFFFFFFFFFFFFFFELL);
+          v403 = (v402 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v409);
-          v413 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v399);
+          v403 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v413, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v403, &v744, -1);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -11690,383 +11654,382 @@ LABEL_891:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v151 = this;
+      v148 = this;
     }
   }
 
-  if (v151[110] >= 1)
+  if (v148[110] >= 1)
   {
-    v420 = 0;
-    v421 = a2 + 80;
+    v410 = 0;
+    v411 = a2 + 80;
     while (1)
     {
-      v751 = v420;
-      v422 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_InputGroup>::TypeHandler>((v151 + 108), v420);
-      std::string::basic_string[abi:ne200100]<0>(&v761, "input group ");
-      v423 = *(v422 + 16);
-      if (v423)
+      v731 = v410;
+      v412 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_InputGroup>::TypeHandler>((v148 + 108), v410);
+      std::string::basic_string[abi:ne200100]<0>(&v741, "input group ");
+      v413 = *(v412 + 16);
+      if (v413)
       {
-        v424 = *(v422 + 144);
         std::operator+<char>();
-        v425 = std::string::append(&v765, "' ");
-        v426 = *&v425->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v425->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v426;
-        v425->__r_.__value_.__l.__size_ = 0;
-        v425->__r_.__value_.__r.__words[2] = 0;
-        v425->__r_.__value_.__r.__words[0] = 0;
+        v414 = std::string::append(&v745, "' ");
+        v415 = *&v414->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v414->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v415;
+        v414->__r_.__value_.__l.__size_ = 0;
+        v414->__r_.__value_.__r.__words[2] = 0;
+        v414->__r_.__value_.__r.__words[0] = 0;
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v427 = &__p;
+          v416 = &__p;
         }
 
         else
         {
-          v427 = __p.__r_.__value_.__r.__words[0];
+          v416 = __p.__r_.__value_.__r.__words[0];
         }
 
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v428 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v417 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v428 = __p.__r_.__value_.__l.__size_;
+          v417 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&v761, v427, v428);
+        std::string::append(&v741, v416, v417);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v765.__r_.__value_.__l.__data_);
+          operator delete(v745.__r_.__value_.__l.__data_);
         }
 
-        v423 = *(v422 + 16);
+        v413 = *(v412 + 16);
       }
 
-      if ((v423 & 1) == 0)
+      if ((v413 & 1) == 0)
       {
-        if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v429 = HIBYTE(v761.__r_.__value_.__r.__words[2]);
+          v418 = HIBYTE(v741.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v429 = v761.__r_.__value_.__l.__size_;
+          v418 = v741.__r_.__value_.__l.__size_;
         }
 
-        v430 = std::string::basic_string[abi:ne200100](&__p, v429 + 21);
+        v419 = std::string::basic_string[abi:ne200100](&__p, v418 + 21);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v431 = &__p;
+          v420 = &__p;
         }
 
         else
         {
-          v431 = __p.__r_.__value_.__r.__words[0];
+          v420 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v429)
+        if (v418)
         {
-          if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v432 = &v761;
+            v421 = &v741;
           }
 
           else
           {
-            v432 = v761.__r_.__value_.__r.__words[0];
+            v421 = v741.__r_.__value_.__r.__words[0];
           }
 
-          v430 = memmove(v431, v432, v429);
+          v419 = memmove(v420, v421, v418);
         }
 
-        strcpy(v431 + v429, "does not define an id");
-        v433 = *(v422 + 8);
-        if (v433)
+        strcpy(v420 + v418, "does not define an id");
+        v422 = *(v412 + 8);
+        if (v422)
         {
-          v434 = (v433 & 0xFFFFFFFFFFFFFFFELL);
+          v423 = (v422 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v430);
-          v434 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v419);
+          v423 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v765, "");
-        siri::intelligence::GetLineNumFromUnknownField(v434, &v765, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v745, "");
+        siri::intelligence::GetLineNumFromUnknownField(v423, &v745, -1);
       }
 
-      if ((siri::intelligence::IsValidId(*(v422 + 144)) & 1) == 0)
+      if ((siri::intelligence::IsValidId(*(v412 + 144)) & 1) == 0)
       {
-        if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v435 = HIBYTE(v761.__r_.__value_.__r.__words[2]);
+          v424 = HIBYTE(v741.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v435 = v761.__r_.__value_.__l.__size_;
+          v424 = v741.__r_.__value_.__l.__size_;
         }
 
-        v436 = std::string::basic_string[abi:ne200100](&__p, v435 + 32);
+        v425 = std::string::basic_string[abi:ne200100](&__p, v424 + 32);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v437 = &__p;
+          v426 = &__p;
         }
 
         else
         {
-          v437 = __p.__r_.__value_.__r.__words[0];
+          v426 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v435)
+        if (v424)
         {
-          if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v438 = &v761;
+            v427 = &v741;
           }
 
           else
           {
-            v438 = v761.__r_.__value_.__r.__words[0];
+            v427 = v741.__r_.__value_.__r.__words[0];
           }
 
-          v436 = memmove(v437, v438, v435);
+          v425 = memmove(v426, v427, v424);
         }
 
-        strcpy(v437 + v435, "has invalid characters in the ID");
-        v439 = *(v422 + 8);
-        if (v439)
+        strcpy(v426 + v424, "has invalid characters in the ID");
+        v428 = *(v412 + 8);
+        if (v428)
         {
-          v440 = (v439 & 0xFFFFFFFFFFFFFFFELL);
+          v429 = (v428 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v436);
-          v440 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v425);
+          v429 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v765, "id");
-        siri::intelligence::GetLineNumFromUnknownField(v440, &v765, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v745, "id");
+        siri::intelligence::GetLineNumFromUnknownField(v429, &v745, -1);
       }
 
-      if ((a2 + 224) == std::__tree<std::string>::find<std::string>(a2 + 216, *(v422 + 144)) && (*(v422 + 169) & 1) == 0)
+      if ((a2 + 224) == std::__tree<std::string>::find<std::string>(a2 + 216, *(v412 + 144)) && (*(v412 + 169) & 1) == 0)
       {
-        if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v507 = HIBYTE(v761.__r_.__value_.__r.__words[2]);
+          v495 = HIBYTE(v741.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v507 = v761.__r_.__value_.__l.__size_;
+          v495 = v741.__r_.__value_.__l.__size_;
         }
 
-        v508 = std::string::basic_string[abi:ne200100](&__p, v507 + 74);
+        v496 = std::string::basic_string[abi:ne200100](&__p, v495 + 74);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v509 = &__p;
+          v497 = &__p;
         }
 
         else
         {
-          v509 = __p.__r_.__value_.__r.__words[0];
+          v497 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v507)
+        if (v495)
         {
-          if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v510 = &v761;
+            v498 = &v741;
           }
 
           else
           {
-            v510 = v761.__r_.__value_.__r.__words[0];
+            v498 = v741.__r_.__value_.__r.__words[0];
           }
 
-          v508 = memmove(v509, v510, v507);
+          v496 = memmove(v497, v498, v495);
         }
 
-        strcpy(v509 + v507, "is not referenced. Did you mean to set 'toplevel: true' to make it global?");
-        v511 = *(v422 + 8);
-        if (v511)
+        strcpy(v497 + v495, "is not referenced. Did you mean to set 'toplevel: true' to make it global?");
+        v499 = *(v412 + 8);
+        if (v499)
         {
-          v512 = (v511 & 0xFFFFFFFFFFFFFFFELL);
+          v500 = (v499 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v508);
-          v512 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v496);
+          v500 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v765, "");
-        siri::intelligence::GetLineNumFromUnknownField(v512, &v765, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v745, "");
+        siri::intelligence::GetLineNumFromUnknownField(v500, &v745, -1);
       }
 
-      if (*(v422 + 32) >= 1)
+      if (*(v412 + 32) >= 1)
       {
-        siri::intelligence::Utils::VersionLessThan(a2);
+        siri::intelligence::Utils::VersionLessThan(a2, siri::intelligence::sIntentRenameChange);
       }
 
-      v441 = *(v422 + 112);
-      v442 = (v441 + 8);
-      v443 = v441 == 0;
-      v444 = v422;
-      if (v443)
+      v430 = *(v412 + 112);
+      v431 = (v430 + 8);
+      v432 = v430 == 0;
+      v433 = v412;
+      if (v432)
       {
-        v445 = 0;
+        v434 = 0;
       }
 
       else
       {
-        v445 = v442;
+        v434 = v431;
       }
 
-      v446 = v444;
-      v447 = *(v444 + 104);
-      if (v447)
+      v435 = v433;
+      v436 = *(v433 + 104);
+      if (v436)
       {
-        v448 = 8 * v447;
+        v437 = 8 * v436;
         do
         {
-          siri::intelligence::ValidateKeyValueParameter(&v761, *v445++, a2, a3);
-          v448 -= 8;
+          siri::intelligence::ValidateKeyValueParameter(&v741, *v434++, a2, a3);
+          v437 -= 8;
         }
 
-        while (v448);
+        while (v437);
       }
 
-      if (*(v446 + 128) >= 1)
+      if (*(v435 + 128) >= 1)
       {
         break;
       }
 
 LABEL_1123:
-      if (*(v446 + 56) >= 1)
+      if (*(v435 + 56) >= 1)
       {
-        v494 = 0;
+        v482 = 0;
         do
         {
-          v495 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_InputGroup_Fallback>::TypeHandler>(v446 + 48, v494);
+          v483 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_InputGroup_Fallback>::TypeHandler>(v435 + 48, v482);
           std::string::basic_string[abi:ne200100]<0>(&__p, "input group fallback ");
-          if (*(v495 + 56) >= 1)
+          if (*(v483 + 56) >= 1)
           {
-            v496 = 0;
+            v484 = 0;
             do
             {
-              v497 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v495 + 48, v496);
-              if (*(v497 + 23) < 0)
+              v485 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v483 + 48, v484);
+              if (*(v485 + 23) < 0)
               {
-                std::string::__init_copy_ctor_external(&v765, *v497, *(v497 + 8));
+                std::string::__init_copy_ctor_external(&v745, *v485, *(v485 + 8));
               }
 
               else
               {
-                v498 = *v497;
-                v765.__r_.__value_.__r.__words[2] = *(v497 + 16);
-                *&v765.__r_.__value_.__l.__data_ = v498;
+                v486 = *v485;
+                v745.__r_.__value_.__r.__words[2] = *(v485 + 16);
+                *&v745.__r_.__value_.__l.__data_ = v486;
               }
 
-              if (v421 == std::__tree<std::string>::find<std::string>(a2 + 72, &v765.__r_.__value_.__l.__data_))
+              if (v411 == std::__tree<std::string>::find<std::string>(a2 + 72, &v745.__r_.__value_.__l.__data_))
               {
                 if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v499 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+                  v487 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
                 }
 
                 else
                 {
-                  v499 = __p.__r_.__value_.__l.__size_;
+                  v487 = __p.__r_.__value_.__l.__size_;
                 }
 
-                std::string::basic_string[abi:ne200100](&v763, v499 + 33);
-                if ((v763.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                std::string::basic_string[abi:ne200100](&v743, v487 + 33);
+                if ((v743.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v500 = &v763;
+                  v488 = &v743;
                 }
 
                 else
                 {
-                  v500 = v763.__r_.__value_.__r.__words[0];
+                  v488 = v743.__r_.__value_.__r.__words[0];
                 }
 
-                if (v499)
+                if (v487)
                 {
                   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                   {
-                    v501 = &__p;
+                    v489 = &__p;
                   }
 
                   else
                   {
-                    v501 = __p.__r_.__value_.__r.__words[0];
+                    v489 = __p.__r_.__value_.__r.__words[0];
                   }
 
-                  memmove(v500, v501, v499);
+                  memmove(v488, v489, v487);
                 }
 
-                strcpy(v500 + v499, "refers to undefined response id: ");
-                if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                strcpy(v488 + v487, "refers to undefined response id: ");
+                if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v502 = &v765;
+                  v490 = &v745;
                 }
 
                 else
                 {
-                  v502 = v765.__r_.__value_.__r.__words[0];
+                  v490 = v745.__r_.__value_.__r.__words[0];
                 }
 
-                if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v503 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+                  v491 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
                 }
 
                 else
                 {
-                  v503 = v765.__r_.__value_.__l.__size_;
+                  v491 = v745.__r_.__value_.__l.__size_;
                 }
 
-                v504 = std::string::append(&v763, v502, v503);
-                v764 = *v504;
-                v504->__r_.__value_.__l.__size_ = 0;
-                v504->__r_.__value_.__r.__words[2] = 0;
-                v504->__r_.__value_.__r.__words[0] = 0;
-                v505 = *(v495 + 8);
-                if (v505)
+                v492 = std::string::append(&v743, v490, v491);
+                v744 = *v492;
+                v492->__r_.__value_.__l.__size_ = 0;
+                v492->__r_.__value_.__r.__words[2] = 0;
+                v492->__r_.__value_.__r.__words[0] = 0;
+                v493 = *(v483 + 8);
+                if (v493)
                 {
-                  v506 = (v505 & 0xFFFFFFFFFFFFFFFELL);
+                  v494 = (v493 & 0xFFFFFFFFFFFFFFFELL);
                 }
 
                 else
                 {
-                  google::protobuf::internal::InitProtobufDefaults(v504);
-                  v506 = &google::protobuf::internal::fixed_address_empty_string;
+                  google::protobuf::internal::InitProtobufDefaults(v492);
+                  v494 = &google::protobuf::internal::fixed_address_empty_string;
                 }
 
-                std::string::basic_string[abi:ne200100]<0>(&v762, "responseIds");
-                siri::intelligence::GetLineNumFromUnknownField(v506, &v762, v496);
+                std::string::basic_string[abi:ne200100]<0>(&v742, "responseIds");
+                siri::intelligence::GetLineNumFromUnknownField(v494, &v742, v484);
               }
 
-              if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v765.__r_.__value_.__l.__data_);
+                operator delete(v745.__r_.__value_.__l.__data_);
               }
 
-              ++v496;
+              ++v484;
             }
 
-            while (v496 < *(v495 + 56));
+            while (v484 < *(v483 + 56));
           }
 
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -12074,412 +12037,411 @@ LABEL_1123:
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          ++v494;
+          ++v482;
         }
 
-        while (v494 < *(v446 + 56));
+        while (v482 < *(v435 + 56));
       }
 
-      if (SHIBYTE(v761.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v741.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v761.__r_.__value_.__l.__data_);
+        operator delete(v741.__r_.__value_.__l.__data_);
       }
 
-      v420 = v751 + 1;
-      v151 = this;
-      if (v751 + 1 >= *(this + 110))
+      v410 = v731 + 1;
+      v148 = this;
+      if (v731 + 1 >= *(this + 110))
       {
         goto LABEL_1180;
       }
     }
 
-    v449 = 0;
+    v438 = 0;
     while (1)
     {
-      v450 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_InputGroup_Event>::TypeHandler>(v446 + 120, v449);
+      v439 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_InputGroup_Event>::TypeHandler>(v435 + 120, v438);
       std::string::basic_string[abi:ne200100]<0>(&__p, "input group event ");
-      if (*(v450 + 16))
+      if (*(v439 + 16))
       {
-        v451 = *(v450 + 48);
         std::operator+<char>();
-        v452 = std::string::append(&v764, "' ");
-        v453 = *&v452->__r_.__value_.__l.__data_;
-        v765.__r_.__value_.__r.__words[2] = v452->__r_.__value_.__r.__words[2];
-        *&v765.__r_.__value_.__l.__data_ = v453;
-        v452->__r_.__value_.__l.__size_ = 0;
-        v452->__r_.__value_.__r.__words[2] = 0;
-        v452->__r_.__value_.__r.__words[0] = 0;
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v440 = std::string::append(&v744, "' ");
+        v441 = *&v440->__r_.__value_.__l.__data_;
+        v745.__r_.__value_.__r.__words[2] = v440->__r_.__value_.__r.__words[2];
+        *&v745.__r_.__value_.__l.__data_ = v441;
+        v440->__r_.__value_.__l.__size_ = 0;
+        v440->__r_.__value_.__r.__words[2] = 0;
+        v440->__r_.__value_.__r.__words[0] = 0;
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v454 = &v765;
+          v442 = &v745;
         }
 
         else
         {
-          v454 = v765.__r_.__value_.__r.__words[0];
+          v442 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v455 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v443 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v455 = v765.__r_.__value_.__l.__size_;
+          v443 = v745.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&__p, v454, v455);
-        if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(&__p, v442, v443);
+        if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v765.__r_.__value_.__l.__data_);
+          operator delete(v745.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v764.__r_.__value_.__l.__data_);
+          operator delete(v744.__r_.__value_.__l.__data_);
         }
 
-        if ((*(v450 + 16) & 1) != 0 && (siri::intelligence::IsValidId(*(v450 + 48)) & 1) == 0)
+        if ((*(v439 + 16) & 1) != 0 && (siri::intelligence::IsValidId(*(v439 + 48)) & 1) == 0)
         {
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v456 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+            v444 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v456 = __p.__r_.__value_.__l.__size_;
+            v444 = __p.__r_.__value_.__l.__size_;
           }
 
-          v457 = std::string::basic_string[abi:ne200100](&v765, v456 + 32);
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          v445 = std::string::basic_string[abi:ne200100](&v745, v444 + 32);
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v458 = &v765;
+            v446 = &v745;
           }
 
           else
           {
-            v458 = v765.__r_.__value_.__r.__words[0];
+            v446 = v745.__r_.__value_.__r.__words[0];
           }
 
-          if (v456)
+          if (v444)
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v459 = &__p;
+              v447 = &__p;
             }
 
             else
             {
-              v459 = __p.__r_.__value_.__r.__words[0];
+              v447 = __p.__r_.__value_.__r.__words[0];
             }
 
-            v457 = memmove(v458, v459, v456);
+            v445 = memmove(v446, v447, v444);
           }
 
-          strcpy(v458 + v456, "has invalid characters in the ID");
-          v460 = *(v450 + 8);
-          if (v460)
+          strcpy(v446 + v444, "has invalid characters in the ID");
+          v448 = *(v439 + 8);
+          if (v448)
           {
-            v461 = (v460 & 0xFFFFFFFFFFFFFFFELL);
+            v449 = (v448 & 0xFFFFFFFFFFFFFFFELL);
           }
 
           else
           {
-            google::protobuf::internal::InitProtobufDefaults(v457);
-            v461 = &google::protobuf::internal::fixed_address_empty_string;
+            google::protobuf::internal::InitProtobufDefaults(v445);
+            v449 = &google::protobuf::internal::fixed_address_empty_string;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v764, "id");
-          siri::intelligence::GetLineNumFromUnknownField(v461, &v764, -1);
+          std::string::basic_string[abi:ne200100]<0>(&v744, "id");
+          siri::intelligence::GetLineNumFromUnknownField(v449, &v744, -1);
         }
       }
 
-      v462 = *(v450 + 64);
-      if ((*(v462 + 23) & 0x8000000000000000) != 0)
+      v450 = *(v439 + 64);
+      if ((*(v450 + 23) & 0x8000000000000000) != 0)
       {
-        if (*(v462 + 8))
+        if (*(v450 + 8))
         {
 LABEL_1043:
-          if ((a2 + 152) == std::__tree<std::string>::find<std::string>(a2 + 144, v462))
+          if ((a2 + 152) == std::__tree<std::string>::find<std::string>(a2 + 144, v450))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v463 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v451 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v463 = __p.__r_.__value_.__l.__size_;
+              v451 = __p.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v764, v463 + 27);
-            if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v744, v451 + 27);
+            if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v464 = &v764;
+              v452 = &v744;
             }
 
             else
             {
-              v464 = v764.__r_.__value_.__r.__words[0];
+              v452 = v744.__r_.__value_.__r.__words[0];
             }
 
-            if (v463)
+            if (v451)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v465 = &__p;
+                v453 = &__p;
               }
 
               else
               {
-                v465 = __p.__r_.__value_.__r.__words[0];
+                v453 = __p.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v464, v465, v463);
+              memmove(v452, v453, v451);
             }
 
-            strcpy(v464 + v463, "refers to undefined event: ");
-            v466 = *(v450 + 64);
-            v467 = *(v466 + 23);
-            if (v467 >= 0)
+            strcpy(v452 + v451, "refers to undefined event: ");
+            v454 = *(v439 + 64);
+            v455 = *(v454 + 23);
+            if (v455 >= 0)
             {
-              v468 = *(v450 + 64);
+              v456 = *(v439 + 64);
             }
 
             else
             {
-              v468 = *v466;
+              v456 = *v454;
             }
 
-            if (v467 >= 0)
+            if (v455 >= 0)
             {
-              v469 = *(v466 + 23);
+              v457 = *(v454 + 23);
             }
 
             else
             {
-              v469 = *(v466 + 8);
+              v457 = *(v454 + 8);
             }
 
-            v470 = std::string::append(&v764, v468, v469);
-            v765 = *v470;
-            v470->__r_.__value_.__l.__size_ = 0;
-            v470->__r_.__value_.__r.__words[2] = 0;
-            v470->__r_.__value_.__r.__words[0] = 0;
-            v471 = *(v450 + 8);
-            if (v471)
+            v458 = std::string::append(&v744, v456, v457);
+            v745 = *v458;
+            v458->__r_.__value_.__l.__size_ = 0;
+            v458->__r_.__value_.__r.__words[2] = 0;
+            v458->__r_.__value_.__r.__words[0] = 0;
+            v459 = *(v439 + 8);
+            if (v459)
             {
-              v472 = (v471 & 0xFFFFFFFFFFFFFFFELL);
+              v460 = (v459 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v470);
-              v472 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v458);
+              v460 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v763, "eventId");
-            siri::intelligence::GetLineNumFromUnknownField(v472, &v763, -1);
+            std::string::basic_string[abi:ne200100]<0>(&v743, "eventId");
+            siri::intelligence::GetLineNumFromUnknownField(v460, &v743, -1);
           }
 
-          if (!*(v450 + 32))
+          if (!*(v439 + 32))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v473 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v461 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v473 = __p.__r_.__value_.__l.__size_;
+              v461 = __p.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v764, v473 + 48);
-            if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v744, v461 + 48);
+            if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v474 = &v764;
+              v462 = &v744;
             }
 
             else
             {
-              v474 = v764.__r_.__value_.__r.__words[0];
+              v462 = v744.__r_.__value_.__r.__words[0];
             }
 
-            if (v473)
+            if (v461)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v475 = &__p;
+                v463 = &__p;
               }
 
               else
               {
-                v475 = __p.__r_.__value_.__r.__words[0];
+                v463 = __p.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v474, v475, v473);
+              memmove(v462, v463, v461);
             }
 
-            strcpy(v474 + v473, "defines no responses to be triggered for event: ");
-            v476 = *(v450 + 64);
-            v477 = *(v476 + 23);
-            if (v477 >= 0)
+            strcpy(v462 + v461, "defines no responses to be triggered for event: ");
+            v464 = *(v439 + 64);
+            v465 = *(v464 + 23);
+            if (v465 >= 0)
             {
-              v478 = *(v450 + 64);
+              v466 = *(v439 + 64);
             }
 
             else
             {
-              v478 = *v476;
+              v466 = *v464;
             }
 
-            if (v477 >= 0)
+            if (v465 >= 0)
             {
-              v479 = *(v476 + 23);
+              v467 = *(v464 + 23);
             }
 
             else
             {
-              v479 = *(v476 + 8);
+              v467 = *(v464 + 8);
             }
 
-            v480 = std::string::append(&v764, v478, v479);
-            v765 = *v480;
-            v480->__r_.__value_.__l.__size_ = 0;
-            v480->__r_.__value_.__r.__words[2] = 0;
-            v480->__r_.__value_.__r.__words[0] = 0;
-            v481 = *(v450 + 8);
-            if (v481)
+            v468 = std::string::append(&v744, v466, v467);
+            v745 = *v468;
+            v468->__r_.__value_.__l.__size_ = 0;
+            v468->__r_.__value_.__r.__words[2] = 0;
+            v468->__r_.__value_.__r.__words[0] = 0;
+            v469 = *(v439 + 8);
+            if (v469)
             {
-              v482 = (v481 & 0xFFFFFFFFFFFFFFFELL);
+              v470 = (v469 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v480);
-              v482 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v468);
+              v470 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v763, "eventId");
-            siri::intelligence::GetLineNumFromUnknownField(v482, &v763, -1);
+            std::string::basic_string[abi:ne200100]<0>(&v743, "eventId");
+            siri::intelligence::GetLineNumFromUnknownField(v470, &v743, -1);
           }
         }
       }
 
-      else if (*(v462 + 23))
+      else if (*(v450 + 23))
       {
         goto LABEL_1043;
       }
 
-      if (*(v450 + 32) >= 1)
+      if (*(v439 + 32) >= 1)
       {
-        v483 = 0;
+        v471 = 0;
         do
         {
-          v484 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v450 + 24, v483);
-          if (*(v484 + 23) < 0)
+          v472 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v439 + 24, v471);
+          if (*(v472 + 23) < 0)
           {
-            std::string::__init_copy_ctor_external(&v765, *v484, *(v484 + 8));
+            std::string::__init_copy_ctor_external(&v745, *v472, *(v472 + 8));
           }
 
           else
           {
-            v485 = *v484;
-            v765.__r_.__value_.__r.__words[2] = *(v484 + 16);
-            *&v765.__r_.__value_.__l.__data_ = v485;
+            v473 = *v472;
+            v745.__r_.__value_.__r.__words[2] = *(v472 + 16);
+            *&v745.__r_.__value_.__l.__data_ = v473;
           }
 
-          if (v421 == std::__tree<std::string>::find<std::string>(a2 + 72, &v765.__r_.__value_.__l.__data_))
+          if (v411 == std::__tree<std::string>::find<std::string>(a2 + 72, &v745.__r_.__value_.__l.__data_))
           {
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v486 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v474 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v486 = __p.__r_.__value_.__l.__size_;
+              v474 = __p.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v763, v486 + 33);
-            if ((v763.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v743, v474 + 33);
+            if ((v743.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v487 = &v763;
+              v475 = &v743;
             }
 
             else
             {
-              v487 = v763.__r_.__value_.__r.__words[0];
+              v475 = v743.__r_.__value_.__r.__words[0];
             }
 
-            if (v486)
+            if (v474)
             {
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v488 = &__p;
+                v476 = &__p;
               }
 
               else
               {
-                v488 = __p.__r_.__value_.__r.__words[0];
+                v476 = __p.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v487, v488, v486);
+              memmove(v475, v476, v474);
             }
 
-            strcpy(v487 + v486, "refers to undefined response id: ");
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            strcpy(v475 + v474, "refers to undefined response id: ");
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v489 = &v765;
+              v477 = &v745;
             }
 
             else
             {
-              v489 = v765.__r_.__value_.__r.__words[0];
+              v477 = v745.__r_.__value_.__r.__words[0];
             }
 
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v490 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+              v478 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v490 = v765.__r_.__value_.__l.__size_;
+              v478 = v745.__r_.__value_.__l.__size_;
             }
 
-            v491 = std::string::append(&v763, v489, v490);
-            v764 = *v491;
-            v491->__r_.__value_.__l.__size_ = 0;
-            v491->__r_.__value_.__r.__words[2] = 0;
-            v491->__r_.__value_.__r.__words[0] = 0;
-            v492 = *(v450 + 8);
-            if (v492)
+            v479 = std::string::append(&v743, v477, v478);
+            v744 = *v479;
+            v479->__r_.__value_.__l.__size_ = 0;
+            v479->__r_.__value_.__r.__words[2] = 0;
+            v479->__r_.__value_.__r.__words[0] = 0;
+            v480 = *(v439 + 8);
+            if (v480)
             {
-              v493 = (v492 & 0xFFFFFFFFFFFFFFFELL);
+              v481 = (v480 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v491);
-              v493 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v479);
+              v481 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v762, "responseIds");
-            siri::intelligence::GetLineNumFromUnknownField(v493, &v762, v483);
+            std::string::basic_string[abi:ne200100]<0>(&v742, "responseIds");
+            siri::intelligence::GetLineNumFromUnknownField(v481, &v742, v471);
           }
 
-          if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v765.__r_.__value_.__l.__data_);
+            operator delete(v745.__r_.__value_.__l.__data_);
           }
 
-          ++v483;
+          ++v471;
         }
 
-        while (v483 < *(v450 + 32));
+        while (v471 < *(v439 + 32));
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -12487,7 +12449,7 @@ LABEL_1043:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (++v449 >= *(v446 + 128))
+      if (++v438 >= *(v435 + 128))
       {
         goto LABEL_1123;
       }
@@ -12495,1299 +12457,1296 @@ LABEL_1043:
   }
 
 LABEL_1180:
-  v513 = v151;
-  if (v151[128] >= 1)
+  v501 = v148;
+  if (v148[128] >= 1)
   {
-    v514 = 0;
+    v502 = 0;
     while (1)
     {
-      v753 = v514;
-      v515 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Event>::TypeHandler>(v513 + 504, v514);
-      std::string::basic_string[abi:ne200100]<0>(&v765, "event ");
-      v516 = *(v515 + 16);
-      if (v516)
+      v733 = v502;
+      v503 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Event>::TypeHandler>(v501 + 504, v502);
+      std::string::basic_string[abi:ne200100]<0>(&v745, "event ");
+      v504 = *(v503 + 16);
+      if (v504)
       {
         break;
       }
 
-      if ((v516 & 2) != 0)
+      if ((v504 & 2) != 0)
       {
-        v517 = *(v515 + 128);
         std::operator+<char>();
-        v518 = std::string::append(&v764, "' ");
-        v519 = *&v518->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v518->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v519;
-        v518->__r_.__value_.__l.__size_ = 0;
-        v518->__r_.__value_.__r.__words[2] = 0;
-        v518->__r_.__value_.__r.__words[0] = 0;
+        v505 = std::string::append(&v744, "' ");
+        v506 = *&v505->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v505->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v506;
+        v505->__r_.__value_.__l.__size_ = 0;
+        v505->__r_.__value_.__r.__words[2] = 0;
+        v505->__r_.__value_.__r.__words[0] = 0;
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v520 = &__p;
+          v507 = &__p;
         }
 
         else
         {
-          v520 = __p.__r_.__value_.__r.__words[0];
+          v507 = __p.__r_.__value_.__r.__words[0];
         }
 
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v521 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v508 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v521 = __p.__r_.__value_.__l.__size_;
+          v508 = __p.__r_.__value_.__l.__size_;
         }
 
 LABEL_1196:
-        std::string::append(&v765, v520, v521);
+        std::string::append(&v745, v507, v508);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v764.__r_.__value_.__l.__data_);
+          operator delete(v744.__r_.__value_.__l.__data_);
         }
       }
 
-      if ((*(v515 + 16) & 1) == 0)
+      if ((*(v503 + 16) & 1) == 0)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v525 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v511 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v525 = v765.__r_.__value_.__l.__size_;
+          v511 = v745.__r_.__value_.__l.__size_;
         }
 
-        v526 = std::string::basic_string[abi:ne200100](&__p, v525 + 21);
+        v512 = std::string::basic_string[abi:ne200100](&__p, v511 + 21);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v527 = &__p;
+          v513 = &__p;
         }
 
         else
         {
-          v527 = __p.__r_.__value_.__r.__words[0];
+          v513 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v525)
+        if (v511)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v528 = &v765;
+            v514 = &v745;
           }
 
           else
           {
-            v528 = v765.__r_.__value_.__r.__words[0];
+            v514 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v526 = memmove(v527, v528, v525);
+          v512 = memmove(v513, v514, v511);
         }
 
-        strcpy(v527 + v525, "does not define an id");
-        v529 = *(v515 + 8);
-        if (v529)
+        strcpy(v513 + v511, "does not define an id");
+        v515 = *(v503 + 8);
+        if (v515)
         {
-          v530 = (v529 & 0xFFFFFFFFFFFFFFFELL);
+          v516 = (v515 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v526);
-          v530 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v512);
+          v516 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v530, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v516, &v744, -1);
       }
 
-      if ((siri::intelligence::IsValidId(*(v515 + 120)) & 1) == 0)
+      if ((siri::intelligence::IsValidId(*(v503 + 120)) & 1) == 0)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v531 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v517 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v531 = v765.__r_.__value_.__l.__size_;
+          v517 = v745.__r_.__value_.__l.__size_;
         }
 
-        v532 = std::string::basic_string[abi:ne200100](&__p, v531 + 32);
+        v518 = std::string::basic_string[abi:ne200100](&__p, v517 + 32);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v533 = &__p;
+          v519 = &__p;
         }
 
         else
         {
-          v533 = __p.__r_.__value_.__r.__words[0];
+          v519 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v531)
+        if (v517)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v534 = &v765;
+            v520 = &v745;
           }
 
           else
           {
-            v534 = v765.__r_.__value_.__r.__words[0];
+            v520 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v532 = memmove(v533, v534, v531);
+          v518 = memmove(v519, v520, v517);
         }
 
-        strcpy(v533 + v531, "has invalid characters in the ID");
-        v535 = *(v515 + 8);
-        if (v535)
+        strcpy(v519 + v517, "has invalid characters in the ID");
+        v521 = *(v503 + 8);
+        if (v521)
         {
-          v536 = (v535 & 0xFFFFFFFFFFFFFFFELL);
+          v522 = (v521 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v532);
-          v536 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v518);
+          v522 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "id");
-        siri::intelligence::GetLineNumFromUnknownField(v536, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "id");
+        siri::intelligence::GetLineNumFromUnknownField(v522, &v744, -1);
       }
 
-      v537 = *(v515 + 16);
-      if ((v537 & 0xC) == 8)
+      v523 = *(v503 + 16);
+      if ((v523 & 0xC) == 8)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v538 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v524 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v538 = v765.__r_.__value_.__l.__size_;
+          v524 = v745.__r_.__value_.__l.__size_;
         }
 
-        v539 = std::string::basic_string[abi:ne200100](&__p, v538 + 54);
+        v525 = std::string::basic_string[abi:ne200100](&__p, v524 + 54);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v540 = &__p;
+          v526 = &__p;
         }
 
         else
         {
-          v540 = __p.__r_.__value_.__r.__words[0];
+          v526 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v538)
+        if (v524)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v541 = &v765;
+            v527 = &v745;
           }
 
           else
           {
-            v541 = v765.__r_.__value_.__r.__words[0];
+            v527 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v539 = memmove(v540, v541, v538);
+          v525 = memmove(v526, v527, v524);
         }
 
-        strcpy(v540 + v538, "defines a CATI intent GUID but not a CATI intent name.");
-        v542 = *(v515 + 8);
-        if (v542)
+        strcpy(v526 + v524, "defines a CATI intent GUID but not a CATI intent name.");
+        v528 = *(v503 + 8);
+        if (v528)
         {
-          v543 = (v542 & 0xFFFFFFFFFFFFFFFELL);
+          v529 = (v528 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v539);
-          v543 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v525);
+          v529 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v543, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v529, &v744, -1);
       }
 
-      if ((v537 & 0x14) == 0x10)
+      if ((v523 & 0x14) == 0x10)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v544 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v530 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v544 = v765.__r_.__value_.__l.__size_;
+          v530 = v745.__r_.__value_.__l.__size_;
         }
 
-        v545 = std::string::basic_string[abi:ne200100](&__p, v544 + 51);
+        v531 = std::string::basic_string[abi:ne200100](&__p, v530 + 51);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v546 = &__p;
+          v532 = &__p;
         }
 
         else
         {
-          v546 = __p.__r_.__value_.__r.__words[0];
+          v532 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v544)
+        if (v530)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v547 = &v765;
+            v533 = &v745;
           }
 
           else
           {
-            v547 = v765.__r_.__value_.__r.__words[0];
+            v533 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v545 = memmove(v546, v547, v544);
+          v531 = memmove(v532, v533, v530);
         }
 
-        strcpy(v546 + v544, "defines a CATI ensemble but not a CATI intent name.");
-        v548 = *(v515 + 8);
-        if (v548)
+        strcpy(v532 + v530, "defines a CATI ensemble but not a CATI intent name.");
+        v534 = *(v503 + 8);
+        if (v534)
         {
-          v549 = (v548 & 0xFFFFFFFFFFFFFFFELL);
+          v535 = (v534 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v545);
-          v549 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v531);
+          v535 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v549, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v535, &v744, -1);
       }
 
-      if ((v537 & 0x1C) == 4)
+      if ((v523 & 0x1C) == 4)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v550 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v536 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v550 = v765.__r_.__value_.__l.__size_;
+          v536 = v745.__r_.__value_.__l.__size_;
         }
 
-        v551 = std::string::basic_string[abi:ne200100](&__p, v550 + 59);
+        v537 = std::string::basic_string[abi:ne200100](&__p, v536 + 59);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v552 = &__p;
+          v538 = &__p;
         }
 
         else
         {
-          v552 = __p.__r_.__value_.__r.__words[0];
+          v538 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v550)
+        if (v536)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v553 = &v765;
+            v539 = &v745;
           }
 
           else
           {
-            v553 = v765.__r_.__value_.__r.__words[0];
+            v539 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v551 = memmove(v552, v553, v550);
+          v537 = memmove(v538, v539, v536);
         }
 
-        strcpy(v552 + v550, "defines a CATI intent name but not a CATI ensemble or GUID.");
-        v554 = *(v515 + 8);
-        if (v554)
+        strcpy(v538 + v536, "defines a CATI intent name but not a CATI ensemble or GUID.");
+        v540 = *(v503 + 8);
+        if (v540)
         {
-          v555 = (v554 & 0xFFFFFFFFFFFFFFFELL);
+          v541 = (v540 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v551);
-          v555 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v537);
+          v541 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v555, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v541, &v744, -1);
       }
 
-      if ((v537 & 8) != 0 && (v537 & 0x20) != 0)
+      if ((v523 & 8) != 0 && (v523 & 0x20) != 0)
       {
-        if (!*(v515 + 160))
+        if (!*(v503 + 160))
         {
           google::protobuf::internal::LogMessage::LogMessage(&__p, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.h", 18904);
-          v556 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || nl_producer_ != nullptr: ");
-          google::protobuf::internal::LogFinisher::operator=(&v764, &v556->__r_.__value_.__l.__data_);
+          v542 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || nl_producer_ != nullptr: ");
+          google::protobuf::internal::LogFinisher::operator=(&v744, &v542->__r_.__value_.__l.__data_);
           google::protobuf::internal::LogMessage::~LogMessage(&__p.__r_.__value_.__l.__data_);
         }
 
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v557 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v543 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v557 = v765.__r_.__value_.__l.__size_;
+          v543 = v745.__r_.__value_.__l.__size_;
         }
 
-        v558 = std::string::basic_string[abi:ne200100](&__p, v557 + 88);
+        v544 = std::string::basic_string[abi:ne200100](&__p, v543 + 88);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v559 = &__p;
+          v545 = &__p;
         }
 
         else
         {
-          v559 = __p.__r_.__value_.__r.__words[0];
+          v545 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v557)
+        if (v543)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v560 = &v765;
+            v546 = &v745;
           }
 
           else
           {
-            v560 = v765.__r_.__value_.__r.__words[0];
+            v546 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v558 = memmove(v559, v560, v557);
+          v544 = memmove(v545, v546, v543);
         }
 
-        strcpy(v559 + v557, "defines a CATI intent GUID and a custom producer. The CATI GUID definition will be used.");
-        v561 = *(v515 + 8);
-        if (v561)
+        strcpy(v545 + v543, "defines a CATI intent GUID and a custom producer. The CATI GUID definition will be used.");
+        v547 = *(v503 + 8);
+        if (v547)
         {
-          v562 = (v561 & 0xFFFFFFFFFFFFFFFELL);
+          v548 = (v547 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v558);
-          v562 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v544);
+          v548 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v562, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v548, &v744, -1);
       }
 
-      v563 = *(v515 + 40);
-      if (v563)
+      v549 = *(v503 + 40);
+      if (v549)
       {
-        v564 = v563 + 8;
+        v550 = v549 + 8;
       }
 
       else
       {
-        v564 = 0;
+        v550 = 0;
       }
 
-      v565 = *(v515 + 32);
-      if (v565)
+      v551 = *(v503 + 32);
+      if (v551)
       {
-        v566 = v564 + 8 * v565;
+        v552 = v550 + 8 * v551;
         do
         {
-          v567 = *(*v564 + 40);
-          if (v567)
+          v553 = *(*v550 + 40);
+          if (v553)
           {
-            v568 = (v567 + 8);
+            v554 = (v553 + 8);
           }
 
           else
           {
-            v568 = 0;
+            v554 = 0;
           }
 
-          v569 = *(*v564 + 32);
-          if (v569)
+          v555 = *(*v550 + 32);
+          if (v555)
           {
-            v570 = 8 * v569;
+            v556 = 8 * v555;
             do
             {
-              siri::intelligence::ValidateKeyValueParameter(&v765, *v568++, a2, a3);
-              v570 -= 8;
+              siri::intelligence::ValidateKeyValueParameter(&v745, *v554++, a2, a3);
+              v556 -= 8;
             }
 
-            while (v570);
+            while (v556);
           }
 
-          v564 += 8;
+          v550 += 8;
         }
 
-        while (v564 != v566);
+        while (v550 != v552);
       }
 
-      if ((*(v515 + 16) & 0x20) != 0)
+      if ((*(v503 + 16) & 0x20) != 0)
       {
-        v571 = *(v515 + 160);
-        if (!v571)
+        v557 = *(v503 + 160);
+        if (!v557)
         {
           google::protobuf::internal::LogMessage::LogMessage(&__p, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.h", 18904);
-          v572 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || nl_producer_ != nullptr: ");
-          google::protobuf::internal::LogFinisher::operator=(&v764, &v572->__r_.__value_.__l.__data_);
+          v558 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || nl_producer_ != nullptr: ");
+          google::protobuf::internal::LogFinisher::operator=(&v744, &v558->__r_.__value_.__l.__data_);
           google::protobuf::internal::LogMessage::~LogMessage(&__p.__r_.__value_.__l.__data_);
-          v571 = *(v515 + 160);
+          v557 = *(v503 + 160);
         }
 
-        if (!v571)
+        if (!v557)
         {
-          v571 = &protobuf::_Intelligence_NLParameters_default_instance_;
+          v557 = &protobuf::_Intelligence_NLParameters_default_instance_;
         }
 
-        v573 = *(v571 + 5);
-        if (v573)
+        v559 = *(v557 + 5);
+        if (v559)
         {
-          v574 = (v573 + 8);
+          v560 = (v559 + 8);
         }
 
         else
         {
-          v574 = 0;
+          v560 = 0;
         }
 
-        v575 = v571[8];
-        if (v575)
+        v561 = v557[8];
+        if (v561)
         {
-          v576 = 8 * v575;
+          v562 = 8 * v561;
           do
           {
-            siri::intelligence::ValidateKeyValueParameter(&v765, *v574++, a2, a3);
-            v576 -= 8;
+            siri::intelligence::ValidateKeyValueParameter(&v745, *v560++, a2, a3);
+            v562 -= 8;
           }
 
-          while (v576);
+          while (v562);
         }
       }
 
-      v577 = *(v515 + 104);
-      if (v577 >= 1)
+      v563 = *(v503 + 104);
+      if (v563 >= 1)
       {
         memset(&__p, 0, sizeof(__p));
-        v578 = *(v515 + 112);
-        if (v578)
+        v564 = *(v503 + 112);
+        if (v564)
         {
-          v579 = (v578 + 8);
+          v565 = (v564 + 8);
         }
 
         else
         {
-          v579 = 0;
+          v565 = 0;
         }
 
-        v580 = 8 * v577;
+        v566 = 8 * v563;
         do
         {
-          v581 = *v579;
-          siri::intelligence::Utterances::GetNormalizedText(*v579, &v764);
-          v582 = HIBYTE(v764.__r_.__value_.__r.__words[2]);
-          if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v567 = *v565;
+          siri::intelligence::Utterances::GetNormalizedText(*v565, &v744);
+          v568 = HIBYTE(v744.__r_.__value_.__r.__words[2]);
+          if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v582 = v764.__r_.__value_.__l.__size_;
+            v568 = v744.__r_.__value_.__l.__size_;
           }
 
-          if (!v582)
+          if (!v568)
           {
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v594 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+              v580 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v594 = v765.__r_.__value_.__l.__size_;
+              v580 = v745.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v761, v594 + 50);
-            if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v741, v580 + 50);
+            if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v595 = &v761;
+              v581 = &v741;
             }
 
             else
             {
-              v595 = v761.__r_.__value_.__r.__words[0];
+              v581 = v741.__r_.__value_.__r.__words[0];
             }
 
-            if (v594)
+            if (v580)
             {
-              if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v596 = &v765;
+                v582 = &v745;
               }
 
               else
               {
-                v596 = v765.__r_.__value_.__r.__words[0];
+                v582 = v745.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v595, v596, v594);
+              memmove(v581, v582, v580);
             }
 
-            strcpy(v595 + v594, "has an empty / ineffectual normalized utterance: '");
-            v597 = SHIBYTE(v581->__r_.__value_.__r.__words[2]);
-            if (v597 >= 0)
+            strcpy(v581 + v580, "has an empty / ineffectual normalized utterance: '");
+            v583 = SHIBYTE(v567->__r_.__value_.__r.__words[2]);
+            if (v583 >= 0)
             {
-              v598 = v581;
+              v584 = v567;
             }
 
             else
             {
-              v598 = v581->__r_.__value_.__r.__words[0];
+              v584 = v567->__r_.__value_.__r.__words[0];
             }
 
-            if (v597 >= 0)
+            if (v583 >= 0)
             {
-              v599 = HIBYTE(v581->__r_.__value_.__r.__words[2]);
+              v585 = HIBYTE(v567->__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v599 = v581->__r_.__value_.__l.__size_;
+              v585 = v567->__r_.__value_.__l.__size_;
             }
 
-            v600 = std::string::append(&v761, v598, v599);
-            v601 = *&v600->__r_.__value_.__l.__data_;
-            v762.__r_.__value_.__r.__words[2] = v600->__r_.__value_.__r.__words[2];
-            *&v762.__r_.__value_.__l.__data_ = v601;
-            v600->__r_.__value_.__l.__size_ = 0;
-            v600->__r_.__value_.__r.__words[2] = 0;
-            v600->__r_.__value_.__r.__words[0] = 0;
-            v602 = std::string::append(&v762, "'");
-            v763 = *v602;
-            v602->__r_.__value_.__l.__size_ = 0;
-            v602->__r_.__value_.__r.__words[2] = 0;
-            v602->__r_.__value_.__r.__words[0] = 0;
-            v603 = *(v515 + 8);
-            if (v603)
+            v586 = std::string::append(&v741, v584, v585);
+            v587 = *&v586->__r_.__value_.__l.__data_;
+            v742.__r_.__value_.__r.__words[2] = v586->__r_.__value_.__r.__words[2];
+            *&v742.__r_.__value_.__l.__data_ = v587;
+            v586->__r_.__value_.__l.__size_ = 0;
+            v586->__r_.__value_.__r.__words[2] = 0;
+            v586->__r_.__value_.__r.__words[0] = 0;
+            v588 = std::string::append(&v742, "'");
+            v743 = *v588;
+            v588->__r_.__value_.__l.__size_ = 0;
+            v588->__r_.__value_.__r.__words[2] = 0;
+            v588->__r_.__value_.__r.__words[0] = 0;
+            v589 = *(v503 + 8);
+            if (v589)
             {
-              v604 = (v603 & 0xFFFFFFFFFFFFFFFELL);
+              v590 = (v589 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v602);
-              v604 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v588);
+              v590 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v759, "");
-            siri::intelligence::GetLineNumFromUnknownField(v604, v759, -1);
+            std::string::basic_string[abi:ne200100]<0>(v739, "");
+            siri::intelligence::GetLineNumFromUnknownField(v590, v739, -1);
           }
 
-          if (siri::intelligence::VectorContains(&__p, &v764))
+          if (siri::intelligence::VectorContains(&__p, &v744))
           {
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v583 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+              v569 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v583 = v765.__r_.__value_.__l.__size_;
+              v569 = v745.__r_.__value_.__l.__size_;
             }
 
-            std::string::basic_string[abi:ne200100](&v761, v583 + 39);
-            if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v741, v569 + 39);
+            if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v584 = &v761;
+              v570 = &v741;
             }
 
             else
             {
-              v584 = v761.__r_.__value_.__r.__words[0];
+              v570 = v741.__r_.__value_.__r.__words[0];
             }
 
-            if (v583)
+            if (v569)
             {
-              if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v585 = &v765;
+                v571 = &v745;
               }
 
               else
               {
-                v585 = v765.__r_.__value_.__r.__words[0];
+                v571 = v745.__r_.__value_.__r.__words[0];
               }
 
-              memmove(v584, v585, v583);
+              memmove(v570, v571, v569);
             }
 
-            strcpy(v584 + v583, "has a duplicate normalized utterance: '");
-            v586 = SHIBYTE(v581->__r_.__value_.__r.__words[2]);
-            if (v586 >= 0)
+            strcpy(v570 + v569, "has a duplicate normalized utterance: '");
+            v572 = SHIBYTE(v567->__r_.__value_.__r.__words[2]);
+            if (v572 >= 0)
             {
-              v587 = v581;
+              v573 = v567;
             }
 
             else
             {
-              v587 = v581->__r_.__value_.__r.__words[0];
+              v573 = v567->__r_.__value_.__r.__words[0];
             }
 
-            if (v586 >= 0)
+            if (v572 >= 0)
             {
-              v588 = HIBYTE(v581->__r_.__value_.__r.__words[2]);
+              v574 = HIBYTE(v567->__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v588 = v581->__r_.__value_.__l.__size_;
+              v574 = v567->__r_.__value_.__l.__size_;
             }
 
-            v589 = std::string::append(&v761, v587, v588);
-            v590 = *&v589->__r_.__value_.__l.__data_;
-            v762.__r_.__value_.__r.__words[2] = v589->__r_.__value_.__r.__words[2];
-            *&v762.__r_.__value_.__l.__data_ = v590;
-            v589->__r_.__value_.__l.__size_ = 0;
-            v589->__r_.__value_.__r.__words[2] = 0;
-            v589->__r_.__value_.__r.__words[0] = 0;
-            v591 = std::string::append(&v762, "'");
-            v763 = *v591;
-            v591->__r_.__value_.__l.__size_ = 0;
-            v591->__r_.__value_.__r.__words[2] = 0;
-            v591->__r_.__value_.__r.__words[0] = 0;
-            v592 = *(v515 + 8);
-            if (v592)
+            v575 = std::string::append(&v741, v573, v574);
+            v576 = *&v575->__r_.__value_.__l.__data_;
+            v742.__r_.__value_.__r.__words[2] = v575->__r_.__value_.__r.__words[2];
+            *&v742.__r_.__value_.__l.__data_ = v576;
+            v575->__r_.__value_.__l.__size_ = 0;
+            v575->__r_.__value_.__r.__words[2] = 0;
+            v575->__r_.__value_.__r.__words[0] = 0;
+            v577 = std::string::append(&v742, "'");
+            v743 = *v577;
+            v577->__r_.__value_.__l.__size_ = 0;
+            v577->__r_.__value_.__r.__words[2] = 0;
+            v577->__r_.__value_.__r.__words[0] = 0;
+            v578 = *(v503 + 8);
+            if (v578)
             {
-              v593 = (v592 & 0xFFFFFFFFFFFFFFFELL);
+              v579 = (v578 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v591);
-              v593 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v577);
+              v579 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v759, "");
-            siri::intelligence::GetLineNumFromUnknownField(v593, v759, -1);
+            std::string::basic_string[abi:ne200100]<0>(v739, "");
+            siri::intelligence::GetLineNumFromUnknownField(v579, v739, -1);
           }
 
-          std::vector<std::string>::push_back[abi:ne200100](&__p, &v764);
-          if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+          std::vector<std::string>::push_back[abi:ne200100](&__p, &v744);
+          if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v764.__r_.__value_.__l.__data_);
+            operator delete(v744.__r_.__value_.__l.__data_);
           }
 
-          ++v579;
-          v580 -= 8;
+          ++v565;
+          v566 -= 8;
         }
 
-        while (v580);
-        v605 = *(v515 + 104);
-        if (v605 >= 25)
+        while (v566);
+        v591 = *(v503 + 104);
+        if (v591 >= 25)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v606 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+            v592 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v606 = v765.__r_.__value_.__l.__size_;
+            v592 = v745.__r_.__value_.__l.__size_;
           }
 
-          std::string::basic_string[abi:ne200100](&v762, v606 + 14);
-          if ((v762.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::string::basic_string[abi:ne200100](&v742, v592 + 14);
+          if ((v742.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v607 = &v762;
+            v593 = &v742;
           }
 
           else
           {
-            v607 = v762.__r_.__value_.__r.__words[0];
+            v593 = v742.__r_.__value_.__r.__words[0];
           }
 
-          if (v606)
+          if (v592)
           {
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v608 = &v765;
+              v594 = &v745;
             }
 
             else
             {
-              v608 = v765.__r_.__value_.__r.__words[0];
+              v594 = v745.__r_.__value_.__r.__words[0];
             }
 
-            memmove(v607, v608, v606);
+            memmove(v593, v594, v592);
           }
 
-          strcpy(v607 + v606, "has more than ");
-          std::to_string(&v761, 24);
-          if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          strcpy(v593 + v592, "has more than ");
+          std::to_string(&v741, 24);
+          if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v609 = &v761;
+            v595 = &v741;
           }
 
           else
           {
-            v609 = v761.__r_.__value_.__r.__words[0];
+            v595 = v741.__r_.__value_.__r.__words[0];
           }
 
-          if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v610 = HIBYTE(v761.__r_.__value_.__r.__words[2]);
+            v596 = HIBYTE(v741.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v610 = v761.__r_.__value_.__l.__size_;
+            v596 = v741.__r_.__value_.__l.__size_;
           }
 
-          v611 = std::string::append(&v762, v609, v610);
-          v612 = *&v611->__r_.__value_.__l.__data_;
-          v763.__r_.__value_.__r.__words[2] = v611->__r_.__value_.__r.__words[2];
-          *&v763.__r_.__value_.__l.__data_ = v612;
-          v611->__r_.__value_.__l.__size_ = 0;
-          v611->__r_.__value_.__r.__words[2] = 0;
-          v611->__r_.__value_.__r.__words[0] = 0;
-          v613 = std::string::append(&v763, " utterances. This feature is meant for prototyping only. It is not a production NL system.");
-          v764 = *v613;
-          v613->__r_.__value_.__l.__size_ = 0;
-          v613->__r_.__value_.__r.__words[2] = 0;
-          v613->__r_.__value_.__r.__words[0] = 0;
-          v614 = *(v515 + 8);
-          if (v614)
+          v597 = std::string::append(&v742, v595, v596);
+          v598 = *&v597->__r_.__value_.__l.__data_;
+          v743.__r_.__value_.__r.__words[2] = v597->__r_.__value_.__r.__words[2];
+          *&v743.__r_.__value_.__l.__data_ = v598;
+          v597->__r_.__value_.__l.__size_ = 0;
+          v597->__r_.__value_.__r.__words[2] = 0;
+          v597->__r_.__value_.__r.__words[0] = 0;
+          v599 = std::string::append(&v743, " utterances. This feature is meant for prototyping only. It is not a production NL system.");
+          v744 = *v599;
+          v599->__r_.__value_.__l.__size_ = 0;
+          v599->__r_.__value_.__r.__words[2] = 0;
+          v599->__r_.__value_.__r.__words[0] = 0;
+          v600 = *(v503 + 8);
+          if (v600)
           {
-            v615 = (v614 & 0xFFFFFFFFFFFFFFFELL);
+            v601 = (v600 & 0xFFFFFFFFFFFFFFFELL);
           }
 
           else
           {
-            google::protobuf::internal::InitProtobufDefaults(v613);
-            v615 = &google::protobuf::internal::fixed_address_empty_string;
+            google::protobuf::internal::InitProtobufDefaults(v599);
+            v601 = &google::protobuf::internal::fixed_address_empty_string;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(v759, "");
-          siri::intelligence::GetLineNumFromUnknownField(v615, v759, -1);
+          std::string::basic_string[abi:ne200100]<0>(v739, "");
+          siri::intelligence::GetLineNumFromUnknownField(v601, v739, -1);
         }
 
-        if (v605 >= 13)
+        if (v591 >= 13)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v616 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+            v602 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v616 = v765.__r_.__value_.__l.__size_;
+            v602 = v745.__r_.__value_.__l.__size_;
           }
 
-          std::string::basic_string[abi:ne200100](&v762, v616 + 14);
-          if ((v762.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::string::basic_string[abi:ne200100](&v742, v602 + 14);
+          if ((v742.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v617 = &v762;
+            v603 = &v742;
           }
 
           else
           {
-            v617 = v762.__r_.__value_.__r.__words[0];
+            v603 = v742.__r_.__value_.__r.__words[0];
           }
 
-          if (v616)
+          if (v602)
           {
-            if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v618 = &v765;
+              v604 = &v745;
             }
 
             else
             {
-              v618 = v765.__r_.__value_.__r.__words[0];
+              v604 = v745.__r_.__value_.__r.__words[0];
             }
 
-            memmove(v617, v618, v616);
+            memmove(v603, v604, v602);
           }
 
-          strcpy(v617 + v616, "has more than ");
-          std::to_string(&v761, 12);
-          if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          strcpy(v603 + v602, "has more than ");
+          std::to_string(&v741, 12);
+          if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v619 = &v761;
+            v605 = &v741;
           }
 
           else
           {
-            v619 = v761.__r_.__value_.__r.__words[0];
+            v605 = v741.__r_.__value_.__r.__words[0];
           }
 
-          if ((v761.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v741.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v620 = HIBYTE(v761.__r_.__value_.__r.__words[2]);
+            v606 = HIBYTE(v741.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v620 = v761.__r_.__value_.__l.__size_;
+            v606 = v741.__r_.__value_.__l.__size_;
           }
 
-          v621 = std::string::append(&v762, v619, v620);
-          v622 = *&v621->__r_.__value_.__l.__data_;
-          v763.__r_.__value_.__r.__words[2] = v621->__r_.__value_.__r.__words[2];
-          *&v763.__r_.__value_.__l.__data_ = v622;
-          v621->__r_.__value_.__l.__size_ = 0;
-          v621->__r_.__value_.__r.__words[2] = 0;
-          v621->__r_.__value_.__r.__words[0] = 0;
-          v623 = std::string::append(&v763, " utterances. This feature is meant for prototyping only. It is not a production NL system.");
-          v764 = *v623;
-          v623->__r_.__value_.__l.__size_ = 0;
-          v623->__r_.__value_.__r.__words[2] = 0;
-          v623->__r_.__value_.__r.__words[0] = 0;
-          v624 = *(v515 + 8);
-          if (v624)
+          v607 = std::string::append(&v742, v605, v606);
+          v608 = *&v607->__r_.__value_.__l.__data_;
+          v743.__r_.__value_.__r.__words[2] = v607->__r_.__value_.__r.__words[2];
+          *&v743.__r_.__value_.__l.__data_ = v608;
+          v607->__r_.__value_.__l.__size_ = 0;
+          v607->__r_.__value_.__r.__words[2] = 0;
+          v607->__r_.__value_.__r.__words[0] = 0;
+          v609 = std::string::append(&v743, " utterances. This feature is meant for prototyping only. It is not a production NL system.");
+          v744 = *v609;
+          v609->__r_.__value_.__l.__size_ = 0;
+          v609->__r_.__value_.__r.__words[2] = 0;
+          v609->__r_.__value_.__r.__words[0] = 0;
+          v610 = *(v503 + 8);
+          if (v610)
           {
-            v625 = (v624 & 0xFFFFFFFFFFFFFFFELL);
+            v611 = (v610 & 0xFFFFFFFFFFFFFFFELL);
           }
 
           else
           {
-            google::protobuf::internal::InitProtobufDefaults(v623);
-            v625 = &google::protobuf::internal::fixed_address_empty_string;
+            google::protobuf::internal::InitProtobufDefaults(v609);
+            v611 = &google::protobuf::internal::fixed_address_empty_string;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(v759, "");
-          siri::intelligence::GetLineNumFromUnknownField(v625, v759, -1);
+          std::string::basic_string[abi:ne200100]<0>(v739, "");
+          siri::intelligence::GetLineNumFromUnknownField(v611, v739, -1);
         }
 
-        v764.__r_.__value_.__r.__words[0] = &__p;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v764);
+        v744.__r_.__value_.__r.__words[0] = &__p;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v744);
       }
 
-      if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v765.__r_.__value_.__l.__data_);
+        operator delete(v745.__r_.__value_.__l.__data_);
       }
 
-      v514 = v753 + 1;
-      v513 = this;
-      if (v753 + 1 >= *(this + 128))
+      v502 = v733 + 1;
+      v501 = this;
+      if (v733 + 1 >= *(this + 128))
       {
         goto LABEL_1426;
       }
     }
 
-    v522 = *(v515 + 120);
     std::operator+<char>();
-    v523 = std::string::append(&v764, "' ");
-    v524 = *&v523->__r_.__value_.__l.__data_;
-    __p.__r_.__value_.__r.__words[2] = v523->__r_.__value_.__r.__words[2];
-    *&__p.__r_.__value_.__l.__data_ = v524;
-    v523->__r_.__value_.__l.__size_ = 0;
-    v523->__r_.__value_.__r.__words[2] = 0;
-    v523->__r_.__value_.__r.__words[0] = 0;
+    v509 = std::string::append(&v744, "' ");
+    v510 = *&v509->__r_.__value_.__l.__data_;
+    __p.__r_.__value_.__r.__words[2] = v509->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v510;
+    v509->__r_.__value_.__l.__size_ = 0;
+    v509->__r_.__value_.__r.__words[2] = 0;
+    v509->__r_.__value_.__r.__words[0] = 0;
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v520 = &__p;
+      v507 = &__p;
     }
 
     else
     {
-      v520 = __p.__r_.__value_.__r.__words[0];
+      v507 = __p.__r_.__value_.__r.__words[0];
     }
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v521 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v508 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v521 = __p.__r_.__value_.__l.__size_;
+      v508 = __p.__r_.__value_.__l.__size_;
     }
 
     goto LABEL_1196;
   }
 
 LABEL_1426:
-  if (*(v513 + 98) >= 1)
+  if (*(v501 + 98) >= 1)
   {
-    v626 = 0;
-    v627 = a2 + 296;
+    v612 = 0;
+    v613 = a2 + 296;
     do
     {
-      v628 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Variable>::TypeHandler>(v513 + 384, v626);
-      std::string::basic_string[abi:ne200100]<0>(&v765, "variable ");
-      v629 = *(v628 + 16);
-      if (v629)
+      v614 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Variable>::TypeHandler>(v501 + 384, v612);
+      std::string::basic_string[abi:ne200100]<0>(&v745, "variable ");
+      v615 = *(v614 + 16);
+      if (v615)
       {
-        v630 = *(v628 + 72);
         std::operator+<char>();
-        v631 = std::string::append(&v764, "' ");
-        v632 = *&v631->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v631->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v632;
-        v631->__r_.__value_.__l.__size_ = 0;
-        v631->__r_.__value_.__r.__words[2] = 0;
-        v631->__r_.__value_.__r.__words[0] = 0;
+        v616 = std::string::append(&v744, "' ");
+        v617 = *&v616->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v616->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v617;
+        v616->__r_.__value_.__l.__size_ = 0;
+        v616->__r_.__value_.__r.__words[2] = 0;
+        v616->__r_.__value_.__r.__words[0] = 0;
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v633 = &__p;
+          v618 = &__p;
         }
 
         else
         {
-          v633 = __p.__r_.__value_.__r.__words[0];
+          v618 = __p.__r_.__value_.__r.__words[0];
         }
 
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v634 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v619 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v634 = __p.__r_.__value_.__l.__size_;
+          v619 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&v765, v633, v634);
+        std::string::append(&v745, v618, v619);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v764.__r_.__value_.__l.__data_);
+          operator delete(v744.__r_.__value_.__l.__data_);
         }
 
-        v629 = *(v628 + 16);
+        v615 = *(v614 + 16);
       }
 
-      if ((v629 & 1) == 0)
+      if ((v615 & 1) == 0)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v635 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v620 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v635 = v765.__r_.__value_.__l.__size_;
+          v620 = v745.__r_.__value_.__l.__size_;
         }
 
-        v636 = std::string::basic_string[abi:ne200100](&__p, v635 + 22);
+        v621 = std::string::basic_string[abi:ne200100](&__p, v620 + 22);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v637 = &__p;
+          v622 = &__p;
         }
 
         else
         {
-          v637 = __p.__r_.__value_.__r.__words[0];
+          v622 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v635)
+        if (v620)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v638 = &v765;
+            v623 = &v745;
           }
 
           else
           {
-            v638 = v765.__r_.__value_.__r.__words[0];
+            v623 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v636 = memmove(v637, v638, v635);
+          v621 = memmove(v622, v623, v620);
         }
 
-        strcpy(v637 + v635, "does not define a name");
-        v639 = *(v628 + 8);
-        if (v639)
+        strcpy(v622 + v620, "does not define a name");
+        v624 = *(v614 + 8);
+        if (v624)
         {
-          v640 = (v639 & 0xFFFFFFFFFFFFFFFELL);
+          v625 = (v624 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v636);
-          v640 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v621);
+          v625 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v640, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v625, &v744, -1);
       }
 
-      if (v627 == std::__tree<std::string>::find<std::string>(a2 + 288, *(v628 + 72)))
+      if (v613 == std::__tree<std::string>::find<std::string>(a2 + 288, *(v614 + 72)))
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v641 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v626 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v641 = v765.__r_.__value_.__l.__size_;
+          v626 = v745.__r_.__value_.__l.__size_;
         }
 
-        v642 = std::string::basic_string[abi:ne200100](&__p, v641 + 12);
+        v627 = std::string::basic_string[abi:ne200100](&__p, v626 + 12);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v643 = &__p;
+          v628 = &__p;
         }
 
         else
         {
-          v643 = __p.__r_.__value_.__r.__words[0];
+          v628 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v641)
+        if (v626)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v644 = &v765;
+            v629 = &v745;
           }
 
           else
           {
-            v644 = v765.__r_.__value_.__r.__words[0];
+            v629 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v642 = memmove(v643, v644, v641);
+          v627 = memmove(v628, v629, v626);
         }
 
-        strcpy(v643 + v641, "is not used.");
-        v645 = *(v628 + 8);
-        if (v645)
+        strcpy(v628 + v626, "is not used.");
+        v630 = *(v614 + 8);
+        if (v630)
         {
-          v646 = (v645 & 0xFFFFFFFFFFFFFFFELL);
+          v631 = (v630 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v642);
-          v646 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v627);
+          v631 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v646, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v631, &v744, -1);
       }
 
-      if ((*(v628 + 16) & 2) == 0)
+      if ((*(v614 + 16) & 2) == 0)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v647 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v632 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v647 = v765.__r_.__value_.__l.__size_;
+          v632 = v745.__r_.__value_.__l.__size_;
         }
 
-        v648 = std::string::basic_string[abi:ne200100](&__p, v647 + 22);
+        v633 = std::string::basic_string[abi:ne200100](&__p, v632 + 22);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v649 = &__p;
+          v634 = &__p;
         }
 
         else
         {
-          v649 = __p.__r_.__value_.__r.__words[0];
+          v634 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v647)
+        if (v632)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v650 = &v765;
+            v635 = &v745;
           }
 
           else
           {
-            v650 = v765.__r_.__value_.__r.__words[0];
+            v635 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v648 = memmove(v649, v650, v647);
+          v633 = memmove(v634, v635, v632);
         }
 
-        strcpy(v649 + v647, "does not define a type");
-        v651 = *(v628 + 8);
-        if (v651)
+        strcpy(v634 + v632, "does not define a type");
+        v636 = *(v614 + 8);
+        if (v636)
         {
-          v652 = (v651 & 0xFFFFFFFFFFFFFFFELL);
+          v637 = (v636 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v648);
-          v652 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v633);
+          v637 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v652, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v637, &v744, -1);
       }
 
-      if (!siri::intelligence::IsValidTypeName(*(v628 + 80)))
+      if (!siri::intelligence::IsValidTypeName(*(v614 + 80)))
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v653 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v638 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v653 = v765.__r_.__value_.__l.__size_;
+          v638 = v745.__r_.__value_.__l.__size_;
         }
 
-        std::string::basic_string[abi:ne200100](&v764, v653 + 26);
-        if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v744, v638 + 26);
+        if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v654 = &v764;
+          v639 = &v744;
         }
 
         else
         {
-          v654 = v764.__r_.__value_.__r.__words[0];
+          v639 = v744.__r_.__value_.__r.__words[0];
         }
 
-        if (v653)
+        if (v638)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v655 = &v765;
+            v640 = &v745;
           }
 
           else
           {
-            v655 = v765.__r_.__value_.__r.__words[0];
+            v640 = v745.__r_.__value_.__r.__words[0];
           }
 
-          memmove(v654, v655, v653);
+          memmove(v639, v640, v638);
         }
 
-        strcpy(v654 + v653, "has an invalid type name: ");
-        v656 = *(v628 + 80);
-        v657 = *(v656 + 23);
-        if (v657 >= 0)
+        strcpy(v639 + v638, "has an invalid type name: ");
+        v641 = *(v614 + 80);
+        v642 = *(v641 + 23);
+        if (v642 >= 0)
         {
-          v658 = *(v628 + 80);
+          v643 = *(v614 + 80);
         }
 
         else
         {
-          v658 = *v656;
+          v643 = *v641;
         }
 
-        if (v657 >= 0)
+        if (v642 >= 0)
         {
-          v659 = *(v656 + 23);
+          v644 = *(v641 + 23);
         }
 
         else
         {
-          v659 = *(v656 + 8);
+          v644 = *(v641 + 8);
         }
 
-        v660 = std::string::append(&v764, v658, v659);
-        __p = *v660;
-        v660->__r_.__value_.__l.__size_ = 0;
-        v660->__r_.__value_.__r.__words[2] = 0;
-        v660->__r_.__value_.__r.__words[0] = 0;
-        v661 = *(v628 + 8);
-        if (v661)
+        v645 = std::string::append(&v744, v643, v644);
+        __p = *v645;
+        v645->__r_.__value_.__l.__size_ = 0;
+        v645->__r_.__value_.__r.__words[2] = 0;
+        v645->__r_.__value_.__r.__words[0] = 0;
+        v646 = *(v614 + 8);
+        if (v646)
         {
-          v662 = (v661 & 0xFFFFFFFFFFFFFFFELL);
+          v647 = (v646 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v660);
-          v662 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v645);
+          v647 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v763, "type");
-        siri::intelligence::GetLineNumFromUnknownField(v662, &v763, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v743, "type");
+        siri::intelligence::GetLineNumFromUnknownField(v647, &v743, -1);
       }
 
-      if ((*(v628 + 16) & 1) != 0 && !siri::intelligence::IsValidVariableName(*(v628 + 72)))
+      if ((*(v614 + 16) & 1) != 0 && !siri::intelligence::IsValidVariableName(*(v614 + 72)))
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v663 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v648 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v663 = v765.__r_.__value_.__l.__size_;
+          v648 = v745.__r_.__value_.__l.__size_;
         }
 
-        v664 = std::string::basic_string[abi:ne200100](&__p, v663 + 34);
+        v649 = std::string::basic_string[abi:ne200100](&__p, v648 + 34);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v665 = &__p;
+          v650 = &__p;
         }
 
         else
         {
-          v665 = __p.__r_.__value_.__r.__words[0];
+          v650 = __p.__r_.__value_.__r.__words[0];
         }
 
-        if (v663)
+        if (v648)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v666 = &v765;
+            v651 = &v745;
           }
 
           else
           {
-            v666 = v765.__r_.__value_.__r.__words[0];
+            v651 = v745.__r_.__value_.__r.__words[0];
           }
 
-          v664 = memmove(v665, v666, v663);
+          v649 = memmove(v650, v651, v648);
         }
 
-        strcpy(v665 + v663, "has invalid characters in the name");
-        v667 = *(v628 + 8);
-        if (v667)
+        strcpy(v650 + v648, "has invalid characters in the name");
+        v652 = *(v614 + 8);
+        if (v652)
         {
-          v668 = (v667 & 0xFFFFFFFFFFFFFFFELL);
+          v653 = (v652 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v664);
-          v668 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v649);
+          v653 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "name");
-        siri::intelligence::GetLineNumFromUnknownField(v668, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "name");
+        siri::intelligence::GetLineNumFromUnknownField(v653, &v744, -1);
       }
 
-      v669 = *(v628 + 16);
-      if ((v669 & 0x10) == 0)
+      v654 = *(v614 + 16);
+      if ((v654 & 0x10) == 0)
       {
         goto LABEL_1628;
       }
 
-      v670 = *(v628 + 104);
-      if (v670)
+      v655 = *(v614 + 104);
+      if (v655)
       {
-        if ((v669 & 2) != 0)
+        if ((v654 & 2) != 0)
         {
           goto LABEL_1527;
         }
@@ -13796,175 +13755,173 @@ LABEL_1426:
       else
       {
         google::protobuf::internal::LogMessage::LogMessage(&__p, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.h", 17756);
-        v671 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || default_value_ != nullptr: ");
-        google::protobuf::internal::LogFinisher::operator=(&v764, &v671->__r_.__value_.__l.__data_);
+        v656 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || default_value_ != nullptr: ");
+        google::protobuf::internal::LogFinisher::operator=(&v744, &v656->__r_.__value_.__l.__data_);
         google::protobuf::internal::LogMessage::~LogMessage(&__p.__r_.__value_.__l.__data_);
-        v670 = *(v628 + 104);
-        if ((*(v628 + 16) & 2) != 0)
+        v655 = *(v614 + 104);
+        if ((*(v614 + 16) & 2) != 0)
         {
 LABEL_1527:
-          if (v670)
+          if (v655)
           {
-            v672 = v670;
+            v657 = v655;
           }
 
           else
           {
-            v672 = &protobuf::_Intelligence_KeyValueParameter_default_instance_;
+            v657 = &protobuf::_Intelligence_KeyValueParameter_default_instance_;
           }
 
-          v673 = *(v628 + 80);
-          if (*(v673 + 23) < 0)
+          v658 = *(v614 + 80);
+          if (*(v658 + 23) < 0)
           {
-            std::string::__init_copy_ctor_external(&v764, *v673, *(v673 + 1));
+            std::string::__init_copy_ctor_external(&v744, *v658, *(v658 + 1));
           }
 
           else
           {
-            v674 = *v673;
-            v764.__r_.__value_.__r.__words[2] = *(v673 + 2);
-            *&v764.__r_.__value_.__l.__data_ = v674;
+            v659 = *v658;
+            v744.__r_.__value_.__r.__words[2] = *(v658 + 2);
+            *&v744.__r_.__value_.__l.__data_ = v659;
           }
 
-          v675 = *(v672 + 4);
-          LOWORD(v676) = v675;
-          if ((v675 & 2) != 0)
+          v660 = *(v657 + 4);
+          LOWORD(v661) = v660;
+          if ((v660 & 2) != 0)
           {
-            std::string::basic_string[abi:ne200100]<0>(&v762, siri::intelligence::TYPE_STRING[0]);
-            if (siri::intelligence::IsEquivalentType(&v764, &v762.__r_.__value_.__l.__data_))
+            std::string::basic_string[abi:ne200100]<0>(&v742, siri::intelligence::TYPE_STRING[0]);
+            if (siri::intelligence::IsEquivalentType(&v744, &v742))
             {
-              v676 = *(v672 + 4);
+              v661 = *(v657 + 4);
               goto LABEL_1536;
             }
 
-            v680 = 1;
+            v665 = 1;
 LABEL_1565:
-            if (SHIBYTE(v762.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v742.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v762.__r_.__value_.__l.__data_);
+              operator delete(v742.__r_.__value_.__l.__data_);
             }
 
 LABEL_1567:
-            v513 = this;
-            if (v680)
+            v501 = this;
+            if (v665)
             {
               goto LABEL_1568;
             }
 
-            v692 = *(v672 + 4);
-            if ((v692 & 0x10) != 0)
+            v677 = *(v657 + 4);
+            if ((v677 & 0x10) != 0)
             {
               memset(&__p, 0, sizeof(__p));
-              memset(&v763, 0, sizeof(v763));
-              google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(&v763, v672 + 96);
-              if (LODWORD(v763.__r_.__value_.__r.__words[1]))
+              memset(&v743, 0, sizeof(v743));
+              google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(&v743, v657 + 96);
+              if (LODWORD(v743.__r_.__value_.__r.__words[1]))
               {
-                if (v763.__r_.__value_.__r.__words[2])
+                if (v743.__r_.__value_.__r.__words[2])
                 {
-                  v695 = (v763.__r_.__value_.__r.__words[2] + 8);
+                  v679 = (v743.__r_.__value_.__r.__words[2] + 8);
                 }
 
                 else
                 {
-                  v695 = 0;
+                  v679 = 0;
                 }
 
                 do
                 {
-                  std::vector<protobuf::Intelligence_KeyValueParameter>::push_back[abi:ne200100](&__p, *v695++);
-                  if (v763.__r_.__value_.__r.__words[2])
+                  std::vector<protobuf::Intelligence_KeyValueParameter>::push_back[abi:ne200100](&__p, *v679++);
+                  if (v743.__r_.__value_.__r.__words[2])
                   {
-                    v696 = v763.__r_.__value_.__r.__words[2] + 8;
+                    v680 = v743.__r_.__value_.__r.__words[2] + 8;
                   }
 
                   else
                   {
-                    v696 = 0;
+                    v680 = 0;
                   }
                 }
 
-                while (v695 != (v696 + 8 * SLODWORD(v763.__r_.__value_.__r.__words[1])));
+                while (v679 != (v680 + 8 * SLODWORD(v743.__r_.__value_.__r.__words[1])));
               }
 
-              google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(&v763);
-              v697 = *(v672 + 19);
+              google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(&v743);
               std::allocate_shared[abi:ne200100]<siri::intelligence::VariableDictionary,std::allocator<siri::intelligence::VariableDictionary>,char const(&)[1],std::vector<protobuf::Intelligence_KeyValueParameter> &,0>();
             }
 
-            if ((v692 & 8) == 0)
+            if ((v677 & 8) == 0)
             {
-              if (siri::intelligence::DialogTypes::IsDialogType(&v764))
+              if (siri::intelligence::DialogTypes::IsDialogType(&v744))
               {
-                v693 = *(v628 + 72);
-                if (*(v628 + 104))
+                if (*(v614 + 104))
                 {
-                  v694 = *(v628 + 104);
+                  v678 = *(v614 + 104);
                 }
 
                 else
                 {
-                  v694 = &protobuf::_Intelligence_KeyValueParameter_default_instance_;
+                  v678 = &protobuf::_Intelligence_KeyValueParameter_default_instance_;
                 }
 
-                siri::intelligence::Variable::FromProtobuf(v694, &v755);
+                siri::intelligence::Variable::FromProtobuf(*(v614 + 72), v678, &v735);
                 _ZNSt3__115allocate_sharedB8ne200100IN4siri12intelligence18VariableDictionaryENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
               }
 
 LABEL_1626:
-              siri::intelligence::ValidateKeyValueParameter(&v765, v672, a2, a3);
-              if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+              siri::intelligence::ValidateKeyValueParameter(&v745, v657, a2, a3);
+              if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v764.__r_.__value_.__l.__data_);
+                operator delete(v744.__r_.__value_.__l.__data_);
               }
 
               goto LABEL_1628;
             }
 
-            siri::intelligence::Memory::GetVariable(a2 + 312, *(v672 + 18), &v763);
-            if (v763.__r_.__value_.__r.__words[0])
+            siri::intelligence::Memory::GetVariable(a2 + 39, *(v657 + 18), &v743);
+            if (v743.__r_.__value_.__r.__words[0])
             {
-              (*(*v763.__r_.__value_.__l.__data_ + 96))(&__p);
-              v698 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+              (*(*v743.__r_.__value_.__l.__data_ + 96))(&__p);
+              v681 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v699 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+                v682 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
               }
 
               else
               {
-                v699 = __p.__r_.__value_.__l.__size_;
+                v682 = __p.__r_.__value_.__l.__size_;
               }
 
-              v700 = HIBYTE(v764.__r_.__value_.__r.__words[2]);
-              if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              v683 = HIBYTE(v744.__r_.__value_.__r.__words[2]);
+              if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
               {
-                v700 = v764.__r_.__value_.__l.__size_;
+                v683 = v744.__r_.__value_.__l.__size_;
               }
 
-              if (v699 == v700)
+              if (v682 == v683)
               {
                 if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v701 = &__p;
+                  v684 = &__p;
                 }
 
                 else
                 {
-                  v701 = __p.__r_.__value_.__r.__words[0];
+                  v684 = __p.__r_.__value_.__r.__words[0];
                 }
 
-                if ((v764.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v744.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v702 = &v764;
+                  v685 = &v744;
                 }
 
                 else
                 {
-                  v702 = v764.__r_.__value_.__r.__words[0];
+                  v685 = v744.__r_.__value_.__r.__words[0];
                 }
 
-                v703 = memcmp(v701, v702, v699) != 0;
-                if (v698 < 0)
+                v686 = memcmp(v684, v685, v682) != 0;
+                if (v681 < 0)
                 {
 LABEL_1621:
                   operator delete(__p.__r_.__value_.__l.__data_);
@@ -13973,132 +13930,132 @@ LABEL_1621:
 
               else
               {
-                v703 = 1;
+                v686 = 1;
                 if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                 {
                   goto LABEL_1621;
                 }
               }
 
-              v513 = this;
+              v501 = this;
             }
 
             else
             {
-              v703 = 0;
+              v686 = 0;
             }
 
-            if (v763.__r_.__value_.__l.__size_)
+            if (v743.__r_.__value_.__l.__size_)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v763.__r_.__value_.__l.__size_);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v743.__r_.__value_.__l.__size_);
             }
 
-            if (v703)
+            if (v686)
             {
 LABEL_1568:
-              if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v682 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+                v667 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
               }
 
               else
               {
-                v682 = v765.__r_.__value_.__l.__size_;
+                v667 = v745.__r_.__value_.__l.__size_;
               }
 
-              std::string::basic_string[abi:ne200100](&v763, v682 + 51);
-              if ((v763.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              std::string::basic_string[abi:ne200100](&v743, v667 + 51);
+              if ((v743.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v683 = &v763;
+                v668 = &v743;
               }
 
               else
               {
-                v683 = v763.__r_.__value_.__r.__words[0];
+                v668 = v743.__r_.__value_.__r.__words[0];
               }
 
-              if (v682)
+              if (v667)
               {
-                if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v684 = &v765;
+                  v669 = &v745;
                 }
 
                 else
                 {
-                  v684 = v765.__r_.__value_.__r.__words[0];
+                  v669 = v745.__r_.__value_.__r.__words[0];
                 }
 
-                memmove(v683, v684, v682);
+                memmove(v668, v669, v667);
               }
 
-              strcpy(v683 + v682, "has a default value that doesn't match the type of ");
-              v685 = *(v628 + 80);
-              v686 = *(v685 + 23);
-              if (v686 >= 0)
+              strcpy(v668 + v667, "has a default value that doesn't match the type of ");
+              v670 = *(v614 + 80);
+              v671 = *(v670 + 23);
+              if (v671 >= 0)
               {
-                v687 = *(v628 + 80);
+                v672 = *(v614 + 80);
               }
 
               else
               {
-                v687 = *v685;
+                v672 = *v670;
               }
 
-              if (v686 >= 0)
+              if (v671 >= 0)
               {
-                v688 = *(v685 + 23);
+                v673 = *(v670 + 23);
               }
 
               else
               {
-                v688 = *(v685 + 8);
+                v673 = *(v670 + 8);
               }
 
-              v689 = std::string::append(&v763, v687, v688);
-              __p = *v689;
-              v689->__r_.__value_.__l.__size_ = 0;
-              v689->__r_.__value_.__r.__words[2] = 0;
-              v689->__r_.__value_.__r.__words[0] = 0;
-              v690 = *(v628 + 8);
-              if (v690)
+              v674 = std::string::append(&v743, v672, v673);
+              __p = *v674;
+              v674->__r_.__value_.__l.__size_ = 0;
+              v674->__r_.__value_.__r.__words[2] = 0;
+              v674->__r_.__value_.__r.__words[0] = 0;
+              v675 = *(v614 + 8);
+              if (v675)
               {
-                v691 = (v690 & 0xFFFFFFFFFFFFFFFELL);
+                v676 = (v675 & 0xFFFFFFFFFFFFFFFELL);
               }
 
               else
               {
-                google::protobuf::internal::InitProtobufDefaults(v689);
-                v691 = &google::protobuf::internal::fixed_address_empty_string;
+                google::protobuf::internal::InitProtobufDefaults(v674);
+                v676 = &google::protobuf::internal::fixed_address_empty_string;
               }
 
-              std::string::basic_string[abi:ne200100]<0>(&v755, "defaultValue");
-              siri::intelligence::GetLineNumFromUnknownField(v691, &v755, -1);
+              std::string::basic_string[abi:ne200100]<0>(&v735, "defaultValue");
+              siri::intelligence::GetLineNumFromUnknownField(v676, &v735, -1);
             }
 
             goto LABEL_1626;
           }
 
 LABEL_1536:
-          LOBYTE(v677) = v676;
-          if ((v676 & 0x100) != 0)
+          LOBYTE(v662) = v661;
+          if ((v661 & 0x100) != 0)
           {
-            std::string::basic_string[abi:ne200100]<0>(&v761, siri::intelligence::TYPE_BOOLEAN[0]);
-            if (siri::intelligence::IsEquivalentType(&v764, &v761.__r_.__value_.__l.__data_))
+            std::string::basic_string[abi:ne200100]<0>(&v741, siri::intelligence::TYPE_BOOLEAN[0]);
+            if (siri::intelligence::IsEquivalentType(&v744, &v741))
             {
-              v677 = *(v672 + 4);
+              v662 = *(v657 + 4);
               goto LABEL_1539;
             }
 
-            v680 = 1;
+            v665 = 1;
 LABEL_1561:
-            if (SHIBYTE(v761.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v741.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v761.__r_.__value_.__l.__data_);
+              operator delete(v741.__r_.__value_.__l.__data_);
             }
 
 LABEL_1564:
-            if ((v675 & 2) != 0)
+            if ((v660 & 2) != 0)
             {
               goto LABEL_1565;
             }
@@ -14107,66 +14064,66 @@ LABEL_1564:
           }
 
 LABEL_1539:
-          if ((v677 & 0x80) == 0 || (std::string::basic_string[abi:ne200100]<0>(v759, siri::intelligence::TYPE_NUMBER[0]), siri::intelligence::IsEquivalentType(&v764, v759)))
+          if ((v662 & 0x80) == 0 || (std::string::basic_string[abi:ne200100]<0>(v739, siri::intelligence::TYPE_NUMBER[0]), siri::intelligence::IsEquivalentType(&v744, v739)))
           {
-            v678 = v627;
-            v679 = *(v672 + 14);
-            if (v679 < 1)
+            v663 = v613;
+            v664 = *(v657 + 14);
+            if (v664 < 1)
             {
-              if (*(v672 + 20) >= 1)
+              if (*(v657 + 20) >= 1)
               {
                 goto LABEL_1548;
               }
 
-              v680 = 0;
+              v665 = 0;
 LABEL_1557:
-              v627 = v678;
+              v613 = v663;
             }
 
             else
             {
-              std::string::basic_string[abi:ne200100]<0>(v757, siri::intelligence::TYPE_ARRAY[0]);
-              if (!siri::intelligence::IsEquivalentType(&v764, v757))
+              std::string::basic_string[abi:ne200100]<0>(v737, siri::intelligence::TYPE_ARRAY[0]);
+              if (!siri::intelligence::IsEquivalentType(&v744, v737))
               {
-                v680 = 1;
+                v665 = 1;
                 goto LABEL_1554;
               }
 
-              if (*(v672 + 20) <= 0)
+              if (*(v657 + 20) <= 0)
               {
-                v680 = 0;
+                v665 = 0;
                 goto LABEL_1554;
               }
 
 LABEL_1548:
               std::string::basic_string[abi:ne200100]<0>(&__p, siri::intelligence::TYPE_DICTIONARY[0]);
-              IsEquivalentType = siri::intelligence::IsEquivalentType(&v764, &__p.__r_.__value_.__l.__data_);
+              IsEquivalentType = siri::intelligence::IsEquivalentType(&v744, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              v680 = !IsEquivalentType;
-              if (v679 < 1)
+              v665 = !IsEquivalentType;
+              if (v664 < 1)
               {
                 goto LABEL_1557;
               }
 
 LABEL_1554:
-              v627 = v678;
-              if (v758 < 0)
+              v613 = v663;
+              if (v738 < 0)
               {
-                operator delete(v757[0]);
+                operator delete(v737[0]);
               }
             }
 
-            if ((v677 & 0x80) != 0)
+            if ((v662 & 0x80) != 0)
             {
 LABEL_1559:
-              if (v760 < 0)
+              if (v740 < 0)
               {
-                operator delete(v759[0]);
-                if ((v676 & 0x100) != 0)
+                operator delete(v739[0]);
+                if ((v661 & 0x100) != 0)
                 {
                   goto LABEL_1561;
                 }
@@ -14175,7 +14132,7 @@ LABEL_1559:
               }
             }
 
-            if ((v676 & 0x100) != 0)
+            if ((v661 & 0x100) != 0)
             {
               goto LABEL_1561;
             }
@@ -14183,381 +14140,378 @@ LABEL_1559:
             goto LABEL_1564;
           }
 
-          v680 = 1;
+          v665 = 1;
           goto LABEL_1559;
         }
       }
 
 LABEL_1628:
-      if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v765.__r_.__value_.__l.__data_);
+        operator delete(v745.__r_.__value_.__l.__data_);
       }
 
-      ++v626;
+      ++v612;
     }
 
-    while (v626 < *(v513 + 98));
+    while (v612 < *(v501 + 98));
   }
 
-  v704 = v513;
-  if (*(v513 + 68) >= 1)
+  v687 = v501;
+  if (*(v501 + 68) >= 1)
   {
-    v705 = 0;
+    v688 = 0;
     do
     {
-      v706 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Condition>::TypeHandler>(v704 + 264, v705);
-      std::string::basic_string[abi:ne200100]<0>(&v765, "condition ");
-      v707 = *(v706 + 16);
-      if (v707)
+      v689 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Condition>::TypeHandler>(v687 + 264, v688);
+      std::string::basic_string[abi:ne200100]<0>(&v745, "condition ");
+      v690 = *(v689 + 16);
+      if (v690)
       {
-        v708 = *(v706 + 24);
         std::operator+<char>();
-        v709 = std::string::append(&v764, "' ");
-        v710 = *&v709->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v709->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v710;
-        v709->__r_.__value_.__l.__size_ = 0;
-        v709->__r_.__value_.__r.__words[2] = 0;
-        v709->__r_.__value_.__r.__words[0] = 0;
+        v691 = std::string::append(&v744, "' ");
+        v692 = *&v691->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v691->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v692;
+        v691->__r_.__value_.__l.__size_ = 0;
+        v691->__r_.__value_.__r.__words[2] = 0;
+        v691->__r_.__value_.__r.__words[0] = 0;
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v711 = &__p;
+          v693 = &__p;
         }
 
         else
         {
-          v711 = __p.__r_.__value_.__r.__words[0];
+          v693 = __p.__r_.__value_.__r.__words[0];
         }
 
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v712 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v694 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v712 = __p.__r_.__value_.__l.__size_;
+          v694 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&v765, v711, v712);
+        std::string::append(&v745, v693, v694);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v764.__r_.__value_.__l.__data_);
+          operator delete(v744.__r_.__value_.__l.__data_);
         }
 
-        v707 = *(v706 + 16);
+        v690 = *(v689 + 16);
       }
 
-      if ((v707 & 1) == 0)
+      if ((v690 & 1) == 0)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v713 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v695 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v713 = v765.__r_.__value_.__l.__size_;
+          v695 = v745.__r_.__value_.__l.__size_;
         }
 
-        v714 = std::string::basic_string[abi:ne200100](&__p, v713 + 21);
+        v696 = std::string::basic_string[abi:ne200100](&__p, v695 + 21);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v715 = &__p;
+          v697 = &__p;
         }
 
         else
         {
-          v715 = __p.__r_.__value_.__r.__words[0];
+          v697 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        if (v695)
+        {
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v698 = &v745;
+          }
+
+          else
+          {
+            v698 = v745.__r_.__value_.__r.__words[0];
+          }
+
+          v696 = memmove(v697, v698, v695);
+        }
+
+        strcpy(v697 + v695, "does not define an id");
+        v699 = *(v689 + 8);
+        if (v699)
+        {
+          v700 = (v699 & 0xFFFFFFFFFFFFFFFELL);
+        }
+
+        else
+        {
+          google::protobuf::internal::InitProtobufDefaults(v696);
+          v700 = &google::protobuf::internal::fixed_address_empty_string;
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v700, &v744, -1);
+      }
+
+      if ((siri::intelligence::IsValidId(*(v689 + 24)) & 1) == 0)
+      {
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v701 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v701 = v745.__r_.__value_.__l.__size_;
+        }
+
+        v702 = std::string::basic_string[abi:ne200100](&__p, v701 + 32);
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v703 = &__p;
+        }
+
+        else
+        {
+          v703 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        if (v701)
+        {
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v704 = &v745;
+          }
+
+          else
+          {
+            v704 = v745.__r_.__value_.__r.__words[0];
+          }
+
+          v702 = memmove(v703, v704, v701);
+        }
+
+        strcpy(v703 + v701, "has invalid characters in the ID");
+        v705 = *(v689 + 8);
+        if (v705)
+        {
+          v706 = (v705 & 0xFFFFFFFFFFFFFFFELL);
+        }
+
+        else
+        {
+          google::protobuf::internal::InitProtobufDefaults(v702);
+          v706 = &google::protobuf::internal::fixed_address_empty_string;
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(&v744, "id");
+        siri::intelligence::GetLineNumFromUnknownField(v706, &v744, -1);
+      }
+
+      if ((a2 + 272) == std::__tree<std::string>::find<std::string>(a2 + 264, *(v689 + 24)))
+      {
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v707 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v707 = v745.__r_.__value_.__l.__size_;
+        }
+
+        v708 = std::string::basic_string[abi:ne200100](&__p, v707 + 12);
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v709 = &__p;
+        }
+
+        else
+        {
+          v709 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        if (v707)
+        {
+          if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v710 = &v745;
+          }
+
+          else
+          {
+            v710 = v745.__r_.__value_.__r.__words[0];
+          }
+
+          v708 = memmove(v709, v710, v707);
+        }
+
+        strcpy(v709 + v707, "is not used.");
+        v711 = *(v689 + 8);
+        if (v711)
+        {
+          v712 = (v711 & 0xFFFFFFFFFFFFFFFELL);
+        }
+
+        else
+        {
+          google::protobuf::internal::InitProtobufDefaults(v708);
+          v712 = &google::protobuf::internal::fixed_address_empty_string;
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(&v744, "");
+        siri::intelligence::GetLineNumFromUnknownField(v712, &v744, -1);
+      }
+
+      if ((*(v689 + 16) & 2) != 0)
+      {
+        v713 = *(v689 + 32);
+        if (!v713)
+        {
+          google::protobuf::internal::LogMessage::LogMessage(&__p, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.h", 21788);
+          v714 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || condition_ != nullptr: ");
+          google::protobuf::internal::LogFinisher::operator=(&v744, &v714->__r_.__value_.__l.__data_);
+          google::protobuf::internal::LogMessage::~LogMessage(&__p.__r_.__value_.__l.__data_);
+          v713 = *(v689 + 32);
         }
 
         if (v713)
         {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v716 = &v765;
-          }
-
-          else
-          {
-            v716 = v765.__r_.__value_.__r.__words[0];
-          }
-
-          v714 = memmove(v715, v716, v713);
-        }
-
-        strcpy(v715 + v713, "does not define an id");
-        v717 = *(v706 + 8);
-        if (v717)
-        {
-          v718 = (v717 & 0xFFFFFFFFFFFFFFFELL);
+          v715 = v713;
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v714);
-          v718 = &google::protobuf::internal::fixed_address_empty_string;
+          v715 = &protobuf::_Intelligence_Condition_ConditionEntry_default_instance_;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v718, &v764, -1);
+        siri::intelligence::ValidateConditionEntry(&v745.__r_.__value_.__l.__data_, v715, a2, a3);
       }
 
-      if ((siri::intelligence::IsValidId(*(v706 + 24)) & 1) == 0)
+      if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
       {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v719 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
-        }
-
-        else
-        {
-          v719 = v765.__r_.__value_.__l.__size_;
-        }
-
-        v720 = std::string::basic_string[abi:ne200100](&__p, v719 + 32);
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v721 = &__p;
-        }
-
-        else
-        {
-          v721 = __p.__r_.__value_.__r.__words[0];
-        }
-
-        if (v719)
-        {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v722 = &v765;
-          }
-
-          else
-          {
-            v722 = v765.__r_.__value_.__r.__words[0];
-          }
-
-          v720 = memmove(v721, v722, v719);
-        }
-
-        strcpy(v721 + v719, "has invalid characters in the ID");
-        v723 = *(v706 + 8);
-        if (v723)
-        {
-          v724 = (v723 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        else
-        {
-          google::protobuf::internal::InitProtobufDefaults(v720);
-          v724 = &google::protobuf::internal::fixed_address_empty_string;
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&v764, "id");
-        siri::intelligence::GetLineNumFromUnknownField(v724, &v764, -1);
+        operator delete(v745.__r_.__value_.__l.__data_);
       }
 
-      if ((a2 + 272) == std::__tree<std::string>::find<std::string>(a2 + 264, *(v706 + 24)))
-      {
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v725 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
-        }
-
-        else
-        {
-          v725 = v765.__r_.__value_.__l.__size_;
-        }
-
-        v726 = std::string::basic_string[abi:ne200100](&__p, v725 + 12);
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v727 = &__p;
-        }
-
-        else
-        {
-          v727 = __p.__r_.__value_.__r.__words[0];
-        }
-
-        if (v725)
-        {
-          if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v728 = &v765;
-          }
-
-          else
-          {
-            v728 = v765.__r_.__value_.__r.__words[0];
-          }
-
-          v726 = memmove(v727, v728, v725);
-        }
-
-        strcpy(v727 + v725, "is not used.");
-        v729 = *(v706 + 8);
-        if (v729)
-        {
-          v730 = (v729 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        else
-        {
-          google::protobuf::internal::InitProtobufDefaults(v726);
-          v730 = &google::protobuf::internal::fixed_address_empty_string;
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(&v764, "");
-        siri::intelligence::GetLineNumFromUnknownField(v730, &v764, -1);
-      }
-
-      if ((*(v706 + 16) & 2) != 0)
-      {
-        v731 = *(v706 + 32);
-        if (!v731)
-        {
-          google::protobuf::internal::LogMessage::LogMessage(&__p, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.h", 21788);
-          v732 = google::protobuf::internal::LogMessage::operator<<(&__p, "CHECK failed: !value || condition_ != nullptr: ");
-          google::protobuf::internal::LogFinisher::operator=(&v764, &v732->__r_.__value_.__l.__data_);
-          google::protobuf::internal::LogMessage::~LogMessage(&__p.__r_.__value_.__l.__data_);
-          v731 = *(v706 + 32);
-        }
-
-        if (v731)
-        {
-          v733 = v731;
-        }
-
-        else
-        {
-          v733 = &protobuf::_Intelligence_Condition_ConditionEntry_default_instance_;
-        }
-
-        siri::intelligence::ValidateConditionEntry(&v765.__r_.__value_.__l.__data_, v733, a2, a3);
-      }
-
-      if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v765.__r_.__value_.__l.__data_);
-      }
-
-      ++v705;
-      v704 = this;
+      ++v688;
+      v687 = this;
     }
 
-    while (v705 < *(this + 68));
+    while (v688 < *(this + 68));
   }
 
-  if (*(v704 + 44) >= 1)
+  if (*(v687 + 44) >= 1)
   {
-    v734 = 0;
+    v716 = 0;
     do
     {
-      v735 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Activity>::TypeHandler>(v704 + 168, v734);
+      v717 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Activity>::TypeHandler>(v687 + 168, v716);
       std::string::basic_string[abi:ne200100]<0>(&__p, "activity ");
-      v736 = *(v735 + 16);
-      if ((v736 & 2) != 0)
+      v718 = *(v717 + 16);
+      if ((v718 & 2) != 0)
       {
-        v737 = *(v735 + 56);
         std::operator+<char>();
-        v738 = std::string::append(&v764, "' ");
-        v739 = *&v738->__r_.__value_.__l.__data_;
-        v765.__r_.__value_.__r.__words[2] = v738->__r_.__value_.__r.__words[2];
-        *&v765.__r_.__value_.__l.__data_ = v739;
-        v738->__r_.__value_.__l.__size_ = 0;
-        v738->__r_.__value_.__r.__words[2] = 0;
-        v738->__r_.__value_.__r.__words[0] = 0;
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v719 = std::string::append(&v744, "' ");
+        v720 = *&v719->__r_.__value_.__l.__data_;
+        v745.__r_.__value_.__r.__words[2] = v719->__r_.__value_.__r.__words[2];
+        *&v745.__r_.__value_.__l.__data_ = v720;
+        v719->__r_.__value_.__l.__size_ = 0;
+        v719->__r_.__value_.__r.__words[2] = 0;
+        v719->__r_.__value_.__r.__words[0] = 0;
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v740 = &v765;
+          v721 = &v745;
         }
 
         else
         {
-          v740 = v765.__r_.__value_.__r.__words[0];
+          v721 = v745.__r_.__value_.__r.__words[0];
         }
 
-        if ((v765.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v745.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v741 = HIBYTE(v765.__r_.__value_.__r.__words[2]);
+          v722 = HIBYTE(v745.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v741 = v765.__r_.__value_.__l.__size_;
+          v722 = v745.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&__p, v740, v741);
-        if (SHIBYTE(v765.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(&__p, v721, v722);
+        if (SHIBYTE(v745.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v765.__r_.__value_.__l.__data_);
+          operator delete(v745.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v764.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v744.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v764.__r_.__value_.__l.__data_);
+          operator delete(v744.__r_.__value_.__l.__data_);
         }
 
-        v736 = *(v735 + 16);
+        v718 = *(v717 + 16);
       }
 
-      if ((v736 & 0x10) != 0 && (a2 + 104) == std::__tree<std::string>::find<std::string>(a2 + 96, *(v735 + 80)))
+      if ((v718 & 0x10) != 0 && (a2 + 104) == std::__tree<std::string>::find<std::string>(a2 + 96, *(v717 + 80)))
       {
-        v742 = *(v735 + 80);
-        v743 = std::operator+<char>();
-        v744 = *(v735 + 8);
-        if (v744)
+        v723 = std::operator+<char>();
+        v724 = *(v717 + 8);
+        if (v724)
         {
-          v745 = (v744 & 0xFFFFFFFFFFFFFFFELL);
+          v725 = (v724 & 0xFFFFFFFFFFFFFFFELL);
         }
 
         else
         {
-          google::protobuf::internal::InitProtobufDefaults(v743);
-          v745 = &google::protobuf::internal::fixed_address_empty_string;
+          google::protobuf::internal::InitProtobufDefaults(v723);
+          v725 = &google::protobuf::internal::fixed_address_empty_string;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v764, "inputGroupId");
-        siri::intelligence::GetLineNumFromUnknownField(v745, &v764, -1);
+        std::string::basic_string[abi:ne200100]<0>(&v744, "inputGroupId");
+        siri::intelligence::GetLineNumFromUnknownField(v725, &v744, -1);
       }
 
-      if (*(v735 + 32) >= 1)
+      if (*(v717 + 32) >= 1)
       {
-        v746 = 0;
+        v726 = 0;
         do
         {
-          v747 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v735 + 24, v746);
-          if ((a2 + 80) == std::__tree<std::string>::find<std::string>(a2 + 72, v747))
+          v727 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v717 + 24, v726);
+          if ((a2 + 80) == std::__tree<std::string>::find<std::string>(a2 + 72, v727))
           {
-            v748 = std::operator+<char>();
-            v749 = *(v735 + 8);
-            if (v749)
+            v728 = std::operator+<char>();
+            v729 = *(v717 + 8);
+            if (v729)
             {
-              v750 = (v749 & 0xFFFFFFFFFFFFFFFELL);
+              v730 = (v729 & 0xFFFFFFFFFFFFFFFELL);
             }
 
             else
             {
-              google::protobuf::internal::InitProtobufDefaults(v748);
-              v750 = &google::protobuf::internal::fixed_address_empty_string;
+              google::protobuf::internal::InitProtobufDefaults(v728);
+              v730 = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v764, "responseIds");
-            siri::intelligence::GetLineNumFromUnknownField(v750, &v764, v746);
+            std::string::basic_string[abi:ne200100]<0>(&v744, "responseIds");
+            siri::intelligence::GetLineNumFromUnknownField(v730, &v744, v726);
           }
 
-          ++v746;
+          ++v726;
         }
 
-        while (v746 < *(v735 + 32));
+        while (v726 < *(v717 + 32));
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -14565,10 +14519,10 @@ LABEL_1628:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      ++v734;
-      v704 = this;
+      ++v716;
+      v687 = this;
     }
 
-    while (v734 < *(this + 44));
+    while (v716 < *(this + 44));
   }
 }

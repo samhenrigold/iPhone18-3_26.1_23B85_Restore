@@ -16,59 +16,61 @@
 {
   v3 = [MEMORY[0x277CEB3C0] pathForResource:@"_ATXApp2VecClusters" ofType:@"dat" isDirectory:0];
   v4 = [MEMORY[0x277CEB3C0] pathForResource:@"_ATXApp2VecMapping" ofType:@"dat" isDirectory:0];
-  v15.receiver = self;
-  v15.super_class = ATXApp2VecClustering;
-  v5 = [(ATXApp2VecClustering *)&v15 init];
-  if (v5)
+  v16.receiver = self;
+  v16.super_class = ATXApp2VecClustering;
+  vectorLength2 = [(ATXApp2VecClustering *)&v16 init];
+  v6 = vectorLength2;
+  if (vectorLength2)
   {
     if (v3)
     {
-      v6 = v4 == 0;
+      v7 = v4 == 0;
     }
 
     else
     {
-      v6 = 1;
+      v7 = 1;
     }
 
-    if (!v6)
+    if (!v7)
     {
-      v7 = [[ATXApp2VecMapping alloc] initWithPath:v3];
-      clusterCentroids = v5->_clusterCentroids;
-      v5->_clusterCentroids = v7;
+      v8 = [[ATXApp2VecMapping alloc] initWithPath:v3];
+      clusterCentroids = v6->_clusterCentroids;
+      v6->_clusterCentroids = v8;
 
-      v9 = [[ATXApp2VecMapping alloc] initWithPath:v4];
-      appEmbeddings = v5->_appEmbeddings;
-      v5->_appEmbeddings = v9;
+      v10 = [[ATXApp2VecMapping alloc] initWithPath:v4];
+      appEmbeddings = v6->_appEmbeddings;
+      v6->_appEmbeddings = v10;
 
-      vectorLength = [(ATXApp2VecMapping *)v5->_appEmbeddings vectorLength];
-      v5->_vectorLength = vectorLength;
-      if (vectorLength != [(ATXApp2VecMapping *)v5->_clusterCentroids vectorLength])
+      vectorLength = [(ATXApp2VecMapping *)v6->_appEmbeddings vectorLength];
+      v6->_vectorLength = vectorLength;
+      vectorLength2 = [(ATXApp2VecMapping *)v6->_clusterCentroids vectorLength];
+      if (vectorLength != vectorLength2)
       {
         [ATXApp2VecClustering init];
       }
     }
 
-    if (v5->_clusterCentroids && v5->_appEmbeddings)
+    if (v6->_clusterCentroids && v6->_appEmbeddings)
     {
-      v12 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = __atxlog_handle_default(vectorLength2);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [(ATXApp2VecClustering *)v3 init];
       }
 
-      v12 = 0;
+      v13 = 0;
     }
 
-    v5->_loaded = v12;
+    v6->_loaded = v13;
   }
 
-  return v5;
+  return v6;
 }
 
 + (id)sharedInstance
@@ -98,33 +100,33 @@
 
 - (id)getClusterCentroidsForBundleIds:(id)ids
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(idsCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = idsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(ATXApp2VecClustering *)self getClosestClusterCentroidForBundleId:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [(ATXApp2VecClustering *)self getClosestClusterCentroidForBundleId:*(*(&v14 + 1) + 8 * i), v14];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -132,14 +134,12 @@
 
   v12 = [(ATXApp2VecClustering *)self _mergeClusterCentroids:v5 forBundleIds:v6];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_mergeClusterCentroids:(id)centroids forBundleIds:(id)ids
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   centroidsCopy = centroids;
   idsCopy = ids;
   selfCopy = self;
@@ -172,155 +172,153 @@
       while ([idsCopy count] > v9);
     }
 
-    v58 = idsCopy;
+    v57 = idsCopy;
     v17 = centroidsCopy;
     allKeys = [v8 allKeys];
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
-    v19 = [allKeys countByEnumeratingWithState:&v73 objects:v78 count:16];
+    v19 = [allKeys countByEnumeratingWithState:&v72 objects:v77 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v74;
-      v56 = v8;
-      v57 = centroidsCopy;
-      v54 = v21;
-      v55 = allKeys;
+      v21 = *v73;
+      v55 = v8;
+      v56 = centroidsCopy;
+      v53 = v21;
+      v54 = allKeys;
       do
       {
         v22 = 0;
-        v59 = v20;
+        v58 = v20;
         do
         {
-          if (*v74 != v21)
+          if (*v73 != v21)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v23 = *(*(&v73 + 1) + 8 * v22);
+          v23 = *(*(&v72 + 1) + 8 * v22);
           v24 = [v8 objectForKeyedSubscript:v23];
           if ([v24 count] == 1)
           {
-            v61 = &v53;
-            v62 = v22;
+            v60 = &v52;
+            v61 = v22;
             appEmbeddings = selfCopy->_appEmbeddings;
-            v26 = &v53 - ((4 * selfCopy->_vectorLength + 15) & 0xFFFFFFFFFFFFFFF0);
-            v63 = v24;
+            v26 = &v52 - ((4 * selfCopy->_vectorLength + 15) & 0xFFFFFFFFFFFFFFF0);
+            v62 = v24;
             v27 = [v24 objectAtIndexedSubscript:0];
-            v65 = v26;
+            v64 = v26;
             LODWORD(appEmbeddings) = [(ATXApp2VecMapping *)appEmbeddings getVectorForBundleId:v27 into:v26];
 
             if (appEmbeddings)
             {
               v28 = v23;
-              v60 = &v53;
-              v64 = &v53 - ((4 * selfCopy->_vectorLength + 15) & 0xFFFFFFFFFFFFFFF0);
-              v71 = 0u;
-              v72 = 0u;
-              v69 = 0u;
+              v59 = &v52;
+              v63 = &v52 - ((4 * selfCopy->_vectorLength + 15) & 0xFFFFFFFFFFFFFFF0);
               v70 = 0u;
-              v68 = v8;
-              v29 = [v68 countByEnumeratingWithState:&v69 objects:v77 count:16];
-              v66 = v28;
+              v71 = 0u;
+              v68 = 0u;
+              v69 = 0u;
+              v67 = v8;
+              v29 = [v67 countByEnumeratingWithState:&v68 objects:v76 count:16];
+              v65 = v28;
               if (v29)
               {
                 v30 = v29;
-                v31 = *v70;
+                v31 = *v69;
                 v32 = 3.4028e38;
-                v66 = v28;
+                v65 = v28;
                 do
                 {
                   for (i = 0; i != v30; ++i)
                   {
-                    if (*v70 != v31)
+                    if (*v69 != v31)
                     {
-                      objc_enumerationMutation(v68);
+                      objc_enumerationMutation(v67);
                     }
 
-                    v34 = *(*(&v69 + 1) + 8 * i);
+                    v34 = *(*(&v68 + 1) + 8 * i);
                     if (v34 != v28)
                     {
-                      if ([*(*(&v69 + 1) + 8 * i) integerValue])
+                      if ([*(*(&v68 + 1) + 8 * i) integerValue])
                       {
                         v35 = selfCopy;
                         clusterCentroids = selfCopy->_clusterCentroids;
                         v37 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v34, "integerValue") - 1}];
                         stringValue = [v37 stringValue];
                         v39 = clusterCentroids;
-                        v40 = v64;
-                        [(ATXApp2VecMapping *)v39 getVectorForBundleId:stringValue into:v64];
+                        v40 = v63;
+                        [(ATXApp2VecMapping *)v39 getVectorForBundleId:stringValue into:v63];
 
-                        [(ATXApp2VecClustering *)v35 _getL2DistanceFrom:v65 to:v40];
+                        [(ATXApp2VecClustering *)v35 _getL2DistanceFrom:v64 to:v40];
                         if (v41 < v32)
                         {
                           v42 = v41;
                           v43 = v34;
 
                           v32 = v42;
-                          v66 = v43;
+                          v65 = v43;
                         }
                       }
                     }
                   }
 
-                  v30 = [v68 countByEnumeratingWithState:&v69 objects:v77 count:16];
+                  v30 = [v67 countByEnumeratingWithState:&v68 objects:v76 count:16];
                 }
 
                 while (v30);
               }
 
-              v44 = v68;
+              v44 = v67;
 
               [v44 removeObjectForKey:v28];
-              v45 = v66;
-              v46 = [v44 objectForKeyedSubscript:v66];
-              v47 = v63;
-              v48 = [v63 objectAtIndexedSubscript:0];
+              v45 = v65;
+              v46 = [v44 objectForKeyedSubscript:v65];
+              v47 = v62;
+              v48 = [v62 objectAtIndexedSubscript:0];
               [v46 addObject:v48];
 
               v49 = [v47 objectAtIndexedSubscript:0];
-              v50 = [v58 indexOfObject:v49];
+              v50 = [v57 indexOfObject:v49];
 
-              v17 = v57;
-              [v57 setObject:v45 atIndexedSubscript:v50];
+              v17 = v56;
+              [v56 setObject:v45 atIndexedSubscript:v50];
 
-              allKeys = v55;
-              v8 = v56;
-              v21 = v54;
-              v20 = v59;
+              allKeys = v54;
+              v8 = v55;
+              v21 = v53;
+              v20 = v58;
             }
 
-            v22 = v62;
-            v24 = v63;
+            v22 = v61;
+            v24 = v62;
           }
 
           ++v22;
         }
 
         while (v22 != v20);
-        v20 = [allKeys countByEnumeratingWithState:&v73 objects:v78 count:16];
+        v20 = [allKeys countByEnumeratingWithState:&v72 objects:v77 count:16];
       }
 
       while (v20);
     }
 
     centroidsCopy = v17;
-    idsCopy = v58;
+    idsCopy = v57;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return centroidsCopy;
 }
 
 - (id)getClosestClusterCentroidForBundleId:(id)id
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (self->_loaded)
   {
-    v4 = v8 - ((4 * self->_vectorLength + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = v7 - ((4 * self->_vectorLength + 15) & 0xFFFFFFFFFFFFFFF0);
     if ([(ATXApp2VecMapping *)self->_appEmbeddings getVectorForBundleId:id into:v4])
     {
       v5 = [(ATXApp2VecClustering *)self _getClosestClusterCentroidForVector:v4];
@@ -337,17 +335,15 @@
     v5 = &unk_283A56A38;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)_getClosestClusterCentroidForVector:(const float *)vector
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   appCount = [(ATXApp2VecMapping *)self->_clusterCentroids appCount];
-  v19[0] = v19;
-  v6 = v19 - ((4 * self->_vectorLength + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18[0] = v18;
+  v6 = v18 - ((4 * self->_vectorLength + 15) & 0xFFFFFFFFFFFFFFF0);
   if (appCount < 1)
   {
     v9 = 0;
@@ -362,7 +358,7 @@
     do
     {
       clusterCentroids = self->_clusterCentroids;
-      v12 = [MEMORY[0x277CCABB0] numberWithInt:{v8, v19[0]}];
+      v12 = [MEMORY[0x277CCABB0] numberWithInt:{v8, v18[0]}];
       stringValue = [v12 stringValue];
       [(ATXApp2VecMapping *)clusterCentroids getVectorForBundleId:stringValue into:v6];
 
@@ -384,17 +380,14 @@
     while (v7 != v15);
   }
 
-  v16 = [MEMORY[0x277CCABB0] numberWithInteger:{v9, v19[0]}];
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [MEMORY[0x277CCABB0] numberWithInteger:{v9, v18[0]}];
 
   return v16;
 }
 
 - (float)_getL2DistanceFrom:(const float *)from to:(float *)to
 {
-  vectorLength_low = LODWORD(self->_vectorLength);
   catlas_saxpby_NEWLAPACK();
-  v6 = LODWORD(self->_vectorLength);
 
   cblas_snrm2_NEWLAPACK();
   return result;
@@ -402,13 +395,12 @@
 
 - (void)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Could not load centroids (from %@) and embeddings (from %@)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Could not load centroids (from %@) and embeddings (from %@)", &v3, 0x16u);
 }
 
 @end

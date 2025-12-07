@@ -3,6 +3,8 @@
 - (_INPBAddTasksIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)priorityAsString:(int)string;
+- (id)taskReferenceAsString:(int)string;
 - (int)StringAsPriority:(id)priority;
 - (unint64_t)hash;
 - (void)addTargetTaskListMembers:(id)members;
@@ -20,7 +22,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   contactEventTrigger = [(_INPBAddTasksIntent *)self contactEventTrigger];
   dictionaryRepresentation = [contactEventTrigger dictionaryRepresentation];
@@ -61,30 +63,30 @@
   if ([(NSArray *)self->_targetTaskListMembers count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v17 = self->_targetTaskListMembers;
-    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v41;
+      v20 = *v40;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v41 != v20)
+          if (*v40 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          dictionaryRepresentation6 = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation6];
         }
 
-        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v19);
@@ -112,30 +114,30 @@
   if ([(NSArray *)self->_taskTitles count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v26 = self->_taskTitles;
-    v27 = [(NSArray *)v26 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v27 = [(NSArray *)v26 countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v37;
+      v29 = *v36;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v37 != v29)
+          if (*v36 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          dictionaryRepresentation7 = [*(*(&v36 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation7 = [*(*(&v35 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation7];
         }
 
-        v28 = [(NSArray *)v26 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v28 = [(NSArray *)v26 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v28);
@@ -147,8 +149,6 @@
   temporalEventTrigger = [(_INPBAddTasksIntent *)self temporalEventTrigger];
   dictionaryRepresentation8 = [temporalEventTrigger dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation8 forKeyedSubscript:@"temporalEventTrigger"];
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -507,7 +507,7 @@ LABEL_51:
 
 - (void)writeTo:(id)to
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   toCopy = to;
   contactEventTrigger = [(_INPBAddTasksIntent *)self contactEventTrigger];
 
@@ -535,7 +535,6 @@ LABEL_51:
 
   if ([(_INPBAddTasksIntent *)self hasPriority])
   {
-    priority = self->_priority;
     PBDataWriterWriteInt32Field();
   }
 
@@ -555,74 +554,71 @@ LABEL_51:
     PBDataWriterWriteSubmessage();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v16 = self->_targetTaskListMembers;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v17)
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v15 = self->_targetTaskListMembers;
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  if (v16)
   {
-    v18 = v17;
-    v19 = *v37;
+    v17 = v16;
+    v18 = *v32;
     do
     {
-      v20 = 0;
+      v19 = 0;
       do
       {
-        if (*v37 != v19)
+        if (*v32 != v18)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v15);
         }
 
-        v21 = *(*(&v36 + 1) + 8 * v20);
         PBDataWriterWriteSubmessage();
-        ++v20;
+        ++v19;
       }
 
-      while (v18 != v20);
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      while (v17 != v19);
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
   if ([(_INPBAddTasksIntent *)self hasTaskReference])
   {
-    taskReference = self->_taskReference;
     PBDataWriterWriteInt32Field();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v23 = self->_taskTitles;
-  v24 = [(NSArray *)v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v24)
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v20 = self->_taskTitles;
+  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (v21)
   {
-    v25 = v24;
-    v26 = *v33;
+    v22 = v21;
+    v23 = *v28;
     do
     {
-      v27 = 0;
+      v24 = 0;
       do
       {
-        if (*v33 != v26)
+        if (*v28 != v23)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v20);
         }
 
-        v28 = *(*(&v32 + 1) + 8 * v27);
         PBDataWriterWriteSubmessage();
-        ++v27;
+        ++v24;
       }
 
-      while (v25 != v27);
-      v25 = [(NSArray *)v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      while (v22 != v24);
+      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
-    while (v25);
+    while (v22);
   }
 
   temporalEventTrigger = [(_INPBAddTasksIntent *)self temporalEventTrigger];
@@ -632,8 +628,6 @@ LABEL_51:
     temporalEventTrigger2 = [(_INPBAddTasksIntent *)self temporalEventTrigger];
     PBDataWriterWriteSubmessage();
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTaskTitles:(id)titles
@@ -661,6 +655,21 @@ LABEL_51:
   self->_taskTitles = v4;
 
   MEMORY[0x1EEE66BB8](v4, taskTitles);
+}
+
+- (id)taskReferenceAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"CURRENT_ACTIVITY";
+  }
+
+  return v4;
 }
 
 - (void)setHasTaskReference:(BOOL)reference
@@ -741,6 +750,21 @@ LABEL_51:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)priorityAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7280FF8[string];
   }
 
   return v4;

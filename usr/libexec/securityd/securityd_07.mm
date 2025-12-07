@@ -1,264 +1,3 @@
-void sub_10013EF54(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v17 = 0;
-  v2 = [WeakRetained fetchSendingMetricsPermitted:&v17];
-  v3 = v17;
-  if (!v3)
-  {
-    v6 = sub_100006274("octagon-metrics");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = @"Not Permitted";
-      if (v2)
-      {
-        v7 = @"Permitted";
-      }
-
-      *buf = 138412290;
-      v19 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "current metrics setting set to: %@", buf, 0xCu);
-    }
-
-    if (!v2)
-    {
-      goto LABEL_18;
-    }
-
-    v16 = 0;
-    v8 = [WeakRetained persistSendingMetricsPermitted:0 error:&v16];
-    v9 = v16;
-    v10 = v9;
-    if (!v8 || v9)
-    {
-      v11 = sub_100006274("SecError");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        v19 = v10;
-        v12 = "octagon-metrics: failed to persist metrics setting: %@";
-        v13 = v11;
-        v14 = 12;
-        goto LABEL_16;
-      }
-    }
-
-    else
-    {
-      v11 = sub_100006274("octagon-metrics");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        v12 = "persisted metrics setting set to not permitted";
-        v13 = v11;
-        v14 = 2;
-LABEL_16:
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
-      }
-    }
-
-LABEL_18:
-    v15 = [WeakRetained checkMetricsTrigger];
-    [v15 cancel];
-
-    [WeakRetained setCheckMetricsTrigger:0];
-    goto LABEL_19;
-  }
-
-  v4 = sub_100006274("SecError");
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v19 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "octagon-metrics: failed to fetch account metadata: %@", buf, 0xCu);
-  }
-
-  v5 = [WeakRetained checkMetricsTrigger];
-  [v5 trigger];
-
-LABEL_19:
-}
-
-void sub_10013F498(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (v3)
-  {
-    v4 = sub_100006274("SecError");
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "localReset returned an error: %@", &v6, 0xCu);
-    }
-  }
-
-  else
-  {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v6) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "localReset succeeded", &v6, 2u);
-    }
-
-    v4 = [*(a1 + 40) pairingUUID];
-    [*(a1 + 32) setPairingUUID:v4];
-  }
-
-  dispatch_semaphore_signal(*(a1 + 48));
-}
-
-void sub_1001405F4(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (v3)
-  {
-    v4 = sub_100006274("SecError");
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 138412290;
-      v9 = v3;
-      v5 = "octagon-perform-ckserver-unreadable-data-removal: failed with error: %@";
-      v6 = v4;
-      v7 = 12;
-LABEL_6:
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
-    }
-  }
-
-  else
-  {
-    v4 = sub_100006274("octagon-perform-ckserver-unreadable-data-removal");
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v8) = 0;
-      v5 = "succeeded!";
-      v6 = v4;
-      v7 = 2;
-      goto LABEL_6;
-    }
-  }
-
-  (*(*(a1 + 32) + 16))(*(a1 + 32), v3);
-}
-
-OTAccountMetadataClassC *__cdecl sub_100140FC0(id a1, OTAccountMetadataClassC *a2)
-{
-  v2 = a2;
-  [(OTAccountMetadataClassC *)v2 setCdpState:2];
-
-  return v2;
-}
-
-void sub_100141330(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 40));
-  _Unwind_Resume(a1);
-}
-
-void sub_100141354(uint64_t a1, uint64_t a2)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  WeakRetained[12] = -1;
-  v5 = [*(a1 + 32) unsignedCharValue];
-  v6 = v5;
-  if (a2)
-  {
-    v7 = sub_100006274("octagon");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "not in clique, discarding passcode stash", buf, 2u);
-    }
-
-    v8 = [WeakRetained laContextAdapter];
-    v9 = v8;
-    v10 = v6;
-LABEL_5:
-    [v8 discardPasscodeStashSecret:v10];
-    goto LABEL_24;
-  }
-
-  switch(v5)
-  {
-    case 2:
-      v17 = sub_100006274("octagon");
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "cache flow enabled passcode unlocked", buf, 2u);
-      }
-
-      WeakRetained[12] = 102;
-      goto LABEL_23;
-    case 1:
-      v16 = sub_100006274("octagon");
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "cache flow enabled passcode validated", buf, 2u);
-      }
-
-      v8 = [WeakRetained laContextAdapter];
-      v9 = v8;
-      v10 = 1;
-      goto LABEL_5;
-    case 0:
-      v11 = sub_100006274("octagon");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "cache flow enabled passcode changed", buf, 2u);
-      }
-
-      WeakRetained[12] = 100;
-      v12 = [WeakRetained accountMetadataStore];
-      v27 = 0;
-      v13 = [v12 clearLastEscrowRepairAttempt:&v27];
-      v14 = v27;
-
-      if (!v13 || v14)
-      {
-        v15 = sub_100006274("SecError");
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412290;
-          v29 = v14;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "failed to clear last escrow repair attempt: %@", buf, 0xCu);
-        }
-      }
-
-LABEL_23:
-      v18 = [WeakRetained stateMachine];
-      [v18 handleFlag:@"passcode_stash_available"];
-
-      v9 = [WeakRetained sessionMetrics];
-      v19 = [AAFAnalyticsEventSecurity alloc];
-      v20 = [WeakRetained activeAccount];
-      v21 = [v20 altDSID];
-      v22 = [v9 flowID];
-      v23 = [v9 deviceSessionID];
-      LOBYTE(v26) = 1;
-      v24 = [v19 initWithKeychainCircleMetrics:0 altDSID:v21 flowID:v22 deviceSessionID:v23 eventName:kSecurityRTCEventNameEscrowPasscodeCacheAvailable testsAreEnabled:0 canSendMetrics:v26 category:kSecurityRTCEventCategoryAccountDataAccessRecovery];
-
-      [v24 sendMetricWithResult:1 error:0];
-      goto LABEL_24;
-  }
-
-  v9 = sub_100006274("SecError");
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    v25 = *(a1 + 32);
-    *buf = 138412290;
-    v29 = v25;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "cache flow enabled unknown value: %@", buf, 0xCu);
-  }
-
-LABEL_24:
-}
-
 id sub_100141CAC(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1322,25 +1061,29 @@ void sub_100147BD8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   }
 
   SOSFullPeerInfoGetPeerInfo();
-  v13 = SOSPeerInfoCopyPubKey();
-  if (v13)
+  v12 = SOSPeerInfoCopyPubKey();
+  if (v12)
   {
-    v14 = SOSPeerInfoCopyPubKey();
-    if (v14)
+    v13 = SOSPeerInfoCopyPubKey();
+    if (v13)
     {
-      v15 = *(a3 + 24);
-      v16 = SecOTRSIsForKeys();
+      v14 = SecOTRSIsForKeys();
       goto LABEL_5;
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v16 = 0;
+  v14 = 0;
 LABEL_5:
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
   if (v13)
   {
     CFRelease(v13);
@@ -1348,22 +1091,17 @@ LABEL_5:
 
   if (v14)
   {
-    CFRelease(v14);
-  }
-
-  if (v16)
-  {
-    v17 = 1;
+    v15 = 1;
     goto LABEL_27;
   }
 
 LABEL_11:
-  v18 = sub_100006274("coder");
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v16 = sub_100006274("coder");
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v32 = v9;
-    _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "New coder for id %@.", buf, 0xCu);
+    v30 = v9;
+    _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "New coder for id %@.", buf, 0xCu);
   }
 
   CFGetAllocator(v10);
@@ -1377,100 +1115,105 @@ LABEL_11:
   *(Instance + 56) = 0;
   if (!v10 || !v11)
   {
-    v25 = sub_100006274("coder");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_100006274("coder");
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "NULL Coder requested, no transport security", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "NULL Coder requested, no transport security", buf, 2u);
     }
 
     goto LABEL_26;
   }
 
-  v20 = SOSFullPeerInfoCopyDeviceKey();
-  if (!v20)
+  v18 = SOSFullPeerInfoCopyDeviceKey();
+  if (!v18)
   {
-    v22 = 0;
-    v23 = 0;
+    v20 = 0;
+    v21 = 0;
+    v19 = 0;
+    goto LABEL_35;
+  }
+
+  v19 = SecOTRFullIdentityCreateFromSecKeyRefSOS();
+  if (!v19)
+  {
+    v20 = 0;
+LABEL_33:
     v21 = 0;
     goto LABEL_35;
   }
 
-  v21 = SecOTRFullIdentityCreateFromSecKeyRefSOS();
-  if (!v21)
+  CFRelease(v18);
+  v20 = SOSPeerInfoCopyPubKey();
+  if (!v20)
   {
-    v22 = 0;
-LABEL_33:
-    v23 = 0;
-    goto LABEL_35;
-  }
-
-  CFRelease(v20);
-  v22 = SOSPeerInfoCopyPubKey();
-  if (!v22)
-  {
-    v20 = 0;
+    v18 = 0;
     goto LABEL_33;
   }
 
-  v23 = SecOTRPublicIdentityCreateFromSecKeyRef();
-  if (v23)
+  v21 = SecOTRPublicIdentityCreateFromSecKeyRef();
+  if (v21)
   {
     if (kCFBooleanTrue == kCFBooleanFalse)
     {
-      v24 = SecOTRSessionCreateFromIDAndFlags();
+      v22 = SecOTRSessionCreateFromIDAndFlags();
     }
 
     else
     {
-      v24 = SecOTRSessionCreateFromID();
+      v22 = SecOTRSessionCreateFromID();
     }
 
-    *(Instance + 24) = v24;
-    if (v24)
+    *(Instance + 24) = v22;
+    if (v22)
     {
       *(Instance + 32) = 0;
       *(Instance + 40) = 0;
-      CFRelease(v22);
+      CFRelease(v20);
+      CFRelease(v19);
       CFRelease(v21);
-      CFRelease(v23);
 LABEL_26:
-      v26 = *ccsha1_di();
+      v24 = *ccsha1_di();
       Mutable = CFDataCreateMutable(kCFAllocatorDefault, 0);
-      CFDataSetLength(Mutable, v26);
+      CFDataSetLength(Mutable, v24);
       *(Instance + 48) = Mutable;
       *(Instance + 56) = 0;
       sub_10022936C(Instance, 0);
       CFDictionarySetValue(*(v8 + 96), v9, Instance);
       CFRelease(Instance);
-      v17 = 1;
+      v15 = 1;
       *(v8 + 105) = 1;
       goto LABEL_27;
     }
 
-    v20 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v20 = 0;
+    v18 = 0;
   }
 
 LABEL_35:
-  v28 = sub_100006274("SecError");
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100006274("SecError");
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = @"No local error in SOSCoderCreate";
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Coder create failed: %@\n", buf, 0xCu);
+    v30 = @"No local error in SOSCoderCreate";
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Coder create failed: %@\n", buf, 0xCu);
   }
 
-  v29 = sub_100006274("SecError");
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v27 = sub_100006274("SecError");
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = 0;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Coder create failed: %@\n", buf, 0xCu);
+    v30 = 0;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Coder create failed: %@\n", buf, 0xCu);
+  }
+
+  if (v19)
+  {
+    CFRelease(v19);
   }
 
   if (v21)
@@ -1478,35 +1221,30 @@ LABEL_35:
     CFRelease(v21);
   }
 
-  if (v23)
-  {
-    CFRelease(v23);
-  }
-
-  if (v22)
-  {
-    CFRelease(v22);
-  }
-
   if (v20)
   {
     CFRelease(v20);
   }
 
-  CFRelease(Instance);
-  v30 = sub_100006274("SecError");
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  if (v18)
   {
-    *buf = 138412546;
-    v32 = v9;
-    v33 = 2112;
-    v34 = 0;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Failed to create coder for %@: %@", buf, 0x16u);
+    CFRelease(v18);
   }
 
-  v17 = 0;
+  CFRelease(Instance);
+  v28 = sub_100006274("SecError");
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v30 = v9;
+    v31 = 2112;
+    v32 = 0;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Failed to create coder for %@: %@", buf, 0x16u);
+  }
+
+  v15 = 0;
 LABEL_27:
-  *(*(a1[4] + 8) + 24) = v17;
+  *(*(a1[4] + 8) + 24) = v15;
   *a6 = *(a1[5] + 105);
 }
 
@@ -1544,21 +1282,21 @@ uint64_t sub_10014811C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   return v9;
 }
 
-void sub_100148238(uint64_t a1)
+void sub_100148238(void *a1)
 {
-  v2 = sub_1001486BC(*(a1 + 48), *(a1 + 56), *(a1 + 64));
+  v2 = sub_1001486BC(a1[6], a1[7], a1[8]);
   if (v2)
   {
     v3 = v2;
-    v5 = *(a1 + 48);
-    v4 = *(a1 + 56);
-    v6 = *(a1 + 64);
+    v5 = a1[6];
+    v4 = a1[7];
+    v6 = a1[8];
     if ((*(v5 + 104) & 1) == 0)
     {
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x2020000000;
       v20 = 0;
-      v21 = &v20;
-      v22 = 0x2020000000;
-      v23 = 0;
       v7 = (*(*(v5 + 16) + 40))();
       v8 = v7;
       if (v7)
@@ -1573,18 +1311,18 @@ void sub_100148238(uint64_t a1)
           context[3] = &unk_1003466B0;
           context[5] = v9;
           context[6] = v5;
-          context[4] = &v20;
+          context[4] = &v17;
           CFDictionaryApplyFunction(v10, sub_100149D00, context);
           v11 = sub_100006274("coder");
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            v12 = *(v21 + 24);
+            v12 = *(v18 + 24);
             *buf = 67109120;
-            v25 = v12;
+            v22 = v12;
             _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Will force peer registration: %{BOOL}d", buf, 8u);
           }
 
-          if (*(v21 + 24) == 1)
+          if (*(v18 + 24) == 1)
           {
             v13 = dispatch_get_global_queue(-32768, 0);
             dispatch_async(v13, &stru_1003385A0);
@@ -1600,7 +1338,7 @@ void sub_100148238(uint64_t a1)
         }
       }
 
-      _Block_object_dispose(&v20, 8);
+      _Block_object_dispose(&v17, 8);
       *(v5 + 104) = 1;
     }
 
@@ -1610,22 +1348,19 @@ void sub_100148238(uint64_t a1)
       SOSErrorCreate();
     }
 
-    v16 = *(*(a1 + 48) + 16);
-    (*(*(a1 + 32) + 16))(*(a1 + 32));
+    (*(a1[4] + 16))(a1[4]);
     CFRelease(v3);
   }
 
   else
   {
-    v17 = *(a1 + 64);
-    v18 = *(a1 + 56);
-    *(*(*(a1 + 40) + 8) + 24) = SOSErrorCreate();
+    *(*(a1[5] + 8) + 24) = SOSErrorCreate();
   }
 }
 
-void sub_100148524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100148524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1689,7 +1424,7 @@ void *sub_1001486BC(uint64_t a1, const void *a2, __CFArray *a3)
   }
 }
 
-CFTypeRef sub_100148808(const __CFData *a1, CFTypeRef *a2)
+CFTypeRef sub_100148808(const __CFData *a1, CFErrorRef *a2)
 {
   if (![OTSOSActualAdapter sosEnabled]_0())
   {
@@ -1827,7 +1562,7 @@ LABEL_15:
   }
 }
 
-uint64_t sub_100148EB4(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_100148EB4(uint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
   if (!*(a1 + 16))
   {
@@ -2020,7 +1755,7 @@ LABEL_39:
   }
 }
 
-__CFData *sub_10014942C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFString *a5, CFTypeRef *a6)
+__CFData *sub_10014942C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFString *a5, CFErrorRef *a6)
 {
   result = sub_10001B910(a5, a6, a3, a4, a5);
   if (result)
@@ -2110,8 +1845,8 @@ void sub_1001496F4(uint64_t a1, const void *a2)
     return;
   }
 
-  v23 = 0;
-  v8 = sub_1002292A8(v6);
+  v26 = 0;
+  v8 = sub_1002292A8(v6, &v26);
   if (v8)
   {
     v9 = v8;
@@ -2151,25 +1886,26 @@ LABEL_11:
       {
         v9 = Mutable;
         CFDataSetLength(Mutable, v14);
-        CFDataGetMutableBytePtr(v9);
-        v16 = sub_1002292A8(v6);
-        if (v16)
+        MutableBytePtr = CFDataGetMutableBytePtr(v9);
+        v17 = sub_1002292A8(v6, &v26);
+        if (v17)
         {
-          v17 = v16;
-          v18 = *(v6 + 32);
-          v19 = *(v6 + 40);
-          if (v19)
+          v18 = v17;
+          v19 = &MutableBytePtr[v14];
+          v20 = *(v6 + 32);
+          v21 = *(v6 + 40);
+          if (v21)
           {
-            sub_10001263C(v19, &v23);
+            sub_10001263C(v21, &v26, MutableBytePtr, v19);
           }
 
-          buf[0] = v18;
+          buf[0] = v20;
           ccder_encode_body();
-          ccder_encode_tl();
-          sub_10001263C(v17, &v23);
-          v20 = ccder_encode_constructed_tl();
-          CFRelease(v17);
-          if (v20)
+          v22 = ccder_encode_tl();
+          sub_10001263C(v18, &v26, MutableBytePtr, v22);
+          v23 = ccder_encode_constructed_tl();
+          CFRelease(v18);
+          if (v23)
           {
             CFDictionarySetValue(*(a1 + 40), a2, v9);
 LABEL_24:
@@ -2184,26 +1920,26 @@ LABEL_24:
   }
 
 LABEL_19:
-  v21 = sub_100006274("SecError");
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v24 = sub_100006274("SecError");
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v25 = a2;
-    v26 = 2112;
-    v27 = v23;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "failed to der encode coder for peer %@, dropping it: %@", buf, 0x16u);
+    v28 = a2;
+    v29 = 2112;
+    v30 = v26;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "failed to der encode coder for peer %@, dropping it: %@", buf, 0x16u);
   }
 
   CFDictionaryRemoveValue(*(v4 + 96), a2);
-  v9 = v23;
-  v22 = sub_100006274("engine");
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v9 = v26;
+  v25 = sub_100006274("engine");
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v25 = a2;
-    v26 = 2112;
-    v27 = v9;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%@ no coder for peer: %@", buf, 0x16u);
+    v28 = a2;
+    v29 = 2112;
+    v30 = v9;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%@ no coder for peer: %@", buf, 0x16u);
   }
 
   if (v9)
@@ -2303,22 +2039,22 @@ void sub_100149C34(id a1)
   }
 }
 
-uint64_t sub_100149D1C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_100149D1C(void *a1, uint64_t a2, CFTypeRef *a3)
 {
   cf = 0;
-  v5 = (*(*(a1 + 16) + 40))();
+  v5 = (*(a1[2] + 40))();
   v6 = v5;
   if (v5)
   {
     v7 = sub_100148808(v5, &cf);
-    v8 = (*(*(a1 + 16) + 40))();
+    v8 = (*(a1[2] + 40))();
     v9 = sub_100148808(v8, &cf);
     if (v8)
     {
       CFRelease(v8);
     }
 
-    v10 = (*(*(a1 + 16) + 40))();
+    v10 = (*(a1[2] + 40))();
     v11 = sub_100148808(v10, &cf);
     if (v10)
     {
@@ -2328,7 +2064,7 @@ uint64_t sub_100149D1C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
 
   else
   {
-    v12 = (*(*(a1 + 16) + 40))();
+    v12 = (*(a1[2] + 40))();
     if (v12)
     {
       v13 = v12;
@@ -2393,7 +2129,7 @@ uint64_t sub_100149D1C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
     }
 
     _os_activity_initiate(&_mh_execute_header, "CloudCircle EnsurePeerRegistration", OS_ACTIVITY_FLAG_DEFAULT, &stru_100346EA8);
-    v20 = *(a1 + 80);
+    v20 = a1[10];
     if (v20)
     {
       *&buf = _NSConcreteStackBlock;
@@ -2410,10 +2146,10 @@ uint64_t sub_100149D1C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
     v21 = CFDictionaryGetValue(v7, @"id");
     if (v21 && (v22 = v21, v23 = CFGetTypeID(v21), v23 == CFStringGetTypeID()))
     {
-      if (*(a1 + 24) != v22)
+      if (a1[3] != v22)
       {
         CFRetain(v22);
-        v24 = *(a1 + 24);
+        v24 = a1[3];
         if (!v24)
         {
           goto LABEL_32;
@@ -2425,24 +2161,24 @@ uint64_t sub_100149D1C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
 
     else
     {
-      v24 = *(a1 + 24);
+      v24 = a1[3];
       if (v24)
       {
         v22 = 0;
 LABEL_31:
         CFRelease(v24);
 LABEL_32:
-        *(a1 + 24) = v22;
+        a1[3] = v22;
       }
     }
 
     v25 = CFDictionaryGetValue(v7, @"peerIDs");
     if (v25 && (v26 = v25, v27 = CFGetTypeID(v25), v27 == CFArrayGetTypeID()))
     {
-      if (*(a1 + 80) != v26)
+      if (a1[10] != v26)
       {
         CFRetain(v26);
-        v28 = *(a1 + 80);
+        v28 = a1[10];
         if (!v28)
         {
           goto LABEL_41;
@@ -2454,24 +2190,24 @@ LABEL_32:
 
     else
     {
-      v28 = *(a1 + 80);
+      v28 = a1[10];
       if (v28)
       {
         v26 = 0;
 LABEL_40:
         CFRelease(v28);
 LABEL_41:
-        *(a1 + 80) = v26;
+        a1[10] = v26;
       }
     }
 
     v29 = CFDictionaryGetValue(v7, @"traceDate");
     if (v29 && (v30 = v29, v31 = CFGetTypeID(v29), v31 == CFDateGetTypeID()))
     {
-      if (*(a1 + 88) != v30)
+      if (a1[11] != v30)
       {
         CFRetain(v30);
-        v32 = *(a1 + 88);
+        v32 = a1[11];
         if (!v32)
         {
           goto LABEL_50;
@@ -2483,14 +2219,14 @@ LABEL_41:
 
     else
     {
-      v32 = *(a1 + 88);
+      v32 = a1[11];
       if (v32)
       {
         v30 = 0;
 LABEL_49:
         CFRelease(v32);
 LABEL_50:
-        *(a1 + 88) = v30;
+        a1[11] = v30;
       }
     }
 
@@ -2503,16 +2239,16 @@ LABEL_50:
     }
   }
 
-  v34 = *(a1 + 48);
+  v34 = a1[6];
   if (v34)
   {
-    *(a1 + 48) = 0;
+    a1[6] = 0;
     CFRelease(v34);
   }
 
   if (v9)
   {
-    *(a1 + 48) = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    a1[6] = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
     v44 = sub_10014A384;
@@ -2537,7 +2273,7 @@ LABEL_50:
     }
 
     sub_10014A614(a1, v36, Mutable);
-    sub_10014A744(a1, *(a1 + 24), v36, Mutable);
+    sub_10014A744(a1, a1[3], v36, Mutable);
     if (v36)
     {
       CFRelease(v36);
@@ -2885,7 +2621,7 @@ void sub_10014AAE4(uint64_t a1, const __CFArray *a2, const __CFArray *a3, __CFSt
     v21 = *(a1 + 64);
     V0BackupBagViewSet = SOSViewsGetV0BackupBagViewSet();
     v23 = sub_10014B550(v21, v61, V0BackupBagViewSet);
-    CFArrayAppendValue(*(v23 + 24), &stru_1003383B0);
+    CFArrayAppendValue(v23[3], &stru_1003383B0);
   }
 
   if (a2 && CFArrayGetCount(a2))
@@ -2911,7 +2647,7 @@ void sub_10014AAE4(uint64_t a1, const __CFArray *a2, const __CFArray *a3, __CFSt
           *(&buf + 1) = 3221225472;
           v72 = sub_10014AA34;
           v73 = &unk_100345A98;
-          p_isa = &a4->isa;
+          v74 = a4;
           v75 = v27;
           sub_100085CC8(v70, &buf);
         }
@@ -2959,7 +2695,7 @@ void sub_10014AAE4(uint64_t a1, const __CFArray *a2, const __CFArray *a3, __CFSt
             p_buf[4] = v40;
             v41 = objc_retainBlock(p_buf);
             v42 = objc_retainBlock(v41);
-            CFArrayAppendValue(*(v36 + 32), v42);
+            CFArrayAppendValue(v36[4], v42);
             CFDictionarySetValue(theDict, v27, v35);
             CFRelease(v35);
           }
@@ -2989,7 +2725,7 @@ void sub_10014AAE4(uint64_t a1, const __CFArray *a2, const __CFArray *a3, __CFSt
           *(&buf + 1) = 3221225472;
           v72 = sub_10014AA34;
           v73 = &unk_100345A98;
-          p_isa = &a4->isa;
+          v74 = a4;
           v75 = v46;
           sub_100085CC8(v70, &buf);
         }
@@ -3009,7 +2745,7 @@ void sub_10014AAE4(uint64_t a1, const __CFArray *a2, const __CFArray *a3, __CFSt
         v49 = v70;
         if (!v70)
         {
-          sub_100089FEC(@"Execution has encountered an unexpected state", 1405091854);
+          sub_100089FEC(@"Execution has encountered an unexpected state", 0x53C0000Eu);
         }
 
         if (MutableCopy)
@@ -3054,7 +2790,7 @@ LABEL_55:
             *(&buf + 1) = 3221225472;
             v72 = sub_10022EBC0;
             v73 = &unk_1003462B0;
-            p_isa = &cf;
+            v74 = &cf;
             v75 = v52;
             CFSetApplyFunction(v49, sub_10022EBF8, &buf);
             v53 = *(p_cf + 24);
@@ -3108,7 +2844,7 @@ LABEL_56:
   *(&buf + 1) = 3221225472;
   v72 = sub_10014B840;
   v73 = &unk_1003469D0;
-  p_isa = v57;
+  v74 = v57;
   CFDictionaryApplyFunction(v58, sub_100149D00, &buf);
   v59 = *(a1 + 72);
   if (v59)
@@ -3117,6 +2853,13 @@ LABEL_56:
   }
 
   *(a1 + 72) = v57;
+}
+
+void sub_10014B348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 __CFDictionary *sub_10014B368(const __CFAllocator *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *key, uint64_t a10)
@@ -3175,12 +2918,12 @@ void sub_10014B3EC(uint64_t a1, const void *a2, void *a3, const void *a4, const 
       v25[4] = v21;
       v23 = objc_retainBlock(v25);
       v24 = [v23 copy];
-      CFArrayAppendValue(*(v22 + 24), v24);
+      CFArrayAppendValue(v22[3], v24);
     }
   }
 }
 
-uint64_t sub_10014B550(const __CFDictionary *a1, CFDictionaryRef theDict, void *key)
+CFMutableArrayRef *sub_10014B550(const __CFDictionary *a1, CFDictionaryRef theDict, void *key)
 {
   Value = CFDictionaryGetValue(theDict, key);
   if (!Value)
@@ -3229,7 +2972,7 @@ uint64_t sub_10014B550(const __CFDictionary *a1, CFDictionaryRef theDict, void *
   return Value;
 }
 
-BOOL sub_10014B6D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, CFDataRef *a8, CFTypeRef *a9)
+BOOL sub_10014B6D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, CFDataRef *a8, CFErrorRef *a9)
 {
   v19 = 0;
   v13 = sub_1001486BC(a3, *(a1 + 32), &v19);
@@ -3329,7 +3072,7 @@ BOOL sub_10014B9AC(id a1, __OpaqueSOSChangeTracker *a2, __OpaqueSOSEngine *a3, _
       {
         if (CFArrayGetCount(ValueAtIndex) != 1)
         {
-          sub_100089FEC(@"Execution has encountered an unexpected state", 1405091854);
+          sub_100089FEC(@"Execution has encountered an unexpected state", 0x53C0000Eu);
         }
 
         v14 = CFArrayGetValueAtIndex(ValueAtIndex, 0);
@@ -3423,7 +3166,7 @@ LABEL_29:
   return 1;
 }
 
-uint64_t sub_10014BC30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, CFTypeRef *a8)
+uint64_t sub_10014BC30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, CFErrorRef *a8)
 {
   v11 = *(a1 + 32);
   if ([OTSOSActualAdapter sosEnabled]_0())
@@ -3559,13 +3302,13 @@ LABEL_20:
   CFRelease(v10);
 }
 
-CFTypeRef sub_10014BF98(uint64_t a1, uint64_t a2)
+CFTypeRef sub_10014BF98(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ([OTSOSActualAdapter sosEnabled]_0())
   {
-    v4 = *(a2 + 24);
+    v6 = *(a2 + 24);
 
-    return sub_10014C008(a1, v4);
+    return sub_10014C008(a1, v6, a3);
   }
 
   else
@@ -3575,22 +3318,22 @@ CFTypeRef sub_10014BF98(uint64_t a1, uint64_t a2)
   }
 }
 
-CFTypeRef sub_10014C008(uint64_t a1, const void *a2)
+CFTypeRef sub_10014C008(uint64_t a1, const void *a2, uint64_t a3)
 {
   Value = CFDictionaryGetValue(*(a1 + 64), a2);
   if (Value)
   {
-    v4 = Value;
+    v5 = Value;
     CFRetain(Value);
-    v5 = v4[2];
-    if (v5)
+    v6 = v5[2];
+    if (v6)
     {
-      v6 = CFRetain(v5);
-      if (v6)
+      v7 = CFRetain(v6);
+      if (v7)
       {
 LABEL_12:
-        CFRelease(v4);
-        return v6;
+        CFRelease(v5);
+        return v7;
       }
     }
 
@@ -3599,16 +3342,16 @@ LABEL_12:
       SOSErrorCreate();
     }
 
-    v6 = (*(*(a1 + 16) + 24))();
-    v7 = v4[2];
-    if (v7 != v6)
+    v7 = (*(*(a1 + 16) + 24))();
+    v8 = v5[2];
+    if (v8 != v7)
     {
-      if (!v6 || (CFRetain(v6), (v7 = v4[2]) != 0))
+      if (!v7 || (CFRetain(v7), (v8 = v5[2]) != 0))
       {
-        CFRelease(v7);
+        CFRelease(v8);
       }
 
-      v4[2] = v6;
+      v5[2] = v7;
     }
 
     goto LABEL_12;
@@ -3634,12 +3377,12 @@ void sub_10014C0FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   dispatch_sync(v7, block);
 }
 
-void sub_10014C178(uint64_t a1)
+void sub_10014C178(void *a1)
 {
   if ([OTSOSActualAdapter sosEnabled]_0())
   {
     cf = 0;
-    if ((sub_10014C2A8(*(a1 + 32), *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), &cf) & 1) == 0)
+    if ((sub_10014C2A8(a1[4], a1[5], a1[6], a1[7], a1[8], &cf) & 1) == 0)
     {
       v2 = sub_100006274("SecError");
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -3667,7 +3410,7 @@ void sub_10014C178(uint64_t a1)
   }
 }
 
-uint64_t sub_10014C2A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFArray *a5, CFTypeRef *a6)
+uint64_t sub_10014C2A8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFArray *a5, CFTypeRef *a6)
 {
   if (![OTSOSActualAdapter sosEnabled]_0())
   {
@@ -3678,7 +3421,7 @@ uint64_t sub_10014C2A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const
   v11 = sub_100006274("engine");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 24);
+    v12 = a1[3];
     v13 = "did-rollback";
     if (a3 == 2)
     {
@@ -3919,7 +3662,7 @@ LABEL_49:
       v16 = sub_100148EB4(a1, a2, a6);
       if ((a4 & 0xFFFFFFFFFFFFFFFDLL) == 1)
       {
-        v32 = *(a1 + 80);
+        v32 = a1[10];
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_100245934;
@@ -3943,9 +3686,9 @@ LABEL_49:
   return v16;
 }
 
-void sub_10014C964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10014C964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4623,7 +4366,7 @@ void sub_10014D900(uint64_t a1, const __CFString *a2)
   v7 = *(a1 + 32);
   if (!a2 || (v8 = CFGetTypeID(a2), v8 != CFStringGetTypeID()))
   {
-    sub_100089FEC(@"Execution has encountered an unexpected state", 1405091854);
+    sub_100089FEC(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   }
 
   if (CFStringHasPrefix(a2, @"PCS-"))
@@ -4704,14 +4447,15 @@ void sub_10014DC3C(uint64_t a1, uint64_t a2)
 
 void sub_10014DD38(id a1)
 {
-  qword_10039DF40 = dispatch_queue_create("ViewNotificationQueue", 0);
+  v1 = dispatch_queue_create("ViewNotificationQueue", 0);
+  v2 = qword_10039DF40;
+  qword_10039DF40 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_10014DD78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = *(a1 + 40);
   result = SOSErrorCreate();
   *(*(*(a1 + 32) + 8) + 24) = result;
   *a5 = 1;
@@ -4867,7 +4611,7 @@ uint64_t sub_10014E1A4(uint64_t a1)
   v4 = *(v3 + 136);
   *(v3 + 136) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 void sub_10014E1E8(uint64_t a1, void *a2)
@@ -4887,20 +4631,18 @@ void sub_10014E1E8(uint64_t a1, void *a2)
 
 void sub_10014E294(void *a1)
 {
-  v2 = a1[5];
-  v3 = a1[6];
   (*(a1[4] + 16))();
-  v4 = a1[5];
-  if (v4)
+  v2 = a1[5];
+  if (v2)
   {
-    CFRelease(v4);
+    CFRelease(v2);
   }
 
-  v5 = a1[6];
-  if (v5)
+  v3 = a1[6];
+  if (v3)
   {
 
-    CFRelease(v5);
+    CFRelease(v3);
   }
 }
 
@@ -5405,9 +5147,9 @@ CFMutableSetRef sub_10014EF2C(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
   return Mutable;
 }
 
-void sub_10014F044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10014F044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5516,7 +5258,7 @@ LABEL_10:
   }
 }
 
-uint64_t sub_10014F3C8(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, CFTypeRef *a6)
+uint64_t sub_10014F3C8(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, CFErrorRef *a6)
 {
   v12 = &v49;
   v49 = 0;
@@ -5549,7 +5291,7 @@ uint64_t sub_10014F3C8(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
   v45 = 0;
   v46 = &v45;
   v47 = 0x2020000000;
-  v48 = sub_10014BF98(a1, a2);
+  v48 = sub_10014BF98(a1, a2, a6);
   v41 = 0;
   v42 = &v41;
   v43 = 0x2020000000;
@@ -5715,41 +5457,42 @@ LABEL_44:
   return v21 & 1;
 }
 
-void sub_10014F8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_10014F8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 224), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 224), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10014F90C(uint64_t a1, FILE *a2, int a3)
 {
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x4010000000;
-  v58 = "";
-  v59 = 0u;
-  v60 = 0u;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x4010000000;
-  v52 = "";
-  v53 = 0u;
-  v54 = 0u;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x4010000000;
+  v56 = "";
+  v57 = 0u;
+  v58 = 0u;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x4010000000;
+  v50 = "";
+  v51 = 0u;
+  v52 = 0u;
   v6 = *(a1 + 64);
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_10015003C;
-  v46[3] = &unk_100338508;
-  v47 = *(a1 + 72);
-  v48 = *(a1 + 88);
+  v44[0] = _NSConcreteStackBlock;
+  v44[1] = 3221225472;
+  v44[2] = sub_10015003C;
+  v44[3] = &unk_100338508;
+  v45 = *(a1 + 72);
+  v46 = *(a1 + 88);
   v7 = *(a1 + 32);
-  v46[4] = &v55;
-  v46[5] = v7;
-  v46[6] = a2;
-  sub_10022A5D4(v6, v46);
+  v44[4] = &v53;
+  v44[5] = v7;
+  v44[6] = a2;
+  sub_10022A5D4(v6, v44);
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
   {
     v8 = *(a1 + 96);
@@ -5758,35 +5501,34 @@ void sub_10014F90C(uint64_t a1, FILE *a2, int a3)
       if (CFDataGetLength(*(v8 + 24)) >= 0x14)
       {
         Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-        v11 = *(a1 + 88);
-        v10 = *(a1 + 96);
+        v10 = *(a1 + 88);
         cf[1] = _NSConcreteStackBlock;
         cf[2] = 3221225472;
-        v12 = *(a1 + 72);
-        v13 = *(*(a1 + 72) + 16);
+        v11 = *(a1 + 72);
+        v12 = *(*(a1 + 72) + 16);
         cf[3] = sub_100150128;
         cf[4] = &unk_100338530;
-        v42 = v12;
-        v45 = a3;
-        v43 = Mutable;
-        v44 = v11;
+        v40 = v11;
+        v43 = a3;
+        v41 = Mutable;
+        v42 = v10;
         cf[5] = *(a1 + 32);
-        cf[6] = &v49;
+        cf[6] = &v47;
         cf[7] = a2;
-        *(*(*(a1 + 32) + 8) + 24) &= (*(v13 + 32))();
+        *(*(*(a1 + 32) + 8) + 24) &= (*(v12 + 32))();
         if (CFArrayGetCount(Mutable))
         {
           cf[0] = 0;
           if ((sub_10014C2A8(*(a1 + 72), 0, 2, 0, Mutable, cf) & 1) == 0)
           {
-            v14 = sub_100006274("SecError");
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v13 = sub_100006274("SecError");
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v62 = Mutable;
-              v63 = 2112;
-              v64 = cf[0];
-              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SOSEngineUpdateChanges_locked: %@ failed: %@", buf, 0x16u);
+              v60 = Mutable;
+              v61 = 2112;
+              v62 = cf[0];
+              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SOSEngineUpdateChanges_locked: %@ failed: %@", buf, 0x16u);
             }
           }
 
@@ -5795,16 +5537,15 @@ void sub_10014F90C(uint64_t a1, FILE *a2, int a3)
             CFRelease(cf[0]);
           }
 
-          v15 = *(*(a1 + 40) + 8);
-          v16 = *(a1 + 88);
-          v17 = sub_10014BF98(*(a1 + 72), *(a1 + 104));
-          v18 = *(v15 + 24);
-          if (v18)
+          v14 = *(*(a1 + 40) + 8);
+          v15 = sub_10014BF98(*(a1 + 72), *(a1 + 104), *(a1 + 88));
+          v16 = *(v14 + 24);
+          if (v16)
           {
-            CFRelease(v18);
+            CFRelease(v16);
           }
 
-          *(v15 + 24) = v17;
+          *(v14 + 24) = v15;
           *(*(*(a1 + 48) + 8) + 24) = sub_10022FCF8(*(a1 + 104));
         }
 
@@ -5816,56 +5557,56 @@ void sub_10014F90C(uint64_t a1, FILE *a2, int a3)
     }
   }
 
-  if (v50[5] || (v22 = v56, *(*(*(a1 + 48) + 8) + 24)) && v56[5])
+  if (v48[5] || (v20 = v54, *(*(*(a1 + 48) + 8) + 24)) && v54[5])
   {
     **(a1 + 112) = 1;
-    v19 = sub_10022ABF8((v56 + 4), *(a1 + 88));
-    v20 = sub_10022ABF8((v50 + 4), *(a1 + 88));
-    v21 = sub_10022AC58(*(*(*(a1 + 48) + 8) + 24), v19, v20, *(a1 + 88));
+    v17 = sub_10022ABF8((v54 + 4), *(a1 + 88));
+    v18 = sub_10022ABF8((v48 + 4), *(a1 + 88));
+    v19 = sub_10022AC58(*(*(*(a1 + 48) + 8) + 24), v17, v18, *(a1 + 88));
+    if (v17)
+    {
+      CFRelease(v17);
+    }
+
+    if (v18)
+    {
+      CFRelease(v18);
+    }
+
+    sub_10022FC58((*(a1 + 104) + 80), v19);
     if (v19)
     {
       CFRelease(v19);
     }
 
-    if (v20)
-    {
-      CFRelease(v20);
-    }
-
-    sub_10022FC58((*(a1 + 104) + 80), v21);
-    if (v21)
-    {
-      CFRelease(v21);
-    }
-
     *(*(*(a1 + 48) + 8) + 24) = sub_10022FCF8(*(a1 + 104));
-    v22 = v56;
+    v20 = v54;
   }
 
-  free(v22[4]);
-  v22[4] = 0;
-  v22[5] = 0;
-  *(v22 + 56) = 0;
-  v22[6] = 0;
-  v23 = v50;
-  free(v50[4]);
-  v23[4] = 0;
-  v23[5] = 0;
-  *(v23 + 56) = 0;
-  v23[6] = 0;
+  free(v20[4]);
+  v20[4] = 0;
+  v20[5] = 0;
+  *(v20 + 56) = 0;
+  v20[6] = 0;
+  v21 = v48;
+  free(v48[4]);
+  v21[4] = 0;
+  v21[5] = 0;
+  *(v21 + 56) = 0;
+  v21[6] = 0;
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
   {
-    v24 = *(*(*(a1 + 40) + 8) + 24);
-    v25 = *(*(*(a1 + 48) + 8) + 24);
-    if (v24 && v25)
+    v22 = *(*(*(a1 + 40) + 8) + 24);
+    v23 = *(*(*(a1 + 48) + 8) + 24);
+    if (v22 && v23)
     {
-      if (CFEqual(v24, v25))
+      if (CFEqual(v22, v23))
       {
         goto LABEL_28;
       }
     }
 
-    else if (v24 == v25)
+    else if (v22 == v23)
     {
 LABEL_28:
       cf[0] = 0;
@@ -5873,55 +5614,55 @@ LABEL_28:
       {
         *(*(a1 + 104) + 49) = 1;
         **(a1 + 112) = 1;
-        v26 = sub_100006274("backup");
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_100006274("backup");
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = *(a1 + 80);
-          v28 = *(*(a1 + 72) + 24);
+          v25 = *(a1 + 80);
+          v26 = *(*(a1 + 72) + 24);
           if (*(*(*(a1 + 56) + 8) + 24))
           {
-            v29 = " notifying sbd";
+            v27 = " notifying sbd";
           }
 
           else
           {
-            v29 = "";
+            v27 = "";
           }
 
           *buf = 138412802;
-          v62 = v28;
-          v63 = 2112;
+          v60 = v26;
+          v61 = 2112;
+          v62 = v25;
+          v63 = 2080;
           v64 = v27;
-          v65 = 2080;
-          v66 = v29;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%@:%@ backup done%s", buf, 0x20u);
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%@:%@ backup done%s", buf, 0x20u);
         }
       }
 
       else
       {
-        v37 = sub_100006274("SecWarning");
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v35 = sub_100006274("SecWarning");
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = *(a1 + 80);
-          v39 = *(*(a1 + 72) + 24);
+          v36 = *(a1 + 80);
+          v37 = *(*(a1 + 72) + 24);
           *buf = 138412802;
-          v62 = v39;
+          v60 = v37;
+          v61 = 2112;
+          v62 = v36;
           v63 = 2112;
-          v64 = v38;
-          v65 = 2112;
-          v66 = cf[0];
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%@:%@ in SOSBackupPeerWriteCompleteMarker: %@", buf, 0x20u);
+          v64 = cf[0];
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%@:%@ in SOSBackupPeerWriteCompleteMarker: %@", buf, 0x20u);
         }
 
         *(*(*(a1 + 32) + 8) + 24) = 0;
         **(a1 + 120) = 1;
         if (cf[0])
         {
-          v40 = *(a1 + 88);
-          if (v40 && !*v40)
+          v38 = *(a1 + 88);
+          if (v38 && !*v38)
           {
-            *v40 = cf[0];
+            *v38 = cf[0];
           }
 
           else
@@ -5935,61 +5676,62 @@ LABEL_28:
     }
   }
 
-  v30 = sub_100006274("backup");
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v28 = sub_100006274("backup");
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = *(a1 + 80);
-    v32 = *(*(a1 + 72) + 24);
-    v33 = *(*(*(a1 + 40) + 8) + 24);
-    if (v33)
+    v29 = *(a1 + 80);
+    v30 = *(*(a1 + 72) + 24);
+    v31 = *(*(*(a1 + 40) + 8) + 24);
+    if (v31)
     {
-      v34 = CFDataGetLength(*(v33 + 24)) / 0x14uLL;
+      v32 = CFDataGetLength(*(v31 + 24)) / 0x14uLL;
     }
 
     else
     {
-      v34 = 0;
+      v32 = 0;
     }
 
-    v35 = *(*(*(a1 + 48) + 8) + 24);
-    if (v35)
+    v33 = *(*(*(a1 + 48) + 8) + 24);
+    if (v33)
     {
-      v35 = CFDataGetLength(*(v35 + 24)) / 0x14uLL;
+      v33 = CFDataGetLength(*(v33 + 24)) / 0x14uLL;
     }
 
     if (*(*(*(a1 + 56) + 8) + 24))
     {
-      v36 = " notifying sbd";
+      v34 = " notifying sbd";
     }
 
     else
     {
-      v36 = "";
+      v34 = "";
     }
 
     *buf = 138413314;
-    v62 = v32;
-    v63 = 2112;
-    v64 = v31;
+    v60 = v30;
+    v61 = 2112;
+    v62 = v29;
+    v63 = 2048;
+    v64 = v32;
     v65 = 2048;
-    v66 = v34;
-    v67 = 2048;
-    v68 = v35;
-    v69 = 2080;
-    v70 = v36;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%@:%@ backup incomplete [%zu/%zu]%s", buf, 0x34u);
+    v66 = v33;
+    v67 = 2080;
+    v68 = v34;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%@:%@ backup incomplete [%zu/%zu]%s", buf, 0x34u);
   }
 
   **(a1 + 120) = 1;
 LABEL_50:
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v53, 8);
 }
 
-void sub_10014FFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10014FFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 208), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6288,8 +6030,7 @@ CFTypeRef sub_1001507A4(void *a1)
 {
   v2 = a1[5];
   V0ViewSet = SOSViewsGetV0ViewSet();
-  v4 = a1[6];
-  result = sub_10014C008(v2, V0ViewSet);
+  result = sub_10014C008(v2, V0ViewSet, a1[6]);
   *(*(a1[4] + 8) + 24) = result;
   return result;
 }
@@ -6361,9 +6102,9 @@ uint64_t sub_10015097C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   return v8 & 1;
 }
 
-void sub_100150A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100150A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6385,14 +6126,14 @@ void sub_100150A98(uint64_t a1)
   }
 }
 
-void sub_100150B20(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100150B20(void *a1, uint64_t a2, uint64_t a3)
 {
-  v18 = 0;
+  v16 = 0;
   v5 = *(a3 + 112);
   if (v5)
   {
     v6 = sub_10001B280(v5);
-    v7 = *(a1 + 40);
+    v7 = a1[5];
     v8 = v6 == 0;
     if (v6)
     {
@@ -6422,7 +6163,7 @@ LABEL_11:
   else
   {
     v6 = 0;
-    v7 = *(a1 + 40);
+    v7 = a1[5];
     v8 = 1;
   }
 
@@ -6432,9 +6173,9 @@ LABEL_11:
   }
 
 LABEL_7:
-  v10 = sub_10022A73C(*(a1 + 48), *(a1 + 56));
-  *(*(*(a1 + 32) + 8) + 24) = v10 != 0;
-  if (*(*(*(a1 + 32) + 8) + 24) == 1)
+  v10 = sub_10022A73C(a1[6], a1[7]);
+  *(*(a1[4] + 8) + 24) = v10 != 0;
+  if (*(*(a1[4] + 8) + 24) == 1)
   {
     sub_10022FD50(a3, v10);
     sub_10022FC58((a3 + 80), v10);
@@ -6442,52 +6183,44 @@ LABEL_7:
 
 LABEL_12:
   *(a3 + 49) = 0;
-  *(*(*(a1 + 32) + 8) + 24) = sub_10014F3C8(*(a1 + 64), a3, 1, &v18 + 1, &v18, *(a1 + 56));
-  if ((*(*(*(a1 + 32) + 8) + 24) & 1) == 0)
+  *(*(a1[4] + 8) + 24) = sub_10014F3C8(a1[8], a3, 1, &v16 + 1, &v16, a1[7]);
+  if ((*(*(a1[4] + 8) + 24) & 1) == 0 && a1[7] && SecErrorGetOSStatus() == -25308)
   {
-    v11 = *(a1 + 56);
-    if (v11)
+    if (qword_10039E2C0 != -1)
     {
-      v12 = *v11;
-      if (SecErrorGetOSStatus() == -25308)
+      dispatch_once(&qword_10039E2C0, &stru_100344868);
+    }
+
+    v11 = qword_10039E2D0;
+    objc_sync_enter(v11);
+    v12 = [qword_10039E2C8 operationCount];
+    v13 = sub_100006274("engine");
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v12)
+    {
+      if (v14)
       {
-        if (qword_10039E2C0 != -1)
-        {
-          dispatch_once(&qword_10039E2C0, &stru_100344868);
-        }
-
-        v13 = qword_10039E2D0;
-        objc_sync_enter(v13);
-        v14 = [qword_10039E2C8 operationCount];
-        v15 = sub_100006274("engine");
-        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-        if (v14)
-        {
-          if (v16)
-          {
-            *buf = 0;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "SOSEnsureBackup: Backup already scheduled for next unlock", buf, 2u);
-          }
-        }
-
-        else
-        {
-          if (v16)
-          {
-            *v19 = 0;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "SOSEnsureBackup: Scheduling a backup for next unlock", v19, 2u);
-          }
-
-          v15 = [NSBlockOperation blockOperationWithBlock:&stru_100344888];
-          v17 = [qword_10039E2D0 unlockDependency];
-          [v15 addNullableDependency:v17];
-
-          [qword_10039E2C8 addOperation:v15];
-        }
-
-        objc_sync_exit(v13);
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SOSEnsureBackup: Backup already scheduled for next unlock", buf, 2u);
       }
     }
+
+    else
+    {
+      if (v14)
+      {
+        *v17 = 0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SOSEnsureBackup: Scheduling a backup for next unlock", v17, 2u);
+      }
+
+      v13 = [NSBlockOperation blockOperationWithBlock:&stru_100344888];
+      v15 = [qword_10039E2D0 unlockDependency];
+      [v13 addNullableDependency:v15];
+
+      [qword_10039E2C8 addOperation:v13];
+    }
+
+    objc_sync_exit(v11);
   }
 
   if (v10)
@@ -6501,30 +6234,30 @@ LABEL_12:
   }
 }
 
-uint64_t sub_100150DB4(uint64_t a1)
+uint64_t sub_100150DB4(uint64_t a1, uint64_t a2)
 {
   if ([OTSOSActualAdapter sosEnabled]_0())
   {
-    v6 = 0;
-    v7 = &v6;
-    v8 = 0x2020000000;
+    v7 = 0;
+    v8 = &v7;
+    v9 = 0x2020000000;
     Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_100150EEC;
-    v5[3] = &unk_1003382F0;
-    v5[4] = &v6;
-    v2 = v5;
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_100150EEC;
+    v6[3] = &unk_1003382F0;
+    v6[4] = &v7;
+    v3 = v6;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100150F00;
     block[3] = &unk_1003380C0;
-    v11 = v2;
-    v12 = a1;
+    v12 = v3;
+    v13 = a1;
     dispatch_sync(*(a1 + 112), block);
 
-    v3 = v7[3];
-    _Block_object_dispose(&v6, 8);
+    v4 = v8[3];
+    _Block_object_dispose(&v7, 8);
   }
 
   else
@@ -6533,7 +6266,7 @@ uint64_t sub_100150DB4(uint64_t a1)
     return 0;
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_100150F00(uint64_t a1)
@@ -6646,15 +6379,14 @@ void sub_100151240(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Mutable;
 }
 
-void sub_100151378(uint64_t a1, const void *a2)
+void sub_100151378(uint64_t *a1, const void *a2)
 {
-  v4 = *(a1 + 40);
-  v5 = sub_10014C008(*(a1 + 32), a2);
-  sub_10015148C(*(a1 + 48), 0, v5, a2);
-  if (v5)
+  v4 = sub_10014C008(a1[4], a2, a1[5]);
+  sub_10015148C(a1[6], 0, v4, a2);
+  if (v4)
   {
 
-    CFRelease(v5);
+    CFRelease(v4);
   }
 }
 
@@ -6776,9 +6508,9 @@ void sub_100155C24(uint64_t a1, void *a2)
   [v5 setObject:v4 forKeyedSubscript:v10];
 }
 
-void sub_100155F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100155F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7485,9 +7217,11 @@ void sub_100161CD0(uint64_t a1)
 
 void sub_100161D48(id a1)
 {
-  qword_10039DF60 = [[_SFAESKeySpecifier alloc] initWithBitSize:2];
+  v1 = [[_SFAESKeySpecifier alloc] initWithBitSize:2];
+  v2 = qword_10039DF60;
+  qword_10039DF60 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100162244(_Unwind_Exception *a1)
@@ -7557,9 +7291,9 @@ void sub_100162394(uint64_t a1)
   }
 }
 
-void sub_100162648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100162648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7742,7 +7476,7 @@ BOOL sub_100162EFC(uint64_t a1, int a2, __CFString **a3)
   return v5;
 }
 
-void sub_100162F88(uint64_t a1, const void *a2, uint64_t *a3)
+void sub_100162F88(uint64_t a1, const void *a2, const void **a3)
 {
   cf = 0;
   v5 = sub_100015BFC(a2, a3, &cf);
@@ -8079,7 +7813,7 @@ uint64_t sub_1001637F8(uint64_t a1, const __CFNull *a2)
   return result;
 }
 
-void *sub_10016386C(void **a1, const void *a2, __CFString **a3)
+const void **sub_10016386C(void **a1, const void *a2, __CFString **a3)
 {
   result = sub_100016514(a1[2], 6, a3);
   if (result)
@@ -8091,12 +7825,12 @@ void *sub_10016386C(void **a1, const void *a2, __CFString **a3)
   return result;
 }
 
-__CFData *sub_1001638DC(uint64_t a1, sqlite3_stmt *a2)
+const __CFString *sub_1001638DC(void *a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 64);
-  v7 = *(a1 + 32);
+  v4 = a1[6];
+  v5 = a1[7];
+  v6 = a1[8];
+  v7 = a1[4];
   v8 = *(v5 + 16);
   v9 = *(v8 + 16);
   if (v9)
@@ -8105,7 +7839,7 @@ __CFData *sub_1001638DC(uint64_t a1, sqlite3_stmt *a2)
     v11 = (v8 + 24);
     while (1)
     {
-      if ((v9[16] & 2) != 0)
+      if ((*(v9 + 16) & 2) != 0)
       {
         v12 = sub_100017508(v5, v9, v6);
         if (!v12)
@@ -8177,7 +7911,7 @@ LABEL_10:
 
   if (v12)
   {
-    result = sub_100015DAC(*(a1 + 72), a2, *(a1 + 64), 0);
+    result = sub_100015DAC(a1[9], a2, a1[8], 0);
   }
 
   else
@@ -8187,11 +7921,11 @@ LABEL_19:
   }
 
 LABEL_20:
-  *(*(*(a1 + 40) + 8) + 24) = result;
+  *(*(a1[5] + 8) + 24) = result;
   return result;
 }
 
-uint64_t sub_100163A4C(const void *a1, const void *a2, void *a3, __CFString **a4)
+uint64_t sub_100163A4C(const void *a1, const void *a2, const void **a3, __CFString **a4)
 {
   result = sub_100015BFC(a2, a3, a4);
   if (result)
@@ -8224,7 +7958,7 @@ uint64_t sub_100163A4C(const void *a1, const void *a2, void *a3, __CFString **a4
   return result;
 }
 
-uint64_t sub_100163B20(uint64_t a1, uint64_t a2, char a3, char a4, __CFString **a5)
+uint64_t sub_100163B20(CFStringRef **a1, uint64_t a2, char a3, char a4, CFErrorRef *a5)
 {
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 0x40000000;
@@ -8559,9 +8293,9 @@ void sub_100165718(uint64_t a1)
   }
 }
 
-void sub_100165874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100165874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8668,9 +8402,9 @@ id sub_100166978(uint64_t a1)
   return [*(a1 + 32) _onqueueSendAnyPendingFlags];
 }
 
-void sub_100166BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100166BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8881,9 +8615,9 @@ id sub_100167684(uint64_t a1)
   return [*(a1 + 32) _onqueueStartNextStateMachineOperation:1];
 }
 
-void sub_10016852C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10016852C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8917,7 +8651,7 @@ void sub_100168B04(uint64_t a1)
   dispatch_sync(v2, block);
 }
 
-BOOL sub_100168BB8(uint64_t a1, uint64_t a2, const __CFData *a3, __CFData *a4, const __CFDictionary *a5, __CFData **a6, int a7, char a8, CFTypeRef *a9)
+BOOL sub_100168BB8(uint64_t a1, uint64_t a2, const __CFData *a3, __CFData *a4, const __CFDictionary *a5, __CFData **a6, int a7, char a8, CFErrorRef *a9)
 {
   *&v15 = 0xAAAAAAAAAAAAAAAALL;
   *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -9157,7 +8891,7 @@ LABEL_44:
   }
 
   theDataa = Length;
-  if (!sub_10000D43C(@"oe", a1, 0, v37, 0x20u, bytes, &v80, Mutable, a8, a9))
+  if (!sub_10000D43C(@"oe", a1, 0, v37, 32, bytes, &v80, Mutable, a8, a9))
   {
     v30 = 0;
     v33 = 0;
@@ -9293,7 +9027,7 @@ void sub_100169418(id a1)
   }
 }
 
-__CFData *sub_100169488(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__CFData *sub_100169488(const __CFString *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = sub_10000E384(a1, a2, a3, a4, a5);
   Mutable = CFDataCreateMutable(kCFAllocatorDefault, 0);
@@ -9382,7 +9116,7 @@ LABEL_24:
   }
 
   theDict = 0;
-  sub_1000068E0(0, &theDict, 0, external_data, external_data + v36);
+  sub_1000068E0(0, &theDict, 0, external_data, &external_data[v36]);
   v21 = theDict;
   if (!theDict)
   {
@@ -9509,4 +9243,106 @@ LABEL_29:
   }
 
   return v29;
+}
+
+CFTypeRef sub_1001698C4(CFDataRef data, CFErrorRef *error)
+{
+  v3 = CFPropertyListCreateWithData(0, data, 1uLL, 0, error);
+
+  return sub_100169F50(v3, error);
+}
+
+CFTypeRef sub_100169910(const __CFData *a1, CFErrorRef *a2)
+{
+  cf = 0;
+  BytePtr = CFDataGetBytePtr(a1);
+  Length = CFDataGetLength(a1);
+  v6 = &BytePtr[Length];
+  v7 = sub_1000068E0(0, &cf, a2, BytePtr, &BytePtr[Length]);
+  if (a2 && !v7)
+  {
+    Domain = CFErrorGetDomain(*a2);
+    if (!Domain || !CFEqual(Domain, @"com.apple.security.cfder.error") || CFErrorGetCode(*a2) != -1)
+    {
+      goto LABEL_13;
+    }
+
+    v11 = *a2;
+    if (*a2)
+    {
+      *a2 = 0;
+      CFRelease(v11);
+    }
+
+    v7 = sub_100169A2C(&cf, a2, BytePtr, v6, v10);
+  }
+
+  if (v7)
+  {
+    if (v7 != v6)
+    {
+      sub_1000111B4(-26275, kCFErrorDomainOSStatus, 0, a2, v8, @"trailing garbage at end of decrypted item");
+      v12 = cf;
+      if (cf)
+      {
+        cf = 0;
+        CFRelease(v12);
+      }
+    }
+  }
+
+LABEL_13:
+  v13 = cf;
+
+  return sub_100169F50(v13, a2);
+}
+
+unsigned __int8 *sub_100169A2C(CFNumberRef *a1, CFErrorRef *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5)
+{
+  v5 = a3;
+  if (a3)
+  {
+    if (ccder_decode_tag())
+    {
+      sub_1000111B4(-2, @"com.apple.security.cfder.error", 0, a2, v7, @"Unsupported DER Type");
+    }
+
+    else
+    {
+      sub_1000111B4(-1, @"com.apple.security.cfder.error", 0, a2, v7, @"Unknown data encoding");
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    sub_1000111B4(-1, @"com.apple.security.cfder.error", 0, a2, a5, @"Null DER");
+  }
+
+  return v5;
+}
+
+CFTypeRef sub_100169F50(CFTypeRef cf, __CFString **a2)
+{
+  v2 = cf;
+  if (cf)
+  {
+    v4 = CFGetTypeID(cf);
+    if (v4 != CFDictionaryGetTypeID())
+    {
+      v5 = CFGetTypeID(v2);
+      v6 = CFCopyTypeIDDescription(v5);
+      sub_1000103CC(-26275, a2, @"plist is a %@, expecting a dictionary", v6);
+      if (v6)
+      {
+        CFRelease(v6);
+      }
+
+      CFRelease(v2);
+      return 0;
+    }
+  }
+
+  return v2;
 }

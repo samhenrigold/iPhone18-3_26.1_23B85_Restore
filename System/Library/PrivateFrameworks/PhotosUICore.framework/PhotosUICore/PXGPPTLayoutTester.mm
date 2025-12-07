@@ -257,7 +257,7 @@
 
 void __74__PXGPPTLayoutTester_runEditorialLayoutTestWithOptions_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
-  [*(a1 + 32) setReferenceSize:?];
+  [*(a1 + 32) setReferenceSize:{a6, a7}];
   [*(a1 + 32) setPadding:{a8, a9, a10, a11}];
   [*(a1 + 32) setNumberOfColumns:a3];
   [*(a1 + 32) setNumberOfItems:a2];

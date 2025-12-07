@@ -75,7 +75,7 @@ void __94__PXPhotosSearchSectionHeaderLayoutProvider_sectionHeader_didPressButto
   v6 = dataSource;
   if (dataSource)
   {
-    [dataSource lastSectionIndexPath];
+    objc_msgSend_lastSectionIndexPath(dataSource);
   }
 
   else
@@ -109,7 +109,7 @@ void __94__PXPhotosSearchSectionHeaderLayoutProvider_sectionHeader_didPressButto
 
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
     v10 = *(&v16 + 1);
     v11 = v16;
     v12 = v17;
@@ -154,7 +154,7 @@ LABEL_19:
   memset(v18, 0, sizeof(v18));
   if (sourceCopy)
   {
-    [sourceCopy lastSectionIndexPath];
+    objc_msgSend_lastSectionIndexPath(sourceCopy);
     if ((*(&v18[0] + 1) & 0x8000000000000000) != 0)
     {
       goto LABEL_13;

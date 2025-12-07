@@ -18,19 +18,19 @@
 
 - (void)run
 {
-  v31 = 0;
+  v33 = 0;
   v3 = [+[SSAccountStore defaultStore](SSAccountStore "defaultStore")];
   if (!v3)
   {
     v14 = 0;
-    goto LABEL_34;
+    goto LABEL_36;
   }
 
   v4 = v3;
   v5 = [SSURLBagContext contextWithBagType:0];
   v6 = SSHTTPHeaderUserAgent;
   [(SSURLBagContext *)v5 setValue:self->_userAgent forHTTPHeaderField:SSHTTPHeaderUserAgent];
-  v7 = [(FamilyCircleOperation *)self loadedURLBagWithContext:v5 returningError:&v31];
+  v7 = [(FamilyCircleOperation *)self loadedURLBagWithContext:v5 returningError:&v33];
   if (!v7)
   {
     v15 = +[SSLogConfig sharedDaemonConfig];
@@ -42,38 +42,42 @@
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v15 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v15 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      v18 = objc_opt_class();
-      v32 = 138412290;
-      v33 = v18;
-      LODWORD(v30) = 12;
-      v29 = &v32;
-      v19 = _os_log_send_and_compose_impl();
-      if (v19)
+      v19 = objc_opt_class();
+      v34 = 138412290;
+      v35 = v19;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Couldn't load bag to get family-info url", &v34, 12);
+      if (v20)
       {
-        v20 = v19;
-        v21 = [NSString stringWithCString:v19 encoding:4, &v32, v30];
-        free(v20);
-        v29 = v21;
+        v21 = v20;
+        v22 = [NSString stringWithCString:v20 encoding:4];
+        free(v21);
+        v31 = v22;
         SSFileLog();
       }
     }
 
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v8 = +[NSURL URLWithString:](NSURL, "URLWithString:", [v7 valueForKey:@"family-info"]);
@@ -85,7 +89,7 @@
 
   if (!v9)
   {
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v10 = objc_alloc_init(SSMutableURLRequestProperties);
@@ -99,7 +103,7 @@
   [v12 setAuthenticationContext:v11];
   [v12 setRequestProperties:v10];
   [v12 setDataProvider:{+[ISProtocolDataProvider provider](ISProtocolDataProvider, "provider")}];
-  if (-[FamilyCircleOperation runSubOperation:returningError:](self, "runSubOperation:returningError:", v12, &v31) && (v13 = [objc_msgSend(v12 "dataProvider")]) != 0)
+  if (-[FamilyCircleOperation runSubOperation:returningError:](self, "runSubOperation:returningError:", v12, &v33) && (v13 = [objc_msgSend(v12 "dataProvider")]) != 0)
   {
     v14 = [(FamilyCircleOperation *)self _familyCircleForDictionary:v13];
     -[FamilyCircleOperation _writeCacheWithFamilyCircle:accountIdentifier:](self, "_writeCacheWithFamilyCircle:accountIdentifier:", v14, [v4 uniqueIdentifier]);
@@ -112,58 +116,63 @@
 
   if (!v14)
   {
-LABEL_22:
+LABEL_23:
     v14 = -[FamilyCircleOperation _cachedFamilyCircleWithAccountIdentifier:](self, "_cachedFamilyCircleWithAccountIdentifier:", [v4 uniqueIdentifier]);
     if (v14)
     {
-      v22 = +[SSLogConfig sharedDaemonConfig];
-      if (!v22)
+      v23 = +[SSLogConfig sharedDaemonConfig];
+      if (!v23)
       {
-        v22 = +[SSLogConfig sharedConfig];
+        v23 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v22 shouldLog];
-      if ([v22 shouldLogToDisk])
+      shouldLog2 = [v23 shouldLog];
+      if ([v23 shouldLogToDisk])
       {
-        v24 = shouldLog2 | 2;
+        LODWORD(v25) = shouldLog2 | 2;
       }
 
       else
       {
-        v24 = shouldLog2;
+        LODWORD(v25) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v23 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v24 &= 2u;
+        v25 = v25;
       }
 
-      if (v24)
+      else
       {
-        v25 = objc_opt_class();
-        v32 = 138412546;
-        v33 = v25;
-        v34 = 2112;
-        v35 = v31;
-        LODWORD(v30) = 22;
-        v29 = &v32;
-        v26 = _os_log_send_and_compose_impl();
-        if (v26)
+        v25 &= 2u;
+      }
+
+      if (v25)
+      {
+        v27 = objc_opt_class();
+        v34 = 138412546;
+        v35 = v27;
+        v36 = 2112;
+        v37 = v33;
+        LODWORD(v32) = 22;
+        v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Using cached family after error: %@", &v34, v32);
+        if (v28)
         {
-          v27 = v26;
-          v28 = [NSString stringWithCString:v26 encoding:4, &v32, v30];
-          free(v27);
           v29 = v28;
+          v30 = [NSString stringWithCString:v28 encoding:4];
+          free(v29);
+          v31 = v30;
           SSFileLog();
         }
       }
 
-      v31 = 0;
+      v33 = 0;
     }
   }
 
-LABEL_34:
-  [(FamilyCircleOperation *)self setError:v31, v29];
+LABEL_36:
+  [(FamilyCircleOperation *)self setError:v33, v31];
   [(FamilyCircleOperation *)self setSuccess:v14 != 0];
   self->_familyCircle = v14;
 }

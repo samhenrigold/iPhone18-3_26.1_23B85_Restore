@@ -79,7 +79,7 @@ void __65__HMDDatabaseZoneManager_database_didReceiveMessageWithUserInfo___block
 - (void)database:(id)database didRemoveZoneWithName:(id)name isPrivate:(BOOL)private
 {
   privateCopy = private;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   nameCopy = name;
   zoneName = [(HMDDatabaseZoneManager *)self zoneName];
@@ -97,7 +97,7 @@ void __65__HMDDatabaseZoneManager_database_didReceiveMessageWithUserInfo___block
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v21 = v16;
+        v20 = v16;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Handling zone removal by tearing down state", buf, 0xCu);
       }
 
@@ -115,14 +115,12 @@ void __65__HMDDatabaseZoneManager_database_didReceiveMessageWithUserInfo___block
   else
   {
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(id)database didCreateZoneWithName:(id)name isPrivate:(BOOL)private
 {
   privateCopy = private;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   nameCopy = name;
   zoneName = [(HMDDatabaseZoneManager *)self zoneName];
@@ -140,7 +138,7 @@ void __65__HMDDatabaseZoneManager_database_didReceiveMessageWithUserInfo___block
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v21 = v16;
+        v20 = v16;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Handling zone creation by starting", buf, 0xCu);
       }
 
@@ -158,8 +156,6 @@ void __65__HMDDatabaseZoneManager_database_didReceiveMessageWithUserInfo___block
   else
   {
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDDatabaseZoneManager_database_didCreateZoneWithName_isPrivate___block_invoke(uint64_t a1)
@@ -204,7 +200,7 @@ void __67__HMDDatabaseZoneManager_database_didCreateZoneWithName_isPrivate___blo
 
 - (void)messengerDidReceiveShareAccessRevocation:(id)revocation
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   revocationCopy = revocation;
   workQueue = [(HMDDatabaseZoneManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -215,16 +211,14 @@ void __67__HMDDatabaseZoneManager_database_didCreateZoneWithName_isPrivate___blo
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Synchronizing shared zones due to share revocation", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Synchronizing shared zones due to share revocation", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   database = [(HMDDatabaseZoneManager *)selfCopy database];
   synchronizeSharedZones = [database synchronizeSharedZones];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messenger:(id)messenger didReceiveInvitationRequestFromUser:(id)user device:(id)device
@@ -240,7 +234,7 @@ void __67__HMDDatabaseZoneManager_database_didCreateZoneWithName_isPrivate___blo
 
 - (void)messenger:(id)messenger didReceiveInvitationData:(id)data completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   messengerCopy = messenger;
   dataCopy = data;
   completionCopy = completion;
@@ -249,9 +243,9 @@ void __67__HMDDatabaseZoneManager_database_didCreateZoneWithName_isPrivate___blo
 
   v12 = MEMORY[0x277CCAAC8];
   v13 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-  v31 = 0;
-  v14 = [v12 _strictlyUnarchivedObjectOfClasses:v13 fromData:dataCopy error:&v31];
-  v15 = v31;
+  v30 = 0;
+  v14 = [v12 _strictlyUnarchivedObjectOfClasses:v13 fromData:dataCopy error:&v30];
+  v15 = v30;
 
   if (v14)
   {
@@ -262,14 +256,14 @@ void __67__HMDDatabaseZoneManager_database_didCreateZoneWithName_isPrivate___blo
     workQueue2 = [(HMDDatabaseZoneManager *)self workQueue];
     v20 = [v18 schedulerWithDispatchQueue:workQueue2];
     v21 = [v17 reschedule:v20];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion___block_invoke;
-    v28[3] = &unk_278677B68;
-    v28[4] = self;
-    v29 = v15;
-    v30 = completionCopy;
-    v22 = [v21 addCompletionBlock:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion___block_invoke;
+    v27[3] = &unk_278677B68;
+    v27[4] = self;
+    v28 = v15;
+    v29 = completionCopy;
+    v22 = [v21 addCompletionBlock:v27];
   }
 
   else
@@ -281,24 +275,22 @@ void __67__HMDDatabaseZoneManager_database_didCreateZoneWithName_isPrivate___blo
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v33 = v26;
-      v34 = 2112;
-      v35 = dataCopy;
-      v36 = 2112;
-      v37 = v15;
+      v32 = v26;
+      v33 = 2112;
+      v34 = dataCopy;
+      v35 = 2112;
+      v36 = v15;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive share invitation from invitation data: %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v23);
     (*(completionCopy + 2))(completionCopy, 0, v15);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -310,11 +302,11 @@ void __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully accepted invitation and created shared zone with ID %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully accepted invitation and created shared zone with ID %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -328,11 +320,11 @@ void __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion_
     {
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 40);
-      v17 = 138543618;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to accept received invitation: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to accept received invitation: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -340,8 +332,6 @@ void __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion_
     v15 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
     (*(v14 + 16))(v14, 0, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDownState
@@ -365,36 +355,36 @@ void __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion_
 
 - (void)_requestShareInvitationWithConfiguration:(id)configuration
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   dataSource = [(HMDDatabaseZoneManager *)self dataSource];
   if ((objc_opt_respondsToSelector() & 1) == 0 || (-[HMDDatabaseZoneManager participantsManager](self, "participantsManager"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [dataSource areShareModificationsEnabledForManager:v6], v6, v7))
   {
     if ([configurationCopy shouldCreateZone])
     {
-      v19 = configurationCopy;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
+      v18 = configurationCopy;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       home = [(HMDDatabaseZoneManager *)self home];
       users = [home users];
 
-      v10 = [users countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [users countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v21;
+        v12 = *v20;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v21 != v12)
+            if (*v20 != v12)
             {
               objc_enumerationMutation(users);
             }
 
-            v14 = *(*(&v20 + 1) + 8 * i);
+            v14 = *(*(&v19 + 1) + 8 * i);
             if (([v14 isCurrentUser] & 1) == 0 && (objc_opt_respondsToSelector() & 1) != 0 && objc_msgSend(dataSource, "zoneManager:shouldRequestShareInvitationFromUser:", self, v14))
             {
               shareMessenger = [(HMDDatabaseZoneManager *)self shareMessenger];
@@ -402,7 +392,7 @@ void __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion_
             }
           }
 
-          v11 = [users countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v11 = [users countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v11);
@@ -411,25 +401,23 @@ void __72__HMDDatabaseZoneManager_messenger_didReceiveInvitationData_completion_
       database = [(HMDDatabaseZoneManager *)self database];
       synchronizeSharedZones = [database synchronizeSharedZones];
 
-      configurationCopy = v19;
+      configurationCopy = v18;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendShareInvitation:(id)invitation toUser:(id)user device:(id)device
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   userCopy = user;
   deviceCopy = device;
   workQueue = [(HMDDatabaseZoneManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v30 = 0;
-  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:invitationCopy requiringSecureCoding:1 error:&v30];
-  v13 = v30;
+  v29 = 0;
+  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:invitationCopy requiringSecureCoding:1 error:&v29];
+  v13 = v29;
   if (v12)
   {
     aBlock[0] = MEMORY[0x277D85DD0];
@@ -484,23 +472,21 @@ LABEL_11:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v32 = v26;
-    v33 = 2112;
-    v34 = invitationCopy;
-    v35 = 2112;
-    v36 = v13;
+    v31 = v26;
+    v32 = 2112;
+    v33 = invitationCopy;
+    v34 = 2112;
+    v35 = v13;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize invitation %@: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v23);
 LABEL_12:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDDatabaseZoneManager__sendShareInvitation_toUser_device___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -511,24 +497,24 @@ void __61__HMDDatabaseZoneManager__sendShareInvitation_toUser_device___block_inv
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v10;
+      v15 = 138543362;
+      v16 = v10;
       v11 = "%{public}@Zone invitation was successfully accepted";
       v12 = v9;
       v13 = OS_LOG_TYPE_INFO;
       v14 = 12;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v12, v13, v11, &v16, v14);
+      _os_log_impl(&dword_229538000, v12, v13, v11, &v15, v14);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v10 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v5;
+    v15 = 138543618;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v5;
     v11 = "%{public}@Zone invitation was not accepted: %@";
     v12 = v9;
     v13 = OS_LOG_TYPE_ERROR;
@@ -537,12 +523,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v6);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleFetchZonesResult:(id)result configuration:(id)configuration
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   configurationCopy = configuration;
   v8 = objc_autoreleasePoolPush();
@@ -553,9 +538,9 @@ LABEL_6:
     v11 = HMFGetLogIdentifier();
     zoneName = [(HMDDatabaseZoneManager *)selfCopy zoneName];
     *buf = 138543618;
-    v70 = v11;
-    v71 = 2112;
-    v72 = zoneName;
+    v69 = v11;
+    v70 = 2112;
+    v71 = zoneName;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Fetched zones with name %@", buf, 0x16u);
   }
 
@@ -574,35 +559,35 @@ LABEL_6:
     v17 = cloudZone2;
     if (externalRecordTypesForSubscriptions)
     {
-      v58 = resultCopy;
+      v57 = resultCopy;
       subscriptions = [cloudZone2 subscriptions];
       v19 = [subscriptions na_map:&__block_literal_global_9];
 
-      v57 = configurationCopy;
+      v56 = configurationCopy;
       externalRecordTypesForSubscriptions2 = [configurationCopy externalRecordTypesForSubscriptions];
-      v56 = v19;
+      v55 = v19;
       v21 = [v19 hmf_removedObjectsFromSet:externalRecordTypesForSubscriptions2];
 
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v22 = v21;
-      v23 = [v22 countByEnumeratingWithState:&v63 objects:v68 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v62 objects:v67 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v64;
+        v25 = *v63;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v64 != v25)
+            if (*v63 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v63 + 1) + 8 * i);
+            v27 = *(*(&v62 + 1) + 8 * i);
             v28 = objc_autoreleasePoolPush();
             v29 = selfCopy;
             v30 = HMFGetOSLogHandle();
@@ -610,9 +595,9 @@ LABEL_6:
             {
               v31 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v70 = v31;
-              v71 = 2112;
-              v72 = v27;
+              v69 = v31;
+              v70 = 2112;
+              v71 = v27;
               _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Unsubscribing externalRecordType: %@", buf, 0x16u);
             }
 
@@ -621,45 +606,45 @@ LABEL_6:
             v33 = [cloudZone3 unregisterSubscriptionForExternalRecordType:v27];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v63 objects:v68 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v62 objects:v67 count:16];
         }
 
         while (v24);
       }
 
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
-      configurationCopy = v57;
-      externalRecordTypesForSubscriptions3 = [v57 externalRecordTypesForSubscriptions];
-      v35 = [externalRecordTypesForSubscriptions3 countByEnumeratingWithState:&v59 objects:v67 count:16];
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
+      configurationCopy = v56;
+      externalRecordTypesForSubscriptions3 = [v56 externalRecordTypesForSubscriptions];
+      v35 = [externalRecordTypesForSubscriptions3 countByEnumeratingWithState:&v58 objects:v66 count:16];
       if (v35)
       {
         v36 = v35;
-        v37 = *v60;
+        v37 = *v59;
         do
         {
           for (j = 0; j != v36; ++j)
           {
-            if (*v60 != v37)
+            if (*v59 != v37)
             {
               objc_enumerationMutation(externalRecordTypesForSubscriptions3);
             }
 
-            v39 = *(*(&v59 + 1) + 8 * j);
+            v39 = *(*(&v58 + 1) + 8 * j);
             cloudZone4 = [(HMDDatabaseZoneManager *)selfCopy cloudZone];
             v41 = [cloudZone4 registerSubscriptionForExternalRecordType:v39];
           }
 
-          v36 = [externalRecordTypesForSubscriptions3 countByEnumeratingWithState:&v59 objects:v67 count:16];
+          v36 = [externalRecordTypesForSubscriptions3 countByEnumeratingWithState:&v58 objects:v66 count:16];
         }
 
         while (v36);
       }
 
-      v17 = v56;
-      resultCopy = v58;
+      v17 = v55;
+      resultCopy = v57;
     }
 
     else
@@ -695,13 +680,12 @@ LABEL_6:
     [delegate zoneManagerDidStart:selfCopy];
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)_fetchSharedZonesWithConfiguration:(id)configuration
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   workQueue = [(HMDDatabaseZoneManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -713,7 +697,7 @@ LABEL_6:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v46 = v9;
+    v45 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Fetching shared zones", buf, 0xCu);
   }
 
@@ -722,31 +706,31 @@ LABEL_6:
 
   if (externalRecordTypesForSubscriptions)
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     externalRecordTypesForSubscriptions2 = [configurationCopy externalRecordTypesForSubscriptions];
-    v12 = [externalRecordTypesForSubscriptions2 countByEnumeratingWithState:&v41 objects:v49 count:16];
+    v12 = [externalRecordTypesForSubscriptions2 countByEnumeratingWithState:&v40 objects:v48 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v42;
+      v14 = *v41;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v42 != v14)
+          if (*v41 != v14)
           {
             objc_enumerationMutation(externalRecordTypesForSubscriptions2);
           }
 
-          v16 = *(*(&v41 + 1) + 8 * i);
+          v16 = *(*(&v40 + 1) + 8 * i);
           database = [(HMDDatabaseZoneManager *)selfCopy database];
           v18 = [database registerSharedSubscriptionForExternalRecordType:v16];
         }
 
-        v13 = [externalRecordTypesForSubscriptions2 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v13 = [externalRecordTypesForSubscriptions2 countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
       while (v13);
@@ -768,9 +752,9 @@ LABEL_6:
     database3 = [(HMDDatabaseZoneManager *)selfCopy database];
     cloudZoneConfiguration = [configurationCopy cloudZoneConfiguration];
     delegate = [(HMDDatabaseZoneManager *)selfCopy delegate];
-    v40 = 0;
-    v26 = [database3 sharedZonesWithID:v22 configuration:cloudZoneConfiguration delegate:delegate error:&v40];
-    v27 = v40;
+    v39 = 0;
+    v26 = [database3 sharedZonesWithID:v22 configuration:cloudZoneConfiguration delegate:delegate error:&v39];
+    v27 = v39;
 
     if (v26)
     {
@@ -786,9 +770,9 @@ LABEL_6:
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v46 = v37;
-        v47 = 2112;
-        v48 = v27;
+        v45 = v37;
+        v46 = 2112;
+        v47 = v27;
         _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch shared zones: %@", buf, 0x16u);
       }
 
@@ -808,9 +792,9 @@ LABEL_6:
       v32 = HMFGetLogIdentifier();
       zoneName2 = [(HMDDatabaseZoneManager *)v30 zoneName];
       *buf = 138543618;
-      v46 = v32;
-      v47 = 2112;
-      v48 = zoneName2;
+      v45 = v32;
+      v46 = 2112;
+      v47 = zoneName2;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@No shared zone exists with zone name %@", buf, 0x16u);
     }
 
@@ -820,13 +804,12 @@ LABEL_6:
     v28 = 0;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 - (BOOL)_fetchExistingPrivateZonesWithConfiguration:(id)configuration
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   workQueue = [(HMDDatabaseZoneManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -838,7 +821,7 @@ LABEL_6:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v9;
+    v24 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Fetching existing private zones", buf, 0xCu);
   }
 
@@ -847,9 +830,9 @@ LABEL_6:
   zoneName = [(HMDDatabaseZoneManager *)selfCopy zoneName];
   cloudZoneConfiguration = [configurationCopy cloudZoneConfiguration];
   delegate = [(HMDDatabaseZoneManager *)selfCopy delegate];
-  v23 = 0;
-  v14 = [database existingPrivateZonesWithName:zoneName configuration:cloudZoneConfiguration delegate:delegate error:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [database existingPrivateZonesWithName:zoneName configuration:cloudZoneConfiguration delegate:delegate error:&v22];
+  v15 = v22;
 
   if (v14)
   {
@@ -865,7 +848,7 @@ LABEL_6:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v20;
+      v24 = v20;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@No existing private zones exist", buf, 0xCu);
     }
 
@@ -874,13 +857,12 @@ LABEL_6:
     v16 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)_fetchPrivateZonesWithConfiguration:(id)configuration
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   workQueue = [(HMDDatabaseZoneManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -892,7 +874,7 @@ LABEL_6:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v9;
+    v24 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Fetching private zones", buf, 0xCu);
   }
 
@@ -901,9 +883,9 @@ LABEL_6:
   zoneName = [(HMDDatabaseZoneManager *)selfCopy zoneName];
   cloudZoneConfiguration = [configurationCopy cloudZoneConfiguration];
   delegate = [(HMDDatabaseZoneManager *)selfCopy delegate];
-  v23 = 0;
-  v14 = [database privateZonesWithName:zoneName configuration:cloudZoneConfiguration delegate:delegate error:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [database privateZonesWithName:zoneName configuration:cloudZoneConfiguration delegate:delegate error:&v22];
+  v15 = v22;
 
   if (v14)
   {
@@ -919,9 +901,9 @@ LABEL_6:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v20;
-      v26 = 2112;
-      v27 = v15;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v15;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch private zones: %@", buf, 0x16u);
     }
 
@@ -930,7 +912,6 @@ LABEL_6:
     v16 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -967,7 +948,7 @@ LABEL_6:
 
 - (id)remove
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDDatabaseZoneManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -978,7 +959,7 @@ LABEL_6:
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v7;
+    v24 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Asked to remove zone", buf, 0xCu);
   }
 
@@ -995,12 +976,12 @@ LABEL_6:
     v13 = [database removeLocalAndCloudDataForLocalZone:localZone];
 
     v14 = [v13 reschedule:v10];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __32__HMDDatabaseZoneManager_remove__block_invoke;
-    v23[3] = &unk_2786837F8;
-    v23[4] = selfCopy;
-    v15 = [v14 flatMap:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __32__HMDDatabaseZoneManager_remove__block_invoke;
+    v22[3] = &unk_2786837F8;
+    v22[4] = selfCopy;
+    v15 = [v14 flatMap:v22];
   }
 
   else
@@ -1012,7 +993,7 @@ LABEL_6:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v19;
+      v24 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot remove backing store because it is not running", buf, 0xCu);
     }
 
@@ -1021,8 +1002,6 @@ LABEL_6:
     v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5];
     v15 = [v20 futureWithError:v10];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1040,7 +1019,7 @@ uint64_t __32__HMDDatabaseZoneManager_remove__block_invoke(uint64_t a1)
 
 - (BOOL)startWithConfiguration:(id)configuration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   workQueue = [(HMDDatabaseZoneManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1051,11 +1030,11 @@ uint64_t __32__HMDDatabaseZoneManager_remove__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v9;
-    v21 = 2112;
-    v22 = configurationCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting zone manager with configuration: %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v9;
+    v20 = 2112;
+    v21 = configurationCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting zone manager with configuration: %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1068,11 +1047,11 @@ uint64_t __32__HMDDatabaseZoneManager_remove__block_invoke(uint64_t a1)
     {
       v13 = HMFGetLogIdentifier();
       state = [(HMDDatabaseZoneManager *)v11 state];
-      v19 = 138543618;
-      v20 = v13;
-      v21 = 2048;
-      v22 = state;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Zone manager was asked to start but it isn't idle: %ld", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v13;
+      v20 = 2048;
+      v21 = state;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Zone manager was asked to start but it isn't idle: %ld", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1103,7 +1082,6 @@ uint64_t __32__HMDDatabaseZoneManager_remove__block_invoke(uint64_t a1)
     v15 = v16;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1219,10 +1197,9 @@ HMDCloudShareParticipantsManager *__82__HMDDatabaseZoneManager_initWithDatabase_
 
 void __37__HMDDatabaseZoneManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v23_98011;
-  logCategory__hmf_once_v23_98011 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v23_98011;
+  logCategory__hmf_once_v23_98011 = v0;
 }
 
 @end

@@ -62,7 +62,7 @@
   v7 = sub_276031D10(v4);
   sub_276031C94(&v7);
 
-  sub_27602FD90(0, &qword_280A401A0);
+  sub_27602FD90(0, &qword_280A401A0, off_27A6A7760);
   v5 = sub_276038544();
 
   return v5;
@@ -78,10 +78,10 @@
   else
   {
     v4 = MEMORY[0x28223BE20]();
-    sub_27602B4C8(&qword_280A40190);
+    sub_27602B4C8(&qword_280A40190, &qword_2760600B8);
     sub_2760385D4();
 
-    sub_27602FD90(0, &qword_280A401A0);
+    sub_27602FD90(0, &qword_280A401A0, off_27A6A7760);
     v5 = sub_276038544();
 
     return v5;
@@ -93,10 +93,10 @@
 - (id)pageLayoutsUpToPageIndex:(unint64_t)index
 {
   selfCopy = self;
-  sub_27602B4C8(&qword_280A40190);
+  sub_27602B4C8(&qword_280A40190, &qword_2760600B8);
   sub_2760385D4();
 
-  sub_27602FD90(0, &qword_280A401A0);
+  sub_27602FD90(0, &qword_280A401A0, off_27A6A7760);
   v4 = sub_276038544();
 
   return v4;
@@ -105,10 +105,10 @@
 - (id)pageLayoutsFromStartIndex:(unint64_t)index
 {
   selfCopy = self;
-  sub_27602B4C8(&qword_280A40190);
+  sub_27602B4C8(&qword_280A40190, &qword_2760600B8);
   sub_2760385D4();
 
-  sub_27602FD90(0, &qword_280A401A0);
+  sub_27602FD90(0, &qword_280A401A0, off_27A6A7760);
   v4 = sub_276038544();
 
   return v4;
@@ -124,10 +124,10 @@
   else
   {
     v5 = MEMORY[0x28223BE20]();
-    sub_27602B4C8(&qword_280A40190);
+    sub_27602B4C8(&qword_280A40190, &qword_2760600B8);
     sub_2760385D4();
 
-    sub_27602FD90(0, &qword_280A401A0);
+    sub_27602FD90(0, &qword_280A401A0, off_27A6A7760);
     v6 = sub_276038544();
 
     return v6;
@@ -143,7 +143,7 @@
   selfCopy = self;
   sub_276031158(location, length);
 
-  sub_27602FD90(0, &qword_280A401A0);
+  sub_27602FD90(0, &qword_280A401A0, off_27A6A7760);
   v6 = sub_276038544();
 
   return v6;

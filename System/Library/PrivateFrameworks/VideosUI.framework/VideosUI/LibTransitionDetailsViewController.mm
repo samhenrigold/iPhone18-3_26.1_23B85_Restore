@@ -33,7 +33,7 @@
 - (void)vui_viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1E4023930();
+  sub_1E4023930(selfCopy);
 }
 
 - (void)vui_viewWillAppear:(BOOL)appear

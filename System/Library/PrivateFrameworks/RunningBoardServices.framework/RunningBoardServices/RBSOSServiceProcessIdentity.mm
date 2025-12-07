@@ -3,6 +3,7 @@
 - (BOOL)treatedAsAnAppByFrontBoard:(id *)board;
 - (RBSOSServiceProcessIdentity)initWithDecodeFromJob:(id)job uuid:(id)uuid;
 - (RBSOSServiceProcessIdentity)initWithRBSXPCCoder:(id)coder;
+- (id)_initServiceWithJobLabel:(id)label pid:(int)pid auid:(unsigned int)auid type:(unsigned __int8)type;
 - (id)angelJobLabel;
 - (id)consistentLaunchdJobLabel;
 - (id)daemonJobLabel;
@@ -24,10 +25,10 @@
 
 - (id)encodeForJob
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_type <= 1u)
   {
-    [(RBSOSServiceProcessIdentity *)&v8 encodeForJob];
+    [(RBSOSServiceProcessIdentity *)&v7 encodeForJob];
   }
 
   empty = xpc_dictionary_create_empty();
@@ -44,9 +45,49 @@
 
   xpc_dictionary_set_int64(empty, "p", self->super._pid);
   xpc_dictionary_set_int64(empty, "t", self->_type);
-  v6 = *MEMORY[0x1E69E9840];
 
   return empty;
+}
+
+- (id)_initServiceWithJobLabel:(id)label pid:(int)pid auid:(unsigned int)auid type:(unsigned __int8)type
+{
+  v7 = *&auid;
+  labelCopy = label;
+  v22.receiver = self;
+  v22.super_class = RBSOSServiceProcessIdentity;
+  _init = [(RBSProcessIdentity *)&v22 _init];
+  v13 = _init;
+  if (_init)
+  {
+    *(_init + 2) = pid;
+    objc_storeStrong(_init + 7, label);
+    if (v7)
+    {
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"osservice<%@(%d)>", v13[7], v7];
+    }
+
+    else
+    {
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"osservice<%@>", v13[7], v21];
+    }
+    v14 = ;
+    v15 = v13[2];
+    v13[2] = v14;
+
+    v16 = *(v13 + 2);
+    if (v16)
+    {
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%d", v13[2], v16];
+      v18 = v13[2];
+      v13[2] = v17;
+    }
+
+    v13[3] = [v13[2] hash];
+    *(v13 + 64) = type;
+    v19 = v13;
+  }
+
+  return v13;
 }
 
 - (BOOL)_matchesIdentity:(id)identity
@@ -110,12 +151,13 @@ LABEL_9:
 {
   jobCopy = job;
   uuidCopy = uuid;
+  v8 = uuidCopy;
   if (uuidCopy)
   {
-    v8 = rbs_general_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = rbs_general_log(uuidCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [RBSOSServiceProcessIdentity initWithDecodeFromJob:uuidCopy uuid:v8];
+      [RBSOSServiceProcessIdentity initWithDecodeFromJob:v8 uuid:v9];
     }
   }
 
@@ -123,17 +165,17 @@ LABEL_9:
   string = xpc_dictionary_get_string(jobCopy, "l");
   if (string)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = [(RBSOSServiceProcessIdentity *)self _initServiceWithJobLabel:v11 pid:int64 auid:0 type:xpc_dictionary_get_int64(jobCopy, "t")];
+  v13 = [(RBSOSServiceProcessIdentity *)self _initServiceWithJobLabel:v12 pid:int64 auid:0 type:xpc_dictionary_get_int64(jobCopy, "t")];
 
-  return v12;
+  return v13;
 }
 
 - (void)encodeWithRBSXPCCoder:(id)coder
@@ -205,21 +247,32 @@ LABEL_9:
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v6 = *a3;
-  _os_log_send_and_compose_impl();
-  v5 = *self;
+  v6 = MEMORY[0x1E69E9C10];
+  v7 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+  v8 = *a3;
+  if (v7)
+  {
+    v9 = 3;
+  }
+
+  else
+  {
+    v9 = 2;
+  }
+
+  v10[0] = 67109120;
+  v10[1] = v8;
+  _os_log_send_and_compose_impl(v9, self, a2, 80, &dword_18E8AD000, v6, 16, "assertion failure: can only encode well defined types : type=%i", v10);
   _os_crash_msg();
   __break(1u);
 }
 
 - (void)initWithDecodeFromJob:(uint64_t)a1 uuid:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "There is no reason a daemon should have a UUID: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "There is no reason a daemon should have a UUID: %@", &v2, 0xCu);
 }
 
 @end

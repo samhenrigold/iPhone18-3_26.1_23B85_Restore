@@ -26,15 +26,15 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v63) = 0;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMJunkMessageProcessingPipelineComponent> Started processing", &v63, 2u);
+      LOWORD(v60) = 0;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMJunkMessageProcessingPipelineComponent> Started processing", &v60, 2u);
     }
   }
 
@@ -42,11 +42,11 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v63) = 0;
-        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Oscar is disabled", &v63, 2u);
+        LOWORD(v60) = 0;
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Oscar is disabled", &v60, 2u);
       }
     }
 
@@ -65,11 +65,11 @@
     {
       if (IMOSLoggingEnabled())
       {
-        v27 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v25 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v63) = 0;
-          _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "Spam filter is disabled", &v63, 2u);
+          LOWORD(v60) = 0;
+          _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Spam filter is disabled", &v60, 2u);
         }
       }
 
@@ -80,24 +80,24 @@
   mEMORY[0x277D19268] = [MEMORY[0x277D19268] sharedInstance];
   isInternalInstall = [mEMORY[0x277D19268] isInternalInstall];
 
-  if (isInternalInstall && (v12 = *MEMORY[0x277D19D90], v13 = *MEMORY[0x277D19D50], IMGetDomainBoolForKey()))
+  if (isInternalInstall && IMGetDomainBoolForKey())
   {
     if (IMOSLoggingEnabled())
     {
-      v14 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v63) = 0;
-        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Default value set: oscar enabled.", &v63, 2u);
+        LOWORD(v60) = 0;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Default value set: oscar enabled.", &v60, 2u);
       }
     }
 
-    v15 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v15 = 1;
+    v13 = 1;
   }
 
   messageItems = [inputCopy messageItems];
@@ -111,16 +111,16 @@
     {
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v63) = 0;
-          _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Message is a typing indicator, not processing for junk", &v63, 2u);
+          LOWORD(v60) = 0;
+          _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Message is a typing indicator, not processing for junk", &v60, 2u);
         }
       }
 
 LABEL_45:
-      v28 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
+      v26 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
       goto LABEL_46;
     }
   }
@@ -133,13 +133,13 @@ LABEL_45:
   {
     if (IMOSLoggingEnabled())
     {
-      v22 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v20 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         fromIdentifier = [inputCopy fromIdentifier];
-        v63 = 138412290;
-        v64 = fromIdentifier;
-        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Message is a message from me, not processing for junk: %@", &v63, 0xCu);
+        v60 = 138412290;
+        v61 = fromIdentifier;
+        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Message is a message from me, not processing for junk: %@", &v60, 0xCu);
       }
     }
 
@@ -150,31 +150,31 @@ LABEL_45:
   [mEMORY[0x277D1AAA8] trackiMessageJunkEvent:2];
 
   LODWORD(mEMORY[0x277D1AAA8]) = [(IMDiMessageIDSTrustedData *)self->_idsTrustedData isFromTrustedSender];
-  v25 = IMOSLoggingEnabled();
-  if ((v15 & mEMORY[0x277D1AAA8]) != 0)
+  v23 = IMOSLoggingEnabled();
+  if ((v13 & mEMORY[0x277D1AAA8]) != 0)
   {
-    if (v25)
+    if (v23)
     {
-      v26 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v24 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v63) = 0;
-        _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "Message is from trusted sender", &v63, 2u);
+        LOWORD(v60) = 0;
+        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Message is from trusted sender", &v60, 2u);
       }
     }
 
     goto LABEL_45;
   }
 
-  if (v25)
+  if (v23)
   {
-    v31 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v28 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       fromIdentifier2 = [inputCopy fromIdentifier];
-      v63 = 138412290;
-      v64 = fromIdentifier2;
-      _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Message is not from a trusted sender, received from: %@", &v63, 0xCu);
+      v60 = 138412290;
+      v61 = fromIdentifier2;
+      _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Message is not from a trusted sender, received from: %@", &v60, 0xCu);
     }
   }
 
@@ -183,11 +183,11 @@ LABEL_45:
   {
     if (IMOSLoggingEnabled())
     {
-      v39 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      v36 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v63) = 0;
-        _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Could not find chat, bailing", &v63, 2u);
+        LOWORD(v60) = 0;
+        _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "Could not find chat, bailing", &v60, 2u);
       }
     }
 
@@ -202,8 +202,8 @@ LABEL_45:
       toIdentifier = [inputCopy toIdentifier];
       [(IMJunkMessageProcessingPipelineComponent *)self _trackSendEventForSender:fromIdentifier3 andReceiver:toIdentifier];
 
-      v36 = +[IMDSpamFilteringHelper sharedHelper];
-      [v36 presentDebugUI];
+      v33 = +[IMDSpamFilteringHelper sharedHelper];
+      [v33 presentDebugUI];
 
       mEMORY[0x277D1AAA8]2 = +[IMDSpamFilteringHelper sharedHelper];
       spamDetectionSource = [chat spamDetectionSource];
@@ -224,13 +224,13 @@ LABEL_45:
 LABEL_71:
     if (IMOSLoggingEnabled())
     {
-      v41 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+      v38 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         isFiltered = [chat isFiltered];
-        v63 = 134217984;
-        v64 = isFiltered;
-        _os_log_impl(&dword_22B4CC000, v41, OS_LOG_TYPE_INFO, "Chat already exists, filtered as: %lld", &v63, 0xCu);
+        v60 = 134217984;
+        v61 = isFiltered;
+        _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Chat already exists, filtered as: %lld", &v60, 0xCu);
       }
     }
 
@@ -252,37 +252,37 @@ LABEL_71:
     {
       if (IMOSLoggingEnabled())
       {
-        v47 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+        v44 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v63) = 0;
-          _os_log_impl(&dword_22B4CC000, v47, OS_LOG_TYPE_INFO, "Message is not from known sender", &v63, 2u);
+          LOWORD(v60) = 0;
+          _os_log_impl(&dword_22B4CC000, v44, OS_LOG_TYPE_INFO, "Message is not from known sender", &v60, 2u);
         }
       }
 
-      v48 = +[IMDAccountController sharedInstance];
+      v45 = +[IMDAccountController sharedInstance];
       toIdentifier2 = [inputCopy toIdentifier];
       account = [inputCopy account];
-      v51 = [v48 receiverIsCandidateForJunk:toIdentifier2 forAccount:account];
+      v48 = [v45 receiverIsCandidateForJunk:toIdentifier2 forAccount:account];
 
-      if ((v51 & 1) == 0)
+      if ((v48 & 1) == 0)
       {
         if (IMOSLoggingEnabled())
         {
-          v60 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+          v57 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
           {
             toIdentifier3 = [inputCopy toIdentifier];
-            v63 = 138412290;
-            v64 = toIdentifier3;
-            _os_log_impl(&dword_22B4CC000, v60, OS_LOG_TYPE_INFO, "Receiver: %@ is not candidate for Oscar", &v63, 0xCu);
+            v60 = 138412290;
+            v61 = toIdentifier3;
+            _os_log_impl(&dword_22B4CC000, v57, OS_LOG_TYPE_INFO, "Receiver: %@ is not candidate for Oscar", &v60, 0xCu);
           }
         }
 
         mEMORY[0x277D1AAA8]4 = [MEMORY[0x277D1AAA8] sharedInstance];
         [mEMORY[0x277D1AAA8]4 trackiMessageJunkEvent:13];
 
-        v43 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
+        v40 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
         goto LABEL_76;
       }
 
@@ -297,58 +297,57 @@ LABEL_71:
       [chat updateIsFiltered:2];
       if (IMOSLoggingEnabled())
       {
-        v55 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+        v52 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v63) = 0;
-          _os_log_impl(&dword_22B4CC000, v55, OS_LOG_TYPE_INFO, "Chat set as junk", &v63, 2u);
+          LOWORD(v60) = 0;
+          _os_log_impl(&dword_22B4CC000, v52, OS_LOG_TYPE_INFO, "Chat set as junk", &v60, 2u);
         }
       }
 
-      v56 = +[IMDSpamFilteringHelper sharedHelper];
-      [v56 presentDebugUI];
+      v53 = +[IMDSpamFilteringHelper sharedHelper];
+      [v53 presentDebugUI];
 
-      v57 = +[IMDSpamFilteringHelper sharedHelper];
-      [v57 recordJunkMetricsForSpamDetectionSource:2 service:*MEMORY[0x277D1A620]];
+      v54 = +[IMDSpamFilteringHelper sharedHelper];
+      [v54 recordJunkMetricsForSpamDetectionSource:2 service:*MEMORY[0x277D1A620]];
 
-      v58 = +[IMDChatRegistry sharedInstance];
-      [v58 updateStateForChat:chat forcePost:1 shouldRebuildFailedMessageDate:0 shouldCalculateUnreadCount:1];
+      v55 = +[IMDChatRegistry sharedInstance];
+      [v55 updateStateForChat:chat forcePost:1 shouldRebuildFailedMessageDate:0 shouldCalculateUnreadCount:1];
 
       mEMORY[0x277D1AAA8]3 = [inputCopy fromIdentifier];
       toIdentifier4 = [inputCopy toIdentifier];
       [(IMJunkMessageProcessingPipelineComponent *)self _trackSendEventForSender:mEMORY[0x277D1AAA8]3 andReceiver:toIdentifier4];
     }
 
-    v28 = objc_alloc_init(MEMORY[0x277D18E08]);
-    [v28 fullfillWithValue:inputCopy];
+    v26 = objc_alloc_init(MEMORY[0x277D18E08]);
+    [v26 fullfillWithValue:inputCopy];
     goto LABEL_77;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v40 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+    v37 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v63) = 0;
-      _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Don't mark business chats as junk", &v63, 2u);
+      LOWORD(v60) = 0;
+      _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Don't mark business chats as junk", &v60, 2u);
     }
   }
 
 LABEL_75:
-  v43 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
+  v40 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
 LABEL_76:
-  v28 = v43;
+  v26 = v40;
 LABEL_77:
 
 LABEL_46:
-  v29 = *MEMORY[0x277D85DE8];
 
-  return v28;
+  return v26;
 }
 
 - (void)_trackSendEventForSender:(id)sender andReceiver:(id)receiver
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   receiverCopy = receiver;
   v7 = [MEMORY[0x277CCABB0] numberWithInt:0xFFFFFFFFLL];
@@ -364,15 +363,13 @@ LABEL_46:
   }
 
   mEMORY[0x277D1AAA8] = [MEMORY[0x277D1AAA8] sharedInstance];
-  v17[0] = &unk_283F4EB10;
+  v16[0] = &unk_283F4EB10;
   v14 = [MEMORY[0x277CCABB0] numberWithBool:v8];
-  v17[1] = &unk_283F4EB28;
-  v18[0] = v14;
-  v18[1] = v7;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[1] = &unk_283F4EB28;
+  v17[0] = v14;
+  v17[1] = v7;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   [mEMORY[0x277D1AAA8] trackiMessageJunkEvent:1 withDictionary:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

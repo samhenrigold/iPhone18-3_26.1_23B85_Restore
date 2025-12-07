@@ -25,7 +25,7 @@ void __70___GCSonyDualSenseControllerProfile_physicalDevice_getLightWithReply___
   v13 = [(GCColor *)v9 initWithRed:v10 green:v11 blue:v12];
   v14 = [(GCDeviceLight *)v8 initWithColor:v13];
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v15, v16))
   {
     __70___GCSonyDualSenseControllerProfile_physicalDevice_getLightWithReply___block_invoke_cold_1(a1);
   }
@@ -33,9 +33,9 @@ void __70___GCSonyDualSenseControllerProfile_physicalDevice_getLightWithReply___
   (*(*(a1 + 40) + 16))();
 }
 
-uint64_t __79___GCSonyDualSenseControllerProfile_physicalDevice_getSensorsEnabledWithReply___block_invoke(uint64_t a1)
+uint64_t __79___GCSonyDualSenseControllerProfile_physicalDevice_getSensorsEnabledWithReply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __79___GCSonyDualSenseControllerProfile_physicalDevice_getSensorsEnabledWithReply___block_invoke_cold_1(a1);
   }
@@ -46,7 +46,7 @@ uint64_t __79___GCSonyDualSenseControllerProfile_physicalDevice_getSensorsEnable
 void __72___GCSonyDualSenseControllerProfile_physicalDevice_getBatteryWithReply___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = [[GCDeviceBattery alloc] initWithLevel:a2 isCharging:a3];
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v4, v5))
   {
     __72___GCSonyDualSenseControllerProfile_physicalDevice_getBatteryWithReply___block_invoke_cold_1(a1);
   }
@@ -56,80 +56,62 @@ void __72___GCSonyDualSenseControllerProfile_physicalDevice_getBatteryWithReply_
 
 void __89___GCSonyDualSenseControllerProfile_physicalDevice_getAdaptiveTriggersStatusesWithReply___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v11 = [[GCDeviceAdaptiveTriggersStatusPayload alloc] initFeedbackWithStatus:a3 armPosition:a4 mode:a2];
-  v15[0] = v11;
+  v16[0] = v11;
   v12 = [[GCDeviceAdaptiveTriggersStatusPayload alloc] initFeedbackWithStatus:a6 armPosition:a7 mode:a5];
-  v15[1] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v16[1] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v14, v15))
   {
     __89___GCSonyDualSenseControllerProfile_physicalDevice_getAdaptiveTriggersStatusesWithReply___block_invoke_cold_1(a1);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __70___GCSonyDualSenseControllerProfile_physicalDevice_getLightWithReply___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __79___GCSonyDualSenseControllerProfile_physicalDevice_getSensorsEnabledWithReply___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v10 = *(a1 + 32);
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v4, v5, v6, v7, v8, 0x12u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x12u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __72___GCSonyDualSenseControllerProfile_physicalDevice_getBatteryWithReply___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __89___GCSonyDualSenseControllerProfile_physicalDevice_getAdaptiveTriggersStatusesWithReply___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

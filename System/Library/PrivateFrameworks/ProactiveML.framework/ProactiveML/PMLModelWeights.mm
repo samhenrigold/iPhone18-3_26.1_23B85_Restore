@@ -2,6 +2,7 @@
 + (id)constWeightsOfLength:(int)length value:(float)value;
 + (id)modelWeightsFromFloats:(id)floats;
 + (id)modelWeightsOfLength:(int)length rng:(id)rng;
++ (id)modelWeightsOfLength:(int)length rngSeed:(unint64_t)seed;
 + (id)weightsFromNumbers:(id)numbers;
 + (id)zeroWeightsOfLength:(int)length;
 - (PMLModelWeights)initWithCount:(int)count;
@@ -9,6 +10,7 @@
 - (id)initFromDictionary:(id)dictionary;
 - (id)initModelWeightsFromFloats:(id)floats;
 - (id)migrateDenseDoubleVectorToDenseFloatVector:(id)vector;
+- (id)sliceFrom:(int)from to:(int)to;
 - (id)toDictionary;
 - (id)toPlistWithChunks:(id)chunks;
 - (id)weightsByAppendingWeights:(id)weights;
@@ -91,7 +93,7 @@
 
 - (id)toDictionary
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   if ([(PMLModelWeights *)self length]>= 1)
   {
@@ -109,25 +111,23 @@
     while (v4 < [(PMLModelWeights *)self length]);
   }
 
-  v15[0] = @"VALUES";
+  v14[0] = @"VALUES";
   v8 = arrayFromFloats([(PMLModelWeights *)self values], [(PMLModelWeights *)self length]);
-  v15[1] = @"SHAPE";
-  v16[0] = v8;
+  v14[1] = @"SHAPE";
+  v15[0] = v8;
   v9 = [MEMORY[0x277CCABB0] numberWithInt:{-[PMLModelWeights length](self, "length")}];
-  v14[0] = v9;
-  v14[1] = &unk_287357EF0;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-  v16[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = v9;
+  v13[1] = &unk_287357EF0;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v15[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v11;
 }
 
 - (id)initFromDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"VALUES"];
   v6 = [dictionaryCopy objectForKeyedSubscript:@"SHAPE"];
@@ -141,41 +141,48 @@
   v9 = v5;
   v10 = -[PMLDenseVector initWithCount:]([PMLMutableDenseVector alloc], "initWithCount:", [v9 count]);
   mutablePtr = [(PMLMutableDenseVector *)v10 mutablePtr];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v12 = v9;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       v16 = 0;
       do
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [*(*(&v21 + 1) + 8 * v16) floatValue];
+        [*(*(&v20 + 1) + 8 * v16) floatValue];
         *mutablePtr++ = v17;
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
   }
 
   v18 = [(PMLModelWeights *)self initModelWeightsFromFloats:v10];
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
+}
+
+- (id)sliceFrom:(int)from to:(int)to
+{
+  v4 = [(PMLDenseVector *)self->_data sliceFrom:*&from to:*&to];
+  v5 = [PMLModelWeights modelWeightsFromFloats:v4];
+
+  return v5;
 }
 
 - (id)weightsByAppendingWeights:(id)weights
@@ -301,6 +308,15 @@
   v6 = [v4 initModelWeightsFromFloats:v5];
 
   return v6;
+}
+
++ (id)modelWeightsOfLength:(int)length rngSeed:(unint64_t)seed
+{
+  v4 = *&length;
+  v6 = [objc_alloc(MEMORY[0x277D42618]) initWithSeed:seed];
+  v7 = [self modelWeightsOfLength:v4 rng:v6];
+
+  return v7;
 }
 
 + (id)modelWeightsOfLength:(int)length rng:(id)rng

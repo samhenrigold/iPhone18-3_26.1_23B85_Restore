@@ -1,370 +1,3 @@
-uint64_t AVAudioEnvironmentNodeImpl::UpdateAutomaticOutputType(AVAudioEnvironmentNodeImpl *this)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if (*(this + 23))
-  {
-    goto LABEL_24;
-  }
-
-  v13 = 3;
-  if ((*(this + 72) & 1) == 0 && (*(this + 49) & 1) == 0)
-  {
-    v4 = [MEMORY[0x1E698D708] sharedInstance];
-    if ([objc_msgSend(objc_msgSend(v4 "currentRoute")] == 1)
-    {
-      if ([objc_msgSend(objc_msgSend(objc_msgSend(v4 "currentRoute")])
-      {
-        if (AVAudioEngineLogCategory(void)::once != -1)
-        {
-          dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
-        }
-
-        v5 = *AVAudioEngineLogCategory(void)::category;
-        if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 136315394;
-          v15 = "AVAudioEnvironmentNodeImpl.mm";
-          v16 = 1024;
-          v17 = 447;
-          _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d setting output type = headphones", buf, 0x12u);
-        }
-
-        v3 = 1;
-        goto LABEL_22;
-      }
-
-      v10 = [objc_msgSend(objc_msgSend(objc_msgSend(v4 "currentRoute")];
-      v11 = [v10 isEqualToString:*MEMORY[0x1E698D688]];
-      if (AVAudioEngineLogCategory(void)::once != -1)
-      {
-        dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
-      }
-
-      v6 = *AVAudioEngineLogCategory(void)::category;
-      v12 = os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_DEBUG);
-      if (v11)
-      {
-        if (v12)
-        {
-          *buf = 136315394;
-          v15 = "AVAudioEnvironmentNodeImpl.mm";
-          v16 = 1024;
-          v17 = 459;
-          v3 = 2;
-          _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d setting output type = built-in speakers", buf, 0x12u);
-        }
-
-        else
-        {
-          v3 = 2;
-        }
-
-        goto LABEL_22;
-      }
-
-      if (!v12)
-      {
-LABEL_21:
-        v3 = 3;
-LABEL_22:
-        v13 = v3;
-        goto LABEL_23;
-      }
-
-      *buf = 136315394;
-      v15 = "AVAudioEnvironmentNodeImpl.mm";
-      v16 = 1024;
-      v17 = 462;
-      v7 = "%25s:%-5d setting output type = external speakers";
-    }
-
-    else
-    {
-      if (AVAudioEngineLogCategory(void)::once != -1)
-      {
-        dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
-      }
-
-      v6 = *AVAudioEngineLogCategory(void)::category;
-      if (!os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_21;
-      }
-
-      *buf = 136315394;
-      v15 = "AVAudioEnvironmentNodeImpl.mm";
-      v16 = 1024;
-      v17 = 465;
-      v7 = "%25s:%-5d multiple outputs active, setting output type = external speakers";
-    }
-
-    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, v7, buf, 0x12u);
-    goto LABEL_21;
-  }
-
-  if (AVAudioEngineLogCategory(void)::once != -1)
-  {
-    dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
-  }
-
-  v2 = *AVAudioEngineLogCategory(void)::category;
-  if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 136315394;
-    v15 = "AVAudioEnvironmentNodeImpl.mm";
-    v16 = 1024;
-    v17 = 561;
-    _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d manual rendering mode, setting output type = external speakers", buf, 0x12u);
-  }
-
-  v3 = 3;
-LABEL_23:
-  if (v3 != *(this + 48))
-  {
-    *(this + 48) = v3;
-    result = (*(*this + 144))(this, 3100, 0, 0, &v13, 4);
-    goto LABEL_25;
-  }
-
-LABEL_24:
-  result = 1;
-LABEL_25:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void AVAudioEnvironmentNodeImpl::~AVAudioEnvironmentNodeImpl(AVAudioEnvironmentNodeImpl *this)
-{
-  AVAudioEnvironmentNodeImpl::~AVAudioEnvironmentNodeImpl(this);
-
-  JUMPOUT(0x1BFAF5800);
-}
-
-{
-  *this = &unk_1F3849D28;
-  if (*(this + 27))
-  {
-    if (*(this + 248) == 1)
-    {
-      MEMORY[0x1BFAF54D0](this + 232);
-      *(this + 248) = 0;
-    }
-
-    caulk::semaphore::semaphore((this + 232));
-    *(this + 248) = 1;
-    v2 = *(this + 28);
-    *(this + 27) = 0;
-    *(this + 28) = 0;
-    if (v2)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-    }
-
-    caulk::semaphore::timed_wait((this + 232), -1.0);
-    __dmb(9u);
-  }
-
-  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
-
-  std::__tree<std::__value_type<AUGraphNodeBaseV3 *,std::pair<AUGraphNodeBaseV3 *,unsigned int>>,std::__map_value_compare<AUGraphNodeBaseV3 *,std::__value_type<AUGraphNodeBaseV3 *,std::pair<AUGraphNodeBaseV3 *,unsigned int>>,std::less<AUGraphNodeBaseV3 *>,true>,std::allocator<std::__value_type<AUGraphNodeBaseV3 *,std::pair<AUGraphNodeBaseV3 *,unsigned int>>>>::destroy(*(this + 39));
-  caulk::details::lifetime_guard_base<AVAudioEnvironmentNodeImpl>::~lifetime_guard_base(this + 208);
-
-  AVAudioUnitImpl::~AVAudioUnitImpl(this);
-}
-
-uint64_t caulk::details::lifetime_guard_base<AVAudioEnvironmentNodeImpl>::~lifetime_guard_base(uint64_t a1)
-{
-  if (*(a1 + 8))
-  {
-    _os_assert_log();
-    result = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    if (*(a1 + 40) == 1)
-    {
-      MEMORY[0x1BFAF54D0](a1 + 24);
-    }
-
-    v2 = *(a1 + 16);
-    if (v2)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-    }
-
-    return a1;
-  }
-
-  return result;
-}
-
-void ___ZN26AVAudioEnvironmentNodeImplC2Ev_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    v3 = std::__shared_weak_count::lock(v2);
-    if (v3)
-    {
-      v4 = v3;
-      v5 = *(a1 + 32);
-      if (v5)
-      {
-        AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, v5);
-        AVAudioEnvironmentNodeImpl::UpdateAutomaticOutputType(v5);
-        if (v9 == 1)
-        {
-          std::recursive_mutex::unlock(v8);
-        }
-
-        if (v7 == 1)
-        {
-          std::recursive_mutex::unlock(v6);
-        }
-      }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-    }
-  }
-}
-
-void sub_1BA62521C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  std::pair<std::unique_lock<std::recursive_mutex>,std::unique_lock<std::recursive_mutex>>::~pair(&a9);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  _Unwind_Resume(a1);
-}
-
-uint64_t AVAudioEnvironmentNodeImpl::SetMixerDistanceParameters(AVAudioEnvironmentNodeImpl *this)
-{
-  v2 = *(this + 85);
-  v3 = *(this + 86);
-  v13 = v3;
-  v14 = v2;
-  AVAudioEnvironmentNodeImpl::GetMaxAttenuation(this);
-  v15 = v4;
-  if (*(this + 84) == 3)
-  {
-    v5 = *(this + 87);
-    if (v5 > 1.0 && (v2 - v3) > 0.001)
-    {
-      v14 = v3 + ((v2 - v3) / v5);
-    }
-  }
-
-  v6 = *(this + 38);
-  v7 = 1;
-  if (v6 != (this + 312))
-  {
-    do
-    {
-      v8 = (*(*this + 144))(this, 3010, 1, *(v6 + 10), &v13, 12);
-      v9 = *(v6 + 1);
-      if (v9)
-      {
-        do
-        {
-          v10 = v9;
-          v9 = *v9;
-        }
-
-        while (v9);
-      }
-
-      else
-      {
-        do
-        {
-          v10 = *(v6 + 2);
-          v11 = *v10 == v6;
-          v6 = v10;
-        }
-
-        while (!v11);
-      }
-
-      v7 = v7 & v8;
-      v6 = v10;
-    }
-
-    while (v10 != (this + 312));
-  }
-
-  return v7;
-}
-
-void AVAudioEnvironmentNodeImpl::GetMaxAttenuation(AVAudioEnvironmentNodeImpl *this)
-{
-  v1 = *(this + 85);
-  v2 = *(this + 86);
-  if ((v1 - v2) > 0.001)
-  {
-    v3 = *(this + 84);
-    if (v3 == 3)
-    {
-      v5 = 1.0 - *(this + 87);
-      if (v5 < 1.0e-10)
-      {
-        v5 = 1.0e-10;
-      }
-
-      log10f(v5);
-    }
-
-    else if (v3 == 2)
-    {
-      if (v2 > 0.001)
-      {
-        log10f((((v1 - v2) * *(this + 87)) / v2) + 1.0);
-      }
-    }
-
-    else if (v3 == 1 && v2 > 0.001)
-    {
-      v4 = *(this + 87) * 20.0;
-      log10f(v1 / v2);
-    }
-  }
-}
-
-void __destroy_helper_block_e8_32c68_ZTSN5caulk14lifetime_guardI26AVAudioEnvironmentNodeImplvE8weak_refE(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-}
-
-uint64_t __copy_helper_block_e8_32c68_ZTSN5caulk14lifetime_guardI26AVAudioEnvironmentNodeImplvE8weak_refE(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(result + 32) = *(a2 + 32);
-  *(result + 40) = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-BOOL EnvironmentReverbFilterParameters::GetBypass(EnvironmentReverbFilterParameters *this)
-{
-  v2 = 0.0;
-  (*(**(this + 2) + 136))(*(this + 2), 18, 0, 0, &v2);
-  return v2 == 0.0;
-}
-
-uint64_t EnvironmentReverbFilterParameters::GetFilterType(EnvironmentReverbFilterParameters *this)
-{
-  v2 = 0.0;
-  (*(**(this + 2) + 136))(*(this + 2), 17, 0, 0, &v2);
-  return v2;
-}
-
 uint64_t EnvironmentReverbFilterParameters::SetGain(EnvironmentReverbFilterParameters *this, float a2)
 {
   v2 = *(this + 2);
@@ -673,7 +306,7 @@ LABEL_5:
   return v7;
 }
 
-void sub_1BA629F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14)
+void sub_1BA629F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char *a14)
 {
   a14 = &a10;
   std::vector<NSNumber * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a14);
@@ -721,7 +354,7 @@ void std::vector<NSNumber * {__strong}>::push_back[abi:ne200100](void ***a1, id 
 
     v10 = (8 * v6);
     *v10 = *a2;
-    v5 = 8 * v6 + 8;
+    v5 = (8 * v6 + 8);
     v11 = *a1;
     v12 = a1[1];
     v13 = (v10 + *a1 - v12);
@@ -758,7 +391,7 @@ void std::vector<NSNumber * {__strong}>::push_back[abi:ne200100](void ***a1, id 
   else
   {
     *v4 = *a2;
-    v5 = (v4 + 1);
+    v5 = v4 + 1;
   }
 
   a1[1] = v5;
@@ -972,9 +605,9 @@ void CACFDictionary::AddUInt32(CFMutableDictionaryRef *this, const __CFString *a
   CACFNumber::~CACFNumber(&v6);
 }
 
-void sub_1BA62B45C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BA62B45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -993,9 +626,9 @@ void CACFDictionary::AddFloat32(CFMutableDictionaryRef *this, const __CFString *
   CACFNumber::~CACFNumber(&v6);
 }
 
-void sub_1BA62B4E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BA62B4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -1009,7 +642,7 @@ void sub_1BA62B6D4(_Unwind_Exception *a1)
 
 void ___Z37AudioDataAnalysisManagerLibraryLoaderv_block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v0 = dlopen("/usr/lib/libAudioIssueDetector.dylib", 1);
   if (v0)
   {
@@ -1018,9 +651,9 @@ void ___Z37AudioDataAnalysisManagerLibraryLoaderv_block_invoke()
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = 136315138;
-    v4 = dlerror();
-    _os_log_error_impl(&dword_1BA5AC000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = dlerror();
+    _os_log_error_impl(&dword_1BA5AC000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v2, 0xCu);
   }
 
   v0 = dlopen("/usr/local/lib/libAudioIssueDetector.dylib", 1);
@@ -1054,13 +687,11 @@ LABEL_5:
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v2 = dlerror();
-    v3 = 136315138;
-    v4 = v2;
-    _os_log_error_impl(&dword_1BA5AC000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v3, 0xCu);
+    v1 = dlerror();
+    v2 = 136315138;
+    v3 = v1;
+    _os_log_error_impl(&dword_1BA5AC000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "dlerror : libAudioIssueDetector ADAM: %s", &v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA62C71C(_Unwind_Exception *a1)
@@ -1162,10 +793,10 @@ void sub_1BA62DE18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1BA62E050(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1BA62E050(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = AVVCMetricsManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1179,7 +810,7 @@ void sub_1BA62EBE0(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t AVAudioStereoMixingImpl::SetPan(AVAudioStereoMixingImpl *this, float a2)
+uint64_t AVAudioStereoMixingImpl::SetPan(AVAudioStereoMixingImpl *this, float a2, const char *a3)
 {
   if ((LODWORD(a2) & 0x7FFFFFFFu) >= 0x7F800000)
   {
@@ -1191,33 +822,31 @@ uint64_t AVAudioStereoMixingImpl::SetPan(AVAudioStereoMixingImpl *this, float a2
     return 0;
   }
 
-  v14 = v6;
-  v15 = v2;
-  v8 = 1.0;
+  v14 = v7;
+  v9 = 1.0;
   if (a2 < 1.0)
   {
-    v8 = a2;
+    v9 = a2;
   }
 
   if (a2 <= -1.0)
   {
-    v9 = -1.0;
+    v10 = -1.0;
   }
 
   else
   {
-    v9 = v8;
+    v10 = v9;
   }
 
-  *(this + 5) = v9;
-  v10 = *(this + 16);
-  v11 = *(*[*(this + 9) impl] + 128);
-  v12.n128_f32[0] = v9;
+  *(this + 5) = v10;
+  v11 = *(*objc_msgSend_impl(*(this + 9), a3, v8, v14, v4, v3, v5) + 128);
+  v12.n128_f32[0] = v10;
 
   return v11(v12);
 }
 
-uint64_t AVAudioStereoMixingImpl::SetGain(AVAudioStereoMixingImpl *this, float a2)
+uint64_t AVAudioStereoMixingImpl::SetGain(AVAudioStereoMixingImpl *this, float a2, const char *a3)
 {
   if ((LODWORD(a2) & 0x7FFFFFFFu) >= 0x7F800000)
   {
@@ -1229,39 +858,37 @@ uint64_t AVAudioStereoMixingImpl::SetGain(AVAudioStereoMixingImpl *this, float a
     return 0;
   }
 
-  v14 = v6;
-  v15 = v2;
-  v8 = 100000.0;
+  v14 = v7;
+  v9 = 100000.0;
   if (a2 < 100000.0)
   {
-    v8 = a2;
+    v9 = a2;
   }
 
   if (a2 <= 0.0)
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
   else
   {
-    v9 = v8;
+    v10 = v9;
   }
 
-  *(this + 4) = v9;
-  v10 = *(this + 16);
-  v11 = *(*[*(this + 9) impl] + 128);
-  v12.n128_f32[0] = v9;
+  *(this + 4) = v10;
+  v11 = *(*objc_msgSend_impl(*(this + 9), a3, v8, v14, v4, v3, v5) + 128);
+  v12.n128_f32[0] = v10;
 
   return v11(v12);
 }
 
-AVAudioConnectionPoint *AVAudioStereoMixingImpl::GetMixerConnectionPoint(id *this)
+AVAudioConnectionPoint *AVAudioStereoMixingImpl::GetMixerConnectionPoint(void **this, const char *a2)
 {
-  v2 = [this[9] impl];
-  v3 = (*(*v2 + 248))(v2, *(this + 16));
-  v4 = this[9];
+  v4 = objc_msgSend_impl(this[9], a2);
+  v5 = (*(*v4 + 248))(v4, *(this + 16));
+  v6 = this[9];
 
-  return [AVAudioConnectionPoint connectionPointWithNode:v4 bus:v3];
+  return [AVAudioConnectionPoint connectionPointWithNode:v6 bus:v5];
 }
 
 void AVAudioStereoMixingImpl::~AVAudioStereoMixingImpl(AVAudioStereoMixingImpl *this)
@@ -1280,7 +907,7 @@ void AVAudioStereoMixingImpl::~AVAudioStereoMixingImpl(AVAudioStereoMixingImpl *
 
 uint64_t AUGraphNodeBase::ConnectInput(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = *a4;
   v8 = (*(*a1 + 16))(a1);
   v9 = v8;
@@ -1298,17 +925,17 @@ uint64_t AUGraphNodeBase::ConnectInput(uint64_t a1, int a2, uint64_t a3, uint64_
       if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316418;
-        v20 = "AVAEInternal.h";
-        v21 = 1024;
-        v22 = 71;
-        v23 = 2080;
-        v24 = "AVAEGraphNode.mm";
-        v25 = 1024;
-        v26 = 227;
-        v27 = 2080;
-        v28 = "ConnectInput";
-        v29 = 2080;
-        v30 = "nullptr != srcNode";
+        v17 = "AVAEInternal.h";
+        v18 = 1024;
+        v19 = 71;
+        v20 = 2080;
+        v21 = "AVAEGraphNode.mm";
+        v22 = 1024;
+        v23 = 227;
+        v24 = 2080;
+        v25 = "ConnectInput";
+        v26 = 2080;
+        v27 = "nullptr != srcNode";
         _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
       }
 
@@ -1317,35 +944,33 @@ uint64_t AUGraphNodeBase::ConnectInput(uint64_t a1, int a2, uint64_t a3, uint64_
 
     (*(*v7 + 56))(v7, 0, v10, v9, a3);
     ((*v9)[7])(v9, 1, a3, v7, v10);
-    v12 = v7[3];
-    result = (*(*v9[3] + 272))();
-    goto LABEL_16;
-  }
-
-  v14 = *(v8 + 24);
-  if (v7)
-  {
-    v15 = v7[3];
+    return (*(*v9[3] + 272))();
   }
 
   else
   {
-    v15 = 0;
+    v13 = *(v8 + 24);
+    if (v7)
+    {
+      v14 = v7[3];
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    (*(*v13 + 280))(v13, a3, v14, v10);
+    result = ((*v9)[9])(v9, 1, a3);
+    if (v7)
+    {
+      v15 = *(*v7 + 64);
+
+      return v15(v7, 0, v10, v9, a3);
+    }
   }
 
-  (*(*v14 + 280))(v14, a3, v15, v10);
-  result = ((*v9)[9])(v9, 1, a3);
-  if (!v7)
-  {
-LABEL_16:
-    v18 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  v16 = *(*v7 + 64);
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v16(v7, 0, v10, v9, a3);
+  return result;
 }
 
 uint64_t AUGraphNodeBase::SetAUMaxFramesPerSlice(AUGraphNodeBase *this)
@@ -1392,7 +1017,7 @@ pthread_t AUGraphNodeBase::NodeDidStop(pthread_t this)
 
 pthread_t AUGraphNodeBase::NodeWillStart(pthread_t this)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   cleanup_stack = this->__cleanup_stack;
   if (cleanup_stack)
   {
@@ -1407,17 +1032,17 @@ pthread_t AUGraphNodeBase::NodeWillStart(pthread_t this)
       if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316418;
-        v7 = "AVAEInternal.h";
-        v8 = 1024;
-        v9 = 71;
-        v10 = 2080;
-        v11 = "AVAudioNodeTap.mm";
-        v12 = 1024;
-        v13 = 129;
-        v14 = 2080;
-        v15 = "Start";
-        v16 = 2080;
-        v17 = "_initialized";
+        v6 = "AVAEInternal.h";
+        v7 = 1024;
+        v8 = 71;
+        v9 = 2080;
+        v10 = "AVAudioNodeTap.mm";
+        v11 = 1024;
+        v12 = 129;
+        v13 = 2080;
+        v14 = "Start";
+        v15 = 2080;
+        v16 = "_initialized";
         _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
       }
 
@@ -1444,10 +1069,9 @@ pthread_t AUGraphNodeBase::NodeWillStart(pthread_t this)
     LOBYTE(cleanup_stack[59].__next) = 1;
     LODWORD(cleanup_stack[59].__routine) = 0;
     cleanup_stack[60].__routine = 0;
-    this = caulk::recursive_mutex_adapter<caulk::pooled_semaphore_mutex>::unlock(&cleanup_stack[1]);
+    return caulk::recursive_mutex_adapter<caulk::pooled_semaphore_mutex>::unlock(&cleanup_stack[1]);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -1659,10 +1283,10 @@ uint64_t AUGraphNodeBase::DisconnectNode(uint64_t result, int a2, unsigned int a
   return result;
 }
 
-uint64_t AUGraphNodeBase::DisconnectNode(uint64_t result, int a2, unsigned int a3, uint64_t a4)
+char *AUGraphNodeBase::DisconnectNode(char *result, int a2, unsigned int a3, uint64_t a4)
 {
   v7 = result;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (!a4)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -1674,17 +1298,17 @@ uint64_t AUGraphNodeBase::DisconnectNode(uint64_t result, int a2, unsigned int a
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v19 = "AVAEInternal.h";
-      v20 = 1024;
-      v21 = 71;
-      v22 = 2080;
-      v23 = "AVAEGraphNode.mm";
-      v24 = 1024;
-      v25 = 411;
-      v26 = 2080;
-      v27 = "DisconnectNode";
-      v28 = 2080;
-      v29 = "inNode != nil";
+      v18 = "AVAEInternal.h";
+      v19 = 1024;
+      v20 = 71;
+      v21 = 2080;
+      v22 = "AVAEGraphNode.mm";
+      v23 = 1024;
+      v24 = 411;
+      v25 = 2080;
+      v26 = "DisconnectNode";
+      v27 = 2080;
+      v28 = "inNode != nil";
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -1697,38 +1321,37 @@ uint64_t AUGraphNodeBase::DisconnectNode(uint64_t result, int a2, unsigned int a
     v9 = 48;
   }
 
-  v10 = (v7 + v9);
+  v10 = &v7[v9];
   v11 = *v10;
-  v12 = v10[1];
+  v12 = *(v10 + 1);
   if (*v10 != v12 && a3 < ((v12 - v11) >> 3) && v11[a3] == a4)
   {
     v11[a3] = 0;
-    v14 = *v10;
-    v15 = v10[1];
-    if (*v10 != v15)
+    v13 = *v10;
+    v14 = *(v10 + 1);
+    if (*v10 != v14)
     {
-      v16 = (v15 - 8);
+      v15 = (v14 - 8);
       do
       {
-        if (*v16)
+        if (*v15)
         {
           break;
         }
 
-        v10[1] = v16;
+        *(v10 + 1) = v15;
       }
 
-      while (v16-- != v14);
+      while (v15-- != v13);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void AUGraphNodeBase::AddNode(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
+void AUGraphNodeBase::AddNode(uint64_t a1, int a2, int a3, uint64_t a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (!a4)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -1741,16 +1364,16 @@ void AUGraphNodeBase::AddNode(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v14 = 1024;
-      v15 = 71;
-      v16 = 2080;
-      v17 = "AVAEGraphNode.mm";
-      v18 = 1024;
-      v19 = 386;
-      v20 = 2080;
-      v21 = "AddNode";
-      v22 = 2080;
-      v23 = "inNode != nil";
+      v13 = 1024;
+      v14 = 71;
+      v15 = 2080;
+      v16 = "AVAEGraphNode.mm";
+      v17 = 1024;
+      v18 = 386;
+      v19 = 2080;
+      v20 = "AddNode";
+      v21 = 2080;
+      v22 = "inNode != nil";
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -1780,7 +1403,6 @@ void AUGraphNodeBase::AddNode(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
   }
 
   *(*i + 8 * a3) = a4;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t AUGraphNodeBase::GetBusForConnectionPoint(uint64_t a1, int a2, void *a3, _DWORD *a4)
@@ -1792,30 +1414,29 @@ uint64_t AUGraphNodeBase::GetBusForConnectionPoint(uint64_t a1, int a2, void *a3
     v4 = 48;
   }
 
-  v5 = *(a1 + v4);
-  v6 = *(a1 + v4 + 8);
-  v7 = *(a1 + v4);
-  if (v7 == v6)
+  v5 = *(a1 + v4 + 8);
+  v6 = *(a1 + v4);
+  if (v6 == v5)
   {
     return 0;
   }
 
-  v8 = v7;
-  while (*v8 != *a3)
+  v7 = v6;
+  while (*v7 != *a3)
   {
-    v8 += 8;
-    if (v8 == v6)
+    v7 += 8;
+    if (v7 == v5)
     {
       return 0;
     }
   }
 
-  if (v8 == v6)
+  if (v7 == v5)
   {
     return 0;
   }
 
-  *a4 = (v8 - v7) >> 3;
+  *a4 = (v7 - v6) >> 3;
   return 1;
 }
 
@@ -1885,7 +1506,7 @@ uint64_t AUGraphNodeBase::GetConnection(uint64_t a1, uint64_t a2, uint64_t a3, _
   return result;
 }
 
-uint64_t AUGraphNodeBase::GetNodeForBus(uint64_t a1, int a2, unsigned int a3)
+uint64_t AUGraphNodeBase::GetNodeForBus(uint64_t a1, int a2, int a3)
 {
   v3 = 72;
   if (a2 == 1)
@@ -1925,7 +1546,7 @@ const void **std::unique_ptr<AVAEBlock<int({block_pointer})(unsigned int *,Audio
 
 uint64_t AUGraphNodeBaseV3::DestroyMIDIConnection(void *a1, uint64_t *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = *a2;
   v4 = (*(*a1 + 16))(a1);
   std::lock[abi:ne200100]<caulk::pooled_semaphore_mutex,caulk::pooled_semaphore_mutex>((v3 + 156), (a1 + 156));
@@ -1941,17 +1562,17 @@ uint64_t AUGraphNodeBaseV3::DestroyMIDIConnection(void *a1, uint64_t *a2)
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v18 = "AVAEInternal.h";
-      v19 = 1024;
-      v20 = 71;
-      v21 = 2080;
-      v22 = "AVAEGraphNode.mm";
-      v23 = 1024;
-      v24 = 997;
-      v25 = 2080;
-      v26 = "DestroyMIDIConnection";
-      v27 = 2080;
-      v28 = "midiSrc == MIDIInput()";
+      v17 = "AVAEInternal.h";
+      v18 = 1024;
+      v19 = 71;
+      v20 = 2080;
+      v21 = "AVAEGraphNode.mm";
+      v22 = 1024;
+      v23 = 997;
+      v24 = 2080;
+      v25 = "DestroyMIDIConnection";
+      v26 = 2080;
+      v27 = "midiSrc == MIDIInput()";
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -2004,27 +1625,25 @@ LABEL_20:
   v10 = a1[14];
   if (*(v10 + 128) == *(v10 + 136))
   {
-    v13 = *(v10 + 176);
-    if (v13 && *v13)
+    v12 = *(v10 + 176);
+    if (v12 && *v12)
     {
       std::unique_ptr<AVAEBlock<int({block_pointer})(long long,unsigned char,long,unsigned char const*)>>::reset[abi:ne200100]((v10 + 176), 0);
       v10 = a1[14];
     }
 
-    v16 = *(v10 + 184);
-    v14 = (v10 + 184);
-    v15 = v16;
-    if (v16 && *v15)
+    v15 = *(v10 + 184);
+    v13 = (v10 + 184);
+    v14 = v15;
+    if (v15 && *v14)
     {
-      std::unique_ptr<AVAEBlock<int({block_pointer})(long long,unsigned char,MIDIEventList const*)>>::reset[abi:ne200100](v14, 0);
+      std::unique_ptr<AVAEBlock<int({block_pointer})(long long,unsigned char,MIDIEventList const*)>>::reset[abi:ne200100](v13, 0);
     }
   }
 
   a1[14] = 0;
   caulk::pooled_semaphore_mutex::_unlock((a1 + 156));
-  result = caulk::pooled_semaphore_mutex::_unlock((v3 + 156));
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return caulk::pooled_semaphore_mutex::_unlock((v3 + 156));
 }
 
 void sub_1BA630A0C(_Unwind_Exception *a1)
@@ -2099,7 +1718,7 @@ const void ***std::unique_ptr<AVAEBlock<int({block_pointer})(long long,unsigned 
 
 uint64_t AUGraphNodeBaseV3::CreateMIDIConnection(void *a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = *a2;
   v5 = (*(*a1 + 16))(a1);
   if (!v4)
@@ -2114,16 +1733,16 @@ uint64_t AUGraphNodeBaseV3::CreateMIDIConnection(void *a1, uint64_t a2)
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v27 = 1024;
-      v28 = 71;
-      v29 = 2080;
-      v30 = "AVAEGraphNode.mm";
-      v31 = 1024;
-      v32 = 964;
-      v33 = 2080;
-      v34 = "CreateMIDIConnection";
-      v35 = 2080;
-      v36 = "midiSrc != nullptr";
+      v26 = 1024;
+      v27 = 71;
+      v28 = 2080;
+      v29 = "AVAEGraphNode.mm";
+      v30 = 1024;
+      v31 = 964;
+      v32 = 2080;
+      v33 = "CreateMIDIConnection";
+      v34 = 2080;
+      v35 = "midiSrc != nullptr";
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -2218,19 +1837,17 @@ LABEL_13:
     v10 = v4;
   }
 
-  v25 = v10;
+  v24 = v10;
   v22 = *(a2 + 24);
   if (v22 == -1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  *buf = &v25;
+  *buf = &v24;
   (off_1F384DA78[v22])(buf, a2 + 16);
   caulk::pooled_semaphore_mutex::_unlock((a1 + 156));
-  result = caulk::pooled_semaphore_mutex::_unlock((v4 + 156));
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  return caulk::pooled_semaphore_mutex::_unlock((v4 + 156));
 }
 
 void sub_1BA630E28(_Unwind_Exception *a1)
@@ -2246,9 +1863,8 @@ void std::__throw_bad_variant_access[abi:ne200100]()
   *exception = MEMORY[0x1E69E55D0] + 16;
 }
 
-const void ***std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<AUGraphNodeBaseV3::CreateMIDIConnection(AUGraphMIDIConnection const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,int({block_pointer})(long long,unsigned char,long,unsigned char const*),int({block_pointer})(long long,unsigned char,MIDIEventList const*)> const&>(uint64_t **a1, void *a2)
+const void ***std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<AUGraphNodeBaseV3::CreateMIDIConnection(AUGraphMIDIConnection const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,int({block_pointer})(long long,unsigned char,long,unsigned char const*),int({block_pointer})(long long,unsigned char,MIDIEventList const*)> const&>(uint64_t **a1, void **a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = **a1;
   result = (v4 + 176);
@@ -2268,19 +1884,12 @@ const void ***std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__
     v8 = *v8;
   }
 
-  if (v8 == v7)
-  {
-    v11 = *MEMORY[0x1E69E9840];
-  }
-
-  else
+  if (v8 != v7)
   {
     if (v7)
     {
       operator new();
     }
-
-    v12 = *MEMORY[0x1E69E9840];
 
     return std::unique_ptr<AVAEBlock<int({block_pointer})(long long,unsigned char,MIDIEventList const*)>>::reset[abi:ne200100](v9, 0);
   }
@@ -2288,9 +1897,8 @@ const void ***std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__
   return result;
 }
 
-const void ***std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<AUGraphNodeBaseV3::CreateMIDIConnection(AUGraphMIDIConnection const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,int({block_pointer})(long long,unsigned char,long,unsigned char const*),int({block_pointer})(long long,unsigned char,MIDIEventList const*)> const&>(uint64_t **a1, void *a2)
+const void ***std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<AUGraphNodeBaseV3::CreateMIDIConnection(AUGraphMIDIConnection const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,int({block_pointer})(long long,unsigned char,long,unsigned char const*),int({block_pointer})(long long,unsigned char,MIDIEventList const*)> const&>(uint64_t **a1, const void **a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = **a1;
   v4 = *a2;
@@ -2315,23 +1923,16 @@ const void ***std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__
   result = (*v2 + 184);
   if (*result && **result)
   {
-    v9 = *MEMORY[0x1E69E9840];
 
     return std::unique_ptr<AVAEBlock<int({block_pointer})(long long,unsigned char,MIDIEventList const*)>>::reset[abi:ne200100](result, 0);
-  }
-
-  else
-  {
-    v10 = *MEMORY[0x1E69E9840];
   }
 
   return result;
 }
 
-uint64_t AUGraphNodeBaseV3::AllocateInputBlock(AUGraphNodeBaseV3 *this)
+void AUGraphNodeBaseV3::AllocateInputBlock(const void ***this)
 {
-  result = (*(*this + 304))(this);
-  if (!result)
+  if (!((*this)[38])(this))
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
@@ -2341,8 +1942,6 @@ uint64_t AUGraphNodeBaseV3::AllocateInputBlock(AUGraphNodeBaseV3 *this)
     _Block_copy(aBlock);
     operator new();
   }
-
-  return result;
 }
 
 uint64_t ___ZL19CopyInnerInputBlockP17AUGraphNodeBaseV3_block_invoke(uint64_t a1, unsigned int *a2, AudioTimeStamp *a3, uint64_t a4, uint64_t a5, AudioBufferList *a6)
@@ -2613,7 +2212,7 @@ const void **AUGraphNodeIOV3::SetOutputProvider(uint64_t a1, const void **a2)
 
 const void **AUGraphNodeIOV3::DeallocateInputBlock(AUGraphNodeIOV3 *this)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(*(**(this + 3) + 40))(*(this + 3));
   if ((*(v2 + 336))())
   {
@@ -2626,17 +2225,17 @@ const void **AUGraphNodeIOV3::DeallocateInputBlock(AUGraphNodeIOV3 *this)
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v7 = "AVAEInternal.h";
-      v8 = 1024;
-      v9 = 71;
-      v10 = 2080;
-      v11 = "AVAEGraphNode.mm";
-      v12 = 1024;
-      v13 = 1074;
-      v14 = 2080;
-      v15 = "DeallocateInputBlock";
-      v16 = 2080;
-      v17 = "false == AUI().IsRunning()";
+      v6 = "AVAEInternal.h";
+      v7 = 1024;
+      v8 = 71;
+      v9 = 2080;
+      v10 = "AVAEGraphNode.mm";
+      v11 = 1024;
+      v12 = 1074;
+      v13 = 2080;
+      v14 = "DeallocateInputBlock";
+      v15 = 2080;
+      v16 = "false == AUI().IsRunning()";
       _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -2644,9 +2243,7 @@ const void **AUGraphNodeIOV3::DeallocateInputBlock(AUGraphNodeIOV3 *this)
   }
 
   (*(*this + 384))(this, 0);
-  result = std::unique_ptr<AVAEBlock<int({block_pointer})(unsigned int *,AudioTimeStamp const*,unsigned int,long,AudioBufferList *)>>::reset[abi:ne200100](this + 15, 0);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::unique_ptr<AVAEBlock<int({block_pointer})(unsigned int *,AudioTimeStamp const*,unsigned int,long,AudioBufferList *)>>::reset[abi:ne200100](this + 15, 0);
 }
 
 uint64_t AUGraphNodeIOV3::LastRenderError(AUGraphNodeIOV3 *this)
@@ -2692,9 +2289,9 @@ const void ***std::unique_ptr<AVAEBlock<void({block_pointer})(unsigned int *,Aud
   return result;
 }
 
-uint64_t AUGraphNodeIOV3::AllocateInputHandler(AUGraphNodeIOV3 *this, const AURenderCallbackStruct *a2)
+uint64_t AUGraphNodeIOV3::AllocateInputHandler(const void ***this, const AURenderCallbackStruct *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!a2->inputProc)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -2702,35 +2299,33 @@ uint64_t AUGraphNodeIOV3::AllocateInputHandler(AUGraphNodeIOV3 *this, const AURe
       dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
     }
 
-    v4 = *AVAudioEngineLogCategory(void)::category;
+    v3 = *AVAudioEngineLogCategory(void)::category;
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v9 = "AVAEInternal.h";
-      v10 = 1024;
-      v11 = 71;
-      v12 = 2080;
-      v13 = "AVAEGraphNode.mm";
-      v14 = 1024;
-      v15 = 1098;
-      v16 = 2080;
-      v17 = "AllocateInputHandler";
-      v18 = 2080;
-      v19 = "inRenderCallback.inputProc";
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
+      v6 = "AVAEInternal.h";
+      v7 = 1024;
+      v8 = 71;
+      v9 = 2080;
+      v10 = "AVAEGraphNode.mm";
+      v11 = 1024;
+      v12 = 1098;
+      v13 = 2080;
+      v14 = "AllocateInputHandler";
+      v15 = 2080;
+      v16 = "inRenderCallback.inputProc";
+      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "inRenderCallback.inputProc"}];
   }
 
-  result = (*(*this + 328))(this);
+  result = ((*this)[41])(this);
   if (!result)
   {
-    v7 = *a2;
     operator new();
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2762,10 +2357,10 @@ uint64_t AUGraphNodeIOV3::OutputProvider(AUGraphNodeIOV3 *this)
   }
 }
 
-uint64_t AUGraphNodeIOV3::AllocateInputBlock(AUGraphNodeIOV3 *this)
+uint64_t AUGraphNodeIOV3::AllocateInputBlock(const void ***this)
 {
   AUGraphNodeBaseV3::AllocateInputBlock(this);
-  result = (*(*this + 320))(this);
+  result = ((*this)[40])(this);
   if (!result)
   {
     v3[0] = MEMORY[0x1E69E9820];
@@ -2773,7 +2368,7 @@ uint64_t AUGraphNodeIOV3::AllocateInputBlock(AUGraphNodeIOV3 *this)
     v3[2] = ___ZN15AUGraphNodeIOV318AllocateInputBlockEv_block_invoke;
     v3[3] = &__block_descriptor_40_e106_i44__0_I8r__AudioTimeStamp_dQdQ_SMPTETime_ssIIIssss_II_16I24q28__AudioBufferList_I_1_AudioBuffer_II_v___36l;
     v3[4] = this;
-    return (*(*this + 384))(this, v3);
+    return ((*this)[48])(this, v3);
   }
 
   return result;
@@ -2882,15 +2477,15 @@ void AUGraphNodeBase::~AUGraphNodeBase(AUGraphNodeBase *this)
   }
 }
 
-const void ***AUGraphNodeGenericIOV3::SetManualRenderingInputBlock(uint64_t a1, const void ***a2)
+const void ***AUGraphNodeGenericIOV3::SetManualRenderingInputBlock(const void ***a1, const void ***a2)
 {
-  result = (*(*a1 + 392))(a1);
+  result = ((*a1)[49])(a1);
   if (result != a2)
   {
     v5[0] = GenericInputNodeRenderCallback;
     v5[1] = a1;
-    (*(**(a1 + 24) + 192))(*(a1 + 24), 0, v5);
-    result = std::unique_ptr<AVAEBlock<AudioBufferList const*({block_pointer})>>::reset[abi:ne200100]((a1 + 192), 0);
+    (*(*a1[3] + 24))(a1[3], 0, v5);
+    result = std::unique_ptr<AVAEBlock<AudioBufferList const*({block_pointer})>>::reset[abi:ne200100](a1 + 24, 0);
     if (a2)
     {
       operator new();
@@ -2918,9 +2513,9 @@ const void ***std::unique_ptr<AVAEBlock<AudioBufferList const*({block_pointer})(
   return result;
 }
 
-uint64_t GenericInputNodeRenderCallback(unsigned int *a1, unsigned int *a2, const AudioTimeStamp *a3, unsigned int a4, uint64_t a5, AudioBufferList *a6)
+uint64_t GenericInputNodeRenderCallback(unsigned int *a1, unsigned int *a2, const AudioTimeStamp *a3, uint64_t a4, uint64_t a5, AudioBufferList *a6)
 {
-  (*(*a1 + 400))(a1, 0, a3);
+  (*(*a1 + 400))(a1, 0, a3, a4);
   if ((*(*a1 + 392))(a1))
   {
     v9 = (*(*a1 + 392))(a1);
@@ -2992,10 +2587,10 @@ uint64_t AUGraphNodeGenericIOV3::ManualRenderingInputBlock(AUGraphNodeGenericIOV
   }
 }
 
-uint64_t AUGraphNodeGenericIOV3::AllocateInputBlock(AUGraphNodeGenericIOV3 *this)
+uint64_t AUGraphNodeGenericIOV3::AllocateInputBlock(const void ***this)
 {
   AUGraphNodeBaseV3::AllocateInputBlock(this);
-  result = (*(*this + 320))(this);
+  result = ((*this)[40])(this);
   if (!result)
   {
     v3[0] = MEMORY[0x1E69E9820];
@@ -3003,7 +2598,7 @@ uint64_t AUGraphNodeGenericIOV3::AllocateInputBlock(AUGraphNodeGenericIOV3 *this
     v3[2] = ___ZN22AUGraphNodeGenericIOV318AllocateInputBlockEv_block_invoke;
     v3[3] = &__block_descriptor_40_e106_i44__0_I8r__AudioTimeStamp_dQdQ_SMPTETime_ssIIIssss_II_16I24q28__AudioBufferList_I_1_AudioBuffer_II_v___36l;
     v3[4] = this;
-    return (*(*this + 384))(this, v3);
+    return ((*this)[48])(this, v3);
   }
 
   return result;
@@ -3041,15 +2636,15 @@ uint64_t AUGraphNodeGenericIOV3::RenderToABL(AUGraphNodeGenericIOV3 *this, uint6
 
 BOOL AUGraphNodeGenericIOV3::SetManualRenderingRenderCallback(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*(a1 + 184) != 1)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   if (([a2 isEqual:{(*(**(a1 + 24) + 72))(*(a1 + 24), 0)}] & 1) != 0 && (*(*a1 + 392))(a1) == a3)
   {
-    goto LABEL_8;
+    return 1;
   }
 
   if ((*(*a1 + 392))(a1) != a3)
@@ -3060,9 +2655,7 @@ BOOL AUGraphNodeGenericIOV3::SetManualRenderingRenderCallback(uint64_t a1, void 
   if ((*(**(a1 + 24) + 80))(*(a1 + 24), 0, a2))
   {
     (*(*a1 + 408))(a1, a3);
-LABEL_8:
-    result = 1;
-    goto LABEL_14;
+    return 1;
   }
 
   if (AVAudioEngineLogCategory(void)::once != -1)
@@ -3074,19 +2667,16 @@ LABEL_8:
   result = os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    v9 = 136315650;
-    v10 = "AVAEGraphNode.mm";
-    v11 = 1024;
-    v12 = 1459;
-    v13 = 2080;
-    v14 = [objc_msgSend(a2 "description")];
-    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting manual rendering mode input PCM format on input node! %s", &v9, 0x1Cu);
-LABEL_13:
-    result = 0;
+    v8 = 136315650;
+    v9 = "AVAEGraphNode.mm";
+    v10 = 1024;
+    v11 = 1459;
+    v12 = 2080;
+    v13 = [objc_msgSend(a2 "description")];
+    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting manual rendering mode input PCM format on input node! %s", &v8, 0x1Cu);
+    return 0;
   }
 
-LABEL_14:
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3107,7 +2697,7 @@ void AUGraphNodeGenericIOV3::~AUGraphNodeGenericIOV3(const void ***this)
 
 uint64_t AUGraphMIDINodeV3::Uninitialize(AUGraphMIDINodeV3 *this)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = AUGraphNodeBase::Uninitialize(this);
   v3 = *(*(**(this + 3) + 40))(*(this + 3));
   if ([(*(v3 + 304))() hostMIDIProtocol] <= 0)
@@ -3121,17 +2711,17 @@ uint64_t AUGraphMIDINodeV3::Uninitialize(AUGraphMIDINodeV3 *this)
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v8 = "AVAEInternal.h";
-      v9 = 1024;
-      v10 = 71;
-      v11 = 2080;
-      v12 = "AVAEGraphNode.mm";
-      v13 = 1024;
-      v14 = 1291;
-      v15 = 2080;
-      v16 = "Uninitialize";
-      v17 = 2080;
-      v18 = "AUI().GetHostMIDIProtocol() > 0";
+      v7 = "AVAEInternal.h";
+      v8 = 1024;
+      v9 = 71;
+      v10 = 2080;
+      v11 = "AVAEGraphNode.mm";
+      v12 = 1024;
+      v13 = 1291;
+      v14 = 2080;
+      v15 = "Uninitialize";
+      v16 = 2080;
+      v17 = "AUI().GetHostMIDIProtocol() > 0";
       _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -3139,7 +2729,6 @@ uint64_t AUGraphMIDINodeV3::Uninitialize(AUGraphMIDINodeV3 *this)
   }
 
   AUGraphMIDINodeV3::SetMIDIOutputEventListBlock(this, 0);
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -3224,25 +2813,24 @@ void AUGraphMIDINodeV3::Initialize(AUGraphMIDINodeV3 *this)
 
 uint64_t ___ZN17AUGraphMIDINodeV332AllocateMIDIOutputEventListBlockEv_block_invoke(uint64_t a1, uint64_t a2, char a3, _DWORD *a4)
 {
-  v18[96] = *MEMORY[0x1E69E9840];
-  v7 = a3;
-  v8 = a2;
-  v9 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZN17AUGraphMIDINodeV332AllocateMIDIOutputEventListBlockEvEUb_E3__3EE;
-  v10.n128_u64[0] = a1 + 32;
-  v10.n128_u64[1] = &v8;
-  v11 = &v7;
-  v13 = v10;
-  v14 = &v7;
-  v15 = &unk_1F3849418;
-  v12 = &caulk::inplace_function_detail::rt_vtable<void,MIDI::LegacyPacketList const*>::empty;
-  v16 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZN17AUGraphMIDINodeV332AllocateMIDIOutputEventListBlockEvEUb_E3__3EE;
-  _ZZN5caulk23inplace_function_detail9rt_vtableIvJPKN4MIDI16LegacyPacketListEEEC1IZZN17AUGraphMIDINodeV332AllocateMIDIOutputEventListBlockEvEUb_E3__3EENS0_7wrapperIT_EEENUlPvSD_E0_8__invokeESD_SD_(v17, &v13);
-  bzero(v18, 0x300uLL);
-  MIDI::MIDIPacketList_Deliverer::operator()(&v15, a4);
-  v15 = &unk_1F3849418;
-  (v16[3])(v17);
-  (v9[3])(&v10);
-  v5 = *MEMORY[0x1E69E9840];
+  v17[96] = *MEMORY[0x1E69E9840];
+  v6 = a3;
+  v7 = a2;
+  v8 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZN17AUGraphMIDINodeV332AllocateMIDIOutputEventListBlockEvEUb_E3__3EE;
+  v9.n128_u64[0] = a1 + 32;
+  v9.n128_u64[1] = &v7;
+  v10 = &v6;
+  v12 = v9;
+  v13 = &v6;
+  v14 = &unk_1F3849418;
+  v11 = &caulk::inplace_function_detail::rt_vtable<void,MIDI::LegacyPacketList const*>::empty;
+  v15 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZN17AUGraphMIDINodeV332AllocateMIDIOutputEventListBlockEvEUb_E3__3EE;
+  _ZZN5caulk23inplace_function_detail9rt_vtableIvJPKN4MIDI16LegacyPacketListEEEC1IZZN17AUGraphMIDINodeV332AllocateMIDIOutputEventListBlockEvEUb_E3__3EENS0_7wrapperIT_EEENUlPvSD_E0_8__invokeESD_SD_(v16, &v12);
+  bzero(v17, 0x300uLL);
+  MIDI::MIDIPacketList_Deliverer::operator()(&v14, a4);
+  v14 = &unk_1F3849418;
+  (v15[3])(v16);
+  (v8[3])(&v9);
   return 0;
 }
 
@@ -3299,28 +2887,28 @@ LABEL_9:
 uint64_t MIDI::MIDIPacketList_Deliverer::operator()(uint64_t a1, _DWORD *a2)
 {
   __dst[1] = *MEMORY[0x1E69E9840];
-  v61 = *(a1 + 8);
-  (*(v61 + 8))(&v62, a1 + 16);
-  v64 = 0;
-  v63 = &v65;
-  v52 = a2;
+  v60 = *(a1 + 8);
+  (*(v60 + 8))(&v61, a1 + 16);
+  v63 = 0;
+  v62 = &v64;
+  v51 = a2;
   if (*a2 == 2)
   {
     if (!a2[1])
     {
-      goto LABEL_128;
+      return MIDI::PacketizerBase<MIDI::LegacyPacketList>::~PacketizerBase(&v60);
     }
 
     v27 = 0;
     v28 = a2 + 2;
-    v50 = a1 + 64;
+    v49 = a1 + 64;
 LABEL_93:
-    v51 = v27;
+    v50 = v27;
     v29 = v28[2];
-    v57 = v28 + 3;
-    v58 = v29;
-    v59 = *v28;
-    v60 = 0;
+    v56 = v28 + 3;
+    v57 = v29;
+    v58 = *v28;
+    v59 = 0;
     while (1)
     {
       do
@@ -3329,34 +2917,34 @@ LABEL_93:
         {
           do
           {
-            v55 = 0;
-            v56 = 0;
             v54 = 0;
-            if (!MIDI::EventList::PacketReader::read(&v57, &v56, &v54))
+            v55 = 0;
+            v53 = 0;
+            if (!MIDI::EventList::PacketReader::read(&v56, &v55, &v53))
             {
               v28 += v28[2] + 3;
-              v27 = v51 + 1;
-              if ((v51 + 1) >= v52[1])
+              v27 = v50 + 1;
+              if ((v50 + 1) >= v51[1])
               {
-                goto LABEL_128;
+                return MIDI::PacketizerBase<MIDI::LegacyPacketList>::~PacketizerBase(&v60);
               }
 
               goto LABEL_93;
             }
 
-            __dst[0] = v56;
-            v30 = v54;
-            if (((1 << (v54 >> 28)) & 0xA02F) != 0)
+            __dst[0] = v55;
+            v30 = v53;
+            if (((1 << (v53 >> 28)) & 0xA02F) != 0)
             {
-              v31 = HIDWORD(v54);
+              v31 = HIDWORD(v53);
               goto LABEL_97;
             }
           }
 
-          while (v54 >> 28 != 4);
-          v32 = BYTE3(v54) & 0xF | 0x20;
-          v33 = HIDWORD(v54);
-          v34 = BYTE2(v54) >> 4;
+          while (v53 >> 28 != 4);
+          v32 = BYTE3(v53) & 0xF | 0x20;
+          v33 = HIDWORD(v53);
+          v34 = BYTE2(v53) >> 4;
           if (v34 <= 0xB)
           {
             break;
@@ -3366,26 +2954,26 @@ LABEL_93:
           {
             case 0xCu:
               v45 = v32 << 24;
-              v46 = BYTE2(v54) << 16;
-              if (v54)
+              v46 = BYTE2(v53) << 16;
+              if (v53)
               {
                 v47 = (v46 - 0x100000) | (v32 << 24);
-                MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>((v46 - 0x100000) & 0xFFFFFF80 | (v32 << 24) | (HIDWORD(v54) >> 8) & 0x7F, 0, &v61, __dst);
-                MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(v47 | v33 & 0x7F | 0x2000, 0, &v61, __dst);
+                MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>((v46 - 0x100000) & 0xFFFFFF80 | (v32 << 24) | (HIDWORD(v53) >> 8) & 0x7F, 0, &v60, __dst);
+                MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(v47 | v33 & 0x7F | 0x2000, 0, &v60, __dst);
               }
 
               v31 = 0;
               v30 = HIWORD(v33) & 0x7F00 | v45 | v46;
 LABEL_97:
-              MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(v30, v31, &v61, __dst);
+              MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(v30, v31, &v60, __dst);
               break;
             case 0xDu:
               v31 = 0;
-              v30 = (BYTE2(v54) << 16) | (v32 << 24) | (HIDWORD(v54) >> 25 << 8);
+              v30 = (BYTE2(v53) << 16) | (v32 << 24) | (HIDWORD(v53) >> 25 << 8);
               goto LABEL_97;
             case 0xEu:
               v31 = 0;
-              v30 = (HIDWORD(v54) >> 10) & 0x7F00 | (BYTE2(v54) << 16) | (v32 << 24) | (HIDWORD(v54) >> 25);
+              v30 = (HIDWORD(v53) >> 10) & 0x7F00 | (BYTE2(v53) << 16) | (v32 << 24) | (HIDWORD(v53) >> 25);
               goto LABEL_97;
           }
         }
@@ -3394,22 +2982,22 @@ LABEL_97:
         {
           v31 = 0;
           v35 = v34 == 9;
-          if (HIDWORD(v54) >> 25)
+          if (HIDWORD(v53) >> 25)
           {
-            v35 = HIDWORD(v54) >> 25;
+            v35 = HIDWORD(v53) >> 25;
           }
 
-          v30 = v35 | (BYTE2(v54) << 16) | (v32 << 24) | v54 & 0x7F00;
+          v30 = v35 | (BYTE2(v53) << 16) | (v32 << 24) | v53 & 0x7F00;
           goto LABEL_97;
         }
       }
 
       while (v34 - 2 >= 2);
-      v36 = (v54 >> 16) & 0xF;
-      v37 = (v50 + 48 * (BYTE3(v54) & 0xF) + 3 * v36);
-      v38 = (v54 >> 8) & 0x7F;
-      v39 = v54 & 0x7F;
-      v40 = (v54 & 0x100000) != 0 ? 2 : 1;
+      v36 = (v53 >> 16) & 0xF;
+      v37 = (v49 + 48 * (BYTE3(v53) & 0xF) + 3 * v36);
+      v38 = (v53 >> 8) & 0x7F;
+      v39 = v53 & 0x7F;
+      v40 = (v53 & 0x100000) != 0 ? 2 : 1;
       if (v40 != *v37 || v38 != v37[1])
       {
         break;
@@ -3423,7 +3011,7 @@ LABEL_97:
 
       v42 = (v32 << 24) | (v41 << 16);
 LABEL_121:
-      MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(v42 | (v33 >> 25) | 0x600, 0, &v61, __dst);
+      MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(v42 | (v33 >> 25) | 0x600, 0, &v60, __dst);
       v44 = (v33 >> 18) & 0x7F;
       if (v44)
       {
@@ -3435,7 +3023,7 @@ LABEL_121:
 
     v41 = v36 | 0xB0;
 LABEL_117:
-    if ((v54 & 0x100000) != 0)
+    if ((v53 & 0x100000) != 0)
     {
       v43 = 25344;
     }
@@ -3446,8 +3034,8 @@ LABEL_117:
     }
 
     v42 = (v32 << 24) | (v41 << 16);
-    MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(v42 | v43 | v38, 0, &v61, __dst);
-    MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>((v43 + v42 + v39 - 256), 0, &v61, __dst);
+    MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(v42 | v43 | v38, 0, &v60, __dst);
+    MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>((v43 + v42 + v39 - 256), 0, &v60, __dst);
     *v37 = v40;
     v37[1] = v38;
     v37[2] = v39;
@@ -3466,30 +3054,30 @@ LABEL_117:
     do
     {
       v6 = v5[2];
-      v57 = v5 + 3;
-      v58 = v6;
-      v59 = *v5;
-      v60 = 0;
+      v56 = v5 + 3;
+      v57 = v6;
+      v58 = *v5;
+      v59 = 0;
       while (1)
       {
+        v52 = 0;
         v53 = 0;
         v54 = 0;
-        v55 = 0;
-        if (!MIDI::EventList::PacketReader::read(&v57, &v53, &v54))
+        if (!MIDI::EventList::PacketReader::read(&v56, &v52, &v53))
         {
           break;
         }
 
-        v7 = v53;
-        v8 = v54;
-        v9 = v54 >> 28;
-        if (v54 >> 28 == 3)
+        v7 = v52;
+        v8 = v53;
+        v9 = v53 >> 28;
+        if (v53 >> 28 == 3)
         {
-          v17 = (v54 >> 16) & 0xF;
-          if (v17 <= 6 && BYTE2(v54) <= 0x3Fu)
+          v17 = (v53 >> 16) & 0xF;
+          if (v17 <= 6 && BYTE2(v53) <= 0x3Fu)
           {
-            v56 = _byteswap_uint64(__PAIR64__(v54, HIDWORD(v54)));
-            if (BYTE2(v54) > 0x1Fu)
+            v55 = _byteswap_uint64(__PAIR64__(v53, HIDWORD(v53)));
+            if (BYTE2(v53) > 0x1Fu)
             {
               v10 = 0;
               v18 = __dst;
@@ -3499,7 +3087,7 @@ LABEL_117:
               }
 
 LABEL_48:
-              memcpy(v18, &v56 + 2, (v54 >> 16) & 0xF);
+              memcpy(v18, &v55 + 2, (v53 >> 16) & 0xF);
               v10 += (v17 - 1) + 1;
               goto LABEL_49;
             }
@@ -3518,15 +3106,15 @@ LABEL_49:
               *(__dst + v10++) = -9;
             }
 
-            v11 = v63;
-            if (v64)
+            v11 = v62;
+            if (v63)
             {
-              if (*v63 == v7)
+              if (*v62 == v7)
               {
-                v21 = *(v63 + 4);
-                if (*(v63 + v21 + 9) != 247 && LOBYTE(__dst[0]) != 240)
+                v21 = *(v62 + 4);
+                if (*(v62 + v21 + 9) != 247 && LOBYTE(__dst[0]) != 240)
                 {
-                  if (v63 + v10 + v21 + 10 > __dst)
+                  if (v62 + v10 + v21 + 10 > __dst)
                   {
                     goto LABEL_60;
                   }
@@ -3537,23 +3125,23 @@ LABEL_49:
 
               else
               {
-                v21 = *(v63 + 4);
+                v21 = *(v62 + 4);
               }
 
-              v11 = (v63 + v21 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+              v11 = (v62 + v21 + 13) & 0xFFFFFFFFFFFFFFFCLL;
             }
 
             if (v11 + v10 + 10 > __dst)
             {
 LABEL_60:
-              v22 = MIDI::PacketizerBase<MIDI::LegacyPacketList>::begin_new_packet(&v61, v7, __dst, v10);
+              v22 = MIDI::PacketizerBase<MIDI::LegacyPacketList>::begin_new_packet(&v60, v7, __dst, v10);
 LABEL_74:
               v11 = v22;
               goto LABEL_85;
             }
 
             v21 = 0;
-            ++v64;
+            ++v63;
             *v11 = v7;
             *(v11 + 8) = 0;
 LABEL_62:
@@ -3599,16 +3187,16 @@ LABEL_82:
 LABEL_84:
             *(v11 + 8) += v10;
 LABEL_85:
-            v63 = v11;
+            v62 = v11;
           }
         }
 
         else if (v9 == 2)
         {
-          v13 = v54 & 0xE00000;
-          LOBYTE(__dst[0]) = BYTE2(v54);
-          BYTE1(__dst[0]) = BYTE1(v54) & 0x7F;
-          if ((v54 & 0xE00000) == 0xC00000)
+          v13 = v53 & 0xE00000;
+          LOBYTE(__dst[0]) = BYTE2(v53);
+          BYTE1(__dst[0]) = BYTE1(v53) & 0x7F;
+          if ((v53 & 0xE00000) == 0xC00000)
           {
             v14 = 2;
           }
@@ -3620,18 +3208,18 @@ LABEL_85:
 
           if (v13 != 12582912)
           {
-            BYTE2(__dst[0]) = v54 & 0x7F;
+            BYTE2(__dst[0]) = v53 & 0x7F;
           }
 
-          v15 = v63;
-          if (v64)
+          v15 = v62;
+          if (v63)
           {
-            if (*v63 == v53)
+            if (*v62 == v52)
             {
-              v16 = *(v63 + 4);
-              if (BYTE2(v54) != 240 && *(v63 + v16 + 9) != 247)
+              v16 = *(v62 + 4);
+              if (BYTE2(v53) != 240 && *(v62 + v16 + 9) != 247)
               {
-                if (v63 + v14 + v16 + 10 > __dst)
+                if (v62 + v14 + v16 + 10 > __dst)
                 {
                   goto LABEL_40;
                 }
@@ -3642,22 +3230,22 @@ LABEL_85:
 
             else
             {
-              v16 = *(v63 + 4);
+              v16 = *(v62 + 4);
             }
 
-            v15 = (v63 + v16 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+            v15 = (v62 + v16 + 13) & 0xFFFFFFFFFFFFFFFCLL;
           }
 
           if (v15 + v14 + 10 > __dst)
           {
 LABEL_40:
-            v15 = MIDI::PacketizerBase<MIDI::LegacyPacketList>::begin_new_packet(&v61, v53, __dst, v14);
+            v15 = MIDI::PacketizerBase<MIDI::LegacyPacketList>::begin_new_packet(&v60, v52, __dst, v14);
             goto LABEL_46;
           }
 
           v16 = 0;
-          ++v64;
-          *v15 = v53;
+          ++v63;
+          *v15 = v52;
           *(v15 + 8) = 0;
 LABEL_42:
           v19 = (v15 + v16 + 10);
@@ -3677,31 +3265,31 @@ LABEL_42:
           v19[1] = *(v20 + 1);
           *(v15 + 8) += v14;
 LABEL_46:
-          v63 = v15;
+          v62 = v15;
         }
 
-        else if (v9 == 1 && BYTE2(v54) >= 0xF0u && ((0x22B1uLL >> (BYTE2(v54) + 16)) & 1) == 0)
+        else if (v9 == 1 && BYTE2(v53) >= 0xF0u && ((0x22B1uLL >> (BYTE2(v53) + 16)) & 1) == 0)
         {
-          v10 = MIDI::_gMessageSize[BYTE2(v54) - 240];
-          LOBYTE(__dst[0]) = BYTE2(v54);
-          if (((0xDD40uLL >> (BYTE2(v54) + 16)) & 1) == 0)
+          v10 = MIDI::_gMessageSize[BYTE2(v53) - 240];
+          LOBYTE(__dst[0]) = BYTE2(v53);
+          if (((0xDD40uLL >> (BYTE2(v53) + 16)) & 1) == 0)
           {
-            BYTE1(__dst[0]) = BYTE1(v54) & 0x7F;
-            if (BYTE2(v54) == 242)
+            BYTE1(__dst[0]) = BYTE1(v53) & 0x7F;
+            if (BYTE2(v53) == 242)
             {
-              BYTE2(__dst[0]) = v54 & 0x7F;
+              BYTE2(__dst[0]) = v53 & 0x7F;
             }
           }
 
-          v11 = v63;
-          if (v64)
+          v11 = v62;
+          if (v63)
           {
-            if (*v63 == v53)
+            if (*v62 == v52)
             {
-              v12 = *(v63 + 4);
-              if (BYTE2(v54) != 240 && *(v63 + v12 + 9) != 247)
+              v12 = *(v62 + 4);
+              if (BYTE2(v53) != 240 && *(v62 + v12 + 9) != 247)
               {
-                if (v63 + v12 + v10 + 10 > __dst)
+                if (v62 + v12 + v10 + 10 > __dst)
                 {
                   goto LABEL_73;
                 }
@@ -3712,22 +3300,22 @@ LABEL_46:
 
             else
             {
-              v12 = *(v63 + 4);
+              v12 = *(v62 + 4);
             }
 
-            v11 = (v63 + v12 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+            v11 = (v62 + v12 + 13) & 0xFFFFFFFFFFFFFFFCLL;
           }
 
           if (v11 + v10 + 10 > __dst)
           {
 LABEL_73:
-            v22 = MIDI::PacketizerBase<MIDI::LegacyPacketList>::begin_new_packet(&v61, v53, __dst, v10);
+            v22 = MIDI::PacketizerBase<MIDI::LegacyPacketList>::begin_new_packet(&v60, v52, __dst, v10);
             goto LABEL_74;
           }
 
           v12 = 0;
-          ++v64;
-          *v11 = v53;
+          ++v63;
+          *v11 = v52;
           *(v11 + 8) = 0;
 LABEL_76:
           v23 = (v11 + v12 + 10);
@@ -3771,13 +3359,10 @@ LABEL_83:
       ++v4;
     }
 
-    while (v4 < v52[1]);
+    while (v4 < v51[1]);
   }
 
-LABEL_128:
-  result = MIDI::PacketizerBase<MIDI::LegacyPacketList>::~PacketizerBase(&v61);
-  v49 = *MEMORY[0x1E69E9840];
-  return result;
+  return MIDI::PacketizerBase<MIDI::LegacyPacketList>::~PacketizerBase(&v60);
 }
 
 void MIDI::MIDIPacketList_Deliverer::~MIDIPacketList_Deliverer(MIDI::MIDIPacketList_Deliverer *this)
@@ -3864,23 +3449,23 @@ LABEL_12:
   return 1;
 }
 
-uint64_t MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(uint64_t result, unsigned int a2, uint64_t a3, uint64_t *a4)
+unint64_t MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operator()(MIDI::EventList const*)::{lambda(unsigned long long,MIDI::UniversalPacket const&)#2}::operator() const(unsigned long long,MIDI::UniversalPacket const&)::{lambda(MIDI::UniversalPacket const&)#1}::operator() const(MIDI::UniversalPacket const&)::{lambda(std::span<unsigned char const,18446744073709551615ul>)#1}>(unint64_t result, unsigned int a2, uint64_t a3, uint64_t *a4)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v6 = BYTE2(result);
   v7 = result >> 28;
-  v8 = &v35;
+  v8 = &v34;
   if (result >> 28 == 3)
   {
     v21 = WORD1(result) & 0xF;
     if (v21 > 6 || BYTE2(result) > 0x3Fu)
     {
-      goto LABEL_82;
+      return result;
     }
 
     v22 = (result >> 20) + 3;
-    v33[0] = bswap32(result);
-    v33[1] = bswap32(a2);
+    v32[0] = bswap32(result);
+    v32[1] = bswap32(a2);
     if (BYTE2(result) > 0x1Fu)
     {
       v9 = 0;
@@ -3895,7 +3480,7 @@ uint64_t MIDI::LegacyPacketList::write_UP<MIDI::MIDIPacketList_Deliverer::operat
     {
       __dst = -16;
       v9 = 1;
-      p_dst = &v35;
+      p_dst = &v34;
       if (!v21)
       {
 LABEL_43:
@@ -3999,11 +3584,11 @@ LABEL_68:
         v11 = result;
 LABEL_81:
         *(a3 + 56) = v11;
-        goto LABEL_82;
+        return result;
       }
     }
 
-    memcpy(p_dst, v33 + 2, v21);
+    memcpy(p_dst, v32 + 2, v21);
     v9 += (v21 - 1) + 1;
     goto LABEL_43;
   }
@@ -4012,7 +3597,7 @@ LABEL_81:
   {
     v15 = result & 0xE00000;
     __dst = BYTE2(result);
-    v35 = BYTE1(result) & 0x7F;
+    v34 = BYTE1(result) & 0x7F;
     if ((result & 0xE00000) == 0xC00000)
     {
       v16 = 2;
@@ -4025,7 +3610,7 @@ LABEL_81:
 
     if (v15 != 12582912)
     {
-      v36 = result & 0x7F;
+      v35 = result & 0x7F;
     }
 
     v17 = *a4;
@@ -4085,7 +3670,7 @@ LABEL_34:
     result = MIDI::PacketizerBase<MIDI::LegacyPacketList>::begin_new_packet(a3, v17, &__dst, v16);
 LABEL_40:
     *(a3 + 56) = result;
-    goto LABEL_82;
+    return result;
   }
 
   if (v7 == 1 && BYTE2(result) >= 0xF0u && ((0x22B1uLL >> (BYTE2(result) + 16)) & 1) == 0)
@@ -4094,10 +3679,10 @@ LABEL_40:
     __dst = BYTE2(result);
     if (((0xDD40uLL >> (BYTE2(result) + 16)) & 1) == 0)
     {
-      v35 = BYTE1(result) & 0x7F;
+      v34 = BYTE1(result) & 0x7F;
       if (BYTE2(result) == 242)
       {
-        v36 = result & 0x7F;
+        v35 = result & 0x7F;
       }
     }
 
@@ -4171,8 +3756,6 @@ LABEL_67:
     goto LABEL_67;
   }
 
-LABEL_82:
-  v32 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4286,9 +3869,6 @@ uint64_t _ZZN5caulk23inplace_function_detail9rt_vtableIvJPKN4MIDI16LegacyPacketL
     v5 = (v2 + 1);
     do
     {
-      v6 = **(v3 + 8);
-      v7 = **(v3 + 16);
-      v8 = *(v5 + 8);
       result = (*(**(**v3 + 176) + 16))();
       v5 = (v5 + 10 + *(v5 + 8) + 3) & 0xFFFFFFFFFFFFFFFCLL;
       ++v4;
@@ -4348,10 +3928,9 @@ void AUGraphSourceNodeV3::~AUGraphSourceNodeV3(const void ***this)
   JUMPOUT(0x1BFAF5800);
 }
 
-uint64_t AUGraphMultiBusNode::AllocateInputBlock(AUGraphMultiBusNode *this)
+void AUGraphMultiBusNode::AllocateInputBlock(const void ***this)
 {
-  result = (*(*this + 304))(this);
-  if (!result)
+  if (!((*this)[38])(this))
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
@@ -4361,8 +3940,6 @@ uint64_t AUGraphMultiBusNode::AllocateInputBlock(AUGraphMultiBusNode *this)
     _Block_copy(aBlock);
     operator new();
   }
-
-  return result;
 }
 
 uint64_t ___ZN19AUGraphMultiBusNode18AllocateInputBlockEv_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
@@ -4428,7 +4005,7 @@ uint64_t AUGraphMultiBusNode::ConnectInput(os_unfair_lock_s *a1, int a2, unsigne
   {
     v20[0] = v8;
     v20[1] = 0;
-    v20[2] = a1 + 55;
+    v20[2] = &a1[55];
     v21 = 1;
     os_unfair_lock_lock(a1 + 55);
     v22 = caulk::concurrent::details::lf_read_sync_write_impl::begin_mutate(v8);
@@ -4494,10 +4071,10 @@ LABEL_19:
   return result;
 }
 
-uint64_t caulk::concurrent::lf_read_synchronized_write<std::vector<caulk::pooled_semaphore_mutex *>>::mutator::copy_previous(uint64_t result)
+uint64_t *caulk::concurrent::lf_read_synchronized_write<std::vector<caulk::pooled_semaphore_mutex *>>::mutator::copy_previous(uint64_t *result)
 {
   v1 = *result;
-  v2 = *(result + 32);
+  v2 = *(result + 8);
   if (*(*result + v2 + 8))
   {
     v3 = result;
@@ -4516,7 +4093,7 @@ uint64_t caulk::concurrent::lf_read_synchronized_write<std::vector<caulk::pooled
     }
 
     v8 = 0uLL;
-    v9 = *(result + 36);
+    v9 = *(result + 9);
     v10 = v1 + 24 * v9 + 16;
     if (*(v1 + 8 + v9) == 1)
     {
@@ -4555,19 +4132,18 @@ uint64_t caulk::concurrent::lf_read_synchronized_write<std::vector<caulk::pooled
   {
     if (*(a1 + 8))
     {
-      v3 = *(a1 + 36);
       caulk::concurrent::details::lf_read_sync_write_impl::end_mutate(v2);
-      v4 = *a1;
-      v5 = *(a1 + 32);
-      *(*a1 + v5 + 8) = 0;
-      v6 = v4 + 24 * v5;
-      v9 = *(v6 + 2);
-      v8 = v6 + 16;
-      v7 = v9;
-      if (v9)
+      v3 = *a1;
+      v4 = *(a1 + 32);
+      *(*a1 + v4 + 8) = 0;
+      v5 = v3 + 24 * v4;
+      v8 = *(v5 + 2);
+      v7 = v5 + 16;
+      v6 = v8;
+      if (v8)
       {
-        *(v8 + 1) = v7;
-        operator delete(v7);
+        *(v7 + 1) = v6;
+        operator delete(v6);
       }
     }
   }
@@ -4580,18 +4156,18 @@ uint64_t caulk::concurrent::lf_read_synchronized_write<std::vector<caulk::pooled
   return a1;
 }
 
-uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, unsigned int a3)
+char *AUGraphMultiBusNode::DisconnectNode(char *result, int a2, unsigned int a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = 72;
   if (a2 == 1)
   {
     v3 = 48;
   }
 
-  v4 = (result + v3);
-  v5 = *(result + v3);
-  v6 = v4[1];
+  v4 = &result[v3];
+  v5 = *&result[v3];
+  v6 = *(v4 + 1);
   if (v5 != v6)
   {
     v8 = v6 - v5;
@@ -4603,8 +4179,8 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, unsigned i
         v9 = 168;
       }
 
-      v10 = (result + v9);
-      if (v8 != (*(result + v9 + 8) - *(result + v9)) >> 2)
+      v10 = &result[v9];
+      if (v8 != (*&result[v9 + 8] - *&result[v9]) >> 2)
       {
         if (AVAudioEngineLogCategory(void)::once != -1)
         {
@@ -4615,23 +4191,23 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, unsigned i
         if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
         {
           *buf = 136316418;
-          v20 = "AVAEInternal.h";
-          v21 = 1024;
-          v22 = 71;
-          v23 = 2080;
-          v24 = "AVAEGraphNode.mm";
-          v25 = 1024;
-          v26 = 1728;
-          v27 = 2080;
-          v28 = "DisconnectNode";
-          v29 = 2080;
-          v30 = "nodeBussesVec.size() == nodeVec.size()";
+          v19 = "AVAEInternal.h";
+          v20 = 1024;
+          v21 = 71;
+          v22 = 2080;
+          v23 = "AVAEGraphNode.mm";
+          v24 = 1024;
+          v25 = 1728;
+          v26 = 2080;
+          v27 = "DisconnectNode";
+          v28 = 2080;
+          v29 = "nodeBussesVec.size() == nodeVec.size()";
           _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
         }
 
         result = [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "nodeBussesVec.size() == nodeVec.size()"}];
         v5 = *v4;
-        v8 = (v4[1] - *v4) >> 3;
+        v8 = (*(v4 + 1) - *v4) >> 3;
       }
 
       if (v8 <= a3)
@@ -4640,7 +4216,7 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, unsigned i
       }
 
       v5[a3] = 0;
-      v12 = v10[1];
+      v12 = *(v10 + 1);
       if (a3 >= ((v12 - *v10) >> 2))
       {
         std::vector<AUGraphNodeBaseV3 *>::__throw_out_of_range[abi:ne200100]();
@@ -4648,7 +4224,7 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, unsigned i
 
       *(*v10 + 4 * a3) = -1;
       v13 = *v4;
-      v14 = v4[1];
+      v14 = *(v4 + 1);
       if (*v4 != v14)
       {
         v15 = v12 - 4;
@@ -4660,8 +4236,8 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, unsigned i
             break;
           }
 
-          v4[1] = v16;
-          v10[1] = v15;
+          *(v4 + 1) = v16;
+          *(v10 + 1) = v15;
           v15 -= 4;
         }
 
@@ -4670,14 +4246,13 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, unsigned i
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, uint64_t a3, uint64_t a4, int a5)
+void *AUGraphMultiBusNode::DisconnectNode(void *result, int a2, uint64_t a3, uint64_t a4, int a5)
 {
   v8 = result;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (!a4)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -4689,17 +4264,17 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, uint64_t a
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v25 = "AVAEInternal.h";
-      v26 = 1024;
-      v27 = 71;
-      v28 = 2080;
-      v29 = "AVAEGraphNode.mm";
-      v30 = 1024;
-      v31 = 1691;
-      v32 = 2080;
-      v33 = "DisconnectNode";
-      v34 = 2080;
-      v35 = "inNode != nil";
+      v24 = "AVAEInternal.h";
+      v25 = 1024;
+      v26 = 71;
+      v27 = 2080;
+      v28 = "AVAEGraphNode.mm";
+      v29 = 1024;
+      v30 = 1691;
+      v31 = 2080;
+      v32 = "DisconnectNode";
+      v33 = 2080;
+      v34 = "inNode != nil";
       _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -4714,7 +4289,7 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, uint64_t a
     v12 = v8[7];
     if (v10 == v12)
     {
-      goto LABEL_30;
+      return result;
     }
 
     v14 = 21;
@@ -4728,7 +4303,7 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, uint64_t a
     v12 = v8[10];
     if (v10 == v12)
     {
-      goto LABEL_30;
+      return result;
     }
 
     v14 = 24;
@@ -4747,17 +4322,17 @@ uint64_t AUGraphMultiBusNode::DisconnectNode(uint64_t result, int a2, uint64_t a
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v25 = "AVAEInternal.h";
-      v26 = 1024;
-      v27 = 71;
-      v28 = 2080;
-      v29 = "AVAEGraphNode.mm";
-      v30 = 1024;
-      v31 = 1698;
-      v32 = 2080;
-      v33 = "DisconnectNode";
-      v34 = 2080;
-      v35 = "nodeBussesVec.size() == nodeVec.size()";
+      v24 = "AVAEInternal.h";
+      v25 = 1024;
+      v26 = 71;
+      v27 = 2080;
+      v28 = "AVAEGraphNode.mm";
+      v29 = 1024;
+      v30 = 1698;
+      v31 = 2080;
+      v32 = "DisconnectNode";
+      v33 = 2080;
+      v34 = "nodeBussesVec.size() == nodeVec.size()";
       _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -4804,14 +4379,12 @@ LABEL_25:
     while (v21-- != v10);
   }
 
-LABEL_30:
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void AUGraphMultiBusNode::AddNode(uint64_t a1, int a2, unsigned int a3, uint64_t a4, int a5)
+void AUGraphMultiBusNode::AddNode(uint64_t a1, int a2, int a3, uint64_t a4, int a5)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (!a4)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -4824,16 +4397,16 @@ void AUGraphMultiBusNode::AddNode(uint64_t a1, int a2, unsigned int a3, uint64_t
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v27 = 1024;
-      v28 = 71;
-      v29 = 2080;
-      v30 = "AVAEGraphNode.mm";
-      v31 = 1024;
-      v32 = 1661;
-      v33 = 2080;
-      v34 = "AddNode";
-      v35 = 2080;
-      v36 = "inNode != nil";
+      v26 = 1024;
+      v27 = 71;
+      v28 = 2080;
+      v29 = "AVAEGraphNode.mm";
+      v30 = 1024;
+      v31 = 1661;
+      v32 = 2080;
+      v33 = "AddNode";
+      v34 = 2080;
+      v35 = "inNode != nil";
       _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -4940,12 +4513,11 @@ void AUGraphMultiBusNode::AddNode(uint64_t a1, int a2, unsigned int a3, uint64_t
   }
 
   *&v16[4 * a3] = a5;
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t AUGraphMultiBusNode::GetBusForConnectionPoint(uint64_t *a1, int a2, uint64_t a3, unsigned int *a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   *a4 = -1;
   if (a2 == 1)
   {
@@ -4959,9 +4531,7 @@ uint64_t AUGraphMultiBusNode::GetBusForConnectionPoint(uint64_t *a1, int a2, uin
       goto LABEL_6;
     }
 
-LABEL_17:
-    result = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   v7 = a1 + 9;
@@ -4970,7 +4540,7 @@ LABEL_17:
   v8 = a1[10];
   if (v6 == v8)
   {
-    goto LABEL_17;
+    return 0;
   }
 
   v10 = 24;
@@ -4988,17 +4558,17 @@ LABEL_6:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v19 = "AVAEInternal.h";
-      v20 = 1024;
-      v21 = 71;
-      v22 = 2080;
-      v23 = "AVAEGraphNode.mm";
-      v24 = 1024;
-      v25 = 1645;
-      v26 = 2080;
-      v27 = "GetBusForConnectionPoint";
-      v28 = 2080;
-      v29 = "nodeBussesVec.size() == nodeVec.size()";
+      v18 = "AVAEInternal.h";
+      v19 = 1024;
+      v20 = 71;
+      v21 = 2080;
+      v22 = "AVAEGraphNode.mm";
+      v23 = 1024;
+      v24 = 1645;
+      v25 = 2080;
+      v26 = "GetBusForConnectionPoint";
+      v27 = 2080;
+      v28 = "nodeBussesVec.size() == nodeVec.size()";
       _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -5010,7 +4580,7 @@ LABEL_6:
 
   if (v8 == v6)
   {
-    goto LABEL_17;
+    return 0;
   }
 
   v14 = 0;
@@ -5020,20 +4590,17 @@ LABEL_6:
     v14 = ++v15;
     if (v12 <= v15)
     {
-      goto LABEL_17;
+      return 0;
     }
   }
 
   *a4 = v15;
-  result = 1;
-LABEL_18:
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 uint64_t AUGraphMultiBusNode::GetConnectionPoint(uint64_t a1, int a2, unsigned int a3, uint64_t *a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   *a4 = 0;
   a4[1] = 0;
   v4 = 72;
@@ -5044,73 +4611,69 @@ uint64_t AUGraphMultiBusNode::GetConnectionPoint(uint64_t a1, int a2, unsigned i
 
   if (*(a1 + v4) == *(a1 + v4 + 8))
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  result = (*(*a1 + 24))(a1);
+  if (result)
   {
-    result = (*(*a1 + 24))(a1);
-    if (result)
+    v10 = result;
+    v11 = 192;
+    if (a2 == 1)
     {
-      v10 = result;
-      v11 = 192;
-      if (a2 == 1)
-      {
-        v11 = 168;
-      }
-
-      v12 = (a1 + v11);
-      v13 = *(a1 + v11);
-      v14 = (v12[1] - v13) >> 2;
-      if (v14 < a3 + 1)
-      {
-        if (AVAudioEngineLogCategory(void)::once != -1)
-        {
-          dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
-        }
-
-        v15 = *AVAudioEngineLogCategory(void)::category;
-        if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136316418;
-          v19 = "AVAEInternal.h";
-          v20 = 1024;
-          v21 = 71;
-          v22 = 2080;
-          v23 = "AVAEGraphNode.mm";
-          v24 = 1024;
-          v25 = 1627;
-          v26 = 2080;
-          v27 = "GetConnectionPoint";
-          v28 = 2080;
-          v29 = "nodeBussesVec.size() >= (inBus + 1)";
-          _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
-        }
-
-        [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "nodeBussesVec.size() >= (inBus + 1)"}];
-        v13 = *v12;
-        v14 = (v12[1] - *v12) >> 2;
-      }
-
-      if (v14 <= a3)
-      {
-        std::vector<AUGraphNodeBaseV3 *>::__throw_out_of_range[abi:ne200100]();
-      }
-
-      v16 = *(v13 + 4 * a3);
-      *a4 = v10;
-      *(a4 + 2) = v16;
-      result = 1;
+      v11 = 168;
     }
+
+    v12 = (a1 + v11);
+    v13 = *(a1 + v11);
+    v14 = (v12[1] - v13) >> 2;
+    if (v14 < a3 + 1)
+    {
+      if (AVAudioEngineLogCategory(void)::once != -1)
+      {
+        dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
+      }
+
+      v15 = *AVAudioEngineLogCategory(void)::category;
+      if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136316418;
+        v18 = "AVAEInternal.h";
+        v19 = 1024;
+        v20 = 71;
+        v21 = 2080;
+        v22 = "AVAEGraphNode.mm";
+        v23 = 1024;
+        v24 = 1627;
+        v25 = 2080;
+        v26 = "GetConnectionPoint";
+        v27 = 2080;
+        v28 = "nodeBussesVec.size() >= (inBus + 1)";
+        _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
+      }
+
+      [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "nodeBussesVec.size() >= (inBus + 1)"}];
+      v13 = *v12;
+      v14 = (v12[1] - *v12) >> 2;
+    }
+
+    if (v14 <= a3)
+    {
+      std::vector<AUGraphNodeBaseV3 *>::__throw_out_of_range[abi:ne200100]();
+    }
+
+    v16 = *(v13 + 4 * a3);
+    *a4 = v10;
+    *(a4 + 2) = v16;
+    return 1;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t AUGraphMultiBusNode::GetConnection(uint64_t a1, int a2, unsigned int a3, _OWORD *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   *a4 = 0u;
   a4[1] = 0u;
   v4 = 8;
@@ -5129,73 +4692,69 @@ uint64_t AUGraphMultiBusNode::GetConnection(uint64_t a1, int a2, unsigned int a3
   *(a4 + v4) = a3;
   if (*(a1 + v5) == *(a1 + v5 + 8))
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  result = (*(*a1 + 24))(a1);
+  if (result)
   {
-    result = (*(*a1 + 24))(a1);
-    if (result)
+    v11 = result;
+    v12 = 192;
+    if (a2 == 1)
     {
-      v11 = result;
-      v12 = 192;
-      if (a2 == 1)
-      {
-        v12 = 168;
-      }
-
-      v13 = (a1 + v12);
-      v14 = *(a1 + v12);
-      v15 = (v13[1] - v14) >> 2;
-      if (v15 < a3 + 1)
-      {
-        if (AVAudioEngineLogCategory(void)::once != -1)
-        {
-          dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
-        }
-
-        v16 = *AVAudioEngineLogCategory(void)::category;
-        if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136316418;
-          v21 = "AVAEInternal.h";
-          v22 = 1024;
-          v23 = 71;
-          v24 = 2080;
-          v25 = "AVAEGraphNode.mm";
-          v26 = 1024;
-          v27 = 1595;
-          v28 = 2080;
-          v29 = "GetConnection";
-          v30 = 2080;
-          v31 = "nodeBussesVec.size() >= (inBus + 1)";
-          _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
-        }
-
-        [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "nodeBussesVec.size() >= (inBus + 1)"}];
-        v14 = *v13;
-        v15 = (v13[1] - *v13) >> 2;
-      }
-
-      if (v15 <= a3)
-      {
-        std::vector<AUGraphNodeBaseV3 *>::__throw_out_of_range[abi:ne200100]();
-      }
-
-      v17 = *(v14 + 4 * a3);
-      v18 = 24;
-      if (a2 == 1)
-      {
-        v18 = 8;
-      }
-
-      *&a4[a2 != 1] = v11;
-      *(a4 + v18) = v17;
-      result = 1;
+      v12 = 168;
     }
+
+    v13 = (a1 + v12);
+    v14 = *(a1 + v12);
+    v15 = (v13[1] - v14) >> 2;
+    if (v15 < a3 + 1)
+    {
+      if (AVAudioEngineLogCategory(void)::once != -1)
+      {
+        dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
+      }
+
+      v16 = *AVAudioEngineLogCategory(void)::category;
+      if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136316418;
+        v20 = "AVAEInternal.h";
+        v21 = 1024;
+        v22 = 71;
+        v23 = 2080;
+        v24 = "AVAEGraphNode.mm";
+        v25 = 1024;
+        v26 = 1595;
+        v27 = 2080;
+        v28 = "GetConnection";
+        v29 = 2080;
+        v30 = "nodeBussesVec.size() >= (inBus + 1)";
+        _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
+      }
+
+      [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "nodeBussesVec.size() >= (inBus + 1)"}];
+      v14 = *v13;
+      v15 = (v13[1] - *v13) >> 2;
+    }
+
+    if (v15 <= a3)
+    {
+      std::vector<AUGraphNodeBaseV3 *>::__throw_out_of_range[abi:ne200100]();
+    }
+
+    v17 = *(v14 + 4 * a3);
+    v18 = 24;
+    if (a2 == 1)
+    {
+      v18 = 8;
+    }
+
+    *&a4[a2 != 1] = v11;
+    *(a4 + v18) = v17;
+    return 1;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5208,9 +4767,9 @@ void AUGraphMultiBusNode::~AUGraphMultiBusNode(os_unfair_lock_s *this)
 
 {
   *&this->_os_unfair_lock_opaque = &unk_1F384B4F0;
-  v7[0] = this + 54;
+  v7[0] = &this[54];
   v7[1] = 0;
-  v7[2] = this + 55;
+  v7[2] = &this[55];
   v8 = 1;
   os_unfair_lock_lock(this + 55);
   v9 = caulk::concurrent::details::lf_read_sync_write_impl::begin_mutate(&this[54]);
@@ -5275,10 +4834,10 @@ uint64_t caulk::concurrent::lf_read_synchronized_write<std::vector<caulk::pooled
 
 unint64_t AUGraphNodeBase::DescAsString(AUGraphNodeBase *this, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(v9, 0, sizeof(v9));
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, sizeof(v8));
   v3 = (*(*a2 + 256))(a2);
-  v5 = AudioComponentDescriptionAsString(v3, v9, v4);
+  v5 = AudioComponentDescriptionAsString(v3, v8, v4);
   result = strlen(v5);
   if (result >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5298,11 +4857,10 @@ unint64_t AUGraphNodeBase::DescAsString(AUGraphNodeBase *this, uint64_t a2)
   }
 
   *(this + v7) = 0;
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *AUGraphNodeBase::GetValidConnections(uint64_t a1, uint64_t a2, void *a3)
+void *AUGraphNodeBase::GetValidConnections(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   result = std::__list_imp<AUGraphConnection>::clear(a3);
   v6 = 72;
@@ -5343,7 +4901,7 @@ void *AUGraphNodeBase::GetValidConnections(uint64_t a1, uint64_t a2, void *a3)
   return result;
 }
 
-void *AUGraphNodeBase::GetValidConnectionPoints(void *a1, void *a2)
+void *AUGraphNodeBase::GetValidConnectionPoints(void *a1, uint64_t *a2)
 {
   result = std::__list_imp<AUGraphConnection>::clear(a2);
   v4 = (a1[10] - a1[9]) >> 3;
@@ -5395,11 +4953,11 @@ void *AUGraphNodeBase::CalculateMaxFrames(AUGraphNodeBase *this, unsigned int a2
 
 void AUGraphNodeBase::PrintNodeObject(AUGraphNodeBase *this, __sFILE *a2, const char *a3)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v4 = (*(*this + 16))(this, a2, a3);
   v5 = v4[3];
   AUGraphNodeBase::DescAsString(__p, v5);
-  if ((SBYTE7(v45) & 0x80u) == 0)
+  if ((SBYTE7(v44) & 0x80u) == 0)
   {
     v6 = __p;
   }
@@ -5420,7 +4978,7 @@ void AUGraphNodeBase::PrintNodeObject(AUGraphNodeBase *this, __sFILE *a2, const 
   }
 
   fprintf(a2, "\n\t node %p {%s}, '%s'\n", v5, v6, v7);
-  if (SBYTE7(v45) < 0)
+  if (SBYTE7(v44) < 0)
   {
     operator delete(__p[0]);
   }
@@ -5434,46 +4992,46 @@ void AUGraphNodeBase::PrintNodeObject(AUGraphNodeBase *this, __sFILE *a2, const 
       v9 = 0;
       do
       {
-        v40 = 0;
-        v41 = -1;
-        v42 = 0;
-        v43 = -1;
-        (*(*v4 + 32))(v4, 1, v9, &v40);
-        v50 = 0u;
-        v51 = 0u;
-        v48 = 0u;
+        v39 = 0;
+        v40 = -1;
+        v41 = 0;
+        v42 = -1;
+        (*(*v4 + 32))(v4, 1, v9, &v39);
         v49 = 0u;
-        v46 = 0u;
+        v50 = 0u;
         v47 = 0u;
-        *__p = 0u;
+        v48 = 0u;
         v45 = 0u;
-        memset(&v39, 0, sizeof(v39));
+        v46 = 0u;
+        *__p = 0u;
+        v44 = 0u;
+        memset(&v38, 0, sizeof(v38));
         v10 = (*(*v4[3] + 72))(v4[3], v9);
         if (v10)
         {
           v11 = [v10 streamDescription];
           v12 = *(v11 + 16);
-          *&v39.var0 = *v11;
-          *&v39.var3 = v12;
-          *&v39.var7 = *(v11 + 32);
+          *&v38.var0 = *v11;
+          *&v38.var3 = v12;
+          *&v38.var7 = *(v11 + 32);
         }
 
         v13 = (*(*v4[3] + 40))(v4[3]);
         v14 = (*(*v13 + 72))(v13, 1, v9);
-        v17 = v41;
-        v18 = v40;
-        if (v40)
+        v17 = v40;
+        v18 = v39;
+        if (v39)
         {
-          v19 = *(v40 + 24);
-          AUGraphNodeBase::DescAsString(v37, v19);
-          if (v38 >= 0)
+          v19 = *(v39 + 24);
+          AUGraphNodeBase::DescAsString(v36, v19);
+          if (v37 >= 0)
           {
-            v20 = v37;
+            v20 = v36;
           }
 
           else
           {
-            v20 = v37[0];
+            v20 = v36[0];
           }
         }
 
@@ -5483,11 +5041,11 @@ void AUGraphNodeBase::PrintNodeObject(AUGraphNodeBase *this, __sFILE *a2, const 
           v20 = "";
         }
 
-        CAStreamBasicDescription::AsString(&v39, __p, 0x80uLL, v15, v16);
+        CAStreamBasicDescription::AsString(&v38, __p, 0x80uLL, v15, v16);
         fprintf(a2, "\t\t\t (bus%d, en%d) <- (bus%d) %p, {%s}, [%s]\n", v9, v14, v17, v19, v20, __p);
-        if (v18 && v38 < 0)
+        if (v18 && v37 < 0)
         {
-          operator delete(v37[0]);
+          operator delete(v36[0]);
         }
 
         ++v9;
@@ -5506,54 +5064,54 @@ void AUGraphNodeBase::PrintNodeObject(AUGraphNodeBase *this, __sFILE *a2, const 
       v22 = 0;
       do
       {
-        v40 = 0;
-        v41 = -1;
-        v42 = 0;
-        v43 = -1;
-        (*(*v4 + 32))(v4, 0, v22, &v40);
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
+        v39 = 0;
+        v40 = -1;
+        v41 = 0;
+        v42 = -1;
+        (*(*v4 + 32))(v4, 0, v22, &v39);
         v57 = 0u;
-        v54 = 0u;
+        v58 = 0u;
         v55 = 0u;
-        v52 = 0u;
+        v56 = 0u;
         v53 = 0u;
-        v50 = 0u;
+        v54 = 0u;
         v51 = 0u;
-        v48 = 0u;
+        v52 = 0u;
         v49 = 0u;
-        v46 = 0u;
+        v50 = 0u;
         v47 = 0u;
-        *__p = 0u;
+        v48 = 0u;
         v45 = 0u;
-        memset(&v39, 0, sizeof(v39));
+        v46 = 0u;
+        *__p = 0u;
+        v44 = 0u;
+        memset(&v38, 0, sizeof(v38));
         v23 = (*(*v4[3] + 48))(v4[3], v22);
         if (v23)
         {
           v24 = [v23 streamDescription];
           v25 = *(v24 + 16);
-          *&v39.var0 = *v24;
-          *&v39.var3 = v25;
-          *&v39.var7 = *(v24 + 32);
+          *&v38.var0 = *v24;
+          *&v38.var3 = v25;
+          *&v38.var7 = *(v24 + 32);
         }
 
         v26 = (*(*v4[3] + 40))(v4[3]);
         v27 = (*(*v26 + 72))(v26, 0, v22);
-        v30 = v43;
-        v31 = v42;
-        if (v42)
+        v30 = v42;
+        v31 = v41;
+        if (v41)
         {
-          v32 = *(v42 + 24);
-          AUGraphNodeBase::DescAsString(v35, v32);
-          if (v36 >= 0)
+          v32 = *(v41 + 24);
+          AUGraphNodeBase::DescAsString(v34, v32);
+          if (v35 >= 0)
           {
-            v33 = v35;
+            v33 = v34;
           }
 
           else
           {
-            v33 = v35[0];
+            v33 = v34[0];
           }
         }
 
@@ -5563,11 +5121,14 @@ void AUGraphNodeBase::PrintNodeObject(AUGraphNodeBase *this, __sFILE *a2, const 
           v33 = "";
         }
 
-        CAStreamBasicDescription::AsString(&v39, __p, 0x100uLL, v28, v29);
+        CAStreamBasicDescription::AsString(&v38, __p, 0x100uLL, v28, v29);
         fprintf(a2, "\t\t\t (bus%d, en%d) -> (bus%d) %p, {%s}, [%s]\n", v22, v27, v30, v32, v33, __p);
-        if (v31 && v36 < 0)
+        if (v31)
         {
-          operator delete(v35[0]);
+          if (v35 < 0)
+          {
+            operator delete(v34[0]);
+          }
         }
 
         ++v22;
@@ -5576,8 +5137,6 @@ void AUGraphNodeBase::PrintNodeObject(AUGraphNodeBase *this, __sFILE *a2, const 
       while (v22 < ((v4[10] - v4[9]) >> 3));
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void AUGraphNodeBaseV3::AUGraphNodeBaseV3(AUGraphNodeBaseV3 *this, AVAudioNode *a2)
@@ -5586,7 +5145,7 @@ void AUGraphNodeBaseV3::AUGraphNodeBaseV3(AUGraphNodeBaseV3 *this, AVAudioNode *
   *this = &unk_1F384C7F0;
   *(this + 1) = 0;
   *(this + 2) = a2;
-  v3 = [(AVAudioNode *)a2 impl];
+  v3 = objc_msgSend_impl(a2);
   *(this + 3) = v3;
   *(this + 2) = 0u;
   *(this + 3) = 0u;
@@ -5707,16 +5266,16 @@ void AUGraphSinkNodeV3::~AUGraphSinkNodeV3(const void ***this)
   JUMPOUT(0x1BFAF5800);
 }
 
-void sub_1BA637E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BA637E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::pair<std::unique_lock<std::recursive_mutex>,std::unique_lock<std::recursive_mutex>>::~pair(va);
   _Unwind_Resume(a1);
 }
 
 void PulseTone::PulseTone(PulseTone *this, double a2, double a3, double a4, int a5, double a6, double a7, double a8, double a9)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   *this = 0;
   *(this + 2) = 0;
   *(this + 3) = a3;
@@ -5780,19 +5339,18 @@ void PulseTone::PulseTone(PulseTone *this, double a2, double a3, double a4, int 
     v21 = *AVAudioDeviceTestServicePulseToneLog(void)::category;
     if (os_log_type_enabled(*AVAudioDeviceTestServicePulseToneLog(void)::category, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315650;
-      v24 = "PulseTone.mm";
-      v25 = 1024;
-      v26 = 142;
-      v27 = 2048;
-      v28 = v20;
-      _os_log_impl(&dword_1BA5AC000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d Playing tone above amplitude of 1.0. { amplitude=%f }", &v23, 0x1Cu);
+      v22 = 136315650;
+      v23 = "PulseTone.mm";
+      v24 = 1024;
+      v25 = 142;
+      v26 = 2048;
+      v27 = v20;
+      _os_log_impl(&dword_1BA5AC000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d Playing tone above amplitude of 1.0. { amplitude=%f }", &v22, 0x1Cu);
     }
   }
 
   *(this + 4) = v20;
   *(this + 1) = (*(this + 8) + *(this + 14)) / a2;
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA638238(_Unwind_Exception *a1)
@@ -5802,9 +5360,9 @@ void sub_1BA638238(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BA638614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BA638614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::pair<std::unique_lock<std::recursive_mutex>,std::unique_lock<std::recursive_mutex>>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -5827,7 +5385,6 @@ void CADeprecated::CAGuard::Locker::~Locker(CADeprecated::CAGuard::Locker *this)
 {
   if (*(this + 8) == 1)
   {
-    v2 = *this;
     (*(**this + 24))();
   }
 }
@@ -5943,7 +5500,7 @@ void ___ZN14MIDIPlayerImpl4stopEv_block_invoke(uint64_t a1)
 
 uint64_t MIDIPlayerImpl::finishLoad(MIDIPlayerImpl *this, NSURL *a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   outGraph = 0;
   AUGraph = MusicSequenceGetAUGraph(this->var2, &outGraph);
   if (AUGraph)
@@ -5959,18 +5516,18 @@ uint64_t MIDIPlayerImpl::finishLoad(MIDIPlayerImpl *this, NSURL *a2)
     {
       *buf = 136316674;
       *&buf[4] = "AVAEInternal.h";
-      v50 = 1024;
-      v51 = 104;
-      v52 = 2080;
-      v53 = "AVMIDIPlayer.mm";
-      v54 = 1024;
-      v55 = 324;
-      v56 = 2080;
-      v57 = "finishLoad";
-      v58 = 2080;
-      v59 = "MusicSequenceGetAUGraph(mSequence, &graph)";
-      v60 = 1024;
-      v61 = v4;
+      v49 = 1024;
+      v50 = 104;
+      v51 = 2080;
+      v52 = "AVMIDIPlayer.mm";
+      v53 = 1024;
+      v54 = 324;
+      v55 = 2080;
+      v56 = "finishLoad";
+      v57 = 2080;
+      v58 = "MusicSequenceGetAUGraph(mSequence, &graph)";
+      v59 = 1024;
+      v60 = v4;
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
@@ -5995,18 +5552,18 @@ uint64_t MIDIPlayerImpl::finishLoad(MIDIPlayerImpl *this, NSURL *a2)
     {
       *buf = 136316674;
       *&buf[4] = "AVAEInternal.h";
-      v50 = 1024;
-      v51 = 104;
-      v52 = 2080;
-      v53 = "AVMIDIPlayer.mm";
-      v54 = 1024;
-      v55 = 460;
-      v56 = 2080;
-      v57 = "SetUpGraph";
-      v58 = 2080;
-      v59 = "AUGraphOpen(inGraph)";
-      v60 = 1024;
-      v61 = v8;
+      v49 = 1024;
+      v50 = 104;
+      v51 = 2080;
+      v52 = "AVMIDIPlayer.mm";
+      v53 = 1024;
+      v54 = 460;
+      v55 = 2080;
+      v56 = "SetUpGraph";
+      v57 = 2080;
+      v58 = "AUGraphOpen(inGraph)";
+      v59 = 1024;
+      v60 = v8;
       _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
@@ -6027,18 +5584,18 @@ uint64_t MIDIPlayerImpl::finishLoad(MIDIPlayerImpl *this, NSURL *a2)
     {
       *buf = 136316674;
       *&buf[4] = "AVAEInternal.h";
-      v50 = 1024;
-      v51 = 104;
-      v52 = 2080;
-      v53 = "AVMIDIPlayer.mm";
-      v54 = 1024;
-      v55 = 462;
-      v56 = 2080;
-      v57 = "SetUpGraph";
-      v58 = 2080;
-      v59 = "AUGraphGetNodeCount (inGraph, &nodeCount)";
-      v60 = 1024;
-      v61 = v11;
+      v49 = 1024;
+      v50 = 104;
+      v51 = 2080;
+      v52 = "AVMIDIPlayer.mm";
+      v53 = 1024;
+      v54 = 462;
+      v55 = 2080;
+      v56 = "SetUpGraph";
+      v57 = 2080;
+      v58 = "AUGraphGetNodeCount (inGraph, &nodeCount)";
+      v59 = 1024;
+      v60 = v11;
       _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
@@ -6065,18 +5622,18 @@ uint64_t MIDIPlayerImpl::finishLoad(MIDIPlayerImpl *this, NSURL *a2)
         {
           *buf = 136316674;
           *&buf[4] = "AVAEInternal.h";
-          v50 = 1024;
-          v51 = 104;
-          v52 = 2080;
-          v53 = "AVMIDIPlayer.mm";
-          v54 = 1024;
-          v55 = 467;
-          v56 = 2080;
-          v57 = "SetUpGraph";
-          v58 = 2080;
-          v59 = "AUGraphGetIndNode(inGraph, i, &node)";
-          v60 = 1024;
-          v61 = v15;
+          v49 = 1024;
+          v50 = 104;
+          v51 = 2080;
+          v52 = "AVMIDIPlayer.mm";
+          v53 = 1024;
+          v54 = 467;
+          v55 = 2080;
+          v56 = "SetUpGraph";
+          v57 = 2080;
+          v58 = "AUGraphGetIndNode(inGraph, i, &node)";
+          v59 = 1024;
+          v60 = v15;
           _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
         }
 
@@ -6100,18 +5657,18 @@ uint64_t MIDIPlayerImpl::finishLoad(MIDIPlayerImpl *this, NSURL *a2)
         {
           *buf = 136316674;
           *&buf[4] = "AVAEInternal.h";
-          v50 = 1024;
-          v51 = 104;
-          v52 = 2080;
-          v53 = "AVMIDIPlayer.mm";
-          v54 = 1024;
-          v55 = 473;
-          v56 = 2080;
-          v57 = "SetUpGraph";
-          v58 = 2080;
-          v59 = "AUGraphNodeInfo(inGraph, node, &desc, &unit)";
-          v60 = 1024;
-          v61 = v18;
+          v49 = 1024;
+          v50 = 104;
+          v51 = 2080;
+          v52 = "AVMIDIPlayer.mm";
+          v53 = 1024;
+          v54 = 473;
+          v55 = 2080;
+          v56 = "SetUpGraph";
+          v57 = 2080;
+          v58 = "AUGraphNodeInfo(inGraph, node, &desc, &unit)";
+          v59 = 1024;
+          v60 = v18;
           _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
         }
 
@@ -6144,18 +5701,18 @@ uint64_t MIDIPlayerImpl::finishLoad(MIDIPlayerImpl *this, NSURL *a2)
         {
           *buf = 136316674;
           *&buf[4] = "AVAEInternal.h";
-          v50 = 1024;
-          v51 = 104;
-          v52 = 2080;
-          v53 = "AVMIDIPlayer.mm";
-          v54 = 1024;
-          v55 = 497;
-          v56 = 2080;
-          v57 = "SetUpGraph";
-          v58 = 2080;
-          v59 = "AudioUnitSetProperty (unit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &numFrames, sizeof(numFrames))";
-          v60 = 1024;
-          v61 = v22;
+          v49 = 1024;
+          v50 = 104;
+          v51 = 2080;
+          v52 = "AVMIDIPlayer.mm";
+          v53 = 1024;
+          v54 = 497;
+          v55 = 2080;
+          v56 = "SetUpGraph";
+          v57 = 2080;
+          v58 = "AudioUnitSetProperty (unit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &numFrames, sizeof(numFrames))";
+          v59 = 1024;
+          v60 = v22;
           _os_log_impl(&dword_1BA5AC000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
         }
 
@@ -6186,18 +5743,18 @@ LABEL_45:
       {
         *buf = 136316674;
         *&buf[4] = "AVAEInternal.h";
-        v50 = 1024;
-        v51 = 104;
-        v52 = 2080;
-        v53 = "AVMIDIPlayer.mm";
-        v54 = 1024;
-        v55 = 500;
-        v56 = 2080;
-        v57 = "SetUpGraph";
-        v58 = 2080;
-        v59 = "AUGraphInitialize(inGraph)";
-        v60 = 1024;
-        v61 = v25;
+        v49 = 1024;
+        v50 = 104;
+        v51 = 2080;
+        v52 = "AVMIDIPlayer.mm";
+        v53 = 1024;
+        v54 = 500;
+        v55 = 2080;
+        v56 = "SetUpGraph";
+        v57 = 2080;
+        v58 = "AUGraphInitialize(inGraph)";
+        v59 = 1024;
+        v60 = v25;
         _os_log_impl(&dword_1BA5AC000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
       }
 
@@ -6219,18 +5776,18 @@ LABEL_45:
       {
         *buf = 136316674;
         *&buf[4] = "AVAEInternal.h";
-        v50 = 1024;
-        v51 = 104;
-        v52 = 2080;
-        v53 = "AVMIDIPlayer.mm";
-        v54 = 1024;
-        v55 = 332;
-        v56 = 2080;
-        v57 = "finishLoad";
-        v58 = 2080;
-        v59 = "MusicSequenceGetTrackCount(mSequence, &trackCount)";
-        v60 = 1024;
-        v61 = v28;
+        v49 = 1024;
+        v50 = 104;
+        v51 = 2080;
+        v52 = "AVMIDIPlayer.mm";
+        v53 = 1024;
+        v54 = 332;
+        v55 = 2080;
+        v56 = "finishLoad";
+        v57 = 2080;
+        v58 = "MusicSequenceGetTrackCount(mSequence, &trackCount)";
+        v59 = 1024;
+        v60 = v28;
         _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
       }
 
@@ -6261,18 +5818,18 @@ LABEL_45:
           {
             *buf = 136316674;
             *&buf[4] = "AVAEInternal.h";
-            v50 = 1024;
-            v51 = 104;
-            v52 = 2080;
-            v53 = "AVMIDIPlayer.mm";
-            v54 = 1024;
-            v55 = 338;
-            v56 = 2080;
-            v57 = "finishLoad";
-            v58 = 2080;
-            v59 = "MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &length, &plength)";
-            v60 = 1024;
-            v61 = v33;
+            v49 = 1024;
+            v50 = 104;
+            v51 = 2080;
+            v52 = "AVMIDIPlayer.mm";
+            v53 = 1024;
+            v54 = 338;
+            v55 = 2080;
+            v56 = "finishLoad";
+            v57 = 2080;
+            v58 = "MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &length, &plength)";
+            v59 = 1024;
+            v60 = v33;
             _os_log_impl(&dword_1BA5AC000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
           }
 
@@ -6310,18 +5867,18 @@ LABEL_45:
       {
         *buf = 136316674;
         *&buf[4] = "AVAEInternal.h";
-        v50 = 1024;
-        v51 = 104;
-        v52 = 2080;
-        v53 = "AVMIDIPlayer.mm";
-        v54 = 1024;
-        v55 = 344;
-        v56 = 2080;
-        v57 = "finishLoad";
-        v58 = 2080;
-        v59 = "MusicSequenceSetUserCallback(mSequence, userCallback, this)";
-        v60 = 1024;
-        v61 = v36;
+        v49 = 1024;
+        v50 = 104;
+        v51 = 2080;
+        v52 = "AVMIDIPlayer.mm";
+        v53 = 1024;
+        v54 = 344;
+        v55 = 2080;
+        v56 = "finishLoad";
+        v57 = 2080;
+        v58 = "MusicSequenceSetUserCallback(mSequence, userCallback, this)";
+        v59 = 1024;
+        v60 = v36;
         _os_log_impl(&dword_1BA5AC000, v37, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
       }
 
@@ -6333,11 +5890,10 @@ LABEL_45:
     if (!result)
     {
       *&outDescription.componentType = 0x8600000001;
-      result = MusicTrackNewUserEvent(*buf, v31, &outDescription);
+      return MusicTrackNewUserEvent(*buf, v31, &outDescription);
     }
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6404,14 +5960,14 @@ void AVVCKeepAliveImpl_AudioQueue::~AVVCKeepAliveImpl_AudioQueue(AVVCKeepAliveIm
 }
 
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   *this = &unk_1F3849CE8;
   if (kAVVCScope)
   {
     v1 = *kAVVCScope;
     if (!v1)
     {
-      goto LABEL_8;
+      return;
     }
   }
 
@@ -6423,21 +5979,18 @@ void AVVCKeepAliveImpl_AudioQueue::~AVVCKeepAliveImpl_AudioQueue(AVVCKeepAliveIm
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315394;
-    v5 = "AVVCKeepAliveImpl_AudioQueue.mm";
-    v6 = 1024;
-    v7 = 137;
-    _os_log_impl(&dword_1BA5AC000, v1, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCKeepAliveImpl_AudioQueue destroyed", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "AVVCKeepAliveImpl_AudioQueue.mm";
+    v5 = 1024;
+    v6 = 137;
+    _os_log_impl(&dword_1BA5AC000, v1, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCKeepAliveImpl_AudioQueue destroyed", &v3, 0x12u);
   }
-
-LABEL_8:
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 OpaqueAudioQueue *AVVCKeepAliveImpl_AudioQueue::destroy(AVVCKeepAliveImpl_AudioQueue *this)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  TraceMethod::TraceMethod(v10, "_destroyKeepAliveQueue");
+  v22 = *MEMORY[0x1E69E9840];
+  TraceMethod::TraceMethod(v9, "_destroyKeepAliveQueue");
   v2 = *(this + 1);
   if (!v2)
   {
@@ -6445,7 +5998,7 @@ OpaqueAudioQueue *AVVCKeepAliveImpl_AudioQueue::destroy(AVVCKeepAliveImpl_AudioQ
   }
 
   *(this + 1) = 0;
-  ElapsedTime::ElapsedTime(v17, "destroy", "_destroyKeepAliveQueue : AudioQueueStop", 0);
+  ElapsedTime::ElapsedTime(v16, "destroy", "_destroyKeepAliveQueue : AudioQueueStop", 0);
   v3 = AudioQueueStop(v2, 1u);
   if (v3)
   {
@@ -6467,17 +6020,17 @@ OpaqueAudioQueue *AVVCKeepAliveImpl_AudioQueue::destroy(AVVCKeepAliveImpl_AudioQ
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v12 = "AVVCKeepAliveImpl_AudioQueue.mm";
-      v13 = 1024;
-      v14 = 128;
-      v15 = 1024;
-      v16 = v3;
+      v11 = "AVVCKeepAliveImpl_AudioQueue.mm";
+      v12 = 1024;
+      v13 = 128;
+      v14 = 1024;
+      v15 = v3;
       _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d _destroyKeepAliveQueue, AudioQueueDispose returned error : %d", buf, 0x18u);
     }
   }
 
 LABEL_10:
-  ElapsedTime::~ElapsedTime(v17);
+  ElapsedTime::~ElapsedTime(v16);
   v2 = AudioQueueDispose(v2, 0);
   if (v2)
   {
@@ -6498,26 +6051,25 @@ LABEL_10:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v17 = 136315650;
-      v18 = "AVVCKeepAliveImpl_AudioQueue.mm";
-      v19 = 1024;
-      v20 = 131;
-      v21 = 1024;
-      v22 = v2;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d _destroyKeepAliveQueue, AudioQueueDispose returned error : %d", v17, 0x18u);
+      *v16 = 136315650;
+      v17 = "AVVCKeepAliveImpl_AudioQueue.mm";
+      v18 = 1024;
+      v19 = 131;
+      v20 = 1024;
+      v21 = v2;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d _destroyKeepAliveQueue, AudioQueueDispose returned error : %d", v16, 0x18u);
     }
   }
 
 LABEL_18:
-  TraceMethod::~TraceMethod(v10);
-  v8 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v9);
   return v2;
 }
 
 uint64_t AVVCKeepAliveImpl_AudioQueue::stop(AVVCKeepAliveImpl_AudioQueue *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  TraceMethod::TraceMethod(v6, "stopKeepAliveQueue");
+  v10 = *MEMORY[0x1E69E9840];
+  TraceMethod::TraceMethod(v5, "stopKeepAliveQueue");
   if (kAVVCScope)
   {
     v2 = *kAVVCScope;
@@ -6536,24 +6088,23 @@ uint64_t AVVCKeepAliveImpl_AudioQueue::stop(AVVCKeepAliveImpl_AudioQueue *this)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "AVVCKeepAliveImpl_AudioQueue.mm";
-    v9 = 1024;
-    v10 = 112;
+    v7 = "AVVCKeepAliveImpl_AudioQueue.mm";
+    v8 = 1024;
+    v9 = 112;
     _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d About to stop keepAliveQueue", buf, 0x12u);
   }
 
 LABEL_8:
   AVVCKeepAliveImpl_AudioQueue::keepHardwareActive(this, 0);
-  TraceMethod::~TraceMethod(v6);
-  v4 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v5);
   return 0;
 }
 
 uint64_t AVVCKeepAliveImpl_AudioQueue::create(AudioQueueRef *this)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  ElapsedTime::ElapsedTime(v26, "create", 0, 0);
-  TraceMethod::TraceMethod(v18, "createKeepAliveQueue");
+  v26 = *MEMORY[0x1E69E9840];
+  ElapsedTime::ElapsedTime(v25, "create", 0, 0);
+  TraceMethod::TraceMethod(v17, "createKeepAliveQueue");
   v2 = this + 1;
   if (!this[1])
   {
@@ -6612,12 +6163,12 @@ LABEL_10:
           goto LABEL_40;
         }
 
-        *v19 = 136315650;
-        v20 = "AVVCKeepAliveImpl_AudioQueue.mm";
-        v21 = 1024;
-        v22 = 42;
-        v23 = 1024;
-        LODWORD(v24) = v3;
+        *v18 = 136315650;
+        v19 = "AVVCKeepAliveImpl_AudioQueue.mm";
+        v20 = 1024;
+        v21 = 42;
+        v22 = 1024;
+        LODWORD(v23) = v3;
         v9 = "%25s:%-5d ERROR: createKeepAliveQueue: AudioQueueNewOutput err %{audio:4CC}d";
       }
 
@@ -6643,16 +6194,16 @@ LABEL_10:
           goto LABEL_40;
         }
 
-        *v19 = 136315650;
-        v20 = "AVVCKeepAliveImpl_AudioQueue.mm";
-        v21 = 1024;
-        v22 = 42;
-        v23 = 1024;
-        LODWORD(v24) = v3;
+        *v18 = 136315650;
+        v19 = "AVVCKeepAliveImpl_AudioQueue.mm";
+        v20 = 1024;
+        v21 = 42;
+        v22 = 1024;
+        LODWORD(v23) = v3;
         v9 = "%25s:%-5d ERROR: createKeepAliveQueue: AudioQueueNewOutput err %d";
       }
 
-      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, v9, v19, 0x18u);
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, v9, v18, 0x18u);
     }
 
     else
@@ -6680,12 +6231,12 @@ LABEL_10:
           goto LABEL_40;
         }
 
-        *v19 = 136315650;
-        v20 = "AVVCKeepAliveImpl_AudioQueue.mm";
-        v21 = 1024;
-        v22 = 49;
-        v23 = 2112;
-        v24 = @"AVVoiceController_KeepAliveQueue";
+        *v18 = 136315650;
+        v19 = "AVVCKeepAliveImpl_AudioQueue.mm";
+        v20 = 1024;
+        v21 = 49;
+        v22 = 2112;
+        v23 = @"AVVoiceController_KeepAliveQueue";
         v12 = "%25s:%-5d FAILED _createKeepAliveQueue : AudioQueueSetProperty(kAudioQueueProperty_ClientUID) - %@";
         v13 = v7;
         v14 = OS_LOG_TYPE_ERROR;
@@ -6713,18 +6264,18 @@ LABEL_10:
           goto LABEL_40;
         }
 
-        *v19 = 136315650;
-        v20 = "AVVCKeepAliveImpl_AudioQueue.mm";
-        v21 = 1024;
-        v22 = 51;
-        v23 = 2112;
-        v24 = @"AVVoiceController_KeepAliveQueue";
+        *v18 = 136315650;
+        v19 = "AVVCKeepAliveImpl_AudioQueue.mm";
+        v20 = 1024;
+        v21 = 51;
+        v22 = 2112;
+        v23 = @"AVVoiceController_KeepAliveQueue";
         v12 = "%25s:%-5d _createKeepAliveQueue : AudioQueueSetProperty(kAudioQueueProperty_ClientUID) - %@";
         v13 = v7;
         v14 = OS_LOG_TYPE_DEBUG;
       }
 
-      _os_log_impl(&dword_1BA5AC000, v13, v14, v12, v19, 0x1Cu);
+      _os_log_impl(&dword_1BA5AC000, v13, v14, v12, v18, 0x1Cu);
     }
 
 LABEL_40:
@@ -6734,18 +6285,16 @@ LABEL_40:
 
   v3 = 0;
 LABEL_41:
-  TraceMethod::~TraceMethod(v18);
-  ElapsedTime::~ElapsedTime(v26);
-  v16 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v17);
+  ElapsedTime::~ElapsedTime(v25);
   return v3;
 }
 
-void sub_1BA63BF5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BA63BF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -6754,6 +6303,7 @@ void sub_1BA63BF5C(_Unwind_Exception *a1, uint64_t a2, ...)
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   TraceMethod::~TraceMethod(va);
   ElapsedTime::~ElapsedTime(va1);
   _Unwind_Resume(a1);
@@ -8580,14 +8130,14 @@ LABEL_27:
   return a1;
 }
 
-void sub_1BA63DE34(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_1BA63DE34(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFAF5600](&a10);
+  MEMORY[0x1BFAF5600](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
   __cxa_end_catch();
@@ -8636,7 +8186,7 @@ void sub_1BA63E5E8(_Unwind_Exception *a1)
 
 id generateAudioSelfTestError(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (AVAudioDeviceTestServiceLog(void)::once != -1)
   {
     dispatch_once(&AVAudioDeviceTestServiceLog(void)::once, &__block_literal_global_3393);
@@ -8645,32 +8195,31 @@ id generateAudioSelfTestError(uint64_t a1)
   v2 = *AVAudioDeviceTestServiceLog(void)::category;
   if (os_log_type_enabled(*AVAudioDeviceTestServiceLog(void)::category, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315650;
-    v7 = "AVAudioDeviceTestService.mm";
-    v8 = 1024;
-    v9 = 163;
-    v10 = 2048;
-    v11 = a1;
-    _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d error code %li", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "AVAudioDeviceTestService.mm";
+    v7 = 1024;
+    v8 = 163;
+    v9 = 2048;
+    v10 = a1;
+    _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d error code %li", &v5, 0x1Cu);
   }
 
   v3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:a1 userInfo:0];
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1BA64013C(_Unwind_Exception *exception_object)
@@ -8737,7 +8286,7 @@ uint64_t __Block_byref_object_copy__3457(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BA64AC78(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *exc_bufa, void *a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, void *a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60)
+void sub_1BA64AC78(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *exc_bufa, void *a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *a60)
 {
   if (a2)
   {
@@ -8797,17 +8346,17 @@ void *___ZL36getMSNMonitorBeginExceptionSymbolLocv_block_invoke(uint64_t a1)
 
 void *MediaSafetyNetLibrary(void)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!MediaSafetyNetLibraryCore(char **)::frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = ___ZL25MediaSafetyNetLibraryCorePPc_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7EF5928;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = ___ZL25MediaSafetyNetLibraryCorePPc_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7EF5928;
+    v6 = 0;
     MediaSafetyNetLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
@@ -8815,21 +8364,20 @@ void *MediaSafetyNetLibrary(void)
   if (!MediaSafetyNetLibraryCore(char **)::frameworkLibrary)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MediaSafetyNetLibrary()"];
-    [v0 handleFailureInFunction:v4 file:@"AVAudioDeviceTestService.mm" lineNumber:46 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MediaSafetyNetLibrary()"];
+    [v0 handleFailureInFunction:v3 file:@"AVAudioDeviceTestService.mm" lineNumber:46 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -8858,11 +8406,8 @@ void sub_1BA64C838(_Unwind_Exception *a1)
 
 uint64_t ___ZL25MediaSafetyNetLibraryCorePPc_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaSafetyNetLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8882,12 +8427,12 @@ void sub_1BA64F3A8(_Unwind_Exception *a1)
 
 uint64_t AVAudioUnitMIDIInstrumentImpl::SendMIDIEvent(AVAudioUnitMIDIInstrumentImpl *this, int a2, int a3, int a4, uint64_t a5)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v14[0] = a5 | a2;
-  v14[1] = a3;
-  v14[2] = a4;
+  v26 = *MEMORY[0x1E69E9840];
+  v13[0] = a5 | a2;
+  v13[1] = a3;
+  v13[2] = a4;
   v9 = (*(*this + 40))(this);
-  v10 = (*(*v9 + 136))(v9, 0, 0, a5, 3, v14);
+  v10 = (*(*v9 + 136))(v9, 0, 0, a5, 3, v13);
   if ((v10 & 1) == 0)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -8899,28 +8444,27 @@ uint64_t AVAudioUnitMIDIInstrumentImpl::SendMIDIEvent(AVAudioUnitMIDIInstrumentI
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_INFO))
     {
       *buf = 136316418;
-      v16 = "AVAudioUnitMIDIInstrument.mm";
-      v17 = 1024;
-      v18 = 49;
-      v19 = 1024;
-      v20 = a2;
-      v21 = 1024;
-      v22 = a5;
-      v23 = 1024;
-      v24 = a3;
-      v25 = 1024;
-      v26 = a4;
+      v15 = "AVAudioUnitMIDIInstrument.mm";
+      v16 = 1024;
+      v17 = 49;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 1024;
+      v21 = a5;
+      v22 = 1024;
+      v23 = a3;
+      v24 = 1024;
+      v25 = a4;
       _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Unable to send midi event status(%d), channel(%d), param1(%d), param2(%d)\n", buf, 0x2Au);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 uint64_t AVAudioUnitMIDIInstrumentImpl::SendProgramChange(AVAudioUnitMIDIInstrumentImpl *this, int a2, int a3, int a4, uint64_t a5)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ((AVAudioUnitMIDIInstrumentImpl::SendMIDIEvent(this, 176, 0, a3, a5) & 1) == 0)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -8932,17 +8476,17 @@ uint64_t AVAudioUnitMIDIInstrumentImpl::SendProgramChange(AVAudioUnitMIDIInstrum
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v15 = "AVAEInternal.h";
-      v16 = 1024;
-      v17 = 71;
-      v18 = 2080;
-      v19 = "AVAudioUnitMIDIInstrument.mm";
-      v20 = 1024;
-      v21 = 66;
-      v22 = 2080;
-      v23 = "SendProgramChange";
-      v24 = 2080;
-      v25 = "true == SendMIDIEvent(kMIDIMessage_ControlChange, 0, bankMSB, 0, channel)";
+      v14 = "AVAEInternal.h";
+      v15 = 1024;
+      v16 = 71;
+      v17 = 2080;
+      v18 = "AVAudioUnitMIDIInstrument.mm";
+      v19 = 1024;
+      v20 = 66;
+      v21 = 2080;
+      v22 = "SendProgramChange";
+      v23 = 2080;
+      v24 = "true == SendMIDIEvent(kMIDIMessage_ControlChange, 0, bankMSB, 0, channel)";
       _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -8960,17 +8504,17 @@ uint64_t AVAudioUnitMIDIInstrumentImpl::SendProgramChange(AVAudioUnitMIDIInstrum
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v15 = "AVAEInternal.h";
-      v16 = 1024;
-      v17 = 71;
-      v18 = 2080;
-      v19 = "AVAudioUnitMIDIInstrument.mm";
-      v20 = 1024;
-      v21 = 67;
-      v22 = 2080;
-      v23 = "SendProgramChange";
-      v24 = 2080;
-      v25 = "true == SendMIDIEvent(kMIDIMessage_ControlChange, bankSelectLSBParam1, bankLSB, 0, channel)";
+      v14 = "AVAEInternal.h";
+      v15 = 1024;
+      v16 = 71;
+      v17 = 2080;
+      v18 = "AVAudioUnitMIDIInstrument.mm";
+      v19 = 1024;
+      v20 = 67;
+      v21 = 2080;
+      v22 = "SendProgramChange";
+      v23 = 2080;
+      v24 = "true == SendMIDIEvent(kMIDIMessage_ControlChange, bankSelectLSBParam1, bankLSB, 0, channel)";
       _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -8988,24 +8532,23 @@ uint64_t AVAudioUnitMIDIInstrumentImpl::SendProgramChange(AVAudioUnitMIDIInstrum
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v15 = "AVAEInternal.h";
-      v16 = 1024;
-      v17 = 71;
-      v18 = 2080;
-      v19 = "AVAudioUnitMIDIInstrument.mm";
-      v20 = 1024;
-      v21 = 68;
-      v22 = 2080;
-      v23 = "SendProgramChange";
-      v24 = 2080;
-      v25 = "true == SendMIDIEvent(kMIDIMessage_PatchChange, programID, 0, 0, channel)";
+      v14 = "AVAEInternal.h";
+      v15 = 1024;
+      v16 = 71;
+      v17 = 2080;
+      v18 = "AVAudioUnitMIDIInstrument.mm";
+      v19 = 1024;
+      v20 = 68;
+      v21 = 2080;
+      v22 = "SendProgramChange";
+      v23 = 2080;
+      v24 = "true == SendMIDIEvent(kMIDIMessage_PatchChange, programID, 0, 0, channel)";
       _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "true == SendMIDIEvent(kMIDIMessage_PatchChange, programID, 0, 0, channel)"}];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -9031,10 +8574,48 @@ __objc2_meth_list *gAVAudioBufferLog(void)
   return p_opt_class_meths[262];
 }
 
-void sub_1BA6536CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BA6536CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   caulk::mach::mach_port::~mach_port(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BA653D00(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, mach_port_name_t a12, const void *a13, const void *a14, const void *a15, char a16, void *__p, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, const void *a25, __int128 buf)
+{
+  __cxa_free_exception(v26);
+  applesauce::CF::ObjectRef<__IOSurface *>::~ObjectRef(&a25);
+  applesauce::CF::ObjectRef<__IOSurface *>::~ObjectRef(&a14);
+  caulk::mach::mach_port::~mach_port(&a12);
+  applesauce::CF::ObjectRef<__IOSurface *>::~ObjectRef(&a13);
+  if (a2 == 1)
+  {
+    __cxa_begin_catch(a1);
+    v29 = gAVAudioBufferLog();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "AVAudioBuffer.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 714;
+      _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d Remote shared buffer surface creation error", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1BA653A90);
+  }
+
+  if (a16 == 1)
+  {
+    unilaterally_billed_shared_memory::~unilaterally_billed_shared_memory(&a15);
+  }
+
+  if (__p)
+  {
+    a18 = __p;
+    operator delete(__p);
+  }
+
   _Unwind_Resume(a1);
 }
 
@@ -9111,6 +8692,43 @@ void *std::construct_at[abi:ne200100]<unilaterally_billed_shared_memory,unilater
 
   *a1 = cf;
   return a1;
+}
+
+void sub_1BA654550(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, const void *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf, __int16 a20, __int16 a21, int a22, uint64_t a23, void *__p, void *a25)
+{
+  __cxa_free_exception(v26);
+  applesauce::CF::ObjectRef<__IOSurface *>::~ObjectRef(&a10);
+  if (a2 == 1)
+  {
+    __cxa_begin_catch(a1);
+    v29 = gAVAudioBufferLog();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315650;
+      *(&buf + 4) = "AVAudioBuffer.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 683;
+      a21 = 1024;
+      a22 = v25;
+      _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d Shared buffer surface creation error. Frame capacity: %d", &buf, 0x18u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1BA65430CLL);
+  }
+
+  if (a12 == 1)
+  {
+    unilaterally_billed_shared_memory::~unilaterally_billed_shared_memory(&a11);
+  }
+
+  if (__p)
+  {
+    a25 = __p;
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void sub_1BA655344(_Unwind_Exception *a1)
@@ -9250,12 +8868,12 @@ void AVAudioSourceNodeImpl::~AVAudioSourceNodeImpl(AVAudioSourceNodeImpl *this)
   AVAudioUnitImpl::~AVAudioUnitImpl(this);
 }
 
-void AVAudioSourceNodeImpl::AVAudioSourceNodeImpl(AVAudioNodeImplBase *a1)
+void AVAudioSourceNodeImpl::AVAudioSourceNodeImpl(AVAudioNodeImplBase *a1, void *a2, uint64_t a3)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  *buf = xmmword_1BA6CF3A0;
-  v2 = 0;
-  AVAudioNodeImpl::AVAudioNodeImpl(a1, 0, buf, 0);
+  v4 = *MEMORY[0x1E69E9840];
+  *&buf.componentType = xmmword_1BA6CF3A0;
+  buf.componentFlagsMask = 0;
+  AVAudioNodeImpl::AVAudioNodeImpl(a1, 0, &buf, 0);
 }
 
 void sub_1BA6580D8(_Unwind_Exception *a1)
@@ -9267,63 +8885,56 @@ void sub_1BA6580D8(_Unwind_Exception *a1)
 
 void ___ZN29AVVCAudioQueueRecordingEngine16handleAudioInputEP16OpaqueAudioQueueP16AudioQueueBufferPK14AudioTimeStampjPK28AudioStreamPacketDescription_block_invoke_158(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  if (v2)
-  {
-    v3 = std::__shared_weak_count::lock(v2);
-    if (v3)
-    {
-      v4 = *(a1 + 32);
-      if (v4)
-      {
-        (*(*v4 + 104))(v4);
-LABEL_14:
-        std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-        goto LABEL_15;
-      }
-    }
-  }
-
-  else
+  if (!v2)
   {
     v3 = 0;
+    goto LABEL_6;
   }
 
-  if (kAVVCScope)
+  v3 = std::__shared_weak_count::lock(v2);
+  if (!v3 || (v4 = *(a1 + 32)) == 0)
   {
-    v5 = *kAVVCScope;
-    if (!v5)
+LABEL_6:
+    if (kAVVCScope)
     {
-      goto LABEL_13;
+      v5 = *kAVVCScope;
+      if (!v5)
+      {
+        goto LABEL_13;
+      }
     }
-  }
 
-  else
-  {
-    v5 = MEMORY[0x1E69E9C10];
-    v6 = MEMORY[0x1E69E9C10];
-  }
+    else
+    {
+      v5 = MEMORY[0x1E69E9C10];
+      v6 = MEMORY[0x1E69E9C10];
+    }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    v8 = 136315650;
-    v9 = "AVVCAudioQueueRecordingEngine.mm";
-    v10 = 1024;
-    v11 = 1820;
-    v12 = 2048;
-    v13 = 0;
-    _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (engine: %p). Bailing", &v8, 0x1Cu);
-  }
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 136315650;
+      v8 = "AVVCAudioQueueRecordingEngine.mm";
+      v9 = 1024;
+      v10 = 1820;
+      v11 = 2048;
+      v12 = 0;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (engine: %p). Bailing", &v7, 0x1Cu);
+    }
 
 LABEL_13:
-  if (v3)
-  {
+    if (!v3)
+    {
+      return;
+    }
+
     goto LABEL_14;
   }
 
-LABEL_15:
-  v7 = *MEMORY[0x1E69E9840];
+  (*(*v4 + 104))(v4);
+LABEL_14:
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
 }
 
 void __destroy_helper_block_ea8_32c44_ZTSNSt3__18weak_ptrI19AVVCRecordingEngineEE(uint64_t a1)
@@ -9350,7 +8961,7 @@ uint64_t __copy_helper_block_ea8_32c44_ZTSNSt3__18weak_ptrI19AVVCRecordingEngine
 
 uint64_t RecordEncoderInputDataProc(OpaqueAudioConverter *a1, unsigned int *a2, AudioBufferList *a3, AudioStreamPacketDescription **a4, _DWORD *a5)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v9 = *a5;
   v10 = a5[6];
   v11 = a5[4];
@@ -9375,15 +8986,15 @@ uint64_t RecordEncoderInputDataProc(OpaqueAudioConverter *a1, unsigned int *a2, 
   {
     v16 = *a2;
     *buf = 136316162;
-    v33 = "AVVCAudioQueueRecordingEngine.mm";
-    v34 = 1024;
-    v35 = 1487;
-    v36 = 1024;
-    LODWORD(v37) = v16;
-    WORD2(v37) = 1024;
-    *(&v37 + 6) = v11 - v10;
-    WORD5(v37) = 1024;
-    HIDWORD(v37) = v12;
+    v32 = "AVVCAudioQueueRecordingEngine.mm";
+    v33 = 1024;
+    v34 = 1487;
+    v35 = 1024;
+    LODWORD(v36) = v16;
+    WORD2(v36) = 1024;
+    *(&v36 + 6) = v11 - v10;
+    WORD5(v36) = 1024;
+    HIDWORD(v36) = v12;
     _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d RecordEncoderInputDataProc: ENTRY: *ioNumberDataPackets passed in: %u, packets remaining: %u, bytes already consumed: %u", buf, 0x24u);
   }
 
@@ -9419,9 +9030,9 @@ LABEL_25:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v33 = "AVVCAudioQueueRecordingEngine.mm";
-      v34 = 1024;
-      v35 = 1497;
+      v32 = "AVVCAudioQueueRecordingEngine.mm";
+      v33 = 1024;
+      v34 = 1497;
       _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d RecordEncoderInputDataProc: End of stream -- handing back zero size buffer", buf, 0x12u);
     }
 
@@ -9448,13 +9059,13 @@ LABEL_25:
     mData = a3->mBuffers[0].mData;
     mDataByteSize = a3->mBuffers[0].mDataByteSize;
     *buf = 136315906;
-    v33 = "AVVCAudioQueueRecordingEngine.mm";
-    v34 = 1024;
-    v35 = 1503;
-    v36 = 2048;
-    *&v37 = mData;
-    WORD4(v37) = 1024;
-    *(&v37 + 10) = mDataByteSize;
+    v32 = "AVVCAudioQueueRecordingEngine.mm";
+    v33 = 1024;
+    v34 = 1503;
+    v35 = 2048;
+    *&v36 = mData;
+    WORD4(v36) = 1024;
+    *(&v36 + 10) = mDataByteSize;
     _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEBUG, "%25s:%-5d RecordEncoderInputDataProc: Handing back ioData buffer %p of size %u", buf, 0x22u);
   }
 
@@ -9464,7 +9075,7 @@ LABEL_26:
   a5[6] = v23;
   if (v23 > a5[4])
   {
-    CAVerboseAbort();
+    CAVerboseAbort("ASSERTION FAILED: packetsRead <= packetsAvailable!");
   }
 
   if (v11 != v10 || v11 == 0)
@@ -9488,22 +9099,21 @@ LABEL_26:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           v28 = *a2;
-          CAX4CCString::CAX4CCString(v31, v25);
+          CAX4CCString::CAX4CCString(v30, v25);
           *buf = 136315906;
-          v33 = "AVVCAudioQueueRecordingEngine.mm";
-          v34 = 1024;
-          v35 = 1514;
-          v36 = 1024;
-          LODWORD(v37) = v28;
-          WORD2(v37) = 2080;
-          *(&v37 + 6) = v31;
+          v32 = "AVVCAudioQueueRecordingEngine.mm";
+          v33 = 1024;
+          v34 = 1514;
+          v35 = 1024;
+          LODWORD(v36) = v28;
+          WORD2(v36) = 2080;
+          *(&v36 + 6) = v30;
           _os_log_impl(&dword_1BA5AC000, v27, OS_LOG_TYPE_DEBUG, "%25s:%-5d RecordEncoderInputDataProc: EXIT: *ioNumberDataPackets passed back out: %u, status: %s", buf, 0x22u);
         }
       }
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -9604,8 +9214,8 @@ OpaqueAudioQueue *AVVCAudioQueueRecordingEngine::getQueueUInt32PropertyValue(AVV
 
 uint64_t AVVCAudioQueueRecordingEngine::resetAudioEngine(AudioQueueRef *this)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  TraceMethod::TraceMethod(v7, "resetAudioEngine");
+  v11 = *MEMORY[0x1E69E9840];
+  TraceMethod::TraceMethod(v6, "resetAudioEngine");
   if (kAVVCScope)
   {
     v2 = *kAVVCScope;
@@ -9624,9 +9234,9 @@ uint64_t AVVCAudioQueueRecordingEngine::resetAudioEngine(AudioQueueRef *this)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v9 = "AVVCAudioQueueRecordingEngine.mm";
-    v10 = 1024;
-    v11 = 1907;
+    v8 = "AVVCAudioQueueRecordingEngine.mm";
+    v9 = 1024;
+    v10 = 1907;
     _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d doneRecording: resetting record queue", buf, 0x12u);
   }
 
@@ -9643,16 +9253,15 @@ LABEL_8:
     v4 = 0;
   }
 
-  TraceMethod::~TraceMethod(v7);
-  v5 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v6);
   return v4;
 }
 
-void sub_1BA658AA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BA658AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   ElapsedTime::~ElapsedTime(va1);
   TraceMethod::~TraceMethod(va);
   _Unwind_Resume(a1);
@@ -9660,7 +9269,7 @@ void sub_1BA658AA0(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t AVVCAudioQueueRecordingEngine::updateMeterLevels(AVVCAudioQueueRecordingEngine *this)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (*(this + 27) < 2)
   {
     if (kAVVCScope)
@@ -9668,9 +9277,7 @@ uint64_t AVVCAudioQueueRecordingEngine::updateMeterLevels(AVVCAudioQueueRecordin
       v6 = *kAVVCScope;
       if (!v6)
       {
-LABEL_19:
-        Property = 4294955515;
-        goto LABEL_29;
+        return 4294955515;
       }
     }
 
@@ -9682,16 +9289,16 @@ LABEL_19:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315650;
-      v18 = "AVVCAudioQueueRecordingEngine.mm";
-      v19 = 1024;
-      v20 = 1285;
-      v21 = 1024;
-      v22 = -11781;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCAudioQueueRecordingEngine::updateMeterLevels: Error! Stream has not been prepared. Error(%d)", &v17, 0x18u);
+      v16 = 136315650;
+      v17 = "AVVCAudioQueueRecordingEngine.mm";
+      v18 = 1024;
+      v19 = 1285;
+      v20 = 1024;
+      v21 = -11781;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCAudioQueueRecordingEngine::updateMeterLevels: Error! Stream has not been prepared. Error(%d)", &v16, 0x18u);
     }
 
-    goto LABEL_19;
+    return 4294955515;
   }
 
   v2 = *(this + 13);
@@ -9726,44 +9333,44 @@ LABEL_24:
       v10 = *(this + 288);
       v11 = *(this + 75) != 0;
       v12 = *(this + 37) != 0;
-      v17 = 136316162;
-      v18 = "AVVCAudioQueueRecordingEngine.mm";
-      v19 = 1024;
-      v20 = 1276;
-      v21 = 1024;
-      v22 = v10;
-      v23 = 1024;
-      v24 = v11;
-      v25 = 1024;
-      v26 = v12;
-      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCAudioQueueRecordingEngine::updateMeterLevels: Not fetching meter levels because one of them is untrue: mMeteringEnabled(%d), mRecordQueue(%d), mRecordMeters(%d)", &v17, 0x24u);
+      v16 = 136316162;
+      v17 = "AVVCAudioQueueRecordingEngine.mm";
+      v18 = 1024;
+      v19 = 1276;
+      v20 = 1024;
+      v21 = v10;
+      v22 = 1024;
+      v23 = v11;
+      v24 = 1024;
+      v25 = v12;
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCAudioQueueRecordingEngine::updateMeterLevels: Not fetching meter levels because one of them is untrue: mMeteringEnabled(%d), mRecordQueue(%d), mRecordMeters(%d)", &v16, 0x24u);
     }
 
     goto LABEL_24;
   }
 
-  v17 = 8 * v2;
-  Property = AudioQueueGetProperty(v4, 0x61716D64u, v3, &v17);
+  v16 = 8 * v2;
+  Property = AudioQueueGetProperty(v4, 0x61716D64u, v3, &v16);
   if (!Property)
   {
-    goto LABEL_29;
+    return Property;
   }
 
 LABEL_25:
   if (!kAVVCScope)
   {
     v13 = MEMORY[0x1E69E9C10];
-    v16 = MEMORY[0x1E69E9C10];
+    v15 = MEMORY[0x1E69E9C10];
 LABEL_31:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315650;
-      v18 = "AVVCAudioQueueRecordingEngine.mm";
-      v19 = 1024;
-      v20 = 1280;
-      v21 = 1024;
-      v22 = Property;
-      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCAudioQueueRecordingEngine::updateMeterLevels: Error! In fetching meter levels. Sending 'no signal'. Error(%d)", &v17, 0x18u);
+      v16 = 136315650;
+      v17 = "AVVCAudioQueueRecordingEngine.mm";
+      v18 = 1024;
+      v19 = 1280;
+      v20 = 1024;
+      v21 = Property;
+      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCAudioQueueRecordingEngine::updateMeterLevels: Error! In fetching meter levels. Sending 'no signal'. Error(%d)", &v16, 0x18u);
     }
 
     if (v2)
@@ -9771,7 +9378,7 @@ LABEL_31:
       goto LABEL_28;
     }
 
-    goto LABEL_29;
+    return Property;
   }
 
   v13 = *kAVVCScope;
@@ -9786,8 +9393,6 @@ LABEL_28:
     memset_pattern16(*(this + 37), &unk_1BA6CF4F0, 8 * v2);
   }
 
-LABEL_29:
-  v14 = *MEMORY[0x1E69E9840];
   return Property;
 }
 
@@ -9803,13 +9408,13 @@ __n128 AVVCAudioQueueRecordingEngine::getRecordQueueFormat@<Q0>(__n128 *this@<X0
 
 uint64_t AVVCAudioQueueRecordingEngine::destroyRecordEngine(AVVCAudioQueueRecordingEngine *this, int a2)
 {
-  v102 = *MEMORY[0x1E69E9840];
-  v86 = 4119;
-  v87 = 1;
+  v101 = *MEMORY[0x1E69E9840];
+  v85 = 4119;
+  v86 = 1;
+  v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   kdebug_trace();
-  TraceMethod::TraceMethod(v85, "destroyRecordEngine");
+  TraceMethod::TraceMethod(v84, "destroyRecordEngine");
   if (!kAVVCScope)
   {
     v4 = MEMORY[0x1E69E9C10];
@@ -9823,13 +9428,13 @@ LABEL_48:
       goto LABEL_49;
     }
 
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v83, *(this + 1), *(this + 2));
-    v7 = v83;
-    if (v83)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v82, *(this + 1), *(this + 2));
+    v7 = v82;
+    if (v82)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v81, *(this + 1), *(this + 2));
-      v70 = (*(*v81 + 64))(v81, 0);
-      v8 = [v70 sessionState];
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v80, *(this + 1), *(this + 2));
+      v69 = (*(*v80 + 64))(v80, 0);
+      v8 = [v69 sessionState];
       v9 = "ILLEGAL";
       if (v8 > 3)
       {
@@ -9887,16 +9492,16 @@ LABEL_48:
 
     v9 = "NotConfigured";
 LABEL_13:
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v79, *(this + 1), *(this + 2));
-    if (v79)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v78, *(this + 1), *(this + 2));
+    if (v78)
     {
-      v10 = v80;
-      if (v80)
+      v10 = v79;
+      if (v79)
       {
-        v10 = (v80->__shared_owners_ + 1);
+        v10 = (v79->__shared_owners_ + 1);
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v79, *(v79 + 264), v10];
+      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v78, *(v78 + 264), v10];
     }
 
     else
@@ -9905,12 +9510,12 @@ LABEL_13:
     }
 
     v12 = v11;
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v77, *(this + 1), *(this + 2));
-    v13 = v77;
-    if (v77)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v76, *(this + 1), *(this + 2));
+    v13 = v76;
+    if (v76)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v75, *(this + 1), *(this + 2));
-      v14 = (*(*v75 + 296))(v75);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v74, *(this + 1), *(this + 2));
+      v14 = (*(*v74 + 296))(v74);
       if (v14 > 4)
       {
         v15 = "ILLEGAL";
@@ -9927,11 +9532,11 @@ LABEL_13:
       v15 = "unconfigured";
     }
 
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v73, *(this + 1), *(this + 2));
-    if (v73)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v72, *(this + 1), *(this + 2));
+    if (v72)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v71, *(this + 1), *(this + 2));
-      v16 = *(v71 + 216);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v70, *(this + 1), *(this + 2));
+      v16 = *(v70 + 216);
       if (v16 > 6)
       {
         v17 = "ILLEGAL";
@@ -9943,73 +9548,73 @@ LABEL_13:
       }
 
       *buf = 136316418;
-      v91 = "AVVCAudioQueueRecordingEngine.mm";
-      v92 = 1024;
-      v93 = 1116;
-      v94 = 2080;
-      v95 = v9;
-      v96 = 2112;
-      v97 = v12;
-      v98 = 2080;
-      v99 = v15;
-      v100 = 2080;
-      v101 = v17;
+      v90 = "AVVCAudioQueueRecordingEngine.mm";
+      v91 = 1024;
+      v92 = 1116;
+      v93 = 2080;
+      v94 = v9;
+      v95 = 2112;
+      v96 = v12;
+      v97 = 2080;
+      v98 = v15;
+      v99 = 2080;
+      v100 = v17;
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
-      if (v72)
+      if (v71)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v71);
       }
     }
 
     else
     {
       *buf = 136316418;
-      v91 = "AVVCAudioQueueRecordingEngine.mm";
-      v92 = 1024;
-      v93 = 1116;
-      v94 = 2080;
-      v95 = v9;
-      v96 = 2112;
-      v97 = v12;
-      v98 = 2080;
-      v99 = v15;
-      v100 = 2080;
-      v101 = "unconfigured";
+      v90 = "AVVCAudioQueueRecordingEngine.mm";
+      v91 = 1024;
+      v92 = 1116;
+      v93 = 2080;
+      v94 = v9;
+      v95 = 2112;
+      v96 = v12;
+      v97 = 2080;
+      v98 = v15;
+      v99 = 2080;
+      v100 = "unconfigured";
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
     }
 
-    if (v74)
+    if (v73)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v73);
     }
 
-    if (v13 && v76)
+    if (v13 && v75)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v75);
     }
 
-    if (v78)
+    if (v77)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v78);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v77);
     }
 
-    if (v80)
+    if (v79)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v80);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v79);
     }
 
     if (v7)
     {
 
-      if (v82)
+      if (v81)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v82);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v81);
       }
     }
 
-    if (v84)
+    if (v83)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v84);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v83);
     }
 
     goto LABEL_48;
@@ -10041,9 +9646,9 @@ LABEL_49:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v91 = "AVVCAudioQueueRecordingEngine.mm";
-    v92 = 1024;
-    v93 = 1117;
+    v90 = "AVVCAudioQueueRecordingEngine.mm";
+    v91 = 1024;
+    v92 = 1117;
     _os_log_impl(&dword_1BA5AC000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d Calling destroyRecordEngine", buf, 0x12u);
   }
 
@@ -10054,7 +9659,7 @@ LABEL_56:
     goto LABEL_173;
   }
 
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v83, *(this + 1), *(this + 2));
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v82, *(this + 1), *(this + 2));
   v21 = *(this + 75);
   if (kAVVCScope)
   {
@@ -10067,9 +9672,9 @@ LABEL_56:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v91 = "AVVCAudioQueueRecordingEngine.mm";
-          v92 = 1024;
-          v93 = 1123;
+          v90 = "AVVCAudioQueueRecordingEngine.mm";
+          v91 = 1024;
+          v92 = 1123;
           _os_log_impl(&dword_1BA5AC000, v23, OS_LOG_TYPE_DEBUG, "%25s:%-5d destroyRecordEngine: mRecordIsStopping set to true", buf, 0x12u);
         }
       }
@@ -10092,9 +9697,9 @@ LABEL_56:
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v91 = "AVVCAudioQueueRecordingEngine.mm";
-            v92 = 1024;
-            v93 = 1132;
+            v90 = "AVVCAudioQueueRecordingEngine.mm";
+            v91 = 1024;
+            v92 = 1132;
             _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_DEBUG, "%25s:%-5d destroyRecordEngine: about to call AudioQueueStop(..., true)", buf, 0x12u);
           }
         }
@@ -10124,18 +9729,18 @@ LABEL_56:
     {
       v31 = " but failed";
       *buf = 136315906;
-      v91 = "AVVCAudioQueueRecordingEngine.mm";
-      v93 = 1140;
-      v94 = 2080;
-      v92 = 1024;
+      v90 = "AVVCAudioQueueRecordingEngine.mm";
+      v92 = 1140;
+      v93 = 2080;
+      v91 = 1024;
       if (!v26)
       {
         v31 = "";
       }
 
-      v95 = v31;
-      v96 = 1024;
-      LODWORD(v97) = v26;
+      v94 = v31;
+      v95 = 1024;
+      LODWORD(v96) = v26;
       _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVC stopped record queue%s (%d)", buf, 0x22u);
     }
 
@@ -10159,7 +9764,7 @@ LABEL_103:
             if (!v38)
             {
 LABEL_110:
-              AVVCRecordingEngine::doneRecording(v83);
+              AVVCRecordingEngine::doneRecording(v82);
               goto LABEL_111;
             }
           }
@@ -10174,9 +9779,9 @@ LABEL_110:
           if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v91 = "AVVCAudioQueueRecordingEngine.mm";
-            v92 = 1024;
-            v93 = 1144;
+            v90 = "AVVCAudioQueueRecordingEngine.mm";
+            v91 = 1024;
+            v92 = 1144;
             _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_DEFAULT, "%25s:%-5d destroyRecordEngine:  synthesizing doneRecording", buf, 0x12u);
           }
 
@@ -10194,11 +9799,11 @@ LABEL_110:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v91 = "AVVCAudioQueueRecordingEngine.mm";
-        v92 = 1024;
-        v93 = 1142;
-        v94 = 1024;
-        LODWORD(v95) = v26;
+        v90 = "AVVCAudioQueueRecordingEngine.mm";
+        v91 = 1024;
+        v92 = 1142;
+        v93 = 1024;
+        LODWORD(v94) = v26;
         v36 = "%25s:%-5d ERROR: destroyRecordEngine: AudioQueueStop err %{audio:4CC}d";
         goto LABEL_101;
       }
@@ -10225,11 +9830,11 @@ LABEL_110:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v91 = "AVVCAudioQueueRecordingEngine.mm";
-        v92 = 1024;
-        v93 = 1142;
-        v94 = 1024;
-        LODWORD(v95) = v26;
+        v90 = "AVVCAudioQueueRecordingEngine.mm";
+        v91 = 1024;
+        v92 = 1142;
+        v93 = 1024;
+        LODWORD(v94) = v26;
         v36 = "%25s:%-5d ERROR: destroyRecordEngine: AudioQueueStop err %d";
 LABEL_101:
         _os_log_impl(&dword_1BA5AC000, v35, OS_LOG_TYPE_ERROR, v36, buf, 0x18u);
@@ -10241,7 +9846,7 @@ LABEL_101:
 
   if (QueueIsRunning(v21))
   {
-    CAVerboseAbort();
+    CAVerboseAbort("ASSERTION FAILED: queue was running when destroyed but not asked to stop");
   }
 
   AVVCRecordingEngine::setStreamState(this, 3);
@@ -10275,9 +9880,9 @@ LABEL_111:
   if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v91 = "AVVCAudioQueueRecordingEngine.mm";
-    v92 = 1024;
-    v93 = 1158;
+    v90 = "AVVCAudioQueueRecordingEngine.mm";
+    v91 = 1024;
+    v92 = 1158;
     _os_log_impl(&dword_1BA5AC000, v44, OS_LOG_TYPE_DEFAULT, "%25s:%-5d destroyRecordEngine: about to call AudioQueueDispose(..., true)", buf, 0x12u);
   }
 
@@ -10311,11 +9916,11 @@ LABEL_120:
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v91 = "AVVCAudioQueueRecordingEngine.mm";
-      v92 = 1024;
-      v93 = 1163;
-      v94 = 1024;
-      LODWORD(v95) = v28;
+      v90 = "AVVCAudioQueueRecordingEngine.mm";
+      v91 = 1024;
+      v92 = 1163;
+      v93 = 1024;
+      LODWORD(v94) = v28;
       v49 = "%25s:%-5d ERROR: destroyRecordEngine: AudioQueueDispose err %d";
 LABEL_134:
       _os_log_impl(&dword_1BA5AC000, v48, OS_LOG_TYPE_ERROR, v49, buf, 0x18u);
@@ -10334,11 +9939,11 @@ LABEL_132:
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v91 = "AVVCAudioQueueRecordingEngine.mm";
-      v92 = 1024;
-      v93 = 1163;
-      v94 = 1024;
-      LODWORD(v95) = v28;
+      v90 = "AVVCAudioQueueRecordingEngine.mm";
+      v91 = 1024;
+      v92 = 1163;
+      v93 = 1024;
+      LODWORD(v94) = v28;
       v49 = "%25s:%-5d ERROR: destroyRecordEngine: AudioQueueDispose err %{audio:4CC}d";
       goto LABEL_134;
     }
@@ -10375,9 +9980,9 @@ LABEL_136:
         if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v91 = "AVVCAudioQueueRecordingEngine.mm";
-          v92 = 1024;
-          v93 = 1173;
+          v90 = "AVVCAudioQueueRecordingEngine.mm";
+          v91 = 1024;
+          v92 = 1173;
           _os_log_impl(&dword_1BA5AC000, v53, OS_LOG_TYPE_DEBUG, "%25s:%-5d destroyRecordEngine: mRecordIsStopping set to false", buf, 0x12u);
         }
       }
@@ -10400,9 +10005,9 @@ LABEL_136:
           if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v91 = "AVVCAudioQueueRecordingEngine.mm";
-            v92 = 1024;
-            v93 = 1180;
+            v90 = "AVVCAudioQueueRecordingEngine.mm";
+            v91 = 1024;
+            v92 = 1180;
             _os_log_impl(&dword_1BA5AC000, v55, OS_LOG_TYPE_DEBUG, "%25s:%-5d destroyRecordEngine: about to destroy audio converter", buf, 0x12u);
           }
         }
@@ -10429,11 +10034,11 @@ LABEL_136:
     if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v91 = "AVVCAudioQueueRecordingEngine.mm";
-      v92 = 1024;
-      v93 = 1182;
-      v94 = 1024;
-      LODWORD(v95) = v28;
+      v90 = "AVVCAudioQueueRecordingEngine.mm";
+      v91 = 1024;
+      v92 = 1182;
+      v93 = 1024;
+      LODWORD(v94) = v28;
       _os_log_impl(&dword_1BA5AC000, v58, OS_LOG_TYPE_ERROR, "%25s:%-5d destroyRecordEngine: AudioConverterDispose error(%d)", buf, 0x18u);
     }
   }
@@ -10480,9 +10085,9 @@ LABEL_167:
     if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v91 = "AVVCAudioQueueRecordingEngine.mm";
-      v92 = 1024;
-      v93 = 1202;
+      v90 = "AVVCAudioQueueRecordingEngine.mm";
+      v91 = 1024;
+      v92 = 1202;
       _os_log_impl(&dword_1BA5AC000, v65, OS_LOG_TYPE_DEBUG, "%25s:%-5d Deleting old DSPGraph...", buf, 0x12u);
     }
   }
@@ -10496,14 +10101,13 @@ LABEL_171:
   v67 = *(this + 102);
   *(this + 102) = 0;
 
-  if (v84)
+  if (v83)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v84);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v83);
   }
 
 LABEL_173:
-  TraceMethod::~TraceMethod(v85);
-  TraceWrapper::~TraceWrapper(&v86);
-  v68 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v84);
+  TraceWrapper::~TraceWrapper(&v85);
   return v28;
 }

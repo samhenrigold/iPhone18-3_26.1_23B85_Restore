@@ -39,38 +39,38 @@
 
 - (NLParameterBundle)initWithParameters:(id)parameters values:(id)values metadata:(id)metadata
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   valuesCopy = values;
   metadataCopy = metadata;
-  v38.receiver = self;
-  v38.super_class = NLParameterBundle;
-  v11 = [(NLParameterBundle *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = NLParameterBundle;
+  v11 = [(NLParameterBundle *)&v37 init];
   if (v11)
   {
-    v32 = valuesCopy;
+    v31 = valuesCopy;
     array = [MEMORY[0x1E695DF70] array];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v33 = parametersCopy;
+    v32 = parametersCopy;
     v13 = parametersCopy;
-    v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v35;
+      v16 = *v34;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v34 + 1) + 8 * i);
+          v18 = *(*(&v33 + 1) + 8 * i);
           name = [v18 name];
           v20 = [(NSArray *)array containsObject:name];
 
@@ -81,7 +81,7 @@
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v15);
@@ -95,8 +95,8 @@
     v11->_parameterNames = array;
     v25 = array;
 
-    valuesCopy = v32;
-    v26 = [v32 copy];
+    valuesCopy = v31;
+    v26 = [v31 copy];
     parameterValues = v11->_parameterValues;
     v11->_parameterValues = v26;
 
@@ -104,64 +104,61 @@
     metadata = v11->_metadata;
     v11->_metadata = v28;
 
-    parametersCopy = v33;
+    parametersCopy = v32;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   parameters = [(NLParameterBundle *)self parameters];
-  v5 = [parameters countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = [parameters countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(parameters);
         }
 
-        _dictionaryRepresentation = [*(*(&v15 + 1) + 8 * i) _dictionaryRepresentation];
+        _dictionaryRepresentation = [*(*(&v14 + 1) + 8 * i) _dictionaryRepresentation];
         [array addObject:_dictionaryRepresentation];
       }
 
-      v6 = [parameters countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [parameters countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  v20[0] = array;
-  v19[0] = @"Parameters";
-  v19[1] = @"ParameterValues";
+  v19[0] = array;
+  v18[0] = @"Parameters";
+  v18[1] = @"ParameterValues";
   parameterValues = [(NLParameterBundle *)self parameterValues];
-  v20[1] = parameterValues;
-  v19[2] = @"Metadata";
+  v19[1] = parameterValues;
+  v18[2] = @"Metadata";
   metadata = [(NLParameterBundle *)self metadata];
-  v20[2] = metadata;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v19[2] = metadata;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   return v12;
 }
 
 - (NLParameterBundle)initWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -184,33 +181,33 @@
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v21 = v9;
+                v20 = v9;
                 array = [MEMORY[0x1E695DF70] array];
+                v22 = 0u;
                 v23 = 0u;
                 v24 = 0u;
                 v25 = 0u;
-                v26 = 0u;
                 v10 = v7;
-                v11 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+                v11 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
                 if (v11)
                 {
                   v12 = v11;
-                  v13 = *v24;
+                  v13 = *v23;
                   while (2)
                   {
                     v14 = 0;
                     do
                     {
-                      if (*v24 != v13)
+                      if (*v23 != v13)
                       {
                         objc_enumerationMutation(v10);
                       }
 
-                      v15 = [[NLParameter alloc] _initWithDictionaryRepresentation:*(*(&v23 + 1) + 8 * v14) error:0];
+                      v15 = [[NLParameter alloc] _initWithDictionaryRepresentation:*(*(&v22 + 1) + 8 * v14) error:0];
                       if (!v15)
                       {
 
-                        v9 = v21;
+                        v9 = v20;
                         goto LABEL_18;
                       }
 
@@ -221,7 +218,7 @@
                     }
 
                     while (v12 != v14);
-                    v12 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+                    v12 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
                     if (v12)
                     {
                       continue;
@@ -231,7 +228,7 @@
                   }
                 }
 
-                self = [(NLParameterBundle *)self initWithParameters:array values:v8 metadata:v21];
+                self = [(NLParameterBundle *)self initWithParameters:array values:v8 metadata:v20];
                 selfCopy = self;
                 goto LABEL_21;
               }
@@ -251,15 +248,14 @@ LABEL_18:
   }
 
   v18 = MEMORY[0x1E696ABC0];
-  v27 = *MEMORY[0x1E696A578];
-  v28 = @"Invalid parameter bundle";
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v26 = *MEMORY[0x1E696A578];
+  v27 = @"Invalid parameter bundle";
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
   [v18 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v10];
   *error = selfCopy = 0;
 LABEL_21:
 
 LABEL_23:
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -303,28 +299,28 @@ LABEL_23:
 
 - (id)description
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [(NLParameterBundle *)self parameters];
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         v9 = MEMORY[0x1E696AEC0];
         _shortDescription = [v8 _shortDescription];
         name = [v8 name];
@@ -334,20 +330,18 @@ LABEL_23:
         [array addObject:v13];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
   }
 
   v14 = MEMORY[0x1E696AEC0];
-  v21.receiver = self;
-  v21.super_class = NLParameterBundle;
-  v15 = [(NLParameterBundle *)&v21 description];
+  v20.receiver = self;
+  v20.super_class = NLParameterBundle;
+  v15 = [(NLParameterBundle *)&v20 description];
   v16 = [array componentsJoinedByString:{@", "}];
   v17 = [v14 stringWithFormat:@"%@(%@)", v15, v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -462,27 +456,27 @@ LABEL_11:
 
 - (id)parameterForName:(id)name
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   parameters = [(NLParameterBundle *)self parameters];
-  v6 = [parameters countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [parameters countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqual:nameCopy];
 
@@ -493,7 +487,7 @@ LABEL_11:
         }
       }
 
-      v6 = [parameters countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [parameters countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -504,8 +498,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

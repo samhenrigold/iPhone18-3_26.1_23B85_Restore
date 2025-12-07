@@ -127,20 +127,6 @@
   return result;
 }
 
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
 - (id)_handleIrisMovieRequestForInput:(objc_super *)a3 sbuf:(uint64_t)a4 .cold.2(void *a1, uint64_t a2, objc_super *a3, uint64_t a4)
 {
   if ([a1 isOutputRenderingEnabledForAttachedMediaKey:@"SynchronizedSlaveFrame"])

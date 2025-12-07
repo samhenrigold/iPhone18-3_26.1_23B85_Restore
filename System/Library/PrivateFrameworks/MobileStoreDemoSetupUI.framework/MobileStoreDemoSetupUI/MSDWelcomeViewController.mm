@@ -6,6 +6,7 @@
 - (void)_showCheckInErrorAlert;
 - (void)_showNetworkInterfaceSelectionAlert;
 - (void)_showNextView;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation MSDWelcomeViewController
@@ -26,36 +27,34 @@
 
 uint64_t __39__MSDWelcomeViewController_needsToRun___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D29520] sharedInstance];
   v3 = [v2 isEnrolled:0];
 
-  v4 = defaultLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = defaultLogHandle(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 40);
-    v16 = 138543618;
-    v17 = objc_opt_class();
-    v18 = 1024;
-    v19 = v3 ^ 1;
-    v6 = v17;
-    _os_log_impl(&dword_259BCA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ needs to run: %{BOOL}d", &v16, 0x12u);
+    v15 = 138543618;
+    v16 = objc_opt_class();
+    v17 = 1024;
+    v18 = v3 ^ 1;
+    v6 = v16;
+    _os_log_impl(&dword_259BCA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ needs to run: %{BOOL}d", &v15, 0x12u);
   }
 
   v7 = [MEMORY[0x277D29510] sharedInstance];
   v8 = [v7 isDeviceEnrolledWithDeKOTA:0];
 
-  v9 = defaultLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = defaultLogHandle(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 40);
     v11 = objc_opt_class();
-    v16 = 138543618;
-    v17 = v11;
-    v18 = 1024;
-    v19 = v8;
+    v15 = 138543618;
+    v16 = v11;
+    v17 = 1024;
+    v18 = v8;
     v12 = v11;
-    _os_log_impl(&dword_259BCA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ needs to enable SEP demo mode: %{BOOL}d", &v16, 0x12u);
+    _os_log_impl(&dword_259BCA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ needs to enable SEP demo mode: %{BOOL}d", &v15, 0x12u);
   }
 
   if (v8)
@@ -64,9 +63,7 @@ uint64_t __39__MSDWelcomeViewController_needsToRun___block_invoke(uint64_t a1)
     [v13 setSEPDemoMode:1];
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (MSDWelcomeViewController)init
@@ -88,6 +85,116 @@ uint64_t __39__MSDWelcomeViewController_needsToRun___block_invoke(uint64_t a1)
   return v4;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v37[2] = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D29580];
+  v6 = *MEMORY[0x277D29578];
+  v37[0] = *MEMORY[0x277D29580];
+  v37[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v34.receiver = self;
+  v34.super_class = MSDWelcomeViewController;
+  [(OBBaseWelcomeController *)&v34 viewDidAppear:appearCopy];
+  controller = [(MSDWelcomeViewController *)self controller];
+  [controller saveLocationServicesState];
+
+  v9 = [MEMORY[0x277CBEAA8] now];
+  [v9 timeIntervalSince1970];
+  v11 = v10;
+  controller2 = [(MSDWelcomeViewController *)self controller];
+  [controller2 setAutoEnrollmentTimeStamp:v11];
+
+  navigationController = [(MSDWelcomeViewController *)self navigationController];
+  if (!navigationController || (v14 = navigationController, [(MSDWelcomeViewController *)self navigationController], v15 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  {
+    [MSDWelcomeViewController viewDidAppear:];
+  }
+
+  controller3 = [(MSDWelcomeViewController *)self controller];
+  completionHandler = [(MSDWelcomeViewController *)self completionHandler];
+  [controller3 setCompletionHandler:completionHandler];
+
+  controller4 = [(MSDWelcomeViewController *)self controller];
+  navigationController2 = [(MSDWelcomeViewController *)self navigationController];
+  [controller4 setNavigationController:navigationController2];
+
+  mEMORY[0x277D29520] = [MEMORY[0x277D29520] sharedInstance];
+  typeOfDemoDevice = [mEMORY[0x277D29520] typeOfDemoDevice];
+
+  if (typeOfDemoDevice == 3)
+  {
+    v23 = defaultLogHandle(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_259BCA000, v23, OS_LOG_TYPE_DEFAULT, "Device is a FDSKU device only and does not have demo bit; entering offline mode", buf, 2u);
+    }
+
+    controller5 = [(MSDWelcomeViewController *)self controller];
+    [controller5 quitToOfflineMode];
+  }
+
+  else
+  {
+    mEMORY[0x277D29520]2 = [MEMORY[0x277D29520] sharedInstance];
+    v33 = 0;
+    v26 = [mEMORY[0x277D29520]2 getCurrentNetworkInfoForKeys:v7 outError:&v33];
+    controller5 = v33;
+
+    v28 = defaultLogHandle(v27);
+    v29 = v28;
+    if (!v26 || controller5)
+    {
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        [(MSDWelcomeViewController *)controller5 viewDidAppear:v29];
+      }
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v36 = v26;
+        _os_log_impl(&dword_259BCA000, v29, OS_LOG_TYPE_DEFAULT, "Got current network info: %{public}@", buf, 0xCu);
+      }
+
+      v29 = [v26 objectForKey:v5];
+      v30 = [v26 objectForKey:v6];
+      if (v29)
+      {
+        [(MSDWelcomeViewController *)self setCurrentSSID:v29];
+      }
+
+      if (v30)
+      {
+        -[MSDWelcomeViewController setActiveNetworkInterface:](self, "setActiveNetworkInterface:", [v30 unsignedIntegerValue]);
+      }
+    }
+
+    _bothWifiAndCellularActive = [(MSDWelcomeViewController *)self _bothWifiAndCellularActive];
+    if (_bothWifiAndCellularActive)
+    {
+      v32 = defaultLogHandle(_bothWifiAndCellularActive);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_259BCA000, v32, OS_LOG_TYPE_DEFAULT, "Both WiFi and Cellular are active on device, prompting user to choose network configuration...", buf, 2u);
+      }
+
+      [(MSDWelcomeViewController *)self _showNetworkInterfaceSelectionAlert];
+    }
+
+    else
+    {
+      [(MSDWelcomeViewController *)self _checkIn];
+    }
+  }
+}
+
 - (BOOL)_bothWifiAndCellularActive
 {
   if (([(MSDWelcomeViewController *)self activeNetworkInterface]& 1) != 0)
@@ -105,42 +212,43 @@ uint64_t __39__MSDWelcomeViewController_needsToRun___block_invoke(uint64_t a1)
 
 - (void)_checkIn
 {
-  if (!os_variant_has_internal_content())
+  has_internal_content = os_variant_has_internal_content();
+  if (!has_internal_content)
   {
 LABEL_14:
-    v12 = defaultLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = defaultLogHandle(has_internal_content);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_259BCA000, v12, OS_LOG_TYPE_DEFAULT, "Checking In with Demo Unit ...", buf, 2u);
+      _os_log_impl(&dword_259BCA000, v13, OS_LOG_TYPE_DEFAULT, "Checking In with Demo Unit ...", buf, 2u);
     }
 
     mEMORY[0x277D29520] = [MEMORY[0x277D29520] sharedInstance];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __36__MSDWelcomeViewController__checkIn__block_invoke;
-    v14[3] = &unk_2798F1CE8;
-    v14[4] = self;
-    [mEMORY[0x277D29520] checkInWithCompletion:v14];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __36__MSDWelcomeViewController__checkIn__block_invoke;
+    v15[3] = &unk_2798F1CE8;
+    v15[4] = self;
+    [mEMORY[0x277D29520] checkInWithCompletion:v15];
 
     return;
   }
 
-  v3 = +[MSDTestPreferences sharedInstance];
-  storePickerUIMode = [v3 storePickerUIMode];
+  v4 = +[MSDTestPreferences sharedInstance];
+  storePickerUIMode = [v4 storePickerUIMode];
 
-  v5 = +[MSDTestPreferences sharedInstance];
-  disassociateWiFiBeforeCheckIn = [v5 disassociateWiFiBeforeCheckIn];
+  v6 = +[MSDTestPreferences sharedInstance];
+  disassociateWiFiBeforeCheckIn = [v6 disassociateWiFiBeforeCheckIn];
 
   if (storePickerUIMode != 1)
   {
     if (!storePickerUIMode)
     {
-      v7 = defaultLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = defaultLogHandle(has_internal_content);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_259BCA000, v7, OS_LOG_TYPE_DEFAULT, "Skipping CheckIn and calling demod...", buf, 2u);
+        _os_log_impl(&dword_259BCA000, v8, OS_LOG_TYPE_DEFAULT, "Skipping CheckIn and calling demod...", buf, 2u);
       }
 
       controller = [(MSDWelcomeViewController *)self controller];
@@ -151,11 +259,11 @@ LABEL_14:
 
     if (disassociateWiFiBeforeCheckIn)
     {
-      v10 = defaultLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = defaultLogHandle(has_internal_content);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_259BCA000, v10, OS_LOG_TYPE_DEFAULT, "Disconnecting WiFi...", buf, 2u);
+        _os_log_impl(&dword_259BCA000, v11, OS_LOG_TYPE_DEFAULT, "Disconnecting WiFi...", buf, 2u);
       }
 
       controller2 = [(MSDWelcomeViewController *)self controller];
@@ -165,11 +273,11 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v9 = defaultLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = defaultLogHandle(has_internal_content);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_259BCA000, v9, OS_LOG_TYPE_DEFAULT, "Showing store picker UI...", buf, 2u);
+    _os_log_impl(&dword_259BCA000, v10, OS_LOG_TYPE_DEFAULT, "Showing store picker UI...", buf, 2u);
   }
 
   [(MSDWelcomeViewController *)self _showNextView];
@@ -196,12 +304,12 @@ void __36__MSDWelcomeViewController__checkIn__block_invoke_2(uint64_t a1)
   v21 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = *(a1 + 32);
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(a1);
   v5 = v4;
   if (v3)
   {
     __36__MSDWelcomeViewController__checkIn__block_invoke_2_cold_1(v4, v2, a1);
-    goto LABEL_16;
+    return;
   }
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -217,29 +325,29 @@ void __36__MSDWelcomeViewController__checkIn__block_invoke_2(uint64_t a1)
 
   if (*(a1 + 48) != 1)
   {
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = defaultLogHandle(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [*(a1 + 40) controller];
-      v11 = [v10 hasSecureCookie];
+      v11 = [*(a1 + 40) controller];
+      v12 = [v11 hasSecureCookie];
       v17 = 67109120;
-      v18 = v11;
-      _os_log_impl(&dword_259BCA000, v9, OS_LOG_TYPE_DEFAULT, "Device is not eligible; hasSecureCookie=%d", &v17, 8u);
+      v18 = v12;
+      _os_log_impl(&dword_259BCA000, v10, OS_LOG_TYPE_DEFAULT, "Device is not eligible; hasSecureCookie=%d", &v17, 8u);
     }
 
-    v12 = [*(a1 + 40) controller];
-    v13 = [v12 hasSecureCookie];
+    v13 = [*(a1 + 40) controller];
+    v14 = [v13 hasSecureCookie];
 
-    v14 = [*(a1 + 40) controller];
-    v15 = v14;
-    if (v13)
+    v15 = [*(a1 + 40) controller];
+    v16 = v15;
+    if (v14)
     {
-      [v14 quitToOfflineMode];
+      [v15 quitToOfflineMode];
     }
 
     else
     {
-      [v14 quitToCustomerFlow];
+      [v15 quitToCustomerFlow];
     }
 
     goto LABEL_15;
@@ -247,23 +355,21 @@ void __36__MSDWelcomeViewController__checkIn__block_invoke_2(uint64_t a1)
 
   if (*(a1 + 49) != 1)
   {
-    v15 = [*(a1 + 40) controller];
-    [v15 setupCompleteWithStoreID:0];
+    v16 = [*(a1 + 40) controller];
+    [v16 setupCompleteWithStoreID:0];
 LABEL_15:
 
-    goto LABEL_16;
+    return;
   }
 
-  v8 = defaultLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = defaultLogHandle(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v17) = 0;
-    _os_log_impl(&dword_259BCA000, v8, OS_LOG_TYPE_DEFAULT, "Showing store picker UI...", &v17, 2u);
+    _os_log_impl(&dword_259BCA000, v9, OS_LOG_TYPE_DEFAULT, "Showing store picker UI...", &v17, 2u);
   }
 
   [*(a1 + 40) _showNextView];
-LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showCheckInErrorAlert
@@ -301,7 +407,7 @@ void __50__MSDWelcomeViewController__showCheckInErrorAlert__block_invoke(uint64_
 
 void __50__MSDWelcomeViewController__showCheckInErrorAlert__block_invoke_2(uint64_t a1)
 {
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -314,7 +420,7 @@ void __50__MSDWelcomeViewController__showCheckInErrorAlert__block_invoke_2(uint6
 
 void __50__MSDWelcomeViewController__showCheckInErrorAlert__block_invoke_27(uint64_t a1)
 {
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -395,7 +501,7 @@ void __63__MSDWelcomeViewController__showNetworkInterfaceSelectionAlert__block_i
 void __63__MSDWelcomeViewController__showNetworkInterfaceSelectionAlert__block_invoke_2(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -407,21 +513,20 @@ void __63__MSDWelcomeViewController__showNetworkInterfaceSelectionAlert__block_i
   [v3 disconnectAndForgetWiFi:&v7];
   v4 = v7;
 
-  v5 = defaultLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = defaultLogHandle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v9 = v4;
-    _os_log_impl(&dword_259BCA000, v5, OS_LOG_TYPE_DEFAULT, "Disconnect and forget wifi completed with error: %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, "Disconnect and forget wifi completed with error: %{public}@", buf, 0xCu);
   }
 
   [*(a1 + 32) _checkIn];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__MSDWelcomeViewController__showNetworkInterfaceSelectionAlert__block_invoke_46(uint64_t a1)
 {
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -433,7 +538,7 @@ uint64_t __63__MSDWelcomeViewController__showNetworkInterfaceSelectionAlert__blo
 
 void __63__MSDWelcomeViewController__showNetworkInterfaceSelectionAlert__block_invoke_47(uint64_t a1)
 {
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -453,27 +558,24 @@ void __63__MSDWelcomeViewController__showNetworkInterfaceSelectionAlert__block_i
 
 - (void)viewDidAppear:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_259BCA000, a2, OS_LOG_TYPE_ERROR, "Failed to get current network info with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_259BCA000, a2, OS_LOG_TYPE_ERROR, "Failed to get current network info with error: %{public}@", &v2, 0xCu);
 }
 
 uint64_t __36__MSDWelcomeViewController__checkIn__block_invoke_2_cold_1(NSObject *a1, uint64_t *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v8 = *a2;
-    v9 = 138543362;
-    v10 = v8;
-    _os_log_error_impl(&dword_259BCA000, a1, OS_LOG_TYPE_ERROR, "CheckIn returned error: %{public}@", &v9, 0xCu);
+    v7 = *a2;
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_error_impl(&dword_259BCA000, a1, OS_LOG_TYPE_ERROR, "CheckIn returned error: %{public}@", &v8, 0xCu);
   }
 
-  result = [*(a3 + 40) _showCheckInErrorAlert];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a3 + 40) _showCheckInErrorAlert];
 }
 
 @end

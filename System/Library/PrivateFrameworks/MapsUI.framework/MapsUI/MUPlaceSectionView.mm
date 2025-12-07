@@ -40,7 +40,7 @@
 
 - (void)attachViewToContentView:(id)view
 {
-  v22[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   [viewCopy setTranslatesAutoresizingMaskIntoConstraints:0];
   [(MUPlaceSectionView *)self addSubview:viewCopy];
@@ -48,33 +48,31 @@
   v6 = NSStringFromClass(v5);
   [viewCopy setAccessibilityIdentifier:v6];
 
-  v18 = MEMORY[0x1E696ACD8];
+  v17 = MEMORY[0x1E696ACD8];
   leadingAnchor = [viewCopy leadingAnchor];
   leadingAnchor2 = [(UILayoutGuide *)self->_contentLayoutGuide leadingAnchor];
-  v19 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v22[0] = v19;
+  v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v21[0] = v18;
   trailingAnchor = [viewCopy trailingAnchor];
   trailingAnchor2 = [(UILayoutGuide *)self->_contentLayoutGuide trailingAnchor];
   v9 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v22[1] = v9;
+  v21[1] = v9;
   topAnchor = [viewCopy topAnchor];
   topAnchor2 = [(UILayoutGuide *)self->_contentLayoutGuide topAnchor];
   v12 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v22[2] = v12;
+  v21[2] = v12;
   bottomAnchor = [viewCopy bottomAnchor];
 
   bottomAnchor2 = [(UILayoutGuide *)self->_contentLayoutGuide bottomAnchor];
   v15 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v22[3] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
-  [v18 activateConstraints:v16];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v21[3] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
+  [v17 activateConstraints:v16];
 }
 
 - (void)_setupConstraints
 {
-  v55[4] = *MEMORY[0x1E69E9840];
+  v54[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   MKPlaceHorizontalPlatterMargin();
   style = self->_style;
@@ -105,7 +103,7 @@
       v7 = 0.0;
     }
 
-    v49 = v3;
+    v48 = v3;
     bottomAnchor = [(MUPlaceSectionHeaderView *)self->_headerView bottomAnchor];
     topAnchor = [(UILayoutGuide *)self->_contentLayoutGuide topAnchor];
     v10 = [bottomAnchor constraintEqualToAnchor:topAnchor constant:v7];
@@ -114,22 +112,22 @@
 
     leadingAnchor = [(MUPlaceSectionHeaderView *)self->_headerView leadingAnchor];
     leadingAnchor2 = [(MUPlaceSectionView *)self leadingAnchor];
-    v45 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:20.0];
-    v55[0] = v45;
+    v44 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:20.0];
+    v54[0] = v44;
     topAnchor2 = [(MUPlaceSectionHeaderView *)self->_headerView topAnchor];
     topAnchor3 = [(MUPlaceSectionView *)self topAnchor];
     v15 = [topAnchor2 constraintEqualToAnchor:topAnchor3];
-    v55[1] = v15;
+    v54[1] = v15;
     trailingAnchor = [(MUPlaceSectionHeaderView *)self->_headerView trailingAnchor];
     trailingAnchor2 = [(MUPlaceSectionView *)self trailingAnchor];
     v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-20.0];
     v19 = self->_headerContentSpacingConstraint;
-    v55[2] = v18;
-    v55[3] = v19;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:4];
-    [v49 addObjectsFromArray:v20];
+    v54[2] = v18;
+    v54[3] = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:4];
+    [v48 addObjectsFromArray:v20];
 
-    v3 = v49;
+    v3 = v48;
   }
 
   else
@@ -143,12 +141,12 @@
   leadingAnchor3 = [(UILayoutGuide *)self->_contentLayoutGuide leadingAnchor];
   leadingAnchor4 = [(MUPlaceSectionView *)self leadingAnchor];
   v26 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:v6];
-  v54[0] = v26;
+  v53[0] = v26;
   trailingAnchor3 = [(UILayoutGuide *)self->_contentLayoutGuide trailingAnchor];
   trailingAnchor4 = [(MUPlaceSectionView *)self trailingAnchor];
   v29 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-v6];
-  v54[1] = v29;
-  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+  v53[1] = v29;
+  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
   [v3 addObjectsFromArray:v30];
 
   footerView = self->_footerView;
@@ -156,25 +154,25 @@
   if (footerView)
   {
     topAnchor6 = [(MULinkView *)self->_footerView topAnchor];
-    v48 = [bottomAnchor2 constraintEqualToAnchor:topAnchor6 constant:-0.0];
-    v52[0] = v48;
+    v47 = [bottomAnchor2 constraintEqualToAnchor:topAnchor6 constant:-0.0];
+    v51[0] = v47;
     leadingAnchor5 = [(MULinkView *)self->_footerView leadingAnchor];
     leadingAnchor6 = [(MUPlaceSectionView *)self leadingAnchor];
-    v46 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:20.0];
-    v52[1] = v46;
+    v45 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:20.0];
+    v51[1] = v45;
     [(MULinkView *)self->_footerView trailingAnchor];
     v35 = v34 = v3;
     trailingAnchor5 = [(MUPlaceSectionView *)self trailingAnchor];
     v37 = [v35 constraintEqualToAnchor:trailingAnchor5 constant:-20.0];
-    v52[2] = v37;
+    v51[2] = v37;
     bottomAnchor3 = [(MULinkView *)self->_footerView bottomAnchor];
     bottomAnchor4 = [(MUPlaceSectionView *)self bottomAnchor];
     v40 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-    v52[3] = v40;
-    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:4];
+    v51[3] = v40;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:4];
     [v34 addObjectsFromArray:v41];
 
-    v42 = v48;
+    v42 = v47;
     bottomAnchor5 = topAnchor6;
 
     v3 = v34;
@@ -184,13 +182,12 @@
   {
     bottomAnchor5 = [(MUPlaceSectionView *)self bottomAnchor];
     v42 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor5];
-    v53 = v42;
-    leadingAnchor5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
+    v52 = v42;
+    leadingAnchor5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
     [v3 addObjectsFromArray:leadingAnchor5];
   }
 
   [MEMORY[0x1E696ACD8] activateConstraints:v3];
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupSubviews
@@ -282,12 +279,12 @@ void __36__MUPlaceSectionView__setupSubviews__block_invoke(uint64_t a1)
 
 - (MUPlaceSectionView)initWithStyle:(int64_t)style alwaysHideSeparators:(BOOL)separators sectionHeaderViewModel:(id)model sectionFooterViewModel:(id)viewModel
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   viewModelCopy = viewModel;
-  v19.receiver = self;
-  v19.super_class = MUPlaceSectionView;
-  v12 = [(MUPlaceSectionView *)&v19 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v18.receiver = self;
+  v18.super_class = MUPlaceSectionView;
+  v12 = [(MUPlaceSectionView *)&v18 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   v13 = v12;
   if (v12)
   {
@@ -298,12 +295,11 @@ void __36__MUPlaceSectionView__setupSubviews__block_invoke(uint64_t a1)
     [(MUPlaceSectionView *)v13 _setupSubviews];
     [(MUPlaceSectionView *)v13 _setupConstraints];
     v14 = objc_opt_self();
-    v20[0] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
     v16 = [(MUPlaceSectionView *)v13 registerForTraitChanges:v15 withTarget:v13 action:sel__updateForContentSizeChange];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

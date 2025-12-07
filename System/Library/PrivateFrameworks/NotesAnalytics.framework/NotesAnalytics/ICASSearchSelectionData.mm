@@ -44,8 +44,8 @@
 
 - (id)toDict
 {
-  v37[10] = *MEMORY[0x277D85DE8];
-  v36[0] = @"selectedResultID";
+  v36[10] = *MEMORY[0x277D85DE8];
+  v35[0] = @"selectedResultID";
   selectedResultID = [(ICASSearchSelectionData *)self selectedResultID];
   if (selectedResultID)
   {
@@ -57,9 +57,9 @@
     selectedResultID2 = objc_opt_new();
   }
 
-  v34 = selectedResultID2;
-  v37[0] = selectedResultID2;
-  v36[1] = @"selectedResultAccountType";
+  v33 = selectedResultID2;
+  v36[0] = selectedResultID2;
+  v35[1] = @"selectedResultAccountType";
   selectedResultAccountType = [(ICASSearchSelectionData *)self selectedResultAccountType];
   if (selectedResultAccountType)
   {
@@ -71,9 +71,9 @@
     selectedResultAccountType2 = objc_opt_new();
   }
 
-  v32 = selectedResultAccountType2;
-  v37[1] = selectedResultAccountType2;
-  v36[2] = @"selectedResultType";
+  v31 = selectedResultAccountType2;
+  v36[1] = selectedResultAccountType2;
+  v35[2] = @"selectedResultType";
   selectedResultType = [(ICASSearchSelectionData *)self selectedResultType];
   if (selectedResultType)
   {
@@ -85,9 +85,9 @@
     selectedResultType2 = objc_opt_new();
   }
 
-  v30 = selectedResultType2;
-  v37[2] = selectedResultType2;
-  v36[3] = @"gmRankingStrategyType";
+  v29 = selectedResultType2;
+  v36[2] = selectedResultType2;
+  v35[3] = @"gmRankingStrategyType";
   gmRankingStrategyType = [(ICASSearchSelectionData *)self gmRankingStrategyType];
   if (gmRankingStrategyType)
   {
@@ -99,9 +99,9 @@
     gmRankingStrategyType2 = objc_opt_new();
   }
 
-  v28 = gmRankingStrategyType2;
-  v37[3] = gmRankingStrategyType2;
-  v36[4] = @"gmRank";
+  v27 = gmRankingStrategyType2;
+  v36[3] = gmRankingStrategyType2;
+  v35[4] = @"gmRank";
   gmRank = [(ICASSearchSelectionData *)self gmRank];
   if (gmRank)
   {
@@ -113,9 +113,9 @@
     gmRank2 = objc_opt_new();
   }
 
-  v26 = gmRank2;
-  v37[4] = gmRank2;
-  v36[5] = @"searchRankingExperimentSummary";
+  v25 = gmRank2;
+  v36[4] = gmRank2;
+  v35[5] = @"searchRankingExperimentSummary";
   searchRankingExperimentSummary = [(ICASSearchSelectionData *)self searchRankingExperimentSummary];
   if (searchRankingExperimentSummary)
   {
@@ -128,8 +128,8 @@
   }
 
   v9 = searchRankingExperimentSummary2;
-  v37[5] = searchRankingExperimentSummary2;
-  v36[6] = @"gmRankIOS13";
+  v36[5] = searchRankingExperimentSummary2;
+  v35[6] = @"gmRankIOS13";
   gmRankIOS13 = [(ICASSearchSelectionData *)self gmRankIOS13];
   if (gmRankIOS13)
   {
@@ -142,8 +142,8 @@
   }
 
   v12 = gmRankIOS132;
-  v37[6] = gmRankIOS132;
-  v36[7] = @"charLengthOfQueryString";
+  v36[6] = gmRankIOS132;
+  v35[7] = @"charLengthOfQueryString";
   charLengthOfQueryString = [(ICASSearchSelectionData *)self charLengthOfQueryString];
   if (charLengthOfQueryString)
   {
@@ -156,8 +156,8 @@
   }
 
   v15 = charLengthOfQueryString2;
-  v37[7] = charLengthOfQueryString2;
-  v36[8] = @"isNoteFoundByAttachment";
+  v36[7] = charLengthOfQueryString2;
+  v35[8] = @"isNoteFoundByAttachment";
   isNoteFoundByAttachment = [(ICASSearchSelectionData *)self isNoteFoundByAttachment];
   if (isNoteFoundByAttachment)
   {
@@ -170,8 +170,8 @@
   }
 
   v18 = isNoteFoundByAttachment2;
-  v37[8] = isNoteFoundByAttachment2;
-  v36[9] = @"isTopHit";
+  v36[8] = isNoteFoundByAttachment2;
+  v35[9] = @"isTopHit";
   isTopHit = [(ICASSearchSelectionData *)self isTopHit];
   if (isTopHit)
   {
@@ -184,10 +184,8 @@
   }
 
   v21 = isTopHit2;
-  v37[9] = isTopHit2;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:10];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v36[9] = isTopHit2;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:10];
 
   return v22;
 }

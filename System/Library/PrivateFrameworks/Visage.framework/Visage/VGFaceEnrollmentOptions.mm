@@ -56,6 +56,13 @@
 - (void)setCameraImageColorSpaceName:(id)name;
 - (void)setDistanceFilterCloseThreshold:(float)threshold;
 - (void)setDistanceFilterFarThreshold:(float)threshold;
+- (void)setEnsureAlmostNeutralExpressionOnAllPoses:(BOOL)poses;
+- (void)setEnsureAlmostNeutralExpressionOnNonFrontPose:(BOOL)pose;
+- (void)setEnsureEyesForwardOnFrontPose:(BOOL)pose;
+- (void)setEnsureEyesOpenOnAllPoses:(BOOL)poses;
+- (void)setEnsureEyesOpenOnFrontPose:(BOOL)pose;
+- (void)setEnsureEyesOpenOnNonFrontPose:(BOOL)pose;
+- (void)setEnsureNeutralExpressionOnFrontPose:(BOOL)pose;
 - (void)setEyesForwardPitchSensitivity:(float)sensitivity;
 - (void)setEyesForwardYawSensitivity:(float)sensitivity;
 - (void)setEyesOpenSensitivity:(float)sensitivity;
@@ -71,9 +78,21 @@
 - (void)setRightMarginFrontPoseHeadRatio:(float)ratio;
 - (void)setRightMarginHeadRatio:(float)ratio;
 - (void)setSelectionFrustum:(id)frustum;
+- (void)setSendMetrics:(BOOL)metrics;
 - (void)setSimpleSelectorMaxOffsetAngle:(float)angle;
 - (void)setSimpleSelectorMinOffsetAngle:(float)angle;
 - (void)setTopMarginHeadRatio:(float)ratio;
+- (void)setUseDepthFovFilter:(BOOL)filter;
+- (void)setUseDistanceFilter:(BOOL)filter;
+- (void)setUseFKForceCPU:(BOOL)u;
+- (void)setUseFKInternalFaceDetector:(BOOL)detector;
+- (void)setUseFaceTrackingDictionary:(BOOL)dictionary;
+- (void)setUseFovMarginsFilterFrontPose:(BOOL)pose;
+- (void)setUseFovMarginsFilterNonFrontPose:(BOOL)pose;
+- (void)setUseLookAtForEyesForward:(BOOL)forward;
+- (void)setUseSimpleSelector:(BOOL)selector;
+- (void)setUseVNFilters:(BOOL)filters;
+- (void)setUseVNFiltersEnrollment:(BOOL)enrollment;
 - (void)setVnFrontPoseBlinkThreshold:(float)threshold;
 - (void)setYawLimit:(float)limit;
 @end
@@ -209,7 +228,7 @@
 
     else
     {
-      v9 = __VGLogSharedInstance();
+      v9 = __VGLogSharedInstance(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         identityFittingOp = self->_identityFittingOp;
@@ -337,47 +356,49 @@
 
   v26 = [v6 objectForKey:@"symmetricFrontPose"];
 
-  if (v26 && [v6 BOOLForKey:@"symmetricFrontPose"])
+  if (v26)
   {
-    v27 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v27 = [v6 BOOLForKey:@"symmetricFrontPose"];
+    if (v27)
     {
-      LOWORD(v35) = 0;
-      _os_log_impl(&dword_270F06000, v27, OS_LOG_TYPE_DEBUG, " Using capture option settings (margin head ratio) for ensuring symmetric front pose ", &v35, 2u);
-    }
+      v28 = __VGLogSharedInstance(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      {
+        LOWORD(v35) = 0;
+        _os_log_impl(&dword_270F06000, v28, OS_LOG_TYPE_DEBUG, " Using capture option settings (margin head ratio) for ensuring symmetric front pose ", &v35, 2u);
+      }
 
-    LODWORD(v28) = 1059481190;
-    [(VGFaceCaptureOptions *)self->_captureOptions setLeftMarginFrontPoseHeadRatio:v28];
-    LODWORD(v29) = 1059481190;
-    [(VGFaceCaptureOptions *)self->_captureOptions setRightMarginFrontPoseHeadRatio:v29];
+      LODWORD(v29) = 1059481190;
+      [(VGFaceCaptureOptions *)self->_captureOptions setLeftMarginFrontPoseHeadRatio:v29];
+      LODWORD(v30) = 1059481190;
+      [(VGFaceCaptureOptions *)self->_captureOptions setRightMarginFrontPoseHeadRatio:v30];
+    }
   }
 
-  v30 = [v6 objectForKey:@"enrollmentMode"];
+  v31 = [v6 objectForKey:@"enrollmentMode"];
 
-  if (v30)
+  if (v31)
   {
-    v31 = [v6 integerForKey:@"enrollmentMode"];
-    v32 = v31;
-    if (v31 < 2)
+    v32 = [v6 integerForKey:@"enrollmentMode"];
+    v33 = v32;
+    if (v32 < 2)
     {
-      self->_enrollmentMode = v31;
+      self->_enrollmentMode = v32;
     }
 
     else
     {
-      v33 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v34 = __VGLogSharedInstance(v32);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         v35 = 134218240;
-        v36 = v32;
+        v36 = v33;
         v37 = 2048;
         v38 = 2;
-        _os_log_impl(&dword_270F06000, v33, OS_LOG_TYPE_ERROR, " Unsupported VGEnrollmentMode. Value set for <enrollmentMode : %lu> higher than max options [%lu]. ", &v35, 0x16u);
+        _os_log_impl(&dword_270F06000, v34, OS_LOG_TYPE_ERROR, " Unsupported VGEnrollmentMode. Value set for <enrollmentMode : %lu> higher than max options [%lu]. ", &v35, 0x16u);
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)requiredYawPoses
@@ -536,12 +557,26 @@
   return useFovMarginsFilterFrontPose;
 }
 
+- (void)setUseFovMarginsFilterFrontPose:(BOOL)pose
+{
+  poseCopy = pose;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseFovMarginsFilterFrontPose:poseCopy];
+}
+
 - (BOOL)useFovMarginsFilterNonFrontPose
 {
   captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
   useFovMarginsFilterNonFrontPose = [captureOptions useFovMarginsFilterNonFrontPose];
 
   return useFovMarginsFilterNonFrontPose;
+}
+
+- (void)setUseFovMarginsFilterNonFrontPose:(BOOL)pose
+{
+  poseCopy = pose;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseFovMarginsFilterNonFrontPose:poseCopy];
 }
 
 - (float)leftMarginHeadRatio
@@ -687,12 +722,26 @@
   return useLookAtForEyesForward;
 }
 
+- (void)setUseLookAtForEyesForward:(BOOL)forward
+{
+  forwardCopy = forward;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseLookAtForEyesForward:forwardCopy];
+}
+
 - (BOOL)ensureEyesForwardOnFrontPose
 {
   captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
   ensureEyesForwardOnFrontPose = [captureOptions ensureEyesForwardOnFrontPose];
 
   return ensureEyesForwardOnFrontPose;
+}
+
+- (void)setEnsureEyesForwardOnFrontPose:(BOOL)pose
+{
+  poseCopy = pose;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setEnsureEyesForwardOnFrontPose:poseCopy];
 }
 
 - (BOOL)ensureEyesOpenOnFrontPose
@@ -703,12 +752,26 @@
   return ensureEyesOpenOnFrontPose;
 }
 
+- (void)setEnsureEyesOpenOnFrontPose:(BOOL)pose
+{
+  poseCopy = pose;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setEnsureEyesOpenOnFrontPose:poseCopy];
+}
+
 - (BOOL)ensureEyesOpenOnAllPoses
 {
   captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
   ensureEyesOpenOnNonFrontPose = [captureOptions ensureEyesOpenOnNonFrontPose];
 
   return ensureEyesOpenOnNonFrontPose;
+}
+
+- (void)setEnsureEyesOpenOnAllPoses:(BOOL)poses
+{
+  posesCopy = poses;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setEnsureEyesOpenOnNonFrontPose:posesCopy];
 }
 
 - (BOOL)ensureEyesOpenOnNonFrontPose
@@ -719,12 +782,26 @@
   return ensureEyesOpenOnNonFrontPose;
 }
 
+- (void)setEnsureEyesOpenOnNonFrontPose:(BOOL)pose
+{
+  poseCopy = pose;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setEnsureEyesOpenOnNonFrontPose:poseCopy];
+}
+
 - (BOOL)ensureAlmostNeutralExpressionOnAllPoses
 {
   captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
   ensureAlmostNeutralExpressionOnNonFrontPose = [captureOptions ensureAlmostNeutralExpressionOnNonFrontPose];
 
   return ensureAlmostNeutralExpressionOnNonFrontPose;
+}
+
+- (void)setEnsureAlmostNeutralExpressionOnAllPoses:(BOOL)poses
+{
+  posesCopy = poses;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setEnsureAlmostNeutralExpressionOnNonFrontPose:posesCopy];
 }
 
 - (BOOL)ensureNeutralExpressionOnFrontPose
@@ -735,12 +812,26 @@
   return ensureNeutralExpressionOnFrontPose;
 }
 
+- (void)setEnsureNeutralExpressionOnFrontPose:(BOOL)pose
+{
+  poseCopy = pose;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setEnsureNeutralExpressionOnFrontPose:poseCopy];
+}
+
 - (BOOL)ensureAlmostNeutralExpressionOnNonFrontPose
 {
   captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
   ensureAlmostNeutralExpressionOnNonFrontPose = [captureOptions ensureAlmostNeutralExpressionOnNonFrontPose];
 
   return ensureAlmostNeutralExpressionOnNonFrontPose;
+}
+
+- (void)setEnsureAlmostNeutralExpressionOnNonFrontPose:(BOOL)pose
+{
+  poseCopy = pose;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setEnsureAlmostNeutralExpressionOnNonFrontPose:poseCopy];
 }
 
 - (BOOL)useFaceTrackingDictionary
@@ -751,12 +842,26 @@
   return useFaceTrackingDictionary;
 }
 
+- (void)setUseFaceTrackingDictionary:(BOOL)dictionary
+{
+  dictionaryCopy = dictionary;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseFaceTrackingDictionary:dictionaryCopy];
+}
+
 - (BOOL)useFKInternalFaceDetector
 {
   captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
   useFKInternalFaceDetector = [captureOptions useFKInternalFaceDetector];
 
   return useFKInternalFaceDetector;
+}
+
+- (void)setUseFKInternalFaceDetector:(BOOL)detector
+{
+  detectorCopy = detector;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseFKInternalFaceDetector:detectorCopy];
 }
 
 - (BOOL)useFKForceCPU
@@ -767,12 +872,26 @@
   return useFKForceCPU;
 }
 
+- (void)setUseFKForceCPU:(BOOL)u
+{
+  uCopy = u;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseFKForceCPU:uCopy];
+}
+
 - (BOOL)sendMetrics
 {
   captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
   sendMetrics = [captureOptions sendMetrics];
 
   return sendMetrics;
+}
+
+- (void)setSendMetrics:(BOOL)metrics
+{
+  metricsCopy = metrics;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setSendMetrics:metricsCopy];
 }
 
 - (NSString)cameraImageColorSpaceName
@@ -796,6 +915,13 @@
   useSimpleSelector = [captureOptions useSimpleSelector];
 
   return useSimpleSelector;
+}
+
+- (void)setUseSimpleSelector:(BOOL)selector
+{
+  selectorCopy = selector;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseSimpleSelector:selectorCopy];
 }
 
 - (float)simpleSelectorMinOffsetAngle
@@ -836,6 +962,13 @@
   useDistanceFilter = [captureOptions useDistanceFilter];
 
   return useDistanceFilter;
+}
+
+- (void)setUseDistanceFilter:(BOOL)filter
+{
+  filterCopy = filter;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseDistanceFilter:filterCopy];
 }
 
 - (float)distanceFilterCloseThreshold
@@ -908,12 +1041,26 @@
   return useVNFilters;
 }
 
+- (void)setUseVNFilters:(BOOL)filters
+{
+  filtersCopy = filters;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseVNFilters:filtersCopy];
+}
+
 - (BOOL)useVNFiltersEnrollment
 {
   captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
   useVNFiltersEnrollment = [captureOptions useVNFiltersEnrollment];
 
   return useVNFiltersEnrollment;
+}
+
+- (void)setUseVNFiltersEnrollment:(BOOL)enrollment
+{
+  enrollmentCopy = enrollment;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseVNFiltersEnrollment:enrollmentCopy];
 }
 
 - (float)vnFrontPoseBlinkThreshold
@@ -938,6 +1085,13 @@
   useDepthFovFilter = [captureOptions useDepthFovFilter];
 
   return useDepthFovFilter;
+}
+
+- (void)setUseDepthFovFilter:(BOOL)filter
+{
+  filterCopy = filter;
+  captureOptions = [(VGFaceEnrollmentOptions *)self captureOptions];
+  [captureOptions setUseDepthFovFilter:filterCopy];
 }
 
 - (id)description

@@ -10,9 +10,9 @@
 - (double)decisionDelay
 {
   selfCopy = self;
-  v3 = sub_1C980037C();
+  v4 = sub_1C980037C(v3);
 
-  return v3;
+  return v4;
 }
 
 - (id)copyWithZone:(void *)zone

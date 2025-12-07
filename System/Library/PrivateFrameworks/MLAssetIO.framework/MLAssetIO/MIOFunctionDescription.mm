@@ -84,34 +84,7 @@
       name2 = [(MIOFunctionDescription *)v5 name];
       v8 = [name isEqual:name2];
 
-      if ((v8 & 1) == 0)
-      {
-        goto LABEL_10;
-      }
-
-      inputDescriptions = [(MIOFunctionDescription *)self inputDescriptions];
-      inputDescriptions2 = [(MIOFunctionDescription *)v5 inputDescriptions];
-      v11 = [inputDescriptions isEqual:inputDescriptions2];
-
-      if ((v11 & 1) == 0)
-      {
-        goto LABEL_10;
-      }
-
-      outputDescriptions = [(MIOFunctionDescription *)self outputDescriptions];
-      outputDescriptions2 = [(MIOFunctionDescription *)v5 outputDescriptions];
-      v14 = [outputDescriptions isEqual:outputDescriptions2];
-
-      if ((v14 & 1) == 0)
-      {
-        goto LABEL_10;
-      }
-
-      predictedFeatureName = [(MIOFunctionDescription *)self predictedFeatureName];
-      predictedFeatureName2 = [(MIOFunctionDescription *)v5 predictedFeatureName];
-      v17 = nullSafeEqual(predictedFeatureName, predictedFeatureName2);
-
-      if (v17)
+      if (v8 & 1) != 0 && (-[MIOFunctionDescription inputDescriptions](self, "inputDescriptions"), v9 = objc_claimAutoreleasedReturnValue(), -[MIOFunctionDescription inputDescriptions](v5, "inputDescriptions"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v9 isEqual:v10], v10, v9, (v11) && (-[MIOFunctionDescription outputDescriptions](self, "outputDescriptions"), v12 = objc_claimAutoreleasedReturnValue(), -[MIOFunctionDescription outputDescriptions](v5, "outputDescriptions"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqual:", v13), v13, v12, (v14) && (-[MIOFunctionDescription predictedFeatureName](self, "predictedFeatureName"), v15 = objc_claimAutoreleasedReturnValue(), -[MIOFunctionDescription predictedFeatureName](v5, "predictedFeatureName"), v16 = objc_claimAutoreleasedReturnValue(), v17 = nullSafeEqual(v15, v16), v16, v15, (v17))
       {
         predictedProbabilitiesName = [(MIOFunctionDescription *)self predictedProbabilitiesName];
         predictedProbabilitiesName2 = [(MIOFunctionDescription *)v5 predictedProbabilitiesName];
@@ -120,7 +93,6 @@
 
       else
       {
-LABEL_10:
         v20 = 0;
       }
     }

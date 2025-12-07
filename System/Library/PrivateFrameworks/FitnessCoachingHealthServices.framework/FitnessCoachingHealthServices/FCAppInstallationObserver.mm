@@ -72,7 +72,7 @@
 
 - (void)_updateApplicationInstalled
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   fitnessAppInstalled = [(FCAppInstallationObserver *)self fitnessAppInstalled];
   fitnessAppInstalled2 = [(FCCAppInstallationUtility *)self->_appInstallationUtility fitnessAppInstalled];
   if (fitnessAppInstalled != fitnessAppInstalled2)
@@ -83,18 +83,16 @@
     v6 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67240448;
-      v9[1] = fitnessAppInstalled;
-      v10 = 1026;
-      v11 = v5;
-      _os_log_impl(&dword_24B55B000, v6, OS_LOG_TYPE_DEFAULT, "Fitness app installed state changed: %{public}d -> %{public}d", v9, 0xEu);
+      v8[0] = 67240448;
+      v8[1] = fitnessAppInstalled;
+      v9 = 1026;
+      v10 = v5;
+      _os_log_impl(&dword_24B55B000, v6, OS_LOG_TYPE_DEFAULT, "Fitness app installed state changed: %{public}d -> %{public}d", v8, 0xEu);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"FCFitnessInstallStateChangedNotification" object:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

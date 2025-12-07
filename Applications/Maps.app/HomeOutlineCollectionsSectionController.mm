@@ -90,10 +90,10 @@ LABEL_6:
     transitLine2 = [cellModel3 transitLine];
     collection = [(IncompleteTransitLineItem *)v15 initWithTransitLine:transitLine2];
 
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
-    configuration2 = [(HomeOutlineSectionController *)self configuration];
-    homeActionDelegate = [configuration2 homeActionDelegate];
+    v18 = objc_msgSend_configuration(self);
+    actionCoordinator = [v18 actionCoordinator];
+    v20 = objc_msgSend_configuration(self);
+    homeActionDelegate = [v20 homeActionDelegate];
     homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
     [tappedCopy bounds];
     [actionCoordinator viewController:homeContaineeViewController openTransitLineCard:collection sourceView:tappedCopy sourceRect:?];
@@ -119,10 +119,10 @@ LABEL_6:
 
       sectionIdentifierPath = [(HomeOutlineSectionController *)self sectionIdentifierPath];
       v27 = [(HomeOutlineCollectionsSectionController *)self _identifierForItem:collection];
-      configuration = [sectionIdentifierPath identifierPathByAppendingIdentifier:v27];
+      v18 = [sectionIdentifierPath identifierPathByAppendingIdentifier:v27];
 
       sectionSnapshot = [(HomeOutlineSectionController *)self sectionSnapshot];
-      identifierPathByRemovingFirstIdentifier = [configuration identifierPathByRemovingFirstIdentifier];
+      identifierPathByRemovingFirstIdentifier = [v18 identifierPathByRemovingFirstIdentifier];
       v30 = [sectionSnapshot nodeSnapshotAtIdentifierPath:identifierPathByRemovingFirstIdentifier];
 
       delegate = [(HomeOutlineSectionController *)self delegate];
@@ -140,9 +140,9 @@ LABEL_6:
 
       sectionIdentifierPath2 = [(HomeOutlineSectionController *)self sectionIdentifierPath];
       v33 = [(HomeOutlineCollectionsSectionController *)self _identifierForItem:collection];
-      configuration = [sectionIdentifierPath2 identifierPathByAppendingIdentifier:v33];
+      v18 = [sectionIdentifierPath2 identifierPathByAppendingIdentifier:v33];
 
-      [(HomeOutlineSectionController *)self toggleElementAtIdentifierPath:configuration];
+      [(HomeOutlineSectionController *)self toggleElementAtIdentifierPath:v18];
     }
 
 LABEL_4:
@@ -327,8 +327,8 @@ LABEL_14:
     collection = [viewModel2 collection];
     if ([collection handlerType] == 4)
     {
-      configuration = [(HomeOutlineSectionController *)self configuration];
-      actionCoordinator = [configuration actionCoordinator];
+      v15 = objc_msgSend_configuration(self);
+      actionCoordinator = [v15 actionCoordinator];
       collection2 = [v13 collection];
       [actionCoordinator viewController:0 showCollection:collection2];
 
@@ -505,8 +505,8 @@ LABEL_12:
   {
     v9 = [(HomeOutlineSectionController *)self deletionWithSnapshot:snapshotCopy];
     objc_initWeak(&location, self);
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
+    v10 = objc_msgSend_configuration(self);
+    actionCoordinator = [v10 actionCoordinator];
     v19 = collection;
     v12 = [NSArray arrayWithObjects:&v19 count:1];
     v14[0] = _NSConcreteStackBlock;
@@ -892,8 +892,8 @@ LABEL_12:
   else
   {
     v10 = [[NSUserActivity alloc] initWithActivityType:@"com.apple.Maps.NewWindow"];
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    homeActionDelegate = [configuration homeActionDelegate];
+    v12 = objc_msgSend_configuration(self);
+    homeActionDelegate = [v12 homeActionDelegate];
     homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
     _maps_mapsSceneDelegate = [homeContaineeViewController _maps_mapsSceneDelegate];
     fullSharingURL = [_maps_mapsSceneDelegate mapsActivityWithFidelity:2];
@@ -915,8 +915,8 @@ LABEL_12:
 
 LABEL_9:
   [v10 setEligibleForHandoff:0];
-  configuration2 = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate2 = [configuration2 homeActionDelegate];
+  v20 = objc_msgSend_configuration(self);
+  homeActionDelegate2 = [v20 homeActionDelegate];
   homeContaineeViewController2 = [homeActionDelegate2 homeContaineeViewController];
   _maps_uiScene = [homeContaineeViewController2 _maps_uiScene];
   [v6 setRequestingScene:_maps_uiScene];
@@ -1052,10 +1052,10 @@ LABEL_9:
 
   if (!v11)
   {
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
-    configuration2 = [(HomeOutlineSectionController *)self configuration];
-    homeActionDelegate = [configuration2 homeActionDelegate];
+    v12 = objc_msgSend_configuration(self);
+    actionCoordinator = [v12 actionCoordinator];
+    v14 = objc_msgSend_configuration(self);
+    homeActionDelegate = [v14 homeActionDelegate];
     homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
     v17[0] = _NSConcreteStackBlock;
     v17[1] = 3221225472;
@@ -1154,10 +1154,10 @@ LABEL_9:
   if (collection)
   {
     v7 = [(CollectionEditSession *)[CollectionSaveSession alloc] initWithCollection:collection];
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
-    configuration2 = [(HomeOutlineSectionController *)self configuration];
-    homeActionDelegate = [configuration2 homeActionDelegate];
+    v8 = objc_msgSend_configuration(self);
+    actionCoordinator = [v8 actionCoordinator];
+    v10 = objc_msgSend_configuration(self);
+    homeActionDelegate = [v10 homeActionDelegate];
     homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
     [actionCoordinator viewController:homeContaineeViewController addItemsFromACToCollection:v7];
   }
@@ -2012,8 +2012,8 @@ LABEL_13:
 
     if (v11)
     {
-      configuration = [(HomeOutlineSectionController *)self configuration];
-      collectionView = [configuration collectionView];
+      v12 = objc_msgSend_configuration(self);
+      collectionView = [v12 collectionView];
       v14 = [collectionView cellForItemAtIndexPath:v11];
 
       objc_opt_class();
@@ -2054,10 +2054,10 @@ LABEL_13:
           [delegate2 sectionController:self setNeedsApplySnapshotAnimated:1];
 
           objc_initWeak(&location, self);
-          configuration2 = [(HomeOutlineSectionController *)self configuration];
-          actionCoordinator = [configuration2 actionCoordinator];
-          configuration3 = [(HomeOutlineSectionController *)self configuration];
-          homeActionDelegate = [configuration3 homeActionDelegate];
+          v22 = objc_msgSend_configuration(self);
+          actionCoordinator = [v22 actionCoordinator];
+          v36 = objc_msgSend_configuration(self);
+          homeActionDelegate = [v36 homeActionDelegate];
           homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
           customView = [v20 customView];
           customView2 = [v20 customView];
@@ -2229,8 +2229,8 @@ LABEL_13:
   sectionIdentifierPath = [(HomeOutlineSectionController *)self sectionIdentifierPath];
   v5 = [delegate sectionController:self indexPathForIdentifierPath:sectionIdentifierPath];
 
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  collectionView = [configuration collectionView];
+  v6 = objc_msgSend_configuration(self);
+  collectionView = [v6 collectionView];
   v8 = [collectionView cellForItemAtIndexPath:v5];
 
   if (v8)
@@ -2341,8 +2341,8 @@ LABEL_13:
   if (collection)
   {
     v12 = [[HomeCollectionContentInjector alloc] initWithCollection:collection selectedMapItem:mapItem];
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
+    v14 = objc_msgSend_configuration(self);
+    actionCoordinator = [v14 actionCoordinator];
     [(HomeCollectionContentInjector *)v12 setActionCoordinator:actionCoordinator];
   }
 
@@ -2381,8 +2381,8 @@ LABEL_11:
   collections = [(CollectionsDataProvider *)self->_collectionsDataProvider collections];
   distanceUnit = [(DistanceUnitDataProvider *)self->_distanceUnitDataProvider distanceUnit];
   selectedIdentifierPaths = [(HomeOutlineSectionController *)self selectedIdentifierPaths];
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  sectionIdentifier = [configuration sectionIdentifier];
+  v7 = objc_msgSend_configuration(self);
+  sectionIdentifier = [v7 sectionIdentifier];
   expanded = [(HomeOutlineSectionController *)self expanded];
   v32[0] = _NSConcreteStackBlock;
   v32[1] = 3221225472;

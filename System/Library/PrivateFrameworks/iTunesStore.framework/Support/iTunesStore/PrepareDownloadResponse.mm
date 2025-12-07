@@ -220,15 +220,14 @@
       {
         LOWORD(v77) = 0;
         LODWORD(v66) = 2;
-        v64 = &v77;
-        v37 = _os_log_send_and_compose_impl();
+        v37 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[Download]: Loading AVAsset key values", &v77, v66);
 
         if (!v37)
         {
           goto LABEL_52;
         }
 
-        oSLogObject = [NSString stringWithCString:v37 encoding:4, &v77, v66];
+        oSLogObject = [NSString stringWithCString:v37 encoding:4];
         free(v37);
         v64 = oSLogObject;
         SSFileLog();
@@ -278,15 +277,14 @@ LABEL_52:
         {
           LOWORD(v77) = 0;
           LODWORD(v66) = 2;
-          v65 = &v77;
-          v46 = _os_log_send_and_compose_impl();
+          v46 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[Download]: AVAsset key values loaded successfully", &v77, v66);
 
           if (!v46)
           {
             goto LABEL_64;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v46 encoding:4, &v77, v66];
+          oSLogObject2 = [NSString stringWithCString:v46 encoding:4];
           free(v46);
           v65 = oSLogObject2;
           SSFileLog();
@@ -328,8 +326,7 @@ LABEL_64:
           v77 = 138412290;
           v78 = v49;
           LODWORD(v66) = 12;
-          v64 = &v77;
-          v54 = _os_log_send_and_compose_impl();
+          v54 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "[Download]: Download task options: %@", &v77, v66);
 
           if (!v54)
           {
@@ -343,7 +340,7 @@ LABEL_92:
             goto LABEL_93;
           }
 
-          oSLogObject3 = [NSString stringWithCString:v54 encoding:4, &v77, v66];
+          oSLogObject3 = [NSString stringWithCString:v54 encoding:4];
           free(v54);
           v64 = oSLogObject3;
           SSFileLog();
@@ -379,8 +376,7 @@ LABEL_92:
         v77 = 138412290;
         v78 = v40;
         LODWORD(v66) = 12;
-        v64 = &v77;
-        v60 = _os_log_send_and_compose_impl();
+        v60 = _os_log_send_and_compose_impl(v59, 0, 0, 0, &_mh_execute_header, oSLogObject4, 16, "[Download]: Unable to create download task since AVAsset key values could not be loaded: %@", &v77, v66);
 
         v56 = v67;
         if (!v60)
@@ -403,7 +399,7 @@ LABEL_88:
           goto LABEL_92;
         }
 
-        oSLogObject4 = [NSString stringWithCString:v60 encoding:4, &v77, v66];
+        oSLogObject4 = [NSString stringWithCString:v60 encoding:4];
         free(v60);
         v64 = oSLogObject4;
         SSFileLog();
@@ -568,15 +564,14 @@ LABEL_93:
       v41 = downloadIdentifier;
       v42 = 2114;
       v43 = uRLSessionIdentifier;
-      LODWORD(v27) = 32;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, v10, 2, "[Download]: Looking for existing task: %lu for download: %lld in session: %{public}@", &v38, 32);
 
       if (!v14)
       {
         goto LABEL_11;
       }
 
-      v10 = [NSString stringWithCString:v14 encoding:4, &v38, v27];
+      v10 = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
@@ -594,27 +589,32 @@ LABEL_11:
     v16 = dispatch_time(0, 60000000000);
     if (!dispatch_semaphore_wait(v15, v16))
     {
-LABEL_21:
+LABEL_22:
 
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
     v17 = +[SSLogConfig sharedConfig];
-    shouldLog2 = [v17 shouldLog];
+    LODWORD(v18) = [v17 shouldLog];
     shouldLogToDisk2 = [v17 shouldLogToDisk];
     oSLogObject2 = [v17 OSLogObject];
     v21 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v18) = v18 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v18 = v18;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v18 &= 2u;
+    }
+
+    if (v18)
     {
       v22 = self->_downloadIdentifier;
       uRLSessionIdentifier2 = [(PrepareDownloadResponse *)self URLSessionIdentifier];
@@ -625,24 +625,24 @@ LABEL_21:
       v42 = 2114;
       v43 = uRLSessionIdentifier2;
       LODWORD(v27) = 32;
-      v24 = _os_log_send_and_compose_impl();
+      v24 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, v21, 16, "[Download]: Request for existing tasks timed out when looking for existing task: %lu for download: %lld in session: %{public}@", &v38, v27);
 
       if (!v24)
       {
-LABEL_20:
+LABEL_21:
 
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
-      v21 = [NSString stringWithCString:v24 encoding:4, &v38, v27];
+      v21 = [NSString stringWithCString:v24 encoding:4];
       free(v24);
       SSFileLog();
     }
 
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
-LABEL_22:
+LABEL_23:
   v25 = v33[5];
   _Block_object_dispose(&v32, 8);
 
@@ -655,13 +655,13 @@ LABEL_22:
   if (!self->_taskIdentifier)
   {
     v5 = 0;
-    goto LABEL_61;
+    goto LABEL_65;
   }
 
   v5 = [(PrepareDownloadResponse *)self _getExistingTaskInSession:sessionCopy];
   if (!v5)
   {
-    goto LABEL_61;
+    goto LABEL_65;
   }
 
   v6 = +[SSLogConfig sharedDaemonConfig];
@@ -673,16 +673,21 @@ LABEL_22:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [v6 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -691,22 +696,20 @@ LABEL_22:
   {
     v43 = 134217984;
     taskIdentifier = [v5 taskIdentifier];
-    LODWORD(v42) = 12;
-    v40 = &v43;
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[Download]: We have a task to evaluate: %lu", &v43);
 
     if (!v10)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v43, v42];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     v40 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_14:
+LABEL_15:
   v11 = [v5 conformsToProtocol:&OBJC_PROTOCOL___AVAssetDownloadDelegate];
   v12 = +[SSLogConfig sharedDaemonConfig];
   if (!v12)
@@ -717,16 +720,21 @@ LABEL_14:
   shouldLog2 = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    v14 = shouldLog2 | 2;
+    LODWORD(v14) = shouldLog2 | 2;
   }
 
   else
   {
-    v14 = shouldLog2;
+    LODWORD(v14) = shouldLog2;
   }
 
   oSLogObject2 = [v12 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
@@ -738,31 +746,29 @@ LABEL_14:
     taskIdentifier = taskIdentifier2;
     v45 = 1024;
     LODWORD(v46) = v11;
-    LODWORD(v42) = 18;
-    v41 = &v43;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "[Download]: Task %lu is an aggregate download: %d", &v43, 18);
 
     if (!v17)
     {
-      goto LABEL_25;
+      goto LABEL_27;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v17 encoding:4, &v43, v42];
+    oSLogObject2 = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     v41 = oSLogObject2;
     SSFileLog();
   }
 
-LABEL_25:
+LABEL_27:
   if (objc_opt_respondsToSelector())
   {
     v18 = [v5 URL];
     if (v11)
     {
-      goto LABEL_36;
+      goto LABEL_38;
     }
 
-LABEL_33:
+LABEL_35:
     v20 = [(NSURLRequest *)self->_URLRequest URL];
     v21 = v20;
     if (v20 && v18)
@@ -772,7 +778,7 @@ LABEL_33:
 
       if (v23)
       {
-        goto LABEL_36;
+        goto LABEL_38;
       }
     }
 
@@ -789,16 +795,21 @@ LABEL_33:
     shouldLog3 = [oSLogObject4 shouldLog];
     if ([oSLogObject4 shouldLogToDisk])
     {
-      v33 = shouldLog3 | 2;
+      LODWORD(v33) = shouldLog3 | 2;
     }
 
     else
     {
-      v33 = shouldLog3;
+      LODWORD(v33) = shouldLog3;
     }
 
     oSLogObject3 = [oSLogObject4 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+    {
+      v33 = v33;
+    }
+
+    else
     {
       v33 &= 2u;
     }
@@ -815,22 +826,22 @@ LABEL_33:
       v47 = 2114;
       v48 = uRLSessionIdentifier;
       LODWORD(v42) = 32;
-      v38 = _os_log_send_and_compose_impl();
+      v38 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, oSLogObject3, 2, "[Download]: Ignoring existing task: %lu for download: %lld in session: %{public}@", &v43, v42);
 
       if (!v38)
       {
-LABEL_58:
+LABEL_62:
         v24 = v5;
         v5 = 0;
-        goto LABEL_59;
+        goto LABEL_63;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v38 encoding:4, &v43, v42];
+      oSLogObject3 = [NSString stringWithCString:v38 encoding:4];
       free(v38);
       SSFileLog();
     }
 
-    goto LABEL_58;
+    goto LABEL_62;
   }
 
   if (!(v11 & 1 | ((objc_opt_respondsToSelector() & 1) == 0)))
@@ -840,19 +851,19 @@ LABEL_58:
 
     if (v11)
     {
-      goto LABEL_36;
+      goto LABEL_38;
     }
 
-    goto LABEL_33;
+    goto LABEL_35;
   }
 
   v18 = 0;
   if ((v11 & 1) == 0)
   {
-    goto LABEL_33;
+    goto LABEL_35;
   }
 
-LABEL_36:
+LABEL_38:
   v24 = +[SSLogConfig sharedDaemonConfig];
   if (!v24)
   {
@@ -862,23 +873,28 @@ LABEL_36:
   shouldLog4 = [v24 shouldLog];
   if ([v24 shouldLogToDisk])
   {
-    v26 = shouldLog4 | 2;
+    LODWORD(v26) = shouldLog4 | 2;
   }
 
   else
   {
-    v26 = shouldLog4;
+    LODWORD(v26) = shouldLog4;
   }
 
   oSLogObject4 = [v24 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  {
+    v26 = v26;
+  }
+
+  else
   {
     v26 &= 2u;
   }
 
   if (!v26)
   {
-    goto LABEL_59;
+    goto LABEL_63;
   }
 
   taskIdentifier4 = [v5 taskIdentifier];
@@ -891,17 +907,17 @@ LABEL_36:
   v47 = 2114;
   v48 = uRLSessionIdentifier2;
   LODWORD(v42) = 32;
-  v31 = _os_log_send_and_compose_impl();
+  v31 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "[Download]: Reusing existing task: %lu for download: %lld in session: %{public}@", &v43, v42);
 
   if (v31)
   {
-    oSLogObject4 = [NSString stringWithCString:v31 encoding:4, &v43, v42];
+    oSLogObject4 = [NSString stringWithCString:v31 encoding:4];
     free(v31);
     SSFileLog();
-LABEL_59:
+LABEL_63:
   }
 
-LABEL_61:
+LABEL_65:
 
   return v5;
 }
@@ -1888,9 +1904,7 @@ LABEL_166:
         if (v55)
         {
           *keyExistsAndHasValidFormat = 0;
-          LODWORD(v163) = 2;
-          v162 = keyExistsAndHasValidFormat;
-          v56 = _os_log_send_and_compose_impl();
+          v56 = _os_log_send_and_compose_impl(v55, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[Download]: preferredMediaSelection does not exist", keyExistsAndHasValidFormat, 2);
 
           if (!v56)
           {
@@ -1899,7 +1913,7 @@ LABEL_166:
             goto LABEL_179;
           }
 
-          oSLogObject = [NSString stringWithCString:v56 encoding:4, keyExistsAndHasValidFormat, v163];
+          oSLogObject = [NSString stringWithCString:v56 encoding:4];
           free(v56);
           v162 = oSLogObject;
           SSFileLog();
@@ -1934,7 +1948,7 @@ LABEL_179:
           }
 
           v154 = *(*(&v201 + 1) + 8 * kk);
-          v155 = [SSLogConfig sharedDaemonConfig:v162];
+          v155 = +[SSLogConfig sharedDaemonConfig];
           if (!v155)
           {
             v155 = +[SSLogConfig sharedConfig];
@@ -1962,15 +1976,14 @@ LABEL_179:
             *keyExistsAndHasValidFormat = 138412290;
             v243 = v154;
             LODWORD(v163) = 12;
-            v162 = keyExistsAndHasValidFormat;
-            v159 = _os_log_send_and_compose_impl();
+            v159 = _os_log_send_and_compose_impl(v158, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "Will download media selection: %@", keyExistsAndHasValidFormat, v163);
 
             if (!v159)
             {
               goto LABEL_195;
             }
 
-            oSLogObject2 = [NSString stringWithCString:v159 encoding:4, keyExistsAndHasValidFormat, v163];
+            oSLogObject2 = [NSString stringWithCString:v159 encoding:4];
             free(v159);
             v162 = oSLogObject2;
             SSFileLog();

@@ -240,88 +240,87 @@ uint64_t ixgbe_dcb_config_tc_stats_82599(IOPCIDevice **a1, uint64_t a2)
   if (a2)
   {
     v3 = *(a2 + 264);
-    v4 = *(a2 + 296);
     if (v3 == 4)
     {
       if (*(a2 + 296))
       {
-        v12 = 8960;
-        v13 = 32;
+        v11 = 8960;
+        v12 = 32;
         do
         {
           __dmb(2u);
-          IOPCIDevice::MemoryWrite32(*a1, 0, v12, 0x3020100u);
-          v12 += 4;
-          --v13;
+          IOPCIDevice::MemoryWrite32(*a1, 0, v11, 0x3020100u);
+          v11 += 4;
+          --v12;
         }
 
-        while (v13);
-        v14 = 34304;
-        v15 = 32;
+        while (v12);
+        v13 = 34304;
+        v14 = 32;
         do
         {
           __dmb(2u);
-          IOPCIDevice::MemoryWrite32(*a1, 0, v14, 0x3020100u);
-          v14 += 4;
-          --v15;
+          IOPCIDevice::MemoryWrite32(*a1, 0, v13, 0x3020100u);
+          v13 += 4;
+          --v14;
         }
 
-        while (v15);
+        while (v14);
       }
 
       else
       {
-        v16 = 0;
-        v17 = 8960;
+        v15 = 0;
+        v16 = 8960;
         do
         {
-          if ((v16 & 4) == 0)
+          if ((v15 & 4) == 0)
           {
             __dmb(2u);
-            IOPCIDevice::MemoryWrite32(*a1, 0, v17, 16843009 * (v16 >> 3));
+            IOPCIDevice::MemoryWrite32(*a1, 0, v16, 16843009 * (v15 >> 3));
           }
 
-          ++v16;
-          v17 += 4;
+          ++v15;
+          v16 += 4;
         }
 
-        while (v16 != 32);
-        v18 = 0;
-        v19 = 34304;
+        while (v15 != 32);
+        v17 = 0;
+        v18 = 34304;
         do
         {
-          if (v18 >= 0x1C)
+          if (v17 >= 0x1C)
           {
-            v20 = 50529027;
+            v19 = 50529027;
           }
 
           else
           {
-            v20 = 33686018;
+            v19 = 33686018;
           }
 
-          if (v18 < 0x18)
+          if (v17 < 0x18)
           {
-            v20 = 16843009;
+            v19 = 16843009;
           }
 
-          if (v18 >= 0x10)
+          if (v17 >= 0x10)
           {
-            v21 = v20;
+            v20 = v19;
           }
 
           else
           {
-            v21 = 0;
+            v20 = 0;
           }
 
           __dmb(2u);
-          IOPCIDevice::MemoryWrite32(*a1, 0, v19, v21);
-          ++v18;
-          v19 += 4;
+          IOPCIDevice::MemoryWrite32(*a1, 0, v18, v20);
+          ++v17;
+          v18 += 4;
         }
 
-        while (v18 != 32);
+        while (v17 != 32);
       }
 
       return 0;
@@ -333,72 +332,72 @@ uint64_t ixgbe_dcb_config_tc_stats_82599(IOPCIDevice **a1, uint64_t a2)
     }
   }
 
-  v6 = 0;
-  v7 = 8960;
+  v5 = 0;
+  v6 = 8960;
   do
   {
     __dmb(2u);
-    IOPCIDevice::MemoryWrite32(*a1, 0, v7, 16843009 * (v6++ >> 2));
-    v7 += 4;
+    IOPCIDevice::MemoryWrite32(*a1, 0, v6, 16843009 * (v5++ >> 2));
+    v6 += 4;
   }
 
-  while (v6 != 32);
-  v8 = 0;
-  v9 = 34304;
+  while (v5 != 32);
+  v7 = 0;
+  v8 = 34304;
   do
   {
-    if (v8 >= 0x1E)
+    if (v7 >= 0x1E)
     {
-      v10 = 117901063;
+      v9 = 117901063;
     }
 
     else
     {
-      v10 = 101058054;
+      v9 = 101058054;
     }
 
-    if (v8 < 0x1C)
+    if (v7 < 0x1C)
     {
-      v10 = 84215045;
+      v9 = 84215045;
     }
 
-    if (v8 < 0x1A)
+    if (v7 < 0x1A)
     {
-      v10 = 67372036;
+      v9 = 67372036;
     }
 
-    if (v8 < 0x18)
+    if (v7 < 0x18)
     {
-      v10 = 50529027;
+      v9 = 50529027;
     }
 
-    if (v8 < 0x14)
+    if (v7 < 0x14)
     {
-      v10 = 33686018;
+      v9 = 33686018;
     }
 
-    if (v8 < 0x10)
+    if (v7 < 0x10)
     {
-      v10 = 16843009;
+      v9 = 16843009;
     }
 
-    if (v8 >= 8)
+    if (v7 >= 8)
     {
-      v11 = v10;
+      v10 = v9;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
     __dmb(2u);
-    IOPCIDevice::MemoryWrite32(*a1, 0, v9, v11);
-    ++v8;
-    v9 += 4;
+    IOPCIDevice::MemoryWrite32(*a1, 0, v8, v10);
+    ++v7;
+    v8 += 4;
   }
 
-  while (v8 != 32);
+  while (v7 != 32);
   return 0;
 }
 
@@ -1180,7 +1179,7 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::rxSync(IOPCIDevice **this, unsigned
   v2 = a2;
   v3 = this;
   v4 = &this[44 * a2];
-  v5 = (v4 + 299);
+  v5 = v4 + 299;
   v6 = *(v4 + 630);
   v7 = *(v4 + 631);
   if (v7 == v6)
@@ -1320,7 +1319,7 @@ LABEL_14:
   v26 = 0u;
   if (v6 + ~v7)
   {
-    v16 = (*(**(v5 + 42) + 104))(*(v5 + 42), &v25, (v6 + ~v7));
+    v16 = (v5[42]->IOService::OSObject::OSMetaClassBase::__vftable[1].free)(v5[42], &v25, (v6 + ~v7));
     if (v16)
     {
       v17 = v16;
@@ -1328,9 +1327,9 @@ LABEL_14:
       do
       {
         v19 = *v18++;
-        v20 = (*(v5 + 33) + 16 * v7);
+        v20 = (v5[33] + 16 * v7);
         v21 = *(v19 + 48);
-        *(*(v5 + 38) + 8 * v7) = v21 + 8;
+        *(&v5[38]->IOService::OSObject::OSMetaClassBase::__vftable + v7) = v21 + 8;
         *v20 = *(v21 + 24);
         v20[1] = 0;
         v7 = (v7 + 1);
@@ -1367,7 +1366,7 @@ void DriverKit_AppleEthernetIXGBE_IVars::updateAdminStatus(DriverKit_AppleEthern
   {
     if ((pcindkll & 4) != 0)
     {
-      DriverKit_AppleEthernetIXGBE_IVars::updateAdminStatus(this);
+      DriverKit_AppleEthernetIXGBE_IVars::updateAdminStatus();
     }
 
     ixgbe_fc_enable(this);
@@ -2228,21 +2227,22 @@ LABEL_32:
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetIXGBE_IVars::selMed(DriverKit_AppleEthernetIXGBE_IVars *this, int a2)
+uint64_t DriverKit_AppleEthernetIXGBE_IVars::selMed(DriverKit_AppleEthernetIXGBE_IVars *this, uint64_t a2)
 {
+  v2 = a2;
   if ((pcindkll & 4) != 0)
   {
     DriverKit_AppleEthernetIXGBE_IVars::selMed();
   }
 
-  v4 = a2 & 0xF001F;
+  v4 = v2 & 0xF001F;
   result = 1;
-  if ((a2 & 0xF001Fu) <= 0x15)
+  if ((v2 & 0xF001Fu) <= 0x15)
   {
     v6 = 168;
-    if ((a2 & 0xF001Fu) <= 0xD)
+    if ((v2 & 0xF001Fu) <= 0xD)
     {
-      if ((a2 & 0xF001Fu) <= 5)
+      if ((v2 & 0xF001Fu) <= 5)
       {
         if (v4)
         {
@@ -2271,7 +2271,7 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::selMed(DriverKit_AppleEthernetIXGBE
       goto LABEL_29;
     }
 
-    if ((a2 & 0xF001Fu) <= 0x12)
+    if ((v2 & 0xF001Fu) <= 0x12)
     {
       if (v4 != 14)
       {
@@ -2302,7 +2302,7 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  if ((a2 & 0xF001Fu) > 0x19)
+  if ((v2 & 0xF001Fu) > 0x19)
   {
     if ((v4 - 26) >= 2)
     {
@@ -2349,7 +2349,7 @@ LABEL_29:
   return v7;
 }
 
-uint64_t DriverKit_AppleEthernetIXGBE_IVars::handleChosenMedia(DriverKit_AppleEthernetIXGBE_IVars *this, int a2)
+uint64_t DriverKit_AppleEthernetIXGBE_IVars::handleChosenMedia(DriverKit_AppleEthernetIXGBE_IVars *this, uint64_t a2)
 {
   if ((pcindkll & 4) != 0)
   {
@@ -2461,7 +2461,7 @@ uint64_t ixgbe_init_eeprom_params_X540(uint64_t a1)
   return 0;
 }
 
-uint64_t ixgbe_read_eerd_X540(uint64_t a1, unsigned int a2, _WORD *a3)
+uint64_t ixgbe_read_eerd_X540(uint64_t a1, uint64_t a2, _WORD *a3)
 {
   if ((pcindkll & 0x100000) != 0)
   {
@@ -2478,8 +2478,10 @@ uint64_t ixgbe_read_eerd_X540(uint64_t a1, unsigned int a2, _WORD *a3)
   return eerd_generic;
 }
 
-uint64_t ixgbe_read_eerd_buffer_X540(uint64_t a1, unsigned int a2, int a3, _WORD *a4)
+uint64_t ixgbe_read_eerd_buffer_X540(uint64_t a1, uint64_t a2, uint64_t a3, _WORD *a4)
 {
+  v5 = a3;
+  v6 = a2;
   if ((pcindkll & 0x100000) != 0)
   {
     IOLog("ixgbe:%s(%d): %s\n", "ixgbe_read_eerd_buffer_X540", 392, "ixgbe_read_eerd_buffer_X540");
@@ -2490,13 +2492,15 @@ uint64_t ixgbe_read_eerd_buffer_X540(uint64_t a1, unsigned int a2, int a3, _WORD
     return 4294967280;
   }
 
-  eerd_buffer_generic = ixgbe_read_eerd_buffer_generic(a1, a2, a3, a4);
+  eerd_buffer_generic = ixgbe_read_eerd_buffer_generic(a1, v6, v5, a4);
   (*(a1 + 208))(a1, 1);
   return eerd_buffer_generic;
 }
 
-uint64_t ixgbe_write_eewr_X540(uint64_t a1, unsigned int a2, unsigned __int16 a3)
+uint64_t ixgbe_write_eewr_X540(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   if ((pcindkll & 0x100000) != 0)
   {
     IOLog("ixgbe:%s(%d): %s\n", "ixgbe_write_eewr_X540", 417, "ixgbe_write_eewr_X540");
@@ -2507,13 +2511,15 @@ uint64_t ixgbe_write_eewr_X540(uint64_t a1, unsigned int a2, unsigned __int16 a3
     return 4294967280;
   }
 
-  v7 = ixgbe_write_eewr_generic(a1, a2, a3);
+  v7 = ixgbe_write_eewr_generic(a1, v4, v3);
   (*(a1 + 208))(a1, 1);
   return v7;
 }
 
-uint64_t ixgbe_write_eewr_buffer_X540(uint64_t a1, unsigned int a2, int a3, unsigned __int16 *a4)
+uint64_t ixgbe_write_eewr_buffer_X540(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4)
 {
+  v5 = a3;
+  v6 = a2;
   if ((pcindkll & 0x100000) != 0)
   {
     IOLog("ixgbe:%s(%d): %s\n", "ixgbe_write_eewr_buffer_X540", 443, "ixgbe_write_eewr_buffer_X540");
@@ -2524,7 +2530,7 @@ uint64_t ixgbe_write_eewr_buffer_X540(uint64_t a1, unsigned int a2, int a3, unsi
     return 4294967280;
   }
 
-  v9 = ixgbe_write_eewr_buffer_generic(a1, a2, a3, a4);
+  v9 = ixgbe_write_eewr_buffer_generic(a1, v6, v5, a4);
   (*(a1 + 208))(a1, 1);
   return v9;
 }
@@ -2603,7 +2609,7 @@ uint64_t ixgbe_validate_eeprom_checksum_X540(uint64_t a1, _WORD *a2)
     if ((v6 & 0x80000000) == 0)
     {
       v9 = v6;
-      v5 = ixgbe_read_eerd_generic(a1, 0x3Fu, &v8);
+      v5 = ixgbe_read_eerd_generic(a1, 63, &v8);
       if (!v5)
       {
         if (v8 == v9)
@@ -3307,7 +3313,7 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::probe(DriverKit_AppleEthernetIXGBE_
 
     if (pcindkll)
     {
-      DriverKit_AppleEthernetIXGBE_IVars::probe(v9);
+      DriverKit_AppleEthernetIXGBE_IVars::probe();
     }
 
     *this = a2;
@@ -4491,18 +4497,7 @@ void DriverKit_AppleEthernetIXGBE_IVars::enableIntrs(DriverKit_AppleEthernetIXGB
   {
     if ((v7 - 7) < 2)
     {
-      if (*(this + 968) - 5548 <= 0x22)
-      {
-        v8 = ((1 << (*(this + 968) + 84)) & 0x401000003) == 0;
-        *(this + 968);
-      }
-
-      else
-      {
-        v8 = 1;
-      }
-
-      if (!v8)
+      if (*(this + 968) - 5548 <= 0x22 && ((1 << (*(this + 968) + 84)) & 0x401000003) != 0)
       {
         v6 = *(*(this + 241) + 44) | 0xC0100000;
       }
@@ -5081,7 +5076,6 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::up(DriverKit_AppleEthernetIXGBE_IVa
     readData = 0;
     IOPCIDevice::MemoryRead32(*this, 0, 0x3000uLL, &readData);
     __dmb(1u);
-    *(this + 174);
     ixgbe_enable_rx_dma(this);
     DriverKit_AppleEthernetIXGBE_IVars::configureIVARS(this);
     v10 = *(this + 174);
@@ -5149,44 +5143,41 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::up(DriverKit_AppleEthernetIXGBE_IVa
   return v3;
 }
 
-uint64_t DriverKit_AppleEthernetIXGBE_IVars::configLink(uint64_t this)
+void DriverKit_AppleEthernetIXGBE_IVars::configLink(DriverKit_AppleEthernetIXGBE_IVars *this)
 {
-  v1 = this;
-  v2 = *(this + 696);
+  v2 = *(this + 174);
   if ((v2 - 7) < 2)
   {
-    this = (*(this + 56))(this);
-    if (this == 1)
+    if ((*(this + 7))(this) == 1)
     {
       goto LABEL_7;
     }
 
 LABEL_11:
-    if (!*(v1 + 280) || (this = ixgbe_check_link(v1), !this))
+    if (!*(this + 35) || !ixgbe_check_link(this))
     {
-      v6 = *(v1 + 1652);
-      if (v6 || (v4 = *(v1 + 288)) == 0 || (v5 = 0, this = v4(v1, &v6, &v5), !this))
+      v6 = *(this + 413);
+      if (v6 || (v4 = *(this + 36)) == 0 || (v5 = 0, !v4(this, &v6, &v5)))
       {
-        if (*(v1 + 696) == 6 && !*(v1 + 1652))
+        if (*(this + 174) == 6 && !*(this + 413))
         {
           v6 &= 0xFFFFF3FF;
         }
 
-        v3 = *(v1 + 264);
+        v3 = *(this + 33);
         if (v3)
         {
-          return v3(v1, v6, *(v1 + 2764));
+          v3(this, v6, *(this + 2764));
         }
       }
     }
 
-    return this;
+    return;
   }
 
   if (v2 == 2)
   {
-    this = (*(this + 56))(this);
-    if (((this - 1) & 0xFFFFFFFD) == 0)
+    if ((((*(this + 7))(this) - 1) & 0xFFFFFFFD) == 0)
     {
       goto LABEL_7;
     }
@@ -5194,15 +5185,15 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  if (v2 != 1 || *(this + 1616) != 12)
+  if (v2 != 1 || *(this + 404) != 12)
   {
     goto LABEL_11;
   }
 
 LABEL_7:
-  *(v1 + 2772) |= 1u;
+  *(this + 693) |= 1u;
 
-  return DriverKit_AppleEthernetIXGBE_IVars::updateAdminStatus(v1);
+  DriverKit_AppleEthernetIXGBE_IVars::updateAdminStatus(this);
 }
 
 void DriverKit_AppleEthernetIXGBE_IVars::configDelayValues(DriverKit_AppleEthernetIXGBE_IVars *this)
@@ -5500,8 +5491,9 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::down(DriverKit_AppleEthernetIXGBE_I
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetIXGBE_IVars::setPromiscuousModeEnable(IOPCIDevice **this, int a2)
+uint64_t DriverKit_AppleEthernetIXGBE_IVars::setPromiscuousModeEnable(IOPCIDevice **this, uint64_t a2)
 {
+  v2 = a2;
   if (pcindkll)
   {
     DriverKit_AppleEthernetIXGBE_IVars::setPromiscuousModeEnable();
@@ -5511,7 +5503,7 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::setPromiscuousModeEnable(IOPCIDevic
   IOPCIDevice::MemoryRead32(*this, 0, 0x5080uLL, &readData);
   __dmb(1u);
   v4 = readData & 0xFFFFFCFF;
-  if (a2)
+  if (v2)
   {
     v5 = 768;
   }
@@ -5531,8 +5523,9 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::setPromiscuousModeEnable(IOPCIDevic
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetIXGBE_IVars::setAllMulticastModeEnable(IOPCIDevice **this, int a2)
+uint64_t DriverKit_AppleEthernetIXGBE_IVars::setAllMulticastModeEnable(IOPCIDevice **this, uint64_t a2)
 {
+  v2 = a2;
   if (pcindkll)
   {
     DriverKit_AppleEthernetIXGBE_IVars::setAllMulticastModeEnable();
@@ -5542,7 +5535,7 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::setAllMulticastModeEnable(IOPCIDevi
   IOPCIDevice::MemoryRead32(*this, 0, 0x5080uLL, &readData);
   __dmb(1u);
   v4 = readData & 0xFFFFFEFF;
-  if (a2)
+  if (v2)
   {
     v5 = 256;
   }
@@ -5562,14 +5555,15 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::setAllMulticastModeEnable(IOPCIDevi
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetIXGBE_IVars::setMcastAddresses(DriverKit_AppleEthernetIXGBE_IVars *this, unsigned __int8 *a2, unsigned int a3)
+uint64_t DriverKit_AppleEthernetIXGBE_IVars::setMcastAddresses(DriverKit_AppleEthernetIXGBE_IVars *this, unsigned __int8 *a2, uint64_t a3)
 {
+  v3 = a3;
   if (pcindkll)
   {
     DriverKit_AppleEthernetIXGBE_IVars::setMcastAddresses();
   }
 
-  if (a3 <= 0x7F)
+  if (v3 <= 0x7F)
   {
     ixgbe_update_mc_addr_list(this);
   }
@@ -6451,12 +6445,12 @@ uint64_t ___ZN34DriverKit_AppleEthernetIXGBE_IVars11handleResetEv_block_invoke_2
   return result;
 }
 
-unsigned __int8 *DriverKit_AppleEthernetIXGBE_IVars::setMcastAddresses(unsigned char *,unsigned int)::$_0::__invoke(uint64_t a1, unsigned __int8 **a2, _DWORD *a3)
+uint64_t DriverKit_AppleEthernetIXGBE_IVars::setMcastAddresses(unsigned char *,unsigned int)::$_0::__invoke(uint64_t a1, void *a2, _DWORD *a3)
 {
   v5 = *a2;
   if ((pcindkll & 0x40000000) != 0)
   {
-    DriverKit_AppleEthernetIXGBE_IVars::setMcastAddresses(unsigned char *,unsigned int)::$_0::__invoke(*a2);
+    DriverKit_AppleEthernetIXGBE_IVars::setMcastAddresses(unsigned char *,unsigned int)::$_0::__invoke();
   }
 
   *a3 = 0;
@@ -6890,7 +6884,7 @@ uint64_t ixgbe_get_media_type_82598(uint64_t a1)
   return result;
 }
 
-uint64_t ixgbe_get_supported_physical_layer_82598(uint64_t a1)
+unint64_t ixgbe_get_supported_physical_layer_82598(uint64_t a1)
 {
   readData = 0;
   IOPCIDevice::MemoryRead32(*a1, 0, 0x42A0uLL, &readData);
@@ -7177,7 +7171,7 @@ uint64_t ixgbe_set_vfta_82598(IOPCIDevice **a1, unsigned int a2, int a3, int a4)
   __dmb(2u);
   IOPCIDevice::MemoryWrite32(*a1, 0, (v10 | (((a2 >> 3) & 3) << 9)) + 41472, v11 | (a3 << v9));
   v13 = 0;
-  IOPCIDevice::MemoryRead32(*a1, 0, v10 | 0xA000u, &v13);
+  IOPCIDevice::MemoryRead32(*a1, 0, v10 | 0xA000, &v13);
   __dmb(1u);
   if (a4)
   {
@@ -7190,7 +7184,7 @@ uint64_t ixgbe_set_vfta_82598(IOPCIDevice **a1, unsigned int a2, int a3, int a4)
   }
 
   __dmb(2u);
-  IOPCIDevice::MemoryWrite32(*a1, 0, v10 | 0xA000u, v12);
+  IOPCIDevice::MemoryWrite32(*a1, 0, v10 | 0xA000, v12);
   return 0;
 }
 
@@ -7528,8 +7522,9 @@ LABEL_24:
   return 0;
 }
 
-uint64_t ixgbe_setup_mac_link_82598(IOPCIDevice **a1, unsigned int a2, int a3)
+uint64_t ixgbe_setup_mac_link_82598(IOPCIDevice **a1, unsigned int a2, uint64_t a3)
 {
+  v3 = a3;
   v11 = 0;
   readData = 0;
   v10 = 0;
@@ -7557,7 +7552,7 @@ uint64_t ixgbe_setup_mac_link_82598(IOPCIDevice **a1, unsigned int a2, int a3)
     }
   }
 
-  return ixgbe_start_mac_link_82598(a1, a3);
+  return ixgbe_start_mac_link_82598(a1, v3);
 }
 
 uint64_t ixgbe_get_link_capabilities_82598(uint64_t a1, int *a2, char *a3)
@@ -7811,7 +7806,7 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::allocRing(uint64_t a1, uint64_t a2,
   flags = 0;
   if (pcindkll)
   {
-    DriverKit_AppleEthernetIXGBE_IVars::allocRing(a2);
+    DriverKit_AppleEthernetIXGBE_IVars::allocRing();
   }
 
   v6 = IOBufferMemoryDescriptor::Create(3uLL, (IOVMPageSize + 16 * (*(a2 + 280) + a3) - 1) / IOVMPageSize * IOVMPageSize, IOVMPageSize, (a2 + 296));
@@ -7861,7 +7856,6 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::allocRing(uint64_t a1, uint64_t a2,
   if (!v7)
   {
     *(a2 + 272) = range.address;
-    v10 = *(a2 + 280);
     operator new[]();
   }
 
@@ -8547,10 +8541,11 @@ uint64_t DriverKit_AppleEthernetIXGBE_IVars::disable(IOUserNetworkPacketQueue **
   return DriverKit_AppleEthernetIXGBE_IVars::freeRings(this);
 }
 
-void OUTLINED_FUNCTION_6_0(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6_0(void *a1, os_log_s *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x1Eu);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0x1Eu);
 }
 
 uint64_t ixgbe_init_ops_generic(uint64_t a1)
@@ -8733,20 +8728,21 @@ uint64_t ixgbe_read_eerd_buffer_generic(uint64_t a1, unsigned int a2, int a3, _W
   }
 }
 
-uint64_t ixgbe_read_eeprom_bit_bang_generic(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t ixgbe_read_eeprom_bit_bang_generic(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   if ((pcindkll & 0x100000) != 0)
   {
     IOLog("ixgbe:%s(%d): %s\n", "ixgbe_read_eeprom_bit_bang_generic", 1550, "ixgbe_read_eeprom_bit_bang_generic");
   }
 
   (*(a1 + 1720))(a1);
-  if (*(a1 + 1792) <= a2)
+  if (*(a1 + 1792) <= v4)
   {
     return 0xFFFFFFFFLL;
   }
 
-  return ixgbe_read_eeprom_buffer_bit_bang(a1, a2, 1, a3);
+  return ixgbe_read_eeprom_buffer_bit_bang(a1, v4, 1, a3);
 }
 
 uint64_t ixgbe_read_eeprom_buffer_bit_bang_generic(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
@@ -8792,8 +8788,9 @@ uint64_t ixgbe_read_eeprom_buffer_bit_bang_generic(uint64_t a1, int a2, unsigned
   return result;
 }
 
-uint64_t ixgbe_write_eeprom_generic(uint64_t a1, unsigned int a2, __int16 a3)
+uint64_t ixgbe_write_eeprom_generic(uint64_t a1, uint64_t a2, __int16 a3)
 {
+  v3 = a2;
   v6 = a3;
   if ((pcindkll & 0x100000) != 0)
   {
@@ -8801,19 +8798,20 @@ uint64_t ixgbe_write_eeprom_generic(uint64_t a1, unsigned int a2, __int16 a3)
   }
 
   (*(a1 + 1720))(a1);
-  if (*(a1 + 1792) <= a2)
+  if (*(a1 + 1792) <= v3)
   {
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    return ixgbe_write_eeprom_buffer_bit_bang(a1, a2, 1u, &v6);
+    return ixgbe_write_eeprom_buffer_bit_bang(a1, v3, 1u, &v6);
   }
 }
 
-uint64_t ixgbe_write_eeprom_buffer_bit_bang_generic(uint64_t a1, int a2, unsigned int a3, uint64_t a4)
+uint64_t ixgbe_write_eeprom_buffer_bit_bang_generic(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
+  v6 = a2;
   if ((pcindkll & 0x100000) != 0)
   {
     IOLog("ixgbe:%s(%d): %s\n", "ixgbe_write_eeprom_buffer_bit_bang_generic", 1278, "ixgbe_write_eeprom_buffer_bit_bang_generic");
@@ -8825,7 +8823,7 @@ uint64_t ixgbe_write_eeprom_buffer_bit_bang_generic(uint64_t a1, int a2, unsigne
     return 4294967264;
   }
 
-  if (a3 + a2 > *(a1 + 1792))
+  if (a3 + v6 > *(a1 + 1792))
   {
     return 0xFFFFFFFFLL;
   }
@@ -8850,9 +8848,9 @@ uint64_t ixgbe_write_eeprom_buffer_bit_bang_generic(uint64_t a1, int a2, unsigne
 
     while (v9 != 128);
     *(a1 + 1796) = 128;
-    v12 = ixgbe_write_eeprom_buffer_bit_bang(a1, a2, 0x80u, v16);
+    v12 = ixgbe_write_eeprom_buffer_bit_bang(a1, v6, 0x80u, v16);
     *(a1 + 1796) = 0;
-    if (!v12 && !ixgbe_read_eeprom_buffer_bit_bang(a1, a2, 1, v16))
+    if (!v12 && !ixgbe_read_eeprom_buffer_bit_bang(a1, v6, 1, v16))
     {
       v13 = 128 - v16[0];
       *(a1 + 1796) = 128 - v16[0];
@@ -8872,7 +8870,7 @@ uint64_t ixgbe_write_eeprom_buffer_bit_bang_generic(uint64_t a1, int a2, unsigne
       LOWORD(v15) = 256;
     }
 
-    result = ixgbe_write_eeprom_buffer_bit_bang(a1, (v14 + a2), v15, a4 + 2 * v14);
+    result = ixgbe_write_eeprom_buffer_bit_bang(a1, (v14 + v6), v15, a4 + 2 * v14);
     if (result)
     {
       break;

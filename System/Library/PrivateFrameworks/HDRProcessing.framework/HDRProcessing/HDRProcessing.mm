@@ -37,7 +37,7 @@ uint64_t apply_ml4_criteria(unsigned __int16 *a1, unsigned __int16 *a2, unsigned
 
 void cubicSplineInterp(double a1, float a2, double a3, double a4, float a5)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ((a5 - a2) == 0.0)
   {
     if (enableLogInstance)
@@ -54,9 +54,9 @@ void cubicSplineInterp(double a1, float a2, double a3, double a4, float a5)
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 134217984;
-        v9 = WORD1(v5);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx WARNING: cubicSplineInterp: delta == 0", &v8, 0xCu);
+        v6 = 134217984;
+        v7 = WORD1(v5);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx WARNING: cubicSplineInterp: delta == 0", &v6, 0xCu);
       }
 
       prevLogInstanceID = v5;
@@ -64,22 +64,15 @@ void cubicSplineInterp(double a1, float a2, double a3, double a4, float a5)
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] WARNING: cubicSplineInterp: delta == 0", &v8, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] WARNING: cubicSplineInterp: delta == 0", &v6, 2u);
     }
-
-    v7 = *MEMORY[0x277D85DE8];
-  }
-
-  else
-  {
-    v6 = *MEMORY[0x277D85DE8];
   }
 }
 
 void calcCubicSplineParam(uint64_t a1, float a2, float a3, float a4, float a5, float a6, float a7)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v7 = a5 - a2;
   *a1 = a3;
   if (v7 == 0.0)
@@ -100,9 +93,9 @@ void calcCubicSplineParam(uint64_t a1, float a2, float a3, float a4, float a5, f
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 134217984;
-        v12 = WORD1(v8);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx WARNING: calcCubicSplineParam: delta == 0", &v11, 0xCu);
+        v10 = 134217984;
+        v11 = WORD1(v8);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx WARNING: calcCubicSplineParam: delta == 0", &v10, 0xCu);
       }
 
       prevLogInstanceID = v8;
@@ -110,8 +103,8 @@ void calcCubicSplineParam(uint64_t a1, float a2, float a3, float a4, float a5, f
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] WARNING: calcCubicSplineParam: delta == 0", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] WARNING: calcCubicSplineParam: delta == 0", &v10, 2u);
     }
   }
 
@@ -122,8 +115,6 @@ void calcCubicSplineParam(uint64_t a1, float a2, float a3, float a4, float a5, f
     *(a1 + 4) = a4;
     *(a1 + 8) = ((a7 - a4) + ((v7 * (v9 * -3.0)) * v7)) / (v7 + v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 float calcLineParam(float *a1, float *a2, float a3, float a4, float a5)
@@ -719,8 +710,7 @@ uint64_t __HDRProcessorGetTypeID_block_invoke()
 
 uint64_t HDRProcessorCreate(_DWORD *a1, CFErrorRef *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *MEMORY[0x277CBECE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (_MergedGlobals_2 != -1)
   {
     dispatch_once(&_MergedGlobals_2, &__block_literal_global);
@@ -735,39 +725,38 @@ uint64_t HDRProcessorCreate(_DWORD *a1, CFErrorRef *a2)
     {
       if (logInstanceID)
       {
-        v6 = logInstanceID;
+        v5 = logInstanceID;
       }
 
       else
       {
-        v6 = prevLogInstanceID;
+        v5 = prevLogInstanceID;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 134218498;
-        v10 = WORD1(v6);
-        v11 = 2080;
-        v12 = "HDRProcessorRef  _Nullable HDRProcessorCreate(HDRConfigurationParameters * _Nonnull, CFErrorRef * _Nonnull)";
-        v13 = 2048;
-        v14 = Instance;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %s : newprocessor=%p\n", &v9, 0x20u);
+        v7 = 134218498;
+        v8 = WORD1(v5);
+        v9 = 2080;
+        v10 = "HDRProcessorRef  _Nullable HDRProcessorCreate(HDRConfigurationParameters * _Nonnull, CFErrorRef * _Nonnull)";
+        v11 = 2048;
+        v12 = Instance;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %s : newprocessor=%p\n", &v7, 0x20u);
       }
 
-      prevLogInstanceID = v6;
+      prevLogInstanceID = v5;
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "HDRProcessorRef  _Nullable HDRProcessorCreate(HDRConfigurationParameters * _Nonnull, CFErrorRef * _Nonnull)";
-      v11 = 2048;
-      v12 = Instance;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %s : newprocessor=%p\n", &v9, 0x16u);
+      v7 = 136315394;
+      v8 = "HDRProcessorRef  _Nullable HDRProcessorCreate(HDRConfigurationParameters * _Nonnull, CFErrorRef * _Nonnull)";
+      v9 = 2048;
+      v10 = Instance;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %s : newprocessor=%p\n", &v7, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return Instance;
 }
 
@@ -788,7 +777,7 @@ uint64_t HDRProcessFrame(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
 
 void __HDRProcessorHDRProcessorFinalize(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   HDRProcessorImplRelease(*(a1 + 16));
   *(a1 + 16) = 0;
   if (enableLogInstance)
@@ -805,13 +794,13 @@ void __HDRProcessorHDRProcessorFinalize(uint64_t a1)
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 134218498;
-      v5 = WORD1(v2);
-      v6 = 2080;
-      v7 = "void __HDRProcessorHDRProcessorFinalize(CFTypeRef)";
-      v8 = 2048;
-      v9 = a1;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx    %s : processor=%p\n", &v4, 0x20u);
+      v3 = 134218498;
+      v4 = WORD1(v2);
+      v5 = 2080;
+      v6 = "void __HDRProcessorHDRProcessorFinalize(CFTypeRef)";
+      v7 = 2048;
+      v8 = a1;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx    %s : processor=%p\n", &v3, 0x20u);
     }
 
     prevLogInstanceID = v2;
@@ -819,14 +808,12 @@ void __HDRProcessorHDRProcessorFinalize(uint64_t a1)
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315394;
-    v5 = "void __HDRProcessorHDRProcessorFinalize(CFTypeRef)";
-    v6 = 2048;
-    v7 = a1;
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]    %s : processor=%p\n", &v4, 0x16u);
+    v3 = 136315394;
+    v4 = "void __HDRProcessorHDRProcessorFinalize(CFTypeRef)";
+    v5 = 2048;
+    v6 = a1;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]    %s : processor=%p\n", &v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 CFStringRef __HDRProcessorCopyDebugDesc(void *a1)
@@ -927,7 +914,7 @@ const char *debugGetTransferFunctionName(int a1)
 
 HDRProcessor *HDRProcessorImplCreate(_DWORD *a1, CFErrorRef *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [[HDRProcessor alloc] initWithConfig:a1];
   if (v4)
   {
@@ -952,9 +939,9 @@ HDRProcessor *HDRProcessorImplCreate(_DWORD *a1, CFErrorRef *a2)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v10 = WORD1(v6);
-        v11 = 2080;
-        v12 = "void *HDRProcessorImplCreate(HDRConfigurationParameters *, CFErrorRef *)";
+        v9 = WORD1(v6);
+        v10 = 2080;
+        v11 = "void *HDRProcessorImplCreate(HDRConfigurationParameters *, CFErrorRef *)";
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : Failed to create HDRProcessorImpl\n", buf, 0x16u);
       }
 
@@ -964,7 +951,7 @@ HDRProcessor *HDRProcessorImplCreate(_DWORD *a1, CFErrorRef *a2)
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "void *HDRProcessorImplCreate(HDRConfigurationParameters *, CFErrorRef *)";
+      v9 = "void *HDRProcessorImplCreate(HDRConfigurationParameters *, CFErrorRef *)";
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : Failed to create HDRProcessorImpl\n", buf, 0xCu);
     }
 
@@ -972,7 +959,6 @@ HDRProcessor *HDRProcessorImplCreate(_DWORD *a1, CFErrorRef *a2)
     *a2 = CFErrorCreate(*MEMORY[0x277CBECE8], @"HDRProcessor", -17005, 0);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1058,7 +1044,7 @@ LABEL_4:
   return *(a1 + 2);
 }
 
-_DWORD *floatCopyWithCount(_DWORD *result, float *a2, int a3)
+_DWORD *floatCopyWithCount(_DWORD *result, float *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -1090,31 +1076,7 @@ CFMutableDictionaryRef createPixelBufferPool(int a1, int a2, int a3)
   {
     v5 = result;
     v6 = CFNumberCreate(v3, kCFNumberIntType, &valuePtr);
-    if (!v6)
-    {
-      goto LABEL_6;
-    }
-
-    v7 = v6;
-    CFDictionarySetValue(v5, *MEMORY[0x277CC4E30], v6);
-    CFRelease(v7);
-    Mutable = CFDictionaryCreateMutable(v3, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v9 = CFNumberCreate(v3, kCFNumberIntType, &v15);
-    CFDictionarySetValue(v5, *MEMORY[0x277CD2970], v9);
-    CFRelease(v9);
-    CFDictionaryAddValue(v5, *MEMORY[0x277CC4DE8], Mutable);
-    CFRelease(Mutable);
-    v10 = CFNumberCreate(v3, kCFNumberIntType, &v20);
-    if (!v10)
-    {
-      goto LABEL_6;
-    }
-
-    v11 = v10;
-    CFDictionarySetValue(v5, *MEMORY[0x277CC4EC8], v10);
-    CFRelease(v11);
-    v12 = CFNumberCreate(v3, kCFNumberIntType, &v19);
-    if (v12)
+    if (v6 && (v7 = v6, CFDictionarySetValue(v5, *MEMORY[0x277CC4E30], v6), CFRelease(v7), Mutable = CFDictionaryCreateMutable(v3, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]), v9 = CFNumberCreate(v3, kCFNumberIntType, &v15), CFDictionarySetValue(v5, *MEMORY[0x277CD2970], v9), CFRelease(v9), CFDictionaryAddValue(v5, *MEMORY[0x277CC4DE8], Mutable), CFRelease(Mutable), (v10 = CFNumberCreate(v3, kCFNumberIntType, &v20)) != 0) && (v11 = v10, CFDictionarySetValue(v5, *MEMORY[0x277CC4EC8], v10), CFRelease(v11), (v12 = CFNumberCreate(v3, kCFNumberIntType, &v19)) != 0))
     {
       v13 = v12;
       CFDictionarySetValue(v5, *MEMORY[0x277CC4DD8], v12);
@@ -1129,7 +1091,6 @@ CFMutableDictionaryRef createPixelBufferPool(int a1, int a2, int a3)
 
     else
     {
-LABEL_6:
       CFRelease(v5);
       return 0;
     }
@@ -1378,7 +1339,7 @@ uint64_t createHDRRectFromHDRRegion(_WORD *a1, int *a2)
   return 1;
 }
 
-__int16 *validHDRRect(__int16 *result)
+unsigned __int16 *validHDRRect(unsigned __int16 *result)
 {
   if (result)
   {
@@ -1474,7 +1435,7 @@ float clampSDRMaxBrigtness(float result, float a2, float a3, unsigned __int8 a4)
   return result;
 }
 
-double *SortAscend(double *result, int32x2_t *a2, int a3)
+double *SortAscend(double *result, int32x2_t *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -1521,7 +1482,7 @@ double *SortAscend(double *result, int32x2_t *a2, int a3)
   return result;
 }
 
-double *SortDescend(double *result, int32x2_t *a2, int a3)
+double *SortDescend(double *result, int32x2_t *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -1866,23 +1827,23 @@ uint64_t FindInt64M33Precision(uint64_t a1)
 uint64_t APPLY_CT2RIGHT(uint64_t a1, __int16 a2, int a3, uint64_t a4)
 {
   v4 = 0;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = (a1 + 6);
   do
   {
-    *&v11[v4 + 72] = (*v5 + *(v5 - 3) + v5[3]) * a3;
+    *&v10[v4 + 72] = (*v5 + *(v5 - 3) + v5[3]) * a3;
     v4 += 8;
     ++v5;
   }
 
   while (v4 != 24);
   v6 = 0;
-  v7 = v11;
+  v7 = v10;
   do
   {
     for (i = 0; i != 3; ++i)
     {
-      *&v7[8 * i] = *&v11[8 * i + 72] + *(a1 + 2 * i) * (-3 * a3 + 0x8000);
+      *&v7[8 * i] = *&v10[8 * i + 72] + *(a1 + 2 * i) * (-3 * a3 + 0x8000);
     }
 
     ++v6;
@@ -1891,9 +1852,7 @@ uint64_t APPLY_CT2RIGHT(uint64_t a1, __int16 a2, int a3, uint64_t a4)
   }
 
   while (v6 != 3);
-  result = Adjust64M33ScaleTo16M33Rounded(v11, a2 + 15, a4);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return Adjust64M33ScaleTo16M33Rounded(v10, a2 + 15, a4);
 }
 
 uint64_t GetRgb2XyzM33ByPrims(uint64_t result, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _DWORD *a9)
@@ -1943,10 +1902,10 @@ LABEL_6:
 
 uint64_t GetRgb2LmsByPrimsM33Fxp(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  GetRgb2XyzM33ByPrims(a1, a2, a3, a4, a5, a6, a7, a8, v29);
+  v30 = *MEMORY[0x277D85DE8];
+  GetRgb2XyzM33ByPrims(a1, a2, a3, a4, a5, a6, a7, a8, v28);
   v10 = 0;
-  v11 = v30;
+  v11 = v29;
   do
   {
     v12 = 0;
@@ -1957,7 +1916,7 @@ uint64_t GetRgb2LmsByPrimsM33Fxp(uint64_t a1, int a2, int a3, int a4, int a5, in
     v17 = v11;
     do
     {
-      *v17++ = (v29[v12] * v14 + v29[v12 + 3] * v15 + v29[v12 + 6] * v16) >> 23;
+      *v17++ = (v28[v12] * v14 + v28[v12 + 3] * v15 + v28[v12 + 6] * v16) >> 23;
       ++v12;
     }
 
@@ -1967,11 +1926,11 @@ uint64_t GetRgb2LmsByPrimsM33Fxp(uint64_t a1, int a2, int a3, int a4, int a5, in
   }
 
   while (v10 != 3);
-  Int64M33Precision = FindInt64M33Precision(v30);
+  Int64M33Precision = FindInt64M33Precision(v29);
   v19 = 0;
   if (Int64M33Precision <= 15)
   {
-    v24 = v30;
+    v24 = v29;
     do
     {
       for (i = 0; i != 3; ++i)
@@ -1996,12 +1955,12 @@ uint64_t GetRgb2LmsByPrimsM33Fxp(uint64_t a1, int a2, int a3, int a4, int a5, in
     }
 
     while (v19 != 3);
-    v23 = 31;
+    return 31;
   }
 
   else
   {
-    v20 = v30;
+    v20 = v29;
     do
     {
       for (j = 0; j != 3; ++j)
@@ -2026,11 +1985,8 @@ uint64_t GetRgb2LmsByPrimsM33Fxp(uint64_t a1, int a2, int a3, int a4, int a5, in
     }
 
     while (v19 != 3);
-    v23 = 46 - Int64M33Precision;
+    return (46 - Int64M33Precision);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
-  return v23;
 }
 
 uint64_t EDRMetaData_RBSP::setRBSP(EDRMetaData_RBSP *this, unsigned __int8 *a2, size_t size)
@@ -2243,7 +2199,7 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
   *(a2 + 772) = v41;
   *(a2 + 788) = v42;
   *(a2 + 756) = v40;
-  v184 = (a2 + 816);
+  v184 = a2 + 816;
   memcpy(a2 + 816, (a1 + 2424), 0x144uLL);
   memcpy(v6 + 1092, (a1 + 2748), 0x144uLL);
   v43 = *(a1 + 3072);
@@ -2288,10 +2244,10 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
   memcpy(v6 + 19456, (a1 + 10092), 0x144uLL);
   memcpy(v6 + 21776, (a1 + 10740), 0x30000uLL);
   result = memcpy(v6 + 218384, (a1 + 207348), 0x30000uLL);
-  v7[942] = *(a1 + 260);
-  v7[943] = *(a1 + 708);
+  *(v7 + 942) = *(a1 + 260);
+  *(v7 + 943) = *(a1 + 708);
   v59 = (*(a1 + 712) + 2);
-  v7[944] = v59;
+  *(v7 + 944) = v59;
   v60 = *(a1 + 784);
   v61 = *(a1 + 768);
   *(v6 + 20116) = *(a1 + 752);
@@ -2412,8 +2368,8 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
     v108 = v179.u32[0];
     v109 = (1 << v5);
     v175 = a2;
-    v178 = (a2 + 2760);
-    v180 = (a2 + 1464);
+    v178 = a2 + 2760;
+    v180 = a2 + 1464;
     v177 = v107;
     do
     {
@@ -2467,7 +2423,7 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
                 while (v123);
                 ++v118;
                 v121 += 6;
-                v120 += 6;
+                v120 += 48;
                 v119 += 3;
               }
 
@@ -2476,30 +2432,30 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
 
             ++v113;
             v116 += 54;
-            v115 += 54;
-            v114 += 27;
+            v115 += 432;
+            v114 += 108;
           }
 
           while (v113 != 3);
           ++result;
-          v111 += 162;
-          v112 += 162;
-          v110 += 81;
+          v111 += 648;
+          v112 += 1296;
+          v110 += 324;
         }
 
         while (result != v108);
       }
 
-      v178 += 162;
-      v180 += 162;
+      v178 += 648;
+      v180 += 1296;
       ++v182;
-      v184 += 81;
+      v184 += 324;
     }
 
     while (v182 != v177);
     v129 = 0;
-    v130 = (a2 + 9784);
-    v131 = (a2 + 15832);
+    v130 = a2 + 9784;
+    v131 = a2 + 15832;
     v132 = v6 + 3576;
     do
     {
@@ -2526,7 +2482,8 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
               do
               {
                 v144 = *(v142 - 27) << v5;
-                v145 = *v142++;
+                v145 = *v142;
+                v142 += 4;
                 v146 = v144 | v145;
                 *v141 = v146;
                 v141 += 28;
@@ -2540,24 +2497,24 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
 
             ++v136;
             v139 += 252;
-            v138 += 9;
+            v138 += 36;
             v137 += 252;
           }
 
           while (v136 != 3);
           ++v133;
-          v135 += 756;
+          v135 += 3024;
           result += 108;
-          v134 += 756;
+          v134 += 6048;
         }
 
         while (v133 != v108);
       }
 
       ++v129;
-      v131 += 756;
+      v131 += 3024;
       v132 += 108;
-      v130 += 756;
+      v130 += 6048;
     }
 
     while (v129 != v177);
@@ -2610,14 +2567,14 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
                     {
                       v163 = (*(v162 + 940) << v5) | *(v162 + 1696);
                       *&v158[v161] = v163;
-                      v162[3965] = v163 / v109;
+                      *(v162 + 3965) = v163 / v109;
                       v161 += 8;
-                      ++v162;
+                      v162 += 4;
                     }
 
                     while (v161 != 56);
                     ++v160;
-                    v159 += 7;
+                    v159 += 28;
                     v158 += 56;
                   }
 
@@ -2625,7 +2582,7 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
                 }
 
                 ++v153;
-                v155 += 28;
+                v155 += 112;
                 v154 += 224;
               }
 
@@ -2633,7 +2590,7 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
             }
 
             ++v149;
-            v151 += 252;
+            v151 += 1008;
             v150 += 2016;
           }
 
@@ -2653,7 +2610,7 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
 
     while (v185 != v177);
     v164 = 0;
-    v165 = (v6 + 20260);
+    v165 = v6 + 20260;
     v166 = v175 + 20528;
     do
     {
@@ -2676,10 +2633,10 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
             {
               do
               {
-                v173[108] = (v172[217] << v5) | v172[244];
-                v173[54] = (v172[109] << v5) | v172[136];
+                *(v173 + 108) = (v172[217] << v5) | v172[244];
+                *(v173 + 54) = (v172[109] << v5) | v172[136];
                 *v173 = (*v172 << v5) | v172[27];
-                v173 += 3;
+                v173 += 24;
                 v172 += 3;
                 --v174;
               }
@@ -2703,7 +2660,7 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
 
       ++v164;
       v166 += 216;
-      v165 += 27;
+      v165 += 108;
     }
 
     while (v164 != v177);
@@ -2714,7 +2671,7 @@ char *EDRMetaData_RBSP::copy_rpu_data(uint64_t a1, char *a2)
 
 uint64_t EDRMetaData_RBSP::parse_rpu_data(uint64_t a1, void *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   bzero(a2, 0x65548uLL);
   *(a1 + 1328) = 0u;
   *(a1 + 1312) = 0u;
@@ -2815,36 +2772,36 @@ LABEL_40:
       memcpy((a1 + 2424), (a1 + 408980), 0x144uLL);
       *(a1 + 340) = *(a1 + 409628);
       *(a1 + 348) = *(a1 + 409636);
-      v13 = *(a1 + 409480);
+      v12 = *(a1 + 409480);
       *(a1 + 620) = *(a1 + 409464);
-      *(a1 + 636) = v13;
+      *(a1 + 636) = v12;
       *(a1 + 652) = *(a1 + 409496);
       *(a1 + 668) = *(a1 + 409512);
-      v14 = *(a1 + 409416);
+      v13 = *(a1 + 409416);
       *(a1 + 556) = *(a1 + 409400);
-      *(a1 + 572) = v14;
-      v15 = *(a1 + 409448);
+      *(a1 + 572) = v13;
+      v14 = *(a1 + 409448);
       *(a1 + 588) = *(a1 + 409432);
-      *(a1 + 604) = v15;
-      v16 = *(a1 + 409352);
+      *(a1 + 604) = v14;
+      v15 = *(a1 + 409352);
       *(a1 + 492) = *(a1 + 409336);
-      *(a1 + 508) = v16;
-      v17 = *(a1 + 409384);
+      *(a1 + 508) = v15;
+      v16 = *(a1 + 409384);
       *(a1 + 524) = *(a1 + 409368);
-      *(a1 + 540) = v17;
-      v18 = *(a1 + 409320);
+      *(a1 + 540) = v16;
+      v17 = *(a1 + 409320);
       *(a1 + 460) = *(a1 + 409304);
-      *(a1 + 476) = v18;
-      v19 = *(a1 + 409600);
+      *(a1 + 476) = v17;
+      v18 = *(a1 + 409600);
       *(a1 + 2056) = *(a1 + 409584);
-      *(a1 + 2072) = v19;
+      *(a1 + 2072) = v18;
       *(a1 + 2084) = *(a1 + 409612);
-      v20 = *(a1 + 409536);
+      v19 = *(a1 + 409536);
       *(a1 + 1992) = *(a1 + 409520);
-      *(a1 + 2008) = v20;
-      v21 = *(a1 + 409568);
+      *(a1 + 2008) = v19;
+      v20 = *(a1 + 409568);
       *(a1 + 2024) = *(a1 + 409552);
-      *(a1 + 2040) = v21;
+      *(a1 + 2040) = v20;
     }
   }
 
@@ -2856,31 +2813,31 @@ LABEL_40:
       {
         if (logInstanceID)
         {
-          v22 = logInstanceID;
+          v21 = logInstanceID;
         }
 
         else
         {
-          v22 = prevLogInstanceID;
+          v21 = prevLogInstanceID;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 134218242;
-          v26 = WORD1(v22);
-          v27 = 2080;
-          v28 = "parse_rpu_data";
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error reserved_zero_3bits=1, first frame, bail!\n", &v25, 0x16u);
+          v24 = 134218242;
+          v25 = WORD1(v21);
+          v26 = 2080;
+          v27 = "parse_rpu_data";
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error reserved_zero_3bits=1, first frame, bail!\n", &v24, 0x16u);
         }
 
-        prevLogInstanceID = v22;
+        prevLogInstanceID = v21;
       }
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 136315138;
-        v26 = "parse_rpu_data";
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s: EDRMetaData_RBSP error reserved_zero_3bits=1, first frame, bail!\n", &v25, 0xCu);
+        v24 = 136315138;
+        v25 = "parse_rpu_data";
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s: EDRMetaData_RBSP error reserved_zero_3bits=1, first frame, bail!\n", &v24, 0xCu);
       }
 
       v7 = *(a1 + 88);
@@ -2891,7 +2848,7 @@ LABEL_40:
   }
 
   EDRMetaData_RBSP::vdr_dm_set_default(a1);
-  if (!*(a1 + 268) || (v23 = EDRMetaData_RBSP::vdr_dm_data_payload(a1), !v23))
+  if (!*(a1 + 268) || (v22 = EDRMetaData_RBSP::vdr_dm_data_payload(a1), !v22))
   {
 LABEL_27:
     EDRMetaData_RBSP::copy_rpu_data(a1, a2);
@@ -2905,36 +2862,36 @@ LABEL_27:
     goto LABEL_3;
   }
 
-  v7 = v23;
+  v7 = v22;
   if (enableLogInstance)
   {
     if (logInstanceID)
     {
-      v24 = logInstanceID;
+      v23 = logInstanceID;
     }
 
     else
     {
-      v24 = prevLogInstanceID;
+      v23 = prevLogInstanceID;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 134218242;
-      v26 = WORD1(v24);
-      v27 = 2080;
-      v28 = "parse_rpu_data";
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error in vdr_dm_data_payload, bail!\n", &v25, 0x16u);
+      v24 = 134218242;
+      v25 = WORD1(v23);
+      v26 = 2080;
+      v27 = "parse_rpu_data";
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error in vdr_dm_data_payload, bail!\n", &v24, 0x16u);
     }
 
-    prevLogInstanceID = v24;
+    prevLogInstanceID = v23;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 136315138;
-    v26 = "parse_rpu_data";
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s: EDRMetaData_RBSP error in vdr_dm_data_payload, bail!\n", &v25, 0xCu);
+    v24 = 136315138;
+    v25 = "parse_rpu_data";
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s: EDRMetaData_RBSP error in vdr_dm_data_payload, bail!\n", &v24, 0xCu);
   }
 
 LABEL_3:
@@ -2949,13 +2906,12 @@ LABEL_3:
     v9[2] = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t EDRMetaData_RBSP::rpu_data_header(EDRMetaData_RBSP *this)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   var1_high = HIBYTE(this->var1);
   commonRBSP::flush_bits(this, 8);
   if (var1_high != 25)
@@ -2977,12 +2933,12 @@ uint64_t EDRMetaData_RBSP::rpu_data_header(EDRMetaData_RBSP *this)
         goto LABEL_33;
       }
 
-      v83 = 134218498;
-      v84 = WORD1(v18);
-      v85 = 2080;
-      *v86 = "rpu_data_header";
-      *&v86[8] = 1024;
-      *v87 = var1_high;
+      v82 = 134218498;
+      v83 = WORD1(v18);
+      v84 = 2080;
+      *v85 = "rpu_data_header";
+      *&v85[8] = 1024;
+      *v86 = var1_high;
       v19 = MEMORY[0x277D86220];
       v20 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error nal_unit_type = %d, bail!\n";
       goto LABEL_31;
@@ -2990,13 +2946,13 @@ uint64_t EDRMetaData_RBSP::rpu_data_header(EDRMetaData_RBSP *this)
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_95;
+      return this->var14;
     }
 
-    v83 = 136315394;
-    v84 = "rpu_data_header";
-    v85 = 1024;
-    *v86 = var1_high;
+    v82 = 136315394;
+    v83 = "rpu_data_header";
+    v84 = 1024;
+    *v85 = var1_high;
     v22 = MEMORY[0x277D86220];
     v23 = " [1.450.54] %s: EDRMetaData_RBSP error nal_unit_type = %d, bail!\n";
     goto LABEL_93;
@@ -3024,12 +2980,12 @@ uint64_t EDRMetaData_RBSP::rpu_data_header(EDRMetaData_RBSP *this)
         goto LABEL_33;
       }
 
-      v83 = 134218498;
-      v84 = WORD1(v18);
-      v85 = 2080;
-      *v86 = "rpu_data_header";
-      *&v86[8] = 1024;
-      *v87 = v3;
+      v82 = 134218498;
+      v83 = WORD1(v18);
+      v84 = 2080;
+      *v85 = "rpu_data_header";
+      *&v85[8] = 1024;
+      *v86 = v3;
       v19 = MEMORY[0x277D86220];
       v20 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error rpu_type = %d, bail!\n";
       goto LABEL_31;
@@ -3037,13 +2993,13 @@ uint64_t EDRMetaData_RBSP::rpu_data_header(EDRMetaData_RBSP *this)
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_95;
+      return this->var14;
     }
 
-    v83 = 136315394;
-    v84 = "rpu_data_header";
-    v85 = 1024;
-    *v86 = v3;
+    v82 = 136315394;
+    v83 = "rpu_data_header";
+    v84 = 1024;
+    *v85 = v3;
     v22 = MEMORY[0x277D86220];
     v23 = " [1.450.54] %s: EDRMetaData_RBSP error rpu_type = %d, bail!\n";
 LABEL_93:
@@ -3180,30 +3136,30 @@ LABEL_93:
           goto LABEL_33;
         }
 
-        v83 = 134218498;
-        v84 = WORD1(v18);
-        v85 = 2080;
-        *v86 = "rpu_data_header";
-        *&v86[8] = 1024;
-        *v87 = v17;
+        v82 = 134218498;
+        v83 = WORD1(v18);
+        v84 = 2080;
+        *v85 = "rpu_data_header";
+        *&v85[8] = 1024;
+        *v86 = v17;
         v19 = MEMORY[0x277D86220];
         v20 = " [1.450.54] #%04llx %s: ERROR: Out of bound! mapping_chroma_format_idc = %d, bail!\n";
 LABEL_31:
         v21 = 28;
 LABEL_32:
-        _os_log_impl(&dword_250836000, v19, OS_LOG_TYPE_DEFAULT, v20, &v83, v21);
+        _os_log_impl(&dword_250836000, v19, OS_LOG_TYPE_DEFAULT, v20, &v82, v21);
         goto LABEL_33;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_95;
+        return this->var14;
       }
 
-      v83 = 136315394;
-      v84 = "rpu_data_header";
-      v85 = 1024;
-      *v86 = v17;
+      v82 = 136315394;
+      v83 = "rpu_data_header";
+      v84 = 1024;
+      *v85 = v17;
       v22 = MEMORY[0x277D86220];
       v23 = " [1.450.54] %s: ERROR: Out of bound! mapping_chroma_format_idc = %d, bail!\n";
       goto LABEL_93;
@@ -3280,18 +3236,18 @@ LABEL_32:
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_95;
+            return this->var14;
           }
 
           var30 = this->var30;
-          v83 = 136315906;
-          v84 = "rpu_data_header";
-          v85 = 1024;
-          *v86 = var30;
-          *&v86[4] = 1024;
-          *&v86[6] = v35;
-          *v87 = 1024;
-          *&v87[2] = v47;
+          v82 = 136315906;
+          v83 = "rpu_data_header";
+          v84 = 1024;
+          *v85 = var30;
+          *&v85[4] = 1024;
+          *&v85[6] = v35;
+          *v86 = 1024;
+          *&v86[2] = v47;
           v22 = MEMORY[0x277D86220];
           v23 = " [1.450.54] %s: ERROR: Out of bound! vdr_rpu_level = %d, num_pivots_minus2[%d] = %d, bail!\n";
           v57 = 30;
@@ -3311,23 +3267,21 @@ LABEL_32:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           v49 = this->var30;
-          v83 = 134219010;
-          v84 = WORD1(v48);
-          v85 = 2080;
-          *v86 = "rpu_data_header";
-          *&v86[8] = 1024;
-          *v87 = v49;
-          *&v87[4] = 1024;
-          v88 = v35;
-          v89 = 1024;
-          v90 = v47;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: ERROR: Out of bound! vdr_rpu_level = %d, num_pivots_minus2[%d] = %d, bail!\n", &v83, 0x28u);
+          v82 = 134219010;
+          v83 = WORD1(v48);
+          v84 = 2080;
+          *v85 = "rpu_data_header";
+          *&v85[8] = 1024;
+          *v86 = v49;
+          *&v86[4] = 1024;
+          v87 = v35;
+          v88 = 1024;
+          v89 = v47;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: ERROR: Out of bound! vdr_rpu_level = %d, num_pivots_minus2[%d] = %d, bail!\n", &v82, 0x28u);
         }
 
         prevLogInstanceID = v48;
-LABEL_95:
-        result = this->var14;
-        goto LABEL_96;
+        return this->var14;
       }
 
       v40 = 0;
@@ -3347,62 +3301,62 @@ LABEL_95:
     while (v35 != 3);
     if ((this->var25 & 0x700) == 0 && this->var46)
     {
-      v60 = this->var1 >> 61;
+      v59 = this->var1 >> 61;
       commonRBSP::flush_bits(this, 3);
-      this->var70 = v60;
-      if (v60)
+      this->var70 = v59;
+      if (v59)
       {
         for (i = 680; i != 692; i += 4)
         {
-          v62 = this->var1 >> 61;
+          v61 = this->var1 >> 61;
           commonRBSP::flush_bits(this, 3);
-          *(&this->var0 + i) = v62;
+          *(&this->var0 + i) = v61;
         }
       }
 
-      v63 = this->var1 >> 61;
+      v62 = this->var1 >> 61;
       commonRBSP::flush_bits(this, 3);
-      this->var72 = v63;
-      if (v63)
+      this->var72 = v62;
+      if (v62)
       {
         for (j = 696; j != 708; j += 4)
         {
-          v65 = this->var1 >> 61;
+          v64 = this->var1 >> 61;
           commonRBSP::flush_bits(this, 3);
-          *(&this->var0 + j) = v65;
+          *(&this->var0 + j) = v64;
         }
       }
     }
 
     if ((this->var25 & 0x700) == 0 && !this->var51)
     {
-      v69 = this->var1 >> 61;
+      v68 = this->var1 >> 61;
       commonRBSP::flush_bits(this, 3);
-      this->var74 = v69;
+      this->var74 = v68;
       if (this->var57 == 2)
       {
-        v70 = commonRBSP::ue_v(this);
-        this->var75 = v70;
-        if (v70 > 7)
+        v69 = commonRBSP::ue_v(this);
+        this->var75 = v69;
+        if (v69 > 7)
         {
-          v71 = v70;
+          v70 = v69;
           if (!enableLogInstance)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              goto LABEL_95;
+              return this->var14;
             }
 
-            v82 = this->var30;
-            v83 = 136315650;
-            v84 = "rpu_data_header";
-            v85 = 1024;
-            *v86 = v82;
-            *&v86[4] = 1024;
-            *&v86[6] = v71;
+            v81 = this->var30;
+            v82 = 136315650;
+            v83 = "rpu_data_header";
+            v84 = 1024;
+            *v85 = v81;
+            *&v85[4] = 1024;
+            *&v85[6] = v70;
             v22 = MEMORY[0x277D86220];
             v23 = " [1.450.54] %s: EDRMetaData_RBSP error vdr_rpu_level = %d, nlq_num_pivots_minus2 = %d, bail!\n";
-            goto LABEL_131;
+            goto LABEL_130;
           }
 
           if (logInstanceID)
@@ -3417,23 +3371,23 @@ LABEL_95:
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v72 = this->var30;
-            v83 = 134218754;
-            v84 = WORD1(v18);
-            v85 = 2080;
-            *v86 = "rpu_data_header";
-            *&v86[8] = 1024;
-            *v87 = v72;
-            *&v87[4] = 1024;
-            v88 = v71;
+            v71 = this->var30;
+            v82 = 134218754;
+            v83 = WORD1(v18);
+            v84 = 2080;
+            *v85 = "rpu_data_header";
+            *&v85[8] = 1024;
+            *v86 = v71;
+            *&v86[4] = 1024;
+            v87 = v70;
             v19 = MEMORY[0x277D86220];
             v20 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error vdr_rpu_level = %d, nlq_num_pivots_minus2 = %d, bail!\n";
-            goto LABEL_114;
+            goto LABEL_113;
           }
 
 LABEL_33:
           prevLogInstanceID = v18;
-          goto LABEL_95;
+          return this->var14;
         }
       }
 
@@ -3442,21 +3396,21 @@ LABEL_33:
         this->var75 = 0;
       }
 
-      v78 = 0;
+      v77 = 0;
       do
       {
-        v79 = this->var43;
-        v80 = HIDWORD(this->var1) >> (24 - v79);
-        commonRBSP::flush_bits(this, v79 + 8);
-        this->var76[v78++] = v80;
+        v78 = this->var43;
+        v79 = HIDWORD(this->var1) >> (24 - v78);
+        commonRBSP::flush_bits(this, v78 + 8);
+        this->var76[v77++] = v79;
       }
 
-      while (v78 < this->var75 + 2);
+      while (v77 < this->var75 + 2);
       if (this->var57 != this->var32)
       {
-        v81 = this->var1 >> 61;
+        v80 = this->var1 >> 61;
         commonRBSP::flush_bits(this, 3);
-        this->var78 = v81;
+        this->var78 = v80;
       }
     }
 
@@ -3481,62 +3435,62 @@ LABEL_33:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           v46 = this->var30;
-          v83 = 134218754;
-          v84 = WORD1(v45);
-          v85 = 2080;
-          *v86 = "rpu_data_header";
-          *&v86[8] = 1024;
-          *v87 = v46;
-          *&v87[4] = 1024;
-          v88 = var79;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error vdr_rpu_level = %d, num_x_partitions_minus1 = %d, bail!\n", &v83, 0x22u);
+          v82 = 134218754;
+          v83 = WORD1(v45);
+          v84 = 2080;
+          *v85 = "rpu_data_header";
+          *&v85[8] = 1024;
+          *v86 = v46;
+          *&v86[4] = 1024;
+          v87 = var79;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error vdr_rpu_level = %d, num_x_partitions_minus1 = %d, bail!\n", &v82, 0x22u);
         }
 
         prevLogInstanceID = v45;
-        goto LABEL_95;
+        return this->var14;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_95;
+        return this->var14;
       }
 
-      v68 = this->var30;
-      v83 = 136315650;
-      v84 = "rpu_data_header";
-      v85 = 1024;
-      *v86 = v68;
-      *&v86[4] = 1024;
-      *&v86[6] = var79;
+      v67 = this->var30;
+      v82 = 136315650;
+      v83 = "rpu_data_header";
+      v84 = 1024;
+      *v85 = v67;
+      *&v85[4] = 1024;
+      *&v85[6] = var79;
       v22 = MEMORY[0x277D86220];
       v23 = " [1.450.54] %s: EDRMetaData_RBSP error vdr_rpu_level = %d, num_x_partitions_minus1 = %d, bail!\n";
-LABEL_131:
+LABEL_130:
       v57 = 24;
 LABEL_94:
-      _os_log_impl(&dword_250836000, v22, OS_LOG_TYPE_DEFAULT, v23, &v83, v57);
-      goto LABEL_95;
+      _os_log_impl(&dword_250836000, v22, OS_LOG_TYPE_DEFAULT, v23, &v82, v57);
+      return this->var14;
     }
 
-    v66 = v43;
+    v65 = v43;
     if (v43)
     {
       if (!enableLogInstance)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_95;
+          return this->var14;
         }
 
-        v77 = this->var30;
-        v83 = 136315650;
-        v84 = "rpu_data_header";
-        v85 = 1024;
-        *v86 = v77;
-        *&v86[4] = 1024;
-        *&v86[6] = v66;
+        v76 = this->var30;
+        v82 = 136315650;
+        v83 = "rpu_data_header";
+        v84 = 1024;
+        *v85 = v76;
+        *&v85[4] = 1024;
+        *&v85[6] = v65;
         v22 = MEMORY[0x277D86220];
         v23 = " [1.450.54] %s: EDRMetaData_RBSP error vdr_rpu_level = %d, num_y_partitions_minus1 = %d, bail!\n";
-        goto LABEL_131;
+        goto LABEL_130;
       }
 
       if (logInstanceID)
@@ -3551,18 +3505,18 @@ LABEL_94:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v67 = this->var30;
-        v83 = 134218754;
-        v84 = WORD1(v18);
-        v85 = 2080;
-        *v86 = "rpu_data_header";
-        *&v86[8] = 1024;
-        *v87 = v67;
-        *&v87[4] = 1024;
-        v88 = v66;
+        v66 = this->var30;
+        v82 = 134218754;
+        v83 = WORD1(v18);
+        v84 = 2080;
+        *v85 = "rpu_data_header";
+        *&v85[8] = 1024;
+        *v86 = v66;
+        *&v86[4] = 1024;
+        v87 = v65;
         v19 = MEMORY[0x277D86220];
         v20 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error vdr_rpu_level = %d, num_y_partitions_minus1 = %d, bail!\n";
-LABEL_114:
+LABEL_113:
         v21 = 34;
         goto LABEL_32;
       }
@@ -3571,32 +3525,30 @@ LABEL_114:
     }
 
     EDRMetaData_RBSP::assign_pivot_values(this);
-    v73 = this->var76[0];
-    this->var77[0] = v73;
+    v72 = this->var76[0];
+    this->var77[0] = v72;
     var75 = this->var75;
     if (var75 > 0xFFFFFFFD)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      v75 = var75 + 1;
-      v76 = &this->var77[1];
+      v74 = var75 + 1;
+      v75 = &this->var77[1];
       result = 0;
       do
       {
-        v73 += *(v76 - 9);
-        *v76++ = v73;
-        --v75;
+        v72 += *(v75 - 9);
+        *v75++ = v72;
+        --v74;
       }
 
-      while (v75);
+      while (v74);
     }
   }
 
-LABEL_96:
-  v58 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3714,7 +3666,7 @@ EDRMetaData_RBSP *EDRMetaData_RBSP::vdr_dm_set_default(EDRMetaData_RBSP *this)
 
 uint64_t EDRMetaData_RBSP::vdr_dm_data_payload(EDRMetaData_RBSP *this)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v2 = &this->var113[0][1][2][6];
   this->var129 = commonRBSP::ue_v(this);
   v2[622] = commonRBSP::ue_v(this);
@@ -3777,29 +3729,29 @@ uint64_t EDRMetaData_RBSP::vdr_dm_data_payload(EDRMetaData_RBSP *this)
       }
 
       *buf = 134218498;
-      v60 = WORD1(v14);
-      v61 = 2080;
-      *v62 = "vdr_dm_data_payload";
-      *&v62[8] = 1024;
-      v63 = v13;
+      v59 = WORD1(v14);
+      v60 = 2080;
+      *v61 = "vdr_dm_data_payload";
+      *&v61[8] = 1024;
+      v62 = v13;
       v15 = MEMORY[0x277D86220];
       v16 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error signal_bit_depth = %d, bail!\n";
 LABEL_21:
       _os_log_impl(&dword_250836000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 0x1Cu);
 LABEL_22:
       prevLogInstanceID = v14;
-      goto LABEL_38;
+      return this->var14;
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_38;
+      return this->var14;
     }
 
     *buf = 136315394;
-    v60 = "vdr_dm_data_payload";
-    v61 = 1024;
-    *v62 = v13;
+    v59 = "vdr_dm_data_payload";
+    v60 = 1024;
+    *v61 = v13;
     v33 = MEMORY[0x277D86220];
     v34 = " [1.450.54] %s: EDRMetaData_RBSP error signal_bit_depth = %d, bail!\n";
 LABEL_36:
@@ -3848,11 +3800,11 @@ LABEL_36:
       }
 
       *buf = 134218498;
-      v60 = WORD1(v14);
-      v61 = 2080;
-      *v62 = "vdr_dm_data_payload";
-      *&v62[8] = 1024;
-      v63 = v24;
+      v59 = WORD1(v14);
+      v60 = 2080;
+      *v61 = "vdr_dm_data_payload";
+      *&v61[8] = 1024;
+      v62 = v24;
       v15 = MEMORY[0x277D86220];
       v16 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error num_ext_blocks = %d > 254, bail!\n";
       goto LABEL_21;
@@ -3860,19 +3812,19 @@ LABEL_36:
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_38;
+      return this->var14;
     }
 
     *buf = 136315394;
-    v60 = "vdr_dm_data_payload";
-    v61 = 1024;
-    *v62 = v24;
+    v59 = "vdr_dm_data_payload";
+    v60 = 1024;
+    *v61 = v24;
     v33 = MEMORY[0x277D86220];
     v34 = " [1.450.54] %s: EDRMetaData_RBSP error num_ext_blocks = %d > 254, bail!\n";
     goto LABEL_36;
   }
 
-  v58 = 0;
+  v57 = 0;
   *(v2 + 657) = 0;
   v2[659] = 0;
   if (v23)
@@ -3881,7 +3833,7 @@ LABEL_36:
     if (v2[656])
     {
       v26 = 0;
-      while (EDRMetaData_RBSP::ext_content_adaptive_metadata(this, v25, 0, &v58))
+      while (EDRMetaData_RBSP::ext_content_adaptive_metadata(this, v25, 0, &v57))
       {
         if (++v26 >= v2[656])
         {
@@ -3893,38 +3845,38 @@ LABEL_36:
       {
         if (logInstanceID)
         {
-          v50 = logInstanceID;
+          v49 = logInstanceID;
         }
 
         else
         {
-          v50 = prevLogInstanceID;
+          v49 = prevLogInstanceID;
         }
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_67;
+          goto LABEL_66;
         }
 
         *buf = 134218242;
-        v60 = WORD1(v50);
-        v61 = 2080;
-        *v62 = "vdr_dm_data_payload";
-        v51 = MEMORY[0x277D86220];
-        v52 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error in ext_content_adaptive_metadata, EXT_BLOCK_PAYLOAD, bail!\n";
-        goto LABEL_66;
+        v59 = WORD1(v49);
+        v60 = 2080;
+        *v61 = "vdr_dm_data_payload";
+        v50 = MEMORY[0x277D86220];
+        v51 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error in ext_content_adaptive_metadata, EXT_BLOCK_PAYLOAD, bail!\n";
+        goto LABEL_65;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_73;
+        goto LABEL_72;
       }
 
       *buf = 136315138;
-      v60 = "vdr_dm_data_payload";
-      v53 = MEMORY[0x277D86220];
-      v54 = " [1.450.54] %s: EDRMetaData_RBSP error in ext_content_adaptive_metadata, EXT_BLOCK_PAYLOAD, bail!\n";
-      goto LABEL_72;
+      v59 = "vdr_dm_data_payload";
+      v52 = MEMORY[0x277D86220];
+      v53 = " [1.450.54] %s: EDRMetaData_RBSP error in ext_content_adaptive_metadata, EXT_BLOCK_PAYLOAD, bail!\n";
+      goto LABEL_71;
     }
   }
 
@@ -3958,12 +3910,12 @@ LABEL_28:
     while (v29);
   }
 
-  v38 = HIDWORD(this->var1);
+  v37 = HIDWORD(this->var1);
   commonRBSP::flush_bits(this, 32);
-  this->var24 = v38;
-  if (v31 == v38)
+  this->var24 = v37;
+  if (v31 == v37)
   {
-    goto LABEL_73;
+    goto LABEL_72;
   }
 
   this->var1 = this->var16;
@@ -3974,25 +3926,92 @@ LABEL_28:
   this->var9 = this->var19;
   this->var8 = this->var20;
   this->var12 = this->var21;
-  v41 = LODWORD(this->var6) - var18;
-  v43 = var17 + 7;
-  v42 = var17 < -7;
-  v44 = var17 + 14;
-  if (!v42)
+  v40 = LODWORD(this->var6) - var18;
+  v42 = var17 + 7;
+  v41 = var17 < -7;
+  v43 = var17 + 14;
+  if (!v41)
   {
-    v44 = v43;
+    v43 = v42;
   }
 
-  if (v41 + (v44 >> 3) < 6)
+  if (v40 + (v43 >> 3) < 6)
   {
-    v47 = v2[656];
-    if (v47 < 0x100)
+    v46 = v2[656];
+    if (v46 < 0x100)
     {
-      goto LABEL_73;
+      goto LABEL_72;
     }
 
-    v46 = 0;
-LABEL_53:
+    v45 = 0;
+LABEL_52:
+    if (enableLogInstance)
+    {
+      if (logInstanceID)
+      {
+        v48 = logInstanceID;
+      }
+
+      else
+      {
+        v48 = prevLogInstanceID;
+      }
+
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134218754;
+        v59 = WORD1(v48);
+        v60 = 2080;
+        *v61 = "vdr_dm_data_payload";
+        *&v61[8] = 1024;
+        v62 = v45;
+        v63 = 1024;
+        v64 = v46;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error num_blocks_payload2[%d] + num_ext_blocks[%d] > 255, bail!\n", buf, 0x22u);
+      }
+
+      prevLogInstanceID = v48;
+      return this->var14;
+    }
+
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      return this->var14;
+    }
+
+    *buf = 136315650;
+    v59 = "vdr_dm_data_payload";
+    v60 = 1024;
+    *v61 = v45;
+    *&v61[4] = 1024;
+    *&v61[6] = v46;
+    v33 = MEMORY[0x277D86220];
+    v34 = " [1.450.54] %s: EDRMetaData_RBSP error num_blocks_payload2[%d] + num_ext_blocks[%d] > 255, bail!\n";
+    v35 = 24;
+LABEL_37:
+    _os_log_impl(&dword_250836000, v33, OS_LOG_TYPE_DEFAULT, v34, buf, v35);
+    return this->var14;
+  }
+
+  v44 = commonRBSP::ue_v(this);
+  v45 = v44;
+  v46 = v2[656];
+  if (v46 + v44 > 0xFF)
+  {
+    goto LABEL_52;
+  }
+
+  if (v44)
+  {
+    commonRBSP::flush_bits(this, this->var2 & 7);
+    while (EDRMetaData_RBSP::ext_content_adaptive_metadata(this, v47, 1, &v57))
+    {
+      if (!--v45)
+      {
+        goto LABEL_72;
+      }
+    }
+
     if (enableLogInstance)
     {
       if (logInstanceID)
@@ -4005,135 +4024,64 @@ LABEL_53:
         v49 = prevLogInstanceID;
       }
 
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134218754;
-        v60 = WORD1(v49);
-        v61 = 2080;
-        *v62 = "vdr_dm_data_payload";
-        *&v62[8] = 1024;
-        v63 = v46;
-        v64 = 1024;
-        v65 = v47;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error num_blocks_payload2[%d] + num_ext_blocks[%d] > 255, bail!\n", buf, 0x22u);
-      }
-
-      prevLogInstanceID = v49;
-      goto LABEL_38;
-    }
-
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-LABEL_38:
-      result = this->var14;
-      goto LABEL_39;
-    }
-
-    *buf = 136315650;
-    v60 = "vdr_dm_data_payload";
-    v61 = 1024;
-    *v62 = v46;
-    *&v62[4] = 1024;
-    *&v62[6] = v47;
-    v33 = MEMORY[0x277D86220];
-    v34 = " [1.450.54] %s: EDRMetaData_RBSP error num_blocks_payload2[%d] + num_ext_blocks[%d] > 255, bail!\n";
-    v35 = 24;
-LABEL_37:
-    _os_log_impl(&dword_250836000, v33, OS_LOG_TYPE_DEFAULT, v34, buf, v35);
-    goto LABEL_38;
-  }
-
-  v45 = commonRBSP::ue_v(this);
-  v46 = v45;
-  v47 = v2[656];
-  if (v47 + v45 > 0xFF)
-  {
-    goto LABEL_53;
-  }
-
-  if (v45)
-  {
-    commonRBSP::flush_bits(this, this->var2 & 7);
-    while (EDRMetaData_RBSP::ext_content_adaptive_metadata(this, v48, 1, &v58))
-    {
-      if (!--v46)
-      {
-        goto LABEL_73;
-      }
-    }
-
-    if (enableLogInstance)
-    {
-      if (logInstanceID)
-      {
-        v50 = logInstanceID;
-      }
-
-      else
-      {
-        v50 = prevLogInstanceID;
-      }
-
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_67;
+        goto LABEL_66;
       }
 
       *buf = 134218242;
-      v60 = WORD1(v50);
-      v61 = 2080;
-      *v62 = "vdr_dm_data_payload";
-      v51 = MEMORY[0x277D86220];
-      v52 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error in ext_content_adaptive_metadata, EXT_BLOCK_PAYLOAD2, bail!\n";
+      v59 = WORD1(v49);
+      v60 = 2080;
+      *v61 = "vdr_dm_data_payload";
+      v50 = MEMORY[0x277D86220];
+      v51 = " [1.450.54] #%04llx %s: EDRMetaData_RBSP error in ext_content_adaptive_metadata, EXT_BLOCK_PAYLOAD2, bail!\n";
+LABEL_65:
+      _os_log_impl(&dword_250836000, v50, OS_LOG_TYPE_DEFAULT, v51, buf, 0x16u);
 LABEL_66:
-      _os_log_impl(&dword_250836000, v51, OS_LOG_TYPE_DEFAULT, v52, buf, 0x16u);
-LABEL_67:
-      prevLogInstanceID = v50;
-      goto LABEL_73;
+      prevLogInstanceID = v49;
+      goto LABEL_72;
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_73;
+      goto LABEL_72;
     }
 
     *buf = 136315138;
-    v60 = "vdr_dm_data_payload";
-    v53 = MEMORY[0x277D86220];
-    v54 = " [1.450.54] %s: EDRMetaData_RBSP error in ext_content_adaptive_metadata, EXT_BLOCK_PAYLOAD2, bail!\n";
-LABEL_72:
-    _os_log_impl(&dword_250836000, v53, OS_LOG_TYPE_DEFAULT, v54, buf, 0xCu);
+    v59 = "vdr_dm_data_payload";
+    v52 = MEMORY[0x277D86220];
+    v53 = " [1.450.54] %s: EDRMetaData_RBSP error in ext_content_adaptive_metadata, EXT_BLOCK_PAYLOAD2, bail!\n";
+LABEL_71:
+    _os_log_impl(&dword_250836000, v52, OS_LOG_TYPE_DEFAULT, v53, buf, 0xCu);
   }
 
-LABEL_73:
-  v55 = v2[654];
-  if (!v55)
+LABEL_72:
+  v54 = v2[654];
+  if (!v54)
   {
-    v55 = 3696;
+    v54 = 3696;
     v2[654] = 3696;
   }
 
-  v56 = v2[653];
-  if (!v56)
+  v55 = v2[653];
+  if (!v55)
   {
-    v56 = 62;
+    v55 = 62;
     v2[653] = 62;
   }
 
-  v57 = v58;
+  v56 = v57;
   if (!*(v2 + 1320))
   {
     *(v2 + 1320) = 1;
-    *(v2 + 1321) = v56;
-    *(v2 + 1322) = v55;
-    *(v2 + 1323) = (v56 + v55) >> 1;
-    ++v57;
+    *(v2 + 1321) = v55;
+    *(v2 + 1322) = v54;
+    *(v2 + 1323) = (v55 + v54) >> 1;
+    ++v56;
   }
 
   result = 0;
-  v2[656] = v57;
-LABEL_39:
-  v37 = *MEMORY[0x277D85DE8];
+  v2[656] = v56;
   return result;
 }
 
@@ -4282,8 +4230,8 @@ uint64_t EDRMetaData_RBSP::rpu_data_mapping(EDRMetaData_RBSP *this, unsigned int
 {
   v3 = this;
   v4 = 0;
-  v93 = *MEMORY[0x277D85DE8];
-  v80 = a2 + a2 * this->var79 + a3;
+  v92 = *MEMORY[0x277D85DE8];
+  v79 = a2 + a2 * this->var79 + a3;
   var67 = this->var67;
   v5 = a2;
   var83 = this->var83;
@@ -4298,7 +4246,7 @@ uint64_t EDRMetaData_RBSP::rpu_data_mapping(EDRMetaData_RBSP *this, unsigned int
   var96 = this->var96;
   var95 = this->var95;
   var97 = this->var97;
-  v67 = this->var88;
+  v66 = this->var88;
   var87 = this->var87;
   var90 = this->var90;
   var89 = this->var89;
@@ -4310,7 +4258,7 @@ uint64_t EDRMetaData_RBSP::rpu_data_mapping(EDRMetaData_RBSP *this, unsigned int
   v7 = this->var101[a2][a3];
   while (1)
   {
-    v77 = v7;
+    v76 = v7;
     if (var67[v4] != -1)
     {
       break;
@@ -4318,16 +4266,15 @@ uint64_t EDRMetaData_RBSP::rpu_data_mapping(EDRMetaData_RBSP *this, unsigned int
 
 LABEL_29:
     ++v4;
-    v7 = v77 + 1;
+    v7 = v76 + 1;
     if (v4 == 3)
     {
-      result = 0;
-      goto LABEL_41;
+      return 0;
     }
   }
 
   v8 = 0;
-  v76 = v4;
+  v75 = v4;
   while (1)
   {
     v9 = commonRBSP::ue_v(v3);
@@ -4338,7 +4285,7 @@ LABEL_29:
       break;
     }
 
-    v86 = v9;
+    v85 = v9;
     v11 = var83[a3][v9][v5][v4];
     if (*(v11 + 4 * v8))
     {
@@ -4354,7 +4301,7 @@ LABEL_29:
       {
         v3 = v15;
         v5 = v16;
-        v18 = v86;
+        v18 = v85;
         if (*(v11 + 4 * v8) < 2u)
         {
           goto LABEL_16;
@@ -4362,7 +4309,7 @@ LABEL_29:
 
         v22 = commonRBSP::ue_v(v3);
         var85[v5][a3][v4][v8] = v22;
-        v21 = v80 + ~v22;
+        v21 = v79 + ~v22;
 LABEL_14:
         var86[v18][v4][v8] = v21;
         goto LABEL_15;
@@ -4378,16 +4325,16 @@ LABEL_14:
       *v17 = 0;
     }
 
-    v18 = v86;
+    v18 = v85;
     result = EDRMetaData_RBSP::rpu_data_mapping_param(v3, a2, a3, v4, v8);
     if (result)
     {
-      goto LABEL_41;
+      return result;
     }
 
     v20 = *(v11 + 4 * v8);
     *(v11 + 4 * v8) = v20 + 1;
-    v21 = v80;
+    v21 = v79;
     if (!v20)
     {
       goto LABEL_14;
@@ -4403,14 +4350,14 @@ LABEL_16:
       v26 = v23 % v24;
       if (v10 == 2)
       {
-        v46 = var98[v5][a3][v76][v8];
-        v47 = var98[v25][v26][v76][v8];
+        v46 = var98[v5][a3][v75][v8];
+        v47 = var98[v25][v26][v75][v8];
         v48 = *v47;
         *(v46 + 16) = *(v47 + 16);
         *v46 = v48;
-        v49 = var99[v25][v26][v76][v8];
+        v49 = var99[v25][v26][v75][v8];
         v50 = *v49;
-        v51 = var99[v5][a3][v76][v8];
+        v51 = var99[v5][a3][v75][v8];
         *(v51 + 16) = *(v49 + 16);
         *v51 = v50;
       }
@@ -4459,7 +4406,7 @@ LABEL_16:
         v54 = v52 + 1;
         for (i = v56; v53 < i; i = *v54)
         {
-          (*v77)[v53] = var101[v25][v26][v4][v53];
+          (*v76)[v53] = var101[v25][v26][v4][v53];
           ++v53;
         }
 
@@ -4475,7 +4422,7 @@ LABEL_16:
       else
       {
         var87[v5][a3][v4][v8] = var87[v25][v26][v4][v8];
-        v67[v5][a3][v4][v8] = v67[v25][v26][v4][v8];
+        v66[v5][a3][v4][v8] = v66[v25][v26][v4][v8];
         var89[v5][a3][v4][v8] = var89[v25][v26][v4][v8];
         var90[v5][a3][v4][v8] = var90[v25][v26][v4][v8];
         v27 = var91[v25][v26][v4][v8];
@@ -4510,11 +4457,11 @@ LABEL_16:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v88 = WORD1(v57);
-      v89 = 2080;
-      v90 = "rpu_data_mapping";
-      v91 = 1024;
-      v92 = v10;
+      v87 = WORD1(v57);
+      v88 = 2080;
+      v89 = "rpu_data_mapping";
+      v90 = 1024;
+      v91 = v10;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error map_idc = %d, bail!\n", buf, 0x1Cu);
     }
 
@@ -4524,16 +4471,13 @@ LABEL_16:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v88 = "rpu_data_mapping";
-    v89 = 1024;
-    LODWORD(v90) = v10;
+    v87 = "rpu_data_mapping";
+    v88 = 1024;
+    LODWORD(v89) = v10;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s: EDRMetaData_RBSP error map_idc = %d, bail!\n", buf, 0x12u);
   }
 
-  result = v3->var14;
-LABEL_41:
-  v58 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3->var14;
 }
 
 void EDRMetaData_RBSP::rpu_data_chroma_resampling(EDRMetaData_RBSP *this, unsigned int a2, unsigned int a3)
@@ -4636,12 +4580,12 @@ EDRMetaData_RBSP *EDRMetaData_RBSP::rpu_data_spatial_resampling(EDRMetaData_RBSP
 
 uint64_t EDRMetaData_RBSP::rpu_data_nlq(EDRMetaData_RBSP *this, unsigned int a2, unsigned int a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (this->var75 != -1)
   {
     v6 = 0;
     var115 = this->var115;
-    v40 = a2 + a2 * this->var79 + a3;
+    v39 = a2 + a2 * this->var79 + a3;
     var120 = this->var120;
     var119 = this->var119;
     var122 = this->var122;
@@ -4655,9 +4599,9 @@ uint64_t EDRMetaData_RBSP::rpu_data_nlq(EDRMetaData_RBSP *this, unsigned int a2,
     v8 = 406636;
 LABEL_3:
     v9 = 0;
-    v25 = v8;
-    v26 = v7;
-    *v30 = v6;
+    v24 = v8;
+    v25 = v7;
+    *v29 = v6;
     while (1)
     {
       v10 = (this + v7);
@@ -4672,18 +4616,18 @@ LABEL_3:
       if ((var1 & 0x8000000000000000) == 0)
       {
         v12 = (this + v7);
-        v6 = *v30;
+        v6 = *v29;
         goto LABEL_8;
       }
 
-      v6 = *v30;
+      v6 = *v29;
       if (v10[27] < 2u)
       {
         goto LABEL_18;
       }
 
       v15 = commonRBSP::ue_v(this);
-      if (!v40)
+      if (!v39)
       {
         if (enableLogInstance)
         {
@@ -4700,15 +4644,15 @@ LABEL_3:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134219010;
-            v42 = WORD1(v23);
-            v43 = 2080;
-            *v44 = "rpu_data_nlq";
-            *&v44[8] = 1024;
-            *v45 = 0;
-            *&v45[4] = 1024;
-            v46 = a2;
-            v47 = 1024;
-            v48 = a3;
+            v41 = WORD1(v23);
+            v42 = 2080;
+            *v43 = "rpu_data_nlq";
+            *&v43[8] = 1024;
+            *v44 = 0;
+            *&v44[4] = 1024;
+            v45 = a2;
+            v46 = 1024;
+            v47 = a3;
             _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: ERROR: Out of bound! curr_part_idx = %d, y = %d, x = %d, bail!\n", buf, 0x28u);
           }
 
@@ -4718,23 +4662,22 @@ LABEL_3:
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v42 = "rpu_data_nlq";
-          v43 = 1024;
-          *v44 = 0;
-          *&v44[4] = 1024;
-          *&v44[6] = a2;
-          *v45 = 1024;
-          *&v45[2] = a3;
+          v41 = "rpu_data_nlq";
+          v42 = 1024;
+          *v43 = 0;
+          *&v43[4] = 1024;
+          *&v43[6] = a2;
+          *v44 = 1024;
+          *&v44[2] = a3;
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s: ERROR: Out of bound! curr_part_idx = %d, y = %d, x = %d, bail!\n", buf, 0x1Eu);
         }
 
-        result = this->var14;
-        goto LABEL_32;
+        return this->var14;
       }
 
-      if (v15 >= v40 - 1)
+      if (v15 >= v39 - 1)
       {
-        v16 = v40 - 1;
+        v16 = v39 - 1;
       }
 
       else
@@ -4743,7 +4686,7 @@ LABEL_3:
       }
 
       *(&this->var40 + v7) = v16;
-      v14 = v40 + ~v16;
+      v14 = v39 + ~v16;
       v12 = (this + v7);
 LABEL_16:
       *(&this->var0 + v8) = v14;
@@ -4773,14 +4716,14 @@ LABEL_18:
       if (v9 == 3)
       {
         ++v6;
-        v7 = v26 + 12;
-        v8 = v25 + 12;
+        v7 = v25 + 12;
+        v8 = v24 + 12;
         if (v6 < this->var75 + 1)
         {
           goto LABEL_3;
         }
 
-        goto LABEL_21;
+        return 0;
       }
     }
 
@@ -4790,7 +4733,7 @@ LABEL_8:
     EDRMetaData_RBSP::rpu_data_nlq_param(this, a2, a3, v6, v9);
     v13 = v10[27];
     v10[27] = v13 + 1;
-    v14 = v40;
+    v14 = v39;
     if (v13)
     {
       goto LABEL_17;
@@ -4799,11 +4742,7 @@ LABEL_8:
     goto LABEL_16;
   }
 
-LABEL_21:
-  result = 0;
-LABEL_32:
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 EDRMetaData_RBSP *EDRMetaData_RBSP::rpu_data_el_chroma_resampling(EDRMetaData_RBSP *this, int a2, int a3)
@@ -4866,129 +4805,98 @@ EDRMetaData_RBSP *EDRMetaData_RBSP::rpu_data_el_chroma_resampling(EDRMetaData_RB
 
 uint64_t EDRMetaData_RBSP::rpu_data_mapping_param(EDRMetaData_RBSP *this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
   v11 = this->var82[a2][a3][a4][a5];
-  if (!v11)
+  if (v11)
   {
-    v19 = commonRBSP::ue_v(this);
-    v20 = v19;
-    if (v19 >= 2)
+    if (v11 != 1)
     {
-      if (enableLogInstance)
+      if (v11 == 2)
       {
-        if (logInstanceID)
+        v12 = 648 * a2 + 648 * a3 + 216 * a4 + 24 * a5 + 9444;
+        v13 = 5;
+        do
         {
-          v21 = logInstanceID;
+          if (this->var38 || (v14 = commonRBSP::ue_v(this), *(&this->var0 + v12) = (-((v14 & 1) == 0) ^ ((v14 + 1) >> 1)) + ((v14 & 1) == 0), this->var38))
+          {
+            var39 = 32;
+          }
+
+          else
+          {
+            var39 = this->var39;
+          }
+
+          v16 = HIDWORD(this->var1) >> -var39;
+          commonRBSP::flush_bits(this, var39);
+          *(&this->var69[2][11] + v12) = v16;
+          v12 += 4;
+          --v13;
         }
 
-        else
-        {
-          v21 = prevLogInstanceID;
-        }
-
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 134218498;
-          v60 = WORD1(v21);
-          v61 = 2080;
-          v62 = "rpu_data_mapping_param";
-          v63 = 1024;
-          v64 = v20;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: ERROR: Out of bound! poly_order_minus1 = %d, bail!\n", buf, 0x1Cu);
-        }
-
-        prevLogInstanceID = v21;
-        goto LABEL_70;
+        while (v13);
+        return 0;
       }
 
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      v22 = this->var69[a4];
+      v23 = v22[a5];
+      v24 = a5 + 1;
+      LODWORD(v25) = v22[a5 + 1];
+      if (v23 < v25)
       {
-        *buf = 136315394;
-        v60 = "rpu_data_mapping_param";
-        v61 = 1024;
-        LODWORD(v62) = v20;
-        v51 = MEMORY[0x277D86220];
-        v52 = " [1.450.54] %s: ERROR: Out of bound! poly_order_minus1 = %d, bail!\n";
-        goto LABEL_69;
-      }
-
-LABEL_70:
-      result = this->var14;
-      goto LABEL_71;
-    }
-
-    this->var87[a2][v8][v9][v10] = v19 + 1;
-    if (v19 || (var1 = this->var1, commonRBSP::flush_bits(this, 1), this->var88[a2][v8][v9][v10] = var1 >> 63, (var1 & 0x8000000000000000) == 0))
-    {
-      v43 = v20 + 2;
-      v44 = this->var91[v8][a2][v9][v10];
-      do
-      {
-        if (this->var38 || (v45 = commonRBSP::ue_v(this), *v44 = (-((v45 & 1) == 0) ^ ((v45 + 1) >> 1)) + ((v45 & 1) == 0), this->var38))
+        v26 = &this->var101[a3][a2][a4][v23];
+        do
         {
-          var39 = 32;
+          if (this->var38 || (*(v26 - 49152) = commonRBSP::ue_v(this), this->var38))
+          {
+            v27 = 32;
+          }
+
+          else
+          {
+            v27 = this->var39;
+          }
+
+          v28 = HIDWORD(this->var1) >> -v27;
+          commonRBSP::flush_bits(this, v27);
+          *v26++ = v28;
+          ++v23;
+          v25 = v22[v24];
         }
 
-        else
-        {
-          var39 = this->var39;
-        }
-
-        v47 = HIDWORD(this->var1) >> -var39;
-        commonRBSP::flush_bits(this, var39);
-        v44[81] = v47;
-        ++v44;
-        --v43;
+        while (v23 < v25);
+        v8 = a3;
       }
 
-      while (v43);
-      goto LABEL_48;
-    }
-
-    if (this->var38 || (this->var89[a2][v8][v9][v10] = commonRBSP::ue_v(this), this->var38))
-    {
-      v54 = 32;
-    }
-
-    else
-    {
-      v54 = this->var39;
-    }
-
-    v55 = HIDWORD(this->var1) >> -v54;
-    commonRBSP::flush_bits(this, v54);
-    this->var90[a2][v8][v9][v10] = v55;
-    if (this->var67[v9] == a5)
-    {
-      if (this->var38)
+      var38 = this->var38;
+      if (this->var67[v9] == a5)
       {
-        goto LABEL_80;
+        if (!var38)
+        {
+          this->var100[a2][v8][v9][v25] = 0;
+LABEL_63:
+          v49 = this->var39;
+          goto LABEL_64;
+        }
       }
 
-      this->var89[a2][v8][v9][a5 + 1] = commonRBSP::ue_v(this);
+      else if (!var38)
+      {
+        goto LABEL_63;
+      }
+
+      v49 = 32;
+LABEL_64:
+      v50 = HIDWORD(this->var1) >> -v49;
+      commonRBSP::flush_bits(this, v49);
+      result = 0;
+      this->var101[a2][v8][v9][v22[v24]] = v50;
+      return result;
     }
 
-    if (!this->var38)
-    {
-      v56 = this->var39;
-      goto LABEL_82;
-    }
-
-LABEL_80:
-    v56 = 32;
-LABEL_82:
-    v57 = HIDWORD(this->var1) >> -v56;
-    commonRBSP::flush_bits(this, v56);
-    result = 0;
-    this->var90[a2][v8][v9][a5 + 1] = v57;
-    goto LABEL_71;
-  }
-
-  if (v11 == 1)
-  {
     v17 = this->var1 >> 62;
     commonRBSP::flush_bits(this, 2);
     if (v17 != 3)
@@ -5038,7 +4946,7 @@ LABEL_82:
       }
 
       while (v34++ != v32);
-      goto LABEL_48;
+      return 0;
     }
 
     if (enableLogInstance)
@@ -5056,118 +4964,143 @@ LABEL_82:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218498;
-        v60 = WORD1(v18);
-        v61 = 2080;
-        v62 = "rpu_data_mapping_param";
-        v63 = 1024;
-        v64 = 3;
+        v59 = WORD1(v18);
+        v60 = 2080;
+        v61 = "rpu_data_mapping_param";
+        v62 = 1024;
+        v63 = 3;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: ERROR: Out of bound! mmr_order_minus1 = %d, bail!\n", buf, 0x1Cu);
       }
 
       prevLogInstanceID = v18;
-      goto LABEL_70;
+      return this->var14;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v60 = "rpu_data_mapping_param";
-      v61 = 1024;
-      LODWORD(v62) = 3;
+      v59 = "rpu_data_mapping_param";
+      v60 = 1024;
+      LODWORD(v61) = 3;
       v51 = MEMORY[0x277D86220];
       v52 = " [1.450.54] %s: ERROR: Out of bound! mmr_order_minus1 = %d, bail!\n";
 LABEL_69:
       _os_log_impl(&dword_250836000, v51, OS_LOG_TYPE_DEFAULT, v52, buf, 0x12u);
-      goto LABEL_70;
+      return this->var14;
     }
 
-    goto LABEL_70;
+    return this->var14;
   }
 
-  if (v11 != 2)
+  v19 = commonRBSP::ue_v(this);
+  v20 = v19;
+  if (v19 >= 2)
   {
-    v22 = this->var69[a4];
-    v23 = v22[a5];
-    v24 = a5 + 1;
-    LODWORD(v25) = v22[a5 + 1];
-    if (v23 < v25)
+    if (enableLogInstance)
     {
-      v26 = &this->var101[a3][a2][a4][v23];
-      do
+      if (logInstanceID)
       {
-        if (this->var38 || (*(v26 - 49152) = commonRBSP::ue_v(this), this->var38))
-        {
-          v27 = 32;
-        }
-
-        else
-        {
-          v27 = this->var39;
-        }
-
-        v28 = HIDWORD(this->var1) >> -v27;
-        commonRBSP::flush_bits(this, v27);
-        *v26++ = v28;
-        ++v23;
-        v25 = v22[v24];
+        v21 = logInstanceID;
       }
 
-      while (v23 < v25);
-      v8 = a3;
-    }
-
-    var38 = this->var38;
-    if (this->var67[v9] == a5)
-    {
-      if (!var38)
+      else
       {
-        this->var100[a2][v8][v9][v25] = 0;
-LABEL_63:
-        v49 = this->var39;
-        goto LABEL_64;
+        v21 = prevLogInstanceID;
       }
+
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134218498;
+        v59 = WORD1(v21);
+        v60 = 2080;
+        v61 = "rpu_data_mapping_param";
+        v62 = 1024;
+        v63 = v20;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: ERROR: Out of bound! poly_order_minus1 = %d, bail!\n", buf, 0x1Cu);
+      }
+
+      prevLogInstanceID = v21;
+      return this->var14;
     }
 
-    else if (!var38)
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_63;
+      *buf = 136315394;
+      v59 = "rpu_data_mapping_param";
+      v60 = 1024;
+      LODWORD(v61) = v20;
+      v51 = MEMORY[0x277D86220];
+      v52 = " [1.450.54] %s: ERROR: Out of bound! poly_order_minus1 = %d, bail!\n";
+      goto LABEL_69;
     }
 
-    v49 = 32;
-LABEL_64:
-    v50 = HIDWORD(this->var1) >> -v49;
-    commonRBSP::flush_bits(this, v49);
-    result = 0;
-    this->var101[a2][v8][v9][v22[v24]] = v50;
-    goto LABEL_71;
+    return this->var14;
   }
 
-  v12 = 648 * a2 + 648 * a3 + 216 * a4 + 24 * a5 + 9444;
-  v13 = 5;
-  do
+  this->var87[a2][v8][v9][v10] = v19 + 1;
+  if (v19 || (var1 = this->var1, commonRBSP::flush_bits(this, 1), this->var88[a2][v8][v9][v10] = var1 >> 63, (var1 & 0x8000000000000000) == 0))
   {
-    if (this->var38 || (v14 = commonRBSP::ue_v(this), *(&this->var0 + v12) = (-((v14 & 1) == 0) ^ ((v14 + 1) >> 1)) + ((v14 & 1) == 0), this->var38))
+    v43 = v20 + 2;
+    v44 = this->var91[v8][a2][v9][v10];
+    do
     {
-      v15 = 32;
+      if (this->var38 || (v45 = commonRBSP::ue_v(this), *v44 = (-((v45 & 1) == 0) ^ ((v45 + 1) >> 1)) + ((v45 & 1) == 0), this->var38))
+      {
+        v46 = 32;
+      }
+
+      else
+      {
+        v46 = this->var39;
+      }
+
+      v47 = HIDWORD(this->var1) >> -v46;
+      commonRBSP::flush_bits(this, v46);
+      v44[81] = v47;
+      ++v44;
+      --v43;
     }
 
-    else
-    {
-      v15 = this->var39;
-    }
-
-    v16 = HIDWORD(this->var1) >> -v15;
-    commonRBSP::flush_bits(this, v15);
-    *(&this->var69[2][11] + v12) = v16;
-    v12 += 4;
-    --v13;
+    while (v43);
+    return 0;
   }
 
-  while (v13);
-LABEL_48:
+  if (this->var38 || (this->var89[a2][v8][v9][v10] = commonRBSP::ue_v(this), this->var38))
+  {
+    v53 = 32;
+  }
+
+  else
+  {
+    v53 = this->var39;
+  }
+
+  v54 = HIDWORD(this->var1) >> -v53;
+  commonRBSP::flush_bits(this, v53);
+  this->var90[a2][v8][v9][v10] = v54;
+  if (this->var67[v9] == a5)
+  {
+    if (this->var38)
+    {
+      goto LABEL_79;
+    }
+
+    this->var89[a2][v8][v9][a5 + 1] = commonRBSP::ue_v(this);
+  }
+
+  if (!this->var38)
+  {
+    v55 = this->var39;
+    goto LABEL_81;
+  }
+
+LABEL_79:
+  v55 = 32;
+LABEL_81:
+  v56 = HIDWORD(this->var1) >> -v55;
+  commonRBSP::flush_bits(this, v55);
   result = 0;
-LABEL_71:
-  v53 = *MEMORY[0x277D85DE8];
+  this->var90[a2][v8][v9][a5 + 1] = v56;
   return result;
 }
 
@@ -5505,7 +5438,7 @@ EDRMetaData_RBSP *EDRMetaData_RBSP::rpu_data_spatial_resampling_filter_exp(EDRMe
   return this;
 }
 
-uint64_t *EDRMetaData_RBSP::rpu_data_nlq_param(EDRMetaData_RBSP *this, unsigned int a2, int a3, unsigned int a4, unsigned int a5)
+uint64_t *EDRMetaData_RBSP::rpu_data_nlq_param(EDRMetaData_RBSP *this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
   var44 = this->var44;
   v11 = HIDWORD(this->var1) >> (24 - var44);
@@ -5581,7 +5514,7 @@ uint64_t *EDRMetaData_RBSP::rpu_data_nlq_param(EDRMetaData_RBSP *this, unsigned 
 
 uint64_t EDRMetaData_RBSP::ext_content_adaptive_metadata(EDRMetaData_RBSP *this, unsigned int a2, int a3, int *a4)
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   v7 = commonRBSP::ue_v(this);
   if (v7 < 0x101)
   {
@@ -5589,9 +5522,7 @@ uint64_t EDRMetaData_RBSP::ext_content_adaptive_metadata(EDRMetaData_RBSP *this,
     commonRBSP::flush_bits(this, 8);
     if (!EDRMetaData_RBSP::is_valid_ext_block(this, v7, var1_high, a3))
     {
-LABEL_21:
-      v9 = 0;
-      goto LABEL_76;
+      return 0;
     }
 
     v11 = 0;
@@ -5715,21 +5646,17 @@ LABEL_71:
           v89 = v11 - 8 * v7;
           if (v11 >= 8 * v7)
           {
-            v9 = 1;
+            return 1;
           }
 
-          else
+          do
           {
-            do
-            {
-              v9 = 1;
-              commonRBSP::flush_bits(this, 1);
-            }
-
-            while (!__CFADD__(v89++, 1));
+            v9 = 1;
+            commonRBSP::flush_bits(this, 1);
           }
 
-          goto LABEL_76;
+          while (!__CFADD__(v89++, 1));
+          return v9;
       }
 
       ++*a4;
@@ -5817,7 +5744,7 @@ LABEL_71:
           }
 
           while (v12);
-          goto LABEL_76;
+          return v9;
         }
 
         v11 = 0;
@@ -5911,21 +5838,21 @@ LABEL_71:
 
           else
           {
-            v93 = 0;
+            v92 = 0;
             if (var148 < 5)
             {
               v60 = &this->var156[var148];
             }
 
-            v94 = v60 + 22;
+            v93 = v60 + 22;
             do
             {
-              v95 = HIBYTE(this->var1);
+              v94 = HIBYTE(this->var1);
               commonRBSP::flush_bits(this, 8);
-              v94[v93++] = v95;
+              v93[v92++] = v94;
             }
 
-            while (v93 != 6);
+            while (v92 != 6);
             if (v7 < 0x14)
             {
               v11 = 152;
@@ -5933,22 +5860,22 @@ LABEL_71:
 
             else
             {
-              v96 = 0;
-              v97 = buf;
+              v95 = 0;
+              v96 = buf;
               if (var148 < 5)
               {
-                v97 = &this->var156[var148];
+                v96 = &this->var156[var148];
               }
 
-              v98 = v97 + 28;
+              v97 = v96 + 28;
               do
               {
-                v99 = HIBYTE(this->var1);
+                v98 = HIBYTE(this->var1);
                 commonRBSP::flush_bits(this, 8);
-                v98[v96++] = v99;
+                v97[v95++] = v98;
               }
 
-              while (v96 != 6);
+              while (v95 != 6);
               v11 = 200;
             }
           }
@@ -6081,13 +6008,13 @@ LABEL_70:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v102 = "ext_content_adaptive_metadata";
-      v103 = 1024;
-      LODWORD(v104) = v7;
+      v101 = "ext_content_adaptive_metadata";
+      v102 = 1024;
+      LODWORD(v103) = v7;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s: EDRMetaData_RBSP error ext_block_len[%u] > 256, bail!\n", buf, 0x12u);
     }
 
-    goto LABEL_21;
+    return 0;
   }
 
   if (logInstanceID)
@@ -6103,18 +6030,16 @@ LABEL_70:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v102 = WORD1(v8);
-    v103 = 2080;
-    v104 = "ext_content_adaptive_metadata";
-    v105 = 1024;
-    v106 = v7;
+    v101 = WORD1(v8);
+    v102 = 2080;
+    v103 = "ext_content_adaptive_metadata";
+    v104 = 1024;
+    v105 = v7;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error ext_block_len[%u] > 256, bail!\n", buf, 0x1Cu);
   }
 
   v9 = 0;
   prevLogInstanceID = v8;
-LABEL_76:
-  v91 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -6187,11 +6112,10 @@ uint64_t EDRMetaData_RBSP::ext_blocks_vdr_dm_data_payload2(EDRMetaData_RBSP *thi
 
 BOOL EDRMetaData_RBSP::is_valid_ext_block(EDRMetaData_RBSP *this, unsigned int a2, int a3, int a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
-    result = 1;
-    goto LABEL_11;
+    return 1;
   }
 
   v5 = this->var2 + 8 * (this->var6 - this->var5) + 32;
@@ -6212,41 +6136,40 @@ BOOL EDRMetaData_RBSP::is_valid_ext_block(EDRMetaData_RBSP *this, unsigned int a
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134218754;
-        v16 = WORD1(v7);
-        v17 = 2080;
-        *v18 = "is_valid_ext_block";
-        *&v18[8] = 2048;
-        *v19 = v5;
-        *&v19[8] = 1024;
-        v20 = v6;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error remaining_bits[%lu] < length[%u], bail!\n", &v15, 0x26u);
+        v14 = 134218754;
+        v15 = WORD1(v7);
+        v16 = 2080;
+        *v17 = "is_valid_ext_block";
+        *&v17[8] = 2048;
+        *v18 = v5;
+        *&v18[8] = 1024;
+        v19 = v6;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error remaining_bits[%lu] < length[%u], bail!\n", &v14, 0x26u);
       }
 
       result = 0;
       prevLogInstanceID = v7;
-      goto LABEL_11;
+      return result;
     }
 
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     if (!result)
     {
-      goto LABEL_11;
+      return result;
     }
 
-    v15 = 136315650;
-    v16 = "is_valid_ext_block";
-    v17 = 2048;
-    *v18 = v5;
-    *&v18[8] = 1024;
-    *v19 = v6;
-    v11 = MEMORY[0x277D86220];
-    v12 = " [1.450.54] %s: EDRMetaData_RBSP error remaining_bits[%lu] < length[%u], bail!\n";
-    v13 = 28;
+    v14 = 136315650;
+    v15 = "is_valid_ext_block";
+    v16 = 2048;
+    *v17 = v5;
+    *&v17[8] = 1024;
+    *v18 = v6;
+    v10 = MEMORY[0x277D86220];
+    v11 = " [1.450.54] %s: EDRMetaData_RBSP error remaining_bits[%lu] < length[%u], bail!\n";
+    v12 = 28;
 LABEL_59:
-    _os_log_impl(&dword_250836000, v11, OS_LOG_TYPE_DEFAULT, v12, &v15, v13);
-    result = 0;
-    goto LABEL_11;
+    _os_log_impl(&dword_250836000, v10, OS_LOG_TYPE_DEFAULT, v11, &v14, v12);
+    return 0;
   }
 
   result = 1;
@@ -6258,7 +6181,7 @@ LABEL_59:
       {
         if (a2 == 4)
         {
-          goto LABEL_11;
+          return result;
         }
       }
 
@@ -6266,13 +6189,13 @@ LABEL_59:
       {
         if (a2 == 2)
         {
-          goto LABEL_11;
+          return result;
         }
       }
 
       else if (a3 != 255 || a2 == 6)
       {
-        goto LABEL_11;
+        return result;
       }
     }
 
@@ -6280,7 +6203,7 @@ LABEL_59:
     {
       if (a2 <= 0x19 && ((1 << a2) & 0x2083400) != 0)
       {
-        goto LABEL_11;
+        return result;
       }
     }
 
@@ -6288,13 +6211,13 @@ LABEL_59:
     {
       if ((a2 & 0xFFFFFFEF) == 1)
       {
-        goto LABEL_11;
+        return result;
       }
     }
 
     else if ((a2 & 0xFFFFFFEF) == 5)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
@@ -6304,7 +6227,7 @@ LABEL_59:
     {
       if (a2 == 3)
       {
-        goto LABEL_11;
+        return result;
       }
     }
 
@@ -6312,39 +6235,42 @@ LABEL_59:
     {
       if (a2 == 7)
       {
-        goto LABEL_11;
+        return result;
       }
     }
 
     else if (a3 != 6 || a2 == 8)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    if (a3 != 1)
+    if (a3 == 1)
     {
-      if (a3 == 2)
-      {
-        if (a2 == 11)
-        {
-          goto LABEL_11;
-        }
-
-        goto LABEL_50;
-      }
-
-      if (a3 != 3)
-      {
-        goto LABEL_11;
-      }
+      goto LABEL_17;
     }
 
-    if (a2 == 5)
+    if (a3 != 2)
     {
-      goto LABEL_11;
+      if (a3 != 3)
+      {
+        return result;
+      }
+
+LABEL_17:
+      if (a2 == 5)
+      {
+        return result;
+      }
+
+      goto LABEL_50;
+    }
+
+    if (a2 == 11)
+    {
+      return result;
     }
   }
 
@@ -6354,48 +6280,46 @@ LABEL_50:
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     if (!result)
     {
-      goto LABEL_11;
+      return result;
     }
 
-    v15 = 136315650;
-    v16 = "is_valid_ext_block";
-    v17 = 1024;
-    *v18 = a3;
-    *&v18[4] = 1024;
-    *&v18[6] = a2;
-    v11 = MEMORY[0x277D86220];
-    v12 = " [1.450.54] %s: EDRMetaData_RBSP error level=%d, length=%d: invalid!";
-    v13 = 24;
+    v14 = 136315650;
+    v15 = "is_valid_ext_block";
+    v16 = 1024;
+    *v17 = a3;
+    *&v17[4] = 1024;
+    *&v17[6] = a2;
+    v10 = MEMORY[0x277D86220];
+    v11 = " [1.450.54] %s: EDRMetaData_RBSP error level=%d, length=%d: invalid!";
+    v12 = 24;
     goto LABEL_59;
   }
 
   if (logInstanceID)
   {
-    v14 = logInstanceID;
+    v13 = logInstanceID;
   }
 
   else
   {
-    v14 = prevLogInstanceID;
+    v13 = prevLogInstanceID;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 134218754;
-    v16 = WORD1(v14);
-    v17 = 2080;
-    *v18 = "is_valid_ext_block";
-    *&v18[8] = 1024;
-    *v19 = a3;
-    *&v19[4] = 1024;
-    *&v19[6] = a2;
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error level=%d, length=%d: invalid!", &v15, 0x22u);
+    v14 = 134218754;
+    v15 = WORD1(v13);
+    v16 = 2080;
+    *v17 = "is_valid_ext_block";
+    *&v17[8] = 1024;
+    *v18 = a3;
+    *&v18[4] = 1024;
+    *&v18[6] = a2;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s: EDRMetaData_RBSP error level=%d, length=%d: invalid!", &v14, 0x22u);
   }
 
   result = 0;
-  prevLogInstanceID = v14;
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
+  prevLogInstanceID = v13;
   return result;
 }
 
@@ -6928,9 +6852,9 @@ float *getBezierAnchors(float *result)
     {
       v9 = v2;
       result = &v5[15 * v2];
-      *result = *&v4[v2++];
+      *result = v4[v2++];
       v10 = *(v6 + v9);
-      result[v10] = *&v4[v2];
+      result[v10] = v4[v2];
       if (v10 >= 2)
       {
         v11 = (v10 - 1);
@@ -6939,7 +6863,7 @@ float *getBezierAnchors(float *result)
         do
         {
           v13 = *result++;
-          *v12++ = *&v4[v9] + (v13 * (*&v4[v2] - *&v4[v9]));
+          *v12++ = v4[v9] + (v13 * (v4[v2] - v4[v9]));
           --v11;
         }
 
@@ -6956,20 +6880,20 @@ float *getBezierAnchors(float *result)
   return result;
 }
 
-float *convertBezierToPoly(float *result)
+unsigned __int16 *convertBezierToPoly(unsigned __int16 *result)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*result >= 2u)
   {
     v1 = result;
-    v2 = result + 98;
-    v3 = result + 92;
-    v10 = result + 248;
-    v11 = result + 173;
+    v2 = (result + 196);
+    v3 = (result + 184);
+    v9 = (result + 496);
+    v10 = (result + 346);
     v4 = 0;
     v5 = *result;
     v6 = *result + 1;
-    v7 = result + 173;
+    v7 = (result + 346);
     do
     {
       BezierCurvePolyCoeff(v7++, v4++, v5, v2);
@@ -6977,18 +6901,17 @@ float *convertBezierToPoly(float *result)
 
     while (v6 != v4);
     v8 = *v3;
-    v12[0] = -*v3;
-    v12[1] = 1.0;
-    PolyGeneric2PolyStd(v12, 2, v3[1] - v8, *v1, v11, v10);
+    v11[0] = -*v3;
+    v11[1] = 1.0;
+    PolyGeneric2PolyStd(v11, 2, v3[1] - v8, *v1, v10, v9, *v1 + 1);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_25086B444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25086B444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -7138,7 +7061,7 @@ float setupNlqParameters(_DWORD *a1, uint64_t a2)
   return result;
 }
 
-_DWORD *createPolynomialTableForComponent(int *a1, int a2, uint64_t a3)
+_DWORD *createPolynomialTableForComponent(int *a1, unsigned int a2, uint64_t a3)
 {
   v3 = 0;
   v4 = *a1;
@@ -7168,7 +7091,7 @@ _DWORD *createPolynomialTableForComponent(int *a1, int a2, uint64_t a3)
       }
     }
 
-    v21 = v8 + 1;
+    v21 = (v8 + 1);
     v22 = 1;
     while (v14 + v22 != 1)
     {
@@ -7322,33 +7245,44 @@ uint64_t createNlqTableForComponent(uint64_t result, unsigned int a2, _DWORD *a3
   return result;
 }
 
-void sub_2508702F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2508702F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = AdaptiveTM;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-int *FindChromaDist(int *result, unsigned int a2, int a3)
+uLong crc32(uLong crc, const Bytef *buf, uInt len)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  for (result = ~crc; *&len; --*&len)
+  {
+    v4 = *buf++;
+    result = (crc32_lut[v4 ^ BYTE3(result)] ^ (result << 8));
+  }
+
+  return result;
+}
+
+unsigned int *FindChromaDist(unsigned int *result, unsigned int a2, int a3)
+{
+  v14[3] = *MEMORY[0x277D85DE8];
   if (result)
   {
-    GetRgb2XyzM33ByV8Prims(result, v11);
-    v15[0] = (v11[0] * a2) >> 26;
-    v15[1] = (v11[3] * a2) >> 26;
-    v15[2] = (v11[6] * a2) >> 26;
-    Xyz2IctcpDm(v15, &v12);
-    v5 = v13;
-    v6 = a3 - v12;
-    if (a3 - v12 == 0x80000000)
+    GetRgb2XyzM33ByV8Prims(result, v10);
+    v14[0] = (v10[0] * a2) >> 26;
+    v14[1] = (v10[3] * a2) >> 26;
+    v14[2] = (v10[6] * a2) >> 26;
+    Xyz2IctcpDm(v14, &v11);
+    v5 = v12;
+    v6 = a3 - v11;
+    if (a3 - v11 == 0x80000000)
     {
       v7 = 0x7FFFFFFF;
     }
 
     else
     {
-      v7 = v12 - a3;
+      v7 = v11 - a3;
     }
 
     if (v6 < 0)
@@ -7356,40 +7290,39 @@ int *FindChromaDist(int *result, unsigned int a2, int a3)
       v6 = v7;
     }
 
-    if (v13 == 0x80000000)
+    if (v12 == 0x80000000)
     {
       v8 = 0x7FFFFFFF;
     }
 
     else
     {
-      v8 = -v13;
+      v8 = -v12;
     }
 
-    if (v13 < 0)
+    if (v12 < 0)
     {
       v5 = v8;
     }
 
-    if (v14 == 0x80000000)
+    if (v13 == 0x80000000)
     {
       v9 = 0x7FFFFFFF;
     }
 
     else
     {
-      v9 = -v14;
+      v9 = -v13;
     }
 
-    if (v14 >= 0)
+    if (v13 >= 0)
     {
-      v9 = v14;
+      v9 = v13;
     }
 
-    result = (v5 + v9 + v6);
+    return (v5 + v9 + v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7641,7 +7574,7 @@ float InterpLumaTrim2(_WORD *a1, _WORD *a2, _WORD *a3, uint64_t a4, double a5)
 
 void RgbLinear2Itp(float a1, float a2, float a3, const float (*a4)[3], const float (*a5)[3], float *a6)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     goto LABEL_6;
@@ -7654,15 +7587,15 @@ void RgbLinear2Itp(float a1, float a2, float a3, const float (*a4)[3], const flo
     v10 = (*(v9 - 1) * a2) + (*(v9 - 2) * a1);
     v11 = *v9;
     v9 += 3;
-    *(&v26 + v8) = v10 + (v11 * a3);
+    *(&v25 + v8) = v10 + (v11 * a3);
     v8 += 4;
   }
 
   while (v8 != 12);
-  a1 = v26;
-  if (v26 >= 0.0)
+  a1 = v25;
+  if (v25 >= 0.0)
   {
-    v12 = powf(v26 * 0.0001, 0.1593);
+    v12 = powf(v25 * 0.0001, 0.1593);
     v13 = powf(((v12 * 18.852) + 0.83594) / ((v12 * 18.688) + 1.0), 78.844);
   }
 
@@ -7673,35 +7606,35 @@ LABEL_6:
     v13 = 0.0000014619 - powf(((v14 * 18.852) + 0.83594) / ((v14 * 18.688) + 1.0), 78.844);
   }
 
-  if (v27 >= 0.0)
+  if (v26 >= 0.0)
   {
-    v17 = powf(v27 * 0.0001, 0.1593);
+    v17 = powf(v26 * 0.0001, 0.1593);
     v16 = powf(((v17 * 18.852) + 0.83594) / ((v17 * 18.688) + 1.0), 78.844);
   }
 
   else
   {
-    v15 = powf(v27 * -0.0001, 0.1593);
+    v15 = powf(v26 * -0.0001, 0.1593);
     v16 = 0.0000014619 - powf(((v15 * 18.852) + 0.83594) / ((v15 * 18.688) + 1.0), 78.844);
   }
 
-  if (v28 >= 0.0)
+  if (v27 >= 0.0)
   {
-    v20 = powf(v28 * 0.0001, 0.1593);
+    v20 = powf(v27 * 0.0001, 0.1593);
     v19 = powf(((v20 * 18.852) + 0.83594) / ((v20 * 18.688) + 1.0), 78.844);
     if (!a5)
     {
-      goto LABEL_17;
+      return;
     }
   }
 
   else
   {
-    v18 = powf(v28 * -0.0001, 0.1593);
+    v18 = powf(v27 * -0.0001, 0.1593);
     v19 = 0.0000014619 - powf(((v18 * 18.852) + 0.83594) / ((v18 * 18.688) + 1.0), 78.844);
     if (!a5)
     {
-      goto LABEL_17;
+      return;
     }
   }
 
@@ -7719,9 +7652,6 @@ LABEL_6:
 
     while (v21 != 3);
   }
-
-LABEL_17:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 float deriveTmidPq(double a1, float a2, double a3, double a4, float a5)
@@ -7758,7 +7688,7 @@ float deriveTmidPq(double a1, float a2, double a3, double a4, float a5)
   return (v11 + v10) - v9;
 }
 
-double SlopeOffsetL2ToL8(_WORD *a1, double *a2, double *a3)
+long double SlopeOffsetL2ToL8(_WORD *a1, long double *a2, long double *a3)
 {
   v5 = 0.5;
   v6 = vcvtd_n_f64_u32(a1[2], 0xCuLL) + 0.5;
@@ -8211,13 +8141,13 @@ uint64_t *commonRBSP::flush_bits(uint64_t *this, int a2)
 
     v10 = 0;
     this = (*(v6 + 8))(this, this[4], &v10 + 4, &v10);
-    *(v2 + 32) += HIDWORD(v10);
+    v2[4] += HIDWORD(v10);
     v3 = 8 * v10;
-    *(v2 + 8) = (v9 | this) << v4;
+    v2[1] = (v9 | this) << v4;
     a2 = v4;
   }
 
-  *(v2 + 16) = v3 - a2;
+  *(v2 + 4) = v3 - a2;
   return this;
 }
 

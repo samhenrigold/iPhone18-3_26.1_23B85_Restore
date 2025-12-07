@@ -56,37 +56,37 @@
 
 - (void)writeToLog
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   rows = [(MKTable *)self rows];
-  v4 = [rows countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v4 = [rows countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v16;
+    v7 = *v15;
     *&v5 = 138412290;
-    v14 = v5;
+    v13 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(rows);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = +[MKLog log];
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           columns = [(MKTable *)self columns];
           v12 = [v9 asciiRepresentationUsingColumns:columns];
-          *buf = v14;
-          v20 = v12;
+          *buf = v13;
+          v19 = v12;
           _os_log_impl(&dword_2592D2000, v10, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
         }
 
@@ -94,41 +94,39 @@
       }
 
       while (v6 != v8);
-      v6 = [rows countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [rows countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeToDisk:(id)disk
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   v5 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   rows = [(MKTable *)self rows];
-  v7 = [rows countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v7 = [rows countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(rows);
         }
 
-        csvRepresentation = [*(*(&v19 + 1) + 8 * v10) csvRepresentation];
+        csvRepresentation = [*(*(&v18 + 1) + 8 * v10) csvRepresentation];
         v12 = csvRepresentation;
         if (csvRepresentation)
         {
@@ -139,15 +137,15 @@
       }
 
       while (v8 != v10);
-      v8 = [rows countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v8 = [rows countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  v18 = 0;
-  v13 = [v5 writeToFile:diskCopy atomically:0 encoding:4 error:&v18];
-  v14 = v18;
+  v17 = 0;
+  v13 = [v5 writeToFile:diskCopy atomically:0 encoding:4 error:&v17];
+  v14 = v17;
   v15 = +[MKLog log];
   v16 = v15;
   if (v13)
@@ -156,8 +154,8 @@
     {
       *buf = 138412546;
       selfCopy = self;
-      v25 = 2112;
-      v26 = diskCopy;
+      v24 = 2112;
+      v25 = diskCopy;
       _os_log_impl(&dword_2592D2000, v16, OS_LOG_TYPE_INFO, "%@: Wrote table to disk at %@", buf, 0x16u);
     }
   }
@@ -166,8 +164,6 @@
   {
     [(MKTable *)self writeToDisk:v14, v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

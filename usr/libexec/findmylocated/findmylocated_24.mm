@@ -1,160 +1,2180 @@
-uint64_t sub_100255C44()
+uint64_t sub_100281614()
 {
-  v52 = v0;
-  v0[2] = v0[18];
-  swift_errorRetain();
-  sub_10004B564(&unk_1005AB510, &qword_1004C1AC0);
-  type metadata accessor for CKError(0);
-  if (swift_dynamicCast())
-  {
-    v1 = v0[3];
-    v0[5] = v1;
-    v2 = v0[16];
-    v0[19] = v1;
-    sub_100009488(&qword_1005A8858, type metadata accessor for CKError);
-    _BridgedStoredNSError.code.getter();
-    v3 = sub_10021B7D0(v0[6], v2);
+  (*(v0[22] + 8))(v0[24], v0[21]);
 
-    if (v3)
-    {
-      v4 = v0[18];
+  v1 = v0[1];
 
-      if (qword_1005A80E8 != -1)
-      {
-        swift_once();
-      }
+  return v1();
+}
 
-      v5 = type metadata accessor for Logger();
-      sub_10000A6F0(v5, qword_1005DFF88);
-      v6 = v1;
-      v7 = Logger.logObject.getter();
-      v8 = static os_log_type_t.error.getter();
+uint64_t sub_100281718()
+{
+  v1 = v0[11];
 
-      if (os_log_type_enabled(v7, v8))
-      {
-        v9 = v0[15];
-        v10 = swift_slowAlloc();
-        v51[0] = swift_slowAlloc();
-        *v10 = 136446722;
-        *(v10 + 4) = sub_10000D01C(0xD000000000000021, 0x80000001004E5D80, v51);
-        *(v10 + 12) = 2082;
-        v11 = v6;
-        v12 = related decl 'e' for CKErrorCode.description.getter();
-        v14 = v13;
+  sub_100002CE0(v1, &qword_1005B0B00, &qword_1004D26A0);
+  (*(v0[22] + 8))(v0[24], v0[21]);
 
-        v15 = sub_10000D01C(v12, v14, v51);
+  v2 = v0[1];
 
-        *(v10 + 14) = v15;
-        *(v10 + 22) = 2048;
-        *(v10 + 24) = v9;
-        _os_log_impl(&_mh_execute_header, v7, v8, "%{public}s accept fence failed with unrecoverable error: %{public}s; attempt #%ld. The invitation will be removed.", v10, 0x20u);
-        swift_arrayDestroy();
-      }
+  return v2();
+}
 
-      v16 = v0[15];
-      v17 = v0[11];
-      v18 = v0[9];
-      v19 = v6;
-      v20 = sub_10004CBC0(v16, 0, v6, 1);
-      v22 = v21;
-      v24 = v23;
+uint64_t sub_100281840()
+{
+  v1 = v0[24];
+  v2 = v0[21];
+  v3 = v0[22];
+  v4 = v0[11];
 
-      sub_10001157C(v20, v22, v24);
+  sub_100002CE0(v4, &qword_1005B0B00, &qword_1004D26A0);
+  (*(v3 + 8))(v1, v2);
+  (*(v0[7] + 8))(v0[8], v0[6]);
 
-      v25 = swift_task_alloc();
-      v0[20] = v25;
-      *(v25 + 16) = v17;
-      *(v25 + 24) = v18;
-      v26 = async function pointer to withCheckedThrowingContinuation<A>(isolation:function:_:)[1];
-      v27 = swift_task_alloc();
-      v0[21] = v27;
-      *v27 = v0;
-      v27[1] = sub_100255A3C;
+  v5 = v0[1];
 
-      return withCheckedThrowingContinuation<A>(isolation:function:_:)(v27, 0, 0, 0xD000000000000025, 0x80000001004E5D30, sub_100257FA0, v25, &type metadata for () + 8);
-    }
-  }
+  return v5();
+}
 
-  else
-  {
-    v28 = v0[16];
-  }
+uint64_t sub_100281988(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4[4] = a3;
+  v4[5] = v3;
+  v4[2] = a1;
+  v4[3] = a2;
+  v5 = type metadata accessor for Fence.TriggerID();
+  v4[6] = v5;
+  v4[7] = *(v5 - 8);
+  v4[8] = swift_task_alloc();
+  v6 = type metadata accessor for Fence.ID();
+  v4[9] = v6;
+  v4[10] = *(v6 - 8);
+  v4[11] = swift_task_alloc();
+  v7 = type metadata accessor for Fence();
+  v4[12] = v7;
+  v4[13] = *(v7 - 8);
+  v4[14] = swift_task_alloc();
 
-  v29 = v0[2];
+  return _swift_task_switch(sub_100281B04, v3, 0);
+}
 
+uint64_t sub_100281B04()
+{
+  v28 = v0;
   if (qword_1005A80E8 != -1)
   {
     swift_once();
   }
 
-  v30 = v0[18];
-  v31 = type metadata accessor for Logger();
-  sub_10000A6F0(v31, qword_1005DFF88);
-  swift_errorRetain();
-  v32 = Logger.logObject.getter();
-  v33 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v32, v33))
+  v2 = v0[13];
+  v1 = v0[14];
+  v3 = v0[12];
+  v4 = v0[3];
+  v5 = type metadata accessor for Logger();
+  sub_10000A6F0(v5, qword_1005DFF88);
+  (*(v2 + 16))(v1, v4, v3);
+  v6 = Logger.logObject.getter();
+  v7 = static os_log_type_t.default.getter();
+  v8 = os_log_type_enabled(v6, v7);
+  v10 = v0[13];
+  v9 = v0[14];
+  v11 = v0[12];
+  if (v8)
   {
-    v34 = v0[18];
-    v35 = v0[15];
-    v36 = swift_slowAlloc();
-    v51[0] = swift_slowAlloc();
-    *v36 = 136446978;
-    *(v36 + 4) = sub_10000D01C(0xD000000000000021, 0x80000001004E5D80, v51);
-    *(v36 + 12) = 2082;
-    v0[4] = v34;
-    swift_errorRetain();
-    v37 = String.init<A>(describing:)();
-    v39 = sub_10000D01C(v37, v38, v51);
+    v12 = v0[10];
+    v13 = v0[11];
+    v26 = v7;
+    v14 = v0[9];
+    v15 = swift_slowAlloc();
+    v27 = swift_slowAlloc();
+    *v15 = 136446466;
+    *(v15 + 4) = sub_10000D01C(0xD000000000000020, 0x80000001004E66E0, &v27);
+    *(v15 + 12) = 2082;
+    v25 = v11;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v16 = dispatch thunk of CustomStringConvertible.description.getter();
+    v18 = v17;
+    (*(v12 + 8))(v13, v14);
+    (*(v10 + 8))(v9, v25);
+    v19 = sub_10000D01C(v16, v18, &v27);
 
-    *(v36 + 14) = v39;
-    *(v36 + 22) = 2048;
-    *(v36 + 24) = v35;
-    *(v36 + 32) = 1024;
-    *(v36 + 34) = v35 < 5;
-    _os_log_impl(&_mh_execute_header, v32, v33, "%{public}s accept fence failed with error: %{public}s; attempt #%ld, will retry again: %{BOOL}d", v36, 0x26u);
+    *(v15 + 14) = v19;
+    _os_log_impl(&_mh_execute_header, v6, v26, "%{public}s: Triggering fence %{public}s awaiting approval", v15, 0x16u);
     swift_arrayDestroy();
   }
 
-  v40 = v0[18];
-  v41 = v0[15];
-  swift_errorRetain();
-  v42 = sub_10004CBC0(v41, v41 < 5, v40, 1);
-  v44 = v43;
-  v46 = v45;
+  else
+  {
 
-  sub_10001157C(v42, v44, v46);
+    (*(v10 + 8))(v9, v11);
+  }
+
+  Fence.id.getter();
+  Fence.TriggerID.init()();
+  v20 = swift_task_alloc();
+  v0[15] = v20;
+  *v20 = v0;
+  v20[1] = sub_100281E0C;
+  v21 = v0[11];
+  v22 = v0[8];
+  v23 = v0[4];
+
+  return sub_100289330(v21, v23, v22);
+}
+
+uint64_t sub_100281E0C()
+{
+  v1 = *(*v0 + 88);
+  v2 = *(*v0 + 80);
+  v3 = *(*v0 + 72);
+  v4 = *(*v0 + 64);
+  v5 = *(*v0 + 56);
+  v6 = *(*v0 + 48);
+  v7 = *(*v0 + 40);
+
+  (*(v5 + 8))(v4, v6);
+  (*(v2 + 8))(v1, v3);
+
+  return _swift_task_switch(sub_100281FDC, v7, 0);
+}
+
+uint64_t sub_100281FDC()
+{
+  (*(v0[7] + 56))(v0[2], 1, 1, v0[6]);
+
+  v1 = v0[1];
+
+  return v1();
+}
+
+uint64_t sub_100282084(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4[4] = a3;
+  v4[5] = v3;
+  v4[2] = a1;
+  v4[3] = a2;
+  v4[6] = *v3;
+  sub_10004B564(&qword_1005A9690, &qword_1004C2A00);
+  v4[7] = swift_task_alloc();
+  v5 = type metadata accessor for Fence.AcceptanceStatus();
+  v4[8] = v5;
+  v4[9] = *(v5 - 8);
+  v4[10] = swift_task_alloc();
+  v6 = type metadata accessor for Fence.TriggerPosition();
+  v4[11] = v6;
+  v4[12] = *(v6 - 8);
+  v4[13] = swift_task_alloc();
+  v7 = type metadata accessor for Fence.ID();
+  v4[14] = v7;
+  v4[15] = *(v7 - 8);
+  v4[16] = swift_task_alloc();
+  v8 = type metadata accessor for Fence();
+  v4[17] = v8;
+  v4[18] = *(v8 - 8);
+  v4[19] = swift_task_alloc();
+  v4[20] = swift_task_alloc();
+  v4[21] = swift_task_alloc();
+  v4[22] = swift_task_alloc();
+  v4[23] = swift_task_alloc();
+  v4[24] = swift_task_alloc();
+  v4[25] = swift_task_alloc();
+  v9 = type metadata accessor for Fence.Variant();
+  v4[26] = v9;
+  v4[27] = *(v9 - 8);
+  v4[28] = swift_task_alloc();
+  v10 = type metadata accessor for Fence.TriggerID();
+  v4[29] = v10;
+  v11 = *(v10 - 8);
+  v4[30] = v11;
+  v4[31] = *(v11 + 64);
+  v4[32] = swift_task_alloc();
+  v4[33] = swift_task_alloc();
+
+  return _swift_task_switch(sub_1002823D0, v3, 0);
+}
+
+uint64_t sub_1002823D0(uint64_t a1)
+{
+  v127 = v1;
+  v3 = v1[27];
+  v2 = v1[28];
+  v4 = v1[26];
+  Fence.TriggerID.init()();
+  Fence.variant.getter();
+  v5 = (*(v3 + 88))(v2, v4);
+  if (v5 == enum case for Fence.Variant.oneTime(_:))
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v6 = v1[25];
+    v7 = v1[17];
+    v8 = v1[18];
+    v9 = v1[3];
+    v10 = type metadata accessor for Logger();
+    sub_10000A6F0(v10, qword_1005DFF88);
+    (*(v8 + 16))(v6, v9, v7);
+    v11 = Logger.logObject.getter();
+    v12 = static os_log_type_t.error.getter();
+    v13 = os_log_type_enabled(v11, v12);
+    v14 = v1[33];
+    v15 = v1[29];
+    v16 = v1[30];
+    v17 = v1[25];
+    v19 = v1[17];
+    v18 = v1[18];
+    if (v13)
+    {
+      v123 = v1[29];
+      v21 = v1[15];
+      v20 = v1[16];
+      loga = v11;
+      v22 = v1[14];
+      v112 = v1[17];
+      v23 = swift_slowAlloc();
+      v117 = swift_slowAlloc();
+      v126 = v117;
+      *v23 = 136446210;
+      v120 = v14;
+      Fence.id.getter();
+      sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+      v24 = dispatch thunk of CustomStringConvertible.description.getter();
+      v109 = v12;
+      v26 = v25;
+      (*(v21 + 8))(v20, v22);
+      (*(v18 + 8))(v17, v112);
+      v27 = sub_10000D01C(v24, v26, &v126);
+
+      *(v23 + 4) = v27;
+      _os_log_impl(&_mh_execute_header, loga, v109, "Trying to trigger a .pendingHidden one-time fence id %{public}s", v23, 0xCu);
+      sub_100004984(v117);
+
+      (*(v16 + 8))(v120, v123);
+    }
+
+    else
+    {
+
+      (*(v18 + 8))(v17, v19);
+      (*(v16 + 8))(v14, v15);
+    }
+
+    v50 = v1[27];
+    v49 = v1[28];
+    v51 = v1[26];
+    (*(v1[30] + 56))(v1[2], 1, 1, v1[29]);
+    (*(v50 + 8))(v49, v51);
+
+    v52 = v1[1];
+
+    return v52();
+  }
+
+  if (v5 == enum case for Fence.Variant.recurring(_:))
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v28 = v1[24];
+    v29 = v1[17];
+    v30 = v1[18];
+    v31 = v1[3];
+    v32 = type metadata accessor for Logger();
+    sub_10000A6F0(v32, qword_1005DFF88);
+    v121 = (v30 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v124 = *(v30 + 16);
+    v124(v28, v31, v29);
+    v33 = Logger.logObject.getter();
+    v34 = static os_log_type_t.default.getter();
+    v35 = os_log_type_enabled(v33, v34);
+    v36 = v1[24];
+    v37 = v1[17];
+    v38 = v1[18];
+    if (!v35)
+    {
+
+      v46 = *(v38 + 8);
+      v118 = (v38 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      (v46)(v36, v37);
+      goto LABEL_23;
+    }
+
+    v39 = v1[15];
+    v40 = v1[16];
+    v41 = v1[14];
+    v110 = v1[17];
+    v42 = swift_slowAlloc();
+    log = swift_slowAlloc();
+    v126 = log;
+    *v42 = 136446210;
+    v113 = v34;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v43 = dispatch thunk of CustomStringConvertible.description.getter();
+    v45 = v44;
+    (*(v39 + 8))(v40, v41);
+    v46 = *(v38 + 8);
+    v118 = (v38 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    (v46)(v36, v110);
+    v47 = sub_10000D01C(v43, v45, &v126);
+
+    *(v42 + 4) = v47;
+    v48 = "Triggering recurring fence (%{public}s) for the first time";
+  }
+
+  else
+  {
+    if (v5 != enum case for Fence.Variant.scheduled(_:))
+    {
+      return _assertionFailure(_:_:file:line:flags:)();
+    }
+
+    v55 = v1[12];
+    v54 = v1[13];
+    v56 = v1[11];
+    (*(v55 + 16))(v54, v1[4], v56);
+    v57 = (*(v55 + 88))(v54, v56);
+    v58 = enum case for Fence.TriggerPosition.undetermined(_:);
+    (*(v55 + 8))(v54, v56);
+    if (v57 != v58)
+    {
+      if (qword_1005A80E8 != -1)
+      {
+        swift_once();
+      }
+
+      v90 = v1[22];
+      v91 = v1[17];
+      v92 = v1[18];
+      v93 = v1[3];
+      v94 = type metadata accessor for Logger();
+      sub_10000A6F0(v94, qword_1005DFF88);
+      (*(v92 + 16))(v90, v93, v91);
+      v95 = Logger.logObject.getter();
+      v96 = static os_log_type_t.error.getter();
+      v97 = os_log_type_enabled(v95, v96);
+      v98 = v1[22];
+      v99 = v1[17];
+      v100 = v1[18];
+      if (v97)
+      {
+        v119 = v1[17];
+        v101 = v1[15];
+        v102 = v1[16];
+        v103 = v1[14];
+        v104 = swift_slowAlloc();
+        v125 = swift_slowAlloc();
+        v126 = v125;
+        *v104 = 136446210;
+        v122 = v96;
+        Fence.id.getter();
+        sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+        v105 = dispatch thunk of CustomStringConvertible.description.getter();
+        v107 = v106;
+        (*(v101 + 8))(v102, v103);
+        (*(v100 + 8))(v98, v119);
+        v108 = sub_10000D01C(v105, v107, &v126);
+
+        *(v104 + 4) = v108;
+        _os_log_impl(&_mh_execute_header, v95, v122, "Fence (%{public}s) triggered by CoreLocation before fence is updated to pending", v104, 0xCu);
+        sub_100004984(v125);
+      }
+
+      else
+      {
+
+        (*(v100 + 8))(v98, v99);
+      }
+
+      Fence.id.getter();
+      v85 = swift_task_alloc();
+      v1[34] = v85;
+      *v85 = v1;
+      v86 = sub_10028304C;
+      goto LABEL_24;
+    }
+
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v59 = v1[23];
+    v60 = v1[17];
+    v61 = v1[18];
+    v62 = v1[3];
+    v63 = type metadata accessor for Logger();
+    sub_10000A6F0(v63, qword_1005DFF88);
+    v121 = (v61 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v124 = *(v61 + 16);
+    v124(v59, v62, v60);
+    v33 = Logger.logObject.getter();
+    v64 = static os_log_type_t.default.getter();
+    v65 = os_log_type_enabled(v33, v64);
+    v66 = v1[23];
+    v67 = v1[17];
+    v68 = v1[18];
+    if (!v65)
+    {
+
+      v46 = *(v68 + 8);
+      v118 = (v68 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      (v46)(v66, v67);
+      goto LABEL_23;
+    }
+
+    v69 = v1[15];
+    v70 = v1[16];
+    v71 = v1[14];
+    v111 = v1[17];
+    v42 = swift_slowAlloc();
+    log = swift_slowAlloc();
+    v126 = log;
+    *v42 = 136446210;
+    v113 = v64;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v72 = dispatch thunk of CustomStringConvertible.description.getter();
+    v74 = v73;
+    (*(v69 + 8))(v70, v71);
+    v46 = *(v68 + 8);
+    v118 = (v68 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    (v46)(v66, v111);
+    v75 = sub_10000D01C(v72, v74, &v126);
+
+    *(v42 + 4) = v75;
+    v48 = "Triggering scheduled fence (%{public}s) for the first time";
+  }
+
+  _os_log_impl(&_mh_execute_header, v33, v113, v48, v42, 0xCu);
+  sub_100004984(log);
+
+LABEL_23:
+  logb = v46;
+  v1[35] = v46;
+  v1[36] = v124;
+  v76 = v1[21];
+  v77 = v1[17];
+  v79 = v1[9];
+  v78 = v1[10];
+  v80 = v1[8];
+  v81 = v1[3];
+  (*(v1[27] + 8))(v1[28], v1[26]);
+  v82 = swift_allocBox();
+  v84 = v83;
+  v1[37] = v82;
+  v1[38] = v83;
+  v1[39] = v121;
+  v124(v83, v81, v77);
+  (*(v79 + 104))(v78, enum case for Fence.AcceptanceStatus.pending(_:), v80);
+  Fence.update(acceptanceStatus:)();
+  (*(v79 + 8))(v78, v80);
+  v124(v76, v84, v77);
+  Fence.id.getter();
+  v1[40] = v118;
+  (logb)(v76, v77);
+  v85 = swift_task_alloc();
+  v1[41] = v85;
+  *v85 = v1;
+  v86 = sub_100283338;
+LABEL_24:
+  v85[1] = v86;
+  v87 = v1[33];
+  v88 = v1[16];
+  v89 = v1[4];
+
+  return sub_100289330(v88, v89, v87);
+}
+
+uint64_t sub_10028304C()
+{
+  v1 = *(*v0 + 128);
+  v2 = *(*v0 + 120);
+  v3 = *(*v0 + 112);
+  v4 = *(*v0 + 40);
+
+  (*(v2 + 8))(v1, v3);
+
+  return _swift_task_switch(sub_1002831B8, v4, 0);
+}
+
+uint64_t sub_1002831B8()
+{
+  v1 = v0[29];
+  v2 = v0[30];
+  v4 = v0[27];
+  v3 = v0[28];
+  v5 = v0[26];
+  v6 = v0[2];
+  (*(v2 + 32))(v6, v0[33], v1);
+  (*(v2 + 56))(v6, 0, 1, v1);
+  (*(v4 + 8))(v3, v5);
+
+  v7 = v0[1];
+
+  return v7();
+}
+
+uint64_t sub_100283338()
+{
+  v1 = *(*v0 + 128);
+  v2 = *(*v0 + 120);
+  v3 = *(*v0 + 112);
+  v4 = *(*v0 + 40);
+
+  (*(v2 + 8))(v1, v3);
+
+  return _swift_task_switch(sub_1002834A4, v4, 0);
+}
+
+uint64_t sub_1002834A4()
+{
+  (*(v0 + 288))(*(v0 + 152), *(v0 + 304), *(v0 + 136));
+  v1 = swift_task_alloc();
+  *(v0 + 336) = v1;
+  *v1 = v0;
+  v1[1] = sub_100283550;
+  v3 = *(v0 + 152);
+  v2 = *(v0 + 160);
+
+  return sub_100261468(v2, v3);
+}
+
+uint64_t sub_100283550()
+{
+  v2 = *v1;
+  v3 = *(*v1 + 280);
+  v4 = *(*v1 + 152);
+  v5 = *(*v1 + 136);
+  *(*v1 + 344) = v0;
+
+  v3(v4, v5);
+  if (v0)
+  {
+    v6 = *(v2 + 40);
+    v7 = sub_1002839A8;
+  }
+
+  else
+  {
+    v8 = *(v2 + 40);
+    (*(v2 + 280))(*(v2 + 160), *(v2 + 136));
+    v7 = sub_1002836F0;
+    v6 = v8;
+  }
+
+  return _swift_task_switch(v7, v6, 0);
+}
+
+uint64_t sub_1002836F0()
+{
+  v1 = v0[37];
+  v3 = v0[32];
+  v2 = v0[33];
+  v4 = v0[30];
+  v5 = v0[31];
+  v6 = v0[29];
+  v7 = v0[7];
+  v17 = v3;
+  v18 = v7;
+  v19 = v0[6];
+  v20 = v2;
+  v8 = v0[5];
+  v21 = v0[2];
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+  (*(v4 + 16))(v3, v2, v6);
+  v10 = sub_100009518(&qword_1005AF4A8, type metadata accessor for FenceService, &unk_1004D2208);
+  v11 = (*(v4 + 80) + 48) & ~*(v4 + 80);
+  v12 = (v5 + v11 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v13 = swift_allocObject();
+  *(v13 + 2) = v8;
+  *(v13 + 3) = v10;
+  *(v13 + 4) = v1;
+  *(v13 + 5) = v8;
+  v14 = *(v4 + 32);
+  v14(&v13[v11], v17, v6);
+  *&v13[v12] = v19;
+  swift_retain_n();
+
+  sub_10020D620(0, 0, v18, &unk_1004D2850, v13);
+
+  v14(v21, v20, v6);
+  (*(v4 + 56))(v21, 0, 1, v6);
+
+  v15 = v0[1];
+
+  return v15();
+}
+
+uint64_t sub_1002839A8()
+{
+  (*(v0[30] + 8))(v0[33], v0[29]);
+
+  v1 = v0[1];
+
+  return v1();
+}
+
+uint64_t sub_100283AEC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4[10] = a3;
+  v4[11] = v3;
+  v4[8] = a1;
+  v4[9] = a2;
+  v5 = type metadata accessor for UUID();
+  v4[12] = v5;
+  v4[13] = *(v5 - 8);
+  v4[14] = swift_task_alloc();
+  sub_10004B564(&qword_1005A96E0, &qword_1004C2A80);
+  v4[15] = swift_task_alloc();
+  v6 = type metadata accessor for MessagingOptions();
+  v4[16] = v6;
+  v4[17] = *(v6 - 8);
+  v4[18] = swift_task_alloc();
+  v7 = type metadata accessor for Destination();
+  v4[19] = v7;
+  v4[20] = *(v7 - 8);
+  v4[21] = swift_task_alloc();
+  v8 = type metadata accessor for Fence.Variant();
+  v4[22] = v8;
+  v4[23] = *(v8 - 8);
+  v4[24] = swift_task_alloc();
+  v4[25] = swift_task_alloc();
+  v9 = type metadata accessor for Fence.TriggerPosition();
+  v4[26] = v9;
+  v4[27] = *(v9 - 8);
+  v4[28] = swift_task_alloc();
+  v4[29] = swift_task_alloc();
+  v10 = type metadata accessor for Fence.TriggerID();
+  v4[30] = v10;
+  v4[31] = *(v10 - 8);
+  v4[32] = swift_task_alloc();
+  v4[33] = type metadata accessor for FenceTriggerEnvelopeV1(0);
+  v4[34] = swift_task_alloc();
+  v4[35] = swift_task_alloc();
+  v11 = type metadata accessor for PersonHandle();
+  v4[36] = v11;
+  v4[37] = *(v11 - 8);
+  v4[38] = swift_task_alloc();
+  v4[39] = swift_task_alloc();
+  v12 = type metadata accessor for Fence.ID();
+  v4[40] = v12;
+  v4[41] = *(v12 - 8);
+  v4[42] = swift_task_alloc();
+  v13 = type metadata accessor for Fence();
+  v4[43] = v13;
+  v4[44] = *(v13 - 8);
+  v4[45] = swift_task_alloc();
+  v4[46] = swift_task_alloc();
+  v4[47] = swift_task_alloc();
+  v4[48] = swift_task_alloc();
+  v14 = type metadata accessor for Fence.Participant();
+  v4[49] = v14;
+  v4[50] = *(v14 - 8);
+  v4[51] = swift_task_alloc();
+  v4[52] = swift_task_alloc();
+
+  return _swift_task_switch(sub_100283FB4, v3, 0);
+}
+
+uint64_t sub_100283FB4(uint64_t a1)
+{
+  v164 = v1;
+  v3 = v1[51];
+  v2 = v1[52];
+  v4 = v1[49];
+  v5 = v1[50];
+  Fence.findee.getter();
+  (*(v5 + 104))(v3, enum case for Fence.Participant.me(_:), v4);
+  v6 = static Fence.Participant.== infix(_:_:)();
+  v7 = *(v5 + 8);
+  v7(v3, v4);
+  v7(v2, v4);
+  v161 = v1;
+  if (v6)
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v8 = v1[47];
+    v9 = v1[48];
+    v10 = v1[43];
+    v11 = v1[44];
+    v12 = v1[9];
+    v13 = type metadata accessor for Logger();
+    v1[53] = sub_10000A6F0(v13, qword_1005DFF88);
+    v14 = *(v11 + 16);
+    (v14)(v9, v12, v10);
+    v143 = v14;
+    (v14)(v8, v12, v10);
+    v15 = Logger.logObject.getter();
+    v16 = static os_log_type_t.default.getter();
+    v17 = os_log_type_enabled(v15, v16);
+    v18 = v1[47];
+    v19 = v1[48];
+    v20 = v1[43];
+    v21 = v1[44];
+    v22 = v1;
+    if (v17)
+    {
+      v140 = v15;
+      v138 = v16;
+      v24 = v1[41];
+      v23 = v22[42];
+      v25 = v22[40];
+      v26 = swift_slowAlloc();
+      v162 = swift_slowAlloc();
+      *v26 = 136446467;
+      Fence.id.getter();
+      sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+      v27 = dispatch thunk of CustomStringConvertible.description.getter();
+      v29 = v28;
+      (*(v24 + 8))(v23, v25);
+      v148 = *(v21 + 8);
+      v148(v19, v20);
+      v30 = sub_10000D01C(v27, v29, &v162);
+
+      *(v26 + 4) = v30;
+      buf = v26;
+      *(v26 + 12) = 2081;
+      v31 = Fence.others.getter();
+      v32 = *(v31 + 16);
+      if (v32)
+      {
+        v33 = v22[37];
+        v163 = _swiftEmptyArrayStorage;
+        sub_10002B3C0(0, v32, 0);
+        v34 = v163;
+        v35 = *(v33 + 16);
+        v33 += 16;
+        v156 = v35;
+        v36 = v31 + ((*(v33 + 64) + 32) & ~*(v33 + 64));
+        v150 = *(v33 + 56);
+        v37 = (v33 - 8);
+        do
+        {
+          v38 = v161[39];
+          v39 = v161[36];
+          v156(v38, v36, v39);
+          v40 = PersonHandle.id.getter();
+          v42 = v41;
+          (*v37)(v38, v39);
+          v163 = v34;
+          v44 = v34[2];
+          v43 = v34[3];
+          if (v44 >= v43 >> 1)
+          {
+            sub_10002B3C0((v43 > 1), v44 + 1, 1);
+            v34 = v163;
+          }
+
+          v34[2] = v44 + 1;
+          v45 = &v34[2 * v44];
+          v45[4] = v40;
+          v45[5] = v42;
+          v36 += v150;
+          --v32;
+        }
+
+        while (v32);
+      }
+
+      else
+      {
+
+        v34 = _swiftEmptyArrayStorage;
+      }
+
+      v66 = v161;
+      v69 = v161[47];
+      v70 = v161[43];
+      v161[7] = v34;
+      sub_10004B564(&qword_1005A9630, &qword_1004C5680);
+      sub_10001DF0C(&qword_1005ABF48, &qword_1005A9630, &qword_1004C5680, &protocol conformance descriptor for [A]);
+      v71 = BidirectionalCollection<>.joined(separator:)();
+      v73 = v72;
+
+      v148(v69, v70);
+      v74 = sub_10000D01C(v71, v73, &v162);
+
+      *(buf + 14) = v74;
+      _os_log_impl(&_mh_execute_header, v140, v138, "Sending IDS trigger of fence %{public}s to %{private}s", buf, 0x16u);
+      swift_arrayDestroy();
+    }
+
+    else
+    {
+
+      v65 = *(v21 + 8);
+      v65(v18, v20);
+      v148 = v65;
+      v65(v19, v20);
+      v66 = v1;
+    }
+
+    v75 = v66[34];
+    v152 = v66[33];
+    v76 = v66[31];
+    v77 = v66[32];
+    v78 = v66[29];
+    v79 = v66[30];
+    bufa = v77;
+    v80 = v66[27];
+    v158 = v66[28];
+    v81 = v66[26];
+    v139 = v66[10];
+    v82 = v66[8];
+    v143();
+    v83 = *(v76 + 16);
+    v83(v77, v82, v79);
+    v84 = *(v80 + 16);
+    v84(v78, v139, v81);
+    Fence.id.getter();
+    v145 = v152[5];
+    v83((v75 + v145), bufa, v79);
+    v85 = v152[6];
+    v84(v75 + v85, v78, v81);
+    v153 = v152[7];
+    sub_1002787C8(v75 + v153);
+    v86 = v84;
+    v84(v158, v78, v81);
+    v87 = (*(v80 + 88))(v158, v81);
+    if (v87 == enum case for Fence.TriggerPosition.inside(_:))
+    {
+      v88 = v66[46];
+      v146 = v66[43];
+      v159 = v66[34];
+      v154 = v66[33];
+      v89 = v66[31];
+      v141 = v66[32];
+      v91 = v66[29];
+      v90 = v66[30];
+      v93 = v66[27];
+      v92 = v66[28];
+      v95 = v66[25];
+      v94 = v66[26];
+      v98 = v66 + 22;
+      v96 = v66[22];
+      v97 = v98[1];
+      v99 = *(v93 + 8);
+      v99(v92, v94);
+      Fence.variant.getter();
+      v99(v91, v94);
+      (*(v89 + 8))(v141, v90);
+      v148(v88, v146);
+      LODWORD(v88) = (*(v97 + 88))(v95, v96);
+      LODWORD(v89) = enum case for Fence.Variant.scheduled(_:);
+      (*(v97 + 8))(v95, v96);
+      v100 = *(v154 + 32);
+      if (v88 == v89)
+      {
+        *(v159 + v100) = 0;
+LABEL_34:
+        sub_10029350C(v161[34], v161[35], type metadata accessor for FenceTriggerEnvelopeV1);
+        v119 = swift_task_alloc();
+        v161[54] = v119;
+        *v119 = v161;
+        v119[1] = sub_100284F28;
+
+        return daemon.getter();
+      }
+
+      v110 = 2;
+LABEL_33:
+      *(v159 + v100) = v110;
+      goto LABEL_34;
+    }
+
+    if (v87 == enum case for Fence.TriggerPosition.outside(_:))
+    {
+      v101 = v161[46];
+      v147 = v161[43];
+      v159 = v161[34];
+      v155 = v161[33];
+      v102 = v161[31];
+      v142 = v161[32];
+      v104 = v161[29];
+      v103 = v161[30];
+      v105 = v161[26];
+      v107 = v161[23];
+      v106 = v161[24];
+      v108 = v161[22];
+      v109 = *(v161[27] + 8);
+      v109(v161[28], v105);
+      Fence.variant.getter();
+      v109(v104, v105);
+      (*(v102 + 8))(v142, v103);
+      v148(v101, v147);
+      LODWORD(v101) = (*(v107 + 88))(v106, v108);
+      LODWORD(v102) = enum case for Fence.Variant.scheduled(_:);
+      (*(v107 + 8))(v106, v108);
+      v100 = *(v155 + 32);
+      if (v101 == v102)
+      {
+        v110 = 1;
+      }
+
+      else
+      {
+        v110 = 3;
+      }
+
+      goto LABEL_33;
+    }
+
+    v160 = v161[46];
+    v144 = v161[43];
+    if (v87 == enum case for Fence.TriggerPosition.undetermined(_:))
+    {
+      v112 = v161[33];
+      v111 = v161[34];
+      v114 = v161[31];
+      v113 = v161[32];
+      v115 = v161[30];
+      v116 = v161[28];
+      v117 = v161[26];
+      v118 = *(v161[27] + 8);
+      v118(v161[29], v117);
+      (*(v114 + 8))(v113, v115);
+      v148(v160, v144);
+      *(v111 + *(v112 + 32)) = 4;
+      v118(v116, v117);
+      goto LABEL_34;
+    }
+
+    bufb = v161[40];
+    v133 = v161[41];
+    v134 = v161[34];
+    v120 = v161[29];
+    v130 = v161[30];
+    v131 = v161[32];
+    v121 = v161[27];
+    v132 = v161[28];
+    v128 = v161[26];
+    v129 = v161[31];
+    v122 = type metadata accessor for Session.FenceError();
+    sub_100009518(&qword_1005B0BB8, &type metadata accessor for Session.FenceError, &protocol conformance descriptor for Session.FenceError);
+    swift_allocError();
+    v124 = v123;
+    v86(v123, v120, v128);
+    (*(*(v122 - 8) + 104))(v124, enum case for Session.FenceError.unrecognizedTriggerPosition(_:), v122);
+    swift_willThrow();
+    v125 = *(v121 + 8);
+    v125(v120, v128);
+    v126 = *(v129 + 8);
+    v126(v131, v130);
+    v148(v160, v144);
+    v125(v132, v128);
+    (*(v133 + 8))(v134, bufb);
+    v126(v75 + v145, v130);
+    v125(v75 + v85, v128);
+    v127 = type metadata accessor for Date();
+    (*(*(v127 - 8) + 8))(v75 + v153, v127);
+
+    v67 = v161[1];
+  }
+
+  else
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v47 = v1[44];
+    v46 = v1[45];
+    v48 = v1[43];
+    v49 = v1[9];
+    v50 = type metadata accessor for Logger();
+    sub_10000A6F0(v50, qword_1005DFF88);
+    (*(v47 + 16))(v46, v49, v48);
+    v51 = Logger.logObject.getter();
+    v52 = static os_log_type_t.default.getter();
+    v53 = os_log_type_enabled(v51, v52);
+    v55 = v1[44];
+    v54 = v1[45];
+    v56 = v1[43];
+    if (v53)
+    {
+      v57 = v1[42];
+      v149 = v1[43];
+      v58 = v1[41];
+      v59 = v1[40];
+      v60 = swift_slowAlloc();
+      v157 = swift_slowAlloc();
+      v163 = v157;
+      *v60 = 136446210;
+      v151 = v52;
+      Fence.id.getter();
+      sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+      v61 = dispatch thunk of CustomStringConvertible.description.getter();
+      v63 = v62;
+      (*(v58 + 8))(v57, v59);
+      (*(v55 + 8))(v54, v149);
+      v64 = sub_10000D01C(v61, v63, &v163);
+
+      *(v60 + 4) = v64;
+      _os_log_impl(&_mh_execute_header, v51, v151, "Not sending IDS trigger of fence %{public}s since we are the finder", v60, 0xCu);
+      sub_100004984(v157);
+    }
+
+    else
+    {
+
+      (*(v55 + 8))(v54, v56);
+    }
+
+    v67 = v1[1];
+  }
+
+  return v67();
+}
+
+uint64_t sub_100284F28(uint64_t a1)
+{
+  v2 = *v1;
+  v9 = *v1;
+  *(v2 + 440) = a1;
+
+  v3 = swift_task_alloc();
+  *(v2 + 448) = v3;
+  v4 = type metadata accessor for Daemon();
+  v5 = sub_10004B564(&qword_1005A90E0, &qword_1004C2490);
+  v6 = sub_100009518(&unk_1005AFA50, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v7 = sub_10001DF0C(&qword_1005A90E8, &qword_1005A90E0, &qword_1004C2490, &unk_1004D4FC0);
+  *v3 = v9;
+  v3[1] = sub_100285114;
+
+  return ActorServiceDaemon.getService<A>()(v4, v5, v6, v7);
+}
+
+uint64_t sub_100285114(uint64_t a1)
+{
+  v3 = *v2;
+  v4 = *v2;
+  *(v4 + 456) = a1;
+  *(v4 + 464) = v1;
+
+  v5 = *(v3 + 88);
+
+  if (v1)
+  {
+    v6 = sub_100286080;
+  }
+
+  else
+  {
+    v6 = sub_100285264;
+  }
+
+  return _swift_task_switch(v6, v5, 0);
+}
+
+uint64_t sub_100285264(uint64_t a1)
+{
+  v2 = Fence.others.getter();
+  v3 = *(v2 + 16);
+  if (v3)
+  {
+    v4 = v1[37];
+    v5 = v1[20];
+    sub_1002393FC(0, v3, 0);
+    v7 = *(v4 + 16);
+    v6 = v4 + 16;
+    v8 = v2 + ((*(v6 + 64) + 32) & ~*(v6 + 64));
+    v21 = *(v6 + 56);
+    v22 = v7;
+    do
+    {
+      v22(v1[38], v8, v1[36]);
+      v1[2] = PersonHandle.id.getter();
+      v1[3] = v9;
+      v1[4] = 64;
+      v1[5] = 0xE100000000000000;
+      sub_1000246F4();
+      v10 = StringProtocol.components<A>(separatedBy:)();
+
+      v11 = *(v10 + 16);
+
+      PersonHandle.id.getter();
+      if (v11 == 2)
+      {
+        Destination.init(email:)();
+      }
+
+      else
+      {
+        Destination.init(phoneNumber:)();
+      }
+
+      (*(v6 - 8))(v1[38], v1[36]);
+      v13 = _swiftEmptyArrayStorage[2];
+      v12 = _swiftEmptyArrayStorage[3];
+      if (v13 >= v12 >> 1)
+      {
+        sub_1002393FC((v12 > 1), v13 + 1, 1);
+      }
+
+      v14 = v1[21];
+      v15 = v1[19];
+      _swiftEmptyArrayStorage[2] = v13 + 1;
+      (*(v5 + 32))(_swiftEmptyArrayStorage + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v13, v14, v15);
+      v8 += v21;
+      --v3;
+    }
+
+    while (v3);
+  }
+
+  v1[59] = _swiftEmptyArrayStorage;
+  v1[6] = _swiftEmptyArrayStorage;
+  v16 = swift_task_alloc();
+  v1[60] = v16;
+  v17 = sub_10004B564(&qword_1005A9288, &qword_1004D9EB0);
+  v18 = sub_10001DF0C(&qword_1005A9290, &qword_1005A9288, &qword_1004D9EB0, &protocol conformance descriptor for [A]);
+  *v16 = v1;
+  v16[1] = sub_100285550;
+  v19 = v1[57];
+
+  return Sequence.asyncFilter(_:)(&unk_1004D2840, v19, v17, v18);
+}
+
+uint64_t sub_100285550(uint64_t a1)
+{
+  v3 = *v2;
+  v3[61] = a1;
+  v3[62] = v1;
+
+  if (v1)
+  {
+  }
+
+  else
+  {
+    v5 = v3[11];
+
+    return _swift_task_switch(sub_100285688, v5, 0);
+  }
+}
+
+uint64_t sub_100285688()
+{
+  v1 = v0[61];
+  v2 = *(v0[59] + 16);
+
+  v3 = v2 - *(v1 + 16);
+  if (v3 >= 1)
+  {
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v4, v5))
+    {
+      v6 = swift_slowAlloc();
+      *v6 = 134217984;
+      *(v6 + 4) = v3;
+      _os_log_impl(&_mh_execute_header, v4, v5, "Sending IDS trigger contains invalid destinations count: %ld", v6, 0xCu);
+    }
+  }
+
+  (*(v0[13] + 56))(v0[15], 1, 1, v0[12]);
+
+  sub_100293190(_swiftEmptyArrayStorage);
+  sub_100293190(_swiftEmptyArrayStorage);
+  MessagingOptions.init(destinations:expectsPeerResponse:responseIdentifier:timeToLive:fireAndForget:requiredCapabilities:lackingCapabilities:queueOneIdentifier:)();
+  v7 = *(v1 + 16);
+
+  if (v7)
+  {
+    v8 = v0[62];
+    v9 = sub_1002E7000();
+    v10 = v8;
+    if (!v8)
+    {
+      v11 = v0[57];
+      sub_10028EE90(v9);
+      v0[63] = v12;
+
+      return _swift_task_switch(sub_100285A50, v11, 0);
+    }
+  }
+
+  else
+  {
+    sub_10007CF70();
+    v10 = swift_allocError();
+    swift_willThrow();
+  }
+
+  v13 = v0[35];
+  v15 = v0[17];
+  v14 = v0[18];
+  v16 = v0[16];
+  v18 = v0[9];
+  v17 = v0[10];
+  swift_errorRetain();
+  v19 = sub_10004D4A8(v18, v17, v10, 1);
+  v21 = v20;
+  v23 = v22;
+
+  sub_10001157C(v19, v21, v23);
 
   swift_willThrow();
-  v47 = v0[18];
-  v48 = v0[14];
 
-  v49 = v0[1];
+  (*(v15 + 8))(v14, v16);
+  sub_100293A10(v13, type metadata accessor for FenceTriggerEnvelopeV1);
 
-  return v49();
+  v24 = v0[1];
+
+  return v24();
 }
 
-uint64_t sub_100256250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_100285A50()
 {
-  v5[6] = a4;
-  v5[7] = v4;
-  v5[4] = a2;
-  v5[5] = a3;
-  v5[3] = a1;
-  v6 = type metadata accessor for Handle();
-  v5[8] = v6;
-  v7 = *(v6 - 8);
-  v5[9] = v7;
-  v8 = *(v7 + 64) + 15;
-  v5[10] = swift_task_alloc();
+  v1 = swift_task_alloc();
+  v0[64] = v1;
+  *v1 = v0;
+  v1[1] = sub_100285AF8;
+  v2 = v0[63];
+  v3 = v0[18];
+  v4 = v0[14];
 
-  return _swift_task_switch(sub_100256344, v4, 0);
+  return InternetMessaging.send(dictionary:messageOptions:)(v4, v2, v3);
 }
 
-uint64_t sub_100256344()
+uint64_t sub_100285AF8()
 {
-  v21 = v0;
+  v2 = *v1;
+  *(*v1 + 520) = v0;
+
+  if (v0)
+  {
+    v3 = v2[57];
+    v4 = sub_100285E0C;
+  }
+
+  else
+  {
+    v6 = v2[13];
+    v5 = v2[14];
+    v8 = v2 + 11;
+    v7 = v2[11];
+    (*(v6 + 8))(v5, v8[1]);
+
+    v4 = sub_100285C38;
+    v3 = v7;
+  }
+
+  return _swift_task_switch(v4, v3, 0);
+}
+
+uint64_t sub_100285C38()
+{
+  v1 = v0[35];
+  v3 = v0[17];
+  v2 = v0[18];
+  v4 = v0[16];
+  v5 = sub_10004D4A8(v0[9], v0[10], 0, 0);
+  sub_10001157C(v5, v6, v7);
+
+  (*(v3 + 8))(v2, v4);
+  sub_100293A10(v1, type metadata accessor for FenceTriggerEnvelopeV1);
+
+  v8 = v0[1];
+
+  return v8();
+}
+
+uint64_t sub_100285E0C()
+{
+  v1 = *(v0 + 88);
+
+  return _swift_task_switch(sub_100285E78, v1, 0);
+}
+
+uint64_t sub_100285E78()
+{
+  v1 = v0[65];
+  v2 = v0[35];
+  v4 = v0[17];
+  v3 = v0[18];
+  v5 = v0[16];
+  v7 = v0[9];
+  v6 = v0[10];
+  swift_errorRetain();
+  v8 = sub_10004D4A8(v7, v6, v1, 1);
+  v10 = v9;
+  v12 = v11;
+
+  sub_10001157C(v8, v10, v12);
+
+  swift_willThrow();
+
+  (*(v4 + 8))(v3, v5);
+  sub_100293A10(v2, type metadata accessor for FenceTriggerEnvelopeV1);
+
+  v13 = v0[1];
+
+  return v13();
+}
+
+uint64_t sub_100286080()
+{
+  sub_100293A10(*(v0 + 280), type metadata accessor for FenceTriggerEnvelopeV1);
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_100286200(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4[4] = a3;
+  v4[5] = v3;
+  v4[2] = a1;
+  v4[3] = a2;
+  v5 = type metadata accessor for Fence.ID();
+  v4[6] = v5;
+  v4[7] = *(v5 - 8);
+  v4[8] = swift_task_alloc();
+  v6 = type metadata accessor for Fence();
+  v4[9] = v6;
+  v4[10] = *(v6 - 8);
+  v4[11] = swift_task_alloc();
+  v4[12] = swift_task_alloc();
+  v7 = type metadata accessor for Fence.Variant();
+  v4[13] = v7;
+  v4[14] = *(v7 - 8);
+  v4[15] = swift_task_alloc();
+  v4[16] = swift_task_alloc();
+
+  return _swift_task_switch(sub_100286394, v3, 0);
+}
+
+uint64_t sub_100286394(uint64_t a1)
+{
+  v51 = v1;
+  v2 = v1[16];
+  v3 = v1[13];
+  v4 = v1[14];
+  Fence.variant.getter();
+  v5 = (*(v4 + 88))(v2, v3);
+  v6 = v5 == enum case for Fence.Variant.oneTime(_:) || v5 == enum case for Fence.Variant.recurring(_:);
+  v7 = v6;
+  if (!v6)
+  {
+    if (v5 == enum case for Fence.Variant.scheduled(_:))
+    {
+      v10 = swift_task_alloc();
+      v1[17] = v10;
+      *v10 = v1;
+      v10[1] = sub_100286864;
+      v11 = v1[4];
+      v13 = v1[2];
+      v12 = v1[3];
+
+      return sub_10028F418(v13, v12, v11);
+    }
+
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v15 = v1[11];
+    v14 = v1[12];
+    v16 = v1[9];
+    v17 = v1[10];
+    v18 = v1[2];
+    v19 = type metadata accessor for Logger();
+    sub_10000A6F0(v19, qword_1005DFF88);
+    v20 = *(v17 + 16);
+    v20(v14, v18, v16);
+    v20(v15, v18, v16);
+    v21 = Logger.logObject.getter();
+    v22 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v21, v22))
+    {
+      v23 = v1[14];
+      v24 = v1[15];
+      log = v21;
+      v26 = v1[12];
+      v25 = v1[13];
+      v27 = v1[10];
+      v43 = v1[9];
+      v44 = v1[8];
+      v45 = v1[11];
+      v46 = v1[6];
+      v47 = v1[7];
+      v28 = swift_slowAlloc();
+      v50 = swift_slowAlloc();
+      *v28 = 136446466;
+      v48 = v22;
+      Fence.variant.getter();
+      sub_100009518(&qword_1005B0BA8, &type metadata accessor for Fence.Variant, &protocol conformance descriptor for Fence.Variant);
+      v29 = dispatch thunk of CustomStringConvertible.description.getter();
+      v31 = v30;
+      (*(v23 + 8))(v24, v25);
+      v32 = *(v27 + 8);
+      v32(v26, v43);
+      v33 = sub_10000D01C(v29, v31, &v50);
+
+      *(v28 + 4) = v33;
+      *(v28 + 12) = 2082;
+      Fence.id.getter();
+      sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+      v34 = dispatch thunk of CustomStringConvertible.description.getter();
+      v36 = v35;
+      (*(v47 + 8))(v44, v46);
+      v32(v45, v43);
+      v37 = sub_10000D01C(v34, v36, &v50);
+
+      *(v28 + 14) = v37;
+      _os_log_impl(&_mh_execute_header, log, v48, "Unrecognized fence variant %{public}s for fence id %{public}s", v28, 0x16u);
+      swift_arrayDestroy();
+    }
+
+    else
+    {
+      v39 = v1[11];
+      v38 = v1[12];
+      v41 = v1[9];
+      v40 = v1[10];
+
+      v42 = *(v40 + 8);
+      v42(v39, v41);
+      v42(v38, v41);
+    }
+  }
+
+  (*(v1[14] + 8))(v1[16], v1[13]);
+
+  v8 = v1[1];
+
+  return v8(v7);
+}
+
+uint64_t sub_100286864(char a1)
+{
+  v4 = *v2;
+  *(v4 + 144) = v1;
+
+  v5 = *(v4 + 40);
+  if (v1)
+  {
+    v6 = sub_100286A64;
+  }
+
+  else
+  {
+    *(v4 + 152) = a1 & 1;
+    v6 = sub_1002869A4;
+  }
+
+  return _swift_task_switch(v6, v5, 0);
+}
+
+uint64_t sub_1002869A4()
+{
+  v1 = *(v0 + 152);
+  (*(*(v0 + 112) + 8))(*(v0 + 128), *(v0 + 104));
+
+  v2 = *(v0 + 8);
+
+  return v2(v1);
+}
+
+uint64_t sub_100286A64()
+{
+  (*(v0[14] + 8))(v0[16], v0[13]);
+
+  v1 = v0[1];
+
+  return v1(0);
+}
+
+uint64_t sub_100286B20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5[4] = a3;
+  v5[5] = v4;
+  v5[2] = a1;
+  v5[3] = a2;
+  v9 = type metadata accessor for Fence.ID();
+  v5[6] = v9;
+  v5[7] = *(v9 - 8);
+  v5[8] = swift_task_alloc();
+  v10 = type metadata accessor for Fence.TriggerPosition();
+  v5[9] = v10;
+  v5[10] = *(v10 - 8);
+  v5[11] = swift_task_alloc();
+  v11 = type metadata accessor for Fence.TriggerID();
+  v5[12] = v11;
+  v5[13] = *(v11 - 8);
+  v5[14] = swift_task_alloc();
+  v5[15] = swift_task_alloc();
+  v12 = type metadata accessor for Fence();
+  v5[16] = v12;
+  v5[17] = *(v12 - 8);
+  v5[18] = swift_task_alloc();
+  v5[19] = swift_task_alloc();
+  v13 = type metadata accessor for LocalUserNotificationCategory();
+  v5[20] = v13;
+  v5[21] = *(v13 - 8);
+  v5[22] = swift_task_alloc();
+  v5[23] = type metadata accessor for FenceNotification(0);
+  v5[24] = swift_task_alloc();
+  v5[25] = swift_task_alloc();
+  v5[26] = swift_task_alloc();
+  v14 = swift_task_alloc();
+  v5[27] = v14;
+  *v14 = v5;
+  v14[1] = sub_100286E18;
+
+  return sub_10025DC1C(a1, a3, a4);
+}
+
+uint64_t sub_100286E18(uint64_t a1, uint64_t a2)
+{
+  v6 = *v3;
+  *(*v3 + 224) = v2;
+
+  if (v2)
+  {
+    v7 = v6[5];
+    v8 = sub_100287224;
+  }
+
+  else
+  {
+    v6[29] = a2;
+    v6[30] = a1;
+    v8 = sub_100286F58;
+    v7 = 0;
+  }
+
+  return _swift_task_switch(v8, v7, 0);
+}
+
+uint64_t sub_100286F58()
+{
+  v1 = v0[19];
+  v2 = v0[16];
+  v3 = v0[17];
+  v4 = v0[15];
+  v5 = v0[12];
+  v6 = v0[13];
+  v7 = v0[10];
+  v20 = v0[9];
+  v21 = v0[11];
+  v8 = v0[3];
+  v19 = v0[4];
+  v9 = v0[2];
+  (*(v0[21] + 104))(v0[22], enum case for LocalUserNotificationCategory.geofenceTrigger(_:), v0[20]);
+  (*(v3 + 16))(v1, v9, v2);
+  (*(v6 + 16))(v4, v8, v5);
+  (*(v7 + 16))(v21, v19, v20);
+  v10 = swift_task_alloc();
+  v0[31] = v10;
+  *v10 = v0;
+  v10[1] = sub_1002870B8;
+  v12 = v0[29];
+  v11 = v0[30];
+  v13 = v0[26];
+  v14 = v0[22];
+  v15 = v0[19];
+  v16 = v0[15];
+  v17 = v0[11];
+
+  return sub_1004504F0(v13, v14, v15, v16, v17, v11, v12);
+}
+
+uint64_t sub_1002870B8()
+{
+  v2 = *v1;
+  *(v2 + 256) = v0;
+
+  if (v0)
+  {
+
+    return _swift_task_switch(sub_1002879AC, 0, 0);
+  }
+
+  else
+  {
+    v3 = swift_task_alloc();
+    *(v2 + 264) = v3;
+    *v3 = v2;
+    v3[1] = sub_10028767C;
+
+    return daemon.getter();
+  }
+}
+
+uint64_t sub_100287224()
+{
+  v41 = v0;
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v1 = v0[17];
+  v2 = v0[18];
+  v3 = v0[16];
+  v5 = v0[13];
+  v4 = v0[14];
+  v6 = v0[12];
+  v8 = v0[2];
+  v7 = v0[3];
+  v9 = type metadata accessor for Logger();
+  sub_10000A6F0(v9, qword_1005DFF88);
+  (*(v1 + 16))(v2, v8, v3);
+  (*(v5 + 16))(v4, v7, v6);
+  swift_errorRetain();
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.error.getter();
+
+  v12 = os_log_type_enabled(v10, v11);
+  v14 = v0[17];
+  v13 = v0[18];
+  v15 = v0[16];
+  v17 = v0[13];
+  v16 = v0[14];
+  v18 = v0[12];
+  if (v12)
+  {
+    v36 = v0[12];
+    v34 = v0[16];
+    v20 = v0[7];
+    v19 = v0[8];
+    v39 = v11;
+    v21 = v0[6];
+    v35 = v0[14];
+    v22 = swift_slowAlloc();
+    v38 = swift_slowAlloc();
+    v40 = swift_slowAlloc();
+    *v22 = 136446722;
+    v37 = v10;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v23 = dispatch thunk of CustomStringConvertible.description.getter();
+    v25 = v24;
+    (*(v20 + 8))(v19, v21);
+    (*(v14 + 8))(v13, v34);
+    v26 = sub_10000D01C(v23, v25, &v40);
+
+    *(v22 + 4) = v26;
+    *(v22 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v27 = dispatch thunk of CustomStringConvertible.description.getter();
+    v29 = v28;
+    (*(v17 + 8))(v35, v36);
+    v30 = sub_10000D01C(v27, v29, &v40);
+
+    *(v22 + 14) = v30;
+    *(v22 + 22) = 2114;
+    swift_errorRetain();
+    v31 = _swift_stdlib_bridgeErrorToNSError();
+    *(v22 + 24) = v31;
+    *v38 = v31;
+    _os_log_impl(&_mh_execute_header, v37, v39, "Failed to post transparency notification for fence %{public}s with trigger %{public}s: %{public}@", v22, 0x20u);
+    sub_100002CE0(v38, &qword_1005A9670, &unk_1004C2480);
+
+    swift_arrayDestroy();
+  }
+
+  else
+  {
+
+    (*(v17 + 8))(v16, v18);
+    (*(v14 + 8))(v13, v15);
+  }
+
+  v32 = v0[1];
+
+  return v32();
+}
+
+uint64_t sub_10028767C(uint64_t a1)
+{
+  v2 = *v1;
+  v9 = *v1;
+  *(v2 + 272) = a1;
+
+  v3 = swift_task_alloc();
+  *(v2 + 280) = v3;
+  v4 = type metadata accessor for Daemon();
+  v5 = type metadata accessor for UserNotificationService();
+  v6 = sub_100009518(&unk_1005AFA50, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v7 = sub_100009518(&qword_1005AD530, type metadata accessor for UserNotificationService, &unk_1004D9448);
+  *v3 = v9;
+  v3[1] = sub_100287858;
+
+  return ActorServiceDaemon.getService<A>()(v4, v5, v6, v7);
+}
+
+uint64_t sub_100287858(uint64_t a1)
+{
+  v4 = *v2;
+  v4[36] = a1;
+  v4[37] = v1;
+
+  if (v1)
+  {
+    v5 = v4[5];
+    v6 = sub_1002881B4;
+  }
+
+  else
+  {
+    v6 = sub_100287E20;
+    v5 = a1;
+  }
+
+  return _swift_task_switch(v6, v5, 0);
+}
+
+uint64_t sub_1002879C8()
+{
+  v41 = v0;
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v1 = v0[17];
+  v2 = v0[18];
+  v3 = v0[16];
+  v5 = v0[13];
+  v4 = v0[14];
+  v6 = v0[12];
+  v8 = v0[2];
+  v7 = v0[3];
+  v9 = type metadata accessor for Logger();
+  sub_10000A6F0(v9, qword_1005DFF88);
+  (*(v1 + 16))(v2, v8, v3);
+  (*(v5 + 16))(v4, v7, v6);
+  swift_errorRetain();
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.error.getter();
+
+  v12 = os_log_type_enabled(v10, v11);
+  v14 = v0[17];
+  v13 = v0[18];
+  v15 = v0[16];
+  v17 = v0[13];
+  v16 = v0[14];
+  v18 = v0[12];
+  if (v12)
+  {
+    v36 = v0[12];
+    v34 = v0[16];
+    v20 = v0[7];
+    v19 = v0[8];
+    v39 = v11;
+    v21 = v0[6];
+    v35 = v0[14];
+    v22 = swift_slowAlloc();
+    v38 = swift_slowAlloc();
+    v40 = swift_slowAlloc();
+    *v22 = 136446722;
+    v37 = v10;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v23 = dispatch thunk of CustomStringConvertible.description.getter();
+    v25 = v24;
+    (*(v20 + 8))(v19, v21);
+    (*(v14 + 8))(v13, v34);
+    v26 = sub_10000D01C(v23, v25, &v40);
+
+    *(v22 + 4) = v26;
+    *(v22 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v27 = dispatch thunk of CustomStringConvertible.description.getter();
+    v29 = v28;
+    (*(v17 + 8))(v35, v36);
+    v30 = sub_10000D01C(v27, v29, &v40);
+
+    *(v22 + 14) = v30;
+    *(v22 + 22) = 2114;
+    swift_errorRetain();
+    v31 = _swift_stdlib_bridgeErrorToNSError();
+    *(v22 + 24) = v31;
+    *v38 = v31;
+    _os_log_impl(&_mh_execute_header, v37, v39, "Failed to post transparency notification for fence %{public}s with trigger %{public}s: %{public}@", v22, 0x20u);
+    sub_100002CE0(v38, &qword_1005A9670, &unk_1004C2480);
+
+    swift_arrayDestroy();
+  }
+
+  else
+  {
+
+    (*(v17 + 8))(v16, v18);
+    (*(v14 + 8))(v13, v15);
+  }
+
+  v32 = v0[1];
+
+  return v32();
+}
+
+uint64_t sub_100287E20()
+{
+  sub_1002939A8(v0[26], v0[25], type metadata accessor for FenceNotification);
+  if (qword_1005A8598 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = v0[24];
+  v1 = v0[25];
+  v3 = v0[5];
+  sub_1002939A8(v1, v2, type metadata accessor for FenceNotification);
+  v4 = objc_allocWithZone(UNUserNotificationCenter);
+  v5 = String._bridgeToObjectiveC()();
+
+  v6 = [v4 initWithBundleIdentifier:v5];
+
+  v7 = sub_1002925EC(v2, type metadata accessor for FenceNotification, type metadata accessor for FenceNotification, type metadata accessor for FenceNotification);
+  LocalUserNotificationCategory.rawValue.getter();
+  v8._countAndFlagsBits = 45;
+  v8._object = 0xE100000000000000;
+  String.append(_:)(v8);
+  v9._countAndFlagsBits = UUID.uuidString.getter();
+  String.append(_:)(v9);
+
+  v10 = v7;
+  v11 = String._bridgeToObjectiveC()();
+
+  v12 = [objc_opt_self() requestWithIdentifier:v11 content:v10 trigger:0 destinations:7];
+
+  [v6 addNotificationRequest:v12 withCompletionHandler:0];
+  sub_100293A10(v2, type metadata accessor for FenceNotification);
+  sub_100293A10(v1, type metadata accessor for FenceNotification);
+
+  return _swift_task_switch(sub_1002880AC, v3, 0);
+}
+
+uint64_t sub_1002880AC()
+{
+  v1 = *(v0 + 208);
+
+  sub_100293A10(v1, type metadata accessor for FenceNotification);
+
+  v2 = *(v0 + 8);
+
+  return v2();
+}
+
+uint64_t sub_1002881B4()
+{
+  v41 = v0;
+  sub_100293A10(v0[26], type metadata accessor for FenceNotification);
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v1 = v0[17];
+  v2 = v0[18];
+  v3 = v0[16];
+  v5 = v0[13];
+  v4 = v0[14];
+  v6 = v0[12];
+  v8 = v0[2];
+  v7 = v0[3];
+  v9 = type metadata accessor for Logger();
+  sub_10000A6F0(v9, qword_1005DFF88);
+  (*(v1 + 16))(v2, v8, v3);
+  (*(v5 + 16))(v4, v7, v6);
+  swift_errorRetain();
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.error.getter();
+
+  v12 = os_log_type_enabled(v10, v11);
+  v14 = v0[17];
+  v13 = v0[18];
+  v15 = v0[16];
+  v17 = v0[13];
+  v16 = v0[14];
+  v18 = v0[12];
+  if (v12)
+  {
+    v36 = v0[12];
+    v34 = v0[16];
+    v20 = v0[7];
+    v19 = v0[8];
+    v39 = v11;
+    v21 = v0[6];
+    v35 = v0[14];
+    v22 = swift_slowAlloc();
+    v38 = swift_slowAlloc();
+    v40 = swift_slowAlloc();
+    *v22 = 136446722;
+    v37 = v10;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v23 = dispatch thunk of CustomStringConvertible.description.getter();
+    v25 = v24;
+    (*(v20 + 8))(v19, v21);
+    (*(v14 + 8))(v13, v34);
+    v26 = sub_10000D01C(v23, v25, &v40);
+
+    *(v22 + 4) = v26;
+    *(v22 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v27 = dispatch thunk of CustomStringConvertible.description.getter();
+    v29 = v28;
+    (*(v17 + 8))(v35, v36);
+    v30 = sub_10000D01C(v27, v29, &v40);
+
+    *(v22 + 14) = v30;
+    *(v22 + 22) = 2114;
+    swift_errorRetain();
+    v31 = _swift_stdlib_bridgeErrorToNSError();
+    *(v22 + 24) = v31;
+    *v38 = v31;
+    _os_log_impl(&_mh_execute_header, v37, v39, "Failed to post transparency notification for fence %{public}s with trigger %{public}s: %{public}@", v22, 0x20u);
+    sub_100002CE0(v38, &qword_1005A9670, &unk_1004C2480);
+
+    swift_arrayDestroy();
+  }
+
+  else
+  {
+
+    (*(v17 + 8))(v16, v18);
+    (*(v14 + 8))(v13, v15);
+  }
+
+  v32 = v0[1];
+
+  return v32();
+}
+
+uint64_t sub_100288628(uint64_t a1)
+{
+  v2[2] = a1;
+  v2[3] = v1;
+  sub_10004B564(&qword_1005A9690, &qword_1004C2A00);
+  v2[4] = swift_task_alloc();
+  v3 = swift_task_alloc();
+  v2[5] = v3;
+  *v3 = v2;
+  v3[1] = sub_1002886F4;
+
+  return daemon.getter();
+}
+
+uint64_t sub_1002886F4(uint64_t a1)
+{
+  v2 = *v1;
+  v9 = *v1;
+  v2[6] = a1;
+
+  v3 = swift_task_alloc();
+  v2[7] = v3;
+  v4 = type metadata accessor for Daemon();
+  v2[8] = v4;
+  v5 = type metadata accessor for LocalStorageService();
+  v6 = sub_100009518(&unk_1005AFA50, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v2[9] = v6;
+  v7 = sub_100009518(&qword_1005AAB88, type metadata accessor for LocalStorageService, &unk_1004D5A30);
+  *v3 = v9;
+  v3[1] = sub_1002888D4;
+
+  return ActorServiceDaemon.getService<A>()(v4, v5, v6, v7);
+}
+
+uint64_t sub_1002888D4(uint64_t a1)
+{
+  v3 = *v2;
+  v3[10] = a1;
+  v3[11] = v1;
+
+  if (v1)
+  {
+    v4 = v3[3];
+
+    return _swift_task_switch(sub_100289248, v4, 0);
+  }
+
+  else
+  {
+
+    v5 = swift_task_alloc();
+    v3[12] = v5;
+    *v5 = v3;
+    v5[1] = sub_100288A48;
+
+    return daemon.getter();
+  }
+}
+
+uint64_t sub_100288A48(uint64_t a1)
+{
+  v2 = *v1;
+  v3 = *v1;
+  v4 = *v1;
+  *(v3 + 104) = a1;
+
+  v5 = swift_task_alloc();
+  *(v3 + 112) = v5;
+  v6 = type metadata accessor for FenceService(0);
+  v7 = sub_100009518(&qword_1005A9278, type metadata accessor for FenceService, &unk_1004D21A8);
+  *v5 = v4;
+  v5[1] = sub_100288BFC;
+  v8 = *(v2 + 72);
+  v9 = *(v2 + 64);
+
+  return ActorServiceDaemon.getService<A>()(v9, v6, v8, v7);
+}
+
+uint64_t sub_100288BFC(uint64_t a1)
+{
+  v3 = *v2;
+  v3[15] = a1;
+  v3[16] = v1;
+
+  if (v1)
+  {
+    v4 = v3[3];
+    v5 = sub_1002892B8;
+  }
+
+  else
+  {
+    v6 = v3[10];
+
+    v5 = sub_100288D24;
+    v4 = v6;
+  }
+
+  return _swift_task_switch(v5, v4, 0);
+}
+
+uint64_t sub_100288D24()
+{
+  v1 = v0[10];
+  v2 = v0[2];
+  v3 = sub_100009518(&qword_1005AAB90, type metadata accessor for LocalStorageService, &unk_1004D5A90);
+  v4 = swift_task_alloc();
+  v0[17] = v4;
+  *(v4 + 16) = v1;
+  *(v4 + 24) = v2;
+  v5 = swift_task_alloc();
+  v0[18] = v5;
+  *v5 = v0;
+  v5[1] = sub_100288E5C;
+
+  return withCheckedThrowingContinuation<A>(isolation:function:_:)(v5, v1, v3, 0xD000000000000010, 0x80000001004E66A0, sub_10029332C, v4, &type metadata for () + 1);
+}
+
+uint64_t sub_100288E5C()
+{
+  v2 = *v1;
+  *(*v1 + 152) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 80);
+    v4 = sub_100289164;
+  }
+
+  else
+  {
+    v5 = *(v2 + 80);
+
+    v4 = sub_100288F84;
+    v3 = v5;
+  }
+
+  return _swift_task_switch(v4, v3, 0);
+}
+
+uint64_t sub_100288FA0()
+{
+  v1 = v0[15];
+  v3 = v0[3];
+  v2 = v0[4];
+  v4 = type metadata accessor for TaskPriority();
+  (*(*(v4 - 8) + 56))(v2, 1, 1, v4);
+  v5 = sub_100009518(&qword_1005AF4A8, type metadata accessor for FenceService, &unk_1004D2208);
+  v6 = swift_allocObject();
+  v6[2] = v1;
+  v6[3] = v5;
+  v6[4] = v1;
+  swift_retain_n();
+  sub_10020D620(0, 0, v2, &unk_1004D0730, v6);
+
+  return _swift_task_switch(sub_1002890E8, v3, 0);
+}
+
+uint64_t sub_1002890E8()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_100289164()
+{
+  v1 = *(v0 + 24);
+
+  return _swift_task_switch(sub_1002891D0, v1, 0);
+}
+
+uint64_t sub_1002891D0()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_100289248()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_1002892B8()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_100289330(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4[4] = a3;
+  v4[5] = v3;
+  v4[2] = a1;
+  v4[3] = a2;
+  v4[6] = type metadata accessor for FenceTriggerRecord(0);
+  v4[7] = swift_task_alloc();
+  v5 = type metadata accessor for Fence.ID();
+  v4[8] = v5;
+  v4[9] = *(v5 - 8);
+  v4[10] = swift_task_alloc();
+
+  return _swift_task_switch(sub_100289424, v3, 0);
+}
+
+uint64_t sub_100289424()
+{
+  v22 = v0;
   if (qword_1005A80E8 != -1)
   {
     swift_once();
@@ -163,9817 +2183,7739 @@ uint64_t sub_100256344()
   v2 = v0[9];
   v1 = v0[10];
   v3 = v0[8];
-  v4 = v0[4];
+  v4 = v0[2];
   v5 = type metadata accessor for Logger();
-  sub_10000A6F0(v5, qword_1005DFF88);
-  (*(v2 + 16))(v1, v4, v3);
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-  v8 = os_log_type_enabled(v6, v7);
-  v10 = v0[9];
-  v9 = v0[10];
-  v11 = v0[8];
-  if (v8)
-  {
-    v12 = swift_slowAlloc();
-    v20 = swift_slowAlloc();
-    *v12 = 136446723;
-    *(v12 + 4) = sub_10000D01C(0xD000000000000040, 0x80000001004DEBA0, &v20);
-    *(v12 + 12) = 2160;
-    *(v12 + 14) = 1752392040;
-    *(v12 + 22) = 2081;
-    v13 = Handle.identifier.getter();
-    v15 = v14;
-    (*(v10 + 8))(v9, v11);
-    v16 = sub_10000D01C(v13, v15, &v20);
-
-    *(v12 + 24) = v16;
-    _os_log_impl(&_mh_execute_header, v6, v7, "%{public}s to handle %{private,mask.hash}s!", v12, 0x20u);
-    swift_arrayDestroy();
-  }
-
-  else
-  {
-
-    (*(v10 + 8))(v9, v11);
-  }
-
-  v17 = async function pointer to daemon.getter[1];
-  v18 = swift_task_alloc();
-  v0[11] = v18;
-  *v18 = v0;
-  v18[1] = sub_1002565F0;
-
-  return daemon.getter();
-}
-
-uint64_t sub_1002565F0(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 88);
-  v12 = *v1;
-  *(v3 + 96) = a1;
-
-  v5 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v6 = swift_task_alloc();
-  *(v3 + 104) = v6;
-  v7 = type metadata accessor for Daemon();
-  v8 = type metadata accessor for CommandManager();
-  v9 = sub_100009488(&unk_1005AFA50, &type metadata accessor for Daemon);
-  v10 = sub_100009488(&qword_1005A90C8, type metadata accessor for CommandManager);
-  *v6 = v12;
-  v6[1] = sub_1002567F8;
-
-  return ActorServiceDaemon.getService<A>()(v7, v8, v9, v10);
-}
-
-uint64_t sub_1002567F8(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 104);
-  v10 = *v2;
-  v3[14] = a1;
-  v3[15] = v1;
-
-  if (v1)
-  {
-    v5 = v3[7];
-    v6 = sub_100256D50;
-  }
-
-  else
-  {
-    v7 = v3[12];
-    v8 = v3[7];
-
-    v6 = sub_10025696C;
-    v5 = v8;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_10025696C()
-{
-  v1 = *(v0 + 24);
-  v2 = objc_opt_self();
-  *(v0 + 16) = 0;
-  v3 = [v2 archivedDataWithRootObject:v1 requiringSecureCoding:1 error:v0 + 16];
-  v4 = *(v0 + 16);
-  if (v3)
-  {
-    v5 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v7 = v6;
-
-    v8 = Data.base64EncodedString(options:)(0);
-    *(v0 + 128) = v8._object;
-    sub_1000049D0(v5, v7);
-    v9 = swift_task_alloc();
-    *(v0 + 136) = v9;
-    *v9 = v0;
-    v9[1] = sub_100256B48;
-    v10 = *(v0 + 112);
-    v11 = *(v0 + 40);
-    v12 = *(v0 + 48);
-    v13 = *(v0 + 32);
-
-    return sub_100077FD4(v8._countAndFlagsBits, v8._object, v13, v11, v12);
-  }
-
-  else
-  {
-    v15 = *(v0 + 112);
-    v16 = v4;
-    _convertNSErrorToError(_:)();
-
-    swift_willThrow();
-
-    v17 = *(v0 + 80);
-
-    v18 = *(v0 + 8);
-
-    return v18();
-  }
-}
-
-uint64_t sub_100256B48()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 136);
-  v4 = *v1;
-  *(*v1 + 144) = v0;
-
-  v5 = *(v2 + 56);
-  if (v0)
-  {
-    v6 = sub_100256DE8;
-  }
-
-  else
-  {
-    v6 = sub_100256CA0;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_100256CA0()
-{
-  v1 = v0[16];
-  v2 = v0[14];
-  v3 = v0[10];
-
-  v4 = v0[1];
-
-  return v4();
-}
-
-uint64_t sub_100256D50()
-{
-  v1 = v0[12];
-
-  v2 = v0[15];
-  v3 = v0[10];
-
-  v4 = v0[1];
-
-  return v4();
-}
-
-uint64_t sub_100256DE8()
-{
-  v1 = v0[16];
-  v2 = v0[14];
-
-  v3 = v0[18];
-  v4 = v0[10];
-
-  v5 = v0[1];
-
-  return v5();
-}
-
-uint64_t sub_100256E8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v6[12] = a5;
-  v6[13] = a6;
-  v6[10] = a3;
-  v6[11] = a4;
-  v6[9] = a2;
-  v8 = *(type metadata accessor for ShareInvitationRecord() - 8);
-  v6[14] = v8;
-  v6[15] = *(v8 + 64);
-  v6[16] = swift_task_alloc();
-  v9 = *(*(sub_10004B564(&qword_1005A9690, &qword_1004C2A00) - 8) + 64) + 15;
-  v6[17] = swift_task_alloc();
-  v6[18] = swift_task_alloc();
-
-  return _swift_task_switch(sub_100256FA0, a4, 0);
-}
-
-uint64_t sub_100256FA0()
-{
-  v1 = *(v0 + 80);
-  v2 = *(v1 + 16);
-  if (v2)
-  {
-    v3 = *(v0 + 112);
-    v35 = **(v0 + 72);
-    v4 = *(v3 + 80);
-    v5 = v1 + ((v4 + 32) & ~v4);
-    v34 = *(v3 + 72);
-    v33 = (v4 + 40) & ~v4;
-    v32 = (*(v0 + 120) + v33 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v6 = type metadata accessor for TaskPriority();
-    v7 = *(v6 - 8);
-    v31 = *(v7 + 56);
-    v30 = (v7 + 48);
-    v29 = (v7 + 8);
-    do
-    {
-      v37 = v2;
-      v11 = *(v0 + 136);
-      v10 = *(v0 + 144);
-      v12 = *(v0 + 128);
-      v13 = *(v0 + 96);
-      v36 = *(v0 + 104);
-      v14 = *(v0 + 88);
-      v31(v10, 1, 1, v6);
-      sub_100257DA4(v5, v12);
-      v15 = swift_allocObject();
-      v15[2] = 0;
-      v16 = v15 + 2;
-      v15[3] = 0;
-      v15[4] = v14;
-      sub_100257E08(v12, v15 + v33);
-      *(v15 + v32) = v13;
-      *(v15 + ((v32 + 15) & 0xFFFFFFFFFFFFFFF8)) = v36;
-      sub_10007CE68(v10, v11);
-      LODWORD(v11) = (*v30)(v11, 1, v6);
-
-      v17 = *(v0 + 136);
-      if (v11 == 1)
-      {
-        sub_100002CE0(*(v0 + 136), &qword_1005A9690, &qword_1004C2A00);
-      }
-
-      else
-      {
-        TaskPriority.rawValue.getter();
-        (*v29)(v17, v6);
-      }
-
-      if (*v16)
-      {
-        v18 = v15[3];
-        v19 = *v16;
-        swift_getObjectType();
-        swift_unknownObjectRetain();
-        v20 = dispatch thunk of Actor.unownedExecutor.getter();
-        v22 = v21;
-        swift_unknownObjectRelease();
-      }
-
-      else
-      {
-        v20 = 0;
-        v22 = 0;
-      }
-
-      v23 = swift_allocObject();
-      *(v23 + 16) = &unk_1004D2670;
-      *(v23 + 24) = v15;
-
-      if (v22 | v20)
-      {
-        v8 = v0 + 16;
-        *(v0 + 16) = 0;
-        *(v0 + 24) = 0;
-        *(v0 + 32) = v20;
-        *(v0 + 40) = v22;
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      v9 = *(v0 + 144);
-      *(v0 + 48) = 1;
-      *(v0 + 56) = v8;
-      *(v0 + 64) = v35;
-      swift_task_create();
-
-      sub_100002CE0(v9, &qword_1005A9690, &qword_1004C2A00);
-      v5 += v34;
-      v2 = v37 - 1;
-    }
-
-    while (v37 != 1);
-  }
-
-  v25 = *(v0 + 136);
-  v24 = *(v0 + 144);
-  v26 = *(v0 + 128);
-
-  v27 = *(v0 + 8);
-
-  return v27();
-}
-
-uint64_t sub_100257320(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v5[3] = a4;
-  v5[4] = a5;
-  v5[2] = a3;
-  return _swift_task_switch(sub_100257344, 0, 0);
-}
-
-uint64_t sub_100257344()
-{
-  v1 = v0[3];
-  v2 = (v1 + *(type metadata accessor for ShareInvitationRecord() + 20));
-  v4 = *v2;
-  v3 = v2[1];
-  v5 = swift_task_alloc();
-  v0[5] = v5;
-  *v5 = v0;
-  v5[1] = sub_100257400;
-  v7 = v0[2];
-  v6 = v0[3];
-
-  return sub_100253F44(v6, v4, v3);
-}
-
-uint64_t sub_100257400()
-{
-  v2 = *(*v1 + 40);
-  v5 = *v1;
-  *(*v1 + 48) = v0;
-
-  if (v0)
-  {
-    v3 = sub_100257928;
-  }
-
-  else
-  {
-    v3 = sub_100257514;
-  }
-
-  return _swift_task_switch(v3, 0, 0);
-}
-
-uint64_t sub_100257514()
-{
-  v1 = swift_task_alloc();
-  *(v0 + 56) = v1;
-  v1[1] = vextq_s8(*(v0 + 24), *(v0 + 24), 8uLL);
-  v2 = async function pointer to withCheckedThrowingContinuation<A>(isolation:function:_:)[1];
-  v3 = swift_task_alloc();
-  *(v0 + 64) = v3;
-  *v3 = v0;
-  v3[1] = sub_100257604;
-
-  return withCheckedThrowingContinuation<A>(isolation:function:_:)(v3, 0, 0, 0xD000000000000025, 0x80000001004E5D30, sub_100257FA0, v1, &type metadata for () + 8);
-}
-
-uint64_t sub_100257604()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 64);
-  v7 = *v1;
-  *(*v1 + 72) = v0;
-
-  if (v0)
-  {
-    v4 = sub_100257720;
-  }
-
-  else
-  {
-    v5 = *(v2 + 56);
-
-    v4 = sub_1000161BC;
-  }
-
-  return _swift_task_switch(v4, 0, 0);
-}
-
-uint64_t sub_100257720()
-{
-  v13 = v0;
-  v1 = v0[7];
-
-  v2 = v0[9];
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v3 = type metadata accessor for Logger();
-  sub_10000A6F0(v3, qword_1005DFF88);
-  swift_errorRetain();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v4, v5))
-  {
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v12 = v8;
-    *v6 = 136446466;
-    *(v6 + 4) = sub_10000D01C(0xD00000000000001FLL, 0x80000001004E5DE0, &v12);
-    *(v6 + 12) = 2114;
-    swift_errorRetain();
-    v9 = _swift_stdlib_bridgeErrorToNSError();
-    *(v6 + 14) = v9;
-    *v7 = v9;
-    _os_log_impl(&_mh_execute_header, v4, v5, "%{public}s failure: %{public}@", v6, 0x16u);
-    sub_100002CE0(v7, &qword_1005A9670, &unk_1004C2480);
-
-    sub_100004984(v8);
-  }
-
-  else
-  {
-  }
-
-  v10 = v0[1];
-
-  return v10();
-}
-
-uint64_t sub_100257928()
-{
-  v12 = v0;
-  v1 = *(v0 + 48);
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v2 = type metadata accessor for Logger();
-  sub_10000A6F0(v2, qword_1005DFF88);
-  swift_errorRetain();
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v11 = v7;
-    *v5 = 136446466;
-    *(v5 + 4) = sub_10000D01C(0xD00000000000001FLL, 0x80000001004E5DE0, &v11);
-    *(v5 + 12) = 2114;
-    swift_errorRetain();
-    v8 = _swift_stdlib_bridgeErrorToNSError();
-    *(v5 + 14) = v8;
-    *v6 = v8;
-    _os_log_impl(&_mh_execute_header, v3, v4, "%{public}s failure: %{public}@", v5, 0x16u);
-    sub_100002CE0(v6, &qword_1005A9670, &unk_1004C2480);
-
-    sub_100004984(v7);
-  }
-
-  else
-  {
-  }
-
-  v9 = *(v0 + 8);
-
-  return v9();
-}
-
-unint64_t sub_100257B3C()
-{
-  result = qword_1005B0AD0;
-  if (!qword_1005B0AD0)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &qword_1005B0AD0);
-  }
-
-  return result;
-}
-
-uint64_t sub_100257B88(uint64_t a1)
-{
-  v3 = v2;
-  v5 = *(type metadata accessor for URL() - 8);
-  v6 = (*(v5 + 80) + 32) & ~*(v5 + 80);
-  v7 = (*(v5 + 64) + v6 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v9 = *(v1 + 16);
-  v10 = *(v1 + 24);
-  v11 = *(v1 + v7);
-  v12 = *(v1 + v8);
-  v13 = *(v1 + ((v8 + 15) & 0xFFFFFFFFFFFFFFF8));
-  v14 = swift_task_alloc();
-  *(v3 + 16) = v14;
-  *v14 = v3;
-  v14[1] = sub_100003690;
-
-  return sub_1002554BC(a1, v9, v10, v1 + v6, v11, v12);
-}
-
-uint64_t sub_100257CDC(uint64_t a1, uint64_t a2)
-{
-  v6 = v2[2];
-  v7 = v2[3];
-  v9 = v2[4];
-  v8 = v2[5];
-  v10 = swift_task_alloc();
-  *(v3 + 16) = v10;
-  *v10 = v3;
-  v10[1] = sub_100003690;
-
-  return sub_100256E8C(a1, a2, v6, v7, v9, v8);
-}
-
-uint64_t sub_100257DA4(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ShareInvitationRecord();
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_100257E08(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ShareInvitationRecord();
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_100257E6C()
-{
-  v2 = *(type metadata accessor for ShareInvitationRecord() - 8);
-  v3 = (*(v2 + 80) + 40) & ~*(v2 + 80);
-  v4 = (*(v2 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v5 = v0[2];
-  v6 = v0[3];
-  v7 = v0[4];
-  v8 = *(v0 + v4);
-  v9 = *(v0 + ((v4 + 15) & 0xFFFFFFFFFFFFFFF8));
-  v10 = swift_task_alloc();
-  *(v1 + 16) = v10;
-  *v10 = v1;
-  v10[1] = sub_10000368C;
-
-  return sub_100257320(v5, v6, v7, v0 + v3, v8);
-}
-
-uint64_t sub_100257FA4()
-{
-  v0 = type metadata accessor for LocalizationUtility.Table();
-  v49 = *(v0 - 8);
-  v50 = v0;
-  v1 = *(v49 + 64);
-  __chkstk_darwin(v0);
-  v3 = &v45 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for PlaceMark();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v4);
-  v9 = &v45 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v7);
-  v12 = &v45 - v11;
-  v13 = __chkstk_darwin(v10);
-  v15 = &v45 - v14;
-  __chkstk_darwin(v13);
-  v17 = &v45 - v16;
-  v18 = Fence.label.getter();
-  v20 = v19;
-
-  v21 = HIBYTE(v20) & 0xF;
-  if ((v20 & 0x2000000000000000) == 0)
-  {
-    v21 = v18 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v21)
-  {
-    return Fence.label.getter();
-  }
-
-  v47 = v9;
-  v48 = v12;
-  v46 = v3;
-  Fence.placemark.getter();
-  v23 = PlaceMark.streetAddress.getter();
-  v25 = v24;
-  v26 = *(v5 + 8);
-  v26(v17, v4);
-  v27 = v4;
-  if (v25)
-  {
-    v28 = HIBYTE(v25) & 0xF;
-    if ((v25 & 0x2000000000000000) == 0)
-    {
-      v28 = v23 & 0xFFFFFFFFFFFFLL;
-    }
-
-    if (v28)
-    {
-      return v23;
-    }
-  }
-
-  Fence.placemark.getter();
-  v23 = PlaceMark.streetName.getter();
-  v30 = v29;
-  v26(v15, v4);
-  v31 = v48;
-  if (v30)
-  {
-    v32 = HIBYTE(v30) & 0xF;
-    if ((v30 & 0x2000000000000000) == 0)
-    {
-      v32 = v23 & 0xFFFFFFFFFFFFLL;
-    }
-
-    if (v32)
-    {
-      return v23;
-    }
-  }
-
-  Fence.placemark.getter();
-  v23 = PlaceMark.locality.getter();
-  v34 = v33;
-  v26(v31, v4);
-  v35 = v47;
-  if (v34)
-  {
-    v36 = HIBYTE(v34) & 0xF;
-    if ((v34 & 0x2000000000000000) == 0)
-    {
-      v36 = v23 & 0xFFFFFFFFFFFFLL;
-    }
-
-    if (v36)
-    {
-      return v23;
-    }
-  }
-
-  Fence.placemark.getter();
-  v23 = PlaceMark.administrativeArea.getter();
-  v38 = v37;
-  v26(v35, v27);
-  v39 = v38;
-  v41 = v49;
-  v40 = v50;
-  v42 = v46;
-  if (!v39)
-  {
-LABEL_27:
-    (*(v41 + 104))(v42, enum case for LocalizationUtility.Table.default(_:), v40);
-    v44 = static LocalizationUtility.localizedString(key:table:)();
-    (*(v41 + 8))(v42, v40);
-    return v44;
-  }
-
-  v43 = HIBYTE(v39) & 0xF;
-  if ((v39 & 0x2000000000000000) == 0)
-  {
-    v43 = v23 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (!v43)
-  {
-
-    goto LABEL_27;
-  }
-
-  return v23;
-}
-
-uint64_t sub_100258360(uint64_t a1)
-{
-  v2 = sub_10004B564(&unk_1005AE5B0, &qword_1004C32F0);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v16 - v4;
-  v6 = type metadata accessor for Date();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10025887C(a1, v5);
-  if ((*(v7 + 48))(v5, 1, v6) == 1)
-  {
-    sub_100002CE0(v5, &unk_1005AE5B0, &qword_1004C32F0);
-    return 0;
-  }
-
-  else
-  {
-    (*(v7 + 32))(v10, v5, v6);
-    v12 = objc_opt_self();
-    isa = Date._bridgeToObjectiveC()().super.isa;
-    v14 = [v12 localizedStringFromDate:isa dateStyle:0 timeStyle:1];
-
-    v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    (*(v7 + 8))(v10, v6);
-    return v15;
-  }
-}
-
-void *sub_10025854C(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  v2 = _swiftEmptyArrayStorage;
-  if (v1)
-  {
-    v13 = _swiftEmptyArrayStorage;
-    sub_1002393DC(0, v1, 0);
-    v2 = _swiftEmptyArrayStorage;
-    v4 = (a1 + 40);
-    do
-    {
-      v6 = *(v4 - 1);
-      v5 = *v4;
-      v13 = v2;
-      v7 = v2[2];
-      v8 = v2[3];
-
-      if (v7 >= v8 >> 1)
-      {
-        sub_1002393DC((v8 > 1), v7 + 1, 1);
-        v2 = v13;
-      }
-
-      v11 = &type metadata for String;
-      v12 = sub_1000588B8();
-      *&v10 = v6;
-      *(&v10 + 1) = v5;
-      v2[2] = v7 + 1;
-      sub_100010BD4(&v10, &v2[5 * v7 + 4]);
-      v4 += 2;
-      --v1;
-    }
-
-    while (v1);
-  }
-
-  return v2;
-}
-
-void *sub_100258648(uint64_t a1)
-{
-  v2 = type metadata accessor for PublicKey();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = sub_10004B564(&qword_1005B0608, &qword_1004D1F38);
-  v7 = *(v21 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v21);
-  v10 = &v19 - v9;
-  v11 = *(a1 + 16);
-  v12 = _swiftEmptyArrayStorage;
-  if (v11)
-  {
-    v22 = _swiftEmptyArrayStorage;
-    sub_1002397C4(0, v11, 0);
-    v14 = *(v3 + 16);
-    v13 = v3 + 16;
-    v12 = v22;
-    v15 = a1 + ((*(v13 + 64) + 32) & ~*(v13 + 64));
-    v19 = *(v13 + 56);
-    v20 = v14;
-    do
-    {
-      v20(v6, v15, v2);
-      swift_dynamicCast();
-      v22 = v12;
-      v17 = v12[2];
-      v16 = v12[3];
-      if (v17 >= v16 >> 1)
-      {
-        sub_1002397C4(v16 > 1, v17 + 1, 1);
-        v12 = v22;
-      }
-
-      v12[2] = v17 + 1;
-      sub_100260160(v10, v12 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v17);
-      v15 += v19;
-      --v11;
-    }
-
-    while (v11);
-  }
-
-  return v12;
-}
-
-uint64_t sub_10025887C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v20 = a2;
-  v21 = a1;
-  v22 = type metadata accessor for Date();
-  v2 = *(v22 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v22);
-  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for DateComponents();
-  v18 = *(v6 - 8);
-  v19 = v6;
-  v7 = *(v18 + 64);
-  __chkstk_darwin(v6);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10004B564(&qword_1005B0B10, &qword_1004D26B0);
-  v10 = type metadata accessor for Calendar.Component();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 72);
-  v13 = (*(v11 + 80) + 32) & ~*(v11 + 80);
-  v14 = swift_allocObject();
-  *(v14 + 16) = xmmword_1004C2300;
-  v15 = v14 + v13;
-  v16 = *(v11 + 104);
-  v16(v15, enum case for Calendar.Component.era(_:), v10);
-  v16(v15 + v12, enum case for Calendar.Component.year(_:), v10);
-  v16(v15 + 2 * v12, enum case for Calendar.Component.month(_:), v10);
-  v16(v15 + 3 * v12, enum case for Calendar.Component.day(_:), v10);
-  v16(v15 + 4 * v12, enum case for Calendar.Component.hour(_:), v10);
-  v16(v15 + 5 * v12, enum case for Calendar.Component.minute(_:), v10);
-  sub_10025A52C(v14);
-  swift_setDeallocating();
-  swift_arrayDestroy();
-  swift_deallocClassInstance();
-  static Date.now.getter();
-  Calendar.dateComponents(_:from:)();
-
-  (*(v2 + 8))(v5, v22);
-  result = Fence.TimeOfDay.hour.getter();
-  if (result < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    DateComponents.hour.setter();
-    result = Fence.TimeOfDay.minute.getter();
-    if ((result & 0x8000000000000000) == 0)
-    {
-      DateComponents.minute.setter();
-      Calendar.date(from:)();
-      return (*(v18 + 8))(v9, v19);
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_100258BFC(uint64_t a1, uint64_t a2)
-{
-  v2[2] = a1;
-  v2[3] = a2;
-  v3 = type metadata accessor for LocalizationUtility.Table();
-  v2[4] = v3;
-  v4 = *(v3 - 8);
-  v2[5] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[6] = swift_task_alloc();
-  v6 = type metadata accessor for Fence.Participant();
-  v2[7] = v6;
-  v7 = *(v6 - 8);
-  v2[8] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[9] = swift_task_alloc();
-  v2[10] = swift_task_alloc();
-  v9 = type metadata accessor for Destination();
-  v2[11] = v9;
-  v10 = *(v9 - 8);
-  v2[12] = v10;
-  v11 = *(v10 + 64) + 15;
-  v2[13] = swift_task_alloc();
-  v12 = type metadata accessor for PersonHandle();
-  v2[14] = v12;
-  v13 = *(v12 - 8);
-  v2[15] = v13;
-  v14 = *(v13 + 64) + 15;
-  v2[16] = swift_task_alloc();
-  v15 = type metadata accessor for Fence.ID();
-  v2[17] = v15;
-  v16 = *(v15 - 8);
-  v2[18] = v16;
-  v17 = *(v16 + 64) + 15;
-  v2[19] = swift_task_alloc();
-  v18 = type metadata accessor for Fence();
-  v2[20] = v18;
-  v19 = *(v18 - 8);
-  v2[21] = v19;
-  v20 = *(v19 + 64) + 15;
-  v2[22] = swift_task_alloc();
-  v21 = type metadata accessor for Fence.TriggerPosition();
-  v2[23] = v21;
-  v22 = *(v21 - 8);
-  v2[24] = v22;
-  v23 = *(v22 + 64) + 15;
-  v2[25] = swift_task_alloc();
-
-  return _swift_task_switch(sub_100258EF0, 0, 0);
-}
-
-uint64_t sub_100258EF0()
-{
-  v57 = v0;
-  v2 = v0[24];
-  v1 = v0[25];
-  v3 = v0[23];
-  (*(v2 + 16))(v1, v0[3], v3);
-  v4 = (*(v2 + 88))(v1, v3);
-  v5 = enum case for Fence.TriggerPosition.inside(_:);
-  (*(v2 + 8))(v1, v3);
-  if (v4 == v5)
-  {
-    if (qword_1005A80E8 != -1)
-    {
-      swift_once();
-    }
-
-    v7 = v0[21];
-    v6 = v0[22];
-    v8 = v0[20];
-    v9 = v0[2];
-    v10 = type metadata accessor for Logger();
-    sub_10000A6F0(v10, qword_1005DFF88);
-    (*(v7 + 16))(v6, v9, v8);
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.error.getter();
-    v13 = os_log_type_enabled(v11, v12);
-    v15 = v0[21];
-    v14 = v0[22];
-    v16 = v0[20];
-    if (v13)
-    {
-      v50 = v0[20];
-      v17 = v0[18];
-      v18 = v0[19];
-      v19 = v0[17];
-      v20 = swift_slowAlloc();
-      v54 = swift_slowAlloc();
-      v56 = v54;
-      *v20 = 136446210;
-      v52 = v12;
-      Fence.id.getter();
-      sub_100260118(&qword_1005AE800, &type metadata accessor for Fence.ID);
-      v21 = dispatch thunk of CustomStringConvertible.description.getter();
-      v23 = v22;
-      (*(v17 + 8))(v18, v19);
-      (*(v15 + 8))(v14, v50);
-      v24 = sub_10000D01C(v21, v23, &v56);
-
-      *(v20 + 4) = v24;
-      _os_log_impl(&_mh_execute_header, v11, v52, "Invalid position inside for leaving fence with id %{public}s", v20, 0xCu);
-      sub_100004984(v54);
-    }
-
-    else
-    {
-
-      (*(v15 + 8))(v14, v16);
-    }
-  }
-
-  v25 = v0[2];
-  v26 = Fence.others.getter();
-  if (*(v26 + 16))
-  {
-    v27 = v0[13];
-    (*(v0[15] + 16))(v0[16], v26 + ((*(v0[15] + 80) + 32) & ~*(v0[15] + 80)), v0[14]);
-
-    sub_100279044();
-    v28 = swift_task_alloc();
-    v0[26] = v28;
-    *v28 = v0;
-    v28[1] = sub_1002594A0;
-    v29 = v0[13];
-
-    return sub_1004559B4(0);
-  }
-
-  else
-  {
-
-    v48 = v0[25];
-    v49 = v0[22];
-    v51 = v0[19];
-    v53 = v0[16];
-    v55 = v0[13];
-    v32 = v0[9];
-    v31 = v0[10];
-    v33 = v0[7];
-    v34 = v0[8];
-    v35 = v0[5];
-    v47 = v0[6];
-    v36 = v0[4];
-    v37 = v0[2];
-    Fence.findee.getter();
-    (*(v34 + 104))(v32, enum case for Fence.Participant.me(_:), v33);
-    static Fence.Participant.== infix(_:_:)();
-    v38 = *(v34 + 8);
-    v38(v32, v33);
-    v38(v31, v33);
-    (*(v35 + 104))(v47, enum case for LocalizationUtility.Table.default(_:), v36);
-    static LocalizationUtility.localizedString(key:table:)();
-    (*(v35 + 8))(v47, v36);
-    sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-    v39 = swift_allocObject();
-    *(v39 + 16) = xmmword_1004C2310;
-    *(v39 + 56) = &type metadata for String;
-    v40 = sub_1000588B8();
-    *(v39 + 64) = v40;
-    *(v39 + 32) = 0;
-    *(v39 + 40) = 0xE000000000000000;
-    v41 = sub_100257FA4();
-    *(v39 + 96) = &type metadata for String;
-    *(v39 + 104) = v40;
-    *(v39 + 72) = v41;
-    *(v39 + 80) = v42;
-    v43 = String.init(format:arguments:)();
-    v45 = v44;
-
-    v46 = v0[1];
-
-    return v46(v43, v45);
-  }
-}
-
-uint64_t sub_1002594A0(uint64_t a1, uint64_t a2)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 208);
-  v5 = *(*v2 + 104);
-  v6 = *(*v2 + 96);
-  v7 = *(*v2 + 88);
-  v9 = *v2;
-  *(v3 + 216) = a1;
-  *(v3 + 224) = a2;
-
-  (*(v6 + 8))(v5, v7);
-
-  return _swift_task_switch(sub_100259600, 0, 0);
-}
-
-uint64_t sub_100259600()
-{
-  (*(v0[15] + 8))(v0[16], v0[14]);
-  v19 = v0[27];
-  v20 = v0[28];
-  v21 = v0[25];
-  v22 = v0[22];
-  v23 = v0[19];
-  v24 = v0[16];
-  v25 = v0[13];
-  v2 = v0[9];
-  v1 = v0[10];
-  v3 = v0[7];
-  v4 = v0[8];
-  v5 = v0[5];
-  v18 = v0[6];
-  v6 = v0[4];
-  v7 = v0[2];
-  Fence.findee.getter();
-  (*(v4 + 104))(v2, enum case for Fence.Participant.me(_:), v3);
-  static Fence.Participant.== infix(_:_:)();
-  v8 = *(v4 + 8);
-  v8(v2, v3);
-  v8(v1, v3);
-  (*(v5 + 104))(v18, enum case for LocalizationUtility.Table.default(_:), v6);
-  static LocalizationUtility.localizedString(key:table:)();
-  (*(v5 + 8))(v18, v6);
-  sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_1004C2310;
-  *(v9 + 56) = &type metadata for String;
-  v10 = sub_1000588B8();
-  *(v9 + 64) = v10;
-  *(v9 + 32) = v19;
-  *(v9 + 40) = v20;
-  v11 = sub_100257FA4();
-  *(v9 + 96) = &type metadata for String;
-  *(v9 + 104) = v10;
-  *(v9 + 72) = v11;
-  *(v9 + 80) = v12;
-  v13 = String.init(format:arguments:)();
-  v15 = v14;
-
-  v16 = v0[1];
-
-  return v16(v13, v15);
-}
-
-uint64_t sub_100259894(uint64_t a1, uint64_t a2)
-{
-  v2[2] = a1;
-  v2[3] = a2;
-  v3 = type metadata accessor for LocalizationUtility.Table();
-  v2[4] = v3;
-  v4 = *(v3 - 8);
-  v2[5] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[6] = swift_task_alloc();
-  v6 = type metadata accessor for Fence.Participant();
-  v2[7] = v6;
-  v7 = *(v6 - 8);
-  v2[8] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[9] = swift_task_alloc();
-  v2[10] = swift_task_alloc();
-  v9 = type metadata accessor for Destination();
-  v2[11] = v9;
-  v10 = *(v9 - 8);
-  v2[12] = v10;
-  v11 = *(v10 + 64) + 15;
-  v2[13] = swift_task_alloc();
-  v12 = type metadata accessor for PersonHandle();
-  v2[14] = v12;
-  v13 = *(v12 - 8);
-  v2[15] = v13;
-  v14 = *(v13 + 64) + 15;
-  v2[16] = swift_task_alloc();
-  v15 = type metadata accessor for Fence.ID();
-  v2[17] = v15;
-  v16 = *(v15 - 8);
-  v2[18] = v16;
-  v17 = *(v16 + 64) + 15;
-  v2[19] = swift_task_alloc();
-  v18 = type metadata accessor for Fence();
-  v2[20] = v18;
-  v19 = *(v18 - 8);
-  v2[21] = v19;
-  v20 = *(v19 + 64) + 15;
-  v2[22] = swift_task_alloc();
-  v21 = type metadata accessor for Fence.TriggerPosition();
-  v2[23] = v21;
-  v22 = *(v21 - 8);
-  v2[24] = v22;
-  v23 = *(v22 + 64) + 15;
-  v2[25] = swift_task_alloc();
-
-  return _swift_task_switch(sub_100259B88, 0, 0);
-}
-
-uint64_t sub_100259B88()
-{
-  v57 = v0;
-  v2 = v0[24];
-  v1 = v0[25];
-  v3 = v0[23];
-  (*(v2 + 16))(v1, v0[3], v3);
-  v4 = (*(v2 + 88))(v1, v3);
-  v5 = enum case for Fence.TriggerPosition.outside(_:);
-  (*(v2 + 8))(v1, v3);
-  if (v4 == v5)
-  {
-    if (qword_1005A80E8 != -1)
-    {
-      swift_once();
-    }
-
-    v7 = v0[21];
-    v6 = v0[22];
-    v8 = v0[20];
-    v9 = v0[2];
-    v10 = type metadata accessor for Logger();
-    sub_10000A6F0(v10, qword_1005DFF88);
-    (*(v7 + 16))(v6, v9, v8);
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.error.getter();
-    v13 = os_log_type_enabled(v11, v12);
-    v15 = v0[21];
-    v14 = v0[22];
-    v16 = v0[20];
-    if (v13)
-    {
-      v50 = v0[20];
-      v17 = v0[18];
-      v18 = v0[19];
-      v19 = v0[17];
-      v20 = swift_slowAlloc();
-      v54 = swift_slowAlloc();
-      v56 = v54;
-      *v20 = 136446210;
-      v52 = v12;
-      Fence.id.getter();
-      sub_100260118(&qword_1005AE800, &type metadata accessor for Fence.ID);
-      v21 = dispatch thunk of CustomStringConvertible.description.getter();
-      v23 = v22;
-      (*(v17 + 8))(v18, v19);
-      (*(v15 + 8))(v14, v50);
-      v24 = sub_10000D01C(v21, v23, &v56);
-
-      *(v20 + 4) = v24;
-      _os_log_impl(&_mh_execute_header, v11, v52, "Invalid position outside for arriving fence with id %{public}s", v20, 0xCu);
-      sub_100004984(v54);
-    }
-
-    else
-    {
-
-      (*(v15 + 8))(v14, v16);
-    }
-  }
-
-  v25 = v0[2];
-  v26 = Fence.others.getter();
-  if (*(v26 + 16))
-  {
-    v27 = v0[13];
-    (*(v0[15] + 16))(v0[16], v26 + ((*(v0[15] + 80) + 32) & ~*(v0[15] + 80)), v0[14]);
-
-    sub_100279044();
-    v28 = swift_task_alloc();
-    v0[26] = v28;
-    *v28 = v0;
-    v28[1] = sub_10025A138;
-    v29 = v0[13];
-
-    return sub_1004559B4(0);
-  }
-
-  else
-  {
-
-    v48 = v0[25];
-    v49 = v0[22];
-    v51 = v0[19];
-    v53 = v0[16];
-    v55 = v0[13];
-    v32 = v0[9];
-    v31 = v0[10];
-    v33 = v0[7];
-    v34 = v0[8];
-    v35 = v0[5];
-    v47 = v0[6];
-    v36 = v0[4];
-    v37 = v0[2];
-    Fence.findee.getter();
-    (*(v34 + 104))(v32, enum case for Fence.Participant.me(_:), v33);
-    static Fence.Participant.== infix(_:_:)();
-    v38 = *(v34 + 8);
-    v38(v32, v33);
-    v38(v31, v33);
-    (*(v35 + 104))(v47, enum case for LocalizationUtility.Table.default(_:), v36);
-    static LocalizationUtility.localizedString(key:table:)();
-    (*(v35 + 8))(v47, v36);
-    sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-    v39 = swift_allocObject();
-    *(v39 + 16) = xmmword_1004C2310;
-    *(v39 + 56) = &type metadata for String;
-    v40 = sub_1000588B8();
-    *(v39 + 64) = v40;
-    *(v39 + 32) = 0;
-    *(v39 + 40) = 0xE000000000000000;
-    v41 = sub_100257FA4();
-    *(v39 + 96) = &type metadata for String;
-    *(v39 + 104) = v40;
-    *(v39 + 72) = v41;
-    *(v39 + 80) = v42;
-    v43 = String.init(format:arguments:)();
-    v45 = v44;
-
-    v46 = v0[1];
-
-    return v46(v43, v45);
-  }
-}
-
-uint64_t sub_10025A138(uint64_t a1, uint64_t a2)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 208);
-  v5 = *(*v2 + 104);
-  v6 = *(*v2 + 96);
-  v7 = *(*v2 + 88);
-  v9 = *v2;
-  *(v3 + 216) = a1;
-  *(v3 + 224) = a2;
-
-  (*(v6 + 8))(v5, v7);
-
-  return _swift_task_switch(sub_10025A298, 0, 0);
-}
-
-uint64_t sub_10025A298()
-{
-  (*(v0[15] + 8))(v0[16], v0[14]);
-  v19 = v0[27];
-  v20 = v0[28];
-  v21 = v0[25];
-  v22 = v0[22];
-  v23 = v0[19];
-  v24 = v0[16];
-  v25 = v0[13];
-  v2 = v0[9];
-  v1 = v0[10];
-  v3 = v0[7];
-  v4 = v0[8];
-  v5 = v0[5];
-  v18 = v0[6];
-  v6 = v0[4];
-  v7 = v0[2];
-  Fence.findee.getter();
-  (*(v4 + 104))(v2, enum case for Fence.Participant.me(_:), v3);
-  static Fence.Participant.== infix(_:_:)();
-  v8 = *(v4 + 8);
-  v8(v2, v3);
-  v8(v1, v3);
-  (*(v5 + 104))(v18, enum case for LocalizationUtility.Table.default(_:), v6);
-  static LocalizationUtility.localizedString(key:table:)();
-  (*(v5 + 8))(v18, v6);
-  sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_1004C2310;
-  *(v9 + 56) = &type metadata for String;
-  v10 = sub_1000588B8();
-  *(v9 + 64) = v10;
-  *(v9 + 32) = v19;
-  *(v9 + 40) = v20;
-  v11 = sub_100257FA4();
-  *(v9 + 96) = &type metadata for String;
-  *(v9 + 104) = v10;
-  *(v9 + 72) = v11;
-  *(v9 + 80) = v12;
-  v13 = String.init(format:arguments:)();
-  v15 = v14;
-
-  v16 = v0[1];
-
-  return v16(v13, v15);
-}
-
-void *sub_10025A52C(uint64_t a1)
-{
-  v2 = type metadata accessor for Calendar.Component();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v39 = &v32 - v8;
-  v9 = *(a1 + 16);
+  v0[11] = sub_10000A6F0(v5, qword_1005DFF88);
+  v6 = *(v2 + 16);
+  v0[12] = v6;
+  v0[13] = (v2 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v6(v1, v4, v3);
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.default.getter();
+  v9 = os_log_type_enabled(v7, v8);
+  v11 = v0[9];
+  v10 = v0[10];
+  v12 = v0[8];
   if (v9)
   {
-    sub_10004B564(&qword_1005B0B18, &qword_1004D26B8);
-    v10 = static _SetStorage.allocate(capacity:)();
-    v11 = 0;
-    v13 = *(v3 + 16);
-    v12 = v3 + 16;
-    v37 = v13;
-    v38 = v10 + 56;
-    v14 = *(v12 + 64);
-    v34 = v9;
-    v35 = a1 + ((v14 + 32) & ~v14);
-    v15 = *(v12 + 56);
-    v16 = (v12 - 8);
-    v33 = (v12 + 16);
-    while (1)
-    {
-      v36 = v11;
-      v37(v39, v35 + v15 * v11, v2);
-      v17 = *(v10 + 40);
-      sub_100260118(&qword_1005B0B20, &type metadata accessor for Calendar.Component);
-      v18 = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v19 = ~(-1 << *(v10 + 32));
-      v20 = v18 & v19;
-      v21 = (v18 & v19) >> 6;
-      v22 = *(v38 + 8 * v21);
-      v23 = 1 << (v18 & v19);
-      if ((v23 & v22) != 0)
-      {
-        while (1)
-        {
-          v24 = v12;
-          v37(v7, *(v10 + 48) + v20 * v15, v2);
-          sub_100260118(&qword_1005B0B28, &type metadata accessor for Calendar.Component);
-          v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v26 = *v16;
-          (*v16)(v7, v2);
-          if (v25)
-          {
-            break;
-          }
-
-          v20 = (v20 + 1) & v19;
-          v21 = v20 >> 6;
-          v22 = *(v38 + 8 * (v20 >> 6));
-          v23 = 1 << v20;
-          v12 = v24;
-          if (((1 << v20) & v22) == 0)
-          {
-            goto LABEL_8;
-          }
-        }
-
-        v26(v39, v2);
-        v12 = v24;
-      }
-
-      else
-      {
-LABEL_8:
-        v27 = v39;
-        *(v38 + 8 * v21) = v23 | v22;
-        result = (*v33)(*(v10 + 48) + v20 * v15, v27, v2);
-        v29 = *(v10 + 16);
-        v30 = __OFADD__(v29, 1);
-        v31 = v29 + 1;
-        if (v30)
-        {
-          __break(1u);
-          return result;
-        }
-
-        *(v10 + 16) = v31;
-      }
-
-      v11 = v36 + 1;
-      if (v36 + 1 == v34)
-      {
-        return v10;
-      }
-    }
-  }
-
-  return &_swiftEmptySetSingleton;
-}
-
-uint64_t sub_10025A84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4[4] = a3;
-  v4[5] = a4;
-  v4[2] = a1;
-  v4[3] = a2;
-  v5 = sub_10004B564(&qword_1005B0AF8, &qword_1004D2698);
-  v4[6] = v5;
-  v6 = *(*(v5 - 8) + 64) + 15;
-  v4[7] = swift_task_alloc();
-  v7 = type metadata accessor for LocalizationUtility.Table();
-  v4[8] = v7;
-  v8 = *(v7 - 8);
-  v4[9] = v8;
-  v9 = *(v8 + 64) + 15;
-  v4[10] = swift_task_alloc();
-  v10 = type metadata accessor for Fence.Participant();
-  v4[11] = v10;
-  v11 = *(v10 - 8);
-  v4[12] = v11;
-  v12 = *(v11 + 64) + 15;
-  v4[13] = swift_task_alloc();
-  v4[14] = swift_task_alloc();
-  v4[15] = swift_task_alloc();
-  v13 = *(*(sub_10004B564(&qword_1005B0B00, &qword_1004D26A0) - 8) + 64) + 15;
-  v4[16] = swift_task_alloc();
-  v4[17] = swift_task_alloc();
-  v14 = sub_10004B564(&qword_1005B0B08, &qword_1004D26A8);
-  v4[18] = v14;
-  v15 = *(*(v14 - 8) + 64) + 15;
-  v4[19] = swift_task_alloc();
-  v16 = type metadata accessor for Destination();
-  v4[20] = v16;
-  v17 = *(v16 - 8);
-  v4[21] = v17;
-  v18 = *(v17 + 64) + 15;
-  v4[22] = swift_task_alloc();
-  v19 = type metadata accessor for PersonHandle();
-  v4[23] = v19;
-  v20 = *(v19 - 8);
-  v4[24] = v20;
-  v21 = *(v20 + 64) + 15;
-  v4[25] = swift_task_alloc();
-  v22 = type metadata accessor for Fence.DaysOfWeek();
-  v4[26] = v22;
-  v23 = *(v22 - 8);
-  v4[27] = v23;
-  v24 = *(v23 + 64) + 15;
-  v4[28] = swift_task_alloc();
-  v4[29] = swift_task_alloc();
-  v25 = type metadata accessor for Fence.TimeOfDay();
-  v4[30] = v25;
-  v26 = *(v25 - 8);
-  v4[31] = v26;
-  v27 = *(v26 + 64) + 15;
-  v4[32] = swift_task_alloc();
-  v4[33] = swift_task_alloc();
-  v28 = type metadata accessor for Date();
-  v4[34] = v28;
-  v29 = *(v28 - 8);
-  v4[35] = v29;
-  v30 = *(v29 + 64) + 15;
-  v4[36] = swift_task_alloc();
-  v31 = type metadata accessor for Calendar();
-  v4[37] = v31;
-  v32 = *(v31 - 8);
-  v4[38] = v32;
-  v33 = *(v32 + 64) + 15;
-  v4[39] = swift_task_alloc();
-
-  return _swift_task_switch(sub_10025AC80, 0, 0);
-}
-
-uint64_t sub_10025AC80()
-{
-  v305 = v0;
-  v1 = v0[39];
-  v2 = v0[35];
-  v3 = v0[36];
-  v5 = v0[33];
-  v4 = v0[34];
-  v6 = v0[31];
-  v272 = v0[30];
-  v284 = v0[29];
-  v7 = v0[27];
-  v292 = v0[26];
-  v8 = v0[4];
-  v261 = v0[3];
-  v298 = v0[2];
-  static Calendar.current.getter();
-  v9 = objc_opt_self();
-  sub_1002787C8(v3);
-  isa = Date._bridgeToObjectiveC()().super.isa;
-  v11 = v3;
-  v12 = v0;
-  (*(v2 + 8))(v11, v4);
-  v13 = [v9 localizedStringFromDate:isa dateStyle:0 timeStyle:1];
-
-  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
-
-  v0[40] = v14;
-  v0[41] = v16;
-  Fence.Schedule.start.getter();
-  v0[42] = sub_100258360(v1);
-  v0[43] = v17;
-  v18 = *(v6 + 8);
-  v0[44] = v18;
-  v0[45] = (v6 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v18(v5, v272);
-  Fence.Schedule.end.getter();
-  v0[46] = sub_100258360(v1);
-  v0[47] = v19;
-  v18(v5, v272);
-  Fence.Schedule.daysOfWeek.getter();
-  v0[48] = sub_100057620(v1);
-  v0[49] = v20;
-  v21 = *(v7 + 8);
-  v0[50] = v21;
-  v0[51] = (v7 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v21(v284, v292);
-  v0[52] = sub_100257FA4();
-  v0[53] = v22;
-  v23 = Fence.others.getter();
-  if (*(v23 + 16))
-  {
-    v24 = v0[22];
-    (*(v12[24] + 16))(v12[25], v23 + ((*(v12[24] + 80) + 32) & ~*(v12[24] + 80)), v12[23]);
-
-    sub_100279044();
-    v25 = swift_task_alloc();
-    v12[54] = v25;
-    *v25 = v12;
-    v25[1] = sub_10025C45C;
-    v26 = v12[22];
-
-    return sub_1004559B4(0);
-  }
-
-  v28 = v0[19];
-  v30 = v0[4];
-  v29 = v12[5];
-  v31 = *(v12[18] + 48);
-  v32 = type metadata accessor for Fence.TriggerPosition();
-  v33 = *(v32 - 8);
-  (*(v33 + 16))(v28, v30, v32);
-  sub_10025EBA8(v29, v28 + v31);
-  v34 = *(v33 + 88);
-  v35 = v34(v28, v32);
-  v36 = v35;
-  v37 = enum case for Fence.TriggerPosition.inside(_:);
-  if (v35 != enum case for Fence.TriggerPosition.inside(_:))
-  {
-    if (v35 == enum case for Fence.TriggerPosition.outside(_:))
-    {
-      v55 = (*(v33 + 48))(v28 + v31, 1, v32);
-      v56 = v28;
-      if (v55 == 1)
-      {
-        goto LABEL_10;
-      }
-
-      v89 = v12 + 17;
-      v132 = v12[17];
-      v293 = v56;
-      sub_10025EBA8(v56 + v31, v132);
-      v133 = v34(v132, v32);
-      if (v133 == v37)
-      {
-        v299 = v31;
-        v134 = v12[49];
-        v135 = v12[47];
-        v136 = v12[43];
-        v137 = v12[14];
-        v138 = v12[15];
-        v139 = v12[11];
-        v140 = v12[12];
-        v141 = v12[9];
-        v280 = v12[10];
-        v289 = v12[17];
-        v268 = v12[8];
-        v242 = v12[2];
-
-        v251 = *(v33 + 8);
-        v142 = v289;
-        v285 = v32;
-        v251(v142, v32);
-        Fence.findee.getter();
-        (*(v140 + 104))(v137, enum case for Fence.Participant.me(_:), v139);
-        static Fence.Participant.== infix(_:_:)();
-        v143 = *(v140 + 8);
-        v143(v137, v139);
-        v143(v138, v139);
-        (*(v141 + 104))(v280, enum case for LocalizationUtility.Table.default(_:), v268);
-        v144 = (v141 + 8);
-        v145 = v12[52];
-        v146 = v12[53];
-        v269 = v12[40];
-        v281 = v12[41];
-        v147 = v12[38];
-        v148 = v12[37];
-        v235 = v148;
-        v243 = v12[39];
-        v149 = v12[10];
-        v150 = v12[8];
-        goto LABEL_35;
-      }
-
-      if (v133 == v36)
-      {
-        v299 = v31;
-        v91 = v12 + 43;
-        v92 = v12 + 47;
-        v175 = v12[53];
-        v176 = v12[41];
-
-        v177 = v12[49];
-        goto LABEL_16;
-      }
-
-      v195 = enum case for Fence.TriggerPosition.undetermined(_:);
-      v196 = v133;
-      (*(v33 + 8))(*v89, v32);
-      v56 = v293;
-      if (v196 == v195)
-      {
-LABEL_10:
-        v58 = v12[44];
-        v57 = v12[45];
-        v59 = v32;
-        v61 = v12[32];
-        v60 = v12[33];
-        v62 = v12;
-        v63 = v12[30];
-        v64 = v62[27];
-        v263 = v62[28];
-        v286 = v62[26];
-        v65 = v62[19];
-        v238 = v62[13];
-        v66 = v31;
-        v67 = v62[12];
-        v275 = v62[11];
-        v294 = v62[7];
-        v254 = v62[6];
-        v300 = v62;
-        v68 = v62[3];
-        v232 = v62[2];
-        sub_100002CE0(v56 + v66, &qword_1005B0B00, &qword_1004D26A0);
-        (*(v33 + 8))(v65, v59);
-        Fence.Schedule.start.getter();
-        Fence.Schedule.end.getter();
-        v69 = static Fence.TimeOfDay.== infix(_:_:)();
-        v58(v61, v63);
-        v58(v60, v63);
-        Fence.findee.getter();
-        Fence.Schedule.daysOfWeek.getter();
-        v70 = v294 + *(v254 + 48);
-        v71 = *(v254 + 64);
-        (*(v67 + 32))(v70, v238, v275);
-        (*(v64 + 32))(v294 + v71, v263, v286);
-        v248 = v70;
-        v72 = (*(v67 + 88))(v70, v275);
-        if (v72 == enum case for Fence.Participant.me(_:))
-        {
-          v73 = v300[41];
-
-          v75 = v300[50];
-          v74 = v300[51];
-          v233 = v71;
-          if (v69)
-          {
-            v76 = v300[47];
-            v77 = v300[29];
-            v78 = v300[26];
-            v80 = v300[9];
-            v79 = v300[10];
-            v81 = v300[8];
-
-            static Fence.DaysOfWeek.all.getter();
-            sub_100260118(&qword_1005A8F28, &type metadata accessor for Fence.DaysOfWeek);
-            dispatch thunk of static Equatable.== infix(_:_:)();
-            v75(v77, v78);
-            (*(v80 + 104))(v79, enum case for LocalizationUtility.Table.default(_:), v81);
-            v82 = v300[52];
-            v276 = v300[49];
-            v287 = v300[51];
-            v255 = v300[50];
-            v264 = v300[48];
-            v83 = v300[42];
-            v217 = v300[43];
-            v220 = v300[53];
-            v84 = v300[38];
-            v223 = v300[37];
-            v227 = v300[39];
-            v239 = v300[26];
-            v85 = v300[12];
-            v86 = v300[10];
-            v87 = v300[8];
-            static LocalizationUtility.localizedString(key:table:)();
-            (*(v80 + 8))(v86, v87);
-            sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-            v197 = swift_allocObject();
-            *(v197 + 16) = xmmword_1004C0BB0;
-            *(v197 + 56) = &type metadata for String;
-            v198 = sub_1000588B8();
-            *(v197 + 32) = 0;
-            *(v197 + 40) = 0xE000000000000000;
-            *(v197 + 96) = &type metadata for String;
-            *(v197 + 104) = v198;
-            *(v197 + 64) = v198;
-            *(v197 + 72) = v82;
-            *(v197 + 80) = v220;
-            *(v197 + 136) = &type metadata for String;
-            *(v197 + 144) = v198;
-            *(v197 + 112) = v83;
-            *(v197 + 120) = v217;
-            *(v197 + 176) = &type metadata for String;
-            *(v197 + 184) = v198;
-            *(v197 + 152) = v264;
-            *(v197 + 160) = v276;
-            v199 = String.init(format:arguments:)();
-            v267 = v200;
-            v279 = v199;
-
-            (*(v84 + 8))(v227, v223);
-            v255(v294 + v233, v239);
-            v129 = *(v85 + 8);
-          }
-
-          else
-          {
-            v178 = v300[29];
-            v179 = v300[26];
-            v181 = v300[9];
-            v180 = v300[10];
-            v182 = v300[8];
-            static Fence.DaysOfWeek.all.getter();
-            sub_100260118(&qword_1005A8F28, &type metadata accessor for Fence.DaysOfWeek);
-            dispatch thunk of static Equatable.== infix(_:_:)();
-            v75(v178, v179);
-            (*(v181 + 104))(v180, enum case for LocalizationUtility.Table.default(_:), v182);
-            v183 = (v181 + 8);
-            v184 = v300[52];
-            v283 = v300[49];
-            v291 = v300[51];
-            v259 = v300[50];
-            v271 = v300[48];
-            v222 = v300[47];
-            v216 = v300[53];
-            v219 = v300[46];
-            v185 = v300[42];
-            v186 = v300[43];
-            v187 = v300[38];
-            v226 = v300[37];
-            v230 = v300[39];
-            v245 = v300[26];
-            v188 = v300[12];
-            v189 = v300[10];
-            v190 = v300[8];
-            static LocalizationUtility.localizedString(key:table:)();
-            (*v183)(v189, v190);
-            sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-            v201 = swift_allocObject();
-            *(v201 + 16) = xmmword_1004C0BC0;
-            *(v201 + 56) = &type metadata for String;
-            v202 = sub_1000588B8();
-            *(v201 + 32) = 0;
-            *(v201 + 40) = 0xE000000000000000;
-            *(v201 + 96) = &type metadata for String;
-            *(v201 + 104) = v202;
-            *(v201 + 64) = v202;
-            *(v201 + 72) = v184;
-            *(v201 + 80) = v216;
-            *(v201 + 136) = &type metadata for String;
-            *(v201 + 144) = v202;
-            *(v201 + 112) = v185;
-            *(v201 + 120) = v186;
-            *(v201 + 176) = &type metadata for String;
-            *(v201 + 184) = v202;
-            *(v201 + 152) = v219;
-            *(v201 + 160) = v222;
-            *(v201 + 216) = &type metadata for String;
-            *(v201 + 224) = v202;
-            *(v201 + 192) = v271;
-            *(v201 + 200) = v283;
-            v203 = String.init(format:arguments:)();
-            v267 = v204;
-            v279 = v203;
-
-            (*(v187 + 8))(v230, v226);
-            v259(v294 + v233, v245);
-            v129 = *(v188 + 8);
-          }
-
-          v131 = v300;
-          v285 = v300[11];
-          v130 = v248;
-          goto LABEL_38;
-        }
-
-        if (v72 == enum case for Fence.Participant.other(_:))
-        {
-          v270 = v300[52];
-          v282 = v300[53];
-          v290 = v300[51];
-          v244 = v300[50];
-          v163 = v300[49];
-          v164 = v300[47];
-          v215 = v300[42];
-          v218 = v300[43];
-          v165 = v300[41];
-          v166 = v71;
-          v167 = v300[38];
-          v221 = v300[37];
-          v225 = v300[39];
-          v229 = v300[26];
-          v258 = v300[12];
-          v168 = v300[9];
-          v169 = v300[10];
-          v170 = v300[8];
-
-          (*(v168 + 104))(v169, enum case for LocalizationUtility.Table.default(_:), v170);
-          static LocalizationUtility.localizedString(key:table:)();
-          (*(v168 + 8))(v169, v170);
-          sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-          v171 = swift_allocObject();
-          *(v171 + 16) = xmmword_1004C0BD0;
-          *(v171 + 56) = &type metadata for String;
-          v172 = sub_1000588B8();
-          *(v171 + 32) = 0;
-          *(v171 + 40) = 0xE000000000000000;
-          *(v171 + 96) = &type metadata for String;
-          *(v171 + 104) = v172;
-          *(v171 + 64) = v172;
-          *(v171 + 72) = v270;
-          *(v171 + 80) = v282;
-          *(v171 + 136) = &type metadata for String;
-          *(v171 + 144) = v172;
-          *(v171 + 112) = v215;
-          *(v171 + 120) = v218;
-          v173 = String.init(format:arguments:)();
-          v267 = v174;
-          v279 = v173;
-
-          (*(v167 + 8))(v225, v221);
-          v131 = v300;
-          v244(v294 + v166, v229);
-          v130 = v248;
-          v129 = *(v258 + 8);
-          v285 = v300[11];
-          goto LABEL_38;
-        }
-      }
-    }
-
-    else if (v35 == enum case for Fence.TriggerPosition.undetermined(_:))
-    {
-      v278 = v12[53];
-      v285 = v32;
-      v114 = v12[49];
-      v115 = v12[47];
-      v266 = v12[43];
-      v241 = v12[42];
-      v250 = v12[52];
-      v116 = v12[41];
-      v117 = v12[38];
-      v296 = v12[39];
-      v257 = v12[37];
-      v302 = v31;
-      v118 = v12[9];
-      v119 = v12[10];
-      v120 = v12[8];
-
-      (*(v118 + 104))(v119, enum case for LocalizationUtility.Table.default(_:), v120);
-      static LocalizationUtility.localizedString(key:table:)();
-      (*(v118 + 8))(v119, v120);
-      sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-      v121 = swift_allocObject();
-      *(v121 + 16) = xmmword_1004C0BD0;
-      *(v121 + 56) = &type metadata for String;
-      v122 = sub_1000588B8();
-      *(v121 + 32) = 0;
-      *(v121 + 40) = 0xE000000000000000;
-      *(v121 + 96) = &type metadata for String;
-      *(v121 + 104) = v122;
-      *(v121 + 64) = v122;
-      *(v121 + 72) = v250;
-      *(v121 + 80) = v278;
-      *(v121 + 136) = &type metadata for String;
-      *(v121 + 144) = v122;
-      *(v121 + 112) = v241;
-      *(v121 + 120) = v266;
-      v123 = String.init(format:arguments:)();
-      v267 = v124;
-      v279 = v123;
-
-      (*(v117 + 8))(v296, v257);
-      v131 = v12;
-      sub_100002CE0(v28 + v302, &qword_1005B0B00, &qword_1004D26A0);
-      v129 = *(v33 + 8);
-      v130 = v12[19];
-      goto LABEL_38;
-    }
-
-    return _assertionFailure(_:_:file:line:flags:)();
-  }
-
-  v38 = v12[49];
-  v299 = v31;
-  v39 = v12[47];
-  v40 = v12[43];
-
-  v293 = v28;
-  if ((*(v33 + 48))(v28 + v299, 1, v32) == 1)
-  {
-LABEL_7:
-    v42 = v12[14];
-    v41 = v12[15];
-    v44 = v12[11];
-    v43 = v12[12];
-    v273 = v12[10];
-    v285 = v32;
-    v45 = v12;
-    v46 = v12[9];
-    v47 = v45[8];
-    v48 = v45[2];
-    Fence.findee.getter();
-    (*(v43 + 104))(v42, enum case for Fence.Participant.me(_:), v44);
-    static Fence.Participant.== infix(_:_:)();
-    v49 = *(v43 + 8);
-    v49(v42, v44);
-    v49(v41, v44);
-    (*(v46 + 104))(v273, enum case for LocalizationUtility.Table.default(_:), v47);
-    v50 = (v46 + 8);
-    v51 = v45[52];
-    v262 = v45[40];
-    v274 = v45[41];
-    v52 = v45[38];
-    v253 = v45[39];
-    v237 = v45[53];
-    v247 = v45[37];
-    v53 = v45[10];
-    v54 = v45[8];
-    static LocalizationUtility.localizedString(key:table:)();
-    (*v50)(v53, v54);
-    sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-    v125 = swift_allocObject();
-    *(v125 + 16) = xmmword_1004C0BD0;
-    *(v125 + 56) = &type metadata for String;
-    v126 = sub_1000588B8();
-    *(v125 + 32) = 0;
-    *(v125 + 40) = 0xE000000000000000;
-    *(v125 + 96) = &type metadata for String;
-    *(v125 + 104) = v126;
-    *(v125 + 64) = v126;
-    *(v125 + 72) = v51;
-    *(v125 + 80) = v237;
-    *(v125 + 136) = &type metadata for String;
-    *(v125 + 144) = v126;
-    *(v125 + 112) = v262;
-    *(v125 + 120) = v274;
-    v127 = String.init(format:arguments:)();
-    v267 = v128;
-    v279 = v127;
-
-    (*(v52 + 8))(v253, v247);
-    sub_100002CE0(v293 + v299, &qword_1005B0B00, &qword_1004D26A0);
-    v129 = *(v33 + 8);
-    v130 = v45[19];
-    v131 = v45;
-LABEL_38:
-    v205 = v131[39];
-    v206 = v131[36];
-    v208 = v131[32];
-    v207 = v131[33];
-    v210 = v131[28];
-    v209 = v131[29];
-    v211 = v131[25];
-    v212 = v131[22];
-    v213 = v131[19];
-    v231 = v131[17];
-    v236 = v131[16];
-    v246 = v131[15];
-    v252 = v131[14];
-    v260 = v131[13];
-    v297 = v131[10];
-    v303 = v131[7];
-    v129(v130, v285);
-
-    v214 = v131[1];
-
-    return v214(v279, v267);
-  }
-
-  v89 = v12 + 16;
-  v88 = v12[16];
-  sub_10025EBA8(v293 + v299, v88);
-  v90 = v34(v88, v32);
-  if (v90 != v36)
-  {
-    v151 = v90;
-    v152 = enum case for Fence.TriggerPosition.outside(_:);
-    v251 = *(v33 + 8);
-    v251(*v89, v32);
-    if (v151 != v152)
-    {
-      goto LABEL_7;
-    }
-
-    v285 = v32;
-    v154 = v12[14];
-    v153 = v12[15];
-    v156 = v12[11];
-    v155 = v12[12];
-    v157 = v12[9];
-    v158 = v12[10];
-    v159 = v12[8];
-    v160 = v12[2];
-    Fence.findee.getter();
-    (*(v155 + 104))(v154, enum case for Fence.Participant.me(_:), v156);
-    static Fence.Participant.== infix(_:_:)();
-    v161 = *(v155 + 8);
-    v161(v154, v156);
-    v161(v153, v156);
-    (*(v157 + 104))(v158, enum case for LocalizationUtility.Table.default(_:), v159);
-    v144 = (v157 + 8);
-    v145 = v12[52];
-    v146 = v12[53];
-    v269 = v12[40];
-    v281 = v12[41];
-    v147 = v12[38];
-    v162 = v12[37];
-    v235 = v162;
-    v243 = v12[39];
-    v149 = v12[10];
-    v150 = v12[8];
-LABEL_35:
-    static LocalizationUtility.localizedString(key:table:)();
-    (*v144)(v149, v150);
-    sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-    v191 = swift_allocObject();
-    *(v191 + 16) = xmmword_1004C0BD0;
-    *(v191 + 56) = &type metadata for String;
-    v192 = sub_1000588B8();
-    *(v191 + 32) = 0;
-    *(v191 + 40) = 0xE000000000000000;
-    *(v191 + 96) = &type metadata for String;
-    *(v191 + 104) = v192;
-    *(v191 + 64) = v192;
-    *(v191 + 72) = v145;
-    *(v191 + 80) = v146;
-    *(v191 + 136) = &type metadata for String;
-    *(v191 + 144) = v192;
-    *(v191 + 112) = v269;
-    *(v191 + 120) = v281;
-    v193 = String.init(format:arguments:)();
-    v267 = v194;
-    v279 = v193;
-
-    (*(v147 + 8))(v243, v235);
-    sub_100002CE0(v293 + v299, &qword_1005B0B00, &qword_1004D26A0);
-    v130 = v12[19];
-    v131 = v12;
-    v129 = v251;
-    goto LABEL_38;
-  }
-
-  v91 = v12 + 41;
-  v92 = v12 + 53;
-LABEL_16:
-  v93 = *v89;
-  v94 = *v91;
-  v95 = *v92;
-  v96 = v12[19];
-
-  v97 = *(v33 + 8);
-  v97(v93, v32);
-  sub_100002CE0(v293 + v299, &qword_1005B0B00, &qword_1004D26A0);
-  v97(v96, v32);
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v98 = type metadata accessor for Logger();
-  sub_10000A6F0(v98, qword_1005DFF88);
-  v99 = Logger.logObject.getter();
-  v100 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v99, v100))
-  {
-    v101 = swift_slowAlloc();
-    v102 = swift_slowAlloc();
-    v304 = v102;
-    *v101 = 136446210;
-    *(v101 + 4) = sub_10000D01C(0xD00000000000004DLL, 0x80000001004E5FF0, &v304);
-    _os_log_impl(&_mh_execute_header, v99, v100, "%{public}s Trying to trigger scheduled fence with same placement twice", v101, 0xCu);
-    sub_100004984(v102);
-  }
-
-  v103 = v12[38];
-  v104 = v12[39];
-  v105 = v12;
-  v108 = v12 + 36;
-  v107 = v12[36];
-  v106 = v108[1];
-  v109 = v105[32];
-  v110 = v105[33];
-  v111 = v105[29];
-  v224 = v105[28];
-  v228 = v105[25];
-  v234 = v105[22];
-  v240 = v105[19];
-  v249 = v105[17];
-  v256 = v105[16];
-  v265 = v105[15];
-  v277 = v105[14];
-  v288 = v105[13];
-  v295 = v105[10];
-  v301 = v105[7];
-  sub_10005CF04();
-  swift_allocError();
-  *v112 = 6;
-  swift_willThrow();
-  (*(v103 + 8))(v104, v106);
-
-  v113 = v105[1];
-
-  return v113();
-}
-
-uint64_t sub_10025C45C(uint64_t a1, uint64_t a2)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 432);
-  v5 = *(*v2 + 176);
-  v6 = *(*v2 + 168);
-  v7 = *(*v2 + 160);
-  v9 = *v2;
-  *(v3 + 440) = a1;
-  *(v3 + 448) = a2;
-
-  (*(v6 + 8))(v5, v7);
-
-  return _swift_task_switch(sub_10025C5BC, 0, 0);
-}
-
-uint64_t sub_10025C5BC()
-{
-  v286 = v0;
-  (*(v0[24] + 8))(v0[25], v0[23]);
-  v1 = v0[55];
-  v278 = v0[56];
-  v2 = v0[19];
-  v4 = v0[4];
-  v3 = v0[5];
-  v5 = *(v0[18] + 48);
-  v6 = type metadata accessor for Fence.TriggerPosition();
-  v7 = *(v6 - 8);
-  v8 = v4;
-  v9 = v5;
-  (*(v7 + 16))(v2, v8, v6);
-  sub_10025EBA8(v3, v2 + v5);
-  v10 = *(v7 + 88);
-  v11 = v10(v2, v6);
-  v12 = v11;
-  v13 = enum case for Fence.TriggerPosition.inside(_:);
-  v281 = v9;
-  if (v11 != enum case for Fence.TriggerPosition.inside(_:))
-  {
-    if (v11 == enum case for Fence.TriggerPosition.outside(_:))
-    {
-      v31 = (*(v7 + 48))(v2 + v9, 1, v6);
-      v32 = v2;
-      v33 = v9;
-      if (v31 == 1)
-      {
-        goto LABEL_6;
-      }
-
-      v66 = v0 + 17;
-      v108 = v0[17];
-      v273 = v32;
-      sub_10025EBA8(v32 + v33, v108);
-      v109 = v10(v108, v6);
-      if (v109 == v13)
-      {
-        v264 = v1;
-        v110 = v0[49];
-        v111 = v0[47];
-        v112 = v0[43];
-        v270 = v0[17];
-        v113 = v0[14];
-        v114 = v0[15];
-        v116 = v0[11];
-        v115 = v0[12];
-        v117 = v0[9];
-        v227 = v0[8];
-        v237 = v0[10];
-        v217 = v0[2];
-
-        v246 = *(v7 + 8);
-        v118 = v270;
-        v266 = v6;
-        v246(v118, v6);
-        Fence.findee.getter();
-        (*(v115 + 104))(v113, enum case for Fence.Participant.me(_:), v116);
-        static Fence.Participant.== infix(_:_:)();
-        v119 = *(v115 + 8);
-        v119(v113, v116);
-        v119(v114, v116);
-        (*(v117 + 104))(v237, enum case for LocalizationUtility.Table.default(_:), v227);
-        v120 = (v117 + 8);
-        v121 = v0[52];
-        v122 = v0[53];
-        v210 = v0[40];
-        v218 = v0[41];
-        v123 = v0[38];
-        v124 = v0[37];
-        v228 = v124;
-        v238 = v0[39];
-        v125 = v0[10];
-        v126 = v0[8];
-        static LocalizationUtility.localizedString(key:table:)();
-        (*v120)(v125, v126);
-        sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-        v175 = swift_allocObject();
-        *(v175 + 16) = xmmword_1004C0BD0;
-        *(v175 + 56) = &type metadata for String;
-        v176 = sub_1000588B8();
-        *(v175 + 32) = v264;
-        *(v175 + 40) = v278;
-        *(v175 + 96) = &type metadata for String;
-        *(v175 + 104) = v176;
-        *(v175 + 64) = v176;
-        *(v175 + 72) = v121;
-        *(v175 + 80) = v122;
-        goto LABEL_31;
-      }
-
-      if (v109 == v12)
-      {
-        v156 = v0[53];
-        v157 = v0[41];
-
-        v158 = v0[49];
-        v68 = 43;
-        v69 = 47;
-        goto LABEL_12;
-      }
-
-      v178 = enum case for Fence.TriggerPosition.undetermined(_:);
-      v179 = v109;
-      (*(v7 + 8))(*v66, v6);
-      v32 = v273;
-      v33 = v281;
-      if (v179 == v178)
-      {
-LABEL_6:
-        v260 = v1;
-        v207 = v0[44];
-        v213 = v0[45];
-        v35 = v0[32];
-        v34 = v0[33];
-        v36 = v0[30];
-        v37 = v0[27];
-        v267 = v0[26];
-        v38 = v0[19];
-        v39 = v0[12];
-        v223 = v0[13];
-        v242 = v0[28];
-        v252 = v0[11];
-        v274 = v0[7];
-        v233 = v0[6];
-        v40 = v0[3];
-        v203 = v0[2];
-        sub_100002CE0(v32 + v33, &qword_1005B0B00, &qword_1004D26A0);
-        (*(v7 + 8))(v38, v6);
-        Fence.Schedule.start.getter();
-        Fence.Schedule.end.getter();
-        v41 = static Fence.TimeOfDay.== infix(_:_:)();
-        v207(v35, v36);
-        v207(v34, v36);
-        Fence.findee.getter();
-        Fence.Schedule.daysOfWeek.getter();
-        v42 = v274 + *(v233 + 48);
-        v43 = *(v233 + 64);
-        (*(v39 + 32))(v42, v223, v252);
-        (*(v37 + 32))(v274 + v43, v242, v267);
-        v282 = v42;
-        v44 = (*(v39 + 88))(v42, v252);
-        if (v44 == enum case for Fence.Participant.me(_:))
-        {
-          v45 = v0[41];
-
-          v47 = v0[50];
-          v46 = v0[51];
-          v48 = v0;
-          v234 = v43;
-          if (v41)
-          {
-            v49 = v0[47];
-            v50 = v0[29];
-            v51 = v0[26];
-            v52 = v0[9];
-            v53 = v48[10];
-            v54 = v48[8];
-
-            static Fence.DaysOfWeek.all.getter();
-            sub_100260118(&qword_1005A8F28, &type metadata accessor for Fence.DaysOfWeek);
-            dispatch thunk of static Equatable.== infix(_:_:)();
-            v47(v50, v51);
-            (*(v52 + 104))(v53, enum case for LocalizationUtility.Table.default(_:), v54);
-            v55 = (v52 + 8);
-            v56 = v48[52];
-            v57 = v48[50];
-            v268 = v48[51];
-            v58 = v48[49];
-            v200 = v48[53];
-            v204 = v48[48];
-            v59 = v48[42];
-            v198 = v48[43];
-            v224 = v48[39];
-            v60 = v48;
-            v61 = v48[38];
-            v208 = v58;
-            v214 = v60[37];
-            v243 = v60[26];
-            v253 = v57;
-            v62 = v60[12];
-            v63 = v60[10];
-            v64 = v60[8];
-            static LocalizationUtility.localizedString(key:table:)();
-            (*v55)(v63, v64);
-            sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-            v180 = swift_allocObject();
-            *(v180 + 16) = xmmword_1004C0BB0;
-            *(v180 + 56) = &type metadata for String;
-            v181 = sub_1000588B8();
-            *(v180 + 32) = v260;
-            *(v180 + 40) = v278;
-            *(v180 + 96) = &type metadata for String;
-            *(v180 + 104) = v181;
-            *(v180 + 64) = v181;
-            *(v180 + 72) = v56;
-            *(v180 + 80) = v200;
-            *(v180 + 136) = &type metadata for String;
-            *(v180 + 144) = v181;
-            *(v180 + 112) = v59;
-            *(v180 + 120) = v198;
-            *(v180 + 176) = &type metadata for String;
-            *(v180 + 184) = v181;
-            *(v180 + 152) = v204;
-            *(v180 + 160) = v208;
-            v280 = String.init(format:arguments:)();
-            v263 = v182;
-
-            (*(v61 + 8))(v224, v214);
-            v253(v274 + v234, v243);
-            v105 = *(v62 + 8);
-          }
-
-          else
-          {
-            v159 = v0[29];
-            v160 = v0[26];
-            v161 = v0[9];
-            v162 = v48[10];
-            v163 = v48[8];
-            v164 = v48[29];
-            static Fence.DaysOfWeek.all.getter();
-            sub_100260118(&qword_1005A8F28, &type metadata accessor for Fence.DaysOfWeek);
-            dispatch thunk of static Equatable.== infix(_:_:)();
-            v47(v159, v160);
-            (*(v161 + 104))(v162, enum case for LocalizationUtility.Table.default(_:), v163);
-            v165 = (v161 + 8);
-            v166 = v48[52];
-            v167 = v48[50];
-            v272 = v48[51];
-            v206 = v48[48];
-            v212 = v48[49];
-            v202 = v48[47];
-            v197 = v48[53];
-            v199 = v48[46];
-            v168 = v48[42];
-            v169 = v48[43];
-            v170 = v48[39];
-            v60 = v48;
-            v171 = v48[38];
-            v220 = v60[37];
-            v230 = v170;
-            v248 = v60[26];
-            v257 = v167;
-            v172 = v60[12];
-            v173 = v60[10];
-            v174 = v60[8];
-            static LocalizationUtility.localizedString(key:table:)();
-            (*v165)(v173, v174);
-            sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-            v183 = swift_allocObject();
-            *(v183 + 16) = xmmword_1004C0BC0;
-            *(v183 + 56) = &type metadata for String;
-            v184 = sub_1000588B8();
-            *(v183 + 32) = v260;
-            *(v183 + 40) = v278;
-            *(v183 + 96) = &type metadata for String;
-            *(v183 + 104) = v184;
-            *(v183 + 64) = v184;
-            *(v183 + 72) = v166;
-            *(v183 + 80) = v197;
-            *(v183 + 136) = &type metadata for String;
-            *(v183 + 144) = v184;
-            *(v183 + 112) = v168;
-            *(v183 + 120) = v169;
-            *(v183 + 176) = &type metadata for String;
-            *(v183 + 184) = v184;
-            *(v183 + 152) = v199;
-            *(v183 + 160) = v202;
-            *(v183 + 216) = &type metadata for String;
-            *(v183 + 224) = v184;
-            *(v183 + 192) = v206;
-            *(v183 + 200) = v212;
-            v280 = String.init(format:arguments:)();
-            v263 = v185;
-
-            (*(v171 + 8))(v230, v220);
-            v257(v274 + v234, v248);
-            v105 = *(v172 + 8);
-          }
-
-          v266 = v60[11];
-          v106 = v282;
-          v107 = v60;
-          goto LABEL_34;
-        }
-
-        if (v44 == enum case for Fence.Participant.other(_:))
-        {
-          v201 = v0[52];
-          v205 = v0[53];
-          v271 = v0[51];
-          v144 = v0[49];
-          v145 = v0[47];
-          v146 = v0[42];
-          v147 = v0[43];
-          v148 = v0[41];
-          v149 = v0[38];
-          v211 = v0[37];
-          v219 = v0[39];
-          v229 = v0[26];
-          v239 = v43;
-          v247 = v0[50];
-          v256 = v0[12];
-          v150 = v0[9];
-          v151 = v0[10];
-          v152 = v0[8];
-
-          (*(v150 + 104))(v151, enum case for LocalizationUtility.Table.default(_:), v152);
-          static LocalizationUtility.localizedString(key:table:)();
-          v107 = v0;
-          (*(v150 + 8))(v151, v152);
-          sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-          v153 = swift_allocObject();
-          *(v153 + 16) = xmmword_1004C0BD0;
-          *(v153 + 56) = &type metadata for String;
-          v154 = sub_1000588B8();
-          *(v153 + 32) = v260;
-          *(v153 + 40) = v278;
-          *(v153 + 96) = &type metadata for String;
-          *(v153 + 104) = v154;
-          *(v153 + 64) = v154;
-          *(v153 + 72) = v201;
-          *(v153 + 80) = v205;
-          *(v153 + 136) = &type metadata for String;
-          *(v153 + 144) = v154;
-          *(v153 + 112) = v146;
-          *(v153 + 120) = v147;
-          v280 = String.init(format:arguments:)();
-          v263 = v155;
-
-          (*(v149 + 8))(v219, v211);
-          v247(v274 + v239, v229);
-          v105 = *(v256 + 8);
-          v266 = v0[11];
-          v106 = v282;
-          goto LABEL_34;
-        }
-      }
-    }
-
-    else if (v11 == enum case for Fence.TriggerPosition.undetermined(_:))
-    {
-      v262 = v0[53];
-      v266 = v6;
-      v90 = v0[49];
-      v91 = v0[47];
-      v226 = v0[52];
-      v236 = v0[43];
-      v216 = v0[42];
-      v92 = v0[41];
-      v93 = v0[38];
-      v245 = v0[37];
-      v255 = v0[39];
-      v94 = v0;
-      v95 = v1;
-      v276 = v2;
-      v96 = v0[9];
-      v97 = v0[10];
-      v98 = v0[8];
-
-      (*(v96 + 104))(v97, enum case for LocalizationUtility.Table.default(_:), v98);
-      static LocalizationUtility.localizedString(key:table:)();
-      (*(v96 + 8))(v97, v98);
-      sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-      v99 = swift_allocObject();
-      *(v99 + 16) = xmmword_1004C0BD0;
-      *(v99 + 56) = &type metadata for String;
-      v100 = sub_1000588B8();
-      *(v99 + 32) = v95;
-      *(v99 + 40) = v278;
-      *(v99 + 96) = &type metadata for String;
-      *(v99 + 104) = v100;
-      *(v99 + 64) = v100;
-      *(v99 + 72) = v226;
-      *(v99 + 80) = v262;
-      *(v99 + 136) = &type metadata for String;
-      *(v99 + 144) = v100;
-      *(v99 + 112) = v216;
-      *(v99 + 120) = v236;
-      v280 = String.init(format:arguments:)();
-      v263 = v101;
-      v107 = v94;
-
-      (*(v93 + 8))(v255, v245);
-      sub_100002CE0(v276 + v281, &qword_1005B0B00, &qword_1004D26A0);
-      v105 = *(v7 + 8);
-      v106 = v94[19];
-      goto LABEL_34;
-    }
-
-    return _assertionFailure(_:_:file:line:flags:)();
-  }
-
-  v14 = v0[49];
-  v15 = v0[47];
-  v16 = v0[43];
-
-  v273 = v2;
-  if ((*(v7 + 48))(v2 + v281, 1, v6) == 1)
-  {
-LABEL_3:
-    v259 = v1;
-    v266 = v6;
-    v18 = v0[14];
-    v17 = v0[15];
-    v20 = v0[11];
-    v19 = v0[12];
-    v21 = v0[9];
-    v250 = v0[10];
-    v22 = v0[8];
-    v23 = v0[2];
-    Fence.findee.getter();
-    (*(v19 + 104))(v18, enum case for Fence.Participant.me(_:), v20);
-    static Fence.Participant.== infix(_:_:)();
-    v24 = *(v19 + 8);
-    v24(v18, v20);
-    v24(v17, v20);
-    (*(v21 + 104))(v250, enum case for LocalizationUtility.Table.default(_:), v22);
-    v25 = v0[52];
-    v26 = v0[53];
-    v222 = v0[40];
-    v232 = v0[41];
-    v27 = v0[38];
-    v28 = v0[37];
-    v241 = v28;
-    v251 = v0[39];
-    v29 = v0[10];
-    v30 = v0[8];
-    static LocalizationUtility.localizedString(key:table:)();
-    (*(v21 + 8))(v29, v30);
-    sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-    v102 = swift_allocObject();
-    *(v102 + 16) = xmmword_1004C0BD0;
-    *(v102 + 56) = &type metadata for String;
-    v103 = sub_1000588B8();
-    *(v102 + 32) = v259;
-    *(v102 + 40) = v278;
-    *(v102 + 96) = &type metadata for String;
-    *(v102 + 104) = v103;
-    *(v102 + 64) = v103;
-    *(v102 + 72) = v25;
-    *(v102 + 80) = v26;
-    *(v102 + 136) = &type metadata for String;
-    *(v102 + 144) = v103;
-    *(v102 + 112) = v222;
-    *(v102 + 120) = v232;
-    v280 = String.init(format:arguments:)();
-    v263 = v104;
-
-    (*(v27 + 8))(v251, v241);
-    sub_100002CE0(v273 + v281, &qword_1005B0B00, &qword_1004D26A0);
-    v105 = *(v7 + 8);
-    v106 = v0[19];
-    v107 = v0;
-LABEL_34:
-    v186 = v107[39];
-    v187 = v107;
-    v188 = v107[36];
-    v189 = v107[32];
-    v190 = v107[33];
-    v191 = v107[29];
-    v192 = v187[28];
-    v193 = v187[25];
-    v194 = v187[22];
-    v195 = v187[19];
-    v221 = v187[17];
-    v231 = v187[16];
-    v240 = v187[15];
-    v249 = v187[14];
-    v258 = v187[13];
-    v277 = v187[10];
-    v284 = v187[7];
-    v105(v106, v266);
-
-    v196 = v187[1];
-
-    return v196(v280, v263);
-  }
-
-  v66 = v0 + 16;
-  v65 = v0[16];
-  sub_10025EBA8(v273 + v281, v65);
-  v67 = v10(v65, v6);
-  if (v67 != v12)
-  {
-    v127 = v67;
-    v128 = enum case for Fence.TriggerPosition.outside(_:);
-    v246 = *(v7 + 8);
-    v246(*v66, v6);
-    if (v127 != v128)
-    {
-      goto LABEL_3;
-    }
-
-    v265 = v1;
-    v266 = v6;
-    v130 = v0[14];
-    v129 = v0[15];
-    v132 = v0[11];
-    v131 = v0[12];
-    v133 = v0[9];
-    v134 = v0[10];
-    v135 = v0[8];
-    v136 = v0[2];
-    Fence.findee.getter();
-    (*(v131 + 104))(v130, enum case for Fence.Participant.me(_:), v132);
-    static Fence.Participant.== infix(_:_:)();
-    v137 = *(v131 + 8);
-    v137(v130, v132);
-    v137(v129, v132);
-    (*(v133 + 104))(v134, enum case for LocalizationUtility.Table.default(_:), v135);
-    v138 = (v133 + 8);
-    v139 = v0[52];
-    v140 = v0[53];
-    v210 = v0[40];
-    v218 = v0[41];
-    v123 = v0[38];
-    v141 = v0[37];
-    v228 = v141;
-    v238 = v0[39];
-    v142 = v0[10];
-    v143 = v0[8];
-    static LocalizationUtility.localizedString(key:table:)();
-    (*v138)(v142, v143);
-    sub_10004B564(&qword_1005A8C90, &qword_1004C5FC0);
-    v175 = swift_allocObject();
-    *(v175 + 16) = xmmword_1004C0BD0;
-    *(v175 + 56) = &type metadata for String;
-    v176 = sub_1000588B8();
-    *(v175 + 32) = v265;
-    *(v175 + 40) = v278;
-    *(v175 + 96) = &type metadata for String;
-    *(v175 + 104) = v176;
-    *(v175 + 64) = v176;
-    *(v175 + 72) = v139;
-    *(v175 + 80) = v140;
-LABEL_31:
-    *(v175 + 136) = &type metadata for String;
-    *(v175 + 144) = v176;
-    *(v175 + 112) = v210;
-    *(v175 + 120) = v218;
-    v280 = String.init(format:arguments:)();
-    v263 = v177;
-
-    (*(v123 + 8))(v238, v228);
-    sub_100002CE0(v273 + v281, &qword_1005B0B00, &qword_1004D26A0);
-    v106 = v0[19];
-    v107 = v0;
-    v105 = v246;
-    goto LABEL_34;
-  }
-
-  v68 = 41;
-  v69 = 53;
-LABEL_12:
-  v70 = *v66;
-  v71 = v0[v68];
-  v72 = v0[v69];
-  v73 = v0[19];
-
-  v74 = *(v7 + 8);
-  v74(v70, v6);
-  sub_100002CE0(v273 + v281, &qword_1005B0B00, &qword_1004D26A0);
-  v74(v73, v6);
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v75 = type metadata accessor for Logger();
-  sub_10000A6F0(v75, qword_1005DFF88);
-  v76 = Logger.logObject.getter();
-  v77 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v76, v77))
-  {
-    v78 = swift_slowAlloc();
-    v79 = swift_slowAlloc();
-    v285 = v79;
-    *v78 = 136446210;
-    *(v78 + 4) = sub_10000D01C(0xD00000000000004DLL, 0x80000001004E5FF0, &v285);
-    _os_log_impl(&_mh_execute_header, v76, v77, "%{public}s Trying to trigger scheduled fence with same placement twice", v78, 0xCu);
-    sub_100004984(v79);
-  }
-
-  v80 = v0[38];
-  v81 = v0[39];
-  v82 = v0[36];
-  v83 = v0[37];
-  v85 = v0[32];
-  v84 = v0[33];
-  v86 = v0[29];
-  v209 = v0[28];
-  v215 = v0[25];
-  v225 = v0[22];
-  v235 = v0[19];
-  v244 = v0[17];
-  v254 = v0[16];
-  v261 = v0[15];
-  v269 = v0[14];
-  v275 = v0[13];
-  v279 = v0[10];
-  v283 = v0[7];
-  sub_10005CF04();
-  swift_allocError();
-  *v87 = 6;
-  swift_willThrow();
-  (*(v80 + 8))(v81, v83);
-
-  v88 = v0[1];
-
-  return v88();
-}
-
-uint64_t sub_10025DC1C(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3[3] = a2;
-  v3[4] = a3;
-  v3[2] = a1;
-  v4 = type metadata accessor for Fence.Schedule();
-  v3[5] = v4;
-  v5 = *(v4 - 8);
-  v3[6] = v5;
-  v6 = *(v5 + 64) + 15;
-  v3[7] = swift_task_alloc();
-  v7 = type metadata accessor for Fence.TriggerPosition();
-  v3[8] = v7;
-  v8 = *(v7 - 8);
-  v3[9] = v8;
-  v9 = *(v8 + 64) + 15;
-  v3[10] = swift_task_alloc();
-  v3[11] = swift_task_alloc();
-  v10 = type metadata accessor for Fence.Variant();
-  v3[12] = v10;
-  v11 = *(v10 - 8);
-  v3[13] = v11;
-  v12 = *(v11 + 64) + 15;
-  v3[14] = swift_task_alloc();
-  v3[15] = swift_task_alloc();
-  v3[16] = swift_task_alloc();
-  v3[17] = swift_task_alloc();
-
-  return _swift_task_switch(sub_10025DDC8, 0, 0);
-}
-
-uint64_t sub_10025DDC8()
-{
-  v1 = v0[17];
-  v2 = v0[12];
-  v3 = v0[13];
-  v4 = v0[2];
-  Fence.variant.getter();
-  v5 = (*(v3 + 88))(v1, v2);
-  if (v5 == enum case for Fence.Variant.oneTime(_:))
-  {
-    v7 = v0[16];
-    v6 = v0[17];
-    v8 = v0 + 16;
-    v9 = v0[12];
-    v10 = v0[13];
-  }
-
-  else
-  {
-    if (v5 != enum case for Fence.Variant.recurring(_:))
-    {
-      if (v5 == enum case for Fence.Variant.scheduled(_:))
-      {
-        v27 = v0[13];
-        v26 = v0[14];
-        v28 = v0[12];
-        v30 = v0[6];
-        v29 = v0[7];
-        v31 = v0[5];
-        (*(v27 + 16))(v26, v0[17], v28);
-        (*(v27 + 96))(v26, v28);
-        (*(v30 + 32))(v29, v26, v31);
-        v32 = swift_task_alloc();
-        v0[20] = v32;
-        *v32 = v0;
-        v32[1] = sub_10025E888;
-        v33 = v0[7];
-        v34 = v0[3];
-        v35 = v0[4];
-        v36 = v0[2];
-
-        return sub_10025A84C(v36, v33, v34, v35);
-      }
-
-LABEL_24:
-      v42 = v0[17];
-      v43 = v0[12];
-      v44 = v0[13];
-      v45 = v0[2];
-      type metadata accessor for FenceServiceClient.Failure(0);
-      sub_100260118(&qword_1005A9140, type metadata accessor for FenceServiceClient.Failure);
-      swift_allocError();
-      Fence.variant.getter();
-      swift_storeEnumTagMultiPayload();
-      swift_willThrow();
-      (*(v44 + 8))(v42, v43);
-      goto LABEL_25;
-    }
-
-    v8 = v0 + 15;
-    v7 = v0[15];
-    v6 = v0[17];
-    v9 = v0[12];
-    v10 = v0[13];
-  }
-
-  (*(v10 + 16))(v7, v6, v9);
-  (*(v10 + 96))(v7, v9);
-  v11 = type metadata accessor for Fence.Trigger();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 88))(v7, v11);
-  if (v13 == enum case for Fence.Trigger.arriving(_:))
-  {
-    v15 = v0[9];
-    v14 = v0[10];
-    v16 = v0[8];
-    v17 = v0[3];
-    (*(v0[13] + 8))(v0[17], v0[12]);
-    (*(v15 + 16))(v14, v17, v16);
-    v18 = (*(v15 + 88))(v14, v16);
-    if (v18 != enum case for Fence.TriggerPosition.inside(_:) && v18 != enum case for Fence.TriggerPosition.outside(_:))
-    {
-      if (v18 == enum case for Fence.TriggerPosition.undetermined(_:))
-      {
-        (*(v0[9] + 8))(v0[10], v0[8]);
-        sub_10005CF04();
-        swift_allocError();
-        v20 = 5;
-LABEL_15:
-        *v19 = v20;
-        swift_willThrow();
-LABEL_25:
-        v47 = v0[16];
-        v46 = v0[17];
-        v49 = v0[14];
-        v48 = v0[15];
-        v51 = v0[10];
-        v50 = v0[11];
-        v52 = v0[7];
-
-        v53 = v0[1];
-
-        return v53();
-      }
-
-      return _assertionFailure(_:_:file:line:flags:)();
-    }
-
-    v38 = v0[10];
-    (*(v0[9] + 96))(v38, v0[8]);
-
-    v39 = swift_task_alloc();
-    v0[19] = v39;
-    *v39 = v0;
-    v39[1] = sub_10025E69C;
-    v41 = v0[2];
-    v40 = v0[3];
-
-    return sub_100259894(v41, v40);
-  }
-
-  if (v13 != enum case for Fence.Trigger.leaving(_:))
-  {
-    (*(v12 + 8))(*v8, v11);
-    goto LABEL_24;
-  }
-
-  v21 = v0[11];
-  v22 = v0[8];
-  v23 = v0[9];
-  v24 = v0[3];
-  (*(v0[13] + 8))(v0[17], v0[12]);
-  (*(v23 + 16))(v21, v24, v22);
-  v25 = (*(v23 + 88))(v21, v22);
-  if (v25 != enum case for Fence.TriggerPosition.inside(_:) && v25 != enum case for Fence.TriggerPosition.outside(_:))
-  {
-    if (v25 == enum case for Fence.TriggerPosition.undetermined(_:))
-    {
-      (*(v0[9] + 8))(v0[11], v0[8]);
-      sub_10005CF04();
-      swift_allocError();
-      v20 = 4;
-      goto LABEL_15;
-    }
-
-    return _assertionFailure(_:_:file:line:flags:)();
-  }
-
-  v54 = v0[11];
-  (*(v0[9] + 96))(v54, v0[8]);
-
-  v55 = swift_task_alloc();
-  v0[18] = v55;
-  *v55 = v0;
-  v55[1] = sub_10025E4B0;
-  v57 = v0[2];
-  v56 = v0[3];
-
-  return sub_100258BFC(v57, v56);
-}
-
-uint64_t sub_10025E4B0(uint64_t a1, uint64_t a2)
-{
-  v5 = *v2;
-  v6 = *(*v2 + 144);
-  v16 = *v2;
-
-  v7 = v5[17];
-  v8 = v5[16];
-  v9 = v5[15];
-  v10 = v5[14];
-  v11 = v5[11];
-  v12 = v5[10];
-  v13 = v5[7];
-
-  v14 = *(v16 + 8);
-
-  return v14(a1, a2);
-}
-
-uint64_t sub_10025E69C(uint64_t a1, uint64_t a2)
-{
-  v5 = *v2;
-  v6 = *(*v2 + 152);
-  v16 = *v2;
-
-  v7 = v5[17];
-  v8 = v5[16];
-  v9 = v5[15];
-  v10 = v5[14];
-  v11 = v5[11];
-  v12 = v5[10];
-  v13 = v5[7];
-
-  v14 = *(v16 + 8);
-
-  return v14(a1, a2);
-}
-
-uint64_t sub_10025E888(uint64_t a1, uint64_t a2)
-{
-  v6 = *v3;
-  v7 = *(*v3 + 160);
-  v8 = *v3;
-  *(*v3 + 168) = v2;
-
-  if (v2)
-  {
-    v9 = sub_10025EAB8;
-  }
-
-  else
-  {
-    *(v6 + 176) = a2;
-    *(v6 + 184) = a1;
-    v9 = sub_10025E9BC;
-  }
-
-  return _swift_task_switch(v9, 0, 0);
-}
-
-uint64_t sub_10025E9BC()
-{
-  v1 = v0[17];
-  v2 = v0[12];
-  v3 = v0[13];
-  (*(v0[6] + 8))(v0[7], v0[5]);
-  (*(v3 + 8))(v1, v2);
-  v4 = v0[22];
-  v5 = v0[23];
-  v7 = v0[16];
-  v6 = v0[17];
-  v9 = v0[14];
-  v8 = v0[15];
-  v11 = v0[10];
-  v10 = v0[11];
-  v12 = v0[7];
-
-  v13 = v0[1];
-
-  return v13(v5, v4);
-}
-
-uint64_t sub_10025EAB8()
-{
-  v1 = v0[17];
-  v2 = v0[12];
-  v3 = v0[13];
-  (*(v0[6] + 8))(v0[7], v0[5]);
-  (*(v3 + 8))(v1, v2);
-  v4 = v0[21];
-  v6 = v0[16];
-  v5 = v0[17];
-  v8 = v0[14];
-  v7 = v0[15];
-  v10 = v0[10];
-  v9 = v0[11];
-  v11 = v0[7];
-
-  v12 = v0[1];
-
-  return v12();
-}
-
-uint64_t sub_10025EBA8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_10004B564(&qword_1005B0B00, &qword_1004D26A0);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-void *sub_10025EC18(uint64_t a1)
-{
-  v2 = type metadata accessor for MessagingCapability();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v39 = &v32 - v8;
-  v9 = *(a1 + 16);
-  if (v9)
-  {
-    sub_10004B564(&qword_1005B0B40, &qword_1004D26C8);
-    v10 = static _SetStorage.allocate(capacity:)();
-    v11 = 0;
-    v13 = *(v3 + 16);
-    v12 = v3 + 16;
-    v37 = v13;
-    v38 = v10 + 56;
-    v14 = *(v12 + 64);
-    v34 = v9;
-    v35 = a1 + ((v14 + 32) & ~v14);
-    v15 = *(v12 + 56);
-    v16 = (v12 - 8);
-    v33 = (v12 + 16);
-    while (1)
-    {
-      v36 = v11;
-      v37(v39, v35 + v15 * v11, v2);
-      v17 = *(v10 + 40);
-      sub_100260118(&qword_1005B0B48, &type metadata accessor for MessagingCapability);
-      v18 = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v19 = ~(-1 << *(v10 + 32));
-      v20 = v18 & v19;
-      v21 = (v18 & v19) >> 6;
-      v22 = *(v38 + 8 * v21);
-      v23 = 1 << (v18 & v19);
-      if ((v23 & v22) != 0)
-      {
-        while (1)
-        {
-          v24 = v12;
-          v37(v7, *(v10 + 48) + v20 * v15, v2);
-          sub_100260118(&qword_1005B0B50, &type metadata accessor for MessagingCapability);
-          v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v26 = *v16;
-          (*v16)(v7, v2);
-          if (v25)
-          {
-            break;
-          }
-
-          v20 = (v20 + 1) & v19;
-          v21 = v20 >> 6;
-          v22 = *(v38 + 8 * (v20 >> 6));
-          v23 = 1 << v20;
-          v12 = v24;
-          if (((1 << v20) & v22) == 0)
-          {
-            goto LABEL_8;
-          }
-        }
-
-        v26(v39, v2);
-        v12 = v24;
-      }
-
-      else
-      {
-LABEL_8:
-        v27 = v39;
-        *(v38 + 8 * v21) = v23 | v22;
-        result = (*v33)(*(v10 + 48) + v20 * v15, v27, v2);
-        v29 = *(v10 + 16);
-        v30 = __OFADD__(v29, 1);
-        v31 = v29 + 1;
-        if (v30)
-        {
-          __break(1u);
-          return result;
-        }
-
-        *(v10 + 16) = v31;
-      }
-
-      v11 = v36 + 1;
-      if (v36 + 1 == v34)
-      {
-        return v10;
-      }
-    }
-  }
-
-  return &_swiftEmptySetSingleton;
-}
-
-Swift::Int sub_10025EF38(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10004B564(&qword_1005B04F0, &qword_1004D1E18);
-    v3 = static _SetStorage.allocate(capacity:)();
-    v4 = 0;
-    v5 = v3 + 56;
-    v6 = a1 + 32;
-    while (2)
-    {
-      v7 = (v6 + 16 * v4);
-      v9 = *v7;
-      v8 = v7[1];
-      v10 = *(v3 + 40);
-      Hasher.init(_seed:)();
-
-      String.hash(into:)();
-      result = Hasher._finalize()();
-      v12 = ~(-1 << *(v3 + 32));
-      for (i = result & v12; ; i = (i + 1) & v12)
-      {
-        v14 = *(v5 + 8 * (i >> 6));
-        if (((1 << i) & v14) == 0)
-        {
-          break;
-        }
-
-        v15 = (*(v3 + 48) + 16 * i);
-        if (*v15 != v9 || v15[1] != v8)
-        {
-          result = _stringCompareWithSmolCheck(_:_:expecting:)();
-          if ((result & 1) == 0)
-          {
-            continue;
-          }
-        }
-
-        goto LABEL_4;
-      }
-
-      *(v5 + 8 * (i >> 6)) = (1 << i) | v14;
-      v17 = (*(v3 + 48) + 16 * i);
-      *v17 = v9;
-      v17[1] = v8;
-      v18 = *(v3 + 16);
-      v19 = __OFADD__(v18, 1);
-      v20 = v18 + 1;
-      if (!v19)
-      {
-        *(v3 + 16) = v20;
-LABEL_4:
-        if (++v4 == v1)
-        {
-          return v3;
-        }
-
-        continue;
-      }
-
-      break;
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptySetSingleton;
-  }
-
-  return result;
-}
-
-Swift::Int sub_10025F0A0(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10004B564(&qword_1005B0B38, &qword_1004D26C0);
-    v3 = static _SetStorage.allocate(capacity:)();
-    v4 = 0;
-    v5 = v3 + 56;
-    v6 = a1 + 32;
-    while (1)
-    {
-      v10 = *(v6 + 8 * v4);
-      v11 = *(v3 + 40);
-      Hasher.init(_seed:)();
-      Hasher._combine(_:)(v10);
-      result = Hasher._finalize()();
-      v13 = ~(-1 << *(v3 + 32));
-      v14 = result & v13;
-      v15 = (result & v13) >> 6;
-      v16 = *(v5 + 8 * v15);
-      v17 = 1 << (result & v13);
-      v18 = *(v3 + 48);
-      if ((v17 & v16) != 0)
-      {
-        while (*(v18 + 8 * v14) != v10)
-        {
-          v14 = (v14 + 1) & v13;
-          v15 = v14 >> 6;
-          v16 = *(v5 + 8 * (v14 >> 6));
-          v17 = 1 << v14;
-          if (((1 << v14) & v16) == 0)
-          {
-            goto LABEL_3;
-          }
-        }
-      }
-
-      else
-      {
-LABEL_3:
-        *(v5 + 8 * v15) = v17 | v16;
-        *(v18 + 8 * v14) = v10;
-        v7 = *(v3 + 16);
-        v8 = __OFADD__(v7, 1);
-        v9 = v7 + 1;
-        if (v8)
-        {
-          __break(1u);
-          return result;
-        }
-
-        *(v3 + 16) = v9;
-      }
-
-      if (++v4 == v1)
-      {
-        return v3;
-      }
-    }
-  }
-
-  return &_swiftEmptySetSingleton;
-}
-
-uint64_t sub_10025F1DC(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v126 = a2;
-  v4 = type metadata accessor for Fence.DaysOfWeek();
-  v115 = *(v4 - 8);
-  v116 = v4;
-  v5 = *(v115 + 64);
-  v6 = __chkstk_darwin(v4);
-  v112 = &v101 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v114 = &v101 - v8;
-  v9 = type metadata accessor for Calendar();
-  v113 = *(v9 - 8);
-  v10 = *(v113 + 64);
-  __chkstk_darwin(v9);
-  v117 = &v101 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Fence.TimeOfDay();
-  v110 = *(v12 - 8);
-  v111 = v12;
-  v13 = *(v110 + 64);
-  v14 = __chkstk_darwin(v12);
-  v108 = &v101 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v109 = &v101 - v16;
-  v119 = type metadata accessor for Fence.Schedule();
-  v17 = *(v119 - 8);
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v119);
-  v118 = &v101 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v125 = type metadata accessor for Fence.Variant();
-  v20 = *(v125 - 8);
-  v21 = *(v20 + 64);
-  v22 = __chkstk_darwin(v125);
-  v106 = &v101 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = __chkstk_darwin(v22);
-  v107 = &v101 - v25;
-  v26 = __chkstk_darwin(v24);
-  v28 = &v101 - v27;
-  __chkstk_darwin(v26);
-  v124 = &v101 - v29;
-  v30 = type metadata accessor for LocalizationUtility.Table();
-  v31 = *(v30 - 8);
-  v32 = *(v31 + 64);
-  v33 = __chkstk_darwin(v30);
-  v36 = &v101 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v122 = v31;
-  v123 = v33;
-  v121 = v36;
-  if (a3)
-  {
-    v37 = a3;
-  }
-
-  else
-  {
-    v38 = v17;
-    v39 = v20;
-    v40 = v34;
-    (*(v31 + 104))(v36, enum case for LocalizationUtility.Table.default(_:), v34);
-    v126 = static LocalizationUtility.localizedString(key:table:)();
-    v41 = v31;
-    v37 = v42;
-    v43 = v40;
-    v20 = v39;
-    v17 = v38;
-    (*(v41 + 8))(v36, v43);
-  }
-
-  v120 = sub_100257FA4();
-  v45 = v44;
-  v46 = v124;
-  Fence.variant.getter();
-  v47 = v125;
-  v48 = (*(v20 + 88))(v46, v125);
-  if (v48 == enum case for Fence.Variant.oneTime(_:))
-  {
-    (*(v20 + 16))(v28, v46, v47);
-    (*(v20 + 96))(v28, v47);
-    v49 = type metadata accessor for Fence.Trigger();
-    v50 = *(v49 - 8);
-    v51 = (*(v50 + 88))(v28, v49);
-    if (v51 == enum case for Fence.Trigger.arriving(_:) || v51 == enum case for Fence.Trigger.leaving(_:))
-    {
-LABEL_17:
-      sub_10004B564(&qword_1005AFA60, &unk_1004CE390);
-      v69 = swift_allocObject();
-      *(v69 + 16) = xmmword_1004C2310;
-      *(v69 + 32) = v126;
-      *(v69 + 40) = v37;
-      *(v69 + 48) = v120;
-      *(v69 + 56) = v45;
-LABEL_25:
-      (*(v20 + 8))(v46, v47);
-      v97 = v121;
-      v96 = v122;
-      v98 = v123;
-      (*(v122 + 104))(v121, enum case for LocalizationUtility.Table.default(_:), v123);
-      static LocalizationUtility.localizedString(key:table:)();
-
-      (*(v96 + 8))(v97, v98);
-      sub_10025854C(v69);
-
-      v99 = String.init(format:arguments:)();
-
-      return v99;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (v48 == enum case for Fence.Variant.recurring(_:))
-  {
-    v28 = v107;
-    (*(v20 + 16))(v107, v46, v47);
-    (*(v20 + 96))(v28, v47);
-    v49 = type metadata accessor for Fence.Trigger();
-    v50 = *(v49 - 8);
-    v52 = (*(v50 + 88))(v28, v49);
-    if (v52 == enum case for Fence.Trigger.arriving(_:) || v52 == enum case for Fence.Trigger.leaving(_:))
-    {
-      goto LABEL_17;
-    }
-
-LABEL_26:
-    (*(v50 + 8))(v28, v49);
-    goto LABEL_27;
-  }
-
-  v107 = v9;
-  v105 = v37;
-  v103 = v45;
-  if (v48 == enum case for Fence.Variant.scheduled(_:))
-  {
-    v53 = v106;
-    (*(v20 + 16))(v106, v46, v47);
-    (*(v20 + 96))(v53, v47);
-    v104 = v17;
-    v54 = v118;
-    (*(v17 + 32))(v118, v53, v119);
-    v55 = v109;
-    Fence.Schedule.start.getter();
-    v56 = v117;
-    static Calendar.current.getter();
-    v102 = sub_100258360(v56);
-    v106 = v57;
-    v113 = *(v113 + 8);
-    (v113)(v56, v107);
-    v58 = v111;
-    v59 = *(v110 + 8);
-    v59(v55, v111);
-    Fence.Schedule.start.getter();
-    v60 = v108;
-    Fence.Schedule.end.getter();
-    v61 = v58;
-    LOBYTE(v58) = static Fence.TimeOfDay.== infix(_:_:)();
-    v59(v60, v61);
-    v59(v55, v61);
-    if (v58)
-    {
-      v62 = v114;
-      Fence.Schedule.daysOfWeek.getter();
-      v63 = v112;
-      static Fence.DaysOfWeek.all.getter();
-      sub_100260118(&qword_1005B0B30, &type metadata accessor for Fence.DaysOfWeek);
-      v64 = v116;
-      dispatch thunk of RawRepresentable.rawValue.getter();
-      dispatch thunk of RawRepresentable.rawValue.getter();
-      v65 = v54;
-      v66 = *(v115 + 8);
-      v66(v63, v64);
-      v66(v62, v64);
-      if (v128 == v127)
-      {
-        sub_10004B564(&qword_1005AFA60, &unk_1004CE390);
-        v67 = swift_allocObject();
-        v68 = v65;
-        v69 = v67;
-        *(v67 + 16) = xmmword_1004C0BD0;
-        v70 = v105;
-        *(v67 + 32) = v126;
-        *(v67 + 40) = v70;
-        v71 = v103;
-        *(v67 + 48) = v120;
-        *(v67 + 56) = v71;
-        v72 = v106;
-        *(v67 + 64) = v102;
-        *(v67 + 72) = v72;
-      }
-
-      else
-      {
-        Fence.Schedule.daysOfWeek.getter();
-        v82 = v117;
-        static Calendar.current.getter();
-        v115 = sub_100057620(v82);
-        v84 = v83;
-        (v113)(v82, v107);
-        v66(v62, v64);
-        sub_10004B564(&qword_1005AFA60, &unk_1004CE390);
-        v85 = swift_allocObject();
-        v68 = v65;
-        v69 = v85;
-        *(v85 + 16) = xmmword_1004C0BB0;
-        v86 = v105;
-        *(v85 + 32) = v126;
-        *(v85 + 40) = v86;
-        v87 = v103;
-        *(v85 + 48) = v120;
-        *(v85 + 56) = v87;
-        v88 = v106;
-        *(v85 + 64) = v102;
-        *(v85 + 72) = v88;
-        *(v85 + 80) = v115;
-        *(v85 + 88) = v84;
-      }
-
-      v46 = v124;
-      v47 = v125;
-    }
-
-    else
-    {
-      Fence.Schedule.end.getter();
-      static Calendar.current.getter();
-      v108 = sub_100258360(v56);
-      v110 = v73;
-      (v113)(v56, v107);
-      v59(v55, v61);
-      v74 = v114;
-      Fence.Schedule.daysOfWeek.getter();
-      v75 = v112;
-      static Fence.DaysOfWeek.all.getter();
-      sub_100260118(&qword_1005B0B30, &type metadata accessor for Fence.DaysOfWeek);
-      v76 = v116;
-      dispatch thunk of RawRepresentable.rawValue.getter();
-      dispatch thunk of RawRepresentable.rawValue.getter();
-      v77 = *(v115 + 8);
-      v77(v75, v76);
-      v77(v74, v76);
-      if (v130 == v129)
-      {
-        sub_10004B564(&qword_1005AFA60, &unk_1004CE390);
-        v69 = swift_allocObject();
-        *(v69 + 16) = xmmword_1004C0BB0;
-        v78 = v105;
-        *(v69 + 32) = v126;
-        *(v69 + 40) = v78;
-        v79 = v103;
-        *(v69 + 48) = v120;
-        *(v69 + 56) = v79;
-        v80 = v106;
-        *(v69 + 64) = v102;
-        *(v69 + 72) = v80;
-        v81 = v110;
-        *(v69 + 80) = v108;
-        *(v69 + 88) = v81;
-      }
-
-      else
-      {
-        Fence.Schedule.daysOfWeek.getter();
-        static Calendar.current.getter();
-        v89 = sub_100057620(v56);
-        v91 = v90;
-        (v113)(v56, v107);
-        v77(v74, v76);
-        sub_10004B564(&qword_1005AFA60, &unk_1004CE390);
-        v69 = swift_allocObject();
-        *(v69 + 16) = xmmword_1004C0BC0;
-        v92 = v105;
-        *(v69 + 32) = v126;
-        *(v69 + 40) = v92;
-        v93 = v103;
-        *(v69 + 48) = v120;
-        *(v69 + 56) = v93;
-        v94 = v106;
-        *(v69 + 64) = v102;
-        *(v69 + 72) = v94;
-        v95 = v110;
-        *(v69 + 80) = v108;
-        *(v69 + 88) = v95;
-        *(v69 + 96) = v89;
-        *(v69 + 104) = v91;
-      }
-
-      v46 = v124;
-      v47 = v125;
-      v68 = v118;
-    }
-
-    (*(v104 + 8))(v68, v119);
-    goto LABEL_25;
-  }
-
-LABEL_27:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_100260118(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_100260160(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_10004B564(&qword_1005B0608, &qword_1004D1F38);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-void *sub_1002601D0(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10004B564(&qword_1005B0B58, &qword_1004D26D0);
-    v3 = static _SetStorage.allocate(capacity:)();
-    v4 = 0;
-    v5 = v3 + 56;
-    v27 = v1;
-    v28 = a1 + 32;
-    v6 = v1;
-    while (1)
-    {
-      v7 = *(v28 + 8 * v4);
-      v8 = *(v3 + 40);
-      static String._unconditionallyBridgeFromObjectiveC(_:)();
-      Hasher.init(_seed:)();
-      v29 = v7;
-      String.hash(into:)();
-      v9 = Hasher._finalize()();
-
-      v11 = -1 << *(v3 + 32);
-      v12 = v9 & ~v11;
-      v13 = v12 >> 6;
-      v14 = *(v5 + 8 * (v12 >> 6));
-      v15 = 1 << v12;
-      if (((1 << v12) & v14) == 0)
-      {
-        goto LABEL_15;
-      }
-
-      v16 = ~v11;
-      do
-      {
-        v17 = *(*(v3 + 48) + 8 * v12);
-        v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v20 = v19;
-        if (v18 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v20 == v21)
-        {
-
-LABEL_4:
-          v6 = v27;
-          goto LABEL_5;
-        }
-
-        v23 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if (v23)
-        {
-
-          goto LABEL_4;
-        }
-
-        v12 = (v12 + 1) & v16;
-        v13 = v12 >> 6;
-        v14 = *(v5 + 8 * (v12 >> 6));
-        v15 = 1 << v12;
-      }
-
-      while (((1 << v12) & v14) != 0);
-      v6 = v27;
-LABEL_15:
-      *(v5 + 8 * v13) = v15 | v14;
-      *(*(v3 + 48) + 8 * v12) = v29;
-      v24 = *(v3 + 16);
-      v25 = __OFADD__(v24, 1);
-      v26 = v24 + 1;
-      if (v25)
-      {
-        __break(1u);
-        return result;
-      }
-
-      *(v3 + 16) = v26;
-LABEL_5:
-      if (++v4 == v6)
-      {
-        return v3;
-      }
-    }
-  }
-
-  return &_swiftEmptySetSingleton;
-}
-
-BOOL sub_100260454(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), unint64_t *a4, void (*a5)(uint64_t))
-{
-  v9 = 0;
-  v10 = *(a2 + 16);
-  do
-  {
-    v11 = v9;
-    if (v10 == v9)
-    {
-      break;
-    }
-
-    v12 = *(a3(0) - 8);
-    ++v9;
-    v13 = a2 + ((*(v12 + 80) + 32) & ~*(v12 + 80)) + *(v12 + 72) * v11;
-    sub_1000094D0(a4, a5);
-  }
-
-  while ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0);
-  return v10 != v11;
-}
-
-uint64_t sub_10026055C(uint64_t a1, uint64_t a2)
-{
-  v3[2] = a1;
-  v3[3] = v2;
-  v5 = swift_task_alloc();
-  v3[4] = v5;
-  *v5 = v3;
-  v5[1] = sub_1002605F4;
-
-  return sub_10026FAF8(a2);
-}
-
-uint64_t sub_1002605F4()
-{
-  v2 = *(*v1 + 32);
-  v3 = *v1;
-  v3[5] = v0;
-
-  if (v0)
-  {
-    v4 = v3[3];
-
-    return _swift_task_switch(sub_100260898, v4, 0);
-  }
-
-  else
-  {
-    v5 = swift_task_alloc();
-    v3[6] = v5;
-    *v5 = v3;
-    v5[1] = sub_100260764;
-    v6 = v3[3];
-    v7 = v3[2];
-
-    return sub_10027C184(v7);
-  }
-}
-
-uint64_t sub_100260764()
-{
-  v2 = *(*v1 + 48);
-  v3 = *v1;
-  v3[7] = v0;
-
-  if (v0)
-  {
-    v4 = v3[3];
-
-    return _swift_task_switch(sub_100260A8C, v4, 0);
-  }
-
-  else
-  {
-    v5 = v3[1];
-
-    return v5();
-  }
-}
-
-uint64_t sub_100260898()
-{
-  v12 = v0;
-  v1 = *(v0 + 40);
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v2 = type metadata accessor for Logger();
-  sub_10000A6F0(v2, qword_1005DFF88);
-  swift_errorRetain();
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v11 = v7;
-    *v5 = 136446466;
-    *(v5 + 4) = sub_10000D01C(0xD000000000000030, 0x80000001004E6560, &v11);
-    *(v5 + 12) = 2114;
-    swift_errorRetain();
-    v8 = _swift_stdlib_bridgeErrorToNSError();
-    *(v5 + 14) = v8;
-    *v6 = v8;
-    _os_log_impl(&_mh_execute_header, v3, v4, "%{public}s error: %{public}@", v5, 0x16u);
-    sub_100002CE0(v6, &qword_1005A9670, &unk_1004C2480);
-
-    sub_100004984(v7);
-  }
-
-  swift_willThrow();
-  v9 = *(v0 + 8);
-
-  return v9();
-}
-
-uint64_t sub_100260A8C()
-{
-  v12 = v0;
-  v1 = *(v0 + 56);
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v2 = type metadata accessor for Logger();
-  sub_10000A6F0(v2, qword_1005DFF88);
-  swift_errorRetain();
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v11 = v7;
-    *v5 = 136446466;
-    *(v5 + 4) = sub_10000D01C(0xD000000000000030, 0x80000001004E6560, &v11);
-    *(v5 + 12) = 2114;
-    swift_errorRetain();
-    v8 = _swift_stdlib_bridgeErrorToNSError();
-    *(v5 + 14) = v8;
-    *v6 = v8;
-    _os_log_impl(&_mh_execute_header, v3, v4, "%{public}s error: %{public}@", v5, 0x16u);
-    sub_100002CE0(v6, &qword_1005A9670, &unk_1004C2480);
-
-    sub_100004984(v7);
-  }
-
-  swift_willThrow();
-  v9 = *(v0 + 8);
-
-  return v9();
-}
-
-void *sub_100260C80(void (*a1)(void), uint64_t a2, uint64_t a3)
-{
-  v35 = a2;
-  v6 = sub_10004B564(&qword_1005B09D0, &unk_1004D2380);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v27 - v8;
-  v10 = type metadata accessor for Fence();
-  v11 = *(*(v10 - 8) + 64);
-  v12 = __chkstk_darwin(v10);
-  v34 = &v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v31 = &v27 - v15;
-  v16 = *(a3 + 16);
-  if (!v16)
-  {
-    return &_swiftEmptyArrayStorage;
-  }
-
-  v17 = *(v14 + 72);
-  v28 = (*(v14 + 80) + 32) & ~*(v14 + 80);
-  v18 = a3 + v28;
-  v32 = (v14 + 32);
-  v33 = (v14 + 48);
-  v19 = &_swiftEmptyArrayStorage;
-  v29 = v10;
-  v30 = a1;
-  v27 = v17;
-  while (1)
-  {
-    a1(v18);
-    if (v3)
-    {
-      break;
-    }
-
-    if ((*v33)(v9, 1, v10) == 1)
-    {
-      sub_100002CE0(v9, &qword_1005B09D0, &unk_1004D2380);
-    }
-
-    else
-    {
-      v20 = v31;
-      v21 = *v32;
-      (*v32)(v31, v9, v10);
-      v21(v34, v20, v10);
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v19 = sub_1001FD464(0, v19[2] + 1, 1, v19);
-      }
-
-      v23 = v19[2];
-      v22 = v19[3];
-      if (v23 >= v22 >> 1)
-      {
-        v19 = sub_1001FD464(v22 > 1, v23 + 1, 1, v19);
-      }
-
-      v19[2] = v23 + 1;
-      v24 = v27;
-      v25 = v19 + v28 + v23 * v27;
-      v10 = v29;
-      v21(v25, v34, v29);
-      v17 = v24;
-      a1 = v30;
-    }
-
-    v18 += v17;
-    if (!--v16)
-    {
-      return v19;
-    }
-  }
-
-  return v19;
-}
-
-uint64_t sub_100260F54@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v66 = a2;
-  v6 = type metadata accessor for PersonHandle();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v58 = &v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v12 = &v46 - v11;
-  v13 = type metadata accessor for Fence();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = __chkstk_darwin(v13);
-  v65 = &v46 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v54 = &v46 - v18;
-  v53 = *(a1 + 16);
-  if (v53)
-  {
-    v48 = a3;
-    v49 = v3;
-    v19 = 0;
-    v47 = v14;
-    v22 = *(v14 + 16);
-    v21 = v14 + 16;
-    v20 = v22;
-    v72 = (v7 + 8);
-    v23 = a1 + ((*(v21 + 64) + 32) & ~*(v21 + 64));
-    v24 = (v21 - 8);
-    v25 = *(v21 + 56);
-    v26 = v54;
-    v61 = v7 + 16;
-    v62 = v21;
-    v56 = v7;
-    v57 = v13;
-    v64 = v12;
-    v70 = v22;
-    v60 = (v21 - 8);
-    v52 = v23;
-    v51 = v25;
-    while (1)
-    {
-      v20(v26, v23 + v25 * v19, v13);
-      result = Fence.others.getter();
-      v28 = *(result + 16);
-      v55 = v24 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-      v69 = v28;
-      if (v28)
-      {
-        break;
-      }
-
-      v44 = *v24;
-LABEL_15:
-      ++v19;
-      v44(v26, v13);
-      v23 = v52;
-      v20 = v70;
-      v25 = v51;
-      if (v19 == v53)
-      {
-        v45 = 1;
-        a3 = v48;
-        v14 = v47;
-        return (*(v14 + 56))(a3, v45, 1, v13);
-      }
-    }
-
-    v50 = v19;
-    v29 = 0;
-    v59 = (*(v7 + 80) + 32) & ~*(v7 + 80);
-    v67 = result + v59;
-    v68 = result;
-    v30 = v12;
-    while (v29 < *(result + 16))
-    {
-      v31 = v67 + *(v7 + 72) * v29;
-      v32 = v7;
-      v33 = v13;
-      v34 = *(v32 + 16);
-      v34(v30, v31, v6);
-      v71 = PersonHandle.id.getter();
-      v73 = v35;
-      v36 = v65;
-      v70(v65, v66, v33);
-      v37 = Fence.others.getter();
-      v63 = *v24;
-      v63(v36, v33);
-      if (*(v37 + 16))
-      {
-        v38 = v58;
-        v34(v58, v37 + v59, v6);
-
-        v39 = PersonHandle.id.getter();
-        v41 = v40;
-        v42 = *v72;
-        (*v72)(v38, v6);
-        if (v71 == v39 && v73 == v41)
-        {
-
-          v42(v64, v6);
-          v13 = v57;
-LABEL_19:
-
-          v14 = v47;
-          a3 = v48;
-          (*(v47 + 32))(v48, v54, v13);
-          v45 = 0;
-          return (*(v14 + 56))(a3, v45, 1, v13);
-        }
-
-        v43 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        v30 = v64;
-        v42(v64, v6);
-        v7 = v56;
-        v13 = v57;
-        if (v43)
-        {
-          goto LABEL_19;
-        }
-      }
-
-      else
-      {
-
-        v30 = v64;
-        (*v72)(v64, v6);
-        v13 = v33;
-        v7 = v32;
-      }
-
-      ++v29;
-      result = v68;
-      v24 = v60;
-      if (v69 == v29)
-      {
-        v12 = v30;
-
-        v26 = v54;
-        v19 = v50;
-        v44 = v63;
-        goto LABEL_15;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-    v45 = 1;
-    return (*(v14 + 56))(a3, v45, 1, v13);
-  }
-
-  return result;
-}
-
-uint64_t sub_100261468(uint64_t a1, uint64_t a2)
-{
-  v3[48] = a2;
-  v3[49] = v2;
-  v3[47] = a1;
-  v3[50] = *v2;
-  v4 = *(*(sub_10004B564(&qword_1005A9690, &qword_1004C2A00) - 8) + 64) + 15;
-  v3[51] = swift_task_alloc();
-  v5 = type metadata accessor for Fence.AcceptanceStatus();
-  v3[52] = v5;
-  v6 = *(v5 - 8);
-  v3[53] = v6;
-  v7 = *(v6 + 64) + 15;
-  v3[54] = swift_task_alloc();
-  v3[55] = swift_task_alloc();
-  v8 = sub_10004B564(&qword_1005B0B60, &qword_1004D26E8);
-  v3[56] = v8;
-  v9 = *(*(v8 - 8) + 64) + 15;
-  v3[57] = swift_task_alloc();
-  v10 = *(*(sub_10004B564(&qword_1005A9148, &qword_1004D2370) - 8) + 64) + 15;
-  v3[58] = swift_task_alloc();
-  v3[59] = swift_task_alloc();
-  v3[60] = swift_task_alloc();
-  v11 = sub_10004B564(&qword_1005AAE00, &qword_1004C4A18);
-  v3[61] = v11;
-  v12 = *(*(v11 - 8) + 64) + 15;
-  v3[62] = swift_task_alloc();
-  v13 = type metadata accessor for PersonHandle();
-  v3[63] = v13;
-  v14 = *(v13 - 8);
-  v3[64] = v14;
-  v15 = *(v14 + 64) + 15;
-  v3[65] = swift_task_alloc();
-  v3[66] = swift_task_alloc();
-  v16 = type metadata accessor for Date();
-  v3[67] = v16;
-  v17 = *(v16 - 8);
-  v3[68] = v17;
-  v18 = *(v17 + 64) + 15;
-  v3[69] = swift_task_alloc();
-  v3[70] = swift_task_alloc();
-  v19 = *(*(sub_10004B564(&unk_1005AE5B0, &qword_1004C32F0) - 8) + 64) + 15;
-  v3[71] = swift_task_alloc();
-  v3[72] = swift_task_alloc();
-  v3[73] = swift_task_alloc();
-  v3[74] = swift_task_alloc();
-  v3[75] = swift_task_alloc();
-  v3[76] = swift_task_alloc();
-  v3[77] = swift_task_alloc();
-  v20 = type metadata accessor for Fence.Participant();
-  v3[78] = v20;
-  v21 = *(v20 - 8);
-  v3[79] = v21;
-  v22 = *(v21 + 64) + 15;
-  v3[80] = swift_task_alloc();
-  v3[81] = swift_task_alloc();
-  v23 = type metadata accessor for Fence();
-  v3[82] = v23;
-  v24 = *(v23 - 8);
-  v3[83] = v24;
-  v3[84] = *(v24 + 64);
-  v3[85] = swift_task_alloc();
-  v3[86] = swift_task_alloc();
-  v3[87] = swift_task_alloc();
-  v3[88] = swift_task_alloc();
-  v3[89] = swift_task_alloc();
-  v25 = type metadata accessor for Fence.MonitorRegion();
-  v3[90] = v25;
-  v26 = *(v25 - 8);
-  v3[91] = v26;
-  v27 = *(v26 + 64) + 15;
-  v3[92] = swift_task_alloc();
-  v28 = type metadata accessor for Fence.ID();
-  v3[93] = v28;
-  v29 = *(v28 - 8);
-  v3[94] = v29;
-  v30 = *(v29 + 64) + 15;
-  v3[95] = swift_task_alloc();
-  v31 = *(*(sub_10004B564(&qword_1005B09D0, &unk_1004D2380) - 8) + 64) + 15;
-  v3[96] = swift_task_alloc();
-  v3[97] = swift_task_alloc();
-  v3[98] = swift_task_alloc();
-  v3[99] = swift_task_alloc();
-  v3[100] = swift_task_alloc();
-  v3[101] = swift_task_alloc();
-  v32 = async function pointer to daemon.getter[1];
-  v33 = swift_task_alloc();
-  v3[102] = v33;
-  *v33 = v3;
-  v33[1] = sub_100261A08;
-
-  return daemon.getter();
-}
-
-uint64_t sub_100261A08(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 816);
-  v12 = *v1;
-  *(v3 + 824) = a1;
-
-  v5 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v6 = swift_task_alloc();
-  *(v3 + 832) = v6;
-  v7 = type metadata accessor for Daemon();
-  v8 = type metadata accessor for DataManager(0);
-  v9 = sub_1000094D0(&unk_1005AFA50, &type metadata accessor for Daemon);
-  v10 = sub_1000094D0(&qword_1005A90D0, type metadata accessor for DataManager);
-  *v6 = v12;
-  v6[1] = sub_100261BE4;
-
-  return ActorServiceDaemon.getService<A>()(v7, v8, v9, v10);
-}
-
-uint64_t sub_100261BE4(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 832);
-  v10 = *v2;
-  v3[105] = a1;
-  v3[106] = v1;
-
-  if (v1)
-  {
-    v5 = v3[49];
-    v6 = sub_100265058;
-  }
-
-  else
-  {
-    v7 = v3[103];
-    v8 = v3[49];
-
-    v6 = sub_100261D10;
-    v5 = v8;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_100261D10()
-{
-  v1 = v0[95];
-  v2 = v0[48];
-  Fence.id.getter();
-  v3 = swift_task_alloc();
-  v0[107] = v3;
-  *v3 = v0;
-  v3[1] = sub_100261DB8;
-  v4 = v0[105];
-  v5 = v0[101];
-  v6 = v0[95];
-
-  return sub_10020ED50(v5, v6);
-}
-
-uint64_t sub_100261DB8()
-{
-  v1 = *v0;
-  v2 = *(*v0 + 856);
-  v3 = *(*v0 + 760);
-  v4 = *(*v0 + 752);
-  v5 = *(*v0 + 744);
-  v6 = *(*v0 + 392);
-  v9 = *v0;
-
-  v7 = *(v4 + 8);
-  *(v1 + 864) = v7;
-  *(v1 + 872) = (v4 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v7(v3, v5);
-
-  return _swift_task_switch(sub_100261F3C, v6, 0);
-}
-
-uint64_t sub_100261F3C()
-{
-  v202 = v0;
-  v1 = *(v0 + 736);
-  v2 = *(v0 + 728);
-  v3 = *(v0 + 720);
-  v4 = *(v0 + 384);
-  Fence.region.getter();
-  Fence.MonitorRegion.center.getter();
-  v5 = *(v2 + 8);
-  *(v0 + 880) = v5;
-  *(v0 + 888) = (v2 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v5(v1, v3);
-  if (static Fence.isAllowed(at:)())
-  {
-    v6 = *(v0 + 808);
-    v7 = *(v0 + 704);
-    v8 = *(v0 + 664);
-    v9 = *(v0 + 656);
-    v10 = *(v0 + 648);
-    v11 = *(v0 + 640);
-    v12 = *(v0 + 632);
-    v13 = *(v0 + 624);
-    v14 = *(v0 + 384);
-    v15 = *(v8 + 48);
-    *(v0 + 896) = v15;
-    *(v0 + 904) = (v8 + 48) & 0xFFFFFFFFFFFFLL | 0x60F0000000000000;
-    v16 = v15(v6, 1, v9);
-    *(v0 + 1008) = v16;
-    v17 = *(v8 + 16);
-    *(v0 + 912) = v17;
-    *(v0 + 920) = (v8 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v17(v7, v14, v9);
-    Fence.finder.getter();
-    (*(v12 + 104))(v11, enum case for Fence.Participant.me(_:), v13);
-    LOBYTE(v7) = static Fence.Participant.== infix(_:_:)();
-    v18 = *(v12 + 8);
-    v18(v11, v13);
-    v18(v10, v13);
-    if (v7)
-    {
-      v19 = *(v0 + 704);
-      v20 = *(v0 + 616);
-      v21 = *(v0 + 544);
-      v22 = *(v0 + 536);
-      Fence.muteEndDate.getter();
-      v23 = *(v21 + 48);
-      *(v0 + 928) = v23;
-      *(v0 + 936) = (v21 + 48) & 0xFFFFFFFFFFFFLL | 0x60F0000000000000;
-      LODWORD(v19) = v23(v20, 1, v22);
-      sub_100002CE0(v20, &unk_1005AE5B0, &qword_1004C32F0);
-      if (v19 == 1 && v16 == 1)
-      {
-        v24 = swift_task_alloc();
-        *(v0 + 944) = v24;
-        *v24 = v0;
-        v24[1] = sub_1002630B8;
-        v25 = *(v0 + 840);
-
-        return sub_100006424();
-      }
-    }
-
-    v53 = *(v0 + 704);
-    v54 = Fence.others.getter();
-    if (!*(v54 + 16))
-    {
-
-LABEL_31:
-      v106 = *(v0 + 888);
-      v107 = *(v0 + 880);
-      v108 = *(v0 + 736);
-      v109 = *(v0 + 720);
-      v110 = *(v0 + 704);
-      Fence.region.getter();
-      Fence.MonitorRegion.radius.getter();
-      v112 = v111;
-      v107(v108, v109);
-      static Fence.MonitorRegion.minimumRadius.getter();
-      if (v112 < v113)
-      {
-        if (qword_1005A80E8 != -1)
-        {
-          swift_once();
-        }
-
-        v114 = type metadata accessor for Logger();
-        sub_10000A6F0(v114, qword_1005DFF88);
-        v115 = Logger.logObject.getter();
-        v116 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v115, v116))
-        {
-          v186 = *(v0 + 880);
-          v189 = *(v0 + 888);
-          v195 = *(v0 + 864);
-          v199 = *(v0 + 872);
-          v117 = *(v0 + 760);
-          v192 = *(v0 + 744);
-          v118 = *(v0 + 736);
-          v183 = *(v0 + 720);
-          v119 = *(v0 + 704);
-          v120 = swift_slowAlloc();
-          v121 = swift_slowAlloc();
-          v201[0] = v121;
-          *v120 = 134349314;
-          swift_beginAccess();
-          Fence.region.getter();
-          swift_endAccess();
-          Fence.MonitorRegion.radius.getter();
-          v123 = v122;
-          v186(v118, v183);
-          *(v120 + 4) = v123;
-          *(v120 + 12) = 2082;
-          Fence.id.getter();
-          sub_1000094D0(&qword_1005AE800, &type metadata accessor for Fence.ID);
-          v124 = dispatch thunk of CustomStringConvertible.description.getter();
-          v126 = v125;
-          v195(v117, v192);
-          v127 = sub_10000D01C(v124, v126, v201);
-
-          *(v120 + 14) = v127;
-          _os_log_impl(&_mh_execute_header, v115, v116, "    Fence radius %{public}f for %{public}s capped to min", v120, 0x16u);
-          sub_100004984(v121);
-        }
-
-        v128 = *(v0 + 704);
-        static Fence.MonitorRegion.minimumRadius.getter();
-        v130 = v129;
-        swift_beginAccess();
-        v131 = Fence.region.modify();
-        Fence.MonitorRegion.updateRadius(_:)(v130);
-        v131(v0 + 176, 0);
-        swift_endAccess();
-      }
-
-      v132 = *(v0 + 888);
-      v133 = *(v0 + 880);
-      v134 = *(v0 + 736);
-      v135 = *(v0 + 720);
-      v136 = *(v0 + 704);
-      swift_beginAccess();
-      Fence.region.getter();
-      swift_endAccess();
-      Fence.MonitorRegion.radius.getter();
-      v138 = v137;
-      v133(v134, v135);
-      static Fence.MonitorRegion.maximumRadius.getter();
-      if (v139 < v138)
-      {
-        if (qword_1005A80E8 != -1)
-        {
-          swift_once();
-        }
-
-        v140 = type metadata accessor for Logger();
-        sub_10000A6F0(v140, qword_1005DFF88);
-        v141 = Logger.logObject.getter();
-        v142 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v141, v142))
-        {
-          v187 = *(v0 + 880);
-          v190 = *(v0 + 888);
-          v196 = *(v0 + 864);
-          v200 = *(v0 + 872);
-          v143 = *(v0 + 760);
-          v193 = *(v0 + 744);
-          v144 = *(v0 + 736);
-          v184 = *(v0 + 720);
-          v145 = *(v0 + 704);
-          v146 = swift_slowAlloc();
-          v147 = swift_slowAlloc();
-          v201[0] = v147;
-          *v146 = 134349314;
-          swift_beginAccess();
-          Fence.region.getter();
-          swift_endAccess();
-          Fence.MonitorRegion.radius.getter();
-          v149 = v148;
-          v187(v144, v184);
-          *(v146 + 4) = v149;
-          *(v146 + 12) = 2082;
-          Fence.id.getter();
-          sub_1000094D0(&qword_1005AE800, &type metadata accessor for Fence.ID);
-          v150 = dispatch thunk of CustomStringConvertible.description.getter();
-          v152 = v151;
-          v196(v143, v193);
-          v153 = sub_10000D01C(v150, v152, v201);
-
-          *(v146 + 14) = v153;
-          _os_log_impl(&_mh_execute_header, v141, v142, "    Fence radius %{public}f for %{public}s capped to max", v146, 0x16u);
-          sub_100004984(v147);
-        }
-
-        v154 = *(v0 + 704);
-        static Fence.MonitorRegion.maximumRadius.getter();
-        v156 = v155;
-        swift_beginAccess();
-        v157 = Fence.region.modify();
-        Fence.MonitorRegion.updateRadius(_:)(v156);
-        v157(v0 + 144, 0);
-        swift_endAccess();
-      }
-
-      v158 = *(v0 + 920);
-      (*(v0 + 912))(*(v0 + 688), *(v0 + 704), *(v0 + 656));
-      v159 = swift_task_alloc();
-      *(v0 + 976) = v159;
-      *v159 = v0;
-      v159[1] = sub_10026467C;
-      v160 = *(v0 + 696);
-      v161 = *(v0 + 688);
-      v162 = *(v0 + 392);
-
-      return sub_100269ECC(v160, v161);
-    }
-
-    v197 = *(v0 + 904);
-    v55 = *(v0 + 896);
-    v56 = *(v0 + 808);
-    v57 = *(v0 + 784);
-    v58 = *(v0 + 656);
-    v59 = *(v0 + 528);
-    v60 = *(v0 + 520);
-    v61 = *(v0 + 504);
-    v62 = *(v0 + 512);
-    (*(v62 + 16))(v60, v54 + ((*(v62 + 80) + 32) & ~*(v62 + 80)), v61);
-
-    (*(v62 + 32))(v59, v60, v61);
-    sub_100005F04(v56, v57, &qword_1005B09D0, &unk_1004D2380);
-    v63 = v55(v57, 1, v58);
-    v64 = *(v0 + 784);
-    if (v63 == 1)
-    {
-      v65 = *(v0 + 592);
-      v66 = *(v0 + 544);
-      v67 = *(v0 + 536);
-      sub_100002CE0(*(v0 + 784), &qword_1005B09D0, &unk_1004D2380);
-      (*(v66 + 56))(v65, 1, 1, v67);
-    }
-
-    else
-    {
-      v68 = *(v0 + 664);
-      v69 = *(v0 + 656);
-      v70 = *(v0 + 592);
-      Fence.muteEndDate.getter();
-      (*(v68 + 8))(v64, v69);
-    }
-
-    v71 = *(v0 + 704);
-    v72 = *(v0 + 592);
-    v73 = *(v0 + 584);
-    v74 = *(v0 + 544);
-    v75 = *(v0 + 536);
-    v77 = *(v0 + 488);
-    v76 = *(v0 + 496);
-    Fence.muteEndDate.getter();
-    v78 = *(v77 + 48);
-    sub_100005F04(v72, v76, &unk_1005AE5B0, &qword_1004C32F0);
-    sub_100005F04(v73, v76 + v78, &unk_1005AE5B0, &qword_1004C32F0);
-    v79 = *(v74 + 48);
-    v80 = v79(v76, 1, v75);
-    v81 = *(v0 + 536);
-    if (v80 == 1)
-    {
-      v82 = *(v0 + 592);
-      sub_100002CE0(*(v0 + 584), &unk_1005AE5B0, &qword_1004C32F0);
-      sub_100002CE0(v82, &unk_1005AE5B0, &qword_1004C32F0);
-      if (v79(v76 + v78, 1, v81) == 1)
-      {
-        sub_100002CE0(*(v0 + 496), &unk_1005AE5B0, &qword_1004C32F0);
-LABEL_30:
-        (*(*(v0 + 512) + 8))(*(v0 + 528), *(v0 + 504));
-        goto LABEL_31;
-      }
-    }
-
-    else
-    {
-      sub_100005F04(*(v0 + 496), *(v0 + 576), &unk_1005AE5B0, &qword_1004C32F0);
-      v83 = v79(v76 + v78, 1, v81);
-      v84 = *(v0 + 592);
-      v85 = *(v0 + 584);
-      v86 = *(v0 + 576);
-      if (v83 != 1)
-      {
-        v101 = *(v0 + 552);
-        v102 = *(v0 + 544);
-        v103 = *(v0 + 536);
-        v198 = *(v0 + 496);
-        (*(v102 + 32))(v101, v76 + v78, v103);
-        sub_1000094D0(&qword_1005AE5D0, &type metadata accessor for Date);
-        v104 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v105 = *(v102 + 8);
-        v105(v101, v103);
-        sub_100002CE0(v85, &unk_1005AE5B0, &qword_1004C32F0);
-        sub_100002CE0(v84, &unk_1005AE5B0, &qword_1004C32F0);
-        v105(v86, v103);
-        sub_100002CE0(v198, &unk_1005AE5B0, &qword_1004C32F0);
-        if (v104)
-        {
-          goto LABEL_30;
-        }
-
-        goto LABEL_26;
-      }
-
-      v87 = *(v0 + 544);
-      v88 = *(v0 + 536);
-      sub_100002CE0(*(v0 + 584), &unk_1005AE5B0, &qword_1004C32F0);
-      sub_100002CE0(v84, &unk_1005AE5B0, &qword_1004C32F0);
-      (*(v87 + 8))(v86, v88);
-    }
-
-    sub_100002CE0(*(v0 + 496), &qword_1005AAE00, &qword_1004C4A18);
-LABEL_26:
-    v89 = *(v0 + 920);
-    v90 = *(v0 + 912);
-    v91 = *(v0 + 776);
-    v92 = *(v0 + 704);
-    v93 = *(v0 + 664);
-    v94 = *(v0 + 656);
-    v95 = *(v0 + 568);
-    Fence.muteEndDate.getter();
-    v90(v91, v92, v94);
-    (*(v93 + 56))(v91, 0, 1, v94);
-    v96 = swift_task_alloc();
-    *(v0 + 960) = v96;
-    *v96 = v0;
-    v96[1] = sub_100263EC8;
-    v97 = *(v0 + 776);
-    v98 = *(v0 + 568);
-    v99 = *(v0 + 528);
-    v100 = *(v0 + 392);
-
-    return sub_1002695FC(v99, v98, v97);
-  }
-
-  sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_1004C2310;
-  *(inited + 32) = 0;
-  *(inited + 64) = &type metadata for String;
-  *(inited + 72) = &off_10058C398;
-  *(inited + 40) = 0xD000000000000011;
-  *(inited + 48) = 0x80000001004E64B0;
-  *(inited + 80) = 11;
-  *(inited + 112) = &type metadata for Bool;
-  *(inited + 120) = &off_10058C3C8;
-  *(inited + 88) = 0;
-  v28 = sub_1000105C0(inited);
-  swift_setDeallocating();
-  sub_10004B564(&qword_1005A8790, &qword_1004C0EB0);
-  swift_arrayDestroy();
-  v29 = sub_10004C68C(2u, v28);
-  v31 = v30;
-  v33 = v32;
-
-  sub_10001157C(v29, v31, v33);
-
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v34 = type metadata accessor for Logger();
-  sub_10000A6F0(v34, qword_1005DFF88);
-  v35 = Logger.logObject.getter();
-  v36 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v35, v36))
-  {
-    v37 = swift_slowAlloc();
-    v38 = swift_slowAlloc();
-    v201[0] = v38;
-    *v37 = 136446210;
-    *(v37 + 4) = sub_10000D01C(0x6E65662865766173, 0xEC000000293A6563, v201);
-    _os_log_impl(&_mh_execute_header, v35, v36, "%{public}s: Fence's region is not allowed!", v37, 0xCu);
-    sub_100004984(v38);
-  }
-
-  v39 = *(v0 + 840);
-  v40 = *(v0 + 808);
-  sub_10005CF04();
-  swift_allocError();
-  *v41 = 7;
-  swift_willThrow();
-
-  sub_100002CE0(v40, &qword_1005B09D0, &unk_1004D2380);
-  v42 = *(v0 + 808);
-  v43 = *(v0 + 800);
-  v44 = *(v0 + 792);
-  v45 = *(v0 + 784);
-  v46 = *(v0 + 776);
-  v47 = *(v0 + 768);
-  v48 = *(v0 + 760);
-  v49 = *(v0 + 736);
-  v50 = *(v0 + 712);
-  v51 = *(v0 + 704);
-  v163 = *(v0 + 696);
-  v164 = *(v0 + 688);
-  v165 = *(v0 + 680);
-  v166 = *(v0 + 648);
-  v167 = *(v0 + 640);
-  v168 = *(v0 + 616);
-  v169 = *(v0 + 608);
-  v170 = *(v0 + 600);
-  v171 = *(v0 + 592);
-  v172 = *(v0 + 584);
-  v173 = *(v0 + 576);
-  v174 = *(v0 + 568);
-  v175 = *(v0 + 560);
-  v176 = *(v0 + 552);
-  v177 = *(v0 + 528);
-  v178 = *(v0 + 520);
-  v179 = *(v0 + 496);
-  v180 = *(v0 + 480);
-  v181 = *(v0 + 472);
-  v182 = *(v0 + 464);
-  v185 = *(v0 + 456);
-  v188 = *(v0 + 440);
-  v191 = *(v0 + 432);
-  v194 = *(v0 + 408);
-
-  v52 = *(v0 + 8);
-
-  return v52();
-}
-
-uint64_t sub_1002630B8(uint64_t a1)
-{
-  v2 = *(*v1 + 944);
-  v3 = *(*v1 + 392);
-  v5 = *v1;
-  *(*v1 + 952) = a1;
-
-  return _swift_task_switch(sub_1002631D0, v3, 0);
-}
-
-uint64_t sub_1002631D0()
-{
-  v154 = v0;
-  v1 = *(v0 + 904);
-  v2 = *(v0 + 896);
-  v3 = *(v0 + 848);
-  v4 = *(v0 + 800);
-  v5 = *(v0 + 792);
-  v6 = *(v0 + 656);
-  sub_100260F54(*(v0 + 952), *(v0 + 704), v4);
-
-  sub_100005F04(v4, v5, &qword_1005B09D0, &unk_1004D2380);
-  if (v2(v5, 1, v6) == 1)
-  {
-    v7 = *(v0 + 792);
-    v8 = *(v0 + 608);
-    v9 = *(v0 + 544);
-    v10 = *(v0 + 536);
-    sub_100002CE0(*(v0 + 800), &qword_1005B09D0, &unk_1004D2380);
-    sub_100002CE0(v7, &qword_1005B09D0, &unk_1004D2380);
-    (*(v9 + 56))(v8, 1, 1, v10);
-LABEL_5:
-    v20 = *(v0 + 608);
-    v21 = &unk_1005AE5B0;
-    v22 = &qword_1004C32F0;
-    goto LABEL_7;
-  }
-
-  v11 = *(v0 + 936);
-  v12 = *(v0 + 928);
-  v13 = *(v0 + 792);
-  v14 = *(v0 + 664);
-  v15 = *(v0 + 656);
-  v16 = *(v0 + 608);
-  v17 = *(v0 + 536);
-  Fence.muteEndDate.getter();
-  (*(v14 + 8))(v13, v15);
-  v18 = v12(v16, 1, v17);
-  v19 = *(v0 + 800);
-  if (v18 == 1)
-  {
-    sub_100002CE0(*(v0 + 800), &qword_1005B09D0, &unk_1004D2380);
-    goto LABEL_5;
-  }
-
-  v23 = *(v0 + 704);
-  v24 = *(v0 + 600);
-  v25 = *(v0 + 560);
-  v26 = *(v0 + 544);
-  v27 = *(v0 + 536);
-  (*(v26 + 32))(v25, *(v0 + 608), v27);
-  (*(v26 + 16))(v24, v25, v27);
-  (*(v26 + 56))(v24, 0, 1, v27);
-  Fence.update(muteEndDate:)();
-  sub_100002CE0(v24, &unk_1005AE5B0, &qword_1004C32F0);
-  (*(v26 + 8))(v25, v27);
-  v21 = &qword_1005B09D0;
-  v22 = &unk_1004D2380;
-  v20 = v19;
-LABEL_7:
-  sub_100002CE0(v20, v21, v22);
-  v28 = *(v0 + 704);
-  v29 = Fence.others.getter();
-  if (!*(v29 + 16))
-  {
-
-LABEL_23:
-    v82 = *(v0 + 888);
-    v83 = *(v0 + 880);
-    v84 = *(v0 + 736);
-    v85 = *(v0 + 720);
-    v86 = *(v0 + 704);
-    Fence.region.getter();
-    Fence.MonitorRegion.radius.getter();
-    v88 = v87;
-    v83(v84, v85);
-    static Fence.MonitorRegion.minimumRadius.getter();
-    if (v88 < v89)
-    {
-      if (qword_1005A80E8 != -1)
-      {
-        swift_once();
-      }
-
-      v90 = type metadata accessor for Logger();
-      sub_10000A6F0(v90, qword_1005DFF88);
-      v91 = Logger.logObject.getter();
-      v92 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v91, v92))
-      {
-        v141 = *(v0 + 880);
-        v143 = *(v0 + 888);
-        v147 = *(v0 + 864);
-        v151 = *(v0 + 872);
-        v93 = *(v0 + 760);
-        v145 = *(v0 + 744);
-        v94 = *(v0 + 736);
-        v139 = *(v0 + 720);
-        v95 = *(v0 + 704);
-        v96 = swift_slowAlloc();
-        v97 = swift_slowAlloc();
-        v153[0] = v97;
-        *v96 = 134349314;
-        swift_beginAccess();
-        Fence.region.getter();
-        swift_endAccess();
-        Fence.MonitorRegion.radius.getter();
-        v99 = v98;
-        v141(v94, v139);
-        *(v96 + 4) = v99;
-        *(v96 + 12) = 2082;
-        Fence.id.getter();
-        sub_1000094D0(&qword_1005AE800, &type metadata accessor for Fence.ID);
-        v100 = dispatch thunk of CustomStringConvertible.description.getter();
-        v102 = v101;
-        v147(v93, v145);
-        v103 = sub_10000D01C(v100, v102, v153);
-
-        *(v96 + 14) = v103;
-        _os_log_impl(&_mh_execute_header, v91, v92, "    Fence radius %{public}f for %{public}s capped to min", v96, 0x16u);
-        sub_100004984(v97);
-      }
-
-      v104 = *(v0 + 704);
-      static Fence.MonitorRegion.minimumRadius.getter();
-      v106 = v105;
-      swift_beginAccess();
-      v107 = Fence.region.modify();
-      Fence.MonitorRegion.updateRadius(_:)(v106);
-      v107(v0 + 176, 0);
-      swift_endAccess();
-    }
-
-    v108 = *(v0 + 888);
-    v109 = *(v0 + 880);
-    v110 = *(v0 + 736);
-    v111 = *(v0 + 720);
-    v112 = *(v0 + 704);
-    swift_beginAccess();
-    Fence.region.getter();
-    swift_endAccess();
-    Fence.MonitorRegion.radius.getter();
-    v114 = v113;
-    v109(v110, v111);
-    static Fence.MonitorRegion.maximumRadius.getter();
-    if (v115 < v114)
-    {
-      if (qword_1005A80E8 != -1)
-      {
-        swift_once();
-      }
-
-      v116 = type metadata accessor for Logger();
-      sub_10000A6F0(v116, qword_1005DFF88);
-      v117 = Logger.logObject.getter();
-      v118 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v117, v118))
-      {
-        v142 = *(v0 + 880);
-        v144 = *(v0 + 888);
-        v148 = *(v0 + 864);
-        v152 = *(v0 + 872);
-        v119 = *(v0 + 760);
-        v146 = *(v0 + 744);
-        v120 = *(v0 + 736);
-        v140 = *(v0 + 720);
-        v121 = *(v0 + 704);
-        v122 = swift_slowAlloc();
-        v123 = swift_slowAlloc();
-        v153[0] = v123;
-        *v122 = 134349314;
-        swift_beginAccess();
-        Fence.region.getter();
-        swift_endAccess();
-        Fence.MonitorRegion.radius.getter();
-        v125 = v124;
-        v142(v120, v140);
-        *(v122 + 4) = v125;
-        *(v122 + 12) = 2082;
-        Fence.id.getter();
-        sub_1000094D0(&qword_1005AE800, &type metadata accessor for Fence.ID);
-        v126 = dispatch thunk of CustomStringConvertible.description.getter();
-        v128 = v127;
-        v148(v119, v146);
-        v129 = sub_10000D01C(v126, v128, v153);
-
-        *(v122 + 14) = v129;
-        _os_log_impl(&_mh_execute_header, v117, v118, "    Fence radius %{public}f for %{public}s capped to max", v122, 0x16u);
-        sub_100004984(v123);
-      }
-
-      v130 = *(v0 + 704);
-      static Fence.MonitorRegion.maximumRadius.getter();
-      v132 = v131;
-      swift_beginAccess();
-      v133 = Fence.region.modify();
-      Fence.MonitorRegion.updateRadius(_:)(v132);
-      v133(v0 + 144, 0);
-      swift_endAccess();
-    }
-
-    v134 = *(v0 + 920);
-    (*(v0 + 912))(*(v0 + 688), *(v0 + 704), *(v0 + 656));
-    v135 = swift_task_alloc();
-    *(v0 + 976) = v135;
-    *v135 = v0;
-    v135[1] = sub_10026467C;
-    v136 = *(v0 + 696);
-    v137 = *(v0 + 688);
-    v138 = *(v0 + 392);
-
-    return sub_100269ECC(v136, v137);
-  }
-
-  v149 = *(v0 + 904);
-  v30 = *(v0 + 896);
-  v31 = *(v0 + 808);
-  v32 = *(v0 + 784);
-  v33 = *(v0 + 656);
-  v34 = *(v0 + 528);
-  v35 = *(v0 + 520);
-  v36 = *(v0 + 504);
-  v37 = *(v0 + 512);
-  (*(v37 + 16))(v35, v29 + ((*(v37 + 80) + 32) & ~*(v37 + 80)), v36);
-
-  (*(v37 + 32))(v34, v35, v36);
-  sub_100005F04(v31, v32, &qword_1005B09D0, &unk_1004D2380);
-  v38 = v30(v32, 1, v33);
-  v39 = *(v0 + 784);
-  if (v38 == 1)
-  {
-    v40 = *(v0 + 592);
-    v41 = *(v0 + 544);
-    v42 = *(v0 + 536);
-    sub_100002CE0(*(v0 + 784), &qword_1005B09D0, &unk_1004D2380);
-    (*(v41 + 56))(v40, 1, 1, v42);
-  }
-
-  else
-  {
-    v43 = *(v0 + 664);
-    v44 = *(v0 + 656);
-    v45 = *(v0 + 592);
-    Fence.muteEndDate.getter();
-    (*(v43 + 8))(v39, v44);
-  }
-
-  v46 = *(v0 + 704);
-  v47 = *(v0 + 592);
-  v48 = *(v0 + 584);
-  v49 = *(v0 + 544);
-  v50 = *(v0 + 536);
-  v52 = *(v0 + 488);
-  v51 = *(v0 + 496);
-  Fence.muteEndDate.getter();
-  v53 = *(v52 + 48);
-  sub_100005F04(v47, v51, &unk_1005AE5B0, &qword_1004C32F0);
-  sub_100005F04(v48, v51 + v53, &unk_1005AE5B0, &qword_1004C32F0);
-  v54 = *(v49 + 48);
-  v55 = v54(v51, 1, v50);
-  v56 = *(v0 + 536);
-  if (v55 == 1)
-  {
-    v57 = *(v0 + 592);
-    sub_100002CE0(*(v0 + 584), &unk_1005AE5B0, &qword_1004C32F0);
-    sub_100002CE0(v57, &unk_1005AE5B0, &qword_1004C32F0);
-    if (v54(v51 + v53, 1, v56) == 1)
-    {
-      sub_100002CE0(*(v0 + 496), &unk_1005AE5B0, &qword_1004C32F0);
-LABEL_22:
-      (*(*(v0 + 512) + 8))(*(v0 + 528), *(v0 + 504));
-      goto LABEL_23;
-    }
-
-    goto LABEL_17;
-  }
-
-  sub_100005F04(*(v0 + 496), *(v0 + 576), &unk_1005AE5B0, &qword_1004C32F0);
-  v58 = v54(v51 + v53, 1, v56);
-  v59 = *(v0 + 592);
-  v60 = *(v0 + 584);
-  v61 = *(v0 + 576);
-  if (v58 == 1)
-  {
-    v62 = *(v0 + 544);
-    v63 = *(v0 + 536);
-    sub_100002CE0(*(v0 + 584), &unk_1005AE5B0, &qword_1004C32F0);
-    sub_100002CE0(v59, &unk_1005AE5B0, &qword_1004C32F0);
-    (*(v62 + 8))(v61, v63);
-LABEL_17:
-    sub_100002CE0(*(v0 + 496), &qword_1005AAE00, &qword_1004C4A18);
-    goto LABEL_18;
-  }
-
-  v77 = *(v0 + 552);
-  v78 = *(v0 + 544);
-  v79 = *(v0 + 536);
-  v150 = *(v0 + 496);
-  (*(v78 + 32))(v77, v51 + v53, v79);
-  sub_1000094D0(&qword_1005AE5D0, &type metadata accessor for Date);
-  v80 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v81 = *(v78 + 8);
-  v81(v77, v79);
-  sub_100002CE0(v60, &unk_1005AE5B0, &qword_1004C32F0);
-  sub_100002CE0(v59, &unk_1005AE5B0, &qword_1004C32F0);
-  v81(v61, v79);
-  sub_100002CE0(v150, &unk_1005AE5B0, &qword_1004C32F0);
-  if (v80)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_18:
-  v64 = *(v0 + 920);
-  v65 = *(v0 + 912);
-  v66 = *(v0 + 776);
-  v67 = *(v0 + 704);
-  v68 = *(v0 + 664);
-  v69 = *(v0 + 656);
-  v70 = *(v0 + 568);
-  Fence.muteEndDate.getter();
-  v65(v66, v67, v69);
-  (*(v68 + 56))(v66, 0, 1, v69);
-  v71 = swift_task_alloc();
-  *(v0 + 960) = v71;
-  *v71 = v0;
-  v71[1] = sub_100263EC8;
-  v72 = *(v0 + 776);
-  v73 = *(v0 + 568);
-  v74 = *(v0 + 528);
-  v75 = *(v0 + 392);
-
-  return sub_1002695FC(v74, v73, v72);
-}
-
-uint64_t sub_100263EC8()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 960);
-  v4 = *v1;
-  *(*v1 + 968) = v0;
-
-  v5 = v2[97];
-  v6 = v2[71];
-  v7 = v2[49];
-  sub_100002CE0(v5, &qword_1005B09D0, &unk_1004D2380);
-  sub_100002CE0(v6, &unk_1005AE5B0, &qword_1004C32F0);
-  if (v0)
-  {
-    v8 = sub_10026529C;
-  }
-
-  else
-  {
-    v8 = sub_10026404C;
-  }
-
-  return _swift_task_switch(v8, v7, 0);
-}
-
-uint64_t sub_10026404C()
-{
-  v72 = v0;
-  (*(*(v0 + 512) + 8))(*(v0 + 528), *(v0 + 504));
-  v1 = *(v0 + 888);
-  v2 = *(v0 + 880);
-  v3 = *(v0 + 736);
-  v4 = *(v0 + 720);
-  v5 = *(v0 + 704);
-  Fence.region.getter();
-  Fence.MonitorRegion.radius.getter();
-  v7 = v6;
-  v2(v3, v4);
-  static Fence.MonitorRegion.minimumRadius.getter();
-  if (v7 < v8)
-  {
-    if (qword_1005A80E8 != -1)
-    {
-      swift_once();
-    }
-
-    v9 = type metadata accessor for Logger();
-    sub_10000A6F0(v9, qword_1005DFF88);
-    v10 = Logger.logObject.getter();
-    v11 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v10, v11))
-    {
-      v61 = *(v0 + 880);
-      v63 = *(v0 + 888);
-      v67 = *(v0 + 864);
-      v69 = *(v0 + 872);
-      v12 = *(v0 + 760);
-      v65 = *(v0 + 744);
-      v13 = *(v0 + 736);
-      v59 = *(v0 + 720);
-      v14 = *(v0 + 704);
-      v15 = swift_slowAlloc();
-      v16 = swift_slowAlloc();
-      v71 = v16;
-      *v15 = 134349314;
-      swift_beginAccess();
-      Fence.region.getter();
-      swift_endAccess();
-      Fence.MonitorRegion.radius.getter();
-      v18 = v17;
-      v61(v13, v59);
-      *(v15 + 4) = v18;
-      *(v15 + 12) = 2082;
-      Fence.id.getter();
-      sub_1000094D0(&qword_1005AE800, &type metadata accessor for Fence.ID);
-      v19 = dispatch thunk of CustomStringConvertible.description.getter();
-      v21 = v20;
-      v67(v12, v65);
-      v22 = sub_10000D01C(v19, v21, &v71);
-
-      *(v15 + 14) = v22;
-      _os_log_impl(&_mh_execute_header, v10, v11, "    Fence radius %{public}f for %{public}s capped to min", v15, 0x16u);
-      sub_100004984(v16);
-    }
-
-    v23 = *(v0 + 704);
-    static Fence.MonitorRegion.minimumRadius.getter();
-    v25 = v24;
-    swift_beginAccess();
-    v26 = Fence.region.modify();
-    Fence.MonitorRegion.updateRadius(_:)(v25);
-    v26(v0 + 176, 0);
-    swift_endAccess();
-  }
-
-  v27 = *(v0 + 888);
-  v28 = *(v0 + 880);
-  v29 = *(v0 + 736);
-  v30 = *(v0 + 720);
-  v31 = *(v0 + 704);
-  swift_beginAccess();
-  Fence.region.getter();
-  swift_endAccess();
-  Fence.MonitorRegion.radius.getter();
-  v33 = v32;
-  v28(v29, v30);
-  static Fence.MonitorRegion.maximumRadius.getter();
-  if (v34 < v33)
-  {
-    if (qword_1005A80E8 != -1)
-    {
-      swift_once();
-    }
-
-    v35 = type metadata accessor for Logger();
-    sub_10000A6F0(v35, qword_1005DFF88);
-    v36 = Logger.logObject.getter();
-    v37 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v36, v37))
-    {
-      v62 = *(v0 + 880);
-      v64 = *(v0 + 888);
-      v68 = *(v0 + 864);
-      v70 = *(v0 + 872);
-      v38 = *(v0 + 760);
-      v66 = *(v0 + 744);
-      v39 = *(v0 + 736);
-      v60 = *(v0 + 720);
-      v40 = *(v0 + 704);
-      v41 = swift_slowAlloc();
-      v42 = swift_slowAlloc();
-      v71 = v42;
-      *v41 = 134349314;
-      swift_beginAccess();
-      Fence.region.getter();
-      swift_endAccess();
-      Fence.MonitorRegion.radius.getter();
-      v44 = v43;
-      v62(v39, v60);
-      *(v41 + 4) = v44;
-      *(v41 + 12) = 2082;
-      Fence.id.getter();
-      sub_1000094D0(&qword_1005AE800, &type metadata accessor for Fence.ID);
-      v45 = dispatch thunk of CustomStringConvertible.description.getter();
-      v47 = v46;
-      v68(v38, v66);
-      v48 = sub_10000D01C(v45, v47, &v71);
-
-      *(v41 + 14) = v48;
-      _os_log_impl(&_mh_execute_header, v36, v37, "    Fence radius %{public}f for %{public}s capped to max", v41, 0x16u);
-      sub_100004984(v42);
-    }
-
-    v49 = *(v0 + 704);
-    static Fence.MonitorRegion.maximumRadius.getter();
-    v51 = v50;
-    swift_beginAccess();
-    v52 = Fence.region.modify();
-    Fence.MonitorRegion.updateRadius(_:)(v51);
-    v52(v0 + 144, 0);
-    swift_endAccess();
-  }
-
-  v53 = *(v0 + 920);
-  (*(v0 + 912))(*(v0 + 688), *(v0 + 704), *(v0 + 656));
-  v54 = swift_task_alloc();
-  *(v0 + 976) = v54;
-  *v54 = v0;
-  v54[1] = sub_10026467C;
-  v55 = *(v0 + 696);
-  v56 = *(v0 + 688);
-  v57 = *(v0 + 392);
-
-  return sub_100269ECC(v55, v56);
-}
-
-uint64_t sub_10026467C()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 976);
-  v4 = *v1;
-  v2[123] = v0;
-
-  v5 = v2[86];
-  v6 = v2[83];
-  v7 = v2[82];
-  v8 = v2[49];
-  v11 = *(v6 + 8);
-  v9 = v6 + 8;
-  v10 = v11;
-  if (v0)
-  {
-    v10(v5, v7);
-    v12 = sub_1002655E8;
-  }
-
-  else
-  {
-    v2[124] = v10;
-    v2[125] = v9 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-    v10(v5, v7);
-    v12 = sub_100264814;
-  }
-
-  return _swift_task_switch(v12, v8, 0);
-}
-
-uint64_t sub_100264814()
-{
-  v1 = *(v0 + 904);
-  v2 = *(v0 + 896);
-  v3 = *(v0 + 808);
-  v4 = *(v0 + 768);
-  v5 = *(v0 + 656);
-  v103 = *(*(v0 + 664) + 32);
-  v103(*(v0 + 712), *(v0 + 696), v5);
-  sub_100005F04(v3, v4, &qword_1005B09D0, &unk_1004D2380);
-  if (v2(v4, 1, v5) == 1)
-  {
-    sub_100002CE0(*(v0 + 768), &qword_1005B09D0, &unk_1004D2380);
-    v6 = 1;
-  }
-
-  else
-  {
-    v7 = *(v0 + 1000);
-    v8 = *(v0 + 992);
-    v9 = *(v0 + 768);
-    v10 = *(v0 + 656);
-    v11 = *(v0 + 480);
-    Fence.acceptanceStatus.getter();
-    v8(v9, v10);
-    v6 = 0;
-  }
-
-  v13 = *(v0 + 472);
-  v12 = *(v0 + 480);
-  v15 = *(v0 + 448);
-  v14 = *(v0 + 456);
-  v16 = *(v0 + 416);
-  v17 = *(v0 + 424);
-  v18 = v17[7];
-  v18(v12, v6, 1, v16);
-  v100 = enum case for Fence.AcceptanceStatus.accepted(_:);
-  v98 = v17[13];
-  v98(v13);
-  v18(v13, 0, 1, v16);
-  v19 = *(v15 + 48);
-  sub_100005F04(v12, v14, &qword_1005A9148, &qword_1004D2370);
-  sub_100005F04(v13, v14 + v19, &qword_1005A9148, &qword_1004D2370);
-  v20 = v17[6];
-  if (v20(v14, 1, v16) == 1)
-  {
-    v21 = *(v0 + 480);
-    v22 = *(v0 + 416);
-    sub_100002CE0(*(v0 + 472), &qword_1005A9148, &qword_1004D2370);
-    sub_100002CE0(v21, &qword_1005A9148, &qword_1004D2370);
-    if (v20(v14 + v19, 1, v22) == 1)
-    {
-      sub_100002CE0(*(v0 + 456), &qword_1005A9148, &qword_1004D2370);
-      goto LABEL_13;
-    }
-  }
-
-  else
-  {
-    v23 = *(v0 + 416);
-    sub_100005F04(*(v0 + 456), *(v0 + 464), &qword_1005A9148, &qword_1004D2370);
-    v24 = v20(v14 + v19, 1, v23);
-    v26 = *(v0 + 472);
-    v25 = *(v0 + 480);
-    v27 = *(v0 + 464);
-    if (v24 != 1)
-    {
-      v96 = *(v0 + 456);
-      v49 = *(v0 + 440);
-      v51 = *(v0 + 416);
-      v50 = *(v0 + 424);
-      (*(v50 + 32))(v49, v14 + v19, v51);
-      sub_1000094D0(&qword_1005B0B68, &type metadata accessor for Fence.AcceptanceStatus);
-      v94 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v52 = *(v50 + 8);
-      v52(v49, v51);
-      sub_100002CE0(v26, &qword_1005A9148, &qword_1004D2370);
-      sub_100002CE0(v25, &qword_1005A9148, &qword_1004D2370);
-      v52(v27, v51);
-      sub_100002CE0(v96, &qword_1005A9148, &qword_1004D2370);
-      if (v94)
-      {
-        goto LABEL_13;
-      }
-
-      goto LABEL_10;
-    }
-
-    v28 = *(v0 + 416);
-    v29 = *(v0 + 424);
-    sub_100002CE0(*(v0 + 472), &qword_1005A9148, &qword_1004D2370);
-    sub_100002CE0(v25, &qword_1005A9148, &qword_1004D2370);
-    (*(v29 + 8))(v27, v28);
-  }
-
-  sub_100002CE0(*(v0 + 456), &qword_1005B0B60, &qword_1004D26E8);
-LABEL_10:
-  v30 = *(v0 + 712);
-  v32 = *(v0 + 432);
-  v31 = *(v0 + 440);
-  v33 = *(v0 + 416);
-  v34 = *(v0 + 424);
-  Fence.acceptanceStatus.getter();
-  (v98)(v32, v100, v33);
-  LOBYTE(v30) = static Fence.AcceptanceStatus.== infix(_:_:)();
-  v35 = *(v34 + 8);
-  v35(v32, v33);
-  v35(v31, v33);
-  if (v30)
-  {
-    v36 = *(v0 + 920);
-    v37 = *(v0 + 912);
-    v38 = *(v0 + 712);
-    v39 = *(v0 + 680);
-    v40 = *(v0 + 672);
-    v41 = *(v0 + 664);
-    v42 = *(v0 + 656);
-    v43 = *(v0 + 408);
-    v101 = *(v0 + 400);
-    v44 = *(v0 + 392);
-    v45 = type metadata accessor for TaskPriority();
-    (*(*(v45 - 8) + 56))(v43, 1, 1, v45);
-    v37(v39, v38, v42);
-    v46 = sub_1000094D0(&qword_1005AF4A8, type metadata accessor for FenceService);
-    v47 = (*(v41 + 80) + 40) & ~*(v41 + 80);
-    v48 = swift_allocObject();
-    *(v48 + 2) = v44;
-    *(v48 + 3) = v46;
-    *(v48 + 4) = v44;
-    v103(&v48[v47], v39, v42);
-    *&v48[(v40 + v47 + 7) & 0xFFFFFFFFFFFFFFF8] = v101;
-    swift_retain_n();
-    sub_1001D7F30(0, 0, v43, &unk_1004D2708, v48);
-  }
-
-LABEL_13:
-  v53 = *(v0 + 712);
-  if (*(v0 + 1008) == 1)
-  {
-    v54 = sub_10004CD78(v53, 0, 0);
-  }
-
-  else
-  {
-    v54 = sub_10004DD70(v53, 0, 0);
-  }
-
-  v57 = *(v0 + 992);
-  v58 = *(v0 + 840);
-  v59 = *(v0 + 808);
-  v66 = *(v0 + 1000);
-  v67 = *(v0 + 800);
-  v68 = *(v0 + 792);
-  v69 = *(v0 + 784);
-  v70 = *(v0 + 776);
-  v71 = *(v0 + 768);
-  v72 = *(v0 + 760);
-  v73 = *(v0 + 736);
-  v60 = *(v0 + 712);
-  v61 = *(v0 + 704);
-  v74 = *(v0 + 696);
-  v75 = *(v0 + 688);
-  v62 = *(v0 + 656);
-  v76 = *(v0 + 680);
-  v77 = *(v0 + 648);
-  v78 = *(v0 + 640);
-  v79 = *(v0 + 616);
-  v80 = *(v0 + 608);
-  v81 = *(v0 + 600);
-  v82 = *(v0 + 592);
-  v83 = *(v0 + 584);
-  v84 = *(v0 + 576);
-  v85 = *(v0 + 568);
-  v86 = *(v0 + 560);
-  v87 = *(v0 + 552);
-  v88 = *(v0 + 528);
-  v89 = *(v0 + 520);
-  v90 = *(v0 + 496);
-  v91 = *(v0 + 480);
-  v92 = *(v0 + 472);
-  v93 = *(v0 + 464);
-  v95 = *(v0 + 456);
-  v97 = *(v0 + 440);
-  v99 = *(v0 + 432);
-  v102 = *(v0 + 408);
-  v63 = *(v0 + 376);
-  sub_10001157C(v54, v55, v56);
-
-  sub_100002CE0(v59, &qword_1005B09D0, &unk_1004D2380);
-  v103(v63, v60, v62);
-  v57(v61, v62);
-
-  v64 = *(v0 + 8);
-
-  return v64();
-}
-
-uint64_t sub_100265058()
-{
-  v1 = v0[103];
-
-  v38 = v0[106];
-  v2 = v0[101];
-  v3 = v0[100];
-  v4 = v0[99];
-  v5 = v0[98];
-  v6 = v0[97];
-  v7 = v0[96];
-  v8 = v0[95];
-  v9 = v0[92];
-  v10 = v0[89];
-  v11 = v0[88];
-  v14 = v0[87];
-  v15 = v0[86];
-  v16 = v0[85];
-  v17 = v0[81];
-  v18 = v0[80];
-  v19 = v0[77];
-  v20 = v0[76];
-  v21 = v0[75];
-  v22 = v0[74];
-  v23 = v0[73];
-  v24 = v0[72];
-  v25 = v0[71];
-  v26 = v0[70];
-  v27 = v0[69];
-  v28 = v0[66];
-  v29 = v0[65];
-  v30 = v0[62];
-  v31 = v0[60];
-  v32 = v0[59];
-  v33 = v0[58];
-  v34 = v0[57];
-  v35 = v0[55];
-  v36 = v0[54];
-  v37 = v0[51];
-
-  v12 = v0[1];
-
-  return v12();
-}
-
-uint64_t sub_10026529C()
-{
-  (*(*(v0 + 512) + 8))(*(v0 + 528), *(v0 + 504));
-  v1 = *(v0 + 968);
-  v2 = *(v0 + 704);
-  if (*(v0 + 1008) == 1)
-  {
-    swift_beginAccess();
-    swift_errorRetain();
-    v3 = sub_10004CD78(v2, v1, 1);
-  }
-
-  else
-  {
-    swift_beginAccess();
-    swift_errorRetain();
-    v3 = sub_10004DD70(v2, v1, 1);
-  }
-
-  v6 = v3;
-  v7 = v4;
-  v8 = v5;
-  v9 = *(v0 + 840);
-  v10 = *(v0 + 808);
-  v11 = *(v0 + 704);
-  v12 = *(v0 + 664);
-  v13 = *(v0 + 656);
-
-  sub_10001157C(v6, v7, v8);
-
-  swift_willThrow();
-
-  sub_100002CE0(v10, &qword_1005B09D0, &unk_1004D2380);
-  (*(v12 + 8))(v11, v13);
-  v14 = *(v0 + 808);
-  v15 = *(v0 + 800);
-  v16 = *(v0 + 792);
-  v17 = *(v0 + 784);
-  v18 = *(v0 + 776);
-  v19 = *(v0 + 768);
-  v20 = *(v0 + 760);
-  v21 = *(v0 + 736);
-  v22 = *(v0 + 712);
-  v23 = *(v0 + 704);
-  v26 = *(v0 + 696);
-  v27 = *(v0 + 688);
-  v28 = *(v0 + 680);
-  v29 = *(v0 + 648);
-  v30 = *(v0 + 640);
-  v31 = *(v0 + 616);
-  v32 = *(v0 + 608);
-  v33 = *(v0 + 600);
-  v34 = *(v0 + 592);
-  v35 = *(v0 + 584);
-  v36 = *(v0 + 576);
-  v37 = *(v0 + 568);
-  v38 = *(v0 + 560);
-  v39 = *(v0 + 552);
-  v40 = *(v0 + 528);
-  v41 = *(v0 + 520);
-  v42 = *(v0 + 496);
-  v43 = *(v0 + 480);
-  v44 = *(v0 + 472);
-  v45 = *(v0 + 464);
-  v46 = *(v0 + 456);
-  v47 = *(v0 + 440);
-  v48 = *(v0 + 432);
-  v49 = *(v0 + 408);
-
-  v24 = *(v0 + 8);
-
-  return v24();
-}
-
-uint64_t sub_1002655E8()
-{
-  v1 = *(v0 + 984);
-  v2 = *(v0 + 704);
-  if (*(v0 + 1008) == 1)
-  {
-    swift_beginAccess();
-    swift_errorRetain();
-    v3 = sub_10004CD78(v2, v1, 1);
-  }
-
-  else
-  {
-    swift_beginAccess();
-    swift_errorRetain();
-    v3 = sub_10004DD70(v2, v1, 1);
-  }
-
-  v6 = v3;
-  v7 = v4;
-  v8 = v5;
-  v9 = *(v0 + 840);
-  v10 = *(v0 + 808);
-  v11 = *(v0 + 704);
-  v12 = *(v0 + 664);
-  v13 = *(v0 + 656);
-
-  sub_10001157C(v6, v7, v8);
-
-  swift_willThrow();
-
-  sub_100002CE0(v10, &qword_1005B09D0, &unk_1004D2380);
-  (*(v12 + 8))(v11, v13);
-  v14 = *(v0 + 808);
-  v15 = *(v0 + 800);
-  v16 = *(v0 + 792);
-  v17 = *(v0 + 784);
-  v18 = *(v0 + 776);
-  v19 = *(v0 + 768);
-  v20 = *(v0 + 760);
-  v21 = *(v0 + 736);
-  v22 = *(v0 + 712);
-  v23 = *(v0 + 704);
-  v26 = *(v0 + 696);
-  v27 = *(v0 + 688);
-  v28 = *(v0 + 680);
-  v29 = *(v0 + 648);
-  v30 = *(v0 + 640);
-  v31 = *(v0 + 616);
-  v32 = *(v0 + 608);
-  v33 = *(v0 + 600);
-  v34 = *(v0 + 592);
-  v35 = *(v0 + 584);
-  v36 = *(v0 + 576);
-  v37 = *(v0 + 568);
-  v38 = *(v0 + 560);
-  v39 = *(v0 + 552);
-  v40 = *(v0 + 528);
-  v41 = *(v0 + 520);
-  v42 = *(v0 + 496);
-  v43 = *(v0 + 480);
-  v44 = *(v0 + 472);
-  v45 = *(v0 + 464);
-  v46 = *(v0 + 456);
-  v47 = *(v0 + 440);
-  v48 = *(v0 + 432);
-  v49 = *(v0 + 408);
-
-  v24 = *(v0 + 8);
-
-  return v24();
-}
-
-uint64_t sub_10026591C(uint64_t a1)
-{
-  v2[24] = a1;
-  v2[25] = v1;
-  v2[26] = *v1;
-  v3 = *(*(sub_10004B564(&qword_1005A9690, &qword_1004C2A00) - 8) + 64) + 15;
-  v2[27] = swift_task_alloc();
-  v4 = type metadata accessor for Fence.Participant();
-  v2[28] = v4;
-  v5 = *(v4 - 8);
-  v2[29] = v5;
-  v6 = *(v5 + 64) + 15;
-  v2[30] = swift_task_alloc();
-  v2[31] = swift_task_alloc();
-  v7 = type metadata accessor for Fence.ID();
-  v2[32] = v7;
-  v8 = *(v7 - 8);
-  v2[33] = v8;
-  v9 = *(v8 + 64) + 15;
-  v2[34] = swift_task_alloc();
-  v2[35] = swift_task_alloc();
-  v10 = *(*(sub_10004B564(&qword_1005A96E0, &qword_1004C2A80) - 8) + 64) + 15;
-  v2[36] = swift_task_alloc();
-  v11 = type metadata accessor for UUID();
-  v2[37] = v11;
-  v12 = *(v11 - 8);
-  v2[38] = v12;
-  v2[39] = *(v12 + 64);
-  v2[40] = swift_task_alloc();
-  v2[41] = swift_task_alloc();
-  v13 = type metadata accessor for Handle();
-  v2[42] = v13;
-  v14 = *(v13 - 8);
-  v2[43] = v14;
-  v15 = *(v14 + 64) + 15;
-  v2[44] = swift_task_alloc();
-  v16 = type metadata accessor for PersonHandle();
-  v2[45] = v16;
-  v17 = *(v16 - 8);
-  v2[46] = v17;
-  v18 = *(v17 + 64) + 15;
-  v2[47] = swift_task_alloc();
-  v19 = type metadata accessor for Fence();
-  v2[48] = v19;
-  v20 = *(v19 - 8);
-  v2[49] = v20;
-  v21 = *(v20 + 64) + 15;
-  v2[50] = swift_task_alloc();
-  v2[51] = swift_task_alloc();
-  v2[52] = swift_task_alloc();
-  v2[53] = swift_task_alloc();
-  v2[54] = swift_task_alloc();
-  v2[55] = swift_task_alloc();
-  v22 = *(*(sub_10004B564(&qword_1005B09D0, &unk_1004D2380) - 8) + 64) + 15;
-  v2[56] = swift_task_alloc();
-  v23 = async function pointer to daemon.getter[1];
-  v24 = swift_task_alloc();
-  v2[57] = v24;
-  *v24 = v2;
-  v24[1] = sub_100265D10;
-
-  return daemon.getter();
-}
-
-uint64_t sub_100265D10(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 456);
-  v12 = *v1;
-  v3[58] = a1;
-
-  v5 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v6 = swift_task_alloc();
-  v3[59] = v6;
-  v7 = type metadata accessor for Daemon();
-  v3[60] = v7;
-  v8 = type metadata accessor for DataManager(0);
-  v9 = sub_1000094D0(&unk_1005AFA50, &type metadata accessor for Daemon);
-  v3[61] = v9;
-  v10 = sub_1000094D0(&qword_1005A90D0, type metadata accessor for DataManager);
-  *v6 = v12;
-  v6[1] = sub_100265EF0;
-
-  return ActorServiceDaemon.getService<A>()(v7, v8, v9, v10);
-}
-
-uint64_t sub_100265EF0(uint64_t a1)
-{
-  v3 = *(*v2 + 472);
-  v4 = *v2;
-  v4[62] = a1;
-  v4[63] = v1;
-
-  if (v1)
-  {
-    v5 = v4[25];
-
-    return _swift_task_switch(sub_100267E04, v5, 0);
-  }
-
-  else
-  {
-    v6 = v4[58];
-
-    v7 = async function pointer to daemon.getter[1];
-    v8 = swift_task_alloc();
-    v4[64] = v8;
-    *v8 = v4;
-    v8[1] = sub_100266064;
-
-    return daemon.getter();
-  }
-}
-
-uint64_t sub_100266064(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 512);
-  v5 = *v1;
-  v3[65] = a1;
-
-  v6 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v7 = swift_task_alloc();
-  v3[66] = v7;
-  v8 = type metadata accessor for CommandManager();
-  v9 = sub_1000094D0(&qword_1005A90C8, type metadata accessor for CommandManager);
-  *v7 = v5;
-  v7[1] = sub_100266218;
-  v10 = v3[61];
-  v11 = v3[60];
-
-  return ActorServiceDaemon.getService<A>()(v11, v8, v10, v9);
-}
-
-uint64_t sub_100266218(uint64_t a1)
-{
-  v3 = *(*v2 + 528);
-  v4 = *v2;
-  v4[67] = a1;
-  v4[68] = v1;
-
-  if (v1)
-  {
-    v5 = v4[25];
-
-    return _swift_task_switch(sub_100267F50, v5, 0);
-  }
-
-  else
-  {
-    v6 = v4[65];
-    v7 = v4[48];
-
-    v4[69] = swift_allocBox();
-    v4[70] = v8;
-    v9 = swift_task_alloc();
-    v4[71] = v9;
-    *v9 = v4;
-    v9[1] = sub_1002663B0;
-    v10 = v4[62];
-    v11 = v4[56];
-    v12 = v4[24];
-
-    return sub_10020ED50(v11, v12);
-  }
-}
-
-uint64_t sub_1002663B0()
-{
-  v1 = *(*v0 + 568);
-  v2 = *(*v0 + 200);
-  v4 = *v0;
-
-  return _swift_task_switch(sub_1002664C0, v2, 0);
-}
-
-uint64_t sub_1002664C0()
-{
-  v1 = v0[56];
-  v2 = v0[48];
-  v3 = v0[49];
-  if ((*(v3 + 48))(v1, 1, v2) == 1)
-  {
-    v4 = v0[69];
-    v5 = v0[67];
-    v6 = v0[62];
-    v7 = v0[32];
-    v8 = v0[33];
-    v9 = v0[24];
-    sub_100002CE0(v1, &qword_1005B09D0, &unk_1004D2380);
-    swift_deallocBox();
-    sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-    inited = swift_initStackObject();
-    *(inited + 32) = 6;
-    *(inited + 16) = xmmword_1004C2310;
-    *(inited + 64) = &type metadata for String;
-    *(inited + 72) = &off_10058C398;
-    strcpy((inited + 40), "NoFenceFound");
-    *(inited + 53) = 0;
-    *(inited + 54) = -5120;
-    *(inited + 80) = 17;
-    *(inited + 112) = &type metadata for Bool;
-    *(inited + 120) = &off_10058C3C8;
-    *(inited + 88) = 0;
-    v11 = sub_1000105C0(inited);
-    swift_setDeallocating();
-    sub_10004B564(&qword_1005A8790, &qword_1004C0EB0);
-    swift_arrayDestroy();
-    v12 = sub_10004C68C(4u, v11);
-    v14 = v13;
-    v16 = v15;
-
-    sub_10001157C(v12, v14, v16);
-
-    type metadata accessor for FenceServiceClient.Failure(0);
-    sub_1000094D0(&qword_1005A9140, type metadata accessor for FenceServiceClient.Failure);
-    swift_allocError();
-    (*(v8 + 16))(v17, v9, v7);
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-LABEL_3:
-
-    v19 = v0[55];
-    v18 = v0[56];
-    v21 = v0[53];
-    v20 = v0[54];
-    v23 = v0[51];
-    v22 = v0[52];
-    v24 = v0[50];
-    v25 = v0[47];
-    v26 = v0[44];
-    v27 = v0[41];
-    v114 = v0[40];
-    v116 = v0[36];
-    v120 = v0[35];
-    v122 = v0[34];
-    v124 = v0[31];
-    v127 = v0[30];
-    v130 = v0[27];
-
-    v28 = v0[1];
-
-    return v28();
-  }
-
-  v30 = v0[70];
-  v31 = v0[55];
-  (*(v3 + 32))(v30, v1, v2);
-  Fence.shouldDeleteFence.setter();
-  v32 = *(v3 + 16);
-  v0[72] = v32;
-  v0[73] = (v3 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v32(v31, v30, v2);
-  v33 = Fence.others.getter();
-  v34 = *(v3 + 8);
-  v0[74] = v34;
-  v0[75] = (v3 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v125 = v34;
-  v34(v31, v2);
-  v35 = *(v33 + 16);
-  if (v35)
-  {
-    v117 = v32;
-    v36 = v0[46];
-    v37 = v0[43];
-    v39 = *(v36 + 16);
-    v38 = v36 + 16;
-    v40 = v33 + ((*(v38 + 64) + 32) & ~*(v38 + 64));
-    v131 = *(v38 + 56);
-    v134 = v39;
-    v41 = &_swiftEmptyArrayStorage;
-    do
-    {
-      v42 = v0[47];
-      v43 = v0[45];
-      v134(v42, v40, v43);
-      PersonHandle.id.getter();
-      Handle.init(withID:serverID:pushIdentifiers:expiresByGroupId:siblingIdentifiers:favoriteOrder:)();
-      (*(v38 - 8))(v42, v43);
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v41 = sub_1001FCA0C(0, v41[2] + 1, 1, v41);
-      }
-
-      v45 = v41[2];
-      v44 = v41[3];
-      if (v45 >= v44 >> 1)
-      {
-        v41 = sub_1001FCA0C(v44 > 1, v45 + 1, 1, v41);
-      }
-
-      v46 = v0[44];
-      v47 = v0[42];
-      v41[2] = v45 + 1;
-      (*(v37 + 32))(v41 + ((*(v37 + 80) + 32) & ~*(v37 + 80)) + *(v37 + 72) * v45, v46, v47);
-      v40 += v131;
-      --v35;
-    }
-
-    while (v35);
-
-    v32 = v117;
-  }
-
-  else
-  {
-
-    v41 = &_swiftEmptyArrayStorage;
-  }
-
-  v48 = v0[54];
-  v49 = v0[48];
-  v32(v48, v0[70], v49);
-  v50 = sub_100249754();
-  v125(v48, v49);
-  if (v50)
-  {
-    v51 = v0[53];
-    v52 = v0[48];
-    v53 = v0[38];
-    v135 = v0[37];
-    v54 = v0[36];
-    v32(v51, v0[70], v52);
-    Fence.ckRecordIdentifier.getter();
-    v125(v51, v52);
-    v55 = (*(v53 + 48))(v54, 1, v135);
-    v56 = v0[70];
-    v57 = v0[54];
-    v58 = v0[48];
-    if (v55 == 1)
-    {
-      v59 = v0[36];
-
-      sub_100002CE0(v59, &qword_1005A96E0, &qword_1004C2A80);
-      v32(v57, v56, v58);
-      v60 = sub_10004CD88();
-      v62 = v61;
-      v64 = v63;
-      v125(v57, v58);
-      sub_10001157C(v60, v62, v64);
-
-      sub_10005CF04();
-      v65 = swift_allocError();
-      *v66 = 8;
-      swift_willThrow();
-      v67 = v0[74];
-      v68 = v0[73];
-      v69 = v0[72];
-      v70 = v0[70];
-      v132 = v0[69];
-      v136 = v0[75];
-      v71 = v0[67];
-      v72 = v0[62];
-      v73 = v0[54];
-      v74 = v0[48];
-      swift_beginAccess();
-      v69(v73, v70, v74);
-      swift_errorRetain();
-      v75 = sub_10004D0B4(v73, v65, 1);
-      v77 = v76;
-      v79 = v78;
-
-      v67(v73, v74);
-      sub_10001157C(v75, v77, v79);
-
-      swift_willThrow();
-
-      goto LABEL_3;
-    }
-
-    v80 = v0[35];
-    v81 = v0[33];
-    v118 = v0[70];
-    v121 = v0[32];
-    v112 = v0[31];
-    v113 = v0[30];
-    v82 = v0[29];
-    v137 = (v0[38] + 32);
-    v128 = v0[28];
-    v133 = *v137;
-    (*v137)(v0[41], v0[36], v0[37]);
-    v32(v57, v118, v58);
-    Fence.id.getter();
-    v125(v57, v58);
-    v111 = Fence.ID.uuidString.getter();
-    v115 = v83;
-    (*(v81 + 8))(v80, v121);
-    v84 = v118;
-    v119 = v32;
-    v32(v57, v84, v58);
-    Fence.createdBy.getter();
-    v125(v57, v58);
-    (*(v82 + 104))(v113, enum case for Fence.Participant.other(_:), v128);
-    LOBYTE(v80) = static Fence.Participant.== infix(_:_:)();
-    v85 = *(v82 + 8);
-    v85(v113, v128);
-    v85(v112, v128);
-    v87 = v0[40];
-    v86 = v0[41];
-    v89 = v0[38];
-    v88 = v0[39];
-    v90 = v0[37];
-    v91 = v0[27];
-    v126 = v91;
-    v129 = v0[26];
-    v123 = v86;
-    if (v80)
-    {
-      v92 = v0[67];
-      v93 = type metadata accessor for TaskPriority();
-      (*(*(v93 - 8) + 56))(v91, 1, 1, v93);
-      (*(v89 + 16))(v87, v86, v90);
-      v94 = (*(v89 + 80) + 56) & ~*(v89 + 80);
-      v95 = (v88 + v94 + 7) & 0xFFFFFFFFFFFFFFF8;
-      v96 = swift_allocObject();
-      *(v96 + 2) = 0;
-      *(v96 + 3) = 0;
-      *(v96 + 4) = v92;
-      *(v96 + 5) = v111;
-      *(v96 + 6) = v115;
-      v133(&v96[v94], v87, v90);
-      *&v96[v95] = v41;
-      *&v96[(v95 + 15) & 0xFFFFFFFFFFFFFFF8] = v129;
-
-      v97 = &unk_1004D27C0;
-    }
-
-    else
-    {
-      v98 = v0[69];
-      v99 = v0[27];
-      v100 = v0[25];
-
-      v101 = type metadata accessor for TaskPriority();
-      (*(*(v101 - 8) + 56))(v99, 1, 1, v101);
-      (*(v89 + 16))(v87, v86, v90);
-      v102 = sub_1000094D0(&qword_1005AF4A8, type metadata accessor for FenceService);
-      v103 = (*(v89 + 80) + 48) & ~*(v89 + 80);
-      v96 = swift_allocObject();
-      *(v96 + 2) = v100;
-      *(v96 + 3) = v102;
-      *(v96 + 4) = v100;
-      *(v96 + 5) = v98;
-      v133(&v96[v103], v87, v90);
-      *&v96[(v88 + v103 + 7) & 0xFFFFFFFFFFFFFFF8] = v129;
-      swift_retain_n();
-
-      v97 = &unk_1004D27B0;
-    }
-
-    sub_1001D7F30(0, 0, v126, v97, v96);
-
-    (*(v89 + 8))(v123, v90);
-    v32 = v119;
-  }
-
-  else
-  {
-  }
-
-  v104 = v0[70];
-  v105 = v0[51];
-  v106 = v0[48];
-  swift_beginAccess();
-  v32(v105, v104, v106);
-  v107 = swift_task_alloc();
-  v0[76] = v107;
-  *v107 = v0;
-  v107[1] = sub_1002670F0;
-  v108 = v0[67];
-  v110 = v0[51];
-  v109 = v0[52];
-
-  return sub_10005A5B8(v109, v110);
-}
-
-uint64_t sub_1002670F0()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 608);
-  v4 = *v1;
-  v2[77] = v0;
-
-  v5 = v2[75];
-  v6 = v2[74];
-  if (v0)
-  {
-    v7 = v2[25];
-    v6(v2[51], v2[48]);
-    v8 = sub_1002680A8;
-    v9 = v7;
-  }
-
-  else
-  {
-    v10 = v2[51];
-    v11 = v2[52];
-    v12 = v2[48];
-    v13 = v2[25];
-    v6(v10, v12);
-    v6(v11, v12);
-    v8 = sub_100267278;
-    v9 = v13;
-  }
-
-  return _swift_task_switch(v8, v9, 0);
-}
-
-uint64_t sub_100267278()
-{
-  v1 = async function pointer to daemon.getter[1];
-  v2 = swift_task_alloc();
-  *(v0 + 624) = v2;
-  *v2 = v0;
-  v2[1] = sub_100267308;
-
-  return daemon.getter();
-}
-
-uint64_t sub_100267308(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 624);
-  v5 = *v1;
-  v3[79] = a1;
-
-  v6 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v7 = swift_task_alloc();
-  v3[80] = v7;
-  v8 = type metadata accessor for LocalStorageService();
-  v9 = sub_1000094D0(&qword_1005AAB88, type metadata accessor for LocalStorageService);
-  *v7 = v5;
-  v7[1] = sub_1002674BC;
-  v10 = v3[61];
-  v11 = v3[60];
-
-  return ActorServiceDaemon.getService<A>()(v11, v8, v10, v9);
-}
-
-uint64_t sub_1002674BC(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 640);
-  v10 = *v2;
-  v3[81] = a1;
-  v3[82] = v1;
-
-  if (v1)
-  {
-    v5 = v3[25];
-    v6 = sub_1002682AC;
-  }
-
-  else
-  {
-    v7 = v3[79];
-    v8 = v3[25];
-
-    v6 = sub_1002675E8;
-    v5 = v8;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_1002675E8()
-{
-  v1 = *(v0 + 648);
-  v2 = *(v0 + 600);
-  v3 = *(v0 + 592);
-  v4 = *(v0 + 584);
-  v5 = *(v0 + 400);
-  v6 = *(v0 + 384);
-  v7 = *(v0 + 272);
-  (*(v0 + 576))(v5, *(v0 + 560), v6);
-  Fence.id.getter();
-  v3(v5, v6);
-
-  return _swift_task_switch(sub_10026769C, v1, 0);
-}
-
-uint64_t sub_10026769C()
-{
-  v1 = v0[81];
-  v2 = v0[34];
-  v3 = sub_1000094D0(&qword_1005AAB90, type metadata accessor for LocalStorageService);
-  v4 = swift_task_alloc();
-  v0[83] = v4;
-  *(v4 + 16) = v1;
-  *(v4 + 24) = v2;
-  v5 = async function pointer to withCheckedThrowingContinuation<A>(isolation:function:_:)[1];
-  v6 = swift_task_alloc();
-  v0[84] = v6;
-  *v6 = v0;
-  v6[1] = sub_1002677D4;
-
-  return withCheckedThrowingContinuation<A>(isolation:function:_:)(v6, v1, v3, 0xD000000000000017, 0x80000001004E65A0, sub_100274A64, v4, &type metadata for () + 8);
-}
-
-uint64_t sub_1002677D4()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 672);
-  v9 = *v1;
-  *(*v1 + 680) = v0;
-
-  if (v0)
-  {
-    v4 = *(v2 + 648);
-    v5 = sub_100267B64;
-  }
-
-  else
-  {
-    v6 = *(v2 + 664);
-    v7 = *(v2 + 648);
-
-    v5 = sub_1002678FC;
-    v4 = v7;
-  }
-
-  return _swift_task_switch(v5, v4, 0);
-}
-
-uint64_t sub_1002678FC()
-{
-  v1 = v0[25];
-  (*(v0[33] + 8))(v0[34], v0[32]);
-
-  return _swift_task_switch(sub_100267978, v1, 0);
-}
-
-uint64_t sub_100267978()
-{
-  v1 = v0[81];
-  v2 = v0[75];
-  v3 = v0[74];
-  v4 = v0[73];
-  v5 = v0[72];
-  v6 = v0[70];
-  v7 = v0[69];
-  v8 = v0[67];
-  v18 = v0[62];
-  v19 = v0[56];
-  v9 = v0[54];
-  v20 = v0[55];
-  v21 = v0[53];
-  v22 = v0[52];
-  v23 = v0[51];
-  v10 = v0[48];
-  v24 = v0[50];
-  v25 = v0[47];
-  v26 = v0[44];
-  v27 = v0[41];
-  v28 = v0[40];
-  v29 = v0[36];
-  v30 = v0[35];
-  v31 = v0[34];
-  v32 = v0[31];
-  v33 = v0[30];
-  v34 = v0[27];
-
-  v5(v9, v6, v10);
-  v11 = sub_10004D0B4(v9, 0, 0);
-  v13 = v12;
-  v15 = v14;
-  v3(v9, v10);
-  sub_10001157C(v11, v13, v15);
-
-  v16 = v0[1];
-
-  return v16();
-}
-
-uint64_t sub_100267B64()
-{
-  v1 = v0[83];
-  v3 = v0[33];
-  v2 = v0[34];
-  v4 = v0[32];
-  v5 = v0[25];
-
-  (*(v3 + 8))(v2, v4);
-
-  return _swift_task_switch(sub_100267BF8, v5, 0);
-}
-
-uint64_t sub_100267BF8()
-{
-  v1 = v0[81];
-
-  v2 = v0[85];
-  v3 = v0[75];
-  v4 = v0[74];
-  v5 = v0[73];
-  v6 = v0[72];
-  v7 = v0[70];
-  v8 = v0[69];
-  v33 = v0[67];
-  v35 = v0[62];
-  v9 = v0[54];
-  v10 = v0[48];
-  swift_beginAccess();
-  v6(v9, v7, v10);
-  swift_errorRetain();
-  v11 = sub_10004D0B4(v9, v2, 1);
-  v13 = v12;
-  v15 = v14;
-
-  v4(v9, v10);
-  sub_10001157C(v11, v13, v15);
-
-  swift_willThrow();
-
-  v17 = v0[55];
-  v16 = v0[56];
-  v19 = v0[53];
-  v18 = v0[54];
-  v21 = v0[51];
-  v20 = v0[52];
-  v22 = v0[50];
-  v23 = v0[47];
-  v24 = v0[44];
-  v27 = v0[41];
-  v28 = v0[40];
-  v29 = v0[36];
-  v30 = v0[35];
-  v31 = v0[34];
-  v32 = v0[31];
-  v34 = v0[30];
-  v36 = v0[27];
-
-  v25 = v0[1];
-
-  return v25();
-}
-
-uint64_t sub_100267E04()
-{
-  v1 = v0[58];
-
-  v21 = v0[63];
-  v3 = v0[55];
-  v2 = v0[56];
-  v5 = v0[53];
-  v4 = v0[54];
-  v7 = v0[51];
-  v6 = v0[52];
-  v8 = v0[50];
-  v9 = v0[47];
-  v10 = v0[44];
-  v11 = v0[41];
-  v14 = v0[40];
-  v15 = v0[36];
-  v16 = v0[35];
-  v17 = v0[34];
-  v18 = v0[31];
-  v19 = v0[30];
-  v20 = v0[27];
-
-  v12 = v0[1];
-
-  return v12();
-}
-
-uint64_t sub_100267F50()
-{
-  v1 = v0[65];
-  v2 = v0[62];
-
-  v22 = v0[68];
-  v4 = v0[55];
-  v3 = v0[56];
-  v6 = v0[53];
-  v5 = v0[54];
-  v8 = v0[51];
-  v7 = v0[52];
-  v9 = v0[50];
-  v10 = v0[47];
-  v11 = v0[44];
-  v12 = v0[41];
-  v15 = v0[40];
-  v16 = v0[36];
-  v17 = v0[35];
-  v18 = v0[34];
-  v19 = v0[31];
-  v20 = v0[30];
-  v21 = v0[27];
-
-  v13 = v0[1];
-
-  return v13();
-}
-
-uint64_t sub_1002680A8()
-{
-  v1 = v0[77];
-  v2 = v0[75];
-  v3 = v0[74];
-  v4 = v0[73];
-  v5 = v0[72];
-  v6 = v0[70];
-  v7 = v0[69];
-  v32 = v0[67];
-  v34 = v0[62];
-  v8 = v0[54];
-  v9 = v0[48];
-  swift_beginAccess();
-  v5(v8, v6, v9);
-  swift_errorRetain();
-  v10 = sub_10004D0B4(v8, v1, 1);
-  v12 = v11;
-  v14 = v13;
-
-  v3(v8, v9);
-  sub_10001157C(v10, v12, v14);
-
-  swift_willThrow();
-
-  v16 = v0[55];
-  v15 = v0[56];
-  v18 = v0[53];
-  v17 = v0[54];
-  v20 = v0[51];
-  v19 = v0[52];
-  v21 = v0[50];
-  v22 = v0[47];
-  v23 = v0[44];
-  v26 = v0[41];
-  v27 = v0[40];
-  v28 = v0[36];
-  v29 = v0[35];
-  v30 = v0[34];
-  v31 = v0[31];
-  v33 = v0[30];
-  v35 = v0[27];
-
-  v24 = v0[1];
-
-  return v24();
-}
-
-uint64_t sub_1002682AC()
-{
-  v1 = v0[79];
-
-  v2 = v0[82];
-  v3 = v0[75];
-  v4 = v0[74];
-  v5 = v0[73];
-  v6 = v0[72];
-  v7 = v0[70];
-  v8 = v0[69];
-  v33 = v0[67];
-  v35 = v0[62];
-  v9 = v0[54];
-  v10 = v0[48];
-  swift_beginAccess();
-  v6(v9, v7, v10);
-  swift_errorRetain();
-  v11 = sub_10004D0B4(v9, v2, 1);
-  v13 = v12;
-  v15 = v14;
-
-  v4(v9, v10);
-  sub_10001157C(v11, v13, v15);
-
-  swift_willThrow();
-
-  v17 = v0[55];
-  v16 = v0[56];
-  v19 = v0[53];
-  v18 = v0[54];
-  v21 = v0[51];
-  v20 = v0[52];
-  v22 = v0[50];
-  v23 = v0[47];
-  v24 = v0[44];
-  v27 = v0[41];
-  v28 = v0[40];
-  v29 = v0[36];
-  v30 = v0[35];
-  v31 = v0[34];
-  v32 = v0[31];
-  v34 = v0[30];
-  v36 = v0[27];
-
-  v25 = v0[1];
-
-  return v25();
-}
-
-uint64_t sub_1002684B8(uint64_t a1, uint64_t a2)
-{
-  v3[19] = a2;
-  v3[20] = v2;
-  v3[18] = a1;
-  v4 = type metadata accessor for Fence.AcceptanceStatus();
-  v3[21] = v4;
-  v5 = *(v4 - 8);
-  v3[22] = v5;
-  v6 = *(v5 + 64) + 15;
-  v3[23] = swift_task_alloc();
-  v3[24] = swift_task_alloc();
-  v7 = *(*(sub_10004B564(&qword_1005B09D0, &unk_1004D2380) - 8) + 64) + 15;
-  v3[25] = swift_task_alloc();
-  v8 = type metadata accessor for Fence();
-  v3[26] = v8;
-  v9 = *(v8 - 8);
-  v3[27] = v9;
-  v10 = *(v9 + 64) + 15;
-  v3[28] = swift_task_alloc();
-  v3[29] = swift_task_alloc();
-  v11 = async function pointer to daemon.getter[1];
-  v12 = swift_task_alloc();
-  v3[30] = v12;
-  *v12 = v3;
-  v12[1] = sub_100268658;
-
-  return daemon.getter();
-}
-
-uint64_t sub_100268658(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 240);
-  v12 = *v1;
-  *(v3 + 248) = a1;
-
-  v5 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v6 = swift_task_alloc();
-  *(v3 + 256) = v6;
-  v7 = type metadata accessor for Daemon();
-  v8 = type metadata accessor for DataManager(0);
-  v9 = sub_1000094D0(&unk_1005AFA50, &type metadata accessor for Daemon);
-  v10 = sub_1000094D0(&qword_1005A90D0, type metadata accessor for DataManager);
-  *v6 = v12;
-  v6[1] = sub_100268834;
-
-  return ActorServiceDaemon.getService<A>()(v7, v8, v9, v10);
-}
-
-uint64_t sub_100268834(uint64_t a1)
-{
-  v4 = *v2;
-  v5 = *(*v2 + 256);
-  v6 = *v2;
-  v4[33] = a1;
-  v4[34] = v1;
-
-  if (v1)
-  {
-    v7 = v4[20];
-
-    return _swift_task_switch(sub_10026942C, v7, 0);
-  }
-
-  else
-  {
-    v8 = v4[31];
-
-    v9 = swift_task_alloc();
-    v4[35] = v9;
-    *v9 = v6;
-    v9[1] = sub_1002689C4;
-    v10 = v4[25];
-    v11 = v4[19];
-
-    return sub_10020ED50(v10, v11);
-  }
-}
-
-uint64_t sub_1002689C4()
-{
-  v1 = *(*v0 + 280);
-  v2 = *(*v0 + 160);
-  v4 = *v0;
-
-  return _swift_task_switch(sub_100268AD4, v2, 0);
-}
-
-uint64_t sub_100268AD4()
-{
-  v68 = v0;
-  v1 = v0[26];
-  v2 = v0[27];
-  v3 = v0[25];
-  if ((*(v2 + 48))(v3, 1, v1) == 1)
-  {
-    v4 = v0[33];
-    v5 = v0[19];
-    sub_100002CE0(v3, &qword_1005B09D0, &unk_1004D2380);
-    sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-    inited = swift_initStackObject();
-    *(inited + 32) = 26;
-    *(inited + 16) = xmmword_1004C2310;
-    *(inited + 64) = &type metadata for String;
-    *(inited + 72) = &off_10058C398;
-    strcpy((inited + 40), "NoFenceFound");
-    *(inited + 53) = 0;
-    *(inited + 54) = -5120;
-    *(inited + 80) = 27;
-    *(inited + 112) = &type metadata for Bool;
-    *(inited + 120) = &off_10058C3C8;
-    *(inited + 88) = 0;
-    v7 = sub_1000105C0(inited);
-    swift_setDeallocating();
-    sub_10004B564(&qword_1005A8790, &qword_1004C0EB0);
-    swift_arrayDestroy();
-    v8 = sub_10004C68C(1u, v7);
-    v10 = v9;
-    v12 = v11;
-
-    sub_10001157C(v8, v10, v12);
-
-    type metadata accessor for FenceServiceClient.Failure(0);
-    sub_1000094D0(&qword_1005A9140, type metadata accessor for FenceServiceClient.Failure);
-    swift_allocError();
-    v14 = v13;
-    v15 = type metadata accessor for Fence.ID();
-    (*(*(v15 - 8) + 16))(v14, v5, v15);
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-
-    v17 = v0[28];
-    v16 = v0[29];
-    v19 = v0[24];
-    v18 = v0[25];
-    v20 = v0[23];
-
-    v21 = v0[1];
-LABEL_9:
-
-    return v21();
-  }
-
-  v22 = v0[29];
-  v24 = v0[23];
-  v23 = v0[24];
-  v25 = v0[21];
-  v26 = v0[22];
-  v27 = *(v2 + 32);
-  v0[36] = v27;
-  v0[37] = (v2 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
-  v65 = v27;
-  v27(v22, v3, v1);
-  Fence.acceptanceStatus.getter();
-  v28 = enum case for Fence.AcceptanceStatus.accepted(_:);
-  v29 = *(v26 + 104);
-  v29(v24, enum case for Fence.AcceptanceStatus.accepted(_:), v25);
-  v30 = static Fence.AcceptanceStatus.== infix(_:_:)();
-  v31 = v24;
-  v32 = *(v26 + 8);
-  v32(v31, v25);
-  v32(v23, v25);
-  if (v30)
-  {
-    if (qword_1005A80E8 != -1)
-    {
-      swift_once();
-    }
-
-    v33 = type metadata accessor for Logger();
-    sub_10000A6F0(v33, qword_1005DFF88);
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.default.getter();
-    v36 = os_log_type_enabled(v34, v35);
-    v37 = v0[33];
-    if (v36)
-    {
-      v38 = swift_slowAlloc();
-      v39 = swift_slowAlloc();
-      v67[0] = v39;
-      *v38 = 136446210;
-      *(v38 + 4) = sub_10000D01C(0xD000000000000010, 0x80000001004E65C0, v67);
-      _os_log_impl(&_mh_execute_header, v34, v35, "%{public}s: Fence is already accepted.", v38, 0xCu);
-      sub_100004984(v39);
-    }
-
-    v65(v0[18], v0[29], v0[26]);
-    v41 = v0[28];
-    v40 = v0[29];
-    v43 = v0[24];
-    v42 = v0[25];
-    v44 = v0[23];
-
-    v21 = v0[1];
-    goto LABEL_9;
-  }
-
-  v66 = v28;
-  v46 = v0[29];
-  v48 = v0[23];
-  v47 = v0[24];
-  v49 = v32;
-  v50 = v0[21];
-  Fence.acceptanceStatus.getter();
-  v29(v48, enum case for Fence.AcceptanceStatus.pendingHidden(_:), v50);
-  LOBYTE(v46) = static Fence.AcceptanceStatus.== infix(_:_:)();
-  v49(v48, v50);
-  v51 = v50;
-  v52 = v49;
-  v49(v47, v51);
-  if (v46)
-  {
-    if (qword_1005A80E8 != -1)
-    {
-      swift_once();
-    }
-
-    v53 = type metadata accessor for Logger();
-    sub_10000A6F0(v53, qword_1005DFF88);
-    v54 = Logger.logObject.getter();
-    v55 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v54, v55))
-    {
-      v56 = swift_slowAlloc();
-      v57 = swift_slowAlloc();
-      v67[0] = v57;
-      *v56 = 136446210;
-      *(v56 + 4) = sub_10000D01C(0xD000000000000010, 0x80000001004E65C0, v67);
-      _os_log_impl(&_mh_execute_header, v54, v55, "%{public}s: Accepting a hidden fence should not be done from UI", v56, 0xCu);
-      sub_100004984(v57);
-      v52 = v49;
-    }
-  }
-
-  v58 = v0[29];
-  v59 = v0[24];
-  v60 = v0[21];
-  v29(v59, v66, v60);
-  Fence.update(acceptanceStatus:)();
-  v52(v59, v60);
-  v61 = swift_task_alloc();
-  v0[38] = v61;
-  *v61 = v0;
-  v61[1] = sub_1002691FC;
-  v62 = v0[28];
-  v63 = v0[29];
-  v64 = v0[20];
-
-  return sub_100261468(v62, v63);
-}
-
-uint64_t sub_1002691FC()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 304);
-  v4 = *v1;
-  *(*v1 + 312) = v0;
-
-  v5 = *(v2 + 160);
-  if (v0)
-  {
-    v6 = sub_1002694D0;
-  }
-
-  else
-  {
-    v6 = sub_100269328;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_100269328()
-{
-  v1 = *(v0 + 296);
-  v2 = *(v0 + 264);
-  v3 = *(v0 + 232);
-  v4 = *(v0 + 208);
-  v5 = *(v0 + 216);
-  (*(v0 + 288))(*(v0 + 144), *(v0 + 224), v4);
-  v6 = sub_10004CD68(v3, 0, 0);
-  sub_10001157C(v6, v7, v8);
-
-  (*(v5 + 8))(v3, v4);
-  v10 = *(v0 + 224);
-  v9 = *(v0 + 232);
-  v12 = *(v0 + 192);
-  v11 = *(v0 + 200);
-  v13 = *(v0 + 184);
-
-  v14 = *(v0 + 8);
-
-  return v14();
-}
-
-uint64_t sub_10026942C()
-{
-  v1 = v0[31];
-
-  v2 = v0[34];
-  v4 = v0[28];
-  v3 = v0[29];
-  v6 = v0[24];
-  v5 = v0[25];
-  v7 = v0[23];
-
-  v8 = v0[1];
-
-  return v8();
-}
-
-uint64_t sub_1002694D0()
-{
-  v1 = v0[39];
-  v2 = v0[33];
-  v3 = v0[29];
-  v4 = v0[26];
-  v5 = v0[27];
-  swift_errorRetain();
-  v6 = sub_10004CD68(v3, v1, 1);
-  v8 = v7;
-  v10 = v9;
-
-  sub_10001157C(v6, v8, v10);
-
-  swift_willThrow();
-
-  (*(v5 + 8))(v3, v4);
-  v11 = v0[39];
-  v13 = v0[28];
-  v12 = v0[29];
-  v15 = v0[24];
-  v14 = v0[25];
-  v16 = v0[23];
-
-  v17 = v0[1];
-
-  return v17();
-}
-
-uint64_t sub_1002695FC(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4[4] = a3;
-  v4[5] = v3;
-  v4[2] = a1;
-  v4[3] = a2;
-  v4[6] = *v3;
-  v5 = async function pointer to daemon.getter[1];
-  v6 = swift_task_alloc();
-  v4[7] = v6;
-  *v6 = v4;
-  v6[1] = sub_1002696BC;
-
-  return daemon.getter();
-}
-
-uint64_t sub_1002696BC(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 56);
-  v12 = *v1;
-  *(v3 + 64) = a1;
-
-  v5 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v6 = swift_task_alloc();
-  *(v3 + 72) = v6;
-  v7 = type metadata accessor for Daemon();
-  v8 = type metadata accessor for DataManager(0);
-  v9 = sub_1000094D0(&unk_1005AFA50, &type metadata accessor for Daemon);
-  v10 = sub_1000094D0(&qword_1005A90D0, type metadata accessor for DataManager);
-  *v6 = v12;
-  v6[1] = sub_100269898;
-
-  return ActorServiceDaemon.getService<A>()(v7, v8, v9, v10);
-}
-
-uint64_t sub_100269898(uint64_t a1)
-{
-  v4 = *v2;
-  v5 = *(*v2 + 72);
-  v6 = *v2;
-  v4[10] = a1;
-  v4[11] = v1;
-
-  if (v1)
-  {
-    v7 = v4[5];
-
-    return _swift_task_switch(sub_100253CC8, v7, 0);
-  }
-
-  else
-  {
-    v8 = v4[8];
-
-    v9 = swift_task_alloc();
-    v4[12] = v9;
-    *v9 = v6;
-    v9[1] = sub_100269A20;
-
-    return sub_100006424();
-  }
-}
-
-uint64_t sub_100269A20(uint64_t a1)
-{
-  v2 = *(*v1 + 96);
-  v3 = *(*v1 + 40);
-  v5 = *v1;
-  *(*v1 + 104) = a1;
-
-  return _swift_task_switch(sub_100269B38, v3, 0);
-}
-
-uint64_t sub_100269B38()
-{
-  v1 = *(v0 + 104);
-  v2 = *(v0 + 88);
-  v3 = *(v0 + 40);
-  v4 = *(v0 + 48);
-  v5 = *(v0 + 32);
-  v6 = swift_task_alloc();
-  *(v6 + 16) = *(v0 + 16);
-  *(v6 + 32) = v5;
-  v7 = sub_100260C80(sub_10027465C, v6, v1);
-  *(v0 + 112) = v7;
-
-  sub_1000094D0(&qword_1005AF4A8, type metadata accessor for FenceService);
-  v8 = swift_task_alloc();
-  *(v0 + 120) = v8;
-  v8[2] = v7;
-  v8[3] = v3;
-  v8[4] = v4;
-  v9 = async function pointer to withThrowingDiscardingTaskGroup<A>(returning:isolation:body:)[1];
-  v10 = swift_task_alloc();
-  *(v0 + 128) = v10;
-  *v10 = v0;
-  v10[1] = sub_100269CC0;
-
-  return withThrowingDiscardingTaskGroup<A>(returning:isolation:body:)();
-}
-
-uint64_t sub_100269CC0()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 128);
-  v10 = *v1;
-  *(*v1 + 136) = v0;
-
-  if (v0)
-  {
-    v4 = v2[5];
-    v5 = sub_100269E54;
-  }
-
-  else
-  {
-    v6 = v2[14];
-    v7 = v2[15];
-    v8 = v2[5];
-
-    v5 = sub_100269DF0;
-    v4 = v8;
-  }
-
-  return _swift_task_switch(v5, v4, 0);
-}
-
-uint64_t sub_100269DF0()
-{
-  v1 = *(v0 + 80);
-
-  v2 = *(v0 + 8);
-
-  return v2();
-}
-
-uint64_t sub_100269E54()
-{
-  v1 = v0[14];
-  v2 = v0[15];
-  v3 = v0[10];
-
-  v4 = v0[17];
-  v5 = v0[1];
-
-  return v5();
-}
-
-uint64_t sub_100269ECC(uint64_t a1, uint64_t a2)
-{
-  v3[3] = a2;
-  v3[4] = v2;
-  v3[2] = a1;
-  v3[5] = *v2;
-  v4 = type metadata accessor for UUID();
-  v3[6] = v4;
-  v5 = *(v4 - 8);
-  v3[7] = v5;
-  v6 = *(v5 + 64) + 15;
-  v3[8] = swift_task_alloc();
-  v7 = sub_10004B564(&qword_1005B0B70, &qword_1004D6B30);
-  v3[9] = v7;
-  v8 = *(*(v7 - 8) + 64) + 15;
-  v3[10] = swift_task_alloc();
-  v9 = *(*(sub_10004B564(&qword_1005A96E0, &qword_1004C2A80) - 8) + 64) + 15;
-  v3[11] = swift_task_alloc();
-  v3[12] = swift_task_alloc();
-  v3[13] = swift_task_alloc();
-  v10 = type metadata accessor for Fence.Participant();
-  v3[14] = v10;
-  v11 = *(v10 - 8);
-  v3[15] = v11;
-  v12 = *(v11 + 64) + 15;
-  v3[16] = swift_task_alloc();
-  v3[17] = swift_task_alloc();
-  v13 = *(*(sub_10004B564(&qword_1005AE720, &qword_1004CA2F0) - 8) + 64) + 15;
-  v3[18] = swift_task_alloc();
-  v14 = type metadata accessor for FenceRecord();
-  v3[19] = v14;
-  v15 = *(v14 - 8);
-  v3[20] = v15;
-  v16 = *(v15 + 64) + 15;
-  v3[21] = swift_task_alloc();
-  v3[22] = swift_task_alloc();
-  v17 = type metadata accessor for Fence();
-  v3[23] = v17;
-  v18 = *(v17 - 8);
-  v3[24] = v18;
-  v19 = *(v18 + 64) + 15;
-  v3[25] = swift_task_alloc();
-  v20 = async function pointer to daemon.getter[1];
-  v21 = swift_task_alloc();
-  v3[26] = v21;
-  *v21 = v3;
-  v21[1] = sub_10026A1D8;
-
-  return daemon.getter();
-}
-
-uint64_t sub_10026A1D8(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 208);
-  v12 = *v1;
-  v3[27] = a1;
-
-  v5 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v6 = swift_task_alloc();
-  v3[28] = v6;
-  v7 = type metadata accessor for Daemon();
-  v3[29] = v7;
-  v8 = type metadata accessor for CommandManager();
-  v9 = sub_1000094D0(&unk_1005AFA50, &type metadata accessor for Daemon);
-  v3[30] = v9;
-  v10 = sub_1000094D0(&qword_1005A90C8, type metadata accessor for CommandManager);
-  *v6 = v12;
-  v6[1] = sub_10026A3B8;
-
-  return ActorServiceDaemon.getService<A>()(v7, v8, v9, v10);
-}
-
-uint64_t sub_10026A3B8(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 224);
-  v10 = *v2;
-  v3[31] = a1;
-  v3[32] = v1;
-
-  if (v1)
-  {
-    v5 = v3[4];
-    v6 = sub_10026B6EC;
-  }
-
-  else
-  {
-    v7 = v3[27];
-    v8 = v3[4];
-
-    v6 = sub_10026A4E0;
-    v5 = v8;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_10026A4E0()
-{
-  v1 = v0[19];
-  v2 = v0[20];
-  v3 = v0[18];
-  (*(v0[24] + 16))(v0[25], v0[3], v0[23]);
-  sub_100249D6C(v3);
-  if ((*(v2 + 48))(v3, 1, v1) == 1)
-  {
-    sub_100002CE0(v0[18], &qword_1005AE720, &qword_1004CA2F0);
-LABEL_8:
-    v12 = swift_task_alloc();
-    v0[45] = v12;
-    *v12 = v0;
-    v12[1] = sub_10026B4A4;
-    v13 = v0[31];
-    v14 = v0[25];
-    v15 = v0[2];
-
-    return sub_10005A5B8(v15, v14);
-  }
-
-  v4 = v0[25];
-  v5 = v0[17];
-  v7 = v0[15];
-  v6 = v0[16];
-  v8 = v0[14];
-  sub_100274934(v0[18], v0[22], type metadata accessor for FenceRecord);
-  Fence.createdBy.getter();
-  (*(v7 + 104))(v6, enum case for Fence.Participant.me(_:), v8);
-  LOBYTE(v4) = static Fence.Participant.== infix(_:_:)();
-  v9 = *(v7 + 8);
-  v9(v6, v8);
-  v9(v5, v8);
-  if ((v4 & 1) == 0)
-  {
-    sub_100274A04(v0[22], type metadata accessor for FenceRecord);
-    goto LABEL_8;
-  }
-
-  v10 = async function pointer to daemon.getter[1];
-  v11 = swift_task_alloc();
-  v0[33] = v11;
-  *v11 = v0;
-  v11[1] = sub_10026A724;
-
-  return daemon.getter();
-}
-
-uint64_t sub_10026A724(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 264);
-  v5 = *v1;
-  v3[34] = a1;
-
-  v6 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v7 = swift_task_alloc();
-  v3[35] = v7;
-  v8 = type metadata accessor for CloudStorageService();
-  v9 = sub_1000094D0(&qword_1005AD568, type metadata accessor for CloudStorageService);
-  *v7 = v5;
-  v7[1] = sub_10026A8D8;
-  v10 = v3[30];
-  v11 = v3[29];
-
-  return ActorServiceDaemon.getService<A>()(v11, v8, v10, v9);
-}
-
-uint64_t sub_10026A8D8(uint64_t a1)
-{
-  v3 = *(*v2 + 280);
-  v4 = *(*v2 + 272);
-  v5 = *v2;
-  v5[36] = a1;
-  v5[37] = v1;
-
-  if (v1)
-  {
-    v6 = v5[4];
-
-    return _swift_task_switch(sub_10026B7E8, v6, 0);
-  }
-
-  else
-  {
-    v7 = swift_task_alloc();
-    v5[38] = v7;
-    *v7 = v5;
-    v7[1] = sub_10026AA78;
-    v8 = v5[21];
-    v9 = v5[22];
-    v10 = v5[4];
-
-    return sub_10026C414(v8, v9);
-  }
-}
-
-uint64_t sub_10026AA78()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 304);
-  v4 = *v1;
-  *(*v1 + 312) = v0;
-
-  v5 = *(v2 + 32);
-  if (v0)
-  {
-    v6 = sub_10026B920;
-  }
-
-  else
-  {
-    v6 = sub_10026ABA4;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_10026ABA4()
-{
-  v1 = v0[25];
-  v3 = v0[12];
-  v2 = v0[13];
-  v5 = v0[9];
-  v4 = v0[10];
-  v6 = v0[6];
-  v7 = v0[7];
-  (*(v7 + 16))(v2, v0[21], v6);
-  (*(v7 + 56))(v2, 0, 1, v6);
-  Fence.ckRecordIdentifier.getter();
-  v8 = *(v5 + 48);
-  sub_100005F04(v2, v4, &qword_1005A96E0, &qword_1004C2A80);
-  sub_100005F04(v3, v4 + v8, &qword_1005A96E0, &qword_1004C2A80);
-  v9 = *(v7 + 48);
-  if (v9(v4, 1, v6) == 1)
-  {
-    v10 = v0[13];
-    v11 = v0[6];
-    sub_100002CE0(v0[12], &qword_1005A96E0, &qword_1004C2A80);
-    sub_100002CE0(v10, &qword_1005A96E0, &qword_1004C2A80);
-    if (v9(v4 + v8, 1, v11) == 1)
-    {
-      sub_100002CE0(v0[10], &qword_1005A96E0, &qword_1004C2A80);
-LABEL_11:
-      v27 = v0[36];
-      sub_100274A04(v0[22], type metadata accessor for FenceRecord);
-
-      sub_100274A04(v0[21], type metadata accessor for FenceRecord);
-      v28 = swift_task_alloc();
-      v0[45] = v28;
-      *v28 = v0;
-      v28[1] = sub_10026B4A4;
-      v29 = v0[31];
-      v30 = v0[25];
-      v31 = v0[2];
-
-      return sub_10005A5B8(v31, v30);
-    }
-
-    goto LABEL_6;
-  }
-
-  v12 = v0[6];
-  sub_100005F04(v0[10], v0[11], &qword_1005A96E0, &qword_1004C2A80);
-  v13 = v9(v4 + v8, 1, v12);
-  v15 = v0[12];
-  v14 = v0[13];
-  v16 = v0[11];
-  if (v13 == 1)
-  {
-    v17 = v0[6];
-    v18 = v0[7];
-    sub_100002CE0(v0[12], &qword_1005A96E0, &qword_1004C2A80);
-    sub_100002CE0(v14, &qword_1005A96E0, &qword_1004C2A80);
-    (*(v18 + 8))(v16, v17);
-LABEL_6:
-    sub_100002CE0(v0[10], &qword_1005B0B70, &qword_1004D6B30);
-    goto LABEL_7;
-  }
-
-  v32 = v0[10];
-  v23 = v0[7];
-  v22 = v0[8];
-  v24 = v0[6];
-  (*(v23 + 32))(v22, v4 + v8, v24);
-  sub_1000094D0(&qword_1005A9FC8, &type metadata accessor for UUID);
-  v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v26 = *(v23 + 8);
-  v26(v22, v24);
-  sub_100002CE0(v15, &qword_1005A96E0, &qword_1004C2A80);
-  sub_100002CE0(v14, &qword_1005A96E0, &qword_1004C2A80);
-  v26(v16, v24);
-  sub_100002CE0(v32, &qword_1005A96E0, &qword_1004C2A80);
-  if (v25)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_7:
-  v19 = swift_task_alloc();
-  v0[40] = v19;
-  *v19 = v0;
-  v19[1] = sub_10026AFD0;
-  v20 = v0[36];
-
-  return sub_1001BA3B8();
-}
-
-uint64_t sub_10026AFD0(uint64_t a1)
-{
-  v4 = *v2;
-  v5 = *(*v2 + 320);
-  v6 = *v2;
-  v4[41] = v1;
-
-  v7 = v4[4];
-  if (v1)
-  {
-    v8 = sub_10026BA64;
-  }
-
-  else
-  {
-    v4[42] = a1;
-    v8 = sub_10026B10C;
-  }
-
-  return _swift_task_switch(v8, v7, 0);
-}
-
-uint64_t sub_10026B10C()
-{
-  v1 = v0[42];
-  v2 = v0[36];
-  v3 = v0[25];
-  v4 = v0[21];
-  v5 = v0[4];
-  v6 = v0[5];
-  v7 = v0[3];
-  v8 = [v1 recordName];
-
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  Fence.update(ckRecordIdentifier:owner:)();
-
-  sub_1000094D0(&qword_1005AF4A8, type metadata accessor for FenceService);
-  v9 = swift_task_alloc();
-  v0[43] = v9;
-  v9[2] = v7;
-  v9[3] = v2;
-  v9[4] = v4;
-  v9[5] = v5;
-  v9[6] = v6;
-  v10 = async function pointer to withDiscardingTaskGroup<A>(returning:isolation:body:)[1];
-  v11 = swift_task_alloc();
-  v0[44] = v11;
-  *v11 = v0;
-  v11[1] = sub_10026B2A4;
-
-  return withDiscardingTaskGroup<A>(returning:isolation:body:)();
-}
-
-uint64_t sub_10026B2A4()
-{
-  v1 = *(*v0 + 352);
-  v2 = *(*v0 + 344);
-  v3 = *(*v0 + 32);
-  v5 = *v0;
-
-  return _swift_task_switch(sub_10026B3D0, v3, 0);
-}
-
-uint64_t sub_10026B3D0()
-{
-  v1 = v0[36];
-  v2 = v0[22];
-
-  sub_100274A04(v2, type metadata accessor for FenceRecord);
-  sub_100274A04(v0[21], type metadata accessor for FenceRecord);
-  v3 = swift_task_alloc();
-  v0[45] = v3;
-  *v3 = v0;
-  v3[1] = sub_10026B4A4;
-  v4 = v0[31];
-  v5 = v0[25];
-  v6 = v0[2];
-
-  return sub_10005A5B8(v6, v5);
-}
-
-uint64_t sub_10026B4A4()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 360);
-  v4 = *v1;
-  *(*v1 + 368) = v0;
-
-  v5 = *(v2 + 32);
-  if (v0)
-  {
-    v6 = sub_10026BBBC;
-  }
-
-  else
-  {
-    v6 = sub_10026B5D0;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_10026B5D0()
-{
-  v1 = v0[31];
-  v3 = v0[24];
-  v2 = v0[25];
-  v5 = v0[22];
-  v4 = v0[23];
-  v6 = v0[21];
-  v8 = v0[17];
-  v7 = v0[18];
-  v9 = v0[16];
-  v10 = v0[13];
-  v13 = v0[12];
-  v14 = v0[11];
-  v15 = v0[10];
-  v16 = v0[8];
-
-  (*(v3 + 8))(v2, v4);
-
-  v11 = v0[1];
-
-  return v11();
-}
-
-uint64_t sub_10026B6EC()
-{
-  v1 = v0[27];
-
-  v2 = v0[25];
-  v4 = v0[21];
-  v3 = v0[22];
-  v6 = v0[17];
-  v5 = v0[18];
-  v7 = v0[16];
-  v9 = v0[12];
-  v8 = v0[13];
-  v10 = v0[10];
-  v11 = v0[11];
-  v14 = v0[8];
-  v15 = v0[32];
-
-  v12 = v0[1];
-
-  return v12();
-}
-
-uint64_t sub_10026B7E8()
-{
-  v1 = v0[31];
-  v3 = v0[24];
-  v2 = v0[25];
-  v5 = v0[22];
-  v4 = v0[23];
-
-  sub_100274A04(v5, type metadata accessor for FenceRecord);
-  (*(v3 + 8))(v2, v4);
-  v6 = v0[25];
-  v8 = v0[21];
-  v7 = v0[22];
-  v10 = v0[17];
-  v9 = v0[18];
-  v11 = v0[16];
-  v13 = v0[12];
-  v12 = v0[13];
-  v14 = v0[10];
-  v15 = v0[11];
-  v18 = v0[8];
-  v19 = v0[37];
-
-  v16 = v0[1];
-
-  return v16();
-}
-
-uint64_t sub_10026B920()
-{
-  v1 = v0[36];
-  v2 = v0[31];
-  v4 = v0[24];
-  v3 = v0[25];
-  v6 = v0[22];
-  v5 = v0[23];
-
-  sub_100274A04(v6, type metadata accessor for FenceRecord);
-  (*(v4 + 8))(v3, v5);
-  v7 = v0[25];
-  v9 = v0[21];
-  v8 = v0[22];
-  v11 = v0[17];
-  v10 = v0[18];
-  v12 = v0[16];
-  v14 = v0[12];
-  v13 = v0[13];
-  v15 = v0[10];
-  v16 = v0[11];
-  v19 = v0[8];
-  v20 = v0[39];
-
-  v17 = v0[1];
-
-  return v17();
-}
-
-uint64_t sub_10026BA64()
-{
-  v1 = v0[36];
-  v2 = v0[31];
-  v4 = v0[24];
-  v3 = v0[25];
-  v6 = v0[22];
-  v5 = v0[23];
-  v7 = v0[21];
-
-  sub_100274A04(v6, type metadata accessor for FenceRecord);
-  (*(v4 + 8))(v3, v5);
-  sub_100274A04(v7, type metadata accessor for FenceRecord);
-  v8 = v0[25];
-  v10 = v0[21];
-  v9 = v0[22];
-  v12 = v0[17];
-  v11 = v0[18];
-  v13 = v0[16];
-  v15 = v0[12];
-  v14 = v0[13];
-  v16 = v0[10];
-  v17 = v0[11];
-  v20 = v0[8];
-  v21 = v0[41];
-
-  v18 = v0[1];
-
-  return v18();
-}
-
-uint64_t sub_10026BBBC()
-{
-  v1 = v0[31];
-  v3 = v0[24];
-  v2 = v0[25];
-  v4 = v0[23];
-
-  (*(v3 + 8))(v2, v4);
-  v5 = v0[25];
-  v7 = v0[21];
-  v6 = v0[22];
-  v9 = v0[17];
-  v8 = v0[18];
-  v10 = v0[16];
-  v12 = v0[12];
-  v11 = v0[13];
-  v13 = v0[10];
-  v14 = v0[11];
-  v17 = v0[8];
-  v18 = v0[46];
-
-  v15 = v0[1];
-
-  return v15();
-}
-
-uint64_t sub_10026BCD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v5[2] = a4;
-  v5[3] = a5;
-  v7 = type metadata accessor for Fence.ID();
-  v5[4] = v7;
-  v8 = *(v7 - 8);
-  v5[5] = v8;
-  v9 = *(v8 + 64) + 15;
-  v5[6] = swift_task_alloc();
-  v10 = type metadata accessor for Fence();
-  v5[7] = v10;
-  v11 = *(v10 - 8);
-  v5[8] = v11;
-  v12 = *(v11 + 64) + 15;
-  v5[9] = swift_task_alloc();
-  v13 = *(*(sub_10004B564(&qword_1005B09C8, &qword_1004D2378) - 8) + 64) + 15;
-  v14 = swift_task_alloc();
-  v5[10] = v14;
-  v15 = swift_task_alloc();
-  v5[11] = v15;
-  *v15 = v5;
-  v15[1] = sub_10026BE78;
-
-  return sub_1002790EC(v14, a5);
-}
-
-uint64_t sub_10026BE78()
-{
-  v2 = *(*v1 + 88);
-  v3 = *(*v1 + 16);
-  v6 = *v1;
-  *(*v1 + 96) = v0;
-
-  if (v0)
-  {
-    v4 = sub_10026C0A4;
-  }
-
-  else
-  {
-    v4 = sub_10026BFA0;
-  }
-
-  return _swift_task_switch(v4, v3, 0);
-}
-
-uint64_t sub_10026BFA0()
-{
-  v1 = v0[10];
-  v2 = type metadata accessor for Fence.TriggerID();
-  v3 = (*(*(v2 - 8) + 48))(v1, 1, v2);
-  sub_100002CE0(v1, &qword_1005B09C8, &qword_1004D2378);
-  if (v3 != 1)
-  {
-    v4 = sub_10004D4C8(v0[3], 0, 0);
-    sub_10001157C(v4, v5, v6);
-  }
-
-  v8 = v0[9];
-  v7 = v0[10];
-  v9 = v0[6];
-
-  v10 = v0[1];
-
-  return v10();
-}
-
-uint64_t sub_10026C0A4()
-{
-  v41 = v0;
-  v1 = v0[12];
-  v2 = v0[3];
-  swift_errorRetain();
-  v3 = sub_10004D4C8(v2, v1, 1);
-  v5 = v4;
-  v7 = v6;
-
-  sub_10001157C(v3, v5, v7);
-
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v8 = v0[12];
-  v10 = v0[8];
-  v9 = v0[9];
-  v11 = v0[7];
-  v12 = v0[3];
-  v13 = type metadata accessor for Logger();
-  sub_10000A6F0(v13, qword_1005DFF88);
-  (*(v10 + 16))(v9, v12, v11);
-  swift_errorRetain();
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.error.getter();
-
-  v16 = os_log_type_enabled(v14, v15);
-  v17 = v0[8];
-  v18 = v0[9];
-  v19 = v0[7];
-  if (v16)
-  {
-    v39 = v15;
-    v20 = v0[5];
-    v21 = v0[6];
-    v22 = v0[4];
-    v37 = v0[12];
-    v23 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    v38 = swift_slowAlloc();
-    v40 = v38;
-    *v23 = 136446466;
-    v35 = v14;
-    Fence.id.getter();
-    sub_1000094D0(&qword_1005AE800, &type metadata accessor for Fence.ID);
-    v24 = dispatch thunk of CustomStringConvertible.description.getter();
-    v26 = v25;
-    (*(v20 + 8))(v21, v22);
-    (*(v17 + 8))(v18, v19);
-    v27 = sub_10000D01C(v24, v26, &v40);
-
-    *(v23 + 4) = v27;
-    *(v23 + 12) = 2114;
-    swift_errorRetain();
-    v28 = _swift_stdlib_bridgeErrorToNSError();
-    *(v23 + 14) = v28;
-    *v36 = v28;
-    _os_log_impl(&_mh_execute_header, v35, v39, "Error triggering accepted fence id: %{public}s, error: %{public}@", v23, 0x16u);
-    sub_100002CE0(v36, &qword_1005A9670, &unk_1004C2480);
-
-    sub_100004984(v38);
-  }
-
-  else
-  {
-    v29 = v0[12];
-
-    (*(v17 + 8))(v18, v19);
-  }
-
-  v31 = v0[9];
-  v30 = v0[10];
-  v32 = v0[6];
-
-  v33 = v0[1];
-
-  return v33();
-}
-
-uint64_t sub_10026C414(uint64_t a1, uint64_t a2)
-{
-  v3[27] = a2;
-  v3[28] = v2;
-  v3[26] = a1;
-  v4 = *(*(sub_10004B564(&qword_1005AE720, &qword_1004CA2F0) - 8) + 64) + 15;
-  v3[29] = swift_task_alloc();
-  v5 = type metadata accessor for FenceRecord();
-  v3[30] = v5;
-  v6 = *(v5 - 8);
-  v3[31] = v6;
-  v7 = *(v6 + 64) + 15;
-  v3[32] = swift_task_alloc();
-  v3[33] = swift_task_alloc();
-  v8 = async function pointer to daemon.getter[1];
-  v9 = swift_task_alloc();
-  v3[34] = v9;
-  *v9 = v3;
-  v9[1] = sub_10026C54C;
-
-  return daemon.getter();
-}
-
-uint64_t sub_10026C54C(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 272);
-  v12 = *v1;
-  *(v3 + 280) = a1;
-
-  v5 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v6 = swift_task_alloc();
-  *(v3 + 288) = v6;
-  v7 = type metadata accessor for Daemon();
-  v8 = type metadata accessor for CloudStorageService();
-  v9 = sub_1000094D0(&unk_1005AFA50, &type metadata accessor for Daemon);
-  v10 = sub_1000094D0(&qword_1005AD568, type metadata accessor for CloudStorageService);
-  *v6 = v12;
-  v6[1] = sub_10026C728;
-
-  return ActorServiceDaemon.getService<A>()(v7, v8, v9, v10);
-}
-
-uint64_t sub_10026C728(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 288);
-  v9 = *v2;
-  v3[37] = a1;
-  v3[38] = v1;
-
-  if (v1)
-  {
-    v5 = v3[28];
-    v6 = sub_10026D128;
-  }
-
-  else
-  {
-    v7 = v3[35];
-
-    v6 = sub_10026C84C;
-    v5 = 0;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_10026C84C()
-{
-  v1 = *(v0[37] + 128);
-  v2 = swift_task_alloc();
-  v0[39] = v2;
-  *v2 = v0;
-  v2[1] = sub_10026C8EC;
-  v3 = v0[29];
-  v4 = v0[27];
-
-  return sub_1001C3C00(v3, v4);
-}
-
-uint64_t sub_10026C8EC()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 312);
-  v4 = *v1;
-
-  v5 = *(v2 + 224);
-  if (v0)
-  {
-
-    v6 = sub_10026CBDC;
-  }
-
-  else
-  {
-    v6 = sub_10026CA24;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_10026CA24()
-{
-  v1 = v0[29];
-  if ((*(v0[31] + 48))(v1, 1, v0[30]) == 1)
-  {
-    sub_100002CE0(v1, &qword_1005AE720, &qword_1004CA2F0);
-LABEL_7:
-    v13 = swift_task_alloc();
-    v0[40] = v13;
-    *v13 = v0;
-    v13[1] = sub_10026CCA8;
-    v14 = v0[27];
-    v15 = v0[28];
-
-    return sub_10026FAF8(v14);
-  }
-
-  v2 = v0[33];
-  v3 = v0[27];
-  sub_100274934(v1, v2, type metadata accessor for FenceRecord);
-  v4 = sub_1001A4BD0(v2, v3);
-  sub_100274A04(v2, type metadata accessor for FenceRecord);
-  if ((v4 & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  v5 = v0[37];
-  v6 = v0[26];
-  v7 = v0[27];
-
-  sub_10027499C(v7, v6, type metadata accessor for FenceRecord);
-  v9 = v0[32];
-  v8 = v0[33];
-  v10 = v0[29];
-
-  v11 = v0[1];
-
-  return v11();
-}
-
-uint64_t sub_10026CBDC()
-{
-  (*(v0[31] + 56))(v0[29], 1, 1, v0[30]);
-  sub_100002CE0(v0[29], &qword_1005AE720, &qword_1004CA2F0);
-  v1 = swift_task_alloc();
-  v0[40] = v1;
-  *v1 = v0;
-  v1[1] = sub_10026CCA8;
-  v2 = v0[27];
-  v3 = v0[28];
-
-  return sub_10026FAF8(v2);
-}
-
-uint64_t sub_10026CCA8()
-{
-  v2 = *(*v1 + 320);
-  v3 = *(*v1 + 224);
-  v6 = *v1;
-  *(*v1 + 328) = v0;
-
-  if (v0)
-  {
-    v4 = sub_10026D1B0;
-  }
-
-  else
-  {
-    v4 = sub_10026CDD0;
-  }
-
-  return _swift_task_switch(v4, v3, 0);
-}
-
-uint64_t sub_10026CDD0()
-{
-  v1 = *(v0 + 256);
-  v2 = *(v0 + 240);
-  v3 = *(v0 + 216);
-  UUID.init()();
-  v4 = (v3 + v2[5]);
-  v6 = *v4;
-  v5 = v4[1];
-  v7 = *(v3 + v2[6]);
-  v8 = *(v3 + v2[7]);
-  sub_100005F04(v3 + v2[8], v1 + v2[8], &qword_1005AE5C0, &unk_1004D06D0);
-  sub_100005F04(v3 + v2[9], v1 + v2[9], &unk_1005AE5B0, &qword_1004C32F0);
-  v9 = (v3 + v2[10]);
-  v10 = v9[2];
-  v11 = v9[3];
-  v12 = v9[5];
-  *(v0 + 80) = v9[4];
-  *(v0 + 96) = v12;
-  *(v0 + 48) = v10;
-  *(v0 + 64) = v11;
-  v13 = v9[1];
-  *(v0 + 16) = *v9;
-  *(v0 + 32) = v13;
-  v14 = (v1 + v2[5]);
-  *v14 = v6;
-  v14[1] = v5;
-  *(v1 + v2[6]) = v7;
-  *(v1 + v2[7]) = v8;
-  v15 = (v1 + v2[10]);
-  v16 = *(v0 + 32);
-  *v15 = *(v0 + 16);
-  v15[1] = v16;
-  v17 = *(v0 + 48);
-  v18 = *(v0 + 64);
-  v19 = *(v0 + 96);
-  v15[4] = *(v0 + 80);
-  v15[5] = v19;
-  v15[2] = v17;
-  v15[3] = v18;
-
-  v20 = v7;
-  sub_1001A6A68(v0 + 16, v0 + 112);
-  v21 = swift_task_alloc();
-  *(v0 + 336) = v21;
-  *v21 = v0;
-  v21[1] = sub_10026CF60;
-  v22 = *(v0 + 256);
-  v23 = *(v0 + 224);
-  v24 = *(v0 + 208);
-
-  return sub_100272914(v24, v22);
-}
-
-uint64_t sub_10026CF60()
-{
-  v2 = *(*v1 + 336);
-  v3 = *(*v1 + 224);
-  v6 = *v1;
-  *(*v1 + 344) = v0;
-
-  if (v0)
-  {
-    v4 = sub_10026D4D4;
-  }
-
-  else
-  {
-    v4 = sub_10026D088;
-  }
-
-  return _swift_task_switch(v4, v3, 0);
-}
-
-uint64_t sub_10026D088()
-{
-  v1 = v0[37];
-  v2 = v0[32];
-
-  sub_100274A04(v2, type metadata accessor for FenceRecord);
-  v4 = v0[32];
-  v3 = v0[33];
-  v5 = v0[29];
-
-  v6 = v0[1];
-
-  return v6();
-}
-
-uint64_t sub_10026D128()
-{
-  v1 = v0[35];
-
-  v2 = v0[38];
-  v4 = v0[32];
-  v3 = v0[33];
-  v5 = v0[29];
-
-  v6 = v0[1];
-
-  return v6();
-}
-
-uint64_t sub_10026D1B0()
-{
-  v37 = v0;
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v1 = *(v0 + 328);
-  v2 = type metadata accessor for Logger();
-  sub_10000A6F0(v2, qword_1005DFF88);
-  swift_errorRetain();
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
-
-  v5 = os_log_type_enabled(v3, v4);
-  v6 = *(v0 + 328);
-  if (v5)
-  {
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v36 = v9;
-    *v7 = 136446466;
-    *(v7 + 4) = sub_10000D01C(0xD00000000000001ALL, 0x80000001004E64F0, &v36);
-    *(v7 + 12) = 2114;
-    swift_errorRetain();
-    v10 = _swift_stdlib_bridgeErrorToNSError();
-    *(v7 + 14) = v10;
-    *v8 = v10;
-    _os_log_impl(&_mh_execute_header, v3, v4, "%{public}s error: %{public}@", v7, 0x16u);
-    sub_100002CE0(v8, &qword_1005A9670, &unk_1004C2480);
-
-    sub_100004984(v9);
-  }
-
-  else
-  {
-  }
-
-  v11 = *(v0 + 256);
-  v12 = *(v0 + 240);
-  v13 = *(v0 + 216);
-  UUID.init()();
-  v14 = (v13 + v12[5]);
-  v16 = *v14;
-  v15 = v14[1];
-  v17 = *(v13 + v12[6]);
-  v18 = *(v13 + v12[7]);
-  sub_100005F04(v13 + v12[8], v11 + v12[8], &qword_1005AE5C0, &unk_1004D06D0);
-  sub_100005F04(v13 + v12[9], v11 + v12[9], &unk_1005AE5B0, &qword_1004C32F0);
-  v19 = (v13 + v12[10]);
-  v20 = v19[2];
-  v21 = v19[3];
-  v22 = v19[5];
-  *(v0 + 80) = v19[4];
-  *(v0 + 96) = v22;
-  *(v0 + 48) = v20;
-  *(v0 + 64) = v21;
-  v23 = v19[1];
-  *(v0 + 16) = *v19;
-  *(v0 + 32) = v23;
-  v24 = (v11 + v12[5]);
-  *v24 = v16;
-  v24[1] = v15;
-  *(v11 + v12[6]) = v17;
-  *(v11 + v12[7]) = v18;
-  v25 = (v11 + v12[10]);
-  v26 = *(v0 + 32);
-  *v25 = *(v0 + 16);
-  v25[1] = v26;
-  v27 = *(v0 + 48);
-  v28 = *(v0 + 64);
-  v29 = *(v0 + 96);
-  v25[4] = *(v0 + 80);
-  v25[5] = v29;
-  v25[2] = v27;
-  v25[3] = v28;
-
-  v30 = v17;
-  sub_1001A6A68(v0 + 16, v0 + 112);
-  v31 = swift_task_alloc();
-  *(v0 + 336) = v31;
-  *v31 = v0;
-  v31[1] = sub_10026CF60;
-  v32 = *(v0 + 256);
-  v33 = *(v0 + 224);
-  v34 = *(v0 + 208);
-
-  return sub_100272914(v34, v32);
-}
-
-uint64_t sub_10026D4D4()
-{
-  v1 = v0[37];
-  v2 = v0[32];
-
-  sub_100274A04(v2, type metadata accessor for FenceRecord);
-  v3 = v0[43];
-  v5 = v0[32];
-  v4 = v0[33];
-  v6 = v0[29];
-
-  v7 = v0[1];
-
-  return v7();
-}
-
-uint64_t sub_10026D57C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v7[13] = a6;
-  v7[14] = a7;
-  v7[11] = a4;
-  v7[12] = a5;
-  v7[9] = a2;
-  v7[10] = a3;
-  v9 = type metadata accessor for Fence();
-  v7[15] = v9;
-  v10 = *(v9 - 8);
-  v7[16] = v10;
-  v7[17] = *(v10 + 64);
-  v7[18] = swift_task_alloc();
-  v11 = *(type metadata accessor for FenceRecord() - 8);
-  v7[19] = v11;
-  v7[20] = *(v11 + 64);
-  v7[21] = swift_task_alloc();
-  v12 = type metadata accessor for PersonHandle();
-  v7[22] = v12;
-  v13 = *(v12 - 8);
-  v7[23] = v13;
-  v7[24] = *(v13 + 64);
-  v7[25] = swift_task_alloc();
-  v14 = *(*(sub_10004B564(&qword_1005A9690, &qword_1004C2A00) - 8) + 64) + 15;
-  v7[26] = swift_task_alloc();
-  v7[27] = swift_task_alloc();
-
-  return _swift_task_switch(sub_10026D758, a6, 0);
-}
-
-uint64_t sub_10026D758()
-{
-  v1 = *(v0 + 80);
-  v2 = Fence.others.getter();
-  v3 = *(v2 + 16);
-  if (v3)
-  {
-    v4 = *(v0 + 184);
-    v50 = *(v0 + 152);
-    v48 = **(v0 + 72);
-    v5 = (*(v4 + 80) + 32) & ~*(v4 + 80);
-    v6 = v2 + v5;
-    v46 = (v4 + 16);
-    v47 = v5;
-    v45 = (*(v0 + 192) + v5 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v44 = *(v4 + 72);
-    v43 = *(v0 + 160) + 7;
-    v41 = (v4 + 32);
-    v42 = *(v0 + 136) + 7;
-    v49 = *(v0 + 128);
-    v7 = type metadata accessor for TaskPriority();
-    v8 = *(v7 - 8);
-    v39 = *(v8 + 56);
-    v38 = (v8 + 48);
-    v37 = (v8 + 8);
-    v40 = v7;
-    do
-    {
-      v59 = v3;
-      v11 = *(v0 + 216);
-      v57 = *(v0 + 208);
-      v12 = *(v0 + 200);
-      v14 = *(v0 + 168);
-      v13 = *(v0 + 176);
-      v15 = *(v0 + 144);
-      v16 = *(v0 + 120);
-      v51 = v14;
-      v55 = v11;
-      v56 = *(v0 + 112);
-      v17 = *(v0 + 96);
-      v54 = *(v0 + 104);
-      v18 = *(v0 + 80);
-      v52 = v15;
-      v53 = *(v0 + 88);
-      v39();
-      v58 = v6;
-      (*v46)(v12, v6, v13);
-      sub_10027499C(v17, v14, type metadata accessor for FenceRecord);
-      (*(v49 + 16))(v15, v18, v16);
-      v19 = (v45 + 8 + *(v50 + 80)) & ~*(v50 + 80);
-      v20 = (v43 + v19) & 0xFFFFFFFFFFFFFFF8;
-      v21 = (*(v49 + 80) + v20 + 8) & ~*(v49 + 80);
-      v22 = swift_allocObject();
-      *(v22 + 16) = 0;
-      v23 = (v22 + 16);
-      *(v22 + 24) = 0;
-      (*v41)(v22 + v47, v12, v13);
-      *(v22 + v45) = v53;
-      sub_100274934(v51, v22 + v19, type metadata accessor for FenceRecord);
-      *(v22 + v20) = v54;
-      (*(v49 + 32))(v22 + v21, v52, v16);
-      *(v22 + ((v42 + v21) & 0xFFFFFFFFFFFFFFF8)) = v56;
-      sub_100005F04(v55, v57, &qword_1005A9690, &qword_1004C2A00);
-      LODWORD(v19) = (*v38)(v57, 1, v40);
-
-      v24 = *(v0 + 208);
-      if (v19 == 1)
-      {
-        sub_100002CE0(*(v0 + 208), &qword_1005A9690, &qword_1004C2A00);
-        if (*v23)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      else
-      {
-        TaskPriority.rawValue.getter();
-        (*v37)(v24, v40);
-        if (*v23)
-        {
-LABEL_9:
-          v27 = *(v22 + 24);
-          swift_getObjectType();
-          swift_unknownObjectRetain();
-          v25 = dispatch thunk of Actor.unownedExecutor.getter();
-          v26 = v28;
-          swift_unknownObjectRelease();
-          goto LABEL_10;
-        }
-      }
-
-      v25 = 0;
-      v26 = 0;
-LABEL_10:
-      v29 = swift_allocObject();
-      *(v29 + 16) = &unk_1004D2738;
-      *(v29 + 24) = v22;
-
-      if (v26 | v25)
-      {
-        v9 = v0 + 16;
-        *(v0 + 16) = 0;
-        *(v0 + 24) = 0;
-        *(v0 + 32) = v25;
-        *(v0 + 40) = v26;
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      v10 = *(v0 + 216);
-      *(v0 + 48) = 1;
-      *(v0 + 56) = v9;
-      *(v0 + 64) = v48;
-      swift_task_create();
-
-      sub_100002CE0(v10, &qword_1005A9690, &qword_1004C2A00);
-      v6 = v58 + v44;
-      v3 = v59 - 1;
-    }
-
-    while (v59 != 1);
-  }
-
-  v31 = *(v0 + 208);
-  v30 = *(v0 + 216);
-  v32 = *(v0 + 200);
-  v33 = *(v0 + 168);
-  v34 = *(v0 + 144);
-
-  v35 = *(v0 + 8);
-
-  return v35();
-}
-
-uint64_t sub_10026DC44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v7[5] = a6;
-  v7[6] = a7;
-  v7[3] = a4;
-  v7[4] = a5;
-  v7[2] = a3;
-  v8 = type metadata accessor for URL();
-  v7[7] = v8;
-  v9 = *(v8 - 8);
-  v7[8] = v9;
-  v10 = *(v9 + 64) + 15;
-  v7[9] = swift_task_alloc();
-  v11 = type metadata accessor for Handle();
-  v7[10] = v11;
-  v12 = *(v11 - 8);
-  v7[11] = v12;
-  v13 = *(v12 + 64) + 15;
-  v7[12] = swift_task_alloc();
-
-  return _swift_task_switch(sub_10026DD68, 0, 0);
-}
-
-uint64_t sub_10026DD68()
-{
-  v1 = v0[12];
-  v2 = v0[2];
-  PersonHandle.id.getter();
-  sub_1002743D4(_swiftEmptyArrayStorage);
-  Handle.init(withID:serverID:pushIdentifiers:expiresByGroupId:siblingIdentifiers:favoriteOrder:)();
-  v3 = swift_task_alloc();
-  v0[13] = v3;
-  *v3 = v0;
-  v3[1] = sub_10026DE64;
-  v4 = v0[12];
-  v5 = v0[9];
-  v7 = v0[3];
-  v6 = v0[4];
-
-  return sub_1001BEE94(v5, v6, v4);
-}
-
-uint64_t sub_10026DE64(uint64_t a1)
-{
-  v4 = *v2;
-  v5 = *(*v2 + 104);
-  v6 = *v2;
-  v4[14] = a1;
-  v4[15] = v1;
-
-  if (v1)
-  {
-
-    return _swift_task_switch(sub_10026E200, 0, 0);
-  }
-
-  else
-  {
-    v7 = swift_task_alloc();
-    v4[16] = v7;
-    *v7 = v6;
-    v7[1] = sub_10026DFF0;
-    v8 = v4[12];
-    v9 = v4[9];
-    v10 = v4[4];
-    v11 = v4[5];
-
-    return sub_100256250(a1, v8, v9, v10);
-  }
-}
-
-uint64_t sub_10026DFF0()
-{
-  v2 = *(*v1 + 128);
-  v5 = *v1;
-  *(*v1 + 136) = v0;
-
-  if (v0)
-  {
-    v3 = sub_10026E47C;
-  }
-
-  else
-  {
-    v3 = sub_10026E104;
-  }
-
-  return _swift_task_switch(v3, 0, 0);
-}
-
-uint64_t sub_10026E104()
-{
-  v1 = v0[14];
-  v3 = v0[11];
-  v2 = v0[12];
-  v5 = v0[9];
-  v4 = v0[10];
-  v6 = v0[7];
-  v7 = v0[8];
-  v8 = sub_10004D4B8(v0[6], 0, 0);
-  sub_10001157C(v8, v9, v10);
-
-  (*(v7 + 8))(v5, v6);
-  (*(v3 + 8))(v2, v4);
-  v11 = v0[12];
-  v12 = v0[9];
-
-  v13 = v0[1];
-
-  return v13();
-}
-
-uint64_t sub_10026E200()
-{
-  v20 = v0;
-  v1 = v0[15];
-  v2 = v0[6];
-  (*(v0[11] + 8))(v0[12], v0[10]);
-  swift_errorRetain();
-  v3 = sub_10004D4B8(v2, v1, 1);
-  v5 = v4;
-  v7 = v6;
-
-  sub_10001157C(v3, v5, v7);
-
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v8 = type metadata accessor for Logger();
-  sub_10000A6F0(v8, qword_1005DFF88);
-  swift_errorRetain();
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v9, v10))
-  {
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v19 = v13;
-    *v11 = 136446466;
-    *(v11 + 4) = sub_10000D01C(0xD000000000000015, 0x80000001004E64D0, &v19);
-    *(v11 + 12) = 2114;
-    swift_errorRetain();
-    v14 = _swift_stdlib_bridgeErrorToNSError();
-    *(v11 + 14) = v14;
-    *v12 = v14;
-    _os_log_impl(&_mh_execute_header, v9, v10, "%{public}s: Failed to share CK record: %{public}@", v11, 0x16u);
-    sub_100002CE0(v12, &qword_1005A9670, &unk_1004C2480);
-
-    sub_100004984(v13);
-  }
-
-  else
-  {
-  }
-
-  v15 = v0[12];
-  v16 = v0[9];
-
-  v17 = v0[1];
-
-  return v17();
-}
-
-uint64_t sub_10026E47C()
-{
-  v23 = v0;
-  v2 = *(v0 + 64);
-  v1 = *(v0 + 72);
-  v3 = *(v0 + 56);
-
-  (*(v2 + 8))(v1, v3);
-  v4 = *(v0 + 136);
-  v5 = *(v0 + 48);
-  (*(*(v0 + 88) + 8))(*(v0 + 96), *(v0 + 80));
-  swift_errorRetain();
-  v6 = sub_10004D4B8(v5, v4, 1);
-  v8 = v7;
-  v10 = v9;
-
-  sub_10001157C(v6, v8, v10);
-
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v11 = type metadata accessor for Logger();
-  sub_10000A6F0(v11, qword_1005DFF88);
-  swift_errorRetain();
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v12, v13))
-  {
     v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v22 = v16;
-    *v14 = 136446466;
-    *(v14 + 4) = sub_10000D01C(0xD000000000000015, 0x80000001004E64D0, &v22);
-    *(v14 + 12) = 2114;
-    swift_errorRetain();
-    v17 = _swift_stdlib_bridgeErrorToNSError();
-    *(v14 + 14) = v17;
-    *v15 = v17;
-    _os_log_impl(&_mh_execute_header, v12, v13, "%{public}s: Failed to share CK record: %{public}@", v14, 0x16u);
-    sub_100002CE0(v15, &qword_1005A9670, &unk_1004C2480);
+    v21 = v14;
+    *v13 = 136446210;
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v15 = dispatch thunk of CustomStringConvertible.description.getter();
+    v17 = v16;
+    (*(v11 + 8))(v10, v12);
+    v18 = sub_10000D01C(v15, v17, &v21);
 
-    sub_100004984(v16);
+    *(v13 + 4) = v18;
+    _os_log_impl(&_mh_execute_header, v7, v8, "saveFenceTrigger: %{public}s", v13, 0xCu);
+    sub_100004984(v14);
   }
 
   else
   {
+
+    (*(v11 + 8))(v10, v12);
   }
 
-  v18 = *(v0 + 96);
-  v19 = *(v0 + 72);
-
-  v20 = *(v0 + 8);
-
-  return v20();
-}
-
-uint64_t sub_10026E720(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v13 = swift_task_alloc();
-  *(v8 + 224) = v13;
-  *v13 = v8;
-  v13[1] = sub_10026E7E8;
-
-  return sub_1000790BC(a5, a6, a7, a8);
-}
-
-uint64_t sub_10026E7E8()
-{
-  v2 = *(*v1 + 224);
-  v5 = *v1;
-  *(*v1 + 232) = v0;
-
-  if (v0)
-  {
-    v3 = sub_10026EA64;
-  }
-
-  else
-  {
-    v3 = sub_10026E8FC;
-  }
-
-  return _swift_task_switch(v3, 0, 0);
-}
-
-uint64_t sub_10026E8FC()
-{
-  sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_1004C1900;
-  *(inited + 32) = 37;
-  *(v0 + 192) = 0;
-  *(v0 + 200) = 0;
-  sub_10004B564(&qword_1005A8800, &qword_1004C0EC0);
-  Result.error.getter();
-  v2 = sub_10004C9A8(*(v0 + 216));
-  v4 = v3;
-
-  *(inited + 64) = &type metadata for String;
-  *(inited + 72) = &off_10058C398;
-  *(inited + 40) = v2;
-  *(inited + 48) = v4;
-  v5 = sub_1000105C0(inited);
-  swift_setDeallocating();
-  sub_100002CE0(inited + 32, &qword_1005A8790, &qword_1004C0EB0);
-  v6 = sub_10004C68C(4u, v5);
-  v8 = v7;
-  v10 = v9;
-
-  sub_10001157C(v6, v8, v10);
-
-  v11 = *(v0 + 8);
-
-  return v11();
-}
-
-uint64_t sub_10026EA64()
-{
-  v1 = *(v0 + 232);
-  sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-  inited = swift_initStackObject();
-  *(inited + 32) = 37;
-  *(inited + 16) = xmmword_1004C1900;
-  *(v0 + 176) = v1;
-  *(v0 + 184) = 1;
-  swift_errorRetain();
-  sub_10004B564(&qword_1005A8800, &qword_1004C0EC0);
-  Result.error.getter();
-  v3 = sub_10004C9A8(*(v0 + 208));
-  v5 = v4;
-
-  *(inited + 64) = &type metadata for String;
-  *(inited + 72) = &off_10058C398;
-  *(inited + 40) = v3;
-  *(inited + 48) = v5;
-  v6 = sub_1000105C0(inited);
-  swift_setDeallocating();
-  sub_100002CE0(inited + 32, &qword_1005A8790, &qword_1004C0EB0);
-  v7 = sub_10004C68C(4u, v6);
-  v9 = v8;
-  v11 = v10;
-
-  sub_10001157C(v7, v9, v11);
-
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v12 = *(v0 + 232);
-  v13 = type metadata accessor for Logger();
-  sub_10000A6F0(v13, qword_1005DFF88);
-  swift_errorRetain();
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.error.getter();
-
-  v16 = os_log_type_enabled(v14, v15);
-  v17 = *(v0 + 232);
-  if (v16)
-  {
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    *v18 = 138543362;
-    swift_errorRetain();
-    v20 = _swift_stdlib_bridgeErrorToNSError();
-    *(v18 + 4) = v20;
-    *v19 = v20;
-    _os_log_impl(&_mh_execute_header, v14, v15, "Task got error while sending CK share delete notification: %{public}@", v18, 0xCu);
-    sub_100002CE0(v19, &qword_1005A9670, &unk_1004C2480);
-  }
-
-  else
-  {
-  }
-
-  v21 = *(v0 + 8);
-
-  return v21();
-}
-
-uint64_t sub_10026ED20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v6[57] = a4;
-  v6[58] = a6;
-  v8 = type metadata accessor for Fence.ID();
-  v6[59] = v8;
-  v9 = *(v8 - 8);
-  v6[60] = v9;
-  v10 = *(v9 + 64) + 15;
-  v6[61] = swift_task_alloc();
-  v11 = type metadata accessor for Fence();
-  v6[62] = v11;
-  v12 = *(v11 - 8);
-  v6[63] = v12;
-  v13 = *(v12 + 64) + 15;
-  v6[64] = swift_task_alloc();
-  v6[65] = swift_projectBox();
-
-  return _swift_task_switch(sub_10026EE50, a4, 0);
-}
-
-uint64_t sub_10026EE50()
-{
-  v1 = v0[65];
-  v3 = v0[63];
-  v2 = v0[64];
-  v5 = v0[61];
-  v4 = v0[62];
-  swift_beginAccess();
-  (*(v3 + 16))(v2, v1, v4);
-  Fence.id.getter();
-  (*(v3 + 8))(v2, v4);
-  v6 = swift_task_alloc();
-  v0[66] = v6;
-  *v6 = v0;
-  v6[1] = sub_10026EF5C;
-  v7 = v0[61];
-  v8 = v0[57];
-
-  return sub_10027C184(v7);
-}
-
-uint64_t sub_10026EF5C()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 528);
-  v4 = *(*v1 + 488);
-  v5 = *(*v1 + 480);
-  v6 = *(*v1 + 472);
-  v7 = *v1;
-  *(*v1 + 536) = v0;
-
-  (*(v5 + 8))(v4, v6);
-  v8 = *(v2 + 456);
-  if (v0)
-  {
-    v9 = sub_10026F530;
-  }
-
-  else
-  {
-    v9 = sub_10026F0E4;
-  }
-
-  return _swift_task_switch(v9, v8, 0);
-}
-
-uint64_t sub_10026F0E4()
-{
-  sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_1004C1900;
-  *(inited + 32) = 35;
-  *(v0 + 408) = 0;
-  *(v0 + 416) = 0;
-  sub_10004B564(&qword_1005A8800, &qword_1004C0EC0);
-  Result.error.getter();
-  v2 = sub_10004C9A8(*(v0 + 448));
-  v4 = v3;
-
-  *(inited + 64) = &type metadata for String;
-  *(inited + 72) = &off_10058C398;
-  *(inited + 40) = v2;
-  *(inited + 48) = v4;
-  v5 = sub_1000105C0(inited);
-  swift_setDeallocating();
-  sub_100002CE0(inited + 32, &qword_1005A8790, &qword_1004C0EB0);
-  v6 = sub_10004C68C(4u, v5);
-  v8 = v7;
-  v10 = v9;
-
-  sub_10001157C(v6, v8, v10);
-
-  v11 = swift_task_alloc();
-  *(v0 + 544) = v11;
-  *v11 = v0;
-  v11[1] = sub_10026F288;
-  v13 = *(v0 + 456);
-  v12 = *(v0 + 464);
-
-  return sub_10026FAF8(v12);
-}
-
-uint64_t sub_10026F288()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 544);
-  v4 = *v1;
-  *(*v1 + 552) = v0;
-
-  v5 = *(v2 + 456);
-  if (v0)
-  {
-    v6 = sub_10026F828;
-  }
-
-  else
-  {
-    v6 = sub_10026F3B4;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_10026F3B4()
-{
-  sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_1004C1900;
-  *(inited + 32) = 36;
-  *(v0 + 392) = 0;
-  *(v0 + 400) = 0;
-  sub_10004B564(&qword_1005A8800, &qword_1004C0EC0);
-  Result.error.getter();
-  v2 = sub_10004C9A8(*(v0 + 440));
-  v4 = v3;
-
-  *(inited + 64) = &type metadata for String;
-  *(inited + 72) = &off_10058C398;
-  *(inited + 40) = v2;
-  *(inited + 48) = v4;
-  v5 = sub_1000105C0(inited);
-  swift_setDeallocating();
-  sub_100002CE0(inited + 32, &qword_1005A8790, &qword_1004C0EB0);
-  v6 = sub_10004C68C(4u, v5);
-  v8 = v7;
-  v10 = v9;
-
-  sub_10001157C(v6, v8, v10);
-
-  v11 = *(v0 + 512);
-  v12 = *(v0 + 488);
-
-  v13 = *(v0 + 8);
-
-  return v13();
-}
-
-uint64_t sub_10026F530()
-{
-  v1 = *(v0 + 536);
-  sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_1004C1900;
-  *(inited + 32) = 35;
-  *(v0 + 360) = v1;
-  *(v0 + 368) = 1;
-  swift_errorRetain();
-  sub_10004B564(&qword_1005A8800, &qword_1004C0EC0);
-  Result.error.getter();
-  v3 = sub_10004C9A8(*(v0 + 424));
-  v5 = v4;
-
-  *(inited + 64) = &type metadata for String;
-  *(inited + 72) = &off_10058C398;
-  *(inited + 40) = v3;
-  *(inited + 48) = v5;
-  v6 = sub_1000105C0(inited);
-  swift_setDeallocating();
-  sub_100002CE0(inited + 32, &qword_1005A8790, &qword_1004C0EB0);
-  v7 = sub_10004C68C(4u, v6);
-  v9 = v8;
-  v11 = v10;
-
-  sub_10001157C(v7, v9, v11);
-
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v12 = *(v0 + 536);
-  v13 = type metadata accessor for Logger();
-  sub_10000A6F0(v13, qword_1005DFF88);
-  swift_errorRetain();
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.error.getter();
-
-  v16 = os_log_type_enabled(v14, v15);
-  v17 = *(v0 + 536);
-  if (v16)
-  {
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    *v18 = 138543362;
-    swift_errorRetain();
-    v20 = _swift_stdlib_bridgeErrorToNSError();
-    *(v18 + 4) = v20;
-    *v19 = v20;
-    _os_log_impl(&_mh_execute_header, v14, v15, "Got an error while deleting fence trigger: %{public}@", v18, 0xCu);
-    sub_100002CE0(v19, &qword_1005A9670, &unk_1004C2480);
-  }
-
-  else
-  {
-  }
-
-  v21 = swift_task_alloc();
-  *(v0 + 544) = v21;
-  *v21 = v0;
-  v21[1] = sub_10026F288;
-  v23 = *(v0 + 456);
-  v22 = *(v0 + 464);
-
-  return sub_10026FAF8(v22);
-}
-
-uint64_t sub_10026F828()
-{
-  v1 = *(v0 + 552);
-  sub_10004B564(&qword_1005A8788, &qword_1004C0EA8);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_1004C1900;
-  *(inited + 32) = 36;
-  *(v0 + 376) = v1;
-  *(v0 + 384) = 1;
-  swift_errorRetain();
-  sub_10004B564(&qword_1005A8800, &qword_1004C0EC0);
-  Result.error.getter();
-  v3 = sub_10004C9A8(*(v0 + 432));
-  v5 = v4;
-
-  *(inited + 64) = &type metadata for String;
-  *(inited + 72) = &off_10058C398;
-  *(inited + 40) = v3;
-  *(inited + 48) = v5;
-  v6 = sub_1000105C0(inited);
-  swift_setDeallocating();
-  sub_100002CE0(inited + 32, &qword_1005A8790, &qword_1004C0EB0);
-  v7 = sub_10004C68C(4u, v6);
-  v9 = v8;
-  v11 = v10;
-
-  sub_10001157C(v7, v9, v11);
-
-  if (qword_1005A80E8 != -1)
-  {
-    swift_once();
-  }
-
-  v12 = *(v0 + 552);
-  v13 = type metadata accessor for Logger();
-  sub_10000A6F0(v13, qword_1005DFF88);
-  swift_errorRetain();
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.error.getter();
-
-  v16 = os_log_type_enabled(v14, v15);
-  v17 = *(v0 + 552);
-  if (v16)
-  {
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    *v18 = 138543362;
-    swift_errorRetain();
-    v20 = _swift_stdlib_bridgeErrorToNSError();
-    *(v18 + 4) = v20;
-    *v19 = v20;
-    _os_log_impl(&_mh_execute_header, v14, v15, "Got an error while deleting CK share: %{public}@", v18, 0xCu);
-    sub_100002CE0(v19, &qword_1005A9670, &unk_1004C2480);
-  }
-
-  else
-  {
-  }
-
-  v21 = *(v0 + 512);
-  v22 = *(v0 + 488);
-
-  v23 = *(v0 + 8);
-
-  return v23();
-}
-
-uint64_t sub_10026FAF8(uint64_t a1)
-{
-  v2[2] = a1;
-  v2[3] = v1;
-  v3 = type metadata accessor for UUID();
-  v2[4] = v3;
-  v4 = *(v3 - 8);
-  v2[5] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[6] = swift_task_alloc();
-  v6 = type metadata accessor for CloudKitCoordinator.Database();
-  v2[7] = v6;
-  v7 = *(v6 - 8);
-  v2[8] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[9] = swift_task_alloc();
-  v9 = *(*(sub_10004B564(&qword_1005AF228, &unk_1004D0440) - 8) + 64) + 15;
-  v2[10] = swift_task_alloc();
-  v10 = *(*(sub_10004B564(&qword_1005AE720, &qword_1004CA2F0) - 8) + 64) + 15;
-  v2[11] = swift_task_alloc();
-  v11 = type metadata accessor for FenceRecord();
-  v2[12] = v11;
-  v12 = *(v11 - 8);
-  v2[13] = v12;
-  v13 = *(v12 + 64) + 15;
-  v2[14] = swift_task_alloc();
-  v14 = async function pointer to daemon.getter[1];
-  v15 = swift_task_alloc();
-  v2[15] = v15;
-  *v15 = v2;
-  v15[1] = sub_10026FD10;
+  v19 = swift_task_alloc();
+  v0[14] = v19;
+  *v19 = v0;
+  v19[1] = sub_1002896A0;
 
   return daemon.getter();
 }
 
-uint64_t sub_10026FD10(uint64_t a1)
+uint64_t sub_1002896A0(uint64_t a1)
 {
-  v3 = *v1;
-  v4 = *(*v1 + 120);
-  v12 = *v1;
-  *(v3 + 128) = a1;
+  v2 = *v1;
+  v9 = *v1;
+  *(v2 + 120) = a1;
 
-  v5 = async function pointer to ActorServiceDaemon.getService<A>()[1];
-  v6 = swift_task_alloc();
-  *(v3 + 136) = v6;
-  v7 = type metadata accessor for Daemon();
-  v8 = type metadata accessor for CloudStorageService();
-  v9 = sub_1000094D0(&unk_1005AFA50, &type metadata accessor for Daemon);
-  v10 = sub_1000094D0(&qword_1005AD568, type metadata accessor for CloudStorageService);
-  *v6 = v12;
-  v6[1] = sub_10026FEEC;
+  v3 = swift_task_alloc();
+  *(v2 + 128) = v3;
+  v4 = type metadata accessor for Daemon();
+  v5 = type metadata accessor for LocalStorageService();
+  v6 = sub_100009518(&unk_1005AFA50, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v7 = sub_100009518(&qword_1005AAB88, type metadata accessor for LocalStorageService, &unk_1004D5A30);
+  *v3 = v9;
+  v3[1] = sub_10028987C;
 
-  return ActorServiceDaemon.getService<A>()(v7, v8, v9, v10);
+  return ActorServiceDaemon.getService<A>()(v4, v5, v6, v7);
 }
 
-uint64_t sub_10026FEEC(uint64_t a1)
+uint64_t sub_10028987C(uint64_t a1)
 {
   v3 = *v2;
-  v4 = *(*v2 + 136);
-  v9 = *v2;
-  v3[18] = a1;
-  v3[19] = v1;
+  v3[17] = a1;
+  v3[18] = v1;
 
   if (v1)
   {
-    v5 = v3[3];
-    v6 = sub_1002712FC;
+    v4 = v3[5];
+    v5 = sub_10028A00C;
   }
 
   else
   {
-    v7 = v3[16];
+    v6 = v3[5];
 
-    v6 = sub_100270010;
-    v5 = 0;
-  }
-
-  return _swift_task_switch(v6, v5, 0);
-}
-
-uint64_t sub_100270010()
-{
-  v1 = *(v0[18] + 128);
-  v2 = swift_task_alloc();
-  v0[20] = v2;
-  *v2 = v0;
-  v2[1] = sub_1002700B0;
-  v3 = v0[11];
-  v4 = v0[2];
-
-  return sub_1001C3C00(v3, v4);
-}
-
-uint64_t sub_1002700B0()
-{
-  v2 = *(*v1 + 160);
-  v3 = *(*v1 + 24);
-  v6 = *v1;
-  *(*v1 + 168) = v0;
-
-  if (v0)
-  {
-    v4 = sub_10027051C;
-  }
-
-  else
-  {
-    v4 = sub_1002701D8;
-  }
-
-  return _swift_task_switch(v4, v3, 0);
-}
-
-uint64_t sub_1002701D8()
-{
-  v32 = v0;
-  v1 = v0[11];
-  if ((*(v0[13] + 48))(v1, 1, v0[12]) == 1)
-  {
-    sub_100002CE0(v1, &qword_1005AE720, &qword_1004CA2F0);
-    if (qword_1005A80E8 != -1)
-    {
-      swift_once();
-    }
-
-    v3 = v0[5];
-    v2 = v0[6];
-    v4 = v0[4];
-    v5 = v0[2];
-    v6 = type metadata accessor for Logger();
-    sub_10000A6F0(v6, qword_1005DFF88);
-    (*(v3 + 16))(v2, v5, v4);
-    v7 = Logger.logObject.getter();
-    v8 = static os_log_type_t.default.getter();
-    v9 = os_log_type_enabled(v7, v8);
-    v10 = v0[18];
-    v12 = v0[5];
-    v11 = v0[6];
-    v13 = v0[4];
-    if (v9)
-    {
-      v30 = v0[18];
-      v14 = swift_slowAlloc();
-      v31 = swift_slowAlloc();
-      *v14 = 136446466;
-      *(v14 + 4) = sub_10000D01C(0xD000000000000026, 0x80000001004E6530, &v31);
-      *(v14 + 12) = 2082;
-      v15 = UUID.uuidString.getter();
-      v17 = v16;
-      (*(v12 + 8))(v11, v13);
-      v18 = sub_10000D01C(v15, v17, &v31);
-
-      *(v14 + 14) = v18;
-      _os_log_impl(&_mh_execute_header, v7, v8, "%{public}s: No fence with ckRecordIdentifier: %{public}s", v14, 0x16u);
-      swift_arrayDestroy();
-    }
-
-    else
-    {
-      v22 = v0[18];
-
-      (*(v12 + 8))(v11, v13);
-    }
-
-    v23 = v0[14];
-    v24 = v0[10];
-    v25 = v0[11];
-    v26 = v0[9];
-    v27 = v0[6];
-
-    v28 = v0[1];
-
-    return v28();
-  }
-
-  else
-  {
-    v19 = v0[18];
-    v20 = v0[14];
-    sub_100274934(v1, v20, type metadata accessor for FenceRecord);
-    v21 = swift_task_alloc();
-    v0[22] = v21;
-    *(v21 + 16) = v20;
-
-    return _swift_task_switch(sub_1002705C4, v19, 0);
-  }
-}
-
-uint64_t sub_10027051C()
-{
-  v1 = v0[18];
-
-  v2 = v0[21];
-  v3 = v0[14];
-  v5 = v0[10];
-  v4 = v0[11];
-  v6 = v0[9];
-  v7 = v0[6];
-
-  v8 = v0[1];
-
-  return v8();
-}
-
-uint64_t sub_1002705C4()
-{
-  v1 = *(v0[18] + 136);
-  v2 = *(&async function pointer to dispatch thunk of CloudKitStorage.changeSet(block:) + 1);
-  v7 = (&async function pointer to dispatch thunk of CloudKitStorage.changeSet(block:) + async function pointer to dispatch thunk of CloudKitStorage.changeSet(block:));
-  v3 = swift_task_alloc();
-  v0[23] = v3;
-  *v3 = v0;
-  v3[1] = sub_10027068C;
-  v4 = v0[22];
-  v5 = v0[10];
-
-  return v7(v5, &unk_1004D2768, v4);
-}
-
-uint64_t sub_10027068C()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 184);
-  v9 = *v1;
-  *(*v1 + 192) = v0;
-
-  if (v0)
-  {
-    v4 = v2[18];
-    v5 = sub_100270A24;
-  }
-
-  else
-  {
-    v6 = v2[22];
-    v7 = v2[3];
-
-    v5 = sub_1002707B4;
-    v4 = v7;
-  }
-
-  return _swift_task_switch(v5, v4, 0);
-}
-
-uint64_t sub_1002707B4()
-{
-  v1 = v0[18];
-  (*(v0[8] + 104))(v0[9], enum case for CloudKitCoordinator.Database.private(_:), v0[7]);
-
-  return _swift_task_switch(sub_10027083C, v1, 0);
-}
-
-uint64_t sub_10027083C()
-{
-  v1 = *(v0[18] + 136);
-  v2 = *(&async function pointer to dispatch thunk of CloudKitStorage.apply(changeSet:database:) + 1);
-  v7 = (&async function pointer to dispatch thunk of CloudKitStorage.apply(changeSet:database:) + async function pointer to dispatch thunk of CloudKitStorage.apply(changeSet:database:));
-  v3 = swift_task_alloc();
-  v0[25] = v3;
-  *v3 = v0;
-  v3[1] = sub_1002708EC;
-  v4 = v0[9];
-  v5 = v0[10];
-
-  return v7(v5, v4);
-}
-
-uint64_t sub_1002708EC()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 200);
-  v8 = *v1;
-  *(*v1 + 208) = v0;
-
-  if (v0)
-  {
-    v4 = v2[18];
-    v5 = sub_10027119C;
-  }
-
-  else
-  {
-    v6 = v2[3];
-    (*(v2[8] + 8))(v2[9], v2[7]);
-    v5 = sub_100270B58;
+    v5 = sub_1002899A4;
     v4 = v6;
   }
 
   return _swift_task_switch(v5, v4, 0);
 }
 
-uint64_t sub_100270A24()
+uint64_t sub_1002899A4()
 {
-  v1 = *(v0 + 176);
-  v2 = *(v0 + 24);
+  v1 = *(v0 + 136);
+  v2 = *(v0 + 56);
+  v3 = *(v0 + 48);
+  v5 = *(v0 + 24);
+  v4 = *(v0 + 32);
+  (*(v0 + 96))(v2, *(v0 + 16), *(v0 + 64));
+  v6 = *(v3 + 20);
+  v7 = type metadata accessor for Fence.TriggerID();
+  (*(*(v7 - 8) + 16))(v2 + v6, v4, v7);
+  v8 = *(v3 + 24);
+  v9 = type metadata accessor for Fence.TriggerPosition();
+  (*(*(v9 - 8) + 16))(v2 + v8, v5, v9);
 
-  return _swift_task_switch(sub_100270A90, v2, 0);
+  return _swift_task_switch(sub_100289AB4, v1, 0);
 }
 
-uint64_t sub_100270A90()
+uint64_t sub_100289AB4()
 {
-  v1 = v0[18];
-  v2 = v0[14];
+  v1 = v0[17];
+  v2 = v0[7];
+  v3 = sub_100009518(&qword_1005AAB90, type metadata accessor for LocalStorageService, &unk_1004D5A90);
+  v4 = swift_task_alloc();
+  v0[19] = v4;
+  *(v4 + 16) = v1;
+  *(v4 + 24) = v2;
+  v5 = swift_task_alloc();
+  v0[20] = v5;
+  *v5 = v0;
+  v5[1] = sub_100289BEC;
 
-  sub_100274A04(v2, type metadata accessor for FenceRecord);
-  v3 = v0[24];
-  v4 = v0[14];
-  v6 = v0[10];
-  v5 = v0[11];
-  v7 = v0[9];
-  v8 = v0[6];
-
-  v9 = v0[1];
-
-  return v9();
+  return withCheckedThrowingContinuation<A>(isolation:function:_:)(v5, v1, v3, 0xD000000000000015, 0x80000001004E66C0, sub_100293334, v4, &type metadata for () + 1);
 }
 
-uint64_t sub_100270B58()
-{
-  v1 = v0[18];
-  v2 = v0[14];
-  sub_1002744D8();
-  v3._countAndFlagsBits = UUID.uuidString.getter();
-  String.append(_:)(v3);
-
-  v4._countAndFlagsBits = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v4._object = v5;
-  v6._countAndFlagsBits = 0x2D65636E6546;
-  v6._object = 0xE600000000000000;
-  isa = CKRecordZoneID.init(zoneName:ownerName:)(v6, v4).super.isa;
-  v8 = [(objc_class *)isa zoneName];
-
-  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = v10;
-
-  v0[27] = v9;
-  v0[28] = v11;
-
-  return _swift_task_switch(sub_100270C6C, v1, 0);
-}
-
-uint64_t sub_100270C6C()
-{
-  v17 = v0;
-  if (qword_1005A8070 != -1)
-  {
-    swift_once();
-  }
-
-  v1 = v0[28];
-  v2 = type metadata accessor for Logger();
-  sub_10000A6F0(v2, qword_1005DFE80);
-
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v3, v4))
-  {
-    v6 = v0[27];
-    v5 = v0[28];
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v16 = v8;
-    *v7 = 136315138;
-    *(v7 + 4) = sub_10000D01C(v6, v5, &v16);
-    _os_log_impl(&_mh_execute_header, v3, v4, "Deleting CloudKit zone: %s", v7, 0xCu);
-    sub_100004984(v8);
-  }
-
-  v9 = *(v0[18] + 136);
-  v10 = *(&async function pointer to dispatch thunk of CloudKitStorage.delete(zoneName:) + 1);
-  v15 = (&async function pointer to dispatch thunk of CloudKitStorage.delete(zoneName:) + async function pointer to dispatch thunk of CloudKitStorage.delete(zoneName:));
-  v11 = swift_task_alloc();
-  v0[29] = v11;
-  *v11 = v0;
-  v11[1] = sub_100270E48;
-  v13 = v0[27];
-  v12 = v0[28];
-
-  return v15(v13, v12);
-}
-
-uint64_t sub_100270E48()
+uint64_t sub_100289BEC()
 {
   v2 = *v1;
-  v3 = *(*v1 + 232);
-  v9 = *v1;
-  *(*v1 + 240) = v0;
+  *(*v1 + 168) = v0;
 
   if (v0)
   {
-    v4 = v2[18];
-    v5 = sub_10027104C;
+    v3 = *(v2 + 136);
+    v4 = sub_100289E08;
   }
 
   else
   {
-    v6 = v2[28];
-    v7 = v2[3];
+    v5 = *(v2 + 136);
 
-    v5 = sub_100270F70;
-    v4 = v7;
+    v4 = sub_100289D14;
+    v3 = v5;
+  }
+
+  return _swift_task_switch(v4, v3, 0);
+}
+
+uint64_t sub_100289D14()
+{
+  v1 = *(v0 + 40);
+  sub_100293A10(*(v0 + 56), type metadata accessor for FenceTriggerRecord);
+
+  return _swift_task_switch(sub_100289D94, v1, 0);
+}
+
+uint64_t sub_100289D94()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_100289E08()
+{
+  v1 = *(v0 + 56);
+  v2 = *(v0 + 40);
+
+  sub_100293A10(v1, type metadata accessor for FenceTriggerRecord);
+
+  return _swift_task_switch(sub_100289E94, v2, 0);
+}
+
+uint64_t sub_100289E94()
+{
+
+  swift_errorRetain();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(v1, v2))
+  {
+    v3 = swift_slowAlloc();
+    v4 = swift_slowAlloc();
+    *v3 = 138543362;
+    swift_errorRetain();
+    v5 = _swift_stdlib_bridgeErrorToNSError();
+    *(v3 + 4) = v5;
+    *v4 = v5;
+    _os_log_impl(&_mh_execute_header, v1, v2, "saveFenceTrigger: ERROR %{public}@", v3, 0xCu);
+    sub_100002CE0(v4, &qword_1005A9670, &unk_1004C2480);
+  }
+
+  else
+  {
+  }
+
+  v6 = *(v0 + 8);
+
+  return v6();
+}
+
+uint64_t sub_10028A00C()
+{
+
+  swift_errorRetain();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(v1, v2))
+  {
+    v3 = swift_slowAlloc();
+    v4 = swift_slowAlloc();
+    *v3 = 138543362;
+    swift_errorRetain();
+    v5 = _swift_stdlib_bridgeErrorToNSError();
+    *(v3 + 4) = v5;
+    *v4 = v5;
+    _os_log_impl(&_mh_execute_header, v1, v2, "saveFenceTrigger: ERROR %{public}@", v3, 0xCu);
+    sub_100002CE0(v4, &qword_1005A9670, &unk_1004C2480);
+  }
+
+  else
+  {
+  }
+
+  v6 = *(v0 + 8);
+
+  return v6();
+}
+
+uint64_t sub_10028A184(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v6[9] = a5;
+  v6[10] = a6;
+  v6[8] = a4;
+  v8 = type metadata accessor for Fence();
+  v6[11] = v8;
+  v6[12] = *(v8 - 8);
+  v6[13] = swift_task_alloc();
+  v6[14] = swift_task_alloc();
+  v9 = type metadata accessor for Fence.ID();
+  v6[15] = v9;
+  v6[16] = *(v9 - 8);
+  v6[17] = swift_task_alloc();
+  v10 = type metadata accessor for ContinuousClock();
+  v6[18] = v10;
+  v6[19] = *(v10 - 8);
+  v6[20] = swift_task_alloc();
+  v6[21] = swift_projectBox();
+
+  return _swift_task_switch(sub_10028A328, a5, 0);
+}
+
+uint64_t sub_10028A328()
+{
+  static Clock<>.continuous.getter();
+  v1 = swift_task_alloc();
+  *(v0 + 176) = v1;
+  *v1 = v0;
+  v1[1] = sub_10028A3F4;
+
+  return sub_100291918(0x8AC7230489E80000, 0, 0, 0, 1);
+}
+
+uint64_t sub_10028A3F4()
+{
+  v2 = *v1;
+
+  v3 = v2[20];
+  v4 = v2[19];
+  v5 = v2[18];
+  v6 = v2[9];
+  if (v0)
+  {
+
+    (*(v4 + 8))(v3, v5);
+    v7 = sub_100293A78;
+  }
+
+  else
+  {
+    (*(v4 + 8))(v3, v5);
+    v7 = sub_10028A5A0;
+  }
+
+  return _swift_task_switch(v7, v6, 0);
+}
+
+uint64_t sub_10028A5A0()
+{
+  v26 = v0;
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v1 = type metadata accessor for Logger();
+  sub_10000A6F0(v1, qword_1005DFF88);
+
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v2, v3))
+  {
+    v4 = v0[21];
+    v6 = v0[16];
+    v5 = v0[17];
+    v7 = v0[14];
+    v23 = v0[15];
+    v9 = v0[11];
+    v8 = v0[12];
+    v10 = swift_slowAlloc();
+    v24 = swift_slowAlloc();
+    v25 = v24;
+    *v10 = 136446210;
+    swift_beginAccess();
+    (*(v8 + 16))(v7, v4, v9);
+    Fence.id.getter();
+    (*(v8 + 8))(v7, v9);
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v11 = dispatch thunk of CustomStringConvertible.description.getter();
+    v13 = v12;
+    (*(v6 + 8))(v5, v23);
+    v14 = sub_10000D01C(v11, v13, &v25);
+
+    *(v10 + 4) = v14;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Posting trigger confirmation notification for fence: %{public}s", v10, 0xCu);
+    sub_100004984(v24);
+  }
+
+  v15 = v0[21];
+  v17 = v0[12];
+  v16 = v0[13];
+  v18 = v0[11];
+  swift_beginAccess();
+  (*(v17 + 16))(v16, v15, v18);
+  v19 = swift_task_alloc();
+  v0[23] = v19;
+  *v19 = v0;
+  v19[1] = sub_10028A884;
+  v20 = v0[13];
+  v21 = v0[10];
+
+  return sub_10028AADC(v20, v21);
+}
+
+uint64_t sub_10028A884()
+{
+  v2 = *(*v1 + 104);
+  v3 = *(*v1 + 96);
+  v4 = *(*v1 + 88);
+  v5 = *v1;
+  v5[24] = v0;
+
+  (*(v3 + 8))(v2, v4);
+  if (v0)
+  {
+    v6 = v5[9];
+
+    return _swift_task_switch(sub_10028AA50, v6, 0);
+  }
+
+  else
+  {
+
+    v7 = v5[1];
+
+    return v7();
+  }
+}
+
+uint64_t sub_10028AA50()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_10028AADC(uint64_t a1, uint64_t a2)
+{
+  v3[13] = a2;
+  v3[14] = v2;
+  v3[12] = a1;
+  v3[15] = type metadata accessor for FenceConfirmationNotification(0);
+  v3[16] = swift_task_alloc();
+  v3[17] = swift_task_alloc();
+  v3[18] = swift_task_alloc();
+  v4 = type metadata accessor for Destination();
+  v3[19] = v4;
+  v3[20] = *(v4 - 8);
+  v3[21] = swift_task_alloc();
+  v5 = type metadata accessor for PersonHandle();
+  v3[22] = v5;
+  v3[23] = *(v5 - 8);
+  v3[24] = swift_task_alloc();
+  v6 = type metadata accessor for Fence.ID();
+  v3[25] = v6;
+  v3[26] = *(v6 - 8);
+  v3[27] = swift_task_alloc();
+  v7 = type metadata accessor for Fence.TriggerID();
+  v3[28] = v7;
+  v3[29] = *(v7 - 8);
+  v3[30] = swift_task_alloc();
+  v3[31] = swift_task_alloc();
+  v3[32] = swift_task_alloc();
+  v3[33] = swift_task_alloc();
+  v8 = type metadata accessor for Fence();
+  v3[34] = v8;
+  v3[35] = *(v8 - 8);
+  v3[36] = swift_task_alloc();
+  v3[37] = swift_task_alloc();
+  v3[38] = swift_task_alloc();
+
+  return _swift_task_switch(sub_10028AD94, v2, 0);
+}
+
+uint64_t sub_10028AD94()
+{
+  v71 = v0;
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v1 = v0[38];
+  v2 = v0[34];
+  v3 = v0[35];
+  v4 = v0[33];
+  v5 = v0[28];
+  v6 = v0[29];
+  v8 = v0[12];
+  v7 = v0[13];
+  v9 = type metadata accessor for Logger();
+  v0[39] = sub_10000A6F0(v9, qword_1005DFF88);
+  v10 = *(v3 + 16);
+  v0[40] = v10;
+  v0[41] = (v3 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v10(v1, v8, v2);
+  v11 = *(v6 + 16);
+  v0[42] = v11;
+  v0[43] = (v6 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v11(v4, v7, v5);
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.default.getter();
+  v14 = os_log_type_enabled(v12, v13);
+  v15 = v0[38];
+  v17 = v0[34];
+  v16 = v0[35];
+  v18 = v0[33];
+  v19 = v0[28];
+  v20 = v0[29];
+  if (v14)
+  {
+    v65 = v0[28];
+    v59 = v0[34];
+    v22 = v0[26];
+    v21 = v0[27];
+    v23 = v0[25];
+    v63 = v0[33];
+    v24 = swift_slowAlloc();
+    v70 = swift_slowAlloc();
+    *v24 = 136446466;
+    log = v12;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v25 = dispatch thunk of CustomStringConvertible.description.getter();
+    v61 = v13;
+    v27 = v26;
+    (*(v22 + 8))(v21, v23);
+    (*(v16 + 8))(v15, v59);
+    v28 = sub_10000D01C(v25, v27, &v70);
+
+    *(v24 + 4) = v28;
+    *(v24 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v29 = dispatch thunk of CustomStringConvertible.description.getter();
+    v31 = v30;
+    v32 = *(v20 + 8);
+    v32(v63, v65);
+    v33 = sub_10000D01C(v29, v31, &v70);
+
+    *(v24 + 14) = v33;
+    _os_log_impl(&_mh_execute_header, log, v61, "Will post confirmation notification for fence %{public}s with trigger %{public}s", v24, 0x16u);
+    swift_arrayDestroy();
+  }
+
+  else
+  {
+
+    v32 = *(v20 + 8);
+    v32(v18, v19);
+    (*(v16 + 8))(v15, v17);
+  }
+
+  v0[44] = v32;
+  v34 = Fence.others.getter();
+  if (*(v34 + 16))
+  {
+    (*(v0[23] + 16))(v0[24], v34 + ((*(v0[23] + 80) + 32) & ~*(v0[23] + 80)), v0[22]);
+
+    sub_100279044(v35);
+    v36 = swift_task_alloc();
+    v0[45] = v36;
+    *v36 = v0;
+    v36[1] = sub_10028B424;
+
+    return sub_1004559B4(1);
+  }
+
+  else
+  {
+
+    v38 = v0[42];
+    v39 = v0[32];
+    v40 = v0[28];
+    v64 = v0[29];
+    v41 = v0[27];
+    v66 = v0[26];
+    loga = v0[44];
+    v69 = v0[25];
+    v42 = v0[18];
+    v43 = v0[15];
+    v44 = v0[13];
+    v45 = sub_10025F1DC(v0[12], 0, 0);
+    v60 = v46;
+    v62 = v45;
+
+    Fence.id.getter();
+    v38(v39, v44, v40);
+    v47 = enum case for LocalUserNotificationCategory.geofenceConfirmation(_:);
+    v48 = type metadata accessor for LocalUserNotificationCategory();
+    (*(*(v48 - 8) + 104))(v42, v47, v48);
+    *(v42 + v43[5]) = 2;
+    v49 = (v42 + v43[8]);
+    *v49 = 0;
+    v49[1] = 0xE000000000000000;
+    v50 = Fence.ID.uuidString.getter();
+    v52 = v51;
+    v53 = (v42 + v43[9]);
+    *v53 = v62;
+    v53[1] = v60;
+    v54 = (v42 + v43[7]);
+    *v54 = v50;
+    v54[1] = v51;
+
+    Fence.TriggerID.uuid.getter();
+    sub_10004B564(&qword_1005B0BC0, &qword_1004D2868);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_1004C1900;
+    *(inited + 32) = 0x6E6F697461636F6CLL;
+    *(inited + 72) = &type metadata for String;
+    *(inited + 40) = 0xEF64497472656C41;
+    *(inited + 48) = v50;
+    *(inited + 56) = v52;
+    v56 = sub_100207B7C(inited);
+    swift_setDeallocating();
+    sub_100002CE0(inited + 32, &qword_1005B0088, &qword_1004D38F0);
+    v0[48] = (v64 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    (loga)(v39, v40);
+    v57 = *(v66 + 8);
+    v0[49] = v57;
+    v0[50] = (v66 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v57(v41, v69);
+    *(v42 + v43[10]) = v56;
+    v58 = swift_task_alloc();
+    v0[51] = v58;
+    *v58 = v0;
+    v58[1] = sub_10028B870;
+
+    return daemon.getter();
+  }
+}
+
+uint64_t sub_10028B424(uint64_t a1, uint64_t a2)
+{
+  v3 = *v2;
+  v4 = *(*v2 + 168);
+  v5 = *(*v2 + 160);
+  v6 = *(*v2 + 152);
+  v7 = *(*v2 + 112);
+  *(v3 + 368) = a1;
+  *(v3 + 376) = a2;
+
+  (*(v5 + 8))(v4, v6);
+
+  return _swift_task_switch(sub_10028B598, v7, 0);
+}
+
+uint64_t sub_10028B598()
+{
+  v1 = v0[47];
+  (*(v0[23] + 8))(v0[24], v0[22]);
+  v2 = v0[42];
+  v3 = v0[32];
+  v4 = v0[28];
+  v26 = v0[29];
+  v23 = v0[27];
+  v27 = v0[26];
+  v28 = v0[44];
+  v29 = v0[25];
+  v5 = v0[18];
+  v6 = v0[15];
+  v7 = v0[13];
+  v8 = sub_10025F1DC(v0[12], v0[46], v1);
+  v24 = v9;
+  v25 = v8;
+
+  Fence.id.getter();
+  v2(v3, v7, v4);
+  v10 = enum case for LocalUserNotificationCategory.geofenceConfirmation(_:);
+  v11 = type metadata accessor for LocalUserNotificationCategory();
+  (*(*(v11 - 8) + 104))(v5, v10, v11);
+  *(v5 + v6[5]) = 2;
+  v12 = (v5 + v6[8]);
+  *v12 = 0;
+  v12[1] = 0xE000000000000000;
+  v13 = Fence.ID.uuidString.getter();
+  v15 = v14;
+  v16 = (v5 + v6[9]);
+  *v16 = v25;
+  v16[1] = v24;
+  v17 = (v5 + v6[7]);
+  *v17 = v13;
+  v17[1] = v14;
+
+  Fence.TriggerID.uuid.getter();
+  sub_10004B564(&qword_1005B0BC0, &qword_1004D2868);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1004C1900;
+  *(inited + 32) = 0x6E6F697461636F6CLL;
+  *(inited + 72) = &type metadata for String;
+  *(inited + 40) = 0xEF64497472656C41;
+  *(inited + 48) = v13;
+  *(inited + 56) = v15;
+  v19 = sub_100207B7C(inited);
+  swift_setDeallocating();
+  sub_100002CE0(inited + 32, &qword_1005B0088, &qword_1004D38F0);
+  v0[48] = (v26 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v28(v3, v4);
+  v20 = *(v27 + 8);
+  v0[49] = v20;
+  v0[50] = (v27 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v20(v23, v29);
+  *(v5 + v6[10]) = v19;
+  v21 = swift_task_alloc();
+  v0[51] = v21;
+  *v21 = v0;
+  v21[1] = sub_10028B870;
+
+  return daemon.getter();
+}
+
+uint64_t sub_10028B870(uint64_t a1)
+{
+  v2 = *v1;
+  v9 = *v1;
+  *(v2 + 416) = a1;
+
+  v3 = swift_task_alloc();
+  *(v2 + 424) = v3;
+  v4 = type metadata accessor for Daemon();
+  v5 = type metadata accessor for UserNotificationService();
+  v6 = sub_100009518(&unk_1005AFA50, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v7 = sub_100009518(&qword_1005AD530, type metadata accessor for UserNotificationService, &unk_1004D9448);
+  *v3 = v9;
+  v3[1] = sub_10028BA4C;
+
+  return ActorServiceDaemon.getService<A>()(v4, v5, v6, v7);
+}
+
+uint64_t sub_10028BA4C(uint64_t a1)
+{
+  v4 = *v2;
+  v4[54] = a1;
+  v4[55] = v1;
+
+  if (v1)
+  {
+    v5 = v4[14];
+    v6 = sub_10028C210;
+  }
+
+  else
+  {
+    v6 = sub_10028BBA0;
+    v5 = a1;
+  }
+
+  return _swift_task_switch(v6, v5, 0);
+}
+
+uint64_t sub_10028BBA0()
+{
+  sub_1002939A8(v0[18], v0[17], type metadata accessor for FenceConfirmationNotification);
+  if (qword_1005A8598 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = v0[16];
+  v1 = v0[17];
+  v3 = v0[14];
+  sub_1002939A8(v1, v2, type metadata accessor for FenceConfirmationNotification);
+  v4 = objc_allocWithZone(UNUserNotificationCenter);
+  v5 = String._bridgeToObjectiveC()();
+
+  v6 = [v4 initWithBundleIdentifier:v5];
+
+  v7 = sub_1002925EC(v2, type metadata accessor for FenceConfirmationNotification, type metadata accessor for FenceConfirmationNotification, type metadata accessor for FenceConfirmationNotification);
+  LocalUserNotificationCategory.rawValue.getter();
+  v8._countAndFlagsBits = 45;
+  v8._object = 0xE100000000000000;
+  String.append(_:)(v8);
+  v9._countAndFlagsBits = UUID.uuidString.getter();
+  String.append(_:)(v9);
+
+  v10 = v7;
+  v11 = String._bridgeToObjectiveC()();
+
+  v12 = [objc_opt_self() requestWithIdentifier:v11 content:v10 trigger:0 destinations:7];
+
+  [v6 addNotificationRequest:v12 withCompletionHandler:0];
+  sub_100293A10(v2, type metadata accessor for FenceConfirmationNotification);
+  sub_100293A10(v1, type metadata accessor for FenceConfirmationNotification);
+
+  return _swift_task_switch(sub_10028BE28, v3, 0);
+}
+
+uint64_t sub_10028BE28()
+{
+  v37 = v0;
+  v1 = *(v0 + 336);
+  v2 = *(v0 + 248);
+  v3 = *(v0 + 224);
+  v4 = *(v0 + 104);
+  (*(v0 + 320))(*(v0 + 296), *(v0 + 96), *(v0 + 272));
+  v1(v2, v4, v3);
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v5, v6))
+  {
+    v30 = *(v0 + 392);
+    v34 = *(v0 + 352);
+    v7 = *(v0 + 296);
+    v8 = *(v0 + 280);
+    v31 = *(v0 + 272);
+    v9 = *(v0 + 216);
+    v32 = *(v0 + 224);
+    v33 = *(v0 + 248);
+    v10 = *(v0 + 200);
+    v35 = *(v0 + 144);
+    v11 = swift_slowAlloc();
+    v36 = swift_slowAlloc();
+    *v11 = 136446466;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v12 = dispatch thunk of CustomStringConvertible.description.getter();
+    v14 = v13;
+    v30(v9, v10);
+    (*(v8 + 8))(v7, v31);
+    v15 = sub_10000D01C(v12, v14, &v36);
+
+    *(v11 + 4) = v15;
+    *(v11 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v16 = dispatch thunk of CustomStringConvertible.description.getter();
+    v18 = v17;
+    v34(v33, v32);
+    v19 = sub_10000D01C(v16, v18, &v36);
+
+    *(v11 + 14) = v19;
+    _os_log_impl(&_mh_execute_header, v5, v6, "Confirmation notification posted for fence %{public}s with trigger %{public}s", v11, 0x16u);
+    swift_arrayDestroy();
+
+    v20 = v35;
+  }
+
+  else
+  {
+    v21 = *(v0 + 352);
+    v22 = *(v0 + 296);
+    v23 = *(v0 + 272);
+    v24 = *(v0 + 280);
+    v25 = *(v0 + 248);
+    v26 = *(v0 + 224);
+    v27 = *(v0 + 144);
+
+    v21(v25, v26);
+    (*(v24 + 8))(v22, v23);
+    v20 = v27;
+  }
+
+  sub_100293A10(v20, type metadata accessor for FenceConfirmationNotification);
+
+  v28 = *(v0 + 8);
+
+  return v28();
+}
+
+uint64_t sub_10028C210()
+{
+  v40 = v0;
+  v37 = v0[42];
+  v1 = v0[40];
+  v2 = v0[36];
+  v3 = v0[34];
+  v4 = v0[30];
+  v5 = v0[28];
+  v7 = v0[12];
+  v6 = v0[13];
+  sub_100293A10(v0[18], type metadata accessor for FenceConfirmationNotification);
+  v1(v2, v7, v3);
+  v37(v4, v6, v5);
+  swift_errorRetain();
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(v8, v9))
+  {
+    v32 = v0[49];
+    v36 = v0[44];
+    v10 = v0[35];
+    v11 = v0[36];
+    v33 = v0[34];
+    v34 = v0[28];
+    v35 = v0[30];
+    v12 = v0[27];
+    v13 = v0[25];
+    v14 = swift_slowAlloc();
+    v38 = swift_slowAlloc();
+    v39 = swift_slowAlloc();
+    *v14 = 136446722;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v15 = dispatch thunk of CustomStringConvertible.description.getter();
+    v17 = v16;
+    v32(v12, v13);
+    (*(v10 + 8))(v11, v33);
+    v18 = sub_10000D01C(v15, v17, &v39);
+
+    *(v14 + 4) = v18;
+    *(v14 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v19 = dispatch thunk of CustomStringConvertible.description.getter();
+    v21 = v20;
+    v36(v35, v34);
+    v22 = sub_10000D01C(v19, v21, &v39);
+
+    *(v14 + 14) = v22;
+    *(v14 + 22) = 2114;
+    swift_errorRetain();
+    v23 = _swift_stdlib_bridgeErrorToNSError();
+    *(v14 + 24) = v23;
+    *v38 = v23;
+    _os_log_impl(&_mh_execute_header, v8, v9, "Failed to post confirmation notification for fence %{public}s with trigger %{public}s: %{public}@", v14, 0x20u);
+    sub_100002CE0(v38, &qword_1005A9670, &unk_1004C2480);
+
+    swift_arrayDestroy();
+  }
+
+  else
+  {
+    v24 = v0[44];
+    v26 = v0[35];
+    v25 = v0[36];
+    v27 = v0[34];
+    v28 = v0[30];
+    v29 = v0[28];
+
+    v24(v28, v29);
+    (*(v26 + 8))(v25, v27);
+  }
+
+  v30 = v0[1];
+
+  return v30();
+}
+
+uint64_t sub_10028C668(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5[5] = a4;
+  v5[6] = v4;
+  v5[3] = a2;
+  v5[4] = a3;
+  v5[2] = a1;
+  v9 = type metadata accessor for Fence.TriggerPosition();
+  v5[7] = v9;
+  v5[8] = *(v9 - 8);
+  v5[9] = swift_task_alloc();
+  v10 = type metadata accessor for LocalUserNotificationCategory();
+  v5[10] = v10;
+  v5[11] = *(v10 - 8);
+  v5[12] = swift_task_alloc();
+  v5[13] = type metadata accessor for FenceNotification(0);
+  v5[14] = swift_task_alloc();
+  v5[15] = swift_task_alloc();
+  v5[16] = swift_task_alloc();
+  v11 = type metadata accessor for Fence.ID();
+  v5[17] = v11;
+  v5[18] = *(v11 - 8);
+  v5[19] = swift_task_alloc();
+  v12 = type metadata accessor for Fence.TriggerID();
+  v5[20] = v12;
+  v5[21] = *(v12 - 8);
+  v5[22] = swift_task_alloc();
+  v5[23] = swift_task_alloc();
+  v5[24] = swift_task_alloc();
+  v5[25] = swift_task_alloc();
+  v5[26] = swift_task_alloc();
+  v13 = type metadata accessor for Fence();
+  v5[27] = v13;
+  v5[28] = *(v13 - 8);
+  v5[29] = swift_task_alloc();
+  v5[30] = swift_task_alloc();
+  v5[31] = swift_task_alloc();
+  v5[32] = swift_task_alloc();
+  v5[33] = swift_task_alloc();
+  v14 = swift_task_alloc();
+  v5[34] = v14;
+  *v14 = v5;
+  v14[1] = sub_10028C99C;
+
+  return sub_100286200(a1, a3, a4);
+}
+
+uint64_t sub_10028C99C(char a1)
+{
+  v4 = *v2;
+  v5 = *v2;
+
+  if (v1)
+  {
+
+    v6 = *(v5 + 8);
+
+    return v6(0);
+  }
+
+  else
+  {
+    v8 = *(v4 + 48);
+    *(v4 + 424) = a1 & 1;
+
+    return _swift_task_switch(sub_10028CBC8, v8, 0);
+  }
+}
+
+uint64_t sub_10028CBC8()
+{
+  v83 = v0;
+  if (*(v0 + 424) == 1)
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v1 = *(v0 + 264);
+    v2 = *(v0 + 216);
+    v3 = *(v0 + 224);
+    v4 = *(v0 + 208);
+    v5 = *(v0 + 160);
+    v6 = *(v0 + 168);
+    v8 = *(v0 + 16);
+    v7 = *(v0 + 24);
+    v9 = type metadata accessor for Logger();
+    *(v0 + 280) = sub_10000A6F0(v9, qword_1005DFF88);
+    v10 = *(v3 + 16);
+    *(v0 + 288) = v10;
+    *(v0 + 296) = (v3 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v10(v1, v8, v2);
+    v11 = *(v6 + 16);
+    *(v0 + 304) = v11;
+    *(v0 + 312) = (v6 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v11(v4, v7, v5);
+    v12 = Logger.logObject.getter();
+    v13 = static os_log_type_t.default.getter();
+    v14 = os_log_type_enabled(v12, v13);
+    v15 = *(v0 + 264);
+    v17 = *(v0 + 216);
+    v16 = *(v0 + 224);
+    v18 = *(v0 + 208);
+    v19 = *(v0 + 160);
+    v20 = *(v0 + 168);
+    if (v14)
+    {
+      v72 = *(v0 + 216);
+      v22 = *(v0 + 144);
+      v21 = *(v0 + 152);
+      v78 = *(v0 + 208);
+      v23 = *(v0 + 136);
+      v76 = *(v0 + 160);
+      v24 = swift_slowAlloc();
+      v82 = swift_slowAlloc();
+      *v24 = 136446466;
+      log = v12;
+      Fence.id.getter();
+      sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+      v25 = dispatch thunk of CustomStringConvertible.description.getter();
+      v74 = v13;
+      v27 = v26;
+      (*(v22 + 8))(v21, v23);
+      v28 = *(v16 + 8);
+      v28(v15, v72);
+      v29 = sub_10000D01C(v25, v27, &v82);
+
+      *(v24 + 4) = v29;
+      *(v24 + 12) = 2082;
+      sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+      v30 = dispatch thunk of CustomStringConvertible.description.getter();
+      v32 = v31;
+      v33 = *(v20 + 8);
+      v33(v78, v76);
+      v34 = sub_10000D01C(v30, v32, &v82);
+
+      *(v24 + 14) = v34;
+      _os_log_impl(&_mh_execute_header, log, v74, "Should post confirmation notification for fence %{public}s with trigger %{public}s", v24, 0x16u);
+      swift_arrayDestroy();
+    }
+
+    else
+    {
+
+      v33 = *(v20 + 8);
+      v33(v18, v19);
+      v28 = *(v16 + 8);
+      v28(v15, v17);
+    }
+
+    *(v0 + 320) = v28;
+    *(v0 + 328) = v33;
+    v65 = swift_task_alloc();
+    *(v0 + 336) = v65;
+    *v65 = v0;
+    v65[1] = sub_10028D38C;
+    v66 = *(v0 + 32);
+    v67 = *(v0 + 40);
+    v68 = *(v0 + 16);
+
+    return sub_10025DC1C(v68, v66, v67);
+  }
+
+  else
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v35 = *(v0 + 240);
+    v36 = *(v0 + 216);
+    v37 = *(v0 + 224);
+    v38 = *(v0 + 184);
+    v39 = *(v0 + 160);
+    v40 = *(v0 + 168);
+    v42 = *(v0 + 16);
+    v41 = *(v0 + 24);
+    v43 = type metadata accessor for Logger();
+    sub_10000A6F0(v43, qword_1005DFF88);
+    (*(v37 + 16))(v35, v42, v36);
+    (*(v40 + 16))(v38, v41, v39);
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.default.getter();
+    v46 = os_log_type_enabled(v44, v45);
+    v47 = *(v0 + 240);
+    v48 = *(v0 + 216);
+    v49 = *(v0 + 224);
+    v50 = *(v0 + 184);
+    v51 = *(v0 + 160);
+    v52 = *(v0 + 168);
+    if (v46)
+    {
+      v73 = *(v0 + 216);
+      v54 = *(v0 + 144);
+      v53 = *(v0 + 152);
+      v79 = *(v0 + 184);
+      v55 = *(v0 + 136);
+      v77 = *(v0 + 160);
+      v56 = swift_slowAlloc();
+      v82 = swift_slowAlloc();
+      *v56 = 136446466;
+      loga = v44;
+      Fence.id.getter();
+      sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+      v57 = dispatch thunk of CustomStringConvertible.description.getter();
+      v75 = v45;
+      v59 = v58;
+      (*(v54 + 8))(v53, v55);
+      (*(v49 + 8))(v47, v73);
+      v60 = sub_10000D01C(v57, v59, &v82);
+
+      *(v56 + 4) = v60;
+      *(v56 + 12) = 2082;
+      sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+      v61 = dispatch thunk of CustomStringConvertible.description.getter();
+      v63 = v62;
+      (*(v52 + 8))(v79, v77);
+      v64 = sub_10000D01C(v61, v63, &v82);
+
+      *(v56 + 14) = v64;
+      _os_log_impl(&_mh_execute_header, loga, v75, "Should not post trigger received notification for fence %{public}s with trigger %{public}s", v56, 0x16u);
+      swift_arrayDestroy();
+    }
+
+    else
+    {
+
+      (*(v52 + 8))(v50, v51);
+      (*(v49 + 8))(v47, v48);
+    }
+
+    v70 = *(v0 + 8);
+    v71 = *(v0 + 424);
+
+    return v70(v71);
+  }
+}
+
+uint64_t sub_10028D38C(uint64_t a1, uint64_t a2)
+{
+  v6 = *v3;
+  *(*v3 + 344) = v2;
+
+  if (v2)
+  {
+    v7 = v6[6];
+    v8 = sub_10028D794;
+  }
+
+  else
+  {
+    v6[44] = a2;
+    v6[45] = a1;
+    v8 = sub_10028D4CC;
+    v7 = 0;
+  }
+
+  return _swift_task_switch(v8, v7, 0);
+}
+
+uint64_t sub_10028D4CC()
+{
+  v21 = v0[38];
+  v1 = v0[36];
+  v2 = v0[32];
+  v3 = v0[27];
+  v4 = v0[25];
+  v5 = v0[20];
+  v20 = v0[9];
+  v6 = v0[8];
+  v19 = v0[7];
+  v8 = v0[3];
+  v7 = v0[4];
+  v9 = v0[2];
+  (*(v0[11] + 104))(v0[12], enum case for LocalUserNotificationCategory.geofenceTriggerReceived(_:), v0[10]);
+  v1(v2, v9, v3);
+  v21(v4, v8, v5);
+  (*(v6 + 16))(v20, v7, v19);
+  v10 = swift_task_alloc();
+  v0[46] = v10;
+  *v10 = v0;
+  v10[1] = sub_10028D628;
+  v12 = v0[44];
+  v11 = v0[45];
+  v13 = v0[32];
+  v14 = v0[25];
+  v15 = v0[16];
+  v16 = v0[12];
+  v17 = v0[9];
+
+  return sub_1004504F0(v15, v16, v13, v14, v17, v11, v12);
+}
+
+uint64_t sub_10028D628()
+{
+  v2 = *v1;
+  *(v2 + 376) = v0;
+
+  if (v0)
+  {
+
+    return _swift_task_switch(sub_10028DF10, 0, 0);
+  }
+
+  else
+  {
+    v3 = swift_task_alloc();
+    *(v2 + 384) = v3;
+    *v3 = v2;
+    v3[1] = sub_10028DBE0;
+
+    return daemon.getter();
+  }
+}
+
+uint64_t sub_10028D794()
+{
+  v37 = v0;
+  v1 = *(v0 + 304);
+  v2 = *(v0 + 176);
+  v3 = *(v0 + 160);
+  v4 = *(v0 + 24);
+  (*(v0 + 288))(*(v0 + 232), *(v0 + 16), *(v0 + 216));
+  v1(v2, v4, v3);
+  swift_errorRetain();
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.error.getter();
+
+  v7 = os_log_type_enabled(v5, v6);
+  v8 = *(v0 + 328);
+  v9 = *(v0 + 232);
+  v34 = *(v0 + 216);
+  v35 = *(v0 + 320);
+  v10 = *(v0 + 176);
+  v11 = *(v0 + 160);
+  if (v7)
+  {
+    v28 = *(v0 + 160);
+    v29 = *(v0 + 176);
+    v13 = *(v0 + 144);
+    v12 = *(v0 + 152);
+    v33 = v6;
+    v14 = *(v0 + 136);
+    v30 = *(v0 + 328);
+    v15 = swift_slowAlloc();
+    v32 = swift_slowAlloc();
+    v36 = swift_slowAlloc();
+    *v15 = 136446722;
+    v31 = v5;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v16 = dispatch thunk of CustomStringConvertible.description.getter();
+    v18 = v17;
+    (*(v13 + 8))(v12, v14);
+    v35(v9, v34);
+    v19 = sub_10000D01C(v16, v18, &v36);
+
+    *(v15 + 4) = v19;
+    *(v15 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v20 = dispatch thunk of CustomStringConvertible.description.getter();
+    v22 = v21;
+    v30(v29, v28);
+    v23 = sub_10000D01C(v20, v22, &v36);
+
+    *(v15 + 14) = v23;
+    *(v15 + 22) = 2114;
+    swift_errorRetain();
+    v24 = _swift_stdlib_bridgeErrorToNSError();
+    *(v15 + 24) = v24;
+    *v32 = v24;
+    _os_log_impl(&_mh_execute_header, v31, v33, "Failed to post trigger received notification for fence %{public}s with trigger %{public}s: %{public}@", v15, 0x20u);
+    sub_100002CE0(v32, &qword_1005A9670, &unk_1004C2480);
+
+    swift_arrayDestroy();
+  }
+
+  else
+  {
+
+    v8(v10, v11);
+    v35(v9, v34);
+  }
+
+  v25 = *(v0 + 8);
+  v26 = *(v0 + 424);
+
+  return v25(v26);
+}
+
+uint64_t sub_10028DBE0(uint64_t a1)
+{
+  v2 = *v1;
+  v9 = *v1;
+  *(v2 + 392) = a1;
+
+  v3 = swift_task_alloc();
+  *(v2 + 400) = v3;
+  v4 = type metadata accessor for Daemon();
+  v5 = type metadata accessor for UserNotificationService();
+  v6 = sub_100009518(&unk_1005AFA50, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v7 = sub_100009518(&qword_1005AD530, type metadata accessor for UserNotificationService, &unk_1004D9448);
+  *v3 = v9;
+  v3[1] = sub_10028DDBC;
+
+  return ActorServiceDaemon.getService<A>()(v4, v5, v6, v7);
+}
+
+uint64_t sub_10028DDBC(uint64_t a1)
+{
+  v4 = *v2;
+  v4[51] = a1;
+  v4[52] = v1;
+
+  if (v1)
+  {
+    v5 = v4[6];
+    v6 = sub_10028EA28;
+  }
+
+  else
+  {
+    v6 = sub_10028E378;
+    v5 = a1;
+  }
+
+  return _swift_task_switch(v6, v5, 0);
+}
+
+uint64_t sub_10028DF2C()
+{
+  v37 = v0;
+  v1 = *(v0 + 304);
+  v2 = *(v0 + 176);
+  v3 = *(v0 + 160);
+  v4 = *(v0 + 24);
+  (*(v0 + 288))(*(v0 + 232), *(v0 + 16), *(v0 + 216));
+  v1(v2, v4, v3);
+  swift_errorRetain();
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.error.getter();
+
+  v7 = os_log_type_enabled(v5, v6);
+  v8 = *(v0 + 328);
+  v9 = *(v0 + 232);
+  v34 = *(v0 + 216);
+  v35 = *(v0 + 320);
+  v10 = *(v0 + 176);
+  v11 = *(v0 + 160);
+  if (v7)
+  {
+    v28 = *(v0 + 160);
+    v29 = *(v0 + 176);
+    v13 = *(v0 + 144);
+    v12 = *(v0 + 152);
+    v33 = v6;
+    v14 = *(v0 + 136);
+    v30 = *(v0 + 328);
+    v15 = swift_slowAlloc();
+    v32 = swift_slowAlloc();
+    v36 = swift_slowAlloc();
+    *v15 = 136446722;
+    v31 = v5;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v16 = dispatch thunk of CustomStringConvertible.description.getter();
+    v18 = v17;
+    (*(v13 + 8))(v12, v14);
+    v35(v9, v34);
+    v19 = sub_10000D01C(v16, v18, &v36);
+
+    *(v15 + 4) = v19;
+    *(v15 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v20 = dispatch thunk of CustomStringConvertible.description.getter();
+    v22 = v21;
+    v30(v29, v28);
+    v23 = sub_10000D01C(v20, v22, &v36);
+
+    *(v15 + 14) = v23;
+    *(v15 + 22) = 2114;
+    swift_errorRetain();
+    v24 = _swift_stdlib_bridgeErrorToNSError();
+    *(v15 + 24) = v24;
+    *v32 = v24;
+    _os_log_impl(&_mh_execute_header, v31, v33, "Failed to post trigger received notification for fence %{public}s with trigger %{public}s: %{public}@", v15, 0x20u);
+    sub_100002CE0(v32, &qword_1005A9670, &unk_1004C2480);
+
+    swift_arrayDestroy();
+  }
+
+  else
+  {
+
+    v8(v10, v11);
+    v35(v9, v34);
+  }
+
+  v25 = *(v0 + 8);
+  v26 = *(v0 + 424);
+
+  return v25(v26);
+}
+
+uint64_t sub_10028E378()
+{
+  sub_1002939A8(v0[16], v0[15], type metadata accessor for FenceNotification);
+  if (qword_1005A8598 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = v0[14];
+  v1 = v0[15];
+  v3 = v0[6];
+  sub_1002939A8(v1, v2, type metadata accessor for FenceNotification);
+  v4 = objc_allocWithZone(UNUserNotificationCenter);
+  v5 = String._bridgeToObjectiveC()();
+
+  v6 = [v4 initWithBundleIdentifier:v5];
+
+  v7 = sub_1002925EC(v2, type metadata accessor for FenceNotification, type metadata accessor for FenceNotification, type metadata accessor for FenceNotification);
+  LocalUserNotificationCategory.rawValue.getter();
+  v8._countAndFlagsBits = 45;
+  v8._object = 0xE100000000000000;
+  String.append(_:)(v8);
+  v9._countAndFlagsBits = UUID.uuidString.getter();
+  String.append(_:)(v9);
+
+  v10 = v7;
+  v11 = String._bridgeToObjectiveC()();
+
+  v12 = [objc_opt_self() requestWithIdentifier:v11 content:v10 trigger:0 destinations:7];
+
+  [v6 addNotificationRequest:v12 withCompletionHandler:0];
+  sub_100293A10(v2, type metadata accessor for FenceNotification);
+  sub_100293A10(v1, type metadata accessor for FenceNotification);
+
+  return _swift_task_switch(sub_10028E604, v3, 0);
+}
+
+uint64_t sub_10028E604()
+{
+  v38 = v0;
+  v1 = *(v0 + 304);
+  v2 = *(v0 + 192);
+  v3 = *(v0 + 160);
+  v4 = *(v0 + 24);
+  (*(v0 + 288))(*(v0 + 248), *(v0 + 16), *(v0 + 216));
+  v1(v2, v4, v3);
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.default.getter();
+  v7 = os_log_type_enabled(v5, v6);
+  v8 = *(v0 + 328);
+  v36 = *(v0 + 320);
+  v9 = *(v0 + 248);
+  v10 = *(v0 + 216);
+  v11 = *(v0 + 192);
+  v12 = *(v0 + 160);
+  if (v7)
+  {
+    v32 = *(v0 + 160);
+    v34 = *(v0 + 328);
+    v14 = *(v0 + 144);
+    v13 = *(v0 + 152);
+    v15 = *(v0 + 136);
+    v35 = *(v0 + 128);
+    v31 = *(v0 + 192);
+    v16 = swift_slowAlloc();
+    v37 = swift_slowAlloc();
+    *v16 = 136446466;
+    v33 = v6;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v17 = dispatch thunk of CustomStringConvertible.description.getter();
+    log = v5;
+    v19 = v18;
+    (*(v14 + 8))(v13, v15);
+    v36(v9, v10);
+    v20 = sub_10000D01C(v17, v19, &v37);
+
+    *(v16 + 4) = v20;
+    *(v16 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v21 = dispatch thunk of CustomStringConvertible.description.getter();
+    v23 = v22;
+    v34(v31, v32);
+    v24 = sub_10000D01C(v21, v23, &v37);
+
+    *(v16 + 14) = v24;
+    _os_log_impl(&_mh_execute_header, log, v33, "Trigger received notification for fence %{public}s with trigger %{public}s", v16, 0x16u);
+    swift_arrayDestroy();
+
+    v25 = v35;
+  }
+
+  else
+  {
+    v26 = *(v0 + 128);
+
+    v8(v11, v12);
+    v36(v9, v10);
+    v25 = v26;
+  }
+
+  sub_100293A10(v25, type metadata accessor for FenceNotification);
+
+  v27 = *(v0 + 8);
+  v28 = *(v0 + 424);
+
+  return v27(v28);
+}
+
+uint64_t sub_10028EA28()
+{
+  v37 = v0;
+  sub_100293A10(*(v0 + 128), type metadata accessor for FenceNotification);
+  v1 = *(v0 + 304);
+  v2 = *(v0 + 176);
+  v3 = *(v0 + 160);
+  v4 = *(v0 + 24);
+  (*(v0 + 288))(*(v0 + 232), *(v0 + 16), *(v0 + 216));
+  v1(v2, v4, v3);
+  swift_errorRetain();
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.error.getter();
+
+  v7 = os_log_type_enabled(v5, v6);
+  v8 = *(v0 + 328);
+  v9 = *(v0 + 232);
+  v34 = *(v0 + 216);
+  v35 = *(v0 + 320);
+  v10 = *(v0 + 176);
+  v11 = *(v0 + 160);
+  if (v7)
+  {
+    v28 = *(v0 + 160);
+    v29 = *(v0 + 176);
+    v13 = *(v0 + 144);
+    v12 = *(v0 + 152);
+    v33 = v6;
+    v14 = *(v0 + 136);
+    v30 = *(v0 + 328);
+    v15 = swift_slowAlloc();
+    v32 = swift_slowAlloc();
+    v36 = swift_slowAlloc();
+    *v15 = 136446722;
+    v31 = v5;
+    Fence.id.getter();
+    sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v16 = dispatch thunk of CustomStringConvertible.description.getter();
+    v18 = v17;
+    (*(v13 + 8))(v12, v14);
+    v35(v9, v34);
+    v19 = sub_10000D01C(v16, v18, &v36);
+
+    *(v15 + 4) = v19;
+    *(v15 + 12) = 2082;
+    sub_100009518(&qword_1005AE808, &type metadata accessor for Fence.TriggerID, &protocol conformance descriptor for Fence.TriggerID);
+    v20 = dispatch thunk of CustomStringConvertible.description.getter();
+    v22 = v21;
+    v30(v29, v28);
+    v23 = sub_10000D01C(v20, v22, &v36);
+
+    *(v15 + 14) = v23;
+    *(v15 + 22) = 2114;
+    swift_errorRetain();
+    v24 = _swift_stdlib_bridgeErrorToNSError();
+    *(v15 + 24) = v24;
+    *v32 = v24;
+    _os_log_impl(&_mh_execute_header, v31, v33, "Failed to post trigger received notification for fence %{public}s with trigger %{public}s: %{public}@", v15, 0x20u);
+    sub_100002CE0(v32, &qword_1005A9670, &unk_1004C2480);
+
+    swift_arrayDestroy();
+  }
+
+  else
+  {
+
+    v8(v10, v11);
+    v35(v9, v34);
+  }
+
+  v25 = *(v0 + 8);
+  v26 = *(v0 + 424);
+
+  return v25(v26);
+}
+
+void sub_10028EE90(uint64_t a1)
+{
+  if (*(a1 + 16))
+  {
+    sub_10004B564(&qword_1005B0080, &qword_1004D1618);
+    v2 = static _DictionaryStorage.allocate(capacity:)();
+  }
+
+  else
+  {
+    v2 = _swiftEmptyDictionarySingleton;
+  }
+
+  v3 = 1 << *(a1 + 32);
+  v4 = -1;
+  if (v3 < 64)
+  {
+    v4 = ~(-1 << v3);
+  }
+
+  v5 = v4 & *(a1 + 64);
+  v6 = (v3 + 63) >> 6;
+
+  v7 = 0;
+  if (v5)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_10:
+  while (1)
+  {
+    v10 = v7 + 1;
+    if (__OFADD__(v7, 1))
+    {
+      break;
+    }
+
+    if (v10 >= v6)
+    {
+
+      return;
+    }
+
+    v5 = *(a1 + 64 + 8 * v10);
+    ++v7;
+    if (v5)
+    {
+      while (1)
+      {
+        v11 = __clz(__rbit64(v5));
+        v5 &= v5 - 1;
+        v12 = v11 | (v10 << 6);
+        v13 = (*(a1 + 48) + 16 * v12);
+        v14 = *v13;
+        v15 = v13[1];
+        sub_10000709C(*(a1 + 56) + 32 * v12, v29);
+        *&v28 = v14;
+        *(&v28 + 1) = v15;
+        v26[2] = v28;
+        v27[0] = v29[0];
+        v27[1] = v29[1];
+        v16 = v28;
+        sub_10004B064(v27, &v22);
+
+        sub_10004B564(&qword_1005A9268, &unk_1004D38E0);
+        swift_dynamicCast();
+        sub_10004B064(&v23, v25);
+        sub_10004B064(v25, v26);
+        sub_10004B064(v26, &v24);
+        v17 = sub_1000110D8(v16, *(&v16 + 1));
+        if (v18)
+        {
+          *(v2[6] + 16 * v17) = v16;
+          v8 = v17;
+
+          v9 = (v2[7] + 32 * v8);
+          sub_100004984(v9);
+          sub_10004B064(&v24, v9);
+          v7 = v10;
+          if (!v5)
+          {
+            goto LABEL_10;
+          }
+        }
+
+        else
+        {
+          if (v2[2] >= v2[3])
+          {
+            goto LABEL_20;
+          }
+
+          *(v2 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v17;
+          *(v2[6] + 16 * v17) = v16;
+          sub_10004B064(&v24, (v2[7] + 32 * v17));
+          v19 = v2[2];
+          v20 = __OFADD__(v19, 1);
+          v21 = v19 + 1;
+          if (v20)
+          {
+            goto LABEL_21;
+          }
+
+          v2[2] = v21;
+          v7 = v10;
+          if (!v5)
+          {
+            goto LABEL_10;
+          }
+        }
+
+LABEL_9:
+        v10 = v7;
+      }
+    }
+  }
+
+  __break(1u);
+LABEL_20:
+  __break(1u);
+LABEL_21:
+  __break(1u);
+}
+
+void sub_10028F11C(uint64_t a1)
+{
+  if (*(a1 + 16))
+  {
+    sub_10004B564(&qword_1005B0BA0, &qword_1004D2820);
+    v2 = static _DictionaryStorage.allocate(capacity:)();
+  }
+
+  else
+  {
+    v2 = _swiftEmptyDictionarySingleton;
+  }
+
+  v3 = 1 << *(a1 + 32);
+  if (v3 < 64)
+  {
+    v4 = ~(-1 << v3);
+  }
+
+  else
+  {
+    v4 = -1;
+  }
+
+  v5 = v4 & *(a1 + 64);
+  v6 = (v3 + 63) >> 6;
+  v7 = v2 + 8;
+
+  v8 = 0;
+  while (v5)
+  {
+LABEL_15:
+    v12 = __clz(__rbit64(v5)) | (v8 << 6);
+    v13 = (*(a1 + 48) + 16 * v12);
+    v15 = *v13;
+    v14 = v13[1];
+    sub_10000709C(*(a1 + 56) + 32 * v12, v35);
+    *&v34 = v15;
+    *(&v34 + 1) = v14;
+    v32[2] = v34;
+    v33[0] = v35[0];
+    v33[1] = v35[1];
+
+    swift_dynamicCast();
+    sub_10004B064(v33, v32);
+    sub_10004B564(&qword_1005A9268, &unk_1004D38E0);
+    swift_dynamicCast();
+    v28 = v24;
+    v29 = v25;
+    v30 = v26;
+    sub_10004B064(&v27, v31);
+    v24 = v28;
+    v25 = v29;
+    v26 = v30;
+    sub_10004B064(v31, v32);
+    v16 = AnyHashable._rawHashValue(seed:)(v2[5]);
+    v17 = -1 << *(v2 + 32);
+    v18 = v16 & ~v17;
+    v19 = v18 >> 6;
+    if (((-1 << v18) & ~v7[v18 >> 6]) == 0)
+    {
+      v20 = 0;
+      v21 = (63 - v17) >> 6;
+      while (++v19 != v21 || (v20 & 1) == 0)
+      {
+        v22 = v19 == v21;
+        if (v19 == v21)
+        {
+          v19 = 0;
+        }
+
+        v20 |= v22;
+        v23 = v7[v19];
+        if (v23 != -1)
+        {
+          v9 = __clz(__rbit64(~v23)) + (v19 << 6);
+          goto LABEL_9;
+        }
+      }
+
+      goto LABEL_26;
+    }
+
+    v9 = __clz(__rbit64((-1 << v18) & ~v7[v18 >> 6])) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_9:
+    v5 &= v5 - 1;
+    *(v7 + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v9;
+    v10 = v2[6] + 40 * v9;
+    *v10 = v24;
+    *(v10 + 16) = v25;
+    *(v10 + 32) = v26;
+    sub_10004B064(v32, (v2[7] + 32 * v9));
+    ++v2[2];
+  }
+
+  while (1)
+  {
+    v11 = v8 + 1;
+    if (__OFADD__(v8, 1))
+    {
+      break;
+    }
+
+    if (v11 >= v6)
+    {
+
+      return;
+    }
+
+    v5 = *(a1 + 64 + 8 * v11);
+    ++v8;
+    if (v5)
+    {
+      v8 = v11;
+      goto LABEL_15;
+    }
+  }
+
+  __break(1u);
+LABEL_26:
+  __break(1u);
+}
+
+uint64_t sub_10028F418(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4[3] = a2;
+  v4[4] = a3;
+  v4[2] = a1;
+  v4[5] = sub_10004B564(&qword_1005B0B08, &qword_1004D26A8);
+  v4[6] = swift_task_alloc();
+  sub_10004B564(&qword_1005B0B00, &qword_1004D26A0);
+  v4[7] = swift_task_alloc();
+  v4[8] = swift_task_alloc();
+  v4[9] = swift_task_alloc();
+  v4[10] = swift_task_alloc();
+  sub_10004B564(&qword_1005B0BB0, &qword_1004D2830);
+  v4[11] = swift_task_alloc();
+  v5 = type metadata accessor for DateInterval();
+  v4[12] = v5;
+  v4[13] = *(v5 - 8);
+  v4[14] = swift_task_alloc();
+  v6 = type metadata accessor for Fence.Schedule.Matcher();
+  v4[15] = v6;
+  v4[16] = *(v6 - 8);
+  v4[17] = swift_task_alloc();
+  v7 = type metadata accessor for Fence.Variant();
+  v4[18] = v7;
+  v4[19] = *(v7 - 8);
+  v4[20] = swift_task_alloc();
+  v8 = type metadata accessor for Fence.Schedule();
+  v4[21] = v8;
+  v4[22] = *(v8 - 8);
+  v4[23] = swift_task_alloc();
+  v4[24] = swift_task_alloc();
+  v9 = type metadata accessor for Fence.ID();
+  v4[25] = v9;
+  v4[26] = *(v9 - 8);
+  v4[27] = swift_task_alloc();
+  v10 = type metadata accessor for Fence();
+  v4[28] = v10;
+  v4[29] = *(v10 - 8);
+  v4[30] = swift_task_alloc();
+  v4[31] = swift_task_alloc();
+  v4[32] = swift_task_alloc();
+  v11 = type metadata accessor for Fence.Participant();
+  v4[33] = v11;
+  v4[34] = *(v11 - 8);
+  v4[35] = swift_task_alloc();
+  v4[36] = swift_task_alloc();
+  v12 = type metadata accessor for Fence.TriggerPosition();
+  v4[37] = v12;
+  v4[38] = *(v12 - 8);
+  v4[39] = swift_task_alloc();
+  v4[40] = swift_task_alloc();
+  v13 = type metadata accessor for Date();
+  v4[41] = v13;
+  v4[42] = *(v13 - 8);
+  v4[43] = swift_task_alloc();
+  v4[44] = swift_task_alloc();
+  v4[45] = swift_task_alloc();
+
+  return _swift_task_switch(sub_10028F8E0, v3, 0);
+}
+
+uint64_t sub_10028F8E0()
+{
+  v208 = v0;
+  v1 = v0[40];
+  v2 = v0[37];
+  v3 = v0[38];
+  v4 = v0[3];
+  sub_1002787C8(v0[45]);
+  v200 = v3[2];
+  v200(v1, v4, v2);
+  v194 = v3[11];
+  LODWORD(v4) = v194(v1, v2);
+  v5 = enum case for Fence.TriggerPosition.undetermined(_:);
+  v6 = v3[1];
+  v6(v1, v2);
+  v190 = v5;
+  if (v4 != v5 || (v8 = v0[35], v7 = v0[36], v9 = v0[33], v10 = v0[34], Fence.findee.getter(), (*(v10 + 104))(v8, enum case for Fence.Participant.me(_:), v9), v11 = static Fence.Participant.== infix(_:_:)(), v12 = *(v10 + 8), v12(v8, v9), v12(v7, v9), (v11 & 1) == 0))
+  {
+    v37 = v0[19];
+    v36 = v0[20];
+    v38 = v0[18];
+    Fence.variant.getter();
+    v39 = (*(v37 + 88))(v36, v38);
+    if (v39 == enum case for Fence.Variant.oneTime(_:) || v39 == enum case for Fence.Variant.recurring(_:))
+    {
+      (*(v0[19] + 8))(v0[20], v0[18]);
+      if (qword_1005A80E8 != -1)
+      {
+        swift_once();
+      }
+
+      v42 = v0[29];
+      v41 = v0[30];
+      v43 = v0[28];
+      v44 = v0[2];
+      v45 = type metadata accessor for Logger();
+      sub_10000A6F0(v45, qword_1005DFF88);
+      (*(v42 + 16))(v41, v44, v43);
+      v18 = Logger.logObject.getter();
+      v46 = static os_log_type_t.fault.getter();
+      v47 = os_log_type_enabled(v18, v46);
+      v21 = v0[45];
+      v22 = v0[41];
+      v23 = v0[42];
+      v25 = v0[29];
+      v24 = v0[30];
+      v26 = v0[28];
+      if (v47)
+      {
+        v201 = v0[41];
+        v49 = v0[26];
+        v48 = v0[27];
+        log = v18;
+        v50 = v0[25];
+        v176 = v0[28];
+        v30 = swift_slowAlloc();
+        v191 = swift_slowAlloc();
+        v207 = v191;
+        *v30 = 136446210;
+        v195 = v21;
+        Fence.id.getter();
+        sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+        v51 = dispatch thunk of CustomStringConvertible.description.getter();
+        v168 = v46;
+        v53 = v52;
+        (*(v49 + 8))(v48, v50);
+        (*(v25 + 8))(v24, v176);
+        v54 = sub_10000D01C(v51, v53, &v207);
+
+        *(v30 + 4) = v54;
+        v35 = "Scheduled fence with no schedule FenceID: %{public}s";
+        goto LABEL_16;
+      }
+
+LABEL_23:
+
+      (*(v25 + 8))(v24, v26);
+      (*(v23 + 8))(v21, v22);
+      goto LABEL_24;
+    }
+
+    if (v39 != enum case for Fence.Variant.scheduled(_:))
+    {
+      return _assertionFailure(_:_:file:line:flags:)();
+    }
+
+    v166 = v6;
+    v56 = v0[23];
+    v55 = v0[24];
+    v58 = v0[21];
+    v57 = v0[22];
+    v59 = v0[20];
+    v60 = v0[13];
+    v177 = v0[12];
+    v169 = v0[11];
+    (*(v0[19] + 96))(v59, v0[18]);
+    (*(v57 + 32))(v55, v59, v58);
+    (*(v57 + 16))(v56, v55, v58);
+    Fence.Schedule.Matcher.init(schedule:)();
+    Fence.Schedule.Matcher.interval(containingDate:)();
+    if ((*(v60 + 48))(v169, 1, v177) == 1)
+    {
+      sub_100002CE0(v0[11], &qword_1005B0BB0, &qword_1004D2830);
+      if (qword_1005A80E8 != -1)
+      {
+        swift_once();
+      }
+
+      v61 = v0[45];
+      v63 = v0[42];
+      v62 = v0[43];
+      v64 = v0[41];
+      v65 = v0[31];
+      v66 = v0[28];
+      v67 = v0[29];
+      v68 = v0[2];
+      v69 = type metadata accessor for Logger();
+      sub_10000A6F0(v69, qword_1005DFF88);
+      (*(v67 + 16))(v65, v68, v66);
+      (*(v63 + 16))(v62, v61, v64);
+      v70 = Logger.logObject.getter();
+      v71 = static os_log_type_t.default.getter();
+      v72 = os_log_type_enabled(v70, v71);
+      v74 = v0[42];
+      v73 = v0[43];
+      v196 = v0[41];
+      v202 = v0[45];
+      v75 = v0[31];
+      v76 = v0[29];
+      v192 = v0[28];
+      if (v72)
+      {
+        v153 = v0[43];
+        v155 = v71;
+        v77 = v0[26];
+        v78 = v0[27];
+        v79 = v0[25];
+        v178 = v0[21];
+        logb = v0[24];
+        v167 = v0[17];
+        v170 = v0[22];
+        v158 = v0[16];
+        v162 = v0[15];
+        v80 = swift_slowAlloc();
+        v207 = swift_slowAlloc();
+        *v80 = 136446466;
+        v154 = v70;
+        Fence.id.getter();
+        sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+        v81 = dispatch thunk of CustomStringConvertible.description.getter();
+        v83 = v82;
+        (*(v77 + 8))(v78, v79);
+        (*(v76 + 8))(v75, v192);
+        v84 = sub_10000D01C(v81, v83, &v207);
+
+        *(v80 + 4) = v84;
+        *(v80 + 12) = 2082;
+        v85 = Date.localISO8601.getter();
+        v87 = v86;
+        v88 = *(v74 + 8);
+        v88(v153, v196);
+        v89 = sub_10000D01C(v85, v87, &v207);
+
+        *(v80 + 14) = v89;
+        _os_log_impl(&_mh_execute_header, v154, v155, "Fence id %{public}s schedule is not active for %{public}s", v80, 0x16u);
+        swift_arrayDestroy();
+
+        (*(v158 + 8))(v167, v162);
+        (*(v170 + 8))(logb, v178);
+        v88(v202, v196);
+      }
+
+      else
+      {
+        v101 = v0[22];
+        v179 = v0[21];
+        logc = v0[24];
+        v103 = v0[16];
+        v102 = v0[17];
+        v104 = v0[15];
+
+        v105 = *(v74 + 8);
+        v105(v73, v196);
+        (*(v76 + 8))(v75, v192);
+        (*(v103 + 8))(v102, v104);
+        (*(v101 + 8))(logc, v179);
+        v105(v202, v196);
+      }
+
+      goto LABEL_24;
+    }
+
+    v92 = v0[37];
+    v93 = v0[38];
+    v95 = v0[9];
+    v94 = v0[10];
+    v96 = v0[4];
+    (*(v0[13] + 32))(v0[14], v0[11], v0[12]);
+    sub_100005F04(v96, v94, &qword_1005B0B00, &qword_1004D26A0);
+    sub_100005F04(v96, v95, &qword_1005B0B00, &qword_1004D26A0);
+    loga = *(v93 + 48);
+    if ((loga)(v95, 1, v92) == 1)
+    {
+      v97 = v0[37];
+      v98 = v0[38];
+      v100 = v0[9];
+      v99 = v0[10];
+      sub_100002CE0(v99, &qword_1005B0B00, &qword_1004D26A0);
+      sub_100002CE0(v100, &qword_1005B0B00, &qword_1004D26A0);
+      (*(v98 + 56))(v99, 1, 1, v97);
+    }
+
+    else
+    {
+      v106 = v0[44];
+      v107 = v0[41];
+      v108 = v0[42];
+      v171 = *(v0[38] + 32);
+      v180 = v0[10];
+      v171(v0[39], v0[9], v0[37]);
+      sub_1002787C8(v106);
+      v109 = DateInterval.contains(_:)();
+      (*(v108 + 8))(v106, v107);
+      sub_100002CE0(v180, &qword_1005B0B00, &qword_1004D26A0);
+      if (v109)
+      {
+        v171(v0[8], v0[39], v0[37]);
+        v110 = 0;
+      }
+
+      else
+      {
+        v166(v0[39], v0[37]);
+        v110 = 1;
+      }
+
+      v111 = v0[10];
+      v112 = v0[8];
+      (*(v0[38] + 56))(v112, v110, 1, v0[37]);
+      sub_1000176A8(v112, v111, &qword_1005B0B00, &qword_1004D26A0);
+    }
+
+    v113 = v0[37];
+    v114 = v0[10];
+    v115 = v0[6];
+    v116 = *(v0[5] + 48);
+    v200(v115, v0[3], v113);
+    sub_100005F04(v114, v115 + v116, &qword_1005B0B00, &qword_1004D26A0);
+    if ((loga)(v115 + v116, 1, v113) == 1)
+    {
+      v117 = v0[42];
+      v172 = v0[41];
+      v181 = v0[45];
+      v193 = v0[37];
+      v159 = v0[24];
+      v197 = v116;
+      v204 = v115;
+      v119 = v0[21];
+      v118 = v0[22];
+      v120 = v0[16];
+      v121 = v0[17];
+      v122 = v0[14];
+      v123 = v0[15];
+      v124 = v0[12];
+      v125 = v0[13];
+      v163 = v0[6];
+      sub_100002CE0(v0[10], &qword_1005B0B00, &qword_1004D26A0);
+      (*(v125 + 8))(v122, v124);
+      (*(v120 + 8))(v121, v123);
+      (*(v118 + 8))(v159, v119);
+      (*(v117 + 8))(v181, v172);
+      sub_100002CE0(v204 + v197, &qword_1005B0B00, &qword_1004D26A0);
+      v166(v163, v193);
+LABEL_49:
+      v203 = 1;
+      goto LABEL_25;
+    }
+
+    v126 = v0[37];
+    v127 = v0[6];
+    sub_100005F04(v115 + v116, v0[7], &qword_1005B0B00, &qword_1004D26A0);
+    v128 = v194(v127, v126);
+    v129 = v128;
+    v130 = enum case for Fence.TriggerPosition.inside(_:);
+    if (v128 == enum case for Fence.TriggerPosition.inside(_:))
+    {
+      v131 = v194(v0[7], v0[37]);
+      if (v131 == v129)
+      {
+LABEL_40:
+        v132 = v0[42];
+        v173 = v0[41];
+        v182 = v0[45];
+        v133 = v0[37];
+        v134 = v0[22];
+        v156 = v0[21];
+        v160 = v0[24];
+        v198 = v116;
+        v205 = v115;
+        v135 = v0[16];
+        v136 = v0[17];
+        v137 = v0[14];
+        v138 = v0[15];
+        v139 = v0[12];
+        v140 = v0[13];
+        v164 = v0[7];
+        logd = v0[6];
+        sub_100002CE0(v0[10], &qword_1005B0B00, &qword_1004D26A0);
+        (*(v140 + 8))(v137, v139);
+        (*(v135 + 8))(v136, v138);
+        (*(v134 + 8))(v160, v156);
+        (*(v132 + 8))(v182, v173);
+        v166(v164, v133);
+        sub_100002CE0(v205 + v198, &qword_1005B0B00, &qword_1004D26A0);
+        v166(logd, v133);
+        goto LABEL_24;
+      }
+
+      if (v131 != v190)
+      {
+        v142 = enum case for Fence.TriggerPosition.outside(_:);
+        goto LABEL_47;
+      }
+    }
+
+    else
+    {
+      v141 = enum case for Fence.TriggerPosition.outside(_:);
+      if (v128 != enum case for Fence.TriggerPosition.outside(_:))
+      {
+        if (v128 == v190)
+        {
+          v152 = v194(v0[7], v0[37]);
+          if (v152 == v130 || v152 == v141 || v152 == v190)
+          {
+            goto LABEL_40;
+          }
+        }
+
+LABEL_54:
+        v166(v0[7], v0[37]);
+        return _assertionFailure(_:_:file:line:flags:)();
+      }
+
+      v131 = v194(v0[7], v0[37]);
+      if (v131 != v130)
+      {
+        if (v131 == v129)
+        {
+          goto LABEL_40;
+        }
+
+        v142 = v190;
+LABEL_47:
+        if (v131 == v142)
+        {
+          goto LABEL_48;
+        }
+
+        goto LABEL_54;
+      }
+    }
+
+LABEL_48:
+    v143 = v0[42];
+    v174 = v0[41];
+    v183 = v0[45];
+    v144 = v0[37];
+    v145 = v0[22];
+    v157 = v0[21];
+    v161 = v0[24];
+    v199 = v116;
+    v206 = v115;
+    v146 = v0[16];
+    v147 = v0[17];
+    v148 = v0[14];
+    v149 = v0[15];
+    v150 = v0[12];
+    v151 = v0[13];
+    v165 = v0[7];
+    loge = v0[6];
+    sub_100002CE0(v0[10], &qword_1005B0B00, &qword_1004D26A0);
+    (*(v151 + 8))(v148, v150);
+    (*(v146 + 8))(v147, v149);
+    (*(v145 + 8))(v161, v157);
+    (*(v143 + 8))(v183, v174);
+    v166(v165, v144);
+    sub_100002CE0(v206 + v199, &qword_1005B0B00, &qword_1004D26A0);
+    v166(loge, v144);
+    goto LABEL_49;
+  }
+
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v13 = v0[32];
+  v14 = v0[28];
+  v15 = v0[29];
+  v16 = v0[2];
+  v17 = type metadata accessor for Logger();
+  sub_10000A6F0(v17, qword_1005DFF88);
+  (*(v15 + 16))(v13, v16, v14);
+  v18 = Logger.logObject.getter();
+  v19 = static os_log_type_t.default.getter();
+  v20 = os_log_type_enabled(v18, v19);
+  v21 = v0[45];
+  v22 = v0[41];
+  v23 = v0[42];
+  v24 = v0[32];
+  v26 = v0[28];
+  v25 = v0[29];
+  if (!v20)
+  {
+    goto LABEL_23;
+  }
+
+  v201 = v0[41];
+  v28 = v0[26];
+  v27 = v0[27];
+  log = v18;
+  v29 = v0[25];
+  v175 = v0[28];
+  v30 = swift_slowAlloc();
+  v191 = swift_slowAlloc();
+  v207 = v191;
+  *v30 = 136446210;
+  v195 = v21;
+  Fence.id.getter();
+  sub_100009518(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+  v31 = dispatch thunk of CustomStringConvertible.description.getter();
+  v168 = v19;
+  v33 = v32;
+  (*(v28 + 8))(v27, v29);
+  (*(v25 + 8))(v24, v175);
+  v34 = sub_10000D01C(v31, v33, &v207);
+
+  *(v30 + 4) = v34;
+  v35 = "Fence with undetermined location on me should not post transparency notification: %{public}s";
+LABEL_16:
+  _os_log_impl(&_mh_execute_header, log, v168, v35, v30, 0xCu);
+  sub_100004984(v191);
+
+  (*(v23 + 8))(v195, v201);
+LABEL_24:
+  v203 = 0;
+LABEL_25:
+
+  v90 = v0[1];
+
+  return v90(v203);
+}
+
+uint64_t sub_100290AF0(uint64_t a1, char *a2)
+{
+  v3 = v2;
+  v6 = type metadata accessor for MessagingCapability();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *v2;
+  sub_100009518(&qword_1005B0B48, &type metadata accessor for MessagingCapability, &protocol conformance descriptor for MessagingCapability);
+  v33 = a2;
+  v11 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  v12 = v10 + 56;
+  v31 = v10 + 56;
+  v32 = v10;
+  v13 = -1 << *(v10 + 32);
+  v14 = v11 & ~v13;
+  if ((*(v12 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14))
+  {
+    v28 = v2;
+    v29 = a1;
+    v30 = ~v13;
+    v27 = v7;
+    v17 = *(v7 + 16);
+    v16 = v7 + 16;
+    v15 = v17;
+    v18 = *(v16 + 56);
+    v19 = (v16 - 8);
+    v26[1] = v16 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    while (1)
+    {
+      v20 = v15;
+      v15(v9, *(v32 + 48) + v18 * v14, v6);
+      sub_100009518(&qword_1005B0B50, &type metadata accessor for MessagingCapability, &protocol conformance descriptor for MessagingCapability);
+      v21 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v22 = *v19;
+      (*v19)(v9, v6);
+      if (v21)
+      {
+        break;
+      }
+
+      v14 = (v14 + 1) & v30;
+      v15 = v20;
+      if (((*(v31 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) == 0)
+      {
+        v3 = v28;
+        a1 = v29;
+        v7 = v27;
+        goto LABEL_7;
+      }
+    }
+
+    v22(v33, v6);
+    v20(v29, *(v32 + 48) + v18 * v14, v6);
+    return 0;
+  }
+
+  else
+  {
+    v15 = *(v7 + 16);
+LABEL_7:
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v24 = v33;
+    v15(v9, v33, v6);
+    v34 = *v3;
+    sub_100290DD0(v9, v14, isUniquelyReferenced_nonNull_native);
+    *v3 = v34;
+    (*(v7 + 32))(a1, v24, v6);
+    return 1;
+  }
+}
+
+uint64_t sub_100290DD0(uint64_t a1, unint64_t a2, char a3)
+{
+  v32 = a1;
+  v6 = type metadata accessor for MessagingCapability();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(*v3 + 16);
+  v11 = *(*v3 + 24);
+  v29 = v3;
+  v30 = v7;
+  if (v11 <= v10)
+  {
+    v12 = v10 + 1;
+    if (a3)
+    {
+      sub_1002915BC(v12);
+    }
+
+    else
+    {
+      sub_1002912A0(v12);
+    }
+
+    v13 = *v3;
+    sub_100009518(&qword_1005B0B48, &type metadata accessor for MessagingCapability, &protocol conformance descriptor for MessagingCapability);
+    v14 = dispatch thunk of Hashable._rawHashValue(seed:)();
+    v15 = v13 + 56;
+    v31 = v13;
+    v16 = -1 << *(v13 + 32);
+    a2 = v14 & ~v16;
+    if ((*(v13 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
+    {
+      v17 = ~v16;
+      v20 = *(v7 + 16);
+      v19 = v7 + 16;
+      v18 = v20;
+      v21 = *(v19 + 56);
+      do
+      {
+        v18(v9, *(v31 + 48) + v21 * a2, v6);
+        sub_100009518(&qword_1005B0B50, &type metadata accessor for MessagingCapability, &protocol conformance descriptor for MessagingCapability);
+        v22 = dispatch thunk of static Equatable.== infix(_:_:)();
+        (*(v19 - 8))(v9, v6);
+        if (v22)
+        {
+          goto LABEL_14;
+        }
+
+        a2 = (a2 + 1) & v17;
+      }
+
+      while (((*(v15 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
+    }
+  }
+
+  else if ((a3 & 1) == 0)
+  {
+    sub_100291068();
+  }
+
+  v23 = v30;
+  v24 = *v29;
+  *(v24 + 8 * (a2 >> 6) + 56) |= 1 << a2;
+  result = (*(v23 + 32))(*(v24 + 48) + *(v23 + 72) * a2, v32, v6);
+  v26 = *(v24 + 16);
+  v27 = __OFADD__(v26, 1);
+  v28 = v26 + 1;
+  if (!v27)
+  {
+    *(v24 + 16) = v28;
+    return result;
+  }
+
+  __break(1u);
+LABEL_14:
+  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  __break(1u);
+  return result;
+}
+
+void *sub_100291068()
+{
+  v1 = v0;
+  v2 = type metadata accessor for MessagingCapability();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10004B564(&qword_1005B0B40, &qword_1004D26C8);
+  v6 = *v0;
+  v7 = static _SetStorage.copy(original:)();
+  v8 = v7;
+  if (*(v6 + 16))
+  {
+    v22 = v1;
+    result = (v7 + 56);
+    v10 = v6 + 56;
+    v11 = ((1 << *(v8 + 32)) + 63) >> 6;
+    if (v8 != v6 || result >= v10 + 8 * v11)
+    {
+      result = memmove(result, (v6 + 56), 8 * v11);
+    }
+
+    v12 = 0;
+    *(v8 + 16) = *(v6 + 16);
+    v13 = 1 << *(v6 + 32);
+    v14 = -1;
+    if (v13 < 64)
+    {
+      v14 = ~(-1 << v13);
+    }
+
+    v15 = v14 & *(v6 + 56);
+    v16 = (v13 + 63) >> 6;
+    v23 = v3 + 32;
+    for (i = v3 + 16; v15; result = (*(v3 + 32))(*(v8 + 48) + v20, v5, v2))
+    {
+      v17 = __clz(__rbit64(v15));
+      v15 &= v15 - 1;
+LABEL_14:
+      v20 = *(v3 + 72) * (v17 | (v12 << 6));
+      (*(v3 + 16))(v5, *(v6 + 48) + v20, v2);
+    }
+
+    v18 = v12;
+    while (1)
+    {
+      v12 = v18 + 1;
+      if (__OFADD__(v18, 1))
+      {
+        break;
+      }
+
+      if (v12 >= v16)
+      {
+
+        v1 = v22;
+        goto LABEL_18;
+      }
+
+      v19 = *(v10 + 8 * v12);
+      ++v18;
+      if (v19)
+      {
+        v17 = __clz(__rbit64(v19));
+        v15 = (v19 - 1) & v19;
+        goto LABEL_14;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+
+LABEL_18:
+    *v1 = v8;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002912A0(uint64_t a1)
+{
+  v2 = v1;
+  v33 = type metadata accessor for MessagingCapability();
+  v3 = *(v33 - 8);
+  __chkstk_darwin(v33);
+  v5 = &v28 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *v1;
+  sub_10004B564(&qword_1005B0B40, &qword_1004D26C8);
+  v7 = static _SetStorage.resize(original:capacity:move:)();
+  result = v6;
+  if (*(v6 + 16))
+  {
+    v28 = v1;
+    v9 = 0;
+    v10 = v6 + 56;
+    v11 = 1 << *(v6 + 32);
+    if (v11 < 64)
+    {
+      v12 = ~(-1 << v11);
+    }
+
+    else
+    {
+      v12 = -1;
+    }
+
+    v13 = v12 & *(v6 + 56);
+    v14 = (v11 + 63) >> 6;
+    v31 = v3 + 16;
+    v32 = v3;
+    v15 = v7 + 56;
+    v29 = (v3 + 32);
+    v30 = result;
+    while (v13)
+    {
+      v17 = __clz(__rbit64(v13));
+      v13 &= v13 - 1;
+LABEL_15:
+      v20 = *(v32 + 72);
+      (*(v32 + 16))(v5, *(result + 48) + v20 * (v17 | (v9 << 6)), v33);
+      sub_100009518(&qword_1005B0B48, &type metadata accessor for MessagingCapability, &protocol conformance descriptor for MessagingCapability);
+      result = dispatch thunk of Hashable._rawHashValue(seed:)();
+      v21 = -1 << *(v7 + 32);
+      v22 = result & ~v21;
+      v23 = v22 >> 6;
+      if (((-1 << v22) & ~*(v15 + 8 * (v22 >> 6))) == 0)
+      {
+        v24 = 0;
+        v25 = (63 - v21) >> 6;
+        while (++v23 != v25 || (v24 & 1) == 0)
+        {
+          v26 = v23 == v25;
+          if (v23 == v25)
+          {
+            v23 = 0;
+          }
+
+          v24 |= v26;
+          v27 = *(v15 + 8 * v23);
+          if (v27 != -1)
+          {
+            v16 = __clz(__rbit64(~v27)) + (v23 << 6);
+            goto LABEL_7;
+          }
+        }
+
+        goto LABEL_28;
+      }
+
+      v16 = __clz(__rbit64((-1 << v22) & ~*(v15 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
+      (*v29)(*(v7 + 48) + v16 * v20, v5, v33);
+      ++*(v7 + 16);
+      result = v30;
+    }
+
+    v18 = v9;
+    while (1)
+    {
+      v9 = v18 + 1;
+      if (__OFADD__(v18, 1))
+      {
+        break;
+      }
+
+      if (v9 >= v14)
+      {
+
+        v2 = v28;
+        goto LABEL_26;
+      }
+
+      v19 = *(v10 + 8 * v9);
+      ++v18;
+      if (v19)
+      {
+        v17 = __clz(__rbit64(v19));
+        v13 = (v19 - 1) & v19;
+        goto LABEL_15;
+      }
+    }
+
+    __break(1u);
+LABEL_28:
+    __break(1u);
+  }
+
+  else
+  {
+
+LABEL_26:
+    *v2 = v7;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002915BC(uint64_t a1)
+{
+  v2 = v1;
+  v36 = type metadata accessor for MessagingCapability();
+  v3 = *(v36 - 8);
+  __chkstk_darwin(v36);
+  v35 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *v1;
+  sub_10004B564(&qword_1005B0B40, &qword_1004D26C8);
+  result = static _SetStorage.resize(original:capacity:move:)();
+  v7 = result;
+  if (*(v5 + 16))
+  {
+    v30 = v1;
+    v31 = v5;
+    v8 = 0;
+    v9 = (v5 + 56);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
+    {
+      v11 = ~(-1 << v10);
+    }
+
+    else
+    {
+      v11 = -1;
+    }
+
+    v12 = v11 & *(v5 + 56);
+    v13 = (v10 + 63) >> 6;
+    v34 = v3 + 32;
+    v14 = result + 56;
+    while (v12)
+    {
+      v16 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v19 = *(v5 + 48) + *(v3 + 72) * (v16 | (v8 << 6));
+      v20 = *(v3 + 32);
+      v32 = *(v3 + 72);
+      v33 = v20;
+      v20(v35, v19, v36);
+      sub_100009518(&qword_1005B0B48, &type metadata accessor for MessagingCapability, &protocol conformance descriptor for MessagingCapability);
+      result = dispatch thunk of Hashable._rawHashValue(seed:)();
+      v21 = -1 << *(v7 + 32);
+      v22 = result & ~v21;
+      v23 = v22 >> 6;
+      if (((-1 << v22) & ~*(v14 + 8 * (v22 >> 6))) == 0)
+      {
+        v24 = 0;
+        v25 = (63 - v21) >> 6;
+        while (++v23 != v25 || (v24 & 1) == 0)
+        {
+          v26 = v23 == v25;
+          if (v23 == v25)
+          {
+            v23 = 0;
+          }
+
+          v24 |= v26;
+          v27 = *(v14 + 8 * v23);
+          if (v27 != -1)
+          {
+            v15 = __clz(__rbit64(~v27)) + (v23 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_30:
+        __break(1u);
+        return result;
+      }
+
+      v15 = __clz(__rbit64((-1 << v22) & ~*(v14 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      result = v33(*(v7 + 48) + v15 * v32, v35, v36);
+      ++*(v7 + 16);
+      v5 = v31;
+    }
+
+    v17 = v8;
+    while (1)
+    {
+      v8 = v17 + 1;
+      if (__OFADD__(v17, 1))
+      {
+        __break(1u);
+        goto LABEL_30;
+      }
+
+      if (v8 >= v13)
+      {
+        break;
+      }
+
+      v18 = v9[v8];
+      ++v17;
+      if (v18)
+      {
+        v16 = __clz(__rbit64(v18));
+        v12 = (v18 - 1) & v18;
+        goto LABEL_15;
+      }
+    }
+
+    v28 = 1 << *(v5 + 32);
+    if (v28 >= 64)
+    {
+      bzero(v9, ((v28 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v9 = -1 << v28;
+    }
+
+    v2 = v30;
+    *(v5 + 16) = 0;
+  }
+
+  *v2 = v7;
+  return result;
+}
+
+uint64_t sub_100291918(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+{
+  *(v6 + 56) = v5;
+  v12 = type metadata accessor for ContinuousClock.Instant();
+  *(v6 + 64) = v12;
+  *(v6 + 72) = *(v12 - 8);
+  *(v6 + 80) = swift_task_alloc();
+  *(v6 + 88) = swift_task_alloc();
+  *(v6 + 40) = a1;
+  *(v6 + 48) = a2;
+  *(v6 + 16) = a3;
+  *(v6 + 24) = a4;
+  *(v6 + 32) = a5 & 1;
+
+  return _swift_task_switch(sub_100291A18, 0, 0);
+}
+
+uint64_t sub_100291A18()
+{
+  v1 = v0[10];
+  v2 = v0[8];
+  v3 = v0[9];
+  v4 = type metadata accessor for ContinuousClock();
+  v5 = sub_100009518(&qword_1005B0BC8, &type metadata accessor for ContinuousClock, &protocol conformance descriptor for ContinuousClock);
+  dispatch thunk of Clock.now.getter();
+  sub_100009518(&qword_1005AFFD0, &type metadata accessor for ContinuousClock.Instant, &protocol conformance descriptor for ContinuousClock.Instant);
+  dispatch thunk of InstantProtocol.advanced(by:)();
+  v6 = *(v3 + 8);
+  v0[12] = v6;
+  v0[13] = (v3 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v6(v1, v2);
+  v7 = swift_task_alloc();
+  v0[14] = v7;
+  *v7 = v0;
+  v7[1] = sub_100291BA8;
+  v8 = v0[11];
+
+  return dispatch thunk of Clock.sleep(until:tolerance:)(v8, v0 + 2, v4, v5);
+}
+
+uint64_t sub_100291BA8()
+{
+  v2 = *(*v1 + 96);
+  v3 = *(*v1 + 88);
+  v4 = *(*v1 + 64);
+  v5 = *v1;
+  *(v5 + 120) = v0;
+
+  v2(v3, v4);
+  if (v0)
+  {
+
+    return _swift_task_switch(sub_100291D64, 0, 0);
+  }
+
+  else
+  {
+
+    v6 = *(v5 + 8);
+
+    return v6();
+  }
+}
+
+uint64_t sub_100291D64()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_100291DD0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v22[3] = &type metadata for IDSMessageValidityMetric;
+  v22[4] = &off_10058C380;
+  v22[0] = a1;
+  v22[1] = a2;
+  v22[2] = a3;
+
+  if ((static SystemInfo.underTest.getter() & 1) == 0)
+  {
+    v3 = String._bridgeToObjectiveC()();
+    sub_100011004(v22, v21);
+    v4 = swift_allocObject();
+    sub_100010BD4(v21, v4 + 16);
+    v19 = sub_100293A74;
+    v20 = v4;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 1107296256;
+    v17[2] = sub_1000119E4;
+    v18 = &unk_100597D78;
+    v5 = _Block_copy(v17);
+
+    v6 = AnalyticsSendEventLazy();
+    _Block_release(v5);
+
+    if (!v6)
+    {
+      if (qword_1005A7E80 != -1)
+      {
+        swift_once();
+      }
+
+      v7 = type metadata accessor for Logger();
+      sub_10000A6F0(v7, qword_1005DFA50);
+      sub_100011004(v22, v17);
+      v8 = Logger.logObject.getter();
+      v9 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v8, v9))
+      {
+        v10 = swift_slowAlloc();
+        v11 = swift_slowAlloc();
+        *&v21[0] = v11;
+        *v10 = 136446210;
+        v12 = sub_100011AEC(v17, v18);
+        v13 = *v12;
+        v14 = v12[1];
+
+        sub_100004984(v17);
+        v15 = sub_10000D01C(v13, v14, v21);
+
+        *(v10 + 4) = v15;
+        _os_log_impl(&_mh_execute_header, v8, v9, "%{public}s is not enabled in the current config", v10, 0xCu);
+        sub_100004984(v11);
+      }
+
+      else
+      {
+
+        sub_100004984(v17);
+      }
+    }
+  }
+
+  return sub_100004984(v22);
+}
+
+_OWORD *sub_10029205C(char a1, uint64_t a2, uint64_t a3, char a4, uint64_t *a5)
+{
+  LOBYTE(v23) = a1;
+  v24 = &type metadata for Bool;
+  v9 = *a5;
+  v11 = sub_1000110D8(a2, a3);
+  v12 = v9[2];
+  v13 = (v10 & 1) == 0;
+  v14 = v12 + v13;
+  if (__OFADD__(v12, v13))
+  {
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v15 = v10;
+  v16 = v9[3];
+  if (v16 >= v14 && (a4 & 1) != 0)
+  {
+LABEL_7:
+    v17 = *a5;
+    if (v15)
+    {
+LABEL_8:
+      v18 = (v17[7] + 32 * v11);
+      sub_100004984(v18);
+      return sub_10004B064(&v23, v18);
+    }
+
+    goto LABEL_11;
+  }
+
+  if (v16 >= v14 && (a4 & 1) == 0)
+  {
+    sub_10020304C();
+    goto LABEL_7;
+  }
+
+  sub_10022D0EC(v14, a4 & 1);
+  v20 = sub_1000110D8(a2, a3);
+  if ((v15 & 1) != (v21 & 1))
+  {
+LABEL_14:
+    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+    __break(1u);
+    return result;
+  }
+
+  v11 = v20;
+  v17 = *a5;
+  if (v15)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_11:
+  v22 = sub_1000BAF2C(&v23, &type metadata for Bool);
+  sub_1002921B4(v11, a2, a3, *v22, v17);
+
+  return sub_100004984(&v23);
+}
+
+_OWORD *sub_1002921B4(unint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5)
+{
+  LOBYTE(v11) = a4;
+  v12 = &type metadata for Bool;
+  a5[(a1 >> 6) + 8] |= 1 << a1;
+  v6 = (a5[6] + 16 * a1);
+  *v6 = a2;
+  v6[1] = a3;
+  result = sub_10004B064(&v11, (a5[7] + 32 * a1));
+  v8 = a5[2];
+  v9 = __OFADD__(v8, 1);
+  v10 = v8 + 1;
+  if (v9)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    a5[2] = v10;
+  }
+
+  return result;
+}
+
+id sub_100292238(uint64_t a1)
+{
+  v2 = type metadata accessor for LocalizationUtility.Table();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for SecureLocationsStewiePublishReminderNotification(0);
+  __chkstk_darwin(v6);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1002939A8(a1, v8, type metadata accessor for SecureLocationsStewiePublishReminderNotification);
+  v9 = [objc_allocWithZone(UNMutableNotificationContent) init];
+  [v9 setDefaultActionURL:0];
+  v10 = [objc_opt_self() defaultCriticalSound];
+  [v9 setSound:v10];
+
+  LocalUserNotificationCategory.rawValue.getter();
+  v11 = String._bridgeToObjectiveC()();
+
+  [v9 setCategoryIdentifier:v11];
+
+  (*(v3 + 104))(v5, enum case for LocalizationUtility.Table.default(_:), v2);
+  static LocalizationUtility.localizedString(key:table:)();
+  (*(v3 + 8))(v5, v2);
+  v12 = String._bridgeToObjectiveC()();
+
+  [v9 setTitle:v12];
+
+  sub_10011DAA4();
+  v13 = String._bridgeToObjectiveC()();
+
+  [v9 setBody:v13];
+
+  [v9 setInterruptionLevel:2];
+  v14 = sub_100207B7C(_swiftEmptyArrayStorage);
+  v23 = &type metadata for Bool;
+  LOBYTE(v22) = 1;
+  sub_10004B064(&v22, &v20);
+  LOBYTE(v13) = swift_isUniquelyReferenced_nonNull_native();
+  v19 = v14;
+  v15 = sub_1000BAF2C(&v20, v21);
+  sub_10029205C(*v15, 0xD000000000000023, 0x80000001004E6670, v13, &v19);
+  sub_100004984(&v20);
+  sub_10028F11C(v19);
+
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  [v9 setUserInfo:isa];
+
+  sub_100293A10(v8, type metadata accessor for SecureLocationsStewiePublishReminderNotification);
+  [v9 setShouldIgnoreDoNotDisturb:0];
+  return v9;
+}
+
+id sub_1002925EC(uint64_t a1, uint64_t (*a2)(void), uint64_t (*a3)(void), uint64_t (*a4)(void))
+{
+  v7 = a2(0);
+  v8 = v7 - 8;
+  __chkstk_darwin(v7);
+  v10 = &v20 - v9;
+  sub_1002939A8(a1, &v20 - v9, a3);
+  v11 = [objc_allocWithZone(UNMutableNotificationContent) init];
+  [v11 setDefaultActionURL:0];
+  v12 = [objc_opt_self() defaultSound];
+  [v11 setSound:v12];
+
+  LocalUserNotificationCategory.rawValue.getter();
+  v13 = String._bridgeToObjectiveC()();
+
+  [v11 setCategoryIdentifier:v13];
+
+  v14 = String._bridgeToObjectiveC()();
+  [v11 setTitle:v14];
+
+  v15 = String._bridgeToObjectiveC()();
+  [v11 setBody:v15];
+
+  [v11 setInterruptionLevel:2];
+  v16 = *&v10[*(v8 + 48)];
+  v25 = &type metadata for Bool;
+  LOBYTE(v24) = 1;
+  sub_10004B064(&v24, &v22);
+
+  LOBYTE(v15) = swift_isUniquelyReferenced_nonNull_native();
+  v21 = v16;
+  v17 = sub_1000BAF2C(&v22, v23);
+  sub_10029205C(*v17, 0xD000000000000023, 0x80000001004E6670, v15, &v21);
+  sub_100004984(&v22);
+  sub_10028F11C(v21);
+
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  [v11 setUserInfo:isa];
+
+  sub_100293A10(v10, a4);
+  [v11 setShouldIgnoreDoNotDisturb:0];
+  return v11;
+}
+
+id sub_100292884(uint64_t a1)
+{
+  v2 = type metadata accessor for LocalizationUtility.Table();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v31 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_10004B564(&qword_1005A9DB8, &unk_1004CC1D0);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v31 - v7;
+  v9 = type metadata accessor for LocationSharingReminderNotification(0);
+  __chkstk_darwin(v9);
+  v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1002939A8(a1, v11, type metadata accessor for LocationSharingReminderNotification);
+  v12 = [objc_allocWithZone(UNMutableNotificationContent) init];
+  URL.init(string:)();
+  v13 = type metadata accessor for URL();
+  v14 = *(v13 - 8);
+  v16 = 0;
+  if ((*(v14 + 48))(v8, 1, v13) != 1)
+  {
+    URL._bridgeToObjectiveC()(v15);
+    v16 = v17;
+    (*(v14 + 8))(v8, v13);
+  }
+
+  [v12 setDefaultActionURL:v16];
+
+  v18 = [objc_opt_self() defaultCriticalSound];
+  [v12 setSound:v18];
+
+  v33 = v9;
+  LocalUserNotificationCategory.rawValue.getter();
+  v19 = String._bridgeToObjectiveC()();
+
+  [v12 setCategoryIdentifier:v19];
+
+  v20 = enum case for LocalizationUtility.Table.default(_:);
+  v32 = v11;
+  v21 = *(v3 + 104);
+  v21(v5, enum case for LocalizationUtility.Table.default(_:), v2);
+  static LocalizationUtility.localizedString(key:table:)();
+  v22 = *(v3 + 8);
+  v22(v5, v2);
+  v23 = String._bridgeToObjectiveC()();
+
+  [v12 setTitle:v23];
+
+  v21(v5, v20, v2);
+  static LocalizationUtility.localizedString(key:table:)();
+  v22(v5, v2);
+  v24 = String._bridgeToObjectiveC()();
+
+  [v12 setBody:v24];
+
+  [v12 setInterruptionLevel:2];
+  v25 = v32;
+  v26 = *&v32[*(v33 + 28)];
+  v38 = &type metadata for Bool;
+  LOBYTE(v37) = 1;
+  sub_10004B064(&v37, &v35);
+
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v34 = v26;
+  v28 = sub_1000BAF2C(&v35, v36);
+  sub_10029205C(*v28, 0xD000000000000023, 0x80000001004E6670, isUniquelyReferenced_nonNull_native, &v34);
+  sub_100004984(&v35);
+  sub_10028F11C(v34);
+
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  [v12 setUserInfo:isa];
+
+  sub_100293A10(v25, type metadata accessor for LocationSharingReminderNotification);
+  [v12 setShouldIgnoreDoNotDisturb:0];
+  return v12;
+}
+
+id sub_100292D94(uint64_t a1)
+{
+  v2 = type metadata accessor for Handle();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for RedStripeNotification(0);
+  __chkstk_darwin(v6);
+  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1002939A8(a1, v8, type metadata accessor for RedStripeNotification);
+  v9 = [objc_allocWithZone(UNMutableNotificationContent) init];
+  [v9 setDefaultActionURL:0];
+  v10 = [objc_opt_self() defaultCriticalSound];
+  [v9 setSound:v10];
+
+  LocalUserNotificationCategory.rawValue.getter();
+  v11 = String._bridgeToObjectiveC()();
+
+  [v9 setCategoryIdentifier:v11];
+
+  sub_1004563C8();
+  v12 = String._bridgeToObjectiveC()();
+
+  [v9 setTitle:v12];
+
+  sub_100456778();
+  v13 = String._bridgeToObjectiveC()();
+
+  [v9 setBody:v13];
+
+  [v9 setInterruptionLevel:2];
+  sub_10004B564(&qword_1005B0BC0, &qword_1004D2868);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1004C1900;
+  *(inited + 32) = static LocalUserNotificationConstants.HandleIdentifier.getter();
+  *(inited + 40) = v15;
+  Friend.handle.getter();
+  v16 = Handle.identifier.getter();
+  v18 = v17;
+  (*(v3 + 8))(v5, v2);
+  *(inited + 72) = &type metadata for String;
+  *(inited + 48) = v16;
+  *(inited + 56) = v18;
+  v19 = sub_100207B7C(inited);
+  swift_setDeallocating();
+  sub_100002CE0(inited + 32, &qword_1005B0088, &qword_1004D38F0);
+  v28 = &type metadata for Bool;
+  LOBYTE(v27) = 1;
+  sub_10004B064(&v27, &v25);
+  LOBYTE(v2) = swift_isUniquelyReferenced_nonNull_native();
+  v24 = v19;
+  v20 = sub_1000BAF2C(&v25, v26);
+  sub_10029205C(*v20, 0xD000000000000023, 0x80000001004E6670, v2, &v24);
+  sub_100004984(&v25);
+  sub_10028F11C(v24);
+
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  [v9 setUserInfo:isa];
+
+  sub_100293A10(v8, type metadata accessor for RedStripeNotification);
+  [v9 setShouldIgnoreDoNotDisturb:1];
+  return v9;
+}
+
+uint64_t sub_100293190(uint64_t a1)
+{
+  v2 = type metadata accessor for MessagingCapability();
+  v3 = *(v2 - 8);
+  v4 = __chkstk_darwin(v2);
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v8 = &v16 - v7;
+  v9 = *(a1 + 16);
+  sub_100009518(&qword_1005B0B48, &type metadata accessor for MessagingCapability, &protocol conformance descriptor for MessagingCapability);
+  result = Set.init(minimumCapacity:)();
+  v17 = result;
+  if (v9)
+  {
+    v13 = *(v3 + 16);
+    v11 = v3 + 16;
+    v12 = v13;
+    v14 = a1 + ((*(v11 + 64) + 32) & ~*(v11 + 64));
+    v15 = *(v11 + 56);
+    do
+    {
+      v12(v8, v14, v2);
+      sub_100290AF0(v6, v8);
+      (*(v11 - 8))(v6, v2);
+      v14 += v15;
+      --v9;
+    }
+
+    while (v9);
+    return v17;
+  }
+
+  return result;
+}
+
+uint64_t sub_10029333C(uint64_t a1)
+{
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_10007C4DC;
+
+  return sub_10007A554(a1, v1);
+}
+
+uint64_t sub_1002933D4(uint64_t a1)
+{
+  v3 = v2;
+  v5 = *(type metadata accessor for Fence.TriggerID() - 8);
+  v6 = (*(v5 + 80) + 48) & ~*(v5 + 80);
+  v7 = v1[2];
+  v8 = v1[3];
+  v9 = v1[4];
+  v10 = v1[5];
+  v11 = swift_task_alloc();
+  *(v3 + 16) = v11;
+  *v11 = v3;
+  v11[1] = sub_100003690;
+
+  return sub_10028A184(a1, v7, v8, v9, v10, v1 + v6);
+}
+
+uint64_t sub_10029350C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_100293574(uint64_t a1)
+{
+  v3 = v2;
+  v5 = *(type metadata accessor for Fence.ID() - 8);
+  v6 = (*(v5 + 80) + 24) & ~*(v5 + 80);
+  v7 = *(v5 + 64);
+  v8 = *(type metadata accessor for Fence.TriggerPosition() - 8);
+  v9 = (v6 + v7 + *(v8 + 80)) & ~*(v8 + 80);
+  v10 = *(v8 + 64);
+  v11 = *(sub_10004B564(&qword_1005A9148, &qword_1004D2370) - 8);
+  v12 = (v9 + v10 + *(v11 + 80)) & ~*(v11 + 80);
+  v13 = *(v1 + 16);
+  v14 = swift_task_alloc();
+  *(v3 + 16) = v14;
+  *v14 = v3;
+  v14[1] = sub_10000368C;
+
+  return sub_10027C878(a1, v13, v1 + v6, v1 + v9, v1 + v12);
+}
+
+uint64_t sub_100293760()
+{
+  v1 = type metadata accessor for Fence.ID();
+  v2 = *(v1 - 8);
+  v17 = *(v2 + 80);
+  v3 = (v17 + 24) & ~v17;
+  v4 = *(v2 + 64);
+  v5 = type metadata accessor for Fence.TriggerPosition();
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 80);
+  v8 = (v3 + v4 + v7) & ~v7;
+  v9 = *(v6 + 64);
+  v10 = *(sub_10004B564(&qword_1005A9148, &qword_1004D2370) - 8);
+  v11 = *(v10 + 80);
+  v12 = (v8 + v9 + v11) & ~v11;
+  v16 = *(v10 + 64);
+
+  (*(v2 + 8))(v0 + v3, v1);
+  (*(v6 + 8))(v0 + v8, v5);
+  v13 = type metadata accessor for Fence.AcceptanceStatus();
+  v14 = *(v13 - 8);
+  if (!(*(v14 + 48))(v0 + v12, 1, v13))
+  {
+    (*(v14 + 8))(v0 + v12, v13);
+  }
+
+  return _swift_deallocObject(v0, ((v16 + v12 + 7) & 0xFFFFFFFFFFFFFFF8) + 8, v17 | v7 | v11 | 7);
+}
+
+uint64_t sub_1002939A8(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_100293A10(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+uint64_t sub_100293A88()
+{
+  v1[14] = v0;
+  v1[15] = *v0;
+  sub_10004B564(&qword_1005A9690, &qword_1004C2A00);
+  v1[16] = swift_task_alloc();
+  v2 = swift_task_alloc();
+  v1[17] = v2;
+  *v2 = v1;
+  v2[1] = sub_100293B78;
+
+  return sub_100296618();
+}
+
+uint64_t sub_100293B78()
+{
+  v1 = *v0;
+  v4 = *v0;
+
+  v2 = swift_task_alloc();
+  *(v1 + 144) = v2;
+  *v2 = v4;
+  v2[1] = sub_100293CA4;
+
+  return daemon.getter();
+}
+
+uint64_t sub_100293CA4(uint64_t a1)
+{
+  *(*v1 + 152) = a1;
+
+  type metadata accessor for Daemon();
+  sub_1002AB19C(&qword_1005AB4E0, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v3 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return _swift_task_switch(sub_100293DFC, v3, v2);
+}
+
+uint64_t sub_100293DFC()
+{
+  v1 = *(v0 + 112);
+  *(v0 + 160) = Daemon.xpcAlarmEventHandler.getter();
+
+  return _swift_task_switch(sub_100293E74, v1, 0);
+}
+
+uint64_t sub_100293E74()
+{
+  v1 = v0[20];
+  if (v1)
+  {
+    v2 = v0[15];
+    v3 = v0[16];
+    v4 = v0[14];
+    v5 = type metadata accessor for TaskPriority();
+    v6 = *(*(v5 - 8) + 56);
+    v6(v3, 1, 1, v5);
+    v7 = swift_allocObject();
+    swift_weakInit();
+    v8 = swift_allocObject();
+    v8[2] = 0;
+    v8[3] = 0;
+    v8[4] = v7;
+    v8[5] = v1;
+    v8[6] = v2;
+
+    *(v4 + OBJC_IVAR____TtC13findmylocated12FenceService_xpcAlarmHandlerTask) = sub_1001D7F30(0, 0, v3, &unk_1004D28E8, v8);
+
+    v6(v3, 1, 1, v5);
+    v9 = swift_allocObject();
+    swift_weakInit();
+    v10 = swift_allocObject();
+    v10[2] = 0;
+    v10[3] = 0;
+    v10[4] = v9;
+    *(v4 + OBJC_IVAR____TtC13findmylocated12FenceService_darwinSignificantTimeChangeTask) = sub_1001D7F30(0, 0, v3, &unk_1004D28F8, v10);
+
+    v11 = [objc_opt_self() defaultCenter];
+    v0[21] = v11;
+    v12 = swift_allocObject();
+    swift_weakInit();
+    v0[6] = sub_1002AA984;
+    v0[7] = v12;
+    v0[2] = _NSConcreteStackBlock;
+    v0[3] = 1107296256;
+    v0[4] = sub_100493660;
+    v0[5] = &unk_100597E40;
+    v13 = _Block_copy(v0 + 2);
+
+    v14 = [v11 addObserverForName:NSSystemClockDidChangeNotification object:0 queue:0 usingBlock:v13];
+    _Block_release(v13);
+    *(v4 + OBJC_IVAR____TtC13findmylocated12FenceService_systemClockDidChangeObserver) = v14;
+    swift_unknownObjectRelease();
+    v15 = swift_allocObject();
+    swift_weakInit();
+    v0[12] = sub_1002AA9BC;
+    v0[13] = v15;
+    v0[8] = _NSConcreteStackBlock;
+    v0[9] = 1107296256;
+    v0[10] = sub_100493660;
+    v0[11] = &unk_100597E68;
+    v16 = _Block_copy(v0 + 8);
+
+    v17 = [v11 addObserverForName:NSSystemTimeZoneDidChangeNotification object:0 queue:0 usingBlock:v16];
+    _Block_release(v16);
+    *(v4 + OBJC_IVAR____TtC13findmylocated12FenceService_systemTimeZoneDidChangeObserver) = v17;
+    swift_unknownObjectRelease();
+    sub_10002B3C0(0, 3, 0);
+    v19 = _swiftEmptyArrayStorage[2];
+    v18 = _swiftEmptyArrayStorage[3];
+    v20 = v18 >> 1;
+    v21 = v19 + 1;
+    if (v18 >> 1 <= v19)
+    {
+      sub_10002B3C0((v18 > 1), v19 + 1, 1);
+      v18 = _swiftEmptyArrayStorage[3];
+      v20 = v18 >> 1;
+    }
+
+    _swiftEmptyArrayStorage[2] = v21;
+    v22 = &_swiftEmptyArrayStorage[2 * v19];
+    v22[4] = 0xD000000000000031;
+    v22[5] = 0x80000001004DE440;
+    v23 = v19 + 2;
+    if (v20 <= v21)
+    {
+      sub_10002B3C0((v18 > 1), v23, 1);
+    }
+
+    _swiftEmptyArrayStorage[2] = v23;
+    v24 = &_swiftEmptyArrayStorage[2 * v21];
+    v24[4] = 0xD00000000000002FLL;
+    v24[5] = 0x80000001004DE480;
+    v26 = _swiftEmptyArrayStorage[2];
+    v25 = _swiftEmptyArrayStorage[3];
+    if (v26 >= v25 >> 1)
+    {
+      sub_10002B3C0((v25 > 1), v26 + 1, 1);
+    }
+
+    v0[22] = _swiftEmptyArrayStorage;
+    _swiftEmptyArrayStorage[2] = v26 + 1;
+    v27 = &_swiftEmptyArrayStorage[2 * v26];
+    v27[4] = 0xD00000000000002ELL;
+    v27[5] = 0x80000001004DE4B0;
+    v35 = (&async function pointer to dispatch thunk of XPCAlarmEventHandler.addEventsToProcess(with:) + async function pointer to dispatch thunk of XPCAlarmEventHandler.addEventsToProcess(with:));
+    v28 = swift_task_alloc();
+    v0[23] = v28;
+    *v28 = v0;
+    v28[1] = sub_1002944DC;
+
+    return v35(_swiftEmptyArrayStorage);
+  }
+
+  else
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v30 = type metadata accessor for Logger();
+    sub_10000A6F0(v30, qword_1005DFF88);
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v31, v32))
+    {
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Missing XPC alarm event handler", v33, 2u);
+    }
+
+    v34 = v0[1];
+
+    return v34();
+  }
+}
+
+uint64_t sub_1002944DC()
+{
+  v1 = *(*v0 + 112);
+
+  return _swift_task_switch(sub_100294608, v1, 0);
+}
+
+uint64_t sub_100294608()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_100294678()
+{
+  v1 = *(*v0 + 88);
+  v2 = *(*v0 + 80);
+  v3 = *(*v0 + 72);
+  v4 = *(*v0 + 32);
+
+  (*(v2 + 8))(v1, v3);
+
+  return _swift_task_switch(sub_1002947E4, v4, 0);
+}
+
+uint64_t sub_1002947E4()
+{
+  v1 = v0[43];
+  v2 = v0[41];
+  v3 = v0[37];
+  v4 = v0[29];
+  v1(v0[32], v4);
+  v1(v3, v4);
+  sub_100002CE0(v2, &unk_1005AE5B0, &qword_1004C32F0);
+
+  v5 = v0[1];
+
+  return v5();
+}
+
+uint64_t sub_10029499C()
+{
+  v1 = *(*v0 + 56);
+
+  return _swift_task_switch(sub_100294AAC, v1, 0);
+}
+
+uint64_t sub_100294AAC()
+{
+  v202 = v0;
+  v1 = *(v0 + 552);
+  v2 = *(v0 + 344);
+  v3 = *(v0 + 312);
+  (*(v0 + 536))(*(v0 + 416), *(v0 + 352));
+  v1(v2, v3);
+  while (1)
+  {
+    v4 = *(v0 + 528) + 1;
+    if (v4 == *(v0 + 504))
+    {
+      break;
+    }
+
+    *(v0 + 528) = v4;
+    v5 = *(v0 + 596);
+    v7 = *(v0 + 296);
+    v6 = *(v0 + 304);
+    v8 = *(v0 + 280);
+    v9 = *(v0 + 288);
+    (*(v0 + 520))(*(v0 + 344), *(v0 + 48) + ((*(v0 + 592) + 32) & ~*(v0 + 592)) + *(v0 + 512) * v4, *(v0 + 312));
+    Fence.acceptanceStatus.getter();
+    (*(v9 + 104))(v7, v5, v8);
+    v10 = static Fence.AcceptanceStatus.== infix(_:_:)();
+    v11 = *(v9 + 8);
+    v11(v7, v8);
+    v11(v6, v8);
+    if (v10 & 1) != 0 && (v12 = *(v0 + 600), v14 = *(v0 + 264), v13 = *(v0 + 272), v15 = *(v0 + 248), v16 = *(v0 + 256), Fence.findee.getter(), (*(v16 + 104))(v14, v12, v15), v17 = static Fence.Participant.== infix(_:_:)(), v18 = *(v16 + 8), v18(v14, v15), v18(v13, v15), (v17))
+    {
+      v19 = *(v0 + 608);
+      v20 = *(v0 + 604);
+      v22 = *(v0 + 200);
+      v21 = *(v0 + 208);
+      v23 = *(v0 + 192);
+      Fence.variant.getter();
+      v24 = (*(v22 + 88))(v21, v23);
+      if (v24 == v20 || v24 == v19)
+      {
+        v40 = *(v0 + 200);
+        v39 = *(v0 + 208);
+        v41 = *(v0 + 192);
+        (*(*(v0 + 320) + 8))(*(v0 + 344), *(v0 + 312));
+        (*(v40 + 8))(v39, v41);
+      }
+
+      else
+      {
+        if (v24 != *(v0 + 612))
+        {
+          return _assertionFailure(_:_:file:line:flags:)();
+        }
+
+        v177 = *(v0 + 616);
+        v175 = *(v0 + 408);
+        v25 = *(v0 + 360);
+        v189 = *(v0 + 352);
+        v27 = *(v0 + 232);
+        v26 = *(v0 + 240);
+        v28 = *(v0 + 216);
+        v29 = *(v0 + 224);
+        v30 = *(v0 + 208);
+        v173 = *(v0 + 184);
+        v180 = *(v0 + 176);
+        v184 = *(v0 + 168);
+        v31 = *(v0 + 152);
+        v32 = *(v0 + 160);
+        v174 = *(v0 + 144);
+        (*(*(v0 + 200) + 96))(v30, *(v0 + 192));
+        v178 = v26;
+        (*(v29 + 32))(v26, v30, v28);
+        (*(v29 + 16))(v27, v26, v28);
+        Fence.Schedule.Matcher.init(schedule:)();
+        v33 = v175;
+        Fence.updatedAt.getter();
+        (*(v31 + 104))(v32, v177, v174);
+        Fence.Schedule.Matcher.nextStartDate(from:direction:)();
+        (*(v31 + 8))(v32, v174);
+        v34 = *(v25 + 8);
+        *(v0 + 536) = v34;
+        *(v0 + 544) = (v25 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+        v176 = v34;
+        v34(v33, v189);
+        (*(v180 + 8))(v173, v184);
+        (*(v29 + 8))(v178, v28);
+        sub_1002AB19C(&qword_1005B0BF0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+        if (dispatch thunk of static Comparable.< infix(_:_:)())
+        {
+          if (qword_1005A80E8 != -1)
+          {
+            swift_once();
+          }
+
+          v124 = *(v0 + 520);
+          v125 = *(v0 + 416);
+          v200 = *(v0 + 392);
+          v127 = *(v0 + 352);
+          v126 = *(v0 + 360);
+          v129 = *(v0 + 336);
+          v128 = *(v0 + 344);
+          v130 = *(v0 + 312);
+          v131 = type metadata accessor for Logger();
+          sub_10000A6F0(v131, qword_1005DFF88);
+          v124(v129, v128, v130);
+          (*(v126 + 16))(v200, v125, v127);
+          v132 = Logger.logObject.getter();
+          v133 = static os_log_type_t.default.getter();
+          v134 = os_log_type_enabled(v132, v133);
+          v135 = *(v0 + 392);
+          v136 = *(v0 + 352);
+          v137 = *(v0 + 336);
+          v139 = *(v0 + 312);
+          v138 = *(v0 + 320);
+          if (v134)
+          {
+            v193 = *(v0 + 352);
+            v182 = *(v0 + 312);
+            v141 = *(v0 + 128);
+            v140 = *(v0 + 136);
+            v142 = *(v0 + 120);
+            v197 = v132;
+            v143 = swift_slowAlloc();
+            v201 = swift_slowAlloc();
+            *v143 = 136446466;
+            v187 = v133;
+            Fence.id.getter();
+            sub_1002AB19C(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+            v144 = dispatch thunk of CustomStringConvertible.description.getter();
+            v146 = v145;
+            (*(v141 + 8))(v140, v142);
+            v147 = *(v138 + 8);
+            v147(v137, v182);
+            v148 = sub_10000D01C(v144, v146, &v201);
+
+            *(v143 + 4) = v148;
+            *(v143 + 12) = 2082;
+            v149 = Date.localISO8601.getter();
+            v151 = v150;
+            v176(v135, v193);
+            v152 = sub_10000D01C(v149, v151, &v201);
+
+            *(v143 + 14) = v152;
+            _os_log_impl(&_mh_execute_header, v197, v187, "Invite date for %{public}s is in the past (%{public}s). Triggering the fence invitation.", v143, 0x16u);
+            swift_arrayDestroy();
+          }
+
+          else
+          {
+
+            v176(v135, v136);
+            v147 = *(v138 + 8);
+            v147(v137, v139);
+          }
+
+          *(v0 + 552) = v147;
+          v170 = swift_task_alloc();
+          *(v0 + 560) = v170;
+          *v170 = v0;
+          v170[1] = sub_10029499C;
+          v171 = *(v0 + 424);
+          v172 = *(v0 + 344);
+
+          return sub_1002A9B6C(v172, v171);
+        }
+
+        v35 = *(v0 + 456);
+        v36 = *(v0 + 352);
+        v37 = *(v0 + 360);
+        sub_100005F04(*(v0 + 464), v35, &unk_1005AE5B0, &qword_1004C32F0);
+        v38 = *(v37 + 48);
+        if (v38(v35, 1, v36) == 1)
+        {
+          sub_100002CE0(*(v0 + 456), &unk_1005AE5B0, &qword_1004C32F0);
+        }
+
+        else
+        {
+          v42 = *(v0 + 400);
+          v43 = *(v0 + 352);
+          v44 = *(*(v0 + 360) + 32);
+          v44(v42, *(v0 + 456), v43);
+          v45 = static Date.< infix(_:_:)();
+          v176(v42, v43);
+          if (v45)
+          {
+            v194 = *(v0 + 488);
+            v179 = *(v0 + 472);
+            v46 = *(v0 + 464);
+            v47 = *(v0 + 432);
+            v48 = *(v0 + 416);
+            v49 = *(v0 + 352);
+            v50 = *(v0 + 320);
+            v185 = *(v0 + 312);
+            v190 = *(v0 + 344);
+            sub_100002CE0(v46, &unk_1005AE5B0, &qword_1004C32F0);
+            v44(v46, v48, v49);
+            v179(v46, 0, 1, v49);
+            sub_100002CE0(v47, &qword_1005B09D0, &unk_1004D2380);
+            (*(v50 + 32))(v47, v190, v185);
+            v51 = v47;
+            v52 = v185;
+            goto LABEL_17;
+          }
+        }
+
+        v53 = *(v0 + 448);
+        v54 = *(v0 + 352);
+        sub_100005F04(*(v0 + 464), v53, &unk_1005AE5B0, &qword_1004C32F0);
+        if (v38(v53, 1, v54) == 1)
+        {
+          v194 = *(v0 + 488);
+          v55 = *(v0 + 472);
+          v56 = *(v0 + 464);
+          v57 = *(v0 + 448);
+          v58 = *(v0 + 432);
+          v59 = *(v0 + 416);
+          v60 = *(v0 + 352);
+          v61 = *(v0 + 360);
+          v191 = *(v0 + 344);
+          v62 = *(v0 + 312);
+          v63 = *(v0 + 320);
+          sub_100002CE0(v56, &unk_1005AE5B0, &qword_1004C32F0);
+          sub_100002CE0(v57, &unk_1005AE5B0, &qword_1004C32F0);
+          (*(v61 + 32))(v56, v59, v60);
+          v55(v56, 0, 1, v60);
+          sub_100002CE0(v58, &qword_1005B09D0, &unk_1004D2380);
+          (*(v63 + 32))(v58, v191, v62);
+          v51 = v58;
+          v52 = v62;
+LABEL_17:
+          v194(v51, 0, 1, v52);
+        }
+
+        else
+        {
+          v64 = *(v0 + 448);
+          v65 = *(v0 + 344);
+          v66 = *(v0 + 312);
+          v67 = *(v0 + 320);
+          v176(*(v0 + 416), *(v0 + 352));
+          (*(v67 + 8))(v65, v66);
+          sub_100002CE0(v64, &unk_1005AE5B0, &qword_1004C32F0);
+        }
+      }
+    }
+
+    else
+    {
+      (*(*(v0 + 320) + 8))(*(v0 + 344), *(v0 + 312));
+    }
+  }
+
+  v68 = *(v0 + 440);
+  v69 = *(v0 + 352);
+  v70 = *(v0 + 360);
+  sub_100005F04(*(v0 + 464), v68, &unk_1005AE5B0, &qword_1004C32F0);
+  if ((*(v70 + 48))(v68, 1, v69) == 1)
+  {
+    sub_100002CE0(*(v0 + 440), &unk_1005AE5B0, &qword_1004C32F0);
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v71 = type metadata accessor for Logger();
+    sub_10000A6F0(v71, qword_1005DFF88);
+    v72 = Logger.logObject.getter();
+    v73 = static os_log_type_t.debug.getter();
+    v74 = os_log_type_enabled(v72, v73);
+    v75 = *(v0 + 464);
+    v77 = *(v0 + 424);
+    v76 = *(v0 + 432);
+    v78 = *(v0 + 352);
+    v79 = *(v0 + 360);
+    if (v74)
+    {
+      v80 = swift_slowAlloc();
+      *v80 = 0;
+      _os_log_impl(&_mh_execute_header, v72, v73, "No fence to set invite timer for", v80, 2u);
+    }
+
+    (*(v79 + 8))(v77, v78);
+    sub_100002CE0(v75, &unk_1005AE5B0, &qword_1004C32F0);
+    v81 = v76;
+    goto LABEL_25;
+  }
+
+  v84 = *(v0 + 408);
+  v85 = *(v0 + 352);
+  v86 = *(v0 + 360);
+  (*(v86 + 32))(*(v0 + 384), *(v0 + 440), v85);
+  static Date.distantFuture.getter();
+  sub_1002AB19C(&qword_1005AE5D0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+  v87 = dispatch thunk of static Equatable.== infix(_:_:)();
+  v88 = *(v86 + 8);
+  *(v0 + 568) = v88;
+  *(v0 + 576) = (v86 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v88(v84, v85);
+  if (v87)
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v89 = *(v0 + 384);
+    v91 = *(v0 + 360);
+    v90 = *(v0 + 368);
+    v92 = *(v0 + 352);
+    v93 = type metadata accessor for Logger();
+    sub_10000A6F0(v93, qword_1005DFF88);
+    (*(v91 + 16))(v90, v89, v92);
+    v94 = Logger.logObject.getter();
+    v95 = static os_log_type_t.error.getter();
+    v96 = os_log_type_enabled(v94, v95);
+    v97 = *(v0 + 464);
+    v99 = *(v0 + 424);
+    v98 = *(v0 + 432);
+    v198 = *(v0 + 384);
+    v100 = *(v0 + 368);
+    v101 = *(v0 + 352);
+    if (v96)
+    {
+      v181 = v95;
+      v102 = swift_slowAlloc();
+      v195 = v98;
+      v103 = swift_slowAlloc();
+      v201 = v103;
+      *v102 = 136315138;
+      v186 = v99;
+      v192 = v97;
+      v104 = Date.localISO8601.getter();
+      v106 = v105;
+      v88(v100, v101);
+      v107 = sub_10000D01C(v104, v106, &v201);
+
+      *(v102 + 4) = v107;
+      _os_log_impl(&_mh_execute_header, v94, v181, "Invalid invite timer date: %s", v102, 0xCu);
+      sub_100004984(v103);
+
+      v88(v198, v101);
+      v88(v186, v101);
+      sub_100002CE0(v192, &unk_1005AE5B0, &qword_1004C32F0);
+      v81 = v195;
+    }
+
+    else
+    {
+
+      v88(v100, v101);
+      v88(v198, v101);
+      v88(v99, v101);
+      sub_100002CE0(v97, &unk_1005AE5B0, &qword_1004C32F0);
+      v81 = v98;
+    }
+
+LABEL_25:
+    sub_100002CE0(v81, &qword_1005B09D0, &unk_1004D2380);
+
+    v82 = *(v0 + 8);
+
+    return v82();
+  }
+
+  else
+  {
+    if (qword_1005A80E8 != -1)
+    {
+      swift_once();
+    }
+
+    v108 = *(v0 + 376);
+    v109 = *(v0 + 384);
+    v110 = *(v0 + 352);
+    v111 = *(v0 + 360);
+    v112 = type metadata accessor for Logger();
+    sub_10000A6F0(v112, qword_1005DFF88);
+    v113 = *(v111 + 16);
+    v113(v108, v109, v110);
+    v114 = Logger.logObject.getter();
+    v115 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v114, v115))
+    {
+      v196 = v113;
+      v199 = v88;
+      v116 = *(v0 + 432);
+      v117 = *(v0 + 312);
+      v118 = *(v0 + 320);
+      v119 = swift_slowAlloc();
+      v201 = swift_slowAlloc();
+      *v119 = 136446466;
+      swift_beginAccess();
+      if ((*(v118 + 48))(v116, 1, v117))
+      {
+        v120 = 0xE300000000000000;
+        v121 = 7104878;
+      }
+
+      else
+      {
+        v154 = *(v0 + 320);
+        v153 = *(v0 + 328);
+        v155 = *(v0 + 128);
+        v156 = *(v0 + 136);
+        v183 = *(v0 + 312);
+        v188 = *(v0 + 120);
+        (*(v154 + 16))(v153, *(v0 + 432));
+        Fence.id.getter();
+        (*(v154 + 8))(v153, v183);
+        v157 = Fence.ID.uuidString.getter();
+        v120 = v158;
+        (*(v155 + 8))(v156, v188);
+        v121 = v157;
+      }
+
+      v159 = *(v0 + 376);
+      v160 = *(v0 + 352);
+      v161 = sub_10000D01C(v121, v120, &v201);
+
+      *(v119 + 4) = v161;
+      *(v119 + 12) = 2082;
+      v162 = Date.localISO8601.getter();
+      v164 = v163;
+      v199(v159, v160);
+      v165 = sub_10000D01C(v162, v164, &v201);
+
+      *(v119 + 14) = v165;
+      _os_log_impl(&_mh_execute_header, v114, v115, "Setting invite timer for fence %{public}s at %{public}s", v119, 0x16u);
+      swift_arrayDestroy();
+
+      v113 = v196;
+    }
+
+    else
+    {
+      v122 = *(v0 + 376);
+      v123 = *(v0 + 352);
+
+      v88(v122, v123);
+    }
+
+    v113(*(v0 + 408), *(v0 + 384), *(v0 + 352));
+    sub_10004B564(&qword_1005B0BD0, &qword_1004D28B0);
+    v166 = swift_allocObject();
+    *(v166 + 16) = xmmword_1004C1900;
+    static XPCAlarm.Criteria.Options.userVisible.getter();
+    *(v0 + 40) = v166;
+    sub_1002AB19C(&qword_1005B0BD8, &type metadata accessor for XPCAlarm.Criteria.Options, &protocol conformance descriptor for XPCAlarm.Criteria.Options);
+    sub_10004B564(&qword_1005B0BE0, &qword_1004D28B8);
+    sub_10001DF0C(&qword_1005B0BE8, &qword_1005B0BE0, &qword_1004D28B8, &protocol conformance descriptor for [A]);
+    dispatch thunk of SetAlgebra.init<A>(_:)();
+    XPCAlarm.Criteria.init(date:options:)();
+    v167 = swift_task_alloc();
+    *(v0 + 584) = v167;
+    *v167 = v0;
+    v167[1] = sub_100295F68;
+    v168 = *(v0 + 112);
+    v169 = *(v0 + 88);
+
+    return XPCAlarm.init(identifier:criteria:)(v168, 0xD00000000000002FLL, 0x80000001004DE480, v169);
+  }
+}
+
+uint64_t sub_100295F68()
+{
+  v1 = *(*v0 + 112);
+  v2 = *(*v0 + 104);
+  v3 = *(*v0 + 96);
+  v4 = *(*v0 + 56);
+
+  (*(v2 + 8))(v1, v3);
+
+  return _swift_task_switch(sub_1002960D4, v4, 0);
+}
+
+uint64_t sub_1002960D4()
+{
+  v1 = v0[71];
+  v2 = v0[58];
+  v4 = v0[53];
+  v3 = v0[54];
+  v5 = v0[44];
+  v1(v0[48], v5);
+  v1(v4, v5);
+  sub_100002CE0(v2, &unk_1005AE5B0, &qword_1004C32F0);
+  sub_100002CE0(v3, &qword_1005B09D0, &unk_1004D2380);
+
+  v6 = v0[1];
+
+  return v6();
+}
+
+uint64_t sub_1002962FC(_BYTE *a1, _BYTE *a2)
+{
+  v2 = 0xD00000000000002ELL;
+  v3 = *a1;
+  v4 = "enceScheduleTimer";
+  if (v3 == 1)
+  {
+    v5 = 0xD00000000000002FLL;
+  }
+
+  else
+  {
+    v5 = 0xD00000000000002ELL;
+  }
+
+  if (v3 == 1)
+  {
+    v6 = "enceScheduleTimer";
+  }
+
+  else
+  {
+    v6 = ".findmylocated.FenceInviteTimer";
+  }
+
+  if (*a1)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = 0xD000000000000031;
+  }
+
+  if (v3)
+  {
+    v8 = v6;
+  }
+
+  else
+  {
+    v8 = "com.apple.mobileme.fmf3";
+  }
+
+  if (*a2 == 1)
+  {
+    v2 = 0xD00000000000002FLL;
+  }
+
+  else
+  {
+    v4 = ".findmylocated.FenceInviteTimer";
+  }
+
+  if (*a2)
+  {
+    v9 = v2;
+  }
+
+  else
+  {
+    v9 = 0xD000000000000031;
+  }
+
+  if (*a2)
+  {
+    v10 = v4;
+  }
+
+  else
+  {
+    v10 = "com.apple.mobileme.fmf3";
+  }
+
+  if (v7 == v9 && (v8 | 0x8000000000000000) == (v10 | 0x8000000000000000))
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  return v11 & 1;
+}
+
+unint64_t sub_1002963D0@<X0>(Swift::String *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = sub_1002AB350(*a1);
+  *a2 = result;
+  return result;
+}
+
+void sub_100296400(unint64_t *a1@<X8>)
+{
+  v2 = 0xD00000000000002ELL;
+  v3 = "enceScheduleTimer";
+  if (*v1 == 1)
+  {
+    v2 = 0xD00000000000002FLL;
+  }
+
+  else
+  {
+    v3 = ".findmylocated.FenceInviteTimer";
+  }
+
+  if (*v1)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v2 = 0xD000000000000031;
+    v4 = "com.apple.mobileme.fmf3";
+  }
+
+  *a1 = v2;
+  a1[1] = v4 | 0x8000000000000000;
+}
+
+Swift::Int sub_100296468()
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+double sub_100296500(uint64_t a1)
+{
+  String.hash(into:)();
+
+  return result;
+}
+
+Swift::Int sub_100296584()
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+uint64_t sub_100296638()
+{
+  v1 = *(v0 + 16);
+  static XPCAlarm.unregister(identifier:)();
+  static XPCAlarm.unregister(identifier:)();
+  static XPCAlarm.unregister(identifier:)();
+  v2 = OBJC_IVAR____TtC13findmylocated12FenceService_significantTimeChangeDebounceTask;
+  if (*(v1 + OBJC_IVAR____TtC13findmylocated12FenceService_significantTimeChangeDebounceTask))
+  {
+
+    sub_10004B564(&unk_1005AB510, &qword_1004C1AC0);
+    Task.cancel()();
+  }
+
+  v3 = *(v0 + 16);
+  *(v1 + v2) = 0;
+
+  v4 = OBJC_IVAR____TtC13findmylocated12FenceService_darwinSignificantTimeChangeTask;
+  if (*(v3 + OBJC_IVAR____TtC13findmylocated12FenceService_darwinSignificantTimeChangeTask))
+  {
+
+    Task.cancel()();
+  }
+
+  v5 = *(v0 + 16);
+  *(v3 + v4) = 0;
+
+  v6 = OBJC_IVAR____TtC13findmylocated12FenceService_xpcAlarmHandlerTask;
+  if (*(v5 + OBJC_IVAR____TtC13findmylocated12FenceService_xpcAlarmHandlerTask))
+  {
+
+    Task.cancel()();
+  }
+
+  v7 = *(v0 + 16);
+  *(v5 + v6) = 0;
+
+  v8 = [objc_opt_self() defaultCenter];
+  v9 = v8;
+  v10 = OBJC_IVAR____TtC13findmylocated12FenceService_systemClockDidChangeObserver;
+  if (*(v7 + OBJC_IVAR____TtC13findmylocated12FenceService_systemClockDidChangeObserver))
+  {
+    [v8 removeObserver:?];
+    *(v7 + v10) = 0;
+    swift_unknownObjectRelease();
+  }
+
+  v11 = *(v0 + 16);
+  v12 = OBJC_IVAR____TtC13findmylocated12FenceService_systemTimeZoneDidChangeObserver;
+  v13 = *(v11 + OBJC_IVAR____TtC13findmylocated12FenceService_systemTimeZoneDidChangeObserver);
+  if (v13)
+  {
+    swift_unknownObjectRetain();
+    [v9 removeObserver:v13];
+
+    swift_unknownObjectRelease();
+    *(v11 + v12) = 0;
+    swift_unknownObjectRelease();
+  }
+
+  else
+  {
+  }
+
+  v14 = *(v0 + 8);
+
+  return v14();
+}
+
+uint64_t sub_1002968B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v6[3] = a5;
+  v6[4] = a6;
+  v6[2] = a4;
+  return _swift_task_switch(sub_1002968D8, 0, 0);
+}
+
+uint64_t sub_1002968D8()
+{
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v1 = type metadata accessor for Logger();
+  sub_10000A6F0(v1, qword_1005DFF88);
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v2, v3))
+  {
+    v4 = swift_slowAlloc();
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Creating XPC alarm streams", v4, 2u);
+  }
+
+  v5 = *(v0 + 32);
+  v9 = *(v0 + 16);
+
+  v6 = swift_task_alloc();
+  *(v0 + 40) = v6;
+  *(v6 + 16) = v9;
+  *(v6 + 32) = v5;
+  v7 = swift_task_alloc();
+  *(v0 + 48) = v7;
+  *v7 = v0;
+  v7[1] = sub_100296A7C;
+
+  return withDiscardingTaskGroup<A>(returning:isolation:body:)();
+}
+
+uint64_t sub_100296A7C()
+{
+
+  return _swift_task_switch(sub_1000161BC, 0, 0);
+}
+
+uint64_t sub_100296B94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5[27] = a4;
+  v5[28] = a5;
+  v5[25] = a2;
+  v5[26] = a3;
+  sub_10004B564(&qword_1005A9690, &qword_1004C2A00);
+  v5[29] = swift_task_alloc();
+  v5[30] = swift_task_alloc();
+
+  return _swift_task_switch(sub_100296C40, 0, 0);
+}
+
+uint64_t sub_100296C40()
+{
+  sub_10004B564(&qword_1005B0BF8, &qword_1004D2948);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1004C0BD0;
+  v2 = swift_allocObject();
+  swift_beginAccess();
+  swift_weakLoadStrong();
+  swift_weakInit();
+  v3 = swift_allocObject();
+  *(v3 + 16) = &unk_1004D2958;
+  *(v3 + 24) = v2;
+  *(inited + 32) = 0;
+  *(inited + 40) = &unk_1004D2968;
+  *(inited + 48) = v3;
+  v4 = swift_allocObject();
+  swift_weakLoadStrong();
+  swift_weakInit();
+  v5 = swift_allocObject();
+  *(v5 + 16) = &unk_1004D2978;
+  *(v5 + 24) = v4;
+  *(inited + 56) = 1;
+  *(inited + 64) = &unk_1004D2980;
+  *(inited + 72) = v5;
+  v6 = swift_allocObject();
+
+  swift_weakLoadStrong();
+
+  swift_weakInit();
+
+  v7 = swift_allocObject();
+  *(v7 + 16) = &unk_1004D2990;
+  *(v7 + 24) = v6;
+  *(inited + 80) = 2;
+  *(inited + 88) = &unk_1004D2998;
+  *(inited + 96) = v7;
+
+  v8 = sub_100209D30(inited);
+  swift_setDeallocating();
+  sub_10004B564(&qword_1005B0C00, &qword_1004D29A0);
+  result = swift_arrayDestroy();
+  v10 = 0;
+  v11 = v8 + 64;
+  v12 = -1;
+  v35 = v8 + 64;
+  v36 = v8;
+  v13 = -1 << *(v8 + 32);
+  if (-v13 < 64)
+  {
+    v12 = ~(-1 << -v13);
+  }
+
+  v14 = v12 & *(v8 + 64);
+  v15 = (63 - v13) >> 6;
+  v34 = v15;
+  while (v14)
+  {
+LABEL_11:
+    v19 = *(v0 + 240);
+    v20 = *(v0 + 216);
+    v38 = *(v0 + 224);
+    v39 = *(v0 + 232);
+    v21 = __clz(__rbit64(v14)) | (v10 << 6);
+    v22 = *(v36 + 56);
+    v37 = *(*(v36 + 48) + v21);
+    v23 = swift_allocObject();
+    *(v23 + 16) = *(v22 + 16 * v21);
+    v24 = type metadata accessor for TaskPriority();
+    v25 = *(v24 - 8);
+    (*(v25 + 56))(v19, 1, 1, v24);
+    v26 = swift_allocObject();
+    *(v26 + 16) = 0;
+    *(v26 + 24) = 0;
+    *(v26 + 32) = v20;
+    *(v26 + 40) = v37;
+    *(v26 + 48) = &unk_1004D29B0;
+    *(v26 + 56) = v23;
+    *(v26 + 64) = v38;
+    sub_100005F04(v19, v39, &qword_1005A9690, &qword_1004C2A00);
+    LODWORD(v19) = (*(v25 + 48))(v39, 1, v24);
+
+    v27 = *(v0 + 232);
+    if (v19 == 1)
+    {
+      sub_100002CE0(*(v0 + 232), &qword_1005A9690, &qword_1004C2A00);
+    }
+
+    else
+    {
+      TaskPriority.rawValue.getter();
+      (*(v25 + 8))(v27, v24);
+    }
+
+    if (*(v26 + 16))
+    {
+      swift_getObjectType();
+      swift_unknownObjectRetain();
+      v28 = dispatch thunk of Actor.unownedExecutor.getter();
+      v30 = v29;
+      swift_unknownObjectRelease();
+    }
+
+    else
+    {
+      v28 = 0;
+      v30 = 0;
+    }
+
+    v31 = **(v0 + 200);
+    v32 = swift_allocObject();
+    *(v32 + 16) = &unk_1004D29C0;
+    *(v32 + 24) = v26;
+
+    if (v30 | v28)
+    {
+      v16 = v0 + 120;
+      *(v0 + 120) = 0;
+      *(v0 + 128) = 0;
+      *(v0 + 136) = v28;
+      *(v0 + 144) = v30;
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    v17 = *(v0 + 240);
+    v14 &= v14 - 1;
+    *(v0 + 176) = 1;
+    *(v0 + 184) = v16;
+    *(v0 + 192) = v31;
+    swift_task_create();
+
+    result = sub_100002CE0(v17, &qword_1005A9690, &qword_1004C2A00);
+    v15 = v34;
+    v11 = v35;
+  }
+
+  while (1)
+  {
+    v18 = v10 + 1;
+    if (__OFADD__(v10, 1))
+    {
+      __break(1u);
+      return result;
+    }
+
+    if (v18 >= v15)
+    {
+      break;
+    }
+
+    v14 = *(v11 + 8 * v18);
+    ++v10;
+    if (v14)
+    {
+      v10 = v18;
+      goto LABEL_11;
+    }
+  }
+
+  v33 = *(v0 + 8);
+
+  return v33();
+}
+
+uint64_t sub_100297240()
+{
+  swift_beginAccess();
+  Strong = swift_weakLoadStrong();
+  v0[6] = Strong;
+  if (Strong)
+  {
+    v2 = swift_task_alloc();
+    v0[7] = v2;
+    *v2 = v0;
+    v2[1] = sub_100297328;
+
+    return sub_100297464();
+  }
+
+  else
+  {
+    v4 = v0[1];
+
+    return v4();
+  }
+}
+
+uint64_t sub_100297328()
+{
+  v2 = *v1;
+  *(v2 + 64) = v0;
+
+  if (v0)
+  {
+
+    return _swift_task_switch(sub_1002AB3A4, 0, 0);
+  }
+
+  else
+  {
+
+    v3 = *(v2 + 8);
+
+    return v3();
+  }
+}
+
+uint64_t sub_100297464()
+{
+  v1[2] = v0;
+  v2 = type metadata accessor for Fence.TriggerID();
+  v1[3] = v2;
+  v1[4] = *(v2 - 8);
+  v1[5] = swift_task_alloc();
+  v1[6] = swift_task_alloc();
+  v3 = type metadata accessor for Fence.TriggerPosition();
+  v1[7] = v3;
+  v1[8] = *(v3 - 8);
+  v1[9] = swift_task_alloc();
+  v1[10] = swift_task_alloc();
+  v1[11] = swift_task_alloc();
+  v4 = type metadata accessor for Fence.ID();
+  v1[12] = v4;
+  v1[13] = *(v4 - 8);
+  v1[14] = swift_task_alloc();
+  v1[15] = swift_task_alloc();
+  v1[16] = swift_task_alloc();
+  v1[17] = swift_task_alloc();
+  v1[18] = sub_10004B564(&qword_1005B0B98, &qword_1004D27F0);
+  v1[19] = swift_task_alloc();
+  v1[20] = swift_task_alloc();
+  v5 = type metadata accessor for FenceTriggerRecord(0);
+  v1[21] = v5;
+  v1[22] = *(v5 - 8);
+  v1[23] = swift_task_alloc();
+  sub_10004B564(&qword_1005B0BB0, &qword_1004D2830);
+  v1[24] = swift_task_alloc();
+  v6 = type metadata accessor for DateInterval();
+  v1[25] = v6;
+  v1[26] = *(v6 - 8);
+  v1[27] = swift_task_alloc();
+  v7 = type metadata accessor for Fence.Schedule.Matcher();
+  v1[28] = v7;
+  v1[29] = *(v7 - 8);
+  v1[30] = swift_task_alloc();
+  sub_10004B564(&unk_1005AE5B0, &qword_1004C32F0);
+  v1[31] = swift_task_alloc();
+  v8 = type metadata accessor for Fence.Participant();
+  v1[32] = v8;
+  v1[33] = *(v8 - 8);
+  v1[34] = swift_task_alloc();
+  v1[35] = swift_task_alloc();
+  v9 = type metadata accessor for Fence.AcceptanceStatus();
+  v1[36] = v9;
+  v1[37] = *(v9 - 8);
+  v1[38] = swift_task_alloc();
+  v1[39] = swift_task_alloc();
+  v10 = type metadata accessor for Fence.Variant();
+  v1[40] = v10;
+  v1[41] = *(v10 - 8);
+  v1[42] = swift_task_alloc();
+  v11 = type metadata accessor for Fence.Schedule();
+  v1[43] = v11;
+  v1[44] = *(v11 - 8);
+  v1[45] = swift_task_alloc();
+  v1[46] = swift_task_alloc();
+  v12 = type metadata accessor for Fence();
+  v1[47] = v12;
+  v1[48] = *(v12 - 8);
+  v1[49] = swift_task_alloc();
+  v1[50] = swift_task_alloc();
+  v1[51] = swift_task_alloc();
+  v1[52] = swift_task_alloc();
+  v1[53] = swift_task_alloc();
+  v1[54] = swift_task_alloc();
+  v13 = type metadata accessor for Date();
+  v1[55] = v13;
+  v1[56] = *(v13 - 8);
+  v1[57] = swift_task_alloc();
+  v1[58] = swift_task_alloc();
+  v1[59] = swift_task_alloc();
+  v1[60] = swift_task_alloc();
+  v1[61] = swift_task_alloc();
+  v1[62] = swift_task_alloc();
+
+  return _swift_task_switch(sub_100297AB4, v0, 0);
+}
+
+uint64_t sub_100297AB4()
+{
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v1 = type metadata accessor for Logger();
+  *(v0 + 504) = sub_10000A6F0(v1, qword_1005DFF88);
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v2, v3))
+  {
+    v4 = swift_slowAlloc();
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Scheduler timer fired", v4, 2u);
+  }
+
+  static Date.now.getter();
+  v5 = swift_task_alloc();
+  *(v0 + 512) = v5;
+  *v5 = v0;
+  v5[1] = sub_100297C10;
+
+  return daemon.getter();
+}
+
+uint64_t sub_100297C10(uint64_t a1)
+{
+  v2 = *v1;
+  v9 = *v1;
+  v2[65] = a1;
+
+  v3 = swift_task_alloc();
+  v2[66] = v3;
+  v4 = type metadata accessor for Daemon();
+  v2[67] = v4;
+  v5 = type metadata accessor for DataManager(0);
+  v2[68] = v5;
+  v6 = sub_1002AB19C(&unk_1005AFA50, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v2[69] = v6;
+  v7 = sub_1002AB19C(&qword_1005A90D0, type metadata accessor for DataManager, &unk_1004D1410);
+  v2[70] = v7;
+  *v3 = v9;
+  v3[1] = sub_100297E04;
+
+  return ActorServiceDaemon.getService<A>()(v4, v5, v6, v7);
+}
+
+uint64_t sub_100297E04(uint64_t a1)
+{
+  v4 = *v2;
+  v5 = *v2;
+  *(*v2 + 568) = v1;
+
+  if (v1)
+  {
+    v6 = v4[2];
+
+    return _swift_task_switch(sub_100298A24, v6, 0);
+  }
+
+  else
+  {
+
+    v4[72] = a1;
+    v7 = swift_task_alloc();
+    v4[73] = v7;
+    *v7 = v5;
+    v7[1] = sub_100297F90;
+
+    return sub_100006424();
+  }
+}
+
+uint64_t sub_100297F90(uint64_t a1)
+{
+  v2 = *(*v1 + 16);
+  *(*v1 + 592) = a1;
+
+  return _swift_task_switch(sub_1002980A8, v2, 0);
+}
+
+uint64_t sub_1002980A8()
+{
+  v109 = v0;
+  v1 = *(v0 + 592);
+
+  v2 = *(v1 + 16);
+  *(v0 + 600) = v2;
+  if (!v2)
+  {
+LABEL_24:
+
+    v94 = swift_task_alloc();
+    *(v0 + 816) = v94;
+    *v94 = v0;
+    v94[1] = sub_10029D0C8;
+
+    return sub_1002A9688();
+  }
+
+  v3 = 0;
+  *(v0 + 888) = *(*(v0 + 384) + 80);
+  *(v0 + 892) = enum case for Fence.Variant.scheduled(_:);
+  *(v0 + 896) = enum case for Fence.AcceptanceStatus.accepted(_:);
+  *(v0 + 900) = enum case for Fence.Participant.me(_:);
+  *(v0 + 904) = enum case for Fence.TriggerPosition.inside(_:);
+  *(v0 + 908) = enum case for Fence.TriggerPosition.outside(_:);
+  *(v0 + 912) = enum case for Fence.TriggerPosition.undetermined(_:);
+  while (1)
+  {
+    *(v0 + 608) = v3;
+    v4 = *(v0 + 592);
+    if (v3 >= *(v4 + 16))
+    {
+      __break(1u);
+      return daemon.getter();
+    }
+
+    v5 = *(v0 + 892);
+    v6 = *(v0 + 432);
+    v7 = *(v0 + 376);
+    v8 = *(v0 + 384);
+    v10 = *(v0 + 328);
+    v9 = *(v0 + 336);
+    v11 = *(v0 + 320);
+    v12 = *(v8 + 16);
+    v8 += 16;
+    v13 = v4 + ((*(v0 + 888) + 32) & ~*(v0 + 888)) + *(v8 + 56) * v3;
+    *(v0 + 616) = v12;
+    *(v0 + 624) = v8 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v12(v6, v13, v7);
+    Fence.variant.getter();
+    if ((*(v10 + 88))(v9, v11) == v5)
+    {
+      break;
+    }
+
+    v34 = *(v0 + 432);
+    v35 = *(v0 + 376);
+    v36 = *(v0 + 384);
+    v38 = *(v0 + 328);
+    v37 = *(v0 + 336);
+    v39 = *(v0 + 320);
+LABEL_14:
+    (*(v36 + 8))(v34, v35);
+    (*(v38 + 8))(v37, v39);
+LABEL_15:
+    v3 = *(v0 + 608) + 1;
+    if (v3 == *(v0 + 600))
+    {
+      goto LABEL_24;
+    }
+  }
+
+  loga = *(v0 + 896);
+  v14 = *(v0 + 368);
+  v15 = *(v0 + 344);
+  v16 = *(v0 + 352);
+  v17 = *(v0 + 336);
+  v18 = *(v0 + 312);
+  v19 = *(v0 + 296);
+  v20 = *(v0 + 304);
+  v21 = *(v0 + 288);
+  (*(*(v0 + 328) + 96))(v17, *(v0 + 320));
+  (*(v16 + 32))(v14, v17, v15);
+  Fence.acceptanceStatus.getter();
+  (*(v19 + 104))(v20, loga, v21);
+  v22 = static Fence.AcceptanceStatus.== infix(_:_:)();
+  v23 = *(v19 + 8);
+  v23(v20, v21);
+  v23(v18, v21);
+  if ((v22 & 1) == 0 || (v24 = *(v0 + 900), v26 = *(v0 + 272), v25 = *(v0 + 280), v27 = *(v0 + 256), v28 = *(v0 + 264), Fence.finder.getter(), (*(v28 + 104))(v26, v24, v27), v29 = static Fence.Participant.== infix(_:_:)(), v30 = *(v28 + 8), v30(v26, v27), v30(v25, v27), (v29 & 1) == 0))
+  {
+LABEL_13:
+    v37 = *(v0 + 432);
+    v39 = *(v0 + 376);
+    v38 = *(v0 + 384);
+    v34 = *(v0 + 368);
+    v35 = *(v0 + 344);
+    v36 = *(v0 + 352);
+    goto LABEL_14;
+  }
+
+  v31 = *(v0 + 440);
+  v32 = *(v0 + 448);
+  v33 = *(v0 + 248);
+  Fence.muteEndDate.getter();
+  if ((*(v32 + 48))(v33, 1, v31) != 1)
+  {
+    v40 = *(v0 + 488);
+    v41 = *(v0 + 440);
+    v42 = *(v0 + 448);
+    (*(v42 + 32))(v40, *(v0 + 248), v41);
+    sub_1002AB19C(&qword_1005B0BF0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+    v43 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v42 + 8))(v40, v41);
+    if (v43)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_13;
+  }
+
+  sub_100002CE0(*(v0 + 248), &unk_1005AE5B0, &qword_1004C32F0);
+LABEL_11:
+  v44 = *(v0 + 496);
+  v46 = *(v0 + 472);
+  v45 = *(v0 + 480);
+  v99 = *(v0 + 464);
+  v102 = *(v0 + 456);
+  v48 = *(v0 + 440);
+  v47 = *(v0 + 448);
+  v50 = *(v0 + 232);
+  v49 = *(v0 + 240);
+  v51 = *(v0 + 224);
+  v98 = *(*(v0 + 352) + 16);
+  v98(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.previousStartDate(from:)();
+  v52 = *(v50 + 8);
+  v52(v49, v51);
+  v53 = *(v47 + 16);
+  v53(v46, v45, v48);
+  v53(v99, v44, v48);
+  v53(v102, v45, v48);
+  v54 = Logger.logObject.getter();
+  v55 = static os_log_type_t.default.getter();
+  v56 = os_log_type_enabled(v54, v55);
+  v58 = *(v0 + 464);
+  v57 = *(v0 + 472);
+  v60 = *(v0 + 448);
+  v59 = *(v0 + 456);
+  v61 = *(v0 + 440);
+  if (v56)
+  {
+    logb = v54;
+    v62 = swift_slowAlloc();
+    v103 = swift_slowAlloc();
+    v108 = v103;
+    *v62 = 136446466;
+    v97 = v58;
+    v63 = v52;
+    v64 = Date.localISO8601.getter();
+    v100 = v55;
+    v66 = v65;
+    v67 = *(v60 + 8);
+    (v67)(v57, v61);
+    v68 = v64;
+    v52 = v63;
+    v69 = sub_10000D01C(v68, v66, &v108);
+
+    *(v62 + 4) = v69;
+    *(v62 + 12) = 2050;
+    Date.timeIntervalSince(_:)();
+    v71 = v70;
+    (v67)(v59, v61);
+    (v67)(v97, v61);
+    *(v62 + 14) = v71;
+    _os_log_impl(&_mh_execute_header, logb, v100, "schedulerTimerFired: startDate: %{public}s timeDelta: %{public}f", v62, 0x16u);
+    sub_100004984(v103);
+  }
+
+  else
+  {
+
+    v67 = *(v60 + 8);
+    (v67)(v59, v61);
+    (v67)(v58, v61);
+    (v67)(v57, v61);
+  }
+
+  *(v0 + 632) = v67;
+  Date.timeIntervalSince(_:)();
+  if (v72 > 300.0)
+  {
+    v73 = *(v0 + 432);
+    v74 = *(v0 + 376);
+    v75 = *(v0 + 384);
+    v76 = *(v0 + 368);
+    v77 = *(v0 + 344);
+    v78 = *(v0 + 352);
+    (v67)(*(v0 + 480), *(v0 + 440));
+    (*(v78 + 8))(v76, v77);
+    (*(v75 + 8))(v73, v74);
+    goto LABEL_15;
+  }
+
+  v79 = *(v0 + 240);
+  v80 = *(v0 + 224);
+  v81 = *(v0 + 200);
+  v82 = *(v0 + 208);
+  v83 = *(v0 + 192);
+  v98(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.interval(containingDate:)();
+  v52(v79, v80);
+  if ((*(v82 + 48))(v83, 1, v81) == 1)
+  {
+    log = v67;
+    sub_100002CE0(*(v0 + 192), &qword_1005B0BB0, &qword_1004D2830);
+    v84 = Logger.logObject.getter();
+    v85 = static os_log_type_t.error.getter();
+    v86 = os_log_type_enabled(v84, v85);
+    v87 = *(v0 + 480);
+    v88 = *(v0 + 440);
+    v89 = *(v0 + 384);
+    v101 = *(v0 + 376);
+    v104 = *(v0 + 432);
+    v90 = *(v0 + 368);
+    v92 = *(v0 + 344);
+    v91 = *(v0 + 352);
+    if (v86)
+    {
+      v93 = swift_slowAlloc();
+      *v93 = 0;
+      _os_log_impl(&_mh_execute_header, v84, v85, "No valid interval for startDate", v93, 2u);
+    }
+
+    (log)(v87, v88);
+    (*(v91 + 8))(v90, v92);
+    (*(v89 + 8))(v104, v101);
+    goto LABEL_15;
+  }
+
+  (*(*(v0 + 208) + 32))(*(v0 + 216), *(v0 + 192), *(v0 + 200));
+  v96 = swift_task_alloc();
+  *(v0 + 640) = v96;
+  *v96 = v0;
+  v96[1] = sub_100298C64;
+
+  return daemon.getter();
+}
+
+uint64_t sub_100298A24()
+{
+  v1 = v0[62];
+  v2 = v0[55];
+  v3 = v0[56];
+
+  (*(v3 + 8))(v1, v2);
+
+  v4 = v0[1];
+
+  return v4();
+}
+
+uint64_t sub_100298C64(uint64_t a1)
+{
+  v2 = *v1;
+  v3 = *v1;
+  v4 = *v1;
+  *(v3 + 648) = a1;
+
+  v5 = swift_task_alloc();
+  *(v3 + 656) = v5;
+  v6 = type metadata accessor for LocalStorageService();
+  v7 = sub_1002AB19C(&qword_1005AAB88, type metadata accessor for LocalStorageService, &unk_1004D5A30);
+  *v5 = v4;
+  v5[1] = sub_100298E18;
+  v8 = *(v2 + 552);
+  v9 = *(v2 + 536);
+
+  return ActorServiceDaemon.getService<A>()(v9, v6, v8, v7);
+}
+
+uint64_t sub_100298E18(uint64_t a1)
+{
+  v3 = *v2;
+  v3[83] = a1;
+  v3[84] = v1;
+
+  if (v1)
+  {
+    v4 = v3[2];
+
+    v5 = sub_10029DC68;
+  }
+
+  else
+  {
+    v4 = v3[2];
+
+    v5 = sub_100298F74;
   }
 
   return _swift_task_switch(v5, v4, 0);
 }
 
-uint64_t sub_100270F70()
+uint64_t sub_100298F74(uint64_t a1)
 {
-  v1 = v0[18];
-  v2 = v0[14];
-  v3 = v0[10];
+  v2 = *(v1 + 664);
+  Fence.id.getter();
 
-  sub_100002CE0(v3, &qword_1005AF228, &unk_1004D0440);
-  sub_100274A04(v2, type metadata accessor for FenceRecord);
-  v4 = v0[14];
-  v5 = v0[10];
-  v6 = v0[11];
-  v7 = v0[9];
-  v8 = v0[6];
+  return _swift_task_switch(sub_100298FE4, v2, 0);
+}
+
+uint64_t sub_100298FE4()
+{
+  v1 = v0[83];
+  v2 = v0[17];
+  v3 = sub_1002AB19C(&qword_1005AAB90, type metadata accessor for LocalStorageService, &unk_1004D5A90);
+  v4 = swift_task_alloc();
+  v0[85] = v4;
+  *(v4 + 16) = v1;
+  *(v4 + 24) = v2;
+  v5 = swift_task_alloc();
+  v0[86] = v5;
+  *v5 = v0;
+  v5[1] = sub_100299114;
+  v6 = v0[20];
+  v7 = v0[18];
+
+  return withCheckedThrowingContinuation<A>(isolation:function:_:)(v6, v1, v3, 0xD000000000000011, 0x80000001004E6620, sub_100293188, v4, v7);
+}
+
+uint64_t sub_100299114()
+{
+  v2 = *v1;
+  *(*v1 + 696) = v0;
+
+  if (v0)
+  {
+    v3 = v2[83];
+
+    v4 = sub_100299FAC;
+    v5 = v3;
+  }
+
+  else
+  {
+    v6 = v2[17];
+    v7 = v2[12];
+    v8 = v2[13];
+    v9 = v2[2];
+
+    v10 = *(v8 + 8);
+    v2[88] = v10;
+    v2[89] = (v8 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v10(v6, v7);
+    v4 = sub_100299294;
+    v5 = v9;
+  }
+
+  return _swift_task_switch(v4, v5, 0);
+}
+
+uint64_t sub_100299294()
+{
+  v156 = v0;
+  v1 = *(v0 + 168);
+  v2 = *(v0 + 176);
+  v3 = *(v0 + 160);
+  v4 = *(v2 + 48);
+  *(v0 + 720) = v4;
+  *(v0 + 728) = (v2 + 48) & 0xFFFFFFFFFFFFLL | 0x60F0000000000000;
+  if (v4(v3, 1, v1) != 1)
+  {
+    sub_1002AB1E4(v3, *(v0 + 184));
+    Fence.id.getter();
+    v21 = swift_task_alloc();
+    *(v0 + 736) = v21;
+    *v21 = v0;
+    v21[1] = sub_10029A2EC;
+    v22 = *(v0 + 216);
+    v23 = *(v0 + 152);
+    v24 = *(v0 + 128);
+
+    return sub_100306C9C(v23, v24, v22);
+  }
+
+  v5 = *(v0 + 616);
+  v6 = *(v0 + 432);
+  v7 = *(v0 + 400);
+  v8 = *(v0 + 376);
+  sub_100002CE0(v3, &qword_1005B0B98, &qword_1004D27F0);
+  v5(v7, v6, v8);
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v9, v10))
+  {
+    v127 = *(v0 + 704);
+    v145 = *(v0 + 632);
+    v140 = *(v0 + 480);
+    v136 = *(v0 + 440);
+    v150 = *(v0 + 432);
+    v11 = *(v0 + 400);
+    v125 = *(v0 + 384);
+    v126 = *(v0 + 376);
+    v138 = *(v0 + 368);
+    v131 = *(v0 + 352);
+    v133 = *(v0 + 344);
+    v128 = *(v0 + 208);
+    v129 = *(v0 + 200);
+    v130 = *(v0 + 216);
+    v12 = *(v0 + 120);
+    v13 = *(v0 + 96);
+    v14 = swift_slowAlloc();
+    v15 = swift_slowAlloc();
+    v155 = v15;
+    *v14 = 136446210;
+    Fence.id.getter();
+    sub_1002AB19C(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v16 = dispatch thunk of CustomStringConvertible.description.getter();
+    v18 = v17;
+    v127(v12, v13);
+    v19 = *(v125 + 8);
+    v19(v11, v126);
+    v20 = sub_10000D01C(v16, v18, &v155);
+
+    *(v14 + 4) = v20;
+    _os_log_impl(&_mh_execute_header, v9, v10, "Not triggering fence (no previousTrigger): %{public}s", v14, 0xCu);
+    sub_100004984(v15);
+
+    (*(v128 + 8))(v130, v129);
+    v145(v140, v136);
+    (*(v131 + 8))(v138, v133);
+    v19(v150, v126);
+  }
+
+  else
+  {
+    v146 = *(v0 + 632);
+    v141 = *(v0 + 480);
+    v137 = *(v0 + 440);
+    v151 = *(v0 + 432);
+    v26 = *(v0 + 400);
+    v28 = *(v0 + 376);
+    v27 = *(v0 + 384);
+    v139 = *(v0 + 368);
+    v29 = *(v0 + 352);
+    v134 = *(v0 + 344);
+    v30 = v9;
+    v31 = *(v0 + 208);
+    v32 = *(v0 + 216);
+    v33 = *(v0 + 200);
+
+    v34 = *(v27 + 8);
+    v34(v26, v28);
+    (*(v31 + 8))(v32, v33);
+    v146(v141, v137);
+    (*(v29 + 8))(v139, v134);
+    v34(v151, v28);
+  }
+
+  v35 = *(v0 + 608) + 1;
+  if (v35 == *(v0 + 600))
+  {
+LABEL_9:
+
+    v36 = swift_task_alloc();
+    *(v0 + 816) = v36;
+    *v36 = v0;
+    v36[1] = sub_10029D0C8;
+
+    return sub_1002A9688();
+  }
+
+  while (1)
+  {
+    *(v0 + 608) = v35;
+    v37 = *(v0 + 592);
+    if (v35 >= *(v37 + 16))
+    {
+      __break(1u);
+      return daemon.getter();
+    }
+
+    v38 = *(v0 + 892);
+    v39 = *(v0 + 432);
+    v40 = *(v0 + 376);
+    v41 = *(v0 + 384);
+    v43 = *(v0 + 328);
+    v42 = *(v0 + 336);
+    v44 = *(v0 + 320);
+    v45 = *(v41 + 16);
+    v41 += 16;
+    v46 = v37 + ((*(v0 + 888) + 32) & ~*(v0 + 888)) + *(v41 + 56) * v35;
+    *(v0 + 616) = v45;
+    *(v0 + 624) = v41 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v45(v39, v46, v40);
+    Fence.variant.getter();
+    if ((*(v43 + 88))(v42, v44) == v38)
+    {
+      break;
+    }
+
+    v67 = *(v0 + 432);
+    v68 = *(v0 + 376);
+    v69 = *(v0 + 384);
+    v71 = *(v0 + 328);
+    v70 = *(v0 + 336);
+    v72 = *(v0 + 320);
+LABEL_23:
+    (*(v69 + 8))(v67, v68);
+    (*(v71 + 8))(v70, v72);
+LABEL_24:
+    v35 = *(v0 + 608) + 1;
+    if (v35 == *(v0 + 600))
+    {
+      goto LABEL_9;
+    }
+  }
+
+  v152 = *(v0 + 896);
+  v47 = *(v0 + 368);
+  v49 = *(v0 + 344);
+  v48 = *(v0 + 352);
+  v50 = *(v0 + 336);
+  v51 = *(v0 + 312);
+  v52 = *(v0 + 296);
+  v53 = *(v0 + 304);
+  v54 = *(v0 + 288);
+  (*(*(v0 + 328) + 96))(v50, *(v0 + 320));
+  (*(v48 + 32))(v47, v50, v49);
+  Fence.acceptanceStatus.getter();
+  (*(v52 + 104))(v53, v152, v54);
+  v55 = static Fence.AcceptanceStatus.== infix(_:_:)();
+  v56 = *(v52 + 8);
+  v56(v53, v54);
+  v56(v51, v54);
+  if ((v55 & 1) == 0 || (v57 = *(v0 + 900), v59 = *(v0 + 272), v58 = *(v0 + 280), v61 = *(v0 + 256), v60 = *(v0 + 264), Fence.finder.getter(), (*(v60 + 104))(v59, v57, v61), v62 = static Fence.Participant.== infix(_:_:)(), v63 = *(v60 + 8), v63(v59, v61), v63(v58, v61), (v62 & 1) == 0))
+  {
+LABEL_22:
+    v70 = *(v0 + 432);
+    v72 = *(v0 + 376);
+    v71 = *(v0 + 384);
+    v67 = *(v0 + 368);
+    v68 = *(v0 + 344);
+    v69 = *(v0 + 352);
+    goto LABEL_23;
+  }
+
+  v64 = *(v0 + 440);
+  v65 = *(v0 + 448);
+  v66 = *(v0 + 248);
+  Fence.muteEndDate.getter();
+  if ((*(v65 + 48))(v66, 1, v64) != 1)
+  {
+    v73 = *(v0 + 488);
+    v74 = *(v0 + 440);
+    v75 = *(v0 + 448);
+    (*(v75 + 32))(v73, *(v0 + 248), v74);
+    sub_1002AB19C(&qword_1005B0BF0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+    v76 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v75 + 8))(v73, v74);
+    if (v76)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_22;
+  }
+
+  sub_100002CE0(*(v0 + 248), &unk_1005AE5B0, &qword_1004C32F0);
+LABEL_20:
+  v77 = *(v0 + 496);
+  v79 = *(v0 + 472);
+  v78 = *(v0 + 480);
+  v142 = *(v0 + 464);
+  v147 = *(v0 + 456);
+  v81 = *(v0 + 440);
+  v80 = *(v0 + 448);
+  v83 = *(v0 + 232);
+  v82 = *(v0 + 240);
+  v84 = *(v0 + 224);
+  v135 = *(*(v0 + 352) + 16);
+  v135(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.previousStartDate(from:)();
+  v132 = *(v83 + 8);
+  v132(v82, v84);
+  v85 = *(v80 + 16);
+  v85(v79, v78, v81);
+  v85(v142, v77, v81);
+  v85(v147, v78, v81);
+  v86 = Logger.logObject.getter();
+  v87 = static os_log_type_t.default.getter();
+  v88 = os_log_type_enabled(v86, v87);
+  v90 = *(v0 + 464);
+  v89 = *(v0 + 472);
+  v92 = *(v0 + 448);
+  v91 = *(v0 + 456);
+  v93 = *(v0 + 440);
+  if (v88)
+  {
+    v148 = v87;
+    v94 = swift_slowAlloc();
+    v153 = swift_slowAlloc();
+    v155 = v153;
+    *v94 = 136446466;
+    v143 = v90;
+    v95 = Date.localISO8601.getter();
+    v97 = v96;
+    v98 = *(v92 + 8);
+    v98(v89, v93);
+    v99 = sub_10000D01C(v95, v97, &v155);
+
+    *(v94 + 4) = v99;
+    *(v94 + 12) = 2050;
+    Date.timeIntervalSince(_:)();
+    v101 = v100;
+    v98(v91, v93);
+    v98(v143, v93);
+    *(v94 + 14) = v101;
+    _os_log_impl(&_mh_execute_header, v86, v148, "schedulerTimerFired: startDate: %{public}s timeDelta: %{public}f", v94, 0x16u);
+    sub_100004984(v153);
+  }
+
+  else
+  {
+
+    v98 = *(v92 + 8);
+    v98(v91, v93);
+    v98(v90, v93);
+    v98(v89, v93);
+  }
+
+  *(v0 + 632) = v98;
+  Date.timeIntervalSince(_:)();
+  if (v102 > 300.0)
+  {
+    v103 = *(v0 + 432);
+    v104 = *(v0 + 376);
+    v105 = *(v0 + 384);
+    v106 = *(v0 + 368);
+    v107 = *(v0 + 344);
+    v108 = *(v0 + 352);
+    v98(*(v0 + 480), *(v0 + 440));
+    (*(v108 + 8))(v106, v107);
+    (*(v105 + 8))(v103, v104);
+    goto LABEL_24;
+  }
+
+  v109 = *(v0 + 240);
+  v110 = *(v0 + 224);
+  v111 = *(v0 + 200);
+  v112 = *(v0 + 208);
+  v113 = *(v0 + 192);
+  v135(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.interval(containingDate:)();
+  v132(v109, v110);
+  if ((*(v112 + 48))(v113, 1, v111) == 1)
+  {
+    v154 = v98;
+    sub_100002CE0(*(v0 + 192), &qword_1005B0BB0, &qword_1004D2830);
+    v114 = Logger.logObject.getter();
+    v115 = static os_log_type_t.error.getter();
+    v116 = os_log_type_enabled(v114, v115);
+    v117 = *(v0 + 480);
+    v118 = *(v0 + 440);
+    v149 = *(v0 + 432);
+    v119 = *(v0 + 384);
+    v144 = *(v0 + 376);
+    v120 = *(v0 + 368);
+    v122 = *(v0 + 344);
+    v121 = *(v0 + 352);
+    if (v116)
+    {
+      v123 = swift_slowAlloc();
+      *v123 = 0;
+      _os_log_impl(&_mh_execute_header, v114, v115, "No valid interval for startDate", v123, 2u);
+    }
+
+    v154(v117, v118);
+    (*(v121 + 8))(v120, v122);
+    (*(v119 + 8))(v149, v144);
+    goto LABEL_24;
+  }
+
+  (*(*(v0 + 208) + 32))(*(v0 + 216), *(v0 + 192), *(v0 + 200));
+  v124 = swift_task_alloc();
+  *(v0 + 640) = v124;
+  *v124 = v0;
+  v124[1] = sub_100298C64;
+
+  return daemon.getter();
+}
+
+uint64_t sub_100299FAC()
+{
+  v1 = v0[2];
+  (*(v0[13] + 8))(v0[17], v0[12]);
+
+  return _swift_task_switch(sub_10029A028, v1, 0);
+}
+
+uint64_t sub_10029A028()
+{
+  v1 = v0[79];
+  v2 = v0[55];
+  v14 = v0[54];
+  v15 = v0[62];
+  v3 = v0[48];
+  v13 = v0[47];
+  v11 = v0[60];
+  v12 = v0[46];
+  v5 = v0[43];
+  v4 = v0[44];
+  v6 = v0[26];
+  v7 = v0[27];
+  v8 = v0[25];
+
+  (*(v6 + 8))(v7, v8);
+  v1(v11, v2);
+  (*(v4 + 8))(v12, v5);
+  (*(v3 + 8))(v14, v13);
+  v1(v15, v2);
 
   v9 = v0[1];
 
   return v9();
 }
 
-uint64_t sub_10027104C()
+uint64_t sub_10029A2EC()
 {
-  v1 = *(v0 + 224);
-  v2 = *(v0 + 24);
+  v2 = *v1;
+  v2[93] = v0;
 
-  return _swift_task_switch(sub_1002710B8, v2, 0);
-}
-
-uint64_t sub_1002710B8()
-{
-  v1 = v0[18];
-  v2 = v0[14];
-  v3 = v0[10];
-
-  sub_100002CE0(v3, &qword_1005AF228, &unk_1004D0440);
-  sub_100274A04(v2, type metadata accessor for FenceRecord);
-  v4 = v0[30];
-  v5 = v0[14];
-  v7 = v0[10];
-  v6 = v0[11];
-  v8 = v0[9];
-  v9 = v0[6];
-
-  v10 = v0[1];
-
-  return v10();
-}
-
-uint64_t sub_10027119C()
-{
-  v1 = v0[3];
-  (*(v0[8] + 8))(v0[9], v0[7]);
-
-  return _swift_task_switch(sub_100271218, v1, 0);
-}
-
-uint64_t sub_100271218()
-{
-  v1 = v0[18];
-  v2 = v0[14];
-  v3 = v0[10];
-
-  sub_100002CE0(v3, &qword_1005AF228, &unk_1004D0440);
-  sub_100274A04(v2, type metadata accessor for FenceRecord);
-  v4 = v0[26];
-  v5 = v0[14];
-  v7 = v0[10];
-  v6 = v0[11];
-  v8 = v0[9];
-  v9 = v0[6];
-
-  v10 = v0[1];
-
-  return v10();
-}
-
-uint64_t sub_1002712FC()
-{
-  v1 = v0[16];
-
-  v2 = v0[19];
-  v3 = v0[14];
-  v5 = v0[10];
-  v4 = v0[11];
-  v6 = v0[9];
-  v7 = v0[6];
-
-  v8 = v0[1];
-
-  return v8();
-}
-
-uint64_t sub_1002713A4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v75 = a4;
-  v82 = a3;
-  v84 = a5;
-  v79 = type metadata accessor for Fence.ID();
-  v83 = *(v79 - 8);
-  v7 = *(v83 + 64);
-  __chkstk_darwin(v79);
-  v72 = &v71 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v76 = sub_10004B564(&qword_1005B0B78, &qword_1004D2790);
-  v9 = *(*(v76 - 8) + 64);
-  __chkstk_darwin(v76);
-  v78 = &v71 - v10;
-  v11 = sub_10004B564(&qword_1005B09D0, &unk_1004D2380);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v74 = &v71 - v13;
-  v14 = sub_10004B564(&qword_1005A9150, &qword_1004C2608);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = __chkstk_darwin(v14 - 8);
-  v73 = &v71 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __chkstk_darwin(v16);
-  v80 = &v71 - v19;
-  __chkstk_darwin(v18);
-  v77 = &v71 - v20;
-  v21 = type metadata accessor for Date();
-  v81 = *(v21 - 8);
-  v22 = *(v81 + 64);
-  __chkstk_darwin(v21);
-  v24 = &v71 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = sub_10004B564(&qword_1005AAE00, &qword_1004C4A18);
-  v26 = *(*(v25 - 8) + 64);
-  __chkstk_darwin(v25);
-  v28 = &v71 - v27;
-  v29 = sub_10004B564(&unk_1005AE5B0, &qword_1004C32F0);
-  v30 = *(*(v29 - 8) + 64);
-  v31 = __chkstk_darwin(v29 - 8);
-  v33 = &v71 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v31);
-  v35 = &v71 - v34;
-  if ((sub_10024AAD4() & 1) == 0)
+  v3 = v2[88];
+  if (v0)
   {
-    goto LABEL_23;
+    v4 = v2[16];
+    v5 = v2[12];
+    v6 = v2[2];
+    v3(v4, v5);
+
+    v7 = sub_10029DF18;
+    v8 = v6;
   }
 
-  v36 = Fence.others.getter();
-  v37 = sub_100260454(a2, v36, &type metadata accessor for PersonHandle, &qword_1005B04E0, &type metadata accessor for PersonHandle);
-
-  if (!v37)
+  else
   {
-    goto LABEL_23;
+    v9 = v2[2];
+    v3(v2[16], v2[12]);
+    v7 = sub_10029A468;
+    v8 = v9;
   }
 
-  v71 = a1;
-  Fence.muteEndDate.getter();
-  v38 = *(v25 + 48);
-  sub_100005F04(v35, v28, &unk_1005AE5B0, &qword_1004C32F0);
-  sub_100005F04(v82, &v28[v38], &unk_1005AE5B0, &qword_1004C32F0);
-  v39 = v81;
-  v40 = *(v81 + 48);
-  if (v40(v28, 1, v21) != 1)
+  return _swift_task_switch(v7, v8, 0);
+}
+
+uint64_t sub_10029A468()
+{
+  v240 = v0;
+  v1 = *(v0 + 152);
+  v2 = (*(v0 + 720))(v1, 1, *(v0 + 168));
+  sub_100002CE0(v1, &qword_1005B0B98, &qword_1004D27F0);
+  if (v2 == 1)
   {
-    sub_100005F04(v28, v33, &unk_1005AE5B0, &qword_1004C32F0);
-    if (v40(&v28[v38], 1, v21) != 1)
+    v3 = *(v0 + 904);
+    v4 = *(v0 + 88);
+    v5 = *(v0 + 56);
+    v6 = *(v0 + 64);
+    (*(v6 + 16))(v4, *(v0 + 184) + *(*(v0 + 168) + 24), v5);
+    v7 = (*(v6 + 88))(v4, v5);
+    if (v7 == v3)
     {
-      (*(v39 + 32))(v24, &v28[v38], v21);
-      sub_1000094D0(&qword_1005AE5D0, &type metadata accessor for Date);
-      v62 = v39;
-      v63 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v64 = *(v62 + 8);
-      v64(v24, v21);
-      sub_100002CE0(v35, &unk_1005AE5B0, &qword_1004C32F0);
-      v64(v33, v21);
-      sub_100002CE0(v28, &unk_1005AE5B0, &qword_1004C32F0);
-      if (v63)
-      {
-        goto LABEL_23;
-      }
-
-LABEL_9:
-      v44 = v77;
+      v8 = *(v0 + 904);
+      v10 = *(v0 + 80);
+      v9 = *(v0 + 88);
+      v11 = *(v0 + 56);
+      v12 = *(v0 + 64);
+      (*(v12 + 96))(v9, v11);
+      *(v0 + 752) = *v9;
+      v13 = sub_1002A953C();
+      *(v0 + 760) = v13;
       Fence.id.getter();
-      v45 = *(v83 + 56);
-      v46 = v79;
-      v45(v44, 0, 1, v79);
-      v47 = v74;
-      sub_100005F04(v75, v74, &qword_1005B09D0, &unk_1004D2380);
-      v48 = type metadata accessor for Fence();
-      v49 = *(v48 - 8);
-      v50 = (*(v49 + 48))(v47, 1, v48);
-      v81 = v48;
-      v75 = v49;
-      if (v50 == 1)
-      {
-        sub_100002CE0(v47, &qword_1005B09D0, &unk_1004D2380);
-        v51 = 1;
-        v52 = v78;
-        v53 = v80;
-      }
+      *v10 = v13;
+      (*(v12 + 104))(v10, v8, v11);
+      v14 = v13;
+      Fence.TriggerID.init()();
+      v15 = swift_task_alloc();
+      *(v0 + 768) = v15;
+      *v15 = v0;
+      v15[1] = sub_10029B8A8;
+      v16 = *(v0 + 120);
+      v17 = *(v0 + 80);
+      v18 = *(v0 + 48);
 
-      else
-      {
-        v53 = v80;
-        Fence.id.getter();
-        (*(v49 + 8))(v47, v48);
-        v51 = 0;
-        v52 = v78;
-      }
-
-      v45(v53, v51, 1, v46);
-      v54 = *(v76 + 48);
-      sub_100005F04(v44, v52, &qword_1005A9150, &qword_1004C2608);
-      sub_100005F04(v53, v52 + v54, &qword_1005A9150, &qword_1004C2608);
-      v55 = *(v83 + 48);
-      if (v55(v52, 1, v46) == 1)
-      {
-        sub_100002CE0(v53, &qword_1005A9150, &qword_1004C2608);
-        sub_100002CE0(v44, &qword_1005A9150, &qword_1004C2608);
-        if (v55(v52 + v54, 1, v46) == 1)
-        {
-          v41 = &qword_1005A9150;
-          v42 = &qword_1004C2608;
-          v43 = v52;
-          goto LABEL_15;
-        }
-      }
-
-      else
-      {
-        v56 = v73;
-        sub_100005F04(v52, v73, &qword_1005A9150, &qword_1004C2608);
-        if (v55(v52 + v54, 1, v46) != 1)
-        {
-          v65 = v83;
-          v66 = v52 + v54;
-          v67 = v72;
-          (*(v83 + 32))(v72, v66, v46);
-          sub_1000094D0(&qword_1005B0B80, &type metadata accessor for Fence.ID);
-          v68 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v69 = *(v65 + 8);
-          v69(v67, v46);
-          sub_100002CE0(v80, &qword_1005A9150, &qword_1004C2608);
-          sub_100002CE0(v44, &qword_1005A9150, &qword_1004C2608);
-          v69(v56, v46);
-          sub_100002CE0(v52, &qword_1005A9150, &qword_1004C2608);
-          v57 = v71;
-          if (v68)
-          {
-            goto LABEL_23;
-          }
-
-LABEL_19:
-          v58 = v75;
-          v59 = v84;
-          v60 = v81;
-          (*(v75 + 16))(v84, v57, v81);
-          Fence.update(muteEndDate:)();
-          return (*(v58 + 56))(v59, 0, 1, v60);
-        }
-
-        sub_100002CE0(v80, &qword_1005A9150, &qword_1004C2608);
-        sub_100002CE0(v44, &qword_1005A9150, &qword_1004C2608);
-        (*(v83 + 8))(v56, v46);
-      }
-
-      sub_100002CE0(v52, &qword_1005B0B78, &qword_1004D2790);
-      v57 = v71;
-      goto LABEL_19;
+      return sub_100289330(v16, v17, v18);
     }
 
-    sub_100002CE0(v35, &unk_1005AE5B0, &qword_1004C32F0);
-    (*(v39 + 8))(v33, v21);
-LABEL_8:
-    sub_100002CE0(v28, &qword_1005AAE00, &qword_1004C4A18);
-    goto LABEL_9;
+    if (v7 == *(v0 + 908))
+    {
+      v32 = *(v0 + 616);
+      v33 = *(v0 + 432);
+      v34 = *(v0 + 416);
+      v35 = *(v0 + 376);
+      v36 = *(v0 + 88);
+      (*(*(v0 + 64) + 96))(v36, *(v0 + 56));
+      *(v0 + 776) = *v36;
+      v37 = sub_1002A953C();
+      *(v0 + 784) = v37;
+      v32(v34, v33, v35);
+      v38 = Logger.logObject.getter();
+      v39 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v38, v39))
+      {
+        v212 = *(v0 + 704);
+        v207 = *(v0 + 416);
+        v40 = *(v0 + 384);
+        v224 = *(v0 + 376);
+        v41 = *(v0 + 120);
+        v42 = *(v0 + 96);
+        v43 = swift_slowAlloc();
+        v232 = swift_slowAlloc();
+        v239[0] = v232;
+        *v43 = 136446210;
+        Fence.id.getter();
+        sub_1002AB19C(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+        v44 = dispatch thunk of CustomStringConvertible.description.getter();
+        v45 = v37;
+        v47 = v46;
+        v212(v41, v42);
+        v48 = *(v40 + 8);
+        v48(v207, v224);
+        v49 = sub_10000D01C(v44, v47, v239);
+        v37 = v45;
+
+        *(v43 + 4) = v49;
+        _os_log_impl(&_mh_execute_header, v38, v39, "Schedule Timer about to trigger fence: %{public}s", v43, 0xCu);
+        sub_100004984(v232);
+      }
+
+      else
+      {
+        v160 = *(v0 + 416);
+        v162 = *(v0 + 376);
+        v161 = *(v0 + 384);
+
+        v48 = *(v161 + 8);
+        v48(v160, v162);
+      }
+
+      *(v0 + 792) = v48;
+      v163 = *(v0 + 908);
+      v164 = *(v0 + 64);
+      v165 = *(v0 + 72);
+      v166 = *(v0 + 56);
+      Fence.id.getter();
+      Fence.TriggerID.init()();
+      *v165 = v37;
+      (*(v164 + 104))(v165, v163, v166);
+      v167 = v37;
+      v168 = swift_task_alloc();
+      *(v0 + 800) = v168;
+      *v168 = v0;
+      v168[1] = sub_10029C4A4;
+      v169 = *(v0 + 112);
+      v170 = *(v0 + 72);
+      v171 = *(v0 + 40);
+
+      return sub_100274D00(v169, v171, v170);
+    }
+
+    if (v7 != *(v0 + 912))
+    {
+      return _assertionFailure(_:_:file:line:flags:)();
+    }
+
+    (*(v0 + 616))(*(v0 + 408), *(v0 + 432), *(v0 + 376));
+    v148 = Logger.logObject.getter();
+    v149 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v148, v149))
+    {
+      v187 = *(v0 + 704);
+      v221 = *(v0 + 480);
+      v229 = *(v0 + 632);
+      v209 = *(v0 + 440);
+      v237 = *(v0 + 432);
+      v150 = *(v0 + 408);
+      v183 = *(v0 + 384);
+      v185 = *(v0 + 376);
+      v214 = *(v0 + 368);
+      v199 = *(v0 + 352);
+      v204 = *(v0 + 344);
+      v193 = *(v0 + 200);
+      v195 = *(v0 + 216);
+      v189 = *(v0 + 184);
+      v191 = *(v0 + 208);
+      v151 = *(v0 + 120);
+      v152 = *(v0 + 96);
+      v153 = swift_slowAlloc();
+      v154 = swift_slowAlloc();
+      v239[0] = v154;
+      *v153 = 136446210;
+      Fence.id.getter();
+      sub_1002AB19C(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+      v155 = dispatch thunk of CustomStringConvertible.description.getter();
+      v157 = v156;
+      v187(v151, v152);
+      v158 = *(v183 + 8);
+      v158(v150, v185);
+      v159 = sub_10000D01C(v155, v157, v239);
+
+      *(v153 + 4) = v159;
+      _os_log_impl(&_mh_execute_header, v148, v149, "TriggerPosition is .undetermined for fence: %{public}s", v153, 0xCu);
+      sub_100004984(v154);
+
+      sub_1002AB248(v189);
+      (*(v191 + 8))(v195, v193);
+      v229(v221, v209);
+      (*(v199 + 8))(v214, v204);
+      v158(v237, v185);
+    }
+
+    else
+    {
+      v222 = *(v0 + 480);
+      v230 = *(v0 + 632);
+      v210 = *(v0 + 440);
+      v238 = *(v0 + 432);
+      v172 = *(v0 + 408);
+      v173 = *(v0 + 376);
+      v174 = *(v0 + 384);
+      v215 = *(v0 + 368);
+      v175 = v148;
+      v176 = *(v0 + 352);
+      v177 = *(v0 + 208);
+      v200 = *(v0 + 216);
+      v205 = *(v0 + 344);
+      v178 = *(v0 + 200);
+      v179 = *(v0 + 184);
+
+      v180 = *(v174 + 8);
+      v180(v172, v173);
+      sub_1002AB248(v179);
+      (*(v177 + 8))(v200, v178);
+      v230(v222, v210);
+      (*(v176 + 8))(v215, v205);
+      v180(v238, v173);
+    }
+
+    (*(*(v0 + 64) + 8))(*(v0 + 88), *(v0 + 56));
   }
 
-  sub_100002CE0(v35, &unk_1005AE5B0, &qword_1004C32F0);
-  if (v40(&v28[v38], 1, v21) != 1)
+  else
   {
-    goto LABEL_8;
+    (*(v0 + 616))(*(v0 + 424), *(v0 + 432), *(v0 + 376));
+    v20 = Logger.logObject.getter();
+    v21 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v20, v21))
+    {
+      v186 = *(v0 + 704);
+      v216 = *(v0 + 480);
+      v223 = *(v0 + 632);
+      v206 = *(v0 + 440);
+      v22 = *(v0 + 424);
+      v231 = *(v0 + 432);
+      v182 = *(v0 + 384);
+      v184 = *(v0 + 376);
+      v211 = *(v0 + 368);
+      v196 = *(v0 + 352);
+      v201 = *(v0 + 344);
+      v192 = *(v0 + 200);
+      v194 = *(v0 + 216);
+      v188 = *(v0 + 184);
+      v190 = *(v0 + 208);
+      v23 = *(v0 + 120);
+      v24 = *(v0 + 96);
+      v25 = swift_slowAlloc();
+      v26 = swift_slowAlloc();
+      v239[0] = v26;
+      *v25 = 136446210;
+      Fence.id.getter();
+      sub_1002AB19C(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+      v27 = dispatch thunk of CustomStringConvertible.description.getter();
+      v29 = v28;
+      v186(v23, v24);
+      v30 = *(v182 + 8);
+      v30(v22, v184);
+      v31 = sub_10000D01C(v27, v29, v239);
+
+      *(v25 + 4) = v31;
+      _os_log_impl(&_mh_execute_header, v20, v21, "Not triggering fence (fence already triggered in current scheduleInterval): %{public}s", v25, 0xCu);
+      sub_100004984(v26);
+
+      sub_1002AB248(v188);
+      (*(v190 + 8))(v194, v192);
+      v223(v216, v206);
+      (*(v196 + 8))(v211, v201);
+      v30(v231, v184);
+    }
+
+    else
+    {
+      v217 = *(v0 + 480);
+      v225 = *(v0 + 632);
+      v208 = *(v0 + 440);
+      v50 = *(v0 + 424);
+      v233 = *(v0 + 432);
+      v51 = *(v0 + 376);
+      v52 = *(v0 + 384);
+      v213 = *(v0 + 368);
+      v53 = v20;
+      v54 = *(v0 + 352);
+      v55 = *(v0 + 208);
+      v197 = *(v0 + 216);
+      v202 = *(v0 + 344);
+      v56 = *(v0 + 200);
+      v57 = *(v0 + 184);
+
+      v58 = *(v52 + 8);
+      v58(v50, v51);
+      sub_1002AB248(v57);
+      (*(v55 + 8))(v197, v56);
+      v225(v217, v208);
+      (*(v54 + 8))(v213, v202);
+      v58(v233, v51);
+    }
   }
 
-  v41 = &unk_1005AE5B0;
-  v42 = &qword_1004C32F0;
-  v43 = v28;
+  v59 = *(v0 + 608) + 1;
+  if (v59 == *(v0 + 600))
+  {
+LABEL_13:
+
+    v60 = swift_task_alloc();
+    *(v0 + 816) = v60;
+    *v60 = v0;
+    v60[1] = sub_10029D0C8;
+
+    return sub_1002A9688();
+  }
+
+  while (1)
+  {
+    *(v0 + 608) = v59;
+    v61 = *(v0 + 592);
+    if (v59 >= *(v61 + 16))
+    {
+      __break(1u);
+      return daemon.getter();
+    }
+
+    v62 = *(v0 + 892);
+    v63 = *(v0 + 432);
+    v64 = *(v0 + 376);
+    v65 = *(v0 + 384);
+    v67 = *(v0 + 328);
+    v66 = *(v0 + 336);
+    v68 = *(v0 + 320);
+    v69 = *(v65 + 16);
+    v65 += 16;
+    v70 = v61 + ((*(v0 + 888) + 32) & ~*(v0 + 888)) + *(v65 + 56) * v59;
+    *(v0 + 616) = v69;
+    *(v0 + 624) = v65 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v69(v63, v70, v64);
+    Fence.variant.getter();
+    if ((*(v67 + 88))(v66, v68) == v62)
+    {
+      break;
+    }
+
+    v91 = *(v0 + 432);
+    v92 = *(v0 + 376);
+    v93 = *(v0 + 384);
+    v95 = *(v0 + 328);
+    v94 = *(v0 + 336);
+    v96 = *(v0 + 320);
+LABEL_27:
+    (*(v93 + 8))(v91, v92);
+    (*(v95 + 8))(v94, v96);
+LABEL_28:
+    v59 = *(v0 + 608) + 1;
+    if (v59 == *(v0 + 600))
+    {
+      goto LABEL_13;
+    }
+  }
+
+  v234 = *(v0 + 896);
+  v71 = *(v0 + 368);
+  v73 = *(v0 + 344);
+  v72 = *(v0 + 352);
+  v74 = *(v0 + 336);
+  v75 = *(v0 + 312);
+  v76 = *(v0 + 296);
+  v77 = *(v0 + 304);
+  v78 = *(v0 + 288);
+  (*(*(v0 + 328) + 96))(v74, *(v0 + 320));
+  (*(v72 + 32))(v71, v74, v73);
+  Fence.acceptanceStatus.getter();
+  (*(v76 + 104))(v77, v234, v78);
+  v79 = static Fence.AcceptanceStatus.== infix(_:_:)();
+  v80 = *(v76 + 8);
+  v80(v77, v78);
+  v80(v75, v78);
+  if ((v79 & 1) == 0 || (v81 = *(v0 + 900), v83 = *(v0 + 272), v82 = *(v0 + 280), v85 = *(v0 + 256), v84 = *(v0 + 264), Fence.finder.getter(), (*(v84 + 104))(v83, v81, v85), v86 = static Fence.Participant.== infix(_:_:)(), v87 = *(v84 + 8), v87(v83, v85), v87(v82, v85), (v86 & 1) == 0))
+  {
+LABEL_26:
+    v94 = *(v0 + 432);
+    v96 = *(v0 + 376);
+    v95 = *(v0 + 384);
+    v91 = *(v0 + 368);
+    v92 = *(v0 + 344);
+    v93 = *(v0 + 352);
+    goto LABEL_27;
+  }
+
+  v88 = *(v0 + 440);
+  v89 = *(v0 + 448);
+  v90 = *(v0 + 248);
+  Fence.muteEndDate.getter();
+  if ((*(v89 + 48))(v90, 1, v88) != 1)
+  {
+    v97 = *(v0 + 488);
+    v98 = *(v0 + 440);
+    v99 = *(v0 + 448);
+    (*(v99 + 32))(v97, *(v0 + 248), v98);
+    sub_1002AB19C(&qword_1005B0BF0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+    v100 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v99 + 8))(v97, v98);
+    if (v100)
+    {
+      goto LABEL_24;
+    }
+
+    goto LABEL_26;
+  }
+
+  sub_100002CE0(*(v0 + 248), &unk_1005AE5B0, &qword_1004C32F0);
+LABEL_24:
+  v101 = *(v0 + 496);
+  v103 = *(v0 + 472);
+  v102 = *(v0 + 480);
+  v218 = *(v0 + 464);
+  v226 = *(v0 + 456);
+  v105 = *(v0 + 440);
+  v104 = *(v0 + 448);
+  v107 = *(v0 + 232);
+  v106 = *(v0 + 240);
+  v108 = *(v0 + 224);
+  v203 = *(*(v0 + 352) + 16);
+  v203(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.previousStartDate(from:)();
+  v198 = *(v107 + 8);
+  v198(v106, v108);
+  v109 = *(v104 + 16);
+  v109(v103, v102, v105);
+  v109(v218, v101, v105);
+  v109(v226, v102, v105);
+  v110 = Logger.logObject.getter();
+  v111 = static os_log_type_t.default.getter();
+  v112 = os_log_type_enabled(v110, v111);
+  v114 = *(v0 + 464);
+  v113 = *(v0 + 472);
+  v116 = *(v0 + 448);
+  v115 = *(v0 + 456);
+  v117 = *(v0 + 440);
+  if (v112)
+  {
+    v227 = v111;
+    v118 = swift_slowAlloc();
+    v235 = swift_slowAlloc();
+    v239[0] = v235;
+    *v118 = 136446466;
+    v219 = v114;
+    v119 = Date.localISO8601.getter();
+    v121 = v120;
+    v122 = *(v116 + 8);
+    v122(v113, v117);
+    v123 = sub_10000D01C(v119, v121, v239);
+
+    *(v118 + 4) = v123;
+    *(v118 + 12) = 2050;
+    Date.timeIntervalSince(_:)();
+    v125 = v124;
+    v122(v115, v117);
+    v122(v219, v117);
+    *(v118 + 14) = v125;
+    _os_log_impl(&_mh_execute_header, v110, v227, "schedulerTimerFired: startDate: %{public}s timeDelta: %{public}f", v118, 0x16u);
+    sub_100004984(v235);
+  }
+
+  else
+  {
+
+    v122 = *(v116 + 8);
+    v122(v115, v117);
+    v122(v114, v117);
+    v122(v113, v117);
+  }
+
+  *(v0 + 632) = v122;
+  Date.timeIntervalSince(_:)();
+  if (v126 > 300.0)
+  {
+    v127 = *(v0 + 432);
+    v128 = *(v0 + 376);
+    v129 = *(v0 + 384);
+    v130 = *(v0 + 368);
+    v131 = *(v0 + 344);
+    v132 = *(v0 + 352);
+    v122(*(v0 + 480), *(v0 + 440));
+    (*(v132 + 8))(v130, v131);
+    (*(v129 + 8))(v127, v128);
+    goto LABEL_28;
+  }
+
+  v133 = *(v0 + 240);
+  v134 = *(v0 + 224);
+  v135 = *(v0 + 200);
+  v136 = *(v0 + 208);
+  v137 = *(v0 + 192);
+  v203(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.interval(containingDate:)();
+  v198(v133, v134);
+  if ((*(v136 + 48))(v137, 1, v135) == 1)
+  {
+    v236 = v122;
+    sub_100002CE0(*(v0 + 192), &qword_1005B0BB0, &qword_1004D2830);
+    v138 = Logger.logObject.getter();
+    v139 = static os_log_type_t.error.getter();
+    v140 = os_log_type_enabled(v138, v139);
+    v141 = *(v0 + 480);
+    v142 = *(v0 + 440);
+    v143 = *(v0 + 384);
+    v220 = *(v0 + 376);
+    v228 = *(v0 + 432);
+    v144 = *(v0 + 368);
+    v146 = *(v0 + 344);
+    v145 = *(v0 + 352);
+    if (v140)
+    {
+      v147 = swift_slowAlloc();
+      *v147 = 0;
+      _os_log_impl(&_mh_execute_header, v138, v139, "No valid interval for startDate", v147, 2u);
+    }
+
+    v236(v141, v142);
+    (*(v145 + 8))(v144, v146);
+    (*(v143 + 8))(v228, v220);
+    goto LABEL_28;
+  }
+
+  (*(*(v0 + 208) + 32))(*(v0 + 216), *(v0 + 192), *(v0 + 200));
+  v181 = swift_task_alloc();
+  *(v0 + 640) = v181;
+  *v181 = v0;
+  v181[1] = sub_100298C64;
+
+  return daemon.getter();
+}
+
+uint64_t sub_10029B8A8()
+{
+  v11 = *(*v0 + 704);
+  v1 = *(*v0 + 120);
+  v2 = *(*v0 + 96);
+  v3 = *(*v0 + 80);
+  v4 = *(*v0 + 64);
+  v5 = *(*v0 + 56);
+  v6 = *(*v0 + 48);
+  v7 = *(*v0 + 32);
+  v8 = *(*v0 + 24);
+  v9 = *(*v0 + 16);
+
+  (*(v7 + 8))(v6, v8);
+  (*(v4 + 8))(v3, v5);
+  v11(v1, v2);
+
+  return _swift_task_switch(sub_10029BAE8, v9, 0);
+}
+
+uint64_t sub_10029BAE8()
+{
+  v118 = v0;
+  v1 = *(v0 + 760);
+  v99 = *(v0 + 440);
+  v113 = *(v0 + 432);
+  v2 = *(v0 + 384);
+  v105 = *(v0 + 632);
+  v109 = *(v0 + 376);
+  v103 = *(v0 + 480);
+  v104 = *(v0 + 368);
+  v3 = *(v0 + 352);
+  v101 = *(v0 + 344);
+  v4 = *(v0 + 208);
+  v5 = *(v0 + 216);
+  v6 = *(v0 + 200);
+  v7 = *(v0 + 184);
+
+  sub_1002AB248(v7);
+  (*(v4 + 8))(v5, v6);
+  v105(v103, v99);
+  (*(v3 + 8))(v104, v101);
+  (*(v2 + 8))(v113, v109);
+  v8 = *(v0 + 608) + 1;
+  if (v8 == *(v0 + 600))
+  {
+LABEL_2:
+
+    v9 = swift_task_alloc();
+    *(v0 + 816) = v9;
+    *v9 = v0;
+    v9[1] = sub_10029D0C8;
+
+    return sub_1002A9688();
+  }
+
+  while (1)
+  {
+    *(v0 + 608) = v8;
+    v11 = *(v0 + 592);
+    if (v8 >= *(v11 + 16))
+    {
+      __break(1u);
+      return daemon.getter();
+    }
+
+    v12 = *(v0 + 892);
+    v13 = *(v0 + 432);
+    v14 = *(v0 + 376);
+    v15 = *(v0 + 384);
+    v17 = *(v0 + 328);
+    v16 = *(v0 + 336);
+    v18 = *(v0 + 320);
+    v19 = *(v15 + 16);
+    v15 += 16;
+    v20 = v11 + ((*(v0 + 888) + 32) & ~*(v0 + 888)) + *(v15 + 56) * v8;
+    *(v0 + 616) = v19;
+    *(v0 + 624) = v15 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v19(v13, v20, v14);
+    Fence.variant.getter();
+    if ((*(v17 + 88))(v16, v18) == v12)
+    {
+      break;
+    }
+
+    v41 = *(v0 + 432);
+    v42 = *(v0 + 376);
+    v43 = *(v0 + 384);
+    v45 = *(v0 + 328);
+    v44 = *(v0 + 336);
+    v46 = *(v0 + 320);
+LABEL_16:
+    (*(v43 + 8))(v41, v42);
+    (*(v45 + 8))(v44, v46);
+LABEL_17:
+    v8 = *(v0 + 608) + 1;
+    if (v8 == *(v0 + 600))
+    {
+      goto LABEL_2;
+    }
+  }
+
+  v114 = *(v0 + 896);
+  v21 = *(v0 + 368);
+  v23 = *(v0 + 344);
+  v22 = *(v0 + 352);
+  v24 = *(v0 + 336);
+  v25 = *(v0 + 312);
+  v26 = *(v0 + 296);
+  v27 = *(v0 + 304);
+  v28 = *(v0 + 288);
+  (*(*(v0 + 328) + 96))(v24, *(v0 + 320));
+  (*(v22 + 32))(v21, v24, v23);
+  Fence.acceptanceStatus.getter();
+  (*(v26 + 104))(v27, v114, v28);
+  v29 = static Fence.AcceptanceStatus.== infix(_:_:)();
+  v30 = *(v26 + 8);
+  v30(v27, v28);
+  v30(v25, v28);
+  if ((v29 & 1) == 0 || (v31 = *(v0 + 900), v33 = *(v0 + 272), v32 = *(v0 + 280), v35 = *(v0 + 256), v34 = *(v0 + 264), Fence.finder.getter(), (*(v34 + 104))(v33, v31, v35), v36 = static Fence.Participant.== infix(_:_:)(), v37 = *(v34 + 8), v37(v33, v35), v37(v32, v35), (v36 & 1) == 0))
+  {
 LABEL_15:
-  sub_100002CE0(v43, v41, v42);
-LABEL_23:
-  v70 = type metadata accessor for Fence();
-  return (*(*(v70 - 8) + 56))(v84, 1, 1, v70);
+    v44 = *(v0 + 432);
+    v46 = *(v0 + 376);
+    v45 = *(v0 + 384);
+    v41 = *(v0 + 368);
+    v42 = *(v0 + 344);
+    v43 = *(v0 + 352);
+    goto LABEL_16;
+  }
+
+  v38 = *(v0 + 440);
+  v39 = *(v0 + 448);
+  v40 = *(v0 + 248);
+  Fence.muteEndDate.getter();
+  if ((*(v39 + 48))(v40, 1, v38) != 1)
+  {
+    v47 = *(v0 + 488);
+    v48 = *(v0 + 440);
+    v49 = *(v0 + 448);
+    (*(v49 + 32))(v47, *(v0 + 248), v48);
+    sub_1002AB19C(&qword_1005B0BF0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+    v50 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v49 + 8))(v47, v48);
+    if (v50)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_15;
+  }
+
+  sub_100002CE0(*(v0 + 248), &unk_1005AE5B0, &qword_1004C32F0);
+LABEL_13:
+  v51 = *(v0 + 496);
+  v53 = *(v0 + 472);
+  v52 = *(v0 + 480);
+  v106 = *(v0 + 464);
+  v110 = *(v0 + 456);
+  v55 = *(v0 + 440);
+  v54 = *(v0 + 448);
+  v57 = *(v0 + 232);
+  v56 = *(v0 + 240);
+  v58 = *(v0 + 224);
+  v102 = *(*(v0 + 352) + 16);
+  v102(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.previousStartDate(from:)();
+  v100 = *(v57 + 8);
+  v100(v56, v58);
+  v59 = *(v54 + 16);
+  v59(v53, v52, v55);
+  v59(v106, v51, v55);
+  v59(v110, v52, v55);
+  v60 = Logger.logObject.getter();
+  v61 = static os_log_type_t.default.getter();
+  v62 = os_log_type_enabled(v60, v61);
+  v64 = *(v0 + 464);
+  v63 = *(v0 + 472);
+  v66 = *(v0 + 448);
+  v65 = *(v0 + 456);
+  v67 = *(v0 + 440);
+  if (v62)
+  {
+    v111 = v61;
+    v68 = swift_slowAlloc();
+    v115 = swift_slowAlloc();
+    v117 = v115;
+    *v68 = 136446466;
+    v107 = v64;
+    v69 = Date.localISO8601.getter();
+    v71 = v70;
+    v72 = *(v66 + 8);
+    v72(v63, v67);
+    v73 = sub_10000D01C(v69, v71, &v117);
+
+    *(v68 + 4) = v73;
+    *(v68 + 12) = 2050;
+    Date.timeIntervalSince(_:)();
+    v75 = v74;
+    v72(v65, v67);
+    v72(v107, v67);
+    *(v68 + 14) = v75;
+    _os_log_impl(&_mh_execute_header, v60, v111, "schedulerTimerFired: startDate: %{public}s timeDelta: %{public}f", v68, 0x16u);
+    sub_100004984(v115);
+  }
+
+  else
+  {
+
+    v72 = *(v66 + 8);
+    v72(v65, v67);
+    v72(v64, v67);
+    v72(v63, v67);
+  }
+
+  *(v0 + 632) = v72;
+  Date.timeIntervalSince(_:)();
+  if (v76 > 300.0)
+  {
+    v77 = *(v0 + 432);
+    v78 = *(v0 + 376);
+    v79 = *(v0 + 384);
+    v80 = *(v0 + 368);
+    v81 = *(v0 + 344);
+    v82 = *(v0 + 352);
+    v72(*(v0 + 480), *(v0 + 440));
+    (*(v82 + 8))(v80, v81);
+    (*(v79 + 8))(v77, v78);
+    goto LABEL_17;
+  }
+
+  v83 = *(v0 + 240);
+  v84 = *(v0 + 224);
+  v85 = *(v0 + 200);
+  v86 = *(v0 + 208);
+  v87 = *(v0 + 192);
+  v102(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.interval(containingDate:)();
+  v100(v83, v84);
+  if ((*(v86 + 48))(v87, 1, v85) == 1)
+  {
+    v116 = v72;
+    sub_100002CE0(*(v0 + 192), &qword_1005B0BB0, &qword_1004D2830);
+    v88 = Logger.logObject.getter();
+    v89 = static os_log_type_t.error.getter();
+    v90 = os_log_type_enabled(v88, v89);
+    v91 = *(v0 + 480);
+    v92 = *(v0 + 440);
+    v93 = *(v0 + 384);
+    v108 = *(v0 + 376);
+    v112 = *(v0 + 432);
+    v94 = *(v0 + 368);
+    v96 = *(v0 + 344);
+    v95 = *(v0 + 352);
+    if (v90)
+    {
+      v97 = swift_slowAlloc();
+      *v97 = 0;
+      _os_log_impl(&_mh_execute_header, v88, v89, "No valid interval for startDate", v97, 2u);
+    }
+
+    v116(v91, v92);
+    (*(v95 + 8))(v94, v96);
+    (*(v93 + 8))(v112, v108);
+    goto LABEL_17;
+  }
+
+  (*(*(v0 + 208) + 32))(*(v0 + 216), *(v0 + 192), *(v0 + 200));
+  v98 = swift_task_alloc();
+  *(v0 + 640) = v98;
+  *v98 = v0;
+  v98[1] = sub_100298C64;
+
+  return daemon.getter();
 }
 
-uint64_t sub_100271DB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_10029C4A4()
 {
-  v5[11] = a4;
-  v5[12] = a5;
-  v5[9] = a2;
-  v5[10] = a3;
-  v7 = type metadata accessor for Fence();
-  v5[13] = v7;
-  v8 = *(v7 - 8);
-  v5[14] = v8;
-  v5[15] = *(v8 + 64);
-  v5[16] = swift_task_alloc();
-  v9 = *(*(sub_10004B564(&qword_1005A9690, &qword_1004C2A00) - 8) + 64) + 15;
-  v5[17] = swift_task_alloc();
-  v5[18] = swift_task_alloc();
+  v2 = *v1;
+  v14 = *(*v1 + 704);
+  v13 = *(*v1 + 112);
+  v12 = *(*v1 + 96);
+  v3 = *(*v1 + 72);
+  v4 = *(*v1 + 64);
+  v5 = *(*v1 + 56);
+  v6 = *(*v1 + 40);
+  v7 = *(*v1 + 32);
+  v8 = *(*v1 + 24);
+  *(*v1 + 808) = v0;
 
-  return _swift_task_switch(sub_100271ECC, a4, 0);
+  (*(v4 + 8))(v3, v5);
+  (*(v7 + 8))(v6, v8);
+  v14(v13, v12);
+  v9 = *(v2 + 16);
+  if (v0)
+  {
+    v10 = sub_10029E1EC;
+  }
+
+  else
+  {
+    v10 = sub_10029C700;
+  }
+
+  return _swift_task_switch(v10, v9, 0);
 }
 
-uint64_t sub_100271ECC()
+uint64_t sub_10029C700()
 {
-  v1 = *(v0 + 80);
+  v118 = v0;
+  v1 = *(v0 + 784);
+  v101 = *(v0 + 480);
+  v98 = *(v0 + 440);
+  v109 = *(v0 + 432);
+  v113 = *(v0 + 792);
+  v104 = *(v0 + 632);
+  v105 = *(v0 + 376);
+  v103 = *(v0 + 368);
+  v2 = *(v0 + 352);
+  v99 = *(v0 + 344);
+  v3 = *(v0 + 208);
+  v4 = *(v0 + 216);
+  v5 = *(v0 + 200);
+  v6 = *(v0 + 184);
+
+  sub_1002AB248(v6);
+  (*(v3 + 8))(v4, v5);
+  v104(v101, v98);
+  (*(v2 + 8))(v103, v99);
+  v113(v109, v105);
+  v7 = *(v0 + 608) + 1;
+  if (v7 == *(v0 + 600))
+  {
+LABEL_2:
+
+    v8 = swift_task_alloc();
+    *(v0 + 816) = v8;
+    *v8 = v0;
+    v8[1] = sub_10029D0C8;
+
+    return sub_1002A9688();
+  }
+
+  while (1)
+  {
+    *(v0 + 608) = v7;
+    v10 = *(v0 + 592);
+    if (v7 >= *(v10 + 16))
+    {
+      __break(1u);
+      return daemon.getter();
+    }
+
+    v11 = *(v0 + 892);
+    v12 = *(v0 + 432);
+    v13 = *(v0 + 376);
+    v14 = *(v0 + 384);
+    v16 = *(v0 + 328);
+    v15 = *(v0 + 336);
+    v17 = *(v0 + 320);
+    v18 = *(v14 + 16);
+    v14 += 16;
+    v19 = v10 + ((*(v0 + 888) + 32) & ~*(v0 + 888)) + *(v14 + 56) * v7;
+    *(v0 + 616) = v18;
+    *(v0 + 624) = v14 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v18(v12, v19, v13);
+    Fence.variant.getter();
+    if ((*(v16 + 88))(v15, v17) == v11)
+    {
+      break;
+    }
+
+    v40 = *(v0 + 432);
+    v41 = *(v0 + 376);
+    v42 = *(v0 + 384);
+    v44 = *(v0 + 328);
+    v43 = *(v0 + 336);
+    v45 = *(v0 + 320);
+LABEL_16:
+    (*(v42 + 8))(v40, v41);
+    (*(v44 + 8))(v43, v45);
+LABEL_17:
+    v7 = *(v0 + 608) + 1;
+    if (v7 == *(v0 + 600))
+    {
+      goto LABEL_2;
+    }
+  }
+
+  v114 = *(v0 + 896);
+  v20 = *(v0 + 368);
+  v22 = *(v0 + 344);
+  v21 = *(v0 + 352);
+  v23 = *(v0 + 336);
+  v24 = *(v0 + 312);
+  v25 = *(v0 + 296);
+  v26 = *(v0 + 304);
+  v27 = *(v0 + 288);
+  (*(*(v0 + 328) + 96))(v23, *(v0 + 320));
+  (*(v21 + 32))(v20, v23, v22);
+  Fence.acceptanceStatus.getter();
+  (*(v25 + 104))(v26, v114, v27);
+  v28 = static Fence.AcceptanceStatus.== infix(_:_:)();
+  v29 = *(v25 + 8);
+  v29(v26, v27);
+  v29(v24, v27);
+  if ((v28 & 1) == 0 || (v30 = *(v0 + 900), v32 = *(v0 + 272), v31 = *(v0 + 280), v34 = *(v0 + 256), v33 = *(v0 + 264), Fence.finder.getter(), (*(v33 + 104))(v32, v30, v34), v35 = static Fence.Participant.== infix(_:_:)(), v36 = *(v33 + 8), v36(v32, v34), v36(v31, v34), (v35 & 1) == 0))
+  {
+LABEL_15:
+    v43 = *(v0 + 432);
+    v45 = *(v0 + 376);
+    v44 = *(v0 + 384);
+    v40 = *(v0 + 368);
+    v41 = *(v0 + 344);
+    v42 = *(v0 + 352);
+    goto LABEL_16;
+  }
+
+  v37 = *(v0 + 440);
+  v38 = *(v0 + 448);
+  v39 = *(v0 + 248);
+  Fence.muteEndDate.getter();
+  if ((*(v38 + 48))(v39, 1, v37) != 1)
+  {
+    v46 = *(v0 + 488);
+    v47 = *(v0 + 440);
+    v48 = *(v0 + 448);
+    (*(v48 + 32))(v46, *(v0 + 248), v47);
+    sub_1002AB19C(&qword_1005B0BF0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+    v49 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v48 + 8))(v46, v47);
+    if (v49)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_15;
+  }
+
+  sub_100002CE0(*(v0 + 248), &unk_1005AE5B0, &qword_1004C32F0);
+LABEL_13:
+  v50 = *(v0 + 496);
+  v52 = *(v0 + 472);
+  v51 = *(v0 + 480);
+  v106 = *(v0 + 464);
+  v110 = *(v0 + 456);
+  v54 = *(v0 + 440);
+  v53 = *(v0 + 448);
+  v56 = *(v0 + 232);
+  v55 = *(v0 + 240);
+  v57 = *(v0 + 224);
+  v102 = *(*(v0 + 352) + 16);
+  v102(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.previousStartDate(from:)();
+  v100 = *(v56 + 8);
+  v100(v55, v57);
+  v58 = *(v53 + 16);
+  v58(v52, v51, v54);
+  v58(v106, v50, v54);
+  v58(v110, v51, v54);
+  v59 = Logger.logObject.getter();
+  v60 = static os_log_type_t.default.getter();
+  v61 = os_log_type_enabled(v59, v60);
+  v63 = *(v0 + 464);
+  v62 = *(v0 + 472);
+  v65 = *(v0 + 448);
+  v64 = *(v0 + 456);
+  v66 = *(v0 + 440);
+  if (v61)
+  {
+    v111 = v60;
+    v67 = swift_slowAlloc();
+    v115 = swift_slowAlloc();
+    v117 = v115;
+    *v67 = 136446466;
+    v107 = v63;
+    v68 = Date.localISO8601.getter();
+    v70 = v69;
+    v71 = *(v65 + 8);
+    v71(v62, v66);
+    v72 = sub_10000D01C(v68, v70, &v117);
+
+    *(v67 + 4) = v72;
+    *(v67 + 12) = 2050;
+    Date.timeIntervalSince(_:)();
+    v74 = v73;
+    v71(v64, v66);
+    v71(v107, v66);
+    *(v67 + 14) = v74;
+    _os_log_impl(&_mh_execute_header, v59, v111, "schedulerTimerFired: startDate: %{public}s timeDelta: %{public}f", v67, 0x16u);
+    sub_100004984(v115);
+  }
+
+  else
+  {
+
+    v71 = *(v65 + 8);
+    v71(v64, v66);
+    v71(v63, v66);
+    v71(v62, v66);
+  }
+
+  *(v0 + 632) = v71;
+  Date.timeIntervalSince(_:)();
+  if (v75 > 300.0)
+  {
+    v76 = *(v0 + 432);
+    v77 = *(v0 + 376);
+    v78 = *(v0 + 384);
+    v79 = *(v0 + 368);
+    v80 = *(v0 + 344);
+    v81 = *(v0 + 352);
+    v71(*(v0 + 480), *(v0 + 440));
+    (*(v81 + 8))(v79, v80);
+    (*(v78 + 8))(v76, v77);
+    goto LABEL_17;
+  }
+
+  v82 = *(v0 + 240);
+  v83 = *(v0 + 224);
+  v84 = *(v0 + 200);
+  v85 = *(v0 + 208);
+  v86 = *(v0 + 192);
+  v102(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.interval(containingDate:)();
+  v100(v82, v83);
+  if ((*(v85 + 48))(v86, 1, v84) == 1)
+  {
+    v116 = v71;
+    sub_100002CE0(*(v0 + 192), &qword_1005B0BB0, &qword_1004D2830);
+    v87 = Logger.logObject.getter();
+    v88 = static os_log_type_t.error.getter();
+    v89 = os_log_type_enabled(v87, v88);
+    v90 = *(v0 + 480);
+    v91 = *(v0 + 440);
+    v92 = *(v0 + 384);
+    v108 = *(v0 + 376);
+    v112 = *(v0 + 432);
+    v93 = *(v0 + 368);
+    v95 = *(v0 + 344);
+    v94 = *(v0 + 352);
+    if (v89)
+    {
+      v96 = swift_slowAlloc();
+      *v96 = 0;
+      _os_log_impl(&_mh_execute_header, v87, v88, "No valid interval for startDate", v96, 2u);
+    }
+
+    v116(v90, v91);
+    (*(v94 + 8))(v93, v95);
+    (*(v92 + 8))(v112, v108);
+    goto LABEL_17;
+  }
+
+  (*(*(v0 + 208) + 32))(*(v0 + 216), *(v0 + 192), *(v0 + 200));
+  v97 = swift_task_alloc();
+  *(v0 + 640) = v97;
+  *v97 = v0;
+  v97[1] = sub_100298C64;
+
+  return daemon.getter();
+}
+
+uint64_t sub_10029D0C8()
+{
+  v1 = *v0;
+  v4 = *v0;
+
+  v2 = swift_task_alloc();
+  *(v1 + 824) = v2;
+  *v2 = v4;
+  v2[1] = sub_10029D1F4;
+
+  return daemon.getter();
+}
+
+uint64_t sub_10029D1F4(uint64_t a1)
+{
+  v2 = *v1;
+  v3 = *v1;
+  v2[104] = a1;
+
+  v4 = swift_task_alloc();
+  v2[105] = v4;
+  *v4 = v3;
+  v4[1] = sub_10029D380;
+  v5 = v2[70];
+  v6 = v2[69];
+  v7 = v2[68];
+  v8 = v2[67];
+
+  return ActorServiceDaemon.getService<A>()(v8, v7, v6, v5);
+}
+
+uint64_t sub_10029D380(uint64_t a1)
+{
+  v4 = *v2;
+  v5 = *v2;
+  *(*v2 + 848) = v1;
+
+  if (v1)
+  {
+    v6 = v4[2];
+
+    return _swift_task_switch(sub_10029DA28, v6, 0);
+  }
+
+  else
+  {
+
+    v4[107] = a1;
+    v7 = swift_task_alloc();
+    v4[108] = v7;
+    *v7 = v5;
+    v7[1] = sub_10029D50C;
+
+    return sub_100006424();
+  }
+}
+
+uint64_t sub_10029D50C(uint64_t a1)
+{
+  v2 = *(*v1 + 16);
+  *(*v1 + 872) = a1;
+
+  return _swift_task_switch(sub_10029D624, v2, 0);
+}
+
+uint64_t sub_10029D624()
+{
+
+  v1 = swift_task_alloc();
+  *(v0 + 880) = v1;
+  *v1 = v0;
+  v1[1] = sub_10029D6C4;
+  v2 = *(v0 + 872);
+
+  return sub_1000121BC(v2);
+}
+
+uint64_t sub_10029D6C4()
+{
+  v1 = *(*v0 + 16);
+
+  return _swift_task_switch(sub_10029D7F0, v1, 0);
+}
+
+uint64_t sub_10029D7F0()
+{
+  (*(v0[56] + 8))(v0[62], v0[55]);
+
+  v1 = v0[1];
+
+  return v1();
+}
+
+uint64_t sub_10029DA28()
+{
+  v1 = v0[62];
+  v2 = v0[55];
+  v3 = v0[56];
+
+  (*(v3 + 8))(v1, v2);
+
+  v4 = v0[1];
+
+  return v4();
+}
+
+uint64_t sub_10029DC68()
+{
+  v1 = v0[79];
+  v2 = v0[60];
+  v3 = v0[55];
+  v11 = v0[54];
+  v12 = v0[62];
+  v4 = v0[47];
+  v5 = v0[48];
+  v6 = v0[46];
+  v8 = v0[43];
+  v7 = v0[44];
+  (*(v0[26] + 8))(v0[27], v0[25]);
+  v1(v2, v3);
+  (*(v7 + 8))(v6, v8);
+  (*(v5 + 8))(v11, v4);
+  v1(v12, v3);
+
+  v9 = v0[1];
+
+  return v9();
+}
+
+uint64_t sub_10029DF18()
+{
+  v1 = v0[79];
+  v2 = v0[55];
+  v15 = v0[54];
+  v16 = v0[62];
+  v3 = v0[48];
+  v14 = v0[47];
+  v12 = v0[60];
+  v13 = v0[46];
+  v4 = v0[44];
+  v11 = v0[43];
+  v5 = v0[26];
+  v6 = v0[27];
+  v7 = v0[25];
+  v8 = v0[23];
+
+  sub_1002AB248(v8);
+  (*(v5 + 8))(v6, v7);
+  v1(v12, v2);
+  (*(v4 + 8))(v13, v11);
+  (*(v3 + 8))(v15, v14);
+  v1(v16, v2);
+
+  v9 = v0[1];
+
+  return v9();
+}
+
+uint64_t sub_10029E1EC()
+{
+  v150 = v0;
+  (*(v0 + 616))(*(v0 + 392), *(v0 + 432), *(v0 + 376));
+  swift_errorRetain();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.error.getter();
+
+  v137 = v1;
+  v3 = os_log_type_enabled(v1, v2);
+  v141 = *(v0 + 784);
+  v145 = *(v0 + 792);
+  if (v3)
+  {
+    v114 = *(v0 + 704);
+    v115 = *(v0 + 776);
+    v128 = *(v0 + 480);
+    v131 = *(v0 + 632);
+    v124 = *(v0 + 440);
+    v134 = *(v0 + 432);
+    type = v2;
+    v4 = *(v0 + 392);
+    v112 = *(v0 + 376);
+    v126 = *(v0 + 368);
+    v120 = *(v0 + 352);
+    v122 = *(v0 + 344);
+    v117 = *(v0 + 208);
+    v118 = *(v0 + 200);
+    v119 = *(v0 + 216);
+    v116 = *(v0 + 184);
+    v5 = *(v0 + 120);
+    v6 = *(v0 + 96);
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v9 = swift_slowAlloc();
+    v149[0] = v9;
+    *v7 = 136446466;
+    Fence.id.getter();
+    sub_1002AB19C(&qword_1005AE800, &type metadata accessor for Fence.ID, &protocol conformance descriptor for Fence.ID);
+    v10 = dispatch thunk of CustomStringConvertible.description.getter();
+    v12 = v11;
+    v114(v5, v6);
+    v145(v4, v112);
+    v13 = sub_10000D01C(v10, v12, v149);
+
+    *(v7 + 4) = v13;
+    *(v7 + 12) = 2114;
+    swift_errorRetain();
+    v14 = _swift_stdlib_bridgeErrorToNSError();
+    *(v7 + 14) = v14;
+    *v8 = v14;
+    _os_log_impl(&_mh_execute_header, v137, type, "Failed to trigger fence %{public}s, error: %{public}@", v7, 0x16u);
+    sub_100002CE0(v8, &qword_1005A9670, &unk_1004C2480);
+
+    sub_100004984(v9);
+
+    sub_1002AB248(v116);
+    (*(v117 + 8))(v119, v118);
+    v131(v128, v124);
+    (*(v120 + 8))(v126, v122);
+    v145(v134, v112);
+  }
+
+  else
+  {
+    v129 = *(v0 + 480);
+    v132 = *(v0 + 632);
+    v125 = *(v0 + 440);
+    v135 = *(v0 + 432);
+    v15 = *(v0 + 392);
+    v16 = *(v0 + 376);
+    v127 = *(v0 + 368);
+    v17 = *(v0 + 352);
+    v18 = *(v0 + 208);
+    v121 = *(v0 + 216);
+    v123 = *(v0 + 344);
+    v19 = *(v0 + 200);
+    v20 = *(v0 + 184);
+
+    v145(v15, v16);
+    sub_1002AB248(v20);
+    (*(v18 + 8))(v121, v19);
+    v132(v129, v125);
+    (*(v17 + 8))(v127, v123);
+    v145(v135, v16);
+  }
+
+  v21 = *(v0 + 608) + 1;
+  if (v21 == *(v0 + 600))
+  {
+LABEL_5:
+
+    v22 = swift_task_alloc();
+    *(v0 + 816) = v22;
+    *v22 = v0;
+    v22[1] = sub_10029D0C8;
+
+    return sub_1002A9688();
+  }
+
+  while (1)
+  {
+    *(v0 + 608) = v21;
+    v24 = *(v0 + 592);
+    if (v21 >= *(v24 + 16))
+    {
+      __break(1u);
+      return daemon.getter();
+    }
+
+    v25 = *(v0 + 892);
+    v26 = *(v0 + 432);
+    v27 = *(v0 + 376);
+    v28 = *(v0 + 384);
+    v30 = *(v0 + 328);
+    v29 = *(v0 + 336);
+    v31 = *(v0 + 320);
+    v32 = *(v28 + 16);
+    v28 += 16;
+    v33 = v24 + ((*(v0 + 888) + 32) & ~*(v0 + 888)) + *(v28 + 56) * v21;
+    *(v0 + 616) = v32;
+    *(v0 + 624) = v28 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v32(v26, v33, v27);
+    Fence.variant.getter();
+    if ((*(v30 + 88))(v29, v31) == v25)
+    {
+      break;
+    }
+
+    v54 = *(v0 + 432);
+    v55 = *(v0 + 376);
+    v56 = *(v0 + 384);
+    v58 = *(v0 + 328);
+    v57 = *(v0 + 336);
+    v59 = *(v0 + 320);
+LABEL_19:
+    (*(v56 + 8))(v54, v55);
+    (*(v58 + 8))(v57, v59);
+LABEL_20:
+    v21 = *(v0 + 608) + 1;
+    if (v21 == *(v0 + 600))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  v146 = *(v0 + 896);
+  v34 = *(v0 + 368);
+  v36 = *(v0 + 344);
+  v35 = *(v0 + 352);
+  v37 = *(v0 + 336);
+  v38 = *(v0 + 312);
+  v39 = *(v0 + 296);
+  v40 = *(v0 + 304);
+  v41 = *(v0 + 288);
+  (*(*(v0 + 328) + 96))(v37, *(v0 + 320));
+  (*(v35 + 32))(v34, v37, v36);
+  Fence.acceptanceStatus.getter();
+  (*(v39 + 104))(v40, v146, v41);
+  v42 = static Fence.AcceptanceStatus.== infix(_:_:)();
+  v43 = *(v39 + 8);
+  v43(v40, v41);
+  v43(v38, v41);
+  if ((v42 & 1) == 0 || (v44 = *(v0 + 900), v46 = *(v0 + 272), v45 = *(v0 + 280), v48 = *(v0 + 256), v47 = *(v0 + 264), Fence.finder.getter(), (*(v47 + 104))(v46, v44, v48), v49 = static Fence.Participant.== infix(_:_:)(), v50 = *(v47 + 8), v50(v46, v48), v50(v45, v48), (v49 & 1) == 0))
+  {
+LABEL_18:
+    v57 = *(v0 + 432);
+    v59 = *(v0 + 376);
+    v58 = *(v0 + 384);
+    v54 = *(v0 + 368);
+    v55 = *(v0 + 344);
+    v56 = *(v0 + 352);
+    goto LABEL_19;
+  }
+
+  v51 = *(v0 + 440);
+  v52 = *(v0 + 448);
+  v53 = *(v0 + 248);
+  Fence.muteEndDate.getter();
+  if ((*(v52 + 48))(v53, 1, v51) != 1)
+  {
+    v60 = *(v0 + 488);
+    v61 = *(v0 + 440);
+    v62 = *(v0 + 448);
+    (*(v62 + 32))(v60, *(v0 + 248), v61);
+    sub_1002AB19C(&qword_1005B0BF0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+    v63 = dispatch thunk of static Comparable.< infix(_:_:)();
+    (*(v62 + 8))(v60, v61);
+    if (v63)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_18;
+  }
+
+  sub_100002CE0(*(v0 + 248), &unk_1005AE5B0, &qword_1004C32F0);
+LABEL_16:
+  v64 = *(v0 + 496);
+  v66 = *(v0 + 472);
+  v65 = *(v0 + 480);
+  v138 = *(v0 + 464);
+  v142 = *(v0 + 456);
+  v68 = *(v0 + 440);
+  v67 = *(v0 + 448);
+  v70 = *(v0 + 232);
+  v69 = *(v0 + 240);
+  v71 = *(v0 + 224);
+  v136 = (*(v0 + 352) + 16);
+  v133 = *v136;
+  (*v136)(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.previousStartDate(from:)();
+  v130 = *(v70 + 8);
+  v130(v69, v71);
+  v72 = *(v67 + 16);
+  v72(v66, v65, v68);
+  v72(v138, v64, v68);
+  v72(v142, v65, v68);
+  v73 = Logger.logObject.getter();
+  v74 = static os_log_type_t.default.getter();
+  v75 = os_log_type_enabled(v73, v74);
+  v77 = *(v0 + 464);
+  v76 = *(v0 + 472);
+  v79 = *(v0 + 448);
+  v78 = *(v0 + 456);
+  v80 = *(v0 + 440);
+  if (v75)
+  {
+    v143 = v74;
+    v81 = swift_slowAlloc();
+    v147 = swift_slowAlloc();
+    v149[0] = v147;
+    *v81 = 136446466;
+    v139 = v77;
+    v82 = Date.localISO8601.getter();
+    v84 = v83;
+    v85 = *(v79 + 8);
+    v85(v76, v80);
+    v86 = sub_10000D01C(v82, v84, v149);
+
+    *(v81 + 4) = v86;
+    *(v81 + 12) = 2050;
+    Date.timeIntervalSince(_:)();
+    v88 = v87;
+    v85(v78, v80);
+    v85(v139, v80);
+    *(v81 + 14) = v88;
+    _os_log_impl(&_mh_execute_header, v73, v143, "schedulerTimerFired: startDate: %{public}s timeDelta: %{public}f", v81, 0x16u);
+    sub_100004984(v147);
+  }
+
+  else
+  {
+
+    v85 = *(v79 + 8);
+    v85(v78, v80);
+    v85(v77, v80);
+    v85(v76, v80);
+  }
+
+  *(v0 + 632) = v85;
+  Date.timeIntervalSince(_:)();
+  if (v89 > 300.0)
+  {
+    v90 = *(v0 + 432);
+    v91 = *(v0 + 376);
+    v92 = *(v0 + 384);
+    v93 = *(v0 + 368);
+    v94 = *(v0 + 344);
+    v95 = *(v0 + 352);
+    v85(*(v0 + 480), *(v0 + 440));
+    (*(v95 + 8))(v93, v94);
+    (*(v92 + 8))(v90, v91);
+    goto LABEL_20;
+  }
+
+  v96 = *(v0 + 240);
+  v97 = *(v0 + 224);
+  v98 = *(v0 + 200);
+  v99 = *(v0 + 208);
+  v100 = *(v0 + 192);
+  v133(*(v0 + 360), *(v0 + 368), *(v0 + 344));
+  Fence.Schedule.Matcher.init(schedule:)();
+  Fence.Schedule.Matcher.interval(containingDate:)();
+  v130(v96, v97);
+  if ((*(v99 + 48))(v100, 1, v98) == 1)
+  {
+    v148 = v85;
+    sub_100002CE0(*(v0 + 192), &qword_1005B0BB0, &qword_1004D2830);
+    v101 = Logger.logObject.getter();
+    v102 = static os_log_type_t.error.getter();
+    v103 = os_log_type_enabled(v101, v102);
+    v104 = *(v0 + 480);
+    v105 = *(v0 + 440);
+    v106 = *(v0 + 384);
+    v140 = *(v0 + 376);
+    v144 = *(v0 + 432);
+    v107 = *(v0 + 368);
+    v109 = *(v0 + 344);
+    v108 = *(v0 + 352);
+    if (v103)
+    {
+      v110 = swift_slowAlloc();
+      *v110 = 0;
+      _os_log_impl(&_mh_execute_header, v101, v102, "No valid interval for startDate", v110, 2u);
+    }
+
+    v148(v104, v105);
+    (*(v108 + 8))(v107, v109);
+    (*(v106 + 8))(v144, v140);
+    goto LABEL_20;
+  }
+
+  (*(*(v0 + 208) + 32))(*(v0 + 216), *(v0 + 192), *(v0 + 200));
+  v111 = swift_task_alloc();
+  *(v0 + 640) = v111;
+  *v111 = v0;
+  v111[1] = sub_100298C64;
+
+  return daemon.getter();
+}
+
+uint64_t sub_10029EECC(uint64_t a1, int *a2)
+{
+  v5 = (a2 + *a2);
+  v3 = swift_task_alloc();
+  *(v2 + 16) = v3;
+  *v3 = v2;
+  v3[1] = sub_100003690;
+
+  return v5();
+}
+
+uint64_t sub_10029EFD4()
+{
+  swift_beginAccess();
+  Strong = swift_weakLoadStrong();
+  v0[6] = Strong;
+  if (Strong)
+  {
+    v2 = swift_task_alloc();
+    v0[7] = v2;
+    *v2 = v0;
+    v2[1] = sub_10029F0BC;
+
+    return sub_10029F25C();
+  }
+
+  else
+  {
+    v4 = v0[1];
+
+    return v4();
+  }
+}
+
+uint64_t sub_10029F0BC()
+{
+  v2 = *v1;
+  *(v2 + 64) = v0;
+
+  if (v0)
+  {
+
+    return _swift_task_switch(sub_10029F1F8, 0, 0);
+  }
+
+  else
+  {
+
+    v3 = *(v2 + 8);
+
+    return v3();
+  }
+}
+
+uint64_t sub_10029F1F8()
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t sub_10029F25C()
+{
+  v1[2] = v0;
+  v2 = type metadata accessor for Fence.Participant();
+  v1[3] = v2;
+  v1[4] = *(v2 - 8);
+  v1[5] = swift_task_alloc();
+  v1[6] = swift_task_alloc();
+  v3 = type metadata accessor for Fence.AcceptanceStatus();
+  v1[7] = v3;
+  v1[8] = *(v3 - 8);
+  v1[9] = swift_task_alloc();
+  v1[10] = swift_task_alloc();
+  v4 = type metadata accessor for Calendar.SearchDirection();
+  v1[11] = v4;
+  v1[12] = *(v4 - 8);
+  v1[13] = swift_task_alloc();
+  v5 = type metadata accessor for Fence.Schedule.Matcher();
+  v1[14] = v5;
+  v1[15] = *(v5 - 8);
+  v1[16] = swift_task_alloc();
+  v6 = type metadata accessor for Fence.Variant();
+  v1[17] = v6;
+  v1[18] = *(v6 - 8);
+  v1[19] = swift_task_alloc();
+  v1[20] = swift_task_alloc();
+  v7 = type metadata accessor for Fence.Schedule();
+  v1[21] = v7;
+  v1[22] = *(v7 - 8);
+  v1[23] = swift_task_alloc();
+  v1[24] = swift_task_alloc();
+  v1[25] = swift_task_alloc();
+  v8 = type metadata accessor for Fence();
+  v1[26] = v8;
+  v1[27] = *(v8 - 8);
+  v1[28] = swift_task_alloc();
+  v9 = type metadata accessor for Date();
+  v1[29] = v9;
+  v1[30] = *(v9 - 8);
+  v1[31] = swift_task_alloc();
+  v1[32] = swift_task_alloc();
+  v1[33] = swift_task_alloc();
+  v1[34] = swift_task_alloc();
+
+  return _swift_task_switch(sub_10029F600, v0, 0);
+}
+
+uint64_t sub_10029F600()
+{
+  if (qword_1005A80E8 != -1)
+  {
+    swift_once();
+  }
+
+  v1 = type metadata accessor for Logger();
+  sub_10000A6F0(v1, qword_1005DFF88);
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v2, v3))
+  {
+    v4 = swift_slowAlloc();
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Invite timer fired", v4, 2u);
+  }
+
+  static Date.now.getter();
+  v5 = swift_task_alloc();
+  *(v0 + 280) = v5;
+  *v5 = v0;
+  v5[1] = sub_10029F758;
+
+  return daemon.getter();
+}
+
+uint64_t sub_10029F758(uint64_t a1)
+{
+  v2 = *v1;
+  v9 = *v1;
+  v2[36] = a1;
+
+  v3 = swift_task_alloc();
+  v2[37] = v3;
+  v4 = type metadata accessor for Daemon();
+  v2[38] = v4;
+  v5 = type metadata accessor for DataManager(0);
+  v2[39] = v5;
+  v6 = sub_1002AB19C(&unk_1005AFA50, &type metadata accessor for Daemon, &protocol conformance descriptor for Daemon);
+  v2[40] = v6;
+  v7 = sub_1002AB19C(&qword_1005A90D0, type metadata accessor for DataManager, &unk_1004D1410);
+  v2[41] = v7;
+  *v3 = v9;
+  v3[1] = sub_10029F94C;
+
+  return ActorServiceDaemon.getService<A>()(v4, v5, v6, v7);
+}
+
+uint64_t sub_10029F94C(uint64_t a1)
+{
+  v4 = *v2;
+  v5 = *v2;
+  *(*v2 + 336) = v1;
+
+  if (v1)
+  {
+    v6 = v4[2];
+
+    return _swift_task_switch(sub_1002A03A0, v6, 0);
+  }
+
+  else
+  {
+
+    v4[43] = a1;
+    v7 = swift_task_alloc();
+    v4[44] = v7;
+    *v7 = v5;
+    v7[1] = sub_10029FAD8;
+
+    return sub_100006424();
+  }
+}
+
+uint64_t sub_10029FAD8(uint64_t a1)
+{
+  v2 = *(*v1 + 16);
+  *(*v1 + 360) = a1;
+
+  return _swift_task_switch(sub_10029FBF0, v2, 0);
+}
+
+uint64_t sub_10029FBF0()
+{
+  v1 = *(v0 + 360);
+
   v2 = *(v1 + 16);
+  *(v0 + 368) = v2;
   if (v2)
   {
-    v3 = *(v0 + 112);
-    v36 = **(v0 + 72);
-    v4 = *(v3 + 80);
-    v5 = v1 + ((v4 + 32) & ~v4);
-    v34 = (v3 + 16);
-    v35 = *(v3 + 72);
-    v33 = (v4 + 40) & ~v4;
-    v31 = (v3 + 32);
-    v32 = (*(v0 + 120) + v33 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v6 = type metadata accessor for TaskPriority();
-    v7 = *(v6 - 8);
-    v30 = *(v7 + 56);
-    v29 = (v7 + 48);
-    v28 = (v7 + 8);
-    do
+    v3 = 0;
+    *(v0 + 488) = enum case for Fence.Variant.oneTime(_:);
+    *(v0 + 492) = enum case for Fence.Variant.recurring(_:);
+    *(v0 + 496) = enum case for Fence.Variant.scheduled(_:);
+    *(v0 + 500) = enum case for Calendar.SearchDirection.forward(_:);
+    *(v0 + 504) = enum case for Fence.AcceptanceStatus.pendingHidden(_:);
+    *(v0 + 508) = enum case for Fence.Participant.me(_:);
+    while (1)
     {
-      v38 = v2;
+      *(v0 + 376) = v3;
+      v7 = *(v0 + 360);
+      if (v3 >= *(v7 + 16))
+      {
+        __break(1u);
+        return daemon.getter();
+      }
+
+      v8 = *(v0 + 492);
+      v9 = *(v0 + 488);
+      v10 = *(v0 + 160);
       v11 = *(v0 + 136);
-      v10 = *(v0 + 144);
-      v12 = *(v0 + 128);
-      v13 = *(v0 + 104);
-      v37 = *(v0 + 96);
-      v14 = *(v0 + 88);
-      v30(v10, 1, 1, v6);
-      (*v34)(v12, v5, v13);
-      v15 = swift_allocObject();
-      v15[2] = 0;
-      v16 = v15 + 2;
-      v15[3] = 0;
-      v15[4] = v14;
-      (*v31)(v15 + v33, v12, v13);
-      *(v15 + v32) = v37;
-      sub_100005F04(v10, v11, &qword_1005A9690, &qword_1004C2A00);
-      LODWORD(v11) = (*v29)(v11, 1, v6);
-
-      v17 = *(v0 + 136);
-      if (v11 == 1)
+      v12 = *(v0 + 144);
+      (*(*(v0 + 216) + 16))(*(v0 + 224), v7 + ((*(*(v0 + 216) + 80) + 32) & ~*(*(v0 + 216) + 80)) + *(*(v0 + 216) + 72) * v3, *(v0 + 208));
+      Fence.variant.getter();
+      v13 = *(v12 + 88);
+      v14 = v13(v10, v11);
+      if (v14 != v9 && v14 != v8)
       {
-        sub_100002CE0(*(v0 + 136), &qword_1005A9690, &qword_1004C2A00);
+        break;
       }
 
-      else
+      v4 = *(v0 + 160);
+      v5 = *(v0 + 136);
+      v6 = *(v0 + 144);
+      (*(*(v0 + 216) + 8))(*(v0 + 224), *(v0 + 208));
+      (*(v6 + 8))(v4, v5);
+LABEL_4:
+      if (++v3 == *(v0 + 368))
       {
-        TaskPriority.rawValue.getter();
-        (*v28)(v17, v6);
+        goto LABEL_22;
       }
-
-      if (*v16)
-      {
-        v18 = v15[3];
-        v19 = *v16;
-        swift_getObjectType();
-        swift_unknownObjectRetain();
-        v20 = dispatch thunk of Actor.unownedExecutor.getter();
-        v22 = v21;
-        swift_unknownObjectRelease();
-      }
-
-      else
-      {
-        v20 = 0;
-        v22 = 0;
-      }
-
-      if (v22 | v20)
-      {
-        v8 = v0 + 16;
-        *(v0 + 16) = 0;
-        *(v0 + 24) = 0;
-        *(v0 + 32) = v20;
-        *(v0 + 40) = v22;
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      v9 = *(v0 + 144);
-      *(v0 + 48) = 1;
-      *(v0 + 56) = v8;
-      *(v0 + 64) = v36;
-      swift_task_create();
-
-      sub_100002CE0(v9, &qword_1005A9690, &qword_1004C2A00);
-      v5 += v35;
-      v2 = v38 - 1;
     }
 
-    while (v38 != 1);
+    if (v14 != *(v0 + 496))
+    {
+      return _assertionFailure(_:_:file:line:flags:)();
+    }
+
+    v75 = v3;
+    v74 = v13;
+    v79 = *(v0 + 500);
+    v84 = *(v0 + 264);
+    v86 = *(v0 + 256);
+    v78 = *(v0 + 248);
+    v81 = *(v0 + 240);
+    v83 = *(v0 + 232);
+    v16 = *(v0 + 192);
+    v17 = *(v0 + 200);
+    v18 = *(v0 + 168);
+    v19 = *(v0 + 176);
+    v20 = *(v0 + 160);
+    v21 = *(v0 + 120);
+    v22 = *(v0 + 128);
+    v23 = *(v0 + 104);
+    v82 = *(v0 + 112);
+    v24 = *(v0 + 96);
+    v77 = *(v0 + 88);
+    v73 = *(*(v0 + 144) + 96);
+    v73(v20, *(v0 + 136));
+    v80 = v17;
+    v72 = v19[4];
+    v72(v17, v20, v18);
+    v71 = v19[2];
+    v71(v16, v17, v18);
+    v76 = v22;
+    Fence.Schedule.Matcher.init(schedule:)();
+    Fence.updatedAt.getter();
+    (*(v24 + 104))(v23, v79, v77);
+    Fence.Schedule.Matcher.nextStartDate(from:direction:)();
+    (*(v24 + 8))(v23, v77);
+    v25 = *(v81 + 8);
+    *(v0 + 384) = v25;
+    *(v0 + 392) = (v81 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v25(v78, v83);
+    v26 = *(v21 + 8);
+    v26(v76, v82);
+    v27 = v19[1];
+    *(v0 + 400) = v27;
+    *(v0 + 408) = (v19 + 1) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v28 = v27;
+    v27(v80, v18);
+    (*(v81 + 32))(v84, v86, v83);
+    if (static Date.< infix(_:_:)())
+    {
+      v85 = v26;
+      v87 = v25;
+      v29 = *(v0 + 504);
+      v31 = *(v0 + 72);
+      v30 = *(v0 + 80);
+      v32 = *(v0 + 56);
+      v33 = *(v0 + 64);
+      Fence.acceptanceStatus.getter();
+      (*(v33 + 104))(v31, v29, v32);
+      v34 = static Fence.AcceptanceStatus.== infix(_:_:)();
+      v35 = *(v33 + 8);
+      v35(v31, v32);
+      v35(v30, v32);
+      if (v34)
+      {
+        v36 = *(v0 + 508);
+        v38 = *(v0 + 40);
+        v37 = *(v0 + 48);
+        v39 = *(v0 + 24);
+        v40 = *(v0 + 32);
+        Fence.findee.getter();
+        (*(v40 + 104))(v38, v36, v39);
+        v41 = static Fence.Participant.== infix(_:_:)();
+        v42 = *(v40 + 8);
+        v42(v38, v39);
+        v42(v37, v39);
+        if (v41)
+        {
+          v43 = *(v0 + 496);
+          v44 = *(v0 + 152);
+          v45 = *(v0 + 136);
+          Fence.variant.getter();
+          if (v74(v44, v45) == v43)
+          {
+            v47 = *(v0 + 184);
+            v46 = *(v0 + 192);
+            v48 = *(v0 + 168);
+            v49 = *(v0 + 152);
+            v50 = *(v0 + 128);
+            v51 = *(v0 + 112);
+            v73(v49, *(v0 + 136));
+            v72(v47, v49, v48);
+            v71(v46, v47, v48);
+            Fence.Schedule.Matcher.init(schedule:)();
+            LOBYTE(v46) = Fence.Schedule.Matcher.doesMatchSchedule(_:)();
+            v85(v50, v51);
+            if (v46)
+            {
+              v68 = swift_task_alloc();
+              *(v0 + 416) = v68;
+              *v68 = v0;
+              v68[1] = sub_1002A0504;
+              v69 = *(v0 + 272);
+              v70 = *(v0 + 224);
+
+              return sub_1002A9B6C(v70, v69);
+            }
+
+            v52 = *(v0 + 264);
+            v54 = *(v0 + 224);
+            v53 = *(v0 + 232);
+            v55 = *(v0 + 208);
+            v56 = *(v0 + 216);
+            v28(*(v0 + 184), *(v0 + 168));
+            v87(v52, v53);
+            (*(v56 + 8))(v54, v55);
+          }
+
+          else
+          {
+            v60 = *(v0 + 224);
+            v61 = *(v0 + 208);
+            v62 = *(v0 + 216);
+            v64 = *(v0 + 144);
+            v63 = *(v0 + 152);
+            v65 = *(v0 + 136);
+            v87(*(v0 + 264), *(v0 + 232));
+            (*(v62 + 8))(v60, v61);
+            (*(v64 + 8))(v63, v65);
+          }
+
+          goto LABEL_20;
+        }
+      }
+
+      v57 = *(v0 + 224);
+      v58 = *(v0 + 208);
+      v59 = *(v0 + 216);
+      v87(*(v0 + 264), *(v0 + 232));
+    }
+
+    else
+    {
+      v57 = *(v0 + 224);
+      v58 = *(v0 + 208);
+      v59 = *(v0 + 216);
+      v25(*(v0 + 264), *(v0 + 232));
+    }
+
+    (*(v59 + 8))(v57, v58);
+LABEL_20:
+    v3 = v75;
+    goto LABEL_4;
   }
 
-  v24 = *(v0 + 136);
-  v23 = *(v0 + 144);
-  v25 = *(v0 + 128);
+LABEL_22:
 
-  v26 = *(v0 + 8);
+  v66 = swift_task_alloc();
+  *(v0 + 424) = v66;
+  *v66 = v0;
+  v66[1] = sub_1002A0DA0;
 
-  return v26();
+  return daemon.getter();
+}
+
+uint64_t sub_1002A03A0()
+{
+  v1 = v0[34];
+  v2 = v0[29];
+  v3 = v0[30];
+
+  (*(v3 + 8))(v1, v2);
+
+  v4 = v0[1];
+
+  return v4();
+}
+
+uint64_t sub_1002A0504()
+{
+  v1 = *(*v0 + 16);
+
+  return _swift_task_switch(sub_1002A0614, v1, 0);
+}
+
+uint64_t sub_1002A0614()
+{
+  v1 = *(v0 + 384);
+  v2 = *(v0 + 368);
+  v3 = *(v0 + 264);
+  v5 = *(v0 + 224);
+  v4 = *(v0 + 232);
+  v6 = *(v0 + 208);
+  v7 = *(v0 + 216);
+  v8 = *(v0 + 376) + 1;
+  (*(v0 + 400))(*(v0 + 184), *(v0 + 168));
+  v1(v3, v4);
+  (*(v7 + 8))(v5, v6);
+  if (v8 != v2)
+  {
+    v10 = *(v0 + 376) + 1;
+    while (1)
+    {
+      *(v0 + 376) = v10;
+      v14 = *(v0 + 360);
+      if (v10 >= *(v14 + 16))
+      {
+        __break(1u);
+        return daemon.getter();
+      }
+
+      v15 = *(v0 + 492);
+      v16 = *(v0 + 488);
+      v17 = *(v0 + 160);
+      v18 = *(v0 + 136);
+      v19 = *(v0 + 144);
+      (*(*(v0 + 216) + 16))(*(v0 + 224), v14 + ((*(*(v0 + 216) + 80) + 32) & ~*(*(v0 + 216) + 80)) + *(*(v0 + 216) + 72) * v10, *(v0 + 208));
+      Fence.variant.getter();
+      v20 = *(v19 + 88);
+      v21 = v20(v17, v18);
+      if (v21 != v16 && v21 != v15)
+      {
+        break;
+      }
+
+      v11 = *(v0 + 160);
+      v12 = *(v0 + 136);
+      v13 = *(v0 + 144);
+      (*(*(v0 + 216) + 8))(*(v0 + 224), *(v0 + 208));
+      (*(v13 + 8))(v11, v12);
+LABEL_7:
+      if (++v10 == *(v0 + 368))
+      {
+        goto LABEL_2;
+      }
+    }
+
+    if (v21 != *(v0 + 496))
+    {
+      return _assertionFailure(_:_:file:line:flags:)();
+    }
+
+    v80 = v10;
+    v79 = v20;
+    v84 = *(v0 + 500);
+    v89 = *(v0 + 264);
+    v91 = *(v0 + 256);
+    v83 = *(v0 + 248);
+    v86 = *(v0 + 240);
+    v88 = *(v0 + 232);
+    v23 = *(v0 + 192);
+    v24 = *(v0 + 200);
+    v25 = *(v0 + 168);
+    v26 = *(v0 + 176);
+    v27 = *(v0 + 160);
+    v28 = *(v0 + 120);
+    v29 = *(v0 + 128);
+    v30 = *(v0 + 104);
+    v87 = *(v0 + 112);
+    v31 = *(v0 + 96);
+    v82 = *(v0 + 88);
+    v78 = *(*(v0 + 144) + 96);
+    v78(v27, *(v0 + 136));
+    v85 = v25;
+    v77 = v26[4];
+    v77(v24, v27, v25);
+    v76 = v26[2];
+    v76(v23, v24, v25);
+    v81 = v29;
+    Fence.Schedule.Matcher.init(schedule:)();
+    Fence.updatedAt.getter();
+    (*(v31 + 104))(v30, v84, v82);
+    Fence.Schedule.Matcher.nextStartDate(from:direction:)();
+    (*(v31 + 8))(v30, v82);
+    v32 = *(v86 + 8);
+    *(v0 + 384) = v32;
+    *(v0 + 392) = (v86 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v32(v83, v88);
+    v33 = *(v28 + 8);
+    v33(v81, v87);
+    v34 = v26[1];
+    *(v0 + 400) = v34;
+    *(v0 + 408) = (v26 + 1) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v34(v24, v85);
+    (*(v86 + 32))(v89, v91, v88);
+    if (static Date.< infix(_:_:)())
+    {
+      v90 = v33;
+      v92 = v32;
+      v35 = *(v0 + 504);
+      v37 = *(v0 + 72);
+      v36 = *(v0 + 80);
+      v38 = *(v0 + 56);
+      v39 = *(v0 + 64);
+      Fence.acceptanceStatus.getter();
+      (*(v39 + 104))(v37, v35, v38);
+      v40 = static Fence.AcceptanceStatus.== infix(_:_:)();
+      v41 = *(v39 + 8);
+      v41(v37, v38);
+      v41(v36, v38);
+      if (v40)
+      {
+        v42 = *(v0 + 508);
+        v44 = *(v0 + 40);
+        v43 = *(v0 + 48);
+        v45 = *(v0 + 24);
+        v46 = *(v0 + 32);
+        Fence.findee.getter();
+        (*(v46 + 104))(v44, v42, v45);
+        v47 = static Fence.Participant.== infix(_:_:)();
+        v48 = *(v46 + 8);
+        v48(v44, v45);
+        v48(v43, v45);
+        if (v47)
+        {
+          v49 = *(v0 + 496);
+          v50 = *(v0 + 152);
+          v51 = *(v0 + 136);
+          Fence.variant.getter();
+          if (v79(v50, v51) == v49)
+          {
+            v53 = *(v0 + 184);
+            v52 = *(v0 + 192);
+            v54 = *(v0 + 168);
+            v55 = *(v0 + 152);
+            v56 = *(v0 + 128);
+            v57 = *(v0 + 112);
+            v78(v55, *(v0 + 136));
+            v77(v53, v55, v54);
+            v76(v52, v53, v54);
+            Fence.Schedule.Matcher.init(schedule:)();
+            LOBYTE(v52) = Fence.Schedule.Matcher.doesMatchSchedule(_:)();
+            v90(v56, v57);
+            if (v52)
+            {
+              v73 = swift_task_alloc();
+              *(v0 + 416) = v73;
+              *v73 = v0;
+              v73[1] = sub_1002A0504;
+              v74 = *(v0 + 272);
+              v75 = *(v0 + 224);
+
+              return sub_1002A9B6C(v75, v74);
+            }
+
+            v58 = *(v0 + 264);
+            v60 = *(v0 + 224);
+            v59 = *(v0 + 232);
+            v61 = *(v0 + 208);
+            v62 = *(v0 + 216);
+            v34(*(v0 + 184), *(v0 + 168));
+            v92(v58, v59);
+            (*(v62 + 8))(v60, v61);
+          }
+
+          else
+          {
+            v66 = *(v0 + 224);
+            v67 = *(v0 + 208);
+            v68 = *(v0 + 216);
+            v70 = *(v0 + 144);
+            v69 = *(v0 + 152);
+            v71 = *(v0 + 136);
+            v92(*(v0 + 264), *(v0 + 232));
+            (*(v68 + 8))(v66, v67);
+            (*(v70 + 8))(v69, v71);
+          }
+
+          goto LABEL_23;
+        }
+      }
+
+      v63 = *(v0 + 224);
+      v64 = *(v0 + 208);
+      v65 = *(v0 + 216);
+      v92(*(v0 + 264), *(v0 + 232));
+    }
+
+    else
+    {
+      v63 = *(v0 + 224);
+      v64 = *(v0 + 208);
+      v65 = *(v0 + 216);
+      v32(*(v0 + 264), *(v0 + 232));
+    }
+
+    (*(v65 + 8))(v63, v64);
+LABEL_23:
+    v10 = v80;
+    goto LABEL_7;
+  }
+
+LABEL_2:
+
+  v9 = swift_task_alloc();
+  *(v0 + 424) = v9;
+  *v9 = v0;
+  v9[1] = sub_1002A0DA0;
+
+  return daemon.getter();
 }

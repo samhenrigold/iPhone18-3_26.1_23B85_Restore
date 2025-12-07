@@ -321,14 +321,12 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
 
   uTF8String = [(NSString *)self->_centerName UTF8String];
   sp = 0;
-  v5 = MEMORY[0x1E69E99F8];
-  v6 = bootstrap_check_in(*MEMORY[0x1E69E99F8], uTF8String, &sp);
-  v7 = MEMORY[0x1E69E9A60];
-  if (v6 && !mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &sp) && !mach_port_insert_right(*v7, sp, sp, 0x14u))
+  v5 = bootstrap_check_in(*MEMORY[0x1E69E99F8], uTF8String, &sp);
+  v6 = MEMORY[0x1E69E9A60];
+  if (v5 && !mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &sp) && !mach_port_insert_right(*v6, sp, sp, 0x14u))
   {
-    v8 = *v5;
     bootstrap_register2();
-    mach_port_deallocate(*v7, sp);
+    mach_port_deallocate(*v6, sp);
   }
 
   if (sp - 1 > 0xFFFFFFFD)
@@ -339,14 +337,14 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
 
   else
   {
-    v17 = 128;
-    v9 = MEMORY[0x19A8C29C0](*v7);
-    if (v9)
+    v15 = 128;
+    v7 = MEMORY[0x19A8C29C0](*v6);
+    if (v7)
     {
-      v10 = v9;
-      v11 = objc_opt_class();
-      v12 = mach_error_string(v10);
-      NSLog(@"Unable to increaase %@ notification server queue depth: %s", v11, v12);
+      v8 = v7;
+      v9 = objc_opt_class();
+      v10 = mach_error_string(v8);
+      NSLog(@"Unable to increaase %@ notification server queue depth: %s", v9, v10);
     }
 
     queue = self->_queue;
@@ -357,8 +355,8 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
 
     self->_queue = dispatch_queue_create("CPDistributedNotificationCenter", 0);
     [CPDistributedNotificationCenter setCenter:self forServerPort:sp];
-    v14 = dispatch_source_create(MEMORY[0x1E69E96D8], sp, 0, self->_queue);
-    if (!v14)
+    v12 = dispatch_source_create(MEMORY[0x1E69E96D8], sp, 0, self->_queue);
+    if (!v12)
     {
       dispatch_release(self->_queue);
       self->_queue = 0;
@@ -370,9 +368,9 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
     handler[1] = 3221225472;
     handler[2] = __44__CPDistributedNotificationCenter_runServer__block_invoke;
     handler[3] = &unk_1E7450C60;
-    handler[4] = v14;
-    dispatch_source_set_event_handler(v14, handler);
-    dispatch_resume(v14);
+    handler[4] = v12;
+    dispatch_source_set_event_handler(v12, handler);
+    dispatch_resume(v12);
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, [@"CPDistributedNotificationCenterDidRestartNotification-" stringByAppendingString:self->_centerName], 0, 0, 0);
     self->_isServer = 1;
@@ -384,7 +382,7 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
 - (BOOL)postNotificationName:(id)name userInfo:(id)info toBundleIdentifier:(id)identifier
 {
   nameCopy = name;
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   if (!self->_isServer)
   {
@@ -397,7 +395,7 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
   }
 
   v7 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  v29 = v7;
+  v28 = v7;
   if (info)
   {
     v8 = v7;
@@ -411,12 +409,12 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
       [v9 raise:v10 format:{@"Notification %@ userInfo is not an NSDictionary: %@ %@", v11, objc_opt_class(), info}];
     }
 
-    v32[0] = 0;
-    v12 = [MEMORY[0x1E696AE40] dataWithPropertyList:info format:200 options:0 error:v32];
+    v31[0] = 0;
+    v12 = [MEMORY[0x1E696AE40] dataWithPropertyList:info format:200 options:0 error:v31];
     if (!v12)
     {
 
-      [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@ Unable to serialize userInfo: %@ error: %@", objc_opt_class(), info, v32[0]}];
+      [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@ Unable to serialize userInfo: %@ error: %@", objc_opt_class(), info, v31[0]}];
     }
   }
 
@@ -429,7 +427,7 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
   [(NSLock *)selfCopy->_lock lock];
   Count = CFDictionaryGetCount(selfCopy->_sendPorts);
   v15 = Count;
-  v16 = (&v28 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
+  v16 = (&v27 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
   v17 = v16;
   if ((8 * Count) >= 0x200)
   {
@@ -441,7 +439,7 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
     v18 = 8 * Count;
   }
 
-  bzero(&v28 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0), v18);
+  bzero(&v27 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0), v18);
   CFDictionaryGetKeysAndValues(v13->_sendPorts, v16, v16);
   [(NSLock *)v13->_lock unlock];
   uTF8String = [nameCopy UTF8String];
@@ -497,7 +495,6 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
     while (v15);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v22 & 1;
 }
 
@@ -513,18 +510,17 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
   else
   {
     v8 = CPCopyBundleIdentifierFromAuditToken();
-    v9 = *MEMORY[0x1E695E738];
     if (v8)
     {
-      v10 = v8;
+      v9 = v8;
     }
 
     else
     {
-      v10 = *MEMORY[0x1E695E738];
+      v9 = *MEMORY[0x1E695E738];
     }
 
-    CFDictionarySetValue(self->_sendPorts, inCopy, v10);
+    CFDictionarySetValue(self->_sendPorts, inCopy, v9);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __63__CPDistributedNotificationCenter__receivedCheckIn_auditToken___block_invoke;
@@ -533,8 +529,8 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
     block[5] = self;
     dispatch_async(MEMORY[0x1E69E96A0], block);
     global_queue = dispatch_get_global_queue(0, 0);
-    v12 = dispatch_source_create(MEMORY[0x1E69E96E0], inCopy, 1uLL, global_queue);
-    if (!v12)
+    v11 = dispatch_source_create(MEMORY[0x1E69E96E0], inCopy, 1uLL, global_queue);
+    if (!v11)
     {
       [CPDistributedNotificationCenter _receivedCheckIn:a2 auditToken:self];
     }
@@ -543,19 +539,19 @@ const __CFDictionary *__55__CPDistributedNotificationCenter_centerForServerPort_
     handler[1] = 3221225472;
     handler[2] = __63__CPDistributedNotificationCenter__receivedCheckIn_auditToken___block_invoke_2;
     handler[3] = &unk_1E7450C60;
-    handler[4] = v12;
-    dispatch_source_set_event_handler(v12, handler);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __63__CPDistributedNotificationCenter__receivedCheckIn_auditToken___block_invoke_3;
-    v13[3] = &unk_1E7450CB0;
-    v13[4] = v12;
-    v13[5] = self;
-    v13[7] = a2;
-    v13[8] = inCopy;
-    v13[6] = v8;
-    dispatch_source_set_cancel_handler(v12, v13);
-    dispatch_resume(v12);
+    handler[4] = v11;
+    dispatch_source_set_event_handler(v11, handler);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __63__CPDistributedNotificationCenter__receivedCheckIn_auditToken___block_invoke_3;
+    v12[3] = &unk_1E7450CB0;
+    v12[4] = v11;
+    v12[5] = self;
+    v12[7] = a2;
+    v12[8] = inCopy;
+    v12[6] = v8;
+    dispatch_source_set_cancel_handler(v11, v12);
+    dispatch_resume(v11);
   }
 
   [(NSLock *)self->_lock unlock];

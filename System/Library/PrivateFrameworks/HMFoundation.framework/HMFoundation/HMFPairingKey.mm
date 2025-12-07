@@ -57,22 +57,21 @@
   {
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = HMFGetOSLogHandle(selfCopy, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = HMFGetLogIdentifier(selfCopy);
+      v13 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543618;
-      v17 = v12;
+      v17 = v13;
       v18 = 2048;
       v19 = 32;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_ERROR, "%{public}@The pairing key data must be %tu bytes long", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_ERROR, "%{public}@The pairing key data must be %tu bytes long", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -113,15 +112,13 @@
 
 - (id)attributeDescriptions
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   data = [(HMFPairingKey *)self data];
   v5 = CUPrintNSObjectMasked();
   v6 = [(HMFAttributeDescription *)v3 initWithName:@"Hash" value:v5];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }

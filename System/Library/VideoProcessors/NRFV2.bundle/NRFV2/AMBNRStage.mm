@@ -588,8 +588,8 @@ LABEL_55:
 
   v22 = objc_msgSend_width(self->_outputImg->lumaTex, v17, v18, v19);
   v26 = objc_msgSend_height(self->_outputImg->lumaTex, v23, v24, v25);
-  *&v30 = 0;
-  *(&v30 + 1) = __PAIR64__(v26, v22);
+  v30.i64[0] = 0;
+  v30.i64[1] = __PAIR64__(v26, v22);
   v197 = v30;
   if (v20 >= v21)
   {
@@ -638,7 +638,7 @@ LABEL_55:
       v41 = objc_msgSend_height(self->_outputImg->lumaTex, v38, v39, v40);
       if (!sub_295823048(v182, &v197, v37, v41, v175))
       {
-        sub_2958C1CE8();
+        sub_2958C1CE8(v175, v182);
         v42 = 0;
         v51 = 0;
         v50 = 1;
@@ -671,13 +671,13 @@ LABEL_17:
           *v175 = 136316162;
           *&v175[4] = "[AMBNRStage greenGhostMitigationWithExposure:faceLandMarks:ev0FrameMetadata:evmFrameMetadata:greenGhostBrightLightTuning:greenGhostIsRunning:gainMap:]";
           *&v175[12] = 1026;
-          *&v175[14] = v197;
+          *&v175[14] = v197.i32[0];
           v176 = 1026;
-          v177 = DWORD1(v197);
+          v177 = v197.i32[1];
           v178 = 1026;
-          v179 = DWORD2(v197);
+          v179 = v197.i32[2];
           v180 = 1026;
-          v181 = HIDWORD(v197);
+          v181 = v197.i32[3];
           _os_log_send_and_compose_impl();
         }
 
@@ -746,7 +746,7 @@ LABEL_17:
             if (v55[3])
             {
               marksCopy = v173;
-              v152 = objc_msgSend_GhostMitigationWithPyr_outputImage_tuning_faceLandMarks_ev0FrameMetadata_roi_gainMap_(self->_greenGhostStage, v151, self->_outputPyr, v55, tuningCopy, v173, metadata, mapCopy, *&v197);
+              v152 = objc_msgSend_GhostMitigationWithPyr_outputImage_tuning_faceLandMarks_ev0FrameMetadata_roi_gainMap_(self->_greenGhostStage, v151, self->_outputPyr, v55, tuningCopy, v173, metadata, mapCopy, *v197.i64);
               if (v152)
               {
                 v51 = v152;
@@ -810,7 +810,7 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    sub_2958C1D4C();
+    sub_2958C1D4C(v182);
   }
 
   v42 = 0;
@@ -848,15 +848,15 @@ LABEL_34:
   skyMaskCopy = skyMask;
   marksCopy = marks;
   mapCopy = map;
-  v217 = 0;
+  v209[0] = 0;
   v32 = objc_msgSend_allocator(self->_metalContext, v29, v30, v31);
   v36 = objc_msgSend_newTextureDescriptor(v32, v33, v34, v35);
 
   if (!v36)
   {
-    sub_2958C2804(v199);
-    v73 = 0;
-    v146 = v199[0];
+    sub_2958C2804(v191);
+    v69 = 0;
+    v142 = v191[0];
     v51 = plistCopy;
 LABEL_41:
     v52 = tuningCopy;
@@ -869,9 +869,9 @@ LABEL_41:
   v51 = plistCopy;
   if (objc_msgSend_computeConfiguration_staticScene_dasPlist_nmPlist_isLowLight_(self, v43, exposure, sceneCopy, plistCopy, nmPlistCopy, light))
   {
-    sub_2958C2190(v199);
-    v73 = 0;
-    v146 = v199[0];
+    sub_2958C2190(v191);
+    v69 = 0;
+    v142 = v191[0];
     goto LABEL_41;
   }
 
@@ -883,34 +883,30 @@ LABEL_41:
 
   if (objc_msgSend_setResourcesWithPyramid_(self->_pyramidStage, v44, self->_pyramid, v46))
   {
-    sub_2958C222C(v199);
+    sub_2958C222C(v191);
 LABEL_48:
-    v73 = 0;
-    v146 = v199[0];
+    v69 = 0;
+    v142 = v191[0];
     goto LABEL_35;
   }
 
   if (objc_msgSend_runWithFilters_(self->_pyramidStage, v53, self->_pyrFilters, v54))
   {
-    sub_2958C22C8(v199);
+    sub_2958C22C8(v191);
     goto LABEL_48;
   }
 
 LABEL_6:
-  v190 = nmPlistCopy;
+  v182 = nmPlistCopy;
   exposureCopy = exposure;
   if (!defringeEnabled)
   {
 LABEL_16:
-    sharpeningPyramid = self->_sharpeningPyramid;
     FigMetalDecRef();
-    textureUV = self->_sharpeningPyramid->textureUV;
     FigMetalDecRef();
-    v68 = self->_sharpeningPyramid->textureUV;
     FigMetalDecRef();
-    v69 = self->_sharpeningPyramid->textureUV;
     FigMetalDecRef();
-    v73 = self->_pyramid;
+    v69 = self->_pyramid;
     goto LABEL_17;
   }
 
@@ -921,25 +917,25 @@ LABEL_16:
   objc_msgSend_setMetadataGain_exposureTime_AWBRGain_AWBBGain_(tuningCopy, v44, v45, v46, v47, v48, v49, v50);
   if (!tuningCopy)
   {
-    v214 = 0u;
-    v215 = 0u;
-    v212 = 0u;
-    v213 = 0u;
-    v210 = 0u;
-    v211 = 0u;
-    v208 = 0u;
-    v209 = 0u;
     v206 = 0u;
     v207 = 0u;
     v204 = 0u;
     v205 = 0u;
     v202 = 0u;
     v203 = 0u;
-    v216 = 0;
+    v200 = 0u;
+    v201 = 0u;
+    v198 = 0u;
+    v199 = 0u;
+    v196 = 0u;
+    v197 = 0u;
+    v194 = 0u;
+    v195 = 0u;
+    v208 = 0;
 LABEL_14:
     if (dword_2A18C2398)
     {
-      v201 = 0;
+      v193 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       v65 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT);
@@ -950,199 +946,195 @@ LABEL_14:
   }
 
   objc_msgSend_correctionParams(tuningCopy, v55, v56, v57);
-  if (*(&v214 + 1) <= 0.1)
+  if (*(&v206 + 1) <= 0.1)
   {
     goto LABEL_14;
   }
 
   if (!self->_defringeStage || (objc_msgSend_defringingEnabled(tuningCopy, v58, v59, v60) & 1) == 0)
   {
-    sub_2958C2460(v199);
-    v73 = 0;
+    sub_2958C2460(v191);
+    v69 = 0;
     goto LABEL_53;
   }
 
   if (dword_2A18C2398)
   {
-    v201 = 0;
+    v193 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     v64 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v148 = objc_msgSend_width(self->_pyramid->textureY[1], v61, v62, v63);
-  v152 = objc_msgSend_desc(v36, v149, v150, v151);
-  objc_msgSend_setWidth_(v152, v153, v148, v154);
+  v144 = objc_msgSend_width(self->_pyramid->textureY[1], v61, v62, v63);
+  v148 = objc_msgSend_desc(v36, v145, v146, v147);
+  objc_msgSend_setWidth_(v148, v149, v144, v150);
 
-  v158 = objc_msgSend_height(self->_pyramid->textureY[1], v155, v156, v157);
-  v162 = objc_msgSend_desc(v36, v159, v160, v161);
-  objc_msgSend_setHeight_(v162, v163, v158, v164);
+  v154 = objc_msgSend_height(self->_pyramid->textureY[1], v151, v152, v153);
+  v158 = objc_msgSend_desc(v36, v155, v156, v157);
+  objc_msgSend_setHeight_(v158, v159, v154, v160);
 
-  v168 = objc_msgSend_desc(v36, v165, v166, v167);
-  objc_msgSend_setPixelFormat_(v168, v169, 65, v170);
+  v164 = objc_msgSend_desc(v36, v161, v162, v163);
+  objc_msgSend_setPixelFormat_(v164, v165, 65, v166);
 
-  objc_msgSend_setLabel_(v36, v171, 0, v172);
-  v176 = objc_msgSend_allocator(self->_metalContext, v173, v174, v175);
-  v179 = objc_msgSend_newTextureWithDescriptor_(v176, v177, v36, v178);
-  v217 = v179;
+  objc_msgSend_setLabel_(v36, v167, 0, v168);
+  v172 = objc_msgSend_allocator(self->_metalContext, v169, v170, v171);
+  v175 = objc_msgSend_newTextureWithDescriptor_(v172, v173, v36, v174);
+  v209[0] = v175;
 
-  if (!v179)
+  if (!v175)
   {
-    sub_2958C23C4(v199);
-    v73 = 0;
-    v146 = v199[0];
+    sub_2958C23C4(v191);
+    v69 = 0;
+    v142 = v191[0];
     goto LABEL_35;
   }
 
-  v181 = objc_msgSend_defringePyramid_outputPyramid_chromaScratch_tuningParameters_(self->_defringeStage, v180, self->_pyramid, self->_defringePyramid, v179, tuningCopy);
-  if (v181)
+  v177 = objc_msgSend_defringePyramid_outputPyramid_chromaScratch_tuningParameters_(self->_defringeStage, v176, self->_pyramid, self->_defringePyramid, v175, tuningCopy);
+  if (v177)
   {
-    v146 = v181;
+    v142 = v177;
     sub_2958C2364();
-    v73 = 0;
+    v69 = 0;
     goto LABEL_35;
   }
 
-  v73 = self->_defringePyramid;
-  pyramid = self->_pyramid;
+  v69 = self->_defringePyramid;
   FigMetalDecRef();
-  v183 = self->_pyramid->textureUV;
   FigMetalDecRef();
-  v184 = self->_pyramid->textureUV;
   FigMetalDecRef();
-  v185 = self->_pyramid->textureUV;
   FigMetalDecRef();
   FigMetalDecRef();
 LABEL_17:
   if (self->_noiseMapPyramid)
   {
     metalContext = self->_metalContext;
-    v75 = objc_msgSend_width(v73->textureY[0], v70, v71, v72);
-    v79 = objc_msgSend_height(v73->textureY[0], v76, v77, v78);
-    isFP16_pyramid = objc_msgSend_allocatePyramidWithMetalContext_label_width_height_isFP16_pyramid_(PyramidStorage_NRF, v80, metalContext, @"_noiseMapPyramid", v75, v79, 1, self->_noiseMapPyramid);
+    v71 = objc_msgSend_width(v69->textureY[0], v66, v67, v68);
+    v75 = objc_msgSend_height(v69->textureY[0], v72, v73, v74);
+    isFP16_pyramid = objc_msgSend_allocatePyramidWithMetalContext_label_width_height_isFP16_pyramid_(PyramidStorage_NRF, v76, metalContext, @"_noiseMapPyramid", v71, v75, 1, self->_noiseMapPyramid);
     if (isFP16_pyramid)
     {
-      v146 = isFP16_pyramid;
-      sub_2958C24B0();
+      v142 = isFP16_pyramid;
+      sub_2958C24B0(isFP16_pyramid, v66);
       goto LABEL_35;
     }
 
     noiseMapPyramid = self->_noiseMapPyramid;
     if (noiseMapPyramid)
     {
-      if (objc_msgSend_setResourcesWithPyramid_(self->_pyramidStage, v70, noiseMapPyramid, v72))
+      if (objc_msgSend_setResourcesWithPyramid_(self->_pyramidStage, v66, noiseMapPyramid, v68))
       {
-        sub_2958C2510(v199);
+        sub_2958C2510(v191);
         goto LABEL_53;
       }
 
-      if (objc_msgSend_runWithFilters_(self->_pyramidStage, v83, self->_pyrFilters, v84))
+      if (objc_msgSend_runWithFilters_(self->_pyramidStage, v79, self->_pyrFilters, v80))
       {
-        sub_2958C25AC(v199);
+        sub_2958C25AC(v191);
         goto LABEL_53;
       }
     }
   }
 
-  if (objc_msgSend_setUniforms_(self->_denoiseRemixStage, v70, self->_ambnrConf, v72, v186, v187))
+  if (objc_msgSend_setUniforms_(self->_denoiseRemixStage, v66, self->_ambnrConf, v68, v178, v179))
   {
-    sub_2958C2648(v199);
+    sub_2958C2648(v191);
 LABEL_53:
-    v146 = v199[0];
+    v142 = v191[0];
     goto LABEL_35;
   }
 
-  v88 = self->_metalContext;
-  v89 = objc_msgSend_width(self->_pyramid->textureY[0], v85, v86, v87);
-  v93 = objc_msgSend_height(self->_pyramid->textureY[0], v90, v91, v92);
-  v95 = objc_msgSend_allocatePyramidWithMetalContext_label_width_height_isFP16_pyramid_(PyramidStorage_NRF, v94, v88, @"_outputPyr", v89, v93, 1, self->_outputPyr);
-  if (v95)
+  v84 = self->_metalContext;
+  v85 = objc_msgSend_width(self->_pyramid->textureY[0], v81, v82, v83);
+  v89 = objc_msgSend_height(self->_pyramid->textureY[0], v86, v87, v88);
+  v91 = objc_msgSend_allocatePyramidWithMetalContext_label_width_height_isFP16_pyramid_(PyramidStorage_NRF, v90, v84, @"_outputPyr", v85, v89, 1, self->_outputPyr);
+  if (v91)
   {
-    v146 = v95;
+    v142 = v91;
     sub_2958C26E4();
     goto LABEL_35;
   }
 
-  v97 = objc_msgSend_run_skinMask_skyMask_maskExtent_(self->_denoiseRemixStage, v96, v73, maskCopy, skyMaskCopy, x, y, width, height);
-  if (v97)
+  v93 = objc_msgSend_run_skinMask_skyMask_maskExtent_(self->_denoiseRemixStage, v92, v69, maskCopy, skyMaskCopy, x, y, width, height);
+  if (v93)
   {
-    v146 = v97;
+    v142 = v93;
     sub_2958C2744();
     goto LABEL_35;
   }
 
   objc_storeStrong(&self->_outputImg->lumaTex, self->_outputPyr->textureY[0]);
   objc_storeStrong(&self->_outputImg->chromaTex, self->_outputPyr->textureUV[0]);
-  v198 = 0;
+  v190 = 0;
   if (!enabled)
   {
     goto LABEL_31;
   }
 
-  v101 = v51;
-  v102 = MEMORY[0x29EDB9270];
+  v97 = v51;
+  v98 = MEMORY[0x29EDB9270];
   if (*MEMORY[0x29EDB9270])
   {
-    v103 = objc_msgSend_commandQueue(self->_metalContext, v98, v99, v100);
-    v107 = objc_msgSend_commandBuffer(v103, v104, v105, v106);
+    v99 = objc_msgSend_commandQueue(self->_metalContext, v94, v95, v96);
+    v103 = objc_msgSend_commandBuffer(v99, v100, v101, v102);
 
-    nmPlistCopy = v190;
-    objc_msgSend_setLabel_(v107, v108, @"KTRACE_START_MTL", v109);
-    objc_msgSend_addCompletedHandler_(v107, v110, &unk_2A1CA9860, v111);
-    objc_msgSend_commit(v107, v112, v113, v114);
+    nmPlistCopy = v182;
+    objc_msgSend_setLabel_(v103, v104, @"KTRACE_START_MTL", v105);
+    objc_msgSend_addCompletedHandler_(v103, v106, &unk_2A1CA9860, v107);
+    objc_msgSend_commit(v103, v108, v109, v110);
   }
 
-  IsRunning_gainMap = objc_msgSend_greenGhostMitigationWithExposure_faceLandMarks_ev0FrameMetadata_evmFrameMetadata_greenGhostBrightLightTuning_greenGhostIsRunning_gainMap_(self, v98, exposureCopy, marksCopy, metadata, frameMetadata, lightTuningCopy, &v198, mapCopy);
+  IsRunning_gainMap = objc_msgSend_greenGhostMitigationWithExposure_faceLandMarks_ev0FrameMetadata_evmFrameMetadata_greenGhostBrightLightTuning_greenGhostIsRunning_gainMap_(self, v94, exposureCopy, marksCopy, metadata, frameMetadata, lightTuningCopy, &v190, mapCopy);
   if (!IsRunning_gainMap)
   {
-    v119 = *v102;
-    v51 = v101;
-    if (v119)
+    v115 = *v98;
+    v51 = v97;
+    if (v115)
     {
-      v120 = objc_msgSend_commandQueue(self->_metalContext, v116, v117, v118);
-      v124 = objc_msgSend_commandBuffer(v120, v121, v122, v123);
+      v116 = objc_msgSend_commandQueue(self->_metalContext, v112, v113, v114);
+      v120 = objc_msgSend_commandBuffer(v116, v117, v118, v119);
 
-      objc_msgSend_setLabel_(v124, v125, @"KTRACE_END_MTL", v126);
-      v197[0] = MEMORY[0x29EDCA5F8];
-      v197[1] = 3221225472;
-      v197[2] = sub_2958644D4;
-      v197[3] = &unk_29EDDBE78;
-      memset(&v197[4], 0, 24);
-      objc_msgSend_addCompletedHandler_(v124, v127, v197, v128);
-      objc_msgSend_commit(v124, v129, v130, v131);
+      objc_msgSend_setLabel_(v120, v121, @"KTRACE_END_MTL", v122);
+      v189[0] = MEMORY[0x29EDCA5F8];
+      v189[1] = 3221225472;
+      v189[2] = sub_2958644D4;
+      v189[3] = &unk_29EDDBE78;
+      memset(&v189[4], 0, 24);
+      objc_msgSend_addCompletedHandler_(v120, v123, v189, v124);
+      objc_msgSend_commit(v120, v125, v126, v127);
     }
 
 LABEL_31:
-    v132 = objc_opt_new();
-    v135 = objc_msgSend_numberWithBool_(MEMORY[0x29EDBA070], v133, enabled, v134);
-    objc_msgSend_setObject_forKeyedSubscript_(v132, v136, v135, @"isEnabled");
+    v128 = objc_opt_new();
+    v131 = objc_msgSend_numberWithBool_(MEMORY[0x29EDBA070], v129, enabled, v130);
+    objc_msgSend_setObject_forKeyedSubscript_(v128, v132, v131, @"isEnabled");
 
-    v139 = objc_msgSend_numberWithBool_(MEMORY[0x29EDBA070], v137, v198, v138);
-    objc_msgSend_setObject_forKeyedSubscript_(v132, v140, v139, @"isRunning");
+    v135 = objc_msgSend_numberWithBool_(MEMORY[0x29EDBA070], v133, v190, v134);
+    objc_msgSend_setObject_forKeyedSubscript_(v128, v136, v135, @"isRunning");
 
     WeakRetained = objc_loadWeakRetained(&self->_sidecarWriter);
-    objc_msgSend_addToSidecar_forKey_(WeakRetained, v142, v132, @"GreenGhostBrightLight");
+    objc_msgSend_addToSidecar_forKey_(WeakRetained, v138, v128, @"GreenGhostBrightLight");
 
-    objc_msgSend_makePyramidAliasable_metal_(PyramidStorage_NRF, v143, self->_outputPyr, self->_metalContext);
-    v145 = self->_noiseMapPyramid;
-    if (v145)
+    objc_msgSend_makePyramidAliasable_metal_(PyramidStorage_NRF, v139, self->_outputPyr, self->_metalContext);
+    v141 = self->_noiseMapPyramid;
+    if (v141)
     {
-      objc_msgSend_makePyramidAliasable_metal_(PyramidStorage_NRF, v144, v145, self->_metalContext);
+      objc_msgSend_makePyramidAliasable_metal_(PyramidStorage_NRF, v140, v141, self->_metalContext);
     }
 
-    v146 = 0;
+    v142 = 0;
     goto LABEL_34;
   }
 
-  v146 = IsRunning_gainMap;
+  v142 = IsRunning_gainMap;
   sub_2958C27A4();
-  v51 = v101;
+  v51 = v97;
 LABEL_34:
   v52 = tuningCopy;
 LABEL_35:
 
-  return v146;
+  return v142;
 }
 
 - (SidecarWriter)sidecarWriter

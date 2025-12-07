@@ -101,30 +101,30 @@
 
 + (id)getActionTypesFromActionKeys:(id)keys
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(keysCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = keysCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
-        v13 = [self getActionTypeFromActionKey:{v12, v16}];
+        v12 = *(*(&v15 + 1) + 8 * i);
+        v13 = [self getActionTypeFromActionKey:{v12, v15}];
         if (!v13)
         {
           [(_ATXActionUtils *)a2 getActionTypesFromActionKeys:self, v12];
@@ -133,43 +133,41 @@
         [v6 addObject:v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)getBundleIdsFromActionKeys:(id)keys
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(keysCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = keysCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
-        v13 = [self getBundleIdFromActionKey:{v12, v16}];
+        v12 = *(*(&v15 + 1) + 8 * i);
+        v13 = [self getBundleIdFromActionKey:{v12, v15}];
         if (!v13)
         {
           [(_ATXActionUtils *)a2 getBundleIdsFromActionKeys:self, v12];
@@ -178,13 +176,11 @@
         [v6 addObject:v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -241,38 +237,38 @@
       v81 = 0u;
       v82 = 0u;
       predictableParameterCombinations2 = [actionCopy predictableParameterCombinations];
-      v12 = [predictableParameterCombinations2 countByEnumeratingWithState:&v79 objects:v84 count:16];
-      if (v12)
+      v13 = [predictableParameterCombinations2 countByEnumeratingWithState:&v79 objects:v84 count:16];
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v80;
+        v14 = v13;
+        v15 = *v80;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v80 != v14)
+            if (*v80 != v15)
             {
               objc_enumerationMutation(predictableParameterCombinations2);
             }
 
-            v16 = *(*(&v79 + 1) + 8 * i);
-            parameterKeys = [v16 parameterKeys];
+            v17 = *(*(&v79 + 1) + 8 * i);
+            parameterKeys = [v17 parameterKeys];
 
             if (parameterKeys)
             {
-              v18 = objc_alloc_init(MEMORY[0x277CD3E58]);
-              parameterKeys2 = [v16 parameterKeys];
-              [_validParameterCombinations setObject:v18 forKeyedSubscript:parameterKeys2];
+              v19 = objc_alloc_init(MEMORY[0x277CD3E58]);
+              parameterKeys2 = [v17 parameterKeys];
+              [_validParameterCombinations setObject:v19 forKeyedSubscript:parameterKeys2];
             }
           }
 
-          v13 = [predictableParameterCombinations2 countByEnumeratingWithState:&v79 objects:v84 count:16];
+          v14 = [predictableParameterCombinations2 countByEnumeratingWithState:&v79 objects:v84 count:16];
         }
 
-        while (v13);
+        while (v14);
       }
 
-      v20 = v7;
+      v21 = v7;
     }
 
     else
@@ -282,27 +278,27 @@
         goto LABEL_20;
       }
 
-      v46 = MEMORY[0x277CEB3B8];
+      v47 = MEMORY[0x277CEB3B8];
       bundleId = [actionCopy bundleId];
-      v20 = [v46 schemaWithoutFallbackForBundle:bundleId];
+      v21 = [v47 schemaWithoutFallbackForBundle:bundleId];
 
-      v48 = MEMORY[0x277CEB3B8];
+      v49 = MEMORY[0x277CEB3B8];
       bundleId2 = [actionCopy bundleId];
-      v50 = [v48 isSystemAppForBundleId:bundleId2];
+      v51 = [v49 isSystemAppForBundleId:bundleId2];
 
-      if (v20)
+      if (v21)
       {
-        v51 = [intent _validParameterCombinationsWithSchema:v20];
+        v52 = [intent _validParameterCombinationsWithSchema:v21];
 
-        [cacheCopy setValidParameterCombinationsWithSchema:v51 intent:intent];
-        v7 = v51;
+        [cacheCopy setValidParameterCombinationsWithSchema:v52 intent:intent];
+        v7 = v52;
       }
 
-      if ((([v7 count] == 0) & v50) != 1)
+      if ((([v7 count] == 0) & v51) != 1)
       {
         v67 = MEMORY[0x277CBEB98];
         initWithOpaqueParameters = [objc_alloc(MEMORY[0x277CEB848]) initWithOpaqueParameters];
-        v25 = [v67 setWithObject:initWithOpaqueParameters];
+        v26 = [v67 setWithObject:initWithOpaqueParameters];
 
 LABEL_35:
         goto LABEL_53;
@@ -317,61 +313,61 @@ LABEL_15:
 
         v7 = _validParameterCombinations;
 LABEL_20:
-        v26 = __atxlog_handle_action_prediction();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v27 = __atxlog_handle_action_prediction(v10);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
-          [_ATXActionUtils slotSetsForAction:v7 intentCache:v26];
+          [_ATXActionUtils slotSetsForAction:v7 intentCache:v27];
         }
 
-        v25 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v26 = objc_alloc_init(MEMORY[0x277CBEB58]);
         v69 = v7;
         allKeys = [v7 allKeys];
-        v28 = +[_ATXGlobals sharedInstance];
-        v29 = +[_ATXActionUtils limitParameterCombinations:limit:](_ATXActionUtils, "limitParameterCombinations:limit:", allKeys, [v28 maximumParameterCombinations]);
+        v29 = +[_ATXGlobals sharedInstance];
+        v30 = +[_ATXActionUtils limitParameterCombinations:limit:](_ATXActionUtils, "limitParameterCombinations:limit:", allKeys, [v29 maximumParameterCombinations]);
 
         v75 = 0u;
         v76 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v30 = v29;
-        v31 = [v30 countByEnumeratingWithState:&v73 objects:v83 count:16];
-        v32 = intent;
-        if (v31)
+        v31 = v30;
+        v32 = [v31 countByEnumeratingWithState:&v73 objects:v83 count:16];
+        v33 = intent;
+        if (v32)
         {
-          v33 = v31;
-          v34 = *v74;
+          v34 = v32;
+          v35 = *v74;
           do
           {
-            for (j = 0; j != v33; ++j)
+            for (j = 0; j != v34; ++j)
             {
-              if (*v74 != v34)
+              if (*v74 != v35)
               {
-                objc_enumerationMutation(v30);
+                objc_enumerationMutation(v31);
               }
 
-              v36 = *(*(&v73 + 1) + 8 * j);
+              v37 = *(*(&v73 + 1) + 8 * j);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 goto LABEL_31;
               }
 
-              v37 = v32;
-              if (![v36 containsObject:@"content"] || +[_ATXActionUtils shouldAcceptMessageContent:](_ATXActionUtils, "shouldAcceptMessageContent:", v37))
+              v38 = v33;
+              if (![v37 containsObject:@"content"] || +[_ATXActionUtils shouldAcceptMessageContent:](_ATXActionUtils, "shouldAcceptMessageContent:", v38))
               {
 
 LABEL_31:
-                v37 = [objc_alloc(MEMORY[0x277CEB848]) initWithParameters:v36];
-                [v25 addObject:v37];
+                v38 = [objc_alloc(MEMORY[0x277CEB848]) initWithParameters:v37];
+                [v26 addObject:v38];
               }
 
-              v32 = intent;
+              v33 = intent;
             }
 
-            v33 = [v30 countByEnumeratingWithState:&v73 objects:v83 count:16];
+            v34 = [v31 countByEnumeratingWithState:&v73 objects:v83 count:16];
           }
 
-          while (v33);
+          while (v34);
         }
 
         cacheCopy = v70;
@@ -383,42 +379,42 @@ LABEL_31:
       predictableParameterCombinations2 = [intent buckets];
       if ([predictableParameterCombinations2 count])
       {
-        v52 = objc_opt_new();
+        v53 = objc_opt_new();
         v77[0] = MEMORY[0x277D85DD0];
         v77[1] = 3221225472;
         v77[2] = __49___ATXActionUtils_slotSetsForAction_intentCache___block_invoke;
         v77[3] = &unk_2785A2210;
-        v53 = v52;
-        v78 = v53;
+        v54 = v53;
+        v78 = v54;
         [_validParameterCombinations enumerateKeysAndObjectsUsingBlock:v77];
-        v54 = [MEMORY[0x277CBEB98] setWithObject:@"buckets"];
-        v55 = [_validParameterCombinations objectForKeyedSubscript:v54];
+        v55 = [MEMORY[0x277CBEB98] setWithObject:@"buckets"];
+        v56 = [_validParameterCombinations objectForKeyedSubscript:v55];
 
-        if (v55 && [predictableParameterCombinations2 count])
+        if (v56 && [predictableParameterCombinations2 count])
         {
-          v56 = 0;
+          v57 = 0;
           do
           {
-            v57 = [_validParameterCombinations objectForKeyedSubscript:v54];
-            v58 = MEMORY[0x277CBEB98];
-            v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"bucket_%i", ++v56];
-            v60 = [v58 setWithObject:v59];
-            [v53 setObject:v57 forKeyedSubscript:v60];
+            v58 = [_validParameterCombinations objectForKeyedSubscript:v55];
+            v59 = MEMORY[0x277CBEB98];
+            v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"bucket_%i", ++v57];
+            v61 = [v59 setWithObject:v60];
+            [v54 setObject:v58 forKeyedSubscript:v61];
 
-            v61 = [predictableParameterCombinations2 count];
-            v62 = 4;
-            if (v61 < 4)
+            v62 = [predictableParameterCombinations2 count];
+            v63 = 4;
+            if (v62 < 4)
             {
-              v62 = v61;
+              v63 = v62;
             }
           }
 
-          while (v62 > v56);
+          while (v63 > v57);
         }
 
-        v63 = v53;
+        v64 = v54;
 
-        _validParameterCombinations = v63;
+        _validParameterCombinations = v64;
       }
     }
 
@@ -427,11 +423,11 @@ LABEL_31:
 
   if ([actionCopy actionType] == 6)
   {
-    v21 = MEMORY[0x277CBEB98];
-    v22 = objc_alloc(MEMORY[0x277CEB848]);
+    v22 = MEMORY[0x277CBEB98];
+    v23 = objc_alloc(MEMORY[0x277CEB848]);
     initWithOpaqueParameters2 = [MEMORY[0x277CBEB98] setWithObject:@"menuItemPath"];
-    v24 = [v22 initWithParameters:initWithOpaqueParameters2];
-    v25 = [v21 setWithObject:v24];
+    v25 = [v23 initWithParameters:initWithOpaqueParameters2];
+    v26 = [v22 setWithObject:v25];
   }
 
   else
@@ -439,31 +435,30 @@ LABEL_31:
     if ([actionCopy actionType] == 7)
     {
       parameterKeysForToolInvocation = [actionCopy parameterKeysForToolInvocation];
-      v39 = [parameterKeysForToolInvocation count];
+      v40 = [parameterKeysForToolInvocation count];
 
-      if (v39)
+      if (v40)
       {
-        v40 = MEMORY[0x277CBEB98];
-        v41 = objc_alloc(MEMORY[0x277CEB848]);
-        v42 = MEMORY[0x277CBEB98];
+        v41 = MEMORY[0x277CBEB98];
+        v42 = objc_alloc(MEMORY[0x277CEB848]);
+        v43 = MEMORY[0x277CBEB98];
         parameterKeysForToolInvocation2 = [actionCopy parameterKeysForToolInvocation];
-        v44 = [v42 setWithArray:parameterKeysForToolInvocation2];
-        v45 = [v41 initWithParameters:v44];
-        v25 = [v40 setWithObject:v45];
+        v45 = [v43 setWithArray:parameterKeysForToolInvocation2];
+        v46 = [v42 initWithParameters:v45];
+        v26 = [v41 setWithObject:v46];
 
         goto LABEL_53;
       }
     }
 
-    v64 = MEMORY[0x277CBEB98];
+    v65 = MEMORY[0x277CBEB98];
     initWithOpaqueParameters2 = [objc_alloc(MEMORY[0x277CEB848]) initWithOpaqueParameters];
-    v25 = [v64 setWithObject:initWithOpaqueParameters2];
+    v26 = [v65 setWithObject:initWithOpaqueParameters2];
   }
 
 LABEL_53:
-  v65 = *MEMORY[0x277D85DE8];
 
-  return v25;
+  return v26;
 }
 
 + (id)filterContainersWithNilAction:(id)action
@@ -478,7 +473,7 @@ LABEL_53:
 
 + (void)fetchDataAndUpdateContentAttributeSetForAction:(id)action
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   itemIdentifier = [actionCopy itemIdentifier];
   if (itemIdentifier)
@@ -491,28 +486,26 @@ LABEL_53:
       v7 = dispatch_semaphore_create(0);
       defaultSearchableIndex = [MEMORY[0x277CC34A8] defaultSearchableIndex];
       v9 = *MEMORY[0x277CC2750];
-      v24[0] = @"_kMDItemThumbnailDataPath";
-      v24[1] = v9;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+      v23[0] = @"_kMDItemThumbnailDataPath";
+      v23[1] = v9;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
       v11 = *MEMORY[0x277CCA190];
       bundleId2 = [actionCopy bundleId];
       itemIdentifier2 = [actionCopy itemIdentifier];
-      v23 = itemIdentifier2;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-      v17 = MEMORY[0x277D85DD0];
-      v18 = 3221225472;
-      v19 = __66___ATXActionUtils_fetchDataAndUpdateContentAttributeSetForAction___block_invoke;
-      v20 = &unk_2785A2258;
-      v21 = actionCopy;
-      v22 = v7;
+      v22 = itemIdentifier2;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+      v16 = MEMORY[0x277D85DD0];
+      v17 = 3221225472;
+      v18 = __66___ATXActionUtils_fetchDataAndUpdateContentAttributeSetForAction___block_invoke;
+      v19 = &unk_2785A2258;
+      v20 = actionCopy;
+      v21 = v7;
       v15 = v7;
-      [defaultSearchableIndex slowFetchAttributes:v10 protectionClass:v11 bundleID:bundleId2 identifiers:v14 completionHandler:&v17];
+      [defaultSearchableIndex slowFetchAttributes:v10 protectionClass:v11 bundleID:bundleId2 identifiers:v14 completionHandler:&v16];
 
-      [MEMORY[0x277D425A0] waitForSemaphore:v15 timeoutSeconds:{5.0, v17, v18, v19, v20}];
+      [MEMORY[0x277D425A0] waitForSemaphore:v15 timeoutSeconds:{5.0, v16, v17, v18, v19}];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)actionKeyFilterForCandidateBundleIds:(id)ids candidateActionTypes:(id)types blacklist:(id)blacklist
@@ -537,7 +530,7 @@ LABEL_53:
 
 + (void)prefillActionHistograms
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = +[_ATXAppLaunchHistogramManager sharedInstance];
   v3 = [v2 histogramForLaunchType:14];
   v4 = [v2 histogramForLaunchType:17];
@@ -546,9 +539,9 @@ LABEL_53:
   v7 = [v2 histogramForLaunchType:19];
   v8 = [v2 histogramForLaunchType:22];
   v9 = objc_opt_new();
-  v29 = [v9 dateByAddingTimeInterval:-1209600.0];
+  v28 = [v9 dateByAddingTimeInterval:-1209600.0];
   v10 = objc_opt_new();
-  v11 = [v10 getCombinedIntentEventsBetweenStartDate:v29 endDate:v9 ascending:1];
+  v11 = [v10 getCombinedIntentEventsBetweenStartDate:v28 endDate:v9 ascending:1];
 
   [v3 resetData];
   [v4 resetData];
@@ -556,46 +549,45 @@ LABEL_53:
   [v6 resetData];
   [v7 resetData];
   [v8 resetData];
-  v28 = +[ATXActionFeedback sharedInstance];
-  [v28 resetData];
+  v27 = +[ATXActionFeedback sharedInstance];
+  [v27 resetData];
   v12 = v9;
   v13 = objc_alloc_init(MEMORY[0x277CEBBE0]);
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __42___ATXActionUtils_prefillActionHistograms__block_invoke;
-  v30[3] = &unk_2785A2280;
-  v38 = &v40;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __42___ATXActionUtils_prefillActionHistograms__block_invoke;
+  v29[3] = &unk_2785A2280;
+  v37 = &v39;
   selfCopy = self;
-  v27 = v11;
-  v31 = v27;
-  v25 = v3;
-  v32 = v25;
+  v26 = v11;
+  v30 = v26;
+  v24 = v3;
+  v31 = v24;
   v14 = v4;
-  v33 = v14;
+  v32 = v14;
   v15 = v5;
-  v34 = v15;
+  v33 = v15;
   v16 = v6;
-  v35 = v16;
+  v34 = v16;
   v17 = v7;
-  v36 = v17;
+  v35 = v17;
   v18 = v8;
-  v37 = v18;
-  [v13 enumerateAppLaunchSessionsBetweenStartDate:v29 endDate:v12 shouldReverse:0 bundleIDFilter:0 block:v30];
-  v19 = __atxlog_handle_action_prediction();
+  v36 = v18;
+  v19 = __atxlog_handle_action_prediction([v13 enumerateAppLaunchSessionsBetweenStartDate:v28 endDate:v12 shouldReverse:0 bundleIDFilter:0 block:v29]);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     v20 = v17;
     v21 = v12;
-    v22 = v41[3];
-    v23 = [v27 count];
+    v22 = v40[3];
+    v23 = [v26 count];
     *buf = 134218240;
-    v45 = v22;
-    v46 = 2048;
-    v47 = v23;
+    v44 = v22;
+    v45 = 2048;
+    v46 = v23;
     _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "Received %lu app sessions, %lu combined intent and activity events to prefill histograms", buf, 0x16u);
     v12 = v21;
     v17 = v20;
@@ -603,7 +595,7 @@ LABEL_53:
 
   if ([v2 persistentStore])
   {
-    flushHistogram(v25);
+    flushHistogram(v24);
     flushHistogram(v14);
     flushHistogram(v15);
     flushHistogram(v16);
@@ -611,8 +603,7 @@ LABEL_53:
     flushHistogram(v18);
   }
 
-  _Block_object_dispose(&v40, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v39, 8);
 }
 
 + (void)prefillActionSlotDatabase
@@ -623,56 +614,54 @@ LABEL_53:
   v4 = objc_opt_new();
   v5 = [v4 getCombinedIntentEventsBetweenStartDate:v3 endDate:v2 ascending:1];
 
-  v6 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_action_prediction(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     v23 = [v5 count];
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Prefilling slot database with %lu combined intent and activity events", buf, 0xCu);
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Prefilling slot database with %lu combined intent and activity events", buf, 0xCu);
   }
 
-  v7 = +[_ATXDataStore sharedInstance];
-  [v7 removeAllSlotsFromActionLog];
-  v8 = +[_ATXAppPredictor sharedInstance];
-  appIntentMonitor = [v8 appIntentMonitor];
+  v8 = +[_ATXDataStore sharedInstance];
+  [v8 removeAllSlotsFromActionLog];
+  v9 = +[_ATXAppPredictor sharedInstance];
+  appIntentMonitor = [v9 appIntentMonitor];
 
   v19 = 0u;
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v11)
+  v11 = v5;
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v12)
   {
-    v13 = v11;
-    v14 = *v18;
+    v14 = v12;
+    v15 = *v18;
     do
     {
-      v15 = 0;
+      v16 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v18 != v15)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        LODWORD(v12) = 1.0;
-        [appIntentMonitor updateActionPredictionSlotResolutionForIntentEvent:*(*(&v17 + 1) + 8 * v15++) weight:0 prevLocationUUID:0 locationUUID:4 currentMotionType:0 appSessionStartDate:0 appSessionEndDate:v12 geohash:-1 coarseGeohash:{-1, v17}];
+        LODWORD(v13) = 1.0;
+        [appIntentMonitor updateActionPredictionSlotResolutionForIntentEvent:*(*(&v17 + 1) + 8 * v16++) weight:0 prevLocationUUID:0 locationUUID:4 currentMotionType:0 appSessionStartDate:0 appSessionEndDate:v13 geohash:-1 coarseGeohash:{-1, v17}];
       }
 
-      while (v13 != v15);
-      v13 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      while (v14 != v16);
+      v14 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)firstIntent:(id)intent inAppLaunchSession:(id)session
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   sessionCopy = session;
   appSessionStartTime = [sessionCopy appSessionStartTime];
@@ -683,28 +672,28 @@ LABEL_53:
   [appSessionEndTime timeIntervalSinceReferenceDate];
   v12 = v11;
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v13 = intentCopy;
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v30;
+    v17 = *v29;
     v18 = -INFINITY;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v30 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v29 + 1) + 8 * i);
+        v20 = *(*(&v28 + 1) + 8 * i);
         startDate = [v20 startDate];
         v22 = startDate;
         if (startDate)
@@ -724,7 +713,7 @@ LABEL_53:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v15);
@@ -734,8 +723,6 @@ LABEL_53:
   {
     v16 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -749,7 +736,7 @@ LABEL_53:
 
 + (void)resetActionPredictions
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = +[_ATXAppLaunchHistogramManager sharedInstance];
   v3 = [v2 histogramForLaunchType:14];
   [v3 resetData];
@@ -778,7 +765,7 @@ LABEL_53:
   v11 = [v2 histogramForLaunchType:26];
   [v11 resetData];
 
-  v37 = v2;
+  v36 = v2;
   v12 = [v2 histogramForLaunchType:28];
   [v12 resetData];
 
@@ -789,30 +776,30 @@ LABEL_53:
   v14 = objc_opt_new();
   [v14 resetAppIntentLocationData];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v15 = +[_ATXAppInfoManager sharedInstance];
   allApps = [v15 allApps];
 
   obj = allApps;
-  v17 = [allApps countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v17 = [allApps countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v17)
   {
     v18 = v17;
-    v39 = *v45;
+    v38 = *v44;
     do
     {
       v19 = 0;
       do
       {
-        if (*v45 != v39)
+        if (*v44 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v44 + 1) + 8 * v19);
+        v20 = *(*(&v43 + 1) + 8 * v19);
         v21 = objc_autoreleasePoolPush();
         v22 = +[ATXHistogramBundleIdTable sharedInstance];
         v23 = [MEMORY[0x277CBEB58] setWithObject:v20];
@@ -823,27 +810,27 @@ LABEL_53:
         v27 = [MEMORY[0x277CBEB98] setWithArray:v25];
         [v26 deleteAllLaunchesForAppActions:v27];
 
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
         v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
         v28 = v25;
-        v29 = [v28 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v39 objects:v47 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v41;
+          v31 = *v40;
           do
           {
             v32 = 0;
             do
             {
-              if (*v41 != v31)
+              if (*v40 != v31)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v33 = *(*(&v40 + 1) + 8 * v32);
+              v33 = *(*(&v39 + 1) + 8 * v32);
               v34 = +[ATXHistogramBundleIdTable sharedInstance];
               [v34 remove:v33];
 
@@ -851,7 +838,7 @@ LABEL_53:
             }
 
             while (v30 != v32);
-            v30 = [v28 countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v39 objects:v47 count:16];
           }
 
           while (v30);
@@ -862,7 +849,7 @@ LABEL_53:
       }
 
       while (v19 != v18);
-      v18 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v18 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v18);
@@ -872,37 +859,35 @@ LABEL_53:
   [v35 removeAllSlotsFromActionLog];
   [v35 removeAllSlotsFromActionFeedback];
   [v35 removeAllSlotsFromSlotSetKey];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_extractValueInKeyValueBlob:(id)blob withKey:(id)key
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   blobCopy = blob;
   keyCopy = key;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v21 = blobCopy;
+  v20 = blobCopy;
   v7 = [blobCopy componentsSeparatedByString:{@", '"}];
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         if ([v13 containsString:@"'="])
         {
           v14 = [v13 componentsSeparatedByString:@"'="];
@@ -928,7 +913,7 @@ LABEL_53:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
@@ -938,8 +923,6 @@ LABEL_53:
   {
     v10 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1258,79 +1241,78 @@ LABEL_13:
 
 + (BOOL)uniqueRecipientsMatchedBetweenIntent:(id)intent andIntent:(id)andIntent
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   andIntentCopy = andIntent;
   v7 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   recipients = [intentCopy recipients];
-  v9 = [recipients countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v9 = [recipients countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       v12 = 0;
       do
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(recipients);
         }
 
-        displayName = [*(*(&v28 + 1) + 8 * v12) displayName];
+        displayName = [*(*(&v27 + 1) + 8 * v12) displayName];
         [v7 addObject:displayName];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [recipients countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v10 = [recipients countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v10);
   }
 
   v14 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   recipients2 = [andIntentCopy recipients];
-  v16 = [recipients2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v16 = [recipients2 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       v19 = 0;
       do
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(recipients2);
         }
 
-        displayName2 = [*(*(&v24 + 1) + 8 * v19) displayName];
+        displayName2 = [*(*(&v23 + 1) + 8 * v19) displayName];
         [v14 addObject:displayName2];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [recipients2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v17 = [recipients2 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v17);
   }
 
   v21 = [v7 isEqualToSet:v14];
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -1450,19 +1432,8 @@ LABEL_13:
         v16 = [parameters isSubsetOfSet:parameters2];
 
         v17 = slotSet;
-        if (v16)
+        if ((v16 & 1) != 0 || ([slotSet2 parameters], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(slotSet, "parameters"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v18, "isSubsetOfSet:", v19), v19, v18, v17 = slotSet2, v20))
         {
-          goto LABEL_10;
-        }
-
-        parameters3 = [slotSet2 parameters];
-        parameters4 = [slotSet parameters];
-        v20 = [parameters3 isSubsetOfSet:parameters4];
-
-        v17 = slotSet2;
-        if (v20)
-        {
-LABEL_10:
           v21 = v17;
           v22 = [objc_alloc(MEMORY[0x277CEB840]) initWithAction:actionCopy slots:v21];
           v23 = [objc_alloc(MEMORY[0x277CEB840]) initWithAction:v7 slots:v21];
@@ -1494,11 +1465,11 @@ LABEL_17:
 
 + (id)sha256hex:(id)sha256hex
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sha256hexCopy = sha256hex;
   CC_SHA256([sha256hexCopy bytes], objc_msgSend(sha256hexCopy, "length"), md);
   v4 = 0;
-  v5 = v18;
+  v5 = v17;
   v6.i64[0] = 0x9F9F9F9F9F9F9F9FLL;
   v6.i64[1] = 0x9F9F9F9F9F9F9F9FLL;
   v7.i64[0] = 0x3737373737373737;
@@ -1516,18 +1487,16 @@ LABEL_17:
     v12.i64[1] = 0x3737373737373737;
     v13.i64[0] = 0x3030303030303030;
     v13.i64[1] = 0x3030303030303030;
-    v22.val[0] = vbslq_s8(vcgtq_u8(v11, v6), vsraq_n_u8(v12, v11, 4uLL), vsraq_n_u8(v13, v11, 4uLL));
+    v21.val[0] = vbslq_s8(vcgtq_u8(v11, v6), vsraq_n_u8(v12, v11, 4uLL), vsraq_n_u8(v13, v11, 4uLL));
     v14 = vandq_s8(v11, v9);
-    v22.val[1] = vbslq_s8(vcgtq_u8(v14, v10), vaddq_s8(v14, v7), vorrq_s8(v14, v8));
-    vst2q_s8(v5, v22);
+    v21.val[1] = vbslq_s8(vcgtq_u8(v14, v10), vaddq_s8(v14, v7), vorrq_s8(v14, v8));
+    vst2q_s8(v5, v21);
     v5 += 32;
     v4 += 16;
   }
 
   while (v4 != 32);
-  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v18 length:64 encoding:1];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v17 length:64 encoding:1];
 
   return v15;
 }
@@ -1651,10 +1620,10 @@ LABEL_7:
 
                 if (!displayName)
                 {
-                  v21 = __atxlog_handle_action_prediction();
-                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+                  v22 = __atxlog_handle_action_prediction(v19);
+                  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
                   {
-                    [_ATXActionUtils recipientFromMessageIntent:v21];
+                    [_ATXActionUtils recipientFromMessageIntent:v22];
                   }
 
                   goto LABEL_21;
@@ -1663,7 +1632,7 @@ LABEL_7:
                 contactIdentifier2 = [v15 displayName];
               }
 
-              v19 = contactIdentifier2;
+              v20 = contactIdentifier2;
               lowercaseString2 = [contactIdentifier2 lowercaseString];
               [v9 addObject:lowercaseString2];
             }
@@ -1684,7 +1653,7 @@ LABEL_7:
 
       else
       {
-        v9 = __atxlog_handle_action_prediction();
+        v9 = __atxlog_handle_action_prediction(0);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           [_ATXActionUtils recipientFromMessageIntent:v9];
@@ -1695,8 +1664,6 @@ LABEL_21:
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return lowercaseString;
 }
@@ -1830,11 +1797,10 @@ LABEL_3:
 
 + (void)slotSetsForAction:(void *)a1 intentCache:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Donation Processing - # slots received: %lu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Donation Processing - # slots received: %lu", &v3, 0xCu);
 }
 
 @end

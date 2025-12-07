@@ -17,6 +17,7 @@
 - (SDAutoUnlockTransportClient)primaryClient;
 - (id)activeDevice;
 - (id)approveBluetoothIDs;
+- (id)autoUnlockDeviceForBluetoothID:(id)d cached:(BOOL)cached;
 - (id)autoUnlockDeviceForDeviceID:(id)d;
 - (id)autoUnlockDeviceForIDSDevice:(id)device cloudPaired:(BOOL)paired cached:(BOOL)cached;
 - (id)autoUnlockEligibleDevicesWithCloudPairing:(BOOL)pairing deviceType:(int64_t)type;
@@ -38,6 +39,7 @@
 - (id)modelNameForDevice:(id)device;
 - (id)nameForDevice:(id)device;
 - (id)nanoRegistryDeviceForBluetoothIdentifier:(id)identifier;
+- (id)onqueue_autoUnlockEligibleDevices:(BOOL)devices deviceType:(int64_t)type;
 - (id)onqueue_bluetoothDeviceIdentifiers;
 - (id)onqueue_bluetoothIDForIDSID:(id)d;
 - (id)onqueue_devicesWithLTKs;
@@ -46,6 +48,7 @@
 - (id)pairedDeviceID;
 - (id)placeholderDevice;
 - (id)proxyBluetoothDeviceIDForDeviceID:(id)d;
+- (id)sendPayload:(id)payload toDevice:(id)device type:(unsigned __int16)type sessionID:(id)d queueOneID:(id)iD wantsACK:(BOOL)k timeout:(id)timeout completion:(id)self0;
 - (id)stableBluetoothIdentifierForIDSDevice:(id)device;
 - (id)state;
 - (id)transferDataFromPayload:(id)payload sessionID:(id)d;
@@ -59,6 +62,7 @@
 - (void)logDevices;
 - (void)removeClientForIdentifier:(id)identifier;
 - (void)resetAppleWatchExisted;
+- (void)sendPayload:(id)payload toDevice:(id)device type:(unsigned __int16)type sessionID:(id)d queueOneID:(id)iD timeout:(id)timeout errorHandler:(id)handler;
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context;
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context;
 - (void)service:(id)service devicesChanged:(id)changed;
@@ -268,22 +272,22 @@ LABEL_11:
 
 - (id)state
 {
-  v46 = 0;
+  v45 = 0;
   v3 = objc_opt_class();
-  v29 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v45, "%@\n", v4);
+  v5 = v45;
 
-  v45 = v4;
-  NSAppendPrintF();
-  v5 = v4;
+  v44 = v5;
+  NSAppendPrintF(&v44, "-------------\n");
+  v6 = v44;
 
-  v6 = objc_alloc_init(NSMutableSet);
+  v7 = objc_alloc_init(NSMutableSet);
   if (SFDeviceClassCodeGet() == 1)
   {
     selfCopy2 = self;
-    v8 = 0;
-    v9 = 1;
+    v9 = 0;
+    v10 = 1;
   }
 
   else
@@ -294,87 +298,86 @@ LABEL_11:
     }
 
     selfCopy2 = self;
-    v8 = 1;
-    v9 = 2;
+    v9 = 1;
+    v10 = 2;
   }
 
-  v10 = [(SDAutoUnlockTransport *)selfCopy2 autoUnlockEligibleDevicesWithCloudPairing:v8 deviceType:v9, v29];
-  [v6 unionSet:v10];
+  v11 = [(SDAutoUnlockTransport *)selfCopy2 autoUnlockEligibleDevicesWithCloudPairing:v9 deviceType:v10];
+  [v7 unionSet:v11];
 
 LABEL_6:
-  v44 = v5;
-  NSAppendPrintF();
-  v11 = v5;
-
-  v43 = v11;
-  NSAppendPrintF();
-  v12 = v11;
+  v43 = v6;
+  NSAppendPrintF(&v43, "Eligible Devices: %@\n", v7);
+  v12 = v43;
 
   v42 = v12;
-  NSAppendPrintF();
-  v13 = v12;
+  NSAppendPrintF(&v42, "\n");
+  v13 = v42;
 
   v41 = v13;
-  NSAppendPrintF();
-  v14 = v13;
+  NSAppendPrintF(&v41, "Unlock IDS Devices\n");
+  v14 = v41;
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
+  v40 = v14;
+  NSAppendPrintF(&v40, "-------------\n");
+  v15 = v40;
+
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   idsService = [(SDAutoUnlockTransport *)self idsService];
   devices = [idsService devices];
 
-  v17 = [devices countByEnumeratingWithState:&v37 objects:v47 count:16];
-  if (v17)
+  v18 = [devices countByEnumeratingWithState:&v36 objects:v46 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v35 = v6;
+    v19 = v18;
+    v31 = v7;
     obj = devices;
-    v19 = *v38;
-    v20 = v14;
+    v20 = *v37;
+    v21 = v15;
     do
     {
-      for (i = 0; i != v18; i = i + 1)
+      for (i = 0; i != v19; i = i + 1)
       {
-        if (*v38 != v19)
+        if (*v37 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v37 + 1) + 8 * i);
-        name = [v22 name];
-        uniqueID = [v22 uniqueID];
-        modelIdentifier = [v22 modelIdentifier];
-        productBuildVersion = [v22 productBuildVersion];
-        [v22 nsuuid];
-        v34 = v33 = productBuildVersion;
-        v31 = uniqueID;
-        v32 = modelIdentifier;
-        v30 = name;
-        NSAppendPrintF();
-        v27 = v20;
+        v23 = *(*(&v36 + 1) + 8 * i);
+        v35 = v21;
+        name = [v23 name];
+        uniqueID = [v23 uniqueID];
+        modelIdentifier = [v23 modelIdentifier];
+        productBuildVersion = [v23 productBuildVersion];
+        nsuuid = [v23 nsuuid];
+        NSAppendPrintF(&v35, "%''@, %@, %@, %@, BT=%@", name, uniqueID, modelIdentifier, productBuildVersion, nsuuid);
+        v29 = v35;
 
-        NSAppendPrintF();
-        v20 = v27;
+        v34 = v29;
+        NSAppendPrintF(&v34, "\n");
+        v21 = v34;
       }
 
-      v18 = [obj countByEnumeratingWithState:&v37 objects:v47 count:{16, name, uniqueID, modelIdentifier, productBuildVersion, v34}];
+      v19 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
     }
 
-    while (v18);
-    v14 = obj;
-    v6 = v35;
+    while (v19);
+    v15 = obj;
+    v7 = v31;
   }
 
   else
   {
 
-    NSAppendPrintF();
-    v20 = v14;
+    v33 = v15;
+    NSAppendPrintF(&v33, "No devices registered\n");
+    v21 = v33;
   }
 
-  return v20;
+  return v21;
 }
 
 - (void)clearAutoUnlockDeviceCache
@@ -465,7 +468,7 @@ LABEL_11:
         continue;
       }
 
-      [v8 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v8);
 
       if (v13 > 2)
       {
@@ -942,6 +945,23 @@ LABEL_15:
   return v5;
 }
 
+- (id)autoUnlockDeviceForBluetoothID:(id)d cached:(BOOL)cached
+{
+  cachedCopy = cached;
+  v6 = [(SDAutoUnlockTransport *)self idsDeviceForBluetoothID:d];
+  if (v6)
+  {
+    v7 = [(SDAutoUnlockTransport *)self autoUnlockDeviceForIDSDevice:v6 cloudPaired:0 cached:cachedCopy];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
 - (id)autoUnlockEligibleDevicesWithCloudPairing:(BOOL)pairing deviceType:(int64_t)type
 {
   v12 = 0;
@@ -965,6 +985,225 @@ LABEL_15:
   _Block_object_dispose(&v12, 8);
 
   return v8;
+}
+
+- (id)onqueue_autoUnlockEligibleDevices:(BOOL)devices deviceType:(int64_t)type
+{
+  devicesCopy = devices;
+  v50 = sub_10000C2C4(@"AUDeviceBlackList");
+  v7 = objc_opt_new();
+  v8 = v7;
+  if (!type)
+  {
+    v39 = auto_unlock_log();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "onqueue_autoUnlockEligibleDevices: Returning empty list for unknown deviceType", buf, 2u);
+    }
+
+    v40 = v8;
+    goto LABEL_53;
+  }
+
+  v49 = v7;
+  [(SDAutoUnlockTransport *)self clearAutoUnlockDeviceCache];
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  idsService = [(SDAutoUnlockTransport *)self idsService];
+  devices = [idsService devices];
+
+  obj = devices;
+  v11 = [devices countByEnumeratingWithState:&v54 objects:v60 count:16];
+  if (!v11)
+  {
+    goto LABEL_25;
+  }
+
+  v13 = v11;
+  v14 = *v55;
+  *&v12 = 138412290;
+  v48 = v12;
+  do
+  {
+    for (i = 0; i != v13; i = i + 1)
+    {
+      if (*v55 != v14)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v16 = *(*(&v54 + 1) + 8 * i);
+      v17 = [(SDAutoUnlockTransport *)self autoUnlockDeviceForIDSDevice:v16 cloudPaired:devicesCopy cached:0, v48];
+      v18 = v17;
+      if (v17)
+      {
+        if ([v17 type] == type || -[SDAutoUnlockTransport showOtherDevices](self, "showOtherDevices"))
+        {
+          if (type == 1 && ![(SDAutoUnlockTransport *)self watchVersionEligibleForDevice:v16])
+          {
+            v21 = auto_unlock_log();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+            {
+              sub_1001D5674(&v52, v53, v21);
+            }
+          }
+
+          else
+          {
+LABEL_12:
+            uniqueID = [v18 uniqueID];
+            v20 = [v50 containsObject:uniqueID];
+
+            if (!v20)
+            {
+              v23 = +[SDStatusMonitor sharedMonitor];
+              deviceKeyBagUnlocked = [v23 deviceKeyBagUnlocked];
+
+              v25 = +[SDAutoUnlockAKSManager sharedManager];
+              uniqueIDOverride = [v16 uniqueIDOverride];
+              [v18 setKeyExists:{objc_msgSend(v25, "ltkExistsForKeyDevice:updateLTKs:", uniqueIDOverride, deviceKeyBagUnlocked)}];
+
+              [v49 addObject:v18];
+              goto LABEL_23;
+            }
+
+            v21 = auto_unlock_log();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            {
+              uniqueID2 = [v18 uniqueID];
+              *buf = v48;
+              v59 = uniqueID2;
+              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Skipping device in blacklist (device ID: %@)", buf, 0xCu);
+            }
+          }
+
+          goto LABEL_23;
+        }
+
+        if (type == 5 && [v18 type] == 3 && (_os_feature_enabled_impl() & 1) != 0)
+        {
+          goto LABEL_12;
+        }
+      }
+
+LABEL_23:
+    }
+
+    v13 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+  }
+
+  while (v13);
+LABEL_25:
+
+  v8 = v49;
+  if (type != 1)
+  {
+    goto LABEL_52;
+  }
+
+  v27 = [v49 count];
+  lastSeenWatchDate = [(SDAutoUnlockTransport *)self lastSeenWatchDate];
+  v29 = lastSeenWatchDate;
+  if (v27)
+  {
+
+    if (!v29)
+    {
+      v30 = auto_unlock_log();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Updating last seen date", buf, 2u);
+      }
+
+      v31 = objc_opt_new();
+      [(SDAutoUnlockTransport *)self setLastSeenWatchDate:v31];
+    }
+
+    watchCurrentlyInList = [(SDAutoUnlockTransport *)self watchCurrentlyInList];
+    bOOLValue = [watchCurrentlyInList BOOLValue];
+
+    if ((bOOLValue & 1) == 0)
+    {
+      v34 = auto_unlock_log();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Watch added to list -- updating watchCurrentlyInList and lastSeenWatchDate", buf, 2u);
+      }
+
+      [(SDAutoUnlockTransport *)self setWatchCurrentlyInList:&__kCFBooleanTrue];
+      v35 = objc_opt_new();
+      [(SDAutoUnlockTransport *)self setLastSeenWatchDate:v35];
+    }
+
+    watchExistedInUnlockList = [(SDAutoUnlockTransport *)self watchExistedInUnlockList];
+    bOOLValue2 = [watchExistedInUnlockList BOOLValue];
+
+    if ((bOOLValue2 & 1) == 0)
+    {
+      v38 = auto_unlock_log();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Updating existed in list", buf, 2u);
+      }
+
+      [(SDAutoUnlockTransport *)self setWatchExistedInUnlockList:&__kCFBooleanTrue];
+    }
+  }
+
+  else
+  {
+
+    if (v29)
+    {
+      watchCurrentlyInList2 = [(SDAutoUnlockTransport *)self watchCurrentlyInList];
+      bOOLValue3 = [watchCurrentlyInList2 BOOLValue];
+
+      if (!bOOLValue3)
+      {
+        goto LABEL_52;
+      }
+
+      v43 = auto_unlock_log();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Last watch removed from list -- updating watchCurrentlyInList and lastSeenWatchDate", buf, 2u);
+      }
+
+      [(SDAutoUnlockTransport *)self setWatchCurrentlyInList:&__kCFBooleanFalse];
+    }
+
+    else
+    {
+      if (![(SDAutoUnlockTransport *)self activityServiceHasWatch])
+      {
+        goto LABEL_52;
+      }
+
+      v44 = auto_unlock_log();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Activity service has a Watch updating last seen date", buf, 2u);
+      }
+    }
+
+    v45 = objc_opt_new();
+    [(SDAutoUnlockTransport *)self setLastSeenWatchDate:v45];
+  }
+
+LABEL_52:
+  v40 = [v49 copy];
+LABEL_53:
+  v46 = v40;
+
+  return v46;
 }
 
 - (id)enabledAutoUnlockDevicesUsingCache:(BOOL)cache
@@ -1207,8 +1446,8 @@ LABEL_17:
   v32 = [(SDAutoUnlockTransport *)self modelNameForDevice:deviceCopy];
   [v21 setModelName:v32];
 
-  [deviceCopy operatingSystemVersion];
-  [deviceCopy operatingSystemVersion];
+  objc_msgSend_operatingSystemVersion(deviceCopy);
+  objc_msgSend_operatingSystemVersion(deviceCopy);
   v33 = v59 > 3 && v60 == 7;
   v34 = v60 > 7 || v33;
   [v21 setMajorOSVersion:v60];
@@ -1248,12 +1487,7 @@ LABEL_17:
   v54 = [v52 deviceEnabledAsKey:uniqueIDOverride6];
 
   [v21 setUnlockEnabled:v54];
-  if (!v9)
-  {
-    goto LABEL_47;
-  }
-
-  if (v54)
+  if (v9 && v54)
   {
     proxyBluetoothID = [v21 proxyBluetoothID];
     [v21 setBluetoothCloudPaired:proxyBluetoothID != 0];
@@ -1261,7 +1495,6 @@ LABEL_17:
 
   else
   {
-LABEL_47:
     [v21 setBluetoothCloudPaired:v9 != 0];
   }
 
@@ -1319,7 +1552,7 @@ LABEL_18:
   {
     if (deviceCopy)
     {
-      [deviceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(deviceCopy);
       v5 = v9;
     }
 
@@ -1335,7 +1568,7 @@ LABEL_18:
 
   if (deviceCopy)
   {
-    [deviceCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(deviceCopy);
     v6 = v8 > 2;
   }
 
@@ -1370,8 +1603,8 @@ LABEL_18:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      [v5 operatingSystemVersion];
-      [v5 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v5);
+      objc_msgSend_operatingSystemVersion(v5);
       *buf = 67109376;
       v23 = v16;
       v24 = 1024;
@@ -1379,13 +1612,13 @@ LABEL_18:
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Remote iOS major version: %d and minor version: %d", buf, 0xEu);
     }
 
-    [v5 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v5);
     if (v14 <= 14)
     {
-      [v5 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v5);
       if (v13 == 14)
       {
-        [v5 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v5);
         v10 = v12 >= 0;
         goto LABEL_19;
       }
@@ -1412,8 +1645,8 @@ LABEL_17:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    [v5 operatingSystemVersion];
-    [v5 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v5);
+    objc_msgSend_operatingSystemVersion(v5);
     *buf = 67109376;
     v23 = v21;
     v24 = 1024;
@@ -1421,13 +1654,13 @@ LABEL_17:
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Remote MacOS major version: %d and minor version: %d", buf, 0xEu);
   }
 
-  [v5 operatingSystemVersion];
+  objc_msgSend_operatingSystemVersion(v5);
   if (v19 > 10)
   {
     goto LABEL_14;
   }
 
-  [v5 operatingSystemVersion];
+  objc_msgSend_operatingSystemVersion(v5);
   if (v18 != 10)
   {
 LABEL_18:
@@ -1435,7 +1668,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  [v5 operatingSystemVersion];
+  objc_msgSend_operatingSystemVersion(v5);
   v10 = v17 > 12;
 LABEL_19:
 
@@ -2082,6 +2315,27 @@ LABEL_11:
   [(SDAutoUnlockTransport *)self setCloudPairRetryRecords:v4];
 }
 
+- (void)sendPayload:(id)payload toDevice:(id)device type:(unsigned __int16)type sessionID:(id)d queueOneID:(id)iD timeout:(id)timeout errorHandler:(id)handler
+{
+  typeCopy = type;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1001D3C84;
+  v17[3] = &unk_1008D3598;
+  handlerCopy = handler;
+  v16 = handlerCopy;
+  [(SDAutoUnlockTransport *)self sendPayload:payload toDevice:device type:typeCopy sessionID:d queueOneID:iD timeout:timeout completion:v17];
+}
+
+- (id)sendPayload:(id)payload toDevice:(id)device type:(unsigned __int16)type sessionID:(id)d queueOneID:(id)iD wantsACK:(BOOL)k timeout:(id)timeout completion:(id)self0
+{
+  v12.receiver = self;
+  v12.super_class = SDAutoUnlockTransport;
+  v10 = [(SDUnlockTransport *)&v12 sendAutoUnlockPayload:payload toDevice:device type:type sessionID:d queueOneID:iD timeout:timeout completion:completion];
+
+  return v10;
+}
+
 - (id)transferDataFromPayload:(id)payload sessionID:(id)d
 {
   dCopy = d;
@@ -2338,31 +2592,8 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Pairing request arrived (creation date: %@ server date: %@) from device: %@", &v19, 0x20u);
   }
 
-  if (v9)
+  if (v9 && serverReceivedTime && ([serverReceivedTime timeIntervalSinceDate:v9], v11 < 0.0) || objc_msgSend(contextCopy, "fromServerStorage") && (+[NSDate date](NSDate, "date"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(contextCopy, "serverReceivedTime"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "timeIntervalSinceDate:", v13), v15 = v14, v13, v12, v15 >= 60.0))
   {
-    if (serverReceivedTime)
-    {
-      [serverReceivedTime timeIntervalSinceDate:v9];
-      if (v11 < 0.0)
-      {
-        goto LABEL_9;
-      }
-    }
-  }
-
-  if (![contextCopy fromServerStorage])
-  {
-    goto LABEL_8;
-  }
-
-  v12 = +[NSDate date];
-  serverReceivedTime2 = [contextCopy serverReceivedTime];
-  [v12 timeIntervalSinceDate:serverReceivedTime2];
-  v15 = v14;
-
-  if (v15 >= 60.0)
-  {
-LABEL_9:
     v17 = auto_unlock_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
@@ -2378,7 +2609,6 @@ LABEL_9:
 
   else
   {
-LABEL_8:
     v16 = 1;
   }
 

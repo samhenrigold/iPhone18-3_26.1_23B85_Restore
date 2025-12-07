@@ -89,35 +89,35 @@ LABEL_16:
 
 - (id)jsonDictionary
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   idsHandle = [(BMUserFocusStatusChange *)self idsHandle];
   statusChangeType = [(BMUserFocusStatusChange *)self statusChangeType];
   _idsHandlesJSONArray = [(BMUserFocusStatusChange *)self _idsHandlesJSONArray];
-  v12[0] = @"idsHandle";
+  v11[0] = @"idsHandle";
   null = idsHandle;
   if (!idsHandle)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"statusChangeType";
+  v12[0] = null;
+  v11[1] = @"statusChangeType";
   null2 = statusChangeType;
   if (!statusChangeType)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"idsHandles";
+  v12[1] = null2;
+  v11[2] = @"idsHandles";
   null3 = _idsHandlesJSONArray;
   if (!_idsHandlesJSONArray)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (_idsHandlesJSONArray)
   {
     if (statusChangeType)
@@ -149,51 +149,48 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)_idsHandlesJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   idsHandles = [(BMUserFocusStatusChange *)self idsHandles];
-  v5 = [idsHandles countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [idsHandles countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(idsHandles);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [idsHandles countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [idsHandles countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMUserFocusStatusChange)initWithJSONDictionary:(id)dictionary error:(id *)p_isa
 {
-  v65[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"idsHandle"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -207,20 +204,20 @@ LABEL_10:
         goto LABEL_36;
       }
 
-      v31 = v7;
-      v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v33 = *MEMORY[0x1E698F240];
-      v64 = *MEMORY[0x1E696A578];
+      v30 = v7;
+      v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v32 = *MEMORY[0x1E698F240];
+      v63 = *MEMORY[0x1E696A578];
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"idsHandle"];
-      v65[0] = v10;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:&v64 count:1];
-      v34 = v32;
-      v7 = v31;
-      v35 = [v34 initWithDomain:v33 code:2 userInfo:v9];
+      v64[0] = v10;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:1];
+      v33 = v31;
+      v7 = v30;
+      v34 = [v33 initWithDomain:v32 code:2 userInfo:v9];
       v8 = 0;
-      v36 = p_isa;
+      v35 = p_isa;
       p_isa = 0;
-      *v36 = v35;
+      *v35 = v34;
       goto LABEL_35;
     }
 
@@ -233,11 +230,11 @@ LABEL_10:
   }
 
   v9 = [dictionaryCopy objectForKeyedSubscript:@"statusChangeType"];
-  v49 = p_isa;
-  v50 = v7;
+  v48 = p_isa;
+  v49 = v7;
   if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v48 = v8;
+    v47 = v8;
     v10 = 0;
 LABEL_7:
     v11 = [dictionaryCopy objectForKeyedSubscript:@"idsHandles"];
@@ -246,37 +243,37 @@ LABEL_7:
 
     if (v13)
     {
-      v45 = v9;
+      v44 = v9;
       selfCopy2 = self;
 
       v11 = 0;
 LABEL_12:
       v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v11, "count")}];
+      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
       v11 = v11;
-      v15 = [v11 countByEnumeratingWithState:&v51 objects:v59 count:16];
+      v15 = [v11 countByEnumeratingWithState:&v50 objects:v58 count:16];
       if (!v15)
       {
         goto LABEL_21;
       }
 
       v16 = v15;
-      v17 = *v52;
+      v17 = *v51;
 LABEL_14:
       v18 = dictionaryCopy;
       v19 = v10;
       v20 = 0;
       while (1)
       {
-        if (*v52 != v17)
+        if (*v51 != v17)
         {
           objc_enumerationMutation(v11);
         }
 
-        v21 = *(*(&v51 + 1) + 8 * v20);
+        v21 = *(*(&v50 + 1) + 8 * v20);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -288,20 +285,20 @@ LABEL_14:
         {
           v10 = v19;
           dictionaryCopy = v18;
-          v9 = v45;
-          if (v49)
+          v9 = v44;
+          if (v48)
           {
             v22 = objc_alloc(MEMORY[0x1E696ABC0]);
             v23 = *MEMORY[0x1E698F240];
-            v55 = *MEMORY[0x1E696A578];
+            v54 = *MEMORY[0x1E696A578];
             v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"idsHandles"];
-            v56 = v24;
+            v55 = v24;
             v25 = MEMORY[0x1E695DF20];
-            v26 = &v56;
-            v27 = &v55;
+            v26 = &v55;
+            v27 = &v54;
 LABEL_30:
             v28 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:1];
-            *v49 = [v22 initWithDomain:v23 code:2 userInfo:v28];
+            *v48 = [v22 initWithDomain:v23 code:2 userInfo:v28];
           }
 
           goto LABEL_31;
@@ -310,7 +307,7 @@ LABEL_30:
         [v14 addObject:v21];
         if (v16 == ++v20)
         {
-          v16 = [v11 countByEnumeratingWithState:&v51 objects:v59 count:16];
+          v16 = [v11 countByEnumeratingWithState:&v50 objects:v58 count:16];
           v10 = v19;
           dictionaryCopy = v18;
           if (v16)
@@ -320,10 +317,10 @@ LABEL_30:
 
 LABEL_21:
 
-          v8 = v48;
-          self = [(BMUserFocusStatusChange *)selfCopy2 initWithIdsHandle:v48 statusChangeType:v10 idsHandles:v14];
+          v8 = v47;
+          self = [(BMUserFocusStatusChange *)selfCopy2 initWithIdsHandle:v47 statusChangeType:v10 idsHandles:v14];
           p_isa = &self->super.super.isa;
-          v9 = v45;
+          v9 = v44;
 LABEL_33:
 
           goto LABEL_34;
@@ -332,17 +329,17 @@ LABEL_33:
 
       v10 = v19;
       dictionaryCopy = v18;
-      v9 = v45;
-      if (v49)
+      v9 = v44;
+      if (v48)
       {
         v22 = objc_alloc(MEMORY[0x1E696ABC0]);
         v23 = *MEMORY[0x1E698F240];
-        v57 = *MEMORY[0x1E696A578];
+        v56 = *MEMORY[0x1E696A578];
         v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"idsHandles"];
-        v58 = v24;
+        v57 = v24;
         v25 = MEMORY[0x1E695DF20];
-        v26 = &v58;
-        v27 = &v57;
+        v26 = &v57;
+        v27 = &v56;
         goto LABEL_30;
       }
 
@@ -355,58 +352,58 @@ LABEL_31:
 
     if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v45 = v9;
+      v44 = v9;
       selfCopy2 = self;
       goto LABEL_12;
     }
 
     if (p_isa)
     {
-      v47 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v42 = p_isa;
-      v43 = *MEMORY[0x1E698F240];
-      v60 = *MEMORY[0x1E696A578];
+      v46 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v41 = p_isa;
+      v42 = *MEMORY[0x1E698F240];
+      v59 = *MEMORY[0x1E696A578];
       v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"idsHandles"];
-      v61 = v14;
-      v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-      *v42 = [v47 initWithDomain:v43 code:2 userInfo:v44];
+      v60 = v14;
+      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+      *v41 = [v46 initWithDomain:v42 code:2 userInfo:v43];
 
       p_isa = 0;
 LABEL_32:
-      v8 = v48;
+      v8 = v47;
       goto LABEL_33;
     }
 
-    v8 = v48;
+    v8 = v47;
 LABEL_34:
 
-    v7 = v50;
+    v7 = v49;
     goto LABEL_35;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v48 = v8;
+    v47 = v8;
     v10 = v9;
     goto LABEL_7;
   }
 
   if (p_isa)
   {
-    v37 = v8;
-    v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v39 = *MEMORY[0x1E698F240];
-    v62 = *MEMORY[0x1E696A578];
+    v36 = v8;
+    v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v38 = *MEMORY[0x1E698F240];
+    v61 = *MEMORY[0x1E696A578];
     v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"statusChangeType"];
-    v63 = v11;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-    v40 = v38;
-    v8 = v37;
-    v41 = [v40 initWithDomain:v39 code:2 userInfo:v14];
+    v62 = v11;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+    v39 = v37;
+    v8 = v36;
+    v40 = [v39 initWithDomain:v38 code:2 userInfo:v14];
     v10 = 0;
     p_isa = 0;
-    *v49 = v41;
+    *v48 = v40;
     goto LABEL_33;
   }
 
@@ -414,7 +411,6 @@ LABEL_34:
 LABEL_35:
 
 LABEL_36:
-  v29 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -429,7 +425,7 @@ LABEL_36:
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_idsHandle)
   {
@@ -441,39 +437,36 @@ LABEL_36:
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_idsHandles;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -643,42 +636,38 @@ LABEL_31:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"idsHandle" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"statusChangeType" number:2 type:13 subMessageClass:{0, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"idsHandles" number:3 type:13 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"idsHandle" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"statusChangeType" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"idsHandles_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_62937];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
-id __34__BMUserFocusStatusChange_columns__block_invoke(uint64_t a1, void *a2)
+id __34__BMUserFocusStatusChange_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _idsHandlesJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _idsHandlesJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -16,28 +16,25 @@
 - (void)main
 {
   OUTLINED_FUNCTION_6_1();
-  v11 = *MEMORY[0x1E69E9840];
   v1 = [v0 url];
   path = [v1 path];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_1AE2A9000, v3, v4, "[DEBUG] copying access token for '%@'%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_0(&dword_1AE2A9000, v3, v4, "[DEBUG] copying access token for '%@'%@", v5, v6, v7, v8);
 }
 
 void __39__BRShareCopyAccessTokenOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 32);
   if (a2 && a3)
   {
-    v13[0] = a2;
-    v13[1] = a3;
+    v12[0] = a2;
+    v12[1] = a3;
     v7 = MEMORY[0x1E695DEC8];
     v8 = a4;
     v9 = a3;
     v10 = a2;
-    v11 = [v7 arrayWithObjects:v13 count:2];
+    v11 = [v7 arrayWithObjects:v12 count:2];
     [v6 completedWithResult:v11 error:v8];
   }
 
@@ -48,8 +45,6 @@ void __39__BRShareCopyAccessTokenOperation_main__block_invoke(uint64_t a1, void 
     v11 = a2;
     [v6 completedWithResult:0 error:v9];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishWithResult:(id)result error:(id)error

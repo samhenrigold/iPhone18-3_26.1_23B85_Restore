@@ -290,7 +290,7 @@
   v12 = [(_UIStatusBarBackgroundActivityItemAccessibility *)selfCopy _accessibilityValueForKey:@"AccessibilityStatusBarUpdateData"];
   if (!v12 && ([(_UIStatusBarBackgroundActivityItemAccessibility *)selfCopy _accessibilityHasRequestedForceUpdate]& 1) == 0)
   {
-    [_UIStatusBarBackgroundActivityItemAccessibility _accessibilitySetHasRequestedForceUpdate:selfCopy];
+    [(_UIStatusBarBackgroundActivityItemAccessibility *)selfCopy _accessibilitySetHasRequestedForceUpdate:?];
     v3 = MEMORY[0x29EDCA578];
     v2 = MEMORY[0x29EDCA578];
     queue = v3;

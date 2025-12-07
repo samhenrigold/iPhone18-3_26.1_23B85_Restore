@@ -93,11 +93,11 @@
   feedbackGenerator = self->__feedbackGenerator;
   self->__feedbackGenerator = v31;
 
-  v82 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:self action:sel__userDidTapOnView_];
-  [v82 setMinimumPressDuration:0.0];
-  [v82 setCancelPastAllowableMovement:1];
-  [v82 setDelegate:self];
-  [(DBSDisplayZoomOptionView *)self addGestureRecognizer:v82];
+  v84 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:self action:sel__userDidTapOnView_];
+  [v84 setMinimumPressDuration:0.0];
+  [v84 setCancelPastAllowableMovement:1];
+  [v84 setDelegate:self];
+  [(DBSDisplayZoomOptionView *)self addGestureRecognizer:v84];
   array = [MEMORY[0x277CBEB18] array];
   _packageView4 = [(DBSDisplayZoomOptionView *)self _packageView];
   topAnchor = [_packageView4 topAnchor];
@@ -109,27 +109,27 @@
   topAnchor3 = [optionNameLabel8 topAnchor];
   _packageView5 = [(DBSDisplayZoomOptionView *)self _packageView];
   bottomAnchor = [_packageView5 bottomAnchor];
-  v42 = DBSReverseZoomEnabled();
-  if (v42)
+  v43 = DBSReverseZoomEnabled(bottomAnchor, v42);
+  if (v43)
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     sf_isiPad = [currentDevice sf_isiPad];
-    v44 = 20.0;
+    v45 = 20.0;
     if (sf_isiPad)
     {
-      v44 = 12.0;
+      v45 = 12.0;
     }
   }
 
   else
   {
-    v44 = 20.0;
+    v45 = 20.0;
   }
 
-  v45 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:v44];
-  [array addObject:v45];
+  v46 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:v45];
+  [array addObject:v46];
 
-  if (v42)
+  if (v43)
   {
   }
 
@@ -137,71 +137,71 @@
   topAnchor4 = [_checkmarkView3 topAnchor];
   optionNameLabel9 = [(DBSDisplayZoomOptionView *)self optionNameLabel];
   bottomAnchor2 = [optionNameLabel9 bottomAnchor];
-  v50 = DBSReverseZoomEnabled();
-  if (v50)
+  v52 = DBSReverseZoomEnabled(bottomAnchor2, v51);
+  if (v52)
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     sf_isiPad2 = [currentDevice sf_isiPad];
-    v52 = 8.0;
+    v54 = 8.0;
     if (sf_isiPad2)
     {
-      v52 = 6.0;
+      v54 = 6.0;
     }
   }
 
   else
   {
-    v52 = 8.0;
+    v54 = 8.0;
   }
 
-  v53 = [topAnchor4 constraintEqualToAnchor:bottomAnchor2 constant:v52];
-  [array addObject:v53];
+  v55 = [topAnchor4 constraintEqualToAnchor:bottomAnchor2 constant:v54];
+  [array addObject:v55];
 
-  if (v50)
+  if (v52)
   {
   }
 
   _checkmarkView4 = [(DBSDisplayZoomOptionView *)self _checkmarkView];
   bottomAnchor3 = [_checkmarkView4 bottomAnchor];
   bottomAnchor4 = [(DBSDisplayZoomOptionView *)self bottomAnchor];
-  v57 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  [array addObject:v57];
+  v59 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+  [array addObject:v59];
 
   _packageView6 = [(DBSDisplayZoomOptionView *)self _packageView];
   leadingAnchor = [_packageView6 leadingAnchor];
   leadingAnchor2 = [(DBSDisplayZoomOptionView *)self leadingAnchor];
-  v61 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  [array addObject:v61];
+  v63 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  [array addObject:v63];
 
   _packageView7 = [(DBSDisplayZoomOptionView *)self _packageView];
   trailingAnchor = [_packageView7 trailingAnchor];
   trailingAnchor2 = [(DBSDisplayZoomOptionView *)self trailingAnchor];
-  v65 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  [array addObject:v65];
+  v67 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  [array addObject:v67];
 
   optionNameLabel10 = [(DBSDisplayZoomOptionView *)self optionNameLabel];
   centerXAnchor = [optionNameLabel10 centerXAnchor];
   centerXAnchor2 = [(DBSDisplayZoomOptionView *)self centerXAnchor];
-  v69 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  [array addObject:v69];
+  v71 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  [array addObject:v71];
 
   optionNameLabel11 = [(DBSDisplayZoomOptionView *)self optionNameLabel];
   leadingAnchor3 = [optionNameLabel11 leadingAnchor];
   leadingAnchor4 = [(DBSDisplayZoomOptionView *)self leadingAnchor];
-  v73 = [leadingAnchor3 constraintGreaterThanOrEqualToSystemSpacingAfterAnchor:leadingAnchor4 multiplier:1.0];
-  [array addObject:v73];
+  v75 = [leadingAnchor3 constraintGreaterThanOrEqualToSystemSpacingAfterAnchor:leadingAnchor4 multiplier:1.0];
+  [array addObject:v75];
 
   trailingAnchor3 = [(DBSDisplayZoomOptionView *)self trailingAnchor];
   optionNameLabel12 = [(DBSDisplayZoomOptionView *)self optionNameLabel];
   trailingAnchor4 = [optionNameLabel12 trailingAnchor];
-  v77 = [trailingAnchor3 constraintGreaterThanOrEqualToSystemSpacingAfterAnchor:trailingAnchor4 multiplier:1.0];
-  [array addObject:v77];
+  v79 = [trailingAnchor3 constraintGreaterThanOrEqualToSystemSpacingAfterAnchor:trailingAnchor4 multiplier:1.0];
+  [array addObject:v79];
 
   _checkmarkView5 = [(DBSDisplayZoomOptionView *)self _checkmarkView];
   centerXAnchor3 = [_checkmarkView5 centerXAnchor];
   centerXAnchor4 = [(DBSDisplayZoomOptionView *)self centerXAnchor];
-  v81 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  [array addObject:v81];
+  v83 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+  [array addObject:v83];
 
   [MEMORY[0x277CCAAD0] activateConstraints:array];
 }

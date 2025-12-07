@@ -99,23 +99,24 @@ LABEL_8:
 
   if (integerValue2 == [(VIFaissIndex *)self embeddingLength])
   {
-    v52[0] = 0;
-    std::vector<long long>::vector[abi:ne200100](v53, integerValue * neighbors);
-    LODWORD(v51[0]) = 0;
-    std::vector<float>::vector[abi:ne200100](v52, integerValue * neighbors);
+    v53[0] = 0;
+    std::vector<long long>::vector[abi:ne200100](v54, integerValue * neighbors, v53);
+    LODWORD(v52[0]) = 0;
+    std::vector<float>::vector[abi:ne200100](v53, integerValue * neighbors, v52);
     LODWORD(__p) = 0;
-    std::vector<float>::vector[abi:ne200100](v51, integerValue2 * integerValue * neighbors);
-    std::vector<float>::vector[abi:ne200100](&__p, integerValue2);
+    std::vector<float>::vector[abi:ne200100](v52, integerValue2 * integerValue * neighbors, &__p);
+    v49 = 0;
+    std::vector<float>::vector[abi:ne200100](&__p, integerValue2, &v49);
     ptr = self->_index.__ptr_;
     selfCopy = self;
     if (optionsCopy)
     {
-      (*(*ptr + 96))(ptr, integerValue, dataPointer, neighbors, v52[0], v53[0], v51[0]);
+      (*(*ptr + 96))(ptr, integerValue, dataPointer, neighbors, v53[0], v54[0], v52[0]);
     }
 
     else
     {
-      (*(*ptr + 40))(ptr, integerValue, dataPointer, neighbors, v52[0], v53[0]);
+      (*(*ptr + 40))(ptr, integerValue, dataPointer, neighbors, v53[0], v54[0]);
     }
 
     if (integerValue >= 1)
@@ -141,8 +142,8 @@ LABEL_30:
       v43 = dataPointer + 4 * v41 * integerValue2;
       while (1)
       {
-        v22 = *(v52[0] + v19 + v21);
-        if (*(v53[0] + v19 + v21) == -1 || (v23 = [(VIFaissIndex *)self identifierForIndex:?], v23 == 0x7FFFFFFFFFFFFFFFLL))
+        v22 = *(v53[0] + v19 + v21);
+        if (*(v54[0] + v19 + v21) == -1 || (v23 = [(VIFaissIndex *)self identifierForIndex:?], v23 == 0x7FFFFFFFFFFFFFFFLL))
         {
           v24 = 0;
           v25 = 0;
@@ -160,7 +161,7 @@ LABEL_30:
             {
               do
               {
-                LODWORD(v29) = *(v51[0] + v31);
+                LODWORD(v29) = *(v52[0] + v31);
                 v32 = [MEMORY[0x1E696AD98] numberWithFloat:{v29, dataPointer}];
                 [v24 addObject:v32];
 
@@ -179,7 +180,7 @@ LABEL_26:
               (*(*self->_index.__ptr_ + 104))(self->_index.__ptr_, v43, __p, v23);
               v25 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:integerValue2];
               v34 = __p;
-              if (v50 != __p)
+              if (v51 != __p)
               {
                 v35 = 0;
                 do
@@ -192,7 +193,7 @@ LABEL_26:
                   v34 = __p;
                 }
 
-                while (v35 < (v50 - __p) >> 2);
+                while (v35 < (v51 - __p) >> 2);
                 optionsCopy = v44;
                 self = selfCopy;
               }
@@ -232,14 +233,8 @@ LABEL_31:
     v18 = v47;
     if (__p)
     {
-      v50 = __p;
+      v51 = __p;
       operator delete(__p);
-    }
-
-    if (v51[0])
-    {
-      v51[1] = v51[0];
-      operator delete(v51[0]);
     }
 
     if (v52[0])
@@ -252,6 +247,12 @@ LABEL_31:
     {
       v53[1] = v53[0];
       operator delete(v53[0]);
+    }
+
+    if (v54[0])
+    {
+      v54[1] = v54[0];
+      operator delete(v54[0]);
     }
   }
 
@@ -270,10 +271,11 @@ LABEL_40:
 {
   embeddingLength = [(VIFaissIndex *)self embeddingLength];
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:embeddingLength];
-  std::vector<float>::vector[abi:ne200100](&__p, embeddingLength);
+  v12 = 0;
+  std::vector<float>::vector[abi:ne200100](&__p, embeddingLength, &v12);
   (*(*self->_index.__ptr_ + 80))(self->_index.__ptr_, identifier, __p);
   v8 = __p;
-  if (v13 != __p)
+  if (v14 != __p)
   {
     v9 = 0;
     do
@@ -286,12 +288,12 @@ LABEL_40:
       v8 = __p;
     }
 
-    while (v9 < (v13 - __p) >> 2);
+    while (v9 < (v14 - __p) >> 2);
   }
 
   if (__p)
   {
-    v13 = __p;
+    v14 = __p;
     operator delete(__p);
   }
 
@@ -305,26 +307,27 @@ LABEL_40:
   if ([embeddingCopy count] == embeddingLength)
   {
     v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:embeddingLength];
-    std::vector<float>::vector[abi:ne200100](&v21, embeddingLength);
-    std::vector<float>::vector[abi:ne200100](&__p, embeddingLength);
-    if (v22 != v21)
+    std::vector<float>::vector[abi:ne200100](&v22, embeddingLength);
+    v19 = 0;
+    std::vector<float>::vector[abi:ne200100](&__p, embeddingLength, &v19);
+    if (v23 != v22)
     {
       v10 = 0;
       do
       {
         v11 = [embeddingCopy objectAtIndexedSubscript:v10];
         [v11 floatValue];
-        *(v21 + v10) = v12;
+        *(v22 + v10) = v12;
 
         ++v10;
       }
 
-      while (v10 < (v22 - v21) >> 2);
+      while (v10 < (v23 - v22) >> 2);
     }
 
     (*(*self->_index.__ptr_ + 104))(self->_index.__ptr_);
     v14 = __p;
-    if (v20 != __p)
+    if (v21 != __p)
     {
       v15 = 0;
       do
@@ -337,20 +340,20 @@ LABEL_40:
         v14 = __p;
       }
 
-      while (v15 < (v20 - __p) >> 2);
+      while (v15 < (v21 - __p) >> 2);
     }
 
     v17 = v9;
     if (__p)
     {
-      v20 = __p;
+      v21 = __p;
       operator delete(__p);
     }
 
-    if (v21)
+    if (v22)
     {
-      v22 = v21;
-      operator delete(v21);
+      v23 = v22;
+      operator delete(v22);
     }
   }
 

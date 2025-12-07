@@ -94,11 +94,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:4294048773 commandID:3 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v18)
   {
     sub_2393C5AAC(v17);
-    sub_2393C5ADC(v8, *(v18 + 1), *(v18 + 3));
+    sub_2393C5ADC(v8, *(v18 + 8), *(v18 + 24));
     v9 = sub_2393C6FD0(v17, 256);
     if (!v9)
     {
@@ -162,39 +162,39 @@ LABEL_6:
 {
   v4 = objc_opt_new();
   structCopy = struct;
-  v71 = v4;
-  sub_238EA4A78(&v85, struct);
+  v74 = v4;
+  sub_238EA4A78(&v88, struct);
   while (2)
   {
-    if (sub_238EA1A80(&v85) && sub_238EA4B40(&v85))
+    if (sub_238EA1A80(&v88) && sub_238EA4B40(&v88))
     {
       v5 = objc_opt_new();
-      v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v88];
+      v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v91];
       [v5 setA:v6];
 
-      v7 = [MEMORY[0x277CCABB0] numberWithBool:v89];
+      v7 = [MEMORY[0x277CCABB0] numberWithBool:v92];
       [v5 setB:v7];
 
       v8 = objc_opt_new();
       [v5 setC:v8];
 
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v91];
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v94];
       v10 = [v5 c];
       [v10 setA:v9];
 
-      v11 = [MEMORY[0x277CCABB0] numberWithBool:BYTE1(v91)];
+      v11 = [MEMORY[0x277CCABB0] numberWithBool:BYTE1(v94)];
       v12 = [v5 c];
       [v12 setB:v11];
 
-      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE2(v91)];
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE2(v94)];
       v14 = [v5 c];
       [v14 setC:v13];
 
-      v15 = [MEMORY[0x277CBEA90] dataWithBytes:v92 length:v93];
+      v15 = [MEMORY[0x277CBEA90] dataWithBytes:v95 length:v96];
       v16 = [v5 c];
       [v16 setD:v15];
 
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v94 length:v95 encoding:4];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v97 length:v98 encoding:4];
       v18 = [v5 c];
       [v18 setE:v17];
 
@@ -203,168 +203,168 @@ LABEL_6:
 
       if (v20)
       {
-        v21 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:LOBYTE(v96)];
+        v21 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:LOBYTE(v99)];
         v22 = [v5 c];
         [v22 setF:v21];
 
-        LODWORD(v23) = HIDWORD(v96);
+        LODWORD(v23) = HIDWORD(v99);
         v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
         v25 = [v5 c];
         [v25 setG:v24];
 
-        v26 = [MEMORY[0x277CCABB0] numberWithDouble:v97];
+        v26 = [MEMORY[0x277CCABB0] numberWithDouble:v100];
         v27 = [v5 c];
         [v27 setH:v26];
 
-        if (v98[0] == 1)
+        if (v101[0] == 1)
         {
-          v28 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v98)];
-          v29 = [v5 c];
-          [v29 setI:v28];
+          v29 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v101, v28)->super.isa)}];
+          v30 = [v5 c];
+          [v30 setI:v29];
         }
 
         else
         {
-          v28 = [v5 c];
-          [v28 setI:0];
+          v29 = [v5 c];
+          [v29 setI:0];
         }
 
-        v30 = objc_opt_new();
-        sub_238EA4C98(&v73, &v99);
-        while (sub_238EA1A80(&v73) && sub_238EA4CF8(&v73))
+        v31 = objc_opt_new();
+        sub_238EA4C98(&v76, &v102);
+        while (sub_238EA1A80(&v76) && sub_238EA4CF8(&v76))
         {
-          v31 = objc_opt_new();
-          v32 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v76];
-          [v31 setA:v32];
+          v32 = objc_opt_new();
+          v33 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v79];
+          [v32 setA:v33];
 
-          v33 = [MEMORY[0x277CCABB0] numberWithBool:BYTE1(v76)];
-          [v31 setB:v33];
+          v34 = [MEMORY[0x277CCABB0] numberWithBool:BYTE1(v79)];
+          [v32 setB:v34];
 
-          v34 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE2(v76)];
-          [v31 setC:v34];
+          v35 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE2(v79)];
+          [v32 setC:v35];
 
-          v35 = [MEMORY[0x277CBEA90] dataWithBytes:v77 length:v78];
-          [v31 setD:v35];
+          v36 = [MEMORY[0x277CBEA90] dataWithBytes:v80 length:v81];
+          [v32 setD:v36];
 
-          v36 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v79 length:v80 encoding:4];
-          [v31 setE:v36];
+          v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v82 length:v83 encoding:4];
+          [v32 setE:v37];
 
-          v37 = [v31 e];
+          v38 = [v32 e];
 
-          if (!v37)
+          if (!v38)
           {
 
-            v43 = 0xAE5100000000;
-            v47 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-            v48 = 47;
+            v45 = 0xAE5100000000;
+            v49 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+            v50 = 47;
             goto LABEL_36;
           }
 
-          v38 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v81];
-          [v31 setF:v38];
+          v39 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v84];
+          [v32 setF:v39];
 
-          LODWORD(v39) = v82;
-          v40 = [MEMORY[0x277CCABB0] numberWithFloat:v39];
-          [v31 setG:v40];
+          LODWORD(v40) = v85;
+          v41 = [MEMORY[0x277CCABB0] numberWithFloat:v40];
+          [v32 setG:v41];
 
-          v41 = [MEMORY[0x277CCABB0] numberWithDouble:v83];
-          [v31 setH:v41];
+          v42 = [MEMORY[0x277CCABB0] numberWithDouble:v86];
+          [v32 setH:v42];
 
-          if (v84[0] == 1)
+          if (v87[0] == 1)
           {
-            v42 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v84)];
-            [v31 setI:v42];
+            v44 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v87, v43)->super.isa)}];
+            [v32 setI:v44];
           }
 
           else
           {
-            [v31 setI:0];
+            [v32 setI:0];
           }
 
-          [v30 addObject:v31];
+          [v31 addObject:v32];
         }
 
-        if (v73 == 33 || (v43 = v73, !v73))
+        if (v76 == 33 || (v45 = v76, !v76))
         {
-          [v5 setD:v30];
+          [v5 setD:v31];
 
-          v30 = objc_opt_new();
-          sub_2393C5AAC(v75);
-          v73 = 0;
-          v74 = 0;
-          sub_2393C5BDC(v75, &v100);
-          while (sub_238E72E88(&v73))
+          v31 = objc_opt_new();
+          sub_2393C5AAC(v78);
+          v76 = 0;
+          v77 = 0;
+          sub_2393C5BDC(v78, &v103);
+          while (sub_238E72E88(&v76))
           {
-            v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v76];
-            [v30 addObject:v44];
+            v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v79];
+            [v31 addObject:v46];
           }
 
-          if (v73 == 33 || (v43 = v73, !v73))
+          if (v76 == 33 || (v45 = v76, !v76))
           {
-            [v5 setE:v30];
+            [v5 setE:v31];
 
-            v30 = objc_opt_new();
-            sub_2393C5AAC(v75);
-            v73 = 0;
-            v74 = 0;
-            sub_2393C5BDC(v75, &v101);
+            v31 = objc_opt_new();
+            sub_2393C5AAC(v78);
             v76 = 0;
             v77 = 0;
-            while (sub_238EA1A80(&v73) && sub_238EA49F4(&v73))
+            sub_2393C5BDC(v78, &v104);
+            v79 = 0;
+            v80 = 0;
+            while (sub_238EA1A80(&v76) && sub_238EA49F4(&v76))
             {
-              v45 = [MEMORY[0x277CBEA90] dataWithBytes:v76 length:v77];
-              [v30 addObject:v45];
+              v47 = [MEMORY[0x277CBEA90] dataWithBytes:v79 length:v80];
+              [v31 addObject:v47];
             }
 
-            if (v73 == 33 || (v43 = v73, !v73))
+            if (v76 == 33 || (v45 = v76, !v76))
             {
-              [v5 setF:v30];
+              [v5 setF:v31];
 
-              v30 = objc_opt_new();
-              sub_2393C5AAC(v75);
-              v73 = 0;
-              v74 = 0;
-              sub_2393C5BDC(v75, &v102);
-              while (sub_238E0D91C(&v73))
+              v31 = objc_opt_new();
+              sub_2393C5AAC(v78);
+              v76 = 0;
+              v77 = 0;
+              sub_2393C5BDC(v78, &v105);
+              while (sub_238E0D91C(&v76))
               {
-                v46 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v76];
-                [v30 addObject:v46];
+                v48 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v79];
+                [v31 addObject:v48];
               }
 
-              if (v73 == 33 || (v43 = v73, !v73))
+              if (v76 == 33 || (v45 = v76, !v76))
               {
-                [v5 setG:v30];
+                [v5 setG:v31];
 
-                [v71 addObject:v5];
-                v4 = v71;
+                [v74 addObject:v5];
+                v4 = v74;
                 continue;
               }
             }
           }
         }
 
-        v47 = v74;
-        v48 = v43;
+        v49 = v77;
+        v50 = v45;
 LABEL_36:
       }
 
       else
       {
-        v43 = 0xAE3900000000;
-        v47 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-        v48 = 47;
+        v45 = 0xAE3900000000;
+        v49 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+        v50 = 47;
       }
 
 LABEL_38:
-      v4 = v71;
+      v4 = v74;
     }
 
     else
     {
-      if (v85 != 33)
+      if (v88 != 33)
       {
-        v43 = v85;
-        if (v85)
+        v45 = v88;
+        if (v88)
         {
           goto LABEL_42;
         }
@@ -372,162 +372,162 @@ LABEL_38:
 
       [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg1:v4];
 
-      v71 = objc_opt_new();
-      sub_238EA4C98(&v85, struct + 72);
-      while (sub_238EA1A80(&v85) && sub_238EA4CF8(&v85))
+      v74 = objc_opt_new();
+      sub_238EA4C98(&v88, struct + 72);
+      while (sub_238EA1A80(&v88) && sub_238EA4CF8(&v88))
       {
-        v51 = objc_opt_new();
-        v52 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v88];
-        [v51 setA:v52];
+        v53 = objc_opt_new();
+        v54 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v91];
+        [v53 setA:v54];
 
-        v53 = [MEMORY[0x277CCABB0] numberWithBool:v89];
-        [v51 setB:v53];
+        v55 = [MEMORY[0x277CCABB0] numberWithBool:v92];
+        [v53 setB:v55];
 
-        v54 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v90];
-        [v51 setC:v54];
+        v56 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v93];
+        [v53 setC:v56];
 
-        v55 = [MEMORY[0x277CBEA90] dataWithBytes:v91 length:v92];
-        [v51 setD:v55];
+        v57 = [MEMORY[0x277CBEA90] dataWithBytes:v94 length:v95];
+        [v53 setD:v57];
 
-        v56 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v93 length:v94 encoding:4];
-        [v51 setE:v56];
+        v58 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v96 length:v97 encoding:4];
+        [v53 setE:v58];
 
-        v57 = [v51 e];
+        v59 = [v53 e];
 
-        if (!v57)
+        if (!v59)
         {
 
-          v43 = 0xAEA800000000;
-          v47 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-          v48 = 47;
+          v45 = 0xAEA800000000;
+          v49 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+          v50 = 47;
           goto LABEL_38;
         }
 
-        v58 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v95];
-        [v51 setF:v58];
+        v60 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v98];
+        [v53 setF:v60];
 
-        LODWORD(v59) = HIDWORD(v95);
-        v60 = [MEMORY[0x277CCABB0] numberWithFloat:v59];
-        [v51 setG:v60];
+        LODWORD(v61) = HIDWORD(v98);
+        v62 = [MEMORY[0x277CCABB0] numberWithFloat:v61];
+        [v53 setG:v62];
 
-        v61 = [MEMORY[0x277CCABB0] numberWithDouble:v96];
-        [v51 setH:v61];
+        v63 = [MEMORY[0x277CCABB0] numberWithDouble:v99];
+        [v53 setH:v63];
 
-        if (LOBYTE(v97) == 1)
+        if (LOBYTE(v100) == 1)
         {
-          v62 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(&v97)];
-          [v51 setI:v62];
+          v65 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(&v100, v64)->super.isa)}];
+          [v53 setI:v65];
         }
 
         else
         {
-          [v51 setI:0];
+          [v53 setI:0];
         }
 
-        [v71 addObject:v51];
+        [v74 addObject:v53];
       }
 
-      if (v85 != 33)
+      if (v88 != 33)
       {
-        v43 = v85;
-        if (v85)
+        v45 = v88;
+        if (v88)
         {
           goto LABEL_60;
         }
       }
 
-      [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg2:v71];
+      [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg2:v74];
 
-      v71 = objc_opt_new();
-      sub_2393C5AAC(v87);
-      v85 = 0;
-      v86 = 0;
-      sub_2393C5BDC(v87, struct + 144);
-      while (sub_238E8A35C(&v85))
+      v74 = objc_opt_new();
+      sub_2393C5AAC(v90);
+      v88 = 0;
+      v89 = 0;
+      sub_2393C5BDC(v90, struct + 144);
+      while (sub_238E8A35C(&v88))
       {
-        v63 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v88];
-        [v71 addObject:v63];
+        v66 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v91];
+        [v74 addObject:v66];
       }
 
-      if (v85 != 33)
+      if (v88 != 33)
       {
-        v43 = v85;
-        if (v85)
+        v45 = v88;
+        if (v88)
         {
 LABEL_60:
-          v47 = v86;
-          v48 = v43;
+          v49 = v89;
+          v50 = v45;
           goto LABEL_38;
         }
       }
 
-      [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg3:v71];
+      [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg3:v74];
 
       v4 = objc_opt_new();
-      v72 = v4;
-      sub_2393C5AAC(v87);
-      v85 = 0;
-      v86 = 0;
-      sub_2393C5BDC(v87, struct + 216);
+      v75 = v4;
+      sub_2393C5AAC(v90);
+      v88 = 0;
+      v89 = 0;
+      sub_2393C5BDC(v90, struct + 216);
       while (1)
       {
-        v64 = sub_238EA1A80(&v85);
-        LODWORD(v65) = v85;
-        if (v85)
+        v67 = sub_238EA1A80(&v88);
+        LODWORD(v68) = v88;
+        if (v88)
         {
-          v64 = 0;
+          v67 = 0;
         }
 
-        if (!v64)
-        {
-          break;
-        }
-
-        v88 = 0;
-        v65 = sub_2393C5CE4(v87, &v88);
-        v85 = v65;
-        v86 = v66;
-        if (v65)
+        if (!v67)
         {
           break;
         }
 
-        v67 = [MEMORY[0x277CCABB0] numberWithBool:v88];
-        [v72 addObject:v67];
+        v91 = 0;
+        v68 = sub_2393C5CE4(v90, &v91);
+        v88 = v68;
+        v89 = v69;
+        if (v68)
+        {
+          break;
+        }
 
-        v4 = v72;
+        v70 = [MEMORY[0x277CCABB0] numberWithBool:v91];
+        [v75 addObject:v70];
+
+        v4 = v75;
       }
 
-      if (v65 != 33 && (v43 = v85, v85))
+      if (v68 != 33 && (v45 = v88, v88))
       {
 LABEL_42:
-        v47 = v86;
-        v48 = v43;
+        v49 = v89;
+        v50 = v45;
       }
 
       else
       {
         [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg4:v4];
 
-        v68 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(struct + 288)];
-        [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg5:v68];
+        v71 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(struct + 288)];
+        [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg5:v71];
 
         v4 = [MEMORY[0x277CCABB0] numberWithBool:structCopy[289]];
         [(MTRUnitTestingClusterTestStructArrayArgumentResponseParams *)self setArg6:v4];
-        v47 = 0;
-        v43 = 0;
-        v48 = 0;
+        v49 = 0;
+        v45 = 0;
+        v50 = 0;
       }
     }
 
     break;
   }
 
-  v49 = v43 & 0xFFFFFFFF00000000 | v48;
-  v50 = v47;
-  result.mFile = v50;
-  result.mError = v49;
-  result.mLine = HIDWORD(v49);
+  v51 = v45 & 0xFFFFFFFF00000000 | v50;
+  v52 = v49;
+  result.mFile = v52;
+  result.mError = v51;
+  result.mLine = HIDWORD(v51);
   return result;
 }
 

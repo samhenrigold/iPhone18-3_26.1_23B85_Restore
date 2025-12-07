@@ -34,7 +34,7 @@ void __93__NSAttributedString_UIKitAdditions_Internal___ui_attributedStringAdjus
     v13 = 1;
   }
 
-  if (!v13 && ([v10 isEqual:v11] & 1) == 0)
+  if (!v13 && (objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     v14 = *(*(a1 + 48) + 8);
     v15 = *(v14 + 40);
@@ -216,7 +216,7 @@ void __80__NSAttributedString__UILabelContentAdditions__supportedMonochromaticTr
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if ([v11 isEqual:a1[4]])
+        if (objc_msgSend_isEqual_(v11))
         {
           v12 = 1;
         }

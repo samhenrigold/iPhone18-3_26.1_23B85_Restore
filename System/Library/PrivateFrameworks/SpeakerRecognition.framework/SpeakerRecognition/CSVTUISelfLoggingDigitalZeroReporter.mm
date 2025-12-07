@@ -22,7 +22,7 @@
 
 - (void)logDigitalZeroDetectionComplete
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   isMaxNumContinuousZerosOverThreshold = self->_isMaxNumContinuousZerosOverThreshold;
   v4 = *MEMORY[0x277D015D8];
   v5 = os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT);
@@ -31,7 +31,7 @@
     if (v5)
     {
       *buf = 136315138;
-      v20 = "[CSVTUISelfLoggingDigitalZeroReporter logDigitalZeroDetectionComplete]";
+      v19 = "[CSVTUISelfLoggingDigitalZeroReporter logDigitalZeroDetectionComplete]";
       v6 = "%s CSVTUI continuousZeros detected.";
 LABEL_6:
       _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
@@ -41,7 +41,7 @@ LABEL_6:
   else if (v5)
   {
     *buf = 136315138;
-    v20 = "[CSVTUISelfLoggingDigitalZeroReporter logDigitalZeroDetectionComplete]";
+    v19 = "[CSVTUISelfLoggingDigitalZeroReporter logDigitalZeroDetectionComplete]";
     v6 = "%s CSVTUI continuousZeros not detected.";
     goto LABEL_6;
   }
@@ -56,12 +56,10 @@ LABEL_6:
   locale = self->_locale;
   vtAssetConfigVersion = self->_vtAssetConfigVersion;
   v16 = [(CSVTUISelfLoggingDigitalZeroReporter *)self _getStageStatusFromTrainingManagerSessionStatus:self->_sessionStatus];
-  BYTE6(v18) = self->_didFirstPassTrigger;
-  WORD2(v18) = *&self->_didDetectSpeechStart;
-  LODWORD(v18) = v16;
-  [mEMORY[0x277D01908] logSiriSetupPHSEnrollmentDigitalZeroDetectionCompletedWithSiriSetupID:siriSetupID withPageNumber:pageNumber withPhId:phId withMaxNumContinuousZeros:maxNumContinuousZeros withMaxNumAllowedContinuousZeros:maxNumAllowedContinuousZeros withIsMaxNumContinuousZerosOverThreshold:v13 withLocale:locale withVTAssetConfigVersion:vtAssetConfigVersion withStageStatus:v18 didDetectSpeechStart:? didUseTwoPassDetector:? didFirstPassTrigger:?];
-
-  v17 = *MEMORY[0x277D85DE8];
+  BYTE6(v17) = self->_didFirstPassTrigger;
+  WORD2(v17) = *&self->_didDetectSpeechStart;
+  LODWORD(v17) = v16;
+  [mEMORY[0x277D01908] logSiriSetupPHSEnrollmentDigitalZeroDetectionCompletedWithSiriSetupID:siriSetupID withPageNumber:pageNumber withPhId:phId withMaxNumContinuousZeros:maxNumContinuousZeros withMaxNumAllowedContinuousZeros:maxNumAllowedContinuousZeros withIsMaxNumContinuousZerosOverThreshold:v13 withLocale:locale withVTAssetConfigVersion:vtAssetConfigVersion withStageStatus:v17 didDetectSpeechStart:? didUseTwoPassDetector:? didFirstPassTrigger:?];
 }
 
 - (void)reportDigitalZerosWithAudioZeroRun:(float)run

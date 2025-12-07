@@ -16,7 +16,7 @@
 
 - (id)_privateAccessibilityCustomActions
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v3 = objc_alloc(MEMORY[0x29EDC78E0]);
   v4 = accessibilityLocalizedString(@"delete");
   v5 = [v3 initWithName:v4 target:self selector:sel__accessibilityDeleteReadingListItem];
@@ -25,10 +25,8 @@
   v6 = _UIAccessibilityCustomActionDeleteImage();
   [v5 setImage:v6];
 
-  v10[0] = v5;
-  v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x29EDCA608];
+  v9[0] = v5;
+  v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
 
   return v7;
 }

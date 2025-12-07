@@ -38,20 +38,20 @@
     bundle2 = [(ISAssetInspector *)self bundle];
     assetCatalogURL = [bundle2 assetCatalogURL];
     bundle3 = [(ISAssetInspector *)self bundle];
-    v17 = 0;
-    v12 = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:error:", assetCatalogURL, catalogAssetName, [bundle3 platform], &v17);
-    v13 = v17;
+    v18 = 0;
+    v12 = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:error:", assetCatalogURL, catalogAssetName, [bundle3 platform], &v18);
+    v13 = v18;
 
     if (!v12)
     {
-      v14 = _ISDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = _ISDefaultLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [(ISAssetInspector *)catalogAssetName assetCatalogResource];
       }
     }
 
-    v15 = self->_assetCatalogResource;
+    v16 = self->_assetCatalogResource;
     self->_assetCatalogResource = v12;
 
     assetCatalogResource = self->_assetCatalogResource;
@@ -149,13 +149,12 @@
 
 - (void)assetCatalogResource
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1A77B8000, log, OS_LOG_TYPE_ERROR, "Failed to find resource with name '%@'. Error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1A77B8000, log, OS_LOG_TYPE_ERROR, "Failed to find resource with name '%@'. Error: %@", &v3, 0x16u);
 }
 
 @end

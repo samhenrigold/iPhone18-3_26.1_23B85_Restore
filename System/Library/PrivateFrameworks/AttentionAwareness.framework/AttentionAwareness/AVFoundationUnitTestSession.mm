@@ -11,15 +11,15 @@
 
 - (void)setErrorState:(BOOL)state
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   queue = self->_queue;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __45__AVFoundationUnitTestSession_setErrorState___block_invoke;
-  v20[3] = &unk_1E7F37FC8;
-  v20[4] = self;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __45__AVFoundationUnitTestSession_setErrorState___block_invoke;
+  v19[3] = &unk_1E7F37FC8;
+  v19[4] = self;
   stateCopy = state;
-  dispatch_sync(queue, v20);
+  dispatch_sync(queue, v19);
   if (currentLogLevel == 5)
   {
     v5 = _AALog();
@@ -48,11 +48,11 @@
         v13 = "false";
       }
 
-      v23 = v7;
-      v24 = 2112;
-      *v25 = self;
-      *&v25[8] = 2080;
-      *&v25[10] = v13;
+      v22 = v7;
+      v23 = 2112;
+      *v24 = self;
+      *&v24[8] = 2080;
+      *&v24[10] = v13;
       v14 = "%13.5f: UNIT TEST: %@ setting error state to %s";
       v15 = v5;
       v16 = 32;
@@ -99,15 +99,15 @@
           v17 = "true";
         }
 
-        v23 = *&v8;
-        v24 = 1024;
-        *v25 = 691;
-        *&v25[4] = 2048;
-        *&v25[6] = v11;
-        *&v25[14] = 2112;
-        *&v25[16] = self;
-        v26 = 2080;
-        v27 = v17;
+        v22 = *&v8;
+        v23 = 1024;
+        *v24 = 691;
+        *&v24[4] = 2048;
+        *&v24[6] = v11;
+        *&v24[14] = 2112;
+        *&v24[16] = self;
+        v25 = 2080;
+        v26 = v17;
         v14 = "%30s:%-4d: %13.5f: UNIT TEST: %@ setting error state to %s";
         v15 = v5;
         v16 = 48;
@@ -115,12 +115,10 @@ LABEL_24:
         _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
 LABEL_25:
 
-        break;
+        return;
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)cancelUnitTestStream
@@ -134,21 +132,21 @@ LABEL_25:
 
 - (BOOL)startUnitTestStream:(id)stream options:(id)options
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   queue = self->_queue;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __59__AVFoundationUnitTestSession_startUnitTestStream_options___block_invoke;
-  v20[3] = &unk_1E7F37F00;
-  v20[4] = self;
-  v20[5] = &v21;
-  dispatch_sync(queue, v20);
-  v7 = *(v22 + 24);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __59__AVFoundationUnitTestSession_startUnitTestStream_options___block_invoke;
+  v19[3] = &unk_1E7F37F00;
+  v19[4] = self;
+  v19[5] = &v20;
+  dispatch_sync(queue, v19);
+  v7 = *(v21 + 24);
   if (v7 == 1)
   {
     if (currentLogLevel == 5)
@@ -168,7 +166,7 @@ LABEL_25:
         }
 
         *buf = 134217984;
-        v26 = v10;
+        v25 = v10;
         v15 = "%13.5f: UNIT TEST: Not starting an AVFoundation streaming operation because of error state";
         v16 = v8;
         v17 = 12;
@@ -208,11 +206,11 @@ LABEL_22:
             }
 
             *buf = 136315650;
-            v26 = *&v11;
-            v27 = 1024;
-            v28 = 670;
-            v29 = 2048;
-            v30 = v14;
+            v25 = *&v11;
+            v26 = 1024;
+            v27 = 670;
+            v28 = 2048;
+            v29 = v14;
             v15 = "%30s:%-4d: %13.5f: UNIT TEST: Not starting an AVFoundation streaming operation because of error state";
             v16 = v8;
             v17 = 28;
@@ -231,15 +229,14 @@ LABEL_22:
   }
 
 LABEL_23:
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v7 ^ 1;
 }
 
 void __59__AVFoundationUnitTestSession_startUnitTestStream_options___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 43);
   if (currentLogLevel == 5)
   {
@@ -274,14 +271,14 @@ void __59__AVFoundationUnitTestSession_startUnitTestStream_options___block_invok
         v10 = "true";
       }
 
-      v19 = 134218754;
-      v20 = v4;
-      v21 = 2112;
-      *v22 = v9;
-      *&v22[8] = 2080;
-      *&v22[10] = v11;
-      *&v22[18] = 2080;
-      *&v22[20] = v10;
+      v18 = 134218754;
+      v19 = v4;
+      v20 = 2112;
+      *v21 = v9;
+      *&v21[8] = 2080;
+      *&v21[10] = v11;
+      *&v21[18] = 2080;
+      *&v21[20] = v10;
       v12 = "%13.5f: UNIT TEST: startUnitTestStream called for %@, localErrorState: %s _errorState: %s";
       v13 = v2;
       v14 = 42;
@@ -337,36 +334,34 @@ void __59__AVFoundationUnitTestSession_startUnitTestStream_options___block_invok
           v16 = "true";
         }
 
-        v19 = 136316418;
-        v20 = *&v5;
-        v21 = 1024;
-        *v22 = 665;
-        *&v22[4] = 2048;
-        *&v22[6] = v8;
-        *&v22[14] = 2112;
-        *&v22[16] = v15;
-        *&v22[24] = 2080;
-        *&v22[26] = v17;
-        v23 = 2080;
-        v24 = v16;
+        v18 = 136316418;
+        v19 = *&v5;
+        v20 = 1024;
+        *v21 = 665;
+        *&v21[4] = 2048;
+        *&v21[6] = v8;
+        *&v21[14] = 2112;
+        *&v21[16] = v15;
+        *&v21[24] = 2080;
+        *&v21[26] = v17;
+        v22 = 2080;
+        v23 = v16;
         v12 = "%30s:%-4d: %13.5f: UNIT TEST: startUnitTestStream called for %@, localErrorState: %s _errorState: %s";
         v13 = v2;
         v14 = 58;
 LABEL_29:
-        _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, &v19, v14);
+        _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, &v18, v14);
 LABEL_30:
 
-        break;
+        return;
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)AVFoundationDeliverStreamingEvent
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v3 = _AALog();
@@ -383,13 +378,13 @@ LABEL_30:
         v5 = v4 / 1000000000.0;
       }
 
-      *v14 = 134217984;
-      *&v14[4] = v5;
+      *v13 = 134217984;
+      *&v13[4] = v5;
       v10 = "%13.5f: UNIT TEST: Delivering streaming event for AVFoundation";
       v11 = v3;
       v12 = 12;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_DEFAULT, v10, v14, v12);
+      _os_log_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_DEFAULT, v10, v13, v12);
     }
 
 LABEL_20:
@@ -423,12 +418,12 @@ LABEL_20:
             v9 = v8 / 1000000000.0;
           }
 
-          *v14 = 136315650;
-          *&v14[4] = v6;
-          *&v14[12] = 1024;
-          *&v14[14] = 649;
-          *&v14[18] = 2048;
-          *&v14[20] = v9;
+          *v13 = 136315650;
+          *&v13[4] = v6;
+          *&v13[12] = 1024;
+          *&v13[14] = 649;
+          *&v13[18] = 2048;
+          *&v13[20] = v9;
           v10 = "%30s:%-4d: %13.5f: UNIT TEST: Delivering streaming event for AVFoundation";
           v11 = v3;
           v12 = 28;
@@ -441,8 +436,7 @@ LABEL_20:
   }
 
 LABEL_21:
-  [(AVFoundationUnitTestEventReceiving *)self->_delegate receiveStreamingEvent:*v14];
-  v13 = *MEMORY[0x1E69E9840];
+  [(AVFoundationUnitTestEventReceiving *)self->_delegate receiveStreamingEvent:*v13];
 }
 
 - (void)initializeStreamingTimer
@@ -473,10 +467,10 @@ void __55__AVFoundationUnitTestSession_initializeStreamingTimer__block_invoke(ui
 
 - (AVFoundationUnitTestSession)init
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = AVFoundationUnitTestSession;
-  v2 = [(AVFoundationUnitTestSession *)&v19 init];
+  v25 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = AVFoundationUnitTestSession;
+  v2 = [(AVFoundationUnitTestSession *)&v18 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.AttentionAwareness.AVFoundationUnitTestSession", 0);
@@ -510,9 +504,9 @@ void __55__AVFoundationUnitTestSession_initializeStreamingTimer__block_invoke(ui
       }
 
       *buf = 134218242;
-      v21 = v9;
-      v22 = 2112;
-      *v23 = v2;
+      v20 = v9;
+      v21 = 2112;
+      *v22 = v2;
       v14 = "%13.5f: UNIT TEST: Initializing AVFoundationUnitTestSession %@";
       v15 = v7;
       v16 = 22;
@@ -522,7 +516,7 @@ LABEL_21:
 
 LABEL_22:
 
-    goto LABEL_23;
+    return v2;
   }
 
   if (currentLogLevel >= 6)
@@ -552,13 +546,13 @@ LABEL_22:
           }
 
           *buf = 136315906;
-          v21 = *&v10;
-          v22 = 1024;
-          *v23 = 631;
-          *&v23[4] = 2048;
-          *&v23[6] = v13;
-          v24 = 2112;
-          v25 = v2;
+          v20 = *&v10;
+          v21 = 1024;
+          *v22 = 631;
+          *&v22[4] = 2048;
+          *&v22[6] = v13;
+          v23 = 2112;
+          v24 = v2;
           v14 = "%30s:%-4d: %13.5f: UNIT TEST: Initializing AVFoundationUnitTestSession %@";
           v15 = v7;
           v16 = 38;
@@ -570,8 +564,6 @@ LABEL_22:
     goto LABEL_22;
   }
 
-LABEL_23:
-  v17 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

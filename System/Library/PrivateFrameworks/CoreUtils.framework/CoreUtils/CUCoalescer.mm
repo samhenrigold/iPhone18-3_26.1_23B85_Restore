@@ -106,10 +106,10 @@
         v16 = self->_timer;
         self->_timer = v15;
 
-        v24 = self->_timer;
-        if (!v24)
+        v17 = self->_timer;
+        if (!v17)
         {
-          FatalErrorF("Create coalesce timer failed", v17, v18, v19, v20, v21, v22, v23, v25);
+          FatalErrorF("Create coalesce timer failed");
         }
 
         handler[0] = MEMORY[0x1E69E9820];
@@ -117,7 +117,7 @@
         handler[2] = __23__CUCoalescer__trigger__block_invoke;
         handler[3] = &unk_1E73A4F68;
         handler[4] = self;
-        dispatch_source_set_event_handler(v24, handler);
+        dispatch_source_set_event_handler(v17, handler);
         dispatch_source_set_timer(self->_timer, v13, 0xFFFFFFFFFFFFFFFFLL, v12);
         dispatch_resume(self->_timer);
       }
@@ -200,7 +200,7 @@
 {
   if (self->_timer)
   {
-    FatalErrorF("Timer still active during dealloc", a2, v2, v3, v4, v5, v6, v7, v11.receiver);
+    FatalErrorF("Timer still active during dealloc", a2);
   }
 
   actionHandler = self->_actionHandler;
@@ -209,9 +209,9 @@
   invalidationHandler = self->_invalidationHandler;
   self->_invalidationHandler = 0;
 
-  v11.receiver = self;
-  v11.super_class = CUCoalescer;
-  [(CUCoalescer *)&v11 dealloc];
+  v5.receiver = self;
+  v5.super_class = CUCoalescer;
+  [(CUCoalescer *)&v5 dealloc];
 }
 
 - (CUCoalescer)init

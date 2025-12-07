@@ -32,7 +32,7 @@
 - (_TtC9SeymourUI18SessionBurnBarView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC9SeymourUI18SessionBurnBarView_burnBar;
-  type metadata accessor for BurnBar();
+  type metadata accessor for BurnBar(0);
   v5 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   [v5 setTranslatesAutoresizingMaskIntoConstraints_];
   *(&self->super.super.super.isa + v4) = v5;

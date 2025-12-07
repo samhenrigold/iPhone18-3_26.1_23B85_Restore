@@ -1,205 +1,3 @@
-double swift_cvw_initEnumMetadataSingleCaseWithLayoutStringSlow(swift *a1, uint64_t a2, unint64_t *a3)
-{
-  Override_cvw_initEnumMetadataSingleCaseWithLayoutString = swift::getOverride_cvw_initEnumMetadataSingleCaseWithLayoutString(a1);
-  if (Override_cvw_initEnumMetadataSingleCaseWithLayoutString)
-  {
-    swift_cvw_initEnumMetadataSingleCaseWithLayoutString::Override = Override_cvw_initEnumMetadataSingleCaseWithLayoutString;
-
-    (Override_cvw_initEnumMetadataSingleCaseWithLayoutString)(a1, a2, a3, swift_cvw_initEnumMetadataSingleCaseWithLayoutStringImpl);
-  }
-
-  else
-  {
-    swift_cvw_initEnumMetadataSingleCaseWithLayoutString::Override = 1;
-
-    return swift_cvw_initEnumMetadataSingleCaseWithLayoutStringImpl(a1, a2, a3);
-  }
-
-  return result;
-}
-
-double swift_cvw_initEnumMetadataSinglePayloadWithLayoutStringImpl(void *a1, __int16 a2, unint64_t *a3, unsigned int a4)
-{
-  v6 = a3 - 1;
-  v7 = *(a3 - 1);
-  v8 = *(v7 + 64);
-  v9 = *(v7 + 84);
-  v10 = v9 - a4;
-  if (v9 >= a4)
-  {
-    LODWORD(v11) = 0;
-    v12 = *(*(a3 - 1) + 64);
-  }
-
-  else
-  {
-    if (v8 <= 3)
-    {
-      v13 = ((a4 - v9 + ~(-1 << (8 * v8))) >> (8 * v8)) + 1;
-      if (v13 >= 2)
-      {
-        v14 = 4;
-        if (v13 < 0x10000)
-        {
-          v14 = 2;
-        }
-
-        if (v13 >= 0x100)
-        {
-          v11 = v14;
-        }
-
-        else
-        {
-          v11 = 1;
-        }
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-    }
-
-    else
-    {
-      v11 = 1;
-    }
-
-    v10 = 0;
-    v12 = v11 + v8;
-  }
-
-  MutableVWTableForInit = getMutableVWTableForInit(a1, a2);
-  v16 = *(v7 + 80);
-  v17 = v16 + 1;
-  v19 = (v16 & 0x100000) != 0 || v16 >= 8u || v12 >= 0x19;
-  v20 = v16 & 0xFFFDFFFF;
-  if (v19)
-  {
-    v21 = 0x20000;
-  }
-
-  else
-  {
-    v21 = 0;
-  }
-
-  LODWORD(v46) = v20 | v21 | 0x200000;
-  HIDWORD(v46) = v10;
-  v22 = (v12 + v17 - 1) / v17 * v17;
-  if (v22 <= 1)
-  {
-    v22 = 1;
-  }
-
-  *&v45 = v12;
-  *(&v45 + 1) = v22;
-  if (*(*v6 + 84))
-  {
-    if (*a3 == 769)
-    {
-      v23 = (a3 + 3);
-      v24 = a3[1];
-      if (v24 < 2)
-      {
-        v27 = (a3 + 3);
-      }
-
-      else
-      {
-        v25 = *v23;
-        v26 = 1;
-        v27 = (a3 + 3);
-        do
-        {
-          v28 = &v23[2 * v26];
-          if (*(*(v25 - 8) + 84) < *(*(*v28 - 8) + 84))
-          {
-            v25 = *v28;
-            v27 = &v23[2 * v26];
-          }
-
-          ++v26;
-        }
-
-        while (v24 != v26);
-      }
-
-      v29 = *v27;
-      v30 = v27[1];
-    }
-
-    else
-    {
-      v30 = 0;
-      v29 = a3;
-    }
-  }
-
-  else
-  {
-    v29 = 0;
-    v30 = 0;
-  }
-
-  v31 = _swift_refCountBytesForMetatype(a3);
-  LOWORD(v43) = 26;
-  v32 = swift::MetadataAllocator::Allocate(&v43, (v31 + 83) & 0xFFFFFFFFFFFFFFF8, 1uLL);
-  v33 = v32;
-  *(v32 + 1) = v31 + 52;
-  *(v32 + 2) = 0x1300000000000000;
-  if (v11 >= 3)
-  {
-    v34 = 3;
-  }
-
-  else
-  {
-    v34 = v11;
-  }
-
-  *(v32 + 3) = v30 | (v34 << 62);
-  *(v32 + 4) = v8;
-  *(v32 + 5) = v29;
-  *(v32 + 12) = a4;
-  *(v32 + 52) = v31;
-  v43 = v32;
-  v44 = 68;
-  v41 = 0;
-  v42 = 0;
-  v40 = 0;
-  _swift_addRefCountStringForMetatype(&v43, &v40, a3, &v42, &v41);
-  *&v43[v44] = v41 + v11;
-  v35 = v43;
-  *(v43 + 60) = v8 - v41;
-  v44 = 0;
-  *v35 = v40 & 0x7FFFFFFFFFFFFFFFLL;
-  v44 += 8;
-  if (*a1 <= 0x7FFuLL)
-  {
-    v36 = *a1;
-  }
-
-  else
-  {
-    v36 = 0;
-  }
-
-  v37 = 0x1FFFFFFFFFFFFFFDLL;
-  if (v36 && v36 != 515 && v36 != 773)
-  {
-    v37 = 0x1FFFFFFFFFFFFFFELL;
-  }
-
-  a1[v37] = v33 | 1;
-  swift::installCommonValueWitnesses(&v45, MutableVWTableForInit);
-  *(MutableVWTableForInit + 4) = v45;
-  result = v46;
-  *(MutableVWTableForInit + 10) = v46;
-  return result;
-}
-
 double swift_cvw_initEnumMetadataSinglePayloadWithLayoutStringSlow(swift *a1, uint64_t a2, unint64_t *a3, uint64_t a4)
 {
   Override_cvw_initEnumMetadataSinglePayloadWithLayoutString = swift::getOverride_cvw_initEnumMetadataSinglePayloadWithLayoutString(a1);
@@ -207,7 +5,7 @@ double swift_cvw_initEnumMetadataSinglePayloadWithLayoutStringSlow(swift *a1, ui
   {
     swift_cvw_initEnumMetadataSinglePayloadWithLayoutString::Override = Override_cvw_initEnumMetadataSinglePayloadWithLayoutString;
 
-    (Override_cvw_initEnumMetadataSinglePayloadWithLayoutString)(a1, a2, a3, a4, swift_cvw_initEnumMetadataSinglePayloadWithLayoutStringImpl);
+    Override_cvw_initEnumMetadataSinglePayloadWithLayoutString(a1, a2, a3, a4, swift_cvw_initEnumMetadataSinglePayloadWithLayoutStringImpl);
   }
 
   else
@@ -220,9 +18,10 @@ double swift_cvw_initEnumMetadataSinglePayloadWithLayoutStringSlow(swift *a1, ui
   return result;
 }
 
-double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl(uint64_t a1, __int16 a2, unsigned int a3, unint64_t **a4)
+double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl(void *a1, __int16 a2, unint64_t a3, unint64_t **a4)
 {
   v4 = a4;
+  v5 = a3;
   v55 = a1;
   if (a3)
   {
@@ -276,10 +75,10 @@ double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl(uint64_t a1, _
     v12 = 1;
   }
 
-  v19 = *(a1 + 8);
+  v19 = a1[1];
   if (v19)
   {
-    v20 = *(a1 + 8);
+    v20 = a1[1];
   }
 
   else
@@ -288,9 +87,9 @@ double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl(uint64_t a1, _
   }
 
   v21 = *(v20 + 20) >> 24;
-  if (*(a1 + 8 * v21) != v9)
+  if (a1[v21] != v9)
   {
-    *(a1 + 8 * v21) = v9;
+    a1[v21] = v9;
   }
 
   if (v19)
@@ -304,23 +103,23 @@ double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl(uint64_t a1, _
   }
 
   v23 = *(v22 + 24);
-  v24 = a3;
+  v24 = v5;
   if (v23)
   {
     if (v9 < 4)
     {
-      v24 = ((v23 + ~(-1 << (8 * v9))) >> (8 * v9)) + a3;
+      v24 = ((v23 + ~(-1 << (8 * v9))) >> (8 * v9)) + v5;
     }
 
     else
     {
-      v24 = a3 + 1;
+      v24 = v5 + 1;
     }
   }
 
   v53 = v24;
   v54 = v18;
-  v25 = a3;
+  v25 = v5;
   if (v24 >= 2)
   {
     if (v24 >= 0x100)
@@ -346,7 +145,7 @@ double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl(uint64_t a1, _
   v51 = v26;
   v27 = HIDWORD(v26);
   v56 = (HIDWORD(v26) + v9);
-  MutableVWTableForInit = getMutableVWTableForInit(a1, a2);
+  MutableVWTableForInit = getMutableVWTableForInit(a1, a2, a3);
   v28 = v25;
   v29 = v25;
   v30 = 8 * v25 + 56;
@@ -475,14 +274,14 @@ double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl(uint64_t a1, _
   return result;
 }
 
-double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringSlow(swift *a1, uint64_t a2, uint64_t a3, unint64_t **a4)
+double swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringSlow(swift *a1, uint64_t a2, unint64_t a3, unint64_t **a4)
 {
   Override_cvw_initEnumMetadataMultiPayloadWithLayoutString = swift::getOverride_cvw_initEnumMetadataMultiPayloadWithLayoutString(a1);
   if (Override_cvw_initEnumMetadataMultiPayloadWithLayoutString)
   {
     swift_cvw_initEnumMetadataMultiPayloadWithLayoutString::Override = Override_cvw_initEnumMetadataMultiPayloadWithLayoutString;
 
-    (Override_cvw_initEnumMetadataMultiPayloadWithLayoutString)(a1, a2, a3, a4, swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl);
+    Override_cvw_initEnumMetadataMultiPayloadWithLayoutString(a1, a2, a3, a4, swift_cvw_initEnumMetadataMultiPayloadWithLayoutStringImpl);
   }
 
   else
@@ -1366,7 +1165,7 @@ LABEL_5:
   }
 }
 
-uint64_t swift_COWChecksEnabled()
+uint64_t swift_COWChecksEnabled(uint64_t a1, uint64_t a2)
 {
   if (swift::runtime::environment::initializeToken != -1)
   {
@@ -1376,7 +1175,7 @@ uint64_t swift_COWChecksEnabled()
   return swift::runtime::environment::SWIFT_DEBUG_ENABLE_COW_CHECKS_variable;
 }
 
-uint64_t concurrencyEnableCooperativeQueues()
+uint64_t concurrencyEnableCooperativeQueues(uint64_t a1, uint64_t a2)
 {
   if (swift::runtime::environment::initializeToken != -1)
   {
@@ -1386,7 +1185,7 @@ uint64_t concurrencyEnableCooperativeQueues()
   return swift::runtime::environment::SWIFT_DEBUG_CONCURRENCY_ENABLE_COOPERATIVE_QUEUES_variable;
 }
 
-uint64_t concurrencyValidateUncheckedContinuations()
+uint64_t concurrencyValidateUncheckedContinuations(uint64_t a1, uint64_t a2)
 {
   if (swift::runtime::environment::initializeToken != -1)
   {
@@ -1396,7 +1195,7 @@ uint64_t concurrencyValidateUncheckedContinuations()
   return swift::runtime::environment::SWIFT_DEBUG_VALIDATE_UNCHECKED_CONTINUATIONS_variable;
 }
 
-uint64_t concurrencyIsCurrentExecutorLegacyModeOverride()
+uint64_t concurrencyIsCurrentExecutorLegacyModeOverride(uint64_t a1, uint64_t a2)
 {
   if (swift::runtime::environment::initializeToken != -1)
   {
@@ -1423,7 +1222,7 @@ void swift_willThrowTypedImpl(uint64_t a1, uint64_t a2, uint64_t a3)
   if (explicit)
   {
 
-    explicit();
+    explicit(a1, a2, a3);
   }
 
   else
@@ -1443,11 +1242,11 @@ void swift::dumpStackTraceEntry(swift *this, swift::SymbolInfo *a2, void *a3)
 {
   v3 = a3;
   v5 = this;
-  v30[4] = *MEMORY[0x1E69E9840];
-  swift::SymbolInfo::lookup(a2, v20);
-  if (v21)
+  v28[4] = *MEMORY[0x1E69E9840];
+  swift::SymbolInfo::lookup(v17, a2);
+  if (v18)
   {
-    Filename = swift::SymbolInfo::getFilename(v20);
+    Filename = swift::SymbolInfo::getFilename(v17);
     v7 = Filename;
     if (Filename)
     {
@@ -1467,53 +1266,53 @@ void swift::dumpStackTraceEntry(swift *this, swift::SymbolInfo *a2, void *a3)
 
     while (v9 != 47);
     memset(&__p, 0, sizeof(__p));
-    if (v21)
+    if (v18)
     {
-      if (swift::SymbolInfo::getSymbolName(v20))
+      if (swift::SymbolInfo::getSymbolName(v17))
       {
-        swift::SymbolInfo::getSymbolAddress(v20);
+        swift::SymbolInfo::getSymbolAddress(v17);
         status = 0;
-        SymbolName = swift::SymbolInfo::getSymbolName(v20);
+        SymbolName = swift::SymbolInfo::getSymbolName(v17);
         v11 = __cxa_demangle(SymbolName, 0, 0, &status);
         if (status)
         {
-          v12 = swift::SymbolInfo::getSymbolName(v20);
-          v13 = swift::SymbolInfo::getSymbolName(v20);
-          v14 = strlen(v13);
-          v23[9] = 1;
+          swift::SymbolInfo::getSymbolName(v17);
+          v12 = swift::SymbolInfo::getSymbolName(v17);
+          strlen(v12);
+          v21[7] = 1;
+          v23 = 1;
+          v24 = 0;
           v25 = 1;
           v26 = 0;
-          v27 = 1;
-          v28 = 0;
-          v29 = 0;
-          v30[0] = &unk_1EEEAA698;
-          v30[1] = swift::Demangle::__runtime::genericParameterName;
-          v30[3] = v30;
-          *v23 = 257;
-          memset(&v23[2], 0, 7);
-          v24 = 0x101000001010101;
-          swift::Demangle::__runtime::demangleSymbolAsString(v12, v14, v23, v15);
+          v27 = 0;
+          v28[0] = &unk_1EEEAA698;
+          v28[1] = swift::Demangle::__runtime::genericParameterName;
+          v28[3] = v28;
+          v20 = 257;
+          memset(v21, 0, 7);
+          v22 = 0x101000001010101;
+          swift::Demangle::__runtime::demangleSymbolAsString();
         }
 
-        v16 = v11;
+        v13 = v11;
         std::string::append(&__p, v11);
-        free(v16);
+        free(v13);
       }
 
       else
       {
-        swift::SymbolInfo::getBaseAddress(v20);
+        swift::SymbolInfo::getBaseAddress(v17);
         MEMORY[0x1865C91F0](&__p, "<unavailable>");
       }
 
-      v17 = *MEMORY[0x1E69E9848];
+      v14 = *MEMORY[0x1E69E9848];
       if (v3)
       {
       }
 
       else
       {
-        fprintf(v17, "%-4u %-34s 0x%0.16lx %s + %td\n");
+        fprintf(v14, "%-4u %-34s 0x%0.16lx %s + %td\n");
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1525,7 +1324,7 @@ void swift::dumpStackTraceEntry(swift *this, swift::SymbolInfo *a2, void *a3)
     else
     {
       std::__throw_bad_optional_access[abi:nn200100]();
-      swift::withCurrentBacktrace(v18);
+      swift::withCurrentBacktrace(v15);
     }
   }
 
@@ -1881,7 +1680,7 @@ uint64_t _swift_stdlib_getDefaultErrorCode(uint64_t a1, void *a2)
 {
   if (*a2 == 513)
   {
-    return (*(*(a2 - 1) + 88))(a1, a2);
+    return (*(*(a2 - 1) + 88))(a1);
   }
 
   else
@@ -1890,9 +1689,9 @@ uint64_t _swift_stdlib_getDefaultErrorCode(uint64_t a1, void *a2)
   }
 }
 
-uint64_t swift::runtime::AccessSet::insert(unint64_t *a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
+unint64_t swift::runtime::AccessSet::insert(unint64_t *a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = *a1;
   if (*a1)
   {
@@ -1913,16 +1712,16 @@ uint64_t swift::runtime::AccessSet::insert(unint64_t *a1, void *a2, uint64_t a3,
           }
 
 LABEL_13:
-          v22 = v7[1];
+          v16 = v7[1];
           snprintf(__str, 0x64uLL, "Simultaneous accesses to 0x%lx, but modification requires exclusive access", v15);
           v10 = MEMORY[0x1E69E9848];
           fprintf(*MEMORY[0x1E69E9848], "%s.\n", __str);
-          snprintf(v24, 0x32uLL, "Previous access (a %s) started at", v6);
-          fprintf(*v10, "%s ", v24);
-          if (v22)
+          snprintf(v18, 0x32uLL, "Previous access (a %s) started at", v6);
+          fprintf(*v10, "%s ", v18);
+          if (v16)
           {
-            swift::dumpStackTraceEntry(0, v22, 1);
-            fprintf(*v10, " (0x%lx).\n", v22);
+            swift::dumpStackTraceEntry(0, v16, 1);
+            fprintf(*v10, " (0x%lx).\n", v16);
           }
 
           else
@@ -1936,22 +1735,10 @@ LABEL_13:
             v11 = "read";
           }
 
-          snprintf(v23, 0x32uLL, "Current access (a %s) started at", v11);
-          fprintf(*v10, "%s:\n", v23);
+          snprintf(v17, 0x32uLL, "Current access (a %s) started at", v11);
+          fprintf(*v10, "%s:\n", v17);
           swift::printCurrentBacktrace(1);
-          v19 = v24;
-          v20 = xmmword_180672710;
-          v21 = &v22;
-          v16[0] = 2;
-          v16[1] = "exclusivity-violation";
-          v16[2] = v23;
-          v16[3] = 1;
-          v16[4] = v15;
-          v16[5] = 1;
-          v16[6] = &v19;
-          v17 = 0u;
-          v18 = 0u;
-          _swift_reportToDebugger(1, __str, v16);
+          _swift_reportToDebugger();
           swift::fatalError(0, "Fatal access conflict detected.\n", v12, v13);
         }
 
@@ -2013,7 +1800,7 @@ unint64_t *swift::runtime::AccessSet::remove(unint64_t *result, uint64_t a2)
   return result;
 }
 
-uint64_t swift_beginAccess(uint64_t result, void *a2, unint64_t a3, uint64_t a4)
+unint64_t swift_beginAccess(unint64_t result, void *a2, unint64_t a3, uint64_t a4)
 {
   if (_swift_disableExclusivityChecking)
   {
@@ -2168,11 +1955,11 @@ void *swift::TargetOpaqueExistentialContainer<swift::InProcess>::projectValue(vo
   return result;
 }
 
-void swift::TargetOpaqueExistentialContainer<swift::InProcess>::deinit(uint64_t a1)
+void swift::TargetOpaqueExistentialContainer<swift::InProcess>::deinit(void **result)
 {
-  if ((*(*(*(a1 + 24) - 8) + 80) & 0x20000) != 0)
+  if ((*(*(result[3] - 1) + 80) & 0x20000) != 0)
   {
-    swift_deallocObject(*a1);
+    swift_deallocObject(*result);
   }
 }
 
@@ -2877,7 +2664,7 @@ uint64_t swift::TargetEnumMetadata<swift::InProcess>::getTrailingFlags(uint64_t 
   return v5;
 }
 
-void swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::dumpMetadata(void (**a1)(const char *, ...)@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::dumpMetadata(uint64_t (**a1)(const char *, ...)@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::printPointer<swift::TargetMetadata<swift::InProcess> const>(a1, "Metadata ", a2, "\n");
   if (*(a2 - 1))
@@ -2890,15 +2677,15 @@ void swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char 
     v6 = 0;
   }
 
-  v30 = v6;
+  v30[0] = v6;
   v31 = 0;
   swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::printPointer<swift::TargetMetadata<swift::InProcess> const>(a1, "  value witnesses: ", v6, "\n");
-  swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::dumpVWT(a1, v6, v26);
+  swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::dumpVWT(a1, v6, &v26);
   if (v29)
   {
     if (v29 == 1)
     {
-      v8 = v26;
+      v8 = &v26;
     }
 
     else
@@ -2926,7 +2713,7 @@ void swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char 
     else
     {
       *a3 = *v8;
-      *(a3 + 16) = *(v8 + 2);
+      *(a3 + 16) = v8[2];
     }
 
     *(a3 + 24) = 1;
@@ -3096,19 +2883,19 @@ LABEL_63:
 LABEL_24:
   if (v29 != -1)
   {
-    (off_1EEEAA890[v29])(&__dst, v26);
+    (off_1EEEAA890[v29])(&__dst, &v26);
   }
 
   if (v31 != -1)
   {
-    (off_1EEEAA880[v31])(v26, &v30);
+    (off_1EEEAA880[v31])(&v26, v30);
   }
 }
 
-uint64_t swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::printPointer<swift::TargetMetadata<swift::InProcess> const>(void (**a1)(const char *, ...), const char *a2, void *a3, const char *a4)
+uint64_t swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::printPointer<swift::TargetMetadata<swift::InProcess> const>(uint64_t (**a1)(const char *, ...), const char *a2, void *a3, const char *a4)
 {
   (*a1)("%s", a2);
-  InProcessReaderWriter::getSymbolInfo<swift::TargetMetadata<swift::InProcess> const>(a3, v10);
+  InProcessReaderWriter::getSymbolInfo<swift::TargetMetadata<swift::InProcess> const>(v10, a3);
   if (v11 >= 0)
   {
     v7 = v10;
@@ -3147,23 +2934,23 @@ LABEL_10:
   return (*a1)("%s", a4);
 }
 
-void swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::dumpVWT(void (**a1)(const char *, ...)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::dumpVWT(uint64_t (**a1)(const char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj55882EEKPFPNS_11OpaqueValueEPNS_17TargetValueBufferINS_9InProcessEEESF_PKNS_14TargetMetadataISD_EEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "initializeBufferWithCopyOfBuffer", a2, v11);
+  _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj55882EEKPFPNS_11OpaqueValueEPNS_17TargetValueBufferINS_9InProcessEEESF_PKNS_14TargetMetadataISD_EEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "initializeBufferWithCopyOfBuffer", a2, &v11);
   v6 = v14;
   if (v14
-    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj1272EEKPFvPNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "destroy", (a2 + 8), v11), (v6 = v14) != 0)
-    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj58298EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "initializeWithCopy", (a2 + 16), v11), (v6 = v14) != 0)
-    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj34641EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "assignWithCopy", (a2 + 24), v11), (v6 = v14) != 0)
-    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj18648EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "initializeWithTake", (a2 + 32), v11), (v6 = v14) != 0)
-    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj61402EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "assignWithTake", (a2 + 40), v11), (v6 = v14) != 0)
-    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj24816EEKPFjPKNS_11OpaqueValueEjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISE_EEEES5_PT_(a1, "getEnumTagSinglePayload", (a2 + 48), v11), (v6 = v14) != 0)
-    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj41169EEKPFvPNS_11OpaqueValueEjjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "storeEnumTagSinglePayload", (a2 + 56), v11), (v6 = v14) != 0)
-    || ((*a1)("    %s: %#llx (%llu)\n", "size", *(a2 + 64), *(a2 + 64)), (*a1)("    %s: %#llx (%llu)\n", "stride", *(a2 + 72), *(a2 + 72)), (*a1)("    %s: %#llx (%llu)\n", "flags", *(a2 + 80), *(a2 + 80)), (*a1)("    %s: %#llx (%llu)\n", "extraInhabitantCount", *(a2 + 84), *(a2 + 84)), a2) && (*(a2 + 80) & 0x200000) != 0 && ((_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj41909EEKPFjPKNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISE_EEEES5_PT_(a1, "getEnumTag", (a2 + 88), v11), (v6 = v14) != 0) || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj1053EEKPFvPNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "destructiveProjectEnumData", (a2 + 96), v11), (v6 = v14) != 0) || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj45796EEKPFvPNS_11OpaqueValueEjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "destructiveInjectEnumTag", (a2 + 104), v11), (v6 = v14) != 0)))
+    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj1272EEKPFvPNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "destroy", (a2 + 8), &v11), (v6 = v14) != 0)
+    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj58298EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "initializeWithCopy", (a2 + 16), &v11), (v6 = v14) != 0)
+    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj34641EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "assignWithCopy", (a2 + 24), &v11), (v6 = v14) != 0)
+    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj18648EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "initializeWithTake", (a2 + 32), &v11), (v6 = v14) != 0)
+    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj61402EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "assignWithTake", (a2 + 40), &v11), (v6 = v14) != 0)
+    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj24816EEKPFjPKNS_11OpaqueValueEjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISE_EEEES5_PT_(a1, "getEnumTagSinglePayload", (a2 + 48), &v11), (v6 = v14) != 0)
+    || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj41169EEKPFvPNS_11OpaqueValueEjjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "storeEnumTagSinglePayload", (a2 + 56), &v11), (v6 = v14) != 0)
+    || ((*a1)("    %s: %#llx (%llu)\n", "size", *(a2 + 64), *(a2 + 64)), (*a1)("    %s: %#llx (%llu)\n", "stride", *(a2 + 72), *(a2 + 72)), (*a1)("    %s: %#llx (%llu)\n", "flags", *(a2 + 80), *(a2 + 80)), (*a1)("    %s: %#llx (%llu)\n", "extraInhabitantCount", *(a2 + 84), *(a2 + 84)), a2) && (*(a2 + 80) & 0x200000) != 0 && ((_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj41909EEKPFjPKNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISE_EEEES5_PT_(a1, "getEnumTag", (a2 + 88), &v11), (v6 = v14) != 0) || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj1053EEKPFvPNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "destructiveProjectEnumData", (a2 + 96), &v11), (v6 = v14) != 0) || (_ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj45796EEKPFvPNS_11OpaqueValueEjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_(a1, "destructiveInjectEnumTag", (a2 + 104), &v11), (v6 = v14) != 0)))
   {
     if (v6 == 1)
     {
-      v7 = v11;
+      v7 = &v11;
     }
 
     else
@@ -3193,13 +2980,13 @@ void swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char 
     else
     {
       *a3 = *v7;
-      *(a3 + 16) = *(v7 + 2);
+      *(a3 + 16) = v7[2];
     }
 
     *(a3 + 24) = 1;
     if (v6 != -1)
     {
-      (off_1EEEAA890[v6])(&v15, v11);
+      (off_1EEEAA890[v6])(&v15, &v11);
     }
   }
 
@@ -3209,7 +2996,7 @@ void swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char 
   }
 }
 
-unint64_t swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::dumpValueMetadata@<X0>(void (**a1)(const char *, ...)@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+unint64_t swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::dumpValueMetadata@<X0>(uint64_t (**a1)(const char *, ...)@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   if (*(a3 + 8))
   {
@@ -3439,7 +3226,7 @@ LABEL_48:
           v39 = 0;
           (*a1)("  genericArg[%u]: ", v29);
           v31 = v38[0];
-          InProcessReaderWriter::getSymbolInfo<swift::TargetMetadata<swift::InProcess> const>(v38[0], v40);
+          InProcessReaderWriter::getSymbolInfo<swift::TargetMetadata<swift::InProcess> const>(v40, v38[0]);
           if (v41 >= 0)
           {
             v32 = v40;
@@ -3497,15 +3284,15 @@ LABEL_63:
   return result;
 }
 
-unint64_t InProcessReaderWriter::getSymbolInfo<swift::TargetMetadata<swift::InProcess> const>@<X0>(void *a1@<X1>, uint64_t a2@<X8>)
+unint64_t InProcessReaderWriter::getSymbolInfo<swift::TargetMetadata<swift::InProcess> const>@<X0>(char *__return_ptr a1@<X8>, void *a2@<X1>)
 {
-  result = dladdr(a1, &__s);
+  result = dladdr(a2, &__s);
   if (!result)
   {
-    strcpy((a2 + 23), "\t<unknown>");
-    strcpy(a2, "<unknown>");
-    *(a2 + 47) = 9;
-    *(a2 + 48) = 0;
+    strcpy(a1 + 23, "\t<unknown>");
+    strcpy(a1, "<unknown>");
+    a1[47] = 9;
+    *(a1 + 6) = 0;
     return result;
   }
 
@@ -3551,13 +3338,13 @@ LABEL_4:
     operator new();
   }
 
-  *(a2 + 23) = v8;
+  a1[23] = v8;
   if (v8)
   {
-    memmove(a2, dli_sname, v8);
+    memmove(a1, dli_sname, v8);
   }
 
-  *(a2 + v9) = 0;
+  a1[v9] = 0;
   result = strlen(dli_fname);
   if (result > 0x7FFFFFFFFFFFFFF7)
   {
@@ -3571,19 +3358,19 @@ LABEL_22:
     operator new();
   }
 
-  v11 = (a2 + 24);
-  *(a2 + 47) = result;
+  v11 = a1 + 24;
+  a1[47] = result;
   if (result)
   {
     result = memmove(v11, dli_fname, result);
   }
 
-  *(v11 + v10) = 0;
-  *(a2 + 48) = a1 - __s.dli_fbase;
+  v11[v10] = 0;
+  *(a1 + 6) = a2 - __s.dli_fbase;
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj55882EEKPFPNS_11OpaqueValueEPNS_17TargetValueBufferINS_9InProcessEEESF_PKNS_14TargetMetadataISD_EEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj55882EEKPFPNS_11OpaqueValueEPNS_17TargetValueBufferINS_9InProcessEEESF_PKNS_14TargetMetadataISD_EEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -3639,7 +3426,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj1272EEKPFvPNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj1272EEKPFvPNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -3695,7 +3482,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj58298EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj58298EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -3751,7 +3538,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj34641EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj34641EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -3807,7 +3594,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj18648EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj18648EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -3863,7 +3650,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj61402EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj61402EEKPFPNS_11OpaqueValueESB_SB_PKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -3919,7 +3706,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj24816EEKPFjPKNS_11OpaqueValueEjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISE_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj24816EEKPFjPKNS_11OpaqueValueEjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISE_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -3975,7 +3762,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj41169EEKPFvPNS_11OpaqueValueEjjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj41169EEKPFvPNS_11OpaqueValueEjjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -4031,7 +3818,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj41909EEKPFjPKNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISE_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj41909EEKPFjPKNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISE_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -4087,7 +3874,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj1053EEKPFvPNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj1053EEKPFvPNS_11OpaqueValueEPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -4143,7 +3930,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj45796EEKPFvPNS_11OpaqueValueEjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(void (**a1)(const char *, ...)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
+uint64_t _ZN5swift22GenericMetadataBuilderI21InProcessReaderWriterE6DumperIPFvPKczEE20dumpVWTFunctionFieldIU9__ptrauthILj0ELb1ELj45796EEKPFvPNS_11OpaqueValueEjPKNS_14TargetMetadataINS_9InProcessEEEEEENS_14BuilderErrorOrINSt3__19monostateEEENS1_6BufferIKNS_23TargetValueWitnessTableISD_EEEES5_PT_@<X0>(uint64_t (**a1)(const char *)@<X0>, const char *a2@<X2>, const void **a3@<X3>, uint64_t a4@<X8>)
 {
   if (*a3)
   {
@@ -4321,7 +4108,7 @@ LABEL_7:
   return this;
 }
 
-uint64_t swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::printPointer<swift::TargetValueTypeDescriptor<swift::InProcess> const>(void (**a1)(const char *, ...), const char *a2, const void *a3, const char *a4)
+uint64_t swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::printPointer<swift::TargetValueTypeDescriptor<swift::InProcess> const>(uint64_t (**a1)(const char *, ...), const char *a2, const void *a3, const char *a4)
 {
   (*a1)("%s", a2);
   InProcessReaderWriter::getSymbolInfo<swift::TargetValueTypeDescriptor<swift::InProcess> const>(a3, v11);
@@ -4373,7 +4160,7 @@ LABEL_13:
   return (*a1)("%s", a4);
 }
 
-uint64_t swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::printPointer<char const>(void (**a1)(const char *, ...), const char *a2, const void **a3, const char *a4)
+uint64_t swift::GenericMetadataBuilder<InProcessReaderWriter>::Dumper<void (*)(char const*,...)>::printPointer<char const>(uint64_t (**a1)(const char *, ...), const char *a2, const void **a3, const char *a4)
 {
   (*a1)("%s", a2);
   v7 = *a3;
@@ -4938,7 +4725,7 @@ void *swift_allocObject(unint64_t a1, swift *size, unint64_t a3)
   return result;
 }
 
-void *swift_initStackObject(uint64_t a1, void *a2)
+uint64_t *swift_initStackObject(uint64_t a1, uint64_t *a2)
 {
   if (a1)
   {
@@ -5025,7 +4812,7 @@ void *swift_bufferAllocate(unint64_t a1, swift *size, unint64_t a3)
   return result;
 }
 
-void *swift_makeBoxUnique(uint64_t *a1, unint64_t a2)
+void *swift_makeBoxUnique(uint64_t *a1, uint64_t a2)
 {
   v4 = *a1;
   if (swift_isUniquelyReferenced_nonNull_native(*a1))
@@ -5083,7 +4870,7 @@ LABEL_11:
   return result;
 }
 
-void *swift_allocBox(unint64_t a1)
+void *swift_allocBox(uint64_t a1)
 {
   v74 = a1;
   explicit = atomic_load_explicit(&qword_1ED415F58, memory_order_acquire);
@@ -5773,7 +5560,7 @@ LABEL_9:
   }
 }
 
-atomic_ullong *swift_retain(atomic_ullong *result)
+uint64_t swift_retain(uint64_t result)
 {
   if (_swift_enableSwizzlingOfAllocationAndRefCountingFunctions_forInstrumentsOnly)
   {
@@ -5782,24 +5569,24 @@ atomic_ullong *swift_retain(atomic_ullong *result)
 
   if (result >= 1)
   {
-    v1 = result[1];
+    v1 = *(result + 8);
     v2 = v1 + 0x200000000;
     if (v1 + 0x200000000 < 0)
     {
-      v3 = result[1];
+      v3 = *(result + 8);
 LABEL_9:
       if (v3 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(result + 1, v3, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((result + 8), v3, 1);
       }
     }
 
     else
     {
-      v3 = result[1];
+      v3 = *(result + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(result + 1, &v3, v2, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((result + 8), &v3, v2, memory_order_relaxed, memory_order_relaxed);
         if (v3 == v1)
         {
           break;
@@ -6198,24 +5985,24 @@ atomic_ullong *swift_retain_x9()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6244,8 +6031,8 @@ atomic_ullong *swift_retain_x10()
 
   if (v0 >= 1)
   {
-    v2 = v0 + 1;
-    v3 = v0[1];
+    v2 = (v0 + 8);
+    v3 = *(v0 + 8);
     v4 = v3 + 0x200000000;
     if (v3 + 0x200000000 < 0)
     {
@@ -6291,8 +6078,8 @@ atomic_ullong *swift_retain_x11()
 
   if (v0 >= 1)
   {
-    v2 = v0 + 1;
-    v3 = v0[1];
+    v2 = (v0 + 8);
+    v3 = *(v0 + 8);
     v4 = v3 + 0x200000000;
     if (v3 + 0x200000000 < 0)
     {
@@ -6338,24 +6125,24 @@ atomic_ullong *swift_retain_x12()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6384,24 +6171,24 @@ atomic_ullong *swift_retain_x13()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6430,24 +6217,24 @@ atomic_ullong *swift_retain_x14()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6476,24 +6263,24 @@ atomic_ullong *swift_retain_x15()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6522,24 +6309,24 @@ atomic_ullong *swift_retain_x19()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6568,24 +6355,24 @@ atomic_ullong *swift_retain_x20()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6614,24 +6401,24 @@ atomic_ullong *swift_retain_x21()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6660,24 +6447,24 @@ atomic_ullong *swift_retain_x22()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6706,24 +6493,24 @@ atomic_ullong *swift_retain_x23()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6752,24 +6539,24 @@ atomic_ullong *swift_retain_x24()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6798,24 +6585,24 @@ atomic_ullong *swift_retain_x25()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6844,24 +6631,24 @@ atomic_ullong *swift_retain_x26()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6890,24 +6677,24 @@ atomic_ullong *swift_retain_x27()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -6936,24 +6723,24 @@ atomic_ullong *swift_retain_x28()
 
   if (v0 >= 1)
   {
-    v2 = v0[1];
+    v2 = *(v0 + 8);
     v3 = v2 + 0x200000000;
     if (v2 + 0x200000000 < 0)
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
 LABEL_9:
       if (v4 != -1)
       {
-        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow(v0 + 1, v4, 1);
+        return swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementSlow((v0 + 8), v4, 1);
       }
     }
 
     else
     {
-      v4 = v0[1];
+      v4 = *(v0 + 8);
       while (1)
       {
-        atomic_compare_exchange_strong_explicit(v0 + 1, &v4, v3, memory_order_relaxed, memory_order_relaxed);
+        atomic_compare_exchange_strong_explicit((v0 + 8), &v4, v3, memory_order_relaxed, memory_order_relaxed);
         if (v4 == v2)
         {
           break;
@@ -8257,7 +8044,7 @@ uint64_t swift_nonatomic_release_n(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t swift_retainCount(uint64_t a1)
+unint64_t swift_retainCount(uint64_t a1)
 {
   if (a1 < 1)
   {
@@ -8464,7 +8251,7 @@ uint64_t swift_nonatomic_unownedRetain(uint64_t result, uint64_t a2, const char 
   return result;
 }
 
-atomic_ullong *swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementUnownedNonAtomic(atomic_ullong *result, uint64_t a2, const char *a3, char *a4)
+unint64_t *swift::RefCounts<swift::RefCountBitsT<(swift::RefCountInlinedness)1>>::incrementUnownedNonAtomic(unint64_t *result, uint64_t a2, const char *a3, char *a4)
 {
   v5 = *result;
   if ((~*result & 0x80000000FFFFFFFFLL) != 0)
@@ -8750,7 +8537,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t swift_isDeallocating(uint64_t a1)
+unint64_t swift_isDeallocating(uint64_t a1)
 {
   if (a1 < 1)
   {
@@ -8886,11 +8673,11 @@ LABEL_13:
   return result;
 }
 
-uint64_t swift_nonatomic_unownedRetainStrong(uint64_t result, uint64_t a2, const char *a3, char *a4)
+swift *swift_nonatomic_unownedRetainStrong(swift *result, uint64_t a2, const char *a3, char *a4)
 {
   if (result >= 1)
   {
-    v4 = *(result + 8);
+    v4 = *(result + 1);
     if (v4 < 0)
     {
       if ((~v4 & 0x1FFFFFFFFLL) == 0)
@@ -8921,7 +8708,7 @@ LABEL_11:
 
     else
     {
-      *(result + 8) = v4 + 0x200000000;
+      *(result + 1) = v4 + 0x200000000;
     }
   }
 
@@ -9594,4 +9381,198 @@ void swift_weakDestroy(uint64_t *a1)
       while (v15);
     }
   }
+}
+
+swift *swift_weakCopyInit(swift *result, void *a2)
+{
+  v2 = *a2 & 0x7FFFFFFFFFFFFFFELL;
+  if (v2)
+  {
+    _X2 = 0;
+    v4 = v2 + 16;
+    _X3 = 0;
+    __asm { CASP            X2, X3, X2, X3, [X9] }
+
+    if ((_X2 & 0x100000000) != 0)
+    {
+      v2 = 0;
+    }
+
+    else
+    {
+      _X2 = 0;
+      _X3 = 0;
+      __asm { CASP            X2, X3, X2, X3, [X9] }
+
+      _X4 = _X2;
+      while (1)
+      {
+        v15 = _X3 | (v4 << 32);
+        _X3 = v15;
+        __asm { CASP            X2, X3, X4, X5, [X9] }
+
+        if (_X2 == _X4)
+        {
+          break;
+        }
+
+        v4 = HIDWORD(v15);
+        _X4 = _X2;
+        if (v15 == -1)
+        {
+          swift::swift_abortWeakRetainOverflow(result, a2, _X2, v15);
+        }
+      }
+    }
+  }
+
+  if (v2)
+  {
+    v17 = v2 | 1;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  *result = v17;
+  return result;
+}
+
+void *swift_weakTakeInit(void *result, uint64_t *a2)
+{
+  v2 = *a2;
+  *a2 = 0;
+  *result = v2;
+  return result;
+}
+
+swift *swift::WeakReference::nativeCopyAssign(swift *this, swift::WeakReference *a2)
+{
+  if (this != a2)
+  {
+    v2 = *this;
+    *this = 0;
+    if ((v2 & 0x7FFFFFFFFFFFFFFELL) != 0)
+    {
+      _X10 = 0;
+      _X11 = 0;
+      __asm { CASP            X10, X11, X10, X11, [X9] }
+
+      _X6 = _X10;
+      _X5 = 0;
+      __asm { CASP            X4, X5, X6, X7, [X9] }
+
+      if (_X4 != _X10)
+      {
+        _X2 = _X4;
+        do
+        {
+          _X7 = 0;
+          __asm { CASP            X6, X7, X2, X3, [X9] }
+
+          v16 = _X6 ^ _X2;
+          _X2 = _X6;
+        }
+
+        while (v16);
+      }
+    }
+
+    v17 = *a2 & 0x7FFFFFFFFFFFFFFELL;
+    if (v17)
+    {
+      _X2 = 0;
+      v19 = v17 + 16;
+      _X3 = 0;
+      __asm { CASP            X2, X3, X2, X3, [X9] }
+
+      if ((_X2 & 0x100000000) != 0)
+      {
+        v17 = 0;
+      }
+
+      else
+      {
+        _X2 = 0;
+        _X3 = 0;
+        __asm { CASP            X2, X3, X2, X3, [X9] }
+
+        _X4 = _X2;
+        while (1)
+        {
+          v26 = _X3 | (v19 << 32);
+          _X3 = v26;
+          __asm { CASP            X2, X3, X4, X5, [X9] }
+
+          if (_X2 == _X4)
+          {
+            break;
+          }
+
+          v19 = HIDWORD(v26);
+          _X4 = _X2;
+          if (v26 == -1)
+          {
+            swift::swift_abortWeakRetainOverflow(this, a2, _X2, v26);
+          }
+        }
+      }
+    }
+
+    if (v17)
+    {
+      v28 = v17 | 1;
+    }
+
+    else
+    {
+      v28 = 0;
+    }
+
+    *this = v28;
+  }
+
+  return this;
+}
+
+uint64_t *swift_weakTakeAssign(uint64_t *result, uint64_t *a2)
+{
+  if (result != a2)
+  {
+    v2 = *result;
+    *result = 0;
+    if ((v2 & 0x7FFFFFFFFFFFFFFELL) != 0)
+    {
+      _X10 = 0;
+      _X11 = 0;
+      __asm { CASP            X10, X11, X10, X11, [X9] }
+
+      _X6 = _X10;
+      _X5 = 0;
+      __asm { CASP            X4, X5, X6, X7, [X9] }
+
+      if (_X4 != _X10)
+      {
+        _X2 = _X4;
+        do
+        {
+          _X7 = 0;
+          __asm { CASP            X6, X7, X2, X3, [X9] }
+
+          v16 = _X6 ^ _X2;
+          _X2 = _X6;
+        }
+
+        while (v16);
+      }
+    }
+
+    v17 = *a2;
+    *a2 = 0;
+    *result = v17;
+  }
+
+  return result;
 }

@@ -6,6 +6,7 @@
 - (id)pingStats;
 - (id)pingStatsForLastNSeconds:(double)seconds;
 - (timeval)timeSentForPacket:(int)packet;
+- (void)addEchoPacket:(int)packet packetTimestamp:(timeval)timestamp error:(int)error;
 - (void)addEchoReplyPacket:(int)packet;
 - (void)dealloc;
 - (void)timeoutOldSequenceNumbers:(double)numbers;
@@ -37,6 +38,30 @@
   }
 
   return v2;
+}
+
+- (void)addEchoPacket:(int)packet packetTimestamp:(timeval)timestamp error:(int)error
+{
+  v5 = *&error;
+  v6 = *&packet;
+  timestampCopy = timestamp;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v8 = [_IMPingPacketData alloc];
+  v10 = objc_msgSend_initWithSequeneceNumber_timesent_error_(v8, v9, v6, &timestampCopy, v5);
+  v11 = &selfCopy->super.isa + v6 % 160;
+  v14 = v11[1];
+  v13 = (v11 + 1);
+  v12 = v14;
+  if (v14)
+  {
+    *v13 = 0;
+  }
+
+  objc_storeStrong(v13, v10);
+  objc_msgSend__addTransmittedPacket_(selfCopy->_stats, v15, v5 == 0, timestampCopy.tv_sec, *&timestampCopy.tv_usec);
+
+  objc_sync_exit(selfCopy);
 }
 
 - (void)dealloc
@@ -195,34 +220,34 @@ LABEL_8:
 
 - (id)pingStatsForLastNSeconds:(double)seconds
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc(MEMORY[0x1E695DF70]);
   v7 = objc_msgSend_initWithCapacity_(v5, v6, seconds);
   v8 = objc_alloc_init(IMPingStatistics);
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v10 = selfCopy->_roundTriptimes;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v46, v50, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v45, v49, 16);
   if (v14)
   {
-    v15 = *v47;
+    v15 = *v46;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v47 != v15)
+        if (*v46 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v46 + 1) + 8 * i);
+        v17 = *(*(&v45 + 1) + 8 * i);
         v18 = objc_msgSend_timeSent(v17, v12, v13);
-        objc_msgSend_rtt(v17, v19, v20, v18, v19, v46);
-        if (v21 > 0.0 && sub_1959D0C70(&v45) < seconds)
+        objc_msgSend_rtt(v17, v19, v20, v18, v19, v45);
+        if (v21 > 0.0 && sub_1959D0C70(&v44) < seconds)
         {
           v22 = objc_msgSend_error(v17, v12, v13) == 0;
           objc_msgSend__addTransmittedPacket_(v8, v23, v22);
@@ -233,7 +258,7 @@ LABEL_8:
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v46, v50, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v45, v49, 16);
     }
 
     while (v14);
@@ -246,8 +271,6 @@ LABEL_8:
   objc_msgSend__computeMedianTime_(selfCopy, v40, v7);
   objc_msgSend__setMedianRoundtripTime_(v8, v41, v42);
   objc_sync_exit(selfCopy);
-
-  v43 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -274,28 +297,28 @@ LABEL_8:
 
 - (double)_computeStandardDeviation:(id)deviation numPings:(int)pings averageRTT:(double)t
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   deviationCopy = deviation;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(deviationCopy, v8, &v22, v26, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(deviationCopy, v8, &v21, v25, 16);
   if (v9)
   {
     v12 = v9;
-    v13 = *v23;
+    v13 = *v22;
     v14 = 0.0;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(deviationCopy);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         if (!objc_msgSend_error(v16, v10, v11))
         {
           objc_msgSend_rtt(v16, v10, v11);
@@ -303,7 +326,7 @@ LABEL_8:
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(deviationCopy, v10, &v22, v26, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(deviationCopy, v10, &v21, v25, 16);
     }
 
     while (v12);
@@ -319,7 +342,6 @@ LABEL_8:
     v14 = sqrt(v14 / objc_msgSend_numPingsReceived(self->_stats, v18, v19));
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

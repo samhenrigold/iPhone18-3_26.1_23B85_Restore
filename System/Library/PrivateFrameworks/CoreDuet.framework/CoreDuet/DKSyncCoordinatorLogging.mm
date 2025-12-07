@@ -5,38 +5,34 @@
 
 void __48___DKSyncCoordinatorLogging_portraitStreamNames__block_invoke()
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
   v1 = +[_CDPortraitStreams topicStream];
   v2 = [v1 name];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = +[_CDPortraitStreams entityStream];
   v4 = [v3 name];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v0 setWithArray:v5];
   v7 = qword_1EADBD680;
   qword_1EADBD680 = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __53___DKSyncCoordinatorLogging_typeValueWithStreamName___block_invoke()
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v0 = +[_CDPortraitStreams entityStream];
   v1 = [v0 name];
-  v7[0] = v1;
-  v8[0] = @"entity";
+  v6[0] = v1;
+  v7[0] = @"entity";
   v2 = +[_CDPortraitStreams topicStream];
   v3 = [v2 name];
-  v7[1] = v3;
-  v8[1] = @"topic";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v6[1] = v3;
+  v7[1] = @"topic";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
   v5 = qword_1EADBD690;
   qword_1EADBD690 = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __91___DKSyncCoordinatorLogging__sendDistributedNotificationName_object_throttledActivityName___block_invoke(uint64_t a1)

@@ -27,7 +27,7 @@
   *(v6 + 24) = 0u;
   *(v6 + 40) = 0u;
   *(v6 + 56) = 0u;
-  *&self->PRXCardContentViewController_opaque[OBJC_IVAR____TtC16AccessorySetupUI37ASUIDeviceOTANameChoiceViewController_deviceOTANameChoices] = _swiftEmptyArrayStorage;
+  *&self->PRXCardContentViewController_opaque[OBJC_IVAR____TtC16AccessorySetupUI37ASUIDeviceOTANameChoiceViewController_deviceOTANameChoices] = &_swiftEmptyArrayStorage;
   v8.receiver = self;
   v8.super_class = ObjectType;
   return [(ASUIDeviceOTANameChoiceViewController *)&v8 initWithContentView:view];

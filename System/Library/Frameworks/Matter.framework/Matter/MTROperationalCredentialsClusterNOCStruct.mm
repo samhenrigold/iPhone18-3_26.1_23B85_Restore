@@ -42,8 +42,8 @@
   vvsc = [(MTROperationalCredentialsClusterNOCStruct *)self vvsc];
   [(MTROperationalCredentialsClusterNOCStruct *)v4 setVvsc:vvsc];
 
-  fabricIndex = [(MTROperationalCredentialsClusterNOCStruct *)self fabricIndex];
-  [(MTROperationalCredentialsClusterNOCStruct *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTROperationalCredentialsClusterNOCStruct *)v4 setFabricIndex:v8];
 
   return v4;
 }

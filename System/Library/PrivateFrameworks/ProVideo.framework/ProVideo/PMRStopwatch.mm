@@ -249,9 +249,9 @@
 
           v19 = *(*(&v39 + 1) + 8 * i);
           startTime = [v19 splitTime];
-          duration = [v19 duration];
+          v20 = objc_msgSend_duration(v19);
           v21 = info.numer / info.denom;
-          v22 = (duration * v21) / 1000000.0;
+          v22 = (v20 * v21) / 1000000.0;
           if (v22 == 0.0)
           {
             v22 = ((startTime - v18) * v21) / 1000000.0;

@@ -236,7 +236,7 @@ LABEL_26:
 
 - (id)tc_stringByRemovingInvalidXmlChars
 {
-  v2 = TCInvalidXmlCharacterSet();
+  v2 = TCInvalidXmlCharacterSet(self);
   selfCopy = self;
   if ([selfCopy rangeOfCharacterFromSet:v2] != 0x7FFFFFFFFFFFFFFFLL)
   {

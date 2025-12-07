@@ -154,7 +154,7 @@ LABEL_7:
     }
 
     _stripItems = [(SBStripLayoutWindowingModifier *)self _stripItems];
-    v10 = [_stripItems containsObject:v6];
+    v10 = objc_msgSend_containsObject_(_stripItems);
 
     if ((v10 & 1) == 0)
     {
@@ -194,7 +194,7 @@ LABEL_8:
   x = bounds.origin.x;
   layoutCopy = layout;
   v12 = [layoutCopy itemForLayoutRole:role];
-  if (v12 && (-[SBStripLayoutWindowingModifier _stripItems](self, "_stripItems"), v13 = objc_claimAutoreleasedReturnValue(), [layoutCopy leafAppLayoutForItem:v12], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "containsObject:", v14), v14, v13, v15))
+  if (v12 && (-[SBStripLayoutWindowingModifier _stripItems](self, "_stripItems"), v13 = objc_claimAutoreleasedReturnValue(), [layoutCopy leafAppLayoutForItem:v12], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend_containsObject_(v13), v14, v13, v15))
   {
     v16 = [(SBStripLayoutWindowingModifier *)self _flexibleAutoLayoutSpaceForStripAppLayout:layoutCopy];
     v17 = [layoutCopy itemForLayoutRole:role];
@@ -408,7 +408,7 @@ LABEL_8:
             v130 = 0u;
             if (v63)
             {
-              [v63 frame];
+              objc_msgSend_frame(v63);
             }
 
             SBRectWithSize();
@@ -480,7 +480,7 @@ LABEL_8:
 
             if (v63)
             {
-              [v63 titleStyle];
+              objc_msgSend_titleStyle(v63);
             }
 
             *&v122[8] = vdupq_n_s64(1uLL);
@@ -579,7 +579,7 @@ LABEL_8:
             v130 = 0u;
             if (v102)
             {
-              [v102 frame];
+              objc_msgSend_frame(v102);
               v104 = *(&v131 + 1);
             }
 
@@ -707,7 +707,7 @@ LABEL_8:
     if (v11 == 1)
     {
       v12 = 200;
-      if (![(NSMutableSet *)self->_highlightedByHoverAppLayouts containsObject:appLayout])
+      if (!objc_msgSend_containsObject_(self->_highlightedByHoverAppLayouts))
       {
         v31 = 0u;
         v32 = 0u;
@@ -750,7 +750,7 @@ LABEL_36:
     else
     {
       v12 = 192;
-      if (![(NSMutableSet *)self->_highlightedByTouchAppLayouts containsObject:appLayout])
+      if (!objc_msgSend_containsObject_(self->_highlightedByTouchAppLayouts))
       {
         v27 = 0u;
         v28 = 0u;
@@ -800,7 +800,7 @@ LABEL_37:
 {
   attributesCopy = attributes;
   layoutCopy = layout;
-  if ([(NSArray *)self->_appLayoutsPerformingInitialLayout containsObject:layoutCopy])
+  if (objc_msgSend_containsObject_(self->_appLayoutsPerformingInitialLayout))
   {
     v7 = 2;
   }
@@ -872,7 +872,7 @@ LABEL_6:
       v31 = 0.0;
       if (modelCopy)
       {
-        [modelCopy frame];
+        objc_msgSend_frame(modelCopy, 0.0, 0.0);
         v27 = *(&v63 + 1);
         v31 = *&v64;
         v29 = *(&v61 + 1);

@@ -129,7 +129,7 @@
 
 - (void)configureWithDataSource:(id)source home:(id)home
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   homeCopy = home;
   workQueue = [(HMDRemotePersonDataMessenger *)self workQueue];
@@ -145,12 +145,10 @@
   v10 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
   [v10 setRoles:{objc_msgSend(v10, "roles") | 4}];
   msgDispatcher = [homeCopy msgDispatcher];
-  v14[0] = v9;
-  v14[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = v9;
+  v13[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   [msgDispatcher registerForMessage:@"HMDRemotePersonDataMessengerPerformCloudPullMessage" receiver:self policies:v12 selector:sel_handlePerformCloudPullMessage_];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
@@ -179,7 +177,7 @@
 
 - (void)handlePerformCloudPullMessage:(id)message
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDRemotePersonDataMessenger *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -191,27 +189,25 @@
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v18 = v9;
+    v17 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling perform cloud pull message", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   dataSource = [(HMDRemotePersonDataMessenger *)selfCopy dataSource];
   performCloudPull = [dataSource performCloudPull];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __62__HMDRemotePersonDataMessenger_handlePerformCloudPullMessage___block_invoke;
-  v15[3] = &unk_278687CC0;
-  v16 = messageCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __62__HMDRemotePersonDataMessenger_handlePerformCloudPullMessage___block_invoke;
+  v14[3] = &unk_278687CC0;
+  v15 = messageCopy;
   v12 = messageCopy;
-  v13 = [performCloudPull addCompletionBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [performCloudPull addCompletionBlock:v14];
 }
 
 - (void)_notifyResidentsOfUpdatedFaceClassificationDependentData
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDRemotePersonDataMessenger *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -242,11 +238,11 @@
         {
           v17 = HMFGetLogIdentifier();
           shortDescription = [(HMFObject *)v13 shortDescription];
-          v33 = 138543618;
-          v34 = v17;
-          v35 = 2112;
-          v36 = shortDescription;
-          _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Sending message to notify resident devices of updated face-classification-dependent data: %@", &v33, 0x16u);
+          v32 = 138543618;
+          v33 = v17;
+          v34 = 2112;
+          v35 = shortDescription;
+          _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Sending message to notify resident devices of updated face-classification-dependent data: %@", &v32, 0x16u);
         }
 
         objc_autoreleasePoolPop(v14);
@@ -262,9 +258,9 @@
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           v31 = HMFGetLogIdentifier();
-          v33 = 138543362;
-          v34 = v31;
-          _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@No account handles found on owner account when notifying resident devices of updated face-classification-dependent data", &v33, 0xCu);
+          v32 = 138543362;
+          v33 = v31;
+          _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@No account handles found on owner account when notifying resident devices of updated face-classification-dependent data", &v32, 0xCu);
         }
 
         objc_autoreleasePoolPop(v28);
@@ -279,9 +275,9 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v27 = HMFGetLogIdentifier();
-        v33 = 138543362;
-        v34 = v27;
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Owner account was nil when notifying resident devices of updated face-classification-dependent data", &v33, 0xCu);
+        v32 = 138543362;
+        v33 = v27;
+        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Owner account was nil when notifying resident devices of updated face-classification-dependent data", &v32, 0xCu);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -296,20 +292,18 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = HMFGetLogIdentifier();
-      v33 = 138543362;
-      v34 = v23;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference was nil when notifying resident devices of updated face-classification-dependent data", &v33, 0xCu);
+      v32 = 138543362;
+      v33 = v23;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference was nil when notifying resident devices of updated face-classification-dependent data", &v32, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startDebounceTimerToNotifyResidentsOfUpdatedFaceClassificationDependentData
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDRemotePersonDataMessenger *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -323,9 +317,9 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting timer to notify resident devices of updated face-classification-dependent data", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting timer to notify resident devices of updated face-classification-dependent data", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -343,8 +337,6 @@
     notifyResidentsOfUpdatedDataDebounceTimer4 = [(HMDRemotePersonDataMessenger *)selfCopy notifyResidentsOfUpdatedDataDebounceTimer];
     [notifyResidentsOfUpdatedDataDebounceTimer4 resume];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDRemotePersonDataMessenger)initWithUUID:(id)d home:(id)home workQueue:(id)queue
@@ -370,15 +362,15 @@ LABEL_8:
   {
 LABEL_9:
     v17 = _HMFPreconditionFailure();
-    return __60__HMDRemotePersonDataMessenger_initWithUUID_home_workQueue___block_invoke(v17);
+    return __60__HMDRemotePersonDataMessenger_initWithUUID_home_workQueue___block_invoke(v19, v17, v18);
   }
 
-  v18.receiver = self;
-  v18.super_class = HMDRemotePersonDataMessenger;
-  v12 = [(HMDRemotePersonDataMessenger *)&v18 init];
+  v20.receiver = self;
+  v20.super_class = HMDRemotePersonDataMessenger;
+  v12 = [(HMDRemotePersonDataMessenger *)&v20 init];
   if (v12)
   {
-    v13 = [dCopy copy];
+    v13 = objc_msgSend_copy(dCopy);
     UUID = v12->_UUID;
     v12->_UUID = v13;
 
@@ -412,10 +404,9 @@ id __60__HMDRemotePersonDataMessenger_initWithUUID_home_workQueue___block_invoke
 
 void __43__HMDRemotePersonDataMessenger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_266302;
-  logCategory__hmf_once_v7_266302 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_266302;
+  logCategory__hmf_once_v7_266302 = v0;
 }
 
 @end

@@ -29,9 +29,9 @@
 {
   nodeCopy = node;
   v7 = [self alloc];
-  v10 = objc_msgSend_initWithExpressionNode_parenNestingLevel_(v7, v8, nodeCopy, level, v9);
+  v9 = objc_msgSend_initWithExpressionNode_parenNestingLevel_(v7, v8, nodeCopy, level);
 
-  return v10;
+  return v9;
 }
 
 + (id)tokenContextWithExpressionNode:(id)node parenNestingLevel:(unint64_t)level argumentIndex:(unint64_t)index
@@ -65,9 +65,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p>: expressionNode:%@, parenNestingLevel:%lu argumentIndex:%lu", v7, v8, v5, self, self->_expressionNode, self->_parenNestingLevel, self->_argumentIndex);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p>: expressionNode:%@, parenNestingLevel:%lu argumentIndex:%lu", v7, v5, self, self->_expressionNode, self->_parenNestingLevel, self->_argumentIndex);
 
-  return v9;
+  return v8;
 }
 
 @end

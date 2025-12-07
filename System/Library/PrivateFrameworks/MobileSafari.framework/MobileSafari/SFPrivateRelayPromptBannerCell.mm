@@ -104,7 +104,7 @@
     v24 = objc_alloc(MEMORY[0x1E696AAB0]);
     v25 = _WBSLocalizedString();
     v90[0] = *MEMORY[0x1E69DB648];
-    v26 = turnOnButtonFont();
+    v26 = turnOnButtonFont(v25);
     v90[1] = *MEMORY[0x1E69DB688];
     v91[0] = v26;
     v91[1] = v23;
@@ -270,7 +270,7 @@
 {
   v19[1] = *MEMORY[0x1E69E9840];
   titleLabel = [(UIButton *)self->_turnOnButton titleLabel];
-  v4 = turnOnButtonFont();
+  v4 = turnOnButtonFont(titleLabel);
   text = [titleLabel text];
   [titleLabel frame];
   v7 = v6;

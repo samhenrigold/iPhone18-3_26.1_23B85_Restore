@@ -25,26 +25,31 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFUIStateObservable.uiStateService(_:didUpdateUiSceneState:)();
+  CAFUIStateObservable.uiStateService(_:didUpdateUiSceneState:)(selfCopy, state);
 }
 
 - (void)uiStateService:(id)service didUpdateUiSceneOptions:(id)options
 {
   if (options)
   {
-    static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  }
+
+  else
+  {
+    v6 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFUIStateObservable.uiStateService(_:didUpdateUiSceneOptions:)();
+  CAFUIStateObservable.uiStateService(_:didUpdateUiSceneOptions:)(selfCopy, v6);
 }
 
 - (void)uiStateService:(id)service didUpdateDriverSide:(unsigned __int8)side
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFUIStateObservable.uiStateService(_:didUpdateDriverSide:)();
+  CAFUIStateObservable.uiStateService(_:didUpdateDriverSide:)(selfCopy, side);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

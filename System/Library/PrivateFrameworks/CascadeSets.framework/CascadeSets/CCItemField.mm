@@ -9,7 +9,29 @@
 - (BOOL)hasRawEnumValue;
 - (BOOL)hasUInt32Value;
 - (BOOL)hasUInt64Value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type BOOLValue:(BOOL)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type bytesValue:(id)value;
 - (CCItemField)initWithFieldType:(unsigned __int16)type dataType:(unsigned __int8)dataType;
+- (CCItemField)initWithFieldType:(unsigned __int16)type doubleValue:(double)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type enumValue:(unsigned int)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type floatValue:(float)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type int32Value:(int)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type int64Value:(int64_t)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedBoolValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedBytesValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedDoubleValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedEnumValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedFloatValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedInt32Value:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedInt64Value:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedStringValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedSubMessageValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedUInt32Value:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedUInt64Value:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type stringValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type subMessageValue:(id)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type uint32Value:(unsigned int)value;
+- (CCItemField)initWithFieldType:(unsigned __int16)type uint64Value:(unint64_t)value;
 - (CCItemFieldValueStorage)valueStorage;
 - (NSObject)boxedJSONValue;
 - (double)doubleValue;
@@ -40,6 +62,7 @@
 - (unint64_t)uint64Value;
 - (unsigned)rawEnumValue;
 - (unsigned)uint32Value;
+- (void)appendInvalidFieldAccessErrorForAccessedDataType:(unsigned __int8)type;
 @end
 
 @implementation CCItemField
@@ -168,6 +191,326 @@ LABEL_25:
   }
 
   return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type stringValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:0];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedStringValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:1];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type uint32Value:(unsigned int)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:2];
+  if (result)
+  {
+    result->_valueStorage.value.uint32Value = value;
+    result->_valueStorage.hasValue = 1;
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedUInt32Value:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:3];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type uint64Value:(unint64_t)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:4];
+  if (result)
+  {
+    result->_valueStorage.value.uint64Value = value;
+    result->_valueStorage.hasValue = 1;
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedUInt64Value:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:5];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type int32Value:(int)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:6];
+  if (result)
+  {
+    result->_valueStorage.value.uint32Value = value;
+    result->_valueStorage.hasValue = 1;
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedInt32Value:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:7];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type int64Value:(int64_t)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:8];
+  if (result)
+  {
+    result->_valueStorage.value.uint64Value = value;
+    result->_valueStorage.hasValue = 1;
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedInt64Value:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:9];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type floatValue:(float)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:10];
+  if (result)
+  {
+    result->_valueStorage.value.floatValue = value;
+    result->_valueStorage.hasValue = 1;
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedFloatValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:11];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type doubleValue:(double)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:12];
+  if (result)
+  {
+    result->_valueStorage.value.doubleValue = value;
+    result->_valueStorage.hasValue = 1;
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedDoubleValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:13];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type BOOLValue:(BOOL)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:14];
+  if (result)
+  {
+    result->_valueStorage.value.BOOLValue = value;
+    result->_valueStorage.hasValue = 1;
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedBoolValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:15];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type bytesValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:16];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedBytesValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:17];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type subMessageValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:18];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedSubMessageValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:19];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type enumValue:(unsigned int)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:20];
+  if (result)
+  {
+    result->_valueStorage.value.uint32Value = value;
+    result->_valueStorage.hasValue = 1;
+  }
+
+  return result;
+}
+
+- (CCItemField)initWithFieldType:(unsigned __int16)type repeatedEnumValue:(id)value
+{
+  result = [(CCItemField *)self initWithFieldType:type dataType:21];
+  if (value)
+  {
+    if (result)
+    {
+      result->_valueStorage.value.uint64Value = value;
+      result->_valueStorage.hasValue = 1;
+    }
+  }
+
+  return result;
+}
+
+- (void)appendInvalidFieldAccessErrorForAccessedDataType:(unsigned __int8)type
+{
+  v11 = [objc_opt_class() _selectorNameForDataType:type];
+  v4 = CCStringFromItemFieldDataType([(CCItemField *)self dataType]);
+  v5 = [objc_opt_class() _selectorNameForDataType:{-[CCItemField dataType](self, "dataType")}];
+  v6 = CCTypeIdentifierRegistryBridge(v5);
+  v7 = [v6 descriptionForTypeIdentifier:{-[CCItemField fieldType](self, "fieldType")}];
+
+  v8 = CCMismatchedFieldAccessorErrorForField(v7, v11, v4, v5);
+  v9 = CCErrorByJoiningMismatchedFieldAccessorErrorUnderlyingErrors(self->_error, v8);
+  error = self->_error;
+  self->_error = v9;
 }
 
 - (NSObject)boxedJSONValue
@@ -874,7 +1217,7 @@ void __29__CCItemField_boxedJSONValue__block_invoke_8(uint64_t a1, uint64_t a2)
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = CCTypeIdentifierRegistryBridge();
+  v6 = CCTypeIdentifierRegistryBridge(v5);
   v7 = [v6 descriptionForTypeIdentifier:{-[CCItemField fieldType](self, "fieldType")}];
   fieldType = [(CCItemField *)self fieldType];
   v9 = CCStringFromItemFieldDataType([(CCItemField *)self dataType]);

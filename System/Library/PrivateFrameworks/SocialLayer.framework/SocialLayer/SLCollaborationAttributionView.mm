@@ -136,10 +136,11 @@
   selfCopy = self;
   if ([(SLRemoteView *)selfCopy remoteContentIsLoaded]&& (v2 = (*((*MEMORY[0x277D85000] & *selfCopy) + 0xA0))()) != 0)
   {
-    v3 = v2;
+    v4 = v3;
+    v5 = v2;
     v2();
 
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v3);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v5, v4);
   }
 
   else

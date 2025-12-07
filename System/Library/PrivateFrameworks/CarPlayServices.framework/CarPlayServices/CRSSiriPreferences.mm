@@ -16,6 +16,7 @@
 - (void)addObserver:(id)observer;
 - (void)clearAnnounceNotificationsInCarPlayTemporarilyDisabled;
 - (void)removeObserver:(id)observer;
+- (void)setAnnounceNotificationsInCarPlayTemporarilyDisabled:(BOOL)disabled;
 - (void)setCarPlayAnnounceEnablementType:(int64_t)type;
 @end
 
@@ -42,7 +43,7 @@
   return selfCopy;
 }
 
-uint64_t __71__CRSSiriPreferences_announceNotificationsInCarPlayTemporarilyDisabled__block_invoke(uint64_t a1)
+void *__71__CRSSiriPreferences_announceNotificationsInCarPlayTemporarilyDisabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cachedAnnounceNotificationsInCarPlayTemporarilyDisabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -109,7 +110,7 @@ uint64_t __71__CRSSiriPreferences_announceNotificationsInCarPlayTemporarilyDisab
   return v4;
 }
 
-uint64_t __51__CRSSiriPreferences_carPlayAnnounceEnablementType__block_invoke(uint64_t a1)
+void *__51__CRSSiriPreferences_carPlayAnnounceEnablementType__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cachedCarPlayAnnounceEnablementType];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -143,7 +144,7 @@ uint64_t __51__CRSSiriPreferences_carPlayAnnounceEnablementType__block_invoke(ui
   return selfCopy;
 }
 
-uint64_t __46__CRSSiriPreferences_autoSendInCarPlayEnabled__block_invoke(uint64_t a1)
+void *__46__CRSSiriPreferences_autoSendInCarPlayEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cachedAutoSendInCarPlayEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -171,7 +172,7 @@ uint64_t __46__CRSSiriPreferences_autoSendInCarPlayEnabled__block_invoke(uint64_
   return selfCopy;
 }
 
-uint64_t __49__CRSSiriPreferences_autoSendInHeadphonesEnabled__block_invoke(uint64_t a1)
+void *__49__CRSSiriPreferences_autoSendInHeadphonesEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cachedAutoSendInHeadphonesEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -199,7 +200,7 @@ uint64_t __49__CRSSiriPreferences_autoSendInHeadphonesEnabled__block_invoke(uint
   return selfCopy;
 }
 
-uint64_t __41__CRSSiriPreferences_mainAutoSendEnabled__block_invoke(uint64_t a1)
+void *__41__CRSSiriPreferences_mainAutoSendEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cachedMainAutoSendEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -227,11 +228,18 @@ uint64_t __41__CRSSiriPreferences_mainAutoSendEnabled__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __56__CRSSiriPreferences_showAppsBehindSiriInCarPlayEnabled__block_invoke(uint64_t a1)
+void *__56__CRSSiriPreferences_showAppsBehindSiriInCarPlayEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cachedShowAppsBehindSiriInCarPlayEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
+}
+
+- (void)setAnnounceNotificationsInCarPlayTemporarilyDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
+  [mEMORY[0x277CEF368] setAnnounceNotificationsInCarPlayTemporarilyDisabled:disabledCopy];
 }
 
 - (void)clearAnnounceNotificationsInCarPlayTemporarilyDisabled

@@ -734,7 +734,7 @@ LABEL_34:
   return v72;
 }
 
-uint64_t __76__SearchUIDataSourceSnapshotBuilder_buildSectionsFromRowModels_fromSection___block_invoke_2(uint64_t a1)
+void *__76__SearchUIDataSourceSnapshotBuilder_buildSectionsFromRowModels_fromSection___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)

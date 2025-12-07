@@ -123,7 +123,7 @@
   return v37;
 }
 
-uint64_t __66__CIFocalPlaneProcessor_processWithInputs_arguments_output_error___block_invoke(uint64_t a1)
+void *__66__CIFocalPlaneProcessor_processWithInputs_arguments_output_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 40) newDefaultLibraryWithBundle:objc_msgSend(MEMORY[0x1E696AAE8] error:{"bundleForClass:", objc_opt_class()), 0}];
   +[CIFocalPlaneProcessor processWithInputs:arguments:output:error:]::library = result;

@@ -16,7 +16,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([v2 isEqual:@"YES"])
+    if (objc_msgSend_isEqual_(v2))
     {
       return 1;
     }

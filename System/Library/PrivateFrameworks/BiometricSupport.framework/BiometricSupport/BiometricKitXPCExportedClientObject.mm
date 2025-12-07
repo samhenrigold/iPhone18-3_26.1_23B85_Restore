@@ -9,7 +9,11 @@
 - (void)enrollUpdate:(id)update;
 - (void)homeButtonPressed;
 - (void)matchResult:(id)result details:(id)details;
+- (void)statusMessage:(unsigned int)message;
+- (void)statusMessage:(unsigned int)message details:(id)details;
+- (void)taskResumeStatus:(int)status;
 - (void)templateUpdate:(id)update details:(id)details;
+- (void)touchIDButtonPressed:(BOOL)pressed;
 @end
 
 @implementation BiometricKitXPCExportedClientObject
@@ -149,6 +153,37 @@
   }
 }
 
+- (void)statusMessage:(unsigned int)message
+{
+  v3 = *&message;
+  WeakRetained = objc_loadWeakRetained(&self->_exportedObject);
+  v6 = [WeakRetained isClient:self->_clientID entitled:1 forMethod:"-[BiometricKitXPCExportedClientObject statusMessage:]"];
+
+  if (v6)
+  {
+    v9 = objc_loadWeakRetained(&self->_exportedObject);
+    connection = [v9 connection];
+    remoteObjectProxy = [connection remoteObjectProxy];
+    [remoteObjectProxy statusMessage:v3 client:self->_clientID];
+  }
+}
+
+- (void)statusMessage:(unsigned int)message details:(id)details
+{
+  v4 = *&message;
+  detailsCopy = details;
+  WeakRetained = objc_loadWeakRetained(&self->_exportedObject);
+  v7 = [WeakRetained isClient:self->_clientID entitled:1 forMethod:"-[BiometricKitXPCExportedClientObject statusMessage:details:]"];
+
+  if (v7)
+  {
+    v8 = objc_loadWeakRetained(&self->_exportedObject);
+    connection = [v8 connection];
+    remoteObjectProxy = [connection remoteObjectProxy];
+    [remoteObjectProxy statusMessage:v4 details:detailsCopy client:self->_clientID];
+  }
+}
+
 - (void)homeButtonPressed
 {
   WeakRetained = objc_loadWeakRetained(&self->_exportedObject);
@@ -160,6 +195,21 @@
     connection = [v7 connection];
     remoteObjectProxy = [connection remoteObjectProxy];
     [remoteObjectProxy homeButtonPressed:self->_clientID];
+  }
+}
+
+- (void)touchIDButtonPressed:(BOOL)pressed
+{
+  pressedCopy = pressed;
+  WeakRetained = objc_loadWeakRetained(&self->_exportedObject);
+  v6 = [WeakRetained isClient:self->_clientID entitled:1 forMethod:"-[BiometricKitXPCExportedClientObject touchIDButtonPressed:]"];
+
+  if (v6)
+  {
+    v9 = objc_loadWeakRetained(&self->_exportedObject);
+    connection = [v9 connection];
+    remoteObjectProxy = [connection remoteObjectProxy];
+    [remoteObjectProxy touchIDButtonPressed:pressedCopy client:self->_clientID];
   }
 }
 
@@ -176,6 +226,21 @@
     connection = [v9 connection];
     remoteObjectProxy = [connection remoteObjectProxy];
     [remoteObjectProxy templateUpdate:updateCopy details:detailsCopy client:self->_clientID];
+  }
+}
+
+- (void)taskResumeStatus:(int)status
+{
+  v3 = *&status;
+  WeakRetained = objc_loadWeakRetained(&self->_exportedObject);
+  v6 = [WeakRetained isClient:self->_clientID entitled:1 forMethod:"-[BiometricKitXPCExportedClientObject taskResumeStatus:]"];
+
+  if (v6)
+  {
+    v9 = objc_loadWeakRetained(&self->_exportedObject);
+    connection = [v9 connection];
+    remoteObjectProxy = [connection remoteObjectProxy];
+    [remoteObjectProxy taskResumeStatus:v3 client:self->_clientID];
   }
 }
 

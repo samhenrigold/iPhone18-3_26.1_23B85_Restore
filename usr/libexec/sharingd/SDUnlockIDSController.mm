@@ -10,6 +10,7 @@
 - (void)addDelegate:(id)delegate;
 - (void)removeDelegate:(id)delegate;
 - (void)sendProtocolBufferData:(id)data withType:(unsigned __int16)type timeout:(id)timeout option:(int64_t)option dataClass:(int64_t)class queueOneID:(id)d errorHandler:(id)handler;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context;
 - (void)service:(id)service didSwitchActivePairedDevice:(id)device acknowledgementBlock:(id)block;
 - (void)service:(id)service nearbyDevicesChanged:(id)changed;
@@ -401,9 +402,9 @@ LABEL_16:
     [v5 setModelName:@"Apple Watch"];
     if (deviceCopy)
     {
-      [deviceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(deviceCopy);
       v14 = v38;
-      [deviceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(deviceCopy);
       v15 = v36 > 3;
     }
 
@@ -578,6 +579,55 @@ LABEL_16:
     }
 
     while (v7);
+  }
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  identifierCopy = identifier;
+  errorCopy = error;
+  accountCopy = account;
+  serviceCopy = service;
+  v16 = paired_unlock_log();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = @"NO";
+    *buf = 138412802;
+    if (successCopy)
+    {
+      v17 = @"YES";
+    }
+
+    v23 = v17;
+    v24 = 2112;
+    v25 = identifierCopy;
+    v26 = 2112;
+    v27 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "success = %@, identifier = %@, error = %@", buf, 0x20u);
+  }
+
+  v21.receiver = self;
+  v21.super_class = SDUnlockIDSController;
+  [(SDUnlockTransport *)&v21 service:serviceCopy account:accountCopy identifier:identifierCopy didSendWithSuccess:successCopy error:errorCopy];
+
+  if (!successCopy)
+  {
+    v18 = [(NSMutableDictionary *)self->_errorHandlers objectForKeyedSubscript:identifierCopy];
+    v19 = v18;
+    if (v18)
+    {
+      (*(v18 + 16))(v18, errorCopy);
+    }
+
+    else
+    {
+      v20 = paired_unlock_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        sub_10006C110();
+      }
+    }
   }
 }
 

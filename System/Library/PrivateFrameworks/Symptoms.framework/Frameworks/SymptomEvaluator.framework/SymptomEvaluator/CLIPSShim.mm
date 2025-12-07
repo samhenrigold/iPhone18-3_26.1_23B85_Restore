@@ -181,8 +181,8 @@ uint64_t __27__CLIPSShim_sharedInstance__block_invoke(uint64_t a1)
       regcomp((v2 + 120), "wdialog|wdisplay|werror|wwarning|wtrace|wclips|stdout|stderr", 5);
       regcomp((v2 + 152), "dump|cmd", 5);
       EnvAddRouter(*(v2 + 7), "CLIPSShim", 100, _routerQueryImpl, _routerPrintImpl, _routerGetCImpl, _routerUngetCImpl, _routerExitImpl);
-      EnvAddClearFunction(*(v2 + 7), "core-clear", _clearCallback, -10000);
-      EnvAddResetFunction(*(v2 + 7), "core-reset", _resetCallback, -10000);
+      EnvAddClearFunction(*(v2 + 7), "core-clear", _clearCallback, 4294957296);
+      EnvAddResetFunction(*(v2 + 7), "core-reset", _resetCallback, 4294957296);
       EnvWatch(*(v2 + 7), "all");
       v17[0] = xmmword_2847950D8;
       v17[1] = *&off_2847950E8;
@@ -306,7 +306,7 @@ uint64_t __27__CLIPSShim_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)currentRuleName
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   environment = self->_environment;
   v3 = *(environment[6] + 144);
   v4 = *v3;
@@ -322,8 +322,8 @@ uint64_t __27__CLIPSShim_sharedInstance__block_invoke(uint64_t a1)
     v11 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 134217984;
-      v15 = v4;
+      v13 = 134217984;
+      v14 = v4;
       v8 = "ruleName nil, rule: %p";
       v9 = v11;
       v10 = 12;
@@ -336,18 +336,17 @@ uint64_t __27__CLIPSShim_sharedInstance__block_invoke(uint64_t a1)
     v7 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v14) = 0;
+      LOWORD(v13) = 0;
       v8 = "thisRule nil";
       v9 = v7;
       v10 = 2;
 LABEL_8:
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, v8, &v14, v10);
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, v8, &v13, v10);
     }
   }
 
   v6 = 0;
 LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -544,7 +543,7 @@ LABEL_16:
 
 - (void)registerCallbackFunction:(id)function selector:(SEL)selector target:(id)target
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   functionCopy = function;
   targetCopy = target;
   v10 = [(NSMutableDictionary *)self->_invocationMap objectForKey:functionCopy];
@@ -568,26 +567,24 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v14 = debuggabilityLogHandle;
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v13 = debuggabilityLogHandle;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v15 = NSStringFromSelector(selector);
-    v17 = 138412290;
-    v18 = v15;
-    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Failed to create NSInvocation for %@", &v17, 0xCu);
+    v14 = NSStringFromSelector(selector);
+    v16 = 138412290;
+    v17 = v14;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Failed to create NSInvocation for %@", &v16, 0xCu);
   }
 
-  v16 = debuggabilityLogHandle;
+  v15 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
   {
-    v17 = 138412290;
-    v18 = functionCopy;
-    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_INFO, "Failure creating invocation function for %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = functionCopy;
+    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "Failure creating invocation function for %@", &v16, 0xCu);
   }
 
 LABEL_5:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCallbackInvocation:(id)invocation invocation:(id)a4
@@ -636,12 +633,12 @@ LABEL_5:
 
 - (void)logMemoryStatistics:(id)statistics verboseOnly:(BOOL)only
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   statisticsCopy = statistics;
-  v12 = 0;
-  v13 = 0;
   v11 = 0;
-  EnvironmentZoneStatistics(&v13, &v12, &v11);
+  v12 = 0;
+  v10 = 0;
+  EnvironmentZoneStatistics(&v12, &v11, &v10);
   if (!only)
   {
     v7 = debuggabilityLogHandle;
@@ -650,20 +647,18 @@ LABEL_5:
       v8 = v7;
       memoryUsed = [(CLIPSShim *)self memoryUsed];
       *buf = 138413314;
-      v15 = statisticsCopy;
-      v16 = 2048;
-      v17 = memoryUsed;
-      v18 = 2048;
-      v19 = v13;
-      v20 = 2048;
-      v21 = v12;
-      v22 = 2048;
-      v23 = v11;
+      v14 = statisticsCopy;
+      v15 = 2048;
+      v16 = memoryUsed;
+      v17 = 2048;
+      v18 = v12;
+      v19 = 2048;
+      v20 = v11;
+      v21 = 2048;
+      v22 = v10;
       _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "%@ - memory usage by CLIPS %ld. Zone size_in_use:%zu, max_size_in_use: %zu, size_allocated: %zu", buf, 0x34u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dumpEngineStatusWithContext:(id)context
@@ -718,7 +713,7 @@ LABEL_5:
 - (void)_logFactsForModule:(id)module limit:(int64_t)limit when:(int64_t)when
 {
   whenCopy = when;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   moduleCopy = module;
   factCount = [(CLIPSShim *)self factCount];
   if (limit < 1)
@@ -730,8 +725,8 @@ LABEL_5:
   v11 = [(CLIPSShim *)self printedFacts:moduleCopy limit:limit];
   newlineCharacterSet = [MEMORY[0x277CCA900] newlineCharacterSet];
   v12 = [v11 componentsSeparatedByCharactersInSet:?];
-  v41 = v11;
-  v42 = moduleCopy;
+  v40 = v11;
+  v41 = moduleCopy;
   if ((whenCopy & 1) == 0)
   {
     if ((whenCopy & 4) != 0)
@@ -753,8 +748,8 @@ LABEL_5:
 
     *buf = 134218242;
     limitCopy = factCount;
-    v50 = 2112;
-    v51 = v14;
+    v49 = 2112;
+    v50 = v14;
     v15 = " --- NDFSM Expert System Facts (%lu)  %@---";
     v16 = v13;
     v17 = OS_LOG_TYPE_INFO;
@@ -775,8 +770,8 @@ LABEL_5:
 
       *buf = 134218242;
       limitCopy = factCount;
-      v50 = 2112;
-      v51 = v22;
+      v49 = 2112;
+      v50 = v22;
       v15 = " --- NDFSM Expert System Facts (%lu) %@---";
       v16 = v18;
       v17 = OS_LOG_TYPE_DEFAULT;
@@ -797,10 +792,10 @@ LABEL_19:
       v20 = &stru_2847966D8;
     }
 
-    v50 = 2048;
-    v51 = factCount;
-    v52 = 2112;
-    v53 = v20;
+    v49 = 2048;
+    v50 = factCount;
+    v51 = 2112;
+    v52 = v20;
     v15 = " --- NDFSM Expert System Facts (%lu of %lu) %@---";
     v16 = v18;
     v17 = OS_LOG_TYPE_DEFAULT;
@@ -809,29 +804,29 @@ LABEL_19:
   }
 
 LABEL_20:
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v23 = v12;
-  v24 = [v23 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (!v24)
   {
     goto LABEL_37;
   }
 
   v25 = v24;
-  v26 = *v44;
+  v26 = *v43;
   do
   {
     for (i = 0; i != v25; ++i)
     {
-      if (*v44 != v26)
+      if (*v43 != v26)
       {
         objc_enumerationMutation(v23);
       }
 
-      v28 = *(*(&v43 + 1) + 8 * i);
+      v28 = *(*(&v42 + 1) + 8 * i);
       if ([v28 length] && ((whenCopy & 2) == 0 || -[CLIPSShim factIsImportant:](self, "factIsImportant:", v28)))
       {
         if (whenCopy)
@@ -866,7 +861,7 @@ LABEL_34:
       }
     }
 
-    v25 = [v23 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v25 = [v23 countByEnumeratingWithState:&v42 objects:v46 count:16];
   }
 
   while (v25);
@@ -876,8 +871,8 @@ LABEL_37:
   if (whenCopy)
   {
     v38 = debuggabilityLogHandle;
-    v34 = v41;
-    v33 = v42;
+    v34 = v40;
+    v33 = v41;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -890,8 +885,8 @@ LABEL_43:
 
   else
   {
-    v34 = v41;
-    v33 = v42;
+    v34 = v40;
+    v33 = v41;
     if ((whenCopy & 4) == 0)
     {
       v35 = debuggabilityLogHandle;
@@ -904,8 +899,6 @@ LABEL_43:
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)factIsImportant:(id)important
@@ -973,7 +966,7 @@ LABEL_6:
       do
       {
         DefruleName = EnvGetDefruleName(self->_environment, v12);
-        DefrulePPForm = EnvGetDefrulePPForm(self->_environment, v12);
+        DefrulePPForm = EnvGetDefrulePPForm();
         v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:DefruleName];
         v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:DefrulePPForm];
         [v9 setObject:v16 forKeyedSubscript:v15];
@@ -997,7 +990,7 @@ LABEL_6:
 
 - (BOOL)addModuleNamed:(id)named withConstruct:(id)construct
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   constructCopy = construct;
   if (EnvFindDefmodule(self->_environment, [namedCopy UTF8String]))
@@ -1006,9 +999,9 @@ LABEL_6:
     v9 = 1;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = namedCopy;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "The %@ module already exists", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = namedCopy;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "The %@ module already exists", &v11, 0xCu);
     }
   }
 
@@ -1017,7 +1010,6 @@ LABEL_6:
     v9 = [(CLIPSShim *)self addNewConstruct:constructCopy];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1030,100 +1022,99 @@ LABEL_6:
 
 - (BOOL)loadConstructsForModule:(id)module
 {
-  v127 = *MEMORY[0x277D85DE8];
-  v116 = 0;
-  v117 = &v116;
-  v118 = 0x2020000000;
-  v119 = 0;
+  v125 = *MEMORY[0x277D85DE8];
+  v114 = 0;
+  v115 = &v114;
+  v116 = 0x2020000000;
+  v117 = 0;
   moduleCopy = module;
-  v96 = [(NSMutableDictionary *)self->_modules objectForKeyedSubscript:?];
-  if (!v96)
+  v94 = [(NSMutableDictionary *)self->_modules objectForKeyedSubscript:?];
+  if (!v94)
   {
-    v96 = [MEMORY[0x277CBEB38] dictionaryWithObject:&unk_2847EFDB8 forKey:@"LoadState"];
-    [(NSMutableDictionary *)self->_modules setObject:v96 forKeyedSubscript:moduleCopy];
+    v94 = [MEMORY[0x277CBEB38] dictionaryWithObject:&unk_2847EFDB8 forKey:@"LoadState"];
+    [(NSMutableDictionary *)self->_modules setObject:v94 forKeyedSubscript:moduleCopy];
   }
 
-  v3 = [v96 objectForKeyedSubscript:@"LoadState"];
+  v3 = [v94 objectForKeyedSubscript:@"LoadState"];
   integerValue = [v3 integerValue];
 
   LOBYTE(v5) = (integerValue - 1) < 2;
-  *(v117 + 24) = v5;
+  *(v115 + 24) = v5;
   if (integerValue == 3 || integerValue == 0)
   {
     context = objc_autoreleasePoolPush();
-    v112 = 0;
-    v113 = &v112;
-    v114 = 0x2020000000;
-    v115 = 0;
-    v7 = [CLIPSShim dataSectionNameForModule:moduleCopy];
-    v90 = v7;
-    if ([v7 length])
+    v110 = 0;
+    v111 = &v110;
+    v112 = 0x2020000000;
+    v113 = 0;
+    v88 = [CLIPSShim dataSectionNameForModule:moduleCopy];
+    if ([v88 length])
     {
-      v94 = [(CLIPSShim *)self loadDataSection:v7];
-      if ([v94 length])
+      v92 = objc_msgSend_loadDataSection_(self);
+      if ([v92 length])
       {
-        v8 = [(CLIPSShim *)self parseCLIPSModuleInfoFromConstructs:v94];
-        if (!v8)
+        v7 = [(CLIPSShim *)self parseCLIPSModuleInfoFromConstructs:v92];
+        if (!v7)
         {
-          v18 = debuggabilityLogHandle;
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v17 = debuggabilityLogHandle;
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            v21 = [v94 substringToIndex:50];
+            v20 = [v92 substringToIndex:50];
             *buf = 138412290;
-            v123 = v21;
-            _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "BAD BUILT-IN %@", buf, 0xCu);
+            v121 = v20;
+            _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "BAD BUILT-IN %@", buf, 0xCu);
           }
 
           v5 = 0;
           goto LABEL_125;
         }
 
-        v110 = 0u;
-        v111 = 0u;
         v108 = 0u;
         v109 = 0u;
-        v9 = v8;
-        v10 = [v9 countByEnumeratingWithState:&v108 objects:v126 count:16];
-        if (v10)
+        v106 = 0u;
+        v107 = 0u;
+        v8 = v7;
+        v9 = [v8 countByEnumeratingWithState:&v106 objects:v124 count:16];
+        if (v9)
         {
-          v11 = *v109;
+          v10 = *v107;
           while (2)
           {
-            for (i = 0; i != v10; ++i)
+            for (i = 0; i != v9; ++i)
             {
-              if (*v109 != v11)
+              if (*v107 != v10)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v108 + 1) + 8 * i);
-              v14 = [v13 objectForKeyedSubscript:@"Module"];
-              v15 = [v14 isEqualToString:moduleCopy];
+              v12 = *(*(&v106 + 1) + 8 * i);
+              v13 = [v12 objectForKeyedSubscript:@"Module"];
+              v14 = [v13 isEqualToString:moduleCopy];
 
-              if (v15)
+              if (v14)
               {
-                v18 = [v13 objectForKeyedSubscript:@"Version"];
-                v20 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{v18, @"Version", 0}];
-                [v96 setObject:v20 forKeyedSubscript:@"BuiltIn"];
-                *(v113 + 24) = 1;
+                v17 = [v12 objectForKeyedSubscript:@"Version"];
+                v19 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{v17, @"Version", 0}];
+                [v94 setObject:v19 forKeyedSubscript:@"BuiltIn"];
+                *(v111 + 24) = 1;
 
                 goto LABEL_26;
               }
 
-              v16 = debuggabilityLogHandle;
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+              v15 = debuggabilityLogHandle;
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
               {
-                v17 = [v13 objectForKeyedSubscript:@"Module"];
+                v16 = [v12 objectForKeyedSubscript:@"Module"];
                 *buf = 138412546;
-                v123 = v17;
-                v124 = 2112;
-                v125 = moduleCopy;
-                _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "The module name (%@) doesn't match %@", buf, 0x16u);
+                v121 = v16;
+                v122 = 2112;
+                v123 = moduleCopy;
+                _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "The module name (%@) doesn't match %@", buf, 0x16u);
               }
             }
 
-            v10 = [v9 countByEnumeratingWithState:&v108 objects:v126 count:16];
-            if (v10)
+            v9 = [v8 countByEnumeratingWithState:&v106 objects:v124 count:16];
+            if (v9)
             {
               continue;
             }
@@ -1131,108 +1122,108 @@ LABEL_6:
             break;
           }
 
-          v18 = 0;
+          v17 = 0;
 LABEL_26:
 
 LABEL_32:
           moduleCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"CLIPSOTAUpdate[%@]", moduleCopy];
-          v22 = MEMORY[0x277CBEB38];
-          v23 = [(NSMutableDictionary *)self->_pendingOTAUpdates objectForKeyedSubscript:moduleCopy];
-          v24 = [v22 dictionaryWithDictionary:v23];
+          v21 = MEMORY[0x277CBEB38];
+          v22 = [(NSMutableDictionary *)self->_pendingOTAUpdates objectForKeyedSubscript:moduleCopy];
+          v23 = [v21 dictionaryWithDictionary:v22];
 
-          v25 = [v24 objectForKeyedSubscript:@"Version"];
-          v92 = [v24 objectForKeyedSubscript:@"OTASerialNumber"];
-          v26 = debuggabilityLogHandle;
-          v27 = os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO);
-          if (!v25)
+          v24 = [v23 objectForKeyedSubscript:@"Version"];
+          v90 = [v23 objectForKeyedSubscript:@"OTASerialNumber"];
+          v25 = debuggabilityLogHandle;
+          v26 = os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO);
+          if (!v24)
           {
-            if (v27)
+            if (v26)
             {
               *buf = 138412290;
-              v123 = moduleCopy;
-              _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "No pending OTA update for %@", buf, 0xCu);
+              v121 = moduleCopy;
+              _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "No pending OTA update for %@", buf, 0xCu);
             }
 
             goto LABEL_86;
           }
 
-          if (v27)
+          if (v26)
           {
             *buf = 138412546;
-            v123 = v25;
-            v124 = 2112;
-            v125 = moduleCopy;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_INFO, "There is a Pending OTA Update (version %@) for %@", buf, 0x16u);
+            v121 = v24;
+            v122 = 2112;
+            v123 = moduleCopy;
+            _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_INFO, "There is a Pending OTA Update (version %@) for %@", buf, 0x16u);
           }
 
-          if (v18)
+          if (v17)
           {
-            integerValue2 = [v25 integerValue];
-            if (integerValue2 != [v18 integerValue])
+            integerValue2 = [v24 integerValue];
+            if (integerValue2 != [v17 integerValue])
             {
-              v33 = debuggabilityLogHandle;
+              v32 = debuggabilityLogHandle;
               if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412546;
-                v123 = v25;
-                v124 = 2112;
-                v125 = v18;
-                _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_INFO, "The Pending OTA Update (%@) is NOT the same as the built in version (%@)", buf, 0x16u);
+                v121 = v24;
+                v122 = 2112;
+                v123 = v17;
+                _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_INFO, "The Pending OTA Update (%@) is NOT the same as the built in version (%@)", buf, 0x16u);
               }
 
-              v32 = 0;
+              v31 = 0;
 LABEL_82:
               [(NSMutableDictionary *)self->_pendingOTAUpdates removeObjectForKey:moduleCopy];
-              if (v32)
+              if (v31)
               {
-                v52 = @"<UNKNOWN>";
-                if (v92)
+                v51 = @"<UNKNOWN>";
+                if (v90)
                 {
-                  v52 = v92;
+                  v51 = v90;
                 }
 
-                v53 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{@"Unloaded (OTA)", @"location", v25, @"baseVersion", v52, @"otaSerialNumber", 0}];
-                [(CLIPSShim *)self updateModuleInfoForModule:moduleCopy slotValues:v53];
+                v52 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{@"Unloaded (OTA)", @"location", v24, @"baseVersion", v51, @"otaSerialNumber", 0}];
+                [(CLIPSShim *)self updateModuleInfoForModule:moduleCopy slotValues:v52];
                 goto LABEL_118;
               }
 
 LABEL_86:
-              v54 = [(ImpoExpoService *)self->_ieService listItemsNameWithPrefix:moduleCopy sortDescriptor:0];
-              if ([v54 count] != 1)
+              v53 = [(ImpoExpoService *)self->_ieService listItemsNameWithPrefix:moduleCopy sortDescriptor:0];
+              if ([v53 count] != 1)
               {
-                if ([v54 count] < 2)
+                if ([v53 count] < 2)
                 {
-                  v53 = 0;
-                  v64 = 0;
-                  v56 = 0;
+                  v52 = 0;
+                  v63 = 0;
+                  v55 = 0;
 LABEL_117:
 
 LABEL_118:
-                  if (*(v113 + 24) == 1)
+                  if (*(v111 + 24) == 1)
                   {
-                    if ([(CLIPSShim *)self executeBatchCommand:v94 module:moduleCopy])
+                    if ([(CLIPSShim *)self executeBatchCommand:v92 module:moduleCopy])
                     {
-                      [v96 setObject:&unk_2847EFDE8 forKeyedSubscript:@"LoadState"];
-                      *(v117 + 24) = 1;
-                      if (v18)
+                      [v94 setObject:&unk_2847EFDE8 forKeyedSubscript:@"LoadState"];
+                      *(v115 + 24) = 1;
+                      if (v17)
                       {
-                        v120[0] = @"baseVersion";
-                        v120[1] = @"location";
-                        v121[0] = v18;
-                        v121[1] = @"Built-in";
-                        v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v121 forKeys:v120 count:2];
-                        [(CLIPSShim *)self updateModuleInfoForModule:moduleCopy slotValues:v81];
+                        v118[0] = @"baseVersion";
+                        v118[1] = @"location";
+                        v119[0] = v17;
+                        v119[1] = @"Built-in";
+                        v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v119 forKeys:v118 count:2];
+                        [(CLIPSShim *)self updateModuleInfoForModule:moduleCopy slotValues:v80];
                       }
                     }
 
                     else
                     {
-                      v82 = debuggabilityLogHandle;
+                      v81 = debuggabilityLogHandle;
                       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412290;
-                        v123 = moduleCopy;
-                        _os_log_impl(&dword_23255B000, v82, OS_LOG_TYPE_ERROR, "=== FAILURE loading %@ embedded constructs ===", buf, 0xCu);
+                        v121 = moduleCopy;
+                        _os_log_impl(&dword_23255B000, v81, OS_LOG_TYPE_ERROR, "=== FAILURE loading %@ embedded constructs ===", buf, 0xCu);
                       }
                     }
                   }
@@ -1240,274 +1231,274 @@ LABEL_118:
                   v5 = 1;
 LABEL_125:
 
-                  _Block_object_dispose(&v112, 8);
+                  _Block_object_dispose(&v110, 8);
                   objc_autoreleasePoolPop(context);
                   if (v5)
                   {
-                    LOBYTE(v5) = *(v117 + 24);
+                    LOBYTE(v5) = *(v115 + 24);
                   }
 
                   goto LABEL_127;
                 }
 
-                v65 = debuggabilityLogHandle;
-                if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+                v64 = debuggabilityLogHandle;
+                if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
                 {
-                  v66 = [v54 count];
+                  v65 = [v53 count];
                   *buf = 134218242;
-                  v123 = v66;
-                  v124 = 2112;
-                  v125 = moduleCopy;
-                  _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_ERROR, "There are too many (%lu) OTA Updates for %@ in the database. Deleting all of them.", buf, 0x16u);
+                  v121 = v65;
+                  v122 = 2112;
+                  v123 = moduleCopy;
+                  _os_log_impl(&dword_23255B000, v64, OS_LOG_TYPE_ERROR, "There are too many (%lu) OTA Updates for %@ in the database. Deleting all of them.", buf, 0x16u);
                 }
 
                 ieService = self->_ieService;
-                v63 = [MEMORY[0x277CBEB98] setWithArray:v54];
-                [(ImpoExpoService *)ieService deleteItemsWithNames:v63];
-                v53 = 0;
-                v64 = 0;
-                v56 = 0;
+                v62 = [MEMORY[0x277CBEB98] setWithArray:v53];
+                [(ImpoExpoService *)ieService deleteItemsWithNames:v62];
+                v52 = 0;
+                v63 = 0;
+                v55 = 0;
 LABEL_115:
 
                 goto LABEL_117;
               }
 
-              v55 = [v54 objectAtIndexedSubscript:0];
-              v56 = v55;
-              if (v55)
+              v54 = [v53 objectAtIndexedSubscript:0];
+              v55 = v54;
+              if (v54)
               {
-                v57 = objc_msgSend(v55, "rangeOfString:", @"(");
-                v59 = v58;
-                v60 = [v56 rangeOfString:@""]);
-                if (v57 == 0x7FFFFFFFFFFFFFFFLL || (v68 = v60, v57 != [moduleCopy length]) || v68 == 0x7FFFFFFFFFFFFFFFLL)
+                v56 = objc_msgSend(v54, "rangeOfString:", @"(");
+                v58 = v57;
+                v59 = [v55 rangeOfString:@""]);
+                if (v56 == 0x7FFFFFFFFFFFFFFFLL || (v67 = v59, v56 != [moduleCopy length]) || v67 == 0x7FFFFFFFFFFFFFFFLL)
                 {
-                  v61 = debuggabilityLogHandle;
+                  v60 = debuggabilityLogHandle;
                   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v123 = v56;
-                    _os_log_impl(&dword_23255B000, v61, OS_LOG_TYPE_ERROR, "Couldn't find the version ending delimiter (%@)", buf, 0xCu);
+                    v121 = v55;
+                    _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_ERROR, "Couldn't find the version ending delimiter (%@)", buf, 0xCu);
                   }
 
-                  v62 = self->_ieService;
-                  v63 = [MEMORY[0x277CBEB98] setWithObject:v56];
-                  [(ImpoExpoService *)v62 deleteItemsWithNames:v63];
-                  v53 = 0;
-                  v64 = 0;
+                  v61 = self->_ieService;
+                  v62 = [MEMORY[0x277CBEB98] setWithObject:v55];
+                  [(ImpoExpoService *)v61 deleteItemsWithNames:v62];
+                  v52 = 0;
+                  v63 = 0;
                   goto LABEL_115;
                 }
 
-                v63 = [v56 substringWithRange:{v57 + v59, v68 - (v57 + v59)}];
-                if (![v63 length])
+                v62 = [v55 substringWithRange:{v56 + v58, v67 - (v56 + v58)}];
+                if (![v62 length])
                 {
-                  v71 = debuggabilityLogHandle;
+                  v70 = debuggabilityLogHandle;
                   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v123 = v56;
-                    _os_log_impl(&dword_23255B000, v71, OS_LOG_TYPE_ERROR, "Couldn't parse the version (%@)", buf, 0xCu);
+                    v121 = v55;
+                    _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_ERROR, "Couldn't parse the version (%@)", buf, 0xCu);
                   }
 
                   goto LABEL_108;
                 }
 
-                if (v63 && v18)
+                if (v62 && v17)
                 {
-                  integerValue3 = [v63 integerValue];
-                  if (integerValue3 != [v18 integerValue])
+                  integerValue3 = [v62 integerValue];
+                  if (integerValue3 != [v17 integerValue])
                   {
-                    v70 = debuggabilityLogHandle;
+                    v69 = debuggabilityLogHandle;
                     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412546;
-                      v123 = v63;
-                      v124 = 2112;
-                      v125 = v18;
-                      _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_INFO, "The database version (%@) does not match the built-in version (%@). The database version will be deleted", buf, 0x16u);
+                      v121 = v62;
+                      v122 = 2112;
+                      v123 = v17;
+                      _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_INFO, "The database version (%@) does not match the built-in version (%@). The database version will be deleted", buf, 0x16u);
                     }
 
 LABEL_108:
-                    v72 = self->_ieService;
-                    v73 = [MEMORY[0x277CBEB98] setWithObject:v56];
-                    [(ImpoExpoService *)v72 deleteItemsWithNames:v73];
-                    v53 = 0;
-                    v64 = 0;
+                    v71 = self->_ieService;
+                    v72 = [MEMORY[0x277CBEB98] setWithObject:v55];
+                    [(ImpoExpoService *)v71 deleteItemsWithNames:v72];
+                    v52 = 0;
+                    v63 = 0;
 LABEL_114:
 
                     goto LABEL_115;
                   }
 
 LABEL_110:
-                  v74 = [v56 rangeOfString:@"{SN:"];
-                  v76 = v75;
-                  v77 = [v56 rangeOfString:@"}"];
-                  v78 = 0;
-                  if (v74 != 0x7FFFFFFFFFFFFFFFLL && v77 != 0x7FFFFFFFFFFFFFFFLL)
+                  v73 = [v55 rangeOfString:@"{SN:"];
+                  v75 = v74;
+                  v76 = [v55 rangeOfString:@"}"];
+                  v77 = 0;
+                  if (v73 != 0x7FFFFFFFFFFFFFFFLL && v76 != 0x7FFFFFFFFFFFFFFFLL)
                   {
-                    v78 = [v56 substringWithRange:{v74 + v76, v77 - (v74 + v76)}];
+                    v77 = [v55 substringWithRange:{v73 + v75, v76 - (v73 + v75)}];
                   }
 
-                  v89 = self->_ieService;
-                  v107 = 0;
-                  v98[0] = MEMORY[0x277D85DD0];
-                  v79 = v78;
-                  v98[1] = 3221225472;
-                  v98[2] = __37__CLIPSShim_loadConstructsForModule___block_invoke;
-                  v98[3] = &unk_2789903B8;
-                  v99 = moduleCopy;
-                  v100 = v94;
+                  v87 = self->_ieService;
+                  v105 = 0;
+                  v96[0] = MEMORY[0x277D85DD0];
+                  v78 = v77;
+                  v96[1] = 3221225472;
+                  v96[2] = __37__CLIPSShim_loadConstructsForModule___block_invoke;
+                  v96[3] = &unk_2789903B8;
+                  v97 = moduleCopy;
+                  v98 = v92;
                   selfCopy = self;
-                  v105 = &v112;
-                  v102 = v96;
-                  v53 = v63;
-                  v103 = v53;
-                  v64 = v79;
-                  v104 = v64;
-                  v106 = &v116;
-                  v80 = [(ImpoExpoService *)v89 exportAndUnarchiveItemUnderName:v56 lastUpdated:&v107 verificationBlock:v98];
-                  v63 = v107;
+                  v103 = &v110;
+                  v100 = v94;
+                  v52 = v62;
+                  v101 = v52;
+                  v63 = v78;
+                  v102 = v63;
+                  v104 = &v114;
+                  v79 = [(ImpoExpoService *)v87 exportAndUnarchiveItemUnderName:v55 lastUpdated:&v105 verificationBlock:v96];
+                  v62 = v105;
 
-                  v73 = v99;
+                  v72 = v97;
                   goto LABEL_114;
                 }
 
-                if (v63)
+                if (v62)
                 {
                   goto LABEL_110;
                 }
               }
 
-              v53 = 0;
-              v64 = 0;
+              v52 = 0;
+              v63 = 0;
               goto LABEL_117;
             }
           }
 
-          v29 = [v24 objectForKeyedSubscript:@"Constructs"];
-          v30 = [CLIPSShim decodeAndInflateCLIPSString:v29];
-          if (!v30 || ([CLIPSShim decryptCLIPSData:v30 forModule:moduleCopy], (v88 = objc_claimAutoreleasedReturnValue()) == 0))
+          v28 = [v23 objectForKeyedSubscript:@"Constructs"];
+          v29 = [CLIPSShim decodeAndInflateCLIPSString:v28];
+          if (!v29 || ([CLIPSShim decryptCLIPSData:v29 forModule:moduleCopy], (v86 = objc_claimAutoreleasedReturnValue()) == 0))
           {
-            v32 = 0;
+            v31 = 0;
 LABEL_81:
 
             goto LABEL_82;
           }
 
-          if (v94 && ([v88 isEqualToString:v94] & 1) != 0)
+          if (v92 && ([v86 isEqualToString:v92] & 1) != 0)
           {
-            v31 = debuggabilityLogHandle;
+            v30 = debuggabilityLogHandle;
             if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_INFO, "No point in loading OTA constructs that match built-in constructs", buf, 2u);
+              _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_INFO, "No point in loading OTA constructs that match built-in constructs", buf, 2u);
             }
 
-            v32 = 0;
+            v31 = 0;
             goto LABEL_80;
           }
 
-          v87 = [(CLIPSShim *)self parseCLIPSModuleInfoFromConstructs:v88];
-          v34 = [v87 count];
-          if (v34)
+          v85 = [(CLIPSShim *)self parseCLIPSModuleInfoFromConstructs:v86];
+          v33 = [v85 count];
+          if (v33)
           {
-            v35 = [v87 objectAtIndexedSubscript:0];
-            v36 = [v35 objectForKeyedSubscript:@"OTASerialNumber"];
+            v34 = [v85 objectAtIndexedSubscript:0];
+            v35 = [v34 objectForKeyedSubscript:@"OTASerialNumber"];
 
-            v37 = [v35 objectForKeyedSubscript:@"Platforms"];
+            v36 = [v34 objectForKeyedSubscript:@"Platforms"];
 
-            v92 = v36;
-            v34 = v37;
+            v90 = v35;
+            v33 = v36;
           }
 
-          v86 = v34;
-          if ([v34 count])
+          v84 = v33;
+          if ([v33 count])
           {
-            v38 = +[SystemProperties sharedInstance];
-            v39 = -[CLIPSShim otaUpdatePlatformStringForDeviceClass:](self, "otaUpdatePlatformStringForDeviceClass:", [v38 deviceClass]);
+            v37 = +[SystemProperties sharedInstance];
+            v38 = -[CLIPSShim otaUpdatePlatformStringForDeviceClass:](self, "otaUpdatePlatformStringForDeviceClass:", [v37 deviceClass]);
 
-            if (([v86 containsObject:v39] & 1) == 0)
+            if (([v84 containsObject:v38] & 1) == 0)
             {
-              v41 = debuggabilityLogHandle;
+              v40 = debuggabilityLogHandle;
               if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v123 = v86;
-                v124 = 2112;
-                v125 = v39;
-                _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_ERROR, "The constructs preamble's platforms %@ doesn't match this device type %@", buf, 0x16u);
+                v121 = v84;
+                v122 = 2112;
+                v123 = v38;
+                _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_ERROR, "The constructs preamble's platforms %@ doesn't match this device type %@", buf, 0x16u);
               }
 
               goto LABEL_62;
             }
           }
 
-          if ([(CLIPSShim *)self executeBatchCommand:v88 module:moduleCopy])
+          if ([(CLIPSShim *)self executeBatchCommand:v86 module:moduleCopy])
           {
-            *(v113 + 24) = 0;
-            gzipDeflate = [v30 gzipDeflate];
+            *(v111 + 24) = 0;
+            gzipDeflate = [v29 gzipDeflate];
             if ([gzipDeflate length])
             {
-              [v24 setObject:gzipDeflate forKey:@"Constructs"];
-              if ([(__CFString *)v92 length])
+              [v23 setObject:gzipDeflate forKey:@"Constructs"];
+              if ([(__CFString *)v90 length])
               {
-                [MEMORY[0x277CCACA8] stringWithFormat:@"%@(%@){SN:%@}", moduleCopy, v25, v92];
+                [MEMORY[0x277CCACA8] stringWithFormat:@"%@(%@){SN:%@}", moduleCopy, v24, v90];
               }
 
               else
               {
-                [MEMORY[0x277CCACA8] stringWithFormat:@"%@(%@)", moduleCopy, v25];
+                [MEMORY[0x277CCACA8] stringWithFormat:@"%@(%@)", moduleCopy, v24];
               }
-              v85 = ;
-              v45 = [(ImpoExpoService *)self->_ieService listItemsNameWithPrefix:moduleCopy sortDescriptor:0];
-              if ([v45 count])
+              v83 = ;
+              v44 = [(ImpoExpoService *)self->_ieService listItemsNameWithPrefix:moduleCopy sortDescriptor:0];
+              if ([v44 count])
               {
-                v46 = self->_ieService;
-                v47 = [MEMORY[0x277CBEB98] setWithArray:v45];
-                [(ImpoExpoService *)v46 deleteItemsWithNames:v47];
+                v45 = self->_ieService;
+                v46 = [MEMORY[0x277CBEB98] setWithArray:v44];
+                [(ImpoExpoService *)v45 deleteItemsWithNames:v46];
               }
 
-              v48 = [(ImpoExpoService *)self->_ieService archiveAndImportItemUnderName:v85 item:v24];
-              *(v117 + 24) = v48;
-              if (v48)
+              v47 = [(ImpoExpoService *)self->_ieService archiveAndImportItemUnderName:v83 item:v23];
+              *(v115 + 24) = v47;
+              if (v47)
               {
-                [v96 setObject:&unk_2847EFDD0 forKeyedSubscript:@"LoadState"];
-                v49 = [v96 objectForKeyedSubscript:@"Database"];
-                v50 = v49;
-                if (v49)
+                [v94 setObject:&unk_2847EFDD0 forKeyedSubscript:@"LoadState"];
+                v48 = [v94 objectForKeyedSubscript:@"Database"];
+                v49 = v48;
+                if (v48)
                 {
-                  [v49 setObject:v25 forKey:@"Version"];
+                  [v48 setObject:v24 forKey:@"Version"];
                 }
 
                 else
                 {
-                  v50 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{v25, @"Version", 0}];
-                  [v96 setObject:v50 forKeyedSubscript:@"Database"];
+                  v49 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{v24, @"Version", 0}];
+                  [v94 setObject:v49 forKeyedSubscript:@"Database"];
                 }
               }
 
               else
               {
-                v51 = debuggabilityLogHandle;
+                v50 = debuggabilityLogHandle;
                 if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_ERROR, "Failed to save the CLIPSOTAUpdate to the ImpoExpo", buf, 2u);
+                  _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_ERROR, "Failed to save the CLIPSOTAUpdate to the ImpoExpo", buf, 2u);
                 }
               }
             }
 
             else
             {
-              v44 = debuggabilityLogHandle;
+              v43 = debuggabilityLogHandle;
               if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_ERROR, "Unable to gzipdeflate Pending OTA Update", buf, 2u);
+                _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, "Unable to gzipdeflate Pending OTA Update", buf, 2u);
               }
             }
 
-            v42 = v87;
-            v32 = 1;
+            v41 = v85;
+            v31 = 1;
 LABEL_79:
 
 LABEL_80:
@@ -1515,45 +1506,44 @@ LABEL_80:
           }
 
 LABEL_62:
-          v42 = v87;
-          v43 = debuggabilityLogHandle;
+          v41 = v85;
+          v42 = debuggabilityLogHandle;
           if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, "The pending OTA Update could not be loaded for some reason", buf, 2u);
+            _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, "The pending OTA Update could not be loaded for some reason", buf, 2u);
           }
 
-          v32 = 0;
+          v31 = 0;
           goto LABEL_79;
         }
       }
 
-      v18 = 0;
+      v17 = 0;
       goto LABEL_32;
     }
 
-    v19 = debuggabilityLogHandle;
+    v18 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "Don't have a built-in version. This could be ok", buf, 2u);
+      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_INFO, "Don't have a built-in version. This could be ok", buf, 2u);
     }
 
-    v18 = 0;
-    v94 = 0;
+    v17 = 0;
+    v92 = 0;
     goto LABEL_32;
   }
 
 LABEL_127:
-  _Block_object_dispose(&v116, 8);
+  _Block_object_dispose(&v114, 8);
 
-  v83 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
 uint64_t __37__CLIPSShim_loadConstructsForModule___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1579,13 +1569,13 @@ uint64_t __37__CLIPSShim_loadConstructsForModule___block_invoke(uint64_t a1, voi
     v6 = [v5 length];
     if (v6 <= [@";;[{Module:" length])
     {
-      v18 = debuggabilityLogHandle;
+      v17 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v19 = *(a1 + 32);
+        v18 = *(a1 + 32);
         *buf = 138412290;
-        v33 = v19;
-        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "gzipInflate of the %@ OTA Update from the database failed", buf, 0xCu);
+        v32 = v18;
+        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "gzipInflate of the %@ OTA Update from the database failed", buf, 0xCu);
       }
 
       v9 = 0;
@@ -1601,7 +1591,7 @@ uint64_t __37__CLIPSShim_loadConstructsForModule___block_invoke(uint64_t a1, voi
       {
         v10 = *(a1 + 32);
         *buf = 138412290;
-        v33 = v10;
+        v32 = v10;
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "The %@ constructs in the database are unencrypted. Tossing them.", buf, 0xCu);
         v9 = 0;
       }
@@ -1609,53 +1599,53 @@ uint64_t __37__CLIPSShim_loadConstructsForModule___block_invoke(uint64_t a1, voi
       goto LABEL_38;
     }
 
-    v20 = +[CLIPSShim createDecryptedCLPData:length:](CLIPSShim, "createDecryptedCLPData:length:", [v5 bytes], objc_msgSend(v5, "length"));
-    if (![v20 length])
+    v19 = +[CLIPSShim createDecryptedCLPData:length:](CLIPSShim, "createDecryptedCLPData:length:", [v5 bytes], objc_msgSend(v5, "length"));
+    if (![v19 length])
     {
-      v22 = debuggabilityLogHandle;
+      v21 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v23 = *(a1 + 32);
+        v22 = *(a1 + 32);
         *buf = 138412290;
-        v33 = v23;
-        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Unable to decrypt the %@ constructs in the database", buf, 0xCu);
+        v32 = v22;
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Unable to decrypt the %@ constructs in the database", buf, 0xCu);
       }
 
       v9 = 0;
       goto LABEL_37;
     }
 
-    v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:objc_msgSend(v20 length:"bytes") encoding:{objc_msgSend(v20, "length"), 1}];
-    if (([v21 isEqualToString:*(a1 + 40)] & 1) == 0)
+    v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:objc_msgSend(v19 length:"bytes") encoding:{objc_msgSend(v19, "length"), 1}];
+    if (([v20 isEqualToString:*(a1 + 40)] & 1) == 0)
     {
-      if ([*(a1 + 48) executeBatchCommand:v21 module:*(a1 + 32)])
+      if ([*(a1 + 48) executeBatchCommand:v20 module:*(a1 + 32)])
       {
         *(*(*(a1 + 80) + 8) + 24) = 0;
         [*(a1 + 56) setObject:&unk_2847EFDD0 forKeyedSubscript:@"LoadState"];
-        v24 = [*(a1 + 56) objectForKeyedSubscript:@"Database"];
-        if (v24)
+        v23 = [*(a1 + 56) objectForKeyedSubscript:@"Database"];
+        if (v23)
         {
-          v25 = v24;
-          [v24 setObject:*(a1 + 64) forKey:@"Version"];
+          v24 = v23;
+          [v23 setObject:*(a1 + 64) forKey:@"Version"];
         }
 
         else
         {
-          v25 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{*(a1 + 64), @"Version", 0}];
-          [*(a1 + 56) setObject:v25 forKeyedSubscript:@"Database"];
+          v24 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{*(a1 + 64), @"Version", 0}];
+          [*(a1 + 56) setObject:v24 forKeyedSubscript:@"Database"];
         }
 
-        v29 = *(a1 + 64);
-        if (v29)
+        v28 = *(a1 + 64);
+        if (v28)
         {
-          v30 = *(a1 + 72);
-          if (!v30)
+          v29 = *(a1 + 72);
+          if (!v29)
           {
-            v30 = @"<UNKNOWN>";
+            v29 = @"<UNKNOWN>";
           }
 
-          v31 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{@"Database (OTA)", @"location", v29, @"baseVersion", v30, @"otaSerialNumber", 0}];
-          [*(a1 + 48) updateModuleInfoForModule:*(a1 + 32) slotValues:v31];
+          v30 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{@"Database (OTA)", @"location", v28, @"baseVersion", v29, @"otaSerialNumber", 0}];
+          [*(a1 + 48) updateModuleInfoForModule:*(a1 + 32) slotValues:v30];
         }
 
         *(*(*(a1 + 88) + 8) + 24) = 1;
@@ -1664,16 +1654,16 @@ uint64_t __37__CLIPSShim_loadConstructsForModule___block_invoke(uint64_t a1, voi
         goto LABEL_36;
       }
 
-      v26 = debuggabilityLogHandle;
+      v25 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v27 = *(a1 + 32);
-        v28 = *(a1 + 64);
+        v26 = *(a1 + 32);
+        v27 = *(a1 + 64);
         *buf = 138412546;
-        v33 = v27;
-        v34 = 2112;
-        v35 = v28;
-        _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "=== FAILURE loading %@ constructs with version (%@) from ImpoExpo ===", buf, 0x16u);
+        v32 = v26;
+        v33 = 2112;
+        v34 = v27;
+        _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "=== FAILURE loading %@ constructs with version (%@) from ImpoExpo ===", buf, 0x16u);
       }
     }
 
@@ -1694,14 +1684,13 @@ LABEL_14:
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     *buf = 138412290;
-    v33 = v14;
+    v32 = v14;
     _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "the CLIPSOTAUpdate in the database is not a dictionary! (%@)", buf, 0xCu);
   }
 
   v9 = 0;
 LABEL_15:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -1768,7 +1757,7 @@ LABEL_9:
 
 + (id)decryptCLIPSData:(id)data forModule:(id)module
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   moduleCopy = module;
   v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:dataCopy encoding:1];
@@ -1777,9 +1766,9 @@ LABEL_9:
     v8 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = moduleCopy;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "This OTA %@ module constructs is unencrypted!. Ignoring", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = moduleCopy;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "This OTA %@ module constructs is unencrypted!. Ignoring", &v16, 0xCu);
     }
 
     v9 = 0;
@@ -1802,9 +1791,9 @@ LABEL_9:
         v13 = debuggabilityLogHandle;
         if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v17 = 138412290;
-          v18 = moduleCopy;
-          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "%@ OTA module constructs is corrupted.", &v17, 0xCu);
+          v16 = 138412290;
+          v17 = moduleCopy;
+          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "%@ OTA module constructs is corrupted.", &v16, 0xCu);
         }
 
         v9 = 0;
@@ -1816,23 +1805,21 @@ LABEL_9:
       v14 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = moduleCopy;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "%@ OTA module couldn't be decrypted", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = moduleCopy;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "%@ OTA module couldn't be decrypted", &v16, 0xCu);
       }
 
       v9 = 0;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)dataSectionNameForModule:(id)module
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   moduleCopy = module;
   if ([moduleCopy isEqualToString:@"Baseband"])
   {
@@ -1879,15 +1866,14 @@ LABEL_9:
     v5 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = moduleCopy;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Unknown module name: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = moduleCopy;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Unknown module name: %@", &v7, 0xCu);
     }
 
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1939,32 +1925,32 @@ LABEL_9:
 
 - (void)updateAllModuleInfos
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = self->_modules;
-  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v3)
   {
     v5 = v3;
     v6 = 0;
-    v7 = *v27;
+    v7 = *v26;
     *&v4 = 138412546;
-    v24 = v4;
+    v23 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
         v9 = v6;
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
-        v6 = [(NSMutableDictionary *)self->_modules objectForKeyedSubscript:v10, v24];
+        v10 = *(*(&v25 + 1) + 8 * i);
+        v6 = [(NSMutableDictionary *)self->_modules objectForKeyedSubscript:v10, v23];
 
         if (v6)
         {
@@ -1994,21 +1980,21 @@ LABEL_9:
               {
                 v20 = v18;
                 v21 = [(CLIPSShim *)self stringFromConstructsLoadState:integerValue];
-                *buf = v24;
-                v33 = v10;
-                v34 = 2112;
-                v35 = v21;
+                *buf = v23;
+                v32 = v10;
+                v33 = 2112;
+                v34 = v21;
                 _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_INFO, "Load state for %@ is %@", buf, 0x16u);
 
                 v15 = @"Unloaded";
               }
             }
 
-            v30[0] = @"baseVersion";
-            v30[1] = @"location";
-            v31[0] = v12;
-            v31[1] = v15;
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+            v29[0] = @"baseVersion";
+            v29[1] = @"location";
+            v30[0] = v12;
+            v30[1] = v15;
+            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
             [(CLIPSShim *)self updateModuleInfoForModule:v10 slotValues:v22];
           }
 
@@ -2017,10 +2003,10 @@ LABEL_9:
             v17 = debuggabilityLogHandle;
             if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
             {
-              *buf = v24;
-              v33 = v6;
-              v34 = 2112;
-              v35 = v10;
+              *buf = v23;
+              v32 = v6;
+              v33 = 2112;
+              v34 = v10;
               _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "No version in %@ for %@", buf, 0x16u);
             }
           }
@@ -2032,13 +2018,13 @@ LABEL_9:
           if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v33 = v10;
+            v32 = v10;
             _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "No Module Dict for %@", buf, 0xCu);
           }
         }
       }
 
-      v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
     while (v5);
@@ -2048,13 +2034,11 @@ LABEL_9:
   {
     v6 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateModuleInfoForModule:(id)module slotValues:(id)values
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   moduleCopy = module;
   valuesCopy = values;
   v8 = [MEMORY[0x277CBEAC0] dictionaryWithObject:moduleCopy forKey:@"name"];
@@ -2070,7 +2054,7 @@ LABEL_9:
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v48 = v10;
+        v47 = v10;
         _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "Couldn't get fact pointer %p", buf, 0xCu);
       }
 
@@ -2080,37 +2064,37 @@ LABEL_9:
     v12 = pointerValue;
     v13 = [(CLIPSShim *)self factDictionaryForFact:pointerValue];
     v14 = [v13 objectForKeyedSubscript:@"DeftemplateSlots"];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     v15 = valuesCopy;
-    v16 = [(__CFString *)v15 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v16 = [(__CFString *)v15 countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v16)
     {
       v17 = v16;
-      v35 = v12;
+      v34 = v12;
       selfCopy = self;
-      v37 = v13;
-      v38 = v10;
-      v39 = v9;
-      v40 = valuesCopy;
-      v41 = moduleCopy;
+      v36 = v13;
+      v37 = v10;
+      v38 = v9;
+      v39 = valuesCopy;
+      v40 = moduleCopy;
       v18 = 0;
       v19 = 0;
-      v20 = *v43;
+      v20 = *v42;
       do
       {
         v21 = 0;
         v22 = v18;
         do
         {
-          if (*v43 != v20)
+          if (*v42 != v20)
           {
             objc_enumerationMutation(v15);
           }
 
-          v23 = *(*(&v42 + 1) + 8 * v21);
+          v23 = *(*(&v41 + 1) + 8 * v21);
           v18 = [(__CFString *)v15 objectForKeyedSubscript:v23];
 
           v24 = [v14 objectForKeyedSubscript:v23];
@@ -2127,52 +2111,52 @@ LABEL_9:
         }
 
         while (v17 != v21);
-        v17 = [(__CFString *)v15 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v17 = [(__CFString *)v15 countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
       while (v17);
 
-      v10 = v38;
+      v10 = v37;
       if ((v19 & 1) == 0)
       {
-        valuesCopy = v40;
-        moduleCopy = v41;
-        v9 = v39;
-        v13 = v37;
+        valuesCopy = v39;
+        moduleCopy = v40;
+        v9 = v38;
+        v13 = v36;
 LABEL_28:
 
 LABEL_29:
         goto LABEL_30;
       }
 
-      [(CLIPSShim *)selfCopy retractFact:v35];
-      [(CLIPSShim *)selfCopy releaseFact:v35];
-      v13 = v37;
-      v26 = [(CLIPSShim *)selfCopy factStringForFactDictionary:v37];
+      [(CLIPSShim *)selfCopy retractFact:v34];
+      [(CLIPSShim *)selfCopy releaseFact:v34];
+      v13 = v36;
+      v26 = [(CLIPSShim *)selfCopy factStringForFactDictionary:v36];
       v27 = [(CLIPSShim *)selfCopy assertFactString:v26 moduleName:@"Modules"];
-      moduleCopy = v41;
+      moduleCopy = v40;
       if (v27)
       {
         [(CLIPSShim *)selfCopy retainFact:v27];
         v15 = v26;
-        valuesCopy = v40;
+        valuesCopy = v39;
       }
 
       else
       {
         v33 = debuggabilityLogHandle;
-        valuesCopy = v40;
+        valuesCopy = v39;
         if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v48 = v15;
+          v47 = v15;
           _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "Could not assert module info fact with %@", buf, 0xCu);
         }
 
         v15 = v26;
       }
 
-      v9 = v39;
+      v9 = v38;
     }
 
     else
@@ -2195,20 +2179,18 @@ LABEL_29:
     }
 
     *buf = 138412546;
-    v48 = v31;
-    v49 = 2112;
-    v50 = moduleCopy;
+    v47 = v31;
+    v48 = 2112;
+    v49 = moduleCopy;
     _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_INFO, "We %@ Module Info for %@", buf, 0x16u);
   }
 
 LABEL_30:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)factDictionaryForFact:(void *)fact
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (fact)
   {
@@ -2236,34 +2218,34 @@ LABEL_30:
 
       dictionary2 = [MEMORY[0x277CBEB38] dictionary];
       [dictionary setObject:dictionary2 forKeyedSubscript:@"DeftemplateSlots"];
+      v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       *buf = 0u;
       EnvFactSlotNames(self->_environment, fact, buf);
       v14 = [(CLIPSShim *)self objectForDO:buf];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
-      v15 = [v14 countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v25 objects:v32 count:16];
       if (v15)
       {
         v16 = v15;
-        v25 = dictionary;
+        v24 = dictionary;
         v17 = 0;
-        v18 = *v27;
+        v18 = *v26;
         do
         {
           v19 = 0;
           v20 = v17;
           do
           {
-            if (*v27 != v18)
+            if (*v26 != v18)
             {
               objc_enumerationMutation(v14);
             }
 
-            v21 = *(*(&v26 + 1) + 8 * v19);
+            v21 = *(*(&v25 + 1) + 8 * v19);
             v17 = [(CLIPSShim *)self getValueForSlotNamed:v21 fromFact:fact];
 
             if (v17)
@@ -2276,12 +2258,12 @@ LABEL_30:
           }
 
           while (v16 != v19);
-          v16 = [v14 countByEnumeratingWithState:&v26 objects:v33 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v25 objects:v32 count:16];
         }
 
         while (v16);
 
-        dictionary = v25;
+        dictionary = v24;
       }
     }
   }
@@ -2295,8 +2277,6 @@ LABEL_30:
       _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "factDictionaryForFact(). fact was nil", buf, 2u);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -2410,7 +2390,7 @@ LABEL_30:
 
 + (id)createDecryptedCLPData:(const void *)data length:(unint64_t)length
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (!data || !length)
   {
     v13 = debuggabilityLogHandle;
@@ -2418,7 +2398,7 @@ LABEL_30:
     {
       *buf = 134218240;
       *&buf[4] = data;
-      v30 = 2048;
+      v29 = 2048;
       lengthCopy = length;
       v10 = "Decrypting bad parameters (%p/%ld)";
       v11 = v13;
@@ -2457,14 +2437,14 @@ LABEL_8:
   dataOutMoved = 0;
   if (!OutputLength)
   {
-    EnvironmentZoneMalloc_cold_2(v28);
+    EnvironmentZoneMalloc_cold_2(v27);
   }
 
   v15 = OutputLength;
   v16 = malloc_type_malloc(OutputLength, 0x40BC3867uLL);
   if (!v16)
   {
-    [NetworkAnalyticsEngine _createJournalRecordOfType:v28 forInterface:? fromDict:?];
+    [NetworkAnalyticsEngine _createJournalRecordOfType:v27 forInterface:? fromDict:?];
   }
 
   v17 = v16;
@@ -2476,11 +2456,11 @@ LABEL_8:
     v20 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 67109120;
-      *&v28[4] = v19;
+      *v27 = 67109120;
+      *&v27[4] = v19;
       v21 = "Decrypting - CCCryptorUpdate failed: %d";
 LABEL_17:
-      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, v21, v28, 8u);
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, v21, v27, 8u);
       goto LABEL_18;
     }
 
@@ -2494,8 +2474,8 @@ LABEL_17:
     v20 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 67109120;
-      *&v28[4] = v19;
+      *v27 = 67109120;
+      *&v27[4] = v19;
       v21 = "Decrypting - CCCryptorFinal failed: %d";
       goto LABEL_17;
     }
@@ -2504,9 +2484,9 @@ LABEL_18:
     v23 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 67109120;
-      *&v28[4] = v19;
-      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "CCCrypt() error: %d", v28, 8u);
+      *v27 = 67109120;
+      *&v27[4] = v19;
+      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "CCCrypt() error: %d", v27, 8u);
     }
 
     free(v17);
@@ -2515,14 +2495,13 @@ LABEL_18:
 
   v24 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v17 length:dataOutMoved + *buf freeWhenDone:1];
 LABEL_22:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (id)loadDataSection:(id)section
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   size = 0;
   v4 = getsectiondata(&dword_23255B000, "__TEXT", [sectionCopy UTF8String], &size);
@@ -2554,7 +2533,7 @@ LABEL_10:
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v14 = sectionCopy;
+        v13 = sectionCopy;
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Unable to decode %@ decrypted data section into a string", buf, 0xCu);
       }
     }
@@ -2570,19 +2549,17 @@ LABEL_11:
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = sectionCopy;
+      v13 = sectionCopy;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "Unable to get datasection with name %@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)deactivateModule:(id)module
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   moduleCopy = module;
   moduleCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"CLIPSOTAUpdate[%@]", moduleCopy];
   v6 = [(ImpoExpoService *)self->_ieService listItemsNameWithPrefix:moduleCopy sortDescriptor:0];
@@ -2595,7 +2572,7 @@ LABEL_11:
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v16 = moduleCopy;
+        v15 = moduleCopy;
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "We've been told to delete the OTA Update for %@", buf, 0xCu);
       }
 
@@ -2616,9 +2593,9 @@ LABEL_10:
     {
       v12 = v11;
       *buf = 134218242;
-      v16 = [v6 count];
-      v17 = 2112;
-      v18 = moduleCopy;
+      v15 = [v6 count];
+      v16 = 2112;
+      v17 = moduleCopy;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "There are too many (%lu) OTA Updates for %@ in the database which we've been told to delete. Deleting all of them.", buf, 0x16u);
     }
 
@@ -2629,13 +2606,11 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOTAUpdate:(id)update version:(id)version module:(id)module
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   versionCopy = version;
   moduleCopy = module;
@@ -2673,27 +2648,25 @@ LABEL_11:
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v19 = moduleCopy;
+      v18 = moduleCopy;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "%@ module constructs is empty. This would be ok if the ota update is meant to be blank.", buf, 0xCu);
     }
   }
 
-  v16[0] = @"Version";
-  v16[1] = @"Constructs";
-  v17[0] = versionCopy;
-  v17[1] = updateCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = @"Version";
+  v15[1] = @"Constructs";
+  v16[0] = versionCopy;
+  v16[1] = updateCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   [(NSMutableDictionary *)self->_pendingOTAUpdates setObject:v12 forKeyedSubscript:moduleCopy];
 
   [(NSMutableDictionary *)self->_modules removeObjectForKey:moduleCopy];
 LABEL_12:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int)executeBatchCommand:(id)command module:(id)module
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   moduleCopy = module;
   if (([moduleCopy isEqualToString:@"COMMON"] & 1) != 0 || (objc_msgSend(moduleCopy, "isEqualToString:", @"Modules") & 1) != 0 || EnvFindDefmodule(self->_environment, objc_msgSend(moduleCopy, "UTF8String")))
@@ -2705,18 +2678,17 @@ LABEL_12:
 
   else
   {
-    v11 = debuggabilityLogHandle;
+    v10 = debuggabilityLogHandle;
     ConstructsFromLogicalName = 0;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = moduleCopy;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "executeBatchCommand: %@ defmodule is unknown", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = moduleCopy;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "executeBatchCommand: %@ defmodule is unknown", &v11, 0xCu);
       ConstructsFromLogicalName = 0;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return ConstructsFromLogicalName;
 }
 
@@ -2821,7 +2793,7 @@ LABEL_12:
 
 - (void)assertFactString:(id)string moduleName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   nameCopy = name;
   Defmodule = EnvFindDefmodule(self->_environment, [nameCopy UTF8String]);
@@ -2836,11 +2808,11 @@ LABEL_12:
       v11 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138412546;
-        v16 = stringCopy;
-        v17 = 2112;
-        v18 = nameCopy;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "EnvAssertString() failed for %@ in module %@. Possibly a duplicate fact.", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = stringCopy;
+        v16 = 2112;
+        v17 = nameCopy;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "EnvAssertString() failed for %@ in module %@. Possibly a duplicate fact.", &v14, 0x16u);
       }
     }
 
@@ -2852,17 +2824,16 @@ LABEL_12:
     v12 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412546;
-      v16 = nameCopy;
-      v17 = 2112;
-      v18 = stringCopy;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "EnvFindDefmodule() failed to find module %@ when asserting %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = nameCopy;
+      v16 = 2112;
+      v17 = stringCopy;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "EnvFindDefmodule() failed to find module %@ when asserting %@", &v14, 0x16u);
     }
 
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -3004,31 +2975,31 @@ LABEL_11:
 
 void __61__CLIPSShim_matchFactsWithDeftemplateName_withSlotKeyValues___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
 LABEL_3:
     v10 = 0;
     v11 = v8;
     while (1)
     {
-      if (*v17 != v9)
+      if (*v16 != v9)
       {
         objc_enumerationMutation(v4);
       }
 
-      v12 = *(*(&v16 + 1) + 8 * v10);
-      v8 = [*(a1 + 32) objectForKeyedSubscript:{v12, v16}];
+      v12 = *(*(&v15 + 1) + 8 * v10);
+      v8 = [*(a1 + 32) objectForKeyedSubscript:{v12, v15}];
 
       if (v8)
       {
@@ -3050,7 +3021,7 @@ LABEL_3:
       v11 = v8;
       if (v6 == v10)
       {
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -3072,13 +3043,11 @@ LABEL_13:
     [v14 addObject:v4];
     v13 = v7;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deftemplateNamed:(id)named moduleName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   Defmodule = EnvFindDefmodule(self->_environment, [name UTF8String]);
   if (Defmodule)
@@ -3091,9 +3060,9 @@ LABEL_13:
       v9 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v12 = 138412290;
-        v13 = namedCopy;
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "CLIPS: FAILED TO FIND %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = namedCopy;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "CLIPS: FAILED TO FIND %@", &v11, 0xCu);
       }
     }
 
@@ -3103,13 +3072,12 @@ LABEL_13:
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return Defmodule;
 }
 
 - (id)deftemplatesMatchingPrefix:(id)prefix
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   v5 = prefixCopy;
   if (!prefixCopy || ![prefixCopy length])
@@ -3146,9 +3114,9 @@ LABEL_54:
   v12 = 0;
   v13 = 0x277CBE000uLL;
   *&v10 = 138412290;
-  v49 = v10;
-  v50 = v5;
-  v54 = uTF8String;
+  v48 = v10;
+  v49 = v5;
+  v53 = uTF8String;
   do
   {
     if (!v12)
@@ -3169,7 +3137,7 @@ LABEL_54:
           *buf = 136315394;
           *&buf[4] = DefruleName;
           *&buf[12] = 2080;
-          *&buf[14] = v54;
+          *&buf[14] = v53;
           _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_INFO, "ANALYTICS-CLIPS: Found deftemplate %s that matches prefix %s", buf, 0x16u);
         }
 
@@ -3190,56 +3158,56 @@ LABEL_54:
 
         else
         {
-          v52 = [v18 substringFromIndex:v19 + v20];
+          v51 = [v18 substringFromIndex:v19 + v20];
           v22 = debuggabilityLogHandle;
           if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v49;
-            *&buf[4] = v52;
+            *buf = v48;
+            *&buf[4] = v51;
             _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEBUG, "ANALYTICS-CLIPS: Parsed out AWD metric name: %@", buf, 0xCu);
           }
 
-          v66 = 0u;
+          v65 = 0u;
           memset(buf, 0, sizeof(buf));
           EnvDeftemplateSlotNames(self->_environment, v11, buf);
           v23 = *&buf[16];
           if (*&buf[16])
           {
-            v51 = v18;
-            v55 = objc_alloc_init(*(v13 + 2872));
+            v50 = v18;
+            v54 = objc_alloc_init(*(v13 + 2872));
             v24 = *&buf[24];
-            v57 = v66;
-            if (*&buf[24] <= v66)
+            v56 = v65;
+            if (*&buf[24] <= v65)
             {
-              v56 = v23 + 24;
-              v53 = v8;
+              v55 = v23 + 24;
+              v52 = v8;
               do
               {
-                v25 = (v56 + 16 * v24);
+                v25 = (v55 + 16 * v24);
                 if ((*v25 & 0xFFFE) == 2)
                 {
                   v26 = *(*(v25 + 1) + 24);
                   if (v26)
                   {
                     v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v26];
+                    v62 = 0u;
                     v63 = 0u;
-                    v64 = 0u;
-                    *v62 = 0u;
-                    EnvDeftemplateSlotTypes(self->_environment, v11, v26, v62);
-                    if (!v63 || v64 - *(&v63 + 1) == -1)
+                    *v61 = 0u;
+                    EnvDeftemplateSlotTypes(self->_environment, v11, v26, v61);
+                    if (!v62 || v63 - *(&v62 + 1) == -1)
                     {
                       v34 = debuggabilityLogHandle;
                       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
                       {
-                        *v58 = 0;
-                        _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "    slot types is nil or length is zero for this slot.", v58, 2u);
+                        *v57 = 0;
+                        _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "    slot types is nil or length is zero for this slot.", v57, 2u);
                       }
                     }
 
-                    else if (v64 >= *(&v63 + 1))
+                    else if (v63 >= *(&v62 + 1))
                     {
-                      v28 = v64 - *(&v63 + 1) + 1;
-                      v29 = (v63 + 16 * *(&v63 + 1) + 24);
+                      v28 = v63 - *(&v62 + 1) + 1;
+                      v29 = (v62 + 16 * *(&v62 + 1) + 24);
                       do
                       {
                         if ((*v29 & 0xFFFE) != 2)
@@ -3248,11 +3216,11 @@ LABEL_54:
                           if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
                           {
                             v31 = *v29;
-                            *v58 = 67109378;
-                            v59 = v31;
-                            v60 = 2080;
-                            v61 = v26;
-                            _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "Found unexpected multi-field type of %d for %s (should be STRING or SYMBOL)", v58, 0x12u);
+                            *v57 = 67109378;
+                            v58 = v31;
+                            v59 = 2080;
+                            v60 = v26;
+                            _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "Found unexpected multi-field type of %d for %s (should be STRING or SYMBOL)", v57, 0x12u);
                           }
                         }
 
@@ -3263,11 +3231,11 @@ LABEL_54:
                       while (v28);
                     }
 
-                    v35 = [v27 rangeOfString:{@"/", v49}];
+                    v35 = [v27 rangeOfString:{@"/", v48}];
                     if (v35 == 0x7FFFFFFFFFFFFFFFLL)
                     {
-                      [v55 setObject:v27 forKeyedSubscript:v27];
-                      v8 = v53;
+                      [v54 setObject:v27 forKeyedSubscript:v27];
+                      v8 = v52;
                     }
 
                     else
@@ -3276,12 +3244,12 @@ LABEL_54:
                       v38 = v36;
                       v39 = [v27 substringWithRange:{0, v35}];
                       v40 = [v27 substringFromIndex:v37 + v38];
-                      v41 = [v55 objectForKeyedSubscript:v39];
-                      v8 = v53;
+                      v41 = [v54 objectForKeyedSubscript:v39];
+                      v8 = v52;
                       if (!v41)
                       {
                         v41 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                        [v55 setObject:v41 forKeyedSubscript:v39];
+                        [v54 setObject:v41 forKeyedSubscript:v39];
                       }
 
                       [v41 setObject:v27 forKeyedSubscript:v40];
@@ -3297,40 +3265,40 @@ LABEL_54:
                   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
                   {
                     v33 = *v25;
-                    *v62 = 67109120;
-                    *&v62[4] = v33;
-                    _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "Found unexpected multi-field type of %d for slot names (should be STRING or SYMBOL)", v62, 8u);
+                    *v61 = 67109120;
+                    *&v61[4] = v33;
+                    _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "Found unexpected multi-field type of %d for slot names (should be STRING or SYMBOL)", v61, 8u);
                   }
                 }
               }
 
-              while (v24++ != v57);
+              while (v24++ != v56);
             }
 
-            v18 = v51;
-            [v55 setObject:v51 forKeyedSubscript:{@"kAnalyticsCLIPSTemplateName", v49}];
+            v18 = v50;
+            [v54 setObject:v50 forKeyedSubscript:{@"kAnalyticsCLIPSTemplateName", v48}];
             v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v16];
-            [v55 setObject:v43 forKeyedSubscript:@"kAnalyticsCLIPSTemplateModule"];
+            [v54 setObject:v43 forKeyedSubscript:@"kAnalyticsCLIPSTemplateModule"];
 
-            v44 = v52;
-            [v12 setObject:v55 forKeyedSubscript:v52];
+            v44 = v51;
+            [v12 setObject:v54 forKeyedSubscript:v51];
 
-            v5 = v50;
+            v5 = v49;
           }
 
           else
           {
             v45 = debuggabilityLogHandle;
-            v44 = v52;
+            v44 = v51;
             if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
             {
-              *v62 = 0;
-              _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "  Missing slot names value for this deftemplate.", v62, 2u);
+              *v61 = 0;
+              _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "  Missing slot names value for this deftemplate.", v61, 2u);
             }
           }
         }
 
-        uTF8String = v54;
+        uTF8String = v53;
       }
     }
 
@@ -3340,19 +3308,17 @@ LABEL_54:
   while (v11);
 LABEL_55:
 
-  v47 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)slotsStringForTemplate:(id)template fromDictionary:(id)dictionary moduleName:(id)name
 {
-  v142 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   dictionaryCopy = dictionary;
   nameCopy = name;
   v11 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  v99 = dictionaryCopy;
+  v98 = dictionaryCopy;
   if (![dictionaryCopy count])
   {
     v88 = debuggabilityLogHandle;
@@ -3361,13 +3327,13 @@ LABEL_55:
       goto LABEL_137;
     }
 
-    *v139 = 0;
+    *v138 = 0;
     v89 = "CLIPS: Nothing to parse";
     v90 = v88;
     v91 = OS_LOG_TYPE_DEBUG;
     v92 = 2;
 LABEL_134:
-    _os_log_impl(&dword_23255B000, v90, v91, v89, v139, v92);
+    _os_log_impl(&dword_23255B000, v90, v91, v89, v138, v92);
     goto LABEL_137;
   }
 
@@ -3380,8 +3346,8 @@ LABEL_134:
       goto LABEL_137;
     }
 
-    *v139 = 138412290;
-    *&v139[4] = templateCopy;
+    *v138 = 138412290;
+    *&v138[4] = templateCopy;
     v89 = "CLIPS: Could not locate this deftemplate: %@";
     v90 = v93;
     v91 = OS_LOG_TYPE_ERROR;
@@ -3390,36 +3356,36 @@ LABEL_134:
   }
 
   v13 = v12;
-  v97 = templateCopy;
+  v96 = templateCopy;
+  v139 = 0u;
   v140 = 0u;
-  v141 = 0u;
-  *v139 = 0u;
-  EnvDeftemplateSlotNames(self->_environment, v12, v139);
-  v14 = [(CLIPSShim *)self objectForDO:v139];
+  *v138 = 0u;
+  EnvDeftemplateSlotNames(self->_environment, v12, v138);
+  v14 = [(CLIPSShim *)self objectForDO:v138];
+  v121 = 0u;
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  v125 = 0u;
   obj = [dictionaryCopy allKeys];
-  v104 = [obj countByEnumeratingWithState:&v122 objects:v138 count:16];
-  if (v104)
+  v103 = [obj countByEnumeratingWithState:&v121 objects:v137 count:16];
+  if (v103)
   {
     v15 = 0;
-    v103 = *v123;
+    v102 = *v122;
     selfCopy = self;
-    v102 = v14;
+    v101 = v14;
     while (1)
     {
       v16 = 0;
       do
       {
-        if (*v123 != v103)
+        if (*v122 != v102)
         {
           objc_enumerationMutation(obj);
         }
 
-        v105 = v16;
-        v17 = *(*(&v122 + 1) + 8 * v16);
+        v104 = v16;
+        v17 = *(*(&v121 + 1) + 8 * v16);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -3441,17 +3407,17 @@ LABEL_134:
             v20 = objc_opt_class();
             v21 = NSStringFromClass(v20);
             *buf = 138412802;
-            v127 = v21;
-            v128 = 2112;
-            v129 = v17;
-            v130 = 2112;
-            v131 = v97;
+            v126 = v21;
+            v127 = 2112;
+            v128 = v17;
+            v129 = 2112;
+            v130 = v96;
             _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "CLIPS: Unexpected slot name class %@ for key: '%@' in this template: '%@'", buf, 0x20u);
           }
 
 LABEL_16:
-          EnvDeftemplateSlotTypes(self->_environment, v13, [v17 UTF8String], v139);
-          v22 = [(CLIPSShim *)self objectForDO:v139];
+          EnvDeftemplateSlotTypes(self->_environment, v13, [v17 UTF8String], v138);
+          v22 = [(CLIPSShim *)self objectForDO:v138];
           v23 = EnvDeftemplateSlotMultiP(self->_environment, v13, [v17 UTF8String]);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -3474,9 +3440,9 @@ LABEL_16:
             }
 
 LABEL_108:
-            v14 = v102;
+            v14 = v101;
 LABEL_109:
-            v16 = v105;
+            v16 = v104;
 LABEL_110:
 
             goto LABEL_111;
@@ -3492,11 +3458,11 @@ LABEL_19:
               v36 = v35;
               v37 = objc_opt_class();
               *buf = 138412802;
-              v127 = v17;
-              v128 = 2112;
-              v129 = v22;
-              v130 = 2112;
-              v131 = v37;
+              v126 = v17;
+              v127 = 2112;
+              v128 = v22;
+              v129 = 2112;
+              v130 = v37;
               v38 = v37;
               _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "CLIPS: %@'s slotType (%@) class (%@) is not a string!", buf, 0x20u);
 
@@ -3506,7 +3472,7 @@ LABEL_19:
             goto LABEL_108;
           }
 
-          v25 = [v99 objectForKeyedSubscript:v17];
+          v25 = [v98 objectForKeyedSubscript:v17];
 
           if ([v22 isEqualToString:@"STRING"])
           {
@@ -3515,28 +3481,28 @@ LABEL_19:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v98 = v22;
+                v97 = v22;
                 objc_msgSend(v11, "appendFormat:", @" (%@ "), v17;
-                v120 = 0u;
-                v121 = 0u;
-                v118 = 0u;
                 v119 = 0u;
+                v120 = 0u;
+                v117 = 0u;
+                v118 = 0u;
                 v15 = v25;
-                v26 = [v15 countByEnumeratingWithState:&v118 objects:v137 count:16];
+                v26 = [v15 countByEnumeratingWithState:&v117 objects:v136 count:16];
                 if (v26)
                 {
                   v27 = v26;
-                  v28 = *v119;
+                  v28 = *v118;
                   do
                   {
                     for (i = 0; i != v27; ++i)
                     {
-                      if (*v119 != v28)
+                      if (*v118 != v28)
                       {
                         objc_enumerationMutation(v15);
                       }
 
-                      v30 = *(*(&v118 + 1) + 8 * i);
+                      v30 = *(*(&v117 + 1) + 8 * i);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
@@ -3551,18 +3517,18 @@ LABEL_19:
                           v32 = v31;
                           v33 = objc_opt_class();
                           *buf = 138412802;
-                          v127 = v30;
-                          v128 = 2112;
-                          v129 = v33;
-                          v130 = 2112;
-                          v131 = v17;
+                          v126 = v30;
+                          v127 = 2112;
+                          v128 = v33;
+                          v129 = 2112;
+                          v130 = v17;
                           v34 = v33;
                           _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "CLIPS: value %@ is a '%@' but %@'s STRING slot expects an NSString from this array!", buf, 0x20u);
                         }
                       }
                     }
 
-                    v27 = [v15 countByEnumeratingWithState:&v118 objects:v137 count:16];
+                    v27 = [v15 countByEnumeratingWithState:&v117 objects:v136 count:16];
                   }
 
                   while (v27);
@@ -3572,9 +3538,9 @@ LABEL_103:
 
                 [v11 appendFormat:@""]);
                 self = selfCopy;
-                v14 = v102;
-                v16 = v105;
-                v22 = v98;
+                v14 = v101;
+                v16 = v104;
+                v22 = v97;
                 goto LABEL_110;
               }
             }
@@ -3582,7 +3548,7 @@ LABEL_103:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v11 appendFormat:@" (%@ \"%@\"", v17, v25];
+              [v11 appendFormat:@" (%@ %@", v17, v25];
               goto LABEL_106;
             }
 
@@ -3592,11 +3558,11 @@ LABEL_103:
               v63 = v62;
               v64 = objc_opt_class();
               *buf = 138412802;
-              v127 = v25;
-              v128 = 2112;
-              v129 = v64;
-              v130 = 2112;
-              v131 = v17;
+              v126 = v25;
+              v127 = 2112;
+              v128 = v64;
+              v129 = 2112;
+              v130 = v17;
               v65 = v64;
               v66 = v63;
               v67 = "CLIPS: value %@ is a '%@' but %@'s STRING slot expects an NSString!";
@@ -3617,40 +3583,40 @@ LABEL_107:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v98 = v22;
+                v97 = v22;
                 objc_msgSend(v11, "appendFormat:", @" (%@ "), v17;
-                v116 = 0u;
-                v117 = 0u;
-                v114 = 0u;
                 v115 = 0u;
+                v116 = 0u;
+                v113 = 0u;
+                v114 = 0u;
                 v15 = v25;
-                v39 = [v15 countByEnumeratingWithState:&v114 objects:v136 count:16];
+                v39 = [v15 countByEnumeratingWithState:&v113 objects:v135 count:16];
                 if (!v39)
                 {
                   goto LABEL_103;
                 }
 
                 v40 = v39;
-                v41 = *v115;
+                v41 = *v114;
                 while (1)
                 {
                   v42 = 0;
                   do
                   {
-                    if (*v115 != v41)
+                    if (*v114 != v41)
                     {
                       objc_enumerationMutation(v15);
                     }
 
-                    v43 = *(*(&v114 + 1) + 8 * v42);
+                    v43 = *(*(&v113 + 1) + 8 * v42);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v96 = v43;
+                      v95 = v43;
                       v44 = v11;
                       v45 = @" %@";
 LABEL_47:
-                      [v44 appendFormat:v45, v96];
+                      [v44 appendFormat:v45, v95];
                       goto LABEL_48;
                     }
 
@@ -3675,9 +3641,9 @@ LABEL_47:
                       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412546;
-                        v127 = v43;
-                        v128 = 2112;
-                        v129 = v17;
+                        v126 = v43;
+                        v127 = 2112;
+                        v128 = v17;
                         _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_ERROR, "CLIPS: value %@ is a non-Boolean NSNumber and %@'s SYMBOL slot expects an value of TRUE (1) or FALSE (0)!", buf, 0x16u);
                       }
                     }
@@ -3690,11 +3656,11 @@ LABEL_47:
                         v47 = v46;
                         v48 = objc_opt_class();
                         *buf = 138412802;
-                        v127 = v43;
-                        v128 = 2112;
-                        v129 = v48;
-                        v130 = 2112;
-                        v131 = v17;
+                        v126 = v43;
+                        v127 = 2112;
+                        v128 = v48;
+                        v129 = 2112;
+                        v130 = v17;
                         v49 = v48;
                         _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_ERROR, "CLIPS: value %@ is a '%@' but %@'s SYMBOL slot expects an NSString from this array!", buf, 0x20u);
                       }
@@ -3705,7 +3671,7 @@ LABEL_48:
                   }
 
                   while (v40 != v42);
-                  v51 = [v15 countByEnumeratingWithState:&v114 objects:v136 count:16];
+                  v51 = [v15 countByEnumeratingWithState:&v113 objects:v135 count:16];
                   v40 = v51;
                   if (!v51)
                   {
@@ -3721,7 +3687,7 @@ LABEL_48:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v14 = v102;
+                v14 = v101;
                 if ([v25 BOOLValue])
                 {
                   [v11 appendFormat:@" (%@ TRUE)", v17];
@@ -3735,9 +3701,9 @@ LABEL_48:
                     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412546;
-                      v127 = v25;
-                      v128 = 2112;
-                      v129 = v17;
+                      v126 = v25;
+                      v127 = 2112;
+                      v128 = v17;
                       _os_log_impl(&dword_23255B000, v86, OS_LOG_TYPE_ERROR, "CLIPS: value %@ is a non-Boolean NSNumber and %@'s SYMBOL slot expects an value of TRUE (1) or FALSE (0)!", buf, 0x16u);
                     }
 
@@ -3761,11 +3727,11 @@ LABEL_48:
               v63 = v81;
               v82 = objc_opt_class();
               *buf = 138412802;
-              v127 = v25;
-              v128 = 2112;
-              v129 = v82;
-              v130 = 2112;
-              v131 = v17;
+              v126 = v25;
+              v127 = 2112;
+              v128 = v82;
+              v129 = 2112;
+              v130 = v17;
               v65 = v82;
               v66 = v63;
               v67 = "CLIPS: value %@ is a '%@' but %@'s SYMBOL slot expects an NSString!";
@@ -3789,28 +3755,28 @@ LABEL_105:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v98 = v22;
+                v97 = v22;
                 objc_msgSend(v11, "appendFormat:", @" (%@ "), v17;
-                v112 = 0u;
-                v113 = 0u;
-                v110 = 0u;
                 v111 = 0u;
+                v112 = 0u;
+                v109 = 0u;
+                v110 = 0u;
                 v15 = v25;
-                v53 = [v15 countByEnumeratingWithState:&v110 objects:v135 count:16];
+                v53 = [v15 countByEnumeratingWithState:&v109 objects:v134 count:16];
                 if (v53)
                 {
                   v54 = v53;
-                  v55 = *v111;
+                  v55 = *v110;
                   do
                   {
                     for (j = 0; j != v54; ++j)
                     {
-                      if (*v111 != v55)
+                      if (*v110 != v55)
                       {
                         objc_enumerationMutation(v15);
                       }
 
-                      v57 = *(*(&v110 + 1) + 8 * j);
+                      v57 = *(*(&v109 + 1) + 8 * j);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
@@ -3825,18 +3791,18 @@ LABEL_105:
                           v59 = v58;
                           v60 = objc_opt_class();
                           *buf = 138412802;
-                          v127 = v57;
-                          v128 = 2112;
-                          v129 = v60;
-                          v130 = 2112;
-                          v131 = v17;
+                          v126 = v57;
+                          v127 = 2112;
+                          v128 = v60;
+                          v129 = 2112;
+                          v130 = v17;
                           v61 = v60;
                           _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_ERROR, "CLIPS: value %@ is a '%@' but %@'s INTEGER slot expects an NSNumber from this array!", buf, 0x20u);
                         }
                       }
                     }
 
-                    v54 = [v15 countByEnumeratingWithState:&v110 objects:v135 count:16];
+                    v54 = [v15 countByEnumeratingWithState:&v109 objects:v134 count:16];
                   }
 
                   while (v54);
@@ -3872,13 +3838,13 @@ LABEL_105:
               v63 = v79;
               v80 = objc_opt_class();
               *buf = 138413058;
-              v127 = v22;
-              v128 = 2112;
-              v129 = v17;
-              v130 = 2112;
-              v131 = v25;
-              v132 = 2112;
-              v133 = v80;
+              v126 = v22;
+              v127 = 2112;
+              v128 = v17;
+              v129 = 2112;
+              v130 = v25;
+              v131 = 2112;
+              v132 = v80;
               v65 = v80;
               v66 = v63;
               v67 = "CLIPS: This slotType (%@) for %@'s value %@ (class is %@) is not handled";
@@ -3891,28 +3857,28 @@ LABEL_105:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v98 = v22;
+                v97 = v22;
                 objc_msgSend(v11, "appendFormat:", @" (%@ "), v17;
-                v108 = 0u;
-                v109 = 0u;
-                v106 = 0u;
                 v107 = 0u;
+                v108 = 0u;
+                v105 = 0u;
+                v106 = 0u;
                 v15 = v25;
-                v69 = [v15 countByEnumeratingWithState:&v106 objects:v134 count:16];
+                v69 = [v15 countByEnumeratingWithState:&v105 objects:v133 count:16];
                 if (v69)
                 {
                   v70 = v69;
-                  v71 = *v107;
+                  v71 = *v106;
                   do
                   {
                     for (k = 0; k != v70; ++k)
                     {
-                      if (*v107 != v71)
+                      if (*v106 != v71)
                       {
                         objc_enumerationMutation(v15);
                       }
 
-                      v73 = *(*(&v106 + 1) + 8 * k);
+                      v73 = *(*(&v105 + 1) + 8 * k);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
@@ -3928,18 +3894,18 @@ LABEL_105:
                           v76 = v75;
                           v77 = objc_opt_class();
                           *buf = 138412802;
-                          v127 = v73;
-                          v128 = 2112;
-                          v129 = v77;
-                          v130 = 2112;
-                          v131 = v17;
+                          v126 = v73;
+                          v127 = 2112;
+                          v128 = v77;
+                          v129 = 2112;
+                          v130 = v17;
                           v78 = v77;
                           _os_log_impl(&dword_23255B000, v76, OS_LOG_TYPE_ERROR, "CLIPS: value %@ is a '%@' but %@'s FLOAT slot expects an NSNumber from this array!", buf, 0x20u);
                         }
                       }
                     }
 
-                    v70 = [v15 countByEnumeratingWithState:&v106 objects:v134 count:16];
+                    v70 = [v15 countByEnumeratingWithState:&v105 objects:v133 count:16];
                   }
 
                   while (v70);
@@ -3969,11 +3935,11 @@ LABEL_105:
           v63 = v84;
           v85 = objc_opt_class();
           *buf = 138412802;
-          v127 = v25;
-          v128 = 2112;
-          v129 = v85;
-          v130 = 2112;
-          v131 = v17;
+          v126 = v25;
+          v127 = 2112;
+          v128 = v85;
+          v129 = 2112;
+          v130 = v17;
           v65 = v85;
           v66 = v63;
           v67 = "CLIPS: value %@ is a '%@' but %@'s INTEGER slot expects an NSNumber!";
@@ -3989,9 +3955,9 @@ LABEL_111:
         ++v16;
       }
 
-      while (v16 != v104);
-      v87 = [obj countByEnumeratingWithState:&v122 objects:v138 count:16];
-      v104 = v87;
+      while (v16 != v103);
+      v87 = [obj countByEnumeratingWithState:&v121 objects:v137 count:16];
+      v103 = v87;
       if (!v87)
       {
         goto LABEL_136;
@@ -4002,10 +3968,8 @@ LABEL_111:
   v15 = 0;
 LABEL_136:
 
-  templateCopy = v97;
+  templateCopy = v96;
 LABEL_137:
-
-  v94 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -4026,18 +3990,17 @@ LABEL_137:
 
 - (void)registerCallbackFunction:(void *)a1 selector:target:.cold.1(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v4 = 138412290;
-    v5 = v1;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_ERROR, "Caught exception: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v1;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_ERROR, "Caught exception: %@", &v3, 0xCu);
   }
 
   objc_end_catch();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

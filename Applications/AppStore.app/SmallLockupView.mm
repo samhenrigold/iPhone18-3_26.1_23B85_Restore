@@ -11,24 +11,23 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  height = fits.height;
-  width = fits.width;
-  v6 = type metadata accessor for SmallLockupLayout.Metrics();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for SmallLockupLayout.Metrics();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
 
-  sub_100709E58(v9);
+  sub_100709E58(v7);
   [(SmallLockupView *)selfCopy layoutMargins];
-  v13 = sub_100508464(v9, selfCopy, width, height, v11, v12);
-  v15 = v14;
+  sub_100508464();
+  v10 = v9;
+  v12 = v11;
 
-  (*(v7 + 8))(v9, v6);
-  v16 = v13;
-  v17 = v15;
-  result.height = v17;
-  result.width = v16;
+  (*(v5 + 8))(v7, v4);
+  v13 = v10;
+  v14 = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -37,25 +36,25 @@
   v3 = type metadata accessor for SmallLockupLayout.Metrics();
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_100709E58(v6);
   [(SmallLockupView *)selfCopy layoutMargins];
-  v10 = sub_100508464(v6, selfCopy, 0.0, 0.0, v8, v9);
-  v12 = v11;
-  (*(v4 + 8))(v6, v3, v10);
+  sub_100508464();
+  v9 = v8;
+  (*(v4 + 8))(v6, v3);
 
-  v13 = UIViewNoIntrinsicMetric;
-  v14 = v12;
-  result.height = v14;
-  result.width = v13;
+  v10 = UIViewNoIntrinsicMetric;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SmallLockupView();
+  v5.super_class = type metadata accessor for SmallLockupView(0);
   v2 = v5.receiver;
   [(SmallLockupView *)&v5 layoutSubviews];
   sub_10070A300(v4);
@@ -88,7 +87,7 @@
     goto LABEL_5;
   }
 
-  sub_100005744(0, &unk_100993110);
+  sub_100005744(0, &unk_100993110, UIGestureRecognizer_ptr);
   recognizerCopy2 = recognizer;
   gestureRecognizerCopy2 = gestureRecognizer;
   selfCopy2 = self;
@@ -114,11 +113,12 @@ LABEL_6:
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8AppStore15SmallLockupView_lockupTapBlock);
   if (v2)
   {
+    v3 = *&self->super.artworkView[OBJC_IVAR____TtC8AppStore15SmallLockupView_lockupTapBlock];
     selfCopy = self;
-    v4 = sub_10000827C(v2);
-    v2(v4);
+    v5 = sub_10000827C(v2, v3);
+    v2(v5);
 
-    sub_10001F63C(v2);
+    sub_10001F63C(v2, v3);
   }
 }
 

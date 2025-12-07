@@ -11,8 +11,8 @@
 + (id)_complicationSlotDescriptors
 {
   v13[3] = *MEMORY[0x277D85DE8];
-  v2 = NTKAllUtilitySmallComplicationTypes(self, a2);
-  v3 = NTKAllUtilityLargeComplicationTypes();
+  v2 = NTKAllUtilitySmallComplicationTypes(self);
+  v3 = NTKAllUtilityLargeComplicationTypes(v2);
   v12[0] = @"top-left";
   v4 = NTKComplicationTypeRankedListWithDefaultTypes(&unk_28418B320);
   v5 = NTKComplicationSlotDescriptor(4, v2, v4);

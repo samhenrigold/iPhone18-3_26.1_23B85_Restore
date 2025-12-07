@@ -21,6 +21,7 @@
 - (void)_deliverPendingPushKitPayloadsToApplication;
 - (void)_deliverVoIPTokenToApplication;
 - (void)deliverChannelPushToken:(id)token;
+- (void)deliverMessage:(id)message withAssertion:(id)assertion applicationShouldPostIncomingCall:(BOOL)call;
 - (void)deliverVoIPToken:(id)token;
 - (void)dropUndeliveredChannelPushesOnTheFloor;
 - (void)setChannelPushClient:(id)client;
@@ -341,7 +342,7 @@
 - (void)deliverVoIPToken:(id)token
 {
   tokenCopy = token;
-  v5 = sub_100004778();
+  v5 = sub_100004778(tokenCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412546;
@@ -358,7 +359,7 @@
 - (void)deliverChannelPushToken:(id)token
 {
   tokenCopy = token;
-  v5 = sub_100004778();
+  v5 = sub_100004778(tokenCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412546;
@@ -386,6 +387,65 @@
   [pendingChannelDelegateMessageContexts removeAllObjects];
 }
 
+- (void)deliverMessage:(id)message withAssertion:(id)assertion applicationShouldPostIncomingCall:(BOOL)call
+{
+  callCopy = call;
+  messageCopy = message;
+  assertionCopy = assertion;
+  v10 = sub_100004778(assertionCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 134218242;
+    v18 = messageCopy;
+    v19 = 2112;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Asked to deliver message %p to application %@", &v17, 0x16u);
+  }
+
+  v11 = [[CSDVoIPApplicationMessageContext alloc] initWithMessage:messageCopy assertion:assertionCopy applicationShouldPostIncomingCall:callCopy];
+  transportType = [messageCopy transportType];
+  if (transportType > 1)
+  {
+    if (transportType == 2)
+    {
+      pendingPushKitVoIPMessageContexts = [(CSDVoIPApplication *)self pendingPushKitVoIPMessageContexts];
+      [pendingPushKitVoIPMessageContexts addObject:v11];
+
+      [(CSDVoIPApplication *)self _deliverPendingPushKitPayloadsToApplication];
+    }
+
+    else if (transportType == 3)
+    {
+      pendingChannelDelegateMessageContexts = [(CSDVoIPApplication *)self pendingChannelDelegateMessageContexts];
+      [pendingChannelDelegateMessageContexts addObject:v11];
+
+      [(CSDVoIPApplication *)self _deliverPendingChannelPushPayloadsToApplication];
+    }
+  }
+
+  else if (transportType)
+  {
+    if (transportType == 1)
+    {
+      pendingNetworkExtensionMessageContexts = [(CSDVoIPApplication *)self pendingNetworkExtensionMessageContexts];
+      [pendingNetworkExtensionMessageContexts addObject:v11];
+
+      [(CSDVoIPApplication *)self _deliverPendingNetworkExtensionPayloadsToApplication];
+    }
+  }
+
+  else
+  {
+    v15 = sub_100004778(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = 138412290;
+      v18 = messageCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Message transport type is unknown; cannot enqueue message %@", &v17, 0xCu);
+    }
+  }
+}
+
 - (void)_deliverVoIPTokenToApplication
 {
   pushKitClient = [(CSDVoIPApplication *)self pushKitClient];
@@ -395,17 +455,18 @@
     pushKitClient2 = [(CSDVoIPApplication *)self pushKitClient];
     objectForBlock = [pushKitClient2 objectForBlock];
 
-    if ([objectForBlock conformsToProtocol:&OBJC_PROTOCOL___PKVoIPXPCClient])
+    v7 = [objectForBlock conformsToProtocol:&OBJC_PROTOCOL___PKVoIPXPCClient];
+    if (v7)
     {
-      v6 = sub_100004778();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100004778(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         voipToken = [(CSDVoIPApplication *)self voipToken];
-        v9 = 138412546;
-        v10 = voipToken;
-        v11 = 2112;
+        v11 = 138412546;
+        v12 = voipToken;
+        v13 = 2112;
         selfCopy = self;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Delivering voip token %@ to application %@", &v9, 0x16u);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Delivering voip token %@ to application %@", &v11, 0x16u);
       }
 
       voipToken2 = [(CSDVoIPApplication *)self voipToken];
@@ -415,11 +476,11 @@
 
   else
   {
-    objectForBlock = sub_100004778();
+    objectForBlock = sub_100004778(v4);
     if (os_log_type_enabled(objectForBlock, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&_mh_execute_header, objectForBlock, OS_LOG_TYPE_DEFAULT, "Pending VoIP token delivery until a connection exists", &v9, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&_mh_execute_header, objectForBlock, OS_LOG_TYPE_DEFAULT, "Pending VoIP token delivery until a connection exists", &v11, 2u);
     }
   }
 }
@@ -433,17 +494,17 @@
     channelPushClient2 = [(CSDVoIPApplication *)self channelPushClient];
     objectForBlock = [channelPushClient2 objectForBlock];
 
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       channelPushToken = [(CSDVoIPApplication *)self channelPushToken];
-      v9 = 138412802;
-      v10 = channelPushToken;
-      v11 = 2112;
+      v11 = 138412802;
+      v12 = channelPushToken;
+      v13 = 2112;
       selfCopy = self;
-      v13 = 2048;
-      v14 = objectForBlock;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Delivering ptt token %@ to application %@ proxy %p", &v9, 0x20u);
+      v15 = 2048;
+      v16 = objectForBlock;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Delivering ptt token %@ to application %@ proxy %p", &v11, 0x20u);
     }
 
     channelPushToken2 = [(CSDVoIPApplication *)self channelPushToken];
@@ -452,11 +513,11 @@
 
   else
   {
-    objectForBlock = sub_100004778();
+    objectForBlock = sub_100004778(v4);
     if (os_log_type_enabled(objectForBlock, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&_mh_execute_header, objectForBlock, OS_LOG_TYPE_DEFAULT, "Pending ptt token delivery until a connection exists", &v9, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&_mh_execute_header, objectForBlock, OS_LOG_TYPE_DEFAULT, "Pending ptt token delivery until a connection exists", &v11, 2u);
     }
   }
 }
@@ -465,56 +526,56 @@
 {
   networkExtensionClient = [(CSDVoIPApplication *)self networkExtensionClient];
 
-  pendingNetworkExtensionMessageContexts3 = sub_100004778();
-  v5 = os_log_type_enabled(pendingNetworkExtensionMessageContexts3, OS_LOG_TYPE_DEFAULT);
+  pendingNetworkExtensionMessageContexts3 = sub_100004778(v4);
+  v6 = os_log_type_enabled(pendingNetworkExtensionMessageContexts3, OS_LOG_TYPE_DEFAULT);
   if (networkExtensionClient)
   {
-    if (v5)
+    if (v6)
     {
       pendingNetworkExtensionMessageContexts = [(CSDVoIPApplication *)self pendingNetworkExtensionMessageContexts];
       *buf = 134218242;
-      v18 = [pendingNetworkExtensionMessageContexts count];
-      v19 = 2112;
+      v19 = [pendingNetworkExtensionMessageContexts count];
+      v20 = 2112;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, pendingNetworkExtensionMessageContexts3, OS_LOG_TYPE_DEFAULT, "Delivering %lu network extension payload(s) to application %@", buf, 0x16u);
     }
 
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
+    v14 = 0u;
     pendingNetworkExtensionMessageContexts2 = [(CSDVoIPApplication *)self pendingNetworkExtensionMessageContexts];
-    v8 = [pendingNetworkExtensionMessageContexts2 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v8)
+    v9 = [pendingNetworkExtensionMessageContexts2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v13;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v13 != v10)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(pendingNetworkExtensionMessageContexts2);
           }
 
-          [(CSDVoIPApplication *)self _deliverMessageContext:*(*(&v12 + 1) + 8 * v11)];
-          v11 = v11 + 1;
+          [(CSDVoIPApplication *)self _deliverMessageContext:*(*(&v13 + 1) + 8 * v12)];
+          v12 = v12 + 1;
         }
 
-        while (v9 != v11);
-        v9 = [pendingNetworkExtensionMessageContexts2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        while (v10 != v12);
+        v10 = [pendingNetworkExtensionMessageContexts2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
     pendingNetworkExtensionMessageContexts3 = [(CSDVoIPApplication *)self pendingNetworkExtensionMessageContexts];
     [pendingNetworkExtensionMessageContexts3 removeAllObjects];
   }
 
-  else if (v5)
+  else if (v6)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, pendingNetworkExtensionMessageContexts3, OS_LOG_TYPE_DEFAULT, "Pending Network Extension payload deliveries until a connection exists", buf, 2u);
@@ -525,56 +586,56 @@
 {
   pushKitClient = [(CSDVoIPApplication *)self pushKitClient];
 
-  pendingPushKitVoIPMessageContexts3 = sub_100004778();
-  v5 = os_log_type_enabled(pendingPushKitVoIPMessageContexts3, OS_LOG_TYPE_DEFAULT);
+  pendingPushKitVoIPMessageContexts3 = sub_100004778(v4);
+  v6 = os_log_type_enabled(pendingPushKitVoIPMessageContexts3, OS_LOG_TYPE_DEFAULT);
   if (pushKitClient)
   {
-    if (v5)
+    if (v6)
     {
       pendingPushKitVoIPMessageContexts = [(CSDVoIPApplication *)self pendingPushKitVoIPMessageContexts];
       *buf = 134218242;
-      v18 = [pendingPushKitVoIPMessageContexts count];
-      v19 = 2112;
+      v19 = [pendingPushKitVoIPMessageContexts count];
+      v20 = 2112;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, pendingPushKitVoIPMessageContexts3, OS_LOG_TYPE_DEFAULT, "Delivering %lu VoIP payload(s) to application %@", buf, 0x16u);
     }
 
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
+    v14 = 0u;
     pendingPushKitVoIPMessageContexts2 = [(CSDVoIPApplication *)self pendingPushKitVoIPMessageContexts];
-    v8 = [pendingPushKitVoIPMessageContexts2 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v8)
+    v9 = [pendingPushKitVoIPMessageContexts2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v13;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v13 != v10)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(pendingPushKitVoIPMessageContexts2);
           }
 
-          [(CSDVoIPApplication *)self _deliverMessageContext:*(*(&v12 + 1) + 8 * v11)];
-          v11 = v11 + 1;
+          [(CSDVoIPApplication *)self _deliverMessageContext:*(*(&v13 + 1) + 8 * v12)];
+          v12 = v12 + 1;
         }
 
-        while (v9 != v11);
-        v9 = [pendingPushKitVoIPMessageContexts2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        while (v10 != v12);
+        v10 = [pendingPushKitVoIPMessageContexts2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
     pendingPushKitVoIPMessageContexts3 = [(CSDVoIPApplication *)self pendingPushKitVoIPMessageContexts];
     [pendingPushKitVoIPMessageContexts3 removeAllObjects];
   }
 
-  else if (v5)
+  else if (v6)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, pendingPushKitVoIPMessageContexts3, OS_LOG_TYPE_DEFAULT, "Pending PushKit VoIP payload deliveries until a connection exists", buf, 2u);
@@ -585,56 +646,56 @@
 {
   channelPushClient = [(CSDVoIPApplication *)self channelPushClient];
 
-  pendingChannelDelegateMessageContexts3 = sub_100004778();
-  v5 = os_log_type_enabled(pendingChannelDelegateMessageContexts3, OS_LOG_TYPE_DEFAULT);
+  pendingChannelDelegateMessageContexts3 = sub_100004778(v4);
+  v6 = os_log_type_enabled(pendingChannelDelegateMessageContexts3, OS_LOG_TYPE_DEFAULT);
   if (channelPushClient)
   {
-    if (v5)
+    if (v6)
     {
       pendingChannelDelegateMessageContexts = [(CSDVoIPApplication *)self pendingChannelDelegateMessageContexts];
       *buf = 134218242;
-      v18 = [pendingChannelDelegateMessageContexts count];
-      v19 = 2112;
+      v19 = [pendingChannelDelegateMessageContexts count];
+      v20 = 2112;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, pendingChannelDelegateMessageContexts3, OS_LOG_TYPE_DEFAULT, "Delivering %lu channel push payload(s) to application %@", buf, 0x16u);
     }
 
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
+    v14 = 0u;
     pendingChannelDelegateMessageContexts2 = [(CSDVoIPApplication *)self pendingChannelDelegateMessageContexts];
-    v8 = [pendingChannelDelegateMessageContexts2 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v8)
+    v9 = [pendingChannelDelegateMessageContexts2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v13;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v13 != v10)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(pendingChannelDelegateMessageContexts2);
           }
 
-          [(CSDVoIPApplication *)self _deliverMessageContext:*(*(&v12 + 1) + 8 * v11)];
-          v11 = v11 + 1;
+          [(CSDVoIPApplication *)self _deliverMessageContext:*(*(&v13 + 1) + 8 * v12)];
+          v12 = v12 + 1;
         }
 
-        while (v9 != v11);
-        v9 = [pendingChannelDelegateMessageContexts2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        while (v10 != v12);
+        v10 = [pendingChannelDelegateMessageContexts2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
     pendingChannelDelegateMessageContexts3 = [(CSDVoIPApplication *)self pendingChannelDelegateMessageContexts];
     [pendingChannelDelegateMessageContexts3 removeAllObjects];
   }
 
-  else if (v5)
+  else if (v6)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, pendingChannelDelegateMessageContexts3, OS_LOG_TYPE_DEFAULT, "Pending channel push payload deliveries until a connection exists", buf, 2u);
@@ -704,7 +765,7 @@ LABEL_17:
   {
     if (!transportType)
     {
-      objectForBlock = sub_100004778();
+      objectForBlock = sub_100004778(0);
       if (os_log_type_enabled(objectForBlock, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;

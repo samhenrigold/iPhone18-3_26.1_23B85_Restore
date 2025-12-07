@@ -1,4 +1,5 @@
 @interface RBSProcessExitContext
++ (id)exitContextForNamespace:(unsigned int)namespace code:(unint64_t)code wait4Status:(int)status;
 - (BOOL)isEqual:(id)equal;
 - (NSString)debugDescription;
 - (NSString)description;
@@ -244,15 +245,15 @@ LABEL_13:
 
 - (id)_initWithStatus:(int)status legacyCode:(void *)code timestamp:(void *)timestamp context:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v9 = a2;
   codeCopy = code;
   timestampCopy = timestamp;
   if (self)
   {
-    v18.receiver = self;
-    v18.super_class = RBSProcessExitContext;
-    self = objc_msgSendSuper2(&v18, sel_init);
+    v17.receiver = self;
+    v17.super_class = RBSProcessExitContext;
+    self = objc_msgSendSuper2(&v17, sel_init);
     if (self)
     {
       if (![v9 domain])
@@ -262,7 +263,7 @@ LABEL_13:
         {
           if (!code && (status & 0x7F) != 0 && (status & 0x7F) != 0x7F)
           {
-            v14 = rbs_process_log();
+            v14 = rbs_process_log(0);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109120;
@@ -302,7 +303,6 @@ LABEL_17:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -342,6 +342,13 @@ LABEL_17:
   v8 = [(RBSProcessExitContext *)self _initWithStatus:v6 legacyCode:code timestamp:date context:0];
 
   return v8;
+}
+
++ (id)exitContextForNamespace:(unsigned int)namespace code:(unint64_t)code wait4Status:(int)status
+{
+  v5 = [[RBSProcessExitContext alloc] _initWithNamespace:code code:status wait4Status:?];
+
+  return v5;
 }
 
 @end

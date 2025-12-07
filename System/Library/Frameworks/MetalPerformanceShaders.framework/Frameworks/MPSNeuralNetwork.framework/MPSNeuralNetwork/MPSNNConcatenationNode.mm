@@ -26,19 +26,19 @@
 
 - (MPSNNConcatenationNode)initWithSource:(id)source
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (MTLReportFailureTypeEnabled())
   {
     v10 = objc_opt_class();
-    v13 = NSStringFromClass(v10);
-    MTLReportFailure();
+    v17 = NSStringFromClass(v10);
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNConcatenationNode.mm", 0x1D, @"[%@ initWithSource:] Probable error: concatenate a image with nothing?", v11, v12, v13, v14);
   }
 
-  v15[0] = source;
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v15, 1, v6, v7, v8, v9, v13);
-  v14.receiver = self;
-  v14.super_class = MPSNNConcatenationNode;
-  return [(MPSNNFilterNode *)&v14 initWithSourceImages:v11 sourceStates:0 paddingPolicy:0];
+  v19[0] = source;
+  v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v19, 1, v6, v7, v8, v9, v17);
+  v18.receiver = self;
+  v18.super_class = MPSNNConcatenationNode;
+  return [(MPSNNFilterNode *)&v18 initWithSourceImages:v15 sourceStates:0 paddingPolicy:0];
 }
 
 - (MPSNNConcatenationNode)initWithSources:(NSArray *)sourceNodes

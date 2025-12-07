@@ -7,13 +7,13 @@ void AVTCoordinatorLoadPoseAtPath(void *a1, void *a2, void *a3)
   v9 = [v8 stringByDeletingPathExtension];
 
   v10 = MEMORY[0x1E695DFF8];
-  v11 = [v7 stringByAppendingPathComponent:v6];
+  v11 = [v7 stringByAppendingPathComponent:?];
 
-  v12 = [v10 fileURLWithPath:v11 isDirectory:0];
+  v12 = [v10 fileURLWithPath:? isDirectory:?];
 
-  v13 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:v12 error:0];
-  v14 = [[AVTAvatarPose alloc] initWithDictionaryRepresentation:v13];
-  [(AVTAvatarPose *)v14 setBakedAnimationBlendFactor:1.0];
+  v13 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:? error:?];
+  v14 = [[AVTAvatarPose alloc] initWithDictionaryRepresentation:?];
+  v15 = [(AVTAvatarPose *)v14 setBakedAnimationBlendFactor:?];
   if (v14)
   {
     if (v9)
@@ -24,19 +24,19 @@ void AVTCoordinatorLoadPoseAtPath(void *a1, void *a2, void *a3)
     goto LABEL_7;
   }
 
-  v15 = avt_default_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = avt_default_log(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    AVTCoordinatorLoadPoseAtPath_cold_1(v15, v16, v17, v18, v19, v20, v21, v22);
+    AVTCoordinatorLoadPoseAtPath_cold_1(v16, v17, v18, v19, v20, v21, v22, v23);
   }
 
   if (!v9)
   {
 LABEL_7:
-    v23 = avt_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = avt_default_log(v15);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      AVTCoordinatorLoadPoseAtPath_cold_2(v23, v24, v25, v26, v27, v28, v29, v30);
+      AVTCoordinatorLoadPoseAtPath_cold_2(v24, v25, v26, v27, v28, v29, v30, v31);
     }
   }
 
@@ -46,125 +46,47 @@ LABEL_10:
 
 void AVTCoordinatorLoadPosesAtPaths(void *a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
-  v32 = a3;
-  v7 = [v6 count];
-  v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v7];
-  v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v7];
+  v30 = a3;
+  [v6 count];
+  v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
+  v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
+  v35 = 0u;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   obj = v6;
-  v10 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v10)
-  {
-    v11 = v10;
-    v12 = *v38;
-    do
-    {
-      v13 = 0;
-      do
-      {
-        if (*v38 != v12)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v14 = *(*(&v37 + 1) + 8 * v13);
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __AVTCoordinatorLoadPosesAtPaths_block_invoke;
-        v34[3] = &unk_1E7F47A70;
-        v35 = v8;
-        v36 = v9;
-        AVTCoordinatorLoadPoseAtPath(v5, v14, v34);
-
-        ++v13;
-      }
-
-      while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-    }
-
-    while (v11);
-  }
-
-  if (![v8 count])
-  {
-    v15 = avt_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      AVTCoordinatorLoadPosesAtPaths_cold_1(v15, v16, v17, v18, v19, v20, v21, v22);
-    }
-  }
-
-  if (![v9 count])
-  {
-    v23 = avt_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-    {
-      AVTCoordinatorLoadPosesAtPaths_cold_2(v23, v24, v25, v26, v27, v28, v29, v30);
-    }
-  }
-
-  v32[2](v32, v8, v9);
-
-  v31 = *MEMORY[0x1E69E9840];
-}
-
-void __AVTCoordinatorLoadPosesAtPaths_block_invoke(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = *(a1 + 32);
-  v6 = a3;
-  [v5 addObject:a2];
-  [*(a1 + 40) addObject:v6];
-}
-
-void AVTCoordinatorLoadPoseAnimationsAtPaths(void *a1, void *a2, void *a3)
-{
-  v45 = *MEMORY[0x1E69E9840];
-  v39 = a1;
-  v5 = a2;
-  v37 = a3;
-  v6 = [v5 count];
-  v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v6];
-  v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v6];
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  obj = v5;
-  v9 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v9 = [obj countByEnumeratingWithState:? objects:? count:?];
   if (v9)
   {
     v10 = v9;
-    v11 = *v41;
+    v11 = *v36;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v12 = 0;
+      do
       {
-        if (*v41 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v40 + 1) + 8 * i);
-        v14 = [v13 lastPathComponent];
-        v15 = [v14 stringByDeletingPathExtension];
+        v13 = *(*(&v35 + 1) + 8 * v12);
+        v32[0] = MEMORY[0x1E69E9820];
+        v32[1] = 3221225472;
+        v32[2] = __AVTCoordinatorLoadPosesAtPaths_block_invoke;
+        v32[3] = &unk_1E7F47A70;
+        v33 = v7;
+        v34 = v8;
+        AVTCoordinatorLoadPoseAtPath(v5, v13, v32);
 
-        v16 = MEMORY[0x1E695DFF8];
-        v17 = [v39 stringByAppendingPathComponent:v13];
-        v18 = [v16 fileURLWithPath:v17 isDirectory:0];
-
-        v19 = [[AVTAvatarPoseAnimation alloc] initWithAnimatedPoseRepresentationAtURL:v18];
-        [v7 addObject:v19];
-        [v8 addObject:v15];
+        v12 = (v12 + 1);
       }
 
-      v10 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      while (v10 != v12);
+      v10 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v10);
@@ -172,31 +94,123 @@ void AVTCoordinatorLoadPoseAnimationsAtPaths(void *a1, void *a2, void *a3)
 
   if (![v7 count])
   {
-    v20 = avt_default_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v14 = avt_default_log(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      AVTCoordinatorLoadPoseAnimationsAtPaths_cold_1(v20, v21, v22, v23, v24, v25, v26, v27);
+      AVTCoordinatorLoadPosesAtPaths_cold_1(v14, v15, v16, v17, v18, v19, v20, v21);
     }
   }
 
   if (![v8 count])
   {
-    v28 = avt_default_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v22 = avt_default_log(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      AVTCoordinatorLoadPosesAtPaths_cold_2(v28, v29, v30, v31, v32, v33, v34, v35);
+      AVTCoordinatorLoadPosesAtPaths_cold_2(v22, v23, v24, v25, v26, v27, v28, v29);
     }
   }
 
-  v37[2](v37, v7, v8);
-
-  v36 = *MEMORY[0x1E69E9840];
+  (*(v30 + 2))(v30, v7, v8);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void __AVTCoordinatorLoadPosesAtPaths_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = *(a1 + 32);
+  v5 = a3;
+  [v4 addObject:?];
+  [*(a1 + 40) addObject:?];
+}
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+void AVTCoordinatorLoadPoseAnimationsAtPaths(void *a1, void *a2, void *a3)
+{
+  v41 = *MEMORY[0x1E69E9840];
+  v36 = a1;
+  v5 = a2;
+  v34 = a3;
+  [v5 count];
+  v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
+  v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  obj = v5;
+  v8 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v38;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v38 != v10)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v12 = [*(*(&v37 + 1) + 8 * v11) lastPathComponent];
+        v13 = [v12 stringByDeletingPathExtension];
+
+        v14 = MEMORY[0x1E695DFF8];
+        v15 = [v36 stringByAppendingPathComponent:?];
+        v16 = [v14 fileURLWithPath:? isDirectory:?];
+
+        v17 = [[AVTAvatarPoseAnimation alloc] initWithAnimatedPoseRepresentationAtURL:?];
+        [v6 addObject:?];
+        [v7 addObject:?];
+
+        v11 = (v11 + 1);
+      }
+
+      while (v9 != v11);
+      v9 = [obj countByEnumeratingWithState:? objects:? count:?];
+    }
+
+    while (v9);
+  }
+
+  if (![v6 count])
+  {
+    v18 = avt_default_log(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      AVTCoordinatorLoadPoseAnimationsAtPaths_cold_1(v18, v19, v20, v21, v22, v23, v24, v25);
+    }
+  }
+
+  if (![v7 count])
+  {
+    v26 = avt_default_log(0);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      AVTCoordinatorLoadPosesAtPaths_cold_2(v26, v27, v28, v29, v30, v31, v32, v33);
+    }
+  }
+
+  (*(v34 + 2))(v34, v6, v7);
+}
+
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void sub_1BB476928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BB4790D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -204,6 +218,13 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_1BB479688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -217,6 +238,13 @@ void sub_1BB47B0E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 {
   objc_destroyWeak((v15 + 32));
   objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BB47C7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
+{
+  va_start(va, a48);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -240,9 +268,9 @@ uint64_t AVTIsRunningInAppExtensionOrViewService()
   return v2;
 }
 
-void sub_1BB47F7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BB47F7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -254,12 +282,13 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void AVTTrackingDataFromARFrame(uint64_t a1, void *a2, unint64_t a3, void *a4, uint64_t a5, uint64_t a6, int a7, int a8, float *a9)
+void AVTTrackingDataFromARFrame(uint64_t a1, void *a2, unint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, float *a9)
 {
+  v10 = a7;
   v16 = a2;
   v17 = a4;
   [v17 transform];
-  v22 = _convertARFaceAnchorTransformToSceneKitTransform(a5, a6, a7, v16, a3, v18, v19, v20, v21);
+  v22 = _convertARFaceAnchorTransformToSceneKitTransform(a5, a6, v10, v16, a3, v18, v19, v20, v21);
   v60 = v23;
   v62 = v22;
   v56 = v25;
@@ -332,11 +361,11 @@ void AVTTrackingDataFromARFrame(uint64_t a1, void *a2, unint64_t a3, void *a4, u
 
   v44 = 0;
   *(a1 + 32) = vmulq_n_f32(v38, 0.5 / sqrtf(v37));
-  *(a1 + 48) = a7 ^ 1;
+  *(a1 + 48) = v10 ^ 1;
   do
   {
     v45 = AVTBlendShapeLocationFromARIndex(v44);
-    [v17 _avt_rawBlendShapeAtLocation:v45];
+    [v17 _avt_rawBlendShapeAtLocation:?];
     *(a1 + 4 * v44 + 256) = v46;
 
     ++v44;
@@ -344,7 +373,7 @@ void AVTTrackingDataFromARFrame(uint64_t a1, void *a2, unint64_t a3, void *a4, u
 
   while (v44 != 51);
   v47 = AVTBlendShapeLocationFromARIndex(51);
-  [v17 _avt_rawBlendShapeAtLocation:v47];
+  [v17 _avt_rawBlendShapeAtLocation:?];
   *(a1 + 464) = v48;
 
   if (a8)
@@ -374,13 +403,8 @@ void AVTTrackingDataFromARFrame(uint64_t a1, void *a2, unint64_t a3, void *a4, u
   else
   {
     v55 = [v17 blendShapes];
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __AVTTrackingDataFromARFrame_block_invoke;
-    v63[3] = &unk_1E7F47FB8;
-    v65 = a1;
-    v64 = v17;
-    [v55 enumerateKeysAndObjectsUsingBlock:v63];
+    v63 = v17;
+    [v55 enumerateKeysAndObjectsUsingBlock:?];
   }
 }
 
@@ -392,103 +416,103 @@ __n128 _convertARFaceAnchorTransformToSceneKitTransform(uint64_t a1, uint64_t a2
   {
     v15 = [v13 camera];
     [v15 displayCenterTransform];
-    v39 = v16;
-    v41 = v17;
-    v42 = v19;
-    v45 = v18;
+    v41 = v16;
+    v43 = v17;
+    v44 = v19;
+    v47 = v18;
 
     v20 = 0;
     v21 = xmmword_1BB4F05D0;
-    v21.i32[3] = v39;
+    v21.i32[3] = v41;
     v22 = xmmword_1BB4F05E0;
-    v22.i32[3] = v41;
+    v22.i32[3] = v43;
     v23 = xmmword_1BB4F0610;
-    v23.i32[3] = v45;
-    v24 = vnegq_f32(v42);
-    v24.i32[3] = v42.i32[3];
-    v54 = a6;
-    v55 = a7;
-    v56 = a8;
-    v57 = a9;
-    v58 = 0u;
-    v59 = 0u;
+    v23.i32[3] = v47;
+    v24 = vnegq_f32(v44);
+    v24.i32[3] = v44.i32[3];
+    v56 = a6;
+    v57 = a7;
+    v58 = a8;
+    v59 = a9;
     v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     do
     {
-      *(&v58 + v20) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*(&v54 + v20))), v22, v54.n128_u64[v20 / 8], 1), v23, *(&v54 + v20), 2), v24, *(&v54 + v20), 3);
+      *(&v60 + v20) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*(&v56 + v20))), v22, v56.n128_u64[v20 / 8], 1), v23, *(&v56 + v20), 2), v24, *(&v56 + v20), 3);
       v20 += 16;
     }
 
     while (v20 != 64);
-    a6 = v58;
-    a7 = v59;
-    a8 = v60;
-    a9 = v61;
+    a6 = v60;
+    a7 = v61;
+    a8 = v62;
+    a9 = v63;
   }
 
-  v25 = AVTARKitTransformToSceneKitTransformMatrix(a5, a1, a2);
-  v29 = 0;
-  v54 = a6;
-  v55 = a7;
-  v56 = a8;
-  v57 = a9;
-  v58 = 0u;
-  v59 = 0u;
+  v27 = AVTARKitTransformToSceneKitTransformMatrix(a5, a1, a2);
+  v31 = 0;
+  v56 = a6;
+  v57 = a7;
+  v58 = a8;
+  v59 = a9;
   v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   do
   {
-    *(&v58 + v29) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v25, COERCE_FLOAT(*(&v54 + v29))), v26, v54.n128_u64[v29 / 8], 1), v27, *(&v54 + v29), 2), v28, *(&v54 + v29), 3);
-    v29 += 16;
+    *(&v60 + v31) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, COERCE_FLOAT(*(&v56 + v31))), v28, v56.n128_u64[v31 / 8], 1), v29, *(&v56 + v31), 2), v30, *(&v56 + v31), 3);
+    v31 += 16;
   }
 
-  while (v29 != 64);
-  v51 = v59;
-  v53 = v58;
-  v49 = v60;
+  while (v31 != 64);
+  v53 = v61;
+  v55 = v60;
+  v51 = v62;
   if (a3)
   {
-    AVTGetNeutralZ();
+    AVTGetNeutralZ(v25, v26);
   }
 
   else
   {
-    v30 = vmulq_f32(v61, vdupq_n_s32(0x42C80000u));
-    v30.i32[3] = v61.i32[3];
-    v47 = v30;
-    v31 = [v14 camera];
-    [v31 transform];
-    v43 = v33;
-    v44 = v32;
-    v38 = v35;
-    v40 = v34;
+    v32 = vmulq_f32(v63, vdupq_n_s32(0x42C80000u));
+    v32.i32[3] = v63.i32[3];
+    v49 = v32;
+    v33 = [v14 camera];
+    [v33 transform];
+    v45 = v35;
+    v46 = v34;
+    v40 = v37;
+    v42 = v36;
 
-    v62.columns[1] = v43;
-    v62.columns[0] = v44;
-    v62.columns[3] = v38;
-    v62.columns[2] = v40;
-    v63 = __invert_f4(v62);
-    v36 = 0;
-    v54 = v53;
-    v55 = v51;
-    v56 = v49;
-    v57 = v47;
-    v58 = 0u;
-    v59 = 0u;
+    v64.columns[1] = v45;
+    v64.columns[0] = v46;
+    v64.columns[3] = v40;
+    v64.columns[2] = v42;
+    v65 = __invert_f4(v64);
+    v38 = 0;
+    v56 = v55;
+    v57 = v53;
+    v58 = v51;
+    v59 = v49;
     v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     do
     {
-      *(&v58 + v36) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v63.columns[0], COERCE_FLOAT(*(&v54 + v36))), v63.columns[1], v54.n128_u64[v36 / 8], 1), v63.columns[2], *(&v54 + v36), 2), v63.columns[3], *(&v54 + v36), 3);
-      v36 += 16;
+      *(&v60 + v38) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v65.columns[0], COERCE_FLOAT(*(&v56 + v38))), v65.columns[1], v56.n128_u64[v38 / 8], 1), v65.columns[2], *(&v56 + v38), 2), v65.columns[3], *(&v56 + v38), 3);
+      v38 += 16;
     }
 
-    while (v36 != 64);
-    v53 = v58;
+    while (v38 != 64);
+    v55 = v60;
   }
 
-  return v53;
+  return v55;
 }
 
 void __AVTTrackingDataFromARFrame_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -498,7 +522,7 @@ void __AVTTrackingDataFromARFrame_block_invoke(uint64_t a1, void *a2, void *a3)
   v6 = AVTBlendShapeLocationToARIndex(v9);
   if (v6 > 50)
   {
-    [*(a1 + 32) _avt_rawBlendShapeAtLocation:v9];
+    [*(a1 + 32) _avt_rawBlendShapeAtLocation:?];
     *(*(a1 + 40) + 4 * v6 + 256) = v8;
   }
 
@@ -509,18 +533,19 @@ void __AVTTrackingDataFromARFrame_block_invoke(uint64_t a1, void *a2, void *a3)
   }
 }
 
-uint64_t ___slowestToFastestVideoFormatsForConfiguration_block_invoke(uint64_t a1, void *a2, void *a3)
+void *___slowestToFastestVideoFormatsForConfiguration_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = MEMORY[0x1E696AD98];
   v5 = a3;
-  v6 = [v4 numberWithInteger:{objc_msgSend(a2, "framesPerSecond")}];
+  [a2 framesPerSecond];
+  v6 = [v4 numberWithInteger:?];
   v7 = MEMORY[0x1E696AD98];
-  v8 = [v5 framesPerSecond];
+  [v5 framesPerSecond];
 
-  v9 = [v7 numberWithInteger:v8];
-  v10 = [v6 compare:v9];
+  v8 = [v7 numberWithInteger:?];
+  v9 = [v6 compare:?];
 
-  return v10;
+  return v9;
 }
 
 void sub_1BB48357C(_Unwind_Exception *a1)
@@ -544,16 +569,16 @@ void sub_1BB4848F8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB484E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1BB484E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB485350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BB485350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -565,9 +590,9 @@ void sub_1BB4857CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB485EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB485EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -578,7 +603,7 @@ void OUTLINED_FUNCTION_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, ui
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 2u);
 }
 
-uint64_t AVTPosterExpectsExtraTallContent(void *a1, void *a2)
+void *AVTPosterExpectsExtraTallContent(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
@@ -594,7 +619,7 @@ uint64_t AVTPosterExpectsExtraTallContent(void *a1, void *a2)
     if (objc_opt_isKindOfClass())
     {
       v6 = [v3 name];
-      v5 = [v6 isEqualToString:@"giraffe"];
+      v5 = [v6 isEqualToString:?];
     }
 
     else
@@ -606,19 +631,20 @@ uint64_t AVTPosterExpectsExtraTallContent(void *a1, void *a2)
   return v5;
 }
 
-void sub_1BB489F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BB489F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB48A564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_1BB48A564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a34, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -637,7 +663,7 @@ id AVTPlistDatabaseMemojiAssetWithIdentifier(void *a1)
     AVTPlistDatabaseMemojiAssetWithIdentifier_cold_1();
   }
 
-  v2 = [AVTPlistDatabaseMemojiAssetWithIdentifier::kAVTPlistDatabase_assetByIdentifier objectForKeyedSubscript:v1];
+  v2 = [AVTPlistDatabaseMemojiAssetWithIdentifier::kAVTPlistDatabase_assetByIdentifier objectForKeyedSubscript:?];
 
   return v2;
 }
@@ -648,7 +674,7 @@ void __AVTPlistDatabaseMemojiAssetWithIdentifier_block_invoke()
   v1 = +[AVTResourceLocator generatedPlistFolderName];
   v4 = [AVTResourceLocator pathForMemojiResource:v0 ofType:? inDirectory:? isDirectory:?];
 
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v4];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:?];
   v3 = AVTPlistDatabaseMemojiAssetWithIdentifier::kAVTPlistDatabase_assetByIdentifier;
   AVTPlistDatabaseMemojiAssetWithIdentifier::kAVTPlistDatabase_assetByIdentifier = v2;
 }
@@ -662,7 +688,7 @@ id AVTPlistDatabaseMemojiAssetsForComponentType(unint64_t a1)
 
   v2 = AVTPlistDatabaseMemojiAssetsForComponentType::kAVTPlistDatabase_assetIdentifiersByComponentType;
   v3 = AVTComponentTypeToString(a1);
-  v4 = [v2 objectForKeyedSubscript:v3];
+  v4 = [v2 objectForKeyedSubscript:?];
 
   return v4;
 }
@@ -673,7 +699,7 @@ void __AVTPlistDatabaseMemojiAssetsForComponentType_block_invoke()
   v1 = +[AVTResourceLocator generatedPlistFolderName];
   v4 = [AVTResourceLocator pathForMemojiResource:v0 ofType:? inDirectory:? isDirectory:?];
 
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v4];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:?];
   v3 = AVTPlistDatabaseMemojiAssetsForComponentType::kAVTPlistDatabase_assetIdentifiersByComponentType;
   AVTPlistDatabaseMemojiAssetsForComponentType::kAVTPlistDatabase_assetIdentifiersByComponentType = v2;
 }
@@ -686,7 +712,7 @@ uint64_t AVTBlendShapeLocationToARIndex(void *a1)
     AVTBlendShapeLocationToARIndex_cold_1();
   }
 
-  v2 = [kAVTBlendShapeLocationIndices objectForKeyedSubscript:v1];
+  v2 = [kAVTBlendShapeLocationIndices objectForKeyedSubscript:?];
   v3 = v2;
   if (v2)
   {
@@ -722,7 +748,7 @@ BOOL AVTMorphTargetNameIsUsedForFaceAnimation(void *a1)
     AVTBlendShapeLocationToARIndex_cold_1();
   }
 
-  v3 = [kAVTBlendShapeLocationIndices objectForKeyedSubscript:v2];
+  v3 = [kAVTBlendShapeLocationIndices objectForKeyedSubscript:?];
 
   return v3 != 0;
 }
@@ -730,14 +756,14 @@ BOOL AVTMorphTargetNameIsUsedForFaceAnimation(void *a1)
 uint64_t AVTMorphTargetNameIsUsedForBindings(void *a1)
 {
   v1 = a1;
-  if ([v1 containsString:@"__"] & 1) != 0 || (objc_msgSend(v1, "containsString:", @"_0_") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_backward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_forward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_rightward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_leftward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_downward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_upward"))
+  if ([v1 containsString:?] & 1) != 0 || (objc_msgSend(v1, "containsString:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:"))
   {
     v2 = 0;
   }
 
   else
   {
-    v2 = [v1 isEqualToString:@"Emoji"] ^ 1;
+    v2 = [v1 isEqualToString:?] ^ 1;
   }
 
   return v2;
@@ -746,14 +772,14 @@ uint64_t AVTMorphTargetNameIsUsedForBindings(void *a1)
 uint64_t AVTMorphTargetNameDefinesPose(void *a1)
 {
   v1 = a1;
-  if ([v1 containsString:@"__"] & 1) != 0 || (objc_msgSend(v1, "containsString:", @"_0_") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_backward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_forward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_rightward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_leftward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_downward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_upward"))
+  if ([v1 containsString:?] & 1) != 0 || (objc_msgSend(v1, "containsString:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:"))
   {
     v2 = 0;
   }
 
   else
   {
-    v2 = [v1 hasPrefix:@"variant_"] ^ 1;
+    v2 = [v1 hasPrefix:?] ^ 1;
   }
 
   return v2;
@@ -762,14 +788,14 @@ uint64_t AVTMorphTargetNameDefinesPose(void *a1)
 uint64_t AVTMorphTargetNameIsOfInterestForAnimator(void *a1)
 {
   v1 = a1;
-  if ([v1 containsString:@"_0_"] & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_backward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_forward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_rightward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_leftward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_downward") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:", @"_upward"))
+  if ([v1 containsString:?] & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:") & 1) != 0 || (objc_msgSend(v1, "hasSuffix:"))
   {
     v2 = 0;
   }
 
   else
   {
-    v2 = [v1 isEqualToString:@"Emoji"] ^ 1;
+    v2 = [v1 isEqualToString:?] ^ 1;
   }
 
   return v2;
@@ -777,7 +803,6 @@ uint64_t AVTMorphTargetNameIsOfInterestForAnimator(void *a1)
 
 void ___initialiseBlendshapeMappingIfNeeded_block_invoke()
 {
-  v38[51] = *MEMORY[0x1E69E9840];
   if (AVTFaceTrackingIsSupported_onceToken != -1)
   {
     ___initialiseBlendshapeMappingIfNeeded_block_invoke_cold_1();
@@ -785,90 +810,13 @@ void ___initialiseBlendshapeMappingIfNeeded_block_invoke()
 
   if (AVTFaceTrackingIsSupported_kAVTFaceTrackingIsSupported == 1)
   {
-    v37 = 0;
     CVAFaceTrackingCopySemantics();
-    v0 = [0 objectForKeyedSubscript:*MEMORY[0x1E698BFC0]];
+    v0 = [0 objectForKeyedSubscript:?];
   }
 
   else
   {
-    v1 = *MEMORY[0x1E69862B8];
-    v38[0] = *MEMORY[0x1E69862B0];
-    v38[1] = v1;
-    v2 = *MEMORY[0x1E6986308];
-    v38[2] = *MEMORY[0x1E6986300];
-    v38[3] = v2;
-    v3 = *MEMORY[0x1E69862C8];
-    v38[4] = *MEMORY[0x1E69862C0];
-    v38[5] = v3;
-    v4 = *MEMORY[0x1E69862D8];
-    v38[6] = *MEMORY[0x1E69862D0];
-    v38[7] = v4;
-    v5 = *MEMORY[0x1E6986318];
-    v38[8] = *MEMORY[0x1E6986310];
-    v38[9] = v5;
-    v6 = *MEMORY[0x1E69862E8];
-    v38[10] = *MEMORY[0x1E69862E0];
-    v38[11] = v6;
-    v7 = *MEMORY[0x1E69862F8];
-    v38[12] = *MEMORY[0x1E69862F0];
-    v38[13] = v7;
-    v8 = *MEMORY[0x1E6986278];
-    v38[14] = *MEMORY[0x1E6986270];
-    v38[15] = v8;
-    v9 = *MEMORY[0x1E6986288];
-    v38[16] = *MEMORY[0x1E6986280];
-    v38[17] = v9;
-    v10 = *MEMORY[0x1E6986330];
-    v38[18] = *MEMORY[0x1E6986290];
-    v38[19] = v10;
-    v11 = *MEMORY[0x1E6986328];
-    v38[20] = *MEMORY[0x1E6986340];
-    v38[21] = v11;
-    v12 = *MEMORY[0x1E6986320];
-    v38[22] = *MEMORY[0x1E6986338];
-    v38[23] = v12;
-    v13 = *MEMORY[0x1E69863F0];
-    v38[24] = *MEMORY[0x1E69863E8];
-    v38[25] = v13;
-    v14 = *MEMORY[0x1E6986380];
-    v38[26] = *MEMORY[0x1E6986378];
-    v38[27] = v14;
-    v15 = *MEMORY[0x1E69863A8];
-    v38[28] = *MEMORY[0x1E69863B0];
-    v38[29] = v15;
-    v16 = *MEMORY[0x1E69863D0];
-    v38[30] = *MEMORY[0x1E69863C8];
-    v38[31] = v16;
-    v17 = *MEMORY[0x1E6986350];
-    v38[32] = *MEMORY[0x1E6986348];
-    v38[33] = v17;
-    v18 = *MEMORY[0x1E69863E0];
-    v38[34] = *MEMORY[0x1E69863D8];
-    v38[35] = v18;
-    v19 = *MEMORY[0x1E6986360];
-    v38[36] = *MEMORY[0x1E6986358];
-    v38[37] = v19;
-    v20 = *MEMORY[0x1E6986390];
-    v38[38] = *MEMORY[0x1E6986388];
-    v38[39] = v20;
-    v21 = *MEMORY[0x1E6986368];
-    v38[40] = *MEMORY[0x1E6986398];
-    v38[41] = v21;
-    v22 = *MEMORY[0x1E69863A0];
-    v38[42] = *MEMORY[0x1E6986370];
-    v38[43] = v22;
-    v23 = *MEMORY[0x1E69863C0];
-    v38[44] = *MEMORY[0x1E69863B8];
-    v38[45] = v23;
-    v24 = *MEMORY[0x1E6986400];
-    v38[46] = *MEMORY[0x1E69863F8];
-    v38[47] = v24;
-    v25 = *MEMORY[0x1E69862A0];
-    v38[48] = *MEMORY[0x1E6986298];
-    v38[49] = v25;
-    v38[50] = *MEMORY[0x1E69862A8];
-    v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:51];
+    v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
   }
 
   if ([v0 count] != 51)
@@ -876,30 +824,24 @@ void ___initialiseBlendshapeMappingIfNeeded_block_invoke()
     ___initialiseBlendshapeMappingIfNeeded_block_invoke_cold_2();
   }
 
-  v26 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:52];
-  v32 = MEMORY[0x1E69E9820];
-  v33 = 3221225472;
-  v34 = ___initialiseBlendshapeMappingIfNeeded_block_invoke_2;
-  v35 = &unk_1E7F48530;
-  v36 = v26;
-  v27 = v26;
-  [v0 enumerateObjectsUsingBlock:&v32];
-  v28 = *MEMORY[0x1E6986408];
+  v1 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
+  v5 = MEMORY[0x1E69E9820];
+  v6 = v1;
+  v2 = v1;
+  [v0 enumerateObjectsUsingBlock:{v5, 3221225472, ___initialiseBlendshapeMappingIfNeeded_block_invoke_2, &unk_1E7F48530}];
   objc_storeStrong(&qword_1EBC59028, *MEMORY[0x1E6986408]);
-  [v27 setObject:&unk_1F39D9380 forKeyedSubscript:{v28, v32, v33, v34, v35}];
-  v29 = [v27 copy];
-  v30 = kAVTBlendShapeLocationIndices;
-  kAVTBlendShapeLocationIndices = v29;
-
-  v31 = *MEMORY[0x1E69E9840];
+  [v2 setObject:? forKeyedSubscript:?];
+  v3 = [v2 copy];
+  v4 = kAVTBlendShapeLocationIndices;
+  kAVTBlendShapeLocationIndices = v3;
 }
 
 void ___initialiseBlendshapeMappingIfNeeded_block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   objc_storeStrong(&kAVTBlendShapeLocationFromARIndex[a3], a2);
-  v6 = a2;
-  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
-  [*(a1 + 32) setObject:v7 forKeyedSubscript:v6];
+  v5 = a2;
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+  [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
 uint64_t __AVTFaceTrackingIsSupported_block_invoke()
@@ -921,10 +863,11 @@ uint64_t __AVTFaceTrackingIsSupported_block_invoke()
   return result;
 }
 
-void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 __CFString *AVTComponentTypeToString(unint64_t a1)
@@ -948,10 +891,10 @@ uint64_t AVTComponentTypeFromString(void *a1)
     AVTComponentTypeFromString_cold_1();
   }
 
-  v2 = [AVTComponentTypeFromString_nameToType objectForKeyedSubscript:v1];
+  v2 = [AVTComponentTypeFromString_nameToType objectForKeyedSubscript:?];
   if (v2)
   {
-    v3 = [AVTComponentTypeFromString_nameToType objectForKeyedSubscript:v1];
+    v3 = [AVTComponentTypeFromString_nameToType objectForKeyedSubscript:?];
     v4 = [v3 intValue];
   }
 
@@ -965,16 +908,16 @@ uint64_t AVTComponentTypeFromString(void *a1)
 
 void __AVTComponentTypeFromString_block_invoke()
 {
-  v0 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:42];
+  v0 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:?];
   v1 = AVTComponentTypeFromString_nameToType;
   AVTComponentTypeFromString_nameToType = v0;
 
   for (i = 0; i != 42; ++i)
   {
-    v3 = [MEMORY[0x1E696AD98] numberWithInteger:i];
+    v3 = [MEMORY[0x1E696AD98] numberWithInteger:?];
     v4 = AVTComponentTypeFromString_nameToType;
     v5 = AVTComponentTypeToString(i);
-    [v4 setObject:v3 forKeyedSubscript:v5];
+    [v4 setObject:? forKeyedSubscript:?];
   }
 }
 
@@ -993,37 +936,33 @@ uint64_t AVTBodyRegionForComponentType(uint64_t a1)
 
 void _AVTAvatarPoseImportSceneKitAnimation(void *a1, void *a2, void *a3, void *a4, __int128 *a5)
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a2;
   v11 = a3;
   v12 = a4;
-  [v10 subAnimations];
-  v67 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v13 = v64 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v64 objects:v76 count:16];
+  v13 = [v10 subAnimations];
+  v14 = [v13 countByEnumeratingWithState:? objects:? count:?];
   if (v14)
   {
-    v15 = *v65;
+    v15 = MEMORY[0];
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v14; i = (i + 1))
       {
-        if (*v65 != v15)
+        if (MEMORY[0] != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v64 + 1) + 8 * i);
+        v17 = *(8 * i);
         v18 = a5[1];
-        v68 = *a5;
-        v69 = v18;
-        _AVTAvatarPoseImportSceneKitAnimation(v9, v17, v11, v12, &v68);
+        v57 = *a5;
+        v58 = v18;
+        _AVTAvatarPoseImportSceneKitAnimation(v9, v17, v11, v12, &v57);
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v64 objects:v76 count:16];
+      v14 = [v13 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v14);
@@ -1031,190 +970,177 @@ void _AVTAvatarPoseImportSceneKitAnimation(void *a1, void *a2, void *a3, void *a
 
   if (![v13 count])
   {
-    v61 = [v10 keyPath];
-    v19 = [v61 containsString:@"morpher.weights"];
-    v59 = [v61 componentsSeparatedByString:@"/"];
-    v60 = [v59 lastObject];
-    v21 = [v60 rangeOfString:@"."];
-    if (v21 == 0x7FFFFFFFFFFFFFFFLL)
+    v56 = [v10 keyPath];
+    v19 = [v56 containsString:?];
+    v54 = [v56 componentsSeparatedByString:?];
+    v55 = [v54 lastObject];
+    if ([v55 rangeOfString:?] == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v22 = 1;
+      v20 = 1;
     }
 
     else
     {
-      v22 = v19;
+      v20 = v19;
     }
 
-    if (v22 == 1)
+    if (v20 == 1)
     {
-      v58 = [v9 name];
-      v23 = v60;
+      v53 = [v9 name];
+      v21 = v55;
     }
 
     else
     {
-      v24 = v20;
-      v58 = [v60 substringToIndex:v21];
-      v23 = [v60 substringFromIndex:v21 + v24];
+      v53 = [v55 substringToIndex:?];
+      v21 = [v55 substringFromIndex:?];
 
-      [v10 setKeyPath:v23];
+      [v10 setKeyPath:?];
       [MEMORY[0x1E697A8D8] flush];
-      v61 = v23;
+      v56 = v21;
     }
 
-    if (([v23 isEqualToString:@"transform"] & 1) != 0 || (objc_msgSend(v23, "isEqualToString:", @"position") & 1) != 0 || (objc_msgSend(v23, "isEqualToString:", @"orientation") & 1) != 0 || (objc_msgSend(v23, "isEqualToString:", @"rotation") & 1) != 0 || (objc_msgSend(v23, "isEqualToString:", @"eulerAngles") & 1) != 0 || objc_msgSend(v23, "isEqualToString:", @"scale"))
+    if (([v21 isEqualToString:?] & 1) != 0 || (objc_msgSend(v21, "isEqualToString:") & 1) != 0 || (objc_msgSend(v21, "isEqualToString:") & 1) != 0 || (objc_msgSend(v21, "isEqualToString:") & 1) != 0 || (objc_msgSend(v21, "isEqualToString:") & 1) != 0 || (v22 = objc_msgSend(v21, "isEqualToString:"), v22))
     {
-      v72 = 0;
-      v73 = &v72;
-      v74 = 0x2020000000;
-      v75 = 0;
-      v25 = [v10 caAnimation];
+      v61 = 0;
+      v62 = &v61;
+      v63 = 0x2020000000;
+      v64 = 0;
+      v23 = [v10 caAnimation];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v26 = v25;
-        *&v68 = 0;
-        *(&v68 + 1) = &v68;
-        *&v69 = 0x3032000000;
-        *(&v69 + 1) = __Block_byref_object_copy__3;
-        v70 = __Block_byref_object_dispose__3;
-        v71 = 0;
-        v27 = [v26 values];
-        v63[0] = MEMORY[0x1E69E9820];
-        v63[1] = 3221225472;
-        v63[2] = ___AVTAvatarPoseImportSceneKitAnimation_block_invoke;
-        v63[3] = &unk_1E7F48AE0;
-        v63[4] = &v68;
-        v63[5] = &v72;
-        [v27 enumerateObjectsUsingBlock:v63];
+        v25 = v23;
+        *&v57 = 0;
+        *(&v57 + 1) = &v57;
+        *&v58 = 0x3032000000;
+        *(&v58 + 1) = __Block_byref_object_copy__3;
+        v59 = __Block_byref_object_dispose__3;
+        v60 = 0;
+        v26 = [v25 values];
+        [v26 enumerateObjectsUsingBlock:?];
 
-        _Block_object_dispose(&v68, 8);
+        _Block_object_dispose(&v57, 8);
       }
 
       else
       {
-        v26 = avt_default_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v25 = avt_default_log(isKindOfClass);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v28 = objc_opt_class();
-          v29 = NSStringFromClass(v28);
-          _AVTAvatarPoseImportSceneKitAnimation_cold_2(v29, &v68, v26);
+          v27 = objc_opt_class();
+          v28 = NSStringFromClass(v27);
+          _AVTAvatarPoseImportSceneKitAnimation_cold_2(v28, &v57, v25);
         }
       }
 
-      if (*(v73 + 24) == 1)
+      if (*(v62 + 24) == 1)
       {
-        v30 = [v12 objectForKeyedSubscript:v58];
-        if (!v30)
+        v29 = [v12 objectForKeyedSubscript:?];
+        if (!v29)
         {
-          v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          [v12 setObject:v30 forKeyedSubscript:v58];
+          v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          [v12 setObject:? forKeyedSubscript:?];
         }
 
-        v31 = MEMORY[0x1E69DF2B0];
-        v32 = [v10 caAnimation];
-        v33 = [v31 animationWithCAAnimation:v32];
+        v30 = MEMORY[0x1E69DF2B0];
+        v31 = [v10 caAnimation];
+        v32 = [v30 animationWithCAAnimation:?];
 
-        [v30 addObject:v33];
+        [v29 addObject:?];
       }
 
-      v34 = &v72;
+      v33 = &v61;
     }
 
     else
     {
       if (!v19)
       {
-        v38 = avt_default_log();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v37 = avt_default_log(v22);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          _AVTAvatarPoseImportSceneKitAnimation_cold_1(v10, v38);
+          _AVTAvatarPoseImportSceneKitAnimation_cold_1(v10, v37);
         }
 
         goto LABEL_31;
       }
 
-      *&v68 = 0;
-      *(&v68 + 1) = &v68;
-      *&v69 = 0x2020000000;
-      BYTE8(v69) = 0;
-      v57 = [v10 caAnimation];
+      *&v57 = 0;
+      *(&v57 + 1) = &v57;
+      *&v58 = 0x2020000000;
+      BYTE8(v58) = 0;
+      v52 = [v10 caAnimation];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v34 = objc_opt_isKindOfClass();
+      if (v34)
       {
-        v36 = v57;
-        v37 = [v36 values];
-        v62[0] = MEMORY[0x1E69E9820];
-        v62[1] = 3221225472;
-        v62[2] = ___AVTAvatarPoseImportSceneKitAnimation_block_invoke_249;
-        v62[3] = &unk_1E7F48B08;
-        v62[4] = &v68;
-        [v37 enumerateObjectsUsingBlock:v62];
+        v35 = v52;
+        v36 = [v35 values];
+        [v36 enumerateObjectsUsingBlock:?];
       }
 
       else
       {
-        v36 = avt_default_log();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v35 = avt_default_log(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          v39 = objc_opt_class();
-          v40 = NSStringFromClass(v39);
-          _AVTAvatarPoseImportSceneKitAnimation_cold_2(v40, &v72, v36);
+          v38 = objc_opt_class();
+          v39 = NSStringFromClass(v38);
+          _AVTAvatarPoseImportSceneKitAnimation_cold_2(v39, &v61, v35);
         }
       }
 
-      if (*(*(&v68 + 1) + 24) == 1)
+      if (*(*(&v57 + 1) + 24) == 1)
       {
-        v55 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"morpher\\.weights\\[([0-9]+)\\]" options:0 error:0];
-        v56 = [v55 matchesInString:v61 options:0 range:{0, objc_msgSend(v61, "length")}];
-        if ([v56 count])
+        v50 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:? options:? error:?];
+        [v56 length];
+        v51 = [v50 matchesInString:? options:? range:?];
+        if ([v51 count])
         {
-          v41 = [v56 firstObject];
-          v42 = [v41 rangeAtIndex:1];
-          v44 = v43;
+          v40 = [v51 firstObject];
+          [v40 rangeAtIndex:?];
 
-          v45 = [v61 substringWithRange:{v42, v44}];
-          v46 = [v45 integerValue];
-          v47 = [v9 morpher];
-          v48 = [v47 targets];
-          v49 = [v48 objectAtIndexedSubscript:v46];
-          v54 = [v49 name];
+          v41 = [v56 substringWithRange:?];
+          [v41 integerValue];
+          v42 = [v9 morpher];
+          v43 = [v42 targets];
+          v44 = [v43 objectAtIndexedSubscript:?];
+          v49 = [v44 name];
 
-          v61 = v54;
+          v56 = v49;
         }
 
         else
         {
-          v45 = avt_default_log();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v41 = avt_default_log(0);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            _AVTAvatarPoseImportSceneKitAnimation_cold_3(v45);
+            _AVTAvatarPoseImportSceneKitAnimation_cold_3(v41);
           }
         }
 
-        if (v61 && AVTMorphTargetNameDefinesPose(v61))
+        if (v56 && AVTMorphTargetNameDefinesPose(v56))
         {
-          v50 = [v11 objectForKeyedSubscript:v61];
-          if (!v50)
+          v45 = [v11 objectForKeyedSubscript:?];
+          if (!v45)
           {
-            v51 = MEMORY[0x1E69DF2B0];
-            v52 = [v10 caAnimation];
-            v53 = [v51 animationWithCAAnimation:v52];
+            v46 = MEMORY[0x1E69DF2B0];
+            v47 = [v10 caAnimation];
+            v48 = [v46 animationWithCAAnimation:?];
 
-            [v11 setObject:v53 forKeyedSubscript:v61];
+            [v11 setObject:? forKeyedSubscript:?];
           }
         }
       }
 
-      v34 = &v68;
+      v33 = &v57;
     }
 
-    _Block_object_dispose(v34, 8);
+    _Block_object_dispose(v33, 8);
 LABEL_31:
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
@@ -1312,8 +1238,8 @@ LABEL_24:
 
 void __AVTDebugARMask_block_invoke()
 {
-  v0 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.UIKit"];
-  AVTDebugARMask_debugMode = [v0 BOOLForKey:@"avatarKit.showARLayers"];
+  v0 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:?];
+  AVTDebugARMask_debugMode = [v0 BOOLForKey:?];
 }
 
 id AVTGetPixelBufferTexture(__CVBuffer *a1, __CVMetalTextureCache *a2, MTLPixelFormat a3)
@@ -1391,7 +1317,7 @@ LABEL_13:
   return v14;
 }
 
-double AVTGetColorComponents(void *a1, const char *a2)
+double AVTGetColorComponents(void *a1)
 {
   if (!a1)
   {
@@ -1465,7 +1391,7 @@ __n128 AVTGetColorComponentsMetal(void *a1)
   return v14;
 }
 
-float AVTGetNeutralZ()
+float AVTGetNeutralZ(uint64_t a1, uint64_t a2)
 {
   if (AVTGetNeutralZ_onceToken != -1)
   {
@@ -1616,9 +1542,9 @@ double PerfTimesMinForKind(uint64_t a1, int a2)
   return v2;
 }
 
-void sub_1BB49969C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB49969C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1653,9 +1579,9 @@ double PerfTimesMaxForKind(uint64_t a1, int a2)
   return v2;
 }
 
-void sub_1BB49978C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB49978C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1689,9 +1615,9 @@ double PerfTimesMin(uint64_t a1)
   return v1;
 }
 
-void sub_1BB499878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB499878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1733,9 +1659,9 @@ double PerfTimesMax(uint64_t a1)
   return v1;
 }
 
-void sub_1BB499978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB499978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1783,11 +1709,11 @@ double PerfTimesAverageLatency(uint64_t a1)
   return v1;
 }
 
-void sub_1BB499AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB499AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1826,11 +1752,11 @@ double PerfTimesAverageLatencyForKind(uint64_t a1, int a2)
   return v2;
 }
 
-void sub_1BB499BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB499BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1856,7 +1782,7 @@ __n128 AVTARKitTransformToSceneKitTransformMatrix(unint64_t a1, uint64_t a2, uin
 
   else
   {
-    v5 = avt_default_log();
+    v5 = avt_default_log(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       AVTARKitTransformToSceneKitTransformMatrix_cold_1(a1, v5);
@@ -1892,13 +1818,10 @@ LABEL_9:
     v9 -= 4;
   }
 
-  v10 = &AVTARKitTransformToSceneKitTransformMatrix_rotationMatrices + 64 * v9;
-  result = *v10;
-  v12 = *(v10 + 1);
-  return result;
+  return AVTARKitTransformToSceneKitTransformMatrix_rotationMatrices[4 * v9];
 }
 
-__n128 AVTSceneKitTextureCoordinatesForCaptureDeviceTexture(void *a1, unint64_t a2, unint64_t a3, uint64_t a4)
+__n128 AVTSceneKitTextureCoordinatesForCaptureDeviceTexture(void *a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
   v7 = a1;
   v9 = v7;
@@ -1998,60 +1921,39 @@ id AVTRenderingCacheFolderURL()
 
 void AVTSetARCompositingEnabled(void *a1, uint64_t a2)
 {
-  v3 = a1;
-  [v3 set_enableARMode:a2];
-  v8 = [v3 pointOfView];
+  v2 = a1;
+  [v2 set_enableARMode:?];
+  v5 = [v2 pointOfView];
 
-  if (a2)
-  {
-    v4 = 0.82;
-  }
-
-  else
-  {
-    v4 = 0.0;
-  }
-
-  v5 = [v8 camera];
-  v6 = [v5 grain];
-  *&v7 = v4;
-  [v6 setIntensity:v7];
+  v3 = [v5 camera];
+  v4 = [v3 grain];
+  [v4 setIntensity:?];
 }
 
 void AVTApplyARGrainIfNeeded(void *a1, void *a2)
 {
-  v23 = a1;
+  v10 = a1;
   v3 = a2;
-  v4 = [v23 pointOfView];
+  v4 = [v10 pointOfView];
   v5 = [v4 camera];
   v6 = [v5 grain];
   [v3 cameraGrainIntensity];
-  if (*&v7 == 0.0)
+  if (v7 == 0.0)
   {
-    [v6 setIntensity:0.0];
+    [v6 setIntensity:?];
   }
 
   else
   {
-    LODWORD(v7) = 1062333317;
-    [v6 setIntensity:v7];
-    [v23 _backingSize];
-    v9 = v8;
-    v11 = v10;
-    v12 = [v3 camera];
-    [v12 imageResolution];
-    v14 = v13;
-    v16 = v15;
+    [v6 setIntensity:?];
+    [v10 _backingSize];
+    v8 = [v3 camera];
+    [v8 imageResolution];
 
-    v17 = v14;
-    v18 = v16;
-    v19 = fmax(v9, v11);
-    v20 = fmin(v9, v11);
-    *&v21 = fmaxf(v19 / v17, v20 / v18);
-    [v6 setScale:v21];
-    [v6 setColored:1];
-    v22 = [v3 cameraGrainTexture];
-    [v6 setTexture:v22];
+    [v6 setScale:?];
+    [v6 setColored:?];
+    v9 = [v3 cameraGrainTexture];
+    [v6 setTexture:?];
 
     [v3 cameraGrainIntensity];
     [v6 setSlice:?];
@@ -2065,19 +1967,29 @@ id AVTMTLTextureDescriptorCreateFromTexture(void *a1)
     v1 = MEMORY[0x1E69741B8];
     v2 = a1;
     v3 = objc_alloc_init(v1);
-    [v3 setTextureType:{objc_msgSend(v2, "textureType")}];
-    [v3 setPixelFormat:objc_msgSend(v2, "pixelFormat")];
-    [v3 setWidth:{objc_msgSend(v2, "width")}];
-    [v3 setHeight:{objc_msgSend(v2, "height")}];
-    [v3 setDepth:{objc_msgSend(v2, "depth")}];
-    [v3 setMipmapLevelCount:{objc_msgSend(v2, "mipmapLevelCount")}];
-    [v3 setSampleCount:{objc_msgSend(v2, "sampleCount")}];
-    [v3 setArrayLength:{objc_msgSend(v2, "arrayLength")}];
-    [v3 setCpuCacheMode:{objc_msgSend(v2, "cpuCacheMode")}];
-    [v3 setStorageMode:{objc_msgSend(v2, "storageMode")}];
-    v4 = [v2 usage];
+    [v2 textureType];
+    [v3 setTextureType:?];
+    [v2 pixelFormat];
+    [v3 setPixelFormat:?];
+    [v2 width];
+    [v3 setWidth:?];
+    [v2 height];
+    [v3 setHeight:?];
+    [v2 depth];
+    [v3 setDepth:?];
+    [v2 mipmapLevelCount];
+    [v3 setMipmapLevelCount:?];
+    [v2 sampleCount];
+    [v3 setSampleCount:?];
+    [v2 arrayLength];
+    [v3 setArrayLength:?];
+    [v2 cpuCacheMode];
+    [v3 setCpuCacheMode:?];
+    [v2 storageMode];
+    [v3 setStorageMode:?];
+    [v2 usage];
 
-    [v3 setUsage:v4];
+    [v3 setUsage:?];
   }
 
   else
@@ -2088,42 +2000,33 @@ id AVTMTLTextureDescriptorCreateFromTexture(void *a1)
   return v3;
 }
 
-id plistWithVector(__n128 a1)
+id plistWithVector(uint64_t a1, __n128 a2)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  v1 = numberFromDouble(a1.n128_f32[0]);
-  v2 = numberFromDouble(a1.n128_f32[1]);
-  v3 = numberFromDouble(a1.n128_f32[2]);
-  if ([v1 isEqualToNumber:{v2, a1.n128_u64[0]}] && objc_msgSend(v1, "isEqualToNumber:", v3))
+  v2 = numberFromDouble(a2.n128_f32[0]);
+  v3 = numberFromDouble(a2.n128_f32[1]);
+  v4 = numberFromDouble(a2.n128_f32[2]);
+  if ([v2 isEqualToNumber:a2.n128_u64[0]] && objc_msgSend(v2, "isEqualToNumber:"))
   {
-    v4 = v1;
+    v5 = v2;
   }
 
   else
   {
-    v9[0] = @"x";
-    v9[1] = @"y";
-    v10[0] = v1;
-    v10[1] = v2;
-    v9[2] = @"z";
-    v10[2] = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
   }
 
-  v5 = v4;
+  v6 = v5;
 
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
 id numberFromDouble(double a1)
 {
-  v2 = [MEMORY[0x1E696AB98] decimalNumberHandlerWithRoundingMode:0 scale:3 raiseOnExactness:0 raiseOnOverflow:0 raiseOnUnderflow:0 raiseOnDivideByZero:0];
-  v3 = [MEMORY[0x1E696AB90] numberWithDouble:a1];
-  v4 = [v3 decimalNumberByRoundingAccordingToBehavior:v2];
+  v1 = [MEMORY[0x1E696AB98] decimalNumberHandlerWithRoundingMode:? scale:? raiseOnExactness:? raiseOnOverflow:? raiseOnUnderflow:? raiseOnDivideByZero:?];
+  v2 = [MEMORY[0x1E696AB90] numberWithDouble:?];
+  v3 = [v2 decimalNumberByRoundingAccordingToBehavior:?];
 
-  return v4;
+  return v3;
 }
 
 id AVTMergeSpecializationSettings(void *a1, void *a2)
@@ -2152,8 +2055,8 @@ id __AVTMergeSpecializationSettings(void *a1, void *a2, void *a3, void *a4, uint
   v9 = a1;
   v10 = a4;
   v11 = a3;
-  v12 = [a2 objectForKeyedSubscript:v10];
-  v13 = [v11 objectForKeyedSubscript:v10];
+  v12 = [a2 objectForKeyedSubscript:?];
+  v13 = [v11 objectForKeyedSubscript:?];
 
   if (v12 | v13)
   {
@@ -2163,12 +2066,12 @@ id __AVTMergeSpecializationSettings(void *a1, void *a2, void *a3, void *a4, uint
       v15 = v16;
       if (v12)
       {
-        [v16 addEntriesFromDictionary:v12];
+        [v16 addEntriesFromDictionary:?];
       }
 
       if (v13)
       {
-        [v15 addEntriesFromDictionary:v13];
+        [v15 addEntriesFromDictionary:?];
       }
     }
 
@@ -2178,12 +2081,12 @@ id __AVTMergeSpecializationSettings(void *a1, void *a2, void *a3, void *a4, uint
       v15 = v14;
       if (v12)
       {
-        [v14 addObjectsFromArray:v12];
+        [v14 addObjectsFromArray:?];
       }
 
       if (v13)
       {
-        [v15 addObjectsFromArray:v13];
+        [v15 addObjectsFromArray:?];
       }
     }
 
@@ -2192,43 +2095,43 @@ id __AVTMergeSpecializationSettings(void *a1, void *a2, void *a3, void *a4, uint
       v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
-    [v9 setObject:v15 forKeyedSubscript:v10];
+    [v9 setObject:? forKeyedSubscript:?];
   }
 
   return v9;
 }
 
-void sub_1BB49F068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1BB49F068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id AVTColorApplyVariation(void *a1, void *a2, void *a3, double a4)
 {
+  v16 = *&a4;
   v6 = a1;
   v7 = a2;
   v8 = a3;
-  v10 = v8;
-  if (*&a4 == 0.0)
+  v9 = v8;
+  if (v16 == 0.0)
   {
     goto LABEL_2;
   }
 
-  if (*&a4 <= 0.0)
+  if (v16 <= 0.0)
   {
     if (v7)
     {
-      *v16.i64 = AVTGetColorComponents(v6, v9);
-      v21 = v16;
-      *v18.i64 = AVTGetColorComponents(v7, v17);
-      v15 = vmlsq_lane_f32(v21, vsubq_f32(v18, v21), *&a4, 0);
+      *&v12 = AVTGetColorComponents(v6);
+      v15 = v12;
+      AVTGetColorComponents(v7);
       goto LABEL_8;
     }
 
 LABEL_2:
-    v11 = v6;
+    v10 = v6;
     goto LABEL_9;
   }
 
@@ -2237,16 +2140,15 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  *v12.i64 = AVTGetColorComponents(v6, v9);
-  v21 = v12;
-  *v14.i64 = AVTGetColorComponents(v10, v13);
-  v15 = vmlaq_n_f32(v21, vsubq_f32(v14, v21), *&a4);
+  *&v11 = AVTGetColorComponents(v6);
+  v15 = v11;
+  AVTGetColorComponents(v9);
 LABEL_8:
-  v11 = [MEMORY[0x1E69DC888] colorWithRed:v15.f32[0] green:v15.f32[1] blue:v15.f32[2] alpha:{v15.f32[3], *&v21}];
+  v10 = [MEMORY[0x1E69DC888] colorWithRed:v15 green:? blue:? alpha:?];
 LABEL_9:
-  v19 = v11;
+  v13 = v10;
 
-  return v19;
+  return v13;
 }
 
 void *_scanColor(void *result, float *a2, float *a3, float *a4, float *a5)
@@ -2288,116 +2190,106 @@ __n128 AVTAvatarPoseRepresentationGetTransform(void *a1)
   v1 = a1;
   if ([v1 count] == 16)
   {
-    v60 = [v1 objectAtIndexedSubscript:0];
-    [v60 floatValue];
-    v68 = v2;
-    v58 = [v1 objectAtIndexedSubscript:1];
-    [v58 floatValue];
-    v66 = v3;
-    v56 = [v1 objectAtIndexedSubscript:2];
-    [v56 floatValue];
-    v64 = v4;
-    v55 = [v1 objectAtIndexedSubscript:3];
-    [v55 floatValue];
-    v5.i64[0] = __PAIR64__(v66, v68);
-    v5.i64[1] = __PAIR64__(v6, v64);
-    v69 = v5;
-    v54 = [v1 objectAtIndexedSubscript:4];
-    [v54 floatValue];
-    v53 = [v1 objectAtIndexedSubscript:5];
+    v53 = [v1 objectAtIndexedSubscript:?];
     [v53 floatValue];
-    v52 = [v1 objectAtIndexedSubscript:6];
-    [v52 floatValue];
-    v7 = [v1 objectAtIndexedSubscript:7];
+    v59 = v2;
+    v51 = [v1 objectAtIndexedSubscript:?];
+    [v51 floatValue];
+    v57 = v3;
+    v49 = [v1 objectAtIndexedSubscript:?];
+    [v49 floatValue];
+    v55 = v4;
+    v48 = [v1 objectAtIndexedSubscript:?];
+    [v48 floatValue];
+    v5.i64[0] = __PAIR64__(v57, v59);
+    v5.i64[1] = __PAIR64__(v6, v55);
+    v60 = v5;
+    v47 = [v1 objectAtIndexedSubscript:?];
+    [v47 floatValue];
+    v46 = [v1 objectAtIndexedSubscript:?];
+    [v46 floatValue];
+    v45 = [v1 objectAtIndexedSubscript:?];
+    [v45 floatValue];
+    v7 = [v1 objectAtIndexedSubscript:?];
     [v7 floatValue];
-    v8 = [v1 objectAtIndexedSubscript:8];
+    v8 = [v1 objectAtIndexedSubscript:?];
     [v8 floatValue];
-    v9 = [v1 objectAtIndexedSubscript:9];
+    v9 = [v1 objectAtIndexedSubscript:?];
     [v9 floatValue];
-    v10 = [v1 objectAtIndexedSubscript:10];
+    v10 = [v1 objectAtIndexedSubscript:?];
     [v10 floatValue];
-    v11 = [v1 objectAtIndexedSubscript:11];
+    v11 = [v1 objectAtIndexedSubscript:?];
     [v11 floatValue];
-    v12 = [v1 objectAtIndexedSubscript:12];
+    v12 = [v1 objectAtIndexedSubscript:?];
     [v12 floatValue];
-    v13 = [v1 objectAtIndexedSubscript:13];
+    v13 = [v1 objectAtIndexedSubscript:?];
     [v13 floatValue];
-    v14 = [v1 objectAtIndexedSubscript:14];
+    v14 = [v1 objectAtIndexedSubscript:?];
     [v14 floatValue];
-    v15 = [v1 objectAtIndexedSubscript:15];
+    v15 = [v1 objectAtIndexedSubscript:?];
     [v15 floatValue];
   }
 
   else
   {
     v16 = v1;
-    v17 = [v16 objectAtIndexedSubscript:0];
+    v17 = [v16 objectAtIndexedSubscript:?];
     [v17 floatValue];
-    v62 = v18;
-    v19 = [v16 objectAtIndexedSubscript:1];
+    v18 = [v16 objectAtIndexedSubscript:?];
+    [v18 floatValue];
+    v19 = [v16 objectAtIndexedSubscript:?];
+
     [v19 floatValue];
-    v70 = v20;
-    v21 = [v16 objectAtIndexedSubscript:2];
-
+    v20 = v16;
+    v21 = [v20 objectAtIndexedSubscript:?];
     [v21 floatValue];
-    v22 = v62;
-    v22.i32[1] = v70;
-    v22.i32[2] = v23;
-    v63 = v22;
-
-    v24 = v16;
-    v25 = [v24 objectAtIndexedSubscript:3];
+    v56 = v22;
+    v23 = [v20 objectAtIndexedSubscript:?];
+    [v23 floatValue];
+    v61 = v24;
+    v25 = [v20 objectAtIndexedSubscript:?];
     [v25 floatValue];
-    v65 = v26;
-    v27 = [v24 objectAtIndexedSubscript:4];
+    v58 = v26;
+    v27 = [v20 objectAtIndexedSubscript:?];
+
     [v27 floatValue];
-    v71 = v28;
-    v29 = [v24 objectAtIndexedSubscript:5];
-    [v29 floatValue];
-    v67 = v30;
-    v31 = [v24 objectAtIndexedSubscript:6];
+    v28 = v56;
+    v28.f32[1] = v61;
+    v28.f32[2] = v58;
+    v52 = v28;
+    v28.i32[3] = v29;
+    v50 = v28;
 
-    [v31 floatValue];
-    v32 = v65;
-    v32.f32[1] = v71;
-    v32.f32[2] = v67;
-    v59 = v32;
-    v32.i32[3] = v33;
-    v57 = v32;
-
-    v34 = v24;
-    if ([v34 count] == 10)
+    v30 = v20;
+    if ([v30 count] == 10)
     {
-      v35 = [v34 objectAtIndexedSubscript:7];
-      [v35 floatValue];
-      v61 = v36;
-      v37 = [v34 objectAtIndexedSubscript:8];
-      [v37 floatValue];
-      v38 = [v34 objectAtIndexedSubscript:9];
-      [v38 floatValue];
+      v31 = [v30 objectAtIndexedSubscript:?];
+      [v31 floatValue];
+      v54 = v32;
+      v33 = [v30 objectAtIndexedSubscript:?];
+      [v33 floatValue];
+      v34 = [v30 objectAtIndexedSubscript:?];
+      [v34 floatValue];
     }
 
     else
     {
       __asm { FMOV            V0.4S, #1.0 }
 
-      v61 = *&_Q0;
+      v54 = *&_Q0;
     }
 
-    v44 = *MEMORY[0x1E69E9B18];
-    v45 = *(MEMORY[0x1E69E9B18] + 16);
-    v46 = vmulq_f32(v57, v57);
-    v47 = vaddq_f32(v46, v46);
-    v48 = vmulq_laneq_f32(v59, v57, 3);
-    v44.f32[0] = (1.0 - v47.f32[1]) - v47.f32[2];
-    v44.f32[1] = ((v65.f32[0] * v71) + v48.f32[2]) + ((v65.f32[0] * v71) + v48.f32[2]);
-    v44.f32[2] = ((v65.f32[0] * v67) - v48.f32[1]) + ((v65.f32[0] * v67) - v48.f32[1]);
-    v49 = *(MEMORY[0x1E69E9B18] + 32);
-    v69 = vmulq_n_f32(v44, v61);
-    v50 = vaddq_f32(v63, *(MEMORY[0x1E69E9B18] + 48));
+    v40 = *MEMORY[0x1E69E9B18];
+    v41 = vmulq_f32(v50, v50);
+    v42 = vaddq_f32(v41, v41);
+    v43 = vmulq_laneq_f32(v52, v50, 3);
+    v40.f32[0] = (1.0 - v42.f32[1]) - v42.f32[2];
+    v40.f32[1] = ((v56.f32[0] * v61) + v43.f32[2]) + ((v56.f32[0] * v61) + v43.f32[2]);
+    v40.f32[2] = ((v56.f32[0] * v58) - v43.f32[1]) + ((v56.f32[0] * v58) - v43.f32[1]);
+    v60 = vmulq_n_f32(v40, v54);
   }
 
-  return v69;
+  return v60;
 }
 
 void _simd_slerp_internal(float32x4_t a1, float32x4_t a2, float a3)
@@ -2426,57 +2318,49 @@ void _simd_slerp_internal(float32x4_t a1, float32x4_t a2, float a3)
   }
 }
 
-id AVTFixVFXShaderModifierFromSCNShaderModifier(void *a1, void *a2)
+void *AVTFixVFXShaderModifierFromSCNShaderModifier(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  if ([v3 containsString:@"_surface.ambient"])
+  if ([v3 containsString:?])
   {
     v5 = [v3 mutableCopy];
-    [v5 replaceOccurrencesOfString:@"_surface.ambientOcclusion" withString:@"_surface.$ambientOcclusion" options:0 range:{0, objc_msgSend(v5, "length")}];
-    if ([v5 containsString:@"_surface.ambient"])
+    [v5 length];
+    [v5 replaceOccurrencesOfString:? withString:? options:? range:?];
+    if ([v5 containsString:?])
     {
-      v6 = [v4 isEqualToString:*MEMORY[0x1E69DF3B0]];
-      v7 = [v5 length];
-      if (v6)
-      {
-        v8 = @"kAmbient";
-      }
+      [v4 isEqualToString:?];
+      [v5 length];
+      [v5 replaceOccurrencesOfString:? withString:? options:? range:?];
+      [v5 length];
+      [v5 replaceOccurrencesOfString:? withString:? options:? range:?];
+      v6 = [v5 copy];
 
-      else
-      {
-        v8 = @"float4 kAmbient";
-      }
-
-      [v5 replaceOccurrencesOfString:@"_surface.ambient" withString:v8 options:0 range:{0, v7}];
-      [v5 replaceOccurrencesOfString:@"_surface.$ambientOcclusion" withString:@"_surface.ambientOcclusion" options:0 range:{0, objc_msgSend(v5, "length")}];
-      v9 = [v5 copy];
-
-      goto LABEL_9;
+      goto LABEL_6;
     }
   }
 
-  v9 = v3;
-LABEL_9:
+  v6 = v3;
+LABEL_6:
 
-  return v9;
+  return v6;
 }
 
 void __AVTFixMaterialsContainingSceneKitShaderModifiersInVFXNodeHierarchy_block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [a2 model];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 shaderModifiers];
-    v20 = 0;
+    v19 = 0;
     if (v4)
     {
       v5 = v4;
-      v6 = AVTFixVFXShaderModifiersFromSCNShaderModifiers(v4, &v20);
+      v6 = AVTFixVFXShaderModifiersFromSCNShaderModifiers(v4, &v19);
 
-      [v3 setShaderModifiers:v6];
+      [v3 setShaderModifiers:?];
     }
 
     else
@@ -2484,34 +2368,34 @@ void __AVTFixMaterialsContainingSceneKitShaderModifiersInVFXNodeHierarchy_block_
       v6 = 0;
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = [v3 materials];
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v9; i = (i + 1))
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
-          v15 = 0;
+          v12 = *(*(&v15 + 1) + 8 * i);
+          v14 = 0;
           v13 = [v12 shaderModifiers];
 
           if (v13)
           {
-            v6 = AVTFixVFXShaderModifiersFromSCNShaderModifiers(v13, &v15);
+            v6 = AVTFixVFXShaderModifiersFromSCNShaderModifiers(v13, &v14);
 
-            [v12 setShaderModifiers:v6];
+            [v12 setShaderModifiers:?];
           }
 
           else
@@ -2519,45 +2403,36 @@ void __AVTFixMaterialsContainingSceneKitShaderModifiersInVFXNodeHierarchy_block_
             v6 = 0;
           }
 
-          if (((v20 & 1) != 0 || v15 == 1) && [v12 blendMode] != 1)
+          if (((v19 & 1) != 0 || v14 == 1) && [v12 blendMode] != 1)
           {
-            [v12 setBlendMode:1];
+            [v12 setBlendMode:?];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v9);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 id AVTFixVFXShaderModifiersFromSCNShaderModifiers(void *a1, _BYTE *a2)
 {
   v3 = a1;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__4;
-  v13 = __Block_byref_object_dispose__4;
   v14 = 0;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __AVTFixVFXShaderModifiersFromSCNShaderModifiers_block_invoke;
-  v8[3] = &unk_1E7F48FF0;
-  v8[4] = v3;
-  v8[5] = &v9;
-  v8[6] = &v15;
-  [v3 enumerateKeysAndObjectsUsingBlock:v8];
-  *a2 = *(v16 + 24);
-  v4 = v10[5];
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__4;
+  v12 = __Block_byref_object_dispose__4;
+  v13 = 0;
+  [v3 enumerateKeysAndObjectsUsingBlock:?];
+  *a2 = *(v15 + 24);
+  v4 = v9[5];
   if (v4)
   {
     v5 = [v4 copy];
@@ -2569,18 +2444,18 @@ id AVTFixVFXShaderModifiersFromSCNShaderModifiers(void *a1, _BYTE *a2)
   }
 
   v6 = v5;
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v6;
 }
 
-void sub_1BB4A692C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB4A692C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2610,7 +2485,7 @@ void __AVTFixVFXShaderModifiersFromSCNShaderModifiers_block_invoke(uint64_t a1, 
       v7 = *(*(*(a1 + 40) + 8) + 40);
     }
 
-    [v7 setObject:v6 forKeyedSubscript:v11];
+    [v7 setObject:? forKeyedSubscript:?];
   }
 }
 
@@ -2633,7 +2508,7 @@ __CFString *AVTPrereleaseStickerPackForStickerPack(void *a1)
 {
   v1 = a1;
   v2 = @"stickers";
-  if ([(__CFString *)v1 isEqualToString:@"stickers"])
+  if ([(__CFString *)v1 isEqualToString:?])
   {
     v3 = @"stickersPrerelease";
   }
@@ -2641,7 +2516,7 @@ __CFString *AVTPrereleaseStickerPackForStickerPack(void *a1)
   else
   {
     v2 = @"posesPack";
-    if ([(__CFString *)v1 isEqualToString:@"posesPack"])
+    if ([(__CFString *)v1 isEqualToString:?])
     {
       v3 = @"posesPackPrerelease";
     }
@@ -2649,7 +2524,7 @@ __CFString *AVTPrereleaseStickerPackForStickerPack(void *a1)
     else
     {
       v2 = @"memojiEditorCarousel";
-      if ([(__CFString *)v1 isEqualToString:@"memojiEditorCarousel"])
+      if ([(__CFString *)v1 isEqualToString:?])
       {
         v3 = @"memojiEditorCarouselPrerelease";
       }
@@ -2657,7 +2532,7 @@ __CFString *AVTPrereleaseStickerPackForStickerPack(void *a1)
       else
       {
         v2 = @"memojiEditorCarousel_poses";
-        v4 = [(__CFString *)v1 isEqualToString:@"memojiEditorCarousel_poses"];
+        v4 = [(__CFString *)v1 isEqualToString:?];
         v5 = v1;
         if (!v4)
         {
@@ -2697,11 +2572,11 @@ id AVTPrecompiledStickerPackPlistForPuppetNamed(void *a1, void *a2)
 {
   v3 = a2;
   v4 = AVTPrecompiledStickerPackPlist(a1);
-  v5 = [v4 objectForKeyedSubscript:v3];
+  v5 = [v4 objectForKeyedSubscript:?];
 
   if (!v5)
   {
-    v5 = [v4 objectForKeyedSubscript:@"animoji"];
+    v5 = [v4 objectForKeyedSubscript:?];
   }
 
   return v5;
@@ -2710,7 +2585,7 @@ id AVTPrecompiledStickerPackPlistForPuppetNamed(void *a1, void *a2)
 id AVTPrecompiledStickerPackPlist(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"stickers"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken != -1)
     {
@@ -2719,11 +2594,11 @@ id AVTPrecompiledStickerPackPlist(void *a1)
 
     v2 = AVTPrecompiledStickerPackPlist_kAVTPrecompiledStickerPack_stickers;
 LABEL_41:
-    v3 = v2;
+    v4 = v2;
     goto LABEL_42;
   }
 
-  if ([v1 isEqualToString:@"stickersPrerelease"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_1809 != -1)
     {
@@ -2734,7 +2609,7 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if ([v1 isEqualToString:@"posesPack"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_1812 != -1)
     {
@@ -2745,7 +2620,7 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if ([v1 isEqualToString:@"posesPackPrerelease"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_2176 != -1)
     {
@@ -2756,7 +2631,7 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if ([v1 isEqualToString:@"memojiEditorCarousel"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_2179 != -1)
     {
@@ -2767,7 +2642,7 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if ([v1 isEqualToString:@"memojiEditorCarouselPrerelease"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_2195 != -1)
     {
@@ -2778,7 +2653,7 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if ([v1 isEqualToString:@"memojiEditorCarousel_poses"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_2198 != -1)
     {
@@ -2789,7 +2664,7 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if ([v1 isEqualToString:@"memojiEditorCarousel_posesPrerelease"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_2214 != -1)
     {
@@ -2800,7 +2675,7 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if ([v1 isEqualToString:@"memojiEditorThumbnails"])
+  if ([v1 isEqualToString:?])
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_2217 != -1)
     {
@@ -2811,7 +2686,8 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  if ([v1 isEqualToString:@"allStickers"])
+  v3 = [v1 isEqualToString:?];
+  if (v3)
   {
     if (AVTPrecompiledStickerPackPlist_onceToken_2239 != -1)
     {
@@ -2822,16 +2698,16 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v5 = avt_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = avt_default_log(v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    AVTPrecompiledStickerPackPlist_cold_1(v1, v5, v6, v7, v8, v9, v10, v11);
+    AVTPrecompiledStickerPackPlist_cold_1(v1, v6, v7, v8, v9, v10, v11, v12);
   }
 
-  v3 = 0;
+  v4 = 0;
 LABEL_42:
 
-  return v3;
+  return v4;
 }
 
 void __AVTPrecompiledStickerPackPlist_block_invoke()
@@ -2894,13 +2770,14 @@ void __AVTPrecompiledStickerPackPlist_block_invoke_10()
   AVTPrecompiledStickerPackPlist_kAVTPrecompiledStickerPack_allStickers = &unk_1F39E3610;
 }
 
-void OUTLINED_FUNCTION_1_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-uint64_t AVTAvatarKitSnapshotVersionNumber()
+uint64_t AVTAvatarKitSnapshotVersionNumber(uint64_t a1, uint64_t a2)
 {
   if (AVTAvatarKitSnapshotVersionNumber_onceToken != -1)
   {
@@ -2912,63 +2789,67 @@ uint64_t AVTAvatarKitSnapshotVersionNumber()
 
 void __AVTAvatarKitSnapshotVersionNumber_block_invoke()
 {
-  v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v0 = [v9 infoDictionary];
-  v1 = [v0 objectForKeyedSubscript:@"CFBundleVersion"];
+  v0 = MEMORY[0x1E696AAE8];
+  objc_opt_class();
+  v10 = [v0 bundleForClass:?];
+  v1 = [v10 infoDictionary];
+  v2 = [v1 objectForKeyedSubscript:?];
 
-  v2 = [v1 componentsSeparatedByString:@"."];
-  v3 = [v2 firstObject];
-  v4 = [v3 integerValue];
+  v3 = [v2 componentsSeparatedByString:?];
+  v4 = [v3 firstObject];
+  v5 = [v4 integerValue];
 
-  if ([v2 count] < 2)
+  if ([v3 count] < 2)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v5 = [v2 objectAtIndexedSubscript:1];
-    v6 = [v5 integerValue];
+    v6 = [v3 objectAtIndexedSubscript:?];
+    v7 = [v6 integerValue];
   }
 
-  if ([v2 count] < 3)
+  if ([v3 count] < 3)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v7 = [v2 objectAtIndexedSubscript:2];
-    v8 = [v7 integerValue];
+    v8 = [v3 objectAtIndexedSubscript:?];
+    v9 = [v8 integerValue];
   }
 
-  AVTAvatarKitSnapshotVersionNumber_kAVTAvatarKitSnapshotVersionNumber = v8 + 1000 * (v6 + 1000 * v4);
+  AVTAvatarKitSnapshotVersionNumber_kAVTAvatarKitSnapshotVersionNumber = &v9[125 * &v7[125 * v5]];
 }
 
-id AVTAvatarKitSnapshotVersionString()
+id AVTAvatarKitSnapshotVersionString(uint64_t a1)
 {
   if (AVTAvatarKitSnapshotVersionString_onceToken != -1)
   {
     AVTAvatarKitSnapshotVersionString_cold_1();
   }
 
-  v1 = AVTAvatarKitSnapshotVersionString_kAVTAvatarKitSnapshotVersionString;
+  v2 = AVTAvatarKitSnapshotVersionString_kAVTAvatarKitSnapshotVersionString;
 
-  return v1;
+  return v2;
 }
 
 void __AVTAvatarKitSnapshotVersionString_block_invoke()
 {
-  v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v0 = [v3 infoDictionary];
-  v1 = [v0 objectForKeyedSubscript:@"CFBundleVersion"];
-  v2 = AVTAvatarKitSnapshotVersionString_kAVTAvatarKitSnapshotVersionString;
-  AVTAvatarKitSnapshotVersionString_kAVTAvatarKitSnapshotVersionString = v1;
+  v0 = MEMORY[0x1E696AAE8];
+  objc_opt_class();
+  v4 = [v0 bundleForClass:?];
+  v1 = [v4 infoDictionary];
+  v2 = [v1 objectForKeyedSubscript:?];
+  v3 = AVTAvatarKitSnapshotVersionString_kAVTAvatarKitSnapshotVersionString;
+  AVTAvatarKitSnapshotVersionString_kAVTAvatarKitSnapshotVersionString = v2;
 }
 
-uint64_t AVTAvatarKitSnapshotVersionNumberFromString(void *a1)
+char *AVTAvatarKitSnapshotVersionNumberFromString(void *a1)
 {
-  v1 = [a1 componentsSeparatedByString:@"."];
+  v1 = [a1 componentsSeparatedByString:?];
   v2 = [v1 firstObject];
   v3 = [v2 integerValue];
 
@@ -2979,7 +2860,7 @@ uint64_t AVTAvatarKitSnapshotVersionNumberFromString(void *a1)
 
   else
   {
-    v4 = [v1 objectAtIndexedSubscript:1];
+    v4 = [v1 objectAtIndexedSubscript:?];
     v5 = [v4 integerValue];
   }
 
@@ -2990,41 +2871,43 @@ uint64_t AVTAvatarKitSnapshotVersionNumberFromString(void *a1)
 
   else
   {
-    v6 = [v1 objectAtIndexedSubscript:2];
+    v6 = [v1 objectAtIndexedSubscript:?];
     v7 = [v6 integerValue];
   }
 
-  return v7 + 1000 * (v5 + 1000 * v3);
+  return &v7[125 * &v5[125 * v3]];
 }
 
-id AVTSceneKitSnapshotVersionString()
+id AVTSceneKitSnapshotVersionString(uint64_t a1)
 {
   if (AVTSceneKitSnapshotVersionString_onceToken != -1)
   {
     AVTSceneKitSnapshotVersionString_cold_1();
   }
 
-  v1 = AVTSceneKitSnapshotVersionString_kAVTSceneKitSnapshotVersionString;
+  v2 = AVTSceneKitSnapshotVersionString_kAVTSceneKitSnapshotVersionString;
 
-  return v1;
+  return v2;
 }
 
 void __AVTSceneKitSnapshotVersionString_block_invoke()
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  if (!v0)
+  v0 = MEMORY[0x1E696AAE8];
+  objc_opt_class();
+  v1 = [v0 bundleForClass:?];
+  if (!v1)
   {
-    v1 = avt_default_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = avt_default_log(0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __AVTSceneKitSnapshotVersionString_block_invoke_cold_1();
     }
   }
 
-  v2 = [v0 infoDictionary];
-  v3 = [v2 objectForKeyedSubscript:@"CFBundleVersion"];
-  v4 = AVTSceneKitSnapshotVersionString_kAVTSceneKitSnapshotVersionString;
-  AVTSceneKitSnapshotVersionString_kAVTSceneKitSnapshotVersionString = v3;
+  v3 = [v1 infoDictionary];
+  v4 = [v3 objectForKeyedSubscript:?];
+  v5 = AVTSceneKitSnapshotVersionString_kAVTSceneKitSnapshotVersionString;
+  AVTSceneKitSnapshotVersionString_kAVTSceneKitSnapshotVersionString = v4;
 }
 
 BOOL AVTNodeMatchesHierarchyEnumerationOptions(void *a1, char a2)
@@ -3050,7 +2933,7 @@ BOOL AVTNodeMatchesHierarchyEnumerationOptions(void *a1, char a2)
   return v6;
 }
 
-void AVTInitializeShaderCache()
+void AVTInitializeShaderCache(uint64_t result, uint64_t a2)
 {
   if (AVTInitializeShaderCache_onceToken != -1)
   {
@@ -3060,36 +2943,38 @@ void AVTInitializeShaderCache()
 
 void __AVTInitializeShaderCache_block_invoke()
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  [v0 load];
-  v1 = +[AVTResourceLocator sharedResourceLocator];
-  v2 = [(AVTResourceLocator *)v1 urlForFrameworkResourceAtPath:0 isDirectory:?];
+  v0 = MEMORY[0x1E696AAE8];
+  objc_opt_class();
+  v1 = [v0 bundleForClass:?];
+  [v1 load];
+  v2 = +[AVTResourceLocator sharedResourceLocator];
+  v3 = [(AVTResourceLocator *)v2 urlForFrameworkResourceAtPath:0 isDirectory:?];
 
-  if (v2)
+  if (v3)
   {
-    MEMORY[0x1BFB0E720](v2);
+    MEMORY[0x1BFB0E720](v3);
   }
 
   else
   {
-    v3 = avt_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = avt_default_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __AVTInitializeShaderCache_block_invoke_cold_1();
     }
   }
 }
 
-void sub_1BB4AAB10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB4AAB10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB4AC380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB4AC380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3104,7 +2989,7 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
 float AVTMorphWeightApplyBlinkCorrection(void *a1, float a2)
 {
   v3 = a1;
-  if (([v3 isEqualToString:*MEMORY[0x1E69862B0]] & 1) != 0 || objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69862B8]))
+  if (([v3 isEqualToString:?] & 1) != 0 || objc_msgSend(v3, "isEqualToString:"))
   {
     v4 = a2;
     if (a2 < 0.0)
@@ -3124,7 +3009,7 @@ float AVTMorphWeightApplyCorrectionForTongue(void *a1, float a2, float a3)
 {
   v5 = a1;
   v6 = v5;
-  if (a3 != -1.0 && (([v5 isEqualToString:*MEMORY[0x1E6986368]] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E6986398]) & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E69863A8]) & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E6986388]) & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E6986390]) & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E69863B8]) & 1) != 0 || objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E6986340])))
+  if (a3 != -1.0 && (([v5 isEqualToString:?] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:") & 1) != 0 || objc_msgSend(v6, "isEqualToString:")))
   {
     a2 = (1.0 - a3) * a2;
   }
@@ -3132,9 +3017,9 @@ float AVTMorphWeightApplyCorrectionForTongue(void *a1, float a2, float a3)
   return a2;
 }
 
-void sub_1BB4ADFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB4ADFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3211,10 +3096,10 @@ void sub_1BB4B7FC0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_8(id *a1, void *a2, void *a3)
+void OUTLINED_FUNCTION_1_8(id *a1, void *a2, void *a3, __n128 a4)
 {
 
-  [(AVTViewTransitionHelper *)a1 transitionViewToStickerConfiguration:a2 fallbackPose:a3 duration:v5 style:v4 avatar:v3 completionHandler:0 simultaneousAnimationsBlock:v7];
+  [(AVTViewTransitionHelper *)a1 transitionViewToStickerConfiguration:a2 fallbackPose:a3 duration:v6 style:v5 avatar:v4 completionHandler:0 simultaneousAnimationsBlock:v8];
 }
 
 id OUTLINED_FUNCTION_3_2(uint64_t a1, uint64_t a2, void *a3)
@@ -3229,16 +3114,16 @@ id OUTLINED_FUNCTION_4_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, voi
   return a5;
 }
 
-id avt_default_log()
+id avt_default_log(uint64_t a1)
 {
   if (avt_default_log_once != -1)
   {
     avt_default_log_cold_1();
   }
 
-  v1 = avt_default_log_logger;
+  v2 = avt_default_log_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __avt_default_log_block_invoke()
@@ -3260,99 +3145,89 @@ BOOL AVTLogAllowsInternalCrash()
   v0 = [MEMORY[0x1E696AAE8] mainBundle];
   v1 = [v0 bundleIdentifier];
 
-  if ([v1 isEqualToString:@"com.apple.loginwindow"])
+  if ([v1 isEqualToString:?])
   {
 
     return 0;
   }
 
-  v2 = [v1 isEqualToString:@"com.apple.SecurityAgent"];
+  v2 = [v1 isEqualToString:?];
 
   return !v2;
 }
 
-id AVTEditorMetadata()
+id AVTEditorMetadata(uint64_t a1)
 {
   if (AVTEditorMetadata_onceToken != -1)
   {
     AVTEditorMetadata_cold_1();
   }
 
-  v1 = AVTEditorMetadata_kAVTEditorMetadata;
-
-  return v1;
-}
-
-void __AVTEditorMetadata_block_invoke()
-{
-  v0 = MEMORY[0x1E696AE40];
-  v3 = AVTPrecompiledMemojiEditorMetadata();
-  v1 = [v0 dataWithPropertyList:v3 format:200 options:0 error:0];
   v2 = AVTEditorMetadata_kAVTEditorMetadata;
-  AVTEditorMetadata_kAVTEditorMetadata = v1;
+
+  return v2;
 }
 
-id AVTPrereleaseEditorMetadata()
+void __AVTEditorMetadata_block_invoke(uint64_t a1)
+{
+  v1 = MEMORY[0x1E696AE40];
+  v4 = AVTPrecompiledMemojiEditorMetadata(a1);
+  v2 = [v1 dataWithPropertyList:? format:? options:? error:?];
+  v3 = AVTEditorMetadata_kAVTEditorMetadata;
+  AVTEditorMetadata_kAVTEditorMetadata = v2;
+}
+
+id AVTPrereleaseEditorMetadata(uint64_t a1)
 {
   if (AVTPrereleaseEditorMetadata_onceToken != -1)
   {
     AVTPrereleaseEditorMetadata_cold_1();
   }
 
-  v1 = AVTPrereleaseEditorMetadata_kAVTPrereleaseEditorMetadata;
+  v2 = AVTPrereleaseEditorMetadata_kAVTPrereleaseEditorMetadata;
 
-  return v1;
+  return v2;
 }
 
-void __AVTPrereleaseEditorMetadata_block_invoke()
+void __AVTPrereleaseEditorMetadata_block_invoke(uint64_t a1)
 {
-  v4 = AVTPrecompiledMemojiPrereleaseEditorMetadata();
-  if ([v4 count])
+  v5 = AVTPrecompiledMemojiPrereleaseEditorMetadata(a1);
+  if ([v5 count])
   {
-    v0 = v4;
+    v1 = v5;
   }
 
   else
   {
-    v1 = AVTPrecompiledMemojiEditorMetadata();
+    v2 = AVTPrecompiledMemojiEditorMetadata(0);
 
-    v0 = v1;
+    v1 = v2;
   }
 
-  v5 = v0;
-  v2 = [MEMORY[0x1E696AE40] dataWithPropertyList:v0 format:200 options:0 error:0];
-  v3 = AVTPrereleaseEditorMetadata_kAVTPrereleaseEditorMetadata;
-  AVTPrereleaseEditorMetadata_kAVTPrereleaseEditorMetadata = v2;
+  v6 = v1;
+  v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:? format:? options:? error:?];
+  v4 = AVTPrereleaseEditorMetadata_kAVTPrereleaseEditorMetadata;
+  AVTPrereleaseEditorMetadata_kAVTPrereleaseEditorMetadata = v3;
 }
 
 id AVTMakePresetLocalizableKey(unint64_t a1, void *a2)
 {
   v3 = a2;
-  if (!AVTPresetCategoryIsPairable(a1))
+  if (AVTPresetCategoryIsPairable(a1))
   {
-    v4 = AVTPresetCategoryToString(a1);
-    goto LABEL_6;
-  }
-
-  v4 = AVTPresetCategoryPairToString(a1);
-  if ([v3 isEqualToString:@"none"])
-  {
-LABEL_6:
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@", v4, v3];
-    goto LABEL_7;
-  }
-
-  if (AVTPresetCategoryIsOnLeftInPair(a1))
-  {
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@_LEFT", v4, v3];
+    v4 = AVTPresetCategoryPairToString(a1);
+    if (![v3 isEqualToString:?])
+    {
+      AVTPresetCategoryIsOnLeftInPair(a1);
+    }
   }
 
   else
   {
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@_RIGHT", v4, v3];
+    v4 = AVTPresetCategoryToString(a1);
   }
 
-  v5 = LABEL_7:;
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:v4, v3];
   v6 = [v5 uppercaseString];
 
   return v6;
@@ -3362,7 +3237,7 @@ id AVTMakePresetPairLocalizableKey(unint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = AVTPresetCategoryPairToString(a1);
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@", v4, v3];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:v4, v3];
 
   v6 = [v5 uppercaseString];
 
@@ -3373,7 +3248,7 @@ id AVTMakeColorPresetLocalizableKey(unint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = AVTPresetCategoryToColorCategoryString(a1);
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@", v4, v3];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:v4, v3];
 
   v6 = [v5 uppercaseString];
 
@@ -3384,8 +3259,9 @@ id AVTLocalizedEditorString(void *a1)
 {
   v1 = MEMORY[0x1E696AAE8];
   v2 = a1;
-  v3 = [v1 bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:v2 value:&stru_1F39AEE78 table:@"memoji_editor"];
+  objc_opt_class();
+  v3 = [v1 bundleForClass:?];
+  v4 = [v3 localizedStringForKey:? value:? table:?];
 
   return v4;
 }
@@ -3394,9 +3270,10 @@ void *AVTLocalizedPresetString(unint64_t a1, void *a2)
 {
   v3 = MEMORY[0x1E696AAE8];
   v4 = a2;
-  v5 = [v3 bundleForClass:objc_opt_class()];
+  objc_opt_class();
+  v5 = [v3 bundleForClass:?];
   v6 = AVTMakePresetLocalizableKey(a1, v4);
-  v7 = [v5 localizedStringForKey:v6 value:&stru_1F39AEE78 table:@"memoji_presets"];
+  v7 = [v5 localizedStringForKey:? value:? table:?];
 
   if ([v7 length])
   {
@@ -3417,9 +3294,10 @@ void *AVTLocalizedPresetPairString(unint64_t a1, void *a2)
 {
   v3 = MEMORY[0x1E696AAE8];
   v4 = a2;
-  v5 = [v3 bundleForClass:objc_opt_class()];
+  objc_opt_class();
+  v5 = [v3 bundleForClass:?];
   v6 = AVTMakePresetPairLocalizableKey(a1, v4);
-  v7 = [v5 localizedStringForKey:v6 value:&stru_1F39AEE78 table:@"memoji_presets"];
+  v7 = [v5 localizedStringForKey:? value:? table:?];
 
   if ([v7 length])
   {
@@ -3440,9 +3318,10 @@ void *AVTLocalizedPaletteString(unint64_t a1, void *a2)
 {
   v3 = MEMORY[0x1E696AAE8];
   v4 = a2;
-  v5 = [v3 bundleForClass:objc_opt_class()];
+  objc_opt_class();
+  v5 = [v3 bundleForClass:?];
   v6 = AVTMakeColorPresetLocalizableKey(a1, v4);
-  v7 = [v5 localizedStringForKey:v6 value:&stru_1F39AEE78 table:@"memoji_palettes"];
+  v7 = [v5 localizedStringForKey:? value:? table:?];
 
   if ([v7 length])
   {
@@ -3463,8 +3342,9 @@ void *AVTLocalizedStickerName(void *a1)
 {
   v1 = MEMORY[0x1E696AAE8];
   v2 = a1;
-  v3 = [v1 bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:v2 value:&stru_1F39AEE78 table:@"stickers"];
+  objc_opt_class();
+  v3 = [v1 bundleForClass:?];
+  v4 = [v3 localizedStringForKey:? value:? table:?];
 
   if ([v4 length])
   {
@@ -3481,10 +3361,11 @@ void *AVTLocalizedStickerName(void *a1)
   return v5;
 }
 
-void OUTLINED_FUNCTION_0_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1BB4BBB4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -3510,61 +3391,52 @@ void sub_1BB4BDAE8(_Unwind_Exception *a1)
 
 id AVTUpgradesForPresetCategory(unint64_t a1, unsigned int a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v17 = AVTPrecompiledMemojiPresetPlist();
-  v4 = [v17 objectForKeyedSubscript:@"upgrade"];
-  v16 = [v4 objectForKeyedSubscript:@"preset-categories"];
+  v24 = *MEMORY[0x1E69E9840];
+  v16 = AVTPrecompiledMemojiPresetPlist(a1);
+  v4 = [v16 objectForKeyedSubscript:?];
+  v15 = [v4 objectForKeyedSubscript:?];
 
-  if (v16)
+  if (v15)
   {
     v5 = AVTPresetCategoryToString(a1);
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__6;
-    v29 = __Block_byref_object_dispose__6;
-    v30 = 0;
-    v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v6 = v16;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3032000000;
+    v21 = __Block_byref_object_copy__6;
+    v22 = __Block_byref_object_dispose__6;
+    v23 = 0;
+    v6 = v15;
+    v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
     if (v7)
     {
-      v8 = *v22;
+      v8 = MEMORY[0];
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v7; i = (i + 1))
         {
-          if (*v22 != v8)
+          if (MEMORY[0] != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
-          v11 = [v10 objectForKeyedSubscript:{@"upgrade-if-version-less-than", v16}];
+          v10 = *(8 * i);
+          v11 = [v10 objectForKeyedSubscript:v15];
           v12 = v11;
           if (!v11 || [v11 unsignedIntegerValue] > a2)
           {
-            v18[0] = MEMORY[0x1E69E9820];
-            v18[1] = 3221225472;
-            v18[2] = __AVTUpgradesForPresetCategory_block_invoke;
-            v18[3] = &unk_1E7F496F8;
-            v19 = v5;
-            v20 = &v25;
-            [v10 enumerateKeysAndObjectsUsingBlock:v18];
+            v17 = v5;
+            [v10 enumerateKeysAndObjectsUsingBlock:?];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v7);
     }
 
-    v13 = v26[5];
-    _Block_object_dispose(&v25, 8);
+    v13 = v19[5];
+    _Block_object_dispose(&v18, 8);
   }
 
   else
@@ -3572,14 +3444,12 @@ id AVTUpgradesForPresetCategory(unint64_t a1, unsigned int a2)
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
-void sub_1BB4BE6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1BB4BE6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3609,17 +3479,17 @@ void __AVTUpgradesForPresetCategory_block_invoke(uint64_t a1, void *a2, void *a3
   v10 = a2;
   v5 = a3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v5 isEqualToString:*(a1 + 32)])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v5 isEqualToString:?])
   {
     v6 = *(*(*(a1 + 40) + 8) + 40);
     if (v6)
     {
-      [v6 addObject:v10];
+      [v6 addObject:?];
     }
 
     else
     {
-      v7 = [MEMORY[0x1E695DF70] arrayWithObject:v10];
+      v7 = [MEMORY[0x1E695DF70] arrayWithObject:?];
       v8 = *(*(a1 + 40) + 8);
       v9 = *(v8 + 40);
       *(v8 + 40) = v7;
@@ -3627,54 +3497,50 @@ void __AVTUpgradesForPresetCategory_block_invoke(uint64_t a1, void *a2, void *a3
   }
 }
 
-id AVTUpgradePresetIdentifierIfNeeded(unint64_t a1, void *a2, unsigned int a3)
+id AVTUpgradePresetIdentifierIfNeeded(unint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = a2;
-  v6 = AVTPrecompiledMemojiPresetPlist();
-  v7 = [v6 objectForKeyedSubscript:@"upgrade"];
-  v8 = [v7 objectForKeyedSubscript:@"preset-identifiers"];
+  v6 = AVTPrecompiledMemojiPresetPlist(v5);
+  v7 = [v6 objectForKeyedSubscript:?];
+  v8 = [v7 objectForKeyedSubscript:?];
 
-  v9 = _AVTRemapIdentifier(a1, v5, a3, v8);
+  v9 = _AVTRemapIdentifier(a1, v5, v3, v8);
 
   return v9;
 }
 
 id _AVTRemapIdentifier(unint64_t a1, void *a2, unsigned int a3, void *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   if (v8)
   {
-    v26 = AVTPresetCategoryToString(a1);
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v24 = v8;
+    v25 = AVTPresetCategoryToString(a1);
+    v23 = v8;
     obj = v8;
-    v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = [obj countByEnumeratingWithState:? objects:? count:?];
     if (v9)
     {
       v10 = v9;
-      v11 = *v28;
+      v11 = MEMORY[0];
       v12 = a3;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v10; i = (i + 1))
         {
-          if (*v28 != v11)
+          if (MEMORY[0] != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * i);
-          v15 = [v14 objectForKeyedSubscript:@"upgrade-if-version-less-than"];
+          v14 = *(8 * i);
+          v15 = [v14 objectForKeyedSubscript:?];
           v16 = v15;
           if (!v15 || [v15 unsignedIntegerValue] > v12)
           {
-            v17 = [v14 objectForKeyedSubscript:v26];
-            v18 = [v17 objectForKeyedSubscript:v7];
+            v17 = [v14 objectForKeyedSubscript:?];
+            v18 = [v17 objectForKeyedSubscript:?];
             v19 = v18;
             if (v18)
             {
@@ -3685,14 +3551,14 @@ id _AVTRemapIdentifier(unint64_t a1, void *a2, unsigned int a3, void *a4)
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v10 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v10);
     }
 
     v21 = v7;
-    v8 = v24;
+    v8 = v23;
   }
 
   else
@@ -3700,124 +3566,99 @@ id _AVTRemapIdentifier(unint64_t a1, void *a2, unsigned int a3, void *a4)
     v21 = v7;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 id AVTPresetCategoriesPairs()
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"earrings_left";
-  v6[1] = @"earrings_right";
-  v7[0] = @"earrings";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
-  v7[1] = @"audio";
-  v8[0] = v0;
-  v5[0] = @"audio_left";
-  v5[1] = @"audio_right";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v8[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  v3 = *MEMORY[0x1E69E9840];
-
-  return v2;
+  return v0;
 }
 
 void *AVTUpgradePairedPresetCategoriesIfNeeded(void *a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  AVTPresetCategoriesPairs();
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  obj = v27 = 0u;
-  v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  obj = AVTPresetCategoriesPairs();
+  v15 = [obj countByEnumeratingWithState:? objects:? count:?];
   v2 = 0;
-  if (v18)
+  if (v15)
   {
-    v17 = *v25;
+    v14 = MEMORY[0];
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v15; i = (i + 1))
       {
-        if (*v25 != v17)
+        if (MEMORY[0] != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v24 + 1) + 8 * i);
-        v5 = [v1 objectForKeyedSubscript:v4];
+        v4 = [v1 objectForKeyedSubscript:?];
 
-        if (v5)
+        if (v4)
         {
           if (!v2)
           {
             v2 = [v1 mutableCopy];
           }
 
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
-          v21 = 0u;
-          v6 = [obj objectForKeyedSubscript:v4];
-          v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
-          if (v7)
+          v5 = [obj objectForKeyedSubscript:?];
+          v6 = [v5 countByEnumeratingWithState:? objects:? count:?];
+          if (v6)
           {
-            v8 = v7;
-            v9 = *v21;
+            v7 = v6;
+            v8 = MEMORY[0];
             do
             {
-              for (j = 0; j != v8; ++j)
+              for (j = 0; j != v7; j = (j + 1))
               {
-                if (*v21 != v9)
+                if (MEMORY[0] != v8)
                 {
-                  objc_enumerationMutation(v6);
+                  objc_enumerationMutation(v5);
                 }
 
-                v11 = *(*(&v20 + 1) + 8 * j);
-                v12 = [v1 objectForKeyedSubscript:v4];
-                [v2 setObject:v12 forKeyedSubscript:v11];
+                v10 = [v1 objectForKeyedSubscript:?];
+                [v2 setObject:? forKeyedSubscript:?];
               }
 
-              v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v7 = [v5 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v8);
+            while (v7);
           }
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v15 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v18);
+    while (v15);
   }
 
   if (v2)
   {
-    v13 = v2;
+    v11 = v2;
   }
 
   else
   {
-    v13 = v1;
+    v11 = v1;
   }
 
-  v14 = v13;
+  v12 = v11;
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v11;
 }
 
 id AVTUpgradeColorPresetIdentifierIfNeeded(unint64_t a1, void *a2, unsigned int a3)
 {
   v5 = a2;
   v6 = AVTColorPalettes();
-  v7 = [v6 objectForKeyedSubscript:@"upgrade"];
-  v8 = [v7 objectForKeyedSubscript:@"color-preset-identifiers"];
+  v7 = [v6 objectForKeyedSubscript:?];
+  v8 = [v7 objectForKeyedSubscript:?];
 
   v9 = _AVTRemapIdentifier(a1, v5, a3, v8);
 
@@ -3826,100 +3667,94 @@ id AVTUpgradeColorPresetIdentifierIfNeeded(unint64_t a1, void *a2, unsigned int 
 
 id AVTIdentifierOfUpgradedColorPresetForAssetPresetIdentifier(unint64_t a1, void *a2, unint64_t a3, _DWORD *a4, unsigned int a5)
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v43 = a2;
-  v8 = AVTPrecompiledMemojiPresetPlist();
-  v9 = [v8 objectForKeyedSubscript:@"upgrade"];
-  v10 = [v9 objectForKeyedSubscript:@"preset-colors"];
+  v41 = a2;
+  v8 = AVTPrecompiledMemojiPresetPlist(v41);
+  v9 = [v8 objectForKeyedSubscript:?];
+  v10 = [v9 objectForKeyedSubscript:?];
 
   if (v10)
   {
     v11 = AVTPresetCategoryToString(a1);
+    v12 = v11;
     if (a3 >= 3)
     {
-      v30 = avt_default_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v31 = avt_default_log(v11);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        AVTIdentifierOfUpgradedColorPresetForAssetPresetIdentifier_cold_1(v30);
+        AVTIdentifierOfUpgradedColorPresetForAssetPresetIdentifier_cold_1(v31);
       }
 
-      v29 = 0;
+      v30 = 0;
     }
 
     else
     {
       v33 = v10;
       v34 = v8;
-      v38 = off_1E7F49930[a3];
-      v40 = off_1E7F49948[a3];
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
       obj = v10;
-      v12 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
-      if (v12)
+      v13 = [obj countByEnumeratingWithState:? objects:? count:?];
+      if (v13)
       {
-        v13 = v12;
-        v42 = 0;
-        v14 = *v45;
-        v15 = a5;
-        v36 = *v45;
+        v14 = v13;
+        v40 = 0;
+        v15 = MEMORY[0];
+        v16 = a5;
+        v36 = MEMORY[0];
         v37 = a5;
-        v35 = v11;
+        v35 = v12;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; i = (i + 1))
           {
-            if (*v45 != v14)
+            if (MEMORY[0] != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v44 + 1) + 8 * i);
-            v18 = [v17 objectForKeyedSubscript:@"upgrade-if-version-less-than"];
-            v19 = v18;
-            if (!v18 || [v18 unsignedIntegerValue] > v15)
+            v18 = *(8 * i);
+            v19 = [v18 objectForKeyedSubscript:?];
+            v20 = v19;
+            if (!v19 || [v19 unsignedIntegerValue] > v16)
             {
-              v20 = [v17 objectForKeyedSubscript:v11];
-              v21 = [v20 objectForKeyedSubscript:v43];
-              v22 = v21;
-              if (v21)
+              v21 = [v18 objectForKeyedSubscript:?];
+              v22 = [v21 objectForKeyedSubscript:?];
+              v23 = v22;
+              if (v22)
               {
-                v23 = v13;
-                v24 = [v21 objectForKeyedSubscript:v40];
-                v25 = v24;
-                if (v24)
+                v24 = v14;
+                v25 = [v22 objectForKeyedSubscript:?];
+                v26 = v25;
+                if (v25)
                 {
-                  v26 = v24;
+                  v27 = v25;
 
-                  v27 = [v22 objectForKeyedSubscript:v38];
-                  [v27 floatValue];
-                  *a4 = v28;
+                  v28 = [v23 objectForKeyedSubscript:?];
+                  [v28 floatValue];
+                  *a4 = v29;
 
-                  v42 = v26;
-                  v11 = v35;
-                  v14 = v36;
-                  v15 = v37;
+                  v40 = v27;
+                  v12 = v35;
+                  v15 = v36;
+                  v16 = v37;
                 }
 
-                v13 = v23;
+                v14 = v24;
               }
             }
           }
 
-          v13 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+          v14 = [obj countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v13);
+        while (v14);
       }
 
       else
       {
-        v42 = 0;
+        v40 = 0;
       }
 
-      v29 = v42;
+      v30 = v40;
       v10 = v33;
       v8 = v34;
     }
@@ -3927,12 +3762,10 @@ id AVTIdentifierOfUpgradedColorPresetForAssetPresetIdentifier(unint64_t a1, void
 
   else
   {
-    v29 = 0;
+    v30 = 0;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v30;
 }
 
 __CFString *AVTPresetCategoryPairToString(unint64_t a1)
@@ -3987,10 +3820,10 @@ uint64_t AVTColorCategoryFromString(void *a1)
     AVTColorCategoryFromString_cold_1();
   }
 
-  v2 = [AVTColorCategoryFromString_nameToCategory objectForKeyedSubscript:v1];
+  v2 = [AVTColorCategoryFromString_nameToCategory objectForKeyedSubscript:?];
   if (v2)
   {
-    v3 = [AVTColorCategoryFromString_nameToCategory objectForKeyedSubscript:v1];
+    v3 = [AVTColorCategoryFromString_nameToCategory objectForKeyedSubscript:?];
     v4 = [v3 intValue];
   }
 
@@ -4004,16 +3837,16 @@ uint64_t AVTColorCategoryFromString(void *a1)
 
 void __AVTColorCategoryFromString_block_invoke()
 {
-  v0 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:40];
+  v0 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:?];
   v1 = AVTColorCategoryFromString_nameToCategory;
   AVTColorCategoryFromString_nameToCategory = v0;
 
   for (i = 0; i != 40; ++i)
   {
-    v3 = [MEMORY[0x1E696AD98] numberWithInteger:i];
+    v3 = [MEMORY[0x1E696AD98] numberWithInteger:?];
     v4 = AVTColorCategoryFromString_nameToCategory;
     v5 = AVTPresetCategoryToColorCategoryString(i);
-    [v4 setObject:v3 forKeyedSubscript:v5];
+    [v4 setObject:? forKeyedSubscript:?];
   }
 }
 
@@ -4025,10 +3858,10 @@ uint64_t AVTPresetCategoryFromString(void *a1)
     AVTPresetCategoryFromString_cold_1();
   }
 
-  v2 = [AVTPresetCategoryFromString_nameToCategory objectForKeyedSubscript:v1];
+  v2 = [AVTPresetCategoryFromString_nameToCategory objectForKeyedSubscript:?];
   if (v2)
   {
-    v3 = [AVTPresetCategoryFromString_nameToCategory objectForKeyedSubscript:v1];
+    v3 = [AVTPresetCategoryFromString_nameToCategory objectForKeyedSubscript:?];
     v4 = [v3 integerValue];
   }
 
@@ -4042,20 +3875,20 @@ uint64_t AVTPresetCategoryFromString(void *a1)
 
 void __AVTPresetCategoryFromString_block_invoke()
 {
-  v0 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:40];
+  v0 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:?];
   v1 = AVTPresetCategoryFromString_nameToCategory;
   AVTPresetCategoryFromString_nameToCategory = v0;
 
   for (i = 0; i != 40; ++i)
   {
-    v3 = [MEMORY[0x1E696AD98] numberWithInteger:i];
+    v3 = [MEMORY[0x1E696AD98] numberWithInteger:?];
     v4 = AVTPresetCategoryFromString_nameToCategory;
     v5 = AVTPresetCategoryToString(i);
-    [v4 setObject:v3 forKeyedSubscript:v5];
+    [v4 setObject:? forKeyedSubscript:?];
   }
 }
 
-uint64_t AVTPresetCategoryToComponentType(unint64_t a1)
+uint64_t AVTPresetCategoryToComponentType(unint64_t a1, uint64_t a2)
 {
   if (a1 >= 0x29)
   {
@@ -4099,21 +3932,18 @@ void AVTEvaluateNameMatchingRules(void *a1, void *a2, void *a3)
   {
     v6 = a2;
     v7 = a1;
-    v8 = [v7 objectForKeyedSubscript:@"exclude"];
+    v8 = [v7 objectForKeyedSubscript:?];
     objc_opt_class();
     v9 = objc_opt_isKindOfClass() & 1;
     objc_opt_class();
     v10 = objc_opt_isKindOfClass() & 1;
-    v11 = [v7 objectForKeyedSubscript:@"include"];
+    v11 = [v7 objectForKeyedSubscript:?];
 
     objc_opt_class();
     LOBYTE(v7) = objc_opt_isKindOfClass() & 1;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __AVTEvaluateNameMatchingRules_block_invoke;
-    v16[3] = &unk_1E7F49720;
+    v16 = MEMORY[0x1E69E9820];
     v13 = isKindOfClass & 1;
     v20 = v9;
     v21 = v10;
@@ -4124,13 +3954,12 @@ void AVTEvaluateNameMatchingRules(void *a1, void *a2, void *a3)
     v23 = v13;
     v14 = v11;
     v15 = v8;
-    [v6 enumerateHierarchyUsingBlock:v16];
+    [v6 enumerateHierarchyUsingBlock:{v16, 3221225472, __AVTEvaluateNameMatchingRules_block_invoke, &unk_1E7F49720}];
   }
 }
 
 void __AVTEvaluateNameMatchingRules_block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 name];
   v5 = v4;
@@ -4141,7 +3970,7 @@ void __AVTEvaluateNameMatchingRules_block_invoke(uint64_t a1, void *a2)
 
   if (*(a1 + 56) == 1)
   {
-    if ([v4 containsString:*(a1 + 32)])
+    if ([v4 containsString:?])
     {
       goto LABEL_30;
     }
@@ -4149,33 +3978,29 @@ void __AVTEvaluateNameMatchingRules_block_invoke(uint64_t a1, void *a2)
 
   else if (*(a1 + 57) == 1)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
     v6 = *(a1 + 32);
-    v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = MEMORY[0];
 LABEL_8:
       v10 = 0;
       while (1)
       {
-        if (*v21 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([v5 containsString:*(*(&v20 + 1) + 8 * v10)])
+        if ([v5 containsString:?])
         {
           goto LABEL_29;
         }
 
         if (v8 == ++v10)
         {
-          v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v8 = [v6 countByEnumeratingWithState:? objects:? count:?];
           if (v8)
           {
             goto LABEL_8;
@@ -4194,33 +4019,29 @@ LABEL_8:
       goto LABEL_30;
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
     v6 = *(a1 + 40);
-    v11 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+    v11 = [v6 countByEnumeratingWithState:0 objects:? count:?];
     if (v11)
     {
       v12 = v11;
-      v13 = *v17;
+      v13 = MEMORY[0];
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v12; i = (i + 1))
         {
-          if (*v17 != v13)
+          if (MEMORY[0] != v13)
           {
             objc_enumerationMutation(v6);
           }
 
-          if ([v5 containsString:{*(*(&v16 + 1) + 8 * i), v16}])
+          if ([v5 containsString:?])
           {
             (*(*(a1 + 48) + 16))();
             goto LABEL_29;
           }
         }
 
-        v12 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v12 = [v6 countByEnumeratingWithState:? objects:? count:?];
         if (v12)
         {
           continue;
@@ -4235,21 +4056,19 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if ([v5 containsString:*(a1 + 40)])
+  if ([v5 containsString:?])
   {
     (*(*(a1 + 48) + 16))();
   }
 
 LABEL_30:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void __AVTPresetLoadPresetsIfNeeded_block_invoke()
+void __AVTPresetLoadPresetsIfNeeded_block_invoke(uint64_t a1)
 {
-  v0 = AVTPrecompiledMemojiPresetPlist();
-  [v0 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_318];
-  [v0 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_360];
+  v1 = AVTPrecompiledMemojiPresetPlist(a1);
+  [v1 enumerateKeysAndObjectsUsingBlock:?];
+  [v1 enumerateKeysAndObjectsUsingBlock:?];
 }
 
 void __destructor_8_s72_s80(uint64_t a1)
@@ -4257,9 +4076,8 @@ void __destructor_8_s72_s80(uint64_t a1)
   v2 = *(a1 + 80);
 }
 
-id AVTSetInitialValuesExportedAsAnimations(void *a1, void *a2, uint64_t a3, void *a4)
+void *AVTSetInitialValuesExportedAsAnimations(void *a1, void *a2, uint64_t a3, void *a4)
 {
-  v43 = *MEMORY[0x1E69E9840];
   v37 = a1;
   v7 = a2;
   v8 = a4;
@@ -4280,52 +4098,50 @@ id AVTSetInitialValuesExportedAsAnimations(void *a1, void *a2, uint64_t a3, void
 
     v13 = v7;
     v14 = [v13 animations];
-    v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v14, "count")}];
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v16 = v14;
-    v17 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
-    if (v17)
+    v15 = objc_alloc(MEMORY[0x1E695DF70]);
+    [v14 count];
+    v16 = [v15 initWithCapacity:?];
+    v17 = v14;
+    v18 = [v17 countByEnumeratingWithState:? objects:? count:?];
+    if (v18)
     {
-      v18 = v17;
+      v19 = v18;
       v35 = v13;
       v36 = v7;
-      v19 = 0;
-      v20 = *v39;
+      v20 = 0;
+      v21 = MEMORY[0];
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v19; i = (i + 1))
         {
-          if (*v39 != v20)
+          if (MEMORY[0] != v21)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v38 + 1) + 8 * i);
-          v23 = AVTSetInitialValuesExportedAsAnimations(v37, v22, a3, v8);
-          if (v23)
+          v23 = *(8 * i);
+          v24 = AVTSetInitialValuesExportedAsAnimations(v37, v23, a3, v8);
+          if (v24)
           {
-            [v15 addObject:v23];
+            [v16 addObject:?];
           }
 
-          v19 |= v23 != v22;
+          v20 |= v24 != v23;
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v19 = [v17 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v18);
+      while (v19);
 
       v13 = v35;
       v7 = v36;
-      if (v19)
+      if (v20)
       {
-        if ([v15 count])
+        if ([v16 count])
         {
           v12 = [v35 copy];
-          [v12 setAnimations:v15];
+          [v12 setAnimations:?];
         }
 
         else
@@ -4353,22 +4169,22 @@ LABEL_27:
 
   if ((a3 & 2) != 0 || v11 == 1)
   {
-    v24 = [v9 values];
-    v25 = [v24 objectAtIndexedSubscript:0];
+    v25 = [v9 values];
+    v26 = [v25 objectAtIndexedSubscript:?];
 
-    v26 = [v9 keyPath];
-    [v37 setValue:v25 forKeyPath:v26];
+    v27 = [v9 keyPath];
+    [v37 setValue:? forKeyPath:?];
 
-    v27 = [v9 keyTimes];
-    v28 = [v27 count];
+    v28 = [v9 keyTimes];
+    v29 = [v28 count];
 
-    if (v8 && v28 >= 2)
+    if (v8 && v29 >= 2)
     {
-      v29 = MEMORY[0x1E696AEC0];
-      v30 = [v37 name];
-      v31 = [v9 keyTimes];
-      v32 = [v29 stringWithFormat:@"Removed animation with more than one keyframe from %@ (%d keyframes)", v30, objc_msgSend(v31, "count")];
-      v8[2](v8, v32);
+      v30 = MEMORY[0x1E696AEC0];
+      v31 = [v37 name];
+      v32 = [v9 keyTimes];
+      v33 = [v30 stringWithFormat:v31, objc_msgSend(v32, "count")];
+      (*(v8 + 2))(v8, v33);
     }
 
     v12 = 0;
@@ -4380,7 +4196,6 @@ LABEL_27:
   }
 
 LABEL_28:
-  v33 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -4389,40 +4204,36 @@ id AVTCloneSceneKitNodesAndMaterials(void *a1)
 {
   v1 = MEMORY[0x1E696AD18];
   v2 = a1;
-  v3 = [[v1 alloc] initWithKeyOptions:0 valueOptions:0 capacity:0];
+  v3 = [[v1 alloc] initWithKeyOptions:? valueOptions:? capacity:?];
   v4 = _AVTNodeDeepCopyWithCache(v2, v2, v3);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = ___AVTNodeDeepCopy_block_invoke;
-  v7[3] = &unk_1E7F499F0;
-  v8 = v3;
+  v7 = v3;
   v5 = v3;
-  [v2 enumerateHierarchyUsingBlock:v7];
+  [v2 enumerateHierarchyUsingBlock:?];
 
   return v4;
 }
 
 id AVTMergeSceneKitShaderModifiers(void *a1, void *a2, void *a3, void *a4)
 {
-  v22[4] = *MEMORY[0x1E69E9840];
-  v21 = a1;
+  v21[4] = *MEMORY[0x1E69E9840];
+  v20 = a1;
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v22[0] = *MEMORY[0x1E697A9D0];
-  v22[1] = *MEMORY[0x1E697A9E0];
-  v22[2] = *MEMORY[0x1E697A9D8];
-  v22[3] = *MEMORY[0x1E697A9C8];
-  v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:4];
+  v21[0] = *MEMORY[0x1E697A9D0];
+  v21[1] = *MEMORY[0x1E697A9E0];
+  v21[2] = *MEMORY[0x1E697A9D8];
+  v21[3] = *MEMORY[0x1E697A9C8];
+  v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
   for (i = 0; i != 4; ++i)
   {
-    v12 = v22[i];
-    v13 = [v21 objectForKeyedSubscript:v12];
-    v14 = [v8 objectForKeyedSubscript:v12];
+    v12 = v21[i];
+    v13 = [v20 objectForKeyedSubscript:?];
+    v14 = [v8 objectForKeyedSubscript:?];
     v15 = AVTMergeSceneKitShaderModifiersForEntryPoint(v13, v7, v14, v9);
     if (v15)
     {
-      [v10 setObject:v15 forKeyedSubscript:v12];
+      [v10 setObject:? forKeyedSubscript:?];
     }
   }
 
@@ -4441,8 +4252,6 @@ id AVTMergeSceneKitShaderModifiers(void *a1, void *a2, void *a3, void *a4)
   for (j = 3; j != -1; --j)
   {
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -4501,119 +4310,118 @@ LABEL_10:
 
 void _AVTSplitShaderModifier(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v26 = a1;
+  v23 = a1;
   v9 = a2;
-  v10 = [v26 rangeOfString:@"#pragma arguments\n"];
-  v11 = [v26 rangeOfString:@"#pragma declaration\n"];
-  v12 = [v26 rangeOfString:@"#pragma body\n"];
-  v14 = v13;
+  v10 = [v23 rangeOfString:?];
+  v11 = [v23 rangeOfString:?];
+  v12 = [v23 rangeOfString:?];
   if (v11 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (v10 == 0x7FFFFFFFFFFFFFFFLL || (v15 = v10 - v11, v10 <= v11))
+    if (v10 == 0x7FFFFFFFFFFFFFFFLL || v10 <= v11)
     {
-      v16 = v26;
+      v13 = v23;
       if (v12 == 0x7FFFFFFFFFFFFFFFLL)
       {
         _AVTSplitShaderModifier_cold_2();
       }
-
-      v15 = v12 - v11;
     }
 
     else
     {
-      v16 = v26;
+      v13 = v23;
     }
 
-    v19 = [v16 substringWithRange:{v11, v15}];
-    goto LABEL_15;
+    v16 = [v13 substringWithRange:?];
+    goto LABEL_14;
   }
 
-  if ([v26 containsString:@"#pragma declaration\n"])
+  if ([v23 containsString:?])
   {
     _AVTSplitShaderModifier_cold_1();
   }
 
   if (v10 && v10 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v19 = [v26 substringToIndex:v10];
-LABEL_15:
-    v17 = v19;
-    goto LABEL_16;
+    v16 = [v23 substringToIndex:?];
+LABEL_14:
+    v14 = v16;
+    goto LABEL_15;
   }
 
-  v17 = 0;
+  v14 = 0;
   if (v10 != 0x7FFFFFFFFFFFFFFFLL && v12)
   {
-    *a3 = [v26 substringToIndex:v12];
-    v18 = v26;
-    goto LABEL_26;
+    *a3 = [v23 substringToIndex:?];
+    v15 = v23;
+    goto LABEL_25;
   }
 
-LABEL_16:
-  *a3 = v17;
+LABEL_15:
+  *a3 = v14;
   if (v10 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v18 = v26;
+    v15 = v23;
     if (v11 != 0x7FFFFFFFFFFFFFFFLL && v11 > v10)
     {
-      v20 = [v26 substringWithRange:{v10, v11 - v10}];
-      goto LABEL_22;
+      v17 = [v23 substringWithRange:?];
+      goto LABEL_21;
     }
 
-LABEL_26:
+LABEL_25:
     if (v12 == 0x7FFFFFFFFFFFFFFFLL)
     {
       _AVTSplitShaderModifier_cold_3();
     }
 
-    *a4 = [v18 substringWithRange:{v10, v12 - v10}];
-    goto LABEL_28;
+    *a4 = [v15 substringWithRange:?];
+    goto LABEL_27;
   }
 
-  if ([v26 containsString:@"#pragma arguments"])
+  if ([v23 containsString:?])
   {
     _AVTSplitShaderModifier_cold_5();
   }
 
-  v20 = 0;
-LABEL_22:
-  *a4 = v20;
+  v17 = 0;
+LABEL_21:
+  *a4 = v17;
   if (v12 != 0x7FFFFFFFFFFFFFFFLL)
   {
-LABEL_28:
+LABEL_27:
     if (v9)
     {
-      v22 = [v26 substringWithRange:{v12, v14}];
-      v23 = [v26 substringWithRange:{v12 + v14, objc_msgSend(v26, "length") - (v12 + v14)}];
-      v24 = v9[2](v9, v23);
+      v19 = [v23 substringWithRange:?];
+      [v23 length];
+      v20 = [v23 substringWithRange:?];
+      v21 = v9[2](v9, v20);
 
-      *a5 = [v22 stringByAppendingString:v24];
+      *a5 = [v19 stringByAppendingString:?];
 
-      goto LABEL_34;
+      goto LABEL_33;
     }
 
-    v21 = [v26 substringWithRange:{v12, objc_msgSend(v26, "length") - v12}];
-    goto LABEL_31;
+    [v23 length];
+    v18 = [v23 substringWithRange:?];
+    goto LABEL_30;
   }
 
-  if ([v26 containsString:@"#pragma body"])
+  if ([v23 containsString:?])
   {
     _AVTSplitShaderModifier_cold_4();
   }
 
   if (!v9)
   {
-    v25 = v26;
-    goto LABEL_33;
+    v22 = v23;
+    goto LABEL_32;
   }
 
-  v21 = v9[2](v9, v26);
-LABEL_31:
-  v25 = v21;
+  v18 = v9[2](v9, v23);
+LABEL_30:
+  v22 = v18;
+LABEL_32:
+  *a5 = v22;
 LABEL_33:
-  *a5 = v25;
-LABEL_34:
 }
 
 id AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndParts(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
@@ -4637,114 +4445,108 @@ id AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndParts(void *a1, void 
   v18 = v17;
   if ([v11 length])
   {
-    v19 = [(__CFString *)v18 rangeOfString:@"#pragma declaration\n"];
-    if (v19 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v18 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v18 containsString:@"#pragma declaration"])
+      if ([(__CFString *)v18 containsString:?])
       {
         AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndParts_cold_1();
       }
 
-      v21 = v11;
+      v19 = v11;
     }
 
     else
     {
-      v21 = [(__CFString *)v18 stringByReplacingCharactersInRange:v19 withString:v20, v11];
+      v19 = [__CFString stringByReplacingCharactersInRange:v18 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
-    v22 = v21;
+    v20 = v19;
 
-    v18 = v22;
+    v18 = v20;
   }
 
   if (v15)
   {
-    v23 = v15;
+    v21 = v15;
   }
 
   else
   {
-    v23 = &stru_1F39AEE78;
+    v21 = &stru_1F39AEE78;
   }
 
-  v24 = v23;
-  v43 = v12;
+  v22 = v21;
+  v33 = v12;
   if ([v12 length])
   {
-    v25 = [(__CFString *)v24 rangeOfString:@"#pragma arguments\n"];
-    if (v25 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v22 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v24 containsString:@"#pragma arguments"])
+      if ([(__CFString *)v22 containsString:?])
       {
         AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndParts_cold_2();
       }
 
-      v27 = v12;
+      v23 = v12;
     }
 
     else
     {
-      v27 = [(__CFString *)v24 stringByReplacingCharactersInRange:v25 withString:v26, v12];
+      v23 = [__CFString stringByReplacingCharactersInRange:v22 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
-    v28 = v27;
+    v24 = v23;
 
-    v24 = v28;
+    v22 = v24;
   }
 
   if (v16)
   {
-    v29 = v16;
+    v25 = v16;
   }
 
   else
   {
-    v29 = &stru_1F39AEE78;
+    v25 = &stru_1F39AEE78;
   }
 
-  v30 = v29;
+  v26 = v25;
   if ([v13 length])
   {
-    v31 = [(__CFString *)v30 rangeOfString:@"#pragma body\n"];
-    if (v31 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v26 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v30 containsString:@"#pragma body"])
+      if ([(__CFString *)v26 containsString:?])
       {
         AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndParts_cold_3();
       }
 
-      v33 = v11;
-      v34 = [(__CFString *)v30 rangeOfString:@"#pragma transparent\n"];
-      if (v34 != 0x7FFFFFFFFFFFFFFFLL)
+      v27 = v11;
+      if ([(__CFString *)v26 rangeOfString:?]!= 0x7FFFFFFFFFFFFFFFLL)
       {
-        v38 = v34;
-        v42 = v35;
-        v37 = [(__CFString *)v30 mutableCopy];
-        [(__CFString *)v37 insertString:v13 atIndex:v38 + v42];
+        v29 = [(__CFString *)v26 mutableCopy];
+        [__CFString insertString:v29 atIndex:"insertString:atIndex:"];
         goto LABEL_30;
       }
 
-      v36 = v13;
+      v28 = v13;
     }
 
     else
     {
-      v33 = v11;
-      v36 = [(__CFString *)v30 stringByReplacingCharactersInRange:v31 withString:v32, v13];
+      v27 = v11;
+      v28 = [__CFString stringByReplacingCharactersInRange:v26 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
-    v37 = v36;
+    v29 = v28;
 LABEL_30:
 
-    v30 = v37;
-    v11 = v33;
+    v26 = v29;
+    v11 = v27;
   }
 
-  v39 = [(__CFString *)v18 stringByAppendingString:v24];
-  v40 = [v39 stringByAppendingString:v30];
+  v30 = [(__CFString *)v18 stringByAppendingString:?];
+  v31 = [v30 stringByAppendingString:?];
 
-  return v40;
+  return v31;
 }
 
 __CFString *AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndCode(void *a1, void *a2, void *a3, void *a4)
@@ -4768,20 +4570,41 @@ __CFString *AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndCode(void *a
   v12 = v11;
   if ([v7 length])
   {
-    v13 = [(__CFString *)v12 rangeOfString:@"#pragma declaration\n"];
-    if (v13 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v12 containsString:@"#pragma declaration"])
+      if ([(__CFString *)v12 containsString:?])
       {
         AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndCode_cold_1();
       }
 
-      v15 = [v7 stringByAppendingString:v12];
+      v13 = [v7 stringByAppendingString:?];
     }
 
     else
     {
-      v15 = [(__CFString *)v12 stringByReplacingCharactersInRange:v13 withString:v14, v7];
+      v13 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
+    }
+
+    v14 = v13;
+
+    v12 = v14;
+  }
+
+  if ([v8 length])
+  {
+    if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
+    {
+      if ([(__CFString *)v12 containsString:?])
+      {
+        AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndCode_cold_2();
+      }
+
+      v15 = [v8 stringByAppendingString:?];
+    }
+
+    else
+    {
+      v15 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
     v16 = v15;
@@ -4789,61 +4612,34 @@ __CFString *AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndCode(void *a
     v12 = v16;
   }
 
-  if ([v8 length])
-  {
-    v17 = [(__CFString *)v12 rangeOfString:@"#pragma arguments\n"];
-    if (v17 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      if ([(__CFString *)v12 containsString:@"#pragma arguments"])
-      {
-        AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndCode_cold_2();
-      }
-
-      v19 = [v8 stringByAppendingString:v12];
-    }
-
-    else
-    {
-      v19 = [(__CFString *)v12 stringByReplacingCharactersInRange:v17 withString:v18, v8];
-    }
-
-    v20 = v19;
-
-    v12 = v20;
-  }
-
   if (v9)
   {
-    v21 = [(__CFString *)v12 rangeOfString:@"#pragma body\n"];
-    if (v21 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v12 containsString:@"#pragma body"])
+      if ([(__CFString *)v12 containsString:?])
       {
         AVTMergeSceneKitShaderModifiersForEntryPointWithPartsAndCode_cold_3();
       }
 
-      v23 = [(__CFString *)v12 rangeOfString:@"#pragma transparent\n"];
-      if (v23 != 0x7FFFFFFFFFFFFFFFLL)
+      if ([(__CFString *)v12 rangeOfString:?]!= 0x7FFFFFFFFFFFFFFFLL)
       {
-        v27 = v23;
-        v28 = v24;
-        v26 = [(__CFString *)v12 mutableCopy];
-        [(__CFString *)v26 insertString:v9 atIndex:v27 + v28];
+        v18 = [(__CFString *)v12 mutableCopy];
+        [__CFString insertString:v18 atIndex:"insertString:atIndex:"];
         goto LABEL_25;
       }
 
-      v25 = [(__CFString *)v12 stringByAppendingString:v9];
+      v17 = [(__CFString *)v12 stringByAppendingString:?];
     }
 
     else
     {
-      v25 = [(__CFString *)v12 stringByReplacingCharactersInRange:v21 withString:v22, v9];
+      v17 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
-    v26 = v25;
+    v18 = v17;
 LABEL_25:
 
-    v12 = v26;
+    v12 = v18;
   }
 
 LABEL_26:
@@ -4868,68 +4664,66 @@ __CFString *AVTMergeSceneKitShaderModifiersForEntryPointWithCodeAndParts(void *a
     v12 = v11;
     if ([v8 length])
     {
-      v13 = [(__CFString *)v12 rangeOfString:@"#pragma declaration\n"];
-      if (v13 == 0x7FFFFFFFFFFFFFFFLL)
+      if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
       {
-        if ([(__CFString *)v12 containsString:@"#pragma declaration"])
+        if ([(__CFString *)v12 containsString:?])
         {
           AVTMergeSceneKitShaderModifiersForEntryPointWithCodeAndParts_cold_1();
         }
 
-        v15 = [v8 stringByAppendingString:v12];
+        v13 = [v8 stringByAppendingString:?];
       }
 
       else
       {
-        v15 = [(__CFString *)v12 stringByReplacingCharactersInRange:v13 withString:v14, v8];
+        v13 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
       }
 
-      v17 = v15;
+      v15 = v13;
 
-      v12 = v17;
+      v12 = v15;
     }
 
     if ([v9 length])
     {
-      v18 = [(__CFString *)v12 rangeOfString:@"#pragma arguments\n"];
-      if (v18 == 0x7FFFFFFFFFFFFFFFLL)
+      if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
       {
-        if ([(__CFString *)v12 containsString:@"#pragma arguments"])
+        if ([(__CFString *)v12 containsString:?])
         {
           AVTMergeSceneKitShaderModifiersForEntryPointWithCodeAndParts_cold_2();
         }
 
-        v20 = [v9 stringByAppendingString:v12];
+        v16 = [v9 stringByAppendingString:?];
       }
 
       else
       {
-        v20 = [(__CFString *)v12 stringByReplacingCharactersInRange:v18 withString:v19, v9];
+        v16 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
       }
 
-      v21 = v20;
+      v17 = v16;
 
-      v12 = v21;
+      v12 = v17;
     }
 
-    v16 = [(__CFString *)v12 stringByAppendingString:v10];
+    v14 = [(__CFString *)v12 stringByAppendingString:?];
   }
 
   else
   {
-    v16 = v7;
+    v14 = v7;
   }
 
-  return v16;
+  return v14;
 }
 
 id _AVTNodeDeepCopyWithCache(void *a1, void *a2, void *a3)
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
-  v8 = [v7 objectForKey:v6];
+  v8 = [v7 objectForKey:?];
   if (v8)
   {
     v9 = v8;
@@ -4937,220 +4731,228 @@ id _AVTNodeDeepCopyWithCache(void *a1, void *a2, void *a3)
   }
 
   v10 = objc_alloc_init(MEMORY[0x1E697A8B0]);
-  [v7 setObject:v10 forKey:v6];
+  [v7 setObject:? forKey:?];
   v11 = [v6 name];
-  [v10 setName:v11];
+  [v10 setName:?];
 
   [v6 simdTransform];
   [v10 setSimdTransform:?];
-  [v10 setHidden:{objc_msgSend(v6, "isHidden")}];
+  [v6 isHidden];
+  [v10 setHidden:?];
   [v6 opacity];
   [v10 setOpacity:?];
-  [v10 setRenderingOrder:{objc_msgSend(v6, "renderingOrder")}];
-  [v10 setCategoryBitMask:{objc_msgSend(v6, "categoryBitMask")}];
+  [v6 renderingOrder];
+  [v10 setRenderingOrder:?];
+  [v6 categoryBitMask];
+  [v10 setCategoryBitMask:?];
   v12 = [v6 light];
-  [v10 setLight:v12];
+  [v10 setLight:?];
 
   v13 = [v6 camera];
-  [v10 setCamera:v13];
+  [v10 setCamera:?];
 
-  [v10 setCastsShadow:{objc_msgSend(v6, "castsShadow")}];
-  [v10 setUsesDepthPrePass:{objc_msgSend(v6, "usesDepthPrePass")}];
-  v14 = [v6 valueForKey:@"_valueForKey"];
-  v97[0] = MEMORY[0x1E69E9820];
-  v97[1] = 3221225472;
-  v97[2] = ___AVTNodeDeepCopyWithCache_block_invoke;
-  v97[3] = &unk_1E7F48E68;
+  [v6 castsShadow];
+  [v10 setCastsShadow:?];
+  [v6 usesDepthPrePass];
+  [v10 setUsesDepthPrePass:?];
+  v14 = [v6 valueForKey:?];
+  v93 = MEMORY[0x1E69E9820];
+  v94 = 3221225472;
+  v95 = ___AVTNodeDeepCopyWithCache_block_invoke;
+  v96 = &unk_1E7F48E68;
   v15 = v10;
-  v98 = v15;
-  [v14 enumerateKeysAndObjectsUsingBlock:v97];
+  v97 = v15;
+  [v14 enumerateKeysAndObjectsUsingBlock:?];
   v16 = [v6 geometry];
   v78 = v16;
   v79 = v14;
   if (v16)
   {
     v17 = v16;
-    v18 = [v7 objectForKey:v16];
+    v18 = [v7 objectForKey:?];
     if (!v18)
     {
       v74 = v6;
       v19 = [v17 copy];
-      [v7 setObject:v19 forKey:v17];
+      [v7 setObject:? forKey:?];
       v20 = [v17 tessellator];
       v21 = [v20 copy];
       v76 = v19;
-      [v19 setTessellator:v21];
+      [v19 setTessellator:?];
 
       v22 = MEMORY[0x1E695DF70];
       v23 = [v17 materials];
-      v24 = [v22 arrayWithCapacity:{objc_msgSend(v23, "count")}];
+      [v23 count];
+      v24 = [v22 arrayWithCapacity:?];
 
-      v95 = 0u;
-      v96 = 0u;
-      v93 = 0u;
-      v94 = 0u;
+      v91 = 0u;
+      v92 = 0u;
+      v89 = 0u;
+      v90 = 0u;
       v25 = [v17 materials];
-      v26 = [v25 countByEnumeratingWithState:&v93 objects:v102 count:16];
+      v26 = [v25 countByEnumeratingWithState:? objects:? count:?];
       if (v26)
       {
         v27 = v26;
-        v28 = *v94;
+        v28 = *v90;
         do
         {
-          for (i = 0; i != v27; ++i)
+          for (i = 0; i != v27; i = (i + 1))
           {
-            if (*v94 != v28)
+            if (*v90 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v93 + 1) + 8 * i);
-            v31 = [v7 objectForKey:v30];
+            v30 = *(*(&v89 + 1) + 8 * i);
+            v31 = [v7 objectForKey:?];
             if (!v31)
             {
               v31 = [v30 copy];
-              [v7 setObject:v31 forKey:v30];
+              [v7 setObject:? forKey:?];
             }
 
-            [v24 addObject:v31];
+            [v24 addObject:?];
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v93 objects:v102 count:16];
+          v27 = [v25 countByEnumeratingWithState:? objects:? count:?];
         }
 
         while (v27);
       }
 
       v18 = v76;
-      [v76 setMaterials:v24];
+      [v76 setMaterials:?];
 
       v6 = v74;
     }
 
-    [v15 setGeometry:v18];
+    [v15 setGeometry:?];
   }
 
   v32 = [v6 morpher];
   if (v32)
   {
-    v33 = [v7 objectForKey:v32];
+    v33 = [v7 objectForKey:?];
     if (!v33)
     {
       v33 = [v32 copy];
-      [v7 setObject:v33 forKey:v32];
+      [v7 setObject:? forKey:?];
     }
 
-    [v15 setMorpher:v33];
+    [v15 setMorpher:?];
   }
 
   v77 = v32;
   v34 = [v6 skinner];
   if (v34)
   {
-    v35 = [v7 objectForKey:v34];
+    v35 = [v7 objectForKey:?];
     if (v35)
     {
 LABEL_44:
-      [v15 setSkinner:{v35, v70}];
+      [v15 setSkinner:v70];
 
       goto LABEL_45;
     }
 
     v36 = [v34 bones];
     v37 = [v34 skeleton];
-    v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v36, "count")}];
+    v38 = objc_alloc(MEMORY[0x1E695DF70]);
+    [v36 count];
+    v39 = [v38 initWithCapacity:?];
     v73 = v36;
     v75 = v6;
     v72 = v37;
     if (v37)
     {
-      v39 = v37;
-      while (v39 != v5)
+      v40 = v37;
+      while (v40 != v5)
       {
-        v40 = [v39 parentNode];
+        v41 = [v40 parentNode];
 
-        v39 = v40;
-        if (!v40)
+        v40 = v41;
+        if (!v41)
         {
           goto LABEL_26;
         }
       }
 
-      v49 = [v34 skeleton];
-      v71 = _AVTNodeDeepCopyWithCache(v5, v49, v7);
+      v50 = [v34 skeleton];
+      v71 = _AVTNodeDeepCopyWithCache(v5, v50, v7);
 
-      v91 = 0u;
-      v92 = 0u;
-      v89 = 0u;
-      v90 = 0u;
-      v50 = v36;
-      v51 = [v50 countByEnumeratingWithState:&v89 objects:v101 count:16];
-      if (!v51)
+      v87 = 0u;
+      v88 = 0u;
+      v85 = 0u;
+      v86 = 0u;
+      v51 = v36;
+      v52 = [v51 countByEnumeratingWithState:? objects:? count:?];
+      if (!v52)
       {
         goto LABEL_43;
       }
 
-      v52 = v51;
+      v53 = v52;
       v70 = v34;
-      v53 = *v90;
+      v54 = *v86;
       do
       {
-        for (j = 0; j != v52; ++j)
+        for (j = 0; j != v53; j = (j + 1))
         {
-          if (*v90 != v53)
+          if (*v86 != v54)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v51);
           }
 
-          v55 = _AVTNodeDeepCopyWithCache(v5, *(*(&v89 + 1) + 8 * j), v7);
-          [v38 addObject:v55];
+          v56 = _AVTNodeDeepCopyWithCache(v5, *(*(&v85 + 1) + 8 * j), v7);
+          [v39 addObject:?];
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v89 objects:v101 count:16];
+        v53 = [v51 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v52);
+      while (v53);
     }
 
     else
     {
 LABEL_26:
-      v87 = 0u;
-      v88 = 0u;
-      v85 = 0u;
-      v86 = 0u;
-      v41 = v36;
-      v42 = [v41 countByEnumeratingWithState:&v85 objects:v100 count:16];
-      if (!v42)
+      v83 = 0u;
+      v84 = 0u;
+      v81 = 0u;
+      v82 = 0u;
+      v42 = v36;
+      v43 = [v42 countByEnumeratingWithState:? objects:? count:?];
+      if (!v43)
       {
         v71 = 0;
         goto LABEL_43;
       }
 
-      v43 = v42;
+      v44 = v43;
       v70 = v34;
-      v44 = *v86;
+      v45 = *v82;
       do
       {
-        for (k = 0; k != v43; ++k)
+        for (k = 0; k != v44; k = (k + 1))
         {
-          if (*v86 != v44)
+          if (*v82 != v45)
           {
-            objc_enumerationMutation(v41);
+            objc_enumerationMutation(v42);
           }
 
-          v46 = *(*(&v85 + 1) + 8 * k);
-          v47 = objc_alloc_init(MEMORY[0x1E697A8B0]);
-          v48 = [v46 name];
-          [v47 setName:v48];
+          v47 = *(*(&v81 + 1) + 8 * k);
+          v48 = objc_alloc_init(MEMORY[0x1E697A8B0]);
+          v49 = [v47 name];
+          [v48 setName:?];
 
-          [v38 addObject:v47];
+          [v39 addObject:?];
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v85 objects:v100 count:16];
+        v44 = [v42 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v43);
+      while (v44);
       v71 = 0;
     }
 
@@ -5158,61 +4960,51 @@ LABEL_26:
     v36 = v73;
 LABEL_43:
 
-    v56 = MEMORY[0x1E697A8D0];
-    v57 = [v15 geometry];
-    v58 = [v34 boneInverseBindTransforms];
-    v59 = [v34 boneWeights];
-    v60 = [v34 boneIndices];
-    v35 = [v56 skinnerWithBaseGeometry:v57 bones:v38 boneInverseBindTransforms:v58 boneWeights:v59 boneIndices:v60];
+    v57 = MEMORY[0x1E697A8D0];
+    v58 = [v15 geometry];
+    v59 = [v34 boneInverseBindTransforms];
+    v60 = [v34 boneWeights];
+    v61 = [v34 boneIndices];
+    v35 = [v57 skinnerWithBaseGeometry:? bones:? boneInverseBindTransforms:? boneWeights:? boneIndices:?];
 
-    [v34 baseGeometryBindTransform];
-    v84[0] = v84[4];
-    v84[1] = v84[5];
-    v84[2] = v84[6];
-    v84[3] = v84[7];
-    [v35 setBaseGeometryBindTransform:v84];
-    [v35 setSkeleton:v71];
-    [v7 setObject:v35 forKey:v34];
+    [&v80 baseGeometryBindTransform];
+    [v35 setBaseGeometryBindTransform:?];
+    [v35 setSkeleton:?];
+    [v7 setObject:? forKey:?];
 
     v6 = v75;
     goto LABEL_44;
   }
 
 LABEL_45:
-  v61 = v34;
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
-  v81 = 0u;
-  v62 = [v6 childNodes];
-  v63 = [v62 countByEnumeratingWithState:&v80 objects:v99 count:16];
-  if (v63)
+  v62 = v34;
+  v63 = [v6 childNodes];
+  v64 = [v63 countByEnumeratingWithState:? objects:? count:?];
+  if (v64)
   {
-    v64 = v63;
-    v65 = *v81;
+    v65 = v64;
+    v66 = MEMORY[0];
     do
     {
-      for (m = 0; m != v64; ++m)
+      for (m = 0; m != v65; m = (m + 1))
       {
-        if (*v81 != v65)
+        if (MEMORY[0] != v66)
         {
-          objc_enumerationMutation(v62);
+          objc_enumerationMutation(v63);
         }
 
-        v67 = _AVTNodeDeepCopyWithCache(v5, *(*(&v80 + 1) + 8 * m), v7);
-        [v15 addChildNode:v67];
+        v68 = _AVTNodeDeepCopyWithCache(v5, *(8 * m), v7);
+        [v15 addChildNode:?];
       }
 
-      v64 = [v62 countByEnumeratingWithState:&v80 objects:v99 count:16];
+      v65 = [v63 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v64);
+    while (v65);
   }
 
   v9 = v15;
 LABEL_53:
-
-  v68 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -5222,17 +5014,17 @@ void _AVTMemojiRandomize(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = 0;
-  v23 = v25;
+  v17 = v18;
   do
   {
-    v6 = [AVTPreset availablePresetsForCategory:v5, v23];
+    v6 = [AVTPreset availablePresetsForCategory:v17];
     if ([v6 count])
     {
-      v7 = arc4random_uniform([v6 count]);
-      v8 = 1.0;
+      arc4random_uniform([v6 count]);
+      v7 = 1.0;
       if ((v5 - 1) <= 0x22)
       {
-        v8 = dbl_1BB4F0D38[v5 - 1];
+        v7 = dbl_1BB4F0D38[v5 - 1];
       }
 
       if (_AVTMemojiRandomizationInitializeRand_onceToken != -1)
@@ -5240,102 +5032,83 @@ void _AVTMemojiRandomize(void *a1, void *a2)
         _AVTMemojiRandomize_cold_1();
       }
 
-      if (drand48() <= v8)
+      if (drand48() > v7)
       {
-        v10 = v7;
+        [v6 indexOfObjectPassingTest:?];
       }
 
-      else
-      {
-        v9 = [v6 indexOfObjectPassingTest:&__block_literal_global_537];
-        if (v9 == 0x7FFFFFFFFFFFFFFFLL)
-        {
-          v10 = 0;
-        }
-
-        else
-        {
-          v10 = v9;
-        }
-      }
-
-      v11 = [v6 objectAtIndex:v10];
-      v3[2](v3, v11, v5);
+      v8 = [v6 objectAtIndex:?];
+      v3[2](v3, v8, v5);
     }
 
-    v12 = [AVTColorPreset colorPresetsForCategory:v5];
-    if ([v12 count])
+    v9 = [AVTColorPreset colorPresetsForCategory:?];
+    if ([v9 count])
     {
-      v13 = arc4random_uniform([v12 count]);
+      arc4random_uniform([v9 count]);
       if (v5)
       {
         if (v5 == 10)
         {
-          v14 = 1;
+          v10 = 1;
         }
 
         else
         {
           if (v5 != 1)
           {
-LABEL_21:
-            v15 = [v12 objectAtIndex:v13];
+LABEL_18:
+            v11 = [v9 objectAtIndex:?];
             if (_AVTMemojiRandomizationInitializeRand_onceToken != -1)
             {
               _AVTMemojiRandomize_cold_1();
             }
 
-            v16 = drand48();
-            *&v16 = v16;
-            *&v16 = (*&v16 * 2.0) + -1.0;
-            v17 = [v15 colorPresetWithVariation:v16];
+            drand48();
+            v12 = [v11 colorPresetWithVariation:?];
 
-            v4[2](v4, v17, v5, 0);
-            v24[0] = MEMORY[0x1E69E9820];
-            v24[1] = 3221225472;
-            v25[0] = ___AVTMemojiRandomize_block_invoke_2;
-            v25[1] = &unk_1E7F49DC8;
-            v26 = v4;
-            [v17 enumerateDerivedColorPresetsUsingBlock:v24];
+            v4[2](v4, v12, v5, 0);
+            v18[0] = ___AVTMemojiRandomize_block_invoke_2;
+            v18[1] = &unk_1E7F49DC8;
+            v19 = v4;
+            [v12 enumerateDerivedColorPresetsUsingBlock:?];
 
-            goto LABEL_24;
+            goto LABEL_21;
           }
 
-          v14 = 7;
+          v10 = 7;
         }
       }
 
       else
       {
-        v14 = 8;
+        v10 = 8;
       }
 
-      v13 = arc4random_uniform(v14);
-      goto LABEL_21;
+      arc4random_uniform(v10);
+      goto LABEL_18;
     }
 
-LABEL_24:
+LABEL_21:
     if (v5 != 7)
     {
       for (i = 1; i != 3; ++i)
       {
-        v19 = v12;
-        v12 = [AVTColorPreset colorPresetsForCategory:v5 colorIndex:i];
+        v14 = v9;
+        v9 = [AVTColorPreset colorPresetsForCategory:"colorPresetsForCategory:colorIndex:" colorIndex:?];
 
-        if ([v12 count])
+        if ([v9 count])
         {
-          v20 = [v12 objectAtIndex:{arc4random_uniform(objc_msgSend(v12, "count"))}];
+          arc4random_uniform([v9 count]);
+          v15 = [v9 objectAtIndex:?];
           if (_AVTMemojiRandomizationInitializeRand_onceToken != -1)
           {
             _AVTMemojiRandomize_cold_1();
           }
 
-          v21 = drand48();
-          *&v21 = v21;
-          *&v21 = (*&v21 * 2.0) + -1.0;
-          v22 = [v20 colorPresetWithVariation:v21];
+          drand48();
+          v16 = [v15 colorPresetWithVariation:?];
 
-          v4[2](v4, v22, v5, i);
+          v4[2](v4, v16, v5, i);
         }
       }
     }
@@ -5486,6 +5259,13 @@ LABEL_3:
   return v3;
 }
 
+void sub_1BB4CD070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -5493,142 +5273,100 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BB4CDCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BB4CDCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB4CF2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BB4CF2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB4D1310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_1BB4D1310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
+  va_start(va, a39);
   _Block_object_dispose(&a36, 8);
-  _Block_object_dispose(&a40, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t AVTInterpolateBasicAnimationFloat(void *a1, float a2)
+void *AVTInterpolateBasicAnimationFloat(void *a1, float a2)
 {
-  v3 = a1;
-  v4 = [v3 fromValue];
+  v2 = a1;
+  v3 = [v2 fromValue];
+  [v3 floatValue];
+
+  v4 = [v2 toValue];
+
   [v4 floatValue];
-  v6 = v5;
+  v5 = MEMORY[0x1E696AD98];
 
-  v7 = [v3 toValue];
-
-  [v7 floatValue];
-  v9 = v8;
-
-  v11 = MEMORY[0x1E696AD98];
-
-  *&v10 = v6 + (a2 * (v9 - v6));
-  return [v11 numberWithFloat:v10];
+  return [v5 numberWithFloat:?];
 }
 
-uint64_t AVTInterpolateBasicAnimationFloat4(void *a1, float a2)
+void *AVTInterpolateBasicAnimationFloat4(void *a1, float a2)
 {
   v2 = a1;
   v3 = [v2 fromValue];
   [v3 avt_float4Value];
-  v11 = v4;
 
-  v5 = [v2 toValue];
+  v4 = [v2 toValue];
 
-  [v5 avt_float4Value];
-  v10 = v6;
+  [v4 avt_float4Value];
+  v5 = MEMORY[0x1E696B098];
 
-  *&v7 = vmlaq_n_f32(v11, vsubq_f32(v10, v11), a2).u64[0];
-  v8 = MEMORY[0x1E696B098];
-
-  return [v8 avt_valueWithFloat4_usableWithKVCForSCNVector4:v7];
+  return [v5 avt_valueWithFloat4_usableWithKVCForSCNVector4:?];
 }
 
-uint64_t AVTInterpolateBasicAnimationQuaternion(void *a1, float a2)
+void *AVTInterpolateBasicAnimationQuaternion(void *a1, float a2)
 {
   v3 = a1;
   v4 = [v3 fromValue];
   [v4 avt_float4Value];
-  v43 = v5;
+  v22 = v5;
 
   v6 = [v3 toValue];
 
   [v6 avt_float4Value];
-  v41 = v7;
+  v21 = v7;
 
-  v8 = vmulq_f32(v43, v41);
+  v8 = vmulq_f32(v22, v21);
   v9 = vextq_s8(v8, v8, 8uLL);
   *v8.f32 = vadd_f32(*v8.f32, *v9.f32);
   v8.f32[0] = vaddv_f32(*v8.f32);
   v9.i64[0] = 0;
-  v10 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v8, v9)), 0), vnegq_f32(v41), v41);
-  v11 = 1.0;
-  v12 = 1.0 - a2;
-  v13 = vsubq_f32(v43, v10);
-  v14 = vmulq_f32(v13, v13);
-  v42 = v10;
-  v15 = vaddq_f32(v43, v10);
-  v16 = vmulq_f32(v15, v15);
-  v17 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v14.i8, *&vextq_s8(v14, v14, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v16.i8, *&vextq_s8(v16, v16, 8uLL)))));
-  v18 = v17 + v17;
-  v19 = (v17 + v17) == 0.0;
-  v20 = 1.0;
-  if (!v19)
+  v10 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v8, v9)), 0), vnegq_f32(v21), v21);
+  v11 = 1.0 - a2;
+  v12 = vsubq_f32(v22, v10);
+  v13 = vmulq_f32(v12, v12);
+  v14 = vaddq_f32(v22, v10);
+  v15 = vmulq_f32(v14, v14);
+  v16 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v13.i8, *&vextq_s8(v13, v13, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v15.i8, *&vextq_s8(v15, v15, 8uLL)))));
+  v17 = v16 + v16;
+  if ((v16 + v16) != 0.0)
   {
-    v20 = sinf(v18) / v18;
+    sinf(v17);
   }
 
-  v21 = v20;
-  v22 = vrecpe_f32(LODWORD(v20));
-  v23 = vmul_f32(v22, vrecps_f32(LODWORD(v21), v22));
-  LODWORD(v24) = vmul_f32(v23, vrecps_f32(LODWORD(v21), v23)).u32[0];
-  if ((v12 * v18) != 0.0)
+  if ((v11 * v17) != 0.0)
   {
-    v39 = v24;
-    v23.f32[0] = sinf(v12 * v18);
-    v24 = v39;
-    v11 = v23.f32[0] / (v12 * v18);
+    sinf(v11 * v17);
   }
 
-  v23.f32[0] = v12 * (v24 * v11);
-  v25 = vdupq_lane_s32(v23, 0);
-  v26 = v18 * a2;
-  v27 = 1.0;
-  if (v26 != 0.0)
+  v18 = v17 * a2;
+  if (v18 != 0.0)
   {
-    v38 = v25;
-    v40 = v24;
-    v28 = sinf(v26);
-    v25 = v38;
-    v24 = v40;
-    v27 = v28 / v26;
+    sinf(v18);
   }
 
-  v29 = vmlaq_f32(vmulq_n_f32(v42, (v24 * v27) * a2), v43, v25);
-  v30 = vmulq_f32(v29, v29);
-  v31 = vadd_f32(*v30.i8, *&vextq_s8(v30, v30, 8uLL));
-  if (vaddv_f32(v31) == 0.0)
-  {
-    v32 = 0.0;
-  }
+  v19 = MEMORY[0x1E696B098];
 
-  else
-  {
-    v33 = vadd_f32(v31, vdup_lane_s32(v31, 1)).u32[0];
-    v34 = vrsqrte_f32(v33);
-    v35 = vmul_f32(v34, vrsqrts_f32(v33, vmul_f32(v34, v34)));
-    *&v32 = vmulq_n_f32(v29, vmul_f32(v35, vrsqrts_f32(v33, vmul_f32(v35, v35))).f32[0]).u64[0];
-  }
-
-  v36 = MEMORY[0x1E696B098];
-
-  return [v36 avt_valueWithFloat4_usableWithKVCForSCNVector4:v32];
+  return [v19 avt_valueWithFloat4_usableWithKVCForSCNVector4:?];
 }
 
 uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
@@ -5638,30 +5376,30 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BB4D8B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BB4D8B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-id AVTPrecompiledAnimojiSpecializationSettings()
+id AVTPrecompiledAnimojiSpecializationSettings(uint64_t a1)
 {
   if (AVTPrecompiledAnimojiSpecializationSettings_onceToken != -1)
   {
     AVTPrecompiledAnimojiSpecializationSettings_cold_1();
   }
 
-  v1 = AVTPrecompiledAnimojiSpecializationSettings_kAVTAnimojiPrecompiledPlist_specializationSettings;
+  v2 = AVTPrecompiledAnimojiSpecializationSettings_kAVTAnimojiPrecompiledPlist_specializationSettings;
 
-  return v1;
+  return v2;
 }
 
 void __AVTPrecompiledAnimojiSpecializationSettings_block_invoke()
@@ -5679,7 +5417,7 @@ id AVTPrecompiledMemojiAssetWithIdentifier(void *a1)
     AVTPrecompiledMemojiAssetWithIdentifier_cold_1();
   }
 
-  v3 = [AVTPrecompiledMemojiAssetWithIdentifier_kAVTMemojiPrecompiledPlist_assetByIdentifier objectForKeyedSubscript:v2];
+  v3 = [AVTPrecompiledMemojiAssetWithIdentifier_kAVTMemojiPrecompiledPlist_assetByIdentifier objectForKeyedSubscript:?];
 
   return v3;
 }
@@ -5699,7 +5437,7 @@ id AVTPrecompiledMemojiAssetsForComponentType(unint64_t a1)
 
   v2 = AVTPrecompiledMemojiAssetsForComponentType_kAVTMemojiPrecompiledPlist_assetIdentifiersByComponentType;
   v3 = AVTComponentTypeToString(a1);
-  v4 = [v2 objectForKeyedSubscript:v3];
+  v4 = [v2 objectForKeyedSubscript:?];
 
   return v4;
 }
@@ -5710,16 +5448,16 @@ void __AVTPrecompiledMemojiAssetsForComponentType_block_invoke()
   AVTPrecompiledMemojiAssetsForComponentType_kAVTMemojiPrecompiledPlist_assetIdentifiersByComponentType = &unk_1F3A00300;
 }
 
-id AVTPrecompiledMemojiCompositorPropertyNames()
+id AVTPrecompiledMemojiCompositorPropertyNames(uint64_t a1)
 {
   if (AVTPrecompiledMemojiCompositorPropertyNames_onceToken != -1)
   {
     AVTPrecompiledMemojiCompositorPropertyNames_cold_1();
   }
 
-  v1 = AVTPrecompiledMemojiCompositorPropertyNames_kAVTPrecompiledMemojiCompositorPropertyNames;
+  v2 = AVTPrecompiledMemojiCompositorPropertyNames_kAVTPrecompiledMemojiCompositorPropertyNames;
 
-  return v1;
+  return v2;
 }
 
 void __AVTPrecompiledMemojiCompositorPropertyNames_block_invoke()
@@ -5728,16 +5466,16 @@ void __AVTPrecompiledMemojiCompositorPropertyNames_block_invoke()
   AVTPrecompiledMemojiCompositorPropertyNames_kAVTPrecompiledMemojiCompositorPropertyNames = &unk_1F39DC688;
 }
 
-id AVTPrecompiledMemojiColorPalettes()
+id AVTPrecompiledMemojiColorPalettes(uint64_t a1)
 {
   if (AVTPrecompiledMemojiColorPalettes_onceToken != -1)
   {
     AVTPrecompiledMemojiColorPalettes_cold_1();
   }
 
-  v1 = AVTPrecompiledMemojiColorPalettes_kAVTMemojiPrecompiledPlist_palettes;
+  v2 = AVTPrecompiledMemojiColorPalettes_kAVTMemojiPrecompiledPlist_palettes;
 
-  return v1;
+  return v2;
 }
 
 void __AVTPrecompiledMemojiColorPalettes_block_invoke()
@@ -5746,16 +5484,16 @@ void __AVTPrecompiledMemojiColorPalettes_block_invoke()
   AVTPrecompiledMemojiColorPalettes_kAVTMemojiPrecompiledPlist_palettes = &unk_1F3A13130;
 }
 
-id AVTPrecompiledMemojiPresetPlist()
+id AVTPrecompiledMemojiPresetPlist(uint64_t a1)
 {
   if (AVTPrecompiledMemojiPresetPlist_onceToken != -1)
   {
     AVTPrecompiledMemojiPresetPlist_cold_1();
   }
 
-  v1 = AVTPrecompiledMemojiPresetPlist_kAVTMemojiPrecompiledPlist_presets;
+  v2 = AVTPrecompiledMemojiPresetPlist_kAVTMemojiPrecompiledPlist_presets;
 
-  return v1;
+  return v2;
 }
 
 void __AVTPrecompiledMemojiPresetPlist_block_invoke()
@@ -5764,16 +5502,16 @@ void __AVTPrecompiledMemojiPresetPlist_block_invoke()
   AVTPrecompiledMemojiPresetPlist_kAVTMemojiPrecompiledPlist_presets = &unk_1F3A28EE0;
 }
 
-id AVTPrecompiledMemojiEditorMetadata()
+id AVTPrecompiledMemojiEditorMetadata(uint64_t a1)
 {
   if (AVTPrecompiledMemojiEditorMetadata_onceToken != -1)
   {
     AVTPrecompiledMemojiEditorMetadata_cold_1();
   }
 
-  v1 = AVTPrecompiledMemojiEditorMetadata_kAVTMemojiPrecompiledPlist_editor;
+  v2 = AVTPrecompiledMemojiEditorMetadata_kAVTMemojiPrecompiledPlist_editor;
 
-  return v1;
+  return v2;
 }
 
 void __AVTPrecompiledMemojiEditorMetadata_block_invoke()
@@ -5782,16 +5520,16 @@ void __AVTPrecompiledMemojiEditorMetadata_block_invoke()
   AVTPrecompiledMemojiEditorMetadata_kAVTMemojiPrecompiledPlist_editor = &unk_1F3A322B0;
 }
 
-id AVTPrecompiledMemojiPrereleaseEditorMetadata()
+id AVTPrecompiledMemojiPrereleaseEditorMetadata(uint64_t a1)
 {
   if (AVTPrecompiledMemojiPrereleaseEditorMetadata_onceToken != -1)
   {
     AVTPrecompiledMemojiPrereleaseEditorMetadata_cold_1();
   }
 
-  v1 = AVTPrecompiledMemojiPrereleaseEditorMetadata_kAVTMemojiPrecompiledPlist_editorPrerelease;
+  v2 = AVTPrecompiledMemojiPrereleaseEditorMetadata_kAVTMemojiPrecompiledPlist_editorPrerelease;
 
-  return v1;
+  return v2;
 }
 
 void __AVTPrecompiledMemojiPrereleaseEditorMetadata_block_invoke()
@@ -5800,16 +5538,16 @@ void __AVTPrecompiledMemojiPrereleaseEditorMetadata_block_invoke()
   AVTPrecompiledMemojiPrereleaseEditorMetadata_kAVTMemojiPrecompiledPlist_editorPrerelease = MEMORY[0x1E695E0F8];
 }
 
-id AVTPrecompiledToyboxAnimojiNames()
+id AVTPrecompiledToyboxAnimojiNames(uint64_t a1)
 {
   if (AVTPrecompiledToyboxAnimojiNames_onceToken != -1)
   {
     AVTPrecompiledToyboxAnimojiNames_cold_1();
   }
 
-  v1 = AVTPrecompiledToyboxAnimojiNames_kAVTWatchFacesPrecompiledPlist_toyboxAnimojiNames;
+  v2 = AVTPrecompiledToyboxAnimojiNames_kAVTWatchFacesPrecompiledPlist_toyboxAnimojiNames;
 
-  return v1;
+  return v2;
 }
 
 void __AVTPrecompiledToyboxAnimojiNames_block_invoke()
@@ -5818,90 +5556,85 @@ void __AVTPrecompiledToyboxAnimojiNames_block_invoke()
   AVTPrecompiledToyboxAnimojiNames_kAVTWatchFacesPrecompiledPlist_toyboxAnimojiNames = &unk_1F39E1170;
 }
 
-id _AVTPoseRoundingBehaviour()
+id _AVTPoseRoundingBehaviour(uint64_t a1)
 {
   if (_AVTPoseRoundingBehaviour_onceToken != -1)
   {
     _AVTPoseRoundingBehaviour_cold_1();
   }
 
-  v1 = _AVTPoseRoundingBehaviour_behavior;
+  v2 = _AVTPoseRoundingBehaviour_behavior;
 
-  return v1;
+  return v2;
 }
 
-void sub_1BB4DB3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BB4DB3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id _AVTUpgradeVFXWorldOptions(void *a1)
+void *_AVTUpgradeVFXWorldOptions(void *a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  if (!a1 || (v1 = a1, ![a1 count]))
+  if (!a1)
   {
-    v6 = *MEMORY[0x1E69DF3E0];
-    v7[0] = MEMORY[0x1E695E118];
-    v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-    goto LABEL_6;
+    return [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  }
+
+  v1 = a1;
+  if (![a1 count])
+  {
+    return [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v1 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69DF3E0]];
-LABEL_6:
-    v2 = *MEMORY[0x1E69E9840];
+    [v1 setObject:? forKeyedSubscript:?];
     return v1;
   }
 
-  v4 = [v1 mutableCopy];
-  [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69DF3E0]];
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = [v1 mutableCopy];
+  [v3 setObject:? forKeyedSubscript:?];
 
-  return v4;
+  return v3;
 }
 
 id AVTCloneNodesAndMaterials(void *a1)
 {
   v1 = MEMORY[0x1E696AD18];
   v2 = a1;
-  v3 = [[v1 alloc] initWithKeyOptions:0 valueOptions:0 capacity:0];
+  v3 = [[v1 alloc] initWithKeyOptions:? valueOptions:? capacity:?];
   v4 = _AVTNodeDeepCopyWithCache_0(v2, v2, v3);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = ___AVTNodeDeepCopy_block_invoke_0;
-  v7[3] = &unk_1E7F47B10;
-  v8 = v3;
+  v7 = v3;
   v5 = v3;
-  [v2 enumerateHierarchyUsingBlock:v7];
+  [v2 enumerateHierarchyUsingBlock:?];
 
   return v4;
 }
 
 id AVTMergeShaderModifiers(void *a1, void *a2, void *a3, void *a4)
 {
-  v22[4] = *MEMORY[0x1E69E9840];
-  v21 = a1;
+  v21[4] = *MEMORY[0x1E69E9840];
+  v20 = a1;
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v22[0] = *MEMORY[0x1E69DF3C8];
-  v22[1] = *MEMORY[0x1E69DF3C0];
-  v22[2] = *MEMORY[0x1E69DF3B8];
-  v22[3] = *MEMORY[0x1E69DF3B0];
-  v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:4];
+  v21[0] = *MEMORY[0x1E69DF3C8];
+  v21[1] = *MEMORY[0x1E69DF3C0];
+  v21[2] = *MEMORY[0x1E69DF3B8];
+  v21[3] = *MEMORY[0x1E69DF3B0];
+  v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
   for (i = 0; i != 4; ++i)
   {
-    v12 = v22[i];
-    v13 = [v21 objectForKeyedSubscript:v12];
-    v14 = [v8 objectForKeyedSubscript:v12];
+    v12 = v21[i];
+    v13 = [v20 objectForKeyedSubscript:?];
+    v14 = [v8 objectForKeyedSubscript:?];
     v15 = AVTMergeShaderModifiersForEntryPoint(v13, v7, v14, v9);
     if (v15)
     {
-      [v10 setObject:v15 forKeyedSubscript:v12];
+      [v10 setObject:? forKeyedSubscript:?];
     }
   }
 
@@ -5920,8 +5653,6 @@ id AVTMergeShaderModifiers(void *a1, void *a2, void *a3, void *a4)
   for (j = 3; j != -1; --j)
   {
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -5980,119 +5711,118 @@ LABEL_10:
 
 void _AVTSplitShaderModifier_0(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v26 = a1;
+  v23 = a1;
   v9 = a2;
-  v10 = [v26 rangeOfString:@"#pragma arguments\n"];
-  v11 = [v26 rangeOfString:@"#pragma declaration\n"];
-  v12 = [v26 rangeOfString:@"#pragma body\n"];
-  v14 = v13;
+  v10 = [v23 rangeOfString:?];
+  v11 = [v23 rangeOfString:?];
+  v12 = [v23 rangeOfString:?];
   if (v11 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (v10 == 0x7FFFFFFFFFFFFFFFLL || (v15 = v10 - v11, v10 <= v11))
+    if (v10 == 0x7FFFFFFFFFFFFFFFLL || v10 <= v11)
     {
-      v16 = v26;
+      v13 = v23;
       if (v12 == 0x7FFFFFFFFFFFFFFFLL)
       {
         _AVTSplitShaderModifier_cold_2_0();
       }
-
-      v15 = v12 - v11;
     }
 
     else
     {
-      v16 = v26;
+      v13 = v23;
     }
 
-    v19 = [v16 substringWithRange:{v11, v15}];
-    goto LABEL_15;
+    v16 = [v13 substringWithRange:?];
+    goto LABEL_14;
   }
 
-  if ([v26 containsString:@"#pragma declaration\n"])
+  if ([v23 containsString:?])
   {
     _AVTSplitShaderModifier_cold_1_0();
   }
 
   if (v10 && v10 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v19 = [v26 substringToIndex:v10];
-LABEL_15:
-    v17 = v19;
-    goto LABEL_16;
+    v16 = [v23 substringToIndex:?];
+LABEL_14:
+    v14 = v16;
+    goto LABEL_15;
   }
 
-  v17 = 0;
+  v14 = 0;
   if (v10 != 0x7FFFFFFFFFFFFFFFLL && v12)
   {
-    *a3 = [v26 substringToIndex:v12];
-    v18 = v26;
-    goto LABEL_26;
+    *a3 = [v23 substringToIndex:?];
+    v15 = v23;
+    goto LABEL_25;
   }
 
-LABEL_16:
-  *a3 = v17;
+LABEL_15:
+  *a3 = v14;
   if (v10 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v18 = v26;
+    v15 = v23;
     if (v11 != 0x7FFFFFFFFFFFFFFFLL && v11 > v10)
     {
-      v20 = [v26 substringWithRange:{v10, v11 - v10}];
-      goto LABEL_22;
+      v17 = [v23 substringWithRange:?];
+      goto LABEL_21;
     }
 
-LABEL_26:
+LABEL_25:
     if (v12 == 0x7FFFFFFFFFFFFFFFLL)
     {
       _AVTSplitShaderModifier_cold_3_0();
     }
 
-    *a4 = [v18 substringWithRange:{v10, v12 - v10}];
-    goto LABEL_28;
+    *a4 = [v15 substringWithRange:?];
+    goto LABEL_27;
   }
 
-  if ([v26 containsString:@"#pragma arguments"])
+  if ([v23 containsString:?])
   {
     _AVTSplitShaderModifier_cold_5_0();
   }
 
-  v20 = 0;
-LABEL_22:
-  *a4 = v20;
+  v17 = 0;
+LABEL_21:
+  *a4 = v17;
   if (v12 != 0x7FFFFFFFFFFFFFFFLL)
   {
-LABEL_28:
+LABEL_27:
     if (v9)
     {
-      v22 = [v26 substringWithRange:{v12, v14}];
-      v23 = [v26 substringWithRange:{v12 + v14, objc_msgSend(v26, "length") - (v12 + v14)}];
-      v24 = v9[2](v9, v23);
+      v19 = [v23 substringWithRange:?];
+      [v23 length];
+      v20 = [v23 substringWithRange:?];
+      v21 = v9[2](v9, v20);
 
-      *a5 = [v22 stringByAppendingString:v24];
+      *a5 = [v19 stringByAppendingString:?];
 
-      goto LABEL_34;
+      goto LABEL_33;
     }
 
-    v21 = [v26 substringWithRange:{v12, objc_msgSend(v26, "length") - v12}];
-    goto LABEL_31;
+    [v23 length];
+    v18 = [v23 substringWithRange:?];
+    goto LABEL_30;
   }
 
-  if ([v26 containsString:@"#pragma body"])
+  if ([v23 containsString:?])
   {
     _AVTSplitShaderModifier_cold_4_0();
   }
 
   if (!v9)
   {
-    v25 = v26;
-    goto LABEL_33;
+    v22 = v23;
+    goto LABEL_32;
   }
 
-  v21 = v9[2](v9, v26);
-LABEL_31:
-  v25 = v21;
+  v18 = v9[2](v9, v23);
+LABEL_30:
+  v22 = v18;
+LABEL_32:
+  *a5 = v22;
 LABEL_33:
-  *a5 = v25;
-LABEL_34:
 }
 
 id AVTMergeShaderModifiersForEntryPointWithPartsAndParts(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
@@ -6116,114 +5846,108 @@ id AVTMergeShaderModifiersForEntryPointWithPartsAndParts(void *a1, void *a2, voi
   v18 = v17;
   if ([v11 length])
   {
-    v19 = [(__CFString *)v18 rangeOfString:@"#pragma declaration\n"];
-    if (v19 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v18 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v18 containsString:@"#pragma declaration"])
+      if ([(__CFString *)v18 containsString:?])
       {
         AVTMergeShaderModifiersForEntryPointWithPartsAndParts_cold_1();
       }
 
-      v21 = v11;
+      v19 = v11;
     }
 
     else
     {
-      v21 = [(__CFString *)v18 stringByReplacingCharactersInRange:v19 withString:v20, v11];
+      v19 = [__CFString stringByReplacingCharactersInRange:v18 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
-    v22 = v21;
+    v20 = v19;
 
-    v18 = v22;
+    v18 = v20;
   }
 
   if (v15)
   {
-    v23 = v15;
+    v21 = v15;
   }
 
   else
   {
-    v23 = &stru_1F39AEE78;
+    v21 = &stru_1F39AEE78;
   }
 
-  v24 = v23;
-  v43 = v12;
+  v22 = v21;
+  v33 = v12;
   if ([v12 length])
   {
-    v25 = [(__CFString *)v24 rangeOfString:@"#pragma arguments\n"];
-    if (v25 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v22 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v24 containsString:@"#pragma arguments"])
+      if ([(__CFString *)v22 containsString:?])
       {
         AVTMergeShaderModifiersForEntryPointWithPartsAndParts_cold_2();
       }
 
-      v27 = v12;
+      v23 = v12;
     }
 
     else
     {
-      v27 = [(__CFString *)v24 stringByReplacingCharactersInRange:v25 withString:v26, v12];
+      v23 = [__CFString stringByReplacingCharactersInRange:v22 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
-    v28 = v27;
+    v24 = v23;
 
-    v24 = v28;
+    v22 = v24;
   }
 
   if (v16)
   {
-    v29 = v16;
+    v25 = v16;
   }
 
   else
   {
-    v29 = &stru_1F39AEE78;
+    v25 = &stru_1F39AEE78;
   }
 
-  v30 = v29;
+  v26 = v25;
   if ([v13 length])
   {
-    v31 = [(__CFString *)v30 rangeOfString:@"#pragma body\n"];
-    if (v31 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v26 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v30 containsString:@"#pragma body"])
+      if ([(__CFString *)v26 containsString:?])
       {
         AVTMergeShaderModifiersForEntryPointWithPartsAndParts_cold_3();
       }
 
-      v33 = v11;
-      v34 = [(__CFString *)v30 rangeOfString:@"#pragma transparent\n"];
-      if (v34 != 0x7FFFFFFFFFFFFFFFLL)
+      v27 = v11;
+      if ([(__CFString *)v26 rangeOfString:?]!= 0x7FFFFFFFFFFFFFFFLL)
       {
-        v38 = v34;
-        v42 = v35;
-        v37 = [(__CFString *)v30 mutableCopy];
-        [(__CFString *)v37 insertString:v13 atIndex:v38 + v42];
+        v29 = [(__CFString *)v26 mutableCopy];
+        [__CFString insertString:v29 atIndex:"insertString:atIndex:"];
         goto LABEL_30;
       }
 
-      v36 = v13;
+      v28 = v13;
     }
 
     else
     {
-      v33 = v11;
-      v36 = [(__CFString *)v30 stringByReplacingCharactersInRange:v31 withString:v32, v13];
+      v27 = v11;
+      v28 = [__CFString stringByReplacingCharactersInRange:v26 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
-    v37 = v36;
+    v29 = v28;
 LABEL_30:
 
-    v30 = v37;
-    v11 = v33;
+    v26 = v29;
+    v11 = v27;
   }
 
-  v39 = [(__CFString *)v18 stringByAppendingString:v24];
-  v40 = [v39 stringByAppendingString:v30];
+  v30 = [(__CFString *)v18 stringByAppendingString:?];
+  v31 = [v30 stringByAppendingString:?];
 
-  return v40;
+  return v31;
 }
 
 __CFString *AVTMergeShaderModifiersForEntryPointWithPartsAndCode(void *a1, void *a2, void *a3, void *a4)
@@ -6247,20 +5971,41 @@ __CFString *AVTMergeShaderModifiersForEntryPointWithPartsAndCode(void *a1, void 
   v12 = v11;
   if ([v7 length])
   {
-    v13 = [(__CFString *)v12 rangeOfString:@"#pragma declaration\n"];
-    if (v13 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v12 containsString:@"#pragma declaration"])
+      if ([(__CFString *)v12 containsString:?])
       {
         AVTMergeShaderModifiersForEntryPointWithPartsAndCode_cold_1();
       }
 
-      v15 = [v7 stringByAppendingString:v12];
+      v13 = [v7 stringByAppendingString:?];
     }
 
     else
     {
-      v15 = [(__CFString *)v12 stringByReplacingCharactersInRange:v13 withString:v14, v7];
+      v13 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
+    }
+
+    v14 = v13;
+
+    v12 = v14;
+  }
+
+  if ([v8 length])
+  {
+    if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
+    {
+      if ([(__CFString *)v12 containsString:?])
+      {
+        AVTMergeShaderModifiersForEntryPointWithPartsAndCode_cold_2();
+      }
+
+      v15 = [v8 stringByAppendingString:?];
+    }
+
+    else
+    {
+      v15 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
     v16 = v15;
@@ -6268,61 +6013,34 @@ __CFString *AVTMergeShaderModifiersForEntryPointWithPartsAndCode(void *a1, void 
     v12 = v16;
   }
 
-  if ([v8 length])
-  {
-    v17 = [(__CFString *)v12 rangeOfString:@"#pragma arguments\n"];
-    if (v17 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      if ([(__CFString *)v12 containsString:@"#pragma arguments"])
-      {
-        AVTMergeShaderModifiersForEntryPointWithPartsAndCode_cold_2();
-      }
-
-      v19 = [v8 stringByAppendingString:v12];
-    }
-
-    else
-    {
-      v19 = [(__CFString *)v12 stringByReplacingCharactersInRange:v17 withString:v18, v8];
-    }
-
-    v20 = v19;
-
-    v12 = v20;
-  }
-
   if (v9)
   {
-    v21 = [(__CFString *)v12 rangeOfString:@"#pragma body\n"];
-    if (v21 == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([(__CFString *)v12 containsString:@"#pragma body"])
+      if ([(__CFString *)v12 containsString:?])
       {
         AVTMergeShaderModifiersForEntryPointWithPartsAndCode_cold_3();
       }
 
-      v23 = [(__CFString *)v12 rangeOfString:@"#pragma transparent\n"];
-      if (v23 != 0x7FFFFFFFFFFFFFFFLL)
+      if ([(__CFString *)v12 rangeOfString:?]!= 0x7FFFFFFFFFFFFFFFLL)
       {
-        v27 = v23;
-        v28 = v24;
-        v26 = [(__CFString *)v12 mutableCopy];
-        [(__CFString *)v26 insertString:v9 atIndex:v27 + v28];
+        v18 = [(__CFString *)v12 mutableCopy];
+        [__CFString insertString:v18 atIndex:"insertString:atIndex:"];
         goto LABEL_25;
       }
 
-      v25 = [(__CFString *)v12 stringByAppendingString:v9];
+      v17 = [(__CFString *)v12 stringByAppendingString:?];
     }
 
     else
     {
-      v25 = [(__CFString *)v12 stringByReplacingCharactersInRange:v21 withString:v22, v9];
+      v17 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
     }
 
-    v26 = v25;
+    v18 = v17;
 LABEL_25:
 
-    v12 = v26;
+    v12 = v18;
   }
 
 LABEL_26:
@@ -6347,68 +6065,65 @@ __CFString *AVTMergeShaderModifiersForEntryPointWithCodeAndParts(void *a1, void 
     v12 = v11;
     if ([v8 length])
     {
-      v13 = [(__CFString *)v12 rangeOfString:@"#pragma declaration\n"];
-      if (v13 == 0x7FFFFFFFFFFFFFFFLL)
+      if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
       {
-        if ([(__CFString *)v12 containsString:@"#pragma declaration"])
+        if ([(__CFString *)v12 containsString:?])
         {
           AVTMergeShaderModifiersForEntryPointWithCodeAndParts_cold_1();
         }
 
-        v15 = [v8 stringByAppendingString:v12];
+        v13 = [v8 stringByAppendingString:?];
       }
 
       else
       {
-        v15 = [(__CFString *)v12 stringByReplacingCharactersInRange:v13 withString:v14, v8];
+        v13 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
       }
 
-      v17 = v15;
+      v15 = v13;
 
-      v12 = v17;
+      v12 = v15;
     }
 
     if ([v9 length])
     {
-      v18 = [(__CFString *)v12 rangeOfString:@"#pragma arguments\n"];
-      if (v18 == 0x7FFFFFFFFFFFFFFFLL)
+      if ([(__CFString *)v12 rangeOfString:?]== 0x7FFFFFFFFFFFFFFFLL)
       {
-        if ([(__CFString *)v12 containsString:@"#pragma arguments"])
+        if ([(__CFString *)v12 containsString:?])
         {
           AVTMergeShaderModifiersForEntryPointWithCodeAndParts_cold_2();
         }
 
-        v20 = [v9 stringByAppendingString:v12];
+        v16 = [v9 stringByAppendingString:?];
       }
 
       else
       {
-        v20 = [(__CFString *)v12 stringByReplacingCharactersInRange:v18 withString:v19, v9];
+        v16 = [__CFString stringByReplacingCharactersInRange:v12 withString:"stringByReplacingCharactersInRange:withString:"];
       }
 
-      v21 = v20;
+      v17 = v16;
 
-      v12 = v21;
+      v12 = v17;
     }
 
-    v16 = [(__CFString *)v12 stringByAppendingString:v10];
+    v14 = [(__CFString *)v12 stringByAppendingString:?];
   }
 
   else
   {
-    v16 = v7;
+    v14 = v7;
   }
 
-  return v16;
+  return v14;
 }
 
 id _AVTNodeDeepCopyWithCache_0(void *a1, void *a2, void *a3)
 {
-  v106 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
-  v8 = [v7 objectForKey:v6];
+  v8 = [v7 objectForKey:?];
   if (v8)
   {
     v9 = v8;
@@ -6416,122 +6131,119 @@ id _AVTNodeDeepCopyWithCache_0(void *a1, void *a2, void *a3)
   }
 
   v10 = objc_alloc_init(MEMORY[0x1E69DF330]);
-  [v7 setObject:v10 forKey:v6];
+  [v7 setObject:? forKey:?];
   v11 = [v6 name];
-  [v10 setName:v11];
+  [v10 setName:?];
 
   [v6 transform];
   [v10 setTransform:?];
-  [v10 setHidden:{objc_msgSend(v6, "isHidden")}];
+  [v6 isHidden];
+  [v10 setHidden:?];
   [v6 opacity];
   [v10 setOpacity:?];
-  [v10 setRenderingOrder:{objc_msgSend(v6, "renderingOrder")}];
-  [v10 setCategoryBitMask:{objc_msgSend(v6, "categoryBitMask")}];
+  [v6 renderingOrder];
+  [v10 setRenderingOrder:?];
+  [v6 categoryBitMask];
+  [v10 setCategoryBitMask:?];
   v12 = [v6 light];
-  [v10 setLight:v12];
+  [v10 setLight:?];
 
   v13 = [v6 camera];
-  [v10 setCamera:v13];
+  [v10 setCamera:?];
 
-  [v10 setCastsShadow:{objc_msgSend(v6, "castsShadow")}];
-  [v10 setUsesDepthPrePass:{objc_msgSend(v6, "usesDepthPrePass")}];
-  v14 = [v6 valueForKey:@"_valueForKey"];
-  v100[0] = MEMORY[0x1E69E9820];
-  v100[1] = 3221225472;
-  v100[2] = ___AVTNodeDeepCopyWithCache_block_invoke_0;
-  v100[3] = &unk_1E7F48E68;
+  [v6 castsShadow];
+  [v10 setCastsShadow:?];
+  [v6 usesDepthPrePass];
+  [v10 setUsesDepthPrePass:?];
+  v14 = [v6 valueForKey:?];
   v15 = v10;
-  v101 = v15;
-  [v14 enumerateKeysAndObjectsUsingBlock:v100];
+  [v14 enumerateKeysAndObjectsUsingBlock:?];
   v16 = [v6 model];
   v81 = v16;
   if (v16)
   {
-    v17 = [v7 objectForKey:v16];
+    v17 = [v7 objectForKey:?];
     if (!v17)
     {
       v75 = v14;
       v77 = v6;
       v18 = [v16 copy];
-      [v7 setObject:v18 forKey:v16];
+      [v7 setObject:? forKey:?];
       v19 = [v16 tessellator];
       v20 = [v19 copy];
-      [v18 setTessellator:v20];
+      [v18 setTessellator:?];
 
       v21 = [v16 mesh];
-      v22 = [v7 objectForKey:v21];
+      v22 = [v7 objectForKey:?];
       if (!v22)
       {
         v22 = [v21 copy];
-        [v7 setObject:v22 forKey:v21];
+        [v7 setObject:? forKey:?];
       }
 
       v79 = v21;
       v82 = v18;
       v73 = v22;
-      [v18 setMesh:v22];
+      [v18 setMesh:?];
       v23 = MEMORY[0x1E695DF70];
       v24 = [v16 materials];
-      v25 = [v23 arrayWithCapacity:{objc_msgSend(v24, "count")}];
+      [v24 count];
+      v25 = [v23 arrayWithCapacity:?];
 
-      v98 = 0u;
-      v99 = 0u;
-      v96 = 0u;
-      v97 = 0u;
       v26 = [v16 materials];
-      v27 = [v26 countByEnumeratingWithState:&v96 objects:v105 count:16];
+      v27 = [v26 countByEnumeratingWithState:? objects:? count:?];
       if (v27)
       {
         v28 = v27;
-        v29 = *v97;
+        v29 = MEMORY[0];
         do
         {
-          for (i = 0; i != v28; ++i)
+          for (i = 0; i != v28; i = (i + 1))
           {
-            if (*v97 != v29)
+            if (MEMORY[0] != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v96 + 1) + 8 * i);
-            v32 = [v7 objectForKey:v31];
+            v31 = *(8 * i);
+            v32 = [v7 objectForKey:?];
             if (!v32)
             {
               v32 = [v31 copy];
-              [v7 setObject:v32 forKey:v31];
+              [v7 setObject:? forKey:?];
             }
 
-            [v25 addObject:v32];
+            [v25 addObject:?];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v96 objects:v105 count:16];
+          v28 = [v26 countByEnumeratingWithState:? objects:? count:?];
         }
 
         while (v28);
       }
 
       v17 = v82;
-      [v82 setMaterials:v25];
+      [v82 setMaterials:?];
 
       v14 = v75;
       v6 = v77;
       v16 = v81;
     }
 
-    [v15 setModel:v17];
+    [v15 setModel:?];
   }
 
   v33 = [v6 morpher];
   if (v33)
   {
-    v34 = [v7 objectForKey:v33];
+    v34 = [v7 objectForKey:?];
     if (!v34)
     {
       v34 = [v33 copy];
-      [v7 setObject:v34 forKey:v33];
+      [v7 setObject:? forKey:?];
     }
 
-    [v15 setMorpher:v34];
+    [v15 setMorpher:?];
   }
 
   v80 = v33;
@@ -6540,11 +6252,11 @@ id _AVTNodeDeepCopyWithCache_0(void *a1, void *a2, void *a3)
   if (v35)
   {
     v36 = v35;
-    v37 = [v7 objectForKey:v35];
+    v37 = [v7 objectForKey:?];
     if (v37)
     {
 LABEL_46:
-      [v15 setSkinner:{v37, v71}];
+      [v15 setSkinner:v71];
 
       goto LABEL_47;
     }
@@ -6552,97 +6264,91 @@ LABEL_46:
     v76 = v14;
     v38 = [v36 bones];
     v39 = [v36 skeleton];
+    v40 = objc_alloc(MEMORY[0x1E695DF70]);
     v74 = v38;
-    v40 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v38, "count")}];
+    [v38 count];
+    v41 = [v40 initWithCapacity:?];
     v78 = v6;
     v72 = v39;
     if (v39)
     {
-      v41 = v39;
-      while (v41 != v5)
+      v42 = v39;
+      while (v42 != v5)
       {
-        v42 = [v41 parentNode];
+        v43 = [v42 parentNode];
 
-        v41 = v42;
-        if (!v42)
+        v42 = v43;
+        if (!v43)
         {
           goto LABEL_28;
         }
       }
 
-      v51 = [v36 skeleton];
-      v71 = _AVTNodeDeepCopyWithCache_0(v5, v51, v7);
+      v52 = [v36 skeleton];
+      v71 = _AVTNodeDeepCopyWithCache_0(v5, v52, v7);
 
-      v94 = 0u;
-      v95 = 0u;
-      v92 = 0u;
-      v93 = 0u;
-      v52 = v74;
-      v53 = [v52 countByEnumeratingWithState:&v92 objects:v104 count:16];
-      if (!v53)
+      v53 = v74;
+      v54 = [v53 countByEnumeratingWithState:? objects:? count:?];
+      if (!v54)
       {
         goto LABEL_45;
       }
 
-      v54 = v53;
-      v55 = *v93;
+      v55 = v54;
+      v56 = MEMORY[0];
       do
       {
-        for (j = 0; j != v54; ++j)
+        for (j = 0; j != v55; j = (j + 1))
         {
-          if (*v93 != v55)
+          if (MEMORY[0] != v56)
           {
-            objc_enumerationMutation(v52);
+            objc_enumerationMutation(v53);
           }
 
-          v57 = _AVTNodeDeepCopyWithCache_0(v5, *(*(&v92 + 1) + 8 * j), v7);
-          [v40 addObject:v57];
+          v58 = _AVTNodeDeepCopyWithCache_0(v5, *(8 * j), v7);
+          [v41 addObject:?];
         }
 
-        v54 = [v52 countByEnumeratingWithState:&v92 objects:v104 count:16];
+        v55 = [v53 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v54);
+      while (v55);
     }
 
     else
     {
 LABEL_28:
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
-      v89 = 0u;
-      v43 = v74;
-      v44 = [v43 countByEnumeratingWithState:&v88 objects:v103 count:16];
-      if (!v44)
+      v44 = v74;
+      v45 = [v44 countByEnumeratingWithState:? objects:? count:?];
+      if (!v45)
       {
         v71 = 0;
         goto LABEL_45;
       }
 
-      v45 = v44;
-      v46 = *v89;
+      v46 = v45;
+      v47 = MEMORY[0];
       do
       {
-        for (k = 0; k != v45; ++k)
+        for (k = 0; k != v46; k = (k + 1))
         {
-          if (*v89 != v46)
+          if (MEMORY[0] != v47)
           {
-            objc_enumerationMutation(v43);
+            objc_enumerationMutation(v44);
           }
 
-          v48 = *(*(&v88 + 1) + 8 * k);
-          v49 = objc_alloc_init(MEMORY[0x1E69DF330]);
-          v50 = [v48 name];
-          [v49 setName:v50];
+          v49 = *(8 * k);
+          v50 = objc_alloc_init(MEMORY[0x1E69DF330]);
+          v51 = [v49 name];
+          [v50 setName:?];
 
-          [v40 addObject:v49];
+          [v41 addObject:?];
         }
 
-        v45 = [v43 countByEnumeratingWithState:&v88 objects:v103 count:16];
+        v46 = [v44 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v45);
+      while (v46);
       v71 = 0;
     }
 
@@ -6650,17 +6356,17 @@ LABEL_28:
     v36 = v83;
 LABEL_45:
 
-    v58 = MEMORY[0x1E69DF368];
-    v59 = [v16 mesh];
-    v60 = [v36 boneInverseBindTransforms];
-    v61 = [v83 boneWeights];
-    v62 = [v83 boneIndices];
-    v37 = [v58 skinnerWithBaseMesh:v59 bones:v40 boneInverseBindTransforms:v60 boneWeights:v61 boneIndices:v62];
+    v59 = MEMORY[0x1E69DF368];
+    v60 = [v16 mesh];
+    v61 = [v36 boneInverseBindTransforms];
+    v62 = [v83 boneWeights];
+    v63 = [v83 boneIndices];
+    v37 = [v59 skinnerWithBaseMesh:? bones:? boneInverseBindTransforms:? boneWeights:? boneIndices:?];
 
     [v83 baseMeshBindTransform];
     [v37 setBaseMeshBindTransform:?];
-    [v37 setSkeleton:v71];
-    [v7 setObject:v37 forKey:v83];
+    [v37 setSkeleton:?];
+    [v7 setObject:? forKey:?];
 
     v14 = v76;
     v6 = v78;
@@ -6668,82 +6374,74 @@ LABEL_45:
   }
 
 LABEL_47:
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
-  v85 = 0u;
-  v63 = [v6 childNodes];
-  v64 = [v63 countByEnumeratingWithState:&v84 objects:v102 count:16];
-  if (v64)
+  v64 = [v6 childNodes];
+  v65 = [v64 countByEnumeratingWithState:? objects:? count:?];
+  if (v65)
   {
-    v65 = v64;
-    v66 = *v85;
+    v66 = v65;
+    v67 = MEMORY[0];
     do
     {
-      for (m = 0; m != v65; ++m)
+      for (m = 0; m != v66; m = (m + 1))
       {
-        if (*v85 != v66)
+        if (MEMORY[0] != v67)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v64);
         }
 
-        v68 = _AVTNodeDeepCopyWithCache_0(v5, *(*(&v84 + 1) + 8 * m), v7);
-        [v15 addChildNode:v68];
+        v69 = _AVTNodeDeepCopyWithCache_0(v5, *(8 * m), v7);
+        [v15 addChildNode:?];
       }
 
-      v65 = [v63 countByEnumeratingWithState:&v84 objects:v102 count:16];
+      v66 = [v64 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v65);
+    while (v66);
   }
 
   v9 = v15;
 LABEL_55:
-
-  v69 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 void AVTCoordinatorLoadPoseAtPath_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "pose";
 }
 
 void AVTCoordinatorLoadPoseAtPath_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "poseIdentifier";
 }
 
 void AVTCoordinatorLoadPosesAtPaths_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "poses";
 }
 
 void AVTCoordinatorLoadPosesAtPaths_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "identifiers";
 }
 
 void AVTCoordinatorLoadPoseAnimationsAtPaths_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "poseAnimations";
 }
 
 void _AVTAvatarPoseImportSceneKitAnimation_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 keyPath];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1BB472000, a2, OS_LOG_TYPE_ERROR, "Error: Unreachable code: Unknown animation target %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1BB472000, a2, OS_LOG_TYPE_ERROR, "Error: Unreachable code: Unknown animation target %@", &v4, 0xCu);
 }
 
 void _AVTAvatarPoseImportSceneKitAnimation_cold_2(void *a1, uint64_t a2, NSObject *a3)
@@ -6755,37 +6453,25 @@ void _AVTAvatarPoseImportSceneKitAnimation_cold_2(void *a1, uint64_t a2, NSObjec
 
 void AVTARKitTransformToSceneKitTransformMatrix_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1BB472000, a2, OS_LOG_TYPE_ERROR, "Error: Unreachable code: Unsupported worldAlignment %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1BB472000, a2, OS_LOG_TYPE_ERROR, "Error: Unreachable code: Unsupported worldAlignment %ld", &v2, 0xCu);
 }
 
 void AVTPrecompiledStickerPackPlist_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1BB472000, a2, a3, "Error: Could not find precompiled sticker pack %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __AVTSceneKitSnapshotVersionString_block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1BB472000, a2, a3, "Error: Could not find precompiled sticker pack %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __AVTInitializeShaderCache_block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [0 path];
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BB4E7754(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
@@ -6800,6 +6486,26 @@ void sub_1BB4E78DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   objc_destroyWeak((v20 + 48));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
+}
+
+CGRect CGRectIntersection(CGRect r1, CGRect r2)
+{
+  MEMORY[0x1EEDBAE40](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x1EEDBAE88](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }
 
 simd_float4x4 __invert_f4(simd_float4x4 a1)

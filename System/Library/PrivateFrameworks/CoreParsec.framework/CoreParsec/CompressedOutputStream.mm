@@ -69,7 +69,6 @@
 - (_TtC7parsecd22CompressedOutputStream)initWithURL:(id)l append:(BOOL)append
 {
   v4 = type metadata accessor for URL();
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   sub_100058CF4();

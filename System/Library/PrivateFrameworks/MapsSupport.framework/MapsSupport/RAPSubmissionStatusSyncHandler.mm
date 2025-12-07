@@ -2,6 +2,7 @@
 - (RAPSubmissionStatusSyncHandler)init;
 - (void)_fetchUnresolvedRAPRecordsWithLimit:(unint64_t)limit offset:(int64_t)offset oldestDate:(id)date completion:(id)completion;
 - (void)_updateMapsSyncRAPRecordWithIdentifiers:(id)identifiers toStatus:(signed __int16)status forceUpdate:(BOOL)update editBlock:(id)block completion:(id)completion;
+- (void)_updateRAPStatusWithIdentifiers:(id)identifiers toStatus:(signed __int16)status forceUpdate:(BOOL)update extraEditBlock:(id)block completion:(id)completion;
 - (void)fetchUnresolvedRAPIdentifiersWithBatchSize:(unint64_t)size offset:(int64_t)offset oldestDate:(id)date completion:(id)completion;
 - (void)saveIdentifier:(id)identifier completion:(id)completion;
 - (void)setFixedProblemAsReviewed:(id)reviewed;
@@ -12,20 +13,21 @@
 
 - (RAPSubmissionStatusSyncHandler)init
 {
-  v6.receiver = self;
-  v6.super_class = RAPSubmissionStatusSyncHandler;
-  v2 = [(RAPSubmissionStatusSyncHandler *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = RAPSubmissionStatusSyncHandler;
+  v2 = [(RAPSubmissionStatusSyncHandler *)&v7 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_10000FD7C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = sub_10000FD7C(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Initializing submission status sync handler", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Initializing submission status sync handler", v6, 2u);
     }
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)fetchUnresolvedRAPIdentifiersWithBatchSize:(unint64_t)size offset:(int64_t)offset oldestDate:(id)date completion:(id)completion
@@ -79,36 +81,36 @@
 
   problemId = [firstObject problemId];
 
-  v7 = sub_10000FD7C();
-  v8 = v7;
+  v8 = sub_10000FD7C(v7);
+  v9 = v8;
   if (problemId)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       problemId2 = [firstObject problemId];
       *buf = 138412290;
-      v16 = problemId2;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Received notification for fixed RAP: %@", buf, 0xCu);
+      v17 = problemId2;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Received notification for fixed RAP: %@", buf, 0xCu);
     }
 
     problemId3 = [firstObject problemId];
-    v14 = problemId3;
-    v11 = [NSArray arrayWithObjects:&v14 count:1];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100010764;
-    v12[3] = &unk_10003CF98;
-    v13 = firstObject;
-    [(RAPSubmissionStatusSyncHandler *)self setIdentifiersAsReviewed:v11 completion:v12];
+    v15 = problemId3;
+    v12 = [NSArray arrayWithObjects:&v15 count:1];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100010764;
+    v13[3] = &unk_10003CF98;
+    v14 = firstObject;
+    [(RAPSubmissionStatusSyncHandler *)self setIdentifiersAsReviewed:v12 completion:v13];
 
-    v8 = v13;
+    v9 = v14;
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = firstObject;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Received notification for fixed RAP with nil GEORPProblemStatus problemID. Problem status: %@", buf, 0xCu);
+    v17 = firstObject;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Received notification for fixed RAP with nil GEORPProblemStatus problemID. Problem status: %@", buf, 0xCu);
   }
 }
 
@@ -116,7 +118,7 @@
 {
   infosCopy = infos;
   completionCopy = completion;
-  v6 = sub_10000FD7C();
+  v6 = sub_10000FD7C(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138412290;
@@ -126,31 +128,31 @@
 
   v7 = objc_opt_new();
   v8 = objc_opt_new();
-  v31 = objc_opt_new();
+  v32 = objc_opt_new();
   v9 = +[NSMutableDictionary dictionary];
-  v52 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
+  v52 = 0u;
   v10 = infosCopy;
-  v11 = [v10 countByEnumeratingWithState:&v50 objects:v61 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v51 objects:v62 count:16];
   if (v11)
   {
-    v12 = *v51;
+    v12 = *v52;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v51 != v12)
+        if (*v52 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v50 + 1) + 8 * i);
+        v14 = *(*(&v51 + 1) + 8 * i);
         rapDisplayMenu = [v14 rapDisplayMenu];
         if (rapDisplayMenu == 1)
         {
-          v16 = v31;
+          v16 = v32;
 LABEL_13:
           rapId = [v14 rapId];
           [v16 addObject:rapId];
@@ -182,7 +184,7 @@ LABEL_14:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v50 objects:v61 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v51 objects:v62 count:16];
     }
 
     while (v11);
@@ -190,94 +192,114 @@ LABEL_14:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v57 = 0x3032000000;
-  v58 = sub_100010EEC;
-  v59 = sub_100010EFC;
-  v60 = 0;
+  v58 = 0x3032000000;
+  v59 = sub_100010EEC;
+  v60 = sub_100010EFC;
+  v61 = 0;
   v22 = dispatch_group_create();
-  v23 = sub_10000FD7C();
+  v23 = sub_10000FD7C(v22);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
-    *v54 = 138412290;
-    v55 = v7;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Array of RAP submissions that have been Reviewed: %@", v54, 0xCu);
+    *v55 = 138412290;
+    v56 = v7;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Array of RAP submissions that have been Reviewed: %@", v55, 0xCu);
   }
 
   dispatch_group_enter(v22);
-  v48[0] = _NSConcreteStackBlock;
-  v48[1] = 3221225472;
-  v48[2] = sub_100010F04;
-  v48[3] = &unk_10003CFC0;
+  v49[0] = _NSConcreteStackBlock;
+  v49[1] = 3221225472;
+  v49[2] = sub_100010F04;
+  v49[3] = &unk_10003CFC0;
   v24 = v9;
-  v49 = v24;
-  v45[0] = _NSConcreteStackBlock;
-  v45[1] = 3221225472;
-  v45[2] = sub_100010FA8;
-  v45[3] = &unk_10003CFE8;
+  v50 = v24;
+  v46[0] = _NSConcreteStackBlock;
+  v46[1] = 3221225472;
+  v46[2] = sub_100010FA8;
+  v46[3] = &unk_10003CFE8;
   p_buf = &buf;
   v25 = v22;
-  v46 = v25;
-  [(RAPSubmissionStatusSyncHandler *)self _updateRAPStatusWithIdentifiers:v7 toStatus:1 forceUpdate:1 extraEditBlock:v48 completion:v45];
-  v26 = sub_10000FD7C();
+  v47 = v25;
+  v26 = sub_10000FD7C([(RAPSubmissionStatusSyncHandler *)self _updateRAPStatusWithIdentifiers:v7 toStatus:1 forceUpdate:1 extraEditBlock:v49 completion:v46]);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
-    *v54 = 138412290;
-    v55 = v8;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Array of RAP submissions that in Tell Us More statuses: %@", v54, 0xCu);
+    *v55 = 138412290;
+    v56 = v8;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Array of RAP submissions that in Tell Us More statuses: %@", v55, 0xCu);
   }
 
-  if ([v8 count])
+  v27 = [v8 count];
+  if (v27)
   {
     dispatch_group_enter(v25);
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_100011010;
-    v43[3] = &unk_10003CFC0;
-    v44 = v24;
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_1000110B4;
-    v40[3] = &unk_10003CFE8;
-    v42 = &buf;
-    v41 = v25;
-    [(RAPSubmissionStatusSyncHandler *)self _updateRAPStatusWithIdentifiers:v8 toStatus:2 forceUpdate:1 extraEditBlock:v43 completion:v40];
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_100011010;
+    v44[3] = &unk_10003CFC0;
+    v45 = v24;
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_1000110B4;
+    v41[3] = &unk_10003CFE8;
+    v43 = &buf;
+    v42 = v25;
+    [(RAPSubmissionStatusSyncHandler *)self _updateRAPStatusWithIdentifiers:v8 toStatus:2 forceUpdate:1 extraEditBlock:v44 completion:v41];
   }
 
-  v27 = sub_10000FD7C();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v28 = sub_10000FD7C(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
-    *v54 = 138412290;
-    v55 = v31;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Array of RAP submissions that in In Review statuses: %@", v54, 0xCu);
+    *v55 = 138412290;
+    v56 = v32;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Array of RAP submissions that in In Review statuses: %@", v55, 0xCu);
   }
 
-  if ([v31 count])
+  if ([v32 count])
   {
     dispatch_group_enter(v25);
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_10001111C;
-    v38[3] = &unk_10003CFC0;
-    v39 = v24;
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_1000111C0;
-    v35[3] = &unk_10003CFE8;
-    v37 = &buf;
-    v36 = v25;
-    [(RAPSubmissionStatusSyncHandler *)self _updateRAPStatusWithIdentifiers:v31 toStatus:0 extraEditBlock:v38 completion:v35];
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_10001111C;
+    v39[3] = &unk_10003CFC0;
+    v40 = v24;
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_1000111C0;
+    v36[3] = &unk_10003CFE8;
+    v38 = &buf;
+    v37 = v25;
+    [(RAPSubmissionStatusSyncHandler *)self _updateRAPStatusWithIdentifiers:v32 toStatus:0 extraEditBlock:v39 completion:v36];
   }
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100011228;
   block[3] = &unk_10003D010;
-  v33 = completionCopy;
-  v34 = &buf;
-  v28 = completionCopy;
+  v34 = completionCopy;
+  v35 = &buf;
+  v29 = completionCopy;
   dispatch_group_notify(v25, &_dispatch_main_q, block);
 
   _Block_object_dispose(&buf, 8);
+}
+
+- (void)_updateRAPStatusWithIdentifiers:(id)identifiers toStatus:(signed __int16)status forceUpdate:(BOOL)update extraEditBlock:(id)block completion:(id)completion
+{
+  updateCopy = update;
+  statusCopy = status;
+  identifiersCopy = identifiers;
+  completionCopy = completion;
+  blockCopy = block;
+  v15 = sub_10000FD7C(blockCopy);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    v16 = 134218240;
+    v17 = [identifiersCopy count];
+    v18 = 1024;
+    v19 = statusCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Updating %lu RAPs status to: %d", &v16, 0x12u);
+  }
+
+  [(RAPSubmissionStatusSyncHandler *)self _updateMapsSyncRAPRecordWithIdentifiers:identifiersCopy toStatus:statusCopy forceUpdate:updateCopy editBlock:blockCopy completion:completionCopy];
 }
 
 - (void)_updateMapsSyncRAPRecordWithIdentifiers:(id)identifiers toStatus:(signed __int16)status forceUpdate:(BOOL)update editBlock:(id)block completion:(id)completion

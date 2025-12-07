@@ -1,6 +1,46 @@
-unint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::append_alpha_gradient(uint64_t a1, uint64_t a2, uint64_t a3)
+float64x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::apply_transform(float64x2_t **a1, const RB::DisplayList::CachedTransform *a2, uint64_t a3)
 {
-  if (*(a3 + 72) != 3)
+  RB::DisplayList::Item::apply_transform(a1, a2, a3);
+  result = RB::DisplayList::CachedTransform::transform_ctm(a2, a1[6]);
+  a1[6] = result;
+  return result;
+}
+
+uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::make_clip(uint64_t a1, uint64_t a2, int a3, void *a4, float a5)
+{
+  v22 = a3;
+  _H1 = *(a1 + 110);
+  __asm { FCVT            S1, H1 }
+
+  v13 = *(a2 + 8);
+  _H2 = *(a1 + 44);
+  __asm { FCVT            S2, H2 }
+
+  v21 = (_S1 * a5) * _S2;
+  v16 = RB::Heap::emplace<RB::DisplayList::GenericClip<RB::Coverage::Stroke<RBStrokeRef>>,RB::Heap&,RB::Coverage::Stroke<RBStrokeRef>&,float &,RB::ClipMode &,RB::AffineTransform const*&>((v13 + 16), v13 + 16, a1 + 56, &v21, &v22, (a1 + 48));
+  v17 = a4[5];
+  v18 = v17 + 1;
+  if (a4[6] < (v17 + 1))
+  {
+    RB::vector<RB::DisplayList::Clip *,4ul,unsigned long>::reserve_slow(a4, v18);
+    v17 = a4[5];
+    v18 = v17 + 1;
+  }
+
+  v19 = a4[4];
+  if (!v19)
+  {
+    v19 = a4;
+  }
+
+  v19[v17] = v16;
+  a4[5] = v18;
+  return (**a1)(a1);
+}
+
+size_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::append_alpha_gradient(uint64_t a1, uint64_t a2, float32x2_t *a3)
+{
+  if (a3[9].i8[0] != 3)
   {
     return 0;
   }
@@ -14,7 +54,7 @@ unint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fi
   v9 = *(a1 + 46) & 0x3F;
   v7 = *(a2 + 8);
   v8 = *(a1 + 110) * *(a1 + 44);
-  v4 = _ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill8GradientEEEJRS7_RKS9_RPKNS_15AffineTransformEDF16_RNS_9BlendModeEEEEPT_DpOT0_((v7 + 16), a1 + 56, (a3 + 8), (a1 + 48), &v8, &v9);
+  v4 = _ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill8GradientEEEJRS7_RKS9_RPKNS_15AffineTransformEDF16_RNS_9BlendModeEEEEPT_DpOT0_((v7 + 16), a1 + 56, &a3[1], (a1 + 48), &v8, &v9);
   *(v4 + 16) = *(a1 + 16);
   *(v4 + 32) = *(a1 + 32);
   *(v4 + 40) = *(a1 + 40);
@@ -85,36 +125,37 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::C
   RB::render_stroke(a4, v15, a1 + 56, v19, &v16, a5, a6);
 }
 
-uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::render(uint64_t a1, uint64_t a2)
+void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::render(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 24);
+  v3 = *(a1 + 48);
+  v4 = *(a1 + 24);
   _H0 = *(a1 + 44);
   __asm { FCVT            S8, H0 }
 
-  v11 = *(a1 + 46) & 0x3F;
-  *&v12 = (*(*a1 + 136))(a1, 0);
-  RB::Bounds::Bounds(&v19, v12, v13, v14, v15);
-  if (*(a2 + 88) != v5 || !RB::Bounds::contains((a2 + 96), *&v19, *(&v19 + 8)))
+  v10 = *(a1 + 46) & 0x3F;
+  *&v11 = (*(*a1 + 136))(a1, 0);
+  RB::Bounds::Bounds(&v17, v11, v12, v13, v14);
+  if (*(a2 + 88) != v4 || !RB::Bounds::contains((a2 + 96), *&v17, *(&v17 + 8)))
   {
-    v16 = 0;
+    v15 = 0;
 LABEL_10:
-    RB::CGContext::update_state_slow(a2, v4, v5, v11, &v19, v16, _S8);
-    return RBStrokeRef::clip(a1 + 64);
+    RB::CGContext::update_state_slow(a2, v3, v4, v10, &v17, v15, _S8);
+    goto LABEL_11;
   }
 
-  v16 = 1;
-  if (*(a2 + 80) != v4)
+  v15 = 1;
+  if (*(a2 + 80) != v3)
   {
     goto LABEL_10;
   }
 
-  if (*(a2 + 140) != _S8 || *(a2 + 144) != v11)
+  if (*(a2 + 140) != _S8 || *(a2 + 144) != v10)
   {
     goto LABEL_10;
   }
 
-  return RBStrokeRef::clip(a1 + 64);
+LABEL_11:
+  RBStrokeRef::clip();
 }
 
 unint64_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::prepare_mix(uint64_t a1, RB::DisplayList::Interpolator::Contents *a2, unint64_t *a3, uint64_t a4)
@@ -161,7 +202,7 @@ float32x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB:
   v15[2] = v12;
   v8[6] = RB::DisplayList::CachedTransform::transform_ctm(a4, v15);
   v13.i32[0] = *(a2 + 16);
-  RB::Fill::Color::mix(&v8[13], a3 + 104, 3, v13);
+  RB::Fill::Color::mix(v13, &v8[13], a3 + 104, 3);
   RB::operator*(a1[6], a4 + 68);
   RB::operator*(*(a3 + 48), a4 + 68);
   v8[12].f32[0] = v8[12].f32[0] + ((*(a3 + 96) - v8[12].f32[0]) * *(a2 + 16));
@@ -175,11 +216,11 @@ float32x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB:
   return v8;
 }
 
-void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::prepare_encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::prepare_encode(RB::DisplayList::Item *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Item::prepare_encode(a1, a2);
 
-  return RBStrokeRef::prepare_encode(a1 + 8, (a1 + 7), a2);
+  return RBStrokeRef::prepare_encode(a1 + 8, a1 + 56, a2);
 }
 
 void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Color>::encode(void *a1, RB::ProtobufEncoder *this)
@@ -211,7 +252,7 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::C
   RB::SexpString::push(this, "draw");
   RB::DisplayList::Item::print(a1, this, a3);
   RB::SexpString::print_ctm(this, a1[6]);
-  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>();
+  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>(this, (a1 + 7));
 }
 
 void *_ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill5ColorEEEJRS0_RKS7_RKS9_RKPKNS_15AffineTransformERKDF16_RKNS_9BlendModeERKNSt3__19nullopt_tEEEEPT_DpOT0_(RB::Heap *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, __int16 *a6, _DWORD *a7)
@@ -262,14 +303,16 @@ uint64_t RB::Heap::emplace<RB::DisplayList::GenericClip<RB::Coverage::Stroke<RBS
   *(v10 + 48) = v13;
   *(v10 + 56) = &unk_1F0A383A8;
   *(v10 + 64) = *(a3 + 8);
-  *(v10 + 72) = *(a3 + 16);
+  v14 = *(a3 + 16);
+  *(v10 + 72) = v14;
   *(v10 + 88) = *(a3 + 32);
   *(v10 + 89) = *(a3 + 33);
   *(v10 + 91) = *(a3 + 35);
   *(v10 + 92) = *(a3 + 36);
-  *(v10 + 96) = *(a3 + 40);
+  LODWORD(v14) = *(a3 + 40);
+  *(v10 + 96) = v14;
   *(v10 + 104) = v11;
-  RB::DisplayList::GenericClip<RB::Coverage::Stroke<RBStrokeRef>>::update_bounds(v10);
+  RB::DisplayList::GenericClip<RB::Coverage::Stroke<RBStrokeRef>>::update_bounds(v10, *&v14, v15);
   return v10;
 }
 
@@ -280,7 +323,7 @@ void sub_195DA0CDC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t _ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill8GradientEEEJRS7_RKS9_RPKNS_15AffineTransformEDF16_RNS_9BlendModeEEEEPT_DpOT0_(size_t *a1, uint64_t a2, __int128 *a3, uint64_t *a4, __int16 *a5, _WORD *a6)
+size_t _ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill8GradientEEEJRS7_RKS9_RPKNS_15AffineTransformEDF16_RNS_9BlendModeEEEEPT_DpOT0_(size_t *a1, uint64_t a2, __int128 *a3, uint64_t *a4, __int16 *a5, _WORD *a6)
 {
   v11 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
   if (v11 + 168 > a1[3])
@@ -368,7 +411,7 @@ float64x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB:
   return result;
 }
 
-void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>::make_clip(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, float a5)
+uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>::make_clip(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, float a5)
 {
   v23 = 0.0;
   v24 = a3;
@@ -451,21 +494,21 @@ void **RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill:
   return result;
 }
 
-void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>::render(int32x2_t *a1, double a2, uint64_t a3, uint64_t *a4, int a5, int a6)
+void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>::render(uint64_t a1, double a2, uint64_t a3, uint64_t *a4, int a5, int a6)
 {
-  v10 = a1[6];
+  v10 = *(a1 + 48);
   v11.i64[0] = SLODWORD(a2);
   v11.i64[1] = SHIDWORD(a2);
-  v12 = *(*&v10 + 16);
-  _Q0 = vaddq_f64(*(*&v10 + 32), vcvtq_f64_s64(v11));
-  v19[0] = **&v10;
+  v12 = *(v10 + 16);
+  _Q0 = vaddq_f64(*(v10 + 32), vcvtq_f64_s64(v11));
+  v19[0] = *v10;
   v19[1] = v12;
   v19[2] = _Q0;
-  LOWORD(_Q0.f64[0]) = a1[5].i16[2];
+  LOWORD(_Q0.f64[0]) = *(a1 + 44);
   __asm { FCVT            S8, H0 }
 
-  RB::Coverage::Stroke<RBStrokeRef>::get_info(a1 + 7, a4, v20);
-  RB::render_stroke(a4, v19, &a1[7], v20, &a1[13], a5, a6, _S8);
+  RB::Coverage::Stroke<RBStrokeRef>::get_info((a1 + 56), a4, v20);
+  RB::render_stroke(a4, v19, a1 + 56, v20, (a1 + 104), a5, a6, _S8);
 }
 
 void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>::render(float32x2_t *a1, uint64_t a2)
@@ -499,12 +542,12 @@ LABEL_10:
 
 LABEL_11:
   RB::CGContext::save(a2);
-  RBStrokeRef::clip(&a1[8]);
+  RBStrokeRef::clip();
   v23[0] = xmmword_195E42760;
   v23[1] = xmmword_195E42770;
   v24 = 0;
   v25 = 0;
-  v18 = RB::Coverage::Stroke<RBStrokeRef>::bounds(&a1[7], v23);
+  v18 = RB::Coverage::Stroke<RBStrokeRef>::bounds(&a1[7], v23, 1.0, xmmword_195E42770);
   RB::Bounds::Bounds(&v26, v18, v19, v20, v21);
   *v22.f32 = v26;
   RB::Fill::Gradient::fill(a1 + 13, a2, v22);
@@ -569,11 +612,11 @@ float32x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB:
   return v8;
 }
 
-void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>::prepare_encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>::prepare_encode(RB::DisplayList::Item *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Item::prepare_encode(a1, a2);
 
-  return RBStrokeRef::prepare_encode(a1 + 8, (a1 + 7), a2);
+  return RBStrokeRef::prepare_encode(a1 + 8, a1 + 56, a2);
 }
 
 void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>::encode(void *a1, RB::ProtobufEncoder *this)
@@ -605,7 +648,7 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::G
   RB::SexpString::push(this, "draw");
   RB::DisplayList::Item::print(a1, this, a3);
   RB::SexpString::print_ctm(this, a1[6]);
-  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>();
+  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>(this, (a1 + 7));
 }
 
 void *_ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill8GradientEEEJRS0_RKS7_RKS9_RKPKNS_15AffineTransformERKDF16_RKNS_9BlendModeERKNSt3__19nullopt_tEEEEPT_DpOT0_(RB::Heap *this, RB::Heap *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, __int16 *a6, _DWORD *a7)
@@ -661,7 +704,7 @@ void sub_195DA1A10(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *RB::Heap::emplace<RB::DisplayList::GenericItem<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>,RB::Heap&,RB::Coverage::Stroke<RBStrokeRef> const&,RB::Fill::Gradient const&,RB::AffineTransform const* const&,float const&,RB::BlendMode const&,std::optional<RB::ColorSpace> const&>(RB::Heap *this, RB::Heap *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, float *a6, _DWORD *a7, __int16 *a8)
+void *RB::Heap::emplace<RB::DisplayList::GenericItem<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Gradient>,RB::Heap&,RB::Coverage::Stroke<RBStrokeRef> const&,RB::Fill::Gradient const&,RB::AffineTransform const* const&,float const&,RB::BlendMode const&,std::optional<RB::ColorSpace> const&>(RB::Heap *this, RB::Heap *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, float *a6, _DWORD *a7, unsigned __int16 *a8)
 {
   v16 = *(this + 3);
   v17 = (*(this + 2) + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -790,7 +833,7 @@ float64x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB:
   return result;
 }
 
-void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::MeshGradient>::make_clip(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, float a5)
+uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::MeshGradient>::make_clip(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, float a5)
 {
   v23 = 0.0;
   v24 = a3;
@@ -873,8 +916,10 @@ void **RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill:
   return result;
 }
 
-void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::MeshGradient>::render(uint64_t a1, double a2, uint64_t a3, uint64_t *a4, char a5, int a6)
+void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::MeshGradient>::render(uint64_t a1, double a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
+  v7 = a5;
   v10 = *(a1 + 48);
   v11.i64[0] = SLODWORD(a2);
   v11.i64[1] = SHIDWORD(a2);
@@ -887,7 +932,7 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::M
   __asm { FCVT            S8, H0 }
 
   RB::Coverage::Stroke<RBStrokeRef>::get_info((a1 + 56), a4, v20);
-  RB::render_stroke(a4, v19, a1 + 56, v20, (a1 + 104), a5, a6, _S8);
+  RB::render_stroke(a4, v19, a1 + 56, v20, (a1 + 104), v7, v6, _S8);
 }
 
 void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::MeshGradient>::render(int32x2_t *a1, uint64_t a2)
@@ -921,12 +966,12 @@ LABEL_10:
 
 LABEL_11:
   RB::CGContext::save(a2);
-  RBStrokeRef::clip(&a1[8]);
+  RBStrokeRef::clip();
   v22[0] = xmmword_195E42760;
   v22[1] = xmmword_195E42770;
   v23 = 0;
   v24 = 0;
-  v18 = RB::Coverage::Stroke<RBStrokeRef>::bounds(&a1[7], v22);
+  v18 = RB::Coverage::Stroke<RBStrokeRef>::bounds(&a1[7], v22, 1.0, xmmword_195E42770);
   RB::Bounds::Bounds(v25, v18, v19, v20, v21);
   RB::Fill::MeshGradient::fill(a1 + 13, a2, v25[0], v25[1]);
   RB::CGContext::restore(a2);
@@ -990,11 +1035,11 @@ float32x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB:
   return v8;
 }
 
-void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::MeshGradient>::prepare_encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::MeshGradient>::prepare_encode(RB::DisplayList::Item *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Item::prepare_encode(a1, a2);
 
-  return RBStrokeRef::prepare_encode(a1 + 8, (a1 + 7), a2);
+  return RBStrokeRef::prepare_encode(a1 + 8, a1 + 56, a2);
 }
 
 void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::MeshGradient>::encode(void *a1, RB::ProtobufEncoder *this)
@@ -1026,7 +1071,7 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::M
   RB::SexpString::push(this, "draw");
   RB::DisplayList::Item::print(a1, this, a3);
   RB::SexpString::print_ctm(this, a1[6]);
-  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>();
+  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>(this, (a1 + 7));
 }
 
 void *_ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill12MeshGradientEEEJRS0_RKS7_RKS9_RKPKNS_15AffineTransformERKDF16_RKNS_9BlendModeERKNSt3__19nullopt_tEEEEPT_DpOT0_(RB::Heap *this, RB::Heap *a2, uint64_t a3, uint64_t a4, uint64_t *a5, __int16 *a6, _DWORD *a7)
@@ -1165,7 +1210,7 @@ float64x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB:
   return result;
 }
 
-void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::make_clip(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, float a5)
+uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::make_clip(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, float a5)
 {
   v20 = a3;
   if (*(a1 + 116) == 1)
@@ -1231,9 +1276,11 @@ uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fil
   return RB::ImageTexture::prepare(a1 + 104, v4, (a1 + 120), v5, 0);
 }
 
-void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::render(int32x2_t *a1, double a2, uint64_t a3, uint64_t a4, int a5, int a6)
+void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::render(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v10 = a1[6];
+  v6 = a6;
+  v7 = a5;
+  v10 = *(a1 + 48);
   v11.i64[0] = SLODWORD(a2);
   v11.i64[1] = SHIDWORD(a2);
   v12 = v10[1];
@@ -1241,12 +1288,12 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::I
   v19[0] = *v10;
   v19[1] = v12;
   v19[2] = _Q0;
-  LOWORD(_Q0.f64[0]) = a1[5].i16[2];
+  LOWORD(_Q0.f64[0]) = *(a1 + 44);
   __asm { FCVT            S8, H0 }
 
-  RB::Coverage::Stroke<RBStrokeRef>::get_info(a1 + 7, a4, v22);
-  RB::Fill::Image<RB::ImageTexture>::set_image(&a1[13], &v21, a4, v19, _S8);
-  RB::render_stroke(a4, v19, &a1[7], v22, &v20, &a1[15], a5, a6);
+  RB::Coverage::Stroke<RBStrokeRef>::get_info((a1 + 56), a4, v22);
+  RB::Fill::Image<RB::ImageTexture>::set_image((a1 + 104), &v21, a4, v19, _S8);
+  RB::render_stroke(a4, v19, a1 + 56, v22, v20, a1 + 120, v7, v6);
   *(a4 + 240) = 0;
   *(a4 + 244) = 0;
 }
@@ -1278,12 +1325,12 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::I
   RB::CGContext::update_state_slow(a2, v4, v5, v11, v25, v16, _S8);
 LABEL_11:
   RB::CGContext::save(a2);
-  RBStrokeRef::clip(a1 + 64);
+  RBStrokeRef::clip();
   v25[0] = xmmword_195E42760;
   v25[1] = xmmword_195E42770;
   v26 = 0;
   v27 = 0;
-  v18 = RB::Coverage::Stroke<RBStrokeRef>::bounds((a1 + 56), v25);
+  v18 = RB::Coverage::Stroke<RBStrokeRef>::bounds((a1 + 56), v25, 1.0, xmmword_195E42770);
   RB::Bounds::Bounds(&v28, v18, v19, v20, v21);
   v22 = v28;
   v23 = RB::ImageTexture::cg_image((a1 + 104));
@@ -1350,7 +1397,7 @@ unint64_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::F
   return result;
 }
 
-uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::mix(CGAffineTransform **a1, uint64_t a2, uint64_t a3, float64x2_t *a4)
+float32x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::mix(CGAffineTransform **a1, uint64_t a2, uint64_t a3, float64x2_t *a4)
 {
   v8 = (*&(*a1)[1].a)(a1, *&a4->f64[0], *(*(a2 + 8) + 12), **(a2 + 8) >> 36, 2);
   RB::mix(a1[6], *(a3 + 48), v9, *(a2 + 16));
@@ -1373,12 +1420,12 @@ uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fil
   return v8;
 }
 
-void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::prepare_encode(uint64_t a1, RB::Encoder *a2)
+void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::prepare_encode(CFDataRef *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Item::prepare_encode(a1, a2);
-  RBStrokeRef::prepare_encode((a1 + 64), a1 + 56, a2);
+  RBStrokeRef::prepare_encode(a1 + 8, (a1 + 7), a2);
 
-  return RB::ImageTexture::prepare_encode((a1 + 104), a2);
+  return RB::ImageTexture::prepare_encode(a1 + 13, a2);
 }
 
 void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Image<RB::ImageTexture>>::encode(RB::DisplayList::Item *a1, RB::ProtobufEncoder *this)
@@ -1410,7 +1457,7 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::I
   RB::SexpString::push(this, "draw");
   RB::DisplayList::Item::print(a1, this, a3);
   RB::SexpString::print_ctm(this, a1[6]);
-  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>();
+  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>(this, (a1 + 7));
 }
 
 void *_ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill5ImageINS_12ImageTextureEEEEEJRS0_RKS7_RKSB_RKPKNS_15AffineTransformERKDF16_RKNS_9BlendModeERKNSt3__19nullopt_tEEEEPT_DpOT0_(RB::Heap *this, RB::Heap *a2, uint64_t a3, uint64_t a4, uint64_t *a5, __int16 *a6, _DWORD *a7)
@@ -1643,7 +1690,7 @@ uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fil
   v4 = *(a2 + 1072);
   v5 = *(a1 + 48);
 
-  return RB::Fill::Custom::prepare((a1 + 112), v4, v5);
+  return RB::Fill::Custom::prepare(a1 + 112, v4, v5);
 }
 
 void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Custom>::render(int32x2_t *a1, double a2, uint64_t a3, uint64_t *a4, int a5, int a6)
@@ -1694,12 +1741,12 @@ LABEL_10:
 
 LABEL_11:
   RB::CGContext::save(a2);
-  RBStrokeRef::clip(a1 + 64);
+  RBStrokeRef::clip();
   v22[0] = xmmword_195E42760;
   v22[1] = xmmword_195E42770;
   v23 = 0;
   v24 = 0;
-  v18 = RB::Coverage::Stroke<RBStrokeRef>::bounds((a1 + 56), v22);
+  v18 = RB::Coverage::Stroke<RBStrokeRef>::bounds((a1 + 56), v22, 1.0, xmmword_195E42770);
   RB::Bounds::Bounds(&v25, v18, v19, v20, v21);
   RB::Fill::Custom::fill(a1 + 112, a2);
   RB::CGContext::restore(a2);
@@ -1762,12 +1809,12 @@ float32x2_t *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB:
   return v8;
 }
 
-uint64_t RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Custom>::prepare_encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Custom>::prepare_encode(void *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Item::prepare_encode(a1, a2);
   RBStrokeRef::prepare_encode(a1 + 8, (a1 + 7), a2);
 
-  return RB::Fill::Custom::prepare_encode((a1 + 14), a2);
+  return RB::Fill::Custom::prepare_encode(a1 + 14, a2);
 }
 
 void *RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::Custom>::encode(void *a1, RB::ProtobufEncoder *this)
@@ -1799,7 +1846,7 @@ void RB::DisplayList::GenericItem1<RB::Coverage::Stroke<RBStrokeRef>,RB::Fill::C
   RB::SexpString::push(this, "draw");
   RB::DisplayList::Item::print(a1, this, a3);
   RB::SexpString::print_ctm(this, a1[6]);
-  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>();
+  RB::XML::print_attributes<RB::Coverage::Stroke<RBStrokeRef>>(this, (a1 + 7));
 }
 
 void *_ZN2RB4Heap7emplaceINS_11DisplayList11GenericItemINS_8Coverage6StrokeI11RBStrokeRefEENS_4Fill6CustomEEEJRS0_RKS7_RKS9_RKPKNS_15AffineTransformERKDF16_RKNS_9BlendModeERKNSt3__19nullopt_tEEEEPT_DpOT0_(RB::Heap *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, __int16 *a6, _DWORD *a7)
@@ -1921,7 +1968,7 @@ __n128 RB::Heap::emplace<RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle:
   return result;
 }
 
-unsigned __int8 *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Scale>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Scale>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   *(a4 + 2) = *(a1 + 32);
   v11[0] = xmmword_195E42760;
@@ -2028,7 +2075,7 @@ __n128 RB::Heap::emplace<RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle:
   return result;
 }
 
-unsigned __int8 *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Translation>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Translation>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   *(a4 + 2) = *(a1 + 32);
   v11[0] = xmmword_195E42760;
@@ -2135,7 +2182,7 @@ double RB::Heap::emplace<RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle:
   return result;
 }
 
-unsigned __int8 *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Rotation3D>::draw(uint64_t a1, size_t **a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Rotation3D>::draw(uint64_t a1, size_t **a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   *(a4 + 2) = *(a1 + 32);
   v12 = 1065353216;
@@ -2252,7 +2299,7 @@ __n128 RB::Heap::emplace<RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle:
   return result;
 }
 
-unsigned __int8 *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Affine>::draw(uint64_t a1, RB::DisplayList::Builder *this, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Affine>::draw(uint64_t a1, RB::DisplayList::Builder *this, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   *(a4 + 2) = *(a1 + 32);
   v5 = *(a1 + 80);
@@ -2262,12 +2309,12 @@ unsigned __int8 *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Affine>
   return RB::DisplayList::Builder::affine_style_draw(this, a3, a4, a5, v7, *(a1 + 16), *(a1 + 24));
 }
 
-double RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Affine>::bounds(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+double RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Affine>::bounds(float64x2_t *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v4 = *(a1 + 80);
-  v6[0] = *(a1 + 64);
+  v4 = a1[5];
+  v6[0] = a1[4];
   v6[1] = v4;
-  v6[2] = *(a1 + 96);
+  v6[2] = a1[6];
   return RB::DisplayList::affine_style_bounds(a2, a1, a3, a4, v6);
 }
 
@@ -2322,14 +2369,14 @@ uint64_t RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Affine>::mix(ui
   return v8;
 }
 
-void *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Affine>::encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Affine>::encode(uint64_t a1, RB::Encoder *a2)
 {
   RB::DisplayList::Style::encode(a1, a2);
   RB::ProtobufEncoder::encode_varint(a2, 0x6AuLL);
   RB::ProtobufEncoder::begin_length_delimited(a2);
   RB::ProtobufEncoder::encode_varint(a2, 0x2AuLL);
   RB::ProtobufEncoder::begin_length_delimited(a2);
-  RB::GeometryStyle::Affine::encode((a1 + 8), a2);
+  RB::GeometryStyle::Affine::encode((a1 + 64), a2);
   RB::ProtobufEncoder::end_length_delimited(a2);
 
   return RB::ProtobufEncoder::end_length_delimited(a2);
@@ -2370,7 +2417,7 @@ __n128 RB::Heap::emplace<RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle:
   return result;
 }
 
-unint64_t RB::DisplayList::ItemFactory::Inner<RB::Coverage::Primitive>::operator()<RB::Fill::MeshGradient>(__int128 **a1, uint64_t a2)
+size_t RB::DisplayList::ItemFactory::Inner<RB::Coverage::Primitive>::operator()<RB::Fill::MeshGradient>(float **a1, uint64_t a2)
 {
   v3 = *a1;
   result = *(*a1 + 7);
@@ -2386,7 +2433,7 @@ unint64_t RB::DisplayList::ItemFactory::Inner<RB::Coverage::Primitive>::operator
 
   result = RB::Heap::emplace<RB::DisplayList::GenericItem<RB::Coverage::Primitive,RB::Fill::MeshGradient>,RB::Heap&,RB::Coverage::Primitive const&,RB::Fill::MeshGradient const&,RB::AffineTransform const* const&,float const&,RB::BlendMode const&,std::optional<RB::ColorSpace> const&>(*v3, *v3, a1[1], a2, v3 + 1, v3 + 4, v3 + 10, v3 + 12);
   v5 = *a1;
-  _S0 = *(*a1 + 7);
+  _S0 = (*a1)[7];
   if (_S0 != 0.0)
   {
     __asm { FCVT            H0, S0 }
@@ -2395,7 +2442,7 @@ unint64_t RB::DisplayList::ItemFactory::Inner<RB::Coverage::Primitive>::operator
   }
 
   *(v5 + 7) = result;
-  if (v5[3])
+  if (v5[12])
   {
 LABEL_3:
     *(result + 46) |= 0x2000u;
@@ -2479,7 +2526,7 @@ void RB::DisplayList::FilterStyle<RB::Filter::Distance>::print(uint64_t a1, RB::
   RB::SexpString::pop(this);
 }
 
-RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, const RB::DisplayList::ClipNode **a4, char a5)
 {
   result = RB::ColorStyle::HueRotation::test((a1 + 56), 0);
   if ((result & 1) == 0)
@@ -2506,7 +2553,7 @@ RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRota
 
   if (a4)
   {
-    *(a4 + 2) = *(a1 + 32);
+    a4[2] = *(a1 + 32);
 
     return RB::DisplayList::Builder::draw(a2, a4, a3, a5);
   }
@@ -2545,7 +2592,7 @@ uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::mix(uin
   return v7;
 }
 
-void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::encode(RB::DisplayList::Style *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Style::encode(a1, a2);
   v5 = a1;
@@ -2555,10 +2602,10 @@ void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::encode(voi
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::print(uint64_t a1, RB::SexpString *this, uint64_t a3)
+void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::print(const RB::AffineTransform **a1, RB::SexpString *this, uint64_t a3)
 {
   RB::SexpString::push(this, "color");
-  v6 = *(a1 + 60);
+  v6 = *(a1 + 15);
   if (v6)
   {
     v7 = "linear";
@@ -2581,7 +2628,7 @@ LABEL_6:
     RB::SexpString::print(this, 0, "premultiplied");
   }
 
-  RB::ColorStyle::HueRotation::print((a1 + 56), this);
+  RB::ColorStyle::HueRotation::print((a1 + 7), this);
   RB::DisplayList::Style::print(a1, this, a3);
 
   RB::SexpString::pop(this);
@@ -2668,15 +2715,16 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::HueRotation>::color_info(uint6
   return result;
 }
 
-uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::HueRotation>::test(uint64_t a1, unsigned int a2)
+uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::HueRotation>::test(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = RB::ColorStyle::HueRotation::test((a1 + 16), a2);
-  if (a2 < 4)
+  v3 = a2;
+  v5 = RB::ColorStyle::HueRotation::test((a1 + 16), a2);
+  if (v3 < 4)
   {
-    if (v4)
+    if (v5)
     {
-      v6 = *(a1 + 8);
-      if (v6)
+      v7 = *(a1 + 8);
+      if (v7)
       {
         goto LABEL_8;
       }
@@ -2685,44 +2733,44 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::HueRotation>::test(uint64_t a1
     }
 
 LABEL_15:
-    v5 = 0;
-    return v5 & 1;
+    v6 = 0;
+    return v6 & 1;
   }
 
-  v5 = a2 - 5;
-  if (a2 - 5 >= 3)
+  v6 = v3 - 5;
+  if (v3 - 5 >= 3)
   {
-    if (a2 != 4)
+    if (v3 != 4)
     {
-      return v5 & 1;
+      return v6 & 1;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 8) == 0;
-      return v5 & 1;
+      v6 = *(a1 + 8) == 0;
+      return v6 & 1;
     }
 
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v5)
   {
 LABEL_11:
-    v5 = 1;
-    return v5 & 1;
+    v6 = 1;
+    return v6 & 1;
   }
 
-  v6 = *(a1 + 8);
-  if (!v6)
+  v7 = *(a1 + 8);
+  if (!v7)
   {
     goto LABEL_15;
   }
 
 LABEL_8:
-  v7 = *(*v6 + 24);
+  v8 = *(*v7 + 24);
 
-  return v7();
+  return v8();
 }
 
 uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::HueRotation>::print(uint64_t a1, RB::SexpString *a2)
@@ -2782,7 +2830,7 @@ LABEL_5:
   return RB::ProtobufEncoder::end_length_delimited(this);
 }
 
-RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturation>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturation>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, const RB::DisplayList::ClipNode **a4, char a5)
 {
   result = RB::ColorStyle::HueRotation::test((a1 + 56), 0);
   if ((result & 1) == 0)
@@ -2809,7 +2857,7 @@ RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturat
 
   if (a4)
   {
-    *(a4 + 2) = *(a1 + 32);
+    a4[2] = *(a1 + 32);
 
     return RB::DisplayList::Builder::draw(a2, a4, a3, a5);
   }
@@ -2848,7 +2896,7 @@ uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturation>::mix(uint
   return v7;
 }
 
-void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturation>::encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturation>::encode(RB::DisplayList::Style *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Style::encode(a1, a2);
   v5 = a1;
@@ -2858,10 +2906,10 @@ void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturation>::encode(void
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturation>::print(uint64_t a1, RB::SexpString *this, uint64_t a3)
+void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Saturation>::print(const RB::AffineTransform **a1, RB::SexpString *this, uint64_t a3)
 {
   RB::SexpString::push(this, "color");
-  v6 = *(a1 + 60);
+  v6 = *(a1 + 15);
   if (v6)
   {
     v7 = "linear";
@@ -2884,7 +2932,7 @@ LABEL_6:
     RB::SexpString::print(this, 0, "premultiplied");
   }
 
-  RB::ColorStyle::Saturation::print((a1 + 56), this);
+  RB::ColorStyle::Saturation::print((a1 + 7), this);
   RB::DisplayList::Style::print(a1, this, a3);
 
   RB::SexpString::pop(this);
@@ -2971,15 +3019,16 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Saturation>::color_info(uint64
   return result;
 }
 
-uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Saturation>::test(uint64_t a1, unsigned int a2)
+uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Saturation>::test(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = RB::ColorStyle::HueRotation::test((a1 + 16), a2);
-  if (a2 < 4)
+  v3 = a2;
+  v5 = RB::ColorStyle::HueRotation::test((a1 + 16), a2);
+  if (v3 < 4)
   {
-    if (v4)
+    if (v5)
     {
-      v6 = *(a1 + 8);
-      if (v6)
+      v7 = *(a1 + 8);
+      if (v7)
       {
         goto LABEL_8;
       }
@@ -2988,44 +3037,44 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Saturation>::test(uint64_t a1,
     }
 
 LABEL_15:
-    v5 = 0;
-    return v5 & 1;
+    v6 = 0;
+    return v6 & 1;
   }
 
-  v5 = a2 - 5;
-  if (a2 - 5 >= 3)
+  v6 = v3 - 5;
+  if (v3 - 5 >= 3)
   {
-    if (a2 != 4)
+    if (v3 != 4)
     {
-      return v5 & 1;
+      return v6 & 1;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 8) == 0;
-      return v5 & 1;
+      v6 = *(a1 + 8) == 0;
+      return v6 & 1;
     }
 
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v5)
   {
 LABEL_11:
-    v5 = 1;
-    return v5 & 1;
+    v6 = 1;
+    return v6 & 1;
   }
 
-  v6 = *(a1 + 8);
-  if (!v6)
+  v7 = *(a1 + 8);
+  if (!v7)
   {
     goto LABEL_15;
   }
 
 LABEL_8:
-  v7 = *(*v6 + 24);
+  v8 = *(*v7 + 24);
 
-  return v7();
+  return v8();
 }
 
 uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Saturation>::print(uint64_t a1, RB::SexpString *a2)
@@ -3085,7 +3134,7 @@ LABEL_5:
   return RB::ProtobufEncoder::end_length_delimited(this);
 }
 
-RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightness>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightness>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, const RB::DisplayList::ClipNode **a4, char a5)
 {
   result = RB::ColorStyle::HueRotation::test((a1 + 56), 0);
   if ((result & 1) == 0)
@@ -3112,7 +3161,7 @@ RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightn
 
   if (a4)
   {
-    *(a4 + 2) = *(a1 + 32);
+    a4[2] = *(a1 + 32);
 
     return RB::DisplayList::Builder::draw(a2, a4, a3, a5);
   }
@@ -3151,7 +3200,7 @@ uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightness>::mix(uint
   return v7;
 }
 
-void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightness>::encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightness>::encode(RB::DisplayList::Style *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Style::encode(a1, a2);
   v5 = a1;
@@ -3161,10 +3210,10 @@ void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightness>::encode(void
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightness>::print(uint64_t a1, RB::SexpString *this, uint64_t a3)
+void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Brightness>::print(const RB::AffineTransform **a1, RB::SexpString *this, uint64_t a3)
 {
   RB::SexpString::push(this, "color");
-  v6 = *(a1 + 60);
+  v6 = *(a1 + 15);
   if (v6)
   {
     v7 = "linear";
@@ -3187,7 +3236,7 @@ LABEL_6:
     RB::SexpString::print(this, 0, "premultiplied");
   }
 
-  RB::ColorStyle::Brightness::print((a1 + 56), this);
+  RB::ColorStyle::Brightness::print((a1 + 7), this);
   RB::DisplayList::Style::print(a1, this, a3);
 
   RB::SexpString::pop(this);
@@ -3276,15 +3325,16 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Brightness>::color_info(uint64
   return result;
 }
 
-uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Brightness>::test(uint64_t a1, unsigned int a2)
+uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Brightness>::test(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = RB::ColorStyle::HueRotation::test((a1 + 16), a2);
-  if (a2 < 4)
+  v3 = a2;
+  v5 = RB::ColorStyle::HueRotation::test((a1 + 16), a2);
+  if (v3 < 4)
   {
-    if (v4)
+    if (v5)
     {
-      v6 = *(a1 + 8);
-      if (v6)
+      v7 = *(a1 + 8);
+      if (v7)
       {
         goto LABEL_8;
       }
@@ -3293,44 +3343,44 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Brightness>::test(uint64_t a1,
     }
 
 LABEL_15:
-    v5 = 0;
-    return v5 & 1;
+    v6 = 0;
+    return v6 & 1;
   }
 
-  v5 = a2 - 5;
-  if (a2 - 5 >= 3)
+  v6 = v3 - 5;
+  if (v3 - 5 >= 3)
   {
-    if (a2 != 4)
+    if (v3 != 4)
     {
-      return v5 & 1;
+      return v6 & 1;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 8) == 0;
-      return v5 & 1;
+      v6 = *(a1 + 8) == 0;
+      return v6 & 1;
     }
 
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v5)
   {
 LABEL_11:
-    v5 = 1;
-    return v5 & 1;
+    v6 = 1;
+    return v6 & 1;
   }
 
-  v6 = *(a1 + 8);
-  if (!v6)
+  v7 = *(a1 + 8);
+  if (!v7)
   {
     goto LABEL_15;
   }
 
 LABEL_8:
-  v7 = *(*v6 + 24);
+  v8 = *(*v7 + 24);
 
-  return v7();
+  return v8();
 }
 
 uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Brightness>::print(uint64_t a1, RB::SexpString *a2)
@@ -3390,7 +3440,7 @@ LABEL_5:
   return RB::ProtobufEncoder::end_length_delimited(this);
 }
 
-RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contrast>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contrast>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, const RB::DisplayList::ClipNode **a4, char a5)
 {
   result = RB::ColorStyle::HueRotation::test((a1 + 56), 0);
   if ((result & 1) == 0)
@@ -3417,7 +3467,7 @@ RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contras
 
   if (a4)
   {
-    *(a4 + 2) = *(a1 + 32);
+    a4[2] = *(a1 + 32);
 
     return RB::DisplayList::Builder::draw(a2, a4, a3, a5);
   }
@@ -3456,7 +3506,7 @@ uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contrast>::mix(uint64
   return v7;
 }
 
-void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contrast>::encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contrast>::encode(RB::DisplayList::Style *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Style::encode(a1, a2);
   v5 = a1;
@@ -3466,10 +3516,10 @@ void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contrast>::encode(void *
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contrast>::print(uint64_t a1, RB::SexpString *this, uint64_t a3)
+void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Contrast>::print(const RB::AffineTransform **a1, RB::SexpString *this, uint64_t a3)
 {
   RB::SexpString::push(this, "color");
-  v6 = *(a1 + 60);
+  v6 = *(a1 + 15);
   if (v6)
   {
     v7 = "linear";
@@ -3492,7 +3542,7 @@ LABEL_6:
     RB::SexpString::print(this, 0, "premultiplied");
   }
 
-  RB::ColorStyle::Contrast::print((a1 + 56), this);
+  RB::ColorStyle::Contrast::print((a1 + 7), this);
   RB::DisplayList::Style::print(a1, this, a3);
 
   RB::SexpString::pop(this);
@@ -3579,15 +3629,16 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Contrast>::color_info(uint64_t
   return result;
 }
 
-uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Contrast>::test(uint64_t a1, unsigned int a2)
+uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Contrast>::test(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = RB::ColorStyle::HueRotation::test((a1 + 16), a2);
-  if (a2 < 4)
+  v3 = a2;
+  v5 = RB::ColorStyle::HueRotation::test((a1 + 16), a2);
+  if (v3 < 4)
   {
-    if (v4)
+    if (v5)
     {
-      v6 = *(a1 + 8);
-      if (v6)
+      v7 = *(a1 + 8);
+      if (v7)
       {
         goto LABEL_8;
       }
@@ -3596,44 +3647,44 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Contrast>::test(uint64_t a1, u
     }
 
 LABEL_15:
-    v5 = 0;
-    return v5 & 1;
+    v6 = 0;
+    return v6 & 1;
   }
 
-  v5 = a2 - 5;
-  if (a2 - 5 >= 3)
+  v6 = v3 - 5;
+  if (v3 - 5 >= 3)
   {
-    if (a2 != 4)
+    if (v3 != 4)
     {
-      return v5 & 1;
+      return v6 & 1;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 8) == 0;
-      return v5 & 1;
+      v6 = *(a1 + 8) == 0;
+      return v6 & 1;
     }
 
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v5)
   {
 LABEL_11:
-    v5 = 1;
-    return v5 & 1;
+    v6 = 1;
+    return v6 & 1;
   }
 
-  v6 = *(a1 + 8);
-  if (!v6)
+  v7 = *(a1 + 8);
+  if (!v7)
   {
     goto LABEL_15;
   }
 
 LABEL_8:
-  v7 = *(*v6 + 24);
+  v8 = *(*v7 + 24);
 
-  return v7();
+  return v8();
 }
 
 uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::Contrast>::print(uint64_t a1, RB::SexpString *a2)
@@ -3693,7 +3744,7 @@ LABEL_5:
   return RB::ProtobufEncoder::end_length_delimited(this);
 }
 
-uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, const RB::DisplayList::ClipNode **a4, char a5)
 {
   result = RB::ColorStyle::LuminanceToAlpha::test(a1 + 56, 0);
   if ((result & 1) == 0)
@@ -3718,7 +3769,7 @@ uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::dr
 
   if (a4)
   {
-    *(a4 + 2) = *(a1 + 32);
+    a4[2] = *(a1 + 32);
 
     return RB::DisplayList::Builder::draw(a2, a4, a3, a5);
   }
@@ -3726,7 +3777,7 @@ uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::dr
   return result;
 }
 
-void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::encode(RB::DisplayList::Style *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Style::encode(a1, a2);
   v5 = a1;
@@ -3736,10 +3787,10 @@ void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::encod
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::print(uint64_t a1, RB::SexpString *this, uint64_t a3)
+void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::print(const RB::AffineTransform **a1, RB::SexpString *this, uint64_t a3)
 {
   RB::SexpString::push(this, "color");
-  v6 = *(a1 + 60);
+  v6 = *(a1 + 15);
   if (v6)
   {
     v7 = "linear";
@@ -3762,7 +3813,7 @@ LABEL_6:
     RB::SexpString::print(this, 0, "premultiplied");
   }
 
-  RB::ColorStyle::LuminanceToAlpha::print((a1 + 56), this);
+  RB::ColorStyle::LuminanceToAlpha::print((a1 + 7), this);
   RB::DisplayList::Style::print(a1, this, a3);
 
   RB::SexpString::pop(this);
@@ -3847,15 +3898,16 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::LuminanceToAlpha>::color_info(
   return result;
 }
 
-uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::LuminanceToAlpha>::test(uint64_t a1, unsigned int a2)
+uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::LuminanceToAlpha>::test(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = RB::ColorStyle::LuminanceToAlpha::test(a1 + 16, a2);
-  if (a2 < 4)
+  v3 = a2;
+  v5 = RB::ColorStyle::LuminanceToAlpha::test(a1 + 16, a2);
+  if (v3 < 4)
   {
-    if (v4)
+    if (v5)
     {
-      v6 = *(a1 + 8);
-      if (v6)
+      v7 = *(a1 + 8);
+      if (v7)
       {
         goto LABEL_8;
       }
@@ -3864,44 +3916,44 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::LuminanceToAlpha>::test(uint64
     }
 
 LABEL_15:
-    v5 = 0;
-    return v5 & 1;
+    v6 = 0;
+    return v6 & 1;
   }
 
-  v5 = a2 - 5;
-  if (a2 - 5 >= 3)
+  v6 = v3 - 5;
+  if (v3 - 5 >= 3)
   {
-    if (a2 != 4)
+    if (v3 != 4)
     {
-      return v5 & 1;
+      return v6 & 1;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 8) == 0;
-      return v5 & 1;
+      v6 = *(a1 + 8) == 0;
+      return v6 & 1;
     }
 
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v5)
   {
 LABEL_11:
-    v5 = 1;
-    return v5 & 1;
+    v6 = 1;
+    return v6 & 1;
   }
 
-  v6 = *(a1 + 8);
-  if (!v6)
+  v7 = *(a1 + 8);
+  if (!v7)
   {
     goto LABEL_15;
   }
 
 LABEL_8:
-  v7 = *(*v6 + 24);
+  v8 = *(*v7 + 24);
 
-  return v7();
+  return v8();
 }
 
 uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::LuminanceToAlpha>::print(uint64_t a1, RB::SexpString *a2)
@@ -3960,7 +4012,7 @@ LABEL_5:
   return RB::ProtobufEncoder::end_length_delimited(this);
 }
 
-RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorInvert>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorInvert>::draw(uint64_t a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, const RB::DisplayList::ClipNode **a4, char a5)
 {
   result = RB::ColorStyle::ColorInvert::test((a1 + 56), 0);
   if ((result & 1) == 0)
@@ -3987,7 +4039,7 @@ RB::DisplayList::Item *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorIn
 
   if (a4)
   {
-    *(a4 + 2) = *(a1 + 32);
+    a4[2] = *(a1 + 32);
 
     return RB::DisplayList::Builder::draw(a2, a4, a3, a5);
   }
@@ -4026,7 +4078,7 @@ uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorInvert>::mix(uin
   return v7;
 }
 
-void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorInvert>::encode(void *a1, RB::Encoder *a2)
+void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorInvert>::encode(RB::DisplayList::Style *a1, RB::Encoder *a2)
 {
   RB::DisplayList::Style::encode(a1, a2);
   v5 = a1;
@@ -4036,10 +4088,10 @@ void *RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorInvert>::encode(voi
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorInvert>::print(uint64_t a1, RB::SexpString *this, uint64_t a3)
+void RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorInvert>::print(const RB::AffineTransform **a1, RB::SexpString *this, uint64_t a3)
 {
   RB::SexpString::push(this, "color");
-  v6 = *(a1 + 60);
+  v6 = *(a1 + 15);
   if (v6)
   {
     v7 = "linear";
@@ -4062,7 +4114,7 @@ LABEL_6:
     RB::SexpString::print(this, 0, "premultiplied");
   }
 
-  RB::ColorStyle::ColorInvert::print((a1 + 56), this);
+  RB::ColorStyle::ColorInvert::print((a1 + 7), this);
   RB::DisplayList::Style::print(a1, this, a3);
 
   RB::SexpString::pop(this);
@@ -4151,15 +4203,16 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::ColorInvert>::color_info(uint6
   return result;
 }
 
-uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::ColorInvert>::test(uint64_t a1, unsigned int a2)
+uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::ColorInvert>::test(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = RB::ColorStyle::ColorInvert::test((a1 + 16), a2);
-  if (a2 < 4)
+  v3 = a2;
+  v5 = RB::ColorStyle::ColorInvert::test((a1 + 16), a2);
+  if (v3 < 4)
   {
-    if (v4)
+    if (v5)
     {
-      v6 = *(a1 + 8);
-      if (v6)
+      v7 = *(a1 + 8);
+      if (v7)
       {
         goto LABEL_8;
       }
@@ -4168,44 +4221,44 @@ uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::ColorInvert>::test(uint64_t a1
     }
 
 LABEL_15:
-    v5 = 0;
-    return v5 & 1;
+    v6 = 0;
+    return v6 & 1;
   }
 
-  v5 = a2 - 5;
-  if (a2 - 5 >= 3)
+  v6 = v3 - 5;
+  if (v3 - 5 >= 3)
   {
-    if (a2 != 4)
+    if (v3 != 4)
     {
-      return v5 & 1;
+      return v6 & 1;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 8) == 0;
-      return v5 & 1;
+      v6 = *(a1 + 8) == 0;
+      return v6 & 1;
     }
 
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v5)
   {
 LABEL_11:
-    v5 = 1;
-    return v5 & 1;
+    v6 = 1;
+    return v6 & 1;
   }
 
-  v6 = *(a1 + 8);
-  if (!v6)
+  v7 = *(a1 + 8);
+  if (!v7)
   {
     goto LABEL_15;
   }
 
 LABEL_8:
-  v7 = *(*v6 + 24);
+  v8 = *(*v7 + 24);
 
-  return v7();
+  return v8();
 }
 
 uint64_t RB::ColorStyle::MatrixFn<RB::ColorStyle::ColorInvert>::print(uint64_t a1, RB::SexpString *a2)
@@ -4265,7 +4318,7 @@ LABEL_5:
   return RB::ProtobufEncoder::end_length_delimited(this);
 }
 
-unsigned __int8 *RB::DisplayList::FilterStyle<RB::Filter::RGBACurves>::draw(void *a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+const RB::DisplayList::ClipNode **RB::DisplayList::FilterStyle<RB::Filter::RGBACurves>::draw(void *a1, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, const RB::DisplayList::ClipNode **a4, char a5)
 {
   v10 = a1[2];
   v11 = a1[3];
@@ -4273,7 +4326,7 @@ unsigned __int8 *RB::DisplayList::FilterStyle<RB::Filter::RGBACurves>::draw(void
   result = RB::DisplayList::Builder::apply_filter_(a2, a4, v12, v10, v11);
   if (result)
   {
-    *(result + 2) = a1[4];
+    result[2] = a1[4];
 
     return RB::DisplayList::Builder::draw(a2, result, a3, a5);
   }
@@ -4467,7 +4520,7 @@ BOOL RB::DisplayList::FilterStyle<RB::Filter::Custom>::can_mix(uint64_t a1, uint
   return RB::Filter::Custom::can_mix((a1 + 64), a2, v3);
 }
 
-unint64_t RB::DisplayList::FilterStyle<RB::Filter::Custom>::mix(uint64_t a1, float32_t *a2, uint64_t a3, const RB::DisplayList::CachedTransform *a4)
+size_t RB::DisplayList::FilterStyle<RB::Filter::Custom>::mix(uint64_t a1, float32_t *a2, uint64_t a3, const RB::DisplayList::CachedTransform *a4)
 {
   v7 = RB::Heap::emplace<RB::DisplayList::FilterStyle<RB::Filter::Custom>,RB::Filter::Custom const&,RB::DisplayList::Builder &>((*(*a4 + 8) + 16), a1 + 64);
   v8 = v7;
@@ -4505,16 +4558,16 @@ void *RB::DisplayList::FilterStyle<RB::Filter::Custom>::encode(void *a1, RB::Enc
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-void RB::DisplayList::FilterStyle<RB::Filter::Custom>::print(uint64_t a1, RB::SexpString *this, uint64_t a3)
+void RB::DisplayList::FilterStyle<RB::Filter::Custom>::print(float32x2_t *a1, RB::SexpString *this, uint64_t a3)
 {
   RB::SexpString::push(this, "filter");
-  RB::Filter::Custom::print((a1 + 64), this);
+  RB::Filter::Custom::print(a1 + 8, this);
   RB::DisplayList::Style::print(a1, this, a3);
 
   RB::SexpString::pop(this);
 }
 
-unint64_t RB::Heap::emplace<RB::DisplayList::FilterStyle<RB::Filter::Custom>,RB::Filter::Custom const&,RB::DisplayList::Builder &>(size_t *a1, uint64_t a2)
+size_t RB::Heap::emplace<RB::DisplayList::FilterStyle<RB::Filter::Custom>,RB::Filter::Custom const&,RB::DisplayList::Builder &>(size_t *a1, uint64_t a2)
 {
   v3 = (a1[2] + 15) & 0xFFFFFFFFFFFFFFF0;
   if (v3 + 304 > a1[3])
@@ -4584,7 +4637,7 @@ void RB::DisplayList::GenericFilter<RB::Filter::Custom>::~GenericFilter(uint64_t
   JUMPOUT(0x19A8C09E0);
 }
 
-uint64_t RB::ObjcEncoderDelegate::encode_message_f<NSData * RB::ObjcEncoderDelegate::encode_message<RB::DisplayList::Contents>(RB::DisplayList::Contents const&)::{lambda(RB::DisplayList::Contents&)#1},NSData * RB::ObjcEncoderDelegate::encode_message<RB::DisplayList::Contents>(RB::DisplayList::Contents const&)::{lambda(RB::DisplayList::Contents&)#2}>(id *a1, RB::DisplayList::Contents **a2, RB::DisplayList::Contents **a3)
+void *RB::ObjcEncoderDelegate::encode_message_f<NSData * RB::ObjcEncoderDelegate::encode_message<RB::DisplayList::Contents>(RB::DisplayList::Contents const&)::{lambda(RB::DisplayList::Contents&)#1},NSData * RB::ObjcEncoderDelegate::encode_message<RB::DisplayList::Contents>(RB::DisplayList::Contents const&)::{lambda(RB::DisplayList::Contents&)#2}>(id *a1, RB::DisplayList::Contents **a2, RB::DisplayList::Contents **a3)
 {
   RB::ObjcEncoderDelegate::font_set(a1, &v16);
   v6 = v16;
@@ -4635,7 +4688,7 @@ uint64_t RB::ObjcEncoderDelegate::encode_message_f<NSData * RB::ObjcEncoderDeleg
   return 0;
 }
 
-void sub_195DA8C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+void sub_195DA8C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   if (a25)
   {
@@ -4930,7 +4983,7 @@ LABEL_7:
   return v3;
 }
 
-uint64_t RB::Refcount<RB::CommitMarker::Observer,std::atomic<unsigned int>>::release(uint64_t result)
+uint64_t RB::Refcount<RB::CommitMarker::Observer,std::atomic<unsigned int>>::release(uint64_t result, uint64_t a2)
 {
   if (atomic_fetch_add_explicit((result + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
@@ -5098,7 +5151,7 @@ void sub_195DA9918(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::unique_ptr<RB::vector<RB::Symbol::Presentation::KeyframeInfo,0ul,unsigned long>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
+char ***std::unique_ptr<RB::vector<RB::Symbol::Presentation::KeyframeInfo,0ul,unsigned long>>::reset[abi:nn200100](char ***result, char **a2)
 {
   v2 = *result;
   *result = a2;
@@ -5246,7 +5299,7 @@ void RB::Symbol::Presentation::apply_interpolations(RB::Symbol::Presentation *th
       v130 = v1;
       if (v12 <= 0x200)
       {
-        MEMORY[0x1EEE9AC00](this, 8 * v12);
+        MEMORY[0x1EEE9AC00](this);
         v13 = &v123 - ((v25 + 15) & 0xFFFFFFFF0);
         bzero(v13, v25);
         v143 = v13;
@@ -6345,31 +6398,31 @@ void RB::Symbol::Presentation::Layer::bounding_rect(float32x2_t *this, const RB:
   if ((*(a3 + 488) & 1) != 0 || this[7].f32[1] != 0.0 || this[8].f32[0] != 0.0 || (*(*this + 108) & 2) != 0 && *(a3 + 57))
   {
     v5 = *this;
-    v18[0] = this[9];
-    v18[1] = *(a3 + 456);
-    v19 = this[7].i32[0];
-    v6 = RB::Symbol::Glyph::Layer::content_bounds(v5, v18);
+    v16[0] = this[9];
+    v16[1] = *(a3 + 456);
+    v17 = this[7].i32[0];
+    v6 = RB::Symbol::Glyph::Layer::content_bounds(v5, v16);
     v8 = v7;
     v9.f64[0] = RB::Symbol::Presentation::Layer::transform(this, a2, 0);
-    v20 = v9;
-    v21 = v10;
-    v22 = v11;
-    v12 = v6;
-    v13 = v8;
+    v18 = v9;
+    v19 = v12;
+    v20 = v10;
+    v11 = v6;
+    v12.n128_u64[0] = v8;
   }
 
   else
   {
-    v14 = *(RB::Symbol::Model::glyph_info(*a3) + 80);
-    v15.f64[0] = RB::Symbol::Presentation::Layer::transform(this, a2, 0);
+    v13 = *(RB::Symbol::Model::glyph_info(*a3) + 80);
+    v14.f64[0] = RB::Symbol::Presentation::Layer::transform(this, a2, 0);
+    v18 = v14;
+    v19 = v12;
     v20 = v15;
-    v21 = v16;
-    v22 = v17;
-    v12 = 0;
-    v13 = v14;
+    v11 = 0;
+    v12.n128_u64[0] = v13;
   }
 
-  RB::operator*(&v20, v12, v13);
+  RB::operator*(&v18, v11, v12);
 }
 
 float32x2_t RB::Symbol::Presentation::Layer::fill_rect(RB::Symbol::Presentation::Layer *this, const RB::Symbol::Presentation::Symbol *a2)
@@ -6395,7 +6448,7 @@ BOOL RB::lcs_diff<RB::Symbol::Presentation::Layer,RB::Symbol::Presentation::appl
   v7 = a3;
   v8 = a2;
   v9 = a1;
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   if (a1 >= a3)
   {
     v10 = a3;
@@ -6501,7 +6554,7 @@ BOOL RB::lcs_diff<RB::Symbol::Presentation::Layer,RB::Symbol::Presentation::appl
     while (v11 < v7);
   }
 
-  v80 = a4;
+  v79 = a4;
   if (v9 + v7 >= 32)
   {
     v23 = 32;
@@ -6544,274 +6597,274 @@ BOOL RB::lcs_diff<RB::Symbol::Presentation::Layer,RB::Symbol::Presentation::appl
     return v26;
   }
 
-  v71 = v23;
+  v70 = v23;
   v29 = (16 * v27) | 8;
-  v67 = v29;
+  v66 = v29;
   if (v29 <= 0x1000)
   {
-    MEMORY[0x1EEE9AC00](a1, a2);
+    MEMORY[0x1EEE9AC00](a1);
     v32 = (v29 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v77 = &v65 - v32;
-    bzero(&v65 - v32, v29);
-    MEMORY[0x1EEE9AC00](v33, v34);
-    v78 = &v65 - v32;
-    bzero(&v65 - v32, v29);
+    v76 = &v64 - v32;
+    bzero(&v64 - v32, v29);
+    MEMORY[0x1EEE9AC00](v33);
+    v77 = &v64 - v32;
+    bzero(&v64 - v32, v29);
   }
 
   else
   {
     v30 = malloc_type_malloc((16 * v27) | 8, 0x100004000313F17uLL);
-    v77 = v30;
-    v78 = malloc_type_malloc(v29, 0x2004093837F09uLL);
+    v76 = v30;
+    v77 = malloc_type_malloc(v29, 0x2004093837F09uLL);
     if (!v30)
     {
       LOBYTE(v26) = 0;
-      v31 = v78;
+      v31 = v77;
       goto LABEL_119;
     }
 
-    if (!v78)
+    if (!v77)
     {
       LOBYTE(v26) = 0;
       v31 = 0;
-      v30 = v77;
+      v30 = v76;
       goto LABEL_119;
     }
   }
 
-  v74 = v8;
-  v66 = a5;
-  RB::Heap::Heap(v82, v85, 1024, 0);
-  v30 = v77;
-  v31 = v78;
-  *&v77[8 * v9] = v11;
+  v73 = v8;
+  v65 = a5;
+  RB::Heap::Heap(v81, v84, 1024, 0);
+  v30 = v76;
+  v31 = v77;
+  *&v76[8 * v9] = v11;
   v31[v9] = 0;
-  if (v71 <= 1)
+  if (v70 <= 1)
   {
-    v35 = 1;
+    v34 = 1;
   }
 
   else
   {
-    v35 = v71;
+    v34 = v70;
   }
 
-  v69 = -v9;
-  v70 = v35;
+  v68 = -v9;
+  v69 = v34;
   v26 = 1;
-  v36 = 1;
+  v35 = 1;
   do
   {
-    v72 = v36;
+    v71 = v35;
     if (v25 <= v24)
     {
-      v68 = v26;
-      v76 = v36 + v9;
-      v73 = v36 + v9 - 1;
-      v79 = v9 - v36;
-      v75 = v9 - v36 + 1;
-      v38 = v69 + v25;
-      v37 = v25;
+      v67 = v26;
+      v75 = v35 + v9;
+      v72 = v35 + v9 - 1;
+      v78 = v9 - v35;
+      v74 = v9 - v35 + 1;
+      v37 = v68 + v25;
+      v36 = v25;
       while (1)
       {
-        v39 = (v83 + 7) & 0xFFFFFFFFFFFFFFF8;
-        if (v39 + 32 > v84)
+        v38 = (v82 + 7) & 0xFFFFFFFFFFFFFFF8;
+        if (v38 + 32 > v83)
         {
-          v39 = RB::Heap::alloc_slow(v82, 0x20uLL, 7);
+          v38 = RB::Heap::alloc_slow(v81, 0x20uLL, 7);
         }
 
         else
         {
-          v83 = v39 + 32;
+          v82 = v38 + 32;
         }
 
-        v81 = v24;
-        if (v25 == v79)
+        v80 = v24;
+        if (v25 == v78)
         {
           break;
         }
 
-        if (v25 == v76)
+        if (v25 == v75)
         {
-          v43 = 0;
-          v40 = v73;
-          v42 = *&v30[8 * v73];
+          v42 = 0;
+          v39 = v72;
+          v41 = *&v30[8 * v72];
         }
 
         else
         {
-          v40 = v25 + 1;
-          v41 = *&v30[8 * v25 + 8];
-          v42 = *&v30[8 * v25 - 8];
-          if (v41 >= v42)
+          v39 = v25 + 1;
+          v40 = *&v30[8 * v25 + 8];
+          v41 = *&v30[8 * v25 - 8];
+          if (v40 >= v41)
           {
             goto LABEL_69;
           }
 
-          v43 = 0;
-          v40 = v25 - 1;
+          v42 = 0;
+          v39 = v25 - 1;
         }
 
 LABEL_74:
-        *v39 = v31[v40];
-        *(v39 + 8) = v43;
-        v44 = v25 - v9 + v42;
-        *(v39 + 16) = v42 - 1;
-        *(v39 + 24) = v44 - 1;
-        v31[v25] = v39;
-        if (v42 < v9 && v44 < v7)
+        *v38 = v31[v39];
+        *(v38 + 8) = v42;
+        v43 = v25 - v9 + v41;
+        *(v38 + 16) = v41 - 1;
+        *(v38 + 24) = v43 - 1;
+        v31[v25] = v38;
+        if (v41 < v9 && v43 < v7)
         {
-          v46 = &v74[18 * v42];
-          v47 = &v80[18 * v42 + 18 * v38];
+          v45 = &v73[18 * v41];
+          v46 = &v79[18 * v41 + 18 * v37];
           while (1)
           {
-            v48 = *v46;
+            v47 = *v45;
+            v48 = *(*v45 + 104);
             v49 = *(*v46 + 104);
-            v50 = *(*v47 + 104);
-            if ((v50 ^ v49) & 0x3C0000) != 0 || v46[1] != v47[1] || ((v49 ^ v50))
+            if ((v49 ^ v48) & 0x3C0000) != 0 || v45[1] != v46[1] || ((v48 ^ v49))
             {
               break;
             }
 
-            if ((v49 & 0x3C0000) == 0x240000)
+            if ((v48 & 0x3C0000) == 0x240000)
             {
-              if (![*(v48 + 8) isEqualToString:*(*v47 + 8)])
+              if (![*(v47 + 8) isEqualToString:*(*v46 + 8)])
               {
                 break;
               }
 
-              v48 = *v46;
-              v49 = *(*v46 + 104);
+              v47 = *v45;
+              v48 = *(*v45 + 104);
             }
 
-            if (((v49 & 0x3C0000) != 0x300000 || *(v48 + 16) == *(*v47 + 16)) && ++v42 < v9)
+            if (((v48 & 0x3C0000) != 0x300000 || *(v47 + 16) == *(*v46 + 16)) && ++v41 < v9)
             {
-              ++v44;
+              ++v43;
+              v45 += 18;
               v46 += 18;
-              v47 += 18;
-              if (v42 + v38 < v7)
+              if (v41 + v37 < v7)
               {
                 continue;
               }
             }
 
-            v44 = v38 + v42;
+            v43 = v37 + v41;
             break;
           }
 
-          v30 = v77;
-          v31 = v78;
+          v30 = v76;
+          v31 = v77;
         }
 
-        *&v30[8 * v25] = v42;
-        if (v42 == v9 && v44 == v7)
+        *&v30[8 * v25] = v41;
+        if (v41 == v9 && v43 == v7)
         {
-          v52 = v31[v25];
-          if (v52)
+          v51 = v31[v25];
+          if (v51)
           {
-            v53 = 0;
-            LOBYTE(v26) = v68;
+            v52 = 0;
+            LOBYTE(v26) = v67;
             do
             {
-              v54 = v52;
-              v52 = *v52;
-              *v54 = v53;
-              v53 = v54;
+              v53 = v51;
+              v51 = *v51;
+              *v53 = v52;
+              v52 = v53;
             }
 
-            while (v52);
-            v55 = v66;
-            v56 = *v66;
-            v57 = *(*v66 + 8);
-            v58 = *v57;
+            while (v51);
+            v54 = v65;
+            v55 = *v65;
+            v56 = *(*v65 + 8);
+            v57 = *v56;
             do
             {
-              if (v58 < *(v56 + 16))
+              if (v57 < *(v55 + 16))
               {
-                v59 = *(v54 + 2) == 1;
-                if (*(v54 + 2) == 1)
+                v58 = *(v53 + 2) == 1;
+                if (*(v53 + 2) == 1)
                 {
-                  v60 = 2;
+                  v59 = 2;
                 }
 
                 else
                 {
-                  v60 = 3;
+                  v59 = 3;
                 }
 
-                v61 = v54[v60];
-                if (*(v54 + 2) == 1)
+                v60 = v53[v59];
+                if (*(v53 + 2) == 1)
                 {
-                  v62 = 8;
+                  v61 = 8;
                 }
 
                 else
                 {
-                  v62 = 12;
+                  v61 = 12;
                 }
 
-                v63 = *(v55 + v62) + v61;
-                v64 = **v56 + 8 * v58++;
-                *v57 = v58;
-                *v64 = v63;
-                *(v64 + 4) = v59;
-                *(v64 + 5) = 1;
+                v62 = *(v54 + v61) + v60;
+                v63 = **v55 + 8 * v57++;
+                *v56 = v57;
+                *v63 = v62;
+                *(v63 + 4) = v58;
+                *(v63 + 5) = 1;
               }
 
-              v54 = *v54;
+              v53 = *v53;
             }
 
-            while (v54);
+            while (v53);
           }
 
           else
           {
-            LOBYTE(v26) = v68;
+            LOBYTE(v26) = v67;
           }
 
           goto LABEL_116;
         }
 
-        v51 = v25 + 2;
-        if (v42 == v9)
+        v50 = v25 + 2;
+        if (v41 == v9)
         {
-          v37 = v25 + 2;
+          v36 = v25 + 2;
         }
 
-        v24 = v81;
-        if (v44 == v7)
+        v24 = v80;
+        if (v43 == v7)
         {
           v24 = v25 - 2;
         }
 
-        v38 += 2;
+        v37 += 2;
         v25 += 2;
-        if (v51 > v24)
+        if (v50 > v24)
         {
           goto LABEL_62;
         }
       }
 
-      v40 = v75;
-      v41 = *&v30[8 * v75];
+      v39 = v74;
+      v40 = *&v30[8 * v74];
 LABEL_69:
-      v42 = v41 + 1;
-      v43 = 1;
+      v41 = v40 + 1;
+      v42 = 1;
       goto LABEL_74;
     }
 
-    v37 = v25;
+    v36 = v25;
 LABEL_62:
-    v25 = v37 - 1;
+    v25 = v36 - 1;
     ++v24;
-    v36 = v72 + 1;
-    v26 = v72 < v71;
+    v35 = v71 + 1;
+    v26 = v71 < v70;
   }
 
-  while (v72 != v70);
+  while (v71 != v69);
 LABEL_116:
-  RB::Heap::~Heap(v82);
-  if (v67 > 0x1000)
+  RB::Heap::~Heap(v81);
+  if (v66 > 0x1000)
   {
 LABEL_119:
     free(v31);
@@ -6837,35 +6890,35 @@ float32x2_t RB::Symbol::Presentation::apply_interpolations(void)::$_4::operator(
 {
   v3 = *a1;
   v2 = a1[1];
-  v4 = v2 + 1;
-  if (v2[55])
+  v4 = v2 + 8;
+  if (*(v2 + 440))
   {
-    v4 = v2[55];
+    v4 = *(v2 + 440);
   }
 
-  v5 = &v4[18 * *a1[5]];
+  v5 = v4 + 144 * *a1[5];
   v6 = a1[2];
-  v7 = v6 + 1;
-  if (v6[55])
+  v7 = v6 + 8;
+  if (*(v6 + 440))
   {
-    v7 = v6[55];
+    v7 = *(v6 + 440);
   }
 
-  v8 = &v7[18 * *a1[6]];
-  v9 = v2[57];
-  v10 = v5[7].i32[0];
-  v53[0] = v5[9];
+  v8 = v7 + 144 * *a1[6];
+  v9 = *(v2 + 456);
+  v10 = *(v5 + 56);
+  v53[0] = *(v5 + 72);
   v53[1] = v9;
   v54 = v10;
   v55 = 1065353216;
-  v56 = v5[5].i32[1];
-  v11 = v6[57];
-  v12 = v8[7].i32[0];
-  v49[0] = v8[9];
+  v56 = *(v5 + 44);
+  v11 = *(v6 + 456);
+  v12 = *(v8 + 56);
+  v49[0] = *(v8 + 72);
   v49[1] = v11;
   v50 = v12;
   v51 = 1065353216;
-  v52 = v8[5].i32[1];
+  v52 = *(v8 + 44);
   v13.f64[0] = RB::Symbol::Presentation::Layer::transform(v5, 0, 0);
   v48[0] = v13;
   v48[1] = v14;
@@ -6950,9 +7003,9 @@ float32x2_t RB::Symbol::Presentation::apply_interpolations(void)::$_4::operator(
   }
 
   v34 = v33 + 144 * (*(v32 + 440) - 1);
-  if (v5[1])
+  if (*(v5 + 8))
   {
-    v35 = v8[1];
+    v35 = *(v8 + 8);
     v36 = *(v34 + 8);
     if (v36 != v35)
     {
@@ -6964,59 +7017,59 @@ float32x2_t RB::Symbol::Presentation::apply_interpolations(void)::$_4::operator(
   else
   {
     v37 = *a1[3];
-    v38 = v8[3].f32[1];
-    if (v5[3].f32[1] == -32768.0 && v38 == -32768.0)
+    v38 = *(v8 + 28);
+    if (*(v5 + 28) == -32768.0 && v38 == -32768.0)
     {
       v39 = RBColorNull;
     }
 
     else
     {
-      *v58 = vcvt_f16_f32(*v5[2].f32);
-      *&v58[8] = 0;
-      *&v58[12] = 273;
-      *v40.f32 = v8[2];
-      v40.i32[2] = v8[3].i32[0];
+      v58[0] = vcvt_f16_f32(*(v5 + 16));
+      v58[1].i32[0] = 0;
+      v58[1].i16[2] = 273;
+      v40.i64[0] = *(v8 + 16);
+      v40.i32[2] = *(v8 + 24);
       v40.f32[3] = v38;
-      *v57 = vcvt_f16_f32(v40);
-      *&v57[8] = 0;
-      *&v57[12] = 273;
+      v57[0] = vcvt_f16_f32(v40);
+      LODWORD(v57[1]) = 0;
+      WORD2(v57[1]) = 273;
       if (RB::Fill::Color::can_mix(v58, v57))
       {
         v41.i32[0] = v37;
-        RB::Fill::Color::mix(v58, v57, 3, v41);
+        RB::Fill::Color::mix(v41, v58, v57, 3);
       }
 
       else
       {
-        *v58 = *v57;
-        *&v58[6] = *&v57[6];
+        v58[0] = v57[0];
+        *(v58 + 6) = *(v57 + 6);
       }
 
-      v39 = vcvtq_f32_f16(*v58);
+      v39 = vcvtq_f32_f16(v58[0]);
     }
 
     *(v34 + 16) = v39;
   }
 
   v42 = *a1[3];
-  *(v34 + 32) = vmla_n_f32(v5[4], vsub_f32(v8[4], v5[4]), v42);
-  *(v34 + 40) = v5[5].f32[0] + ((v8[5].f32[0] - v5[5].f32[0]) * v42);
-  *(v34 + 80) = vmla_n_f32(v5[10], vsub_f32(v8[10], v5[10]), v42);
-  *(v34 + 96) = vmla_n_f32(v5[12], vsub_f32(v8[12], v5[12]), *a1[3]);
-  *(v34 + 104) = vmla_n_f32(v5[13], vsub_f32(v8[13], v5[13]), *a1[3]);
-  *(v34 + 112) = vmla_n_f32(v5[14], vsub_f32(v8[14], v5[14]), *a1[3]);
+  *(v34 + 32) = vmla_n_f32(*(v5 + 32), vsub_f32(*(v8 + 32), *(v5 + 32)), v42);
+  *(v34 + 40) = *(v5 + 40) + ((*(v8 + 40) - *(v5 + 40)) * v42);
+  *(v34 + 80) = vmla_n_f32(*(v5 + 80), vsub_f32(*(v8 + 80), *(v5 + 80)), v42);
+  *(v34 + 96) = vmla_n_f32(*(v5 + 96), vsub_f32(*(v8 + 96), *(v5 + 96)), *a1[3]);
+  *(v34 + 104) = vmla_n_f32(*(v5 + 104), vsub_f32(*(v8 + 104), *(v5 + 104)), *a1[3]);
+  *(v34 + 112) = vmla_n_f32(*(v5 + 112), vsub_f32(*(v8 + 112), *(v5 + 112)), *a1[3]);
   if ((v46 & 1) == 0)
   {
-    v43 = vmla_n_f32(v5[11], vsub_f32(v8[11], v5[11]), *a1[3]);
+    v43 = vmla_n_f32(*(v5 + 88), vsub_f32(*(v8 + 88), *(v5 + 88)), *a1[3]);
     *(v34 + 88) = v43;
     v43.i32[0] = *a1[3];
-    *(v34 + 48) = vmlaq_n_f32(*v5[6].f32, vsubq_f32(*v8[6].f32, *v5[6].f32), *v43.i32);
-    *(v34 + 120) = vmla_f32(v5[15], *&vdupq_lane_s32(v43, 0), vsub_f32(v8[15], v5[15]));
-    *(v34 + 136) = v5[17].f32[0] + (*a1[3] * (v8[17].f32[0] - v5[17].f32[0]));
+    *(v34 + 48) = vmlaq_n_f32(*(v5 + 48), vsubq_f32(*(v8 + 48), *(v5 + 48)), *v43.i32);
+    *(v34 + 120) = vmla_f32(*(v5 + 120), *&vdupq_lane_s32(v43, 0), vsub_f32(*(v8 + 120), *(v5 + 120)));
+    *(v34 + 136) = *(v5 + 136) + (*a1[3] * (*(v8 + 136) - *(v5 + 136)));
   }
 
-  result = vmaxnm_f32(v5[16], v8[16]);
+  result = vmaxnm_f32(*(v5 + 128), *(v8 + 128));
   *(v34 + 128) = result;
   v45 = a1[6];
   ++*a1[5];
@@ -7221,7 +7274,7 @@ LABEL_13:
   v13 = *(a2 + 582);
   if (v13 >= 0x41)
   {
-    RB::vector<RB::Symbol::Keyframes,64ul,unsigned int>::reserve_slow(this + 784, *(a2 + 582));
+    RB::vector<RB::Symbol::Keyframes,64ul,unsigned int>::reserve_slow(this + 98, *(a2 + 582));
     v14 = *(this + 290);
     v15 = *(this + 582);
   }
@@ -7280,7 +7333,7 @@ void sub_195DAC10C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *RB::vector<RB::Symbol::Keyframes::Value,64ul,unsigned int>::reserve_slow(void *__dst, unsigned int a2)
+void *RB::vector<RB::Symbol::Keyframes::Value,64ul,unsigned int>::reserve_slow(void **__dst, unsigned int a2)
 {
   if (*(__dst + 195) + (*(__dst + 195) >> 1) <= a2)
   {
@@ -7292,8 +7345,8 @@ void *RB::vector<RB::Symbol::Keyframes::Value,64ul,unsigned int>::reserve_slow(v
     v3 = *(__dst + 195) + (*(__dst + 195) >> 1);
   }
 
-  result = RB::details::realloc_vector<unsigned int,12ul>(*(__dst + 96), __dst, 0x40u, __dst + 195, v3);
-  *(__dst + 96) = result;
+  result = RB::details::realloc_vector<unsigned int,12ul>(__dst[96], __dst, 0x40u, __dst + 195, v3);
+  __dst[96] = result;
   return result;
 }
 
@@ -7339,7 +7392,7 @@ LABEL_8:
   return v7;
 }
 
-void *RB::vector<RB::Symbol::Keyframes,64ul,unsigned int>::reserve_slow(void *__dst, unsigned int a2)
+void *RB::vector<RB::Symbol::Keyframes,64ul,unsigned int>::reserve_slow(void **__dst, unsigned int a2)
 {
   if (*(__dst + 387) + (*(__dst + 387) >> 1) <= a2)
   {
@@ -7351,8 +7404,8 @@ void *RB::vector<RB::Symbol::Keyframes,64ul,unsigned int>::reserve_slow(void *__
     v3 = *(__dst + 387) + (*(__dst + 387) >> 1);
   }
 
-  result = RB::details::realloc_vector<unsigned int,24ul>(*(__dst + 192), __dst, 0x40u, __dst + 387, v3);
-  *(__dst + 192) = result;
+  result = RB::details::realloc_vector<unsigned int,24ul>(__dst[192], __dst, 0x40u, __dst + 387, v3);
+  __dst[192] = result;
   return result;
 }
 
@@ -7528,30 +7581,30 @@ void std::default_delete<RB::vector<RB::Symbol::Glyph::StrokeRange,4ul,unsigned 
   }
 }
 
-uint64_t RB::vector<RB::refcounted_ptr<RB::Symbol::Model const>,0ul,unsigned int>::~vector(uint64_t a1)
+uint64_t RB::vector<RB::refcounted_ptr<RB::Symbol::Model const>,0ul,unsigned int>::~vector(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   if (*(a1 + 8))
   {
-    v3 = 0;
+    v4 = 0;
     do
     {
-      v4 = v2[v3];
-      if (v4 && atomic_fetch_add_explicit((v4 + 8), 0xFFFFFFFF, memory_order_release) == 1)
+      v5 = v3[v4];
+      if (v5 && atomic_fetch_add_explicit((v5 + 8), 0xFFFFFFFF, memory_order_release) == 1)
       {
-        RB::Symbol::Model::copy_on_write(v4);
+        RB::Symbol::Model::copy_on_write(v5);
       }
 
-      ++v3;
+      ++v4;
     }
 
-    while (v3 < *(a1 + 8));
-    v2 = *a1;
+    while (v4 < *(a1 + 8));
+    v3 = *a1;
   }
 
-  if (v2)
+  if (v3)
   {
-    free(v2);
+    free(v3);
   }
 
   return a1;
@@ -7611,7 +7664,7 @@ uint64_t RB::vector<std::unique_ptr<RB::Symbol::Glyph::Layer,RB::Destroy<RB::Sym
   return a1;
 }
 
-void *RB::vector<RB::Symbol::Presentation::Symbol,2ul,unsigned int>::reserve_slow(void *__dst, unsigned int a2)
+void *RB::vector<RB::Symbol::Presentation::Symbol,2ul,unsigned int>::reserve_slow(void **__dst, unsigned int a2)
 {
   if (*(__dst + 251) + (*(__dst + 251) >> 1) <= a2)
   {
@@ -7623,8 +7676,8 @@ void *RB::vector<RB::Symbol::Presentation::Symbol,2ul,unsigned int>::reserve_slo
     v3 = *(__dst + 251) + (*(__dst + 251) >> 1);
   }
 
-  result = RB::details::realloc_vector<unsigned int,496ul>(*(__dst + 124), __dst, 2u, __dst + 251, v3);
-  *(__dst + 124) = result;
+  result = RB::details::realloc_vector<unsigned int,496ul>(__dst[124], __dst, 2u, __dst + 251, v3);
+  __dst[124] = result;
   return result;
 }
 
@@ -7875,11 +7928,11 @@ void RB::CustomShader::Library::remove_observer(os_unfair_lock_s *this, void *a2
 
     v9 = os_unfair_lock_opaque - 1;
     v10 = &v4[4 * v9];
-    *&v6[-2]._os_unfair_lock_opaque = *v10;
-    *v10 = v8;
+    *&v6[-2]._os_unfair_lock_opaque = *&v10->_os_unfair_lock_opaque;
+    *&v10->_os_unfair_lock_opaque = v8;
     v11 = *&v6->_os_unfair_lock_opaque;
-    *&v6->_os_unfair_lock_opaque = *(v10 + 1);
-    *(v10 + 1) = v11;
+    *&v6->_os_unfair_lock_opaque = *&v10[2]._os_unfair_lock_opaque;
+    *&v10[2]._os_unfair_lock_opaque = v11;
     this[36]._os_unfair_lock_opaque = v9;
   }
 
@@ -7943,7 +7996,7 @@ LABEL_7:
   os_unfair_lock_unlock(this + 12);
 }
 
-BOOL RB::CustomShader::Library::call_error_handler(os_unfair_lock_s *this, NSError *a2)
+uint64_t RB::CustomShader::Library::call_error_handler(os_unfair_lock_s *this, NSError *a2)
 {
   if (!a2)
   {
@@ -7965,7 +8018,7 @@ BOOL RB::CustomShader::Library::call_error_handler(os_unfair_lock_s *this, NSErr
 void RB::CustomShader::Library::log_error(os_unfair_lock_s *this, NSError *a2)
 {
   v3 = RB::CustomShader::Library::call_error_handler(this, a2);
-  if (!v3)
+  if ((v3 & 1) == 0)
   {
     v4 = RB::error_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -8112,7 +8165,7 @@ void sub_195DAD1C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *RB::CustomShader::Library::decode(RB::ProtobufDecoder *this, char a2)
+void *RB::CustomShader::Library::decode(char **this, char a2)
 {
   if ((a2 & 7) != 2)
   {
@@ -8158,7 +8211,7 @@ void *RB::CustomShader::Library::decode(RB::ProtobufDecoder *this, char a2)
   {
 LABEL_14:
     v15[0] = 0;
-    v7 = RB::UntypedTable::lookup((this + 80), (v5 | 0xC000000000000000), v15);
+    v7 = RB::UntypedTable::lookup((this + 10), (v5 | 0xC000000000000000), v15);
     if ((v5 | 0xC000000000000000) == v15[0])
     {
       goto LABEL_22;
@@ -8172,7 +8225,7 @@ LABEL_14:
       if (!v16)
       {
 LABEL_21:
-        RB::UntypedTable::insert((this + 80), (v5 | 0xC000000000000000), v7);
+        RB::UntypedTable::insert((this + 10), (v5 | 0xC000000000000000), v7);
 LABEL_22:
         RB::ProtobufDecoder::end_message(this);
         if (v7)
@@ -8211,7 +8264,7 @@ LABEL_22:
 LABEL_12:
   v7 = 0;
   *(this + 56) = 1;
-  *this = *(this + 1);
+  *this = this[1];
   return v7;
 }
 
@@ -8242,7 +8295,7 @@ void *RB::CustomShader::Function::encode(void **this, RB::Encoder *a2)
   return result;
 }
 
-void RB::CustomShader::Function::decode(RB::ProtobufDecoder *this@<X0>, char a2@<W1>, uint64_t *a3@<X8>)
+void RB::CustomShader::Function::decode(char **this@<X0>, char a2@<W1>, void ***a3@<X8>)
 {
   if ((a2 & 7) == 2)
   {
@@ -8282,7 +8335,7 @@ void RB::CustomShader::Function::decode(RB::ProtobufDecoder *this@<X0>, char a2@
   {
     i = 0;
     *(this + 56) = 1;
-    *this = *(this + 1);
+    *this = this[1];
   }
 
   *a3 = 0;
@@ -8330,7 +8383,7 @@ BOOL RB::CustomShader::Closure::operator==(uint64_t *a1, uint64_t *a2)
 
   else
   {
-    v7 = (a2 + 1);
+    v7 = a2 + 1;
   }
 
   v8 = 32 * v5 - 32;
@@ -8343,7 +8396,7 @@ BOOL RB::CustomShader::Closure::operator==(uint64_t *a1, uint64_t *a2)
     }
 
     v6 = (v6 + 32);
-    v7 += 32;
+    v7 += 4;
     v10 = v8;
     v8 -= 32;
   }
@@ -8365,7 +8418,7 @@ uint64_t RB::CustomShader::Value::image(RB::CustomShader::Value *this)
   }
 }
 
-uint64_t RB::CustomShader::Closure::marshal_args(void *a1, _DWORD *a2, void *a3, unsigned __int8 a4, _OWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t RB::CustomShader::Closure::marshal_args(void *a1, _DWORD *a2, void *a3, uint64_t a4, _OWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a1;
   v89[1] = *MEMORY[0x1E69E9840];
@@ -8373,6 +8426,7 @@ uint64_t RB::CustomShader::Closure::marshal_args(void *a1, _DWORD *a2, void *a3,
   v10 = a1[18];
   if (v9 == v10)
   {
+    v13 = a4;
     v85 = 0;
     v86 = 0;
     v87 = 67178752;
@@ -8384,7 +8438,7 @@ uint64_t RB::CustomShader::Closure::marshal_args(void *a1, _DWORD *a2, void *a3,
     }
 
     v62 = a2;
-    v61 = a4;
+    v61 = v13;
     v59 = a7;
     v15 = v8 + 1;
     v80 = 0;
@@ -8524,20 +8578,20 @@ LABEL_28:
             v44 = v81;
             if (v82 < v81 + 1)
             {
-              RB::vector<RB::CustomShader::Closure::marshal_args(RB::RenderPass &,RB::Function &,RB::ColorSpace,RB::Rect const*,unsigned char *,RB::BufferRegion &,std::array<RB::Texture *,3ul> &)::PendingArg,0ul,unsigned long>::reserve_slow(&v80, v81 + 1);
+              RB::vector<RB::CustomShader::Closure::marshal_args(RB::RenderPass &,RB::Function &,RB::ColorSpace,RB::Rect const*,unsigned char *,RB::BufferRegion &,std::array<RB::Texture *,3ul> &)::PendingArg,0ul,unsigned long>::reserve_slow(&v80, (v81 + 1));
               v44 = v81;
             }
 
             v45 = &v80[48 * v44];
-            v45->i64[0] = v17;
-            v45->i64[1] = v43;
+            *v45 = v17;
+            *(v45 + 1) = v43;
             v24 = v68;
             v46 = v69;
-            v45[1] = v68;
-            v45[2] = v46;
+            *(v45 + 1) = v68;
+            *(v45 + 2) = v46;
             ++v81;
-            v63 = (v43 + v69.i64[1]);
-            if (__CFADD__(v43, v69.i64[1]))
+            v63 = (v43 + *(&v69 + 1));
+            if (__CFADD__(v43, *(&v69 + 1)))
             {
               goto LABEL_53;
             }
@@ -8635,7 +8689,7 @@ LABEL_55:
 
   v47 = MEMORY[0x1E696ABC0];
   v88 = *MEMORY[0x1E696A578];
-  v89[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid number of shader arguments: %@: %d, expected %d", *(*a1 + 24), v10, v9];
+  v89[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid number of shader arguments: %@: %d, expected %d", a4, a5, a6, a7, a8, *(*a1 + 24), v10, v9];
   RB::CustomShader::Library::log_error(*(*v8 + 16), [v47 errorWithDomain:@"com.apple.RenderBox.RBShaderError" code:4 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v89, &v88, 1)}]);
   return 0;
 }
@@ -8847,9 +8901,9 @@ BOOL RB::CustomShader::Closure::can_mix(RB::CustomShader::Closure *this, const R
   return v2 == v3;
 }
 
-void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::CustomShader::Closure *a2, float32_t a3)
+void RB::CustomShader::Closure::mix(uint64_t this, const RB::CustomShader::Closure *a2, float32_t a3)
 {
-  v3 = *(this + 18);
+  v3 = *(this + 144);
   if (*(a2 + 18) < v3)
   {
     v3 = *(a2 + 18);
@@ -8862,13 +8916,13 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
     v9 = this + 8;
     do
     {
-      v10 = *(this + 17);
+      v10 = *(this + 136);
       if (!v10)
       {
         v10 = v9;
       }
 
-      v11 = &v10[32 * v7];
+      v11 = (v10 + 32 * v7);
       v12 = *(a2 + 17);
       if (!v12)
       {
@@ -8876,8 +8930,8 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
       }
 
       v13 = &v12[32 * v7];
-      v14 = v11[6];
-      if (v11[6])
+      v14 = *(v11 + 6);
+      if (*(v11 + 6))
       {
         v15 = v14 == v13[6];
       }
@@ -8899,9 +8953,9 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
           }
         }
 
-        if ((v11[9] & 4) != 0)
+        if ((*(v11 + 9) & 4) != 0)
         {
-          v17 = (v11 + 16);
+          v17 = (v11 + 4);
         }
 
         else
@@ -8909,7 +8963,7 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
           v17 = RB::CustomShader::Value::mutable_data_ptr(v11);
         }
 
-        v18 = v11[6];
+        v18 = *(v11 + 6);
         if ((v18 - 1) >= 4)
         {
           if (v18 == 5 && *v11)
@@ -8918,7 +8972,7 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
             do
             {
               v23 = *(v11 + 7);
-              v31 = vcvt_f16_f32(*&v17[16 * v22]);
+              v31 = vcvt_f16_f32(*&v17[2 * v22]);
               v33 = 0;
               v34 = v23;
               v32 = *(v11 + 2);
@@ -8930,8 +8984,8 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
               v30 = v24;
               v28 = *(v13 + 2);
               v25.f32[0] = a3;
-              RB::Fill::Color::mix(&v31, &v27, 3, v25);
-              *&v17[16 * v22] = vcvtq_f32_f16(v31);
+              RB::Fill::Color::mix(v25, &v31, &v27, 3);
+              *&v17[2 * v22] = vcvtq_f32_f16(v31);
               if (!v22)
               {
                 *(v11 + 7) = v34;
@@ -8960,7 +9014,7 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
 
           if (v18 == 4)
           {
-            v20 = (4 * *v11);
+            v20 = 4 * *v11;
           }
 
           else
@@ -8975,7 +9029,7 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
               v21 = *BytePtr;
               BytePtr = (BytePtr + 4);
               *v17 = *v17 + ((v21 - *v17) * a3);
-              v17 += 4;
+              v17 = (v17 + 4);
               --v20;
             }
 
@@ -8985,7 +9039,7 @@ void RB::CustomShader::Closure::mix(RB::CustomShader::Closure *this, const RB::C
       }
 
       ++v7;
-      v26 = *(this + 18);
+      v26 = *(this + 144);
       if (*(a2 + 18) < v26)
       {
         v26 = *(a2 + 18);
@@ -9013,7 +9067,7 @@ CFDataRef *RB::CustomShader::Value::data_ptr(RB::CustomShader::Value *this)
   return result;
 }
 
-UInt8 *RB::CustomShader::Value::mutable_data_ptr(RB::CustomShader::Value *this)
+CFDataRef *RB::CustomShader::Value::mutable_data_ptr(RB::CustomShader::Value *this)
 {
   if (*(this + 6) - 7 < 2)
   {
@@ -9062,7 +9116,7 @@ void RB::CustomShader::Closure::make_cifilter(uint64_t *a1@<X0>, float32x2_t *a2
     *a5 = (*(v6 + 16))(v6, v11, v19, v19.n128_f64[1], v18, v18.n128_f64[1]);
     if (v11)
     {
-      [v11 CIFilterCTM];
+      objc_msgSend_CIFilterCTM(v11);
       v21 = v23;
       v20 = v24;
       v22 = v25;
@@ -9094,7 +9148,7 @@ void *RB::CustomShader::Closure::prepare_encode(void *this, RB::Encoder *a2)
     this = RB::CustomShader::Library::prepare_encode(*(*this + 16), a2);
   }
 
-  v4 = (v3 + 1);
+  v4 = v3 + 1;
   v5 = v3[18];
   if (v3[17])
   {
@@ -9104,7 +9158,7 @@ void *RB::CustomShader::Closure::prepare_encode(void *this, RB::Encoder *a2)
   if (v5)
   {
     v6 = 32 * v5;
-    v7 = (v4 + 24);
+    v7 = (v4 + 3);
     do
     {
       if (*(v7 - 18) - 7 <= 1)
@@ -9164,7 +9218,7 @@ void ***RB::CustomShader::Closure::encode(void ***this, RB::Encoder *a2)
   return this;
 }
 
-unint64_t RB::CustomShader::Closure::decode(RB::CustomShader::Closure *this, RB::Decoder *a2)
+uint64_t RB::CustomShader::Closure::decode(RB::CustomShader::Closure *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -9177,7 +9231,7 @@ unint64_t RB::CustomShader::Closure::decode(RB::CustomShader::Closure *this, RB:
         v7 = *(this + 18);
         if (*(this + 19) < (v7 + 1))
         {
-          RB::vector<RB::Path::Buffer,4ul,unsigned long>::reserve_slow(this + 8, v7 + 1);
+          RB::vector<RB::Path::Buffer,4ul,unsigned long>::reserve_slow(this + 1, (v7 + 1));
           v7 = *(this + 18);
         }
 
@@ -9247,7 +9301,7 @@ unint64_t RB::CustomShader::Closure::decode(RB::CustomShader::Closure *this, RB:
   return result;
 }
 
-unint64_t RB::CustomShader::Value::set_data(uint64_t a1, int a2, const __CFData *a3)
+size_t RB::CustomShader::Value::set_data(uint64_t a1, int a2, const __CFData *a3)
 {
   RB::CustomShader::Value::reset_data(a1);
   result = CFDataGetLength(a3);
@@ -9439,7 +9493,7 @@ void *RB::CustomShader::Value::encode(void *this, RB::Encoder *a2)
     v6 = *(v3 + 6);
     if (v6 - 7 <= 1)
     {
-      this = RB::Encoder::image_field(a2, 6, *(v3 + 24), *(v3 + 16));
+      this = RB::Encoder::image_field(a2, 6, *(v3 + 6), v3[2]);
       goto LABEL_13;
     }
   }
@@ -9450,7 +9504,7 @@ void *RB::CustomShader::Value::encode(void *this, RB::Encoder *a2)
     if (v12)
     {
       RB::ProtobufEncoder::encode_varint(a2, 0x1AuLL);
-      v10 = (v3 + 16);
+      v10 = (v3 + 2);
       v9 = a2;
       v11 = v12;
       goto LABEL_12;
@@ -9459,8 +9513,8 @@ void *RB::CustomShader::Value::encode(void *this, RB::Encoder *a2)
 
   else
   {
-    BytePtr = CFDataGetBytePtr(*(v3 + 16));
-    this = CFDataGetLength(*(v3 + 16));
+    BytePtr = CFDataGetBytePtr(v3[2]);
+    this = CFDataGetLength(v3[2]);
     if (this)
     {
       v8 = this;
@@ -9670,7 +9724,7 @@ void sub_195DAECFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RB::Refcount<RB::CustomShader::Library,std::atomic<unsigned int>>::release(uint64_t result)
+uint64_t RB::Refcount<RB::CustomShader::Library,std::atomic<unsigned int>>::release(uint64_t result, uint64_t a2)
 {
   if (atomic_fetch_add_explicit((result + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
@@ -9762,7 +9816,7 @@ void RB::CustomShader::Library::call_error_handler(NSError *)const::$_0::__invok
   JUMPOUT(0x19A8C09E0);
 }
 
-void *RB::vector<RB::objc_ptr<void({block_pointer})(NSError *)>,8ul,unsigned int>::reserve_slow(void *__dst, unsigned int a2)
+void *RB::vector<RB::objc_ptr<void({block_pointer})(NSError *)>,8ul,unsigned int>::reserve_slow(void **__dst, unsigned int a2)
 {
   if (*(__dst + 19) + (*(__dst + 19) >> 1) <= a2)
   {
@@ -9774,8 +9828,8 @@ void *RB::vector<RB::objc_ptr<void({block_pointer})(NSError *)>,8ul,unsigned int
     v3 = *(__dst + 19) + (*(__dst + 19) >> 1);
   }
 
-  result = RB::details::realloc_vector<unsigned int,8ul>(*(__dst + 8), __dst, 8u, __dst + 19, v3);
-  *(__dst + 8) = result;
+  result = RB::details::realloc_vector<unsigned int,8ul>(__dst[8], __dst, 8u, __dst + 19, v3);
+  __dst[8] = result;
   return result;
 }
 
@@ -9819,51 +9873,4 @@ LABEL_8:
   }
 
   return v7;
-}
-
-void *RB::vector<RB::CustomShader::Closure::marshal_args(RB::RenderPass &,RB::Function &,RB::ColorSpace,RB::Rect const*,unsigned char *,RB::BufferRegion &,std::array<RB::Texture *,3ul> &)::PendingArg,0ul,unsigned long>::reserve_slow(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 16) + (*(a1 + 16) >> 1) <= a2)
-  {
-    v3 = a2;
-  }
-
-  else
-  {
-    v3 = *(a1 + 16) + (*(a1 + 16) >> 1);
-  }
-
-  result = RB::details::realloc_vector<unsigned long,48ul>(*a1, (a1 + 16), v3);
-  *a1 = result;
-  return result;
-}
-
-void *RB::details::realloc_vector<unsigned long,48ul>(void *a1, unint64_t *a2, uint64_t a3)
-{
-  v4 = a1;
-  if (a3)
-  {
-    v5 = malloc_good_size(48 * a3);
-    v6 = v5 / 0x30;
-    if (v5 / 0x30 != *a2)
-    {
-      v7 = malloc_type_realloc(v4, v5, 0x92EAD613uLL);
-      if (!v7)
-      {
-        RB::precondition_failure("allocation failure", v8);
-      }
-
-      v4 = v7;
-      *a2 = v6;
-    }
-  }
-
-  else
-  {
-    *a2 = 0;
-    free(a1);
-    return 0;
-  }
-
-  return v4;
 }

@@ -1,3 +1,27 @@
+uint64_t std::__shared_ptr_pointer<ML3ContainerItemReactionImportItem *,std::shared_ptr<ML3ImportItem>::__shared_ptr_default_delete<ML3ImportItem,ML3ContainerItemReactionImportItem>,std::allocator<ML3ContainerItemReactionImportItem>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  if (std::type_info::operator==[abi:ne200100](*(a2 + 8), "NSt3__110shared_ptrI13ML3ImportItemE27__shared_ptr_default_deleteIS1_34ML3ContainerItemReactionImportItemEE"))
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__shared_ptr_pointer<ML3ContainerItemReactionImportItem *,std::shared_ptr<ML3ImportItem>::__shared_ptr_default_delete<ML3ImportItem,ML3ContainerItemReactionImportItem>,std::allocator<ML3ContainerItemReactionImportItem>>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
 void std::__shared_ptr_pointer<ML3ContainerItemReactionImportItem *,std::shared_ptr<ML3ImportItem>::__shared_ptr_default_delete<ML3ImportItem,ML3ContainerItemReactionImportItem>,std::allocator<ML3ContainerItemReactionImportItem>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
 {
   std::__shared_weak_count::~__shared_weak_count(a1);
@@ -109,21 +133,19 @@ void ___ZN16ML3ImportSession38_prepareContainerItemPersonImportItemsENSt3__110sh
   v7 = [v5 int64ForColumnIndex:0];
   v8 = [v5 int64ForColumnIndex:1];
   v9 = *(*(a1 + 32) + 8);
-  v10[0] = v8;
-  v10[1] = v10;
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((v9 + 48), v8)[3] = v7;
+  v10 = v8;
+  v11 = &v10;
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((v9 + 48), v8, &v11)[3] = v7;
 }
 
 __n128 __Block_byref_object_copy__720(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -790,7 +812,7 @@ void sub_22D520CF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::shared_ptr<ML3DatabaseImportDataSource>>::__assign_with_size[abi:ne200100]<std::shared_ptr<ML3DatabaseImportDataSource> const*,std::shared_ptr<ML3DatabaseImportDataSource> const*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+void std::vector<std::shared_ptr<ML3DatabaseImportDataSource>>::__assign_with_size[abi:ne200100]<std::shared_ptr<ML3DatabaseImportDataSource> const*,std::shared_ptr<ML3DatabaseImportDataSource> const*>(uint64_t **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v8 = a1[2];
   v9 = *a1;
@@ -829,9 +851,9 @@ void std::vector<std::shared_ptr<ML3DatabaseImportDataSource>>::__assign_with_si
   if (a4 <= v12 >> 4)
   {
     v13 = std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<ML3ImportItem> *,std::shared_ptr<ML3ImportItem> *,std::shared_ptr<ML3ImportItem> *>(a2, a3, v9);
-    for (i = a1[1]; i != v13; i -= 2)
+    for (i = a1[1]; i != v13; i -= 16)
     {
-      v15 = *(i - 1);
+      v15 = *(i - 8);
       if (v15)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v15);
@@ -1298,20 +1320,20 @@ void sub_22D521918(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ML3ImportSession::addAlbum(uint64_t a1, void *a2, void *a3, uint64_t AlbumArtistPIDForAlbumImportItem)
+uint64_t ML3ImportSession::addAlbum(int8x8_t *a1, uint64_t *a2, void *a3, uint64_t AlbumArtistPIDForAlbumImportItem)
 {
-  v76[1] = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 2280) >= 0x3E8uLL && *(a1 + 1544) == *(a1 + 1536) && ![*(a1 + 1592) count] && objc_msgSend(*(a1 + 1584), "count") == 0;
-  if (*(a1 + 32) == 2 && !*a3)
+  *(&v76 + 1) = *MEMORY[0x277D85DE8];
+  v8 = *&a1[285] >= 0x3E8uLL && *&a1[193] == *&a1[192] && ![*&a1[199] count] && objc_msgSend(*&a1[198], "count") == 0;
+  if (a1[4].i32[0] == 2 && !*a3)
   {
-    if (*(a1 + 2072))
+    if (a1[259])
     {
       v9 = 1;
     }
 
     else
     {
-      v9 = [*(a1 + 2088) count] != 0;
+      v9 = [*&a1[261] count] != 0;
     }
   }
 
@@ -1445,7 +1467,7 @@ LABEL_112:
     }
   }
 
-  if ([*(a1 + 2296) count] == 0 && !v9 && !v8 || ML3ImportSession::flush(a1, 1))
+  if ([*&a1[287] count] == 0 && !v9 && !v8 || ML3ImportSession::flush(a1, 1))
   {
     if (*a3)
     {
@@ -1611,7 +1633,7 @@ LABEL_92:
           }
 
           memset(v67, 0, sizeof(v67));
-          std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(v67, &buf, v76, 4uLL);
+          std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(v67, &buf, &v76, 4uLL);
         }
 
         v39 = a2[1];
@@ -1662,9 +1684,9 @@ LABEL_92:
         }
 
         v20 = 1;
-        if (*(a1 + 1520) == 1)
+        if (a1[190].i8[0] == 1)
         {
-          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__erase_unique<long long>((a1 + 856), v45);
+          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__erase_unique<long long>(&a1[107], v45);
         }
 
         goto LABEL_112;
@@ -1693,16 +1715,16 @@ LABEL_92:
       }
 
       v45 = AlbumPersistentID;
-      if (*(a1 + 32) == 2)
+      if (a1[4].i32[0] == 2)
       {
         if (!AlbumPersistentID)
         {
           v34 = 0;
-          ++*(a1 + 220);
+          ++a1[27].i32[1];
           goto LABEL_92;
         }
 
-        ++*(a1 + 224);
+        ++a1[28].i32[0];
       }
 
       else if (!AlbumPersistentID)
@@ -1929,7 +1951,7 @@ uint64_t ML3ImportSession::_matchAlbumToImportedEntity(uint64_t a1, void *a2, ui
   return v21;
 }
 
-void sub_22D522B34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_22D522B34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   _Block_object_dispose(&a16, 8);
   _Block_object_dispose(&a20, 8);
@@ -2817,7 +2839,7 @@ void sub_22D524034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ML3ImportSession::_addAlbum(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
+void ML3ImportSession::_addAlbum(int8x8_t *a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
   v324 = *MEMORY[0x277D85DE8];
   v7 = a3;
@@ -3028,7 +3050,7 @@ void ML3ImportSession::_addAlbum(uint64_t a1, void *a2, void *a3, uint64_t a4, v
   v13 = v204;
   if (v204 && v222[3])
   {
-    *(a1 + 1530) = 1;
+    a1[191].i8[2] = 1;
     v14 = os_log_create("com.apple.amp.medialibrary", "Import");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
@@ -3053,7 +3075,7 @@ void ML3ImportSession::_addAlbum(uint64_t a1, void *a2, void *a3, uint64_t a4, v
 
   if (*a5)
   {
-    v17 = *(a1 + 16);
+    v17 = a1[2];
     v18 = [MEMORY[0x277CCABB0] numberWithLongLong:v203];
     v322 = v18;
     v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v322 count:1];
@@ -3125,7 +3147,7 @@ void ML3ImportSession::_addAlbum(uint64_t a1, void *a2, void *a3, uint64_t a4, v
 
         if (v22)
         {
-          v31 = *(a1 + 16);
+          v31 = a1[2];
           v32 = [MEMORY[0x277CCABB0] numberWithLongLong:v22];
           v321 = v32;
           v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v321 count:1];
@@ -3309,7 +3331,7 @@ LABEL_96:
           atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v53 = [*(a1 + 128) nextPersistentID];
+        v53 = [*&a1[16] nextPersistentID];
         v55 = os_log_create("com.apple.amp.medialibrary", "Import");
         if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
@@ -3402,7 +3424,7 @@ LABEL_96:
   v67 = v47[1];
   if (!v209)
   {
-    v209 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>((a1 + 2256), v47[1]) != 0;
+    v209 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>(&a1[282], v47[1]) != 0;
   }
 
   v68 = *a2;
@@ -3501,7 +3523,7 @@ LABEL_143:
   v78 = &unk_27D9FD000;
   if (*a2 && !*a5)
   {
-    v85 = *(a1 + 32);
+    v85 = a1[4].i32[0];
     PropertyIndex = ML3TrackRulesGetPropertyIndex(17, 285212674);
     if (_ML3InitializeTrackRulesIfNeeded___once != -1)
     {
@@ -3514,7 +3536,7 @@ LABEL_143:
 
   else
   {
-    v79 = *(a1 + 32);
+    v79 = a1[4].i32[0];
     v80 = ML3TrackRulesGetPropertyIndex(10, 167772170);
     if (_ML3InitializeTrackRulesIfNeeded___once != -1)
     {
@@ -3659,7 +3681,7 @@ LABEL_238:
     }
 
     v132 = v48[1];
-    v133 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>((a1 + 2176), v132);
+    v133 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>(&a1[272], v132);
     if (v133)
     {
       v134 = v133[3];
@@ -3672,12 +3694,12 @@ LABEL_238:
 
       v206.__r_.__value_.__r.__words[0] = v132;
       *buf = &v206;
-      v139 = std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>((a1 + 2216), v132);
+      v139 = std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(&a1[277], v132, buf);
       v139[3] = v125;
       v139[4] = v127;
       v206.__r_.__value_.__r.__words[0] = v48[1];
       *buf = &v206;
-      v140 = std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>((a1 + 2176), v206.__r_.__value_.__r.__words[0]);
+      v140 = std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(&a1[272], v206.__r_.__value_.__r.__words[0], buf);
       v140[3] = v125;
       v140[4] = v127;
       v141 = os_log_create("com.apple.amp.medialibrary", "Import");
@@ -3799,7 +3821,7 @@ LABEL_190:
     v206 = *&buf[16];
   }
 
-  if (MSVDeviceIsWatch() && *(a1 + 32) == 1)
+  if (MSVDeviceIsWatch() && a1[4].i32[0] == 1)
   {
     v111 = (v265 + 6);
     v112 = *(v265 + 71);
@@ -3830,28 +3852,28 @@ LABEL_190:
 
       if (!v117)
       {
-        v118 = (a1 + 1336);
-        v119 = std::__hash_table<std::__hash_value_type<std::string,long long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,long long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,long long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,long long>>>::find<std::string>((a1 + 1336), &v206);
+        v118 = a1 + 167;
+        v119 = std::__hash_table<std::__hash_value_type<std::string,long long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,long long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,long long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,long long>>>::find<std::string>(&a1[167], &v206);
         if (v119)
         {
-          v120 = *(a1 + 1344);
+          v120 = a1[168];
           v121 = v119[1];
           v122 = vcnt_s8(v120);
           v122.i16[0] = vaddlv_u8(v122);
           if (v122.u32[0] > 1uLL)
           {
-            if (v121 >= *&v120)
+            if (*&v121 >= *&v120)
             {
-              v121 %= *&v120;
+              *&v121 %= *&v120;
             }
           }
 
           else
           {
-            v121 &= *&v120 - 1;
+            *&v121 &= *&v120 - 1;
           }
 
-          v144 = *(*v118 + 8 * v121);
+          v144 = *(*v118 + 8 * *&v121);
           do
           {
             v145 = v144;
@@ -3859,7 +3881,7 @@ LABEL_190:
           }
 
           while (v144 != v119);
-          if (v145 == (a1 + 1352))
+          if (v145 == &a1[169])
           {
             goto LABEL_275;
           }
@@ -3867,18 +3889,18 @@ LABEL_190:
           v146 = v145[1];
           if (v122.u32[0] > 1uLL)
           {
-            if (v146 >= *&v120)
+            if (*&v146 >= *&v120)
             {
-              v146 %= *&v120;
+              *&v146 %= *&v120;
             }
           }
 
           else
           {
-            v146 &= *&v120 - 1;
+            *&v146 &= *&v120 - 1;
           }
 
-          if (v146 != v121)
+          if (*&v146 != *&v121)
           {
 LABEL_275:
             if (!*v119)
@@ -3900,17 +3922,17 @@ LABEL_275:
               v147 &= *&v120 - 1;
             }
 
-            if (v147 != v121)
+            if (v147 != *&v121)
             {
 LABEL_276:
-              *(*v118 + 8 * v121) = 0;
+              *(*v118 + 8 * *&v121) = 0;
             }
           }
 
           v148 = *v119;
           if (*v119)
           {
-            v149 = *(v148 + 8);
+            v149 = *(*&v148 + 8);
             if (v122.u32[0] > 1uLL)
             {
               if (v149 >= *&v120)
@@ -3924,7 +3946,7 @@ LABEL_276:
               v149 &= *&v120 - 1;
             }
 
-            if (v149 != v121)
+            if (v149 != *&v121)
             {
               *(*v118 + 8 * v149) = v145;
               v148 = *v119;
@@ -3933,9 +3955,9 @@ LABEL_276:
 
           *v145 = v148;
           *v119 = 0;
-          --*(a1 + 1360);
+          --*&a1[170];
           *buf = v119;
-          *&buf[8] = a1 + 1336;
+          *&buf[8] = a1 + 167;
           buf[16] = 1;
           *&buf[17] = 0;
           *&buf[20] = 0;
@@ -4115,7 +4137,7 @@ LABEL_292:
   }
 
   v168 = (*(*v48 + 32))(v48, 285212684);
-  v169 = *(a1 + 32);
+  v169 = a1[4].i32[0];
   v170 = ML3TrackRulesGetPropertyIndex(17, 285212684);
   if (_ML3InitializeTrackRulesIfNeeded___once != -1)
   {
@@ -4125,7 +4147,7 @@ LABEL_292:
   if (*(v78[80] + 56 * v170 + 4 * v169) != -1 && (*(**a2 + 56))(*a2, 285212684) && v248[3] != v168 && (ML3ImportSession::_shouldPreserveAlbumProperty(a1, v48[1], 0x1100000Cu) & 1) == 0)
   {
     *buf = v48[1];
-    std::vector<unsigned long long>::push_back[abi:ne200100](a1 + 472, buf);
+    std::vector<unsigned long long>::push_back[abi:ne200100](&a1[59], buf);
     *(v48[8] + 68) = v248[3];
     v171 = os_log_create("com.apple.amp.medialibrary", "Import");
     if (os_log_type_enabled(v171, OS_LOG_TYPE_DEFAULT))
@@ -4145,7 +4167,7 @@ LABEL_292:
     v174 = v234;
     if (v234 != (v173 != 0))
     {
-      v175 = *(a1 + 32);
+      v175 = a1[4].i32[0];
       v176 = ML3TrackRulesGetPropertyIndex(17, 285212688);
       if (_ML3InitializeTrackRulesIfNeeded___once != -1)
       {
@@ -4155,7 +4177,7 @@ LABEL_292:
       if (*(v78[80] + 56 * v176 + 4 * v175) != -1 && (ML3ImportSession::_shouldPreserveAlbumProperty(a1, v48[1], 0x11000010u) & 1) == 0)
       {
         *buf = v48[1];
-        std::vector<unsigned long long>::push_back[abi:ne200100](a1 + 496, buf);
+        std::vector<unsigned long long>::push_back[abi:ne200100](&a1[62], buf);
         v177 = os_log_create("com.apple.amp.medialibrary", "Import");
         if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
         {
@@ -4189,7 +4211,7 @@ LABEL_292:
   }
 
   v182 = (*(*v48 + 32))(v48, 285212681);
-  v183 = *(a1 + 32);
+  v183 = a1[4].i32[0];
   v184 = ML3TrackRulesGetPropertyIndex(17, 285212681);
   if (_ML3InitializeTrackRulesIfNeeded___once != -1)
   {
@@ -4210,7 +4232,7 @@ LABEL_292:
     {
       *(v48[8] + 136) = *(v236 + 24);
       *buf = v48[1];
-      std::vector<unsigned long long>::push_back[abi:ne200100](a1 + 520, buf);
+      std::vector<unsigned long long>::push_back[abi:ne200100](&a1[65], buf);
       v187 = os_log_create("com.apple.amp.medialibrary", "Import");
       if (os_log_type_enabled(v187, OS_LOG_TYPE_DEFAULT))
       {
@@ -4269,7 +4291,7 @@ LABEL_351:
       atomic_fetch_add_explicit(&v191->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<ML3AlbumData>>>((v186 + 1336), buf);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<ML3AlbumData>>>(&v186[167], buf, buf);
     if (*&buf[32])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[32]);
@@ -4307,7 +4329,7 @@ LABEL_364:
       atomic_fetch_add_explicit((v194 + 8), 1uLL, memory_order_relaxed);
     }
 
-    std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>>>::__emplace_unique_key_args<long long,std::pair<long long const,std::shared_ptr<ML3ImportItem>>>((v186 + 2256), v193);
+    std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>>>::__emplace_unique_key_args<long long,std::pair<long long const,std::shared_ptr<ML3ImportItem>>>(&v186[282], v193, buf);
     if (*&buf[16])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[16]);
@@ -4579,8 +4601,7 @@ __n128 __Block_byref_object_copy__597(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -4605,8 +4626,7 @@ __n128 __Block_byref_object_copy__415(__n128 *a1, __n128 *a2)
   result = a2[3];
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
   a1[3] = result;
-  a2[3].n128_u64[1] = 0;
-  a2[4].n128_u64[0] = 0;
+  *(&a2[3] + 8) = 0uLL;
   a2[3].n128_u64[0] = 0;
   return result;
 }
@@ -4683,9 +4703,9 @@ LABEL_8:
   return v8;
 }
 
-void sub_22D5279A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22D5279A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4712,7 +4732,7 @@ void ML3ImportSession::_getDefaultEmptyAlbum(ML3ImportSession *this)
 
 void ML3ImportSession::_setAlbumInfoForTrackPersistentID(uint64_t a1, unint64_t a2, uint64_t a3, std::__shared_weak_count *a4)
 {
-  v15[0] = a2;
+  v15 = a2;
   if (a2)
   {
     v8 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>((a1 + 352), a2);
@@ -4746,8 +4766,8 @@ void ML3ImportSession::_setAlbumInfoForTrackPersistentID(uint64_t a1, unint64_t 
 
       *&v12 = a3;
       *(&v12 + 1) = a4;
-      v15[1] = v15;
-      v10 = std::__hash_table<std::__hash_value_type<long long,ML3CollectionInfoSet>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3CollectionInfoSet>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 352), a2);
+      v16 = &v15;
+      v10 = std::__hash_table<std::__hash_value_type<long long,ML3CollectionInfoSet>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3CollectionInfoSet>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 352), a2, &v16);
       ML3CollectionInfoSet::operator=(v10 + 3, v11);
       if (a4)
       {
@@ -5389,7 +5409,7 @@ LABEL_69:
 LABEL_79:
 }
 
-void sub_22D52920C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, std::__shared_weak_count *a37)
+void sub_22D52920C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, std::__shared_weak_count *a37)
 {
   _Block_object_dispose(&a30, 8);
   if (a37)
@@ -5464,9 +5484,9 @@ LABEL_8:
   return v9;
 }
 
-void sub_22D529598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22D529598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5530,32 +5550,32 @@ uint64_t ML3ImportSession::_effectiveNameOrderForSortNameAndFallback(uint64_t a1
   return v16;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(void *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = a1[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5563,75 +5583,75 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-BOOL std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<ML3AlbumData>>>(void *a1, void *a2)
+BOOL std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<ML3AlbumData>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<ML3AlbumData>>>(float *a1, void *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v6 = v5;
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -5639,39 +5659,39 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2);
+  result = std::equal_to<std::string>::operator()[abi:ne200100](v12 + 2, a2);
   if (!result)
   {
     goto LABEL_17;
@@ -5680,39 +5700,39 @@ LABEL_17:
   return result;
 }
 
-void sub_22D529DC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22D529DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>>>::__emplace_unique_key_args<long long,std::pair<long long const,std::shared_ptr<ML3ImportItem>>>(void *result, unint64_t a2)
+void std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>>>::__emplace_unique_key_args<long long,std::pair<long long const,std::shared_ptr<ML3ImportItem>>>(float *a1, unint64_t a2, uint64_t a3)
 {
-  v2 = result[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5720,44 +5740,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void sub_22D52A2E4(_Unwind_Exception *a1)
@@ -5908,89 +5926,89 @@ void ___ZN16ML3ImportSession28_shouldPreserveAlbumPropertyExj_block_invoke(uint6
   *(*(*(*(a1 + 32) + 8) + 24) + 48) = v5;
 }
 
-void ___ZN16ML3ImportSession47_getAlbumImportItemForGroupingIdentifierAndPIDsEP26ML3AlbumGroupingIdentifierNSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEExxRb_block_invoke(uint64_t a1, void *a2)
+void ___ZN16ML3ImportSession47_getAlbumImportItemForGroupingIdentifierAndPIDsEP26ML3AlbumGroupingIdentifierNSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEExxRb_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v14 = *(a1 + 48);
-  memset(v29, 0, sizeof(v29));
-  ML3DatabaseRowGetHomogeneousColumns<std::string>(v3, v29, 3uLL);
-  if (SHIBYTE(v29[0].__r_.__value_.__r.__words[2]) < 0)
+  v35 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v16 = *(a1 + 48);
+  memset(v34, 0, sizeof(v34));
+  ML3DatabaseRowGetHomogeneousColumns<std::string>(v5, v34, 3uLL);
+  if (SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v28, v29[0].__r_.__value_.__l.__data_, v29[0].__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v33, v34[0].__r_.__value_.__l.__data_, v34[0].__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v28 = v29[0];
+    v33 = v34[0];
   }
 
-  if (SHIBYTE(v29[1].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34[1].__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v27, v29[1].__r_.__value_.__l.__data_, v29[1].__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v32, v34[1].__r_.__value_.__l.__data_, v34[1].__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v27 = v29[1];
+    v32 = v34[1];
   }
 
-  if (SHIBYTE(v29[2].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34[2].__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v26, v29[2].__r_.__value_.__l.__data_, v29[2].__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v31, v34[2].__r_.__value_.__l.__data_, v34[2].__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v26 = v29[2];
+    v31 = v34[2];
   }
 
-  v25 = [v3 int64ForColumnIndex:3];
-  [v3 objectAtIndexedSubscript:4];
+  v30 = [v5 int64ForColumnIndex:3];
+  [v5 objectAtIndexedSubscript:4];
   objc_claimAutoreleasedReturnValue();
-  [v3 int64ForColumnIndex:5];
-  [v3 intForColumnIndex:6];
-  v24 = [v3 intForColumnIndex:7];
-  v23 = [v3 intForColumnIndex:8];
-  v22 = [v3 intForColumnIndex:9];
-  v21 = [v3 intForColumnIndex:10];
-  v4 = [v3 objectAtIndexedSubscript:11];
-  if (v4)
+  [v5 int64ForColumnIndex:5];
+  [v5 intForColumnIndex:6];
+  v29 = [v5 intForColumnIndex:7];
+  v28 = [v5 intForColumnIndex:8];
+  v27 = [v5 intForColumnIndex:9];
+  v26 = [v5 intForColumnIndex:10];
+  v6 = [v5 objectAtIndexedSubscript:11];
+  if (v6)
   {
-    v5 = *(v14 + 3);
-    v6 = [v3 objectAtIndexedSubscript:11];
-    v7 = [v5 objectForKeyedSubscript:v6];
-    *&v20 = [v7 ML3NameOrderValue];
-    *(&v20 + 1) = v8;
+    v7 = *(v16 + 3);
+    v8 = [v5 objectAtIndexedSubscript:11];
+    v9 = [v7 objectForKeyedSubscript:v8];
+    *&v25 = [v9 ML3NameOrderValue];
+    *(&v25 + 1) = v10;
 
-    v9 = v20 == 0;
+    v11 = v25 == 0;
   }
 
   else
   {
-    v20 = xmmword_22D5C6B00;
-    v9 = 1;
+    v25 = xmmword_22D5C6B00;
+    v11 = 1;
   }
 
-  v10 = [v3 objectAtIndexedSubscript:11];
-  v11 = v10 != 0;
+  v12 = [v5 objectAtIndexedSubscript:11];
+  v13 = v12 != 0;
 
-  if (v11 && v9)
+  if (v13 && v11)
   {
-    v12 = [v3 objectAtIndexedSubscript:11];
-    *&v20 = ML3ImportSession::_getNameOrderForString(v14, v12);
-    *(&v20 + 1) = v13;
+    v14 = [v5 objectAtIndexedSubscript:11];
+    *&v25 = ML3ImportSession::_getNameOrderForString(v16, v14);
+    *(&v25 + 1) = v15;
   }
 
-  v19 = [v3 intForColumnIndex:12];
-  v18 = [v3 intForColumnIndex:13];
-  v17 = [v3 int64ForColumnIndex:14];
-  v16 = [v3 intForColumnIndex:15] != 0;
-  v15[4] = [v3 int64ForColumnIndex:16];
-  v15[3] = [v3 int64ForColumnIndex:17];
-  std::string::basic_string[abi:ne200100]<0>(v15, [v3 cStringForColumnIndex:18]);
-  [v3 int64ForColumnIndex:19];
-  std::allocate_shared[abi:ne200100]<ML3AlbumData,std::allocator<ML3AlbumData>,long long &,std::string &,std::string &,int &,int &,int &,int &,ML3NameOrder &,int &,long long &,long long &,std::string &,int &,BOOL &,long long &,0>();
+  v24 = [v5 intForColumnIndex:12];
+  v23 = [v5 intForColumnIndex:13];
+  v22 = [v5 int64ForColumnIndex:14];
+  v21 = [v5 intForColumnIndex:15] != 0;
+  v20 = [v5 int64ForColumnIndex:16];
+  v19 = [v5 int64ForColumnIndex:17];
+  std::string::basic_string[abi:ne200100]<0>(&v18, [v5 cStringForColumnIndex:18]);
+  [v5 int64ForColumnIndex:19];
+  std::allocate_shared[abi:ne200100]<ML3AlbumData,std::allocator<ML3AlbumData>,long long &,std::string &,std::string &,int &,int &,int &,int &,ML3NameOrder &,int &,long long &,long long &,std::string &,int &,BOOL &,long long &,0>(&v17, &v30, &v33, &v32, &v28, &v23, &v27, &v26, &v25, &v24, &v22, &v20, &v18, &v29, &v21, &v19);
 }
 
 void sub_22D52ADA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55)
@@ -6115,15 +6133,15 @@ uint64_t ML3ImportSession::_getNameOrderForString(ML3ImportSession *this, NSStri
   return v7;
 }
 
-void sub_22D52B1B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22D52B1B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v10 = v9;
+  va_start(va1, a13);
+  va_start(va, a13);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v16 = v15;
 
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
@@ -6148,32 +6166,32 @@ void sub_22D52B3F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<ML3AlbumData>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<ML3AlbumData>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<ML3AlbumData>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<ML3AlbumData>>>>::__emplace_unique_key_args<long long,std::pair<long long const,std::shared_ptr<ML3AlbumData>>>(void *result, unint64_t a2)
+void std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<ML3AlbumData>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<ML3AlbumData>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<ML3AlbumData>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<ML3AlbumData>>>>::__emplace_unique_key_args<long long,std::pair<long long const,std::shared_ptr<ML3AlbumData>>>(float *a1, unint64_t a2, uint64_t a3)
 {
-  v2 = result[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6181,44 +6199,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void ___ZN16ML3ImportSession22_getNameOrderForStringEP8NSString_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -6270,32 +6286,32 @@ void *__copy_helper_block_ea8_176c41_ZTSNSt3__110shared_ptrI13ML3ImportItemEE200
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,ML3CollectionInfoSet>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3CollectionInfoSet>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<long long,ML3CollectionInfoSet>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3CollectionInfoSet>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6303,44 +6319,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void *ML3CollectionInfoSet::operator=(void *a1, uint64_t *a2)
@@ -6534,7 +6550,7 @@ void ___ZN16ML3ImportSession28_shouldPreserveTrackPropertyENSt3__110shared_ptrI1
   *(*(*(*(a1 + 32) + 8) + 24) + 40) = [v6 int64ForColumnIndex:3];
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6606,7 +6622,7 @@ LABEL_8:
   return v11;
 }
 
-void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6636,7 +6652,7 @@ void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void *
   }
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7247,7 +7263,7 @@ LABEL_66:
           v34[1] = v30;
           if (v30)
           {
-            atomic_fetch_add_explicit(v30 + 1, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v30 + 8), 1uLL, memory_order_relaxed);
           }
 
           ML3ImportSession::_prepareTrackSortData(a1, v34);
@@ -7258,7 +7274,7 @@ LABEL_66:
         v33[1] = v31;
         if (v31)
         {
-          atomic_fetch_add_explicit(v31 + 1, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v31 + 8), 1uLL, memory_order_relaxed);
         }
 
         ML3ImportSession::_prepareAlbumArtistSortData(a1, v33);
@@ -7291,9 +7307,9 @@ void sub_22D52D5CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ML3ImportSession::_prepareTrackSortData(uint64_t a1, void **a2)
+void ML3ImportSession::_prepareTrackSortData(uint64_t a1, uint64_t *a2)
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  *(&v49 + 1) = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (!v3[1])
   {
@@ -7459,12 +7475,12 @@ void ML3ImportSession::_prepareTrackSortData(uint64_t a1, void **a2)
   }
 
   memset(__src, 0, sizeof(__src));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(__src, &v35, v49, 0xEuLL);
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(__src, &v35, &v49, 0xEuLL);
 }
 
-void ML3ImportSession::_prepareAlbumArtistSortData(uint64_t a1, void **a2)
+void ML3ImportSession::_prepareAlbumArtistSortData(uint64_t a1, uint64_t *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  *&v31 = *MEMORY[0x277D85DE8];
   (*(**a2 + 152))(&v23);
   if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -7604,35 +7620,35 @@ void sub_22D52EB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a52);
   }
 
-  if ((v68 - 224) != v67)
+  if ((v67 - 224) != v66)
   {
     do
     {
-      v70 = *(v67 - 1);
-      v67 -= 3;
-      if (v70 < 0)
+      v69 = *(v66 - 1);
+      v66 -= 3;
+      if (v69 < 0)
       {
-        operator delete(*v67);
+        operator delete(*v66);
       }
     }
 
-    while (v67 != (v68 - 224));
+    while (v66 != (v67 - 224));
   }
 
-  if (a66 < 0)
+  if (a65 < 0)
   {
     operator delete(a61);
   }
 
-  if (*(v68 - 233) < 0)
+  if (*(v67 - 233) < 0)
   {
-    operator delete(*(v68 - 256));
+    operator delete(*(v67 - 256));
   }
 
   _Unwind_Resume(a1);
 }
 
-void ML3ImportSession::_addAlbumArtist(uint64_t a1, void *a2, void *a3, void *a4)
+void ML3ImportSession::_addAlbumArtist(int8x8_t *a1, void *a2, void *a3, void *a4)
 {
   v276 = *MEMORY[0x277D85DE8];
   v180 = a3;
@@ -7759,7 +7775,7 @@ void ML3ImportSession::_addAlbumArtist(uint64_t a1, void *a2, void *a3, void *a4
   v213 = (*(**a2 + 32))(*a2, 301989903);
   if (v11 && v227[3])
   {
-    *(a1 + 1530) = 1;
+    a1[191].i8[2] = 1;
     v12 = os_log_create("com.apple.amp.medialibrary", "Import");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
@@ -7789,7 +7805,7 @@ void ML3ImportSession::_addAlbumArtist(uint64_t a1, void *a2, void *a3, void *a4
   v209 = v179;
   if (*a4)
   {
-    v15 = *(a1 + 16);
+    v15 = a1[2];
     v16 = [MEMORY[0x277CCABB0] numberWithLongLong:v183];
     v269 = v16;
     v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v269 count:1];
@@ -7861,7 +7877,7 @@ void ML3ImportSession::_addAlbumArtist(uint64_t a1, void *a2, void *a3, void *a4
 
         if (v20)
         {
-          v29 = *(a1 + 16);
+          v29 = a1[2];
           v30 = [MEMORY[0x277CCABB0] numberWithLongLong:v20];
           v268 = v30;
           v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v268 count:1];
@@ -8068,7 +8084,7 @@ LABEL_368:
             atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v53 = [*(a1 + 120) nextPersistentID];
+          v53 = [*&a1[15] nextPersistentID];
           v55 = os_log_create("com.apple.amp.medialibrary", "Import");
           if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
           {
@@ -8184,7 +8200,7 @@ LABEL_350:
   v48 = 1;
   if (!v191)
   {
-    v48 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>((a1 + 2048), v47) != 0;
+    v48 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>(&a1[256], v47) != 0;
     v191 = v48;
   }
 
@@ -8208,7 +8224,7 @@ LABEL_350:
     v260 = *&buf[16];
   }
 
-  if (MSVDeviceIsWatch() && *(a1 + 32) == 1)
+  if (MSVDeviceIsWatch() && a1[4].i32[0] == 1)
   {
     v65 = *(v245 + 71);
     if (v65 >= 0)
@@ -8231,11 +8247,11 @@ LABEL_350:
     {
       if (!v66)
       {
-        v70 = (a1 + 1296);
-        v71 = std::__hash_table<std::__hash_value_type<std::string,long long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,long long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,long long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,long long>>>::find<std::string>((a1 + 1296), &v260);
+        v70 = a1 + 162;
+        v71 = std::__hash_table<std::__hash_value_type<std::string,long long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,long long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,long long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,long long>>>::find<std::string>(&a1[162], &v260);
         if (v71)
         {
-          v72 = *(a1 + 1304);
+          v72 = a1[163];
           v73 = v71[1];
           v74 = vcnt_s8(v72);
           v74.i16[0] = vaddlv_u8(v74);
@@ -8260,7 +8276,7 @@ LABEL_350:
           }
 
           while (v85 != v71);
-          if (v86 == (a1 + 1312))
+          if (v86 == &a1[164])
           {
             goto LABEL_173;
           }
@@ -8311,7 +8327,7 @@ LABEL_174:
           v89 = *v71;
           if (*v71)
           {
-            v90 = *(v89 + 8);
+            v90 = *(*&v89 + 8);
             if (v74.u32[0] > 1uLL)
             {
               if (v90 >= *&v72)
@@ -8334,9 +8350,9 @@ LABEL_174:
 
           *v86 = v89;
           *v71 = 0;
-          --*(a1 + 1320);
+          --*&a1[165];
           *buf = v71;
-          *&buf[8] = a1 + 1296;
+          *&buf[8] = a1 + 162;
           buf[16] = 1;
           *&buf[17] = 0;
           *&buf[20] = 0;
@@ -8586,7 +8602,7 @@ LABEL_233:
 
   if (*a2 && !*a4)
   {
-    v118 = *(a1 + 32);
+    v118 = a1[4].i32[0];
     PropertyIndex = ML3TrackRulesGetPropertyIndex(18, 301989890);
     if (_ML3InitializeTrackRulesIfNeeded___once != -1)
     {
@@ -8602,7 +8618,7 @@ LABEL_233:
     v275 = buf;
     v122 = ML3TrackRulesGetPropertyIndex(18, 301989890);
     v176 = v120;
-    v123 = *(a1 + 32);
+    v123 = a1[4].u32[0];
     if (v123 >= 1)
     {
       v124 = v122;
@@ -8628,7 +8644,7 @@ LABEL_233:
           else
           {
             v129 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT cloud_universal_library_id, sync_id, store_id FROM album_artist WHERE album_artist_pid = %lld", v121];
-            v130 = [*(a1 + 64) executeQuery:v129];
+            v130 = [*&a1[8] executeQuery:v129];
             *v270 = MEMORY[0x277D85DD0];
             *&v270[8] = 3221225472;
             *&v270[16] = ___ZN16ML3ImportSession34_shouldPreserveAlbumArtistPropertyExj_block_invoke;
@@ -8671,7 +8687,7 @@ LABEL_261:
 
   else
   {
-    v113 = *(a1 + 32);
+    v113 = a1[4].i32[0];
     v114 = ML3TrackRulesGetPropertyIndex(10, 167772169);
     if (_ML3InitializeTrackRulesIfNeeded___once != -1)
     {
@@ -8784,7 +8800,7 @@ LABEL_291:
     *(v143 + 112) = v140;
     *(v143 + 120) = v142;
     v144 = v189;
-    v145 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>((a1 + 1968), v189);
+    v145 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>(&a1[246], v189);
     if (v145)
     {
       v146 = v145[3];
@@ -8792,11 +8808,11 @@ LABEL_291:
       if (v147 != v142 || v146 != v140)
       {
         *buf = &v189;
-        v148 = std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 2008), v144);
+        v148 = std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&a1[251], v144, buf);
         v148[3] = v140;
         v148[4] = v142;
         *buf = &v189;
-        v149 = std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 1968), v189);
+        v149 = std::__hash_table<std::__hash_value_type<long long,ML3NameOrder>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3NameOrder>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3NameOrder>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3NameOrder>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&a1[246], v189, buf);
         v149[3] = v140;
         v149[4] = v142;
         v150 = os_log_create("com.apple.amp.medialibrary", "Import");
@@ -8944,7 +8960,7 @@ LABEL_302:
       atomic_fetch_add_explicit(&v168->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<ML3ArtistData>>>((a1 + 1296), buf);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<ML3ArtistData>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<ML3ArtistData>>>(&a1[162], buf, buf);
     if (*&buf[32])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[32]);
@@ -8975,7 +8991,7 @@ LABEL_334:
       atomic_fetch_add_explicit((v171 + 8), 1uLL, memory_order_relaxed);
     }
 
-    std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>>>::__emplace_unique_key_args<long long,std::pair<long long const,std::shared_ptr<ML3ImportItem>>>((a1 + 2048), v170);
+    std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<ML3ImportItem>>>>::__emplace_unique_key_args<long long,std::pair<long long const,std::shared_ptr<ML3ImportItem>>>(&a1[256], v170, buf);
     if (*&buf[16])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[16]);
@@ -9056,7 +9072,7 @@ void sub_22D531374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x400]);
   }
 
-  _Block_object_dispose(&a68, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x208], 8);
   _Block_object_dispose(&STACK[0x228], 8);
   _Block_object_dispose(&STACK[0x248], 8);
@@ -9111,7 +9127,7 @@ void ML3ImportSession::_getDefaultEmptyArtist(ML3ImportSession *this)
 
 void ML3ImportSession::_setAlbumArtistInfoForTrackPersistentID(uint64_t a1, unint64_t a2, uint64_t a3, std::__shared_weak_count *a4)
 {
-  v16[0] = a2;
+  v16 = a2;
   if (a2)
   {
     v8 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>((a1 + 352), a2);
@@ -9146,8 +9162,8 @@ void ML3ImportSession::_setAlbumArtistInfoForTrackPersistentID(uint64_t a1, unin
 
       *&v12 = a3;
       *(&v12 + 1) = a4;
-      v16[1] = v16;
-      v10 = std::__hash_table<std::__hash_value_type<long long,ML3CollectionInfoSet>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3CollectionInfoSet>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 352), a2);
+      v17 = &v16;
+      v10 = std::__hash_table<std::__hash_value_type<long long,ML3CollectionInfoSet>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,ML3CollectionInfoSet>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,ML3CollectionInfoSet>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 352), a2, &v17);
       ML3CollectionInfoSet::operator=(v10 + 3, &v11);
       if (a4)
       {

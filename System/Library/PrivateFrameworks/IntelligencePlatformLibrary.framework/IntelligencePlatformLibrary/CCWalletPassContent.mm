@@ -192,9 +192,9 @@ LABEL_21:
       {
         v24 = [CCWalletPassEventContent alloc];
         passUniqueIdentifier = CCPBReaderReadDataNoCopy();
-        v35 = 0;
-        v25 = [(CCItemMessage *)v24 initWithData:passUniqueIdentifier error:&v35];
-        v10 = v35;
+        v33 = 0;
+        v25 = [(CCItemMessage *)v24 initWithData:passUniqueIdentifier error:&v33];
+        v10 = v33;
         eventContent = self->_eventContent;
         self->_eventContent = v25;
       }
@@ -217,7 +217,6 @@ LABEL_21:
 
         v27 = objc_opt_class();
         passUniqueIdentifier = NSStringFromClass(v27);
-        v28 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -241,23 +240,22 @@ LABEL_32:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v33 = 1;
+    v31 = 1;
     goto LABEL_36;
   }
 
 LABEL_33:
-  v29 = objc_opt_class();
-  v30 = NSStringFromClass(v29);
-  v31 = *&v6[*v9];
-  v32 = CCInvalidBufferErrorForMessage();
+  v28 = objc_opt_class();
+  v29 = NSStringFromClass(v28);
+  v30 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_34:
-  v33 = 0;
+  v31 = 0;
 LABEL_36:
 
-  return v33;
+  return v31;
 }
 
 - (CCWalletPassContent)initWithPassUniqueIdentifier:(id)identifier eventContent:(id)content error:(id *)error

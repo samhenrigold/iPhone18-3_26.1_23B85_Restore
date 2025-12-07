@@ -4,6 +4,7 @@
 - (id)hu_preloadContent;
 - (id)pickerView:(id)view titleForRow:(int64_t)row forComponent:(int64_t)component;
 - (int64_t)pickerView:(id)view numberOfRowsInComponent:(int64_t)component;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCSelectHomeViewController
@@ -91,6 +92,20 @@
   v18 = [NAFuture futureWithResult:&off_1000CD390];
 
   return v18;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = HSPCSelectHomeViewController;
+  [(HSPCSelectHomeViewController *)&v8 viewWillAppear:appear];
+  contentView = [(HSPCSelectHomeViewController *)self contentView];
+  pickerView = [contentView pickerView];
+  [pickerView reloadAllComponents];
+
+  contentView2 = [(HSPCSelectHomeViewController *)self contentView];
+  pickerView2 = [contentView2 pickerView];
+  [pickerView2 selectRow:0 inComponent:0 animated:0];
 }
 
 - (int64_t)pickerView:(id)view numberOfRowsInComponent:(int64_t)component

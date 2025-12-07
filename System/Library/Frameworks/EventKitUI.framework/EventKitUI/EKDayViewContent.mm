@@ -133,39 +133,39 @@
   objc_sync_enter(obj);
   [(NSMutableArray *)obj->_dayStarts removeAllObjects];
   v2 = obj->_startDate;
-  if (CalTimeDirectionIsLeftToRight())
+  if (CalTimeDirectionIsLeftToRight(v2, v3))
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v4 = [(EKCalendarDate *)v2 calendarDateByAddingDays:obj->_daysToDisplay - 1];
+    v5 = [(EKCalendarDate *)v2 calendarDateByAddingDays:obj->_daysToDisplay - 1];
 
-    v3 = -1;
-    v2 = v4;
+    v4 = -1;
+    v2 = v5;
   }
 
   if (obj->_daysToDisplay)
   {
-    v5 = 0;
+    v6 = 0;
     do
     {
       calendarDateForEndOfDay = [(EKCalendarDate *)v2 calendarDateForEndOfDay];
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v2, @"startDate", calendarDateForEndOfDay, @"endDate", 0}];
-      [(NSMutableArray *)obj->_dayStarts addObject:v7];
-      v8 = [(EKCalendarDate *)v2 calendarDateByAddingDays:v3];
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v2, @"startDate", calendarDateForEndOfDay, @"endDate", 0}];
+      [(NSMutableArray *)obj->_dayStarts addObject:v8];
+      v9 = [(EKCalendarDate *)v2 calendarDateByAddingDays:v4];
 
-      ++v5;
-      v2 = v8;
+      ++v6;
+      v2 = v9;
     }
 
-    while (obj->_daysToDisplay > v5);
+    while (obj->_daysToDisplay > v6);
   }
 
   else
   {
-    v8 = v2;
+    v9 = v2;
   }
 
   [(EKDayViewContent *)obj _updateShouldAnnotateAppEntitiesByDay];
@@ -312,7 +312,7 @@
 
 - (void)_adjustViewsForPinning
 {
-  v142 = *MEMORY[0x1E69E9840];
+  v144 = *MEMORY[0x1E69E9840];
   p_latestVisibleRect = &self->_latestVisibleRect;
   if (!CGRectIsNull(self->_latestVisibleRect))
   {
@@ -323,8 +323,8 @@
       if ([(EKDayViewContent *)self _doOffscreenOccurrences])
       {
         self->_pinningValid = 1;
-        v76 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v75 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v78 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v77 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
         [(EKDayViewContent *)self _dayWidth];
         v6 = v5;
@@ -363,306 +363,307 @@
           v16 = v10 * 3.0;
           do
           {
-            if (v15 >= [visibleItemsByDay2 count])
+            v17 = [visibleItemsByDay2 count];
+            if (v15 >= v17)
             {
               break;
             }
 
-            v17 = v15;
-            if ((CalTimeDirectionIsLeftToRight() & 1) == 0)
+            v19 = v15;
+            if ((CalTimeDirectionIsLeftToRight(v17, v18) & 1) == 0)
             {
-              v17 = self->_daysToDisplay + ~v15;
+              v19 = self->_daysToDisplay + ~v15;
             }
 
             [(EKDayViewContent *)self frame];
-            v19 = v18;
+            v21 = v20;
             if (CalCanvasPocketEventIndicatorEnabled())
             {
-              v82 = [(NSArray *)self->_topStackViews objectAtIndex:v15];
-              [v82 setFrame:{v6 * v17, p_latestVisibleRect->origin.y, v6, v8}];
+              v84 = [(NSArray *)self->_topStackViews objectAtIndex:v15];
+              [v84 setFrame:{v6 * v19, p_latestVisibleRect->origin.y, v6, v8}];
             }
 
             else
             {
-              v82 = 0;
+              v84 = 0;
             }
 
-            v83 = [visibleItemsByDay2 objectAtIndex:v15];
-            if ([v83 count])
+            v85 = [visibleItemsByDay2 objectAtIndex:v15];
+            if ([v85 count])
             {
-              v143.origin.y = 0.0;
-              v143.origin.x = v6 * v17;
-              v143.size.width = v6;
-              v143.size.height = v19;
-              if (CGRectIntersectsRect(v143, *p_latestVisibleRect))
+              v145.origin.y = 0.0;
+              v145.origin.x = v6 * v19;
+              v145.size.width = v6;
+              v145.size.height = v21;
+              if (CGRectIntersectsRect(v145, *p_latestVisibleRect))
               {
-                v20 = v83;
-                v21 = self->_itemsByDayByEndDate;
-                objc_sync_enter(v21);
-                v22 = [(NSMutableArray *)self->_itemsByDayByEndDate objectAtIndex:v15];
-                objc_sync_exit(v21);
+                v22 = v85;
+                v23 = self->_itemsByDayByEndDate;
+                objc_sync_enter(v23);
+                v24 = [(NSMutableArray *)self->_itemsByDayByEndDate objectAtIndex:v15];
+                objc_sync_exit(v23);
 
+                v140 = 0u;
+                v141 = 0u;
                 v138 = 0u;
                 v139 = 0u;
-                v136 = 0u;
-                v137 = 0u;
-                v23 = v20;
-                v24 = [v23 countByEnumeratingWithState:&v136 objects:v141 count:16];
-                if (v24)
+                v25 = v22;
+                v26 = [v25 countByEnumeratingWithState:&v138 objects:v143 count:16];
+                if (v26)
                 {
-                  v25 = *v137;
+                  v27 = *v139;
                   do
                   {
-                    for (i = 0; i != v24; ++i)
+                    for (i = 0; i != v26; ++i)
                     {
-                      if (*v137 != v25)
+                      if (*v139 != v27)
                       {
-                        objc_enumerationMutation(v23);
+                        objc_enumerationMutation(v25);
                       }
 
-                      v27 = *(*(&v136 + 1) + 8 * i);
-                      if ([v27 isPinned])
+                      v29 = *(*(&v138 + 1) + 8 * i);
+                      if ([v29 isPinned])
                       {
-                        [v4 addObject:v27];
+                        [v4 addObject:v29];
                       }
                     }
 
-                    v24 = [v23 countByEnumeratingWithState:&v136 objects:v141 count:16];
+                    v26 = [v25 countByEnumeratingWithState:&v138 objects:v143 count:16];
                   }
 
-                  while (v24);
+                  while (v26);
                 }
 
                 MinY = CGRectGetMinY(*p_latestVisibleRect);
                 MaxY = CGRectGetMaxY(*p_latestVisibleRect);
                 CalRoundToScreenScale(0.5);
-                v31 = v30;
-                v132 = 0;
-                v133 = &v132;
-                v134 = 0x2020000000;
-                v135 = 0;
-                v128 = 0;
-                v129 = &v128;
-                v130 = 0x2020000000;
-                v131 = 0;
-                v124 = 0;
-                v125 = &v124;
-                v126 = 0x2020000000;
-                v127 = 0;
-                v120 = 0;
-                v121 = &v120;
-                v122 = 0x2020000000;
-                v123 = 0;
-                v119[0] = 0;
-                v119[1] = v119;
-                v119[2] = 0x2020000000;
-                v119[3] = 0;
-                v118[0] = 0;
-                v118[1] = v118;
-                v118[2] = 0x2020000000;
-                v118[3] = 0;
-                v108[0] = MEMORY[0x1E69E9820];
-                v108[1] = 3221225472;
-                v108[2] = __42__EKDayViewContent__adjustViewsForPinning__block_invoke_2;
-                v108[3] = &unk_1E843EE10;
-                v116 = MinY;
-                v117 = v8;
-                v113 = &v124;
-                v114 = v119;
-                v112 = &__block_literal_global_293;
-                v79 = v76;
-                v109 = v79;
-                v32 = v22;
-                v110 = v32;
-                v115 = &v132;
-                v33 = v4;
-                v111 = v33;
-                v78 = v32;
-                [v32 enumerateObjectsWithOptions:0 usingBlock:v108];
-                v34 = v133[3];
-                v35 = [v79 count];
-                [v79 removeObjectsInRange:{v34, v35 - v133[3]}];
-                v98[0] = MEMORY[0x1E69E9820];
-                v36 = MaxY - v31;
-                v98[1] = 3221225472;
-                v98[2] = __42__EKDayViewContent__adjustViewsForPinning__block_invoke_3;
-                v98[3] = &unk_1E843EE10;
-                v106 = MaxY - v31;
-                v107 = v16;
-                v104 = v118;
-                v103 = &v120;
-                v102 = &__block_literal_global_293;
-                v37 = v75;
-                v99 = v37;
-                v38 = v23;
-                v100 = v38;
-                v105 = &v128;
-                v39 = v33;
+                v33 = v32;
+                v134 = 0;
+                v135 = &v134;
+                v136 = 0x2020000000;
+                v137 = 0;
+                v130 = 0;
+                v131 = &v130;
+                v132 = 0x2020000000;
+                v133 = 0;
+                v126 = 0;
+                v127 = &v126;
+                v128 = 0x2020000000;
+                v129 = 0;
+                v122 = 0;
+                v123 = &v122;
+                v124 = 0x2020000000;
+                v125 = 0;
+                v121[0] = 0;
+                v121[1] = v121;
+                v121[2] = 0x2020000000;
+                v121[3] = 0;
+                v120[0] = 0;
+                v120[1] = v120;
+                v120[2] = 0x2020000000;
+                v120[3] = 0;
+                v110[0] = MEMORY[0x1E69E9820];
+                v110[1] = 3221225472;
+                v110[2] = __42__EKDayViewContent__adjustViewsForPinning__block_invoke_2;
+                v110[3] = &unk_1E843EE10;
+                v118 = MinY;
+                v119 = v8;
+                v115 = &v126;
+                v116 = v121;
+                v114 = &__block_literal_global_293;
+                v81 = v78;
+                v111 = v81;
+                v34 = v24;
+                v112 = v34;
+                v117 = &v134;
+                v35 = v4;
+                v113 = v35;
+                v80 = v34;
+                [v34 enumerateObjectsWithOptions:0 usingBlock:v110];
+                v36 = v135[3];
+                v37 = [v81 count];
+                [v81 removeObjectsInRange:{v36, v37 - v135[3]}];
+                v100[0] = MEMORY[0x1E69E9820];
+                v38 = MaxY - v33;
+                v100[1] = 3221225472;
+                v100[2] = __42__EKDayViewContent__adjustViewsForPinning__block_invoke_3;
+                v100[3] = &unk_1E843EE10;
+                v108 = MaxY - v33;
+                v109 = v16;
+                v106 = v120;
+                v105 = &v122;
+                v104 = &__block_literal_global_293;
+                v39 = v77;
                 v101 = v39;
-                v77 = v38;
-                [v38 enumerateObjectsWithOptions:2 usingBlock:v98];
-                v40 = v129[3];
-                v41 = [v37 count];
-                [v37 removeObjectsInRange:{v40, v41 - v129[3]}];
-                v42 = v125[3];
-                if (v42 >= v8)
+                v40 = v25;
+                v102 = v40;
+                v107 = &v130;
+                v41 = v35;
+                v103 = v41;
+                v79 = v40;
+                [v40 enumerateObjectsWithOptions:2 usingBlock:v100];
+                v42 = v131[3];
+                v43 = [v39 count];
+                [v39 removeObjectsInRange:{v42, v43 - v131[3]}];
+                v44 = v127[3];
+                if (v44 >= v8)
                 {
-                  v42 = v8;
+                  v44 = v8;
                 }
 
-                self->_visiblePinnedStackHeightAbove[v15] = v42;
-                v43 = v121[3];
-                if (v43 >= v16)
+                self->_visiblePinnedStackHeightAbove[v15] = v44;
+                v45 = v123[3];
+                if (v45 >= v16)
                 {
-                  v43 = v16;
+                  v45 = v16;
                 }
 
-                self->_visiblePinnedStackHeightBelow[v15] = v43;
-                if ([v79 count])
+                self->_visiblePinnedStackHeightBelow[v15] = v45;
+                if ([v81 count])
                 {
-                  lastObject = [v79 lastObject];
-                  v45 = [lastObject objectAtIndex:0];
-                  [v45 unPinnedViewFrame];
-                  v46 = CGRectGetMaxY(v144);
-                }
-
-                else
-                {
-                  v46 = 0.0;
-                }
-
-                if ([v37 count])
-                {
-                  lastObject2 = [v37 lastObject];
-                  v48 = [lastObject2 objectAtIndex:0];
-                  [v48 unPinnedViewFrame];
-                  v49 = CGRectGetMinY(v145);
+                  lastObject = [v81 lastObject];
+                  v47 = [lastObject objectAtIndex:0];
+                  [v47 unPinnedViewFrame];
+                  v48 = CGRectGetMaxY(v146);
                 }
 
                 else
                 {
-                  v49 = 0.0;
+                  v48 = 0.0;
                 }
 
-                v50 = v125[3];
-                if (MinY + v50 > v8 + MinY)
+                if ([v39 count])
                 {
-                  v51 = MinY + v50 - v46;
-                  v52 = v50 - v8;
-                  if (v51 < v52)
-                  {
-                    v52 = v51;
-                  }
-
-                  MinY = MinY - v52;
+                  lastObject2 = [v39 lastObject];
+                  v50 = [lastObject2 objectAtIndex:0];
+                  [v50 unPinnedViewFrame];
+                  v51 = CGRectGetMinY(v147);
                 }
 
-                v53 = v121[3];
-                if (v36 - v53 < v36 - v16)
+                else
                 {
-                  v54 = v49 + v53 - v36;
-                  v55 = v53 - v16;
-                  if (v54 < v55)
+                  v51 = 0.0;
+                }
+
+                v52 = v127[3];
+                if (MinY + v52 > v8 + MinY)
+                {
+                  v53 = MinY + v52 - v48;
+                  v54 = v52 - v8;
+                  if (v53 < v54)
                   {
-                    v55 = v54;
+                    v54 = v53;
                   }
 
-                  v36 = v36 + v55;
+                  MinY = MinY - v54;
+                }
+
+                v55 = v123[3];
+                if (v38 - v55 < v38 - v16)
+                {
+                  v56 = v51 + v55 - v38;
+                  v57 = v55 - v16;
+                  if (v56 < v57)
+                  {
+                    v57 = v56;
+                  }
+
+                  v38 = v38 + v57;
                 }
 
                 if (CalCanvasPocketEventIndicatorEnabled())
                 {
-                  lastObject3 = [v79 lastObject];
-                  [v82 updateWithRows:lastObject3];
+                  lastObject3 = [v81 lastObject];
+                  [v84 updateWithRows:lastObject3];
                 }
 
                 else
                 {
-                  v94 = 0;
-                  v95 = &v94;
-                  v96 = 0x2020000000;
+                  v96 = 0;
+                  v97 = &v96;
+                  v98 = 0x2020000000;
                   CalRoundToScreenScale(3.5);
-                  v97 = MinY + v57;
-                  v91[0] = MEMORY[0x1E69E9820];
-                  v91[1] = 3221225472;
-                  v91[2] = __42__EKDayViewContent__adjustViewsForPinning__block_invoke_4;
-                  v91[3] = &unk_1E843EE38;
-                  v93 = &v94;
-                  v91[4] = self;
-                  v92 = v79;
-                  [v92 enumerateObjectsUsingBlock:v91];
+                  v99 = MinY + v59;
+                  v93[0] = MEMORY[0x1E69E9820];
+                  v93[1] = 3221225472;
+                  v93[2] = __42__EKDayViewContent__adjustViewsForPinning__block_invoke_4;
+                  v93[3] = &unk_1E843EE38;
+                  v95 = &v96;
+                  v93[4] = self;
+                  v94 = v81;
+                  [v94 enumerateObjectsUsingBlock:v93];
 
-                  _Block_object_dispose(&v94, 8);
+                  _Block_object_dispose(&v96, 8);
                 }
 
-                v94 = 0;
-                v95 = &v94;
-                v96 = 0x2020000000;
+                v96 = 0;
+                v97 = &v96;
+                v98 = 0x2020000000;
                 CalRoundToScreenScale(3.5);
-                v97 = v36 - v58;
-                v88[0] = MEMORY[0x1E69E9820];
-                v88[1] = 3221225472;
-                v88[2] = __42__EKDayViewContent__adjustViewsForPinning__block_invoke_5;
-                v88[3] = &unk_1E843EE38;
-                v90 = &v94;
-                v88[4] = self;
-                v59 = v37;
-                v89 = v59;
-                [v59 enumerateObjectsUsingBlock:v88];
+                v99 = v38 - v60;
+                v90[0] = MEMORY[0x1E69E9820];
+                v90[1] = 3221225472;
+                v90[2] = __42__EKDayViewContent__adjustViewsForPinning__block_invoke_5;
+                v90[3] = &unk_1E843EE38;
+                v92 = &v96;
+                v90[4] = self;
+                v61 = v39;
+                v91 = v61;
+                [v61 enumerateObjectsUsingBlock:v90];
+                v88 = 0u;
+                v89 = 0u;
                 v86 = 0u;
                 v87 = 0u;
-                v84 = 0u;
-                v85 = 0u;
-                v60 = v39;
-                v61 = [v60 countByEnumeratingWithState:&v84 objects:v140 count:16];
-                if (v61)
+                v62 = v41;
+                v63 = [v62 countByEnumeratingWithState:&v86 objects:v142 count:16];
+                if (v63)
                 {
-                  v62 = *v85;
+                  v64 = *v87;
                   do
                   {
-                    for (j = 0; j != v61; ++j)
+                    for (j = 0; j != v63; ++j)
                     {
-                      if (*v85 != v62)
+                      if (*v87 != v64)
                       {
-                        objc_enumerationMutation(v60);
+                        objc_enumerationMutation(v62);
                       }
 
-                      v64 = *(*(&v84 + 1) + 8 * j);
-                      view = [v64 view];
+                      v66 = *(*(&v86 + 1) + 8 * j);
+                      view = [v66 view];
                       [view frame];
-                      v67 = v66;
                       v69 = v68;
                       v71 = v70;
-
-                      [v64 unPinnedViewFrame];
                       v73 = v72;
-                      view2 = [v64 view];
-                      [view2 setFrame:{v67, v73, v69, v71}];
+
+                      [v66 unPinnedViewFrame];
+                      v75 = v74;
+                      view2 = [v66 view];
+                      [view2 setFrame:{v69, v75, v71, v73}];
                     }
 
-                    v61 = [v60 countByEnumeratingWithState:&v84 objects:v140 count:16];
+                    v63 = [v62 countByEnumeratingWithState:&v86 objects:v142 count:16];
                   }
 
-                  while (v61);
+                  while (v63);
                 }
 
-                [v79 removeAllObjects];
-                [v59 removeAllObjects];
-                [v60 removeAllObjects];
+                [v81 removeAllObjects];
+                [v61 removeAllObjects];
+                [v62 removeAllObjects];
 
-                _Block_object_dispose(&v94, 8);
-                _Block_object_dispose(v118, 8);
-                _Block_object_dispose(v119, 8);
-                _Block_object_dispose(&v120, 8);
-                _Block_object_dispose(&v124, 8);
-                _Block_object_dispose(&v128, 8);
-                _Block_object_dispose(&v132, 8);
+                _Block_object_dispose(&v96, 8);
+                _Block_object_dispose(v120, 8);
+                _Block_object_dispose(v121, 8);
+                _Block_object_dispose(&v122, 8);
+                _Block_object_dispose(&v126, 8);
+                _Block_object_dispose(&v130, 8);
+                _Block_object_dispose(&v134, 8);
               }
             }
 
             else if (CalCanvasPocketEventIndicatorEnabled())
             {
-              [v82 updateWithRows:0];
+              [v84 updateWithRows:0];
             }
 
             ++v15;
@@ -1724,7 +1725,7 @@ void __42__EKDayViewContent__adjustViewsForPinning__block_invoke_5(uint64_t a1, 
   bottom = layout.bottom;
   left = layout.left;
   top = layout.top;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
+  IsLeftToRight = CalInterfaceIsLeftToRight(self, a2);
   if (IsLeftToRight)
   {
     v8 = left;
@@ -2109,18 +2110,18 @@ LABEL_12:
   v16 = [v15 objectForKey:@"startDate"];
 
   v17 = [v7 differenceInDays:v16];
-  [(EKDayViewContent *)self _dayWidth];
-  v19 = v18 * 0.5 + v18 * v17;
-  if ((CalInterfaceIsLeftToRight() & 1) == 0)
+  _dayWidth = [(EKDayViewContent *)self _dayWidth];
+  v20 = v19 * 0.5 + v19 * v17;
+  if ((CalInterfaceIsLeftToRight(_dayWidth, v21) & 1) == 0)
   {
     [(EKDayGridView *)self->_grid widthForOccurrences];
-    v19 = v20 - v19;
+    v20 = v22 - v20;
   }
 
-  v21 = v19;
-  v22 = v13;
-  result.y = v22;
-  result.x = v21;
+  v23 = v20;
+  v24 = v13;
+  result.y = v24;
+  result.x = v23;
   return result;
 }
 
@@ -2320,22 +2321,22 @@ LABEL_14:
   y = point.y;
   x = point.x;
   [(EKDayViewContent *)self _dayWidth];
-  [(EKDayGridView *)self->_grid secondAtPosition:y];
+  v6 = [(EKDayGridView *)self->_grid secondAtPosition:y];
   if (x >= 0.0)
   {
-    CalTimeDirectionIsLeftToRight();
+    CalTimeDirectionIsLeftToRight(v6, v7);
   }
 
   timeZone = [(NSCalendar *)self->_calendar timeZone];
   [(EKCalendarDate *)self->_startDate absoluteTime];
   CalAbsoluteTimeAddGregorianUnits();
-  v8 = v7;
+  v10 = v9;
   if (timeZone)
   {
     CFRelease(timeZone);
   }
 
-  return v8;
+  return v10;
 }
 
 - (void)setNeedsDisplay
@@ -2394,7 +2395,7 @@ LABEL_14:
   os_unfair_lock_unlock(&self->_layoutParametersLock);
 }
 
-uint64_t __40__EKDayViewContent__layoutDaysIfVisible__block_invoke(uint64_t a1)
+void *__40__EKDayViewContent__layoutDaysIfVisible__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) clearTemporaryViews];
   *(*(a1 + 32) + 664) = 0;
@@ -2751,9 +2752,9 @@ uint64_t __46__EKDayViewContent__layoutDay_isLoadingAsync___block_invoke_2(uint6
 
     if (v5)
     {
-      IsLeftToRight = CalTimeDirectionIsLeftToRight();
+      IsLeftToRight = CalTimeDirectionIsLeftToRight(v6, v7);
       singleItemsByDay2 = [(EKDayViewContent *)self singleItemsByDay];
-      v8 = singleItemsByDay2;
+      v10 = singleItemsByDay2;
       if (IsLeftToRight)
       {
         [singleItemsByDay2 firstObject];
@@ -2763,25 +2764,25 @@ uint64_t __46__EKDayViewContent__layoutDay_isLoadingAsync___block_invoke_2(uint6
       {
         [singleItemsByDay2 lastObject];
       }
-      v9 = ;
+      v11 = ;
 
-      if (v9 && [v9 count])
+      if (v11 && [v11 count])
       {
-        v10 = [v9 objectAtIndex:0];
-        startDate = [v10 startDate];
+        v12 = [v11 objectAtIndex:0];
+        startDate = [v12 startDate];
         [startDate absoluteTime];
-        v13 = v12;
+        v15 = v14;
         [(EKCalendarDate *)self->_startDate absoluteTime];
-        if (v13 < v14)
+        if (v15 < v16)
         {
-          v15 = self->_startDate;
+          v17 = self->_startDate;
 
-          startDate = v15;
+          startDate = v17;
         }
 
-        v16 = 3600 * [startDate hour];
-        v17 = v16 + 60 * [startDate minute];
-        v2 = (v17 + [startDate second]);
+        v18 = 3600 * [startDate hour];
+        v19 = v18 + 60 * [startDate minute];
+        v2 = (v19 + [startDate second]);
       }
     }
   }
@@ -2795,12 +2796,12 @@ uint64_t __46__EKDayViewContent__layoutDay_isLoadingAsync___block_invoke_2(uint6
 
   if (!dayStarts)
   {
-    [(EKDayViewContent *)self _computeDayStartsAndEnds];
+    _computeDayStartsAndEnds = [(EKDayViewContent *)self _computeDayStartsAndEnds];
   }
 
-  IsLeftToRight = CalTimeDirectionIsLeftToRight();
+  IsLeftToRight = CalTimeDirectionIsLeftToRight(_computeDayStartsAndEnds, v5);
   dayStarts2 = [(EKDayViewContent *)self dayStarts];
-  v6 = dayStarts2;
+  v8 = dayStarts2;
   if (IsLeftToRight)
   {
     [dayStarts2 lastObject];
@@ -2810,10 +2811,10 @@ uint64_t __46__EKDayViewContent__layoutDay_isLoadingAsync___block_invoke_2(uint6
   {
     [dayStarts2 firstObject];
   }
-  v7 = ;
-  v8 = [v7 objectForKey:@"endDate"];
+  v9 = ;
+  v10 = [v9 objectForKey:@"endDate"];
 
-  return v8;
+  return v10;
 }
 
 - (void)_configureOccurrenceViewMarginAndPadding:(id)padding
@@ -3939,7 +3940,7 @@ void __36__EKDayViewContent_loadOccurrences___block_invoke(uint64_t a1, void *a2
     do
     {
       v11 = v9;
-      if ((CalTimeDirectionIsLeftToRight() & 1) == 0)
+      if ((CalTimeDirectionIsLeftToRight(v6, v7) & 1) == 0)
       {
         v11 = v10 + *(*(a1 + 32) + v44);
       }
@@ -4547,7 +4548,7 @@ LABEL_20:
   width = days.size.width;
   y = days.origin.y;
   x = days.origin.x;
-  IsLeftToRight = CalTimeDirectionIsLeftToRight();
+  IsLeftToRight = CalTimeDirectionIsLeftToRight(self, a2);
   v9 = &OBJC_IVAR___EKDayViewContent__occurrenceLayoutTrailingInset;
   if (IsLeftToRight)
   {

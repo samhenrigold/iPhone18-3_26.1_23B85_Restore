@@ -34,14 +34,14 @@
 
 - (void)workQueueDidEnqueueSubsequentItem
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if ([(MSASGroupedQueue *)self isShuttingDown])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v4 = 138543362;
+      v3 = 138543362;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Not enqueueing subsequent item because we're shutting down.", &v4, 0xCu);
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Not enqueueing subsequent item because we're shutting down.", &v3, 0xCu);
     }
   }
 
@@ -49,27 +49,25 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v4 = 138543362;
+      v3 = 138543362;
       selfCopy2 = self;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueueing subsequent item.", &v4, 0xCu);
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueueing subsequent item.", &v3, 0xCu);
     }
 
     [(MSASGroupedQueue *)self workQueueRestartIdleTimer];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workQueueDidEnqueueFirstItem
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if ([(MSASGroupedQueue *)self isShuttingDown])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v4 = 138543362;
+      v3 = 138543362;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Not enqueueing first item because we're shutting down.", &v4, 0xCu);
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Not enqueueing first item because we're shutting down.", &v3, 0xCu);
     }
   }
 
@@ -77,16 +75,14 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v4 = 138543362;
+      v3 = 138543362;
       selfCopy2 = self;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueueing first item.", &v4, 0xCu);
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueueing first item.", &v3, 0xCu);
     }
 
     [(MSASGroupedQueue *)self workQueueAssertBusyAssertion];
     [(MSASGroupedQueue *)self workQueueRestartStalenessTimer];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workQueueClearStalenessTimer
@@ -104,7 +100,7 @@
 
 - (void)workQueueRestartStalenessTimer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
@@ -125,38 +121,35 @@
   [(MSASGroupedQueue *)self maxGroupedCallbackEventStaleness];
   v7 = dispatch_time(0, (v6 * 1000000000.0));
   workQueue = [(MSASGroupedQueue *)self workQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __50__MSASGroupedQueue_workQueueRestartStalenessTimer__block_invoke;
-  v11[3] = &unk_278E927C8;
-  v12 = v5;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __50__MSASGroupedQueue_workQueueRestartStalenessTimer__block_invoke;
+  v10[3] = &unk_278E927C8;
+  v11 = v5;
   selfCopy2 = self;
   v9 = v5;
-  dispatch_after(v7, workQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_after(v7, workQueue, v10);
 }
 
-uint64_t __50__MSASGroupedQueue_workQueueRestartStalenessTimer__block_invoke(uint64_t a1)
+void *__50__MSASGroupedQueue_workQueueRestartStalenessTimer__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) enabled];
   if (result)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v4 = *(a1 + 40);
-      v5 = 138543362;
-      v6 = v4;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Staleness timer fired.", &v5, 0xCu);
+      v3 = *(a1 + 40);
+      v4 = 138543362;
+      v5 = v3;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Staleness timer fired.", &v4, 0xCu);
     }
 
     [*(a1 + 40) assertBusyAssertion];
     [*(a1 + 40) workQueueFlushQueue];
-    result = [*(a1 + 40) deassertBusyAssertion];
+    return [*(a1 + 40) deassertBusyAssertion];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -175,7 +168,7 @@ uint64_t __50__MSASGroupedQueue_workQueueRestartStalenessTimer__block_invoke(uin
 
 - (void)workQueueRestartIdleTimer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
@@ -196,44 +189,41 @@ uint64_t __50__MSASGroupedQueue_workQueueRestartStalenessTimer__block_invoke(uin
   [(MSASGroupedQueue *)self maxGroupedCallbackEventIdleInterval];
   v7 = dispatch_time(0, (v6 * 1000000000.0));
   workQueue = [(MSASGroupedQueue *)self workQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __45__MSASGroupedQueue_workQueueRestartIdleTimer__block_invoke;
-  v11[3] = &unk_278E927C8;
-  v12 = v5;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __45__MSASGroupedQueue_workQueueRestartIdleTimer__block_invoke;
+  v10[3] = &unk_278E927C8;
+  v11 = v5;
   selfCopy2 = self;
   v9 = v5;
-  dispatch_after(v7, workQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_after(v7, workQueue, v10);
 }
 
-uint64_t __45__MSASGroupedQueue_workQueueRestartIdleTimer__block_invoke(uint64_t a1)
+void *__45__MSASGroupedQueue_workQueueRestartIdleTimer__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) enabled];
   if (result)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v4 = *(a1 + 40);
-      v5 = 138543362;
-      v6 = v4;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Idle timer fired.", &v5, 0xCu);
+      v3 = *(a1 + 40);
+      v4 = 138543362;
+      v5 = v3;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Idle timer fired.", &v4, 0xCu);
     }
 
     [*(a1 + 40) assertBusyAssertion];
     [*(a1 + 40) workQueueFlushQueue];
-    result = [*(a1 + 40) deassertBusyAssertion];
+    return [*(a1 + 40) deassertBusyAssertion];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)flushQueueCompletionBlock:(id)block
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
@@ -244,16 +234,14 @@ uint64_t __45__MSASGroupedQueue_workQueueRestartIdleTimer__block_invoke(uint64_t
 
   [(MSASGroupedQueue *)self assertBusyAssertion];
   workQueue = [(MSASGroupedQueue *)self workQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __46__MSASGroupedQueue_flushQueueCompletionBlock___block_invoke;
-  v8[3] = &unk_278E927A0;
-  v8[4] = self;
-  v9 = blockCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __46__MSASGroupedQueue_flushQueueCompletionBlock___block_invoke;
+  v7[3] = &unk_278E927A0;
+  v7[4] = self;
+  v8 = blockCopy;
   v6 = blockCopy;
-  dispatch_async(workQueue, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  dispatch_async(workQueue, v7);
 }
 
 uint64_t __46__MSASGroupedQueue_flushQueueCompletionBlock___block_invoke(uint64_t a1)
@@ -275,7 +263,7 @@ uint64_t __46__MSASGroupedQueue_flushQueueCompletionBlock___block_invoke(uint64_
 
 - (void)shutDownFlush:(BOOL)flush completionBlock:(id)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
@@ -291,11 +279,9 @@ uint64_t __46__MSASGroupedQueue_flushQueueCompletionBlock___block_invoke(uint64_
   block[3] = &unk_278E92778;
   flushCopy = flush;
   block[4] = self;
-  v11 = blockCopy;
+  v10 = blockCopy;
   v8 = blockCopy;
   dispatch_async(workQueue, block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__MSASGroupedQueue_shutDownFlush_completionBlock___block_invoke(uint64_t a1)
@@ -340,7 +326,7 @@ uint64_t __50__MSASGroupedQueue_shutDownFlush_completionBlock___block_invoke(uin
   return selfCopy;
 }
 
-uint64_t __44__MSASGroupedQueue_isAssertingBusyAssertion__block_invoke(uint64_t a1)
+void *__44__MSASGroupedQueue_isAssertingBusyAssertion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) memberQueueIsAssertingBusyAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -360,23 +346,21 @@ uint64_t __44__MSASGroupedQueue_isAssertingBusyAssertion__block_invoke(uint64_t 
 
 void __50__MSASGroupedQueue_workQueueDeassertBusyAssertion__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) memberQueueIsAssertingBusyAssertion])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v4 = *(a1 + 32);
-      v5 = 138543362;
-      v6 = v4;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Deasserting busy assertion.", &v5, 0xCu);
+      v3 = *(a1 + 32);
+      v4 = 138543362;
+      v5 = v3;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Deasserting busy assertion.", &v4, 0xCu);
     }
 
     [*(a1 + 32) memberQueueSetIsAssertingBusyAssertion:0];
     v2 = [*(a1 + 32) model];
     [v2 releaseBusy];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workQueueAssertBusyAssertion
@@ -392,23 +376,21 @@ void __50__MSASGroupedQueue_workQueueDeassertBusyAssertion__block_invoke(uint64_
 
 void __48__MSASGroupedQueue_workQueueAssertBusyAssertion__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) memberQueueIsAssertingBusyAssertion] & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v4 = *(a1 + 32);
-      v5 = 138543362;
-      v6 = v4;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Asserting busy assertion.", &v5, 0xCu);
+      v3 = *(a1 + 32);
+      v4 = 138543362;
+      v5 = v3;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Asserting busy assertion.", &v4, 0xCu);
     }
 
     [*(a1 + 32) memberQueueSetIsAssertingBusyAssertion:1];
     v2 = [*(a1 + 32) model];
     [v2 retainBusy];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deassertBusyAssertion

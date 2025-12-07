@@ -12,27 +12,27 @@
 
 - (void)processResponse:(id)response
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v6 = objc_opt_new();
   v7 = pp_entities_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     title = [responseCopy title];
-    v24 = [title length];
+    v23 = [title length];
     state = [responseCopy state];
     bundleID = [responseCopy bundleID];
     playerID = [responseCopy playerID];
     *buf = 134219010;
-    v35 = v24;
-    v36 = 1024;
-    v37 = state;
-    v38 = 2112;
-    v39 = v6;
-    v40 = 2112;
-    v41 = bundleID;
-    v42 = 2112;
-    v43 = playerID;
+    v34 = v23;
+    v35 = 1024;
+    v36 = state;
+    v37 = 2112;
+    v38 = v6;
+    v39 = 2112;
+    v40 = bundleID;
+    v41 = 2112;
+    v42 = playerID;
     _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPMediaPlayerDelegate: processResponse: title.length:%tu state:%d timestamp:%@ bundleId:%@ playerId:%@", buf, 0x30u);
   }
 
@@ -75,13 +75,13 @@
           state2 = [(PPMediaPlayerResponse *)v9 state];
           playerID2 = [(PPMediaPlayerResponse *)v9 playerID];
           *buf = 134218754;
-          v35 = v19;
-          v36 = 1024;
-          v37 = state2;
-          v38 = 2112;
-          v39 = bundleID2;
-          v40 = 2112;
-          v41 = playerID2;
+          v34 = v19;
+          v35 = 1024;
+          v36 = state2;
+          v37 = 2112;
+          v38 = bundleID2;
+          v39 = 2112;
+          v40 = playerID2;
           _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "PPMediaPlayerDelegate: donating response: title.length:%tu state:%d bundleId:%@ playerId:%@", buf, 0x26u);
         }
 
@@ -91,41 +91,37 @@
         block[2] = __41__PPMediaPlayerDelegate_processResponse___block_invoke;
         block[3] = &unk_278978628;
         block[4] = self;
-        v31 = v9;
-        v33 = v16;
-        v32 = bundleID2;
+        v30 = v9;
+        v32 = v16;
+        v31 = bundleID2;
         dispatch_async(dispatchQueue, block);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getResponse
 {
-  v3 = objc_opt_new();
-  v4 = dispatch_group_create();
-  dispatch_group_enter(v4);
+  v2 = objc_opt_new();
+  v3 = dispatch_group_create();
+  dispatch_group_enter(v3);
   Default = MRPlaybackQueueRequestCreateDefault();
-  dispatchQueue = self->_dispatchQueue;
-  v12 = v3;
-  v13 = v4;
+  v9 = v2;
+  v10 = v3;
   MRMediaRemoteRequestNowPlayingPlaybackQueueSync();
-  dispatch_group_enter(v13);
-  v7 = self->_dispatchQueue;
-  v8 = v12;
-  v9 = v13;
+  dispatch_group_enter(v10);
+  v5 = v9;
+  v6 = v10;
   MRMediaRemoteGetNowPlayingApplicationPlaybackState();
-  dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_group_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
   if (Default)
   {
     CFRelease(Default);
   }
 
-  v10 = v8;
+  v7 = v5;
 
-  return v8;
+  return v5;
 }
 
 void __36__PPMediaPlayerDelegate_getResponse__block_invoke(uint64_t a1, void *a2)
@@ -191,7 +187,7 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
 
 - (void)_donateDelayedResponse:(id)response timePlayed:(double)played bundleId:(id)id
 {
-  v154 = *MEMORY[0x277D85DE8];
+  v153 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   idCopy = id;
   if (responseCopy)
@@ -240,8 +236,8 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
         v24 = objc_alloc(MEMORY[0x277D3A4D8]);
         v25 = *MEMORY[0x277D3A708];
         v26 = objc_opt_new();
-        v119 = v23;
-        v120 = v15;
+        v118 = v23;
+        v119 = v15;
         v27 = [v24 initWithBundleId:idCopy groupId:v25 documentId:v23 date:v26 relevanceDate:0 contactHandles:0 language:0 metadata:v15];
 
         v28 = objc_opt_new();
@@ -249,66 +245,66 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
         useNamedEntityDissector = self->_useNamedEntityDissector;
         v30 = 0x277D3A000uLL;
         v31 = 0x277D3A000uLL;
-        v129 = v28;
+        v128 = v28;
         if (useNamedEntityDissector)
         {
           v32 = v28;
           v33 = +[PPConfiguration sharedInstance];
           [v27 language];
           v35 = v34 = v27;
-          v113 = idCopy;
+          v112 = idCopy;
           v36 = [v33 extractionAlgorithmsForBundleId:idCopy sourceLanguage:v35 conservative:1 domain:1];
 
           v37 = +[PPNamedEntityDissector sharedInstance];
-          v117 = responseCopy;
+          v116 = responseCopy;
           title2 = [responseCopy title];
-          v114 = v37;
-          v115 = v36;
-          v116 = v34;
+          v113 = v37;
+          v114 = v36;
+          v115 = v34;
           v39 = [v37 entitiesInPlainText:title2 eligibleRegions:0 source:v34 cloudSync:0 algorithms:v36];
 
-          v146 = 0u;
-          v147 = 0u;
-          v144 = 0u;
           v145 = 0u;
+          v146 = 0u;
+          v143 = 0u;
+          v144 = 0u;
           v40 = v39;
-          v123 = [v40 countByEnumeratingWithState:&v144 objects:v153 count:16];
-          if (v123)
+          v122 = [v40 countByEnumeratingWithState:&v143 objects:v152 count:16];
+          if (v122)
           {
-            v121 = *v145;
-            v125 = v40;
+            v120 = *v144;
+            v124 = v40;
             do
             {
               v41 = 0;
               do
               {
-                if (*v145 != v121)
+                if (*v144 != v120)
                 {
                   objc_enumerationMutation(v40);
                 }
 
-                v127 = v41;
-                v42 = *(*(&v144 + 1) + 8 * v41);
+                v126 = v41;
+                v42 = *(*(&v143 + 1) + 8 * v41);
+                v139 = 0u;
                 v140 = 0u;
                 v141 = 0u;
                 v142 = 0u;
-                v143 = 0u;
                 entities = [v42 entities];
-                v44 = [entities countByEnumeratingWithState:&v140 objects:v152 count:16];
+                v44 = [entities countByEnumeratingWithState:&v139 objects:v151 count:16];
                 if (v44)
                 {
                   v45 = v44;
-                  v46 = *v141;
+                  v46 = *v140;
                   do
                   {
                     for (i = 0; i != v45; ++i)
                     {
-                      if (*v141 != v46)
+                      if (*v140 != v46)
                       {
                         objc_enumerationMutation(entities);
                       }
 
-                      v48 = *(*(&v140 + 1) + 8 * i);
+                      v48 = *(*(&v139 + 1) + 8 * i);
                       v49 = objc_autoreleasePoolPush();
                       v50 = objc_alloc(MEMORY[0x277D3A420]);
                       item = [v48 item];
@@ -318,81 +314,81 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
                       v55 = [v50 initWithName:name category:6 language:bestLanguage];
 
                       v56 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v55 score:v14];
-                      v32 = v129;
-                      [v129 addObject:v56];
+                      v32 = v128;
+                      [v128 addObject:v56];
 
                       v30 = 0x277D3A000uLL;
                       objc_autoreleasePoolPop(v49);
                     }
 
-                    v45 = [entities countByEnumeratingWithState:&v140 objects:v152 count:16];
+                    v45 = [entities countByEnumeratingWithState:&v139 objects:v151 count:16];
                   }
 
                   while (v45);
                 }
 
-                v40 = v125;
-                v41 = v127 + 1;
+                v40 = v124;
+                v41 = v126 + 1;
               }
 
-              while (v127 + 1 != v123);
-              v123 = [v125 countByEnumeratingWithState:&v144 objects:v153 count:16];
+              while (v126 + 1 != v122);
+              v122 = [v124 countByEnumeratingWithState:&v143 objects:v152 count:16];
             }
 
-            while (v123);
+            while (v122);
           }
 
-          responseCopy = v117;
-          album = [v117 album];
+          responseCopy = v116;
+          album = [v116 album];
           v58 = [album length];
 
           if (v58)
           {
-            album2 = [v117 album];
-            v60 = [v114 entitiesInPlainText:album2 eligibleRegions:0 source:v116 cloudSync:0 algorithms:v115];
+            album2 = [v116 album];
+            v60 = [v113 entitiesInPlainText:album2 eligibleRegions:0 source:v115 cloudSync:0 algorithms:v114];
 
-            v138 = 0u;
-            v139 = 0u;
-            v136 = 0u;
             v137 = 0u;
+            v138 = 0u;
+            v135 = 0u;
+            v136 = 0u;
             v61 = v60;
-            v124 = [v61 countByEnumeratingWithState:&v136 objects:v151 count:16];
-            if (v124)
+            v123 = [v61 countByEnumeratingWithState:&v135 objects:v150 count:16];
+            if (v123)
             {
-              v122 = *v137;
-              v126 = v61;
+              v121 = *v136;
+              v125 = v61;
               do
               {
                 v62 = 0;
                 do
                 {
-                  if (*v137 != v122)
+                  if (*v136 != v121)
                   {
                     objc_enumerationMutation(v61);
                   }
 
-                  v128 = v62;
-                  v63 = *(*(&v136 + 1) + 8 * v62);
+                  v127 = v62;
+                  v63 = *(*(&v135 + 1) + 8 * v62);
+                  v131 = 0u;
                   v132 = 0u;
                   v133 = 0u;
                   v134 = 0u;
-                  v135 = 0u;
                   entities2 = [v63 entities];
-                  v65 = [entities2 countByEnumeratingWithState:&v132 objects:v150 count:16];
+                  v65 = [entities2 countByEnumeratingWithState:&v131 objects:v149 count:16];
                   if (v65)
                   {
                     v66 = v65;
-                    v67 = *v133;
+                    v67 = *v132;
                     do
                     {
                       for (j = 0; j != v66; ++j)
                       {
-                        if (*v133 != v67)
+                        if (*v132 != v67)
                         {
                           objc_enumerationMutation(entities2);
                         }
 
-                        v69 = *(*(&v132 + 1) + 8 * j);
+                        v69 = *(*(&v131 + 1) + 8 * j);
                         v70 = objc_autoreleasePoolPush();
                         v71 = objc_alloc(*(v30 + 1056));
                         item3 = [v69 item];
@@ -403,47 +399,47 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
 
                         v30 = 0x277D3A000;
                         v77 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v76 score:v14];
-                        v32 = v129;
-                        [v129 addObject:v77];
+                        v32 = v128;
+                        [v128 addObject:v77];
 
                         objc_autoreleasePoolPop(v70);
                       }
 
-                      v66 = [entities2 countByEnumeratingWithState:&v132 objects:v150 count:16];
+                      v66 = [entities2 countByEnumeratingWithState:&v131 objects:v149 count:16];
                     }
 
                     while (v66);
                   }
 
-                  v61 = v126;
-                  v62 = v128 + 1;
+                  v61 = v125;
+                  v62 = v127 + 1;
                 }
 
-                while (v128 + 1 != v124);
-                v124 = [v126 countByEnumeratingWithState:&v136 objects:v151 count:16];
+                while (v127 + 1 != v123);
+                v123 = [v125 countByEnumeratingWithState:&v135 objects:v150 count:16];
               }
 
-              while (v124);
+              while (v123);
             }
 
-            responseCopy = v117;
+            responseCopy = v116;
             v78 = selfCopy;
-            idCopy = v113;
-            v80 = v119;
-            v79 = v120;
-            v27 = v116;
+            idCopy = v112;
+            v80 = v118;
+            v79 = v119;
+            v27 = v115;
             v31 = 0x277D3A000;
           }
 
           else
           {
-            idCopy = v113;
-            v79 = v120;
+            idCopy = v112;
+            v79 = v119;
             v78 = selfCopy;
-            v27 = v116;
+            v27 = v115;
             v31 = 0x277D3A000uLL;
             v61 = v40;
-            v80 = v119;
+            v80 = v118;
           }
         }
 
@@ -454,9 +450,9 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
           currentLocaleLanguageCode = [MEMORY[0x277D3A578] currentLocaleLanguageCode];
           v85 = [v82 initWithName:title3 category:6 language:currentLocaleLanguageCode];
 
-          v32 = v129;
+          v32 = v128;
           v86 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v85 score:v14];
-          [v129 addObject:v86];
+          [v128 addObject:v86];
           album3 = [responseCopy album];
           v88 = [album3 length];
 
@@ -467,13 +463,13 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
             currentLocaleLanguageCode2 = [MEMORY[0x277D3A578] currentLocaleLanguageCode];
             v92 = [v89 initWithName:album4 category:6 language:currentLocaleLanguageCode2];
 
-            v32 = v129;
+            v32 = v128;
             v93 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v92 score:v14];
-            [v129 addObject:v93];
+            [v128 addObject:v93];
           }
 
-          v80 = v119;
-          v79 = v120;
+          v80 = v118;
+          v79 = v119;
           v78 = selfCopy;
         }
 
@@ -487,9 +483,9 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
           currentLocaleLanguageCode3 = [MEMORY[0x277D3A578] currentLocaleLanguageCode];
           v99 = [v96 initWithName:artist2 category:7 language:currentLocaleLanguageCode3];
 
-          v32 = v129;
+          v32 = v128;
           v100 = [objc_alloc(*(v31 + 1176)) initWithItem:v99 score:v14];
-          [v129 addObject:v100];
+          [v128 addObject:v100];
         }
 
         v101 = pp_entities_log_handle();
@@ -497,30 +493,30 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
         {
           v102 = [v32 count];
           *buf = 134217984;
-          v149 = v102;
+          v148 = v102;
           _os_log_impl(&dword_23224A000, v101, OS_LOG_TYPE_DEFAULT, "PPMediaPlayerDelegate: entity count: %tu", buf, 0xCu);
         }
 
         if ([v32 count])
         {
           namedEntityStore = v78->_namedEntityStore;
-          v131 = 0;
-          v104 = [(PPNamedEntityStore *)namedEntityStore donateNamedEntities:v32 source:v27 algorithm:8 cloudSync:0 sentimentScore:&v131 error:0.0];
-          v105 = v131;
+          v130 = 0;
+          v104 = [(PPNamedEntityStore *)namedEntityStore donateNamedEntities:v32 source:v27 algorithm:8 cloudSync:0 sentimentScore:&v130 error:0.0];
+          v105 = v130;
           if (v104)
           {
             v106 = v27;
             v107 = v78->_namedEntityStore;
-            v130 = 0;
-            v108 = [(PPNamedEntityStore *)v107 flushDonationsWithError:&v130];
-            v109 = v130;
+            v129 = 0;
+            v108 = [(PPNamedEntityStore *)v107 flushDonationsWithError:&v129];
+            v109 = v129;
             if (!v108)
             {
               v110 = pp_default_log_handle();
               if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v149 = v109;
+                v148 = v109;
                 _os_log_impl(&dword_23224A000, v110, OS_LOG_TYPE_DEFAULT, "PPMediaPlayerDelegate: Warning: failed to flush: %@", buf, 0xCu);
               }
             }
@@ -533,7 +529,7 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
             }
 
             v27 = v106;
-            v32 = v129;
+            v32 = v128;
           }
 
           else
@@ -542,7 +538,7 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
             if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v149 = v105;
+              v148 = v105;
               _os_log_error_impl(&dword_23224A000, v109, OS_LOG_TYPE_ERROR, "PPMediaPlayerDelegate: failed to donate named entities: %@", buf, 0xCu);
             }
           }
@@ -563,8 +559,6 @@ void __36__PPMediaPlayerDelegate_getResponse__block_invoke_2(uint64_t a1, uint64
       }
     }
   }
-
-  v112 = *MEMORY[0x277D85DE8];
 }
 
 void __68__PPMediaPlayerDelegate__donateDelayedResponse_timePlayed_bundleId___block_invoke()

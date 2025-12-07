@@ -91,7 +91,7 @@
   v4 = v3;
   if (v3)
   {
-    [v3 frameworkVersion];
+    objc_msgSend_frameworkVersion(v3);
   }
 
   else

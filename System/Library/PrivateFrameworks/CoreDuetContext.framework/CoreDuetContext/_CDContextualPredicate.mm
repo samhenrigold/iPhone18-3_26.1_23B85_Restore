@@ -186,10 +186,10 @@
 
 + (id)notPredicateWithSubpredicate:(id)subpredicate
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   subpredicateCopy = subpredicate;
   predicate = [subpredicateCopy predicate];
-  v34 = predicate;
+  v33 = predicate;
   if (predicate)
   {
     [MEMORY[0x1E696AB28] notPredicateWithSubpredicate:predicate];
@@ -203,38 +203,38 @@
   keyPaths = [subpredicateCopy keyPaths];
   v8 = [keyPaths copy];
 
-  v32 = v8;
-  v33 = v6;
+  v31 = v8;
+  v32 = v6;
   v9 = [self contextualPredicateForKeyPaths:v8 withPredicate:v6];
   circularLocationRegions = [subpredicateCopy circularLocationRegions];
   [v9 setCircularLocationRegions:circularLocationRegions];
 
-  v35 = subpredicateCopy;
+  v34 = subpredicateCopy;
   timeBasedPredicateEvaluationIntervals = [subpredicateCopy timeBasedPredicateEvaluationIntervals];
   distantPast = [MEMORY[0x1E695DF00] distantPast];
   v13 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v14 = timeBasedPredicateEvaluationIntervals;
-  v15 = [v14 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v37;
+    v17 = *v36;
     do
     {
       v18 = 0;
       v19 = distantPast;
       do
       {
-        if (*v37 != v17)
+        if (*v36 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v36 + 1) + 8 * v18);
+        v20 = *(*(&v35 + 1) + 8 * v18);
         v21 = objc_alloc(MEMORY[0x1E696AB80]);
         startDate = [v20 startDate];
         v23 = [v21 initWithStartDate:v19 endDate:startDate];
@@ -252,7 +252,7 @@
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v16);
@@ -271,52 +271,51 @@
   v29 = [v13 copy];
 
   [v9 setTimeBasedPredicateEvaluationIntervals:v29];
-  v30 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)andPredicateWithSubpredicates:(id)subpredicates
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   subpredicatesCopy = subpredicates;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   v5 = [MEMORY[0x1E695DFA8] set];
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0;
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __56___CDContextualPredicate_andPredicateWithSubpredicates___block_invoke;
-  v50[3] = &unk_1E7886400;
-  v50[4] = &v51;
-  [subpredicatesCopy enumerateObjectsUsingBlock:v50];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __56___CDContextualPredicate_andPredicateWithSubpredicates___block_invoke;
+  v49[3] = &unk_1E7886400;
+  v49[4] = &v50;
+  [subpredicatesCopy enumerateObjectsUsingBlock:v49];
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = subpredicatesCopy;
-  v8 = [obj countByEnumeratingWithState:&v46 objects:v59 count:16];
+  v8 = [obj countByEnumeratingWithState:&v45 objects:v58 count:16];
   if (!v8)
   {
     goto LABEL_19;
   }
 
-  v9 = *v47;
+  v9 = *v46;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v47 != v9)
+      if (*v46 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v46 + 1) + 8 * i);
+      v11 = *(*(&v45 + 1) + 8 * i);
       predicate = [v11 predicate];
 
       if (predicate)
@@ -335,7 +334,7 @@
 
       else
       {
-        if (*(v52 + 24) != 1)
+        if (*(v51 + 24) != 1)
         {
           goto LABEL_13;
         }
@@ -367,13 +366,13 @@ LABEL_13:
       }
     }
 
-    v8 = [obj countByEnumeratingWithState:&v46 objects:v59 count:16];
+    v8 = [obj countByEnumeratingWithState:&v45 objects:v58 count:16];
   }
 
   while (v8);
 LABEL_19:
 
-  v40 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
+  v39 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array];
   if ([array2 count])
   {
     [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array2];
@@ -385,44 +384,44 @@ LABEL_19:
     [MEMORY[0x1E695DFD8] setWithSet:{v5, 0}];
   }
   v23 = ;
-  v43 = [self contextualPredicateForKeyPaths:v23 withPredicate:v40];
+  v42 = [self contextualPredicateForKeyPaths:v23 withPredicate:v39];
 
-  v41 = [v6 copy];
-  if ([v41 count])
+  v40 = [v6 copy];
+  if ([v40 count])
   {
     v24 = objc_alloc(MEMORY[0x1E696AB80]);
     distantPast = [MEMORY[0x1E695DF00] distantPast];
     distantFuture = [MEMORY[0x1E695DF00] distantFuture];
     v27 = [v24 initWithStartDate:distantPast endDate:distantFuture];
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    v28 = v41;
-    v29 = [v28 countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v28 = v40;
+    v29 = [v28 countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v29)
     {
-      v30 = *v56;
+      v30 = *v55;
       do
       {
         v31 = 0;
         v32 = v27;
         do
         {
-          if (*v56 != v30)
+          if (*v55 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          v27 = [v32 intersectionWithDateInterval:*(*(&v55 + 1) + 8 * v31)];
+          v27 = [v32 intersectionWithDateInterval:*(*(&v54 + 1) + 8 * v31)];
 
           ++v31;
           v32 = v27;
         }
 
         while (v29 != v31);
-        v29 = [v28 countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v54 objects:v59 count:16];
       }
 
       while (v29);
@@ -446,56 +445,54 @@ LABEL_19:
     v35 = objc_alloc_init(MEMORY[0x1E695DFB8]);
   }
 
-  [v43 setTimeBasedPredicateEvaluationIntervals:v35];
+  [v42 setTimeBasedPredicateEvaluationIntervals:v35];
   v36 = [v7 copy];
-  [v43 setCircularLocationRegions:v36];
+  [v42 setCircularLocationRegions:v36];
 
-  [v43 setPredicateForPreviousState:v39];
-  _Block_object_dispose(&v51, 8);
+  [v42 setPredicateForPreviousState:v38];
+  _Block_object_dispose(&v50, 8);
 
-  v37 = *MEMORY[0x1E69E9840];
-
-  return v43;
+  return v42;
 }
 
 + (id)orPredicateWithSubpredicates:(id)subpredicates
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   subpredicatesCopy = subpredicates;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v56 = [MEMORY[0x1E695DFA8] set];
-  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v51 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x2020000000;
-  v66 = 0;
-  v62[0] = MEMORY[0x1E69E9820];
-  v62[1] = 3221225472;
-  v62[2] = __55___CDContextualPredicate_orPredicateWithSubpredicates___block_invoke;
-  v62[3] = &unk_1E7886400;
-  v62[4] = &v63;
-  [subpredicatesCopy enumerateObjectsUsingBlock:v62];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
+  v55 = [MEMORY[0x1E695DFA8] set];
+  v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v50 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x2020000000;
+  v65 = 0;
+  v61[0] = MEMORY[0x1E69E9820];
+  v61[1] = 3221225472;
+  v61[2] = __55___CDContextualPredicate_orPredicateWithSubpredicates___block_invoke;
+  v61[3] = &unk_1E7886400;
+  v61[4] = &v62;
+  [subpredicatesCopy enumerateObjectsUsingBlock:v61];
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   obj = subpredicatesCopy;
-  v5 = [obj countByEnumeratingWithState:&v58 objects:v75 count:16];
+  v5 = [obj countByEnumeratingWithState:&v57 objects:v74 count:16];
   if (v5)
   {
-    v6 = *v59;
+    v6 = *v58;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v59 != v6)
+        if (*v58 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v58 + 1) + 8 * i);
+        v8 = *(*(&v57 + 1) + 8 * i);
         predicate = [v8 predicate];
 
         if (predicate)
@@ -514,7 +511,7 @@ LABEL_19:
 
         else
         {
-          if (*(v64 + 24) != 1)
+          if (*(v63 + 24) != 1)
           {
             goto LABEL_13;
           }
@@ -525,14 +522,14 @@ LABEL_19:
 
 LABEL_13:
         keyPaths = [v8 keyPaths];
-        [v56 unionSet:keyPaths];
+        [v55 unionSet:keyPaths];
 
         timeBasedPredicateEvaluationIntervals = [v8 timeBasedPredicateEvaluationIntervals];
         array3 = [timeBasedPredicateEvaluationIntervals array];
 
         if (array3)
         {
-          [v52 addObjectsFromArray:array3];
+          [v51 addObjectsFromArray:array3];
         }
 
         circularLocationRegions = [v8 circularLocationRegions];
@@ -542,11 +539,11 @@ LABEL_13:
         {
           circularLocationRegions2 = [v8 circularLocationRegions];
           allObjects = [circularLocationRegions2 allObjects];
-          [v51 addObjectsFromArray:allObjects];
+          [v50 addObjectsFromArray:allObjects];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v58 objects:v75 count:16];
+      v5 = [obj countByEnumeratingWithState:&v57 objects:v74 count:16];
     }
 
     while (v5);
@@ -554,70 +551,70 @@ LABEL_13:
 
   if ([array count])
   {
-    v46 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:array];
+    v45 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:array];
   }
 
   else
   {
-    v46 = 0;
+    v45 = 0;
   }
 
   if ([array2 count])
   {
-    v44 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:array2];
+    v43 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:array2];
   }
 
   else
   {
-    v44 = 0;
+    v43 = 0;
   }
 
-  v20 = [MEMORY[0x1E695DFD8] setWithSet:v56];
-  v45 = [self contextualPredicateForKeyPaths:v20 withPredicate:v46];
+  v20 = [MEMORY[0x1E695DFD8] setWithSet:v55];
+  v44 = [self contextualPredicateForKeyPaths:v20 withPredicate:v45];
 
-  v43 = [v52 copy];
-  allObjects2 = [v43 copy];
+  v42 = [v51 copy];
+  allObjects2 = [v42 copy];
   do
   {
-    v57 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
+    v56 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v72 = 0u;
-    v47 = allObjects2;
-    v49 = [v47 countByEnumeratingWithState:&v71 objects:v77 count:16];
-    if (v49)
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v46 = allObjects2;
+    v48 = [v46 countByEnumeratingWithState:&v70 objects:v76 count:16];
+    if (v48)
     {
-      v48 = *v72;
+      v47 = *v71;
       do
       {
-        for (j = 0; j != v49; ++j)
+        for (j = 0; j != v48; ++j)
         {
-          if (*v72 != v48)
+          if (*v71 != v47)
           {
-            objc_enumerationMutation(v47);
+            objc_enumerationMutation(v46);
           }
 
-          v22 = *(*(&v71 + 1) + 8 * j);
+          v22 = *(*(&v70 + 1) + 8 * j);
+          v66 = 0u;
           v67 = 0u;
           v68 = 0u;
           v69 = 0u;
-          v70 = 0u;
-          v23 = [v57 copy];
-          v24 = [v23 countByEnumeratingWithState:&v67 objects:v76 count:16];
+          v23 = [v56 copy];
+          v24 = [v23 countByEnumeratingWithState:&v66 objects:v75 count:16];
           if (v24)
           {
-            v25 = *v68;
+            v25 = *v67;
             do
             {
               for (k = 0; k != v24; ++k)
               {
-                if (*v68 != v25)
+                if (*v67 != v25)
                 {
                   objc_enumerationMutation(v23);
                 }
 
-                v27 = *(*(&v67 + 1) + 8 * k);
+                v27 = *(*(&v66 + 1) + 8 * k);
                 if ([v22 intersectsDateInterval:v27])
                 {
                   startDate = [v22 startDate];
@@ -629,13 +626,13 @@ LABEL_13:
                   v33 = [endDate laterDate:endDate2];
 
                   v34 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v30 endDate:v33];
-                  [v57 removeObject:v27];
+                  [v56 removeObject:v27];
 
                   v22 = v34;
                 }
               }
 
-              v24 = [v23 countByEnumeratingWithState:&v67 objects:v76 count:16];
+              v24 = [v23 countByEnumeratingWithState:&v66 objects:v75 count:16];
             }
 
             while (v24);
@@ -644,35 +641,33 @@ LABEL_13:
           [v22 duration];
           if (v35 > 0.0)
           {
-            [v57 addObject:v22];
+            [v56 addObject:v22];
           }
         }
 
-        v49 = [v47 countByEnumeratingWithState:&v71 objects:v77 count:16];
+        v48 = [v46 countByEnumeratingWithState:&v70 objects:v76 count:16];
       }
 
-      while (v49);
+      while (v48);
     }
 
-    v36 = [v57 count];
-    v37 = [v47 count];
-    allObjects2 = [v57 allObjects];
+    v36 = [v56 count];
+    v37 = [v46 count];
+    allObjects2 = [v56 allObjects];
   }
 
   while (v36 != v37);
   v38 = [allObjects2 sortedArrayUsingSelector:sel_compare_];
   v39 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v38];
 
-  [v45 setTimeBasedPredicateEvaluationIntervals:v39];
-  v40 = [v51 copy];
-  [v45 setCircularLocationRegions:v40];
+  [v44 setTimeBasedPredicateEvaluationIntervals:v39];
+  v40 = [v50 copy];
+  [v44 setCircularLocationRegions:v40];
 
-  [v45 setPredicateForPreviousState:v44];
-  _Block_object_dispose(&v63, 8);
+  [v44 setPredicateForPreviousState:v43];
+  _Block_object_dispose(&v62, 8);
 
-  v41 = *MEMORY[0x1E69E9840];
-
-  return v45;
+  return v44;
 }
 
 - (BOOL)evaluateWithObject:(id)object
@@ -685,28 +680,28 @@ LABEL_13:
 
 - (BOOL)evaluateWithState:(id)state previousValue:(id)value
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   valueCopy = value;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   keyPaths = [(_CDContextualPredicate *)self keyPaths];
-  v9 = [keyPaths countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v9 = [keyPaths countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v9)
   {
-    v10 = *v45;
+    v10 = *v44;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v45 != v10)
+        if (*v44 != v10)
         {
           objc_enumerationMutation(keyPaths);
         }
 
-        v12 = [stateCopy objectForKeyedSubscript:*(*(&v44 + 1) + 8 * i)];
+        v12 = [stateCopy objectForKeyedSubscript:*(*(&v43 + 1) + 8 * i)];
         v13 = v12 == 0;
 
         if (v13)
@@ -716,40 +711,30 @@ LABEL_13:
         }
       }
 
-      v9 = [keyPaths countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v9 = [keyPaths countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v9);
   }
 
-  if (!valueCopy)
+  if (!valueCopy || (-[_CDContextualPredicate predicateForPreviousState](self, "predicateForPreviousState"), v14 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v14, (isKindOfClass & 1) == 0) || (-[_CDContextualPredicate predicateForPreviousState](self, "predicateForPreviousState"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 compoundPredicateType] == 0, v16, v17))
   {
-    goto LABEL_20;
-  }
-
-  predicateForPreviousState = [(_CDContextualPredicate *)self predicateForPreviousState];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if ((isKindOfClass & 1) == 0 || (-[_CDContextualPredicate predicateForPreviousState](self, "predicateForPreviousState"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 compoundPredicateType] == 0, v16, v17))
-  {
-LABEL_20:
     predicate = [(_CDContextualPredicate *)self predicate];
     v27 = [predicate evaluateWithObject:stateCopy];
 
     if (v27)
     {
       v28 = valueCopy != 0;
-      predicateForPreviousState2 = [(_CDContextualPredicate *)self predicateForPreviousState];
-      if (!predicateForPreviousState2)
+      predicateForPreviousState = [(_CDContextualPredicate *)self predicateForPreviousState];
+      if (!predicateForPreviousState)
       {
         v28 = 0;
       }
 
       if (v28)
       {
-        predicateForPreviousState3 = [(_CDContextualPredicate *)self predicateForPreviousState];
-        v25 = [predicateForPreviousState3 evaluateWithObject:valueCopy];
+        predicateForPreviousState2 = [(_CDContextualPredicate *)self predicateForPreviousState];
+        v25 = [predicateForPreviousState2 evaluateWithObject:valueCopy];
       }
 
       else
@@ -766,33 +751,10 @@ LABEL_47:
   }
 
   predicate2 = [(_CDContextualPredicate *)self predicate];
-  predicateForPreviousState4 = [(_CDContextualPredicate *)self predicateForPreviousState];
+  predicateForPreviousState3 = [(_CDContextualPredicate *)self predicateForPreviousState];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v20 = [predicate2 compoundPredicateType], v20 != objc_msgSend(predicateForPreviousState3, "compoundPredicateType")) || (objc_msgSend(predicate2, "subpredicates"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "count"), objc_msgSend(predicateForPreviousState3, "subpredicates"), v23 = objc_claimAutoreleasedReturnValue(), LOBYTE(v22) = v22 == objc_msgSend(v23, "count"), v23, v21, (v22 & 1) == 0))
   {
-    goto LABEL_26;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_26;
-  }
-
-  compoundPredicateType = [predicate2 compoundPredicateType];
-  if (compoundPredicateType != [predicateForPreviousState4 compoundPredicateType])
-  {
-    goto LABEL_26;
-  }
-
-  subpredicates = [predicate2 subpredicates];
-  v22 = [subpredicates count];
-  subpredicates2 = [predicateForPreviousState4 subpredicates];
-  LOBYTE(v22) = v22 == [subpredicates2 count];
-
-  if ((v22 & 1) == 0)
-  {
-LABEL_26:
     contextChannel = [MEMORY[0x1E6997908] contextChannel];
     if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_FAULT))
     {
@@ -802,15 +764,15 @@ LABEL_26:
     goto LABEL_28;
   }
 
-  compoundPredicateType2 = [predicate2 compoundPredicateType];
-  v43 = compoundPredicateType2;
-  if (compoundPredicateType2 == 2)
+  compoundPredicateType = [predicate2 compoundPredicateType];
+  v42 = compoundPredicateType;
+  if (compoundPredicateType == 2)
   {
     v25 = 0;
     goto LABEL_32;
   }
 
-  if (compoundPredicateType2 != 1)
+  if (compoundPredicateType != 1)
   {
     contextChannel = [MEMORY[0x1E6997908] contextChannel];
     if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_FAULT))
@@ -825,8 +787,8 @@ LABEL_28:
 
   v25 = 1;
 LABEL_32:
-  subpredicates3 = [predicate2 subpredicates];
-  v33 = [subpredicates3 count] == 0;
+  subpredicates = [predicate2 subpredicates];
+  v33 = [subpredicates count] == 0;
 
   if (v33)
   {
@@ -836,26 +798,26 @@ LABEL_32:
   v34 = 0;
   while (1)
   {
-    subpredicates4 = [predicate2 subpredicates];
-    contextChannel = [subpredicates4 objectAtIndexedSubscript:v34];
+    subpredicates2 = [predicate2 subpredicates];
+    contextChannel = [subpredicates2 objectAtIndexedSubscript:v34];
 
-    subpredicates5 = [predicateForPreviousState4 subpredicates];
-    v37 = [subpredicates5 objectAtIndexedSubscript:v34];
+    subpredicates3 = [predicateForPreviousState3 subpredicates];
+    v37 = [subpredicates3 objectAtIndexedSubscript:v34];
 
     if ([contextChannel evaluateWithObject:stateCopy])
     {
       break;
     }
 
-    if (v43 != 2)
+    if (v42 != 2)
     {
       goto LABEL_45;
     }
 
 LABEL_41:
 
-    subpredicates6 = [predicate2 subpredicates];
-    v40 = [subpredicates6 count];
+    subpredicates4 = [predicate2 subpredicates];
+    v40 = [subpredicates4 count];
 
     if (++v34 >= v40)
     {
@@ -864,7 +826,7 @@ LABEL_41:
   }
 
   v38 = [v37 evaluateWithObject:valueCopy];
-  if (v43 == 2)
+  if (v42 == 2)
   {
     if (v38)
     {
@@ -888,7 +850,6 @@ LABEL_29:
 LABEL_30:
 
 LABEL_48:
-  v41 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -1129,48 +1090,20 @@ LABEL_23:
   return v10;
 }
 
-- (void)evaluateWithObject:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_1A9611000, v0, v1, "Invalid predicate: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)evaluateWithState:previousValue:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_1A9611000, v1, OS_LOG_TYPE_FAULT, "Invalid compound predicate combination snuck through: %@ / %@.", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_1A9611000, v1, OS_LOG_TYPE_FAULT, "Invalid compound predicate combination snuck through: %@ / %@.", v2, 0x16u);
 }
 
 - (void)evaluateWithState:(void *)a1 previousValue:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(a1, "compoundPredicateType")}];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1A9611000, v2, v3, "Unexpected NSCompoundPredicateType %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithCoder:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_1A9611000, v0, v1, "Client provided invalid _CDContextualPredicate predicate %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithCoder:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_1A9611000, v0, v1, "Client provided invalid _CDContextualPredicate previousPredicate %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1A9611000, v2, v3, "Unexpected NSCompoundPredicateType %@", v4, v5, v6, v7);
 }
 
 @end

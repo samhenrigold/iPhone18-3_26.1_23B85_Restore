@@ -30,27 +30,25 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
 
-  v4.receiver = self;
-  v4.super_class = __NSArrayReverseEnumerator;
-  [(__NSArrayReverseEnumerator *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = __NSArrayReverseEnumerator;
+  [(__NSArrayReverseEnumerator *)&v3 dealloc];
 }
 
 - (__NSArrayReverseEnumerator)initWithObject:(id)object
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = __NSArrayReverseEnumerator;
-  v4 = [(__NSArrayReverseEnumerator *)&v7 init];
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = __NSArrayReverseEnumerator;
+  v4 = [(__NSArrayReverseEnumerator *)&v6 init];
   if (v4)
   {
     v4->_obj = object;
     v4->_idx = [object count];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

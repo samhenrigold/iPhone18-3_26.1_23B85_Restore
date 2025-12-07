@@ -7,9 +7,19 @@
 - (PGPublicEventFeatureSummarySource)publicEventFeatureSummarySource;
 - (id)initForTesting;
 - (unsigned)pendingEnrichmentStateForHighlightUUID:(id)d;
+- (void)savePendingEnrichmentState:(unsigned __int16)state forHighlightUUID:(id)d;
 @end
 
 @implementation PGHighlightTailorContext
+
+- (void)savePendingEnrichmentState:(unsigned __int16)state forHighlightUUID:(id)d
+{
+  stateCopy = state;
+  v6 = MEMORY[0x277CCABB0];
+  dCopy = d;
+  v8 = [v6 numberWithUnsignedShort:stateCopy];
+  [(NSMutableDictionary *)self->_pendingEnrichmentStateByHighlightUUID setObject:v8 forKeyedSubscript:dCopy];
+}
 
 - (unsigned)pendingEnrichmentStateForHighlightUUID:(id)d
 {

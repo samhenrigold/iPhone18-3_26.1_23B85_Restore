@@ -11,14 +11,14 @@
 
 - (id)patternToDictionary:(id)dictionary events:(id)events parameters:(id)parameters parameterCurves:(id)curves embeddedResourceInfo:(id)info configuration:(id)configuration
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   eventsCopy = events;
   parametersCopy = parameters;
   curvesCopy = curves;
   infoCopy = info;
   configurationCopy = configuration;
-  v42 = dictionaryCopy;
+  v41 = dictionaryCopy;
   v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v16 setObject:dictionaryCopy forKeyedSubscript:CHHapticPatternKeyVersion];
   if (configurationCopy)
@@ -32,31 +32,31 @@
 
   if ([eventsCopy count])
   {
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     v19 = eventsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v55 objects:v61 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v54 objects:v60 count:16];
     if (v20)
     {
-      v21 = *v56;
+      v21 = *v55;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v56 != v21)
+          if (*v55 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v55 + 1) + 8 * i);
+          v23 = *(*(&v54 + 1) + 8 * i);
           v24 = [v16 objectForKeyedSubscript:CHHapticPatternKeyPattern];
           v25 = [(HapticDictionaryWriter *)self eventToDictionary:v23 embeddedResourceInfo:infoCopy];
           [v24 addObject:v25];
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v55 objects:v61 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v54 objects:v60 count:16];
       }
 
       while (v20);
@@ -65,31 +65,31 @@
 
   if ([parametersCopy count])
   {
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v26 = parametersCopy;
-    v27 = [v26 countByEnumeratingWithState:&v51 objects:v60 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v50 objects:v59 count:16];
     if (v27)
     {
-      v28 = *v52;
+      v28 = *v51;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v52 != v28)
+          if (*v51 != v28)
           {
             objc_enumerationMutation(v26);
           }
 
-          v30 = *(*(&v51 + 1) + 8 * j);
+          v30 = *(*(&v50 + 1) + 8 * j);
           v31 = [v16 objectForKeyedSubscript:CHHapticPatternKeyPattern];
           v32 = [(HapticDictionaryWriter *)self paramToDictionary:v30];
           [v31 addObject:v32];
         }
 
-        v27 = [v26 countByEnumeratingWithState:&v51 objects:v60 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v50 objects:v59 count:16];
       }
 
       while (v27);
@@ -98,45 +98,43 @@
 
   if ([curvesCopy count])
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v33 = curvesCopy;
-    v34 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
+    v34 = [v33 countByEnumeratingWithState:&v46 objects:v58 count:16];
     if (v34)
     {
-      v35 = *v48;
+      v35 = *v47;
       do
       {
         for (k = 0; k != v34; ++k)
         {
-          if (*v48 != v35)
+          if (*v47 != v35)
           {
             objc_enumerationMutation(v33);
           }
 
-          v37 = *(*(&v47 + 1) + 8 * k);
+          v37 = *(*(&v46 + 1) + 8 * k);
           v38 = [v16 objectForKeyedSubscript:CHHapticPatternKeyPattern];
           v39 = [(HapticDictionaryWriter *)self paramCurveToDictionary:v37];
           [v38 addObject:v39];
         }
 
-        v34 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
+        v34 = [v33 countByEnumeratingWithState:&v46 objects:v58 count:16];
       }
 
       while (v34);
     }
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)eventToDictionary:(id)dictionary embeddedResourceInfo:(id)info
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   infoCopy = info;
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -166,13 +164,13 @@
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v32 = 136315650;
-      v33 = "HapticDictionaryWriter.mm";
-      v34 = 1024;
-      v35 = 74;
-      v36 = 2080;
-      v37 = "[HapticDictionaryWriter eventToDictionary:embeddedResourceInfo:]";
-      _os_log_impl(&dword_21569A000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Cannot export AudioCustom events", &v32, 0x1Cu);
+      v31 = 136315650;
+      v32 = "HapticDictionaryWriter.mm";
+      v33 = 1024;
+      v34 = 74;
+      v35 = 2080;
+      v36 = "[HapticDictionaryWriter eventToDictionary:embeddedResourceInfo:]";
+      _os_log_impl(&dword_21569A000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Cannot export AudioCustom events", &v31, 0x1Cu);
     }
 
 LABEL_9:
@@ -230,35 +228,33 @@ LABEL_9:
   v29 = [(HapticDictionaryWriter *)self eventParamsToArray:eventParameters];
   [v10 setObject:v29 forKeyedSubscript:CHHapticPatternKeyEventParameters];
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)eventParamsToArray:(id)array
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   obj = arrayCopy;
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:{16, arrayCopy}];
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:{16, arrayCopy}];
   if (v4)
   {
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
         parameterID = [v7 parameterID];
         [v8 setObject:parameterID forKeyedSubscript:CHHapticPatternKeyParameterID];
@@ -271,13 +267,11 @@ LABEL_9:
         [v3 addObject:v8];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -331,50 +325,48 @@ LABEL_9:
 
 - (id)paramCurveControlPointsToArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   obj = arrayCopy;
-  v4 = [obj countByEnumeratingWithState:&v17 objects:v23 count:{16, arrayCopy}];
+  v4 = [obj countByEnumeratingWithState:&v16 objects:v22 count:{16, arrayCopy}];
   if (v4)
   {
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
-        v21[0] = CHHapticPatternKeyTime;
+        v7 = *(*(&v16 + 1) + 8 * i);
+        v20[0] = CHHapticPatternKeyTime;
         v8 = MEMORY[0x277CCABB0];
         [v7 relativeTime];
         v9 = [v8 numberWithDouble:?];
-        v21[1] = CHHapticPatternKeyParameterValue;
-        v22[0] = v9;
+        v20[1] = CHHapticPatternKeyParameterValue;
+        v21[0] = v9;
         v10 = MEMORY[0x277CCABB0];
         [v7 value];
         v11 = [v10 numberWithFloat:?];
-        v22[1] = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+        v21[1] = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
 
         [v3 addObject:v12];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v4 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

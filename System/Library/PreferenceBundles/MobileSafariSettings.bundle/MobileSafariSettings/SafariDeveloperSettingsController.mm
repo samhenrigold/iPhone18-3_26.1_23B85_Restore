@@ -14,13 +14,17 @@
 - (void)_cancelBlockAllCookiesPrompt:(id)prompt;
 - (void)_confirmBlockAllCookies:(id)cookies;
 - (void)_setEnhancedPrivacyPreference:(id)preference forSpecifier:(id)specifier;
+- (void)_setRemoteAutomationEnabled:(BOOL)enabled;
+- (void)_setRemoteInspectorEnabled:(BOOL)enabled;
 - (void)_setSafariAcceptCookiesForPolicy:(unint64_t)policy;
 - (void)_synchronizeNanoUserDefaults;
+- (void)_updateBlockAllNewWebsiteDataPolicyToBlockAllWebsiteData:(BOOL)data;
 - (void)safariToggleBlockAllNewWebsiteData:(id)data forSpecifier:(id)specifier;
 - (void)setCookieStoragePolicy:(unint64_t)policy;
 - (void)setRemoteAutomationEnabled:(id)enabled specifier:(id)specifier;
 - (void)setRemoteInspectorEnabled:(id)enabled specifier:(id)specifier;
 - (void)showPrivacyExplanationSheet:(id)sheet;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariDeveloperSettingsController
@@ -122,6 +126,28 @@
   [v9 setBool:v6 forKey:*v7];
   v8 = v9;
 LABEL_7:
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = SafariDeveloperSettingsController;
+  [(SafariDeveloperSettingsController *)&v12 viewWillAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.mobilesafari/ADVANCED"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = +[NSLocale currentLocale];
+  v8 = [[_NSLocalizedStringResource alloc] initWithKey:@"Advanced" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v9 = [[_NSLocalizedStringResource alloc] initWithKey:@"Apps" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v10 = [[_NSLocalizedStringResource alloc] initWithKey:@"Safari" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  if (objc_opt_respondsToSelector())
+  {
+    v13[0] = v9;
+    v13[1] = v10;
+    v11 = [NSArray arrayWithObjects:v13 count:2];
+    [(SafariDeveloperSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilesafari" title:v8 localizedNavigationComponents:v11 deepLink:v4];
+  }
 }
 
 - (id)specifiers
@@ -250,6 +276,30 @@ LABEL_7:
   [(SafariDeveloperSettingsController *)self _setRemoteAutomationEnabled:bOOLValue];
 }
 
+- (void)_setRemoteInspectorEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (enabled)
+  {
+    v4 = "com.apple.webinspectord.enabled";
+  }
+
+  else
+  {
+    v6 = [*&self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers] specifierForID:@"REMOTE_AUTOMATION_ENABLED"];
+    [(SafariDeveloperSettingsController *)self setRemoteAutomationEnabled:&off_90B80 specifier:v6];
+    identifier = [v6 identifier];
+    [(SafariDeveloperSettingsController *)self reloadSpecifierID:identifier];
+
+    v4 = "com.apple.webinspectord.disabled";
+  }
+
+  v8 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.webinspectord"];
+  [v8 setBool:enabledCopy forKey:@"RemoteInspectorEnabled"];
+
+  notify_post(v4);
+}
+
 - (id)_automationController
 {
   v2 = _automationController_controller;
@@ -263,6 +313,21 @@ LABEL_7:
   }
 
   return v2;
+}
+
+- (void)_setRemoteAutomationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (enabled)
+  {
+    v5 = [*&self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers] specifierForID:@"REMOTE_INSPECTOR_ENABLED"];
+    [(SafariDeveloperSettingsController *)self setRemoteInspectorEnabled:&off_90B98 specifier:v5];
+    identifier = [v5 identifier];
+    [(SafariDeveloperSettingsController *)self reloadSpecifierID:identifier];
+  }
+
+  _automationController = [(SafariDeveloperSettingsController *)self _automationController];
+  [_automationController setAllowsRemoteAutomation:enabledCopy];
 }
 
 - (id)_remoteAutomationEnabled:(id)enabled
@@ -344,6 +409,32 @@ LABEL_7:
 {
   v4 = [(SafariDeveloperSettingsController *)self specifierForID:@"BLOCK_ALL_NEW_COOKIES"];
   [(SafariDeveloperSettingsController *)self reloadSpecifier:v4];
+}
+
+- (void)_updateBlockAllNewWebsiteDataPolicyToBlockAllWebsiteData:(BOOL)data
+{
+  dataCopy = data;
+  v5 = +[NSHTTPCookieStorage sharedHTTPCookieStorage];
+  webui_safariCookieAcceptPolicyEnumValue = [v5 webui_safariCookieAcceptPolicyEnumValue];
+
+  if (dataCopy)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = 2 * (webui_safariCookieAcceptPolicyEnumValue == &dword_0 + 1);
+  }
+
+  if (webui_safariCookieAcceptPolicyEnumValue != v7)
+  {
+    [(SafariDeveloperSettingsController *)self setCookieStoragePolicy:?];
+    v8 = +[NSUserDefaults safari_browserDefaults];
+    [v8 setBool:dataCopy forKey:_SFNanoBlockAllCookiesEnabledKey];
+
+    [(SafariDeveloperSettingsController *)self _synchronizeNanoUserDefaults];
+  }
 }
 
 - (void)_synchronizeNanoUserDefaults

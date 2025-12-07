@@ -11,7 +11,7 @@
 
 - (void)_fire
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   add = atomic_fetch_add(&self->_numberOfHeartBeats, 1uLL);
   if (0xCCCCCCCCCCCCCCCDLL * add <= 0x3333333333333333)
   {
@@ -19,15 +19,15 @@
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
     {
       identifier = self->_identifier;
-      v8 = 136315906;
-      v9 = "[AFHeartBeat _fire]";
-      v10 = 2048;
+      v7 = 136315906;
+      v8 = "[AFHeartBeat _fire]";
+      v9 = 2048;
       selfCopy = self;
-      v12 = 2112;
-      v13 = identifier;
-      v14 = 2048;
-      v15 = add;
-      _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s %p identifier = %@, index = %llu", &v8, 0x2Au);
+      v11 = 2112;
+      v12 = identifier;
+      v13 = 2048;
+      v14 = add;
+      _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s %p identifier = %@, index = %llu", &v7, 0x2Au);
     }
   }
 
@@ -36,27 +36,25 @@
   {
     heartBeatHandler[2](heartBeatHandler, add);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = atomic_load(&self->_numberOfHeartBeats);
   v4 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
   {
     identifier = self->_identifier;
-    v13 = 136315906;
-    v14 = "[AFHeartBeat _invalidate]";
-    v15 = 2048;
+    v12 = 136315906;
+    v13 = "[AFHeartBeat _invalidate]";
+    v14 = 2048;
     selfCopy = self;
-    v17 = 2112;
-    v18 = identifier;
-    v19 = 2048;
-    v20 = v3;
-    _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s %p identifier = %@, count = %llu", &v13, 0x2Au);
+    v16 = 2112;
+    v17 = identifier;
+    v18 = 2048;
+    v19 = v3;
+    _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s %p identifier = %@, count = %llu", &v12, 0x2Au);
   }
 
   heartBeatTimer = self->_heartBeatTimer;
@@ -82,19 +80,17 @@
     v10 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "[AFHeartBeat invalidate]";
-    v9 = 2048;
+    v7 = "[AFHeartBeat invalidate]";
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -106,7 +102,6 @@
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
@@ -127,38 +122,37 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     identifier = self->_identifier;
     *buf = 136315650;
-    v8 = "[AFHeartBeat dealloc]";
-    v9 = 2048;
+    v7 = "[AFHeartBeat dealloc]";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2112;
-    v12 = identifier;
+    v10 = 2112;
+    v11 = identifier;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p identifier = %@", buf, 0x20u);
   }
 
   [(AFHeartBeat *)self _invalidate];
-  v6.receiver = self;
-  v6.super_class = AFHeartBeat;
-  [(AFHeartBeat *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = AFHeartBeat;
+  [(AFHeartBeat *)&v5 dealloc];
 }
 
 - (AFHeartBeat)initWithIdentifier:(id)identifier queue:(id)queue effectiveDate:(id)date expirationDuration:(double)duration heartBeatInterval:(double)interval heartBeatHandler:(id)handler invalidationHandler:(id)invalidationHandler
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queueCopy = queue;
   dateCopy = date;
   handlerCopy = handler;
   invalidationHandlerCopy = invalidationHandler;
-  v69.receiver = self;
-  v69.super_class = AFHeartBeat;
-  v21 = [(AFHeartBeat *)&v69 init];
+  v68.receiver = self;
+  v68.super_class = AFHeartBeat;
+  v21 = [(AFHeartBeat *)&v68 init];
   if (!v21)
   {
     goto LABEL_24;
@@ -168,16 +162,16 @@
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     *buf = 136316418;
-    v71 = "[AFHeartBeat initWithIdentifier:queue:effectiveDate:expirationDuration:heartBeatInterval:heartBeatHandler:invalidationHandler:]";
-    v72 = 2048;
-    v73 = v21;
-    v74 = 2112;
+    v70 = "[AFHeartBeat initWithIdentifier:queue:effectiveDate:expirationDuration:heartBeatInterval:heartBeatHandler:invalidationHandler:]";
+    v71 = 2048;
+    v72 = v21;
+    v73 = 2112;
     intervalCopy2 = *&identifierCopy;
-    v76 = 2112;
+    v75 = 2112;
     durationCopy3 = *&dateCopy;
-    v78 = 2048;
+    v77 = 2048;
     durationCopy = duration;
-    v80 = 2048;
+    v79 = 2048;
     intervalCopy = interval;
     _os_log_impl(&dword_1912FE000, v22, OS_LOG_TYPE_INFO, "%s %p identifier = %@, effectiveDate = %@, expirationDuration = %f, heartBeatInterval = %f", buf, 0x3Eu);
   }
@@ -220,10 +214,10 @@
       if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v71 = "[AFHeartBeat initWithIdentifier:queue:effectiveDate:expirationDuration:heartBeatInterval:heartBeatHandler:invalidationHandler:]";
-        v72 = 2048;
-        v73 = v21;
-        v74 = 2048;
+        v70 = "[AFHeartBeat initWithIdentifier:queue:effectiveDate:expirationDuration:heartBeatInterval:heartBeatHandler:invalidationHandler:]";
+        v71 = 2048;
+        v72 = v21;
+        v73 = 2048;
         intervalCopy2 = duration;
         _os_log_error_impl(&dword_1912FE000, v33, OS_LOG_TYPE_ERROR, "%s %p Expiration duration %f is invalid.", buf, 0x20u);
       }
@@ -234,7 +228,7 @@
       block[2] = __128__AFHeartBeat_initWithIdentifier_queue_effectiveDate_expirationDuration_heartBeatInterval_heartBeatHandler_invalidationHandler___block_invoke_1;
       block[3] = &unk_1E73497C8;
       v35 = v21;
-      v66 = v35;
+      v65 = v35;
       dispatch_async(v34, block);
       v36 = v35;
 
@@ -248,24 +242,24 @@
       if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315906;
-        v71 = "[AFHeartBeat initWithIdentifier:queue:effectiveDate:expirationDuration:heartBeatInterval:heartBeatHandler:invalidationHandler:]";
-        v72 = 2048;
-        v73 = v21;
-        v74 = 2112;
+        v70 = "[AFHeartBeat initWithIdentifier:queue:effectiveDate:expirationDuration:heartBeatInterval:heartBeatHandler:invalidationHandler:]";
+        v71 = 2048;
+        v72 = v21;
+        v73 = 2112;
         intervalCopy2 = *&dateCopy;
-        v76 = 2048;
+        v75 = 2048;
         durationCopy3 = duration;
         _os_log_error_impl(&dword_1912FE000, v42, OS_LOG_TYPE_ERROR, "%s %p Effective date %@ and expiration duration %f are in the past.", buf, 0x2Au);
       }
 
       v43 = *(v21 + 1);
-      v63[0] = MEMORY[0x1E69E9820];
-      v63[1] = 3221225472;
-      v63[2] = __128__AFHeartBeat_initWithIdentifier_queue_effectiveDate_expirationDuration_heartBeatInterval_heartBeatHandler_invalidationHandler___block_invoke_2;
-      v63[3] = &unk_1E73497C8;
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = __128__AFHeartBeat_initWithIdentifier_queue_effectiveDate_expirationDuration_heartBeatInterval_heartBeatHandler_invalidationHandler___block_invoke_2;
+      v62[3] = &unk_1E73497C8;
       v44 = v21;
-      v64 = v44;
-      dispatch_async(v43, v63);
+      v63 = v44;
+      dispatch_async(v43, v62);
       v45 = v44;
 
       goto LABEL_25;
@@ -284,7 +278,7 @@
     handler[1] = 3221225472;
     handler[2] = __128__AFHeartBeat_initWithIdentifier_queue_effectiveDate_expirationDuration_heartBeatInterval_heartBeatHandler_invalidationHandler___block_invoke_2;
     handler[3] = &unk_1E7348A80;
-    objc_copyWeak(&v62, buf);
+    objc_copyWeak(&v61, buf);
     dispatch_source_set_event_handler(v50, handler);
     dispatch_resume(*(v21 + 2));
     if (duration > 0.0)
@@ -297,17 +291,17 @@
       v54 = AFDispatchTimeGetFromDateAndOffset(dateCopy, duration);
       dispatch_source_set_timer(v53, v54, 0xFFFFFFFFFFFFFFFFLL, 0);
       v55 = *(v21 + 3);
-      v59[0] = MEMORY[0x1E69E9820];
-      v59[1] = 3221225472;
-      v59[2] = __128__AFHeartBeat_initWithIdentifier_queue_effectiveDate_expirationDuration_heartBeatInterval_heartBeatHandler_invalidationHandler___block_invoke_3;
-      v59[3] = &unk_1E7348A80;
-      objc_copyWeak(&v60, buf);
-      dispatch_source_set_event_handler(v55, v59);
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = __128__AFHeartBeat_initWithIdentifier_queue_effectiveDate_expirationDuration_heartBeatInterval_heartBeatHandler_invalidationHandler___block_invoke_3;
+      v58[3] = &unk_1E7348A80;
+      objc_copyWeak(&v59, buf);
+      dispatch_source_set_event_handler(v55, v58);
       dispatch_resume(*(v21 + 3));
-      objc_destroyWeak(&v60);
+      objc_destroyWeak(&v59);
     }
 
-    objc_destroyWeak(&v62);
+    objc_destroyWeak(&v61);
     objc_destroyWeak(buf);
 LABEL_24:
     v56 = v21;
@@ -318,26 +312,25 @@ LABEL_24:
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v71 = "[AFHeartBeat initWithIdentifier:queue:effectiveDate:expirationDuration:heartBeatInterval:heartBeatHandler:invalidationHandler:]";
-    v72 = 2048;
-    v73 = v21;
-    v74 = 2048;
+    v70 = "[AFHeartBeat initWithIdentifier:queue:effectiveDate:expirationDuration:heartBeatInterval:heartBeatHandler:invalidationHandler:]";
+    v71 = 2048;
+    v72 = v21;
+    v73 = 2048;
     intervalCopy2 = interval;
     _os_log_error_impl(&dword_1912FE000, v37, OS_LOG_TYPE_ERROR, "%s %p Heart beat interval %f is invalid.", buf, 0x20u);
   }
 
   v38 = *(v21 + 1);
-  v67[0] = MEMORY[0x1E69E9820];
-  v67[1] = 3221225472;
-  v67[2] = __128__AFHeartBeat_initWithIdentifier_queue_effectiveDate_expirationDuration_heartBeatInterval_heartBeatHandler_invalidationHandler___block_invoke;
-  v67[3] = &unk_1E73497C8;
+  v66[0] = MEMORY[0x1E69E9820];
+  v66[1] = 3221225472;
+  v66[2] = __128__AFHeartBeat_initWithIdentifier_queue_effectiveDate_expirationDuration_heartBeatInterval_heartBeatHandler_invalidationHandler___block_invoke;
+  v66[3] = &unk_1E73497C8;
   v39 = v21;
-  v68 = v39;
-  dispatch_async(v38, v67);
+  v67 = v39;
+  dispatch_async(v38, v66);
   v40 = v39;
 
 LABEL_25:
-  v57 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

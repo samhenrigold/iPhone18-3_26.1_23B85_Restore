@@ -38,9 +38,11 @@
 
 uint64_t __37__CNUserDefaults_standardPreferences__block_invoke(uint64_t a1)
 {
-  standardPreferences_cn_once_object_1 = [objc_alloc(*(a1 + 32)) initWithApplicationID:0];
+  v1 = [objc_alloc(*(a1 + 32)) initWithApplicationID:0];
+  v2 = standardPreferences_cn_once_object_1;
+  standardPreferences_cn_once_object_1 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)preferencesWithApplicationID:(id)d

@@ -28,7 +28,7 @@
 
 - (id)reloadItems
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D2C900]);
   personManager = [(HFPersonItemProvider *)self personManager];
 
@@ -38,12 +38,12 @@
     completionHandlerAdapter = [v3 completionHandlerAdapter];
     [personManager2 fetchAllPersonsWithCompletion:completionHandlerAdapter];
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __35__HFPersonItemProvider_reloadItems__block_invoke;
-    v12[3] = &unk_277DFC8D8;
-    v12[4] = self;
-    v7 = [v3 flatMap:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __35__HFPersonItemProvider_reloadItems__block_invoke;
+    v11[3] = &unk_277DFC8D8;
+    v11[4] = self;
+    v7 = [v3 flatMap:v11];
   }
 
   else
@@ -60,8 +60,6 @@
     [v3 finishWithResult:v9];
     v7 = v3;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -107,7 +105,7 @@ HFPersonItem *__35__HFPersonItemProvider_reloadItems__block_invoke_2(uint64_t a1
 
   v7 = [HFPersonItem alloc];
   v8 = [*(a1 + 32) personManager];
-  v9 = [*(a1 + 32) home];
+  v9 = objc_msgSend_home(*(a1 + 32));
   v10 = [(HFPersonItem *)v7 initWithPerson:v6 fromPersonManager:v8 home:v9];
 
   return v10;
@@ -132,20 +130,18 @@ id __35__HFPersonItemProvider_reloadItems__block_invoke_3(uint64_t a1, void *a2)
 
 id __35__HFPersonItemProvider_reloadItems__block_invoke_4(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v2;
-    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Person fetch failed with error %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v2;
+    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Person fetch failed with error %@", &v7, 0xCu);
   }
 
   v4 = [[HFItemProviderReloadResults alloc] initWithAddedItems:0 removedItems:0 existingItems:0];
   v5 = [MEMORY[0x277D2C900] futureWithResult:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

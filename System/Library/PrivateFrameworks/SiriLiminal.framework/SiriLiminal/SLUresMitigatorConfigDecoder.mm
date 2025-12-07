@@ -47,11 +47,11 @@
 
 - (SLUresMitigatorConfigDecoder)initWithConfigFile:(id)file errOut:(id *)out
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v26.receiver = self;
-  v26.super_class = SLUresMitigatorConfigDecoder;
-  v7 = [(SLUresMitigatorConfigDecoder *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = SLUresMitigatorConfigDecoder;
+  v7 = [(SLUresMitigatorConfigDecoder *)&v25 init];
   if (!v7)
   {
     goto LABEL_11;
@@ -94,9 +94,9 @@
 
   v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing config for Ures %@", v7->_configDict];
   v19 = MEMORY[0x277CCA9B8];
-  v27 = @"reason";
-  v28[0] = v18;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v26 = @"reason";
+  v27[0] = v18;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
   v21 = [v19 errorWithDomain:@"com.apple.sl" code:105 userInfo:v20];
 
   if (!out)
@@ -113,7 +113,6 @@ LABEL_11:
   v23 = 0;
 LABEL_12:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

@@ -31,204 +31,213 @@
 - (CERecommendationRule)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v53.receiver = self;
-  v53.super_class = CERecommendationRule;
-  v5 = [(CERecommendationRule *)&v53 init];
+  v62.receiver = self;
+  v62.super_class = CERecommendationRule;
+  v5 = [(CERecommendationRule *)&v62 init];
   v6 = v5;
   if (v5)
   {
     v5->_lock._os_unfair_lock_opaque = 0;
     v7 = [dictionaryCopy objectForKeyedSubscript:@"recommendationID"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v8 = v7;
+      v9 = v7;
       recommendationID = v6->_recommendationID;
-      v6->_recommendationID = v8;
+      v6->_recommendationID = v9;
     }
 
     else
     {
-      recommendationID = _CELogSystem();
+      recommendationID = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(recommendationID, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"bundleID"];
+    v11 = [dictionaryCopy objectForKeyedSubscript:@"bundleID"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v12 = objc_opt_isKindOfClass();
+    if (v12)
     {
-      v11 = v10;
+      v13 = v11;
       bundleID = v6->_bundleID;
-      v6->_bundleID = v11;
+      v6->_bundleID = v13;
     }
 
     else
     {
-      bundleID = _CELogSystem();
+      bundleID = _CELogSystem(v12);
       if (os_log_type_enabled(bundleID, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
 
-    v13 = [dictionaryCopy objectForKeyedSubscript:@"titleHint"];
+    v15 = [dictionaryCopy objectForKeyedSubscript:@"titleHint"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v16 = objc_opt_isKindOfClass();
+    if (v16)
     {
-      v14 = v13;
+      v17 = v15;
       titleHint = v6->_titleHint;
-      v6->_titleHint = v14;
+      v6->_titleHint = v17;
     }
 
     else
     {
-      titleHint = _CELogSystem();
+      titleHint = _CELogSystem(v16);
       if (os_log_type_enabled(titleHint, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
 
-    v16 = [dictionaryCopy objectForKeyedSubscript:@"messageHint"];
+    v19 = [dictionaryCopy objectForKeyedSubscript:@"messageHint"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v20 = objc_opt_isKindOfClass();
+    if (v20)
     {
-      v17 = v16;
+      v21 = v19;
       messageHint = v6->_messageHint;
-      v6->_messageHint = v17;
+      v6->_messageHint = v21;
     }
 
     else
     {
-      messageHint = _CELogSystem();
+      messageHint = _CELogSystem(v20);
       if (os_log_type_enabled(messageHint, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
 
-    v19 = [dictionaryCopy objectForKeyedSubscript:@"rankingHint"];
+    v23 = [dictionaryCopy objectForKeyedSubscript:@"rankingHint"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v24 = objc_opt_isKindOfClass();
+    if (v24)
     {
-      v20 = v19;
+      v25 = v23;
       p_super = &v6->_rankingHint->super.super;
-      v6->_rankingHint = v20;
+      v6->_rankingHint = v25;
     }
 
     else
     {
-      p_super = _CELogSystem();
+      p_super = _CELogSystem(v24);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
 
-    v22 = [dictionaryCopy objectForKeyedSubscript:@"lastCompletedTimestamp"];
+    v27 = [dictionaryCopy objectForKeyedSubscript:@"lastCompletedTimestamp"];
     objc_opt_class();
-    v50 = v22;
-    if (objc_opt_isKindOfClass())
+    v28 = objc_opt_isKindOfClass();
+    v59 = v27;
+    if (v28)
     {
-      v23 = v22;
-      v24 = &v6->_lastCompletedTimeStamp->super.super;
-      v6->_lastCompletedTimeStamp = v23;
+      v29 = v27;
+      v30 = &v6->_lastCompletedTimeStamp->super.super;
+      v6->_lastCompletedTimeStamp = v29;
     }
 
     else
     {
-      v24 = _CELogSystem();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v30 = _CELogSystem(v28);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
 
-    v25 = [dictionaryCopy objectForKeyedSubscript:@"ignoreClientRank"];
-    bOOLValue = [v25 BOOLValue];
+    v31 = [dictionaryCopy objectForKeyedSubscript:@"ignoreClientRank"];
+    bOOLValue = [v31 BOOLValue];
 
     v6->_ignoreClientRank = bOOLValue;
-    v27 = [CERuleCriteria alloc];
-    v28 = [dictionaryCopy objectForKeyedSubscript:@"criteria"];
-    v29 = [(CERuleCriteria *)v27 initWithDictionary:v28];
+    v33 = [CERuleCriteria alloc];
+    v34 = [dictionaryCopy objectForKeyedSubscript:@"criteria"];
+    v35 = [(CERuleCriteria *)v33 initWithDictionary:v34];
 
     objc_opt_class();
-    v49 = v29;
-    if (objc_opt_isKindOfClass())
+    v36 = objc_opt_isKindOfClass();
+    v58 = v35;
+    if (v36)
     {
-      v30 = v29;
-      v31 = &v6->_criteria->super;
-      v6->_criteria = v30;
+      v37 = v35;
+      v38 = &v6->_criteria->super;
+      v6->_criteria = v37;
     }
 
     else
     {
-      v31 = _CELogSystem();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v38 = _CELogSystem(v36);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
 
-    v48 = [dictionaryCopy objectForKeyedSubscript:@"templates"];
-    v32 = [[CERecommendationStringTemplate alloc] initWithDictionary:v48];
+    v57 = [dictionaryCopy objectForKeyedSubscript:@"templates"];
+    v39 = [[CERecommendationStringTemplate alloc] initWithDictionary:v57];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v40 = objc_opt_isKindOfClass();
+    if (v40)
     {
-      v33 = v32;
-      v34 = &v6->_templates->super;
-      v6->_templates = v33;
+      v41 = v39;
+      v42 = &v6->_templates->super;
+      v6->_templates = v41;
     }
 
     else
     {
-      v34 = _CELogSystem();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      v42 = _CELogSystem(v40);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
 
-    v35 = [dictionaryCopy objectForKeyedSubscript:@"context"];
+    v43 = [dictionaryCopy objectForKeyedSubscript:@"context"];
     objc_opt_class();
-    v47 = v32;
-    if (objc_opt_isKindOfClass())
+    v44 = objc_opt_isKindOfClass();
+    v56 = v39;
+    if (v44)
     {
-      v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __43__CERecommendationRule_initWithDictionary___block_invoke;
-      v51[3] = &unk_278DE02C0;
-      v37 = v36;
-      v52 = v37;
-      [v35 enumerateObjectsUsingBlock:v51];
-      v38 = dictionaryCopy;
-      v39 = v19;
-      v40 = v16;
-      v41 = v13;
-      v42 = v10;
-      v43 = v7;
+      v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __43__CERecommendationRule_initWithDictionary___block_invoke;
+      v60[3] = &unk_278DE02C0;
+      v46 = v45;
+      v61 = v46;
+      [v43 enumerateObjectsUsingBlock:v60];
+      v47 = dictionaryCopy;
+      v48 = v23;
+      v49 = v19;
+      v50 = v15;
+      v51 = v11;
+      v52 = v7;
       context = v6->_context;
-      v6->_context = v37;
-      v45 = v37;
+      v6->_context = v46;
+      v54 = v46;
 
-      v7 = v43;
-      v10 = v42;
-      v13 = v41;
-      v16 = v40;
-      v19 = v39;
-      dictionaryCopy = v38;
+      v7 = v52;
+      v11 = v51;
+      v15 = v50;
+      v19 = v49;
+      v23 = v48;
+      dictionaryCopy = v47;
     }
 
     else
     {
-      v45 = _CELogSystem();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+      v54 = _CELogSystem(v44);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationRule initWithDictionary:];
+        [CERecommendationRule initWithDictionary:v6];
       }
     }
   }
@@ -280,11 +289,11 @@ void __43__CERecommendationRule_initWithDictionary___block_invoke(uint64_t a1, v
 
 - (CERecommendationRule)initWithCoder:(id)coder
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v30.receiver = self;
-  v30.super_class = CERecommendationRule;
-  v5 = [(CERecommendationRule *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = CERecommendationRule;
+  v5 = [(CERecommendationRule *)&v29 init];
   v6 = v5;
   if (v5)
   {
@@ -323,9 +332,9 @@ void __43__CERecommendationRule_initWithDictionary___block_invoke(uint64_t a1, v
     v6->_templates = v21;
 
     v23 = MEMORY[0x277CBEB98];
-    v31[0] = objc_opt_class();
-    v31[1] = objc_opt_class();
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[0] = objc_opt_class();
+    v30[1] = objc_opt_class();
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     v25 = [v23 setWithArray:v24];
 
     v26 = [coderCopy decodeObjectOfClasses:v25 forKey:@"context"];
@@ -333,7 +342,6 @@ void __43__CERecommendationRule_initWithDictionary___block_invoke(uint64_t a1, v
     v6->_context = v26;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -580,94 +588,67 @@ void __43__CERecommendationRule_initWithDictionary___block_invoke(uint64_t a1, v
   os_unfair_lock_unlock(&self->_lock);
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse recommendationID from dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse recommendationID from dictionary.", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.2()
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse bundleID from dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse bundleID from dictionary.", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.3()
+- (void)initWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse titleHint from dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse titleHint from dictionary.", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.4()
+- (void)initWithDictionary:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse messageHint from dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse messageHint from dictionary.", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.5()
+- (void)initWithDictionary:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse rankingHint from dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse rankingHint from dictionary.", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.6()
+- (void)initWithDictionary:(uint64_t)a1 .cold.6(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse lastCompletedTimestamp from dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse lastCompletedTimestamp from dictionary.", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.7()
+- (void)initWithDictionary:(uint64_t)a1 .cold.7(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse criteria from dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse criteria from dictionary.", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.8()
+- (void)initWithDictionary:(uint64_t)a1 .cold.8(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse templates dictionary from Recommendation Rule.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse templates dictionary from Recommendation Rule.", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.9()
+- (void)initWithDictionary:(uint64_t)a1 .cold.9(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse context array from Recommendation Rule.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse context array from Recommendation Rule.", v5, v6, v7, v8);
 }
 
 @end

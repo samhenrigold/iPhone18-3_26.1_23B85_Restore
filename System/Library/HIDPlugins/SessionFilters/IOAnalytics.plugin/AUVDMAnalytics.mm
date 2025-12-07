@@ -37,7 +37,7 @@
 
 - (void)start
 {
-  v3 = [(AUVDMAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -62,7 +62,7 @@ void __23__AUVDMAnalytics_start__block_invoke(uint64_t a1)
   v3 = *(a1 + 32);
   if (v2)
   {
-    v4 = [v3 log];
+    v4 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __23__AUVDMAnalytics_start__block_invoke_cold_1(v4, v5, v6);
@@ -80,7 +80,7 @@ void __23__AUVDMAnalytics_start__block_invoke(uint64_t a1)
 
 - (void)stop
 {
-  v3 = [(AUVDMAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -113,7 +113,7 @@ void __22__AUVDMAnalytics_stop__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = [v3 log];
+    v5 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __22__AUVDMAnalytics_stop__block_invoke_cold_1(v5, v6, v7);
@@ -125,14 +125,14 @@ void __22__AUVDMAnalytics_stop__block_invoke(uint64_t a1)
 {
   if (![(AUVDMAnalytics *)self monitoring]&& [(AUVDMAnalytics *)self started])
   {
-    v3 = [(AUVDMAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Starting matching notifications...", buf, 2u);
     }
 
-    v4 = [(AUVDMAnalytics *)self log];
+    v4 = objc_msgSend_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v13 = 0;
@@ -146,7 +146,7 @@ void __22__AUVDMAnalytics_stop__block_invoke(uint64_t a1)
     IONotificationPortSetDispatchQueue(ioNotificationPort, queue);
 
     v7 = IOServiceMatching("IOPortTransportProtocolAppleUVDM");
-    v8 = [(AUVDMAnalytics *)self log];
+    v8 = objc_msgSend_log(self);
     v9 = v8;
     if (v7)
     {
@@ -184,7 +184,7 @@ LABEL_12:
 {
   if ([(AUVDMAnalytics *)self monitoring])
   {
-    v3 = [(AUVDMAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -211,22 +211,22 @@ LABEL_12:
   {
     memset(name, 0, 128);
     IORegistryEntryGetName(matched, name);
-    v5 = [(AUVDMAnalytics *)self log];
+    v5 = objc_msgSend_log(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v193 = name;
+      v201 = name;
       OUTLINED_FUNCTION_2();
       _os_log_impl(v6, v7, OS_LOG_TYPE_INFO, v8, v9, 0xCu);
     }
 
     if (![(AUVDMAnalytics *)self analyticsEventsEnabled])
     {
-      v18 = [(AUVDMAnalytics *)self log];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         OUTLINED_FUNCTION_8();
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Analytics disabled for this event - ignoring... (eventName: %@)", buf, 0xCu);
+        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "Analytics disabled for this event - ignoring... (eventName: %@)", buf, 0xCu);
       }
 
       goto LABEL_100;
@@ -234,11 +234,11 @@ LABEL_12:
 
     if (!IOObjectConformsTo(matched, "IOPortTransportProtocolAppleUVDM"))
     {
-      v18 = [(AUVDMAnalytics *)self log];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_8();
-        _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Could not find AUVDM service in %s plane!", buf, 0xCu);
+        _os_log_error_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Could not find AUVDM service in %s plane!", buf, 0xCu);
       }
 
       goto LABEL_100;
@@ -249,78 +249,77 @@ LABEL_12:
     CFProperty = IORegistryEntryCreateCFProperty(v11, v12, v13, v14);
     objc_opt_class();
     v16 = OUTLINED_FUNCTION_3();
-    v17 = castNSObjectToType(v16);
+    v18 = castNSObjectToType(v16, v17);
 
-    if (v17)
+    if (v18)
     {
-      [v10 setObject:v17 forKey:@"PortType"];
+      [v10 setObject:v18 forKey:@"PortType"];
     }
 
     else
     {
-      v19 = [(AUVDMAnalytics *)self log];
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
         OUTLINED_FUNCTION_2();
-        OUTLINED_FUNCTION_4(v159, v160, v161, v162, v163);
+        OUTLINED_FUNCTION_4(v167, v168, v169, v170, v171);
       }
     }
 
-    v20 = OUTLINED_FUNCTION_0();
-    v24 = IORegistryEntryCreateCFProperty(v20, v21, v22, v23);
+    v21 = OUTLINED_FUNCTION_0();
+    v25 = IORegistryEntryCreateCFProperty(v21, v22, v23, v24);
     objc_opt_class();
-    v25 = OUTLINED_FUNCTION_3();
-    v26 = castNSObjectToType(v25);
+    v26 = OUTLINED_FUNCTION_3();
+    v28 = castNSObjectToType(v26, v27);
 
-    v27 = &IOIteratorNext_ptr;
-    v170 = v26;
-    if (v26)
+    v178 = v28;
+    if (v28)
     {
-      [v10 setObject:v26 forKey:@"PortNumber"];
-      if (v17)
+      [v10 setObject:v28 forKey:@"PortNumber"];
+      if (v18)
       {
-        v28 = IOServiceMatching("IOPort");
-        v188 = @"PortType";
-        v189 = @"PortNumber";
-        v190 = v17;
-        v191 = v26;
-        v29 = [NSDictionary dictionaryWithObjects:&v190 forKeys:&v188 count:2];
-        [(__CFDictionary *)v28 setObject:v29 forKey:@"IOPropertyMatch"];
+        v29 = IOServiceMatching("IOPort");
+        v196 = @"PortType";
+        v197 = @"PortNumber";
+        v198 = v18;
+        v199 = v28;
+        v30 = [NSDictionary dictionaryWithObjects:&v198 forKeys:&v196 count:2];
+        [(__CFDictionary *)v29 setObject:v30 forKey:@"IOPropertyMatch"];
 
-        v30 = [(AUVDMAnalytics *)self log];
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+        v31 = objc_msgSend_log(self);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v193 = v28;
-          _os_log_debug_impl(&dword_0, v30, OS_LOG_TYPE_DEBUG, "matchingDict: %@", buf, 0xCu);
+          v201 = v29;
+          _os_log_debug_impl(&dword_0, v31, OS_LOG_TYPE_DEBUG, "matchingDict: %@", buf, 0xCu);
         }
 
-        v31 = v28;
-        MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v31);
+        v32 = v29;
+        MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v32);
         if (MatchingService)
         {
-          v33 = MatchingService;
-          v34 = IORegistryEntryCreateCFProperty(MatchingService, @"BuiltIn", kCFAllocatorDefault, 0);
-          objc_opt_class();
-          v35 = castNSObjectToType(v34);
+          v34 = MatchingService;
+          v35 = IORegistryEntryCreateCFProperty(MatchingService, @"BuiltIn", kCFAllocatorDefault, 0);
+          v36 = objc_opt_class();
+          v37 = castNSObjectToType(v35, v36);
 
-          if (v35)
+          if (v37)
           {
-            [v10 setObject:v35 forKey:@"PortBuiltIn"];
+            [v10 setObject:v37 forKey:@"PortBuiltIn"];
           }
 
           else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v42, "Could not find if parent port is built-in!", buf);
+            OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v44, "Could not find if parent port is built-in!", buf);
           }
 
-          v43 = IORegistryEntryCreateCFProperty(v33, @"ConnectionUUID", kCFAllocatorDefault, 0);
-          objc_opt_class();
-          v44 = castNSObjectToType(v43);
+          v45 = IORegistryEntryCreateCFProperty(v34, @"ConnectionUUID", kCFAllocatorDefault, 0);
+          v46 = objc_opt_class();
+          v47 = castNSObjectToType(v45, v46);
 
-          if (v44)
+          if (v47)
           {
             [OUTLINED_FUNCTION_5() setObject:? forKey:?];
           }
@@ -328,248 +327,251 @@ LABEL_12:
           else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v45, "Could not find parent port connection UUID!", buf);
+            OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v48, "Could not find parent port connection UUID!", buf);
           }
 
-          IOObjectRelease(v33);
-
-          v27 = &IOIteratorNext_ptr;
+          IOObjectRelease(v34);
         }
 
         else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v41, "Could not find parent port!", buf);
+          OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v43, "Could not find parent port!", buf);
         }
 
 LABEL_38:
-        v46 = OUTLINED_FUNCTION_0();
-        IORegistryEntryCreateCFProperty(v46, v47, v48, v49);
+        v49 = OUTLINED_FUNCTION_0();
+        IORegistryEntryCreateCFProperty(v49, v50, v51, v52);
         OUTLINED_FUNCTION_6();
-        v50 = OUTLINED_FUNCTION_3();
-        v51 = castNSObjectToType(v50);
+        v53 = OUTLINED_FUNCTION_3();
+        v55 = castNSObjectToType(v53, v54);
 
-        if (v51)
+        if (v55)
         {
-          [v10 setObject:v51 forKey:@"AUVDM_Vendor"];
+          [v10 setObject:v55 forKey:@"AUVDM_Vendor"];
         }
 
         else
         {
-          v52 = [(AUVDMAnalytics *)self log];
-          if (OUTLINED_FUNCTION_7(v52))
+          v56 = objc_msgSend_log(self);
+          if (OUTLINED_FUNCTION_7(v56))
           {
-            OUTLINED_FUNCTION_1(&dword_0, v53, v54, "Could not find AUVDM Vendor!", v55, v56, v57, v58, v169, v170, v171, v173, v175, v177, v179, v181, v182, v183, v184, v185, cf, v187, v188, v189, v190, v191, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_1(&dword_0, v57, v58, "Could not find AUVDM Vendor!", v59, v60, v61, v62, v177, v178, v179, v181, v183, v185, v187, v189, v190, v191, v192, v193, cf, v195, v196, v197, v198, v199);
           }
         }
 
-        v59 = OUTLINED_FUNCTION_0();
-        IORegistryEntryCreateCFProperty(v59, v60, v61, v62);
+        v63 = OUTLINED_FUNCTION_0();
+        IORegistryEntryCreateCFProperty(v63, v64, v65, v66);
         OUTLINED_FUNCTION_6();
-        v63 = OUTLINED_FUNCTION_3();
-        v64 = castNSObjectToType(v63);
+        v67 = OUTLINED_FUNCTION_3();
+        v69 = castNSObjectToType(v67, v68);
 
-        if (v64)
+        if (v69)
         {
-          [v10 setObject:v64 forKey:@"AUVDM_Product"];
+          [v10 setObject:v69 forKey:@"AUVDM_Product"];
         }
 
         else
         {
-          v65 = [(AUVDMAnalytics *)self log];
-          if (OUTLINED_FUNCTION_7(v65))
+          v70 = objc_msgSend_log(self);
+          if (OUTLINED_FUNCTION_7(v70))
           {
-            OUTLINED_FUNCTION_1(&dword_0, v66, v67, "Could not find AUVDM Product!", v68, v69, v70, v71, v169, v170, v171, v173, v175, v177, v179, v181, v182, v183, v184, v185, cf, v187, v188, v189, v190, v191, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_1(&dword_0, v71, v72, "Could not find AUVDM Product!", v73, v74, v75, v76, v177, v178, v179, v181, v183, v185, v187, v189, v190, v191, v192, v193, cf, v195, v196, v197, v198, v199);
           }
         }
 
-        v72 = OUTLINED_FUNCTION_0();
-        IORegistryEntryCreateCFProperty(v72, v73, v74, v75);
+        v77 = OUTLINED_FUNCTION_0();
+        IORegistryEntryCreateCFProperty(v77, v78, v79, v80);
         OUTLINED_FUNCTION_6();
-        v76 = OUTLINED_FUNCTION_3();
-        v77 = castNSObjectToType(v76);
+        v81 = OUTLINED_FUNCTION_3();
+        v83 = castNSObjectToType(v81, v82);
 
-        v180 = v17;
-        v174 = v77;
-        if (v77)
+        v188 = v18;
+        v182 = v83;
+        if (v83)
         {
-          [v10 setObject:v77 forKey:@"AUVDM_Manufacturer"];
+          [v10 setObject:v83 forKey:@"AUVDM_Manufacturer"];
         }
 
         else
         {
-          v78 = [(AUVDMAnalytics *)self log];
-          if (OUTLINED_FUNCTION_7(v78))
+          v84 = objc_msgSend_log(self);
+          if (OUTLINED_FUNCTION_7(v84))
           {
-            OUTLINED_FUNCTION_1(&dword_0, v79, v80, "Could not find AUVDM Manufacturer!", v81, v82, v83, v84, v169, v170, v171, 0, v175, v177, v17, v181, v182, v183, v184, v185, cf, v187, v188, v189, v190, v191, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_1(&dword_0, v85, v86, "Could not find AUVDM Manufacturer!", v87, v88, v89, v90, v177, v178, v179, 0, v183, v185, v18, v189, v190, v191, v192, v193, cf, v195, v196, v197, v198, v199);
           }
         }
 
-        v85 = OUTLINED_FUNCTION_0();
-        IORegistryEntryCreateCFProperty(v85, v86, v87, v88);
+        v91 = OUTLINED_FUNCTION_0();
+        IORegistryEntryCreateCFProperty(v91, v92, v93, v94);
         OUTLINED_FUNCTION_6();
-        v89 = OUTLINED_FUNCTION_3();
-        v90 = castNSObjectToType(v89);
+        v95 = OUTLINED_FUNCTION_3();
+        v97 = castNSObjectToType(v95, v96);
 
-        v178 = v51;
-        v172 = v90;
-        if (v90)
+        v186 = v55;
+        v180 = v97;
+        if (v97)
         {
-          [v10 setObject:v90 forKey:@"AUVDM_Model"];
+          [v10 setObject:v97 forKey:@"AUVDM_Model"];
         }
 
         else
         {
-          v91 = [(AUVDMAnalytics *)self log];
-          if (OUTLINED_FUNCTION_7(v91))
+          v98 = objc_msgSend_log(self);
+          if (OUTLINED_FUNCTION_7(v98))
           {
-            OUTLINED_FUNCTION_1(&dword_0, v92, v93, "Could not find AUVDM Model!", v94, v95, v96, v97, v169, v170, 0, v174, v175, v51, v180, v181, v182, v183, v184, v185, cf, v187, v188, v189, v190, v191, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_1(&dword_0, v99, v100, "Could not find AUVDM Model!", v101, v102, v103, v104, v177, v178, 0, v182, v183, v55, v188, v189, v190, v191, v192, v193, cf, v195, v196, v197, v198, v199);
           }
         }
 
-        v98 = OUTLINED_FUNCTION_0();
-        IORegistryEntryCreateCFProperty(v98, v99, v100, v101);
+        v105 = OUTLINED_FUNCTION_0();
+        IORegistryEntryCreateCFProperty(v105, v106, v107, v108);
         OUTLINED_FUNCTION_6();
-        v102 = OUTLINED_FUNCTION_3();
-        v103 = castNSObjectToType(v102);
+        v109 = OUTLINED_FUNCTION_3();
+        v111 = castNSObjectToType(v109, v110);
 
-        v176 = v64;
-        if (v103)
+        v184 = v69;
+        if (v111)
         {
-          [v10 setObject:v103 forKey:@"AUVDM_FirmwareVersion"];
+          [v10 setObject:v111 forKey:@"AUVDM_FirmwareVersion"];
         }
 
         else
         {
-          v104 = [(AUVDMAnalytics *)self log];
-          if (OUTLINED_FUNCTION_7(v104))
+          v112 = objc_msgSend_log(self);
+          if (OUTLINED_FUNCTION_7(v112))
           {
-            OUTLINED_FUNCTION_1(&dword_0, v105, v106, "Could not find AUVDM FirmwareVersion!", v107, v108, v109, v110, v169, v170, v172, v174, v64, v178, v180, v181, v182, v183, v184, v185, cf, v187, v188, v189, v190, v191, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_1(&dword_0, v113, v114, "Could not find AUVDM FirmwareVersion!", v115, v116, v117, v118, v177, v178, v180, v182, v69, v186, v188, v189, v190, v191, v192, v193, cf, v195, v196, v197, v198, v199);
           }
         }
 
-        v111 = OUTLINED_FUNCTION_0();
-        v115 = IORegistryEntryCreateCFProperty(v111, v112, v113, v114);
-        v116 = v27[112];
-        objc_opt_class();
-        v117 = castNSObjectToType(v115);
+        v119 = OUTLINED_FUNCTION_0();
+        v123 = IORegistryEntryCreateCFProperty(v119, v120, v121, v122);
+        v124 = objc_opt_class();
+        v125 = castNSObjectToType(v123, v124);
 
-        if (v117)
+        if (v125)
         {
-          [v10 setObject:v117 forKey:@"AUVDM_HardwareVersion"];
+          [v10 setObject:v125 forKey:@"AUVDM_HardwareVersion"];
         }
 
         else
         {
-          v118 = [(AUVDMAnalytics *)self log];
-          if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
+          v126 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
           {
-            OUTLINED_FUNCTION_9(&dword_0, v119, v120, "Could not find AUVDM HardwareVersion!", v121, v122, v123, v124, v169, v170, v172, v174, v176, v178, v180, v181, v182, v183, v184, v185, cf, v187, v188, v189, v190, v191, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_9(&dword_0, v127, v128, "Could not find AUVDM HardwareVersion!", v129, v130, v131, v132, v177, v178, v180, v182, v184, v186, v188, v189, v190, v191, v192, v193, cf, v195, v196, v197, v198, v199);
           }
         }
 
-        v125 = OUTLINED_FUNCTION_0();
-        v129 = IORegistryEntryCreateCFProperty(v125, v126, v127, v128);
-        v130 = v27[112];
-        objc_opt_class();
-        v131 = castNSObjectToType(v129);
+        v133 = OUTLINED_FUNCTION_0();
+        v137 = IORegistryEntryCreateCFProperty(v133, v134, v135, v136);
+        v138 = objc_opt_class();
+        v139 = castNSObjectToType(v137, v138);
 
-        if (v131)
+        if (v139)
         {
-          [v10 setObject:v131 forKey:@"AUVDM_UserString"];
+          [v10 setObject:v139 forKey:@"AUVDM_UserString"];
         }
 
         else
         {
-          v132 = [(AUVDMAnalytics *)self log];
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+          v140 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
           {
-            OUTLINED_FUNCTION_9(&dword_0, v133, v134, "Could not find AUVDM UserString!", v135, v136, v137, v138, v169, v170, v172, v174, v176, v178, v180, v181, v182, v183, v184, v185, cf, v187, v188, v189, v190, v191, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_9(&dword_0, v141, v142, "Could not find AUVDM UserString!", v143, v144, v145, v146, v177, v178, v180, v182, v184, v186, v188, v189, v190, v191, v192, v193, cf, v195, v196, v197, v198, v199);
           }
         }
 
-        v139 = [v10 objectForKeyedSubscript:@"AUVDM_Manufacturer"];
-        v140 = v139;
-        if (v139 && [v139 length])
+        v147 = [v10 objectForKeyedSubscript:@"AUVDM_Manufacturer"];
+        v148 = v147;
+        if (v147 && [v147 length])
         {
-          v141 = [NSScanner scannerWithString:v140];
+          v149 = [NSScanner scannerWithString:v148];
           *buf = 0;
-          if ([v141 scanHexInt:buf])
+          if ([v149 scanHexInt:buf])
           {
-            v142 = [NSNumber numberWithUnsignedInt:*buf];
+            v150 = [NSNumber numberWithUnsignedInt:*buf];
             [OUTLINED_FUNCTION_5() setObject:? forKey:?];
 
-            v143 = [(AUVDMAnalytics *)self log];
-            if (os_log_type_enabled(v143, OS_LOG_TYPE_INFO))
+            v151 = objc_msgSend_log(self);
+            if (os_log_type_enabled(v151, OS_LOG_TYPE_INFO))
             {
               LOWORD(cf) = 0;
-              _os_log_impl(&dword_0, v143, OS_LOG_TYPE_INFO, "Converted AUVDM Manufacturer to VID!", &cf, 2u);
+              _os_log_impl(&dword_0, v151, OS_LOG_TYPE_INFO, "Converted AUVDM Manufacturer to VID!", &cf, 2u);
             }
           }
         }
 
-        v144 = [v10 objectForKeyedSubscript:@"AUVDM_Model"];
-        v145 = v144;
-        if (v144 && [v144 length])
+        v152 = [v10 objectForKeyedSubscript:@"AUVDM_Model"];
+        v153 = v152;
+        if (v152 && [v152 length])
         {
-          v146 = [NSScanner scannerWithString:v145];
+          v154 = [NSScanner scannerWithString:v153];
           *buf = 0;
-          if ([v146 scanHexInt:buf])
+          if ([v154 scanHexInt:buf])
           {
-            v147 = [NSNumber numberWithUnsignedInt:*buf];
-            [v10 setObject:v147 forKey:@"ProductID"];
+            v155 = [NSNumber numberWithUnsignedInt:*buf];
+            [v10 setObject:v155 forKey:@"ProductID"];
 
-            v148 = [(AUVDMAnalytics *)self log];
-            if (os_log_type_enabled(v148, OS_LOG_TYPE_INFO))
+            v156 = objc_msgSend_log(self);
+            if (os_log_type_enabled(v156, OS_LOG_TYPE_INFO))
             {
               LOWORD(cf) = 0;
-              _os_log_impl(&dword_0, v148, OS_LOG_TYPE_INFO, "Converted AUVDM Model to PID!", &cf, 2u);
+              _os_log_impl(&dword_0, v156, OS_LOG_TYPE_INFO, "Converted AUVDM Model to PID!", &cf, 2u);
             }
           }
         }
 
-        v149 = [OUTLINED_FUNCTION_5() objectForKeyedSubscript:?];
+        v157 = [OUTLINED_FUNCTION_5() objectForKeyedSubscript:?];
 
-        if (v149)
+        if (v157)
         {
-          v150 = [OUTLINED_FUNCTION_5() objectForKeyedSubscript:?];
+          v158 = [OUTLINED_FUNCTION_5() objectForKeyedSubscript:?];
           [OUTLINED_FUNCTION_5() setObject:? forKey:?];
         }
 
         else
         {
-          v150 = [(AUVDMAnalytics *)self log];
-          if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+          v158 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            OUTLINED_FUNCTION_4(&dword_0, v150, v151, "Could not find AUVDM AccessoryName!", buf);
+            OUTLINED_FUNCTION_4(&dword_0, v158, v159, "Could not find AUVDM AccessoryName!", buf);
           }
         }
 
-        v152 = [(AUVDMAnalytics *)self log];
-        if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
+        v160 = objc_msgSend_log(self);
+        if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
         {
           OUTLINED_FUNCTION_8();
-          _os_log_impl(&dword_0, v152, OS_LOG_TYPE_DEFAULT, "Sending analytics event... (eventName: %@)", buf, 0xCu);
+          _os_log_impl(&dword_0, v160, OS_LOG_TYPE_DEFAULT, "Sending analytics event... (eventName: %@)", buf, 0xCu);
         }
 
-        v153 = [(AUVDMAnalytics *)self log];
-        if (os_log_type_enabled(v153, OS_LOG_TYPE_DEBUG))
+        v161 = objc_msgSend_log(self);
+        if (os_log_type_enabled(v161, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v193 = v10;
-          _os_log_debug_impl(&dword_0, v153, OS_LOG_TYPE_DEBUG, "eventDict: %@", buf, 0xCu);
+          v201 = v10;
+          _os_log_debug_impl(&dword_0, v161, OS_LOG_TYPE_DEBUG, "eventDict: %@", buf, 0xCu);
         }
 
-        v18 = v10;
+        v19 = v10;
         if ((AnalyticsSendEventLazy() & 1) == 0)
         {
-          v154 = [(AUVDMAnalytics *)self log];
-          if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
+          v162 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v193 = @"com.apple.ioport.transport.protocol.AppleUVDM.published";
-            _os_log_error_impl(&dword_0, v154, OS_LOG_TYPE_ERROR, "Failed to send analytics event! (eventName: %@)", buf, 0xCu);
+            v201 = @"com.apple.ioport.transport.protocol.AppleUVDM.published";
+            _os_log_error_impl(&dword_0, v162, OS_LOG_TYPE_ERROR, "Failed to send analytics event! (eventName: %@)", buf, 0xCu);
           }
         }
 
@@ -580,24 +582,24 @@ LABEL_100:
 
     else
     {
-      v36 = [(AUVDMAnalytics *)self log];
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v38 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
         OUTLINED_FUNCTION_2();
-        OUTLINED_FUNCTION_4(v164, v165, v166, v167, v168);
+        OUTLINED_FUNCTION_4(v172, v173, v174, v175, v176);
       }
     }
 
     cf = 0;
-    v37 = OUTLINED_FUNCTION_0();
-    IORegistryEntryCreateCFProperties(v37, v38, v39, v40);
-    v31 = [(AUVDMAnalytics *)self log];
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v39 = OUTLINED_FUNCTION_0();
+    IORegistryEntryCreateCFProperties(v39, v40, v41, v42);
+    v32 = objc_msgSend_log(self);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
     {
       OUTLINED_FUNCTION_8();
       OUTLINED_FUNCTION_2();
-      _os_log_fault_impl(v155, v156, OS_LOG_TYPE_FAULT, v157, v158, 0xCu);
+      _os_log_fault_impl(v163, v164, OS_LOG_TYPE_FAULT, v165, v166, 0xCu);
     }
 
     goto LABEL_38;

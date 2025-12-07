@@ -16,9 +16,8 @@
 {
   array = [MEMORY[0x1E695DF70] array];
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
-  supportedFeatures = [(_HMCameraUserSettings *)self supportedFeatures];
-  v5 = NSPrintF();
-  v6 = [v4 initWithName:@"Features" value:{v5, supportedFeatures, &unk_19BE3782A}];
+  v5 = NSPrintF("%#{flags}", [(_HMCameraUserSettings *)self supportedFeatures], &unk_19BE3782A);
+  v6 = [v4 initWithName:@"Features" value:v5];
   [array addObject:v6];
 
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
@@ -44,9 +43,8 @@
     [array addObject:v19];
 
     v20 = objc_alloc(MEMORY[0x1E69A29C8]);
-    recordingEventTriggers = [(_HMCameraUserSettings *)self recordingEventTriggers];
-    v21 = NSPrintF();
-    v22 = [v20 initWithName:@"Recording Triggers" value:{v21, recordingEventTriggers, &unk_19BE377F8}];
+    v21 = NSPrintF("%#{flags}", [(_HMCameraUserSettings *)self recordingEventTriggers], &unk_19BE377F8);
+    v22 = [v20 initWithName:@"Recording Triggers" value:v21];
     [array addObject:v22];
 
     activityZones = [(_HMCameraUserSettings *)self activityZones];
@@ -104,7 +102,7 @@
 
 - (_HMCameraUserSettings)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"hmcus.id"];
   if (v5)
@@ -120,10 +118,10 @@
     [(_HMCameraUserSettings *)v6 setNotificationSettings:v7];
 
     v8 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
-    v10 = [v8 setWithArray:{v9, v19[0]}];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v10 = [v8 setWithArray:{v9, v18[0]}];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"hmcus.az"];
     [(_HMCameraUserSettings *)v6 setActivityZones:v11];
 
@@ -141,9 +139,9 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v16;
-      v22 = 2112;
-      v23 = 0;
+      v20 = v16;
+      v21 = 2112;
+      v22 = 0;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded UUID: %@", buf, 0x16u);
     }
 
@@ -151,7 +149,6 @@
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

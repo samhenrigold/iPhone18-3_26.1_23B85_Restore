@@ -1,4 +1,4 @@
-int *libSystem_initializer()
+int *libSystem_initializer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (MEMORY[0xFFFFFC100])
   {
@@ -88,11 +88,11 @@ int *libSystem_initializer()
 
   if (_simple_getenv())
   {
-    v0 = xpc_pipe_create();
-    if (!v0)
+    v5 = xpc_pipe_create();
+    if (!v5)
     {
-      v4 = os_log_create("com.apple.libsystem", "duet.prewarm");
-      if (!os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      v9 = os_log_create("com.apple.libsystem", "duet.prewarm");
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_39;
       }
@@ -100,23 +100,23 @@ int *libSystem_initializer()
       goto LABEL_38;
     }
 
-    v1 = v0;
+    v6 = v5;
     empty = xpc_dictionary_create_empty();
     if (empty)
     {
-      v3 = empty;
+      v8 = empty;
       xpc_pipe_routine();
-      xpc_release(v1);
-      xpc_release(v3);
+      xpc_release(v6);
+      xpc_release(v8);
       goto LABEL_39;
     }
 
-    xpc_release(v1);
-    v4 = os_log_create("com.apple.libsystem", "duet.prewarm");
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    xpc_release(v6);
+    v9 = os_log_create("com.apple.libsystem", "duet.prewarm");
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
 LABEL_38:
-      libSystem_initializer_cold_14(v4);
+      libSystem_initializer_cold_14(v9);
     }
   }
 
@@ -210,7 +210,7 @@ uint64_t libSystem_init_after_boot_tasks_4launchd()
   return result;
 }
 
-const char *__asan_default_options()
+char *__asan_default_options()
 {
   v0 = open("/System/Library/Preferences/com.apple.asan.options", 0);
   if (v0 == -1)

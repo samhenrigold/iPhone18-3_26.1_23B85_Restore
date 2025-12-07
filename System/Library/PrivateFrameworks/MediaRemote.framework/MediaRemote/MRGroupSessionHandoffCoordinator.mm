@@ -20,13 +20,13 @@
   {
     objc_storeWeak(&v5->_delegate, delegateCopy);
     v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v8 = MRGroupSessionSubsystemGetQueue();
+    v8 = MRGroupSessionSubsystemGetQueue(v7);
     v9 = dispatch_queue_create_with_target_V2("com.apple.MediaRemote.MRGroupSessionHandoffCoordinator.serialQueue", v7, v8);
     queue = v6->_queue;
     v6->_queue = v9;
 
     v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v12 = MRGroupSessionSubsystemGetNotificationQueue();
+    v12 = MRGroupSessionSubsystemGetNotificationQueue(v11);
     v13 = dispatch_queue_create_with_target_V2("com.apple.MediaRemote.MRGroupSessionHandoffCoordinator.notificationQueue", v11, v12);
     notificationQueue = v6->_notificationQueue;
     v6->_notificationQueue = v13;

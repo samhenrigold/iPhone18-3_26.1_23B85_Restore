@@ -80,10 +80,11 @@
 
 - (BOOL)depositWithAsset:(id)asset assetPath:(id)path error:(id *)error
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
   assetCopy = asset;
   selfCopy = self;
-  sub_100028BE4(assetCopy);
+  sub_100028BE4(assetCopy, v7, v9);
 
   return 1;
 }

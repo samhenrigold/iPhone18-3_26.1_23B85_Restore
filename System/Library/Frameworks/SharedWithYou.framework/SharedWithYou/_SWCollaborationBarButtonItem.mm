@@ -8,12 +8,15 @@
 - (_SWCollaborationBarButtonItem)initWithHighlight:(id)highlight detailViewListContent:(id)content;
 - (_SWCollaborationBarButtonItem)initWithItemProvider:(id)provider;
 - (unint64_t)activeParticipantCount;
+- (void)dismissPopoverAnimated:(BOOL)animated completion:(id)completion;
 - (void)setActiveParticipantCount:(unint64_t)count;
 - (void)setCloudSharingControllerDelegate:(id)delegate;
 - (void)setDetailViewListContent:(id)content;
 - (void)setHighlight:(id)highlight;
+- (void)setIsContentShared:(BOOL)shared;
 - (void)setItemProvider:(id)provider;
 - (void)setManageButtonTitle:(id)title;
+- (void)setShowManageButton:(BOOL)button;
 @end
 
 @implementation _SWCollaborationBarButtonItem
@@ -77,6 +80,14 @@
   return isContentShared;
 }
 
+- (void)setIsContentShared:(BOOL)shared
+{
+  sharedCopy = shared;
+  collaborationButtonView = [(_SWCollaborationBarButtonItem *)self collaborationButtonView];
+  buttonView = [collaborationButtonView buttonView];
+  [buttonView setIsContentShared:sharedCopy];
+}
+
 - (_SWCollaborationBarButtonItem)initWithCollaborationButtonView:(id)view
 {
   viewCopy = view;
@@ -115,6 +126,15 @@
   return v6;
 }
 
+- (void)dismissPopoverAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  collaborationButtonView = [(_SWCollaborationBarButtonItem *)self collaborationButtonView];
+  buttonView = [collaborationButtonView buttonView];
+  [buttonView dismissPopoverAnimated:animatedCopy completion:completionCopy];
+}
+
 - (void)setDetailViewListContent:(id)content
 {
   contentCopy = content;
@@ -129,6 +149,14 @@
   collaborationButtonView = [(_SWCollaborationBarButtonItem *)self collaborationButtonView];
   buttonView = [collaborationButtonView buttonView];
   [buttonView setManageButtonTitle:titleCopy];
+}
+
+- (void)setShowManageButton:(BOOL)button
+{
+  buttonCopy = button;
+  collaborationButtonView = [(_SWCollaborationBarButtonItem *)self collaborationButtonView];
+  buttonView = [collaborationButtonView buttonView];
+  [buttonView setShowManageButton:buttonCopy];
 }
 
 - (SWHighlight)highlight
@@ -157,12 +185,13 @@
   v5 = objc_allocWithZone(_SWCollaborationDetailViewController);
   highlightCopy = highlight;
   initWithHighlight_ = [v5 initWithHighlight_];
-  v8 = objc_allocWithZone(type metadata accessor for _SWCollaborationButtonViewImpl());
-  v9 = sub_1BBC2C860(initWithHighlight_);
+  v9 = objc_allocWithZone(type metadata accessor for _SWCollaborationButtonViewImpl(0, v8));
+  sub_1BBC2C860(initWithHighlight_);
+  v11 = v10;
   initWithTypeErasedButtonView_ = [objc_allocWithZone(_SWCollaborationButtonView) initWithTypeErasedButtonView_];
-  v11 = [(_SWCollaborationBarButtonItem *)self initWithCollaborationButtonView:initWithTypeErasedButtonView_];
+  v13 = [(_SWCollaborationBarButtonItem *)self initWithCollaborationButtonView:initWithTypeErasedButtonView_];
 
-  return v11;
+  return v13;
 }
 
 - (_SWCollaborationBarButtonItem)initWithHighlight:(id)highlight detailViewListContent:(id)content
@@ -171,12 +200,13 @@
   highlightCopy = highlight;
   contentCopy = content;
   v10 = [v7 initWithHighlight:highlightCopy listContent:contentCopy];
-  v11 = objc_allocWithZone(type metadata accessor for _SWCollaborationButtonViewImpl());
-  v12 = sub_1BBC2C860(v10);
+  v12 = objc_allocWithZone(type metadata accessor for _SWCollaborationButtonViewImpl(0, v11));
+  sub_1BBC2C860(v10);
+  v14 = v13;
   initWithTypeErasedButtonView_ = [objc_allocWithZone(_SWCollaborationButtonView) initWithTypeErasedButtonView_];
-  v14 = [(_SWCollaborationBarButtonItem *)self initWithCollaborationButtonView:initWithTypeErasedButtonView_];
+  v16 = [(_SWCollaborationBarButtonItem *)self initWithCollaborationButtonView:initWithTypeErasedButtonView_];
 
-  return v14;
+  return v16;
 }
 
 @end

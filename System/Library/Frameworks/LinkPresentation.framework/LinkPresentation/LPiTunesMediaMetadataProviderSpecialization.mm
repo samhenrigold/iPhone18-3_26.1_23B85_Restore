@@ -1822,50 +1822,50 @@ id __53__LPiTunesMediaMetadataProviderSpecialization_schema__block_invoke_39(uin
 
 - (id)processResponseDictionary:(id)dictionary withStorefrontIdentifier:(id)identifier
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
-  v31 = dictionaryCopy;
-  v28 = [dictionaryCopy objectForKeyedSubscript:@"kind"];
-  if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v33 = dictionaryCopy;
+  v30 = [dictionaryCopy objectForKeyedSubscript:@"kind"];
+  if (v30 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     schema = [(LPiTunesMediaMetadataProviderSpecialization *)self schema];
-    v8 = [schema objectForKeyedSubscript:v28];
+    v8 = [schema objectForKeyedSubscript:v30];
 
-    v26 = v8;
+    v28 = v8;
     if (v8)
     {
-      v30 = objc_alloc_init([v8 objectForKeyedSubscript:@"metadataClass"]);
-      [v30 setValue:self->_identifier forKey:@"storeIdentifier"];
-      [v30 setValue:identifierCopy forKey:@"storeFrontIdentifier"];
+      v32 = objc_alloc_init([v8 objectForKeyedSubscript:@"metadataClass"]);
+      [v32 setValue:self->_identifier forKey:@"storeIdentifier"];
+      [v32 setValue:identifierCopy forKey:@"storeFrontIdentifier"];
+      v41 = 0u;
+      v42 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
       v9 = [v8 objectForKeyedSubscript:@"entries"];
       selfCopy = self;
       obj = v9;
-      v10 = [v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
       if (v10)
       {
-        v11 = *v38;
+        v11 = *v40;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v38 != v11)
+            if (*v40 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v37 + 1) + 8 * i);
-            v34[0] = MEMORY[0x1E69E9820];
-            v34[1] = 3221225472;
-            v34[2] = __98__LPiTunesMediaMetadataProviderSpecialization_processResponseDictionary_withStorefrontIdentifier___block_invoke;
-            v34[3] = &unk_1E7A35EB8;
-            v35 = v31;
-            v36 = v13;
-            v14 = __98__LPiTunesMediaMetadataProviderSpecialization_processResponseDictionary_withStorefrontIdentifier___block_invoke(v34);
+            v13 = *(*(&v39 + 1) + 8 * i);
+            v36[0] = MEMORY[0x1E69E9820];
+            v36[1] = 3221225472;
+            v36[2] = __98__LPiTunesMediaMetadataProviderSpecialization_processResponseDictionary_withStorefrontIdentifier___block_invoke;
+            v36[3] = &unk_1E7A35EB8;
+            v37 = v33;
+            v38 = v13;
+            v14 = __98__LPiTunesMediaMetadataProviderSpecialization_processResponseDictionary_withStorefrontIdentifier___block_invoke(v36);
             if (v14)
             {
               v15 = [v13 objectForKeyedSubscript:@"entryMetadataName"];
@@ -1876,7 +1876,7 @@ id __53__LPiTunesMediaMetadataProviderSpecialization_schema__block_invoke_39(uin
                 selfCopy2 = self;
               }
 
-              [v30 setValue:v14 forKey:selfCopy2];
+              [v32 setValue:v14 forKey:selfCopy2];
               if (!v15)
               {
               }
@@ -1889,23 +1889,23 @@ id __53__LPiTunesMediaMetadataProviderSpecialization_schema__block_invoke_39(uin
 
               if ((bOOLValue & 1) == 0)
               {
-                v21 = LPLogChannelFetching();
-                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+                v23 = LPLogChannelFetching(v19, v20);
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
                 {
                   identifier = selfCopy->_identifier;
-                  v23 = [v13 objectForKeyedSubscript:@"entryName"];
-                  [(LPiTunesMediaMetadataProviderSpecialization *)identifier processResponseDictionary:v23 withStorefrontIdentifier:buf, v21];
+                  v25 = [v13 objectForKeyedSubscript:@"entryName"];
+                  [(LPiTunesMediaMetadataProviderSpecialization *)identifier processResponseDictionary:v25 withStorefrontIdentifier:buf, v23];
                 }
 
-                v20 = 0;
-                v19 = obj;
+                v22 = 0;
+                v21 = obj;
                 goto LABEL_26;
               }
             }
           }
 
           v9 = obj;
-          v10 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v10 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
           if (v10)
           {
             continue;
@@ -1915,33 +1915,33 @@ id __53__LPiTunesMediaMetadataProviderSpecialization_schema__block_invoke_39(uin
         }
       }
 
-      v19 = [v8 objectForKeyedSubscript:@"additionalProperties"];
-      if (v19)
+      v21 = [v8 objectForKeyedSubscript:@"additionalProperties"];
+      if (v21)
       {
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __98__LPiTunesMediaMetadataProviderSpecialization_processResponseDictionary_withStorefrontIdentifier___block_invoke_382;
-        v32[3] = &unk_1E7A35EE0;
-        v33 = v30;
-        [v19 enumerateKeysAndObjectsUsingBlock:v32];
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __98__LPiTunesMediaMetadataProviderSpecialization_processResponseDictionary_withStorefrontIdentifier___block_invoke_382;
+        v34[3] = &unk_1E7A35EE0;
+        v35 = v32;
+        [v21 enumerateKeysAndObjectsUsingBlock:v34];
       }
 
-      v20 = v30;
+      v22 = v32;
 LABEL_26:
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
-  return v20;
+  return v22;
 }
 
 id __98__LPiTunesMediaMetadataProviderSpecialization_processResponseDictionary_withStorefrontIdentifier___block_invoke(uint64_t a1)
@@ -2174,58 +2174,58 @@ void __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke(uint6
   dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
-uint64_t __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2(uint64_t result)
+char *__52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2(char *result)
 {
   v2 = (result + 32);
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 40) & 1) == 0)
   {
     v3 = result;
     v4 = *(v1 + 48);
     *(v1 + 48) = 0;
 
-    v5 = (v3 + 40);
-    if (*(v3 + 40))
+    v7 = (v3 + 40);
+    if (*(v3 + 5))
     {
-      v6 = LPLogChannelFetching();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = LPLogChannelFetching(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2_cold_1(v2, v5, v6);
+        __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2_cold_1(v2, v7, v8);
       }
 
       return [*v2 fail];
     }
 
-    v7 = *(v3 + 48);
-    if (!v7)
+    v9 = *(v3 + 6);
+    if (!v9)
     {
-      v12 = LPLogChannelFetching();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v15 = LPLogChannelFetching(v5, v6);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2_cold_3(v2, v12);
+        __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2_cold_3(v2, v15);
       }
 
       return [*v2 fail];
     }
 
-    v8 = [*(v3 + 32) processResponseDictionary:v7 withStorefrontIdentifier:*(v3 + 56)];
-    v9 = *(v3 + 32);
-    v10 = *(v9 + 64);
-    *(v9 + 64) = v8;
+    v10 = [*(v3 + 4) processResponseDictionary:v9 withStorefrontIdentifier:*(v3 + 7)];
+    v11 = *(v3 + 4);
+    v12 = *(v11 + 64);
+    *(v11 + 64) = v10;
 
-    v11 = *(v3 + 32);
-    if (!v11[8])
+    v14 = *(v3 + 4);
+    if (!v14[8])
     {
-      v13 = LPLogChannelFetching();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v16 = LPLogChannelFetching(v14, v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2_cold_2(v2, v13);
+        __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2_cold_2(v2, v16);
       }
 
       return [*v2 fail];
     }
 
-    return [v11 resolve];
+    return [v14 resolve];
   }
 
   return result;
@@ -2236,31 +2236,32 @@ uint64_t __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2
   identifierCopy = identifier;
   handlerCopy = handler;
   v7 = objc_alloc_init(LPSourceApplicationMetadata);
-  [(LPSourceApplicationMetadata *)v7 setBundleIdentifier:identifierCopy];
-  v8 = LPLogChannelFetching();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = [(LPSourceApplicationMetadata *)v7 setBundleIdentifier:identifierCopy];
+  v10 = LPLogChannelFetching(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1AE886000, v8, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication trying local fetch", buf, 2u);
+    _os_log_impl(&dword_1AE886000, v10, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication trying local fetch", buf, 2u);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke;
-  v25[3] = &unk_1E7A35F58;
-  v9 = identifierCopy;
-  v26 = v9;
-  v10 = v7;
-  v27 = v10;
-  v11 = handlerCopy;
-  v28 = v11;
-  if (__117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke(v25))
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke;
+  v29[3] = &unk_1E7A35F58;
+  v11 = identifierCopy;
+  v30 = v11;
+  v12 = v7;
+  v31 = v12;
+  v13 = handlerCopy;
+  v32 = v13;
+  v14 = __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke(v29);
+  if (v14)
   {
-    v12 = LPLogChannelFetching();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v16 = LPLogChannelFetching(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AE886000, v12, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication local fetch succeeded", buf, 2u);
+      _os_log_impl(&dword_1AE886000, v16, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication local fetch succeeded", buf, 2u);
     }
   }
 
@@ -2270,85 +2271,86 @@ uint64_t __52__LPiTunesMediaMetadataProviderSpecialization_start__block_invoke_2
     aBlock[1] = 3221225472;
     aBlock[2] = __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_408;
     aBlock[3] = &unk_1E7A35F80;
-    v13 = v11;
-    v24 = v13;
-    v14 = _Block_copy(aBlock);
-    v15 = [[LPiTunesMediaLookupTask alloc] initWithBundleIdentifier:v9];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_410;
-    v18[3] = &unk_1E7A35FF8;
-    v16 = v14;
-    v21 = v16;
-    v19 = v10;
-    v20 = v15;
-    v22 = v13;
-    v17 = v15;
-    [(LPiTunesMediaLookupTask *)v17 start:v18];
+    v17 = v13;
+    v28 = v17;
+    v18 = _Block_copy(aBlock);
+    v19 = [[LPiTunesMediaLookupTask alloc] initWithBundleIdentifier:v11];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_410;
+    v22[3] = &unk_1E7A35FF8;
+    v20 = v18;
+    v25 = v20;
+    v23 = v12;
+    v24 = v19;
+    v26 = v17;
+    v21 = v19;
+    [(LPiTunesMediaLookupTask *)v21 start:v22];
   }
 }
 
 uint64_t __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E69635F8]);
   v3 = *(a1 + 32);
-  v19 = 0;
-  v4 = [v2 initWithBundleIdentifier:v3 allowPlaceholder:1 error:&v19];
-  v5 = v19;
+  v22 = 0;
+  v4 = [v2 initWithBundleIdentifier:v3 allowPlaceholder:1 error:&v22];
+  v5 = v22;
+  v7 = v5;
   if (v5)
   {
-    v6 = LPLogChannelFetching();
-    v7 = 0;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = LPLogChannelFetching(v5, v6);
+    v9 = 0;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v5;
-      _os_log_impl(&dword_1AE886000, v6, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication local fetch failed: %@", buf, 0xCu);
-      v7 = 0;
+      v24 = v7;
+      _os_log_impl(&dword_1AE886000, v8, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication local fetch failed: %@", buf, 0xCu);
+      v9 = 0;
     }
   }
 
   else
   {
-    v8 = [v4 localizedName];
-    [*(a1 + 40) setName:v8];
+    v10 = [v4 localizedName];
+    [*(a1 + 40) setName:v10];
 
-    v9 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithBundleIdentifier:*(a1 + 32)];
-    v10 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:48.0 scale:{48.0, 1.0}];
-    [v10 setShouldApplyMask:0];
-    v11 = [v9 prepareImageForDescriptor:v10];
-    v12 = [v11 CGImage];
-    if (v12)
+    v11 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithBundleIdentifier:*(a1 + 32)];
+    v12 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:48.0 scale:{48.0, 1.0}];
+    [v12 setShouldApplyMask:0];
+    v13 = [v11 prepareImageForDescriptor:v12];
+    v15 = [v13 CGImage];
+    if (v15)
     {
-      v13 = [[LPImage alloc] _initWithCGImage:v12];
-      [*(a1 + 40) setIcon:v13];
+      v16 = [[LPImage alloc] _initWithCGImage:v15];
+      [*(a1 + 40) setIcon:v16];
 
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_406;
       block[3] = &unk_1E7A35428;
-      v18 = *(a1 + 48);
-      v17 = *(a1 + 40);
+      v21 = *(a1 + 48);
+      v20 = *(a1 + 40);
       dispatch_async(MEMORY[0x1E69E96A0], block);
 
-      v7 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v14 = LPLogChannelFetching();
-      v7 = 0;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v17 = LPLogChannelFetching(0, v14);
+      v9 = 0;
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AE886000, v14, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication local fetch failed: no icon", buf, 2u);
-        v7 = 0;
+        _os_log_impl(&dword_1AE886000, v17, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication local fetch failed: no icon", buf, 2u);
+        v9 = 0;
       }
     }
   }
 
-  return v7;
+  return v9;
 }
 
 void __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_408(uint64_t a1, void *a2)
@@ -2364,21 +2366,21 @@ void __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplication
   dispatch_async(MEMORY[0x1E69E96A0], v5);
 }
 
-void __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_2(uint64_t a1)
+void __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = LPLogChannelFetching();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = LPLogChannelFetching(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1AE886000, v2, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication remote fetch failed: %@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_1AE886000, v3, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication remote fetch failed: %@", &v7, 0xCu);
   }
 
-  v4 = *(a1 + 40);
-  v5 = makeLPError(2, *(a1 + 32));
-  (*(v4 + 16))(v4, 0, v5);
+  v5 = *(a1 + 40);
+  v6 = makeLPError(2, *(a1 + 32));
+  (*(v5 + 16))(v5, 0, v6);
 }
 
 void __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_410(id *a1, void *a2, uint64_t a3, void *a4)
@@ -2477,13 +2479,13 @@ void __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplication
   }
 }
 
-uint64_t __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_4(uint64_t a1)
+uint64_t __117__LPiTunesMediaMetadataProviderSpecialization_requestSourceApplicationMetadataForBundleIdentifier_completionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v2 = LPLogChannelFetching();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = LPLogChannelFetching(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1AE886000, v2, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication remote fetch succeeded", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1AE886000, v3, OS_LOG_TYPE_DEFAULT, "LPMetadataProvider requestSourceApplication remote fetch succeeded", v5, 2u);
   }
 
   return (*(*(a1 + 40) + 16))();

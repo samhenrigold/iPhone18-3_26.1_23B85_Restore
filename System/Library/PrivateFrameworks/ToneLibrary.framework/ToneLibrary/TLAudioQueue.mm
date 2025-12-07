@@ -91,50 +91,50 @@ uint64_t __32__TLAudioQueue_sharedAudioQueue__block_invoke()
 
 - (void)assertNotRunningOnAudioQueue
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if ([(TLAudioQueue *)self _shouldAssumeRunningOnAudioQueue])
+  v25 = *MEMORY[0x1E69E9840];
+  _shouldAssumeRunningOnAudioQueue = [(TLAudioQueue *)self _shouldAssumeRunningOnAudioQueue];
+  if (_shouldAssumeRunningOnAudioQueue)
   {
-    v3 = TLLogGeneral();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
+    v5 = TLLogGeneral(_shouldAssumeRunningOnAudioQueue, v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
 
-    if (v4)
+    if (v6)
     {
-      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLAudioQueue.m"];
-      v6 = TLLogGeneral();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLAudioQueue.m"];
+      v11 = TLLogGeneral(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        lastPathComponent = [v5 lastPathComponent];
+        lastPathComponent = [v9 lastPathComponent];
         callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-        v11 = 136381443;
-        v12 = "[TLAudioQueue assertNotRunningOnAudioQueue]";
-        v13 = 2113;
-        v14 = lastPathComponent;
-        v15 = 2049;
-        v16 = 79;
-        v17 = 2113;
-        v18 = callStackSymbols;
-        _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v11, 0x2Au);
+        v17 = 136381443;
+        v18 = "[TLAudioQueue assertNotRunningOnAudioQueue]";
+        v19 = 2113;
+        v20 = lastPathComponent;
+        v21 = 2049;
+        v22 = 79;
+        v23 = 2113;
+        v24 = callStackSymbols;
+        _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v17, 0x2Au);
       }
     }
 
     else
     {
-      v5 = TLLogGeneral();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v9 = TLLogGeneral(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(TLToneStoreDownloadStoreServicesController *)v5 _assertRunningOnAccessQueue];
+        [(TLToneStoreDownloadStoreServicesController *)v9 _assertRunningOnAccessQueue];
       }
     }
 
-    v9 = TLLogGeneral();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v16 = TLLogGeneral(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(TLAudioQueue *)v9 assertNotRunningOnAudioQueue];
+      [(TLAudioQueue *)v16 assertNotRunningOnAudioQueue];
     }
   }
 
   dispatch_assert_queue_not_V2(self->_serialQueue);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldAssumeRunningOnAudioQueue

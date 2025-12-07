@@ -17,53 +17,53 @@
 
 - (id)accessibilityLabel
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v3 = [(TLKTextAreaViewAccessibility *)self safeValueForKey:@"titleContainer"];
   v4 = [v3 safeValueForKey:@"secondaryLabel"];
   v5 = [(TLKTextAreaViewAccessibility *)self safeValueForKey:@"footnoteLabel"];
   v6 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-  v31 = 0;
+  v30 = 0;
   objc_opt_class();
   v7 = [(TLKTextAreaViewAccessibility *)self safeValueForKey:@"detailsFields"];
   v8 = __UIAccessibilityCastAsClass();
 
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v28;
+    v12 = *v27;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v28 != v12)
+        if (*v27 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * i);
+        v14 = *(*(&v26 + 1) + 8 * i);
         if ([v14 _accessibilityViewIsVisible])
         {
           [v6 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v11);
   }
 
-  v26 = v3;
+  v25 = v3;
   v15 = [v3 safeValueForKey:@"titleLabel"];
   accessibilityLabel = [v15 accessibilityLabel];
   _accessibilityViewIsVisible = [v4 _accessibilityViewIsVisible];
-  v25 = v4;
+  v24 = v4;
   if (_accessibilityViewIsVisible)
   {
     accessibilityLabel2 = [v4 accessibilityLabel];
@@ -90,8 +90,6 @@
   if (_accessibilityViewIsVisible)
   {
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 
   return v21;
 }

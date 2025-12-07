@@ -35,7 +35,7 @@
 
 - (id)generateIPK
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x10uLL, bytes))
   {
     v2 = 0;
@@ -46,14 +46,12 @@
     v2 = [MEMORY[0x277CBEA90] dataWithBytes:bytes length:16];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (id)newFabricData
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   keychainDelegate = [(HMMTRFabricDataCreator *)self keychainDelegate];
   nocSigner = [keychainDelegate nocSigner];
 
@@ -92,11 +90,11 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v19;
+      v30 = 138543362;
+      v31 = v19;
       v20 = "%{public}@IPK generation failed";
 LABEL_21:
-      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, v20, &v31, 0xCu);
+      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, v20, &v30, 0xCu);
     }
 
 LABEL_22:
@@ -117,9 +115,9 @@ LABEL_22:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         v24 = HMFGetLogIdentifier();
-        v31 = 138543362;
-        v32 = v24;
-        _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@Cannot generate new fabric data reusing previous keys - Trying with a new set of keys", &v31, 0xCu);
+        v30 = 138543362;
+        v31 = v24;
+        _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@Cannot generate new fabric data reusing previous keys - Trying with a new set of keys", &v30, 0xCu);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -145,8 +143,8 @@ LABEL_22:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v19;
+      v30 = 138543362;
+      v31 = v19;
       v20 = "%{public}@Failed to generate new fabric data";
       goto LABEL_21;
     }
@@ -157,7 +155,6 @@ LABEL_22:
   v15 = v14;
 LABEL_23:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -192,15 +189,16 @@ LABEL_23:
 
 uint64_t __37__HMMTRFabricDataCreator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v7 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7;
+  logCategory__hmf_once_v7 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)fabricDataForRootKeyPair:(id)pair opKeyPair:(id)keyPair fabricID:(id)d residentNodeID:(id)iD overridingRCAC:(id)c ipk:(id)ipk
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   pairCopy = pair;
   keyPairCopy = keyPair;
   dCopy = d;
@@ -211,7 +209,7 @@ uint64_t __37__HMMTRFabricDataCreator_logCategory__block_invoke()
   v20 = v19;
   if (v19)
   {
-    v46 = keyPairCopy;
+    v45 = keyPairCopy;
     if (cCopy)
     {
       v21 = cCopy;
@@ -222,21 +220,21 @@ uint64_t __37__HMMTRFabricDataCreator_logCategory__block_invoke()
       v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[__CFData hash](v19, "hash")}];
     }
 
-    v44 = v21;
-    v45 = ipkCopy;
-    v50 = 0;
-    v30 = [MEMORY[0x277CD5230] createRootCertificate:pairCopy issuerID:v21 fabricID:dCopy error:&v50];
-    v31 = v50;
+    v43 = v21;
+    v44 = ipkCopy;
+    v49 = 0;
+    v30 = [MEMORY[0x277CD5230] createRootCertificate:pairCopy issuerID:v21 fabricID:dCopy error:&v49];
+    v31 = v49;
     if (v30)
     {
-      v49 = v31;
+      v48 = v31;
       v29 = iDCopy;
-      v32 = [MEMORY[0x277CD5230] createOperationalCertificate:pairCopy signingCertificate:v30 operationalPublicKey:objc_msgSend(v46 fabricID:"publicKey") nodeID:dCopy caseAuthenticatedTags:iDCopy error:{0, &v49}];
-      v43 = v49;
+      v32 = [MEMORY[0x277CD5230] createOperationalCertificate:pairCopy signingCertificate:v30 operationalPublicKey:objc_msgSend(v45 fabricID:"publicKey") nodeID:dCopy caseAuthenticatedTags:iDCopy error:{0, &v48}];
+      v42 = v48;
 
       if (v32)
       {
-        v28 = [[HMMTRFabricData alloc] initWithRootPublicKey:v20 fabricID:dCopy ipk:ipkCopy residentNodeID:iDCopy rootKeyPair:pairCopy rootCert:v30 residentOperationalKeyPair:v46 residentOperationalCert:v32];
+        v28 = [[HMMTRFabricData alloc] initWithRootPublicKey:v20 fabricID:dCopy ipk:ipkCopy residentNodeID:iDCopy rootKeyPair:pairCopy rootCert:v30 residentOperationalKeyPair:v45 residentOperationalCert:v32];
       }
 
       else
@@ -248,19 +246,19 @@ uint64_t __37__HMMTRFabricDataCreator_logCategory__block_invoke()
         {
           v40 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v52 = v40;
-          v53 = 2112;
-          v54 = v43;
+          v51 = v40;
+          v52 = 2112;
+          v53 = v42;
           _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_ERROR, "%{public}@Resident Operational Cert generation failed: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v37);
         v28 = 0;
         v29 = iDCopy;
-        ipkCopy = v45;
+        ipkCopy = v44;
       }
 
-      v31 = v43;
+      v31 = v42;
     }
 
     else
@@ -272,24 +270,24 @@ uint64_t __37__HMMTRFabricDataCreator_logCategory__block_invoke()
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v52 = v36;
-        v53 = 2112;
-        v54 = v31;
+        v51 = v36;
+        v52 = 2112;
+        v53 = v31;
         _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_ERROR, "%{public}@Root cert generation failed: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v33);
       v28 = 0;
       v29 = iDCopy;
-      ipkCopy = v45;
+      ipkCopy = v44;
     }
 
-    keyPairCopy = v46;
+    keyPairCopy = v45;
   }
 
   else
   {
-    v47 = dCopy;
+    v46 = dCopy;
     v22 = cCopy;
     v23 = ipkCopy;
     v24 = objc_autoreleasePoolPush();
@@ -299,7 +297,7 @@ uint64_t __37__HMMTRFabricDataCreator_logCategory__block_invoke()
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v52 = v27;
+      v51 = v27;
       _os_log_impl(&dword_22AEAE000, v26, OS_LOG_TYPE_ERROR, "%{public}@Bad root key", buf, 0xCu);
     }
 
@@ -307,11 +305,9 @@ uint64_t __37__HMMTRFabricDataCreator_logCategory__block_invoke()
     v28 = 0;
     ipkCopy = v23;
     cCopy = v22;
-    dCopy = v47;
+    dCopy = v46;
     v29 = iDCopy;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

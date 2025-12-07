@@ -72,7 +72,7 @@ void __78__FCClientEndpointConnection_initWithEndpointConnection_configurationMa
 
 void __78__FCClientEndpointConnection_initWithEndpointConnection_configurationManager___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -80,16 +80,14 @@ void __78__FCClientEndpointConnection_initWithEndpointConnection_configurationMa
     v7 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Failed to fetch endpoint configuration with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Failed to fetch endpoint configuration with error: %{public}@", &v8, 0xCu);
     }
   }
 
   [*(a1 + 32) updateBaseURLWith:v5];
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportConcernV2:(id)v2 callbackQueue:(id)queue completion:(id)completion

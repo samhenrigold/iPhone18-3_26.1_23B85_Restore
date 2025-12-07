@@ -128,18 +128,18 @@
 
 - (void)invalidateForReasons:(id)reasons
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   reasonsCopy = reasons;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   if (!self->_invalidated)
   {
     self->_invalidated = 1;
-    v5 = SBLogContinuityDisplay();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuityDisplay(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
-      v18 = reasonsCopy;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State Machine] invalidated for reasons: %{public}@", &v17, 0xCu);
+      v18 = 138543362;
+      v19 = reasonsCopy;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State Machine] invalidated for reasons: %{public}@", &v18, 0xCu);
     }
 
     [(_SBContinuitySessionStateMachine *)self _moveToInvalidStateForReasons:reasonsCopy postToDelegate:0];
@@ -265,19 +265,19 @@
 - (void)_moveToInvalidStateForReasons:(id)reasons postToDelegate:(BOOL)delegate
 {
   delegateCopy = delegate;
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   reasonsCopy = reasons;
   internalState = self->_internalState;
-  v9 = SBLogContinuityDisplay();
+  v9 = SBLogContinuityDisplay(reasonsCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (internalState == 12)
   {
     if (v10)
     {
       bs_array = [reasonsCopy bs_array];
-      v19 = 138543362;
-      v20 = bs_array;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State Machine] ignoring call to move to invalid for reasons %{public}@ because we are already in .invalid", &v19, 0xCu);
+      v20 = 138543362;
+      v21 = bs_array;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State Machine] ignoring call to move to invalid for reasons %{public}@ because we are already in .invalid", &v20, 0xCu);
     }
   }
 
@@ -287,27 +287,27 @@
     {
       v12 = NSStringFromSBContinuitySessionState(self->_internalState);
       bs_array2 = [reasonsCopy bs_array];
-      v19 = 138543618;
-      v20 = v12;
-      v21 = 2114;
-      v22 = bs_array2;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State Machine] %{public}@ -> INVALID reasons: %{public}@", &v19, 0x16u);
+      v20 = 138543618;
+      v21 = v12;
+      v22 = 2114;
+      v23 = bs_array2;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State Machine] %{public}@ -> INVALID reasons: %{public}@", &v20, 0x16u);
     }
 
-    v14 = SBLogContinuitySession();
-    if (os_signpost_enabled(v14))
+    v15 = SBLogContinuitySession(v14);
+    if (os_signpost_enabled(v15))
     {
-      v15 = NSStringFromSBContinuitySessionState(12);
-      v19 = 138543362;
-      v20 = v15;
-      _os_signpost_emit_with_name_impl(&dword_21ED4E000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SB_ONENESS_STATE_MACHINE_STATE_UPDATE", "%{public}@", &v19, 0xCu);
+      v16 = NSStringFromSBContinuitySessionState(12);
+      v20 = 138543362;
+      v21 = v16;
+      _os_signpost_emit_with_name_impl(&dword_21ED4E000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SB_ONENESS_STATE_MACHINE_STATE_UPDATE", "%{public}@", &v20, 0xCu);
     }
 
     observerState = self->_observerState;
-    v17 = self->_internalState;
+    v18 = self->_internalState;
     self->_internalState = 12;
     objc_storeStrong(&self->_internalReasons, reasons);
-    v9 = [(_SBContinuitySessionStateMachine *)self _stateMachineStateForState:v17];
+    v9 = [(_SBContinuitySessionStateMachine *)self _stateMachineStateForState:v18];
     [v9 exitedStateTo:12];
     if (self->_observerState != 12)
     {
@@ -327,7 +327,7 @@
   v20 = *MEMORY[0x277D85DE8];
   reasonsCopy = reasons;
   internalState = self->_internalState;
-  v7 = SBLogContinuityDisplay();
+  v7 = SBLogContinuityDisplay(reasonsCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (internalState == 12)
   {
@@ -375,14 +375,14 @@
 
 - (void)_moveToState:(unint64_t)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (state == 12)
   {
     [(_SBContinuitySessionStateMachine *)a2 _moveToState:?];
   }
 
   internalState = self->_internalState;
-  v6 = SBLogContinuityDisplay();
+  v6 = SBLogContinuityDisplay(self);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (internalState == 12)
   {
@@ -390,7 +390,7 @@
     {
       v8 = NSStringFromSBContinuitySessionState(state);
       *buf = 138543362;
-      v23 = v8;
+      v24 = v8;
       _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State Machine] ignoring call to move to %{public}@ because we are already in .invalid", buf, 0xCu);
     }
   }
@@ -402,47 +402,47 @@
       v9 = NSStringFromSBContinuitySessionState(self->_internalState);
       v10 = NSStringFromSBContinuitySessionState(state);
       *buf = 138543618;
-      v23 = v9;
-      v24 = 2114;
-      v25 = v10;
+      v24 = v9;
+      v25 = 2114;
+      v26 = v10;
       _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State Machine] %{public}@ -> %{public}@", buf, 0x16u);
     }
 
-    v11 = SBLogContinuitySession();
-    if (os_signpost_enabled(v11))
+    v12 = SBLogContinuitySession(v11);
+    if (os_signpost_enabled(v12))
     {
-      v12 = NSStringFromSBContinuitySessionState(state);
+      v13 = NSStringFromSBContinuitySessionState(state);
       *buf = 138543362;
-      v23 = v12;
-      _os_signpost_emit_with_name_impl(&dword_21ED4E000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SB_ONENESS_STATE_MACHINE_STATE_UPDATE", "%{public}@", buf, 0xCu);
+      v24 = v13;
+      _os_signpost_emit_with_name_impl(&dword_21ED4E000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SB_ONENESS_STATE_MACHINE_STATE_UPDATE", "%{public}@", buf, 0xCu);
     }
 
-    v13 = self->_internalState;
+    v14 = self->_internalState;
     self->_internalState = state;
-    v14 = [MEMORY[0x277CBEB98] set];
+    v15 = [MEMORY[0x277CBEB98] set];
     internalReasons = self->_internalReasons;
-    self->_internalReasons = v14;
+    self->_internalReasons = v15;
 
     self->_suppressReasonUpdateCallout = 1;
-    v6 = [(_SBContinuitySessionStateMachine *)self _stateMachineStateForState:v13];
-    v16 = [(_SBContinuitySessionStateMachine *)self _stateMachineStateForState:state];
+    v6 = [(_SBContinuitySessionStateMachine *)self _stateMachineStateForState:v14];
+    v17 = [(_SBContinuitySessionStateMachine *)self _stateMachineStateForState:state];
     [v6 exitedStateTo:state];
-    [v16 enteredStateFrom:v13];
+    [v17 enteredStateFrom:v14];
     self->_suppressReasonUpdateCallout = 0;
-    v17 = [(NSSet *)self->_internalReasons copy];
+    v18 = [(NSSet *)self->_internalReasons copy];
     objc_initWeak(buf, self);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __49___SBContinuitySessionStateMachine__moveToState___block_invoke;
-    v19[3] = &unk_2783C4470;
-    objc_copyWeak(v21, buf);
-    v21[1] = state;
-    v21[2] = v13;
-    v20 = v17;
-    v18 = v17;
-    dispatch_async(MEMORY[0x277D85CD0], v19);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __49___SBContinuitySessionStateMachine__moveToState___block_invoke;
+    v20[3] = &unk_2783C4470;
+    objc_copyWeak(v22, buf);
+    v22[1] = state;
+    v22[2] = v14;
+    v21 = v18;
+    v19 = v18;
+    dispatch_async(MEMORY[0x277D85CD0], v20);
 
-    objc_destroyWeak(v21);
+    objc_destroyWeak(v22);
     objc_destroyWeak(buf);
   }
 }

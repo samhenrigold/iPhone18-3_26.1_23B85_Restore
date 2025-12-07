@@ -10,6 +10,7 @@
 - (void)configureCallback;
 - (void)dealloc;
 - (void)delegateDidChange;
+- (void)reachabilityDidChangeWithFlags:(unsigned int)flags;
 - (void)removeFromRunLoop:(id)loop forMode:(id)mode;
 - (void)scheduleInRunLoop:(id)loop forMode:(id)mode;
 @end
@@ -182,6 +183,21 @@
   mReachabilityRef = self->mReachabilityRef;
   runLoopMode = mode;
   SCNetworkReachabilityUnscheduleFromRunLoop(mReachabilityRef, [loop getCFRunLoop], runLoopMode);
+}
+
+- (void)reachabilityDidChangeWithFlags:(unsigned int)flags
+{
+  v3 = *&flags;
+  if ([(CATNetworkReachability *)self flags]!= flags)
+  {
+    isReachable = [(CATNetworkReachability *)self isReachable];
+    [(CATNetworkReachability *)self setFlags:v3];
+    if (isReachable != [(CATNetworkReachability *)self isReachable])
+    {
+
+      [(CATNetworkReachability *)self delegateDidChange];
+    }
+  }
 }
 
 - (void)delegateDidChange

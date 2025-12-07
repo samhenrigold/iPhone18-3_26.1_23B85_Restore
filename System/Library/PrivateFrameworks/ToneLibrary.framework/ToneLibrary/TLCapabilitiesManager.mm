@@ -182,7 +182,7 @@ LABEL_10:
 
 - (BOOL)supportsNanoEncore
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   activePairedDeviceSelectorBlock = [getNRPairedDeviceRegistryClass() activePairedDeviceSelectorBlock];
   sharedInstance = [getNRPairedDeviceRegistryClass() sharedInstance];
   v4 = [sharedInstance getAllDevicesWithArchivedAltAccountDevicesMatching:activePairedDeviceSelectorBlock];
@@ -190,26 +190,26 @@ LABEL_10:
   firstObject = [v4 firstObject];
   if (firstObject)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
     v6 = getNRDevicePropertyNameSymbolLoc_ptr;
-    v24 = getNRDevicePropertyNameSymbolLoc_ptr;
+    v25 = getNRDevicePropertyNameSymbolLoc_ptr;
     if (!getNRDevicePropertyNameSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v26 = __getNRDevicePropertyNameSymbolLoc_block_invoke;
-      v27 = &unk_1E8578D30;
-      v28 = &v21;
+      v27 = __getNRDevicePropertyNameSymbolLoc_block_invoke;
+      v28 = &unk_1E8578D30;
+      v29 = &v22;
       v7 = NanoRegistryLibrary();
       v8 = dlsym(v7, "NRDevicePropertyName");
-      *(v28[1] + 24) = v8;
-      getNRDevicePropertyNameSymbolLoc_ptr = *(v28[1] + 24);
-      v6 = v22[3];
+      *(v29[1] + 24) = v8;
+      getNRDevicePropertyNameSymbolLoc_ptr = *(v29[1] + 24);
+      v6 = v23[3];
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v22, 8);
     if (!v6)
     {
       __73__TLToneManager__ensureTCCAccessPreflightAndCheckForFileExistenceAtPath___block_invoke_cold_2();
@@ -231,29 +231,28 @@ LABEL_10:
   v14 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"9B2FB519-D14B-49AB-BB91-67A6BF4E2B9A"];
   v15 = [firstObject supportsCapability:v14];
 
-  v16 = TLLogToneManagement();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  v18 = TLLogToneManagement(v16, v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (v15)
   {
-    if (v17)
+    if (v19)
     {
       LODWORD(buf) = 138543362;
       *(&buf + 4) = v13;
-      v18 = "Active paired watch %{public}@ supports NanoEncore.";
+      v20 = "Active paired watch %{public}@ supports NanoEncore.";
 LABEL_12:
-      _os_log_impl(&dword_1D9356000, v16, OS_LOG_TYPE_DEFAULT, v18, &buf, 0xCu);
+      _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, v20, &buf, 0xCu);
     }
   }
 
-  else if (v17)
+  else if (v19)
   {
     LODWORD(buf) = 138543362;
     *(&buf + 4) = v13;
-    v18 = "Active paired watch %{public}@ does NOT support NanoEncore.";
+    v20 = "Active paired watch %{public}@ does NOT support NanoEncore.";
     goto LABEL_12;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -263,14 +262,14 @@ LABEL_12:
   if ([(TLCapabilitiesManager *)self hasVibratorCapability])
   {
     v3 = MGGetBoolAnswer();
-    v4 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = TLLogVibrationManagement(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138543618;
       selfCopy = self;
       v9 = 1024;
       v10 = v3;
-      _os_log_impl(&dword_1D9356000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: -hasSynchronizedVibrationsCapability. MobileGestalt returned %{BOOL}u for the deviceSupportsHaptics capability.", &v7, 0x12u);
+      _os_log_impl(&dword_1D9356000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: -hasSynchronizedVibrationsCapability. MobileGestalt returned %{BOOL}u for the deviceSupportsHaptics capability.", &v7, 0x12u);
     }
   }
 
@@ -279,7 +278,6 @@ LABEL_12:
     LOBYTE(v3) = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -292,8 +290,8 @@ LABEL_12:
     v4 = MGGetBoolAnswer();
     v5 = v4;
     v6 = v3 & v4;
-    v7 = TLLogVibrationManagement();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = TLLogVibrationManagement(v4, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138544130;
       selfCopy = self;
@@ -303,7 +301,7 @@ LABEL_12:
       v15 = v5 & 1;
       v16 = 1024;
       v17 = v6;
-      _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: -hasSynchronizedVibrationsCapability. MobileGestalt returned %{BOOL}u for the deviceSupportsHaptics capability, and %{BOOL}u for the deviceSupportsClosedLoopHaptics capability; hasSynchronizedEmbeddedVibrationsCapability = %{BOOL}u.", &v10, 0x1Eu);
+      _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: -hasSynchronizedVibrationsCapability. MobileGestalt returned %{BOOL}u for the deviceSupportsHaptics capability, and %{BOOL}u for the deviceSupportsClosedLoopHaptics capability; hasSynchronizedEmbeddedVibrationsCapability = %{BOOL}u.", &v10, 0x1Eu);
     }
   }
 
@@ -312,7 +310,6 @@ LABEL_12:
     LOBYTE(v6) = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

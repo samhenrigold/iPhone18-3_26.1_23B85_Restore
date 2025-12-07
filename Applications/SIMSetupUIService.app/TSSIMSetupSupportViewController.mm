@@ -9,6 +9,7 @@
 - (void)handleButtonActions:(id)actions;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)screenLockDidUpdate:(BOOL)update;
+- (void)setIdleTimerDisabled:(BOOL)disabled;
 - (void)simSetupFlowCompleted:(unint64_t)completed;
 - (void)userDidTapCancel;
 - (void)viewDidLoad;
@@ -198,70 +199,70 @@
   v110 = userInfo;
   if (([userInfo isEqualToDictionary:self->_options] & 1) == 0)
   {
-    v128 = _remoteViewControllerProxy;
-    v129 = completionCopy;
-    v130 = contextCopy;
-    v133 = 0u;
+    v129 = _remoteViewControllerProxy;
+    v130 = completionCopy;
+    v131 = contextCopy;
     v134 = 0u;
-    v131 = 0u;
+    v135 = 0u;
     v132 = 0u;
+    v133 = 0u;
     allKeys = [userInfo allKeys];
-    v112 = [allKeys countByEnumeratingWithState:&v131 objects:v141 count:16];
+    v112 = [allKeys countByEnumeratingWithState:&v132 objects:v142 count:16];
     if (v112)
     {
       v113 = v112;
-      v114 = *v132;
+      v114 = *v133;
       do
       {
         for (i = 0; i != v113; i = i + 1)
         {
-          if (*v132 != v114)
+          if (*v133 != v114)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v116 = *(*(&v131 + 1) + 8 * i);
+          v116 = *(*(&v132 + 1) + 8 * i);
           allKeys2 = [(NSMutableDictionary *)self->_options allKeys];
           v118 = [allKeys2 containsObject:v116];
 
           if ((v118 & 1) == 0)
           {
-            v119 = sub_10000C1BC();
-            if (os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
+            v120 = sub_10000C1BC(v119);
+            if (os_log_type_enabled(v120, OS_LOG_TYPE_INFO))
             {
-              v120 = [v110 objectForKeyedSubscript:v116];
+              v121 = [v110 objectForKeyedSubscript:v116];
               *buf = 138412802;
-              v136 = v116;
-              v137 = 2112;
-              v138 = v120;
-              v139 = 2080;
-              v140 = "[TSSIMSetupSupportViewController configureWithContext:completion:]";
-              _os_log_impl(&_mh_execute_header, v119, OS_LOG_TYPE_INFO, "[I] sanitized user option: {%@ : %@} @%s", buf, 0x20u);
+              v137 = v116;
+              v138 = 2112;
+              v139 = v121;
+              v140 = 2080;
+              v141 = "[TSSIMSetupSupportViewController configureWithContext:completion:]";
+              _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_INFO, "[I] sanitized user option: {%@ : %@} @%s", buf, 0x20u);
             }
           }
         }
 
-        v113 = [allKeys countByEnumeratingWithState:&v131 objects:v141 count:16];
+        v113 = [allKeys countByEnumeratingWithState:&v132 objects:v142 count:16];
       }
 
       while (v113);
     }
 
-    completionCopy = v129;
-    contextCopy = v130;
-    _remoteViewControllerProxy = v128;
+    completionCopy = v130;
+    contextCopy = v131;
+    _remoteViewControllerProxy = v129;
   }
 
-  v121 = [[TSScreenLockObserver alloc] initWithDelegate:self];
+  v122 = [[TSScreenLockObserver alloc] initWithDelegate:self];
   screenLockObserver = self->_screenLockObserver;
-  self->_screenLockObserver = v121;
+  self->_screenLockObserver = v122;
 
-  v123 = [SSRemoteAlertMonitor alloc];
-  v124 = +[NSBundle mainBundle];
-  bundleIdentifier = [v124 bundleIdentifier];
-  v126 = [(SSRemoteAlertMonitor *)v123 initWithBundleID:bundleIdentifier dismissHandler:&stru_10001C980];
+  v124 = [SSRemoteAlertMonitor alloc];
+  v125 = +[NSBundle mainBundle];
+  bundleIdentifier = [v125 bundleIdentifier];
+  v127 = [(SSRemoteAlertMonitor *)v124 initWithBundleID:bundleIdentifier dismissHandler:&stru_10001C980];
   remoteAlertMonitor = self->_remoteAlertMonitor;
-  self->_remoteAlertMonitor = v126;
+  self->_remoteAlertMonitor = v127;
 
   if (completionCopy)
   {
@@ -275,7 +276,7 @@
   completionCopy = completion;
   if (!completionCopy)
   {
-    v8 = sub_10000C1BC();
+    v8 = sub_10000C1BC(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10000F67C();
@@ -320,24 +321,24 @@ LABEL_8:
     else
     {
       v19 = [(NSMutableDictionary *)self->_options mutableCopy];
-      v70 = 0;
-      v71 = &v70;
-      v72 = 0x2050000000;
+      v71 = 0;
+      v72 = &v71;
+      v73 = 0x2050000000;
       v33 = qword_100025E20;
-      v73 = qword_100025E20;
+      v74 = qword_100025E20;
       if (!qword_100025E20)
       {
         location[0] = _NSConcreteStackBlock;
         location[1] = 3221225472;
         location[2] = sub_10000E310;
         location[3] = &unk_10001CA18;
-        location[4] = &v70;
+        location[4] = &v71;
         sub_10000E310(location);
-        v33 = v71[3];
+        v33 = v72[3];
       }
 
       v34 = v33;
-      _Block_object_dispose(&v70, 8);
+      _Block_object_dispose(&v71, 8);
       v35 = objc_alloc_init(v33);
       laContext = self->_laContext;
       self->_laContext = v35;
@@ -345,29 +346,29 @@ LABEL_8:
       externalizedContext = [(LAContext *)self->_laContext externalizedContext];
       [(NSMutableDictionary *)v19 setObject:externalizedContext forKeyedSubscript:v17];
 
-      v38 = sub_10000C1BC();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v39 = sub_10000C1BC(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         sub_10000F77C();
       }
     }
 
-    v39 = [TSSIMSetupFlow flowWithOptions:v19];
+    v40 = [TSSIMSetupFlow flowWithOptions:v19];
     setupFlow = self->_setupFlow;
-    self->_setupFlow = v39;
+    self->_setupFlow = v40;
 
     [(TSSIMSetupFlow *)self->_setupFlow setDelegate:self];
     objc_initWeak(location, self);
-    v41 = self->_setupFlow;
-    v26 = v66;
-    v66[0] = _NSConcreteStackBlock;
-    v66[1] = 3221225472;
-    v66[2] = sub_10000D510;
-    v66[3] = &unk_10001C8E8;
-    objc_copyWeak(&v68, location);
-    v67 = completionCopy;
-    [(TSSIMSetupFlow *)v41 firstViewController:v66];
-    v27 = v67;
+    v42 = self->_setupFlow;
+    v26 = v67;
+    v67[0] = _NSConcreteStackBlock;
+    v67[1] = 3221225472;
+    v67[2] = sub_10000D510;
+    v67[3] = &unk_10001C8E8;
+    objc_copyWeak(&v69, location);
+    v68 = completionCopy;
+    [(TSSIMSetupFlow *)v42 firstViewController:v67];
+    v27 = v68;
     goto LABEL_25;
   }
 
@@ -385,15 +386,15 @@ LABEL_8:
     [(TSSIMSetupFlow *)self->_setupFlow setDelegate:self];
     objc_initWeak(location, self);
     v25 = self->_setupFlow;
-    v26 = v63;
-    v63[0] = _NSConcreteStackBlock;
-    v63[1] = 3221225472;
-    v63[2] = sub_10000D5F8;
-    v63[3] = &unk_10001C8E8;
-    objc_copyWeak(&v65, location);
-    v64 = completionCopy;
-    [(TSSIMSetupFlow *)v25 firstViewController:v63];
-    v27 = v64;
+    v26 = v64;
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_10000D5F8;
+    v64[3] = &unk_10001C8E8;
+    objc_copyWeak(&v66, location);
+    v65 = completionCopy;
+    [(TSSIMSetupFlow *)v25 firstViewController:v64];
+    v27 = v65;
 LABEL_25:
 
     objc_destroyWeak(v26 + 5);
@@ -413,88 +414,88 @@ LABEL_25:
 
     [(TSSIMSetupFlow *)self->_setupFlow setDelegate:self];
     v32 = self->_setupFlow;
-    v62[0] = _NSConcreteStackBlock;
-    v62[1] = 3221225472;
-    v62[2] = sub_10000D6E0;
-    v62[3] = &unk_10001C9C8;
-    v62[4] = self;
-    [(TSSIMSetupFlow *)v32 firstViewController:v62];
+    v63[0] = _NSConcreteStackBlock;
+    v63[1] = 3221225472;
+    v63[2] = sub_10000D6E0;
+    v63[3] = &unk_10001C9C8;
+    v63[4] = self;
+    [(TSSIMSetupFlow *)v32 firstViewController:v63];
     goto LABEL_9;
   }
 
-  v42 = [(NSMutableDictionary *)self->_options valueForKey:v9];
-  intValue5 = [v42 intValue];
-  v44 = TSFlowTypeActivationPolicyMismatch;
+  v43 = [(NSMutableDictionary *)self->_options valueForKey:v9];
+  intValue5 = [v43 intValue];
+  v45 = TSFlowTypeActivationPolicyMismatch;
 
-  if (v44 == intValue5)
+  if (v45 == intValue5)
   {
     [(TSSIMSetupSupportViewController *)self _presentPolicyRejectionViewController];
     goto LABEL_9;
   }
 
-  v45 = [(NSMutableDictionary *)self->_options valueForKey:v9];
-  if ([v45 intValue] == 13)
+  v46 = [(NSMutableDictionary *)self->_options valueForKey:v9];
+  if ([v46 intValue] == 13)
   {
     goto LABEL_35;
   }
 
-  v46 = [(NSMutableDictionary *)self->_options valueForKey:v9];
-  if ([v46 intValue] == 3)
+  v47 = [(NSMutableDictionary *)self->_options valueForKey:v9];
+  if ([v47 intValue] == 3)
   {
 LABEL_34:
 
 LABEL_35:
 LABEL_36:
-    v49 = [TSSIMSetupFlow flowWithOptions:self->_options];
-    v50 = self->_setupFlow;
-    self->_setupFlow = v49;
+    v50 = [TSSIMSetupFlow flowWithOptions:self->_options];
+    v51 = self->_setupFlow;
+    self->_setupFlow = v50;
 
     [(TSSIMSetupFlow *)self->_setupFlow setDelegate:self];
-    v51 = self->_setupFlow;
-    v60[0] = _NSConcreteStackBlock;
-    v60[1] = 3221225472;
-    v60[2] = sub_10000D6EC;
-    v60[3] = &unk_10001C9F0;
-    v60[4] = self;
-    v61 = completionCopy;
-    [(TSSIMSetupFlow *)v51 firstViewController:v60];
+    v52 = self->_setupFlow;
+    v61[0] = _NSConcreteStackBlock;
+    v61[1] = 3221225472;
+    v61[2] = sub_10000D6EC;
+    v61[3] = &unk_10001C9F0;
+    v61[4] = self;
+    v62 = completionCopy;
+    [(TSSIMSetupFlow *)v52 firstViewController:v61];
 
     goto LABEL_11;
   }
 
-  v47 = [(NSMutableDictionary *)self->_options valueForKey:v9];
-  if ([v47 intValue] == 18)
+  v48 = [(NSMutableDictionary *)self->_options valueForKey:v9];
+  if ([v48 intValue] == 18)
   {
 LABEL_33:
 
     goto LABEL_34;
   }
 
-  v48 = [(NSMutableDictionary *)self->_options valueForKey:v9];
-  if ([v48 intValue] == 21)
+  v49 = [(NSMutableDictionary *)self->_options valueForKey:v9];
+  if ([v49 intValue] == 21)
   {
 
     goto LABEL_33;
   }
 
-  v52 = [(NSMutableDictionary *)self->_options valueForKey:v9];
-  intValue6 = [v52 intValue];
+  v53 = [(NSMutableDictionary *)self->_options valueForKey:v9];
+  intValue6 = [v53 intValue];
 
   if (intValue6 == 27)
   {
     goto LABEL_36;
   }
 
-  v53 = [TSSIMSetupFlow flowWithOptions:self->_options];
-  v54 = self->_setupFlow;
-  self->_setupFlow = v53;
+  v54 = [TSSIMSetupFlow flowWithOptions:self->_options];
+  v55 = self->_setupFlow;
+  self->_setupFlow = v54;
 
   [(TSSIMSetupFlow *)self->_setupFlow setDelegate:self];
   firstViewController = [(TSSIMSetupFlow *)self->_setupFlow firstViewController];
   if (!firstViewController)
   {
-    v58 = sub_10000C1BC();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    v59 = sub_10000C1BC(0);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       sub_10000F6FC();
     }
@@ -503,9 +504,9 @@ LABEL_33:
     goto LABEL_10;
   }
 
-  v56 = firstViewController;
-  v57 = [(NSMutableDictionary *)self->_options objectForKeyedSubscript:v9];
-  -[TSSIMSetupSupportViewController _presentFirstController:isRemoteSignup:](self, "_presentFirstController:isRemoteSignup:", v56, [v57 intValue] == 7);
+  v57 = firstViewController;
+  v58 = [(NSMutableDictionary *)self->_options objectForKeyedSubscript:v9];
+  -[TSSIMSetupSupportViewController _presentFirstController:isRemoteSignup:](self, "_presentFirstController:isRemoteSignup:", v57, [v58 intValue] == 7);
 
 LABEL_9:
   [(TSScreenLockObserver *)self->_screenLockObserver registerForLockNotifications];
@@ -526,7 +527,7 @@ LABEL_11:
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
 {
-  v5 = sub_10000C1BC();
+  v5 = sub_10000C1BC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10000F8F8(completed, v5);
@@ -538,6 +539,23 @@ LABEL_11:
   v6[3] = &unk_10001C7A0;
   v6[4] = self;
   [(TSSIMSetupSupportViewController *)self dismissViewControllerWithTransition:7 completion:v6];
+}
+
+- (void)setIdleTimerDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  v5 = sub_10000C1BC(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7[0] = 67109378;
+    v7[1] = disabledCopy;
+    v8 = 2080;
+    v9 = "[TSSIMSetupSupportViewController setIdleTimerDisabled:]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "set idle timer disabled : %d @%s", v7, 0x12u);
+  }
+
+  _remoteViewControllerProxy = [(TSSIMSetupSupportViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy setIdleTimerDisabled:disabledCopy forReason:@"SIMSetupUIService"];
 }
 
 - (void)userDidTapCancel

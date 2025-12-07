@@ -179,7 +179,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    keybagID = self->_keybagID;
     PBDataWriterWriteUint32Field();
   }
 
@@ -191,14 +190,12 @@
   has = self->_has;
   if (has)
   {
-    backupReason = self->_backupReason;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    backupType = self->_backupType;
 
     PBDataWriterWriteInt32Field();
   }
@@ -294,7 +291,6 @@
         if (!(buildVersion | *(equal + 2)) || (v5 = [(NSString *)buildVersion isEqual:?]) != 0)
         {
           has = self->_has;
-          v10 = *(equal + 56);
           if ((has & 4) != 0)
           {
             if ((*(equal + 56) & 4) == 0 || self->_keybagID != *(equal + 8))

@@ -56,54 +56,53 @@
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
   [database removeProtectedDataObserver:self];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_progressEvents;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
         scheduler = self->_scheduler;
-        eventIdentifier = [*(*(&v14 + 1) + 8 * v9) eventIdentifier];
+        eventIdentifier = [*(*(&v13 + 1) + 8 * v9) eventIdentifier];
         [(FCCXPCActivityScheduler *)scheduler cancelActivityWithName:eventIdentifier];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
-  v13.receiver = self;
-  v13.super_class = FCGoalProgressCoordinator;
-  [(FCGoalProgressCoordinator *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = FCGoalProgressCoordinator;
+  [(FCGoalProgressCoordinator *)&v12 dealloc];
 }
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   serviceQueue = self->_serviceQueue;
   readyCopy = ready;
   dispatch_assert_queue_V2(serviceQueue);
@@ -119,9 +118,9 @@
   v10 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = currentConfiguration;
-    _os_log_impl(&dword_24B55B000, v10, OS_LOG_TYPE_DEFAULT, "Loaded goal progress configuration %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = currentConfiguration;
+    _os_log_impl(&dword_24B55B000, v10, OS_LOG_TYPE_DEFAULT, "Loaded goal progress configuration %@", &v19, 0xCu);
   }
 
   coachingDate = [(FCCDateProvider *)self->_dateProvider coachingDate];
@@ -139,11 +138,11 @@
     else
     {
       _HKInitializeLogging();
-      v19 = *v9;
+      v18 = *v9;
       if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_24B55B000, v19, OS_LOG_TYPE_DEFAULT, "Typical day model has not loaded yet", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_24B55B000, v18, OS_LOG_TYPE_DEFAULT, "Typical day model has not loaded yet", &v19, 2u);
       }
     }
   }
@@ -156,17 +155,15 @@
     {
       v16 = v15;
       expirationDate = [currentConfiguration expirationDate];
-      v20 = 138412802;
-      v21 = currentConfiguration;
-      v22 = 2112;
-      v23 = expirationDate;
-      v24 = 2112;
-      v25 = coachingDate;
-      _os_log_impl(&dword_24B55B000, v16, OS_LOG_TYPE_DEFAULT, "Invalid loaded configuration %@, expiration %@, now %@", &v20, 0x20u);
+      v19 = 138412802;
+      v20 = currentConfiguration;
+      v21 = 2112;
+      v22 = expirationDate;
+      v23 = 2112;
+      v24 = coachingDate;
+      _os_log_impl(&dword_24B55B000, v16, OS_LOG_TYPE_DEFAULT, "Invalid loaded configuration %@, expiration %@, now %@", &v19, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
@@ -185,31 +182,29 @@
 
 - (void)_onqueue_runEvaluation
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serviceQueue);
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC290];
   v4 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v36) = 0;
-    _os_log_impl(&dword_24B55B000, v4, OS_LOG_TYPE_DEFAULT, "Running goal progress evaluation", &v36, 2u);
+    LOWORD(v35) = 0;
+    _os_log_impl(&dword_24B55B000, v4, OS_LOG_TYPE_DEFAULT, "Running goal progress evaluation", &v35, 2u);
   }
 
   if ([(FCGoalProgressDebouncer *)self->_debouncer inProgress])
   {
     _HKInitializeLogging();
     v5 = *v3;
-    if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v36) = 0;
-      v6 = "Debounce in progress, not evaluating goal progress";
-LABEL_15:
-      _os_log_impl(&dword_24B55B000, v5, OS_LOG_TYPE_DEFAULT, v6, &v36, 2u);
-      goto LABEL_16;
+      return;
     }
 
-    goto LABEL_16;
+    LOWORD(v35) = 0;
+    v6 = "Debounce in progress, not evaluating goal progress";
+    goto LABEL_15;
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
@@ -220,40 +215,40 @@ LABEL_15:
   {
     _HKInitializeLogging();
     v5 = *v3;
-    if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v36) = 0;
-      v6 = "Protected data unavailable, not evaluating goal progress";
-      goto LABEL_15;
+      return;
     }
 
-    goto LABEL_16;
+    LOWORD(v35) = 0;
+    v6 = "Protected data unavailable, not evaluating goal progress";
+    goto LABEL_15;
   }
 
   currentConfiguration = self->_currentConfiguration;
-  if (!currentConfiguration)
+  if (currentConfiguration)
   {
-    _HKInitializeLogging();
-    v5 = *v3;
-    if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+    expirationDate = [(FCCGoalProgressConfiguration *)currentConfiguration expirationDate];
+    coachingDate = [(FCCDateProvider *)self->_dateProvider coachingDate];
+    v13 = [expirationDate hk_isBeforeOrEqualToDate:coachingDate];
+
+    if (v13)
     {
-      LOWORD(v36) = 0;
-      v6 = "Not evaluating, goal progress configuration doesn't exist";
+      _HKInitializeLogging();
+      v5 = *v3;
+      if (!os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+      {
+        return;
+      }
+
+      LOWORD(v35) = 0;
+      v6 = "Not evaluating, goal progress configuration has expired";
       goto LABEL_15;
     }
 
-    goto LABEL_16;
-  }
-
-  expirationDate = [(FCCGoalProgressConfiguration *)currentConfiguration expirationDate];
-  coachingDate = [(FCCDateProvider *)self->_dateProvider coachingDate];
-  v13 = [expirationDate hk_isBeforeOrEqualToDate:coachingDate];
-
-  if (!v13)
-  {
     typicalDayModel = [(FCTypicalDayProvider *)self->_typicalDayProvider typicalDayModel];
     _minimumActiveDaysOverride = [(FCGoalProgressCoordinator *)self _minimumActiveDaysOverride];
-    v17 = _minimumActiveDaysOverride;
+    v16 = _minimumActiveDaysOverride;
     if (_minimumActiveDaysOverride)
     {
       integerValue = [_minimumActiveDaysOverride integerValue];
@@ -264,85 +259,85 @@ LABEL_15:
       integerValue = [(FCCGoalProgressConfiguration *)self->_currentConfiguration minimumNumberOfActiveDays];
     }
 
-    v19 = integerValue;
+    v18 = integerValue;
     totalActiveDays = [typicalDayModel totalActiveDays];
-    if (totalActiveDays < v19)
+    if (totalActiveDays < v18)
     {
-      v21 = totalActiveDays;
+      v20 = totalActiveDays;
       _HKInitializeLogging();
-      v22 = *v3;
+      v21 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = 134218240;
-        v37 = v21;
-        v38 = 2048;
-        v39 = v19;
-        _os_log_impl(&dword_24B55B000, v22, OS_LOG_TYPE_DEFAULT, "User hasn't reached enough active days: %ld vs %ld", &v36, 0x16u);
+        v35 = 134218240;
+        v36 = v20;
+        v37 = 2048;
+        v38 = v18;
+        _os_log_impl(&dword_24B55B000, v21, OS_LOG_TYPE_DEFAULT, "User hasn't reached enough active days: %ld vs %ld", &v35, 0x16u);
       }
 
       goto LABEL_35;
     }
 
-    v23 = [FCGoalProgressEvaluator evaluateEvents:self->_progressEvents withModel:typicalDayModel evaluationDelegate:self];
-    lastObject = [v23 lastObject];
-    v25 = lastObject;
+    v22 = [FCGoalProgressEvaluator evaluateEvents:self->_progressEvents withModel:typicalDayModel evaluationDelegate:self];
+    lastObject = [v22 lastObject];
+    v24 = lastObject;
     if (!lastObject)
     {
       _HKInitializeLogging();
-      v33 = *v3;
+      v32 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v36) = 0;
-        _os_log_impl(&dword_24B55B000, v33, OS_LOG_TYPE_DEFAULT, "No event to show goal progress evaluation", &v36, 2u);
+        LOWORD(v35) = 0;
+        _os_log_impl(&dword_24B55B000, v32, OS_LOG_TYPE_DEFAULT, "No event to show goal progress evaluation", &v35, 2u);
       }
 
       goto LABEL_34;
     }
 
-    v26 = [lastObject goalProgressContentForModel:typicalDayModel];
+    v25 = [lastObject goalProgressContentForModel:typicalDayModel];
     onServiceQueue_currentActivityCacheSummary = [(FCTypicalDayProvider *)self->_typicalDayProvider onServiceQueue_currentActivityCacheSummary];
     isPaused = [onServiceQueue_currentActivityCacheSummary isPaused];
 
     _HKInitializeLogging();
-    v29 = *v3;
-    v30 = os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT);
+    v28 = *v3;
+    v29 = os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT);
     if (isPaused)
     {
-      if (!v30)
+      if (!v29)
       {
 LABEL_33:
-        [(FCGoalProgressCoordinator *)self _onqueue_notificationPosted:v26];
+        [(FCGoalProgressCoordinator *)self _onqueue_notificationPosted:v25];
 
 LABEL_34:
 LABEL_35:
 
-        goto LABEL_16;
+        return;
       }
 
-      v31 = v29;
-      eventIdentifier = [v25 eventIdentifier];
-      v36 = 138412546;
-      v37 = eventIdentifier;
-      v38 = 2112;
-      v39 = v23;
-      _os_log_impl(&dword_24B55B000, v31, OS_LOG_TYPE_DEFAULT, "Goal progress not posting event %@ from fired events %@ because we are currently paused", &v36, 0x16u);
+      v30 = v28;
+      eventIdentifier = [v24 eventIdentifier];
+      v35 = 138412546;
+      v36 = eventIdentifier;
+      v37 = 2112;
+      v38 = v22;
+      _os_log_impl(&dword_24B55B000, v30, OS_LOG_TYPE_DEFAULT, "Goal progress not posting event %@ from fired events %@ because we are currently paused", &v35, 0x16u);
     }
 
     else
     {
-      if (v30)
+      if (v29)
       {
-        v34 = v29;
-        eventIdentifier2 = [v25 eventIdentifier];
-        v36 = 138412546;
-        v37 = eventIdentifier2;
-        v38 = 2112;
-        v39 = v23;
-        _os_log_impl(&dword_24B55B000, v34, OS_LOG_TYPE_DEFAULT, "Goal progress posting event %@ from fired events %@", &v36, 0x16u);
+        v33 = v28;
+        eventIdentifier2 = [v24 eventIdentifier];
+        v35 = 138412546;
+        v36 = eventIdentifier2;
+        v37 = 2112;
+        v38 = v22;
+        _os_log_impl(&dword_24B55B000, v33, OS_LOG_TYPE_DEFAULT, "Goal progress posting event %@ from fired events %@", &v35, 0x16u);
       }
 
-      v31 = objc_loadWeakRetained(&self->_delegate);
-      [v31 coordinator:self eventFiredWithContent:v26];
+      v30 = objc_loadWeakRetained(&self->_delegate);
+      [v30 coordinator:self eventFiredWithContent:v25];
     }
 
     goto LABEL_33;
@@ -350,15 +345,15 @@ LABEL_35:
 
   _HKInitializeLogging();
   v5 = *v3;
-  if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+  if (!os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v36) = 0;
-    v6 = "Not evaluating, goal progress configuration has expired";
-    goto LABEL_15;
+    return;
   }
 
-LABEL_16:
-  v14 = *MEMORY[0x277D85DE8];
+  LOWORD(v35) = 0;
+  v6 = "Not evaluating, goal progress configuration doesn't exist";
+LABEL_15:
+  _os_log_impl(&dword_24B55B000, v5, OS_LOG_TYPE_DEFAULT, v6, &v35, 2u);
 }
 
 - (void)registerGoalProgressConfiguration:(id)configuration completion:(id)completion
@@ -380,7 +375,7 @@ LABEL_16:
 
 - (void)_onqueue_registerGoalProgressConfiguration:(id)configuration completion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   serviceQueue = self->_serviceQueue;
   completionCopy = completion;
@@ -389,22 +384,20 @@ LABEL_16:
   v9 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = configurationCopy;
-    _os_log_impl(&dword_24B55B000, v9, OS_LOG_TYPE_DEFAULT, "Goal progress registering configuration: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = configurationCopy;
+    _os_log_impl(&dword_24B55B000, v9, OS_LOG_TYPE_DEFAULT, "Goal progress registering configuration: %@", &v10, 0xCu);
   }
 
   [(FCGoalProgressStore *)self->_store storeCurrentConfiguration:configurationCopy];
   [(FCGoalProgressCoordinator *)self _onqueue_handleGoalProgressConfiguration:configurationCopy];
   [(FCGoalProgressCoordinator *)self _onqueue_rescheduleEvents];
   completionCopy[2](completionCopy, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleGoalProgressConfiguration:(id)configuration
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   objc_storeStrong(&self->_currentConfiguration, configuration);
   userStartOfDay = [configurationCopy userStartOfDay];
@@ -425,9 +418,9 @@ LABEL_16:
     typicalDayModel2 = [(FCTypicalDayProvider *)self->_typicalDayProvider typicalDayModel];
     userEndOfDay2 = [typicalDayModel2 userEndOfDay];
     *buf = 138412546;
-    v39 = userStartOfDay2;
-    v40 = 2112;
-    v41 = userEndOfDay2;
+    v38 = userStartOfDay2;
+    v39 = 2112;
+    v40 = userEndOfDay2;
     _os_log_impl(&dword_24B55B000, v11, OS_LOG_TYPE_DEFAULT, "Goal progress using user start date: %@, user end date: %@", buf, 0x16u);
   }
 
@@ -443,10 +436,10 @@ LABEL_16:
   completionOffTrackConfiguration = [configurationCopy completionOffTrackConfiguration];
   v24 = [(FCCompletionOffTrackEvent *)v22 initWithConfiguration:completionOffTrackConfiguration];
 
-  v37[0] = v21;
-  v37[1] = v24;
-  v37[2] = v18;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
+  v36[0] = v21;
+  v36[1] = v24;
+  v36[2] = v18;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
   progressEvents = self->_progressEvents;
   self->_progressEvents = v25;
 
@@ -457,7 +450,7 @@ LABEL_16:
     v28 = v27;
     almostThereConfiguration2 = [configurationCopy almostThereConfiguration];
     *buf = 138412290;
-    v39 = almostThereConfiguration2;
+    v38 = almostThereConfiguration2;
     _os_log_impl(&dword_24B55B000, v28, OS_LOG_TYPE_DEFAULT, "Goal progress added almost there configuration %@", buf, 0xCu);
   }
 
@@ -468,7 +461,7 @@ LABEL_16:
     v31 = v30;
     atypicalDayConfiguration2 = [configurationCopy atypicalDayConfiguration];
     *buf = 138412290;
-    v39 = atypicalDayConfiguration2;
+    v38 = atypicalDayConfiguration2;
     _os_log_impl(&dword_24B55B000, v31, OS_LOG_TYPE_DEFAULT, "Goal progress added atypical day configuration %@", buf, 0xCu);
   }
 
@@ -479,16 +472,14 @@ LABEL_16:
     v34 = v33;
     completionOffTrackConfiguration2 = [configurationCopy completionOffTrackConfiguration];
     *buf = 138412290;
-    v39 = completionOffTrackConfiguration2;
+    v38 = completionOffTrackConfiguration2;
     _os_log_impl(&dword_24B55B000, v34, OS_LOG_TYPE_DEFAULT, "Goal progress added completion off track configuration %@", buf, 0xCu);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_rescheduleEvents
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serviceQueue);
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC290];
@@ -562,31 +553,31 @@ LABEL_15:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v30 = v16;
-    v31 = 2112;
-    v32 = coachingDate2;
+    v29 = v16;
+    v30 = 2112;
+    v31 = coachingDate2;
     _os_log_impl(&dword_24B55B000, v17, OS_LOG_TYPE_DEFAULT, "Goal progress generated scheduled dates %@, for current date %@", buf, 0x16u);
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke;
-  v28[3] = &__block_descriptor_40_e29_B24__0__NSString_8__NSDate_16l;
-  v28[4] = v14;
-  v18 = [v16 hk_filter:v28];
   v27[0] = MEMORY[0x277D85DD0];
   v27[1] = 3221225472;
-  v27[2] = __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke_2;
-  v27[3] = &unk_27900B4C0;
-  v27[4] = self;
-  [v18 enumerateKeysAndObjectsUsingBlock:v27];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke_310;
-  v25[3] = &unk_27900B4E8;
-  v26 = v18;
+  v27[2] = __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke;
+  v27[3] = &__block_descriptor_40_e29_B24__0__NSString_8__NSDate_16l;
+  v27[4] = v14;
+  v18 = [v16 hk_filter:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke_2;
+  v26[3] = &unk_27900B4C0;
+  v26[4] = self;
+  [v18 enumerateKeysAndObjectsUsingBlock:v26];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke_310;
+  v24[3] = &unk_27900B4E8;
+  v25 = v18;
   v19 = v18;
-  v20 = [scheduledEventIdentifiers hk_filter:v25];
+  v20 = [scheduledEventIdentifiers hk_filter:v24];
   [(FCGoalProgressCoordinator *)self _onqueue_unscheduleEventIdentifiers:v20];
   [(FCGoalProgressStore *)self->_store clearScheduledEventIdentifiers];
   v21 = MEMORY[0x277CBEB98];
@@ -595,13 +586,11 @@ LABEL_15:
 
   [(FCGoalProgressStore *)self->_store storeScheduledEventIdentifiers:v23];
 LABEL_17:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(*(a1 + 32) + 48) scheduleActivityWithName:v5 scheduledDate:v6];
@@ -609,14 +598,12 @@ void __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke_2(u
   v7 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v5;
-    _os_log_impl(&dword_24B55B000, v7, OS_LOG_TYPE_DEFAULT, "Scheduled date %{public}@ for progress event %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_24B55B000, v7, OS_LOG_TYPE_DEFAULT, "Scheduled date %{public}@ for progress event %{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke_310(uint64_t a1, void *a2)
@@ -631,57 +618,55 @@ uint64_t __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke
 
 - (void)_onqueue_unscheduleEventIdentifiers:(id)identifiers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [identifiersCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = [identifiersCopy countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v16;
+    v8 = *v15;
     v9 = MEMORY[0x277CCC290];
     *&v6 = 138412290;
-    v14 = v6;
+    v13 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(identifiersCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         _HKInitializeLogging();
         v12 = *v9;
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v14;
-          v20 = v11;
+          *buf = v13;
+          v19 = v11;
           _os_log_impl(&dword_24B55B000, v12, OS_LOG_TYPE_DEFAULT, "Canceling scheduled event identifier %@", buf, 0xCu);
         }
 
-        [(FCCXPCActivityScheduler *)self->_scheduler cancelActivityWithName:v11, v14];
+        [(FCCXPCActivityScheduler *)self->_scheduler cancelActivityWithName:v11, v13];
         ++v10;
       }
 
       while (v7 != v10);
-      v7 = [identifiersCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [identifiersCopy countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_notificationPosted:(id)posted
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   serviceQueue = self->_serviceQueue;
   postedCopy = posted;
   dispatch_assert_queue_V2(serviceQueue);
@@ -694,15 +679,13 @@ uint64_t __54__FCGoalProgressCoordinator__onqueue_rescheduleEvents__block_invoke
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v7;
+    v12 = v7;
     _os_log_impl(&dword_24B55B000, v8, OS_LOG_TYPE_DEFAULT, "Storing date for fired event: %@", buf, 0xCu);
   }
 
   store = self->_store;
   coachingDate = [(FCCDateProvider *)self->_dateProvider coachingDate];
   [(FCGoalProgressStore *)store storeFiredEventDate:coachingDate identifier:v7];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduler:(id)scheduler performActivityWithName:(id)name completion:(id)completion
@@ -826,11 +809,10 @@ uint64_t __51__FCGoalProgressCoordinator__todayActivityChanged___block_invoke(ui
 
 - (void)currentExperienceType
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_24B55B000, a2, OS_LOG_TYPE_ERROR, "FCGoalProgressCoordinator failed to get date of birth: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24B55B000, a2, OS_LOG_TYPE_ERROR, "FCGoalProgressCoordinator failed to get date of birth: %@", &v2, 0xCu);
 }
 
 @end

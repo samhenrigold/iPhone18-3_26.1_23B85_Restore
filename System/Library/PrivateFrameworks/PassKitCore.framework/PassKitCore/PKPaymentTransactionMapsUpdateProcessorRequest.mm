@@ -84,7 +84,7 @@
         [v9 coordinate];
         v11 = v10;
         [v9 coordinate];
-        v13 = [objc_alloc(off_10091CFB0()) initWithMUID:objc_msgSend(v9 resultProviderID:"muid") coordinate:{objc_msgSend(v9, "resultProviderID"), v11, v12}];
+        v13 = [objc_alloc((off_10091CFB0)()) initWithMUID:objc_msgSend(v9 resultProviderID:"muid") coordinate:{objc_msgSend(v9, "resultProviderID"), v11, v12}];
         [v3 addObject:v13];
       }
 

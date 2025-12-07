@@ -382,9 +382,9 @@ void __37__SUUIToggleButton__showToggleState___block_invoke(uint64_t a1)
 {
   changedCopy = changed;
   itemIdentifier = [changedCopy itemIdentifier];
-  v7 = [itemIdentifier isEqualToString:self->_toggleItemIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(itemIdentifier);
 
-  if (v7)
+  if (isEqualToString)
   {
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
@@ -415,9 +415,9 @@ void __53__SUUIToggleButton_itemStateCenter_itemStateChanged___block_invoke(uint
     if ([v8 length])
     {
       v5 = [*(a1 + 32) toggledString];
-      v6 = [v5 isEqualToString:*(*(a1 + 40) + 672)];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-      if (v6)
+      if (isEqualToString)
       {
         return;
       }

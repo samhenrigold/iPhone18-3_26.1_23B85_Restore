@@ -1,12 +1,82 @@
 @interface IMAPServiceStore
 - (BOOL)shouldRetryEmptyBodyDownloadForMessage:(id)message;
+- (IMAPServiceStore)initWithMailboxUid:(id)uid readOnly:(BOOL)only;
 - (unsigned)connectionBodyDataReadChunkSize:(id)size;
 - (void)_handleFlagsDidChange:(id)change;
 - (void)doCompact;
 - (void)messageFlagsDidChange:(id)change flags:(id)flags;
+- (void)setMailboxUidValidity:(unsigned int)validity;
 @end
 
 @implementation IMAPServiceStore
+
+- (IMAPServiceStore)initWithMailboxUid:(id)uid readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  uidCopy = uid;
+  v14.receiver = self;
+  v14.super_class = IMAPServiceStore;
+  v7 = [(IMAPServiceStore *)&v14 initWithMailboxUid:uidCopy readOnly:onlyCopy];
+  v8 = v7;
+  if (v7)
+  {
+    account = [(IMAPServiceStore *)v7 account];
+    v10 = [account uidValidityForMailbox:uidCopy];
+
+    *&v8->_imapServiceStoreFlags |= 1u;
+    [(IMAPServiceStore *)v8 setMailboxUidValidity:v10];
+    *&v8->_imapServiceStoreFlags &= ~1u;
+    v11 = +[NSNotificationCenter defaultCenter];
+    [v11 addObserver:v8 selector:"_handleFlagsDidChange:" name:MailMessageStoreMessageFlagsChanged object:0];
+
+    account2 = [(IMAPServiceStore *)v8 account];
+    [(IMAPServiceStore *)v8 setDownloadDelegate:account2];
+  }
+
+  return v8;
+}
+
+- (void)setMailboxUidValidity:(unsigned int)validity
+{
+  v3 = *&validity;
+  v5 = sub_1000026FC(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    mailboxUid = [(IMAPServiceStore *)self mailboxUid];
+    mambaID = [mailboxUid mambaID];
+    imapServiceStoreFlags = self->_imapServiceStoreFlags;
+    *buf = 136315906;
+    if (imapServiceStoreFlags)
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    v14 = mambaID;
+    v15 = 2080;
+    v16 = " ";
+    v17 = 1024;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v9;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%ssetMailboxUidValidity validity %u settingLocalValidity %@", buf, 0x26u);
+  }
+
+  if ((*&self->_imapServiceStoreFlags & 1) == 0)
+  {
+    account = [(IMAPServiceStore *)self account];
+    mailboxUid2 = [(IMAPServiceStore *)self mailboxUid];
+    [account setUidValidity:v3 forMailbox:mailboxUid2];
+  }
+
+  v12.receiver = self;
+  v12.super_class = IMAPServiceStore;
+  [(IMAPServiceStore *)&v12 setMailboxUidValidity:v3];
+}
 
 - (unsigned)connectionBodyDataReadChunkSize:(id)size
 {
@@ -70,7 +140,7 @@ LABEL_9:
 {
   changeCopy = change;
   flagsCopy = flags;
-  v8 = sub_1000026FC();
+  v8 = sub_1000026FC(flagsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     mailboxUid = [(IMAPServiceStore *)self mailboxUid];
@@ -89,7 +159,7 @@ LABEL_9:
 - (void)_handleFlagsDidChange:(id)change
 {
   changeCopy = change;
-  v5 = sub_1000026FC();
+  v5 = sub_1000026FC(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     mailboxUid = [(IMAPServiceStore *)self mailboxUid];

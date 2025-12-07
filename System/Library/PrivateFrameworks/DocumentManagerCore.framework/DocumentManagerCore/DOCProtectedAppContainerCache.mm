@@ -146,10 +146,42 @@ void __71__DOCProtectedAppContainerCache_appForAppContainerBundleID_completion__
 
 - (void)fetchAllAppContainerIDsFromCoreSpotlightIfNeeded
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  cacheStatus = [(DOCProtectedAppContainerCache *)self cacheStatus];
+  v4 = docLogHandle;
+  if (cacheStatus)
+  {
+    if (!docLogHandle)
+    {
+      DOCInitLogging();
+      v4 = docLogHandle;
+    }
+
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      [DOCProtectedAppContainerCache fetchAllAppContainerIDsFromCoreSpotlightIfNeeded];
+    }
+  }
+
+  else
+  {
+    if (!docLogHandle)
+    {
+      DOCInitLogging();
+      v4 = docLogHandle;
+    }
+
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      [DOCProtectedAppContainerCache fetchAllAppContainerIDsFromCoreSpotlightIfNeeded];
+    }
+
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __81__DOCProtectedAppContainerCache_fetchAllAppContainerIDsFromCoreSpotlightIfNeeded__block_invoke;
+    v5[3] = &unk_278F9B408;
+    v5[4] = self;
+    [(DOCProtectedAppContainerCache *)self fetchAllAppContainerIDsFromCoreSpotlightAsync:v5];
+  }
 }
 
 void __81__DOCProtectedAppContainerCache_fetchAllAppContainerIDsFromCoreSpotlightIfNeeded__block_invoke(uint64_t a1)
@@ -386,7 +418,7 @@ void __79__DOCProtectedAppContainerCache_fetchAllAppContainerIDsFromCoreSpotligh
 
 void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = a2;
   Current = CFAbsoluteTimeGetCurrent();
   v5 = *(a1 + 40);
@@ -399,39 +431,39 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke(uint64_t a1, 
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v31 = v6;
-    v32 = [v3 count];
-    v33 = [MEMORY[0x277CCABB0] numberWithDouble:Current - v5];
+    v30 = v6;
+    v31 = [v3 count];
+    v32 = [MEMORY[0x277CCABB0] numberWithDouble:Current - v5];
     *buf = 136315650;
-    v41 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
-    v42 = 2048;
-    v43 = v32;
-    v44 = 2112;
-    v45 = v33;
-    _os_log_debug_impl(&dword_249340000, v31, OS_LOG_TYPE_DEBUG, "[PROTECTED APPS] AppCache: %s found items: %lu took: %@ ms", buf, 0x20u);
+    v40 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
+    v41 = 2048;
+    v42 = v31;
+    v43 = 2112;
+    v44 = v32;
+    _os_log_debug_impl(&dword_249340000, v30, OS_LOG_TYPE_DEBUG, "[PROTECTED APPS] AppCache: %s found items: %lu took: %@ ms", buf, 0x20u);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v36;
-    v34 = v7;
+    v10 = *v35;
+    v33 = v7;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v36 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
+        v12 = *(*(&v34 + 1) + 8 * i);
         v13 = CFAbsoluteTimeGetCurrent();
         v14 = *(a1 + 40);
         v15 = [v12 attributeSet];
@@ -453,14 +485,14 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke(uint64_t a1, 
           v28 = v19;
           v29 = [v27 numberWithDouble:v13 - v14];
           *buf = 136315650;
-          v41 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
-          v42 = 2112;
-          v43 = v12;
-          v44 = 2112;
-          v45 = v29;
+          v40 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
+          v41 = 2112;
+          v42 = v12;
+          v43 = 2112;
+          v44 = v29;
           _os_log_debug_impl(&dword_249340000, v28, OS_LOG_TYPE_DEBUG, "[PROTECTED APPS] AppCache: %s found item: %@ took: %@ ms", buf, 0x20u);
 
-          v7 = v34;
+          v7 = v33;
         }
 
         if (v16)
@@ -485,11 +517,11 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke(uint64_t a1, 
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315650;
-            v41 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
-            v42 = 2112;
-            v43 = v16;
-            v44 = 2112;
-            v45 = v18;
+            v40 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
+            v41 = 2112;
+            v42 = v16;
+            v43 = 2112;
+            v44 = v18;
             _os_log_debug_impl(&dword_249340000, v21, OS_LOG_TYPE_DEBUG, "[PROTECTED APPS] AppCache: %s appID: %@ or oid: %@ were nil, skipping", buf, 0x20u);
           }
         }
@@ -511,11 +543,11 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke(uint64_t a1, 
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315650;
-              v41 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
-              v42 = 2112;
-              v43 = v16;
-              v44 = 2112;
-              v45 = v18;
+              v40 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
+              v41 = 2112;
+              v42 = v16;
+              v43 = 2112;
+              v44 = v18;
               _os_log_debug_impl(&dword_249340000, v24, OS_LOG_TYPE_DEBUG, "[PROTECTED APPS] AppCache: %s existing appID: %@ adding oid: %@ to cache", buf, 0x20u);
             }
           }
@@ -526,7 +558,7 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke(uint64_t a1, 
             [v25 addObject:v18];
             [*(a1 + 32) setValue:v25 forKey:v16];
 
-            v7 = v34;
+            v7 = v33;
           }
 
           v26 = docLogHandle;
@@ -539,23 +571,21 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke(uint64_t a1, 
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315650;
-            v41 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
-            v42 = 2112;
-            v43 = v16;
-            v44 = 2112;
-            v45 = v18;
+            v40 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke";
+            v41 = 2112;
+            v42 = v16;
+            v43 = 2112;
+            v44 = v18;
             _os_log_debug_impl(&dword_249340000, v26, OS_LOG_TYPE_DEBUG, "[PROTECTED APPS] AppCache: %s adding appID: %@ oid: %@ to cache", buf, 0x20u);
           }
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v9);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke_21(uint64_t a1, void *a2)
@@ -594,7 +624,7 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke_21(uint64_t a
 
 void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v9 = a5;
   v10 = a4;
   v11 = a3;
@@ -610,21 +640,19 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke_2(uint64_t a1
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v17 = MEMORY[0x277CCABB0];
-    v18 = v15;
-    v19 = [v17 numberWithDouble:Current - v14];
-    v20 = 136315650;
-    v21 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke_2";
-    v22 = 2112;
-    v23 = v9;
-    v24 = 2112;
-    v25 = v19;
-    _os_log_debug_impl(&dword_249340000, v18, OS_LOG_TYPE_DEBUG, "[PROTECTED APPS] AppCache: %s finished searching for all app container items. Error: %@. Took: %@ ms", &v20, 0x20u);
+    v16 = MEMORY[0x277CCABB0];
+    v17 = v15;
+    v18 = [v16 numberWithDouble:Current - v14];
+    v19 = 136315650;
+    v20 = "[DOCProtectedAppContainerCache lookupOIDs:]_block_invoke_2";
+    v21 = 2112;
+    v22 = v9;
+    v23 = 2112;
+    v24 = v18;
+    _os_log_debug_impl(&dword_249340000, v17, OS_LOG_TYPE_DEBUG, "[PROTECTED APPS] AppCache: %s finished searching for all app container items. Error: %@. Took: %@ ms", &v19, 0x20u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createProtectedAppLookupTablesFromResultSet:(id)set completionHandler:(id)handler
@@ -675,43 +703,41 @@ void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke_2(uint64_t a1
 
 void __95__DOCProtectedAppContainerCache_createProtectedAppLookupTablesFromResultSet_completionHandler___block_invoke(id *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [[DOCProtectedApp alloc] initWith:v5 oids:v6];
   [a1[4] addObject:v7];
   [a1[5] setObject:v7 forKey:v5];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [a1[6] setObject:v7 forKey:{*(*(&v14 + 1) + 8 * v12++), v14}];
+        [a1[6] setObject:v7 forKey:{*(*(&v13 + 1) + 8 * v12++), v13}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (DOCAppProtectionContextProviding)appProtectionContext
@@ -730,101 +756,49 @@ void __95__DOCProtectedAppContainerCache_createProtectedAppLookupTablesFromResul
 
 void __81__DOCProtectedAppContainerCache_fetchAllAppContainerIDsFromCoreSpotlightIfNeeded__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   v3 = a2;
   [v2 count];
+  v10 = 136315394;
   OUTLINED_FUNCTION_21();
-  OUTLINED_FUNCTION_3_2(&dword_249340000, v4, v5, "[PROTECTED APPS] AppCache: %s fetched %lu apps", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchAllAppContainerIDsFromCoreSpotlightAsync:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchAllAppContainerIDsFromCoreSpotlightAsync:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchAllAppContainerIDsFromCoreSpotlightAsync:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_249340000, v4, v5, "[PROTECTED APPS] AppCache: %s fetched %lu apps", v6, v7, v8, v9, v10);
 }
 
 - (void)fetchAllAppContainerIDsFromCoreSpotlightAsync:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 cacheStatus];
+  v10 = 136315394;
   OUTLINED_FUNCTION_21();
-  OUTLINED_FUNCTION_3_2(&dword_249340000, v4, v5, "[PROTECTED APPS] AppCache: %s cacheStatus: %lu fetching or already fetched, returning", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchAllAppContainerIDsFromCoreSpotlightAsync:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_249340000, v4, v5, "[PROTECTED APPS] AppCache: %s cacheStatus: %lu fetching or already fetched, returning", v6, v7, v8, v9, v10);
 }
 
 void __79__DOCProtectedAppContainerCache_fetchAllAppContainerIDsFromCoreSpotlightAsync___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)lookupOIDs:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__DOCProtectedAppContainerCache_lookupOIDs___block_invoke_21_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createProtectedAppLookupTablesFromResultSet:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createProtectedAppLookupTablesFromResultSet:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

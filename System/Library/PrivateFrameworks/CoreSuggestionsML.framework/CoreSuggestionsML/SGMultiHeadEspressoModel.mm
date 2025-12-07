@@ -22,7 +22,7 @@
 
 - (id)predict:(id)predict heads:(id)heads
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   predictCopy = predict;
   headsCopy = heads;
   if (![headsCopy count])
@@ -31,29 +31,29 @@
     goto LABEL_45;
   }
 
-  v64 = predictCopy;
+  v58 = predictCopy;
   v8 = objc_opt_new();
-  v67 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v63 = headsCopy;
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v57 = headsCopy;
   v9 = headsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v67 objects:v79 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v61 objects:v73 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v68;
+    v12 = *v62;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v68 != v12)
+        if (*v62 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v67 + 1) + 8 * i);
+        v14 = *(*(&v61 + 1) + 8 * i);
         v15 = [(NSDictionary *)self->_headDimensionality objectForKeyedSubscript:v14];
 
         if (v15)
@@ -67,13 +67,13 @@
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v76 = v14;
+            v70 = v14;
             _os_log_impl(&dword_24799E000, v16, OS_LOG_TYPE_INFO, "Could not validate existence of head %@ in model", buf, 0xCu);
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v67 objects:v79 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v61 objects:v73 count:16];
     }
 
     while (v11);
@@ -86,107 +86,103 @@
     v19 = v18;
     if (v17 >= 9)
     {
-      predictCopy = v64;
+      predictCopy = v58;
       if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         v20 = [v8 componentsJoinedByString:{@", "}];
         *buf = 138412546;
-        v76 = v20;
-        v77 = 2048;
-        v78 = 8;
+        v70 = v20;
+        v71 = 2048;
+        v72 = 8;
         _os_log_fault_impl(&dword_24799E000, v19, OS_LOG_TYPE_FAULT, "Running inference on heads %@ but max heads for inference is %lu", buf, 0x16u);
       }
 
       goto LABEL_43;
     }
 
-    predictCopy = v64;
+    predictCopy = v58;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v22 = [v8 componentsJoinedByString:{@", "}];
       *buf = 138412290;
-      v76 = v22;
+      v70 = v22;
       _os_log_impl(&dword_24799E000, v19, OS_LOG_TYPE_INFO, "Running multi-head inference on heads %@", buf, 0xCu);
     }
 
     v19 = objc_opt_new();
     v23 = objc_autoreleasePoolPush();
     [(NSString *)self->_inputName cStringUsingEncoding:4];
-    plan = self->_espressoModel.plan;
-    v25 = *&self->_espressoModel.network_index;
-    v26 = espresso_network_bind_buffer();
-    if (v26)
+    v24 = espresso_network_bind_buffer();
+    if (v24)
     {
-      v27 = v26;
-      v28 = sgLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+      v25 = v24;
+      v26 = sgLogHandle();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
         inputName = self->_inputName;
         *buf = 138412546;
-        v76 = inputName;
-        v77 = 1024;
-        LODWORD(v78) = v27;
-        _os_log_fault_impl(&dword_24799E000, v28, OS_LOG_TYPE_FAULT, "Could not bind the input buffer to layer %@ in espresso plan, status code %d", buf, 0x12u);
+        v70 = inputName;
+        v71 = 1024;
+        LODWORD(v72) = v25;
+        _os_log_fault_impl(&dword_24799E000, v26, OS_LOG_TYPE_FAULT, "Could not bind the input buffer to layer %@ in espresso plan, status code %d", buf, 0x12u);
       }
 
       goto LABEL_42;
     }
 
-    [v64 sparseVectorToDense:0 length:self->_inputNumParameters];
+    [v58 sparseVectorToDense:0 length:self->_inputNumParameters];
     bzero(buf, 0x540uLL);
     if ([v8 count])
     {
       context = v23;
-      v30 = 0;
-      v31 = 0;
-      v32 = buf;
-      *&v29 = 138412546;
-      v62 = v29;
+      v28 = 0;
+      v29 = 0;
+      v30 = buf;
+      *&v27 = 138412546;
+      v56 = v27;
       do
       {
-        v33 = [v8 objectAtIndexedSubscript:{v31, v62}];
-        [v33 cStringUsingEncoding:4];
-        v34 = self->_espressoModel.plan;
-        v35 = *&self->_espressoModel.network_index;
-        v36 = espresso_network_bind_buffer();
-        if (v36)
+        v31 = [v8 objectAtIndexedSubscript:{v29, v56}];
+        [v31 cStringUsingEncoding:4];
+        v32 = espresso_network_bind_buffer();
+        if (v32)
         {
-          v37 = v36;
-          v38 = sgLogHandle();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+          v33 = v32;
+          v34 = sgLogHandle();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
           {
-            *v71 = v62;
-            v72 = v33;
-            v73 = 1024;
-            v74 = v37;
-            _os_log_fault_impl(&dword_24799E000, v38, OS_LOG_TYPE_FAULT, "Could not bind the output buffer to layer %@ in espresso plan, status code %d", v71, 0x12u);
+            *v65 = v56;
+            v66 = v31;
+            v67 = 1024;
+            v68 = v33;
+            _os_log_fault_impl(&dword_24799E000, v34, OS_LOG_TYPE_FAULT, "Could not bind the output buffer to layer %@ in espresso plan, status code %d", v65, 0x12u);
           }
 
-          v30 = 1;
+          v28 = 1;
         }
 
-        v39 = objc_alloc(MEMORY[0x277CBEB18]);
-        v40 = [(NSDictionary *)self->_headDimensionality objectForKeyedSubscript:v33];
-        v41 = [v39 initWithCapacity:{objc_msgSend(v40, "unsignedIntegerValue")}];
-        [v19 setObject:v41 forKeyedSubscript:v33];
+        v35 = objc_alloc(MEMORY[0x277CBEB18]);
+        v36 = [(NSDictionary *)self->_headDimensionality objectForKeyedSubscript:v31];
+        v37 = [v35 initWithCapacity:{objc_msgSend(v36, "unsignedIntegerValue")}];
+        [v19 setObject:v37 forKeyedSubscript:v31];
 
-        ++v31;
-        v32 += 168;
+        ++v29;
+        v30 += 168;
       }
 
-      while (v31 < [v8 count]);
+      while (v29 < [v8 count]);
       v23 = context;
-      if (v30)
+      if (v28)
       {
-        v42 = sgLogHandle();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+        v38 = sgLogHandle();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
         {
-          *v71 = 0;
-          v43 = "Could not bind output buffer to network given output names";
-          v44 = v42;
-          v45 = 2;
+          *v65 = 0;
+          v39 = "Could not bind output buffer to network given output names";
+          v40 = v38;
+          v41 = 2;
 LABEL_56:
-          _os_log_fault_impl(&dword_24799E000, v44, OS_LOG_TYPE_FAULT, v43, v71, v45);
+          _os_log_fault_impl(&dword_24799E000, v40, OS_LOG_TYPE_FAULT, v39, v65, v41);
           goto LABEL_41;
         }
 
@@ -194,19 +190,18 @@ LABEL_56:
       }
     }
 
-    espressoPlan = self->_espressoPlan;
-    v47 = espresso_plan_execute_sync();
-    if (v47)
+    v42 = espresso_plan_execute_sync();
+    if (v42)
     {
-      v48 = v47;
-      v42 = sgLogHandle();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+      v43 = v42;
+      v38 = sgLogHandle();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
       {
-        *v71 = 67109120;
-        LODWORD(v72) = v48;
-        v43 = "Could not execute espresso plan, status code %d";
-        v44 = v42;
-        v45 = 8;
+        *v65 = 67109120;
+        LODWORD(v66) = v43;
+        v39 = "Could not execute espresso plan, status code %d";
+        v40 = v38;
+        v41 = 8;
         goto LABEL_56;
       }
 
@@ -222,35 +217,35 @@ LABEL_43:
     contexta = v23;
     if ([v8 count])
     {
-      v51 = 0;
+      v45 = 0;
       do
       {
-        v52 = [v8 objectAtIndexedSubscript:v51];
-        v53 = [(NSDictionary *)self->_headDimensionality objectForKeyedSubscript:v52];
-        unsignedIntegerValue = [v53 unsignedIntegerValue];
+        v46 = [v8 objectAtIndexedSubscript:v45];
+        v47 = [(NSDictionary *)self->_headDimensionality objectForKeyedSubscript:v46];
+        unsignedIntegerValue = [v47 unsignedIntegerValue];
 
         if (unsignedIntegerValue)
         {
-          v56 = 0;
+          v50 = 0;
           do
           {
-            LODWORD(v55) = *(*&buf[168 * v51] + 4 * v56);
-            v57 = [MEMORY[0x277CCABB0] numberWithFloat:v55];
-            v58 = [v19 objectForKeyedSubscript:v52];
-            [v58 setObject:v57 atIndexedSubscript:v56];
+            LODWORD(v49) = *(*&buf[168 * v45] + 4 * v50);
+            v51 = [MEMORY[0x277CCABB0] numberWithFloat:v49];
+            v52 = [v19 objectForKeyedSubscript:v46];
+            [v52 setObject:v51 atIndexedSubscript:v50];
 
-            ++v56;
-            v59 = [(NSDictionary *)self->_headDimensionality objectForKeyedSubscript:v52];
-            unsignedIntegerValue2 = [v59 unsignedIntegerValue];
+            ++v50;
+            v53 = [(NSDictionary *)self->_headDimensionality objectForKeyedSubscript:v46];
+            unsignedIntegerValue2 = [v53 unsignedIntegerValue];
           }
 
-          while (v56 < unsignedIntegerValue2);
+          while (v50 < unsignedIntegerValue2);
         }
 
-        ++v51;
+        ++v45;
       }
 
-      while (v51 < [v8 count]);
+      while (v45 < [v8 count]);
     }
 
     objc_autoreleasePoolPop(contexta);
@@ -270,13 +265,11 @@ LABEL_43:
     v21 = 0;
   }
 
-  predictCopy = v64;
+  predictCopy = v58;
 LABEL_44:
 
-  headsCopy = v63;
+  headsCopy = v57;
 LABEL_45:
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -307,18 +300,16 @@ LABEL_45:
 
 - (void)dealloc
 {
-  espressoPlan = self->_espressoPlan;
   espresso_plan_destroy();
-  espressoContext = self->_espressoContext;
   espresso_context_destroy();
-  v5.receiver = self;
-  v5.super_class = SGMultiHeadEspressoModel;
-  [(SGMultiHeadEspressoModel *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = SGMultiHeadEspressoModel;
+  [(SGMultiHeadEspressoModel *)&v3 dealloc];
 }
 
 + (id)classifierWithEspressoModelFile:(id)file inputName:(id)name headDimensionality:(id)dimensionality
 {
-  v126 = *MEMORY[0x277D85DE8];
+  v125 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   nameCopy = name;
   dimensionalityCopy = dimensionality;
@@ -355,8 +346,8 @@ LABEL_10:
   }
 
   v13 = plan;
+  v88 = 0;
   v89 = 0;
-  v90 = 0;
   [fileCopy UTF8String];
   v14 = espresso_plan_add_network();
   if (v14)
@@ -406,30 +397,30 @@ LABEL_33:
     goto LABEL_11;
   }
 
-  v73 = v11;
-  v88 = 0u;
-  v86 = 0u;
+  v72 = v11;
   v87 = 0u;
   v85 = 0u;
+  v86 = 0u;
+  v84 = 0u;
   v22 = dimensionalityCopy;
-  v23 = [v22 countByEnumeratingWithState:&v85 objects:v125 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v84 objects:v124 count:16];
   if (v23)
   {
     v24 = v23;
-    v75 = nameCopy;
-    v77 = fileCopy;
+    v74 = nameCopy;
+    v76 = fileCopy;
     v25 = 0;
-    v26 = *v86;
+    v26 = *v85;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v86 != v26)
+        if (*v85 != v26)
         {
           objc_enumerationMutation(v22);
         }
 
-        v28 = *(*(&v85 + 1) + 8 * i);
+        v28 = *(*(&v84 + 1) + 8 * i);
         [v28 cStringUsingEncoding:4];
         v29 = espresso_network_declare_output();
         if (v29)
@@ -449,13 +440,13 @@ LABEL_33:
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v85 objects:v125 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v84 objects:v124 count:16];
     }
 
     while (v24);
 
-    nameCopy = v75;
-    fileCopy = v77;
+    nameCopy = v74;
+    fileCopy = v76;
     if (v25)
     {
       v16 = sgLogHandle();
@@ -493,51 +484,51 @@ LABEL_33:
   }
 
   context = objc_autoreleasePoolPush();
-  v124 = 0;
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
+  v123 = 0;
   v121 = 0u;
-  v118 = 0u;
+  v122 = 0u;
   v119 = 0u;
-  v116 = 0u;
+  v120 = 0u;
   v117 = 0u;
+  v118 = 0u;
+  v115 = 0u;
+  v116 = 0u;
   memset(buf, 0, sizeof(buf));
   [nameCopy cStringUsingEncoding:4];
-  v37 = espresso_network_bind_buffer();
-  if (v37)
+  v36 = espresso_network_bind_buffer();
+  if (v36)
   {
-    v38 = v37;
-    v39 = sgLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+    v37 = v36;
+    v38 = sgLogHandle();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
     {
-      *v103 = 138412546;
-      *&v103[4] = nameCopy;
-      *&v103[12] = 1024;
-      *&v103[14] = v38;
-      v40 = "Could not bind the input buffer to layer %@ in espresso plan during initialization, status code %d";
+      *v102 = 138412546;
+      *&v102[4] = nameCopy;
+      *&v102[12] = 1024;
+      *&v102[14] = v37;
+      v39 = "Could not bind the input buffer to layer %@ in espresso plan during initialization, status code %d";
 LABEL_76:
-      _os_log_fault_impl(&dword_24799E000, v39, OS_LOG_TYPE_FAULT, v40, v103, 0x12u);
+      _os_log_fault_impl(&dword_24799E000, v38, OS_LOG_TYPE_FAULT, v39, v102, 0x12u);
       goto LABEL_42;
     }
 
     goto LABEL_42;
   }
 
-  v84 = 0;
-  memset(v114, 0, sizeof(v114));
-  v41 = espresso_buffer_unpack_tensor_shape();
-  if (v41)
+  v83 = 0;
+  memset(v113, 0, sizeof(v113));
+  v40 = espresso_buffer_unpack_tensor_shape();
+  if (v40)
   {
-    v42 = v41;
-    v39 = sgLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+    v41 = v40;
+    v38 = sgLogHandle();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
     {
-      *v103 = 138412546;
-      *&v103[4] = nameCopy;
-      *&v103[12] = 1024;
-      *&v103[14] = v42;
-      v40 = "Unable to get input shape to layer %@ in espresso plan during initialization, status code %d";
+      *v102 = 138412546;
+      *&v102[4] = nameCopy;
+      *&v102[12] = 1024;
+      *&v102[14] = v41;
+      v39 = "Unable to get input shape to layer %@ in espresso plan during initialization, status code %d";
       goto LABEL_76;
     }
 
@@ -547,189 +538,187 @@ LABEL_42:
     goto LABEL_33;
   }
 
-  v74 = dimensionalityCopy;
-  v78 = fileCopy;
-  v43 = [SGMultiHeadEspressoModel getNumParametersFromShape:v114 rank:v84];
-  v44 = sgLogHandle();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+  v73 = dimensionalityCopy;
+  v77 = fileCopy;
+  v42 = [SGMultiHeadEspressoModel getNumParametersFromShape:v113 rank:v83];
+  v43 = sgLogHandle();
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
   {
-    v69 = [SGMultiHeadEspressoModel makeStringForShape:v114];
-    *v103 = 138413058;
-    *&v103[4] = nameCopy;
-    *&v103[12] = 2048;
-    *&v103[14] = v84;
-    *&v103[22] = 2112;
-    *&v103[24] = v69;
-    LOWORD(v104) = 2048;
-    *(&v104 + 2) = v43;
-    _os_log_debug_impl(&dword_24799E000, v44, OS_LOG_TYPE_DEBUG, "Input layer %@ has rank %zu, shape %@, num parameters %tu", v103, 0x2Au);
+    v68 = [SGMultiHeadEspressoModel makeStringForShape:v113];
+    *v102 = 138413058;
+    *&v102[4] = nameCopy;
+    *&v102[12] = 2048;
+    *&v102[14] = v83;
+    *&v102[22] = 2112;
+    *&v102[24] = v68;
+    LOWORD(v103) = 2048;
+    *(&v103 + 2) = v42;
+    _os_log_debug_impl(&dword_24799E000, v43, OS_LOG_TYPE_DEBUG, "Input layer %@ has rank %zu, shape %@, num parameters %tu", v102, 0x2Au);
   }
 
-  v76 = nameCopy;
+  v75 = nameCopy;
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
-  v45 = v22;
-  v46 = [v45 countByEnumeratingWithState:&v80 objects:v113 count:16];
-  if (!v46)
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
+  v44 = v22;
+  v45 = [v44 countByEnumeratingWithState:&v79 objects:v112 count:16];
+  if (!v45)
   {
 
     goto LABEL_74;
   }
 
-  v47 = v46;
-  v71 = v43;
-  v48 = 0;
-  v49 = *v81;
+  v46 = v45;
+  v70 = v42;
+  v47 = 0;
+  v48 = *v80;
   do
   {
-    for (j = 0; j != v47; ++j)
+    for (j = 0; j != v46; ++j)
     {
-      if (*v81 != v49)
+      if (*v80 != v48)
       {
-        objc_enumerationMutation(v45);
+        objc_enumerationMutation(v44);
       }
 
-      v51 = *(*(&v80 + 1) + 8 * j);
-      v52 = [v45 objectForKeyedSubscript:v51];
-      v112 = 0;
-      v110 = 0u;
-      v111 = 0u;
-      v108 = 0u;
+      v50 = *(*(&v79 + 1) + 8 * j);
+      v51 = [v44 objectForKeyedSubscript:v50];
+      v111 = 0;
       v109 = 0u;
-      v106 = 0u;
+      v110 = 0u;
       v107 = 0u;
-      v104 = 0u;
+      v108 = 0u;
       v105 = 0u;
-      memset(v103, 0, sizeof(v103));
-      [v51 cStringUsingEncoding:4];
-      v53 = espresso_network_bind_buffer();
-      if (!v53)
+      v106 = 0u;
+      v103 = 0u;
+      v104 = 0u;
+      memset(v102, 0, sizeof(v102));
+      [v50 cStringUsingEncoding:4];
+      v52 = espresso_network_bind_buffer();
+      if (!v52)
       {
-        v101 = 0u;
-        v102 = 0u;
         v100 = 0u;
-        memset(v99, 0, sizeof(v99));
-        v56 = espresso_buffer_unpack_tensor_shape();
-        if (v56)
+        v101 = 0u;
+        v99 = 0u;
+        memset(v98, 0, sizeof(v98));
+        v55 = espresso_buffer_unpack_tensor_shape();
+        if (v55)
         {
-          v57 = v56;
-          v58 = sgLogHandle();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+          v56 = v55;
+          v57 = sgLogHandle();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
           {
-            *v91 = 138412546;
-            v92 = v51;
-            v93 = 1024;
-            LODWORD(v94) = v57;
-            v59 = v58;
-            v60 = "Unable to get output shape to layer %@ in espresso plan during initialization, status code %d";
-            v61 = 18;
+            *v90 = 138412546;
+            v91 = v50;
+            v92 = 1024;
+            LODWORD(v93) = v56;
+            v58 = v57;
+            v59 = "Unable to get output shape to layer %@ in espresso plan during initialization, status code %d";
+            v60 = 18;
             goto LABEL_63;
           }
 
           goto LABEL_64;
         }
 
-        v79 = v48;
-        v62 = [SGMultiHeadEspressoModel getNumParametersFromShape:v99 rank:0];
-        unsignedIntegerValue = [v52 unsignedIntegerValue];
-        v64 = sgLogHandle();
-        v58 = v64;
-        if (unsignedIntegerValue == v62)
+        v78 = v47;
+        v61 = [SGMultiHeadEspressoModel getNumParametersFromShape:v98 rank:0];
+        unsignedIntegerValue = [v51 unsignedIntegerValue];
+        v63 = sgLogHandle();
+        v57 = v63;
+        if (unsignedIntegerValue == v61)
         {
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
           {
-            v66 = [SGMultiHeadEspressoModel makeStringForShape:v99];
-            *v91 = 138413058;
-            v92 = v51;
-            v93 = 2048;
-            v94 = 0;
-            v95 = 2112;
-            v96 = v66;
-            v97 = 2048;
-            v98 = v62;
-            _os_log_debug_impl(&dword_24799E000, v58, OS_LOG_TYPE_DEBUG, "Output layer %@ has rank %zu, shape %@, num parameters %tu", v91, 0x2Au);
+            v65 = [SGMultiHeadEspressoModel makeStringForShape:v98];
+            *v90 = 138413058;
+            v91 = v50;
+            v92 = 2048;
+            v93 = 0;
+            v94 = 2112;
+            v95 = v65;
+            v96 = 2048;
+            v97 = v61;
+            _os_log_debug_impl(&dword_24799E000, v57, OS_LOG_TYPE_DEBUG, "Output layer %@ has rank %zu, shape %@, num parameters %tu", v90, 0x2Au);
           }
 
-          v48 = v79;
+          v47 = v78;
         }
 
         else
         {
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_FAULT))
           {
-            unsignedIntegerValue2 = [v52 unsignedIntegerValue];
-            *v91 = 138412802;
-            v92 = v51;
-            v93 = 2048;
-            v94 = unsignedIntegerValue2;
-            v95 = 2048;
-            v96 = v62;
-            v59 = v58;
-            v60 = "Output layer %@ has expected dimensionality %lu but has actual dimensionality %lu";
-            v61 = 32;
+            unsignedIntegerValue2 = [v51 unsignedIntegerValue];
+            *v90 = 138412802;
+            v91 = v50;
+            v92 = 2048;
+            v93 = unsignedIntegerValue2;
+            v94 = 2048;
+            v95 = v61;
+            v58 = v57;
+            v59 = "Output layer %@ has expected dimensionality %lu but has actual dimensionality %lu";
+            v60 = 32;
 LABEL_63:
-            _os_log_fault_impl(&dword_24799E000, v59, OS_LOG_TYPE_FAULT, v60, v91, v61);
+            _os_log_fault_impl(&dword_24799E000, v58, OS_LOG_TYPE_FAULT, v59, v90, v60);
           }
 
 LABEL_64:
-          v48 = 1;
+          v47 = 1;
         }
 
         goto LABEL_66;
       }
 
-      v54 = v53;
-      v55 = sgLogHandle();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+      v53 = v52;
+      v54 = sgLogHandle();
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
       {
-        *v99 = 138412546;
-        *&v99[4] = v51;
-        *&v99[12] = 1024;
-        *&v99[14] = v54;
-        _os_log_fault_impl(&dword_24799E000, v55, OS_LOG_TYPE_FAULT, "Could not bind the output buffer to layer %@ in espresso plan during initialization, status code %d", v99, 0x12u);
+        *v98 = 138412546;
+        *&v98[4] = v50;
+        *&v98[12] = 1024;
+        *&v98[14] = v53;
+        _os_log_fault_impl(&dword_24799E000, v54, OS_LOG_TYPE_FAULT, "Could not bind the output buffer to layer %@ in espresso plan during initialization, status code %d", v98, 0x12u);
       }
 
-      v48 = 1;
+      v47 = 1;
 LABEL_66:
     }
 
-    v47 = [v45 countByEnumeratingWithState:&v80 objects:v113 count:16];
+    v46 = [v44 countByEnumeratingWithState:&v79 objects:v112 count:16];
   }
 
-  while (v47);
+  while (v46);
 
-  v43 = v71;
-  if ((v48 & 1) == 0)
+  v42 = v70;
+  if ((v47 & 1) == 0)
   {
 LABEL_74:
     objc_autoreleasePoolPop(context);
-    v68 = [SGMultiHeadEspressoModel alloc];
-    v70 = v45;
-    nameCopy = v76;
-    v34 = [(SGMultiHeadEspressoModel *)v68 initWithEspressoContext:v73 espressoPlan:v13 espressoModel:v89 inputName:v90 inputNumParameters:v76 headDimensionality:v43, v70];
-    fileCopy = v78;
-    dimensionalityCopy = v74;
+    v67 = [SGMultiHeadEspressoModel alloc];
+    v69 = v44;
+    nameCopy = v75;
+    v34 = [(SGMultiHeadEspressoModel *)v67 initWithEspressoContext:v72 espressoPlan:v13 espressoModel:v88 inputName:v89 inputNumParameters:v75 headDimensionality:v42, v69];
+    fileCopy = v77;
+    dimensionalityCopy = v73;
     goto LABEL_34;
   }
 
-  v67 = sgLogHandle();
-  fileCopy = v78;
-  dimensionalityCopy = v74;
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+  v66 = sgLogHandle();
+  fileCopy = v77;
+  dimensionalityCopy = v73;
+  if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
   {
-    *v103 = 0;
-    _os_log_fault_impl(&dword_24799E000, v67, OS_LOG_TYPE_FAULT, "Espresso multi head model output dimensionality did not match that expected", v103, 2u);
+    *v102 = 0;
+    _os_log_fault_impl(&dword_24799E000, v66, OS_LOG_TYPE_FAULT, "Espresso multi head model output dimensionality did not match that expected", v102, 2u);
   }
 
   objc_autoreleasePoolPop(context);
   v34 = 0;
-  nameCopy = v76;
+  nameCopy = v75;
 LABEL_34:
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v34;
 }

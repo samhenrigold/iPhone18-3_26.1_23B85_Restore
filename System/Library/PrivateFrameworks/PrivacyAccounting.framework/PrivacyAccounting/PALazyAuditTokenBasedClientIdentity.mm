@@ -26,37 +26,35 @@
 {
   if (!self->_identityResolved)
   {
-    v3 = *&self->_auditToken.val[4];
-    v11 = *self->_auditToken.val;
-    v4 = tcc_server_singleton_default();
-    v5 = tcc_credential_create_for_process_with_audit_token();
-    v6 = tcc_message_options_create();
+    v3 = tcc_server_singleton_default();
+    v4 = tcc_credential_create_for_process_with_audit_token();
+    v5 = tcc_message_options_create();
     tcc_message_options_set_reply_handler_policy();
-    *&v11 = 0;
-    *(&v11 + 1) = &v11;
+    v10 = 0;
+    v11 = &v10;
     v12 = 0x3032000000;
     v13 = __Block_byref_object_copy_;
     v14 = __Block_byref_object_dispose_;
     v15 = 0;
     tcc_server_message_get_identity_for_credential();
-    v7 = *(*(&v11 + 1) + 40);
-    _Block_object_dispose(&v11, 8);
+    v6 = v11[5];
+    _Block_object_dispose(&v10, 8);
 
     identity = self->_identity;
-    self->_identity = v7;
+    self->_identity = v6;
 
     self->_identityResolved = 1;
   }
 
-  v9 = self->_identity;
+  v8 = self->_identity;
 
-  return v9;
+  return v8;
 }
 
 - (NSString)description
 {
   v2 = MEMORY[0x1EEE9AC00](self, a2);
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   identity = [v2 identity];
   if (identity)
   {
@@ -80,8 +78,6 @@
       v4 = @"<IDENTITY_UNKNOWN>";
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -65,51 +65,8 @@
   LOBYTE(v47) = 0;
   objc_opt_class();
   v18 = __UIAccessibilityCastAsClass();
-  if (v47 == 1)
+  if (v47 == 1 || (v19 = v18, v17, v47 = 0, v48 = &v47, v49 = 0x3032000000, v50 = __Block_byref_object_copy__1, v51 = __Block_byref_object_dispose__1, v52 = 0, v35 = MEMORY[0x277D85DD0], v36 = 3221225472, v37 = __148__AXSBDeviceApplicationSceneStatusBarBreadcrumbProviderAccessibility__shouldAddBreadcrumbToActivatingSceneEntity_sceneHandle_withTransitionContext___block_invoke_2, v38 = &unk_27842BBA8, v40 = &v47, v20 = v14, v39 = v20, AXPerformSafeBlock(), v21 = v48[5], v20, _Block_object_dispose(&v47, 8), v52, [v21 safeValueForKey:@"application"], v22 = objc_claimAutoreleasedReturnValue(), v21, objc_msgSend(v22, "safeStringForKey:", @"bundleIdentifier"), v23 = objc_claimAutoreleasedReturnValue(), v22, LOBYTE(v47) = 0, objc_opt_class(), __UIAccessibilityCastAsClass(), v24 = objc_claimAutoreleasedReturnValue(), v47 == 1) || (v25 = v24, v23, LOBYTE(v47) = 0, objc_msgSend(v20, "safeValueForKey:", @"request"), v26 = objc_claimAutoreleasedReturnValue(), __UIAccessibilitySafeClass(), v27 = objc_claimAutoreleasedReturnValue(), v26, v47 == 1))
   {
-    goto LABEL_14;
-  }
-
-  v19 = v18;
-
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__1;
-  v51 = __Block_byref_object_dispose__1;
-  v52 = 0;
-  v35 = MEMORY[0x277D85DD0];
-  v36 = 3221225472;
-  v37 = __148__AXSBDeviceApplicationSceneStatusBarBreadcrumbProviderAccessibility__shouldAddBreadcrumbToActivatingSceneEntity_sceneHandle_withTransitionContext___block_invoke_2;
-  v38 = &unk_27842BBA8;
-  v40 = &v47;
-  v20 = v14;
-  v39 = v20;
-  AXPerformSafeBlock();
-  v21 = v48[5];
-
-  _Block_object_dispose(&v47, 8);
-  v22 = [v21 safeValueForKey:@"application"];
-
-  v23 = [v22 safeStringForKey:@"bundleIdentifier"];
-
-  LOBYTE(v47) = 0;
-  objc_opt_class();
-  v24 = __UIAccessibilityCastAsClass();
-  if (v47 == 1)
-  {
-    goto LABEL_14;
-  }
-
-  v25 = v24;
-
-  LOBYTE(v47) = 0;
-  v26 = [v20 safeValueForKey:@"request"];
-  v27 = __UIAccessibilitySafeClass();
-
-  if (v47 == 1)
-  {
-LABEL_14:
     abort();
   }
 
@@ -135,20 +92,14 @@ LABEL_13:
 
 uint64_t __148__AXSBDeviceApplicationSceneStatusBarBreadcrumbProviderAccessibility__shouldAddBreadcrumbToActivatingSceneEntity_sceneHandle_withTransitionContext___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) applicationSceneEntityForLayoutRole:1];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) applicationSceneEntityForLayoutRole:1];
 
   return MEMORY[0x2821F96F8]();
 }
 
 uint64_t __148__AXSBDeviceApplicationSceneStatusBarBreadcrumbProviderAccessibility__shouldAddBreadcrumbToActivatingSceneEntity_sceneHandle_withTransitionContext___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) previousApplicationSceneEntityForLayoutRole:1];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) previousApplicationSceneEntityForLayoutRole:1];
 
   return MEMORY[0x2821F96F8]();
 }

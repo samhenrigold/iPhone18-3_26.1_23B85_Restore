@@ -34,7 +34,7 @@
 
 - (id)histogramFromRows:(id)rows componentOffset:(unsigned int)offset
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20[256] = *MEMORY[0x1E69E9840];
   width = [rows width];
   height = [rows height];
   bytesPerPixel = [rows bytesPerPixel];

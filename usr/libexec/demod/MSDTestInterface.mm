@@ -83,7 +83,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138543618;
@@ -97,7 +97,7 @@
   {
     v7 = [connectionCopy valueForEntitlement:@"com.apple.private.mobilestoredemo.testInterface"];
     v8 = v7;
-    if (v7 && [v7 BOOLValue])
+    if (v7 && (v7 = [v7 BOOLValue], v7))
     {
       v9 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___MSDSendTestCommand];
       [connectionCopy setExportedInterface:v9];
@@ -112,7 +112,7 @@
 
     else
     {
-      v10 = sub_100063A54();
+      v10 = sub_100063A54(v7);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v13 = 138543362;

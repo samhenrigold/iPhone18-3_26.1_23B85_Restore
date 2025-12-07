@@ -4,6 +4,8 @@
 - (BOOL)shouldFetchResourceWithEtag:(id)etag propertiesToValues:(id)values;
 - (CalDAVContainerSyncTaskGroup)initWithCalendar:(id)calendar accountInfoProvider:(id)provider taskManager:(id)manager;
 - (CalDAVContainerSyncTaskGroup)initWithFolderURL:(id)l previousCTag:(id)tag previousSyncToken:(id)token actions:(id)actions accountInfoProvider:(id)provider taskManager:(id)manager appSpecificCalendarItemClass:(Class)class;
+- (CalDAVContainerSyncTaskGroup)initWithFolderURL:(id)l previousCTag:(id)tag previousSyncToken:(id)token actions:(id)actions getScheduleTags:(BOOL)tags getScheduleChanges:(BOOL)changes accountInfoProvider:(id)provider taskManager:(id)self0 appSpecificCalendarItemClass:(Class)self1;
+- (CalDAVContainerSyncTaskGroup)initWithFolderURL:(id)l previousCTag:(id)tag previousSyncToken:(id)token getScheduleTags:(BOOL)tags getScheduleChanges:(BOOL)changes accountInfoProvider:(id)provider taskManager:(id)manager;
 - (id)copyAdditionalResourcePropertiesToFetch;
 - (id)copyGetEtagTaskWithPropertiesToFind:(id)find;
 - (id)copyGetTaskWithURL:(id)l;
@@ -256,19 +258,8 @@ id __57__CalDAVContainerSyncTaskGroup_copyMultiGetTaskWithURLs___block_invoke_2(
   v10 = MEMORY[0x277CFDD20];
   if ((isNotification & 1) == 0)
   {
-    if (![(CalDAVCalendar *)self->_calendar isScheduleInbox])
+    if (!-[CalDAVCalendar isScheduleInbox](self->_calendar, "isScheduleInbox") || (-[CalDAVCalendar principal](self->_calendar, "principal"), v11 = objc_claimAutoreleasedReturnValue(), [v11 account], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "serverVersion"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "supportsTimeRangeFilterOnInbox"), v13, v12, v11, v14))
     {
-      goto LABEL_7;
-    }
-
-    principal = [(CalDAVCalendar *)self->_calendar principal];
-    account = [principal account];
-    serverVersion = [account serverVersion];
-    supportsTimeRangeFilterOnInbox = [serverVersion supportsTimeRangeFilterOnInbox];
-
-    if (supportsTimeRangeFilterOnInbox)
-    {
-LABEL_7:
       if ((*(&self->super.super.super.isa + *v10) & 1) == 0)
       {
         if ((v8 & 1) == 0)
@@ -440,16 +431,28 @@ LABEL_29:
     v7 = MEMORY[0x277CFDF18];
   }
 
-  v8 = *v7;
-  v9 = off_278D65AF0;
-  if (!isNotification)
-  {
-    v9 = 0x277CFDC10;
-  }
-
-  v10 = *v9;
-  [v3 CDVAddItemParserMappingWithNameSpace:v6 name:v8 parseClass:objc_opt_class()];
+  [v3 CDVAddItemParserMappingWithNameSpace:v6 name:*v7 parseClass:objc_opt_class()];
   return v3;
+}
+
+- (CalDAVContainerSyncTaskGroup)initWithFolderURL:(id)l previousCTag:(id)tag previousSyncToken:(id)token actions:(id)actions getScheduleTags:(BOOL)tags getScheduleChanges:(BOOL)changes accountInfoProvider:(id)provider taskManager:(id)self0 appSpecificCalendarItemClass:(Class)self1
+{
+  changesCopy = changes;
+  tagsCopy = tags;
+  v13 = [(CalDAVContainerSyncTaskGroup *)self initWithFolderURL:l previousCTag:tag previousSyncToken:token actions:actions accountInfoProvider:provider taskManager:manager appSpecificCalendarItemClass:class];
+  [(CalDAVContainerSyncTaskGroup *)v13 setGetScheduleTags:tagsCopy];
+  [(CalDAVContainerSyncTaskGroup *)v13 setGetScheduleChanges:changesCopy];
+  return v13;
+}
+
+- (CalDAVContainerSyncTaskGroup)initWithFolderURL:(id)l previousCTag:(id)tag previousSyncToken:(id)token getScheduleTags:(BOOL)tags getScheduleChanges:(BOOL)changes accountInfoProvider:(id)provider taskManager:(id)manager
+{
+  changesCopy = changes;
+  tagsCopy = tags;
+  v11 = [(CalDAVContainerSyncTaskGroup *)self initWithFolderURL:l previousCTag:tag previousSyncToken:token actions:0 accountInfoProvider:provider taskManager:manager appSpecificCalendarItemClass:0];
+  [(CalDAVContainerSyncTaskGroup *)v11 setGetScheduleTags:tagsCopy];
+  [(CalDAVContainerSyncTaskGroup *)v11 setGetScheduleChanges:changesCopy];
+  return v11;
 }
 
 - (void)copyGetEtagTaskWithPropertiesToFind:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

@@ -16,17 +16,16 @@
 
 - (id)valueItemClasses
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (void)processContentCollection:(id)collection context:(id)context valueHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   collectionCopy = collection;
@@ -39,25 +38,24 @@
   }
 
   v13 = MEMORY[0x1E6996CF0];
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __77__WFContactSubstitutableState_processContentCollection_context_valueHandler___block_invoke;
-  v24 = &unk_1E837FF18;
-  v26 = contextCopy;
-  v27 = handlerCopy;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __77__WFContactSubstitutableState_processContentCollection_context_valueHandler___block_invoke;
+  v23 = &unk_1E837FF18;
+  v25 = contextCopy;
+  v26 = handlerCopy;
   selfCopy = self;
   v14 = contextCopy;
   v15 = handlerCopy;
-  v16 = [v13 requestForCoercingToContentClasses:valueItemClasses completionHandler:&v21];
+  v16 = [v13 requestForCoercingToContentClasses:valueItemClasses completionHandler:&v20];
   v17 = MEMORY[0x1E6996CE8];
-  v28 = *MEMORY[0x1E6997000];
-  v29[0] = MEMORY[0x1E695E118];
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:{1, v21, v22, v23, v24, selfCopy}];
+  v27 = *MEMORY[0x1E6997000];
+  v28[0] = MEMORY[0x1E695E118];
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:{1, v20, v21, v22, v23, selfCopy}];
   v19 = [v17 optionsWithDictionary:v18];
   [v16 setOptions:v19];
 
   [collectionCopy performCoercion:v16];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __77__WFContactSubstitutableState_processContentCollection_context_valueHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -336,7 +334,7 @@ void __88__WFContactSubstitutableState_processWithContext_userInputRequiredHandl
 
 WFMultipleValueParameterStateEntry *__45__WFContactSubstitutableState_initWithValue___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 parameterState];
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -391,27 +389,25 @@ WFMultipleValueParameterStateEntry *__45__WFContactSubstitutableState_initWithVa
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v19 = [v2 parameterState];
-      v22 = 136315394;
-      v23 = "[WFContactSubstitutableState initWithValue:]_block_invoke";
-      v24 = 2112;
-      v25 = v19;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s [WFContactSubstitutableState] Could not cast parameter state to WFContactFieldEntry: %@", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[WFContactSubstitutableState initWithValue:]_block_invoke";
+      v23 = 2112;
+      v24 = v19;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s [WFContactSubstitutableState] Could not cast parameter state to WFContactFieldEntry: %@", &v21, 0x16u);
     }
 
     v18 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (id)serializedRepresentation
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = WFContactSubstitutableState;
-  serializedRepresentation = [(WFVariableSubstitutableParameterState *)&v16 serializedRepresentation];
+  v17[1] = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = WFContactSubstitutableState;
+  serializedRepresentation = [(WFVariableSubstitutableParameterState *)&v15 serializedRepresentation];
   if (serializedRepresentation)
   {
     objc_opt_class();
@@ -440,11 +436,11 @@ WFMultipleValueParameterStateEntry *__45__WFContactSubstitutableState_initWithVa
     if (communicationMethod)
     {
       v8 = [v5 mutableCopy];
-      v17 = @"WFCommunicationMethodValue";
+      v16 = @"WFCommunicationMethodValue";
       communicationMethod2 = [(WFContactSubstitutableState *)self communicationMethod];
       serializedRepresentation2 = [communicationMethod2 serializedRepresentation];
-      v18[0] = serializedRepresentation2;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v17[0] = serializedRepresentation2;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       v12 = [v6 if_dictionaryByAddingEntriesFromDictionary:v11];
       [v8 setObject:v12 forKeyedSubscript:@"Value"];
 
@@ -461,8 +457,6 @@ WFMultipleValueParameterStateEntry *__45__WFContactSubstitutableState_initWithVa
 
   v13 = serializedRepresentation;
 LABEL_12:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -522,18 +516,16 @@ LABEL_12:
 
 + (id)serializedRepresentationFromValue:(id)value
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = [value if_compactMap:&__block_literal_global_74989];
-  v9 = v3;
-  v10[0] = @"WFSerializationType";
-  v10[1] = @"Value";
-  v11[0] = @"WFContactFieldValue";
-  v8 = @"WFContactFieldValues";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8 = v3;
+  v9[0] = @"WFSerializationType";
+  v9[1] = @"Value";
+  v10[0] = @"WFContactFieldValue";
+  v7 = @"WFContactFieldValues";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+  v10[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v5;
 }
@@ -595,11 +587,10 @@ id __65__WFContactSubstitutableState_serializedRepresentationFromValue___block_i
 
 + (id)processingValueClasses
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }

@@ -17,11 +17,10 @@
 
 - (void)prepareForReuse
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for SHSSilentModeTableCell();
-  v2 = v4.receiver;
-  [(PSTableCell *)&v4 prepareForReuse];
-  v3 = *&v2[OBJC_IVAR____TtC24SoundsAndHapticsSettings22SHSSilentModeTableCell_toggleContentViewModel];
+  v3.receiver = self;
+  v3.super_class = type metadata accessor for SHSSilentModeTableCell();
+  v2 = v3.receiver;
+  [(PSTableCell *)&v3 prepareForReuse];
   *&v2[OBJC_IVAR____TtC24SoundsAndHapticsSettings22SHSSilentModeTableCell_toggleContentViewModel] = 0;
 }
 

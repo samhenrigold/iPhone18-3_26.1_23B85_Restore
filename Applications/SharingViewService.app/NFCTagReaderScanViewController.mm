@@ -68,8 +68,7 @@
   WeakRetained = objc_loadWeakRetained(&self->_mainController);
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    dismissing = [WeakRetained dismissing];
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "-[NFCTagReaderScanViewController nfcTagScanned]", 30, "nfcTagScanned, dismissing: %d\n", [WeakRetained dismissing]);
   }
 
   if (([WeakRetained dismissing] & 1) == 0)
@@ -77,7 +76,7 @@
     [WeakRetained uiOperationBegin];
     if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController nfcTagScanned]", 30, "Playing nfc sound\n");
     }
 
     inCompletionBlock[0] = _NSConcreteStackBlock;
@@ -85,7 +84,7 @@
     inCompletionBlock[2] = sub_1000F9E30;
     inCompletionBlock[3] = &unk_100195AC0;
     v4 = WeakRetained;
-    v11 = v4;
+    v10 = v4;
     AudioServicesPlaySystemSoundWithCompletion(0x488u, inCompletionBlock);
     if (self->_mode == 20)
     {
@@ -101,12 +100,12 @@
 
     [(PKGlyphView *)self->_nfcAnimationView setColorMode:2 animated:1];
     nfcAnimationView = self->_nfcAnimationView;
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1000F9F10;
-    v9[3] = &unk_1001957D0;
-    v9[4] = self;
-    [(PKGlyphView *)nfcAnimationView setState:11 animated:1 completionHandler:v9];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1000F9F10;
+    v8[3] = &unk_1001957D0;
+    v8[4] = self;
+    [(PKGlyphView *)nfcAnimationView setState:11 animated:1 completionHandler:v8];
   }
 }
 
@@ -115,7 +114,7 @@
   disappearCopy = disappear;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController viewDidDisappear:]", 30, "Scan ViewDidDisappear\n");
   }
 
   v8.receiver = self;
@@ -136,7 +135,7 @@
   appearCopy = appear;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController viewDidAppear:]", 30, "Scan ViewDidAppear\n");
   }
 
   v7.receiver = self;
@@ -151,7 +150,7 @@
   {
     if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController viewDidAppear:]", 30, "Apply deferred tag scan\n");
     }
 
     [(NFCTagReaderScanViewController *)self nfcTagScanned];
@@ -176,7 +175,7 @@
   [(PKGlyphView *)nfcAnimationView setCustomImage:cGImage withAlignmentEdgeInsets:?];
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController showFailureUI]", 30, "Playing nfc sound\n");
   }
 
   AudioServicesPlaySystemSoundWithCompletion(0x576u, &stru_100194F10);
@@ -188,7 +187,7 @@
   appearCopy = appear;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController viewWillAppear:]", 30, "Scan ViewWillAppear\n");
   }
 
   v65.receiver = self;

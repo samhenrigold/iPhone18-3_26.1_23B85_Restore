@@ -264,7 +264,7 @@ uint64_t __41__WFWorkflowItemProvider_generateItemURL__block_invoke_8(uint64_t a
   return [v1 dismissWithCompletion:v3];
 }
 
-uint64_t __41__WFWorkflowItemProvider_generateItemURL__block_invoke_9(uint64_t a1)
+void *__41__WFWorkflowItemProvider_generateItemURL__block_invoke_9(uint64_t a1)
 {
   result = [*(a1 + 32) hasWorkflowURL];
   if ((result & 1) == 0)

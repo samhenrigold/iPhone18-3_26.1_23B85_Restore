@@ -49,27 +49,26 @@
 
 - (PGInfrequentCountryMemoryNodeFeatureExtractor)initWithFrequentCountryLabels:(id)labels version:(int64_t)version graph:(id)graph error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   v9 = [objc_opt_class() _labelsForVersion:version];
   v10 = MEMORY[0x277D22C90];
   v11 = +[PGGraphLocationCountryNode filter];
   relation = [v11 relation];
-  v22[0] = relation;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = relation;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v14 = [v10 chain:v13];
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __99__PGInfrequentCountryMemoryNodeFeatureExtractor_initWithFrequentCountryLabels_version_graph_error___block_invoke;
-  v20[3] = &unk_27887FF60;
-  v21 = labelsCopy;
-  v19.receiver = self;
-  v19.super_class = PGInfrequentCountryMemoryNodeFeatureExtractor;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __99__PGInfrequentCountryMemoryNodeFeatureExtractor_initWithFrequentCountryLabels_version_graph_error___block_invoke;
+  v19[3] = &unk_27887FF60;
+  v20 = labelsCopy;
+  v18.receiver = self;
+  v18.super_class = PGInfrequentCountryMemoryNodeFeatureExtractor;
   v15 = labelsCopy;
-  v16 = [(PGGraphMemoryNodeFeatureExtractor *)&v19 initWithName:@"Country" featureNames:v9 relation:v14 labelForTargetBlock:v20];
+  v16 = [(PGGraphMemoryNodeFeatureExtractor *)&v18 initWithName:@"Country" featureNames:v9 relation:v14 labelForTargetBlock:v19];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -106,40 +105,38 @@ id __99__PGInfrequentCountryMemoryNodeFeatureExtractor_initWithFrequentCountryLa
 
 + (id)inferredUserLanguageCodesFromGraph:(id)graph
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   inferredUserLocales = [graphCopy inferredUserLocales];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = [inferredUserLocales countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [inferredUserLocales countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(inferredUserLocales);
         }
 
-        languageCode = [*(*(&v14 + 1) + 8 * i) languageCode];
+        languageCode = [*(*(&v13 + 1) + 8 * i) languageCode];
         uppercaseString = [languageCode uppercaseString];
         [v4 addObject:uppercaseString];
       }
 
-      v7 = [inferredUserLocales countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [inferredUserLocales countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

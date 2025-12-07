@@ -1066,7 +1066,7 @@ LABEL_107:
     goto LABEL_88;
   }
 
-  if (([eventCopy toFloatingSwitcherVisible] & 1) == 0 && objc_msgSend(eventCopy, "fromFloatingSwitcherVisible"))
+  if (([eventCopy toFloatingSwitcherVisible] & 1) == 0 && objc_msgSend_fromFloatingSwitcherVisible(eventCopy))
   {
     v40 = SBAppUnderFloatingSwitcherTransitionSwitcherModifier;
     goto LABEL_53;

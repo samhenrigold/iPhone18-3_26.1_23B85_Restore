@@ -52,39 +52,39 @@ void __65___LTMultiParagraphTranslationRequest__generateParagraphRequests__block
   }
 }
 
-void __65___LTMultiParagraphTranslationRequest__generateParagraphRequests__block_invoke_3(uint64_t a1)
+void __65___LTMultiParagraphTranslationRequest__generateParagraphRequests__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 32))
   {
-    v5 = *(*(a1 + 40) + 24);
-    v6 = *(a1 + 56);
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 64)];
-    [v5 setObject:v6 forKeyedSubscript:v7];
+    v6 = *(*(a1 + 40) + 24);
+    v7 = *(a1 + 56);
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 64)];
+    [v6 setObject:v7 forKeyedSubscript:v8];
 
     goto LABEL_5;
   }
 
-  v2 = *(*(a1 + 40) + 32);
-  if (v2)
+  v3 = *(*(a1 + 40) + 32);
+  if (v3)
   {
-    (*(v2 + 16))(v2, 0);
-    v3 = *(a1 + 40);
-    v4 = *(v3 + 32);
-    *(v3 + 32) = 0;
+    (*(v3 + 16))(v3, 0);
+    v4 = *(a1 + 40);
+    v5 = *(v4 + 32);
+    *(v4 + 32) = 0;
 
     [*(a1 + 40) _cleanUp];
 LABEL_5:
-    v8 = *(a1 + 48);
+    v9 = *(a1 + 48);
 
-    dispatch_group_leave(v8);
+    dispatch_group_leave(v9);
     return;
   }
 
-  v9 = _LTOSLogTextAPI();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = _LTOSLogTextAPI(0, a2);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_INFO, "Completion was already nil-ed out since we've already called it, early returning", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_23AAF5000, v10, OS_LOG_TYPE_INFO, "Completion was already nil-ed out since we've already called it, early returning", v11, 2u);
   }
 }
 

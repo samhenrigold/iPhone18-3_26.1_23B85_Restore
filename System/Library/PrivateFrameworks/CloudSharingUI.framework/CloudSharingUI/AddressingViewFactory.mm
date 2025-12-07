@@ -224,10 +224,10 @@ LABEL_12:
 LABEL_24:
   v79 = v46;
   v61 = sub_243B6DD7C(v77, v76, v75, v74, v73, v72, v69, v68, v71, v67, v66, v65, v64, v63, addressesCopy2, v46, v45, v48, v47, v50, v49, v54, v34);
-  sub_243B2BFCC(v54);
-  sub_243B2BFCC(v50);
-  sub_243B2BFCC(v48);
-  sub_243B2BFCC(v79);
+  sub_243B2BFCC(v54, v34);
+  sub_243B2BFCC(v50, v49);
+  sub_243B2BFCC(v48, v47);
+  sub_243B2BFCC(v79, v45);
   sub_243B58410(v77, v76);
   return v61;
 }
@@ -370,7 +370,6 @@ LABEL_16:
 
 - (void)addAddressFrom:(id)from contactProperty:(id)property
 {
-  v7 = *(&self->super.isa + OBJC_IVAR____TtC14CloudSharingUI21AddressingViewFactory_viewModel);
   fromCopy = from;
   propertyCopy = property;
   selfCopy = self;

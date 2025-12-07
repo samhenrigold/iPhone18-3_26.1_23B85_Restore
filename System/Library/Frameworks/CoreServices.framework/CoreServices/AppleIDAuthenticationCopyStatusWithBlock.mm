@@ -3,7 +3,7 @@
 
 @implementation AppleIDAuthenticationCopyStatusWithBlock
 
-void ___AppleIDAuthenticationCopyStatusWithBlock_block_invoke(uint64_t a1, const __CFDictionary *a2, int a3)
+void ___AppleIDAuthenticationCopyStatusWithBlock_block_invoke(uint64_t a1, const __CFDictionary *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
   if (a3)
@@ -95,20 +95,20 @@ LABEL_16:
   }
 }
 
-CFErrorRef ___AppleIDAuthenticationCopyStatusWithBlock_block_invoke_cold_1(int a1, CFErrorRef *a2)
+CFErrorRef ___AppleIDAuthenticationCopyStatusWithBlock_block_invoke_cold_1(uint64_t a1, CFErrorRef *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = AppleIDGetLogHandle();
+  v3 = a1;
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = AppleIDGetLogHandle(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7[0] = 67109120;
-    v7[1] = a1;
-    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_ERROR, "SFAppleIDClientCopyAccountInfo failed with error %d\n", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_ERROR, "SFAppleIDClientCopyAccountInfo failed with error %d\n", v6, 8u);
   }
 
   result = CFErrorCreate(*MEMORY[0x1E695E480], @"CSIdentityErrorDomain", -11, 0);
   *a2 = result;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 

@@ -78,7 +78,7 @@
     stroke = v13->_stroke;
     if (stroke)
     {
-      [(NUBrushStroke *)stroke extent];
+      objc_msgSend_extent(stroke);
     }
 
     else

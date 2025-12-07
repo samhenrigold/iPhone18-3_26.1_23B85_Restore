@@ -110,15 +110,15 @@
 
 - (BOOL)enumerateItemsWithError:(id *)error usingBlock:(id)block
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   selfCopy = self;
   _appEnumerator = [(KMLaunchServicesBridge *)self _appEnumerator];
-  v7 = [_appEnumerator countByEnumeratingWithState:&v33 objects:v43 count:16];
+  v7 = [_appEnumerator countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (!v7)
   {
     v26 = 1;
@@ -127,19 +127,19 @@
 
   v8 = v7;
   v9 = 0;
-  v10 = *v34;
-  v30 = blockCopy;
+  v10 = *v33;
+  v29 = blockCopy;
   v11 = _appEnumerator;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v34 != v10)
+      if (*v33 != v10)
       {
         objc_enumerationMutation(v11);
       }
 
-      v13 = *(*(&v33 + 1) + 8 * i);
+      v13 = *(*(&v32 + 1) + 8 * i);
       v14 = objc_autoreleasePoolPush();
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -156,9 +156,9 @@
 
           itemMapper = selfCopy->_itemMapper;
           additionalFields = selfCopy->_additionalFields;
-          v32 = v9;
-          v19 = [(KVItemMapper *)itemMapper mapObject:v13 additionalFields:additionalFields error:&v32];
-          _appEnumerator = v32;
+          v31 = v9;
+          v19 = [(KVItemMapper *)itemMapper mapObject:v13 additionalFields:additionalFields error:&v31];
+          _appEnumerator = v31;
 
           if ([v19 count] != 1)
           {
@@ -166,11 +166,11 @@
             if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v38 = "[KMLaunchServicesBridge enumerateItemsWithError:usingBlock:]";
-              v39 = 2112;
-              v40 = v19;
-              v41 = 2112;
-              v42 = _appEnumerator;
+              v37 = "[KMLaunchServicesBridge enumerateItemsWithError:usingBlock:]";
+              v38 = 2112;
+              v39 = v19;
+              v40 = 2112;
+              v41 = _appEnumerator;
               _os_log_error_impl(&dword_2559DF000, v27, OS_LOG_TYPE_ERROR, "%s Unexepected items: %@ error: %@", buf, 0x20u);
             }
 
@@ -180,7 +180,7 @@
           }
 
           firstObject = [v19 firstObject];
-          v21 = v30[2](v30, firstObject);
+          v21 = v29[2](v29, firstObject);
 
           if ((v21 & 1) == 0)
           {
@@ -202,11 +202,11 @@ LABEL_24:
             v24 = v23;
             bundleIdentifier2 = [v13 bundleIdentifier];
             *buf = 136315650;
-            v38 = "[KMLaunchServicesBridge enumerateItemsWithError:usingBlock:]";
-            v39 = 2112;
-            v40 = v13;
-            v41 = 2112;
-            v42 = bundleIdentifier2;
+            v37 = "[KMLaunchServicesBridge enumerateItemsWithError:usingBlock:]";
+            v38 = 2112;
+            v39 = v13;
+            v40 = 2112;
+            v41 = bundleIdentifier2;
             _os_log_error_impl(&dword_2559DF000, v24, OS_LOG_TYPE_ERROR, "%s bundle record: %@ has invalid bundle identifier (%@)", buf, 0x20u);
           }
         }
@@ -218,9 +218,9 @@ LABEL_24:
         if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v38 = "[KMLaunchServicesBridge enumerateItemsWithError:usingBlock:]";
-          v39 = 2112;
-          v40 = v13;
+          v37 = "[KMLaunchServicesBridge enumerateItemsWithError:usingBlock:]";
+          v38 = 2112;
+          v39 = v13;
           _os_log_error_impl(&dword_2559DF000, v22, OS_LOG_TYPE_ERROR, "%s bundle record: %@ is not a LSApplicationRecord", buf, 0x16u);
         }
       }
@@ -229,7 +229,7 @@ LABEL_16:
       objc_autoreleasePoolPop(v14);
     }
 
-    v8 = [v11 countByEnumeratingWithState:&v33 objects:v43 count:16];
+    v8 = [v11 countByEnumeratingWithState:&v32 objects:v42 count:16];
     if (v8)
     {
       continue;
@@ -241,10 +241,9 @@ LABEL_16:
   v26 = 1;
   _appEnumerator = v9;
 LABEL_25:
-  blockCopy = v30;
+  blockCopy = v29;
 LABEL_26:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -256,19 +255,19 @@ LABEL_26:
 
 - (KMLaunchServicesBridge)initWithLanguageCode:(id)code
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   codeCopy = code;
-  v21.receiver = self;
-  v21.super_class = KMLaunchServicesBridge;
-  v5 = [(KMLaunchServicesBridge *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = KMLaunchServicesBridge;
+  v5 = [(KMLaunchServicesBridge *)&v20 init];
   if (!v5)
   {
     goto LABEL_5;
   }
 
-  v20 = 0;
-  v6 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v20];
-  v7 = v20;
+  v19 = 0;
+  v6 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v19];
+  v7 = v19;
   itemMapper = v5->_itemMapper;
   v5->_itemMapper = v6;
 
@@ -284,9 +283,9 @@ LABEL_9:
     }
 
     *buf = 136315394;
-    v25 = "[KMLaunchServicesBridge initWithLanguageCode:]";
-    v26 = 2112;
-    v27 = v7;
+    v24 = "[KMLaunchServicesBridge initWithLanguageCode:]";
+    v25 = 2112;
+    v26 = v7;
     v14 = "%s %@";
     v15 = v13;
     v16 = 22;
@@ -304,7 +303,7 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v25 = "[KMLaunchServicesBridge initWithLanguageCode:]";
+    v24 = "[KMLaunchServicesBridge initWithLanguageCode:]";
     v14 = "%s Must pass a valid language code";
     v15 = v17;
     v16 = 12;
@@ -312,9 +311,9 @@ LABEL_12:
   }
 
   v9 = KVAdditionalFieldTypeToNumber();
-  v22 = v9;
-  v23 = codeCopy;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v21 = v9;
+  v22 = codeCopy;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
   additionalFields = v5->_additionalFields;
   v5->_additionalFields = v10;
 
@@ -322,35 +321,34 @@ LABEL_5:
   v12 = v5;
 LABEL_10:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 + (id)allInstalledAppBundleIdentifiers
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v14 = objc_opt_new();
+  v23 = *MEMORY[0x277D85DE8];
+  v13 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * v6);
+        v7 = *(*(&v14 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -358,7 +356,7 @@ LABEL_10:
           bundleIdentifier = [v7 bundleIdentifier];
           if (bundleIdentifier)
           {
-            [v14 addObject:bundleIdentifier];
+            [v13 addObject:bundleIdentifier];
           }
 
           else
@@ -367,9 +365,9 @@ LABEL_10:
             if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v20 = "+[KMLaunchServicesBridge allInstalledAppBundleIdentifiers]";
-              v21 = 2112;
-              v22 = v7;
+              v19 = "+[KMLaunchServicesBridge allInstalledAppBundleIdentifiers]";
+              v20 = 2112;
+              v21 = v7;
               _os_log_error_impl(&dword_2559DF000, v11, OS_LOG_TYPE_ERROR, "%s bundle record: %@ has nil bundle identifier", buf, 0x16u);
             }
           }
@@ -381,9 +379,9 @@ LABEL_10:
           if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v20 = "+[KMLaunchServicesBridge allInstalledAppBundleIdentifiers]";
-            v21 = 2112;
-            v22 = v7;
+            v19 = "+[KMLaunchServicesBridge allInstalledAppBundleIdentifiers]";
+            v20 = 2112;
+            v21 = v7;
             _os_log_error_impl(&dword_2559DF000, v10, OS_LOG_TYPE_ERROR, "%s bundle record: %@ is not a LSApplicationRecord", buf, 0x16u);
           }
         }
@@ -393,15 +391,13 @@ LABEL_10:
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v4);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v13;
 }
 
 @end

@@ -190,9 +190,7 @@ LABEL_8:
 
 - (void)setContactIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  contactIdentifier = self->_contactIdentifier;
-  self->_contactIdentifier = v4;
+  self->_contactIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

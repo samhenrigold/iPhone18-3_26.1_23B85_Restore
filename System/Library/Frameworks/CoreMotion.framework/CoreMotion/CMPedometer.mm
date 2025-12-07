@@ -291,22 +291,37 @@ LABEL_3:
 - (void)_queryPedometerDataSinceDataRecord:(id)record withHandler:(id)handler
 {
   v15 = *MEMORY[0x1E69E9840];
-  if (!handler)
+  if (handler)
+  {
+    if (qword_1ED71D408 != -1)
+    {
+      dispatch_once(&qword_1ED71D408, &unk_1F0E29A00);
+    }
+
+    if (qword_1ED71D400 == 3)
+    {
+      v7 = objc_msgSend_pedometerProxy(self, a2, record);
+
+      objc_msgSend__queryPedometerDataSinceDataRecord_withHandler_shouldStartUpdates_(v7, v8, record, handler, 0);
+    }
+  }
+
+  else
   {
     if (qword_1EAFE27F0 != -1)
     {
       dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
     }
 
-    v10 = qword_1EAFE2818;
+    v9 = qword_1EAFE2818;
     if (os_log_type_enabled(qword_1EAFE2818, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_FAULT, "handler not set.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_FAULT, "handler not set.", buf, 2u);
     }
 
-    v11 = sub_19B420058();
-    if ((*(v11 + 160) & 0x80000000) == 0 || (*(v11 + 164) & 0x80000000) == 0 || (*(v11 + 168) & 0x80000000) == 0 || *(v11 + 152))
+    v10 = sub_19B420058();
+    if ((*(v10 + 160) & 0x80000000) == 0 || (*(v10 + 164) & 0x80000000) == 0 || (*(v10 + 168) & 0x80000000) == 0 || *(v10 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE27F0 != -1)
@@ -314,33 +329,16 @@ LABEL_3:
         dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
       }
 
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPedometer _queryPedometerDataSinceDataRecord:withHandler:]", "CoreLocation: %s\n", v12);
+      v13[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 17, "handler not set.", v13, 2);
+      v12 = v11;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPedometer _queryPedometerDataSinceDataRecord:withHandler:]", "CoreLocation: %s\n", v11);
       if (v12 != buf)
       {
         free(v12);
       }
     }
-
-    goto LABEL_19;
   }
-
-  if (qword_1ED71D408 != -1)
-  {
-    dispatch_once(&qword_1ED71D408, &unk_1F0E29A00);
-  }
-
-  if (qword_1ED71D400 != 3)
-  {
-LABEL_19:
-    v13 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v7 = objc_msgSend_pedometerProxy(self, a2, record);
-  v9 = *MEMORY[0x1E69E9840];
-
-  objc_msgSend__queryPedometerDataSinceDataRecord_withHandler_shouldStartUpdates_(v7, v8, record, handler, 0);
 }
 
 - (void)startPedometerEventUpdatesWithHandler:(CMPedometerEventHandler)handler
@@ -380,17 +378,17 @@ LABEL_19:
       dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
     }
 
-    v16 = qword_1EAFE2818;
+    v17 = qword_1EAFE2818;
     if (os_log_type_enabled(qword_1EAFE2818, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_ERROR, "fileURL must be a valid fileURL.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "fileURL must be a valid fileURL.", buf, 2u);
     }
 
-    v17 = sub_19B420058();
-    if ((*(v17 + 160) & 0x80000000) != 0 && (*(v17 + 164) & 0x80000000) != 0 && (*(v17 + 168) & 0x80000000) != 0 && !*(v17 + 152))
+    v18 = sub_19B420058();
+    if ((*(v18 + 160) & 0x80000000) != 0 && (*(v18 + 164) & 0x80000000) != 0 && (*(v18 + 168) & 0x80000000) != 0 && !*(v18 + 152))
     {
-      goto LABEL_26;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -400,6 +398,7 @@ LABEL_19:
     }
 
     LOWORD(v197) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 16, "fileURL must be a valid fileURL.", &v197, 2);
     goto LABEL_24;
   }
 
@@ -422,7 +421,7 @@ LABEL_19:
     v15 = sub_19B420058();
     if ((*(v15 + 160) & 0x80000000) != 0 && (*(v15 + 164) & 0x80000000) != 0 && (*(v15 + 168) & 0x80000000) != 0 && !*(v15 + 152))
     {
-      goto LABEL_26;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -432,7 +431,16 @@ LABEL_19:
     }
 
     LOWORD(v197) = 0;
-    goto LABEL_24;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 16, "File already exists at URL.", &v197, 2);
+LABEL_24:
+    v19 = v16;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPedometer sendStrideCalibrationHistoryToFile:]", "CoreLocation: %s\n", v16);
+    if (v19 != buf)
+    {
+      free(v19);
+    }
+
+    return 0;
   }
 
   v21 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v12, v13);
@@ -454,7 +462,7 @@ LABEL_19:
     v174 = sub_19B420058();
     if ((*(v174 + 160) & 0x80000000) != 0 && (*(v174 + 164) & 0x80000000) != 0 && (*(v174 + 168) & 0x80000000) != 0 && !*(v174 + 152))
     {
-      goto LABEL_26;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -464,6 +472,7 @@ LABEL_19:
     }
 
     LOWORD(v197) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 16, "URL must point to a file path which you have access to write to.", &v197, 2);
     goto LABEL_24;
   }
 
@@ -667,7 +676,7 @@ LABEL_19:
     v176 = sub_19B420058();
     if ((*(v176 + 160) & 0x80000000) != 0 && (*(v176 + 164) & 0x80000000) != 0 && (*(v176 + 168) & 0x80000000) != 0 && !*(v176 + 152))
     {
-      goto LABEL_26;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -677,6 +686,7 @@ LABEL_19:
     }
 
     LOWORD(v197) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 16, "Unable to dump stride calibration data.", &v197, 2);
     goto LABEL_24;
   }
 
@@ -700,7 +710,7 @@ LABEL_19:
     v172 = sub_19B420058();
     if ((*(v172 + 160) & 0x80000000) != 0 && (*(v172 + 164) & 0x80000000) != 0 && (*(v172 + 168) & 0x80000000) != 0 && !*(v172 + 152))
     {
-      goto LABEL_26;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -711,30 +721,30 @@ LABEL_19:
 
     v197 = 138412290;
     v198 = v184;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 16, "Unable to serialize stride cal data to json. Error: %@", &v197, 12);
     goto LABEL_24;
   }
 
-  if (objc_msgSend_writeToURL_atomically_(v169, v170, fileCopy, 0))
+  if ((objc_msgSend_writeToURL_atomically_(v169, v170, fileCopy, 0) & 1) == 0)
   {
-    result = 1;
-    goto LABEL_27;
-  }
+    if (qword_1EAFE27F0 != -1)
+    {
+      dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
+    }
 
-  if (qword_1EAFE27F0 != -1)
-  {
-    dispatch_once(&qword_1EAFE27F0, &unk_1F0E3AFB0);
-  }
+    v177 = qword_1EAFE2818;
+    if (os_log_type_enabled(qword_1EAFE2818, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_19B41C000, v177, OS_LOG_TYPE_ERROR, "Unable to write stride cal data to output file.", buf, 2u);
+    }
 
-  v177 = qword_1EAFE2818;
-  if (os_log_type_enabled(qword_1EAFE2818, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_19B41C000, v177, OS_LOG_TYPE_ERROR, "Unable to write stride cal data to output file.", buf, 2u);
-  }
+    v178 = sub_19B420058();
+    if ((*(v178 + 160) & 0x80000000) != 0 && (*(v178 + 164) & 0x80000000) != 0 && (*(v178 + 168) & 0x80000000) != 0 && !*(v178 + 152))
+    {
+      return 0;
+    }
 
-  v178 = sub_19B420058();
-  if ((*(v178 + 160) & 0x80000000) == 0 || (*(v178 + 164) & 0x80000000) == 0 || (*(v178 + 168) & 0x80000000) == 0 || *(v178 + 152))
-  {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE27F0 != -1)
     {
@@ -742,20 +752,11 @@ LABEL_19:
     }
 
     LOWORD(v197) = 0;
-LABEL_24:
-    v18 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPedometer sendStrideCalibrationHistoryToFile:]", "CoreLocation: %s\n", v18);
-    if (v18 != buf)
-    {
-      free(v18);
-    }
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2818, 16, "Unable to write stride cal data to output file.", &v197, 2);
+    goto LABEL_24;
   }
 
-LABEL_26:
-  result = 0;
-LABEL_27:
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (id)strideCalibrationDump

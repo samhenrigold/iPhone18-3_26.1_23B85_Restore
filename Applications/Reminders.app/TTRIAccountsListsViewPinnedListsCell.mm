@@ -13,7 +13,7 @@
 
 + (Class)containerViewClass
 {
-  type metadata accessor for TTRIPinnedListsView();
+  type metadata accessor for TTRIPinnedListsView(0);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -79,7 +79,7 @@
   selfCopy = self;
   sub_10032A858();
 
-  sub_100058000(&qword_100780A40);
+  sub_100058000(&qword_100780A40, &unk_10063B460);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

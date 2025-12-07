@@ -35,47 +35,49 @@
 
 - (void)updatePersonsModelWithRetryOnError:(BOOL)error
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = +[HMITaskService taskServiceClient];
-  v27[0] = HMITaskTypeUpdatePersonsModelTask;
-  v26[0] = @"taskType";
-  v26[1] = @"sourceUUID";
+  v34 = HMITaskTypeUpdatePersonsModelTask;
+  v30 = @"taskType";
+  v31 = @"sourceUUID";
   sourceUUID = [(HMIUpdatePersonsModelOperation *)self sourceUUID];
-  v27[1] = sourceUUID;
-  v26[2] = @"homeUUID";
+  v35 = sourceUUID;
+  v32 = @"homeUUID";
   homeUUID = [(HMIUpdatePersonsModelOperation *)self homeUUID];
-  v27[2] = homeUUID;
-  v26[3] = @"isExternal";
-  v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMIUpdatePersonsModelOperation external](self, "external")}];
-  v27[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v36 = homeUUID;
+  v33 = @"isExternal";
+  v8 = MEMORY[0x277CCABB0];
+  [(HMIUpdatePersonsModelOperation *)self external];
+  v9 = [v8 numberWithBool:?];
+  v37 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
   objc_initWeak(&location, self);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __69__HMIUpdatePersonsModelOperation_updatePersonsModelWithRetryOnError___block_invoke;
-  v16[3] = &unk_278754F08;
-  objc_copyWeak(&v17, &location);
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __69__HMIUpdatePersonsModelOperation_updatePersonsModelWithRetryOnError___block_invoke;
+  v20 = &unk_278754F08;
+  objc_copyWeak(&v21, &location);
   errorCopy = error;
-  v10 = [v5 submitTaskWithOptions:v9 progressHandler:0 completionHandler:v16];
-  v11 = objc_autoreleasePoolPush();
+  v11 = [v5 submitTaskWithOptions:? progressHandler:? completionHandler:?];
+  v12 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v13 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v14 = HMFGetLogIdentifier();
-    v15 = HMFBooleanToString();
+    v15 = HMFGetLogIdentifier();
+    v16 = HMFBooleanToString();
     *buf = 138543874;
-    v21 = v14;
-    v22 = 1024;
-    v23 = v10;
-    v24 = 2112;
     v25 = v15;
-    _os_log_impl(&dword_22D12F000, v13, OS_LOG_TYPE_INFO, "%{public}@Submitted persons model update task, taskID:%u, retryOnError:%@", buf, 0x1Cu);
+    v26 = 1024;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v16;
+    _os_log_impl(&dword_22D12F000, v14, OS_LOG_TYPE_INFO, "%{public}@Submitted persons model update task, taskID:%u, retryOnError:%@", buf, 0x1Cu);
   }
 
-  objc_autoreleasePoolPop(v11);
-  objc_destroyWeak(&v17);
+  objc_autoreleasePoolPop(v12);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
 }
 
@@ -87,9 +89,9 @@ void __69__HMIUpdatePersonsModelOperation_updatePersonsModelWithRetryOnError___b
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v8 = [v5 objectForKeyedSubscript:@"resultCode"];
+    v8 = [v5 objectForKeyedSubscript:?];
     v9 = HMITaskResultCodeAsString(0);
-    v10 = [v8 isEqualToString:v9];
+    v10 = [v8 isEqualToString:?];
 
     if (v10)
     {
@@ -128,7 +130,7 @@ void __69__HMIUpdatePersonsModelOperation_updatePersonsModelWithRetryOnError___b
         }
 
         objc_autoreleasePoolPop(v16);
-        [v17 updatePersonsModelWithRetryOnError:0];
+        [v17 updatePersonsModelWithRetryOnError:?];
       }
 
       else
@@ -144,7 +146,7 @@ void __69__HMIUpdatePersonsModelOperation_updatePersonsModelWithRetryOnError___b
         }
 
         objc_autoreleasePoolPop(v16);
-        [v17 cancelWithError:v6];
+        [v17 cancelWithError:?];
       }
     }
   }
@@ -161,7 +163,7 @@ void __69__HMIUpdatePersonsModelOperation_updatePersonsModelWithRetryOnError___b
     v6 = @"external";
   }
 
-  v7 = [v3 stringWithFormat:@"%@ (%@)", sourceUUID, v6];
+  v7 = [v3 stringWithFormat:sourceUUID, v6];
 
   return v7;
 }

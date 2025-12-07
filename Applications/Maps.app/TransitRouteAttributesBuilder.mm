@@ -15,7 +15,7 @@
   timing = self->_timing;
   if (timing)
   {
-    [(RoutePlanningTiming *)timing timepoint];
+    objc_msgSend_timepoint(timing);
     if ((~BYTE4(v10) & 6) == 0)
     {
       v7 = v9;

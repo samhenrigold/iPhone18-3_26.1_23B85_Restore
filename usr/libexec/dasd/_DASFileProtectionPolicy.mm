@@ -61,9 +61,9 @@
 
 - (_DASFileProtectionPolicy)init
 {
-  v25.receiver = self;
-  v25.super_class = _DASFileProtectionPolicy;
-  v2 = [(_DASFileProtectionPolicy *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = _DASFileProtectionPolicy;
+  v2 = [(_DASFileProtectionPolicy *)&v24 init];
   v3 = v2;
   if (v2)
   {
@@ -84,7 +84,7 @@
     handler[2] = sub_100055180;
     handler[3] = &unk_1001B5B78;
     v10 = v3;
-    v24 = v10;
+    v23 = v10;
     notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &v3->_classCLockedToken, v9, handler);
     v11 = MGCopyAnswer();
     v12 = v11;
@@ -97,14 +97,13 @@
     v10->_isClassCLocked = v13;
     v10->_isClassCXExpiring = 0;
     v10->_isClassCXExpired = v13;
-    v14 = v3->_handleUnlockQueue;
-    v22 = v10;
-    v15 = AKSEventsRegister();
-    v22->_aksEvent = v15;
-    if (!v15)
+    v21 = v10;
+    v14 = AKSEventsRegister();
+    v21->_aksEvent = v14;
+    if (!v14)
     {
-      v16 = [_DASDaemonLogger logForCategory:@"fileProtection"];
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = [_DASDaemonLogger logForCategory:@"fileProtection"];
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10011FA24();
       }
@@ -114,27 +113,27 @@
     {
       v10->_isClassCXExpiring = 0;
       v10->_isClassCXExpired = 1;
-      v17 = [_DASDaemonLogger logForCategory:@"fileProtection", 0];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = [_DASDaemonLogger logForCategory:@"fileProtection", 0];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         isClassCXExpiring = v10->_isClassCXExpiring;
         isClassCXExpired = v10->_isClassCXExpired;
         *buf = 67109888;
-        v27 = isClassCXExpiring;
-        v28 = 1024;
-        v29 = isClassCXExpired;
-        v30 = 2048;
-        v31 = 0;
-        v32 = 2048;
-        v33 = v21;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Class CX, Expring: %u, Expired: %u, w_locked: %llu s, w_remaining, %llu s", buf, 0x22u);
+        v26 = isClassCXExpiring;
+        v27 = 1024;
+        v28 = isClassCXExpired;
+        v29 = 2048;
+        v30 = 0;
+        v31 = 2048;
+        v32 = v20;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Class CX, Expring: %u, Expired: %u, w_locked: %llu s, w_remaining, %llu s", buf, 0x22u);
       }
     }
 
     else
     {
-      v17 = [_DASDaemonLogger logForCategory:@"fileProtection"];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = [_DASDaemonLogger logForCategory:@"fileProtection"];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10011FA64();
       }

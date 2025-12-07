@@ -12,6 +12,7 @@
 - (id)responseForServerData:(id)data;
 - (id)start;
 - (void)_clearAuthenticationCallbackBuffers;
+- (void)_handleGenericError:(int)error description:(id)description;
 - (void)_handleNeedsUserInteraction:(sasl_interact *)interaction;
 - (void)_handleStartFailure:(int)failure;
 - (void)_retrieveEncryptionBufferSize;
@@ -300,7 +301,7 @@ LABEL_23:
 
 - (id)start
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   if ([(ECSASLClient *)self saslStatus])
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -314,7 +315,7 @@ LABEL_23:
 
   clientout[0] = 0;
   clientoutlen = 0;
-  v22 = 0;
+  v21 = 0;
   mech = 0;
   if ([(ECSASLClient *)self excludeInitialResponse])
   {
@@ -323,7 +324,7 @@ LABEL_23:
 
   else
   {
-    v8 = sasl_client_start(saslConnection, uTF8String, &v22, clientout, &clientoutlen, &mech);
+    v8 = sasl_client_start(saslConnection, uTF8String, &v21, clientout, &clientoutlen, &mech);
   }
 
   v9 = v8;
@@ -350,7 +351,7 @@ LABEL_23:
     v12 = 0;
     if (v9 == 2)
     {
-      [(ECSASLClient *)self _handleNeedsUserInteraction:v22];
+      [(ECSASLClient *)self _handleNeedsUserInteraction:v21];
     }
 
     else
@@ -393,8 +394,8 @@ LABEL_20:
   }
 
   clientout[1] = 0;
-  v26[0] = 0;
-  *(v26 + 5) = 0;
+  v25[0] = 0;
+  *(v25 + 5) = 0;
   v14 = strlen(v13);
   if (v14 <= 0x14)
   {
@@ -423,8 +424,6 @@ LABEL_20:
   }
 
 LABEL_29:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -617,35 +616,45 @@ LABEL_3:
   self->_password = 0;
 }
 
+- (void)_handleGenericError:(int)error description:(id)description
+{
+  v4 = *&error;
+  descriptionCopy = description;
+  v8 = 0;
+  [(ECSASLClient *)self _logGenericError:v4 saslConnection:[(ECSASLClient *)self saslConnection] description:descriptionCopy error:&v8];
+  v7 = v8;
+  [(ECSASLClient *)self setSaslStatus:3];
+  [(ECSASLClient *)self setSaslError:v7];
+}
+
 - (BOOL)_logGenericError:(int)error saslConnection:(sasl_conn *)connection description:(id)description error:(id *)a6
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:sasl_errdetail(connection)];
   v11 = +[ECSASLClient log];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v22 = descriptionCopy;
-    v23 = 2114;
-    v24 = v10;
+    v21 = descriptionCopy;
+    v22 = 2114;
+    v23 = v10;
     _os_log_impl(&dword_22D092000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@\n%{public}@", buf, 0x16u);
   }
 
   if (a6)
   {
-    v19 = *MEMORY[0x277CCA498];
-    v20 = v10;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA498];
+    v19 = v10;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"SASLErrorDomain" code:error userInfo:v12];
-    v17 = *MEMORY[0x277CCA7E8];
-    v18 = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA7E8];
+    v17 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
     *a6 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ECAuthenticationErrorDomain" code:1030 userInfo:v14];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

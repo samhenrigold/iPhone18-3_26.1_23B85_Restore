@@ -7,26 +7,25 @@
 
 - (WLKAdamIDToCanonicalIDRequestOperation)initWithAdamId:(id)id
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v16[0] = idCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = idCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v6 = [v5 componentsJoinedByString:{@", "}];
 
-  v14 = @"ids";
-  v15 = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = @"ids";
+  v14 = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
   v8 = [WLKURLRequestProperties requestPropertiesWithEndpoint:@"contents/lookup" queryParameters:v7 httpMethod:0 headers:0 caller:0 timeout:0 apiVersion:&unk_288222CF8 options:0];
-  v13.receiver = self;
-  v13.super_class = WLKAdamIDToCanonicalIDRequestOperation;
-  v9 = [(WLKUTSNetworkRequestOperation *)&v13 initWithRequestProperties:v8];
+  v12.receiver = self;
+  v12.super_class = WLKAdamIDToCanonicalIDRequestOperation;
+  v9 = [(WLKUTSNetworkRequestOperation *)&v12 initWithRequestProperties:v8];
   v10 = v9;
   if (v9)
   {
     [(WLKAdamIDToCanonicalIDRequestOperation *)v9 setAdamId:idCopy];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

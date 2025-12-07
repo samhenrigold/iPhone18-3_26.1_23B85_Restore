@@ -116,7 +116,7 @@
   return v4;
 }
 
-uint64_t __48__MTAWorldClockViewAccessibility__axDeleteClock__block_invoke(uint64_t a1)
+void *__48__MTAWorldClockViewAccessibility__axDeleteClock__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) deleteTapped:0];
   *(*(*(a1 + 40) + 8) + 24) = 1;

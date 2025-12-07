@@ -1,5 +1,6 @@
 @interface TRIRemoteAssetStoreOperator
 - (BOOL)addSymlinkFromAssetWithIdentifier:(id)identifier toPath:(id)path flockWitness:(TRIFlockWitness_ *)witness;
+- (BOOL)collectGarbageOlderThanNumScans:(unsigned int)scans deletedAssetSize:(unint64_t *)size ignoreRecentlyCreatedAssets:(BOOL)assets dryRun:(BOOL)run includedCacheDeletableAssetIds:(id)ids deletedAssetIds:(id *)assetIds;
 - (BOOL)fixFileProtectionForAssetStoreFiles;
 - (BOOL)migrateToGlobalAssetStoreIfNeeded;
 - (BOOL)overwriteGlobalActiveFactorProvidersWithNamespaceMap:(id)map factorPackMap:(id)packMap rolloutDeploymentMap:(id)deploymentMap;
@@ -10,6 +11,7 @@
 - (BOOL)updateFactorPackAtGlobalPath:(id)path deletingFactors:(id)factors;
 - (BOOL)updateFactorPackAtGlobalPath:(id)path withFactors:(id)factors;
 - (TRIRemoteAssetStoreOperator)initWithPaths:(id)paths;
+- (id)referenceMAAutoAssetWithId:(id)id futurePath:(id)path currentPath:(id)currentPath isFileFactor:(BOOL)factor;
 @end
 
 @implementation TRIRemoteAssetStoreOperator
@@ -106,7 +108,7 @@
 - (BOOL)saveAssetWithIdentifier:(id)identifier sourcePath:(id)path flockWitness:(TRIFlockWitness_ *)witness removeSourceOnFailure:(BOOL)failure
 {
   failureCopy = failure;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   pathCopy = path;
   v12 = NSTemporaryDirectory();
@@ -115,9 +117,9 @@
   v15 = [v12 stringByAppendingPathComponent:uUIDString];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v36 = 0;
-  LOBYTE(uUIDString) = [defaultManager createDirectoryAtPath:v15 withIntermediateDirectories:1 attributes:0 error:&v36];
-  v17 = v36;
+  v35 = 0;
+  LOBYTE(uUIDString) = [defaultManager createDirectoryAtPath:v15 withIntermediateDirectories:1 attributes:0 error:&v35];
+  v17 = v35;
 
   if ((uUIDString & 1) == 0)
   {
@@ -155,26 +157,26 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v38 = __Block_byref_object_copy__39;
-    v39 = __Block_byref_object_dispose__39;
-    v40 = 0;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __101__TRIRemoteAssetStoreOperator_saveAssetWithIdentifier_sourcePath_flockWitness_removeSourceOnFailure___block_invoke;
-    v35[3] = &unk_279DE09F8;
-    v35[4] = buf;
-    v23 = MEMORY[0x2743948D0](v35);
+    v37 = __Block_byref_object_copy__39;
+    v38 = __Block_byref_object_dispose__39;
+    v39 = 0;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __101__TRIRemoteAssetStoreOperator_saveAssetWithIdentifier_sourcePath_flockWitness_removeSourceOnFailure___block_invoke;
+    v34[3] = &unk_279DE09F8;
+    v34[4] = buf;
+    v23 = MEMORY[0x2743948D0](v34);
     v24 = [(_PASXPCClientHelper *)self->_internalHelper synchronousRemoteObjectProxyWithErrorHandler:v23];
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
-    v34 = 0;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __101__TRIRemoteAssetStoreOperator_saveAssetWithIdentifier_sourcePath_flockWitness_removeSourceOnFailure___block_invoke_2;
-    v30[3] = &unk_279DE0A70;
-    v30[4] = &v31;
-    [v24 saveAssetWithIdentifier:identifierCopy sourcePath:v19 flockWitness:witness removeSourceOnFailure:failureCopy sourceExtension:v20 completion:v30];
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __101__TRIRemoteAssetStoreOperator_saveAssetWithIdentifier_sourcePath_flockWitness_removeSourceOnFailure___block_invoke_2;
+    v29[3] = &unk_279DE0A70;
+    v29[4] = &v30;
+    [v24 saveAssetWithIdentifier:identifierCopy sourcePath:v19 flockWitness:witness removeSourceOnFailure:failureCopy sourceExtension:v20 completion:v29];
     if (*(*&buf[8] + 40))
     {
       v25 = 0;
@@ -182,10 +184,10 @@
 
     else
     {
-      v25 = *(v32 + 24);
+      v25 = *(v31 + 24);
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
 
     _Block_object_dispose(buf, 8);
   }
@@ -201,7 +203,6 @@
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25 & 1;
 }
 
@@ -299,6 +300,202 @@
   }
 
   return v12 & 1;
+}
+
+- (id)referenceMAAutoAssetWithId:(id)id futurePath:(id)path currentPath:(id)currentPath isFileFactor:(BOOL)factor
+{
+  factorCopy = factor;
+  v54 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  pathCopy = path;
+  currentPathCopy = currentPath;
+  if ([MEMORY[0x277D737A8] hostingProcessIsTrialdSystem])
+  {
+    v14 = [[TRIAssetStore alloc] initWithPaths:self->_paths];
+    v15 = [[TRIAssetStoreOperator alloc] initWithPaths:self->_paths storageManagement:self->_storageManagement assetStore:v14];
+    v16 = [(TRIAssetStoreOperator *)v15 referenceMAAutoAssetWithId:idCopy futurePath:pathCopy currentPath:currentPathCopy isFileFactor:factorCopy];
+  }
+
+  else
+  {
+    v17 = NSTemporaryDirectory();
+    v18 = objc_opt_new();
+    uUIDString = [v18 UUIDString];
+    v20 = [v17 stringByAppendingPathComponent:uUIDString];
+
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    v45 = 0;
+    LOBYTE(uUIDString) = [defaultManager createDirectoryAtPath:v20 withIntermediateDirectories:1 attributes:0 error:&v45];
+    v22 = v45;
+
+    if ((uUIDString & 1) == 0)
+    {
+      v23 = TRILogCategory_Server();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        *&buf[4] = v20;
+        *&buf[12] = 2112;
+        *&buf[14] = v22;
+        _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "Unable to create global temp path at %{public}@: %@", buf, 0x16u);
+      }
+    }
+
+    lastPathComponent = [currentPathCopy lastPathComponent];
+    v25 = [v20 stringByAppendingPathComponent:lastPathComponent];
+
+    v26 = TRILogCategory_Server();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      *&buf[4] = currentPathCopy;
+      *&buf[12] = 2114;
+      *&buf[14] = v25;
+      _os_log_impl(&dword_26F567000, v26, OS_LOG_TYPE_DEFAULT, "Trying to create maRef at %{public}@. To support this on macOS, we'll create it in a global location at %{public}@ first.", buf, 0x16u);
+    }
+
+    v27 = v25;
+    if (!v27)
+    {
+      currentHandler = [MEMORY[0x277CCA890] currentHandler];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"TRIRemoteAssetStoreOperator.m" lineNumber:209 description:{@"Expression was unexpectedly nil/false: %@", @"globalPath"}];
+    }
+
+    v28 = [TRISandboxExtensionFactory extensionTokenForPath:v27 extensionClass:1];
+
+    if (v28)
+    {
+      *buf = 0;
+      *&buf[8] = buf;
+      *&buf[16] = 0x3032000000;
+      v51 = __Block_byref_object_copy__39;
+      v52 = __Block_byref_object_dispose__39;
+      v53 = 0;
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __94__TRIRemoteAssetStoreOperator_referenceMAAutoAssetWithId_futurePath_currentPath_isFileFactor___block_invoke;
+      v44[3] = &unk_279DE09F8;
+      v44[4] = buf;
+      v29 = MEMORY[0x2743948D0](v44);
+      v30 = [(_PASXPCClientHelper *)self->_internalHelper synchronousRemoteObjectProxyWithErrorHandler:v29];
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x3032000000;
+      v41 = __Block_byref_object_copy__39;
+      v42 = __Block_byref_object_dispose__39;
+      v43 = 0;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __94__TRIRemoteAssetStoreOperator_referenceMAAutoAssetWithId_futurePath_currentPath_isFileFactor___block_invoke_2;
+      v37[3] = &unk_279DE3388;
+      v37[4] = &v38;
+      [v30 referenceMAAutoAssetWithId:idCopy futurePath:pathCopy currentPath:v27 isFileFactor:factorCopy sourceExtension:v28 completion:v37];
+      if (*(*&buf[8] + 40))
+      {
+        v16 = 0;
+      }
+
+      else
+      {
+        v32 = v39[5];
+        if (v32)
+        {
+          v33 = TRILogCategory_Server();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          {
+            v34 = v39[5];
+            *v46 = 138543618;
+            v47 = v34;
+            v48 = 2114;
+            v49 = currentPathCopy;
+            _os_log_impl(&dword_26F567000, v33, OS_LOG_TYPE_DEFAULT, "Now that the maRef has been created at %{public}@ we will move it back to %{public}@.", v46, 0x16u);
+          }
+
+          [MEMORY[0x277CCAA00] triForceRenameWithSourcePath:v39[5] destPath:currentPathCopy];
+          v32 = v39[5];
+        }
+
+        v16 = v32;
+      }
+
+      _Block_object_dispose(&v38, 8);
+
+      _Block_object_dispose(buf, 8);
+    }
+
+    else
+    {
+      v31 = TRILogCategory_Server();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "Unable to get extension token. Bailing out from referenceMAAutoAssetWithId", buf, 2u);
+      }
+
+      v16 = 0;
+    }
+  }
+
+  return v16;
+}
+
+- (BOOL)collectGarbageOlderThanNumScans:(unsigned int)scans deletedAssetSize:(unint64_t *)size ignoreRecentlyCreatedAssets:(BOOL)assets dryRun:(BOOL)run includedCacheDeletableAssetIds:(id)ids deletedAssetIds:(id *)assetIds
+{
+  runCopy = run;
+  assetsCopy = assets;
+  v12 = *&scans;
+  idsCopy = ids;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__39;
+  v35 = __Block_byref_object_dispose__39;
+  v36 = 0;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __162__TRIRemoteAssetStoreOperator_collectGarbageOlderThanNumScans_deletedAssetSize_ignoreRecentlyCreatedAssets_dryRun_includedCacheDeletableAssetIds_deletedAssetIds___block_invoke;
+  v30[3] = &unk_279DE09F8;
+  v30[4] = &v31;
+  v15 = MEMORY[0x2743948D0](v30);
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__39;
+  v28 = __Block_byref_object_dispose__39;
+  v29 = 0;
+  v16 = [(_PASXPCClientHelper *)self->_internalHelper synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __162__TRIRemoteAssetStoreOperator_collectGarbageOlderThanNumScans_deletedAssetSize_ignoreRecentlyCreatedAssets_dryRun_includedCacheDeletableAssetIds_deletedAssetIds___block_invoke_2;
+  v19[3] = &unk_279DE33B0;
+  v19[4] = &v20;
+  v19[5] = &v24;
+  [v16 collectGarbageOlderThanNumScans:v12 deletedAssetSize:size ignoreRecentlyCreatedAssets:assetsCopy dryRun:runCopy includedCacheDeletableAssetIds:idsCopy completion:v19];
+  if (assetIds)
+  {
+    objc_storeStrong(assetIds, v25[5]);
+  }
+
+  if (v32[5])
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = *(v21 + 24);
+  }
+
+  _Block_object_dispose(&v20, 8);
+
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v31, 8);
+
+  return v17 & 1;
 }
 
 - (BOOL)fixFileProtectionForAssetStoreFiles
@@ -602,7 +799,7 @@ uint64_t __83__TRIRemoteAssetStoreOperator_removeUnreferencedGlobalFactorPacksWi
 
 - (BOOL)migrateToGlobalAssetStoreIfNeeded
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -629,28 +826,28 @@ uint64_t __83__TRIRemoteAssetStoreOperator_removeUnreferencedGlobalFactorPacksWi
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v32 = 0x3032000000;
-      v33 = __Block_byref_object_copy__39;
-      v34 = __Block_byref_object_dispose__39;
-      v35 = 0;
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __64__TRIRemoteAssetStoreOperator_migrateToGlobalAssetStoreIfNeeded__block_invoke;
-      v28[3] = &unk_279DE09F8;
-      v28[4] = &buf;
-      v10 = MEMORY[0x2743948D0](v28);
+      v31 = 0x3032000000;
+      v32 = __Block_byref_object_copy__39;
+      v33 = __Block_byref_object_dispose__39;
+      v34 = 0;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __64__TRIRemoteAssetStoreOperator_migrateToGlobalAssetStoreIfNeeded__block_invoke;
+      v27[3] = &unk_279DE09F8;
+      v27[4] = &buf;
+      v10 = MEMORY[0x2743948D0](v27);
       v11 = [(_PASXPCClientHelper *)self->_internalHelper synchronousRemoteObjectProxyWithErrorHandler:v10];
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = 0;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __64__TRIRemoteAssetStoreOperator_migrateToGlobalAssetStoreIfNeeded__block_invoke_2;
-      v23[3] = &unk_279DE0A70;
-      v23[4] = &v24;
-      [v11 migrateToGlobalAssetStoreIfNeededFromLocalStore:v5 sourceExtension:v9 completion:v23];
-      if (*(*(&buf + 1) + 40) || *(v25 + 24) != 1)
+      v23 = 0;
+      v24 = &v23;
+      v25 = 0x2020000000;
+      v26 = 0;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __64__TRIRemoteAssetStoreOperator_migrateToGlobalAssetStoreIfNeeded__block_invoke_2;
+      v22[3] = &unk_279DE0A70;
+      v22[4] = &v23;
+      [v11 migrateToGlobalAssetStoreIfNeededFromLocalStore:v5 sourceExtension:v9 completion:v22];
+      if (*(*(&buf + 1) + 40) || *(v24 + 24) != 1)
       {
         v17 = 0;
       }
@@ -660,32 +857,32 @@ uint64_t __83__TRIRemoteAssetStoreOperator_removeUnreferencedGlobalFactorPacksWi
         v12 = TRILogCategory_Server();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          *v29 = 0;
-          _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_DEFAULT, "Removing local asset store following successful migration to global.", v29, 2u);
+          *v28 = 0;
+          _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_DEFAULT, "Removing local asset store following successful migration to global.", v28, 2u);
         }
 
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v22 = 0;
-        v14 = [defaultManager2 triForceRemoveItemAtPath:v5 error:&v22];
-        v15 = v22;
+        v21 = 0;
+        v14 = [defaultManager2 triForceRemoveItemAtPath:v5 error:&v21];
+        v15 = v21;
 
         if ((v14 & 1) == 0)
         {
           v16 = TRILogCategory_Server();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            *v29 = 138543362;
-            v30 = v5;
-            _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failed to delete local asset store after successfully migrating: %{public}@", v29, 0xCu);
+            *v28 = 138543362;
+            v29 = v5;
+            _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failed to delete local asset store after successfully migrating: %{public}@", v28, 0xCu);
           }
 
-          *(v25 + 24) = 0;
+          *(v24 + 24) = 0;
         }
 
-        v17 = *(v25 + 24);
+        v17 = *(v24 + 24);
       }
 
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v23, 8);
 
       _Block_object_dispose(&buf, 8);
     }
@@ -715,7 +912,6 @@ uint64_t __83__TRIRemoteAssetStoreOperator_removeUnreferencedGlobalFactorPacksWi
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 

@@ -11,37 +11,44 @@
 
 - (id)description
 {
-  v133 = *MEMORY[0x1E69E9840];
-  SFShouldLogSensitiveDescriptions();
-  v131 = 0;
-  v130 = 0;
-  NSAppendPrintF();
-  v3 = 0;
-  v4 = v3;
-  if (self->_identifier)
+  v122 = *MEMORY[0x1E69E9840];
+  v3 = SFShouldLogSensitiveDescriptions(self, a2);
+  v119 = 0;
+  v118 = 0;
+  NSAppendPrintF(&v118, "SFBLEDevice");
+  v4 = v118;
+  v5 = v4;
+  identifier = self->_identifier;
+  if (identifier)
   {
-    v129 = v3;
-    NSAppendPrintF();
-    v5 = v129;
+    v117 = v4;
+    if (v3)
+    {
+      NSAppendPrintF(&v117, " ID %@", identifier);
+    }
 
-    v4 = v5;
+    else
+    {
+      NSAppendPrintF(&v117, " ID %~@", identifier);
+    }
+
+    v7 = v117;
+
+    v5 = v7;
   }
 
   bluetoothAddress = self->_bluetoothAddress;
   if (bluetoothAddress)
   {
-    v128 = v4;
-    [(NSData *)bluetoothAddress bytes];
-    NSAppendPrintF();
-    v7 = v4;
+    v116 = v5;
+    NSAppendPrintF(&v116, ", BDA %.6a", COERCE_DOUBLE([(NSData *)bluetoothAddress bytes]));
+    v9 = v116;
 
-    v4 = v7;
+    v5 = v9;
   }
 
-  advertisementFields = self->_advertisementFields;
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v127 = v4;
-  rssi_low = LODWORD(self->_rssi);
+  v115 = v5;
   if (self->_triggered)
   {
     v11 = 84;
@@ -68,7 +75,7 @@
     if (!distance)
     {
       v14 = "U";
-      goto LABEL_28;
+      goto LABEL_31;
     }
 
     if (distance != 10)
@@ -76,10 +83,10 @@
       if (distance == 20)
       {
         v14 = "N";
-        goto LABEL_28;
+        goto LABEL_31;
       }
 
-      goto LABEL_24;
+      goto LABEL_27;
     }
 
     v14 = "I";
@@ -92,10 +99,10 @@
       if (distance == 60)
       {
         v14 = "F";
-        goto LABEL_28;
+        goto LABEL_31;
       }
 
-      goto LABEL_24;
+      goto LABEL_27;
     }
 
     v14 = "H";
@@ -108,81 +115,94 @@
       if (distance == 40)
       {
         v14 = "R";
-        goto LABEL_28;
+        goto LABEL_31;
       }
 
-LABEL_24:
+LABEL_27:
       v14 = "?";
-      goto LABEL_28;
+      goto LABEL_31;
     }
 
     v14 = "P";
   }
 
-LABEL_28:
-  v101 = v11;
-  v103 = v12;
-  rssiEstimate = self->_rssiEstimate;
-  v105 = v14;
-  v106 = Int64Ranged;
-  NSAppendPrintF();
-  v15 = v127;
+LABEL_31:
+  NSAppendPrintF(&v115, ", RSSI %d (%d)%c%c%s, Ch %d", LODWORD(self->_rssi), self->_rssiEstimate, v11, v12, v14, Int64Ranged);
+  v15 = v115;
 
   if (self->_insideSmallBubble)
   {
-    v126 = v15;
-    NSAppendPrintF();
-    v16 = v15;
+    v114 = v15;
+    NSAppendPrintF(&v114, ", insideSmall");
+    v16 = v114;
 
     v15 = v16;
   }
 
   if (self->_insideMediumBubble)
   {
-    v125 = v15;
-    NSAppendPrintF();
-    v17 = v15;
+    v113 = v15;
+    NSAppendPrintF(&v113, ", insideMed");
+    v17 = v113;
 
     v15 = v17;
   }
 
-  if (self->_advertisementData)
+  advertisementData = self->_advertisementData;
+  if (advertisementData)
   {
-    v124 = v15;
-    NSAppendPrintF();
-    v18 = v15;
+    v112 = v15;
+    NSAppendPrintF(&v112, ", AdvD <%@>", advertisementData);
+    v19 = v112;
 
-    v15 = v18;
+    v15 = v19;
   }
 
-  v19 = self->_advertisementFields;
   v20 = CFDictionaryGetInt64Ranged();
-  v123 = v15;
-  if (v20 <= 9u)
+  if (!v119)
   {
-    v21 = off_1E788DD70[v20 & 0xF];
+    v111 = v15;
+    if (v20 > 9u)
+    {
+      v21 = "?";
+    }
+
+    else
+    {
+      v21 = off_1E788DD70[v20 & 0xF];
+    }
+
+    NSAppendPrintF(&v111, ", ST %s", v21);
+    v22 = v111;
+
+    v15 = v22;
   }
 
-  NSAppendPrintF();
-  v22 = v123;
+  v110 = v15;
+  if (v3)
+  {
+    v23 = ", Nm '%@'";
+  }
 
-  v122 = v22;
+  else
+  {
+    v23 = ", Nm '%~@'";
+  }
+
   name = self->_name;
   if (!name)
   {
     name = @"?";
   }
 
-  v95 = name;
-  NSAppendPrintF();
-  v24 = v122;
+  NSAppendPrintF(&v110, v23, name);
+  v25 = v110;
 
-  v25 = self->_advertisementFields;
   v26 = CFDictionaryGetInt64Ranged();
   v27 = v26;
   if (v26)
   {
-    v121 = v24;
+    v109 = v25;
     if (v26 > 0x66u)
     {
       v28 = "?";
@@ -193,381 +213,410 @@ LABEL_28:
       v28 = *(off_1E788DDC0 + (((v26 << 56) - 0x100000000000000) >> 53));
     }
 
-    v95 = v28;
-    NSAppendPrintF();
-    v29 = v121;
+    NSAppendPrintF(&v109, ", %s", v28);
+    v29 = v109;
 
-    v24 = v29;
+    v25 = v29;
   }
 
-  v106 = [(NSDictionary *)self->_advertisementFields objectForKeyedSubscript:@"model", v95, rssiEstimate, v101, v103, v105, v106];
-  if (v106)
+  v30 = [(NSDictionary *)self->_advertisementFields objectForKeyedSubscript:@"model"];
+  v31 = v30;
+  if (v30)
   {
-    v120[10] = v24;
-    NSAppendPrintF();
-    v31 = v24;
-
-    v24 = v31;
-  }
-
-  v32 = self->_advertisementFields;
-  v120[9] = v24;
-  CFDictionaryGetInt64();
-  NSAppendPrintF();
-  v33 = v24;
-
-  v34 = self->_advertisementFields;
-  v120[8] = v33;
-  CFDictionaryGetInt64();
-  NSAppendPrintF();
-  v35 = v33;
-
-  v36 = self->_advertisementFields;
-  if (CFDictionaryGetInt64())
-  {
-    v120[7] = v35;
-    NSAppendPrintF();
-    v37 = v35;
-
-    v35 = v37;
-  }
-
-  v38 = self->_advertisementFields;
-  v39 = CFDictionaryGetInt64Ranged();
-  v40 = v39;
-  if (v39)
-  {
-    v41 = 85;
-  }
-
-  else
-  {
-    v41 = 117;
-  }
-
-  v132[133] = v41;
-  if ((v39 & 8) != 0)
-  {
-    v42 = 65;
-  }
-
-  else if ((v39 & 2) != 0)
-  {
-    v42 = 67;
-  }
-
-  else if ((v39 & 0x800) != 0)
-  {
-    v42 = 84;
-  }
-
-  else if ((v39 & 4) != 0)
-  {
-    v42 = 69;
-  }
-
-  else
-  {
-    v42 = 63;
-  }
-
-  v132[134] = v42;
-  if ((v39 & 0x40) != 0)
-  {
-    v43 = 65;
-  }
-
-  else if ((v39 & 0x10) != 0)
-  {
-    v43 = 67;
-  }
-
-  else if ((v39 & 0x20) != 0)
-  {
-    v43 = 69;
-  }
-
-  else
-  {
-    v43 = 63;
-  }
-
-  v132[135] = v43;
-  if ((v39 & 0x80) != 0)
-  {
-    v44 = 76;
-  }
-
-  else
-  {
-    v44 = 114;
-  }
-
-  v132[136] = v44;
-  if ((v39 & 0x100) != 0)
-  {
-    v45 = 80;
-  }
-
-  else
-  {
-    v45 = 115;
-  }
-
-  v132[137] = v45;
-  if ((v39 & 0x200) != 0)
-  {
-    v46 = 66;
-  }
-
-  else
-  {
-    v46 = 98;
-  }
-
-  v132[138] = v46;
-  v47 = self->_advertisementFields;
-  if (CFDictionaryGetInt64Ranged())
-  {
-    v48 = 67;
-  }
-
-  else
-  {
-    v48 = 111;
-  }
-
-  v132[139] = v48;
-  v49 = self->_advertisementFields;
-  v132[140] = CFDictionaryGetInt64Ranged() + 48;
-  v50 = self->_advertisementFields;
-  v132[141] = CFDictionaryGetInt64Ranged() + 48;
-  if ((v40 & 0x400) != 0)
-  {
-    v51 = 83;
-  }
-
-  else
-  {
-    v51 = 115;
-  }
-
-  v132[142] = v51;
-  v132[143] = 0;
-  v120[6] = v35;
-  NSAppendPrintF();
-  v52 = v35;
-
-  v53 = self->_advertisementFields;
-  v120[5] = v52;
-  Int64 = CFDictionaryGetInt64Ranged();
-  NSAppendPrintF();
-  v54 = v52;
-
-  v55 = self->_advertisementFields;
-  v56 = CFDictionaryGetInt64Ranged();
-  if (!v131)
-  {
-    v120[3] = v54;
-    Int64 = v56;
-    NSAppendPrintF();
-    v57 = v54;
-
-    v54 = v57;
-  }
-
-  v58 = self->_advertisementFields;
-  v59 = CFDictionaryGetInt64Ranged();
-  if (!v131)
-  {
-    v120[2] = v54;
-    Int64 = v59;
-    NSAppendPrintF();
-    v60 = v54;
-
-    v54 = v60;
-  }
-
-  v61 = self->_advertisementFields;
-  v62 = CFDictionaryGetInt64Ranged();
-  if (v62)
-  {
-    v120[1] = v54;
-    Int64 = v62;
-    NSAppendPrintF();
-    v63 = v54;
-
-    v54 = v63;
-  }
-
-  v64 = self->_advertisementFields;
-  v65 = CFDictionaryGetInt64Ranged();
-  if (v131)
-  {
-    v119 = v54;
-    v66 = &v119;
-  }
-
-  else
-  {
-    v120[0] = v54;
-    if (v65 > 2u)
+    v108 = v25;
+    if (v3)
     {
-      v67 = "?";
+      NSAppendPrintF(&v108, ", Md '%@'", v30);
     }
 
     else
     {
-      v67 = off_1E788E0F0[v65 & 3];
+      NSAppendPrintF(&v108, ", Md '%~@'", v30);
     }
 
-    Int64 = v67;
-    v66 = v120;
+    v32 = v108;
+
+    v25 = v32;
   }
 
-  NSAppendPrintF();
-  v68 = *v66;
-
-  v69 = self->_advertisementFields;
+  v107 = v25;
   if (CFDictionaryGetInt64())
   {
-    v118 = v68;
-    NSAppendPrintF();
-    v70 = v68;
-
-    v68 = v70;
+    v33 = "yes";
   }
 
-  v71 = self->_advertisementFields;
-  if (CFDictionaryGetInt64())
+  else
   {
-    v117 = v68;
-    NSAppendPrintF();
-    v72 = v68;
-
-    v68 = v72;
+    v33 = "no";
   }
 
-  v73 = self->_advertisementFields;
+  NSAppendPrintF(&v107, ", Paired %s", v33);
+  v34 = v107;
+
+  v106 = v34;
   if (CFDictionaryGetInt64())
   {
-    v116 = v68;
-    NSAppendPrintF();
-    v74 = v68;
+    v35 = "yes";
+  }
 
-    v68 = v74;
+  else
+  {
+    v35 = "no";
+  }
+
+  NSAppendPrintF(&v106, ", Cnx %s", v35);
+  v36 = v106;
+
+  if (CFDictionaryGetInt64())
+  {
+    v105 = v36;
+    NSAppendPrintF(&v105, ", WiFiP2P");
+    v37 = v105;
+
+    v36 = v37;
+  }
+
+  v38 = CFDictionaryGetInt64Ranged();
+  if (!v119)
+  {
+    v39 = v38;
+    if (v38)
+    {
+      v40 = 85;
+    }
+
+    else
+    {
+      v40 = 117;
+    }
+
+    v121[0] = v40;
+    if ((v38 & 8) != 0)
+    {
+      v41 = 65;
+    }
+
+    else if ((v38 & 2) != 0)
+    {
+      v41 = 67;
+    }
+
+    else if ((v38 & 0x800) != 0)
+    {
+      v41 = 84;
+    }
+
+    else if ((v38 & 4) != 0)
+    {
+      v41 = 69;
+    }
+
+    else
+    {
+      v41 = 63;
+    }
+
+    v121[1] = v41;
+    if ((v38 & 0x40) != 0)
+    {
+      v42 = 65;
+    }
+
+    else if ((v38 & 0x10) != 0)
+    {
+      v42 = 67;
+    }
+
+    else if ((v38 & 0x20) != 0)
+    {
+      v42 = 69;
+    }
+
+    else
+    {
+      v42 = 63;
+    }
+
+    v121[2] = v42;
+    if ((v38 & 0x80) != 0)
+    {
+      v43 = 76;
+    }
+
+    else
+    {
+      v43 = 114;
+    }
+
+    v121[3] = v43;
+    if ((v38 & 0x100) != 0)
+    {
+      v44 = 80;
+    }
+
+    else
+    {
+      v44 = 115;
+    }
+
+    v121[4] = v44;
+    if ((v38 & 0x200) != 0)
+    {
+      v45 = 66;
+    }
+
+    else
+    {
+      v45 = 98;
+    }
+
+    v121[5] = v45;
+    if (CFDictionaryGetInt64Ranged())
+    {
+      v46 = 67;
+    }
+
+    else
+    {
+      v46 = 111;
+    }
+
+    v121[6] = v46;
+    v47 = CFDictionaryGetInt64Ranged() + 48;
+    if (v119)
+    {
+      v48 = 63;
+    }
+
+    else
+    {
+      v48 = v47;
+    }
+
+    v121[7] = v48;
+    v49 = CFDictionaryGetInt64Ranged() + 48;
+    if (v119)
+    {
+      v50 = 63;
+    }
+
+    else
+    {
+      v50 = v49;
+    }
+
+    v121[8] = v50;
+    if ((v39 & 0x400) != 0)
+    {
+      v51 = 83;
+    }
+
+    else
+    {
+      v51 = 115;
+    }
+
+    v121[9] = v51;
+    v121[10] = 0;
+    v104 = v36;
+    NSAppendPrintF(&v104, ", ST=%s", v121);
+    v52 = v104;
+
+    CFDictionaryGetInt64Ranged();
+    if (v119)
+    {
+      v102 = v52;
+      v53 = &v102;
+      NSAppendPrintF(&v102, ", CC=?");
+    }
+
+    else
+    {
+      v103 = v52;
+      v53 = &v103;
+      NSAppendPrintF(&v103, ", CC=%u");
+    }
+
+    v36 = *v53;
+
+    v54 = CFDictionaryGetInt64Ranged();
+    if (!v119)
+    {
+      v101 = v36;
+      NSAppendPrintF(&v101, ", CCR=%u", v54);
+      v55 = v101;
+
+      v36 = v55;
+    }
+
+    v56 = CFDictionaryGetInt64Ranged();
+    if (!v119)
+    {
+      v100 = v36;
+      NSAppendPrintF(&v100, ", CCC=%u", v56);
+      v57 = v100;
+
+      v36 = v57;
+    }
+  }
+
+  v58 = CFDictionaryGetInt64Ranged();
+  if (v58)
+  {
+    v99 = v36;
+    NSAppendPrintF(&v99, ", matID %d", v58);
+    v59 = v99;
+
+    v36 = v59;
+  }
+
+  CFDictionaryGetInt64Ranged();
+  if (v119)
+  {
+    v97 = v36;
+    v60 = &v97;
+    NSAppendPrintF(&v97, ", OBC=?");
+  }
+
+  else
+  {
+    v98 = v36;
+    v60 = &v98;
+    NSAppendPrintF(&v98, ", OBC=%s");
+  }
+
+  v61 = *v60;
+
+  if (CFDictionaryGetInt64())
+  {
+    v96 = v61;
+    NSAppendPrintF(&v96, ", NeedsAWDL");
+    v62 = v96;
+
+    v61 = v62;
+  }
+
+  if (CFDictionaryGetInt64())
+  {
+    v95 = v61;
+    NSAppendPrintF(&v95, ", NeedsKeyboard");
+    v63 = v95;
+
+    v61 = v63;
+  }
+
+  if (CFDictionaryGetInt64())
+  {
+    v94 = v61;
+    NSAppendPrintF(&v94, ", NeedsSetup");
+    v64 = v94;
+
+    v61 = v64;
   }
 
   if (v27 == 10)
   {
-    v75 = self->_advertisementFields;
-    v115 = v68;
     Int64 = CFDictionaryGetInt64();
-    v99 = &unk_1A998F0B8;
-    NSAppendPrintF();
-    v76 = v68;
+    v93 = v61;
+    NSAppendPrintF(&v93, ", Problems %#ll{flags}", Int64, &unk_1A998F0B8);
+    v66 = v93;
 
-    v68 = v76;
+    v61 = v66;
   }
 
-  v77 = [(NSDictionary *)self->_advertisementFields objectForKeyedSubscript:@"batteryInfo", Int64, v99];
-  if ([v77 count])
+  v67 = [(NSDictionary *)self->_advertisementFields objectForKeyedSubscript:@"batteryInfo"];
+  if ([v67 count])
   {
-    v108 = v106;
-    v114 = v68;
-    NSAppendPrintF();
-    v78 = v68;
+    v85 = v31;
+    v92 = v61;
+    NSAppendPrintF(&v92, ", Batt ");
+    v68 = v92;
 
-    v112 = 0u;
-    v113 = 0u;
-    v110 = 0u;
-    v111 = 0u;
-    v107 = v77;
-    obj = v77;
-    v79 = [obj countByEnumeratingWithState:&v110 objects:v132 count:16];
-    if (v79)
+    v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v84 = v67;
+    obj = v67;
+    v69 = [obj countByEnumeratingWithState:&v88 objects:v120 count:16];
+    if (v69)
     {
-      v80 = v79;
-      v81 = 1;
-      v82 = *v111;
+      v70 = v69;
+      v71 = 1;
+      v72 = *v89;
       do
       {
-        v83 = 0;
-        v84 = v78;
+        v73 = 0;
+        v74 = v68;
         do
         {
-          if (*v111 != v82)
+          if (*v89 != v72)
           {
             objc_enumerationMutation(obj);
           }
 
-          v85 = *(*(&v110 + 1) + 8 * v83);
-          batteryType = [v85 batteryType];
-          if (v81 <= 1)
+          v75 = *(*(&v88 + 1) + 8 * v73);
+          batteryType = [v75 batteryType];
+          v87 = v74;
+          if (v71 <= 1)
           {
-            v87 = "";
+            v77 = "";
           }
 
           else
           {
-            v87 = "; ";
+            v77 = "; ";
           }
 
           if ((batteryType - 1) >= 3)
           {
             if (batteryType == 4)
             {
-              v88 = 77;
+              v78 = 77;
             }
 
             else
             {
-              v88 = 63;
+              v78 = 63;
             }
           }
 
           else
           {
-            v88 = dword_1A998F1D0[batteryType - 1];
+            v78 = dword_1A998F1D0[batteryType - 1];
           }
 
-          batteryState = [v85 batteryState];
-          [v85 batteryLevel];
-          v104 = v90 * 100.0;
-          v91 = 45;
+          batteryState = [v75 batteryState];
+          [v75 batteryLevel];
+          v81 = 45;
           if (batteryState == 2)
           {
-            v91 = 43;
+            v81 = 43;
           }
 
-          v100 = v88;
-          v102 = v91;
-          v97 = v87;
-          NSAppendPrintF();
-          v78 = v84;
+          NSAppendPrintF(&v87, "%s%c %c%.0f%%", v77, v78, v81, v80 * 100.0);
+          v68 = v87;
 
-          ++v81;
-          ++v83;
-          v84 = v78;
+          ++v71;
+          ++v73;
+          v74 = v68;
         }
 
-        while (v80 != v83);
-        v80 = [obj countByEnumeratingWithState:&v110 objects:v132 count:{16, v87, v88, v102, *&v104}];
+        while (v70 != v73);
+        v70 = [obj countByEnumeratingWithState:&v88 objects:v120 count:16];
       }
 
-      while (v80);
+      while (v70);
     }
 
-    v68 = v78;
-    v77 = v107;
-    v106 = v108;
+    v61 = v68;
+    v67 = v84;
+    v31 = v85;
   }
 
-  v92 = v68;
+  v82 = v61;
 
-  v93 = *MEMORY[0x1E69E9840];
-
-  return v92;
+  return v82;
 }
 
 + (void)setRSSIEstimatorInfo:(id)info
@@ -579,23 +628,23 @@ LABEL_28:
   v6 = CFDictionaryGetInt64Ranged();
   if ((Int64Ranged - 8) <= 0xFFFFFFFFFFFFFFF8)
   {
-    +[SFBLEDevice setRSSIEstimatorInfo:];
+    [SFBLEDevice setRSSIEstimatorInfo:?];
     goto LABEL_19;
   }
 
-  if (v5 > v4 || v5 + v4 >= v6)
+  if (v5 > v4 || (v7 = v6, v5 + v4 >= v6))
   {
-    +[SFBLEDevice setRSSIEstimatorInfo:];
+    [(SFBLEDevice *)v5 setRSSIEstimatorInfo:v4];
     goto LABEL_19;
   }
 
   if (v6 >= 9uLL)
   {
-    +[SFBLEDevice setRSSIEstimatorInfo:];
+    [SFBLEDevice setRSSIEstimatorInfo:v6];
     goto LABEL_19;
   }
 
-  v7 = Int64Ranged != gSFBLERSSIAlgorithm;
+  v8 = Int64Ranged != gSFBLERSSIAlgorithm;
   if (Int64Ranged != gSFBLERSSIAlgorithm)
   {
     gSFBLERSSIAlgorithm = Int64Ranged;
@@ -604,14 +653,14 @@ LABEL_28:
   if (v4 != gSFBLERSSIRemoveHigh)
   {
     gSFBLERSSIRemoveHigh = v4;
-    v7 = 1;
+    v8 = 1;
   }
 
   if (v5 == gSFBLERSSIRemoveLow)
   {
     if (v6 == gSFBLERSSISampleCount)
     {
-      if (!v7)
+      if (!v8)
       {
         goto LABEL_19;
       }
@@ -632,8 +681,7 @@ LABEL_14:
 LABEL_15:
   if (gLogCategory_SFBLERSSI <= 30 && (gLogCategory_SFBLERSSI != -1 || _LogCategory_Initialize()))
   {
-    v8 = off_1E788DD38[Int64Ranged - 1];
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFBLERSSI, "+[SFBLEDevice setRSSIEstimatorInfo:]", 30, "BLE RSSI Estimator changed: %s, removeLow/High %zu/%zu, sampleCount %zu\n", off_1E788DD38[Int64Ranged - 1], v5, v4, v7);
   }
 
 LABEL_19:
@@ -879,371 +927,364 @@ LABEL_19:
 
 - (BOOL)updateRSSI:(int64_t)i
 {
-  v49[1] = *MEMORY[0x1E69E9840];
-  if (i)
+  v48[1] = *MEMORY[0x1E69E9840];
+  if (!i)
   {
-    self->_rssi = i;
-    iCopy = 127;
-    if (i < 127)
-    {
-      iCopy = i;
-    }
+    return 0;
+  }
 
-    if (iCopy <= -128)
-    {
-      LOBYTE(iCopy) = 0x80;
-    }
+  self->_rssi = i;
+  iCopy = 127;
+  if (i < 127)
+  {
+    iCopy = i;
+  }
 
-    rssiIndex = self->_rssiIndex;
-    v6 = gSFBLERSSISampleCount;
-    if (gSFBLERSSISampleCount <= rssiIndex)
-    {
-      LODWORD(rssiIndex) = 0;
-    }
+  if (iCopy <= -128)
+  {
+    LOBYTE(iCopy) = 0x80;
+  }
 
-    rssiHistory = self->_rssiHistory;
-    self->_rssiIndex = rssiIndex + 1;
-    self->_rssiHistory[rssiIndex] = iCopy;
-    rssiCount = self->_rssiCount;
-    if (v6 > rssiCount)
-    {
-      LOBYTE(rssiCount) = rssiCount + 1;
-      self->_rssiCount = rssiCount;
-      rssiCount = rssiCount;
-    }
+  rssiIndex = self->_rssiIndex;
+  v6 = gSFBLERSSISampleCount;
+  if (gSFBLERSSISampleCount <= rssiIndex)
+  {
+    LODWORD(rssiIndex) = 0;
+  }
 
-    if (v6 <= rssiCount)
+  rssiHistory = self->_rssiHistory;
+  self->_rssiIndex = rssiIndex + 1;
+  self->_rssiHistory[rssiIndex] = iCopy;
+  rssiCount = self->_rssiCount;
+  if (v6 > rssiCount)
+  {
+    LOBYTE(rssiCount) = rssiCount + 1;
+    self->_rssiCount = rssiCount;
+    rssiCount = rssiCount;
+  }
+
+  if (v6 > rssiCount)
+  {
+    return 0;
+  }
+
+  if (gSFBLERSSIAlgorithm <= 2)
+  {
+    if (gSFBLERSSIAlgorithm == 1)
     {
-      if (gSFBLERSSIAlgorithm <= 2)
+      if (v6)
       {
-        if (gSFBLERSSIAlgorithm == 1)
+        LOBYTE(iCopy) = *rssiHistory;
+        v25 = v6 - 1;
+        if (v6 != 1)
         {
-          if (v6)
+          v26 = &self->_rssiHistory[1];
+          do
           {
-            LOBYTE(iCopy) = *rssiHistory;
-            v25 = v6 - 1;
-            if (v6 != 1)
+            v28 = *v26++;
+            v27 = v28;
+            if (v28 < iCopy)
             {
-              v26 = &self->_rssiHistory[1];
-              do
-              {
-                v28 = *v26++;
-                v27 = v28;
-                if (v28 < iCopy)
-                {
-                  LOBYTE(iCopy) = v27;
-                }
-
-                --v25;
-              }
-
-              while (v25);
+              LOBYTE(iCopy) = v27;
             }
 
-            goto LABEL_97;
+            --v25;
           }
+
+          while (v25);
         }
 
-        else
+        goto LABEL_97;
+      }
+    }
+
+    else
+    {
+      if (gSFBLERSSIAlgorithm != 2)
+      {
+        goto LABEL_97;
+      }
+
+      if (v6)
+      {
+        LOBYTE(iCopy) = *rssiHistory;
+        v14 = v6 - 1;
+        if (v6 != 1)
         {
-          if (gSFBLERSSIAlgorithm != 2)
+          v15 = &self->_rssiHistory[1];
+          do
           {
-            goto LABEL_97;
-          }
-
-          if (v6)
-          {
-            LOBYTE(iCopy) = *rssiHistory;
-            v14 = v6 - 1;
-            if (v6 != 1)
+            v17 = *v15++;
+            v16 = v17;
+            if (v17 > iCopy)
             {
-              v15 = &self->_rssiHistory[1];
-              do
-              {
-                v17 = *v15++;
-                v16 = v17;
-                if (v17 > iCopy)
-                {
-                  LOBYTE(iCopy) = v16;
-                }
-
-                --v14;
-              }
-
-              while (v14);
+              LOBYTE(iCopy) = v16;
             }
 
-            goto LABEL_97;
+            --v14;
           }
+
+          while (v14);
         }
+
+        goto LABEL_97;
+      }
+    }
+
+LABEL_92:
+    LOBYTE(iCopy) = 0;
+    goto LABEL_97;
+  }
+
+  switch(gSFBLERSSIAlgorithm)
+  {
+    case 3:
+      if (v6)
+      {
+        v13 = 0;
+        v18 = v6;
+        do
+        {
+          v19 = *rssiHistory++;
+          v13 += v19;
+          --v18;
+        }
+
+        while (v18);
+        goto LABEL_96;
+      }
+
+      goto LABEL_92;
+    case 4:
+      LODWORD(iCopy) = *rssiHistory;
+      if (v6 < 2)
+      {
+        v22 = *rssiHistory;
       }
 
       else
       {
-        if (gSFBLERSSIAlgorithm != 3)
+        v20 = v6 - 1;
+        v21 = &self->_rssiHistory[1];
+        LOBYTE(v22) = *rssiHistory;
+        do
         {
-          if (gSFBLERSSIAlgorithm == 4)
+          v24 = *v21++;
+          v23 = v24;
+          if (v24 >= v22)
           {
-            LODWORD(iCopy) = *rssiHistory;
-            if (v6 < 2)
-            {
-              v22 = *rssiHistory;
-            }
-
-            else
-            {
-              v20 = v6 - 1;
-              v21 = &self->_rssiHistory[1];
-              LOBYTE(v22) = *rssiHistory;
-              do
-              {
-                v24 = *v21++;
-                v23 = v24;
-                if (v24 >= v22)
-                {
-                  v22 = v22;
-                }
-
-                else
-                {
-                  v22 = v23;
-                }
-
-                if (v23 <= iCopy)
-                {
-                  LODWORD(iCopy) = iCopy;
-                }
-
-                else
-                {
-                  LODWORD(iCopy) = v23;
-                }
-
-                --v20;
-              }
-
-              while (v20);
-            }
-
-            v29 = (v6 + 1) >> 1;
-            while (1)
-            {
-              v30 = (iCopy + v22 + (((iCopy + v22) & 0x8000u) >> 15)) >> 1;
-              if (v6 < 1)
-              {
-                v33 = 0;
-                v32 = 0;
-                v31 = 0;
-                v37 = v22;
-                v36 = iCopy;
-              }
-
-              else
-              {
-                v31 = 0;
-                v32 = 0;
-                v33 = 0;
-                v34 = rssiHistory;
-                v35 = v6;
-                v36 = iCopy;
-                v37 = v22;
-                do
-                {
-                  v39 = *v34++;
-                  v38 = v39;
-                  v40 = v36;
-                  if (v39 < v36)
-                  {
-                    v40 = v38;
-                  }
-
-                  if (v30 >= v38)
-                  {
-                    v41 = v32;
-                  }
-
-                  else
-                  {
-                    v41 = v32 + 1;
-                  }
-
-                  if (v30 < v38)
-                  {
-                    v42 = v31;
-                  }
-
-                  else
-                  {
-                    v42 = v31 + 1;
-                  }
-
-                  if (v30 >= v38)
-                  {
-                    v40 = v36;
-                  }
-
-                  v43 = v37;
-                  if (v38 > v37)
-                  {
-                    v43 = v38;
-                  }
-
-                  if (v30 <= v38)
-                  {
-                    v32 = v41;
-                  }
-
-                  else
-                  {
-                    ++v33;
-                  }
-
-                  if (v30 > v38)
-                  {
-                    v37 = v43;
-                  }
-
-                  else
-                  {
-                    v31 = v42;
-                  }
-
-                  if (v30 <= v38)
-                  {
-                    v36 = v40;
-                  }
-
-                  --v35;
-                }
-
-                while (v35);
-              }
-
-              if (v33 <= v29 && v32 <= v29)
-              {
-                break;
-              }
-
-              if (v33 > v32)
-              {
-                LODWORD(iCopy) = v37;
-              }
-
-              else
-              {
-                v22 = v36;
-              }
-            }
-
-            if (v31 + v33 >= v29)
-            {
-              LOBYTE(iCopy) = (iCopy + v22 + (((iCopy + v22) & 0x8000u) >> 15)) >> 1;
-            }
-
-            else
-            {
-              LOBYTE(iCopy) = v36;
-            }
-
-            if (v33 >= v29)
-            {
-              LOBYTE(iCopy) = v37;
-            }
-
-            goto LABEL_97;
+            v22 = v22;
           }
 
-          if (gSFBLERSSIAlgorithm == 5)
+          else
           {
-            v49[0] = 0;
-            v10 = gSFBLERSSIRemoveHigh;
-            v11 = v6 - (gSFBLERSSIRemoveLow + gSFBLERSSIRemoveHigh);
-            if (v6 > gSFBLERSSIRemoveLow + gSFBLERSSIRemoveHigh)
-            {
-              if (v11 > 1)
-              {
-                __memcpy_chk();
-                qsort(v49, v6, 1uLL, _QSortCmpInt8);
-                v13 = 0;
-                v45 = v49 + v10;
-                v46 = v11;
-                do
-                {
-                  v47 = *v45++;
-                  v13 += v47;
-                  --v46;
-                }
-
-                while (v46);
-                LODWORD(v6) = v11;
-              }
-
-              else
-              {
-                v12 = 0;
-                v13 = 0;
-                do
-                {
-                  v13 += rssiHistory[v12++];
-                }
-
-                while (v6 != v12);
-              }
-
-LABEL_96:
-              LODWORD(iCopy) = v13 / v6;
-              goto LABEL_97;
-            }
-
-            if (v6)
-            {
-              v44 = 0;
-              v13 = 0;
-              do
-              {
-                v13 += rssiHistory[v44++];
-              }
-
-              while (v6 != v44);
-              goto LABEL_96;
-            }
-
-            goto LABEL_92;
+            v22 = v23;
           }
 
-LABEL_97:
-          result = self->_smoothedRSSI != iCopy;
-          self->_rssiCeiling = iCopy;
-          self->_rssiFloor = iCopy;
-          self->_smoothedRSSI = iCopy;
-          goto LABEL_98;
+          if (v23 <= iCopy)
+          {
+            LODWORD(iCopy) = iCopy;
+          }
+
+          else
+          {
+            LODWORD(iCopy) = v23;
+          }
+
+          --v20;
         }
 
-        if (v6)
+        while (v20);
+      }
+
+      v29 = (v6 + 1) >> 1;
+      while (1)
+      {
+        v30 = (iCopy + v22 + (((iCopy + v22) & 0x8000u) >> 15)) >> 1;
+        if (v6 < 1)
         {
-          v13 = 0;
-          v18 = v6;
+          v33 = 0;
+          v32 = 0;
+          v31 = 0;
+          v37 = v22;
+          v36 = iCopy;
+        }
+
+        else
+        {
+          v31 = 0;
+          v32 = 0;
+          v33 = 0;
+          v34 = rssiHistory;
+          v35 = v6;
+          v36 = iCopy;
+          v37 = v22;
           do
           {
-            v19 = *rssiHistory++;
-            v13 += v19;
-            --v18;
+            v39 = *v34++;
+            v38 = v39;
+            v40 = v36;
+            if (v39 < v36)
+            {
+              v40 = v38;
+            }
+
+            if (v30 >= v38)
+            {
+              v41 = v32;
+            }
+
+            else
+            {
+              v41 = v32 + 1;
+            }
+
+            if (v30 < v38)
+            {
+              v42 = v31;
+            }
+
+            else
+            {
+              v42 = v31 + 1;
+            }
+
+            if (v30 >= v38)
+            {
+              v40 = v36;
+            }
+
+            v43 = v37;
+            if (v38 > v37)
+            {
+              v43 = v38;
+            }
+
+            if (v30 <= v38)
+            {
+              v32 = v41;
+            }
+
+            else
+            {
+              ++v33;
+            }
+
+            if (v30 > v38)
+            {
+              v37 = v43;
+            }
+
+            else
+            {
+              v31 = v42;
+            }
+
+            if (v30 <= v38)
+            {
+              v36 = v40;
+            }
+
+            --v35;
           }
 
-          while (v18);
-          goto LABEL_96;
+          while (v35);
+        }
+
+        if (v33 <= v29 && v32 <= v29)
+        {
+          break;
+        }
+
+        if (v33 > v32)
+        {
+          LODWORD(iCopy) = v37;
+        }
+
+        else
+        {
+          v22 = v36;
         }
       }
 
-LABEL_92:
-      LOBYTE(iCopy) = 0;
-      goto LABEL_97;
-    }
+      if (v31 + v33 >= v29)
+      {
+        LOBYTE(iCopy) = (iCopy + v22 + (((iCopy + v22) & 0x8000u) >> 15)) >> 1;
+      }
+
+      else
+      {
+        LOBYTE(iCopy) = v36;
+      }
+
+      if (v33 >= v29)
+      {
+        LOBYTE(iCopy) = v37;
+      }
+
+      break;
+    case 5:
+      v48[0] = 0;
+      v10 = gSFBLERSSIRemoveHigh;
+      v11 = v6 - (gSFBLERSSIRemoveLow + gSFBLERSSIRemoveHigh);
+      if (v6 > gSFBLERSSIRemoveLow + gSFBLERSSIRemoveHigh)
+      {
+        if (v11 > 1)
+        {
+          __memcpy_chk();
+          qsort(v48, v6, 1uLL, _QSortCmpInt8);
+          v13 = 0;
+          v45 = v48 + v10;
+          v46 = v11;
+          do
+          {
+            v47 = *v45++;
+            v13 += v47;
+            --v46;
+          }
+
+          while (v46);
+          LODWORD(v6) = v11;
+        }
+
+        else
+        {
+          v12 = 0;
+          v13 = 0;
+          do
+          {
+            v13 += rssiHistory[v12++];
+          }
+
+          while (v6 != v12);
+        }
+
+LABEL_96:
+        LODWORD(iCopy) = v13 / v6;
+        break;
+      }
+
+      if (v6)
+      {
+        v44 = 0;
+        v13 = 0;
+        do
+        {
+          v13 += rssiHistory[v44++];
+        }
+
+        while (v6 != v44);
+        goto LABEL_96;
+      }
+
+      goto LABEL_92;
   }
 
-  result = 0;
-LABEL_98:
-  v48 = *MEMORY[0x1E69E9840];
+LABEL_97:
+  result = self->_smoothedRSSI != iCopy;
+  self->_rssiCeiling = iCopy;
+  self->_rssiFloor = iCopy;
+  self->_smoothedRSSI = iCopy;
   return result;
 }
 
@@ -1437,57 +1478,60 @@ LABEL_98:
   return v5;
 }
 
-+ (uint64_t)setRSSIEstimatorInfo:.cold.1()
++ (uint64_t)setRSSIEstimatorInfo:(uint64_t)result .cold.1(uint64_t result)
 {
   if (gLogCategory_SFBLERSSI <= 90)
   {
+    v1 = result;
     if (gLogCategory_SFBLERSSI != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFBLERSSI, "+[SFBLEDevice setRSSIEstimatorInfo:]", 90, "### Bad sample count: %zu\n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFBLERSSI, "+[SFBLEDevice setRSSIEstimatorInfo:]", 90, "### Bad sample count: %zu\n", v1);
     }
   }
 
   return result;
 }
 
-+ (uint64_t)setRSSIEstimatorInfo:.cold.2()
++ (uint64_t)setRSSIEstimatorInfo:(uint64_t)result .cold.2(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_SFBLERSSI <= 90)
   {
+    v3 = result;
     if (gLogCategory_SFBLERSSI != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFBLERSSI, "+[SFBLEDevice setRSSIEstimatorInfo:]", 90, "### Bad remove low/high: %zu/%zu\n", v3, a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFBLERSSI, "+[SFBLEDevice setRSSIEstimatorInfo:]", 90, "### Bad remove low/high: %zu/%zu\n", v3, a2);
     }
   }
 
   return result;
 }
 
-+ (uint64_t)setRSSIEstimatorInfo:.cold.3()
++ (uint64_t)setRSSIEstimatorInfo:(uint64_t)result .cold.3(uint64_t result)
 {
   if (gLogCategory_SFBLERSSI <= 90)
   {
+    v1 = result;
     if (gLogCategory_SFBLERSSI != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFBLERSSI, "+[SFBLEDevice setRSSIEstimatorInfo:]", 90, "### Bad RSSI algorithm: %ld\n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFBLERSSI, "+[SFBLEDevice setRSSIEstimatorInfo:]", 90, "### Bad RSSI algorithm: %ld\n", v1);
     }
   }
 

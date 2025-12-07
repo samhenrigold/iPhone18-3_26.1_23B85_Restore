@@ -7,60 +7,62 @@
 
 - (void)setAssetDictionaryAsDictionary:(id)dictionary
 {
-  v8 = 0;
-  v5 = [NSPropertyListSerialization dataWithPropertyList:dictionary format:100 options:0 error:&v8];
+  v10 = 0;
+  v5 = [NSPropertyListSerialization dataWithPropertyList:dictionary format:100 options:0 error:&v10];
+  v7 = v5;
   if (v5)
   {
-    v6 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v6 = v8 == 0;
+    v8 = v10 == 0;
   }
 
-  if (!v6)
+  if (!v8)
   {
-    v7 = BCDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = BCDefaultLog(v5, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1361C(dictionary, v7);
+      sub_1361C(dictionary, v9);
     }
   }
 
-  [(BCOutstandingAsset *)self setAssetDictionary:v5];
+  [(BCOutstandingAsset *)self setAssetDictionary:v7];
 }
 
 - (NSDictionary)assetDictionaryAsDictionary
 {
-  v8 = 0;
-  v4 = [NSPropertyListSerialization propertyListWithData:[(BCOutstandingAsset *)self assetDictionary] options:0 format:0 error:&v8];
+  v10 = 0;
+  v4 = [NSPropertyListSerialization propertyListWithData:[(BCOutstandingAsset *)self assetDictionary] options:0 format:0 error:&v10];
+  v6 = v4;
   if (v4)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = v8 == 0;
+    v7 = v10 == 0;
   }
 
-  if (!v5)
+  if (!v7)
   {
-    v6 = BCDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = BCDefaultLog(v4, v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_13694(self, v6);
+      sub_13694(self, v8);
     }
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_1370C(a2, self, v4);
+    sub_1370C(a2, self, v6);
   }
 
-  return v4;
+  return v6;
 }
 
 @end

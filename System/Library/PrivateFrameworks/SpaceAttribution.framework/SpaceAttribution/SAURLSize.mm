@@ -1,5 +1,6 @@
 @interface SAURLSize
 + (id)newWithSize:(unint64_t)size;
++ (id)newWithSize:(unint64_t)size mayBePartOfCloneChain:(BOOL)chain;
 - (SAURLSize)initWithCoder:(id)coder;
 - (SAURLSize)initWithSize:(unint64_t)size mayBePartOfCloneChain:(BOOL)chain;
 - (void)encodeWithCoder:(id)coder;
@@ -26,6 +27,14 @@
   v4 = [self alloc];
 
   return [v4 initWithSize:size mayBePartOfCloneChain:0];
+}
+
++ (id)newWithSize:(unint64_t)size mayBePartOfCloneChain:(BOOL)chain
+{
+  chainCopy = chain;
+  v6 = [self alloc];
+
+  return [v6 initWithSize:size mayBePartOfCloneChain:chainCopy];
 }
 
 - (void)encodeWithCoder:(id)coder

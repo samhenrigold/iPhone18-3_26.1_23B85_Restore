@@ -286,7 +286,7 @@ LABEL_15:
 
     v29 = 0;
 LABEL_16:
-    TSURectWithOriginAndSize(siblingTransition);
+    TSURectWithOriginAndSize();
     v30 = [CMShapeUtils internalBoundsWithBounds:*(&self->super.super.super.super.super.isa + v24) scaleBounds:?];
     v31 = v30;
     if (v29)

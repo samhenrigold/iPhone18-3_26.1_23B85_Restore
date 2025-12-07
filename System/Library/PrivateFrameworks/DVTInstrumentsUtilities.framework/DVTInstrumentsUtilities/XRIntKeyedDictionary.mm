@@ -52,7 +52,7 @@
 
         v25 = objc_msgSend_decodeObject(coderCopy, v21, v22, v23, v24);
         v31 = &v29;
-        v26 = sub_2480A3094(&v10->_hash_map.__table_.__bucket_list_.__ptr_, &v29);
+        v26 = sub_2480A3094((v10 + 8), &v29, &unk_2480B9448, &v31);
         v27 = v26[3];
         v26[3] = v25;
       }
@@ -83,8 +83,8 @@
 - (id)objectForIntegerKey:(unint64_t)key options:(unint64_t)options
 {
   optionsCopy = options;
-  v13[0] = key;
-  v6 = sub_2480A35C4(&self->_hash_map.__table_.__bucket_list_.__ptr_, v13);
+  keyCopy = key;
+  v6 = sub_2480A35C4(&self->_hash_map.__table_.__bucket_list_.__ptr_, &keyCopy);
   if (v6)
   {
     v10 = v6[3];
@@ -93,8 +93,8 @@
   else if (optionsCopy)
   {
     v10 = objc_msgSend_mutableCopyWithZone_(self->_prototype, v7, 0, v8, v9);
-    v13[2] = v13;
-    v11 = sub_2480A3094(&self->_hash_map.__table_.__bucket_list_.__ptr_, v13);
+    v14 = &keyCopy;
+    v11 = sub_2480A3094(&self->_hash_map, &keyCopy, &unk_2480B9448, &v14);
     objc_storeStrong(v11 + 3, v10);
   }
 
@@ -111,7 +111,7 @@
   keyCopy = key;
   objectCopy = object;
   v11 = objectCopy;
-  v7 = sub_2480A3678(&self->_hash_map.__table_.__bucket_list_.__ptr_, &keyCopy);
+  v7 = sub_2480A3678(&self->_hash_map.__table_.__bucket_list_.__ptr_, &keyCopy, &keyCopy);
   v9 = v8;
 
   if (!v9)

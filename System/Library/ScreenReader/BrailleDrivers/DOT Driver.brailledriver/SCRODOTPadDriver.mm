@@ -1,10 +1,8 @@
 @interface SCRODOTPadDriver
 - (BOOL)_setMainTextCells:(const char *)cells length:(int64_t)length;
-- (BOOL)setMainCells:(const char *)cells length:(int64_t)length;
 - (BOOL)unloadDriver;
 - (SCRODOTPadDriver)init;
 - (id)_getInputEvents;
-- (id)getInputEvents;
 - (int)_BTLELoadDriverWithIOElement:(id)element;
 - (int)loadDriverWithIOElement:(id)element;
 - (void)_dequeueData;
@@ -124,32 +122,12 @@
   return 1;
 }
 
-- (id)getInputEvents
-{
-  if (self->_getInputEventsSEL)
-  {
-    getInputEventsSEL = self->_getInputEventsSEL;
-  }
-
-  return (self->_getInputEventsIMP)();
-}
-
 - (id)_getInputEvents
 {
   v3 = [(NSMutableArray *)self->_inputEvents copy];
   [(NSMutableArray *)self->_inputEvents removeAllObjects];
 
   return v3;
-}
-
-- (BOOL)setMainCells:(const char *)cells length:(int64_t)length
-{
-  if (self->_setMainCellsSEL)
-  {
-    setMainCellsSEL = self->_setMainCellsSEL;
-  }
-
-  return (self->_setMainCellsIMP)();
 }
 
 - (BOOL)_setMainTextCells:(const char *)cells length:(int64_t)length

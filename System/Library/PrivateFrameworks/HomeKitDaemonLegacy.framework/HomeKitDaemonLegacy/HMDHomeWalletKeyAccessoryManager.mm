@@ -185,7 +185,7 @@ BOOL __96__HMDHomeWalletKeyAccessoryManager_startHomeWalletKeyAddForAccessoryUUI
 
 - (id)fetchWalletKeyColorForAccessories_HAP:(id)p home:(id)home flow:(id)flow
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pCopy = p;
   homeCopy = home;
   flowCopy = flow;
@@ -197,23 +197,23 @@ BOOL __96__HMDHomeWalletKeyAccessoryManager_startHomeWalletKeyAddForAccessoryUUI
     v14 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543874;
-    v36 = v14;
-    v37 = 2112;
-    v38 = uUID;
-    v39 = 2112;
-    v40 = pCopy;
+    v35 = v14;
+    v36 = 2112;
+    v37 = uUID;
+    v38 = 2112;
+    v39 = pCopy;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching wallet key color for HAP accessories: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HAP_home_flow___block_invoke;
-  v33[3] = &unk_279730898;
-  v33[4] = selfCopy;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HAP_home_flow___block_invoke;
+  v32[3] = &unk_279730898;
+  v32[4] = selfCopy;
   v16 = flowCopy;
-  v34 = v16;
-  v17 = [pCopy na_map:v33];
+  v33 = v16;
+  v17 = [pCopy na_map:v32];
   v18 = [v17 count];
   v19 = MEMORY[0x277D2C900];
   if (v18)
@@ -221,21 +221,21 @@ BOOL __96__HMDHomeWalletKeyAccessoryManager_startHomeWalletKeyAddForAccessoryUUI
     v20 = objc_alloc_init(MEMORY[0x277D2C900]);
     objc_initWeak(buf, selfCopy);
     v21 = [(HMFObject *)selfCopy description];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HAP_home_flow___block_invoke_466;
-    v28[3] = &unk_2797308C0;
-    objc_copyWeak(&v32, buf);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HAP_home_flow___block_invoke_466;
+    v27[3] = &unk_2797308C0;
+    objc_copyWeak(&v31, buf);
     v22 = v20;
-    v29 = v22;
-    v30 = v17;
-    v31 = v16;
-    [homeCopy readCharacteristicValues:v30 source:1110 sourceForLogging:v21 qualityOfService:-1 withCompletionHandler:v28];
+    v28 = v22;
+    v29 = v17;
+    v30 = v16;
+    [homeCopy readCharacteristicValues:v29 source:1110 sourceForLogging:v21 qualityOfService:-1 withCompletionHandler:v27];
 
-    v23 = v31;
+    v23 = v30;
     v24 = v22;
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(buf);
   }
 
@@ -245,14 +245,12 @@ BOOL __96__HMDHomeWalletKeyAccessoryManager_startHomeWalletKeyAddForAccessoryUUI
     v24 = [v19 futureWithError:v25];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 id __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HAP_home_flow___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CD0DD0];
   v5 = [v3 findServiceWithServiceType:*MEMORY[0x277CD0DD0]];
@@ -275,17 +273,17 @@ id __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HAP_
         v18 = HMFGetLogIdentifier();
         v19 = [*(a1 + 40) UUID];
         v20 = [v3 shortDescription];
-        v23 = 138544386;
-        v24 = v18;
-        v25 = 2112;
-        v26 = v19;
-        v27 = 2112;
-        v28 = v20;
-        v29 = 2112;
-        v30 = v6;
-        v31 = 2112;
-        v32 = @"0000026C-0000-1000-8000-0026BB765291";
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch wallet key color options: %@, accessory information service: %@ doesn't support hardware finish characteristic: %@", &v23, 0x34u);
+        v22 = 138544386;
+        v23 = v18;
+        v24 = 2112;
+        v25 = v19;
+        v26 = 2112;
+        v27 = v20;
+        v28 = 2112;
+        v29 = v6;
+        v30 = 2112;
+        v31 = @"0000026C-0000-1000-8000-0026BB765291";
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch wallet key color options: %@, accessory information service: %@ doesn't support hardware finish characteristic: %@", &v22, 0x34u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -303,22 +301,20 @@ id __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HAP_
       v12 = HMFGetLogIdentifier();
       v13 = [*(a1 + 40) UUID];
       v14 = [v3 shortDescription];
-      v23 = 138544130;
-      v24 = v12;
-      v25 = 2112;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v14;
-      v29 = 2112;
-      v30 = v4;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch wallet key color options: %@, accessory information service not supported %@", &v23, 0x2Au);
+      v22 = 138544130;
+      v23 = v12;
+      v24 = 2112;
+      v25 = v13;
+      v26 = 2112;
+      v27 = v14;
+      v28 = 2112;
+      v29 = v4;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch wallet key color options: %@, accessory information service not supported %@", &v22, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -354,34 +350,34 @@ void __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HA
 void __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HAP_home_flow___block_invoke_2(id *a1)
 {
   v1 = a1;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = a1[4];
-  v35 = v1;
-  v37 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
-  if (v37)
+  v34 = v1;
+  v36 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
+  if (v36)
   {
-    v36 = *v40;
+    v35 = *v39;
     *&v2 = 138544386;
-    v32 = v2;
+    v31 = v2;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v40 != v36)
+        if (*v39 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v39 + 1) + 8 * i);
+        v4 = *(*(&v38 + 1) + 8 * i);
         v5 = [v4 characteristic];
         v6 = v1[5];
-        v38 = 0;
-        v7 = [v6 hmd_valueOfCharacteristic:v5 error:&v38];
-        v8 = v38;
+        v37 = 0;
+        v7 = [v6 hmd_valueOfCharacteristic:v5 error:&v37];
+        v8 = v37;
         if (v7)
         {
           v9 = v7;
@@ -401,13 +397,13 @@ void __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HA
 
           if (v10)
           {
-            v1 = v35;
-            v13 = [v35[6] walletKeyColorWithCharacteristicValue:v9 flow:v35[7]];
+            v1 = v34;
+            v13 = [v34[6] walletKeyColorWithCharacteristicValue:v9 flow:v34[7]];
             if (v13)
             {
               v30 = v13;
 
-              [v35[8] finishWithResult:v30];
+              [v34[8] finishWithResult:v30];
               goto LABEL_25;
             }
           }
@@ -415,29 +411,29 @@ void __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HA
           else
           {
             v19 = objc_autoreleasePoolPush();
-            v1 = v35;
-            v20 = v35[6];
+            v1 = v34;
+            v20 = v34[6];
             v21 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               HMFGetLogIdentifier();
-              v22 = v33 = v19;
-              v23 = [v35[7] UUID];
+              v22 = v32 = v19;
+              v23 = [v34[7] UUID];
               v24 = objc_opt_class();
-              *buf = v32;
-              v44 = v22;
-              v45 = 2112;
-              v46 = v23;
-              v47 = 2112;
-              v48 = v4;
-              v49 = 2112;
-              v50 = v9;
-              v51 = 2112;
-              v52 = v24;
+              *buf = v31;
+              v43 = v22;
+              v44 = 2112;
+              v45 = v23;
+              v46 = 2112;
+              v47 = v4;
+              v48 = 2112;
+              v49 = v9;
+              v50 = 2112;
+              v51 = v24;
               _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Characteristic value in the read request: %@ is not of type %@:%@", buf, 0x34u);
 
-              v1 = v35;
-              v19 = v33;
+              v1 = v34;
+              v19 = v32;
             }
 
             objc_autoreleasePoolPop(v19);
@@ -454,13 +450,13 @@ void __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HA
             v17 = HMFGetLogIdentifier();
             v18 = [v1[7] UUID];
             *buf = 138544130;
-            v44 = v17;
-            v45 = 2112;
-            v46 = v18;
-            v47 = 2112;
-            v48 = v4;
-            v49 = 2112;
-            v50 = v8;
+            v43 = v17;
+            v44 = 2112;
+            v45 = v18;
+            v46 = 2112;
+            v47 = v4;
+            v48 = 2112;
+            v49 = v8;
             _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Characteristic read request failed with error %@:%@", buf, 0x2Au);
           }
 
@@ -468,10 +464,10 @@ void __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HA
         }
       }
 
-      v37 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
+      v36 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
 
   v25 = objc_autoreleasePoolPush();
@@ -481,10 +477,10 @@ void __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HA
   {
     v28 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v44 = v28;
+    v43 = v28;
     _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Failed to find wallet key color for HAP accessories", buf, 0xCu);
 
-    v1 = v35;
+    v1 = v34;
   }
 
   objc_autoreleasePoolPop(v25);
@@ -492,13 +488,11 @@ void __84__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_HA
   v30 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
   [v29 finishWithError:v30];
 LABEL_25:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchWalletKeyColorForAccessories_Matter:(id)matter home:(id)home flow:(id)flow
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   matterCopy = matter;
   homeCopy = home;
   flowCopy = flow;
@@ -510,33 +504,31 @@ LABEL_25:
     v14 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543874;
-    v28 = v14;
-    v29 = 2112;
-    v30 = uUID;
-    v31 = 2112;
-    v32 = matterCopy;
+    v27 = v14;
+    v28 = 2112;
+    v29 = uUID;
+    v30 = 2112;
+    v31 = matterCopy;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching wallet key color for Matter accessories: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Matter_home_flow___block_invoke;
-  v25[3] = &unk_279730828;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Matter_home_flow___block_invoke;
+  v24[3] = &unk_279730828;
   v16 = flowCopy;
-  v26 = v16;
-  v17 = [matterCopy na_map:v25];
+  v25 = v16;
+  v17 = [matterCopy na_map:v24];
   combineAllFutures = [v17 combineAllFutures];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Matter_home_flow___block_invoke_3;
-  v23[3] = &unk_279730870;
-  v23[4] = selfCopy;
-  v24 = v16;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Matter_home_flow___block_invoke_3;
+  v22[3] = &unk_279730870;
+  v22[4] = selfCopy;
+  v23 = v16;
   v19 = v16;
-  v20 = [combineAllFutures flatMap:v23];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [combineAllFutures flatMap:v22];
 
   return v20;
 }
@@ -557,7 +549,7 @@ id __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Matt
 
 id __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Matter_home_flow___block_invoke_3(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 na_map:&__block_literal_global_460_158461];
   v5 = [v4 na_firstObjectPassingTest:&__block_literal_global_463];
@@ -576,11 +568,11 @@ id __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Matt
     {
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) UUID];
-      v16 = 138543618;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Failed to find wallet key color for Matter accessories", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Failed to find wallet key color for Matter accessories", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -588,8 +580,6 @@ id __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Matt
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     v6 = [v12 futureWithResult:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -631,7 +621,7 @@ void __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Ma
 
 - (void)fetchWalletKeyColorForAccessories:(id)accessories flow:(id)flow withCompletion:(id)completion
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   flowCopy = flow;
   completionCopy = completion;
@@ -652,9 +642,9 @@ void __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Ma
       v18 = HMFGetLogIdentifier();
       uUID = [flowCopy UUID];
       *buf = 138543618;
-      v44 = v18;
-      v45 = 2112;
-      v46 = uUID;
+      v43 = v18;
+      v44 = 2112;
+      v45 = uUID;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Skipping fetch, returning wallet key color from persistence store", buf, 0x16u);
     }
 
@@ -668,29 +658,29 @@ void __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Ma
     if (home)
     {
       v21 = [accessoriesCopy na_filter:&__block_literal_global_453];
-      v37 = [accessoriesCopy na_filter:&__block_literal_global_455];
-      v36 = [(HMDHomeWalletKeyAccessoryManager *)self fetchWalletKeyColorForAccessories_Matter:v21 home:home flow:flowCopy];
-      v22 = [(HMDHomeWalletKeyAccessoryManager *)self fetchWalletKeyColorForAccessories_HAP:v37 home:home flow:flowCopy];
-      v39 = accessoriesCopy;
+      v36 = [accessoriesCopy na_filter:&__block_literal_global_455];
+      v35 = [(HMDHomeWalletKeyAccessoryManager *)self fetchWalletKeyColorForAccessories_Matter:v21 home:home flow:flowCopy];
+      v22 = [(HMDHomeWalletKeyAccessoryManager *)self fetchWalletKeyColorForAccessories_HAP:v36 home:home flow:flowCopy];
+      v38 = accessoriesCopy;
       v23 = MEMORY[0x277D2C900];
-      v42[0] = v36;
-      v42[1] = v22;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
-      v38 = home;
+      v41[0] = v35;
+      v41[1] = v22;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+      v37 = home;
       v25 = MEMORY[0x277D2C938];
       workQueue2 = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
       v27 = [v25 schedulerWithDispatchQueue:workQueue2];
       v28 = [v23 combineAllFutures:v24 ignoringErrors:1 scheduler:v27];
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __90__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_flow_withCompletion___block_invoke_3;
-      v40[3] = &unk_279732070;
-      v40[4] = self;
-      v41 = completionCopy;
-      v29 = [v28 addSuccessBlock:v40];
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __90__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_flow_withCompletion___block_invoke_3;
+      v39[3] = &unk_279732070;
+      v39[4] = self;
+      v40 = completionCopy;
+      v29 = [v28 addSuccessBlock:v39];
 
-      accessoriesCopy = v39;
-      home = v38;
+      accessoriesCopy = v38;
+      home = v37;
     }
 
     else
@@ -703,9 +693,9 @@ void __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Ma
         v33 = HMFGetLogIdentifier();
         uUID2 = [flowCopy UUID];
         *buf = 138543618;
-        v44 = v33;
-        v45 = 2112;
-        v46 = uUID2;
+        v43 = v33;
+        v44 = 2112;
+        v45 = uUID2;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch wallet key color options, home is nil", buf, 0x16u);
       }
 
@@ -714,13 +704,11 @@ void __87__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_Ma
       (completionCopy)[2](completionCopy, 0, v21);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_flow_withCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 na_map:&__block_literal_global_458];
   v5 = [v4 firstObject];
@@ -742,11 +730,11 @@ void __90__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_fl
       v12 = HMFGetLogIdentifier();
       [v5 integerValue];
       v13 = HMHomeWalletKeyColorAsString();
-      v21 = 138543618;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v13;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched wallet key color: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v13;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched wallet key color: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -761,9 +749,9 @@ void __90__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_fl
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v17;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Failed to find color for Matter or HAP accessories", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v17;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Failed to find color for Matter or HAP accessories", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -771,8 +759,6 @@ void __90__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_fl
     v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     (*(v18 + 16))(v18, 0, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void *__90__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_flow_withCompletion___block_invoke_4(uint64_t a1, void *a2)
@@ -796,12 +782,12 @@ void *__90__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorForAccessories_f
 
 - (id)walletKeyColorWithCharacteristicValue:(id)value flow:(id)flow
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   flowCopy = flow;
-  v34 = 0;
-  v8 = [MEMORY[0x277CFEB70] parsedFromData:valueCopy error:&v34];
-  v9 = v34;
+  v33 = 0;
+  v8 = [MEMORY[0x277CFEB70] parsedFromData:valueCopy error:&v33];
+  v9 = v33;
   if (v8)
   {
     rGBColorValue = [v8 RGBColorValue];
@@ -839,11 +825,11 @@ LABEL_21:
         uUID = [flowCopy UUID];
         integerValue2 = [value integerValue];
         *buf = 138543874;
-        v36 = v24;
-        v37 = 2112;
-        v38 = uUID;
-        v39 = 2048;
-        v40 = integerValue2;
+        v35 = v24;
+        v36 = 2112;
+        v37 = uUID;
+        v38 = 2048;
+        v39 = integerValue2;
         v26 = "%{public}@[Flow: %@] Unable to get wallet key color, unsupported color value: %ld";
         v27 = v23;
         v28 = 32;
@@ -861,9 +847,9 @@ LABEL_21:
         v24 = HMFGetLogIdentifier();
         uUID = [flowCopy UUID];
         *buf = 138543618;
-        v36 = v24;
-        v37 = 2112;
-        v38 = uUID;
+        v35 = v24;
+        v36 = 2112;
+        v37 = uUID;
         v26 = "%{public}@[Flow: %@] Unable to get wallet key color, color value is set to nil for hardware finish";
         v27 = v23;
         v28 = 22;
@@ -885,13 +871,13 @@ LABEL_19:
     v18 = HMFGetLogIdentifier();
     uUID2 = [flowCopy UUID];
     *buf = 138544130;
-    v36 = v18;
-    v37 = 2112;
-    v38 = uUID2;
-    v39 = 2112;
-    v40 = valueCopy;
-    v41 = 2112;
-    v42 = v9;
+    v35 = v18;
+    v36 = 2112;
+    v37 = uUID2;
+    v38 = 2112;
+    v39 = valueCopy;
+    v40 = 2112;
+    v41 = v9;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Unable to get wallet key color, failed to parse hardware finish from encoded tlv data %@:%@", buf, 0x2Au);
   }
 
@@ -899,14 +885,12 @@ LABEL_19:
   v20 = 0;
 LABEL_22:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (void)fetchWalletKeyColorWithAccessory:(id)accessory flow:(id)flow
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   flowCopy = flow;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
@@ -914,24 +898,22 @@ LABEL_22:
 
   if ([accessoryCopy supportsWalletKey])
   {
-    v14[0] = accessoryCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flow___block_invoke;
-    v11[3] = &unk_2797307B8;
-    v11[4] = self;
-    v12 = flowCopy;
-    v13 = accessoryCopy;
-    [(HMDHomeWalletKeyAccessoryManager *)self fetchWalletKeyColorForAccessories:v9 flow:v12 withCompletion:v11];
+    v13[0] = accessoryCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flow___block_invoke;
+    v10[3] = &unk_2797307B8;
+    v10[4] = self;
+    v11 = flowCopy;
+    v12 = accessoryCopy;
+    [(HMDHomeWalletKeyAccessoryManager *)self fetchWalletKeyColorForAccessories:v9 flow:v11 withCompletion:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flow___block_invoke(id *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -944,26 +926,24 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
       v10 = HMFGetLogIdentifier();
       v11 = [a1[5] UUID];
       v12 = [a1[6] shortDescription];
-      v14 = 138544130;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch wallet key color when accessory connected %@:%@", &v14, 0x2Au);
+      v13 = 138544130;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch wallet key color when accessory connected %@:%@", &v13, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)writeRequestsWithAccessories:(id)accessories home:(id)home deviceCredentialKey:(id)key user:(id)user flow:(id)flow
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   homeCopy = home;
   keyCopy = key;
@@ -975,50 +955,50 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
   nfcIssuerKeyIdentifier = [userCopy nfcIssuerKeyIdentifier];
   if (nfcIssuerKeyIdentifier)
   {
-    v74 = userCopy;
+    v73 = userCopy;
     v17 = objc_alloc_init(MEMORY[0x277CFEBD8]);
     [v17 setKey:keyCopy];
     v18 = [objc_alloc(MEMORY[0x277CFEBE8]) initWithValue:2];
     [v17 setType:v18];
 
-    v73 = nfcIssuerKeyIdentifier;
+    v72 = nfcIssuerKeyIdentifier;
     [v17 setIssuerKeyIdentifier:nfcIssuerKeyIdentifier];
     v19 = [objc_alloc(MEMORY[0x277CFEBE0]) initWithValue:1];
     [v17 setState:v19];
 
-    v71 = [objc_alloc(MEMORY[0x277CFEBF0]) initWithValue:2];
-    v72 = v17;
-    v87 = 0;
-    v70 = [objc_alloc(MEMORY[0x277CFEBD0]) initWithOperationType:v71 issuerKeyRequest:0 issuerKeyResponse:0 deviceCredentialKeyRequest:v17 deviceCredentialKeyResponse:0 readerKeyRequest:0 readerKeyResponse:0];
-    v20 = [v70 serializeWithError:&v87];
-    v69 = v87;
-    v78 = v20;
+    v70 = [objc_alloc(MEMORY[0x277CFEBF0]) initWithValue:2];
+    v71 = v17;
+    v86 = 0;
+    v69 = [objc_alloc(MEMORY[0x277CFEBD0]) initWithOperationType:v70 issuerKeyRequest:0 issuerKeyResponse:0 deviceCredentialKeyRequest:v17 deviceCredentialKeyResponse:0 readerKeyRequest:0 readerKeyResponse:0];
+    v20 = [v69 serializeWithError:&v86];
+    v68 = v86;
+    v77 = v20;
     if (v20)
     {
-      v68 = keyCopy;
-      v77 = [MEMORY[0x277CBEB58] set];
+      v67 = keyCopy;
+      v76 = [MEMORY[0x277CBEB58] set];
+      v82 = 0u;
       v83 = 0u;
       v84 = 0u;
       v85 = 0u;
-      v86 = 0u;
       obj = accessoriesCopy;
-      v21 = [obj countByEnumeratingWithState:&v83 objects:v98 count:16];
+      v21 = [obj countByEnumeratingWithState:&v82 objects:v97 count:16];
       if (v21)
       {
         v22 = v21;
-        v82 = *v84;
+        v81 = *v83;
         selfCopy = self;
-        v76 = homeCopy;
+        v75 = homeCopy;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v84 != v82)
+            if (*v83 != v81)
             {
               objc_enumerationMutation(obj);
             }
 
-            v24 = *(*(&v83 + 1) + 8 * i);
+            v24 = *(*(&v82 + 1) + 8 * i);
             home = [v24 home];
             uuid = [home uuid];
             uuid2 = [(__CFString *)homeCopy uuid];
@@ -1033,8 +1013,8 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
                 v31 = [(__CFString *)v29 findCharacteristicWithType:@"00000264-0000-1000-8000-0026BB765291"];
                 if (v31)
                 {
-                  v32 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v31 value:v78 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
-                  [v77 addObject:v32];
+                  v32 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v31 value:v77 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
+                  [v76 addObject:v32];
                 }
 
                 else
@@ -1048,18 +1028,18 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
                     uUID = [flowCopy UUID];
                     shortDescription = [v24 shortDescription];
                     *buf = 138544386;
-                    v89 = v49;
-                    v90 = 2112;
-                    v91 = uUID;
-                    v92 = 2112;
-                    v93 = shortDescription;
-                    v94 = 2112;
-                    v95 = v30;
-                    v96 = 2112;
-                    v97 = @"00000264-0000-1000-8000-0026BB765291";
+                    v88 = v49;
+                    v89 = 2112;
+                    v90 = uUID;
+                    v91 = 2112;
+                    v92 = shortDescription;
+                    v93 = 2112;
+                    v94 = v30;
+                    v95 = 2112;
+                    v96 = @"00000264-0000-1000-8000-0026BB765291";
                     _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, NFC access service: %@ doesn't support control point characteristic: %@", buf, 0x34u);
 
-                    homeCopy = v76;
+                    homeCopy = v75;
                     self = selfCopy;
                   }
 
@@ -1078,13 +1058,13 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
                   uUID2 = [flowCopy UUID];
                   shortDescription2 = [v24 shortDescription];
                   *buf = 138544130;
-                  v89 = v43;
-                  v90 = 2112;
-                  v91 = uUID2;
-                  v92 = 2112;
-                  v93 = shortDescription2;
-                  v94 = 2112;
-                  v95 = @"00000266-0000-1000-8000-0026BB765291";
+                  v88 = v43;
+                  v89 = 2112;
+                  v90 = uUID2;
+                  v91 = 2112;
+                  v92 = shortDescription2;
+                  v93 = 2112;
+                  v94 = @"00000266-0000-1000-8000-0026BB765291";
                   _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, nfc access service not supported %@", buf, 0x2Au);
 
                   self = selfCopy;
@@ -1106,15 +1086,15 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
                 shortDescription3 = [v24 shortDescription];
                 home2 = [v24 home];
                 *buf = 138544386;
-                v89 = v36;
-                v90 = 2112;
-                v91 = uUID3;
-                v92 = 2112;
-                v93 = shortDescription3;
-                v94 = 2112;
-                v95 = home2;
-                v96 = 2112;
-                v97 = homeCopy;
+                v88 = v36;
+                v89 = 2112;
+                v90 = uUID3;
+                v91 = 2112;
+                v92 = shortDescription3;
+                v93 = 2112;
+                v94 = home2;
+                v95 = 2112;
+                v96 = homeCopy;
                 _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, home: %@ doesn't match current home: %@", buf, 0x34u);
 
                 self = selfCopy;
@@ -1124,15 +1104,15 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
             }
           }
 
-          v22 = [obj countByEnumeratingWithState:&v83 objects:v98 count:16];
+          v22 = [obj countByEnumeratingWithState:&v82 objects:v97 count:16];
         }
 
         while (v22);
       }
 
-      v52 = [v77 copy];
-      keyCopy = v68;
-      v53 = v69;
+      v52 = objc_msgSend_copy(v76);
+      keyCopy = v67;
+      v53 = v68;
     }
 
     else
@@ -1140,19 +1120,19 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
       v61 = objc_autoreleasePoolPush();
       selfCopy5 = self;
       v63 = HMFGetOSLogHandle();
-      v53 = v69;
+      v53 = v68;
       if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
       {
         v64 = HMFGetLogIdentifier();
         uUID4 = [flowCopy UUID];
         *buf = 138544130;
-        v89 = v64;
-        v90 = 2112;
-        v91 = uUID4;
-        v92 = 2112;
-        v93 = 0;
-        v94 = 2112;
-        v95 = v69;
+        v88 = v64;
+        v89 = 2112;
+        v90 = uUID4;
+        v91 = 2112;
+        v92 = 0;
+        v93 = 2112;
+        v94 = v68;
         _os_log_impl(&dword_2531F8000, v63, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key, unable to encode nfc access control %@:%@", buf, 0x2Au);
       }
 
@@ -1160,8 +1140,8 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
       v52 = [MEMORY[0x277CBEB98] set];
     }
 
-    v54 = v73;
-    v55 = v74;
+    v54 = v72;
+    v55 = v73;
   }
 
   else
@@ -1176,9 +1156,9 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
       v59 = HMFGetLogIdentifier();
       uUID5 = [flowCopy UUID];
       *buf = 138543618;
-      v89 = v59;
-      v90 = 2112;
-      v91 = uUID5;
+      v88 = v59;
+      v89 = 2112;
+      v90 = uUID5;
       _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] NFC issuer key identifier for user is nil", buf, 0x16u);
     }
 
@@ -1186,14 +1166,12 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
     v52 = [MEMORY[0x277CBEB98] set];
   }
 
-  v66 = *MEMORY[0x277D85DE8];
-
   return v52;
 }
 
 - (id)configureMatterAccessory:(id)accessory withDeviceCredentialKey:(id)key ofType:(int64_t)type forUser:(id)user flow:(id)flow
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   keyCopy = key;
   userCopy = user;
@@ -1208,15 +1186,15 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
     uuid = [accessoryCopy uuid];
     uuid2 = [userCopy uuid];
     *buf = 138544386;
-    v57 = v17;
-    v58 = 2112;
-    v59 = uUID;
-    v60 = 2112;
-    v61 = uuid;
-    v62 = 2112;
-    v63 = keyCopy;
-    v64 = 2112;
-    v65 = uuid2;
+    v56 = v17;
+    v57 = 2112;
+    v58 = uUID;
+    v59 = 2112;
+    v60 = uuid;
+    v61 = 2112;
+    v62 = keyCopy;
+    v63 = 2112;
+    v64 = uuid2;
     _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Configuring Matter accessory with device credential key. accessory: %@, deviceCredentialKey: %@ forUser: %@", buf, 0x34u);
   }
 
@@ -1239,9 +1217,9 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
 
   v27 = objc_alloc_init(MEMORY[0x277CFEB90]);
   [v27 setDeviceCredentialKey:v24];
-  v55 = 0;
-  v28 = [v27 serializeWithError:&v55];
-  v45 = v55;
+  v54 = 0;
+  v28 = [v27 serializeWithError:&v54];
+  v44 = v54;
   if (v28)
   {
     v22 = v28;
@@ -1256,27 +1234,27 @@ void __74__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithAccessory_flo
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v33 = v42 = v31;
+      v33 = v41 = v31;
       [flowCopy UUID];
-      v34 = v44 = v32;
+      v34 = v43 = v32;
       [accessoryCopy shortDescription];
-      v35 = v43 = v30;
+      v35 = v42 = v30;
       *buf = 138544386;
-      v57 = v33;
-      v58 = 2112;
-      v59 = v34;
-      v60 = 2112;
-      v61 = v35;
-      v62 = 2112;
-      v63 = 0;
-      v64 = 2112;
-      v65 = v45;
-      _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, unable to encode matter credential %@:%@", buf, 0x34u);
+      v56 = v33;
+      v57 = 2112;
+      v58 = v34;
+      v59 = 2112;
+      v60 = v35;
+      v61 = 2112;
+      v62 = 0;
+      v63 = 2112;
+      v64 = v44;
+      _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, unable to encode matter credential %@:%@", buf, 0x34u);
 
-      v30 = v43;
-      v32 = v44;
+      v30 = v42;
+      v32 = v43;
 
-      v31 = v42;
+      v31 = v41;
     }
 
     objc_autoreleasePoolPop(v30);
@@ -1293,21 +1271,19 @@ LABEL_10:
     home = [(HMDHomeWalletKeyAccessoryManager *)selfCopy home];
     uuid3 = [userCopy uuid];
     v39 = [home findOrAddUserIndexForUserUUID:uuid3 guestName:0 accessory:accessoryCopy flow:flowCopy];
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDeviceCredentialKey_ofType_forUser_flow___block_invoke;
-    v48[3] = &unk_279730790;
-    v49 = accessoryCopy;
-    v50 = flowCopy;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDeviceCredentialKey_ofType_forUser_flow___block_invoke;
+    v47[3] = &unk_279730790;
+    v48 = accessoryCopy;
+    v49 = flowCopy;
     v22 = v22;
-    v54 = typeCopy;
-    v51 = v22;
-    v52 = selfCopy;
-    v53 = v21;
-    v26 = [v39 flatMap:v48];
+    v53 = typeCopy;
+    v50 = v22;
+    v51 = selfCopy;
+    v52 = v21;
+    v26 = [v39 flatMap:v47];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1355,13 +1331,13 @@ uint64_t __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDe
   else
   {
     v7 = _HMFPreconditionFailure();
-    return __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDeviceCredentialKey_ofType_forUser_flow___block_invoke_3(v7);
+    return __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDeviceCredentialKey_ofType_forUser_flow___block_invoke_3(v7, v8);
   }
 }
 
 uint64_t __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDeviceCredentialKey_ofType_forUser_flow___block_invoke_3(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 status];
   if (v4 && (v5 = v4, [v3 status], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToNumber:", &unk_286629D70), v6, v5, v7))
@@ -1375,15 +1351,15 @@ uint64_t __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDe
       v12 = [*(a1 + 40) UUID];
       v13 = *(a1 + 48);
       v14 = [*(a1 + 56) uuid];
-      v28 = 138544130;
-      v29 = v11;
-      v30 = 2112;
-      v31 = v12;
-      v32 = 2112;
-      v33 = v13;
-      v34 = 2112;
-      v35 = v14;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured accessory with device credential key %@, accessory: %@", &v28, 0x2Au);
+      v27 = 138544130;
+      v28 = v11;
+      v29 = 2112;
+      v30 = v12;
+      v31 = 2112;
+      v32 = v13;
+      v33 = 2112;
+      v34 = v14;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured accessory with device credential key %@, accessory: %@", &v27, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -1401,15 +1377,15 @@ uint64_t __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDe
       v20 = [*(a1 + 40) UUID];
       v21 = [*(a1 + 56) shortDescription];
       v22 = [v3 status];
-      v28 = 138544130;
-      v29 = v19;
-      v30 = 2112;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v21;
-      v34 = 2112;
-      v35 = v22;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@ with status code: %@", &v28, 0x2Au);
+      v27 = 138544130;
+      v28 = v19;
+      v29 = 2112;
+      v30 = v20;
+      v31 = 2112;
+      v32 = v21;
+      v33 = 2112;
+      v34 = v22;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@ with status code: %@", &v27, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -1429,7 +1405,6 @@ uint64_t __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDe
     v15 = 2;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1474,8 +1449,8 @@ uint64_t __105__HMDHomeWalletKeyAccessoryManager_configureMatterAccessory_withDe
 
 id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow___block_invoke(id *a1, void *a2)
 {
-  v104 = *MEMORY[0x277D85DE8];
-  v86 = a2;
+  v103 = *MEMORY[0x277D85DE8];
+  v85 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (!WeakRetained)
   {
@@ -1486,9 +1461,9 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
       v55 = HMFGetLogIdentifier();
       v56 = [a1[4] UUID];
       *buf = 138543618;
-      v94 = v55;
-      v95 = 2112;
-      v96 = v56;
+      v93 = v55;
+      v94 = 2112;
+      v95 = v56;
       _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key object got invalidated", buf, 0x16u);
     }
 
@@ -1499,31 +1474,31 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
     goto LABEL_46;
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
-  v72 = a1;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  v71 = a1;
   obj = a1[5];
-  v85 = [obj countByEnumeratingWithState:&v89 objects:v103 count:16];
-  if (v85)
+  v84 = [obj countByEnumeratingWithState:&v88 objects:v102 count:16];
+  if (v84)
   {
-    v65 = 0;
-    v83 = *v90;
+    v64 = 0;
+    v82 = *v89;
     do
     {
-      for (i = 0; i != v85; ++i)
+      for (i = 0; i != v84; ++i)
       {
-        if (*v90 != v83)
+        if (*v89 != v82)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = [*(*(&v89 + 1) + 8 * i) characteristic];
+        v4 = [*(*(&v88 + 1) + 8 * i) characteristic];
         v5 = [v4 accessory];
-        v88 = 0;
-        v6 = [v86 hmd_valueOfCharacteristic:v4 error:&v88];
-        v7 = v88;
+        v87 = 0;
+        v6 = [v85 hmd_valueOfCharacteristic:v4 error:&v87];
+        v7 = v87;
         if (v6)
         {
           v8 = v6;
@@ -1543,11 +1518,11 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
 
           if (v9)
           {
-            v87 = 0;
-            v12 = [MEMORY[0x277CFEBD0] parsedFromData:v8 error:&v87];
-            v13 = v87;
+            v86 = 0;
+            v12 = [MEMORY[0x277CFEBD0] parsedFromData:v8 error:&v86];
+            v13 = v86;
             v14 = v13;
-            v78 = v5;
+            v77 = v5;
             if (v12)
             {
               context = v13;
@@ -1562,31 +1537,31 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
                 {
                   HMFGetLogIdentifier();
-                  v20 = v74 = v11;
-                  [v72[4] UUID];
-                  v79 = v6;
-                  v21 = v66 = v7;
-                  [v78 shortDescription];
+                  v20 = v73 = v11;
+                  [v71[4] UUID];
+                  v78 = v6;
+                  v21 = v65 = v7;
+                  [v77 shortDescription];
                   v23 = v22 = v17;
                   *buf = 138544130;
-                  v94 = v20;
-                  v95 = 2112;
-                  v96 = v21;
-                  v97 = 2112;
-                  v98 = v23;
-                  v99 = 2112;
-                  v100 = v16;
+                  v93 = v20;
+                  v94 = 2112;
+                  v95 = v21;
+                  v96 = 2112;
+                  v97 = v23;
+                  v98 = 2112;
+                  v99 = v16;
                   _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured with device credential key: %@ with status code: %@", buf, 0x2Au);
 
                   v17 = v22;
-                  v7 = v66;
-                  v6 = v79;
+                  v7 = v65;
+                  v6 = v78;
 
-                  v11 = v74;
+                  v11 = v73;
                 }
 
                 objc_autoreleasePoolPop(v17);
-                ++v65;
+                ++v64;
               }
 
               else
@@ -1597,27 +1572,27 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
                 if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                 {
                   HMFGetLogIdentifier();
-                  v49 = v77 = v11;
-                  [v72[4] UUID];
-                  v82 = v6;
-                  v50 = v68 = v7;
-                  [v78 shortDescription];
+                  v49 = v76 = v11;
+                  [v71[4] UUID];
+                  v81 = v6;
+                  v50 = v67 = v7;
+                  [v77 shortDescription];
                   v52 = v51 = v46;
                   *buf = 138544130;
-                  v94 = v49;
-                  v95 = 2112;
-                  v96 = v50;
-                  v97 = 2112;
-                  v98 = v52;
-                  v99 = 2112;
-                  v100 = v16;
+                  v93 = v49;
+                  v94 = 2112;
+                  v95 = v50;
+                  v96 = 2112;
+                  v97 = v52;
+                  v98 = 2112;
+                  v99 = v16;
                   _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@ with status code: %@", buf, 0x2Au);
 
                   v46 = v51;
-                  v7 = v68;
-                  v6 = v82;
+                  v7 = v67;
+                  v6 = v81;
 
-                  v11 = v77;
+                  v11 = v76;
                 }
 
                 objc_autoreleasePoolPop(v46);
@@ -1625,43 +1600,43 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
 
               v14 = context;
 
-              v5 = v78;
+              v5 = v77;
             }
 
             else
             {
-              v76 = v11;
+              v75 = v11;
               contexta = objc_autoreleasePoolPush();
               v40 = WeakRetained;
               v41 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
               {
                 v42 = HMFGetLogIdentifier();
-                [v72[4] UUID];
-                v81 = v6;
-                v43 = v67 = v7;
-                [v78 shortDescription];
+                [v71[4] UUID];
+                v80 = v6;
+                v43 = v66 = v7;
+                [v77 shortDescription];
                 v45 = v44 = v14;
                 *buf = 138544386;
-                v94 = v42;
-                v95 = 2112;
-                v96 = v43;
-                v97 = 2112;
-                v98 = v45;
-                v99 = 2112;
-                v100 = v8;
-                v101 = 2112;
-                v102 = v44;
+                v93 = v42;
+                v94 = 2112;
+                v95 = v43;
+                v96 = 2112;
+                v97 = v45;
+                v98 = 2112;
+                v99 = v8;
+                v100 = 2112;
+                v101 = v44;
                 _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure accessory with device credential key: %@, failed to parse response value %@:%@", buf, 0x34u);
 
                 v14 = v44;
-                v7 = v67;
-                v6 = v81;
+                v7 = v66;
+                v6 = v80;
               }
 
               objc_autoreleasePoolPop(contexta);
-              v11 = v76;
-              v5 = v78;
+              v11 = v75;
+              v5 = v77;
             }
           }
 
@@ -1675,25 +1650,25 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
               HMFGetLogIdentifier();
               contextb = v32;
               v36 = v35 = v5;
-              [v72[4] UUID];
-              v37 = v75 = v11;
+              [v71[4] UUID];
+              v37 = v74 = v11;
               [v35 shortDescription];
-              v80 = v6;
+              v79 = v6;
               v39 = v38 = v7;
               *buf = 138544130;
-              v94 = v36;
-              v95 = 2112;
-              v96 = v37;
-              v97 = 2112;
-              v98 = v39;
-              v99 = 2112;
-              v100 = v8;
+              v93 = v36;
+              v94 = 2112;
+              v95 = v37;
+              v96 = 2112;
+              v97 = v39;
+              v98 = 2112;
+              v99 = v8;
               _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, response value: %@ is not of type NSData", buf, 0x2Au);
 
               v7 = v38;
-              v6 = v80;
+              v6 = v79;
 
-              v11 = v75;
+              v11 = v74;
               v5 = v35;
               v32 = contextb;
             }
@@ -1710,20 +1685,20 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             v27 = HMFGetLogIdentifier();
-            [v72[4] UUID];
+            [v71[4] UUID];
             v28 = v7;
             v30 = v29 = v5;
             v31 = [v29 shortDescription];
             *buf = 138544386;
-            v94 = v27;
-            v95 = 2112;
-            v96 = v30;
-            v97 = 2112;
-            v98 = v31;
-            v99 = 2112;
-            v100 = v86;
-            v101 = 2112;
-            v102 = v4;
+            v93 = v27;
+            v94 = 2112;
+            v95 = v30;
+            v96 = 2112;
+            v97 = v31;
+            v98 = 2112;
+            v99 = v85;
+            v100 = 2112;
+            v101 = v4;
             _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, unable to parse write response dictionary: %@ with characteristic: %@", buf, 0x34u);
 
             v5 = v29;
@@ -1735,18 +1710,18 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
         }
       }
 
-      v85 = [obj countByEnumeratingWithState:&v89 objects:v103 count:16];
+      v84 = [obj countByEnumeratingWithState:&v88 objects:v102 count:16];
     }
 
-    while (v85);
+    while (v84);
   }
 
   else
   {
-    v65 = 0;
+    v64 = 0;
   }
 
-  if (v65 == [v72[5] count])
+  if (v64 == [v71[5] count])
   {
     v60 = [MEMORY[0x277D2C900] futureWithNoResult];
     goto LABEL_48;
@@ -1754,7 +1729,7 @@ id __73__HMDHomeWalletKeyAccessoryManager_performHAPWriteRequestsHH2_home_flow__
 
   v57 = MEMORY[0x277D2C900];
   v58 = MEMORY[0x277CCA9B8];
-  if (!v65)
+  if (!v64)
   {
     v59 = 52;
 LABEL_46:
@@ -1768,14 +1743,13 @@ LABEL_47:
   v60 = [v57 futureWithError:v61];
 
 LABEL_48:
-  v63 = *MEMORY[0x277D85DE8];
 
   return v60;
 }
 
 - (void)configureAccessories_HH2:(id)h2 withDeviceCredentialKey:(id)key ofType:(int64_t)type forDeviceWithUUID:(id)d user:(id)user flow:(id)flow completion:(id)completion
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   h2Copy = h2;
   keyCopy = key;
   dCopy = d;
@@ -1788,106 +1762,104 @@ LABEL_48:
   home = [(HMDHomeWalletKeyAccessoryManager *)self home];
   if (!home)
   {
-    v35 = objc_autoreleasePoolPush();
+    v33 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v37 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v35 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v39 = v38 = dCopy;
+      v37 = v36 = dCopy;
       uUID = [flowCopy UUID];
       *buf = 138543618;
-      v96 = v39;
-      v97 = 2112;
-      v98 = uUID;
-      _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key, home is nil", buf, 0x16u);
+      v93 = v37;
+      v94 = 2112;
+      v95 = uUID;
+      _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key, home is nil", buf, 0x16u);
 
-      dCopy = v38;
+      dCopy = v36;
     }
 
-    objc_autoreleasePoolPop(v35);
-    v41 = MEMORY[0x277CCA9B8];
-    v42 = -1;
+    objc_autoreleasePoolPop(v33);
+    v39 = MEMORY[0x277CCA9B8];
+    v40 = -1;
     goto LABEL_13;
   }
 
   if (![h2Copy count])
   {
-    v43 = objc_autoreleasePoolPush();
+    v41 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v45 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v43 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v47 = v46 = dCopy;
+      v45 = v44 = dCopy;
       uUID2 = [flowCopy UUID];
       *buf = 138543618;
-      v96 = v47;
-      v97 = 2112;
-      v98 = uUID2;
-      _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessories with device credential key, accessories count is 0", buf, 0x16u);
+      v93 = v45;
+      v94 = 2112;
+      v95 = uUID2;
+      _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessories with device credential key, accessories count is 0", buf, 0x16u);
 
-      dCopy = v46;
+      dCopy = v44;
     }
 
-    objc_autoreleasePoolPop(v43);
-    v41 = MEMORY[0x277CCA9B8];
-    v42 = 3;
+    objc_autoreleasePoolPop(v41);
+    v39 = MEMORY[0x277CCA9B8];
+    v40 = 3;
 LABEL_13:
-    v49 = [v41 hmErrorWithCode:v42];
-    completionCopy[2](completionCopy, v49);
+    v47 = [v39 hmErrorWithCode:v40];
+    completionCopy[2](completionCopy, v47);
     goto LABEL_20;
   }
 
-  v79 = home;
+  v76 = home;
   v21 = [h2Copy na_filter:&__block_literal_global_439_158511];
-  v81 = h2Copy;
+  v78 = h2Copy;
   v22 = [h2Copy na_filter:&__block_literal_global_441];
   v23 = objc_autoreleasePoolPush();
   selfCopy3 = self;
   v25 = HMFGetOSLogHandle();
-  v80 = userCopy;
+  v77 = userCopy;
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     v26 = HMFGetLogIdentifier();
     [flowCopy UUID];
     v28 = v27 = dCopy;
     *buf = 138544642;
-    v96 = v26;
-    v97 = 2112;
-    v98 = v28;
-    v99 = 2112;
-    v100 = v81;
-    v101 = 2112;
-    v102 = keyCopy;
-    v103 = 2112;
-    v104 = v21;
-    v105 = 2112;
-    v106 = v22;
+    v93 = v26;
+    v94 = 2112;
+    v95 = v28;
+    v96 = 2112;
+    v97 = v78;
+    v98 = 2112;
+    v99 = keyCopy;
+    v100 = 2112;
+    v101 = v21;
+    v102 = 2112;
+    v103 = v22;
     _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Configuring accessories with device credential key HH2. accessories: %@, deviceCredentialKey: %@, hapAccessories: %@, matterAccessories: %@", buf, 0x3Eu);
 
     dCopy = v27;
-    userCopy = v80;
+    userCopy = v77;
   }
 
   objc_autoreleasePoolPop(v23);
-  v90[0] = MEMORY[0x277D85DD0];
-  v90[1] = 3221225472;
-  v90[2] = __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_442;
-  v90[3] = &unk_2797306A0;
-  v90[4] = selfCopy3;
-  v29 = keyCopy;
-  v91 = v29;
+  v87[0] = MEMORY[0x277D85DD0];
+  v87[1] = 3221225472;
+  v87[2] = __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_442;
+  v87[3] = &unk_2797306A0;
+  v87[4] = selfCopy3;
+  v88 = keyCopy;
   typeCopy = type;
-  v30 = userCopy;
-  v92 = v30;
-  v31 = flowCopy;
-  v93 = v31;
-  v32 = [v22 na_map:v90];
-  v33 = v32;
-  v77 = v21;
-  v78 = dCopy;
-  v76 = v22;
+  v89 = userCopy;
+  v29 = flowCopy;
+  v90 = v29;
+  v30 = [v22 na_map:v87];
+  v31 = v30;
+  v74 = v21;
+  v75 = dCopy;
+  v73 = v22;
   if (type)
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
@@ -1895,79 +1867,77 @@ LABEL_13:
 
   else
   {
-    v75 = v32;
-    v50 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy3 writeRequestsWithAccessories:v21 home:v79 deviceCredentialKey:v29 user:v30 flow:v31];
-    allObjects = [v50 allObjects];
-    v52 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy3 performHAPWriteRequestsHH2:allObjects home:v79 flow:v31];
+    v72 = v30;
+    v48 = objc_msgSend_writeRequestsWithAccessories_home_deviceCredentialKey_user_flow_(selfCopy3);
+    allObjects = [v48 allObjects];
+    v50 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy3 performHAPWriteRequestsHH2:allObjects home:v76 flow:v29];
 
-    v53 = [v50 count];
-    if (v53 != [v21 count])
+    v51 = [v48 count];
+    if (v51 != [v21 count])
     {
-      v54 = objc_autoreleasePoolPush();
-      v55 = selfCopy3;
-      v74 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      v52 = objc_autoreleasePoolPush();
+      v53 = selfCopy3;
+      v71 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
-        v73 = HMFGetLogIdentifier();
-        uUID3 = [v31 UUID];
+        v70 = HMFGetLogIdentifier();
+        uUID3 = [v29 UUID];
+        v55 = [v21 count];
+        v56 = v55 - [v48 count];
         v57 = [v21 count];
-        v58 = v57 - [v50 count];
-        v59 = [v21 count];
         *buf = 138544130;
-        v96 = v73;
-        v97 = 2112;
-        v98 = uUID3;
-        v99 = 2048;
-        v100 = v58;
-        v101 = 2048;
-        v102 = v59;
-        _os_log_impl(&dword_2531F8000, v74, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to create a write request for a subset of the HAP accessories (%lu of the %lu HAP accessories)", buf, 0x2Au);
+        v93 = v70;
+        v94 = 2112;
+        v95 = uUID3;
+        v96 = 2048;
+        v97 = v56;
+        v98 = 2048;
+        v99 = v57;
+        _os_log_impl(&dword_2531F8000, v71, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to create a write request for a subset of the HAP accessories (%lu of the %lu HAP accessories)", buf, 0x2Au);
       }
 
-      objc_autoreleasePoolPop(v54);
-      v88[0] = MEMORY[0x277D85DD0];
-      v88[1] = 3221225472;
-      v88[2] = __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_444;
-      v88[3] = &unk_2797306C8;
-      v89 = v50;
-      v60 = [v52 flatMap:v88];
+      objc_autoreleasePoolPop(v52);
+      v85[0] = MEMORY[0x277D85DD0];
+      v85[1] = 3221225472;
+      v85[2] = __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_444;
+      v85[3] = &unk_2797306C8;
+      v86 = v48;
+      v58 = [v50 flatMap:v85];
     }
 
-    v33 = v75;
-    futureWithNoResult = v52;
+    v31 = v72;
+    futureWithNoResult = v50;
   }
 
-  v61 = [v33 arrayByAddingObject:futureWithNoResult];
-  v62 = [MEMORY[0x277D2C900] combineAllFutures:v61];
-  v63 = MEMORY[0x277D2C938];
+  v59 = [v31 arrayByAddingObject:futureWithNoResult];
+  v60 = [MEMORY[0x277D2C900] combineAllFutures:v59];
+  v61 = MEMORY[0x277D2C938];
   workQueue2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy3 workQueue];
-  v65 = [v63 schedulerWithDispatchQueue:workQueue2];
-  v66 = [v62 reschedule:v65];
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_2_446;
-  v86[3] = &unk_2797306F0;
-  v67 = completionCopy;
-  v87 = v67;
-  [v66 addSuccessBlock:v86];
-  v68 = completionCopy;
-  v70 = v69 = v33;
-  v84[0] = MEMORY[0x277D85DD0];
-  v84[1] = 3221225472;
-  v84[2] = __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_3;
-  v84[3] = &unk_279735558;
-  v85 = v67;
-  v71 = [v70 addFailureBlock:v84];
+  v63 = [v61 schedulerWithDispatchQueue:workQueue2];
+  v64 = [v60 reschedule:v63];
+  v83[0] = MEMORY[0x277D85DD0];
+  v83[1] = 3221225472;
+  v83[2] = __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_2_446;
+  v83[3] = &unk_2797306F0;
+  v65 = completionCopy;
+  v84 = v65;
+  [v64 addSuccessBlock:v83];
+  v66 = completionCopy;
+  v68 = v67 = v31;
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_3;
+  v81[3] = &unk_279735558;
+  v82 = v65;
+  v69 = [v68 addFailureBlock:v81];
 
-  completionCopy = v68;
-  userCopy = v80;
-  h2Copy = v81;
-  dCopy = v78;
-  home = v79;
-  v49 = v77;
+  completionCopy = v66;
+  userCopy = v77;
+  h2Copy = v78;
+  dCopy = v75;
+  home = v76;
+  v47 = v74;
 LABEL_20:
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 id __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDeviceCredentialKey_ofType_forDeviceWithUUID_user_flow_completion___block_invoke_444(uint64_t a1)
@@ -1998,7 +1968,7 @@ void __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDevice
 
 - (void)configureAccessories_HH1:(id)h1 withDeviceCredentialKey:(id)key forDeviceWithUUID:(id)d user:(id)user flow:(id)flow completion:(id)completion
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   h1Copy = h1;
   keyCopy = key;
   dCopy = d;
@@ -2022,29 +1992,29 @@ void __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDevice
         v22 = HMFGetLogIdentifier();
         uUID = [flowCopy UUID];
         *buf = 138544130;
-        v62 = v22;
-        v63 = 2112;
-        v64 = uUID;
-        v65 = 2112;
-        v66 = h1Copy;
-        v67 = 2112;
-        v68 = keyCopy;
+        v61 = v22;
+        v62 = 2112;
+        v63 = uUID;
+        v64 = 2112;
+        v65 = h1Copy;
+        v66 = 2112;
+        v67 = keyCopy;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Configuring accessories with device credential key HH1 %@:%@", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v19);
-      v24 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy writeRequestsWithAccessories:h1Copy home:home deviceCredentialKey:keyCopy user:userCopy flow:flowCopy];
+      v24 = objc_msgSend_writeRequestsWithAccessories_home_deviceCredentialKey_user_flow_(selfCopy);
       if ([v24 count])
       {
         v25 = [v24 count];
         if (v25 == [h1Copy count])
         {
-          v47 = 0;
+          v46 = 0;
         }
 
         else
         {
-          v47 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2008];
+          v46 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2008];
         }
 
         allObjects = [v24 allObjects];
@@ -2052,29 +2022,29 @@ void __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDevice
         accessoryWriteMaxRetryCount = [dataSource accessoryWriteMaxRetryCount];
         dataSource2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy dataSource];
         [dataSource2 accessoryWriteRetryInterval];
-        v48 = [home performWriteRequests:allObjects withRetries:accessoryWriteMaxRetryCount timeInterval:selfCopy loggingObject:flowCopy flow:?];
+        v47 = [home performWriteRequests:allObjects withRetries:accessoryWriteMaxRetryCount timeInterval:selfCopy loggingObject:flowCopy flow:?];
 
         objc_initWeak(buf, selfCopy);
         v41 = MEMORY[0x277D2C938];
         workQueue2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy workQueue];
         v43 = [v41 schedulerWithDispatchQueue:workQueue2];
-        v44 = [v48 reschedule:v43];
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDeviceCredentialKey_forDeviceWithUUID_user_flow_completion___block_invoke;
-        v52[3] = &unk_279730678;
-        objc_copyWeak(&v60, buf);
-        v53 = flowCopy;
-        v59 = completionCopy;
-        v54 = dCopy;
-        v55 = keyCopy;
-        v56 = v24;
-        v57 = userCopy;
-        v36 = v47;
-        v58 = v36;
-        v45 = [v44 addCompletionBlock:v52];
+        v44 = [v47 reschedule:v43];
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDeviceCredentialKey_forDeviceWithUUID_user_flow_completion___block_invoke;
+        v51[3] = &unk_279730678;
+        objc_copyWeak(&v59, buf);
+        v52 = flowCopy;
+        v58 = completionCopy;
+        v53 = dCopy;
+        v54 = keyCopy;
+        v55 = v24;
+        v56 = userCopy;
+        v36 = v46;
+        v57 = v36;
+        v45 = [v44 addCompletionBlock:v51];
 
-        objc_destroyWeak(&v60);
+        objc_destroyWeak(&v59);
         objc_destroyWeak(buf);
       }
 
@@ -2095,9 +2065,9 @@ void __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDevice
         v34 = HMFGetLogIdentifier();
         uUID2 = [flowCopy UUID];
         *buf = 138543618;
-        v62 = v34;
-        v63 = 2112;
-        v64 = uUID2;
+        v61 = v34;
+        v62 = 2112;
+        v63 = uUID2;
         _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessories with device credential key, accessories count is 0", buf, 0x16u);
       }
 
@@ -2117,9 +2087,9 @@ void __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDevice
       v29 = HMFGetLogIdentifier();
       uUID3 = [flowCopy UUID];
       *buf = 138543618;
-      v62 = v29;
-      v63 = 2112;
-      v64 = uUID3;
+      v61 = v29;
+      v62 = 2112;
+      v63 = uUID3;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key, home is nil", buf, 0x16u);
     }
 
@@ -2127,14 +2097,12 @@ void __131__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH2_withDevice
     v24 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     (*(completionCopy + 2))(completionCopy, v24);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDeviceCredentialKey_forDeviceWithUUID_user_flow_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v124 = *MEMORY[0x277D85DE8];
-  v105 = a2;
+  v123 = *MEMORY[0x277D85DE8];
+  v104 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
   v7 = WeakRetained;
@@ -2148,39 +2116,39 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
 
     if (v11)
     {
-      if (v105)
+      if (v104)
       {
-        v85 = v9;
-        v86 = v5;
+        v84 = v9;
+        v85 = v5;
         v12 = [(HMDHomeWalletKeyAccessoryManagerDeviceCredentialKeyOperation *)v9 accessoriesUUIDs];
-        v87 = [v12 mutableCopy];
+        v86 = [v12 mutableCopy];
 
-        v111 = 0u;
-        v112 = 0u;
-        v109 = 0u;
         v110 = 0u;
-        v100 = a1;
+        v111 = 0u;
+        v108 = 0u;
+        v109 = 0u;
+        v99 = a1;
         obj = *(a1 + 56);
-        v104 = [obj countByEnumeratingWithState:&v109 objects:v123 count:16];
-        if (v104)
+        v103 = [obj countByEnumeratingWithState:&v108 objects:v122 count:16];
+        if (v103)
         {
-          v88 = 0;
-          v103 = *v110;
-          v99 = v7;
+          v87 = 0;
+          v102 = *v109;
+          v98 = v7;
           do
           {
-            for (i = 0; i != v104; ++i)
+            for (i = 0; i != v103; ++i)
             {
-              if (*v110 != v103)
+              if (*v109 != v102)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v14 = [*(*(&v109 + 1) + 8 * i) characteristic];
+              v14 = [*(*(&v108 + 1) + 8 * i) characteristic];
               v15 = [v14 accessory];
-              v108 = 0;
-              v16 = [v105 hmd_valueOfCharacteristic:v14 error:&v108];
-              v106 = v108;
+              v107 = 0;
+              v16 = [v104 hmd_valueOfCharacteristic:v14 error:&v107];
+              v105 = v107;
               if (v16)
               {
                 v17 = v16;
@@ -2200,14 +2168,14 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
 
                 if (v18)
                 {
-                  v107 = 0;
-                  v21 = [MEMORY[0x277CFEBD0] parsedFromData:v17 error:&v107];
-                  v22 = v107;
+                  v106 = 0;
+                  v21 = [MEMORY[0x277CFEBD0] parsedFromData:v17 error:&v106];
+                  v22 = v106;
                   v23 = v22;
-                  v102 = v15;
+                  v101 = v15;
                   if (v21)
                   {
-                    v92 = v22;
+                    v91 = v22;
                     v24 = [v21 deviceCredentialKeyResponse];
                     v25 = [v24 statusCode];
 
@@ -2219,31 +2187,31 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
                       if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
                       {
                         HMFGetLogIdentifier();
-                        v29 = v95 = v16;
-                        v30 = [*(v100 + 32) UUID];
-                        [v102 shortDescription];
+                        v29 = v94 = v16;
+                        v30 = [*(v99 + 32) UUID];
+                        [v101 shortDescription];
                         v31 = contexta = v26;
                         *buf = 138544130;
-                        v114 = v29;
-                        v115 = 2112;
-                        v116 = v30;
-                        v117 = 2112;
-                        v118 = v31;
-                        v119 = 2112;
-                        v120 = v25;
+                        v113 = v29;
+                        v114 = 2112;
+                        v115 = v30;
+                        v116 = 2112;
+                        v117 = v31;
+                        v118 = 2112;
+                        v119 = v25;
                         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured with device credential key: %@ with status code: %@", buf, 0x2Au);
 
                         v26 = contexta;
-                        v7 = v99;
+                        v7 = v98;
 
-                        v16 = v95;
+                        v16 = v94;
                       }
 
                       objc_autoreleasePoolPop(v26);
-                      ++v88;
-                      v15 = v102;
-                      v32 = [v102 uuid];
-                      [v87 removeObject:v32];
+                      ++v87;
+                      v15 = v101;
+                      v32 = [v101 uuid];
+                      [v86 removeObject:v32];
                     }
 
                     else
@@ -2254,67 +2222,67 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
                       if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                       {
                         HMFGetLogIdentifier();
-                        v57 = v98 = v16;
-                        v58 = [*(v100 + 32) UUID];
-                        [v102 shortDescription];
+                        v57 = v97 = v16;
+                        v58 = [*(v99 + 32) UUID];
+                        [v101 shortDescription];
                         v59 = contextb = v54;
                         *buf = 138544130;
-                        v114 = v57;
-                        v115 = 2112;
-                        v116 = v58;
-                        v117 = 2112;
-                        v118 = v59;
-                        v119 = 2112;
-                        v120 = v25;
+                        v113 = v57;
+                        v114 = 2112;
+                        v115 = v58;
+                        v116 = 2112;
+                        v117 = v59;
+                        v118 = 2112;
+                        v119 = v25;
                         _os_log_impl(&dword_2531F8000, v56, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@ with status code: %@", buf, 0x2Au);
 
                         v54 = contextb;
-                        v7 = v99;
+                        v7 = v98;
 
-                        v16 = v98;
+                        v16 = v97;
                       }
 
                       objc_autoreleasePoolPop(v54);
-                      v15 = v102;
+                      v15 = v101;
                     }
 
-                    v23 = v92;
+                    v23 = v91;
                   }
 
                   else
                   {
-                    v97 = v16;
+                    v96 = v16;
                     context = objc_autoreleasePoolPush();
                     v48 = v7;
                     v49 = HMFGetOSLogHandle();
                     if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
                     {
                       HMFGetLogIdentifier();
-                      v50 = v94 = v20;
-                      v51 = [*(v100 + 32) UUID];
-                      [v102 shortDescription];
+                      v50 = v93 = v20;
+                      v51 = [*(v99 + 32) UUID];
+                      [v101 shortDescription];
                       v53 = v52 = v23;
                       *buf = 138544386;
-                      v114 = v50;
-                      v115 = 2112;
-                      v116 = v51;
-                      v117 = 2112;
-                      v118 = v53;
-                      v119 = 2112;
-                      v120 = v17;
-                      v121 = 2112;
-                      v122 = v52;
+                      v113 = v50;
+                      v114 = 2112;
+                      v115 = v51;
+                      v116 = 2112;
+                      v117 = v53;
+                      v118 = 2112;
+                      v119 = v17;
+                      v120 = 2112;
+                      v121 = v52;
                       _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure accessory with device credential key: %@, failed to parse response value %@:%@", buf, 0x34u);
 
                       v23 = v52;
-                      v7 = v99;
+                      v7 = v98;
 
-                      v20 = v94;
+                      v20 = v93;
                     }
 
                     objc_autoreleasePoolPop(context);
-                    v15 = v102;
-                    v16 = v97;
+                    v15 = v101;
+                    v16 = v96;
                   }
                 }
 
@@ -2326,28 +2294,28 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
                   if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                   {
                     HMFGetLogIdentifier();
-                    v93 = v20;
+                    v92 = v20;
                     v44 = v43 = v15;
-                    v45 = [*(v100 + 32) UUID];
+                    v45 = [*(v99 + 32) UUID];
                     [v43 shortDescription];
-                    v96 = v40;
+                    v95 = v40;
                     v47 = v46 = v16;
                     *buf = 138544130;
-                    v114 = v44;
-                    v115 = 2112;
-                    v116 = v45;
-                    v117 = 2112;
-                    v118 = v47;
-                    v119 = 2112;
-                    v120 = v17;
+                    v113 = v44;
+                    v114 = 2112;
+                    v115 = v45;
+                    v116 = 2112;
+                    v117 = v47;
+                    v118 = 2112;
+                    v119 = v17;
                     _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, response value: %@ is not of type NSData", buf, 0x2Au);
 
                     v16 = v46;
-                    v40 = v96;
+                    v40 = v95;
 
-                    v7 = v99;
+                    v7 = v98;
                     v15 = v43;
-                    v20 = v93;
+                    v20 = v92;
                   }
 
                   objc_autoreleasePoolPop(v40);
@@ -2362,22 +2330,22 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
                 if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                 {
                   v36 = HMFGetLogIdentifier();
-                  [*(v100 + 32) UUID];
+                  [*(v99 + 32) UUID];
                   v38 = v37 = v15;
                   v39 = [v37 shortDescription];
                   *buf = 138544386;
-                  v114 = v36;
-                  v115 = 2112;
-                  v116 = v38;
-                  v117 = 2112;
-                  v118 = v39;
-                  v119 = 2112;
-                  v120 = v105;
-                  v121 = 2112;
-                  v122 = v14;
+                  v113 = v36;
+                  v114 = 2112;
+                  v115 = v38;
+                  v116 = 2112;
+                  v117 = v39;
+                  v118 = 2112;
+                  v119 = v104;
+                  v120 = 2112;
+                  v121 = v14;
                   _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key: %@, unable to parse write response dictionary: %@ with characteristic: %@", buf, 0x34u);
 
-                  v7 = v99;
+                  v7 = v98;
                   v15 = v37;
                   v16 = 0;
                 }
@@ -2386,44 +2354,44 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
               }
             }
 
-            v104 = [obj countByEnumeratingWithState:&v109 objects:v123 count:16];
+            v103 = [obj countByEnumeratingWithState:&v108 objects:v122 count:16];
           }
 
-          while (v104);
+          while (v103);
         }
 
         else
         {
-          v88 = 0;
+          v87 = 0;
         }
 
-        v79 = v87;
-        if ([v87 count])
+        v79 = v86;
+        if ([v86 count])
         {
-          v81 = v100;
-          v9 = [[HMDHomeWalletKeyAccessoryManagerDeviceCredentialKeyOperation alloc] initWithDeviceCredentialKey:*(v100 + 48) accessoriesUUIDs:v87 user:*(v100 + 64)];
-          v5 = v86;
+          v80 = v99;
+          v9 = [[HMDHomeWalletKeyAccessoryManagerDeviceCredentialKeyOperation alloc] initWithDeviceCredentialKey:*(v99 + 48) accessoriesUUIDs:v86 user:*(v99 + 64)];
+          v5 = v85;
         }
 
         else
         {
           v9 = 0;
-          v5 = v86;
-          v81 = v100;
+          v5 = v85;
+          v80 = v99;
         }
 
-        v82 = [v7 pendingAccessoryDeviceCredentialKeyOperationByDeviceUUID];
-        [v82 setObject:v9 forKeyedSubscript:*(v81 + 40)];
+        v81 = [v7 pendingAccessoryDeviceCredentialKeyOperationByDeviceUUID];
+        [v81 setObject:v9 forKeyedSubscript:*(v80 + 40)];
 
-        if (v88 == [*(v81 + 56) count])
+        if (v87 == [*(v80 + 56) count])
         {
-          (*(*(v81 + 80) + 16))(*(v81 + 80), *(v81 + 72));
+          (*(*(v80 + 80) + 16))(*(v80 + 80), *(v80 + 72));
         }
 
         else
         {
-          v83 = *(v81 + 80);
-          if (v88)
+          v82 = *(v80 + 80);
+          if (v87)
           {
             [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2008];
           }
@@ -2432,8 +2400,8 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
           {
             [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
           }
-          v84 = ;
-          (*(v83 + 16))(v83, v84);
+          v83 = ;
+          (*(v82 + 16))(v82, v83);
         }
 
         goto LABEL_49;
@@ -2447,11 +2415,11 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
         v77 = HMFGetLogIdentifier();
         v78 = [*(a1 + 32) UUID];
         *buf = 138543874;
-        v114 = v77;
-        v115 = 2112;
-        v116 = v78;
-        v117 = 2112;
-        v118 = v5;
+        v113 = v77;
+        v114 = 2112;
+        v115 = v78;
+        v116 = 2112;
+        v117 = v5;
         _os_log_impl(&dword_2531F8000, v76, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key, write response is nil: %@", buf, 0x20u);
       }
 
@@ -2472,11 +2440,11 @@ void __124__HMDHomeWalletKeyAccessoryManager_configureAccessories_HH1_withDevice
         v69 = [*(a1 + 32) UUID];
         v70 = *(a1 + 40);
         *buf = 138543874;
-        v114 = v68;
-        v115 = 2112;
-        v116 = v69;
-        v117 = 2112;
-        v118 = v70;
+        v113 = v68;
+        v114 = 2112;
+        v115 = v69;
+        v116 = 2112;
+        v117 = v70;
         _os_log_impl(&dword_2531F8000, v67, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Operation cancelled because device credential key was updated for deviceUUID: %@", buf, 0x20u);
       }
 
@@ -2500,9 +2468,9 @@ LABEL_49:
     v62 = HMFGetLogIdentifier();
     v63 = [*(a1 + 32) UUID];
     *buf = 138543618;
-    v114 = v62;
-    v115 = 2112;
-    v116 = v63;
+    v113 = v62;
+    v114 = 2112;
+    v115 = v63;
     _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with device credential key object got invalidated", buf, 0x16u);
   }
 
@@ -2511,13 +2479,11 @@ LABEL_49:
   v9 = [MEMORY[0x277CCA9B8] hmErrorWithCode:23];
   (*(v64 + 16))(v64, v9);
 LABEL_50:
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureAccessories:(id)accessories withDeviceCredentialKey:(id)key ofType:(int64_t)type forDeviceWithUUID:(id)d user:(id)user flow:(id)flow completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   keyCopy = key;
   dCopy = d;
@@ -2537,14 +2503,14 @@ LABEL_50:
     {
       v26 = HMFGetLogIdentifier();
       [flowCopy UUID];
-      v27 = v29 = v23;
+      v27 = v28 = v23;
       *buf = 138543618;
-      v31 = v26;
-      v32 = 2112;
-      v33 = v27;
+      v30 = v26;
+      v31 = 2112;
+      v32 = v27;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Not adding device credential key because HMDHomeWalletKeyAccessoryManagerDisableAddingDeviceKeys is set", buf, 0x16u);
 
-      v23 = v29;
+      v23 = v28;
     }
 
     objc_autoreleasePoolPop(v23);
@@ -2554,13 +2520,11 @@ LABEL_50:
   {
     [(HMDHomeWalletKeyAccessoryManager *)self configureAccessories_HH1:accessoriesCopy withDeviceCredentialKey:keyCopy forDeviceWithUUID:dCopy user:userCopy flow:flowCopy completion:completionCopy];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterForNotificationsWithReason:(id)reason
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2571,11 +2535,11 @@ LABEL_50:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v9;
-    v20 = 2112;
-    v21 = reasonCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Unregistering for notifications with reason: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v9;
+    v19 = 2112;
+    v20 = reasonCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Unregistering for notifications with reason: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -2595,19 +2559,17 @@ LABEL_50:
 
   notificationCenter5 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy notificationCenter];
   [notificationCenter5 removeObserver:selfCopy name:@"HMDHomeUserAddedNotification" object:home];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePendingDeviceCredentialKeysSyncForAccessories:(id)accessories withReason:(id)reason
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   reasonCopy = reason;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v30 = accessoriesCopy;
+  v29 = accessoriesCopy;
   if ([accessoriesCopy count])
   {
     home = [(HMDHomeWalletKeyAccessoryManager *)self home];
@@ -2623,72 +2585,70 @@ LABEL_50:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v43 = v15;
-        v44 = 2112;
-        v45 = reasonCopy;
+        v42 = v15;
+        v43 = 2112;
+        v44 = reasonCopy;
         _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling pending device credential operations with reason: %@", buf, 0x16u);
       }
 
-      v28 = reasonCopy;
+      v27 = reasonCopy;
 
       objc_autoreleasePoolPop(v12);
-      v29 = selfCopy;
+      v28 = selfCopy;
       pendingAccessoryDeviceCredentialKeyOperationByDeviceUUID = [(HMDHomeWalletKeyAccessoryManager *)selfCopy pendingAccessoryDeviceCredentialKeyOperationByDeviceUUID];
-      v17 = [pendingAccessoryDeviceCredentialKeyOperationByDeviceUUID copy];
+      v17 = objc_msgSend_copy(pendingAccessoryDeviceCredentialKeyOperationByDeviceUUID);
 
-      v40 = 0u;
-      v38 = 0u;
       v39 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v36 = 0u;
       v18 = v17;
-      v32 = [v18 countByEnumeratingWithState:&v37 objects:v41 count:16];
-      if (v32)
+      v31 = [v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      if (v31)
       {
-        v31 = *v38;
+        v30 = *v37;
         do
         {
-          for (i = 0; i != v32; ++i)
+          for (i = 0; i != v31; ++i)
           {
-            if (*v38 != v31)
+            if (*v37 != v30)
             {
               objc_enumerationMutation(v18);
             }
 
-            v20 = *(*(&v37 + 1) + 8 * i);
+            v20 = *(*(&v36 + 1) + 8 * i);
             v21 = [v18 objectForKeyedSubscript:v20];
             user = [v21 user];
             if (user)
             {
-              v35[0] = MEMORY[0x277D85DD0];
-              v35[1] = 3221225472;
-              v35[2] = __99__HMDHomeWalletKeyAccessoryManager_handlePendingDeviceCredentialKeysSyncForAccessories_withReason___block_invoke;
-              v35[3] = &unk_2797304D0;
+              v34[0] = MEMORY[0x277D85DD0];
+              v34[1] = 3221225472;
+              v34[2] = __99__HMDHomeWalletKeyAccessoryManager_handlePendingDeviceCredentialKeysSyncForAccessories_withReason___block_invoke;
+              v34[3] = &unk_2797304D0;
               v23 = v21;
-              v36 = v23;
-              v24 = [v30 na_filter:v35];
+              v35 = v23;
+              v24 = [v29 na_filter:v34];
               deviceCredentialKey = [v23 deviceCredentialKey];
               untrackedPlaceholderFlow = [MEMORY[0x277D0F7B8] untrackedPlaceholderFlow];
-              v33[0] = MEMORY[0x277D85DD0];
-              v33[1] = 3221225472;
-              v33[2] = __99__HMDHomeWalletKeyAccessoryManager_handlePendingDeviceCredentialKeysSyncForAccessories_withReason___block_invoke_2;
-              v33[3] = &unk_2797358C8;
-              v33[4] = v29;
-              v34 = v23;
-              [(HMDHomeWalletKeyAccessoryManager *)v29 configureAccessories:v24 withDeviceCredentialKey:deviceCredentialKey ofType:0 forDeviceWithUUID:v20 user:user flow:untrackedPlaceholderFlow completion:v33];
+              v32[0] = MEMORY[0x277D85DD0];
+              v32[1] = 3221225472;
+              v32[2] = __99__HMDHomeWalletKeyAccessoryManager_handlePendingDeviceCredentialKeysSyncForAccessories_withReason___block_invoke_2;
+              v32[3] = &unk_2797358C8;
+              v32[4] = v28;
+              v33 = v23;
+              [(HMDHomeWalletKeyAccessoryManager *)v28 configureAccessories:v24 withDeviceCredentialKey:deviceCredentialKey ofType:0 forDeviceWithUUID:v20 user:user flow:untrackedPlaceholderFlow completion:v32];
             }
           }
 
-          v32 = [v18 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v31 = [v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
         }
 
-        while (v32);
+        while (v31);
       }
 
-      reasonCopy = v28;
+      reasonCopy = v27;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __99__HMDHomeWalletKeyAccessoryManager_handlePendingDeviceCredentialKeysSyncForAccessories_withReason___block_invoke(uint64_t a1, void *a2)
@@ -2704,7 +2664,7 @@ uint64_t __99__HMDHomeWalletKeyAccessoryManager_handlePendingDeviceCredentialKey
 
 void __99__HMDHomeWalletKeyAccessoryManager_handlePendingDeviceCredentialKeysSyncForAccessories_withReason___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2716,18 +2676,18 @@ void __99__HMDHomeWalletKeyAccessoryManager_handlePendingDeviceCredentialKeysSyn
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v16 = 138543874;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v3;
+      v15 = 138543874;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v3;
       v10 = "%{public}@Device credential key pending operation failed %@:%@ ";
       v11 = v7;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 32;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v16, v13);
+      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v15, v13);
     }
   }
 
@@ -2735,10 +2695,10 @@ LABEL_6:
   {
     v8 = HMFGetLogIdentifier();
     v14 = *(a1 + 40);
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v14;
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v14;
     v10 = "%{public}@Device credential key pending operation succesed %@ ";
     v11 = v7;
     v12 = OS_LOG_TYPE_INFO;
@@ -2747,12 +2707,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePendingDeviceCredentialKeysSyncForAccessory:(id)accessory withReason:(id)reason
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   reasonCopy = reason;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
@@ -2760,17 +2719,15 @@ LABEL_6:
 
   if ([accessoryCopy supportsWalletKey])
   {
-    v11[0] = accessoryCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = accessoryCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     [(HMDHomeWalletKeyAccessoryManager *)self handlePendingDeviceCredentialKeysSyncForAccessories:v9 withReason:reasonCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForNotificationsWithReason:(id)reason
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2782,9 +2739,9 @@ LABEL_6:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v9;
-    v31 = 2112;
-    v32 = reasonCopy;
+    v29 = v9;
+    v30 = 2112;
+    v31 = reasonCopy;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Registering for notifications with reason: %@", buf, 0x16u);
   }
 
@@ -2823,29 +2780,27 @@ LABEL_6:
       v23 = HMFGetLogIdentifier();
       uUID = [internalOnlyInitializer UUID];
       *buf = 138543618;
-      v30 = v23;
-      v31 = 2112;
-      v32 = uUID;
+      v29 = v23;
+      v30 = 2112;
+      v31 = uUID;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Fetching wallet key color after registering for notifications", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __71__HMDHomeWalletKeyAccessoryManager_registerForNotificationsWithReason___block_invoke;
-    v27[3] = &unk_2797340E0;
-    v27[4] = v21;
-    v28 = internalOnlyInitializer;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __71__HMDHomeWalletKeyAccessoryManager_registerForNotificationsWithReason___block_invoke;
+    v26[3] = &unk_2797340E0;
+    v26[4] = v21;
+    v27 = internalOnlyInitializer;
     v25 = internalOnlyInitializer;
-    [(HMDHomeWalletKeyAccessoryManager *)v21 fetchWalletKeyColorWithFlow:v25 completion:v27];
+    [(HMDHomeWalletKeyAccessoryManager *)v21 fetchWalletKeyColorWithFlow:v25 completion:v26];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDHomeWalletKeyAccessoryManager_registerForNotificationsWithReason___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -2860,13 +2815,13 @@ void __71__HMDHomeWalletKeyAccessoryManager_registerForNotificationsWithReason__
       v12 = [*(a1 + 40) UUID];
       [v5 integerValue];
       v13 = HMHomeWalletKeyColorAsString();
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully fetched wallet key color when registered for notifications %@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully fetched wallet key color when registered for notifications %@", &v15, 0x20u);
 
 LABEL_6:
     }
@@ -2876,19 +2831,18 @@ LABEL_6:
   {
     v11 = HMFGetLogIdentifier();
     v14 = [*(a1 + 40) UUID];
-    v16 = 138543874;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v14;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Could not fetch wallet key color when registered for notifications %@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Could not fetch wallet key color when registered for notifications %@", &v15, 0x20u);
 
     goto LABEL_6;
   }
 
   objc_autoreleasePoolPop(v7);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureNotificationsWithReason:(id)reason
@@ -2934,7 +2888,7 @@ LABEL_8:
 
 - (void)configureAccessoryWithNfcReaderKey:(id)key accessory:(id)accessory flow:(id)flow completion:(id)completion
 {
-  v140 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   val = accessory;
   flowCopy = flow;
@@ -2951,13 +2905,13 @@ LABEL_8:
     uUID = [flowCopy UUID];
     uuid = [val uuid];
     *buf = 138544130;
-    v131 = v14;
-    v132 = 2112;
-    v133 = uUID;
-    v134 = 2112;
-    v135 = keyCopy;
-    v136 = 2112;
-    v137 = uuid;
+    v130 = v14;
+    v131 = 2112;
+    v132 = uUID;
+    v133 = 2112;
+    v134 = keyCopy;
+    v135 = 2112;
+    v136 = uuid;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] configureAccessoryWithNfcReaderKey: %@, accessory: %@", buf, 0x2Au);
   }
 
@@ -2974,9 +2928,9 @@ LABEL_8:
       v48 = HMFGetLogIdentifier();
       uUID2 = [flowCopy UUID];
       *buf = 138543618;
-      v131 = v48;
-      v132 = 2112;
-      v133 = uUID2;
+      v130 = v48;
+      v131 = 2112;
+      v132 = uUID2;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure accessory with nfc reader key, home is nil", buf, 0x16u);
     }
 
@@ -2989,13 +2943,13 @@ LABEL_8:
     uUID3 = [flowCopy UUID];
     shortDescription = [val shortDescription];
     *buf = 138544130;
-    v131 = v22;
-    v132 = 2112;
-    v133 = uUID3;
-    v134 = 2112;
-    v135 = shortDescription;
-    v136 = 2112;
-    v137 = keyCopy;
+    v130 = v22;
+    v131 = 2112;
+    v132 = uUID3;
+    v133 = 2112;
+    v134 = shortDescription;
+    v135 = 2112;
+    v136 = keyCopy;
     _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Configuring accessory with nfc reader key %@:%@", buf, 0x2Au);
   }
 
@@ -3017,15 +2971,15 @@ LABEL_8:
       shortDescription2 = [val shortDescription];
       home3 = [val home];
       *buf = 138544386;
-      v131 = v50;
-      v132 = 2112;
-      v133 = uUID4;
-      v134 = 2112;
-      v135 = shortDescription2;
-      v136 = 2112;
-      v137 = home3;
-      v138 = 2112;
-      v139 = home;
+      v130 = v50;
+      v131 = 2112;
+      v132 = uUID4;
+      v133 = 2112;
+      v134 = shortDescription2;
+      v135 = 2112;
+      v136 = home3;
+      v137 = 2112;
+      v138 = home;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, its home: %@ doesn't match current home: %@", buf, 0x34u);
     }
 
@@ -3049,9 +3003,9 @@ LABEL_14:
       v34 = HMFGetLogIdentifier();
       uUID5 = [flowCopy UUID];
       *buf = 138543618;
-      v131 = v34;
-      v132 = 2112;
-      v133 = uUID5;
+      v130 = v34;
+      v131 = 2112;
+      v132 = uUID5;
       _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Configuring NFC reader key for Matter accessory", buf, 0x16u);
     }
 
@@ -3074,39 +3028,39 @@ LABEL_14:
     uuid4 = [val uuid];
     [(HMDHomeWalletKeyAccessoryManager *)v31 startHomeWalletKeyAddForAccessoryUUID:uuid4 keyType:0 expectedCount:1];
 
-    v128 = 0;
-    v102 = [v41 serializeWithError:&v128];
-    v100 = v128;
-    if (v102)
+    v127 = 0;
+    v101 = [v41 serializeWithError:&v127];
+    v99 = v127;
+    if (v101)
     {
       v43 = [val waitForDoorLockClusterObjectWithFlow:flowCopy];
-      v125[0] = MEMORY[0x277D85DD0];
-      v125[1] = 3221225472;
-      v125[2] = __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke;
-      v125[3] = &unk_279730600;
-      v126 = v102;
+      v124[0] = MEMORY[0x277D85DD0];
+      v124[1] = 3221225472;
+      v124[2] = __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke;
+      v124[3] = &unk_279730600;
+      v125 = v101;
       v44 = flowCopy;
-      v127 = v44;
-      v45 = [v43 then:v125];
-      v120[0] = MEMORY[0x277D85DD0];
-      v120[1] = 3221225472;
-      v120[2] = __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_2;
-      v120[3] = &unk_279730628;
-      v120[4] = v31;
-      v121 = v44;
-      v122 = keyCopy;
-      v123 = val;
-      v124 = completionCopy;
-      v117[0] = MEMORY[0x277D85DD0];
-      v117[1] = 3221225472;
-      v117[2] = __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_418;
-      v117[3] = &unk_279730650;
-      v117[4] = v31;
-      v118 = v121;
-      v119 = v124;
-      v46 = [v45 then:v120 orRecover:v117];
+      v126 = v44;
+      v45 = [v43 then:v124];
+      v119[0] = MEMORY[0x277D85DD0];
+      v119[1] = 3221225472;
+      v119[2] = __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_2;
+      v119[3] = &unk_279730628;
+      v119[4] = v31;
+      v120 = v44;
+      v121 = keyCopy;
+      v122 = val;
+      v123 = completionCopy;
+      v116[0] = MEMORY[0x277D85DD0];
+      v116[1] = 3221225472;
+      v116[2] = __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_418;
+      v116[3] = &unk_279730650;
+      v116[4] = v31;
+      v117 = v120;
+      v118 = v123;
+      v46 = [v45 then:v119 orRecover:v116];
 
-      v47 = v126;
+      v47 = v125;
     }
 
     else
@@ -3120,15 +3074,15 @@ LABEL_14:
         uUID6 = [flowCopy UUID];
         shortDescription3 = [val shortDescription];
         *buf = 138544386;
-        v131 = v81;
-        v132 = 2112;
-        v133 = uUID6;
-        v134 = 2112;
-        v135 = shortDescription3;
-        v136 = 2112;
-        v137 = 0;
-        v138 = 2112;
-        v139 = v100;
+        v130 = v81;
+        v131 = 2112;
+        v132 = uUID6;
+        v133 = 2112;
+        v134 = shortDescription3;
+        v135 = 2112;
+        v136 = 0;
+        v137 = 2112;
+        v138 = v99;
         _os_log_impl(&dword_2531F8000, v80, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, unable to encode matter credential %@:%@", buf, 0x34u);
       }
 
@@ -3145,9 +3099,9 @@ LABEL_14:
       v54 = HMFGetLogIdentifier();
       uUID7 = [flowCopy UUID];
       *buf = 138543618;
-      v131 = v54;
-      v132 = 2112;
-      v133 = uUID7;
+      v130 = v54;
+      v131 = 2112;
+      v132 = uUID7;
       _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Configuring NFC reader key for HAP accessory", buf, 0x16u);
     }
 
@@ -3156,8 +3110,8 @@ LABEL_14:
     v36 = v56;
     if (v56)
     {
-      v103 = [(__CFString *)v56 findCharacteristicWithType:@"00000264-0000-1000-8000-0026BB765291"];
-      if (v103)
+      v102 = [(__CFString *)v56 findCharacteristicWithType:@"00000264-0000-1000-8000-0026BB765291"];
+      if (v102)
       {
         v57 = objc_alloc_init(MEMORY[0x277CFEBF8]);
         privateKey2 = [(__CFString *)keyCopy privateKey];
@@ -3169,16 +3123,16 @@ LABEL_14:
         nfcReaderIdentifier3 = [val nfcReaderIdentifier];
         [v57 setReaderIdentifier:nfcReaderIdentifier3];
 
-        v101 = [objc_alloc(MEMORY[0x277CFEBF0]) initWithValue:2];
-        v99 = [objc_alloc(MEMORY[0x277CFEBD0]) initWithOperationType:v101 issuerKeyRequest:0 issuerKeyResponse:0 deviceCredentialKeyRequest:0 deviceCredentialKeyResponse:0 readerKeyRequest:v57 readerKeyResponse:0];
-        v116 = 0;
-        v98 = [v99 serializeWithError:&v116];
-        v97 = v116;
-        if (v98)
+        v100 = [objc_alloc(MEMORY[0x277CFEBF0]) initWithValue:2];
+        v98 = [objc_alloc(MEMORY[0x277CFEBD0]) initWithOperationType:v100 issuerKeyRequest:0 issuerKeyResponse:0 deviceCredentialKeyRequest:0 deviceCredentialKeyResponse:0 readerKeyRequest:v57 readerKeyResponse:0];
+        v115 = 0;
+        v97 = [v98 serializeWithError:&v115];
+        v96 = v115;
+        if (v97)
         {
-          v61 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v103 value:v98 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
-          v129 = v61;
-          v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
+          v61 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v102 value:v97 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
+          v128 = v61;
+          v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
           dataSource = [(HMDHomeWalletKeyAccessoryManager *)v31 dataSource];
           accessoryWriteMaxRetryCount = [dataSource accessoryWriteMaxRetryCount];
           dataSource2 = [(HMDHomeWalletKeyAccessoryManager *)v31 dataSource];
@@ -3191,19 +3145,19 @@ LABEL_14:
           workQueue2 = [(HMDHomeWalletKeyAccessoryManager *)v31 workQueue];
           v69 = [v67 schedulerWithDispatchQueue:workQueue2];
           v70 = [v66 reschedule:v69];
-          v109[0] = MEMORY[0x277D85DD0];
-          v109[1] = 3221225472;
-          v109[2] = __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_420;
-          v109[3] = &unk_2797305D8;
-          objc_copyWeak(&v113, buf);
-          objc_copyWeak(&v114, &location);
-          v110 = flowCopy;
-          v112 = completionCopy;
-          v111 = v103;
-          v71 = [v70 addCompletionBlock:v109];
+          v108[0] = MEMORY[0x277D85DD0];
+          v108[1] = 3221225472;
+          v108[2] = __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_420;
+          v108[3] = &unk_2797305D8;
+          objc_copyWeak(&v112, buf);
+          objc_copyWeak(&v113, &location);
+          v109 = flowCopy;
+          v111 = completionCopy;
+          v110 = v102;
+          v71 = [v70 addCompletionBlock:v108];
 
-          objc_destroyWeak(&v114);
           objc_destroyWeak(&v113);
+          objc_destroyWeak(&v112);
           objc_destroyWeak(&location);
           objc_destroyWeak(buf);
         }
@@ -3219,15 +3173,15 @@ LABEL_14:
             uUID8 = [flowCopy UUID];
             shortDescription4 = [val shortDescription];
             *buf = 138544386;
-            v131 = v93;
-            v132 = 2112;
-            v133 = uUID8;
-            v134 = 2112;
-            v135 = shortDescription4;
-            v136 = 2112;
-            v137 = 0;
-            v138 = 2112;
-            v139 = v97;
+            v130 = v93;
+            v131 = 2112;
+            v132 = uUID8;
+            v133 = 2112;
+            v134 = shortDescription4;
+            v135 = 2112;
+            v136 = 0;
+            v137 = 2112;
+            v138 = v96;
             _os_log_impl(&dword_2531F8000, v92, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, unable to encode nfc access control %@:%@", buf, 0x34u);
           }
 
@@ -3248,15 +3202,15 @@ LABEL_14:
           uUID9 = [flowCopy UUID];
           shortDescription5 = [val shortDescription];
           *buf = 138544386;
-          v131 = v87;
-          v132 = 2112;
-          v133 = uUID9;
-          v134 = 2112;
-          v135 = shortDescription5;
-          v136 = 2112;
-          v137 = v36;
-          v138 = 2112;
-          v139 = @"00000264-0000-1000-8000-0026BB765291";
+          v130 = v87;
+          v131 = 2112;
+          v132 = uUID9;
+          v133 = 2112;
+          v134 = shortDescription5;
+          v135 = 2112;
+          v136 = v36;
+          v137 = 2112;
+          v138 = @"00000264-0000-1000-8000-0026BB765291";
           _os_log_impl(&dword_2531F8000, v86, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, NFC access service: %@ doesn't support control point characteristic: %@", buf, 0x34u);
         }
 
@@ -3277,25 +3231,23 @@ LABEL_14:
         uUID10 = [flowCopy UUID];
         shortDescription6 = [val shortDescription];
         *buf = 138544130;
-        v131 = v75;
-        v132 = 2112;
-        v133 = uUID10;
-        v134 = 2112;
-        v135 = shortDescription6;
-        v136 = 2112;
-        v137 = @"00000266-0000-1000-8000-0026BB765291";
+        v130 = v75;
+        v131 = 2112;
+        v132 = uUID10;
+        v133 = 2112;
+        v134 = shortDescription6;
+        v135 = 2112;
+        v136 = @"00000266-0000-1000-8000-0026BB765291";
         _os_log_impl(&dword_2531F8000, v74, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, it doesn't support nfc access service %@", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v72);
-      v104 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
-      completionCopy[2](completionCopy, v104);
+      v103 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
+      completionCopy[2](completionCopy, v103);
     }
   }
 
 LABEL_39:
-
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke(uint64_t a1, void *a2)
@@ -3312,13 +3264,13 @@ uint64_t __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderK
   else
   {
     v7 = _HMFPreconditionFailure();
-    return __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_2(v7);
+    return __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_2(v7, v8);
   }
 }
 
 uint64_t __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 status];
   if (v4 && (v5 = v4, [v3 status], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToNumber:", &unk_286629D70), v6, v5, v7))
@@ -3332,15 +3284,15 @@ uint64_t __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderK
       v12 = [*(a1 + 40) UUID];
       v13 = *(a1 + 48);
       v14 = [*(a1 + 56) uuid];
-      v27 = 138544130;
-      v28 = v11;
-      v29 = 2112;
-      v30 = v12;
-      v31 = 2112;
-      v32 = v13;
-      v33 = 2112;
-      v34 = v14;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured accessory with NFC reader key: %@, accessory: %@", &v27, 0x2Au);
+      v26 = 138544130;
+      v27 = v11;
+      v28 = 2112;
+      v29 = v12;
+      v30 = 2112;
+      v31 = v13;
+      v32 = 2112;
+      v33 = v14;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured accessory with NFC reader key: %@, accessory: %@", &v26, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -3361,15 +3313,15 @@ uint64_t __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderK
       v21 = [*(a1 + 40) UUID];
       v22 = [*(a1 + 56) shortDescription];
       v23 = [v3 status];
-      v27 = 138544130;
-      v28 = v20;
-      v29 = 2112;
-      v30 = v21;
-      v31 = 2112;
-      v32 = v22;
-      v33 = 2112;
-      v34 = v23;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@ with status code: %@", &v27, 0x2Au);
+      v26 = 138544130;
+      v27 = v20;
+      v28 = 2112;
+      v29 = v21;
+      v30 = 2112;
+      v31 = v22;
+      v32 = 2112;
+      v33 = v23;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@ with status code: %@", &v26, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -3378,13 +3330,12 @@ uint64_t __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderK
     (*(v24 + 16))(v24, v16);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_418(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 domain];
   v5 = v4;
@@ -3406,13 +3357,13 @@ LABEL_7:
     {
       v12 = HMFGetLogIdentifier();
       v13 = [*(a1 + 40) UUID];
-      v16 = 138543874;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v3;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Failed to configure NFC reader key with error: %@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Failed to configure NFC reader key with error: %@", &v15, 0x20u);
     }
 
     goto LABEL_9;
@@ -3425,11 +3376,11 @@ LABEL_7:
   {
     v10 = HMFGetLogIdentifier();
     v11 = [*(a1 + 40) UUID];
-    v16 = 138543618;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v11;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Ignoring duplicate error while adding Reader key", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v11;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Ignoring duplicate error while adding Reader key", &v15, 0x16u);
   }
 
 LABEL_9:
@@ -3437,13 +3388,12 @@ LABEL_9:
   objc_autoreleasePoolPop(v7);
   (*(*(a1 + 48) + 16))();
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_accessory_flow_completion___block_invoke_420(uint64_t a1, void *a2, void *a3)
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -3454,9 +3404,9 @@ void __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_a
     if (v5)
     {
       v10 = *(a1 + 40);
-      v87 = 0;
-      v11 = [v5 hmd_valueOfCharacteristic:v10 error:&v87];
-      v12 = v87;
+      v86 = 0;
+      v11 = [v5 hmd_valueOfCharacteristic:v10 error:&v86];
+      v12 = v86;
       if (!v11)
       {
         v45 = objc_autoreleasePoolPush();
@@ -3465,33 +3415,33 @@ void __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_a
         if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v48 = v81 = WeakRetained;
+          v48 = v80 = WeakRetained;
           [*(a1 + 32) UUID];
           v49 = v5;
           v50 = v9;
-          v51 = v85 = v6;
+          v51 = v84 = v6;
           [v9 shortDescription];
           v53 = v52 = v45;
           v54 = *(a1 + 40);
           *buf = 138544386;
-          v89 = v48;
-          v90 = 2112;
-          v91 = v51;
-          v92 = 2112;
-          v93 = v53;
-          v94 = 2112;
-          v95 = v49;
-          v96 = 2112;
-          v97 = v54;
+          v88 = v48;
+          v89 = 2112;
+          v90 = v51;
+          v91 = 2112;
+          v92 = v53;
+          v93 = 2112;
+          v94 = v49;
+          v95 = 2112;
+          v96 = v54;
           _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, unable to parse write response dictionary: %@ with characteristic: %@", buf, 0x34u);
 
           v45 = v52;
-          v6 = v85;
+          v6 = v84;
           v9 = v50;
           v5 = v49;
           v11 = 0;
 
-          WeakRetained = v81;
+          WeakRetained = v80;
         }
 
         objc_autoreleasePoolPop(v45);
@@ -3499,7 +3449,7 @@ void __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_a
         goto LABEL_32;
       }
 
-      v84 = v6;
+      v83 = v6;
       v13 = v11;
       objc_opt_class();
       v14 = objc_opt_isKindOfClass() & 1;
@@ -3517,48 +3467,48 @@ void __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_a
 
       if (!v14)
       {
-        v82 = v16;
+        v81 = v16;
         v55 = objc_autoreleasePoolPush();
         v56 = WeakRetained;
         v57 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v58 = v74 = v56;
+          v58 = v73 = v56;
           [*(a1 + 32) UUID];
-          v59 = v78 = v11;
+          v59 = v77 = v11;
           [v9 shortDescription];
-          v60 = v76 = v55;
+          v60 = v75 = v55;
           *buf = 138544130;
-          v89 = v58;
-          v90 = 2112;
-          v91 = v59;
-          v92 = 2112;
-          v93 = v13;
-          v94 = 2112;
-          v95 = v60;
+          v88 = v58;
+          v89 = 2112;
+          v90 = v59;
+          v91 = 2112;
+          v92 = v13;
+          v93 = 2112;
+          v94 = v60;
           _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, response value: %@ is not of type NSData", buf, 0x2Au);
 
-          v55 = v76;
-          v11 = v78;
+          v55 = v75;
+          v11 = v77;
 
-          v56 = v74;
+          v56 = v73;
         }
 
         objc_autoreleasePoolPop(v55);
         v61 = *(a1 + 48);
         v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
         (*(v61 + 16))(v61, v19);
-        v16 = v82;
-        v6 = v84;
+        v16 = v81;
+        v6 = v83;
         goto LABEL_31;
       }
 
-      v86 = 0;
-      v17 = [MEMORY[0x277CFEBD0] parsedFromData:v13 error:&v86];
-      v18 = v86;
+      v85 = 0;
+      v17 = [MEMORY[0x277CFEBD0] parsedFromData:v13 error:&v85];
+      v18 = v85;
       v19 = v18;
-      v75 = v17;
+      v74 = v17;
       if (v17)
       {
         v20 = [v17 readerKeyResponse];
@@ -3570,33 +3520,33 @@ void __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_a
           goto LABEL_30;
         }
 
-        v73 = v19;
-        v80 = v16;
+        v72 = v19;
+        v79 = v16;
         v22 = objc_autoreleasePoolPush();
         v23 = WeakRetained;
         v24 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v25 = v69 = v23;
+          v25 = v68 = v23;
           [*(a1 + 32) UUID];
-          v26 = v77 = v11;
+          v26 = v76 = v11;
           [v9 shortDescription];
-          v27 = v71 = v22;
+          v27 = v70 = v22;
           *buf = 138544130;
-          v89 = v25;
-          v90 = 2112;
-          v91 = v26;
-          v92 = 2112;
-          v93 = v27;
-          v94 = 2112;
-          v95 = v21;
+          v88 = v25;
+          v89 = 2112;
+          v90 = v26;
+          v91 = 2112;
+          v92 = v27;
+          v93 = 2112;
+          v94 = v21;
           _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@ with status code: %@", buf, 0x2Au);
 
-          v22 = v71;
-          v11 = v77;
+          v22 = v70;
+          v11 = v76;
 
-          v23 = v69;
+          v23 = v68;
         }
 
         objc_autoreleasePoolPop(v22);
@@ -3604,39 +3554,39 @@ void __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_a
         v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
         (*(v28 + 16))(v28, v29);
 
-        v16 = v80;
+        v16 = v79;
       }
 
       else
       {
-        v73 = v18;
+        v72 = v18;
         v62 = objc_autoreleasePoolPush();
-        v72 = WeakRetained;
+        v71 = WeakRetained;
         v63 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v64 = v79 = v11;
+          v64 = v78 = v11;
           [*(a1 + 32) UUID];
-          v65 = v70 = v62;
+          v65 = v69 = v62;
           [v9 shortDescription];
-          v66 = v83 = v16;
+          v66 = v82 = v16;
           *buf = 138544386;
-          v89 = v64;
-          v90 = 2112;
-          v91 = v65;
-          v92 = 2112;
-          v93 = v66;
-          v94 = 2112;
-          v95 = v13;
-          v96 = 2112;
-          v97 = v73;
+          v88 = v64;
+          v89 = 2112;
+          v90 = v65;
+          v91 = 2112;
+          v92 = v66;
+          v93 = 2112;
+          v94 = v13;
+          v95 = 2112;
+          v96 = v72;
           _os_log_impl(&dword_2531F8000, v63, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, failed to parse response value %@:%@", buf, 0x34u);
 
-          v16 = v83;
-          v62 = v70;
+          v16 = v82;
+          v62 = v69;
 
-          v11 = v79;
+          v11 = v78;
         }
 
         objc_autoreleasePoolPop(v62);
@@ -3645,10 +3595,10 @@ void __97__HMDHomeWalletKeyAccessoryManager_configureAccessoryWithNfcReaderKey_a
         (*(v67 + 16))(v67, v21);
       }
 
-      v19 = v73;
+      v19 = v72;
 LABEL_30:
 
-      v6 = v84;
+      v6 = v83;
 LABEL_31:
 
 LABEL_32:
@@ -3666,13 +3616,13 @@ LABEL_32:
       v42 = [*(a1 + 32) UUID];
       v43 = [v36 shortDescription];
       *buf = 138544130;
-      v89 = v41;
-      v90 = 2112;
-      v91 = v42;
-      v92 = 2112;
-      v93 = v43;
-      v94 = 2112;
-      v95 = v37;
+      v88 = v41;
+      v89 = 2112;
+      v90 = v42;
+      v91 = 2112;
+      v92 = v43;
+      v93 = 2112;
+      v94 = v37;
       _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, write response is nil: %@", buf, 0x2Au);
     }
 
@@ -3695,11 +3645,11 @@ LABEL_32:
       v33 = [*(a1 + 32) UUID];
       v34 = [v9 shortDescription];
       *buf = 138543874;
-      v89 = v32;
-      v90 = 2112;
-      v91 = v33;
-      v92 = 2112;
-      v93 = v34;
+      v88 = v32;
+      v89 = 2112;
+      v90 = v33;
+      v91 = 2112;
+      v92 = v34;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure with reader key: %@, object got invalidated", buf, 0x20u);
     }
 
@@ -3710,14 +3660,506 @@ LABEL_32:
   }
 
 LABEL_33:
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNfcReaderKeyWithIdentifier:(id)identifier accessory:(id)accessory flow:(id)flow completion:(id)completion
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  accessoryCopy = accessory;
+  flowCopy = flow;
+  completionCopy = completion;
+  workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  home = [(HMDHomeWalletKeyAccessoryManager *)self home];
+  v14 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v16 = HMFGetOSLogHandle();
+  v17 = v16;
+  if (home)
+  {
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      v18 = HMFGetLogIdentifier();
+      uUID = [flowCopy UUID];
+      shortDescription = [accessoryCopy shortDescription];
+      *buf = 138544130;
+      v84 = v18;
+      v85 = 2112;
+      v86 = uUID;
+      v87 = 2112;
+      v88 = shortDescription;
+      v89 = 2112;
+      v90 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Removing nfc reader key with identifier from accessory %@:%@", buf, 0x2Au);
+    }
+
+    objc_autoreleasePoolPop(v14);
+    home2 = [accessoryCopy home];
+    uuid = [home2 uuid];
+    uuid2 = [(__CFString *)home uuid];
+    v24 = [uuid isEqual:uuid2];
+
+    if (v24)
+    {
+      v25 = [accessoryCopy findServiceWithServiceType:@"00000266-0000-1000-8000-0026BB765291"];
+      v26 = v25;
+      if (v25)
+      {
+        v27 = [(__CFString *)v25 findCharacteristicWithType:@"00000264-0000-1000-8000-0026BB765291"];
+        if (v27)
+        {
+          context = objc_alloc_init(MEMORY[0x277CFEBF8]);
+          [context setIdentifier:identifierCopy];
+          v66 = [objc_alloc(MEMORY[0x277CFEBF0]) initWithValue:3];
+          v65 = [objc_alloc(MEMORY[0x277CFEBD0]) initWithOperationType:v66 issuerKeyRequest:0 issuerKeyResponse:0 deviceCredentialKeyRequest:0 deviceCredentialKeyResponse:0 readerKeyRequest:context readerKeyResponse:0];
+          v81 = 0;
+          v64 = [v65 serializeWithError:&v81];
+          v61 = v81;
+          if (v64)
+          {
+            v62 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v27 value:v64 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
+            v82 = v62;
+            v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:1];
+            dataSource = [(HMDHomeWalletKeyAccessoryManager *)selfCopy dataSource];
+            accessoryWriteMaxRetryCount = [dataSource accessoryWriteMaxRetryCount];
+            dataSource2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy dataSource];
+            [dataSource2 accessoryWriteRetryInterval];
+            v32 = [(__CFString *)home performWriteRequests:v28 withRetries:accessoryWriteMaxRetryCount timeInterval:selfCopy loggingObject:flowCopy flow:?];
+
+            objc_initWeak(buf, selfCopy);
+            objc_initWeak(&location, accessoryCopy);
+            v33 = MEMORY[0x277D2C938];
+            workQueue2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy workQueue];
+            v35 = [v33 schedulerWithDispatchQueue:workQueue2];
+            v36 = [v32 reschedule:v35];
+            v74[0] = MEMORY[0x277D85DD0];
+            v74[1] = 3221225472;
+            v74[2] = __95__HMDHomeWalletKeyAccessoryManager_removeNfcReaderKeyWithIdentifier_accessory_flow_completion___block_invoke;
+            v74[3] = &unk_2797305D8;
+            objc_copyWeak(&v78, buf);
+            objc_copyWeak(&v79, &location);
+            v75 = flowCopy;
+            v77 = completionCopy;
+            v76 = v27;
+            v37 = [v36 addCompletionBlock:v74];
+
+            objc_destroyWeak(&v79);
+            objc_destroyWeak(&v78);
+            objc_destroyWeak(&location);
+            objc_destroyWeak(buf);
+          }
+
+          else
+          {
+            v56 = objc_autoreleasePoolPush();
+            v57 = selfCopy;
+            v58 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+            {
+              v63 = HMFGetLogIdentifier();
+              uUID2 = [flowCopy UUID];
+              shortDescription2 = [accessoryCopy shortDescription];
+              *buf = 138544386;
+              v84 = v63;
+              v85 = 2112;
+              v86 = uUID2;
+              v87 = 2112;
+              v88 = shortDescription2;
+              v89 = 2112;
+              v90 = 0;
+              v91 = 2112;
+              v92 = v61;
+              _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, unable to encode nfc access control %@:%@", buf, 0x34u);
+            }
+
+            objc_autoreleasePoolPop(v56);
+            v62 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+            (*(completionCopy + 2))(completionCopy, v62);
+          }
+        }
+
+        else
+        {
+          contextb = objc_autoreleasePoolPush();
+          v52 = selfCopy;
+          v53 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          {
+            v67 = HMFGetLogIdentifier();
+            uUID3 = [flowCopy UUID];
+            shortDescription3 = [accessoryCopy shortDescription];
+            *buf = 138544386;
+            v84 = v67;
+            v85 = 2112;
+            v86 = uUID3;
+            v87 = 2112;
+            v88 = shortDescription3;
+            v89 = 2112;
+            v90 = v26;
+            v91 = 2112;
+            v92 = @"00000264-0000-1000-8000-0026BB765291";
+            _os_log_impl(&dword_2531F8000, v53, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, NFC access service: %@ doesn't support control point characteristic: %@", buf, 0x34u);
+          }
+
+          objc_autoreleasePoolPop(contextb);
+          contextc = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+          (*(completionCopy + 2))(completionCopy, contextc);
+        }
+      }
+
+      else
+      {
+        contexta = objc_autoreleasePoolPush();
+        v47 = selfCopy;
+        v48 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        {
+          v49 = HMFGetLogIdentifier();
+          uUID4 = [flowCopy UUID];
+          shortDescription4 = [accessoryCopy shortDescription];
+          *buf = 138544130;
+          v84 = v49;
+          v85 = 2112;
+          v86 = uUID4;
+          v87 = 2112;
+          v88 = shortDescription4;
+          v89 = 2112;
+          v90 = @"00000266-0000-1000-8000-0026BB765291";
+          _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, it doesn't support nfc access service %@", buf, 0x2Au);
+        }
+
+        objc_autoreleasePoolPop(contexta);
+        v27 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
+        (*(completionCopy + 2))(completionCopy, v27);
+      }
+    }
+
+    else
+    {
+      v40 = objc_autoreleasePoolPush();
+      v41 = selfCopy;
+      v42 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      {
+        v43 = HMFGetLogIdentifier();
+        uUID5 = [flowCopy UUID];
+        shortDescription5 = [accessoryCopy shortDescription];
+        home3 = [accessoryCopy home];
+        *buf = 138544386;
+        v84 = v43;
+        v85 = 2112;
+        v86 = uUID5;
+        v87 = 2112;
+        v88 = shortDescription5;
+        v89 = 2112;
+        v90 = home3;
+        v91 = 2112;
+        v92 = home;
+        _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, its home: %@ doesn't match current home: %@", buf, 0x34u);
+      }
+
+      objc_autoreleasePoolPop(v40);
+      v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+      (*(completionCopy + 2))(completionCopy, v26);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v38 = HMFGetLogIdentifier();
+      uUID6 = [flowCopy UUID];
+      *buf = 138543618;
+      v84 = v38;
+      v85 = 2112;
+      v86 = uUID6;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from accessory, home is nil", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v14);
+    v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+    (*(completionCopy + 2))(completionCopy, v26);
+  }
+}
+
+void __95__HMDHomeWalletKeyAccessoryManager_removeNfcReaderKeyWithIdentifier_accessory_flow_completion___block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v97 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = a3;
+  WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v8 = objc_loadWeakRetained((a1 + 64));
+  v9 = v8;
+  if (WeakRetained)
+  {
+    if (v5)
+    {
+      v10 = *(a1 + 40);
+      v86 = 0;
+      v11 = [v5 hmd_valueOfCharacteristic:v10 error:&v86];
+      v12 = v86;
+      if (!v11)
+      {
+        v45 = objc_autoreleasePoolPush();
+        v46 = WeakRetained;
+        v47 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        {
+          HMFGetLogIdentifier();
+          v48 = v80 = WeakRetained;
+          [*(a1 + 32) UUID];
+          v49 = v5;
+          v50 = v9;
+          v51 = v84 = v6;
+          [v9 shortDescription];
+          v53 = v52 = v45;
+          v54 = *(a1 + 40);
+          *buf = 138544386;
+          v88 = v48;
+          v89 = 2112;
+          v90 = v51;
+          v91 = 2112;
+          v92 = v53;
+          v93 = 2112;
+          v94 = v49;
+          v95 = 2112;
+          v96 = v54;
+          _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, unable to parse write response dictionary: %@ with characteristic: %@", buf, 0x34u);
+
+          v45 = v52;
+          v6 = v84;
+          v9 = v50;
+          v5 = v49;
+          v11 = 0;
+
+          WeakRetained = v80;
+        }
+
+        objc_autoreleasePoolPop(v45);
+        (*(*(a1 + 48) + 16))();
+        goto LABEL_32;
+      }
+
+      v83 = v6;
+      v13 = v11;
+      objc_opt_class();
+      v14 = objc_opt_isKindOfClass() & 1;
+      if (v14)
+      {
+        v15 = v13;
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      v16 = v15;
+
+      if (!v14)
+      {
+        v81 = v16;
+        v55 = objc_autoreleasePoolPush();
+        v56 = WeakRetained;
+        v57 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        {
+          HMFGetLogIdentifier();
+          v58 = v73 = v56;
+          [*(a1 + 32) UUID];
+          v59 = v77 = v11;
+          [v9 shortDescription];
+          v60 = v75 = v55;
+          *buf = 138544130;
+          v88 = v58;
+          v89 = 2112;
+          v90 = v59;
+          v91 = 2112;
+          v92 = v13;
+          v93 = 2112;
+          v94 = v60;
+          _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, response value: %@ is not of type NSData", buf, 0x2Au);
+
+          v55 = v75;
+          v11 = v77;
+
+          v56 = v73;
+        }
+
+        objc_autoreleasePoolPop(v55);
+        v61 = *(a1 + 48);
+        v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+        (*(v61 + 16))(v61, v19);
+        v16 = v81;
+        v6 = v83;
+        goto LABEL_31;
+      }
+
+      v85 = 0;
+      v17 = [MEMORY[0x277CFEBD0] parsedFromData:v13 error:&v85];
+      v18 = v85;
+      v19 = v18;
+      v74 = v17;
+      if (v17)
+      {
+        v20 = [v17 readerKeyResponse];
+        v21 = [v20 statusCode];
+
+        if (v21 && ![v21 value])
+        {
+          (*(*(a1 + 48) + 16))();
+          goto LABEL_30;
+        }
+
+        v72 = v19;
+        v79 = v16;
+        v22 = objc_autoreleasePoolPush();
+        v23 = WeakRetained;
+        v24 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        {
+          HMFGetLogIdentifier();
+          v25 = v68 = v23;
+          [*(a1 + 32) UUID];
+          v26 = v76 = v11;
+          [v9 shortDescription];
+          v27 = v70 = v22;
+          *buf = 138544130;
+          v88 = v25;
+          v89 = 2112;
+          v90 = v26;
+          v91 = 2112;
+          v92 = v27;
+          v93 = 2112;
+          v94 = v21;
+          _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@ with status code: %@", buf, 0x2Au);
+
+          v22 = v70;
+          v11 = v76;
+
+          v23 = v68;
+        }
+
+        objc_autoreleasePoolPop(v22);
+        v28 = *(a1 + 48);
+        v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
+        (*(v28 + 16))(v28, v29);
+
+        v16 = v79;
+      }
+
+      else
+      {
+        v72 = v18;
+        v62 = objc_autoreleasePoolPush();
+        v71 = WeakRetained;
+        v63 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+        {
+          HMFGetLogIdentifier();
+          v64 = v78 = v11;
+          [*(a1 + 32) UUID];
+          v65 = v69 = v62;
+          [v9 shortDescription];
+          v66 = v82 = v16;
+          *buf = 138544386;
+          v88 = v64;
+          v89 = 2112;
+          v90 = v65;
+          v91 = 2112;
+          v92 = v66;
+          v93 = 2112;
+          v94 = v13;
+          v95 = 2112;
+          v96 = v72;
+          _os_log_impl(&dword_2531F8000, v63, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, failed to parse response value %@:%@", buf, 0x34u);
+
+          v16 = v82;
+          v62 = v69;
+
+          v11 = v78;
+        }
+
+        objc_autoreleasePoolPop(v62);
+        v67 = *(a1 + 48);
+        v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+        (*(v67 + 16))(v67, v21);
+      }
+
+      v19 = v72;
+LABEL_30:
+
+      v6 = v83;
+LABEL_31:
+
+LABEL_32:
+      goto LABEL_33;
+    }
+
+    v36 = v8;
+    v37 = v6;
+    v38 = objc_autoreleasePoolPush();
+    v39 = WeakRetained;
+    v40 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    {
+      v41 = HMFGetLogIdentifier();
+      v42 = [*(a1 + 32) UUID];
+      v43 = [v36 shortDescription];
+      *buf = 138544130;
+      v88 = v41;
+      v89 = 2112;
+      v90 = v42;
+      v91 = 2112;
+      v92 = v43;
+      v93 = 2112;
+      v94 = v37;
+      _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, write response is nil: %@", buf, 0x2Au);
+    }
+
+    objc_autoreleasePoolPop(v38);
+    v44 = *(a1 + 48);
+    v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+    (*(v44 + 16))(v44, v12);
+    v6 = v37;
+    v9 = v36;
+    v5 = 0;
+  }
+
+  else
+  {
+    v30 = objc_autoreleasePoolPush();
+    v31 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      v32 = HMFGetLogIdentifier();
+      v33 = [*(a1 + 32) UUID];
+      v34 = [v9 shortDescription];
+      *buf = 138543874;
+      v88 = v32;
+      v89 = 2112;
+      v90 = v33;
+      v91 = 2112;
+      v92 = v34;
+      _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, object got invalidated", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v30);
+    v35 = *(a1 + 48);
+    v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+    (*(v35 + 16))(v35, v12);
+  }
+
+LABEL_33:
+}
+
+- (void)fetchIsAccessoryConfiguredWithReaderKey:(id)key accessory:(id)accessory flow:(id)flow completion:(id)completion
+{
+  v94 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
   accessoryCopy = accessory;
   flowCopy = flow;
   completionCopy = completion;
@@ -3743,8 +4185,8 @@ LABEL_33:
       v88 = 2112;
       v89 = shortDescription;
       v90 = 2112;
-      v91 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Removing nfc reader key with identifier from accessory %@:%@", buf, 0x2Au);
+      v91 = keyCopy;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching accessory is configured with nfc reader key %@:%@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -3763,16 +4205,15 @@ LABEL_33:
         if (v27)
         {
           context = objc_alloc_init(MEMORY[0x277CFEBF8]);
-          [context setIdentifier:identifierCopy];
-          v67 = [objc_alloc(MEMORY[0x277CFEBF0]) initWithValue:3];
-          v66 = [objc_alloc(MEMORY[0x277CFEBD0]) initWithOperationType:v67 issuerKeyRequest:0 issuerKeyResponse:0 deviceCredentialKeyRequest:0 deviceCredentialKeyResponse:0 readerKeyRequest:context readerKeyResponse:0];
+          v66 = [objc_alloc(MEMORY[0x277CFEBF0]) initWithValue:1];
+          v65 = [objc_alloc(MEMORY[0x277CFEBD0]) initWithOperationType:v66 issuerKeyRequest:0 issuerKeyResponse:0 deviceCredentialKeyRequest:0 deviceCredentialKeyResponse:0 readerKeyRequest:context readerKeyResponse:0];
           v82 = 0;
-          v65 = [v66 serializeWithError:&v82];
-          v62 = v82;
-          if (v65)
+          v64 = [v65 serializeWithError:&v82];
+          v61 = v82;
+          if (v64)
           {
-            v63 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v27 value:v65 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
-            v83 = v63;
+            v62 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v27 value:v64 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
+            v83 = v62;
             v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
             dataSource = [(HMDHomeWalletKeyAccessoryManager *)selfCopy dataSource];
             accessoryWriteMaxRetryCount = [dataSource accessoryWriteMaxRetryCount];
@@ -3786,16 +4227,17 @@ LABEL_33:
             workQueue2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy workQueue];
             v35 = [v33 schedulerWithDispatchQueue:workQueue2];
             v36 = [v32 reschedule:v35];
-            v75[0] = MEMORY[0x277D85DD0];
-            v75[1] = 3221225472;
-            v75[2] = __95__HMDHomeWalletKeyAccessoryManager_removeNfcReaderKeyWithIdentifier_accessory_flow_completion___block_invoke;
-            v75[3] = &unk_2797305D8;
+            v74[0] = MEMORY[0x277D85DD0];
+            v74[1] = 3221225472;
+            v74[2] = __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReaderKey_accessory_flow_completion___block_invoke;
+            v74[3] = &unk_2797305B0;
             objc_copyWeak(&v79, buf);
             objc_copyWeak(&v80, &location);
-            v76 = flowCopy;
+            v75 = flowCopy;
             v78 = completionCopy;
-            v77 = v27;
-            v37 = [v36 addCompletionBlock:v75];
+            v76 = v27;
+            v77 = keyCopy;
+            v37 = [v36 addCompletionBlock:v74];
 
             objc_destroyWeak(&v80);
             objc_destroyWeak(&v79);
@@ -3805,16 +4247,16 @@ LABEL_33:
 
           else
           {
-            v56 = objc_autoreleasePoolPush();
-            v57 = selfCopy;
-            v58 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+            v63 = objc_autoreleasePoolPush();
+            v56 = selfCopy;
+            v57 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
-              v64 = HMFGetLogIdentifier();
+              v58 = HMFGetLogIdentifier();
               uUID2 = [flowCopy UUID];
               shortDescription2 = [accessoryCopy shortDescription];
               *buf = 138544386;
-              v85 = v64;
+              v85 = v58;
               v86 = 2112;
               v87 = uUID2;
               v88 = 2112;
@@ -3822,13 +4264,13 @@ LABEL_33:
               v90 = 2112;
               v91 = 0;
               v92 = 2112;
-              v93 = v62;
-              _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, unable to encode nfc access control %@:%@", buf, 0x34u);
+              v93 = v61;
+              _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, unable to encode nfc access control %@:%@", buf, 0x34u);
             }
 
-            objc_autoreleasePoolPop(v56);
-            v63 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-            (*(completionCopy + 2))(completionCopy, v63);
+            objc_autoreleasePoolPop(v63);
+            v62 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+            (*(completionCopy + 2))(completionCopy, 0, 0, v62);
           }
         }
 
@@ -3839,11 +4281,11 @@ LABEL_33:
           v53 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
-            v68 = HMFGetLogIdentifier();
+            v67 = HMFGetLogIdentifier();
             uUID3 = [flowCopy UUID];
             shortDescription3 = [accessoryCopy shortDescription];
             *buf = 138544386;
-            v85 = v68;
+            v85 = v67;
             v86 = 2112;
             v87 = uUID3;
             v88 = 2112;
@@ -3852,12 +4294,12 @@ LABEL_33:
             v91 = v26;
             v92 = 2112;
             v93 = @"00000264-0000-1000-8000-0026BB765291";
-            _os_log_impl(&dword_2531F8000, v53, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, NFC access service: %@ doesn't support control point characteristic: %@", buf, 0x34u);
+            _os_log_impl(&dword_2531F8000, v53, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, NFC access service: %@ doesn't support control point characteristic: %@", buf, 0x34u);
           }
 
           objc_autoreleasePoolPop(contextb);
           contextc = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-          (*(completionCopy + 2))(completionCopy, contextc);
+          (*(completionCopy + 2))(completionCopy, 0, 0, contextc);
         }
       }
 
@@ -3879,12 +4321,12 @@ LABEL_33:
           v89 = shortDescription4;
           v90 = 2112;
           v91 = @"00000266-0000-1000-8000-0026BB765291";
-          _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, it doesn't support nfc access service %@", buf, 0x2Au);
+          _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, it doesn't support nfc access service %@", buf, 0x2Au);
         }
 
         objc_autoreleasePoolPop(contexta);
         v27 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
-        (*(completionCopy + 2))(completionCopy, v27);
+        (*(completionCopy + 2))(completionCopy, 0, 0, v27);
       }
     }
 
@@ -3909,504 +4351,6 @@ LABEL_33:
         v91 = home3;
         v92 = 2112;
         v93 = home;
-        _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, its home: %@ doesn't match current home: %@", buf, 0x34u);
-      }
-
-      objc_autoreleasePoolPop(v40);
-      v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-      (*(completionCopy + 2))(completionCopy, v26);
-    }
-  }
-
-  else
-  {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      v38 = HMFGetLogIdentifier();
-      uUID6 = [flowCopy UUID];
-      *buf = 138543618;
-      v85 = v38;
-      v86 = 2112;
-      v87 = uUID6;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from accessory, home is nil", buf, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v14);
-    v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-    (*(completionCopy + 2))(completionCopy, v26);
-  }
-
-  v61 = *MEMORY[0x277D85DE8];
-}
-
-void __95__HMDHomeWalletKeyAccessoryManager_removeNfcReaderKeyWithIdentifier_accessory_flow_completion___block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v98 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  v6 = a3;
-  WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v8 = objc_loadWeakRetained((a1 + 64));
-  v9 = v8;
-  if (WeakRetained)
-  {
-    if (v5)
-    {
-      v10 = *(a1 + 40);
-      v87 = 0;
-      v11 = [v5 hmd_valueOfCharacteristic:v10 error:&v87];
-      v12 = v87;
-      if (!v11)
-      {
-        v45 = objc_autoreleasePoolPush();
-        v46 = WeakRetained;
-        v47 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-        {
-          HMFGetLogIdentifier();
-          v48 = v81 = WeakRetained;
-          [*(a1 + 32) UUID];
-          v49 = v5;
-          v50 = v9;
-          v51 = v85 = v6;
-          [v9 shortDescription];
-          v53 = v52 = v45;
-          v54 = *(a1 + 40);
-          *buf = 138544386;
-          v89 = v48;
-          v90 = 2112;
-          v91 = v51;
-          v92 = 2112;
-          v93 = v53;
-          v94 = 2112;
-          v95 = v49;
-          v96 = 2112;
-          v97 = v54;
-          _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, unable to parse write response dictionary: %@ with characteristic: %@", buf, 0x34u);
-
-          v45 = v52;
-          v6 = v85;
-          v9 = v50;
-          v5 = v49;
-          v11 = 0;
-
-          WeakRetained = v81;
-        }
-
-        objc_autoreleasePoolPop(v45);
-        (*(*(a1 + 48) + 16))();
-        goto LABEL_32;
-      }
-
-      v84 = v6;
-      v13 = v11;
-      objc_opt_class();
-      v14 = objc_opt_isKindOfClass() & 1;
-      if (v14)
-      {
-        v15 = v13;
-      }
-
-      else
-      {
-        v15 = 0;
-      }
-
-      v16 = v15;
-
-      if (!v14)
-      {
-        v82 = v16;
-        v55 = objc_autoreleasePoolPush();
-        v56 = WeakRetained;
-        v57 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
-        {
-          HMFGetLogIdentifier();
-          v58 = v74 = v56;
-          [*(a1 + 32) UUID];
-          v59 = v78 = v11;
-          [v9 shortDescription];
-          v60 = v76 = v55;
-          *buf = 138544130;
-          v89 = v58;
-          v90 = 2112;
-          v91 = v59;
-          v92 = 2112;
-          v93 = v13;
-          v94 = 2112;
-          v95 = v60;
-          _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, response value: %@ is not of type NSData", buf, 0x2Au);
-
-          v55 = v76;
-          v11 = v78;
-
-          v56 = v74;
-        }
-
-        objc_autoreleasePoolPop(v55);
-        v61 = *(a1 + 48);
-        v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-        (*(v61 + 16))(v61, v19);
-        v16 = v82;
-        v6 = v84;
-        goto LABEL_31;
-      }
-
-      v86 = 0;
-      v17 = [MEMORY[0x277CFEBD0] parsedFromData:v13 error:&v86];
-      v18 = v86;
-      v19 = v18;
-      v75 = v17;
-      if (v17)
-      {
-        v20 = [v17 readerKeyResponse];
-        v21 = [v20 statusCode];
-
-        if (v21 && ![v21 value])
-        {
-          (*(*(a1 + 48) + 16))();
-          goto LABEL_30;
-        }
-
-        v73 = v19;
-        v80 = v16;
-        v22 = objc_autoreleasePoolPush();
-        v23 = WeakRetained;
-        v24 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-        {
-          HMFGetLogIdentifier();
-          v25 = v69 = v23;
-          [*(a1 + 32) UUID];
-          v26 = v77 = v11;
-          [v9 shortDescription];
-          v27 = v71 = v22;
-          *buf = 138544130;
-          v89 = v25;
-          v90 = 2112;
-          v91 = v26;
-          v92 = 2112;
-          v93 = v27;
-          v94 = 2112;
-          v95 = v21;
-          _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@ with status code: %@", buf, 0x2Au);
-
-          v22 = v71;
-          v11 = v77;
-
-          v23 = v69;
-        }
-
-        objc_autoreleasePoolPop(v22);
-        v28 = *(a1 + 48);
-        v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
-        (*(v28 + 16))(v28, v29);
-
-        v16 = v80;
-      }
-
-      else
-      {
-        v73 = v18;
-        v62 = objc_autoreleasePoolPush();
-        v72 = WeakRetained;
-        v63 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
-        {
-          HMFGetLogIdentifier();
-          v64 = v79 = v11;
-          [*(a1 + 32) UUID];
-          v65 = v70 = v62;
-          [v9 shortDescription];
-          v66 = v83 = v16;
-          *buf = 138544386;
-          v89 = v64;
-          v90 = 2112;
-          v91 = v65;
-          v92 = 2112;
-          v93 = v66;
-          v94 = 2112;
-          v95 = v13;
-          v96 = 2112;
-          v97 = v73;
-          _os_log_impl(&dword_2531F8000, v63, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, failed to parse response value %@:%@", buf, 0x34u);
-
-          v16 = v83;
-          v62 = v70;
-
-          v11 = v79;
-        }
-
-        objc_autoreleasePoolPop(v62);
-        v67 = *(a1 + 48);
-        v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-        (*(v67 + 16))(v67, v21);
-      }
-
-      v19 = v73;
-LABEL_30:
-
-      v6 = v84;
-LABEL_31:
-
-LABEL_32:
-      goto LABEL_33;
-    }
-
-    v36 = v8;
-    v37 = v6;
-    v38 = objc_autoreleasePoolPush();
-    v39 = WeakRetained;
-    v40 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-    {
-      v41 = HMFGetLogIdentifier();
-      v42 = [*(a1 + 32) UUID];
-      v43 = [v36 shortDescription];
-      *buf = 138544130;
-      v89 = v41;
-      v90 = 2112;
-      v91 = v42;
-      v92 = 2112;
-      v93 = v43;
-      v94 = 2112;
-      v95 = v37;
-      _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, write response is nil: %@", buf, 0x2Au);
-    }
-
-    objc_autoreleasePoolPop(v38);
-    v44 = *(a1 + 48);
-    v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-    (*(v44 + 16))(v44, v12);
-    v6 = v37;
-    v9 = v36;
-    v5 = 0;
-  }
-
-  else
-  {
-    v30 = objc_autoreleasePoolPush();
-    v31 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-    {
-      v32 = HMFGetLogIdentifier();
-      v33 = [*(a1 + 32) UUID];
-      v34 = [v9 shortDescription];
-      *buf = 138543874;
-      v89 = v32;
-      v90 = 2112;
-      v91 = v33;
-      v92 = 2112;
-      v93 = v34;
-      _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to remove reader key from: %@, object got invalidated", buf, 0x20u);
-    }
-
-    objc_autoreleasePoolPop(v30);
-    v35 = *(a1 + 48);
-    v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-    (*(v35 + 16))(v35, v12);
-  }
-
-LABEL_33:
-
-  v68 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchIsAccessoryConfiguredWithReaderKey:(id)key accessory:(id)accessory flow:(id)flow completion:(id)completion
-{
-  v95 = *MEMORY[0x277D85DE8];
-  keyCopy = key;
-  accessoryCopy = accessory;
-  flowCopy = flow;
-  completionCopy = completion;
-  workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
-  dispatch_assert_queue_V2(workQueue);
-
-  home = [(HMDHomeWalletKeyAccessoryManager *)self home];
-  v14 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v16 = HMFGetOSLogHandle();
-  v17 = v16;
-  if (home)
-  {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
-    {
-      v18 = HMFGetLogIdentifier();
-      uUID = [flowCopy UUID];
-      shortDescription = [accessoryCopy shortDescription];
-      *buf = 138544130;
-      v86 = v18;
-      v87 = 2112;
-      v88 = uUID;
-      v89 = 2112;
-      v90 = shortDescription;
-      v91 = 2112;
-      v92 = keyCopy;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching accessory is configured with nfc reader key %@:%@", buf, 0x2Au);
-    }
-
-    objc_autoreleasePoolPop(v14);
-    home2 = [accessoryCopy home];
-    uuid = [home2 uuid];
-    uuid2 = [(__CFString *)home uuid];
-    v24 = [uuid isEqual:uuid2];
-
-    if (v24)
-    {
-      v25 = [accessoryCopy findServiceWithServiceType:@"00000266-0000-1000-8000-0026BB765291"];
-      v26 = v25;
-      if (v25)
-      {
-        v27 = [(__CFString *)v25 findCharacteristicWithType:@"00000264-0000-1000-8000-0026BB765291"];
-        if (v27)
-        {
-          context = objc_alloc_init(MEMORY[0x277CFEBF8]);
-          v67 = [objc_alloc(MEMORY[0x277CFEBF0]) initWithValue:1];
-          v66 = [objc_alloc(MEMORY[0x277CFEBD0]) initWithOperationType:v67 issuerKeyRequest:0 issuerKeyResponse:0 deviceCredentialKeyRequest:0 deviceCredentialKeyResponse:0 readerKeyRequest:context readerKeyResponse:0];
-          v83 = 0;
-          v65 = [v66 serializeWithError:&v83];
-          v62 = v83;
-          if (v65)
-          {
-            v63 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v27 value:v65 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
-            v84 = v63;
-            v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
-            dataSource = [(HMDHomeWalletKeyAccessoryManager *)selfCopy dataSource];
-            accessoryWriteMaxRetryCount = [dataSource accessoryWriteMaxRetryCount];
-            dataSource2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy dataSource];
-            [dataSource2 accessoryWriteRetryInterval];
-            v32 = [(__CFString *)home performWriteRequests:v28 withRetries:accessoryWriteMaxRetryCount timeInterval:selfCopy loggingObject:flowCopy flow:?];
-
-            objc_initWeak(buf, selfCopy);
-            objc_initWeak(&location, accessoryCopy);
-            v33 = MEMORY[0x277D2C938];
-            workQueue2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy workQueue];
-            v35 = [v33 schedulerWithDispatchQueue:workQueue2];
-            v36 = [v32 reschedule:v35];
-            v75[0] = MEMORY[0x277D85DD0];
-            v75[1] = 3221225472;
-            v75[2] = __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReaderKey_accessory_flow_completion___block_invoke;
-            v75[3] = &unk_2797305B0;
-            objc_copyWeak(&v80, buf);
-            objc_copyWeak(&v81, &location);
-            v76 = flowCopy;
-            v79 = completionCopy;
-            v77 = v27;
-            v78 = keyCopy;
-            v37 = [v36 addCompletionBlock:v75];
-
-            objc_destroyWeak(&v81);
-            objc_destroyWeak(&v80);
-            objc_destroyWeak(&location);
-            objc_destroyWeak(buf);
-          }
-
-          else
-          {
-            v64 = objc_autoreleasePoolPush();
-            v56 = selfCopy;
-            v57 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
-            {
-              v58 = HMFGetLogIdentifier();
-              uUID2 = [flowCopy UUID];
-              shortDescription2 = [accessoryCopy shortDescription];
-              *buf = 138544386;
-              v86 = v58;
-              v87 = 2112;
-              v88 = uUID2;
-              v89 = 2112;
-              v90 = shortDescription2;
-              v91 = 2112;
-              v92 = 0;
-              v93 = 2112;
-              v94 = v62;
-              _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, unable to encode nfc access control %@:%@", buf, 0x34u);
-            }
-
-            objc_autoreleasePoolPop(v64);
-            v63 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-            (*(completionCopy + 2))(completionCopy, 0, 0, v63);
-          }
-        }
-
-        else
-        {
-          contextb = objc_autoreleasePoolPush();
-          v52 = selfCopy;
-          v53 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
-          {
-            v68 = HMFGetLogIdentifier();
-            uUID3 = [flowCopy UUID];
-            shortDescription3 = [accessoryCopy shortDescription];
-            *buf = 138544386;
-            v86 = v68;
-            v87 = 2112;
-            v88 = uUID3;
-            v89 = 2112;
-            v90 = shortDescription3;
-            v91 = 2112;
-            v92 = v26;
-            v93 = 2112;
-            v94 = @"00000264-0000-1000-8000-0026BB765291";
-            _os_log_impl(&dword_2531F8000, v53, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, NFC access service: %@ doesn't support control point characteristic: %@", buf, 0x34u);
-          }
-
-          objc_autoreleasePoolPop(contextb);
-          contextc = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-          (*(completionCopy + 2))(completionCopy, 0, 0, contextc);
-        }
-      }
-
-      else
-      {
-        contexta = objc_autoreleasePoolPush();
-        v47 = selfCopy;
-        v48 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-        {
-          v49 = HMFGetLogIdentifier();
-          uUID4 = [flowCopy UUID];
-          shortDescription4 = [accessoryCopy shortDescription];
-          *buf = 138544130;
-          v86 = v49;
-          v87 = 2112;
-          v88 = uUID4;
-          v89 = 2112;
-          v90 = shortDescription4;
-          v91 = 2112;
-          v92 = @"00000266-0000-1000-8000-0026BB765291";
-          _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, it doesn't support nfc access service %@", buf, 0x2Au);
-        }
-
-        objc_autoreleasePoolPop(contexta);
-        v27 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
-        (*(completionCopy + 2))(completionCopy, 0, 0, v27);
-      }
-    }
-
-    else
-    {
-      v40 = objc_autoreleasePoolPush();
-      v41 = selfCopy;
-      v42 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-      {
-        v43 = HMFGetLogIdentifier();
-        uUID5 = [flowCopy UUID];
-        shortDescription5 = [accessoryCopy shortDescription];
-        home3 = [accessoryCopy home];
-        *buf = 138544386;
-        v86 = v43;
-        v87 = 2112;
-        v88 = uUID5;
-        v89 = 2112;
-        v90 = shortDescription5;
-        v91 = 2112;
-        v92 = home3;
-        v93 = 2112;
-        v94 = home;
         _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, its home: %@ doesn't match current home: %@", buf, 0x34u);
       }
 
@@ -4423,9 +4367,9 @@ LABEL_33:
       v38 = HMFGetLogIdentifier();
       uUID6 = [flowCopy UUID];
       *buf = 138543618;
-      v86 = v38;
-      v87 = 2112;
-      v88 = uUID6;
+      v85 = v38;
+      v86 = 2112;
+      v87 = uUID6;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch accessory is configured for wallet key, home is nil", buf, 0x16u);
     }
 
@@ -4433,13 +4377,11 @@ LABEL_33:
     v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     (*(completionCopy + 2))(completionCopy, 0, 0, v26);
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReaderKey_accessory_flow_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -4450,12 +4392,12 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
     if (v5)
     {
       v10 = *(a1 + 40);
-      v70 = 0;
-      v11 = [v5 hmd_valueOfCharacteristic:v10 error:&v70];
-      v12 = v70;
+      v69 = 0;
+      v11 = [v5 hmd_valueOfCharacteristic:v10 error:&v69];
+      v12 = v69;
       if (v11)
       {
-        v67 = v6;
+        v66 = v6;
         v13 = v11;
         objc_opt_class();
         v14 = objc_opt_isKindOfClass() & 1;
@@ -4469,16 +4411,16 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
           v15 = 0;
         }
 
-        v66 = v15;
+        v65 = v15;
 
         if (v14)
         {
-          v69 = 0;
-          v16 = [MEMORY[0x277CFEBD0] parsedFromData:v13 error:&v69];
-          v17 = v69;
+          v68 = 0;
+          v16 = [MEMORY[0x277CFEBD0] parsedFromData:v13 error:&v68];
+          v17 = v68;
           if (v16)
           {
-            v62 = v11;
+            v61 = v11;
             v18 = [v16 readerKeyResponse];
             v19 = [v18 identifier];
 
@@ -4488,51 +4430,51 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
             if (v21)
             {
               (*(*(a1 + 56) + 16))();
-              v6 = v67;
+              v6 = v66;
             }
 
             else
             {
-              v6 = v67;
+              v6 = v66;
               (*(*(a1 + 56) + 16))();
             }
 
-            v11 = v62;
+            v11 = v61;
           }
 
           else
           {
             v51 = objc_autoreleasePoolPush();
-            v61 = WeakRetained;
-            v59 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+            v60 = WeakRetained;
+            v58 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
             {
-              v57 = HMFGetLogIdentifier();
+              v56 = HMFGetLogIdentifier();
               [*(a1 + 32) UUID];
-              v52 = v56 = v51;
+              v52 = v55 = v51;
               [v9 shortDescription];
-              v53 = v65 = v11;
+              v53 = v64 = v11;
               *buf = 138544386;
-              v72 = v57;
-              v73 = 2112;
-              v74 = v52;
-              v75 = 2112;
-              v76 = v53;
-              v77 = 2112;
-              v78 = v13;
-              v79 = 2112;
-              v80 = v17;
-              _os_log_impl(&dword_2531F8000, v59, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, failed to parse response value %@:%@", buf, 0x34u);
+              v71 = v56;
+              v72 = 2112;
+              v73 = v52;
+              v74 = 2112;
+              v75 = v53;
+              v76 = 2112;
+              v77 = v13;
+              v78 = 2112;
+              v79 = v17;
+              _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, failed to parse response value %@:%@", buf, 0x34u);
 
-              v11 = v65;
-              v51 = v56;
+              v11 = v64;
+              v51 = v55;
             }
 
             objc_autoreleasePoolPop(v51);
             v54 = *(a1 + 56);
             v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
             (*(v54 + 16))(v54, 0, 0, v19);
-            v6 = v67;
+            v6 = v66;
           }
         }
 
@@ -4544,32 +4486,32 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v47 = v58 = v45;
+            v47 = v57 = v45;
             [*(a1 + 32) UUID];
-            v48 = v64 = v11;
+            v48 = v63 = v11;
             [v9 shortDescription];
-            v49 = v60 = v44;
+            v49 = v59 = v44;
             *buf = 138544130;
-            v72 = v47;
-            v73 = 2112;
-            v74 = v48;
-            v75 = 2112;
-            v76 = v49;
-            v77 = 2112;
-            v78 = v13;
+            v71 = v47;
+            v72 = 2112;
+            v73 = v48;
+            v74 = 2112;
+            v75 = v49;
+            v76 = 2112;
+            v77 = v13;
             _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, response value: %@ is not of type NSData", buf, 0x2Au);
 
-            v44 = v60;
-            v11 = v64;
+            v44 = v59;
+            v11 = v63;
 
-            v45 = v58;
+            v45 = v57;
           }
 
           objc_autoreleasePoolPop(v44);
           v50 = *(a1 + 56);
           v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
           (*(v50 + 16))(v50, 0, 0, v17);
-          v6 = v67;
+          v6 = v66;
         }
       }
 
@@ -4581,27 +4523,27 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
         if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v40 = v63 = WeakRetained;
+          v40 = v62 = WeakRetained;
           [*(a1 + 32) UUID];
-          v41 = v68 = v6;
+          v41 = v67 = v6;
           v42 = [v9 shortDescription];
           v43 = *(a1 + 40);
           *buf = 138544386;
-          v72 = v40;
-          v73 = 2112;
-          v74 = v41;
-          v75 = 2112;
-          v76 = v42;
-          v77 = 2112;
-          v78 = v5;
-          v79 = 2112;
-          v80 = v43;
+          v71 = v40;
+          v72 = 2112;
+          v73 = v41;
+          v74 = 2112;
+          v75 = v42;
+          v76 = 2112;
+          v77 = v5;
+          v78 = 2112;
+          v79 = v43;
           _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, unable to parse write response dictionary: %@ with characteristic: %@", buf, 0x34u);
 
           v11 = 0;
-          v6 = v68;
+          v6 = v67;
 
-          WeakRetained = v63;
+          WeakRetained = v62;
         }
 
         objc_autoreleasePoolPop(v37);
@@ -4622,13 +4564,13 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
         v34 = [*(a1 + 32) UUID];
         v35 = [v28 shortDescription];
         *buf = 138544130;
-        v72 = v33;
-        v73 = 2112;
-        v74 = v34;
-        v75 = 2112;
-        v76 = v35;
-        v77 = 2112;
-        v78 = v29;
+        v71 = v33;
+        v72 = 2112;
+        v73 = v34;
+        v74 = 2112;
+        v75 = v35;
+        v76 = 2112;
+        v77 = v29;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key: %@, write response is nil: %@", buf, 0x2Au);
       }
 
@@ -4652,11 +4594,11 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
       v25 = [*(a1 + 32) UUID];
       v26 = [v9 shortDescription];
       *buf = 138543874;
-      v72 = v24;
-      v73 = 2112;
-      v74 = v25;
-      v75 = 2112;
-      v76 = v26;
+      v71 = v24;
+      v72 = 2112;
+      v73 = v25;
+      v74 = 2112;
+      v75 = v26;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch is configured with reader key for: %@, object got invalidated", buf, 0x20u);
     }
 
@@ -4665,13 +4607,11 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     (*(v27 + 16))(v27, 0, 0, v12);
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (id)configureNFCReaderKeyOnMatterAccessory:(id)accessory flow:(id)flow
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   flowCopy = flow;
   if ([accessoryCopy supportsCHIP])
@@ -4679,18 +4619,18 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
     v8 = objc_alloc_init(MEMORY[0x277D2C900]);
     home = [(HMDHomeWalletKeyAccessoryManager *)self home];
     nfcReaderKeyManager = [home nfcReaderKeyManager];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __80__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyOnMatterAccessory_flow___block_invoke;
-    v23[3] = &unk_279730588;
-    v23[4] = self;
-    v24 = flowCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __80__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyOnMatterAccessory_flow___block_invoke;
+    v22[3] = &unk_279730588;
+    v22[4] = self;
+    v23 = flowCopy;
     v11 = v8;
-    v25 = v11;
-    v26 = accessoryCopy;
-    [nfcReaderKeyManager fetchOrCreateReaderKeyWithRequiresPrivateKey:1 flow:v24 completion:v23];
+    v24 = v11;
+    v25 = accessoryCopy;
+    [nfcReaderKeyManager fetchOrCreateReaderKeyWithRequiresPrivateKey:1 flow:v23 completion:v22];
 
-    v12 = v26;
+    v12 = v25;
     v13 = v11;
 
     v14 = v13;
@@ -4706,11 +4646,11 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
       v18 = HMFGetLogIdentifier();
       uUID = [flowCopy UUID];
       *buf = 138543874;
-      v28 = v18;
-      v29 = 2112;
-      v30 = uUID;
-      v31 = 2112;
-      v32 = accessoryCopy;
+      v27 = v18;
+      v28 = 2112;
+      v29 = uUID;
+      v30 = 2112;
+      v31 = accessoryCopy;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring NFC Reader key on non-matter accessory: %@", buf, 0x20u);
     }
 
@@ -4720,14 +4660,12 @@ void __102__HMDHomeWalletKeyAccessoryManager_fetchIsAccessoryConfiguredWithReade
     v14 = [v20 futureWithError:v13];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 void __80__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyOnMatterAccessory_flow___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) workQueue];
@@ -4751,25 +4689,23 @@ void __80__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyOnMatterAccesso
     {
       v15 = HMFGetLogIdentifier();
       v16 = [*(a1 + 40) UUID];
-      v18 = 138543874;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v16;
-      v22 = 2112;
-      v23 = v6;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch or nfc reader key for matter accessory: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v16;
+      v21 = 2112;
+      v22 = v6;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch or nfc reader key for matter accessory: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
     [*(a1 + 48) finishWithError:v6];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchOrConfigureNFCReaderKeyForAccessory:(id)accessory flow:(id)flow completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   flowCopy = flow;
   completionCopy = completion;
@@ -4784,36 +4720,34 @@ void __80__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyOnMatterAccesso
     v15 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543874;
-    v28 = v15;
-    v29 = 2112;
-    v30 = uUID;
-    v31 = 2112;
-    v32 = accessoryCopy;
+    v27 = v15;
+    v28 = 2112;
+    v29 = uUID;
+    v30 = 2112;
+    v31 = accessoryCopy;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] fetchOrConfigureNFCReaderKeyForAccessory: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
   home = [(HMDHomeWalletKeyAccessoryManager *)selfCopy home];
   nfcReaderKeyManager = [home nfcReaderKeyManager];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke;
-  v23[3] = &unk_279730560;
-  v23[4] = selfCopy;
-  v24 = flowCopy;
-  v25 = accessoryCopy;
-  v26 = completionCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke;
+  v22[3] = &unk_279730560;
+  v22[4] = selfCopy;
+  v23 = flowCopy;
+  v24 = accessoryCopy;
+  v25 = completionCopy;
   v19 = accessoryCopy;
   v20 = completionCopy;
   v21 = flowCopy;
-  [nfcReaderKeyManager fetchOrCreateReaderKeyWithRequiresPrivateKey:1 flow:v21 completion:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [nfcReaderKeyManager fetchOrCreateReaderKeyWithRequiresPrivateKey:1 flow:v21 completion:v22];
 }
 
 void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke(id *a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [a1[4] workQueue];
@@ -4833,18 +4767,18 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
 
     else
     {
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke_406;
-      v18[3] = &unk_279730538;
-      v18[4] = v11;
-      objc_copyWeak(&v22, location);
-      v19 = a1[5];
-      v21 = a1[7];
-      v20 = v5;
-      [v11 fetchIsAccessoryConfiguredWithReaderKey:v20 accessory:v9 flow:v10 completion:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke_406;
+      v17[3] = &unk_279730538;
+      v17[4] = v11;
+      objc_copyWeak(&v21, location);
+      v18 = a1[5];
+      v20 = a1[7];
+      v19 = v5;
+      [v11 fetchIsAccessoryConfiguredWithReaderKey:v19 accessory:v9 flow:v10 completion:v17];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v21);
     }
 
     objc_destroyWeak(location);
@@ -4861,23 +4795,21 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
       v16 = [a1[5] UUID];
       *location = 138543874;
       *&location[4] = v15;
-      v24 = 2112;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v6;
+      v23 = 2112;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v6;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to fetch or nfc reader key: %@", location, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
     (*(a1[7] + 2))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke_406(id *a1, int a2, void *a3, void *a4)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = [a1[4] workQueue];
@@ -4894,25 +4826,25 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v14 = v31 = v7;
+        v14 = v30 = v7;
         v15 = [a1[5] UUID];
         v16 = v8;
         v17 = v11;
         v18 = a1[6];
         v19 = [WeakRetained shortDescription];
         *buf = 138544130;
-        v38 = v14;
-        v39 = 2112;
-        v40 = v15;
-        v41 = 2112;
-        v42 = v18;
+        v37 = v14;
+        v38 = 2112;
+        v39 = v15;
+        v40 = 2112;
+        v41 = v18;
         v11 = v17;
         v8 = v16;
-        v43 = 2112;
-        v44 = v19;
+        v42 = 2112;
+        v43 = v19;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Accessory is already configured with nfc reader key %@:%@", buf, 0x2Au);
 
-        v7 = v31;
+        v7 = v30;
       }
 
       objc_autoreleasePoolPop(v11);
@@ -4925,16 +4857,16 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
       {
         v28 = a1[4];
         v29 = a1[5];
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke_407;
-        v32[3] = &unk_279732B10;
-        v32[4] = v28;
-        v36 = a1[7];
-        v33 = a1[6];
-        v34 = WeakRetained;
-        v35 = a1[5];
-        [v28 removeNfcReaderKeyWithIdentifier:v7 accessory:v34 flow:v29 completion:v32];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke_407;
+        v31[3] = &unk_279732B10;
+        v31[4] = v28;
+        v35 = a1[7];
+        v32 = a1[6];
+        v33 = WeakRetained;
+        v34 = a1[5];
+        [v28 removeNfcReaderKeyWithIdentifier:v7 accessory:v33 flow:v29 completion:v31];
 
         goto LABEL_12;
       }
@@ -4961,9 +4893,9 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
       v24 = HMFGetLogIdentifier();
       v25 = [a1[5] UUID];
       *buf = 138543618;
-      v38 = v24;
-      v39 = 2112;
-      v40 = v25;
+      v37 = v24;
+      v38 = 2112;
+      v39 = v25;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure accessory with reader key, accessory object became nil", buf, 0x16u);
     }
 
@@ -4974,8 +4906,6 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
   }
 
 LABEL_12:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAccessory_flow_completion___block_invoke_407(uint64_t a1, void *a2)
@@ -4997,7 +4927,7 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
 
 - (void)configureNFCReaderKeyForAccessory:(id)accessory flow:(id)flow
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   flowCopy = flow;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
@@ -5012,11 +4942,11 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
     uUID = [flowCopy UUID];
     uuid = [accessoryCopy uuid];
     *buf = 138543874;
-    v49 = v12;
-    v50 = 2112;
-    v51 = uUID;
-    v52 = 2112;
-    v53 = uuid;
+    v48 = v12;
+    v49 = 2112;
+    v50 = uUID;
+    v51 = 2112;
+    v52 = uuid;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Configuring NFC reader key for accessory: %@", buf, 0x20u);
   }
 
@@ -5060,11 +4990,11 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
               uUID2 = [flowCopy UUID];
               shortDescription = [accessoryCopy shortDescription];
               *buf = 138543874;
-              v49 = v29;
-              v50 = 2112;
-              v51 = uUID2;
-              v52 = 2112;
-              v53 = shortDescription;
+              v48 = v29;
+              v49 = 2112;
+              v50 = uUID2;
+              v51 = 2112;
+              v52 = shortDescription;
               _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Accessory is already configured with reader key: %@", buf, 0x20u);
             }
 
@@ -5082,11 +5012,11 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
               uUID3 = [flowCopy UUID];
               shortDescription2 = [accessoryCopy shortDescription];
               *buf = 138543874;
-              v49 = v40;
-              v50 = 2112;
-              v51 = uUID3;
-              v52 = 2112;
-              v53 = shortDescription2;
+              v48 = v40;
+              v49 = 2112;
+              v50 = uUID3;
+              v51 = 2112;
+              v52 = shortDescription2;
               _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Setting should retry on nfc reader key configure failure for accessory: %@", buf, 0x20u);
             }
 
@@ -5097,15 +5027,15 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
           else
           {
             [(HMDHomeWalletKeyAccessoryConfigureState *)v23 setReaderKeyConfigureInProgress:1];
-            v44[0] = MEMORY[0x277D85DD0];
-            v44[1] = 3221225472;
-            v44[2] = __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_flow___block_invoke;
-            v44[3] = &unk_279730430;
-            v44[4] = selfCopy;
-            v45 = v23;
-            v46 = flowCopy;
-            v47 = accessoryCopy;
-            [(HMDHomeWalletKeyAccessoryManager *)selfCopy fetchOrConfigureNFCReaderKeyForAccessory:v47 flow:v46 completion:v44];
+            v43[0] = MEMORY[0x277D85DD0];
+            v43[1] = 3221225472;
+            v43[2] = __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_flow___block_invoke;
+            v43[3] = &unk_279730430;
+            v43[4] = selfCopy;
+            v44 = v23;
+            v45 = flowCopy;
+            v46 = accessoryCopy;
+            [(HMDHomeWalletKeyAccessoryManager *)selfCopy fetchOrConfigureNFCReaderKeyForAccessory:v46 flow:v45 completion:v43];
           }
         }
       }
@@ -5120,11 +5050,11 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
           v35 = HMFGetLogIdentifier();
           uUID4 = [flowCopy UUID];
           *buf = 138543874;
-          v49 = v35;
-          v50 = 2112;
-          v51 = uUID4;
-          v52 = 2112;
-          v53 = accessoryCopy;
+          v48 = v35;
+          v49 = 2112;
+          v50 = uUID4;
+          v51 = 2112;
+          v52 = accessoryCopy;
           _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Home does not exist when configuring reader key for accessory: %@", buf, 0x20u);
         }
 
@@ -5132,13 +5062,11 @@ void __93__HMDHomeWalletKeyAccessoryManager_fetchOrConfigureNFCReaderKeyForAcces
       }
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_flow___block_invoke(id *a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1[4] workQueue];
   dispatch_assert_queue_V2(v4);
@@ -5155,15 +5083,15 @@ void __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_fl
       v9 = HMFGetLogIdentifier();
       v10 = [a1[6] UUID];
       v11 = [a1[7] shortDescription];
-      v22 = 138544130;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v3;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure accessory with nfc reader key %@:%@", &v22, 0x2Au);
+      v21 = 138544130;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v3;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure accessory with nfc reader key %@:%@", &v21, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -5177,13 +5105,13 @@ void __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_fl
         v15 = HMFGetLogIdentifier();
         v16 = [a1[6] UUID];
         v17 = [a1[7] shortDescription];
-        v22 = 138543874;
-        v23 = v15;
-        v24 = 2112;
-        v25 = v16;
-        v26 = 2112;
-        v27 = v17;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Retrying configuring accessory with nfc reader key: %@", &v22, 0x20u);
+        v21 = 138543874;
+        v22 = v15;
+        v23 = 2112;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v17;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Retrying configuring accessory with nfc reader key: %@", &v21, 0x20u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -5199,25 +5127,23 @@ void __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_fl
       v18 = HMFGetLogIdentifier();
       v19 = [a1[6] UUID];
       v20 = [a1[7] shortDescription];
-      v22 = 138543874;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v19;
-      v26 = 2112;
-      v27 = v20;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured accessory with nfc reader key: %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v18;
+      v23 = 2112;
+      v24 = v19;
+      v25 = 2112;
+      v26 = v20;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured accessory with nfc reader key: %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
     [a1[5] setReaderKeyConfigured:1];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureNFCReaderKeyForAllAccessoriesWithReason:(id)reason
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -5231,53 +5157,51 @@ void __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_fl
     v10 = HMFGetLogIdentifier();
     uUID = [internalOnlyInitializer UUID];
     *buf = 138543874;
-    v25 = v10;
-    v26 = 2112;
-    v27 = uUID;
-    v28 = 2112;
-    v29 = reasonCopy;
+    v24 = v10;
+    v25 = 2112;
+    v26 = uUID;
+    v27 = 2112;
+    v28 = reasonCopy;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Configuring NFC reader key for all accessories with reason: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   home = [(HMDHomeWalletKeyAccessoryManager *)selfCopy home];
   accessoriesWithWalletKeySupport = [home accessoriesWithWalletKeySupport];
 
-  v14 = [accessoriesWithWalletKeySupport countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v14 = [accessoriesWithWalletKeySupport countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(accessoriesWithWalletKeySupport);
         }
 
-        [(HMDHomeWalletKeyAccessoryManager *)selfCopy configureNFCReaderKeyForAccessory:*(*(&v19 + 1) + 8 * v17++) flow:internalOnlyInitializer];
+        [(HMDHomeWalletKeyAccessoryManager *)selfCopy configureNFCReaderKeyForAccessory:*(*(&v18 + 1) + 8 * v17++) flow:internalOnlyInitializer];
       }
 
       while (v15 != v17);
-      v15 = [accessoriesWithWalletKeySupport countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v15 = [accessoriesWithWalletKeySupport countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestPrimaryResident:(id)resident toConfigureAccessories:(id)accessories withDeviceCredentialKey:(id)key ofType:(int64_t)type flow:(id)flow completion:(id)completion
 {
-  v57[4] = *MEMORY[0x277D85DE8];
+  v56[4] = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   accessoriesCopy = accessories;
   keyCopy = key;
@@ -5297,9 +5221,9 @@ void __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_fl
       v23 = HMFGetLogIdentifier();
       uUID = [flowCopy UUID];
       *buf = 138543618;
-      v49 = v23;
-      v50 = 2112;
-      v51 = uUID;
+      v48 = v23;
+      v49 = 2112;
+      v50 = uUID;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Did not send message to configure all accessories with device credential key, accessory uuids is empty", buf, 0x16u);
     }
 
@@ -5312,66 +5236,64 @@ void __75__HMDHomeWalletKeyAccessoryManager_configureNFCReaderKeyForAccessory_fl
   {
     v26 = [HMDRemoteDeviceMessageDestination alloc];
     messageTargetUUID = [(HMDHomeWalletKeyAccessoryManager *)self messageTargetUUID];
-    v44 = residentCopy;
+    v43 = residentCopy;
     v25 = [(HMDRemoteDeviceMessageDestination *)v26 initWithTarget:messageTargetUUID device:residentCopy];
 
-    v57[0] = keyCopy;
-    v56[0] = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyCredentialKey";
-    v56[1] = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyTapToUnlockType";
+    v56[0] = keyCopy;
+    v55[0] = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyCredentialKey";
+    v55[1] = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyTapToUnlockType";
     v28 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-    v57[1] = v28;
-    v57[2] = v19;
+    v56[1] = v28;
+    v56[2] = v19;
     v29 = *MEMORY[0x277D0F1C8];
-    v56[2] = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyAccessoryUUIDs";
-    v56[3] = v29;
+    v55[2] = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyAccessoryUUIDs";
+    v55[3] = v29;
     v30 = HMFEncodedRootObject();
-    v57[3] = v30;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:4];
+    v56[3] = v30;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:4];
 
     v32 = [[HMDRemoteMessage alloc] initWithName:@"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessage" destination:v25 payload:v31 type:0 timeout:1 secure:0.0];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __129__HMDHomeWalletKeyAccessoryManager_requestPrimaryResident_toConfigureAccessories_withDeviceCredentialKey_ofType_flow_completion___block_invoke_404;
-    v46[3] = &unk_279732CF0;
-    v46[4] = self;
-    v47 = completionCopy;
-    [(HMDRemoteMessage *)v32 setResponseHandler:v46];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __129__HMDHomeWalletKeyAccessoryManager_requestPrimaryResident_toConfigureAccessories_withDeviceCredentialKey_ofType_flow_completion___block_invoke_404;
+    v45[3] = &unk_279732CF0;
+    v45[4] = self;
+    v46 = completionCopy;
+    [(HMDRemoteMessage *)v32 setResponseHandler:v45];
     v33 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v35 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v36 = v43 = accessoriesCopy;
+      v36 = v42 = accessoriesCopy;
       [flowCopy UUID];
-      v42 = completionCopy;
+      v41 = completionCopy;
       v37 = v31;
       v39 = v38 = flowCopy;
       *buf = 138544130;
-      v49 = v36;
-      v50 = 2112;
-      v51 = v39;
-      v52 = 2112;
-      v53 = v32;
-      v54 = 2112;
-      v55 = v44;
+      v48 = v36;
+      v49 = 2112;
+      v50 = v39;
+      v51 = 2112;
+      v52 = v32;
+      v53 = 2112;
+      v54 = v43;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Sending message to configure device credential key: %@ to primary resident: %@", buf, 0x2Au);
 
       flowCopy = v38;
       v31 = v37;
-      completionCopy = v42;
+      completionCopy = v41;
 
-      accessoriesCopy = v43;
+      accessoriesCopy = v42;
     }
 
     objc_autoreleasePoolPop(v33);
     messageDispatcher = [(HMDHomeWalletKeyAccessoryManager *)selfCopy2 messageDispatcher];
     [messageDispatcher sendMessage:v32];
 
-    residentCopy = v44;
+    residentCopy = v43;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __129__HMDHomeWalletKeyAccessoryManager_requestPrimaryResident_toConfigureAccessories_withDeviceCredentialKey_ofType_flow_completion___block_invoke_404(uint64_t a1, void *a2, void *a3)
@@ -5420,7 +5342,7 @@ id __129__HMDHomeWalletKeyAccessoryManager_requestPrimaryResident_toConfigureAcc
 
 - (void)configureAccessories:(id)accessories withDeviceCredentialKey:(id)key ofType:(int64_t)type flow:(id)flow completion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   keyCopy = key;
   flowCopy = flow;
@@ -5440,13 +5362,13 @@ id __129__HMDHomeWalletKeyAccessoryManager_requestPrimaryResident_toConfigureAcc
         v20 = HMFGetLogIdentifier();
         uUID = [flowCopy UUID];
         *buf = 138544130;
-        v47 = v20;
-        v48 = 2112;
-        v49 = uUID;
-        v50 = 2112;
-        v51 = keyCopy;
-        v52 = 2048;
-        v53 = 65;
+        v46 = v20;
+        v47 = 2112;
+        v48 = uUID;
+        v49 = 2112;
+        v50 = keyCopy;
+        v51 = 2048;
+        v52 = 65;
         v22 = "%{public}@[Flow: %@] Failed to configure all accessories with device credential key, key: %@ must be of length %lu bytes for HMMTRTapToUnlockType1";
         goto LABEL_17;
       }
@@ -5470,13 +5392,13 @@ LABEL_18:
       v20 = HMFGetLogIdentifier();
       uUID = [flowCopy UUID];
       *buf = 138544130;
-      v47 = v20;
-      v48 = 2112;
-      v49 = uUID;
-      v50 = 2112;
-      v51 = keyCopy;
-      v52 = 2048;
-      v53 = 64;
+      v46 = v20;
+      v47 = 2112;
+      v48 = uUID;
+      v49 = 2112;
+      v50 = keyCopy;
+      v51 = 2048;
+      v52 = 64;
       v22 = "%{public}@[Flow: %@] Failed to configure all accessories with device credential key, key: %@ must be of length %lu bytes for Unified Access";
 LABEL_17:
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, v22, buf, 0x2Au);
@@ -5521,17 +5443,17 @@ LABEL_17:
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v40 = v44 = selfCopy3;
+            v40 = v43 = selfCopy3;
             [flowCopy UUID];
-            v41 = v45 = v37;
+            v41 = v44 = v37;
             *buf = 138543618;
-            v47 = v40;
-            v48 = 2112;
-            v49 = v41;
+            v46 = v40;
+            v47 = 2112;
+            v48 = v41;
             _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to configure all accessories with device credential key, current device is nil", buf, 0x16u);
 
-            v37 = v45;
-            selfCopy3 = v44;
+            v37 = v44;
+            selfCopy3 = v43;
           }
 
           objc_autoreleasePoolPop(v37);
@@ -5572,8 +5494,6 @@ LABEL_17:
   }
 
 LABEL_28:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDevice)primaryResidentDevice
@@ -5718,7 +5638,7 @@ id __72__HMDHomeWalletKeyAccessoryManager_matterAccessoriesSupportingWalletKey__
 
 void __68__HMDHomeWalletKeyAccessoryManager_handleHomeUserAddedNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isPrimaryResidentOrSoleOwnerController])
   {
     v2 = [*(a1 + 40) userInfo];
@@ -5743,22 +5663,20 @@ void __68__HMDHomeWalletKeyAccessoryManager_handleHomeUserAddedNotification___bl
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling added user: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling added user: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWalletKeySupportDidChange:(id)change
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   object = [changeCopy object];
   objc_opt_class();
@@ -5779,13 +5697,13 @@ void __68__HMDHomeWalletKeyAccessoryManager_handleHomeUserAddedNotification___bl
   if (home == home2)
   {
     workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __68__HMDHomeWalletKeyAccessoryManager_handleWalletKeySupportDidChange___block_invoke;
-    v17[3] = &unk_2797359B0;
-    v17[4] = self;
-    v18 = v7;
-    dispatch_async(workQueue, v17);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __68__HMDHomeWalletKeyAccessoryManager_handleWalletKeySupportDidChange___block_invoke;
+    v16[3] = &unk_2797359B0;
+    v16[4] = self;
+    v17 = v7;
+    dispatch_async(workQueue, v16);
   }
 
   else
@@ -5798,21 +5716,19 @@ void __68__HMDHomeWalletKeyAccessoryManager_handleHomeUserAddedNotification___bl
       v13 = HMFGetLogIdentifier();
       uuid = [home uuid];
       *buf = 138543618;
-      v20 = v13;
-      v21 = 2112;
-      v22 = uuid;
+      v19 = v13;
+      v20 = 2112;
+      v21 = uuid;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Not handling wallet key support change for accessory in other home: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMDHomeWalletKeyAccessoryManager_handleWalletKeySupportDidChange___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D0F7B8] internalOnlyInitializer];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -5822,19 +5738,17 @@ void __68__HMDHomeWalletKeyAccessoryManager_handleWalletKeySupportDidChange___bl
     v6 = HMFGetLogIdentifier();
     v7 = [v2 UUID];
     v8 = [*(a1 + 40) uuid];
-    v10 = 138543874;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Configuring NFC Reader Key because wallet key support did change on accessory: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Configuring NFC Reader Key because wallet key support did change on accessory: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
   [*(a1 + 32) configureNFCReaderKeyForAccessory:*(a1 + 40) flow:v2];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryConfigured:(id)configured
@@ -5868,7 +5782,7 @@ void __68__HMDHomeWalletKeyAccessoryManager_handleWalletKeySupportDidChange___bl
 
 void __62__HMDHomeWalletKeyAccessoryManager_handleAccessoryConfigured___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D0F7B8] internalOnlyInitializer];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -5877,11 +5791,11 @@ void __62__HMDHomeWalletKeyAccessoryManager_handleAccessoryConfigured___block_in
   {
     v6 = HMFGetLogIdentifier();
     v7 = [v2 UUID];
-    v16 = 138543618;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Configuring NFC Reader Key because accessory was configured", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Configuring NFC Reader Key because accessory was configured", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -5899,23 +5813,21 @@ void __62__HMDHomeWalletKeyAccessoryManager_handleAccessoryConfigured___block_in
     {
       v13 = HMFGetLogIdentifier();
       v14 = [v9 UUID];
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Fetching wallet key color because accessory was configured", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v14;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Fetching wallet key color because accessory was configured", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     [*(a1 + 32) fetchWalletKeyColorWithAccessory:*(a1 + 40) flow:v9];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeAccessoryRemovedNotification:(id)notification
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataSource = [(HMDHomeWalletKeyAccessoryManager *)self dataSource];
   isWatch = [dataSource isWatch];
@@ -5963,7 +5875,7 @@ void __62__HMDHomeWalletKeyAccessoryManager_handleAccessoryConfigured___block_in
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v26 = v17;
+          v25 = v17;
           _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Not handling accessory removed notification, home still has an accessory that supports wallet key", buf, 0xCu);
         }
 
@@ -5979,24 +5891,22 @@ void __62__HMDHomeWalletKeyAccessoryManager_handleAccessoryConfigured___block_in
         if (unsignedIntegerValue == 1)
         {
           workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __75__HMDHomeWalletKeyAccessoryManager_handleHomeAccessoryRemovedNotification___block_invoke;
-          v23[3] = &unk_2797359B0;
-          v23[4] = self;
-          v24 = v13;
-          dispatch_async(workQueue, v23);
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __75__HMDHomeWalletKeyAccessoryManager_handleHomeAccessoryRemovedNotification___block_invoke;
+          v22[3] = &unk_2797359B0;
+          v22[4] = self;
+          v23 = v13;
+          dispatch_async(workQueue, v22);
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDHomeWalletKeyAccessoryManager_handleHomeAccessoryRemovedNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D0F7B8] internalOnlyInitializer];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -6005,17 +5915,15 @@ void __75__HMDHomeWalletKeyAccessoryManager_handleHomeAccessoryRemovedNotificati
   {
     v6 = HMFGetLogIdentifier();
     v7 = [v2 UUID];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Last accessory supporting wallet key was removed.", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Last accessory supporting wallet key was removed.", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   [*(a1 + 40) updateHasOnboardedForWalletKey:0 message:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeAddedAccessoryNotification:(id)notification
@@ -6051,7 +5959,7 @@ void __75__HMDHomeWalletKeyAccessoryManager_handleHomeAccessoryRemovedNotificati
 
 void __73__HMDHomeWalletKeyAccessoryManager_handleHomeAddedAccessoryNotification___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D0F7B8] internalOnlyInitializer];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -6061,20 +5969,18 @@ void __73__HMDHomeWalletKeyAccessoryManager_handleHomeAddedAccessoryNotification
     v6 = HMFGetLogIdentifier();
     v7 = [v2 UUID];
     v8 = [*(a1 + 40) uuid];
-    v10 = 138543874;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Configuring NFC Reader Key because new accessory was added: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Configuring NFC Reader Key because new accessory was added: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
   [*(a1 + 32) configureNFCReaderKeyForAccessory:*(a1 + 40) flow:v2];
   [*(a1 + 32) handlePendingDeviceCredentialKeysSyncForAccessory:*(a1 + 40) withReason:@"accessory added"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeDidDisableCharacteristicNotification:(id)notification
@@ -6156,7 +6062,7 @@ uint64_t __92__HMDHomeWalletKeyAccessoryManager_handleHomeNFCReaderKeyKeychainIt
 
 void __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotification___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) home];
   v3 = [v2 isCurrentDeviceConfirmedPrimaryResident];
   if (v3 != [*(a1 + 32) isCurrentDevicePrimaryResident])
@@ -6171,11 +6077,11 @@ void __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotificat
       v8 = HMFBooleanToString();
       v9 = HMFBooleanToString();
       *buf = 138543874;
-      v28 = v7;
-      v29 = 2112;
-      v30 = v8;
-      v31 = 2112;
-      v32 = v9;
+      v27 = v7;
+      v28 = 2112;
+      v29 = v8;
+      v30 = 2112;
+      v31 = v9;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Current device primary changed from: (%@->%@)", buf, 0x20u);
     }
 
@@ -6190,32 +6096,32 @@ void __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotificat
   if (v12)
   {
     v13 = [v2 accessoriesWithWalletKeySupport];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotification___block_invoke_379;
-    v25[3] = &unk_2797304D0;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotification___block_invoke_379;
+    v24[3] = &unk_2797304D0;
     v14 = v12;
-    v26 = v14;
-    v15 = [v13 na_filter:v25];
+    v25 = v14;
+    v15 = [v13 na_filter:v24];
 
     v16 = [*(a1 + 32) primaryResidentDevice];
     v17 = [v2 currentUser];
     if (([v17 isOwner] & 1) == 0 && objc_msgSend(v15, "count") && v16)
     {
-      v19 = [*(a1 + 32) canConfigureAccessories];
+      v18 = [*(a1 + 32) canConfigureAccessories];
 
-      if (v19)
+      if (v18)
       {
-        v20 = *(a1 + 32);
-        v21 = [v14 deviceCredentialKey];
-        v22 = [MEMORY[0x277D0F7B8] untrackedPlaceholderFlow];
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotification___block_invoke_2;
-        v23[3] = &unk_2797358C8;
-        v23[4] = *(a1 + 32);
-        v24 = v14;
-        [v20 requestPrimaryResident:v16 toConfigureAccessories:v15 withDeviceCredentialKey:v21 ofType:0 flow:v22 completion:v23];
+        v19 = *(a1 + 32);
+        v20 = [v14 deviceCredentialKey];
+        v21 = [MEMORY[0x277D0F7B8] untrackedPlaceholderFlow];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotification___block_invoke_2;
+        v22[3] = &unk_2797358C8;
+        v22[4] = *(a1 + 32);
+        v23 = v14;
+        [v19 requestPrimaryResident:v16 toConfigureAccessories:v15 withDeviceCredentialKey:v20 ofType:0 flow:v21 completion:v22];
       }
     }
 
@@ -6223,8 +6129,6 @@ void __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotificat
     {
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotification___block_invoke_379(uint64_t a1, void *a2)
@@ -6240,7 +6144,7 @@ uint64_t __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotif
 
 void __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotification___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -6252,18 +6156,18 @@ void __76__HMDHomeWalletKeyAccessoryManager_handlePrimaryResidentUpdateNotificat
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v16 = 138543874;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v3;
+      v15 = 138543874;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v3;
       v10 = "%{public}@Failed to handle pending operation when primary resident updated %@:%@";
       v11 = v7;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 32;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v16, v13);
+      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v15, v13);
     }
   }
 
@@ -6271,10 +6175,10 @@ LABEL_6:
   {
     v8 = HMFGetLogIdentifier();
     v14 = *(a1 + 40);
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v14;
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v14;
     v10 = "%{public}@Successfully handled pending operation when primary resident updated %@";
     v11 = v7;
     v12 = OS_LOG_TYPE_INFO;
@@ -6284,13 +6188,11 @@ LABEL_6:
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) setPendingPrimaryResidentDeviceCredentialKeyOperation:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryCharacteristicsChangedNotification:(id)notification
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -6321,9 +6223,9 @@ LABEL_6:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v14;
-        v31 = 2112;
-        v32 = v10;
+        v29 = v14;
+        v30 = 2112;
+        v31 = v10;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling value update of hardware finish characteristic: %@", buf, 0x16u);
       }
 
@@ -6350,13 +6252,13 @@ LABEL_6:
         if (v19)
         {
           workQueue = [(HMDHomeWalletKeyAccessoryManager *)selfCopy workQueue];
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __86__HMDHomeWalletKeyAccessoryManager_handleAccessoryCharacteristicsChangedNotification___block_invoke_378;
-          v27[3] = &unk_2797359B0;
-          v27[4] = selfCopy;
-          v28 = v19;
-          dispatch_async(workQueue, v27);
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __86__HMDHomeWalletKeyAccessoryManager_handleAccessoryCharacteristicsChangedNotification___block_invoke_378;
+          v26[3] = &unk_2797359B0;
+          v26[4] = selfCopy;
+          v27 = v19;
+          dispatch_async(workQueue, v26);
         }
       }
 
@@ -6370,11 +6272,11 @@ LABEL_6:
           v24 = HMFGetLogIdentifier();
           v25 = objc_opt_class();
           *buf = 138543874;
-          v30 = v24;
-          v31 = 2112;
-          v32 = 0;
-          v33 = 2112;
-          v34 = v25;
+          v29 = v24;
+          v30 = 2112;
+          v31 = 0;
+          v32 = 2112;
+          v33 = v25;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Hardware finish characteristic value: %@ is not of type data: %@", buf, 0x20u);
         }
 
@@ -6382,8 +6284,6 @@ LABEL_6:
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HMDHomeWalletKeyAccessoryManager_handleAccessoryCharacteristicsChangedNotification___block_invoke_378(uint64_t a1)
@@ -6439,7 +6339,7 @@ uint64_t __86__HMDHomeWalletKeyAccessoryManager_handleAccessoryCharacteristicsCh
 
 - (id)_addIssuerKeyForUser:(id)user toMatterAccessory:(id)accessory flow:(id)flow
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   userCopy = user;
   accessoryCopy = accessory;
   flowCopy = flow;
@@ -6454,13 +6354,13 @@ uint64_t __86__HMDHomeWalletKeyAccessoryManager_handleAccessoryCharacteristicsCh
     v15 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138544130;
-    v31 = v15;
-    v32 = 2112;
-    v33 = uUID;
-    v34 = 2112;
-    v35 = userCopy;
-    v36 = 2112;
-    v37 = accessoryCopy;
+    v30 = v15;
+    v31 = 2112;
+    v32 = uUID;
+    v33 = 2112;
+    v34 = userCopy;
+    v35 = 2112;
+    v36 = accessoryCopy;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] addIssuerKeyForUser: %@, toAccessory: %@", buf, 0x2Au);
   }
 
@@ -6468,63 +6368,58 @@ uint64_t __86__HMDHomeWalletKeyAccessoryManager_handleAccessoryCharacteristicsCh
   home = [(HMDHomeWalletKeyAccessoryManager *)selfCopy home];
   uuid = [userCopy uuid];
   v19 = [home findOrAddUserIndexForUserUUID:uuid guestName:0 accessory:accessoryCopy flow:flowCopy];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __80__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUser_toMatterAccessory_flow___block_invoke;
-  v26[3] = &unk_2797304A8;
-  v26[4] = selfCopy;
-  v27 = userCopy;
-  v28 = flowCopy;
-  v29 = accessoryCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __80__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUser_toMatterAccessory_flow___block_invoke;
+  v25[3] = &unk_2797304A8;
+  v25[4] = selfCopy;
+  v26 = userCopy;
+  v27 = flowCopy;
+  v28 = accessoryCopy;
   v20 = accessoryCopy;
   v21 = flowCopy;
   v22 = userCopy;
-  v23 = [v19 flatMap:v26];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = [v19 flatMap:v25];
 
   return v23;
 }
 
 id __80__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUser_toMatterAccessory_flow___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() createMatterIssuerKeyDataForUser:*(a1 + 40) withUserIndex:v3 flow:*(a1 + 48)];
-  if (v5)
+  v4 = [objc_opt_class() createMatterIssuerKeyDataForUser:*(a1 + 40) withUserIndex:v3 flow:*(a1 + 48)];
+  if (v4)
   {
-    v6 = [*(a1 + 32) _addIssuerKeyForUserIndex:v3 toMatterAccessory:*(a1 + 56) isUnifiedAccess:1 issuerKeyData:v5 withFlow:*(a1 + 48)];
+    v5 = [*(a1 + 32) _addIssuerKeyForUserIndex:v3 toMatterAccessory:*(a1 + 56) isUnifiedAccess:1 issuerKeyData:v4 withFlow:*(a1 + 48)];
   }
 
   else
   {
-    v7 = objc_autoreleasePoolPush();
-    v8 = *(a1 + 32);
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v6 = objc_autoreleasePoolPush();
+    v7 = *(a1 + 32);
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = HMFGetLogIdentifier();
-      v11 = [*(a1 + 48) UUID];
-      v12 = [*(a1 + 40) uuid];
-      v17 = 138543874;
+      v9 = HMFGetLogIdentifier();
+      v10 = [*(a1 + 48) UUID];
+      v11 = [*(a1 + 40) uuid];
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2112;
       v18 = v10;
       v19 = 2112;
       v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not adding issuer key because we don't have one for user: %@", &v17, 0x20u);
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not adding issuer key because we don't have one for user: %@", &v15, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v7);
-    v13 = MEMORY[0x277D2C900];
-    v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
-    v6 = [v13 futureWithError:v14];
+    objc_autoreleasePoolPop(v6);
+    v12 = MEMORY[0x277D2C900];
+    v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
+    v5 = [v12 futureWithError:v13];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v5;
 }
 
 - (id)_addIssuerKeyForUserIndex:(id)index toMatterAccessory:(id)accessory isUnifiedAccess:(BOOL)access issuerKeyData:(id)data withFlow:(id)flow
@@ -6606,13 +6501,13 @@ uint64_t __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMat
   else
   {
     v7 = _HMFPreconditionFailure();
-    return __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMatterAccessory_isUnifiedAccess_issuerKeyData_withFlow___block_invoke_2(v7);
+    return __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMatterAccessory_isUnifiedAccess_issuerKeyData_withFlow___block_invoke_2(v7, v8);
   }
 }
 
 id __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMatterAccessory_isUnifiedAccess_issuerKeyData_withFlow___block_invoke_2(id *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 domain];
   v5 = v4;
@@ -6642,11 +6537,11 @@ LABEL_7:
   {
     v12 = HMFGetLogIdentifier();
     v13 = [a1[6] UUID];
-    v18 = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v13;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Ignoring duplicate error while adding Issuer key", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v13;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Ignoring duplicate error while adding Issuer key", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -6654,14 +6549,12 @@ LABEL_7:
 LABEL_8:
   v15 = v14;
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 void __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMatterAccessory_isUnifiedAccess_issuerKeyData_withFlow___block_invoke_365(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -6672,26 +6565,25 @@ void __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMatterA
     v8 = [*(a1 + 40) UUID];
     v9 = *(a1 + 48);
     v10 = *(a1 + 56);
-    v12 = 138544386;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to add issuer key for user index: %@, to accessory: %@, with error: %@", &v12, 0x34u);
+    v11 = 138544386;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to add issuer key for user index: %@, to accessory: %@, with error: %@", &v11, 0x34u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMatterAccessory_isUnifiedAccess_issuerKeyData_withFlow___block_invoke_366(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) uuid];
@@ -6706,19 +6598,18 @@ void __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMatterA
     v10 = [*(a1 + 48) UUID];
     v11 = *(a1 + 56);
     v12 = [*(a1 + 40) uuid];
-    v14 = 138544130;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v12;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured issuer key for user index: %@ on accessory: %@", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully configured issuer key for user index: %@ on accessory: %@", &v13, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v6);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __119__HMDHomeWalletKeyAccessoryManager__addIssuerKeyForUserIndex_toMatterAccessory_isUnifiedAccess_issuerKeyData_withFlow___block_invoke_367(uint64_t a1)
@@ -6767,7 +6658,7 @@ void __79__HMDHomeWalletKeyAccessoryManager_addIssuerKeyForUser_toMatterAccessor
 
 - (id)addIssuerKeysToMatterTTUAccessoriesForUser:(id)user flow:(id)flow
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   userCopy = user;
   flowCopy = flow;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
@@ -6781,33 +6672,31 @@ void __79__HMDHomeWalletKeyAccessoryManager_addIssuerKeyForUser_toMatterAccessor
     v12 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543874;
-    v28 = v12;
-    v29 = 2112;
-    v30 = uUID;
-    v31 = 2112;
-    v32 = userCopy;
+    v27 = v12;
+    v28 = 2112;
+    v29 = uUID;
+    v30 = 2112;
+    v31 = userCopy;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] addIssuerKeysToMatterTTUAccessoriesForUser: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   matterAccessoriesSupportingWalletKey = [(HMDHomeWalletKeyAccessoryManager *)selfCopy matterAccessoriesSupportingWalletKey];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __84__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterTTUAccessoriesForUser_flow___block_invoke;
-  v24[3] = &unk_2797301B8;
-  v24[4] = selfCopy;
-  v25 = userCopy;
-  v26 = flowCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __84__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterTTUAccessoriesForUser_flow___block_invoke;
+  v23[3] = &unk_2797301B8;
+  v23[4] = selfCopy;
+  v24 = userCopy;
+  v25 = flowCopy;
   v15 = flowCopy;
   v16 = userCopy;
-  v17 = [matterAccessoriesSupportingWalletKey na_map:v24];
+  v17 = [matterAccessoriesSupportingWalletKey na_map:v23];
 
   v18 = MEMORY[0x277D2C900];
   globalAsyncScheduler = [MEMORY[0x277D2C938] globalAsyncScheduler];
   v20 = [v18 combineAllFutures:v17 ignoringErrors:1 scheduler:globalAsyncScheduler];
   v21 = [v20 flatMap:&__block_literal_global_359];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -6859,7 +6748,7 @@ uint64_t __84__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterTTUAccessor
 
 - (id)addIssuerKeysToMatterAccessory:(id)accessory flow:(id)flow
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   flowCopy = flow;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
@@ -6873,54 +6762,52 @@ uint64_t __84__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterTTUAccessor
     v12 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543874;
-    v32 = v12;
-    v33 = 2112;
-    v34 = uUID;
-    v35 = 2112;
-    v36 = accessoryCopy;
+    v31 = v12;
+    v32 = 2112;
+    v33 = uUID;
+    v34 = 2112;
+    v35 = accessoryCopy;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] addIssuerKeysToMatterAccessory: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   home = [(HMDHomeWalletKeyAccessoryManager *)selfCopy home];
   users = [home users];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_flow___block_invoke;
-  v28[3] = &unk_279730390;
-  v28[4] = selfCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_flow___block_invoke;
+  v27[3] = &unk_279730390;
+  v27[4] = selfCopy;
   v16 = accessoryCopy;
-  v29 = v16;
-  v30 = flowCopy;
+  v28 = v16;
+  v29 = flowCopy;
   v17 = flowCopy;
-  v18 = [users na_map:v28];
+  v18 = [users na_map:v27];
 
   v19 = MEMORY[0x277D2C900];
   globalAsyncScheduler = [MEMORY[0x277D2C938] globalAsyncScheduler];
   v21 = [v19 combineAllFutures:v18 ignoringErrors:1 scheduler:globalAsyncScheduler];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_flow___block_invoke_2;
-  v26[3] = &unk_2797303B8;
-  v27 = v16;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_flow___block_invoke_2;
+  v25[3] = &unk_2797303B8;
+  v26 = v16;
   v22 = v16;
-  v23 = [v21 flatMap:v26];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = [v21 flatMap:v25];
 
   return v23;
 }
 
 id __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_flow___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [a2 na_any:&__block_literal_global_357];
   v4 = MEMORY[0x277D2C900];
   if (v3)
   {
     v5 = [*(a1 + 32) uuid];
-    v10[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     v7 = [v4 futureWithResult:v6];
   }
 
@@ -6928,8 +6815,6 @@ id __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_flow___
   {
     v7 = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEBF8]];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -6945,7 +6830,7 @@ uint64_t __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_f
 
 - (id)addIssuerKeysToMatterAccessories:(id)accessories flow:(id)flow
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   flowCopy = flow;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
@@ -6959,34 +6844,32 @@ uint64_t __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_f
     v12 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543874;
-    v27 = v12;
-    v28 = 2112;
-    v29 = uUID;
-    v30 = 2112;
-    v31 = accessoriesCopy;
+    v26 = v12;
+    v27 = 2112;
+    v28 = uUID;
+    v29 = 2112;
+    v30 = accessoriesCopy;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] addIssuerKeysToMatterAccessories: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   v14 = MEMORY[0x277D2C900];
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __74__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessories_flow___block_invoke;
-  v23 = &unk_279730368;
-  v24 = selfCopy;
-  v25 = flowCopy;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __74__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessories_flow___block_invoke;
+  v22 = &unk_279730368;
+  v23 = selfCopy;
+  v24 = flowCopy;
   v15 = flowCopy;
-  v16 = [accessoriesCopy na_map:&v20];
-  v17 = [v14 combineAllFuturesFlatteningArrayResults:{v16, v20, v21, v22, v23, v24}];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = [accessoriesCopy na_map:&v19];
+  v17 = [v14 combineAllFuturesFlatteningArrayResults:{v16, v19, v20, v21, v22, v23}];
 
   return v17;
 }
 
 - (void)addIssuerKeysToMatterV1AccessoriesWithFlow:(id)flow
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -6998,11 +6881,11 @@ uint64_t __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_f
   {
     v9 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
-    v21 = 138543618;
-    v22 = v9;
-    v23 = 2112;
-    v24 = uUID;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] addIssuerKeysToMatterAccessories", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v9;
+    v22 = 2112;
+    v23 = uUID;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] addIssuerKeysToMatterAccessories", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -7018,11 +6901,11 @@ uint64_t __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_f
     {
       v16 = HMFGetLogIdentifier();
       uUID2 = [flowCopy UUID];
-      v21 = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = uUID2;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] No Matter accessories supporting wallet key excluding aliro, so nothing to add Issuer key to.", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v16;
+      v22 = 2112;
+      v23 = uUID2;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] No Matter accessories supporting wallet key excluding aliro, so nothing to add Issuer key to.", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -7033,13 +6916,11 @@ uint64_t __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_f
     matterAccessoriesSupportingWalletKeyExcludingACP2 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy matterAccessoriesSupportingWalletKeyExcludingACP];
     v19 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy addIssuerKeysToMatterAccessories:matterAccessoriesSupportingWalletKeyExcludingACP2 flow:flowCopy];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAddIssuerKeysToMatterV1AccessoriesMessage:(id)message
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   flow = [messageCopy flow];
   v6 = objc_autoreleasePoolPush();
@@ -7050,11 +6931,11 @@ uint64_t __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_f
     v9 = HMFGetLogIdentifier();
     uUID = [flow UUID];
     *buf = 138543874;
-    v19 = v9;
-    v20 = 2112;
-    v21 = uUID;
-    v22 = 2112;
-    v23 = messageCopy;
+    v18 = v9;
+    v19 = 2112;
+    v20 = uUID;
+    v21 = 2112;
+    v22 = messageCopy;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] _handleAddIssuerKeysToAccessoriesMessage: %@", buf, 0x20u);
   }
 
@@ -7065,18 +6946,16 @@ uint64_t __72__HMDHomeWalletKeyAccessoryManager_addIssuerKeysToMatterAccessory_f
   block[2] = __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1AccessoriesMessage___block_invoke;
   block[3] = &unk_279734960;
   block[4] = selfCopy;
-  v16 = flow;
-  v17 = messageCopy;
+  v15 = flow;
+  v16 = messageCopy;
   v12 = messageCopy;
   v13 = flow;
   dispatch_async(workQueue, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1AccessoriesMessage___block_invoke(id *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] matterAccessoriesSupportingWalletKeyExcludingACP];
   v3 = [v2 hmf_isEmpty];
 
@@ -7090,9 +6969,9 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
       v7 = HMFGetLogIdentifier();
       v8 = [a1[5] UUID];
       *buf = 138543618;
-      v20 = v7;
-      v21 = 2112;
-      v22 = v8;
+      v19 = v7;
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] No Matter accessories supporting wallet key excluding aliro, so nothing to add Issuer key to.", buf, 0x16u);
     }
 
@@ -7103,25 +6982,23 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
   v9 = a1[4];
   v10 = [v9 matterAccessoriesSupportingWalletKeyExcludingACP];
   v11 = [v9 addIssuerKeysToMatterAccessories:v10 flow:a1[5]];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1AccessoriesMessage___block_invoke_354;
-  v17[3] = &unk_279730038;
-  v18 = a1[6];
-  v12 = [v11 addSuccessBlock:v17];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1AccessoriesMessage___block_invoke_2;
-  v15[3] = &unk_2797359D8;
-  v16 = a1[6];
-  v13 = [v12 addFailureBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1AccessoriesMessage___block_invoke_354;
+  v16[3] = &unk_279730038;
+  v17 = a1[6];
+  v12 = [v11 addSuccessBlock:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1AccessoriesMessage___block_invoke_2;
+  v14[3] = &unk_2797359D8;
+  v15 = a1[6];
+  v13 = [v12 addFailureBlock:v14];
 }
 
 - (void)handleConfigureAccessoriesWithDeviceCredentialKeyMessage:(id)message
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -7136,13 +7013,13 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
     uUID = [flow UUID];
     messagePayload = [(__CFString *)messageCopy messagePayload];
     *buf = 138544130;
-    v72 = v10;
-    v73 = 2112;
-    v74 = uUID;
-    v75 = 2112;
-    v76 = messageCopy;
-    v77 = 2112;
-    v78 = messagePayload;
+    v71 = v10;
+    v72 = 2112;
+    v73 = uUID;
+    v74 = 2112;
+    v75 = messageCopy;
+    v76 = 2112;
+    v77 = messagePayload;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Handling message to configure device credential key %@ with payload: %@", buf, 0x2Au);
   }
 
@@ -7171,7 +7048,7 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
       v18 = [(__CFString *)messageCopy dataForKey:@"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyCredentialKey"];
       if (v18)
       {
-        v62 = flow;
+        v61 = flow;
         v19 = [(__CFString *)messageCopy numberForKey:@"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyTapToUnlockType"];
         if (v19)
         {
@@ -7179,16 +7056,16 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
           if (v20)
           {
             v21 = [MEMORY[0x277CBEB58] set];
-            v68[0] = MEMORY[0x277D85DD0];
-            v68[1] = 3221225472;
-            v68[2] = __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDeviceCredentialKeyMessage___block_invoke;
-            v68[3] = &unk_279730340;
-            v68[4] = selfCopy;
-            v57 = flow;
-            v69 = v57;
+            v67[0] = MEMORY[0x277D85DD0];
+            v67[1] = 3221225472;
+            v67[2] = __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDeviceCredentialKeyMessage___block_invoke;
+            v67[3] = &unk_279730340;
+            v67[4] = selfCopy;
+            v56 = flow;
+            v68 = v56;
             v22 = v21;
-            v70 = v22;
-            v58 = [v20 na_map:v68];
+            v69 = v22;
+            v57 = [v20 na_map:v67];
             if ([v22 count])
             {
               device = [v17 device];
@@ -7199,14 +7076,14 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
             integerValue = [v19 integerValue];
             device2 = [v17 device];
             identifier2 = [device2 identifier];
-            v65[0] = MEMORY[0x277D85DD0];
-            v65[1] = 3221225472;
-            v65[2] = __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDeviceCredentialKeyMessage___block_invoke_353;
-            v65[3] = &unk_279734D88;
-            v65[4] = selfCopy;
-            v66 = v57;
-            v67 = messageCopy;
-            [(HMDHomeWalletKeyAccessoryManager *)selfCopy configureAccessories:v58 withDeviceCredentialKey:v18 ofType:integerValue forDeviceWithUUID:identifier2 user:v14 flow:v66 completion:v65];
+            v64[0] = MEMORY[0x277D85DD0];
+            v64[1] = 3221225472;
+            v64[2] = __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDeviceCredentialKeyMessage___block_invoke_353;
+            v64[3] = &unk_279734D88;
+            v64[4] = selfCopy;
+            v65 = v56;
+            v66 = messageCopy;
+            [(HMDHomeWalletKeyAccessoryManager *)selfCopy configureAccessories:v57 withDeviceCredentialKey:v18 ofType:integerValue forDeviceWithUUID:identifier2 user:v14 flow:v65 completion:v64];
           }
 
           else
@@ -7216,19 +7093,19 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
             v52 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
             {
-              v59 = HMFGetLogIdentifier();
-              v61 = v50;
-              uUID2 = [v62 UUID];
+              v58 = HMFGetLogIdentifier();
+              v60 = v50;
+              uUID2 = [v61 UUID];
               *buf = 138543874;
-              v72 = v59;
-              v73 = 2112;
-              v74 = uUID2;
+              v71 = v58;
+              v72 = 2112;
+              v73 = uUID2;
               v54 = uUID2;
-              v75 = 2112;
-              v76 = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyAccessoryUUIDs";
+              v74 = 2112;
+              v75 = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyAccessoryUUIDs";
               _os_log_impl(&dword_2531F8000, v52, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to handle configure device credential key message, mising parameter: %@", buf, 0x20u);
 
-              v50 = v61;
+              v50 = v60;
             }
 
             objc_autoreleasePoolPop(v50);
@@ -7245,17 +7122,17 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
           if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v48 = v60 = v45;
+            v48 = v59 = v45;
             uUID3 = [flow UUID];
             *buf = 138543874;
-            v72 = v48;
-            v73 = 2112;
-            v74 = uUID3;
-            v75 = 2112;
-            v76 = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyTapToUnlockType";
+            v71 = v48;
+            v72 = 2112;
+            v73 = uUID3;
+            v74 = 2112;
+            v75 = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyTapToUnlockType";
             _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to handle configure device credential key message, missing parameter: %@", buf, 0x20u);
 
-            v45 = v60;
+            v45 = v59;
           }
 
           objc_autoreleasePoolPop(v45);
@@ -7263,7 +7140,7 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
           [(__CFString *)messageCopy respondWithError:v20];
         }
 
-        flow = v62;
+        flow = v61;
       }
 
       else
@@ -7274,19 +7151,19 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
         if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v64 = v39;
+          v63 = v39;
           v43 = v42 = flow;
           uUID4 = [v42 UUID];
           *buf = 138543874;
-          v72 = v43;
-          v73 = 2112;
-          v74 = uUID4;
-          v75 = 2112;
-          v76 = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyCredentialKey";
+          v71 = v43;
+          v72 = 2112;
+          v73 = uUID4;
+          v74 = 2112;
+          v75 = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyCredentialKey";
           _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to handle configure device credential key message, missing parameter: %@", buf, 0x20u);
 
           flow = v42;
-          v39 = v64;
+          v39 = v63;
         }
 
         objc_autoreleasePoolPop(v39);
@@ -7305,19 +7182,19 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
         v35 = HMFGetLogIdentifier();
         uUID5 = [flow UUID];
         [(__CFString *)messageCopy destination];
-        v37 = v63 = flow;
+        v37 = v62 = flow;
         v38 = objc_opt_class();
         *buf = 138544130;
-        v72 = v35;
-        v73 = 2112;
-        v74 = uUID5;
-        v75 = 2112;
-        v76 = v37;
-        v77 = 2112;
-        v78 = v38;
+        v71 = v35;
+        v72 = 2112;
+        v73 = uUID5;
+        v74 = 2112;
+        v75 = v37;
+        v76 = 2112;
+        v77 = v38;
         _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Message destination is not of expected type %@:%@", buf, 0x2Au);
 
-        flow = v63;
+        flow = v62;
       }
 
       objc_autoreleasePoolPop(v32);
@@ -7336,9 +7213,9 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
       v30 = HMFGetLogIdentifier();
       uUID6 = [flow UUID];
       *buf = 138543618;
-      v72 = v30;
-      v73 = 2112;
-      v74 = uUID6;
+      v71 = v30;
+      v72 = 2112;
+      v73 = uUID6;
       _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to handle configure device credential key message, user not found", buf, 0x16u);
     }
 
@@ -7346,13 +7223,11 @@ void __85__HMDHomeWalletKeyAccessoryManager__handleAddIssuerKeysToMatterV1Access
     v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [(__CFString *)messageCopy respondWithError:v17];
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 id __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDeviceCredentialKeyMessage___block_invoke(id *a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -7400,13 +7275,13 @@ id __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDeviceCr
       {
         v14 = HMFGetLogIdentifier();
         v15 = [a1[5] UUID];
-        v28 = 138543874;
-        v29 = v14;
-        v30 = 2112;
-        v31 = v15;
-        v32 = 2112;
-        v33 = v6;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessory with device credential key, accessory with uuid: %@ not found", &v28, 0x20u);
+        v27 = 138543874;
+        v28 = v14;
+        v29 = 2112;
+        v30 = v15;
+        v31 = 2112;
+        v32 = v6;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessory with device credential key, accessory with uuid: %@ not found", &v27, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -7422,15 +7297,15 @@ id __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDeviceCr
       {
         v24 = HMFGetLogIdentifier();
         v25 = [a1[5] UUID];
-        v28 = 138544130;
-        v29 = v24;
-        v30 = 2112;
-        v31 = v25;
-        v32 = 2112;
-        v33 = v5;
-        v34 = 2112;
-        v35 = objc_opt_class();
-        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessory with device credential key, failed to convert accessory uuid: %@ to: %@", &v28, 0x2Au);
+        v27 = 138544130;
+        v28 = v24;
+        v29 = 2112;
+        v30 = v25;
+        v31 = 2112;
+        v32 = v5;
+        v33 = 2112;
+        v34 = objc_opt_class();
+        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessory with device credential key, failed to convert accessory uuid: %@ to: %@", &v27, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -7449,29 +7324,27 @@ LABEL_20:
   {
     v19 = HMFGetLogIdentifier();
     v20 = [a1[5] UUID];
-    v28 = 138544130;
-    v29 = v19;
-    v30 = 2112;
-    v31 = v20;
-    v32 = 2112;
-    v33 = v3;
-    v34 = 2112;
-    v35 = objc_opt_class();
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessory with device credential key, unknown type for uuid: %@ expected: %@", &v28, 0x2Au);
+    v27 = 138544130;
+    v28 = v19;
+    v29 = 2112;
+    v30 = v20;
+    v31 = 2112;
+    v32 = v3;
+    v33 = 2112;
+    v34 = objc_opt_class();
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Not configuring accessory with device credential key, unknown type for uuid: %@ expected: %@", &v27, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v16);
   v10 = 0;
 LABEL_21:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 void __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDeviceCredentialKeyMessage___block_invoke_353(id *a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1[4] workQueue];
   dispatch_assert_queue_V2(v4);
@@ -7488,13 +7361,13 @@ void __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDevice
       v10 = [a1[5] UUID];
       v11 = a1[6];
       *buf = 138544130;
-      v21 = v9;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v11;
-      v26 = 2112;
-      v27 = v3;
+      v20 = v9;
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v11;
+      v25 = 2112;
+      v26 = v3;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to handle configure device credential key message %@:%@", buf, 0x2Au);
     }
 
@@ -7510,28 +7383,26 @@ void __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDevice
       v13 = [a1[5] UUID];
       v14 = a1[6];
       *buf = 138543874;
-      v21 = v12;
-      v22 = 2112;
-      v23 = v13;
-      v24 = 2112;
-      v25 = v14;
+      v20 = v12;
+      v21 = 2112;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v14;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Successfully handled configure device credential key message: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
     v15 = a1[6];
-    v18 = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyDidSucceed";
-    v19 = MEMORY[0x277CBEC38];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = @"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessageKeyDidSucceed";
+    v18 = MEMORY[0x277CBEC38];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     [v15 respondWithPayload:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)missingWalletKeysForAccessoryUUID:(id)d usersByUniqueID:(id)iD accessoryUsersByUniqueID:(id)uniqueID flow:(id)flow
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   uniqueIDCopy = uniqueID;
@@ -7548,20 +7419,20 @@ void __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDevice
 
     v19 = MEMORY[0x277CBEB98];
     allKeys = [iDCopy allKeys];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_usersByUniqueID_accessoryUsersByUniqueID_flow___block_invoke_2_344;
-    v34[3] = &unk_279730318;
-    v35 = uniqueIDCopy;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_usersByUniqueID_accessoryUsersByUniqueID_flow___block_invoke_2_344;
+    v33[3] = &unk_279730318;
+    v34 = uniqueIDCopy;
     selfCopy = self;
-    v37 = flowCopy;
-    v38 = uuid;
-    v39 = iDCopy;
+    v36 = flowCopy;
+    v37 = uuid;
+    v38 = iDCopy;
     allValues2 = uuid;
-    v21 = [allKeys na_map:v34];
+    v21 = [allKeys na_map:v33];
     v22 = [v19 setWithArray:v21];
 
-    v23 = v35;
+    v23 = v34;
   }
 
   else
@@ -7573,32 +7444,30 @@ void __93__HMDHomeWalletKeyAccessoryManager_handleConfigureAccessoriesWithDevice
     {
       v27 = HMFGetLogIdentifier();
       [flowCopy UUID];
-      v28 = v33 = v24;
+      v28 = v32 = v24;
       *buf = 138543874;
-      v43 = v27;
-      v44 = 2112;
-      v45 = v28;
-      v46 = 2112;
-      v47 = uuid;
+      v42 = v27;
+      v43 = 2112;
+      v44 = v28;
+      v45 = 2112;
+      v46 = uuid;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Reader key is missing on accessory: %@", buf, 0x20u);
 
-      v24 = v33;
+      v24 = v32;
     }
 
     objc_autoreleasePoolPop(v24);
     v29 = MEMORY[0x277CBEB98];
     allValues2 = [iDCopy allValues];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_usersByUniqueID_accessoryUsersByUniqueID_flow___block_invoke_342;
-    v40[3] = &unk_2797302D0;
-    v41 = uuid;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_usersByUniqueID_accessoryUsersByUniqueID_flow___block_invoke_342;
+    v39[3] = &unk_2797302D0;
+    v40 = uuid;
     v23 = uuid;
-    v30 = [allValues2 na_map:v40];
+    v30 = [allValues2 na_map:v39];
     v22 = [v29 setWithArray:v30];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -7618,7 +7487,7 @@ id __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_use
 
 id __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_usersByUniqueID_accessoryUsersByUniqueID_flow___block_invoke_2_344(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) allKeys];
   v5 = [v4 containsObject:v3];
@@ -7643,21 +7512,21 @@ id __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_use
       {
         v23 = HMFGetLogIdentifier();
         v24 = [*(a1 + 48) UUID];
-        v33 = *(a1 + 56);
+        v32 = *(a1 + 56);
         v25 = [*(a1 + 64) objectForKeyedSubscript:v3];
         [v25 uuid];
-        v26 = v34 = v20;
+        v26 = v33 = v20;
         *buf = 138544130;
-        v36 = v23;
-        v37 = 2112;
-        v38 = v24;
-        v39 = 2112;
-        v40 = v33;
-        v41 = 2112;
-        v42 = v26;
+        v35 = v23;
+        v36 = 2112;
+        v37 = v24;
+        v38 = 2112;
+        v39 = v32;
+        v40 = 2112;
+        v41 = v26;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] User does not have at least 1 RFID credentials on accessory: %@, user: %@", buf, 0x2Au);
 
-        v20 = v34;
+        v20 = v33;
       }
 
       objc_autoreleasePoolPop(v20);
@@ -7682,13 +7551,13 @@ id __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_use
       v16 = [*(a1 + 64) objectForKeyedSubscript:v3];
       v17 = [v16 uuid];
       *buf = 138544130;
-      v36 = v13;
-      v37 = 2112;
-      v38 = v14;
-      v39 = 2112;
-      v40 = v15;
-      v41 = 2112;
-      v42 = v17;
+      v35 = v13;
+      v36 = 2112;
+      v37 = v14;
+      v38 = 2112;
+      v39 = v15;
+      v40 = 2112;
+      v41 = v17;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Matter user is missing on accessory: %@, user: %@", buf, 0x2Au);
     }
 
@@ -7699,8 +7568,6 @@ id __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_use
     v8 = [v6 uuid];
     v9 = [v18 initWithAccessoryUUID:v19 userUUID:v8];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -7727,24 +7594,22 @@ id __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_use
 uint64_t __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_usersByUniqueID_accessoryUsersByUniqueID_flow___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 credentialType];
-  v3 = *MEMORY[0x277D17990];
-  v4 = HMFEqualObjects();
+  v3 = HMFEqualObjects();
 
-  return v4;
+  return v3;
 }
 
 uint64_t __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUUID_usersByUniqueID_accessoryUsersByUniqueID_flow___block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 userUniqueID];
-  v3 = *MEMORY[0x277D17AB8];
-  v4 = HMFEqualObjects();
+  v3 = HMFEqualObjects();
 
-  return v4;
+  return v3;
 }
 
 - (id)fetchMissingWalletKeysForAccessory:(id)accessory users:(id)users flow:(id)flow
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   usersCopy = users;
   flowCopy = flow;
@@ -7756,13 +7621,13 @@ uint64_t __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUU
     v14 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138544130;
-    v40 = v14;
-    v41 = 2112;
-    v42 = uUID;
-    v43 = 2112;
-    v44 = accessoryCopy;
-    v45 = 2112;
-    v46 = usersCopy;
+    v39 = v14;
+    v40 = 2112;
+    v41 = uUID;
+    v42 = 2112;
+    v43 = accessoryCopy;
+    v44 = 2112;
+    v45 = usersCopy;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching missing wallet keys from accessory: %@, users: %@", buf, 0x2Au);
   }
 
@@ -7772,25 +7637,25 @@ uint64_t __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUU
     v16 = [usersCopy na_dictionaryWithKeyGenerator:&__block_literal_global_331];
     v17 = [accessoryCopy waitForDoorLockClusterObjectWithFlow:flowCopy];
     naFuture = [v17 naFuture];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __82__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessory_users_flow___block_invoke_2;
-    v36[3] = &unk_279730220;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __82__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessory_users_flow___block_invoke_2;
+    v35[3] = &unk_279730220;
     v19 = v16;
-    v37 = v19;
+    v36 = v19;
     v20 = flowCopy;
-    v38 = v20;
-    v21 = [naFuture flatMap:v36];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __82__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessory_users_flow___block_invoke_3;
-    v32[3] = &unk_279730268;
-    v32[4] = selfCopy;
-    v33 = accessoryCopy;
-    v34 = v19;
-    v35 = v20;
+    v37 = v20;
+    v21 = [naFuture flatMap:v35];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __82__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessory_users_flow___block_invoke_3;
+    v31[3] = &unk_279730268;
+    v31[4] = selfCopy;
+    v32 = accessoryCopy;
+    v33 = v19;
+    v34 = v20;
     v22 = v19;
-    v23 = [v21 flatMap:v32];
+    v23 = [v21 flatMap:v31];
   }
 
   else
@@ -7803,9 +7668,9 @@ uint64_t __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUU
       v27 = HMFGetLogIdentifier();
       uUID2 = [flowCopy UUID];
       *buf = 138543618;
-      v40 = v27;
-      v41 = 2112;
-      v42 = uUID2;
+      v39 = v27;
+      v40 = 2112;
+      v41 = uUID2;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Returning empty set for nil accessory", buf, 0x16u);
     }
 
@@ -7814,8 +7679,6 @@ uint64_t __116__HMDHomeWalletKeyAccessoryManager_missingWalletKeysForAccessoryUU
     v17 = [MEMORY[0x277CBEB98] set];
     v23 = [v29 futureWithResult:v17];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -7845,7 +7708,7 @@ id __82__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessory_use
 
 - (id)fetchMissingWalletKeysForUserUUID:(id)d flow:(id)flow
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dCopy = d;
   flowCopy = flow;
   v8 = objc_autoreleasePoolPush();
@@ -7856,11 +7719,11 @@ id __82__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessory_use
     v11 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543874;
-    v46 = v11;
-    v47 = 2112;
-    v48 = uUID;
-    v49 = 2112;
-    v50 = dCopy;
+    v45 = v11;
+    v46 = 2112;
+    v47 = uUID;
+    v48 = 2112;
+    v49 = dCopy;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching missing wallet keys for user UUID: %@", buf, 0x20u);
   }
 
@@ -7881,9 +7744,9 @@ id __82__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessory_use
       [flowCopy UUID];
       v22 = v21 = dCopy;
       *buf = 138543618;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v22;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v22;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Did not find any Matter accessories supporting TTU", buf, 0x16u);
 
       dCopy = v21;
@@ -7897,62 +7760,58 @@ id __82__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessory_use
 
   else
   {
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_flow___block_invoke_319;
-    v42[3] = &unk_2797301B8;
-    v42[4] = selfCopy;
-    v43 = v14;
-    v38 = home;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_flow___block_invoke_319;
+    v41[3] = &unk_2797301B8;
+    v41[4] = selfCopy;
+    v42 = v14;
+    v37 = home;
     v26 = dCopy;
     v27 = flowCopy;
-    v44 = v27;
-    v28 = [v16 na_map:v42];
+    v43 = v27;
+    v28 = [v16 na_map:v41];
     v29 = MEMORY[0x277D2C900];
     immediateScheduler = [MEMORY[0x277D2C938] immediateScheduler];
     v31 = [v29 combineAllFutures:v28 ignoringErrors:1 scheduler:immediateScheduler];
     [v31 flatMap:&__block_literal_global_324_158699];
     v32 = v14;
     v34 = v33 = flowCopy;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_flow___block_invoke_4;
-    v39[3] = &unk_2797340B8;
-    v39[4] = selfCopy;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_flow___block_invoke_4;
+    v38[3] = &unk_2797340B8;
+    v38[4] = selfCopy;
     v35 = v27;
     dCopy = v26;
-    home = v38;
-    v40 = v35;
-    v41 = dCopy;
-    v25 = [v34 addCompletionBlock:v39];
+    home = v37;
+    v39 = v35;
+    v40 = dCopy;
+    v25 = [v34 addCompletionBlock:v38];
 
     flowCopy = v33;
     v14 = v32;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
 
 id __75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_flow___block_invoke_319(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
-  v10 = a1[5];
+  v9 = a1[5];
   v4 = MEMORY[0x277CBEA60];
   v5 = a2;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
-  v7 = [v3 fetchMissingWalletKeysForAccessory:v5 users:v6 flow:{a1[6], v10, v11}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
+  v7 = [v3 fetchMissingWalletKeysForAccessory:v5 users:v6 flow:{a1[6], v9, v10}];
 
   return v7;
 }
 
 void __75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_flow___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -7966,19 +7825,19 @@ void __75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_fl
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 40) UUID];
       v13 = *(a1 + 48);
-      v19 = 138544130;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v5;
+      v18 = 138544130;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v13;
+      v24 = 2112;
+      v25 = v5;
       v14 = "%{public}@[Flow: %@] Found missing wallet keys for userUUID: %@ missing wallet keys: %@";
       v15 = v10;
       v16 = OS_LOG_TYPE_INFO;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v15, v16, v14, &v19, 0x2Au);
+      _os_log_impl(&dword_2531F8000, v15, v16, v14, &v18, 0x2Au);
     }
   }
 
@@ -7987,14 +7846,14 @@ LABEL_6:
     v11 = HMFGetLogIdentifier();
     v12 = [*(a1 + 40) UUID];
     v17 = *(a1 + 48);
-    v19 = 138544130;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v17;
-    v25 = 2112;
-    v26 = v6;
+    v18 = 138544130;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v17;
+    v24 = 2112;
+    v25 = v6;
     v14 = "%{public}@[Flow: %@] Failed to fetch missing wallet keys for userUUID: %@, error: %@";
     v15 = v10;
     v16 = OS_LOG_TYPE_ERROR;
@@ -8002,7 +7861,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 id __75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_flow___block_invoke_2(uint64_t a1, void *a2)
@@ -8037,7 +7895,7 @@ void *__75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_f
 
 - (id)fetchMissingWalletKeysForAccessoryUUID:(id)d forUser:(id)user flow:(id)flow
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dCopy = d;
   userCopy = user;
   flowCopy = flow;
@@ -8049,11 +7907,11 @@ void *__75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_f
     v14 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543874;
-    v37 = v14;
-    v38 = 2112;
-    v39 = uUID;
-    v40 = 2112;
-    v41 = dCopy;
+    v36 = v14;
+    v37 = 2112;
+    v38 = uUID;
+    v39 = 2112;
+    v40 = dCopy;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching missing wallet keys for accessory UUID: %@", buf, 0x20u);
   }
 
@@ -8077,14 +7935,14 @@ void *__75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_f
   {
     users = [home users];
     v21 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy fetchMissingWalletKeysForAccessory:v19 users:users flow:flowCopy];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __88__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessoryUUID_forUser_flow___block_invoke;
-    v33[3] = &unk_279730190;
-    v33[4] = selfCopy;
-    v34 = flowCopy;
-    v35 = dCopy;
-    v22 = [v21 addCompletionBlock:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __88__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessoryUUID_forUser_flow___block_invoke;
+    v32[3] = &unk_279730190;
+    v32[4] = selfCopy;
+    v33 = flowCopy;
+    v34 = dCopy;
+    v22 = [v21 addCompletionBlock:v32];
   }
 
   else
@@ -8095,18 +7953,18 @@ void *__75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_f
     if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v26 = v32 = userCopy;
+      v26 = v31 = userCopy;
       uUID2 = [flowCopy UUID];
       uuid = [v19 uuid];
       *buf = 138543874;
-      v37 = v26;
-      v38 = 2112;
-      v39 = uUID2;
-      v40 = 2112;
-      v41 = uuid;
+      v36 = v26;
+      v37 = 2112;
+      v38 = uUID2;
+      v39 = 2112;
+      v40 = uuid;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Not fetching missing wallet keys for accessory that does not support wallet key: %@", buf, 0x20u);
 
-      userCopy = v32;
+      userCopy = v31;
     }
 
     objc_autoreleasePoolPop(v23);
@@ -8115,14 +7973,12 @@ void *__75__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForUserUUID_f
     v22 = [v29 futureWithResult:users];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 void __88__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessoryUUID_forUser_flow___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -8136,19 +7992,19 @@ void __88__HMDHomeWalletKeyAccessoryManager_fetchMissingWalletKeysForAccessoryUU
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 40) UUID];
       v13 = *(a1 + 48);
-      v19 = 138544130;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v5;
+      v18 = 138544130;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v13;
+      v24 = 2112;
+      v25 = v5;
       v14 = "%{public}@[Flow: %@] Found missing wallet keys for accessoryUUID: %@ missing wallet keys: %@";
       v15 = v10;
       v16 = OS_LOG_TYPE_INFO;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v15, v16, v14, &v19, 0x2Au);
+      _os_log_impl(&dword_2531F8000, v15, v16, v14, &v18, 0x2Au);
     }
   }
 
@@ -8157,14 +8013,14 @@ LABEL_6:
     v11 = HMFGetLogIdentifier();
     v12 = [*(a1 + 40) UUID];
     v17 = *(a1 + 48);
-    v19 = 138544130;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v17;
-    v25 = 2112;
-    v26 = v6;
+    v18 = 138544130;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v17;
+    v24 = 2112;
+    v25 = v6;
     v14 = "%{public}@[Flow: %@] Failed to fetch missing wallet keys for accessoryUUID: %@, error: %@";
     v15 = v10;
     v16 = OS_LOG_TYPE_ERROR;
@@ -8172,12 +8028,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)restoreMissingWalletKeys:(id)keys onAccessory:(id)accessory flow:(id)flow
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   accessoryCopy = accessory;
   flowCopy = flow;
@@ -8190,13 +8045,13 @@ LABEL_6:
     uUID = [flowCopy UUID];
     uuid = [accessoryCopy uuid];
     *buf = 138544130;
-    v45 = v14;
-    v46 = 2112;
-    v47 = uUID;
-    v48 = 2112;
-    v49 = keysCopy;
-    v50 = 2112;
-    v51 = uuid;
+    v44 = v14;
+    v45 = 2112;
+    v46 = uUID;
+    v47 = 2112;
+    v48 = keysCopy;
+    v49 = 2112;
+    v50 = uuid;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Restoring missing wallet keys: %@ on accessory: %@", buf, 0x2Au);
   }
 
@@ -8205,28 +8060,28 @@ LABEL_6:
   {
     v17 = objc_alloc_init(MEMORY[0x277D2C900]);
     v18 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy configureNFCReaderKeyOnMatterAccessory:accessoryCopy flow:flowCopy];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke;
-    v41[3] = &unk_2797358C8;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke;
+    v40[3] = &unk_2797358C8;
     v19 = v17;
-    v42 = v19;
+    v41 = v19;
     v20 = keysCopy;
-    v43 = v20;
-    v21 = [v18 addFailureBlock:v41];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke_2;
-    v35[3] = &unk_279730168;
-    v36 = v20;
-    v37 = selfCopy;
-    v38 = flowCopy;
-    v39 = accessoryCopy;
+    v42 = v20;
+    v21 = [v18 addFailureBlock:v40];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke_2;
+    v34[3] = &unk_279730168;
+    v35 = v20;
+    v36 = selfCopy;
+    v37 = flowCopy;
+    v38 = accessoryCopy;
     v22 = v19;
-    v40 = v22;
-    v23 = [v21 addSuccessBlock:v35];
+    v39 = v22;
+    v23 = [v21 addSuccessBlock:v34];
 
-    v24 = v40;
+    v24 = v39;
     v25 = v22;
   }
 
@@ -8241,11 +8096,11 @@ LABEL_6:
       uUID2 = [flowCopy UUID];
       uuid2 = [accessoryCopy uuid];
       *buf = 138543874;
-      v45 = v29;
-      v46 = 2112;
-      v47 = uUID2;
-      v48 = 2112;
-      v49 = uuid2;
+      v44 = v29;
+      v45 = 2112;
+      v46 = uUID2;
+      v47 = 2112;
+      v48 = uuid2;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Not restoring wallet key on non-Matter accessory: %@", buf, 0x20u);
     }
 
@@ -8254,8 +8109,6 @@ LABEL_6:
     v18 = [MEMORY[0x277CBEB98] set];
     v25 = [v32 futureWithResult:v18];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -8295,7 +8148,7 @@ void __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory
 
 id __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke_3(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) home];
   v5 = [v3 userUUID];
@@ -8311,19 +8164,17 @@ id __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_f
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) UUID];
       v12 = [v3 userUUID];
-      v15 = 138543874;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to find HMDUser with UUID: %@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to find HMDUser with UUID: %@", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -8346,17 +8197,17 @@ id __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_f
 
 void __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke_4(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
     v4 = [v3 na_map:&__block_literal_global_312_158715];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke_2_313;
-    v13[3] = &unk_279730118;
-    v14 = *(a1 + 64);
-    v5 = [v4 na_map:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke_2_313;
+    v12[3] = &unk_279730118;
+    v13 = *(a1 + 64);
+    v5 = [v4 na_map:v12];
     v6 = [v5 asSet];
 
     [*(a1 + 48) finishWithResult:v6];
@@ -8372,17 +8223,15 @@ void __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) UUID];
       *buf = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Error while restoring wallet keys: Failed to get results.", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     [*(a1 + 48) finishWithResult:*(a1 + 56)];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_flow___block_invoke_2_313(uint64_t a1, void *a2)
@@ -8426,7 +8275,7 @@ id __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_f
 
 - (void)handleRestoreMissingWalletKeysMessage:(id)message
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   internalOnlyInitializer = [MEMORY[0x277D0F7B8] internalOnlyInitializer];
   v6 = objc_autoreleasePoolPush();
@@ -8437,40 +8286,38 @@ id __78__HMDHomeWalletKeyAccessoryManager_restoreMissingWalletKeys_onAccessory_f
     v9 = HMFGetLogIdentifier();
     uUID = [internalOnlyInitializer UUID];
     *buf = 138543874;
-    v27 = v9;
-    v28 = 2112;
-    v29 = uUID;
-    v30 = 2112;
-    v31 = messageCopy;
+    v26 = v9;
+    v27 = 2112;
+    v28 = uUID;
+    v29 = 2112;
+    v30 = messageCopy;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Handling RestoreMissingWalletKeysMessage: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   v11 = *MEMORY[0x277CD0720];
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   v13 = [messageCopy unarchivedObjectForKey:v11 ofClasses:v12];
 
   v14 = [v13 na_dictionaryByBucketingObjectsUsingKeyGenerator:&__block_literal_global_295];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessage___block_invoke_2;
-  v23[3] = &unk_279730010;
-  v23[4] = selfCopy;
-  v24 = internalOnlyInitializer;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessage___block_invoke_2;
+  v22[3] = &unk_279730010;
+  v22[4] = selfCopy;
+  v23 = internalOnlyInitializer;
   v15 = internalOnlyInitializer;
-  v16 = [v14 na_map:v23];
+  v16 = [v14 na_map:v22];
   combineAllFutures = [v16 combineAllFutures];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessage___block_invoke_3;
-  v21[3] = &unk_279730038;
-  v22 = messageCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessage___block_invoke_3;
+  v20[3] = &unk_279730038;
+  v21 = messageCopy;
   v18 = messageCopy;
-  v19 = [combineAllFutures addSuccessBlock:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [combineAllFutures addSuccessBlock:v20];
 }
 
 id __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessage___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -8501,23 +8348,21 @@ id __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessage_
 
 void __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessage___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [a2 asSet];
   v4 = [v3 na_setByFlattening];
 
   v5 = *(a1 + 32);
-  v9 = *MEMORY[0x277CD0720];
+  v8 = *MEMORY[0x277CD0720];
   v6 = encodeRootObject();
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v5 respondWithPayload:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchMissingWalletKeysMessage:(id)message
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   internalOnlyInitializer = [MEMORY[0x277D0F7B8] internalOnlyInitializer];
   v6 = objc_autoreleasePoolPush();
@@ -8528,11 +8373,11 @@ void __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessag
     v9 = HMFGetLogIdentifier();
     uUID = [internalOnlyInitializer UUID];
     *buf = 138543874;
-    v42 = v9;
-    v43 = 2112;
-    v44 = uUID;
-    v45 = 2112;
-    v46 = messageCopy;
+    v41 = v9;
+    v42 = 2112;
+    v43 = uUID;
+    v44 = 2112;
+    v45 = messageCopy;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Handling FetchMissingWalletKeysMessage: %@", buf, 0x20u);
   }
 
@@ -8548,39 +8393,39 @@ void __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessag
     v17 = [messageCopy userForHome:home];
 
     v18 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy fetchMissingWalletKeysForAccessoryUUID:v13 forUser:v17 flow:internalOnlyInitializer];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke;
-    v39[3] = &unk_27972FFC8;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke;
+    v38[3] = &unk_27972FFC8;
     v19 = messageCopy;
-    v40 = v19;
-    v20 = [v18 addSuccessBlock:v39];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke_2;
-    v37[3] = &unk_2797359D8;
-    v38 = v19;
-    v21 = [v20 addFailureBlock:v37];
+    v39 = v19;
+    v20 = [v18 addSuccessBlock:v38];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke_2;
+    v36[3] = &unk_2797359D8;
+    v37 = v19;
+    v21 = [v20 addFailureBlock:v36];
   }
 
   else if (v14)
   {
     v22 = [(HMDHomeWalletKeyAccessoryManager *)selfCopy fetchMissingWalletKeysForUserUUID:v14 flow:internalOnlyInitializer];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke_3;
-    v35[3] = &unk_27972FFC8;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke_3;
+    v34[3] = &unk_27972FFC8;
     v23 = messageCopy;
-    v36 = v23;
-    v24 = [v22 addSuccessBlock:v35];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke_4;
-    v33[3] = &unk_2797359D8;
-    v34 = v23;
-    v25 = [v24 addFailureBlock:v33];
+    v35 = v23;
+    v24 = [v22 addSuccessBlock:v34];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke_4;
+    v32[3] = &unk_2797359D8;
+    v33 = v23;
+    v25 = [v24 addFailureBlock:v32];
 
-    v17 = v36;
+    v17 = v35;
   }
 
   else
@@ -8592,55 +8437,49 @@ void __74__HMDHomeWalletKeyAccessoryManager_handleRestoreMissingWalletKeysMessag
     {
       v29 = HMFGetLogIdentifier();
       [internalOnlyInitializer UUID];
-      v30 = v32 = v26;
+      v30 = v31 = v26;
       *buf = 138543874;
-      v42 = v29;
-      v43 = 2112;
-      v44 = v30;
-      v45 = 2112;
-      v46 = messageCopy;
+      v41 = v29;
+      v42 = 2112;
+      v43 = v30;
+      v44 = 2112;
+      v45 = messageCopy;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Did not find either accessoryUUID or userUUID in message: %@", buf, 0x20u);
 
-      v26 = v32;
+      v26 = v31;
     }
 
     objc_autoreleasePoolPop(v26);
     v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:27];
     [messageCopy respondWithError:v17];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-void __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke(uint64_t a1)
+void __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke(uint64_t a1, uint64_t a2)
 {
   v6[1] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   v5 = *MEMORY[0x277CD0720];
-  v2 = encodeRootObject();
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  [v1 respondWithPayload:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = encodeRootObject();
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  [v2 respondWithPayload:v4];
 }
 
-void __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke_3(uint64_t a1)
+void __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v6[1] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   v5 = *MEMORY[0x277CD0720];
-  v2 = encodeRootObject();
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  [v1 respondWithPayload:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = encodeRootObject();
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  [v2 respondWithPayload:v4];
 }
 
 - (void)createAccessoryDeviceCredentialKeyPendingOperationWithAccessories:(id)accessories deviceCredentialKey:(id)key user:(id)user deviceUUID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   keyCopy = key;
   userCopy = user;
@@ -8649,41 +8488,40 @@ void __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage_
   dispatch_assert_queue_V2(workQueue);
 
   v15 = [MEMORY[0x277CBEB58] set];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v16 = accessoriesCopy;
-  v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v23;
     do
     {
       v20 = 0;
       do
       {
-        if (*v24 != v19)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        uuid = [*(*(&v23 + 1) + 8 * v20) uuid];
+        uuid = [*(*(&v22 + 1) + 8 * v20) uuid];
         [v15 addObject:uuid];
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v18);
   }
 
   [(HMDHomeWalletKeyAccessoryManager *)self createAccessoryDeviceCredentialKeyPendingOperationWithAccessoriesUUIDs:v15 deviceCredentialKey:keyCopy user:userCopy deviceUUID:dCopy];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createAccessoryDeviceCredentialKeyPendingOperationWithAccessoriesUUIDs:(id)ds deviceCredentialKey:(id)key user:(id)user deviceUUID:(id)d
@@ -8712,7 +8550,7 @@ void __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage_
 
 - (void)handleFetchWalletKeyColorMessage:(id)message
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   flow = [messageCopy flow];
   v6 = objc_autoreleasePoolPush();
@@ -8723,35 +8561,33 @@ void __72__HMDHomeWalletKeyAccessoryManager_handleFetchMissingWalletKeysMessage_
     v9 = HMFGetLogIdentifier();
     uUID = [flow UUID];
     *buf = 138543618;
-    v16 = v9;
-    v17 = 2112;
-    v18 = uUID;
+    v15 = v9;
+    v16 = 2112;
+    v17 = uUID;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Handling HMHomeFetchWalletKeyColorMessage", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___block_invoke;
-  v13[3] = &unk_27972FFA0;
-  v14 = messageCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___block_invoke;
+  v12[3] = &unk_27972FFA0;
+  v13 = messageCopy;
   v11 = messageCopy;
-  [(HMDHomeWalletKeyAccessoryManager *)selfCopy fetchWalletKeyColorWithFlow:flow completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(HMDHomeWalletKeyAccessoryManager *)selfCopy fetchWalletKeyColorWithFlow:flow completion:v12];
 }
 
 void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (a2)
   {
-    v8 = *MEMORY[0x277CCFFA0];
-    v9[0] = a2;
+    v7 = *MEMORY[0x277CCFFA0];
+    v8[0] = a2;
     v4 = MEMORY[0x277CBEAC0];
     v5 = a2;
-    v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
     [v3 respondWithPayload:v6];
   }
 
@@ -8760,8 +8596,6 @@ void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___b
     [*(a1 + 32) respondWithError:a3];
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unconfigure
@@ -8775,7 +8609,7 @@ void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___b
 
 - (void)handleWalletKeyRemoved
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -8785,22 +8619,20 @@ void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___b
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling wallet key removed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling wallet key removed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   dataSource = [(HMDHomeWalletKeyAccessoryManager *)selfCopy dataSource];
   walletKeyColorPreferenceKey = [(HMDHomeWalletKeyAccessoryManager *)selfCopy walletKeyColorPreferenceKey];
   [dataSource persistNumberValueToNoBackupStore:0 withKey:walletKeyColorPreferenceKey];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchWalletKeyColorWithFlow:(id)flow completion:(id)completion
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   completionCopy = completion;
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
@@ -8814,9 +8646,9 @@ void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___b
     v12 = HMFGetLogIdentifier();
     uUID = [flowCopy UUID];
     *buf = 138543618;
-    v56 = v12;
-    v57 = 2112;
-    v58 = uUID;
+    v55 = v12;
+    v56 = 2112;
+    v57 = uUID;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching wallet key color", buf, 0x16u);
   }
 
@@ -8835,9 +8667,9 @@ void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___b
       v20 = HMFGetLogIdentifier();
       uUID2 = [flowCopy UUID];
       *buf = 138543618;
-      v56 = v20;
-      v57 = 2112;
-      v58 = uUID2;
+      v55 = v20;
+      v56 = 2112;
+      v57 = uUID2;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Skipping fetch, returning wallet key color from persistent store", buf, 0x16u);
     }
 
@@ -8858,21 +8690,21 @@ void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___b
     {
       v28 = HMFGetLogIdentifier();
       [flowCopy UUID];
-      v50 = completionCopy;
+      v49 = completionCopy;
       v29 = flowCopy;
       v31 = v30 = home;
       v32 = HMFBooleanToString();
       *buf = 138543874;
-      v56 = v28;
-      v57 = 2112;
-      v58 = v31;
-      v59 = 2112;
-      v60 = v32;
+      v55 = v28;
+      v56 = 2112;
+      v57 = v31;
+      v58 = 2112;
+      v59 = v32;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Fetching wallet key color for home that does have Matter accessories: %@", buf, 0x20u);
 
       home = v30;
       flowCopy = v29;
-      completionCopy = v50;
+      completionCopy = v49;
     }
 
     objc_autoreleasePoolPop(v25);
@@ -8901,9 +8733,9 @@ void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___b
         v36 = HMFGetLogIdentifier();
         uUID3 = [flowCopy UUID];
         *buf = 138543618;
-        v56 = v36;
-        v57 = 2112;
-        v58 = uUID3;
+        v55 = v36;
+        v56 = 2112;
+        v57 = uUID3;
         _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Redispatching FetchWalletKeyColorMessage to resident because home has matter accessories", buf, 0x16u);
       }
 
@@ -8914,26 +8746,24 @@ void __69__HMDHomeWalletKeyAccessoryManager_handleFetchWalletKeyColorMessage___b
 
       v41 = objc_alloc(MEMORY[0x277D0F818]);
       v42 = *MEMORY[0x277CCFF98];
-      v53 = *MEMORY[0x277D0F1C8];
+      v52 = *MEMORY[0x277D0F1C8];
       v43 = HMFEncodedRootObject();
-      v54 = v43;
-      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+      v53 = v43;
+      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
       v45 = [v41 initWithName:v42 destination:accessoriesWithWalletKeySupport2 payload:v44];
 
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __75__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithFlow_completion___block_invoke_283;
-      v51[3] = &unk_279732CF0;
-      v51[4] = v34;
-      v52 = completionCopy;
-      [v45 setResponseHandler:v51];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __75__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithFlow_completion___block_invoke_283;
+      v50[3] = &unk_279732CF0;
+      v50[4] = v34;
+      v51 = completionCopy;
+      [v45 setResponseHandler:v50];
       messageTargetUUID2 = [(HMDHomeWalletKeyAccessoryManager *)v34 messageTargetUUID];
       workQueue2 = [(HMDHomeWalletKeyAccessoryManager *)v34 workQueue];
       [home redispatchToResidentMessage:v45 target:messageTargetUUID2 responseQueue:workQueue2];
     }
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithFlow_completion___block_invoke_283(uint64_t a1, void *a2, void *a3)
@@ -8968,7 +8798,7 @@ void __75__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithFlow_completi
 
 - (void)configureAccessory:(id)accessory withDeviceCredentialKey:(id)key ofType:(int64_t)type flow:(id)flow completion:(id)completion
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   flowCopy = flow;
   keyCopy = key;
@@ -8976,16 +8806,15 @@ void __75__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithFlow_completi
   workQueue = [(HMDHomeWalletKeyAccessoryManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v19[0] = accessoryCopy;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = accessoryCopy;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
 
   [(HMDHomeWalletKeyAccessoryManager *)self configureAccessories:v17 withDeviceCredentialKey:keyCopy ofType:type flow:flowCopy completion:completionCopy];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithHome:(id)home
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -8994,9 +8823,9 @@ void __75__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithFlow_completi
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v48 = v8;
-    v49 = 2112;
-    v50 = homeCopy;
+    v47 = v8;
+    v48 = 2112;
+    v49 = homeCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Configuring with home: %@", buf, 0x16u);
   }
 
@@ -9012,38 +8841,38 @@ void __75__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithFlow_completi
   {
     v12 = [HMDUserMessagePolicy userMessagePolicyWithHome:homeCopy userPrivilege:0 remoteAccessRequired:0];
     v13 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
-    v39 = [HMDXPCMessagePolicy policyWithEntitlements:5];
+    v38 = [HMDXPCMessagePolicy policyWithEntitlements:5];
     v14 = [HMDUserMessagePolicy userMessagePolicyWithHome:homeCopy userPrivilege:4 remoteAccessRequired:0];
-    v46[0] = v39;
-    v46[1] = v14;
-    v46[2] = v13;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
+    v45[0] = v38;
+    v45[1] = v14;
+    v45[2] = v13;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
     [v13 setRoles:{objc_msgSend(v13, "roles") | 4}];
     msgDispatcher2 = [homeCopy msgDispatcher];
-    v45[0] = v12;
-    v45[1] = v13;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v44[0] = v12;
+    v44[1] = v13;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
     [msgDispatcher2 registerForMessage:@"HMDHomeConfigureAccessoriesWithDeviceCredentialKeyMessage" receiver:selfCopy policies:v17 selector:sel_handleConfigureAccessoriesWithDeviceCredentialKeyMessage_];
 
     msgDispatcher3 = [homeCopy msgDispatcher];
     v19 = *MEMORY[0x277CD06F8];
-    v44[0] = v12;
-    v44[1] = v13;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+    v43[0] = v12;
+    v43[1] = v13;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
     [msgDispatcher3 registerForMessage:v19 receiver:selfCopy policies:v20 selector:sel_handleFetchMissingWalletKeysMessage_];
 
     msgDispatcher4 = [homeCopy msgDispatcher];
     v22 = *MEMORY[0x277CD0738];
-    v43[0] = v12;
-    v43[1] = v13;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+    v42[0] = v12;
+    v42[1] = v13;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
     [msgDispatcher4 registerForMessage:v22 receiver:selfCopy policies:v23 selector:sel_handleRestoreMissingWalletKeysMessage_];
 
     msgDispatcher5 = [homeCopy msgDispatcher];
     v25 = *MEMORY[0x277CCFF98];
-    v42[0] = v12;
-    v42[1] = v13;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+    v41[0] = v12;
+    v41[1] = v13;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
     [msgDispatcher5 registerForMessage:v25 receiver:selfCopy policies:v26 selector:sel_handleFetchWalletKeyColorMessage_];
 
     msgDispatcher6 = [homeCopy msgDispatcher];
@@ -9078,11 +8907,9 @@ void __75__HMDHomeWalletKeyAccessoryManager_fetchWalletKeyColorWithFlow_completi
   block[2] = __54__HMDHomeWalletKeyAccessoryManager_configureWithHome___block_invoke;
   block[3] = &unk_2797359B0;
   block[4] = selfCopy;
-  v41 = homeCopy;
+  v40 = homeCopy;
   v37 = homeCopy;
   dispatch_async(workQueue, block);
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__HMDHomeWalletKeyAccessoryManager_configureWithHome___block_invoke(uint64_t a1)
@@ -9152,17 +8979,16 @@ uint64_t __54__HMDHomeWalletKeyAccessoryManager_configureWithHome___block_invoke
 
 uint64_t __47__HMDHomeWalletKeyAccessoryManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v212;
-  logCategory__hmf_once_v212 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v212;
+  logCategory__hmf_once_v212 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)matterIssuerKeyDataWithPublicKey:(id)key flow:(id)flow
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   flowCopy = flow;
   v8 = objc_alloc_init(MEMORY[0x277CFEB78]);
@@ -9172,9 +8998,9 @@ uint64_t __47__HMDHomeWalletKeyAccessoryManager_logCategory__block_invoke()
   [v8 setKey:keyCopy];
   v10 = objc_alloc_init(MEMORY[0x277CFEB90]);
   [v10 setIssuerKey:v8];
-  v22 = 0;
-  v11 = [v10 serializeWithError:&v22];
-  v12 = v22;
+  v21 = 0;
+  v11 = [v10 serializeWithError:&v21];
+  v12 = v21;
   if (v11)
   {
     v13 = v11;
@@ -9189,22 +9015,20 @@ uint64_t __47__HMDHomeWalletKeyAccessoryManager_logCategory__block_invoke()
     {
       v17 = HMFGetLogIdentifier();
       [flowCopy UUID];
-      v18 = v21 = v14;
+      v18 = v20 = v14;
       *buf = 138543874;
-      v24 = v17;
-      v25 = 2112;
-      v26 = v18;
-      v27 = 2112;
-      v28 = v12;
+      v23 = v17;
+      v24 = 2112;
+      v25 = v18;
+      v26 = 2112;
+      v27 = v12;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to serialize issuer key with public key data with error: %@", buf, 0x20u);
 
-      v14 = v21;
+      v14 = v20;
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -9224,7 +9048,7 @@ uint64_t __47__HMDHomeWalletKeyAccessoryManager_logCategory__block_invoke()
 
 + (id)createMatterIssuerKeyDataForUser:(id)user withUserIndex:(id)index flow:(id)flow
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   userCopy = user;
   indexCopy = index;
   flowCopy = flow;
@@ -9239,9 +9063,9 @@ uint64_t __47__HMDHomeWalletKeyAccessoryManager_logCategory__block_invoke()
 
   v16 = objc_alloc_init(MEMORY[0x277CFEB90]);
   [v16 setIssuerKey:v11];
-  v29 = 0;
-  v17 = [v16 serializeWithError:&v29];
-  v18 = v29;
+  v28 = 0;
+  v17 = [v16 serializeWithError:&v28];
+  v18 = v28;
   if (v17)
   {
     v19 = v17;
@@ -9255,29 +9079,27 @@ uint64_t __47__HMDHomeWalletKeyAccessoryManager_logCategory__block_invoke()
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v23 = v28 = indexCopy;
+      v23 = v27 = indexCopy;
       [flowCopy UUID];
-      v24 = v27 = v20;
+      v24 = v26 = v20;
       *buf = 138544386;
-      v31 = v23;
-      v32 = 2112;
-      v33 = v24;
-      v34 = 2112;
-      v35 = userCopy;
-      v36 = 2048;
-      v37 = v28;
-      v38 = 2112;
-      v39 = v18;
+      v30 = v23;
+      v31 = 2112;
+      v32 = v24;
+      v33 = 2112;
+      v34 = userCopy;
+      v35 = 2048;
+      v36 = v27;
+      v37 = 2112;
+      v38 = v18;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to serialize issuer key for user: %@ with user index: %ld with error: %@", buf, 0x34u);
 
-      v20 = v27;
-      indexCopy = v28;
+      v20 = v26;
+      indexCopy = v27;
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

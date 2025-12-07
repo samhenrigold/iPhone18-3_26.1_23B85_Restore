@@ -5,6 +5,7 @@
 - (void)activateWithCompletion:(id)completion;
 - (void)invalidate;
 - (void)subscriber:(id)subscriber failedToStartWithError:(int64_t)error;
+- (void)subscriber:(id)subscriber lostDiscoveryResultForPublishID:(unsigned __int8)d address:(id)address;
 - (void)subscriber:(id)subscriber receivedDiscoveryResult:(id)result;
 - (void)subscriber:(id)subscriber receivedMessage:(id)message fromPublishID:(unsigned __int8)d address:(id)address;
 - (void)subscriber:(id)subscriber terminatedWithReason:(int64_t)reason;
@@ -122,6 +123,94 @@
   }
 
   [subscriberCopy setDelegate:0];
+}
+
+- (void)subscriber:(id)subscriber lostDiscoveryResultForPublishID:(unsigned __int8)d address:(id)address
+{
+  dCopy = d;
+  addressCopy = address;
+  v7 = NSStringFromSelector(a2);
+  NSLog(@"%@: %@", self, v7);
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  selfCopy = self;
+  obj = self->_endpoints;
+  v8 = [(NSMutableSet *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v8)
+  {
+    v9 = *v30;
+LABEL_3:
+    v10 = 0;
+    while (1)
+    {
+      if (*v30 != v9)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v11 = *(*(&v29 + 1) + 8 * v10);
+      discoveryResult = [v11 discoveryResult];
+      if ([discoveryResult publishID] == dCopy)
+      {
+        discoveryResult2 = [v11 discoveryResult];
+        publisherAddress = [discoveryResult2 publisherAddress];
+        data = [publisherAddress data];
+        data2 = [addressCopy data];
+        v17 = [data isEqualToData:data2];
+
+        if (v17)
+        {
+          v18 = v11;
+
+          if (!v18)
+          {
+            goto LABEL_17;
+          }
+
+          endpointLostHandler = [(PKNANSubscriber *)selfCopy endpointLostHandler];
+          if (endpointLostHandler)
+          {
+            queue = [(PKNANSubscriber *)selfCopy queue];
+            block[0] = _NSConcreteStackBlock;
+            block[1] = 3221225472;
+            block[2] = sub_10002D90C;
+            block[3] = &unk_100095B90;
+            v28 = endpointLostHandler;
+            v27 = v18;
+            dispatch_async(queue, block);
+          }
+
+          [(NSMutableSet *)selfCopy->_endpoints removeObject:v18];
+
+          v21 = addressCopy;
+          goto LABEL_18;
+        }
+      }
+
+      else
+      {
+      }
+
+      if (v8 == ++v10)
+      {
+        v8 = [(NSMutableSet *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        if (v8)
+        {
+          goto LABEL_3;
+        }
+
+        break;
+      }
+    }
+  }
+
+LABEL_17:
+  v21 = addressCopy;
+  NSLog(@"Can't find endpoint publish id %d, addr %@", dCopy, addressCopy);
+LABEL_18:
 }
 
 - (void)subscriber:(id)subscriber receivedDiscoveryResult:(id)result

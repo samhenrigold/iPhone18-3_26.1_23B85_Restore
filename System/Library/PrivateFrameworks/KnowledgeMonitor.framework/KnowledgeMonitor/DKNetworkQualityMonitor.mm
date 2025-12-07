@@ -12,7 +12,7 @@ uint64_t __48___DKNetworkQualityMonitor_didStartTrackingNOI___block_invoke(uint6
   return [v2 updateInterfaceClass];
 }
 
-uint64_t __75___DKNetworkQualityMonitor_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
+void *__75___DKNetworkQualityMonitor_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isEqualToString:@"predictionsGeneratedAt"])
   {

@@ -89,16 +89,16 @@ void __77__FCPersonalizationBundleIDMapping_decendingSpecificityBundleIDsForBund
 
 void __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) bundleIds];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_2;
-  v17[3] = &unk_1E7C41010;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_2;
+  v16[3] = &unk_1E7C41010;
   v5 = v3;
-  v18 = v5;
-  [v4 enumerateObjectsUsingBlock:v17];
+  v17 = v5;
+  [v4 enumerateObjectsUsingBlock:v16];
 
   if (NFInternalBuild())
   {
@@ -109,69 +109,65 @@ void __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_in
     {
       v8 = MEMORY[0x1E696ACB0];
       v9 = [v7 dataUsingEncoding:4];
-      v16 = 0;
-      v10 = [v8 JSONObjectWithData:v9 options:4 error:&v16];
-      v11 = v16;
+      v15 = 0;
+      v10 = [v8 JSONObjectWithData:v9 options:4 error:&v15];
+      v11 = v15;
 
       if (v11 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected nil value for '%s'", "error"];
+        v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected nil value for '%s'", "error"];
         *buf = 136315906;
-        v20 = "[FCPersonalizationBundleIDMapping initWithPBBundleIDMapping:]_block_invoke_2";
-        v21 = 2080;
-        v22 = "FCPersonalizationBundleIDMapping.m";
-        v23 = 1024;
-        v24 = 120;
-        v25 = 2114;
-        v26 = v13;
+        v19 = "[FCPersonalizationBundleIDMapping initWithPBBundleIDMapping:]_block_invoke_2";
+        v20 = 2080;
+        v21 = "FCPersonalizationBundleIDMapping.m";
+        v22 = 1024;
+        v23 = 120;
+        v24 = 2114;
+        v25 = v12;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_32;
-      v14[3] = &unk_1E7C3A5F0;
-      v15 = v5;
-      [v10 enumerateKeysAndObjectsUsingBlock:v14];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_32;
+      v13[3] = &unk_1E7C3A5F0;
+      v14 = v5;
+      [v10 enumerateKeysAndObjectsUsingBlock:v13];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 bundleId];
 
   if (!v4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "bundleID.bundleId"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "bundleID.bundleId"];
     *buf = 136315906;
-    v15 = "[FCPersonalizationBundleIDMapping initWithPBBundleIDMapping:]_block_invoke_2";
-    v16 = 2080;
-    v17 = "FCPersonalizationBundleIDMapping.m";
-    v18 = 1024;
-    v19 = 76;
-    v20 = 2114;
-    v21 = v11;
+    v14 = "[FCPersonalizationBundleIDMapping initWithPBBundleIDMapping:]_block_invoke_2";
+    v15 = 2080;
+    v16 = "FCPersonalizationBundleIDMapping.m";
+    v17 = 1024;
+    v18 = 76;
+    v19 = 2114;
+    v20 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = MEMORY[0x1E695DF20];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_22;
-  v12[3] = &unk_1E7C36EC8;
-  v13 = v3;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_22;
+  v11[3] = &unk_1E7C36EC8;
+  v12 = v3;
   v6 = v3;
-  v7 = [v5 fc_dictionary:v12];
+  v7 = [v5 fc_dictionary:v11];
   v8 = *(a1 + 32);
   v9 = [v6 bundleId];
   [v8 setObject:v7 forKeyedSubscript:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_22(uint64_t a1, void *a2)
@@ -227,7 +223,7 @@ void __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_in
 
 void __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_invoke_32(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   v7 = a2;
@@ -235,22 +231,20 @@ void __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_in
 
   if (v8 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected nil value for '%s'", "bundleIDsDict[extraBundleID]"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected nil value for '%s'", "bundleIDsDict[extraBundleID]"];
     *buf = 136315906;
-    v13 = "[FCPersonalizationBundleIDMapping initWithPBBundleIDMapping:]_block_invoke";
-    v14 = 2080;
-    v15 = "FCPersonalizationBundleIDMapping.m";
-    v16 = 1024;
-    v17 = 128;
-    v18 = 2114;
-    v19 = v11;
+    v12 = "[FCPersonalizationBundleIDMapping initWithPBBundleIDMapping:]_block_invoke";
+    v13 = 2080;
+    v14 = "FCPersonalizationBundleIDMapping.m";
+    v15 = 1024;
+    v16 = 128;
+    v17 = 2114;
+    v18 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v9 = [v5 fc_dictionaryByTransformingValuesWithBlock:&__block_literal_global_87];
   [*(a1 + 32) setObject:v9 forKeyedSubscript:v7];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)count
@@ -279,43 +273,40 @@ void __62__FCPersonalizationBundleIDMapping_initWithPBBundleIDMapping___block_in
 
 void __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() decendingSpecificityBundleIDsForBundleID:*(a1 + 40)];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke_2;
-  v11[3] = &unk_1E7C41078;
-  v6 = *(a1 + 40);
-  v11[4] = *(a1 + 32);
-  v12 = v6;
-  v7 = v3;
-  v13 = v7;
-  [v5 enumerateObjectsUsingBlock:v11];
-  if (![v7 count])
+  v4 = [objc_opt_class() decendingSpecificityBundleIDsForBundleID:*(a1 + 40)];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke_2;
+  v9[3] = &unk_1E7C41078;
+  v5 = *(a1 + 40);
+  v9[4] = *(a1 + 32);
+  v10 = v5;
+  v6 = v3;
+  v11 = v6;
+  [v4 enumerateObjectsUsingBlock:v9];
+  if (![v6 count])
   {
-    if ([v5 count])
+    if ([v4 count])
     {
-      v9 = FCProgressivePersonalizationLog;
+      v7 = FCProgressivePersonalizationLog;
       if (os_log_type_enabled(FCProgressivePersonalizationLog, OS_LOG_TYPE_DEBUG))
       {
-        v10 = *(a1 + 40);
+        v8 = *(a1 + 40);
         *buf = 138412546;
-        v15 = v10;
-        v16 = 2112;
-        v17 = v5;
-        _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEBUG, "Failed to find mapping for bundle ID %@ with decending IDs %@", buf, 0x16u);
+        v13 = v8;
+        v14 = 2112;
+        v15 = v4;
+        _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEBUG, "Failed to find mapping for bundle ID %@ with decending IDs %@", buf, 0x16u);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) bundleIDMapping];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
@@ -323,12 +314,12 @@ void __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke_
   {
     v4 = [*(a1 + 32) bundleIDMapping];
     v5 = [v4 objectForKeyedSubscript:*(a1 + 40)];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke_3;
-    v10[3] = &unk_1E7C3A5F0;
-    v11 = *(a1 + 48);
-    [v5 enumerateKeysAndObjectsUsingBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke_3;
+    v9[3] = &unk_1E7C3A5F0;
+    v10 = *(a1 + 48);
+    [v5 enumerateKeysAndObjectsUsingBlock:v9];
 
     v6 = FCProgressivePersonalizationLog;
     if (os_log_type_enabled(FCProgressivePersonalizationLog, OS_LOG_TYPE_DEBUG))
@@ -336,14 +327,12 @@ void __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke_
       v7 = *(a1 + 40);
       v8 = *(a1 + 48);
       *buf = 138412546;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
       _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEBUG, "BundleID %@ Mapped to %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FCPersonalizationBundleIDMapping_tagScoresForBundleID___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)

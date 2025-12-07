@@ -88,32 +88,28 @@
 
 - (void)connectionInterrupted
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = APLogForCategory(0x21uLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = objc_opt_class();
-    v3 = v6;
-    _os_log_impl(&dword_1BADC1000, v2, OS_LOG_TYPE_DEFAULT, "[%@] Connection from the daemon was interrupted.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = objc_opt_class();
+    v3 = v5;
+    _os_log_impl(&dword_1BADC1000, v2, OS_LOG_TYPE_DEFAULT, "[%@] Connection from the daemon was interrupted.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionInvalidated
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = APLogForCategory(0x21uLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = objc_opt_class();
-    v3 = v6;
-    _os_log_impl(&dword_1BADC1000, v2, OS_LOG_TYPE_DEFAULT, "[%@] Connection from the daemon was invalidated.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = objc_opt_class();
+    v3 = v5;
+    _os_log_impl(&dword_1BADC1000, v2, OS_LOG_TYPE_DEFAULT, "[%@] Connection from the daemon was invalidated.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

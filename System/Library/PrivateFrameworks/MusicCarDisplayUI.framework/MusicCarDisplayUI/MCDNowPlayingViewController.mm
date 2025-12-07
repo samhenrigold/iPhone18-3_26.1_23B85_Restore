@@ -7,12 +7,14 @@
 - (void)_popViewControllerAnimated;
 - (void)_setupActivityTimer;
 - (void)_updateBackButton;
+- (void)contentManager:(id)manager bufferingItem:(BOOL)item;
 - (void)contentManager:(id)manager displayItemIndex:(int64_t)index totalItemCount:(int64_t)count;
 - (void)contentManager:(id)manager presentViewController:(id)controller;
 - (void)contentManager:(id)manager processResponse:(id)response error:(id)error;
 - (void)contentManager:(id)manager pushViewController:(id)controller;
 - (void)contentManager:(id)manager sectionName:(id)name;
 - (void)contentManager:(id)manager setAdditionalBarButtonItems:(id)items;
+- (void)contentManager:(id)manager shouldShowPlaybackQueue:(BOOL)queue;
 - (void)contentManagerCompletedAllPlayback:(id)playback;
 - (void)contentManagerInitiatedPlaybackFromPlaybackQueue:(id)queue;
 - (void)contentManagerReloadData:(id)data;
@@ -21,8 +23,12 @@
 - (void)setRightTitle:(id)title;
 - (void)upNextButtonTapped:(id)tapped;
 - (void)updateBarButtonItems;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willMoveToParentViewController:(id)controller;
 @end
 
@@ -104,10 +110,10 @@
 
 - (void)viewDidLoad
 {
-  v47[2] = *MEMORY[0x277D85DE8];
-  v46.receiver = self;
-  v46.super_class = MCDNowPlayingViewController;
-  [(CPUINowPlayingViewController *)&v46 viewDidLoad];
+  v48[2] = *MEMORY[0x277D85DE8];
+  v47.receiver = self;
+  v47.super_class = MCDNowPlayingViewController;
+  [(CPUINowPlayingViewController *)&v47 viewDidLoad];
   navigationItem = [(MCDNowPlayingViewController *)self navigationItem];
   v4 = objc_alloc(MEMORY[0x277D75D18]);
   v5 = *MEMORY[0x277CBF3A0];
@@ -171,34 +177,34 @@
     v30 = [v28 initWithImage:v29 style:0 target:self action:sel_upNextButtonTapped_];
     [(MCDNowPlayingViewController *)self setQueueBarButtonItem:v30];
 
-    v31 = MCDCarDisplayBundle();
-    v32 = [v31 localizedStringForKey:@"ACCESSIBILITY_QUEUE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-    v47[0] = v32;
-    v33 = MCDCarDisplayBundle();
-    v34 = [v33 localizedStringForKey:@"ACCESSIBILITY_LIST" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-    v47[1] = v34;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+    v32 = MCDCarDisplayBundle(v31);
+    v33 = [v32 localizedStringForKey:@"ACCESSIBILITY_QUEUE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+    v48[0] = v33;
+    v34 = MCDCarDisplayBundle(v33);
+    v35 = [v34 localizedStringForKey:@"ACCESSIBILITY_LIST" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+    v48[1] = v35;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
     queueBarButtonItem = [(MCDNowPlayingViewController *)self queueBarButtonItem];
-    [queueBarButtonItem setAccessibilityUserInputLabels:v35];
+    [queueBarButtonItem setAccessibilityUserInputLabels:v36];
   }
 
   else
   {
-    v31 = objc_opt_new();
-    v37 = [MEMORY[0x277D74300] systemFontOfSize:16.0];
-    titleLabel = [v31 titleLabel];
-    [titleLabel setFont:v37];
+    v32 = objc_opt_new();
+    v38 = [MEMORY[0x277D74300] systemFontOfSize:16.0];
+    titleLabel = [v32 titleLabel];
+    [titleLabel setFont:v38];
 
-    v39 = MCDCarDisplayBundle();
-    v40 = [v39 localizedStringForKey:@"PLAYBACK_QUEUE_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-    [v31 setTitle:v40 forState:0];
+    v41 = MCDCarDisplayBundle(v40);
+    v42 = [v41 localizedStringForKey:@"PLAYBACK_QUEUE_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+    [v32 setTitle:v42 forState:0];
 
-    [v31 addTarget:self action:sel_upNextButtonTapped_ forControlEvents:64];
-    [v31 sizeToFit];
-    [v31 frame];
-    [v31 setFrame:{v48.origin.x, v48.origin.y, CGRectGetWidth(v48) + 16.0, v48.size.height + 6.0}];
-    v32 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v31];
-    [(MCDNowPlayingViewController *)self setQueueBarButtonItem:v32];
+    [v32 addTarget:self action:sel_upNextButtonTapped_ forControlEvents:64];
+    [v32 sizeToFit];
+    [v32 frame];
+    [v32 setFrame:{v49.origin.x, v49.origin.y, CGRectGetWidth(v49) + 16.0, v49.size.height + 6.0}];
+    v33 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v32];
+    [(MCDNowPlayingViewController *)self setQueueBarButtonItem:v33];
   }
 
   [(MCDNowPlayingViewController *)self setRightTitle:0];
@@ -206,18 +212,16 @@
   if (objc_opt_respondsToSelector())
   {
     delegate2 = [(CPUINowPlayingViewController *)self delegate];
-    v43 = [delegate2 nowPlayingViewControllerCanShowUpNext:self];
+    v45 = [delegate2 nowPlayingViewControllerCanShowUpNext:self];
   }
 
   else
   {
-    v43 = 0;
+    v45 = 0;
   }
 
   contentManager = [(MCDNowPlayingViewController *)self contentManager];
-  [(MCDNowPlayingViewController *)self contentManager:contentManager shouldShowPlaybackQueue:v43];
-
-  v45 = *MEMORY[0x277D85DE8];
+  [(MCDNowPlayingViewController *)self contentManager:contentManager shouldShowPlaybackQueue:v45];
 }
 
 - (void)upNextButtonTapped:(id)tapped
@@ -240,6 +244,15 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MCDNowPlayingViewController;
+  [(CPUINowPlayingViewController *)&v4 viewWillAppear:appear];
+  [(MCDNowPlayingViewController *)self _handleWillAppear];
+  [(MCDNowPlayingViewController *)self updateBarButtonItems];
+}
+
 - (void)_handleWillAppear
 {
   if (self->_showNavigationBar)
@@ -249,6 +262,38 @@
   }
 
   [(MCDNowPlayingViewController *)self setHandledWillAppear:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (!self->_handledWillAppear)
+  {
+    [(MCDNowPlayingViewController *)self _handleWillAppear];
+  }
+
+  v5.receiver = self;
+  v5.super_class = MCDNowPlayingViewController;
+  [(CPUINowPlayingViewController *)&v5 viewDidAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = MCDNowPlayingViewController;
+  [(CPUINowPlayingViewController *)&v4 viewWillDisappear:disappear];
+  [(MCDNowPlayingViewController *)self setHandledWillAppear:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = MCDNowPlayingViewController;
+  [(CPUINowPlayingViewController *)&v5 viewDidDisappear:disappear];
+  contentManager = [(MCDNowPlayingViewController *)self contentManager];
+  [contentManager viewWillDisappear];
+
+  [(MCDNowPlayingViewController *)self setHandledWillAppear:0];
 }
 
 - (void)viewSafeAreaInsetsDidChange
@@ -326,7 +371,7 @@ uint64_t __48__MCDNowPlayingViewController__updateBackButton__block_invoke_2(uin
       if (titleCopy)
       {
         v10 = MEMORY[0x277CCACA8];
-        v11 = MCDCarDisplayBundle();
+        v11 = MCDCarDisplayBundle(titleCopy);
         v12 = [v11 localizedStringForKey:@"AppName_PlaybackQueue" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
         appName2 = [(MCDNowPlayingViewController *)self appName];
         appName = [v10 localizedStringWithFormat:v12, appName2, titleCopy];
@@ -455,11 +500,21 @@ LABEL_8:
   responseCopy = response;
   errorCopy = error;
   objc_storeStrong(&self->_playerResponse, response);
-  playbackQueueViewController = self->_playbackQueueViewController;
   if (objc_opt_respondsToSelector())
   {
     [(PlaybackQueueViewControllerProtocol *)self->_playbackQueueViewController _processResponse:responseCopy error:errorCopy];
   }
+}
+
+- (void)contentManager:(id)manager bufferingItem:(BOOL)item
+{
+  [(MCDNowPlayingViewController *)self setTrackBuffering:item];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __60__MCDNowPlayingViewController_contentManager_bufferingItem___block_invoke;
+  block[3] = &unk_279923B08;
+  block[4] = self;
+  dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
 void __60__MCDNowPlayingViewController_contentManager_bufferingItem___block_invoke(uint64_t a1)
@@ -526,6 +581,16 @@ void __65__MCDNowPlayingViewController_contentManager_pushViewController___block
   [v2 pushViewController:*(a1 + 40) animated:1];
 }
 
+- (void)contentManager:(id)manager shouldShowPlaybackQueue:(BOOL)queue
+{
+  [(MCDNowPlayingViewController *)self setShouldShowPlaybackQueue:queue];
+  if ([(MCDNowPlayingViewController *)self handledWillAppear])
+  {
+
+    [(MCDNowPlayingViewController *)self updateBarButtonItems];
+  }
+}
+
 - (void)contentManager:(id)manager sectionName:(id)name
 {
   nameCopy = name;
@@ -555,7 +620,7 @@ void __78__MCDNowPlayingViewController_contentManager_displayItemIndex_totalItem
 {
   v2 = a1[4];
   v3 = MEMORY[0x277CCACA8];
-  v10 = MCDCarDisplayBundle();
+  v10 = MCDCarDisplayBundle(a1);
   v4 = [v10 localizedStringForKey:@"POSITION_IN_PLAYLIST_FORMAT" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:a1[5] + 1];
   v6 = MCDFormattedNumberString(v5);
@@ -567,7 +632,7 @@ void __78__MCDNowPlayingViewController_contentManager_displayItemIndex_totalItem
 
 - (void)contentManagerInitiatedPlaybackFromPlaybackQueue:(id)queue
 {
-  v4 = MCDGeneralLogging();
+  v4 = MCDGeneralLogging(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -579,7 +644,7 @@ void __78__MCDNowPlayingViewController_contentManager_displayItemIndex_totalItem
 
 - (void)contentManagerCompletedAllPlayback:(id)playback
 {
-  v4 = MCDGeneralLogging();
+  v4 = MCDGeneralLogging(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

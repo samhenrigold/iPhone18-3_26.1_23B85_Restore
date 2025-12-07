@@ -1,4 +1,4 @@
-uint64_t HGApply3DLUT::SetLUT(uint64_t a1, char *__src, int a3, int a4, int a5, int a6)
+uint64_t HGApply3DLUT::SetLUT(uint64_t a1, char *__src, unsigned int a3, int a4, int a5, int a6)
 {
   *(a1 + 464) = 1;
   if (*(a1 + 472) != a3)
@@ -214,7 +214,7 @@ LABEL_38:
             v97.val[2] = vuzp1q_s16(vorrq_s8(vandq_s8(vshrq_n_u32(v45, 0xDuLL), v22), vandq_s8(vshrq_n_u32(v45, 0x10uLL), v23)), vorrq_s8(vandq_s8(vshrq_n_u32(v98.val[3], 0xDuLL), v22), vandq_s8(vshrq_n_u32(v98.val[3], 0x10uLL), v23)));
             vst4q_s16(v32, v97);
             v32 += 32;
-            v33 += 32;
+            v33 += 128;
             v31 -= 8;
           }
 
@@ -227,7 +227,7 @@ LABEL_38:
 
 LABEL_32:
           ++v25;
-          v27 = (v27 + v17);
+          v27 += v17;
           v26 = (v26 + v11);
         }
 
@@ -320,12 +320,12 @@ LABEL_46:
 
 LABEL_47:
       ++v64;
-      v66 = (v66 + a4);
+      v66 += a4;
       v65 = (v65 + v11);
       if (v64 == a3)
       {
         ++v51;
-        v63 = (v63 + v55);
+        v63 += v55;
         v62 = (v62 + v54);
         if (v51 == a3)
         {
@@ -437,10 +437,10 @@ uint64_t HGApply3DLUT::GetOutput(HGNode *this, HGRenderer *a2)
   v4 = *(this + 51);
   Input = HGRenderer::GetInput(a2, this, 0);
   (*(*v4 + 120))(v4, 0, Input);
-  if (HGRenderer::GetInput(a2, this, 1u))
+  if (HGRenderer::GetInput(a2, this, 1))
   {
     v6 = *(this + 51);
-    v7 = HGRenderer::GetInput(a2, this, 1u);
+    v7 = HGRenderer::GetInput(a2, this, 1);
     (*(*v6 + 120))(v6, 1, v7);
     return *(this + 51);
   }
@@ -562,7 +562,7 @@ uint64_t HgcApply3DLUTTrilinear::GetROI(HgcApply3DLUTTrilinear *this, HGRenderer
 {
   v4 = *&a4.var0;
   v7 = HGRectMake4i(0, 0, *(this + 104) * *(this + 104) + 1, *(this + 104) + 1);
-  result = HGRectMake4i(0, 0, *(this + 104), 1u);
+  result = HGRectMake4i(0, 0, *(this + 104), 1);
   if (a3 != 2)
   {
     if (a3 == 1)
@@ -688,7 +688,7 @@ uint64_t HgcApply3DLUTTetrahedral::GetROI(HgcApply3DLUTTetrahedral *this, HGRend
 {
   v4 = *&a4.var0;
   v7 = HGRectMake4i(0, 0, *(this + 104) * *(this + 104) + 1, *(this + 104) + 1);
-  result = HGRectMake4i(0, 0, *(this + 104), 1u);
+  result = HGRectMake4i(0, 0, *(this + 104), 1);
   if (a3 != 2)
   {
     if (a3 == 1)
@@ -905,10 +905,10 @@ LABEL_17:
   }
 }
 
-void sub_25FCE7984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, char a17, __int16 a18, char a19)
+void sub_25FCE7984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, int a17, HGProfiler *a18)
 {
   HGSignPost::EventScopeGuard::~EventScopeGuard(&a17);
-  HGTraceGuard::~HGTraceGuard(&a19);
+  HGTraceGuard::~HGTraceGuard(&a18);
   _Unwind_Resume(a1);
 }
 
@@ -1065,25 +1065,25 @@ void HGMetalTexture::InitializeBorders(HGMetalTexture *this)
   {
     if (SHIDWORD(v6) < SHIDWORD(v2))
     {
-      HGRectMake4i(v6, HIDWORD(v6), v7, HIDWORD(v2));
+      HGRectMake4i(v6, SHIDWORD(v6), v7, SHIDWORD(v2));
       operator new();
     }
 
     if (SHIDWORD(v7) > SHIDWORD(v4))
     {
-      HGRectMake4i(v6, HIDWORD(v4), v7, HIDWORD(v7));
+      HGRectMake4i(v6, SHIDWORD(v4), v7, SHIDWORD(v7));
       operator new();
     }
 
     if (v6 < v2)
     {
-      HGRectMake4i(v6, HIDWORD(v2), v2, HIDWORD(v4));
+      HGRectMake4i(v6, SHIDWORD(v2), v2, SHIDWORD(v4));
       operator new();
     }
 
     if (v7 > v4)
     {
-      HGRectMake4i(v4, HIDWORD(v2), v7, HIDWORD(v4));
+      HGRectMake4i(v4, SHIDWORD(v2), v7, SHIDWORD(v4));
       operator new();
     }
 
@@ -1161,17 +1161,17 @@ LABEL_12:
   HGTraceGuard::~HGTraceGuard(v18);
 }
 
-void sub_25FCE8654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FCE8654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    (*(*a3 + 24))(a3);
+    (*(*a5 + 24))(a5, a2, a3);
   }
 
-  if (v3)
+  if (v5)
   {
-    (*(*v3 + 24))(v3);
+    (*(*v5 + 24))(v5, a2, a3);
   }
 
   HGTraceGuard::~HGTraceGuard(va);
@@ -1282,7 +1282,7 @@ void sub_25FCE8AE0(_Unwind_Exception *a1)
 
 void HGMetalTexture::createFromBitmap(HGMetalTexture *this@<X0>, HGMetalContext *a2@<X1>, HGBitmap *a3@<X3>, HGRect a4@<0:X4, 8:X5>, HGBitmap *a5@<X2>, uint64_t a6@<X6>, HGMetalContext **a7@<X8>)
 {
-  var2 = a4.var2;
+  v8 = *&a4.var2;
   v9 = *&a4.var0;
   v12 = a2;
   v15 = *(*(this + 2) + 16);
@@ -1331,7 +1331,7 @@ void HGMetalTexture::createFromBitmap(HGMetalTexture *this@<X0>, HGMetalContext 
         {
           *&v41.var0 = v34;
           *&v41.var2 = a6;
-          HGMetalTexture::createFromBuffer(this, (v12 & 0x78), v37, v35, v41, &v36);
+          HGMetalTexture::createFromBuffer(&v36, this, (v12 & 0x78), v37, v35, v41);
           v29 = v36;
           if (v36)
           {
@@ -1370,7 +1370,7 @@ LABEL_31:
 
       if (!v32)
       {
-        HGMetalTexture::createWithCopy(v15, v33, v21, v35, v34, var2, a6 ^ 1, &v37);
+        HGMetalTexture::createWithCopy(v15, v33, v21, v35, v34, v8, a6 ^ 1, &v37);
         if (v37)
         {
           *a7 = v37;
@@ -1381,7 +1381,7 @@ LABEL_31:
     }
 
     CVBitmapStorage = HGCVBitmap::getCVBitmapStorage(a5, v17);
-    HGMetalTexture::createFromIOSurface(this, (v12 & 3), v31, CVBitmapStorage, &v39);
+    HGMetalTexture::createFromIOSurface(&v39, this, (v12 & 3), v31, CVBitmapStorage);
     if (v39)
     {
       *a7 = v39;
@@ -1393,24 +1393,24 @@ void sub_25FCE8E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a14)
   {
-    (*(*a14 + 24))(a14);
+    (*(*a14 + 24))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v15 + 24))(v15);
+  (*(*v15 + 24))(v15, a2, a3, a4, a5, a6, a7, a8);
   (*(*v14 + 24))(v14);
   _Unwind_Resume(a1);
 }
 
-void HGMetalTexture::createFromIOSurface(HGMetalTexture *this@<X0>, HGMetalContext *a2@<X1>, HGCVBitmap *a3@<X3>, char *a4@<X2>, void *a5@<X8>)
+void HGMetalTexture::createFromIOSurface(uint64_t *__return_ptr a1@<X8>, HGMetalTexture *this@<X0>, HGMetalContext *a3@<X1>, HGCVBitmap *a4@<X3>, char *a5@<X2>)
 {
-  *a5 = 0;
-  if (!a4)
+  *a1 = 0;
+  if (!a5)
   {
     goto LABEL_14;
   }
 
-  v5 = a2;
-  if ((a2 & 3) == 0)
+  v5 = a3;
+  if ((a3 & 3) == 0)
   {
     goto LABEL_14;
   }
@@ -1423,22 +1423,22 @@ void HGMetalTexture::createFromIOSurface(HGMetalTexture *this@<X0>, HGMetalConte
   {
     if (CVTextureCacheRetainedRef)
     {
-      HGMetalTexture::createFromIOSurface(v8, CVTextureCacheRetainedRef, a4, &v12);
+      HGMetalTexture::createFromIOSurface(v8, CVTextureCacheRetainedRef, a5, &v12);
       v11 = v12;
       if (v12)
       {
-        *a5 = v12;
+        *a1 = v12;
       }
     }
   }
 
   if ((v5 & 2) != 0 && !v11)
   {
-    HGMetalTexture::createFromIOSurface(v8, a4, a4, &v12);
+    HGMetalTexture::createFromIOSurface(v8, a5, a5, &v12);
     v11 = v12;
     if (v12)
     {
-      *a5 = v12;
+      *a1 = v12;
     }
   }
 
@@ -1451,7 +1451,7 @@ void HGMetalTexture::createFromIOSurface(HGMetalTexture *this@<X0>, HGMetalConte
   {
 LABEL_14:
 
-    HGLogger::warning("HGMetalTexture::createFromIOSurface failed. Invalid cvbmp or strategy.", a2, a4, a3);
+    HGLogger::warning("HGMetalTexture::createFromIOSurface failed. Invalid cvbmp or strategy.", a3, a5, a4);
   }
 }
 
@@ -1465,48 +1465,48 @@ void sub_25FCE8FB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t anonymous namespace::adjustBitmapForTexture(void *a1, const char *a2, char *a3)
+void anonymous namespace::adjustBitmapForTexture(HGBitmap **a1, const char *a2, char *a3)
 {
   v5 = HGFormatUtils::RGBtoRGBA(*(*a2 + 16), a2, a3);
   v6 = *a2;
   if (v5 != *(*a2 + 16))
   {
-    HGTraceGuard::HGTraceGuard(v12, "metal_osx", 1, "adjustBitmapForTexture() -- HGMetalTexture reformat");
-    v9 = *a2;
-    v10 = HGObject::operator new(0x80uLL);
-    HGBitmap::HGBitmap(v10, *(v9 + 20), *(v9 + 28), v5);
-    *a1 = v10;
-    HGRenderUtils::BufferReformatter::BufferReformatter(v11);
+    HGTraceGuard::HGTraceGuard(v11, "metal_osx", 1, "adjustBitmapForTexture() -- HGMetalTexture reformat");
+    v8 = *a2;
+    v9 = HGObject::operator new(0x80uLL);
+    HGBitmap::HGBitmap(v9, *(v8 + 20), *(v8 + 28), v5);
+    *a1 = v9;
+    HGRenderUtils::BufferReformatter::BufferReformatter(v10);
   }
 
   *a1 = v6;
   v7 = *(*v6 + 16);
 
-  return v7();
+  v7();
 }
 
-void sub_25FCE9128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FCE9128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (v3)
+  va_start(va, a5);
+  if (v5)
   {
-    (*(*v3 + 24))(v3);
+    (*(*v5 + 24))(v5, a2, a3);
   }
 
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void HGMetalTexture::createFromBuffer(HGMetalTexture *this@<X0>, HGMetalContext *a2@<X1>, HGMetalContext *a3@<X2>, HGMetalBuffer *a4@<X3>, HGRect a5@<0:X4, 8:X5>, void *a6@<X8>)
+void HGMetalTexture::createFromBuffer(uint64_t *__return_ptr a1@<X8>, HGObject *this@<X0>, HGMetalContext *a3@<X1>, HGMetalContext *a4@<X2>, HGMetalBuffer *a5@<X3>, HGRect a6@<0:X4, 8:X5>)
 {
-  v6 = *&a5.var2;
-  v7 = *&a5.var0;
-  v10 = a2;
+  v6 = *&a6.var2;
+  v7 = *&a6.var0;
+  v10 = a3;
   v13 = *(*(this + 2) + 16);
-  *a6 = 0;
-  if ((a2 & 0x10) != 0 && HGMetalTexture::_canCreateLinearTexture<(HGMetalTexture::CreationStrategyFlags)16>(v13, a3) && (HGMetalTexture::_createFromBufferStorage<(HGMetalTexture::CreationStrategyFlags)16>(v13, a3, a4, v7, &v18), v18))
+  *a1 = 0;
+  if ((a3 & 0x10) != 0 && HGMetalTexture::_canCreateLinearTexture<(HGMetalTexture::CreationStrategyFlags)16>(v13, a4) && (HGMetalTexture::_createFromBufferStorage<(HGMetalTexture::CreationStrategyFlags)16>(v13, a4, a5, v7, &v18), v18))
   {
-    *a6 = v18;
+    *a1 = v18;
   }
 
   else if ((v10 & 8) != 0)
@@ -1514,10 +1514,10 @@ void HGMetalTexture::createFromBuffer(HGMetalTexture *this@<X0>, HGMetalContext 
     v14 = v10 & 0x70;
     *&v19.var0 = v7;
     *&v19.var2 = v6;
-    HGMetalTexture::createWithBlitEncoder(this, a3, a4, v19, &v18);
+    HGMetalTexture::createWithBlitEncoder(&v18, this, a4, a5, v19);
     if (v18)
     {
-      *a6 = v18;
+      *a1 = v18;
     }
 
     if (v14)
@@ -1541,11 +1541,13 @@ void sub_25FCE92AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-const char *HGMetalTexture::createWithCopy@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char a6@<W5>, int a7@<W6>, HGMetalTexture **a8@<X8>)
+const char *HGMetalTexture::createWithCopy@<X0>(void *a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, HGMetalTexture **a8@<X8>)
 {
   *a8 = 0;
   if (a3 && *(a3 + 80))
   {
+    v14 = a6;
+    v15 = a7;
     v26 = 4622;
     kdebug_trace();
     (*(*a3 + 16))(a3);
@@ -1553,7 +1555,7 @@ const char *HGMetalTexture::createWithCopy@<X0>(void *a1@<X0>, uint64_t *a2@<X1>
     v17 = v24;
     v18 = HGRectIntersection(*(v24 + 20), *(v24 + 28), a4, a5);
     v20 = v19;
-    HGMetalTexture::_create(a1, a2, v18, v19, *(v17 + 16), a6, 0, 0, &v23, 0, 1u);
+    HGMetalTexture::_create(a1, a2, v18, v19, *(v17 + 4), v14, 0, 0, &v23, 0, 1u);
     v21 = v23;
     if (v23)
     {
@@ -1561,7 +1563,7 @@ const char *HGMetalTexture::createWithCopy@<X0>(void *a1@<X0>, uint64_t *a2@<X1>
       HGMetalTexture::InitializeBorders(v21);
       *&v28.var0 = v18;
       *&v28.var2 = v20;
-      HGMetalTexture::ReplaceManagedTextureData(v21, v17, v28, a7);
+      HGMetalTexture::ReplaceManagedTextureData(v21, v17, v28, v15);
       *(v21 + 168) = 1;
     }
 
@@ -1573,13 +1575,13 @@ const char *HGMetalTexture::createWithCopy@<X0>(void *a1@<X0>, uint64_t *a2@<X1>
   else
   {
 
-    return HGLogger::warning("HGMetalTexture::createWithCopy() failed. No bitmap provided.", a2, a3);
+    return HGLogger::warning("HGMetalTexture::createWithCopy() failed. No bitmap provided.", a2, a3, a4, a5, a6, a7);
   }
 }
 
 void sub_25FCE94F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, char a15)
 {
-  (*(*v16 + 24))(v16);
+  (*(*v16 + 24))(v16, a2, a3, a4, a5, a6, a7, a8);
   (*(*v15 + 24))(v15);
   HGSignPost::EventScopeGuard::~EventScopeGuard(&a15);
   _Unwind_Resume(a1);
@@ -1683,7 +1685,7 @@ void sub_25FCE9994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (v14)
   {
-    (*(*v14 + 24))(v14);
+    (*(*v14 + 24))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   HGSignPost::EventScopeGuard::~EventScopeGuard(&a13);
@@ -1771,44 +1773,44 @@ LABEL_21:
   HGLogger::warning("HGMetalTexture::createFromIOSurface() failed. Buffer is not a HGCVBitmap.", 0, a3);
 }
 
-void sub_25FCE9DA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::mutex *a9, int a10, char a11, __int16 a12, char a13, char a14)
+void sub_25FCE9DA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::mutex *a9, int a10, __int16 a11, __int16 a12, HGProfiler *a13)
 {
-  std::condition_variable::~condition_variable(v15);
+  std::condition_variable::~condition_variable(v14);
   std::mutex::~mutex(a9);
-  HGBitmap::~HGBitmap(v14, v17);
-  HGObject::operator delete(v14);
+  HGBitmap::~HGBitmap(v13, v16);
+  HGObject::operator delete(v13);
   HGSignPost::EventScopeGuard::~EventScopeGuard(&a11);
   HGTraceGuard::~HGTraceGuard(&a13);
   _Unwind_Resume(a1);
 }
 
-HGObject *HGMetalTexture::createWithBlitEncoder@<X0>(HGObject *this@<X0>, HGMetalContext *a2@<X1>, HGMetalBuffer *a3@<X2>, HGRect a4@<0:X3, 8:X4>, HGBitmap **a5@<X8>)
+HGObject *HGMetalTexture::createWithBlitEncoder@<X0>(uint64_t *__return_ptr a1@<X8>, HGObject *this@<X0>, HGMetalContext *a3@<X1>, HGMetalBuffer *a4@<X2>, HGRect a5@<0:X3, 8:X4>)
 {
-  *a5 = 0;
-  if (a2)
+  *a1 = 0;
+  if (a3)
   {
-    var2 = a4.var2;
-    v6 = *&a4.var0;
+    var2 = a5.var2;
+    v6 = *&a5.var0;
     v9 = this;
     v11 = *(*(this + 2) + 16);
     v12 = HGMetalContext::texturePool(this);
-    this = HGMetalTexture::_create(v11, v12, a3, v6, *(a2 + 4), 0, 0, 0, &v15, 2, 1u);
+    this = HGMetalTexture::_create(v11, v12, a4, v6, *(a3 + 4), 0, 0, 0, &v15, 2, 1u);
     v13 = v15;
     if (v15)
     {
-      *a5 = v15;
+      *a1 = v15;
       v14 = *(v9 + 24);
       if (v14)
       {
-        HGMetalUtils::tiledBlitBufferToTexture(*(v9 + 4), a2, v13, a3, v6, var2, 0, v14);
+        HGMetalUtils::tiledBlitBufferToTexture(*(v9 + 4), a3, v13, a4, v6, var2, 0, v14);
       }
 
       else
       {
-        HGMetalUtils::blitBufferToTexture(*(v9 + 4), a2, v13, a3, v6, var2, 0);
+        HGMetalUtils::blitBufferToTexture(*(v9 + 4), a3, v13, a4, v6, var2, 0);
       }
 
-      return HGBitmap::SetStorage(v13, a2);
+      return HGBitmap::SetStorage(v13, a3);
     }
   }
 
@@ -1918,7 +1920,7 @@ const char *HGMetalTexture::_createFromBufferStorage<(HGMetalTexture::CreationSt
     return kdebug_trace();
   }
 
-  return HGLogger::warning("HGMetalTexture::_createFromBufferStorage() failed. No MTLBuffer provided.", 0, a3);
+  return HGLogger::warning("HGMetalTexture::_createFromBufferStorage() failed. No MTLBuffer provided.", 0, a3, a4);
 }
 
 void sub_25FCEA310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, char a11)
@@ -1931,7 +1933,7 @@ void sub_25FCEA310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t HGMetalTexture::create@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, char a6@<W5>, int a7@<W6>, int a8@<W7>, void *a9@<X8>, char a10)
+void *HGMetalTexture::create@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>, char a10)
 {
   v10 = 2;
   if (!a10)
@@ -1942,7 +1944,7 @@ uint64_t HGMetalTexture::create@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t 
   return HGMetalTexture::_create(a1, a2, a3, a4, a5, a6, a7, a8, a9, v10, 1u);
 }
 
-uint64_t HGMetalTexture::_create@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, char a6@<W5>, int a7@<W6>, int a8@<W7>, void *a9@<X8>, uint64_t a10, unsigned int a11)
+uint64_t HGMetalTexture::_create@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, int a6@<W5>, int a7@<W6>, int a8@<W7>, void *a9@<X8>, uint64_t a10, unsigned int a11)
 {
   v53 = a3;
   v54 = a4;
@@ -2061,14 +2063,14 @@ uint64_t HGMetalTexture::_create@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t
   return kdebug_trace();
 }
 
-const char *HGMetalTexture::createMSAA@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, unsigned int a6@<W5>, void *a7@<X8>)
+const char *HGMetalTexture::createMSAA@<X0>(void *a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unsigned int a6@<W5>, void *a7@<X8>)
 {
   if (a6 > 1)
   {
     return HGMetalTexture::_create(a1, a2, a3, a4, a5, 0, 1, 0, a7, 2, a6);
   }
 
-  result = HGLogger::warning("HGMetalTexture::createMSAA failed. 'sampleCount' must be greater than 1.", a2, a3);
+  result = HGLogger::warning("HGMetalTexture::createMSAA failed. 'sampleCount' must be greater than 1.", a2, a3, a4, a5);
   *a7 = 0;
   return result;
 }
@@ -2898,9 +2900,9 @@ void sub_25FCEDCE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t *HGEquirectProject::getRenderResources(HGEquirectProject *this, HGGPURenderer *a2)
 {
-  if (atomic_load_explicit(&_MergedGlobals_22, memory_order_acquire))
+  if (atomic_load_explicit(_MergedGlobals_22, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E450, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E450, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -2909,7 +2911,7 @@ uint64_t *HGEquirectProject::getRenderResources(HGEquirectProject *this, HGGPURe
   else
   {
     HGEquirectProject::getRenderResources();
-    if (atomic_load_explicit(&qword_280C5E450, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E450, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -2918,57 +2920,57 @@ uint64_t *HGEquirectProject::getRenderResources(HGEquirectProject *this, HGGPURe
   HGEquirectProject::getRenderResources();
 LABEL_3:
   std::mutex::lock(&HGEquirectProject::getRenderResources(HGGPURenderer *)::mutex);
-  v3 = qword_280C5E470;
+  v4 = qword_280C5E470;
   if (!qword_280C5E470)
   {
     goto LABEL_17;
   }
 
-  v4 = &qword_280C5E470;
-  v5 = qword_280C5E470;
+  v5 = &qword_280C5E470;
+  v6 = qword_280C5E470;
   do
   {
-    v6 = *(v5 + 32);
-    v7 = v6 >= a2;
-    v8 = v6 < a2;
-    if (v7)
+    v7 = *(v6 + 32);
+    v8 = v7 >= a2;
+    v9 = v7 < a2;
+    if (v8)
     {
-      v4 = v5;
+      v5 = v6;
     }
 
-    v5 = *(v5 + 8 * v8);
+    v6 = *(v6 + 8 * v9);
   }
 
-  while (v5);
-  if (v4 == &qword_280C5E470 || v4[4] > a2)
+  while (v6);
+  if (v5 == &qword_280C5E470 || v5[4] > a2)
   {
     do
     {
       while (1)
       {
-        v9 = v3;
-        v10 = *(v3 + 32);
-        if (v10 <= a2)
+        v10 = v4;
+        v11 = *(v4 + 32);
+        if (v11 <= a2)
         {
           break;
         }
 
-        v3 = *v9;
-        if (!*v9)
+        v4 = *v10;
+        if (!*v10)
         {
           goto LABEL_17;
         }
       }
 
-      if (v10 >= a2)
+      if (v11 >= a2)
       {
-        HGEquirectProject::initRenderResources();
+        HGEquirectProject::initRenderResources(v3, (v10 + 40));
       }
 
-      v3 = v9[1];
+      v4 = *(v10 + 8);
     }
 
-    while (v3);
+    while (v4);
 LABEL_17:
     operator new();
   }
@@ -2983,34 +2985,34 @@ LABEL_22:
   {
     while (1)
     {
-      v11 = v3;
-      v12 = *(v3 + 32);
-      if (v12 <= a2)
+      v12 = v4;
+      v13 = *(v4 + 32);
+      if (v13 <= a2)
       {
         break;
       }
 
-      v3 = *v11;
-      if (!*v11)
+      v4 = *v12;
+      if (!*v12)
       {
         goto LABEL_22;
       }
     }
 
-    if (v12 >= a2)
+    if (v13 >= a2)
     {
       break;
     }
 
-    v3 = v11[1];
-    if (!v3)
+    v4 = v12[1];
+    if (!v4)
     {
       goto LABEL_22;
     }
   }
 
   std::mutex::unlock(&HGEquirectProject::getRenderResources(HGGPURenderer *)::mutex);
-  return v11 + 5;
+  return v12 + 5;
 }
 
 uint64_t _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEED1B8ne200100Ev(uint64_t result)
@@ -3027,15 +3029,15 @@ uint64_t _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEED1B8ne200100Ev(uint64_t resul
   return result;
 }
 
-void HGEquirectProject::render(uint64_t a1, int *lpsrc, uint64_t a3, uint64_t a4)
+void HGEquirectProject::render(uint64_t a1, char *lpsrc, uint64_t a3, uint64_t a4)
 {
   v26 = *MEMORY[0x277D85DE8];
   v8 = *(a3 + 168);
   if (lpsrc)
   {
-    v10 = lpsrc[5];
-    v11 = lpsrc[6];
-    v12 = (lpsrc + 5);
+    v10 = *(lpsrc + 5);
+    v11 = *(lpsrc + 6);
+    v12 = (lpsrc + 20);
     v13 = *(v12 + 8);
     v14 = *(v12 + 12);
     if (v9)
@@ -3417,7 +3419,7 @@ __n64 calculateUniforms(uint64_t a1, int32x2_t *a2, int32x2_t *a3, int *a4, floa
   return result;
 }
 
-int *HGEquirectProject::RenderPage(HGNode *this, HGRect *a2)
+char *HGEquirectProject::RenderPage(HGNode *this, HGRect *a2)
 {
   HGPagePullTexturesGuard::HGPagePullTexturesGuard(&v10, this, a2);
   Buffer = *&a2->var2;
@@ -3475,30 +3477,30 @@ int *HGEquirectProject::RenderPage(HGNode *this, HGRect *a2)
   return Buffer;
 }
 
-void sub_25FCEEB4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCEEB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullTexturesGuard::~HGPagePullTexturesGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCEEB60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCEEB60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullTexturesGuard::~HGPagePullTexturesGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCEEB74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCEEB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullTexturesGuard::~HGPagePullTexturesGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCEEB88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCEEB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullTexturesGuard::~HGPagePullTexturesGuard(va);
   _Unwind_Resume(a1);
 }
@@ -3634,12 +3636,12 @@ char *HGEquirectProject::RenderPageMetal(HGNode *this, HGPage *a2)
         HGMetalHandler::SetBlendingColor(v8, v15);
       }
 
-      if (atomic_load_explicit(&qword_280C5E458, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E458, memory_order_acquire))
       {
         if (atomic_load_explicit(&qword_280C5E460, memory_order_acquire) == -1)
         {
 LABEL_35:
-          HGMetalHandler::PrimitivesDraw(v8, 3u, qword_280C5E480, (qword_280C5E488 - qword_280C5E480) >> 4, qword_280C5E480);
+          HGMetalHandler::PrimitivesDraw(v8, 3, qword_280C5E480, (qword_280C5E488 - qword_280C5E480) >> 4, qword_280C5E480);
           (*(*this + 496))(this, a2, 0, v8);
           goto LABEL_36;
         }
@@ -3703,14 +3705,6 @@ float HGEquirectProject::setParams(HGEquirectProject *this, const HGEquirectProj
   }
 
   return *&v6;
-}
-
-void std::__call_once_proxy[abi:ne200100]<std::tuple<getIcosphereP(void)::$_0 &&>>()
-{
-  v0 = 0;
-  v1 = 0;
-  v2 = 0;
-  project_util::generateIcosphere();
 }
 
 void sub_25FCEF6E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p)
@@ -3794,36 +3788,36 @@ uint64_t OUTLINED_FUNCTION_0_10(uint64_t a1, void *a2, void *a3)
 
 void HGEquirectProject::getRenderResources()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_22))
+  if (__cxa_guard_acquire(_MergedGlobals_22))
   {
     qword_280C5E478 = 0;
     qword_280C5E470 = 0;
     qword_280C5E468 = &qword_280C5E470;
     __cxa_atexit(std::map<HGGPURenderer *,RenderResources>::~map[abi:ne200100], &qword_280C5E468, &dword_25F8F0000);
 
-    __cxa_guard_release(&_MergedGlobals_22);
+    __cxa_guard_release(_MergedGlobals_22);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E450))
+  if (__cxa_guard_acquire(byte_280C5E450))
   {
     __cxa_atexit(MEMORY[0x277D82690], &HGEquirectProject::getRenderResources(HGGPURenderer *)::mutex, &dword_25F8F0000);
 
-    __cxa_guard_release(&qword_280C5E450);
+    __cxa_guard_release(byte_280C5E450);
   }
 }
 
 void HGEquirectProject::RenderPageMetal()
 {
-  v0 = __cxa_guard_acquire(&qword_280C5E458);
+  v0 = __cxa_guard_acquire(byte_280C5E458);
   if (v0)
   {
     qword_280C5E488 = 0;
     qword_280C5E490 = 0;
     qword_280C5E480 = 0;
     OUTLINED_FUNCTION_0_10(v0, &qword_280C5E480, &dword_25F8F0000);
-    __cxa_guard_release(&qword_280C5E458);
+    __cxa_guard_release(byte_280C5E458);
   }
 }
 
@@ -3913,7 +3907,7 @@ uint64_t HGComicQuantize::GetROI(HGComicQuantize *this, HGRenderer *a2, int a3, 
   *&v17.var0 = v6;
   *&v15.var0 = HGTransformUtils::GetROI(v14, v5, v17, 0.5, v9);
   *&v15.var2 = v10;
-  v11 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v11 = HGRectMake4i(-1, -1, 1, 1);
   v13 = v12;
   *&v16.var0 = v11;
   *&v16.var2 = v13;
@@ -4657,11 +4651,11 @@ HGMetalContext *HGBitmapLoader::UploadBitmap(HGMetalContext *this, HGRect a2, HG
   return this;
 }
 
-void sub_25FCF1160(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FCF1160(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4676,7 +4670,7 @@ uint64_t HGBitmapLoader::RenderTile(HGBitmapLoader *this, int32x2_t *a2)
   return 0;
 }
 
-HGBitmap *HGBitmapLoader::RenderPage(uint64_t a1, const char **a2, char *a3)
+HGBitmap *HGBitmapLoader::RenderPage(uint64_t a1, uint64_t *a2, char *a3)
 {
   v3 = a3;
   v6 = *(a1 + 408);
@@ -5720,12 +5714,12 @@ uint64_t HGComicSobelOperator::GetROI(HGComicSobelOperator *this, HGRenderer *a2
   *&v21.var0 = v6;
   *&v18.var0 = HGTransformUtils::GetROI(v17, v5, v21, 0.5, v9);
   *&v18.var2 = v10;
-  v11 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v11 = HGRectMake4i(-1, -1, 1, 1);
   v13 = v12;
   *&v19.var0 = v11;
   *&v19.var2 = v13;
   HGRect::Grow(&v18, v19);
-  v14 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v14 = HGRectMake4i(-1, -1, 1, 1);
   v16 = v15;
   *&v20.var0 = v14;
   *&v20.var2 = v16;
@@ -5851,7 +5845,7 @@ uint64_t HGLodFilter::SetLevel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   *(a1 + 560) = a3;
   if (a7 != 3)
   {
-    *(a1 + 520) = HGRectMake4i(0x80000000, 0x80000000, 0x7FFFFFFFu, 0x7FFFFFFFu);
+    *(a1 + 520) = HGRectMake4i(0x80000000, 0x80000000, 0x7FFFFFFF, 0x7FFFFFFF);
     *(a1 + 528) = v25;
     v26 = *(a1 + 520);
     *(a1 + 536) = v26;
@@ -6565,18 +6559,19 @@ LABEL_6:
   }
 }
 
-void sub_25FCF401C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_25FCF401C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  HGMipmapLevel::~HGMipmapLevel(v17);
-  HGObject::operator delete(v17);
+  va_start(va, a16);
+  HGMipmapLevel::~HGMipmapLevel(v16);
+  HGObject::operator delete(v16);
   HGLinearFilter2D::~HGLinearFilter2D(&a13);
-  HGLinearFilter2D::~HGLinearFilter2D(&a17);
+  HGLinearFilter2D::~HGLinearFilter2D(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCF4050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FCF4050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGLinearFilter2D::~HGLinearFilter2D(va);
   _Unwind_Resume(a1);
 }
@@ -6588,14 +6583,14 @@ void sub_25FCF4064(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25FCF4090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCF4090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   HGLinearFilter2D::~HGLinearFilter2D(va);
   HGLinearFilter2D::~HGLinearFilter2D(va1);
   _Unwind_Resume(a1);
@@ -7604,30 +7599,30 @@ char *HGLodFilter::RenderPage(HGLodFilter *this, HGRect *a2)
   return Buffer;
 }
 
-void sub_25FCF6998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FCF6998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCF69B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FCF69B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCF69C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FCF69C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCF69D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FCF69D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -7754,144 +7749,143 @@ LABEL_19:
   HGTransform::Translate(a3, v26, v29, 0.0);
 }
 
-uint64_t HGLodFilter::info(unsigned int *a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t HGLodFilter::info(unsigned int *a1, int a2, uint64_t **a3, uint64_t **a4)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v63);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v64);
   if (a2 >= 2)
   {
-    v8 = *(a3 + 23);
-    if (v8 >= 0)
+    v9 = *(a3 + 23);
+    if (v9 >= 0)
     {
-      v9 = a3;
+      v10 = a3;
     }
 
     else
     {
-      v9 = *a3;
+      v10 = *a3;
     }
 
-    if (v8 >= 0)
+    if (v9 >= 0)
     {
-      v10 = *(a3 + 23);
+      v11 = *(a3 + 23);
     }
 
     else
     {
-      v10 = *(a3 + 8);
+      v11 = a3[1];
     }
 
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v63, v9, v10);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "lodfilter, ", 11);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "axis[", 5);
-    v14 = MEMORY[0x2666E9B50](v13, 0);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "]: ", 3);
-    v18 = a1[114];
-    if (v18 >= 8)
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v64, v10, v11);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "lodfilter, ", 11);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "axis[", 5);
+    v15 = MEMORY[0x2666E9B50](v14, 0);
+    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "]: ", 3);
+    v19 = a1[114];
+    if (v19 >= 8)
     {
-      HGLogger::error("HGLodFilter::info: Invalid filter mode: %d", v15, v16, a1[114]);
-      v19 = "INVALID FILTER MODE";
+      HGLogger::error("HGLodFilter::info: Invalid filter mode: %d", v16, v17, a1[114]);
+      v20 = "INVALID FILTER MODE";
     }
 
     else
     {
-      v19 = off_279AA9278[v18];
+      v20 = off_279AA9278[v19];
     }
 
-    v20 = strlen(v19);
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v19, v20);
-    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ", ", 2);
-    v23 = MEMORY[0x2666E9B50](v22, a1[115]);
-    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, ", ", 2);
-    v25 = MEMORY[0x2666E9B50](v24, a1[116]);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ", ", 2);
-    v26 = std::ostream::operator<<();
-    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, ", ", 2);
-    v28 = MEMORY[0x2666E9B50](v27, a1[118]);
-    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ", ", 2);
-    v30 = MEMORY[0x2666E9B50](v29, a1[119]);
-    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, ", ", 2);
-    v32 = MEMORY[0x2666E9B50](v31, a1[120]);
-    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, ", ", 2);
-    v34 = MEMORY[0x2666E9B50](v33, a1[121]);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "\n", 1);
-    v35 = *(a4 + 23);
-    if (v35 >= 0)
+    v21 = strlen(v20);
+    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, v20, v21);
+    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ", ", 2);
+    v24 = MEMORY[0x2666E9B50](v23, a1[115]);
+    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, ", ", 2);
+    v26 = MEMORY[0x2666E9B50](v25, a1[116]);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, ", ", 2);
+    v27 = std::ostream::operator<<();
+    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, ", ", 2);
+    v29 = MEMORY[0x2666E9B50](v28, a1[118]);
+    v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ", ", 2);
+    v31 = MEMORY[0x2666E9B50](v30, a1[119]);
+    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, ", ", 2);
+    v33 = MEMORY[0x2666E9B50](v32, a1[120]);
+    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, ", ", 2);
+    v35 = MEMORY[0x2666E9B50](v34, a1[121]);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "\n", 1);
+    v36 = *(a4 + 23);
+    if (v36 >= 0)
     {
-      v36 = a4;
+      v37 = a4;
     }
 
     else
     {
-      v36 = *a4;
+      v37 = *a4;
     }
 
-    if (v35 >= 0)
+    if (v36 >= 0)
     {
-      v37 = *(a4 + 23);
+      v38 = *(a4 + 23);
     }
 
     else
     {
-      v37 = *(a4 + 8);
+      v38 = a4[1];
     }
 
-    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v63, v36, v37);
-    v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "lodfilter, ", 11);
-    v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "axis[", 5);
-    v41 = MEMORY[0x2666E9B50](v40, 1);
-    v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "]: ", 3);
-    v45 = a1[122];
-    if (v45 >= 8)
+    v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v64, v37, v38);
+    v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "lodfilter, ", 11);
+    v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "axis[", 5);
+    v42 = MEMORY[0x2666E9B50](v41, 1);
+    v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "]: ", 3);
+    v46 = a1[122];
+    if (v46 >= 8)
     {
-      HGLogger::error("HGLodFilter::info: Invalid filter mode: %d", v42, v43, a1[122]);
-      v46 = "INVALID FILTER MODE";
+      HGLogger::error("HGLodFilter::info: Invalid filter mode: %d", v43, v44, a1[122]);
+      v47 = "INVALID FILTER MODE";
     }
 
     else
     {
-      v46 = off_279AA9278[v45];
+      v47 = off_279AA9278[v46];
     }
 
-    v47 = strlen(v46);
-    v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, v46, v47);
-    v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, ", ", 2);
-    v50 = MEMORY[0x2666E9B50](v49, a1[123]);
-    v51 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, ", ", 2);
-    v52 = MEMORY[0x2666E9B50](v51, a1[124]);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, ", ", 2);
-    v53 = std::ostream::operator<<();
-    v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, ", ", 2);
-    v55 = MEMORY[0x2666E9B50](v54, a1[126]);
-    v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, ", ", 2);
-    v57 = MEMORY[0x2666E9B50](v56, a1[127]);
-    v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, ", ", 2);
-    v59 = MEMORY[0x2666E9B50](v58, a1[128]);
-    v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v59, ", ", 2);
-    v61 = MEMORY[0x2666E9B50](v60, a1[129]);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v61, "\n", 1);
+    v48 = strlen(v47);
+    v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, v47, v48);
+    v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, ", ", 2);
+    v51 = MEMORY[0x2666E9B50](v50, a1[123]);
+    v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, ", ", 2);
+    v53 = MEMORY[0x2666E9B50](v52, a1[124]);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, ", ", 2);
+    v54 = std::ostream::operator<<();
+    v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, ", ", 2);
+    v56 = MEMORY[0x2666E9B50](v55, a1[126]);
+    v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, ", ", 2);
+    v58 = MEMORY[0x2666E9B50](v57, a1[127]);
+    v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, ", ", 2);
+    v60 = MEMORY[0x2666E9B50](v59, a1[128]);
+    v61 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v60, ", ", 2);
+    v62 = MEMORY[0x2666E9B50](v61, a1[129]);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, "\n", 1);
   }
 
   std::stringbuf::str();
-  v63 = *MEMORY[0x277D82828];
-  *(&v63 + *(v63 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v64 = MEMORY[0x277D82878] + 16;
-  if (v66 < 0)
+  v64 = *MEMORY[0x277D82828];
+  *(&v64 + *(v64 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v65 = MEMORY[0x277D82878] + 16;
+  if (v67 < 0)
   {
-    operator delete(v65[7].__locale_);
+    operator delete(v66[7].__locale_);
   }
 
-  v64 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v65);
+  v65 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v66);
   std::ostream::~ostream();
-  return MEMORY[0x2666E9E10](&v67);
+  return MEMORY[0x2666E9E10](&v68);
 }
 
-void sub_25FCF7078(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCF7078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -7904,6 +7898,7 @@ void sub_25FCF7078(_Unwind_Exception *a1, uint64_t a2, ...)
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
   MEMORY[0x2666E9E10](va1);
   _Unwind_Resume(a1);
@@ -7933,7 +7928,7 @@ uint64_t HGLodPreFilter::GetDOD(HGLodPreFilter *this, HGRenderer *a2, int a3, HG
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0xFFFFFFF0, 0xFFFFFFF0, 0x10u, 0x10u);
+  v7 = HGRectMake4i(-16, -16, 16, 16);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -7946,7 +7941,7 @@ uint64_t HGLodPreFilter::GetROI(HGLodPreFilter *this, HGRenderer *a2, int a3, HG
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0xFFFFFFF0, 0xFFFFFFF0, 0x10u, 0x10u);
+  v7 = HGRectMake4i(-16, -16, 16, 16);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -8236,20 +8231,13 @@ uint64_t HGColorConform::SetLook3DLutConversion(uint64_t a1, uint64_t a2, char *
   return 1;
 }
 
-void HGColorConform::Prep3DLUTBitmap()
+void HGColorConform::Prep3DLUTBitmap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8)
 {
   {
     HGColorConform::Prep3DLUTBitmap();
   }
 
   operator new();
-}
-
-{
-  if (v0)
-  {
-    OUTLINED_FUNCTION_0_11(v0, &HGColorConform::Prep3DLUTBitmap(HGRenderer *,unsigned char const*,unsigned long,unsigned long,unsigned long,BOOL,HGColorConform::hgLookLUTEndian)::lutFactory, &dword_25F8F0000);
-  }
 }
 
 HGNode *HGColorConform::SetToneQualityMode(HGNode *result, uint64_t a2, char *a3)
@@ -8549,7 +8537,7 @@ uint64_t HGColorConform::SetConversion(uint64_t a1, int a2, int a3, int a4, int 
     return 1;
   }
 
-  if ((HGColorGamma::TestConversion(a2, a3, a4, a5, a6, a7) & 1) != 0 || HGColorGamma::TestConversion(a2, a3, a4, a5, 8, 0) && HGColorGamma::TestConversion(a5, 8, 0, a5, a6, a7))
+  if (HGColorGamma::TestConversion(a2, a3, a4, a5, a6, a7) || HGColorGamma::TestConversion(a2, a3, a4, a5, 8, 0) && HGColorGamma::TestConversion(a5, 8, 0, a5, a6, a7))
   {
     HGNode::ClearBits(a1, v15, v16);
     v14 = 1;
@@ -8578,7 +8566,7 @@ uint64_t HGColorConform::SetConversion(uint64_t a1, int a2, int a3, int a4, int 
   return v14;
 }
 
-uint64_t HGColorConform::SetConversion(HGNode *this, uint64_t a2, char *a3, int a4, int a5)
+uint64_t HGColorConform::SetConversion(HGNode *this, uint64_t a2, char *a3, unsigned int a4, int a5)
 {
   v6 = a3;
   v7 = a2;
@@ -8592,7 +8580,7 @@ uint64_t HGColorConform::SetConversion(HGNode *this, uint64_t a2, char *a3, int 
     v9 = 0;
   }
 
-  if (*(this + 121) != 3 || *(this + 128) != a2 || *(this + 130) != a3 || *(this + 131) != a4 || *(this + 132) != v9)
+  if (*(this + 121) != 3 || *(this + 128) != a2 || *(this + 65) != __PAIR64__(a4, a3) || *(this + 132) != v9)
   {
     HGNode::ClearBits(this, a2, a3);
     *(this + 121) = 3;
@@ -8665,7 +8653,7 @@ uint64_t HGColorConform::CreateColorConformHeliumGraph(HGColorConform *this, uin
   v5 = *(this + 52);
   if (v5)
   {
-    (*(*v5 + 24))(v5);
+    (*(*v5 + 24))(v5, a2);
     *(this + 52) = 0;
   }
 
@@ -8766,7 +8754,7 @@ uint64_t HGColorConform::CreateColorConformHeliumGraph(HGColorConform *this, uin
         HGColorGamma::SetConversion(ColorGammaNode, *(this + 128), v12, v13, *(this + 132));
         __asm { FMOV            V0.4S, #1.0 }
 
-        HGColorGamma::SetGammaFunction(v10, 18, v71, _Q0, 0, 0, 0, 0, 0, 0);
+        HGColorGamma::SetGammaFunction(v10, 18, _Q0, 0, 0, 0, 0, 0, 0, v71);
         HGColorGamma::SetToneQualityMode(v10, *(this + 109), v72);
         HGColorGamma::SetPremultiplyState(v10, 0, 0);
         HGColorGamma::SetConversion(v11, *(this + 132), 1, 0, *(this + 132), 8, 0);
@@ -8783,7 +8771,7 @@ uint64_t HGColorConform::CreateColorConformHeliumGraph(HGColorConform *this, uin
         *(this + 52) = v11;
         HGColorGamma::SetConversion(ColorGammaNode, *(this + 128), 0, 3u, *(this + 132));
         HGColorGamma::SetConversionPreset(v11, 0, v55);
-        HGColorGamma::SetGammaFunction(v11, 0, v56, xmmword_2608171A0, 0, 0, 0, 0, 0, 0);
+        HGColorGamma::SetGammaFunction(v11, 0, xmmword_2608171A0, 0, 0, 0, 0, 0, 0, v56);
         HGColorGamma::Set1DLutScaleAndOffset(v11, *(this + 119), *(this + 120), v57, v58);
         goto LABEL_84;
       }
@@ -8901,7 +8889,7 @@ LABEL_74:
       HGColorGamma::LoadMatrix2(ColorGammaNode, &v108, v62);
       __asm { FMOV            V0.4S, #1.0 }
 
-      HGColorGamma::SetGammaFunction(v31, 18, v85, _Q0, 0, 0, 0, 0, 0, 0);
+      HGColorGamma::SetGammaFunction(v31, 18, _Q0, 0, 0, 0, 0, 0, 0, v85);
       HGColorGamma::SetToneQualityMode(v31, *(this + 109), v86);
       HGColorGamma::SetPremultiplyState(v31, 0, 0);
       HGColorGamma::SetConversion(v11, *(this + 132), 1, 0, *(this + 132), 8, 0);
@@ -9428,7 +9416,7 @@ LABEL_102:
               v62 = (*v61 - 2);
             }
 
-            HGColorGamma::SetGammaFunction(v10, v62, v60, *(v61 + 80), *(v61 + 96), *(v61 + 112), *(v61 + 128), *(v61 + 144), *(v61 + 160), *(v61 + 176));
+            HGColorGamma::SetGammaFunction(v10, v62, *(v61 + 80), *(v61 + 96), *(v61 + 112), *(v61 + 128), *(v61 + 144), *(v61 + 160), *(v61 + 176), v60);
             if (v8)
             {
               (*(*v10 + 120))(v10, 0, v9);
@@ -9443,7 +9431,7 @@ LABEL_103:
 
           if (v53 == 8)
           {
-            if ((atomic_load_explicit(&qword_27FE4B5A8, memory_order_acquire) & 1) == 0)
+            if ((atomic_load_explicit(byte_27FE4B5A8, memory_order_acquire) & 1) == 0)
             {
               HGColorConform::CreateColorConformHeliumGraph();
             }
@@ -9482,7 +9470,7 @@ LABEL_103:
             if (v12 < (v3[1] - *v3) >> 3)
             {
               HGApply1DLUT::Init(v71, *(*(*v3 + 8 * v12) + 200), 1.0, 0.0, 1, 1, 1, *(*(*v3 + 8 * v12) + 216), 1, 1);
-              if ((atomic_load_explicit(&_MergedGlobals_103, memory_order_acquire) & 1) == 0)
+              if ((atomic_load_explicit(_MergedGlobals_103, memory_order_acquire) & 1) == 0)
               {
                 HGColorConform::CreateColorConformHeliumGraph();
               }
@@ -9593,7 +9581,7 @@ LABEL_8:
             v26 = (*v25 - 2);
           }
 
-          HGColorGamma::SetGammaFunction(v10, v26, v24, *(v25 + 80), *(v25 + 96), *(v25 + 112), *(v25 + 128), *(v25 + 144), *(v25 + 160), *(v25 + 176));
+          HGColorGamma::SetGammaFunction(v10, v26, *(v25 + 80), *(v25 + 96), *(v25 + 112), *(v25 + 128), *(v25 + 144), *(v25 + 160), *(v25 + 176), v24);
           if (v16 >= (v3[1] - *v3) >> 3)
           {
             std::vector<unsigned int>::__throw_out_of_range[abi:ne200100]();
@@ -9707,7 +9695,7 @@ LABEL_32:
             v52 = (*v51 - 2);
           }
 
-          HGColorGamma::SetGammaFunction(v10, v52, v50, *(v51 + 80), *(v51 + 96), *(v51 + 112), *(v51 + 128), *(v51 + 144), *(v51 + 160), *(v51 + 176));
+          HGColorGamma::SetGammaFunction(v10, v52, *(v51 + 80), *(v51 + 96), *(v51 + 112), *(v51 + 128), *(v51 + 144), *(v51 + 160), *(v51 + 176), v50);
           if (!v8)
           {
 LABEL_88:
@@ -9759,7 +9747,7 @@ LABEL_88:
           v39 = (*v38 - 2);
         }
 
-        HGColorGamma::SetGammaFunction(v10, v39, v37, *(v38 + 80), *(v38 + 96), *(v38 + 112), *(v38 + 128), *(v38 + 144), *(v38 + 160), *(v38 + 176));
+        HGColorGamma::SetGammaFunction(v10, v39, *(v38 + 80), *(v38 + 96), *(v38 + 112), *(v38 + 128), *(v38 + 144), *(v38 + 160), *(v38 + 176), v37);
         if (v30 >= (v3[1] - *v3) >> 3)
         {
           std::vector<unsigned int>::__throw_out_of_range[abi:ne200100]();

@@ -100,7 +100,7 @@
 
 - (_CSStore)initWithCoder:(id)coder
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -124,18 +124,18 @@ LABEL_16:
   }
 
 LABEL_3:
-  v22 = 0;
+  v21 = 0;
   v6 = coderCopy;
   v7 = @"XPCRepresentation";
-  v23 = 0;
+  v22 = 0;
   if (!v6)
   {
     v14 = MEMORY[0x1E696ABC0];
-    v24[0] = *MEMORY[0x1E696A278];
-    v24[1] = @"Line";
-    v25[0] = @"paramErr";
-    v25[1] = &unk_1F37D7AD8;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v23[0] = *MEMORY[0x1E696A278];
+    v23[1] = @"Line";
+    v24[0] = @"paramErr";
+    v24[1] = &unk_1F37D7AD8;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
     v11 = [v14 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v15];
 LABEL_9:
 
@@ -143,7 +143,7 @@ LABEL_9:
     v13 = 1;
 LABEL_10:
     v16 = v11;
-    v22 = v11;
+    v21 = v11;
     v12 = v11;
     goto LABEL_11;
   }
@@ -156,12 +156,12 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  CSStore2::Store::CreateWithXPCObject(v25, v8, &v22);
-  v9 = v25[0];
-  v25[0] = 0;
-  std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&v23, v9);
-  std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](v25, 0);
-  v10 = v23;
+  CSStore2::Store::CreateWithXPCObject(v24, v8, &v21);
+  v9 = v24[0];
+  v24[0] = 0;
+  std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&v22, v9);
+  std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](v24, 0);
+  v10 = v22;
 
   v11 = 0;
   v12 = 0;
@@ -173,7 +173,7 @@ LABEL_10:
 
 LABEL_11:
 
-  v17 = v22;
+  v17 = v21;
   if (v13)
   {
     [v6 failWithError:v17];
@@ -186,16 +186,15 @@ LABEL_11:
     v18 = [(_CSStore *)self initByMovingStore:v10];
   }
 
-  std::unique_ptr<CSStore2::Store>::~unique_ptr[abi:nn200100](&v23);
+  std::unique_ptr<CSStore2::Store>::~unique_ptr[abi:nn200100](&v22);
 
 LABEL_17:
-  v20 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -213,17 +212,17 @@ LABEL_17:
     }
   }
 
-  v14 = coderCopy;
+  v13 = coderCopy;
   v7 = @"XPCRepresentation";
-  if (v14)
+  if (v13)
   {
-    v15 = 0;
-    v8 = CSStore2::Store::encodeAsXPCObject(self->_store.dataContainer, &v15);
-    v9 = v15;
+    v14 = 0;
+    v8 = CSStore2::Store::encodeAsXPCObject(self->_store.dataContainer, &v14);
+    v9 = v14;
     v10 = v9;
     if (v8)
     {
-      [v14 encodeXPCObject:v8 forKey:@"XPCRepresentation"];
+      [v13 encodeXPCObject:v8 forKey:@"XPCRepresentation"];
     }
 
     else
@@ -232,13 +231,11 @@ LABEL_17:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v17 = v10;
+        v16 = v10;
         _os_log_fault_impl(&dword_1B9D5B000, v11, OS_LOG_TYPE_FAULT, "Unexpectedly could not encode store: %@", buf, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -263,7 +260,7 @@ LABEL_17:
 
 - (id)mutableCopyWithZone:(_NSZone *)zone error:(id *)error
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   if (performConstantAssertions == 1)
   {
     accessContext = self->_accessContext;
@@ -286,54 +283,54 @@ LABEL_17:
     v10 = 0;
   }
 
-  CSStore2::Store::CreateWithBytes(&v20, v9, v10, error);
-  if (!v20)
+  CSStore2::Store::CreateWithBytes(&v19, v9, v10, error);
+  if (!v19)
   {
     goto LABEL_14;
   }
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__114;
-  v26 = __Block_byref_object_dispose__115;
-  v27 = 0;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = ___ZNK8CSStore25Store4copyEPU15__autoreleasingP7NSError_block_invoke;
-  v21[3] = &unk_1E7ED3588;
-  v21[4] = &v22;
-  CSStore2::Store::enumerateTables(v20, v21);
-  v11 = v23[5];
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__114;
+  v25 = __Block_byref_object_dispose__115;
+  v26 = 0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = ___ZNK8CSStore25Store4copyEPU15__autoreleasingP7NSError_block_invoke;
+  v20[3] = &unk_1E7ED3588;
+  v20[4] = &v21;
+  CSStore2::Store::enumerateTables(v19, v20);
+  v11 = v22[5];
   if (v11)
   {
     if (error)
     {
       v12 = MEMORY[0x1E696ABC0];
-      v28[0] = *MEMORY[0x1E696A278];
-      v28[1] = @"Line";
-      v29[0] = @"kCSStoreValidationErr";
-      v29[1] = &unk_1F37D7AC0;
-      v28[2] = @"FullTable";
-      v29[2] = v11;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
+      v27[0] = *MEMORY[0x1E696A278];
+      v27[1] = @"Line";
+      v28[0] = @"kCSStoreValidationErr";
+      v28[1] = &unk_1F37D7AC0;
+      v27[2] = @"FullTable";
+      v28[2] = v11;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
       *error = [v12 errorWithDomain:*MEMORY[0x1E696A768] code:-9491 userInfo:v13];
     }
 
-    std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&v20, 0);
+    std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&v19, 0);
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
 
-  v14 = v20;
-  if (v20)
+  v14 = v19;
+  if (v19)
   {
     v15 = *(*(self->_store.dataContainer + 1) + 8);
-    v20[38] = self->_store.pedigree.family;
+    v19[38] = self->_store.pedigree.family;
     *(v14 + 78) = v15;
     *(v14 + 316) = 1;
     v16 = [objc_opt_class() allocWithZone:zone];
-    v17 = [v16 initByMovingStore:v20];
+    v17 = [v16 initByMovingStore:v19];
   }
 
   else
@@ -342,15 +339,14 @@ LABEL_14:
     v17 = 0;
   }
 
-  std::unique_ptr<CSStore2::Store>::~unique_ptr[abi:nn200100](&v20);
-  v18 = *MEMORY[0x1E69E9840];
+  std::unique_ptr<CSStore2::Store>::~unique_ptr[abi:nn200100](&v19);
   return v17;
 }
 
 - (void)setReadOnly:(BOOL)only
 {
   onlyCopy = only;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (performMutatingAssertions == 1)
   {
     accessContext = self->_accessContext;
@@ -400,22 +396,20 @@ LABEL_14:
       v13 = CSStore2::GetLog(v11);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = 134218752;
-        v16 = v9;
-        v17 = 2048;
-        v18 = v10;
-        v19 = 2048;
-        v20 = v7;
-        v21 = 2048;
-        v22 = v12;
-        _os_log_error_impl(&dword_1B9D5B000, v13, OS_LOG_TYPE_ERROR, "Failed to set protection of region at %p length %zu to %lx: %lx", &v15, 0x2Au);
+        v14 = 134218752;
+        v15 = v9;
+        v16 = 2048;
+        v17 = v10;
+        v18 = 2048;
+        v19 = v7;
+        v20 = 2048;
+        v21 = v12;
+        _os_log_error_impl(&dword_1B9D5B000, v13, OS_LOG_TYPE_ERROR, "Failed to set protection of region at %p length %zu to %lx: %lx", &v14, 0x2Au);
       }
     }
 
     *&self->_store.flags = *&self->_store.flags & 0xFE | onlyCopy;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUnitIdentifierExhaustionHandler:(id)handler
@@ -466,10 +460,10 @@ LABEL_14:
   v4 = MEMORY[0x1EEE9AC00](self, a2, l, error);
   v6 = v5;
   v7 = v4;
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   v9 = v8;
   v10 = v9;
-  v73 = 0;
+  v72 = 0;
   if (!v9 || ![v9 isFileURL])
   {
     v17 = MEMORY[0x1E696ABC0];
@@ -482,9 +476,9 @@ LABEL_14:
     goto LABEL_10;
   }
 
-  v75 = 0;
-  v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v10 options:1 error:&v75];
-  v12 = v75;
+  v74 = 0;
+  v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v10 options:1 error:&v74];
+  v12 = v74;
   v13 = v12;
   if (!v11)
   {
@@ -494,9 +488,9 @@ LABEL_14:
   v14 = CSStore2::GetLog(v12);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v55 = [v11 length];
+    v54 = [v11 length];
     LODWORD(__ptr) = 134217984;
-    *(&__ptr + 4) = v55;
+    *(&__ptr + 4) = v54;
     _os_log_debug_impl(&dword_1B9D5B000, v14, OS_LOG_TYPE_DEBUG, "Creating CSStore from file with length %llu", &__ptr, 0xCu);
   }
 
@@ -507,174 +501,174 @@ LABEL_14:
     *&buf[8] = @"Line";
     *&__ptr = @"fileBoundsErr";
     *(&__ptr + 1) = &unk_1F37D7B68;
-    v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&__ptr forKeys:buf count:2];
+    v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&__ptr forKeys:buf count:2];
     v16 = [v15 errorWithDomain:*MEMORY[0x1E696A768] code:-1309 userInfo:?];
 
     v13 = v16;
     goto LABEL_8;
   }
 
-  v36 = v11;
-  v74 = v13;
-  CSStore2::Store::_Create(&__ptr, [v11 bytes], objc_msgSend(v11, "length"), 1, 1, &v74);
-  v71 = v74;
+  v35 = v11;
+  v73 = v13;
+  CSStore2::Store::_Create(&__ptr, [v11 bytes], objc_msgSend(v11, "length"), 1, 1, &v73);
+  v70 = v73;
 
-  v37 = __ptr;
+  v36 = __ptr;
   *&__ptr = 0;
-  std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&v73, v37);
+  std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&v72, v36);
   std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&__ptr, 0);
-  if (v73)
+  if (v72)
   {
     v18 = 0;
 LABEL_27:
-    v13 = v71;
+    v13 = v70;
     goto LABEL_11;
   }
 
-  userInfo = [v71 userInfo];
-  v39 = [userInfo objectForKey:@"ZeroedRanges"];
-  v40 = v39 == 0;
+  userInfo = [v70 userInfo];
+  v38 = [userInfo objectForKey:@"ZeroedRanges"];
+  v39 = v38 == 0;
 
-  if (v40)
+  if (v39)
   {
     v18 = 1;
     goto LABEL_27;
   }
 
-  userInfo2 = [v71 userInfo];
-  v72 = [userInfo2 mutableCopy];
+  userInfo2 = [v70 userInfo];
+  v71 = [userInfo2 mutableCopy];
 
-  v42 = v11;
+  v41 = v11;
   bytes = [v11 bytes];
-  v43 = [v11 length];
-  v69 = v10;
-  v44 = v69;
-  v45 = fopen([v69 fileSystemRepresentation], "rb");
-  if (!v45)
+  v42 = [v11 length];
+  v68 = v10;
+  v43 = v68;
+  v44 = fopen([v68 fileSystemRepresentation], "rb");
+  if (!v44)
   {
-    v56 = CSStore2::GetLog(0);
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v55 = CSStore2::GetLog(0);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       LODWORD(__ptr) = 138412290;
-      *(&__ptr + 4) = v69;
-      _os_log_error_impl(&dword_1B9D5B000, v56, OS_LOG_TYPE_ERROR, "verifying map with file: URL %@ could not be opened", &__ptr, 0xCu);
+      *(&__ptr + 4) = v68;
+      _os_log_error_impl(&dword_1B9D5B000, v55, OS_LOG_TYPE_ERROR, "verifying map with file: URL %@ could not be opened", &__ptr, 0xCu);
     }
 
-    v57 = 4;
+    v56 = 4;
     goto LABEL_59;
   }
 
+  v45 = 0;
   v46 = 0;
-  v47 = 0;
-  v48 = v43;
-  while (!feof(v45) && !ferror(v45))
+  v47 = v42;
+  while (!feof(v44) && !ferror(v44))
   {
-    v49 = fread(&__ptr, 1uLL, 0x1000uLL, v45);
-    v50 = v49;
-    if (!v49)
+    v48 = fread(&__ptr, 1uLL, 0x1000uLL, v44);
+    v49 = v48;
+    if (!v48)
     {
       goto LABEL_43;
     }
 
-    if (v49 <= v48 - v46)
+    if (v48 <= v47 - v45)
     {
-      v52 = memcmp(&__ptr, (bytes + v46), v49);
-      if (!v52)
+      v51 = memcmp(&__ptr, (bytes + v45), v48);
+      if (!v51)
       {
         goto LABEL_43;
       }
 
-      v51 = CSStore2::GetLog(v52);
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v50 = CSStore2::GetLog(v51);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        *&buf[4] = v46;
+        *&buf[4] = v45;
         *&buf[12] = 2048;
-        *&buf[14] = v50 + v46;
-        _os_log_error_impl(&dword_1B9D5B000, v51, OS_LOG_TYPE_ERROR, "file/map mismatch between offsets %#zx and %#zx", buf, 0x16u);
+        *&buf[14] = v49 + v45;
+        _os_log_error_impl(&dword_1B9D5B000, v50, OS_LOG_TYPE_ERROR, "file/map mismatch between offsets %#zx and %#zx", buf, 0x16u);
       }
 
-      v47 = 1;
+      v46 = 1;
     }
 
     else
     {
-      v51 = CSStore2::GetLog(v49);
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v50 = CSStore2::GetLog(v48);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        *&buf[4] = v48;
-        _os_log_error_impl(&dword_1B9D5B000, v51, OS_LOG_TYPE_ERROR, "file/map mismatch: file longer than map of length %#zx", buf, 0xCu);
+        *&buf[4] = v47;
+        _os_log_error_impl(&dword_1B9D5B000, v50, OS_LOG_TYPE_ERROR, "file/map mismatch: file longer than map of length %#zx", buf, 0xCu);
       }
 
-      v47 = 3;
+      v46 = 3;
     }
 
 LABEL_43:
-    v46 += v50;
+    v45 += v49;
   }
 
-  v53 = ferror(v45);
-  if (v53)
+  v52 = ferror(v44);
+  if (v52)
   {
-    v54 = CSStore2::GetLog(v53);
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v53 = CSStore2::GetLog(v52);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
       LOWORD(__ptr) = 0;
-      _os_log_error_impl(&dword_1B9D5B000, v54, OS_LOG_TYPE_ERROR, "file/map comparison read error", &__ptr, 2u);
+      _os_log_error_impl(&dword_1B9D5B000, v53, OS_LOG_TYPE_ERROR, "file/map comparison read error", &__ptr, 2u);
     }
 
-    v47 = 4;
+    v46 = 4;
     goto LABEL_48;
   }
 
-  if (v48 != v46)
+  if (v47 != v45)
   {
-    v58 = feof(v45);
-    if (v58)
+    v57 = feof(v44);
+    if (v57)
     {
-      v54 = CSStore2::GetLog(v58);
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      v53 = CSStore2::GetLog(v57);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         LODWORD(__ptr) = 134217984;
-        *(&__ptr + 4) = v48;
-        _os_log_error_impl(&dword_1B9D5B000, v54, OS_LOG_TYPE_ERROR, "file/map mismatch: file shorter than map of length %#zx", &__ptr, 0xCu);
+        *(&__ptr + 4) = v47;
+        _os_log_error_impl(&dword_1B9D5B000, v53, OS_LOG_TYPE_ERROR, "file/map mismatch: file shorter than map of length %#zx", &__ptr, 0xCu);
       }
 
-      v47 = 2;
+      v46 = 2;
 LABEL_48:
     }
   }
 
-  fclose(v45);
-  v57 = v47;
+  fclose(v44);
+  v56 = v46;
 LABEL_59:
 
-  v59 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v57];
-  [v72 setObject:v59 forKeyedSubscript:@"filecmp"];
+  v58 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v56];
+  [v71 setObject:v58 forKeyedSubscript:@"filecmp"];
 
-  v60 = v11;
+  v59 = v11;
   CSStore2::Store::_Create(buf, [v11 bytes], objc_msgSend(v11, "length"), 1, 0, 0);
-  v61 = *buf;
+  v60 = *buf;
   if (*buf)
   {
     *&__ptr = MEMORY[0x1E69E9820];
     *(&__ptr + 1) = 3221225472;
-    v78 = ___ZN8CSStore25Store23CreateWithContentsOfURLEP5NSURLPU15__autoreleasingP7NSError_block_invoke;
-    v79 = &unk_1E7ED35B0;
-    v81 = *buf;
-    v62 = v72;
-    v80 = v62;
-    CSStore2::Store::enumerateTables(v61, &__ptr);
-    v64 = CSStore2::String::GetDebugDescriptionOfCache(v61, v63);
-    [v62 setObject:v64 forKeyedSubscript:@"string$"];
+    v77 = ___ZN8CSStore25Store23CreateWithContentsOfURLEP5NSURLPU15__autoreleasingP7NSError_block_invoke;
+    v78 = &unk_1E7ED35B0;
+    v80 = *buf;
+    v61 = v71;
+    v79 = v61;
+    CSStore2::Store::enumerateTables(v60, &__ptr);
+    v63 = CSStore2::String::GetDebugDescriptionOfCache(v60, v62);
+    [v61 setObject:v63 forKeyedSubscript:@"string$"];
   }
 
-  v65 = objc_alloc(MEMORY[0x1E696ABC0]);
-  domain = [v71 domain];
-  code = [v71 code];
-  v68 = [v72 copy];
-  v13 = [v65 initWithDomain:domain code:code userInfo:v68];
+  v64 = objc_alloc(MEMORY[0x1E696ABC0]);
+  domain = [v70 domain];
+  code = [v70 code];
+  v67 = [v71 copy];
+  v13 = [v64 initWithDomain:domain code:code userInfo:v67];
 
   std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](buf, 0);
 LABEL_8:
@@ -721,7 +715,7 @@ LABEL_11:
   }
 
   v31 = v30;
-  if (v73)
+  if (v72)
   {
     v32 = [v7 initByMovingStore:?];
     if (!v6)
@@ -748,9 +742,8 @@ LABEL_22:
   }
 
 LABEL_24:
-  std::unique_ptr<CSStore2::Store>::~unique_ptr[abi:nn200100](&v73);
+  std::unique_ptr<CSStore2::Store>::~unique_ptr[abi:nn200100](&v72);
 
-  v34 = *MEMORY[0x1E69E9840];
   return v32;
 }
 

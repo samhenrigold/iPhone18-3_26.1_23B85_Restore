@@ -4,6 +4,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)modelAsString:(int)string;
+- (id)supervisionAsString:(int)string;
 - (int)StringAsModel:(id)model;
 - (int)StringAsSupervision:(id)supervision;
 - (int)model;
@@ -151,7 +153,6 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v8 = *(equalCopy + 24);
   if (self->_result)
   {
     if ((*(equalCopy + 24) & 1) == 0)
@@ -275,19 +276,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    model = self->_model;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -306,15 +306,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  result = self->_result;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    supervision = self->_supervision;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
@@ -442,6 +440,21 @@ LABEL_16:
   return v4;
 }
 
+- (id)supervisionAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AC60[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasSupervision:(BOOL)supervision
 {
   if (supervision)
@@ -511,6 +524,21 @@ LABEL_16:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)modelAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AC40[string];
   }
 
   return v4;

@@ -18,7 +18,7 @@
   v9 = sub_100744E04();
   (*(*(v9 - 8) + 104))(self + v7, v8, v9);
   v10 = OBJC_IVAR____TtC22SubscribePageExtension32HorizontalRuleCollectionViewCell_lineColor;
-  sub_100016C60(0, &qword_100923500);
+  sub_100016C60(0, &qword_100923500, UIColor_ptr);
   *(&self->super.super.super.super.super.isa + v10) = sub_100753DB4();
   result = sub_100754644();
   __break(1u);

@@ -84,9 +84,9 @@ LABEL_15:
 
       else
       {
-        v13 = [(UIColor *)v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (v13)
+        if (isEqual)
         {
           goto LABEL_13;
         }

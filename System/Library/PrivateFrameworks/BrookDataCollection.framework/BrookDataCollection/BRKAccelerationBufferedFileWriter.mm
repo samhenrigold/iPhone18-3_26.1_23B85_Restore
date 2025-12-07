@@ -23,7 +23,7 @@
 
 - (void)_lock_writeX:(double)x y:(double)y z:(double)z timestamp:(double)timestamp
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   if (!self->_values)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -31,22 +31,21 @@
     self->_values = array;
   }
 
-  v19[0] = @"timestamp";
+  v18[0] = @"timestamp";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:timestamp];
-  v20[0] = v13;
-  v19[1] = @"x";
+  v19[0] = v13;
+  v18[1] = @"x";
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:x];
-  v20[1] = v14;
-  v19[2] = @"y";
+  v19[1] = v14;
+  v18[2] = @"y";
   v15 = [MEMORY[0x277CCABB0] numberWithDouble:y];
-  v20[2] = v15;
-  v19[3] = @"z";
+  v19[2] = v15;
+  v18[3] = @"z";
   v16 = [MEMORY[0x277CCABB0] numberWithDouble:z];
-  v20[3] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v19[3] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
 
   [(NSMutableArray *)self->_values addObject:v17];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)close
@@ -61,7 +60,7 @@
 
 - (void)_lock_close
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (self->_values)
   {
     v3 = [BRKAccelerationFileWriter alloc];
@@ -69,27 +68,27 @@
     v5 = [(BRKWriter *)v3 initWithPath:path];
 
     [(BRKAccelerationFileWriter *)v5 openWithDataCount:[(NSMutableArray *)self->_values count]];
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     selfCopy = self;
     obj = self->_values;
-    v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v28;
+      v8 = *v27;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
+          v10 = *(*(&v26 + 1) + 8 * i);
           v11 = [v10 objectForKeyedSubscript:@"timestamp"];
           [v11 doubleValue];
           v13 = v12;
@@ -109,7 +108,7 @@
           [(BRKAccelerationFileWriter *)v5 writeX:v16 y:v19 z:v22 timestamp:v13];
         }
 
-        v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v7);
@@ -119,8 +118,6 @@
     values = selfCopy->_values;
     selfCopy->_values = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

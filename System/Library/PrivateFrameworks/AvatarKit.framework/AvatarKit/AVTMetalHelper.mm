@@ -42,17 +42,19 @@
     helperForDevice___helpers = v3;
   }
 
-  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v2, "registryID")}];
-  v6 = [helperForDevice___helpers objectForKeyedSubscript:v5];
-  if (!v6)
+  v5 = MEMORY[0x1E696AD98];
+  [v2 registryID];
+  v6 = [v5 numberWithUnsignedLongLong:?];
+  v7 = [helperForDevice___helpers objectForKeyedSubscript:?];
+  if (!v7)
   {
-    v6 = [[AVTMetalHelper alloc] _initWithDevice:v2];
-    [helperForDevice___helpers setObject:v6 forKeyedSubscript:v5];
+    v7 = [[AVTMetalHelper alloc] _initWithDevice:?];
+    [helperForDevice___helpers setObject:? forKeyedSubscript:?];
   }
 
   os_unfair_lock_unlock(&helperForDevice___lock);
 
-  return v6;
+  return v7;
 }
 
 - (void)_locked_instanciateLibraryIfNeeded
@@ -62,7 +64,7 @@
     v4 = +[AVTResourceLocator sharedResourceLocator];
     v7 = [(AVTResourceLocator *)v4 urlForFrameworkResourceAtPath:0 isDirectory:?];
 
-    v5 = [(MTLDevice *)self->_device newLibraryWithURL:v7 error:0];
+    v5 = [MTLDevice newLibraryWithURL:"newLibraryWithURL:error:" error:?];
     library = self->_library;
     self->_library = v5;
   }
@@ -81,7 +83,7 @@
     functions = self->_functions;
   }
 
-  v8 = [(NSMutableDictionary *)functions objectForKeyedSubscript:namedCopy];
+  v8 = [(NSMutableDictionary *)functions objectForKeyedSubscript:?];
   if (v8)
   {
     v9 = v8;
@@ -90,14 +92,14 @@
   else
   {
     [(AVTMetalHelper *)self _locked_instanciateLibraryIfNeeded];
-    v9 = [(MTLLibrary *)self->_library newFunctionWithName:namedCopy];
-    [(NSMutableDictionary *)self->_functions setObject:v9 forKeyedSubscript:namedCopy];
+    v9 = [(MTLLibrary *)self->_library newFunctionWithName:?];
+    v10 = [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     if (!v9)
     {
-      v10 = avt_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = avt_default_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(AVTMetalHelper *)v10 _locked_functionNamed:v11, v12, v13, v14, v15, v16, v17];
+        [(AVTMetalHelper *)v11 _locked_functionNamed:v12, v13, v14, v15, v16, v17, v18];
       }
 
       v9 = 0;
@@ -112,49 +114,18 @@
   descriptorCopy = descriptor;
   if (descriptor)
   {
-    v4 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * *a2) ^ ((0x9DDFEA08EB382D69 * *a2) >> 47));
-    v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
-    v6 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ ((0x9DDFEA08EB382D69 * (v5 ^ *(a2 + 8))) >> 47) ^ (0x9DDFEA08EB382D69 * (v5 ^ *(a2 + 8))))) ^ ((0x9DDFEA08EB382D69 * (v5 ^ ((0x9DDFEA08EB382D69 * (v5 ^ *(a2 + 8))) >> 47) ^ (0x9DDFEA08EB382D69 * (v5 ^ *(a2 + 8))))) >> 47));
-    if (*(a2 + 16) == 1)
-    {
-      v7 = 0x9DDFEA08EB382D69 * (v6 ^ ((0x9DDFEA08EB382D69 * (v6 ^ 1)) >> 47) ^ (0x9DDFEA08EB382D69 * (v6 ^ 1)));
-      v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v7 ^ (v7 >> 47))) ^ ((0x9DDFEA08EB382D69 * (*(a2 + 24) ^ (0x9DDFEA08EB382D69 * (v7 ^ (v7 >> 47))))) >> 47) ^ (0x9DDFEA08EB382D69 * (*(a2 + 24) ^ (0x9DDFEA08EB382D69 * (v7 ^ (v7 >> 47))))));
-      v9 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v8 ^ (v8 >> 47))) ^ ((0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v8 ^ (v8 >> 47))) ^ *(a2 + 32))) >> 47) ^ (0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v8 ^ (v8 >> 47))) ^ *(a2 + 32))));
-      v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v9 ^ (v9 >> 47))) ^ ((0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v9 ^ (v9 >> 47))) ^ *(a2 + 40))) >> 47) ^ (0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v9 ^ (v9 >> 47))) ^ *(a2 + 40))));
-      v11 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47))) ^ ((0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47))) ^ *(a2 + 48))) >> 47) ^ (0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47))) ^ *(a2 + 48))));
-      v12 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47))) ^ ((0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47))) ^ *(a2 + 56))) >> 47) ^ (0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47))) ^ *(a2 + 56))));
-      v13 = 0x9DDFEA08EB382D69 * (v12 ^ (v12 >> 47));
-      v6 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v13 ^ ((0x9DDFEA08EB382D69 * (v13 ^ *(a2 + 64))) >> 47) ^ (0x9DDFEA08EB382D69 * (v13 ^ *(a2 + 64))))) ^ ((0x9DDFEA08EB382D69 * (v13 ^ ((0x9DDFEA08EB382D69 * (v13 ^ *(a2 + 64))) >> 47) ^ (0x9DDFEA08EB382D69 * (v13 ^ *(a2 + 64))))) >> 47));
-    }
-
-    v14 = [*(a2 + 72) hash];
-    v15 = [*(a2 + 80) hash];
-    v16 = 0x9DDFEA08EB382D69 * (v6 ^ ((0x9DDFEA08EB382D69 * (v14 ^ v6)) >> 47) ^ (0x9DDFEA08EB382D69 * (v14 ^ v6)));
-    v17 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v16 ^ (v16 >> 47))) ^ ((0x9DDFEA08EB382D69 * (v15 ^ (0x9DDFEA08EB382D69 * (v16 ^ (v16 >> 47))))) >> 47) ^ (0x9DDFEA08EB382D69 * (v15 ^ (0x9DDFEA08EB382D69 * (v16 ^ (v16 >> 47))))));
-    v18 = 0x9DDFEA08EB382D69 * (v17 ^ (v17 >> 47));
-    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v18 ^ ((0x9DDFEA08EB382D69 * (*(a2 + 88) ^ v18)) >> 47) ^ (0x9DDFEA08EB382D69 * (*(a2 + 88) ^ v18)))) ^ ((0x9DDFEA08EB382D69 * (v18 ^ ((0x9DDFEA08EB382D69 * (*(a2 + 88) ^ v18)) >> 47) ^ (0x9DDFEA08EB382D69 * (*(a2 + 88) ^ v18)))) >> 47))];
-    v20 = [*(descriptorCopy + 5) objectForKeyedSubscript:v19];
-    if (!v20)
+    [*(a2 + 72) hash];
+    [*(a2 + 80) hash];
+    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
+    v5 = [*(descriptorCopy + 5) objectForKeyedSubscript:?];
+    if (!v5)
     {
       os_unfair_lock_lock(descriptorCopy + 6);
-      v21 = *(a2 + 48);
-      v27[2] = *(a2 + 32);
-      v27[3] = v21;
-      v22 = *(a2 + 72);
-      v28 = *(a2 + 64);
-      v23 = *(a2 + 16);
-      v27[0] = *a2;
-      v27[1] = v23;
-      v29 = v22;
-      v24 = *(a2 + 80);
-      v25 = *(a2 + 88);
-      v30 = v24;
-      v31 = v25;
-      v20 = [descriptorCopy _locked_renderPipelineStateWithDescriptor:v27 hashNumber:v19];
+      v5 = [descriptorCopy _locked_renderPipelineStateWithDescriptor:*a2 hashNumber:{*(a2 + 16), *(a2 + 32), *(a2 + 48), *(a2 + 64), *(a2 + 72), *(a2 + 80), *(a2 + 88)}];
       os_unfair_lock_unlock(descriptorCopy + 6);
     }
 
-    descriptorCopy = v20;
+    descriptorCopy = v5;
   }
 
   return descriptorCopy;
@@ -162,7 +133,7 @@
 
 - (id)_locked_renderPipelineStateWithDescriptor:(id *)descriptor hashNumber:(id)number
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   renderPipelineStates = self->_renderPipelineStates;
   if (!renderPipelineStates)
@@ -174,65 +145,62 @@
     renderPipelineStates = self->_renderPipelineStates;
   }
 
-  v10 = [(NSMutableDictionary *)renderPipelineStates objectForKeyedSubscript:numberCopy];
+  v10 = [(NSMutableDictionary *)renderPipelineStates objectForKeyedSubscript:?];
   if (!v10)
   {
     v11 = objc_alloc_init(MEMORY[0x1E6974140]);
     colorAttachments = [v11 colorAttachments];
-    v13 = [colorAttachments objectAtIndexedSubscript:0];
+    v13 = [colorAttachments objectAtIndexedSubscript:?];
 
-    [v13 setPixelFormat:descriptor->var0];
-    [v11 setDepthAttachmentPixelFormat:descriptor->var1];
-    [v13 setBlendingEnabled:descriptor->var2];
-    [v13 setRgbBlendOperation:descriptor->var3];
-    [v13 setSourceRGBBlendFactor:descriptor->var4];
-    [v13 setDestinationRGBBlendFactor:descriptor->var5];
-    [v13 setAlphaBlendOperation:descriptor->var6];
-    [v13 setSourceAlphaBlendFactor:descriptor->var7];
-    [v13 setDestinationAlphaBlendFactor:descriptor->var8];
-    v14 = [(AVTMetalHelper *)self _locked_functionNamed:descriptor->var9];
-    [v11 setVertexFunction:v14];
+    [v13 setPixelFormat:?];
+    [v11 setDepthAttachmentPixelFormat:?];
+    [v13 setBlendingEnabled:?];
+    [v13 setRgbBlendOperation:?];
+    [v13 setSourceRGBBlendFactor:?];
+    [v13 setDestinationRGBBlendFactor:?];
+    [v13 setAlphaBlendOperation:?];
+    [v13 setSourceAlphaBlendFactor:?];
+    [v13 setDestinationAlphaBlendFactor:?];
+    v14 = [(AVTMetalHelper *)self _locked_functionNamed:?];
+    [v11 setVertexFunction:?];
 
-    v15 = [(AVTMetalHelper *)self _locked_functionNamed:descriptor->var10];
-    [v11 setFragmentFunction:v15];
+    v15 = [(AVTMetalHelper *)self _locked_functionNamed:?];
+    [v11 setFragmentFunction:?];
 
-    [v11 setRasterSampleCount:descriptor->var11];
-    device = self->_device;
-    v31 = 0;
-    v10 = [(MTLDevice *)device newRenderPipelineStateWithDescriptor:v11 error:&v31];
-    v17 = v31;
-    if (v17)
+    [v11 setRasterSampleCount:?];
+    v10 = [MTLDevice newRenderPipelineStateWithDescriptor:"newRenderPipelineStateWithDescriptor:error:" error:?];
+    v16 = 0;
+    v17 = v16;
+    if (v16)
     {
-      v18 = avt_default_log();
+      v18 = avt_default_log(v16);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         var9 = descriptor->var9;
         var10 = descriptor->var10;
         *buf = 138412802;
-        v33 = var9;
-        v34 = 2112;
-        v35 = var10;
-        v36 = 2112;
-        v37 = v17;
+        v32 = var9;
+        v33 = 2112;
+        v34 = var10;
+        v35 = 2112;
+        v36 = v17;
         _os_log_error_impl(&dword_1BB472000, v18, OS_LOG_TYPE_ERROR, "Error: Failed to create render pipeline state for %@ + %@ with error %@", buf, 0x20u);
       }
     }
 
-    [(NSMutableDictionary *)self->_renderPipelineStates setObject:v10 forKeyedSubscript:numberCopy];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 
     if (!v10)
     {
-      v19 = avt_default_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = avt_default_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [(AVTMetalHelper *)v19 _locked_renderPipelineStateWithDescriptor:v20 hashNumber:v21, v22, v23, v24, v25, v26];
+        [(AVTMetalHelper *)v20 _locked_renderPipelineStateWithDescriptor:v21 hashNumber:v22, v23, v24, v25, v26, v27];
       }
 
       v10 = 0;
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -250,31 +218,30 @@
     computePipelineStates = self->_computePipelineStates;
   }
 
-  v8 = [(NSMutableDictionary *)computePipelineStates objectForKeyedSubscript:nameCopy];
+  v8 = [(NSMutableDictionary *)computePipelineStates objectForKeyedSubscript:?];
   if (!v8)
   {
-    v9 = [(AVTMetalHelper *)self _locked_functionNamed:nameCopy];
-    device = self->_device;
-    v22 = 0;
-    v8 = [(MTLDevice *)device newComputePipelineStateWithFunction:v9 error:&v22];
-    v11 = v22;
-    if (v11)
+    v9 = [(AVTMetalHelper *)self _locked_functionNamed:?];
+    v8 = [MTLDevice newComputePipelineStateWithFunction:"newComputePipelineStateWithFunction:error:" error:?];
+    v10 = 0;
+    v11 = v10;
+    if (v10)
     {
-      v12 = avt_default_log();
+      v12 = avt_default_log(v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [(AVTMetalHelper *)nameCopy _locked_computePipelineStateWithFunctionName:v11, v12];
       }
     }
 
-    [(NSMutableDictionary *)self->_computePipelineStates setObject:v8 forKeyedSubscript:nameCopy];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 
     if (!v8)
     {
-      v13 = avt_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = avt_default_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(AVTMetalHelper *)v13 _locked_renderPipelineStateWithDescriptor:v14 hashNumber:v15, v16, v17, v18, v19, v20];
+        [(AVTMetalHelper *)v14 _locked_renderPipelineStateWithDescriptor:v15 hashNumber:v16, v17, v18, v19, v20, v21];
       }
 
       v8 = 0;
@@ -321,11 +288,11 @@
   v3 = a2;
   if (named)
   {
-    v4 = [*(named + 4) objectForKeyedSubscript:v3];
+    v4 = [*(named + 4) objectForKeyedSubscript:?];
     if (!v4)
     {
       os_unfair_lock_lock(named + 6);
-      v4 = [named _locked_functionNamed:v3];
+      v4 = [named _locked_functionNamed:?];
       os_unfair_lock_unlock(named + 6);
     }
 
@@ -340,11 +307,11 @@
   v3 = a2;
   if (name)
   {
-    v4 = [*(name + 6) objectForKeyedSubscript:v3];
+    v4 = [*(name + 6) objectForKeyedSubscript:?];
     if (!v4)
     {
       os_unfair_lock_lock(name + 6);
-      v4 = [name _locked_computePipelineStateWithFunctionName:v3];
+      v4 = [name _locked_computePipelineStateWithFunctionName:?];
       os_unfair_lock_unlock(name + 6);
     }
 
@@ -356,25 +323,24 @@
 
 - (void)_locked_functionNamed:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "function";
 }
 
 - (void)_locked_renderPipelineStateWithDescriptor:(uint64_t)a3 hashNumber:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "pipelineState";
 }
 
 - (void)_locked_computePipelineStateWithFunctionName:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1BB472000, log, OS_LOG_TYPE_ERROR, "Error: Failed to create compute pipeline state for %@ with error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1BB472000, log, OS_LOG_TYPE_ERROR, "Error: Failed to create compute pipeline state for %@ with error %@", &v3, 0x16u);
 }
 
 @end

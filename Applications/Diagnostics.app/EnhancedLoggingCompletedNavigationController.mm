@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10008D0DC();
+  sub_10008D0DC(selfCopy);
 }
 
 - (_TtC11Diagnostics44EnhancedLoggingCompletedNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass
@@ -57,6 +57,7 @@
   if (v7)
   {
     v10 = String._bridgeToObjectiveC()();
+    v7, v11, v12, v13, v14, v15, v16, v17;
   }
 
   else
@@ -64,11 +65,11 @@
     v10 = 0;
   }
 
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for EnhancedLoggingCompletedNavigationController();
-  v11 = [(EnhancedLoggingCompletedNavigationController *)&v13 initWithNibName:v10 bundle:bundleCopy];
+  v20.receiver = self;
+  v20.super_class = type metadata accessor for EnhancedLoggingCompletedNavigationController();
+  v18 = [(EnhancedLoggingCompletedNavigationController *)&v20 initWithNibName:v10 bundle:bundleCopy];
 
-  return v11;
+  return v18;
 }
 
 - (_TtC11Diagnostics44EnhancedLoggingCompletedNavigationController)initWithCoder:(id)coder

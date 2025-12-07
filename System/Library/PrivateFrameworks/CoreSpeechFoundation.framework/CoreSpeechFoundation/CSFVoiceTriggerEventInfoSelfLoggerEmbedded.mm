@@ -19,6 +19,7 @@
 - (void)logStartEventWithFirstPassStartedInfo:(id)info withMHUUID:(id)d;
 - (void)logTriggerEventWithVTEI:(id)i withMHUUID:(id)d;
 - (void)logTwoShotDetectedWithMHUUID:(id)d;
+- (void)logTwoShotEndEventWithSuppresedAlert:(BOOL)alert withTimedOut:(BOOL)out withMHUUID:(id)d;
 - (void)logTwoShotStartEventWithPromptType:(unsigned int)type withMHUUID:(id)d;
 @end
 
@@ -76,7 +77,7 @@
 
 - (void)logTriggerEventWithVTEI:(id)i withMHUUID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   iCopy = i;
   dCopy = d;
   if (dCopy)
@@ -95,21 +96,19 @@
     v10 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CSFVoiceTriggerEventInfoSelfLoggerEmbedded logTriggerEventWithVTEI:withMHUUID:]";
-      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Skip SELF emitting since MHId is nil", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSFVoiceTriggerEventInfoSelfLoggerEmbedded logTriggerEventWithVTEI:withMHUUID:]";
+      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Skip SELF emitting since MHId is nil", &v11, 0xCu);
     }
 
     v7 = +[CSDiagnosticReporter sharedInstance];
     [v7 submitSELFIssueReport:@"mhVoiceTriggerContextMhIdMissing"];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCancelledEventWithMHUUID:(id)d
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -125,21 +124,19 @@
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[CSFVoiceTriggerEventInfoSelfLoggerEmbedded logCancelledEventWithMHUUID:]";
-      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s Skip SELF emitting since MHId is nil", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CSFVoiceTriggerEventInfoSelfLoggerEmbedded logCancelledEventWithMHUUID:]";
+      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s Skip SELF emitting since MHId is nil", &v7, 0xCu);
     }
 
     v4 = +[CSDiagnosticReporter sharedInstance];
     [v4 submitSELFIssueReport:@"mhVoiceTriggerContextMhIdMissing"];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logRejectEventWithVTEI:(id)i withMHUUID:(id)d withSecondPassResult:(unint64_t)result
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   iCopy = i;
   dCopy = d;
   if (dCopy)
@@ -160,21 +157,19 @@
     v13 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = "[CSFVoiceTriggerEventInfoSelfLoggerEmbedded logRejectEventWithVTEI:withMHUUID:withSecondPassResult:]";
-      _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Skip SELF emitting since MHId is nil", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "[CSFVoiceTriggerEventInfoSelfLoggerEmbedded logRejectEventWithVTEI:withMHUUID:withSecondPassResult:]";
+      _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Skip SELF emitting since MHId is nil", &v14, 0xCu);
     }
 
     v9 = +[CSDiagnosticReporter sharedInstance];
     [v9 submitSELFIssueReport:@"mhVoiceTriggerContextMhIdMissing"];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logStartEventWithFirstPassStartedInfo:(id)info withMHUUID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   dCopy = d;
   if (dCopy)
@@ -192,16 +187,14 @@
     v10 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CSFVoiceTriggerEventInfoSelfLoggerEmbedded logStartEventWithFirstPassStartedInfo:withMHUUID:]";
-      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Skip SELF emitting since MHId is nil", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSFVoiceTriggerEventInfoSelfLoggerEmbedded logStartEventWithFirstPassStartedInfo:withMHUUID:]";
+      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Skip SELF emitting since MHId is nil", &v11, 0xCu);
     }
 
     v7 = +[CSDiagnosticReporter sharedInstance];
     [v7 submitSELFIssueReport:@"mhVoiceTriggerContextMhIdMissing"];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logTwoShotStartEventWithPromptType:(unsigned int)type withMHUUID:(id)d
@@ -214,6 +207,21 @@
   [v7 setStartedOrChanged:v8];
   [v7 setHasStartedOrChanged:1];
   [CSFVoiceTriggerEventInfoSelfLoggerEmbedded _emitTwoShotClientEventWithTwoShotTransitionContext:v7 withMHUUID:dCopy];
+}
+
+- (void)logTwoShotEndEventWithSuppresedAlert:(BOOL)alert withTimedOut:(BOOL)out withMHUUID:(id)d
+{
+  outCopy = out;
+  alertCopy = alert;
+  v7 = MEMORY[0x1E69CEEE8];
+  dCopy = d;
+  v10 = objc_alloc_init(v7);
+  [v10 setSuppresedAlert:alertCopy];
+  [v10 setTimedOut:outCopy];
+  v9 = objc_alloc_init(MEMORY[0x1E69CEEE0]);
+  [v9 setEnded:v10];
+  [v9 setHasEnded:1];
+  [CSFVoiceTriggerEventInfoSelfLoggerEmbedded _emitTwoShotClientEventWithTwoShotTransitionContext:v9 withMHUUID:dCopy];
 }
 
 - (void)logTwoShotDetectedWithMHUUID:(id)d
@@ -356,31 +364,31 @@
 
 + (id)_convertToFirstPassChannelSelectionScores:(id)scores
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   scoresCopy = scores;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = scoresCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = objc_alloc_init(MEMORY[0x1E69CED58]);
-        [v11 setChannelString:{v10, v15}];
+        [v11 setChannelString:{v10, v14}];
         v12 = [v5 objectForKey:v10];
         [v12 floatValue];
         [v11 setFirstPassScore:?];
@@ -388,13 +396,11 @@
         [v4 addObject:v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -868,46 +874,44 @@
 
 + (id)sanitizeEventInfoForLogging:(id)logging
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   loggingCopy = logging;
   if (loggingCopy)
   {
-    v20[0] = 0;
-    v20[1] = v20;
-    v20[2] = 0x2020000000;
-    v20[3] = 0xBFF0000000000000;
+    v19[0] = 0;
+    v19[1] = v19;
+    v19[2] = 0x2020000000;
+    v19[3] = 0xBFF0000000000000;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     v6 = MEMORY[0x1E695DFD8];
-    v21[0] = @"triggerStartTime";
-    v21[1] = @"triggerEndTime";
-    v21[2] = @"earlyDetectFiredTime";
-    v21[3] = @"triggerFiredTime";
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
+    v20[0] = @"triggerStartTime";
+    v20[1] = @"triggerEndTime";
+    v20[2] = @"earlyDetectFiredTime";
+    v20[3] = @"triggerFiredTime";
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
     v8 = [v6 setWithArray:v7];
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __74__CSFVoiceTriggerEventInfoSelfLoggerEmbedded_sanitizeEventInfoForLogging___block_invoke;
-    v15[3] = &unk_1E865BAA8;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __74__CSFVoiceTriggerEventInfoSelfLoggerEmbedded_sanitizeEventInfoForLogging___block_invoke;
+    v14[3] = &unk_1E865BAA8;
     v9 = v8;
-    v16 = v9;
-    v18 = v20;
+    v15 = v9;
+    v17 = v19;
     v10 = dictionary;
-    v17 = v10;
+    v16 = v10;
     selfCopy = self;
-    [loggingCopy enumerateKeysAndObjectsUsingBlock:v15];
-    v11 = v17;
+    [loggingCopy enumerateKeysAndObjectsUsingBlock:v14];
+    v11 = v16;
     v12 = v10;
 
-    _Block_object_dispose(v20, 8);
+    _Block_object_dispose(v19, 8);
   }
 
   else
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

@@ -2,6 +2,7 @@
 - (HMDDataStreamBulkSendProtocol)bulkSendProtocol;
 - (HMDDataStreamBulkSendSessionCandidate)initWithProtocol:(id)protocol requestHeader:(id)header metadata:(id)metadata;
 - (void)acceptBulkSendSessionOnQueue:(id)queue callback:(id)callback;
+- (void)rejectBulkSendSessionWithStatus:(unsigned __int16)status;
 @end
 
 @implementation HMDDataStreamBulkSendSessionCandidate
@@ -11,6 +12,13 @@
   WeakRetained = objc_loadWeakRetained(&self->_bulkSendProtocol);
 
   return WeakRetained;
+}
+
+- (void)rejectBulkSendSessionWithStatus:(unsigned __int16)status
+{
+  statusCopy = status;
+  bulkSendProtocol = [(HMDDataStreamBulkSendSessionCandidate *)self bulkSendProtocol];
+  [bulkSendProtocol asyncBulkSendSessionCandidate:self didRejectWithStatus:statusCopy];
 }
 
 - (void)acceptBulkSendSessionOnQueue:(id)queue callback:(id)callback

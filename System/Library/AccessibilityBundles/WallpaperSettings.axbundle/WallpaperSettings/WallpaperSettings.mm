@@ -1,6 +1,6 @@
 id AXWallpaperLabel(void *a1)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v1 = a1;
   v2 = v1;
   if (AXWallpaperLabel_onceToken != -1)
@@ -57,9 +57,9 @@ LABEL_3:
   v19 = AXLogAppAccessibility();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
-    v26 = 138412290;
-    v27 = v18;
-    _os_log_impl(&dword_29C77E000, v19, OS_LOG_TYPE_INFO, "filename: %@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = v18;
+    _os_log_impl(&dword_29C77E000, v19, OS_LOG_TYPE_INFO, "filename: %@", &v25, 0xCu);
   }
 
   v20 = [AXWallpaperLabel_ImageMapping objectForKey:v18];
@@ -82,7 +82,6 @@ LABEL_3:
   v23 = v22;
 
 LABEL_13:
-  v24 = *MEMORY[0x29EDCA608];
 
   return v23;
 }
@@ -122,9 +121,9 @@ id accessibilityLocalizedString(void *a1)
   return v5;
 }
 
-void sub_29C780454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29C780454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

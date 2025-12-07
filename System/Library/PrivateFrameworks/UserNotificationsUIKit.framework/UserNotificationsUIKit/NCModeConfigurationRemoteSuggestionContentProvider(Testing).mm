@@ -20,15 +20,19 @@
   v6 = [v2 numberWithUnsignedInteger:2];
   v7 = [*(v3 + 2992) numberWithUnsignedInteger:a2];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_4(&dword_21E77E000, v8, v9, "Received unexpected notification management suggestion for mode configuration with configuration type %@ for scope %@", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_4(&dword_21E77E000, v8, v9, "Received unexpected notification management suggestion for mode configuration with configuration type %@ for scope %@", v10, v11, v12, v13);
 }
 
 + (void)_localizedSummaryStringForSuggestionType:()Testing configurationType:scope:semanticType:modeName:bundleDisplayName:preferredSenderSummary:localizedStringForKeyBlock:.cold.3(void *a1, uint64_t a2)
 {
   v5 = OUTLINED_FUNCTION_2_1(a1);
   v6 = [v2 numberWithUnsignedInteger:a2];
-  v13 = [*(v3 + 2992) numberWithUnsignedInteger:1];
-  OUTLINED_FUNCTION_4(&dword_21E77E000, v7, v8, "Received unexpected notification management thread suggestion for mode configuration with configuration type %@ for scope %@", v9, v10, v11, v12, 2u);
+  v7 = [*(v3 + 2992) numberWithUnsignedInteger:1];
+  *v14 = 138412546;
+  *&v14[4] = v6;
+  *&v14[12] = 2112;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_4(&dword_21E77E000, v8, v9, "Received unexpected notification management thread suggestion for mode configuration with configuration type %@ for scope %@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 + (void)_localizedSummaryStringForSuggestionType:()Testing configurationType:scope:semanticType:modeName:bundleDisplayName:preferredSenderSummary:localizedStringForKeyBlock:.cold.4(uint64_t a1, void *a2, void *a3)
@@ -36,7 +40,7 @@
   v4 = a2;
   v5 = [a3 description];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_4(&dword_21E77E000, v6, v7, "Ignoring invalid summary format: %{public}@: %@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_4(&dword_21E77E000, v6, v7, "Ignoring invalid summary format: %{public}@: %@", v8, v9, v10, v11);
 }
 
 @end

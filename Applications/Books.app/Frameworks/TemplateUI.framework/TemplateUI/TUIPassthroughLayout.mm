@@ -25,7 +25,7 @@
 
 - (BOOL)groupedContainingIsGrouped
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   grouped = [v2 grouped];
 
   return grouped;
@@ -33,8 +33,8 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a3);
+  firstObject = [v3 firstObject];
 
   computeIntrinsicWidth = [firstObject computeIntrinsicWidth];
   return computeIntrinsicWidth;
@@ -42,8 +42,8 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a3);
+  firstObject = [v3 firstObject];
 
   computeIntrinsicHeight = [firstObject computeIntrinsicHeight];
   return computeIntrinsicHeight;
@@ -51,8 +51,8 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentWidth
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a3);
+  firstObject = [v3 firstObject];
 
   computedWidth = [firstObject computedWidth];
   return computedWidth;
@@ -60,8 +60,8 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentHeight
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a3);
+  firstObject = [v3 firstObject];
 
   computedHeight = [firstObject computedHeight];
   return computedHeight;
@@ -69,8 +69,8 @@
 
 - (void)computeLayout
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a2);
+  firstObject = [v3 firstObject];
 
   [(TUILayout *)self containingWidth];
   [firstObject setContainingWidth:?];
@@ -80,9 +80,9 @@
   [firstObject setFlexedWidth:?];
   [(TUILayout *)self flexedHeight];
   [firstObject setFlexedHeight:?];
-  [firstObject validateLayout];
+  objc_msgSend_validateLayout(firstObject);
   [firstObject setComputedOrigin:{CGPointZero.x, CGPointZero.y}];
-  [firstObject computedTransformedSize];
+  objc_msgSend_computedTransformedSize(firstObject);
   [(TUILayout *)self setComputedNaturalSize:?];
 }
 

@@ -173,7 +173,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -193,7 +192,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -208,7 +206,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  result = self->_result;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -223,12 +220,10 @@ LABEL_5:
   }
 
 LABEL_16:
-  hasRecipientAccepted = self->_hasRecipientAccepted;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    payloadSize = self->_payloadSize;
     PBDataWriterWriteUint32Field();
   }
 
@@ -400,7 +395,6 @@ LABEL_7:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 56);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 56) & 2) == 0 || self->_timestamp != *(equal + 2))

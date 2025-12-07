@@ -55,7 +55,7 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  if (!MapsSuggestionsEntriesAreBothOfType(3, withEntryCopy, entryCopy) && (MapsSuggestionsEntriesShouldBeOfOneOfEachType(13, 3, entryCopy, v7) & 1) == 0 && (MapsSuggestionsEntriesShouldBeOfOneOfEachType(14, 3, entryCopy, v7) & 1) == 0 && (MapsSuggestionsEntriesShouldBeOfOneOfEachType(15, 3, entryCopy, v7) & 1) == 0 && !MapsSuggestionsEntriesShouldBeOfOneOfEachType(16, 3, entryCopy, v7))
+  if (!MapsSuggestionsEntriesAreBothOfType(3, withEntryCopy, entryCopy) && (MapsSuggestionsEntriesShouldBeOfOneOfEachType(0xD, 3, entryCopy, v7) & 1) == 0 && (MapsSuggestionsEntriesShouldBeOfOneOfEachType(0xE, 3, entryCopy, v7) & 1) == 0 && (MapsSuggestionsEntriesShouldBeOfOneOfEachType(0xF, 3, entryCopy, v7) & 1) == 0 && !MapsSuggestionsEntriesShouldBeOfOneOfEachType(0x10, 3, entryCopy, v7))
   {
     goto LABEL_22;
   }

@@ -13,16 +13,17 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_1002FE14C(event, x, y);
+  v10.n128_f64[0] = x;
+  v12 = sub_1002FE14C(event, v10, y, v11);
 
-  return v10;
+  return v12;
 }
 
 - (_TtCC11MusicCoreUI15NoticePresenterP33_D8FBFBA4851A241D976DAD2E389878C117PassthroughWindow)initWithWindowScene:(id)scene
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC11MusicCoreUI15NoticePresenterP33_D8FBFBA4851A241D976DAD2E389878C117PassthroughWindow_canReceiveTouches) = 1;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for NoticePresenter.PassthroughWindow();
+  v5.super_class = type metadata accessor for NoticePresenter.PassthroughWindow(0, a2);
   return [(NoticePresenter.PassthroughWindow *)&v5 initWithWindowScene:scene];
 }
 
@@ -34,7 +35,7 @@
   x = frame.origin.x;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC11MusicCoreUI15NoticePresenterP33_D8FBFBA4851A241D976DAD2E389878C117PassthroughWindow_canReceiveTouches) = 1;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for NoticePresenter.PassthroughWindow();
+  v8.super_class = type metadata accessor for NoticePresenter.PassthroughWindow(0, a2);
   return [(NoticePresenter.PassthroughWindow *)&v8 initWithFrame:x, y, width, height];
 }
 
@@ -42,7 +43,7 @@
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC11MusicCoreUI15NoticePresenterP33_D8FBFBA4851A241D976DAD2E389878C117PassthroughWindow_canReceiveTouches) = 1;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for NoticePresenter.PassthroughWindow();
+  v7.super_class = type metadata accessor for NoticePresenter.PassthroughWindow(0, a2);
   coderCopy = coder;
   v5 = [(NoticePresenter.PassthroughWindow *)&v7 initWithCoder:coderCopy];
 

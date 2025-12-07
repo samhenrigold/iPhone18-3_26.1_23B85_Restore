@@ -90,17 +90,17 @@
   return v8;
 }
 
-void __72__BuddyLanguageControllerAccessibility_tableView_cellForRowAtIndexPath___block_invoke(uint64_t a1)
+void __72__BuddyLanguageControllerAccessibility_tableView_cellForRowAtIndexPath___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) safeValueForKey:@"languageComposite"];
-  v3 = [v2 safeArrayForKey:@"languageCodes"];
-  v4 = [v3 objectAtIndexedSubscript:{objc_msgSend(*(a1 + 40), "row")}];
-  v5 = __UIAccessibilityCastAsClass();
+  v3 = [*(a1 + 32) safeValueForKey:@"languageComposite"];
+  v4 = [v3 safeArrayForKey:@"languageCodes"];
+  v5 = [v4 objectAtIndexedSubscript:{objc_msgSend(*(a1 + 40), "row")}];
+  v6 = __UIAccessibilityCastAsClass();
 
-  v6 = *(*(a1 + 48) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v7 = *(*(a1 + 48) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 }
 
 @end

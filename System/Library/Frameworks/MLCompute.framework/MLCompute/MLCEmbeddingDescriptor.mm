@@ -1,5 +1,6 @@
 @interface MLCEmbeddingDescriptor
 + (MLCEmbeddingDescriptor)descriptorWithEmbeddingCount:(NSNumber *)embeddingCount embeddingDimension:(NSNumber *)embeddingDimension;
++ (MLCEmbeddingDescriptor)descriptorWithEmbeddingCount:(NSNumber *)embeddingCount embeddingDimension:(NSNumber *)embeddingDimension paddingIndex:(NSNumber *)paddingIndex maximumNorm:(NSNumber *)maximumNorm pNorm:(NSNumber *)pNorm scalesGradientByFrequency:(BOOL)scalesGradientByFrequency;
 - (BOOL)isEqual:(id)equal;
 - (MLCEmbeddingDescriptor)initWithEmbeddingCount:(id)count embeddingDimension:(id)dimension paddingIndex:(id)index maximumNorm:(id)norm pNorm:(id)pNorm scalesGradientByFrequency:(BOOL)frequency;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -8,6 +9,19 @@
 @end
 
 @implementation MLCEmbeddingDescriptor
+
++ (MLCEmbeddingDescriptor)descriptorWithEmbeddingCount:(NSNumber *)embeddingCount embeddingDimension:(NSNumber *)embeddingDimension paddingIndex:(NSNumber *)paddingIndex maximumNorm:(NSNumber *)maximumNorm pNorm:(NSNumber *)pNorm scalesGradientByFrequency:(BOOL)scalesGradientByFrequency
+{
+  v8 = scalesGradientByFrequency;
+  v14 = pNorm;
+  v15 = maximumNorm;
+  v16 = paddingIndex;
+  v17 = embeddingDimension;
+  v18 = embeddingCount;
+  v19 = [[self alloc] initWithEmbeddingCount:v18 embeddingDimension:v17 paddingIndex:v16 maximumNorm:v15 pNorm:v14 scalesGradientByFrequency:v8];
+
+  return v19;
+}
 
 + (MLCEmbeddingDescriptor)descriptorWithEmbeddingCount:(NSNumber *)embeddingCount embeddingDimension:(NSNumber *)embeddingDimension
 {
@@ -257,52 +271,37 @@ LABEL_27:
 
 - (void)initWithEmbeddingCount:(const char *)a1 embeddingDimension:paddingIndex:maximumNorm:pNorm:scalesGradientByFrequency:.cold.1(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The padding index must be within the number of embeddings", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The padding index must be within the number of embeddings", v4, v5, v6, v7);
 }
 
 - (void)initWithEmbeddingCount:(const char *)a1 embeddingDimension:paddingIndex:maximumNorm:pNorm:scalesGradientByFrequency:.cold.2(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The maximum norm must be greater than zero", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The maximum norm must be greater than zero", v4, v5, v6, v7);
 }
 
 - (void)initWithEmbeddingCount:(const char *)a1 embeddingDimension:paddingIndex:maximumNorm:pNorm:scalesGradientByFrequency:.cold.3(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The p in p-norm must be greater than zero", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The p in p-norm must be greater than zero", v4, v5, v6, v7);
 }
 
 - (void)initWithEmbeddingCount:(const char *)a1 embeddingDimension:paddingIndex:maximumNorm:pNorm:scalesGradientByFrequency:.cold.4(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The embedding dimension must be greater than zero", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The embedding dimension must be greater than zero", v4, v5, v6, v7);
 }
 
 - (void)initWithEmbeddingCount:(const char *)a1 embeddingDimension:paddingIndex:maximumNorm:pNorm:scalesGradientByFrequency:.cold.5(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The number of embeddings must be greater than zero", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: The number of embeddings must be greater than zero", v4, v5, v6, v7);
 }
 
 @end

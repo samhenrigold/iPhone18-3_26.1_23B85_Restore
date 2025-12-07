@@ -45,14 +45,14 @@
 
 void __49__NMSPodcastSavedEpisodesMediaItemGroup_itemList__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = +[NMSPodcastsFetchRequests legacy_fetchRequestForSavedEpisodesDownloadedOnly:](NMSPodcastsFetchRequests, "legacy_fetchRequestForSavedEpisodesDownloadedOnly:", [*(a1 + 32) downloadedItemsOnly]);
   [v2 setFetchBatchSize:20];
   v3 = *(a1 + 40);
-  v28 = 0;
-  v23 = v2;
-  v4 = [v3 executeFetchRequest:v2 error:&v28];
-  v5 = v28;
+  v27 = 0;
+  v22 = v2;
+  v4 = [v3 executeFetchRequest:v2 error:&v27];
+  v5 = v27;
   if (v5)
   {
     v6 = NMLogForCategory(5);
@@ -62,28 +62,28 @@ void __49__NMSPodcastSavedEpisodesMediaItemGroup_itemList__block_invoke(uint64_t
     }
   }
 
-  v22 = v5;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v21 = v5;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
+        v12 = *(*(&v23 + 1) + 8 * v11);
         v13 = *(a1 + 48);
         v14 = [*(a1 + 32) referenceObj];
         [v12 duration];
@@ -99,21 +99,11 @@ void __49__NMSPodcastSavedEpisodesMediaItemGroup_itemList__block_invoke(uint64_t
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v9);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
-}
-
-void __49__NMSPodcastSavedEpisodesMediaItemGroup_itemList__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

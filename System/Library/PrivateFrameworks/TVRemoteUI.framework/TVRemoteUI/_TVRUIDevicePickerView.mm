@@ -30,16 +30,16 @@
 {
   y = inside.y;
   x = inside.x;
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   viewController = [(_TVRUIDevicePickerView *)self viewController];
   isDevicePickerShowing = [viewController isDevicePickerShowing];
 
   if (isDevicePickerShowing)
   {
-    v45.receiver = self;
-    v45.super_class = _TVRUIDevicePickerView;
-    v10 = [(_TVRUIDevicePickerView *)&v45 pointInside:eventCopy withEvent:x, y];
+    v46.receiver = self;
+    v46.super_class = _TVRUIDevicePickerView;
+    v10 = [(_TVRUIDevicePickerView *)&v46 pointInside:eventCopy withEvent:x, y];
   }
 
   else
@@ -54,61 +54,62 @@
     viewController3 = [(_TVRUIDevicePickerView *)self viewController];
     deviceTitleView = [viewController3 deviceTitleView];
     [deviceTitleView frame];
-    v59.origin.x = v23;
-    v59.origin.y = v24;
-    v59.size.width = v25;
-    v59.size.height = v26;
-    v53.origin.x = v14;
-    v53.origin.y = v16;
-    v53.size.width = v18;
-    v53.size.height = v20;
-    v54 = CGRectUnion(v53, v59);
-    v27 = v54.origin.x;
-    v28 = v54.origin.y;
-    width = v54.size.width;
-    height = v54.size.height;
+    v60.origin.x = v23;
+    v60.origin.y = v24;
+    v60.size.width = v25;
+    v60.size.height = v26;
+    v54.origin.x = v14;
+    v54.origin.y = v16;
+    v54.size.width = v18;
+    v54.size.height = v20;
+    v55 = CGRectUnion(v54, v60);
+    v27 = v55.origin.x;
+    v28 = v55.origin.y;
+    width = v55.size.width;
+    height = v55.size.height;
 
     viewController4 = [(_TVRUIDevicePickerView *)self viewController];
     powerButton = [viewController4 powerButton];
     [powerButton frame];
-    v60.origin.x = v33;
-    v60.origin.y = v34;
-    v60.size.width = v35;
-    v60.size.height = v36;
-    v55.origin.x = v27;
-    v55.origin.y = v28;
-    v55.size.width = width;
-    v55.size.height = height;
-    v56 = CGRectUnion(v55, v60);
-    v37 = v56.origin.x;
-    v38 = v56.origin.y;
-    v39 = v56.size.width;
-    v40 = v56.size.height;
+    v61.origin.x = v33;
+    v61.origin.y = v34;
+    v61.size.width = v35;
+    v61.size.height = v36;
+    v56.origin.x = v27;
+    v56.origin.y = v28;
+    v56.size.width = width;
+    v56.size.height = height;
+    v57 = CGRectUnion(v56, v61);
+    v37 = v57.origin.x;
+    v38 = v57.origin.y;
+    v39 = v57.size.width;
+    v40 = v57.size.height;
 
-    v57.origin.x = v37;
-    v57.origin.y = v38;
-    v57.size.width = v39;
-    v57.size.height = v40;
-    v52.x = x;
-    v52.y = y;
-    if (CGRectContainsPoint(v57, v52))
+    v58.origin.x = v37;
+    v58.origin.y = v38;
+    v58.size.width = v39;
+    v58.size.height = v40;
+    v53.x = x;
+    v53.y = y;
+    v41 = CGRectContainsPoint(v58, v53);
+    if (v41)
     {
-      v41 = _TVRUIDevicePickerLog();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v42 = _TVRUIDevicePickerLog(v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        v58.origin.x = v37;
-        v58.origin.y = v38;
-        v58.size.width = v39;
-        v58.size.height = v40;
-        v42 = NSStringFromCGRect(v58);
-        v51.x = x;
-        v51.y = y;
-        v43 = NSStringFromCGPoint(v51);
+        v59.origin.x = v37;
+        v59.origin.y = v38;
+        v59.size.width = v39;
+        v59.size.height = v40;
+        v43 = NSStringFromCGRect(v59);
+        v52.x = x;
+        v52.y = y;
+        v44 = NSStringFromCGPoint(v52);
         *buf = 138412546;
-        v47 = v42;
-        v48 = 2112;
-        v49 = v43;
-        _os_log_impl(&dword_26CFEB000, v41, OS_LOG_TYPE_DEFAULT, "boundingRect: %@ point: %@", buf, 0x16u);
+        v48 = v43;
+        v49 = 2112;
+        v50 = v44;
+        _os_log_impl(&dword_26CFEB000, v42, OS_LOG_TYPE_DEFAULT, "boundingRect: %@ point: %@", buf, 0x16u);
       }
 
       v10 = 1;

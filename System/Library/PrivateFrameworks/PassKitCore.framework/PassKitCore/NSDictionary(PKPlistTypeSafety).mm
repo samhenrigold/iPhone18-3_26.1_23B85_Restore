@@ -68,7 +68,7 @@
     v2 = MEMORY[0x1E696AB90];
     if (v1)
     {
-      [v1 decimalValue];
+      objc_msgSend_decimalValue(v1);
     }
 
     else

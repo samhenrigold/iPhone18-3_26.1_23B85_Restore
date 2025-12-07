@@ -726,7 +726,7 @@
         v12 = *(*(&v15 + 1) + 8 * v11);
         if (v12)
         {
-          [v12 computeLayoutFullTransform];
+          objc_msgSend_computeLayoutFullTransform(v12);
         }
 
         else
@@ -855,7 +855,7 @@
           v12 = *(*(&v33 + 1) + 8 * i);
           if (v12)
           {
-            [v12 computeFullTransform];
+            objc_msgSend_computeFullTransform(v12);
           }
 
           else
@@ -897,7 +897,7 @@
     geometry = [(TSDGroupInfo *)self geometry];
     if (geometry)
     {
-      [(TSDInfoGeometry *)geometry fullTransform];
+      objc_msgSend_fullTransform(geometry);
     }
 
     else

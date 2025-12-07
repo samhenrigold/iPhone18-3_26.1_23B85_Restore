@@ -37,8 +37,10 @@
 - (void)_reloadMoreHealthSectionWithAnimation:(BOOL)animation;
 - (void)_reloadTableViewAndScrollToTop;
 - (void)_removeUpgradeTileNotProminentIfNeeded;
+- (void)_setTableHeaderViewWithUpgradeView:(BOOL)view;
 - (void)_showDataSourcesAndAccessController;
 - (void)_showUpgradeTileNotProminent;
+- (void)_startOnboardingForFirstTime:(BOOL)time;
 - (void)_startUpgrade;
 - (void)beginOnboardingForOnboardingSetupView:(id)view;
 - (void)dealloc;
@@ -51,8 +53,11 @@
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateMarginsForWidthDesignation:(int64_t)designation;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
 - (void)widthDesignationDidChangeWithTraitEnvironment:(id)environment previousTraitCollection:(id)collection;
 @end
 
@@ -60,16 +65,16 @@
 
 - (WDElectrocardiogramOverviewViewController)initWithDisplayType:(id)type profile:(id)profile mode:(int64_t)mode
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   profileCopy = profile;
-  v62.receiver = self;
-  v62.super_class = WDElectrocardiogramOverviewViewController;
-  v11 = [(WDElectrocardiogramOverviewViewController *)&v62 initWithStyle:1];
+  v61.receiver = self;
+  v61.super_class = WDElectrocardiogramOverviewViewController;
+  v11 = [(WDElectrocardiogramOverviewViewController *)&v61 initWithStyle:1];
   v12 = v11;
   if (v11)
   {
-    v60 = typeCopy;
+    v59 = typeCopy;
     v11->_firstViewDidLayoutSubviews = 1;
     objc_storeStrong(&v11->_displayType, type);
     v13 = objc_storeWeak(&v12->_profile, profileCopy);
@@ -112,16 +117,16 @@
         v34 = v33;
         iSOCode = [currentEstimate ISOCode];
         *buf = 138543618;
-        v64 = v33;
-        v65 = 2112;
-        v66 = iSOCode;
+        v63 = v33;
+        v64 = 2112;
+        v65 = iSOCode;
         _os_log_impl(&dword_251E85000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Region code: %@", buf, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [WDElectrocardiogramOverviewViewController initWithDisplayType:v30 profile:? mode:?];
+      [WDElectrocardiogramOverviewViewController initWithDisplayType:v30 profile:v12 mode:?];
     }
 
     v36 = objc_alloc(MEMORY[0x277CCD460]);
@@ -148,9 +153,9 @@
     [(WDElectrocardiogramOverviewViewController *)v12 setTitle:displayName];
 
     v47 = v12->_featureStatusManager;
-    v61 = 0;
-    v48 = [(HKFeatureStatusManager *)v47 featureStatusWithError:&v61];
-    v49 = v61;
+    v60 = 0;
+    v48 = [(HKFeatureStatusManager *)v47 featureStatusWithError:&v60];
+    v49 = v60;
     featureStatus = v12->_featureStatus;
     v12->_featureStatus = v48;
 
@@ -173,17 +178,16 @@
       v54 = v53;
       v55 = objc_opt_class();
       *buf = 138543618;
-      v64 = v55;
-      v65 = 1024;
-      LODWORD(v66) = modeCopy;
+      v63 = v55;
+      v64 = 1024;
+      LODWORD(v65) = modeCopy;
       v56 = v55;
       _os_log_impl(&dword_251E85000, v54, OS_LOG_TYPE_DEFAULT, "[%{public}@] Initialized with mode: %i", buf, 0x12u);
     }
 
-    typeCopy = v60;
+    typeCopy = v59;
   }
 
-  v57 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -208,10 +212,10 @@
 
 - (void)viewDidLoad
 {
-  v36[1] = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = WDElectrocardiogramOverviewViewController;
-  [(HKTableViewController *)&v35 viewDidLoad];
+  v35[1] = *MEMORY[0x277D85DE8];
+  v34.receiver = self;
+  v34.super_class = WDElectrocardiogramOverviewViewController;
+  [(HKTableViewController *)&v34 viewDidLoad];
   navigationItem = [(WDElectrocardiogramOverviewViewController *)self navigationItem];
   [navigationItem setLargeTitleDisplayMode:2];
 
@@ -268,22 +272,21 @@
   [(WDElectrocardiogramOverviewViewController *)self _reloadElectrocardiogramSetupTableHeaderView];
   objc_initWeak(&location, self);
   dataProvider4 = [(WDElectrocardiogramOverviewViewController *)self dataProvider];
-  v29 = MEMORY[0x277D85DD0];
-  v30 = 3221225472;
-  v31 = __56__WDElectrocardiogramOverviewViewController_viewDidLoad__block_invoke;
-  v32 = &unk_2796E6CF0;
-  objc_copyWeak(&v33, &location);
-  [dataProvider4 startCollectingDataWithUpdateHandler:&v29];
+  v28 = MEMORY[0x277D85DD0];
+  v29 = 3221225472;
+  v30 = __56__WDElectrocardiogramOverviewViewController_viewDidLoad__block_invoke;
+  v31 = &unk_2796E6CF0;
+  objc_copyWeak(&v32, &location);
+  [dataProvider4 startCollectingDataWithUpdateHandler:&v28];
 
   mEMORY[0x277D130C0] = [MEMORY[0x277D130C0] sharedManager];
   [mEMORY[0x277D130C0] trackElectrocardiogramDataTypeViewed];
-  v36[0] = objc_opt_class();
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v35[0] = objc_opt_class();
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
   v27 = [(WDElectrocardiogramOverviewViewController *)self registerForTraitChanges:v26 withTarget:self action:sel_widthDesignationDidChangeWithTraitEnvironment_previousTraitCollection_];
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WDElectrocardiogramOverviewViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -300,6 +303,50 @@ void __56__WDElectrocardiogramOverviewViewController_viewDidLoad__block_invoke(u
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  filterDataProvider = [(WDElectrocardiogramOverviewViewController *)self filterDataProvider];
+  [filterDataProvider start];
+
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleInternalInstall = [mEMORY[0x277CCDD30] isAppleInternalInstall];
+
+  if (isAppleInternalInstall)
+  {
+    tripleTapToSettingsRecognizer = [(WDElectrocardiogramOverviewViewController *)self tripleTapToSettingsRecognizer];
+    [tripleTapToSettingsRecognizer setNumberOfTapsRequired:3];
+
+    navigationController = [(WDElectrocardiogramOverviewViewController *)self navigationController];
+    navigationBar = [navigationController navigationBar];
+    tripleTapToSettingsRecognizer2 = [(WDElectrocardiogramOverviewViewController *)self tripleTapToSettingsRecognizer];
+    [navigationBar addGestureRecognizer:tripleTapToSettingsRecognizer2];
+  }
+
+  v12.receiver = self;
+  v12.super_class = WDElectrocardiogramOverviewViewController;
+  [(WDElectrocardiogramOverviewViewController *)&v12 viewDidAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v9.receiver = self;
+  v9.super_class = WDElectrocardiogramOverviewViewController;
+  [(WDElectrocardiogramOverviewViewController *)&v9 viewDidDisappear:disappear];
+  tripleTapToSettingsRecognizer = [(WDElectrocardiogramOverviewViewController *)self tripleTapToSettingsRecognizer];
+
+  if (tripleTapToSettingsRecognizer)
+  {
+    navigationController = [(WDElectrocardiogramOverviewViewController *)self navigationController];
+    navigationBar = [navigationController navigationBar];
+    tripleTapToSettingsRecognizer2 = [(WDElectrocardiogramOverviewViewController *)self tripleTapToSettingsRecognizer];
+    [navigationBar removeGestureRecognizer:tripleTapToSettingsRecognizer2];
+  }
+
+  filterDataProvider = [(WDElectrocardiogramOverviewViewController *)self filterDataProvider];
+  [filterDataProvider stop];
+}
+
 - (void)viewDidLayoutSubviews
 {
   v6.receiver = self;
@@ -313,6 +360,15 @@ void __56__WDElectrocardiogramOverviewViewController_viewDidLoad__block_invoke(u
     tableView2 = [(WDElectrocardiogramOverviewViewController *)self tableView];
     [tableView2 setTableHeaderView:tableHeaderView];
   }
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v5.receiver = self;
+  v5.super_class = WDElectrocardiogramOverviewViewController;
+  [(WDElectrocardiogramOverviewViewController *)&v5 viewIsAppearing:appearing];
+  traitCollection = [(WDElectrocardiogramOverviewViewController *)self traitCollection];
+  [(WDElectrocardiogramOverviewViewController *)self updateMarginsForWidthDesignation:[(WDElectrocardiogramOverviewViewController *)self widthDesignationFromTraitCollection:traitCollection]];
 }
 
 - (void)showInternalSettings
@@ -361,7 +417,7 @@ void __56__WDElectrocardiogramOverviewViewController_viewDidLoad__block_invoke(u
 
 - (void)featureStatusProviding:(id)providing didUpdateFeatureStatus:(id)status
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2D8];
@@ -369,26 +425,24 @@ void __56__WDElectrocardiogramOverviewViewController_viewDidLoad__block_invoke(u
   {
     v7 = v6;
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v8 = v14;
+    v13 = objc_opt_class();
+    v8 = v13;
     _os_log_impl(&dword_251E85000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did update feature status.", buf, 0xCu);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didUpdateFeatureStatus___block_invoke;
-  v11[3] = &unk_2796E6BD8;
-  v11[4] = self;
-  v12 = statusCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didUpdateFeatureStatus___block_invoke;
+  v10[3] = &unk_2796E6BD8;
+  v10[4] = self;
+  v11 = statusCopy;
   v9 = statusCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
 void __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didUpdateFeatureStatus___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) availabilityStateCache];
 
   if (v2)
@@ -398,25 +452,22 @@ void __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didU
     v3 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = v3;
-      *v10 = 138543362;
-      *&v10[4] = objc_opt_class();
-      v6 = *&v10[4];
-      _os_log_impl(&dword_251E85000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Availabilility cache invalidated.", v10, 0xCu);
+      v4 = v3;
+      *v8 = 138543362;
+      *&v8[4] = objc_opt_class();
+      v5 = *&v8[4];
+      _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Availabilility cache invalidated.", v8, 0xCu);
     }
   }
 
-  v7 = [*(a1 + 32) featureStatus];
-  v8 = [v7 isEqual:*(a1 + 40)];
+  v6 = [*(a1 + 32) featureStatus];
+  v7 = [v6 isEqual:*(a1 + 40)];
 
-  if ((v8 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
     [*(a1 + 32) setFeatureStatus:*(a1 + 40)];
     [*(a1 + 32) _reloadTableViewAndScrollToTop];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)widthDesignationDidChangeWithTraitEnvironment:(id)environment previousTraitCollection:(id)collection
@@ -444,6 +495,26 @@ void __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didU
   v11 = v10;
   tableView = [(WDElectrocardiogramOverviewViewController *)self tableView];
   [tableView setDirectionalLayoutMargins:{v5, v7, v9, v11}];
+}
+
+- (void)_startOnboardingForFirstTime:(BOOL)time
+{
+  timeCopy = time;
+  v5 = objc_alloc(MEMORY[0x277D130A0]);
+  profile = [(WDElectrocardiogramOverviewViewController *)self profile];
+  healthStore = [profile healthStore];
+  profile2 = [(WDElectrocardiogramOverviewViewController *)self profile];
+  dateCache = [profile2 dateCache];
+  LOBYTE(v13) = 1;
+  v10 = [v5 initWithOnboardingType:0 isFirstTimeOnboarding:timeCopy healthStore:healthStore dateCache:dateCache provenance:2 delegate:self isSampleInteractive:v13];
+  [(WDElectrocardiogramOverviewViewController *)self setOnboardingManager:v10];
+
+  onboardingManager = [(WDElectrocardiogramOverviewViewController *)self onboardingManager];
+  onboardingNavigationController = [onboardingManager onboardingNavigationController];
+
+  [onboardingNavigationController setModalInPresentation:1];
+  navigationController = [(WDElectrocardiogramOverviewViewController *)self navigationController];
+  [navigationController presentViewController:onboardingNavigationController animated:1 completion:0];
 }
 
 - (void)_startUpgrade
@@ -555,7 +626,7 @@ void __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didU
 
     retstr->var4 = v22;
     retstr->var5 = -1;
-    result = [(WDElectrocardiogramOverviewViewController *)self userConfigurationRowInfo];
+    result = objc_msgSend_userConfigurationRowInfo(self);
     if (v48 <= 0)
     {
       v24 = v21;
@@ -634,7 +705,7 @@ void __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didU
 
       retstr->var4 = v43;
       retstr->var5 = v30;
-      result = [(WDElectrocardiogramOverviewViewController *)self userConfigurationRowInfo];
+      result = objc_msgSend_userConfigurationRowInfo(self);
       v32 = v45;
       goto LABEL_83;
     }
@@ -702,7 +773,7 @@ void __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didU
 
     retstr->var4 = v31;
     retstr->var5 = v30;
-    result = [(WDElectrocardiogramOverviewViewController *)self userConfigurationRowInfo];
+    result = objc_msgSend_userConfigurationRowInfo(self);
     v32 = v46;
     goto LABEL_83;
   }
@@ -767,7 +838,7 @@ void __91__WDElectrocardiogramOverviewViewController_featureStatusProviding_didU
 
   retstr->var4 = v38;
   retstr->var5 = v30;
-  result = [(WDElectrocardiogramOverviewViewController *)self userConfigurationRowInfo];
+  result = objc_msgSend_userConfigurationRowInfo(self);
   v32 = v47;
 LABEL_83:
   v44 = v32 <= 0;
@@ -932,7 +1003,7 @@ LABEL_6:
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
 {
-  [(WDElectrocardiogramOverviewViewController *)self sectionInfo];
+  objc_msgSend_sectionInfo(self, a2, view);
   if (section)
   {
     return 0;
@@ -962,7 +1033,7 @@ LABEL_6:
 {
   viewCopy = view;
   pathCopy = path;
-  [(WDElectrocardiogramOverviewViewController *)self sectionInfo];
+  objc_msgSend_sectionInfo(self);
   if (![pathCopy section])
   {
     if (-[WDElectrocardiogramOverviewViewController mode](self, "mode") == 2 && [pathCopy row] == 5)
@@ -1010,7 +1081,7 @@ LABEL_6:
       {
         if (![pathCopy section])
         {
-          [(WDElectrocardiogramOverviewViewController *)self userConfigurationRowInfo];
+          objc_msgSend_userConfigurationRowInfo(self);
           if (![pathCopy row])
           {
             _showAllResultsForSummarySharingProfile = [(WDElectrocardiogramOverviewViewController *)self _cellForDataSourcesAndAccess];
@@ -1053,7 +1124,7 @@ LABEL_21:
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section
 {
-  [(WDElectrocardiogramOverviewViewController *)self sectionInfo:view];
+  objc_msgSend_sectionInfo(self, a2, view, 0, 0, 0, 0, 0);
   if (section)
   {
     v12 = 0;
@@ -1093,7 +1164,7 @@ LABEL_21:
     goto LABEL_12;
   }
 
-  [(WDElectrocardiogramOverviewViewController *)self sectionInfo];
+  objc_msgSend_sectionInfo(self, 0);
   if (v14 == section)
   {
     if ([(WDElectrocardiogramOverviewViewController *)self mode]== 2)
@@ -1149,46 +1220,47 @@ LABEL_12:
   _electrocardiogramRecordingRescindedStatus = [(WDElectrocardiogramOverviewViewController *)self _electrocardiogramRecordingRescindedStatus];
   if (_electrocardiogramRecordingRescindedStatus == 2)
   {
-    v14 = WDBundle();
-    v15 = [v14 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_SEED_EXPIRED_TITLE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
-    v16 = HKConditionallyRedactedHeartRhythmString();
-    [v5 setTitleText:v16];
-
-    v10 = WDBundle();
-    v11 = [v10 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_SEED_EXPIRED_LEARN_MORE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
+    v15 = WDBundle();
+    v16 = [v15 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_SEED_EXPIRED_TITLE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
     v17 = HKConditionallyRedactedHeartRhythmString();
-    v18 = MEMORY[0x277CBEBC0];
-    v19 = WDBundle();
-    v20 = [v19 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_SEED_EXPIRED_URL" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
-    v21 = HKConditionallyRedactedHeartRhythmString();
-    v22 = [v18 URLWithString:v21];
-    [v5 setBodyText:0 URLText:v17 URL:v22];
+    [v5 setTitleText:v17];
+
+    v11 = WDBundle();
+    v12 = [v11 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_SEED_EXPIRED_LEARN_MORE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
+    v18 = HKConditionallyRedactedHeartRhythmString();
+    v19 = MEMORY[0x277CBEBC0];
+    v20 = WDBundle();
+    v21 = [v20 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_SEED_EXPIRED_URL" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
+    v22 = HKConditionallyRedactedHeartRhythmString();
+    v23 = [v19 URLWithString:v22];
+    [v5 setBodyText:0 URLText:v18 URL:v23];
 
     goto LABEL_5;
   }
 
+  v7 = _electrocardiogramRecordingRescindedStatus;
   if (_electrocardiogramRecordingRescindedStatus == 1)
   {
-    v7 = WDBundle();
-    v8 = [v7 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_DISABLED_TITLE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
-    v9 = HKConditionallyRedactedHeartRhythmString();
-    [v5 setTitleText:v9];
+    v8 = WDBundle();
+    v9 = [v8 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_DISABLED_TITLE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
+    v10 = HKConditionallyRedactedHeartRhythmString();
+    [v5 setTitleText:v10];
 
-    v10 = WDBundle();
-    v11 = [v10 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_DISABLED_LEARN_MORE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
-    v12 = HKConditionallyRedactedHeartRhythmString();
-    v13 = [MEMORY[0x277CBEBC0] URLWithString:*MEMORY[0x277CCBD08]];
-    [v5 setBodyText:0 URLText:v12 URL:v13];
+    v11 = WDBundle();
+    v12 = [v11 localizedStringForKey:@"ELECTROCARDIOGRAM_RECORDING_DISABLED_LEARN_MORE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable-Cinnamon"];
+    v13 = HKConditionallyRedactedHeartRhythmString();
+    v14 = [MEMORY[0x277CBEBC0] URLWithString:*MEMORY[0x277CCBD08]];
+    [v5 setBodyText:0 URLText:v13 URL:v14];
 
 LABEL_5:
     goto LABEL_8;
   }
 
   _HKInitializeLogging();
-  v23 = *MEMORY[0x277CCC2D8];
+  v24 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
   {
-    [(WDElectrocardiogramOverviewViewController *)v23 _recordingRescindedHeaderView];
+    [(WDElectrocardiogramOverviewViewController *)v24 _recordingRescindedHeaderView];
   }
 
 LABEL_8:
@@ -1366,7 +1438,7 @@ LABEL_8:
 - (void)_reloadMoreHealthSectionWithAnimation:(BOOL)animation
 {
   animationCopy = animation;
-  [(WDElectrocardiogramOverviewViewController *)self sectionInfo:0];
+  objc_msgSend_sectionInfo(self, a2, 0, 0, 0, 0);
   v5 = [MEMORY[0x277CCAA78] indexSetWithIndex:?];
   if (animationCopy)
   {
@@ -1384,7 +1456,7 @@ LABEL_8:
 
 - (BOOL)_showUpgradeTileInProminentPosition
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(WDElectrocardiogramOverviewViewController *)self _userLocaleOnlySupportsECG1])
   {
     _HKInitializeLogging();
@@ -1393,10 +1465,10 @@ LABEL_8:
     result = 0;
     if (v4)
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_251E85000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: ECG1 only country. Demote upgrade ad.", &v9, 0xCu);
-      result = 0;
+      _os_log_impl(&dword_251E85000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: ECG1 only country. Demote upgrade ad.", &v8, 0xCu);
+      return 0;
     }
   }
 
@@ -1405,10 +1477,9 @@ LABEL_8:
     hk_heartRhythmDefaults = [MEMORY[0x277CBEBD0] hk_heartRhythmDefaults];
     v7 = [hk_heartRhythmDefaults BOOLForKey:@"PromimentUpgradeTileDismissed"];
 
-    result = v7 ^ 1;
+    return v7 ^ 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1443,6 +1514,35 @@ LABEL_8:
 
   tableView = [(WDElectrocardiogramOverviewViewController *)self tableView];
   [tableView reloadData];
+}
+
+- (void)_setTableHeaderViewWithUpgradeView:(BOOL)view
+{
+  v19 = [(WDElectrocardiogramOverviewViewController *)self _electrocardiogramSetupContainerViewWithUpgrade:view];
+  tableView = [(WDElectrocardiogramOverviewViewController *)self tableView];
+  [tableView setTableHeaderView:v19];
+
+  widthAnchor = [v19 widthAnchor];
+  tableView2 = [(WDElectrocardiogramOverviewViewController *)self tableView];
+  widthAnchor2 = [tableView2 widthAnchor];
+  v8 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
+  [v8 setActive:1];
+
+  centerXAnchor = [v19 centerXAnchor];
+  tableView3 = [(WDElectrocardiogramOverviewViewController *)self tableView];
+  centerXAnchor2 = [tableView3 centerXAnchor];
+  v12 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  [v12 setActive:1];
+
+  topAnchor = [v19 topAnchor];
+  tableView4 = [(WDElectrocardiogramOverviewViewController *)self tableView];
+  topAnchor2 = [tableView4 topAnchor];
+  v16 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  [v16 setActive:1];
+
+  tableView5 = [(WDElectrocardiogramOverviewViewController *)self tableView];
+  tableHeaderView = [tableView5 tableHeaderView];
+  [tableHeaderView layoutIfNeeded];
 }
 
 - (id)_electrocardiogramSetupContainerViewWithUpgrade:(BOOL)upgrade
@@ -1500,7 +1600,7 @@ LABEL_8:
 - (id)_showAllResultsCellForType:(int64_t)type
 {
   v5 = [WDElectrocardiogramFilterDataProvider cellTitleForType:?];
-  [(WDElectrocardiogramOverviewViewController *)self sectionInfo];
+  objc_msgSend_sectionInfo(self);
   if (v10 == -1)
   {
     v7 = 0;
@@ -1617,38 +1717,38 @@ LABEL_8:
   dispatch_async(MEMORY[0x277D85CD0], v5);
 }
 
-void __101__WDElectrocardiogramOverviewViewController_electrocardiogramFilterDataProvider_didUpdateCount_type___block_invoke(uint64_t a1)
+void __101__WDElectrocardiogramOverviewViewController_electrocardiogramFilterDataProvider_didUpdateCount_type___block_invoke(uint64_t a1, const char *a2)
 {
-  v9 = 0;
-  v2 = *(a1 + 32);
-  if (v2)
+  v10 = 0;
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 sectionInfo];
+    objc_msgSend_sectionInfo(v3, a2, 0);
   }
 
-  v3 = [MEMORY[0x277CCAA70] indexPathForRow:*(a1 + 40) inSection:{0, v9}];
-  v4 = [*(a1 + 32) tableView];
-  v5 = [v4 cellForRowAtIndexPath:v3];
+  v4 = [MEMORY[0x277CCAA70] indexPathForRow:*(a1 + 40) inSection:{0, v10}];
+  v5 = [*(a1 + 32) tableView];
+  v6 = [v5 cellForRowAtIndexPath:v4];
 
-  if (v5)
+  if (v6)
   {
-    v6 = [*(a1 + 32) filterDataProvider];
-    v7 = [v6 displayStringCountForType:*(a1 + 40)];
-    v8 = [v5 detailTextLabel];
-    [v8 setText:v7];
+    v7 = [*(a1 + 32) filterDataProvider];
+    v8 = [v7 displayStringCountForType:*(a1 + 40)];
+    v9 = [v6 detailTextLabel];
+    [v9 setText:v8];
   }
 }
 
 - (void)beginOnboardingForOnboardingSetupView:(id)view
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446210;
-    v9 = "[WDElectrocardiogramOverviewViewController beginOnboardingForOnboardingSetupView:]";
-    _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}s]: Install of ECG app will be triggered after a location check in onboarding", &v8, 0xCu);
+    v7 = 136446210;
+    v8 = "[WDElectrocardiogramOverviewViewController beginOnboardingForOnboardingSetupView:]";
+    _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}s]: Install of ECG app will be triggered after a location check in onboarding", &v7, 0xCu);
   }
 
   availabilityState = [(WDElectrocardiogramOverviewViewController *)self availabilityState];
@@ -1664,8 +1764,6 @@ void __101__WDElectrocardiogramOverviewViewController_electrocardiogramFilterDat
   {
     [(WDElectrocardiogramOverviewViewController *)self _startOnboardingForFirstTime:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didTapOnElectrocardiogram:(id)electrocardiogram
@@ -1694,7 +1792,7 @@ void __101__WDElectrocardiogramOverviewViewController_electrocardiogramFilterDat
   viewCopy = view;
   pathCopy = path;
   [viewCopy deselectRowAtIndexPath:pathCopy animated:1];
-  [(WDElectrocardiogramOverviewViewController *)self sectionInfo];
+  objc_msgSend_sectionInfo(self);
   if ([pathCopy section])
   {
     if (![pathCopy section])
@@ -1728,7 +1826,7 @@ void __101__WDElectrocardiogramOverviewViewController_electrocardiogramFilterDat
 
     if (![pathCopy section])
     {
-      [(WDElectrocardiogramOverviewViewController *)self userConfigurationRowInfo];
+      objc_msgSend_userConfigurationRowInfo(self);
       if ([pathCopy row])
       {
         if (![pathCopy row])
@@ -1849,7 +1947,7 @@ LABEL_13:
     [cellCopy setSeparatorColor:clearColor];
   }
 
-  [(WDElectrocardiogramOverviewViewController *)self sectionInfo:0];
+  objc_msgSend_sectionInfo(self, 0, 0);
   if (![pathCopy section])
   {
     educationSection = [(WDElectrocardiogramOverviewViewController *)self educationSection];
@@ -1860,28 +1958,17 @@ LABEL_13:
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
-  if (!changeCopy)
+  if (!changeCopy || (-[WDElectrocardiogramOverviewViewController traitCollection](self, "traitCollection"), v4 = objc_claimAutoreleasedReturnValue(), [v4 preferredContentSizeCategory], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(changeCopy, "preferredContentSizeCategory"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isEqualToString:", v6), v6, v5, v4, (v7 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  traitCollection = [(WDElectrocardiogramOverviewViewController *)self traitCollection];
-  preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-  preferredContentSizeCategory2 = [changeCopy preferredContentSizeCategory];
-  v7 = [preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2];
-
-  if ((v7 & 1) == 0)
-  {
-LABEL_3:
     [(WDElectrocardiogramOverviewViewController *)self _reloadElectrocardiogramSetupTableHeaderView];
   }
 }
 
 - (BOOL)_shouldDisplayAboutRowBeforeOnboarding
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v9[0] = *MEMORY[0x277CCBBB8];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v8[0] = *MEMORY[0x277CCBBB8];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   autoupdatingCurrentLocale = [MEMORY[0x277CBEAF8] autoupdatingCurrentLocale];
   v4 = autoupdatingCurrentLocale;
   if (autoupdatingCurrentLocale)
@@ -1895,7 +1982,6 @@ LABEL_3:
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1906,44 +1992,38 @@ LABEL_3:
   return WeakRetained;
 }
 
-- (void)initWithDisplayType:(void *)a1 profile:mode:.cold.1(void *a1)
+- (void)initWithDisplayType:(void *)a1 profile:(uint64_t)a2 mode:.cold.1(void *a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v2 = a1;
   v4 = 138543362;
   v5 = objc_opt_class();
-  v2 = v5;
-  _os_log_error_impl(&dword_251E85000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get country code", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = v5;
+  _os_log_error_impl(&dword_251E85000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get country code", &v4, 0xCu);
 }
 
 - (void)initWithDisplayType:(void *)a1 profile:(uint64_t)a2 mode:(uint64_t)a3 .cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2112;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_251E85000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get feature status with error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2112;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_251E85000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get feature status with error: %@", &v6, 0x16u);
 }
 
 - (void)_recordingRescindedHeaderView
 {
   v8 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = NSStringFromHKFeatureAvailabilityRescindedStatus();
+  v3 = NSStringFromHKFeatureAvailabilityRescindedStatus();
   v4 = 136446466;
   v5 = "[WDElectrocardiogramOverviewViewController _recordingRescindedHeaderView]";
   v6 = 2114;
-  v7 = v2;
+  v7 = v3;
   _os_log_error_impl(&dword_251E85000, selfCopy, OS_LOG_TYPE_ERROR, "[%{public}s]: Could not configure rescinded header view for state %{public}@", &v4, 0x16u);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

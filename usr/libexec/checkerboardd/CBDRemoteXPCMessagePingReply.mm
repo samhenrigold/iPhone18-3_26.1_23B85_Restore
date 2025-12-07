@@ -1,4 +1,5 @@
 @interface CBDRemoteXPCMessagePingReply
++ (id)replyToRemoteMessage:(id)message success:(BOOL)success error:(id)error;
 - (CBDRemoteXPCMessagePingReply)initWithCoder:(id)coder;
 - (CBDRemoteXPCMessagePingReply)initWithRemoteMessage:(id)message success:(BOOL)success error:(id)error;
 - (NSString)description;
@@ -8,6 +9,16 @@
 @end
 
 @implementation CBDRemoteXPCMessagePingReply
+
++ (id)replyToRemoteMessage:(id)message success:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  messageCopy = message;
+  v10 = [[self alloc] initWithRemoteMessage:messageCopy success:successCopy error:errorCopy];
+
+  return v10;
+}
 
 - (CBDRemoteXPCMessagePingReply)initWithRemoteMessage:(id)message success:(BOOL)success error:(id)error
 {

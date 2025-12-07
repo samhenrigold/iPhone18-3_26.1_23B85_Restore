@@ -10,7 +10,9 @@
 
 - (NSDictionary)pageData
 {
-  if (sub_1E3FF0924())
+  selfCopy = self;
+  sub_1E3FF0924(self, a2);
+  if (v3)
   {
     sub_1E4205C44();
     OUTLINED_FUNCTION_50();
@@ -18,10 +20,10 @@
 
   else
   {
-    self = 0;
+    selfCopy = 0;
   }
 
-  return self;
+  return selfCopy;
 }
 
 - (void)setPageData:(id)data
@@ -37,7 +39,7 @@
   }
 
   selfCopy = self;
-  sub_1E3FF09E4(v4);
+  sub_1E3FF09E4(v4, selfCopy);
 }
 
 - (void)recordPage:(id)page
@@ -52,7 +54,7 @@
   OUTLINED_FUNCTION_14_168();
   if (data)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0, &unk_1E42A1250);
     data = sub_1E42062B4();
   }
 

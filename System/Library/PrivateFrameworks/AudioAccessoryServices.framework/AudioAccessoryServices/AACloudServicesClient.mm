@@ -83,8 +83,7 @@ void __48__AACloudServicesClient_activateWithCompletion___block_invoke(uint64_t 
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
+    v7 = NSErrorF(*MEMORY[0x277CCA590], 4294960575, "Activate already called");
     if (gLogCategory_AACloudServicesClient <= 90 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
       __48__AACloudServicesClient_activateWithCompletion___block_invoke_cold_1();
@@ -96,37 +95,37 @@ void __48__AACloudServicesClient_activateWithCompletion___block_invoke(uint64_t 
   else
   {
     *(v2 + 8) = 1;
-    v4 = MEMORY[0x245CE9060](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    v3 = MEMORY[0x245CE9060](*(a1 + 40));
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 16);
+    *(v4 + 16) = v3;
 
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
 
-    [v7 _activate];
+    [v6 _activate];
   }
 }
 
 - (void)_activate
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__3;
-  v18 = __Block_byref_object_dispose__3;
-  v19 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __34__AACloudServicesClient__activate__block_invoke;
-  v13[3] = &unk_278CDE3A0;
-  v13[4] = self;
-  v13[5] = &v14;
-  v3 = MEMORY[0x245CE9060](v13, a2);
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__3;
+  v31 = __Block_byref_object_dispose__3;
+  v32 = 0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __34__AACloudServicesClient__activate__block_invoke;
+  v26[3] = &unk_278CDE3A0;
+  v26[4] = self;
+  v26[5] = &v27;
+  v9 = MEMORY[0x245CE9060](v26, a2);
   if (self->_invalidateCalled)
   {
-    v7 = BTErrorF();
-    _ensureXPCStarted = v15[5];
-    v15[5] = v7;
+    v19 = BTErrorF(4294896148, "Activate after invalidate", v3, v4, v5, v6, v7, v8, clientID);
+    _ensureXPCStarted = v28[5];
+    v28[5] = v19;
   }
 
   else
@@ -145,38 +144,38 @@ void __48__AACloudServicesClient_activateWithCompletion___block_invoke(uint64_t 
     _ensureXPCStarted = [(AACloudServicesClient *)self _ensureXPCStarted];
     if (_ensureXPCStarted)
     {
-      v8 = BTErrorF();
-      v9 = v15[5];
-      v15[5] = v8;
+      v20 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v23);
+      v21 = v28[5];
+      v28[5] = v20;
     }
 
     else
     {
       xpcCnx = self->_xpcCnx;
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __34__AACloudServicesClient__activate__block_invoke_2;
-      v12[3] = &unk_278CDD750;
-      v12[4] = self;
-      v6 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v12];
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __34__AACloudServicesClient__activate__block_invoke_3;
-      v11[3] = &unk_278CDD750;
-      v11[4] = self;
-      [v6 cloudServicesClientActivate:self completion:v11];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __34__AACloudServicesClient__activate__block_invoke_2;
+      v25[3] = &unk_278CDD750;
+      v25[4] = self;
+      v18 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __34__AACloudServicesClient__activate__block_invoke_3;
+      v24[3] = &unk_278CDD750;
+      v24[4] = self;
+      [v18 cloudServicesClientActivate:self completion:v24];
     }
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v14, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v27, 8);
 }
 
-uint64_t __34__AACloudServicesClient__activate__block_invoke(uint64_t result)
+id *__34__AACloudServicesClient__activate__block_invoke(id *result)
 {
-  if (*(*(*(result + 40) + 8) + 40))
+  if (*(*(result[5] + 1) + 40))
   {
-    return [*(result + 32) _reportError:?];
+    return [result[4] _reportError:?];
   }
 
   return result;
@@ -221,7 +220,7 @@ void __34__AACloudServicesClient__activate__block_invoke_3(uint64_t a1, void *a2
   {
     if (gLogCategory_AACloudServicesClient <= 30 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      __34__AACloudServicesClient__activate__block_invoke_3_cold_2(a1);
+      __34__AACloudServicesClient__activate__block_invoke_3_cold_2();
     }
 
     v6 = MEMORY[0x245CE9060](*(*(a1 + 32) + 16));
@@ -325,23 +324,23 @@ uint64_t __42__AACloudServicesClient__ensureXPCStarted__block_invoke_2(uint64_t 
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__AACloudServicesClient_invalidate__block_invoke(uint64_t result)
+void *__35__AACloudServicesClient_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 24) & 1) == 0)
   {
     v3 = result;
     *(v2 + 24) = 1;
-    if ((*(*(result + 32) + 25) & 1) == 0 && gLogCategory_AACloudServicesClient <= 30 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
+    if ((*(result[4] + 25) & 1) == 0 && gLogCategory_AACloudServicesClient <= 30 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
       __35__AACloudServicesClient_invalidate__block_invoke_cold_1();
     }
 
-    v4 = *(v3 + 32);
+    v4 = v3[4];
     if (v4[4])
     {
       [v4[4] invalidate];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     return [v4 _invalidated];
@@ -405,19 +404,19 @@ uint64_t __35__AACloudServicesClient_invalidate__block_invoke(uint64_t result)
 
 void __77__AACloudServicesClient_fetchAAProxCardsInfoForDeviceWithAddress_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __77__AACloudServicesClient_fetchAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_2;
-  v12[3] = &unk_278CDDE70;
-  v14 = &v15;
-  v13 = a1[6];
-  v2 = MEMORY[0x245CE9060](v12);
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__3;
+  v32 = __Block_byref_object_dispose__3;
+  v33 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __77__AACloudServicesClient_fetchAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_2;
+  v25[3] = &unk_278CDDE70;
+  v27 = &v28;
+  v26 = a1[6];
+  v8 = MEMORY[0x245CE9060](v25);
   if (gLogCategory_AACloudServicesClient <= 30 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
   {
     LogPrintF();
@@ -425,73 +424,57 @@ void __77__AACloudServicesClient_fetchAAProxCardsInfoForDeviceWithAddress_comple
 
   if (a1[4])
   {
-    v3 = [a1[5] _ensureXPCStarted];
-    if (v3)
+    v15 = [a1[5] _ensureXPCStarted];
+    if (v15)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v9, v10, v11, v12, v13, v14, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
-      v4 = *(a1[5] + 4);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __77__AACloudServicesClient_fetchAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_3;
-      v10[3] = &unk_278CDD700;
-      v11 = a1[6];
-      v5 = [v4 remoteObjectProxyWithErrorHandler:v10];
-      v6 = [a1[4] uppercaseString];
-      [v5 fetchAAProxCardsInfoForDeviceWithAddress:v6 completion:a1[6]];
+      v16 = *(a1[5] + 4);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __77__AACloudServicesClient_fetchAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_3;
+      v23[3] = &unk_278CDD700;
+      v24 = a1[6];
+      v17 = [v16 remoteObjectProxyWithErrorHandler:v23];
+      v18 = [a1[4] uppercaseString];
+      [v17 fetchAAProxCardsInfoForDeviceWithAddress:v18 completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v3 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil deviceBluetoothAddress", v2, v3, v4, v5, v6, v7, v22);
+    v15 = v29[5];
+    v29[5] = v20;
   }
 
-  v2[2](v2);
-  _Block_object_dispose(&v15, 8);
+  v8[2](v8);
+  _Block_object_dispose(&v28, 8);
 }
 
 uint64_t __77__AACloudServicesClient_fetchAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  v2 = result;
-  if (gLogCategory_AACloudServicesClient <= 90)
-  {
-    if (gLogCategory_AACloudServicesClient == -1)
+    v1 = result;
+    if (gLogCategory_AACloudServicesClient <= 90 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
-      {
-        goto LABEL_7;
-      }
-
-      v6 = *(*(v1 + 8) + 40);
+      LogPrintF();
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    v2 = *(*(v1 + 32) + 16);
+
+    return v2();
   }
 
-LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)modifyAAProxCardsInfo:(id)info completion:(id)completion
@@ -513,29 +496,29 @@ LABEL_7:
 
 void __58__AACloudServicesClient_modifyAAProxCardsInfo_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__3;
+  v32 = __Block_byref_object_dispose__3;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __58__AACloudServicesClient_modifyAAProxCardsInfo_completion___block_invoke_2;
-  v12[3] = &unk_278CDDE20;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CE9060](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __58__AACloudServicesClient_modifyAAProxCardsInfo_completion___block_invoke_2;
+  v25[3] = &unk_278CDDE20;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CE9060](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
@@ -545,63 +528,46 @@ void __58__AACloudServicesClient_modifyAAProxCardsInfo_completion___block_invoke
         LogPrintF();
       }
 
-      v5 = *(a1[5] + 4);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __58__AACloudServicesClient_modifyAAProxCardsInfo_completion___block_invoke_3;
-      v10[3] = &unk_278CDD700;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 modifyAAProxCardsInfo:v2 completion:a1[6]];
+      v17 = *(a1[5] + 4);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __58__AACloudServicesClient_modifyAAProxCardsInfo_completion___block_invoke_3;
+      v23[3] = &unk_278CDD700;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 modifyAAProxCardsInfo:v2 completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil AAProxCardsInfo", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
 uint64_t __58__AACloudServicesClient_modifyAAProxCardsInfo_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 48) + 8) + 40))
   {
-    return result;
-  }
-
-  v2 = result;
-  if (gLogCategory_AACloudServicesClient <= 90)
-  {
-    if (gLogCategory_AACloudServicesClient == -1)
+    v1 = result;
+    if (gLogCategory_AACloudServicesClient <= 90 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
-      {
-        goto LABEL_7;
-      }
-
-      v6 = *(*(v1 + 8) + 40);
+      LogPrintF();
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    v2 = *(*(v1 + 40) + 16);
+
+    return v2();
   }
 
-LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)removeAAProxCardsInfoForDeviceWithAddress:(id)address completion:(id)completion
@@ -623,19 +589,19 @@ LABEL_7:
 
 void __78__AACloudServicesClient_removeAAProxCardsInfoForDeviceWithAddress_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __78__AACloudServicesClient_removeAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_2;
-  v12[3] = &unk_278CDDE70;
-  v14 = &v15;
-  v13 = a1[6];
-  v2 = MEMORY[0x245CE9060](v12);
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__3;
+  v32 = __Block_byref_object_dispose__3;
+  v33 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __78__AACloudServicesClient_removeAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_2;
+  v25[3] = &unk_278CDDE70;
+  v27 = &v28;
+  v26 = a1[6];
+  v8 = MEMORY[0x245CE9060](v25);
   if (gLogCategory_AACloudServicesClient <= 30 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
   {
     LogPrintF();
@@ -643,73 +609,57 @@ void __78__AACloudServicesClient_removeAAProxCardsInfoForDeviceWithAddress_compl
 
   if (a1[4])
   {
-    v3 = [a1[5] _ensureXPCStarted];
-    if (v3)
+    v15 = [a1[5] _ensureXPCStarted];
+    if (v15)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v9, v10, v11, v12, v13, v14, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
-      v4 = *(a1[5] + 4);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __78__AACloudServicesClient_removeAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_3;
-      v10[3] = &unk_278CDD700;
-      v11 = a1[6];
-      v5 = [v4 remoteObjectProxyWithErrorHandler:v10];
-      v6 = [a1[4] uppercaseString];
-      [v5 removeAAProxCardsInfoForDeviceWithAddress:v6 completion:a1[6]];
+      v16 = *(a1[5] + 4);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __78__AACloudServicesClient_removeAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_3;
+      v23[3] = &unk_278CDD700;
+      v24 = a1[6];
+      v17 = [v16 remoteObjectProxyWithErrorHandler:v23];
+      v18 = [a1[4] uppercaseString];
+      [v17 removeAAProxCardsInfoForDeviceWithAddress:v18 completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v3 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil deviceBluetoothAddress", v2, v3, v4, v5, v6, v7, v22);
+    v15 = v29[5];
+    v29[5] = v20;
   }
 
-  v2[2](v2);
-  _Block_object_dispose(&v15, 8);
+  v8[2](v8);
+  _Block_object_dispose(&v28, 8);
 }
 
 uint64_t __78__AACloudServicesClient_removeAAProxCardsInfoForDeviceWithAddress_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  v2 = result;
-  if (gLogCategory_AACloudServicesClient <= 90)
-  {
-    if (gLogCategory_AACloudServicesClient == -1)
+    v1 = result;
+    if (gLogCategory_AACloudServicesClient <= 90 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
-      {
-        goto LABEL_7;
-      }
-
-      v6 = *(*(v1 + 8) + 40);
+      LogPrintF();
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    v2 = *(*(v1 + 32) + 16);
+
+    return v2();
   }
 
-LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)fetchHMDeviceCloudRecordInfoWithAddress:(id)address completion:(id)completion
@@ -731,19 +681,19 @@ LABEL_7:
 
 void __76__AACloudServicesClient_fetchHMDeviceCloudRecordInfoWithAddress_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __76__AACloudServicesClient_fetchHMDeviceCloudRecordInfoWithAddress_completion___block_invoke_2;
-  v12[3] = &unk_278CDDE70;
-  v14 = &v15;
-  v13 = a1[6];
-  v2 = MEMORY[0x245CE9060](v12);
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__3;
+  v32 = __Block_byref_object_dispose__3;
+  v33 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __76__AACloudServicesClient_fetchHMDeviceCloudRecordInfoWithAddress_completion___block_invoke_2;
+  v25[3] = &unk_278CDDE70;
+  v27 = &v28;
+  v26 = a1[6];
+  v8 = MEMORY[0x245CE9060](v25);
   if (gLogCategory_AACloudServicesClient <= 30 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
   {
     LogPrintF();
@@ -751,73 +701,57 @@ void __76__AACloudServicesClient_fetchHMDeviceCloudRecordInfoWithAddress_complet
 
   if (a1[4])
   {
-    v3 = [a1[5] _ensureXPCStarted];
-    if (v3)
+    v15 = [a1[5] _ensureXPCStarted];
+    if (v15)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v9, v10, v11, v12, v13, v14, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
-      v4 = *(a1[5] + 4);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __76__AACloudServicesClient_fetchHMDeviceCloudRecordInfoWithAddress_completion___block_invoke_3;
-      v10[3] = &unk_278CDD700;
-      v11 = a1[6];
-      v5 = [v4 remoteObjectProxyWithErrorHandler:v10];
-      v6 = [a1[4] uppercaseString];
-      [v5 fetchHMDeviceCloudRecordInfoWithAddress:v6 completion:a1[6]];
+      v16 = *(a1[5] + 4);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __76__AACloudServicesClient_fetchHMDeviceCloudRecordInfoWithAddress_completion___block_invoke_3;
+      v23[3] = &unk_278CDD700;
+      v24 = a1[6];
+      v17 = [v16 remoteObjectProxyWithErrorHandler:v23];
+      v18 = [a1[4] uppercaseString];
+      [v17 fetchHMDeviceCloudRecordInfoWithAddress:v18 completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v3 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil deviceBluetoothAddress", v2, v3, v4, v5, v6, v7, v22);
+    v15 = v29[5];
+    v29[5] = v20;
   }
 
-  v2[2](v2);
-  _Block_object_dispose(&v15, 8);
+  v8[2](v8);
+  _Block_object_dispose(&v28, 8);
 }
 
 uint64_t __76__AACloudServicesClient_fetchHMDeviceCloudRecordInfoWithAddress_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  v2 = result;
-  if (gLogCategory_AACloudServicesClient <= 90)
-  {
-    if (gLogCategory_AACloudServicesClient == -1)
+    v1 = result;
+    if (gLogCategory_AACloudServicesClient <= 90 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
-      {
-        goto LABEL_7;
-      }
-
-      v6 = *(*(v1 + 8) + 40);
+      LogPrintF();
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    v2 = *(*(v1 + 32) + 16);
+
+    return v2();
   }
 
-LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)modifyHMDeviceCloudRecordInfo:(id)info completion:(id)completion
@@ -839,29 +773,29 @@ LABEL_7:
 
 void __66__AACloudServicesClient_modifyHMDeviceCloudRecordInfo_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__3;
+  v32 = __Block_byref_object_dispose__3;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __66__AACloudServicesClient_modifyHMDeviceCloudRecordInfo_completion___block_invoke_2;
-  v12[3] = &unk_278CDDE20;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CE9060](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __66__AACloudServicesClient_modifyHMDeviceCloudRecordInfo_completion___block_invoke_2;
+  v25[3] = &unk_278CDDE20;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CE9060](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
@@ -871,63 +805,46 @@ void __66__AACloudServicesClient_modifyHMDeviceCloudRecordInfo_completion___bloc
         LogPrintF();
       }
 
-      v5 = *(a1[5] + 4);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __66__AACloudServicesClient_modifyHMDeviceCloudRecordInfo_completion___block_invoke_3;
-      v10[3] = &unk_278CDD700;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 modifyHMDeviceCloudRecordInfo:v2 completion:a1[6]];
+      v17 = *(a1[5] + 4);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __66__AACloudServicesClient_modifyHMDeviceCloudRecordInfo_completion___block_invoke_3;
+      v23[3] = &unk_278CDD700;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 modifyHMDeviceCloudRecordInfo:v2 completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil HMDeviceCloudRecordInfo", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
 uint64_t __66__AACloudServicesClient_modifyHMDeviceCloudRecordInfo_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 48) + 8) + 40))
   {
-    return result;
-  }
-
-  v2 = result;
-  if (gLogCategory_AACloudServicesClient <= 90)
-  {
-    if (gLogCategory_AACloudServicesClient == -1)
+    v1 = result;
+    if (gLogCategory_AACloudServicesClient <= 90 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
-      {
-        goto LABEL_7;
-      }
-
-      v6 = *(*(v1 + 8) + 40);
+      LogPrintF();
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    v2 = *(*(v1 + 40) + 16);
+
+    return v2();
   }
 
-LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)removeHMDeviceCloudRecordInfoForDeviceWithAddress:(id)address completion:(id)completion
@@ -949,19 +866,19 @@ LABEL_7:
 
 void __86__AACloudServicesClient_removeHMDeviceCloudRecordInfoForDeviceWithAddress_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __86__AACloudServicesClient_removeHMDeviceCloudRecordInfoForDeviceWithAddress_completion___block_invoke_2;
-  v12[3] = &unk_278CDDE70;
-  v14 = &v15;
-  v13 = a1[6];
-  v2 = MEMORY[0x245CE9060](v12);
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__3;
+  v32 = __Block_byref_object_dispose__3;
+  v33 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __86__AACloudServicesClient_removeHMDeviceCloudRecordInfoForDeviceWithAddress_completion___block_invoke_2;
+  v25[3] = &unk_278CDDE70;
+  v27 = &v28;
+  v26 = a1[6];
+  v8 = MEMORY[0x245CE9060](v25);
   if (gLogCategory_AACloudServicesClient <= 30 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
   {
     LogPrintF();
@@ -969,73 +886,57 @@ void __86__AACloudServicesClient_removeHMDeviceCloudRecordInfoForDeviceWithAddre
 
   if (a1[4])
   {
-    v3 = [a1[5] _ensureXPCStarted];
-    if (v3)
+    v15 = [a1[5] _ensureXPCStarted];
+    if (v15)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v9, v10, v11, v12, v13, v14, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
-      v4 = *(a1[5] + 4);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __86__AACloudServicesClient_removeHMDeviceCloudRecordInfoForDeviceWithAddress_completion___block_invoke_3;
-      v10[3] = &unk_278CDD700;
-      v11 = a1[6];
-      v5 = [v4 remoteObjectProxyWithErrorHandler:v10];
-      v6 = [a1[4] uppercaseString];
-      [v5 removeHMDeviceCloudRecordInfoForDeviceWithAddress:v6 completion:a1[6]];
+      v16 = *(a1[5] + 4);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __86__AACloudServicesClient_removeHMDeviceCloudRecordInfoForDeviceWithAddress_completion___block_invoke_3;
+      v23[3] = &unk_278CDD700;
+      v24 = a1[6];
+      v17 = [v16 remoteObjectProxyWithErrorHandler:v23];
+      v18 = [a1[4] uppercaseString];
+      [v17 removeHMDeviceCloudRecordInfoForDeviceWithAddress:v18 completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v3 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil deviceBluetoothAddress", v2, v3, v4, v5, v6, v7, v22);
+    v15 = v29[5];
+    v29[5] = v20;
   }
 
-  v2[2](v2);
-  _Block_object_dispose(&v15, 8);
+  v8[2](v8);
+  _Block_object_dispose(&v28, 8);
 }
 
 uint64_t __86__AACloudServicesClient_removeHMDeviceCloudRecordInfoForDeviceWithAddress_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  v2 = result;
-  if (gLogCategory_AACloudServicesClient <= 90)
-  {
-    if (gLogCategory_AACloudServicesClient == -1)
+    v1 = result;
+    if (gLogCategory_AACloudServicesClient <= 90 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
-      {
-        goto LABEL_7;
-      }
-
-      v6 = *(*(v1 + 8) + 40);
+      LogPrintF();
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    v2 = *(*(v1 + 32) + 16);
+
+    return v2();
   }
 
-LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)hmDeviceCloudRecordInfosUpdated:(id)updated
@@ -1054,7 +955,7 @@ LABEL_7:
 
   else if (gLogCategory_AACloudServicesClient <= 10 && (gLogCategory_AACloudServicesClient != -1 || _LogCategory_Initialize()))
   {
-    [AACloudServicesClient hmDeviceCloudRecordInfosUpdated:?];
+    [AACloudServicesClient hmDeviceCloudRecordInfosUpdated:];
   }
 }
 
@@ -1074,13 +975,6 @@ LABEL_7:
   {
     (v4)[2](v4, errorCopy);
   }
-}
-
-- (uint64_t)hmDeviceCloudRecordInfosUpdated:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 40);
-  [a2 count];
-  return LogPrintF();
 }
 
 @end

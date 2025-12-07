@@ -56,16 +56,17 @@
 - (void)didEndDiscoveryWithError:(id)error
 {
   errorCopy = error;
+  v5 = errorCopy;
   if (errorCopy)
   {
-    v5 = sub_100003BEC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100003BEC(errorCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10000DF34(errorCopy, v5);
+      sub_10000DF34(v5, v6);
     }
   }
 
-  [(FMDBluetoothDiscoveryXPCProxy *)self _didEndDiscoveryWithError:errorCopy];
+  [(FMDBluetoothDiscoveryXPCProxy *)self _didEndDiscoveryWithError:v5];
 }
 
 - (void)didDiscoverDevice:(id)device

@@ -53,7 +53,7 @@ void __34__BCSAnalyticsLogger_sharedLogger__block_invoke()
 
 - (void)didScanNFCTagOfType:(int64_t)type
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (type)
   {
     v4 = @"appclip";
@@ -64,14 +64,13 @@ void __34__BCSAnalyticsLogger_sharedLogger__block_invoke()
     v4 = @"url";
   }
 
-  v9 = @"tagDataType";
-  v10[0] = v4;
+  v8 = @"tagDataType";
+  v9[0] = v4;
   v5 = MEMORY[0x277CBEAC0];
   v6 = v4;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(BCSAnalyticsLogger *)self _sendEventLazyWithName:@"com.apple.BarcodeSupport.DidScanNFCTag" payload:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendEventLazyWithName:(id)name payload:(id)payload
@@ -92,8 +91,7 @@ void __34__BCSAnalyticsLogger_sharedLogger__block_invoke()
 
 void __53__BCSAnalyticsLogger__sendEventLazyWithName_payload___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v1 = *(a1 + 40);
   AnalyticsSendEventLazy();
 }
 
@@ -194,14 +192,12 @@ void __53__BCSAnalyticsLogger__sendEventLazyWithName_payload___block_invoke(uint
 
 - (void)logBarcodePreviewedEventForContentType:(int64_t)type
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"contentType";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"contentType";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-  v8[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [(BCSAnalyticsLogger *)self _sendEventLazyWithName:@"com.apple.BarcodeSupport.DidPreviewContent" payload:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

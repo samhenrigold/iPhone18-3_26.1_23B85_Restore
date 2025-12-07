@@ -11,23 +11,20 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"education_content_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"education_content_id";
   v2 = +[(HDHealthEntity *)HDUserDomainConceptEducationContentEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)privateSubEntities
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -42,46 +39,46 @@ uint64_t __149__HDUserDomainConceptEducationContentSectionEntity_insertEducation
 
 + (BOOL)insertLocalizedEducationContentSectionsFor:(id)for educationContentID:(int64_t)d transaction:(id)transaction error:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   sections = [for sections];
-  v12 = [sections countByEnumeratingWithState:&v35 objects:v46 count:16];
+  v12 = [sections countByEnumeratingWithState:&v34 objects:v45 count:16];
   if (v12)
   {
-    v13 = *v36;
-    v33 = sections;
-    v34 = transactionCopy;
+    v13 = *v35;
+    v32 = sections;
+    v33 = transactionCopy;
     selfCopy = self;
     dCopy = d;
-    v28 = *v36;
+    v27 = *v35;
     while (2)
     {
       v14 = 0;
-      v31 = v12;
+      v30 = v12;
       do
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(sections);
         }
 
-        v32 = v14;
-        sectionData = *(*(&v35 + 1) + 8 * v14);
+        v31 = v14;
+        sectionData = *(*(&v34 + 1) + 8 * v14);
         v15 = transactionCopy;
         objc_opt_self();
         protectedDatabase = [v15 protectedDatabase];
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __149__HDUserDomainConceptEducationContentSectionEntity_insertEducationContentSectionForContentWithID_error_localizedEducationContentSection_transaction___block_invoke_2;
-        v43[3] = &unk_278613B58;
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __149__HDUserDomainConceptEducationContentSectionEntity_insertEducationContentSectionForContentWithID_error_localizedEducationContentSection_transaction___block_invoke_2;
+        v42[3] = &unk_278613B58;
         dCopy2 = d;
         v17 = sectionData;
-        v44 = v17;
-        LODWORD(sectionData) = [protectedDatabase executeCachedStatementForKey:&insertEducationContentSectionForContentWithID_error_localizedEducationContentSection_transaction__statementKey error:error SQLGenerator:&__block_literal_global_173 bindingHandler:v43 enumerationHandler:0];
+        v43 = v17;
+        LODWORD(sectionData) = [protectedDatabase executeCachedStatementForKey:&insertEducationContentSectionForContentWithID_error_localizedEducationContentSection_transaction__statementKey error:error SQLGenerator:&__block_literal_global_173 bindingHandler:v42 enumerationHandler:0];
 
         if (!sectionData)
         {
@@ -100,36 +97,36 @@ uint64_t __149__HDUserDomainConceptEducationContentSectionEntity_insertEducation
         }
 
         longLongValue = [lastInsertRowID longLongValue];
+        v38 = 0u;
         v39 = 0u;
         v40 = 0u;
         v41 = 0u;
-        v42 = 0u;
         sectionData = [v17 sectionData];
-        v22 = [sectionData countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v22 = [sectionData countByEnumeratingWithState:&v38 objects:v46 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v40;
+          v24 = *v39;
           while (2)
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v40 != v24)
+              if (*v39 != v24)
               {
                 objc_enumerationMutation(sectionData);
               }
 
-              if (![HDUserDomainConceptEducationContentSectionDataEntity insertEducationContentSectionData:*(*(&v39 + 1) + 8 * i) sectionPersistentID:longLongValue transaction:v15 error:error, v28, selfCopy, dCopy])
+              if (![HDUserDomainConceptEducationContentSectionDataEntity insertEducationContentSectionData:*(*(&v38 + 1) + 8 * i) sectionPersistentID:longLongValue transaction:v15 error:error, v27, selfCopy, dCopy])
               {
 
                 LOBYTE(sectionData) = 0;
-                sections = v33;
-                transactionCopy = v34;
+                sections = v32;
+                transactionCopy = v33;
                 goto LABEL_21;
               }
             }
 
-            v23 = [sectionData countByEnumeratingWithState:&v39 objects:v47 count:16];
+            v23 = [sectionData countByEnumeratingWithState:&v38 objects:v46 count:16];
             if (v23)
             {
               continue;
@@ -139,15 +136,15 @@ uint64_t __149__HDUserDomainConceptEducationContentSectionEntity_insertEducation
           }
         }
 
-        v14 = v32 + 1;
-        sections = v33;
-        transactionCopy = v34;
+        v14 = v31 + 1;
+        sections = v32;
+        transactionCopy = v33;
         d = dCopy;
-        v13 = v28;
+        v13 = v27;
       }
 
-      while (v32 + 1 != v31);
-      v12 = [v33 countByEnumeratingWithState:&v35 objects:v46 count:16];
+      while (v31 + 1 != v30);
+      v12 = [v32 countByEnumeratingWithState:&v34 objects:v45 count:16];
       LOBYTE(sectionData) = 1;
       if (v12)
       {
@@ -165,7 +162,6 @@ uint64_t __149__HDUserDomainConceptEducationContentSectionEntity_insertEducation
 
 LABEL_21:
 
-  v26 = *MEMORY[0x277D85DE8];
   return sectionData;
 }
 
@@ -188,31 +184,30 @@ LABEL_21:
 
 uint64_t __154__HDUserDomainConceptEducationContentSectionEntity_enumerateLocalizedEducationContentSectionsWithEducationContentID_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x277D10A40];
+  v5 = HDSQLiteColumnWithNameAsInt64();
   v6 = HDSQLiteColumnWithNameAsInt64();
-  v7 = HDSQLiteColumnWithNameAsInt64();
-  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v9 = *(a1 + 32);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __154__HDUserDomainConceptEducationContentSectionEntity_enumerateLocalizedEducationContentSectionsWithEducationContentID_transaction_error_enumerationHandler___block_invoke_2;
-  v16[3] = &unk_2786266B8;
-  v10 = v8;
-  v17 = v10;
-  if ([HDUserDomainConceptEducationContentSectionDataEntity enumerateSectionDataForEducationContentSectionID:v6 transaction:v9 error:a3 enumerationHandler:v16])
+  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v8 = *(a1 + 32);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __154__HDUserDomainConceptEducationContentSectionEntity_enumerateLocalizedEducationContentSectionsWithEducationContentID_transaction_error_enumerationHandler___block_invoke_2;
+  v15[3] = &unk_2786266B8;
+  v9 = v7;
+  v16 = v9;
+  if ([HDUserDomainConceptEducationContentSectionDataEntity enumerateSectionDataForEducationContentSectionID:v5 transaction:v8 error:a3 enumerationHandler:v15])
   {
-    v11 = [v10 hk_mapToDictionary:&__block_literal_global_322_2];
-    v12 = *(a1 + 40);
-    v13 = [objc_alloc(MEMORY[0x277CCD758]) initWithSectionDataTypeMapping:v11 sectionType:v7];
-    v14 = (*(v12 + 16))(v12, v13, a3);
+    v10 = [v9 hk_mapToDictionary:&__block_literal_global_322_2];
+    v11 = *(a1 + 40);
+    v12 = [objc_alloc(MEMORY[0x277CCD758]) initWithSectionDataTypeMapping:v10 sectionType:v6];
+    v13 = (*(v11 + 16))(v11, v12, a3);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 void __154__HDUserDomainConceptEducationContentSectionEntity_enumerateLocalizedEducationContentSectionsWithEducationContentID_transaction_error_enumerationHandler___block_invoke_3(uint64_t a1, void *a2, void (**a3)(void, void, void))
@@ -260,18 +255,17 @@ void __154__HDUserDomainConceptEducationContentSectionEntity_enumerateLocalizedE
 
 BOOL __110__HDUserDomainConceptEducationContentSectionEntity_addSectionsToCodable_educationContentID_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x277D10A40];
+  v5 = HDSQLiteColumnWithNameAsInt64();
   v6 = HDSQLiteColumnWithNameAsInt64();
-  v7 = HDSQLiteColumnWithNameAsInt64();
-  v8 = objc_alloc_init(HDCodableOntologyLocalizedEducationContentSection);
-  [(HDCodableOntologyLocalizedEducationContentSection *)v8 setSectionType:v7];
-  v9 = [HDUserDomainConceptEducationContentSectionDataEntity addSectionDataToCodable:v8 educationContentSectionID:v6 transaction:*(a1 + 32) error:a3];
-  if (v9)
+  v7 = objc_alloc_init(HDCodableOntologyLocalizedEducationContentSection);
+  [(HDCodableOntologyLocalizedEducationContentSection *)v7 setSectionType:v6];
+  v8 = [HDUserDomainConceptEducationContentSectionDataEntity addSectionDataToCodable:v7 educationContentSectionID:v5 transaction:*(a1 + 32) error:a3];
+  if (v8)
   {
-    [*(a1 + 40) addSections:v8];
+    [*(a1 + 40) addSections:v7];
   }
 
-  return v9;
+  return v8;
 }
 
 @end

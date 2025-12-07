@@ -8,7 +8,7 @@
 
 + (id)parseBuffer:(id)buffer error:(id *)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   if (!REExpectTokenTypeInBuffer(bufferCopy, 0xCuLL, error))
   {
@@ -75,10 +75,10 @@ LABEL_19:
         v17 = REDescriptionForTokenType([binaryOperator2 type]);
         v18 = [v14 stringWithFormat:@"Expecting '%@' token but found '%@'", v15, v17];
 
-        v23 = @"REErrorTokenKey";
+        v22 = @"REErrorTokenKey";
         binaryOperator3 = [firstObject binaryOperator];
-        v24[0] = binaryOperator3;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+        v23[0] = binaryOperator3;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
         *error = RECreateErrorWithCodeMessageAndUseInfo(204, v18, v20);
       }
 
@@ -101,7 +101,6 @@ LABEL_17:
 LABEL_20:
 
 LABEL_21:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

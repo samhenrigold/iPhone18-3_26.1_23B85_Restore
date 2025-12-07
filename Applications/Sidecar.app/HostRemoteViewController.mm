@@ -16,7 +16,7 @@
 {
   selfCopy = self;
   errorCopy = error;
-  sub_100004620();
+  sub_100004620(error);
 }
 
 + (id)exportedInterface

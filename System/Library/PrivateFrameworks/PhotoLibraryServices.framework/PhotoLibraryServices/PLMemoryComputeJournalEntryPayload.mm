@@ -136,7 +136,7 @@ void __82__PLMemoryComputeJournalEntryPayload__remapToLocalIdentifiersForCloudId
   v16 = v15;
   if (!integerValue)
   {
-    if ([v15 count])
+    if (objc_msgSend_count(v15))
     {
       v17 = &unk_1F0FBDF18;
     }
@@ -149,7 +149,7 @@ void __82__PLMemoryComputeJournalEntryPayload__remapToLocalIdentifiersForCloudId
     [attributesCopy setObject:v17 forKeyedSubscript:@"assetIDType"];
   }
 
-  if (![v16 count])
+  if (!objc_msgSend_count(v16))
   {
     v18 = [assetsCopy valueForKey:@"uuid"];
 
@@ -245,13 +245,13 @@ void __82__PLMemoryComputeJournalEntryPayload__remapToLocalIdentifiersForCloudId
   {
     allAssetIdentifiers = self->_allAssetIdentifiers;
 
-    return [(NSMutableSet *)allAssetIdentifiers count];
+    return objc_msgSend_count(allAssetIdentifiers, a2);
   }
 
   else
   {
     assetIdentifiers = [(PLMemoryComputeJournalEntryPayload *)self assetIdentifiers];
-    v6 = [assetIdentifiers count];
+    v6 = objc_msgSend_count(assetIdentifiers);
 
     return v6;
   }
@@ -292,7 +292,7 @@ void __82__PLMemoryComputeJournalEntryPayload__remapToLocalIdentifiersForCloudId
     goto LABEL_6;
   }
 
-  if (![v8 count])
+  if (!objc_msgSend_count(v8))
   {
     v10 = [(PLManagedObject *)PLMemory insertInManagedObjectContext:contextCopy];
     payloadID2 = [(PLManagedObjectJournalEntryPayload *)self payloadID];

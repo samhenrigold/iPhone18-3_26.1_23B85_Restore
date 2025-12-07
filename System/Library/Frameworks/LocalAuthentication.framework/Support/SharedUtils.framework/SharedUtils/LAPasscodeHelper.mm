@@ -1,9 +1,11 @@
 @interface LAPasscodeHelper
 + (id)sharedInstance;
 - (BOOL)accountBlockedForUserID:(id)d;
+- (BOOL)isPasscodeSetForUser:(unsigned int)user error:(id *)error;
 - (BOOL)isPasscodeSetWithError:(id *)error;
 - (double)backoffTimeIntervalForUserID:(id)d;
 - (id)dumpStatus;
+- (int64_t)createStash:(id)stash mode:(int)mode manifest:(id)manifest;
 - (int64_t)failedAttemptsForUserID:(id)d;
 - (int64_t)maxUnlockAttemptsForUserID:(id)d;
 - (int64_t)passcodeScreenStyleWithPolicy:(int64_t)policy options:(id)options darkInterface:(BOOL)interface;
@@ -36,6 +38,15 @@ uint64_t __34__LAPasscodeHelper_sharedInstance__block_invoke()
   v5 = geteuid();
 
   return [(LAPasscodeHelper *)self isPasscodeSetForUser:v5 error:error];
+}
+
+- (BOOL)isPasscodeSetForUser:(unsigned int)user error:(id *)error
+{
+  v5 = *&user;
+  mEMORY[0x1E69AD2A0] = [MEMORY[0x1E69AD2A0] sharedInstance];
+  LOBYTE(error) = [mEMORY[0x1E69AD2A0] isPasscodeSetForUser:v5 error:error];
+
+  return error;
 }
 
 - (BOOL)accountBlockedForUserID:(id)d
@@ -79,6 +90,18 @@ uint64_t __34__LAPasscodeHelper_sharedInstance__block_invoke()
   return v6;
 }
 
+- (int64_t)createStash:(id)stash mode:(int)mode manifest:(id)manifest
+{
+  v5 = *&mode;
+  v7 = MEMORY[0x1E69AD2A0];
+  manifestCopy = manifest;
+  stashCopy = stash;
+  sharedInstance = [v7 sharedInstance];
+  v11 = [sharedInstance createStash:stashCopy mode:v5 manifest:manifestCopy];
+
+  return v11;
+}
+
 - (int64_t)passcodeScreenStyleWithPolicy:(int64_t)policy options:(id)options darkInterface:(BOOL)interface
 {
   interfaceCopy = interface;
@@ -108,21 +131,19 @@ uint64_t __34__LAPasscodeHelper_sharedInstance__block_invoke()
 
 - (id)dumpStatus
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v8[4] = self;
-  v9[0] = @"isSet";
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __30__LAPasscodeHelper_dumpStatus__block_invoke;
-  v8[3] = &unk_1E86B5DB8;
-  v3 = __30__LAPasscodeHelper_dumpStatus__block_invoke(v8);
-  v9[1] = @"type";
-  v10[0] = v3;
+  v9[2] = *MEMORY[0x1E69E9840];
+  v7[4] = self;
+  v8[0] = @"isSet";
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __30__LAPasscodeHelper_dumpStatus__block_invoke;
+  v7[3] = &unk_1E86B5DB8;
+  v3 = __30__LAPasscodeHelper_dumpStatus__block_invoke(v7);
+  v8[1] = @"type";
+  v9[0] = v3;
   v4 = NSStringFromLAPasscodeType([(LAPasscodeHelper *)self passcodeType]);
-  v10[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v9[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v5;
 }

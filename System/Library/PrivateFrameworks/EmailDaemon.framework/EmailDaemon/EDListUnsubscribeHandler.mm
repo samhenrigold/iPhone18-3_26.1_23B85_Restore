@@ -122,7 +122,7 @@ void __31__EDListUnsubscribeHandler_log__block_invoke(uint64_t a1)
 
 void __74__EDListUnsubscribeHandler_unsubscribeHTMLWithCommand_timeout_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) postValues];
   v3 = [v2 oneClickURL];
   v4 = [v2 postContent];
@@ -140,26 +140,25 @@ void __74__EDListUnsubscribeHandler_unsubscribeHTMLWithCommand_timeout_completio
   if (!v6)
   {
     v11 = [v4 dataUsingEncoding:4];
-    v12 = *(a1 + 56);
     EFPostUTF8FormData();
-    v13 = 0;
+    v12 = 0;
 
-    if (v13)
+    if (v12)
     {
-      v14 = +[EDListUnsubscribeHandler log];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = +[EDListUnsubscribeHandler log];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = [v13 ef_publicDescription];
-        __74__EDListUnsubscribeHandler_unsubscribeHTMLWithCommand_timeout_completion___block_invoke_cold_2(v15, buf, v14);
+        v14 = [v12 ef_publicDescription];
+        __74__EDListUnsubscribeHandler_unsubscribeHTMLWithCommand_timeout_completion___block_invoke_cold_2(v14, buf, v13);
       }
 
       goto LABEL_14;
     }
 
 LABEL_13:
-    v14 = [*(a1 + 40) detector];
-    [v14 acceptCommand:*(a1 + 32)];
-    v13 = 0;
+    v13 = [*(a1 + 40) detector];
+    [v13 acceptCommand:*(a1 + 32)];
+    v12 = 0;
 LABEL_14:
 
     goto LABEL_15;
@@ -167,28 +166,26 @@ LABEL_14:
 
   v7 = MEMORY[0x1E696ABC0];
   v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot perform HTML unsubscribe. url was nil: %d, postContent was nil: %d", v3 == 0, v4 == 0];
-  v13 = [v7 em_internalErrorWithReason:v8];
+  v12 = [v7 em_internalErrorWithReason:v8];
 
   v9 = +[EDListUnsubscribeHandler log];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
-    v10 = [v13 ef_publicDescription];
+    v10 = [v12 ef_publicDescription];
     __74__EDListUnsubscribeHandler_unsubscribeHTMLWithCommand_timeout_completion___block_invoke_cold_1(v10, buf, v9);
   }
 
-  if (!v13)
+  if (!v12)
   {
     goto LABEL_13;
   }
 
 LABEL_15:
-  v16 = *(a1 + 48);
-  if (v16)
+  v15 = *(a1 + 48);
+  if (v15)
   {
-    (*(v16 + 16))(v16, v13);
+    (*(v15 + 16))(v15, v12);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __74__EDListUnsubscribeHandler_unsubscribeHTMLWithCommand_timeout_completion___block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)

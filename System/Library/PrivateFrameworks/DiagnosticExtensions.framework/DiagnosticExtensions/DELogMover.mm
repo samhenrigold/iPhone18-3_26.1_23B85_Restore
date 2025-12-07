@@ -157,12 +157,12 @@ void __65__DELogMover_sendRequestReturningBooleanResponse_withSuccessKey___block
 
 void __43__DELogMover_moveSystemLogsWithExtensions___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [[DELogMover alloc] initWithServiceName:@"com.apple.crash_mover"];
   v3 = *(a1 + 32);
-  v7 = @"Extensions";
-  v8[0] = v3;
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"Extensions";
+  v7[0] = v3;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = _CFXPCCreateXPCObjectFromCFObject();
   if (![(DELogMover *)v2 sendRequestReturningBooleanResponse:v4 withSuccessKey:"Success"])
   {
@@ -172,50 +172,44 @@ void __43__DELogMover_moveSystemLogsWithExtensions___block_invoke(uint64_t a1)
       __43__DELogMover_moveSystemLogsWithExtensions___block_invoke_cold_1(v5);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRequestReturningBooleanResponse:(void *)a1 withSuccessKey:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   string = xpc_dictionary_get_string(a1, *MEMORY[0x277D86400]);
-  v5 = 136315138;
-  v6 = string;
-  _os_log_error_impl(&dword_248AB3000, a2, OS_LOG_TYPE_ERROR, "Error in response from XPC: %s", &v5, 0xCu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315138;
+  v5 = string;
+  _os_log_error_impl(&dword_248AB3000, a2, OS_LOG_TYPE_ERROR, "Error in response from XPC: %s", &v4, 0xCu);
 }
 
 - (void)sendRequestReturningBooleanResponse:(uint64_t *)a1 withSuccessKey:(NSObject *)a2 .cold.3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_248AB3000, a2, OS_LOG_TYPE_ERROR, "Failed to create client connection to service '%@'", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_248AB3000, a2, OS_LOG_TYPE_ERROR, "Failed to create client connection to service '%@'", &v3, 0xCu);
 }
 
 void __65__DELogMover_sendRequestReturningBooleanResponse_withSuccessKey___block_invoke_cold_1(uint64_t a1, xpc_object_t xdict, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   string = xpc_dictionary_get_string(xdict, *MEMORY[0x277D86400]);
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2080;
-  v10 = string;
-  _os_log_error_impl(&dword_248AB3000, a3, OS_LOG_TYPE_ERROR, "Got unexpected XPC error on connection to service '%@': %s.", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2080;
+  v9 = string;
+  _os_log_error_impl(&dword_248AB3000, a3, OS_LOG_TYPE_ERROR, "Got unexpected XPC error on connection to service '%@': %s.", &v6, 0x16u);
 }
 
 void __43__DELogMover_moveSystemLogsWithExtensions___block_invoke_cold_1(os_log_t log)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = 0;
-  _os_log_error_impl(&dword_248AB3000, log, OS_LOG_TYPE_ERROR, "Moving logs failed %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = 0;
+  _os_log_error_impl(&dword_248AB3000, log, OS_LOG_TYPE_ERROR, "Moving logs failed %d", v1, 8u);
 }
 
 @end

@@ -37,7 +37,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TranscriptViewController();
+  v5.super_class = type metadata accessor for TranscriptViewController(0);
   [(TranscriptViewController *)&v5 dealloc];
 }
 
@@ -45,7 +45,7 @@
 {
   appearCopy = appear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for TranscriptViewController();
+  v8.super_class = type metadata accessor for TranscriptViewController(0);
   v4 = v8.receiver;
   [(TranscriptViewController *)&v8 viewWillAppear:appearCopy];
   sub_215474D40();
@@ -76,7 +76,7 @@
 {
   disappearCopy = disappear;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for TranscriptViewController();
+  v9.super_class = type metadata accessor for TranscriptViewController(0);
   v4 = v9.receiver;
   [(TranscriptViewController *)&v9 viewWillDisappear:disappearCopy];
   v5 = sub_215473BD8();
@@ -101,7 +101,7 @@
 
 - (void)scrollViewWillBeginDragging:(id)dragging
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5EA60);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5EA60, &qword_2154BF4E0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v10 - v5;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC11NotesEditor24TranscriptViewController_currentlyDragging) = 1;
@@ -118,7 +118,7 @@
 
 - (void)scrollViewWillEndDragging:(id)dragging withVelocity:(CGPoint)velocity targetContentOffset:(CGPoint *)offset
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5EA60);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5EA60, &qword_2154BF4E0);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v13 - v7;
   v9 = self + OBJC_IVAR____TtC11NotesEditor24TranscriptViewController_previousContentOffset;
@@ -138,7 +138,7 @@
 
 - (void)scrollViewDidEndDecelerating:(id)decelerating
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5EA60);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5EA60, &qword_2154BF4E0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v10 - v5;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC11NotesEditor24TranscriptViewController_currentlyScrolling) = 0;

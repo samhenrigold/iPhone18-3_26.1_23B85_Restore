@@ -225,11 +225,10 @@ LABEL_43:
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   resourceType = self->_resourceType;
-  fullRequestURL = self->_fullRequestURL;
-  v8 = HKStringFromBool();
-  v9 = [v3 stringWithFormat:@"<%@ %p, resource type: %@, has full request URL: %@>", v5, self, resourceType, v8];
+  v7 = HKStringFromBool();
+  v8 = [v3 stringWithFormat:@"<%@ %p, resource type: %@, has full request URL: %@>", v5, self, resourceType, v7];
 
-  return v9;
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -1,15 +1,15 @@
-void sub_25FE4DE7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE4DE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   ProGL::ContextHandle::~ContextHandle(va);
   PCLockSentry<PCMutex>::~PCLockSentry(va1);
   _Unwind_Resume(a1);
@@ -111,19 +111,18 @@ LABEL_17:
   }
 }
 
-const void **std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>>::push_front(const void **result, void *a2)
+void std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>>::push_front(uint64_t result, void *a2)
 {
-  v3 = result;
-  v4 = result[4];
+  v4 = *(result + 32);
   if (!v4)
   {
-    result = std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>>::__add_front_capacity(result);
-    v4 = v3[4];
+    std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>>::__add_front_capacity(result);
+    v4 = *(result + 32);
   }
 
-  v5 = v3[1];
-  v6 = &v5[8 * (v4 >> 9)];
-  if (v3[2] == v5)
+  v5 = *(result + 8);
+  v6 = (v5 + 8 * (v4 >> 9));
+  if (*(result + 16) == v5)
   {
     v7 = 0;
   }
@@ -139,10 +138,9 @@ const void **std::deque<std::__map_iterator<std::__tree_iterator<std::__value_ty
   }
 
   *(v7 - 8) = *a2;
-  v8 = v3[5] + 1;
-  v3[4] = (v4 - 1);
-  v3[5] = v8;
-  return result;
+  v8 = *(result + 40) + 1;
+  *(result + 32) = v4 - 1;
+  *(result + 40) = v8;
 }
 
 uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t *a1)
@@ -162,7 +160,7 @@ uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<ProGL::TextureDescr
   return a1;
 }
 
-uint64_t anonymous namespace::CompareTextureDescription::operator()(uint64_t a1, uint64_t a2)
+BOOL anonymous namespace::CompareTextureDescription::operator()(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 24);
   v3 = *(a2 + 24);
@@ -272,17 +270,17 @@ uint64_t anonymous namespace::CompareTextureDescription::operator()(uint64_t a1,
   return v20;
 }
 
-void sub_25FE4E240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE4E240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ProGL::ContextHandle::~ContextHandle(va);
   _Unwind_Resume(a1);
 }
 
-const void **std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -294,15 +292,15 @@ const void **std::deque<std::__map_iterator<std::__tree_iterator<std::__value_ty
     v4 = ((v2 - v1) << 6) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x200)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x200)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -310,24 +308,24 @@ const void **std::deque<std::__map_iterator<std::__tree_iterator<std::__value_ty
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 512;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<PVLoadedEffectItem *>::emplace_front<PVLoadedEffectItem *&>(a1, v11);
+  a1[4] = (v5 + 512);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<PVLoadedEffectItem *>::emplace_front<PVLoadedEffectItem *&>(a1, v10);
 }
 
 void sub_25FE4E460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -341,9 +339,9 @@ void sub_25FE4E460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::__map_value_compare<std::pair<unsigned int,ProGL::ShareGroup>,std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::less<std::pair<unsigned int,ProGL::ShareGroup>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>>>::__emplace_unique_key_args<std::pair<unsigned int,ProGL::ShareGroup>,std::pair<std::pair<unsigned int,ProGL::ShareGroup> const,ProGL::Private::TextureImpl *>>(uint64_t a1, unsigned int *a2)
+void *std::__tree<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::__map_value_compare<std::pair<unsigned int,ProGL::ShareGroup>,std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::less<std::pair<unsigned int,ProGL::ShareGroup>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>>>::__emplace_unique_key_args<std::pair<unsigned int,ProGL::ShareGroup>,std::pair<std::pair<unsigned int,ProGL::ShareGroup> const,ProGL::Private::TextureImpl *>>(uint64_t **a1, unsigned int *a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::__map_value_compare<std::pair<unsigned int,ProGL::ShareGroup>,std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::less<std::pair<unsigned int,ProGL::ShareGroup>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>>>::__find_equal<std::pair<unsigned int,ProGL::ShareGroup>>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::__map_value_compare<std::pair<unsigned int,ProGL::ShareGroup>,std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::less<std::pair<unsigned int,ProGL::ShareGroup>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>>>::__find_equal<std::pair<unsigned int,ProGL::ShareGroup>>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::__map_value_compare<std::pair<unsigned int,ProGL::ShareGroup>,std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>,std::less<std::pair<unsigned int,ProGL::ShareGroup>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,ProGL::ShareGroup>,ProGL::Private::TextureImpl *>>>::__construct_node<std::pair<std::pair<unsigned int,ProGL::ShareGroup> const,ProGL::Private::TextureImpl *>>();
@@ -454,14 +452,14 @@ void *std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProG
     {
       v26 = 510 - v17;
       v19 = &v8[-(v26 >> 9)];
-      v20 = &(*v19)[8 * (~v26 & 0x1FF)];
+      v20 = (*v19 + 8 * (~v26 & 0x1FF));
     }
 
     else
     {
       v18 = v17 + 1;
       v19 = &v8[v18 >> 9];
-      v20 = &(*v19)[8 * (v18 & 0x1FF)];
+      v20 = (*v19 + 8 * (v18 & 0x1FF));
     }
 
     std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,0>(v30, v31, v8, v9, v19, v20, v32);
@@ -476,14 +474,14 @@ void *std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProG
     {
       v21 = 510 - v13;
       v15 = &v8[-(v21 >> 9)];
-      v16 = &(*v15)[8 * (~v21 & 0x1FF)];
+      v16 = (*v15 + 8 * (~v21 & 0x1FF));
     }
 
     else
     {
       v14 = v13 + 1;
       v15 = &v8[v14 >> 9];
-      v16 = &(*v15)[8 * (v14 & 0x1FF)];
+      v16 = (*v15 + 8 * (v14 & 0x1FF));
     }
 
     v22 = a1[2].i64[0] + v12;
@@ -496,7 +494,7 @@ void *std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<ProG
 
     else
     {
-      v25 = &(*v24)[8 * (v22 & 0x1FF)];
+      v25 = (*v24 + 8 * (v22 & 0x1FF));
     }
 
     v32[0].n128_u64[0] = v10;
@@ -593,7 +591,7 @@ void *std::__find_segment_if[abi:ne200100]<std::__deque_iterator<std::__map_iter
 
   else
   {
-    v5 = *a1 + 4096;
+    v5 = (*a1 + 4096);
     if (v5 == a2)
     {
       goto LABEL_20;
@@ -715,7 +713,7 @@ uint64_t std::deque<std::__map_iterator<std::__tree_iterator<std::__value_type<P
   return v4 ^ 1u;
 }
 
-__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,0>@<Q0>(char **a1@<X1>, char *a2@<X2>, char **a3@<X3>, char *a4@<X4>, void *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
+__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,0>@<Q0>(uint64_t *a1@<X1>, char *a2@<X2>, char **a3@<X3>, unint64_t a4@<X4>, char *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
 {
   if (a1 == a3)
   {
@@ -727,7 +725,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
   else
   {
-    v17 = a3 - 1;
+    v17 = (a3 - 1);
     v16 = *a3;
     v18 = a4;
     v13 = a5;
@@ -744,10 +742,10 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
       v19 = *v17--;
       v16 = v19;
-      v18 = v19 + 4096;
+      v18 = (v19 + 4096);
     }
 
-    v12 = *v17 + 4096;
+    v12 = (*v17 + 4096);
     v11 = a2;
   }
 
@@ -759,7 +757,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, void *a3@<X3>, char *a4@<X4>, void *a5@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, char *a3@<X3>, char *a4@<X4>, char **a5@<X8>)
 {
   v6 = a3;
   if (a1 == a2)
@@ -797,15 +795,16 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         break;
       }
 
-      v15 = *--v6;
+      v15 = *(v6 - 1);
+      v6 -= 8;
       v10 = v15;
       a4 = (v15 + 4096);
     }
 
     if ((*v6 + 4096) == a4)
     {
-      v16 = v6[1];
-      ++v6;
+      v16 = *(v6 + 1);
+      v6 += 8;
       a4 = v16;
     }
   }
@@ -816,19 +815,19 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return result;
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>>>(char **a1, char *__src, char **a3, char *a4, uint64_t a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>*,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>**,long,512l>>>(void **a1, uint64_t *__src, void **a3, uint64_t *a4, void ***a5)
 {
   if (a1 == a3)
   {
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
     v9 = __src;
   }
 
   else
   {
     v11 = a1 + 1;
-    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>(__src, *(a5 + 8), *a1 + 4096, *a5, &v15);
+    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>(&v15, __src, a5[1], *a1 + 512, *a5);
     for (i = v16; ; i = v16)
     {
       *a5 = i;
@@ -838,39 +837,39 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<std::__map_it
       }
 
       v13 = *v11++;
-      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>(v13, *(a5 + 8), v13 + 4096, *a5, &v15);
+      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>(&v15, v13, a5[1], v13 + 512, *a5);
     }
 
     v9 = *v11;
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
   }
 
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>(v9, v8, a4, v7, &v15);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>(&v15, v9, v8, a4, v7);
   result = *&v16;
   *a5 = v16;
   return result;
 }
 
-char *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>@<X0>(char *__src@<X0>, char *__dst@<X3>, char *a3@<X1>, void **a4@<X2>, char **a5@<X8>)
+uint64_t *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__deque_iterator<std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> *,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>>&,std::__map_iterator<std::__tree_iterator<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,std::__tree_node<std::__value_type<ProGL::TextureDescription,ProGL::Private::TextureImpl *>,void *> *,long>> **,long,512l>,0>@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *__src@<X0>, char *__dst@<X3>, uint64_t *a4@<X1>, void **a5@<X2>)
 {
-  v6 = a4;
-  if (__src != a3)
+  v6 = a5;
+  if (__src != a4)
   {
     v9 = __src;
-    v6 = a4 + 1;
-    v10 = *a4;
+    v6 = a5 + 1;
+    v10 = *a5;
     while (1)
     {
       v11 = v10 - __dst + 4096;
-      v12 = (a3 - v9) >> 3 >= v11 >> 3 ? v11 >> 3 : (a3 - v9) >> 3;
+      v12 = a4 - v9 >= v11 >> 3 ? v11 >> 3 : a4 - v9;
       if (v12)
       {
         __src = memmove(__dst, v9, 8 * v12);
       }
 
-      v9 += 8 * v12;
-      if (v9 == a3)
+      v9 += v12;
+      if (v9 == a4)
       {
         break;
       }
@@ -892,23 +891,23 @@ char *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_Classic
     }
   }
 
-  *a5 = a3;
-  a5[1] = v6;
-  a5[2] = __dst;
+  *a1 = a4;
+  a1[1] = v6;
+  a1[2] = __dst;
   return __src;
 }
 
-void *std::vector<ProGL::Private::TextureImpl *>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<ProGL::Private::TextureImpl *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<HGRef<PVRenderJob>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<HGRef<PVRenderJob>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25FE4EE74(_Unwind_Exception *exception_object)
@@ -1061,11 +1060,11 @@ void sub_25FE4F184(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ProGL::Private::TextureImpl::getContext@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *ProGL::Private::TextureImpl::getContext@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 32);
-  *a2 = *(this + 24);
-  a2[1] = v2;
+  v2 = this[4];
+  *a1 = this[3];
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -1254,9 +1253,9 @@ void ProGL::Private::TextureImpl::texImage2D(ProGL::Private::TextureImpl *this, 
   }
 }
 
-void sub_25FE4F74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FE4F74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ProGL::ContextHandle::~ContextHandle(va);
   _Unwind_Resume(a1);
 }
@@ -1278,7 +1277,7 @@ ProGL::Private::VariableBase *ProGL::Private::VariableBase::VariableBase(ProGL::
 {
   *this = &unk_28723FC08;
   *(this + 1) = a2;
-  ProGL::Private::VariableList::add((a2 + 168), this);
+  ProGL::Private::VariableList::add(a2 + 21, this);
   return this;
 }
 
@@ -1319,10 +1318,10 @@ void ProGL::Private::VariableBase::getString(void *a1@<X8>)
   a1[2] = 0;
 }
 
-void ProGL::Private::VariableList::add(ProGL::Private::VariableList *this, ProGL::Private::VariableBase *a2)
+void ProGL::Private::VariableList::add(void *this, ProGL::Private::VariableBase *a2)
 {
   v4 = *this;
-  v5 = *(this + 1);
+  v5 = this[1];
   v6 = *this;
   if (*this != v5)
   {
@@ -1338,10 +1337,10 @@ void ProGL::Private::VariableList::add(ProGL::Private::VariableList *this, ProGL
   if (v6 == v5)
   {
 LABEL_6:
-    v7 = *(this + 2);
+    v7 = this[2];
     if (v5 >= v7)
     {
-      v9 = (v5 - v4) >> 3;
+      v9 = v5 - v4;
       if ((v9 + 1) >> 61)
       {
         std::vector<double>::__throw_length_error[abi:ne200100]();
@@ -1372,13 +1371,13 @@ LABEL_6:
       v13 = (8 * v9);
       *v13 = a2;
       v8 = 8 * v9 + 8;
-      v14 = *(this + 1) - *this;
+      v14 = this[1] - *this;
       v15 = v13 - v14;
       memcpy(v13 - v14, *this, v14);
       v16 = *this;
       *this = v15;
-      *(this + 1) = v8;
-      *(this + 2) = 0;
+      this[1] = v8;
+      this[2] = 0;
       if (v16)
       {
         operator delete(v16);
@@ -1391,8 +1390,8 @@ LABEL_6:
       v8 = (v5 + 1);
     }
 
-    v18 = *(this + 4);
-    v17 = (this + 32);
+    v18 = this[4];
+    v17 = this + 4;
     *(v17 - 3) = v8;
     std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::destroy((v17 - 1), v18);
     *v17 = 0;
@@ -1401,20 +1400,20 @@ LABEL_6:
   }
 }
 
-void ProGL::Private::VariableList::remove(ProGL::Private::VariableList *this, ProGL::Private::VariableBase *a2)
+void ProGL::Private::VariableList::remove(void *this, ProGL::Private::VariableBase *a2)
 {
   v4 = *this;
-  v3 = *(this + 1);
+  v3 = this[1];
   if (*this != v3)
   {
     v5 = *this;
     while (*v5 != a2)
     {
       ++v5;
-      v4 += 8;
+      ++v4;
       if (v5 == v3)
       {
-        v4 = *(this + 1);
+        v4 = this[1];
         break;
       }
     }
@@ -1422,15 +1421,15 @@ void ProGL::Private::VariableList::remove(ProGL::Private::VariableList *this, Pr
 
   if (v3 != v4)
   {
-    v6 = v3 - v4 - 8;
-    if (v3 != (v4 + 8))
+    v6 = v3 - (v4 + 1);
+    if (v3 != v4 + 1)
     {
-      memmove(v4, (v4 + 8), v3 - v4 - 8);
+      memmove(v4, v4 + 1, v3 - (v4 + 1));
     }
 
-    v8 = *(this + 4);
-    v7 = (this + 32);
-    *(v7 - 3) = &v6[v4];
+    v8 = this[4];
+    v7 = this + 4;
+    *(v7 - 3) = v4 + v6;
     std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::destroy((v7 - 1), v8);
     *v7 = 0;
     v7[1] = 0;
@@ -1443,7 +1442,7 @@ uint64_t *ProGL::Private::VariableList::getString(ProGL::Private::VariableList *
   v4 = a2;
   ProGL::Private::VariableList::makeSortedString(this, a2);
   v5 = &v4;
-  return std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 24, &v4) + 5;
+  return std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 24, &v4, &std::piecewise_construct, &v5) + 5;
 }
 
 void ProGL::Private::VariableList::makeSortedString(ProGL::Private::VariableList *this, uint64_t a2)
@@ -1507,7 +1506,7 @@ LABEL_9:
     LODWORD(p_src) = a2;
     __p = *v13;
     v20 = 0;
-    std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,std::string>>((v4 - 8), &p_src);
+    std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,std::string>>((v4 - 8), &p_src, &p_src);
     if (SHIBYTE(v20) < 0)
     {
       operator delete(__p);
@@ -2146,7 +2145,7 @@ uint64_t ProGL::Private::ProgramHandleImpl::prepareProgram(os_unfair_lock_s *thi
   }
 
   v6 = std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::find<ProGL::Private::ProgramHandleImpl::ContextKey>(&this[4], v19);
-  v7 = &this[6];
+  v7 = this + 6;
   if (&this[6] == v6)
   {
     v8 = 0;
@@ -2170,9 +2169,9 @@ LABEL_9:
     goto LABEL_13;
   }
 
-  v8 = *&v6[14]._os_unfair_lock_opaque;
-  ++*&v6[16]._os_unfair_lock_opaque;
-  v9 = *&v6[12]._os_unfair_lock_opaque;
+  v8 = *(v6 + 56);
+  ++*(v6 + 64);
+  v9 = *(v6 + 48);
   *&v18 = v9;
   *(&v18 + 1) = v8;
   if (v8)
@@ -2213,15 +2212,15 @@ LABEL_13:
     v12 = *&this[4]._os_unfair_lock_opaque;
     if (v12 != v7)
     {
-      while (*(v12 + 6) != v18)
+      while (*&v12[12]._os_unfair_lock_opaque != v18)
       {
-        v13 = *(v12 + 1);
+        v13 = *&v12[2]._os_unfair_lock_opaque;
         if (v13)
         {
           do
           {
             v14 = v13;
-            v13 = *v13;
+            v13 = *&v13->_os_unfair_lock_opaque;
           }
 
           while (v13);
@@ -2231,8 +2230,8 @@ LABEL_13:
         {
           do
           {
-            v14 = *(v12 + 2);
-            v15 = *v14 == v12;
+            v14 = *&v12[4]._os_unfair_lock_opaque;
+            v15 = *&v14->_os_unfair_lock_opaque == v12;
             v12 = v14;
           }
 
@@ -2246,7 +2245,7 @@ LABEL_13:
         }
       }
 
-      v12[72] = 0;
+      LOBYTE(v12[18]._os_unfair_lock_opaque) = 0;
     }
 
 LABEL_29:
@@ -2269,37 +2268,37 @@ LABEL_30:
   return v11;
 }
 
-void sub_25FE50A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, std::__shared_weak_count *a5, uint64_t a6, ...)
+void sub_25FE50A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, std::__shared_weak_count *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  if (a5)
+  va_start(va1, a11);
+  va_start(va, a11);
+  v13 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  if (a10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
   ProGL::ContextHandle::~ContextHandle(va);
   ProGL::ContextHandle::~ContextHandle(va1);
-  PCLockSentry<PCSpinLock>::~PCLockSentry((v6 - 56));
+  PCLockSentry<PCSpinLock>::~PCLockSentry((v11 - 56));
   _Unwind_Resume(a1);
 }
 
-void ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::add(int *a1, void *a2, uint64_t *a3)
+void ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::add(uint64_t **a1, void *a2, uint64_t *a3)
 {
-  if (*(a1 + 3) >= *a1)
+  if (a1[3] >= *a1)
   {
-    v6 = a1 + 4;
+    v6 = (a1 + 2);
     do
     {
-      v7 = *(a1 + 1);
+      v7 = a1[1];
       if (v7 == v6)
       {
         break;
       }
 
-      v8 = (a1 + 4);
+      v8 = (a1 + 2);
       do
       {
         if (*(v7 + 72) == 1)
@@ -2363,11 +2362,11 @@ void ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,s
       operator delete(v9);
     }
 
-    while (*(a1 + 3) >= *a1);
+    while (a1[3] >= *a1);
   }
 
-  v13 = *(a1 + 4) + 1;
-  *(a1 + 4) = v13;
+  v13 = a1[4] + 1;
+  a1[4] = v13;
   v15 = *a3;
   v14 = a3[1];
   if (v14)
@@ -2387,7 +2386,7 @@ void ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,s
   v20 = v14;
   v21 = v13;
   v22 = 1;
-  std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::__emplace_unique_key_args<ProGL::Private::ProgramHandleImpl::ContextKey,std::pair<ProGL::Private::ProgramHandleImpl::ContextKey const,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>((a1 + 2), v19);
+  std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::__emplace_unique_key_args<ProGL::Private::ProgramHandleImpl::ContextKey,std::pair<ProGL::Private::ProgramHandleImpl::ContextKey const,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>(a1 + 1, v19, v19);
   v18 = v17;
   if (v20)
   {
@@ -2401,7 +2400,7 @@ void ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,s
   }
 }
 
-void ProGL::Private::ProgramHandleImpl::unuse(ProGL::Private::ProgramHandleImpl *this, ProGL::GL *a2)
+void ProGL::Private::ProgramHandleImpl::unuse(os_unfair_lock_s *this, ProGL::GL *a2)
 {
   lock = this;
   PCSpinLock::lock(this);
@@ -2413,9 +2412,9 @@ void ProGL::Private::ProgramHandleImpl::unuse(ProGL::Private::ProgramHandleImpl 
     atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4 = std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::find<ProGL::Private::ProgramHandleImpl::ContextKey>(this + 16, v12);
-  v5 = this + 24;
-  if ((this + 24) == v4)
+  v4 = std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::find<ProGL::Private::ProgramHandleImpl::ContextKey>(&this[4], v12);
+  v5 = this + 6;
+  if (&this[6] == v4)
   {
     v7 = 0;
     v6 = 0;
@@ -2423,9 +2422,9 @@ void ProGL::Private::ProgramHandleImpl::unuse(ProGL::Private::ProgramHandleImpl 
 
   else
   {
-    v6 = v4[7];
-    ++v4[8];
-    v7 = v4[6];
+    v6 = *(v4 + 56);
+    ++*(v4 + 64);
+    v7 = *(v4 + 48);
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -2433,21 +2432,21 @@ void ProGL::Private::ProgramHandleImpl::unuse(ProGL::Private::ProgramHandleImpl 
   }
 
   (*(*v7 + 24))(v7, a2);
-  v8 = *(this + 2);
+  v8 = *&this[4]._os_unfair_lock_opaque;
   if (v8 == v5)
   {
     goto LABEL_19;
   }
 
-  while (*(v8 + 6) != v7)
+  while (*&v8[12]._os_unfair_lock_opaque != v7)
   {
-    v9 = *(v8 + 1);
+    v9 = *&v8[2]._os_unfair_lock_opaque;
     if (v9)
     {
       do
       {
         v10 = v9;
-        v9 = *v9;
+        v9 = *&v9->_os_unfair_lock_opaque;
       }
 
       while (v9);
@@ -2457,8 +2456,8 @@ void ProGL::Private::ProgramHandleImpl::unuse(ProGL::Private::ProgramHandleImpl 
     {
       do
       {
-        v10 = *(v8 + 2);
-        v11 = *v10 == v8;
+        v10 = *&v8[4]._os_unfair_lock_opaque;
+        v11 = *&v10->_os_unfair_lock_opaque == v8;
         v8 = v10;
       }
 
@@ -2472,7 +2471,7 @@ void ProGL::Private::ProgramHandleImpl::unuse(ProGL::Private::ProgramHandleImpl 
     }
   }
 
-  if (v8[72])
+  if (v8[18]._os_unfair_lock_opaque)
   {
 LABEL_19:
     if (!v6)
@@ -2483,14 +2482,14 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if (*(this + 4) < *(this + 2))
+  if (*&this[8]._os_unfair_lock_opaque < this[2]._os_unfair_lock_opaque)
   {
-    v8[72] = 1;
+    LOBYTE(v8[18]._os_unfair_lock_opaque) = 1;
     goto LABEL_19;
   }
 
-  std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(this + 2, v8);
-  std::__destroy_at[abi:ne200100]<std::pair<ProGL::Private::ProgramHandleImpl::ContextKey const,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,0>((v8 + 32));
+  std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(&this[4], v8);
+  std::__destroy_at[abi:ne200100]<std::pair<ProGL::Private::ProgramHandleImpl::ContextKey const,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,0>(&v8[8]);
   operator delete(v8);
   if (v6)
   {
@@ -2507,19 +2506,19 @@ LABEL_21:
   }
 }
 
-void sub_25FE50D8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE50D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
-  v9 = va_arg(va2, void);
-  if (v2)
+  v8 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   ProGL::ContextHandle::~ContextHandle(va);
@@ -2549,9 +2548,9 @@ void ProGL::Private::ProgramHandleImpl::getProgram(os_unfair_lock_s *this@<X0>, 
 
   else
   {
-    ++*&v6[16]._os_unfair_lock_opaque;
-    v7 = *&v6[14]._os_unfair_lock_opaque;
-    *a3 = *&v6[12]._os_unfair_lock_opaque;
+    ++*(v6 + 64);
+    v7 = *(v6 + 56);
+    *a3 = *(v6 + 48);
     a3[1] = v7;
     if (v7)
     {
@@ -2567,16 +2566,16 @@ void ProGL::Private::ProgramHandleImpl::getProgram(os_unfair_lock_s *this@<X0>, 
   }
 }
 
-void sub_25FE50E94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE50E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   ProGL::ContextHandle::~ContextHandle(va);
   ProGL::ContextHandle::~ContextHandle(va1);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va2);
@@ -2599,7 +2598,7 @@ uint64_t ProGL::ProgramHandle::use(os_unfair_lock_s **this, ProGL::GL *a2)
   }
 }
 
-void ProGL::ProgramHandle::unuse(ProGL::Private::ProgramHandleImpl **this, ProGL::GL *a2)
+void ProGL::ProgramHandle::unuse(os_unfair_lock_s **this, ProGL::GL *a2)
 {
   v2 = *this;
   if (v2)
@@ -2617,8 +2616,8 @@ ProGL::UseProgramSentry *ProGL::UseProgramSentry::UseProgramSentry(ProGL::UsePro
 {
   v5 = ProGL::GL::GL(this, a2);
   v6 = *(a3 + 1);
-  *(v5 + 40) = *a3;
-  *(v5 + 48) = v6;
+  *(v5 + 5) = *a3;
+  *(v5 + 6) = v6;
   v7 = (v5 + 40);
   if (v6)
   {
@@ -2641,7 +2640,7 @@ void sub_25FE50F7C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProGL::UseProgramSentry::~UseProgramSentry(ProGL::Private::ProgramHandleImpl **this)
+void ProGL::UseProgramSentry::~UseProgramSentry(os_unfair_lock_s **this)
 {
   ProGL::ProgramHandle::unuse(this + 5, this);
   v2 = this[6];
@@ -2679,18 +2678,18 @@ void anonymous namespace::DeleteProgramInstruction::~DeleteProgramInstruction(OZ
   JUMPOUT(0x2666E9F00);
 }
 
-void anonymous namespace::DeleteProgramInstruction::execute(_anonymous_namespace_::DeleteProgramInstruction *this)
+void anonymous namespace::DeleteProgramInstruction::execute(_anonymous_namespace_::DeleteProgramInstruction *this, uint64_t a2, int a3)
 {
-  ProGL::getDeletionContext(this + 2, *(this + 8), v2);
-  ProGL::GL::GL(v3, v2);
-  ProGL::ContextHandle::~ContextHandle(v2);
+  ProGL::getDeletionContext(this + 2, *(this + 8), v4);
+  ProGL::GL::GL(v5, v4);
+  ProGL::ContextHandle::~ContextHandle(v4);
   glDeleteProgram(*(this + 2));
-  ProGL::GL::~GL(v3);
+  ProGL::GL::~GL(v5);
 }
 
-void sub_25FE511C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE511C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ProGL::GL::~GL(va);
   _Unwind_Resume(a1);
 }
@@ -2738,41 +2737,41 @@ void std::__destroy_at[abi:ne200100]<std::pair<ProGL::Private::ShaderCache::Key 
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2815,12 +2814,12 @@ void std::default_delete<std::string>::operator()[abi:ne200100](uint64_t a1, uin
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::StrPtrLess &,std::shared_ptr<std::string> *,false>(const void ***a1, const void ***a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::StrPtrLess &,std::shared_ptr<std::string> *,false>(const void ****a1, const void ****a2, uint64_t a3, char a4)
 {
 LABEL_1:
-  v348 = a2 - 4;
-  v350 = a2 - 2;
-  v345 = a2 - 6;
+  v348 = (a2 - 4);
+  v350 = (a2 - 2);
+  v345 = (a2 - 6);
   v7 = a1;
   v352 = a2;
   while (1)
@@ -3449,7 +3448,7 @@ LABEL_1:
         }
 
         while (v259 <= v260);
-        if (v262 != v356 - 2)
+        if (v262 != (v356 - 2))
         {
           v283 = *(v356 - 1);
           *(v356 - 2) = 0;
@@ -4225,7 +4224,7 @@ LABEL_123:
 
       else
       {
-        v106 = v7 + 2;
+        v106 = (v7 + 2);
         do
         {
           v7 = v106;
@@ -4234,7 +4233,7 @@ LABEL_123:
             break;
           }
 
-          v106 += 2;
+          v106 += 16;
           v107 = *(*v7 + 23);
           if (v107 >= 0)
           {
@@ -5918,41 +5917,41 @@ LABEL_73:
   return v18 + 2 == v50;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,std::string>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::string>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::string>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::string>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,std::string>>(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6042,15 +6041,15 @@ void std::__destroy_at[abi:ne200100]<std::pair<ProGL::Private::ProgramHandleImpl
   ProGL::ContextHandle::~ContextHandle(this);
 }
 
-uint64_t std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::__emplace_unique_key_args<ProGL::Private::ProgramHandleImpl::ContextKey,std::pair<ProGL::Private::ProgramHandleImpl::ContextKey const,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>(uint64_t a1, ProGL::ContextHandle *this)
+void *std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::__emplace_unique_key_args<ProGL::Private::ProgramHandleImpl::ContextKey,std::pair<ProGL::Private::ProgramHandleImpl::ContextKey const,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>(uint64_t **a1, ProGL::ContextHandle *this, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::__find_equal<ProGL::Private::ProgramHandleImpl::ContextKey>(a1, &v4, this);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::__find_equal<ProGL::Private::ProgramHandleImpl::ContextKey>(a1, &v5, this);
+  if (!v3)
   {
     std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::__construct_node<std::pair<ProGL::Private::ProgramHandleImpl::ContextKey const,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,std::__map_value_compare<ProGL::Private::ProgramHandleImpl::ContextKey,std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>,ProGL::Private::ProgramHandleImpl::LessContextKey,true>,std::allocator<std::__value_type<ProGL::Private::ProgramHandleImpl::ContextKey,ProGL::Private::SimpleCache<ProGL::Private::ProgramHandleImpl::ContextKey,std::shared_ptr<ProGL::Program>,ProGL::Private::ProgramHandleImpl::LessContextKey>::Rec>>>::__find_equal<ProGL::Private::ProgramHandleImpl::ContextKey>(uint64_t a1, void *a2, ProGL::ContextHandle *this)
@@ -6118,10 +6117,10 @@ uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<ProGL::Private::Pro
   return a1;
 }
 
-ProGL::Private::Shader *ProGL::Private::Shader::Shader(ProGL::Private::Shader *this, ProGL::GL *a2, unsigned int a3, const char *a4)
+ProGL::Private::Shader *ProGL::Private::Shader::Shader(ProGL::Private::Shader *this, ProGL::GL *a2, __int32 a3, const char *a4)
 {
   v6 = ProGL::Private::ShaderString::ShaderString(this, a3, a4);
-  ProGL::GL::getPGLContextHandle(a2, (v6 + 48));
+  ProGL::GL::getPGLContextHandle(a2, &v6[6]);
   *(this + 16) = ProGL::ContextHandle::getVirtualScreen((this + 48));
   *(this + 68) = 0;
   *(this + 84) = 0;
@@ -6249,18 +6248,18 @@ void anonymous namespace::DeleteShaderInstruction::~DeleteShaderInstruction(OZCh
   JUMPOUT(0x2666E9F00);
 }
 
-void anonymous namespace::DeleteShaderInstruction::execute(_anonymous_namespace_::DeleteShaderInstruction *this)
+void anonymous namespace::DeleteShaderInstruction::execute(_anonymous_namespace_::DeleteShaderInstruction *this, uint64_t a2, int a3)
 {
-  ProGL::getDeletionContext(this + 2, *(this + 8), v2);
-  ProGL::GL::GL(v3, v2);
-  ProGL::ContextHandle::~ContextHandle(v2);
+  ProGL::getDeletionContext(this + 2, *(this + 8), v4);
+  ProGL::GL::GL(v5, v4);
+  ProGL::ContextHandle::~ContextHandle(v4);
   glDeleteShader(*(this + 2));
-  ProGL::GL::~GL(v3);
+  ProGL::GL::~GL(v5);
 }
 
-void sub_25FE53778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE53778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ProGL::GL::~GL(va);
   _Unwind_Resume(a1);
 }
@@ -6357,9 +6356,9 @@ void std::shared_ptr<ProGL::Private::Shader>::shared_ptr[abi:ne200100]<ProGL::Pr
   operator new();
 }
 
-void sub_25FE53994(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE53994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<ProGL::Private::Shader>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6413,40 +6412,41 @@ uint64_t ProGL::Private::ShaderCache::ShaderCache(uint64_t this)
   return this;
 }
 
-void ProGL::Private::ShaderCache::find(ProGL::Private::ShaderCache *this@<X0>, ProGL::GL *a2@<X1>, const char *a3@<X3>, ProGL::GL *a4@<X2>, void *a5@<X8>)
+void ProGL::Private::ShaderCache::find(uint64_t *__return_ptr a1@<X8>, PC_Sp_counted_base *this@<X0>, ProGL::GL *a3@<X1>, const char *a4@<X3>, ProGL::GL *a5@<X2>)
 {
-  ProGL::GL::getPGLContextHandle(a2, &v15);
-  ProGL::ContextHandle::getShareGroup(&v15, &v16);
-  ProGL::ShareGroup::ShareGroup(&v17, &v16);
-  ProGL::Private::ShaderString::ShaderString(&v18, a4, a3);
-  ProGL::ContextHandle::~ContextHandle(&v15);
-  *a5 = 0;
-  a5[1] = 0;
-  v16.var0 = this;
+  v6 = a5;
+  ProGL::GL::getPGLContextHandle(a3, &v13);
+  ProGL::ContextHandle::getShareGroup(&v13, &v14);
+  ProGL::ShareGroup::ShareGroup(&v15, &v14);
+  ProGL::Private::ShaderString::ShaderString(v16, v6, a4);
+  ProGL::ContextHandle::~ContextHandle(&v13);
+  *a1 = 0;
+  a1[1] = 0;
+  v14.var0 = this;
   PCSpinLock::lock(this);
-  v10 = std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::__map_value_compare<ProGL::Private::ShaderCache::Key,std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::less<ProGL::Private::ShaderCache::Key>,true>,std::allocator<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>>>::find<ProGL::Private::ShaderCache::Key>(this + 8, &v17);
-  if ((this + 16) == v10)
+  v9 = std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::__map_value_compare<ProGL::Private::ShaderCache::Key,std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::less<ProGL::Private::ShaderCache::Key>,true>,std::allocator<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>>>::find<ProGL::Private::ShaderCache::Key>(this + 8, &v15);
+  if ((this + 16) == v9)
   {
-    ProGL::Private::makeShader(a2, a4, a3, v11);
+    ProGL::Private::makeShader();
   }
 
-  v12 = *(this + 4);
-  *(this + 4) = v12 + 1;
-  v10[13] = v12;
-  v14 = v10[11];
-  v13 = v10[12];
-  if (v13)
+  v10 = *(this + 4);
+  *(this + 4) = v10 + 1;
+  v9[13] = v10;
+  v12 = v9[11];
+  v11 = v9[12];
+  if (v11)
   {
-    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *a5 = v14;
-  a5[1] = v13;
+  *a1 = v12;
+  a1[1] = v11;
   ProGL::Private::ShaderCache::maybePurge(this);
   PCSpinLock::unlock(this);
-  if (v20 < 0)
+  if (v17 < 0)
   {
-    operator delete(v19);
+    operator delete(*&v16[1]);
   }
 }
 
@@ -6616,15 +6616,15 @@ void *std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Priv
   return a4;
 }
 
-uint64_t std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::__map_value_compare<ProGL::Private::ShaderCache::Key,std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::less<ProGL::Private::ShaderCache::Key>,true>,std::allocator<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>>>::__emplace_unique_key_args<ProGL::Private::ShaderCache::Key,std::pair<ProGL::Private::ShaderCache::Key const,ProGL::Private::ShaderCache::Value>>(uint64_t a1, void *a2)
+void *std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::__map_value_compare<ProGL::Private::ShaderCache::Key,std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::less<ProGL::Private::ShaderCache::Key>,true>,std::allocator<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>>>::__emplace_unique_key_args<ProGL::Private::ShaderCache::Key,std::pair<ProGL::Private::ShaderCache::Key const,ProGL::Private::ShaderCache::Value>>(uint64_t **a1, void *a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::__map_value_compare<ProGL::Private::ShaderCache::Key,std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::less<ProGL::Private::ShaderCache::Key>,true>,std::allocator<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>>>::__find_equal<ProGL::Private::ShaderCache::Key>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::__map_value_compare<ProGL::Private::ShaderCache::Key,std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::less<ProGL::Private::ShaderCache::Key>,true>,std::allocator<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>>>::__find_equal<ProGL::Private::ShaderCache::Key>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::__map_value_compare<ProGL::Private::ShaderCache::Key,std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::less<ProGL::Private::ShaderCache::Key>,true>,std::allocator<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>>>::__construct_node<std::pair<ProGL::Private::ShaderCache::Key const,ProGL::Private::ShaderCache::Value>>();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::__map_value_compare<ProGL::Private::ShaderCache::Key,std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>,std::less<ProGL::Private::ShaderCache::Key>,true>,std::allocator<std::__value_type<ProGL::Private::ShaderCache::Key,ProGL::Private::ShaderCache::Value>>>::__find_equal<ProGL::Private::ShaderCache::Key>(uint64_t a1, void *a2, void *a3)
@@ -6833,12 +6833,12 @@ ProGL::Framebuffer *ProGL::Framebuffer::Framebuffer(ProGL::Framebuffer *this)
   return this;
 }
 
-void sub_25FE544A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE544A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ProGL::GL::~GL(va);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v3, *(v2 + 4));
-  ProGL::ContextHandle::~ContextHandle(v2);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v4, *(v3 + 4));
+  ProGL::ContextHandle::~ContextHandle(v3);
   _Unwind_Resume(a1);
 }
 
@@ -6885,7 +6885,7 @@ uint64_t *ProGL::Framebuffer::attach(ProGL::Framebuffer *this, ProGL::GL *a2, GL
   }
 
   v11 = &v10;
-  result = std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(this + 24, &v10);
+  result = std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(this + 24, &v10, &std::piecewise_construct, &v11);
   *(result + 8) = textarget;
   return result;
 }
@@ -6896,7 +6896,7 @@ uint64_t *ProGL::Framebuffer::attach(uint64_t a1, int a2, GLenum a3, GLenum a4, 
   Name = ProGL::TextureHandle::getName(this);
   glFramebufferRenderbuffer(a3, a4, 0x8D41u, Name);
   v11 = &v10;
-  result = std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1 + 24, &v10);
+  result = std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1 + 24, &v10, &std::piecewise_construct, &v11);
   *(result + 8) = 36161;
   return result;
 }
@@ -6951,31 +6951,29 @@ void ProGL::Framebuffer::detach(ProGL::Framebuffer *this, GLenum a2, GLenum a3)
   ProGL::GL::~GL(v7);
 }
 
-void sub_25FE5487C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE5487C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ProGL::GL::~GL(va);
   _Unwind_Resume(a1);
 }
 
-void *ProGL::getPerThreadContext@<X0>(void *a1@<X8>)
+void ProGL::getPerThreadContext(void *a1@<X8>)
 {
-  result = pthread_getspecific(*sPerThreadContexts);
-  if (!result)
+  v2 = pthread_getspecific(*sPerThreadContexts);
+  if (!v2)
   {
-    ProGL::makeSharedEAGLContext(&v5);
+    ProGL::makeSharedEAGLContext(&v4);
     operator new();
   }
 
-  v4 = result[2];
-  *a1 = result[1];
-  a1[1] = v4;
-  if (v4)
+  v3 = v2[2];
+  *a1 = v2[1];
+  a1[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void ProGL::Private::initPerThreadContext(ProGL::Private *this)
@@ -7019,9 +7017,9 @@ void std::shared_ptr<ProGL::Private::RenderbufferImpl>::shared_ptr[abi:ne200100]
   operator new();
 }
 
-void sub_25FE54C24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE54C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<ProGL::Private::RenderbufferImpl>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7080,23 +7078,23 @@ void DeleteRenderbufferInstruction::~DeleteRenderbufferInstruction(OZChannelBase
   JUMPOUT(0x2666E9F00);
 }
 
-void DeleteRenderbufferInstruction::execute(DeleteRenderbufferInstruction *this)
+void DeleteRenderbufferInstruction::execute(const GLuint *this, uint64_t a2, int a3)
 {
-  ProGL::getDeletionContext(this + 2, *(this + 8), v2);
-  ProGL::GL::GL(v3, v2);
-  ProGL::ContextHandle::~ContextHandle(v2);
+  ProGL::getDeletionContext(this + 2, this[8], v4);
+  ProGL::GL::GL(v5, v4);
+  ProGL::ContextHandle::~ContextHandle(v4);
   glDeleteRenderbuffers(1, this + 2);
-  ProGL::GL::~GL(v3);
+  ProGL::GL::~GL(v5);
 }
 
-void sub_25FE54E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE54E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ProGL::GL::~GL(va);
   _Unwind_Resume(a1);
 }
 
-ProGL::Private::RenderbufferImpl *ProGL::Private::RenderbufferImpl::RenderbufferImpl(ProGL::Private::RenderbufferImpl *this, ProGL::GL *a2)
+ProGL::Private::RenderbufferImpl *ProGL::Private::RenderbufferImpl::RenderbufferImpl(ProGL::Private::RenderbufferImpl *this, ProGL::GL *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   ProGL::GL::getPGLContextHandle(a2, this);
   *(this + 4) = ProGL::ContextHandle::getVirtualScreen(this);
@@ -7173,16 +7171,16 @@ uint64_t anonymous namespace::DeletionThreadLoop::postInstruction(PCMutex *this,
 
 void sub_25FE551FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  MEMORY[0x2666E9F00](v9, 0x20C4093837F09);
+  MEMORY[0x2666E9F00](v9, 0x20C4093837F09, a3, a4, a5, a6, a7, a8);
   PCLockSentry<PCMutex>::~PCLockSentry(&a9);
   _Unwind_Resume(a1);
 }
 
 OZChannelBase *ProGL::Private::cleanUpDeleteObjects(ProGL::Private *this, const PCString *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   {
-    PCSemaphore::PCSemaphore(v7, 0);
+    PCSemaphore::PCSemaphore(v6, 0);
     operator new();
   }
 
@@ -7202,16 +7200,16 @@ OZChannelBase *ProGL::Private::cleanUpDeleteObjects(ProGL::Private *this, const 
 
   if (result)
   {
-    v6 = OZChannelBase::setRangeName(result, a2);
-    result = MEMORY[0x2666E9F00](v6, 0x20C4093837F09);
+    OZChannelBase::setRangeName(result, a2);
+    result = MEMORY[0x2666E9F00]();
   }
 
   return result;
 }
 
-void sub_25FE5552C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FE5552C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   PCSemaphore::~PCSemaphore(va);
   _Unwind_Resume(a1);
 }
@@ -7274,9 +7272,8 @@ uint64_t std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::pop_front(void
   return std::deque<PVLoadedEffectItem>::__maybe_remove_front_spare[abi:ne200100](a1, 1);
 }
 
-void *std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::push_back(void *result, __int128 *a2)
+void std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::push_back(unint64_t *result, __int128 *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -7293,10 +7290,10 @@ void *std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::push_back(void *r
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v7 + v3[4];
+    std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = v7 + result[4];
   }
 
   v9 = *a2;
@@ -7304,26 +7301,25 @@ void *std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::push_back(void *r
   if (*(&v9 + 1))
   {
     atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
-    v7 = v3[5];
+    v7 = result[5];
   }
 
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::__add_back_capacity(void *a1)
+void std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7331,25 +7327,25 @@ void *std::deque<std::shared_ptr<ProGL::DeletionInstruction>>::__add_back_capaci
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(a1, &v9);
 }
 
 void sub_25FE55940(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7480,7 +7476,7 @@ LABEL_18:
   return std::__split_buffer<unsigned long *>::~__split_buffer(a1);
 }
 
-void PCMatrix44Tmpl<double>::rotate(uint64_t a1, double *a2, int a3, double a4)
+void PCMatrix44Tmpl<double>::rotate(uint64_t a1, double *a2, int a3, __n128 a4)
 {
   v6 = *a2;
   v5 = a2[1];
@@ -7495,20 +7491,20 @@ void PCMatrix44Tmpl<double>::rotate(uint64_t a1, double *a2, int a3, double a4)
 
   sinval = 0.0;
   cosval = 1.0;
-  if (a4 != 0.0)
+  if (a4.n128_f64[0] != 0.0)
   {
     sinval = 1.0;
     cosval = 0.0;
-    if (fabs(a4 + -1.57079633) >= 0.0000001 && fabs(a4 + 4.71238898) >= 0.0000001)
+    if (fabs(a4.n128_f64[0] + -1.57079633) >= 0.0000001 && fabs(a4.n128_f64[0] + 4.71238898) >= 0.0000001)
     {
       sinval = -1.0;
-      if (fabs(a4 + 1.57079633) >= 0.0000001 && fabs(a4 + -4.71238898) >= 0.0000001)
+      if (fabs(a4.n128_f64[0] + 1.57079633) >= 0.0000001 && fabs(a4.n128_f64[0] + -4.71238898) >= 0.0000001)
       {
         sinval = 0.0;
         cosval = -1.0;
-        if (fabs(a4 + -3.14159265) >= 0.0000001 && fabs(a4 + 3.14159265) >= 0.0000001)
+        if (fabs(a4.n128_f64[0] + -3.14159265) >= 0.0000001 && fabs(a4.n128_f64[0] + 3.14159265) >= 0.0000001)
         {
-          v11 = __sincos_stret(a4);
+          v11 = __sincos_stret(a4.n128_f64[0]);
           cosval = v11.__cosval;
           sinval = v11.__sinval;
         }
@@ -7660,11 +7656,11 @@ void anonymous namespace::DeleteObjectInst::execute(os_unfair_lock_s **this)
   ProGL::ContextHandle::~ContextHandle(v4);
 }
 
-void sub_25FE56268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FE56268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   ProGL::CurrentContextSentry::~CurrentContextSentry(va);
-  ProGL::ContextHandle::~ContextHandle((v7 - 32));
+  ProGL::ContextHandle::~ContextHandle((v13 - 32));
   _Unwind_Resume(a1);
 }
 
@@ -7740,9 +7736,9 @@ uint64_t PGLMasterEAGLContext()
   return result;
 }
 
-void sub_25FE56584(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE56584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCAutoreleasePool::~PCAutoreleasePool(va);
   _Unwind_Resume(a1);
 }
@@ -7761,9 +7757,9 @@ uint64_t PGLCreateSharedEAGLContext()
   return v1;
 }
 
-void sub_25FE56630(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE56630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCAutoreleasePool::~PCAutoreleasePool(va);
   _Unwind_Resume(a1);
 }
@@ -7868,7 +7864,7 @@ void ProGL::ContextHandle::getShareGroup(os_unfair_lock_s **this@<X0>, PCSharedC
   }
 }
 
-_anonymous_namespace_ *ProGL::getCurrentContext@<X0>(void *a1@<X8>)
+_anonymous_namespace_ *ProGL::getCurrentContext@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
   result = [MEMORY[0x277CD9388] currentContext];
   if (result)
@@ -7880,40 +7876,40 @@ _anonymous_namespace_ *ProGL::getCurrentContext@<X0>(void *a1@<X8>)
   return result;
 }
 
-void sub_25FE56898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE56898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  MEMORY[0x2666E9F00](v4, 0x1081C402D5EB2C2);
+  va_start(va, a7);
+  MEMORY[0x2666E9F00](v7, 0x1081C402D5EB2C2, a3, a4);
   ProCore_Impl::PCNSRefImpl::release(va);
   _Unwind_Resume(a1);
 }
 
-void ProGL::makeSharedEAGLContext(void *a1@<X8>)
+void ProGL::makeSharedEAGLContext(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = PGLCreateSharedEAGLContext();
-  if (v3)
+  v2 = PGLCreateSharedEAGLContext();
+  if (v2)
   {
     operator new();
   }
 
   *a1 = 0;
   a1[1] = 0;
-  ProCore_Impl::PCNSRefImpl::release(&v3);
+  ProCore_Impl::PCNSRefImpl::release(&v2);
 }
 
-void sub_25FE56978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE56978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ProCore_Impl::PCNSRefImpl::release(va);
   _Unwind_Resume(a1);
 }
 
-void ProGL::makeEAGLContext(os_unfair_lock_s **this@<X0>, const ProGL::ContextHandle *a2@<X1>, void *a3@<X8>)
+void ProGL::makeEAGLContext(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s **this@<X0>, const ProGL::ContextHandle *a3@<X1>)
 {
   v5 = *this;
   if (v5)
   {
-    v6 = (*(*&v5->_os_unfair_lock_opaque + 24))(v5, a2);
+    v6 = (*(*&v5->_os_unfair_lock_opaque + 24))(v5, a3);
   }
 
   else
@@ -7935,20 +7931,20 @@ void ProGL::makeEAGLContext(os_unfair_lock_s **this@<X0>, const ProGL::ContextHa
   v10 = MEMORY[0x2666E9B10](v9, v6);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ".\n", 2);
   v12 = 0;
-  *a3 = 0;
-  a3[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   ProCore_Impl::PCNSRefImpl::release(&v12);
 }
 
-void sub_25FE56B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE56B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  MEMORY[0x2666E9F00](v4, 0x1081C402D5EB2C2);
+  va_start(va, a7);
+  MEMORY[0x2666E9F00](v7, 0x1081C402D5EB2C2, a3, a4);
   ProCore_Impl::PCNSRefImpl::release(va);
   _Unwind_Resume(a1);
 }
 
-_anonymous_namespace_ *ProGL::findContext@<X0>(_anonymous_namespace_ *this@<X0>, EAGLContext *a2@<X1>, void *a3@<X8>)
+void ProGL::findContext(_anonymous_namespace_ *this@<X0>, void *a3@<X8>)
 {
   if (this)
   {
@@ -7956,7 +7952,6 @@ _anonymous_namespace_ *ProGL::findContext@<X0>(_anonymous_namespace_ *this@<X0>,
 
   *a3 = 0;
   a3[1] = 0;
-  return this;
 }
 
 BOOL ProGL::areContextsShared(os_unfair_lock_s **this, os_unfair_lock_s **a2, const ProGL::ContextHandle *a3)
@@ -7968,18 +7963,18 @@ BOOL ProGL::areContextsShared(os_unfair_lock_s **this, os_unfair_lock_s **a2, co
 
 void ProGL::Private::initContext(ProGL::Private *this)
 {
-  PCAutoreleasePool::PCAutoreleasePool(&v3);
+  PCAutoreleasePool::PCAutoreleasePool(&v2);
   v1 = [MEMORY[0x277CD9388] currentContext];
   if (v1)
   {
   }
 
-  PCAutoreleasePool::~PCAutoreleasePool(&v3);
+  PCAutoreleasePool::~PCAutoreleasePool(&v2);
 }
 
-void sub_25FE56C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE56C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PCAutoreleasePool::~PCAutoreleasePool(va);
   _Unwind_Resume(a1);
 }
@@ -8053,9 +8048,9 @@ void ProGL::Private::ContextImpl::getShareGroup(os_unfair_lock_s *this@<X0>, voi
   PCSpinLock::unlock(v4);
 }
 
-void sub_25FE56E9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE56E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -8208,196 +8203,259 @@ uint64_t anonymous namespace::makeThreadKey(_anonymous_namespace_ *this)
 {
 }
 
-uint64_t OZFactories::addChannelFactories(OZFactories *this)
+uint64_t OZFactories::addChannelFactories(uint64_t **this)
 {
   Instance = OZChannelBase_Factory::getInstance(this);
-  v3 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (Instance + 8));
+  v128 = (Instance + 8);
+  v3 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (Instance + 8), &std::piecewise_construct, &v128);
   *(v3 + 6) = Instance;
   v4 = OZChannel_Factory::getInstance(v3);
-  v5 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v4 + 8));
+  v128 = (v4 + 8);
+  v5 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v4 + 8), &std::piecewise_construct, &v128);
   *(v5 + 6) = v4;
   v6 = OZChannelDouble_Factory::getInstance(v5);
-  v7 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v6 + 8));
+  v128 = (v6 + 8);
+  v7 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v6 + 8), &std::piecewise_construct, &v128);
   *(v7 + 6) = v6;
   v8 = OZChannelBool_Factory::getInstance(v7);
-  v9 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v8 + 8));
+  v128 = (v8 + 8);
+  v9 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v8 + 8), &std::piecewise_construct, &v128);
   *(v9 + 6) = v8;
   v10 = OZChannelUint32_Factory::getInstance(v9);
-  v11 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v10 + 8));
+  v128 = (v10 + 8);
+  v11 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v10 + 8), &std::piecewise_construct, &v128);
   *(v11 + 6) = v10;
   v12 = OZChannelAngle_Factory::getInstance(v11);
-  v13 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v12 + 8));
+  v128 = (v12 + 8);
+  v13 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v12 + 8), &std::piecewise_construct, &v128);
   *(v13 + 6) = v12;
   v14 = OZChannelPercent_Factory::getInstance(v13);
-  v15 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v14 + 8));
+  v128 = (v14 + 8);
+  v15 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v14 + 8), &std::piecewise_construct, &v128);
   *(v15 + 6) = v14;
   v16 = OZChannelShearAngle_Factory::getInstance(v15);
-  v17 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v16 + 8));
+  v128 = (v16 + 8);
+  v17 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v16 + 8), &std::piecewise_construct, &v128);
   *(v17 + 6) = v16;
   v18 = OZChannelAspectRatio_Factory::getInstance(v17);
-  v19 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v18 + 8));
+  v128 = (v18 + 8);
+  v19 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v18 + 8), &std::piecewise_construct, &v128);
   *(v19 + 6) = v18;
   v20 = OZChannelAspectRatioFootage_Factory::getInstance(v19);
-  v21 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v20 + 8));
+  v128 = (v20 + 8);
+  v21 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v20 + 8), &std::piecewise_construct, &v128);
   *(v21 + 6) = v20;
   v22 = OZChannelGammaFootage_Factory::getInstance(v21);
-  v23 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v22 + 8));
+  v128 = (v22 + 8);
+  v23 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v22 + 8), &std::piecewise_construct, &v128);
   *(v23 + 6) = v22;
   v24 = OZChannelFolder_Factory::getInstance(v23);
-  v25 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v24 + 8));
+  v128 = (v24 + 8);
+  v25 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v24 + 8), &std::piecewise_construct, &v128);
   *(v25 + 6) = v24;
   v26 = OZCompoundChannel_Factory::getInstance(v25);
-  v27 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v26 + 8));
+  v128 = (v26 + 8);
+  v27 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v26 + 8), &std::piecewise_construct, &v128);
   *(v27 + 6) = v26;
   v28 = OZChannel2D_Factory::getInstance(v27);
-  v29 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v28 + 8));
+  v128 = (v28 + 8);
+  v29 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v28 + 8), &std::piecewise_construct, &v128);
   *(v29 + 6) = v28;
   v30 = OZChannelBool3D_Factory::getInstance(v29);
-  v31 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v30 + 8));
+  v128 = (v30 + 8);
+  v31 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v30 + 8), &std::piecewise_construct, &v128);
   *(v31 + 6) = v30;
   v32 = OZChannelPosition_Factory::getInstance(v31);
-  v33 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v32 + 8));
+  v128 = (v32 + 8);
+  v33 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v32 + 8), &std::piecewise_construct, &v128);
   *(v33 + 6) = v32;
   v34 = OZChannelPositionPercent_Factory::getInstance(v33);
-  v35 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v34 + 8));
+  v128 = (v34 + 8);
+  v35 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v34 + 8), &std::piecewise_construct, &v128);
   *(v35 + 6) = v34;
   v36 = OZChannelShear_Factory::getInstance(v35);
-  v37 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v36 + 8));
+  v128 = (v36 + 8);
+  v37 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v36 + 8), &std::piecewise_construct, &v128);
   *(v37 + 6) = v36;
   v38 = OZChannelScale_Factory::getInstance(v37);
-  v39 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v38 + 8));
+  v128 = (v38 + 8);
+  v39 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v38 + 8), &std::piecewise_construct, &v128);
   *(v39 + 6) = v38;
   v40 = OZChannel3D_Factory::getInstance(v39);
-  v41 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v40 + 8));
+  v128 = (v40 + 8);
+  v41 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v40 + 8), &std::piecewise_construct, &v128);
   *(v41 + 6) = v40;
   v42 = OZChannelPosition3D_Factory::getInstance(v41);
-  v43 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v42 + 8));
+  v128 = (v42 + 8);
+  v43 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v42 + 8), &std::piecewise_construct, &v128);
   *(v43 + 6) = v42;
   v44 = OZChannelRotation3D_Factory::getInstance(v43);
-  v45 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v44 + 8));
+  v128 = (v44 + 8);
+  v45 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v44 + 8), &std::piecewise_construct, &v128);
   *(v45 + 6) = v44;
   v46 = OZChannelScale3D_Factory::getInstance(v45);
-  v47 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v46 + 8));
+  v128 = (v46 + 8);
+  v47 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v46 + 8), &std::piecewise_construct, &v128);
   *(v47 + 6) = v46;
   v48 = OZChannelColorNoAlpha_Factory::getInstance(v47);
-  v49 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v48 + 8));
+  v128 = (v48 + 8);
+  v49 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v48 + 8), &std::piecewise_construct, &v128);
   *(v49 + 6) = v48;
   v50 = OZChannelColor_Factory::getInstance(v49);
-  v51 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v50 + 8));
+  v128 = (v50 + 8);
+  v51 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v50 + 8), &std::piecewise_construct, &v128);
   *(v51 + 6) = v50;
   v52 = OZChannelQuad_Factory::getInstance(v51);
-  v53 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v52 + 8));
+  v128 = (v52 + 8);
+  v53 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v52 + 8), &std::piecewise_construct, &v128);
   *(v53 + 6) = v52;
   v54 = OZChannelCrop_Factory::getInstance(v53);
-  v55 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v54 + 8));
+  v128 = (v54 + 8);
+  v55 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v54 + 8), &std::piecewise_construct, &v128);
   *(v55 + 6) = v54;
   v56 = OZChannelDiscreteColor_Factory::getInstance(v55);
-  v57 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v56 + 8));
+  v128 = (v56 + 8);
+  v57 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v56 + 8), &std::piecewise_construct, &v128);
   *(v57 + 6) = v56;
   v58 = OZChannelGradient_Factory::getInstance(v57);
-  v59 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v58 + 8));
+  v128 = (v58 + 8);
+  v59 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v58 + 8), &std::piecewise_construct, &v128);
   *(v59 + 6) = v58;
   v60 = OZChannelGradientRGBFolder_Factory::getInstance(v59);
-  v61 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v60 + 8));
+  v128 = (v60 + 8);
+  v61 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v60 + 8), &std::piecewise_construct, &v128);
   *(v61 + 6) = v60;
   v62 = OZChannelGradientAlphaFolder_Factory::getInstance(v61);
-  v63 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v62 + 8));
+  v128 = (v62 + 8);
+  v63 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v62 + 8), &std::piecewise_construct, &v128);
   *(v63 + 6) = v62;
   v64 = OZChannelGradientSample_Factory::getInstance(v63);
-  v65 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v64 + 8));
+  v128 = (v64 + 8);
+  v65 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v64 + 8), &std::piecewise_construct, &v128);
   *(v65 + 6) = v64;
   v66 = OZChannelGradientSampleRGB_Factory::getInstance(v65);
-  v67 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v66 + 8));
+  v128 = (v66 + 8);
+  v67 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v66 + 8), &std::piecewise_construct, &v128);
   *(v67 + 6) = v66;
   v68 = OZChannelGradientSampleAlpha_Factory::getInstance(v67);
-  v69 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v68 + 8));
+  v128 = (v68 + 8);
+  v69 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v68 + 8), &std::piecewise_construct, &v128);
   *(v69 + 6) = v68;
   v70 = OZChannelGradientExtras_Factory::getInstance(v69);
-  v71 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v70 + 8));
+  v128 = (v70 + 8);
+  v71 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v70 + 8), &std::piecewise_construct, &v128);
   *(v71 + 6) = v70;
   v72 = OZChannelGradientPositioned_Factory::getInstance(v71);
-  v73 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v72 + 8));
+  v128 = (v72 + 8);
+  v73 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v72 + 8), &std::piecewise_construct, &v128);
   *(v73 + 6) = v72;
   v74 = OZChannelVaryingFolder_Factory::getInstance(v73);
-  v75 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v74 + 8));
+  v128 = (v74 + 8);
+  v75 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v74 + 8), &std::piecewise_construct, &v128);
   *(v75 + 6) = v74;
   v76 = OZChannelObjectRootBase_Factory::getInstance(v75);
-  v77 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v76 + 8));
+  v128 = (v76 + 8);
+  v77 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v76 + 8), &std::piecewise_construct, &v128);
   *(v77 + 6) = v76;
   v78 = OZChannelHistogram_Factory::getInstance(v77);
-  v79 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v78 + 8));
+  v128 = (v78 + 8);
+  v79 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v78 + 8), &std::piecewise_construct, &v128);
   *(v79 + 6) = v78;
   v80 = OZChannelLevels_Factory::getInstance(v79);
-  v81 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v80 + 8));
+  v128 = (v80 + 8);
+  v81 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v80 + 8), &std::piecewise_construct, &v128);
   *(v81 + 6) = v80;
   v82 = OZChannelButton_Factory::getInstance(v81);
-  v83 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v82 + 8));
+  v128 = (v82 + 8);
+  v83 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v82 + 8), &std::piecewise_construct, &v128);
   *(v83 + 6) = v82;
   v84 = OZChannelHelpButton_Factory::getInstance(v83);
-  v85 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v84 + 8));
+  v128 = (v84 + 8);
+  v85 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v84 + 8), &std::piecewise_construct, &v128);
   *(v85 + 6) = v84;
   v86 = OZChannelText_Factory::getInstance(v85);
-  v87 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v86 + 8));
+  v128 = (v86 + 8);
+  v87 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v86 + 8), &std::piecewise_construct, &v128);
   *(v87 + 6) = v86;
   v88 = OZChannelDoubleOverRange_Factory::getInstance(v87);
-  v89 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v88 + 8));
+  v128 = (v88 + 8);
+  v89 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v88 + 8), &std::piecewise_construct, &v128);
   *(v89 + 6) = v88;
   v90 = OZChannelScaleOverRange_Factory::getInstance(v89);
-  v91 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v90 + 8));
+  v128 = (v90 + 8);
+  v91 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v90 + 8), &std::piecewise_construct, &v128);
   *(v91 + 6) = v90;
   v92 = OZChannelAngleOverRange_Factory::getInstance(v91);
-  v93 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v92 + 8));
+  v128 = (v92 + 8);
+  v93 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v92 + 8), &std::piecewise_construct, &v128);
   *(v93 + 6) = v92;
   v94 = OZChannelPercentOverRange_Factory::getInstance(v93);
-  v95 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v94 + 8));
+  v128 = (v94 + 8);
+  v95 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v94 + 8), &std::piecewise_construct, &v128);
   *(v95 + 6) = v94;
   v96 = OZChannel2DOverRange_Factory::getInstance(v95);
-  v97 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v96 + 8));
+  v128 = (v96 + 8);
+  v97 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v96 + 8), &std::piecewise_construct, &v128);
   *(v97 + 6) = v96;
   v98 = OZChannelTransformSwitch_Factory::getInstance(v97);
-  v99 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v98 + 8));
+  v128 = (v98 + 8);
+  v99 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v98 + 8), &std::piecewise_construct, &v128);
   *(v99 + 6) = v98;
   v100 = OZChannelUint16_Factory::getInstance(v99);
-  v101 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v100 + 8));
+  v128 = (v100 + 8);
+  v101 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v100 + 8), &std::piecewise_construct, &v128);
   *(v101 + 6) = v100;
   v102 = OZChannelSeed_Factory::getInstance(v101);
-  v103 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v102 + 8));
+  v128 = (v102 + 8);
+  v103 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v102 + 8), &std::piecewise_construct, &v128);
   *(v103 + 6) = v102;
   v104 = OZChannelDecibel_Factory::getInstance(v103);
-  v105 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v104 + 8));
+  v128 = (v104 + 8);
+  v105 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v104 + 8), &std::piecewise_construct, &v128);
   *(v105 + 6) = v104;
   v106 = OZChannelFrame_Factory::getInstance(v105);
-  v107 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v106 + 8));
+  v128 = (v106 + 8);
+  v107 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v106 + 8), &std::piecewise_construct, &v128);
   *(v107 + 6) = v106;
   v108 = OZChannelTimecode_Factory::getInstance(v107);
-  v109 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v108 + 8));
+  v128 = (v108 + 8);
+  v109 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v108 + 8), &std::piecewise_construct, &v128);
   *(v109 + 6) = v108;
   v110 = OZChannelBlindData_Factory::getInstance(v109);
-  v111 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v110 + 8));
+  v128 = (v110 + 8);
+  v111 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v110 + 8), &std::piecewise_construct, &v128);
   *(v111 + 6) = v110;
   v112 = OZChannelCurve_Factory::getInstance(v111);
-  v113 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v112 + 8));
+  v128 = (v112 + 8);
+  v113 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v112 + 8), &std::piecewise_construct, &v128);
   *(v113 + 6) = v112;
   v114 = OZChannelEnum_Factory::getInstance(v113);
-  v115 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v114 + 8));
+  v128 = (v114 + 8);
+  v115 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v114 + 8), &std::piecewise_construct, &v128);
   *(v115 + 6) = v114;
   v116 = OZChannelGradientWithAngle_Factory::getInstance(v115);
-  v117 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v116 + 8));
+  v128 = (v116 + 8);
+  v117 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v116 + 8), &std::piecewise_construct, &v128);
   *(v117 + 6) = v116;
   v118 = OZChannelHistogramSample_Factory::getInstance(v117);
-  v119 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v118 + 8));
+  v128 = (v118 + 8);
+  v119 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v118 + 8), &std::piecewise_construct, &v128);
   *(v119 + 6) = v118;
   v120 = OZChannelProgress_Factory::getInstance(v119);
-  v121 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v120 + 8));
+  v128 = (v120 + 8);
+  v121 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v120 + 8), &std::piecewise_construct, &v128);
   *(v121 + 6) = v120;
   v122 = OZChannelScaleOverLife_Factory::getInstance(v121);
-  v123 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v122 + 8));
+  v128 = (v122 + 8);
+  v123 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v122 + 8), &std::piecewise_construct, &v128);
   *(v123 + 6) = v122;
   v124 = OZChannelVertexFolder_Factory::getInstance(v123);
-  v125 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v124 + 8));
+  v128 = (v124 + 8);
+  v125 = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v124 + 8), &std::piecewise_construct, &v128);
   *(v125 + 6) = v124;
   v126 = OZChanObjectRef_Factory::getInstance(v125);
-  result = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, (v126 + 8));
+  v128 = (v126 + 8);
+  result = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, (v126 + 8), &std::piecewise_construct, &v128);
   *(result + 48) = v126;
   return result;
 }
@@ -8418,9 +8476,10 @@ void OZFactories::~OZFactories(OZFactories *this)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t OZFactories::addFactory(OZFactories *this, OZFactory *a2)
+uint64_t OZFactories::addFactory(uint64_t **this, OZFactory *a2)
 {
-  result = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 8, a2 + 2);
+  v4 = (a2 + 8);
+  result = std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &v4);
   *(result + 48) = a2;
   return result;
 }
@@ -9317,12 +9376,12 @@ void *OZFactories::getFactoryLoadMap(OZFactories *this)
   return v1;
 }
 
-uint64_t *OZFactories::setFactoryLoadID(OZFactories *this, unsigned int a2, OZFactory *a3)
+uint64_t *OZFactories::setFactoryLoadID(OZFactories *this, int a2, OZFactory *a3)
 {
   v6 = a2;
   FactoryLoadMap = OZFactories::getFactoryLoadMap(this);
   v7 = &v6;
-  result = std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(FactoryLoadMap, &v6);
+  result = std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(FactoryLoadMap, &v6, &std::piecewise_construct, &v7);
   result[5] = a3;
   return result;
 }
@@ -9330,17 +9389,17 @@ uint64_t *OZFactories::setFactoryLoadID(OZFactories *this, unsigned int a2, OZFa
 void OZFactories::clearFactoryLoadIDs(OZFactories *this)
 {
   FactoryLoadMap = OZFactories::getFactoryLoadMap(this);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(FactoryLoadMap, *(FactoryLoadMap + 1));
-  *FactoryLoadMap = FactoryLoadMap + 8;
-  *(FactoryLoadMap + 2) = 0;
-  *(FactoryLoadMap + 1) = 0;
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(FactoryLoadMap, FactoryLoadMap[1]);
+  *FactoryLoadMap = FactoryLoadMap + 1;
+  FactoryLoadMap[2] = 0;
+  FactoryLoadMap[1] = 0;
 }
 
 uint64_t OZFactories::lookupFactory(OZFactories *this, unsigned int a2)
 {
   FactoryLoadMap = OZFactories::getFactoryLoadMap(this);
   v6 = FactoryLoadMap[1];
-  v4 = (FactoryLoadMap + 1);
+  v4 = FactoryLoadMap + 1;
   v5 = v6;
   if (!v6)
   {
@@ -9350,7 +9409,7 @@ uint64_t OZFactories::lookupFactory(OZFactories *this, unsigned int a2)
   v7 = v4;
   do
   {
-    v8 = *(v5 + 8);
+    v8 = *(v5 + 32);
     v9 = v8 >= a2;
     v10 = v8 < a2;
     if (v9)
@@ -9358,13 +9417,13 @@ uint64_t OZFactories::lookupFactory(OZFactories *this, unsigned int a2)
       v7 = v5;
     }
 
-    v5 = *&v5[8 * v10];
+    v5 = *(v5 + 8 * v10);
   }
 
   while (v5);
   if (v7 != v4 && *(v7 + 8) <= a2)
   {
-    return *(v7 + 5);
+    return v7[5];
   }
 
   else
@@ -9461,9 +9520,9 @@ uint64_t OZFactories::saveFactories(OZFactories *this, PCSerializerWriteStream *
   return 1;
 }
 
-void sub_25FE5A134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE5A134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCString::~PCString(va);
   _Unwind_Resume(a1);
 }
@@ -9802,56 +9861,4 @@ void OZChannelAspectRatio::OZChannelAspectRatio(OZChannelAspectRatio *this, OZFa
   }
 
   this->var14 = var15;
-}
-
-uint64_t OZChannelAspectRatio::createOZChannelAspectRatioInfo(OZChannelAspectRatio *this)
-{
-  if (atomic_load_explicit(&OZChannelAspectRatio::createOZChannelAspectRatioInfo(void)::_OZChannelAspectRatioInfo_once, memory_order_acquire) != -1)
-  {
-    v6[1] = v1;
-    v6[2] = v2;
-    v6[0] = &v4;
-    v5 = v6;
-    std::__call_once(&OZChannelAspectRatio::createOZChannelAspectRatioInfo(void)::_OZChannelAspectRatioInfo_once, &v5, std::__call_once_proxy[abi:ne200100]<std::tuple<OZChannelAspectRatio::createOZChannelAspectRatioInfo(void)::{lambda(void)#1} &&>>);
-  }
-
-  return OZChannelAspectRatio::_OZChannelAspectRatioInfo;
-}
-
-uint64_t OZChannelAspectRatio::createOZChannelAspectRatioImpl(OZChannelAspectRatio *this)
-{
-  if (atomic_load_explicit(&OZChannelAspectRatio::createOZChannelAspectRatioImpl(void)::_OZChannelAspectRatioImpl_once, memory_order_acquire) != -1)
-  {
-    v6[1] = v1;
-    v6[2] = v2;
-    v6[0] = &v4;
-    v5 = v6;
-    std::__call_once(&OZChannelAspectRatio::createOZChannelAspectRatioImpl(void)::_OZChannelAspectRatioImpl_once, &v5, std::__call_once_proxy[abi:ne200100]<std::tuple<OZChannelAspectRatio::createOZChannelAspectRatioImpl(void)::{lambda(void)#1} &&>>);
-  }
-
-  return OZChannelAspectRatio::_OZChannelAspectRatioImpl;
-}
-
-void std::__call_once_proxy[abi:ne200100]<std::tuple<OZChannelAspectRatio::createOZChannelAspectRatioInfo(void)::{lambda(void)#1} &&>>()
-{
-  if (!OZChannelAspectRatio::_OZChannelAspectRatioInfo)
-  {
-    operator new();
-  }
-}
-
-void OZChannelAspectRatioInfo::OZChannelAspectRatioInfo(OZChannelAspectRatioInfo *this)
-{
-  OZChannelInfo::OZChannelInfo(this, 0.0, 3.0, 0.0001, 0.1, 1.0, "");
-  PCSingleton::PCSingleton((v2 + 80), 100);
-  *this = &unk_287240EF0;
-  *(this + 10) = &unk_287240F10;
-}
-
-void std::__call_once_proxy[abi:ne200100]<std::tuple<OZChannelAspectRatio::createOZChannelAspectRatioImpl(void)::{lambda(void)#1} &&>>()
-{
-  if (!OZChannelAspectRatio::_OZChannelAspectRatioImpl)
-  {
-    operator new();
-  }
 }

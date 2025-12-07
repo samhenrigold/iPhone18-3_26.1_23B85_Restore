@@ -133,43 +133,43 @@
 
 - (void)beginActivity:(id)activity
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v5 = _os_activity_create(&dword_264829000, "Settings Sync Activity", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = scl_transport_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = scl_transport_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     xpcActivityName = [(SCLSettingsSyncCoordinator *)self xpcActivityName];
     *buf = 138412290;
-    v17 = xpcActivityName;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "Begin sync activity %@", buf, 0xCu);
+    v18 = xpcActivityName;
+    _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Begin sync activity %@", buf, 0xCu);
   }
 
-  if (!xpc_activity_set_state(activityCopy, 4))
+  v9 = xpc_activity_set_state(activityCopy, 4);
+  if (!v9)
   {
-    v8 = scl_persistence_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = scl_persistence_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       xpcActivityName2 = [(SCLSettingsSyncCoordinator *)self xpcActivityName];
-      [(SCLSettingsSyncCoordinator *)xpcActivityName2 beginActivity:buf, v8];
+      [(SCLSettingsSyncCoordinator *)xpcActivityName2 beginActivity:buf, v10];
     }
   }
 
   queue = [(SCLSettingsSyncCoordinator *)self queue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke;
-  v13[3] = &unk_279B6C5D8;
-  v13[4] = self;
-  v14 = activityCopy;
-  v11 = activityCopy;
-  dispatch_async(queue, v13);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke;
+  v14[3] = &unk_279B6C5D8;
+  v14[4] = self;
+  v15 = activityCopy;
+  v13 = activityCopy;
+  dispatch_async(queue, v14);
 
   os_activity_scope_leave(&state);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke(uint64_t a1)
@@ -178,12 +178,13 @@ void __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) stateMachine];
   [v2 xpcActivityStarted];
 
-  if (!xpc_activity_set_state(*(v1 + 8), 5))
+  v3 = xpc_activity_set_state(*(v1 + 8), 5);
+  if (!v3)
   {
-    v3 = scl_transport_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = scl_transport_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke_cold_1(v1, v3);
+      __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke_cold_1(v1, v4);
     }
   }
 }
@@ -192,54 +193,54 @@ void __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke(uint64_t a1)
 {
   v6 = MEMORY[0x277CCAAB0];
   context = [machine context];
-  v16 = 0;
-  v8 = [v6 archivedDataWithRootObject:context requiringSecureCoding:1 error:&v16];
-  v9 = v16;
+  v18 = 0;
+  v8 = [v6 archivedDataWithRootObject:context requiringSecureCoding:1 error:&v18];
+  v9 = v18;
 
   if (v9)
   {
-    v10 = scl_transport_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = scl_transport_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [SCLSettingsSyncCoordinator stateMachine:v9 didTransitionFromState:v10 toState:?];
+      [SCLSettingsSyncCoordinator stateMachine:v9 didTransitionFromState:v11 toState:?];
     }
   }
 
   else
   {
     contextURL = [(SCLSettingsSyncCoordinator *)self contextURL];
-    v15 = 0;
-    v12 = [v8 writeToURL:contextURL options:0x10000000 error:&v15];
-    v9 = v15;
+    v17 = 0;
+    v13 = [v8 writeToURL:contextURL options:0x10000000 error:&v17];
+    v9 = v17;
 
-    v13 = scl_transport_log();
-    v10 = v13;
-    if (v12)
+    v15 = scl_transport_log(v14);
+    v11 = v15;
+    if (v13)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_264829000, v10, OS_LOG_TYPE_INFO, "Saved state machine context", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_264829000, v11, OS_LOG_TYPE_INFO, "Saved state machine context", v16, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [SCLSettingsSyncCoordinator stateMachine:v9 didTransitionFromState:v10 toState:?];
+      [SCLSettingsSyncCoordinator stateMachine:v9 didTransitionFromState:v11 toState:?];
     }
   }
 }
 
 - (void)stateMachine:(id)machine scheduleCommitTimerWithInterval:(double)interval
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   machineCopy = machine;
-  v7 = scl_persistence_log();
+  v7 = scl_persistence_log(machineCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x277CCABB0] numberWithDouble:interval];
     *buf = 138412290;
-    v23 = v8;
+    v22 = v8;
     _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Sync coordinator start timer: %@", buf, 0xCu);
   }
 
@@ -273,16 +274,14 @@ void __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke(uint64_t a1)
   handler[1] = 3221225472;
   handler[2] = __75__SCLSettingsSyncCoordinator_stateMachine_scheduleCommitTimerWithInterval___block_invoke;
   handler[3] = &unk_279B6C3A8;
-  objc_copyWeak(&v21, buf);
+  objc_copyWeak(&v20, buf);
   dispatch_source_set_event_handler(timerSource5, handler);
 
   timerSource6 = [(SCLSettingsSyncCoordinator *)self timerSource];
   dispatch_resume(timerSource6);
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SCLSettingsSyncCoordinator_stateMachine_scheduleCommitTimerWithInterval___block_invoke(uint64_t a1)
@@ -293,7 +292,7 @@ void __75__SCLSettingsSyncCoordinator_stateMachine_scheduleCommitTimerWithInterv
 
 - (void)cancelCommitTimerForStateMachine:(id)machine
 {
-  v4 = scl_persistence_log();
+  v4 = scl_persistence_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -311,92 +310,89 @@ void __75__SCLSettingsSyncCoordinator_stateMachine_scheduleCommitTimerWithInterv
 
 - (void)performSyncForStateMachine:(id)machine
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   machineCopy = machine;
   v5 = _os_activity_create(&dword_264829000, "Perform Settings Sync", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = scl_persistence_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = scl_persistence_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "Sync coordinator perform sync", buf, 2u);
+    _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Sync coordinator perform sync", buf, 2u);
   }
 
   transport = [(SCLSettingsSyncCoordinator *)self transport];
   schedule = [(SCLSettingsSyncCoordinator *)self schedule];
-  v16 = 0;
   v17 = 0;
-  v9 = [transport sendSchedule:schedule identifier:&v17 error:&v16];
-  v10 = v17;
-  v11 = v16;
+  v18 = 0;
+  v10 = [transport sendSchedule:schedule identifier:&v18 error:&v17];
+  v11 = v18;
+  v12 = v17;
 
-  if (v9)
+  if (v10)
   {
-    v12 = scl_transport_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = scl_transport_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v10;
-      _os_log_impl(&dword_264829000, v12, OS_LOG_TYPE_DEFAULT, "Sent schedule settings with identifier %@", buf, 0xCu);
+      v21 = v11;
+      _os_log_impl(&dword_264829000, v14, OS_LOG_TYPE_DEFAULT, "Sent schedule settings with identifier %@", buf, 0xCu);
     }
 
     stateMachine = [(SCLSettingsSyncCoordinator *)self stateMachine];
-    [stateMachine didEnqueueMessage:v10];
+    [stateMachine didEnqueueMessage:v11];
   }
 
   else
   {
-    v14 = scl_transport_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = scl_transport_log(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v11;
-      _os_log_impl(&dword_264829000, v14, OS_LOG_TYPE_DEFAULT, "Failed to send schedule settings with error: %@", buf, 0xCu);
+      v21 = v12;
+      _os_log_impl(&dword_264829000, v16, OS_LOG_TYPE_DEFAULT, "Failed to send schedule settings with error: %@", buf, 0xCu);
     }
 
     stateMachine = [(SCLSettingsSyncCoordinator *)self stateMachine];
-    [stateMachine enqueueFailedWithError:v11];
+    [stateMachine enqueueFailedWithError:v12];
   }
 
   os_activity_scope_leave(&state);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelRetryActivityForStateMachine:(id)machine
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = scl_persistence_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = scl_persistence_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     xpcActivityName = [(SCLSettingsSyncCoordinator *)self xpcActivityName];
-    v9 = 138412290;
-    v10 = xpcActivityName;
-    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "Sync coordinator cancel retry activity: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = xpcActivityName;
+    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "Sync coordinator cancel retry activity: %@", &v8, 0xCu);
   }
 
   xpcActivityName2 = [(SCLSettingsSyncCoordinator *)self xpcActivityName];
   v7 = [xpcActivityName2 cStringUsingEncoding:4];
 
   xpc_activity_unregister(v7);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateMachine:(id)machine scheduleRetryWithActivityCriteria:(id)criteria
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
-  v6 = scl_persistence_log();
+  v6 = scl_persistence_log(criteriaCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = criteriaCopy;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "Sync coordinator schedule retry activity %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = criteriaCopy;
+    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "Sync coordinator schedule retry activity %@", &v7, 0xCu);
   }
 
   [(SCLSettingsSyncCoordinator *)self registerActivityWithCriteria:criteriaCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerActivityWithCriteria:(id)criteria
@@ -430,7 +426,7 @@ void __59__SCLSettingsSyncCoordinator_registerActivityWithCriteria___block_invok
       goto LABEL_13;
     }
 
-    v6 = scl_transport_log();
+    v6 = scl_transport_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
@@ -452,26 +448,25 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v8 = scl_transport_log();
+  v8 = scl_transport_log(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __59__SCLSettingsSyncCoordinator_registerActivityWithCriteria___block_invoke_cold_1(a1, v8, v9);
   }
 
-  if (!xpc_activity_set_state(v3, 5))
+  v10 = xpc_activity_set_state(v3, 5);
+  if (!v10)
   {
-    v6 = scl_transport_log();
+    v6 = scl_transport_log(v10);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __59__SCLSettingsSyncCoordinator_registerActivityWithCriteria___block_invoke_cold_2(a1, v6, v10);
+      __59__SCLSettingsSyncCoordinator_registerActivityWithCriteria___block_invoke_cold_2(a1, v6, v11);
     }
 
     goto LABEL_12;
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (SCLSettingsSyncTransport)transport
@@ -490,51 +485,45 @@ LABEL_13:
 
 void __44__SCLSettingsSyncCoordinator_beginActivity___block_invoke_cold_1(id *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [*a1 xpcActivityName];
-  v6 = 138412290;
-  v7 = v3;
-  OUTLINED_FUNCTION_0_1(&dword_264829000, a2, v4, "Failed to move activity %@ to DONE state", &v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v3;
+  OUTLINED_FUNCTION_0_1(&dword_264829000, a2, v4, "Failed to move activity %@ to DONE state", &v5);
 }
 
 - (void)stateMachine:(uint64_t)a1 didTransitionFromState:(NSObject *)a2 toState:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_264829000, a2, OS_LOG_TYPE_FAULT, "Could not generate data for state machine context: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_264829000, a2, OS_LOG_TYPE_FAULT, "Could not generate data for state machine context: %@", &v2, 0xCu);
 }
 
 - (void)stateMachine:(uint64_t)a1 didTransitionFromState:(NSObject *)a2 toState:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_264829000, a2, OS_LOG_TYPE_FAULT, "Could not save state machine context: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_264829000, a2, OS_LOG_TYPE_FAULT, "Could not save state machine context: %@", &v2, 0xCu);
 }
 
 void __59__SCLSettingsSyncCoordinator_registerActivityWithCriteria___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412290;
-  v6 = v3;
-  OUTLINED_FUNCTION_0_1(&dword_264829000, a2, a3, "Could not start activity %@", &v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  OUTLINED_FUNCTION_0_1(&dword_264829000, a2, a3, "Could not start activity %@", &v4);
 }
 
 void __59__SCLSettingsSyncCoordinator_registerActivityWithCriteria___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412290;
-  v6 = v3;
-  OUTLINED_FUNCTION_0_1(&dword_264829000, a2, a3, "Could not end %@", &v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  OUTLINED_FUNCTION_0_1(&dword_264829000, a2, a3, "Could not end %@", &v4);
 }
 
 @end

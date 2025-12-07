@@ -44,21 +44,20 @@
 
   else
   {
-    controllerIdentifier = self->_controllerIdentifier;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v7 = 0;
+      v6 = 0;
       goto LABEL_7;
     }
 
     v5 = [(NSCopying *)self->_controllerIdentifier isEqual:equalCopy];
   }
 
-  v7 = v5;
+  v6 = v5;
 LABEL_7:
 
-  return v7;
+  return v6;
 }
 
 - (id)debugDescription

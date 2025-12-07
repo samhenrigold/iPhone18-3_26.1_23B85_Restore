@@ -97,7 +97,7 @@
 - (WFShortcutsAppRunnerClient)initWithWorkflow:(id)workflow state:(id)state runSource:(id)source input:(id)input remoteDialogPresenterEndpoint:(id)endpoint requestOutput:(BOOL)output
 {
   outputCopy = output;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   workflowCopy = workflow;
   stateCopy = state;
   sourceCopy = source;
@@ -134,20 +134,20 @@
     }
 
     v31 = outputCopy;
-    v43 = 0;
-    v32 = [stateCopy writeToURL:identifier error:&v43];
-    name = v43;
+    v42 = 0;
+    v32 = [stateCopy writeToURL:identifier error:&v42];
+    name = v42;
     if ((v32 & 1) == 0)
     {
       v34 = getWFXPCRunnerLogObject();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315650;
-        v45 = "[WFShortcutsAppRunnerClient initWithWorkflow:state:runSource:input:remoteDialogPresenterEndpoint:requestOutput:]";
-        v46 = 2112;
-        v47 = identifier;
-        v48 = 2112;
-        v49 = name;
+        v44 = "[WFShortcutsAppRunnerClient initWithWorkflow:state:runSource:input:remoteDialogPresenterEndpoint:requestOutput:]";
+        v45 = 2112;
+        v46 = identifier;
+        v47 = 2112;
+        v48 = name;
         _os_log_impl(&dword_1CA256000, v34, OS_LOG_TYPE_FAULT, "%s Unable to save state to (%@): %@", buf, 0x20u);
       }
     }
@@ -178,13 +178,12 @@
   [v21 setRemoteDialogPresenterEndpoint:endpointCopy];
   [v21 setAllowsDialogNotifications:0];
   [v21 setDonateInteraction:{objc_msgSend(workflowCopy, "hiddenFromLibraryAndSync") ^ 1}];
-  v42.receiver = self;
-  v42.super_class = WFShortcutsAppRunnerClient;
-  self = [(WFWorkflowRunnerClient *)&v42 initWithDescriptor:v27 runRequest:v21 delegateQueue:MEMORY[0x1E69E96A0]];
+  v41.receiver = self;
+  v41.super_class = WFShortcutsAppRunnerClient;
+  self = [(WFWorkflowRunnerClient *)&v41 initWithDescriptor:v27 runRequest:v21 delegateQueue:MEMORY[0x1E69E96A0]];
   selfCopy = self;
 LABEL_13:
 
-  v39 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

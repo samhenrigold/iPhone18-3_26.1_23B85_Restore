@@ -28,11 +28,11 @@
 
 - (ICQTipCriteria)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = ICQTipCriteria;
-  v5 = [(ICQTipCriteria *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = ICQTipCriteria;
+  v5 = [(ICQTipCriteria *)&v18 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"minimumRange"];
@@ -48,9 +48,9 @@
     v5->_criteriaURL = v10;
 
     v12 = MEMORY[0x277CBEB98];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v14 = [v12 setWithArray:v13];
 
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"excludeApps"];
@@ -58,7 +58,6 @@
     v5->_excludeApps = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

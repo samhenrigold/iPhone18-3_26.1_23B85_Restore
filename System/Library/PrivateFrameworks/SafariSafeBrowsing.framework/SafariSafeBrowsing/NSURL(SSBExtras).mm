@@ -1,7 +1,7 @@
 @interface NSURL(SSBExtras)
+- (BOOL)ssb_isSafeURL;
 - (CFURLRef)ssb_canonicalizeURL;
 - (id)ssb_hashes;
-- (uint64_t)ssb_isSafeURL;
 - (void)ssb_hasUserInfo;
 @end
 
@@ -33,7 +33,7 @@
   return result;
 }
 
-- (uint64_t)ssb_isSafeURL
+- (BOOL)ssb_isSafeURL
 {
   if ([self isFileURL])
   {
@@ -49,49 +49,49 @@
 - (CFURLRef)ssb_canonicalizeURL
 {
   Backend::Google::CanonicalURL::canonicalizeURL(self, &__p);
-  v1 = CFURLCreateWithBytes(0, __p, v4 - __p, 0x8000100u, 0);
+  v2 = CFURLCreateWithBytes(0, __p, v5 - __p, 0x8000100u, 0);
   if (__p)
   {
-    v4 = __p;
+    v5 = __p;
     operator delete(__p);
   }
 
-  return v1;
+  return v2;
 }
 
 - (id)ssb_hashes
 {
-  Backend::Google::CanonicalURL::canonicalizeURL(self, v8);
-  Backend::Google::CanonicalURL::computeHashes(v8, &__p);
-  v1 = [MEMORY[0x277CBEB18] arrayWithCapacity:(v7 - __p) >> 5];
-  v2 = __p;
-  v3 = v7;
-  if (__p != v7)
+  Backend::Google::CanonicalURL::canonicalizeURL(self, v9);
+  Backend::Google::CanonicalURL::computeHashes(v9, &__p);
+  v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:(v8 - __p) >> 5];
+  v3 = __p;
+  v4 = v8;
+  if (__p != v8)
   {
     do
     {
-      v4 = [MEMORY[0x277CBEA90] dataWithBytes:v2 length:32];
-      [v1 addObject:v4];
+      v5 = [MEMORY[0x277CBEA90] dataWithBytes:v3 length:32];
+      [v2 addObject:v5];
 
-      v2 += 32;
+      v3 += 32;
     }
 
-    while (v2 != v3);
+    while (v3 != v4);
   }
 
   if (__p)
   {
-    v7 = __p;
+    v8 = __p;
     operator delete(__p);
   }
 
-  if (v8[0])
+  if (v9[0])
   {
-    v8[1] = v8[0];
-    operator delete(v8[0]);
+    v9[1] = v9[0];
+    operator delete(v9[0]);
   }
 
-  return v1;
+  return v2;
 }
 
 @end

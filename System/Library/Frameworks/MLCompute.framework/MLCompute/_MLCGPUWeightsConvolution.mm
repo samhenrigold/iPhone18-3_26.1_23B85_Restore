@@ -294,20 +294,18 @@ LABEL_23:
 
 - (void)initWithDescriptor:(const char *)a1 biasTerms:weights:neuronDescriptor:.cold.1(const char *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: channel multiplier > 1 for depthWiseConvolution is not supported in MLCompute-GPU", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: channel multiplier > 1 for depthWiseConvolution is not supported in MLCompute-GPU", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)initWithDescriptor:(const char *)a1 biasTerms:weights:neuronDescriptor:.cold.2(const char *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: groupCount > 1 with Number of input/output channels in each group NOT be multiple of 4 is unsupported on GPU", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: groupCount > 1 with Number of input/output channels in each group NOT be multiple of 4 is unsupported on GPU", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

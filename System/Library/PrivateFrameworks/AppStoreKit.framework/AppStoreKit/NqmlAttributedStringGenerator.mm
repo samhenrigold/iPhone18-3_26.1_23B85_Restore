@@ -25,10 +25,11 @@
 
 - (void)parser:(id)parser didFindCharacters:(id)characters
 {
-  sub_1E1AF5DFC();
+  v6 = sub_1E1AF5DFC();
+  v8 = v7;
   parserCopy = parser;
   selfCopy = self;
-  sub_1E15B64C4();
+  sub_1E15B64C4(v6, v8);
 }
 
 - (void)parser:(id)parser parseErrorOccurred:(id)occurred
@@ -36,7 +37,7 @@
   parserCopy = parser;
   occurredCopy = occurred;
   selfCopy = self;
-  sub_1E15B6B34();
+  sub_1E15B6B34(occurredCopy);
 }
 
 - (void)parserDidEndDocument:(id)document

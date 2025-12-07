@@ -93,115 +93,115 @@
 
 - (void)appendVisualStringToString:(id)string
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   [stringCopy appendString:@":"];
   labels = self->_labels;
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1 selector:sel_compare_];
-  v50[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
+  v49[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
   v8 = [(NSSet *)labels sortedArrayUsingDescriptors:v7];
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+  v9 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
   if (v9)
   {
-    v10 = *v40;
+    v10 = *v39;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v40 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        [stringCopy appendString:*(*(&v39 + 1) + 8 * i)];
-        v12 = v44[3] + 1;
-        v44[3] = v12;
+        [stringCopy appendString:*(*(&v38 + 1) + 8 * i)];
+        v12 = v43[3] + 1;
+        v43[3] = v12;
         if (v12 < [obj count])
         {
           [stringCopy appendString:@"/"];
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v9 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
     }
 
     while (v9);
   }
 
   [stringCopy appendString:@":"];
-  v44[3] = 0;
+  v43[3] = 0;
   domains = self->_domains;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __46__MAElementFilter_appendVisualStringToString___block_invoke;
-  v35[3] = &unk_2797FEFB0;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __46__MAElementFilter_appendVisualStringToString___block_invoke;
+  v34[3] = &unk_2797FEFB0;
   v14 = stringCopy;
   selfCopy = self;
-  v38 = &v43;
-  v36 = v14;
-  [(KGElementIdentifierSet *)domains enumerateIdentifiersWithBlock:v35];
+  v37 = &v42;
+  v35 = v14;
+  [(KGElementIdentifierSet *)domains enumerateIdentifiersWithBlock:v34];
   if ([(NSDictionary *)self->_properties count])
   {
     [v14 appendString:@" { "];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v24 = self->_properties;
-    v15 = [(NSDictionary *)v24 countByEnumeratingWithState:&v31 objects:v48 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v23 = self->_properties;
+    v15 = [(NSDictionary *)v23 countByEnumeratingWithState:&v30 objects:v47 count:16];
     if (v15)
     {
-      v25 = *v32;
+      v24 = *v31;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v32 != v25)
+          if (*v31 != v24)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v23);
           }
 
-          v17 = *(*(&v31 + 1) + 8 * j);
+          v17 = *(*(&v30 + 1) + 8 * j);
           [v14 appendFormat:@"%@:", v17];
           v18 = [(NSDictionary *)self->_properties objectForKeyedSubscript:v17];
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
             [v14 appendString:@"["];
-            v29 = 0u;
-            v30 = 0u;
-            v27 = 0u;
             v28 = 0u;
+            v29 = 0u;
+            v26 = 0u;
+            v27 = 0u;
             v19 = v18;
-            v20 = [v19 countByEnumeratingWithState:&v27 objects:v47 count:16];
+            v20 = [v19 countByEnumeratingWithState:&v26 objects:v46 count:16];
             if (v20)
             {
-              v21 = *v28;
+              v21 = *v27;
               do
               {
                 for (k = 0; k != v20; ++k)
                 {
-                  if (*v28 != v21)
+                  if (*v27 != v21)
                   {
                     objc_enumerationMutation(v19);
                   }
 
-                  [(MAElementFilter *)self _appendPropertyOption:*(*(&v27 + 1) + 8 * k) toString:v14];
+                  [(MAElementFilter *)self _appendPropertyOption:*(*(&v26 + 1) + 8 * k) toString:v14];
                   [v14 appendString:{@", "}];
                 }
 
-                v20 = [v19 countByEnumeratingWithState:&v27 objects:v47 count:16];
+                v20 = [v19 countByEnumeratingWithState:&v26 objects:v46 count:16];
               }
 
               while (v20);
@@ -218,7 +218,7 @@
           [v14 appendString:{@", "}];
         }
 
-        v15 = [(NSDictionary *)v24 countByEnumeratingWithState:&v31 objects:v48 count:16];
+        v15 = [(NSDictionary *)v23 countByEnumeratingWithState:&v30 objects:v47 count:16];
       }
 
       while (v15);
@@ -227,11 +227,10 @@
     [v14 appendString:@"}"];
   }
 
-  _Block_object_dispose(&v43, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 }
 
-unint64_t __46__MAElementFilter_appendVisualStringToString___block_invoke(uint64_t a1, uint64_t a2)
+void *__46__MAElementFilter_appendVisualStringToString___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) appendFormat:@"%lu", a2];
   v3 = ++*(*(*(a1 + 48) + 8) + 24);
@@ -248,7 +247,7 @@ unint64_t __46__MAElementFilter_appendVisualStringToString___block_invoke(uint64
 
 - (void)_appendPropertyOption:(id)option toString:(id)string
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   optionCopy = option;
   stringCopy = string;
   kgPropertyType = [optionCopy kgPropertyType];
@@ -276,7 +275,7 @@ unint64_t __46__MAElementFilter_appendVisualStringToString___block_invoke(uint64
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v12 = optionCopy;
+        v11 = optionCopy;
         _os_log_fault_impl(&dword_255870000, v8, OS_LOG_TYPE_FAULT, "Unsupported property value: (%@)", buf, 0xCu);
       }
     }
@@ -299,39 +298,37 @@ unint64_t __46__MAElementFilter_appendVisualStringToString___block_invoke(uint64
   }
 
 LABEL_16:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)kgOptionalLabels
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([(NSSet *)self->_labels count]>= 2)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v4 = self->_labels;
-    v5 = [(NSSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [(NSSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [v3 addObject:*(*(&v14 + 1) + 8 * i)];
+          [v3 addObject:*(*(&v13 + 1) + 8 * i)];
         }
 
-        v6 = [(NSSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [(NSSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -341,22 +338,20 @@ LABEL_16:
   if ([(KGElementIdentifierSet *)self->_domains count]>= 2)
   {
     domains = self->_domains;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __35__MAElementFilter_kgOptionalLabels__block_invoke;
-    v12[3] = &unk_2797FF388;
-    v13 = v3;
-    [(KGElementIdentifierSet *)domains enumerateIdentifiersWithBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __35__MAElementFilter_kgOptionalLabels__block_invoke;
+    v11[3] = &unk_2797FF388;
+    v12 = v3;
+    [(KGElementIdentifierSet *)domains enumerateIdentifiersWithBlock:v11];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 void __35__MAElementFilter_kgOptionalLabels__block_invoke(uint64_t a1, unsigned __int16 a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [MAKGDomainConversion kgLabelForMADomain:a2];
   if (v4)
   {
@@ -368,19 +363,17 @@ void __35__MAElementFilter_kgOptionalLabels__block_invoke(uint64_t a1, unsigned 
     v5 = KGLoggingConnection();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v7 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2];
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_fault_impl(&dword_255870000, v5, OS_LOG_TYPE_FAULT, "Attempting to filter with invalid domain (%@)", &v8, 0xCu);
+      v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_fault_impl(&dword_255870000, v5, OS_LOG_TYPE_FAULT, "Attempting to filter with invalid domain (%@)", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)kgRequiredLabels
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([(NSSet *)self->_labels count]== 1)
   {
@@ -404,16 +397,14 @@ void __35__MAElementFilter_kgOptionalLabels__block_invoke(uint64_t a1, unsigned 
         v7 = KGLoggingConnection();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
         {
-          v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:firstElement];
-          v11 = 138412290;
-          v12 = v10;
-          _os_log_fault_impl(&dword_255870000, v7, OS_LOG_TYPE_FAULT, "Attempting to filter with invalid domain (%@)", &v11, 0xCu);
+          v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:firstElement];
+          v10 = 138412290;
+          v11 = v9;
+          _os_log_fault_impl(&dword_255870000, v7, OS_LOG_TYPE_FAULT, "Attempting to filter with invalid domain (%@)", &v10, 0xCu);
         }
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

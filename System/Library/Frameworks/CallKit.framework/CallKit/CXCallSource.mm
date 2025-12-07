@@ -112,16 +112,16 @@
 
 - (void)registerWithConfiguration:(id)configuration
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(configurationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[CXCallSource registerWithConfiguration:]";
-    v11 = 2112;
-    v12 = configurationCopy;
-    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Received %s with configuration: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CXCallSource registerWithConfiguration:]";
+    v10 = 2112;
+    v11 = configurationCopy;
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Received %s with configuration: %@", &v8, 0x16u);
   }
 
   if (![(CXCallSource *)self isPermittedToUsePrivateAPI])
@@ -133,26 +133,24 @@
 
   delegate = [(CXCallSource *)self delegate];
   [delegate callSource:self registeredWithConfiguration:configurationCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportNewIncomingCallWithUUID:(id)d update:(id)update reply:(id)reply
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dCopy = d;
   updateCopy = update;
   replyCopy = reply;
-  v11 = CXDefaultLog();
+  v11 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136315650;
-    v49 = "[CXCallSource reportNewIncomingCallWithUUID:update:reply:]";
-    v50 = 2112;
-    v51 = uUIDString;
-    v52 = 2112;
-    v53 = updateCopy;
+    v50 = "[CXCallSource reportNewIncomingCallWithUUID:update:reply:]";
+    v51 = 2112;
+    v52 = uUIDString;
+    v53 = 2112;
+    v54 = updateCopy;
     _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@ update: %@", buf, 0x20u);
   }
 
@@ -160,25 +158,26 @@
   {
     if (!dCopy)
     {
-      v23 = CXDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = CXDefaultLog(v13);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v23 reportNewIncomingCallWithUUID:v24 update:v25 reply:v26, v27, v28, v29, v30];
+        [(CXCallSource *)v25 reportNewIncomingCallWithUUID:v26 update:v27 reply:v28, v29, v30, v31, v32];
       }
 
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_9;
-      v46[3] = &unk_1E7C07388;
-      v47 = replyCopy;
-      __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_9(v46);
-      v31 = v47;
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_9;
+      v47[3] = &unk_1E7C07388;
+      v48 = replyCopy;
+      __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_9(v47);
+      v33 = v48;
       goto LABEL_22;
     }
 
     if (updateCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXCallSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         if (![(CXCallSource *)self isPermittedToUsePrivateAPI])
         {
@@ -193,51 +192,49 @@
         goto LABEL_23;
       }
 
-      v40 = CXDefaultLog();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v42 = CXDefaultLog(isPermittedToUsePublicAPI);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportNewIncomingCallWithUUID:update:reply:];
       }
 
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_15;
-      v42[3] = &unk_1E7C07388;
-      v43 = replyCopy;
-      __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_15(v42);
-      v31 = v43;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_15;
+      v43[3] = &unk_1E7C07388;
+      v44 = replyCopy;
+      __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_15(v43);
+      v33 = v44;
 LABEL_22:
 
       goto LABEL_23;
     }
 
-    v32 = CXDefaultLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v34 = CXDefaultLog(v13);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v32 reportNewIncomingCallWithUUID:v33 update:v34 reply:v35, v36, v37, v38, v39];
+      [(CXCallSource *)v34 reportNewIncomingCallWithUUID:v35 update:v36 reply:v37, v38, v39, v40, v41];
     }
 
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_14;
-    v44[3] = &unk_1E7C07388;
-    v45 = replyCopy;
-    __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_14(v44);
-    updateCopy = v45;
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_14;
+    v45[3] = &unk_1E7C07388;
+    v46 = replyCopy;
+    __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_14(v45);
+    updateCopy = v46;
   }
 
   else
   {
-    v15 = CXDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = CXDefaultLog(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v15 reportNewIncomingCallWithUUID:v16 update:v17 reply:v18, v19, v20, v21, v22];
+      [(CXCallSource *)v17 reportNewIncomingCallWithUUID:v18 update:v19 reply:v20, v21, v22, v23, v24];
     }
   }
 
 LABEL_23:
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invoke_9(uint64_t a1)
@@ -263,56 +260,57 @@ void __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invok
 
 - (void)reportCallWithUUID:(id)d updated:(id)updated reply:(id)reply
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   dCopy = d;
   updatedCopy = updated;
   replyCopy = reply;
-  v11 = CXDefaultLog();
+  v11 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136315650;
-    v52 = "[CXCallSource reportCallWithUUID:updated:reply:]";
-    v53 = 2112;
-    v54 = uUIDString;
+    v54 = "[CXCallSource reportCallWithUUID:updated:reply:]";
     v55 = 2112;
-    v56 = updatedCopy;
+    v56 = uUIDString;
+    v57 = 2112;
+    v58 = updatedCopy;
     _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@ update: %@", buf, 0x20u);
   }
 
-  v13 = CXDefaultLog();
-  if (os_signpost_enabled(v13))
+  v14 = CXDefaultLog(v13);
+  if (os_signpost_enabled(v14))
   {
     uUID = [updatedCopy UUID];
     uUIDString2 = [uUID UUIDString];
     *buf = 138543362;
-    v52 = uUIDString2;
-    _os_signpost_emit_with_name_impl(&dword_1B47F3000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CXCallSource", "reportCallWithUUIDUpdated-%{public}@", buf, 0xCu);
+    v54 = uUIDString2;
+    _os_signpost_emit_with_name_impl(&dword_1B47F3000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CXCallSource", "reportCallWithUUIDUpdated-%{public}@", buf, 0xCu);
   }
 
   if (replyCopy)
   {
     if (!dCopy)
     {
-      v26 = CXDefaultLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = CXDefaultLog(v17);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v26 reportNewIncomingCallWithUUID:v27 update:v28 reply:v29, v30, v31, v32, v33];
+        [(CXCallSource *)v29 reportNewIncomingCallWithUUID:v30 update:v31 reply:v32, v33, v34, v35, v36];
       }
 
-      v49[0] = MEMORY[0x1E69E9820];
-      v49[1] = 3221225472;
-      v49[2] = __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_21;
-      v49[3] = &unk_1E7C07388;
-      v50 = replyCopy;
-      __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_21(v49);
-      v34 = v50;
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_21;
+      v51[3] = &unk_1E7C07388;
+      v52 = replyCopy;
+      __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_21(v51);
+      v37 = v52;
       goto LABEL_24;
     }
 
     if (updatedCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXCallSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         if (![(CXCallSource *)self isPermittedToUsePrivateAPI])
         {
@@ -328,51 +326,49 @@ void __59__CXCallSource_reportNewIncomingCallWithUUID_update_reply___block_invok
         goto LABEL_25;
       }
 
-      v43 = CXDefaultLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v46 = CXDefaultLog(isPermittedToUsePublicAPI);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportNewIncomingCallWithUUID:update:reply:];
       }
 
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_23;
-      v45[3] = &unk_1E7C07388;
-      v46 = replyCopy;
-      __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_23(v45);
-      v34 = v46;
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_23;
+      v47[3] = &unk_1E7C07388;
+      v48 = replyCopy;
+      __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_23(v47);
+      v37 = v48;
 LABEL_24:
 
       goto LABEL_25;
     }
 
-    v35 = CXDefaultLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v38 = CXDefaultLog(v17);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v35 reportNewIncomingCallWithUUID:v36 update:v37 reply:v38, v39, v40, v41, v42];
+      [(CXCallSource *)v38 reportNewIncomingCallWithUUID:v39 update:v40 reply:v41, v42, v43, v44, v45];
     }
 
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_22;
-    v47[3] = &unk_1E7C07388;
-    v48 = replyCopy;
-    __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_22(v47);
-    updatedCopy = v48;
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_22;
+    v49[3] = &unk_1E7C07388;
+    v50 = replyCopy;
+    __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_22(v49);
+    updatedCopy = v50;
   }
 
   else
   {
-    v18 = CXDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = CXDefaultLog(v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v18 reportNewIncomingCallWithUUID:v19 update:v20 reply:v21, v22, v23, v24, v25];
+      [(CXCallSource *)v21 reportNewIncomingCallWithUUID:v22 update:v23 reply:v24, v25, v26, v27, v28];
     }
   }
 
 LABEL_25:
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_21(uint64_t a1)
@@ -398,20 +394,20 @@ void __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_23(uint6
 
 - (void)reportCallWithUUID:(id)d receivedDTMFUpdate:(id)update reply:(id)reply
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dCopy = d;
   updateCopy = update;
   replyCopy = reply;
-  v11 = CXDefaultLog();
+  v11 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136315650;
-    v49 = "[CXCallSource reportCallWithUUID:receivedDTMFUpdate:reply:]";
-    v50 = 2112;
-    v51 = uUIDString;
-    v52 = 2112;
-    v53 = updateCopy;
+    v50 = "[CXCallSource reportCallWithUUID:receivedDTMFUpdate:reply:]";
+    v51 = 2112;
+    v52 = uUIDString;
+    v53 = 2112;
+    v54 = updateCopy;
     _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@ dtmfUpdate: %@", buf, 0x20u);
   }
 
@@ -419,25 +415,26 @@ void __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_23(uint6
   {
     if (!dCopy)
     {
-      v23 = CXDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = CXDefaultLog(v13);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v23 reportNewIncomingCallWithUUID:v24 update:v25 reply:v26, v27, v28, v29, v30];
+        [(CXCallSource *)v25 reportNewIncomingCallWithUUID:v26 update:v27 reply:v28, v29, v30, v31, v32];
       }
 
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_28;
-      v46[3] = &unk_1E7C07388;
-      v47 = replyCopy;
-      __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_28(v46);
-      v31 = v47;
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_28;
+      v47[3] = &unk_1E7C07388;
+      v48 = replyCopy;
+      __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_28(v47);
+      v33 = v48;
       goto LABEL_22;
     }
 
     if (updateCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXCallSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         if (![(CXCallSource *)self isPermittedToUsePrivateAPI])
         {
@@ -453,51 +450,49 @@ void __49__CXCallSource_reportCallWithUUID_updated_reply___block_invoke_23(uint6
         goto LABEL_23;
       }
 
-      v40 = CXDefaultLog();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v42 = CXDefaultLog(isPermittedToUsePublicAPI);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportNewIncomingCallWithUUID:update:reply:];
       }
 
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_33;
-      v42[3] = &unk_1E7C07388;
-      v43 = replyCopy;
-      __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_33(v42);
-      v31 = v43;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_33;
+      v43[3] = &unk_1E7C07388;
+      v44 = replyCopy;
+      __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_33(v43);
+      v33 = v44;
 LABEL_22:
 
       goto LABEL_23;
     }
 
-    v32 = CXDefaultLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v34 = CXDefaultLog(v13);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v32 reportCallWithUUID:v33 receivedDTMFUpdate:v34 reply:v35, v36, v37, v38, v39];
+      [(CXCallSource *)v34 reportCallWithUUID:v35 receivedDTMFUpdate:v36 reply:v37, v38, v39, v40, v41];
     }
 
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_32;
-    v44[3] = &unk_1E7C07388;
-    v45 = replyCopy;
-    __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_32(v44);
-    updateCopy = v45;
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_32;
+    v45[3] = &unk_1E7C07388;
+    v46 = replyCopy;
+    __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_32(v45);
+    updateCopy = v46;
   }
 
   else
   {
-    v15 = CXDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = CXDefaultLog(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v15 reportNewIncomingCallWithUUID:v16 update:v17 reply:v18, v19, v20, v21, v22];
+      [(CXCallSource *)v17 reportNewIncomingCallWithUUID:v18 update:v19 reply:v20, v21, v22, v23, v24];
     }
   }
 
 LABEL_23:
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invoke_28(uint64_t a1)
@@ -523,25 +518,25 @@ void __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invo
 
 - (void)reportCallWithUUID:(id)d endedAtDate:(id)date privateReason:(int64_t)reason failureContext:(id)context reply:(id)reply
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   contextCopy = context;
   replyCopy = reply;
-  v16 = CXDefaultLog();
+  v16 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136316162;
-    v44 = "[CXCallSource reportCallWithUUID:endedAtDate:privateReason:failureContext:reply:]";
-    v45 = 2112;
-    v46 = uUIDString;
-    v47 = 2112;
-    v48 = dateCopy;
-    v49 = 2048;
+    v45 = "[CXCallSource reportCallWithUUID:endedAtDate:privateReason:failureContext:reply:]";
+    v46 = 2112;
+    v47 = uUIDString;
+    v48 = 2112;
+    v49 = dateCopy;
+    v50 = 2048;
     reasonCopy = reason;
-    v51 = 2112;
-    v52 = contextCopy;
+    v52 = 2112;
+    v53 = contextCopy;
     _os_log_impl(&dword_1B47F3000, v16, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@ dateEnded: %@ privateEndedReason: %ld failureContext: %@", buf, 0x34u);
   }
 
@@ -549,7 +544,8 @@ void __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invo
   {
     if (dCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXCallSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         if (![(CXCallSource *)self isPermittedToUsePrivateAPI])
         {
@@ -565,49 +561,48 @@ void __60__CXCallSource_reportCallWithUUID_receivedDTMFUpdate_reply___block_invo
         goto LABEL_19;
       }
 
-      v37 = CXDefaultLog();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v39 = CXDefaultLog(isPermittedToUsePublicAPI);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportNewIncomingCallWithUUID:update:reply:];
       }
 
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_39;
-      v39[3] = &unk_1E7C07388;
-      v40 = replyCopy;
-      __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_39(v39);
-      v36 = v40;
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_39;
+      v40[3] = &unk_1E7C07388;
+      v41 = replyCopy;
+      __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_39(v40);
+      v38 = v41;
     }
 
     else
     {
-      v28 = CXDefaultLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v30 = CXDefaultLog(v18);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v28 reportNewIncomingCallWithUUID:v29 update:v30 reply:v31, v32, v33, v34, v35];
+        [(CXCallSource *)v30 reportNewIncomingCallWithUUID:v31 update:v32 reply:v33, v34, v35, v36, v37];
       }
 
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_38;
-      v41[3] = &unk_1E7C07388;
-      v42 = replyCopy;
-      __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_38(v41);
-      v36 = v42;
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_38;
+      v42[3] = &unk_1E7C07388;
+      v43 = replyCopy;
+      __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_38(v42);
+      v38 = v43;
     }
 
     goto LABEL_19;
   }
 
-  v20 = CXDefaultLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v22 = CXDefaultLog(v18);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    [(CXCallSource *)v20 reportNewIncomingCallWithUUID:v21 update:v22 reply:v23, v24, v25, v26, v27];
+    [(CXCallSource *)v22 reportNewIncomingCallWithUUID:v23 update:v24 reply:v25, v26, v27, v28, v29];
   }
 
 LABEL_19:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureContext_reply___block_invoke_38(uint64_t a1)
@@ -626,20 +621,20 @@ void __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureCont
 
 - (void)reportOutgoingCallWithUUID:(id)d sentInvitationAtDate:(id)date reply:(id)reply
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   replyCopy = reply;
-  v11 = CXDefaultLog();
+  v11 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136315650;
-    v38 = "[CXCallSource reportOutgoingCallWithUUID:sentInvitationAtDate:reply:]";
-    v39 = 2112;
-    v40 = uUIDString;
-    v41 = 2112;
-    v42 = dateCopy;
+    v39 = "[CXCallSource reportOutgoingCallWithUUID:sentInvitationAtDate:reply:]";
+    v40 = 2112;
+    v41 = uUIDString;
+    v42 = 2112;
+    v43 = dateCopy;
     _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@ dateSentInvitation: %@", buf, 0x20u);
   }
 
@@ -647,7 +642,8 @@ void __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureCont
   {
     if (dCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXCallSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         delegate = [(CXCallSource *)self delegate];
         [delegate callSource:self reportedOutgoingCallWithUUID:dCopy sentInvitationAtDate:dateCopy];
@@ -656,49 +652,48 @@ void __82__CXCallSource_reportCallWithUUID_endedAtDate_privateReason_failureCont
         goto LABEL_17;
       }
 
-      v31 = CXDefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v33 = CXDefaultLog(isPermittedToUsePublicAPI);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportNewIncomingCallWithUUID:update:reply:];
       }
 
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_45;
-      v33[3] = &unk_1E7C07388;
-      v34 = replyCopy;
-      __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_45(v33);
-      v30 = v34;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_45;
+      v34[3] = &unk_1E7C07388;
+      v35 = replyCopy;
+      __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_45(v34);
+      v32 = v35;
     }
 
     else
     {
-      v22 = CXDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = CXDefaultLog(v13);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v22 reportNewIncomingCallWithUUID:v23 update:v24 reply:v25, v26, v27, v28, v29];
+        [(CXCallSource *)v24 reportNewIncomingCallWithUUID:v25 update:v26 reply:v27, v28, v29, v30, v31];
       }
 
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_44;
-      v35[3] = &unk_1E7C07388;
-      v36 = replyCopy;
-      __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_44(v35);
-      v30 = v36;
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_44;
+      v36[3] = &unk_1E7C07388;
+      v37 = replyCopy;
+      __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_44(v36);
+      v32 = v37;
     }
 
     goto LABEL_17;
   }
 
-  v14 = CXDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = CXDefaultLog(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [(CXCallSource *)v14 reportNewIncomingCallWithUUID:v15 update:v16 reply:v17, v18, v19, v20, v21];
+    [(CXCallSource *)v16 reportNewIncomingCallWithUUID:v17 update:v18 reply:v19, v20, v21, v22, v23];
   }
 
 LABEL_17:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___block_invoke_44(uint64_t a1)
@@ -717,20 +712,20 @@ void __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___
 
 - (void)reportOutgoingCallWithUUID:(id)d startedConnectingAtDate:(id)date reply:(id)reply
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   replyCopy = reply;
-  v11 = CXDefaultLog();
+  v11 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136315650;
-    v38 = "[CXCallSource reportOutgoingCallWithUUID:startedConnectingAtDate:reply:]";
-    v39 = 2112;
-    v40 = uUIDString;
-    v41 = 2112;
-    v42 = dateCopy;
+    v39 = "[CXCallSource reportOutgoingCallWithUUID:startedConnectingAtDate:reply:]";
+    v40 = 2112;
+    v41 = uUIDString;
+    v42 = 2112;
+    v43 = dateCopy;
     _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@ dateStartedConnecting: %@", buf, 0x20u);
   }
 
@@ -738,7 +733,8 @@ void __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___
   {
     if (dCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXCallSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         delegate = [(CXCallSource *)self delegate];
         [delegate callSource:self reportedOutgoingCallWithUUID:dCopy startedConnectingAtDate:dateCopy];
@@ -747,49 +743,48 @@ void __70__CXCallSource_reportOutgoingCallWithUUID_sentInvitationAtDate_reply___
         goto LABEL_17;
       }
 
-      v31 = CXDefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v33 = CXDefaultLog(isPermittedToUsePublicAPI);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportNewIncomingCallWithUUID:update:reply:];
       }
 
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_51;
-      v33[3] = &unk_1E7C07388;
-      v34 = replyCopy;
-      __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_51(v33);
-      v30 = v34;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_51;
+      v34[3] = &unk_1E7C07388;
+      v35 = replyCopy;
+      __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_51(v34);
+      v32 = v35;
     }
 
     else
     {
-      v22 = CXDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = CXDefaultLog(v13);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v22 reportNewIncomingCallWithUUID:v23 update:v24 reply:v25, v26, v27, v28, v29];
+        [(CXCallSource *)v24 reportNewIncomingCallWithUUID:v25 update:v26 reply:v27, v28, v29, v30, v31];
       }
 
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_50;
-      v35[3] = &unk_1E7C07388;
-      v36 = replyCopy;
-      __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_50(v35);
-      v30 = v36;
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_50;
+      v36[3] = &unk_1E7C07388;
+      v37 = replyCopy;
+      __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_50(v36);
+      v32 = v37;
     }
 
     goto LABEL_17;
   }
 
-  v14 = CXDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = CXDefaultLog(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [(CXCallSource *)v14 reportNewIncomingCallWithUUID:v15 update:v16 reply:v17, v18, v19, v20, v21];
+    [(CXCallSource *)v16 reportNewIncomingCallWithUUID:v17 update:v18 reply:v19, v20, v21, v22, v23];
   }
 
 LABEL_17:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply___block_invoke_50(uint64_t a1)
@@ -808,42 +803,40 @@ void __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply
 
 - (void)reportNewOutgoingCallWithUUID:(id)d update:(id)update
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   updateCopy = update;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(updateCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
-    v12 = 136315394;
-    v13 = "[CXCallSource reportNewOutgoingCallWithUUID:update:]";
-    v14 = 2112;
-    v15 = uUIDString;
-    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[CXCallSource reportNewOutgoingCallWithUUID:update:]";
+    v13 = 2112;
+    v14 = uUIDString;
+    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@", &v11, 0x16u);
   }
 
   delegate = [(CXCallSource *)self delegate];
   [delegate callSource:self reportedNewOutgoingCallWithUUID:dCopy update:updateCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportOutgoingCallWithUUID:(id)d connectedAtDate:(id)date reply:(id)reply
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   replyCopy = reply;
-  v11 = CXDefaultLog();
+  v11 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136315650;
-    v38 = "[CXCallSource reportOutgoingCallWithUUID:connectedAtDate:reply:]";
-    v39 = 2112;
-    v40 = uUIDString;
-    v41 = 2112;
-    v42 = dateCopy;
+    v39 = "[CXCallSource reportOutgoingCallWithUUID:connectedAtDate:reply:]";
+    v40 = 2112;
+    v41 = uUIDString;
+    v42 = 2112;
+    v43 = dateCopy;
     _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@ dateConnected: %@", buf, 0x20u);
   }
 
@@ -851,7 +844,8 @@ void __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply
   {
     if (dCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXCallSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         delegate = [(CXCallSource *)self delegate];
         [delegate callSource:self reportedOutgoingCallWithUUID:dCopy connectedAtDate:dateCopy];
@@ -860,49 +854,48 @@ void __73__CXCallSource_reportOutgoingCallWithUUID_startedConnectingAtDate_reply
         goto LABEL_17;
       }
 
-      v31 = CXDefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v33 = CXDefaultLog(isPermittedToUsePublicAPI);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportNewIncomingCallWithUUID:update:reply:];
       }
 
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_57;
-      v33[3] = &unk_1E7C07388;
-      v34 = replyCopy;
-      __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_57(v33);
-      v30 = v34;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_57;
+      v34[3] = &unk_1E7C07388;
+      v35 = replyCopy;
+      __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_57(v34);
+      v32 = v35;
     }
 
     else
     {
-      v22 = CXDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = CXDefaultLog(v13);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v22 reportNewIncomingCallWithUUID:v23 update:v24 reply:v25, v26, v27, v28, v29];
+        [(CXCallSource *)v24 reportNewIncomingCallWithUUID:v25 update:v26 reply:v27, v28, v29, v30, v31];
       }
 
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_56;
-      v35[3] = &unk_1E7C07388;
-      v36 = replyCopy;
-      __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_56(v35);
-      v30 = v36;
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_56;
+      v36[3] = &unk_1E7C07388;
+      v37 = replyCopy;
+      __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_56(v36);
+      v32 = v37;
     }
 
     goto LABEL_17;
   }
 
-  v14 = CXDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = CXDefaultLog(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [(CXCallSource *)v14 reportNewIncomingCallWithUUID:v15 update:v16 reply:v17, v18, v19, v20, v21];
+    [(CXCallSource *)v16 reportNewIncomingCallWithUUID:v17 update:v18 reply:v19, v20, v21, v22, v23];
   }
 
 LABEL_17:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block_invoke_56(uint64_t a1)
@@ -921,17 +914,17 @@ void __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block
 
 - (void)reportAudioFinishedForCallWithUUID:(id)d reply:(id)reply
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   replyCopy = reply;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136315394;
-    v35 = "[CXCallSource reportAudioFinishedForCallWithUUID:reply:]";
-    v36 = 2112;
-    v37 = uUIDString;
+    v36 = "[CXCallSource reportAudioFinishedForCallWithUUID:reply:]";
+    v37 = 2112;
+    v38 = uUIDString;
     _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@", buf, 0x16u);
   }
 
@@ -939,7 +932,8 @@ void __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block
   {
     if (dCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePrivateAPI])
+      isPermittedToUsePrivateAPI = [(CXCallSource *)self isPermittedToUsePrivateAPI];
+      if (isPermittedToUsePrivateAPI)
       {
         delegate = [(CXCallSource *)self delegate];
         [delegate callSource:self reportedAudioFinishedForCallWithUUID:dCopy];
@@ -948,49 +942,48 @@ void __65__CXCallSource_reportOutgoingCallWithUUID_connectedAtDate_reply___block
         goto LABEL_17;
       }
 
-      v28 = CXDefaultLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v30 = CXDefaultLog(isPermittedToUsePrivateAPI);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportAudioFinishedForCallWithUUID:reply:];
       }
 
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_63;
-      v30[3] = &unk_1E7C07388;
-      v31 = replyCopy;
-      __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_63(v30);
-      v27 = v31;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_63;
+      v31[3] = &unk_1E7C07388;
+      v32 = replyCopy;
+      __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_63(v31);
+      v29 = v32;
     }
 
     else
     {
-      v19 = CXDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = CXDefaultLog(v10);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v19 reportNewIncomingCallWithUUID:v20 update:v21 reply:v22, v23, v24, v25, v26];
+        [(CXCallSource *)v21 reportNewIncomingCallWithUUID:v22 update:v23 reply:v24, v25, v26, v27, v28];
       }
 
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_62;
-      v32[3] = &unk_1E7C07388;
-      v33 = replyCopy;
-      __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_62(v32);
-      v27 = v33;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_62;
+      v33[3] = &unk_1E7C07388;
+      v34 = replyCopy;
+      __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_62(v33);
+      v29 = v34;
     }
 
     goto LABEL_17;
   }
 
-  v11 = CXDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = CXDefaultLog(v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    [(CXCallSource *)v11 reportNewIncomingCallWithUUID:v12 update:v13 reply:v14, v15, v16, v17, v18];
+    [(CXCallSource *)v13 reportNewIncomingCallWithUUID:v14 update:v15 reply:v16, v17, v18, v19, v20];
   }
 
 LABEL_17:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_62(uint64_t a1)
@@ -1012,58 +1005,60 @@ void __57__CXCallSource_reportAudioFinishedForCallWithUUID_reply___block_invoke_
   dCopy = d;
   dataCopy = data;
   replyCopy = reply;
+  v13 = replyCopy;
   if (replyCopy)
   {
     if (dCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePrivateAPI])
+      isPermittedToUsePrivateAPI = [(CXCallSource *)self isPermittedToUsePrivateAPI];
+      if (isPermittedToUsePrivateAPI)
       {
         delegate = [(CXCallSource *)self delegate];
         [delegate callSource:self reportedCallWithUUID:dCopy changedFrequencyData:dataCopy forDirection:direction];
 
-        replyCopy[2](replyCopy, 0);
+        v13[2](v13, 0);
         goto LABEL_15;
       }
 
-      v31 = CXDefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v33 = CXDefaultLog(isPermittedToUsePrivateAPI);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportAudioFinishedForCallWithUUID:reply:];
       }
 
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_reply___block_invoke_69;
-      v32[3] = &unk_1E7C07388;
-      v33 = replyCopy;
-      __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_reply___block_invoke_69(v32);
-      v30 = v33;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_reply___block_invoke_69;
+      v34[3] = &unk_1E7C07388;
+      v35 = v13;
+      __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_reply___block_invoke_69(v34);
+      v32 = v35;
     }
 
     else
     {
-      v22 = CXDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = CXDefaultLog(replyCopy);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v22 reportNewIncomingCallWithUUID:v23 update:v24 reply:v25, v26, v27, v28, v29];
+        [(CXCallSource *)v24 reportNewIncomingCallWithUUID:v25 update:v26 reply:v27, v28, v29, v30, v31];
       }
 
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_reply___block_invoke_68;
-      v34[3] = &unk_1E7C07388;
-      v35 = replyCopy;
-      __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_reply___block_invoke_68(v34);
-      v30 = v35;
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_reply___block_invoke_68;
+      v36[3] = &unk_1E7C07388;
+      v37 = v13;
+      __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_reply___block_invoke_68(v36);
+      v32 = v37;
     }
 
     goto LABEL_15;
   }
 
-  v14 = CXDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = CXDefaultLog(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [(CXCallSource *)v14 reportNewIncomingCallWithUUID:v15 update:v16 reply:v17, v18, v19, v20, v21];
+    [(CXCallSource *)v16 reportNewIncomingCallWithUUID:v17 update:v18 reply:v19, v20, v21, v22, v23];
   }
 
 LABEL_15:
@@ -1087,59 +1082,61 @@ void __75__CXCallSource_reportCallWithUUID_changedFrequencyData_forDirection_rep
 {
   dCopy = d;
   replyCopy = reply;
+  v12 = replyCopy;
   if (replyCopy)
   {
     if (dCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePrivateAPI])
+      isPermittedToUsePrivateAPI = [(CXCallSource *)self isPermittedToUsePrivateAPI];
+      if (isPermittedToUsePrivateAPI)
       {
         delegate = [(CXCallSource *)self delegate];
-        *&v13 = level;
-        [delegate callSource:self reportedCallWithUUID:dCopy changedMeterLevel:direction forDirection:v13];
+        *&v15 = level;
+        [delegate callSource:self reportedCallWithUUID:dCopy changedMeterLevel:direction forDirection:v15];
 
-        replyCopy[2](replyCopy, 0);
+        v12[2](v12, 0);
         goto LABEL_15;
       }
 
-      v31 = CXDefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v33 = CXDefaultLog(isPermittedToUsePrivateAPI);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [CXCallSource reportAudioFinishedForCallWithUUID:reply:];
       }
 
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply___block_invoke_75;
-      v32[3] = &unk_1E7C07388;
-      v33 = replyCopy;
-      __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply___block_invoke_75(v32);
-      v30 = v33;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply___block_invoke_75;
+      v34[3] = &unk_1E7C07388;
+      v35 = v12;
+      __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply___block_invoke_75(v34);
+      v32 = v35;
     }
 
     else
     {
-      v22 = CXDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = CXDefaultLog(replyCopy);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v22 reportNewIncomingCallWithUUID:v23 update:v24 reply:v25, v26, v27, v28, v29];
+        [(CXCallSource *)v24 reportNewIncomingCallWithUUID:v25 update:v26 reply:v27, v28, v29, v30, v31];
       }
 
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply___block_invoke_74;
-      v34[3] = &unk_1E7C07388;
-      v35 = replyCopy;
-      __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply___block_invoke_74(v34);
-      v30 = v35;
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply___block_invoke_74;
+      v36[3] = &unk_1E7C07388;
+      v37 = v12;
+      __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply___block_invoke_74(v36);
+      v32 = v37;
     }
 
     goto LABEL_15;
   }
 
-  v14 = CXDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = CXDefaultLog(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [(CXCallSource *)v14 reportNewIncomingCallWithUUID:v15 update:v16 reply:v17, v18, v19, v20, v21];
+    [(CXCallSource *)v16 reportNewIncomingCallWithUUID:v17 update:v18 reply:v19, v20, v21, v22, v23];
   }
 
 LABEL_15:
@@ -1161,76 +1158,77 @@ void __72__CXCallSource_reportCallWithUUID_changedMeterLevel_forDirection_reply_
 
 - (void)reportCallWithUUID:(id)d crossDeviceIdentifier:(id)identifier changedBytesOfDataUsed:(int64_t)used reply:(id)reply
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dCopy = d;
   identifierCopy = identifier;
   replyCopy = reply;
-  v13 = CXDefaultLog();
+  v13 = CXDefaultLog(replyCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 136315906;
-    v42 = "[CXCallSource reportCallWithUUID:crossDeviceIdentifier:changedBytesOfDataUsed:reply:]";
-    v43 = 2112;
-    v44 = uUIDString;
-    v45 = 2112;
-    v46 = identifierCopy;
-    v47 = 2048;
+    v43 = "[CXCallSource reportCallWithUUID:crossDeviceIdentifier:changedBytesOfDataUsed:reply:]";
+    v44 = 2112;
+    v45 = uUIDString;
+    v46 = 2112;
+    v47 = identifierCopy;
+    v48 = 2048;
     usedCopy = used;
     _os_log_impl(&dword_1B47F3000, v13, OS_LOG_TYPE_DEFAULT, "Received %s with UUID: %@ crossDeviceIdentifier: %@ bytesOfDataUsed: %ld", buf, 0x2Au);
   }
 
   if (!dCopy)
   {
-    v16 = CXDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = CXDefaultLog(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v16 reportNewIncomingCallWithUUID:v17 update:v18 reply:v19, v20, v21, v22, v23];
+      [(CXCallSource *)v18 reportNewIncomingCallWithUUID:v19 update:v20 reply:v21, v22, v23, v24, v25];
     }
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke;
-    v39[3] = &unk_1E7C07388;
-    v40 = replyCopy;
-    __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke(v39);
-    v24 = v40;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke;
+    v40[3] = &unk_1E7C07388;
+    v41 = replyCopy;
+    __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke(v40);
+    v26 = v41;
     goto LABEL_16;
   }
 
   if (!identifierCopy)
   {
-    v25 = CXDefaultLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = CXDefaultLog(v15);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v25 reportCallWithUUID:v26 crossDeviceIdentifier:v27 changedBytesOfDataUsed:v28 reply:v29, v30, v31, v32];
+      [(CXCallSource *)v27 reportCallWithUUID:v28 crossDeviceIdentifier:v29 changedBytesOfDataUsed:v30 reply:v31, v32, v33, v34];
     }
 
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke_81;
-    v37[3] = &unk_1E7C07388;
-    v38 = replyCopy;
-    __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke_81(v37);
-    v24 = v38;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke_81;
+    v38[3] = &unk_1E7C07388;
+    v39 = replyCopy;
+    __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke_81(v38);
+    v26 = v39;
     goto LABEL_16;
   }
 
-  if (![(CXCallSource *)self isPermittedToUsePrivateAPI])
+  isPermittedToUsePrivateAPI = [(CXCallSource *)self isPermittedToUsePrivateAPI];
+  if ((isPermittedToUsePrivateAPI & 1) == 0)
   {
-    v33 = CXDefaultLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v35 = CXDefaultLog(isPermittedToUsePrivateAPI);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       [CXCallSource reportAudioFinishedForCallWithUUID:reply:];
     }
 
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke_82;
-    v35[3] = &unk_1E7C07388;
-    v36 = replyCopy;
-    __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke_82(v35);
-    v24 = v36;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke_82;
+    v36[3] = &unk_1E7C07388;
+    v37 = replyCopy;
+    __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke_82(v36);
+    v26 = v37;
 LABEL_16:
 
     goto LABEL_17;
@@ -1241,8 +1239,6 @@ LABEL_16:
 
   (*(replyCopy + 2))(replyCopy, 0);
 LABEL_17:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfDataUsed_reply___block_invoke(uint64_t a1)
@@ -1268,16 +1264,16 @@ void __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfD
 
 - (void)requestTransaction:(id)transaction completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   handlerCopy = handler;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v32 = "[CXCallSource requestTransaction:completionHandler:]";
-    v33 = 2112;
-    v34 = transactionCopy;
+    v33 = "[CXCallSource requestTransaction:completionHandler:]";
+    v34 = 2112;
+    v35 = transactionCopy;
     _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Received %s with transaction: %@", buf, 0x16u);
   }
 
@@ -1285,7 +1281,8 @@ void __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfD
   {
     if (transactionCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePrivateAPI])
+      isPermittedToUsePrivateAPI = [(CXCallSource *)self isPermittedToUsePrivateAPI];
+      if (isPermittedToUsePrivateAPI)
       {
         delegate = [(CXCallSource *)self delegate];
         [delegate callSource:self requestedTransaction:transactionCopy completion:handlerCopy];
@@ -1293,50 +1290,48 @@ void __86__CXCallSource_reportCallWithUUID_crossDeviceIdentifier_changedBytesOfD
 
       else
       {
-        v25 = CXDefaultLog();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v27 = CXDefaultLog(isPermittedToUsePrivateAPI);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           [CXCallSource reportAudioFinishedForCallWithUUID:reply:];
         }
 
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __53__CXCallSource_requestTransaction_completionHandler___block_invoke_92;
-        v27[3] = &unk_1E7C07388;
-        v28 = handlerCopy;
-        __53__CXCallSource_requestTransaction_completionHandler___block_invoke_92(v27);
-        delegate = v28;
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __53__CXCallSource_requestTransaction_completionHandler___block_invoke_92;
+        v28[3] = &unk_1E7C07388;
+        v29 = handlerCopy;
+        __53__CXCallSource_requestTransaction_completionHandler___block_invoke_92(v28);
+        delegate = v29;
       }
     }
 
     else
     {
-      v17 = CXDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = CXDefaultLog(v9);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v17 requestTransaction:v18 completionHandler:v19, v20, v21, v22, v23, v24];
+        [(CXCallSource *)v19 requestTransaction:v20 completionHandler:v21, v22, v23, v24, v25, v26];
       }
 
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __53__CXCallSource_requestTransaction_completionHandler___block_invoke_91;
-      v29[3] = &unk_1E7C07388;
-      v30 = handlerCopy;
-      __53__CXCallSource_requestTransaction_completionHandler___block_invoke_91(v29);
-      delegate = v30;
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __53__CXCallSource_requestTransaction_completionHandler___block_invoke_91;
+      v30[3] = &unk_1E7C07388;
+      v31 = handlerCopy;
+      __53__CXCallSource_requestTransaction_completionHandler___block_invoke_91(v30);
+      delegate = v31;
     }
   }
 
   else
   {
-    delegate = CXDefaultLog();
+    delegate = CXDefaultLog(v9);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)delegate requestTransaction:v10 completionHandler:v11, v12, v13, v14, v15, v16];
+      [(CXCallSource *)delegate requestTransaction:v12 completionHandler:v13, v14, v15, v16, v17, v18];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __53__CXCallSource_requestTransaction_completionHandler___block_invoke_91(uint64_t a1)
@@ -1355,16 +1350,16 @@ void __53__CXCallSource_requestTransaction_completionHandler___block_invoke_92(u
 
 - (void)actionCompleted:(id)completed completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
   handlerCopy = handler;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v34 = "[CXCallSource actionCompleted:completionHandler:]";
-    v35 = 2112;
-    v36 = completedCopy;
+    v35 = "[CXCallSource actionCompleted:completionHandler:]";
+    v36 = 2112;
+    v37 = completedCopy;
     _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Received %s with action: %@", buf, 0x16u);
   }
 
@@ -1372,7 +1367,8 @@ void __53__CXCallSource_requestTransaction_completionHandler___block_invoke_92(u
   {
     if (completedCopy)
     {
-      if ([(CXCallSource *)self isPermittedToUsePublicAPI])
+      isPermittedToUsePublicAPI = [(CXCallSource *)self isPermittedToUsePublicAPI];
+      if (isPermittedToUsePublicAPI)
       {
         if (![(CXCallSource *)self isPermittedToUsePrivateAPI])
         {
@@ -1389,49 +1385,47 @@ void __53__CXCallSource_requestTransaction_completionHandler___block_invoke_92(u
 
       else
       {
-        v27 = CXDefaultLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = CXDefaultLog(isPermittedToUsePublicAPI);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [CXCallSource reportNewIncomingCallWithUUID:update:reply:];
         }
 
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __50__CXCallSource_actionCompleted_completionHandler___block_invoke_99;
-        v29[3] = &unk_1E7C07388;
-        v30 = handlerCopy;
-        __50__CXCallSource_actionCompleted_completionHandler___block_invoke_99(v29);
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __50__CXCallSource_actionCompleted_completionHandler___block_invoke_99;
+        v30[3] = &unk_1E7C07388;
+        v31 = handlerCopy;
+        __50__CXCallSource_actionCompleted_completionHandler___block_invoke_99(v30);
       }
     }
 
     else
     {
-      v19 = CXDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = CXDefaultLog(v9);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(CXCallSource *)v19 actionCompleted:v20 completionHandler:v21, v22, v23, v24, v25, v26];
+        [(CXCallSource *)v21 actionCompleted:v22 completionHandler:v23, v24, v25, v26, v27, v28];
       }
 
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __50__CXCallSource_actionCompleted_completionHandler___block_invoke_98;
-      v31[3] = &unk_1E7C07388;
-      v32 = handlerCopy;
-      __50__CXCallSource_actionCompleted_completionHandler___block_invoke_98(v31);
-      completedCopy = v32;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __50__CXCallSource_actionCompleted_completionHandler___block_invoke_98;
+      v32[3] = &unk_1E7C07388;
+      v33 = handlerCopy;
+      __50__CXCallSource_actionCompleted_completionHandler___block_invoke_98(v32);
+      completedCopy = v33;
     }
   }
 
   else
   {
-    v11 = CXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CXDefaultLog(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(CXCallSource *)v11 requestTransaction:v12 completionHandler:v13, v14, v15, v16, v17, v18];
+      [(CXCallSource *)v13 requestTransaction:v14 completionHandler:v15, v16, v17, v18, v19, v20];
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __50__CXCallSource_actionCompleted_completionHandler___block_invoke_98(uint64_t a1)
@@ -1464,23 +1458,21 @@ void __50__CXCallSource_actionCompleted_completionHandler___block_invoke_99(uint
 
 void __34__CXCallSource_commitTransaction___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[CXCallSource commitTransaction:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with transaction: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CXCallSource commitTransaction:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with transaction: %@", &v6, 0x16u);
   }
 
   v4 = [*(a1 + 40) vendorProtocolDelegate];
   v5 = [*(a1 + 32) copy];
   [v4 commitTransaction:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleActionTimeout:(id)timeout
@@ -1499,23 +1491,21 @@ void __34__CXCallSource_commitTransaction___block_invoke(uint64_t a1)
 
 void __36__CXCallSource_handleActionTimeout___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[CXCallSource handleActionTimeout:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with action: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CXCallSource handleActionTimeout:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with action: %@", &v6, 0x16u);
   }
 
   v4 = [*(a1 + 40) vendorProtocolDelegate];
   v5 = [*(a1 + 32) copy];
   [v4 handleActionTimeout:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAudioSessionActivationStateChangedTo:(id)to
@@ -1534,94 +1524,76 @@ void __36__CXCallSource_handleActionTimeout___block_invoke(uint64_t a1)
 
 void __59__CXCallSource_handleAudioSessionActivationStateChangedTo___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) BOOLValue];
-    v6 = 136315394;
-    v7 = "[CXCallSource handleAudioSessionActivationStateChangedTo:]_block_invoke";
-    v8 = 1024;
-    v9 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with active: %d", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[CXCallSource handleAudioSessionActivationStateChangedTo:]_block_invoke";
+    v7 = 1024;
+    v8 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Sending %s with active: %d", &v5, 0x12u);
   }
 
   v4 = [*(a1 + 40) vendorProtocolDelegate];
   [v4 handleAudioSessionActivationStateChangedTo:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)reportNewIncomingCallWithUUID:update:reply:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "Provider source is not entitled to use public API: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportNewIncomingCallWithUUID:(uint64_t)a3 update:(uint64_t)a4 reply:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"update";
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)reportNewIncomingCallWithUUID:(uint64_t)a3 update:(uint64_t)a4 reply:(uint64_t)a5 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"UUID";
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)reportNewIncomingCallWithUUID:(uint64_t)a3 update:(uint64_t)a4 reply:(uint64_t)a5 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"reply";
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)reportCallWithUUID:(uint64_t)a3 receivedDTMFUpdate:(uint64_t)a4 reply:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)reportAudioFinishedForCallWithUUID:reply:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "Provider source is not entitled to use private API: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"dtmfUpdate";
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)reportCallWithUUID:(uint64_t)a3 crossDeviceIdentifier:(uint64_t)a4 changedBytesOfDataUsed:(uint64_t)a5 reply:(uint64_t)a6 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"crossDeviceIdentifier";
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)requestTransaction:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"transaction";
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)requestTransaction:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"completionHandler";
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)actionCompleted:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"action";
+  OUTLINED_FUNCTION_0(&dword_1B47F3000, a1, a3, "Invalid argument; '%@' parameter cannot be nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

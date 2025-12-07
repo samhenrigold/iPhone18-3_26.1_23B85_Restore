@@ -445,7 +445,7 @@ void __72__CEKCinematicSubjectIndicatorView__performAnimationToActiveRoundedRect
   [v3 setTransform:&v4];
 }
 
-uint64_t __72__CEKCinematicSubjectIndicatorView__performAnimationToActiveRoundedRect__block_invoke_7(uint64_t a1)
+void *__72__CEKCinematicSubjectIndicatorView__performAnimationToActiveRoundedRect__block_invoke_7(uint64_t a1)
 {
   [*(a1 + 32) set_activeAnimationToActiveRoundedRectCount:{objc_msgSend(*(a1 + 32), "_activeAnimationToActiveRoundedRectCount") - 1}];
   result = [*(a1 + 32) _activeAnimationToActiveRoundedRectCount];

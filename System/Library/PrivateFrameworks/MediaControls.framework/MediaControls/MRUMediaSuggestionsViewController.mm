@@ -376,47 +376,47 @@ void __77__MRUMediaSuggestionsViewController_collectionView_didSelectItemAtIndex
 
 void __62__MRUMediaSuggestionsViewController_updateCell_forIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) suggestionIdentifier];
   v5 = [v4 isEqualToString:*(a1 + 40)];
 
-  v6 = MCLogCategoryDefault();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  v7 = MCLogCategoryDefault(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
-    if (v7)
+    if (v8)
     {
-      v8 = [*(a1 + 48) bundleID];
+      v9 = [*(a1 + 48) bundleID];
       *buf = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEBUG, "[MRUMediaSuggestionsVC] Loaded icon(%@) into cell", buf, 0xCu);
+      v18 = v9;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEBUG, "[MRUMediaSuggestionsVC] Loaded icon(%@) into cell", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __62__MRUMediaSuggestionsViewController_updateCell_forIdentifier___block_invoke_18;
     block[3] = &unk_1E7663D30;
-    v13 = *(a1 + 32);
-    v14 = v3;
-    v15 = *(a1 + 48);
+    v14 = *(a1 + 32);
+    v15 = v3;
+    v16 = *(a1 + 48);
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
-    v6 = v13;
+    v7 = v14;
   }
 
-  else if (v7)
+  else if (v8)
   {
-    v9 = [*(a1 + 48) bundleID];
-    v10 = [*(a1 + 32) suggestionIdentifier];
-    v11 = *(a1 + 40);
+    v10 = [*(a1 + 48) bundleID];
+    v11 = [*(a1 + 32) suggestionIdentifier];
+    v12 = *(a1 + 40);
     *buf = 138412802;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEBUG, "[MRUMediaSuggestionsVC] Did not load icon(%@) into cell; Identifier mismatch (%@, %@)", buf, 0x20u);
+    v18 = v10;
+    v19 = 2112;
+    v20 = v11;
+    v21 = 2112;
+    v22 = v12;
+    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEBUG, "[MRUMediaSuggestionsVC] Did not load icon(%@) into cell; Identifier mismatch (%@, %@)", buf, 0x20u);
   }
 }
 

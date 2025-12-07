@@ -4,10 +4,19 @@
 + (ALAssetsFilter)allVideos;
 - (ALAssetsFilter)init;
 - (int)_filter;
+- (void)_setFilter:(int)filter;
 - (void)dealloc;
 @end
 
 @implementation ALAssetsFilter
+
+- (void)_setFilter:(int)filter
+{
+  v3 = *&filter;
+  internal = [(ALAssetsFilter *)self internal];
+
+  [(ALAssetsFilterInternal *)internal setFilter:v3];
+}
 
 - (int)_filter
 {

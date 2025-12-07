@@ -174,29 +174,29 @@ LABEL_5:
   [layer setCornerRadius:v26];
 }
 
-void __37__TLKButton_tlk_updateForAppearance___block_invoke(uint64_t a1)
+void __37__TLKButton_tlk_updateForAppearance___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = [*(a1 + 32) overlayImage];
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  v6 = (*(a1 + 64) - v4) * 0.5;
-  *&v6 = v6;
-  v7 = (*(a1 + 72) - v5) * 0.5;
+  v3 = objc_opt_class();
+  v4 = [*(a1 + 32) overlayImage];
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  v7 = (*(a1 + 64) - v5) * 0.5;
   *&v7 = v7;
-  v8 = [v2 blurColorForImage:v3 forButtonSize:v4 withOffsetRight:v5 withOffsetBottom:{v6, v7}];
+  v8 = (*(a1 + 72) - v6) * 0.5;
+  *&v8 = v8;
+  v9 = [v3 blurColorForImage:v4 forButtonSize:v5 withOffsetRight:v6 withOffsetBottom:{v7, v8}];
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __37__TLKButton_tlk_updateForAppearance___block_invoke_2;
-  v12[3] = &unk_1E7FD8E48;
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 32);
-  v13 = v9;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __37__TLKButton_tlk_updateForAppearance___block_invoke_2;
+  v13[3] = &unk_1E7FD8E48;
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 32);
   v14 = v10;
-  v15 = v8;
-  v11 = v8;
-  [TLKUtilities dispatchMainIfNecessary:v12];
+  v15 = v11;
+  v16 = v9;
+  v12 = v9;
+  [TLKUtilities dispatchMainIfNecessary:v13];
 }
 
 void __37__TLKButton_tlk_updateForAppearance___block_invoke_2(uint64_t a1)
@@ -677,7 +677,7 @@ void __37__TLKButton_tlk_updateForAppearance___block_invoke_2(uint64_t a1)
   v22 = objc_opt_class();
   if (v22)
   {
-    [v22 _calculateStatistics:v21 withSize:{v20, v20}];
+    objc_msgSend__calculateStatistics_withSize_(v22, v20, v20);
   }
 
   else

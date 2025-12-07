@@ -79,108 +79,85 @@
 
     if (currentRoute && ([currentRoute startRouteCoordinate], GEOPolylineCoordinateIsValid()) && (objc_msgSend(currentRoute, "endRouteCoordinate"), GEOPolylineCoordinateIsValid()))
     {
-      startRouteCoordinate = [currentRoute startRouteCoordinate];
-      endRouteCoordinate = [currentRoute endRouteCoordinate];
-      if (GEOPolylineCoordinateIsInvalid())
-      {
-        v24 = LODWORD(GEOPolylineCoordinateInvalid[0]);
-        v25 = GEOPolylineCoordinateInvalid[1];
-      }
-
-      else
-      {
-        v25 = *(&startRouteCoordinate + 1) - floorf(*(&startRouteCoordinate + 1));
-        v24 = vcvtms_u32_f32(*(&startRouteCoordinate + 1)) + startRouteCoordinate;
-      }
-
-      v32 = v24 | (LODWORD(v25) << 32);
-      if (GEOPolylineCoordinateIsInvalid())
-      {
-        v33 = LODWORD(GEOPolylineCoordinateInvalid[0]);
-        v34 = GEOPolylineCoordinateInvalid[1];
-      }
-
-      else
-      {
-        v34 = *(&endRouteCoordinate + 1) - floorf(*(&endRouteCoordinate + 1));
-        v33 = vcvtms_u32_f32(*(&endRouteCoordinate + 1)) + endRouteCoordinate;
-      }
-
-      [currentRoute coarseBoundsForRange:{v32, v33 | (LODWORD(v34) << 32), 0, 0, 0, 0, 0, 0}];
+      [currentRoute startRouteCoordinate];
+      [currentRoute endRouteCoordinate];
+      GEOPolylineCoordinateIsInvalid();
+      GEOPolylineCoordinateIsInvalid();
+      objc_msgSend_coarseBoundsForRange_(currentRoute, 0, 0, 0, 0, 0, 0);
     }
 
     else
     {
-      v26 = kGEOCoordinateRegionInvalid[0];
-      v27 = kGEOCoordinateRegionInvalid[1];
-      v28 = kGEOCoordinateRegionInvalid[2];
-      v29 = kGEOCoordinateRegionInvalid[3];
-      if (v12 < 0.0 || v14 < 0.0 || (v30 = GEOMapRectWorld[2], v12 > v30) || (v31 = GEOMapRectWorld[3], v14 > v31) || v17 < 0.0 || v19 < 0.0 || v17 > v30 || v19 > v31)
+      v22 = kGEOCoordinateRegionInvalid[0];
+      v23 = kGEOCoordinateRegionInvalid[1];
+      v24 = kGEOCoordinateRegionInvalid[2];
+      v25 = kGEOCoordinateRegionInvalid[3];
+      if (v12 < 0.0 || v14 < 0.0 || (v26 = GEOMapRectWorld[2], v12 > v26) || (v27 = GEOMapRectWorld[3], v14 > v27) || v17 < 0.0 || v19 < 0.0 || v17 > v26 || v19 > v27)
       {
-LABEL_23:
-        if (fabs(v27) > 180.0 || v26 < -90.0 || v26 > 90.0 || v28 < 0.0 || v28 > 180.0 || v29 < 0.0 || v29 > 360.0)
+LABEL_17:
+        if (fabs(v23) > 180.0 || v22 < -90.0 || v22 > 90.0 || v24 < 0.0 || v24 > 180.0 || v25 < 0.0 || v25 > 360.0)
         {
-          v41 = sub_10076A8AC();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          v34 = sub_10076A8AC();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
-            v42 = GEOOfflineModeAsString();
+            v35 = GEOOfflineModeAsString();
             uniqueRouteID = [currentRoute uniqueRouteID];
-            *v47 = 138412802;
-            *&v47[4] = v42;
-            *&v47[12] = 2112;
-            *&v47[14] = uniqueRouteID;
-            *&v47[22] = 2112;
-            v48 = *&waypointConfiguration;
-            v44 = "GEOOfflineService wouldLikeToSwitchToState to %@, Ignoring for route %@, configuration %@";
-            v45 = v41;
-            v46 = 32;
-            goto LABEL_34;
+            *v40 = 138412802;
+            *&v40[4] = v35;
+            *&v40[12] = 2112;
+            *&v40[14] = uniqueRouteID;
+            *&v40[22] = 2112;
+            v41 = *&waypointConfiguration;
+            v37 = "GEOOfflineService wouldLikeToSwitchToState to %@, Ignoring for route %@, configuration %@";
+            v38 = v34;
+            v39 = 32;
+            goto LABEL_28;
           }
         }
 
         else
         {
-          v39 = +[GEOOfflineService shared];
-          v40 = [v39 canUseOfflineForCoordinateRegion:{v26, v27, v28, v29}];
+          v32 = +[GEOOfflineService shared];
+          v33 = [v32 canUseOfflineForCoordinateRegion:{v22, v23, v24, v25}];
 
-          [v7 delegate:self prefersMode:v40];
-          v41 = sub_10076A8AC();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          [v7 delegate:self prefersMode:v33];
+          v34 = sub_10076A8AC();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
-            v42 = GEOOfflineModeAsString();
+            v35 = GEOOfflineModeAsString();
             uniqueRouteID = GEOOfflineModeAsString();
-            *v47 = 138412546;
-            *&v47[4] = v42;
-            *&v47[12] = 2112;
-            *&v47[14] = uniqueRouteID;
-            v44 = "GEOOfflineService wouldLikeToSwitchToState to %@, RoutePlanningUpdater prefers %@";
-            v45 = v41;
-            v46 = 22;
-LABEL_34:
-            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, v44, v47, v46);
+            *v40 = 138412546;
+            *&v40[4] = v35;
+            *&v40[12] = 2112;
+            *&v40[14] = uniqueRouteID;
+            v37 = "GEOOfflineService wouldLikeToSwitchToState to %@, RoutePlanningUpdater prefers %@";
+            v38 = v34;
+            v39 = 22;
+LABEL_28:
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, v37, v40, v39);
           }
         }
 
-        goto LABEL_36;
+        goto LABEL_30;
       }
 
-      *v47 = v12;
-      *&v47[8] = v14;
-      *&v47[16] = v17;
-      v48 = v19;
+      *v40 = v12;
+      *&v40[8] = v14;
+      *&v40[16] = v17;
+      v41 = v19;
       GEOMapRectBoundingMapPoints();
     }
 
     GEOCoordinateRegionForMapRect();
-    v26 = v35;
-    v27 = v36;
-    v28 = v37;
-    v29 = v38;
-    goto LABEL_23;
+    v22 = v28;
+    v23 = v29;
+    v24 = v30;
+    v25 = v31;
+    goto LABEL_17;
   }
 
   [serviceCopy delegate:self prefersMode:var0];
-LABEL_36:
+LABEL_30:
 }
 
 - (void)_networkReachabilityChanged:(id)changed
@@ -682,8 +659,8 @@ LABEL_12:
 
   session = [(RoutePlanningUpdater *)self session];
   session2 = [(RoutePlanningUpdater *)self session];
-  configuration = [session2 configuration];
-  originWaypointRequest = [configuration originWaypointRequest];
+  v5 = objc_msgSend_configuration(session2);
+  originWaypointRequest = [v5 originWaypointRequest];
   waypointRequest = [originWaypointRequest waypointRequest];
   isCurrentLocation = [waypointRequest isCurrentLocation];
 

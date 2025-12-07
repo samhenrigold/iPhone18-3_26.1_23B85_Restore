@@ -16,7 +16,7 @@
 - (HGRef<HGNode>)hgNodeForTime:(id *)time inputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
   v7 = v6;
-  v8.var0 = PVInputHGNodeMap<unsigned int>::GetNode(inputs, 0, v6);
+  PVInputHGNodeMap<unsigned int>::GetNode(inputs, 0, v6);
   {
     if (LODWORD(v8.var0))
     {

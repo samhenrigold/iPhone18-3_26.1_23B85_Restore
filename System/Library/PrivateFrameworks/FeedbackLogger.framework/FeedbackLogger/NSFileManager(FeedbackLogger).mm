@@ -7,22 +7,20 @@
 
 - (id)urlForStoreWithId:()FeedbackLogger
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   feedbackLoggerDirectoryURL = [self feedbackLoggerDirectoryURL];
   v6 = [feedbackLoggerDirectoryURL URLByAppendingPathComponent:v4 isDirectory:1];
 
   if (v6)
   {
-    v11 = *MEMORY[0x277CCA180];
-    v12[0] = &unk_285E1AE98;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA180];
+    v11[0] = &unk_285E1AE98;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     [self createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:v7 error:0];
   }
 
   v8 = [v6 URLByAppendingPathComponent:@"data.sqlite" isDirectory:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

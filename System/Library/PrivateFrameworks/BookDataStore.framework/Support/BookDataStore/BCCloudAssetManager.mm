@@ -5,12 +5,14 @@
 - (NSManagedObjectModel)objectModel;
 - (id)assetDetailManagerInstance;
 - (id)assetReviewManagerInstance;
+- (id)diagnosticEntityInfos:(BOOL)infos;
 - (id)initService;
 - (id)readingNowDetailManagerInstance;
 - (id)storeAssetManagerInstance;
 - (void)dealloc;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
 - (void)hasSaltChangedWithCompletion:(id)completion;
+- (void)setEnableCloudSync:(BOOL)sync enableReadingNowSync:(BOOL)nowSync;
 @end
 
 @implementation BCCloudAssetManager
@@ -83,7 +85,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002660();
+  v3 = sub_100002660(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -150,6 +152,52 @@
   return v4;
 }
 
+- (void)setEnableCloudSync:(BOOL)sync enableReadingNowSync:(BOOL)nowSync
+{
+  nowSyncCopy = nowSync;
+  syncCopy = sync;
+  v7 = sub_100002660(self);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    if (syncCopy)
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    if (nowSyncCopy)
+    {
+      v8 = @"YES";
+    }
+
+    v15 = 138412546;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BCCloudAssetManager - Service build - #enableCloudSync setEnableCloudSync %@ enableReadingNowSync %@", &v15, 0x16u);
+  }
+
+  storeAssetManagerInstance = [(BCCloudAssetManager *)self storeAssetManagerInstance];
+  [storeAssetManagerInstance setEnableCloudSync:syncCopy];
+
+  assetDetailManagerInstance = [(BCCloudAssetManager *)self assetDetailManagerInstance];
+  [assetDetailManagerInstance setEnableCloudSync:syncCopy];
+
+  readingNowDetailManagerInstance = [(BCCloudAssetManager *)self readingNowDetailManagerInstance];
+  [readingNowDetailManagerInstance setEnableCloudSync:nowSyncCopy];
+
+  assetReviewManagerInstance = [(BCCloudAssetManager *)self assetReviewManagerInstance];
+  [assetReviewManagerInstance setEnableCloudSync:syncCopy];
+
+  changeTokenController = [(BCCloudAssetManager *)self changeTokenController];
+  [changeTokenController setEnableCloudSync:syncCopy];
+}
+
 - (void)hasSaltChangedWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -166,12 +214,12 @@
   assetReviewManagerInstance = [(BCCloudAssetManager *)self assetReviewManagerInstance];
   [v5 bds_addObjectIfNotNil:assetReviewManagerInstance];
 
-  v10 = sub_10000DC08();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = sub_10000DC08(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "BCCloudAssetManager hasSaltChangedWithCompletion with managers:%@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v5;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "BCCloudAssetManager hasSaltChangedWithCompletion with managers:%@", &v12, 0xCu);
   }
 
   [v5 bds_chainUntilNoErrorCompletionSelectorCallsForSelector:"hasSaltChangedWithCompletion:" completion:completionCopy];
@@ -180,7 +228,7 @@
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100002660();
+  v5 = sub_100002660(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v12 = 0;
@@ -209,15 +257,30 @@
 
   if (verboseLoggingEnabled)
   {
-    v6 = sub_10000DB80();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000DB80(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "\\BCCloudAssetManager deleteCloudDataWithCompletion:\\"", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudAssetManager deleteCloudDataWithCompletion:\", v8, 2u);
     }
   }
 
   [BCCloudDataSource deleteCloudDataWithCompletion:completionCopy];
+}
+
+- (id)diagnosticEntityInfos:(BOOL)infos
+{
+  infosCopy = infos;
+  v5 = objc_alloc_init(NSMutableArray);
+  assetDetailManagerInstance = [(BCCloudAssetManager *)self assetDetailManagerInstance];
+  v7 = [assetDetailManagerInstance diagnosticEntityInfos:infosCopy];
+  [v5 addObjectsFromArray:v7];
+
+  readingNowDetailManagerInstance = [(BCCloudAssetManager *)self readingNowDetailManagerInstance];
+  v9 = [readingNowDetailManagerInstance diagnosticEntityInfos:infosCopy];
+  [v5 addObjectsFromArray:v9];
+
+  return v5;
 }
 
 @end

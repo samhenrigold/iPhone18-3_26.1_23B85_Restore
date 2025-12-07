@@ -17,7 +17,7 @@
   }
 
   v8 = options;
-  v4 = sub_1002DE264();
+  v4 = sub_1002DE264(Migrator);
   migrationType = [(ASDRequestOptions *)v8 migrationType];
   if (self)
   {

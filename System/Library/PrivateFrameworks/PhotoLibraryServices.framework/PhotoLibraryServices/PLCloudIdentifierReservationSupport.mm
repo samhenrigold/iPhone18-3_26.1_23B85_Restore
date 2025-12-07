@@ -359,7 +359,7 @@ void __111__PLCloudIdentifierReservationSupport_reservedCloudIdentifierUUIDsWith
     v28[5] = v15;
   }
 
-  if ([v34[5] count] != count)
+  if (objc_msgSend_count(v34[5]) != count)
   {
     v17 = v34[5];
     v34[5] = 0;
@@ -410,7 +410,7 @@ LABEL_17:
 void __116__PLCloudIdentifierReservationSupport_reserveCloudIdentifierUUIDsWithEntityName_count_clientBundleIdentifier_error___block_invoke(uint64_t a1)
 {
   v10 = [*(a1 + 32) _lock_reservedIdentifiersForEntityName:*(a1 + 40) clientBundleIdentifier:*(a1 + 48)];
-  if ((*(a1 + 72) + [v10 count]) > 0xC350)
+  if ((*(a1 + 72) + objc_msgSend_count(v10)) > 0xC350)
   {
     v7 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69BFF48] code:46202 userInfo:0];
     v8 = *(*(a1 + 64) + 8);

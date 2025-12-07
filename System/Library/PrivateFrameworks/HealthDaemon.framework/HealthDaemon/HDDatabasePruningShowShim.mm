@@ -683,15 +683,15 @@ LABEL_17:
 
 + (id)entitiesInProfile:(id)profile referenceDate:(id)date shouldIncludeEntity:(id)entity error:(id *)error
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   dateCopy = date;
   entityCopy = entity;
   v13 = [[HDDatabasePruningTask alloc] initWithProfile:profileCopy];
   _untypedEntityClasses = [(HDDatabasePruningTask *)v13 _untypedEntityClasses];
-  v86 = 0;
-  v15 = [self _syncStoresInProfile:profileCopy error:&v86];
-  v16 = v86;
+  v78 = 0;
+  v15 = [self _syncStoresInProfile:profileCopy error:&v78];
+  v16 = v78;
   if (v16)
   {
     v17 = v16;
@@ -713,9 +713,9 @@ LABEL_17:
   {
     errorCopy = error;
     v20 = [v15 hk_map:&__block_literal_global_449];
-    v85 = 0;
-    v73 = [self _instantiateStores:v20 profile:profileCopy error:&v85];
-    v21 = v85;
+    v77 = 0;
+    v65 = [self _instantiateStores:v20 profile:profileCopy error:&v77];
+    v21 = v77;
     if (v21)
     {
       v17 = v21;
@@ -735,9 +735,9 @@ LABEL_17:
 
     else
     {
-      v84 = 0;
-      v71 = [(HDDatabasePruningTask *)v13 _minimumFrozenAnchorMapForPruningDate:dateCopy error:&v84];
-      v23 = v84;
+      v76 = 0;
+      v63 = [(HDDatabasePruningTask *)v13 _minimumFrozenAnchorMapForPruningDate:dateCopy error:&v76];
+      v23 = v76;
       if (v23)
       {
         v17 = v23;
@@ -757,93 +757,87 @@ LABEL_17:
 
       else
       {
-        v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v80 = 0u;
-        v81 = 0u;
-        v82 = 0u;
-        v83 = 0u;
+        v60 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v72 = 0u;
+        v73 = 0u;
+        v74 = 0u;
+        v75 = 0u;
         obj = _untypedEntityClasses;
-        v64 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
-        if (v64)
+        v58 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
+        if (v58)
         {
-          v25 = &selRef_predicateForMaximumQuantity_quantityType_operatorType_;
-          v26 = &selRef_predicateForMaximumQuantity_quantityType_operatorType_;
-          v27 = &selRef_predicateForMaximumQuantity_quantityType_operatorType_;
-          v67 = *v81;
-          v55 = _untypedEntityClasses;
-          v56 = dateCopy;
-          v59 = entityCopy;
-          v53 = v20;
-          v54 = v15;
+          v59 = *v73;
+          v50 = _untypedEntityClasses;
+          v51 = dateCopy;
+          v54 = entityCopy;
+          v48 = v20;
+          v49 = v15;
           do
           {
-            v28 = 0;
-            v66 = v25[193];
-            v60 = v26[196];
-            v65 = v27[194];
-            v29 = v64;
-            v30 = v67;
+            v25 = 0;
+            v26 = v58;
+            v27 = v59;
             do
             {
-              if (*v81 != v30)
+              if (*v73 != v27)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v31 = *(*(&v80 + 1) + 8 * v28);
-              v32 = NSStringFromClass(v31);
-              if (!entityCopy || entityCopy[2](entityCopy, v32))
+              v28 = *(*(&v72 + 1) + 8 * v25);
+              v29 = NSStringFromClass(v28);
+              if (!entityCopy || entityCopy[2](entityCopy, v29))
               {
                 if (objc_opt_respondsToSelector())
                 {
-                  v33 = 1;
+                  v30 = 1;
                 }
 
                 else
                 {
-                  v33 = objc_opt_respondsToSelector();
+                  v30 = objc_opt_respondsToSelector();
                 }
 
-                v69 = objc_opt_respondsToSelector();
-                v74 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                if ([(objc_class *)v31 conformsToProtocol:&unk_283CCCD88])
+                v61 = objc_opt_respondsToSelector();
+                v66 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                if ([(objc_class *)v28 conformsToProtocol:&unk_283CCCD88])
                 {
-                  v57 = v33;
-                  v58 = v28;
-                  v63 = v32;
-                  syncEntityIdentifier = [(objc_class *)v31 syncEntityIdentifier];
-                  v61 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v71, "anchorForSyncEntityClass:", v31)}];
-                  v76 = 0u;
-                  v77 = 0u;
-                  v78 = 0u;
-                  v79 = 0u;
-                  v34 = v73;
-                  v35 = [v34 countByEnumeratingWithState:&v76 objects:v87 count:16];
-                  if (v35)
+                  v52 = v30;
+                  v53 = v25;
+                  v57 = v29;
+                  syncEntityIdentifier = [(objc_class *)v28 syncEntityIdentifier];
+                  v55 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v63, "anchorForSyncEntityClass:", v28)}];
+                  v68 = 0u;
+                  v69 = 0u;
+                  v70 = 0u;
+                  v71 = 0u;
+                  v31 = v65;
+                  v32 = [v31 countByEnumeratingWithState:&v68 objects:v79 count:16];
+                  if (v32)
                   {
-                    v36 = v35;
-                    v37 = *v77;
+                    v33 = v32;
+                    v34 = *v69;
                     while (2)
                     {
-                      for (i = 0; i != v36; ++i)
+                      for (i = 0; i != v33; ++i)
                       {
-                        if (*v77 != v37)
+                        if (*v69 != v34)
                         {
-                          objc_enumerationMutation(v34);
+                          objc_enumerationMutation(v31);
                         }
 
-                        v39 = *(*(&v76 + 1) + 8 * i);
-                        if ([v39 providesSamplePruningRestrictionPredicate])
+                        v36 = *(*(&v68 + 1) + 8 * i);
+                        if ([v36 providesSamplePruningRestrictionPredicate])
                         {
-                          v75 = 0;
-                          v40 = [v39 samplePruningRestrictionPredicateForSyncEntity:v31 error:&v75];
-                          v41 = v75;
-                          if (v41)
+                          v67 = 0;
+                          v37 = [v36 samplePruningRestrictionPredicateForSyncEntity:v28 error:&v67];
+                          v38 = v67;
+                          if (v38)
                           {
-                            v17 = v41;
+                            v17 = v38;
                             if (errorCopy)
                             {
-                              v50 = v41;
+                              v46 = v38;
                               *errorCopy = v17;
                             }
 
@@ -852,27 +846,27 @@ LABEL_17:
                               _HKLogDroppedError();
                             }
 
-                            _untypedEntityClasses = v55;
-                            dateCopy = v56;
-                            entityCopy = v59;
-                            v20 = v53;
-                            v15 = v54;
+                            _untypedEntityClasses = v50;
+                            dateCopy = v51;
+                            entityCopy = v54;
+                            v20 = v48;
+                            v15 = v49;
 
                             v19 = 0;
-                            v49 = v68;
+                            v45 = v60;
                             goto LABEL_46;
                           }
 
-                          if (v40)
+                          if (v37)
                           {
-                            syncStoreIdentifier = [v39 syncStoreIdentifier];
-                            [v74 setObject:v40 forKey:syncStoreIdentifier];
+                            syncStoreIdentifier = [v36 syncStoreIdentifier];
+                            [v66 setObject:v37 forKey:syncStoreIdentifier];
                           }
                         }
                       }
 
-                      v36 = [v34 countByEnumeratingWithState:&v76 objects:v87 count:16];
-                      if (v36)
+                      v33 = [v31 countByEnumeratingWithState:&v68 objects:v79 count:16];
+                      if (v33)
                       {
                         continue;
                       }
@@ -881,56 +875,50 @@ LABEL_17:
                     }
                   }
 
-                  v28 = v58;
-                  entityCopy = v59;
-                  v32 = v63;
-                  v29 = v64;
-                  v44 = v61;
-                  v43 = syncEntityIdentifier;
-                  v33 = v57;
+                  v25 = v53;
+                  entityCopy = v54;
+                  v29 = v57;
+                  v26 = v58;
+                  v41 = v55;
+                  v40 = syncEntityIdentifier;
+                  v30 = v52;
                 }
 
                 else
                 {
-                  v43 = 0;
-                  v44 = 0;
+                  v40 = 0;
+                  v41 = 0;
                 }
 
-                v45 = [[HDDatabasePruningShowEntity alloc] initWithClassName:v32 identifier:v43 supportsPruning:v33 & 1 supportsPruningRestrictionPredicates:v69 & 1 maximumPruningAnchor:v44 pruningRestrictionPredicates:v74];
-                v46 = v43;
-                v47 = v45;
-                [v68 addObject:v45];
+                v42 = [[HDDatabasePruningShowEntity alloc] initWithClassName:v29 identifier:v40 supportsPruning:v30 & 1 supportsPruningRestrictionPredicates:v61 & 1 maximumPruningAnchor:v41 pruningRestrictionPredicates:v66];
+                v43 = v40;
+                v44 = v42;
+                [v60 addObject:v42];
 
-                v30 = v67;
+                v27 = v59;
               }
 
-              ++v28;
+              ++v25;
             }
 
-            while (v28 != v29);
-            v48 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
-            _untypedEntityClasses = v55;
-            dateCopy = v56;
-            v20 = v53;
-            v15 = v54;
-            v25 = &selRef_predicateForMaximumQuantity_quantityType_operatorType_;
-            v26 = &selRef_predicateForMaximumQuantity_quantityType_operatorType_;
-            v64 = v48;
-            v27 = &selRef_predicateForMaximumQuantity_quantityType_operatorType_;
+            while (v25 != v26);
+            _untypedEntityClasses = v50;
+            dateCopy = v51;
+            v20 = v48;
+            v15 = v49;
+            v58 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
           }
 
-          while (v48);
+          while (v58);
         }
 
-        v49 = v68;
-        v19 = v68;
+        v45 = v60;
+        v19 = v60;
         v17 = 0;
 LABEL_46:
       }
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

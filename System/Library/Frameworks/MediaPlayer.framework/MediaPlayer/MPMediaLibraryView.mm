@@ -356,49 +356,34 @@ void __48__MPMediaLibraryView_resultsForCoreQuery_error___block_invoke(void *a1,
   v7 = +[MPPropertySet emptyPropertySet];
   if (v6)
   {
-    [v6 entityQueryForPropertySet:v7 sortDescriptors:0 context:v5 view:self];
+    objc_msgSend_entityQueryForPropertySet_sortDescriptors_context_view_(v6);
   }
 
   else
   {
-    v14 = 0;
-    v15 = 0;
+    v9 = 0;
+    v10 = 0;
   }
 
-  v13 = xmmword_1A273DDF0;
   mlcore::RangeQuery::setRange();
-  v11 = v14;
-  v12 = v15;
-  if (v15)
+  if (v10)
   {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [(MPMediaLibraryView *)self _performCoreQuery:&v11 error:0];
-  v9 = *(&v13 + 1);
-  v8 = v13;
-  v13 = 0uLL;
-  if (v12)
+  objc_msgSend__performCoreQuery_error_(self, v9);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  if (v8)
+  std::__shared_weak_count::__release_shared[abi:ne200100](1);
+  if (v10)
   {
-    LOBYTE(v8) = mlcore::EntityQueryResult::entityCount(v8) != 0;
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  }
-
-  if (v15)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-  }
-
-  return v8;
+  return 0;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -527,7 +512,7 @@ void __48__MPMediaLibraryView_resultsForCoreQuery_error___block_invoke(void *a1,
     library = v9->_library;
     if (library)
     {
-      [(MPMediaLibrary *)library _MediaLibrary_coreLibrary];
+      objc_msgSend__MediaLibrary_coreLibrary(library);
       v18 = v15;
       v19 = v16;
       if (v16)

@@ -79,7 +79,7 @@
 {
   height = size.height;
   width = size.width;
-  v12 = sub_1000F24EC(&qword_100AD5170);
+  v12 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v12 - 8);
   v14 = &v21 - v13;
   v15 = _Block_copy(completion);

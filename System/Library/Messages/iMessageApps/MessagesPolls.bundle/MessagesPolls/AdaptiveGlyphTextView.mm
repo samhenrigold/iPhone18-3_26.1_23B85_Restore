@@ -59,7 +59,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_301C(change);
+  sub_301C(change, selfCopy);
 }
 
 - (NSArray)keyCommands
@@ -83,10 +83,9 @@
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v5 = *(Strong + OBJC_IVAR____TtCV13MessagesPolls28AdaptiveGlyphSwiftUITextView11Coordinator_parent + 64);
-    v4 = *(Strong + OBJC_IVAR____TtCV13MessagesPolls28AdaptiveGlyphSwiftUITextView11Coordinator_parent + 72);
+    v4 = *(Strong + OBJC_IVAR____TtCV13MessagesPolls28AdaptiveGlyphSwiftUITextView11Coordinator_parent + 64);
     selfCopy = self;
-    v5();
+    v4();
     swift_unknownObjectRelease();
   }
 }
@@ -96,10 +95,9 @@
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v5 = *(Strong + OBJC_IVAR____TtCV13MessagesPolls28AdaptiveGlyphSwiftUITextView11Coordinator_parent + 80);
-    v4 = *(Strong + OBJC_IVAR____TtCV13MessagesPolls28AdaptiveGlyphSwiftUITextView11Coordinator_parent + 88);
+    v4 = *(Strong + OBJC_IVAR____TtCV13MessagesPolls28AdaptiveGlyphSwiftUITextView11Coordinator_parent + 80);
     selfCopy = self;
-    v5();
+    v4();
     swift_unknownObjectRelease();
   }
 }
@@ -108,8 +106,7 @@
 {
   v4 = sub_473A4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin();
+  __chkstk_darwin(v4, v6);
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_47394();
   selfCopy = self;
@@ -185,14 +182,13 @@ LABEL_6:
 
   if (v5 < 1)
   {
-    v8 = *(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtC13MessagesPolls21AdaptiveGlyphTextView_placeholderText);
     v7 = *&selfCopy->previousPayloadDelegate[OBJC_IVAR____TtC13MessagesPolls21AdaptiveGlyphTextView_placeholderText];
 
     if (v7)
     {
-      v9 = sub_483D4();
+      v8 = sub_483D4();
 
-      v6 = v9;
+      v6 = v8;
       goto LABEL_7;
     }
   }

@@ -6384,16 +6384,16 @@ LABEL_14:
   return v10;
 }
 
-uint64_t __131__HUQuickControlPresentationCoordinator_quickControlViewController_applierForSourceViewTransitionWithAnimationSettings_presenting___block_invoke(uint64_t result)
+void *__131__HUQuickControlPresentationCoordinator_quickControlViewController_applierForSourceViewTransitionWithAnimationSettings_presenting___block_invoke(void *result)
 {
   if (*(result + 48) == 1)
   {
     v6 = v1;
     v7 = v2;
     v3 = result;
-    v4 = *(result + 32);
+    v4 = result[4];
     CGAffineTransformMakeScale(&v5, 1.0, 1.0);
-    return [v4 _updateOverrideAttributesWithTransform:&v5 alpha:*(v3 + 40) forItem:0.0];
+    return [v4 _updateOverrideAttributesWithTransform:&v5 alpha:v3[5] forItem:0.0];
   }
 
   return result;

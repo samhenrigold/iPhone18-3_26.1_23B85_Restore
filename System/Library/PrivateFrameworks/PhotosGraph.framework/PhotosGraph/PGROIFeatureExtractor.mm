@@ -38,19 +38,19 @@ __CFString *__47__PGROIFeatureExtractor_initWithVersion_error___block_invoke(uin
 
 + (id)_labelsForVersion:(int64_t)version
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (version == 2)
   {
     v8 = *MEMORY[0x277D27588];
-    v13 = *MEMORY[0x277D27590];
-    v14 = v8;
+    v12 = *MEMORY[0x277D27590];
+    v13 = v8;
     v9 = *MEMORY[0x277D27598];
-    v15 = *MEMORY[0x277D275A0];
-    v16 = v9;
-    v17 = *MEMORY[0x277D27580];
-    v18 = @"None";
+    v14 = *MEMORY[0x277D275A0];
+    v15 = v9;
+    v16 = *MEMORY[0x277D27580];
+    v17 = @"None";
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v13;
+    v6 = &v12;
     v7 = 6;
     goto LABEL_5;
   }
@@ -58,23 +58,22 @@ __CFString *__47__PGROIFeatureExtractor_initWithVersion_error___block_invoke(uin
   if (version == 1)
   {
     v3 = *MEMORY[0x277D27588];
-    v19 = *MEMORY[0x277D27590];
-    v20 = v3;
+    v18 = *MEMORY[0x277D27590];
+    v19 = v3;
     v4 = *MEMORY[0x277D27598];
-    v21 = *MEMORY[0x277D275A0];
-    v22 = v4;
-    v23 = *MEMORY[0x277D27580];
+    v20 = *MEMORY[0x277D275A0];
+    v21 = v4;
+    v22 = *MEMORY[0x277D27580];
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v19;
+    v6 = &v18;
     v7 = 5;
 LABEL_5:
-    v10 = [v5 arrayWithObjects:v6 count:{v7, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24}];
+    v10 = [v5 arrayWithObjects:v6 count:{v7, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23}];
     goto LABEL_7;
   }
 
   v10 = MEMORY[0x277CBEBF8];
 LABEL_7:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

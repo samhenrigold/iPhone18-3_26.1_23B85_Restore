@@ -428,16 +428,16 @@ LABEL_13:
           {
             unzipPath = self->_unzipPath;
             *buf = 138412546;
-            v76 = unzipPath;
-            v77 = 2112;
-            v78 = 0;
+            v75 = unzipPath;
+            v76 = 2112;
+            v77 = 0;
             _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to create archive for passthrough EA on path %@ : %@", buf, 0x16u);
           }
 
           v11 = self->_unzipPath;
-          v83 = NSFilePathErrorKey;
-          v84 = v11;
-          v12 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v82 = NSFilePathErrorKey;
+          v83 = v11;
+          v12 = [NSDictionary dictionaryWithObjects:&v83 forKeys:&v82 count:1];
           sub_1000015F4("[StreamingUnzipState serializeState]", 331, @"SZExtractorErrorDomain", 1, 0, v12, @"Failed to create archive for passthrough EA on path %@", v13, self->_unzipPath);
           v2 = LABEL_46:;
 
@@ -455,21 +455,20 @@ LABEL_60:
           v54 = self->_unzipPath;
           v55 = strerror(v40);
           *buf = 136315906;
-          v76 = "com.apple.StreamingPassthroughResumptionData";
-          v77 = 2112;
-          v78 = v54;
-          v79 = 2080;
-          v80 = v55;
-          v81 = 2112;
-          v82 = 0;
+          v75 = "com.apple.StreamingPassthroughResumptionData";
+          v76 = 2112;
+          v77 = v54;
+          v78 = 2080;
+          v79 = v55;
+          v80 = 2112;
+          v81 = 0;
           _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Failed to set passthrough EA %s on path %@: %s : %@", buf, 0x2Au);
         }
 
         v42 = self->_unzipPath;
-        v73 = NSFilePathErrorKey;
-        v74 = v42;
-        v12 = [NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-        v61 = self->_unzipPath;
+        v72 = NSFilePathErrorKey;
+        v73 = v42;
+        v12 = [NSDictionary dictionaryWithObjects:&v73 forKeys:&v72 count:1];
         strerror(v40);
         sub_1000015F4("[StreamingUnzipState serializeState]", 336, NSPOSIXErrorDomain, v40, 0, v12, @"Failed to set passthrough EA %s on path %@: %s", v43, "com.apple.StreamingPassthroughResumptionData");
         goto LABEL_46;
@@ -522,9 +521,9 @@ LABEL_60:
       goto LABEL_28;
     }
 
-    v63 = 0;
-    v21 = [(StreamingFileWriter *)v20 currentOffsetWithError:&v63];
-    v22 = v63;
+    v62 = 0;
+    v21 = [(StreamingFileWriter *)v20 currentOffsetWithError:&v62];
+    v22 = v62;
     v23 = v22;
     if (v21 == -1)
     {
@@ -532,14 +531,14 @@ LABEL_60:
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v76 = v23;
+        v75 = v23;
         _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Unable to get current output offset from current output file : %@", buf, 0xCu);
       }
 
-      v71 = NSFilePathErrorKey;
+      v70 = NSFilePathErrorKey;
       path = [(StreamingFileWriter *)self->_fileWriter path];
-      v72 = path;
-      v47 = [NSDictionary dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+      v71 = path;
+      v47 = [NSDictionary dictionaryWithObjects:&v71 forKeys:&v70 count:1];
       v48 = @"Unable to get current output offset from current output file";
       v49 = 365;
     }
@@ -595,32 +594,32 @@ LABEL_28:
             v57 = [v9EncodedData length];
             currentOffset = self->_currentOffset;
             *buf = 134218240;
-            v76 = v57;
-            v77 = 2048;
-            v78 = currentOffset;
+            v75 = v57;
+            v76 = 2048;
+            v77 = currentOffset;
             _os_log_debug_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "Serializing %lu bytes of resumption data for offset %llu", buf, 0x16u);
           }
 
-          v62 = 0;
-          v35 = [v9EncodedData writeToFile:v23 options:1 error:&v62];
-          v36 = v62;
+          v61 = 0;
+          v35 = [v9EncodedData writeToFile:v23 options:1 error:&v61];
+          v36 = v61;
           if ((v35 & 1) == 0)
           {
             v37 = sub_10000126C();
             if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v76 = v23;
-              v77 = 2112;
-              v78 = v36;
-              v79 = 2112;
-              v80 = v36;
+              v75 = v23;
+              v76 = 2112;
+              v77 = v36;
+              v78 = 2112;
+              v79 = v36;
               _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to save resumption data to path %@: %@ : %@", buf, 0x20u);
             }
 
-            v65 = NSFilePathErrorKey;
-            v66 = v23;
-            v38 = [NSDictionary dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+            v64 = NSFilePathErrorKey;
+            v65 = v23;
+            v38 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
             v2 = sub_1000015F4("[StreamingUnzipState serializeState]", 400, @"SZExtractorErrorDomain", 1, v36, v38, @"Failed to save resumption data to path %@: %@", v39, v23);
           }
 
@@ -637,15 +636,15 @@ LABEL_51:
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v76 = v23;
-          v77 = 2112;
-          v78 = 0;
+          v75 = v23;
+          v76 = 2112;
+          v77 = 0;
           _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Failed to create archive for resumption data to path %@ : %@", buf, 0x16u);
         }
 
-        v67 = NSFilePathErrorKey;
-        v68 = v23;
-        v50 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+        v66 = NSFilePathErrorKey;
+        v67 = v23;
+        v50 = [NSDictionary dictionaryWithObjects:&v67 forKeys:&v66 count:1];
         v2 = sub_1000015F4("[StreamingUnzipState serializeState]", 393, @"SZExtractorErrorDomain", 1, 0, v50, @"Failed to create archive for resumption data to path %@", v51, v23);
 
 LABEL_59:
@@ -657,18 +656,18 @@ LABEL_59:
       {
         uncompressedBytesOutput = self->_uncompressedBytesOutput;
         *buf = 134218498;
-        v76 = uncompressedBytesOutput;
-        v77 = 2048;
-        v78 = v21;
-        v79 = 2112;
-        v80 = v23;
+        v75 = uncompressedBytesOutput;
+        v76 = 2048;
+        v77 = v21;
+        v78 = 2112;
+        v79 = v23;
         _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Mismatch between uncompressed bytes output (%llu) and output file offset (%lld) : %@", buf, 0x20u);
       }
 
-      v69 = NSFilePathErrorKey;
+      v68 = NSFilePathErrorKey;
       path = [(StreamingFileWriter *)self->_fileWriter path];
-      v70 = path;
-      v47 = [NSDictionary dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+      v69 = path;
+      v47 = [NSDictionary dictionaryWithObjects:&v69 forKeys:&v68 count:1];
       v60 = self->_uncompressedBytesOutput;
       v48 = @"Mismatch between uncompressed bytes output (%llu) and output file offset (%lld)";
       v49 = 367;
@@ -679,9 +678,9 @@ LABEL_59:
     goto LABEL_59;
   }
 
-  v64 = 0;
-  v5 = [(StreamingFileWriter *)fileWriter suspendWithError:&v64];
-  v6 = v64;
+  v63 = 0;
+  v5 = [(StreamingFileWriter *)fileWriter suspendWithError:&v63];
+  v6 = v63;
   v2 = v6;
   if (v5)
   {

@@ -62,26 +62,7 @@
   v18.receiver = self;
   v18.super_class = ACXIDSMessaging;
   v8 = [(ACXIDSMessaging *)&v18 init];
-  if (!v8)
-  {
-    goto LABEL_3;
-  }
-
-  v9 = objc_opt_new();
-  pendingReplies = v8->_pendingReplies;
-  v8->_pendingReplies = v9;
-
-  v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v12 = dispatch_queue_create("com.apple.appconduit.IDSMessaging", v11);
-  internalQueue = v8->_internalQueue;
-  v8->_internalQueue = v12;
-
-  v14 = [nameCopy copy];
-  serviceName = v8->_serviceName;
-  v8->_serviceName = v14;
-
-  objc_storeStrong(&v8->_service, service);
-  if (!v8->_service)
+  if (v8 && (v9 = objc_opt_new(), pendingReplies = v8->_pendingReplies, v8->_pendingReplies = v9, pendingReplies, dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v11 = objc_claimAutoreleasedReturnValue(), v12 = dispatch_queue_create("com.apple.appconduit.IDSMessaging", v11), internalQueue = v8->_internalQueue, v8->_internalQueue = v12, internalQueue, v11, v14 = [nameCopy copy], serviceName = v8->_serviceName, v8->_serviceName = v14, serviceName, objc_storeStrong(&v8->_service, service), !v8->_service))
   {
     if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
     {
@@ -93,7 +74,6 @@
 
   else
   {
-LABEL_3:
     v16 = v8;
   }
 

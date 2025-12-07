@@ -89,35 +89,35 @@ uint64_t __65__BLSAlwaysOnFrameSpecifier_entrySpecifierForTimelineIdentifier___b
 
 - (int64_t)requestedFidelity
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_entrySpecifiers;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        requestedFidelity = [*(*(&v11 + 1) + 8 * i) requestedFidelity];
+        requestedFidelity = [*(*(&v10 + 1) + 8 * i) requestedFidelity];
         if (requestedFidelity > v5)
         {
           v5 = requestedFidelity;
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -128,7 +128,6 @@ uint64_t __65__BLSAlwaysOnFrameSpecifier_entrySpecifierForTimelineIdentifier___b
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -151,31 +150,31 @@ uint64_t __65__BLSAlwaysOnFrameSpecifier_entrySpecifierForTimelineIdentifier___b
 
 - (id)correctedSpecifierWithNextSpecifier:(id)specifier
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   selfCopy = self;
   v5 = self->_entrySpecifiers;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v40;
+    v8 = *v39;
     do
     {
       v9 = 0;
-      v38 = v7;
+      v37 = v7;
       do
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * v9);
+        v10 = *(*(&v38 + 1) + 8 * v9);
         if ([v10 requestedFidelity] == -1)
         {
           timelineEntry = [v10 timelineEntry];
@@ -201,7 +200,7 @@ uint64_t __65__BLSAlwaysOnFrameSpecifier_entrySpecifierForTimelineIdentifier___b
             specifierCopy = v18;
             v5 = v17;
             v8 = v16;
-            v7 = v38;
+            v7 = v37;
             v23 = [BLSFidelityThreshold fidelityForUpdateInterval:v22];
             if (v23 == 3)
             {
@@ -221,7 +220,7 @@ uint64_t __65__BLSAlwaysOnFrameSpecifier_entrySpecifierForTimelineIdentifier___b
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v7);
@@ -248,8 +247,6 @@ uint64_t __65__BLSAlwaysOnFrameSpecifier_entrySpecifierForTimelineIdentifier___b
     v34 = [v32 initWithStartDate:startDate2 endDate:startDate];
     v29 = [(BLSAlwaysOnFrameSpecifier *)v30 initWithTimelineEntrySpecifiers:entrySpecifiers presentationInterval:v34];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
@@ -400,29 +397,29 @@ void __40__BLSAlwaysOnFrameSpecifier_description__block_invoke_3(uint64_t a1, vo
 
 - (void)constrainEntriesToUpdateFidelity:(uint64_t)fidelity
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (fidelity)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = *(fidelity + 24);
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v12 + 1) + 8 * i);
+          v8 = *(*(&v11 + 1) + 8 * i);
           requestedFidelity = [v8 requestedFidelity];
           if (requestedFidelity >= a2)
           {
@@ -437,14 +434,12 @@ void __40__BLSAlwaysOnFrameSpecifier_description__block_invoke_3(uint64_t a1, vo
           [v8 setGrantedFidelity:v10];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

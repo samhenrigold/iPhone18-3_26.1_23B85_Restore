@@ -77,10 +77,10 @@ LABEL_21:
     eshObject4 = [v27 eshObject];
     {
       BinaryDataReference = PptBinaryDataAtom::getBinaryDataReference(v29);
-      if (*(BinaryDataReference + 16))
+      if (BinaryDataReference->var3)
       {
         v31 = objc_alloc_init(OADSound);
-        v32 = [[ESDBlipContext alloc] initWithOffset:*(BinaryDataReference + 8) byteCount:*(BinaryDataReference + 16) stream:*(BinaryDataReference + 40) streamID:*(BinaryDataReference + 12)];
+        v32 = [[ESDBlipContext alloc] initWithOffset:BinaryDataReference->var1 byteCount:BinaryDataReference->var3 stream:BinaryDataReference->var7 streamID:BinaryDataReference->var2];
         [(OCDDelayedNode *)v31 setDelayedContext:v32];
         [(OADSound *)v31 setName:v43];
         v33 = objc_alloc_init(OADOle);

@@ -1,4 +1,4 @@
-void RPUserEventPluginInit()
+void RPUserEventPluginInit(uint64_t a1)
 {
   if (dword_4170 <= 30 && (dword_4170 != -1 || _LogCategory_Initialize()))
   {

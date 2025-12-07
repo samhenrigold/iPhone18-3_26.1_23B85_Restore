@@ -40,17 +40,15 @@
 
 - (id)accessibilityValue
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v3 = objc_alloc(MEMORY[0x29EDBD7E8]);
   _axText = [(HSPCPasscodeEntryViewAccessibility *)self _axText];
   v5 = [v3 initWithString:_axText];
 
-  v9 = *MEMORY[0x29EDBD9D0];
-  v10[0] = MEMORY[0x29EDB8EB0];
-  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x29EDBD9D0];
+  v9[0] = MEMORY[0x29EDB8EB0];
+  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v5 setAttributes:v6];
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v5;
 }

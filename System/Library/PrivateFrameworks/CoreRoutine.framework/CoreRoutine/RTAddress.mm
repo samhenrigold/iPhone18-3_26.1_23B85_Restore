@@ -21,6 +21,7 @@
 - (RTAddress)initWithCoder:(id)coder;
 - (RTAddress)initWithGeoDictionary:(id)dictionary language:(id)language country:(id)country phoneticLocale:(id)locale;
 - (RTAddress)initWithIdentifier:(id)identifier geoAddressData:(id)data subPremises:(id)premises subThoroughfare:(id)thoroughfare thoroughfare:(id)a7 subLocality:(id)locality locality:(id)a9 subAdministrativeArea:(id)self0 administrativeArea:(id)self1 administrativeAreaCode:(id)self2 postalCode:(id)self3 country:(id)self4 countryCode:(id)self5 inlandWater:(id)self6 ocean:(id)self7 areasOfInterest:(id)self8 isIsland:(BOOL)self9 creationDate:(id)date expirationDate:(id)expirationDate iso3166CountryCode:(id)iso3166CountryCode iso3166SubdivisionCode:(id)subdivisionCode;
+- (RTAddress)initWithIdentifier:(id)identifier geoAddressObject:(id)object subPremises:(id)premises isIsland:(BOOL)island creationDate:(id)date expirationDate:(id)expirationDate iso3166CountryCode:(id)code iso3166SubdivisionCode:(id)self0;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)geoAddressObject;
@@ -68,10 +69,9 @@
     {
       v6 = objc_alloc(MEMORY[0x1E69A1B40]);
       v5 = [objc_opt_class() _mergedThoroughfareWithSubPremises:self->_subPremises subThoroughfare:self->_subThoroughfare thoroughfare:self->_thoroughfare];
-      country = self->_country;
-      v8 = [v6 initWithCurrentLocaleFullThoroughfare:v5 subLocality:self->_subLocality locality:self->_locality subAdministrativeArea:self->_subAdministrativeArea administrativeArea:self->_administrativeArea postalCode:self->_postalCode country:country countryCode:self->_countryCode];
-      v9 = self->_localGeoAddressObject;
-      self->_localGeoAddressObject = v8;
+      v7 = [v6 initWithCurrentLocaleFullThoroughfare:v5 subLocality:self->_subLocality locality:self->_locality subAdministrativeArea:self->_subAdministrativeArea administrativeArea:self->_administrativeArea postalCode:self->_postalCode country:self->_country countryCode:self->_countryCode];
+      v8 = self->_localGeoAddressObject;
+      self->_localGeoAddressObject = v7;
     }
 
     localGeoAddressObject = self->_localGeoAddressObject;
@@ -527,6 +527,81 @@ LABEL_18:
   return v48;
 }
 
+- (RTAddress)initWithIdentifier:(id)identifier geoAddressObject:(id)object subPremises:(id)premises isIsland:(BOOL)island creationDate:(id)date expirationDate:(id)expirationDate iso3166CountryCode:(id)code iso3166SubdivisionCode:(id)self0
+{
+  islandCopy = island;
+  identifierCopy = identifier;
+  objectCopy = object;
+  premisesCopy = premises;
+  dateCopy = date;
+  expirationDateCopy = expirationDate;
+  codeCopy = code;
+  subdivisionCodeCopy = subdivisionCode;
+  if (!identifierCopy)
+  {
+    v24 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_13;
+    }
+
+    v31 = 0;
+    v25 = "Invalid parameter not satisfying: identifier";
+    v26 = &v31;
+LABEL_12:
+    _os_log_error_impl(&dword_1BF1C4000, v24, OS_LOG_TYPE_ERROR, v25, v26, 2u);
+    goto LABEL_13;
+  }
+
+  if (!dateCopy)
+  {
+    v24 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_13;
+    }
+
+    v30 = 0;
+    v25 = "Invalid parameter not satisfying: creationDate";
+    v26 = &v30;
+    goto LABEL_12;
+  }
+
+  if (!expirationDateCopy)
+  {
+    v24 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v25 = "Invalid parameter not satisfying: expirationDate";
+      v26 = buf;
+      goto LABEL_12;
+    }
+
+LABEL_13:
+
+    selfCopy = 0;
+    goto LABEL_16;
+  }
+
+  if (objectCopy)
+  {
+    v23 = [objc_opt_class() _encodeGeoAddressObject:objectCopy compress:1];
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  self = [(RTAddress *)self initWithIdentifier:identifierCopy geoAddressData:v23 subPremises:premisesCopy isIsland:islandCopy creationDate:dateCopy expirationDate:expirationDateCopy iso3166CountryCode:codeCopy iso3166SubdivisionCode:subdivisionCodeCopy];
+
+  selfCopy = self;
+LABEL_16:
+
+  return selfCopy;
+}
+
 - (RTAddress)initWithGeoDictionary:(id)dictionary language:(id)language country:(id)country phoneticLocale:(id)locale
 {
   v10 = MEMORY[0x1E695DF00];
@@ -571,7 +646,7 @@ LABEL_18:
 + (id)_decodeGeoAddressObjectFromData:(id)data decompress:(BOOL)decompress
 {
   decompressCopy = decompress;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v6 = dataCopy;
   if (dataCopy)
@@ -585,16 +660,16 @@ LABEL_18:
       v8 = v9;
     }
 
-    v16 = 0;
-    v10 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v8 error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v8 error:&v15];
+    v11 = v15;
     if (v11)
     {
       v12 = _rt_log_facility_get_os_log(RTLogFacilityLearnedLocation);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "error decoding geoAddressData, %@", buf, 0xCu);
       }
 
@@ -613,8 +688,6 @@ LABEL_18:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
@@ -631,8 +704,7 @@ LABEL_18:
   else
   {
     geoAddressObject = [(RTAddress *)self mergedThoroughfare];
-    locality = self->_locality;
-    v6 = [v3 stringWithFormat:@"%@ %@, %@ %@ %@ (%@, %@, legacy)", geoAddressObject, locality, self->_administrativeArea, self->_postalCode, self->_country, self->_iso3166SubdivisionCode, self->_iso3166CountryCode];
+    v6 = [v3 stringWithFormat:@"%@ %@, %@ %@ %@ (%@, %@, legacy)", geoAddressObject, self->_locality, self->_administrativeArea, self->_postalCode, self->_country, self->_iso3166SubdivisionCode, self->_iso3166CountryCode];
   }
 
   return v6;
@@ -707,11 +779,8 @@ LABEL_18:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_opt_class() allocWithZone:zone];
-  v5 = *&self->_locality;
-  v6 = *&self->_postalCode;
-  iso3166CountryCode = self->_iso3166CountryCode;
-  LOBYTE(v9) = self->_isIsland;
-  return [v4 initWithIdentifier:self->_identifier geoAddressData:self->_geoAddressData subPremises:self->_subPremises subThoroughfare:self->_subThoroughfare thoroughfare:self->_thoroughfare subLocality:self->_subLocality locality:self->_locality subAdministrativeArea:self->_subAdministrativeArea administrativeArea:self->_administrativeArea administrativeAreaCode:self->_administrativeAreaCode postalCode:self->_postalCode country:self->_country countryCode:self->_countryCode inlandWater:self->_inlandWater ocean:self->_ocean areasOfInterest:self->_areasOfInterest isIsland:v9 creationDate:self->_creationDate expirationDate:self->_expirationDate iso3166CountryCode:iso3166CountryCode iso3166SubdivisionCode:self->_iso3166SubdivisionCode];
+  LOBYTE(v6) = self->_isIsland;
+  return [v4 initWithIdentifier:self->_identifier geoAddressData:self->_geoAddressData subPremises:self->_subPremises subThoroughfare:self->_subThoroughfare thoroughfare:self->_thoroughfare subLocality:self->_subLocality locality:self->_locality subAdministrativeArea:self->_subAdministrativeArea administrativeArea:self->_administrativeArea administrativeAreaCode:self->_administrativeAreaCode postalCode:self->_postalCode country:self->_country countryCode:self->_countryCode inlandWater:self->_inlandWater ocean:self->_ocean areasOfInterest:self->_areasOfInterest isIsland:v6 creationDate:self->_creationDate expirationDate:self->_expirationDate iso3166CountryCode:self->_iso3166CountryCode iso3166SubdivisionCode:self->_iso3166SubdivisionCode];
 }
 
 - (BOOL)isEqualToAddress:(id)address

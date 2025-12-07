@@ -211,7 +211,7 @@
 - (void)insertText:(id)text
 {
   textCopy = text;
-  if (-[NSMutableString length](self->_text, "length") < self->_numberOfCharacters && ([textCopy isEqualToString:@"\n"] & 1) == 0)
+  if ([(NSMutableString *)self->_text length]< self->_numberOfCharacters && (objc_msgSend_isEqualToString_(textCopy) & 1) == 0)
   {
     text = self->_text;
     if (!text)

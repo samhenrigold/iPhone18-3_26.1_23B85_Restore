@@ -1126,7 +1126,7 @@ LABEL_11:
     }
   }
 
-  [client setDirection:{settings->var0, *v15, *&v15[16], v16, selfCopy}];
+  [client setDirection:{settings->var0, *v15, *&v15[8], v16, selfCopy}];
   [client setSpatialAudioDisabled:settings->var1];
   [client setIsVoiceActivityEnabled:settings->var2];
   [client setIsMediaPriorityEnabled:settings->var3];

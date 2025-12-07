@@ -123,8 +123,8 @@
 - (void)updateInkColor
 {
   bitmapContext = self->_bitmapContext;
-  keyView = [(UIKBHandwritingStrokeView *)self keyView];
-  CGContextSetFillColorWithColor(bitmapContext, [keyView inkColor]);
+  v3 = objc_msgSend_keyView(self, a2);
+  CGContextSetFillColorWithColor(bitmapContext, [v3 inkColor]);
 }
 
 - (CGRect)convertRectToBitmapCoordinates:(CGRect)coordinates
@@ -294,8 +294,8 @@
 
 - ($89C9DF7554150EC42DA90319EED2ADED)viewPointFromDataPoint:(SEL)point
 {
-  keyView = [(UIKBHandwritingStrokeView *)self keyView];
-  [keyView pageOffset];
+  v4 = objc_msgSend_keyView(self, point, a4);
+  [v4 pageOffset];
 
   return result;
 }
@@ -307,8 +307,8 @@
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  keyView = [(UIKBHandwritingStrokeView *)self keyView];
-  interpolatedPoints = [keyView interpolatedPoints];
+  v4 = objc_msgSend_keyView(self, a2);
+  interpolatedPoints = [v4 interpolatedPoints];
 
   obj = interpolatedPoints;
   v6 = [interpolatedPoints countByEnumeratingWithState:&v41 objects:v46 count:16];
@@ -432,9 +432,9 @@
   y = rect.origin.y;
   x = rect.origin.x;
   v63 = *MEMORY[0x1E69E9840];
-  keyView = [(UIKBHandwritingStrokeView *)self keyView];
+  v8 = objc_msgSend_keyView(self, a2);
 
-  if (keyView)
+  if (v8)
   {
     ContextStack = GetContextStack(0);
     if (*ContextStack < 1)
@@ -448,21 +448,21 @@
     }
 
     CGContextSaveGState(v10);
-    keyView2 = [(UIKBHandwritingStrokeView *)self keyView];
-    inkColor = [keyView2 inkColor];
+    v11 = objc_msgSend_keyView(self);
+    inkColor = [v11 inkColor];
 
     if (inkColor)
     {
-      keyView3 = [(UIKBHandwritingStrokeView *)self keyView];
-      [keyView3 recreateInkMaskIfNeeded];
+      v13 = objc_msgSend_keyView(self);
+      [v13 recreateInkMaskIfNeeded];
 
       [(UIView *)self bounds];
       v15 = v14;
       v17 = v16;
       v19 = v18;
       v21 = v20;
-      keyView4 = [(UIKBHandwritingStrokeView *)self keyView];
-      inkMask = [keyView4 inkMask];
+      v22 = objc_msgSend_keyView(self);
+      inkMask = [v22 inkMask];
       v64.origin.x = v15;
       v64.origin.y = v17;
       v64.size.width = v19;
@@ -470,13 +470,13 @@
       CGContextClipToMask(v10, v64, inkMask);
     }
 
-    keyView5 = [(UIKBHandwritingStrokeView *)self keyView];
-    bezierPathFIFO = [keyView5 bezierPathFIFO];
+    v24 = objc_msgSend_keyView(self);
+    bezierPathFIFO = [v24 bezierPathFIFO];
 
     if (bezierPathFIFO)
     {
-      keyView6 = [(UIKBHandwritingStrokeView *)self keyView];
-      [keyView6 pageOffset];
+      v26 = objc_msgSend_keyView(self);
+      [v26 pageOffset];
       v28 = x + v27;
 
       v61 = 0;
@@ -487,20 +487,20 @@
       *&info[4] = height;
       info[5] = 0;
       info[6] = 0;
-      keyView7 = [(UIKBHandwritingStrokeView *)self keyView];
-      [keyView7 inkWidth];
+      v29 = objc_msgSend_keyView(self);
+      [v29 inkWidth];
       info[7] = v30;
 
-      keyView8 = [(UIKBHandwritingStrokeView *)self keyView];
-      [keyView8 pageOffset];
+      v31 = objc_msgSend_keyView(self);
+      [v31 pageOffset];
       CGContextTranslateCTM(v10, -v32, 0.0);
 
       v58 = 0u;
       v59 = 0u;
       v56 = 0u;
       v57 = 0u;
-      keyView9 = [(UIKBHandwritingStrokeView *)self keyView];
-      interpolatedPoints = [keyView9 interpolatedPoints];
+      v33 = objc_msgSend_keyView(self, 0);
+      interpolatedPoints = [v33 interpolatedPoints];
 
       v35 = [interpolatedPoints countByEnumeratingWithState:&v56 objects:v62 count:16];
       if (v35)
@@ -527,26 +527,26 @@
       }
 
       LOBYTE(v61) = 0;
-      keyView10 = [(UIKBHandwritingStrokeView *)self keyView];
-      currentPath = [keyView10 currentPath];
+      v39 = objc_msgSend_keyView(self);
+      currentPath = [v39 currentPath];
       v41 = currentPath == 0;
 
       if (!v41)
       {
-        keyView11 = [(UIKBHandwritingStrokeView *)self keyView];
-        currentPath2 = [keyView11 currentPath];
+        v42 = objc_msgSend_keyView(self);
+        currentPath2 = [v42 currentPath];
         v44 = currentPath2;
         CGPathApply([currentPath2 CGPath], info, clipHandwritingPath);
       }
 
-      keyView12 = [(UIKBHandwritingStrokeView *)self keyView];
-      [keyView12 inkWidth];
+      v45 = objc_msgSend_keyView(self);
+      [v45 inkWidth];
       CGContextSetLineWidth(v10, v46);
 
       CGContextSetLineCap(v10, kCGLineCapRound);
       CGContextSetLineJoin(v10, kCGLineJoinRound);
-      keyView13 = [(UIKBHandwritingStrokeView *)self keyView];
-      CGContextSetStrokeColorWithColor(v10, [keyView13 inkColor]);
+      v47 = objc_msgSend_keyView(self);
+      CGContextSetStrokeColorWithColor(v10, [v47 inkColor]);
 
       CGContextStrokePath(v10);
     }

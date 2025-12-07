@@ -348,8 +348,8 @@ void __41__SKUIItemGridViewController_unhideIcons__block_invoke(uint64_t a1, uin
   pathCopy = path;
   layout = [cellCopy layout];
   colorScheme = [(SKUIUber *)self->_uber colorScheme];
-  primaryTextColor = [colorScheme primaryTextColor];
-  [cellCopy setSeparatorColor:primaryTextColor];
+  v10 = objc_msgSend_primaryTextColor(colorScheme);
+  [cellCopy setSeparatorColor:v10];
 
   item = [pathCopy item];
   if (item >= [(NSMutableArray *)self->_items count])
@@ -438,7 +438,7 @@ void __41__SKUIItemGridViewController_unhideIcons__block_invoke(uint64_t a1, uin
     whiteColor = [MEMORY[0x277D75348] whiteColor];
     [(UICollectionView *)v8 setBackgroundColor:whiteColor];
 
-    [(UICollectionView *)self->_collectionView setSemanticContentAttribute:storeSemanticContentAttribute()];
+    [(UICollectionView *)self->_collectionView setSemanticContentAttribute:storeSemanticContentAttribute(v10, v11)];
     [(UICollectionView *)self->_collectionView setDataSource:self];
     [(UICollectionView *)self->_collectionView setDelegate:self];
     [(UICollectionView *)self->_collectionView setPrefetchingEnabled:0];

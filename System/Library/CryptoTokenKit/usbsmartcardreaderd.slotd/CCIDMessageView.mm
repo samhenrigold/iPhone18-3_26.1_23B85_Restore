@@ -1,4 +1,6 @@
 @interface CCIDMessageView
++ (id)create:(unsigned __int8)create;
++ (id)create:(unsigned __int8)create withPayload:(id)payload;
 + (id)createWithData:(id)data;
 - (CCIDMessageView)initWithData:(id)data;
 - (CCIDMessageView)initWithLength:(unint64_t)length;
@@ -9,6 +11,7 @@
 - (id)commandStatusToString:(unsigned __int8)string;
 - (id)description;
 - (id)errorToString:(char)string;
+- (id)messageTypeToString:(unsigned __int8)string;
 - (unsigned)bBWI;
 - (unsigned)bChainParameter;
 - (unsigned)bPowerSelect;
@@ -48,12 +51,155 @@
   return [(TKDataView *)&v4 initWithData:data];
 }
 
++ (id)create:(unsigned __int8)create
+{
+  createCopy = create;
+  v4 = [CCIDMessageView alloc];
+  v5 = [(CCIDMessageView *)v4 initWithLength:qword_10002BF30];
+  [(CCIDMessageView *)v5 setMessageType:createCopy];
+  [(CCIDMessageView *)v5 setDwLength:0];
+
+  return v5;
+}
+
 + (id)createWithData:(id)data
 {
   dataCopy = data;
   v4 = [[CCIDMessageView alloc] initWithData:dataCopy];
 
   return v4;
+}
+
++ (id)create:(unsigned __int8)create withPayload:(id)payload
+{
+  createCopy = create;
+  payloadCopy = payload;
+  v6 = [payloadCopy length];
+  v7 = [CCIDMessageView alloc];
+  v8 = [(CCIDMessageView *)v7 initWithLength:qword_10002BF30 + v6];
+  [(CCIDMessageView *)v8 setMessageType:createCopy];
+  [(CCIDMessageView *)v8 setDwLength:v6];
+  [(CCIDMessageView *)v8 setPayload:payloadCopy];
+
+  return v8;
+}
+
+- (id)messageTypeToString:(unsigned __int8)string
+{
+  if (string > 127)
+  {
+    if (string <= 129)
+    {
+      if (string == 128)
+      {
+        string = @"RDR_to_PC_DataBlock";
+      }
+
+      else
+      {
+        string = @"RDR_to_PC_SlotStatus";
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 0x82u:
+          string = @"RDR_to_PC_Parameters";
+
+          break;
+        case 0x83u:
+          string = @"RDR_to_PC_Escape";
+
+          break;
+        case 0x84u:
+          string = @"RDR_to_PC_DataRateAndClockFrequency";
+
+          break;
+        default:
+LABEL_68:
+          string = [NSString stringWithFormat:@"Unknown(%.2x)", string];
+LABEL_69:
+
+          break;
+      }
+    }
+  }
+
+  else
+  {
+    string = @"PC_to_RDR_IccPowerOn";
+    switch(string)
+    {
+      case 'P':
+        string = @"RDR_to_PC_NotifySlotChange";
+
+        break;
+      case 'Q':
+        string = @"RDR_to_PC_HardwareError";
+
+        break;
+      case 'a':
+        string = @"PC_to_RDR_SetParameters";
+
+        break;
+      case 'b':
+        goto LABEL_69;
+      case 'c':
+        string = @"PC_to_RDR_IccPowerOff";
+
+        break;
+      case 'e':
+        string = @"PC_to_RDR_GetSlotStatus";
+
+        break;
+      case 'i':
+        string = @"PC_to_RDR_Secure";
+
+        break;
+      case 'j':
+        string = @"PC_to_RDR_T0APDU";
+
+        break;
+      case 'k':
+        string = @"PC_to_RDR_Escape";
+
+        break;
+      case 'l':
+        string = @"PC_to_RDR_GetParameters";
+
+        break;
+      case 'm':
+        string = @"PC_to_RDR_ResetParameters";
+
+        break;
+      case 'n':
+        string = @"PC_to_RDR_IccClock";
+
+        break;
+      case 'o':
+        string = @"PC_to_RDR_XfrBlock";
+
+        break;
+      case 'q':
+        string = @"PC_to_RDR_Mechanical";
+
+        break;
+      case 'r':
+        string = @"PC_to_RDR_Abort";
+
+        break;
+      case 's':
+        string = @"PC_to_RDR_SetDataRateAndClockFrequency";
+
+        break;
+      default:
+        goto LABEL_68;
+    }
+  }
+
+  return string;
 }
 
 - (id)errorToString:(char)string

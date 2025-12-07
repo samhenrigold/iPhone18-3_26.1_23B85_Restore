@@ -1,5 +1,6 @@
 @interface NRLink
 - (BOOL)changeStateTo:(unsigned __int8)to details:(id)details;
+- (BOOL)changeStateTo:(unsigned __int8)to detailsFormat:(id)format;
 - (BOOL)initializeExternalDeviceLink;
 - (BOOL)publishDNSConfig:(id)config;
 - (BOOL)resume;
@@ -28,6 +29,7 @@
 - (void)processIKEDisconnection:(unsigned __int8)disconnection error:(id)error;
 - (void)removePolicies;
 - (void)reportEvent:(unsigned int)event details:(id)details;
+- (void)reportEvent:(unsigned int)event detailsFormat:(id)format;
 - (void)setIkeClassCEstablished:(BOOL)established;
 - (void)setIkeClassDEstablished:(BOOL)established;
 - (void)setInterfaceAvailability;
@@ -96,8 +98,7 @@ LABEL_15:
   policyIDs = self->_policyIDs;
   if (!policyIDs || ![(NSMutableArray *)policyIDs count])
   {
-    nrUUID = self->_nrUUID;
-    v22 = _NRCopyLogObjectForNRUUID();
+    v18 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -105,49 +106,50 @@ LABEL_15:
       return;
     }
 
-LABEL_21:
-    v24 = self->_nrUUID;
-    v42 = _NRCopyLogObjectForNRUUID();
+    v28 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v28, 0, "%s%.30s:%-4d %@: No policies to remove", ", "[NRLink removePolicies]"", 905, copyDescription);
+LABEL_22:
 
     return;
   }
 
   if (!self->_policyIdentifierString)
   {
-    v32 = self->_nrUUID;
-    v33 = _NRCopyLogObjectForNRUUID();
-    v34 = _NRLogIsLevelEnabled();
+    v26 = _NRCopyLogObjectForNRUUID();
+    v27 = _NRLogIsLevelEnabled();
 
-    if (!v34)
+    if (!v27)
     {
       return;
     }
 
-    goto LABEL_21;
+    v28 = _NRCopyLogObjectForNRUUID();
+    copyDescription = [(NRLink *)self copyDescription];
+    _NRLogWithArgs(v28, 17, "%@: Invalid policy identifier string", copyDescription);
+    goto LABEL_22;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v4 = self->_policyIDs;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v44;
+    v7 = *v30;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v44 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v43 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
         if ([v9 unsignedIntegerValue])
         {
           objc_opt_self();
@@ -161,42 +163,31 @@ LABEL_21:
           goto LABEL_12;
         }
 
-        v11 = self->_nrUUID;
-        v12 = _NRCopyLogObjectForNRUUID();
-        v13 = _NRLogIsLevelEnabled();
+        v11 = _NRCopyLogObjectForNRUUID();
+        v12 = _NRLogIsLevelEnabled();
 
-        if (v13)
+        if (v12)
         {
-          v14 = self->_nrUUID;
-          v15 = _NRCopyLogObjectForNRUUID();
+          v13 = _NRCopyLogObjectForNRUUID();
           copyDescription2 = [(NRLink *)self copyDescription];
-          v40 = v9;
-          policyIdentifierString = self->_policyIdentifierString;
-          v37 = 888;
-          v38 = copyDescription2;
-          copyDescription3 = "";
-          v36 = "[NRLink removePolicies]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(v13, 16, "%s%.30s:%-4d %@: found invalid policyID %@ with session %@", ", "[NRLink removePolicies]"", 888, copyDescription2, v9, self->_policyIdentifierString);
         }
 
-        v17 = self->_nrUUID;
-        v18 = _NRCopyLogObjectForNRUUID();
-        v19 = _NRLogIsLevelEnabled();
+        v15 = _NRCopyLogObjectForNRUUID();
+        v16 = _NRLogIsLevelEnabled();
 
-        if (v19)
+        if (v16)
         {
-          v20 = self->_nrUUID;
           v10 = _NRCopyLogObjectForNRUUID();
           copyDescription3 = [(NRLink *)self copyDescription];
-          v36 = v9;
-          _NRLogWithArgs();
+          _NRLogWithArgs(v10, 17, "%@: Found invalid policyID %@", copyDescription3, v9);
 
 LABEL_12:
           continue;
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v6);
@@ -208,22 +199,20 @@ LABEL_12:
     dispatch_once(&qword_100229410, &stru_1001FCD98);
   }
 
-  v26 = qword_100229408;
-  sub_10015A52C(v26);
+  v21 = qword_100229408;
+  sub_10015A52C(v21);
 
   [(NSMutableArray *)self->_policyIDs removeAllObjects];
   *&self->_hasRouteRulePolicy = 0;
   self->_hasClassDPolicies = 0;
-  v27 = self->_nrUUID;
-  v28 = _NRCopyLogObjectForNRUUID();
-  v29 = _NRLogIsLevelEnabled();
+  v22 = _NRCopyLogObjectForNRUUID();
+  v23 = _NRLogIsLevelEnabled();
 
-  if (v29)
+  if (v23)
   {
-    v30 = self->_nrUUID;
-    v31 = _NRCopyLogObjectForNRUUID();
+    v24 = _NRCopyLogObjectForNRUUID();
     copyDescription4 = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v24, 0, "%s%.30s:%-4d %@: Removed all policies", ", "[NRLink removePolicies]"", 903, copyDescription4);
   }
 }
 
@@ -267,7 +256,7 @@ LABEL_12:
         {
           nrUUID2 = [(NRLink *)self nrUUID];
           v24 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          _NRLogWithArgs(v24, 17, "failed to determine ikev2 role");
         }
 
         v19 = 1;
@@ -362,16 +351,14 @@ LABEL_20:
 
 - (void)checkPeerAvailabilityWithForceAggressive:(BOOL)aggressive
 {
-  nrUUID = self->_nrUUID;
-  v5 = _NRCopyLogObjectForNRUUID();
+  v4 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    v7 = self->_nrUUID;
-    v9 = _NRCopyLogObjectForNRUUID();
+    v7 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v7, 1, "%s%.30s:%-4d %@: peer availability check is unsupported", ", "[NRLink checkPeerAvailabilityWithForceAggressive:]"", 810, copyDescription);
   }
 }
 
@@ -384,29 +371,25 @@ LABEL_20:
       v4 = [NSString alloc];
       v5 = objc_opt_class();
       v6 = NSStringFromClass(v5);
-      v23 = [v4 initWithFormat:@"%@:[%llu]", v6, -[NRLink identifier](self, "identifier")];
+      v17 = [v4 initWithFormat:@"%@:[%llu]", v6, -[NRLink identifier](self, "identifier")];
 
-      v7 = sub_10013F1F8(v23);
+      v7 = sub_10013F1F8(v17);
       if (self)
       {
         self->_powerAssertion = v7;
         if (v7)
         {
-          nrUUID = self->_nrUUID;
-          v9 = _NRCopyLogObjectForNRUUID();
+          v8 = _NRCopyLogObjectForNRUUID();
           IsLevelEnabled = _NRLogIsLevelEnabled();
 
           if (IsLevelEnabled)
           {
-            v11 = self->_nrUUID;
-            v12 = _NRCopyLogObjectForNRUUID();
-            v21 = 790;
+            v10 = _NRCopyLogObjectForNRUUID();
             copyDescription = [(NRLink *)self copyDescription];
-            v20 = "[NRLink setPowerAssertionState:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v10, 0, "%s%.30s:%-4d %@: Successfully took power assertion", ", "[NRLink setPowerAssertionState:]"", 790, copyDescription);
           }
 
-          [(NRLink *)self reportEvent:3300 detailsFormat:@"id: %u", self->_powerAssertion, v20, v21, copyDescription];
+          [(NRLink *)self reportEvent:3300 detailsFormat:@"id: %u", self->_powerAssertion];
         }
       }
     }
@@ -419,21 +402,17 @@ LABEL_20:
     {
       if (sub_10013F3BC(powerAssertion))
       {
-        v14 = self->_nrUUID;
-        v15 = _NRCopyLogObjectForNRUUID();
-        v16 = _NRLogIsLevelEnabled();
+        v13 = _NRCopyLogObjectForNRUUID();
+        v14 = _NRLogIsLevelEnabled();
 
-        if (v16)
+        if (v14)
         {
-          v17 = self->_nrUUID;
-          v18 = _NRCopyLogObjectForNRUUID();
-          v21 = 800;
-          copyDescription = [(NRLink *)self copyDescription];
-          v19 = "[NRLink setPowerAssertionState:]";
-          _NRLogWithArgs();
+          v15 = _NRCopyLogObjectForNRUUID();
+          copyDescription2 = [(NRLink *)self copyDescription];
+          _NRLogWithArgs(v15, 0, "%s%.30s:%-4d %@: Successfully released power assertion", ", "[NRLink setPowerAssertionState:]"", 800, copyDescription2);
         }
 
-        [(NRLink *)self reportEvent:3302 detailsFormat:@"id: %u", self->_powerAssertion, v19, v21, copyDescription];
+        [(NRLink *)self reportEvent:3302 detailsFormat:@"id: %u", self->_powerAssertion];
       }
 
       self->_powerAssertion = 0;
@@ -452,8 +431,7 @@ LABEL_20:
 
   else
   {
-    nrUUID = self->_nrUUID;
-    v6 = _NRCopyLogObjectForNRUUID();
+    v5 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -461,10 +439,9 @@ LABEL_20:
       return 0;
     }
 
-    v8 = self->_nrUUID;
     v3 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v3, 17, "%@: No interface to set interface no ack prioritization", copyDescription);
 
     v4 = 0;
   }
@@ -474,35 +451,36 @@ LABEL_20:
 
 - (BOOL)setInterfacePeerEgressFunctionalType:(unsigned int)type
 {
+  v3 = *&type;
   if (![(NRLink *)self virtualInterface])
   {
-    nrUUID = self->_nrUUID;
-    v8 = _NRCopyLogObjectForNRUUID();
+    v7 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      goto LABEL_7;
+      v5 = _NRCopyLogObjectForNRUUID();
+      copyDescription = [(NRLink *)self copyDescription];
+      _NRLogWithArgs(v5, 17, "%@: No interface to set interface sub-family", copyDescription);
+LABEL_8:
+
+      v6 = 0;
+      goto LABEL_9;
     }
 
     return 0;
   }
 
-  if (!type)
+  if (!v3)
   {
-    v10 = self->_nrUUID;
-    v11 = _NRCopyLogObjectForNRUUID();
-    v12 = _NRLogIsLevelEnabled();
+    v10 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRLogIsLevelEnabled();
 
-    if (v12)
+    if (v11)
     {
-LABEL_7:
-      v13 = self->_nrUUID;
       v5 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
-
-      v6 = 0;
+      _NRLogWithArgs(v5, 1, "%s%.30s:%-4d %@: Unsupported link type in trying to set the peer egress type.", ", "[NRLink setInterfacePeerEgressFunctionalType:]"", 750, copyDescription);
       goto LABEL_8;
     }
 
@@ -511,8 +489,8 @@ LABEL_7:
 
   [(NRLink *)self virtualInterface];
   v5 = NEVirtualInterfaceCopyName();
-  v6 = sub_10013B488(v5, type);
-LABEL_8:
+  v6 = sub_10013B488(v5, v3);
+LABEL_9:
 
   return v6;
 }
@@ -534,13 +512,12 @@ LABEL_8:
       v5 = dword_1001965A8[type];
     }
 
-    v10 = sub_10013AD6C(v3, v5);
+    v9 = sub_10013AD6C(v3, v5);
   }
 
   else
   {
-    nrUUID = self->_nrUUID;
-    v7 = _NRCopyLogObjectForNRUUID();
+    v6 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -548,15 +525,14 @@ LABEL_8:
       return 0;
     }
 
-    v9 = self->_nrUUID;
     v3 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v3, 17, "%@: No interface to set interface sub-family", copyDescription);
 
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)setInterfaceAvailability
@@ -564,14 +540,13 @@ LABEL_8:
   if ([(NRLink *)self virtualInterface])
   {
     [(NRLink *)self virtualInterface];
-    v8 = NEVirtualInterfaceCopyName();
-    sub_10013CC88(v8);
+    v6 = NEVirtualInterfaceCopyName();
+    sub_10013CC88(v6);
   }
 
   else
   {
-    nrUUID = self->_nrUUID;
-    v4 = _NRCopyLogObjectForNRUUID();
+    v3 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -579,10 +554,9 @@ LABEL_8:
       return;
     }
 
-    v6 = self->_nrUUID;
-    v8 = _NRCopyLogObjectForNRUUID();
+    v6 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v6, 17, "%@: Attempting to set interface availability on a link with no interface", copyDescription);
   }
 }
 
@@ -614,21 +588,18 @@ LABEL_8:
     self->_ikeClassCEstablished = established;
     if (self->_isPrimary && established)
     {
-      ikeClassDEstablishedTime = self->_ikeClassDEstablishedTime;
       nr_absolute_time();
       NRDiffMachTimeInSeconds();
-      if (v6 > 1.0)
+      if (v5 > 1.0)
       {
-        nrUUID = self->_nrUUID;
-        v8 = _NRCopyLogObjectForNRUUID();
+        v6 = _NRCopyLogObjectForNRUUID();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v10 = self->_nrUUID;
-          v11 = _NRCopyLogObjectForNRUUID();
+          v8 = _NRCopyLogObjectForNRUUID();
           copyDescription = [(NRLink *)self copyDescription];
-          _NRLogWithArgs();
+          _NRLogWithArgs(v8, 0, "%s%.30s:%-4d %@: setting interface availability for classC connect event", ", "[NRLink setIkeClassCEstablished:]"", 661, copyDescription);
         }
 
         objc_opt_self();
@@ -637,43 +608,43 @@ LABEL_8:
           dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
         }
 
-        v19 = qword_1002290B8;
-        v12 = self->_nrUUID;
-        if (!v19)
+        v16 = qword_1002290B8;
+        v10 = self->_nrUUID;
+        if (!v16)
         {
           goto LABEL_16;
         }
 
-        v13 = sub_100003490();
-        dispatch_assert_queue_V2(v13);
+        v11 = sub_100003490();
+        dispatch_assert_queue_V2(v11);
 
-        if (v12)
+        if (v10)
         {
-          v14 = [v19[28] objectForKeyedSubscript:v12];
+          v12 = [v16[28] objectForKeyedSubscript:v10];
 
-          if (!v14)
+          if (!v12)
           {
 LABEL_16:
 
             return;
           }
 
-          v15 = [v19[28] objectForKeyedSubscript:v12];
-          sub_100101D0C(v15);
+          v13 = [v16[28] objectForKeyedSubscript:v10];
+          sub_100101D0C(v13);
         }
 
         else
         {
-          v16 = sub_1000B9544();
-          v17 = _NRLogIsLevelEnabled();
+          v14 = sub_1000B9544();
+          v15 = _NRLogIsLevelEnabled();
 
-          if (!v17)
+          if (!v15)
           {
             goto LABEL_16;
           }
 
-          v15 = sub_1000B9544();
-          _NRLogWithArgs();
+          v13 = sub_1000B9544();
+          _NRLogWithArgs(v13, 17, "%s called with null nrUUID", "[NRLinkDirector setInterfaceAvailabilityForCatchAllInterface:]");
         }
 
         goto LABEL_16;
@@ -693,14 +664,14 @@ LABEL_16:
     if (IsLevelEnabled)
     {
       v8 = sub_100140094();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v8, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLink shouldCreateCompanionProxyAgent]"", 645);
     }
 
-    _os_log_pack_size();
-    v9 = *__error();
-    v10 = _os_log_pack_fill();
-    *v10 = 136446210;
-    *(v10 + 4) = "[NRLink shouldCreateCompanionProxyAgent]";
+    v9 = _os_log_pack_size();
+    v10 = __error();
+    v11 = _os_log_pack_fill(&v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), v9, *v10, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+    *v11 = 136446210;
+    *(v11 + 4) = "[NRLink shouldCreateCompanionProxyAgent]";
     sub_100140094();
     _NRLogAbortWithPack();
   }
@@ -726,14 +697,14 @@ LABEL_16:
       if (IsLevelEnabled)
       {
         v19 = sub_100140094();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v19, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLink setInterfaceRank]"", 601);
       }
 
-      _os_log_pack_size();
-      v20 = *__error();
-      v21 = _os_log_pack_fill();
-      *v21 = 136446210;
-      *(v21 + 4) = "[NRLink setInterfaceRank]";
+      v20 = _os_log_pack_size();
+      v21 = __error();
+      v22 = _os_log_pack_fill(&v23 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), v20, *v21, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+      *v22 = 136446210;
+      *(v22 + 4) = "[NRLink setInterfaceRank]";
       sub_100140094();
       _NRLogAbortWithPack();
     }
@@ -840,25 +811,20 @@ LABEL_12:
 
 - (void)dealloc
 {
-  nrUUID = self->_nrUUID;
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    v6 = self->_nrUUID;
-    v7 = _NRCopyLogObjectForNRUUID();
-    v10 = 547;
+    v5 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    v8 = "";
-    v9 = "[NRLink dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(v5, 0, "%s%.30s:%-4d %@: Dealloc", ", "[NRLink dealloc]"", 547, copyDescription);
   }
 
-  [(NRLink *)self invalidateLink:v8];
-  v12.receiver = self;
-  v12.super_class = NRLink;
-  [(NRLink *)&v12 dealloc];
+  [(NRLink *)self invalidateLink];
+  v7.receiver = self;
+  v7.super_class = NRLink;
+  [(NRLink *)&v7 dealloc];
 }
 
 - (void)setLinkMTU
@@ -887,47 +853,51 @@ LABEL_12:
 
     if (self->_linkMTU != v4)
     {
-      v18 = v3;
-      virtualInterface = self->_virtualInterface;
+      v11 = v3;
       if (NEVirtualInterfaceSetMTU())
       {
         self->_linkMTU = v4;
-        nrUUID = self->_nrUUID;
-        v7 = _NRCopyLogObjectForNRUUID();
+        v5 = _NRCopyLogObjectForNRUUID();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
-        v3 = v18;
+        v3 = v11;
         if (IsLevelEnabled)
         {
-          v9 = self->_nrUUID;
-          v10 = _NRCopyLogObjectForNRUUID();
+          v7 = _NRCopyLogObjectForNRUUID();
           copyDescription = [(NRLink *)self copyDescription];
-          linkMTU = self->_linkMTU;
+          _NRLogWithArgs(v7, 0, "%s%.30s:%-4d %@: Successfully updated interface mtu to %u", ", "[NRLink setLinkMTU]"", 509, copyDescription, self->_linkMTU);
 LABEL_16:
-          _NRLogWithArgs();
 
-          v3 = v18;
+          v3 = v11;
         }
       }
 
       else
       {
-        v12 = self->_nrUUID;
-        v13 = _NRCopyLogObjectForNRUUID();
-        v14 = _NRLogIsLevelEnabled();
+        v9 = _NRCopyLogObjectForNRUUID();
+        v10 = _NRLogIsLevelEnabled();
 
-        v3 = v18;
-        if (v14)
+        v3 = v11;
+        if (v10)
         {
-          v15 = self->_nrUUID;
-          v10 = _NRCopyLogObjectForNRUUID();
+          v7 = _NRCopyLogObjectForNRUUID();
           copyDescription = [(NRLink *)self copyDescription];
-          v16 = self->_linkMTU;
+          _NRLogWithArgs(v7, 17, "%@: Failed to update interface mtu to %u", copyDescription, self->_linkMTU);
           goto LABEL_16;
         }
       }
     }
   }
+}
+
+- (BOOL)changeStateTo:(unsigned __int8)to detailsFormat:(id)format
+{
+  toCopy = to;
+  formatCopy = format;
+  v7 = [[NSString alloc] initWithFormat:formatCopy arguments:&v9];
+
+  LOBYTE(toCopy) = [(NRLink *)self changeStateTo:toCopy details:v7];
+  return toCopy;
 }
 
 - (BOOL)changeStateTo:(unsigned __int8)to details:(id)details
@@ -955,14 +925,14 @@ LABEL_7:
 
   if (detailsCopy && [detailsCopy length])
   {
-    v18 = sub_1001415A0(toCopy);
-    [(NRLink *)self reportEvent:3008 detailsFormat:@"Changing state to %@ %@", v18, v7];
+    v17 = sub_1001415A0(toCopy);
+    [(NRLink *)self reportEvent:3008 detailsFormat:@"Changing state to %@ %@", v17, v7];
   }
 
   else
   {
-    v18 = sub_1001415A0(toCopy);
-    [(NRLink *)self reportEvent:3008 detailsFormat:@"Changing state to %@", v18, v19];
+    v17 = sub_1001415A0(toCopy);
+    [(NRLink *)self reportEvent:3008 detailsFormat:@"Changing state to %@", v17, v18];
   }
 
   v8 = 0;
@@ -972,10 +942,9 @@ LABEL_8:
   {
     if (state == 8)
     {
-      linkReadyStartTime = self->_linkReadyStartTime;
       nr_absolute_time();
       NRDiffMachTimeInSeconds();
-      self->_linkTotalReadyTimeInSec = self->_linkTotalReadyTimeInSec + v12;
+      self->_linkTotalReadyTimeInSec = self->_linkTotalReadyTimeInSec + v11;
     }
 
     if (toCopy == 8)
@@ -986,11 +955,11 @@ LABEL_8:
       if (pairingClient)
       {
         pairingClient2 = [(NRLink *)self pairingClient];
-        v15 = pairingClient2;
+        v14 = pairingClient2;
         if (pairingClient2)
         {
           sub_10000CCF0(pairingClient2);
-          sub_10000C668(v15, 6u, 0);
+          sub_10000C668(v14, 6u, 0);
         }
 
         [(NRLink *)self setPairingClient:0];
@@ -1003,13 +972,13 @@ LABEL_8:
     else if (toCopy == 255 || toCopy == 9)
     {
       [(NRLink *)self removePolicies];
-      v16 = !v8;
+      v15 = !v8;
       if (state != 8)
       {
-        v16 = 1;
+        v15 = 1;
       }
 
-      if ((v16 & 1) == 0 && [(NRLink *)self virtualInterface])
+      if ((v15 & 1) == 0 && [(NRLink *)self virtualInterface])
       {
         [(NRLink *)self setInterfaceAvailability];
       }
@@ -1019,6 +988,15 @@ LABEL_8:
   }
 
   return state != toCopy;
+}
+
+- (void)reportEvent:(unsigned int)event detailsFormat:(id)format
+{
+  v4 = *&event;
+  formatCopy = format;
+  v7 = [[NSString alloc] initWithFormat:formatCopy arguments:&v8];
+
+  [(NRLink *)self reportEvent:v4 details:v7];
 }
 
 - (void)reportEvent:(unsigned int)event details:(id)details
@@ -1036,16 +1014,14 @@ LABEL_8:
     return 1;
   }
 
-  nrUUID = self->_nrUUID;
-  v5 = _NRCopyLogObjectForNRUUID();
+  v4 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    v7 = self->_nrUUID;
-    v8 = _NRCopyLogObjectForNRUUID();
+    v6 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v6, 1, "%s%.30s:%-4d %@: Class D/C not yet established. Ignoring 'resume'", ", "[NRLink resume]"", 347, copyDescription);
   }
 
   return 0;
@@ -1065,28 +1041,27 @@ LABEL_8:
   v3 = [NSString alloc];
   identifier = self->_identifier;
   isPrimary = [(NRLink *)self isPrimary];
-  type = self->_type;
   ShortStringFromNRLinkType = createShortStringFromNRLinkType();
   state = self->_state;
   if (state == 8)
   {
-    v9 = @"Rdy";
+    v8 = @"Rdy";
   }
 
   else
   {
-    v9 = sub_1001415A0(state);
+    v8 = sub_1001415A0(state);
   }
 
-  v10 = "";
+  v9 = "";
   if (isPrimary)
   {
-    v10 = " P";
+    v9 = " P";
   }
 
-  v11 = [v3 initWithFormat:@"%llu%s %@ %@", identifier, v10, ShortStringFromNRLinkType, v9];
+  v10 = [v3 initWithFormat:@"%llu%s %@ %@", identifier, v9, ShortStringFromNRLinkType, v8];
 
-  return v11;
+  return v10;
 }
 
 - (NSString)description
@@ -1148,64 +1123,70 @@ LABEL_8:
     v21 = sub_100140094();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
-    if (IsLevelEnabled)
+    if (!IsLevelEnabled)
     {
-      goto LABEL_17;
+      goto LABEL_20;
     }
 
-    goto LABEL_18;
+    v23 = sub_100140094();
+    _NRLogWithArgs(v23, 17, "%s called with null queue");
+LABEL_19:
+
+    selfCopy = 0;
+    goto LABEL_9;
   }
 
   dispatch_assert_queue_V2(queueCopy);
   if (!delegateCopy)
   {
-    v23 = sub_100140094();
-    v24 = _NRLogIsLevelEnabled();
+    v24 = sub_100140094();
+    v25 = _NRLogIsLevelEnabled();
 
-    if (v24)
+    if (!v25)
     {
-      goto LABEL_17;
+      goto LABEL_20;
     }
 
-    goto LABEL_18;
+    v23 = sub_100140094();
+    _NRLogWithArgs(v23, 17, "%s called with null linkDelegate");
+    goto LABEL_19;
   }
 
   if (!dCopy)
   {
-    v25 = sub_100140094();
-    v26 = _NRLogIsLevelEnabled();
+    v26 = sub_100140094();
+    v27 = _NRLogIsLevelEnabled();
 
-    if (v26)
+    if (v27)
     {
-      goto LABEL_17;
+      v23 = sub_100140094();
+      _NRLogWithArgs(v23, 17, "%s called with null nrUUID");
+      goto LABEL_19;
     }
 
-    goto LABEL_18;
+    goto LABEL_20;
   }
 
   if ((_NRIsUUIDNonZero() & 1) == 0)
   {
-    v27 = sub_100140094();
-    v28 = _NRLogIsLevelEnabled();
+    v28 = sub_100140094();
+    v29 = _NRLogIsLevelEnabled();
 
-    if (v28)
+    if (v29)
     {
-LABEL_17:
-      v29 = sub_100140094();
-      _NRLogWithArgs();
-
-      selfCopy = 0;
-      goto LABEL_9;
+      v23 = sub_100140094();
+      _NRLogWithArgs(v23, 17, "called with all-zero nrUUID");
+      goto LABEL_19;
     }
 
-LABEL_18:
+LABEL_20:
     selfCopy = 0;
     goto LABEL_9;
   }
 
-  v35.receiver = self;
-  v35.super_class = NRLink;
-  v12 = [(NRLink *)&v35 init];
+  v37.receiver = self;
+  v37.super_class = NRLink;
+  v12 = [(NRLink *)&v37 init];
   if (!v12)
   {
     v30 = sub_100140094();
@@ -1214,14 +1195,14 @@ LABEL_18:
     if (v31)
     {
       v32 = sub_100140094();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v32, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRLink initLinkWithQueue:linkDelegate:nrUUID:]"", 265);
     }
 
-    _os_log_pack_size();
-    v33 = *__error();
-    v34 = _os_log_pack_fill();
-    *v34 = 136446210;
-    *(v34 + 4) = "[NRLink initLinkWithQueue:linkDelegate:nrUUID:]";
+    v33 = _os_log_pack_size();
+    v34 = __error();
+    v35 = _os_log_pack_fill(&v36 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0), v33, *v34, &_mh_execute_header, "%{public}s [super init] failed");
+    *v35 = 136446210;
+    *(v35 + 4) = "[NRLink initLinkWithQueue:linkDelegate:nrUUID:]";
     sub_100140094();
     _NRLogAbortWithPack();
   }
@@ -1323,14 +1304,14 @@ LABEL_9:
     if (IsLevelEnabled)
     {
       v24 = sub_100140094();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v24, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLink(NRLinkProtected) checkProxyAgentWithForceUpdate:]"", 1234);
     }
 
-    _os_log_pack_size();
-    v25 = *__error();
-    v26 = _os_log_pack_fill();
-    *v26 = 136446210;
-    *(v26 + 4) = "[NRLink(NRLinkProtected) checkProxyAgentWithForceUpdate:]";
+    v25 = _os_log_pack_size();
+    v26 = __error();
+    v27 = _os_log_pack_fill(&v28 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0), v25, *v26, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+    *v27 = 136446210;
+    *(v27 + 4) = "[NRLink(NRLinkProtected) checkProxyAgentWithForceUpdate:]";
     sub_100140094();
     _NRLogAbortWithPack();
   }
@@ -1366,10 +1347,10 @@ LABEL_24:
       objc_storeStrong(&self->_usedProxyNotifyPayload, v6[12]);
       if (self->_usedProxyNotifyPayload)
       {
+        v31 = 0;
+        v32 = 0;
         v29 = 0;
         v30 = 0;
-        v27 = 0;
-        v28 = 0;
         if ([(NRLink *)self virtualInterface])
         {
           [(NRLink *)self virtualInterface];
@@ -1384,23 +1365,23 @@ LABEL_24:
 LABEL_14:
             v17 = self->_usedProxyNotifyPayload;
             v18 = [(NRLink *)self description];
-            v19 = sub_1001428D4(v6, v17, v16, &v29, &v30, &v28, &v27, v18);
+            v19 = sub_1001428D4(v6, v17, v16, &v31, &v32, &v30, &v29, v18);
 
             if (v19)
             {
-              v20 = v29;
-              [(NRLink *)self setShoesProxyAgentRegistration:v29];
-              v21 = v30;
-              objc_storeStrong(&self->_proxyAgentUUID, v30);
-              [(NRLink *)self setPublishedMasqueProxyConfig:v28];
-              [(NRLink *)self setProxyEndpoint:v27];
+              v20 = v31;
+              [(NRLink *)self setShoesProxyAgentRegistration:v31];
+              v21 = v32;
+              objc_storeStrong(&self->_proxyAgentUUID, v32);
+              [(NRLink *)self setPublishedMasqueProxyConfig:v30];
+              [(NRLink *)self setProxyEndpoint:v29];
             }
 
             else
             {
               [(NRLink *)self cancelWithReason:@"Failed to configure proxy agent"];
-              v20 = v29;
-              v21 = v30;
+              v20 = v31;
+              v21 = v32;
             }
 
             goto LABEL_18;
@@ -1420,272 +1401,280 @@ LABEL_18:
 
 - (BOOL)setupVirtualInterface
 {
-  if ([(NRLink *)self virtualInterface]|| ![(NRLink *)self hasCompanionDatapath])
+  if (![(NRLink *)self virtualInterface]&& [(NRLink *)self hasCompanionDatapath])
   {
-LABEL_44:
-    [(NRLink *)self checkProxyAgentWithForceUpdate:1];
-    return [(NRLink *)self state]!= 255;
-  }
+    queue = [(NRLink *)self queue];
+    [(NRLink *)self setVirtualInterface:sub_100144910(2, queue)];
 
-  queue = [(NRLink *)self queue];
-  [(NRLink *)self setVirtualInterface:sub_100144910(2, queue)];
-
-  if (![(NRLink *)self virtualInterface])
-  {
-    nrUUID = self->_nrUUID;
-    v18 = _NRCopyLogObjectForNRUUID();
-    IsLevelEnabled = _NRLogIsLevelEnabled();
-
-    if (!IsLevelEnabled)
+    if (![(NRLink *)self virtualInterface])
     {
-      return 0;
-    }
+      v17 = _NRCopyLogObjectForNRUUID();
+      IsLevelEnabled = _NRLogIsLevelEnabled();
 
-    v20 = self->_nrUUID;
-    v5 = _NRCopyLogObjectForNRUUID();
-    copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
-
-    goto LABEL_48;
-  }
-
-  if (![(NRLink *)self setInterfaceSubfamily])
-  {
-    v21 = self->_nrUUID;
-    v22 = _NRCopyLogObjectForNRUUID();
-    v23 = _NRLogIsLevelEnabled();
-
-    if (v23)
-    {
-      goto LABEL_24;
-    }
-
-    goto LABEL_25;
-  }
-
-  if (![(NRLink *)self setNoACKPrioritization])
-  {
-    v25 = self->_nrUUID;
-    v26 = _NRCopyLogObjectForNRUUID();
-    v27 = _NRLogIsLevelEnabled();
-
-    if (v27)
-    {
-      goto LABEL_24;
-    }
-
-    goto LABEL_25;
-  }
-
-  if (![(NRLink *)self setInterfaceRank])
-  {
-    v28 = self->_nrUUID;
-    v29 = _NRCopyLogObjectForNRUUID();
-    v30 = _NRLogIsLevelEnabled();
-
-    if (v30)
-    {
-LABEL_24:
-      v31 = self->_nrUUID;
-      v32 = _NRCopyLogObjectForNRUUID();
-      copyDescription2 = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
-    }
-
-LABEL_25:
-    [(NRLink *)self invalidateVirtualInterface];
-    return 0;
-  }
-
-  nrUUID = [(NRLink *)self nrUUID];
-  v5 = sub_100163A30(NRDLocalDevice, nrUUID);
-
-  if (!v5)
-  {
-    v64 = sub_100140094();
-    v65 = _NRLogIsLevelEnabled();
-
-    if (v65)
-    {
-      v66 = sub_100140094();
-      _NRLogWithArgs();
-    }
-
-    _os_log_pack_size();
-    v67 = *__error();
-    v68 = _os_log_pack_fill();
-    *v68 = 136446210;
-    *(v68 + 4) = "[NRLink(NRLinkProtected) setupVirtualInterface]";
-    sub_100140094();
-    _NRLogAbortWithPack();
-  }
-
-  [(NRLink *)self virtualInterface];
-  v6 = sub_100172E20(v5);
-  v7 = NEVirtualInterfaceAddAddress();
-
-  if (v7)
-  {
-    [(NRLink *)self virtualInterface];
-    v8 = sub_100172E88(v5);
-    v9 = NEVirtualInterfaceAddAddress();
-
-    if (v9)
-    {
-      [(NRLink *)self virtualInterface];
-      v10 = sub_1001731B0(v5);
-      v11 = NEVirtualInterfaceAddAddress();
-
-      if (v11)
+      if (!IsLevelEnabled)
       {
-        [(NRLink *)self virtualInterface];
-        if (NEVirtualInterfaceAddAddress())
+        return 0;
+      }
+
+      v5 = _NRCopyLogObjectForNRUUID();
+      copyDescription = [(NRLink *)self copyDescription];
+      _NRLogWithArgs(v5, 16, "%s%.30s:%-4d %@: failed to setup interface", ", "[NRLink(NRLinkProtected) setupVirtualInterface]"", 1150, copyDescription);
+
+      goto LABEL_51;
+    }
+
+    if ([(NRLink *)self setInterfaceSubfamily])
+    {
+      if ([(NRLink *)self setNoACKPrioritization])
+      {
+        if ([(NRLink *)self setInterfaceRank])
         {
-          [(NRLink *)self virtualInterface];
-          v12 = sub_100172EF0(v5);
-          v13 = NEVirtualInterfaceAddIPv6Route();
+          nrUUID = [(NRLink *)self nrUUID];
+          v5 = sub_100163A30(NRDLocalDevice, nrUUID);
 
-          if (v13)
+          if (!v5)
           {
-            [(NRLink *)self virtualInterface];
-            v14 = sub_100172F58(v5);
-            v15 = NEVirtualInterfaceAddIPv6Route();
+            v52 = sub_100140094();
+            v53 = _NRLogIsLevelEnabled();
 
-            if (v15)
+            if (v53)
             {
-              objc_opt_class();
-              if (objc_opt_isKindOfClass())
-              {
-                [(NRLink *)self virtualInterface];
-                localInterfaceName = [(NRLink *)self localInterfaceName];
-                NEVirtualInterfaceSetDelegateInterface();
-
-                [(NRLink *)self virtualInterface];
-                NEVirtualInterfaceSetRankNever();
-              }
-
-              else if ([(NRLink *)self type]== 5)
-              {
-                [(NRLink *)self virtualInterface];
-                localInterfaceName2 = [(NRLink *)self localInterfaceName];
-                NEVirtualInterfaceSetDelegateInterface();
-              }
-
-              [(NRLink *)self virtualInterface];
-              if (NEVirtualInterfaceUpdateAdHocService())
-              {
-                [(NRLink *)self virtualInterface];
-                v53 = NEVirtualInterfaceCopyName();
-                v54 = self->_nrUUID;
-                v55 = _NRCopyLogObjectForNRUUID();
-                v56 = _NRLogIsLevelEnabled();
-
-                if (v56)
-                {
-                  v57 = self->_nrUUID;
-                  v58 = _NRCopyLogObjectForNRUUID();
-                  copyDescription3 = [(NRLink *)self copyDescription];
-                  _NRLogWithArgs();
-                }
-
-                goto LABEL_44;
-              }
-
-              v59 = self->_nrUUID;
-              v60 = _NRCopyLogObjectForNRUUID();
-              v61 = _NRLogIsLevelEnabled();
-
-              if ((v61 & 1) == 0)
-              {
-                goto LABEL_47;
-              }
-
-              goto LABEL_46;
+              v54 = sub_100140094();
+              _NRLogWithArgs(v54, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLink(NRLinkProtected) setupVirtualInterface]"", 1171);
             }
 
-            v49 = self->_nrUUID;
-            v50 = _NRCopyLogObjectForNRUUID();
-            v51 = _NRLogIsLevelEnabled();
+            v55 = _os_log_pack_size();
+            v56 = __error();
+            v57 = _os_log_pack_fill(&v58 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), v55, *v56, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+            *v57 = 136446210;
+            *(v57 + 4) = "[NRLink(NRLinkProtected) setupVirtualInterface]";
+            sub_100140094();
+            _NRLogAbortWithPack();
+          }
 
-            if (v51)
+          [(NRLink *)self virtualInterface];
+          v6 = sub_100172E20(v5);
+          v7 = NEVirtualInterfaceAddAddress();
+
+          if (v7)
+          {
+            [(NRLink *)self virtualInterface];
+            v8 = sub_100172E88(v5);
+            v9 = NEVirtualInterfaceAddAddress();
+
+            if (v9)
             {
-LABEL_46:
-              v62 = self->_nrUUID;
-              v63 = _NRCopyLogObjectForNRUUID();
-              copyDescription4 = [(NRLink *)self copyDescription];
-              _NRLogWithArgs();
+              [(NRLink *)self virtualInterface];
+              v10 = sub_1001731B0(v5);
+              v11 = NEVirtualInterfaceAddAddress();
+
+              if (v11)
+              {
+                [(NRLink *)self virtualInterface];
+                if (NEVirtualInterfaceAddAddress())
+                {
+                  [(NRLink *)self virtualInterface];
+                  v12 = sub_100172EF0(v5);
+                  v13 = NEVirtualInterfaceAddIPv6Route();
+
+                  if (v13)
+                  {
+                    [(NRLink *)self virtualInterface];
+                    v14 = sub_100172F58(v5);
+                    v15 = NEVirtualInterfaceAddIPv6Route();
+
+                    if (v15)
+                    {
+                      objc_opt_class();
+                      if (objc_opt_isKindOfClass())
+                      {
+                        [(NRLink *)self virtualInterface];
+                        localInterfaceName = [(NRLink *)self localInterfaceName];
+                        NEVirtualInterfaceSetDelegateInterface();
+
+                        [(NRLink *)self virtualInterface];
+                        NEVirtualInterfaceSetRankNever();
+                      }
+
+                      else if ([(NRLink *)self type]== 5)
+                      {
+                        [(NRLink *)self virtualInterface];
+                        localInterfaceName2 = [(NRLink *)self localInterfaceName];
+                        NEVirtualInterfaceSetDelegateInterface();
+                      }
+
+                      [(NRLink *)self virtualInterface];
+                      if (NEVirtualInterfaceUpdateAdHocService())
+                      {
+                        [(NRLink *)self virtualInterface];
+                        v43 = NEVirtualInterfaceCopyName();
+                        v44 = _NRCopyLogObjectForNRUUID();
+                        v45 = _NRLogIsLevelEnabled();
+
+                        if (v45)
+                        {
+                          v46 = _NRCopyLogObjectForNRUUID();
+                          copyDescription2 = [(NRLink *)self copyDescription];
+                          _NRLogWithArgs(v46, 0, "%s%.30s:%-4d %@: Created virtual interface %@", ", "[NRLink(NRLinkProtected) setupVirtualInterface]"", 1215, copyDescription2, v43);
+                        }
+
+                        goto LABEL_45;
+                      }
+
+                      v48 = _NRCopyLogObjectForNRUUID();
+                      v49 = _NRLogIsLevelEnabled();
+
+                      if ((v49 & 1) == 0)
+                      {
+                        goto LABEL_50;
+                      }
+
+                      v31 = "%@: failed to update ad-hoc service";
+                      goto LABEL_49;
+                    }
+
+                    v40 = _NRCopyLogObjectForNRUUID();
+                    v41 = _NRLogIsLevelEnabled();
+
+                    if (v41)
+                    {
+                      v31 = "%@: failed to add ClassC route";
+                      goto LABEL_49;
+                    }
+
+LABEL_50:
+                    [(NRLink *)self invalidateVirtualInterface];
+LABEL_51:
+
+                    return 0;
+                  }
+
+                  v38 = _NRCopyLogObjectForNRUUID();
+                  v39 = _NRLogIsLevelEnabled();
+
+                  if ((v39 & 1) == 0)
+                  {
+                    goto LABEL_50;
+                  }
+
+                  v31 = "%@: failed to add ClassD route";
+                }
+
+                else
+                {
+                  v36 = _NRCopyLogObjectForNRUUID();
+                  v37 = _NRLogIsLevelEnabled();
+
+                  if ((v37 & 1) == 0)
+                  {
+                    goto LABEL_50;
+                  }
+
+                  v31 = "%@: failed to add bogus IPv4 address";
+                }
+              }
+
+              else
+              {
+                v34 = _NRCopyLogObjectForNRUUID();
+                v35 = _NRLogIsLevelEnabled();
+
+                if ((v35 & 1) == 0)
+                {
+                  goto LABEL_50;
+                }
+
+                v31 = "%@: failed to add link-local address";
+              }
+            }
+
+            else
+            {
+              v32 = _NRCopyLogObjectForNRUUID();
+              v33 = _NRLogIsLevelEnabled();
+
+              if ((v33 & 1) == 0)
+              {
+                goto LABEL_50;
+              }
+
+              v31 = "%@: failed to add ClassC address";
             }
           }
 
           else
           {
-            v46 = self->_nrUUID;
-            v47 = _NRCopyLogObjectForNRUUID();
-            v48 = _NRLogIsLevelEnabled();
+            v29 = _NRCopyLogObjectForNRUUID();
+            v30 = _NRLogIsLevelEnabled();
 
-            if (v48)
+            if ((v30 & 1) == 0)
             {
-              goto LABEL_46;
+              goto LABEL_50;
             }
+
+            v31 = "%@: failed to add ClassD address";
           }
+
+LABEL_49:
+          v50 = _NRCopyLogObjectForNRUUID();
+          copyDescription3 = [(NRLink *)self copyDescription];
+          _NRLogWithArgs(v50, 17, v31, copyDescription3);
+
+          goto LABEL_50;
         }
 
-        else
+        v27 = _NRCopyLogObjectForNRUUID();
+        v28 = _NRLogIsLevelEnabled();
+
+        if (v28)
         {
-          v43 = self->_nrUUID;
-          v44 = _NRCopyLogObjectForNRUUID();
-          v45 = _NRLogIsLevelEnabled();
-
-          if (v45)
-          {
-            goto LABEL_46;
-          }
+          v22 = _NRCopyLogObjectForNRUUID();
+          copyDescription4 = [(NRLink *)self copyDescription];
+          _NRLogWithArgs(v22, 17, "%@: failed to set interface rank", copyDescription4);
+          goto LABEL_25;
         }
+
+LABEL_26:
+        [(NRLink *)self invalidateVirtualInterface];
+        return 0;
       }
 
-      else
+      v25 = _NRCopyLogObjectForNRUUID();
+      v26 = _NRLogIsLevelEnabled();
+
+      if (!v26)
       {
-        v40 = self->_nrUUID;
-        v41 = _NRCopyLogObjectForNRUUID();
-        v42 = _NRLogIsLevelEnabled();
-
-        if (v42)
-        {
-          goto LABEL_46;
-        }
+        goto LABEL_26;
       }
+
+      v22 = _NRCopyLogObjectForNRUUID();
+      copyDescription4 = [(NRLink *)self copyDescription];
+      _NRLogWithArgs(v22, 17, "%@: failed to setup no ack prioritization", copyDescription4);
     }
 
     else
     {
-      v37 = self->_nrUUID;
-      v38 = _NRCopyLogObjectForNRUUID();
-      v39 = _NRLogIsLevelEnabled();
+      v20 = _NRCopyLogObjectForNRUUID();
+      v21 = _NRLogIsLevelEnabled();
 
-      if (v39)
+      if (!v21)
       {
-        goto LABEL_46;
+        goto LABEL_26;
       }
+
+      v22 = _NRCopyLogObjectForNRUUID();
+      copyDescription4 = [(NRLink *)self copyDescription];
+      _NRLogWithArgs(v22, 17, "%@: failed to setup interface sub family", copyDescription4);
     }
+
+LABEL_25:
+
+    goto LABEL_26;
   }
 
-  else
-  {
-    v34 = self->_nrUUID;
-    v35 = _NRCopyLogObjectForNRUUID();
-    v36 = _NRLogIsLevelEnabled();
-
-    if (v36)
-    {
-      goto LABEL_46;
-    }
-  }
-
-LABEL_47:
-  [(NRLink *)self invalidateVirtualInterface];
-LABEL_48:
-
-  return 0;
+LABEL_45:
+  [(NRLink *)self checkProxyAgentWithForceUpdate:1];
+  return [(NRLink *)self state]!= 255;
 }
 
 - (BOOL)initializeExternalDeviceLink
@@ -1778,31 +1767,28 @@ LABEL_11:
 {
   if (*session)
   {
-    nrUUID = self->_nrUUID;
-    v6 = _NRCopyLogObjectForNRUUID();
+    v5 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = self->_nrUUID;
-      v9 = _NRCopyLogObjectForNRUUID();
+      v7 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      v16 = *session;
-      _NRLogWithArgs();
+      _NRLogWithArgs(v7, 0, "%s%.30s:%-4d %@: Invalidating IKE Session %@", ", "[NRLink(NRLinkProtected) invalidateIKESession:]"", 1078, copyDescription, *session);
     }
 
     objc_initWeak(&location, *session);
-    v10 = [objc_opt_class() description];
-    v11 = dispatch_time(0, 5000000000);
+    v9 = [objc_opt_class() description];
+    v10 = dispatch_time(0, 5000000000);
     queue = [(NRLink *)self queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100145178;
     block[3] = &unk_1001FD0D8;
-    objc_copyWeak(&v19, &location);
-    v13 = v10;
-    v18 = v13;
-    dispatch_after(v11, queue, block);
+    objc_copyWeak(&v16, &location);
+    v12 = v9;
+    v15 = v12;
+    dispatch_after(v10, queue, block);
 
     [*session setStateUpdateBlock:0];
     [*session setChildStateUpdateBlock:0];
@@ -1814,10 +1800,10 @@ LABEL_11:
     [*session setPrivateNotifyStatusEvent:0];
     [*session disconnect];
     [*session invalidate];
-    v14 = *session;
+    v13 = *session;
     *session = 0;
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 }
@@ -1945,7 +1931,7 @@ LABEL_12:
       dispatch_once(&qword_100228E98, &stru_1001FA1F0);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228E90, 0, "%s%.30s:%-4d Successfully un-registered link %@", ", "[NRIKEv2Listener unregisterLink:]"", 468, v33);
   }
 
   sub_100015C1C(v16);
@@ -1974,13 +1960,13 @@ LABEL_28:
       if (IsLevelEnabled)
       {
         v30 = sub_100140094();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v30, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (interfaceName) != ((void*)0)", ", "[NRLink(NRLinkProtected) invalidateLink]"", 1037);
       }
 
       v22 = _os_log_pack_size();
       v21 = &v34[-1] - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-      v31 = *__error();
-      v32 = _os_log_pack_fill();
+      v31 = __error();
+      v32 = _os_log_pack_fill(v21, v22, *v31, &_mh_execute_header, "%{public}s Assertion Failed: (interfaceName) != ((void*)0)");
       *v32 = 136446210;
       *(v32 + 4) = "[NRLink(NRLinkProtected) invalidateLink]";
       sub_100140094();
@@ -1996,7 +1982,7 @@ LABEL_31:
         dispatch_once(&qword_100229378, &stru_1001FC6A0);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229370, 1, "%s%.30s:%-4d Attempting to start interface leak monitor for %@", ", "[NRLink(NRLinkProtected) invalidateLink]"", 1039, v21);
     }
 
     v23 = sub_10013BCD8(v21);

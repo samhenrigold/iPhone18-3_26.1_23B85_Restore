@@ -28,30 +28,28 @@
 
 - (void)cancelWithError:(id)error
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2112;
-    v10 = errorCopy;
-    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "%@: hotspot provider cancelWithError %@", &v7, 0x16u);
+    v8 = 2112;
+    v9 = errorCopy;
+    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "%@: hotspot provider cancelWithError %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleXPCError
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v17) = 138412290;
-    *(&v17 + 4) = self;
-    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEFAULT, "%@: hotspot provider died unexpectedly", &v17, 0xCu);
+    LODWORD(v16) = 138412290;
+    *(&v16 + 4) = self;
+    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEFAULT, "%@: hotspot provider died unexpectedly", &v16, 0xCu);
   }
 
   if (self)
@@ -82,21 +80,19 @@
     }
 
     Property = objc_getProperty(self, v14, 24, 1);
-    *&v17 = MEMORY[0x1E69E9820];
-    *(&v17 + 1) = 3221225472;
-    v18 = __47__NEAgentHotspotExtension_handleExtensionExit___block_invoke;
-    v19 = &unk_1E7F0A0E8;
+    *&v16 = MEMORY[0x1E69E9820];
+    *(&v16 + 1) = 3221225472;
+    v17 = __47__NEAgentHotspotExtension_handleExtensionExit___block_invoke;
+    v18 = &unk_1E7F0A0E8;
     selfCopy2 = self;
-    v21 = 0;
-    dispatch_async(Property, &v17);
+    v20 = 0;
+    dispatch_async(Property, &v16);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __47__NEAgentHotspotExtension_handleExtensionExit___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (v1)
   {
@@ -107,11 +103,10 @@ void __47__NEAgentHotspotExtension_handleExtensionExit___block_invoke(uint64_t a
       {
         v4 = *(a1 + 40);
         *buf = 138412290;
-        v10 = v4;
+        v8 = v4;
         _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEFAULT, "hotspot provider software updating - ignore extension failure/exit for %@", buf, 0xCu);
       }
 
-      v5 = *MEMORY[0x1E69E9840];
       return;
     }
 
@@ -123,10 +118,9 @@ void __47__NEAgentHotspotExtension_handleExtensionExit___block_invoke(uint64_t a
     WeakRetained = 0;
   }
 
-  v8 = [WeakRetained managerObject];
+  v6 = [WeakRetained managerObject];
 
-  [v8 handleHotspotProviderStopped];
-  v7 = *MEMORY[0x1E69E9840];
+  [v6 handleHotspotProviderStopped];
 }
 
 - (void)stopWithReason:(int)reason
@@ -168,7 +162,7 @@ void __47__NEAgentHotspotExtension_handleExtensionExit___block_invoke(uint64_t a
 
 void __42__NEAgentHotspotExtension_stopWithReason___block_invoke(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -179,11 +173,11 @@ void __42__NEAgentHotspotExtension_stopWithReason___block_invoke(uint64_t a1, in
       v5 = "TRUE";
     }
 
-    v14 = 138412546;
-    v15 = v6;
-    v16 = 2080;
-    v17 = v5;
-    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: stopWithReason, result: %s", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v6;
+    v15 = 2080;
+    v16 = v5;
+    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: stopWithReason, result: %s", &v13, 0x16u);
   }
 
   if (a2)
@@ -196,10 +190,10 @@ void __42__NEAgentHotspotExtension_stopWithReason___block_invoke(uint64_t a1, in
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: failed to stop hotspot evaluation provider", &v14, 0xCu);
+      v12 = *(a1 + 32);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: failed to stop hotspot evaluation provider", &v13, 0xCu);
     }
 
     v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEAgentErrorDomain" code:1 userInfo:0];
@@ -219,12 +213,11 @@ void __42__NEAgentHotspotExtension_stopWithReason___block_invoke(uint64_t a1, in
   v11 = [WeakRetained managerObject];
 
   [v11 handleHotspotProviderError:v7];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __42__NEAgentHotspotExtension_stopWithReason___block_invoke_53(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -235,11 +228,11 @@ void __42__NEAgentHotspotExtension_stopWithReason___block_invoke_53(uint64_t a1,
       v5 = "TRUE";
     }
 
-    v14 = 138412546;
-    v15 = v6;
-    v16 = 2080;
-    v17 = v5;
-    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: stopWithReason, result: %s", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v6;
+    v15 = 2080;
+    v16 = v5;
+    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: stopWithReason, result: %s", &v13, 0x16u);
   }
 
   if (a2)
@@ -252,10 +245,10 @@ void __42__NEAgentHotspotExtension_stopWithReason___block_invoke_53(uint64_t a1,
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: failed to stop hotspot authentication provider", &v14, 0xCu);
+      v12 = *(a1 + 32);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: failed to stop hotspot authentication provider", &v13, 0xCu);
     }
 
     v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEAgentErrorDomain" code:1 userInfo:0];
@@ -275,7 +268,6 @@ void __42__NEAgentHotspotExtension_stopWithReason___block_invoke_53(uint64_t a1,
   v11 = [WeakRetained managerObject];
 
   [v11 handleHotspotProviderError:v7];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAuthenticationProvider
@@ -328,7 +320,7 @@ id __54__NEAgentHotspotExtension_startAuthenticationProvider__block_invoke(uint6
 
 void __54__NEAgentHotspotExtension_startAuthenticationProvider__block_invoke_2(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -339,11 +331,11 @@ void __54__NEAgentHotspotExtension_startAuthenticationProvider__block_invoke_2(u
       v5 = "TRUE";
     }
 
-    v14 = 138412546;
-    v15 = v6;
-    v16 = 2080;
-    v17 = v5;
-    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: startWithCompletion, result: %s", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v6;
+    v15 = 2080;
+    v16 = v5;
+    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: startWithCompletion, result: %s", &v13, 0x16u);
   }
 
   if (a2)
@@ -356,10 +348,10 @@ void __54__NEAgentHotspotExtension_startAuthenticationProvider__block_invoke_2(u
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: failed to start hotspot authentication provider", &v14, 0xCu);
+      v12 = *(a1 + 32);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: failed to start hotspot authentication provider", &v13, 0xCu);
     }
 
     v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEAgentErrorDomain" code:1 userInfo:0];
@@ -379,7 +371,6 @@ void __54__NEAgentHotspotExtension_startAuthenticationProvider__block_invoke_2(u
   v11 = [WeakRetained managerObject];
 
   [v11 handleHotspotProviderError:v7];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startEvaluationProvider
@@ -432,7 +423,7 @@ id __50__NEAgentHotspotExtension_startEvaluationProvider__block_invoke(uint64_t 
 
 void __50__NEAgentHotspotExtension_startEvaluationProvider__block_invoke_2(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -443,11 +434,11 @@ void __50__NEAgentHotspotExtension_startEvaluationProvider__block_invoke_2(uint6
       v5 = "TRUE";
     }
 
-    v14 = 138412546;
-    v15 = v6;
-    v16 = 2080;
-    v17 = v5;
-    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: startWithCompletion, result: %s", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v6;
+    v15 = 2080;
+    v16 = v5;
+    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: startWithCompletion, result: %s", &v13, 0x16u);
   }
 
   if (a2)
@@ -460,10 +451,10 @@ void __50__NEAgentHotspotExtension_startEvaluationProvider__block_invoke_2(uint6
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: failed to start hotspot evaluation provider", &v14, 0xCu);
+      v12 = *(a1 + 32);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: failed to start hotspot evaluation provider", &v13, 0xCu);
     }
 
     v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEAgentErrorDomain" code:1 userInfo:0];
@@ -483,12 +474,11 @@ void __50__NEAgentHotspotExtension_startEvaluationProvider__block_invoke_2(uint6
   v11 = [WeakRetained managerObject];
 
   [v11 handleHotspotProviderError:v7];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateConfiguration:(id)configuration
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -508,16 +498,14 @@ void __50__NEAgentHotspotExtension_startEvaluationProvider__block_invoke_2(uint6
     Property = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __47__NEAgentHotspotExtension_updateConfiguration___block_invoke;
-  v10[3] = &unk_1E7F0A0E8;
-  v10[4] = self;
-  v11 = configurationCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __47__NEAgentHotspotExtension_updateConfiguration___block_invoke;
+  v9[3] = &unk_1E7F0A0E8;
+  v9[4] = self;
+  v10 = configurationCopy;
   v8 = configurationCopy;
-  dispatch_async(Property, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(Property, v9);
 }
 
 void __47__NEAgentHotspotExtension_updateConfiguration___block_invoke(uint64_t a1, const char *a2)
@@ -531,7 +519,7 @@ void __47__NEAgentHotspotExtension_updateConfiguration___block_invoke(uint64_t a
 
 - (void)wakeup
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -556,7 +544,6 @@ void __47__NEAgentHotspotExtension_updateConfiguration___block_invoke(uint64_t a
   block[3] = &unk_1E7F0B0E8;
   block[4] = self;
   dispatch_async(Property, block);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __33__NEAgentHotspotExtension_wakeup__block_invoke(uint64_t a1, const char *a2)
@@ -621,53 +608,49 @@ id __33__NEAgentHotspotExtension_wakeup__block_invoke(uint64_t a1, const char *a
 
 void __33__NEAgentHotspotExtension_wakeup__block_invoke_2(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = "FALSE";
-    v7 = *(a1 + 32);
+    v5 = "FALSE";
+    v6 = *(a1 + 32);
     if (a2)
     {
-      v6 = "TRUE";
+      v5 = "TRUE";
     }
 
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2080;
-    v11 = v6;
-    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: wakeWithCompletion completed, result %s", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2080;
+    v10 = v5;
+    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: wakeWithCompletion completed, result %s", &v7, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __33__NEAgentHotspotExtension_wakeup__block_invoke_48(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = "FALSE";
-    v7 = *(a1 + 32);
+    v5 = "FALSE";
+    v6 = *(a1 + 32);
     if (a2)
     {
-      v6 = "TRUE";
+      v5 = "TRUE";
     }
 
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2080;
-    v11 = v6;
-    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: wakeWithCompletion completed, result %s", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2080;
+    v10 = v5;
+    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: wakeWithCompletion completed, result %s", &v7, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepWithCompletionHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -687,16 +670,14 @@ void __33__NEAgentHotspotExtension_wakeup__block_invoke_48(uint64_t a1, int a2)
     Property = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __54__NEAgentHotspotExtension_sleepWithCompletionHandler___block_invoke;
-  v10[3] = &unk_1E7F0B588;
-  v10[4] = self;
-  v11 = handlerCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __54__NEAgentHotspotExtension_sleepWithCompletionHandler___block_invoke;
+  v9[3] = &unk_1E7F0B588;
+  v9[4] = self;
+  v10 = handlerCopy;
   v8 = handlerCopy;
-  dispatch_async(Property, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(Property, v9);
 }
 
 void __54__NEAgentHotspotExtension_sleepWithCompletionHandler___block_invoke(uint64_t a1, const char *a2)
@@ -767,57 +748,53 @@ LABEL_11:
 
 uint64_t __54__NEAgentHotspotExtension_sleepWithCompletionHandler___block_invoke_2(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = "FAIL";
-    v8 = *(a1 + 32);
+    v6 = "FAIL";
+    v7 = *(a1 + 32);
     if (a2)
     {
-      v7 = "TRUE";
+      v6 = "TRUE";
     }
 
-    v9 = 138412546;
-    v10 = v8;
-    v11 = 2080;
-    v12 = v7;
-    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: sleepWithCompletion completed for hotspot evaluation \t\t\t\t\t\t\tprovider, result: %s", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2080;
+    v11 = v6;
+    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: sleepWithCompletion completed for hotspot evaluation \t\t\t\t\t\t\tprovider, result: %s", &v8, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t __54__NEAgentHotspotExtension_sleepWithCompletionHandler___block_invoke_46(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = "FAIL";
-    v8 = *(a1 + 32);
+    v6 = "FAIL";
+    v7 = *(a1 + 32);
     if (a2)
     {
-      v7 = "TRUE";
+      v6 = "TRUE";
     }
 
-    v9 = 138412546;
-    v10 = v8;
-    v11 = 2080;
-    v12 = v7;
-    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: sleepWithCompletion completed for hotspot authentication \t\t\t\t\t\t\tprovider, result: %s", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2080;
+    v11 = v6;
+    _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@: sleepWithCompletion completed for hotspot authentication \t\t\t\t\t\t\tprovider, result: %s", &v8, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)startWithConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   handlerCopy = handler;
   v8 = ne_log_large_obj();
@@ -825,8 +802,8 @@ uint64_t __54__NEAgentHotspotExtension_sleepWithCompletionHandler___block_invoke
   {
     *buf = 138412546;
     selfCopy = self;
-    v19 = 2112;
-    v20 = configurationCopy;
+    v18 = 2112;
+    v19 = configurationCopy;
     _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%@: startWithConfiguration: %@", buf, 0x16u);
   }
 
@@ -845,69 +822,35 @@ uint64_t __54__NEAgentHotspotExtension_sleepWithCompletionHandler___block_invoke
   block[2] = __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke;
   block[3] = &unk_1E7F0AAA0;
   block[4] = self;
-  v15 = configurationCopy;
-  v16 = handlerCopy;
+  v14 = configurationCopy;
+  v15 = handlerCopy;
   v11 = handlerCopy;
   v12 = configurationCopy;
   dispatch_async(Property, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke(id *a1, const char *a2)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   if (!v3)
   {
-    goto LABEL_34;
+    return;
   }
 
   objc_setProperty_atomic(v3, a2, a1[5], 56);
   v4 = a1[4];
   if (!v4)
   {
-    goto LABEL_34;
+    return;
   }
 
   v5 = v4[3];
-  if (v5 == 12)
-  {
-    v21 = ne_log_obj();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "initializing HostForAuthenticationProvider", buf, 2u);
-    }
-
-    v8 = a1[4];
-    if (!v8)
-    {
-      goto LABEL_34;
-    }
-
-    if (!objc_getProperty(a1[4], v22, 88, 1))
-    {
-      v23 = [NEHotspotAuthenticationProviderHost alloc];
-      objc_setProperty_atomic(v8, v24, v23, 88);
-
-      v26 = objc_getProperty(v8, v25, 88, 1);
-      v28 = [objc_getProperty(v8 v27];
-      v29 = [v28 authenticationProviderBundleIdentifier];
-      [v26 initialize:v29];
-
-      [objc_getProperty(v8 v30];
-      v19 = v8;
-      v20 = 88;
-      goto LABEL_15;
-    }
-  }
-
-  else
+  if (v5 != 12)
   {
     if (v5 != 11)
     {
-      goto LABEL_34;
+      return;
     }
 
     v6 = ne_log_obj();
@@ -920,134 +863,163 @@ void __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___bl
     v8 = a1[4];
     if (!v8)
     {
-      goto LABEL_34;
+      return;
     }
 
-    if (!objc_getProperty(a1[4], v7, 80, 1))
+    if (objc_getProperty(a1[4], v7, 80, 1))
     {
-      v10 = [NEHotspotEvaluationProviderHost alloc];
-      objc_setProperty_atomic(v8, v11, v10, 80);
-
-      v13 = objc_getProperty(v8, v12, 80, 1);
-      v15 = [objc_getProperty(v8 v14];
-      v16 = [v15 evaluationProviderBundleIdentifier];
-      [v13 initialize:v16];
-
-      [objc_getProperty(v8 v17];
-      v19 = v8;
-      v20 = 80;
-LABEL_15:
-      v31 = objc_getProperty(v19, v18, v20, 1);
-      [v31 setQueue:{objc_getProperty(v8, v32, 24, 1)}];
+      goto LABEL_16;
     }
+
+    v10 = [NEHotspotEvaluationProviderHost alloc];
+    objc_setProperty_atomic(v8, v11, v10, 80);
+
+    v13 = objc_getProperty(v8, v12, 80, 1);
+    v15 = [objc_getProperty(v8 v14];
+    v16 = [v15 evaluationProviderBundleIdentifier];
+    [v13 initialize:v16];
+
+    [objc_getProperty(v8 v17];
+    v19 = v8;
+    v20 = 80;
+    goto LABEL_15;
   }
 
+  v21 = ne_log_obj();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "initializing HostForAuthenticationProvider", buf, 2u);
+  }
+
+  v8 = a1[4];
+  if (!v8)
+  {
+    return;
+  }
+
+  if (!objc_getProperty(a1[4], v22, 88, 1))
+  {
+    v23 = [NEHotspotAuthenticationProviderHost alloc];
+    objc_setProperty_atomic(v8, v24, v23, 88);
+
+    v26 = objc_getProperty(v8, v25, 88, 1);
+    v28 = [objc_getProperty(v8 v27];
+    v29 = [v28 authenticationProviderBundleIdentifier];
+    [v26 initialize:v29];
+
+    [objc_getProperty(v8 v30];
+    v19 = v8;
+    v20 = 88;
+LABEL_15:
+    v31 = objc_getProperty(v19, v18, v20, 1);
+    [v31 setQueue:{objc_getProperty(v8, v32, 24, 1)}];
+  }
+
+LABEL_16:
   v33 = a1[4];
   if (!v33)
   {
-    goto LABEL_34;
+    return;
   }
 
   v34 = v33[3];
-  if (v34 != 11)
+  if (v34 == 11)
   {
-    goto LABEL_26;
-  }
-
-  if (objc_getProperty(v33, v9, 80, 1))
-  {
-    v35 = ne_log_obj();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    if (objc_getProperty(v33, v9, 80, 1))
     {
-      v36 = a1[4];
-      *buf = 138412290;
-      v62 = v36;
-      _os_log_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_INFO, "%@: setting up hotspot evaluation provider", buf, 0xCu);
-    }
-
-    v38 = a1[4];
-    if (v38)
-    {
-      Property = objc_getProperty(v38, v37, 80, 1);
-      v40 = a1[4];
-    }
-
-    else
-    {
-      v40 = 0;
-      Property = 0;
-    }
-
-    v55 = MEMORY[0x1E69E9820];
-    v56 = 3221225472;
-    v57 = __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke_42;
-    v58 = &unk_1E7F0A278;
-    v59 = v40;
-    v41 = &v60;
-    v60 = a1[6];
-    v42 = &v55;
-LABEL_33:
-    [Property setupWithCompletion:{v42, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60}];
-
-    goto LABEL_34;
-  }
-
-  v33 = a1[4];
-  if (v33)
-  {
-    v34 = v33[3];
-LABEL_26:
-    if (v34 == 12 && objc_getProperty(v33, v9, 88, 1))
-    {
-      v43 = ne_log_obj();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      v35 = ne_log_obj();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
-        v44 = a1[4];
+        v36 = a1[4];
         *buf = 138412290;
-        v62 = v44;
-        _os_log_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_INFO, "%@: setting up hotspot authentication provider", buf, 0xCu);
+        v61 = v36;
+        _os_log_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_INFO, "%@: setting up hotspot evaluation provider", buf, 0xCu);
       }
 
-      v46 = a1[4];
-      if (v46)
+      v38 = a1[4];
+      if (v38)
       {
-        Property = objc_getProperty(v46, v45, 88, 1);
-        v47 = a1[4];
+        Property = objc_getProperty(v38, v37, 80, 1);
+        v40 = a1[4];
       }
 
       else
       {
-        v47 = 0;
+        v40 = 0;
         Property = 0;
       }
 
-      v49 = MEMORY[0x1E69E9820];
-      v50 = 3221225472;
-      v51 = __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke_43;
-      v52 = &unk_1E7F0A278;
-      v53 = v47;
-      v41 = &v54;
-      v54 = a1[6];
-      v42 = &v49;
-      goto LABEL_33;
+      v54 = MEMORY[0x1E69E9820];
+      v55 = 3221225472;
+      v56 = __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke_42;
+      v57 = &unk_1E7F0A278;
+      v58 = v40;
+      v41 = &v59;
+      v59 = a1[6];
+      v42 = &v54;
+LABEL_33:
+      [Property setupWithCompletion:{v42, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59}];
+
+      return;
     }
+
+    v33 = a1[4];
+    if (!v33)
+    {
+      return;
+    }
+
+    v34 = v33[3];
   }
 
-LABEL_34:
-  v48 = *MEMORY[0x1E69E9840];
+  if (v34 == 12 && objc_getProperty(v33, v9, 88, 1))
+  {
+    v43 = ne_log_obj();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+    {
+      v44 = a1[4];
+      *buf = 138412290;
+      v61 = v44;
+      _os_log_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_INFO, "%@: setting up hotspot authentication provider", buf, 0xCu);
+    }
+
+    v46 = a1[4];
+    if (v46)
+    {
+      Property = objc_getProperty(v46, v45, 88, 1);
+      v47 = a1[4];
+    }
+
+    else
+    {
+      v47 = 0;
+      Property = 0;
+    }
+
+    v48 = MEMORY[0x1E69E9820];
+    v49 = 3221225472;
+    v50 = __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke_43;
+    v51 = &unk_1E7F0A278;
+    v52 = v47;
+    v41 = &v53;
+    v53 = a1[6];
+    v42 = &v48;
+    goto LABEL_33;
+  }
 }
 
-void __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke_42(uint64_t a1, int a2)
+void __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke_42(uint64_t a1, unsigned int a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412546;
-    v27 = v5;
-    v28 = 1024;
-    v29 = a2;
+    v26 = v5;
+    v27 = 1024;
+    v28 = a2;
     _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: setupWithCompletion result %d", buf, 0x12u);
   }
 
@@ -1061,7 +1033,7 @@ void __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___bl
 
     v17 = *(a1 + 32);
     *buf = 138412290;
-    v27 = v17;
+    v26 = v17;
     v18 = "%@: failed to setup hotspot evaluation provider";
 LABEL_16:
     _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
@@ -1078,7 +1050,7 @@ LABEL_16:
 
     v19 = *(a1 + 32);
     *buf = 138412290;
-    v27 = v19;
+    v26 = v19;
     v18 = "%@: entitlement validation failed";
     goto LABEL_16;
   }
@@ -1092,7 +1064,7 @@ LABEL_16:
     {
       v20 = *(a1 + 32);
       *buf = 138412290;
-      v27 = v20;
+      v26 = v20;
       v18 = "%@: failed to get extension process identity";
       goto LABEL_16;
     }
@@ -1100,13 +1072,13 @@ LABEL_16:
 LABEL_17:
 
     (*(*(a1 + 40) + 16))();
-    goto LABEL_18;
+    return;
   }
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(a1 + 32);
-    if (v22)
+    v21 = *(a1 + 32);
+    if (v21)
     {
       Property = objc_getProperty(*(a1 + 32), v10, 64, 1);
     }
@@ -1116,11 +1088,11 @@ LABEL_17:
       Property = 0;
     }
 
-    v24 = [Property pid];
+    v23 = [Property pid];
     *buf = 138412546;
-    v27 = v22;
-    v28 = 1024;
-    v29 = v24;
+    v26 = v21;
+    v27 = 1024;
+    v28 = v23;
     _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@: received extension process identity (pid: %u)", buf, 0x12u);
   }
 
@@ -1131,27 +1103,24 @@ LABEL_17:
     v12 = objc_getProperty(v12, v11, 64, 1);
   }
 
-  v25 = v12;
+  v24 = v12;
   v14 = MEMORY[0x1E695DEC8];
   v15 = v12;
-  v16 = [v14 arrayWithObjects:&v25 count:1];
+  v16 = [v14 arrayWithObjects:&v24 count:1];
   (*(v13 + 16))(v13, 1, v16);
-
-LABEL_18:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___block_invoke_43(uint64_t a1, int a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412546;
-    v24 = v5;
-    v25 = 1024;
-    v26 = a2;
+    v23 = v5;
+    v24 = 1024;
+    v25 = a2;
     _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: setupWithCompletion result %d", buf, 0x12u);
   }
 
@@ -1165,7 +1134,7 @@ void __68__NEAgentHotspotExtension_startWithConfiguration_completionHandler___bl
 
     v16 = *(a1 + 32);
     *buf = 138412290;
-    v24 = v16;
+    v23 = v16;
     v17 = "%@: failed to setup hotspot authentication provider";
 LABEL_17:
     _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, v17, buf, 0xCu);
@@ -1182,7 +1151,7 @@ LABEL_17:
 
     v18 = *(a1 + 32);
     *buf = 138412290;
-    v24 = v18;
+    v23 = v18;
     v17 = "%@: validation failed";
     goto LABEL_17;
   }
@@ -1196,7 +1165,7 @@ LABEL_17:
     {
       v19 = *(a1 + 32);
       *buf = 138412290;
-      v24 = v19;
+      v23 = v19;
       v17 = "%@: failed to get extension process identity";
       goto LABEL_17;
     }
@@ -1204,14 +1173,14 @@ LABEL_17:
 LABEL_18:
 
     (*(*(a1 + 40) + 16))();
-    goto LABEL_19;
+    return;
   }
 
   if (v9)
   {
-    v21 = *(a1 + 32);
+    v20 = *(a1 + 32);
     *buf = 138412290;
-    v24 = v21;
+    v23 = v20;
     _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@: received extension process identity", buf, 0xCu);
   }
 
@@ -1222,30 +1191,27 @@ LABEL_18:
     Property = objc_getProperty(Property, v10, 64, 1);
   }
 
-  v22 = Property;
+  v21 = Property;
   v13 = MEMORY[0x1E695DEC8];
   v14 = Property;
-  v15 = [v13 arrayWithObjects:&v22 count:1];
+  v15 = [v13 arrayWithObjects:&v21 count:1];
   (*(v12 + 16))(v12, 1, v15);
-
-LABEL_19:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)validateExtension
 {
   selfCopy = self;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_26;
+    return selfCopy;
   }
 
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v23 = selfCopy;
+    v22 = selfCopy;
     _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "%@: validating hotspot provider entitlement", buf, 0xCu);
   }
 
@@ -1258,7 +1224,7 @@ LABEL_19:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v23 = selfCopy;
+      v22 = selfCopy;
       _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "%@: finding hotspot provider's entitlement", buf, 0xCu);
     }
 
@@ -1270,7 +1236,7 @@ LABEL_19:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v23 = selfCopy;
+      v22 = selfCopy;
       _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "%@: failed to find xpc connection with the hotspot provider", buf, 0xCu);
     }
 
@@ -1280,35 +1246,35 @@ LABEL_19:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v8 count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          if ([*(*(&v18 + 1) + 8 * i) isEqual:{@"hotspot-provider", v18}])
+          if ([*(*(&v17 + 1) + 8 * i) isEqual:{@"hotspot-provider", v17}])
           {
-            v17 = ne_log_obj();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v16 = ne_log_obj();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v23 = selfCopy;
-              v24 = 2080;
-              v25 = "hotspot-provider";
-              _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEFAULT, "%@: hotspot provider has [%s] entitlement", buf, 0x16u);
+              v22 = selfCopy;
+              v23 = 2080;
+              v24 = "hotspot-provider";
+              _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEFAULT, "%@: hotspot provider has [%s] entitlement", buf, 0x16u);
             }
 
             selfCopy = 1;
@@ -1316,7 +1282,7 @@ LABEL_19:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           continue;
@@ -1333,7 +1299,7 @@ LABEL_19:
     }
 
     *buf = 138412290;
-    v23 = selfCopy;
+    v22 = selfCopy;
     v14 = "%@: hotspot provider is missing the required NetworkExtension entitlement";
   }
 
@@ -1346,7 +1312,7 @@ LABEL_19:
     }
 
     *buf = 138412290;
-    v23 = selfCopy;
+    v22 = selfCopy;
     v14 = "%@: rejecting un-entitled hotspot provider";
   }
 
@@ -1355,18 +1321,15 @@ LABEL_24:
   selfCopy = 0;
 LABEL_25:
 
-LABEL_26:
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (uint64_t)deriveProcessIdentity
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v10 = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   getExtensionConnection = [(NEAgentHotspotExtension *)self getExtensionConnection];
@@ -1390,7 +1353,7 @@ LABEL_12:
 
   v4 = [NEProcessIdentity alloc];
   processIdentifier = [getExtensionConnection processIdentifier];
-  [getExtensionConnection auditToken];
+  objc_msgSend_auditToken(getExtensionConnection);
   v6 = [(NEProcessIdentity *)v4 initWithPID:processIdentifier auditToken:buf];
   objc_setProperty_atomic(self, v7, v6, 64);
 
@@ -1410,14 +1373,12 @@ LABEL_12:
 
   v10 = 1;
   v11 = [objc_getProperty(self v9];
-  v17 = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
-  v13 = *(self + 72);
-  *(self + 72) = v12;
+  v16 = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+  v13 = self[9];
+  self[9] = v12;
 
 LABEL_9:
-LABEL_10:
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1468,9 +1429,11 @@ LABEL_10:
 
 uint64_t __42__NEAgentHotspotExtension_driverInterface__block_invoke()
 {
-  driverInterface_driverInterface_10061 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C8188];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C8188];
+  v1 = driverInterface_driverInterface_10061;
+  driverInterface_driverInterface_10061 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (NSXPCInterface)managerInterface
@@ -1487,14 +1450,16 @@ uint64_t __42__NEAgentHotspotExtension_driverInterface__block_invoke()
 
 uint64_t __43__NEAgentHotspotExtension_managerInterface__block_invoke()
 {
-  managerInterface_managerInterface_10065 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38D4F30];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38D4F30];
+  v1 = managerInterface_managerInterface_10065;
+  managerInterface_managerInterface_10065 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)handleAppsUpdateEnds:(id)ends
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   endsCopy = ends;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1514,21 +1479,19 @@ uint64_t __43__NEAgentHotspotExtension_managerInterface__block_invoke()
     Property = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __48__NEAgentHotspotExtension_handleAppsUpdateEnds___block_invoke;
-  v10[3] = &unk_1E7F0A0E8;
-  v10[4] = self;
-  v11 = endsCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __48__NEAgentHotspotExtension_handleAppsUpdateEnds___block_invoke;
+  v9[3] = &unk_1E7F0A0E8;
+  v9[4] = self;
+  v10 = endsCopy;
   v8 = endsCopy;
-  dispatch_async(Property, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(Property, v9);
 }
 
 void __48__NEAgentHotspotExtension_handleAppsUpdateEnds___block_invoke(uint64_t a1, const char *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (v3)
   {
@@ -1565,21 +1528,19 @@ void __48__NEAgentHotspotExtension_handleAppsUpdateEnds___block_invoke(uint64_t 
               Property = objc_getProperty(Property, v14, 40, 1);
             }
 
-            v17 = 138412290;
-            v18 = Property;
-            _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEFAULT, "extensions %@ has been updated, idling", &v17, 0xCu);
+            v16 = 138412290;
+            v17 = Property;
+            _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEFAULT, "extensions %@ has been updated, idling", &v16, 0xCu);
           }
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAppsUpdateEnding:(id)ending
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   endingCopy = ending;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1599,16 +1560,14 @@ void __48__NEAgentHotspotExtension_handleAppsUpdateEnds___block_invoke(uint64_t 
     Property = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __50__NEAgentHotspotExtension_handleAppsUpdateEnding___block_invoke;
-  v10[3] = &unk_1E7F0A0E8;
-  v10[4] = self;
-  v11 = endingCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__NEAgentHotspotExtension_handleAppsUpdateEnding___block_invoke;
+  v9[3] = &unk_1E7F0A0E8;
+  v9[4] = self;
+  v10 = endingCopy;
   v8 = endingCopy;
-  dispatch_async(Property, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(Property, v9);
 }
 
 void __50__NEAgentHotspotExtension_handleAppsUpdateEnding___block_invoke(uint64_t a1, const char *a2)
@@ -1651,7 +1610,7 @@ void __50__NEAgentHotspotExtension_handleAppsUpdateEnding___block_invoke(uint64_
 
 - (void)handleAppsUpdateBegins:(id)begins
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   beginsCopy = begins;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1671,27 +1630,25 @@ void __50__NEAgentHotspotExtension_handleAppsUpdateEnding___block_invoke(uint64_
     Property = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __50__NEAgentHotspotExtension_handleAppsUpdateBegins___block_invoke;
-  v10[3] = &unk_1E7F0A0E8;
-  v10[4] = self;
-  v11 = beginsCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__NEAgentHotspotExtension_handleAppsUpdateBegins___block_invoke;
+  v9[3] = &unk_1E7F0A0E8;
+  v9[4] = self;
+  v10 = beginsCopy;
   v8 = beginsCopy;
-  dispatch_async(Property, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(Property, v9);
 }
 
 void __50__NEAgentHotspotExtension_handleAppsUpdateBegins___block_invoke(uint64_t a1, const char *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (v3)
   {
     if (v3[8])
     {
-      goto LABEL_12;
+      return;
     }
 
     v4 = *(a1 + 40);
@@ -1721,19 +1678,16 @@ void __50__NEAgentHotspotExtension_handleAppsUpdateBegins___block_invoke(uint64_
         v9 = objc_getProperty(v9, v8, 40, 1);
       }
 
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEFAULT, "Extensions %@ is being updated", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEFAULT, "Extensions %@ is being updated", &v10, 0xCu);
     }
   }
-
-LABEL_12:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAppsUninstalled:(id)uninstalled
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   uninstalledCopy = uninstalled;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1753,21 +1707,19 @@ LABEL_12:
     Property = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __49__NEAgentHotspotExtension_handleAppsUninstalled___block_invoke;
-  v10[3] = &unk_1E7F0A0E8;
-  v11 = uninstalledCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __49__NEAgentHotspotExtension_handleAppsUninstalled___block_invoke;
+  v9[3] = &unk_1E7F0A0E8;
+  v10 = uninstalledCopy;
   selfCopy2 = self;
   v8 = uninstalledCopy;
-  dispatch_async(Property, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(Property, v9);
 }
 
 void __49__NEAgentHotspotExtension_handleAppsUninstalled___block_invoke(uint64_t a1, const char *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
   if (v3)
@@ -1791,18 +1743,16 @@ void __49__NEAgentHotspotExtension_handleAppsUninstalled___block_invoke(uint64_t
         v8 = objc_getProperty(v8, v7, 32, 1);
       }
 
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEFAULT, "app for plugin type [%@] has been uninstalled", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEFAULT, "app for plugin type [%@] has been uninstalled", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCancel
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -1816,46 +1766,46 @@ void __49__NEAgentHotspotExtension_handleAppsUninstalled___block_invoke(uint64_t
     if (objc_getProperty(self, v4, 80, 1))
     {
       Property = objc_getProperty(self, v5, 80, 1);
-      v15 = MEMORY[0x1E69E9820];
-      v16 = 3221225472;
-      v17 = __39__NEAgentHotspotExtension_handleCancel__block_invoke;
-      v18 = &unk_1E7F08740;
+      v14 = MEMORY[0x1E69E9820];
+      v15 = 3221225472;
+      v16 = __39__NEAgentHotspotExtension_handleCancel__block_invoke;
+      v17 = &unk_1E7F08740;
       selfCopy2 = self;
-      v7 = &v15;
-LABEL_8:
-      [Property stopWithReason:15 completion:{v7, v10, v11, v12, v13, selfCopy3, v15, v16, v17, v18, selfCopy2}];
-      goto LABEL_9;
+      v7 = &v14;
     }
 
-    if (objc_getProperty(self, v5, 88, 1))
+    else
     {
-      Property = objc_getProperty(self, v8, 88, 1);
-      v10 = MEMORY[0x1E69E9820];
-      v11 = 3221225472;
-      v12 = __39__NEAgentHotspotExtension_handleCancel__block_invoke_8;
-      v13 = &unk_1E7F08740;
-      selfCopy3 = self;
-      v7 = &v10;
-      goto LABEL_8;
-    }
-  }
+      if (!objc_getProperty(self, v5, 88, 1))
+      {
+        return;
+      }
 
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
+      Property = objc_getProperty(self, v8, 88, 1);
+      v9 = MEMORY[0x1E69E9820];
+      v10 = 3221225472;
+      v11 = __39__NEAgentHotspotExtension_handleCancel__block_invoke_8;
+      v12 = &unk_1E7F08740;
+      selfCopy3 = self;
+      v7 = &v9;
+    }
+
+    [Property stopWithReason:15 completion:{v7, v9, v10, v11, v12, selfCopy3, v14, v15, v16, v17, selfCopy2}];
+  }
 }
 
 void __39__NEAgentHotspotExtension_handleCancel__block_invoke(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: (evaluation provider) stopWithReason result %d", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 1024;
+    v12 = a2;
+    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: (evaluation provider) stopWithReason result %d", &v9, 0x12u);
   }
 
   v6 = *(a1 + 32);
@@ -1872,21 +1822,20 @@ void __39__NEAgentHotspotExtension_handleCancel__block_invoke(uint64_t a1, int a
   v8 = [WeakRetained managerObject];
 
   [v8 handleHotspotProviderStopped];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __39__NEAgentHotspotExtension_handleCancel__block_invoke_8(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: (authentication provider) stopWithReason result %d", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 1024;
+    v12 = a2;
+    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "%@: (authentication provider) stopWithReason result %d", &v9, 0x12u);
   }
 
   v6 = *(a1 + 32);
@@ -1903,12 +1852,11 @@ void __39__NEAgentHotspotExtension_handleCancel__block_invoke_8(uint64_t a1, int
   v8 = [WeakRetained managerObject];
 
   [v8 handleHotspotProviderStopped];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDisposeWithCompletionHandler:(id)handler
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1927,11 +1875,9 @@ void __39__NEAgentHotspotExtension_handleCancel__block_invoke_8(uint64_t a1, int
   block[1] = 3221225472;
   block[2] = __62__NEAgentHotspotExtension_handleDisposeWithCompletionHandler___block_invoke;
   block[3] = &unk_1E7F0B600;
-  v10 = handlerCopy;
+  v9 = handlerCopy;
   v7 = handlerCopy;
   dispatch_async(&self->super, block);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__NEAgentHotspotExtension_handleDisposeWithCompletionHandler___block_invoke(uint64_t a1)
@@ -1947,23 +1893,22 @@ uint64_t __62__NEAgentHotspotExtension_handleDisposeWithCompletionHandler___bloc
 
 - (void)handleInitWithCompletionHandler:(id)handler
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ handleInitWithCompletionHandler", &v7, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ handleInitWithCompletionHandler", &v6, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, 1, 1);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -1972,35 +1917,34 @@ uint64_t __62__NEAgentHotspotExtension_handleDisposeWithCompletionHandler___bloc
     _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@ dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = NEAgentHotspotExtension;
-  [(NEAgentHotspotExtension *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NEAgentHotspotExtension;
+  [(NEAgentHotspotExtension *)&v4 dealloc];
 }
 
 - (NEAgentHotspotExtension)initWithPluginType:(id)type pluginClass:(int64_t)class pluginInfo:(id)info queue:(id)queue factory:(id)factory
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   infoCopy = info;
   queueCopy = queue;
   factoryCopy = factory;
-  v24.receiver = self;
-  v24.super_class = NEAgentHotspotExtension;
-  v17 = [(NEAgentHotspotExtension *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = NEAgentHotspotExtension;
+  v17 = [(NEAgentHotspotExtension *)&v23 init];
   if (v17)
   {
     v18 = ne_log_obj();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138413058;
-      v26 = v17;
-      v27 = 2112;
-      v28 = typeCopy;
-      v29 = 2048;
+      v25 = v17;
+      v26 = 2112;
+      v27 = typeCopy;
+      v28 = 2048;
       classCopy = class;
-      v31 = 2112;
-      v32 = infoCopy;
+      v30 = 2112;
+      v31 = infoCopy;
       _os_log_debug_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEBUG, "%@: pluginType: [%@] pluginClass: [%ld] pluginInfo: [%@]", buf, 0x2Au);
     }
 
@@ -2024,7 +1968,6 @@ uint64_t __62__NEAgentHotspotExtension_handleDisposeWithCompletionHandler___bloc
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

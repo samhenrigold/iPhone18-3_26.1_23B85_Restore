@@ -246,12 +246,12 @@ void __50__PKDiscoveryCallToActionShelfView_initWithShelf___block_invoke(uint64_
   v3.super_class = PKDiscoveryCallToActionShelfView;
   [(PKDiscoveryCallToActionShelfView *)&v3 layoutSubviews];
   [(PKDiscoveryCallToActionShelfView *)self bounds];
-  [(PKDiscoveryCallToActionShelfView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKDiscoveryCallToActionShelfView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -272,39 +272,46 @@ void __50__PKDiscoveryCallToActionShelfView_initWithShelf___block_invoke(uint64_
   remainder.origin.y = v13;
   remainder.size.width = v15;
   remainder.size.height = v17;
-  v18 = [(PKDiscoveryCallToActionShelfView *)self _isFooterWordmarkOnly:0];
-  v19 = v18;
+  memset(&v90, 0, sizeof(v90));
+  _isFooterWordmarkOnly = [(PKDiscoveryCallToActionShelfView *)self _isFooterWordmarkOnly];
+  v19 = _isFooterWordmarkOnly;
   if (self->_hasIcon)
   {
-    v52.origin.x = v11;
-    v52.origin.y = v13;
-    v52.size.width = v15;
-    v52.size.height = v17;
-    CGRectDivide(v52, &v49, &remainder, 20.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &v49, &remainder, self->_iconSize.height, CGRectMinYEdge);
-    v20 = self->_iconSize.height + 20.0;
+    v93.origin.x = v11;
+    v93.origin.y = v13;
+    v93.size.width = v15;
+    v93.size.height = v17;
+    CGRectDivide(v93, &v90, &remainder, 20.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v90, &remainder, self->_iconSize.height, CGRectMinYEdge);
+    v26.n128_u64[0] = *&self->_iconSize.height;
+    v27 = v26.n128_f64[0] + 20.0;
     if (!layout)
     {
       iconImageView = self->_iconImageView;
-      PKSizeAlignedInRect();
+      v20.n128_u64[0] = *&self->_iconSize.width;
+      v22.n128_u64[0] = *&v90.origin.y;
+      v21.n128_u64[0] = *&v90.origin.x;
+      v24.n128_u64[0] = *&v90.size.height;
+      v23.n128_u64[0] = *&v90.size.width;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v20, v26, v21, v22, v23, v24, v25);
       [(UIImageView *)iconImageView setFrame:?];
     }
 
-    CGRectDivide(remainder, &v49, &remainder, 11.0, CGRectMinYEdge);
-    v22 = v20 + 11.0;
+    CGRectDivide(remainder, &v90, &remainder, 11.0, CGRectMinYEdge);
+    v29 = v27 + 11.0;
   }
 
   else
   {
-    v22 = 0.0;
-    if (!v18)
+    v29 = 0.0;
+    if (!_isFooterWordmarkOnly)
     {
-      v22 = 24.0;
-      v53.origin.x = v11;
-      v53.origin.y = v13;
-      v53.size.width = v15;
-      v53.size.height = v17;
-      CGRectDivide(v53, &v49, &remainder, 24.0, CGRectMinYEdge);
+      v29 = 24.0;
+      v94.origin.x = v11;
+      v94.origin.y = v13;
+      v94.size.width = v15;
+      v94.size.height = v17;
+      CGRectDivide(v94, &v90, &remainder, 24.0, CGRectMinYEdge);
     }
   }
 
@@ -312,82 +319,102 @@ void __50__PKDiscoveryCallToActionShelfView_initWithShelf___block_invoke(uint64_
   {
     if (v19)
     {
-      v23 = 80.0;
+      v30 = 80.0;
     }
 
     else
     {
-      v23 = 0.0;
+      v30 = 0.0;
     }
 
-    CGRectDivide(remainder, &v49, &remainder, v23, CGRectMinYEdge);
-    v24 = v23 + v22;
+    CGRectDivide(remainder, &v90, &remainder, v30, CGRectMinYEdge);
+    v31 = v30 + v29;
     [(PKDiscoveryCallToActionShelfView *)self _wordmarkAssetSize];
-    v26 = v25;
-    CGRectDivide(remainder, &v49, &remainder, v25, CGRectMinYEdge);
-    v27 = v24 + v26;
+    v33 = v32;
+    CGRectDivide(remainder, &v90, &remainder, v32, CGRectMinYEdge);
+    v41 = v31 + v33;
     if (!layout)
     {
       wordmarkImageView = self->_wordmarkImageView;
-      PKSizeAlignedInRect();
+      v34.n128_u64[0] = *&self->_wordmarkAssetSize.width;
+      v35.n128_u64[0] = *&self->_wordmarkAssetSize.height;
+      v37.n128_u64[0] = *&v90.origin.y;
+      v36.n128_u64[0] = *&v90.origin.x;
+      v39.n128_u64[0] = *&v90.size.height;
+      v38.n128_u64[0] = *&v90.size.width;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v34, v35, v36, v37, v38, v39, v40);
       [(UIImageView *)wordmarkImageView setFrame:?];
-      v29 = self->_wordmarkImageView;
+      v43 = self->_wordmarkImageView;
       [(PKDiscoveryMedia *)self->_wordmarkAsset height];
-      v31 = v30;
+      v45 = v44;
       [(PKDiscoveryCallToActionShelfView *)self _desiredWordmarkAssetHeight];
-      [(UIImageView *)v29 setContentScaleFactor:v31 / v32];
+      [(UIImageView *)v43 setContentScaleFactor:v45 / v46];
     }
 
     if (v19)
     {
-      v33 = 80.0;
+      v47 = 80.0;
     }
 
     else
     {
-      v33 = 11.0;
+      v47 = 11.0;
     }
 
-    CGRectDivide(remainder, &v49, &remainder, v33, CGRectMinYEdge);
-    v22 = v33 + v27;
+    CGRectDivide(remainder, &v90, &remainder, v47, CGRectMinYEdge);
+    v29 = v47 + v41;
   }
 
   if (self->_hasTitle)
   {
     [(UILabel *)self->_titleLabel sizeThatFits:remainder.size.width, remainder.size.height];
-    v35 = v34;
-    CGRectDivide(remainder, &v49, &remainder, v34, CGRectMinYEdge);
-    v22 = v22 + v35;
+    v49 = v48;
+    v51 = v50;
+    CGRectDivide(remainder, &v90, &remainder, v50, CGRectMinYEdge);
+    v29 = v29 + v51;
     if (!layout)
     {
       titleLabel = self->_titleLabel;
-      PKSizeAlignedInRect();
+      v55.n128_u64[0] = *&v90.origin.y;
+      v54.n128_u64[0] = *&v90.origin.x;
+      v57.n128_u64[0] = *&v90.size.height;
+      v56.n128_u64[0] = *&v90.size.width;
+      v52.n128_u64[0] = v49;
+      v53.n128_f64[0] = v51;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v52, v53, v54, v55, v56, v57, v58);
       [(UILabel *)titleLabel setFrame:?];
     }
   }
 
   if (self->_hasSubtitle)
   {
-    v37 = remainder.size.width;
-    v38 = remainder.size.height;
+    v60 = remainder.size.width;
+    v61 = remainder.size.height;
     if (self->_hasTitle)
     {
-      v39 = remainder.origin.x;
-      v40 = remainder.origin.y;
-      CGRectDivide(*(&v37 - 2), &v49, &remainder, 2.0, CGRectMinYEdge);
-      v22 = v22 + 2.0;
-      v37 = remainder.size.width;
-      v38 = remainder.size.height;
+      v62 = remainder.origin.x;
+      v63 = remainder.origin.y;
+      CGRectDivide(*(&v60 - 2), &v90, &remainder, 2.0, CGRectMinYEdge);
+      v29 = v29 + 2.0;
+      v60 = remainder.size.width;
+      v61 = remainder.size.height;
     }
 
-    [(UILabel *)self->_subtitleLabel sizeThatFits:v37, v38];
-    v42 = v41;
-    CGRectDivide(remainder, &v49, &remainder, v41, CGRectMinYEdge);
-    v22 = v22 + v42;
+    [(UILabel *)self->_subtitleLabel sizeThatFits:v60, v61];
+    v65 = v64;
+    v67 = v66;
+    CGRectDivide(remainder, &v90, &remainder, v66, CGRectMinYEdge);
+    v29 = v29 + v67;
     if (!layout)
     {
       subtitleLabel = self->_subtitleLabel;
-      PKSizeAlignedInRect();
+      v71.n128_u64[0] = *&v90.origin.y;
+      v70.n128_u64[0] = *&v90.origin.x;
+      v73.n128_u64[0] = *&v90.size.height;
+      v72.n128_u64[0] = *&v90.size.width;
+      v68.n128_u64[0] = v65;
+      v69.n128_f64[0] = v67;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v68, v69, v70, v71, v72, v73, v74);
       [(UILabel *)subtitleLabel setFrame:?];
     }
   }
@@ -396,32 +423,39 @@ void __50__PKDiscoveryCallToActionShelfView_initWithShelf___block_invoke(uint64_
   {
     if (self->_hasTitle || self->_hasSubtitle)
     {
-      CGRectDivide(remainder, &v49, &remainder, 11.0, CGRectMinYEdge);
-      v22 = v22 + 11.0;
+      CGRectDivide(remainder, &v90, &remainder, 11.0, CGRectMinYEdge);
+      v29 = v29 + 11.0;
     }
 
     [(UIButton *)self->_button sizeThatFits:remainder.size.width, remainder.size.height];
-    v45 = v44;
-    CGRectDivide(remainder, &v49, &remainder, v44, CGRectMinYEdge);
-    v22 = v22 + v45;
+    v77 = v76;
+    v79 = v78;
+    CGRectDivide(remainder, &v90, &remainder, v78, CGRectMinYEdge);
+    v29 = v29 + v79;
     if (!layout)
     {
       button = self->_button;
-      PKSizeAlignedInRect();
+      v83.n128_u64[0] = *&v90.origin.y;
+      v82.n128_u64[0] = *&v90.origin.x;
+      v85.n128_u64[0] = *&v90.size.height;
+      v84.n128_u64[0] = *&v90.size.width;
+      v80.n128_u64[0] = v77;
+      v81.n128_f64[0] = v79;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v80, v81, v82, v83, v84, v85, v86);
       [(UIButton *)button setFrame:?];
     }
   }
 
   if (!v19)
   {
-    CGRectDivide(remainder, &v49, &remainder, 24.0, CGRectMinYEdge);
-    v22 = v22 + 24.0;
+    CGRectDivide(remainder, &v90, &remainder, 24.0, CGRectMinYEdge);
+    v29 = v29 + 24.0;
   }
 
-  v47 = width;
-  v48 = v22;
-  result.height = v48;
-  result.width = v47;
+  v88 = width;
+  v89 = v29;
+  result.height = v89;
+  result.width = v88;
   return result;
 }
 

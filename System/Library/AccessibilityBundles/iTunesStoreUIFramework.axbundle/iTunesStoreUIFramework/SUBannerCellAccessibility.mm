@@ -6,35 +6,35 @@
 
 - (void)_reloadButtons
 {
-  v25 = *MEMORY[0x29EDCA608];
-  v23.receiver = self;
-  v23.super_class = SUBannerCellAccessibility;
-  [(SUBannerCellAccessibility *)&v23 _reloadButtons];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v24 = *MEMORY[0x29EDCA608];
+  v22.receiver = self;
+  v22.super_class = SUBannerCellAccessibility;
+  [(SUBannerCellAccessibility *)&v22 _reloadButtons];
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v3 = [(SUBannerCellAccessibility *)self safeValueForKey:@"subviews", 0];
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v19 + 1) + 8 * v7++) setIsAccessibilityElement:0];
+        [*(*(&v18 + 1) + 8 * v7++) setIsAccessibilityElement:0];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
@@ -57,8 +57,6 @@
   v16 = [v15 safeValueForKey:@"_configuration"];
   accessibilityTableViewCellText2 = [v16 accessibilityTableViewCellText];
   [v14 setAccessibilityLabel:accessibilityTableViewCellText2];
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 @end

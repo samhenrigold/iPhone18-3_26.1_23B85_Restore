@@ -29,7 +29,7 @@
   *&self->PRXFeatureListViewController_opaque[OBJC_IVAR____TtC14HDSViewService42HomePodSetupPersonalRequestsViewController_bodyLabel] = 0;
   *&self->PRXFeatureListViewController_opaque[OBJC_IVAR____TtC14HDSViewService42HomePodSetupPersonalRequestsViewController_bottomLabel] = 0;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for HomePodSetupPersonalRequestsViewController();
+  v8.super_class = type metadata accessor for HomePodSetupPersonalRequestsViewController(0);
   return [(HomePodSetupPersonalRequestsViewController *)&v8 initWithContentView:view];
 }
 

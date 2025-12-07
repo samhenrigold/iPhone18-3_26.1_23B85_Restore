@@ -36,7 +36,7 @@
 
 - (void)validateWithCompletionHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   [(NEExtensionProviderContext *)self requiredProviderSuperClass];
@@ -51,16 +51,14 @@
     v7 = ne_log_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = NSStringFromClass([(NEExtensionProviderContext *)self requiredProviderSuperClass]);
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Provider is not a %@", &v10, 0xCu);
+      v8 = NSStringFromClass([(NEExtensionProviderContext *)self requiredProviderSuperClass]);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Provider is not a %@", &v9, 0xCu);
     }
   }
 
   handlerCopy[2](handlerCopy, v6);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopWithReason:(int)reason
@@ -95,15 +93,15 @@ LABEL_7:
 
 - (void)dispose
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (!self || !self->_isDisposed)
   {
     v3 = ne_log_obj();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v5 = 138412290;
+      v4 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: disposing", &v5, 0xCu);
+      _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: disposing", &v4, 0xCu);
     }
 
     if (self)
@@ -113,13 +111,11 @@ LABEL_7:
 
     [(NEExtensionProviderContext *)self completeSession];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createWithCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   v6 = [mainBundle objectForInfoDictionaryKey:@"NetworkExtension"];
@@ -150,7 +146,7 @@ LABEL_26:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v26 = @"NEProviderClasses";
+        v25 = @"NEProviderClasses";
         _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, "%@ dictionary is missing from Info.plist", buf, 0xCu);
       }
 
@@ -186,12 +182,12 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v23 = ne_log_obj();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v22 = ne_log_obj();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v26 = v10;
-        _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "No such class: %@", buf, 0xCu);
+        v25 = v10;
+        _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, "No such class: %@", buf, 0xCu);
       }
     }
 
@@ -202,7 +198,7 @@ LABEL_20:
       {
         extensionPoint3 = [(NEExtensionProviderContext *)self extensionPoint];
         *buf = 138412290;
-        v26 = extensionPoint3;
+        v25 = extensionPoint3;
         _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "NetworkExtension Info.plist dictionary does not contain a NEProvider class for extension point %@", buf, 0xCu);
       }
     }
@@ -223,28 +219,24 @@ LABEL_11:
 
   handlerCopy[2](handlerCopy, 0);
 LABEL_21:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)displayMessage:(id)message message:(id)a4 completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v9 = a4;
   messageCopy = message;
   v11 = ne_log_obj();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138412290;
+    v14 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "%@: display message", &v15, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "%@: display message", &v14, 0xCu);
   }
 
   hostContext = [(NEExtensionProviderContext *)self hostContext];
   [hostContext displayMessage:messageCopy message:v9 completionHandler:handlerCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostContext
@@ -287,22 +279,20 @@ LABEL_21:
 
 void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "Error while calling host: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "Error while calling host: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startedWithError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (errorCopy)
   {
@@ -310,11 +300,11 @@ void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       localizedDescription = [errorCopy localizedDescription];
-      v13 = 138412546;
+      v12 = 138412546;
       selfCopy = self;
-      v15 = 2112;
-      v16 = localizedDescription;
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@: Started with error %@", &v13, 0x16u);
+      v14 = 2112;
+      v15 = localizedDescription;
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@: Started with error %@", &v12, 0x16u);
     }
 
     hostContext = [(NEExtensionProviderContext *)self hostContext];
@@ -331,37 +321,33 @@ void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, voi
     hostContext2 = [(NEExtensionProviderContext *)self hostContext];
     [hostContext2 startedWithError:0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelWithError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self && objc_getProperty(self, v4, 56, 1))
   {
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412546;
+      v10 = 138412546;
       selfCopy = self;
-      v13 = 2112;
-      v14 = errorCopy;
-      _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@: Calling stop completion handler with error %@", &v11, 0x16u);
+      v12 = 2112;
+      v13 = errorCopy;
+      _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@: Calling stop completion handler with error %@", &v10, 0x16u);
     }
 
     Property = objc_getProperty(self, v7, 56, 1);
     Property[2](Property, errorCopy);
     objc_setProperty_atomic_copy(self, v9, 0, 56);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setConfiguration:(id)configuration extensionIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   identifierCopy = identifier;
   if (nelog_is_info_logging_enabled())
@@ -377,8 +363,8 @@ void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, voi
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = configurationCopy;
+      v15 = 2112;
+      v16 = configurationCopy;
       _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@: Setting configuration to %@", buf, 0x16u);
     }
   }
@@ -402,8 +388,6 @@ void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, voi
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   applicationName = [configurationCopy applicationName];
   [_principalObject setAppName:applicationName];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDescription:(uint64_t)description
@@ -417,37 +401,33 @@ void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, voi
 
 - (void)wake
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: Calling wake", &v6, 0xCu);
+    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: Calling wake", &v5, 0xCu);
   }
 
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   [_principalObject wake];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepWithCompletionHandler:(id)handler
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Calling sleepWithCompletionHandler:", &v8, 0xCu);
+    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Calling sleepWithCompletionHandler:", &v7, 0xCu);
   }
 
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   [_principalObject sleepWithCompletionHandler:handlerCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeSession
@@ -529,7 +509,7 @@ void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, voi
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -538,17 +518,16 @@ void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, voi
     _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEFAULT, "%@: Deallocating", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = NEExtensionProviderContext;
-  [(NEExtensionProviderContext *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NEExtensionProviderContext;
+  [(NEExtensionProviderContext *)&v4 dealloc];
 }
 
 - (void)dropProvider
 {
   provider = self->_provider;
   self->_provider = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, provider);
 }
 
 - (NEExtensionProviderContext)initWithProvider:(id)provider
@@ -580,9 +559,11 @@ void __41__NEExtensionProviderContext_hostContext__block_invoke(uint64_t a1, voi
 
 uint64_t __61__NEExtensionProviderContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_2764 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0B60];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0B60];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_2764;
+  _extensionAuxiliaryHostProtocol_protocol_2764 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -599,20 +580,22 @@ uint64_t __61__NEExtensionProviderContext__extensionAuxiliaryHostProtocol__block
 
 uint64_t __63__NEExtensionProviderContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  _extensionAuxiliaryVendorProtocol_protocol_2768 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0AA8];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0AA8];
+  v1 = _extensionAuxiliaryVendorProtocol_protocol_2768;
+  _extensionAuxiliaryVendorProtocol_protocol_2768 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __49__NEExtensionProviderContext_initWithConnection___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: Session manager connection was invalidated", buf, 0xCu);
   }
 
@@ -624,7 +607,7 @@ void __49__NEExtensionProviderContext_initWithConnection___block_invoke(uint64_t
     newValue[1] = 3221225472;
     newValue[2] = __49__NEExtensionProviderContext_initWithConnection___block_invoke_1;
     newValue[3] = &unk_1E7F0A2A0;
-    objc_copyWeak(&v10, buf);
+    objc_copyWeak(&v9, buf);
     v7 = *(a1 + 32);
     if (v7)
     {
@@ -633,11 +616,9 @@ void __49__NEExtensionProviderContext_initWithConnection___block_invoke(uint64_t
     }
 
     [v7 stopWithReason:42];
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __49__NEExtensionProviderContext_initWithConnection___block_invoke_1(uint64_t a1)

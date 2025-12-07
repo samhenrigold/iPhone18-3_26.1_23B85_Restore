@@ -149,71 +149,69 @@ LABEL_8:
 
 - (void)loadDetailsWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   achievement = [(GKAchievementChallenge *)self achievement];
   identifier = [achievement identifier];
 
   game = [(GKChallenge *)self game];
   v8 = +[GKLocalPlayer localPlayer];
-  v17[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __59__GKAchievementChallenge_loadDetailsWithCompletionHandler___block_invoke;
-  v13[3] = &unk_2785E0B78;
-  v14 = identifier;
+  v16[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __59__GKAchievementChallenge_loadDetailsWithCompletionHandler___block_invoke;
+  v12[3] = &unk_2785E0B78;
+  v13 = identifier;
   selfCopy = self;
-  v16 = handlerCopy;
+  v15 = handlerCopy;
   v10 = handlerCopy;
   v11 = identifier;
-  [GKAchievement loadAchievementsForGameV2:game players:v9 includeUnreported:1 includeHidden:1 withCompletionHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [GKAchievement loadAchievementsForGameV2:game players:v9 includeUnreported:1 includeHidden:1 withCompletionHandler:v12];
 }
 
 uint64_t __59__GKAchievementChallenge_loadDetailsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = [a2 allValues];
-  v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v17)
   {
-    v17 = *v24;
+    v16 = *v23;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v23 + 1) + 8 * i);
+        v4 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v5 = v4;
-        v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v20;
+          v8 = *v19;
           while (2)
           {
             for (j = 0; j != v7; ++j)
             {
-              if (*v20 != v8)
+              if (*v19 != v8)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v10 = *(*(&v19 + 1) + 8 * j);
+              v10 = *(*(&v18 + 1) + 8 * j);
               v11 = [v10 identifier];
               if ([v11 isEqualToString:*(a1 + 32)])
               {
@@ -232,7 +230,7 @@ LABEL_17:
               }
             }
 
-            v7 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v7 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
             if (v7)
             {
               continue;
@@ -245,19 +243,18 @@ LABEL_17:
 LABEL_18:
       }
 
-      v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v17 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 

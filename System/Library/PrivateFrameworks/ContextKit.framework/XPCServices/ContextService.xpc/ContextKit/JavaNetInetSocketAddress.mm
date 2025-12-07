@@ -52,7 +52,6 @@
     hostname = self->hostname_;
   }
 
-  port = self->port_;
   return JreStrcat("$CI", a2, v2, v3, v4, v5, v6, v7, hostname);
 }
 

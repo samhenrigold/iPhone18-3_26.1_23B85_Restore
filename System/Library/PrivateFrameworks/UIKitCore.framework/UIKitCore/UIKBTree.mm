@@ -233,9 +233,9 @@
 - (BOOL)supportsSupplementalDisplayString
 {
   v2 = [(UIKBTree *)self stringForProperty:@"KBhint"];
-  v3 = [v2 isEqualToString:@"SupplementalDisplayString"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (BOOL)isRightToLeftSensitive
@@ -432,9 +432,9 @@
 - (BOOL)usesControlKeyAppearance
 {
   v2 = [(UIKBTree *)self stringForProperty:@"KBhint"];
-  v3 = [v2 isEqualToString:@"ControlLike"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (id)keys
@@ -1290,7 +1290,7 @@ LABEL_12:
         }
 
         v8 = *(*(&v17 + 1) + 8 * i);
-        if (([v8 isEqualToString:@"KBabstract"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v8) & 1) == 0)
         {
           if ([v8 length] > 5)
           {
@@ -1516,7 +1516,7 @@ void __25__UIKBTree_copyWithZone___block_invoke(uint64_t a1, void *a2, void *a3)
   treeCopy = tree;
   if ([treeCopy type] == self->type && (v5 = -[NSMutableDictionary count](self->properties, "count"), objc_msgSend(treeCopy, "properties"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v5 == v7) && (v8 = self->subtrees != 0, objc_msgSend(treeCopy, "subtrees"), v9 = objc_claimAutoreleasedReturnValue(), v10 = v8 ^ (v9 != 0), v9, (v10 & 1) == 0) && ((subtrees = self->subtrees) == 0 || (v12 = -[NSMutableArray count](subtrees, "count"), objc_msgSend(treeCopy, "subtrees"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v12 == v14)))
   {
-    if (-[UIKBTree type](self, "type") != 7 || (-[UIKBTree componentName](self, "componentName"), v15 = objc_claimAutoreleasedReturnValue(), [treeCopy componentName], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqualToString:", v16), v16, v15, v17))
+    if (-[UIKBTree type](self, "type") != 7 || (-[UIKBTree componentName](self, "componentName"), v15 = objc_claimAutoreleasedReturnValue(), [treeCopy componentName], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend_isEqualToString_(v15), v16, v15, v17))
     {
       v52 = 0u;
       v53 = 0u;
@@ -1538,7 +1538,7 @@ void __25__UIKBTree_copyWithZone___block_invoke(uint64_t a1, void *a2, void *a3)
             }
 
             v22 = *(*(&v50 + 1) + 8 * i);
-            if (([v22 isEqualToString:@"KBabstract"] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(v22) & 1) == 0)
             {
               v23 = [(NSMutableDictionary *)self->properties objectForKey:v22];
               objc_opt_class();
@@ -1549,9 +1549,9 @@ void __25__UIKBTree_copyWithZone___block_invoke(uint64_t a1, void *a2, void *a3)
               v27 = [properties objectForKey:v22];
               if (isKindOfClass)
               {
-                v28 = [v25 isEqualToString:v27];
+                isEqualToString = objc_msgSend_isEqualToString_(v25);
 
-                if ((v28 & 1) == 0)
+                if ((isEqualToString & 1) == 0)
                 {
                   goto LABEL_39;
                 }
@@ -1559,9 +1559,9 @@ void __25__UIKBTree_copyWithZone___block_invoke(uint64_t a1, void *a2, void *a3)
 
               else
               {
-                v29 = [v25 isEqual:v27];
+                isEqual = objc_msgSend_isEqual_(v25);
 
-                if (!v29)
+                if (!isEqual)
                 {
                   goto LABEL_39;
                 }
@@ -1686,7 +1686,7 @@ LABEL_40:
   name = [(UIKBTree *)self name];
   name2 = [treeCopy name];
 
-  LOBYTE(treeCopy) = [name isEqualToString:name2];
+  LOBYTE(treeCopy) = objc_msgSend_isEqualToString_(name);
   return v5 & treeCopy;
 }
 
@@ -1697,7 +1697,7 @@ LABEL_40:
   name = [(UIKBTree *)self name];
   name2 = [treeCopy name];
 
-  LOBYTE(treeCopy) = [name isEqualToString:name2] ^ 1;
+  LOBYTE(treeCopy) = objc_msgSend_isEqualToString_(name) ^ 1;
   return v5 & treeCopy;
 }
 
@@ -1964,7 +1964,7 @@ LABEL_14:
           lowercaseString2 = [name lowercaseString];
           v14 = tailComponentOfName(lowercaseString2);
 
-          if ([v14 isEqualToString:v7])
+          if (objc_msgSend_isEqualToString_(v14))
           {
             v5 = v11;
 
@@ -2096,9 +2096,9 @@ LABEL_15:
           v14 = *(*(&v20 + 1) + 8 * i);
           properties = [v14 properties];
           v16 = [properties objectForKey:propertyCopy];
-          v17 = [v16 isEqual:v8];
+          isEqual = objc_msgSend_isEqual_(v16);
 
-          if (v17)
+          if (isEqual)
           {
             [array addObject:v14];
           }
@@ -2625,7 +2625,7 @@ LABEL_58:
 
 LABEL_65:
                 displayString = [v55 displayString];
-                if (displayString && ([v30 displayString], v59 = objc_claimAutoreleasedReturnValue(), v60 = objc_msgSend(displayString, "isEqualToString:", v59), v59, (v60 & 1) == 0))
+                if (displayString && ([v30 displayString], v59 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(displayString), v59, (isEqualToString & 1) == 0))
                 {
                   v103 = displayString;
                   v68 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v103 count:1];
@@ -2659,7 +2659,7 @@ LABEL_65:
                 else
                 {
                   displayString2 = [v30 displayString];
-                  if ([displayString isEqualToString:displayString2])
+                  if (objc_msgSend_isEqualToString_(displayString))
                   {
                     displayType = [v55 displayType];
 
@@ -2747,7 +2747,7 @@ LABEL_85:
             representedString2 = [v30 representedString];
             secondaryRepresentedStrings3 = [v30 secondaryRepresentedStrings];
             firstObject3 = [secondaryRepresentedStrings3 firstObject];
-            v36 = [representedString2 isEqualToString:firstObject3];
+            v36 = objc_msgSend_isEqualToString_(representedString2);
 
             _gesturesEnabled = v84;
             v23 = v88;
@@ -2900,7 +2900,7 @@ LABEL_42:
               }
 
               displayString = [v20 displayString];
-              if (displayString && ([v19 displayString], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(displayString, "isEqualToString:", v29), v29, (v30 & 1) == 0))
+              if (displayString && ([v19 displayString], v29 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(displayString), v29, (isEqualToString & 1) == 0))
               {
                 v57 = displayString;
                 v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
@@ -2919,7 +2919,7 @@ LABEL_37:
               else
               {
                 displayString2 = [v19 displayString];
-                if ([displayString isEqualToString:displayString2])
+                if (objc_msgSend_isEqualToString_(displayString))
                 {
                   displayType = [v20 displayType];
 
@@ -2978,7 +2978,7 @@ LABEL_41:
             representedString2 = [v19 representedString];
             secondaryRepresentedStrings3 = [v19 secondaryRepresentedStrings];
             firstObject3 = [secondaryRepresentedStrings3 firstObject];
-            v25 = [representedString2 isEqualToString:firstObject3];
+            v25 = objc_msgSend_isEqualToString_(representedString2);
 
             if (v25)
             {
@@ -4550,9 +4550,9 @@ void __46__UIKBTree_applyDynamicAttributes_layoutInfo___block_invoke(uint64_t a1
       v11 = [v16 representedString];
       v12 = [v16 secondaryRepresentedStrings];
       v13 = [v12 firstObject];
-      v14 = [v11 isEqualToString:v13];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-      if (v14)
+      if (isEqualToString)
       {
         v15 = 0;
 LABEL_16:
@@ -4587,15 +4587,15 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    geometry = [shape geometry];
+    v3 = objc_msgSend_geometry(shape);
   }
 
   else
   {
-    geometry = 0;
+    v3 = 0;
   }
 
-  return geometry;
+  return v3;
 }
 
 - (void)setGeometry:(id)geometry
@@ -5729,9 +5729,9 @@ LABEL_4:
 
               v14 = *(*(&v21 + 1) + 8 * j);
               representedString = [v14 representedString];
-              v16 = [representedString isEqualToString:stringCopy];
+              isEqualToString = objc_msgSend_isEqualToString_(representedString);
 
-              if (v16)
+              if (isEqualToString)
               {
                 v17 = v14;
 
@@ -6079,9 +6079,9 @@ uint64_t __39__UIKBTree_removeKeyFromCachedKeyList___block_invoke(uint64_t a1, v
 {
   v3 = [a2 name];
   v4 = [*(a1 + 32) name];
-  v5 = [v3 isEqual:v4];
+  isEqual = objc_msgSend_isEqual_(v3);
 
-  return v5 ^ 1u;
+  return isEqual ^ 1u;
 }
 
 - (void)removeKeyFromAllCachedLists:(id)lists
@@ -6418,9 +6418,9 @@ uint64_t __39__UIKBTree_removeKeyFromCachedKeyList___block_invoke(uint64_t a1, v
 
           v9 = *(*(&v13 + 1) + 8 * i);
           unhashedName = [v9 unhashedName];
-          v11 = [unhashedName isEqualToString:v4];
+          isEqualToString = objc_msgSend_isEqualToString_(unhashedName);
 
-          if (v11)
+          if (isEqualToString)
           {
             v6 = v9;
             goto LABEL_12;
@@ -6476,9 +6476,9 @@ LABEL_12:
 
           v11 = *(*(&v15 + 1) + 8 * i);
           unhashedName = [v11 unhashedName];
-          v13 = [unhashedName isEqualToString:v4];
+          isEqualToString = objc_msgSend_isEqualToString_(unhashedName);
 
-          if (v13)
+          if (isEqualToString)
           {
             [array addObject:v11];
           }
@@ -6578,9 +6578,9 @@ LABEL_12:
 
           v11 = *(*(&v15 + 1) + 8 * i);
           fullRepresentedString = [v11 fullRepresentedString];
-          v13 = [fullRepresentedString isEqualToString:stringCopy];
+          isEqualToString = objc_msgSend_isEqualToString_(fullRepresentedString);
 
-          if (v13)
+          if (isEqualToString)
           {
             [array addObject:v11];
           }
@@ -6763,9 +6763,9 @@ LABEL_12:
 - (BOOL)isChineseKey
 {
   v2 = [(UIKBTree *)self stringForProperty:@"KBhint"];
-  v3 = [v2 isEqualToString:@"Chinese"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (BOOL)supportsType:(int64_t)type
@@ -6936,9 +6936,9 @@ LABEL_42:
   componentName = [like componentName];
   lowercaseString = [componentName lowercaseString];
   shiftAlternateKeyplaneName = [(UIKBTree *)self shiftAlternateKeyplaneName];
-  v7 = [lowercaseString isEqualToString:shiftAlternateKeyplaneName];
+  isEqualToString = objc_msgSend_isEqualToString_(lowercaseString);
 
-  if (!v7)
+  if (!isEqualToString)
   {
     return 0;
   }
@@ -7086,9 +7086,9 @@ LABEL_3:
     }
 
     name = [v11 name];
-    v13 = [name isEqualToString:@"NumberPad-Dot"];
+    isEqualToString = objc_msgSend_isEqualToString_(name);
 
-    if (v13)
+    if (isEqualToString)
     {
       if (!padsCopy)
       {
@@ -7499,12 +7499,12 @@ void __40__UIKBTree_mergeKeyNames_inRightToLeft___block_invoke(uint64_t a1, uint
 
           v13 = *(*(&v20 + 1) + 8 * i);
           name = [v13 name];
-          v15 = [name isEqualToString:@"Writeboard-Key"];
+          isEqualToString = objc_msgSend_isEqualToString_(name);
 
-          if ((v15 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             name2 = [v13 name];
-            v17 = [name2 isEqualToString:@"Dynamic-Non-Roman-to-Roman-Switch-Key"];
+            v17 = objc_msgSend_isEqualToString_(name2);
 
             if (!v17)
             {
@@ -8409,9 +8409,9 @@ void __62__UIKBTree_addMessagesWriteboardKeyOrRomanSwitchIfDismissKey___block_in
 uint64_t __63__UIKBTree_addWriteboardKeyToCachedKeyListWithShape_rendering___block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 name];
-  v3 = [@"Writeboard-Key" isEqualToString:v2];
+  isEqualToString = objc_msgSend_isEqualToString_(@"Writeboard-Key");
 
-  return v3 ^ 1u;
+  return isEqualToString ^ 1u;
 }
 
 - (void)addRomanSwitchToCachedKeyListWithShape:(id)shape rendering:(int)rendering
@@ -8447,9 +8447,9 @@ uint64_t __63__UIKBTree_addWriteboardKeyToCachedKeyListWithShape_rendering___blo
 uint64_t __61__UIKBTree_addRomanSwitchToCachedKeyListWithShape_rendering___block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 name];
-  v3 = [@"Dynamic-Non-Roman-to-Roman-Switch-Key" isEqualToString:v2];
+  isEqualToString = objc_msgSend_isEqualToString_(@"Dynamic-Non-Roman-to-Roman-Switch-Key");
 
-  return v3 ^ 1u;
+  return isEqualToString ^ 1u;
 }
 
 - (BOOL)addMessagesWriteboardKeyOrRomanSwitch:(BOOL)switch
@@ -9654,7 +9654,7 @@ LABEL_14:
   [(UIKBTree *)self repositionKeys:v22 withOffset:v26 scale:v28, scale];
 }
 
-uint64_t __39__UIKBTree_centerKeyplaneInRect_scale___block_invoke(uint64_t a1, void *a2)
+BOOL __39__UIKBTree_centerKeyplaneInRect_scale___block_invoke(uint64_t a1, void *a2)
 {
   if (*(a1 + 32) == a2)
   {
@@ -9794,8 +9794,8 @@ void __26__UIKBTree_shapesForKeys___block_invoke(uint64_t a1, void *a2)
           v21 = [cache objectForKey:*(*(&v42 + 1) + 8 * i)];
           v22 = [v14 objectForKey:v21];
 
-          geometry = [v22 geometry];
-          [array addObject:geometry];
+          v23 = objc_msgSend_geometry(v22);
+          [array addObject:v23];
         }
 
         v18 = [v16 countByEnumeratingWithState:&v42 objects:v47 count:16];
@@ -9825,8 +9825,8 @@ void __26__UIKBTree_shapesForKeys___block_invoke(uint64_t a1, void *a2)
           }
 
           v29 = *(*(&v38 + 1) + 8 * j);
-          geometry2 = [v29 geometry];
-          v31 = [array containsObject:geometry2];
+          v30 = objc_msgSend_geometry(v29);
+          v31 = [array containsObject:v30];
 
           if (v31)
           {
@@ -10634,7 +10634,7 @@ LABEL_11:
           }
 
           v15 = *(*(&v18 + 1) + 8 * i);
-          if (([v15 isEqualToString:tagCopy] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v15) & 1) == 0)
           {
             v16 = [(NSMutableDictionary *)self->properties objectForKey:v15];
 
@@ -10690,7 +10690,7 @@ LABEL_18:
   if ((vmaxv_u8(vmovn_s16(vuzp1q_s16(vceqq_s32(v8, xmmword_18A67E9D0), vceqq_s32(vextq_s8(vdupq_lane_s32(v7, 0), v6, 4uLL), xmmword_18A67E9C0)))) & 1) == 0 && interactionType != 5 && displayType != 23)
   {
     name = [(UIKBTree *)self name];
-    if (![name isEqualToString:@"Latin-Accents"])
+    if (!objc_msgSend_isEqualToString_(name))
     {
       cache = [(UIKBTree *)self cache];
       v12 = [cache objectForKey:@"modify-for-writeboard-key"];
@@ -11101,7 +11101,7 @@ LABEL_25:
   return array;
 }
 
-uint64_t __37__UIKBTree_keysForDisplayRowAtIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__37__UIKBTree_keysForDisplayRowAtIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 frame];
   if (*(a1 + 40) > v6)

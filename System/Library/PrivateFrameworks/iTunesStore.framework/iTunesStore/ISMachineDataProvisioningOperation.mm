@@ -106,9 +106,9 @@
 
 - (void)run
 {
-  v73 = *MEMORY[0x277D85DE8];
-  v63 = 0;
-  v64 = 0;
+  v70 = *MEMORY[0x277D85DE8];
+  v60 = 0;
+  v61 = 0;
   accountID = self->_accountID;
   if ([(ISMachineDataProvisioningOperation *)self protocolVersion]== 1)
   {
@@ -120,11 +120,10 @@
     v4 = accountID;
   }
 
-  inputData = self->_inputData;
-  v6 = SSVAnisetteProvisioningStart();
+  v5 = SSVAnisetteProvisioningStart();
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedFairPlayAnisetteConfig];
   mEMORY[0x277D69B38]2 = mEMORY[0x277D69B38];
-  if (!v6)
+  if (!v5)
   {
     if (!mEMORY[0x277D69B38])
     {
@@ -134,70 +133,68 @@
     shouldLog = [mEMORY[0x277D69B38]2 shouldLog];
     if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      v15 = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      v15 = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = v16;
+      v17 = v15;
     }
 
     else
     {
-      v18 = v16 & 2;
+      v17 = v15 & 2;
     }
 
-    if (v18)
+    if (v17)
     {
-      v19 = objc_opt_class();
-      v20 = MEMORY[0x277CCACA8];
-      v21 = v19;
-      v22 = [v20 stringWithFormat:@"%llu", v4];
-      v23 = SSHashIfNeeded();
-      v65 = 138543874;
-      v66 = v19;
-      v67 = 2114;
-      v68 = v23;
-      v69 = 2048;
-      v70 = v63;
-      LODWORD(v58) = 32;
-      v57 = &v65;
-      v24 = _os_log_send_and_compose_impl();
+      v18 = objc_opt_class();
+      v19 = MEMORY[0x277CCACA8];
+      v20 = v18;
+      v21 = [v19 stringWithFormat:@"%llu", v4];
+      v22 = SSHashIfNeeded();
+      v62 = 138543874;
+      v63 = v18;
+      v64 = 2114;
+      v65 = v22;
+      v66 = 2048;
+      v67 = v60;
+      v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%{public}@: Started provisioning for account %{public}@ with session ID %lu.", &v62, 32);
 
-      if (!v24)
+      if (!v23)
       {
-        goto LABEL_27;
+        goto LABEL_28;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v24 encoding:{4, &v65, v58}];
-      free(v24);
-      v57 = oSLogObject;
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:4];
+      free(v23);
+      v54 = oSLogObject;
       SSFileLog();
     }
 
-LABEL_27:
-    v25 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v64 length:HIDWORD(v63) freeWhenDone:0];
-    v26 = [(ISMachineDataProvisioningOperation *)self _newFinishProvisioningOperationWithData:v25];
-    v62 = 0;
-    v27 = [(ISOperation *)self runSubOperation:v26 returningError:&v62];
-    v28 = v62;
-    v29 = v28;
-    if (v27)
+LABEL_28:
+    v24 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v61 length:HIDWORD(v60) freeWhenDone:0];
+    v25 = [(ISMachineDataProvisioningOperation *)self _newFinishProvisioningOperationWithData:v24];
+    v59 = 0;
+    v26 = [(ISOperation *)self runSubOperation:v25 returningError:&v59];
+    v27 = v59;
+    v28 = v27;
+    if (v26)
     {
-      v59 = v25;
-      dataProvider = [v26 dataProvider];
+      v56 = v24;
+      dataProvider = [v25 dataProvider];
       output = [dataProvider output];
-      v61 = v29;
-      v32 = [(ISMachineDataProvisioningOperation *)self _finishProvisioningWithResponse:output sessionID:v63 error:&v61];
-      v33 = v61;
+      v58 = v28;
+      v31 = [(ISMachineDataProvisioningOperation *)self _finishProvisioningWithResponse:output sessionID:v60 error:&v58];
+      v32 = v58;
 
-      if (v32)
+      if (v31)
       {
         mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharedFairPlayAnisetteConfig];
         if (!mEMORY[0x277D69B38]3)
@@ -208,64 +205,63 @@ LABEL_27:
         shouldLog2 = [mEMORY[0x277D69B38]3 shouldLog];
         if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
         {
-          v36 = shouldLog2 | 2;
+          v35 = shouldLog2 | 2;
         }
 
         else
         {
-          v36 = shouldLog2;
+          v35 = shouldLog2;
         }
 
         oSLogObject2 = [mEMORY[0x277D69B38]3 OSLogObject];
         if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = v36;
+          v37 = v35;
         }
 
         else
         {
-          v38 = v36 & 2;
+          v37 = v35 & 2;
         }
 
-        if (!v38)
+        if (!v37)
         {
-          v45 = 1;
-          v25 = v59;
-          goto LABEL_59;
-        }
-
-        v39 = objc_opt_class();
-        v40 = MEMORY[0x277CCACA8];
-        v41 = v39;
-        v42 = [v40 stringWithFormat:@"%llu", v4];
-        v43 = SSHashIfNeeded();
-        v65 = 138543874;
-        v66 = v39;
-        v67 = 2114;
-        v68 = v43;
-        v69 = 2048;
-        v70 = v63;
-        LODWORD(v58) = 32;
-        v57 = &v65;
-        v44 = _os_log_send_and_compose_impl();
-
-        v45 = 1;
-        if (!v44)
-        {
-          v25 = v59;
+          v44 = 1;
+          v24 = v56;
           goto LABEL_60;
         }
 
-        v25 = v59;
-        goto LABEL_55;
+        v38 = objc_opt_class();
+        v39 = MEMORY[0x277CCACA8];
+        v40 = v38;
+        v41 = [v39 stringWithFormat:@"%llu", v4];
+        v42 = SSHashIfNeeded();
+        v62 = 138543874;
+        v63 = v38;
+        v64 = 2114;
+        v65 = v42;
+        v66 = 2048;
+        v67 = v60;
+        LODWORD(v55) = 32;
+        v43 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_275BC3000, oSLogObject2, 0, "%{public}@: Provisioning succeeded for account %{public}@ with session ID %lu.", &v62, v55);
+
+        v44 = 1;
+        if (!v43)
+        {
+          v24 = v56;
+          goto LABEL_61;
+        }
+
+        v24 = v56;
+        goto LABEL_56;
       }
 
-      v25 = v59;
+      v24 = v56;
     }
 
     else
     {
-      v33 = v28;
+      v32 = v27;
     }
 
     mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharedFairPlayAnisetteConfig];
@@ -277,69 +273,68 @@ LABEL_27:
     shouldLog3 = [mEMORY[0x277D69B38]3 shouldLog];
     if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
     {
-      v48 = shouldLog3 | 2;
+      v46 = shouldLog3 | 2;
     }
 
     else
     {
-      v48 = shouldLog3;
+      v46 = shouldLog3;
     }
 
     oSLogObject2 = [mEMORY[0x277D69B38]3 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v49 = v48;
+      v47 = v46;
     }
 
     else
     {
-      v49 = v48 & 2;
+      v47 = v46 & 2;
     }
 
-    if (!v49)
+    if (!v47)
     {
-      v45 = 0;
-      goto LABEL_59;
+      v44 = 0;
+      goto LABEL_60;
     }
 
-    v60 = v26;
-    v50 = v25;
-    v51 = objc_opt_class();
-    v52 = MEMORY[0x277CCACA8];
-    v53 = v51;
-    v54 = [v52 stringWithFormat:@"%llu", v4];
-    v55 = SSHashIfNeeded();
-    v65 = 138544130;
-    v66 = v51;
-    v67 = 2114;
-    v68 = v55;
-    v69 = 2048;
-    v70 = v63;
-    v71 = 2114;
-    v72 = v33;
-    LODWORD(v58) = 42;
-    v57 = &v65;
-    v44 = _os_log_send_and_compose_impl();
+    v57 = v25;
+    v48 = v24;
+    v49 = objc_opt_class();
+    v50 = MEMORY[0x277CCACA8];
+    v51 = v49;
+    v52 = [v50 stringWithFormat:@"%llu", v4];
+    v53 = SSHashIfNeeded();
+    v62 = 138544130;
+    v63 = v49;
+    v64 = 2114;
+    v65 = v53;
+    v66 = 2048;
+    v67 = v60;
+    v68 = 2114;
+    v69 = v32;
+    LODWORD(v55) = 42;
+    v43 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%{public}@: Provisioning failed for account %{public}@ with session ID %lu. error = %{public}@", &v62, v55);
 
-    v45 = 0;
-    v25 = v50;
-    if (!v44)
+    v44 = 0;
+    v24 = v48;
+    if (!v43)
     {
-      v26 = v60;
+      v25 = v57;
+LABEL_61:
+
+      goto LABEL_62;
+    }
+
+    v25 = v57;
+LABEL_56:
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v43 encoding:4];
+    free(v43);
+    v54 = oSLogObject2;
+    SSFileLog();
 LABEL_60:
 
-      goto LABEL_61;
-    }
-
-    v26 = v60;
-LABEL_55:
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v44 encoding:{4, &v65, v58}];
-    free(v44);
-    v57 = oSLogObject2;
-    SSFileLog();
-LABEL_59:
-
-    goto LABEL_60;
+    goto LABEL_61;
   }
 
   if (!mEMORY[0x277D69B38])
@@ -350,36 +345,39 @@ LABEL_59:
   shouldLog4 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v10 = shouldLog4 | 2;
+    LODWORD(v9) = shouldLog4 | 2;
   }
 
   else
   {
-    v10 = shouldLog4;
+    LODWORD(v9) = shouldLog4;
   }
 
   oSLogObject3 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
   {
-    v10 &= 2u;
+    v9 = v9;
   }
 
-  if (v10)
+  else
   {
-    v65 = 138543618;
-    v66 = objc_opt_class();
-    v67 = 2048;
-    v68 = v6;
-    v12 = v66;
-    LODWORD(v58) = 22;
-    v57 = &v65;
-    v13 = _os_log_send_and_compose_impl();
+    v9 &= 2u;
+  }
 
-    if (v13)
+  if (v9)
+  {
+    v62 = 138543618;
+    v63 = objc_opt_class();
+    v64 = 2048;
+    v65 = v5;
+    v11 = v63;
+    v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_275BC3000, oSLogObject3, 16, "%{public}@: Provisioning start failed with error code %ld.", &v62, 22);
+
+    if (v12)
     {
-      v14 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, &v65, v58}];
-      free(v13);
-      v57 = v14;
+      v13 = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:4];
+      free(v12);
+      v54 = v13;
       SSFileLog();
     }
   }
@@ -388,29 +386,26 @@ LABEL_59:
   {
   }
 
-  v46 = *MEMORY[0x277D6A5F8];
-  v33 = SSError();
-  v45 = 0;
-LABEL_61:
-  if (v64)
+  v32 = SSError();
+  v44 = 0;
+LABEL_62:
+  if (v61)
   {
-    MEMORY[0x277C8BA80]();
+    MEMORY[0x277C8BA80](v61);
   }
 
-  if (v63)
+  if (v60)
   {
-    MEMORY[0x277C8BA60]();
+    MEMORY[0x277C8BA60](v60);
   }
 
-  [(ISOperation *)self setError:v33, v57];
-  [(ISOperation *)self setSuccess:v45];
-
-  v56 = *MEMORY[0x277D85DE8];
+  [(ISOperation *)self setError:v32, v54];
+  [(ISOperation *)self setSuccess:v44];
 }
 
 - (BOOL)_finishProvisioningWithResponse:(id)response sessionID:(unsigned int)d error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v8 = [responseCopy objectForKey:@"transportKey"];
   v9 = [responseCopy objectForKey:@"keybag"];
@@ -428,32 +423,37 @@ LABEL_61:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v23 = shouldLog | 2;
+      LODWORD(v23) = shouldLog | 2;
     }
 
     else
     {
-      v23 = shouldLog;
+      LODWORD(v23) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v23 = v23;
+    }
+
+    else
     {
       v23 &= 2u;
     }
 
     if (!v23)
     {
-      goto LABEL_36;
+      goto LABEL_39;
     }
 
-    v49 = 138543618;
-    v50 = objc_opt_class();
-    v51 = 2114;
+    v46 = 138543618;
+    v47 = objc_opt_class();
+    v48 = 2114;
     dCopy = v10;
-    v25 = v50;
-    LODWORD(v46) = 22;
-    goto LABEL_34;
+    v25 = v47;
+    v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Invalid settingInfo value %{public}@.", &v46, 22);
+    goto LABEL_37;
   }
 
   objc_opt_class();
@@ -468,48 +468,53 @@ LABEL_61:
     shouldLog2 = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v27 = shouldLog2 | 2;
+      LODWORD(v28) = shouldLog2 | 2;
     }
 
     else
     {
-      v27 = shouldLog2;
+      LODWORD(v28) = shouldLog2;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v27 &= 2u;
+      v28 = v28;
     }
 
-    if (!v27)
+    else
     {
-      goto LABEL_36;
+      v28 &= 2u;
     }
-
-    v49 = 138543618;
-    v50 = objc_opt_class();
-    v51 = 2114;
-    dCopy = v8;
-    v25 = v50;
-    LODWORD(v46) = 22;
-LABEL_34:
-    v28 = _os_log_send_and_compose_impl();
 
     if (!v28)
     {
-LABEL_37:
-
-      v29 = 0;
-      goto LABEL_38;
+      goto LABEL_39;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:{4, &v49, v46}];
-    free(v28);
-    SSFileLog();
-LABEL_36:
+    v46 = 138543618;
+    v47 = objc_opt_class();
+    v48 = 2114;
+    dCopy = v8;
+    v25 = v47;
+    v26 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Invalid transportKey value %{public}@.", &v46, 22);
+LABEL_37:
+    v29 = v26;
 
-    goto LABEL_37;
+    if (!v29)
+    {
+LABEL_40:
+
+      v30 = 0;
+      goto LABEL_41;
+    }
+
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v29 encoding:4];
+    free(v29);
+    SSFileLog();
+LABEL_39:
+
+    goto LABEL_40;
   }
 
   if ([v9 length] && (SSVFairPlayImportKeybagData() & 1) == 0)
@@ -523,55 +528,58 @@ LABEL_36:
     shouldLog3 = [mEMORY[0x277D69B38]2 shouldLog];
     if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
     {
-      v35 = shouldLog3 | 2;
+      LODWORD(v35) = shouldLog3 | 2;
     }
 
     else
     {
-      v35 = shouldLog3;
+      LODWORD(v35) = shouldLog3;
     }
 
     oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    {
+      v35 = v35;
+    }
+
+    else
     {
       v35 &= 2u;
     }
 
     if (v35)
     {
-      v49 = 138543362;
-      v50 = objc_opt_class();
-      v37 = v50;
-      LODWORD(v46) = 12;
-      v38 = _os_log_send_and_compose_impl();
+      v46 = 138543362;
+      v47 = objc_opt_class();
+      v37 = v47;
+      v38 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%{public}@: Could not import keybag.", &v46, 12);
 
       if (!v38)
       {
-LABEL_53:
+LABEL_57:
 
-        v39 = *MEMORY[0x277D6A110];
-        v29 = SSError();
-LABEL_38:
+        v30 = SSError();
+LABEL_41:
         v13 = 0;
         if (!error)
         {
-          goto LABEL_41;
+          goto LABEL_44;
         }
 
-        goto LABEL_39;
+        goto LABEL_42;
       }
 
-      oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v38 encoding:{4, &v49, v46}];
+      oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v38 encoding:4];
       free(v38);
       SSFileLog();
     }
 
-    goto LABEL_53;
+    goto LABEL_57;
   }
 
   v11 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v10 options:0];
-  v47 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v8 options:0];
-  v48 = v11;
+  v44 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v8 options:0];
+  v45 = v11;
   v12 = SSVAnisetteProvisioningEnd();
   v13 = v12 == 0;
   mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharedFairPlayAnisetteConfig];
@@ -586,44 +594,48 @@ LABEL_38:
     shouldLog4 = [mEMORY[0x277D69B38]4 shouldLog];
     if ([mEMORY[0x277D69B38]4 shouldLogToDisk])
     {
-      v41 = shouldLog4 | 2;
+      LODWORD(v40) = shouldLog4 | 2;
     }
 
     else
     {
-      v41 = shouldLog4;
+      LODWORD(v40) = shouldLog4;
     }
 
     oSLogObject3 = [mEMORY[0x277D69B38]4 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v41 &= 2u;
+      v40 = v40;
     }
 
-    if (v41)
+    else
     {
-      v49 = 138543618;
-      v50 = objc_opt_class();
-      v51 = 2048;
+      v40 &= 2u;
+    }
+
+    if (v40)
+    {
+      v46 = 138543618;
+      v47 = objc_opt_class();
+      v48 = 2048;
       dCopy = d;
-      v43 = v50;
-      LODWORD(v46) = 22;
-      v44 = _os_log_send_and_compose_impl();
+      v42 = v47;
+      v43 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &dword_275BC3000, oSLogObject3, 0, "%{public}@: Finished machine provisioning for sessionID %lu.", &v46, 22);
 
-      if (!v44)
+      if (!v43)
       {
-LABEL_65:
+LABEL_70:
 
-        v29 = 0;
-        goto LABEL_68;
+        v30 = 0;
+        goto LABEL_73;
       }
 
-      oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v44 encoding:{4, &v49, v46}];
-      free(v44);
+      oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v43 encoding:4];
+      free(v43);
       SSFileLog();
     }
 
-    goto LABEL_65;
+    goto LABEL_70;
   }
 
   if (!mEMORY[0x277D69B38]3)
@@ -631,31 +643,35 @@ LABEL_65:
     mEMORY[0x277D69B38]4 = [MEMORY[0x277D69B38] sharedConfig];
   }
 
-  shouldLog5 = [mEMORY[0x277D69B38]4 shouldLog];
+  LODWORD(v16) = [mEMORY[0x277D69B38]4 shouldLog];
   if ([mEMORY[0x277D69B38]4 shouldLogToDisk])
   {
-    shouldLog5 |= 2u;
+    LODWORD(v16) = v16 | 2;
   }
 
   oSLogObject4 = [mEMORY[0x277D69B38]4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
   {
-    shouldLog5 &= 2u;
+    v16 = v16;
   }
 
-  if (shouldLog5)
+  else
   {
-    v49 = 138543618;
-    v50 = objc_opt_class();
-    v51 = 2048;
+    v16 &= 2u;
+  }
+
+  if (v16)
+  {
+    v46 = 138543618;
+    v47 = objc_opt_class();
+    v48 = 2048;
     dCopy = v12;
-    v18 = v50;
-    LODWORD(v46) = 22;
-    v19 = _os_log_send_and_compose_impl();
+    v18 = v47;
+    v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_275BC3000, oSLogObject4, 16, "%{public}@: Machine provisioning failed with error code %ld.", &v46, 22);
 
     if (v19)
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, &v49, v46}];
+      v20 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
@@ -665,25 +681,23 @@ LABEL_65:
   {
   }
 
-  v45 = *MEMORY[0x277D6A5F8];
-  v29 = SSError();
-LABEL_68:
+  v30 = SSError();
+LABEL_73:
 
   if (!error)
   {
-    goto LABEL_41;
+    goto LABEL_44;
   }
 
-LABEL_39:
+LABEL_42:
   if (!v13)
   {
-    v30 = v29;
-    *error = v29;
+    v31 = v30;
+    *error = v30;
   }
 
-LABEL_41:
+LABEL_44:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -740,21 +754,20 @@ LABEL_41:
 
   else if (!protocolVersion)
   {
-    accountID = self->_accountID;
-    v21 = SSVFairPlayCopyKeyBagSyncData();
-    if (v21)
+    v20 = SSVFairPlayCopyKeyBagSyncData();
+    if (v20)
     {
-      [v15 setObject:v21 forKey:@"kbsync"];
+      [v15 setObject:v20 forKey:@"kbsync"];
     }
 
-    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_accountID];
-    [v15 setObject:v22 forKey:@"dsId"];
+    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_accountID];
+    [v15 setObject:v21 forKey:@"dsId"];
 
     [v14 setURLBagKey:@"md-finish-provisioning"];
   }
 
-  v23 = [MEMORY[0x277CCAC58] dataWithPropertyList:v15 format:100 options:0 error:0];
-  [v14 setHTTPBody:v23];
+  v22 = [MEMORY[0x277CCAC58] dataWithPropertyList:v15 format:100 options:0 error:0];
+  [v14 setHTTPBody:v22];
 
   [(ISURLOperation *)v5 setRequestProperties:v14];
   return v5;

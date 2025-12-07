@@ -243,7 +243,7 @@ void __83__MapsSuggestionsLocationOfInterest_hydrateMapItemWithNetworkRequester_
 
 void __83__MapsSuggestionsLocationOfInterest_hydrateMapItemWithNetworkRequester_completion___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -253,27 +253,28 @@ void __83__MapsSuggestionsLocationOfInterest_hydrateMapItemWithNetworkRequester_
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         v4 = *(a1 + 32);
-        v7 = 138412290;
-        v8 = v4;
-        _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_ERROR, "LOI: Could not resolve mapItemHandle, error: %@", &v7, 0xCu);
+        v9 = 138412290;
+        v10 = v4;
+        _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_ERROR, "LOI: Could not resolve mapItemHandle, error: %@", &v9, 0xCu);
       }
     }
 
     else
     {
-      if ([WeakRetained isHomeOrWork])
+      v6 = [WeakRetained isHomeOrWork];
+      if (v6)
       {
-        MapsSuggestionsSawHomeOrWorkOnThisDevice();
+        MapsSuggestionsSawHomeOrWorkOnThisDevice(v6, v7);
       }
 
-      v6 = [*(a1 + 40) firstObject];
-      [WeakRetained setMapItem:v6];
+      v8 = [*(a1 + 40) firstObject];
+      [WeakRetained setMapItem:v8];
 
       v3 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v7) = 0;
-        _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_DEBUG, "Successfully retrieved a mapItem on the LOI", &v7, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_DEBUG, "Successfully retrieved a mapItem on the LOI", &v9, 2u);
       }
     }
 
@@ -285,13 +286,13 @@ void __83__MapsSuggestionsLocationOfInterest_hydrateMapItemWithNetworkRequester_
     v5 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136446722;
-      v8 = "MapsSuggestionsLocationOfInterest.m";
-      v9 = 1026;
-      v10 = 212;
-      v11 = 2082;
-      v12 = "[MapsSuggestionsLocationOfInterest hydrateMapItemWithNetworkRequester:completion:]_block_invoke_2";
-      _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v7, 0x1Cu);
+      v9 = 136446722;
+      v10 = "MapsSuggestionsLocationOfInterest.m";
+      v11 = 1026;
+      v12 = 212;
+      v13 = 2082;
+      v14 = "[MapsSuggestionsLocationOfInterest hydrateMapItemWithNetworkRequester:completion:]_block_invoke_2";
+      _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v9, 0x1Cu);
     }
   }
 }

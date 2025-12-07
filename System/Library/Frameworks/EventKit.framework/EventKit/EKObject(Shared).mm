@@ -1,5 +1,6 @@
 @interface EKObject(Shared)
 + (BOOL)_compareIdentityKeysForObject:()Shared againstObject:propertiesToIgnore:;
++ (BOOL)_compareKnownKeys:()Shared forObject:againstObject:compareIdentityKeys:compareImmutableKeys:propertiesToIgnore:;
 + (BOOL)_compareMultiValueRelationshipKeys:()Shared forObject:againstObject:propertiesToIgnore:;
 + (BOOL)_compareNonIdentityKeys:()Shared forObject:againstObject:compareImmutableKeys:propertiesToIgnore:;
 + (BOOL)_compareSingleValueRelationshipKeys:()Shared forObject:againstObject:propertiesToIgnore:;
@@ -43,40 +44,66 @@
   [(EKObject *)self _performWithLock:v6];
 }
 
++ (BOOL)_compareKnownKeys:()Shared forObject:againstObject:compareIdentityKeys:compareImmutableKeys:propertiesToIgnore:
+{
+  v9 = a7;
+  v10 = a6;
+  v14 = a3;
+  v15 = a4;
+  v16 = a5;
+  v17 = a8;
+  if (v15 == v16)
+  {
+    v18 = 1;
+  }
+
+  else if (v10 && ![self _compareIdentityKeysForObject:v15 againstObject:v16 propertiesToIgnore:v17])
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v18 = [self _compareNonIdentityKeys:v14 forObject:v15 againstObject:v16 compareImmutableKeys:v9 propertiesToIgnore:v17];
+  }
+
+  return v18;
+}
+
 + (BOOL)_compareMultiValueRelationshipKeys:()Shared forObject:againstObject:propertiesToIgnore:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a4;
   v12 = a5;
   v13 = a6;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v14 = v10;
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        if (![self _compareMultiValueRelationshipKey:*(*(&v22 + 1) + 8 * i) forObject:v11 againstObject:v12 propertiesToIgnore:{v13, v22}])
+        if (![self _compareMultiValueRelationshipKey:*(*(&v21 + 1) + 8 * i) forObject:v11 againstObject:v12 propertiesToIgnore:{v13, v21}])
         {
           v19 = 0;
           goto LABEL_11;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v16)
       {
         continue;
@@ -89,7 +116,6 @@
   v19 = 1;
 LABEL_11:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -167,38 +193,38 @@ LABEL_11:
 
 + (BOOL)_compareSingleValueRelationshipKeys:()Shared forObject:againstObject:propertiesToIgnore:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a4;
   v12 = a5;
   v13 = a6;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v14 = v10;
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        if (![self _compareSingleValueRelationshipKey:*(*(&v22 + 1) + 8 * i) forObject:v11 againstObject:v12 propertiesToIgnore:v13 ignoreIdentityKeys:{0, v22}])
+        if (![self _compareSingleValueRelationshipKey:*(*(&v21 + 1) + 8 * i) forObject:v11 againstObject:v12 propertiesToIgnore:v13 ignoreIdentityKeys:{0, v21}])
         {
           v19 = 0;
           goto LABEL_11;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v16)
       {
         continue;
@@ -211,7 +237,6 @@ LABEL_11:
   v19 = 1;
 LABEL_11:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -228,40 +253,32 @@ LABEL_11:
 
 - (void)validate:()Shared .cold.1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 privacyDescription];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Reached maximum depth while validating root object %{public}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Reached maximum depth while validating root object %{public}@", v5, 0xCu);
 }
 
 - (void)singleChangedValueForKey:()Shared .cold.1()
 {
   OUTLINED_FUNCTION_6_0();
-  v11 = *MEMORY[0x1E69E9840];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_4_3() backingObject];
   v4 = [MEMORY[0x1E696AF00] callStackSymbols];
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)meltedAndCachedSingleRelationObjectForKey:()Shared .cold.1()
 {
   OUTLINED_FUNCTION_6_0();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_4_3() eventStore];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

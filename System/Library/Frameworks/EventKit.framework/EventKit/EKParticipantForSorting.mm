@@ -24,20 +24,20 @@
   return v3;
 }
 
-void __33__EKParticipantForSorting__cache__block_invoke()
+void __33__EKParticipantForSorting__cache__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = _cache_s_participantCache;
-  _cache_s_participantCache = v0;
+  v2 = objc_opt_new();
+  v3 = _cache_s_participantCache;
+  _cache_s_participantCache = v2;
 
   [_cache_s_participantCache setCountLimit:1000];
-  v3 = [MEMORY[0x1E696AD88] defaultCenter];
-  v2 = [v3 addObserverForName:*MEMORY[0x1E695C3D8] object:0 queue:0 usingBlock:&__block_literal_global_5];
+  v5 = [MEMORY[0x1E696AD88] defaultCenter];
+  v4 = [v5 addObserverForName:*MEMORY[0x1E695C3D8] object:0 queue:0 usingBlock:&__block_literal_global_5];
 }
 
 + (id)participantForSortingWithEKParticipant:(id)participant
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (participant)
   {
     participantCopy = participant;
@@ -45,7 +45,7 @@ void __33__EKParticipantForSorting__cache__block_invoke()
     participantCopy2 = participant;
     v6 = [v4 arrayWithObjects:&participantCopy count:1];
 
-    v7 = [self participantsForSortingWithEKParticipants:{v6, participantCopy, v12}];
+    v7 = [self participantsForSortingWithEKParticipants:{v6, participantCopy, v11}];
     firstObject = [v7 firstObject];
   }
 
@@ -54,73 +54,71 @@ void __33__EKParticipantForSorting__cache__block_invoke()
     firstObject = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)participantsForSortingWithEKParticipants:(id)participants
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DF90];
   participantsCopy = participants;
   v6 = [v4 dictionaryWithCapacity:{objc_msgSend(participantsCopy, "count")}];
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(participantsCopy, "count")}];
   v8 = objc_alloc_init(MEMORY[0x1E696AD50]);
-  v65[0] = MEMORY[0x1E69E9820];
-  v65[1] = 3221225472;
-  v65[2] = __68__EKParticipantForSorting_participantsForSortingWithEKParticipants___block_invoke;
-  v65[3] = &unk_1E77FDA30;
+  v64[0] = MEMORY[0x1E69E9820];
+  v64[1] = 3221225472;
+  v64[2] = __68__EKParticipantForSorting_participantsForSortingWithEKParticipants___block_invoke;
+  v64[3] = &unk_1E77FDA30;
   selfCopy = self;
   selfCopy2 = self;
   v9 = v7;
-  v66 = v9;
+  v65 = v9;
   v10 = v8;
-  v67 = v10;
+  v66 = v10;
   v11 = v6;
-  v68 = v11;
-  [participantsCopy enumerateObjectsUsingBlock:v65];
+  v67 = v11;
+  [participantsCopy enumerateObjectsUsingBlock:v64];
   v12 = [participantsCopy mutableCopy];
 
-  v55 = v10;
+  v54 = v10;
   [v12 removeObjectsAtIndexes:v10];
-  v54 = v12;
+  v53 = v12;
   v13 = [v12 copy];
   v14 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
-  v71[0] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:1];
+  v70[0] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:1];
 
   defaultProvider = [MEMORY[0x1E6992F50] defaultProvider];
-  v60 = v11;
+  v59 = v11;
   allValues = [v11 allValues];
-  v53 = v15;
-  v58 = [defaultProvider unifiedContactsDictionaryForHandleStrings:allValues keysToFetch:v15];
+  v52 = v15;
+  v57 = [defaultProvider unifiedContactsDictionaryForHandleStrings:allValues keysToFetch:v15];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = v13;
-  v18 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
+  v18 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v62;
-    v59 = v9;
+    v20 = *v61;
+    v58 = v9;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v62 != v20)
+        if (*v61 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v61 + 1) + 8 * i);
-        v23 = [v60 objectForKeyedSubscript:v22];
+        v22 = *(*(&v60 + 1) + 8 * i);
+        v23 = [v59 objectForKeyedSubscript:v22];
         if (v23)
         {
-          v24 = [v58 objectForKeyedSubscript:v23];
+          v24 = [v57 objectForKeyedSubscript:v23];
           firstObject = [v24 firstObject];
         }
 
@@ -180,7 +178,7 @@ void __33__EKParticipantForSorting__cache__block_invoke()
             [firstObject setMiddleName:middleName];
           }
 
-          v9 = v59;
+          v9 = v58;
         }
 
         if (firstObject)
@@ -235,7 +233,7 @@ void __33__EKParticipantForSorting__cache__block_invoke()
             }
           }
 
-          v9 = v59;
+          v9 = v58;
           if (cal_isPhoneNumber)
           {
             goto LABEL_40;
@@ -268,14 +266,13 @@ LABEL_40:
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v61 objects:v70 count:16];
+      v19 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
     }
 
     while (v19);
   }
 
   v50 = v9;
-  v51 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -332,15 +329,14 @@ LABEL_10:
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v10.receiver = self;
-  v10.super_class = EKParticipantForSorting;
-  v4 = [(EKParticipantForSorting *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = EKParticipantForSorting;
+  v4 = [(EKParticipantForSorting *)&v9 description];
   cachedDisplayName = self->_cachedDisplayName;
-  isEmail = self->_isEmail;
-  v7 = CalBooleanAsString();
-  v8 = [v3 stringWithFormat:@"[%@] Display name: [%@], isEmail: [%@]", v4, cachedDisplayName, v7];
+  v6 = CalBooleanAsString();
+  v7 = [v3 stringWithFormat:@"[%@] Display name: [%@], isEmail: [%@]", v4, cachedDisplayName, v6];
 
-  return v8;
+  return v7;
 }
 
 - (id)participant

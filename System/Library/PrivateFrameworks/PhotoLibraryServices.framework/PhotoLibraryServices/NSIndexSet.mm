@@ -3,7 +3,7 @@
 
 @implementation NSIndexSet
 
-uint64_t __78__NSIndexSet_PLAdditions___pl_indexSetByUpdatingWithChangedIndexes_asInserts___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__78__NSIndexSet_PLAdditions___pl_indexSetByUpdatingWithChangedIndexes_asInserts___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a2 - *(*(*(a1 + 40) + 8) + 24);
   [*(a1 + 32) removeIndexesInRange:{v5, a3}];

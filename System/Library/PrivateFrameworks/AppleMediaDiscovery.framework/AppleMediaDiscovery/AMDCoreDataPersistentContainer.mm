@@ -166,7 +166,6 @@ void __49__AMDCoreDataPersistentContainer_sharedContainer__block_invoke_2(void *
 
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)save:(id *)save
@@ -195,8 +194,6 @@ void __49__AMDCoreDataPersistentContainer_sharedContainer__block_invoke_2(void *
     [AMDFrameworkMetrics log:v7 withKey:@"MOCError" atVerbosity:0];
     objc_storeStrong(&v7, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -34,36 +34,37 @@
   monitorCopy = monitor;
   if (self->_screenUndimmedChangeNotifyToken == -1)
   {
-    objc_initWeak(&location, self);
-    v6 = *(sub_100017F4C() + 8);
+    inited = objc_initWeak(&location, self);
+    v8 = *(sub_100017F4C(inited, v7) + 8);
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_1004A2084;
     handler[3] = &unk_100AF8888;
-    v7 = v6;
-    objc_copyWeak(&v13, &location);
-    notify_register_dispatch("com.apple.springboardservices.eventobserver.internalSBSEventObserverEventUndimmed", &self->_screenUndimmedChangeNotifyToken, v7, handler);
+    v9 = v8;
+    objc_copyWeak(&v17, &location);
+    notify_register_dispatch("com.apple.springboardservices.eventobserver.internalSBSEventObserverEventUndimmed", &self->_screenUndimmedChangeNotifyToken, v9, handler);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
 
   objc_storeStrong(&self->_systemMonitor, monitor);
   screenOn = [monitorCopy screenOn];
-  v9 = sub_100017F4C();
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1004A2124;
-  v10[3] = &unk_100AE1750;
-  v10[4] = self;
   v11 = screenOn;
-  sub_10000CA94(v9, v10);
+  v13 = sub_100017F4C(screenOn, v12);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1004A2124;
+  v14[3] = &unk_100AE1750;
+  v14[4] = self;
+  v15 = v11;
+  sub_10000CA94(v13, v14);
 }
 
 - (void)screenStateChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v5 = sub_100017F4C();
+  v5 = sub_100017F4C(self, a2);
   dispatch_assert_queue_V2(*(v5 + 8));
   v6 = sub_100017E6C();
   if ([(SystemScreenObserver *)self screenOn]!= changedCopy)

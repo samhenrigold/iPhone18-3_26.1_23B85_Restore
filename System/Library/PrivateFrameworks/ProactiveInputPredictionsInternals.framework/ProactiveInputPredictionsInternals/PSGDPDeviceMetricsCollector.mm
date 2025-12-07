@@ -18,7 +18,7 @@
 
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   dataCopy = data;
   dCopy = d;
@@ -26,22 +26,21 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [accountCopy serviceName];
-    v15 = 138412802;
-    v16 = serviceName;
-    v17 = 2112;
-    v18 = dCopy;
-    v19 = 2048;
-    v20 = [dataCopy length];
-    _os_log_impl(&dword_260D36000, v12, OS_LOG_TYPE_DEFAULT, "Received file for service %@, identifier: %@; size: %tu", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = serviceName;
+    v16 = 2112;
+    v17 = dCopy;
+    v18 = 2048;
+    v19 = [dataCopy length];
+    _os_log_impl(&dword_260D36000, v12, OS_LOG_TYPE_DEFAULT, "Received file for service %@, identifier: %@; size: %tu", &v14, 0x20u);
   }
 
   [PSGDPDeviceMetricsCollector sendEngagementToDPUsingData:dataCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)collectDeviceQREngagement:(id)engagement
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   engagementCopy = engagement;
   v5 = psg_default_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -96,16 +95,16 @@
         {
           store = self->_store;
           v20 = [PSGDPDeviceMetricsCollector onDeltaRowWithXPCActivityManager:self->_xpcActivityManager activity:engagementCopy engagementMetrics:v11];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __57__PSGDPDeviceMetricsCollector_collectDeviceQREngagement___block_invoke;
-          v23[3] = &unk_279ABDFD0;
-          v24 = v11;
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __57__PSGDPDeviceMetricsCollector_collectDeviceQREngagement___block_invoke;
+          v22[3] = &unk_279ABDFD0;
+          v23 = v11;
           selfCopy = self;
-          v26 = engagementCopy;
-          v27 = v16;
-          v28 = v18;
-          v9 = [(SGQuickResponsesStore *)store deltaForResponsesOnRow:v20 completion:v23];
+          v25 = engagementCopy;
+          v26 = v16;
+          v27 = v18;
+          v9 = [(SGQuickResponsesStore *)store deltaForResponsesOnRow:v20 completion:v22];
         }
 
         else
@@ -114,13 +113,13 @@
           if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             *buf = 138413058;
-            v30 = @"com.apple.proactive.messages.ZKWSelected";
-            v31 = 1024;
-            v32 = v16 == 0;
-            v33 = 2112;
-            v34 = @"com.apple.proactive.messages.ZKWIgnored";
-            v35 = 1024;
-            v36 = v18 == 0;
+            v29 = @"com.apple.proactive.messages.ZKWSelected";
+            v30 = 1024;
+            v31 = v16 == 0;
+            v32 = 2112;
+            v33 = @"com.apple.proactive.messages.ZKWIgnored";
+            v34 = 1024;
+            v35 = v18 == 0;
             _os_log_fault_impl(&dword_260D36000, v20, OS_LOG_TYPE_FAULT, "Bailing out because unable to create recorder for some key(s), %@: %d, %@: %d", buf, 0x22u);
           }
 
@@ -154,40 +153,39 @@ LABEL_28:
   v9 = 0;
 LABEL_29:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t __57__PSGDPDeviceMetricsCollector_collectDeviceQREngagement___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [*(a1 + 32) allValues];
-  v2 = [obj countByEnumeratingWithState:&v25 objects:v43 count:16];
+  v2 = [obj countByEnumeratingWithState:&v24 objects:v42 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v26;
+    v5 = *v25;
     v6 = 0x279ABD000uLL;
     *&v3 = 138413826;
-    v21 = v3;
-    v22 = *v26;
+    v20 = v3;
+    v21 = *v25;
     while (2)
     {
       v7 = 0;
-      v23 = v4;
+      v22 = v4;
       do
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * v7);
-        if ([*(*(a1 + 40) + 8) shouldDefer:{*(a1 + 48), v21}])
+        v8 = *(*(&v24 + 1) + 8 * v7);
+        if ([*(*(a1 + 40) + 8) shouldDefer:{*(a1 + 48), v20}])
         {
           v18 = psg_default_log_handle();
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -197,7 +195,7 @@ uint64_t __57__PSGDPDeviceMetricsCollector_collectDeviceQREngagement___block_inv
           }
 
           [*(*(a1 + 40) + 8) setState:*(a1 + 48) state:3];
-          goto LABEL_15;
+          return 0;
         }
 
         v9 = [*(v6 + 3104) recordEngagementMetrics:v8 selectedRecorder:*(a1 + 56) ignoredRecorder:*(a1 + 64)];
@@ -211,24 +209,24 @@ uint64_t __57__PSGDPDeviceMetricsCollector_collectDeviceQREngagement___block_inv
           v15 = [v8 treatmentId];
           v16 = [v8 engagementDeltas];
           v17 = [v16 count];
-          *buf = v21;
-          v30 = v11;
-          v31 = 2112;
-          v32 = v12;
-          v33 = 2112;
-          v34 = v13;
-          v35 = 2112;
-          v36 = v14;
-          v37 = 2112;
-          v38 = v15;
-          v39 = 2048;
-          v40 = v17;
-          v41 = 1024;
-          v42 = v9;
+          *buf = v20;
+          v29 = v11;
+          v30 = 2112;
+          v31 = v12;
+          v32 = 2112;
+          v33 = v13;
+          v34 = 2112;
+          v35 = v14;
+          v36 = 2112;
+          v37 = v15;
+          v38 = 2048;
+          v39 = v17;
+          v40 = 1024;
+          v41 = v9;
           _os_log_impl(&dword_260D36000, v10, OS_LOG_TYPE_DEFAULT, "Recorded engagement metrics running in language %@, rollout %@, factor pack %@, experiment %@, treatment %@, records %tu, success %d", buf, 0x44u);
 
-          v5 = v22;
-          v4 = v23;
+          v5 = v21;
+          v4 = v22;
 
           v6 = 0x279ABD000;
         }
@@ -237,7 +235,7 @@ uint64_t __57__PSGDPDeviceMetricsCollector_collectDeviceQREngagement___block_inv
       }
 
       while (v4 != v7);
-      v4 = [obj countByEnumeratingWithState:&v25 objects:v43 count:16];
+      v4 = [obj countByEnumeratingWithState:&v24 objects:v42 count:16];
       if (v4)
       {
         continue;
@@ -248,8 +246,6 @@ uint64_t __57__PSGDPDeviceMetricsCollector_collectDeviceQREngagement___block_inv
   }
 
   [*(*(a1 + 40) + 8) setState:*(a1 + 48) state:5];
-LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -310,7 +306,7 @@ LABEL_15:
 
 + (BOOL)sendEngagementToDPUsingData:(id)data
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v3 = psg_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -336,10 +332,10 @@ LABEL_15:
     _os_log_impl(&dword_260D36000, v13, OS_LOG_TYPE_DEFAULT, "Begin payload deserialization", buf, 2u);
   }
 
-  v84 = 0;
+  v82 = 0;
   v14 = dataCopy;
-  v15 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:&v84];
-  v16 = v84;
+  v15 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:&v82];
+  v16 = v82;
   [v15 setRequiresSecureCoding:1];
   [v15 setClass:objc_opt_class() forClassName:@"SGQuickResponsesEngagementMetrics"];
   v17 = objc_autoreleasePoolPush();
@@ -353,7 +349,7 @@ LABEL_15:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v86 = v16;
+      v84 = v16;
       _os_log_fault_impl(&dword_260D36000, v20, OS_LOG_TYPE_FAULT, "Unable to deserialize engagement data: %@", buf, 0xCu);
     }
 
@@ -396,9 +392,9 @@ LABEL_15:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v86 = v20;
-      v87 = 1024;
-      *v88 = 2;
+      v84 = v20;
+      v85 = 1024;
+      *v86 = 2;
       _os_log_impl(&dword_260D36000, v25, OS_LOG_TYPE_DEFAULT, "Received compatability version %@ with local compatability version %d", buf, 0x12u);
     }
 
@@ -407,11 +403,11 @@ LABEL_15:
     {
       if ([v20 intValue]!= 2)
       {
-        v36 = psg_default_log_handle();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v35 = psg_default_log_handle();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_260D36000, v36, OS_LOG_TYPE_DEFAULT, "Compatability versions do not match, proceeding to early return", buf, 2u);
+          _os_log_impl(&dword_260D36000, v35, OS_LOG_TYPE_DEFAULT, "Compatability versions do not match, proceeding to early return", buf, 2u);
         }
 
         v21 = 1;
@@ -422,22 +418,22 @@ LABEL_15:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v51 = psg_default_log_handle();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
+        v50 = psg_default_log_handle();
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
         {
-          v60 = objc_opt_class();
-          NSStringFromClass(v60);
-          v62 = v61 = v20;
+          v58 = objc_opt_class();
+          NSStringFromClass(v58);
+          v60 = v59 = v20;
           *buf = 138412290;
-          v86 = v62;
-          _os_log_fault_impl(&dword_260D36000, v51, OS_LOG_TYPE_FAULT, "Deserialized engagementMetrics was of class %@, something went wrong", buf, 0xCu);
+          v84 = v60;
+          _os_log_fault_impl(&dword_260D36000, v50, OS_LOG_TYPE_FAULT, "Deserialized engagementMetrics was of class %@, something went wrong", buf, 0xCu);
 
-          v20 = v61;
+          v20 = v59;
         }
 
         v21 = 0;
 LABEL_59:
-        v36 = v26;
+        v35 = v26;
         goto LABEL_75;
       }
 
@@ -445,49 +441,48 @@ LABEL_59:
       {
         if ([v26 count])
         {
-          v67 = v20;
-          v68 = v19;
-          v82 = 0u;
-          v83 = 0u;
+          v65 = v20;
+          v66 = v19;
           v80 = 0u;
           v81 = 0u;
+          v78 = 0u;
+          v79 = 0u;
           obj = v26;
-          v27 = [obj countByEnumeratingWithState:&v80 objects:v97 count:16];
+          v27 = [obj countByEnumeratingWithState:&v78 objects:v95 count:16];
           if (v27)
           {
             v28 = v27;
-            v29 = *v81;
+            v29 = *v79;
             while (2)
             {
               for (i = 0; i != v28; ++i)
               {
-                if (*v81 != v29)
+                if (*v79 != v29)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v31 = *(*(&v80 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v53 = psg_default_log_handle();
-                  if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
+                  v52 = psg_default_log_handle();
+                  if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
                   {
-                    v63 = objc_opt_class();
-                    v64 = NSStringFromClass(v63);
+                    v61 = objc_opt_class();
+                    v62 = NSStringFromClass(v61);
                     *buf = 138412290;
-                    v86 = v64;
-                    _os_log_fault_impl(&dword_260D36000, v53, OS_LOG_TYPE_FAULT, "Deserialized engagementMetrics elements was of class %@, something went wrong", buf, 0xCu);
+                    v84 = v62;
+                    _os_log_fault_impl(&dword_260D36000, v52, OS_LOG_TYPE_FAULT, "Deserialized engagementMetrics elements was of class %@, something went wrong", buf, 0xCu);
                   }
 
-                  v36 = obj;
+                  v35 = obj;
                   v21 = 0;
-                  v19 = v68;
+                  v19 = v66;
                   goto LABEL_74;
                 }
               }
 
-              v28 = [obj countByEnumeratingWithState:&v80 objects:v97 count:16];
+              v28 = [obj countByEnumeratingWithState:&v78 objects:v95 count:16];
               if (v28)
               {
                 continue;
@@ -497,164 +492,164 @@ LABEL_59:
             }
           }
 
-          v32 = psg_default_log_handle();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v31 = psg_default_log_handle();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_260D36000, v32, OS_LOG_TYPE_DEFAULT, "Successfully validated payload content", buf, 2u);
+            _os_log_impl(&dword_260D36000, v31, OS_LOG_TYPE_DEFAULT, "Successfully validated payload content", buf, 2u);
           }
 
-          v33 = [PSGDPDeviceMetricsCollector recorderForKey:@"com.apple.proactive.messages.SmartReplySelected"];
-          v34 = [PSGDPDeviceMetricsCollector recorderForKey:@"com.apple.proactive.messages.SmartReplyIgnored"];
-          v35 = v34;
-          if (v33 && v34)
+          v32 = [PSGDPDeviceMetricsCollector recorderForKey:@"com.apple.proactive.messages.SmartReplySelected"];
+          v33 = [PSGDPDeviceMetricsCollector recorderForKey:@"com.apple.proactive.messages.SmartReplyIgnored"];
+          v34 = v33;
+          if (v32 && v33)
           {
-            v78 = 0u;
-            v79 = 0u;
             v76 = 0u;
             v77 = 0u;
-            v36 = obj;
-            v74 = obj;
-            v37 = [v74 countByEnumeratingWithState:&v76 objects:v96 count:16];
-            if (!v37)
+            v74 = 0u;
+            v75 = 0u;
+            v35 = obj;
+            v72 = obj;
+            v36 = [v72 countByEnumeratingWithState:&v74 objects:v94 count:16];
+            if (!v36)
             {
               v21 = 1;
-              v19 = v68;
+              v19 = v66;
 LABEL_73:
 
 LABEL_74:
-              v20 = v67;
+              v20 = v65;
               goto LABEL_75;
             }
 
-            v65 = v15;
-            v66 = v12;
-            v38 = *v77;
+            v63 = v15;
+            v64 = v12;
+            v37 = *v75;
             v21 = 1;
-            v39 = v37;
-            v71 = v35;
-            v72 = v33;
-            v70 = *v77;
+            v38 = v36;
+            v69 = v34;
+            v70 = v32;
+            v68 = *v75;
             do
             {
-              v40 = 0;
-              v73 = v39;
+              v39 = 0;
+              v71 = v38;
               do
               {
-                if (*v77 != v38)
+                if (*v75 != v37)
                 {
-                  objc_enumerationMutation(v74);
+                  objc_enumerationMutation(v72);
                 }
 
-                v41 = *(*(&v76 + 1) + 8 * v40);
-                v42 = [PSGDPDeviceMetricsCollector recordEngagementMetrics:v41 selectedRecorder:v33 ignoredRecorder:v35];
-                v43 = psg_default_log_handle();
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                v40 = *(*(&v74 + 1) + 8 * v39);
+                v41 = [PSGDPDeviceMetricsCollector recordEngagementMetrics:v40 selectedRecorder:v32 ignoredRecorder:v34];
+                v42 = psg_default_log_handle();
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
                 {
-                  lang = [v41 lang];
-                  rolloutId = [v41 rolloutId];
-                  factorPackId = [v41 factorPackId];
-                  experimentId = [v41 experimentId];
-                  treatmentId = [v41 treatmentId];
-                  engagementDeltas = [v41 engagementDeltas];
-                  v50 = [engagementDeltas count];
+                  lang = [v40 lang];
+                  rolloutId = [v40 rolloutId];
+                  factorPackId = [v40 factorPackId];
+                  experimentId = [v40 experimentId];
+                  treatmentId = [v40 treatmentId];
+                  engagementDeltas = [v40 engagementDeltas];
+                  v49 = [engagementDeltas count];
                   *buf = 138413826;
-                  v86 = lang;
-                  v87 = 2112;
-                  *v88 = rolloutId;
-                  *&v88[8] = 2112;
-                  *&v88[10] = factorPackId;
-                  *&v88[18] = 2112;
-                  v89 = experimentId;
-                  v90 = 2112;
-                  v91 = treatmentId;
-                  v92 = 2048;
-                  v93 = v50;
-                  v94 = 1024;
-                  v95 = v42;
-                  _os_log_impl(&dword_260D36000, v43, OS_LOG_TYPE_DEFAULT, "Recorded engagement metrics running in language %@, rollout %@, factor pack %@, experiment %@, treatment %@, records %tu, success %d", buf, 0x44u);
+                  v84 = lang;
+                  v85 = 2112;
+                  *v86 = rolloutId;
+                  *&v86[8] = 2112;
+                  *&v86[10] = factorPackId;
+                  *&v86[18] = 2112;
+                  v87 = experimentId;
+                  v88 = 2112;
+                  v89 = treatmentId;
+                  v90 = 2048;
+                  v91 = v49;
+                  v92 = 1024;
+                  v93 = v41;
+                  _os_log_impl(&dword_260D36000, v42, OS_LOG_TYPE_DEFAULT, "Recorded engagement metrics running in language %@, rollout %@, factor pack %@, experiment %@, treatment %@, records %tu, success %d", buf, 0x44u);
 
-                  v35 = v71;
-                  v39 = v73;
+                  v34 = v69;
+                  v38 = v71;
 
-                  v33 = v72;
-                  v38 = v70;
+                  v32 = v70;
+                  v37 = v68;
                 }
 
-                v21 &= v42;
-                ++v40;
+                v21 &= v41;
+                ++v39;
               }
 
-              while (v39 != v40);
-              v39 = [v74 countByEnumeratingWithState:&v76 objects:v96 count:16];
+              while (v38 != v39);
+              v38 = [v72 countByEnumeratingWithState:&v74 objects:v94 count:16];
             }
 
-            while (v39);
+            while (v38);
             v14 = dataCopy;
             v16 = 0;
-            v12 = v66;
-            v15 = v65;
-            v19 = v68;
+            v12 = v64;
+            v15 = v63;
+            v19 = v66;
           }
 
           else
           {
-            v74 = psg_default_log_handle();
-            v19 = v68;
-            if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
+            v72 = psg_default_log_handle();
+            v19 = v66;
+            if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
             {
               *buf = 138413058;
-              v86 = @"com.apple.proactive.messages.SmartReplySelected";
-              v87 = 1024;
-              *v88 = v33 == 0;
-              *&v88[4] = 2112;
-              *&v88[6] = @"com.apple.proactive.messages.SmartReplyIgnored";
-              *&v88[14] = 1024;
-              *&v88[16] = v35 == 0;
-              _os_log_fault_impl(&dword_260D36000, v74, OS_LOG_TYPE_FAULT, "Bailing out because unable to create recorder for some key(s), %@: %d, %@: %d", buf, 0x22u);
+              v84 = @"com.apple.proactive.messages.SmartReplySelected";
+              v85 = 1024;
+              *v86 = v32 == 0;
+              *&v86[4] = 2112;
+              *&v86[6] = @"com.apple.proactive.messages.SmartReplyIgnored";
+              *&v86[14] = 1024;
+              *&v86[16] = v34 == 0;
+              _os_log_fault_impl(&dword_260D36000, v72, OS_LOG_TYPE_FAULT, "Bailing out because unable to create recorder for some key(s), %@: %d, %@: %d", buf, 0x22u);
             }
 
             v21 = 0;
           }
 
-          v36 = obj;
+          v35 = obj;
           goto LABEL_73;
         }
 
-        v57 = psg_default_log_handle();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v56 = psg_default_log_handle();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_260D36000, v57, OS_LOG_TYPE_DEFAULT, "Received empty engagement rate data to process", buf, 2u);
+          _os_log_impl(&dword_260D36000, v56, OS_LOG_TYPE_DEFAULT, "Received empty engagement rate data to process", buf, 2u);
         }
 
         v21 = 1;
         goto LABEL_59;
       }
 
-      v52 = psg_default_log_handle();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v51 = psg_default_log_handle();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_260D36000, v52, OS_LOG_TYPE_ERROR, "Deserialized engagementMetrics was nil, something went wrong", buf, 2u);
+        _os_log_error_impl(&dword_260D36000, v51, OS_LOG_TYPE_ERROR, "Deserialized engagementMetrics was nil, something went wrong", buf, 2u);
       }
 
-      v36 = 0;
+      v35 = 0;
     }
 
     else
     {
-      v36 = psg_default_log_handle();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+      v35 = psg_default_log_handle();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
       {
-        v54 = objc_opt_class();
-        NSStringFromClass(v54);
-        v56 = v55 = v36;
+        v53 = objc_opt_class();
+        NSStringFromClass(v53);
+        v55 = v54 = v35;
         *buf = 138412290;
-        v86 = v56;
-        _os_log_fault_impl(&dword_260D36000, v55, OS_LOG_TYPE_FAULT, "Deserialized compatability version was of class %@, something went wrong", buf, 0xCu);
+        v84 = v55;
+        _os_log_fault_impl(&dword_260D36000, v54, OS_LOG_TYPE_FAULT, "Deserialized compatability version was of class %@, something went wrong", buf, 0xCu);
 
-        v36 = v55;
+        v35 = v54;
       }
     }
 
@@ -673,13 +668,12 @@ LABEL_75:
   v21 = 1;
 LABEL_76:
 
-  v58 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 void __59__PSGDPDeviceMetricsCollector_sendEngagementToDPUsingData___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = psg_default_log_handle();
@@ -687,14 +681,12 @@ void __59__PSGDPDeviceMetricsCollector_sendEngagementToDPUsingData___block_invok
   {
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
-    v10 = 138412546;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_260D36000, v6, OS_LOG_TYPE_DEFAULT, "Payload key %@ is of class %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_260D36000, v6, OS_LOG_TYPE_DEFAULT, "Payload key %@ is of class %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)onCompletionWithXPCActivityManager:(id)manager activity:(id)activity engagementMetrics:(id)metrics idsService:(id)service destinationDevice:(id)device
@@ -728,31 +720,31 @@ void __59__PSGDPDeviceMetricsCollector_sendEngagementToDPUsingData___block_invok
 
 __CFString *__122__PSGDPDeviceMetricsCollector_onCompletionWithXPCActivityManager_activity_engagementMetrics_idsService_destinationDevice___block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = objc_opt_new();
+    v51 = 0u;
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v56 = 0u;
     v3 = *(a1 + 32);
-    v4 = [v3 countByEnumeratingWithState:&v53 objects:v71 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v51 objects:v69 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v54;
+      v7 = *v52;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v54 != v7)
+          if (*v52 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = [*(a1 + 32) objectForKeyedSubscript:*(*(&v53 + 1) + 8 * i)];
+          v9 = [*(a1 + 32) objectForKeyedSubscript:*(*(&v51 + 1) + 8 * i)];
           v10 = [v9 engagementDeltas];
           v11 = [v10 count];
 
@@ -764,7 +756,7 @@ __CFString *__122__PSGDPDeviceMetricsCollector_onCompletionWithXPCActivityManage
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v53 objects:v71 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v51 objects:v69 count:16];
       }
 
       while (v5);
@@ -779,7 +771,7 @@ __CFString *__122__PSGDPDeviceMetricsCollector_onCompletionWithXPCActivityManage
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v58 = v6;
+      v56 = v6;
       _os_log_impl(&dword_260D36000, v15, OS_LOG_TYPE_DEFAULT, "Begin syncing for %tu records", buf, 0xCu);
     }
 
@@ -811,11 +803,11 @@ __CFString *__122__PSGDPDeviceMetricsCollector_onCompletionWithXPCActivityManage
       goto LABEL_61;
     }
 
-    v69[0] = @"responses";
-    v69[1] = @"compatVer";
-    v70[0] = v2;
-    v70[1] = &unk_28734B0A0;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
+    v67[0] = @"responses";
+    v67[1] = @"compatVer";
+    v68[0] = v2;
+    v68[1] = &unk_28734B0A0;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:2];
     v18 = psg_default_log_handle();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
@@ -823,9 +815,9 @@ __CFString *__122__PSGDPDeviceMetricsCollector_onCompletionWithXPCActivityManage
       _os_log_impl(&dword_260D36000, v18, OS_LOG_TYPE_DEFAULT, "Begin records serialization", buf, 2u);
     }
 
-    v52 = 0;
-    v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v52];
-    v20 = v52;
+    v50 = 0;
+    v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v50];
+    v20 = v50;
     if (v20)
     {
       v14 = v20;
@@ -833,7 +825,7 @@ __CFString *__122__PSGDPDeviceMetricsCollector_onCompletionWithXPCActivityManage
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v58 = v14;
+        v56 = v14;
         _os_log_error_impl(&dword_260D36000, v21, OS_LOG_TYPE_ERROR, "Deferring engagement data syncing because of serialization error: %@", buf, 0xCu);
       }
 
@@ -861,117 +853,116 @@ __CFString *__122__PSGDPDeviceMetricsCollector_onCompletionWithXPCActivityManage
     {
       v26 = [v19 length];
       *buf = 134217984;
-      v58 = v26;
+      v56 = v26;
       _os_log_impl(&dword_260D36000, v25, OS_LOG_TYPE_DEFAULT, "Serialized records with data size of %tu", buf, 0xCu);
     }
 
     v27 = objc_autoreleasePoolPush();
     v28 = objc_alloc(MEMORY[0x277CBEB98]);
-    v29 = *(a1 + 64);
-    v30 = IDSCopyIDForDevice();
-    v31 = [v28 initWithObjects:{v30, 0}];
+    v29 = IDSCopyIDForDevice();
+    v30 = [v28 initWithObjects:{v29, 0}];
 
     objc_autoreleasePoolPop(v27);
-    v32 = psg_default_log_handle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v31 = psg_default_log_handle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_260D36000, v32, OS_LOG_TYPE_DEFAULT, "Begin IDS sync request", buf, 2u);
+      _os_log_impl(&dword_260D36000, v31, OS_LOG_TYPE_DEFAULT, "Begin IDS sync request", buf, 2u);
     }
 
-    v33 = *(a1 + 72);
-    v34 = *MEMORY[0x277D18678];
-    v67[0] = *MEMORY[0x277D185B0];
-    v67[1] = v34;
-    v68[0] = MEMORY[0x277CBEC38];
-    v68[1] = MEMORY[0x277CBEC38];
-    v67[2] = *MEMORY[0x277D185D0];
-    v68[2] = MEMORY[0x277CBEC38];
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:3];
-    v50 = 0;
-    v51 = 0;
-    v36 = [v33 sendData:v19 toDestinations:v31 priority:100 options:v35 identifier:&v51 error:&v50];
-    v37 = v51;
-    v38 = v50;
+    v32 = *(a1 + 72);
+    v33 = *MEMORY[0x277D18678];
+    v65[0] = *MEMORY[0x277D185B0];
+    v65[1] = v33;
+    v66[0] = MEMORY[0x277CBEC38];
+    v66[1] = MEMORY[0x277CBEC38];
+    v65[2] = *MEMORY[0x277D185D0];
+    v66[2] = MEMORY[0x277CBEC38];
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
+    v48 = 0;
+    v49 = 0;
+    v35 = [v32 sendData:v19 toDestinations:v30 priority:100 options:v34 identifier:&v49 error:&v48];
+    v36 = v49;
+    v37 = v48;
 
-    v39 = [*(a1 + 40) shouldDefer:*(a1 + 48)];
-    v40 = psg_default_log_handle();
-    v41 = v40;
-    if (v39)
+    v38 = [*(a1 + 40) shouldDefer:*(a1 + 48)];
+    v39 = psg_default_log_handle();
+    v40 = v39;
+    if (v38)
     {
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_260D36000, v41, OS_LOG_TYPE_ERROR, "Deferring engagement data syncing after IDS sync call", buf, 2u);
+        _os_log_error_impl(&dword_260D36000, v40, OS_LOG_TYPE_ERROR, "Deferring engagement data syncing after IDS sync call", buf, 2u);
       }
 
       [*(a1 + 40) setState:*(a1 + 48) state:3];
-      v42 = *(a1 + 56);
+      v41 = *(a1 + 56);
     }
 
     else
     {
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        v43 = [MEMORY[0x277CCABB0] numberWithBool:v36];
-        v44 = [v19 length];
+        v42 = [MEMORY[0x277CCABB0] numberWithBool:v35];
+        v43 = [v19 length];
         *buf = 138413314;
-        v58 = @"com.apple.private.alloy.suggestions.smartreplies";
+        v56 = @"com.apple.private.alloy.suggestions.smartreplies";
+        v57 = 2112;
+        v58 = v42;
         v59 = 2112;
-        v60 = v43;
-        v61 = 2112;
-        v62 = v37;
-        v63 = 2048;
-        v64 = v44;
-        v65 = 2112;
-        v66 = v38;
-        _os_log_impl(&dword_260D36000, v41, OS_LOG_TYPE_DEFAULT, "Performed IDS request for service %@, success %@, identifier %@, data size: %tu, error %@", buf, 0x34u);
+        v60 = v36;
+        v61 = 2048;
+        v62 = v43;
+        v63 = 2112;
+        v64 = v37;
+        _os_log_impl(&dword_260D36000, v40, OS_LOG_TYPE_DEFAULT, "Performed IDS request for service %@, success %@, identifier %@, data size: %tu, error %@", buf, 0x34u);
       }
 
-      if (v38)
+      if (v37)
       {
-        v45 = 0;
+        v44 = 0;
       }
 
       else
       {
-        v45 = v36;
+        v44 = v35;
       }
 
-      if (v45)
+      if (v44)
       {
-        v46 = psg_default_log_handle();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        v45 = psg_default_log_handle();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_260D36000, v46, OS_LOG_TYPE_DEFAULT, "Successfully passed data to IDS for syncing", buf, 2u);
+          _os_log_impl(&dword_260D36000, v45, OS_LOG_TYPE_DEFAULT, "Successfully passed data to IDS for syncing", buf, 2u);
         }
 
         [*(a1 + 40) setState:*(a1 + 48) state:5];
-        v38 = 0;
+        v37 = 0;
         v14 = 0;
         goto LABEL_59;
       }
 
-      if (!v38)
+      if (!v37)
       {
-        v38 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SGDPDeviceMetricsCollectorErrorDomain" code:1 userInfo:0];
+        v37 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SGDPDeviceMetricsCollectorErrorDomain" code:1 userInfo:0];
       }
 
-      v47 = psg_default_log_handle();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v46 = psg_default_log_handle();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v58 = v38;
-        _os_log_error_impl(&dword_260D36000, v47, OS_LOG_TYPE_ERROR, "Deferring engagement data syncing because IDS failure: %@", buf, 0xCu);
+        v56 = v37;
+        _os_log_error_impl(&dword_260D36000, v46, OS_LOG_TYPE_ERROR, "Deferring engagement data syncing because IDS failure: %@", buf, 0xCu);
       }
 
       [*(a1 + 40) setState:*(a1 + 48) state:3];
-      v42 = v38;
-      v38 = v42;
+      v41 = v37;
+      v37 = v41;
     }
 
-    v14 = v42;
+    v14 = v41;
 LABEL_59:
 
 LABEL_60:
@@ -990,7 +981,6 @@ LABEL_61:
   [*(a1 + 40) setState:*(a1 + 48) state:5];
   v14 = 0;
 LABEL_62:
-  v48 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1027,13 +1017,13 @@ LABEL_62:
 
 uint64_t __91__PSGDPDeviceMetricsCollector_onDeltaRowWithXPCActivityManager_activity_engagementMetrics___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  *&v27[5] = *MEMORY[0x277D85DE8];
+  *&v26[5] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = psg_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v26) = 0;
-    _os_log_impl(&dword_260D36000, v6, OS_LOG_TYPE_DEFAULT, "Begin validation for record", &v26, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&dword_260D36000, v6, OS_LOG_TYPE_DEFAULT, "Begin validation for record", &v25, 2u);
   }
 
   if ([*(a1 + 32) shouldDefer:*(a1 + 40)])
@@ -1044,7 +1034,7 @@ uint64_t __91__PSGDPDeviceMetricsCollector_onDeltaRowWithXPCActivityManager_acti
       goto LABEL_7;
     }
 
-    LOWORD(v26) = 0;
+    LOWORD(v25) = 0;
     goto LABEL_6;
   }
 
@@ -1057,10 +1047,10 @@ uint64_t __91__PSGDPDeviceMetricsCollector_onDeltaRowWithXPCActivityManager_acti
     v19 = psg_default_log_handle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v25 = [v5 lang];
-      v26 = 138412290;
-      *v27 = v25;
-      _os_log_error_impl(&dword_260D36000, v19, OS_LOG_TYPE_ERROR, "Error for record due to us recording an unknown language code %@", &v26, 0xCu);
+      v24 = [v5 lang];
+      v25 = 138412290;
+      *v26 = v24;
+      _os_log_error_impl(&dword_260D36000, v19, OS_LOG_TYPE_ERROR, "Error for record due to us recording an unknown language code %@", &v25, 0xCu);
     }
 
     goto LABEL_25;
@@ -1073,11 +1063,11 @@ uint64_t __91__PSGDPDeviceMetricsCollector_onDeltaRowWithXPCActivityManager_acti
     {
       v20 = [v5 displayed];
       v21 = [v5 selected];
-      v26 = 67109376;
-      v27[0] = v20;
-      LOWORD(v27[1]) = 1024;
-      *(&v27[1] + 2) = v21;
-      _os_log_error_impl(&dword_260D36000, v19, OS_LOG_TYPE_ERROR, "Error for record due to negative value for displayed %d or selected %d", &v26, 0xEu);
+      v25 = 67109376;
+      v26[0] = v20;
+      LOWORD(v26[1]) = 1024;
+      *(&v26[1] + 2) = v21;
+      _os_log_error_impl(&dword_260D36000, v19, OS_LOG_TYPE_ERROR, "Error for record due to negative value for displayed %d or selected %d", &v25, 0xEu);
     }
 
     goto LABEL_25;
@@ -1088,8 +1078,8 @@ uint64_t __91__PSGDPDeviceMetricsCollector_onDeltaRowWithXPCActivityManager_acti
     v19 = psg_default_log_handle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_260D36000, v19, OS_LOG_TYPE_DEFAULT, "Skipping record since no delta in displayed or selected", &v26, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_260D36000, v19, OS_LOG_TYPE_DEFAULT, "Skipping record since no delta in displayed or selected", &v25, 2u);
     }
 
 LABEL_25:
@@ -1100,8 +1090,8 @@ LABEL_25:
   v12 = psg_default_log_handle();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v26) = 0;
-    _os_log_impl(&dword_260D36000, v12, OS_LOG_TYPE_DEFAULT, "Validated record to sync", &v26, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&dword_260D36000, v12, OS_LOG_TYPE_DEFAULT, "Validated record to sync", &v25, 2u);
   }
 
   v13 = *(a1 + 56);
@@ -1116,9 +1106,9 @@ LABEL_25:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = *(*(*(a1 + 64) + 8) + 24);
-      v26 = 134217984;
-      *v27 = v18;
-      _os_log_impl(&dword_260D36000, v17, OS_LOG_TYPE_DEFAULT, "Truncating number of responses to fetch since it's greater than %tu", &v26, 0xCu);
+      v25 = 134217984;
+      *v26 = v18;
+      _os_log_impl(&dword_260D36000, v17, OS_LOG_TYPE_DEFAULT, "Truncating number of responses to fetch since it's greater than %tu", &v25, 0xCu);
     }
 
     goto LABEL_9;
@@ -1134,9 +1124,9 @@ LABEL_26:
   v7 = psg_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v26) = 0;
+    LOWORD(v25) = 0;
 LABEL_6:
-    _os_log_impl(&dword_260D36000, v7, OS_LOG_TYPE_DEFAULT, "Deferring engagement data syncing during delta row iteration", &v26, 2u);
+    _os_log_impl(&dword_260D36000, v7, OS_LOG_TYPE_DEFAULT, "Deferring engagement data syncing during delta row iteration", &v25, 2u);
   }
 
 LABEL_7:
@@ -1152,7 +1142,6 @@ LABEL_9:
 LABEL_27:
   v22 = *v8;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -1167,43 +1156,43 @@ LABEL_27:
 
 + (id)getActiveTrialInformationWithWithXPCActivityManager:(id)manager activity:(id)activity
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   activityCopy = activity;
   context = objc_autoreleasePoolPush();
-  v28 = objc_opt_new();
-  v31 = +[PSGExperimentResolver sharedInstance];
-  zkwLangAndNamespaces = [v31 zkwLangAndNamespaces];
+  v27 = objc_opt_new();
+  v30 = +[PSGExperimentResolver sharedInstance];
+  zkwLangAndNamespaces = [v30 zkwLangAndNamespaces];
   allKeys = [zkwLangAndNamespaces allKeys];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v7 = allKeys;
-  v30 = [v7 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v29 = [v7 countByEnumeratingWithState:&v37 objects:v41 count:16];
   v8 = 0;
-  if (v30)
+  if (v29)
   {
-    v29 = *v39;
+    v28 = *v38;
     obj = v7;
 LABEL_3:
     v9 = 0;
     v10 = v8;
     while (1)
     {
-      if (*v39 != v29)
+      if (*v38 != v28)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v38 + 1) + 8 * v9);
-      v8 = [v31 getResponseSuggestionsExperimentConfig:v11 shouldDownloadAssets:0];
+      v11 = *(*(&v37 + 1) + 8 * v9);
+      v8 = [v30 getResponseSuggestionsExperimentConfig:v11 shouldDownloadAssets:0];
 
       if ([managerCopy shouldDefer:activityCopy])
       {
         v23 = psg_default_log_handle();
-        v21 = v28;
+        v21 = v27;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -1231,11 +1220,11 @@ LABEL_3:
 LABEL_11:
       ++v9;
       v10 = v8;
-      if (v30 == v9)
+      if (v29 == v9)
       {
         v7 = obj;
-        v30 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
-        if (v30)
+        v29 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        if (v29)
         {
           goto LABEL_3;
         }
@@ -1245,7 +1234,7 @@ LABEL_11:
     }
 
 LABEL_10:
-    v34 = [PSGQuickResponsesEngagementMetrics alloc];
+    v33 = [PSGQuickResponsesEngagementMetrics alloc];
     rolloutIdentifiers2 = [v8 rolloutIdentifiers];
     rolloutId = [rolloutIdentifiers2 rolloutId];
     rolloutIdentifiers3 = [v8 rolloutIdentifiers];
@@ -1254,27 +1243,26 @@ LABEL_10:
     experimentId = [experimentIdentifiers2 experimentId];
     experimentIdentifiers3 = [v8 experimentIdentifiers];
     treatmentId = [experimentIdentifiers3 treatmentId];
-    v20 = [(PSGQuickResponsesEngagementMetrics *)v34 initWithLang:v11 rolloutId:rolloutId factorPackId:factorPackId experimentId:experimentId treatmentId:treatmentId];
-    [v28 setObject:v20 forKeyedSubscript:v11];
+    v20 = [(PSGQuickResponsesEngagementMetrics *)v33 initWithLang:v11 rolloutId:rolloutId factorPackId:factorPackId experimentId:experimentId treatmentId:treatmentId];
+    [v27 setObject:v20 forKeyedSubscript:v11];
 
     goto LABEL_11;
   }
 
 LABEL_13:
 
-  v21 = v28;
-  v22 = [v28 copy];
+  v21 = v27;
+  v22 = [v27 copy];
 LABEL_17:
 
   objc_autoreleasePoolPop(context);
-  v24 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 + (BOOL)recordEngagementMetrics:(id)metrics selectedRecorder:(id)recorder ignoredRecorder:(id)ignoredRecorder
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   recorderCopy = recorder;
   ignoredRecorderCopy = ignoredRecorder;
@@ -1284,28 +1272,28 @@ LABEL_17:
   treatmentId = [metricsCopy treatmentId];
   v12 = [PSGDPDeviceMetricsCollector getPrefixFromRolloutID:rolloutId factorPackId:factorPackId experimentId:experimentId treatmentId:treatmentId];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v28 = metricsCopy;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v27 = metricsCopy;
   obj = [metricsCopy engagementDeltas];
-  v13 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
+  v13 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v33;
+    v15 = *v32;
     v16 = 1;
     while (1)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * i);
+        v18 = *(*(&v31 + 1) + 8 * i);
         response = [v18 response];
         if (!response)
         {
@@ -1328,9 +1316,9 @@ LABEL_17:
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109376;
-            *v37 = selected;
-            *&v37[4] = 1024;
-            *&v37[6] = v22;
+            *v36 = selected;
+            *&v36[4] = 1024;
+            *&v36[6] = v22;
             _os_log_error_impl(&dword_260D36000, v25, OS_LOG_TYPE_ERROR, "Skipping DP logging for response because invalid count for selected %d or ignored %d", buf, 0xEu);
           }
 
@@ -1343,9 +1331,9 @@ LABEL_16:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
-          *v37 = selected;
-          *&v37[8] = 2048;
-          v38 = v22;
+          *v36 = selected;
+          *&v36[8] = 2048;
+          v37 = v22;
           _os_log_impl(&dword_260D36000, v23, OS_LOG_TYPE_DEFAULT, "Logging message selected %tu, ignored %tu", buf, 0x16u);
         }
 
@@ -1354,7 +1342,7 @@ LABEL_16:
 LABEL_17:
       }
 
-      v14 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v14 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
       if (!v14)
       {
         goto LABEL_21;
@@ -1365,13 +1353,12 @@ LABEL_17:
   LOBYTE(v16) = 1;
 LABEL_21:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
 + (BOOL)recordResponse:(id)response numTimesToLog:(unint64_t)log recorder:(id)recorder prefix:(id)prefix
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   recorderCopy = recorder;
   prefixCopy = prefix;
@@ -1383,17 +1370,17 @@ LABEL_21:
       goto LABEL_35;
     }
 
-    v35[0] = prefixCopy;
-    v35[1] = responseCopy;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[0] = prefixCopy;
+    v34[1] = responseCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     v13 = [v12 _pas_componentsJoinedByString:@"|"];
 
     v14 = psg_default_log_handle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = 134217984;
+      v32 = 134217984;
       logCopy = log;
-      _os_log_impl(&dword_260D36000, v14, OS_LOG_TYPE_DEFAULT, "Preparing to log message %tu times", &v33, 0xCu);
+      _os_log_impl(&dword_260D36000, v14, OS_LOG_TYPE_DEFAULT, "Preparing to log message %tu times", &v32, 0xCu);
     }
 
     v15 = [v13 length];
@@ -1451,9 +1438,9 @@ LABEL_21:
       v29 = psg_default_log_handle();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v33 = 134217984;
+        v32 = 134217984;
         logCopy = v24;
-        _os_log_error_impl(&dword_260D36000, v29, OS_LOG_TYPE_ERROR, "Call to recorder failed %tu times", &v33, 0xCu);
+        _os_log_error_impl(&dword_260D36000, v29, OS_LOG_TYPE_ERROR, "Call to recorder failed %tu times", &v32, 0xCu);
       }
     }
 
@@ -1465,8 +1452,8 @@ LABEL_21:
     v22 = psg_default_log_handle();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v33) = 0;
-      _os_log_error_impl(&dword_260D36000, v22, OS_LOG_TYPE_ERROR, "Logging of empty response is not allowed", &v33, 2u);
+      LOWORD(v32) = 0;
+      _os_log_error_impl(&dword_260D36000, v22, OS_LOG_TYPE_ERROR, "Logging of empty response is not allowed", &v32, 2u);
     }
 
     v30 = 0;
@@ -1476,13 +1463,12 @@ LABEL_21:
   responseCopy = v13;
 LABEL_35:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 + (id)getPrefixFromRolloutID:(id)d factorPackId:(id)id experimentId:(id)experimentId treatmentId:(id)treatmentId
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   idCopy = id;
   experimentIdCopy = experimentId;
@@ -1545,9 +1531,9 @@ LABEL_35:
   {
     if (v19)
     {
-      v25[0] = experimentIdCopy;
-      v25[1] = treatmentIdCopy;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+      v24[0] = experimentIdCopy;
+      v24[1] = treatmentIdCopy;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
       v13 = [v22 _pas_componentsJoinedByString:@"|"];
     }
 
@@ -1556,8 +1542,6 @@ LABEL_35:
       v13 = v15;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

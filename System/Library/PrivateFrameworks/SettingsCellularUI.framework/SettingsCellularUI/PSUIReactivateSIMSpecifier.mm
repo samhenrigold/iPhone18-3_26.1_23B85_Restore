@@ -14,7 +14,7 @@
 
 - (PSUIReactivateSIMSpecifier)initWithPlanUniversalReference:(id)reference hostController:(id)controller
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   referenceCopy = reference;
   controllerCopy = controller;
   if (_MergedGlobals_1_0 != -1)
@@ -40,9 +40,9 @@
 
   v14 = [v11 localizedStringForKey:v13 value:&stru_287733598 table:@"Cellular"];
 
-  v25.receiver = self;
-  v25.super_class = PSUIReactivateSIMSpecifier;
-  v15 = [(PSUIReactivateSIMSpecifier *)&v25 initWithName:v14 target:0 set:0 get:0 detail:0 cell:13 edit:0];
+  v24.receiver = self;
+  v24.super_class = PSUIReactivateSIMSpecifier;
+  v15 = [(PSUIReactivateSIMSpecifier *)&v24 initWithName:v14 target:0 set:0 get:0 detail:0 cell:13 edit:0];
   v16 = v15;
   if (v15)
   {
@@ -77,7 +77,7 @@
       if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = v16;
+        v26 = v16;
         _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "update delegate to %@", buf, 0xCu);
       }
 
@@ -85,7 +85,6 @@
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -109,7 +108,7 @@ uint64_t __76__PSUIReactivateSIMSpecifier_initWithPlanUniversalReference_hostCon
 
 - (void)transferBackFailed:(id)failed error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   failedCopy = failed;
   errorCopy = error;
   if (errorCopy)
@@ -117,9 +116,9 @@ uint64_t __76__PSUIReactivateSIMSpecifier_initWithPlanUniversalReference_hostCon
     getLogger = [(PSUIReactivateSIMSpecifier *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = errorCopy;
-      _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "transfer back failed : %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = errorCopy;
+      _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "transfer back failed : %@", &v11, 0xCu);
     }
   }
 
@@ -127,8 +126,6 @@ uint64_t __76__PSUIReactivateSIMSpecifier_initWithPlanUniversalReference_hostCon
   v9 = qword_28156A5E0;
   iccid = [failedCopy iccid];
   [v9 removeObjectForKey:iccid];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transferBackSuccessFrom:(id)from to:(id)to
@@ -171,14 +168,14 @@ uint64_t __76__PSUIReactivateSIMSpecifier_initWithPlanUniversalReference_hostCon
 
 - (void)_activateSIMPressed:(id)pressed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIReactivateSIMSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     planItem = self->_planItem;
-    v13 = 138412290;
-    v14 = planItem;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "transfer back : %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = planItem;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "transfer back : %@", &v12, 0xCu);
   }
 
   [(PSUIReactivateSIMSpecifier *)self setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
@@ -189,8 +186,8 @@ uint64_t __76__PSUIReactivateSIMSpecifier_initWithPlanUniversalReference_hostCon
     WeakRetained = [(PSUIReactivateSIMSpecifier *)self getLogger];
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      _os_log_error_impl(&dword_2658DE000, WeakRetained, OS_LOG_TYPE_ERROR, "this should not happen.", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_error_impl(&dword_2658DE000, WeakRetained, OS_LOG_TYPE_ERROR, "this should not happen.", &v12, 2u);
     }
   }
 
@@ -202,8 +199,6 @@ uint64_t __76__PSUIReactivateSIMSpecifier_initWithPlanUniversalReference_hostCon
     v11 = [(TransferBackPlanCache *)v9 initWithDelegate:self navigationController:navigationController transferBackPlan:self->_planItem];
     [qword_28156A5E0 setObject:v11 forKeyedSubscript:iccid];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showSpinner

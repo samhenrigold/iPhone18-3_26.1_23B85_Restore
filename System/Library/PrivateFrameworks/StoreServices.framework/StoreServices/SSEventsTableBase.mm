@@ -53,41 +53,45 @@ void __25__SSEventsTableBase_init__block_invoke(uint64_t a1)
     v2 = [v1 shouldLog];
     if ([v1 shouldLogToDisk])
     {
-      v3 = v2 | 2;
+      LODWORD(v3) = v2 | 2;
     }
 
     else
     {
-      v3 = v2;
+      LODWORD(v3) = v2;
     }
 
     v4 = [v1 OSLogObject];
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v3 = v3;
+    }
+
+    else
     {
       v3 &= 2u;
     }
 
     if (v3)
     {
-      LODWORD(v14) = 138412290;
-      *(&v14 + 4) = objc_opt_class();
-      v5 = *(&v14 + 4);
-      LODWORD(v13) = 12;
-      v6 = _os_log_send_and_compose_impl();
+      v13 = 138412290;
+      v14 = objc_opt_class();
+      v5 = v14;
+      v6 = _os_log_send_and_compose_impl(v3, 0, 0, 0, &dword_1D48BA000, v4, 16, "[%@] -- Error setting up database", &v13, 12);
 
       if (!v6)
       {
-LABEL_13:
+LABEL_14:
 
         return;
       }
 
-      v4 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v14, v13, v14}];
+      v4 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:4];
       free(v6);
       SSFileLog(v1, @"%@", v7, v8, v9, v10, v11, v12, v4);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 }
 

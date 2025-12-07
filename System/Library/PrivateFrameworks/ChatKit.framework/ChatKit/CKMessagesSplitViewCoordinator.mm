@@ -211,7 +211,7 @@
   {
     v41 = 0uLL;
     v42 = 0;
-    [(CKMessagesSplitViewCoordinator *)self columnResizeParams];
+    objc_msgSend_columnResizeParams(self);
     splitViewController = [(CKMessagesSplitViewCoordinator *)self splitViewController];
     [splitViewController primaryColumnWidth];
     v7 = v6;

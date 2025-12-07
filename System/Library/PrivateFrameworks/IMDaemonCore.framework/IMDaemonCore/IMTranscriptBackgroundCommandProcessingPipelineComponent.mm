@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   account = [inputCopy account];
   transcriptBackgroundCommand = [inputCopy transcriptBackgroundCommand];
@@ -85,7 +85,7 @@ LABEL_11:
     v16 = internalName;
   }
 
-  v51 = v16;
+  v50 = v16;
 
   if (!chatId)
   {
@@ -103,7 +103,7 @@ LABEL_27:
   isOneChatEnabled = [mEMORY[0x277D1A9B8] isOneChatEnabled];
 
   v19 = +[IMDChatRegistry sharedInstance];
-  v20 = [v19 existingChatWithGroupID:chatId onService:v51];
+  v20 = [v19 existingChatWithGroupID:chatId onService:v50];
   fromIdentifier = v20;
   if (isOneChatEnabled)
   {
@@ -120,9 +120,9 @@ LABEL_27:
 
       else
       {
-        v49 = +[IMDChatRegistry sharedInstance];
+        v48 = +[IMDChatRegistry sharedInstance];
         _stripFZIDPrefix3 = [chatId _stripFZIDPrefix];
-        v26 = [v49 existingChatForID:_stripFZIDPrefix3 account:account];
+        v26 = [v48 existingChatForID:_stripFZIDPrefix3 account:account];
       }
 
       goto LABEL_25;
@@ -177,7 +177,7 @@ LABEL_28:
     }
   }
 
-  v37 = [MEMORY[0x277D1AB80] contextWithKnownSender:v31 serviceName:v51];
+  v37 = [MEMORY[0x277D1AB80] contextWithKnownSender:v31 serviceName:v50];
   if (IMOSLoggingEnabled())
   {
     v38 = OSLogHandleForIMFoundationCategory();
@@ -186,18 +186,18 @@ LABEL_28:
       fromIdentifier4 = [inputCopy fromIdentifier];
       v40 = @"NO";
       *buf = 138413058;
-      v53 = fromIdentifier4;
-      v54 = 2112;
+      v52 = fromIdentifier4;
+      v53 = 2112;
       if (v31)
       {
         v40 = @"YES";
       }
 
-      v55 = chatId;
-      v56 = 2112;
-      v57 = v40;
-      v58 = 2112;
-      v59 = v26;
+      v54 = chatId;
+      v55 = 2112;
+      v56 = v40;
+      v57 = 2112;
+      v58 = v26;
       _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Processing background commanded from: %@. Found chat for chatID: %@. Known sender: %@, chat: %@", buf, 0x2Au);
     }
   }
@@ -223,7 +223,6 @@ LABEL_28:
   }
 
   v46 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }

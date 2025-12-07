@@ -70,53 +70,53 @@
 
 - (id)hashOf:(id)of userId:(id)id
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   ofCopy = of;
   idCopy = id;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = 0;
   v8 = dispatch_group_create();
   dispatch_group_enter(v8);
   namespace = [(JEHashTreatmentAction *)self namespace];
   topic = [(JEHashTreatmentAction *)self topic];
   v11 = [MEMORY[0x1E698CA18] keyWithName:@"userID" crossDeviceSync:{-[JEHashTreatmentAction crossDeviceSync](self, "crossDeviceSync")}];
   configuration = [(JEHashTreatmentAction *)self configuration];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __39__JEHashTreatmentAction_hashOf_userId___block_invoke;
-  v19[3] = &unk_1E794AC90;
-  v21 = &v22;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __39__JEHashTreatmentAction_hashOf_userId___block_invoke;
+  v20[3] = &unk_1E794AC90;
+  v22 = &v23;
   v13 = v8;
-  v20 = v13;
-  [_TtC9JetEngine23JEMetricsSecretMigrator migrateSecretIfNecessaryAndReturnSecretValueWithNamespace:namespace topic:topic secretKey:v11 configuration:configuration completionHandler:v19];
+  v21 = v13;
+  [_TtC9JetEngine23JEMetricsSecretMigrator migrateSecretIfNecessaryAndReturnSecretValueWithNamespace:namespace topic:topic secretKey:v11 configuration:configuration completionHandler:v20];
 
   v14 = dispatch_time(0, 5000000000);
-  dispatch_group_wait(v13, v14);
-  if (v23[5])
+  v15 = dispatch_group_wait(v13, v14);
+  if (v24[5])
   {
-    idCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n%@\n%@", ofCopy, v23[5], idCopy];
+    idCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n%@\n%@", ofCopy, v24[5], idCopy];
     je_SHA1Base62String = [idCopy je_SHA1Base62String];
   }
 
   else
   {
-    idCopy = JEMetricsOSLog();
+    idCopy = JEMetricsOSLog(v15);
     if (os_log_type_enabled(idCopy, OS_LOG_TYPE_ERROR))
     {
       namespace2 = [(JEHashTreatmentAction *)self namespace];
       *buf = 138412290;
-      v29 = namespace2;
+      v30 = namespace2;
       _os_log_impl(&dword_1AB012000, idCopy, OS_LOG_TYPE_ERROR, "JetEngine: Failed to retrieve secret salt for namespace %@", buf, 0xCu);
     }
 
     je_SHA1Base62String = 0;
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
 
   return je_SHA1Base62String;
 }

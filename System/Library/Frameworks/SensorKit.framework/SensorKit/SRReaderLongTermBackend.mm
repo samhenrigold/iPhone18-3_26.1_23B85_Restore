@@ -38,13 +38,13 @@
 
 - (void)setupConnection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = SRLogLongTermBackend;
   if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_INFO))
   {
     sensor = self->_sensor;
     *buf = 138543362;
-    v16 = sensor;
+    v15 = sensor;
     _os_log_impl(&dword_1C914D000, v3, OS_LOG_TYPE_INFO, "[%{public}@] Setting up connection to daemon", buf, 0xCu);
   }
 
@@ -53,34 +53,33 @@
   [(NSXPCConnection *)connection setExportedObject:self];
   -[NSXPCConnection setExportedInterface:](connection, "setExportedInterface:", [objc_opt_class() clientInterface]);
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __42__SRReaderLongTermBackend_setupConnection__block_invoke;
-  v13[3] = &unk_1E8330230;
-  objc_copyWeak(&v14, buf);
-  [(NSXPCConnection *)connection setInterruptionHandler:v13];
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __42__SRReaderLongTermBackend_setupConnection__block_invoke_18;
-  v11 = &unk_1E8330230;
-  objc_copyWeak(&v12, buf);
-  [(NSXPCConnection *)connection setInvalidationHandler:&v8];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __42__SRReaderLongTermBackend_setupConnection__block_invoke;
+  v12[3] = &unk_1E8330230;
+  objc_copyWeak(&v13, buf);
+  [(NSXPCConnection *)connection setInterruptionHandler:v12];
+  v7 = MEMORY[0x1E69E9820];
+  v8 = 3221225472;
+  v9 = __42__SRReaderLongTermBackend_setupConnection__block_invoke_18;
+  v10 = &unk_1E8330230;
+  objc_copyWeak(&v11, buf);
+  [(NSXPCConnection *)connection setInvalidationHandler:&v7];
   Weak = objc_loadWeak(buf);
   if (Weak)
   {
     Weak[8] = 0;
   }
 
-  [(NSXPCConnection *)connection resume:v8];
-  objc_destroyWeak(&v12);
-  objc_destroyWeak(&v14);
+  [(NSXPCConnection *)connection resume:v7];
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __42__SRReaderLongTermBackend_setupConnection__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak((a1 + 32));
   v2 = SRLogLongTermBackend;
   if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_INFO))
@@ -95,17 +94,15 @@ void __42__SRReaderLongTermBackend_setupConnection__block_invoke(uint64_t a1)
       v3 = 0;
     }
 
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_INFO, "[%{public}@] Connection to daemon has been interrupted.", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_INFO, "[%{public}@] Connection to daemon has been interrupted.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __42__SRReaderLongTermBackend_setupConnection__block_invoke_18(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak((a1 + 32));
   v2 = SRLogLongTermBackend;
   if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_INFO))
@@ -120,131 +117,124 @@ void __42__SRReaderLongTermBackend_setupConnection__block_invoke_18(uint64_t a1)
       v3 = 0;
     }
 
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_INFO, "[%{public}@] Connection to daemon has been invalidated.", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_INFO, "[%{public}@] Connection to daemon has been invalidated.", &v4, 0xCu);
   }
 
   if (Weak)
   {
     *(Weak + 8) = 1;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetch:(id)fetch withCallback:(id)callback
 {
-  v31 = *MEMORY[0x1E69E9840];
-  if (![objc_msgSend(fetch "sensor")])
+  v29 = *MEMORY[0x1E69E9840];
+  if ([objc_msgSend(fetch "sensor")])
   {
-    sensor = self->_sensor;
-    connection = [(SRReaderLongTermBackend *)self connection];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke;
-    v26[3] = &unk_1E83302F0;
-    v26[5] = fetch;
-    v26[6] = callback;
-    v26[4] = sensor;
-    v11 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v26];
-    if (!-[NSString isEqualToString:](sensor, "isEqualToString:", [fetch sensor]))
-    {
-      v15 = SRLogLongTermBackend;
-      if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_FAULT))
-      {
-        sensor = [fetch sensor];
-        *buf = 138543618;
-        v28 = sensor;
-        v29 = 2114;
-        v30 = sensor;
-        _os_log_fault_impl(&dword_1C914D000, v15, OS_LOG_TYPE_FAULT, "Backend is for sensor %{public}@ but fetching for sensor %{public}@", buf, 0x16u);
-      }
-
-      v16 = [SRError errorWithCode:0];
-      [fetch from];
-      (*(callback + 2))(callback, 0, 0, 0, 0, 1, 0, v16);
-      goto LABEL_18;
-    }
-
     [fetch from];
-    v13 = v12;
+    v7 = *(callback + 2);
+
+    v7(callback, 0, 0, 0, 0, 1, 0, 0);
+    return;
+  }
+
+  sensor = self->_sensor;
+  connection = [(SRReaderLongTermBackend *)self connection];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke;
+  v24[3] = &unk_1E83302F0;
+  v24[5] = fetch;
+  v24[6] = callback;
+  v24[4] = sensor;
+  v10 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v24];
+  if (-[NSString isEqualToString:](sensor, "isEqualToString:", [fetch sensor]))
+  {
+    [fetch from];
+    v12 = v11;
     objc_initWeak(&location, self);
     if ([(NSString *)sensor isEqualToString:@"com.apple.SensorKit.cardioMetrics"])
     {
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke_21;
-      v23[3] = &unk_1E8330568;
-      v14 = &v24;
-      objc_copyWeak(&v24, &location);
-      v23[4] = fetch;
-      v23[5] = callback;
-      [v11 fetchCardioSamples:fetch reply:v23];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke_21;
+      v21[3] = &unk_1E8330568;
+      v13 = &v22;
+      objc_copyWeak(&v22, &location);
+      v21[4] = fetch;
+      v21[5] = callback;
+      [v10 fetchCardioSamples:fetch reply:v21];
     }
 
     else
     {
       if (![(NSString *)sensor isEqualToString:@"com.apple.SensorKit.mobilityMetrics"])
       {
-        v17 = SRLogLongTermBackend;
+        v16 = SRLogLongTermBackend;
         if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_FAULT))
         {
-          sensor2 = [fetch sensor];
+          sensor = [fetch sensor];
           *buf = 138543362;
-          v28 = sensor2;
-          _os_log_fault_impl(&dword_1C914D000, v17, OS_LOG_TYPE_FAULT, "Trying to fetch long term data for a sensor %{public}@ that doesn't support it", buf, 0xCu);
+          v26 = sensor;
+          _os_log_fault_impl(&dword_1C914D000, v16, OS_LOG_TYPE_FAULT, "Trying to fetch long term data for a sensor %{public}@ that doesn't support it", buf, 0xCu);
         }
 
-        (*(callback + 2))(callback, 0, 0, 0, 0, 1, 0, [SRError errorWithCode:8194], v13);
+        (*(callback + 2))(callback, 0, 0, 0, 0, 1, 0, [SRError errorWithCode:8194], v12);
         goto LABEL_17;
       }
 
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke_2;
-      v21[3] = &unk_1E8330568;
-      v14 = &v22;
-      objc_copyWeak(&v22, &location);
-      v21[4] = fetch;
-      v21[5] = callback;
-      [v11 fetchMobilitySamples:fetch reply:v21];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke_2;
+      v19[3] = &unk_1E8330568;
+      v13 = &v20;
+      objc_copyWeak(&v20, &location);
+      v19[4] = fetch;
+      v19[5] = callback;
+      [v10 fetchMobilitySamples:fetch reply:v19];
     }
 
-    objc_destroyWeak(v14);
+    objc_destroyWeak(v13);
 LABEL_17:
     objc_destroyWeak(&location);
-LABEL_18:
-    v18 = *MEMORY[0x1E69E9840];
     return;
   }
 
-  [fetch from];
-  v7 = *(callback + 2);
-  v8 = *MEMORY[0x1E69E9840];
+  v14 = SRLogLongTermBackend;
+  if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_FAULT))
+  {
+    sensor2 = [fetch sensor];
+    *buf = 138543618;
+    v26 = sensor;
+    v27 = 2114;
+    v28 = sensor2;
+    _os_log_fault_impl(&dword_1C914D000, v14, OS_LOG_TYPE_FAULT, "Backend is for sensor %{public}@ but fetching for sensor %{public}@", buf, 0x16u);
+  }
 
-  v7(callback, 0, 0, 0, 0, 1, 0, 0);
+  v15 = [SRError errorWithCode:0];
+  [fetch from];
+  (*(callback + 2))(callback, 0, 0, 0, 0, 1, 0, v15);
 }
 
 uint64_t __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = SRLogLongTermBackend;
   if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = v8;
-    v11 = 2114;
-    v12 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get proxy object for fetch because %{public}@", &v9, 0x16u);
+    v7 = *(a1 + 32);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2114;
+    v11 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get proxy object for fetch because %{public}@", &v8, 0x16u);
   }
 
   v5 = *(a1 + 48);
   [*(a1 + 40) from];
-  result = (*(v5 + 16))(v5, 0, 0, 0, 0, 1, 0, a2);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v5 + 16))(v5, 0, 0, 0, 0, 1, 0, a2);
 }
 
 uint64_t __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke_21(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6)
@@ -267,25 +257,25 @@ uint64_t __46__SRReaderLongTermBackend_fetch_withCallback___block_invoke_2(uint6
 
 - (void)continueFetchRequest:(id)request samples:(id)samples timestamp:(double)timestamp cursor:(id)cursor fetchState:(unint64_t)state error:(id)error withCallback:(id)callback
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v14 = (*(callback + 2))(callback, [samples bytes], objc_msgSend(samples, "length"), 0, 0, state, cursor, error, timestamp);
   if (state == 1)
   {
     v17 = SRLogLongTermBackend;
     if (!os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_12;
+      return;
     }
 
     sensor = self->_sensor;
-    v25 = 138412290;
-    v26 = sensor;
+    v24 = 138412290;
+    v25 = sensor;
     v19 = "[%@{public}@] Fetch is complete";
     v20 = v17;
     v21 = OS_LOG_TYPE_INFO;
 LABEL_11:
-    _os_log_impl(&dword_1C914D000, v20, v21, v19, &v25, 0xCu);
-    goto LABEL_12;
+    _os_log_impl(&dword_1C914D000, v20, v21, v19, &v24, 0xCu);
+    return;
   }
 
   if (!state && (v14 & 1) == 0)
@@ -293,12 +283,12 @@ LABEL_11:
     v22 = SRLogLongTermBackend;
     if (!os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_12;
+      return;
     }
 
     v23 = self->_sensor;
-    v25 = 138543362;
-    v26 = v23;
+    v24 = 138543362;
+    v25 = v23;
     v19 = "[%{public}@] Ending fetching early due to an error or delegate's intent";
     v20 = v22;
     v21 = OS_LOG_TYPE_DEFAULT;
@@ -309,18 +299,16 @@ LABEL_11:
   if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_INFO))
   {
     v16 = self->_sensor;
-    v25 = 138543618;
-    v26 = v16;
-    v27 = 2114;
+    v24 = 138543618;
+    v25 = v16;
+    v26 = 2114;
     cursorCopy = cursor;
-    _os_log_impl(&dword_1C914D000, v15, OS_LOG_TYPE_INFO, "[%{public}@] Requesting data from new cursor %{public}@", &v25, 0x16u);
+    _os_log_impl(&dword_1C914D000, v15, OS_LOG_TYPE_INFO, "[%{public}@] Requesting data from new cursor %{public}@", &v24, 0x16u);
   }
 
   [request setFrom:NAN];
   [request setCursor:cursor];
   [(SRReaderLongTermBackend *)self fetch:request withCallback:callback];
-LABEL_12:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchDevices:(id)devices reply:(id)reply
@@ -344,21 +332,19 @@ LABEL_12:
 
 uint64_t __46__SRReaderLongTermBackend_fetchDevices_reply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = SRLogLongTermBackend;
   if (os_log_type_enabled(SRLogLongTermBackend, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v7;
-    v10 = 2114;
-    v11 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get proxy object for fetchDevices because %{public}@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2114;
+    v10 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get proxy object for fetchDevices because %{public}@", &v7, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)fetchReaderMetadata:(id)metadata reply:(id)reply

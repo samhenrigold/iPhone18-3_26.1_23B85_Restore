@@ -59,37 +59,35 @@ id __83__WorkoutPlanBrickItemCellAccessibility__accessibilityLoadAccessibilityIn
   return v10;
 }
 
-id __83__WorkoutPlanBrickItemCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3(uint64_t a1)
+id __83__WorkoutPlanBrickItemCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v17[1] = *MEMORY[0x29EDCA608];
   v16 = 0;
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained safeSwiftValueForKey:@"swapButton"];
-  v4 = __UIAccessibilityCastAsClass();
+  v4 = [WeakRetained safeSwiftValueForKey:@"swapButton"];
+  v5 = __UIAccessibilityCastAsClass();
 
-  v5 = accessibilityLocalizedString(@"workout.button.choose.workout");
-  if (v4 && ([v4 isHidden] & 1) == 0)
+  v6 = accessibilityLocalizedString(@"workout.button.choose.workout");
+  if (v5 && ([v5 isHidden] & 1) == 0)
   {
-    v7 = objc_alloc(MEMORY[0x29EDC78E0]);
+    v8 = objc_alloc(MEMORY[0x29EDC78E0]);
     v11 = MEMORY[0x29EDCA5F8];
     v12 = 3221225472;
     v13 = __83__WorkoutPlanBrickItemCellAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_4;
     v14 = &unk_29F2F66E0;
-    v15 = v4;
-    v8 = [v7 initWithName:v5 actionHandler:&v11];
-    v17[0] = v8;
-    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:{1, v11, v12, v13, v14}];
+    v15 = v5;
+    v9 = [v8 initWithName:v6 actionHandler:&v11];
+    v17[0] = v9;
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:{1, v11, v12, v13, v14}];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v9 = *MEMORY[0x29EDCA608];
-
-  return v6;
+  return v7;
 }
 
 - (id)accessibilityElements

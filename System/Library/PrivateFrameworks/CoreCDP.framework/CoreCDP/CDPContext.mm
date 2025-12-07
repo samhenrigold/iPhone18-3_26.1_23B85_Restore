@@ -34,15 +34,14 @@
 - (void)adpCohort;
 - (void)akTrustedDeviceListChanged:(id)changed;
 - (void)augmentWithCredentialsFromContext:(id)context;
-- (void)clearNewPassword;
-- (void)clearOldPassword;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)init;
 - (void)isPrimaryAccount;
 - (void)keychainSyncAllowedByServer;
-- (void)numberOfTrustedDevices;
 - (void)purgeResumeData;
+- (void)setIsPrimaryAccount:(BOOL)account;
+- (void)setKeychainSyncAllowedByServer:(BOOL)server;
 - (void)setNewPassword:(id)password oldPassword:(id)oldPassword;
 - (void)setPassword:(id)password;
 - (void)startObservingTrustedDeviceList;
@@ -60,21 +59,21 @@
 
   if (primaryAuthKitAccount)
   {
-    v4 = [[CDPContext alloc] initWithAccount:primaryAuthKitAccount];
+    v5 = [[CDPContext alloc] initWithAccount:primaryAuthKitAccount];
   }
 
   else
   {
-    v5 = _CDPLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CDPLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[CDPContext contextForPrimaryAccount];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 + (BOOL)_isKeychainSyncAllowedByMDM
@@ -162,7 +161,7 @@
 - (void)setPassword:(id)password
 {
   passwordCopy = password;
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(passwordCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [CDPContext setPassword:];
@@ -187,24 +186,10 @@
   }
 }
 
-- (void)clearNewPassword
-{
-  password = self->_password;
-  self->_password = 0;
-  MEMORY[0x1EEE66BB8]();
-}
-
-- (void)clearOldPassword
-{
-  oldPassword = self->_oldPassword;
-  self->_oldPassword = 0;
-  MEMORY[0x1EEE66BB8]();
-}
-
 + (id)contextForAccountWithAppleID:(id)d
 {
   dCopy = d;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(dCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[CDPContext contextForAccountWithAppleID:];
@@ -215,27 +200,27 @@
 
   if (v6)
   {
-    v7 = [[CDPContext alloc] initWithAccount:v6];
+    v8 = [[CDPContext alloc] initWithAccount:v6];
   }
 
   else
   {
-    v8 = _CDPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[CDPContext contextForAccountWithAppleID:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 + (id)contextForAccountWithAltDSID:(id)d
 {
   dCopy = d;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(dCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[CDPContext contextForAccountWithAltDSID:];
@@ -246,27 +231,27 @@
 
   if (v6)
   {
-    v7 = [[CDPContext alloc] initWithAccount:v6];
+    v8 = [[CDPContext alloc] initWithAccount:v6];
   }
 
   else
   {
-    v8 = _CDPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[CDPContext contextForAccountWithAltDSID:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 + (id)contextForAccountWithDSID:(id)d
 {
   dCopy = d;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(dCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     +[CDPContext contextForAccountWithDSID:];
@@ -277,21 +262,21 @@
 
   if (v6)
   {
-    v7 = [[CDPContext alloc] initWithAccount:v6];
+    v8 = [[CDPContext alloc] initWithAccount:v6];
   }
 
   else
   {
-    v8 = _CDPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[CDPContext contextForAccountWithDSID:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 + (CDPContext)contextWithAuthenticationResults:(id)results
@@ -314,7 +299,7 @@
     bundleID = v4->_bundleID;
     v4->_bundleID = bundleIdentifier;
 
-    UMUserManagerClass = UserManagementLibraryCore();
+    UMUserManagerClass = UserManagementLibraryCore(0);
     if (UMUserManagerClass)
     {
       UMUserManagerClass = getUMUserManagerClass();
@@ -337,7 +322,7 @@
 
 - (CDPContext)init
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CDPContext init];
@@ -353,7 +338,7 @@
   v6 = v5;
   if (!v5)
   {
-    mEMORY[0x1E698DC80] = _CDPLogSystem();
+    mEMORY[0x1E698DC80] = _CDPLogSystem(0);
     if (os_log_type_enabled(mEMORY[0x1E698DC80], OS_LOG_TYPE_ERROR))
     {
       [CDPContext initWithAccount:];
@@ -366,7 +351,7 @@
   username = [accountCopy username];
   if (!username)
   {
-    v21 = _CDPLogSystem();
+    v21 = _CDPLogSystem(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [CDPContext initWithAccount:];
@@ -387,7 +372,7 @@
       v10 = [mEMORY[0x1E698DC80] DSIDForAccount:accountCopy];
       if (!v10)
       {
-        v21 = _CDPLogSystem();
+        v21 = _CDPLogSystem(0);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [CDPContext initWithAccount:];
@@ -404,7 +389,7 @@
   v12 = [mEMORY[0x1E698DC80] altDSIDForAccount:accountCopy];
   if (!v12)
   {
-    v21 = _CDPLogSystem();
+    v21 = _CDPLogSystem(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [CDPContext initWithAccount:];
@@ -424,7 +409,7 @@ LABEL_24:
   *(v6 + 29) = v14;
   if (!v14)
   {
-    v15 = _CDPLogSystem();
+    v15 = _CDPLogSystem(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [CDPContext initWithAccount:];
@@ -467,18 +452,18 @@ LABEL_25:
 
 - (CDPContext)initWithAuthenticationResults:(id)results
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   v5 = resultsCopy;
-  if (resultsCopy && [resultsCopy count])
+  if (resultsCopy && (resultsCopy = [resultsCopy count]) != 0)
   {
-    v6 = _CDPLogSystem();
+    v6 = _CDPLogSystem(resultsCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       ak_redactedCopy = [v5 ak_redactedCopy];
-      v60 = 138412290;
-      v61 = ak_redactedCopy;
-      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Starting with auth results:\n%@", &v60, 0xCu);
+      v61 = 138412290;
+      v62 = ak_redactedCopy;
+      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Starting with auth results:\n%@", &v61, 0xCu);
     }
 
     v8 = [(CDPContext *)self initNeedingPreflight:0];
@@ -529,70 +514,70 @@ LABEL_25:
       v29 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DBD8]];
       v9[29] = [v29 unsignedIntegerValue];
 
-      v30 = v9[29];
-      if (!v30)
+      v31 = v9[29];
+      if (!v31)
       {
-        v31 = _CDPLogSystem();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v32 = _CDPLogSystem(v30);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           [CDPContext initWithAccount:];
         }
 
-        v30 = v9[29];
+        v31 = v9[29];
       }
 
-      *(v9 + 32) = v30 == 4;
-      *(v9 + 40) = v30 == 5;
+      *(v9 + 32) = v31 == 4;
+      *(v9 + 40) = v31 == 5;
       objc_opt_class();
-      v32 = [v5 objectForKeyedSubscript:@"AKNewAccountCreated"];
+      v33 = [v5 objectForKeyedSubscript:@"AKNewAccountCreated"];
       if (objc_opt_isKindOfClass())
       {
-        v33 = v32;
+        v34 = v33;
       }
 
       else
       {
-        v33 = 0;
+        v34 = 0;
       }
 
-      *(v9 + 38) = [v33 unsignedIntegerValue] == 1;
-      v35 = objc_alloc(MEMORY[0x1E696AFB0]);
-      v36 = [v5 objectForKeyedSubscript:v20];
-      v37 = [v35 initWithUUIDString:v36];
-      v38 = v9[19];
-      v9[19] = v37;
+      *(v9 + 38) = [v34 unsignedIntegerValue] == 1;
+      v36 = objc_alloc(MEMORY[0x1E696AFB0]);
+      v37 = [v5 objectForKeyedSubscript:v20];
+      v38 = [v36 initWithUUIDString:v37];
+      v39 = v9[19];
+      v9[19] = v38;
 
       v9[23] = -1;
-      v39 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DBB0]];
-      v40 = [v39 copy];
+      v40 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DBB0]];
+      v41 = [v40 copy];
 
-      if (v40)
+      if (v41)
       {
-        aaf_toBase64DecodedData = [v40 aaf_toBase64DecodedData];
-        v42 = v9[33];
+        aaf_toBase64DecodedData = [v41 aaf_toBase64DecodedData];
+        v43 = v9[33];
         v9[33] = aaf_toBase64DecodedData;
       }
 
-      v43 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DBE0]];
-      v44 = v9[38];
-      v9[38] = v43;
+      v44 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DBE0]];
+      v45 = v9[38];
+      v9[38] = v44;
 
       v9[36] = 0;
-      v45 = [v5 objectForKeyedSubscript:@"SOSCompatibilityOptInNeeded"];
-      if ([v45 BOOLValue])
+      v46 = [v5 objectForKeyedSubscript:@"SOSCompatibilityOptInNeeded"];
+      if ([v46 BOOLValue])
       {
       }
 
       else
       {
-        v46 = [v5 objectForKeyedSubscript:@"hasSOSActiveDevice"];
-        bOOLValue = [v46 BOOLValue];
+        v47 = [v5 objectForKeyedSubscript:@"hasSOSActiveDevice"];
+        bOOLValue = [v47 BOOLValue];
 
         if (!bOOLValue)
         {
 LABEL_22:
-          v48 = [v5 objectForKeyedSubscript:@"SOSNeeded"];
-          bOOLValue2 = [v48 BOOLValue];
+          v49 = [v5 objectForKeyedSubscript:@"SOSNeeded"];
+          bOOLValue2 = [v49 BOOLValue];
 
           if (bOOLValue2)
           {
@@ -600,8 +585,8 @@ LABEL_22:
           }
 
           [v9 _fakeSOSFlagsWithUserDefaults];
-          v50 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DC18]];
-          bOOLValue3 = [v50 BOOLValue];
+          v51 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DC18]];
+          bOOLValue3 = [v51 BOOLValue];
 
           if (bOOLValue3)
           {
@@ -609,17 +594,17 @@ LABEL_22:
           }
 
           mEMORY[0x1E698DC80] = [MEMORY[0x1E698DC80] sharedInstance];
-          v53 = [mEMORY[0x1E698DC80] authKitAccountWithAltDSID:v9[14]];
+          v54 = [mEMORY[0x1E698DC80] authKitAccountWithAltDSID:v9[14]];
 
-          [v9 updateDemoAttributesWithAccount:v53];
-          v54 = [v5 objectForKeyedSubscript:@"adpCh"];
-          v55 = v9[40];
-          v9[40] = v54;
+          [v9 updateDemoAttributesWithAccount:v54];
+          v55 = [v5 objectForKeyedSubscript:@"adpCh"];
+          v56 = v9[40];
+          v9[40] = v55;
 
           if (*(v9 + 38) == 1)
           {
-            v56 = _CDPLogSystem();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+            v58 = _CDPLogSystem(v57);
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
             {
               [CDPContext initWithAuthenticationResults:];
             }
@@ -638,8 +623,8 @@ LABEL_22:
 
   else
   {
-    v34 = _CDPLogSystem();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v35 = _CDPLogSystem(resultsCopy);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
       [CDPContext initWithAuthenticationResults:];
     }
@@ -648,10 +633,9 @@ LABEL_22:
   }
 
 LABEL_31:
-  v57 = v9;
+  v59 = v9;
 
-  v58 = *MEMORY[0x1E69E9840];
-  return v57;
+  return v59;
 }
 
 - (void)updateDemoAttributesWithAccount:(id)account
@@ -670,49 +654,49 @@ LABEL_31:
 
 - (NSNumber)adpCohort
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   adpCohort = self->_adpCohort;
   if (adpCohort)
   {
 LABEL_6:
-    v10 = adpCohort;
+    v12 = adpCohort;
     goto LABEL_7;
   }
 
   mEMORY[0x1E698DC80] = [MEMORY[0x1E698DC80] sharedInstance];
   v5 = [mEMORY[0x1E698DC80] authKitAccountWithAltDSID:self->_altDSID];
-  if (objc_opt_respondsToSelector())
+  v6 = objc_opt_respondsToSelector();
+  if (v6)
   {
-    v6 = [mEMORY[0x1E698DC80] adpCohortForAccount:v5];
-    v7 = self->_adpCohort;
-    self->_adpCohort = v6;
+    v7 = [mEMORY[0x1E698DC80] adpCohortForAccount:v5];
+    v8 = self->_adpCohort;
+    self->_adpCohort = v7;
 
-    v8 = _CDPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _CDPLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_adpCohort;
-      v14 = 136315394;
-      v15 = "[CDPContext adpCohort]";
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "%s: ADP Cohort type is %@", &v14, 0x16u);
+      v11 = self->_adpCohort;
+      v15 = 136315394;
+      v16 = "[CDPContext adpCohort]";
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "%s: ADP Cohort type is %@", &v15, 0x16u);
     }
 
     adpCohort = self->_adpCohort;
     goto LABEL_6;
   }
 
-  v13 = _CDPLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+  v14 = _CDPLogSystem(v6);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
   {
     [(CDPContext *)mEMORY[0x1E698DC80] adpCohort];
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
 
-  return v10;
+  return v12;
 }
 
 - (void)startObservingTrustedDeviceList
@@ -724,7 +708,7 @@ LABEL_7:
 
 - (void)akTrustedDeviceListChanged:(id)changed
 {
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [CDPContext akTrustedDeviceListChanged:];
@@ -738,13 +722,15 @@ LABEL_7:
   p_numberOfTrustedDevices = &self->_numberOfTrustedDevices;
   if (!self->_numberOfTrustedDevices)
   {
-    self->_numberOfTrustedDevices = [(CDPContext *)self getNumberOfTrustedDevices];
+    selfCopy = self;
+    self = [(CDPContext *)self getNumberOfTrustedDevices];
+    selfCopy->_numberOfTrustedDevices = self;
   }
 
-  v3 = _CDPLogSystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = _CDPLogSystem(self);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(CDPContext *)p_numberOfTrustedDevices numberOfTrustedDevices];
+    [CDPContext numberOfTrustedDevices];
   }
 
   return *p_numberOfTrustedDevices;
@@ -752,7 +738,7 @@ LABEL_7:
 
 - (BOOL)isPrimaryAccount
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = self->_isPrimaryAccountInternal;
   objc_sync_enter(v3);
   isPrimaryAccountInternal = self->_isPrimaryAccountInternal;
@@ -764,29 +750,29 @@ LABEL_7:
 
     if (v7)
     {
-      v8 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v7, "aa_isAccountClass:", *MEMORY[0x1E698B760])}];
-      v9 = self->_isPrimaryAccountInternal;
-      self->_isPrimaryAccountInternal = v8;
+      v9 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v7, "aa_isAccountClass:", *MEMORY[0x1E698B760])}];
+      v10 = self->_isPrimaryAccountInternal;
+      self->_isPrimaryAccountInternal = v9;
 
-      p_super = _CDPLogSystem();
+      p_super = _CDPLogSystem(v11);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
         altDSID2 = [(CDPContext *)self altDSID];
         bOOLValue = [(NSNumber *)self->_isPrimaryAccountInternal BOOLValue];
-        v18 = 141558530;
-        v19 = 1752392040;
-        v20 = 2112;
-        v21 = altDSID2;
-        v22 = 1024;
-        v23 = bOOLValue;
-        _os_log_impl(&dword_1DED99000, p_super, OS_LOG_TYPE_DEFAULT, "isPrimaryAccount: Account for %{mask.hash}@ account primary: %{BOOL}d", &v18, 0x1Cu);
+        v19 = 141558530;
+        v20 = 1752392040;
+        v21 = 2112;
+        v22 = altDSID2;
+        v23 = 1024;
+        v24 = bOOLValue;
+        _os_log_impl(&dword_1DED99000, p_super, OS_LOG_TYPE_DEFAULT, "isPrimaryAccount: Account for %{mask.hash}@ account primary: %{BOOL}d", &v19, 0x1Cu);
       }
     }
 
     else
     {
-      v13 = _CDPLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = _CDPLogSystem(v8);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         altDSID3 = [(CDPContext *)self altDSID];
         [(CDPContext *)altDSID3 isPrimaryAccount];
@@ -802,13 +788,24 @@ LABEL_7:
   bOOLValue2 = [(NSNumber *)isPrimaryAccountInternal BOOLValue];
   objc_sync_exit(v3);
 
-  v16 = *MEMORY[0x1E69E9840];
   return bOOLValue2;
+}
+
+- (void)setIsPrimaryAccount:(BOOL)account
+{
+  accountCopy = account;
+  obj = self->_isPrimaryAccountInternal;
+  objc_sync_enter(obj);
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:accountCopy];
+  isPrimaryAccountInternal = self->_isPrimaryAccountInternal;
+  self->_isPrimaryAccountInternal = v5;
+
+  objc_sync_exit(obj);
 }
 
 - (BOOL)keychainSyncAllowedByServer
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = self->_keychainSyncAllowedByServerInternal;
   objc_sync_enter(v3);
   keychainSyncAllowedByServerInternal = self->_keychainSyncAllowedByServerInternal;
@@ -820,56 +817,57 @@ LABEL_7:
 
     if (v7)
     {
-      v8 = *MEMORY[0x1E6959690];
-      if (([v7 isProvisionedForDataclass:*MEMORY[0x1E6959690]] & 1) != 0 || !-[CDPContext isManagedAccount](self, "isManagedAccount"))
+      v9 = *MEMORY[0x1E6959690];
+      if (([v7 isProvisionedForDataclass:*MEMORY[0x1E6959690]] & 1) != 0 || (v10 = -[CDPContext isManagedAccount](self, "isManagedAccount"), !v10))
       {
-        v10 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v9 = _CDPLogSystem();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-        {
-          [CDPContext keychainSyncAllowedByServer];
-        }
-
-        v10 = 0;
-      }
-
-      if ([v7 aa_serverDisabledDataclass:v8])
-      {
-        v11 = _CDPLogSystem();
+        v11 = _CDPLogSystem(v10);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           [CDPContext keychainSyncAllowedByServer];
         }
 
-        v10 = 0;
+        v12 = 0;
       }
 
-      v12 = [MEMORY[0x1E696AD98] numberWithBool:v10];
-      v13 = self->_keychainSyncAllowedByServerInternal;
-      self->_keychainSyncAllowedByServerInternal = v12;
+      v13 = [v7 aa_serverDisabledDataclass:v9];
+      if (v13)
+      {
+        v14 = _CDPLogSystem(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        {
+          [CDPContext keychainSyncAllowedByServer];
+        }
 
-      p_super = _CDPLogSystem();
+        v12 = 0;
+      }
+
+      v15 = [MEMORY[0x1E696AD98] numberWithBool:v12];
+      v16 = self->_keychainSyncAllowedByServerInternal;
+      self->_keychainSyncAllowedByServerInternal = v15;
+
+      p_super = _CDPLogSystem(v17);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
         altDSID2 = [(CDPContext *)self altDSID];
-        v21 = 141558530;
-        v22 = 1752392040;
-        v23 = 2112;
-        v24 = altDSID2;
-        v25 = 1024;
-        v26 = v10;
-        _os_log_impl(&dword_1DED99000, p_super, OS_LOG_TYPE_DEFAULT, "keychainSyncAllowedByServer: Account for %{mask.hash}@ account primary: %{BOOL}d", &v21, 0x1Cu);
+        v24 = 141558530;
+        v25 = 1752392040;
+        v26 = 2112;
+        v27 = altDSID2;
+        v28 = 1024;
+        v29 = v12;
+        _os_log_impl(&dword_1DED99000, p_super, OS_LOG_TYPE_DEFAULT, "keychainSyncAllowedByServer: Account for %{mask.hash}@ account primary: %{BOOL}d", &v24, 0x1Cu);
       }
     }
 
     else
     {
-      v16 = _CDPLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = _CDPLogSystem(v8);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         altDSID3 = [(CDPContext *)self altDSID];
         [(CDPContext *)altDSID3 keychainSyncAllowedByServer];
@@ -885,8 +883,19 @@ LABEL_7:
   bOOLValue = [(NSNumber *)keychainSyncAllowedByServerInternal BOOLValue];
   objc_sync_exit(v3);
 
-  v19 = *MEMORY[0x1E69E9840];
   return bOOLValue;
+}
+
+- (void)setKeychainSyncAllowedByServer:(BOOL)server
+{
+  serverCopy = server;
+  obj = self->_keychainSyncAllowedByServerInternal;
+  objc_sync_enter(obj);
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:serverCopy];
+  keychainSyncAllowedByServerInternal = self->_keychainSyncAllowedByServerInternal;
+  self->_keychainSyncAllowedByServerInternal = v5;
+
+  objc_sync_exit(obj);
 }
 
 - (void)purgeResumeData
@@ -1319,23 +1328,24 @@ LABEL_7:
 
 - (BOOL)isiCDPEligibleWithError:(id *)error
 {
-  if ([(CDPContext *)self isSharediPad])
+  isSharediPad = [(CDPContext *)self isSharediPad];
+  if (isSharediPad)
   {
-    v5 = _CDPLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _CDPLogSystem(isSharediPad);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DED99000, v5, OS_LOG_TYPE_DEFAULT, "isiCDPEligible: managed accounts on shared iPad is not manatee eligible, returning NO", buf, 2u);
+      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "isiCDPEligible: managed accounts on shared iPad is not manatee eligible, returning NO", buf, 2u);
     }
 
     if (error)
     {
-      v6 = -5004;
+      v7 = -5004;
 LABEL_33:
-      v17 = _CDPStateError(v6, 0);
-      v18 = v17;
+      v22 = _CDPStateError(v7, 0);
+      v23 = v22;
       result = 0;
-      *error = v17;
+      *error = v22;
       return result;
     }
 
@@ -1344,67 +1354,71 @@ LABEL_33:
 
   if ([(CDPContext *)self isHSA2Account])
   {
-    if ([(CDPContext *)self isPrimaryAccount]|| [(CDPContext *)self multiUserManateeAllowed])
+    isPrimaryAccount = [(CDPContext *)self isPrimaryAccount];
+    if (isPrimaryAccount & 1) != 0 || (isPrimaryAccount = [(CDPContext *)self multiUserManateeAllowed], (isPrimaryAccount))
     {
-      v7 = _CDPLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = _CDPLogSystem(isPrimaryAccount);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v23 = 0;
-        _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "isiCDPEligible: Account is HSA2 and primary: returning YES", v23, 2u);
+        *v28 = 0;
+        _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "isiCDPEligible: Account is HSA2 and primary: returning YES", v28, 2u);
       }
 
       return 1;
     }
 
-    v10 = _CDPLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v15 = _CDPLogSystem(isPrimaryAccount);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 0;
-      v15 = "isiCDPEligible: Account is HSA2 and non-primary, and multi-user is not allowed: returning NO";
-      v16 = &v24;
+      v29 = 0;
+      v20 = "isiCDPEligible: Account is HSA2 and non-primary, and multi-user is not allowed: returning NO";
+      v21 = &v29;
 LABEL_30:
-      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, v15, v16, 2u);
+      _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, v20, v21, 2u);
       goto LABEL_31;
     }
 
     goto LABEL_31;
   }
 
-  if (![(CDPContext *)self isManagedAccount])
+  isManagedAccount = [(CDPContext *)self isManagedAccount];
+  if (!isManagedAccount)
   {
-    v12 = _CDPLogSystem();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v17 = _CDPLogSystem(isManagedAccount);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_26;
     }
 
-    v19 = 0;
-    v13 = "isiCDPEligible: Account is not HSA or Managed, returning NO";
-    v14 = &v19;
+    v24 = 0;
+    v18 = "isiCDPEligible: Account is not HSA or Managed, returning NO";
+    v19 = &v24;
     goto LABEL_25;
   }
 
-  if ([(CDPContext *)self managedAccountsAllowedInCDP])
+  managedAccountsAllowedInCDP = [(CDPContext *)self managedAccountsAllowedInCDP];
+  if (managedAccountsAllowedInCDP)
   {
-    isPrimaryAccount = [(CDPContext *)self isPrimaryAccount];
-    v10 = _CDPLogSystem();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (isPrimaryAccount)
+    isPrimaryAccount2 = [(CDPContext *)self isPrimaryAccount];
+    v14 = isPrimaryAccount2;
+    v15 = _CDPLogSystem(isPrimaryAccount2);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    if (v14)
     {
-      if (v11)
+      if (v16)
       {
-        *v21 = 0;
-        _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "isiCDPEligible: Account is managed and primary: returning YES", v21, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "isiCDPEligible: Account is managed and primary: returning YES", v26, 2u);
       }
 
       return 1;
     }
 
-    if (v11)
+    if (v16)
     {
-      *v20 = 0;
-      v15 = "isiCDPEligible: Account is managed but non-primary: returning NO";
-      v16 = v20;
+      *v25 = 0;
+      v20 = "isiCDPEligible: Account is managed but non-primary: returning NO";
+      v21 = v25;
       goto LABEL_30;
     }
 
@@ -1412,28 +1426,28 @@ LABEL_31:
 
     if (error)
     {
-      v6 = -5111;
+      v7 = -5111;
       goto LABEL_33;
     }
 
     return 0;
   }
 
-  v12 = _CDPLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v17 = _CDPLogSystem(managedAccountsAllowedInCDP);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    *v22 = 0;
-    v13 = "isiCDPEligible: Account is managed, but managed accounts are not allowed in CDP: returning NO";
-    v14 = v22;
+    *v27 = 0;
+    v18 = "isiCDPEligible: Account is managed, but managed accounts are not allowed in CDP: returning NO";
+    v19 = v27;
 LABEL_25:
-    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
+    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, v18, v19, 2u);
   }
 
 LABEL_26:
 
   if (error)
   {
-    v6 = -5110;
+    v7 = -5110;
     goto LABEL_33;
   }
 
@@ -1522,10 +1536,10 @@ LABEL_26:
 
       if (!v7)
       {
-        v8 = _CDPLogSystem();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+        v9 = _CDPLogSystem(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
-          [(CDPContext *)v8 _isLocalSecretCachedAcknowledgingInMemoryValue];
+          [(CDPContext *)v9 _isLocalSecretCachedAcknowledgingInMemoryValue];
         }
       }
     }
@@ -1547,32 +1561,33 @@ LABEL_26:
 
 + (id)preflightContext:(id)context
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v4 = contextCopy;
   if (!contextCopy)
   {
-    v13 = _CDPLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v16 = _CDPLogSystem(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       +[CDPContext(Account) preflightContext:];
     }
 
-    v14 = +[CDPContext contextForPrimaryAccount];
+    v17 = +[CDPContext contextForPrimaryAccount];
     goto LABEL_16;
   }
 
-  if (([contextCopy needsPreflight] & 1) == 0)
+  needsPreflight = [contextCopy needsPreflight];
+  if ((needsPreflight & 1) == 0)
   {
-    v15 = _CDPLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v18 = _CDPLogSystem(needsPreflight);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       +[CDPContext(Account) preflightContext:];
     }
 
-    v14 = v4;
+    v17 = v4;
 LABEL_16:
-    v16 = v14;
+    v19 = v17;
     goto LABEL_42;
   }
 
@@ -1580,15 +1595,15 @@ LABEL_16:
 
   if (altDSID)
   {
-    v6 = _CDPLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       altDSID2 = [v4 altDSID];
-      v35 = 141558274;
-      v36 = 1752392040;
-      v37 = 2112;
-      v38 = altDSID2;
-      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "preflightContext: Attempting to backfill context for altDSID %{mask.hash}@ . Please use +[CDPContext contextForAccountWithAltDSID:] to do this in the future.", &v35, 0x16u);
+      v39 = 141558274;
+      v40 = 1752392040;
+      v41 = 2112;
+      v42 = altDSID2;
+      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "preflightContext: Attempting to backfill context for altDSID %{mask.hash}@ . Please use +[CDPContext contextForAccountWithAltDSID:] to do this in the future.", &v39, 0x16u);
     }
 
     mEMORY[0x1E698DC80] = [MEMORY[0x1E698DC80] sharedInstance];
@@ -1600,33 +1615,33 @@ LABEL_16:
       goto LABEL_34;
     }
 
-    v11 = _CDPLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = _CDPLogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CDPContext(Account) preflightContext:v4];
     }
 
-    v12 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
   dsid = [v4 dsid];
 
   if (dsid)
   {
-    v18 = _CDPLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v22 = _CDPLogSystem(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       dsid2 = [v4 dsid];
-      v35 = 141558274;
-      v36 = 1752392040;
-      v37 = 2112;
-      v38 = dsid2;
-      _os_log_impl(&dword_1DED99000, v18, OS_LOG_TYPE_DEFAULT, "preflightContext: Attempting to find account for dsid %{mask.hash}@ . Please use +[CDPContext contextForAccountWithAltDSID:] to do this in the future.", &v35, 0x16u);
+      v39 = 141558274;
+      v40 = 1752392040;
+      v41 = 2112;
+      v42 = dsid2;
+      _os_log_impl(&dword_1DED99000, v22, OS_LOG_TYPE_DEFAULT, "preflightContext: Attempting to find account for dsid %{mask.hash}@ . Please use +[CDPContext contextForAccountWithAltDSID:] to do this in the future.", &v39, 0x16u);
     }
 
     mEMORY[0x1E698DC80]2 = [MEMORY[0x1E698DC80] sharedInstance];
@@ -1638,28 +1653,28 @@ LABEL_16:
       goto LABEL_34;
     }
 
-    v22 = _CDPLogSystem();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v26 = _CDPLogSystem(v13);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [CDPContext(Account) preflightContext:v4];
     }
 
-    v12 = 1;
+    v15 = 1;
   }
 
   appleID = [v4 appleID];
 
   if (appleID)
   {
-    v24 = _CDPLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v28 = _CDPLogSystem(v13);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       appleID2 = [v4 appleID];
-      v35 = 141558274;
-      v36 = 1752392040;
-      v37 = 2112;
-      v38 = appleID2;
-      _os_log_impl(&dword_1DED99000, v24, OS_LOG_TYPE_DEFAULT, "preflightContext: Attempting to find account for appleID %{mask.hash}@ . Please use +[CDPContext contextForAccountWithAppleID:] to do this in the future.", &v35, 0x16u);
+      v39 = 141558274;
+      v40 = 1752392040;
+      v41 = 2112;
+      v42 = appleID2;
+      _os_log_impl(&dword_1DED99000, v28, OS_LOG_TYPE_DEFAULT, "preflightContext: Attempting to find account for appleID %{mask.hash}@ . Please use +[CDPContext contextForAccountWithAppleID:] to do this in the future.", &v39, 0x16u);
     }
 
     mEMORY[0x1E698DC80]3 = [MEMORY[0x1E698DC80] sharedInstance];
@@ -1671,17 +1686,17 @@ LABEL_16:
       goto LABEL_34;
     }
 
-    v28 = _CDPLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v32 = _CDPLogSystem(v13);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [CDPContext(Account) preflightContext:v4];
     }
   }
 
-  else if (!v12)
+  else if (!v15)
   {
-    v34 = _CDPLogSystem();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v38 = _CDPLogSystem(v13);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       +[CDPContext(Account) preflightContext:];
     }
@@ -1693,7 +1708,7 @@ LABEL_16:
 
   primaryAuthKitAccount = 0;
 LABEL_34:
-  mEMORY[0x1E698DC80]4 = _CDPLogSystem();
+  mEMORY[0x1E698DC80]4 = _CDPLogSystem(v13);
   if (os_log_type_enabled(mEMORY[0x1E698DC80]4, OS_LOG_TYPE_DEBUG))
   {
     +[CDPContext(Account) preflightContext:];
@@ -1703,26 +1718,25 @@ LABEL_36:
 
   if (primaryAuthKitAccount)
   {
-    v30 = [v4 initWithAccount:primaryAuthKitAccount];
+    v35 = [v4 initWithAccount:primaryAuthKitAccount];
   }
 
   else
   {
-    v31 = _CDPLogSystem();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v36 = _CDPLogSystem(v34);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       +[CDPContext(Account) preflightContext:];
     }
 
-    v30 = v4;
+    v35 = v4;
   }
 
-  v16 = v30;
+  v19 = v35;
 
 LABEL_42:
-  v32 = *MEMORY[0x1E69E9840];
 
-  return v16;
+  return v19;
 }
 
 - (void)setPassword:.cold.1()
@@ -1734,56 +1748,44 @@ LABEL_42:
 
 + (void)contextForAccountWithAppleID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)contextForAccountWithAppleID:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)contextForAccountWithAltDSID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)contextForAccountWithAltDSID:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)contextForAccountWithDSID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)contextForAccountWithDSID:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)init
@@ -1796,21 +1798,17 @@ LABEL_42:
 - (void)initWithAccount:.cold.1()
 {
   OUTLINED_FUNCTION_8();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = objc_opt_class();
   v2 = OUTLINED_FUNCTION_6_0();
   v3 = NSStringFromSelector(v2);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithAccount:.cold.2()
 {
   OUTLINED_FUNCTION_8();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = objc_opt_class();
   v2 = OUTLINED_FUNCTION_6_0();
   v3 = NSStringFromSelector(v2);
@@ -1818,14 +1816,11 @@ LABEL_42:
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithAccount:.cold.3()
 {
   OUTLINED_FUNCTION_8();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = objc_opt_class();
   v2 = OUTLINED_FUNCTION_6_0();
   v3 = NSStringFromSelector(v2);
@@ -1833,14 +1828,11 @@ LABEL_42:
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithAccount:.cold.4()
 {
   OUTLINED_FUNCTION_8();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = objc_opt_class();
   v2 = OUTLINED_FUNCTION_6_0();
   v3 = NSStringFromSelector(v2);
@@ -1848,13 +1840,10 @@ LABEL_42:
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithAccount:.cold.5()
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = objc_opt_class();
   v2 = OUTLINED_FUNCTION_6_0();
   v3 = NSStringFromSelector(v2);
@@ -1862,35 +1851,16 @@ LABEL_42:
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithAuthenticationResults:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithAuthenticationResults:.cold.3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)adpCohort
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[CDPContext adpCohort]";
-  v5 = 2112;
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[CDPContext adpCohort]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1DED99000, a2, OS_LOG_TYPE_FAULT, "%s: Unable to obtain the adpCohortForAccount because AKAccountManager (%@) doesn't respond to selector.", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DED99000, a2, OS_LOG_TYPE_FAULT, "%s: Unable to obtain the adpCohortForAccount because AKAccountManager (%@) doesn't respond to selector.", &v2, 0x16u);
 }
 
 - (void)akTrustedDeviceListChanged:.cold.1()
@@ -1898,15 +1868,6 @@ LABEL_42:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)numberOfTrustedDevices
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isPrimaryAccount
@@ -1923,11 +1884,10 @@ LABEL_42:
 
 - (void)_isLocalSecretCachedAcknowledgingInMemoryValue
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[CDPContext _isLocalSecretCachedAcknowledgingInMemoryValue]";
-  _os_log_fault_impl(&dword_1DED99000, log, OS_LOG_TYPE_FAULT, "%s: Found a cached secret that was just an empty string.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[CDPContext _isLocalSecretCachedAcknowledgingInMemoryValue]";
+  _os_log_fault_impl(&dword_1DED99000, log, OS_LOG_TYPE_FAULT, "%s: Found a cached secret that was just an empty string.", &v1, 0xCu);
 }
 
 @end

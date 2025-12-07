@@ -18,111 +18,113 @@ void __73___GCControllerManagerAppClient_activateWithSession_environment_options
   activity_block[3] = &unk_1E8418C28;
   activity_block[4] = *(a1 + 32);
   _os_activity_initiate(&dword_1D2CD5000, "Connect To Game Controller Daemon", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-  SetupVirtualGameControllerIfForced();
-  v8 = [MEMORY[0x1E695DFB0] null];
-  [v5 succeedWithResult:v8];
+  SetupVirtualGameControllerIfForced(v8, v9);
+  v10 = [MEMORY[0x1E695DFB0] null];
+  [v5 succeedWithResult:v10];
 }
 
-uint64_t __50___GCControllerManagerAppClient_finalizeRecording__block_invoke(uint64_t a1)
+uint64_t __50___GCControllerManagerAppClient_finalizeRecording__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
-    __50___GCControllerManagerAppClient_finalizeRecording__block_invoke_cold_1();
+    __50___GCControllerManagerAppClient_finalizeRecording__block_invoke_cold_1(a2);
   }
 
   return [*(a1 + 32) invalidate];
 }
 
-void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke(uint64_t a1)
+void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(a1, a2);
+  if (isInternalBuild)
   {
-    __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_cold_1();
+    __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_cold_1(isInternalBuild);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 128);
-  *(v2 + 128) = 0;
-
   v4 = *(a1 + 32);
-  v5 = *(v4 + 136);
-  *(v4 + 136) = 0;
+  v5 = *(v4 + 128);
+  *(v4 + 128) = 0;
 
   v6 = *(a1 + 32);
-  v7 = *(v6 + 112);
-  *(v6 + 112) = 0;
+  v7 = *(v6 + 136);
+  *(v6 + 136) = 0;
 
   v8 = *(a1 + 32);
-  v9 = *(v8 + 120);
-  *(v8 + 120) = 0;
+  v9 = *(v8 + 112);
+  *(v8 + 112) = 0;
 
   v10 = *(a1 + 32);
-  v11 = *(v10 + 144);
-  *(v10 + 144) = 0;
+  v11 = *(v10 + 120);
+  *(v10 + 120) = 0;
 
   v12 = *(a1 + 32);
-  v13 = *(v12 + 104);
-  *(v12 + 104) = 0;
+  v13 = *(v12 + 144);
+  *(v12 + 144) = 0;
 
   v14 = *(a1 + 32);
-  v15 = *(v14 + 96);
-  *(v14 + 96) = 0;
+  v15 = *(v14 + 104);
+  *(v14 + 104) = 0;
 
   v16 = *(a1 + 32);
-  v17 = *(v16 + 80);
-  *(v16 + 80) = 0;
+  v17 = *(v16 + 96);
+  *(v16 + 96) = 0;
 
   v18 = *(a1 + 32);
-  v19 = *(v18 + 88);
-  *(v18 + 88) = 0;
+  v19 = *(v18 + 80);
+  *(v18 + 80) = 0;
 
   v20 = *(a1 + 32);
-  v21 = *(v20 + 72);
-  *(v20 + 72) = 0;
+  v21 = *(v20 + 88);
+  *(v20 + 88) = 0;
+
+  v22 = *(a1 + 32);
+  v23 = *(v22 + 72);
+  *(v22 + 72) = 0;
 }
 
-void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_136(uint64_t a1)
+void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_136(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(a1, a2);
+  if (isInternalBuild)
   {
-    __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_136_cold_1();
+    __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_136_cold_1(isInternalBuild);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 128);
-  *(v2 + 128) = 0;
-
   v4 = *(a1 + 32);
-  v5 = *(v4 + 136);
-  *(v4 + 136) = 0;
+  v5 = *(v4 + 128);
+  *(v4 + 128) = 0;
 
   v6 = *(a1 + 32);
-  v7 = *(v6 + 112);
-  *(v6 + 112) = 0;
+  v7 = *(v6 + 136);
+  *(v6 + 136) = 0;
 
   v8 = *(a1 + 32);
-  v9 = *(v8 + 120);
-  *(v8 + 120) = 0;
+  v9 = *(v8 + 112);
+  *(v8 + 112) = 0;
 
   v10 = *(a1 + 32);
-  v11 = *(v10 + 144);
-  *(v10 + 144) = 0;
+  v11 = *(v10 + 120);
+  *(v10 + 120) = 0;
 
   v12 = *(a1 + 32);
-  v13 = *(v12 + 104);
-  *(v12 + 104) = 0;
+  v13 = *(v12 + 144);
+  *(v12 + 144) = 0;
 
   v14 = *(a1 + 32);
-  v15 = *(v14 + 96);
-  *(v14 + 96) = 0;
+  v15 = *(v14 + 104);
+  *(v14 + 104) = 0;
 
-  v16 = [*(*(a1 + 32) + 72) remoteProxy];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_137;
-  v17[3] = &unk_1E8418C28;
-  v17[4] = *(a1 + 32);
-  [v16 pingWithReply:v17];
+  v16 = *(a1 + 32);
+  v17 = *(v16 + 96);
+  *(v16 + 96) = 0;
+
+  v18 = [*(*(a1 + 32) + 72) remoteProxy];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_137;
+  v19[3] = &unk_1E8418C28;
+  v19[4] = *(a1 + 32);
+  [v18 pingWithReply:v19];
 }
 
 void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_137(uint64_t a1)
@@ -140,13 +142,14 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke(u
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 96), a2);
     [*(a1 + 32) refreshControllers];
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_cold_1();
   }
@@ -156,12 +159,13 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 104), a2);
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_139_cold_1();
   }
@@ -171,12 +175,13 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 112), a2);
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_141_cold_1();
   }
@@ -186,12 +191,13 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 120), a2);
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_143_cold_1();
   }
@@ -201,12 +207,13 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 136), a2);
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_145_cold_1();
   }
@@ -216,12 +223,13 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 144), a2);
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_147_cold_1();
   }
@@ -231,13 +239,14 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 128), a2);
     [*(a1 + 32) updateEmulatedControllerEnabled];
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_149_cold_1();
   }
@@ -247,12 +256,13 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 152), a2);
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_151_cold_1();
   }
@@ -262,12 +272,13 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 160), a2);
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(v7, v8))
   {
     __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_153_cold_1();
   }
@@ -276,50 +287,52 @@ void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_1
 void __64___GCControllerManagerAppClient_updateEmulatedControllerEnabled__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v3, v4))
   {
-    __64___GCControllerManagerAppClient_updateEmulatedControllerEnabled__block_invoke_cold_1();
+    __64___GCControllerManagerAppClient_updateEmulatedControllerEnabled__block_invoke_cold_1(v3);
   }
 
   if ([v3 BOOLValue])
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v5 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v6 = [v5 valueForKey:@"GCEnableKeyboardMouseController"];
-    v4 = [v6 intValue];
+    v6 = [MEMORY[0x1E695E000] standardUserDefaults];
+    v7 = [v6 valueForKey:@"GCEnableKeyboardMouseController"];
+    v5 = [v7 intValue];
   }
 
-  [*(*(a1 + 32) + 216) setEmulatedControllerMapping:v4];
+  [*(*(a1 + 32) + 216) setEmulatedControllerMapping:v5];
 }
 
 void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v3, v4))
     {
-      __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_cold_1();
+      __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_cold_1(v5);
     }
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 152);
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193;
-    v6[3] = &unk_1E8419EA8;
-    v6[4] = v4;
-    [v5 onVideoRecordingStart:v6];
-    if (gc_isInternalBuild())
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 152);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193;
+    v11[3] = &unk_1E8419EA8;
+    v11[4] = v6;
+    v8 = [v7 onVideoRecordingStart:v11];
+    isInternalBuild = gc_isInternalBuild(v8, v9);
+    if (isInternalBuild)
     {
-      __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_cold_2();
+      __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_cold_2(isInternalBuild);
     }
   }
 }
@@ -327,27 +340,27 @@ void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke(uint6
 void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193(uint64_t a1, void *a2)
 {
   v3 = a2;
-  isInternalBuild = gc_isInternalBuild();
+  isInternalBuild = gc_isInternalBuild(v3, v4);
   if (!v3)
   {
     if (isInternalBuild)
     {
-      __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193_cold_2();
+      __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193_cold_2(isInternalBuild);
     }
 
-    v6 = [MEMORY[0x1E695DF00] date];
-    v7 = *(a1 + 32);
-    v5 = *(v7 + 208);
-    *(v7 + 208) = v6;
+    v7 = [MEMORY[0x1E695DF00] date];
+    v8 = *(a1 + 32);
+    v6 = *(v8 + 208);
+    *(v8 + 208) = v7;
     goto LABEL_8;
   }
 
   if (isInternalBuild)
   {
-    v5 = getGCLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = getGCLogger(isInternalBuild);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193_cold_1(v3, v5);
+      __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193_cold_1(v3, v6);
     }
 
 LABEL_8:
@@ -358,30 +371,31 @@ void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_con
 {
   v5 = a2;
   v6 = a3;
-  if (v5 || !gc_isInternalBuild())
+  v8 = v6;
+  if (v5 || (isInternalBuild = gc_isInternalBuild(v6, v7), !isInternalBuild))
   {
-    if (v6)
+    if (v8)
     {
       goto LABEL_4;
     }
 
 LABEL_8:
-    v7 = -1;
+    v10 = -1;
     goto LABEL_9;
   }
 
-  __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_cold_1();
-  if (!v6)
+  __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_cold_1(isInternalBuild);
+  if (!v8)
   {
     goto LABEL_8;
   }
 
 LABEL_4:
-  [v6 UTF8String];
-  v7 = sandbox_extension_consume();
-  if (v7 == -1)
+  [v8 UTF8String];
+  v10 = sandbox_extension_consume();
+  if (v10 == -1)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(-1, v11))
     {
       __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_cold_2();
     }
@@ -390,81 +404,82 @@ LABEL_4:
   }
 
 LABEL_9:
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v20 = *(a1 + 48);
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2020000000;
+  v24 = *(a1 + 48);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_201;
   aBlock[3] = &unk_1E841AB88;
-  v18 = v7;
-  v8 = v5;
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
-  v14 = v8;
-  v15 = v9;
-  v17 = v19;
-  v16 = v10;
-  v11 = _Block_copy(aBlock);
+  v22 = v10;
+  v12 = v5;
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 40);
+  v18 = v12;
+  v19 = v13;
+  v21 = v23;
+  v20 = v14;
+  v15 = _Block_copy(aBlock);
   if (*(a1 + 48) == 1)
   {
-    v12 = GCLookupService();
-    [v12 exportClipToURL:v8 duration:v11 completionHandler:15.0];
+    v16 = GCLookupService();
+    [v16 exportClipToURL:v12 duration:v15 completionHandler:15.0];
   }
 
   else
   {
-    v12 = GCLookupService();
-    [v12 stopRecordingWithOutputURL:v8 completionHandler:v11];
+    v16 = GCLookupService();
+    [v16 stopRecordingWithOutputURL:v12 completionHandler:v15];
   }
 
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v23, 8);
 LABEL_13:
 }
 
 void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_201(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (*(a1 + 64) != -1)
+  v4 = a2;
+  v5 = *(a1 + 64);
+  if (v5 != -1)
   {
-    sandbox_extension_release();
+    v5 = sandbox_extension_release();
   }
 
-  isInternalBuild = gc_isInternalBuild();
-  if (!v3)
+  isInternalBuild = gc_isInternalBuild(v5, v3);
+  if (!v4)
   {
     if (isInternalBuild)
     {
       __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_201_cold_2(a1);
     }
 
-    v6 = *(*(a1 + 40) + 152);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_202;
-    v13[3] = &unk_1E841AB60;
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 48);
-    v11 = v9;
-    v12 = v8;
-    v10 = *&v8.f64[0];
-    v15.val[1] = v12;
-    *&v15.val[0].f64[0] = v7;
-    v15.val[0].f64[1] = *(a1 + 40);
-    vst2q_f64(v14, v15);
-    [v6 onVideoRecordingStopWithURL:v7 reply:{v13, v11}];
+    v8 = *(*(a1 + 40) + 152);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_202;
+    v15[3] = &unk_1E841AB60;
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 48);
+    v13 = v11;
+    v14 = v10;
+    v12 = *&v10.f64[0];
+    v17.val[1] = v14;
+    *&v17.val[0].f64[0] = v9;
+    v17.val[0].f64[1] = *(a1 + 40);
+    vst2q_f64(v16, v17);
+    [v8 onVideoRecordingStopWithURL:v9 reply:{v15, v13}];
 
-    v5 = *&v14[0];
+    v7 = *&v16[0];
     goto LABEL_10;
   }
 
   if (isInternalBuild)
   {
-    v5 = getGCLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = getGCLogger(isInternalBuild);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_201_cold_1(a1);
+      __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_201_cold_1();
     }
 
 LABEL_10:
@@ -474,7 +489,7 @@ LABEL_10:
 void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_202(uint64_t a1, void *a2)
 {
   v3 = a2;
-  isInternalBuild = gc_isInternalBuild();
+  isInternalBuild = gc_isInternalBuild(v3, v4);
   if (!v3)
   {
     if (isInternalBuild)
@@ -482,20 +497,20 @@ void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_con
       __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_202_cold_2(a1);
     }
 
-    v6 = *(*(*(a1 + 56) + 8) + 24);
-    v5 = +[GCAnalytics instance];
-    v7 = currentProcessBundleIdentifier();
-    v8 = [*(a1 + 40) detailedProductCategory];
-    if (v6 == 1)
+    v7 = *(*(*(a1 + 56) + 8) + 24);
+    v6 = +[GCAnalytics instance];
+    v8 = currentProcessBundleIdentifier(v6);
+    v9 = [*(a1 + 40) detailedProductCategory];
+    if (v7 == 1)
     {
-      [v5 sendRPKitInstantCaptureSavedEventForBundleID:v7 productCategory:v8];
+      [v6 sendRPKitInstantCaptureSavedEventForBundleID:v8 productCategory:v9];
     }
 
     else
     {
       [*(*(a1 + 48) + 208) timeIntervalSinceNow];
-      LODWORD(v10) = llround(-v9);
-      [v5 sendRPKitManualRecordingSavedEventForBundleID:v7 productCategory:v8 duration:v10];
+      LODWORD(v11) = llround(-v10);
+      [v6 sendRPKitManualRecordingSavedEventForBundleID:v8 productCategory:v9 duration:v11];
     }
 
     goto LABEL_11;
@@ -503,29 +518,29 @@ void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_con
 
   if (isInternalBuild)
   {
-    v5 = getGCLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = getGCLogger(isInternalBuild);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_202_cold_1(a1);
+      __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_202_cold_1();
     }
 
 LABEL_11:
   }
 
-  v11 = *(a1 + 48);
-  v12 = *(v11 + 208);
-  *(v11 + 208) = 0;
+  v12 = *(a1 + 48);
+  v13 = *(v12 + 208);
+  *(v12 + 208) = 0;
 }
 
 void __47___GCControllerManagerAppClient_startBuffering__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  isInternalBuild = gc_isInternalBuild();
+  isInternalBuild = gc_isInternalBuild(v3, v4);
   if (v3)
   {
     if (isInternalBuild)
     {
-      __47___GCControllerManagerAppClient_startBuffering__block_invoke_cold_1();
+      __47___GCControllerManagerAppClient_startBuffering__block_invoke_cold_1(v3);
     }
   }
 
@@ -533,20 +548,20 @@ void __47___GCControllerManagerAppClient_startBuffering__block_invoke(uint64_t a
   {
     if (isInternalBuild)
     {
-      __47___GCControllerManagerAppClient_startBuffering__block_invoke_cold_2();
+      __47___GCControllerManagerAppClient_startBuffering__block_invoke_cold_2(isInternalBuild);
     }
 
-    v5 = *(a1 + 32);
-    if ((*(v5 + 202) & 1) == 0)
+    v6 = *(a1 + 32);
+    if ((*(v6 + 202) & 1) == 0)
     {
-      v6 = +[GCAnalytics instance];
-      v7 = currentProcessBundleIdentifier();
-      [v6 sendRPKitInstantCaptureBufferStartedEventForBundleID:v7];
+      v7 = +[GCAnalytics instance];
+      v8 = currentProcessBundleIdentifier(v7);
+      [v7 sendRPKitInstantCaptureBufferStartedEventForBundleID:v8];
 
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
     }
 
-    *(v5 + 202) = 1;
+    *(v6 + 202) = 1;
   }
 
   *(*(a1 + 32) + 201) = 0;
@@ -555,9 +570,10 @@ void __47___GCControllerManagerAppClient_startBuffering__block_invoke(uint64_t a
 void __46___GCControllerManagerAppClient_stopBuffering__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (v3 && gc_isInternalBuild())
+  v5 = v3;
+  if (v3 && gc_isInternalBuild(v3, v4))
   {
-    __46___GCControllerManagerAppClient_stopBuffering__block_invoke_cold_1();
+    __46___GCControllerManagerAppClient_stopBuffering__block_invoke_cold_1(v5);
   }
 
   *(*(a1 + 32) + 202) = 0;
@@ -566,20 +582,21 @@ void __46___GCControllerManagerAppClient_stopBuffering__block_invoke(uint64_t a1
 void __55___GCControllerManagerAppClient_onScreenshotTriggered___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v3, v4))
     {
-      __55___GCControllerManagerAppClient_onScreenshotTriggered___block_invoke_cold_1();
+      __55___GCControllerManagerAppClient_onScreenshotTriggered___block_invoke_cold_1(v5);
     }
   }
 
   else
   {
-    v4 = +[GCAnalytics instance];
-    v5 = currentProcessBundleIdentifier();
-    v6 = [*(*(*(a1 + 32) + 8) + 40) detailedProductCategory];
-    [v4 sendRPKitScreenshotSavedEventForBundleID:v5 productCategory:v6];
+    v6 = +[GCAnalytics instance];
+    v7 = currentProcessBundleIdentifier(v6);
+    v8 = [*(*(*(a1 + 32) + 8) + 40) detailedProductCategory];
+    [v6 sendRPKitScreenshotSavedEventForBundleID:v7 productCategory:v8];
   }
 }
 
@@ -599,33 +616,33 @@ void __71___GCControllerManagerAppClient_ControllerService__publishControllers__
 
 void __71___GCControllerManagerAppClient_ControllerService__publishControllers___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14 = 0u;
+  v20 = *MEMORY[0x1E69E9840];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = [v7 identifier];
         v9 = [*(*(a1 + 40) + 64) member:v8];
 
         if (!v9)
         {
-          if (gc_isInternalBuild())
+          if (gc_isInternalBuild(v10, v11))
           {
             __71___GCControllerManagerAppClient_ControllerService__publishControllers___block_invoke_2_cold_1();
           }
@@ -635,21 +652,20 @@ void __71___GCControllerManagerAppClient_ControllerService__publishControllers__
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
   }
 
-  v10 = *(a1 + 40);
-  v11 = *(v10 + 8);
+  v12 = *(a1 + 40);
+  v13 = *(v12 + 8);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __71___GCControllerManagerAppClient_ControllerService__publishControllers___block_invoke_442;
   block[3] = &unk_1E8418C28;
-  block[4] = v10;
-  dispatch_async(v11, block);
-  v12 = *MEMORY[0x1E69E9840];
+  block[4] = v12;
+  dispatch_async(v13, block);
 }
 
 void __88___GCControllerManagerAppClient_ControllerService__unpublishControllersWithIdentifiers___block_invoke(uint64_t a1)
@@ -677,39 +693,38 @@ uint64_t __88___GCControllerManagerAppClient_ControllerService__unpublishControl
   v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = v3;
-    v5 = *v11;
+    v5 = v3;
+    v6 = *v11;
     do
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
-        if (gc_isInternalBuild())
+        v8 = *(*(&v10 + 1) + 8 * v7);
+        if (gc_isInternalBuild(v3, v4))
         {
           __88___GCControllerManagerAppClient_ControllerService__unpublishControllersWithIdentifiers___block_invoke_2_cold_1();
         }
 
-        [*(*(a1 + 40) + 56) removeObject:{v7, v10}];
-        [*(*(a1 + 40) + 64) removeObject:v7];
-        ++v6;
+        [*(*(a1 + 40) + 56) removeObject:{v8, v10}];
+        v3 = [*(*(a1 + 40) + 64) removeObject:v8];
+        ++v7;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v5 != v7);
+      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 
-  result = [*(a1 + 40) _onqueue_refreshPublishedControllers];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _onqueue_refreshPublishedControllers];
 }
 
 uint64_t __70___GCControllerManagerAppClient_ControllerService__refreshControllers__block_invoke(uint64_t a1)
@@ -741,33 +756,33 @@ void __70___GCControllerManagerAppClient_ControllerService__refreshControllers__
 
 void __70___GCControllerManagerAppClient_ControllerService__refreshControllers__block_invoke_3(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFD8] setWithArray:*(a1 + 32)];
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v3 = [*(*(a1 + 40) + 64) copy];
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
+    v6 = *v28;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         v9 = [v2 member:v8];
 
         if (!v9)
         {
-          if (gc_isInternalBuild())
+          if (gc_isInternalBuild(v10, v11))
           {
             __88___GCControllerManagerAppClient_ControllerService__unpublishControllersWithIdentifiers___block_invoke_2_cold_1();
           }
@@ -777,37 +792,37 @@ void __70___GCControllerManagerAppClient_ControllerService__refreshControllers__
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v5);
   }
 
-  v22 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v10 = *(a1 + 32);
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
-  if (v11)
+  v24 = 0u;
+  v12 = *(a1 + 32);
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v13)
   {
-    v12 = v11;
-    v13 = *v21;
+    v14 = v13;
+    v15 = *v24;
     do
     {
-      for (j = 0; j != v12; ++j)
+      for (j = 0; j != v14; ++j)
       {
-        if (*v21 != v13)
+        if (*v24 != v15)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * j);
-        v16 = [v15 identifier];
-        v17 = [*(*(a1 + 40) + 64) member:v16];
+        v17 = *(*(&v23 + 1) + 8 * j);
+        v18 = [v17 identifier];
+        v19 = [*(*(a1 + 40) + 64) member:v18];
 
-        isInternalBuild = gc_isInternalBuild();
-        if (v17)
+        isInternalBuild = gc_isInternalBuild(v20, v21);
+        if (v19)
         {
           if (isInternalBuild)
           {
@@ -822,411 +837,335 @@ void __70___GCControllerManagerAppClient_ControllerService__refreshControllers__
             __71___GCControllerManagerAppClient_ControllerService__publishControllers___block_invoke_2_cold_1();
           }
 
-          [*(*(a1 + 40) + 64) addObject:v16];
+          [*(*(a1 + 40) + 64) addObject:v18];
         }
 
-        [*(a1 + 40) _onqueue_addPendingController:v15];
+        [*(a1 + 40) _onqueue_addPendingController:v17];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
-    while (v12);
+    while (v14);
   }
 
   [*(a1 + 40) _onqueue_refreshPublishedControllers];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
-void __50___GCControllerManagerAppClient_finalizeRecording__block_invoke_cold_1()
+void __50___GCControllerManagerAppClient_finalizeRecording__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_cold_1()
-{
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
-  {
-    OUTLINED_FUNCTION_2_13();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_136_cold_1()
+void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_cold_1(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_2_13();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
+  }
+}
+
+void __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_136_cold_1(uint64_t a1)
+{
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_8_6(v2))
+  {
+    OUTLINED_FUNCTION_2_13();
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_139_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_141_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_143_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_145_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_147_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_149_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_151_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __56___GCControllerManagerAppClient__resumeDaemonConnection__block_invoke_153_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_9_6();
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __64___GCControllerManagerAppClient_updateEmulatedControllerEnabled__block_invoke_cold_1()
+void __64___GCControllerManagerAppClient_updateEmulatedControllerEnabled__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_cold_1()
+void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_cold_2()
+void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_cold_2(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_ERROR, "onVideoRecordingStart has failed, reason: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_ERROR, "onVideoRecordingStart has failed, reason: %@", &v2, 0xCu);
 }
 
-void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193_cold_2()
+void __52___GCControllerManagerAppClient_startVideoRecording__block_invoke_193_cold_2(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
-void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_cold_1()
+void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_2_13();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_201_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_16_2(&dword_1D2CD5000, v2, v3, "Stop of video recording session with url %@ has failed, reason: %@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_201_cold_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_202_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_16_2(&dword_1D2CD5000, v2, v3, "onVideoRecordingStopWithURL: %@ has failed, reason: %@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __80___GCControllerManagerAppClient_stopVideoRecordingWithClipBuffering_controller___block_invoke_202_cold_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-void __47___GCControllerManagerAppClient_startBuffering__block_invoke_cold_1()
+void __47___GCControllerManagerAppClient_startBuffering__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-void __47___GCControllerManagerAppClient_startBuffering__block_invoke_cold_2()
+void __47___GCControllerManagerAppClient_startBuffering__block_invoke_cold_2(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
-void __46___GCControllerManagerAppClient_stopBuffering__block_invoke_cold_1()
+void __46___GCControllerManagerAppClient_stopBuffering__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-void __55___GCControllerManagerAppClient_onScreenshotTriggered___block_invoke_cold_1()
+void __55___GCControllerManagerAppClient_onScreenshotTriggered___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_8_6(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_8_6(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_2_13();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __71___GCControllerManagerAppClient_ControllerService__publishControllers___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_12(5.7779e-34);
-    OUTLINED_FUNCTION_5_9(&dword_1D2CD5000, v2, v3, "Publish controller: '%@'");
+    OUTLINED_FUNCTION_5_9(&dword_1D2CD5000, v3, v4, "Publish controller: '%@'");
   }
 }
 
 void __88___GCControllerManagerAppClient_ControllerService__unpublishControllersWithIdentifiers___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_12(5.7779e-34);
-    OUTLINED_FUNCTION_5_9(&dword_1D2CD5000, v2, v3, "Unpublish controller: '%@'");
+    OUTLINED_FUNCTION_5_9(&dword_1D2CD5000, v3, v4, "Unpublish controller: '%@'");
   }
 }
 
 void __70___GCControllerManagerAppClient_ControllerService__refreshControllers__block_invoke_3_cold_2()
 {
   OUTLINED_FUNCTION_5();
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_12(5.7779e-34);
-    OUTLINED_FUNCTION_5_9(&dword_1D2CD5000, v2, v3, "Update controller: '%@'");
+    OUTLINED_FUNCTION_5_9(&dword_1D2CD5000, v3, v4, "Update controller: '%@'");
   }
 }
 

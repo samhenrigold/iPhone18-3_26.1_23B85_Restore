@@ -7,7 +7,7 @@
 
 - (id)attributeDescriptions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   transportRestriction = [(HMMMRequestOptions *)self transportRestriction];
   if (transportRestriction > 2)
@@ -21,10 +21,8 @@
   }
 
   v6 = [v3 initWithName:@"TransportRestriction" value:v5];
-  v10[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
 
   return v7;
 }

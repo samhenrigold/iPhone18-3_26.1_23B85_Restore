@@ -6,34 +6,33 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D47540];
   completionCopy = completion;
-  v6 = [[v4 alloc] initWithReason:@"Unsupported Feature"];
-  if (![(NSString *)self->_requestAceHash length])
+  v6 = [v4 alloc];
+  v10 = objc_msgSend_initWithReason_(v6, v7, @"Unsupported Feature", v8, v9);
+  if (!objc_msgSend_length(self->_requestAceHash, v11, v12, v13, v14))
   {
-    aceId = [(MPAssistantGeniusSummon *)self aceId];
-    v8 = sub_233505670(@"Genius Summon", aceId);
+    v19 = objc_msgSend_aceId(self, v15, v16, v17, v18);
+    v20 = sub_233505670(@"Genius Summon", v19);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v8;
+    self->_requestAceHash = v20;
   }
 
-  v10 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v22 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    v11 = self->_requestAceHash;
-    dictionary = [v6 dictionary];
-    v15 = 138543618;
-    v16 = v11;
-    v17 = 2114;
-    v18 = dictionary;
-    _os_log_impl(&dword_2334D9000, v10, OS_LOG_TYPE_ERROR, "Genius Summon (completion) <%{public}@>: notifying assistant %{public}@", &v15, 0x16u);
+    v27 = self->_requestAceHash;
+    v28 = objc_msgSend_dictionary(v10, v23, v24, v25, v26);
+    v34 = 138543618;
+    v35 = v27;
+    v36 = 2114;
+    v37 = v28;
+    _os_log_impl(&dword_2334D9000, v22, OS_LOG_TYPE_ERROR, "Genius Summon (completion) <%{public}@>: notifying assistant %{public}@", &v34, 0x16u);
   }
 
-  dictionary2 = [v6 dictionary];
-  completionCopy[2](completionCopy, dictionary2);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v33 = objc_msgSend_dictionary(v10, v29, v30, v31, v32);
+  completionCopy[2](completionCopy, v33);
 }
 
 @end

@@ -124,7 +124,7 @@ id __35__SUScriptMenuViewController_items__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __43__SUScriptMenuViewController_selectedIndex__block_invoke(uint64_t a1)
+void *__43__SUScriptMenuViewController_selectedIndex__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_viewController")];
   *(*(*(a1 + 40) + 8) + 24) = result;

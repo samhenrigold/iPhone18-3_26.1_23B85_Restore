@@ -56,7 +56,7 @@ LABEL_12:
 
 - (uint64_t)sectionNumber
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -89,11 +89,10 @@ LABEL_12:
 
       _NSCoreDataLog_console(1, "(NSFetchedResultsController) section '%@' not found in controller", [v1 name]);
       objc_autoreleasePoolPop(v4);
-      result = 0x7FFFFFFFFFFFFFFFLL;
+      return 0x7FFFFFFFFFFFFFFFLL;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 

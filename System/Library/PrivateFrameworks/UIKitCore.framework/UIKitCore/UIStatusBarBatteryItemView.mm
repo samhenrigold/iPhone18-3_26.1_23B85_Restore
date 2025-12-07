@@ -360,7 +360,7 @@ LABEL_15:
 
     else
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
     v10 = ;
 

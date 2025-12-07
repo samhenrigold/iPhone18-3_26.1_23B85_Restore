@@ -1,8 +1,12 @@
 @interface ASDSliderControl
++ (id)sliderControlWithValue:(unsigned int)value andRange:(_ASDSliderRange)range isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin;
+- (ASDSliderControl)initWithValue:(unsigned int)value andRange:(_ASDSliderRange)range isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)d;
 - (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable;
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (_ASDSliderRange)range;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 - (unsigned)value;
 - (void)setRange:(_ASDSliderRange)range;
@@ -10,6 +14,42 @@
 @end
 
 @implementation ASDSliderControl
+
+- (ASDSliderControl)initWithValue:(unsigned int)value andRange:(_ASDSliderRange)range isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)d
+{
+  v9 = *&scope;
+  v10 = *&element;
+  mMinimum = range.mMinimum;
+  mMaximum = range.mMaximum;
+  pluginCopy = plugin;
+  if (mMinimum > mMaximum)
+  {
+    [ASDSliderControl initWithValue:a2 andRange:self isSettable:? forElement:? inScope:? withPlugin:? andObjectClassID:?];
+  }
+
+  v29.receiver = self;
+  v29.super_class = ASDSliderControl;
+  v18 = [(ASDControl *)&v29 initWithElement:v10 inScope:v9 withPlugin:pluginCopy andObjectClassID:d];
+  v19 = v18;
+  if (v18)
+  {
+    v18->_value = value;
+    v18->_range.mMinimum = mMinimum;
+    v18->_range.mMaximum = mMaximum;
+    v18->_settable = settable;
+    v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    bundleIdentifier = [v20 bundleIdentifier];
+    v22 = MEMORY[0x277CCACA8];
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
+    v25 = [v22 stringWithFormat:@"%@.%@.%p", bundleIdentifier, v24, v19];
+    v26 = dispatch_queue_create([v25 UTF8String], 0);
+    valueQueue = v19->_valueQueue;
+    v19->_valueQueue = v26;
+  }
+
+  return v19;
+}
 
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property
 {
@@ -129,6 +169,64 @@ LABEL_10:
     v6.super_class = ASDSliderControl;
     return [(ASDObject *)&v6 isPropertySettable:?];
   }
+}
+
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  if (!property)
+  {
+    goto LABEL_14;
+  }
+
+  v8 = *&client;
+  v10 = *&dataSize;
+  v12 = *&size;
+  v15 = [(ASDSliderControl *)self hasProperty:?];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  v15 = [(ASDSliderControl *)self isPropertySettable:property];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  if (property->mSelector != 1935962742)
+  {
+    v20.receiver = self;
+    v20.super_class = ASDSliderControl;
+    LOBYTE(v15) = [(ASDObject *)&v20 setProperty:property withQualifierSize:v12 qualifierData:data dataSize:v10 andData:andData forClient:v8];
+    return v15;
+  }
+
+  if (v10 != 4)
+  {
+LABEL_14:
+    LOBYTE(v15) = 0;
+    return v15;
+  }
+
+  mMinimum = self->_range.mMinimum;
+  mMaximum = self->_range.mMaximum;
+  if (mMaximum >= *andData)
+  {
+    mMaximum = *andData;
+  }
+
+  if (mMaximum <= mMinimum)
+  {
+    v18 = mMinimum;
+  }
+
+  else
+  {
+    v18 = mMaximum;
+  }
+
+  LOBYTE(v15) = [(ASDSliderControl *)self changeValue:v18];
+  return v15;
 }
 
 - (void)setRange:(_ASDSliderRange)range
@@ -255,6 +353,41 @@ uint64_t __29__ASDSliderControl_setValue___block_invoke(uint64_t result)
   v3 = *(v7 + 6);
   _Block_object_dispose(&v6, 8);
   return v3;
+}
+
++ (id)sliderControlWithValue:(unsigned int)value andRange:(_ASDSliderRange)range isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin
+{
+  v8 = *&scope;
+  v9 = *&element;
+  settableCopy = settable;
+  v12 = *&value;
+  pluginCopy = plugin;
+  LODWORD(v16) = 1936483442;
+  v14 = [objc_alloc(objc_opt_class()) initWithValue:v12 andRange:range isSettable:settableCopy forElement:v9 inScope:v8 withPlugin:pluginCopy andObjectClassID:v16];
+
+  return v14;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v12.receiver = self;
+  v12.super_class = ASDSliderControl;
+  indentCopy = indent;
+  v7 = [(ASDControl *)&v12 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  range = [(ASDSliderControl *)self range];
+  isSettable = [(ASDSliderControl *)self isSettable];
+  v10 = @"NO";
+  if (isSettable)
+  {
+    v10 = @"YES";
+  }
+
+  [v7 appendFormat:@"%@|    Is Settable: %@\n", indentCopy, v10];
+  [v7 appendFormat:@"%@|    Value: %u\n", indentCopy, -[ASDSliderControl value](self, "value")];
+  [v7 appendFormat:@"%@|    Range: Min %u Max %u\n", indentCopy, range, HIDWORD(*&range)];
+
+  return v7;
 }
 
 - (void)initWithValue:(uint64_t)a1 andRange:(uint64_t)a2 isSettable:forElement:inScope:withPlugin:andObjectClassID:.cold.1(uint64_t a1, uint64_t a2)

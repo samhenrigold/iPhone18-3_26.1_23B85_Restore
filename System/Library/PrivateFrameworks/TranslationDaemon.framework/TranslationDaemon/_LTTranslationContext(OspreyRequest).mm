@@ -11,11 +11,11 @@
 
 - (id)_ttsVoiceStringWithLocale:()OspreyRequest
 {
-  v0 = _LTLocaleMappedForTTS();
-  v1 = _LTPreferredVoiceTypeForLocale(v0);
-  v2 = _LTVoiceTypeRemoteServiceString(v1);
+  v3 = _LTLocaleMappedForTTS();
+  v4 = _LTPreferredVoiceTypeForLocale(v3);
+  v5 = _LTVoiceTypeRemoteServiceString(v4);
 
-  return v2;
+  return v5;
 }
 
 - (FTMutableSpeechTranslationStreamingRequest)_ospreySpeechTranslationRequestWithHybridEndpointer:()OspreyRequest
@@ -37,165 +37,166 @@
   [(FTMutableStartSpeechTranslationRequest *)v5 setStreaming_mode:1];
   v11 = objc_alloc_init(FTMutableTranslationOptions);
   -[FTMutableTranslationOptions setEnable_disambiguation_alternatives:](v11, "setEnable_disambiguation_alternatives:", [self supportsGenderDisambiguation]);
-  -[FTMutableTranslationOptions setDisable_payload_logging:](v11, "setDisable_payload_logging:", LTDDisablePayloadLogging([self dataSharingOptInStatus]));
-  [(FTMutableStartSpeechTranslationRequest *)v5 setOptions:v11];
-  v12 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  dataSharingOptInStatus = [self dataSharingOptInStatus];
+  [(FTMutableTranslationOptions *)v11 setDisable_payload_logging:LTDDisablePayloadLogging(dataSharingOptInStatus, v13)];
+  v14 = [(FTMutableStartSpeechTranslationRequest *)v5 setOptions:v11];
+  v16 = _LTOSLogTranslationEngine(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    [_LTTranslationContext(OspreyRequest) _ospreySpeechTranslationRequestWithHybridEndpointer:v12];
+    [_LTTranslationContext(OspreyRequest) _ospreySpeechTranslationRequestWithHybridEndpointer:v16];
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v14 = objc_alloc_init(FTMutableTranslationLocalePair);
+  v18 = objc_alloc_init(FTMutableTranslationLocalePair);
   localePair = [self localePair];
   sourceLocale = [localePair sourceLocale];
   _ltLocaleIdentifier = [sourceLocale _ltLocaleIdentifier];
-  [(FTMutableTranslationLocalePair *)v14 setSource_locale:_ltLocaleIdentifier];
+  [(FTMutableTranslationLocalePair *)v18 setSource_locale:_ltLocaleIdentifier];
 
   localePair2 = [self localePair];
   targetLocale = [localePair2 targetLocale];
   _ltLocaleIdentifier2 = [targetLocale _ltLocaleIdentifier];
-  [(FTMutableTranslationLocalePair *)v14 setTarget_locale:_ltLocaleIdentifier2];
+  [(FTMutableTranslationLocalePair *)v18 setTarget_locale:_ltLocaleIdentifier2];
 
-  v71 = v14;
-  [array addObject:v14];
-  v73 = array;
+  v77 = v18;
+  [array addObject:v18];
+  v79 = array;
   if ([self autodetectLanguage])
   {
-    v21 = objc_alloc_init(FTMutableTranslationLocalePair);
+    v25 = objc_alloc_init(FTMutableTranslationLocalePair);
     localePair3 = [self localePair];
     targetLocale2 = [localePair3 targetLocale];
     _ltLocaleIdentifier3 = [targetLocale2 _ltLocaleIdentifier];
-    [(FTMutableTranslationLocalePair *)v21 setSource_locale:_ltLocaleIdentifier3];
+    [(FTMutableTranslationLocalePair *)v25 setSource_locale:_ltLocaleIdentifier3];
 
     localePair4 = [self localePair];
     sourceLocale2 = [localePair4 sourceLocale];
     _ltLocaleIdentifier4 = [sourceLocale2 _ltLocaleIdentifier];
-    [(FTMutableTranslationLocalePair *)v21 setTarget_locale:_ltLocaleIdentifier4];
+    [(FTMutableTranslationLocalePair *)v25 setTarget_locale:_ltLocaleIdentifier4];
 
-    array = v73;
-    [v73 addObject:v21];
+    array = v79;
+    [v79 addObject:v25];
   }
 
   [(FTMutableStartSpeechTranslationRequest *)v5 setTranslation_locale_pairs:array];
-  v28 = objc_alloc_init(FTMutableStartSpeechRequest);
+  v32 = objc_alloc_init(FTMutableStartSpeechRequest);
   uniqueID2 = [self uniqueID];
-  v30 = _LTPreferencesRequestIDOverride(uniqueID2);
-  [(FTMutableStartSpeechRequest *)v28 setSpeech_id:v30];
+  v34 = _LTPreferencesRequestIDOverride(uniqueID2);
+  [(FTMutableStartSpeechRequest *)v32 setSpeech_id:v34];
 
-  [(FTMutableStartSpeechRequest *)v28 setTask_name:@"MtApp"];
-  [(FTMutableStartSpeechRequest *)v28 setCodec:6];
-  [(FTMutableStartSpeechRequest *)v28 setStream_results:1];
-  [(FTMutableStartSpeechRequest *)v28 setStore_audio:1];
+  [(FTMutableStartSpeechRequest *)v32 setTask_name:@"MtApp"];
+  [(FTMutableStartSpeechRequest *)v32 setCodec:6];
+  [(FTMutableStartSpeechRequest *)v32 setStream_results:1];
+  [(FTMutableStartSpeechRequest *)v32 setStore_audio:1];
   autoEndpoint = [self autoEndpoint];
-  [(FTMutableStartSpeechRequest *)v28 setEnd_point_mode:autoEndpoint];
-  [(FTMutableStartSpeechRequest *)v28 setEnable_server_side_endpoint:autoEndpoint];
-  [(FTMutableStartSpeechRequest *)v28 setClient_endpointer_model_version:@"1"];
-  [(FTMutableStartSpeechRequest *)v28 setEnable_hybrid_endpoint:autoEndpoint & a3];
-  [(FTMutableStartSpeechRequest *)v28 setKeyboard_identifier:&stru_284834138];
-  [(FTMutableStartSpeechRequest *)v28 setInput_origin:&stru_284834138];
-  [(FTMutableStartSpeechRequest *)v28 setInitial_recognition_candidate_id:0];
-  [(FTMutableStartSpeechRequest *)v28 setDisable_auto_punctuation:1];
-  [(FTMutableStartSpeechTranslationRequest *)v5 setStart_speech_request:v28];
-  v32 = objc_alloc_init(FTMutableTranslationRequest);
+  [(FTMutableStartSpeechRequest *)v32 setEnd_point_mode:autoEndpoint];
+  [(FTMutableStartSpeechRequest *)v32 setEnable_server_side_endpoint:autoEndpoint];
+  [(FTMutableStartSpeechRequest *)v32 setClient_endpointer_model_version:@"1"];
+  [(FTMutableStartSpeechRequest *)v32 setEnable_hybrid_endpoint:autoEndpoint & a3];
+  [(FTMutableStartSpeechRequest *)v32 setKeyboard_identifier:&stru_284834138];
+  [(FTMutableStartSpeechRequest *)v32 setInput_origin:&stru_284834138];
+  [(FTMutableStartSpeechRequest *)v32 setInitial_recognition_candidate_id:0];
+  [(FTMutableStartSpeechRequest *)v32 setDisable_auto_punctuation:1];
+  [(FTMutableStartSpeechTranslationRequest *)v5 setStart_speech_request:v32];
+  v36 = objc_alloc_init(FTMutableTranslationRequest);
   uniqueID3 = [self uniqueID];
-  v34 = _LTPreferencesRequestIDOverride(uniqueID3);
-  [(FTMutableTranslationRequest *)v32 setSpeech_id:v34];
+  v38 = _LTPreferencesRequestIDOverride(uniqueID3);
+  [(FTMutableTranslationRequest *)v36 setSpeech_id:v38];
 
   uniqueID4 = [self uniqueID];
-  v36 = _LTPreferencesRequestIDOverride(uniqueID4);
-  [(FTMutableTranslationRequest *)v32 setRequest_id:v36];
+  v40 = _LTPreferencesRequestIDOverride(uniqueID4);
+  [(FTMutableTranslationRequest *)v36 setRequest_id:v40];
 
   [self taskHint];
-  v37 = _LTTranslationModelTaskString();
-  [(FTMutableTranslationRequest *)v32 setTask:v37];
+  v41 = _LTTranslationModelTaskString();
+  [(FTMutableTranslationRequest *)v36 setTask:v41];
 
-  [(FTMutableTranslationRequest *)v32 setOptions:v11];
-  v38 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  v42 = [(FTMutableTranslationRequest *)v36 setOptions:v11];
+  v44 = _LTOSLogTranslationEngine(v42, v43);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
   {
-    [_LTTranslationContext(OspreyRequest) _ospreySpeechTranslationRequestWithHybridEndpointer:v38];
+    [_LTTranslationContext(OspreyRequest) _ospreySpeechTranslationRequestWithHybridEndpointer:v44];
   }
 
-  v72 = v11;
-  [(FTMutableStartSpeechTranslationRequest *)v5 setTranslation_request:v32];
+  v78 = v11;
+  [(FTMutableStartSpeechTranslationRequest *)v5 setTranslation_request:v36];
   array2 = [MEMORY[0x277CBEB18] array];
-  v40 = objc_alloc_init(FTMutableTextToSpeechRequest);
+  v46 = objc_alloc_init(FTMutableTextToSpeechRequest);
   uniqueID5 = [self uniqueID];
-  v42 = _LTPreferencesRequestIDOverride(uniqueID5);
-  [(FTMutableTextToSpeechRequest *)v40 setSpeech_id:v42];
+  v48 = _LTPreferencesRequestIDOverride(uniqueID5);
+  [(FTMutableTextToSpeechRequest *)v46 setSpeech_id:v48];
 
   uniqueID6 = [self uniqueID];
-  v44 = _LTPreferencesRequestIDOverride(uniqueID6);
-  [(FTMutableTextToSpeechRequest *)v40 setSession_id:v44];
+  v50 = _LTPreferencesRequestIDOverride(uniqueID6);
+  [(FTMutableTextToSpeechRequest *)v46 setSession_id:v50];
 
   localePair5 = [self localePair];
   targetLocale3 = [localePair5 targetLocale];
   _ltLocaleIdentifier5 = [targetLocale3 _ltLocaleIdentifier];
-  [(FTMutableTextToSpeechRequest *)v40 setLanguage:_ltLocaleIdentifier5];
+  [(FTMutableTextToSpeechRequest *)v46 setLanguage:_ltLocaleIdentifier5];
 
   localePair6 = [self localePair];
   targetLocale4 = [localePair6 targetLocale];
-  v50 = [self _ttsVoiceStringWithLocale:targetLocale4];
-  [(FTMutableTextToSpeechRequest *)v40 setGender:v50];
+  v56 = [self _ttsVoiceStringWithLocale:targetLocale4];
+  [(FTMutableTextToSpeechRequest *)v46 setGender:v56];
 
-  [(FTMutableTextToSpeechRequest *)v40 setAudio_type:1];
-  v51 = objc_alloc_init(FTMutableTextToSpeechRequestMeta);
+  [(FTMutableTextToSpeechRequest *)v46 setAudio_type:1];
+  v57 = objc_alloc_init(FTMutableTextToSpeechRequestMeta);
   clientIdentifier2 = [self clientIdentifier];
-  [(FTMutableTextToSpeechRequestMeta *)v51 setApp_id:clientIdentifier2];
+  [(FTMutableTextToSpeechRequestMeta *)v57 setApp_id:clientIdentifier2];
 
-  [(FTMutableTextToSpeechRequestMeta *)v51 setChannel_type:2];
-  [(FTMutableTextToSpeechRequest *)v40 setMeta_info:v51];
-  [array2 addObject:v40];
+  [(FTMutableTextToSpeechRequestMeta *)v57 setChannel_type:2];
+  [(FTMutableTextToSpeechRequest *)v46 setMeta_info:v57];
+  [array2 addObject:v46];
   if ([self autodetectLanguage])
   {
-    v53 = objc_alloc_init(FTMutableTextToSpeechRequest);
+    v59 = objc_alloc_init(FTMutableTextToSpeechRequest);
     uniqueID7 = [self uniqueID];
-    v55 = _LTPreferencesRequestIDOverride(uniqueID7);
-    [(FTMutableTextToSpeechRequest *)v53 setSpeech_id:v55];
+    v61 = _LTPreferencesRequestIDOverride(uniqueID7);
+    [(FTMutableTextToSpeechRequest *)v59 setSpeech_id:v61];
 
     uniqueID8 = [self uniqueID];
-    v57 = _LTPreferencesRequestIDOverride(uniqueID8);
-    [(FTMutableTextToSpeechRequest *)v53 setSession_id:v57];
+    v63 = _LTPreferencesRequestIDOverride(uniqueID8);
+    [(FTMutableTextToSpeechRequest *)v59 setSession_id:v63];
 
     localePair7 = [self localePair];
     sourceLocale3 = [localePair7 sourceLocale];
     [sourceLocale3 _ltLocaleIdentifier];
-    v70 = v5;
-    v60 = v32;
-    v62 = v61 = array2;
-    [(FTMutableTextToSpeechRequest *)v53 setLanguage:v62];
+    v76 = v5;
+    v66 = v36;
+    v68 = v67 = array2;
+    [(FTMutableTextToSpeechRequest *)v59 setLanguage:v68];
 
     localePair8 = [self localePair];
     sourceLocale4 = [localePair8 sourceLocale];
-    v65 = [self _ttsVoiceStringWithLocale:sourceLocale4];
-    [(FTMutableTextToSpeechRequest *)v53 setGender:v65];
+    v71 = [self _ttsVoiceStringWithLocale:sourceLocale4];
+    [(FTMutableTextToSpeechRequest *)v59 setGender:v71];
 
-    array2 = v61;
-    v32 = v60;
-    v5 = v70;
+    array2 = v67;
+    v36 = v66;
+    v5 = v76;
 
-    [(FTMutableTextToSpeechRequest *)v53 setAudio_type:1];
-    v66 = objc_alloc_init(FTMutableTextToSpeechRequestMeta);
+    [(FTMutableTextToSpeechRequest *)v59 setAudio_type:1];
+    v72 = objc_alloc_init(FTMutableTextToSpeechRequestMeta);
     clientIdentifier3 = [self clientIdentifier];
-    [(FTMutableTextToSpeechRequestMeta *)v66 setApp_id:clientIdentifier3];
+    [(FTMutableTextToSpeechRequestMeta *)v72 setApp_id:clientIdentifier3];
 
-    [(FTMutableTextToSpeechRequestMeta *)v66 setChannel_type:2];
-    [(FTMutableTextToSpeechRequest *)v53 setMeta_info:v66];
-    [array2 addObject:v53];
+    [(FTMutableTextToSpeechRequestMeta *)v72 setChannel_type:2];
+    [(FTMutableTextToSpeechRequest *)v59 setMeta_info:v72];
+    [array2 addObject:v59];
   }
 
   [(FTMutableStartSpeechTranslationRequest *)v5 setText_to_speech_requests:array2];
-  v68 = objc_alloc_init(FTMutableSpeechTranslationStreamingRequest);
-  [(FTMutableSpeechTranslationStreamingRequest *)v68 setContent_type:1];
-  [(FTMutableSpeechTranslationStreamingRequest *)v68 setContentAsFTStartSpeechTranslationRequest:v5];
+  v74 = objc_alloc_init(FTMutableSpeechTranslationStreamingRequest);
+  [(FTMutableSpeechTranslationStreamingRequest *)v74 setContent_type:1];
+  [(FTMutableSpeechTranslationStreamingRequest *)v74 setContentAsFTStartSpeechTranslationRequest:v5];
 
-  return v68;
+  return v74;
 }
 
 - (FTMutableSpeechTranslationStreamingRequest)_ospreyTextToSpeechTranslationRequestWithText:()OspreyRequest
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(FTMutableStartSpeechTranslationRequest);
   uniqueID = [self uniqueID];
@@ -214,91 +215,90 @@
   [(FTMutableStartSpeechTranslationRequest *)v5 setStreaming_mode:0];
   v11 = objc_alloc_init(FTMutableTranslationOptions);
   -[FTMutableTranslationOptions setEnable_disambiguation_alternatives:](v11, "setEnable_disambiguation_alternatives:", [self supportsGenderDisambiguation]);
-  -[FTMutableTranslationOptions setDisable_payload_logging:](v11, "setDisable_payload_logging:", LTDDisablePayloadLogging([self dataSharingOptInStatus]));
-  [(FTMutableStartSpeechTranslationRequest *)v5 setOptions:v11];
-  v12 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  dataSharingOptInStatus = [self dataSharingOptInStatus];
+  [(FTMutableTranslationOptions *)v11 setDisable_payload_logging:LTDDisablePayloadLogging(dataSharingOptInStatus, v13)];
+  v14 = [(FTMutableStartSpeechTranslationRequest *)v5 setOptions:v11];
+  v16 = _LTOSLogTranslationEngine(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    [_LTTranslationContext(OspreyRequest) _ospreyTextToSpeechTranslationRequestWithText:v12];
+    [_LTTranslationContext(OspreyRequest) _ospreyTextToSpeechTranslationRequestWithText:v16];
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v14 = objc_alloc_init(FTMutableTranslationLocalePair);
+  v18 = objc_alloc_init(FTMutableTranslationLocalePair);
   localePair = [self localePair];
   sourceLocale = [localePair sourceLocale];
   _ltLocaleIdentifier = [sourceLocale _ltLocaleIdentifier];
-  [(FTMutableTranslationLocalePair *)v14 setSource_locale:_ltLocaleIdentifier];
+  [(FTMutableTranslationLocalePair *)v18 setSource_locale:_ltLocaleIdentifier];
 
   localePair2 = [self localePair];
   targetLocale = [localePair2 targetLocale];
   _ltLocaleIdentifier2 = [targetLocale _ltLocaleIdentifier];
-  [(FTMutableTranslationLocalePair *)v14 setTarget_locale:_ltLocaleIdentifier2];
+  [(FTMutableTranslationLocalePair *)v18 setTarget_locale:_ltLocaleIdentifier2];
 
-  [array addObject:v14];
-  v47 = array;
+  [array addObject:v18];
+  v52 = array;
   [(FTMutableStartSpeechTranslationRequest *)v5 setTranslation_locale_pairs:array];
-  v21 = objc_alloc_init(FTMutableTranslationRequest);
+  v25 = objc_alloc_init(FTMutableTranslationRequest);
   uniqueID2 = [self uniqueID];
-  v23 = _LTPreferencesRequestIDOverride(uniqueID2);
-  [(FTMutableTranslationRequest *)v21 setSpeech_id:v23];
+  v27 = _LTPreferencesRequestIDOverride(uniqueID2);
+  [(FTMutableTranslationRequest *)v25 setSpeech_id:v27];
 
   uniqueID3 = [self uniqueID];
-  v25 = _LTPreferencesRequestIDOverride(uniqueID3);
-  [(FTMutableTranslationRequest *)v21 setRequest_id:v25];
+  v29 = _LTPreferencesRequestIDOverride(uniqueID3);
+  [(FTMutableTranslationRequest *)v25 setRequest_id:v29];
 
   [self taskHint];
-  v26 = _LTTranslationModelTaskString();
-  [(FTMutableTranslationRequest *)v21 setTask:v26];
+  v30 = _LTTranslationModelTaskString();
+  [(FTMutableTranslationRequest *)v25 setTask:v30];
 
-  v48[0] = v4;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
-  [(FTMutableTranslationRequest *)v21 setTranslation_phrase:v27];
+  v53[0] = v4;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+  [(FTMutableTranslationRequest *)v25 setTranslation_phrase:v31];
 
-  -[FTMutableTranslationRequest setIs_partial:](v21, "setIs_partial:", [self isFinal] ^ 1);
-  [(FTMutableTranslationRequest *)v21 setOptions:v11];
-  v28 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  -[FTMutableTranslationRequest setIs_partial:](v25, "setIs_partial:", [self isFinal] ^ 1);
+  v32 = [(FTMutableTranslationRequest *)v25 setOptions:v11];
+  v34 = _LTOSLogTranslationEngine(v32, v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
-    [_LTTranslationContext(OspreyRequest) _ospreyTextToSpeechTranslationRequestWithText:v28];
+    [_LTTranslationContext(OspreyRequest) _ospreyTextToSpeechTranslationRequestWithText:v34];
   }
 
-  [(FTMutableStartSpeechTranslationRequest *)v5 setTranslation_request:v21, v4];
+  [(FTMutableStartSpeechTranslationRequest *)v5 setTranslation_request:v25, v4];
   array2 = [MEMORY[0x277CBEB18] array];
-  v30 = objc_alloc_init(FTMutableTextToSpeechRequest);
+  v36 = objc_alloc_init(FTMutableTextToSpeechRequest);
   uniqueID4 = [self uniqueID];
-  v32 = _LTPreferencesRequestIDOverride(uniqueID4);
-  [(FTMutableTextToSpeechRequest *)v30 setSpeech_id:v32];
+  v38 = _LTPreferencesRequestIDOverride(uniqueID4);
+  [(FTMutableTextToSpeechRequest *)v36 setSpeech_id:v38];
 
   uniqueID5 = [self uniqueID];
-  v34 = _LTPreferencesRequestIDOverride(uniqueID5);
-  [(FTMutableTextToSpeechRequest *)v30 setSession_id:v34];
+  v40 = _LTPreferencesRequestIDOverride(uniqueID5);
+  [(FTMutableTextToSpeechRequest *)v36 setSession_id:v40];
 
   localePair3 = [self localePair];
   targetLocale2 = [localePair3 targetLocale];
   _ltLocaleIdentifier3 = [targetLocale2 _ltLocaleIdentifier];
-  [(FTMutableTextToSpeechRequest *)v30 setLanguage:_ltLocaleIdentifier3];
+  [(FTMutableTextToSpeechRequest *)v36 setLanguage:_ltLocaleIdentifier3];
 
   localePair4 = [self localePair];
   targetLocale3 = [localePair4 targetLocale];
-  v40 = [self _ttsVoiceStringWithLocale:targetLocale3];
-  [(FTMutableTextToSpeechRequest *)v30 setGender:v40];
+  v46 = [self _ttsVoiceStringWithLocale:targetLocale3];
+  [(FTMutableTextToSpeechRequest *)v36 setGender:v46];
 
-  [(FTMutableTextToSpeechRequest *)v30 setAudio_type:1];
-  v41 = objc_alloc_init(FTMutableTextToSpeechRequestMeta);
+  [(FTMutableTextToSpeechRequest *)v36 setAudio_type:1];
+  v47 = objc_alloc_init(FTMutableTextToSpeechRequestMeta);
   clientIdentifier2 = [self clientIdentifier];
-  [(FTMutableTextToSpeechRequestMeta *)v41 setApp_id:clientIdentifier2];
+  [(FTMutableTextToSpeechRequestMeta *)v47 setApp_id:clientIdentifier2];
 
-  [(FTMutableTextToSpeechRequestMeta *)v41 setChannel_type:2];
-  [(FTMutableTextToSpeechRequest *)v30 setMeta_info:v41];
-  [array2 addObject:v30];
+  [(FTMutableTextToSpeechRequestMeta *)v47 setChannel_type:2];
+  [(FTMutableTextToSpeechRequest *)v36 setMeta_info:v47];
+  [array2 addObject:v36];
   [(FTMutableStartSpeechTranslationRequest *)v5 setText_to_speech_requests:array2];
-  v43 = objc_alloc_init(FTMutableSpeechTranslationStreamingRequest);
-  [(FTMutableSpeechTranslationStreamingRequest *)v43 setContent_type:1];
-  [(FTMutableSpeechTranslationStreamingRequest *)v43 setContentAsFTStartSpeechTranslationRequest:v5];
+  v49 = objc_alloc_init(FTMutableSpeechTranslationStreamingRequest);
+  [(FTMutableSpeechTranslationStreamingRequest *)v49 setContent_type:1];
+  [(FTMutableSpeechTranslationStreamingRequest *)v49 setContentAsFTStartSpeechTranslationRequest:v5];
 
-  v44 = *MEMORY[0x277D85DE8];
-
-  return v43;
+  return v49;
 }
 
 - (FTMutableTextToSpeechRequest)_ospreyTTSRequestWithText:()OspreyRequest
@@ -445,46 +445,34 @@
 
 - (void)_ospreySpeechTranslationRequestWithHybridEndpointer:()OspreyRequest .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_0_15(&dword_232E53000, v3, v4, "Disambiguation: Creating online speech translation request (with ASR input), setting option enable_disambiguation_alternatives: %{BOOL}i", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_15(&dword_232E53000, v3, v4, "Disambiguation: Creating online speech translation request (with ASR input), setting option enable_disambiguation_alternatives: %{BOOL}i", v5, v6, v7, v8);
 }
 
 - (void)_ospreySpeechTranslationRequestWithHybridEndpointer:()OspreyRequest .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_0_15(&dword_232E53000, v3, v4, "Disambiguation: Creating FTMutableTranslationRequest as part of online speech translation request (with ASR input), setting option enable_disambiguation_alternatives: %{BOOL}i", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_15(&dword_232E53000, v3, v4, "Disambiguation: Creating FTMutableTranslationRequest as part of online speech translation request (with ASR input), setting option enable_disambiguation_alternatives: %{BOOL}i", v5, v6, v7, v8);
 }
 
 - (void)_ospreyTextToSpeechTranslationRequestWithText:()OspreyRequest .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_0_15(&dword_232E53000, v3, v4, "Disambiguation: Creating online speech translation request text-based input, setting option for enable_disambiguation_alternatives: %{BOOL}i", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_15(&dword_232E53000, v3, v4, "Disambiguation: Creating online speech translation request text-based input, setting option for enable_disambiguation_alternatives: %{BOOL}i", v5, v6, v7, v8);
 }
 
 - (void)_ospreyTextToSpeechTranslationRequestWithText:()OspreyRequest .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_0_15(&dword_232E53000, v3, v4, "Disambiguation: Creating online FTMutableTranslationRequest as part of text-based speech translation request, setting  option enable_disambiguation_alternatives: %{BOOL}i", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_15(&dword_232E53000, v3, v4, "Disambiguation: Creating online FTMutableTranslationRequest as part of text-based speech translation request, setting  option enable_disambiguation_alternatives: %{BOOL}i", v5, v6, v7, v8);
 }
 
 @end

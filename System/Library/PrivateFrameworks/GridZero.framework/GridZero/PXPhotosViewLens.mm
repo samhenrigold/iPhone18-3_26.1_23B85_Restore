@@ -102,9 +102,11 @@
 
 uint64_t __52__PXPhotosViewLens_lensForCurationLength_isDefault___block_invoke()
 {
-  lensForCurationLength_isDefault__cachedLenses = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v1 = lensForCurationLength_isDefault__cachedLenses;
+  lensForCurationLength_isDefault__cachedLenses = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (PXPhotosViewLens)grid

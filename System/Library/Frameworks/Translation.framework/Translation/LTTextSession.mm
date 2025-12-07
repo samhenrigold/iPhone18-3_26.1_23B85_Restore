@@ -24,33 +24,34 @@ void __25___LTTextSession_cancel___block_invoke(uint64_t a1)
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    if ([WeakRetained _isCancelled])
+    v4 = [WeakRetained _isCancelled];
+    if (v4)
     {
-      v4 = _LTOSLogTextAPI();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = _LTOSLogTextAPI(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_INFO, "Attempting to cancel already cancelled session; ignoring", buf, 2u);
+        _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_INFO, "Attempting to cancel already cancelled session; ignoring", buf, 2u);
       }
     }
 
     else
     {
-      [v3 _invocationCancelledSELFLogging];
-      v5 = _LTOSLogTextAPI();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = [v3 _invocationCancelledSELFLogging];
+      v9 = _LTOSLogTextAPI(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v7[0] = 0;
-        _os_log_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_INFO, "Attempting to cancel pending work from session", v7, 2u);
+        v11[0] = 0;
+        _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_INFO, "Attempting to cancel pending work from session", v11, 2u);
       }
 
-      v6 = 1;
+      v10 = 1;
       if (*(a1 + 40))
       {
-        v6 = 2;
+        v10 = 2;
       }
 
-      v3[4] = v6;
+      v3[4] = v10;
       [v3[2] cancelPendingWork];
       [v3[5] removeAllObjects];
     }
@@ -68,46 +69,47 @@ void __34___LTTextSession__prepareRequest___block_invoke(uint64_t a1)
     v5 = [*(a1 + 32) logIdentifier];
     [v4 addObject:v5];
 
-    if ([v3 _isCancelled])
+    v6 = [v3 _isCancelled];
+    if (v6)
     {
-      v6 = _LTOSLogTextAPI();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = _LTOSLogTextAPI(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __34___LTTextSession__prepareRequest___block_invoke_cold_1();
       }
 
       if (v3[4] == 1)
       {
-        v7 = 23;
+        v9 = 23;
       }
 
       else
       {
-        v7 = 22;
+        v9 = 22;
       }
 
-      v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TranslationErrorDomain" code:v7 userInfo:0];
-      [*(a1 + 32) didReceiveError:v8 forInput:0];
-      v9 = v3[5];
-      v10 = [*(a1 + 32) logIdentifier];
-      [v9 removeObject:v10];
+      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TranslationErrorDomain" code:v9 userInfo:0];
+      [*(a1 + 32) didReceiveError:v10 forInput:0];
+      v11 = v3[5];
+      v12 = [*(a1 + 32) logIdentifier];
+      [v11 removeObject:v12];
     }
 
     else
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __34___LTTextSession__prepareRequest___block_invoke_11;
-      v13[3] = &unk_278B6D7A0;
-      objc_copyWeak(&v17, (a1 + 56));
-      v14 = *(a1 + 40);
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 48);
-      v15 = v11;
-      v16 = v12;
-      [v3 _supportedLocalePairsWithCompletionHandler:v13];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __34___LTTextSession__prepareRequest___block_invoke_11;
+      v15[3] = &unk_278B6D7A0;
+      objc_copyWeak(&v19, (a1 + 56));
+      v16 = *(a1 + 40);
+      v13 = *(a1 + 32);
+      v14 = *(a1 + 48);
+      v17 = v13;
+      v18 = v14;
+      [v3 _supportedLocalePairsWithCompletionHandler:v15];
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v19);
     }
   }
 }
@@ -122,39 +124,39 @@ void __34___LTTextSession__prepareRequest___block_invoke_11(uint64_t a1, void *a
     v5 = [*(a1 + 40) batch];
     v6 = [v5 lt_hasObjectPassingTest:&__block_literal_global_14];
 
-    if (v6 & 1) != 0 || ([*(a1 + 40) isForDownloadRequest])
+    if (v6 & 1) != 0 || (v7 = [*(a1 + 40) isForDownloadRequest], (v7))
     {
-      v7 = [[_LTPreflightConfiguration alloc] initWithSession:*(a1 + 48) request:*(a1 + 40) supportedLocalePairs:v3];
-      v8 = [*(a1 + 40) logIdentifier];
-      [(_LTPreflightConfiguration *)v7 setSelfLoggingID:v8];
+      v9 = [[_LTPreflightConfiguration alloc] initWithSession:*(a1 + 48) request:*(a1 + 40) supportedLocalePairs:v3];
+      v10 = [*(a1 + 40) logIdentifier];
+      [(_LTPreflightConfiguration *)v9 setSelfLoggingID:v10];
 
-      v9 = [WeakRetained preflightChecker];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __34___LTTextSession__prepareRequest___block_invoke_16;
-      v13[3] = &unk_278B6D778;
-      v14 = *(a1 + 32);
-      objc_copyWeak(&v16, (a1 + 56));
-      v15 = *(a1 + 40);
-      [v9 preflightConfiguration:v7 completion:v13];
+      v11 = [WeakRetained preflightChecker];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __34___LTTextSession__prepareRequest___block_invoke_16;
+      v15[3] = &unk_278B6D778;
+      v16 = *(a1 + 32);
+      objc_copyWeak(&v18, (a1 + 56));
+      v17 = *(a1 + 40);
+      [v11 preflightConfiguration:v9 completion:v15];
 
-      objc_destroyWeak(&v16);
-      v10 = v14;
+      objc_destroyWeak(&v18);
+      v12 = v16;
     }
 
     else
     {
-      v11 = _LTOSLogTextAPI();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = _LTOSLogTextAPI(v7, v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __34___LTTextSession__prepareRequest___block_invoke_11_cold_1();
       }
 
-      v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TranslationErrorDomain" code:3 userInfo:0];
-      [*(a1 + 40) didReceiveError:v7 forInput:0];
-      v12 = WeakRetained[5];
-      v10 = [*(a1 + 40) logIdentifier];
-      [v12 removeObject:v10];
+      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TranslationErrorDomain" code:3 userInfo:0];
+      [*(a1 + 40) didReceiveError:v9 forInput:0];
+      v14 = WeakRetained[5];
+      v12 = [*(a1 + 40) logIdentifier];
+      [v14 removeObject:v12];
     }
   }
 }
@@ -190,45 +192,46 @@ void __34___LTTextSession__prepareRequest___block_invoke_16(uint64_t a1, void *a
 void __34___LTTextSession__prepareRequest___block_invoke_2_17(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
-    v4 = _LTOSLogTextAPI();
-    v5 = v4;
-    if (v3)
+    v5 = *(a1 + 32);
+    v6 = _LTOSLogTextAPI(WeakRetained, v3);
+    v7 = v6;
+    if (v5)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __34___LTTextSession__prepareRequest___block_invoke_2_17_cold_1((a1 + 32));
+        __34___LTTextSession__prepareRequest___block_invoke_2_17_cold_1();
       }
 
       [*(a1 + 40) didReceiveError:*(a1 + 32) forInput:0];
-      v6 = WeakRetained[5];
-      v7 = [*(a1 + 40) logIdentifier];
-      [v6 removeObject:v7];
+      v8 = v4[5];
+      v9 = [*(a1 + 40) logIdentifier];
+      [v8 removeObject:v9];
     }
 
     else
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        __34___LTTextSession__prepareRequest___block_invoke_2_17_cold_2(a1, v5);
+        __34___LTTextSession__prepareRequest___block_invoke_2_17_cold_2(a1, v7);
       }
 
-      v8 = [*(a1 + 48) resolvedSourceLocale];
-      [*(a1 + 40) setResolvedSourceLocale:v8];
+      v10 = [*(a1 + 48) resolvedSourceLocale];
+      [*(a1 + 40) setResolvedSourceLocale:v10];
 
-      v9 = [*(a1 + 48) resolvedTargetLocale];
-      [*(a1 + 40) setResolvedTargetLocale:v9];
+      v11 = [*(a1 + 48) resolvedTargetLocale];
+      [*(a1 + 40) setResolvedTargetLocale:v11];
 
-      [WeakRetained _beginBatchRequest:*(a1 + 40)];
+      [v4 _beginBatchRequest:*(a1 + 40)];
     }
   }
 }
 
 void __37___LTTextSession__beginBatchRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -237,66 +240,63 @@ void __37___LTTextSession__beginBatchRequest___block_invoke(uint64_t a1, void *a
     dispatch_assert_queue_V2(*(a1 + 32));
     if (v8)
     {
-      v10 = _LTOSLogTextAPI();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = _LTOSLogTextAPI(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __37___LTTextSession__beginBatchRequest___block_invoke_cold_1(v8, a3, v10);
+        __37___LTTextSession__beginBatchRequest___block_invoke_cold_1(v8, a3, v12);
       }
 
       [*(a1 + 40) didReceiveError:v8 forInput:0];
-      v11 = WeakRetained[5];
-      v12 = [*(a1 + 40) logIdentifier];
-      [v11 removeObject:v12];
+      v13 = WeakRetained[5];
+      v14 = [*(a1 + 40) logIdentifier];
+      [v13 removeObject:v14];
     }
 
     else
     {
-      v12 = [v7 targetText];
-      v13 = _LTOSLogTextAPI();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = [v7 targetText];
+      v16 = _LTOSLogTextAPI(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v14 = v13;
-        v18 = 134218240;
-        v19 = a3;
-        v20 = 2048;
-        v21 = [v12 length];
-        _os_log_impl(&dword_23AAF5000, v14, OS_LOG_TYPE_INFO, "Received result for item at index %zu; targetText length: %zu", &v18, 0x16u);
+        v17 = v16;
+        v20 = 134218240;
+        v21 = a3;
+        v22 = 2048;
+        v23 = [v14 length];
+        _os_log_impl(&dword_23AAF5000, v17, OS_LOG_TYPE_INFO, "Received result for item at index %zu; targetText length: %zu", &v20, 0x16u);
       }
 
-      v15 = [*(a1 + 40) batch];
-      v16 = [v15 objectAtIndexedSubscript:a3];
+      v18 = [*(a1 + 40) batch];
+      v19 = [v18 objectAtIndexedSubscript:a3];
 
-      [*(a1 + 40) didTranslateInput:v16 withResult:v7];
+      [*(a1 + 40) didTranslateInput:v19 withResult:v7];
     }
 
     dispatch_group_leave(*(a1 + 48));
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __37___LTTextSession__beginBatchRequest___block_invoke_21(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = _LTOSLogTextAPI(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 48);
-      v8 = 134217984;
-      v9 = v4;
-      _os_log_impl(&dword_23AAF5000, v3, OS_LOG_TYPE_INFO, "Finished translating all %zu inputs", &v8, 0xCu);
+      v6 = *(a1 + 48);
+      v9 = 134217984;
+      v10 = v6;
+      _os_log_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_INFO, "Finished translating all %zu inputs", &v9, 0xCu);
     }
 
     [*(a1 + 32) didComplete];
-    v5 = WeakRetained[5];
-    v6 = [*(a1 + 32) logIdentifier];
-    [v5 removeObject:v6];
+    v7 = v4[5];
+    v8 = [*(a1 + 32) logIdentifier];
+    [v7 removeObject:v8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __61___LTTextSession_translateRequest_forSession_perItemHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -351,14 +351,14 @@ void __61___LTTextSession_translateRequest_forSession_perItemHandler___block_inv
 
 void __61___LTTextSession_translateRequest_forSession_perItemHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = a2;
+  v14 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
-    if (v15)
+    if (v14)
     {
-      v7 = [v15 translatedText];
+      v7 = [v14 translatedText];
       v8 = [v7 string];
 
       v9 = [_LTTextResult alloc];
@@ -373,7 +373,6 @@ void __61___LTTextSession_translateRequest_forSession_perItemHandler___block_inv
       v13 = 0;
     }
 
-    v14 = *(a1 + 72);
     (*(*(a1 + 56) + 16))();
     [WeakRetained _didFinishMultiParagraphRequestWithUUID:*(a1 + 48)];
   }
@@ -382,16 +381,17 @@ void __61___LTTextSession_translateRequest_forSession_perItemHandler___block_inv
 void __88___LTTextSession_preflightChecker_continueCheckingFromStep_forConfiguration_completion___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = _LTOSLogTextAPI(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_23AAF5000, v3, OS_LOG_TYPE_INFO, "Preflight checker got to step that needs user intervention, asking delegate to respond", v4, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_INFO, "Preflight checker got to step that needs user intervention, asking delegate to respond", v6, 2u);
     }
 
-    [WeakRetained _callDelegateOrGiveError:*(a1 + 32) forConfiguration:*(a1 + 40) completion:*(a1 + 48)];
+    [v4 _callDelegateOrGiveError:*(a1 + 32) forConfiguration:*(a1 + 40) completion:*(a1 + 48)];
   }
 }
 
@@ -403,14 +403,13 @@ void __88___LTTextSession_preflightChecker_continueCheckingFromStep_forConfigura
     dispatch_assert_queue_V2(*(a1 + 32));
     if (a2)
     {
-      v5 = _LTOSLogTextAPI();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = _LTOSLogTextAPI(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_INFO, "All assets are already installed, proceeding with translation", buf, 2u);
+        _os_log_impl(&dword_23AAF5000, v7, OS_LOG_TYPE_INFO, "All assets are already installed, proceeding with translation", buf, 2u);
       }
 
-      v6 = *(a1 + 40);
       (*(*(a1 + 48) + 16))();
     }
 
@@ -418,22 +417,22 @@ void __88___LTTextSession_preflightChecker_continueCheckingFromStep_forConfigura
     {
       if ([WeakRetained isHeadless])
       {
-        v7 = 16;
+        v8 = 16;
       }
 
       else
       {
-        v7 = 20;
+        v8 = 20;
       }
 
-      v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TranslationErrorDomain" code:v7 userInfo:0];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __88___LTTextSession_preflightChecker_continueCheckingFromStep_forConfiguration_completion___block_invoke_30;
-      v10[3] = &unk_278B6D840;
-      v9 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      [WeakRetained _callDelegateOrGiveError:v8 forConfiguration:v9 completion:v10];
+      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TranslationErrorDomain" code:v8 userInfo:0];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __88___LTTextSession_preflightChecker_continueCheckingFromStep_forConfiguration_completion___block_invoke_30;
+      v11[3] = &unk_278B6D840;
+      v10 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      [WeakRetained _callDelegateOrGiveError:v9 forConfiguration:v10 completion:v11];
     }
   }
 }
@@ -442,20 +441,20 @@ void __88___LTTextSession_preflightChecker_continueCheckingFromStep_forConfigura
 {
   v5 = a3;
   v6 = a2;
-  v7 = _LTOSLogTextAPI();
-  v8 = v7;
+  v8 = _LTOSLogTextAPI(v6, v7);
+  v9 = v8;
   if (v5)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __88___LTTextSession_preflightChecker_continueCheckingFromStep_forConfiguration_completion___block_invoke_30_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_23AAF5000, v8, OS_LOG_TYPE_DEFAULT, "Finished waiting on download sheet, continuing with translation", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_DEFAULT, "Finished waiting on download sheet, continuing with translation", v10, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -560,50 +559,30 @@ void __58___LTTextSession__didFinishMultiParagraphRequestWithUUID___block_invoke
   }
 }
 
-void __34___LTTextSession__prepareRequest___block_invoke_2_17_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __34___LTTextSession__prepareRequest___block_invoke_2_17_cold_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 48);
   v4 = a2;
   v5 = [v3 resolvedSourceLocale];
   v6 = [v5 _ltLocaleIdentifier];
   v7 = [*(a1 + 48) resolvedTargetLocale];
   v8 = [v7 _ltLocaleIdentifier];
-  v10 = 138543618;
-  v11 = v6;
-  v12 = 2114;
-  v13 = v8;
-  _os_log_debug_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_DEBUG, "Resolved preflight information, using source locale %{public}@, target locale %{public}@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543618;
+  v10 = v6;
+  v11 = 2114;
+  v12 = v8;
+  _os_log_debug_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_DEBUG, "Resolved preflight information, using source locale %{public}@, target locale %{public}@", &v9, 0x16u);
 }
 
 void __37___LTTextSession__beginBatchRequest___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_23AAF5000, log, OS_LOG_TYPE_ERROR, "Failed to translate input %zu; returning error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __88___LTTextSession_preflightChecker_continueCheckingFromStep_forConfiguration_completion___block_invoke_30_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_23AAF5000, log, OS_LOG_TYPE_ERROR, "Failed to translate input %zu; returning error: %@", &v3, 0x16u);
 }
 
 @end

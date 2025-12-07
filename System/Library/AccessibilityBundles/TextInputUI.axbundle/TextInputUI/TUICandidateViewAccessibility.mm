@@ -24,38 +24,38 @@
 
 - (id)_accessibilityScannerGroupElements
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   defaultSwitchControlOptions = [MEMORY[0x29EDC7328] defaultSwitchControlOptions];
   v3 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v39 = 0;
+  v38 = 0;
   objc_opt_class();
   v4 = __UIAccessibilityCastAsClass();
   v5 = v4;
   subviews = [v4 subviews];
 
-  v7 = [subviews countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v7 = [subviews countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v41;
+    v9 = *v40;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v41 != v9)
+        if (*v40 != v9)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v11 = [*(*(&v40 + 1) + 8 * i) _accessibilityLeafDescendantsWithOptions:defaultSwitchControlOptions];
+        v11 = [*(*(&v39 + 1) + 8 * i) _accessibilityLeafDescendantsWithOptions:defaultSwitchControlOptions];
         [v3 axSafelyAddObjectsFromArray:v11];
       }
 
-      v8 = [subviews countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v8 = [subviews countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v8);
@@ -69,29 +69,29 @@
 
     if (isKindOfClass)
     {
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v14 = v3;
-      v15 = [v14 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v34 objects:v43 count:16];
       if (!v15)
       {
         goto LABEL_19;
       }
 
       v16 = v15;
-      v17 = *v36;
+      v17 = *v35;
 LABEL_13:
       v18 = 0;
       while (1)
       {
-        if (*v36 != v17)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v35 + 1) + 8 * v18);
+        v19 = *(*(&v34 + 1) + 8 * v18);
         MEMORY[0x29ED3C2C0](@"TUICandidateArrowButton");
         if (objc_opt_isKindOfClass())
         {
@@ -100,7 +100,7 @@ LABEL_13:
 
         if (v16 == ++v18)
         {
-          v16 = [v14 countByEnumeratingWithState:&v35 objects:v44 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v34 objects:v43 count:16];
           if (!v16)
           {
 LABEL_19:
@@ -116,13 +116,13 @@ LABEL_19:
 
       if (v20)
       {
-        v39 = 0;
+        v38 = 0;
         objc_opt_class();
         firstObject2 = [v14 firstObject];
         v22 = [firstObject2 objectForKeyedSubscript:@"GroupElements"];
         v23 = __UIAccessibilityCastAsClass();
 
-        if (v39 != 1)
+        if (v38 != 1)
         {
           if ([v23 count] != 1)
           {
@@ -138,13 +138,13 @@ LABEL_19:
             goto LABEL_28;
           }
 
-          v39 = 0;
+          v38 = 0;
           objc_opt_class();
           firstObject4 = [v23 firstObject];
           v27 = [firstObject4 objectForKeyedSubscript:@"GroupElements"];
           v28 = __UIAccessibilityCastAsClass();
 
-          if (v39 != 1)
+          if (v38 != 1)
           {
             v29 = [v28 mutableCopy];
 
@@ -173,8 +173,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v33 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

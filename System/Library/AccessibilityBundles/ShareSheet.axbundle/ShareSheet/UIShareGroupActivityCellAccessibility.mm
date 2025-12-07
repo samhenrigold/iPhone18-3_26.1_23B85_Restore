@@ -44,7 +44,7 @@
 
 - (CGRect)accessibilityFrame
 {
-  if ((accessibilityIsPagesApp() & 1) == 0)
+  if ((accessibilityIsPagesApp(self, a2) & 1) == 0)
   {
     v34.receiver = self;
     v34.super_class = UIShareGroupActivityCellAccessibility;

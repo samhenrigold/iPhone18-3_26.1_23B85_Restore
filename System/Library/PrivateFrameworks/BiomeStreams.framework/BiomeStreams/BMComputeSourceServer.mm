@@ -9,6 +9,7 @@
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply;
 - (void)eventsPrunedWithStreamIdentifier:(id)identifier account:(id)account remoteName:(id)name reason:(unint64_t)reason;
 - (void)replyToInvocation:(id)invocation withError:(id)error;
+- (void)sendEventWithStreamIdentifier:(id)identifier timestamp:(id)timestamp signpostID:(unint64_t)d eventData:(id)data eventDataVersion:(unsigned int)version account:(id)account remoteName:(id)name;
 @end
 
 @implementation BMComputeSourceServer
@@ -78,7 +79,7 @@ LABEL_5:
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = objc_autoreleasePoolPush();
@@ -87,11 +88,11 @@ LABEL_5:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     executableName = [v9 executableName];
-    v19 = 138543618;
-    v20 = executableName;
-    v21 = 1024;
-    v22 = [v9 pid];
-    _os_log_impl(&dword_1848EE000, v10, OS_LOG_TYPE_DEFAULT, "Incoming connection from %{public}@(%d)", &v19, 0x12u);
+    v18 = 138543618;
+    v19 = executableName;
+    v20 = 1024;
+    v21 = [v9 pid];
+    _os_log_impl(&dword_1848EE000, v10, OS_LOG_TYPE_DEFAULT, "Incoming connection from %{public}@(%d)", &v18, 0x12u);
   }
 
   v12 = [MEMORY[0x1E698E970] policyForProcess:v9 connectionFlags:0 useCase:*MEMORY[0x1E698E948]];
@@ -119,7 +120,6 @@ LABEL_5:
   }
 
   objc_autoreleasePoolPop(v8);
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -229,12 +229,12 @@ LABEL_16:
 
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   invocationCopy = invocation;
-  v22 = 0;
-  v9 = [(BMComputeSourceServer *)self validateConnection:connectionCopy error:&v22];
-  v10 = v22;
+  v21 = 0;
+  v9 = [(BMComputeSourceServer *)self validateConnection:connectionCopy error:&v21];
+  v10 = v21;
   if (v9)
   {
     [invocationCopy selector];
@@ -253,12 +253,12 @@ LABEL_16:
 
       v13 = MEMORY[0x1E696ABC0];
       v14 = *MEMORY[0x1E698E8C8];
-      v23 = *MEMORY[0x1E696A578];
+      v22 = *MEMORY[0x1E696A578];
       v15 = MEMORY[0x1E696AEC0];
       v16 = NSStringFromSelector([invocationCopy selector]);
       v17 = [v15 stringWithFormat:@"Failed to route request -%@", v16];
-      v24 = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v23 = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       v19 = [v13 errorWithDomain:v14 code:6 userInfo:v18];
 
       [(BMComputeSourceServer *)self replyToInvocation:invocationCopy withError:v19];
@@ -272,26 +272,24 @@ LABEL_16:
     v11 = __biome_log_for_category();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v21 = NSStringFromSelector([invocationCopy selector]);
+      v20 = NSStringFromSelector([invocationCopy selector]);
       *buf = 138412802;
-      v26 = v21;
-      v27 = 2112;
-      v28 = connectionCopy;
-      v29 = 2112;
-      v30 = v10;
+      v25 = v20;
+      v26 = 2112;
+      v27 = connectionCopy;
+      v28 = 2112;
+      v29 = v10;
       _os_log_fault_impl(&dword_1848EE000, v11, OS_LOG_TYPE_FAULT, "Request -%@ from %@ failed validation with error %@", buf, 0x20u);
     }
 
     [(BMComputeSourceServer *)self replyToInvocation:invocationCopy withError:v10];
     [connectionCopy invalidate];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)validateConnection:(id)connection error:(id *)error
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   bm_remoteUseCase = [connectionCopy bm_remoteUseCase];
   if (bm_remoteUseCase)
@@ -310,9 +308,9 @@ LABEL_16:
         {
           v26 = MEMORY[0x1E696ABC0];
           v27 = *MEMORY[0x1E698E8C8];
-          v32 = *MEMORY[0x1E696A578];
-          v33 = @"Use case already set";
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+          v31 = *MEMORY[0x1E696A578];
+          v32 = @"Use case already set";
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
           v20 = v26;
           v21 = v27;
           v22 = 5;
@@ -331,11 +329,11 @@ LABEL_16:
         {
           v14 = MEMORY[0x1E696ABC0];
           v15 = *MEMORY[0x1E698E8C8];
-          v30 = *MEMORY[0x1E696A578];
-          v31 = @"Connection missing use-case";
+          v29 = *MEMORY[0x1E696A578];
+          v30 = @"Connection missing use-case";
           v16 = MEMORY[0x1E695DF20];
-          v17 = &v31;
-          v18 = &v30;
+          v17 = &v30;
+          v18 = &v29;
 LABEL_9:
           v19 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
           v20 = v14;
@@ -375,23 +373,118 @@ LABEL_16:
   {
     v14 = MEMORY[0x1E696ABC0];
     v15 = *MEMORY[0x1E698E8C8];
-    v34 = *MEMORY[0x1E696A578];
-    v35[0] = @"Connection missing use-case";
+    v33 = *MEMORY[0x1E696A578];
+    v34[0] = @"Connection missing use-case";
     v16 = MEMORY[0x1E695DF20];
-    v17 = v35;
-    v18 = &v34;
+    v17 = v34;
+    v18 = &v33;
     goto LABEL_9;
   }
 
 LABEL_17:
 
-  v28 = *MEMORY[0x1E69E9840];
   return error;
+}
+
+- (void)sendEventWithStreamIdentifier:(id)identifier timestamp:(id)timestamp signpostID:(unint64_t)d eventData:(id)data eventDataVersion:(unsigned int)version account:(id)account remoteName:(id)name
+{
+  v10 = *&version;
+  identifierCopy = identifier;
+  timestampCopy = timestamp;
+  dataCopy = data;
+  accountCopy = account;
+  nameCopy = name;
+  currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
+  bm_accessControlPolicy = [currentConnection bm_accessControlPolicy];
+
+  queue = [(BMComputeSourceServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v23 = __biome_log_for_category();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  {
+    [BMComputeSourceServer sendEventWithStreamIdentifier:timestamp:signpostID:eventData:eventDataVersion:account:remoteName:];
+  }
+
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __122__BMComputeSourceServer_sendEventWithStreamIdentifier_timestamp_signpostID_eventData_eventDataVersion_account_remoteName___block_invoke;
+  aBlock[3] = &unk_1E6E539A8;
+  dCopy = d;
+  v24 = identifierCopy;
+  v34 = v24;
+  v25 = _Block_copy(aBlock);
+  if (!v24)
+  {
+    v31 = __biome_log_for_category();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      [BMComputeSourceServer sendEventWithStreamIdentifier:timestamp:signpostID:eventData:eventDataVersion:account:remoteName:];
+    }
+
+    goto LABEL_20;
+  }
+
+  if (([bm_accessControlPolicy allowsComputeSourceAccessToStream:v24] & 1) == 0)
+  {
+    v31 = __biome_log_for_category();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      [BMComputeSourceServer sendEventWithStreamIdentifier:timestamp:signpostID:eventData:eventDataVersion:account:remoteName:];
+    }
+
+    goto LABEL_20;
+  }
+
+  if (!dataCopy)
+  {
+    v30 = 0;
+    goto LABEL_15;
+  }
+
+  v26 = BMEventClassForStreamIdentifier(v24);
+  if (!v26)
+  {
+    v31 = __biome_log_for_category();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      [BMComputeSourceServer sendEventWithStreamIdentifier:timestamp:signpostID:eventData:eventDataVersion:account:remoteName:];
+    }
+
+    goto LABEL_20;
+  }
+
+  v27 = [v26 eventWithData:dataCopy dataVersion:v10];
+  if (!v27)
+  {
+    v31 = __biome_log_for_category();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      [BMComputeSourceServer sendEventWithStreamIdentifier:timestamp:signpostID:eventData:eventDataVersion:account:remoteName:];
+    }
+
+LABEL_20:
+
+    v25[2](v25);
+    goto LABEL_21;
+  }
+
+  v28 = v27;
+  v29 = objc_alloc(MEMORY[0x1E698F138]);
+  [timestampCopy doubleValue];
+  v30 = [v29 initWithEventBody:v28 timestamp:?];
+
+LABEL_15:
+  source = [(BMComputeSourceServer *)self source];
+  [source sendEventWithStreamIdentifier:v24 timestamp:timestampCopy account:accountCopy remoteName:nameCopy storeEvent:v30];
+
+  v25[2](v25);
+LABEL_21:
 }
 
 void __122__BMComputeSourceServer_sendEventWithStreamIdentifier_timestamp_signpostID_eventData_eventDataVersion_account_remoteName___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 40) + 1) >= 2)
   {
     v2 = __biome_log_for_category();
@@ -400,13 +493,11 @@ void __122__BMComputeSourceServer_sendEventWithStreamIdentifier_timestamp_signpo
     if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
     {
       v5 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v5;
-      _os_signpost_emit_with_name_impl(&dword_1848EE000, v3, OS_SIGNPOST_INTERVAL_END, v4, "SendEvent", "StreamIdentifier=%@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_signpost_emit_with_name_impl(&dword_1848EE000, v3, OS_SIGNPOST_INTERVAL_END, v4, "SendEvent", "StreamIdentifier=%@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)eventsPrunedWithStreamIdentifier:(id)identifier account:(id)account remoteName:(id)name reason:(unint64_t)reason

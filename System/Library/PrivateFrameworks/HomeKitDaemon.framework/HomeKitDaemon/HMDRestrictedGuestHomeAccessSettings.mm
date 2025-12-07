@@ -26,18 +26,16 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuidsOfAllowedAccessories = [(HMDRestrictedGuestHomeAccessSettings *)self uuidsOfAllowedAccessories];
   v5 = [v3 initWithName:@"allowedAccessories" value:uuidsOfAllowedAccessories];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   schedule = [(HMDRestrictedGuestHomeAccessSettings *)self schedule];
   v8 = [v6 initWithName:@"schedule" value:schedule];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -91,20 +89,19 @@
 
 void __80__HMDRestrictedGuestHomeAccessSettings__nextScheduledIntervalFromDate_timeZone___block_invoke(void *a1, void *a2)
 {
-  v11 = a2;
-  v3 = a1[4];
-  v4 = objc_opt_class();
-  v5 = [v11 dateInterval];
-  v6 = [v5 startDate];
-  v7 = [v11 dateInterval];
-  v8 = [v7 endDate];
-  LODWORD(v4) = [v4 shouldConsiderStartDate:v6 endDate:v8 currentTime:a1[5]];
+  v10 = a2;
+  v3 = objc_opt_class();
+  v4 = [v10 dateInterval];
+  v5 = [v4 startDate];
+  v6 = [v10 dateInterval];
+  v7 = [v6 endDate];
+  LODWORD(v3) = [v3 shouldConsiderStartDate:v5 endDate:v7 currentTime:a1[5]];
 
-  if (v4)
+  if (v3)
   {
-    v9 = a1[6];
-    v10 = [v11 dateInterval];
-    [v9 addObject:v10];
+    v8 = a1[6];
+    v9 = [v10 dateInterval];
+    [v8 addObject:v9];
   }
 }
 
@@ -148,7 +145,7 @@ void __80__HMDRestrictedGuestHomeAccessSettings__nextScheduledIntervalFromDate_t
 
 void __86__HMDRestrictedGuestHomeAccessSettings_updateRestrictedGuestSettingsFromWorkingStore___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -156,11 +153,11 @@ void __86__HMDRestrictedGuestHomeAccessSettings_updateRestrictedGuestSettingsFro
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v36 = 138543618;
-    v37 = v5;
-    v38 = 2112;
-    v39 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Going to update the schedule for restricted guest : %@", &v36, 0x16u);
+    v35 = 138543618;
+    v36 = v5;
+    v37 = 2112;
+    v38 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Going to update the schedule for restricted guest : %@", &v35, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -185,13 +182,13 @@ void __86__HMDRestrictedGuestHomeAccessSettings_updateRestrictedGuestSettingsFro
       {
         v17 = HMFGetLogIdentifier();
         v18 = *(a1 + 40);
-        v36 = 138543874;
-        v37 = v17;
-        v38 = 2112;
-        v39 = v18;
-        v40 = 2112;
-        v41 = v9;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updated the allowed accessories for restricted guest: %@, to: %@", &v36, 0x20u);
+        v35 = 138543874;
+        v36 = v17;
+        v37 = 2112;
+        v38 = v18;
+        v39 = 2112;
+        v40 = v9;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updated the allowed accessories for restricted guest: %@, to: %@", &v35, 0x20u);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -211,13 +208,13 @@ void __86__HMDRestrictedGuestHomeAccessSettings_updateRestrictedGuestSettingsFro
       {
         v25 = HMFGetLogIdentifier();
         v26 = *(a1 + 40);
-        v36 = 138543874;
-        v37 = v25;
-        v38 = 2112;
-        v39 = v26;
-        v40 = 2112;
-        v41 = v19;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Updated the schedule for restricted guest: %@, to: %@", &v36, 0x20u);
+        v35 = 138543874;
+        v36 = v25;
+        v37 = 2112;
+        v38 = v26;
+        v39 = 2112;
+        v40 = v19;
+        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Updated the schedule for restricted guest: %@, to: %@", &v35, 0x20u);
       }
 
       objc_autoreleasePoolPop(v22);
@@ -242,17 +239,15 @@ void __86__HMDRestrictedGuestHomeAccessSettings_updateRestrictedGuestSettingsFro
     {
       v33 = HMFGetLogIdentifier();
       v34 = [*(a1 + 40) uuid];
-      v36 = 138543618;
-      v37 = v33;
-      v38 = 2112;
-      v39 = v34;
-      _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unable to find restricted guest in working store with UUID: %@", &v36, 0x16u);
+      v35 = 138543618;
+      v36 = v33;
+      v37 = 2112;
+      v38 = v34;
+      _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unable to find restricted guest in working store with UUID: %@", &v35, 0x16u);
     }
 
     objc_autoreleasePoolPop(v30);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -435,19 +430,18 @@ id __62__HMDRestrictedGuestHomeAccessSettings_matterWeekDaySchedules__block_invo
 
 - (HMDRestrictedGuestHomeAccessSettings)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:*MEMORY[0x277CD0D08]];
 
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CD0D18]];
 
   v10 = [(HMDRestrictedGuestHomeAccessSettings *)self initWithAllowedAccessories:v8 schedule:v9];
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -502,7 +496,7 @@ id __62__HMDRestrictedGuestHomeAccessSettings_matterWeekDaySchedules__block_invo
 
 void __55__HMDRestrictedGuestHomeAccessSettings___logIntervals___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -512,17 +506,16 @@ void __55__HMDRestrictedGuestHomeAccessSettings___logIntervals___block_invoke(ui
     v7 = HMFGetLogIdentifier();
     v8 = [v3 startDate];
     v9 = [v3 endDate];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@[%@, %@]", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@[%@, %@]", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -539,15 +532,14 @@ void __55__HMDRestrictedGuestHomeAccessSettings___logIntervals___block_invoke(ui
 
 void __51__HMDRestrictedGuestHomeAccessSettings_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_15890;
-  logCategory__hmf_once_v13_15890 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_15890;
+  logCategory__hmf_once_v13_15890 = v0;
 }
 
 + (BOOL)shouldConsiderStartDate:(id)date endDate:(id)endDate currentTime:(id)time
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   timeCopy = time;
@@ -559,28 +551,27 @@ void __51__HMDRestrictedGuestHomeAccessSettings_logCategory__block_invoke()
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v16 = v23 = v13;
+    v16 = v22 = v13;
     v17 = HMFBooleanToString();
     v18 = HMFBooleanToString();
     *buf = 138544386;
-    v25 = v16;
-    v26 = 2112;
-    v27 = dateCopy;
-    v28 = 2112;
-    v29 = v17;
-    v30 = 2112;
-    v31 = endDateCopy;
-    v32 = 2112;
-    v33 = v18;
+    v24 = v16;
+    v25 = 2112;
+    v26 = dateCopy;
+    v27 = 2112;
+    v28 = v17;
+    v29 = 2112;
+    v30 = endDateCopy;
+    v31 = 2112;
+    v32 = v18;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@startDate: %@ / in future: %@, endDate: %@ / in future: %@", buf, 0x34u);
 
-    v13 = v23;
+    v13 = v22;
   }
 
   objc_autoreleasePoolPop(v13);
   v20 = v11 != 1 || v12 != 1;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -668,7 +659,7 @@ LABEL_16:
   v28 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:startDate endDate:endDate2];
   [v5 addObject:v28];
 
-  v4 = [v5 copy];
+  v4 = objc_msgSend_copy(v5);
 LABEL_17:
 
   return v4;
@@ -676,7 +667,7 @@ LABEL_17:
 
 + (id)dateIntervalFromWeekDayRule:(id)rule currentTime:(id)time timeZone:(id)zone
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   ruleCopy = rule;
   timeCopy = time;
   zoneCopy = zone;
@@ -699,8 +690,8 @@ LABEL_17:
 
     if (minute == 59)
     {
-      v36 = v13;
-      v38 = v11;
+      v35 = v13;
+      v37 = v11;
       v17 = [timeCopy addTimeInterval:86400.0];
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
       v19 = [currentCalendar components:124 fromDate:v17];
@@ -709,12 +700,7 @@ LABEL_17:
       currentCalendar2 = [MEMORY[0x277CBEA80] currentCalendar];
       [v20 setWeekday:{objc_msgSend(currentCalendar2, "component:fromDate:", 512, timeCopy)}];
 
-      if ([v19 hour] != 23)
-      {
-        goto LABEL_20;
-      }
-
-      if ([v19 minute] == 59 && objc_msgSend(v38, "containsObject:", v20))
+      if ([v19 hour] == 23 && objc_msgSend(v19, "minute") == 59 && objc_msgSend(v37, "containsObject:", v20))
       {
         [v19 setHour:0];
         [v19 setMinute:0];
@@ -725,12 +711,11 @@ LABEL_17:
 
       else
       {
-LABEL_20:
         v23 = 0;
       }
 
-      v13 = v36;
-      v11 = v38;
+      v13 = v35;
+      v11 = v37;
       if (v23)
       {
         goto LABEL_11;
@@ -748,8 +733,8 @@ LABEL_20:
 LABEL_11:
   if ([v13 compare:v23] == 1)
   {
-    v37 = v13;
-    v39 = v11;
+    v36 = v13;
+    v38 = v11;
     startTime2 = [ruleCopy startTime];
     [startTime2 hour];
     startTime3 = [ruleCopy startTime];
@@ -764,19 +749,19 @@ LABEL_11:
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v41 = v33;
-      v42 = 2112;
-      v43 = v28;
-      v44 = 2112;
-      v45 = v29;
+      v40 = v33;
+      v41 = 2112;
+      v42 = v28;
+      v43 = 2112;
+      v44 = v29;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@weekDayRuleStart: %@, weekDayRuleEnd: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v30);
     v24 = HMMatterScheduleIntervalFromStartAndEndDates();
 
-    v13 = v37;
-    v11 = v39;
+    v13 = v36;
+    v11 = v38;
   }
 
   else
@@ -785,43 +770,42 @@ LABEL_11:
   }
 
 LABEL_17:
-  v34 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 + (id)convertWeekDayRulesToDateIntervals:(id)intervals currentTime:(id)time timeZone:(id)zone
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
   timeCopy = time;
   zoneCopy = zone;
   if (intervalsCopy && [intervalsCopy count])
   {
     v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(intervalsCopy, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v26 = intervalsCopy;
+    v25 = intervalsCopy;
     obj = intervalsCopy;
-    v31 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
-    if (v31)
+    v30 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+    if (v30)
     {
-      v12 = *v33;
-      v28 = v11;
+      v12 = *v32;
+      v27 = v11;
       selfCopy = self;
-      v27 = zoneCopy;
+      v26 = zoneCopy;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v33 != v12)
+          if (*v32 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = [self dateIntervalFromWeekDayRule:*(*(&v32 + 1) + 8 * i) currentTime:timeCopy timeZone:zoneCopy];
+          v14 = [self dateIntervalFromWeekDayRule:*(*(&v31 + 1) + 8 * i) currentTime:timeCopy timeZone:zoneCopy];
           if (v14)
           {
             v15 = objc_autoreleasePoolPush();
@@ -835,20 +819,20 @@ LABEL_17:
               v20 = v12;
               v22 = v21 = timeCopy;
               *buf = 138543874;
-              v37 = v18;
-              v38 = 2112;
-              v39 = startDate;
-              v40 = 2112;
-              v41 = v22;
+              v36 = v18;
+              v37 = 2112;
+              v38 = startDate;
+              v39 = 2112;
+              v40 = v22;
               _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@[Calculated interval : [%@, %@]]", buf, 0x20u);
 
               timeCopy = v21;
               v12 = v20;
 
-              zoneCopy = v27;
+              zoneCopy = v26;
               self = selfCopy;
 
-              v11 = v28;
+              v11 = v27;
             }
 
             objc_autoreleasePoolPop(v15);
@@ -856,22 +840,20 @@ LABEL_17:
           }
         }
 
-        v31 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
+        v30 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
-    v23 = [v11 copy];
-    intervalsCopy = v26;
+    v23 = objc_msgSend_copy(v11);
+    intervalsCopy = v25;
   }
 
   else
   {
     v23 = MEMORY[0x277CBEBF8];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

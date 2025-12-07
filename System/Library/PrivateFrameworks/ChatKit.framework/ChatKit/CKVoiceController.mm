@@ -344,20 +344,20 @@ void __27__CKVoiceController_record__block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __25__CKVoiceController_stop__block_invoke(uint64_t a1)
+void __25__CKVoiceController_stop__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "[AVVoiceController stop] about to stop recording", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "[AVVoiceController stop] about to stop recording", v5, 2u);
     }
   }
 
-  v3 = [*(a1 + 32) voiceController];
-  [v3 stopRecordForStream:objc_msgSend(*(a1 + 32) error:{"streamID"), 0}];
+  v4 = [*(a1 + 32) voiceController];
+  [v4 stopRecordForStream:objc_msgSend(*(a1 + 32) error:{"streamID"), 0}];
 }
 
 - (void)playAlertSoundForType:(int)type
@@ -374,42 +374,42 @@ void __25__CKVoiceController_stop__block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __43__CKVoiceController_playAlertSoundForType___block_invoke(uint64_t a1)
+void __43__CKVoiceController_playAlertSoundForType___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 48);
-      v9[0] = 67109120;
-      v9[1] = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "[AVVoiceController playAlertSoundForType:...] playing alert type: %u", v9, 8u);
+      v4 = *(a1 + 48);
+      v10[0] = 67109120;
+      v10[1] = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "[AVVoiceController playAlertSoundForType:...] playing alert type: %u", v10, 8u);
     }
   }
 
-  v4 = *(a1 + 48) & 0xFFFFFFFE;
-  if (*(a1 + 40) == 1768764005 && v4 == 2)
+  v5 = *(a1 + 48) & 0xFFFFFFFE;
+  if (*(a1 + 40) == 1768764005 && v5 == 2)
   {
     if (IMOSLoggingEnabled())
     {
-      v6 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v9[0]) = 0;
-        _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "[AVVoiceController playAlertSoundForType:...] activation mode was raise, resetting activation context", v9, 2u);
+        LOWORD(v10[0]) = 0;
+        _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "[AVVoiceController playAlertSoundForType:...] activation mode was raise, resetting activation context", v10, 2u);
       }
     }
 
-    v7 = [MEMORY[0x1E6958460] sharedInstance];
-    [v7 setActivationContext:MEMORY[0x1E695E0F8] error:0];
+    v8 = [MEMORY[0x1E6958460] sharedInstance];
+    [v8 setActivationContext:MEMORY[0x1E695E0F8] error:0];
   }
 
-  v8 = [*(a1 + 32) voiceController];
-  [v8 playAlertSoundForType:*(a1 + 48) overrideMode:-1];
+  v9 = [*(a1 + 32) voiceController];
+  [v9 playAlertSoundForType:*(a1 + 48) overrideMode:-1];
 
-  if (v4 == 2)
+  if (v5 == 2)
   {
     usleep(0xB71B0u);
   }
@@ -426,36 +426,36 @@ void __43__CKVoiceController_playAlertSoundForType___block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __40__CKVoiceController_releaseAudioSession__block_invoke(uint64_t a1)
+void __40__CKVoiceController_releaseAudioSession__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "[AVVoiceController releaseAudioSession]", buf, 2u);
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "[AVVoiceController releaseAudioSession]", buf, 2u);
     }
   }
 
-  v3 = [*(a1 + 32) voiceController];
-  [v3 deactivateAudioSessionForStream:objc_msgSend(*(a1 + 32) withOptions:"streamID") error:{1, 0}];
-
-  v4 = [MEMORY[0x1E6958460] sharedInstance];
-  [v4 setActivationContext:MEMORY[0x1E695E0F8] error:0];
+  v4 = [*(a1 + 32) voiceController];
+  [v4 deactivateAudioSessionForStream:objc_msgSend(*(a1 + 32) withOptions:"streamID") error:{1, 0}];
 
   v5 = [MEMORY[0x1E6958460] sharedInstance];
-  v6 = *MEMORY[0x1E6958130];
-  v11 = 0;
-  v7 = [v5 setMode:v6 error:&v11];
-  v8 = v11;
+  [v5 setActivationContext:MEMORY[0x1E695E0F8] error:0];
 
-  if ((v7 & 1) == 0)
+  v6 = [MEMORY[0x1E6958460] sharedInstance];
+  v7 = *MEMORY[0x1E6958130];
+  v12 = 0;
+  v8 = [v6 setMode:v7 error:&v12];
+  v9 = v12;
+
+  if ((v8 & 1) == 0)
   {
-    v9 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __40__CKVoiceController_releaseAudioSession__block_invoke_cold_1(v8, v9);
+      __40__CKVoiceController_releaseAudioSession__block_invoke_cold_1(v9, v10);
     }
 
     goto LABEL_11;
@@ -463,11 +463,11 @@ void __40__CKVoiceController_releaseAudioSession__block_invoke(uint64_t a1)
 
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "reverted audio session back to AVAudioSessionModeDefault", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_19020E000, v10, OS_LOG_TYPE_INFO, "reverted audio session back to AVAudioSessionModeDefault", v11, 2u);
     }
 
 LABEL_11:
@@ -507,21 +507,21 @@ LABEL_11:
   }
 }
 
-void __83__CKVoiceController_voiceControllerDidStartRecording_forStream_successfully_error___block_invoke(uint64_t a1)
+void __83__CKVoiceController_voiceControllerDidStartRecording_forStream_successfully_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "voiceControllerDidStartRecording:successfully:..., about to start updating power", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "voiceControllerDidStartRecording:successfully:..., about to start updating power", v5, 2u);
     }
   }
 
   [*(a1 + 32) startUpdatingPower];
-  v3 = [*(a1 + 32) delegate];
-  [v3 voiceControllerDidStartRecording:*(a1 + 32)];
+  v4 = [*(a1 + 32) delegate];
+  [v4 voiceControllerDidStartRecording:*(a1 + 32)];
 }
 
 - (void)voiceControllerAudioCallback:(id)callback forStream:(unint64_t)stream buffer:(id)buffer
@@ -568,32 +568,32 @@ void __67__CKVoiceController_voiceControllerAudioCallback_forStream_buffer___blo
   dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
-void __73__CKVoiceController_voiceControllerDidStopRecording_forStream_forReason___block_invoke(uint64_t a1)
+void __73__CKVoiceController_voiceControllerDidStopRecording_forStream_forReason___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "voiceControllerDidStopRecording:forReason: block run", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "voiceControllerDidStopRecording:forReason: block run", v8, 2u);
     }
   }
 
-  v3 = *(a1 + 40);
-  if (v3)
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    v4 = v3 == -11786;
+    v5 = v4 == -11786;
   }
 
   else
   {
-    v4 = 1;
+    v5 = 1;
   }
 
-  v5 = v4;
-  v6 = [*(a1 + 32) delegate];
-  [v6 voiceControllerDidFinishRecording:*(a1 + 32) successfully:v5];
+  v6 = v5;
+  v7 = [*(a1 + 32) delegate];
+  [v7 voiceControllerDidFinishRecording:*(a1 + 32) successfully:v6];
 }
 
 - (void)voiceControllerStreamInvalidated:(id)invalidated forStream:(unint64_t)stream
@@ -726,18 +726,18 @@ void __39__CKVoiceController_startUpdatingPower__block_invoke_2(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-uint64_t __33__CKVoiceController_messageSent___block_invoke(uint64_t a1)
+uint64_t __33__CKVoiceController_messageSent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "messageSent: %@", &v5, 0xCu);
+      v4 = *(a1 + 32);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "messageSent: %@", &v6, 0xCu);
     }
   }
 

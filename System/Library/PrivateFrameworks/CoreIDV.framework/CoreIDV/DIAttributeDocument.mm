@@ -194,11 +194,11 @@
 
 - (id)description
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:&stru_282E746B8];
-  v28.receiver = self;
-  v28.super_class = DIAttributeDocument;
-  v4 = [(DIAttribute *)&v28 description];
+  v27.receiver = self;
+  v27.super_class = DIAttributeDocument;
+  v4 = [(DIAttribute *)&v27 description];
   [v3 appendFormat:@"%@", v4];
 
   os_unfair_lock_lock(&self->super._lock);
@@ -206,30 +206,30 @@
   [v3 appendFormat:@"idDocType: '%@'; ", self->_idDocType];
   [v3 appendFormat:@"acceptableDocTypes: '%lu'; ", self->_acceptableDocTypes];
   [v3 appendFormat:@"acceptableDocs: [ \n"];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v5 = self->_acceptableDocs;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v24 + 1) + 8 * i) description];
+        v10 = [*(*(&v23 + 1) + 8 * i) description];
         [v3 appendFormat:@"    acceptableDoc: '%@'\n", v10];
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v7);
@@ -241,30 +241,30 @@
   [v3 appendFormat:@"defaultValue: '%@'; ", defaultValue];
 
   [v3 appendFormat:@"currentValue: [ \n"];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   getCurrentValue = [(DIAttributeDocument *)self getCurrentValue];
-  v13 = [getCurrentValue countByEnumeratingWithState:&v20 objects:v29 count:16];
+  v13 = [getCurrentValue countByEnumeratingWithState:&v19 objects:v28 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(getCurrentValue);
         }
 
-        v17 = [*(*(&v20 + 1) + 8 * j) description];
+        v17 = [*(*(&v19 + 1) + 8 * j) description];
         [v3 appendFormat:@"    image: '%@'\n", v17];
       }
 
-      v14 = [getCurrentValue countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v14 = [getCurrentValue countByEnumeratingWithState:&v19 objects:v28 count:16];
     }
 
     while (v14);
@@ -272,7 +272,6 @@
 
   [v3 appendFormat:@"]; "];
   [v3 appendFormat:@">"];
-  v18 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -67,7 +67,6 @@
   }
 
   PBDataWriterWriteStringField();
-  index = self->_index;
   PBDataWriterWriteUint64Field();
   if (self->_error)
   {

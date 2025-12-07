@@ -17,7 +17,7 @@
 - (void)pause
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for VideoPlayer();
+  v4.super_class = type metadata accessor for VideoPlayer(0);
   v2 = v4.receiver;
   [(VideoPlayer *)&v4 pause];
   v3 = OBJC_IVAR____TtC11AppStoreKit11VideoPlayer_shouldBePlaying;

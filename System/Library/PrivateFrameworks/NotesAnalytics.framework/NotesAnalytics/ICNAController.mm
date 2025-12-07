@@ -31,6 +31,7 @@
 - (id)debugData;
 - (id)deviceData;
 - (id)referralData;
+- (id)sessionDataWithType:(int64_t)type isGlobalSession:(BOOL)session;
 - (id)sessionManagerForWindowSceneIdentifier:(id)identifier shouldCreate:(BOOL)create;
 - (id)sessionTrackerForWindowSceneIdentifier:(id)identifier;
 - (id)userData;
@@ -44,7 +45,9 @@
 - (void)clearSessionForWindowSceneIdentifier:(id)identifier;
 - (void)dealloc;
 - (void)endSessionSynchronously:(BOOL)synchronously forSessionType:(int64_t)type endReason:(int64_t)reason;
+- (void)endSessionSynchronously:(BOOL)synchronously forSessionType:(int64_t)type endReason:(int64_t)reason successHandler:(id)handler;
 - (void)endWindowSceneSessionSynchronously:(BOOL)synchronously forSessionType:(int64_t)type endReason:(int64_t)reason windowScene:(id)scene;
+- (void)endWindowSceneSessionSynchronously:(BOOL)synchronously forSessionType:(int64_t)type endReason:(int64_t)reason windowScene:(id)scene successHandler:(id)handler;
 - (void)enterGroupWithSubtracker:(id)subtracker;
 - (void)flushWithCompletionHandler:(id)handler;
 - (void)generatePrivateSessionIDIfNecessary;
@@ -63,6 +66,7 @@
 - (void)pushLongLivedPrivateUserData:(id)data;
 - (void)pushLongLivedSessionSummaryData:(id)data;
 - (void)pushReferralDataToSessionManager:(id)manager;
+- (void)pushSessionLevelDataIntoSessionManager:(id)manager withSessionType:(int64_t)type isGlobalSession:(BOOL)session;
 - (void)pushToSessionManager:(id)manager data:(id)data forKey:(id)key traits:(id)traits;
 - (void)pushToSessionManager:(id)manager endReason:(int64_t)reason;
 - (void)pushUniqueDataObject:(id)object tracker:(id)tracker;
@@ -348,36 +352,36 @@ void __33__ICNAController_startAppSession__block_invoke(uint64_t a1)
 
 void __40__ICNAController_appSessionDidTerminate__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 sessionManager];
   [v2 pushToSessionManager:v3 endReason:3];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = [*(a1 + 32) sessionForWindowDict];
   v5 = [v4 allValues];
 
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(a1 + 32) pushToSessionManager:*(*(&v12 + 1) + 8 * i) endReason:3];
+        [*(a1 + 32) pushToSessionManager:*(*(&v11 + 1) + 8 * i) endReason:3];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -386,8 +390,6 @@ void __40__ICNAController_appSessionDidTerminate__block_invoke(uint64_t a1)
   [*(a1 + 32) setAppSessionState:0];
   v10 = [*(a1 + 32) appSessionManager];
   [v10 appSessionDidTerminate];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sessionManagerForWindowSceneIdentifier:(id)identifier shouldCreate:(BOOL)create
@@ -508,7 +510,7 @@ void __40__ICNAController_appSessionDidTerminate__block_invoke(uint64_t a1)
 
 void __39__ICNAController_startSessionWithType___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) multiSceneSessionTracker];
   v3 = [v2 isInvalidated];
 
@@ -538,7 +540,7 @@ LABEL_8:
   v7 = os_log_create("com.apple.notes", "Analytics");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __39__ICNAController_startSessionWithType___block_invoke_cold_1((a1 + 40));
+    __39__ICNAController_startSessionWithType___block_invoke_cold_1();
   }
 
 LABEL_12:
@@ -567,7 +569,7 @@ LABEL_20:
           v29 = [*(a1 + 32) multiSceneSessionTracker];
           v30 = [v29 sessionDetailDescription];
           *buf = 138412290;
-          v34 = v30;
+          v33 = v30;
           _os_log_impl(&dword_25C6BF000, v17, OS_LOG_TYPE_INFO, "Not Starting AA Session as it already exists. Session Type Detail: %@", buf, 0xCu);
         }
 
@@ -589,7 +591,7 @@ LABEL_20:
     v13 = [*(a1 + 32) multiSceneSessionTracker];
     v14 = [v13 sessionDetailDescription];
     *buf = 138412290;
-    v34 = v14;
+    v33 = v14;
     _os_log_impl(&dword_25C6BF000, v12, OS_LOG_TYPE_INFO, "Really Starting AA Session. Session Type Detail: %@", buf, 0xCu);
   }
 
@@ -613,17 +615,16 @@ LABEL_20:
   [v23 loadIdentifiersAndRegenerateIfNecessary];
 
   v24 = [*(a1 + 32) instrumentationQueue];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __39__ICNAController_startSessionWithType___block_invoke_101;
-  v32[3] = &unk_2799B0070;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __39__ICNAController_startSessionWithType___block_invoke_101;
+  v31[3] = &unk_2799B0070;
   v25 = *(a1 + 40);
-  v32[4] = *(a1 + 32);
-  v32[5] = v25;
-  dispatch_async(v24, v32);
+  v31[4] = *(a1 + 32);
+  v31[5] = v25;
+  dispatch_async(v24, v31);
 
 LABEL_23:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __39__ICNAController_startSessionWithType___block_invoke_101(uint64_t a1)
@@ -907,33 +908,33 @@ LABEL_9:
 - (void)endSessionSynchronously:(BOOL)synchronously forSessionType:(int64_t)type endReason:(int64_t)reason
 {
   synchronouslyCopy = synchronously;
-  v23 = *MEMORY[0x277D85DE8];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke;
-  v19[3] = &unk_2799B0160;
+  v22 = *MEMORY[0x277D85DE8];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke;
+  v18[3] = &unk_2799B0160;
   synchronouslyCopy2 = synchronously;
-  v19[4] = self;
-  v19[5] = reason;
-  v8 = MEMORY[0x25F88B7A0](v19, a2);
+  v18[4] = self;
+  v18[5] = reason;
+  v8 = MEMORY[0x25F88B7A0](v18, a2);
   if (synchronouslyCopy)
   {
     multiSceneSessionTracker = [(ICNAController *)self multiSceneSessionTracker];
     [multiSceneSessionTracker endAllSessionsAndInvalidate];
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_120;
-    v18[3] = &unk_2799AF130;
-    v18[4] = self;
-    [(ICNAController *)self performOnInstrumentationQueueWaitUntilDone:1 block:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_120;
+    v17[3] = &unk_2799AF130;
+    v17[4] = self;
+    [(ICNAController *)self performOnInstrumentationQueueWaitUntilDone:1 block:v17];
     v10 = os_log_create("com.apple.notes", "Analytics");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       multiSceneSessionTracker2 = [(ICNAController *)self multiSceneSessionTracker];
       sessionDetailDescription = [multiSceneSessionTracker2 sessionDetailDescription];
       *buf = 138412290;
-      v22 = sessionDetailDescription;
+      v21 = sessionDetailDescription;
       _os_log_impl(&dword_25C6BF000, v10, OS_LOG_TYPE_INFO, "Synchronously ending AA Session. Session Type Detail: %@", buf, 0xCu);
     }
 
@@ -952,11 +953,9 @@ LABEL_9:
     block[3] = &unk_2799B0188;
     typeCopy = type;
     block[4] = self;
-    v16 = v8;
+    v15 = v8;
     dispatch_async(instrumentationQueue, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke(uint64_t a1)
@@ -1033,7 +1032,7 @@ void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___blo
 
 void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_108(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 sessionManager];
   v4 = [v3 tracker];
@@ -1070,14 +1069,14 @@ void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___blo
         }
       }
 
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_110;
-      v26[3] = &unk_2799B0110;
-      v27 = *(a1 + 56);
-      v26[4] = *(a1 + 32);
-      v26[5] = v6;
-      v16 = MEMORY[0x25F88B7A0](v26);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_110;
+      v25[3] = &unk_2799B0110;
+      v26 = *(a1 + 56);
+      v25[4] = *(a1 + 32);
+      v25[5] = v6;
+      v16 = MEMORY[0x25F88B7A0](v25);
       v17 = os_log_create("com.apple.notes", "Analytics");
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
@@ -1092,7 +1091,7 @@ void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___blo
         }
 
         *buf = 138412290;
-        v29 = v18;
+        v28 = v18;
         _os_log_impl(&dword_25C6BF000, v17, OS_LOG_TYPE_INFO, "Triggering endSessionWithCompletion. isSync: %@", buf, 0xCu);
       }
 
@@ -1120,13 +1119,11 @@ void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___blo
       [v6 killEndSessionBackgroundTaskIfNecessary];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_110(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = os_log_create("com.apple.notes", "Analytics");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -1141,19 +1138,17 @@ uint64_t __67__ICNAController_endSessionSynchronously_forSessionType_endReason__
     }
 
     *buf = 138412290;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_25C6BF000, v2, OS_LOG_TYPE_INFO, "Completed endSessionWithCompletion. isSync: %@", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_117;
-  v7[3] = &unk_2799AF130;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_117;
+  v6[3] = &unk_2799AF130;
   v4 = *(a1 + 32);
-  v7[4] = *(a1 + 40);
-  result = [v4 performOnInstrumentationQueueWaitUntilDone:0 block:v7];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[4] = *(a1 + 40);
+  return [v4 performOnInstrumentationQueueWaitUntilDone:0 block:v6];
 }
 
 uint64_t __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_117(uint64_t a1)
@@ -1178,78 +1173,75 @@ void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___blo
 
 void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_121(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v3 = (a1 + 48);
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   switch(v2)
   {
     case 1:
-      v4 = [*(a1 + 32) multiSceneSessionTracker];
-      [v4 endPaperSession];
+      v3 = [*(a1 + 32) multiSceneSessionTracker];
+      [v3 endPaperSession];
       goto LABEL_6;
     case 4:
       goto LABEL_10;
     case 2:
-      v4 = [*(a1 + 32) multiSceneSessionTracker];
-      [v4 endNotesSession];
+      v3 = [*(a1 + 32) multiSceneSessionTracker];
+      [v3 endNotesSession];
 LABEL_6:
 
       goto LABEL_10;
   }
 
-  v5 = os_log_create("com.apple.notes", "Analytics");
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = os_log_create("com.apple.notes", "Analytics");
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_121_cold_1(v3);
+    __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_121_cold_1();
   }
 
 LABEL_10:
-  v6 = [*(a1 + 32) multiSceneSessionTracker];
-  v7 = [v6 hasLiveTimers];
+  v5 = [*(a1 + 32) multiSceneSessionTracker];
+  v6 = [v5 hasLiveTimers];
 
-  if (v7)
+  if (v6)
   {
-    v8 = os_log_create("com.apple.notes", "Analytics");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = os_log_create("com.apple.notes", "Analytics");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = [*(a1 + 32) multiSceneSessionTracker];
-      v10 = [v9 sessionDetailDescription];
+      v8 = [*(a1 + 32) multiSceneSessionTracker];
+      v9 = [v8 sessionDetailDescription];
       *buf = 138412290;
-      v22 = v10;
-      _os_log_impl(&dword_25C6BF000, v8, OS_LOG_TYPE_INFO, "Not ending AA Session asynchronously. Session Type Detail: %@", buf, 0xCu);
+      v20 = v9;
+      _os_log_impl(&dword_25C6BF000, v7, OS_LOG_TYPE_INFO, "Not ending AA Session asynchronously. Session Type Detail: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v11 = [*(a1 + 32) multiSceneSessionTracker];
-    [v11 endAllSessionsAndInvalidate];
+    v10 = [*(a1 + 32) multiSceneSessionTracker];
+    [v10 endAllSessionsAndInvalidate];
 
-    v12 = *(a1 + 32);
-    v13 = [v12 sessionManager];
-    v14 = [v13 tracker];
-    [v12 pushLongLivedSessionSummaryData:v14];
+    v11 = *(a1 + 32);
+    v12 = [v11 sessionManager];
+    v13 = [v12 tracker];
+    [v11 pushLongLivedSessionSummaryData:v13];
 
-    v15 = os_log_create("com.apple.notes", "Analytics");
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v14 = os_log_create("com.apple.notes", "Analytics");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = [*(a1 + 32) multiSceneSessionTracker];
-      v17 = [v16 sessionDetailDescription];
+      v15 = [*(a1 + 32) multiSceneSessionTracker];
+      v16 = [v15 sessionDetailDescription];
       *buf = 138412290;
-      v22 = v17;
-      _os_log_impl(&dword_25C6BF000, v15, OS_LOG_TYPE_INFO, "Ending AA Session asynchronously. Session Type Detail: %@", buf, 0xCu);
+      v20 = v16;
+      _os_log_impl(&dword_25C6BF000, v14, OS_LOG_TYPE_INFO, "Ending AA Session asynchronously. Session Type Detail: %@", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_122;
     block[3] = &unk_2799B00C0;
-    v20 = *(a1 + 40);
+    v18 = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    v8 = v20;
+    v7 = v18;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_122(uint64_t a1)
@@ -1261,6 +1253,20 @@ uint64_t __67__ICNAController_endSessionSynchronously_forSessionType_endReason__
   }
 
   return result;
+}
+
+- (void)endSessionSynchronously:(BOOL)synchronously forSessionType:(int64_t)type endReason:(int64_t)reason successHandler:(id)handler
+{
+  synchronouslyCopy = synchronously;
+  handlerCopy = handler;
+  [(ICNAController *)self endSessionSynchronously:synchronouslyCopy forSessionType:type endReason:reason];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __82__ICNAController_endSessionSynchronously_forSessionType_endReason_successHandler___block_invoke;
+  v12[3] = &unk_2799B00C0;
+  v13 = handlerCopy;
+  v11 = handlerCopy;
+  [(ICNAController *)self performOnInstrumentationQueueWaitUntilDone:synchronouslyCopy block:v12];
 }
 
 uint64_t __82__ICNAController_endSessionSynchronously_forSessionType_endReason_successHandler___block_invoke(uint64_t a1)
@@ -1396,7 +1402,7 @@ void __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endR
 
 void __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endReason_windowScene___block_invoke_126(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1409,15 +1415,15 @@ void __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endR
     [v3 pushUniqueDataObject:v6 tracker:v7];
 
     [v3 pushToSessionManager:v4 endReason:*(a1 + 56)];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endReason_windowScene___block_invoke_2_127;
-    v15 = &unk_2799B01D8;
-    v19 = *(a1 + 64);
-    v16 = v3;
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    v8 = MEMORY[0x25F88B7A0](&v12);
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endReason_windowScene___block_invoke_2_127;
+    v14 = &unk_2799B01D8;
+    v18 = *(a1 + 64);
+    v15 = v3;
+    v16 = *(a1 + 32);
+    v17 = *(a1 + 40);
+    v8 = MEMORY[0x25F88B7A0](&v11);
     v9 = os_log_create("com.apple.notes", "Analytics");
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
@@ -1432,7 +1438,7 @@ void __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endR
       }
 
       *buf = 138412290;
-      v21 = v10;
+      v20 = v10;
       _os_log_impl(&dword_25C6BF000, v9, OS_LOG_TYPE_INFO, "Triggering endSessionWithCompletion. isSync: %@", buf, 0xCu);
     }
 
@@ -1447,16 +1453,14 @@ void __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endR
 
     else
     {
-      [v4 endSessionWithCompletion:{v8, v12, v13, v14, v15, v16, v17}];
+      [v4 endSessionWithCompletion:{v8, v11, v12, v13, v14, v15, v16}];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endReason_windowScene___block_invoke_2_127(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = os_log_create("com.apple.notes", "Analytics");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -1471,16 +1475,14 @@ void __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endR
     }
 
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_25C6BF000, v2, OS_LOG_TYPE_INFO, "Completed endSessionWithCompletion. isSync: %@", buf, 0xCu);
   }
 
   [*(a1 + 32) clearSessionForWindowSceneIdentifier:*(a1 + 40)];
   [*(a1 + 32) killEndSessionBackgroundTaskIfNecessaryForWindowScene:*(a1 + 48)];
-  v5 = *(a1 + 48);
+  v4 = *(a1 + 48);
   dispatchMainAfterDelay();
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endReason_windowScene___block_invoke_128(uint64_t a1)
@@ -1498,6 +1500,20 @@ uint64_t __90__ICNAController_endWindowSceneSessionSynchronously_forSessionType_
   }
 
   return result;
+}
+
+- (void)endWindowSceneSessionSynchronously:(BOOL)synchronously forSessionType:(int64_t)type endReason:(int64_t)reason windowScene:(id)scene successHandler:(id)handler
+{
+  synchronouslyCopy = synchronously;
+  handlerCopy = handler;
+  [(ICNAController *)self endWindowSceneSessionSynchronously:synchronouslyCopy forSessionType:type endReason:reason windowScene:scene];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __105__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endReason_windowScene_successHandler___block_invoke;
+  v14[3] = &unk_2799B00C0;
+  v15 = handlerCopy;
+  v13 = handlerCopy;
+  [(ICNAController *)self performOnInstrumentationQueueWaitUntilDone:synchronouslyCopy block:v14];
 }
 
 uint64_t __105__ICNAController_endWindowSceneSessionSynchronously_forSessionType_endReason_windowScene_successHandler___block_invoke(uint64_t a1)
@@ -1645,46 +1661,44 @@ void __39__ICNAController_orientationDidChange___block_invoke(uint64_t a1)
 
 void __39__ICNAController_orientationDidChange___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 sessionManager];
   v4 = [v3 tracker];
   [v2 pushLongLivedOrientationData:v4];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = [*(a1 + 32) sessionForWindowDict];
   v6 = [v5 allValues];
   v7 = [v6 copy];
 
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
         v12 = *(a1 + 32);
-        v13 = [*(*(&v15 + 1) + 8 * i) tracker];
+        v13 = [*(*(&v14 + 1) + 8 * i) tracker];
         [v12 pushLongLivedOrientationData:v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSURL)url
@@ -1789,6 +1803,27 @@ void __78__ICNAController_addReferralDataWithReferringInboundURL_referringApplic
   }
 }
 
+- (void)pushSessionLevelDataIntoSessionManager:(id)manager withSessionType:(int64_t)type isGlobalSession:(BOOL)session
+{
+  sessionCopy = session;
+  managerCopy = manager;
+  [(ICNAController *)self assertInstrumentationQueue];
+  v8 = [(ICNAController *)self sessionDataWithType:type isGlobalSession:sessionCopy];
+  [(ICNAController *)self pushToSessionManager:managerCopy data:v8 forKey:@"sessionData" traits:0];
+  appData = [(ICNAController *)self appData];
+  [(ICNAController *)self pushToSessionManager:managerCopy data:appData forKey:@"appData" traits:0];
+  deviceData = [(ICNAController *)self deviceData];
+  [(ICNAController *)self pushToSessionManager:managerCopy data:deviceData forKey:@"deviceData" traits:0];
+  userData = [(ICNAController *)self userData];
+  [(ICNAController *)self pushToSessionManager:managerCopy data:userData forKey:@"userData" traits:0];
+  [(ICNAController *)self pushReferralDataToSessionManager:managerCopy];
+  debugData = [(ICNAController *)self debugData];
+  if (debugData)
+  {
+    [(ICNAController *)self pushToSessionManager:managerCopy data:debugData forKey:@"debugData" traits:0];
+  }
+}
+
 - (void)pushToSessionManager:(id)manager endReason:(int64_t)reason
 {
   managerCopy = manager;
@@ -1831,6 +1866,46 @@ void __78__ICNAController_addReferralDataWithReferringInboundURL_referringApplic
   v8 = [(ICASUserData *)v4 initWithUserID:userID userStorefrontID:storeFrontID saltVersion:saltVersion userStartMonth:v6 userStartYear:v7];
 
   return v8;
+}
+
+- (id)sessionDataWithType:(int64_t)type isGlobalSession:(BOOL)session
+{
+  sessionCopy = session;
+  [(ICNAController *)self assertInstrumentationQueue];
+  localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
+  date = [MEMORY[0x277CBEAA8] date];
+  v9 = [localTimeZone secondsFromGMTForDate:date];
+
+  v29 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  countryCode = [currentLocale countryCode];
+
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  languageCode = [currentLocale2 languageCode];
+
+  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+
+  v13 = +[ICNAIdentityManager sharedManager];
+  identifierResetOccurred = [v13 identifierResetOccurred];
+
+  if (identifierResetOccurred)
+  {
+    v15 = +[ICNAIdentityManager sharedManager];
+    [v15 setIdentifierResetOccurred:0];
+  }
+
+  v23 = [[ICASSessionType alloc] initWithSessionType:type];
+  cellularRadioAccessTechnology = [(ICNAController *)self cellularRadioAccessTechnology];
+  v16 = [ICASSessionData alloc];
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(objc_opt_class(), "bioAuthEnabled")}];
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(objc_opt_class(), "localNotesEnabled")}];
+  accountTypeSummary = [(ICNAController *)self accountTypeSummary];
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:identifierResetOccurred];
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:sessionCopy];
+  v24 = [(ICASSessionData *)v16 initWithUtcOffset:v29 countryCode:countryCode languageCode:languageCode productType:bundleIdentifier cellularRadioAccessTechnology:cellularRadioAccessTechnology bioAuthEnabled:v17 localNotesEnabled:v18 accountTypeSummary:accountTypeSummary sessionType:v23 isSaltRegenerated:v20 isGlobalSession:v21];
+
+  return v24;
 }
 
 - (id)accountTypeSummary
@@ -1897,125 +1972,121 @@ void __78__ICNAController_addReferralDataWithReferringInboundURL_referringApplic
 
 void __36__ICNAController_accountTypeSummary__block_invoke(void *a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   [MEMORY[0x277D35DE0] allAccountsInContext:a1[4]];
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  obj = v29 = 0u;
-  v2 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  obj = v27 = 0u;
+  v2 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v27;
+    v4 = *v25;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v27 != v4)
+        if (*v25 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * i);
+        v6 = *(*(&v24 + 1) + 8 * i);
         if ([v6 didChooseToMigrate])
         {
-          v7 = a1[5];
-          v8 = [objc_opt_class() accountTypeEnumForModernAccount:v6];
-          v9 = *(*(a1[6] + 8) + 40);
-          v10 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-          v11 = [v9 objectForKeyedSubscript:v10];
-          v12 = [v11 unsignedIntegerValue];
+          v7 = [objc_opt_class() accountTypeEnumForModernAccount:v6];
+          v8 = *(*(a1[6] + 8) + 40);
+          v9 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
+          v10 = [v8 objectForKeyedSubscript:v9];
+          v11 = [v10 unsignedIntegerValue];
 
-          v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12 + 1];
-          v14 = *(*(a1[6] + 8) + 40);
-          v15 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-          [v14 setObject:v13 forKeyedSubscript:v15];
+          v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11 + 1];
+          v13 = *(*(a1[6] + 8) + 40);
+          v14 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
+          [v13 setObject:v12 forKeyedSubscript:v14];
 
-          v16 = *(*(a1[7] + 8) + 40);
-          v17 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-          v18 = [v16 objectForKeyedSubscript:v17];
-          v19 = [v18 unsignedIntegerValue];
+          v15 = *(*(a1[7] + 8) + 40);
+          v16 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
+          v17 = [v15 objectForKeyedSubscript:v16];
+          v18 = [v17 unsignedIntegerValue];
 
-          v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "visibleNotesCount") + v19}];
-          v21 = *(*(a1[7] + 8) + 40);
-          v22 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-          [v21 setObject:v20 forKeyedSubscript:v22];
+          v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "visibleNotesCount") + v18}];
+          v20 = *(*(a1[7] + 8) + 40);
+          v21 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
+          [v20 setObject:v19 forKeyedSubscript:v21];
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v3 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v3);
   }
 
   objc_autoreleasePoolPop(context);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ICNAController_accountTypeSummary__block_invoke_2(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v2 = [*(a1 + 32) allAccounts];
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v28;
-    v26 = v2;
+    v5 = *v26;
+    v24 = v2;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v28 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v27 + 1) + 8 * i);
+        v7 = *(*(&v25 + 1) + 8 * i);
         if (([v7 isDeleted] & 1) == 0 && (objc_msgSend(v7, "didChooseToMigrate") & 1) == 0)
         {
-          v8 = *(a1 + 40);
-          v9 = [objc_opt_class() accountTypeEnumForHTMLAccount:v7];
-          v10 = *(*(*(a1 + 48) + 8) + 40);
-          v11 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-          v12 = [v10 objectForKeyedSubscript:v11];
-          v13 = [v12 unsignedIntegerValue];
+          v8 = [objc_opt_class() accountTypeEnumForHTMLAccount:v7];
+          v9 = *(*(*(a1 + 48) + 8) + 40);
+          v10 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
+          v11 = [v9 objectForKeyedSubscript:v10];
+          v12 = [v11 unsignedIntegerValue];
 
-          v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v13 + 1];
-          v15 = *(*(*(a1 + 48) + 8) + 40);
-          v16 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-          [v15 setObject:v14 forKeyedSubscript:v16];
+          v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12 + 1];
+          v14 = *(*(*(a1 + 48) + 8) + 40);
+          v15 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
+          [v14 setObject:v13 forKeyedSubscript:v15];
 
-          v17 = *(*(*(a1 + 56) + 8) + 40);
-          v18 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-          v19 = [v17 objectForKeyedSubscript:v18];
-          v20 = [v19 unsignedIntegerValue];
+          v16 = *(*(*(a1 + 56) + 8) + 40);
+          v17 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
+          v18 = [v16 objectForKeyedSubscript:v17];
+          v19 = [v18 unsignedIntegerValue];
 
-          v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "countOfVisibleNotesForAccount:", v7) + v20}];
-          v22 = *(*(*(a1 + 56) + 8) + 40);
-          v23 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-          [v22 setObject:v21 forKeyedSubscript:v23];
+          v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "countOfVisibleNotesForAccount:", v7) + v19}];
+          v21 = *(*(*(a1 + 56) + 8) + 40);
+          v22 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
+          [v21 setObject:v20 forKeyedSubscript:v22];
 
-          v2 = v26;
+          v2 = v24;
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v4);
   }
 
   objc_autoreleasePoolPop(context);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ICNAController_accountTypeSummary__block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2382,7 +2453,6 @@ void __79__ICNAController_trackTimedEventType_subTracker_synchronousTaskBeforeSt
     if (v4)
     {
 LABEL_5:
-      v5 = *(a1 + 56);
       [v4 timeEventType:objc_opt_class()];
       goto LABEL_10;
     }
@@ -2390,8 +2460,8 @@ LABEL_5:
 
   else
   {
-    v6 = [*(a1 + 40) sessionManager];
-    v4 = [v6 tracker];
+    v5 = [*(a1 + 40) sessionManager];
+    v4 = [v5 tracker];
 
     if (v4)
     {
@@ -2399,10 +2469,10 @@ LABEL_5:
     }
   }
 
-  v7 = os_log_create("com.apple.notes", "Analytics");
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v6 = os_log_create("com.apple.notes", "Analytics");
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __79__ICNAController_trackTimedEventType_subTracker_synchronousTaskBeforeStarting___block_invoke_cold_1(a1);
+    __79__ICNAController_trackTimedEventType_subTracker_synchronousTaskBeforeStarting___block_invoke_cold_1();
   }
 
 LABEL_10:
@@ -2442,7 +2512,7 @@ LABEL_7:
     v4 = os_log_create("com.apple.notes", "Analytics");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __60__ICNAController_pushDataObject_unique_onlyOnce_subTracker___block_invoke_cold_1(a1);
+      __60__ICNAController_pushDataObject_unique_onlyOnce_subTracker___block_invoke_cold_1();
     }
 
     goto LABEL_9;
@@ -2493,7 +2563,7 @@ LABEL_10:
 
 void __61__ICNAController_pushDataObjects_unique_onlyOnce_subTracker___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -2506,31 +2576,31 @@ LABEL_3:
         v4 = objc_alloc_init(MEMORY[0x277CEAEF8]);
         [v4 setUnique:*(a1 + 56)];
         [v4 setOnlyOnce:*(a1 + 57)];
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         v5 = *(a1 + 48);
-        v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v21;
+          v8 = *v20;
           do
           {
             v9 = 0;
             do
             {
-              if (*v21 != v8)
+              if (*v20 != v8)
               {
                 objc_enumerationMutation(v5);
               }
 
-              [v3 pushDataEvent:*(*(&v20 + 1) + 8 * v9++) traits:v4 file:@"/Library/Caches/com.apple.xbs/Sources/MobileNotes/NotesAnalytics/ICNAController.m" line:1559];
+              [v3 pushDataEvent:*(*(&v19 + 1) + 8 * v9++) traits:v4 file:@"/Library/Caches/com.apple.xbs/Sources/MobileNotes/NotesAnalytics/ICNAController.m" line:1559];
             }
 
             while (v7 != v9);
-            v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+            v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
           }
 
           while (v7);
@@ -2539,31 +2609,31 @@ LABEL_3:
 
       else
       {
-        v18 = 0u;
-        v19 = 0u;
-        v16 = 0u;
         v17 = 0u;
+        v18 = 0u;
+        v15 = 0u;
+        v16 = 0u;
         v4 = *(a1 + 48);
-        v11 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v11 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v17;
+          v13 = *v16;
           do
           {
             v14 = 0;
             do
             {
-              if (*v17 != v13)
+              if (*v16 != v13)
               {
                 objc_enumerationMutation(v4);
               }
 
-              [v3 pushDataEvent:*(*(&v16 + 1) + 8 * v14++) traits:0 file:@"/Library/Caches/com.apple.xbs/Sources/MobileNotes/NotesAnalytics/ICNAController.m" line:{1564, v16}];
+              [v3 pushDataEvent:*(*(&v15 + 1) + 8 * v14++) traits:0 file:@"/Library/Caches/com.apple.xbs/Sources/MobileNotes/NotesAnalytics/ICNAController.m" line:{1564, v15}];
             }
 
             while (v12 != v14);
-            v12 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
+            v12 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
           }
 
           while (v12);
@@ -2588,12 +2658,10 @@ LABEL_3:
   v4 = os_log_create("com.apple.notes", "Analytics");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __61__ICNAController_pushDataObjects_unique_onlyOnce_subTracker___block_invoke_cold_1(a1);
+    __61__ICNAController_pushDataObjects_unique_onlyOnce_subTracker___block_invoke_cold_1();
   }
 
 LABEL_23:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)popDataObjectWithType:(Class)type subTracker:(id)tracker
@@ -2620,7 +2688,6 @@ void __51__ICNAController_popDataObjectWithType_subTracker___block_invoke(uint64
     if (v3)
     {
 LABEL_3:
-      v4 = *(a1 + 48);
       [v3 popDataEventType:objc_opt_class()];
       goto LABEL_8;
     }
@@ -2628,8 +2695,8 @@ LABEL_3:
 
   else
   {
-    v5 = [*(a1 + 40) sessionManager];
-    v3 = [v5 tracker];
+    v4 = [*(a1 + 40) sessionManager];
+    v3 = [v4 tracker];
 
     if (v3)
     {
@@ -2637,10 +2704,10 @@ LABEL_3:
     }
   }
 
-  v6 = os_log_create("com.apple.notes", "Analytics");
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = os_log_create("com.apple.notes", "Analytics");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __51__ICNAController_popDataObjectWithType_subTracker___block_invoke_cold_1(a1);
+    __51__ICNAController_popDataObjectWithType_subTracker___block_invoke_cold_1();
   }
 
 LABEL_8:
@@ -2665,7 +2732,7 @@ LABEL_8:
 
 void __53__ICNAController_popDataObjectsWithTypes_subTracker___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -2678,36 +2745,35 @@ void __53__ICNAController_popDataObjectsWithTypes_subTracker___block_invoke(uint
 
   else
   {
-    v10 = [*(a1 + 40) sessionManager];
-    v3 = [v10 tracker];
+    v9 = [*(a1 + 40) sessionManager];
+    v3 = [v9 tracker];
 
     if (v3)
     {
 LABEL_3:
-      v14 = 0u;
-      v15 = 0u;
       v12 = 0u;
       v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
       v4 = *(a1 + 48);
-      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v13;
+        v7 = *v11;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v13 != v7)
+            if (*v11 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = *(*(&v12 + 1) + 8 * i);
-            [v3 popDataEventType:{objc_opt_class(), v12}];
+            [v3 popDataEventType:{objc_opt_class(), v10}];
           }
 
-          v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
         }
 
         while (v6);
@@ -2720,12 +2786,10 @@ LABEL_3:
   v4 = os_log_create("com.apple.notes", "Analytics");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __53__ICNAController_popDataObjectsWithTypes_subTracker___block_invoke_cold_1(a1);
+    __53__ICNAController_popDataObjectsWithTypes_subTracker___block_invoke_cold_1();
   }
 
 LABEL_14:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitEventOfType:(Class)type subTracker:(id)tracker synchronousTaskBeforeSubmitting:(id)submitting
@@ -2754,7 +2818,7 @@ void __79__ICNAController_submitEventOfType_subTracker_synchronousTaskBeforeSubm
     v6 = os_log_create("com.apple.notes", "Analytics");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __79__ICNAController_submitEventOfType_subTracker_synchronousTaskBeforeSubmitting___block_invoke_cold_1(a1);
+      __79__ICNAController_submitEventOfType_subTracker_synchronousTaskBeforeSubmitting___block_invoke_cold_1();
     }
   }
 
@@ -2812,13 +2876,13 @@ void __79__ICNAController_submitEventOfType_subTracker_synchronousTaskBeforeSubm
 
 void __59__ICNAController__immediatelySubmitEventOfType_subTracker___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = a3;
-  if (v4)
+  v3 = a3;
+  if (v3)
   {
-    v5 = os_log_create("com.apple.notes", "Analytics");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = os_log_create("com.apple.notes", "Analytics");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __59__ICNAController__immediatelySubmitEventOfType_subTracker___block_invoke_cold_1(a1);
+      __59__ICNAController__immediatelySubmitEventOfType_subTracker___block_invoke_cold_1();
     }
   }
 }
@@ -2906,24 +2970,24 @@ void __59__ICNAController__immediatelySubmitEventOfType_subTracker___block_invok
 
 void __82__ICNAController__immediatelySubmitEventOfType_pushThenPopDataObjects_subTracker___block_invoke_187(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = a3;
-  if (v4)
+  v3 = a3;
+  if (v3)
   {
-    v5 = os_log_create("com.apple.notes", "Analytics");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = os_log_create("com.apple.notes", "Analytics");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __59__ICNAController__immediatelySubmitEventOfType_subTracker___block_invoke_cold_1(a1);
+      __59__ICNAController__immediatelySubmitEventOfType_subTracker___block_invoke_cold_1();
     }
   }
 }
 
-uint64_t __82__ICNAController__immediatelySubmitEventOfType_pushThenPopDataObjects_subTracker___block_invoke_188(uint64_t a1)
+uint64_t __82__ICNAController__immediatelySubmitEventOfType_pushThenPopDataObjects_subTracker___block_invoke_188(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(*(a1 + 32) + 8) + 40);
+  v2 = *(*(*(a1 + 32) + 8) + 40);
   objc_opt_class();
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v1 popDataEventType:v2];
+  return [v2 popDataEventType:v3];
 }
 
 - (void)enterGroupWithSubtracker:(id)subtracker
@@ -2985,7 +3049,7 @@ uint64_t __61__ICNAController_leaveGroupWithSubtracker_completionHandler___block
 
 void __47__ICNAController_removePreSydneyDAnalyticsData__block_invoke()
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D36180] sharedAppGroupDefaults];
   v1 = [v0 BOOLForKey:@"analyticsRemovedPreviousVersionData"];
 
@@ -2995,82 +3059,82 @@ void __47__ICNAController_removePreSydneyDAnalyticsData__block_invoke()
     v3 = [v2 URLByAppendingPathComponent:@"Documents" isDirectory:1];
     if (v3)
     {
-      v30 = v2;
+      v29 = v2;
       v4 = [MEMORY[0x277CCAA00] defaultManager];
-      v36 = *MEMORY[0x277CBE868];
-      v54[0] = *MEMORY[0x277CBE868];
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
-      v29 = v3;
+      v35 = *MEMORY[0x277CBE868];
+      v53[0] = *MEMORY[0x277CBE868];
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+      v28 = v3;
       v6 = [v4 enumeratorAtURL:v3 includingPropertiesForKeys:v5 options:5 errorHandler:0];
 
-      v47 = 0u;
-      v45 = 0u;
       v46 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v43 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v43 objects:v52 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v45;
-        v31 = *v45;
-        v32 = v7;
+        v10 = *v44;
+        v30 = *v44;
+        v31 = v7;
         do
         {
           v11 = 0;
-          v33 = v9;
+          v32 = v9;
           do
           {
-            if (*v45 != v10)
+            if (*v44 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v44 + 1) + 8 * v11);
+            v12 = *(*(&v43 + 1) + 8 * v11);
             v13 = [v12 lastPathComponent];
-            v43 = 0;
-            [v12 getResourceValue:&v43 forKey:v36 error:0];
-            v37 = v43;
-            if ([v37 BOOLValue] && objc_msgSend(v13, "hasPrefix:", @"com.apple.app-analytics.") && ((objc_msgSend(v13, "hasSuffix:", @".upload-dropbox") & 1) != 0 || objc_msgSend(v13, "hasSuffix:", @".upload-dropbox.debugging")))
+            v42 = 0;
+            [v12 getResourceValue:&v42 forKey:v35 error:0];
+            v36 = v42;
+            if ([v36 BOOLValue] && objc_msgSend(v13, "hasPrefix:", @"com.apple.app-analytics.") && ((objc_msgSend(v13, "hasSuffix:", @".upload-dropbox") & 1) != 0 || objc_msgSend(v13, "hasSuffix:", @".upload-dropbox.debugging")))
             {
-              v34 = v13;
-              v35 = v11;
+              v33 = v13;
+              v34 = v11;
               v14 = os_log_create("com.apple.notes", "Analytics");
               if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
               {
                 v15 = [v12 lastPathComponent];
                 *buf = 138412290;
-                v49 = v15;
+                v48 = v15;
                 _os_log_impl(&dword_25C6BF000, v14, OS_LOG_TYPE_INFO, "Removing old analytics data at %@", buf, 0xCu);
               }
 
               v16 = [MEMORY[0x277CCAA00] defaultManager];
               v17 = [v16 enumeratorAtURL:v12 includingPropertiesForKeys:0 options:1 errorHandler:0];
 
-              v41 = 0u;
-              v42 = 0u;
-              v39 = 0u;
               v40 = 0u;
+              v41 = 0u;
+              v38 = 0u;
+              v39 = 0u;
               v18 = v17;
-              v19 = [v18 countByEnumeratingWithState:&v39 objects:v52 count:16];
+              v19 = [v18 countByEnumeratingWithState:&v38 objects:v51 count:16];
               if (v19)
               {
                 v20 = v19;
-                v21 = *v40;
+                v21 = *v39;
                 do
                 {
                   for (i = 0; i != v20; ++i)
                   {
-                    if (*v40 != v21)
+                    if (*v39 != v21)
                     {
                       objc_enumerationMutation(v18);
                     }
 
-                    v23 = *(*(&v39 + 1) + 8 * i);
+                    v23 = *(*(&v38 + 1) + 8 * i);
                     v24 = [MEMORY[0x277CCAA00] defaultManager];
-                    v38 = 0;
-                    [v24 removeItemAtURL:v23 error:&v38];
-                    v25 = v38;
+                    v37 = 0;
+                    [v24 removeItemAtURL:v23 error:&v37];
+                    v25 = v37;
 
                     if (v25)
                     {
@@ -3078,32 +3142,32 @@ void __47__ICNAController_removePreSydneyDAnalyticsData__block_invoke()
                       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412546;
-                        v49 = v23;
-                        v50 = 2112;
-                        v51 = v25;
+                        v48 = v23;
+                        v49 = 2112;
+                        v50 = v25;
                         _os_log_error_impl(&dword_25C6BF000, v26, OS_LOG_TYPE_ERROR, "Error deleting item: %@, error: %@", buf, 0x16u);
                       }
                     }
                   }
 
-                  v20 = [v18 countByEnumeratingWithState:&v39 objects:v52 count:16];
+                  v20 = [v18 countByEnumeratingWithState:&v38 objects:v51 count:16];
                 }
 
                 while (v20);
               }
 
-              v7 = v32;
-              v9 = v33;
-              v10 = v31;
-              v13 = v34;
-              v11 = v35;
+              v7 = v31;
+              v9 = v32;
+              v10 = v30;
+              v13 = v33;
+              v11 = v34;
             }
 
             ++v11;
           }
 
           while (v11 != v9);
-          v9 = [v7 countByEnumeratingWithState:&v44 objects:v53 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v43 objects:v52 count:16];
         }
 
         while (v9);
@@ -3112,8 +3176,8 @@ void __47__ICNAController_removePreSydneyDAnalyticsData__block_invoke()
       v27 = [MEMORY[0x277D36180] sharedAppGroupDefaults];
       [v27 setBool:1 forKey:@"analyticsRemovedPreviousVersionData"];
 
-      v3 = v29;
-      v2 = v30;
+      v3 = v28;
+      v2 = v29;
     }
 
     else
@@ -3125,8 +3189,6 @@ void __47__ICNAController_removePreSydneyDAnalyticsData__block_invoke()
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flushWithCompletionHandler:(id)handler
@@ -3198,11 +3260,10 @@ void __45__ICNAController_flushWithCompletionHandler___block_invoke(uint64_t a1)
 
 + (NSString)deviceModel
 {
-  v6 = *MEMORY[0x277D85DE8];
-  memset(&v5, 0, 512);
-  uname(&v5);
-  v2 = [MEMORY[0x277CCACA8] stringWithCString:v5.machine encoding:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  memset(&v4, 0, 512);
+  uname(&v4);
+  v2 = [MEMORY[0x277CCACA8] stringWithCString:v4.machine encoding:4];
 
   return v2;
 }
@@ -3352,115 +3413,46 @@ void __33__ICNAController_osBundleVersion__block_invoke()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __39__ICNAController_startSessionWithType___block_invoke_cold_1(uint64_t *a1)
+void __60__ICNAController_pushDataObject_unique_onlyOnce_subTracker___block_invoke_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v2, v3, "Attempting to start a session with an unknown type: %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v0, v1, "No tracker is found when pushing data object: %@", v2, v3, v4, v5);
 }
 
-void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_108_cold_1()
+void __61__ICNAController_pushDataObjects_unique_onlyOnce_subTracker___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v0, v1, "A longer than normal analytics session was detected. Session duration was %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __67__ICNAController_endSessionSynchronously_forSessionType_endReason___block_invoke_121_cold_1(uint64_t *a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v2, v3, "Attempting to end a session with an unknown type: %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v0, v1, "No tracker is found when pushing data objects: %@", v2, v3, v4, v5);
 }
 
-void __79__ICNAController_trackTimedEventType_subTracker_synchronousTaskBeforeStarting___block_invoke_cold_1(uint64_t a1)
+void __51__ICNAController_popDataObjectWithType_subTracker___block_invoke_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v2, v3, "No tracker is found when tracking timed event type: %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v0, v1, "No tracker is found when popping data object type: %@", v2, v3, v4, v5);
 }
 
-void __60__ICNAController_pushDataObject_unique_onlyOnce_subTracker___block_invoke_cold_1(uint64_t a1)
+void __53__ICNAController_popDataObjectsWithTypes_subTracker___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v1, v2, "No tracker is found when pushing data object: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v0, v1, "No tracker is found when popping data object types: %@", v2, v3, v4, v5);
 }
 
-void __61__ICNAController_pushDataObjects_unique_onlyOnce_subTracker___block_invoke_cold_1(uint64_t a1)
+void __79__ICNAController_submitEventOfType_subTracker_synchronousTaskBeforeSubmitting___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v1, v2, "No tracker is found when pushing data objects: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __51__ICNAController_popDataObjectWithType_subTracker___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v1, v2, "No tracker is found when popping data object type: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __53__ICNAController_popDataObjectsWithTypes_subTracker___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v1, v2, "No tracker is found when popping data object types: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __79__ICNAController_submitEventOfType_subTracker_synchronousTaskBeforeSubmitting___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)_immediatelySubmitEventOfType:subTracker:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_immediatelySubmitEventOfType:subTracker:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v0, v1, "No tracker is found for an active session when immediately submitting event type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59__ICNAController__immediatelySubmitEventOfType_subTracker___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_25C6BF000, v2, v3, "Could not submit event: %@ due to %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_immediatelySubmitEventOfType:pushThenPopDataObjects:subTracker:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_2(&dword_25C6BF000, v0, v1, "No tracker is found for an active session when submitting event type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface SagaGetGeniusItemsOperation
 - (SagaGetGeniusItemsOperation)initWithConfiguration:(id)configuration clientIdentity:(id)identity seedID:(unint64_t)d numberOfItems:(unsigned int)items;
+- (SagaGetGeniusItemsOperation)initWithSeedID:(unint64_t)d clientIdentity:(id)identity numberOfItems:(unsigned int)items;
 - (void)main;
 @end
 
@@ -46,6 +47,16 @@
   }
 
   return result;
+}
+
+- (SagaGetGeniusItemsOperation)initWithSeedID:(unint64_t)d clientIdentity:(id)identity numberOfItems:(unsigned int)items
+{
+  v5 = *&items;
+  identityCopy = identity;
+  v9 = objc_opt_new();
+  v10 = [(SagaGetGeniusItemsOperation *)self initWithConfiguration:v9 clientIdentity:identityCopy seedID:d numberOfItems:v5];
+
+  return v10;
 }
 
 @end

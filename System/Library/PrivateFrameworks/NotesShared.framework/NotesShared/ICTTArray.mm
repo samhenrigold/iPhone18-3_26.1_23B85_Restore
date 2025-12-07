@@ -40,7 +40,8 @@
 {
   v4 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:(*(*archive + 72))(archive)];
   mutableBytes = [v4 mutableBytes];
-  v6 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v4 length]);
+  [v4 length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   google::protobuf::MessageLite::SerializeToArray(archive, mutableBytes, v6);
 
   return v4;
@@ -143,7 +144,7 @@
         {
           if (v9 == *(archive + 16))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 48, v9 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 12, v9 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<CRDT::StringArray_ArrayAttachment>::New();
@@ -415,7 +416,7 @@
   return v6;
 }
 
-uint64_t __27__ICTTArray_indexOfObject___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__27__ICTTArray_indexOfObject___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 CR_compare:*(a1 + 32)];
   if (!result)

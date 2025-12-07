@@ -29,7 +29,7 @@
 
 - (id)stringForExpression:(id)expression containsPrivacySensitiveContents:(BOOL *)contents
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   expressionCopy = expression;
   v7 = expressionCopy;
   if (contents)
@@ -43,37 +43,37 @@
   v11 = objc_alloc_init(MEMORY[0x1E696AD60]);
   if (v8)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v43 = 0u;
+    v47 = 0u;
     v44 = 0u;
-    *buffer = 0u;
+    v45 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    *buffer = 0u;
+    v41 = 0u;
     theString = v7;
-    v52 = 0;
-    v53 = v8;
+    v51 = 0;
+    v52 = v8;
     CharactersPtr = CFStringGetCharactersPtr(v7);
     CStringPtr = 0;
-    v50 = CharactersPtr;
+    v49 = CharactersPtr;
     if (!CharactersPtr)
     {
       CStringPtr = CFStringGetCStringPtr(v7, 0x600u);
     }
 
-    v36 = v7;
+    v35 = v7;
     v14 = 0;
     v15 = 0;
     v16 = 0;
+    v53 = 0;
     v54 = 0;
-    v55 = 0;
     v17 = 1;
-    v51 = CStringPtr;
+    v50 = CStringPtr;
     while (1)
     {
-      v18 = v53;
-      if (v53 <= v14)
+      v18 = v52;
+      if (v52 <= v14)
       {
         v20 = 0;
         v19 = 0;
@@ -81,20 +81,20 @@
 
       else
       {
-        if (v50)
+        if (v49)
         {
-          v19 = v50[v52 + v14];
+          v19 = v49[v51 + v14];
         }
 
-        else if (v51)
+        else if (v50)
         {
-          v19 = v51[v52 + v14];
+          v19 = v50[v51 + v14];
         }
 
         else
         {
-          v21 = v54;
-          v22 = v55 > v14 && v54 <= v14;
+          v21 = v53;
+          v22 = v54 > v14 && v53 <= v14;
           if (!v22)
           {
             if (v17 - 1 >= 4)
@@ -107,17 +107,17 @@
               v23 = 0;
             }
 
-            if (v23 + 64 < v53)
+            if (v23 + 64 < v52)
             {
               v18 = v23 + 64;
             }
 
-            v54 = v23;
-            v55 = v18;
-            v59.length = v18 - v23;
-            v59.location = v52 + v23;
-            CFStringGetCharacters(theString, v59, buffer);
-            v21 = v54;
+            v53 = v23;
+            v54 = v18;
+            v58.length = v18 - v23;
+            v58.location = v51 + v23;
+            CFStringGetCharacters(theString, v58, buffer);
+            v21 = v53;
           }
 
           v19 = buffer[v14 - v21];
@@ -193,40 +193,40 @@ LABEL_37:
           [v10 addObject:v11];
         }
 
-        v7 = v36;
+        v7 = v35;
         break;
       }
     }
   }
 
   v26 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v27 = v10;
-  v28 = [v27 countByEnumeratingWithState:&v37 objects:v56 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v36 objects:v55 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v38;
+    v30 = *v37;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v38 != v30)
+        if (*v37 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [(AFSpeakableUtteranceParser *)self parseStringWithFormat:*(*(&v37 + 1) + 8 * i) error:0];
+        v32 = [(AFSpeakableUtteranceParser *)self parseStringWithFormat:*(*(&v36 + 1) + 8 * i) error:0];
         if (v32)
         {
           [v26 addObject:v32];
         }
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v37 objects:v56 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v36 objects:v55 count:16];
     }
 
     while (v29);
@@ -234,17 +234,15 @@ LABEL_37:
 
   v33 = [(AFSUPFunctionProvider *)self _callFunction:v9 withArguments:v26];
 
-  v34 = *MEMORY[0x1E69E9840];
-
   return v33;
 }
 
 - (id)_callFunction:(id)function withArguments:(id)arguments
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   functionCopy = function;
   argumentsCopy = arguments;
-  if (([functionCopy isEqualToString:@"currentTime"] & 1) != 0 || objc_msgSend(functionCopy, "isEqualToString:", @"currentTimeIn"))
+  if ((objc_msgSend_isEqualToString_(functionCopy) & 1) != 0 || objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _currentTime:argumentsCopy];
 LABEL_4:
@@ -252,148 +250,146 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if (([functionCopy isEqualToString:@"currentDateShort"] & 1) != 0 || objc_msgSend(functionCopy, "isEqualToString:", @"currentDateShortIn"))
+  if ((objc_msgSend_isEqualToString_(functionCopy) & 1) != 0 || objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _currentShortDate:argumentsCopy];
     goto LABEL_4;
   }
 
-  if (([functionCopy isEqualToString:@"currentDateLong"] & 1) != 0 || objc_msgSend(functionCopy, "isEqualToString:", @"currentDateLongIn"))
+  if ((objc_msgSend_isEqualToString_(functionCopy) & 1) != 0 || objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _currentLongDate:argumentsCopy];
     goto LABEL_4;
   }
 
-  if (([functionCopy isEqualToString:@"currentDayOfWeek"] & 1) != 0 || objc_msgSend(functionCopy, "isEqualToString:", @"currentDayOfWeekIn"))
+  if ((objc_msgSend_isEqualToString_(functionCopy) & 1) != 0 || objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _currentWeekday:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"tempInWeatherUnits"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _tempInWeatherUnits:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"deviceModel"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _deviceModel];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"lowercase"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _lowercaseString:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"siriUsageDescription"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _siriUsageDescription:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"speechRecognitionUsageDescription"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _speechRecognitionUsageDescription:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"contextRoomName"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _contextRoomName:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"contextDeviceName"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _contextDeviceName:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"fullName"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _userFullName:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"firstName"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _userFirstName:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"middleName"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _userMiddleName:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"lastName"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _userLastName:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"nickName"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _userNickName:argumentsCopy];
     goto LABEL_4;
   }
 
-  if ([functionCopy isEqualToString:@"internalGUID"])
+  if (objc_msgSend_isEqualToString_(functionCopy))
   {
     _deviceModel = [(AFSUPFunctionProvider *)self _meCardIdentifier:argumentsCopy];
     goto LABEL_4;
   }
 
-  v12 = AFSiriLogContextConnection;
+  v11 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315394;
-    v14 = "[AFSUPFunctionProvider _callFunction:withArguments:]";
-    v15 = 2112;
-    v16 = functionCopy;
-    _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s Unhandled functor %@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[AFSUPFunctionProvider _callFunction:withArguments:]";
+    v14 = 2112;
+    v15 = functionCopy;
+    _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s Unhandled functor %@", &v12, 0x16u);
   }
 
   v9 = 0;
 LABEL_5:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)_peerInfoForContextIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:identifierCopy];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__13160;
-  v27 = __Block_byref_object_dispose__13161;
-  v28 = objc_alloc_init(AFSettingsConnection);
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__13160;
-  v21 = __Block_byref_object_dispose__13161;
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__13160;
+  v26 = __Block_byref_object_dispose__13161;
+  v27 = objc_alloc_init(AFSettingsConnection);
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__13160;
+  v20 = __Block_byref_object_dispose__13161;
+  v21 = 0;
   v5 = dispatch_semaphore_create(0);
-  v6 = v24[5];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke;
-  v13[3] = &unk_1E7344040;
-  v15 = &v17;
+  v6 = v23[5];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke;
+  v12[3] = &unk_1E7344040;
+  v14 = &v16;
   v7 = v5;
-  v14 = v7;
-  v16 = &v23;
-  [v6 getOriginDeviceInfoForContextIdentifier:v4 completion:v13];
+  v13 = v7;
+  v15 = &v22;
+  [v6 getOriginDeviceInfoForContextIdentifier:v4 completion:v12];
   v8 = dispatch_time(0, 250000000);
   if (dispatch_semaphore_wait(v7, v8))
   {
@@ -401,19 +397,17 @@ LABEL_5:
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v30 = "[AFSUPFunctionProvider _peerInfoForContextIdentifier:]";
-      v31 = 2048;
-      v32 = 0x406F400000000000;
+      v29 = "[AFSUPFunctionProvider _peerInfoForContextIdentifier:]";
+      v30 = 2048;
+      v31 = 0x406F400000000000;
       _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Timed out fetching peerInfo after waiting %0.1g milliseconds", buf, 0x16u);
     }
   }
 
-  v10 = v18[5];
+  v10 = v17[5];
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v23, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
 
   return v10;
 }
@@ -430,7 +424,7 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
 
 - (id)_contextDeviceName:(id)name
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if ([nameCopy count])
   {
@@ -441,11 +435,11 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
     v8 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315394;
-      v13 = "[AFSUPFunctionProvider _contextDeviceName:]";
-      v14 = 2112;
-      v15 = name;
-      _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s Computed value: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[AFSUPFunctionProvider _contextDeviceName:]";
+      v13 = 2112;
+      v14 = name;
+      _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s Computed value: %@", &v11, 0x16u);
     }
   }
 
@@ -454,22 +448,20 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
     v9 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[AFSUPFunctionProvider _contextDeviceName:]";
-      _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Missing argument for contextDeviceName", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[AFSUPFunctionProvider _contextDeviceName:]";
+      _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Missing argument for contextDeviceName", &v11, 0xCu);
     }
 
     name = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return name;
 }
 
 - (id)_contextRoomName:(id)name
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if ([nameCopy count])
   {
@@ -480,11 +472,11 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
     v8 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315394;
-      v13 = "[AFSUPFunctionProvider _contextRoomName:]";
-      v14 = 2112;
-      v15 = roomName;
-      _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s Computed value: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[AFSUPFunctionProvider _contextRoomName:]";
+      v13 = 2112;
+      v14 = roomName;
+      _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s Computed value: %@", &v11, 0x16u);
     }
   }
 
@@ -493,22 +485,20 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
     v9 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[AFSUPFunctionProvider _contextRoomName:]";
-      _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Missing argument for contextRoomName", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[AFSUPFunctionProvider _contextRoomName:]";
+      _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Missing argument for contextRoomName", &v11, 0xCu);
     }
 
     roomName = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return roomName;
 }
 
 - (id)_speechRecognitionUsageDescription:(id)description
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   if ([descriptionCopy count])
   {
@@ -521,22 +511,20 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
     v6 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[AFSUPFunctionProvider _speechRecognitionUsageDescription:]";
-      _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s No argument for speechRecognitionUsageDescription", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[AFSUPFunctionProvider _speechRecognitionUsageDescription:]";
+      _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s No argument for speechRecognitionUsageDescription", &v8, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_siriUsageDescription:(id)description
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   if ([descriptionCopy count])
   {
@@ -549,15 +537,13 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
     v6 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[AFSUPFunctionProvider _siriUsageDescription:]";
-      _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s ERROR: No argument for siriUsageDescription", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[AFSUPFunctionProvider _siriUsageDescription:]";
+      _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s ERROR: No argument for siriUsageDescription", &v8, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -612,46 +598,46 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
 
 - (id)_meCard
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__13160;
-  v26 = __Block_byref_object_dispose__13161;
-  v27 = objc_alloc_init(AFSettingsConnection);
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__13160;
-  v20 = __Block_byref_object_dispose__13161;
+  v31 = *MEMORY[0x1E69E9840];
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__13160;
+  v25 = __Block_byref_object_dispose__13161;
+  v26 = objc_alloc_init(AFSettingsConnection);
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__13160;
+  v19 = __Block_byref_object_dispose__13161;
+  v20 = 0;
   v2 = dispatch_semaphore_create(0);
-  v3 = v23[5];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __32__AFSUPFunctionProvider__meCard__block_invoke;
-  v12[3] = &unk_1E7344018;
-  v14 = &v16;
+  v3 = v22[5];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __32__AFSUPFunctionProvider__meCard__block_invoke;
+  v11[3] = &unk_1E7344018;
+  v13 = &v15;
   v4 = v2;
-  v13 = v4;
-  v15 = &v22;
-  [v3 getMeCard:v12];
+  v12 = v4;
+  v14 = &v21;
+  [v3 getMeCard:v11];
   v5 = dispatch_time(0, 2000000000);
   v6 = dispatch_semaphore_wait(v4, v5);
   v7 = AFSiriLogContextConnection;
   if (v6 && os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v29 = "[AFSUPFunctionProvider _meCard]";
-    v30 = 2048;
-    v31 = 0x4000000000000000;
+    v28 = "[AFSUPFunctionProvider _meCard]";
+    v29 = 2048;
+    v30 = 0x4000000000000000;
     _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Timed out fetching meCard  after waiting %0.1g seconds", buf, 0x16u);
     v7 = AFSiriLogContextConnection;
   }
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    if (v17[5])
+    if (v16[5])
     {
       v8 = @"a meCard";
     }
@@ -662,25 +648,23 @@ void __55__AFSUPFunctionProvider__peerInfoForContextIdentifier___block_invoke(ui
     }
 
     *buf = 136315394;
-    v29 = "[AFSUPFunctionProvider _meCard]";
-    v30 = 2112;
-    v31 = v8;
+    v28 = "[AFSUPFunctionProvider _meCard]";
+    v29 = 2112;
+    v30 = v8;
     _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Got %@", buf, 0x16u);
   }
 
-  v9 = v17[5];
+  v9 = v16[5];
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v22, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v9;
 }
 
 void __32__AFSUPFunctionProvider__meCard__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -688,11 +672,11 @@ void __32__AFSUPFunctionProvider__meCard__block_invoke(uint64_t a1, void *a2, vo
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "[AFSUPFunctionProvider _meCard]_block_invoke";
-      v16 = 2112;
-      v17 = v6;
-      _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Error fetching meCard %@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[AFSUPFunctionProvider _meCard]_block_invoke";
+      v15 = 2112;
+      v16 = v6;
+      _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Error fetching meCard %@", &v13, 0x16u);
     }
   }
 
@@ -705,8 +689,6 @@ void __32__AFSUPFunctionProvider__meCard__block_invoke(uint64_t a1, void *a2, vo
   v11 = *(*(a1 + 48) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = 0;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_deviceModel
@@ -718,7 +700,7 @@ void __32__AFSUPFunctionProvider__meCard__block_invoke(uint64_t a1, void *a2, vo
 
 - (id)_lowercaseString:(id)string
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy count])
   {
@@ -743,22 +725,20 @@ void __32__AFSUPFunctionProvider__meCard__block_invoke(uint64_t a1, void *a2, vo
     v12 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = "[AFSUPFunctionProvider _lowercaseString:]";
-      _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s No argument for initLowercase", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "[AFSUPFunctionProvider _lowercaseString:]";
+      _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s No argument for initLowercase", &v14, 0xCu);
     }
 
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)_tempInWeatherUnits:(id)units
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   unitsCopy = units;
   CFPreferencesAppSynchronize(@"com.apple.weather");
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"Celsius", @"com.apple.weather", 0);
@@ -783,14 +763,12 @@ void __32__AFSUPFunctionProvider__meCard__block_invoke(uint64_t a1, void *a2, vo
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "[AFSUPFunctionProvider _tempInWeatherUnits:]";
+      v14 = "[AFSUPFunctionProvider _tempInWeatherUnits:]";
       _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s No argument for weather units.", buf, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

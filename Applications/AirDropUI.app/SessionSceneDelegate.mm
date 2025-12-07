@@ -38,28 +38,28 @@
 {
   activeCopy = active;
   selfCopy = self;
-  sub_10001EC68(activeCopy, "SessionSceneDelegate: sceneDidBecomeActive with role: %s");
+  sub_10001EC68(activeCopy, "SessionSceneDelegate: sceneDidBecomeActive with role: %s", v5);
 }
 
 - (void)sceneWillResignActive:(id)active
 {
   activeCopy = active;
   selfCopy = self;
-  sub_10001EC68(activeCopy, "SessionSceneDelegate: sceneWillResignActive with role: %s");
+  sub_10001EC68(activeCopy, "SessionSceneDelegate: sceneWillResignActive with role: %s", v5);
 }
 
 - (void)sceneWillEnterForeground:(id)foreground
 {
   foregroundCopy = foreground;
   selfCopy = self;
-  sub_10001EC68(foregroundCopy, "SessionSceneDelegate: sceneWillEnterForeground with role: %s");
+  sub_10001EC68(foregroundCopy, "SessionSceneDelegate: sceneWillEnterForeground with role: %s", v5);
 }
 
 - (void)sceneDidEnterBackground:(id)background
 {
   backgroundCopy = background;
   selfCopy = self;
-  sub_10001EC68(backgroundCopy, "SessionSceneDelegate: sceneDidEnterBackground with role: %s");
+  sub_10001EC68(backgroundCopy, "SessionSceneDelegate: sceneDidEnterBackground with role: %s", v5);
 }
 
 - (_TtC9AirDropUI20SessionSceneDelegate)init

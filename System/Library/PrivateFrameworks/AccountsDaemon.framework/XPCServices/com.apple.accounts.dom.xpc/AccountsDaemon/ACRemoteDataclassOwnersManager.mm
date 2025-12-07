@@ -57,41 +57,41 @@
 - (void)preloadDataclassOwnersWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10000328C();
+  v5 = sub_10000328C(completionCopy);
   v6 = _ACSignpostCreate();
 
-  v7 = sub_10000328C();
-  v8 = v7;
-  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = sub_10000328C(v7);
+  v9 = v8;
+  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "DataclassPreload", &unk_100004FF1, buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "DataclassPreload", &unk_100004FF1, buf, 2u);
   }
 
-  v9 = sub_10000328C();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = sub_10000328C(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000033C8(v6, v9);
+    sub_1000033C8(v6, v11);
   }
 
   [(ACRemoteDataclassOwnersManager *)self _cacheDataclassOwnersLimitedToDataclass:0 withOwnerLoadBlock:0];
-  v10 = _ACLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v12 = _ACLogSystem();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003440(v10);
+    sub_100003440(v12);
   }
 
-  _ACSignpostGetNanoseconds();
-  v11 = sub_10000328C();
-  v12 = v11;
-  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  Nanoseconds = _ACSignpostGetNanoseconds();
+  v14 = sub_10000328C(Nanoseconds);
+  v15 = v14;
+  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_END, v6, "DataclassPreload", &unk_100004FF1, v14, 2u);
+    *v18 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_END, v6, "DataclassPreload", &unk_100004FF1, v18, 2u);
   }
 
-  v13 = sub_10000328C();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v17 = sub_10000328C(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     sub_100003484();
   }
@@ -104,20 +104,20 @@
   dataclassCopy = dataclass;
   completionCopy = completion;
   accountCopy = account;
-  v11 = sub_10000328C();
+  v11 = sub_10000328C(accountCopy);
   v12 = _ACSignpostCreate();
 
-  v13 = sub_10000328C();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = sub_10000328C(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    v23 = 138543362;
-    v24 = dataclassCopy;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ActionsForAdding", " Dataclass=%{public,signpost.telemetry:string1,name=Dataclass}@ ", &v23, 0xCu);
+    v27 = 138543362;
+    v28 = dataclassCopy;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ActionsForAdding", " Dataclass=%{public,signpost.telemetry:string1,name=Dataclass}@ ", &v27, 0xCu);
   }
 
-  v15 = sub_10000328C();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v17 = sub_10000328C(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     sub_1000034EC();
   }
@@ -125,31 +125,31 @@
   _accountStore = [(ACRemoteDataclassOwnersManager *)self _accountStore];
   [accountCopy _setAccountStore:_accountStore];
 
-  v17 = [(ACRemoteDataclassOwnersManager *)self _ownerForDataclass:dataclassCopy];
-  v18 = [v17 actionsForAddingAccount:accountCopy forDataclass:dataclassCopy];
+  v19 = [(ACRemoteDataclassOwnersManager *)self _ownerForDataclass:dataclassCopy];
+  v20 = [v19 actionsForAddingAccount:accountCopy forDataclass:dataclassCopy];
 
-  v19 = _ACLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = _ACLogSystem();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     sub_100003554();
   }
 
-  _ACSignpostGetNanoseconds();
-  v20 = sub_10000328C();
-  v21 = v20;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  Nanoseconds = _ACSignpostGetNanoseconds();
+  v23 = sub_10000328C(Nanoseconds);
+  v24 = v23;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_END, v12, "ActionsForAdding", &unk_100004FF1, &v23, 2u);
+    LOWORD(v27) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_END, v12, "ActionsForAdding", &unk_100004FF1, &v27, 2u);
   }
 
-  v22 = sub_10000328C();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v26 = sub_10000328C(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     sub_1000035BC();
   }
 
-  completionCopy[2](completionCopy, v18, 0);
+  completionCopy[2](completionCopy, v20, 0);
 }
 
 - (void)actionsForDeletingAccount:(id)account affectingDataclass:(id)dataclass completion:(id)completion
@@ -157,20 +157,20 @@
   accountCopy = account;
   dataclassCopy = dataclass;
   completionCopy = completion;
-  v11 = sub_10000328C();
+  v11 = sub_10000328C(completionCopy);
   v12 = _ACSignpostCreate();
 
-  v13 = sub_10000328C();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = sub_10000328C(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 138543362;
-    v26 = dataclassCopy;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ActionsForDeleting", " Dataclass=%{public,signpost.telemetry:string1,name=Dataclass}@ ", buf, 0xCu);
+    v30 = dataclassCopy;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ActionsForDeleting", " Dataclass=%{public,signpost.telemetry:string1,name=Dataclass}@ ", buf, 0xCu);
   }
 
-  v15 = sub_10000328C();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v17 = sub_10000328C(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     sub_100003624();
   }
@@ -178,51 +178,51 @@
   _accountStore = [(ACRemoteDataclassOwnersManager *)self _accountStore];
   [accountCopy _setAccountStore:_accountStore];
 
-  v17 = [(ACRemoteDataclassOwnersManager *)self _ownerForDataclass:dataclassCopy];
+  v19 = [(ACRemoteDataclassOwnersManager *)self _ownerForDataclass:dataclassCopy];
   if (objc_opt_respondsToSelector())
   {
-    v24 = 0;
-    v18 = [v17 actionsForDeletingAccount:accountCopy forDataclass:dataclassCopy withError:&v24];
-    v19 = v24;
+    v28 = 0;
+    v20 = [v19 actionsForDeletingAccount:accountCopy forDataclass:dataclassCopy withError:&v28];
+    v21 = v28;
   }
 
   else
   {
     if (objc_opt_respondsToSelector())
     {
-      v18 = [v17 actionsForDeletingAccount:accountCopy forDataclass:dataclassCopy];
+      v20 = [v19 actionsForDeletingAccount:accountCopy forDataclass:dataclassCopy];
     }
 
     else
     {
-      v18 = 0;
+      v20 = 0;
     }
 
-    v19 = 0;
+    v21 = 0;
   }
 
-  v20 = _ACLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v22 = _ACLogSystem();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     sub_100003554();
   }
 
-  _ACSignpostGetNanoseconds();
-  v21 = sub_10000328C();
-  v22 = v21;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  Nanoseconds = _ACSignpostGetNanoseconds();
+  v24 = sub_10000328C(Nanoseconds);
+  v25 = v24;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_END, v12, "ActionsForDeleting", &unk_100004FF1, buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_INTERVAL_END, v12, "ActionsForDeleting", &unk_100004FF1, buf, 2u);
   }
 
-  v23 = sub_10000328C();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v27 = sub_10000328C(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     sub_10000368C();
   }
 
-  completionCopy[2](completionCopy, v18, v19);
+  completionCopy[2](completionCopy, v20, v21);
 }
 
 - (void)actionsForEnablingDataclass:(id)dataclass onAccount:(id)account completion:(id)completion
@@ -230,20 +230,20 @@
   dataclassCopy = dataclass;
   accountCopy = account;
   completionCopy = completion;
-  v11 = sub_10000328C();
+  v11 = sub_10000328C(completionCopy);
   v12 = _ACSignpostCreate();
 
-  v13 = sub_10000328C();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = sub_10000328C(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 138543362;
-    v26 = dataclassCopy;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ActionsForEnabling", " Dataclass=%{public,signpost.telemetry:string1,name=Dataclass}@ ", buf, 0xCu);
+    v30 = dataclassCopy;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ActionsForEnabling", " Dataclass=%{public,signpost.telemetry:string1,name=Dataclass}@ ", buf, 0xCu);
   }
 
-  v15 = sub_10000328C();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v17 = sub_10000328C(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     sub_1000036F4();
   }
@@ -251,51 +251,51 @@
   _accountStore = [(ACRemoteDataclassOwnersManager *)self _accountStore];
   [accountCopy _setAccountStore:_accountStore];
 
-  v17 = [(ACRemoteDataclassOwnersManager *)self _ownerForDataclass:dataclassCopy];
+  v19 = [(ACRemoteDataclassOwnersManager *)self _ownerForDataclass:dataclassCopy];
   if (objc_opt_respondsToSelector())
   {
-    v24 = 0;
-    v18 = [v17 actionsForEnablingDataclassOnAccount:accountCopy forDataclass:dataclassCopy withError:&v24];
-    v19 = v24;
+    v28 = 0;
+    v20 = [v19 actionsForEnablingDataclassOnAccount:accountCopy forDataclass:dataclassCopy withError:&v28];
+    v21 = v28;
   }
 
   else
   {
     if (objc_opt_respondsToSelector())
     {
-      v18 = [v17 actionsForEnablingDataclassOnAccount:accountCopy forDataclass:dataclassCopy];
+      v20 = [v19 actionsForEnablingDataclassOnAccount:accountCopy forDataclass:dataclassCopy];
     }
 
     else
     {
-      v18 = 0;
+      v20 = 0;
     }
 
-    v19 = 0;
+    v21 = 0;
   }
 
-  v20 = _ACLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v22 = _ACLogSystem();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     sub_100003554();
   }
 
-  _ACSignpostGetNanoseconds();
-  v21 = sub_10000328C();
-  v22 = v21;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  Nanoseconds = _ACSignpostGetNanoseconds();
+  v24 = sub_10000328C(Nanoseconds);
+  v25 = v24;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_END, v12, "ActionsForEnabling", &unk_100004FF1, buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_INTERVAL_END, v12, "ActionsForEnabling", &unk_100004FF1, buf, 2u);
   }
 
-  v23 = sub_10000328C();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v27 = sub_10000328C(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     sub_10000375C();
   }
 
-  completionCopy[2](completionCopy, v18, v19);
+  completionCopy[2](completionCopy, v20, v21);
 }
 
 - (void)actionsForDisablingDataclass:(id)dataclass onAccount:(id)account completion:(id)completion
@@ -303,20 +303,20 @@
   dataclassCopy = dataclass;
   accountCopy = account;
   completionCopy = completion;
-  v11 = sub_10000328C();
+  v11 = sub_10000328C(completionCopy);
   v12 = _ACSignpostCreate();
 
-  v13 = sub_10000328C();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = sub_10000328C(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 138543362;
-    v26 = dataclassCopy;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ActionsForDisabling", " Dataclass=%{public,signpost.telemetry:string1,name=Dataclass}@ ", buf, 0xCu);
+    v30 = dataclassCopy;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ActionsForDisabling", " Dataclass=%{public,signpost.telemetry:string1,name=Dataclass}@ ", buf, 0xCu);
   }
 
-  v15 = sub_10000328C();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v17 = sub_10000328C(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     sub_1000037C4();
   }
@@ -324,51 +324,51 @@
   _accountStore = [(ACRemoteDataclassOwnersManager *)self _accountStore];
   [accountCopy _setAccountStore:_accountStore];
 
-  v17 = [(ACRemoteDataclassOwnersManager *)self _ownerForDataclass:dataclassCopy];
+  v19 = [(ACRemoteDataclassOwnersManager *)self _ownerForDataclass:dataclassCopy];
   if (objc_opt_respondsToSelector())
   {
-    v24 = 0;
-    v18 = [v17 actionsForDisablingDataclassOnAccount:accountCopy forDataclass:dataclassCopy withError:&v24];
-    v19 = v24;
+    v28 = 0;
+    v20 = [v19 actionsForDisablingDataclassOnAccount:accountCopy forDataclass:dataclassCopy withError:&v28];
+    v21 = v28;
   }
 
   else
   {
     if (objc_opt_respondsToSelector())
     {
-      v18 = [v17 actionsForDisablingDataclassOnAccount:accountCopy forDataclass:dataclassCopy];
+      v20 = [v19 actionsForDisablingDataclassOnAccount:accountCopy forDataclass:dataclassCopy];
     }
 
     else
     {
-      v18 = 0;
+      v20 = 0;
     }
 
-    v19 = 0;
+    v21 = 0;
   }
 
-  v20 = _ACLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v22 = _ACLogSystem();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     sub_100003554();
   }
 
-  _ACSignpostGetNanoseconds();
-  v21 = sub_10000328C();
-  v22 = v21;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  Nanoseconds = _ACSignpostGetNanoseconds();
+  v24 = sub_10000328C(Nanoseconds);
+  v25 = v24;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_END, v12, "ActionsForDisabling", &unk_100004FF1, buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_INTERVAL_END, v12, "ActionsForDisabling", &unk_100004FF1, buf, 2u);
   }
 
-  v23 = sub_10000328C();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v27 = sub_10000328C(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     sub_10000382C();
   }
 
-  completionCopy[2](completionCopy, v18, v19);
+  completionCopy[2](completionCopy, v20, v21);
 }
 
 - (void)performDataclassActions:(id)actions forAccount:(id)account withChildren:(id)children completion:(id)completion
@@ -377,62 +377,62 @@
   accountCopy = account;
   childrenCopy = children;
   completionCopy = completion;
-  v13 = sub_10000328C();
+  v13 = sub_10000328C(completionCopy);
   v14 = _ACSignpostCreate();
-  v34 = v15;
+  v36 = v15;
 
-  v16 = sub_10000328C();
-  v17 = v16;
-  if ((v14 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v17 = sub_10000328C(v16);
+  v18 = v17;
+  if ((v14 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 138412290;
-    v50 = actionsCopy;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "PerformActions", "actions: %@", buf, 0xCu);
+    v52 = actionsCopy;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_BEGIN, v14, "PerformActions", "actions: %@", buf, 0xCu);
   }
 
-  v18 = sub_10000328C();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = sub_10000328C(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003894(actionsCopy, v14, v18);
+    sub_100003894(actionsCopy, v14, v20);
   }
 
-  v19 = actionsCopy;
+  v21 = actionsCopy;
 
   _accountStore = [(ACRemoteDataclassOwnersManager *)self _accountStore];
   [accountCopy _setAccountStore:_accountStore];
 
+  v49 = 0u;
   v47 = 0u;
-  v45 = 0u;
+  v48 = 0u;
   v46 = 0u;
-  v44 = 0u;
-  v21 = childrenCopy;
-  v22 = [v21 countByEnumeratingWithState:&v44 objects:v48 count:16];
-  if (v22)
+  v23 = childrenCopy;
+  v24 = [v23 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  if (v24)
   {
-    v23 = v22;
-    v24 = *v45;
+    v25 = v24;
+    v26 = *v47;
     do
     {
-      v25 = 0;
+      v27 = 0;
       do
       {
-        if (*v45 != v24)
+        if (*v47 != v26)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v23);
         }
 
-        v26 = *(*(&v44 + 1) + 8 * v25);
+        v28 = *(*(&v46 + 1) + 8 * v27);
         _accountStore2 = [(ACRemoteDataclassOwnersManager *)self _accountStore];
-        [v26 _setAccountStore:_accountStore2];
+        [v28 _setAccountStore:_accountStore2];
 
-        v25 = v25 + 1;
+        v27 = v27 + 1;
       }
 
-      while (v23 != v25);
-      v23 = [v21 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      while (v25 != v27);
+      v25 = [v23 countByEnumeratingWithState:&v46 objects:v50 count:16];
     }
 
-    while (v23);
+    while (v25);
   }
 
   [(ACRemoteDataclassOwnersManager *)self _incrementBusyCounterForAccount:accountCopy];
@@ -441,18 +441,18 @@
   block[1] = 3221225472;
   block[2] = sub_100001E48;
   block[3] = &unk_100008258;
-  v29 = v19;
-  v37 = v19;
-  v38 = accountCopy;
-  selfCopy = self;
-  v40 = v21;
-  v42 = v14;
-  v43 = v34;
-  v41 = completionCopy;
-  v30 = completionCopy;
   v31 = v21;
-  v32 = accountCopy;
-  v33 = v29;
+  v39 = v21;
+  v40 = accountCopy;
+  selfCopy = self;
+  v42 = v23;
+  v44 = v14;
+  v45 = v36;
+  v43 = completionCopy;
+  v32 = completionCopy;
+  v33 = v23;
+  v34 = accountCopy;
+  v35 = v31;
   dispatch_async(dataclassActionQueue, block);
 }
 

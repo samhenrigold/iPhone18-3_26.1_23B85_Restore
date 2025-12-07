@@ -126,7 +126,7 @@
 
 - (void)listOfFriendsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156340);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156340, &qword_1C52A8F30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -151,7 +151,7 @@
 
 - (void)locationFor:(NSString *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156340);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156340, &qword_1C52A8F30);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -178,7 +178,7 @@
 
 - (void)latestLocationFor:(NSString *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156340);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156340, &qword_1C52A8F30);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

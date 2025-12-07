@@ -148,7 +148,7 @@
       [v11 removeObjectForKey:*off_1E70EC8C8];
       [v11 removeObjectForKey:*off_1E70ECAA8];
 
-      if (([v11 isEqual:self->super._defaultAttributes] & 1) == 0)
+      if ((objc_msgSend_isEqual_(v11) & 1) == 0)
       {
         v20 = v11;
 
@@ -186,9 +186,9 @@
 
   if (v6 && v5)
   {
-    v8 = [(NSAttributedString *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5);
 
-    if (!v8)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -254,9 +254,9 @@ LABEL_15:
 
     if (v14 && v13)
     {
-      v16 = [v13 isEqual:v14];
+      isEqual = objc_msgSend_isEqual_(v13);
 
-      if ((v16 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         v17 = [(NSAttributedString *)self->_attributedString mutableCopy];
 LABEL_27:
@@ -285,7 +285,7 @@ LABEL_25:
         }
 
         v21 = v20;
-        v26 = [v19 isEqual:v20];
+        v26 = objc_msgSend_isEqual_(v19);
 
         if (!v26)
         {
@@ -344,7 +344,7 @@ LABEL_32:
 
     if (v10 != v17)
     {
-      v12 = 0;
+      isEqual = 0;
       goto LABEL_11;
     }
   }
@@ -359,20 +359,20 @@ LABEL_32:
   v14 = v13;
   if (v11 == v13)
   {
-    v12 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v12 = 0;
+    isEqual = 0;
     if (v13 && v11)
     {
-      v12 = [v11 isEqual:v13];
+      isEqual = objc_msgSend_isEqual_(v11);
     }
   }
 
 LABEL_11:
-  return v12;
+  return isEqual;
 }
 
 - (id)defaultValueForAttribute:(id)attribute
@@ -393,15 +393,15 @@ LABEL_11:
   if (stringCopy | attributedString)
   {
     string = [(NSAttributedString *)attributedString string];
-    v6 = [string isEqualToString:stringCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(string);
   }
 
   else
   {
-    v6 = 1;
+    isEqualToString = 1;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (BOOL)isEqualToContent:(id)content byAttribute:(id)attribute

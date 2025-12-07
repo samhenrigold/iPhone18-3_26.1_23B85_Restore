@@ -8,7 +8,7 @@
 
 - (id)summarizedBusinessNodesForMomentNode:(id)node
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   v5 = [PGLocationTitleUtility businessNodeForTitlingFromMomentNodes:nodeCopy businessNodesByMomentNode:self->_businessNodesByMomentNode];
   v6 = v5;
@@ -53,8 +53,8 @@
         v17 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:universalStartDate endDate:universalEndDate];
         v18 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v17, 0}];
         v19 = [[PGBusinessLocationSummarizedFeature alloc] initWithIntervalsPresent:v18 isMandatoryForKeyAsset:1 businessNode:v6];
-        v23 = v19;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+        v22 = v19;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
       }
     }
 
@@ -68,8 +68,6 @@
   {
     v20 = MEMORY[0x277CBEBF8];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

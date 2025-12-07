@@ -217,7 +217,6 @@ LABEL_9:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v4 = v18;
 
   return v4;
@@ -280,61 +279,59 @@ LABEL_9:
 
 void __74__AKAppleIDRecoveryController__processNextStep_response_model_completion___block_invoke(uint64_t a1, char a2, id obj, void *a4, void *a5, void *a6)
 {
-  v25 = a1;
-  v24 = a2;
+  v23 = a1;
+  v22 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v22 = 0;
-  objc_storeStrong(&v22, a4);
-  v21 = 0;
-  objc_storeStrong(&v21, a5);
   v20 = 0;
-  objc_storeStrong(&v20, a6);
-  v19 = a1;
-  if (v20)
+  objc_storeStrong(&v20, a4);
+  v19 = 0;
+  objc_storeStrong(&v19, a5);
+  v18 = 0;
+  objc_storeStrong(&v18, a6);
+  v17 = a1;
+  if (v18)
   {
     if (*(a1 + 56))
     {
       (*(*(a1 + 56) + 16))();
     }
 
-    v18 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v12 = NSStringFromClass(v7);
-    AKPrintLine(@"Finished account recovery step: %@", v12);
-    MEMORY[0x1E69E5920](v12);
-    if (v24)
+    v6 = objc_opt_class();
+    v10 = NSStringFromClass(v6);
+    AKPrintLine(@"Finished account recovery step: %@", v10);
+    MEMORY[0x1E69E5920](v10);
+    if (v22)
     {
-      v8 = [AKAccountRecoveryResponse alloc];
-      v17 = [(AKAccountRecoveryResponse *)v8 initWithData:location httpResponse:v22];
-      [*(a1 + 40) _processResponse:v17 model:*(a1 + 48) withCompletion:*(a1 + 56)];
-      objc_storeStrong(&v17, 0);
+      v7 = [AKAccountRecoveryResponse alloc];
+      v15 = [(AKAccountRecoveryResponse *)v7 initWithData:location httpResponse:v20];
+      [*(a1 + 40) _processResponse:v15 model:*(a1 + 48) withCompletion:*(a1 + 56)];
+      objc_storeStrong(&v15, 0);
     }
 
     else
     {
-      v9 = *(a1 + 40);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      AKPrintLine(@"Finished recovery flow for - %@", v11);
-      MEMORY[0x1E69E5920](v11);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      AKPrintLine(@"Finished recovery flow for - %@", v9);
+      MEMORY[0x1E69E5920](v9);
       if (*(a1 + 56))
       {
         (*(*(a1 + 56) + 16))();
       }
     }
 
-    v18 = 0;
+    v16 = 0;
   }
 
+  objc_storeStrong(&v18, 0);
+  objc_storeStrong(&v19, 0);
   objc_storeStrong(&v20, 0);
-  objc_storeStrong(&v21, 0);
-  objc_storeStrong(&v22, 0);
   objc_storeStrong(&location, 0);
 }
 
@@ -370,7 +367,6 @@ void __74__AKAppleIDRecoveryController__processNextStep_response_model_completio
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

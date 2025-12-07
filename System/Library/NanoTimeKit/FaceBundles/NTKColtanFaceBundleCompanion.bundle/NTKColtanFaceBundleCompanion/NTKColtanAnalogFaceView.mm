@@ -25,6 +25,7 @@
 - (void)_loadCommonViews;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_setDensity:(unint64_t)density;
 - (void)_setMasking:(BOOL)masking;
 - (void)_setShape:(unint64_t)shape;
@@ -79,6 +80,16 @@
   [(NTKColtanAnalogFaceView *)&v3 _unloadSnapshotContentViews];
   [(NTKColtanAnalogFaceView *)self _unloadActiveViews];
   [(NTKColtanAnalogFaceView *)self _unloadCommonViews];
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKColtanAnalogFaceView;
+  groupCopy = group;
+  [(NTKColtanAnalogFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIQuadView *)self->_displayQuadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (void)_applyFrozen

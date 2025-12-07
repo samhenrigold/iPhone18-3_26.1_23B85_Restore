@@ -13,27 +13,25 @@
 
 - (NSArray)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   walletKey = [(HMHomeWalletKeyDeviceState *)self walletKey];
   v5 = [v3 initWithName:@"Wallet Key" value:walletKey];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   expressEnablementConflictingPassDescription = [(HMHomeWalletKeyDeviceState *)self expressEnablementConflictingPassDescription];
   v8 = [v6 initWithName:@"Express Enablement Conflicting Pass Description" value:expressEnablementConflictingPassDescription];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMHomeWalletKeyDeviceState *)self canAddWalletKey];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"Can Add Wallet Key" value:v10];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   v13 = HMHomeAddWalletKeyErrorCodeAsString([(HMHomeWalletKeyDeviceState *)self canAddWalletKeyErrorCode]);
   v14 = [v12 initWithName:@"Can Add Wallet Key Error Code" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -124,31 +122,7 @@
 
   v6 = v5;
   v7 = v6;
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  walletKey = [v6 walletKey];
-  walletKey2 = [(HMHomeWalletKeyDeviceState *)self walletKey];
-  v10 = HMFEqualObjects();
-
-  if (!v10)
-  {
-    goto LABEL_9;
-  }
-
-  expressEnablementConflictingPassDescription = [v7 expressEnablementConflictingPassDescription];
-  expressEnablementConflictingPassDescription2 = [(HMHomeWalletKeyDeviceState *)self expressEnablementConflictingPassDescription];
-  v13 = HMFEqualObjects();
-
-  if (!v13)
-  {
-    goto LABEL_9;
-  }
-
-  canAddWalletKeyErrorCode = [v7 canAddWalletKeyErrorCode];
-  if (canAddWalletKeyErrorCode == [(HMHomeWalletKeyDeviceState *)self canAddWalletKeyErrorCode])
+  if (v6 && ([v6 walletKey], v8 = objc_claimAutoreleasedReturnValue(), -[HMHomeWalletKeyDeviceState walletKey](self, "walletKey"), v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(), v9, v8, v10) && (objc_msgSend(v7, "expressEnablementConflictingPassDescription"), v11 = objc_claimAutoreleasedReturnValue(), -[HMHomeWalletKeyDeviceState expressEnablementConflictingPassDescription](self, "expressEnablementConflictingPassDescription"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && (v14 = objc_msgSend(v7, "canAddWalletKeyErrorCode"), v14 == -[HMHomeWalletKeyDeviceState canAddWalletKeyErrorCode](self, "canAddWalletKeyErrorCode")))
   {
     canAddWalletKey = [v7 canAddWalletKey];
     v16 = canAddWalletKey ^ [(HMHomeWalletKeyDeviceState *)self canAddWalletKey]^ 1;
@@ -156,7 +130,6 @@
 
   else
   {
-LABEL_9:
     LOBYTE(v16) = 0;
   }
 

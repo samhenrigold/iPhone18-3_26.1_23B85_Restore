@@ -22,7 +22,7 @@
 - (void)_longPressed:(id)pressed;
 - (void)_markPresented;
 - (void)_rootView;
-- (void)_setContent:(unsigned int)content type:(uint64_t)type depth:;
+- (void)_setContent:(uint64_t)content type:(uint64_t)type depth:;
 - (void)_treeLayoutWithContext:(void *)context block:;
 - (void)_updateSubviewsWithType:(uint64_t)type depth:;
 - (void)_visitPostOrder:(uint64_t)order;
@@ -71,7 +71,7 @@ void __82__PKApplicationMessageView_RemovedSubviewContainer_commitAnimated_withC
   }
 }
 
-uint64_t __82__PKApplicationMessageView_RemovedSubviewContainer_commitAnimated_withCompletion___block_invoke_3(uint64_t a1)
+void *__82__PKApplicationMessageView_RemovedSubviewContainer_commitAnimated_withCompletion___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)
@@ -608,11 +608,11 @@ LABEL_13:
     v17 = 0;
     if ((*(self + 568) & 1) == 0)
     {
-      v165.origin.x = context;
-      v165.origin.y = bounds;
-      v165.size.width = a5;
-      v165.size.height = a6;
-      if (CGRectEqualToRect(*(self + 576), v165))
+      v191.origin.x = context;
+      v191.origin.y = bounds;
+      v191.size.width = a5;
+      v191.size.height = a6;
+      if (CGRectEqualToRect(*(self + 576), v191))
       {
         [self layoutMargins];
         v14.f64[1] = v13;
@@ -651,313 +651,336 @@ LABEL_13:
 
     if (v26)
     {
-      v119 = v24;
-      v120 = v23;
-      v117 = v20;
+      v145 = v24;
+      v146 = v23;
+      v143 = v20;
       _shouldReverseLayoutDirection = [self _shouldReverseLayoutDirection];
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke;
       aBlock[3] = &__block_descriptor_40_e22_v28__0__UIView_8d16B24l;
+      v28 = 2;
+      if (_shouldReverseLayoutDirection)
+      {
+        v28 = 0;
+      }
+
+      v139 = v28;
       aBlock[4] = a2;
-      v28 = _Block_copy(aBlock);
-      v162[0] = MEMORY[0x1E69E9820];
-      v162[1] = 3221225472;
-      v162[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_2;
-      v162[3] = &unk_1E8018538;
-      v162[5] = a2;
-      v162[4] = self;
-      v29 = _Block_copy(v162);
-      v161[0] = MEMORY[0x1E69E9820];
-      v161[1] = 3221225472;
-      v161[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_3;
-      v161[3] = &__block_descriptor_40_e51____v__d_20__0__PKApplicationMessageContentView_8B16l;
-      v161[4] = a2;
-      v30 = _Block_copy(v161);
-      v160[0] = MEMORY[0x1E69E9820];
-      v160[1] = 3221225472;
-      v160[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_5;
-      v160[3] = &__block_descriptor_40_e51____v__d_20__0__PKApplicationMessageSummaryView_8B16l;
-      v160[4] = a2;
-      v123 = _Block_copy(v160);
-      v159[0] = MEMORY[0x1E69E9820];
-      v159[1] = 3221225472;
-      v159[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_7;
-      v159[3] = &__block_descriptor_40_e44____v__d_20__0__PKApplicationMessageView_8B16l;
-      v159[4] = a2;
-      v121 = _Block_copy(v159);
+      v29 = _Block_copy(aBlock);
+      v188[0] = MEMORY[0x1E69E9820];
+      v188[1] = 3221225472;
+      v188[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_2;
+      v188[3] = &unk_1E8018538;
+      v188[5] = a2;
+      v188[4] = self;
+      v30 = _Block_copy(v188);
+      v187[0] = MEMORY[0x1E69E9820];
+      v187[1] = 3221225472;
+      v187[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_3;
+      v187[3] = &__block_descriptor_40_e51____v__d_20__0__PKApplicationMessageContentView_8B16l;
+      v187[4] = a2;
+      v31 = _Block_copy(v187);
+      v186[0] = MEMORY[0x1E69E9820];
+      v186[1] = 3221225472;
+      v186[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_5;
+      v186[3] = &__block_descriptor_40_e51____v__d_20__0__PKApplicationMessageSummaryView_8B16l;
+      v186[4] = a2;
+      v149 = _Block_copy(v186);
+      v185[0] = MEMORY[0x1E69E9820];
+      v185[1] = 3221225472;
+      v185[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_7;
+      v185[3] = &__block_descriptor_40_e44____v__d_20__0__PKApplicationMessageView_8B16l;
+      v185[4] = a2;
+      v147 = _Block_copy(v185);
       if (v18 == 1)
       {
         [*(self + 424) contentSize];
-        if (v32 == v8 + v8 && v31 == a6)
+        if (v33 == v8 + v8 && v32 == a6)
         {
-          v33 = *MEMORY[0x1E695EFF8];
+          v34 = *MEMORY[0x1E695EFF8];
           if (_shouldReverseLayoutDirection)
           {
-            v34 = 0.0;
+            v35 = 0.0;
           }
 
           else
           {
-            v34 = *(MEMORY[0x1E695EFF8] + 8);
+            v35 = *(MEMORY[0x1E695EFF8] + 8);
           }
         }
 
         else
         {
           [*(self + 424) setContentSize:{v8 + v8, a6}];
-          v35 = -v8;
-          v33 = *MEMORY[0x1E695EFF8];
+          v36 = -v8;
+          v34 = *MEMORY[0x1E695EFF8];
           if (_shouldReverseLayoutDirection)
           {
-            v34 = 0.0;
+            v35 = 0.0;
           }
 
           else
           {
-            v35 = *MEMORY[0x1E695EFF8];
-            v34 = *(MEMORY[0x1E695EFF8] + 8);
+            v36 = *MEMORY[0x1E695EFF8];
+            v35 = *(MEMORY[0x1E695EFF8] + 8);
           }
 
-          [*(self + 424) setFrameForPointInside:{v35, v34, v8 + v8, a6}];
+          [*(self + 424) setFrameForPointInside:{v36, v35, v8 + v8, a6}];
         }
 
         _rootView = [(PKApplicationMessageView *)self _rootView];
         cachedClearViewFittingWidth = [(PKApplicationMessageView *)_rootView cachedClearViewFittingWidth];
 
-        v38 = v8 - cachedClearViewFittingWidth + -8.0;
+        v39 = v8 - cachedClearViewFittingWidth + -8.0;
         if (_shouldReverseLayoutDirection)
         {
-          v39 = v8 - cachedClearViewFittingWidth + -8.0;
+          v40 = v8 - cachedClearViewFittingWidth + -8.0;
         }
 
         else
         {
-          v39 = v33;
+          v40 = v34;
         }
 
         _rootView2 = [(PKApplicationMessageView *)self _rootView];
         cachedClearViewFittingWidth2 = [(PKApplicationMessageView *)_rootView2 cachedClearViewFittingWidth];
 
-        v42 = cachedClearViewFittingWidth2 + 8.0;
-        v166.origin.x = v39;
-        v166.origin.y = v34;
-        v166.size.width = v42;
-        v166.size.height = a6;
-        if (!CGRectEqualToRect(*(self + 440), v166))
+        v43 = cachedClearViewFittingWidth2 + 8.0;
+        v192.origin.x = v40;
+        v192.origin.y = v35;
+        v192.size.width = v43;
+        v192.size.height = a6;
+        if (!CGRectEqualToRect(*(self + 440), v192))
         {
-          *(self + 440) = v39;
-          *(self + 448) = v34;
-          *(self + 456) = v42;
+          *(self + 440) = v40;
+          *(self + 448) = v35;
+          *(self + 456) = v43;
           *(self + 464) = a6;
-          [*(self + 424) setFrame:{v39, v34, v42, a6}];
+          [*(self + 424) setFrame:{v40, v35, v43, a6}];
         }
 
         if (_shouldReverseLayoutDirection)
         {
-          v43 = v8 + v38;
-          v44 = -(v8 + v38);
-          v45 = 0.0;
+          v44 = v8 + v39;
+          v45 = -(v8 + v39);
           v46 = 0.0;
+          v47 = 0.0;
         }
 
         else
         {
-          v46 = *MEMORY[0x1E69DDCE0];
-          v43 = *(MEMORY[0x1E69DDCE0] + 8);
-          v45 = *(MEMORY[0x1E69DDCE0] + 16);
-          v44 = *(MEMORY[0x1E69DDCE0] + 24);
+          v47 = *MEMORY[0x1E69DDCE0];
+          v44 = *(MEMORY[0x1E69DDCE0] + 8);
+          v46 = *(MEMORY[0x1E69DDCE0] + 16);
+          v45 = *(MEMORY[0x1E69DDCE0] + 24);
         }
 
         [*(self + 424) contentInset];
-        if (v50 != v43 || v47 != v46 || v49 != v44 || v48 != v45)
+        if (v51 != v44 || v48 != v47 || v50 != v45 || v49 != v46)
         {
-          [*(self + 424) setContentInset:{v46, v43, v45, v44}];
+          [*(self + 424) setContentInset:{v47, v44, v46, v45}];
         }
       }
 
-      v118 = a2;
-      v151 = 0;
-      v152 = &v151;
-      v153 = 0x4010000000;
-      v154 = &unk_1BE347799;
-      v51 = contextCopy2;
-      v155 = contextCopy2;
-      v52 = *&bounds;
+      v144 = a2;
+      v177 = 0;
+      v178 = &v177;
+      v179 = 0x4010000000;
+      v180 = &unk_1BE347799;
+      v52 = contextCopy2;
+      v181 = contextCopy2;
+      v53 = *&bounds;
       boundsCopy = bounds;
-      v157 = v8;
-      v158 = a6;
-      v53 = *(self + 704);
-      if (v53)
+      v183 = v8;
+      v184 = a6;
+      v54 = *(self + 704);
+      if (v54)
       {
-        LOBYTE(v52) = *(self + 656);
-        v28[2](v28, v53, 1, v52);
+        LOBYTE(v53) = *(self + 656);
+        v29[2](v29, v54, 1, v53);
         [*(self + 704) sizeThatFits:{1.79769313e308, 1.79769313e308}];
-        v114 = v55;
-        v115 = v54;
-        v113 = contextCopy2;
+        v140 = v56;
+        v141 = v55;
+        v138 = contextCopy2;
         imageView = [*(self + 704) imageView];
         image = [imageView image];
-        v112 = v30;
+        v137 = v31;
 
         [image alignmentRectInsets];
-        v59 = v58;
-        v150[0] = MEMORY[0x1E69E9820];
-        v150[1] = 3221225472;
-        v150[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_9;
-        v150[3] = &unk_1E80185E8;
-        v150[5] = v60;
-        v150[6] = v61;
-        *&v150[7] = v58;
-        v150[8] = v62;
-        v150[4] = &v151;
-        v63 = _Block_copy(v150);
-        v64 = v63;
+        v60 = v59;
+        v176[0] = MEMORY[0x1E69E9820];
+        v176[1] = 3221225472;
+        v176[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_9;
+        v176[3] = &unk_1E80185E8;
+        v176[5] = v61;
+        v176[6] = v62;
+        *&v176[7] = v59;
+        v176[8] = v63;
+        v176[4] = &v177;
+        v64 = _Block_copy(v176);
+        v65 = v64;
         if ((v25 | *(self + 656)))
         {
           memset(&slice, 0, 32);
           if (*(self + 816) != 2 && *(self + 552) == 1)
           {
-            CGRectDivide(v152[1], &slice, v152 + 1, 4.0, CGRectMinYEdge);
+            CGRectDivide(v178[1], &slice, v178 + 1, 4.0, CGRectMinYEdge);
           }
 
-          v64[2](v64, 8.0, 0.0);
-          PKSizeAlignedInRect();
-          v66 = v65;
-          v68 = v67;
+          v66 = v65[2](v65, 8.0, 0.0);
+          v68.n128_u64[0] = v67;
           v70 = v69;
-          v72 = v71;
-          v164 = v152[1];
-          CGRectDivide(v164, &slice, v152 + 1, v164.size.height - v164.origin.y - v59 + 12.0, CGRectMinYEdge);
+          v72.n128_u64[0] = v71;
+          v74.n128_u64[0] = v140;
+          v73.n128_u64[0] = v141;
+          v75.n128_f64[0] = v66;
+          v76.n128_u64[0] = v68.n128_u64[0];
+          v77.n128_u64[0] = v70;
+          PKSizeAlignedInRect(v139, v73, v74, v75, v76, v77, v72, v68);
+          v79 = v78;
+          v81 = v80;
+          v83 = v82;
+          v85 = v84;
+          v190 = v178[1];
+          CGRectDivide(v190, &slice, v178 + 1, v190.size.height - v190.origin.y - v60 + 12.0, CGRectMinYEdge);
         }
 
         else
         {
-          v63[2](v63, 8.0, 6.0);
-          PKSizeAlignedInRect();
-          v66 = v73;
-          v68 = v74;
-          v70 = v75;
-          v72 = v76;
+          v86 = v64[2](v64, 8.0, 6.0);
+          v88.n128_u64[0] = v87;
+          v90 = v89;
+          v92.n128_u64[0] = v91;
+          v94.n128_u64[0] = v140;
+          v93.n128_u64[0] = v141;
+          v95.n128_f64[0] = v86;
+          v96.n128_u64[0] = v88.n128_u64[0];
+          v97.n128_u64[0] = v90;
+          PKSizeAlignedInRect(v139, v93, v94, v95, v96, v97, v92, v88);
+          v79 = v98;
+          v81 = v99;
+          v83 = v100;
+          v85 = v101;
         }
 
-        v51 = v113;
-        v77 = *(self + 704);
-        v78 = *MEMORY[0x1E695EFF8];
-        v79 = *(MEMORY[0x1E695EFF8] + 8);
-        v80 = v29[2];
-        v81 = *(MEMORY[0x1E69792E8] + 80);
+        v52 = v138;
+        v102 = *(self + 704);
+        v103 = *MEMORY[0x1E695EFF8];
+        v104 = *(MEMORY[0x1E695EFF8] + 8);
+        v105 = v30[2];
+        v106 = *(MEMORY[0x1E69792E8] + 80);
         *&slice.m31 = *(MEMORY[0x1E69792E8] + 64);
-        *&slice.m33 = v81;
-        v82 = *(MEMORY[0x1E69792E8] + 112);
+        *&slice.m33 = v106;
+        v107 = *(MEMORY[0x1E69792E8] + 112);
         *&slice.m41 = *(MEMORY[0x1E69792E8] + 96);
-        *&slice.m43 = v82;
-        v83 = *(MEMORY[0x1E69792E8] + 16);
+        *&slice.m43 = v107;
+        v108 = *(MEMORY[0x1E69792E8] + 16);
         *&slice.m11 = *MEMORY[0x1E69792E8];
-        *&slice.m13 = v83;
-        v84 = *(MEMORY[0x1E69792E8] + 48);
+        *&slice.m13 = v108;
+        v109 = *(MEMORY[0x1E69792E8] + 48);
         *&slice.m21 = *(MEMORY[0x1E69792E8] + 32);
-        *&slice.m23 = v84;
-        v80(v29, v77, &slice, 1, v66, v68, v70, v72, v78, v79, v115, v114);
+        *&slice.m23 = v109;
+        v105(v30, v102, &slice, 1, v79, v81, v83, v85, v103, v104, *&v141, *&v140);
 
-        v30 = v112;
+        v31 = v137;
       }
 
-      v145[0] = MEMORY[0x1E69E9820];
-      v145[1] = 3221225472;
-      v145[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_10;
-      v145[3] = &unk_1E8018638;
-      v145[4] = self;
-      v85 = v30;
-      v146 = v85;
-      v86 = v123;
-      v147 = v86;
-      v87 = v121;
-      v148 = v87;
-      v88 = _Block_copy(v145);
+      v171[0] = MEMORY[0x1E69E9820];
+      v171[1] = 3221225472;
+      v171[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_10;
+      v171[3] = &unk_1E8018638;
+      v171[4] = self;
+      v110 = v31;
+      v172 = v110;
+      v111 = v149;
+      v173 = v111;
+      v112 = v147;
+      v174 = v112;
+      v113 = _Block_copy(v171);
       memset(&slice, 0, sizeof(slice));
       CATransform3DMakeScale(&slice, 0.5, 0.5, 1.0);
-      v116 = v87;
-      v122 = v86;
-      v124 = v85;
-      v89 = [*(self + 744) count];
-      v90 = v89;
-      v92 = v18 == 1 && v89 != 0;
-      v144[0] = MEMORY[0x1E69E9820];
-      v144[1] = 3221225472;
-      v144[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_12;
-      v144[3] = &unk_1E8018660;
-      v144[4] = self;
-      v93 = _Block_copy(v144);
-      v134[0] = MEMORY[0x1E69E9820];
-      v134[1] = 3221225472;
-      v134[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_13;
-      v134[3] = &unk_1E80186B0;
-      v141 = v92;
-      v134[4] = self;
-      v139 = &v151;
-      v94 = v93;
-      v135 = v94;
-      v142 = v119;
-      v140 = slice;
-      v95 = v29;
-      v136 = v95;
-      v143 = v120;
-      v96 = v28;
-      v137 = v96;
-      v97 = v88;
-      v138 = v97;
-      v98 = _Block_copy(v134);
-      v125[0] = MEMORY[0x1E69E9820];
-      v125[1] = 3221225472;
-      v125[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_15;
-      v125[3] = &unk_1E8018750;
-      v125[4] = self;
-      v133 = v92;
-      v99 = v94;
-      v126 = v99;
-      v100 = v95;
-      v131 = slice;
-      v132 = v90;
-      v127 = v100;
-      v130 = &v151;
-      v101 = v96;
-      v128 = v101;
-      v102 = v97;
-      v129 = v102;
-      v103 = _Block_copy(v125);
-      v104 = v103;
+      v142 = v112;
+      v148 = v111;
+      v150 = v110;
+      v114 = [*(self + 744) count];
+      v115 = v114;
+      v117 = v18 == 1 && v114 != 0;
+      v170[0] = MEMORY[0x1E69E9820];
+      v170[1] = 3221225472;
+      v170[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_12;
+      v170[3] = &unk_1E8018660;
+      v170[4] = self;
+      v118 = _Block_copy(v170);
+      v160[0] = MEMORY[0x1E69E9820];
+      v160[1] = 3221225472;
+      v160[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_13;
+      v160[3] = &unk_1E80186B0;
+      v167 = v117;
+      v160[4] = self;
+      v165 = &v177;
+      v119 = v118;
+      v161 = v119;
+      v168 = v145;
+      v166 = slice;
+      v120 = v30;
+      v162 = v120;
+      v169 = v146;
+      v121 = v29;
+      v163 = v121;
+      v122 = v113;
+      v164 = v122;
+      v123 = _Block_copy(v160);
+      v151[0] = MEMORY[0x1E69E9820];
+      v151[1] = 3221225472;
+      v151[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_15;
+      v151[3] = &unk_1E8018750;
+      v151[4] = self;
+      v159 = v117;
+      v124 = v119;
+      v152 = v124;
+      v125 = v120;
+      v157 = slice;
+      v158 = v115;
+      v153 = v125;
+      v156 = &v177;
+      v126 = v121;
+      v154 = v126;
+      v127 = v122;
+      v155 = v127;
+      v128 = _Block_copy(v151);
+      v129 = v128;
       if (*(self + 684))
       {
-        v105 = (v103[2])(v103);
-        v98[2](v98);
+        v130 = (v128[2])(v128);
+        v123[2](v123);
       }
 
       else
       {
-        v105 = (v98[2])(v98);
-        v104[2](v104);
+        v130 = (v123[2])(v123);
+        v129[2](v129);
       }
 
-      v106 = v105 + v152[1].origin.y - bounds;
-      if (!(v118 >> 33))
+      v131 = v130 + v178[1].origin.y - bounds;
+      if (!(v144 >> 33))
       {
         *(self + 568) = 0;
-        *(self + 576) = v51;
+        *(self + 576) = v52;
         *(self + 584) = bounds;
         *(self + 592) = v8;
         *(self + 600) = a6;
         [self layoutMargins];
-        *(self + 608) = v107;
-        *(self + 616) = v108;
-        *(self + 624) = v109;
-        *(self + 632) = v110;
+        *(self + 608) = v132;
+        *(self + 616) = v133;
+        *(self + 624) = v134;
+        *(self + 632) = v135;
         *(self + 640) = v8;
-        *(self + 648) = v106;
+        *(self + 648) = v131;
       }
 
-      _Block_object_dispose(&v151, 8);
-      v20 = v117;
+      _Block_object_dispose(&v177, 8);
+      v20 = v143;
     }
 
     else
@@ -992,20 +1015,7 @@ void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_2(u
     v26 = [v24 layer];
     [v26 anchorPoint];
     [v24 pkui_setPosition:*(a1 + 40) animated:{a5 + v27 * a7, a6 + v28 * a8}];
-    v29 = *(a1 + 40);
-    v30 = a3[5];
-    v34[4] = a3[4];
-    v34[5] = v30;
-    v31 = a3[7];
-    v34[6] = a3[6];
-    v34[7] = v31;
-    v32 = a3[1];
-    v34[0] = *a3;
-    v34[1] = v32;
-    v33 = a3[3];
-    v34[2] = a3[2];
-    v34[3] = v33;
-    [v24 pkui_setTransform:v34 animated:v29];
+    objc_msgSend_pkui_setTransform_animated_(v24, *a3, *(a3 + 1), *(a3 + 2), *(a3 + 3), *(a3 + 4), *(a3 + 5), *(a3 + 6), *(a3 + 7), *(a3 + 8), *(a3 + 9), *(a3 + 10), *(a3 + 11), *(a3 + 12), *(a3 + 13), *(a3 + 14), *(a3 + 15));
     if ((*(*(a1 + 32) + 752) & 1) == 0)
     {
       [v24 layoutIfNeeded];
@@ -1030,12 +1040,12 @@ id __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_3(uin
   return v8;
 }
 
-void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_4(uint64_t a1, double a2)
+void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_4(uint64_t result, double a2)
 {
-  v2 = *(a1 + 44);
-  if (v2 == 1 || v2 == 2 && (*(a1 + 48) & 1) == 0)
+  v2 = *(result + 44);
+  if (v2 == 1 || v2 == 2 && (*(result + 48) & 1) == 0)
   {
-    [(PKApplicationMessageContentView *)*(a1 + 32) setBlurRadius:0 animated:a2 withCompletion:?];
+    [(PKApplicationMessageContentView *)*(result + 32) setBlurRadius:0 animated:a2 withCompletion:?];
   }
 }
 
@@ -1056,12 +1066,12 @@ id __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_5(uin
   return v8;
 }
 
-void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_6(uint64_t a1, double a2)
+void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_6(uint64_t result, double a2)
 {
-  v2 = *(a1 + 44);
-  if (v2 == 1 || v2 == 2 && (*(a1 + 48) & 1) == 0)
+  v2 = *(result + 44);
+  if (v2 == 1 || v2 == 2 && (*(result + 48) & 1) == 0)
   {
-    [(PKApplicationMessageSummaryView *)*(a1 + 32) setBlurRadius:0 animated:a2 withCompletion:?];
+    [(PKApplicationMessageSummaryView *)*(result + 32) setBlurRadius:0 animated:a2 withCompletion:?];
   }
 }
 
@@ -1082,12 +1092,12 @@ id __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_7(uin
   return v8;
 }
 
-void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_8(uint64_t a1, double a2)
+void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_8(uint64_t result, double a2)
 {
-  v2 = *(a1 + 44);
-  if (v2 == 1 || v2 == 2 && (*(a1 + 48) & 1) == 0)
+  v2 = *(result + 44);
+  if (v2 == 1 || v2 == 2 && (*(result + 48) & 1) == 0)
   {
-    [(PKApplicationMessageView *)*(a1 + 32) setBlurRadius:0 animated:a2 withCompletion:?];
+    [(PKApplicationMessageView *)*(result + 32) setBlurRadius:0 animated:a2 withCompletion:?];
   }
 }
 
@@ -1258,42 +1268,46 @@ void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_11(
   (*(v14 + 16))(v14, v6, v13, v16, v17, v10, v12);
 }
 
-double __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_12()
+double __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_12(uint64_t a1, __n128 a2, __n128 a3)
 {
-  PKFloatRoundToPixel();
-  v1 = v0;
-  PKFloatRoundToPixel();
-  return v1;
+  v3 = a3.n128_f64[0];
+  a3.n128_u64[0] = *(*(a1 + 32) + 440);
+  a2.n128_f64[0] = a2.n128_f64[0] - a3.n128_f64[0];
+  PKFloatRoundToPixel(a2, a3);
+  v6 = v5;
+  v7.n128_f64[0] = v3 - *(*(a1 + 32) + 448);
+  PKFloatRoundToPixel(v7, v8);
+  return v6;
 }
 
 double __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_13(uint64_t a1)
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   if (*(a1 + 208) == 1)
   {
-    v70 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
+    v72 = 0u;
     v2 = *(*(a1 + 32) + 744);
-    v3 = [v2 countByEnumeratingWithState:&v68 objects:v72 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v71 objects:v75 count:16];
     if (!v3)
     {
       goto LABEL_20;
     }
 
-    v4 = *v69;
+    v4 = *v72;
     while (1)
     {
       v5 = 0;
       do
       {
-        if (*v69 != v4)
+        if (*v72 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v68 + 1) + 8 * v5);
+        v6 = *(*(&v71 + 1) + 8 * v5);
         if (v6)
         {
           if (*(v6 + 28) || (*(v6 + 25) & 1) != 0)
@@ -1310,74 +1324,77 @@ double __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_1
         v11 = v10;
         v13 = v12;
         v15 = v14;
-        PKFloatRoundToPixel();
-        v16 = (*(*(a1 + 40) + 16))();
-        v18 = v17;
-        v20 = v19;
-        v22 = v21;
+        v16 = *(*(a1 + 72) + 8);
+        v17.n128_f64[0] = *(v16 + 48) - v12;
+        v18.n128_f64[0] = *(v16 + 32) + v17.n128_f64[0] * 0.5;
+        PKFloatRoundToPixel(v18, v17);
+        v19 = (*(*(a1 + 40) + 16))();
+        v21 = v20;
+        v23 = v22;
+        v25 = v24;
         if (*(a1 + 209) == 1)
         {
-          v23 = *(a1 + 160);
-          v64 = *(a1 + 144);
-          v65 = v23;
-          v24 = *(a1 + 192);
-          v66 = *(a1 + 176);
-          v67 = v24;
-          v25 = *(a1 + 96);
-          v60 = *(a1 + 80);
-          v61 = v25;
-          v26 = *(a1 + 112);
-          v27 = *(a1 + 128);
+          v26 = *(a1 + 160);
+          v67 = *(a1 + 144);
+          v68 = v26;
+          v27 = *(a1 + 192);
+          v69 = *(a1 + 176);
+          v70 = v27;
+          v28 = *(a1 + 96);
+          v63 = *(a1 + 80);
+          v64 = v28;
+          v29 = *(a1 + 112);
+          v30 = *(a1 + 128);
         }
 
         else
         {
           if (v7)
           {
-            [v7 transform3D];
+            objc_msgSend_transform3D(v7);
           }
 
           else
           {
-            v58 = 0u;
+            v61 = 0u;
+            v62 = 0u;
             v59 = 0u;
-            v56 = 0u;
+            v60 = 0u;
             v57 = 0u;
-            v54 = 0u;
+            v58 = 0u;
             v55 = 0u;
-            v52 = 0u;
-            v53 = 0u;
+            v56 = 0u;
           }
 
-          v64 = v56;
-          v65 = v57;
-          v66 = v58;
           v67 = v59;
-          v60 = v52;
-          v61 = v53;
-          v26 = v54;
-          v27 = v55;
+          v68 = v60;
+          v69 = v61;
+          v70 = v62;
+          v63 = v55;
+          v64 = v56;
+          v29 = v57;
+          v30 = v58;
         }
 
-        v62 = v26;
-        v63 = v27;
-        v28 = *(*(a1 + 48) + 16);
-        v56 = v64;
-        v57 = v65;
-        v58 = v66;
+        v65 = v29;
+        v66 = v30;
+        v31 = *(*(a1 + 48) + 16);
         v59 = v67;
-        v52 = v60;
-        v53 = v61;
-        v54 = v26;
-        v55 = v27;
-        v28(v16, v18, v20, v22, v9, v11, v13, v15);
+        v60 = v68;
+        v61 = v69;
+        v62 = v70;
+        v55 = v63;
+        v56 = v64;
+        v57 = v29;
+        v58 = v30;
+        v31(v19, v21, v23, v25, v9, v11, v13, v15);
 
 LABEL_18:
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v68 objects:v72 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v71 objects:v75 count:16];
       if (!v3)
       {
 LABEL_20:
@@ -1387,59 +1404,59 @@ LABEL_20:
     }
   }
 
-  v51[0] = 0;
-  v51[1] = v51;
-  v51[2] = 0x2020000000;
-  v51[3] = 0;
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x2020000000;
-  v50[3] = 0;
-  *&v60 = 0;
-  *(&v60 + 1) = &v60;
-  *&v61 = 0x4010000000;
-  *(&v61 + 1) = &unk_1BE347799;
-  v62 = 0u;
-  v63 = 0u;
-  v29 = *(a1 + 72);
-  v62 = *(*(v29 + 8) + 32);
-  v63 = *(*(v29 + 8) + 48);
-  *&v52 = 0;
-  *(&v52 + 1) = &v52;
-  *&v53 = 0x4010000000;
-  *(&v53 + 1) = &unk_1BE347799;
-  v30 = *(MEMORY[0x1E69DDCE0] + 16);
-  v54 = *MEMORY[0x1E69DDCE0];
-  v55 = v30;
+  v54[0] = 0;
+  v54[1] = v54;
+  v54[2] = 0x2020000000;
+  v54[3] = 0;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x2020000000;
+  v53[3] = 0;
+  *&v63 = 0;
+  *(&v63 + 1) = &v63;
+  *&v64 = 0x4010000000;
+  *(&v64 + 1) = &unk_1BE347799;
+  v65 = 0u;
+  v66 = 0u;
+  v32 = *(a1 + 72);
+  v65 = *(*(v32 + 8) + 32);
+  v66 = *(*(v32 + 8) + 48);
+  *&v55 = 0;
+  *(&v55 + 1) = &v55;
+  *&v56 = 0x4010000000;
+  *(&v56 + 1) = &unk_1BE347799;
+  v33 = *(MEMORY[0x1E69DDCE0] + 16);
+  v57 = *MEMORY[0x1E69DDCE0];
+  v58 = v33;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_14;
   aBlock[3] = &unk_1E8018688;
-  v44 = v50;
-  v45 = v51;
-  v49 = *(a1 + 210);
-  v46 = v29;
-  v47 = &v60;
-  v48 = &v52;
-  v40 = *(a1 + 32);
-  v31 = *(&v40 + 1);
-  v32 = *(a1 + 48);
-  v33 = *(a1 + 56);
-  *&v34 = v32;
-  *(&v34 + 1) = v33;
-  v42 = v40;
-  v43 = v34;
-  v35 = _Block_copy(aBlock);
+  v47 = v53;
+  v48 = v54;
+  v52 = *(a1 + 210);
+  v49 = v32;
+  v50 = &v63;
+  v51 = &v55;
+  v43 = *(a1 + 32);
+  v34 = *(&v43 + 1);
+  v35 = *(a1 + 48);
+  v36 = *(a1 + 56);
+  *&v37 = v35;
+  *(&v37 + 1) = v36;
+  v45 = v43;
+  v46 = v37;
+  v38 = _Block_copy(aBlock);
   (*(*(a1 + 64) + 16))();
-  v36 = *(*(&v60 + 1) + 40);
-  v37 = *(*(&v60 + 1) + 56);
-  v38 = *(*(*(a1 + 72) + 8) + 40);
+  v39 = *(*(&v63 + 1) + 40);
+  v40 = *(*(&v63 + 1) + 56);
+  v41 = *(*(*(a1 + 72) + 8) + 40);
 
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(v50, 8);
-  _Block_object_dispose(v51, 8);
-  return v36 + v37 - v38;
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(v53, 8);
+  _Block_object_dispose(v54, 8);
+  return v39 + v40 - v41;
 }
 
 void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_14(uint64_t a1, void *a2, uint64_t a3, int a4, void *a5, double a6, double a7)
@@ -1465,302 +1482,310 @@ void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_14(
       v17 = v16;
     }
 
-    PKSizeRoundToPixel();
+    PKSizeRoundToPixel(a6 * v17, a7 * v17);
+    v20 = v18.n128_f64[0];
     if (a3 && *(*(*(a1 + 64) + 8) + 24))
     {
       v19.n128_u64[0] = 8.0;
-      v20 = *(*(a1 + 96) + 8);
-      v41 = v20[5];
-      v42 = v20[4];
-      v21 = v20[6];
-      v40 = v20[7];
+      v21 = *(*(a1 + 96) + 8);
+      v42 = v21[5];
+      v43 = v21[4];
+      v22 = v21[6];
+      v41 = v21[7];
       v18.n128_f64[0] = 8.0 / v17;
       PKFloatCeilToPixel(v18, v19);
-      v23 = v21 + v22;
+      v25 = v22 + v23.n128_f64[0];
     }
 
     else
     {
       [*(a1 + 32) layoutMargins];
-      v41 = v25;
-      v42 = v24;
-      v23 = v26;
-      v40 = v27;
+      v42 = v24.n128_f64[0];
+      v43 = v23.n128_f64[0];
+      v25 = v26;
+      v41 = v27;
     }
 
-    PKFloatRoundToPixel();
-    v28 = (*(*(a1 + 40) + 16))();
-    v30 = v29;
-    v32 = v31;
-    v34 = v33;
+    v28 = *(*(a1 + 80) + 8);
+    v24.n128_f64[0] = *(v28 + 48) - v20;
+    v23.n128_f64[0] = *(v28 + 32) + v24.n128_f64[0] * 0.5;
+    PKFloatRoundToPixel(v23, v24);
+    v29 = (*(*(a1 + 40) + 16))();
+    v31 = v30;
+    v33 = v32;
+    v35 = v34;
     if (!a4)
     {
-      [v13 setLayoutMargins:{v42, v41, v23, v40}];
-      memset(&v43, 0, sizeof(v43));
-      CATransform3DMakeScale(&v43, v17, v17, 1.0);
-      (*(*(a1 + 48) + 16))(v28, v30, v32, v34, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), a6, a7);
-      v35 = *(a1 + 56);
-      v36.n128_u64[0] = 0;
+      [v13 setLayoutMargins:{v43, v42, v25, v41}];
+      memset(&v44, 0, sizeof(v44));
+      CATransform3DMakeScale(&v44, v17, v17, 1.0);
+      (*(*(a1 + 48) + 16))(v29, v31, v33, v35, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), a6, a7);
+      v36 = *(a1 + 56);
+      v37.n128_u64[0] = 0;
       if (a3 && (*(a1 + 104) & 1) == 0)
       {
-        v36.n128_f64[0] = exp(fmin(*(*(*(a1 + 64) + 8) + 24) * 0.5, 1.0) * -0.693147181);
+        v37.n128_f64[0] = exp(fmin(*(*(*(a1 + 64) + 8) + 24) * 0.5, 1.0) * -0.693147181);
       }
 
-      (*(v35 + 16))(v35, v13, a3, v36);
-      v37.n128_u64[0] = 0x4020AAAAAAAAAAABLL;
+      (*(v36 + 16))(v36, v13, a3, v37);
+      v38.n128_u64[0] = 0x4020AAAAAAAAAAABLL;
       if (!*(a1 + 104))
       {
-        v37.n128_f64[0] = 0.0;
+        v38.n128_f64[0] = 0.0;
       }
 
-      v14[2](v14, v37);
+      v14[2](v14, v38);
     }
 
     ++*(*(*(a1 + 72) + 8) + 24);
     if (a3)
     {
       ++*(*(*(a1 + 64) + 8) + 24);
-      v38 = *(*(a1 + 88) + 8);
-      v38[4] = v28;
-      v38[5] = v30;
-      v38[6] = v32;
-      v38[7] = v34;
-      v39 = *(*(a1 + 96) + 8);
-      v39[4] = v42;
-      v39[5] = v41;
-      v39[6] = v23;
-      v39[7] = v40;
+      v39 = *(*(a1 + 88) + 8);
+      v39[4] = v29;
+      v39[5] = v31;
+      v39[6] = v33;
+      v39[7] = v35;
+      v40 = *(*(a1 + 96) + 8);
+      v40[4] = v43;
+      v40[5] = v42;
+      v40[6] = v25;
+      v40[7] = v41;
     }
   }
 }
 
-double __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_15(uint64_t a1)
+double __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_15(uint64_t a1, __n128 a2, __n128 a3)
 {
+  a3.n128_u64[0] = 16.0;
   if (*(*(a1 + 32) + 408))
   {
-    v2 = 8.0;
+    v4 = 8.0;
   }
 
   else
   {
-    v2 = 16.0;
+    v4 = 16.0;
   }
 
-  PKFloatRoundToPixel();
-  v4 = v3;
-  v5 = MEMORY[0x1E695F050];
+  a2.n128_f64[0] = v4 * 0.5;
+  PKFloatRoundToPixel(a2, a3);
+  v6 = v5;
+  v7 = MEMORY[0x1E695F050];
   if (*(a1 + 216) == 1)
   {
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy__19;
-    *&v49 = __Block_byref_object_dispose__19;
-    *(&v49 + 1) = [*(*(a1 + 32) + 744) firstObject];
-    v77 = 0;
-    v78 = &v77;
-    v79 = 0x2020000000;
-    v80 = 0;
-    v71 = 0;
-    v72 = &v71;
-    v73 = 0x4010000000;
-    v74 = &unk_1BE347799;
-    v6 = v5[1];
-    v75 = *v5;
-    v76 = v6;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x3032000000;
+    v50 = __Block_byref_object_copy__19;
+    *&v51 = __Block_byref_object_dispose__19;
+    *(&v51 + 1) = [*(*(a1 + 32) + 744) firstObject];
+    v79 = 0;
+    v80 = &v79;
+    v81 = 0x2020000000;
+    v82 = 0;
+    v73 = 0;
+    v74 = &v73;
+    v75 = 0x4010000000;
+    v76 = &unk_1BE347799;
+    v8 = v7[1];
+    v77 = *v7;
+    v78 = v8;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_139;
     aBlock[3] = &unk_1E8018700;
-    v58 = &v71;
-    v56 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 160);
-    v65 = *(a1 + 144);
-    v66 = v8;
-    v9 = *(a1 + 192);
-    v67 = *(a1 + 176);
-    v68 = v9;
-    v10 = *(a1 + 96);
-    v61 = *(a1 + 80);
-    v62 = v10;
-    v11 = *(a1 + 128);
-    v63 = *(a1 + 112);
-    v64 = v11;
-    v69 = v4;
-    v59 = &v45;
-    v60 = &v77;
-    v70 = *(a1 + 208);
-    v12 = *(a1 + 32);
-    v57 = v7;
-    aBlock[4] = v12;
-    v13 = _Block_copy(aBlock);
+    v60 = &v73;
+    v58 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 160);
+    v67 = *(a1 + 144);
+    v68 = v10;
+    v11 = *(a1 + 192);
+    v69 = *(a1 + 176);
+    v70 = v11;
+    v12 = *(a1 + 96);
+    v63 = *(a1 + 80);
+    v64 = v12;
+    v13 = *(a1 + 128);
+    v65 = *(a1 + 112);
+    v66 = v13;
+    v71 = v6;
+    v61 = &v47;
+    v62 = &v79;
+    v72 = *(a1 + 208);
+    v14 = *(a1 + 32);
+    v59 = v9;
+    aBlock[4] = v14;
+    v15 = _Block_copy(aBlock);
 
-    _Block_object_dispose(&v71, 8);
-    _Block_object_dispose(&v77, 8);
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v73, 8);
+    _Block_object_dispose(&v79, 8);
+    _Block_object_dispose(&v47, 8);
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
-  v77 = 0;
-  v78 = &v77;
-  v79 = 0x2020000000;
-  v80 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v14 = *(a1 + 72);
-  v54 = *(*(v14 + 8) + 40);
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x4010000000;
-  v74 = &unk_1BE347799;
-  v75 = 0u;
-  v76 = 0u;
-  v15 = *(v14 + 8);
-  v75 = *(v15 + 32);
-  v76 = *(v15 + 48);
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x4010000000;
-  v48 = &unk_1BE347799;
-  v16 = v5[1];
-  v49 = *v5;
-  v50 = v16;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_3_145;
-  v25[3] = &unk_1E8018728;
-  v30 = &v51;
-  v31 = v14;
-  v26 = *(a1 + 40);
-  v27 = *(a1 + 48);
-  v28 = *(a1 + 56);
-  v32 = &v77;
-  v33 = &v71;
-  v35 = v2;
-  v34 = &v45;
-  v17 = v13;
-  v36 = v4;
-  v18 = *(a1 + 160);
-  v41 = *(a1 + 144);
-  v42 = v18;
-  v19 = *(a1 + 192);
-  v43 = *(a1 + 176);
-  v44 = v19;
-  v20 = *(a1 + 96);
-  v37 = *(a1 + 80);
-  v38 = v20;
-  v21 = *(a1 + 128);
-  v39 = *(a1 + 112);
-  v29 = v17;
-  v40 = v21;
-  v22 = _Block_copy(v25);
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x2020000000;
+  v82 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v16 = *(a1 + 72);
+  v56 = *(*(v16 + 8) + 40);
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x4010000000;
+  v76 = &unk_1BE347799;
+  v77 = 0u;
+  v78 = 0u;
+  v17 = *(v16 + 8);
+  v77 = *(v17 + 32);
+  v78 = *(v17 + 48);
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x4010000000;
+  v50 = &unk_1BE347799;
+  v18 = v7[1];
+  v51 = *v7;
+  v52 = v18;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_3_145;
+  v27[3] = &unk_1E8018728;
+  v32 = &v53;
+  v33 = v16;
+  v28 = *(a1 + 40);
+  v29 = *(a1 + 48);
+  v30 = *(a1 + 56);
+  v34 = &v79;
+  v35 = &v73;
+  v37 = v4;
+  v36 = &v47;
+  v19 = v15;
+  v38 = v6;
+  v20 = *(a1 + 160);
+  v43 = *(a1 + 144);
+  v44 = v20;
+  v21 = *(a1 + 192);
+  v45 = *(a1 + 176);
+  v46 = v21;
+  v22 = *(a1 + 96);
+  v39 = *(a1 + 80);
+  v40 = v22;
+  v23 = *(a1 + 128);
+  v41 = *(a1 + 112);
+  v31 = v19;
+  v42 = v23;
+  v24 = _Block_copy(v27);
   (*(*(a1 + 64) + 16))();
-  if (v17)
+  if (v19)
   {
-    (*(v17 + 2))(v17, -1, *(*(*(a1 + 72) + 8) + 32), v52[3], *(*(*(a1 + 72) + 8) + 48), 0.0);
+    (*(v19 + 2))(v19, -1, *(*(*(a1 + 72) + 8) + 32), v54[3], *(*(*(a1 + 72) + 8) + 48), 0.0);
   }
 
-  v23 = v72[5] + v72[7] - *(*(*(a1 + 72) + 8) + 40);
+  v25 = v74[5] + v74[7] - *(*(*(a1 + 72) + 8) + 40);
 
-  _Block_object_dispose(&v45, 8);
-  _Block_object_dispose(&v71, 8);
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v79, 8);
 
-  return v23;
+  return v25;
 }
 
-void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_139(uint64_t a1, unint64_t a2)
+void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_139(uint64_t a1, unint64_t a2, double a3, double a4, double a5, double a6)
 {
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_2_140;
   aBlock[3] = &unk_1E80186D8;
-  v33 = *(a1 + 56);
-  v31 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 144);
-  v39 = *(a1 + 160);
-  v7 = *(a1 + 192);
-  v40 = *(a1 + 176);
-  v41 = v7;
-  v8 = *(a1 + 96);
-  v34 = *(a1 + 80);
-  v35 = v8;
-  v9 = *(a1 + 128);
-  v36 = *(a1 + 112);
-  v32 = v5;
-  v37 = v9;
-  v38 = v6;
-  v42 = *(a1 + 208);
-  v10 = _Block_copy(aBlock);
+  v44 = *(a1 + 56);
+  v42 = *(a1 + 40);
+  v13 = *(a1 + 48);
+  v14 = *(a1 + 144);
+  v50 = *(a1 + 160);
+  v15 = *(a1 + 192);
+  v51 = *(a1 + 176);
+  v52 = v15;
+  v16 = *(a1 + 96);
+  v45 = *(a1 + 80);
+  v46 = v16;
+  v17 = *(a1 + 128);
+  v47 = *(a1 + 112);
+  v43 = v13;
+  v48 = v17;
+  v49 = v14;
+  v53 = *(a1 + 208);
+  v18 = _Block_copy(aBlock);
   if (CGRectIsNull(*(*(*(a1 + 56) + 8) + 32)))
   {
-    PKSizeRoundToPixel();
-    v11 = *(*(a1 + 56) + 8);
-    *(v11 + 48) = v12;
-    *(v11 + 56) = v13;
-    PKFloatRoundToPixel();
-    *(*(*(a1 + 56) + 8) + 32) = v14;
-    PKFloatRoundToPixel();
-    *(*(*(a1 + 56) + 8) + 40) = v15;
+    PKSizeRoundToPixel(a5 * 0.5, a6 * 0.5);
+    v19 = *(*(a1 + 56) + 8);
+    *(v19 + 48) = v20;
+    *(v19 + 56) = v21.n128_u64[0];
+    v22.n128_f64[0] = a3 + (a5 - *(*(*(a1 + 56) + 8) + 48)) * 0.5;
+    PKFloatRoundToPixel(v22, v21);
+    *(*(*(a1 + 56) + 8) + 32) = v23;
+    v24.n128_f64[0] = a4 + (a6 - *(*(*(a1 + 56) + 8) + 56)) * 0.5;
+    PKFloatRoundToPixel(v24, v25);
+    *(*(*(a1 + 56) + 8) + 40) = v26;
   }
 
-  v16 = *(a1 + 64);
-  v17 = *(*(v16 + 8) + 40);
-  if (!v17 || (v18 = *(v17 + 48), v18 >= a2))
+  v27 = *(a1 + 64);
+  v28 = *(*(v27 + 8) + 40);
+  if (!v28 || (v29 = *(v28 + 48), v29 >= a2))
   {
-    v20 = 0;
+    v31 = 0;
     goto LABEL_33;
   }
 
-  v19 = 0;
-  v20 = 0;
+  v30 = 0;
+  v31 = 0;
   do
   {
-    if (*(v17 + 28) == 1 && (*(v17 + 25) & 1) == 0)
+    if (*(v28 + 28) == 1 && (*(v28 + 25) & 1) == 0)
     {
-      if (!v20)
+      if (!v31)
       {
-        v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v16 = *(a1 + 64);
+        v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v27 = *(a1 + 64);
       }
 
-      [v20 addObject:*(*(v16 + 8) + 40)];
-      v19 = 1;
+      [v31 addObject:*(*(v27 + 8) + 40)];
+      v30 = 1;
     }
 
-    v21 = ++*(*(*(a1 + 72) + 8) + 24);
-    v22 = *(a1 + 216);
-    if (v21 >= v22)
+    v32 = ++*(*(*(a1 + 72) + 8) + 24);
+    v33 = *(a1 + 216);
+    if (v32 >= v33)
     {
-      v23 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v2 = [*(*(a1 + 32) + 744) objectAtIndexedSubscript:*(*(*(a1 + 72) + 8) + 24)];
-      v23 = v2;
+      v6 = [*(*(a1 + 32) + 744) objectAtIndexedSubscript:*(*(*(a1 + 72) + 8) + 24)];
+      v34 = v6;
     }
 
-    objc_storeStrong((*(*(a1 + 64) + 8) + 40), v23);
-    if (v21 < v22)
+    objc_storeStrong((*(*(a1 + 64) + 8) + 40), v34);
+    if (v32 < v33)
     {
     }
 
-    v24 = *(*(*(a1 + 64) + 8) + 40);
-    if (v24)
+    v35 = *(*(*(a1 + 64) + 8) + 40);
+    if (v35)
     {
-      v25 = *(v24 + 48);
-      v26 = v18 == v25 || v20 == 0;
-      v18 = v25;
-      if (v26)
+      v36 = *(v35 + 48);
+      v37 = v29 == v36 || v31 == 0;
+      v29 = v36;
+      if (v37)
       {
         goto LABEL_23;
       }
@@ -1768,58 +1793,58 @@ void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_139
 
     else
     {
-      v18 = 0;
-      if (!v20)
+      v29 = 0;
+      if (!v31)
       {
         goto LABEL_23;
       }
     }
 
-    if ([v20 count])
+    if ([v31 count])
     {
-      v10[2](v10, v20);
-      [v20 removeAllObjects];
+      v18[2](v18, v31);
+      [v31 removeAllObjects];
     }
 
 LABEL_23:
-    v16 = *(a1 + 64);
-    v17 = *(*(v16 + 8) + 40);
+    v27 = *(a1 + 64);
+    v28 = *(*(v27 + 8) + 40);
   }
 
-  while (v18 < a2 && v17 != 0);
-  if ((v19 & 1) == 0)
+  while (v29 < a2 && v28 != 0);
+  if ((v30 & 1) == 0)
   {
 LABEL_33:
-    v28 = *(*(a1 + 56) + 8);
-    v29 = *(MEMORY[0x1E695F050] + 16);
-    *(v28 + 32) = *MEMORY[0x1E695F050];
-    *(v28 + 48) = v29;
+    v39 = *(*(a1 + 56) + 8);
+    v40 = *(MEMORY[0x1E695F050] + 16);
+    *(v39 + 32) = *MEMORY[0x1E695F050];
+    *(v39 + 48) = v40;
   }
 }
 
 void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_2_140(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v41;
+    v6 = *v52;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v41 != v6)
+        if (*v52 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v40 + 1) + 8 * i);
+        v8 = *(*(&v51 + 1) + 8 * i);
         if (v8)
         {
           v8 = v8[4];
@@ -1827,76 +1852,83 @@ void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_2_1
 
         v9 = v8;
         [v9 bounds];
-        PKFloatRoundToPixel();
-        *(*(*(a1 + 48) + 8) + 56) = fmax(v10, *(*(*(a1 + 48) + 8) + 56));
+        v11.n128_f64[0] = v10 * 0.5;
+        PKFloatRoundToPixel(v11, v12);
+        *(*(*(a1 + 48) + 8) + 56) = fmax(v13, *(*(*(a1 + 48) + 8) + 56));
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v5);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v11 = v3;
-  v12 = [v11 countByEnumeratingWithState:&v36 objects:v44 count:16];
-  if (v12)
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v14 = v3;
+  v15 = [v14 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v15)
   {
-    v13 = v12;
-    v14 = *v37;
+    v16 = v15;
+    v17 = *v48;
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (j = 0; j != v16; ++j)
       {
-        if (*v37 != v14)
+        if (*v48 != v17)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v14);
         }
 
-        v16 = *(*(&v36 + 1) + 8 * j);
-        if (v16)
+        v19 = *(*(&v47 + 1) + 8 * j);
+        if (v19)
         {
-          if (*(v16 + 25))
+          if (*(v19 + 25))
           {
             continue;
           }
 
-          v16 = *(v16 + 32);
+          v19 = *(v19 + 32);
         }
 
-        v17 = v16;
-        [v17 bounds];
-        PKSizeRoundToPixel();
-        v19 = v18;
-        v21 = v20;
-        PKFloatRoundToPixel();
-        v23 = v22;
-        PKFloatRoundToPixel();
-        (*(*(a1 + 32) + 16))(v23, v24, v19, v21);
-        v25 = *(a1 + 40);
-        v26 = *(v25 + 16);
-        v27 = *(a1 + 136);
-        v35[4] = *(a1 + 120);
-        v35[5] = v27;
-        v28 = *(a1 + 168);
-        v35[6] = *(a1 + 152);
-        v35[7] = v28;
-        v29 = *(a1 + 72);
-        v35[0] = *(a1 + 56);
-        v35[1] = v29;
-        v30 = *(a1 + 104);
-        v35[2] = *(a1 + 88);
-        v35[3] = v30;
-        v26(v25, v17, v35, 1, v31, v32, v33, v34);
+        v20 = v19;
+        [v20 bounds];
+        PKSizeRoundToPixel(v21 * 0.5, v22 * 0.5);
+        v24 = v23;
+        v26 = v25;
+        v27 = *(*(a1 + 48) + 8);
+        v28.n128_f64[0] = *(v27 + 48) - v23;
+        v29.n128_f64[0] = *(v27 + 32) + v28.n128_f64[0] * 0.5;
+        PKFloatRoundToPixel(v29, v28);
+        v31 = v30;
+        v32 = *(*(a1 + 48) + 8);
+        v33.n128_f64[0] = *(v32 + 56) - v26;
+        v34.n128_f64[0] = *(v32 + 40) + v33.n128_f64[0] * 0.5;
+        PKFloatRoundToPixel(v34, v33);
+        (*(*(a1 + 32) + 16))(v31, v35, v24, v26);
+        v36 = *(a1 + 40);
+        v37 = *(v36 + 16);
+        v38 = *(a1 + 136);
+        v46[4] = *(a1 + 120);
+        v46[5] = v38;
+        v39 = *(a1 + 168);
+        v46[6] = *(a1 + 152);
+        v46[7] = v39;
+        v40 = *(a1 + 72);
+        v46[0] = *(a1 + 56);
+        v46[1] = v40;
+        v41 = *(a1 + 104);
+        v46[2] = *(a1 + 88);
+        v46[3] = v41;
+        v37(v36, v20, v46, 1, v42, v43, v44, v45);
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
-    while (v13);
+    while (v16);
   }
 
   *(*(*(a1 + 48) + 8) + 40) = *(*(*(a1 + 48) + 8) + 40) + *(*(*(a1 + 48) + 8) + 56) + *(a1 + 184);
@@ -1915,55 +1947,61 @@ void __54__PKApplicationMessageView__layoutWithContext_bounds___block_invoke_3_1
     }
 
     CGRectIsNull(*(*(*(a1 + 96) + 8) + 32));
-    PKSizeRoundToPixel();
-    PKFloatRoundToPixel();
-    v27 = (*(*(a1 + 32) + 16))();
-    v29 = v28;
-    v31 = v30;
-    v33 = v32;
-    (*(*(a1 + 40) + 16))(v27, v28);
+    PKSizeRoundToPixel(a6 * 0.5, a7 * 0.5);
+    v30 = *(*(a1 + 72) + 8);
+    v32.n128_f64[0] = *(v30 + 48) - v31;
+    v33.n128_f64[0] = *(v30 + 32) + v32.n128_f64[0] * 0.5;
+    PKFloatRoundToPixel(v33, v32);
+    v34 = (*(*(a1 + 32) + 16))();
+    v36 = v35;
+    v38 = v37;
+    v40 = v39;
+    (*(*(a1 + 40) + 16))(v34, v35);
     (*(*(a1 + 48) + 16))(0.0);
-    v34 = *(*(a1 + 96) + 8);
-    v34[4] = v27;
-    v34[5] = v29;
-    *(v34 + 6) = v31;
-    *(v34 + 7) = v33;
-    v26 = 8.33333333;
+    v41 = *(*(a1 + 96) + 8);
+    v41[4] = v34;
+    v41[5] = v36;
+    *(v41 + 6) = v38;
+    *(v41 + 7) = v40;
+    v29 = 8.33333333;
 LABEL_10:
     [v13 setLayoutMargins:{*MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24)}];
-    v14[2](v14, v26);
+    v14[2](v14, v29);
     goto LABEL_11;
   }
 
-  PKFloatRoundToPixel();
-  v18 = (*(*(a1 + 32) + 16))();
-  v19 = v15;
-  v20 = v16.n128_f64[0];
-  v21 = v17.n128_f64[0];
+  v17 = *(*(a1 + 72) + 8);
+  v16.n128_f64[0] = *(v17 + 48) - a6;
+  v15.n128_f64[0] = *(v17 + 32) + v16.n128_f64[0] * 0.5;
+  PKFloatRoundToPixel(v15, v16);
+  v21 = (*(*(a1 + 32) + 16))();
+  v22 = v18;
+  v23 = v19.n128_f64[0];
+  v24 = v20.n128_f64[0];
   if (a4 == 1)
   {
-    (*(*(a1 + 40) + 16))(v18, v15, v16, v17, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), a6, a7, *MEMORY[0x1E69792E8], *(MEMORY[0x1E69792E8] + 8), *(MEMORY[0x1E69792E8] + 16), *(MEMORY[0x1E69792E8] + 24), *(MEMORY[0x1E69792E8] + 32), *(MEMORY[0x1E69792E8] + 40), *(MEMORY[0x1E69792E8] + 48), *(MEMORY[0x1E69792E8] + 56), *(MEMORY[0x1E69792E8] + 64), *(MEMORY[0x1E69792E8] + 72), *(MEMORY[0x1E69792E8] + 80), *(MEMORY[0x1E69792E8] + 88), *(MEMORY[0x1E69792E8] + 96), *(MEMORY[0x1E69792E8] + 104), *(MEMORY[0x1E69792E8] + 112), *(MEMORY[0x1E69792E8] + 120));
+    (*(*(a1 + 40) + 16))(v21, v18, v19, v20, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), a6, a7, *MEMORY[0x1E69792E8], *(MEMORY[0x1E69792E8] + 8), *(MEMORY[0x1E69792E8] + 16), *(MEMORY[0x1E69792E8] + 24), *(MEMORY[0x1E69792E8] + 32), *(MEMORY[0x1E69792E8] + 40), *(MEMORY[0x1E69792E8] + 48), *(MEMORY[0x1E69792E8] + 56), *(MEMORY[0x1E69792E8] + 64), *(MEMORY[0x1E69792E8] + 72), *(MEMORY[0x1E69792E8] + 80), *(MEMORY[0x1E69792E8] + 88), *(MEMORY[0x1E69792E8] + 96), *(MEMORY[0x1E69792E8] + 104), *(MEMORY[0x1E69792E8] + 112), *(MEMORY[0x1E69792E8] + 120));
     (*(*(a1 + 48) + 16))(1.0);
   }
 
   ++*(*(*(a1 + 80) + 8) + 24);
-  *(*(*(a1 + 64) + 8) + 24) = v21 + *(a1 + 104) + *(*(*(a1 + 64) + 8) + 24);
-  v22 = *(*(a1 + 88) + 8);
-  v22[4] = v18;
-  v22[5] = v19;
-  v22[6] = v20;
-  v22[7] = v21;
-  v23 = *(*(a1 + 96) + 8);
-  v24 = *(MEMORY[0x1E695F050] + 16);
-  *(v23 + 32) = *MEMORY[0x1E695F050];
-  *(v23 + 48) = v24;
-  v25 = *(a1 + 56);
-  if (v25)
+  *(*(*(a1 + 64) + 8) + 24) = v24 + *(a1 + 104) + *(*(*(a1 + 64) + 8) + 24);
+  v25 = *(*(a1 + 88) + 8);
+  v25[4] = v21;
+  v25[5] = v22;
+  v25[6] = v23;
+  v25[7] = v24;
+  v26 = *(*(a1 + 96) + 8);
+  v27 = *(MEMORY[0x1E695F050] + 16);
+  *(v26 + 32) = *MEMORY[0x1E695F050];
+  *(v26 + 48) = v27;
+  v28 = *(a1 + 56);
+  if (v28)
   {
-    (*(v25 + 16))(v25, *(*(*(a1 + 80) + 8) + 24), v18, v19, v20, v21);
+    (*(v28 + 16))(v28, *(*(*(a1 + 80) + 8) + 24), v21, v22, v23, v24);
   }
 
-  v26 = 0.0;
+  v29 = 0.0;
   if (a4 == 1)
   {
     goto LABEL_10;
@@ -2108,7 +2146,7 @@ LABEL_10:
 {
   selfCopy = self;
   v2 = selfCopy;
-  v3 = *(selfCopy + 51);
+  v3 = selfCopy[51];
   if (!v3)
   {
     return selfCopy;
@@ -2183,9 +2221,9 @@ void __48__PKApplicationMessageView_setContent_animated___block_invoke(uint64_t 
   }
 }
 
-void __48__PKApplicationMessageView_setContent_animated___block_invoke_2(uint64_t a1)
+void __48__PKApplicationMessageView_setContent_animated___block_invoke_2(void *a1)
 {
-  if (*(*(*(a1 + 48) + 8) + 24))
+  if (*(*(a1[6] + 8) + 24))
   {
     v1 = 3;
   }
@@ -2195,11 +2233,12 @@ void __48__PKApplicationMessageView_setContent_animated___block_invoke_2(uint64_
     v1 = 0;
   }
 
-  [(PKApplicationMessageView *)*(a1 + 32) _setContent:v1 type:0 depth:?];
+  [(PKApplicationMessageView *)a1[4] _setContent:v1 type:0 depth:?];
 }
 
-- (void)_setContent:(unsigned int)content type:(uint64_t)type depth:
+- (void)_setContent:(uint64_t)content type:(uint64_t)type depth:
 {
+  contentCopy = content;
   v8 = a2;
   if (self && (*(self + 680) & 1) == 0)
   {
@@ -2209,7 +2248,7 @@ void __48__PKApplicationMessageView_setContent_animated___block_invoke_2(uint64_
     if (v10 == v41)
     {
 LABEL_33:
-      [(PKApplicationMessageView *)self _updateSubviewsWithType:content depth:type];
+      [(PKApplicationMessageView *)self _updateSubviewsWithType:contentCopy depth:type];
       objc_autoreleasePoolPop(v9);
       v8 = v41;
       goto LABEL_34;
@@ -2832,7 +2871,7 @@ LABEL_66:
     v36 = v35;
     if (v35)
     {
-      objc_storeWeak((v35 + 616), self);
+      objc_storeWeak(v35 + 77, self);
     }
 
     v37 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -4586,27 +4625,27 @@ LABEL_64:
 
 - (void)_markPresented
 {
-  if (self && (*(self + 680) & 1) == 0)
+  if (result && (*(result + 680) & 1) == 0)
   {
-    if (*(self + 712) && *(self + 657) != 1)
+    if (*(result + 712) && *(result + 657) != 1)
     {
-      *(self + 657) = 1;
-      if ((*(self + 536) & 1) == 0)
+      *(result + 657) = 1;
+      if ((*(result + 536) & 1) == 0)
       {
-        *(self + 536) = 1;
+        *(result + 536) = 1;
       }
 
       goto LABEL_7;
     }
 
-    if ((*(self + 536) & 1) == 0)
+    if ((*(result + 536) & 1) == 0)
     {
-      *(self + 536) = 1;
-      self = *(self + 408);
-      if (self)
+      *(result + 536) = 1;
+      result = *(result + 408);
+      if (result)
       {
 LABEL_7:
-        [(PKApplicationMessageView *)self _invalidateSize];
+        [(PKApplicationMessageView *)result _invalidateSize];
       }
     }
   }

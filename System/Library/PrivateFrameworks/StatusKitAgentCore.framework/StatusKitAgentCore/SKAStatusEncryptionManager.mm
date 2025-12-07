@@ -1,6 +1,8 @@
 @interface SKAStatusEncryptionManager
++ (id)_decryptPayloadData:(id)data withIncomingRatchet:(id)ratchet withRatchetIndex:(unsigned __int16)index signatureData:(id)signatureData;
 + (id)logger;
 - (SKAStatusEncryptionManager)initWithDatabaseManager:(id)manager invitationManager:(id)invitationManager;
+- (id)_decryptPayload:(id)payload withRatchetIndex:(unsigned __int16)index signatureData:(id)data channel:(id)channel;
 - (id)_deserializeBinaryPlistDictionaryData:(id)data;
 - (id)_encryptPayload:(id)payload channel:(id)channel;
 - (id)_mostRecentIncomingRatchetForChannel:(id)channel;
@@ -75,7 +77,7 @@
 
 - (void)encodeStatusPayloadForProvisioning:(id)provisioning statusUniqueIdentifier:(id)identifier dateCreated:(id)created currentServerTime:(id)time channel:(id)channel
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   provisioningCopy = provisioning;
   channelCopy = channel;
   timeCopy = time;
@@ -86,7 +88,7 @@
 
   v19 = [MEMORY[0x277CBEA90] __imDataWithRandomBytes:32];
   v20 = objc_alloc_init(SharedChannelProvisionOffGridPacket);
-  v42 = v18;
+  v41 = v18;
   [(SharedChannelProvisionOffGridPacket *)v20 setPublishPayload:v18];
   v21 = objc_alloc(MEMORY[0x277CBEA90]);
   identifier = [channelCopy identifier];
@@ -100,7 +102,7 @@
   v25 = [v24 mutableCopy];
 
   v26 = [MEMORY[0x277CBEB28] dataWithLength:16];
-  v41 = v20;
+  v40 = v20;
   data = [(SharedChannelProvisionOffGridPacket *)v20 data];
   [v26 appendData:data];
 
@@ -109,23 +111,23 @@
   v30 = [MEMORY[0x277CBEA90] __imDataWithRandomBytes:16];
   [v30 bytes];
   [v30 length];
-  v40 = v25;
+  v39 = v25;
   [v25 bytes];
   [v26 bytes];
   v31 = [v26 length];
   mutableBytes = [v28 mutableBytes];
   mutableBytes2 = [v29 mutableBytes];
-  v38 = mutableBytes;
+  v37 = mutableBytes;
   v33 = CCCryptorGCMOneshotEncrypt();
   if (v33)
   {
     v34 = v33;
-    v35 = v40;
+    v35 = v39;
     v36 = [SKAStatusEncryptionManager logger:v31];
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v44 = v34;
+      v43 = v34;
       _os_log_impl(&dword_220099000, v36, OS_LOG_TYPE_DEFAULT, "CCCryptorGCMOneshotEncrypt failed with result %d.", buf, 8u);
     }
   }
@@ -134,13 +136,11 @@
   {
     [provisioningCopy setCommitmentSalt:{v19, v31, mutableBytes, mutableBytes2, 16}];
     [provisioningCopy setDecryptionKey:v30];
-    v35 = v40;
-    [provisioningCopy setInitializationVector:v40];
+    v35 = v39;
+    [provisioningCopy setInitializationVector:v39];
     [v28 appendData:v29];
     [provisioningCopy setEncryptedStatusPayload:v28];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_encryptPayload:(id)payload channel:(id)channel
@@ -229,6 +229,250 @@ LABEL_3:
 LABEL_22:
 
   return v10;
+}
+
+- (id)_decryptPayload:(id)payload withRatchetIndex:(unsigned __int16)index signatureData:(id)data channel:(id)channel
+{
+  indexCopy = index;
+  v63 = *MEMORY[0x277D85DE8];
+  payloadCopy = payload;
+  dataCopy = data;
+  channelCopy = channel;
+  LODWORD(channel) = [channelCopy isPersonal];
+  newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
+  databaseManager = self->_databaseManager;
+  v45 = newBackgroundContext;
+  v48 = channelCopy;
+  if (channel)
+  {
+    v14 = [(SKADatabaseManaging *)databaseManager generatedEncryptionKeysForPersonalChannel:channelCopy databaseContext:?];
+    v15 = +[SKAStatusEncryptionManager logger];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v62 = [v14 count];
+      _os_log_impl(&dword_220099000, v15, OS_LOG_TYPE_DEFAULT, "Attempting to decrypt incoming status on personal channel using keys from %ld outgoing ratchets.", buf, 0xCu);
+    }
+
+    v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    obj = v14;
+    v16 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v56;
+LABEL_6:
+      v19 = 0;
+      while (1)
+      {
+        if (*v56 != v18)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v20 = *(*(&v55 + 1) + 8 * v19);
+        incomingRatchet = [v20 incomingRatchet];
+        v22 = [SKAStatusEncryptionManager _decryptPayloadData:payloadCopy withIncomingRatchet:incomingRatchet withRatchetIndex:indexCopy signatureData:dataCopy];
+        v23 = +[SKAStatusEncryptionManager logger];
+        v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+        if (v22)
+        {
+          break;
+        }
+
+        if (v24)
+        {
+          *buf = 138412290;
+          v62 = v20;
+          _os_log_impl(&dword_220099000, v23, OS_LOG_TYPE_DEFAULT, "Status payload not decrypted from generatedKey: %@", buf, 0xCu);
+        }
+
+        if (v17 == ++v19)
+        {
+          v17 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+          if (v17)
+          {
+            goto LABEL_6;
+          }
+
+          goto LABEL_14;
+        }
+      }
+
+      if (v24)
+      {
+        *buf = 138412290;
+        v62 = v20;
+        _os_log_impl(&dword_220099000, v23, OS_LOG_TYPE_DEFAULT, "Status payload successfully decrypted from generatedKey: %@", buf, 0xCu);
+      }
+
+      v36 = [objc_alloc(MEMORY[0x277D68128]) initWithData:v22];
+      v37 = [[SKADecryptedStatusPayload alloc] initWithStatusPayload:v36 invitation:0];
+
+      if (v37)
+      {
+        goto LABEL_36;
+      }
+    }
+
+    else
+    {
+LABEL_14:
+    }
+
+    v38 = +[SKAStatusEncryptionManager logger];
+    v39 = v46;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    {
+      [SKAStatusEncryptionManager _decryptPayload:withRatchetIndex:signatureData:channel:];
+    }
+  }
+
+  else
+  {
+    v25 = [(SKADatabaseManaging *)databaseManager receivedInvitationsForChannel:channelCopy databaseContext:?];
+    v26 = +[SKAStatusEncryptionManager logger];
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v62 = [v25 count];
+      _os_log_impl(&dword_220099000, v26, OS_LOG_TYPE_DEFAULT, "Attempting to decrypt incoming status on non personal channel using incoming ratchet state from %ld received invitations.", buf, 0xCu);
+    }
+
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    obj = v25;
+    v27 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+    if (v27)
+    {
+      v28 = v27;
+      v29 = *v52;
+LABEL_19:
+      v30 = 0;
+      while (1)
+      {
+        if (*v52 != v29)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v31 = *(*(&v51 + 1) + 8 * v30);
+        incomingRatchet2 = [v31 incomingRatchet];
+        v33 = [SKAStatusEncryptionManager _decryptPayloadData:payloadCopy withIncomingRatchet:incomingRatchet2 withRatchetIndex:indexCopy signatureData:dataCopy];
+        v34 = +[SKAStatusEncryptionManager logger];
+        v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+        if (v33)
+        {
+          break;
+        }
+
+        if (v35)
+        {
+          *buf = 138412290;
+          v62 = v31;
+          _os_log_impl(&dword_220099000, v34, OS_LOG_TYPE_DEFAULT, "Status payload not decrypted from invitation: %@", buf, 0xCu);
+        }
+
+        if (v28 == ++v30)
+        {
+          v28 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+          if (v28)
+          {
+            goto LABEL_19;
+          }
+
+          goto LABEL_27;
+        }
+      }
+
+      if (v35)
+      {
+        *buf = 138412290;
+        v62 = v31;
+        _os_log_impl(&dword_220099000, v34, OS_LOG_TYPE_DEFAULT, "Status payload successfully decrypted from invitation: %@", buf, 0xCu);
+      }
+
+      v40 = [objc_alloc(MEMORY[0x277D68128]) initWithData:v33];
+      firstObject = [obj firstObject];
+      v37 = [[SKADecryptedStatusPayload alloc] initWithStatusPayload:v40 invitation:firstObject];
+
+      if (v37)
+      {
+LABEL_36:
+        v39 = v45;
+        v42 = v48;
+        goto LABEL_40;
+      }
+    }
+
+    else
+    {
+LABEL_27:
+    }
+
+    v38 = +[SKAStatusEncryptionManager logger];
+    v39 = v47;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    {
+      [SKAStatusEncryptionManager _decryptPayload:withRatchetIndex:signatureData:channel:];
+    }
+  }
+
+  v42 = v48;
+
+  v37 = 0;
+LABEL_40:
+
+  v43 = +[SKAStatusEncryptionManager logger];
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v62 = v37;
+    _os_log_impl(&dword_220099000, v43, OS_LOG_TYPE_DEFAULT, "Decrypted payload: %@", buf, 0xCu);
+  }
+
+  return v37;
+}
+
++ (id)_decryptPayloadData:(id)data withIncomingRatchet:(id)ratchet withRatchetIndex:(unsigned __int16)index signatureData:(id)signatureData
+{
+  v12 = 0;
+  v6 = [ratchet unsealStatusWithIndex:index encryptedMessage:data authenticating:0 signature:signatureData error:&v12];
+  v7 = v12;
+  if (v7)
+  {
+    v8 = +[SKAStatusEncryptionManager logger];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      +[SKAStatusEncryptionManager _decryptPayloadData:withIncomingRatchet:withRatchetIndex:signatureData:];
+    }
+  }
+
+  else
+  {
+    v10 = +[SKAStatusEncryptionManager logger];
+    v8 = v10;
+    if (v6)
+    {
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        *v11 = 0;
+        _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Status payload successfully decrypted", v11, 2u);
+      }
+    }
+
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      +[SKAStatusEncryptionManager _decryptPayloadData:withIncomingRatchet:withRatchetIndex:signatureData:];
+    }
+  }
+
+  return v6;
 }
 
 - (id)extractEnvelopeFromStatusEnvelopeData:(id)data
@@ -383,7 +627,7 @@ LABEL_26:
 
 - (id)_mostRecentIncomingRatchetForChannel:(id)channel
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   isPersonal = [channelCopy isPersonal];
   newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
@@ -395,30 +639,30 @@ LABEL_26:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v37 = [v16 count];
+      v36 = [v16 count];
       _os_log_impl(&dword_220099000, v17, OS_LOG_TYPE_DEFAULT, "Finding most recent incoming ratchet for non personal channel using incoming ratchet state from %ld received invitations.", buf, 0xCu);
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v10 = v16;
-    v18 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v18 = [v10 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
 LABEL_17:
       v21 = 0;
       while (1)
       {
-        if (*v27 != v20)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(v10);
         }
 
-        incomingRatchet = [*(*(&v26 + 1) + 8 * v21) incomingRatchet];
+        incomingRatchet = [*(*(&v25 + 1) + 8 * v21) incomingRatchet];
         if (incomingRatchet)
         {
           goto LABEL_24;
@@ -426,7 +670,7 @@ LABEL_17:
 
         if (v19 == ++v21)
         {
-          v19 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v19 = [v10 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v19)
           {
             goto LABEL_17;
@@ -447,33 +691,33 @@ LABEL_23:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v37 = [v8 count];
+    v36 = [v8 count];
     _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Finding most recent incoming ratchet for personal channel from %ld outgoing ratchets.", buf, 0xCu);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (!v11)
   {
     goto LABEL_23;
   }
 
   v12 = v11;
-  v13 = *v31;
+  v13 = *v30;
 LABEL_6:
   v14 = 0;
   while (1)
   {
-    if (*v31 != v13)
+    if (*v30 != v13)
     {
       objc_enumerationMutation(v10);
     }
 
-    incomingRatchet = [*(*(&v30 + 1) + 8 * v14) incomingRatchet];
+    incomingRatchet = [*(*(&v29 + 1) + 8 * v14) incomingRatchet];
     if (incomingRatchet)
     {
       break;
@@ -481,7 +725,7 @@ LABEL_6:
 
     if (v12 == ++v14)
     {
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v12)
       {
         goto LABEL_6;
@@ -503,8 +747,6 @@ LABEL_25:
       [SKAStatusEncryptionManager _mostRecentIncomingRatchetForChannel:];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -623,11 +865,9 @@ uint64_t __36__SKAStatusEncryptionManager_logger__block_invoke()
 
 - (void)_encryptPayload:channel:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_encryptPayload:channel:.cold.3()
@@ -653,11 +893,9 @@ uint64_t __36__SKAStatusEncryptionManager_logger__block_invoke()
 
 + (void)_decryptPayloadData:withIncomingRatchet:withRatchetIndex:signatureData:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_decryptPayloadData:withIncomingRatchet:withRatchetIndex:signatureData:.cold.2()
@@ -676,38 +914,30 @@ uint64_t __36__SKAStatusEncryptionManager_logger__block_invoke()
 
 - (void)decryptStatusPayloadFromStatusEnvelopeData:channel:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decryptStatusPayloadFromStatusEnvelopeData:channel:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decryptStatusPayloadFromStatusEnvelopeData:channel:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decryptStatusPayloadFromStatusEnvelopeData:channel:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decryptStatusPayloadFromStatusEnvelopeData:channel:.cold.6()
@@ -719,50 +949,40 @@ uint64_t __36__SKAStatusEncryptionManager_logger__block_invoke()
 
 - (void)_mostRecentIncomingRatchetForChannel:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_serializeDictionaryAsBinaryPlist:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deserializeBinaryPlistDictionaryData:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deserializeBinaryPlistDictionaryData:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [a1 publishPayloadContent];
   OUTLINED_FUNCTION_1_0();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_220099000, a3, OS_LOG_TYPE_ERROR, "Error deserializing status envelope data as dictionary from proto data: %@ with error %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_220099000, a3, OS_LOG_TYPE_ERROR, "Error deserializing status envelope data as dictionary from proto data: %@ with error %@", v6, 0x16u);
 }
 
 - (void)_deserializeBinaryPlistDictionaryData:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

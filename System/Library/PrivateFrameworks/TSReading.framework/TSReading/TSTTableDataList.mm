@@ -69,19 +69,17 @@
   return v3;
 }
 
-uint64_t __46__TSTTableDataList_allRichTextPayloadStorages__block_invoke(uint64_t a1)
+void __46__TSTTableDataList_allRichTextPayloadStorages__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  result = TSUDynamicCast();
-  if (result)
+  v3 = TSUDynamicCast();
+  if (v3)
   {
-    v3 = *(a1 + 32);
-    v4 = [*(result + 16) storage];
+    v4 = *(a1 + 32);
+    v5 = [*(v3 + 16) storage];
 
-    return [v3 addObject:v4];
+    [v4 addObject:v5];
   }
-
-  return result;
 }
 
 @end

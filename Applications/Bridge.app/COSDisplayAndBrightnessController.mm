@@ -150,10 +150,10 @@
     if ((v27 & 1) == 0)
     {
       v33 = [v5 specifierForID:@"TRITIUM_ID"];
-      [v5 removeObject:v33];
+      objc_msgSend_removeObject_(v5);
 
       v34 = [v5 specifierForID:@"TRITIUM_GROUP_ID"];
-      [v5 removeObject:v34];
+      objc_msgSend_removeObject_(v5);
     }
 
     [(COSDisplayAndBrightnessController *)self _setupWakeSpecifiers:v5];
@@ -336,7 +336,7 @@
   accessorCopy = accessor;
   keysCopy = keys;
   completionCopy = completion;
-  v11 = sub_1000C1958();
+  v11 = sub_1000C1958(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     domain = [accessorCopy domain];

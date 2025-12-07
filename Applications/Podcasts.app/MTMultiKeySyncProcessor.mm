@@ -152,7 +152,7 @@ LABEL_6:
   v25 = 0;
 LABEL_9:
   MultiKeySyncProcessor.success(forGetTransaction:with:forKey:version:finishedBlock:)(transaction, data, v18, v19, v21, v22, v24, v26, v25);
-  sub_1000112B4(v26);
+  sub_1000112B4(v26, v25);
 
   sub_1001F6D60(data, v18);
 }
@@ -208,7 +208,7 @@ LABEL_6:
   v25 = 0;
 LABEL_9:
   MultiKeySyncProcessor.success(forSetTransaction:with:forKey:version:finishedBlock:)(transaction, data, v18, v19, v21, v22, v24, v26, v25);
-  sub_1000112B4(v26);
+  sub_1000112B4(v26, v25);
 
   sub_1001F6D60(data, v18);
 }
@@ -264,7 +264,7 @@ LABEL_6:
   v25 = 0;
 LABEL_9:
   MultiKeySyncProcessor.conflict(forSetTransaction:with:forKey:version:finishedBlock:)(transaction, data, v18, v19, v21, v22, v24, v26, v25);
-  sub_1000112B4(v26);
+  sub_1000112B4(v26, v25);
 
   sub_1001F6D60(data, v18);
 }

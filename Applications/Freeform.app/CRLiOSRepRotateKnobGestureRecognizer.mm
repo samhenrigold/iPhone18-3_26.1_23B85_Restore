@@ -412,7 +412,7 @@
     v34 = layout;
     if (layout)
     {
-      [layout originalTransformInRoot];
+      objc_msgSend_originalTransformInRoot(layout, v45, v46);
       v35 = v48;
       v36 = v49;
       v37 = v50;
@@ -464,7 +464,7 @@
   v7 = layout;
   if (layout)
   {
-    [layout originalTransformInRoot];
+    objc_msgSend_originalTransformInRoot(layout);
     v8 = v16;
     v9 = v17;
     v10 = v18;
@@ -497,7 +497,7 @@
   {
     v13 = v7;
     v14 = v6;
-    [originalGeometry transform];
+    objc_msgSend_transform(originalGeometry);
     v7 = v13;
     v6 = v14;
     v9 = v16;

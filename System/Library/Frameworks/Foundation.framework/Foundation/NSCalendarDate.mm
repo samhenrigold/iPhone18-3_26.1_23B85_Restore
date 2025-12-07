@@ -387,7 +387,7 @@
 
 - (NSString)descriptionWithCalendarFormat:(NSString *)format locale:(id)locale
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v5 = [objc_allocWithZone(NSMutableString) init];
   v6 = [(NSString *)format length];
   v7 = +[NSCharacterSet decimalDigitCharacterSet];
@@ -396,7 +396,7 @@
     v8 = v7;
     v9 = 0;
     allocator = *MEMORY[0x1E695E480];
-    while (1)
+    do
     {
       v10 = [(NSString *)format rangeOfString:@"%" options:0 range:v9, v6 - v9];
       v12 = v11;
@@ -418,60 +418,252 @@
       v9 = v13 + v12;
       if (!v12)
       {
-        goto LABEL_82;
+        continue;
       }
 
       v14 = v13 + v12;
-      if (v9 < v6)
-      {
-        break;
-      }
-
-      __str[0] = 0;
-LABEL_82:
       if (v9 >= v6)
       {
-        return v5;
+        __str[0] = 0;
       }
-    }
 
-    while (1)
-    {
-      v15 = [(NSCharacterSet *)v8 characterIsMember:[(NSString *)format characterAtIndex:v14]];
-      v16 = v15;
-      if (!v15)
+      else
       {
-        break;
-      }
+        while (1)
+        {
+          v15 = [(NSCharacterSet *)v8 characterIsMember:[(NSString *)format characterAtIndex:v14]];
+          v16 = v15;
+          if (!v15)
+          {
+            break;
+          }
 
-      if (++v14 >= v6)
-      {
-        v14 = v6;
-        goto LABEL_15;
-      }
-    }
+          if (++v14 >= v6)
+          {
+            v14 = v6;
+            goto LABEL_15;
+          }
+        }
 
-    if (v9 >= v14)
-    {
-      __str[0] = 0;
-      goto LABEL_18;
-    }
+        if (v9 >= v14)
+        {
+          __str[0] = 0;
+          goto LABEL_18;
+        }
 
 LABEL_15:
-    snprintf(__str, 0x80uLL, "%%%sd", [[(NSString *)format substringWithRange:v9 UTF8String]);
-    v9 = v14;
-    if (v16)
-    {
-      goto LABEL_82;
-    }
+        snprintf(__str, 0x80uLL, "%%%sd", [[(NSString *)format substringWithRange:v9 UTF8String]);
+        v9 = v14;
+        if (v16)
+        {
+          continue;
+        }
 
 LABEL_18:
-    v9 = v14 + 1;
-    v17 = [(NSString *)format characterAtIndex:v14];
-    if (v17 > 111)
-    {
-      if (v17 > 119)
-      {
+        v9 = v14 + 1;
+        v17 = [(NSString *)format characterAtIndex:v14];
+        if (v17 <= 111)
+        {
+          selfCopy2 = self;
+          switch(v17)
+          {
+            case 'A':
+              dayOfWeek = [(NSCalendarDate *)self dayOfWeek];
+              v20 = [locale objectForKey:@"NSWeekDayNameArray"];
+              v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday", 0, v67, v68, v69, v70, v71}];
+              goto LABEL_78;
+            case 'B':
+              dayOfWeek = [(NSCalendarDate *)self monthOfYear]- 1;
+              v20 = [locale objectForKey:@"NSMonthNameArray"];
+              v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"January", @"February", @"March", @"April", @"May", @"June", @"July", @"August", @"September", @"October", @"November", @"December", 0}];
+              goto LABEL_78;
+            case 'C':
+            case 'D':
+            case 'E':
+            case 'G':
+            case 'J':
+            case 'K':
+            case 'L':
+            case 'N':
+            case 'O':
+            case 'P':
+            case 'Q':
+            case 'R':
+            case 'T':
+            case 'U':
+            case 'V':
+            case 'W':
+            case '[':
+            case '\\':
+            case ']':
+            case '^':
+            case '_':
+            case 'f':
+            case 'g':
+            case 'h':
+            case 'k':
+            case 'l':
+              goto LABEL_37;
+            case 'F':
+              [(NSCalendarDate *)self timeIntervalSinceReferenceDate];
+              v41 = v40;
+              [(NSCalendarDate *)self timeIntervalSinceReferenceDate];
+              v43 = vcvtmd_s64_f64((v41 - floor(v42)) * 1000.0);
+              v44 = 5243 * (v43 - 1000 * ((((v43 * 0x20C49BA5E353F7CFLL) >> 64) >> 63) + (((v43 * 0x20C49BA5E353F7CFLL) >> 64) >> 7)));
+              v75[0] = (v44 >> 19) + (v44 >> 31) + 48;
+              v45 = ((v43 * 0xA3D70A3D70A3D70BLL) >> 64) + v43;
+              LODWORD(v45) = 103 * (v43 - 100 * ((v45 < 0) + (v45 >> 6)));
+              v75[1] = (((v45 & 0x8000) != 0) + (v45 >> 10) + 48);
+              v75[2] = v43 - 10 * ((((v43 * 0x6666666666666667) >> 64) >> 63) + (((v43 * 0x6666666666666667) >> 64) >> 2)) + 48;
+              [(NSString *)v5 replaceCharactersInRange:[(NSString *)v5 length] withCharacters:0 length:v75, 3];
+              continue;
+            case 'H':
+              hourOfDay = [(NSCalendarDate *)self hourOfDay];
+              goto LABEL_66;
+            case 'I':
+              hourOfDay2 = [(NSCalendarDate *)self hourOfDay];
+              if (hourOfDay2 % 12)
+              {
+                v39 = hourOfDay2 % 12;
+              }
+
+              else
+              {
+                v39 = 12;
+              }
+
+              goto LABEL_67;
+            case 'M':
+              hourOfDay = [(NSCalendarDate *)self minuteOfHour];
+              goto LABEL_66;
+            case 'S':
+              hourOfDay = [(NSCalendarDate *)self secondOfMinute];
+              goto LABEL_66;
+            case 'X':
+              v34 = locale;
+              v35 = [locale objectForKey:@"NSTimeDateFormatString"];
+              v36 = v35 == 0;
+              v37 = @"%H:%M:%S %Z";
+              goto LABEL_70;
+            case 'Y':
+              yearOfCommonEra = [(NSCalendarDate *)self yearOfCommonEra];
+              v47 = [locale objectForKey:@"AppleLocale"];
+              if (!v47)
+              {
+                goto LABEL_63;
+              }
+
+              v48 = v47;
+              if (objc_msgSend_isEqualToString_(v47))
+              {
+                goto LABEL_76;
+              }
+
+              if (objc_msgSend_isEqualToString_(v48))
+              {
+                yearOfCommonEra += 543;
+              }
+
+LABEL_63:
+              v30 = v5;
+              v29 = yearOfCommonEra;
+              break;
+            case 'Z':
+              name = [(NSTimeZone *)[(NSCalendarDate *)self timeZone] name];
+              if (name)
+              {
+                v32 = name;
+              }
+
+              else
+              {
+                v32 = &stru_1EEEFDF90;
+              }
+
+              [(NSString *)v5 appendString:v32];
+              continue;
+            case 'a':
+              dayOfWeek = [(NSCalendarDate *)self dayOfWeek];
+              v20 = [locale objectForKey:@"NSShortWeekDayNameArray"];
+              v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Sun", @"Mon", @"Tue", @"Wed", @"Thu", @"Fri", @"Sat", 0, v67, v68, v69, v70, v71}];
+              goto LABEL_78;
+            case 'b':
+              dayOfWeek = [(NSCalendarDate *)self monthOfYear]- 1;
+              v20 = [locale objectForKey:@"NSShortMonthNameArray"];
+              v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec", 0}];
+              goto LABEL_78;
+            case 'c':
+              v34 = locale;
+              v35 = [locale objectForKey:@"NSTimeDateFormatString"];
+              v36 = v35 == 0;
+              v37 = @"%a %b %d %H:%M:%S %Z %Y";
+              goto LABEL_70;
+            case 'd':
+              hourOfDay = [(NSCalendarDate *)self dayOfMonth];
+              goto LABEL_66;
+            case 'e':
+              dayOfMonth = [(NSCalendarDate *)self dayOfMonth];
+              goto LABEL_41;
+            case 'i':
+              v39 = [(NSCalendarDate *)self hourOfDay]% 12;
+              goto LABEL_67;
+            case 'j':
+              appendNumber(v5, [(NSCalendarDate *)self dayOfYear], __str, "%03ld");
+              continue;
+            case 'm':
+              hourOfDay = [(NSCalendarDate *)self monthOfYear];
+LABEL_66:
+              v39 = hourOfDay;
+              goto LABEL_67;
+            default:
+              if (v17 != 37)
+              {
+                goto LABEL_37;
+              }
+
+              v26 = [(NSString *)v5 length];
+              v27 = v5;
+              v28 = @"%";
+              goto LABEL_81;
+          }
+
+LABEL_64:
+          appendNumber(v30, v29, __str, "%ld");
+          continue;
+        }
+
+        if (v17 <= 119)
+        {
+          if (v17 == 112)
+          {
+            dayOfWeek = [(NSCalendarDate *)self hourOfDay]> 11;
+            v20 = [locale objectForKey:@"NSAMPMDesignation"];
+            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"AM", @"PM", 0, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71}];
+LABEL_78:
+            if (!v20)
+            {
+              v20 = v21;
+            }
+
+            v58 = [(NSString *)v5 length];
+            v28 = [v20 objectAtIndex:dayOfWeek];
+            v27 = v5;
+            v26 = v58;
+            goto LABEL_81;
+          }
+
+          if (v17 != 119)
+          {
+            goto LABEL_37;
+          }
+
+          dayOfMonth = [(NSCalendarDate *)self dayOfWeek];
+LABEL_41:
+          v29 = dayOfMonth;
+          v30 = v5;
+          goto LABEL_64;
+        }
+
         selfCopy2 = self;
         if (v17 == 120)
         {
@@ -532,9 +724,9 @@ LABEL_70:
             }
 
             [(NSString *)v5 replaceCharactersInRange:[(NSString *)v5 length] withString:0, v23];
-            appendNumber(v5, v24 / 0xE10, "%02ld", "%02ld");
-            appendNumber(v5, v24 / 0x3C - 60 * (((v24 / 0x3C * 0x888888888888889uLL) >> 64) >> 1), "%02ld", "%02ld");
-            goto LABEL_82;
+            appendNumber(v5, v24 / 0xE10, "%02ld", "%02ld", v60);
+            appendNumber(v5, v24 / 0x3C - 60 * (((v24 / 0x3C * 0x888888888888889uLL) >> 64) >> 1), "%02ld", "%02ld", v61);
+            continue;
           }
 
 LABEL_37:
@@ -543,243 +735,45 @@ LABEL_37:
           v28 = @"?";
 LABEL_81:
           [(NSString *)v27 replaceCharactersInRange:v26 withString:0, v28];
-          goto LABEL_82;
+          continue;
         }
 
-        yearOfCommonEra = [(NSCalendarDate *)self yearOfCommonEra];
+        yearOfCommonEra2 = [(NSCalendarDate *)self yearOfCommonEra];
         v52 = [locale objectForKey:@"AppleLocale"];
-        if (v52)
+        if (!v52)
         {
-          v53 = v52;
-          if ([v52 isEqualToString:@"ja_JP_TRADITIONAL"])
-          {
-LABEL_76:
-            v54 = CFLocaleCreate(0, @"ja_JP_TRADITIONAL");
-            v55 = CFDateFormatterCreate(allocator, v54, kCFDateFormatterNoStyle, kCFDateFormatterNoStyle);
-            CFDateFormatterSetFormat(v55, @"Gy");
-            [(NSCalendarDate *)self timeIntervalSinceReferenceDate];
-            StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(allocator, v55, v56);
-            [(NSString *)v5 replaceCharactersInRange:[(NSString *)v5 length] withString:0, StringWithAbsoluteTime];
-            CFRelease(v54);
-            CFRelease(v55);
-            CFRelease(StringWithAbsoluteTime);
-            goto LABEL_82;
-          }
-
-          if ([v53 isEqualToString:@"th_TH_TRADITIONAL"])
-          {
-            yearOfCommonEra += 543;
-          }
+          goto LABEL_88;
         }
 
-        dayOfYear = yearOfCommonEra % 100;
-LABEL_67:
-        v30 = v5;
-        v39 = "%02ld";
-        goto LABEL_68;
-      }
-
-      if (v17 == 112)
-      {
-        dayOfWeek2 = [(NSCalendarDate *)self hourOfDay]> 11;
-        v20 = [locale objectForKey:@"NSAMPMDesignation"];
-        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"AM", @"PM", 0, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69}];
-LABEL_78:
-        if (!v20)
+        v53 = v52;
+        if (!objc_msgSend_isEqualToString_(v52))
         {
-          v20 = v21;
-        }
-
-        v58 = [(NSString *)v5 length];
-        v28 = [v20 objectAtIndex:dayOfWeek2];
-        v27 = v5;
-        v26 = v58;
-        goto LABEL_81;
-      }
-
-      if (v17 != 119)
-      {
-        goto LABEL_37;
-      }
-
-      dayOfWeek = [(NSCalendarDate *)self dayOfWeek];
-LABEL_41:
-      dayOfYear = dayOfWeek;
-      v30 = v5;
-    }
-
-    else
-    {
-      selfCopy2 = self;
-      switch(v17)
-      {
-        case 'A':
-          dayOfWeek2 = [(NSCalendarDate *)self dayOfWeek];
-          v20 = [locale objectForKey:@"NSWeekDayNameArray"];
-          v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday", 0, v65, v66, v67, v68, v69}];
-          goto LABEL_78;
-        case 'B':
-          dayOfWeek2 = [(NSCalendarDate *)self monthOfYear]- 1;
-          v20 = [locale objectForKey:@"NSMonthNameArray"];
-          v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"January", @"February", @"March", @"April", @"May", @"June", @"July", @"August", @"September", @"October", @"November", @"December", 0}];
-          goto LABEL_78;
-        case 'C':
-        case 'D':
-        case 'E':
-        case 'G':
-        case 'J':
-        case 'K':
-        case 'L':
-        case 'N':
-        case 'O':
-        case 'P':
-        case 'Q':
-        case 'R':
-        case 'T':
-        case 'U':
-        case 'V':
-        case 'W':
-        case '[':
-        case '\\':
-        case ']':
-        case '^':
-        case '_':
-        case 'f':
-        case 'g':
-        case 'h':
-        case 'k':
-        case 'l':
-          goto LABEL_37;
-        case 'F':
-          [(NSCalendarDate *)self timeIntervalSinceReferenceDate];
-          v41 = v40;
-          [(NSCalendarDate *)self timeIntervalSinceReferenceDate];
-          v43 = vcvtmd_s64_f64((v41 - floor(v42)) * 1000.0);
-          v44 = 5243 * (v43 - 1000 * ((((v43 * 0x20C49BA5E353F7CFLL) >> 64) >> 63) + (((v43 * 0x20C49BA5E353F7CFLL) >> 64) >> 7)));
-          v73[0] = (v44 >> 19) + (v44 >> 31) + 48;
-          v45 = ((v43 * 0xA3D70A3D70A3D70BLL) >> 64) + v43;
-          LODWORD(v45) = 103 * (v43 - 100 * ((v45 < 0) + (v45 >> 6)));
-          v73[1] = (((v45 & 0x8000) != 0) + (v45 >> 10) + 48);
-          v73[2] = v43 - 10 * ((((v43 * 0x6666666666666667) >> 64) >> 63) + (((v43 * 0x6666666666666667) >> 64) >> 2)) + 48;
-          [(NSString *)v5 replaceCharactersInRange:[(NSString *)v5 length] withCharacters:0 length:v73, 3];
-          goto LABEL_82;
-        case 'H':
-          hourOfDay = [(NSCalendarDate *)self hourOfDay];
-          goto LABEL_66;
-        case 'I':
-          hourOfDay2 = [(NSCalendarDate *)self hourOfDay];
-          if (hourOfDay2 % 12)
-          {
-            dayOfYear = hourOfDay2 % 12;
-          }
-
-          else
-          {
-            dayOfYear = 12;
-          }
-
-          goto LABEL_67;
-        case 'M':
-          hourOfDay = [(NSCalendarDate *)self minuteOfHour];
-          goto LABEL_66;
-        case 'S':
-          hourOfDay = [(NSCalendarDate *)self secondOfMinute];
-          goto LABEL_66;
-        case 'X':
-          v34 = locale;
-          v35 = [locale objectForKey:@"NSTimeDateFormatString"];
-          v36 = v35 == 0;
-          v37 = @"%H:%M:%S %Z";
-          goto LABEL_70;
-        case 'Y':
-          yearOfCommonEra2 = [(NSCalendarDate *)self yearOfCommonEra];
-          v47 = [locale objectForKey:@"AppleLocale"];
-          if (!v47)
-          {
-            goto LABEL_63;
-          }
-
-          v48 = v47;
-          if ([v47 isEqualToString:@"ja_JP_TRADITIONAL"])
-          {
-            goto LABEL_76;
-          }
-
-          if ([v48 isEqualToString:@"th_TH_TRADITIONAL"])
+          if (objc_msgSend_isEqualToString_(v53))
           {
             yearOfCommonEra2 += 543;
           }
 
-LABEL_63:
-          v30 = v5;
-          dayOfYear = yearOfCommonEra2;
-          break;
-        case 'Z':
-          name = [(NSTimeZone *)[(NSCalendarDate *)self timeZone] name];
-          if (name)
-          {
-            v32 = name;
-          }
+LABEL_88:
+          v39 = yearOfCommonEra2 % 100;
+LABEL_67:
+          appendNumber(v5, v39, __str, "%02ld");
+          continue;
+        }
 
-          else
-          {
-            v32 = &stru_1EEEFDF90;
-          }
-
-          [(NSString *)v5 appendString:v32];
-          goto LABEL_82;
-        case 'a':
-          dayOfWeek2 = [(NSCalendarDate *)self dayOfWeek];
-          v20 = [locale objectForKey:@"NSShortWeekDayNameArray"];
-          v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Sun", @"Mon", @"Tue", @"Wed", @"Thu", @"Fri", @"Sat", 0, v65, v66, v67, v68, v69}];
-          goto LABEL_78;
-        case 'b':
-          dayOfWeek2 = [(NSCalendarDate *)self monthOfYear]- 1;
-          v20 = [locale objectForKey:@"NSShortMonthNameArray"];
-          v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec", 0}];
-          goto LABEL_78;
-        case 'c':
-          v34 = locale;
-          v35 = [locale objectForKey:@"NSTimeDateFormatString"];
-          v36 = v35 == 0;
-          v37 = @"%a %b %d %H:%M:%S %Z %Y";
-          goto LABEL_70;
-        case 'd':
-          hourOfDay = [(NSCalendarDate *)self dayOfMonth];
-          goto LABEL_66;
-        case 'e':
-          dayOfWeek = [(NSCalendarDate *)self dayOfMonth];
-          goto LABEL_41;
-        case 'i':
-          dayOfYear = [(NSCalendarDate *)self hourOfDay]% 12;
-          goto LABEL_67;
-        case 'j':
-          dayOfYear = [(NSCalendarDate *)self dayOfYear];
-          v30 = v5;
-          v39 = "%03ld";
-          goto LABEL_68;
-        case 'm':
-          hourOfDay = [(NSCalendarDate *)self monthOfYear];
-LABEL_66:
-          dayOfYear = hourOfDay;
-          goto LABEL_67;
-        default:
-          if (v17 != 37)
-          {
-            goto LABEL_37;
-          }
-
-          v26 = [(NSString *)v5 length];
-          v27 = v5;
-          v28 = @"%";
-          goto LABEL_81;
+LABEL_76:
+        v54 = CFLocaleCreate(0, @"ja_JP_TRADITIONAL");
+        v55 = CFDateFormatterCreate(allocator, v54, kCFDateFormatterNoStyle, kCFDateFormatterNoStyle);
+        CFDateFormatterSetFormat(v55, @"Gy");
+        [(NSCalendarDate *)self timeIntervalSinceReferenceDate];
+        StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(allocator, v55, v56);
+        [(NSString *)v5 replaceCharactersInRange:[(NSString *)v5 length] withString:0, StringWithAbsoluteTime];
+        CFRelease(v54);
+        CFRelease(v55);
+        CFRelease(StringWithAbsoluteTime);
       }
     }
 
-    v39 = "%ld";
-LABEL_68:
-    appendNumber(v30, dayOfYear, __str, v39);
-    goto LABEL_82;
+    while (v9 < v6);
   }
 
   return v5;
@@ -992,7 +986,7 @@ LABEL_80:
           if (v36)
           {
             v37 = v36;
-            if ([v36 isEqualToString:@"ja_JP_TRADITIONAL"])
+            if (objc_msgSend_isEqualToString_(v36))
             {
               v38 = [(NSString *)description substringFromIndex:[(NSScanner *)v7 scanLocation]];
               v39 = CFLocaleCreate(0, @"ja_JP_TRADITIONAL");
@@ -1025,7 +1019,7 @@ LABEL_150:
                 goto LABEL_139;
               }
 
-              if ([v37 isEqualToString:@"th_TH_TRADITIONAL"])
+              if (objc_msgSend_isEqualToString_(v37))
               {
                 v49 = v86[0] - 543;
                 v86[0] -= 543;
@@ -1169,14 +1163,14 @@ LABEL_67:
           }
 
           v30 = v29;
-          if (![v29 isEqualToString:@"ja_JP_TRADITIONAL"])
+          if (!objc_msgSend_isEqualToString_(v29))
           {
             if (![(NSScanner *)v7 _scanDecimal:2 into:v86])
             {
               goto LABEL_139;
             }
 
-            if ([v30 isEqualToString:@"th_TH_TRADITIONAL"])
+            if (objc_msgSend_isEqualToString_(v30))
             {
               v47 = v86[0] + 1957;
 LABEL_109:

@@ -15,9 +15,9 @@
 - (HIDUserDevice)initWithProperties:(id)properties
 {
   propertiesCopy = properties;
-  v13.receiver = self;
-  v13.super_class = HIDUserDevice;
-  v5 = [(HIDUserDevice *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = HIDUserDevice;
+  v5 = [(HIDUserDevice *)&v12 init];
   if (!v5)
   {
     goto LABEL_6;
@@ -31,22 +31,21 @@
     [v8 isEqual:MEMORY[0x277CBEC38]];
   }
 
-  v9 = *MEMORY[0x277CBECE8];
-  v10 = IOHIDUserDeviceCreateWithOptions();
-  v5->_device = v10;
-  if (v10)
+  v9 = IOHIDUserDeviceCreateWithOptions();
+  v5->_device = v9;
+  if (v9)
   {
     v5->_service = IOHIDUserDeviceCopyService();
-    v11 = v5;
+    v10 = v5;
   }
 
   else
   {
 LABEL_6:
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)dealloc
@@ -77,9 +76,7 @@ LABEL_6:
 
 - (void)setCancelHandler:(id)handler
 {
-  v4 = _Block_copy(handler);
-  cancelHandler = self->_cancelHandler;
-  self->_cancelHandler = v4;
+  self->_cancelHandler = _Block_copy(handler);
 
   MEMORY[0x2821F96F8]();
 }
@@ -116,12 +113,11 @@ void __25__HIDUserDevice_activate__block_invoke(uint64_t a1)
     [HIDUserDevice setGetReportHandler:];
   }
 
-  v8 = handlerCopy;
+  v7 = handlerCopy;
   v5 = _Block_copy(handlerCopy);
   getReportHandler = self->_getReportHandler;
   self->_getReportHandler = v5;
 
-  device = self->_device;
   IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 }
 
@@ -133,31 +129,29 @@ void __25__HIDUserDevice_activate__block_invoke(uint64_t a1)
     [HIDUserDevice setSetReportHandler:];
   }
 
-  v8 = handlerCopy;
+  v7 = handlerCopy;
   v5 = _Block_copy(handlerCopy);
   setReportHandler = self->_setReportHandler;
   self->_setReportHandler = v5;
 
-  device = self->_device;
   IOHIDUserDeviceRegisterSetReportCallback();
 }
 
 - (BOOL)handleReport:(id)report error:(id *)error
 {
-  device = self->_device;
   reportCopy = report;
   reportCopy2 = report;
   [reportCopy2 bytes];
   [reportCopy2 length];
 
-  v9 = IOHIDUserDeviceHandleReport();
-  v10 = v9;
-  if (error && v9)
+  v8 = IOHIDUserDeviceHandleReport();
+  v9 = v8;
+  if (error && v8)
   {
-    *error = [MEMORY[0x277CCA9B8] errorWithIOReturn:v9];
+    *error = [MEMORY[0x277CCA9B8] errorWithIOReturn:v8];
   }
 
-  return v10 == 0;
+  return v9 == 0;
 }
 
 - (BOOL)handleReport:(id)report withTimestamp:(unint64_t)timestamp error:(id *)error

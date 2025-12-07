@@ -23,7 +23,7 @@
 
   sub_2B5DEC();
 
-  sub_EB68(v6, &unk_3FBB70);
+  sub_EB68(v6, &unk_3FBB70, &unk_3174C0);
 }
 
 - (void)traitCollectionDidChange:(id)change

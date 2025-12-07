@@ -178,7 +178,7 @@ uint64_t __46__SKStatusSubscriptionDaemonConnection_logger__block_invoke()
 
 void __53__SKStatusSubscriptionDaemonConnection_xpcConnection__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -186,9 +186,9 @@ void __53__SKStatusSubscriptionDaemonConnection_xpcConnection__block_invoke(uint
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = [(os_unfair_lock_s *)WeakRetained xpcConnection];
-      v6 = 134217984;
-      v7 = [v3 processIdentifier];
-      _os_log_impl(&dword_26BA07000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld invalidated", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = [v3 processIdentifier];
+      _os_log_impl(&dword_26BA07000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld invalidated", &v5, 0xCu);
     }
 
     os_unfair_lock_lock(WeakRetained + 2);
@@ -197,13 +197,11 @@ void __53__SKStatusSubscriptionDaemonConnection_xpcConnection__block_invoke(uint
     v4 = [(os_unfair_lock_s *)WeakRetained connectionDelegate];
     [v4 subscriptionDaemonConnectionDidDisconnect:WeakRetained];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SKStatusSubscriptionDaemonConnection_xpcConnection__block_invoke_7(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -211,9 +209,9 @@ void __53__SKStatusSubscriptionDaemonConnection_xpcConnection__block_invoke_7(ui
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = [(os_unfair_lock_s *)WeakRetained xpcConnection];
-      v6 = 134217984;
-      v7 = [v3 processIdentifier];
-      _os_log_impl(&dword_26BA07000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld interrupted", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = [v3 processIdentifier];
+      _os_log_impl(&dword_26BA07000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld interrupted", &v5, 0xCu);
     }
 
     os_unfair_lock_lock(WeakRetained + 2);
@@ -222,8 +220,6 @@ void __53__SKStatusSubscriptionDaemonConnection_xpcConnection__block_invoke_7(ui
     v4 = [(os_unfair_lock_s *)WeakRetained connectionDelegate];
     [v4 subscriptionDaemonConnectionDidDisconnect:WeakRetained];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setXPCConnection:(id)connection

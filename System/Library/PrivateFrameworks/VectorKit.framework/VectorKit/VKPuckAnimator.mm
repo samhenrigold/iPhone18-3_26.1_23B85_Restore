@@ -116,7 +116,7 @@
   result = self->_locationProjector;
   if (result)
   {
-    return unk_1F2ABBCB8(result, "currentSnappedSegment");
+    return objc_msgSend_currentSnappedSegment(result, a3);
   }
 
   *&retstr->__engaged_ = 0;
@@ -192,9 +192,9 @@
   v11 = GEOGetVectorKitVKDefaultLog_log;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    [updateCopy coordinate];
+    objc_msgSend_coordinate(updateCopy);
     v13 = v12;
-    [updateCopy coordinate];
+    objc_msgSend_coordinate(updateCopy);
     v23 = 134218497;
     selfCopy = self;
     v25 = 2049;
@@ -249,9 +249,9 @@
   v11 = GEOGetVectorKitVKDefaultLog_log;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    [locationCopy coordinate];
+    objc_msgSend_coordinate(locationCopy);
     v13 = v12;
-    [locationCopy coordinate];
+    objc_msgSend_coordinate(locationCopy);
     *buf = 134218497;
     *&buf[4] = self;
     *&buf[12] = 2049;
@@ -416,7 +416,7 @@ LABEL_39:
   }
 
   v5 = v3 + -2.0 / self->_tracePlaybackSpeedMultiplier;
-  [(VKRunningCurve *)curve stateAtTime:v5];
+  objc_msgSend_stateAtTime_(curve, v5);
   if ((v30 & 1) == 0)
   {
     return;

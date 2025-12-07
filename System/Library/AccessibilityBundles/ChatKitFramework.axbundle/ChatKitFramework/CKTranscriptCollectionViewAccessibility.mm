@@ -197,7 +197,7 @@ LABEL_5:
   return _accessibilityElementToFocusForAppearanceScreenChange;
 }
 
-uint64_t __96__CKTranscriptCollectionViewAccessibility__accessibilityElementToFocusForAppearanceScreenChange__block_invoke(uint64_t a1)
+void *__96__CKTranscriptCollectionViewAccessibility__accessibilityElementToFocusForAppearanceScreenChange__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfSectionsInCollectionView:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

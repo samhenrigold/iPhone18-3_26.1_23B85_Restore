@@ -33,10 +33,10 @@
 
 - (IDSGroupEncryptionKeyMaterial)currentObjcMaterial
 {
-  v3 = sub_100706B30(&qword_100CB2AA0);
+  v3 = sub_100706B30(&qword_100CB2AA0, &unk_1009B37D0);
   __chkstk_darwin(v3 - 8);
   v5 = &v16 - v4;
-  v6 = type metadata accessor for IDSGroupEncryptionKeyMaterialContent();
+  v6 = type metadata accessor for IDSGroupEncryptionKeyMaterialContent(0);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -46,7 +46,7 @@
   if ((*(v7 + 48))(v5, 1, v6) == 1)
   {
 
-    sub_100013814(v5, &qword_100CB2AA0);
+    sub_100013814(v5, &qword_100CB2AA0, &unk_1009B37D0);
     v12 = 0;
   }
 

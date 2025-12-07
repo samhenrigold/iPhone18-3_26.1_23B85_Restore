@@ -12,6 +12,7 @@
 - (void)_beginTurnOffRecoveryKeyFlowOnClient;
 - (void)_beginVerifyRecoveryKeyFlow;
 - (void)_continueDismissingRenewCredentialsFollowUpForCDP;
+- (void)_continueRecoveryContactGenerationFlowForWalrusUser:(BOOL)user;
 - (void)_continueSettingupCustodianForFollowUpItem:(id)item;
 - (void)_dismissRecoveryKeyMismatchCFU;
 - (void)_dismissRecoveryKeyMismatchRepairCFU;
@@ -46,6 +47,7 @@
 - (void)remoteUIRequestComplete:(id)complete error:(id)error;
 - (void)signInController:(id)controller didCompleteWithSuccess:(BOOL)success error:(id)error;
 - (void)signInControllerDidCancel:(id)cancel;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -83,6 +85,251 @@
   v2.receiver = self;
   v2.super_class = AAUIFollowUpExtensionViewController;
   [(AAUIFollowUpExtensionViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v49.receiver = self;
+  v49.super_class = AAUIFollowUpExtensionViewController;
+  [(AAUIFollowUpExtensionViewController *)&v49 viewDidAppear:appear];
+  v4 = _AAUILogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    uniqueIdentifier = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+    *buf = 138412290;
+    v51 = uniqueIdentifier;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Processing followup for %@", buf, 0xCu);
+  }
+
+  uniqueIdentifier2 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v7 = [uniqueIdentifier2 isEqualToString:AAFollowUpIdentifierStartUsing];
+
+  if (v7)
+  {
+    v8 = _AAUILogSystem();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Attempting to show sign in controller", buf, 2u);
+    }
+
+    selfCopy2 = self;
+    v10 = 0;
+    goto LABEL_7;
+  }
+
+  uniqueIdentifier3 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v12 = [uniqueIdentifier3 isEqualToString:AAFollowUpIdentifierVerifyTerms];
+
+  if (v12)
+  {
+    v13 = _AAUILogSystem();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Attempting to show terms UI", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _showGenericTermsUI];
+    return;
+  }
+
+  uniqueIdentifier4 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v15 = [uniqueIdentifier4 isEqualToString:AAFollowUpIdentifierRenewCredentials];
+
+  if (v15)
+  {
+    v16 = _AAUILogSystem();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Attempting to renew credentials from follow up", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _renewCredentialsForFollowUpItem:self->_followUpItem];
+    return;
+  }
+
+  uniqueIdentifier5 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v18 = [uniqueIdentifier5 isEqualToString:@"com.apple.AAFollowUpIdentifier.custodianReview"];
+
+  if (v18)
+  {
+    v19 = _AAUILogSystem();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Attempting to open Recovery Contact Review sheet from follow up", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _reviewCustodiansForFollowUpItem:self->_followUpItem];
+    return;
+  }
+
+  uniqueIdentifier6 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v21 = [uniqueIdentifier6 isEqualToString:AAFollowUpIdentifierCustodianEmbargo];
+
+  if (v21)
+  {
+    v22 = _AAUILogSystem();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Starting embargo end process from follow up", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _embargoEndHandlerForFollowUpItem:self->_followUpItem];
+    return;
+  }
+
+  uniqueIdentifier7 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v24 = [uniqueIdentifier7 hasPrefix:AAFollowUpIdentifierCustodianInvitationReminder];
+
+  if (v24)
+  {
+    v25 = _AAUILogSystem();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Attempting to show Custodian Invitation from follow up", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _showCustodianInvitationUIForFollowUpItem:self->_followUpItem];
+    return;
+  }
+
+  uniqueIdentifier8 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v27 = [uniqueIdentifier8 isEqualToString:AAFollowUpIdentifierCustodianRemoved];
+
+  if (v27)
+  {
+    v28 = _AAUILogSystem();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Attempting to show Custodian Setup flow", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _setupCustodianForFollowUpItem:self->_followUpItem];
+    return;
+  }
+
+  uniqueIdentifier9 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  if ([uniqueIdentifier9 isEqualToString:AAFollowUpIdentifierCustodianWalrusNoLiveness])
+  {
+
+LABEL_35:
+    v32 = _AAUILogSystem();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Attempting to show Account Recovery UI", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _showAccountRecoveryScreen:self->_followUpItem];
+    return;
+  }
+
+  uniqueIdentifier10 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v31 = [uniqueIdentifier10 isEqualToString:@"com.apple.AAFollowUpIdentifier.adpUserMissingHealthyCustodian"];
+
+  if (v31)
+  {
+    goto LABEL_35;
+  }
+
+  uniqueIdentifier11 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  if ([uniqueIdentifier11 isEqualToString:AAFollowUpIdentifierCustodianWalrusRemoved])
+  {
+
+LABEL_42:
+    [(AAUIFollowUpExtensionViewController *)self _processRecoveryFactorsMissingFollowUpAction:self->_followUpItem selectedAction:self->_followUpAction];
+    return;
+  }
+
+  uniqueIdentifier12 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v35 = [uniqueIdentifier12 isEqualToString:AAFollowUpIdentifierWalrusUserRecoveryFactorsMissing];
+
+  if (v35)
+  {
+    goto LABEL_42;
+  }
+
+  uniqueIdentifier13 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v37 = [uniqueIdentifier13 hasPrefix:@"com.apple.AAFollowUpIdentifier.beneficiaryInvitationReminder"];
+
+  if (v37)
+  {
+    v38 = _AAUILogSystem();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "LCInvite: Attempting to show Beneficiary Invitation from follow up", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _showBeneficiaryInvitationUIForFollowUpItem:self->_followUpItem];
+    return;
+  }
+
+  uniqueIdentifier14 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  if ([uniqueIdentifier14 isEqualToString:AAFollowUpIdentifierBeneficiaryRemoved])
+  {
+
+LABEL_50:
+    v42 = _AAUILogSystem();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Attempting to show Beneficiary List", buf, 2u);
+    }
+
+    [(AAUIFollowUpExtensionViewController *)self _showBeneficiariesForFollowUpItem:self->_followUpItem];
+    return;
+  }
+
+  uniqueIdentifier15 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v41 = [uniqueIdentifier15 containsString:AAFollowUpIdentifierBeneficiaryIneligible];
+
+  if (v41)
+  {
+    goto LABEL_50;
+  }
+
+  uniqueIdentifier16 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+  v44 = [uniqueIdentifier16 isEqualToString:AAFollowUpIdentifierRecoveryKeyMismatch];
+
+  if (v44)
+  {
+    [(AAUIFollowUpExtensionViewController *)self _recoveryKeyMismatchForFollowUpItem:self->_followUpItem selectedAction:self->_followUpAction];
+  }
+
+  else
+  {
+    uniqueIdentifier17 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+    v46 = [uniqueIdentifier17 isEqualToString:AAFollowUpIdentifierChildProtoConnect];
+
+    if (v46)
+    {
+      selfCopy2 = self;
+      v10 = 1;
+LABEL_7:
+      [(AAUIFollowUpExtensionViewController *)selfCopy2 _presentSignInControllerForChildAccount:v10];
+      return;
+    }
+
+    uniqueIdentifier18 = [(FLFollowUpItem *)self->_followUpItem uniqueIdentifier];
+    v48 = [uniqueIdentifier18 isEqualToString:AAFollowUpIdentifierAgeMigration];
+
+    if (v48)
+    {
+      [(AAUIFollowUpExtensionViewController *)self _presentAgeMigrationFlow];
+    }
+
+    else
+    {
+      [(AAUIFollowUpExtensionViewController *)self finishProcessing];
+    }
+  }
 }
 
 - (void)finishProcessing
@@ -954,6 +1201,30 @@ LABEL_14:
   makeGenericRatchetFailedAlert = [(AAUIDTOHelper *)self->dtoHelper makeGenericRatchetFailedAlert];
   presentingViewController = [(AAUIFollowUpExtensionViewController *)self presentingViewController];
   [presentingViewController presentViewController:makeGenericRatchetFailedAlert animated:1 completion:0];
+}
+
+- (void)_continueRecoveryContactGenerationFlowForWalrusUser:(BOOL)user
+{
+  userCopy = user;
+  v5 = _AAUILogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Showing custodian setup flow UI...", buf, 2u);
+  }
+
+  [(AAUIFollowUpExtensionViewController *)self _setupCustodianSetupFlowController];
+  [(AAUICustodianSetupFlowController *)self->_custodianSetupFlowController setIsWalrusEnabled:userCopy];
+  v6 = _AAUILogSystem();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Already checked DTO, no need to go through the first time setup!", v8, 2u);
+  }
+
+  [(AAUICustodianSetupFlowController *)self->_custodianSetupFlowController startWithoutFirstTimeSetup];
+  navigationController = [(AAUICustodianSetupFlowController *)self->_custodianSetupFlowController navigationController];
+  [(AAUIFollowUpExtensionViewController *)self presentViewController:navigationController animated:1 completion:0];
 }
 
 - (void)_processRecoveryFactorsMissingFollowUpAction:(id)action selectedAction:(id)selectedAction

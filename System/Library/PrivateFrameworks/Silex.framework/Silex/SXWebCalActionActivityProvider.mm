@@ -8,12 +8,12 @@
 {
   actionCopy = action;
   v4 = [SXActionActivityGroup alloc];
-  v5 = SXBundle();
+  v5 = SXBundle(v4);
   v6 = [v5 localizedStringForKey:@"Calendar" value:&stru_1F532F6C0 table:0];
   v7 = [(SXActionActivityGroup *)v4 initWithTitle:v6];
 
   v8 = [SXBlockActionActivity alloc];
-  v9 = SXBundle();
+  v9 = SXBundle(v8);
   v10 = [v9 localizedStringForKey:@"Subscribe" value:&stru_1F532F6C0 table:0];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;

@@ -30,7 +30,7 @@
     v13 = 0;
   }
 
-  v14 = objc_allocWithZone(type metadata accessor for OrderDetailsViewController());
+  v14 = objc_allocWithZone(type metadata accessor for OrderDetailsViewController(0));
   v15 = &v14[qword_27DF0FBE0];
   *v15 = v6;
   v15[1] = v8;

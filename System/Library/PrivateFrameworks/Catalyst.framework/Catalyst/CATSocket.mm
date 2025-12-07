@@ -3,6 +3,7 @@
 - (BOOL)delegateShouldAcceptNewSocket:(id)socket;
 - (BOOL)listenWithEndPoint:(id)point error:(id *)error;
 - (CATSocket)init;
+- (CATSocket)initWithNativeSocket:(int)socket;
 - (CATSocketDelegate)delegate;
 - (void)acceptPendingConnection;
 - (void)dealloc;
@@ -86,6 +87,20 @@
   }
 
   return v3;
+}
+
+- (CATSocket)initWithNativeSocket:(int)socket
+{
+  v3 = *&socket;
+  v4 = [(CATSocket *)self init];
+  v5 = v4;
+  if (v4)
+  {
+    v4->mState = 3;
+    [(CATSocket *)v4 setNativeSocket:v3];
+  }
+
+  return v5;
 }
 
 - (void)dealloc
@@ -451,25 +466,23 @@ void __23__CATSocket_invalidate__block_invoke(uint64_t a1)
 
 - (void)acceptPendingConnection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = __error();
   v7 = strerror(*v6);
   v8 = *__error();
-  v10 = 138413058;
+  v9 = 138413058;
   selfCopy = self;
-  v12 = 1024;
-  v13 = a3;
-  v14 = 2080;
-  v15 = v7;
-  v16 = 1024;
-  v17 = v8;
-  _os_log_error_impl(&dword_24329F000, v5, OS_LOG_TYPE_ERROR, "%@ failed accepting from socket (%d): %s (%i)", &v10, 0x22u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = 1024;
+  v12 = a3;
+  v13 = 2080;
+  v14 = v7;
+  v15 = 1024;
+  v16 = v8;
+  _os_log_error_impl(&dword_24329F000, v5, OS_LOG_TYPE_ERROR, "%@ failed accepting from socket (%d): %s (%i)", &v9, 0x22u);
 }
 
-uint64_t __36__CATSocket_acceptPendingConnection__block_invoke(uint64_t a1)
+void *__36__CATSocket_acceptPendingConnection__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) delegateShouldAcceptNewSocket:*(a1 + 40)];
   if ((result & 1) == 0)

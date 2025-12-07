@@ -3,17 +3,17 @@
 
 @implementation UILabelMetrics
 
-uint64_t __37___UILabelMetrics__calculateIfNeeded__block_invoke(uint64_t result)
+void *__37___UILabelMetrics__calculateIfNeeded__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(*(result + 32) + 64);
+  v2 = *(result[4] + 64);
   v3 = 0;
   v4 = 0;
   if (*(result + 64) == 1)
   {
     if (v2)
     {
-      result = [*(*(result + 32) + 64) _calculateIfNecessary];
+      result = [*(result[4] + 64) _calculateIfNecessary];
       v4 = *(v2 + 56);
     }
 
@@ -43,7 +43,7 @@ uint64_t __37___UILabelMetrics__calculateIfNeeded__block_invoke(uint64_t result)
   {
     if (v2)
     {
-      result = [*(*(result + 32) + 64) _calculateIfNecessary];
+      result = [*(result[4] + 64) _calculateIfNecessary];
       v4 = *(v2 + 48);
     }
 
@@ -66,7 +66,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t __37___UILabelMetrics__calculateIfNeeded__block_invoke_2(uint64_t a1)
+void *__37___UILabelMetrics__calculateIfNeeded__block_invoke_2(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   v3 = *(*(a1 + 32) + 64);

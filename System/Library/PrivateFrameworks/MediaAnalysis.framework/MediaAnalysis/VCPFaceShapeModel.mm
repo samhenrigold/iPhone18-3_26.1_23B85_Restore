@@ -1036,7 +1036,7 @@ void *__41__VCPFaceShapeModel_updateIdentityShape___block_invoke(uint64_t a1)
   LODWORD(v10) = 5;
   [(VCPFaceShapeModel *)self calculateIdentityCoefficients:self->_curCoeff extrinsicMatrix:matrix pts2D:d exprWeights:weights lm3DMeanBlendshapes:self->_lm3dMeanBlendshapes lm3DComponents:self->_lm3dBlendshapeComponents maxIter:v10];
   [(VCPFaceTensorModel *)self->_tensorModel calculateModelBlendshapes:self->_curCoeff outputBlendshapes:outputblendshapes];
-  CalculateBlendshapes(self->_curCoeff, self->_transformedCoeff, self->_blendShapeDelta, 63, 501, 52, [(VCPFaceTensorModel *)self->_tensorModel tensorCoeff], self->_lm3dMeanBlendshapes, self->_lm3dBlendshapeComponents, [(VCPFaceTensorModel *)self->_tensorModel blendshapeComponentIndex], coeff);
+  CalculateBlendshapes(self->_curCoeff, self->_transformedCoeff, self->_blendShapeDelta, 63, 501, 0x34u, [(VCPFaceTensorModel *)self->_tensorModel tensorCoeff], self->_lm3dMeanBlendshapes, self->_lm3dBlendshapeComponents, [(VCPFaceTensorModel *)self->_tensorModel blendshapeComponentIndex], coeff);
   self->_identityInit = 1;
 }
 
@@ -1212,7 +1212,7 @@ LABEL_12:
 - (BOOL)optimizeProjectionMatrix:(int)matrix tracking:(BOOL)tracking firstPass:(BOOL)pass
 {
   v6 = *MEMORY[0x1E69E9840];
-  [(VCPFaceShapeModel *)self getPoseParam];
+  objc_msgSend_getPoseParam(self, a2);
   operator new();
 }
 

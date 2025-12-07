@@ -91,12 +91,12 @@
 
 - (BCSWebPresentmentItem)initWithBrandID:(id)d localizedNames:(id)names
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   namesCopy = names;
-  v26.receiver = self;
-  v26.super_class = BCSWebPresentmentItem;
-  v8 = [(BCSItem *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = BCSWebPresentmentItem;
+  v8 = [(BCSItem *)&v25 init];
   if (v8)
   {
     v9 = objc_alloc_init(BCSWebPresentmentParquetMessage);
@@ -104,31 +104,31 @@
     v8->_message = v9;
 
     [(BCSWebPresentmentParquetMessage *)v8->_message setBcBrandId:dCopy];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v11 = namesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         v15 = 0;
         do
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(BCSWebPresentmentParquetMessage *)v8->_message addName:*(*(&v22 + 1) + 8 * v15++), v22];
+          [(BCSWebPresentmentParquetMessage *)v8->_message addName:*(*(&v21 + 1) + 8 * v15++), v21];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v13);
@@ -141,20 +141,19 @@
     v8->_identifier = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BCSWebPresentmentItem)initWithBrandID:(id)d localizedNames:(id)names businessId:(id)id companyId:(id)companyId
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   namesCopy = names;
   idCopy = id;
   companyIdCopy = companyId;
-  v32.receiver = self;
-  v32.super_class = BCSWebPresentmentItem;
-  v14 = [(BCSItem *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = BCSWebPresentmentItem;
+  v14 = [(BCSItem *)&v31 init];
   if (v14)
   {
     v15 = objc_alloc_init(BCSWebPresentmentParquetMessage);
@@ -162,31 +161,31 @@
     v14->_message = v15;
 
     [(BCSWebPresentmentParquetMessage *)v14->_message setBcBrandId:dCopy];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v17 = namesCopy;
-    v18 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v29;
+      v20 = *v28;
       do
       {
         v21 = 0;
         do
         {
-          if (*v29 != v20)
+          if (*v28 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [(BCSWebPresentmentParquetMessage *)v14->_message addName:*(*(&v28 + 1) + 8 * v21++), v28];
+          [(BCSWebPresentmentParquetMessage *)v14->_message addName:*(*(&v27 + 1) + 8 * v21++), v27];
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v19);
@@ -201,7 +200,6 @@
     v14->_identifier = v24;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -232,7 +230,7 @@
 
 - (BCSWebPresentmentItem)initWithBrandID:(id)d defaultsDictionary:(id)dictionary
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   dCopy = d;
   v8 = objc_alloc_init(BCSWebPresentmentLocalizedString);
@@ -244,11 +242,10 @@
   v10 = [dictionaryCopy objectForKeyedSubscript:@"businessId"];
   v11 = [dictionaryCopy objectForKeyedSubscript:@"companyId"];
 
-  v16[0] = v8;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v8;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v13 = [(BCSWebPresentmentItem *)self initWithBrandID:dCopy localizedNames:v12 businessId:v10 companyId:v11];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

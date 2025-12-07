@@ -145,21 +145,8 @@ LABEL_24:
 - (void)close
 {
   v3 = off_1001E9BC0;
-  if (dispatch_get_specific(off_1001E9BC0) == v3)
+  if (dispatch_get_specific(off_1001E9BC0) == v3 || (v4 = objc_opt_class(), +[NSThread currentThread](NSThread, "currentThread"), v5 = objc_claimAutoreleasedReturnValue(), [v5 threadDictionary], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKeyedSubscript:", @"TSUBufferedReadChannelInvokingHandler"), v7 = objc_claimAutoreleasedReturnValue(), TSUDynamicCast(v4, v7), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "BOOLValue"), v8, v7, v6, v5, v9))
   {
-    goto LABEL_3;
-  }
-
-  v4 = objc_opt_class();
-  v5 = +[NSThread currentThread];
-  threadDictionary = [v5 threadDictionary];
-  v7 = [threadDictionary objectForKeyedSubscript:@"TSUBufferedReadChannelInvokingHandler"];
-  v8 = TSUDynamicCast(v4, v7);
-  bOOLValue = [v8 BOOLValue];
-
-  if (bOOLValue)
-  {
-LABEL_3:
 
     [(TSUBufferedReadChannel *)self _close];
   }
@@ -490,27 +477,26 @@ LABEL_12:
     v12 = TSUAssertCat_log_t;
     if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
     {
-      v21 = self->_streamOutputOffset;
-      v22 = self->_streamOutputLength;
+      v20 = self->_streamOutputOffset;
+      v21 = self->_streamOutputLength;
       *buf = 67110402;
-      v24 = v11;
-      v25 = 2082;
-      v26 = "[TSUBufferedReadChannel _currentDataIntersectionWithOffset:length:isReadDone:]";
-      v27 = 2082;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUBufferedReadChannel.m";
-      v29 = 1024;
-      v30 = 343;
-      v31 = 2048;
-      v32 = v21;
-      v33 = 2048;
-      v34 = v22;
+      v23 = v11;
+      v24 = 2082;
+      v25 = "[TSUBufferedReadChannel _currentDataIntersectionWithOffset:length:isReadDone:]";
+      v26 = 2082;
+      v27 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUBufferedReadChannel.m";
+      v28 = 1024;
+      v29 = 343;
+      v30 = 2048;
+      v31 = v20;
+      v32 = 2048;
+      v33 = v21;
       _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Overflow in the output stream: data offset %lli data length %zu", buf, 0x36u);
     }
 
     v13 = [NSString stringWithUTF8String:"[TSUBufferedReadChannel _currentDataIntersectionWithOffset:length:isReadDone:]"];
     v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUBufferedReadChannel.m"];
-    v15 = self->_streamOutputOffset;
-    [TSUAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:343 isFatal:0 description:"Overflow in the output stream: data offset %lli data length %zu", v15, self->_streamOutputLength];
+    [TSUAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:343 isFatal:0 description:"Overflow in the output stream: data offset %lli data length %zu", self->_streamOutputOffset, self->_streamOutputLength];
 
     +[TSUAssertionHandler logBacktraceThrottled];
     streamOutputOffset = self->_streamOutputOffset;
@@ -527,18 +513,18 @@ LABEL_12:
     offsetCopy = streamOutputOffset;
   }
 
-  v17 = streamOutputLength + streamOutputOffset;
+  v16 = streamOutputLength + streamOutputOffset;
   if (v8 >= streamOutputLength + streamOutputOffset)
   {
-    v18 = streamOutputLength + streamOutputOffset;
+    v17 = streamOutputLength + streamOutputOffset;
   }
 
   else
   {
-    v18 = v8;
+    v17 = v8;
   }
 
-  if (v18 <= offsetCopy)
+  if (v17 <= offsetCopy)
   {
     subrange = 0;
     if (!done)
@@ -549,11 +535,11 @@ LABEL_12:
     goto LABEL_20;
   }
 
-  subrange = dispatch_data_create_subrange(self->_currentStreamOutputData, offsetCopy - streamOutputOffset, v18 - offsetCopy);
+  subrange = dispatch_data_create_subrange(self->_currentStreamOutputData, offsetCopy - streamOutputOffset, v17 - offsetCopy);
   if (done)
   {
 LABEL_20:
-    *done = v8 <= v17 || self->_isStreamOutputDone;
+    *done = v8 <= v16 || self->_isStreamOutputDone;
   }
 
 LABEL_21:

@@ -177,9 +177,9 @@
 
 - (void)loadView
 {
-  v56.receiver = self;
-  v56.super_class = PKAccountBillPaymentPayLaterViewController;
-  [(PKAccountBillPaymentPayLaterViewController *)&v56 loadView];
+  v57.receiver = self;
+  v57.super_class = PKAccountBillPaymentPayLaterViewController;
+  [(PKAccountBillPaymentPayLaterViewController *)&v57 loadView];
   view = [(PKAccountBillPaymentPayLaterViewController *)self view];
   [view pkui_applyContainerConcentricCornerConfiguration];
 
@@ -187,7 +187,7 @@
   v4 = PKUIGetMinScreenWidthType();
   v5 = PKLocalizedFeatureString();
   v6 = PKOBKTextAlignment();
-  v52 = v5;
+  v53 = v5;
   if (v4 || PKIsVision())
   {
     v7 = objc_alloc_init(MEMORY[0x1E69DCC10]);
@@ -200,7 +200,7 @@
     v10 = self->_payLaterTitleLabel;
     if (v9)
     {
-      v11 = PKOBKHeaderTitleFont();
+      v11 = PKOBKHeaderTitleFont(v9);
       [(UILabel *)v10 setFont:v11];
 
       v12 = self->_payLaterTitleLabel;
@@ -240,31 +240,31 @@
   v23 = MEMORY[0x1E69DDC38];
   if (v21)
   {
-    v24 = PKOBKHeaderSubtitleFont();
+    v24 = PKOBKHeaderSubtitleFont(v21);
     [(UILabel *)v22 setFont:v24];
 
     v25 = self->_whenToPayQuestionLabel;
-    v26 = PKOBKHeaderSubtitleTextColor();
-    [(UILabel *)v25 setTextColor:v26];
+    v27 = PKOBKHeaderSubtitleTextColor(v26);
+    [(UILabel *)v25 setTextColor:v27];
   }
 
   else
   {
-    v26 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC38], 0x8000, 0);
-    [(UILabel *)v22 setFont:v26];
+    v27 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC38], 0x8000, 0);
+    [(UILabel *)v22 setFont:v27];
   }
 
   [(UILabel *)self->_whenToPayQuestionLabel setNumberOfLines:0];
   [(UILabel *)self->_whenToPayQuestionLabel setAccessibilityIdentifier:*MEMORY[0x1E69B9CC8]];
-  v27 = objc_alloc_init(_PKContinuousPickerView);
+  v28 = objc_alloc_init(_PKContinuousPickerView);
   datePicker = self->_datePicker;
-  self->_datePicker = &v27->super;
+  self->_datePicker = &v28->super;
 
   [(UIPickerView *)self->_datePicker setDelegate:self];
   [(UIPickerView *)self->_datePicker setDataSource:self];
-  v29 = [[PKAccountBillPaymentPayInterestDescriptionView alloc] initWithAccount:self->_account];
+  v30 = [[PKAccountBillPaymentPayInterestDescriptionView alloc] initWithAccount:self->_account];
   interestDescriptionView = self->_interestDescriptionView;
-  self->_interestDescriptionView = v29;
+  self->_interestDescriptionView = v30;
 
   creditDetails2 = [(PKAccount *)self->_account creditDetails];
   accountSummary = [creditDetails2 accountSummary];
@@ -279,48 +279,48 @@
   if (_UISolariumFeatureFlagEnabled())
   {
     prominentGlassButtonConfiguration = [MEMORY[0x1E69DC740] prominentGlassButtonConfiguration];
-    v35 = PKAccountBillPaymentPrimaryButtonTextColor();
-    [prominentGlassButtonConfiguration setBaseForegroundColor:v35];
+    v36 = PKAccountBillPaymentPrimaryButtonTextColor();
+    [prominentGlassButtonConfiguration setBaseForegroundColor:v36];
 
     [prominentGlassButtonConfiguration setContentInsets:{0.0, 14.0, 0.0, 14.0}];
     [prominentGlassButtonConfiguration setTitleTextAttributesTransformer:&__block_literal_global_123];
-    v36 = [MEMORY[0x1E69DC738] buttonWithConfiguration:prominentGlassButtonConfiguration primaryAction:0];
+    v37 = [MEMORY[0x1E69DC738] buttonWithConfiguration:prominentGlassButtonConfiguration primaryAction:0];
     payOnButton = self->_payOnButton;
-    self->_payOnButton = v36;
+    self->_payOnButton = v37;
 
     objc_initWeak(&location, self);
-    v38 = self->_payOnButton;
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __54__PKAccountBillPaymentPayLaterViewController_loadView__block_invoke_2;
-    v53[3] = &unk_1E8013CE8;
-    objc_copyWeak(&v54, &location);
-    [(UIButton *)v38 setConfigurationUpdateHandler:v53];
-    objc_destroyWeak(&v54);
+    v39 = self->_payOnButton;
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __54__PKAccountBillPaymentPayLaterViewController_loadView__block_invoke_2;
+    v54[3] = &unk_1E8013CE8;
+    objc_copyWeak(&v55, &location);
+    [(UIButton *)v39 setConfigurationUpdateHandler:v54];
+    objc_destroyWeak(&v55);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v39 = PKCreateLargeSolidButton();
-    v40 = self->_payOnButton;
-    self->_payOnButton = v39;
-
+    v40 = PKCreateLargeSolidButton();
     v41 = self->_payOnButton;
-    v42 = +[PKAccountBillPaymentViewController backgroundColor];
-    [(UIButton *)v41 updateTitleColorWithColor:v42];
+    self->_payOnButton = v40;
+
+    v42 = self->_payOnButton;
+    v43 = +[PKAccountBillPaymentViewController backgroundColor];
+    [(UIButton *)v42 updateTitleColorWithColor:v43];
 
     titleLabel = [(UIButton *)self->_payOnButton titleLabel];
-    v44 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *v23, 2, 0);
-    pk_fixedWidthFont = [v44 pk_fixedWidthFont];
+    v45 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *v23, 2, 0);
+    pk_fixedWidthFont = [v45 pk_fixedWidthFont];
     [titleLabel setFont:pk_fixedWidthFont];
 
     [(UIButton *)self->_payOnButton setContentEdgeInsets:0.0, 14.0, 0.0, 14.0];
   }
 
-  v46 = self->_payOnButton;
-  v47 = PKAccountBillPaymentPrimaryButtonTintColor();
-  [(UIButton *)v46 setTintColor:v47];
+  v47 = self->_payOnButton;
+  v48 = PKAccountBillPaymentPrimaryButtonTintColor();
+  [(UIButton *)v47 setTintColor:v48];
 
   titleLabel2 = [(UIButton *)self->_payOnButton titleLabel];
   [titleLabel2 setAdjustsFontSizeToFitWidth:1];
@@ -328,8 +328,8 @@
   [(UIButton *)self->_payOnButton addTarget:self action:sel__payOnButtonTapped_ forControlEvents:64];
   [(UIButton *)self->_payOnButton setAccessibilityIdentifier:*MEMORY[0x1E69B9AE0]];
   view2 = [(PKAccountBillPaymentPayLaterViewController *)self view];
-  v50 = +[PKAccountBillPaymentViewController backgroundColor];
-  [view2 setBackgroundColor:v50];
+  v51 = +[PKAccountBillPaymentViewController backgroundColor];
+  [view2 setBackgroundColor:v51];
 
   [view2 addSubview:self->_payLaterTitleLabel];
   [view2 addSubview:self->_whenToPayQuestionLabel];
@@ -377,9 +377,9 @@ void __54__PKAccountBillPaymentPayLaterViewController_loadView__block_invoke_2(u
 
 - (void)viewWillLayoutSubviews
 {
-  v41.receiver = self;
-  v41.super_class = PKAccountBillPaymentPayLaterViewController;
-  [(PKAccountBillPaymentPayLaterViewController *)&v41 viewWillLayoutSubviews];
+  v90.receiver = self;
+  v90.super_class = PKAccountBillPaymentPayLaterViewController;
+  [(PKAccountBillPaymentPayLaterViewController *)&v90 viewWillLayoutSubviews];
   view = [(PKAccountBillPaymentPayLaterViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -413,11 +413,18 @@ void __54__PKAccountBillPaymentPayLaterViewController_loadView__block_invoke_2(u
   remainder.origin.y = v7 + v18;
   remainder.size.width = v21;
   remainder.size.height = v11 - (v18 + v20);
-  memset(&v39, 0, sizeof(v39));
+  memset(&v88, 0, sizeof(v88));
   _UISolariumFeatureFlagEnabled();
-  if (_UISolariumFeatureFlagEnabled())
+  v22 = _UISolariumFeatureFlagEnabled();
+  v23 = MEMORY[0x1E69BB7F8];
+  if (v22)
   {
-    PKContentAlignmentMake();
+    v24 = PKContentAlignmentMake();
+  }
+
+  else
+  {
+    v24 = *MEMORY[0x1E69BB7F8];
   }
 
   if (self->_payLaterTitleLabel)
@@ -426,83 +433,129 @@ void __54__PKAccountBillPaymentPayLaterViewController_loadView__block_invoke_2(u
     {
       if (PKUIGetMinScreenWidthType() <= 4)
       {
-        v22 = 7.0;
+        v25 = 7.0;
       }
 
       else
       {
-        v22 = 15.0;
+        v25 = 15.0;
       }
 
-      CGRectDivide(remainder, &v39, &remainder, v22, CGRectMinYEdge);
+      CGRectDivide(remainder, &v88, &remainder, v25, CGRectMinYEdge);
     }
 
-    [(UILabel *)self->_payLaterTitleLabel sizeThatFits:v9 - (v17 + v17), 3.40282347e38, *&v39.origin, *&v39.size];
-    CGRectDivide(remainder, &v39, &remainder, v23, CGRectMinYEdge);
-    PKSizeAlignedInRect();
+    [(UILabel *)self->_payLaterTitleLabel sizeThatFits:v9 - (v17 + v17), 3.40282347e38, *&v88.origin, *&v88.size];
+    v27 = v26;
+    v29 = *&v28;
+    CGRectDivide(remainder, &v88, &remainder, v28, CGRectMinYEdge);
+    v31.n128_u64[0] = *&v88.origin.y;
+    v30.n128_u64[0] = *&v88.origin.x;
+    v33.n128_u64[0] = *&v88.size.height;
+    v32.n128_u64[0] = *&v88.size.width;
+    v34.n128_u64[0] = v27;
+    v35.n128_u64[0] = v29;
+    PKSizeAlignedInRect(v24, v34, v35, v30, v31, v32, v33, v36);
     [(UILabel *)self->_payLaterTitleLabel setFrame:?];
   }
 
   else if ((_UISolariumFeatureFlagEnabled() & 1) == 0)
   {
-    CGRectDivide(remainder, &v39, &remainder, 20.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v88, &remainder, 20.0, CGRectMinYEdge);
   }
 
   if ((_UISolariumFeatureFlagEnabled() & 1) == 0)
   {
-    CGRectDivide(remainder, &v39, &remainder, 15.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v88, &remainder, 15.0, CGRectMinYEdge);
   }
 
-  [(UILabel *)self->_whenToPayQuestionLabel sizeThatFits:v21, 3.40282347e38, *&v39.origin, *&v39.size];
-  CGRectDivide(remainder, &v39, &remainder, v24, CGRectMinYEdge);
-  PKSizeAlignedInRect();
+  [(UILabel *)self->_whenToPayQuestionLabel sizeThatFits:v21, 3.40282347e38, *&v88.origin, *&v88.size];
+  v38 = v37;
+  v40 = *&v39;
+  CGRectDivide(remainder, &v88, &remainder, v39, CGRectMinYEdge);
+  v42.n128_u64[0] = *&v88.origin.y;
+  v41.n128_u64[0] = *&v88.origin.x;
+  v44.n128_u64[0] = *&v88.size.height;
+  v43.n128_u64[0] = *&v88.size.width;
+  v45.n128_u64[0] = v38;
+  v46.n128_u64[0] = v40;
+  PKSizeAlignedInRect(v24, v45, v46, v41, v42, v43, v44, v47);
   [(UILabel *)self->_whenToPayQuestionLabel setFrame:?];
   width = remainder.size.width;
   if (_UISolariumFeatureFlagEnabled())
   {
-    v42.origin.x = v5;
-    v42.origin.y = v7;
-    v42.size.width = v9;
-    v42.size.height = v11;
-    v26 = CGRectGetMaxY(v42) + -50.0;
+    v91.origin.x = v5;
+    v91.origin.y = v7;
+    v91.size.width = v9;
+    v91.size.height = v11;
+    v49 = CGRectGetMaxY(v91) + -50.0;
     view2 = [(PKAccountBillPaymentPayLaterViewController *)self view];
-    [view2 _concentricEdgeInsetsForEdge:4 bounds:0.0 minimumEdgeInsets:{v26, v9, 50.0, 0.0, 28.0, 28.0, 28.0}];
-    v29 = v28;
-    v31 = v30;
-    v33 = v32;
+    [view2 _concentricEdgeInsetsForEdge:4 bounds:0.0 minimumEdgeInsets:{v49, v9, 50.0, 0.0, 28.0, 28.0, 28.0}];
+    v52 = v51;
+    v54 = v53;
+    v56 = v55;
 
-    width = v9 - (v29 + v33);
-    CGRectDivide(remainder, &v39, &remainder, v31, CGRectMaxYEdge);
+    width = v9 - (v52 + v56);
+    CGRectDivide(remainder, &v88, &remainder, v54, CGRectMaxYEdge);
   }
 
   [(UIButton *)self->_payOnButton sizeThatFits:width, 3.40282347e38];
-  if (v34 >= 50.0)
+  if (v57 >= 50.0)
   {
-    v35 = v34;
+    v58 = v57;
   }
 
   else
   {
-    v35 = 50.0;
+    v58 = 50.0;
   }
 
-  CGRectDivide(remainder, &v39, &remainder, v35, CGRectMaxYEdge);
-  PKSizeAlignedInRect();
+  CGRectDivide(remainder, &v88, &remainder, v58, CGRectMaxYEdge);
+  v60.n128_u64[0] = *&v88.origin.y;
+  v59.n128_u64[0] = *&v88.origin.x;
+  v62.n128_u64[0] = *&v88.size.height;
+  v61.n128_u64[0] = *&v88.size.width;
+  v63 = *v23;
+  v64.n128_f64[0] = width;
+  v65.n128_f64[0] = v58;
+  PKSizeAlignedInRect(*v23, v64, v65, v59, v60, v61, v62, v66);
   [(UIButton *)self->_payOnButton setFrame:?];
   [(PKAccountBillPaymentPayInterestDescriptionView *)self->_interestDescriptionView sizeThatFits:v21, 3.40282347e38];
-  v37 = v36;
+  v68 = v67;
+  v70 = v69;
   [(PKAccountBillPaymentPayLaterViewController *)self _payButtonTopPadding];
-  CGRectDivide(remainder, &v39, &remainder, v38, CGRectMaxYEdge);
-  CGRectDivide(remainder, &v39, &remainder, v37, CGRectMaxYEdge);
-  PKSizeAlignedInRect();
+  CGRectDivide(remainder, &v88, &remainder, v71, CGRectMaxYEdge);
+  CGRectDivide(remainder, &v88, &remainder, v70, CGRectMaxYEdge);
+  v73.n128_u64[0] = *&v88.origin.y;
+  v72.n128_u64[0] = *&v88.origin.x;
+  v75.n128_u64[0] = *&v88.size.height;
+  v74.n128_u64[0] = *&v88.size.width;
+  v76.n128_u64[0] = v68;
+  v77.n128_f64[0] = v70;
+  PKSizeAlignedInRect(v24, v76, v77, v72, v73, v74, v75, v78);
   [(PKAccountBillPaymentPayInterestDescriptionView *)self->_interestDescriptionView setFrame:?];
-  _UISolariumFeatureFlagEnabled();
+  v79 = _UISolariumFeatureFlagEnabled();
+  v80 = remainder.size.width;
   if ((_UISolariumFeatureFlagEnabled() & 1) == 0)
   {
-    CGRectDivide(remainder, &v39, &remainder, 20.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v88, &remainder, 20.0, CGRectMinYEdge);
   }
 
-  PKSizeAlignedInRect();
+  if (v79)
+  {
+    v81.n128_f64[0] = v80;
+  }
+
+  else
+  {
+    v81.n128_f64[0] = v9;
+  }
+
+  v83.n128_u64[0] = *&remainder.origin.x;
+  v84.n128_u64[0] = *&remainder.origin.y;
+  v85.n128_u64[0] = *&remainder.size.width;
+  v82.n128_u64[0] = *&remainder.size.height;
+  v86.n128_u64[0] = *&remainder.size.height;
+  PKSizeAlignedInRect(v63, v81, v82, v83, v84, v85, v86, v87);
   [(UIPickerView *)self->_datePicker setFrame:?];
 }
 

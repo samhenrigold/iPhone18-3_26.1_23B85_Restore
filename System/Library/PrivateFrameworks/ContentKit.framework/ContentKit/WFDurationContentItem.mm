@@ -16,14 +16,14 @@
   if (objc_opt_class() == class)
   {
     durationValue = [(WFDurationContentItem *)self durationValue];
-    duration = [durationValue duration];
+    v10 = objc_msgSend_duration(durationValue);
 
-    if (duration)
+    if (v10)
     {
-      seconds = [duration seconds];
+      seconds = [v10 seconds];
       if (seconds)
       {
-        seconds2 = [duration seconds];
+        seconds2 = [v10 seconds];
         intValue = [seconds2 intValue];
       }
 
@@ -32,10 +32,10 @@
         intValue = 0;
       }
 
-      attoseconds = [duration attoseconds];
+      attoseconds = [v10 attoseconds];
       if (attoseconds)
       {
-        attoseconds2 = [duration attoseconds];
+        attoseconds2 = [v10 attoseconds];
         intValue2 = [attoseconds2 intValue];
       }
 
@@ -60,28 +60,28 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  duration2 = [(WFDurationContentItem *)self duration];
+  v7 = objc_msgSend_duration(self);
 
-  if (!duration2)
+  if (!v7)
   {
     goto LABEL_10;
   }
 
   v8 = objc_alloc(MEMORY[0x277D23950]);
-  duration3 = [(WFDurationContentItem *)self duration];
-  duration = [v8 initWithDuration:duration3];
+  v9 = objc_msgSend_duration(self);
+  v10 = [v8 initWithDuration:v9];
 
-  if (!duration)
+  if (!v10)
   {
     goto LABEL_10;
   }
 
-  duration4 = [(WFDurationContentItem *)self duration];
-  seconds3 = [duration4 seconds];
+  v11 = objc_msgSend_duration(self);
+  seconds3 = [v11 seconds];
   if (seconds3)
   {
-    duration5 = [(WFDurationContentItem *)self duration];
-    seconds4 = [duration5 seconds];
+    v13 = objc_msgSend_duration(self);
+    seconds4 = [v13 seconds];
     intValue3 = [seconds4 intValue];
   }
 
@@ -90,12 +90,12 @@ LABEL_10:
     intValue3 = 0;
   }
 
-  duration6 = [(WFDurationContentItem *)self duration];
-  attoseconds3 = [duration6 attoseconds];
+  v26 = objc_msgSend_duration(self);
+  attoseconds3 = [v26 attoseconds];
   if (attoseconds3)
   {
-    duration7 = [(WFDurationContentItem *)self duration];
-    attoseconds4 = [duration7 attoseconds];
+    v28 = objc_msgSend_duration(self);
+    attoseconds4 = [v28 attoseconds];
     intValue4 = [attoseconds4 intValue];
   }
 
@@ -108,7 +108,7 @@ LABEL_10:
   v25 = WFLocalizedString(@"%d%.0f");
   [v31 localizedStringWithFormat:v25, intValue3, intValue4];
   v32 = LABEL_21:;
-  v20 = [WFObjectRepresentation object:duration named:v32];
+  v20 = [WFObjectRepresentation object:v10 named:v32];
 
 LABEL_22:
 
@@ -190,13 +190,13 @@ WFTimeInterval *__52__WFDurationContentItem_timeIntervalCoercionHandler__block_i
     goto LABEL_7;
   }
 
-  v7 = [v6 duration];
+  v7 = objc_msgSend_duration(v6);
   v8 = [v7 timeInterval];
 
   if (v8)
   {
     v9 = [WFTimeInterval alloc];
-    v10 = [v6 duration];
+    v10 = objc_msgSend_duration(v6);
     v11 = [v10 timeInterval];
     [v11 doubleValue];
     v12 = [(WFTimeInterval *)v9 initWithTimeInterval:?];
@@ -221,7 +221,7 @@ id __46__WFDurationContentItem_stringCoercionHandler__block_invoke(uint64_t a1, 
   v6 = v4;
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v7 = [v6 duration];
+    v7 = objc_msgSend_duration(v6);
     v8 = [v7 description];
   }
 

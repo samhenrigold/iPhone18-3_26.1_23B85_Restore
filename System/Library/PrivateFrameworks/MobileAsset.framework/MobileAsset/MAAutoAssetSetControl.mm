@@ -103,7 +103,7 @@ void __73__MAAutoAssetSetControl_assetSetsOverview_limitedToSetIdentifiers_error
 
 - (void)_autoAssetsOverview:(id)overview limitedToSetIdentifiers:(id)identifiers isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   overviewCopy = overview;
   identifiersCopy = identifiers;
   completionCopy = completion;
@@ -112,18 +112,18 @@ void __73__MAAutoAssetSetControl_assetSetsOverview_limitedToSetIdentifiers_error
 
   if (completionCopy)
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __94__MAAutoAssetSetControl__autoAssetsOverview_limitedToSetIdentifiers_isSynchronous_completion___block_invoke;
-    v17[3] = &unk_1E74C97F0;
-    v18 = overviewCopy;
-    v19 = identifiersCopy;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __94__MAAutoAssetSetControl__autoAssetsOverview_limitedToSetIdentifiers_isSynchronous_completion___block_invoke;
+    v16[3] = &unk_1E74C97F0;
+    v17 = overviewCopy;
+    v18 = identifiersCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v21 = completionCopy;
-    [(MAAutoAssetSetControl *)self connectToServerFrameworkCompletion:v17];
+    v20 = completionCopy;
+    [(MAAutoAssetSetControl *)self connectToServerFrameworkCompletion:v16];
 
-    v14 = v18;
+    v14 = v17;
   }
 
   else
@@ -133,12 +133,10 @@ void __73__MAAutoAssetSetControl_assetSetsOverview_limitedToSetIdentifiers_error
     {
       v15 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"assetSetsOverview"];
       *buf = 138543362;
-      v24 = v15;
+      v23 = v15;
       _os_log_impl(&dword_197AD5000, v14, OS_LOG_TYPE_ERROR, "MA-auto-set-control{assetSetsOverview} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __94__MAAutoAssetSetControl__autoAssetsOverview_limitedToSetIdentifiers_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -312,7 +310,7 @@ void __54__MAAutoAssetSetControl_assetSetDescriptorInfo_error___block_invoke(uin
 
 - (void)_autoAssetInstanceInfo:(id)info isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   completionCopy = completion;
   v10 = +[MAAutoAssetSetControl _privateStateQueue];
@@ -320,15 +318,15 @@ void __54__MAAutoAssetSetControl_assetSetDescriptorInfo_error___block_invoke(uin
 
   if (completionCopy)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __73__MAAutoAssetSetControl__autoAssetInstanceInfo_isSynchronous_completion___block_invoke;
-    v14[3] = &unk_1E74C9840;
-    v14[4] = self;
-    v15 = infoCopy;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __73__MAAutoAssetSetControl__autoAssetInstanceInfo_isSynchronous_completion___block_invoke;
+    v13[3] = &unk_1E74C9840;
+    v13[4] = self;
+    v14 = infoCopy;
     synchronousCopy = synchronous;
-    v16 = completionCopy;
-    [(MAAutoAssetSetControl *)self connectToServerFrameworkCompletion:v14];
+    v15 = completionCopy;
+    [(MAAutoAssetSetControl *)self connectToServerFrameworkCompletion:v13];
   }
 
   else
@@ -338,12 +336,10 @@ void __54__MAAutoAssetSetControl_assetSetDescriptorInfo_error___block_invoke(uin
     {
       v12 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"autoAssetInstanceInfo"];
       *buf = 138543362;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_197AD5000, v11, OS_LOG_TYPE_ERROR, "MA-auto-set-control{autoAssetInstanceInfo} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __73__MAAutoAssetSetControl__autoAssetInstanceInfo_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -527,7 +523,7 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
 
 - (void)_successControl:(id)control isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   completionCopy = completion;
   v8 = +[MAAutoAssetSetControl _privateStateQueue];
@@ -539,9 +535,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = controlCopy;
-      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "MA-auto-set-control{_successControl} | %{public}@ | SUCCESS", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = controlCopy;
+      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "MA-auto-set-control{_successControl} | %{public}@ | SUCCESS", &v11, 0xCu);
     }
 
     completionCopy[2](completionCopy, 0);
@@ -551,18 +547,16 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = controlCopy;
-      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_successControl} | %{public}@ | no client completion block", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = controlCopy;
+      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_successControl} | %{public}@ | no client completion block", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControl:(id)control withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   errorCopy = error;
   descriptionCopy = description;
@@ -584,9 +578,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControl} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -614,19 +608,17 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = controlCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = controlCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControl} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControlSummary:(id)summary withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   errorCopy = error;
   descriptionCopy = description;
@@ -648,9 +640,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControlSummary} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -678,19 +670,17 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = summaryCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = summaryCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControlSummary} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_successControlLockSummary:(id)summary withLockSummaryEntries:(id)entries isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   entriesCopy = entries;
   completionCopy = completion;
@@ -703,9 +693,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = summaryCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-set-control{_successControlLockSummary} | %{public}@ | SUCCESS", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = summaryCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-set-control{_successControlLockSummary} | %{public}@ | SUCCESS", &v14, 0xCu);
     }
 
     completionCopy[2](completionCopy, entriesCopy, 0);
@@ -715,18 +705,16 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = summaryCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_successControlLockSummary} | %{public}@ | no client completion block", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = summaryCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_successControlLockSummary} | %{public}@ | no client completion block", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControlLockSummary:(id)summary withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   errorCopy = error;
   descriptionCopy = description;
@@ -748,9 +736,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControlLockSummary} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -778,19 +766,17 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = summaryCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = summaryCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControlLockSummary} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_successControlOverview:(id)overview withOverviewEntries:(id)entries isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   overviewCopy = overview;
   entriesCopy = entries;
   completionCopy = completion;
@@ -803,9 +789,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = overviewCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-set-control{_successControlOverview} | %{public}@ | SUCCESS", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = overviewCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-set-control{_successControlOverview} | %{public}@ | SUCCESS", &v14, 0xCu);
     }
 
     completionCopy[2](completionCopy, entriesCopy, 0);
@@ -815,18 +801,16 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = overviewCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_successControlOverview} | %{public}@ | no client completion block", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = overviewCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_successControlOverview} | %{public}@ | no client completion block", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControlOverview:(id)overview withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   overviewCopy = overview;
   errorCopy = error;
   descriptionCopy = description;
@@ -848,9 +832,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControlOverview} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -878,19 +862,17 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = overviewCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = overviewCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControlOverview} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_successControlInstanceInfo:(id)info withInstanceInfo:(id)instanceInfo isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   instanceInfoCopy = instanceInfo;
   completionCopy = completion;
@@ -903,9 +885,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = infoCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-set-control{_successControlInstanceInfo} | %{public}@ | SUCCESS", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = infoCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-set-control{_successControlInstanceInfo} | %{public}@ | SUCCESS", &v14, 0xCu);
     }
 
     completionCopy[2](completionCopy, instanceInfoCopy, 0);
@@ -915,18 +897,16 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = infoCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_successControlInstanceInfo} | %{public}@ | no client completion block", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = infoCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_successControlInstanceInfo} | %{public}@ | no client completion block", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControlInstanceInfo:(id)info withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   errorCopy = error;
   descriptionCopy = description;
@@ -948,9 +928,9 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControlInstanceInfo} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -978,14 +958,12 @@ uint64_t __44__MAAutoAssetSetControl_autoAssetSetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = infoCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = infoCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-set-control{_failedControlInstanceInfo} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 + (void)frameworkInstanceSetLogDomain

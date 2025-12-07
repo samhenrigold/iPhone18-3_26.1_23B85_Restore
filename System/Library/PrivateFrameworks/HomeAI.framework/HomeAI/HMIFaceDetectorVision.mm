@@ -8,39 +8,36 @@
 
 + (id)detectFacesInPixelBuffer:(__CVBuffer *)buffer error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v6 = objc_alloc_init(MEMORY[0x277CE2C88]);
-  v7 = +[HMIPreference sharedInstance];
-  shouldUseCPUOnlyForVisionFaceDetection = [v7 shouldUseCPUOnlyForVisionFaceDetection];
+  v5 = objc_alloc_init(MEMORY[0x277CE2C88]);
+  v6 = +[HMIPreference sharedInstance];
+  shouldUseCPUOnlyForVisionFaceDetection = [v6 shouldUseCPUOnlyForVisionFaceDetection];
 
   if (shouldUseCPUOnlyForVisionFaceDetection)
   {
-    [v6 setUsesCPUOnly:1];
+    [v5 setUsesCPUOnly:?];
   }
 
-  [v6 setRevision:{+[HMIFaceDetectorVision defaultRevision](HMIFaceDetectorVision, "defaultRevision")}];
-  v9 = objc_alloc(MEMORY[0x277CE2D50]);
-  v10 = [v9 initWithCVPixelBuffer:buffer options:MEMORY[0x277CBEC10]];
-  v18[0] = v6;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-  v17 = 0;
-  v12 = [v10 performRequests:v11 error:&v17];
-  v13 = v17;
+  +[HMIFaceDetectorVision defaultRevision];
+  [v5 setRevision:?];
+  v8 = [objc_alloc(MEMORY[0x277CE2D50]) initWithCVPixelBuffer:? options:?];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v10 = [v8 performRequests:? error:?];
+  v11 = 0;
 
-  if (v12)
+  if (v10)
   {
-    results = [v6 results];
+    results = [v5 results];
   }
 
   else
   {
     if (error)
     {
-      v15 = v13;
-      *error = v13;
+      v13 = v11;
+      *error = v11;
     }
 
-    HMIErrorLogC(v13);
+    HMIErrorLogC(v11);
     results = 0;
   }
 
@@ -49,7 +46,6 @@
 
 + (id)detectFacesInImageData:(id)data error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CE2C88];
   dataCopy = data;
   v7 = objc_alloc_init(v5);
@@ -58,20 +54,19 @@
 
   if (shouldUseCPUOnlyForVisionFaceDetection)
   {
-    [v7 setUsesCPUOnly:1];
+    [v7 setUsesCPUOnly:?];
   }
 
-  [v7 setRevision:{+[HMIFaceDetectorVision defaultRevision](HMIFaceDetectorVision, "defaultRevision")}];
+  +[HMIFaceDetectorVision defaultRevision];
+  [v7 setRevision:?];
   v10 = objc_alloc(MEMORY[0x277CE2D50]);
   v11 = +[HMIVisionSession sharedInstance];
   vnSession = [v11 vnSession];
-  v13 = [v10 initWithData:dataCopy options:MEMORY[0x277CBEC10] session:vnSession];
+  v13 = [v10 initWithData:? options:? session:?];
 
-  v20[0] = v7;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-  v19 = 0;
-  LOBYTE(vnSession) = [v13 performRequests:v14 error:&v19];
-  v15 = v19;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  LOBYTE(vnSession) = [v13 performRequests:? error:?];
+  v15 = 0;
 
   if (vnSession)
   {

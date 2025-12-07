@@ -35,28 +35,27 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[CSAudioProcessWaitingBuffer dealloc]";
+    v6 = "[CSAudioProcessWaitingBuffer dealloc]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s CSAudioProcessWaitingBuffer deallocated", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = CSAudioProcessWaitingBuffer;
-  [(CSAudioProcessWaitingBuffer *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = CSAudioProcessWaitingBuffer;
+  [(CSAudioProcessWaitingBuffer *)&v4 dealloc];
 }
 
 - (CSAudioProcessWaitingBuffer)initWithUUID:(id)d waitingBufferMaxLengthInSec:(float)sec
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v15.receiver = self;
-  v15.super_class = CSAudioProcessWaitingBuffer;
-  v8 = [(CSAudioProcessWaitingBuffer *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = CSAudioProcessWaitingBuffer;
+  v8 = [(CSAudioProcessWaitingBuffer *)&v14 init];
   if (v8)
   {
     array = [MEMORY[0x1E695DF70] array];
@@ -71,14 +70,13 @@
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v17 = "[CSAudioProcessWaitingBuffer initWithUUID:waitingBufferMaxLengthInSec:]";
-      v18 = 2114;
-      v19 = dCopy;
+      v16 = "[CSAudioProcessWaitingBuffer initWithUUID:waitingBufferMaxLengthInSec:]";
+      v17 = 2114;
+      v18 = dCopy;
       _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s uuid = %{public}@", buf, 0x16u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

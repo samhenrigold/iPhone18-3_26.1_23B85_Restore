@@ -43,12 +43,24 @@
 
 void __63__CPLFingerprintContext_updateWithAccountEPPCapability_source___block_invoke(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = a1[6];
   v3 = a1[4];
   v4 = +[CPLFingerprintContext sharedContext];
 
-  if (v3 != v4)
+  if (v3 == v4)
+  {
+    if ((v2 == 3) != [_sharedDefaults BOOLForKey:@"CPLEPPEnabled"])
+    {
+      [_sharedDefaults setBool:v2 == 3 forKey:@"CPLEPPEnabled"];
+      v11 = _sharedDefaults;
+      v12 = a1[5];
+
+      [v11 setObject:v12 forKey:@"CPLEPPEnabledSource"];
+    }
+  }
+
+  else
   {
     v5 = v2 == 3;
     v6 = a1[4];
@@ -62,18 +74,18 @@ void __63__CPLFingerprintContext_updateWithAccountEPPCapability_source___block_i
           v8 = [CPLStatus descriptionForAccountEPPCapability:a1[6]];
           v9 = a1[5];
           v10 = @"NO";
-          v15 = 138543874;
-          v16 = v8;
+          v13 = 138543874;
+          v14 = v8;
           if (v2 == 3)
           {
             v10 = @"YES";
           }
 
-          v17 = 2114;
-          v18 = v9;
-          v19 = 2112;
-          v20 = v10;
-          _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Account capability is %{public}@ (%{public}@) - switching EPP enabled to %@", &v15, 0x20u);
+          v15 = 2114;
+          v16 = v9;
+          v17 = 2112;
+          v18 = v10;
+          _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Account capability is %{public}@ (%{public}@) - switching EPP enabled to %@", &v13, 0x20u);
         }
 
         v6 = a1[4];
@@ -81,23 +93,7 @@ void __63__CPLFingerprintContext_updateWithAccountEPPCapability_source___block_i
 
       *(v6 + 12) = v5;
     }
-
-    goto LABEL_14;
   }
-
-  if ((v2 == 3) == [_sharedDefaults BOOLForKey:@"CPLEPPEnabled"])
-  {
-LABEL_14:
-    v14 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  [_sharedDefaults setBool:v2 == 3 forKey:@"CPLEPPEnabled"];
-  v11 = _sharedDefaults;
-  v12 = a1[5];
-  v13 = *MEMORY[0x1E69E9840];
-
-  [v11 setObject:v12 forKey:@"CPLEPPEnabledSource"];
 }
 
 - (void)updateWithStatus:(id)status configuration:(id)configuration
@@ -315,7 +311,7 @@ void __59__CPLFingerprintContext_fingerprintSchemeForNewMasterAsset__block_invok
 
 - (void)refreshBoundaryKeyWithSource:(id)source completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   handlerCopy = handler;
   if (_shouldUseRealBoundaryKey != 1)
@@ -348,22 +344,21 @@ LABEL_11:
     {
       v12 = [(CPLFingerprintContext *)self _sourceDescriptionForSource:sourceCopy];
       *buf = 138543362;
-      v18 = v12;
+      v17 = v12;
       _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Refreshing boundary key for %{public}@", buf, 0xCu);
     }
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __72__CPLFingerprintContext_refreshBoundaryKeyWithSource_completionHandler___block_invoke;
-  v14[3] = &unk_1E861BF48;
-  v14[4] = self;
-  v15 = sourceCopy;
-  v16 = handlerCopy;
-  CPLGetAppBoundaryKey(v14);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __72__CPLFingerprintContext_refreshBoundaryKeyWithSource_completionHandler___block_invoke;
+  v13[3] = &unk_1E861BF48;
+  v13[4] = self;
+  v14 = sourceCopy;
+  v15 = handlerCopy;
+  CPLGetAppBoundaryKey(v13);
 
 LABEL_12:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_sourceDescriptionForSource:(void *)source
@@ -379,7 +374,7 @@ LABEL_12:
 
 void __72__CPLFingerprintContext_refreshBoundaryKeyWithSource_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -390,9 +385,9 @@ void __72__CPLFingerprintContext_refreshBoundaryKeyWithSource_completionHandler_
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [(CPLFingerprintContext *)*(a1 + 32) _sourceDescriptionForSource:?];
-        v12 = 138543362;
-        v13 = v8;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Successfully refreshed boundary key for %{public}@", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v8;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Successfully refreshed boundary key for %{public}@", &v11, 0xCu);
       }
     }
 
@@ -405,17 +400,15 @@ void __72__CPLFingerprintContext_refreshBoundaryKeyWithSource_completionHandler_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = [(CPLFingerprintContext *)*(a1 + 32) _sourceDescriptionForSource:?];
-      v12 = 138543618;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Failed to refresh boundary key for %{public}@: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Failed to refresh boundary key for %{public}@: %@", &v11, 0x16u);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (CPLFingerprintSchemeV2)mmcsv2FingerprintScheme
@@ -455,13 +448,12 @@ void __72__CPLFingerprintContext_refreshBoundaryKeyWithSource_completionHandler_
   v11 = v5;
   v6 = v7;
   os_unfair_lock_lock(&self->_lock);
-  v8(v6);
+  (v8)(v6);
   os_unfair_lock_unlock(&self->_lock);
 }
 
-void __40__CPLFingerprintContext_setBoundaryKey___block_invoke(uint64_t a1)
+void __40__CPLFingerprintContext_setBoundaryKey___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 24);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -537,7 +529,7 @@ void __40__CPLFingerprintContext_setBoundaryKey___block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __44__CPLFingerprintContext_usesMMCSv2AsDefault__block_invoke(uint64_t a1)
+void *__44__CPLFingerprintContext_usesMMCSv2AsDefault__block_invoke(uint64_t a1)
 {
   result = [(CPLFingerprintContext *)*(a1 + 32) _usesMMCSv2AsDefault];
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -12,27 +12,27 @@
 
 void __72___HMTelevisionProfile_updateMediaSourceDisplayOrder_completionHandler___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v2 = [*(a1 + 32) services];
-  v3 = [v2 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v30;
+    v5 = *v29;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v30 != v5)
+      if (*v29 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v29 + 1) + 8 * v6);
+      v7 = *(*(&v28 + 1) + 8 * v6);
       v8 = [v7 serviceType];
       v9 = [v8 isEqualToString:@"000000D8-0000-1000-8000-0026BB765291"];
 
@@ -43,7 +43,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v28 objects:v34 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -60,12 +60,12 @@ LABEL_3:
       goto LABEL_12;
     }
 
-    v33[0] = @"kServiceInstanceID";
+    v32[0] = @"kServiceInstanceID";
     v11 = [v10 instanceID];
-    v33[1] = @"source-display-order";
-    v34[0] = v11;
-    v34[1] = *(a1 + 40);
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v32[1] = @"source-display-order";
+    v33[0] = v11;
+    v33[1] = *(a1 + 40);
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
 
     v13 = MEMORY[0x1E69A2A10];
     v14 = [*(a1 + 32) messageDestination];
@@ -78,16 +78,16 @@ LABEL_3:
     v19 = _Block_copy(*(a1 + 56));
     [v17 addCompletionBlock:v19 forIdentifier:v18];
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __72___HMTelevisionProfile_updateMediaSourceDisplayOrder_completionHandler___block_invoke_2;
-    v25[3] = &unk_1E754E0A8;
-    v26 = v17;
-    v27 = v18;
-    v28 = *(a1 + 48);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __72___HMTelevisionProfile_updateMediaSourceDisplayOrder_completionHandler___block_invoke_2;
+    v24[3] = &unk_1E754E0A8;
+    v25 = v17;
+    v26 = v18;
+    v27 = *(a1 + 48);
     v20 = v18;
     v21 = v17;
-    [v15 setResponseHandler:v25];
+    [v15 setResponseHandler:v24];
     v22 = [*(a1 + 48) messageDispatcher];
     [v22 sendMessage:v15 completionHandler:0];
   }
@@ -103,8 +103,6 @@ LABEL_12:
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:-1];
     [v12 callCompletion:v23 error:v15];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __72___HMTelevisionProfile_updateMediaSourceDisplayOrder_completionHandler___block_invoke_2(uint64_t a1, void *a2)

@@ -359,7 +359,7 @@ LABEL_18:
   requesterIDsToAuthorities = self->_requesterIDsToAuthorities;
   authorityCopy = authority;
   allValues = [(NSMutableDictionary *)requesterIDsToAuthorities allValues];
-  v9 = [allValues containsObject:authorityCopy];
+  v9 = objc_msgSend_containsObject_(allValues);
 
   if (v9)
   {

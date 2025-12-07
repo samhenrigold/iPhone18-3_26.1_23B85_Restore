@@ -124,9 +124,11 @@
   tilingViewSettings = self->_tilingViewSettings;
   self->_tilingViewSettings = initWithDefaultValues20;
 
-  self->_workaroundSettings = [(PTSettings *)[PUWorkaroundSettings alloc] initWithDefaultValues];
+  initWithDefaultValues21 = [(PTSettings *)[PUWorkaroundSettings alloc] initWithDefaultValues];
+  workaroundSettings = self->_workaroundSettings;
+  self->_workaroundSettings = initWithDefaultValues21;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](initWithDefaultValues21, workaroundSettings);
 }
 
 - (void)setDefaultValues
@@ -1412,11 +1414,11 @@ LABEL_18:
   }
 }
 
-uint64_t __43__PURootSettings_presentSettingsController__block_invoke(uint64_t result, int a2)
+id *__43__PURootSettings_presentSettingsController__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) presentSettingsController];
+    return [result[4] presentSettingsController];
   }
 
   return result;

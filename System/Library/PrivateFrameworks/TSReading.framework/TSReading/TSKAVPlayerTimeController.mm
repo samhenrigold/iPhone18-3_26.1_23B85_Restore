@@ -121,7 +121,7 @@
   self->mAbsoluteCurrentTime = v3;
   [(TSKAVPlayerTimeController *)self didChangeValueForKey:@"absoluteCurrentTime"];
   [(TSKAVPlayerTimeController *)self willChangeValueForKey:@"currentTime"];
-  [(TSKAVPlayerController *)[(TSKAVPlayerTimeController *)self playerController] currentTime];
+  objc_msgSend_currentTime([(TSKAVPlayerTimeController *)self playerController]);
   self->mCurrentTime = v4;
   [(TSKAVPlayerTimeController *)self didChangeValueForKey:@"currentTime"];
   [(TSKAVPlayerTimeController *)self willChangeValueForKey:@"remainingTime"];

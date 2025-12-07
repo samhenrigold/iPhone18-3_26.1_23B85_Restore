@@ -103,18 +103,18 @@
 
 + (uint64_t)sf_animate:()SafariGraphicsUtilities usingDefaultMotionWithOptions:animations:completion:
 {
-  LODWORD(a3) = *MEMORY[0x1E69792B8];
-  LODWORD(a4) = *(MEMORY[0x1E69792B8] + 4);
-  LODWORD(a5) = *(MEMORY[0x1E69792B8] + 8);
-  return [self sf_animate:a3 usingDefaultTimingWithOptions:a4 preferredFrameRateRange:a5 animations:? completion:?];
+  LODWORD(a2) = *MEMORY[0x1E69792B8];
+  LODWORD(a3) = *(MEMORY[0x1E69792B8] + 4);
+  LODWORD(a4) = *(MEMORY[0x1E69792B8] + 8);
+  return [self sf_animate:a2 usingDefaultTimingWithOptions:a3 preferredFrameRateRange:a4 animations:? completion:?];
 }
 
 + (uint64_t)sf_animate:()SafariGraphicsUtilities usingDefaultMotionWithDelay:options:animations:completion:
 {
-  LODWORD(a5) = *MEMORY[0x1E69792B8];
-  LODWORD(a6) = *(MEMORY[0x1E69792B8] + 4);
-  LODWORD(a7) = *(MEMORY[0x1E69792B8] + 8);
-  return [self sf_animate:a3 usingDefaultDampedSpringWithDelay:0.0 initialSpringVelocity:a5 options:a6 preferredFrameRateRange:a7 animations:? completion:?];
+  LODWORD(a4) = *MEMORY[0x1E69792B8];
+  LODWORD(a5) = *(MEMORY[0x1E69792B8] + 4);
+  LODWORD(a6) = *(MEMORY[0x1E69792B8] + 8);
+  return [self sf_animate:a2 usingDefaultDampedSpringWithDelay:0.0 initialSpringVelocity:a4 options:a5 preferredFrameRateRange:a6 animations:? completion:?];
 }
 
 + (void)sf_animate:()SafariGraphicsUtilities withDuration:delay:options:animations:completion:

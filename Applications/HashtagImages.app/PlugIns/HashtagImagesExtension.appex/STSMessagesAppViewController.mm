@@ -23,8 +23,11 @@
 - (void)updateConstraintsForZKWBrowser;
 - (void)updateRecentResults:(id)results;
 - (void)updateSnapshotWithCompletionBlock:(id)block;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willBecomeActiveWithConversation:(id)conversation;
 - (void)willResignActiveWithConversation:(id)conversation;
 - (void)willTransitionToPresentationStyle:(unint64_t)style;
@@ -116,10 +119,44 @@
   self->_updateRecents = 0;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = STSMessagesAppViewController;
+  [(STSMessagesAppViewController *)&v3 viewWillAppear:appear];
+}
+
 - (void)viewDidLoad
 {
   view = [(STSMessagesAppViewController *)self view];
   [view setNeedsLayout];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = STSMessagesAppViewController;
+  [(STSMessagesAppViewController *)&v5 viewDidAppear:appear];
+  if (+[UIScribbleInteraction isPencilInputExpected])
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *v4 = 0;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Launching app to expanded presentation because the user is expected to use handwriting", v4, 2u);
+    }
+
+    [(STSMessagesAppViewController *)self requestPresentationStyle:1];
+  }
+
+  [(STSMessagesAppViewController *)self setEngagementFeedbackBlock:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = STSMessagesAppViewController;
+  [(STSMessagesAppViewController *)&v4 viewDidDisappear:disappear];
+  [(STSMessagesAppViewController *)self setEngagementFeedbackBlock:0];
 }
 
 - (void)viewDidLayoutSubviews

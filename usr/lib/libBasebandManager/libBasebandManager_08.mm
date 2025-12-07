@@ -102,7 +102,7 @@ std::__shared_weak_count *___ZN10CPMSModule20initPowerConfig_syncEv_block_invoke
         v7 = dispatch_time(0, 3000000000);
         if (dispatch_group_wait(v6, v7))
         {
-          v8 = v3[13];
+          v8 = *(v3 + 104);
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             LOWORD(block) = 0;
@@ -149,11 +149,11 @@ LABEL_23:
       v17[1] = 3221225472;
       v17[2] = ___ZNK3ctu20SharedSynchronizableI10CPMSModuleE20execute_wrapped_syncIU13block_pointerFP12NSDictionaryvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS8__block_invoke;
       v17[3] = &__block_descriptor_48_e19___NSDictionary_8__0l;
-      v17[4] = v3 + 9;
+      v17[4] = v3 + 72;
       v17[5] = &v12;
       v18 = v17;
-      v9 = v3[11];
-      if (v3[12])
+      v9 = *(v3 + 88);
+      if (*(v3 + 96))
       {
         v25 = 0xAAAAAAAAAAAAAAAALL;
         block = MEMORY[0x29EDCA5F8];
@@ -192,39 +192,40 @@ LABEL_23:
   return result;
 }
 
-void sub_297067B8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *aBlock, uint64_t a17, char a18)
+void sub_297067B8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *aBlock, uint64_t a17, ...)
 {
+  va_start(va, a17);
   if (aBlock)
   {
     _Block_release(aBlock);
   }
 
-  if (v18)
+  if (v17)
   {
-    dispatch_group_leave(v18);
-    dispatch_release(v18);
-    dispatch_group_leave(v18);
-    dispatch_release(v18);
-    dispatch_release(v18);
-    std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a18);
+    dispatch_group_leave(v17);
+    dispatch_release(v17);
+    dispatch_group_leave(v17);
+    dispatch_release(v17);
+    dispatch_release(v17);
+    std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
     _Unwind_Resume(a1);
   }
 
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a18);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void CPMSModule::evaluateBrickMode_sync(uint64_t a1, __int128 *a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   if (!config::hw::watch(a1))
   {
-    goto LABEL_49;
+    return;
   }
 
-  v28 = 0;
+  v27 = 0;
   *(&buf + 1) = 0;
-  v32 = 0;
+  v31 = 0;
   *&buf = &buf + 8;
   if (&buf == a2)
   {
@@ -238,10 +239,10 @@ void CPMSModule::evaluateBrickMode_sync(uint64_t a1, __int128 *a2)
   }
 
   v5 = &unk_2A1E260F0;
-  v29[0] = &unk_2A1E260F0;
-  v29[1] = &v28;
-  v30 = v29;
-  v6 = v29;
+  v28[0] = &unk_2A1E260F0;
+  v28[1] = &v27;
+  v29 = v28;
+  v6 = v28;
   if (v4 == &buf + 8)
   {
     goto LABEL_19;
@@ -279,35 +280,35 @@ void CPMSModule::evaluateBrickMode_sync(uint64_t a1, __int128 *a2)
       break;
     }
 
-    v6 = v30;
-    if (!v30)
+    v6 = v29;
+    if (!v29)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
   }
 
-  if (v30 == v29)
+  if (v29 == v28)
   {
-    v5 = *v30;
+    v5 = *v29;
 LABEL_19:
     v5[4]();
     goto LABEL_20;
   }
 
-  if (v30)
+  if (v29)
   {
-    (*(*v30 + 40))();
+    (*(*v29 + 40))();
   }
 
 LABEL_20:
   std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&buf, *(&buf + 1));
-  v10 = v28;
-  if (*(a1 + 180) == v28)
+  v10 = v27;
+  if (*(a1 + 180) == v27)
   {
-    goto LABEL_49;
+    return;
   }
 
-  *(a1 + 180) = v28;
+  *(a1 + 180) = v27;
   v11 = *(a1 + 104);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
@@ -353,13 +354,13 @@ LABEL_20:
 
     v19 = operator new(v21);
     __dst[1] = v18;
-    v27 = v21 | 0x8000000000000000;
+    v26 = v21 | 0x8000000000000000;
     __dst[0] = v19;
   }
 
   else
   {
-    HIBYTE(v27) = v17;
+    HIBYTE(v26) = v17;
     v19 = __dst;
     if (!v17)
     {
@@ -406,25 +407,21 @@ LABEL_40:
     CFRelease(cf);
   }
 
-  if ((SHIBYTE(v27) & 0x80000000) == 0)
+  if (SHIBYTE(v26) < 0)
   {
+    operator delete(__dst[0]);
     if (!v20)
     {
-      goto LABEL_49;
+      return;
     }
-
-    goto LABEL_48;
   }
 
-  operator delete(__dst[0]);
-  if (v20)
+  else if (!v20)
   {
-LABEL_48:
-    CFRelease(v20);
+    return;
   }
 
-LABEL_49:
-  v23 = *MEMORY[0x29EDCA608];
+  CFRelease(v20);
 }
 
 void sub_297067F90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23)
@@ -439,19 +436,19 @@ void sub_297067F90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void CPMSModule::reportThermalDataToSMC_sync(uint64_t a1, float **a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A18B77D0, memory_order_acquire) & 1) == 0)
   {
-    v21 = __cxa_guard_acquire(&qword_2A18B77D0);
-    if (v21)
+    v19 = __cxa_guard_acquire(&qword_2A18B77D0);
+    if (v19)
     {
-      dword_2A18B77CC = capabilities::abs::thermalSensorMaxCount(v21);
+      dword_2A18B77CC = capabilities::abs::thermalSensorMaxCount(v19);
       __cxa_guard_release(&qword_2A18B77D0);
     }
   }
 
-  v23 = 0;
-  memset(v22, 0, sizeof(v22));
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
   v4 = dword_2A18B77CC;
   if (dword_2A18B77CC == 2)
   {
@@ -466,11 +463,11 @@ void CPMSModule::reportThermalDataToSMC_sync(uint64_t a1, float **a2)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        *v25 = v4;
+        *v23 = v4;
         _os_log_error_impl(&dword_296FF7000, v14, OS_LOG_TYPE_ERROR, "Failed to find the SMC Exchange BB version with the number of sensor capability %u", buf, 8u);
       }
 
-      goto LABEL_28;
+      return;
     }
 
     v5 = 1;
@@ -481,7 +478,7 @@ void CPMSModule::reportThermalDataToSMC_sync(uint64_t a1, float **a2)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    *v25 = v5;
+    *v23 = v5;
     _os_log_debug_impl(&dword_296FF7000, v7, OS_LOG_TYPE_DEBUG, "#D Thermal Report to SMC: Version: %u", buf, 8u);
     v7 = *(a1 + 104);
     if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -502,7 +499,7 @@ LABEL_8:
   }
 
   *buf = 67109120;
-  *v25 = v4;
+  *v23 = v4;
   _os_log_debug_impl(&dword_296FF7000, v7, OS_LOG_TYPE_DEBUG, "#D Thermal Report to SMC: Number of Sensors: %u", buf, 8u);
   v7 = *(a1 + 104);
   if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -516,30 +513,29 @@ LABEL_9:
     }
 
 LABEL_24:
-    v16 = *(a1 + 376);
-    v17 = TelephonyBasebandReportThermalData();
-    v18 = *(a1 + 104);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v16 = TelephonyBasebandReportThermalData();
+    v17 = *(a1 + 104);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = "Failed";
-      if (v17)
+      v18 = "Failed";
+      if (v16)
       {
-        v19 = "Succeeded";
+        v18 = "Succeeded";
       }
 
       *buf = 136315394;
-      *v25 = v19;
-      *&v25[8] = 1024;
-      *&v25[10] = 255;
-      _os_log_impl(&dword_296FF7000, v18, OS_LOG_TYPE_DEFAULT, "#I %s to report the thermal data to SMC, result: %u", buf, 0x12u);
+      *v23 = v18;
+      *&v23[8] = 1024;
+      *&v23[10] = 255;
+      _os_log_impl(&dword_296FF7000, v17, OS_LOG_TYPE_DEFAULT, "#I %s to report the thermal data to SMC, result: %u", buf, 0x12u);
     }
 
-    goto LABEL_28;
+    return;
   }
 
 LABEL_23:
   *buf = 67109120;
-  *v25 = v6;
+  *v23 = v6;
   _os_log_debug_impl(&dword_296FF7000, v7, OS_LOG_TYPE_DEBUG, "#D Thermal Report to SMC: Sequence Number: %u", buf, 8u);
   v8 = *a2;
   v9 = a2[1];
@@ -559,14 +555,14 @@ LABEL_10:
     }
 
     v12 = v8[1];
-    *(v22 + *v8) = v12;
+    *(v20 + *v8) = v12;
     v13 = *(a1 + 104);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109376;
-      *v25 = v11;
-      *&v25[4] = 2048;
-      *&v25[6] = v12;
+      *v23 = v11;
+      *&v23[4] = 2048;
+      *&v23[6] = v12;
       _os_log_debug_impl(&dword_296FF7000, v13, OS_LOG_TYPE_DEBUG, "#D Thermal Report to SMC: Sensor ID: %d, Sensor Data: %f", buf, 0x12u);
       v10 = dword_2A18B77CC;
       v8 += 2;
@@ -590,19 +586,16 @@ LABEL_10:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109376;
-    *v25 = v11;
-    *&v25[4] = 1024;
-    *&v25[6] = v10;
+    *v23 = v11;
+    *&v23[4] = 1024;
+    *&v23[6] = v10;
     _os_log_error_impl(&dword_296FF7000, v15, OS_LOG_TYPE_ERROR, "Sensor ID (%d) cannot exceed the max number of sensors (%u) in the device", buf, 0xEu);
   }
-
-LABEL_28:
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void CPMSModule::configureThermalReportFrequency_sync(void *a1, uint64_t a2, void **a3)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v4 = a1[10];
   if (!v4 || (v7 = a1[9], (v8 = std::__shared_weak_count::lock(v4)) == 0))
   {
@@ -628,7 +621,7 @@ void CPMSModule::configureThermalReportFrequency_sync(void *a1, uint64_t a2, voi
     }
 
     *buf = 136315138;
-    v33 = v12;
+    v32 = v12;
     _os_log_impl(&dword_296FF7000, v11, OS_LOG_TYPE_DEFAULT, "#I Thermal Report to %s", buf, 0xCu);
   }
 
@@ -638,9 +631,9 @@ void CPMSModule::configureThermalReportFrequency_sync(void *a1, uint64_t a2, voi
   aBlock[3] = &__block_descriptor_57_e8_40c35_ZTSNSt3__18weak_ptrI10CPMSModuleEE_e140_v32__0_vector_abm::ThermalSensorData__std::allocator_abm::ThermalSensorData_____ThermalSensorData___ThermalSensorData___ThermalSensorData__8l;
   aBlock[4] = a1;
   aBlock[5] = v7;
-  v30 = v9;
+  v29 = v9;
   atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v31 = v10;
+  v30 = v10;
   v13 = _Block_copy(aBlock);
   v14 = v13;
   v15 = a1[17];
@@ -664,56 +657,56 @@ void CPMSModule::configureThermalReportFrequency_sync(void *a1, uint64_t a2, voi
     v17 = 0;
   }
 
-  v28 = v17;
-  v22[0] = MEMORY[0x29EDCA5F8];
-  v22[1] = 3321888768;
-  v22[2] = ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU13block_pointerFviN3xpc4dictEEEE_block_invoke_61;
-  v22[3] = &__block_descriptor_68_e8_40c35_ZTSNSt3__18weak_ptrI10CPMSModuleEE56c54_ZTSN8dispatch5blockIU13block_pointerFviN3xpc4dictEEEE_e44_v16__0_CFSharedRef___CFError______CFError__8l;
-  v22[4] = a1;
-  v22[5] = v7;
-  v23 = v9;
+  v27 = v17;
+  v21[0] = MEMORY[0x29EDCA5F8];
+  v21[1] = 3321888768;
+  v21[2] = ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU13block_pointerFviN3xpc4dictEEEE_block_invoke_61;
+  v21[3] = &__block_descriptor_68_e8_40c35_ZTSNSt3__18weak_ptrI10CPMSModuleEE56c54_ZTSN8dispatch5blockIU13block_pointerFviN3xpc4dictEEEE_e44_v16__0_CFSharedRef___CFError______CFError__8l;
+  v21[4] = a1;
+  v21[5] = v7;
+  v22 = v9;
   atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v25 = a2;
+  v24 = a2;
   v18 = *a3;
   if (*a3)
   {
     v18 = _Block_copy(v18);
   }
 
-  v24 = v18;
-  v19 = _Block_copy(v22);
+  v23 = v18;
+  v19 = _Block_copy(v21);
   v20 = a1[11];
   if (v20)
   {
     dispatch_retain(v20);
   }
 
-  v26 = v19;
+  v25 = v19;
   object = v20;
-  (*(*v15 + 64))(v15, v16, a2, &v28, &v26);
+  (*(*v15 + 64))(v15, v16, a2, &v27, &v25);
   if (object)
   {
     dispatch_release(object);
   }
 
-  if (v26)
+  if (v25)
   {
-    _Block_release(v26);
+    _Block_release(v25);
   }
 
-  if (v28)
+  if (v27)
   {
-    _Block_release(v28);
-  }
-
-  if (v24)
-  {
-    _Block_release(v24);
+    _Block_release(v27);
   }
 
   if (v23)
   {
-    std::__shared_weak_count::__release_weak(v23);
+    _Block_release(v23);
+  }
+
+  if (v22)
+  {
+    std::__shared_weak_count::__release_weak(v22);
   }
 
   if (v14)
@@ -721,13 +714,12 @@ void CPMSModule::configureThermalReportFrequency_sync(void *a1, uint64_t a2, voi
     _Block_release(v14);
   }
 
-  if (v30)
+  if (v29)
   {
-    std::__shared_weak_count::__release_weak(v30);
+    std::__shared_weak_count::__release_weak(v29);
   }
 
   std::__shared_weak_count::__release_weak(v9);
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297068760(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, void *aBlock, uint64_t a17, char a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, std::__shared_weak_count *a27)
@@ -742,7 +734,7 @@ void sub_297068760(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU13block_pointerFviN3xpc4dictEEEE_block_invoke(uint64_t a1, float **a2)
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 48);
   if (v3)
   {
@@ -755,7 +747,7 @@ void ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU
       {
         if (!v7)
         {
-          goto LABEL_65;
+          return;
         }
       }
 
@@ -766,7 +758,7 @@ void ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU
         std::__shared_weak_count::__release_weak(v8);
         if (!v7)
         {
-          goto LABEL_65;
+          return;
         }
       }
 
@@ -795,7 +787,7 @@ void ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU
           {
 LABEL_64:
             CPMSModule::reportThermalDataToSMC_sync(v5, a2);
-            goto LABEL_65;
+            return;
           }
 
           while (1)
@@ -904,7 +896,7 @@ LABEL_32:
 
 LABEL_62:
           xpc_release(xdict);
-          goto LABEL_65;
+          return;
         }
 
         v28 = xpc_data_create(*a2, a2[1] - *a2);
@@ -920,12 +912,12 @@ LABEL_62:
         v30 = *(v5 + 104);
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
-          xpc::dict::to_debug_string(&xdict, buf);
-          v40 = v47 >= 0 ? buf : *buf;
+          xpc::dict::to_debug_string(buf, &xdict);
+          v39 = v46 >= 0 ? buf : *buf;
           *object = 136315138;
-          *&object[4] = v40;
+          *&object[4] = v39;
           _os_log_debug_impl(&dword_296FF7000, v30, OS_LOG_TYPE_DEBUG, "#D Reporting thermal data to Thermal Monitor: %s", object, 0xCu);
-          if (v47 < 0)
+          if (v46 < 0)
           {
             operator delete(*buf);
           }
@@ -953,13 +945,13 @@ LABEL_62:
 
           v34 = operator new(v35);
           __dst[1] = v33;
-          v44 = v35 | 0x8000000000000000;
+          v43 = v35 | 0x8000000000000000;
           __dst[0] = v34;
         }
 
         else
         {
-          HIBYTE(v44) = v32;
+          HIBYTE(v43) = v32;
           v34 = __dst;
           if (!v32)
           {
@@ -1012,7 +1004,7 @@ LABEL_47:
         }
 
         xpc_release(*object);
-        if (SHIBYTE(v44) < 0)
+        if (SHIBYTE(v43) < 0)
         {
           operator delete(__dst[0]);
         }
@@ -1028,9 +1020,6 @@ LABEL_47:
       }
     }
   }
-
-LABEL_65:
-  v39 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297068D6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *aBlock, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, xpc_object_t object, char a22, uint64_t a23, uint64_t a24, uint64_t a25, xpc_object_t a26)
@@ -1043,10 +1032,10 @@ void sub_297068D6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void xpc::dict::to_debug_string(xpc::dict *this@<X0>, void *a2@<X8>)
+void xpc::dict::to_debug_string(uint64_t *__return_ptr a1@<X8>, xpc::dict *this@<X0>)
 {
   v3 = MEMORY[0x29C26CD90](*this);
-  memset(a2, 170, 24);
+  memset(a1, 170, 24);
   v4 = strlen(v3);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1067,21 +1056,21 @@ void xpc::dict::to_debug_string(xpc::dict *this@<X0>, void *a2@<X8>)
     }
 
     v7 = operator new(v6);
-    a2[1] = v5;
-    a2[2] = v6 | 0x8000000000000000;
-    *a2 = v7;
-    a2 = v7;
+    a1[1] = v5;
+    a1[2] = v6 | 0x8000000000000000;
+    *a1 = v7;
+    a1 = v7;
     goto LABEL_9;
   }
 
-  *(a2 + 23) = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
 LABEL_9:
-    memcpy(a2, v3, v5);
+    memcpy(a1, v3, v5);
   }
 
-  *(a2 + v5) = 0;
+  *(a1 + v5) = 0;
 
   free(v3);
 }
@@ -1101,7 +1090,7 @@ void ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU
       {
         if (!v7)
         {
-          goto LABEL_14;
+          return;
         }
       }
 
@@ -1112,25 +1101,25 @@ void ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU
         std::__shared_weak_count::__release_weak(v8);
         if (!v7)
         {
-          goto LABEL_14;
+          return;
         }
       }
 
       if (!*a2 && (v9 = *(v5 + 104), os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG)))
       {
-        v16 = *(a1 + 64);
+        v15 = *(a1 + 64);
         LODWORD(object[0]) = 67109120;
-        HIDWORD(object[0]) = v16;
+        HIDWORD(object[0]) = v15;
         _os_log_debug_impl(&dword_296FF7000, v9, OS_LOG_TYPE_DEBUG, "#D Thermal Report Interval (%u ms) is set.", object, 8u);
         if (!*(a1 + 56))
         {
-          goto LABEL_14;
+          return;
         }
       }
 
       else if (!*(a1 + 56))
       {
-        goto LABEL_14;
+        return;
       }
 
       if (*a2)
@@ -1155,9 +1144,6 @@ void ___ZN10CPMSModule36configureThermalReportFrequency_syncEjN8dispatch5blockIU
       xpc_release(v12);
     }
   }
-
-LABEL_14:
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2970690AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object)
@@ -1214,9 +1200,9 @@ void *___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU1
   return result;
 }
 
-void ___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU13block_pointerFviN3xpc4dictEEEE_block_invoke_2(void *a1, uint64_t a2)
+void ___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU13block_pointerFviN3xpc4dictEEEE_block_invoke_2(void *a1, void *a2)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v3 = a1[7];
   if (v3)
   {
@@ -1229,7 +1215,7 @@ void ___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU13
       {
         if (!v7)
         {
-          goto LABEL_19;
+          return;
         }
       }
 
@@ -1240,37 +1226,37 @@ void ___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU13
         std::__shared_weak_count::__release_weak(v8);
         if (!v7)
         {
-          goto LABEL_19;
+          return;
         }
       }
 
       v9 = (v5 + 344);
 
       *(v5 + 368) = 0;
-      if (v5 + 344 != a2)
+      if ((v5 + 344) != a2)
       {
-        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>((v5 + 344), *a2, (a2 + 8));
+        std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>((v5 + 344), *a2, a2 + 1);
       }
 
       v10 = *(v5 + 104);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        PowerBudget::to_string((v5 + 344), __p);
-        v19 = v24;
-        v20 = __p[0];
+        PowerBudget::to_string(__p, (v5 + 344));
+        v18 = v23;
+        v19 = __p[0];
         NSDict = PowerBudget::getNSDict(v9);
-        v22 = __p;
-        if (v19 < 0)
+        v21 = __p;
+        if (v18 < 0)
         {
-          v22 = v20;
+          v21 = v19;
         }
 
         *object = 136315394;
-        *&object[4] = v22;
-        v26 = 2112;
-        v27 = NSDict;
+        *&object[4] = v21;
+        v25 = 2112;
+        v26 = NSDict;
         _os_log_debug_impl(&dword_296FF7000, v10, OS_LOG_TYPE_DEBUG, "#D Current power estimation in baseband side: %s, and reporting back to CPMS: %@", object, 0x16u);
-        if (v24 < 0)
+        if (v23 < 0)
         {
           operator delete(__p[0]);
         }
@@ -1313,9 +1299,6 @@ void ___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU13
       }
     }
   }
-
-LABEL_19:
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297069404(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1409,7 +1392,7 @@ void __destroy_helper_block_e8_40c30_ZTSN8dispatch13group_sessionE48c35_ZTSNSt3_
 
 void ___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU13block_pointerFviN3xpc4dictEEEE_block_invoke_64(void *a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = a1[6];
   std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>((v2 + 344), *(v2 + 280), (v2 + 288));
 
@@ -1417,8 +1400,18 @@ void ___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU13
   v3 = *(v2 + 104);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[5];
+    v4 = a1[5];
     if (*(*(a1[4] + 8) + 24))
+    {
+      v5 = "true";
+    }
+
+    else
+    {
+      v5 = "false";
+    }
+
+    if (*(*(v4 + 8) + 24))
     {
       v6 = "true";
     }
@@ -1428,29 +1421,13 @@ void ___ZN10CPMSModule15getCurrentPowerEN8dispatch13group_sessionENS0_5blockIU13
       v6 = "false";
     }
 
-    if (*(*(v5 + 8) + 24))
-    {
-      v7 = "true";
-    }
-
-    else
-    {
-      v7 = "false";
-    }
-
-    v9 = 136315650;
+    v7 = 136315650;
+    v8 = v5;
+    v9 = 2080;
     v10 = v6;
-    v11 = 2080;
-    v12 = v7;
-    v13 = 2112;
+    v11 = 2112;
     NSDict = PowerBudget::getNSDict((v2 + 344));
-    _os_log_debug_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEBUG, "#D Because baseband is not in traffic(%s) or online(%s), reporting idle power estimation back to CPMS: %@", &v9, 0x20u);
-    v8 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    v4 = *MEMORY[0x29EDCA608];
+    _os_log_debug_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEBUG, "#D Because baseband is not in traffic(%s) or online(%s), reporting idle power estimation back to CPMS: %@", &v7, 0x20u);
   }
 }
 
@@ -1500,24 +1477,24 @@ uint64_t std::shared_ptr<CPMSModule> ctu::SharedSynchronizable<CPMSModule>::make
   return result;
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::shutdown(dispatch::group_session)::$_0>(CPMSModule::shutdown(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::shutdown(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<CPMSModule::shutdown(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(config::hw *a1)
+void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::shutdown(dispatch::group_session)::$_0>(CPMSModule::shutdown(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::shutdown(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<CPMSModule::shutdown(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(std::__shared_weak_count **a1)
 {
   v2 = *a1;
-  v3 = **a1;
+  v3 = (*a1)->__vftable;
   if ((config::hw::watch(a1) & 1) == 0)
   {
-    v4 = *(v3 + 136);
-    if (v4)
+    on_zero_shared = v3[3].__on_zero_shared;
+    if (on_zero_shared)
     {
-      (*(*v4 + 48))(v4, 0, 5);
+      (*(*on_zero_shared + 48))(on_zero_shared, 0, 5);
     }
   }
 
-  v5 = v2[1];
-  if (v5)
+  shared_owners = v2->__shared_owners_;
+  if (shared_owners)
   {
-    dispatch_group_leave(v5);
-    v6 = v2[1];
+    dispatch_group_leave(shared_owners);
+    v6 = v2->__shared_owners_;
     if (v6)
     {
       dispatch_release(v6);
@@ -1525,7 +1502,7 @@ void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped
   }
 
   operator delete(v2);
-  v7 = *(a1 + 2);
+  v7 = a1[2];
   if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v7->__on_zero_shared)(v7);
@@ -1620,9 +1597,9 @@ void sub_297069B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2>(CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2,dispatch_queue_s *::default_delete<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2>>)::{lambda(void *)#1}::__invoke(ctu::DispatchTimerService *a1)
+void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2>(CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2,dispatch_queue_s *::default_delete<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   v2 = **a1;
   ctu::DispatchTimerService::create(buf, a1);
@@ -1648,18 +1625,18 @@ void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped
   *(v2 + 112) = v6;
   if (!v6)
   {
-    v12 = GetOsLogContext()[1];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v11 = GetOsLogContext()[1];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
       *&buf[4] = "ABM ASSERT";
       *&buf[12] = 2080;
       *&buf[14] = "fCPMSAgent";
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices_Manager/AppleBasebandManager/BasebandManager/Server/CPMS/CPMSModule.mm";
-      v17 = 1024;
-      v18 = 123;
-      _os_log_fault_impl(&dword_296FF7000, v12, OS_LOG_TYPE_FAULT, "%s (%s): File: %s Line: %d", buf, 0x26u);
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices_Manager/AppleBasebandManager/BasebandManager/Server/CPMS/CPMSModule.mm";
+      v16 = 1024;
+      v17 = 123;
+      _os_log_fault_impl(&dword_296FF7000, v11, OS_LOG_TYPE_FAULT, "%s (%s): File: %s Line: %d", buf, 0x26u);
     }
 
     __break(1u);
@@ -1668,45 +1645,47 @@ void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped
   if (CPMSModule::initPowerConfig_sync(v2))
   {
     CPMSModule::evaluatePowerBudgetNeed_sync(v2);
-    goto LABEL_11;
   }
 
-  v7 = *(v2 + 104);
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else
   {
-LABEL_11:
-    operator delete(v1);
-    v8 = a1;
-    if (!a1)
+    v7 = *(v2 + 104);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_16;
-    }
+      *buf = 0;
+      _os_log_error_impl(&dword_296FF7000, v7, OS_LOG_TYPE_ERROR, "Failed to initialization of CPMS power config.", buf, 2u);
+      operator delete(v1);
+      v8 = a1;
+      if (!a1)
+      {
+        return;
+      }
 
-    goto LABEL_12;
+      goto LABEL_12;
+    }
   }
 
-  *buf = 0;
-  _os_log_error_impl(&dword_296FF7000, v7, OS_LOG_TYPE_ERROR, "Failed to initialization of CPMS power config.", buf, 2u);
   operator delete(v1);
   v8 = a1;
   if (!a1)
   {
-    goto LABEL_16;
+    return;
   }
 
 LABEL_12:
   v9 = *(v8 + 2);
-  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v9)
   {
-    v10 = v8;
-    (v9->__on_zero_shared)(v9);
-    std::__shared_weak_count::__release_weak(v9);
-    v8 = v10;
+    if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v10 = v8;
+      (v9->__on_zero_shared)(v9);
+      std::__shared_weak_count::__release_weak(v9);
+      v8 = v10;
+    }
   }
 
   operator delete(v8);
-LABEL_16:
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297069D9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
@@ -1819,7 +1798,7 @@ LABEL_19:
   operator delete(a1);
 }
 
-void sub_297069FDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, void *aBlock)
+void sub_297069FDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, void *aBlock)
 {
   dispatch::callback<void({block_pointer})(std::vector<abm::BasebandThermalID>)>::~callback(v18 - 64);
   if (aBlock)
@@ -2190,7 +2169,7 @@ LABEL_19:
   operator delete(a1);
 }
 
-void sub_29706A770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, void *aBlock)
+void sub_29706A770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, void *aBlock)
 {
   dispatch::callback<void({block_pointer})(std::vector<abm::PowerMitigationData>)>::~callback(v18 - 64);
   if (aBlock)
@@ -2379,7 +2358,7 @@ uint64_t dispatch::callback<void({block_pointer})(std::vector<abm::PowerMitigati
 void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10CPMSModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb2_E3__7EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(void *a1)
 {
   v1 = a1;
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = *(*a1 + 16);
   if (MEMORY[0x29C26CE60](*(*a1 + 24)) != MEMORY[0x29EDCAA00] || (v8 = *(v2 + 24)) == 0)
@@ -2424,8 +2403,8 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10CPMSModuleE15execute_wr
   }
 
   object = 0;
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
   xpc::dyn_cast_or_default();
   xpc_release(*buf);
   v10 = xpc_dictionary_get_value(*(v2 + 24), *MEMORY[0x29EDBE6D0]);
@@ -2440,20 +2419,20 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10CPMSModuleE15execute_wr
     v11 = xpc_null_create();
   }
 
-  v43 = v11;
+  v42 = v11;
   bytes_ptr = xpc_data_get_bytes_ptr(v11);
   length = xpc_data_get_length(v11);
   v14 = length;
   v15 = length >> 2;
-  v41 = v2;
-  v42 = v1;
+  v40 = v2;
+  v41 = v1;
   if (length >> 2 >= 1)
   {
     v16 = operator new(length & 0xFFFFFFFFFFFFFFFCLL);
     memcpy(v16, bytes_ptr, v14 & 0xFFFFFFFFFFFFFFFCLL);
     v17 = &v16[4 * v15];
     v18 = __p[0];
-    v44 = __p[1];
+    v43 = __p[1];
     if (__p[0] == __p[1])
     {
       goto LABEL_41;
@@ -2461,7 +2440,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10CPMSModuleE15execute_wr
 
 LABEL_16:
     v19 = 0;
-    v45 = (v17 - v16) >> 2;
+    v44 = (v17 - v16) >> 2;
     v20 = (v3 + 192);
     do
     {
@@ -2470,13 +2449,13 @@ LABEL_16:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         abm::asString();
-        if (v45 <= v19)
+        if (v44 <= v19)
         {
           std::vector<unsigned int>::__throw_out_of_range[abi:ne200100]();
         }
 
         p_object = &object;
-        if (v48 < 0)
+        if (v47 < 0)
         {
           p_object = object;
         }
@@ -2484,16 +2463,16 @@ LABEL_16:
         v24 = *&v16[4 * v19];
         *buf = 136315394;
         *&buf[4] = p_object;
-        v52 = 1024;
-        v53 = v24;
+        v51 = 1024;
+        v52 = v24;
         _os_log_impl(&dword_296FF7000, v22, OS_LOG_TYPE_DEFAULT, "#I Budget Scale: %s, value: %d", buf, 0x12u);
-        if (SHIBYTE(v48) < 0)
+        if (SHIBYTE(v47) < 0)
         {
           operator delete(object);
         }
       }
 
-      if (v19 == v45)
+      if (v19 == v44)
       {
         std::vector<unsigned int>::__throw_out_of_range[abi:ne200100]();
       }
@@ -2572,47 +2551,47 @@ LABEL_38:
       ++v18;
     }
 
-    while (v18 != v44);
+    while (v18 != v43);
     goto LABEL_41;
   }
 
   v16 = 0;
   v17 = 0;
   v18 = __p[0];
-  v44 = __p[1];
+  v43 = __p[1];
   if (__p[0] != __p[1])
   {
     goto LABEL_16;
   }
 
 LABEL_41:
-  object = &v47;
+  object = &v46;
+  v46 = 0;
   v47 = 0;
   v48 = 0;
-  v49 = 0;
   if ((v3 + 184) != &object)
   {
     std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(&object, *(v3 + 184), (v3 + 192));
   }
 
-  v49 = [*(v3 + 208) copy];
+  v48 = [*(v3 + 208) copy];
   CPMSModule::sendPowerBudgetToBB_sync(v3, &object);
-  v2 = v41;
-  v1 = v42;
-  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&object, v47);
+  v2 = v40;
+  v1 = v41;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&object, v46);
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
-  object = &v47;
+  object = &v46;
 
-  v49 = 0;
-  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&object, v47);
-  v47 = 0;
   v48 = 0;
-  object = &v47;
-  if (*(v41 + 32))
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&object, v46);
+  v46 = 0;
+  v47 = 0;
+  object = &v46;
+  if (*(v40 + 32))
   {
     v34 = xpc_null_create();
-    v35 = *(v41 + 32);
+    v35 = *(v40 + 32);
     *buf = v34;
     v36 = xpc_null_create();
     (*(v35 + 16))(v35, 0, buf);
@@ -2625,7 +2604,7 @@ LABEL_41:
     operator delete(v16);
   }
 
-  xpc_release(v43);
+  xpc_release(v42);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -2656,7 +2635,6 @@ LABEL_49:
   }
 
   operator delete(v1);
-  v40 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29706B0B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, int a18, __int16 a19, char a20, char a21, xpc_object_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28)
@@ -3274,12 +3252,12 @@ uint64_t std::__function::__func<CPMSModule::registerEventHandlers_sync(void)::$
   return 0;
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::registerEventHandlers_sync(void)::$_1::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>(CPMSModule::registerEventHandlers_sync(void)::$_1::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::registerEventHandlers_sync(void)::$_1::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1},dispatch_queue_s *::default_delete<CPMSModule::registerEventHandlers_sync(void)::$_1::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::registerEventHandlers_sync(void)::$_1::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>(CPMSModule::registerEventHandlers_sync(void)::$_1::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::registerEventHandlers_sync(void)::$_1::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1},dispatch_queue_s *::default_delete<CPMSModule::registerEventHandlers_sync(void)::$_1::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke(unsigned __int8 ***a1)
 {
   v2 = *a1;
   v3 = **a1;
   v4 = v3[177];
-  value = xpc_dictionary_get_value(*(*a1 + 16), *MEMORY[0x29EDBF030]);
+  value = xpc_dictionary_get_value((*a1)[2], *MEMORY[0x29EDBF030]);
   object = value;
   if (value)
   {
@@ -3314,7 +3292,7 @@ void dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped
   }
 
   operator delete(v2);
-  v10 = *(a1 + 2);
+  v10 = a1[2];
   if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v10->__on_zero_shared)(v10);
@@ -3677,7 +3655,6 @@ LABEL_15:
   }
 
   operator delete(a1);
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29706C7A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, xpc_object_t object, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -3717,9 +3694,9 @@ void *std::unique_ptr<CPMSModule::registerEventHandlers_sync(void)::$_2::operato
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10CPMSModuleE15execute_wrappedIZZNS3_20initPowerConfig_syncEvEUb3_E4__13EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10CPMSModuleE15execute_wrappedIZZNS3_20initPowerConfig_syncEvEUb3_E4__13EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(NSDictionary ***a1)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = **a1;
   if (!v3)
@@ -3740,47 +3717,47 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10CPMSModuleE15execute_wr
   PowerBudget::fill((v4 + 184), v3);
   *&buf = &buf + 8;
   *(&buf + 1) = 0;
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
   PowerBudget::fill(&buf, *v2);
   v6 = *(v4 + 104);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    PowerBudget::to_string(&buf, &__p);
-    v7 = SHIBYTE(v19);
+    PowerBudget::to_string(&__p, &buf);
+    v7 = SHIBYTE(v18);
     v8 = __p;
-    PowerBudget::to_string((v4 + 184), v23);
+    PowerBudget::to_string(v22, (v4 + 184));
     p_p = &__p;
     if (v7 < 0)
     {
       p_p = v8;
     }
 
-    if (v23[23] >= 0)
+    if (v22[23] >= 0)
     {
-      v10 = v23;
+      v10 = v22;
     }
 
     else
     {
-      v10 = *v23;
+      v10 = *v22;
     }
 
-    *v21 = 136315394;
-    *&v21[4] = p_p;
-    *&v21[12] = 2080;
-    *&v21[14] = v10;
-    _os_log_impl(&dword_296FF7000, v6, OS_LOG_TYPE_DEFAULT, "#I Budget from CPMS: %s, Cached Budgets: %s", v21, 0x16u);
-    if ((v23[23] & 0x80000000) != 0)
+    *v20 = 136315394;
+    *&v20[4] = p_p;
+    *&v20[12] = 2080;
+    *&v20[14] = v10;
+    _os_log_impl(&dword_296FF7000, v6, OS_LOG_TYPE_DEFAULT, "#I Budget from CPMS: %s, Cached Budgets: %s", v20, 0x16u);
+    if ((v22[23] & 0x80000000) != 0)
     {
-      operator delete(*v23);
-      if ((SHIBYTE(v19) & 0x80000000) == 0)
+      operator delete(*v22);
+      if ((SHIBYTE(v18) & 0x80000000) == 0)
       {
         goto LABEL_12;
       }
     }
 
-    else if ((SHIBYTE(v19) & 0x80000000) == 0)
+    else if ((SHIBYTE(v18) & 0x80000000) == 0)
     {
       goto LABEL_12;
     }
@@ -3789,12 +3766,12 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10CPMSModuleE15execute_wr
   }
 
 LABEL_12:
-  __p = &v18;
+  __p = &v17;
+  v17 = 0;
   v18 = 0;
   v19 = 0;
-  v20 = 0;
   std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(&__p, buf, &buf + 1);
-  v20 = [v27 copy];
+  v19 = [v26 copy];
   v11 = [*(v4 + 112) acknowledgePowerBudget:PowerBudget::getNSDict(&__p) forClientId:4 error:0];
   v12 = *(v4 + 104);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -3806,62 +3783,62 @@ LABEL_12:
       v14 = "succeeded";
     }
 
-    *v23 = 136315394;
-    *&v23[4] = v14;
-    *&v23[12] = 2112;
-    *&v23[14] = NSDict;
-    _os_log_impl(&dword_296FF7000, v12, OS_LOG_TYPE_DEFAULT, "#I Acked CPMS %s for power budget %@", v23, 0x16u);
+    *v22 = 136315394;
+    *&v22[4] = v14;
+    *&v22[12] = 2112;
+    *&v22[14] = NSDict;
+    _os_log_impl(&dword_296FF7000, v12, OS_LOG_TYPE_DEFAULT, "#I Acked CPMS %s for power budget %@", v22, 0x16u);
   }
 
-  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&__p, v18);
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&__p, v17);
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  __p = &v18;
+  __p = &v17;
 
-  v20 = 0;
-  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&__p, v18);
+  v19 = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&__p, v17);
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  __p = &v18;
-  v24 = 0;
-  *v23 = &v23[8];
-  *&v23[8] = 0uLL;
-  std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(v23, buf, &buf + 1);
-  v24 = [v27 copy];
-  CPMSModule::evaluateBrickMode_sync(v4, v23);
-  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(v23, *&v23[8]);
-  *&v23[8] = 0uLL;
-  *v23 = &v23[8];
+  __p = &v17;
+  v23 = 0;
+  *v22 = &v22[8];
+  *&v22[8] = 0uLL;
+  std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(v22, buf, &buf + 1);
+  v23 = [v26 copy];
+  CPMSModule::evaluateBrickMode_sync(v4, v22);
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(v22, *&v22[8]);
+  *&v22[8] = 0uLL;
+  *v22 = &v22[8];
 
-  v24 = 0;
-  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(v23, *&v23[8]);
-  *&v23[8] = 0uLL;
-  v22 = 0;
-  *v23 = &v23[8];
-  *&v21[8] = 0uLL;
-  *v21 = &v21[8];
-  std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(v21, buf, &buf + 1);
-  v22 = [v27 copy];
-  CPMSModule::sendPowerBudgetToBB_sync(v4, v21);
-  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(v21, *&v21[8]);
-  *&v21[8] = 0uLL;
-  *v21 = &v21[8];
+  v23 = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(v22, *&v22[8]);
+  *&v22[8] = 0uLL;
+  v21 = 0;
+  *v22 = &v22[8];
+  *&v20[8] = 0uLL;
+  *v20 = &v20[8];
+  std::__tree<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__map_value_compare<abm::BasebandCPMSPowerBudgetScale,std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::less<abm::BasebandCPMSPowerBudgetScale>,true>,std::allocator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,std::__tree_node<std::__value_type<abm::BasebandCPMSPowerBudgetScale,std::optional<unsigned int>>,void *> *,long>>(v20, buf, &buf + 1);
+  v21 = [v26 copy];
+  CPMSModule::sendPowerBudgetToBB_sync(v4, v20);
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(v20, *&v20[8]);
+  *&v20[8] = 0uLL;
+  *v20 = &v20[8];
 
-  v22 = 0;
-  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(v21, *&v21[8]);
-  *&v21[8] = 0uLL;
-  *v21 = &v21[8];
+  v21 = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(v20, *&v20[8]);
+  *&v20[8] = 0uLL;
+  *v20 = &v20[8];
 
   std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&buf, *(&buf + 1));
   *(&buf + 1) = 0;
-  v26 = 0;
+  v25 = 0;
   *&buf = &buf + 8;
 
-  v27 = 0;
+  v26 = 0;
   std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&buf, *(&buf + 1));
 LABEL_17:
   operator delete(v2);
-  v15 = *(a1 + 2);
+  v15 = a1[2];
   if (v15 && !atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v15->__on_zero_shared)(v15);
@@ -3869,7 +3846,6 @@ LABEL_17:
   }
 
   operator delete(a1);
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29706CC8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
@@ -4067,7 +4043,7 @@ uint64_t Simulator::Simulator(uint64_t a1, uint64_t *a2)
 
   *a1 = &unk_2A1E26180;
   ctu::OsLogContext::OsLogContext(v6, "com.apple.telephony.abm", "simulator");
-  ctu::SharedLoggable<Simulator,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>((a1 + 72), "simulator", QOS_CLASS_DEFAULT);
+  ctu::SharedLoggable<Simulator,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>((a1 + 72), "simulator", 21, v6);
   ctu::OsLogContext::~OsLogContext(v6);
   *a1 = &unk_2A1E26180;
   *(a1 + 112) = 0;
@@ -4081,7 +4057,7 @@ void sub_29706D228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *ctu::SharedLoggable<Simulator,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(void *a1, const char *a2, dispatch_qos_class_t a3)
+void *ctu::SharedLoggable<Simulator,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(void *a1, const char *a2, uint64_t a3, const ctu::OsLogContext *a4)
 {
   object = 0;
   ctu::SharedSynchronizable<Simulator>::SharedSynchronizable(a1, a2, a3, &object);
@@ -4176,8 +4152,8 @@ void Simulator::registerCommandHandlers_sync(Simulator *this)
   v2 = *(this + 13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(__dst[0]) = 0;
-    _os_log_debug_impl(&dword_296FF7000, v2, OS_LOG_TYPE_DEBUG, "#D Registering command handlers", __dst, 2u);
+    LOWORD(__dst) = 0;
+    _os_log_debug_impl(&dword_296FF7000, v2, OS_LOG_TYPE_DEBUG, "#D Registering command handlers", &__dst, 2u);
     v3 = *(this + 10);
     if (!v3)
     {
@@ -4230,22 +4206,22 @@ LABEL_23:
       v11 = (v8 | 7) + 1;
     }
 
-    v10 = operator new(v11);
-    __dst[1] = v9;
+    p_dst = operator new(v11);
+    *(&__dst + 1) = v9;
     v17 = v11 | 0x8000000000000000;
-    __dst[0] = v10;
+    *&__dst = p_dst;
     goto LABEL_14;
   }
 
   HIBYTE(v17) = v8;
-  v10 = __dst;
+  p_dst = &__dst;
   if (v8)
   {
 LABEL_14:
-    memmove(v10, v7, v9);
+    memmove(p_dst, v7, v9);
   }
 
-  *(v9 + v10) = 0;
+  *(p_dst + v9) = 0;
   v13[0] = MEMORY[0x29EDCA5F8];
   v13[1] = 1174405120;
   v13[2] = ___ZN9Simulator28registerCommandHandlers_syncEv_block_invoke;
@@ -4256,7 +4232,7 @@ LABEL_14:
   atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   v12 = _Block_copy(v13);
   v15 = v12;
-  Service::registerCommandHandler(this, __dst, &v15);
+  Service::registerCommandHandler(this, &__dst, &v15);
   if (v12)
   {
     _Block_release(v12);
@@ -4264,7 +4240,7 @@ LABEL_14:
 
   if (SHIBYTE(v17) < 0)
   {
-    operator delete(__dst[0]);
+    operator delete(__dst);
   }
 
   if (v14)
@@ -4440,7 +4416,7 @@ void __destroy_helper_block_e8_40c33_ZTSNSt3__18weak_ptrI9SimulatorEE(uint64_t a
 
 void Simulator::registerEventHandlers_sync(Simulator *this)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v2 = *(this + 13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -4500,12 +4476,12 @@ LABEL_23:
 
     p_p = operator new(v11);
     *(&__p + 1) = v9;
-    v15 = v11 | 0x8000000000000000;
+    v14 = v11 | 0x8000000000000000;
     *&__p = p_p;
     goto LABEL_14;
   }
 
-  HIBYTE(v15) = v8;
+  HIBYTE(v14) = v8;
   p_p = &__p;
   if (v8)
   {
@@ -4515,18 +4491,18 @@ LABEL_14:
 
   *(p_p + v9) = 0;
   atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v17 = 0;
+  v16 = 0;
   v12 = operator new(0x20uLL);
   *v12 = &unk_2A1E263B8;
   v12[1] = this;
   v12[2] = v4;
   v12[3] = v6;
-  v17 = v12;
-  Service::registerEventHandler(this, &__p, v16);
-  if (v17 == v16)
+  v16 = v12;
+  Service::registerEventHandler(this, &__p, v15);
+  if (v16 == v15)
   {
-    (*(*v17 + 32))(v17);
-    if ((SHIBYTE(v15) & 0x80000000) == 0)
+    (*(*v16 + 32))(v16);
+    if ((SHIBYTE(v14) & 0x80000000) == 0)
     {
       goto LABEL_19;
     }
@@ -4536,12 +4512,12 @@ LABEL_21:
     goto LABEL_19;
   }
 
-  if (v17)
+  if (v16)
   {
-    (*(*v17 + 40))();
+    (*(*v16 + 40))();
   }
 
-  if (SHIBYTE(v15) < 0)
+  if (SHIBYTE(v14) < 0)
   {
     goto LABEL_21;
   }
@@ -4549,15 +4525,14 @@ LABEL_21:
 LABEL_19:
   Service::eventsOn(this);
   std::__shared_weak_count::__release_weak(v6);
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 _WORD *Simulator::getBootstrapStages@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(2uLL);
-  *a1 = v3;
-  *v3 = 256;
-  result = v3 + 1;
+  v2 = operator new(2uLL);
+  *a1 = v2;
+  *v2 = 256;
+  result = v2 + 1;
   a1[1] = result;
   a1[2] = result;
   return result;
@@ -4565,10 +4540,10 @@ _WORD *Simulator::getBootstrapStages@<X0>(void *a1@<X8>)
 
 _BYTE *Simulator::getShutdownStages@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(1uLL);
-  *a1 = v3;
-  *v3 = 3;
-  result = v3 + 1;
+  v2 = operator new(1uLL);
+  *a1 = v2;
+  *v2 = 3;
+  result = v2 + 1;
   a1[1] = result;
   a1[2] = result;
   return result;
@@ -5226,10 +5201,10 @@ uint64_t __cxx_global_var_init_3()
 
 void IOKitEventNotifier::start(IOKitEventNotifier *this)
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   if (!*(this + 1))
   {
-    goto LABEL_59;
+    return;
   }
 
   v2 = *(this + 3);
@@ -5281,176 +5256,170 @@ LABEL_12:
 
   if (*(this + 6))
   {
-    v8 = *(this + 1);
-    v9 = _Block_copy(v7);
-    v10 = *(this + 6);
-    v39 = v9;
-    v40 = v10;
-    if (v10)
+    v8 = _Block_copy(v7);
+    v9 = *(this + 6);
+    v33 = v8;
+    v34 = v9;
+    if (v9)
     {
-      dispatch_retain(v10);
+      dispatch_retain(v9);
     }
 
-    v11 = ctu::iokit::Controller::setDisplayCallback();
-    if (v40)
+    v10 = ctu::iokit::Controller::setDisplayCallback();
+    if (v34)
     {
-      dispatch_release(v40);
+      dispatch_release(v34);
     }
 
-    if (v39)
+    if (v33)
     {
-      _Block_release(v39);
+      _Block_release(v33);
     }
 
-    if ((v11 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v12 = *this;
+      v11 = *this;
       if (os_log_type_enabled(*this, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_296FF7000, v12, OS_LOG_TYPE_ERROR, "Failed to setup display callback", buf, 2u);
+        _os_log_error_impl(&dword_296FF7000, v11, OS_LOG_TYPE_ERROR, "Failed to setup display callback", buf, 2u);
       }
     }
   }
 
 LABEL_23:
-  v13 = *(this + 7);
-  if (!v13 || !*(this + 8))
+  v12 = *(this + 7);
+  if (!v12 || !*(this + 8))
   {
-    goto LABEL_67;
+    goto LABEL_33;
   }
 
-  v14 = *(this + 1);
-  v15 = _Block_copy(v13);
-  v16 = *(this + 8);
-  v37 = v15;
-  v38 = v16;
-  if (v16)
+  v13 = _Block_copy(v12);
+  v14 = *(this + 8);
+  v31 = v13;
+  v32 = v14;
+  if (v14)
   {
-    dispatch_retain(v16);
+    dispatch_retain(v14);
   }
 
-  v17 = ctu::iokit::Controller::setPowerSourceCallback();
-  if (v38)
+  v15 = ctu::iokit::Controller::setPowerSourceCallback();
+  if (v32)
   {
-    dispatch_release(v38);
+    dispatch_release(v32);
   }
 
-  if (v37)
+  if (v31)
   {
-    _Block_release(v37);
+    _Block_release(v31);
   }
 
-  if ((v17 & 1) == 0 && (v18 = *this, os_log_type_enabled(*this, OS_LOG_TYPE_ERROR)))
+  if ((v15 & 1) == 0 && (v16 = *this, os_log_type_enabled(*this, OS_LOG_TYPE_ERROR)))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_296FF7000, v18, OS_LOG_TYPE_ERROR, "Failed to setup power source", buf, 2u);
-    if (*(this + 9))
+    _os_log_error_impl(&dword_296FF7000, v16, OS_LOG_TYPE_ERROR, "Failed to setup power source", buf, 2u);
+    if (!*(this + 9))
     {
-LABEL_34:
-      if (*(this + 10))
+      goto LABEL_35;
+    }
+  }
+
+  else
+  {
+LABEL_33:
+    if (!*(this + 9))
+    {
+LABEL_35:
+      if (!*(this + 11) || !*(this + 12))
       {
-        goto LABEL_37;
+        return;
+      }
+
+      goto LABEL_37;
+    }
+  }
+
+  if (!*(this + 10))
+  {
+    goto LABEL_35;
+  }
+
+LABEL_37:
+  v17 = ctu::iokit::Controller::setupCameraService(*(this + 1));
+  v18 = *this;
+  if (os_log_type_enabled(*this, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = "failed";
+    if (v17)
+    {
+      v19 = "succeeded";
+    }
+
+    *buf = 136315138;
+    v38 = v19;
+    _os_log_impl(&dword_296FF7000, v18, OS_LOG_TYPE_DEFAULT, "#I Setup camera service is %s", buf, 0xCu);
+  }
+
+  if (v17)
+  {
+    v20 = *(this + 9);
+    if (v20 && *(this + 10))
+    {
+      v21 = _Block_copy(v20);
+      v22 = *(this + 10);
+      v29 = v21;
+      v30 = v22;
+      if (v22)
+      {
+        dispatch_retain(v22);
+      }
+
+      ctu::iokit::Controller::setFaceIDCallback();
+      if (v30)
+      {
+        dispatch_release(v30);
+      }
+
+      if (v29)
+      {
+        _Block_release(v29);
+      }
+    }
+
+    v23 = *(this + 11);
+    if (v23 && *(this + 12))
+    {
+      v24 = _Block_copy(v23);
+      v25 = *(this + 12);
+      v27 = v24;
+      v28 = v25;
+      if (v25)
+      {
+        dispatch_retain(v25);
+      }
+
+      ctu::iokit::Controller::setFrontCameraCallback();
+      if (v28)
+      {
+        dispatch_release(v28);
+      }
+
+      if (v27)
+      {
+        _Block_release(v27);
       }
     }
   }
 
   else
   {
-LABEL_67:
-    if (*(this + 9))
+    v26 = *this;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_34;
+      *buf = 0;
+      _os_log_error_impl(&dword_296FF7000, v26, OS_LOG_TYPE_ERROR, "Failed to setup camera service callback", buf, 2u);
     }
   }
-
-  if (!*(this + 11) || !*(this + 12))
-  {
-    goto LABEL_59;
-  }
-
-LABEL_37:
-  v19 = ctu::iokit::Controller::setupCameraService(*(this + 1));
-  v20 = *this;
-  if (os_log_type_enabled(*this, OS_LOG_TYPE_DEFAULT))
-  {
-    v21 = "failed";
-    if (v19)
-    {
-      v21 = "succeeded";
-    }
-
-    *buf = 136315138;
-    v44 = v21;
-    _os_log_impl(&dword_296FF7000, v20, OS_LOG_TYPE_DEFAULT, "#I Setup camera service is %s", buf, 0xCu);
-  }
-
-  if (v19)
-  {
-    v22 = *(this + 9);
-    if (v22 && *(this + 10))
-    {
-      v23 = *(this + 1);
-      v24 = _Block_copy(v22);
-      v25 = *(this + 10);
-      v35 = v24;
-      v36 = v25;
-      if (v25)
-      {
-        dispatch_retain(v25);
-      }
-
-      ctu::iokit::Controller::setFaceIDCallback();
-      if (v36)
-      {
-        dispatch_release(v36);
-      }
-
-      if (v35)
-      {
-        _Block_release(v35);
-      }
-    }
-
-    v26 = *(this + 11);
-    if (v26 && *(this + 12))
-    {
-      v27 = *(this + 1);
-      v28 = _Block_copy(v26);
-      v29 = *(this + 12);
-      v33 = v28;
-      v34 = v29;
-      if (v29)
-      {
-        dispatch_retain(v29);
-      }
-
-      ctu::iokit::Controller::setFrontCameraCallback();
-      if (v34)
-      {
-        dispatch_release(v34);
-      }
-
-      if (v33)
-      {
-        _Block_release(v33);
-      }
-    }
-
-    goto LABEL_59;
-  }
-
-  v30 = *this;
-  if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-  {
-LABEL_59:
-    v31 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  *buf = 0;
-  _os_log_error_impl(&dword_296FF7000, v30, OS_LOG_TYPE_ERROR, "Failed to setup camera service callback", buf, 2u);
-  v32 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29706EFC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, char a17)
@@ -5819,21 +5788,21 @@ double IOKitEventNotifier::create@<D0>(IOKitEventNotifier *this@<X0>, void *a2@<
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
-  v5 = operator new(0x88uLL);
-  v5[1] = 0;
-  v5[2] = 0;
-  *v5 = &unk_2A1E26468;
-  ctu::OsLogLogger::OsLogLogger((v5 + 3), "com.apple.telephony", "iokit.event");
-  ctu::iokit::Controller::create(this, v6);
+  v4 = operator new(0x88uLL);
+  v4[1] = 0;
+  v4[2] = 0;
+  *v4 = &unk_2A1E26468;
+  ctu::OsLogLogger::OsLogLogger((v4 + 3), "com.apple.telephony", "iokit.event");
+  ctu::iokit::Controller::create(this, v5);
   result = 0.0;
-  *(v5 + 6) = 0u;
-  *(v5 + 7) = 0u;
-  *(v5 + 4) = 0u;
-  *(v5 + 5) = 0u;
-  *(v5 + 3) = 0u;
-  v5[16] = this;
-  *a2 = v5 + 3;
-  a2[1] = v5;
+  *(v4 + 6) = 0u;
+  *(v4 + 7) = 0u;
+  *(v4 + 4) = 0u;
+  *(v4 + 5) = 0u;
+  *(v4 + 3) = 0u;
+  v4[16] = this;
+  *a2 = v4 + 3;
+  a2[1] = v4;
   return result;
 }
 
@@ -5942,22 +5911,22 @@ void BootControllerLegacy::BootControllerLegacy(BootControllerLegacy *this)
   *(v1 + 72) = 1;
 }
 
-BOOL BootControllerLegacy::prepare(capabilities::radio *a1, std::string *a2)
+BOOL BootControllerLegacy::prepare(NSObject **a1, std::string *a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   memset(__p, 170, sizeof(__p));
   capabilities::radio::personalizedFirmwarePath(__p, a1);
   v4.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v4.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v13.st_blksize = v4;
-  *v13.st_qspare = v4;
-  v13.st_birthtimespec = v4;
-  *&v13.st_size = v4;
-  v13.st_mtimespec = v4;
-  v13.st_ctimespec = v4;
-  *&v13.st_uid = v4;
-  v13.st_atimespec = v4;
-  *&v13.st_dev = v4;
+  *&v12.st_blksize = v4;
+  *v12.st_qspare = v4;
+  v12.st_birthtimespec = v4;
+  *&v12.st_size = v4;
+  v12.st_mtimespec = v4;
+  v12.st_ctimespec = v4;
+  *&v12.st_uid = v4;
+  v12.st_atimespec = v4;
+  *&v12.st_dev = v4;
   if (SHIBYTE(__p[2]) >= 0)
   {
     v5 = __p;
@@ -5968,22 +5937,22 @@ BOOL BootControllerLegacy::prepare(capabilities::radio *a1, std::string *a2)
     v5 = __p[0];
   }
 
-  v6 = stat(v5, &v13);
+  v6 = stat(v5, &v12);
   if (v6)
   {
-    v7 = *(a1 + 1);
+    v7 = a1[1];
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
     if (v8)
     {
-      v11 = __p;
+      v10 = __p;
       if (SHIBYTE(__p[2]) < 0)
       {
-        v11 = __p[0];
+        v10 = __p[0];
       }
 
-      v13.st_dev = 136315138;
-      *&v13.st_mode = v11;
-      _os_log_error_impl(&dword_296FF7000, v7, OS_LOG_TYPE_ERROR, "Failed to find the firmware in %s", &v13, 0xCu);
+      v12.st_dev = 136315138;
+      *&v12.st_mode = v10;
+      _os_log_error_impl(&dword_296FF7000, v7, OS_LOG_TYPE_ERROR, "Failed to find the firmware in %s", &v12, 0xCu);
     }
 
     capabilities::trace::allowed(v8);
@@ -5995,9 +5964,7 @@ BOOL BootControllerLegacy::prepare(capabilities::radio *a1, std::string *a2)
     operator delete(__p[0]);
   }
 
-  result = v6 == 0;
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return v6 == 0;
 }
 
 void sub_29706FB6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6012,9 +5979,9 @@ void sub_29706FB6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t BootControllerLegacy::bootModem(uint64_t a1, uint64_t a2)
 {
-  v58 = *MEMORY[0x29EDCA608];
-  v51 = 0xAAAAAAAAAAAAAAAALL;
-  v52 = 0xAAAAAAAAAAAAAAAALL;
+  v56 = *MEMORY[0x29EDCA608];
+  v49 = 0xAAAAAAAAAAAAAAAALL;
+  v50 = 0xAAAAAAAAAAAAAAAALL;
   v4 = pthread_mutex_lock(&ctu::Singleton<ctu::XpcJetsamAssertion,ctu::XpcJetsamAssertion,ctu::PthreadMutexGuardPolicy<ctu::XpcJetsamAssertion>>::sInstance);
   v5 = xmmword_2A18B71B0;
   if (!xmmword_2A18B71B0)
@@ -6050,7 +6017,7 @@ uint64_t BootControllerLegacy::bootModem(uint64_t a1, uint64_t a2)
   }
 
   pthread_mutex_unlock(&ctu::Singleton<ctu::XpcJetsamAssertion,ctu::XpcJetsamAssertion,ctu::PthreadMutexGuardPolicy<ctu::XpcJetsamAssertion>>::sInstance);
-  v50 = 13;
+  v48 = 13;
   strcpy(__p, "Booting modem");
   ctu::XpcJetsamAssertion::createActivity();
   if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -6059,9 +6026,9 @@ uint64_t BootControllerLegacy::bootModem(uint64_t a1, uint64_t a2)
     std::__shared_weak_count::__release_weak(v9);
   }
 
-  BYTE5(v48[2]) = -86;
-  HIWORD(v48[2]) = 5290;
-  strcpy(v48, "boot::debugArguments");
+  BYTE5(v46[2]) = -86;
+  HIWORD(v46[2]) = 5290;
+  strcpy(v46, "boot::debugArguments");
   if (*(a2 + 23) < 0)
   {
     *(a2 + 8) = 7;
@@ -6127,14 +6094,14 @@ LABEL_27:
   }
 
   pthread_mutex_unlock(&ctu::Singleton<ABMProperties,ABMProperties,ctu::PthreadMutexGuardPolicy<ABMProperties>>::sInstance);
-  if (SHIBYTE(v48[2]) >= 0)
+  if (SHIBYTE(v46[2]) >= 0)
   {
-    v16 = v48;
+    v16 = v46;
   }
 
   else
   {
-    v16 = v48[0];
+    v16 = v46[0];
   }
 
   ctu::cf::MakeCFString::MakeCFString(buf, v16);
@@ -6178,12 +6145,12 @@ LABEL_37:
   }
 
 LABEL_39:
-  v46 = v18;
+  v44 = v18;
   CFRetain(v18);
   valuePtr = 1;
   v22 = *MEMORY[0x29EDB8ED8];
   v23 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberIntType, &valuePtr);
-  v44 = v23;
+  v42 = v23;
   v24 = *MEMORY[0x29EDB8F00];
   values[0] = *MEMORY[0x29EDB8F00];
   values[1] = v23;
@@ -6192,35 +6159,35 @@ LABEL_39:
     v24 = *MEMORY[0x29EDB8EF8];
   }
 
-  v54 = v18;
-  v55 = v24;
+  v52 = v18;
+  v53 = v24;
   v25 = CFDictionaryCreate(v22, &BootControllerLegacy::bootModem(std::string &)::keys, values, 4, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v43 = v25;
+  v41 = v25;
   v26 = BBUpdaterSetOptions();
   if (!v26)
   {
     memset(buf, 0, sizeof(buf));
-    v57 = 0;
+    v55 = 0;
     ctu::cf::assign();
-    *v41 = *buf;
-    v42 = v57;
+    *v39 = *buf;
+    v40 = v55;
     v27 = *(a1 + 8);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v39 = v41;
-      if (SHIBYTE(v42) < 0)
+      v37 = v39;
+      if (SHIBYTE(v40) < 0)
       {
-        v39 = v41[0];
+        v37 = v39[0];
       }
 
       *buf = 136315138;
-      *&buf[4] = v39;
+      *&buf[4] = v37;
       _os_log_error_impl(&dword_296FF7000, v27, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       if ((*(a2 + 23) & 0x80000000) == 0)
       {
 LABEL_47:
-        *a2 = *v41;
-        *(a2 + 16) = v42;
+        *a2 = *v39;
+        *(a2 + 16) = v40;
         CFRelease(cf);
         cf = 0;
         if (!v25)
@@ -6258,57 +6225,56 @@ LABEL_49:
   if ((*(a1 + 72) & 1) == 0)
   {
 LABEL_54:
-    v28 = *(a1 + 16);
     if (TelephonyBasebandPowerOnModem())
     {
-      v41[0] = 0;
+      v39[0] = 0;
       goto LABEL_56;
     }
 
     if (*(a2 + 23) < 0)
     {
       *(a2 + 8) = 21;
-      v31 = *a2;
+      v30 = *a2;
     }
 
     else
     {
       *(a2 + 23) = 21;
-      v31 = a2;
+      v30 = a2;
     }
 
-    strcpy(v31, "failed power on modem");
+    strcpy(v30, "failed power on modem");
 LABEL_71:
-    v41[0] = 0;
+    v39[0] = 0;
     goto LABEL_72;
   }
 
-  v41[0] = 0;
+  v39[0] = 0;
   if (!v26)
   {
 LABEL_72:
-    v34 = *(a1 + 8);
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v33 = *(a1 + 8);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a2 + 23) >= 0)
       {
-        v35 = a2;
+        v34 = a2;
       }
 
       else
       {
-        v35 = *a2;
+        v34 = *a2;
       }
 
       LODWORD(values[0]) = 136446210;
-      *(values + 4) = v35;
-      _os_log_impl(&dword_296FF7000, v34, OS_LOG_TYPE_DEFAULT, "#I boot failed due to %{public}s", values, 0xCu);
+      *(values + 4) = v34;
+      _os_log_impl(&dword_296FF7000, v33, OS_LOG_TYPE_DEFAULT, "#I boot failed due to %{public}s", values, 0xCu);
     }
 
-    v32 = 0;
+    v31 = 0;
     *v14 = 0;
-    v33 = v41[0];
-    if (v41[0])
+    v32 = v39[0];
+    if (v39[0])
     {
       goto LABEL_78;
     }
@@ -6317,27 +6283,27 @@ LABEL_72:
   }
 
 LABEL_56:
-  v29 = BBUpdaterExecCommand();
-  if (!v29 && cf)
+  v28 = BBUpdaterExecCommand();
+  if (!v28 && cf)
   {
     values[0] = 0;
     values[1] = 0;
-    v54 = 0;
+    v52 = 0;
     ctu::cf::assign();
     *buf = *values;
-    v57 = v54;
-    v30 = *(a1 + 8);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v55 = v52;
+    v29 = *(a1 + 8);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v40 = buf;
-      if (SHIBYTE(v57) < 0)
+      v38 = buf;
+      if (SHIBYTE(v55) < 0)
       {
-        v40 = *buf;
+        v38 = *buf;
       }
 
       LODWORD(values[0]) = 136315138;
-      *(values + 4) = v40;
-      _os_log_error_impl(&dword_296FF7000, v30, OS_LOG_TYPE_ERROR, "%s", values, 0xCu);
+      *(values + 4) = v38;
+      _os_log_error_impl(&dword_296FF7000, v29, OS_LOG_TYPE_ERROR, "%s", values, 0xCu);
       if ((*(a2 + 23) & 0x80000000) == 0)
       {
         goto LABEL_61;
@@ -6348,7 +6314,7 @@ LABEL_56:
     {
 LABEL_61:
       *a2 = *buf;
-      *(a2 + 16) = v57;
+      *(a2 + 16) = v55;
       CFRelease(cf);
       cf = 0;
       goto LABEL_72;
@@ -6358,21 +6324,21 @@ LABEL_61:
     goto LABEL_61;
   }
 
-  if (!v29)
+  if (!v28)
   {
     goto LABEL_72;
   }
 
-  if (!v41[0])
+  if (!v39[0])
   {
     std::string::__assign_external(a2, "BBUpdaterExecCommand failed returning output", 0x2CuLL);
     goto LABEL_72;
   }
 
-  BootControllerLegacy::printOutput(a1, v41[0]);
+  BootControllerLegacy::printOutput(a1, v39[0]);
   values[0] = 0xAAAAAAAAAAAAAAAALL;
   values[1] = 0xAAAAAAAAAAAAAAAALL;
-  ctu::cf::dict_adapter::dict_adapter(values, v41[0]);
+  ctu::cf::dict_adapter::dict_adapter(values, v39[0]);
   if ((ctu::cf::map_adapter::getBool(values, @"done") & 1) == 0)
   {
     std::string::__assign_external(a2, "output did not return done", 0x1AuLL);
@@ -6382,14 +6348,14 @@ LABEL_61:
 
   MEMORY[0x29C26B180](values);
   *(a1 + 24) = 0;
-  v32 = 1;
+  v31 = 1;
   *v14 = 0;
-  v33 = v41[0];
-  if (v41[0])
+  v32 = v39[0];
+  if (v39[0])
   {
 LABEL_78:
-    CFRelease(v33);
-    v41[0] = 0;
+    CFRelease(v32);
+    v39[0] = 0;
   }
 
 LABEL_79:
@@ -6398,23 +6364,22 @@ LABEL_79:
     CFRelease(v11);
   }
 
-  if (SHIBYTE(v48[2]) < 0)
+  if (SHIBYTE(v46[2]) < 0)
   {
-    operator delete(v48[0]);
+    operator delete(v46[0]);
   }
 
-  v36 = v52;
-  if (v52 && !atomic_fetch_add((v52 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v35 = v50;
+  if (v50 && !atomic_fetch_add((v50 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v36->__on_zero_shared)(v36);
-    std::__shared_weak_count::__release_weak(v36);
+    (v35->__on_zero_shared)(v35);
+    std::__shared_weak_count::__release_weak(v35);
   }
 
-  v37 = *MEMORY[0x29EDCA608];
-  return v32;
+  return v31;
 }
 
-void sub_297070438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, char a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39)
+void sub_297070438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39)
 {
   if (a25 < 0)
   {
@@ -6425,37 +6390,31 @@ void sub_297070438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void BootControllerLegacy::handleError(BootControllerLegacy *this@<X0>, _OWORD *a2@<X8>)
+void BootControllerLegacy::handleError(BootControllerLegacy *this@<X0>, _OWORD *a3@<X8>)
 {
-  v11 = *MEMORY[0x29EDCA608];
-  memset(a2, 170, 24);
-  v9 = 0uLL;
-  v10 = 0;
+  v9 = *MEMORY[0x29EDCA608];
+  memset(a3, 170, 24);
+  v7 = 0uLL;
+  v8 = 0;
   ctu::cf::assign();
-  *a2 = 0uLL;
-  *(a2 + 2) = v10;
+  *a3 = 0uLL;
+  *(a3 + 2) = v8;
   v5 = *(this + 1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    if (*(a2 + 23) >= 0)
+    if (*(a3 + 23) >= 0)
     {
-      v7 = a2;
+      v6 = a3;
     }
 
     else
     {
-      v7 = *a2;
+      v6 = *a3;
     }
 
-    LODWORD(v9) = 136315138;
-    *(&v9 + 4) = v7;
-    _os_log_error_impl(&dword_296FF7000, v5, OS_LOG_TYPE_ERROR, "%s", &v9, 0xCu);
-    v8 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    v6 = *MEMORY[0x29EDCA608];
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = v6;
+    _os_log_error_impl(&dword_296FF7000, v5, OS_LOG_TYPE_ERROR, "%s", &v7, 0xCu);
   }
 }
 
@@ -6482,51 +6441,51 @@ const void **ctu::cf::CFSharedRef<__CFString const>::~CFSharedRef(const void **a
 
 void BootControllerLegacy::printOutput(BootControllerLegacy *this, CFTypeRef cf)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v3 = CFCopyDescription(cf);
-  v8 = 0;
-  v9 = v3;
+  v7 = 0;
+  v8 = v3;
   __p[0] = 0;
   __p[1] = 0;
   ctu::cf::assign();
   v4 = *(this + 1);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v5 = __p;
-    if (v8 < 0)
+    if ((SHIBYTE(v7) & 0x80000000) == 0)
     {
-      v5 = __p[0];
+      goto LABEL_3;
     }
 
-    *buf = 136315138;
-    v11 = v5;
-    _os_log_error_impl(&dword_296FF7000, v4, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
-    if ((SHIBYTE(v8) & 0x80000000) == 0)
+LABEL_8:
+    operator delete(__p[0]);
+    if (!v3)
     {
+      return;
+    }
+
+    goto LABEL_9;
+  }
+
+  v5 = __p;
+  if (v7 < 0)
+  {
+    v5 = __p[0];
+  }
+
+  *buf = 136315138;
+  v10 = v5;
+  _os_log_error_impl(&dword_296FF7000, v4, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
+  if (SHIBYTE(v7) < 0)
+  {
+    goto LABEL_8;
+  }
+
 LABEL_3:
-      if (!v3)
-      {
-        goto LABEL_10;
-      }
-
-      goto LABEL_9;
-    }
-  }
-
-  else if ((SHIBYTE(v8) & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(__p[0]);
   if (v3)
   {
 LABEL_9:
     CFRelease(v3);
   }
-
-LABEL_10:
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2970707D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -7058,7 +7017,7 @@ LABEL_27:
   CFRelease(v12);
 }
 
-void sub_297071330(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
+void sub_297071330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
 {
   if (a16 < 0)
   {
@@ -7087,7 +7046,7 @@ LABEL_6:
       operator delete(*(v50 - 160));
     }
 
-    MEMORY[0x29C26B180](v50 - 136);
+    MEMORY[0x29C26B180](v50 - 136, a2, a3, a4, a5, a6, a7, a8);
     ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef((v50 - 120));
     ctu::cf::CFSharedRef<__CFArray const>::~CFSharedRef((v50 - 112));
     _Unwind_Resume(a1);
@@ -7392,18 +7351,18 @@ LABEL_55:
   }
 }
 
-void sub_297071A74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, const void *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_297071A74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   pthread_mutex_unlock(&ctu::Singleton<SharedData,SharedData,ctu::PthreadMutexGuardPolicy<SharedData>>::sInstance);
   ctu::cf::CFSharedRef<__CFArray>::~CFSharedRef(&a12);
   _Unwind_Resume(a1);
 }
 
-void DeviceHistoryDB::getDeviceHistory(uint64_t a1, uint64_t a2)
+void DeviceHistoryDB::getDeviceHistory(uint64_t result, std::string **a2)
 {
-  if (a1 + 16 != a2)
+  if ((result + 16) != a2)
   {
-    std::vector<_DeviceHistoryItem>::__assign_with_size[abi:ne200100]<_DeviceHistoryItem*,_DeviceHistoryItem*>(a2, *(a1 + 16), *(a1 + 24), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 24) - *(a1 + 16)) >> 5));
+    std::vector<_DeviceHistoryItem>::__assign_with_size[abi:ne200100]<_DeviceHistoryItem*,_DeviceHistoryItem*>(a2, *(result + 16), *(result + 24), 0xAAAAAAAAAAAAAAABLL * ((*(result + 24) - *(result + 16)) >> 5));
   }
 }
 
@@ -7479,7 +7438,7 @@ LABEL_4:
   return a1;
 }
 
-std::string *std::vector<_DeviceHistoryItem>::__emplace_back_slow_path<_DeviceHistoryItem const&>(uint64_t *a1, __int128 *a2)
+std::string *std::vector<_DeviceHistoryItem>::__emplace_back_slow_path<_DeviceHistoryItem const&>(__int128 **a1, __int128 *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
@@ -7525,11 +7484,11 @@ std::string *std::vector<_DeviceHistoryItem>::__emplace_back_slow_path<_DeviceHi
   _DeviceHistoryItem::_DeviceHistoryItem(v18, a2);
   v8 = *a1;
   v9 = a1[1];
-  v10 = v18 + *a1 - v9;
+  v10 = *a1 + v18 - v9;
   if (v9 != *a1)
   {
     v11 = *a1;
-    v12 = v18 + *a1 - v9;
+    v12 = *a1 + v18 - v9;
     do
     {
       v13 = *v11;
@@ -7565,7 +7524,7 @@ std::string *std::vector<_DeviceHistoryItem>::__emplace_back_slow_path<_DeviceHi
     {
       if (*(v8 + 95) < 0)
       {
-        operator delete(*(v8 + 72));
+        operator delete(*(v8 + 9));
         if ((*(v8 + 71) & 0x80000000) == 0)
         {
 LABEL_18:
@@ -7583,7 +7542,7 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      operator delete(*(v8 + 48));
+      operator delete(*(v8 + 6));
       if ((*(v8 + 47) & 0x80000000) == 0)
       {
 LABEL_19:
@@ -7596,7 +7555,7 @@ LABEL_19:
       }
 
 LABEL_23:
-      operator delete(*(v8 + 24));
+      operator delete(*(v8 + 3));
       if (*(v8 + 23) < 0)
       {
 LABEL_24:
@@ -7604,7 +7563,7 @@ LABEL_24:
       }
 
 LABEL_15:
-      v8 += 96;
+      v8 += 6;
       if (v8 == v9)
       {
         v8 = *a1;
@@ -7624,9 +7583,9 @@ LABEL_15:
   return v18 + 4;
 }
 
-void sub_297071E3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_297071E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<_DeviceHistoryItem>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7884,10 +7843,10 @@ LABEL_8:
   }
 }
 
-void std::vector<_DeviceHistoryItem>::__assign_with_size[abi:ne200100]<_DeviceHistoryItem*,_DeviceHistoryItem*>(uint64_t a1, __int128 *a2, __int128 *a3, unint64_t a4)
+void std::vector<_DeviceHistoryItem>::__assign_with_size[abi:ne200100]<_DeviceHistoryItem*,_DeviceHistoryItem*>(std::string **a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
-  v7 = *(a1 + 16);
+  v7 = a1[2];
   v8 = *a1;
   if (0xAAAAAAAAAAAAAAABLL * ((v7 - *a1) >> 5) < a4)
   {
@@ -7897,17 +7856,17 @@ void std::vector<_DeviceHistoryItem>::__assign_with_size[abi:ne200100]<_DeviceHi
     }
 
     v9 = a4;
-    v10 = *(a1 + 8);
+    v10 = a1[1];
     v11 = *a1;
     if (v10 == v8)
     {
 LABEL_39:
-      *(a1 + 8) = v8;
+      a1[1] = v8;
       operator delete(v11);
       v7 = 0;
       *a1 = 0;
-      *(a1 + 8) = 0;
-      *(a1 + 16) = 0;
+      a1[1] = 0;
+      a1[2] = 0;
       a4 = v9;
 LABEL_40:
       if (a4 > 0x2AAAAAAAAAAAAAALL)
@@ -7932,8 +7891,8 @@ LABEL_51:
       v21 = 4 * v20;
       v22 = operator new(96 * v20);
       *a1 = v22;
-      *(a1 + 8) = v22;
-      *(a1 + 16) = &v22[v21];
+      a1[1] = v22;
+      a1[2] = &v22[v21];
       for (i = v22; v5 != a3; i += 4)
       {
         _DeviceHistoryItem::_DeviceHistoryItem(v22, v5);
@@ -7941,19 +7900,19 @@ LABEL_51:
         v22 = i + 4;
       }
 
-      *(a1 + 8) = v22;
+      a1[1] = v22;
       return;
     }
 
     while (1)
     {
-      if (*(v10 - 1) < 0)
+      if (SHIBYTE(v10[-1].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(*(v10 - 3));
-        if ((*(v10 - 25) & 0x80000000) == 0)
+        operator delete(v10[-1].__r_.__value_.__l.__data_);
+        if ((SHIBYTE(v10[-2].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_8:
-          if ((*(v10 - 49) & 0x80000000) == 0)
+          if ((SHIBYTE(v10[-3].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_9;
           }
@@ -7962,17 +7921,17 @@ LABEL_8:
         }
       }
 
-      else if ((*(v10 - 25) & 0x80000000) == 0)
+      else if ((SHIBYTE(v10[-2].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_8;
       }
 
-      operator delete(*(v10 - 6));
-      if ((*(v10 - 49) & 0x80000000) == 0)
+      operator delete(v10[-2].__r_.__value_.__l.__data_);
+      if ((SHIBYTE(v10[-3].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_9:
-        v12 = (v10 - 96);
-        if (*(v10 - 73) < 0)
+        p_data = &v10[-4].__r_.__value_.__l.__data_;
+        if (SHIBYTE(v10[-4].__r_.__value_.__r.__words[2]) < 0)
         {
           goto LABEL_14;
         }
@@ -7981,17 +7940,17 @@ LABEL_9:
       }
 
 LABEL_13:
-      operator delete(*(v10 - 9));
-      v12 = (v10 - 96);
-      if (*(v10 - 73) < 0)
+      operator delete(v10[-3].__r_.__value_.__l.__data_);
+      p_data = &v10[-4].__r_.__value_.__l.__data_;
+      if (SHIBYTE(v10[-4].__r_.__value_.__r.__words[2]) < 0)
       {
 LABEL_14:
-        operator delete(*v12);
+        operator delete(*p_data);
       }
 
 LABEL_5:
-      v10 = v12;
-      if (v12 == v8)
+      v10 = p_data;
+      if (p_data == v8)
       {
         v11 = *a1;
         goto LABEL_39;
@@ -7999,7 +7958,7 @@ LABEL_5:
     }
   }
 
-  v13 = *(a1 + 8);
+  v13 = a1[1];
   v14 = v13 - v8;
   if (0xAAAAAAAAAAAAAAABLL * ((v13 - v8) >> 5) >= a4)
   {
@@ -8009,17 +7968,17 @@ LABEL_5:
       {
         _DeviceHistoryItem::operator=(v8, v5);
         v5 += 6;
-        v8 += 96;
+        v8 += 4;
       }
 
       while (v5 != a3);
-      v13 = *(a1 + 8);
+      v13 = a1[1];
     }
 
     if (v13 == v8)
     {
 LABEL_27:
-      *(a1 + 8) = v8;
+      a1[1] = v8;
       return;
     }
 
@@ -8049,7 +8008,7 @@ LABEL_31:
       if ((SHIBYTE(v13[-3].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_32:
-        p_data = &v13[-4].__r_.__value_.__l.__data_;
+        v17 = &v13[-4].__r_.__value_.__l.__data_;
         if (SHIBYTE(v13[-4].__r_.__value_.__r.__words[2]) < 0)
         {
           goto LABEL_37;
@@ -8060,16 +8019,16 @@ LABEL_32:
 
 LABEL_36:
       operator delete(v13[-3].__r_.__value_.__l.__data_);
-      p_data = &v13[-4].__r_.__value_.__l.__data_;
+      v17 = &v13[-4].__r_.__value_.__l.__data_;
       if (SHIBYTE(v13[-4].__r_.__value_.__r.__words[2]) < 0)
       {
 LABEL_37:
-        operator delete(*p_data);
+        operator delete(*v17);
       }
 
 LABEL_28:
-      v13 = p_data;
-      if (p_data == v8)
+      v13 = v17;
+      if (v17 == v8)
       {
         goto LABEL_27;
       }
@@ -8083,12 +8042,12 @@ LABEL_28:
     {
       _DeviceHistoryItem::operator=(v8, v5);
       v5 += 6;
-      v8 += 96;
+      v8 += 4;
       v14 -= 96;
     }
 
     while (v14);
-    v13 = *(a1 + 8);
+    v13 = a1[1];
   }
 
   v23 = v13;
@@ -8107,7 +8066,7 @@ LABEL_28:
     while (v15 != a3);
   }
 
-  *(a1 + 8) = v16;
+  a1[1] = v16;
 }
 
 void sub_2970724EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -8184,7 +8143,7 @@ LABEL_10:
     }
 
 LABEL_25:
-    if ((v10 & 0x80u) == 0)
+    if (v10 >= 0)
     {
       v16 = v9;
     }
@@ -8194,7 +8153,7 @@ LABEL_25:
       v16 = *(v3 + 6);
     }
 
-    if ((v10 & 0x80u) == 0)
+    if (v10 >= 0)
     {
       v17 = v10;
     }
@@ -8267,7 +8226,7 @@ LABEL_21:
   if ((v10 & 0x80) == 0)
   {
     v13 = *v9;
-    *(a1 + 8) = v9[2];
+    *(a1 + 8) = *(v9 + 2);
     *(a1 + 3) = v13;
     v14 = v3 + 72;
     v15 = v3[95];
@@ -8292,13 +8251,13 @@ LABEL_32:
     }
 
     v18 = *v14;
-    *(a1 + 11) = v14[2];
+    *(a1 + 11) = *(v14 + 2);
     *(a1 + 72) = v18;
     return a1;
   }
 
 LABEL_36:
-  if ((v15 & 0x80u) == 0)
+  if (v15 >= 0)
   {
     v20 = v14;
   }
@@ -8308,7 +8267,7 @@ LABEL_36:
     v20 = *(v3 + 9);
   }
 
-  if ((v15 & 0x80u) == 0)
+  if (v15 >= 0)
   {
     v21 = v15;
   }
@@ -8378,9 +8337,9 @@ BOOL ctu::cf::plist_adapter::set<__CFArray *>(uint64_t a1, CFTypeRef cf, const _
   return v9;
 }
 
-void sub_297072894(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_297072894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -8712,7 +8671,7 @@ LABEL_69:
 
         else
         {
-          v37 = *v36 + 32 * (*(a1 + 56) & 0x7FLL);
+          v37 = &(*v36)[32 * (*(a1 + 56) & 0x7FLL)];
           v38 = v21;
           if (!v26)
           {
@@ -8971,7 +8930,7 @@ uint64_t lcdm::CrashEntry::serialize(lcdm::CrashEntry *a1, uint64_t a2, unint64_
   v16 = v5;
   v17 = v5;
   v15 = v5;
-  lcdm::CrashEntry::convertToSubTLVs(a1, &v15);
+  lcdm::CrashEntry::convertToSubTLVs(&v15, a1);
   if (v15 == 1 && (v6 = (v16 + 8 * (*(&v17 + 1) >> 7)), v7 = *v6 + 32 * (BYTE8(v17) & 0x7F), *(v7 + 4) == 4) && a3 >= **(v7 + 8))
   {
     if (*(&v16 + 1) == v16 || (v10 = *(v16 + (((v18 + *(&v17 + 1)) >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * ((v18 + *(&v17 + 1)) & 0x7F), v7 == v10))
@@ -9019,22 +8978,22 @@ LABEL_5:
   return v8;
 }
 
-void lcdm::CrashEntry::convertToSubTLVs(lcdm::CrashEntry *this@<X0>, uint64_t a2@<X8>)
+void lcdm::CrashEntry::convertToSubTLVs(uint64_t *__return_ptr a1@<X8>, lcdm::CrashEntry *this@<X0>)
 {
   memset(v27, 0, sizeof(v27));
   v26 = 4;
   strcpy(__p, "TIME");
   lcdm::constructSubTLVWithUInt64Value(__p, *(this + 1), &v22);
-  v4 = v22;
-  v28 = *(&v22 + 1);
-  v21 = v23;
+  v4 = v22.i8[0];
+  v28 = v22.i64[1];
+  v21 = v23.i64[0];
   v29 = v23;
-  v30 = v24;
-  *&v24 = 0;
+  v30 = v24.i64[0];
+  v24.i64[0] = 0;
   v23 = 0uLL;
   if ((v26 & 0x80000000) == 0)
   {
-    if (v22)
+    if (v22.i8[0])
     {
       goto LABEL_3;
     }
@@ -9043,11 +9002,11 @@ LABEL_9:
     v23 = 0u;
     v24 = 0u;
     v22 = 0u;
-    *a2 = 0;
-    *(a2 + 8) = 0u;
-    *(a2 + 24) = 0u;
-    *(a2 + 40) = 0u;
-    std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>((a2 + 8), 0, 0, 0);
+    *a1 = 0;
+    *(a1 + 1) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 5) = 0u;
+    std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(a1 + 1, 0, 0, 0);
     std::deque<lcdm::SubTLV>::~deque[abi:ne200100](&v22);
     goto LABEL_22;
   }
@@ -9062,17 +9021,17 @@ LABEL_3:
   v26 = 4;
   strcpy(__p, "SAH ");
   lcdm::constructSubTLVWithUInt32Value(__p, *this, &v22);
-  v5 = v22;
-  *&v27[0] = *(&v22 + 1);
-  v20 = v23;
+  v5 = v22.i8[0];
+  *&v27[0] = v22.i64[1];
+  v20 = v23.i64[0];
   *(v27 + 8) = v23;
-  *(&v27[1] + 1) = v24;
-  *&v24 = 0;
+  *(&v27[1] + 1) = v24.i64[0];
+  v24.i64[0] = 0;
   v23 = 0uLL;
   if ((v26 & 0x80000000) == 0)
   {
     v6 = 0uLL;
-    if (v22)
+    if (v22.i8[0])
     {
       goto LABEL_5;
     }
@@ -9081,11 +9040,11 @@ LABEL_11:
     v23 = v6;
     v24 = v6;
     v22 = v6;
-    *a2 = 0;
-    *(a2 + 8) = v6;
-    *(a2 + 24) = v6;
-    *(a2 + 40) = v6;
-    std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>((a2 + 8), 0, 0, 0);
+    *a1 = 0;
+    *(a1 + 1) = v6;
+    *(a1 + 3) = v6;
+    *(a1 + 5) = v6;
+    std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(a1 + 1, 0, 0, 0);
     goto LABEL_20;
   }
 
@@ -9126,30 +9085,30 @@ LABEL_14:
   std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(&v22, (v9 + v8), v10, v14);
   std::deque<lcdm::SubTLV>::push_front(&v22, &v28);
   std::deque<lcdm::SubTLV>::push_front(&v22, v27);
-  *a2 = 1;
-  *(a2 + 8) = 0u;
-  *(a2 + 24) = 0u;
-  *(a2 + 40) = 0u;
-  v15 = (v24 >> 4) & 0xFFFFFFFFFFFFFF8;
-  if (v23 == *(&v22 + 1))
+  *a1 = 1;
+  *(a1 + 1) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 5) = 0u;
+  v15 = (v24.i64[0] >> 4) & 0xFFFFFFFFFFFFFF8;
+  if (v23.i64[0] == v22.i64[1])
   {
     v16 = 0;
     goto LABEL_18;
   }
 
-  v16 = (*(*(&v22 + 1) + v15) + 32 * (v24 & 0x7F));
-  v17 = ((*(&v24 + 1) + v24) >> 4) & 0xFFFFFFFFFFFFFF8;
-  v18 = (BYTE8(v24) + v24) & 0x7F;
-  if ((*(*(&v22 + 1) + v17) + 32 * v18) == v16)
+  v16 = (*(v22.i64[1] + v15) + 32 * (v24.i8[0] & 0x7F));
+  v17 = ((v24.i64[1] + v24.i64[0]) >> 4) & 0xFFFFFFFFFFFFFF8;
+  v18 = (v24.i8[8] + v24.i8[0]) & 0x7F;
+  if ((*(v22.i64[1] + v17) + 32 * v18) == v16)
   {
 LABEL_18:
     v19 = 0;
     goto LABEL_19;
   }
 
-  v19 = v18 - (v24 & 0x7F) + 16 * (v17 - v15);
+  v19 = v18 - (v24.i8[0] & 0x7F) + 16 * (v17 - v15);
 LABEL_19:
-  std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>((a2 + 8), (*(&v22 + 1) + v15), v16, v19);
+  std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(a1 + 1, (v22.i64[1] + v15), v16, v19);
 LABEL_20:
   std::deque<lcdm::SubTLV>::~deque[abi:ne200100](&v22);
   if (v20)
@@ -9183,40 +9142,40 @@ void sub_297073470(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void lcdm::CrashEntry::toDebugString(lcdm::CrashEntry *this@<X0>, void *a2@<X8>)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v12[0] = *this;
-  v12[1] = 0;
+  v18 = *MEMORY[0x29EDCA608];
+  v11[0] = *this;
+  v11[1] = 0;
   v3 = *(this + 1);
-  v12[3] = 0;
-  v12[4] = 230;
-  v12[2] = v3;
+  v11[3] = 0;
+  v11[4] = 230;
+  v11[2] = v3;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v17[14] = v4;
-  v17[15] = v4;
-  v17[13] = v4;
-  v17[12] = v4;
-  v17[11] = v4;
-  v17[10] = v4;
-  v17[9] = v4;
-  v17[8] = v4;
-  v17[7] = v4;
-  v17[6] = v4;
-  v17[5] = v4;
-  v17[4] = v4;
-  v17[3] = v4;
-  v17[2] = v4;
-  v17[1] = v4;
-  v17[0] = v4;
-  v13 = v17;
+  v16[14] = v4;
+  v16[15] = v4;
+  v16[13] = v4;
+  v16[12] = v4;
+  v16[11] = v4;
+  v16[10] = v4;
+  v16[9] = v4;
+  v16[8] = v4;
+  v16[7] = v4;
+  v16[6] = v4;
+  v16[5] = v4;
+  v16[4] = v4;
+  v16[3] = v4;
+  v16[2] = v4;
+  v16[1] = v4;
+  v16[0] = v4;
+  v12 = v16;
   *__len = xmmword_297225680;
-  v15 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-  v16 = 0;
-  __p = v17;
-  v11[0] = 2;
-  v11[1] = v12;
-  v11[2] = 230;
-  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v13, "fLength = {}, fTimestamp = {}", 29, v11);
+  v14 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+  v15 = 0;
+  __p = v16;
+  v10[0] = 2;
+  v10[1] = v11;
+  v10[2] = 230;
+  std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v12, "fLength = {}, fTimestamp = {}", 29, v10);
   v5 = __len[1];
   if (__len[1] >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -9228,47 +9187,45 @@ void lcdm::CrashEntry::toDebugString(lcdm::CrashEntry *this@<X0>, void *a2@<X8>)
   {
     if ((__len[1] | 7) == 0x17)
     {
-      v9 = 25;
+      v8 = 25;
     }
 
     else
     {
-      v9 = (__len[1] | 7) + 1;
+      v8 = (__len[1] | 7) + 1;
     }
 
-    v10 = operator new(v9);
+    v9 = operator new(v8);
     a2[1] = v5;
-    a2[2] = v9 | 0x8000000000000000;
-    *a2 = v10;
-    a2 = v10;
-LABEL_11:
-    memmove(a2, v6, v5);
-    *(a2 + v5) = 0;
-    v7 = __p;
-    if (__p == v17)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_5;
+    a2[2] = v8 | 0x8000000000000000;
+    *a2 = v9;
+    a2 = v9;
   }
 
-  *(a2 + 23) = __len[1];
-  if (v5)
+  else
   {
-    goto LABEL_11;
+    *(a2 + 23) = __len[1];
+    if (!v5)
+    {
+      *a2 = 0;
+      v7 = __p;
+      if (__p == v16)
+      {
+        return;
+      }
+
+      goto LABEL_5;
+    }
   }
 
-  *a2 = 0;
+  memmove(a2, v6, v5);
+  *(a2 + v5) = 0;
   v7 = __p;
-  if (__p != v17)
+  if (__p != v16)
   {
 LABEL_5:
     operator delete(v7);
   }
-
-LABEL_6:
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297073704(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *__p)
@@ -9281,38 +9238,38 @@ void sub_297073704(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int64x2_t std::deque<lcdm::SubTLV>::push_front(uint64_t a1, uint64_t *a2)
+int64x2_t std::deque<lcdm::SubTLV>::push_front(int64x2_t *a1, uint64_t *a2)
 {
-  v4 = *(a1 + 32);
+  v4 = a1[2].u64[0];
   if (v4)
   {
     goto LABEL_50;
   }
 
-  v6 = *(a1 + 8);
-  v5 = *(a1 + 16);
+  v6 = a1->i64[1];
+  v5 = a1[1].i64[0];
   v7 = 16 * (v5 - v6) - 1;
   if (v5 == v6)
   {
     v7 = 0;
   }
 
-  if ((v7 - *(a1 + 40)) < 0x80)
+  if ((v7 - a1[2].i64[1]) < 0x80)
   {
-    v8 = *(a1 + 24);
-    v9 = *a1;
-    v10 = &v8[-*a1];
+    v8 = a1[1].i64[1];
+    v9 = a1->i64[0];
+    v10 = v8 - a1->i64[0];
     if (v5 - v6 < v10)
     {
       if (v6 == v9)
       {
         v55 = operator new(0x1000uLL);
         std::__split_buffer<lcdm::SubTLV *>::emplace_back<lcdm::SubTLV *&>(a1, &v55);
-        v38 = *(a1 + 16);
+        v38 = a1[1].i64[0];
         v55 = *(v38 - 8);
-        *(a1 + 16) = v38 - 8;
+        a1[1].i64[0] = v38 - 8;
         std::__split_buffer<lcdm::SubTLV *>::emplace_front<lcdm::SubTLV *>(a1, &v55);
-        if (*(a1 + 16) - *(a1 + 8) == 8)
+        if (a1[1].i64[0] - a1->i64[1] == 8)
         {
           goto LABEL_9;
         }
@@ -9322,15 +9279,15 @@ int64x2_t std::deque<lcdm::SubTLV>::push_front(uint64_t a1, uint64_t *a2)
       {
         v55 = operator new(0x1000uLL);
         std::__split_buffer<lcdm::SubTLV *>::emplace_front<lcdm::SubTLV *>(a1, &v55);
-        if (*(a1 + 16) - *(a1 + 8) == 8)
+        if (a1[1].i64[0] - a1->i64[1] == 8)
         {
 LABEL_9:
-          *(a1 + 32) = 64;
+          a1[2].i64[0] = 64;
           goto LABEL_49;
         }
       }
 
-      *(a1 + 32) += 128;
+      a1[2].i64[0] += 128;
       goto LABEL_49;
     }
 
@@ -9391,7 +9348,7 @@ LABEL_16:
               v16 = v18;
               if (!v25)
               {
-                v16 = &v18[v26];
+                v16 = (v18 + v26);
                 v27 = v26 - 8;
                 if (v27 < 0x18 || (v28 = 8 * v24, (&v22[8 * v24] - v17) < 0x20))
                 {
@@ -9402,7 +9359,7 @@ LABEL_16:
 
                 v32 = (v27 >> 3) + 1;
                 v33 = 8 * (v32 & 0x3FFFFFFFFFFFFFFCLL);
-                v29 = &v18[v33];
+                v29 = (v18 + v33);
                 v30 = &v17[v33];
                 v34 = (v17 + 16);
                 v35 = &v22[v28 + 16];
@@ -9450,7 +9407,7 @@ LABEL_32:
               memmove(&v17[-8 * v20], v17, v16 - v17);
             }
 
-            v16 = &v18[v16 - v17];
+            v16 = (v18 + v16 - v17);
           }
 
           else
@@ -9459,12 +9416,11 @@ LABEL_32:
           }
 
 LABEL_18:
-          v19 = *v6;
-          v6 += 8;
+          v19 = *v6++;
           *v16 = v19;
           v16 += 8;
           v17 = v18;
-          if (v6 == *(a1 + 16))
+          if (v6 == a1[1].i64[0])
           {
             goto LABEL_44;
           }
@@ -9475,10 +9431,10 @@ LABEL_18:
     else
     {
       v39 = operator new(8uLL);
-      v15 = v39 + 8;
+      v15 = (v39 + 8);
       operator delete(v12);
-      v6 = *(a1 + 8);
-      v40 = *(a1 + 16);
+      v6 = a1->i64[1];
+      v40 = a1[1].i64[0];
       v12 = v39;
       *v39 = v14;
       v16 = v39 + 8;
@@ -9490,22 +9446,22 @@ LABEL_18:
 
     v18 = v12;
 LABEL_44:
-    v41 = *a1;
-    *a1 = v12;
-    *(a1 + 8) = v18;
-    *(a1 + 16) = v16;
-    *(a1 + 24) = v15;
-    if (v16 - v18 == 8)
+    v41 = a1->i64[0];
+    a1->i64[0] = v12;
+    a1->i64[1] = v18;
+    a1[1].i64[0] = v16;
+    a1[1].i64[1] = v15;
+    if (&v16[-v18] == 8)
     {
       v42 = 64;
     }
 
     else
     {
-      v42 = *(a1 + 32) + 128;
+      v42 = a1[2].i64[0] + 128;
     }
 
-    *(a1 + 32) = v42;
+    a1[2].i64[0] = v42;
     if (v41)
     {
       operator delete(v41);
@@ -9514,17 +9470,17 @@ LABEL_44:
     goto LABEL_49;
   }
 
-  *(a1 + 32) = 128;
-  v55 = *(v5 - 1);
-  *(a1 + 16) = v5 - 8;
+  a1[2].i64[0] = 128;
+  v55 = *(v5 - 8);
+  a1[1].i64[0] = v5 - 8;
   std::__split_buffer<lcdm::SubTLV *>::emplace_front<lcdm::SubTLV *>(a1, &v55);
 LABEL_49:
-  v4 = *(a1 + 32);
+  v4 = a1[2].u64[0];
 LABEL_50:
-  v43 = *(a1 + 8);
+  v43 = a1->i64[1];
   v44 = (v43 + 8 * (v4 >> 7));
   v45 = *v44 + 32 * (v4 & 0x7F);
-  if (*(a1 + 16) == v43)
+  if (a1[1].i64[0] == v43)
   {
     v46 = 0;
   }
@@ -9564,8 +9520,8 @@ LABEL_50:
     *(v46 - 16) = v53;
   }
 
-  result = vaddq_s64(*(a1 + 32), xmmword_297225690);
-  *(a1 + 32) = result;
+  result = vaddq_s64(a1[2], xmmword_297225690);
+  a1[2] = result;
   return result;
 }
 
@@ -9595,11 +9551,11 @@ uint64_t std::__split_buffer<lcdm::SubTLV *>::~__split_buffer(uint64_t result)
   return result;
 }
 
-void std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(void *a1, void *a2, void *a3, unint64_t a4)
+void std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>>(char **result, void *a2, void *a3, unint64_t a4)
 {
-  v7 = a1;
-  v8 = a1[1];
-  v9 = a1[2];
+  v7 = result;
+  v8 = result[1];
+  v9 = result[2];
   if (v9 == v8)
   {
     v10 = 0;
@@ -9610,19 +9566,19 @@ void std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_ite
     v10 = 16 * (v9 - v8) - 1;
   }
 
-  v11 = a1[5];
-  v12 = v11 + a1[4];
+  v11 = result[5];
+  v12 = &result[4][v11];
   v13 = v10 - v12;
   if (a4 > v13)
   {
-    std::deque<lcdm::SubTLV>::__add_back_capacity(a1, a4 - v13);
+    std::deque<lcdm::SubTLV>::__add_back_capacity(result, a4 - v13);
     v11 = v7[5];
     v8 = v7[1];
     v9 = v7[2];
-    v12 = v7[4] + v11;
+    v12 = &v7[4][v11];
   }
 
-  v14 = (v8 + 8 * (v12 >> 7));
+  v14 = &v8[8 * (v12 >> 7)];
   if (v9 == v8)
   {
     v15 = 0;
@@ -9633,7 +9589,7 @@ void std::deque<lcdm::SubTLV>::__append_with_size[abi:ne200100]<std::__deque_ite
     }
 
 LABEL_12:
-    v18 = (v8 + 8 * (v12 >> 7));
+    v18 = &v8[8 * (v12 >> 7)];
     if (v15 != v16)
     {
       goto LABEL_15;
@@ -9653,7 +9609,7 @@ LABEL_8:
   v17 = a4 + ((v16 - *v14) >> 5);
   if (v17 >= 1)
   {
-    v18 = &v14[v17 >> 7];
+    v18 = &v14[8 * (v17 >> 7)];
     v16 = *v18 + 32 * (v17 & 0x7F);
     if (v15 == v16)
     {
@@ -9726,7 +9682,7 @@ LABEL_15:
         v16 = v31;
         v7 = v32;
         v18 = v30;
-        v11 = v32[5] + ((v20 - v15) >> 5);
+        v11 = &v32[5][(v20 - v15) >> 5];
         v32[5] = v11;
         if (v14 == v30)
         {
@@ -9734,8 +9690,8 @@ LABEL_15:
         }
       }
 
-      v29 = v14[1];
-      ++v14;
+      v29 = *(v14 + 1);
+      v14 += 8;
       v15 = v29;
       if (v29 == v16)
       {
@@ -9745,7 +9701,7 @@ LABEL_15:
   }
 
   v19 = 127 - v17;
-  v18 = &v14[-(v19 >> 7)];
+  v18 = &v14[-8 * (v19 >> 7)];
   v16 = *v18 + 32 * (~v19 & 0x7F);
   if (v15 != v16)
   {
@@ -9766,4 +9722,44 @@ void sub_297073DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   *(a12 + 40) += -v13 >> 5;
   _Unwind_Resume(a1);
+}
+
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>,std::__copy_impl::_CopySegment<std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV const*,lcdm::SubTLV const&,lcdm::SubTLV const* const*,long,128l>,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>>>(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4, char ***a5)
+{
+  if (a1 == a3)
+  {
+    v7 = *a5;
+    v8 = a5[1];
+    memset(v16, 170, sizeof(v16));
+  }
+
+  else
+  {
+    v11 = a1 + 1;
+    v10 = *a1;
+    v12 = *a5;
+    v13 = a5[1];
+    memset(v16, 170, sizeof(v16));
+    std::__copy_impl::operator()[abi:ne200100]<lcdm::SubTLV const*,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>,0>(v16, a2, v10 + 4096, v12, v13);
+    v8 = v16[2];
+    v7 = v16[1];
+    *a5 = v16[1];
+    for (a5[1] = v8; v11 != a3; a5[1] = v8)
+    {
+      v14 = *v11++;
+      memset(v16, 170, sizeof(v16));
+      std::__copy_impl::operator()[abi:ne200100]<lcdm::SubTLV const*,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>,0>(v16, v14, v14 + 4096, v7, v8);
+      v8 = v16[2];
+      v7 = v16[1];
+      *a5 = v16[1];
+    }
+
+    a2 = *v11;
+    memset(v16, 170, sizeof(v16));
+  }
+
+  std::__copy_impl::operator()[abi:ne200100]<lcdm::SubTLV const*,std::__deque_iterator<lcdm::SubTLV,lcdm::SubTLV*,lcdm::SubTLV&,lcdm::SubTLV**,long,128l>,0>(v16, a2, a4, v7, v8);
+  result = *&v16[1];
+  *a5 = *&v16[1];
+  return result;
 }

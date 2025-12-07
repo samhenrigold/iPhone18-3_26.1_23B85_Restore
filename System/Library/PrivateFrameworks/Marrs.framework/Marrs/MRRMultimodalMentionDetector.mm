@@ -276,10 +276,7 @@ void __99__MRRMultimodalMentionDetector_detectMentionsInUtterance_maximumCandida
 
 uint64_t __115__MRRMultimodalMentionDetector_detectMentionsInUtterance_utteranceTokens_tokenEmbeddings_maximumCandidates_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) detectMentionsInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) detectMentionsInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -330,10 +327,7 @@ uint64_t __115__MRRMultimodalMentionDetector_detectMentionsInUtterance_utterance
 
 uint64_t __83__MRRMultimodalMentionDetector_detectMentionsInUtterance_maximumCandidates_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) detectMentionsInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) detectMentionsInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -403,7 +397,6 @@ uint64_t __81__MRRMultimodalMentionDetector_detectMentionsInUtterance_status_com
     *(*(a1[9] + 8) + 24) = 1;
   }
 
-  v8 = *(*(a1[7] + 8) + 40);
   return (*(a1[6] + 16))();
 }
 
@@ -436,10 +429,7 @@ uint64_t __81__MRRMultimodalMentionDetector_detectMentionsInUtterance_status_com
 
 uint64_t __72__MRRMultimodalMentionDetector_detectMentionsInUtteranceRequest_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) detectMentionsInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) detectMentionsInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -473,10 +463,7 @@ uint64_t __72__MRRMultimodalMentionDetector_detectMentionsInUtteranceRequest_sta
 
 uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) detectMentionsInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) detectMentionsInUtteranceImpl:*(a1 + 40) status:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -546,7 +533,7 @@ uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___b
     self->_locale = v18;
   }
 
-  [ConverterUtils convertMentionDetectorRequestFromObjCToCpp:implCopy];
+  objc_msgSend_convertMentionDetectorRequestFromObjCToCpp_(ConverterUtils);
   ptr = self->_mentionDetector.__ptr_;
   if (ptr)
   {
@@ -591,7 +578,7 @@ uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___b
 
 - (MRRMultimodalMentionDetector)initWithAssets:(id)assets forLocale:(id)locale status:(id *)status
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   localeCopy = locale;
   v6 = MRRLoggerForCategory(3);
@@ -600,7 +587,7 @@ uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___b
   v8 = MRRLoggerForCategory(3);
   v9 = v8;
   spid = v7;
-  v31 = v7 - 1;
+  v30 = v7 - 1;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     LOWORD(buf) = 0;
@@ -624,18 +611,18 @@ uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___b
     _os_log_impl(&dword_2227A9000, v11, OS_LOG_TYPE_INFO, "initializing MD with asset path - %@, locale - %@", &buf, 0x16u);
   }
 
-  v37.receiver = self;
-  v37.super_class = MRRMultimodalMentionDetector;
-  v36 = [(MRRMultimodalMentionDetector *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = MRRMultimodalMentionDetector;
+  v35 = [(MRRMultimodalMentionDetector *)&v36 init];
   v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:localeCopy];
-  locale = v36->_locale;
-  v36->_locale = v12;
+  locale = v35->_locale;
+  v35->_locale = v12;
 
   v14 = dispatch_queue_create("com.apple.sirinl.marrs", 0);
-  dispatchQueue = v36->_dispatchQueue;
-  v36->_dispatchQueue = v14;
+  dispatchQueue = v35->_dispatchQueue;
+  v35->_dispatchQueue = v14;
 
-  v16 = v36->_dispatchQueue;
+  v16 = v35->_dispatchQueue;
   v17 = dispatch_get_global_queue(25, 0);
   dispatch_set_target_queue(v16, v17);
 
@@ -649,8 +636,8 @@ uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___b
     operator new();
   }
 
-  ptr = v36->_mentionDetector.__ptr_;
-  v36->_mentionDetector.__ptr_ = 0;
+  ptr = v35->_mentionDetector.__ptr_;
+  v35->_mentionDetector.__ptr_ = 0;
   if (ptr)
   {
     (*(*ptr + 16))(ptr);
@@ -684,7 +671,7 @@ uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___b
 
   v25 = MRRLoggerForCategory(3);
   v26 = v25;
-  if (v31 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  if (v30 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
     LOWORD(buf) = 0;
     _os_signpost_emit_with_name_impl(&dword_2227A9000, v26, OS_SIGNPOST_INTERVAL_END, spid, "MDInitialization", " enableTelemetry=YES ", &buf, 2u);
@@ -697,8 +684,7 @@ uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___b
     _os_log_impl(&dword_2227A9000, v27, OS_LOG_TYPE_INFO, "END MDInitialization", &buf, 2u);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-  return v36;
+  return v35;
 }
 
 + (id)sharedManager
@@ -713,7 +699,7 @@ uint64_t __65__MRRMultimodalMentionDetector_detectMentionsInUtterance_status___b
   return v3;
 }
 
-uint64_t __45__MRRMultimodalMentionDetector_sharedManager__block_invoke()
+uint64_t __45__MRRMultimodalMentionDetector_sharedManager__block_invoke(uint64_t a1, uint64_t a2)
 {
   +[MRRMultimodalMentionDetector sharedManager]::singletonMentionDetector = objc_opt_new();
 

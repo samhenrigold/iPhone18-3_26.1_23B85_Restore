@@ -69,44 +69,43 @@ void __103__ICDrawingHashtagsAndMentionsController_allPossibleParticipantNameTok
 
 void __103__ICDrawingHashtagsAndMentionsController_allPossibleParticipantNameTokensForAttachmentView_completion___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
     v3 = [*(a1 + 32) copy];
     [WeakRetained setMentionTokensForParticipants:v3];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v4 = [WeakRetained mentionTokensForParticipants];
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         v8 = 0;
         do
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * v8);
-          v10 = *(a1 + 40);
-          v11 = [WeakRetained mentionTokensForParticipants];
-          v12 = [v11 objectForKeyedSubscript:v9];
-          [v10 unionSet:v12];
+          v9 = *(a1 + 40);
+          v10 = [WeakRetained mentionTokensForParticipants];
+          v11 = objc_msgSend_objectForKeyedSubscript_(v10);
+          [v9 unionSet:v11];
 
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v6);
@@ -114,15 +113,15 @@ void __103__ICDrawingHashtagsAndMentionsController_allPossibleParticipantNameTok
 
     if ([*(a1 + 40) count])
     {
-      v13 = *(a1 + 40);
-      v14 = [MEMORY[0x1E69B77E8] allKeyword];
-      v15 = [v14 ic_tokenSafeText];
-      [v13 addObject:v15];
+      v12 = *(a1 + 40);
+      v13 = [MEMORY[0x1E69B77E8] allKeyword];
+      v14 = [v13 ic_tokenSafeText];
+      [v12 addObject:v14];
     }
 
-    v16 = *(a1 + 48);
-    v17 = [*(a1 + 40) copy];
-    (*(v16 + 16))(v16, v17);
+    v15 = *(a1 + 48);
+    v16 = [*(a1 + 40) copy];
+    (*(v15 + 16))(v15, v16);
   }
 }
 
@@ -296,7 +295,7 @@ LABEL_16:
 
             v21 = *(*(&v46 + 1) + 8 * i);
             mentionTokensForParticipants = [(ICDrawingHashtagsAndMentionsController *)self mentionTokensForParticipants];
-            v23 = [mentionTokensForParticipants objectForKeyedSubscript:v21];
+            v23 = objc_msgSend_objectForKeyedSubscript_(mentionTokensForParticipants);
 
             ic_tokenSafeText3 = [textCopy ic_tokenSafeText];
             v25 = [v23 containsObject:ic_tokenSafeText3];
@@ -859,7 +858,7 @@ void __87__ICDrawingHashtagsAndMentionsController_fetchMentionTokensForParticipa
   v2 = [OUTLINED_FUNCTION_3() attachment];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "Couldn't find inline mention attachment for deletion: %@ (parent: %@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "Couldn't find inline mention attachment for deletion: %@ (parent: %@)", v6, v7, v8, v9);
 }
 
 - (void)allConfirmedHashtagsForAttachmentView:.cold.1()
@@ -898,7 +897,7 @@ void __87__ICDrawingHashtagsAndMentionsController_fetchMentionTokensForParticipa
   v2 = [OUTLINED_FUNCTION_3() attachment];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "Couldn't find inline hashtag attachment for deletion: %@ (parent: %@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "Couldn't find inline hashtag attachment for deletion: %@ (parent: %@)", v6, v7, v8, v9);
 }
 
 @end

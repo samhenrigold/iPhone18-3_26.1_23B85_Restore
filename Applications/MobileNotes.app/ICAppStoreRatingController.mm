@@ -24,7 +24,7 @@
 - (void)setDidRequestRating:(BOOL)rating
 {
   ratingCopy = rating;
-  v5 = sub_10015DA04(&unk_1006C1710);
+  v5 = sub_10015DA04(&unk_1006C1710, &qword_10053BA80);
   __chkstk_darwin(v5 - 8);
   v7 = &v10 - v6;
   *(self + OBJC_IVAR___ICAppStoreRatingController_didRequestRating) = ratingCopy;
@@ -51,7 +51,7 @@
 
 - (NSDate)lastRequestDate
 {
-  v3 = sub_10015DA04(&unk_1006C1710);
+  v3 = sub_10015DA04(&unk_1006C1710, &qword_10053BA80);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -73,7 +73,7 @@
 
 - (void)setLastRequestDate:(id)date
 {
-  v5 = sub_10015DA04(&unk_1006C1710);
+  v5 = sub_10015DA04(&unk_1006C1710, &qword_10053BA80);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (date)
@@ -107,7 +107,7 @@
 
 - (void)didInteract
 {
-  v3 = sub_10015DA04(&unk_1006C1710);
+  v3 = sub_10015DA04(&unk_1006C1710, &qword_10053BA80);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   selfCopy = self;

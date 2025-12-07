@@ -162,7 +162,7 @@
 
     if (parentViewController == self)
     {
-      [(SBLogoutProgressView *)self->_progressView frame];
+      objc_msgSend_frame(self->_progressView);
       [(SBLogoutProgressTransientOverlayViewController *)self _updateDebugTasksViewControllerSizeFromSize:v10, v11];
     }
 
@@ -170,7 +170,7 @@
     {
       [(SBLogoutDebugBlockingViewController *)self->_debugTasksViewController willMoveToParentViewController:self];
       [(SBLogoutProgressTransientOverlayViewController *)self addChildViewController:self->_debugTasksViewController];
-      [(SBLogoutProgressView *)self->_progressView frame];
+      objc_msgSend_frame(self->_progressView);
       [(SBLogoutProgressTransientOverlayViewController *)self _updateDebugTasksViewControllerSizeFromSize:v6, v7];
       progressView = self->_progressView;
       view = [(SBLogoutDebugBlockingViewController *)self->_debugTasksViewController view];

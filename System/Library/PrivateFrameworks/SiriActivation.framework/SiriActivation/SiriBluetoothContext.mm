@@ -37,10 +37,9 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   contextOverride = [(SiriContext *)self contextOverride];
-  isEyesFree = self->_isEyesFree;
-  v6 = [v3 stringWithFormat:@"<SiriBluetoothContext contextOverride:%@ isTemporaryDevice:%@ isEyesFree:%@ address:%@>", contextOverride, self->_isTemporaryDevice, isEyesFree, self->_address];
+  v5 = [v3 stringWithFormat:@"<SiriBluetoothContext contextOverride:%@ isTemporaryDevice:%@ isEyesFree:%@ address:%@>", contextOverride, self->_isTemporaryDevice, self->_isEyesFree, self->_address];
 
-  return v6;
+  return v5;
 }
 
 - (SiriBluetoothContext)initWithCoder:(id)coder

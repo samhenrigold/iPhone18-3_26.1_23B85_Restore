@@ -68,17 +68,17 @@
 
 - (void)_addCalDAVNotification:(id)notification
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     listChangeItem = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
-    v12 = 138412546;
-    v13 = listChangeItem;
-    v14 = 2112;
-    v15 = notificationCopy;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding calDAVNotification {listChangeItem: %@, calDAVNotification: %@}", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = listChangeItem;
+    v13 = 2112;
+    v14 = notificationCopy;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding calDAVNotification {listChangeItem: %@, calDAVNotification: %@}", &v11, 0x16u);
   }
 
   listChangeItem2 = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
@@ -93,13 +93,11 @@
   [v9 addObject:notificationCopy];
   listChangeItem3 = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
   [listChangeItem3 setCalDAVNotifications:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeCalDAVNotication:(id)notication
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   noticationCopy = notication;
   listChangeItem = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
   calDAVNotifications = [listChangeItem calDAVNotifications];
@@ -113,11 +111,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       listChangeItem2 = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
-      v12 = 138412546;
-      v13 = listChangeItem2;
-      v14 = 2112;
-      v15 = noticationCopy;
-      _os_log_impl(&dword_19A0DB000, listChangeItem3, OS_LOG_TYPE_INFO, "Removing calDAVNotification {listChangeItem: %@, calDAVNotification: %@}", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = listChangeItem2;
+      v13 = 2112;
+      v14 = noticationCopy;
+      _os_log_impl(&dword_19A0DB000, listChangeItem3, OS_LOG_TYPE_INFO, "Removing calDAVNotification {listChangeItem: %@, calDAVNotification: %@}", &v11, 0x16u);
     }
 
     [v7 removeObject:noticationCopy];
@@ -129,31 +127,27 @@
   {
     [REMListCalDAVNotificationContextChangeItem removeCalDAVNotication:];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearCalDAVNotifications
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = +[REMLogStore write];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     listChangeItem = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
-    v7 = 138412290;
-    v8 = listChangeItem;
-    _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_INFO, "Removing all calDAVNotifications {listChangeItem: %@}", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = listChangeItem;
+    _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_INFO, "Removing all calDAVNotifications {listChangeItem: %@}", &v6, 0xCu);
   }
 
   listChangeItem2 = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
   [listChangeItem2 setCalDAVNotifications:MEMORY[0x1E695E0F0]];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateCalDAVNotification:(id)notification withBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   blockCopy = block;
   listChangeItem = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
@@ -176,11 +170,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       listChangeItem2 = [(REMListCalDAVNotificationContextChangeItem *)self listChangeItem];
-      v18 = 138412546;
-      v19 = listChangeItem2;
-      v20 = 2112;
-      v21 = notificationCopy;
-      _os_log_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_INFO, "Updating calDAVNotification {listChangeItem: %@, calDAVNotification: %@}", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = listChangeItem2;
+      v19 = 2112;
+      v20 = notificationCopy;
+      _os_log_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_INFO, "Updating calDAVNotification {listChangeItem: %@, calDAVNotification: %@}", &v17, 0x16u);
     }
 
     blockCopy[2](blockCopy, v12);
@@ -188,34 +182,26 @@
     changedKeysObserver = [listChangeItem3 changedKeysObserver];
     [changedKeysObserver keyDidChange:@"calDAVNotifications"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeCalDAVNotication:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 listChangeItem];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateCalDAVNotification:withBlock:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 listChangeItem];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

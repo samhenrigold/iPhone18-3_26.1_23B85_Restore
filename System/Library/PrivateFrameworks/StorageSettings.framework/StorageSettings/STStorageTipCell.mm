@@ -9,11 +9,11 @@
 
 - (STStorageTipCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier
 {
-  v46[7] = *MEMORY[0x277D85DE8];
+  v45[7] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
-  v45.receiver = self;
-  v45.super_class = STStorageTipCell;
-  v9 = [(PSTableCell *)&v45 initWithStyle:style reuseIdentifier:identifier specifier:specifierCopy];
+  v44.receiver = self;
+  v44.super_class = STStorageTipCell;
+  v9 = [(PSTableCell *)&v44 initWithStyle:style reuseIdentifier:identifier specifier:specifierCopy];
   v10 = v9;
   if (v9)
   {
@@ -114,21 +114,20 @@
     [(STStorageProgressView *)v10->_progressView setAccessibilityIdentifier:@"ProgressIndicator"];
     [(STStorageProgressView *)v10->_progressView sizeToFit];
     [contentView addSubview:v10->_progressView];
-    v46[0] = v10->_titleLabel;
-    v46[1] = v10->_appIconView;
-    v46[2] = v10->_enableButton;
-    v46[3] = v10->_spinner;
-    v46[4] = v10->_checkIconView;
-    v46[5] = v10->_progressLabel;
-    v46[6] = v10->_progressView;
-    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:7];
+    v45[0] = v10->_titleLabel;
+    v45[1] = v10->_appIconView;
+    v45[2] = v10->_enableButton;
+    v45[3] = v10->_spinner;
+    v45[4] = v10->_checkIconView;
+    v45[5] = v10->_progressLabel;
+    v45[6] = v10->_progressView;
+    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:7];
     [contentView setAccessibilityElements:v42];
 
     [(STStorageTipCell *)v10 setSeparatorInset:0.0, 58.0, 0.0, 0.0];
     [(STStorageTipCell *)v10 refreshCellContentsWithSpecifier:specifierCopy];
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -138,8 +137,8 @@
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
   IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
 
-  v70 = self->_hformat;
-  v69 = self->_h2format;
+  v69 = self->_hformat;
+  v68 = self->_h2format;
   titleWidth = self->_titleWidth;
   enableWidth = self->_enableWidth;
   progressWidth = self->_progressWidth;
@@ -158,10 +157,9 @@
   h2format = self->_h2format;
   self->_h2format = 0;
 
-  isOption = self->_isOption;
   if (IsAccessibilityCategory)
   {
-    v14 = v70;
+    v13 = v69;
     if (!self->_isOption)
     {
       goto LABEL_21;
@@ -170,97 +168,97 @@
     percent = self->_percent;
     if (percent == 0.0)
     {
-      v16 = self->_h2format;
-      v17 = @"H:|-59-[_enableButton(==enableWidth)]";
+      v15 = self->_h2format;
+      v16 = @"H:|-59-[_enableButton(==enableWidth)]";
     }
 
     else if (percent >= 1.0)
     {
-      v16 = self->_h2format;
-      v17 = @"H:|-59-[_checkIconView(==56)]";
+      v15 = self->_h2format;
+      v16 = @"H:|-59-[_checkIconView(==56)]";
     }
 
     else
     {
-      v16 = self->_h2format;
+      v15 = self->_h2format;
       if (percent >= 0.0)
       {
-        v17 = @"H:|-59-[_progressLabel(==progressWidth)]-6-[_progressView(==48)]";
+        v16 = @"H:|-59-[_progressLabel(==progressWidth)]-6-[_progressView(==48)]";
       }
 
       else
       {
-        v17 = @"H:|-59-[_progressLabel(==progressWidth)]-6-[_spinner(==spinnerWidth)]";
+        v16 = @"H:|-59-[_progressLabel(==progressWidth)]-6-[_spinner(==spinnerWidth)]";
       }
     }
 
-    self->_h2format = &v17->isa;
+    self->_h2format = &v16->isa;
   }
 
   else
   {
-    v14 = v70;
+    v13 = v69;
     if (!self->_isOption)
     {
       goto LABEL_21;
     }
 
-    v18 = self->_percent;
-    if (v18 == 0.0)
+    v17 = self->_percent;
+    if (v17 == 0.0)
     {
-      v16 = self->_hformat;
-      v19 = @"H:|-59-[_titleLabel]-6-[_enableButton(==enableWidth)]-15-|";
+      v15 = self->_hformat;
+      v18 = @"H:|-59-[_titleLabel]-6-[_enableButton(==enableWidth)]-15-|";
     }
 
-    else if (v18 >= 1.0)
+    else if (v17 >= 1.0)
     {
-      v16 = self->_hformat;
-      v19 = @"H:|-59-[_titleLabel]-6-[_checkIconView(==28)]-15-|";
+      v15 = self->_hformat;
+      v18 = @"H:|-59-[_titleLabel]-6-[_checkIconView(==28)]-15-|";
     }
 
     else
     {
-      v16 = self->_hformat;
-      if (v18 >= 0.0)
+      v15 = self->_hformat;
+      if (v17 >= 0.0)
       {
-        v19 = @"H:|-59-[_titleLabel]-6-[_progressLabel(==progressWidth)]-6-[_progressView(==24)]-15-|";
+        v18 = @"H:|-59-[_titleLabel]-6-[_progressLabel(==progressWidth)]-6-[_progressView(==24)]-15-|";
       }
 
       else
       {
-        v19 = @"H:|-59-[_titleLabel]-6-[_progressLabel(==progressWidth)]-6-[_spinner(==spinnerWidth)]-15-|";
+        v18 = @"H:|-59-[_titleLabel]-6-[_progressLabel(==progressWidth)]-6-[_spinner(==spinnerWidth)]-15-|";
       }
     }
 
-    self->_hformat = &v19->isa;
+    self->_hformat = &v18->isa;
   }
 
 LABEL_21:
-  if (v14 != self->_hformat)
+  if (v13 != self->_hformat)
   {
-    v20 = self->_titleWidth;
+    v19 = self->_titleWidth;
     goto LABEL_23;
   }
 
-  v20 = self->_titleWidth;
-  v48 = v69;
-  if (v69 != self->_h2format || titleWidth != v20 || enableWidth != self->_enableWidth || progressWidth != self->_progressWidth)
+  v19 = self->_titleWidth;
+  v47 = v68;
+  if (v68 != self->_h2format || titleWidth != v19 || enableWidth != self->_enableWidth || progressWidth != self->_progressWidth)
   {
 LABEL_23:
-    v21 = [MEMORY[0x277CCABB0] numberWithDouble:v20];
-    v22 = [MEMORY[0x277CCABB0] numberWithDouble:self->_enableWidth];
+    v20 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
+    v21 = [MEMORY[0x277CCABB0] numberWithDouble:self->_enableWidth];
     nativeSpinnerWidth = self->_nativeSpinnerWidth;
     if (IsAccessibilityCategory)
     {
       nativeSpinnerWidth = nativeSpinnerWidth + nativeSpinnerWidth;
     }
 
-    v24 = [MEMORY[0x277CCABB0] numberWithDouble:nativeSpinnerWidth];
-    v25 = [MEMORY[0x277CCABB0] numberWithDouble:self->_progressWidth];
-    v26 = _NSDictionaryOfVariableBindings(&cfstr_AppiconviewTit.isa, self->_appIconView, self->_titleLabel, self->_enableButton, self->_spinner, self->_checkIconView, self->_progressLabel, self->_progressView, 0);
-    v67 = v25;
-    v68 = v24;
-    v27 = _NSDictionaryOfVariableBindings(&cfstr_TitlewidthSpin.isa, v21, v24, v22, v25, 0);
+    v23 = [MEMORY[0x277CCABB0] numberWithDouble:nativeSpinnerWidth];
+    v24 = [MEMORY[0x277CCABB0] numberWithDouble:self->_progressWidth];
+    v25 = _NSDictionaryOfVariableBindings(&cfstr_AppiconviewTit.isa, self->_appIconView, self->_titleLabel, self->_enableButton, self->_spinner, self->_checkIconView, self->_progressLabel, self->_progressView, 0);
+    v66 = v24;
+    v67 = v23;
+    v26 = _NSDictionaryOfVariableBindings(&cfstr_TitlewidthSpin.isa, v20, v23, v21, v24, 0);
     if ([(NSMutableArray *)self->_constraints count])
     {
       [MEMORY[0x277CCAAD0] deactivateConstraints:self->_constraints];
@@ -270,66 +268,66 @@ LABEL_23:
     constraints = self->_constraints;
     self->_constraints = array;
 
-    v30 = self->_constraints;
-    v31 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:self->_hformat options:0 metrics:v27 views:v26];
-    [(NSMutableArray *)v30 addObjectsFromArray:v31];
+    v29 = self->_constraints;
+    v30 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:self->_hformat options:0 metrics:v26 views:v25];
+    [(NSMutableArray *)v29 addObjectsFromArray:v30];
 
-    v32 = self->_h2format;
-    if (v32)
+    v31 = self->_h2format;
+    if (v31)
     {
-      v33 = self->_constraints;
-      v34 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:v32 options:0 metrics:v27 views:v26];
-      [(NSMutableArray *)v33 addObjectsFromArray:v34];
+      v32 = self->_constraints;
+      v33 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:v31 options:0 metrics:v26 views:v25];
+      [(NSMutableArray *)v32 addObjectsFromArray:v33];
     }
 
     [(UILabel *)self->_titleLabel setNumberOfLines:2];
     [(UILabel *)self->_titleLabel setLineBreakMode:0];
-    v35 = self->_constraints;
-    v36 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-15-[_appIconView(==29)]" options:0 metrics:0 views:v26];
-    [(NSMutableArray *)v35 addObjectsFromArray:v36];
+    v34 = self->_constraints;
+    v35 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-15-[_appIconView(==29)]" options:0 metrics:0 views:v25];
+    [(NSMutableArray *)v34 addObjectsFromArray:v35];
 
-    v37 = self->_constraints;
+    v36 = self->_constraints;
     if (IsAccessibilityCategory)
     {
-      v38 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_appIconView attribute:4 relatedBy:0 toItem:self->_titleLabel attribute:12 multiplier:1.0 constant:2.0];
-      [(NSMutableArray *)v37 addObject:v38];
+      v37 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_appIconView attribute:4 relatedBy:0 toItem:self->_titleLabel attribute:12 multiplier:1.0 constant:2.0];
+      [(NSMutableArray *)v36 addObject:v37];
 
-      v39 = self->_constraints;
-      v40 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_appIconView(==29)]-(>=8)-|" options:0 metrics:0 views:v26];
-      [(NSMutableArray *)v39 addObjectsFromArray:v40];
+      v38 = self->_constraints;
+      v39 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_appIconView(==29)]-(>=8)-|" options:0 metrics:0 views:v25];
+      [(NSMutableArray *)v38 addObjectsFromArray:v39];
 
-      v41 = self->_constraints;
-      v42 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-13-[_titleLabel]-(>=8)-|" options:0 metrics:0 views:v26];
-      [(NSMutableArray *)v41 addObjectsFromArray:v42];
+      v40 = self->_constraints;
+      v41 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-13-[_titleLabel]-(>=8)-|" options:0 metrics:0 views:v25];
+      [(NSMutableArray *)v40 addObjectsFromArray:v41];
 
       if (([(UILabel *)self->_progressLabel isHidden]& 1) == 0)
       {
-        v43 = self->_constraints;
-        v44 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-13-[_titleLabel]-1-[_progressLabel]-(>=8)-|" options:0 metrics:0 views:v26];
-        [(NSMutableArray *)v43 addObjectsFromArray:v44];
+        v42 = self->_constraints;
+        v43 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-13-[_titleLabel]-1-[_progressLabel]-(>=8)-|" options:0 metrics:0 views:v25];
+        [(NSMutableArray *)v42 addObjectsFromArray:v43];
       }
 
-      v45 = v27;
+      v44 = v26;
       if (([(UIActivityIndicatorView *)self->_spinner isHidden]& 1) == 0)
       {
-        v46 = self->_constraints;
-        v47 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_titleLabel]-8-[_spinner]-(>=8)-|" options:0 metrics:0 views:v26];
-        [(NSMutableArray *)v46 addObjectsFromArray:v47];
+        v45 = self->_constraints;
+        v46 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_titleLabel]-8-[_spinner]-(>=8)-|" options:0 metrics:0 views:v25];
+        [(NSMutableArray *)v45 addObjectsFromArray:v46];
       }
 
-      v48 = v69;
+      v47 = v68;
       if (([(STStorageProgressView *)self->_progressView isHidden]& 1) == 0)
       {
-        v49 = self->_constraints;
-        v50 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_titleLabel]-6-[_progressView(==48)]-(>=8)-|" options:0 metrics:v27 views:v26];
-        [(NSMutableArray *)v49 addObjectsFromArray:v50];
+        v48 = self->_constraints;
+        v49 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_titleLabel]-6-[_progressView(==48)]-(>=8)-|" options:0 metrics:v26 views:v25];
+        [(NSMutableArray *)v48 addObjectsFromArray:v49];
       }
 
       if (([(UIButton *)self->_enableButton isHidden]& 1) == 0)
       {
-        v51 = self->_constraints;
-        v52 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_titleLabel]-1-[_enableButton]-(>=8)-|" options:0 metrics:0 views:v26];
-        [(NSMutableArray *)v51 addObjectsFromArray:v52];
+        v50 = self->_constraints;
+        v51 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_titleLabel]-1-[_enableButton]-(>=8)-|" options:0 metrics:0 views:v25];
+        [(NSMutableArray *)v50 addObjectsFromArray:v51];
       }
 
       if (([(UIImageView *)self->_checkIconView isHidden]& 1) != 0)
@@ -337,61 +335,61 @@ LABEL_23:
         goto LABEL_42;
       }
 
-      v53 = @"V:[_titleLabel]-10-[_checkIconView(==56)]-(>=8)-|";
+      v52 = @"V:[_titleLabel]-10-[_checkIconView(==56)]-(>=8)-|";
     }
 
     else
     {
-      v54 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-20-[_appIconView(==29)]-(>=8)-|" options:0 metrics:0 views:v26];
-      [(NSMutableArray *)v37 addObjectsFromArray:v54];
+      v53 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-20-[_appIconView(==29)]-(>=8)-|" options:0 metrics:0 views:v25];
+      [(NSMutableArray *)v36 addObjectsFromArray:v53];
 
-      v55 = self->_constraints;
-      v56 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-19-[_titleLabel]-(>=8)-|" options:0 metrics:0 views:v26];
-      [(NSMutableArray *)v55 addObjectsFromArray:v56];
+      v54 = self->_constraints;
+      v55 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-19-[_titleLabel]-(>=8)-|" options:0 metrics:0 views:v25];
+      [(NSMutableArray *)v54 addObjectsFromArray:v55];
 
-      v57 = self->_constraints;
-      v58 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-14-[_progressLabel]" options:0 metrics:0 views:v26];
-      [(NSMutableArray *)v57 addObjectsFromArray:v58];
+      v56 = self->_constraints;
+      v57 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-14-[_progressLabel]" options:0 metrics:0 views:v25];
+      [(NSMutableArray *)v56 addObjectsFromArray:v57];
 
-      v59 = self->_constraints;
-      v60 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-13-[_spinner]" options:0 metrics:0 views:v26];
-      [(NSMutableArray *)v59 addObjectsFromArray:v60];
+      v58 = self->_constraints;
+      v59 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-13-[_spinner]" options:0 metrics:0 views:v25];
+      [(NSMutableArray *)v58 addObjectsFromArray:v59];
 
-      v61 = self->_constraints;
-      v45 = v27;
-      v62 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-10-[_progressView(==24)]" options:0 metrics:v27 views:v26];
-      [(NSMutableArray *)v61 addObjectsFromArray:v62];
+      v60 = self->_constraints;
+      v44 = v26;
+      v61 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-10-[_progressView(==24)]" options:0 metrics:v26 views:v25];
+      [(NSMutableArray *)v60 addObjectsFromArray:v61];
 
-      v63 = self->_constraints;
-      v64 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-7-[_enableButton]" options:0 metrics:0 views:v26];
-      [(NSMutableArray *)v63 addObjectsFromArray:v64];
+      v62 = self->_constraints;
+      v63 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-7-[_enableButton]" options:0 metrics:0 views:v25];
+      [(NSMutableArray *)v62 addObjectsFromArray:v63];
 
-      v53 = @"V:|-10-[_checkIconView(==28)]";
-      v48 = v69;
+      v52 = @"V:|-10-[_checkIconView(==28)]";
+      v47 = v68;
     }
 
-    v65 = self->_constraints;
-    v66 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:v53 options:0 metrics:0 views:v26];
-    [(NSMutableArray *)v65 addObjectsFromArray:v66];
+    v64 = self->_constraints;
+    v65 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:v52 options:0 metrics:0 views:v25];
+    [(NSMutableArray *)v64 addObjectsFromArray:v65];
 
 LABEL_42:
     [MEMORY[0x277CCAAD0] activateConstraints:self->_constraints];
 
-    v14 = v70;
+    v13 = v69;
   }
 
-  v72.receiver = self;
-  v72.super_class = STStorageTipCell;
-  [(STStorageTipCell *)&v72 updateConstraints];
+  v71.receiver = self;
+  v71.super_class = STStorageTipCell;
+  [(STStorageTipCell *)&v71 updateConstraints];
 }
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
-  v28.receiver = self;
-  v28.super_class = STStorageTipCell;
-  [(PSTableCell *)&v28 refreshCellContentsWithSpecifier:specifierCopy];
+  v27.receiver = self;
+  v27.super_class = STStorageTipCell;
+  [(PSTableCell *)&v27 refreshCellContentsWithSpecifier:specifierCopy];
   v5 = [specifierCopy propertyForKey:@"stTitle"];
   [(UILabel *)self->_titleLabel setText:v5];
   v6 = [specifierCopy propertyForKey:@"stIcon"];
@@ -405,12 +403,12 @@ LABEL_42:
     v7 = [specifierCopy propertyForKey:@"stRepresentedApp"];
     if ([v7 length])
     {
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __53__STStorageTipCell_refreshCellContentsWithSpecifier___block_invoke;
-      v27[3] = &unk_2782E2840;
-      v27[4] = self;
-      STLoadTableIconForAppID(v7, v27);
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __53__STStorageTipCell_refreshCellContentsWithSpecifier___block_invoke;
+      v26[3] = &unk_2782E2840;
+      v26[4] = self;
+      STLoadTableIconForAppID(v7, v26);
     }
 
     else
@@ -431,10 +429,10 @@ LABEL_42:
     v13 = STFrameworkLocStr(@"ST_ENABLE");
   }
 
-  v29 = *MEMORY[0x277D740A8];
+  v28 = *MEMORY[0x277D740A8];
   v14 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-  v30[0] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v29[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
   v16 = [v12 initWithString:v13 attributes:v15];
 
   if (!v11)
@@ -503,8 +501,6 @@ LABEL_42:
 
   [(STStorageTipCell *)self setNeedsUpdateConstraints];
   [(STStorageTipCell *)self setNeedsDisplay];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateOption

@@ -39,7 +39,7 @@
 
 uint64_t __44__AMSUIUpdateMultiUserTokenTask_performTask__block_invoke(uint64_t a1, void *a2)
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
   if (!v4)
   {
@@ -49,255 +49,246 @@ uint64_t __44__AMSUIUpdateMultiUserTokenTask_performTask__block_invoke(uint64_t 
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = [*(a1 + 32) account];
-    v10 = AMSHashIfNeeded();
-    v11 = [*(a1 + 32) homeIdentifier];
-    v12 = AMSHashIfNeeded();
+    v6 = objc_opt_class();
+    v7 = AMSLogKey();
+    v8 = [*(a1 + 32) account];
+    v9 = AMSHashIfNeeded();
+    v10 = [*(a1 + 32) homeIdentifier];
+    v11 = AMSHashIfNeeded();
     *buf = 138544130;
-    v79 = v7;
-    v80 = 2114;
-    v81 = v8;
-    v82 = 2114;
-    v83 = v10;
-    v84 = 2114;
-    v85 = v12;
+    v70 = v6;
+    v71 = 2114;
+    v72 = v7;
+    v73 = 2114;
+    v74 = v9;
+    v75 = 2114;
+    v76 = v11;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Updating a Multi-User token. account = %{public}@ | homeIdentifier = %{public}@", buf, 0x2Au);
   }
 
-  v13 = [MEMORY[0x1E6959A48] ams_sharedAccountStore];
-  v14 = [*(a1 + 32) account];
-  v15 = [*(a1 + 32) homeIdentifier];
-  v16 = [v13 ams_setiTunesAccount:v14 forHomeWithIdentifier:v15];
-  v77 = 0;
-  v17 = [v16 resultWithError:&v77];
-  v18 = v77;
+  v12 = [MEMORY[0x1E6959A48] ams_sharedAccountStore];
+  v13 = [*(a1 + 32) account];
+  v14 = [*(a1 + 32) homeIdentifier];
+  v15 = [v12 ams_setiTunesAccount:v13 forHomeWithIdentifier:v14];
+  v68 = 0;
+  v16 = [v15 resultWithError:&v68];
+  v17 = v68;
 
-  if (v17)
+  if (v16)
   {
-    v19 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
-    if (!v19)
+    v18 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
+    if (!v18)
     {
-      v19 = [MEMORY[0x1E698C968] sharedConfig];
+      v18 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v20 = [v19 OSLogObject];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = [v18 OSLogObject];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(a1 + 32);
-      v22 = objc_opt_class();
-      v23 = AMSLogKey();
+      v20 = objc_opt_class();
+      v21 = AMSLogKey();
       *buf = 138543618;
-      v79 = v22;
-      v80 = 2114;
-      v81 = v23;
-      _os_log_impl(&dword_1BB036000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully updated the account's Multi-User token.", buf, 0x16u);
+      v70 = v20;
+      v71 = 2114;
+      v72 = v21;
+      _os_log_impl(&dword_1BB036000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully updated the account's Multi-User token.", buf, 0x16u);
     }
 
-    v24 = MEMORY[0x1E695E118];
+    v22 = MEMORY[0x1E695E118];
   }
 
   else
   {
-    v25 = *(a1 + 32);
-    v26 = [objc_opt_class() _errorIsRecoverable:v18];
-    v27 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
-    v28 = v27;
-    if (v26)
+    v23 = [objc_opt_class() _errorIsRecoverable:v17];
+    v24 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
+    v25 = v24;
+    if (v23)
     {
-      if (!v27)
+      if (!v24)
       {
-        v28 = [MEMORY[0x1E698C968] sharedConfig];
+        v25 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v29 = [v28 OSLogObject];
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v26 = [v25 OSLogObject];
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = *(a1 + 32);
-        v31 = objc_opt_class();
-        v32 = AMSLogKey();
+        v27 = objc_opt_class();
+        v28 = AMSLogKey();
         *buf = 138543618;
-        v79 = v31;
-        v80 = 2114;
-        v81 = v32;
-        _os_log_impl(&dword_1BB036000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] We must authenticate the iCloud account in order to generate a new Multi-User token.", buf, 0x16u);
+        v70 = v27;
+        v71 = 2114;
+        v72 = v28;
+        _os_log_impl(&dword_1BB036000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] We must authenticate the iCloud account in order to generate a new Multi-User token.", buf, 0x16u);
       }
 
-      v33 = objc_alloc_init(MEMORY[0x1E698C7B0]);
-      [v33 setCanMakeAccountActive:0];
-      [v33 setDebugReason:@"Updating a Multi-User Token"];
-      v34 = [AMSUIAuthKitUpdateTask alloc];
-      v35 = [v13 ams_activeiCloudAccount];
-      v36 = [*(a1 + 32) viewController];
-      v37 = [(AMSUIAuthKitUpdateTask *)v34 initWithAccount:v35 presentingViewController:v36 options:v33];
+      v29 = objc_alloc_init(MEMORY[0x1E698C7B0]);
+      [v29 setCanMakeAccountActive:0];
+      [v29 setDebugReason:@"Updating a Multi-User Token"];
+      v30 = [AMSUIAuthKitUpdateTask alloc];
+      v31 = [v12 ams_activeiCloudAccount];
+      v32 = [*(a1 + 32) viewController];
+      v33 = [(AMSUIAuthKitUpdateTask *)v30 initWithAccount:v31 presentingViewController:v32 options:v29];
 
-      v38 = [(AMSAuthKitUpdateTask *)v37 performAuthKitUpdate];
-      v76 = 0;
-      v39 = [v38 resultWithError:&v76];
-      v40 = v76;
+      v34 = [(AMSAuthKitUpdateTask *)v33 performAuthKitUpdate];
+      v67 = 0;
+      v35 = [v34 resultWithError:&v67];
+      v36 = v67;
 
-      if (v39)
+      if (v35)
       {
-        v73 = v37;
-        v74 = v39;
-        v41 = [*(a1 + 32) account];
-        v42 = [*(a1 + 32) homeIdentifier];
-        v43 = [v13 ams_setiTunesAccount:v41 forHomeWithIdentifier:v42];
-        v75 = v40;
-        v44 = [v43 resultWithError:&v75];
-        v18 = v75;
+        v64 = v33;
+        v65 = v35;
+        v37 = [*(a1 + 32) account];
+        v38 = [*(a1 + 32) homeIdentifier];
+        v39 = [v12 ams_setiTunesAccount:v37 forHomeWithIdentifier:v38];
+        v66 = v36;
+        v40 = [v39 resultWithError:&v66];
+        v17 = v66;
 
-        v45 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
-        v46 = v45;
-        if (v44)
+        v41 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
+        v42 = v41;
+        if (v40)
         {
-          if (!v45)
+          if (!v41)
           {
-            v46 = [MEMORY[0x1E698C968] sharedConfig];
+            v42 = [MEMORY[0x1E698C968] sharedConfig];
           }
 
-          v47 = [v46 OSLogObject];
-          v39 = v74;
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          v43 = [v42 OSLogObject];
+          v35 = v65;
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
-            v48 = *(a1 + 32);
-            v49 = objc_opt_class();
-            v50 = AMSLogKey();
+            v44 = objc_opt_class();
+            v45 = AMSLogKey();
             *buf = 138543618;
-            v79 = v49;
-            v80 = 2114;
-            v81 = v50;
-            _os_log_impl(&dword_1BB036000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully updated the account's Multi-User token.", buf, 0x16u);
+            v70 = v44;
+            v71 = 2114;
+            v72 = v45;
+            _os_log_impl(&dword_1BB036000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully updated the account's Multi-User token.", buf, 0x16u);
           }
 
-          v24 = MEMORY[0x1E695E118];
-          v37 = v73;
+          v22 = MEMORY[0x1E695E118];
+          v33 = v64;
         }
 
         else
         {
-          if (!v45)
+          if (!v41)
           {
-            v46 = [MEMORY[0x1E698C968] sharedConfig];
+            v42 = [MEMORY[0x1E698C968] sharedConfig];
           }
 
-          v65 = [v46 OSLogObject];
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+          v58 = [v42 OSLogObject];
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
-            v66 = *(a1 + 32);
-            v67 = objc_opt_class();
-            v68 = AMSLogKey();
-            v69 = AMSHashIfNeeded();
+            v59 = objc_opt_class();
+            v60 = AMSLogKey();
+            v61 = AMSHashIfNeeded();
             *buf = 138543874;
-            v79 = v67;
-            v80 = 2114;
-            v81 = v68;
-            v82 = 2114;
-            v83 = v69;
-            _os_log_impl(&dword_1BB036000, v65, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to update the account's Multi-User token. error = %{public}@", buf, 0x20u);
+            v70 = v59;
+            v71 = 2114;
+            v72 = v60;
+            v73 = 2114;
+            v74 = v61;
+            _os_log_impl(&dword_1BB036000, v58, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to update the account's Multi-User token. error = %{public}@", buf, 0x20u);
           }
 
-          v37 = v73;
-          v39 = v74;
+          v33 = v64;
+          v35 = v65;
           if (a2)
           {
-            v70 = v18;
-            v24 = 0;
-            *a2 = v18;
+            v62 = v17;
+            v22 = 0;
+            *a2 = v17;
           }
 
           else
           {
-            v24 = 0;
+            v22 = 0;
           }
         }
       }
 
       else
       {
-        v57 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
-        if (!v57)
+        v51 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
+        if (!v51)
         {
-          v57 = [MEMORY[0x1E698C968] sharedConfig];
+          v51 = [MEMORY[0x1E698C968] sharedConfig];
         }
 
-        v58 = [v57 OSLogObject];
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+        v52 = [v51 OSLogObject];
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v59 = *(a1 + 32);
-          v60 = objc_opt_class();
-          v61 = AMSLogKey();
+          v53 = objc_opt_class();
+          v54 = AMSLogKey();
           AMSHashIfNeeded();
-          v63 = v62 = v37;
+          v56 = v55 = v33;
           *buf = 138543874;
-          v79 = v60;
-          v80 = 2114;
-          v81 = v61;
-          v82 = 2114;
-          v83 = v63;
-          _os_log_impl(&dword_1BB036000, v58, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to authenticate the iCloud account. error = %{public}@", buf, 0x20u);
+          v70 = v53;
+          v71 = 2114;
+          v72 = v54;
+          v73 = 2114;
+          v74 = v56;
+          _os_log_impl(&dword_1BB036000, v52, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to authenticate the iCloud account. error = %{public}@", buf, 0x20u);
 
-          v37 = v62;
-          v39 = 0;
+          v33 = v55;
+          v35 = 0;
         }
 
         if (a2)
         {
-          v64 = v40;
-          v24 = 0;
-          *a2 = v40;
+          v57 = v36;
+          v22 = 0;
+          *a2 = v36;
         }
 
         else
         {
-          v24 = 0;
+          v22 = 0;
         }
 
-        v18 = v40;
+        v17 = v36;
       }
     }
 
     else
     {
-      if (!v27)
+      if (!v24)
       {
-        v28 = [MEMORY[0x1E698C968] sharedConfig];
+        v25 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v51 = [v28 OSLogObject];
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v46 = [v25 OSLogObject];
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-        v52 = *(a1 + 32);
-        v53 = objc_opt_class();
-        v54 = AMSLogKey();
-        v55 = AMSHashIfNeeded();
+        v47 = objc_opt_class();
+        v48 = AMSLogKey();
+        v49 = AMSHashIfNeeded();
         *buf = 138543874;
-        v79 = v53;
-        v80 = 2114;
-        v81 = v54;
-        v82 = 2114;
-        v83 = v55;
-        _os_log_impl(&dword_1BB036000, v51, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to update the account's Multi-User token. error = %{public}@", buf, 0x20u);
+        v70 = v47;
+        v71 = 2114;
+        v72 = v48;
+        v73 = 2114;
+        v74 = v49;
+        _os_log_impl(&dword_1BB036000, v46, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to update the account's Multi-User token. error = %{public}@", buf, 0x20u);
       }
 
       if (a2)
       {
-        v56 = v18;
-        v24 = 0;
-        *a2 = v18;
+        v50 = v17;
+        v22 = 0;
+        *a2 = v17;
       }
 
       else
       {
-        v24 = 0;
+        v22 = 0;
       }
     }
   }
 
-  v71 = *MEMORY[0x1E69E9840];
-  return v24;
+  return v22;
 }
 
 + (BOOL)_errorIsRecoverable:(id)recoverable

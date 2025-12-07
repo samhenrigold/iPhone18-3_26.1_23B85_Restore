@@ -7,7 +7,7 @@
 
 + (id)insertDataObject:(id)object withProvenance:(id)provenance inDatabase:(id)database persistentID:(id)d error:(id *)error
 {
-  v28[8] = *MEMORY[0x277D85DE8];
+  v27[8] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   dCopy = d;
   databaseCopy = database;
@@ -18,24 +18,24 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDClinicalNoteRecordEntity.m" lineNumber:63 description:{@"Subclasses must override %s", "+[HDClinicalNoteRecordEntity insertDataObject:withProvenance:inDatabase:persistentID:error:]"}];
   }
 
-  v28[0] = @"data_id";
-  v28[1] = @"status_coding";
-  v28[2] = @"document_type_coding_collection";
-  v28[3] = @"note_creation_date";
-  v28[4] = @"categories_coding_collections";
-  v28[5] = @"relevant_start_date";
-  v28[6] = @"relevant_end_date";
-  v28[7] = @"authors";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:8];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __92__HDClinicalNoteRecordEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
-  v25[3] = &unk_278613DE8;
-  v26 = dCopy;
-  v27 = objectCopy;
+  v27[0] = @"data_id";
+  v27[1] = @"status_coding";
+  v27[2] = @"document_type_coding_collection";
+  v27[3] = @"note_creation_date";
+  v27[4] = @"categories_coding_collections";
+  v27[5] = @"relevant_start_date";
+  v27[6] = @"relevant_end_date";
+  v27[7] = @"authors";
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:8];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __92__HDClinicalNoteRecordEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
+  v24[3] = &unk_278613DE8;
+  v25 = dCopy;
+  v26 = objectCopy;
   v17 = objectCopy;
   v18 = dCopy;
-  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v25];
+  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v24];
 
   if (v19)
   {
@@ -49,7 +49,6 @@
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

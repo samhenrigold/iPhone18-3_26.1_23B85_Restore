@@ -38,45 +38,45 @@
   }
 }
 
-uint64_t __50__REObjectClassLoader__enumerateClassesWithBlock___block_invoke(uint64_t a1)
+uint64_t __50__REObjectClassLoader__enumerateClassesWithBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = *(v1 + 16);
+  v2 = *(a1 + 32);
+  v3 = objc_opt_class();
+  v4 = *(v2 + 16);
 
-  return v3(v1, v2);
+  return v4(v2, v3);
 }
 
 - (void)enumerateObjectsWithBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
     configuration = [(REClassLoader *)self configuration];
     [configuration desiredClassForLoader];
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = self->_objects;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v13 + 1) + 8 * v10);
+          v11 = *(*(&v12 + 1) + 8 * v10);
           if (objc_opt_isKindOfClass())
           {
             blockCopy[2](blockCopy, v11);
@@ -86,14 +86,12 @@ uint64_t __50__REObjectClassLoader__enumerateClassesWithBlock___block_invoke(uin
         }
 
         while (v8 != v10);
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

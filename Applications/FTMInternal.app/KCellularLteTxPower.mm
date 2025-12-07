@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)lastPcellDlBwAsString:(int)string;
+- (id)lastScellUlBwAsString:(int)string;
 - (int)StringAsLastPcellDlBw:(id)bw;
 - (int)StringAsLastScellUlBw:(id)bw;
 - (int)lastPcellDlBw;
@@ -80,6 +82,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)lastPcellDlBwAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317AF8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsLastPcellDlBw:(id)bw
@@ -164,6 +181,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)lastScellUlBwAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317AF8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsLastScellUlBw:(id)bw
@@ -381,37 +413,35 @@ LABEL_20:
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v6 = self->_txPowerInfos;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v7)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_txPowerInfos;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v19;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v9)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_volteCallId)
@@ -422,7 +452,6 @@ LABEL_20:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    lastPcellDlBand = self->_lastPcellDlBand;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -442,7 +471,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  lastScellUlBand = self->_lastScellUlBand;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -454,7 +482,6 @@ LABEL_15:
     }
 
 LABEL_22:
-    lastScellUlBw = self->_lastScellUlBw;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -465,7 +492,6 @@ LABEL_22:
   }
 
 LABEL_21:
-  lastPcellDlBw = self->_lastPcellDlBw;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -477,7 +503,6 @@ LABEL_16:
   if ((has & 0x20) != 0)
   {
 LABEL_17:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -695,7 +720,6 @@ LABEL_15:
     goto LABEL_35;
   }
 
-  v5 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -707,7 +731,7 @@ LABEL_15:
   else if (*(equalCopy + 56))
   {
 LABEL_35:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_36;
   }
 
@@ -778,7 +802,7 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v8 = (*(equalCopy + 56) & 0x20) == 0;
+  v7 = (*(equalCopy + 56) & 0x20) == 0;
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 56) & 0x20) == 0 || self->_subsId != *(equalCopy + 8))
@@ -786,12 +810,12 @@ LABEL_35:
       goto LABEL_35;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_36:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

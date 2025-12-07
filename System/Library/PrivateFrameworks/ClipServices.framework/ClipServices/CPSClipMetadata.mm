@@ -288,9 +288,9 @@ LABEL_6:
 - (CPSClipMetadata)initWithBusinessItem:(id)item
 {
   itemCopy = item;
-  v35.receiver = self;
-  v35.super_class = CPSClipMetadata;
-  v5 = [(CPSClipMetadata *)&v35 init];
+  v37.receiver = self;
+  v37.super_class = CPSClipMetadata;
+  v5 = [(CPSClipMetadata *)&v37 init];
   v6 = v5;
   if (v5)
   {
@@ -303,33 +303,33 @@ LABEL_6:
     abrClipCaption = v6->_abrClipCaption;
     v6->_abrClipCaption = subtitle;
 
-    v34[0] = _CPSHeroImagePreferredSize();
-    v34[1] = v11;
-    v34[2] = "bb";
-    v34[3] = "heic";
-    v12 = [itemCopy heroImageURLForSpecifier:v34];
+    v36[0] = _CPSHeroImagePreferredSize(v11, v12);
+    v36[1] = v13;
+    v36[2] = "bb";
+    v36[3] = "heic";
+    v14 = [itemCopy heroImageURLForSpecifier:v36];
     abrClipHeroImageURL = v6->_abrClipHeroImageURL;
-    v6->_abrClipHeroImageURL = v12;
+    v6->_abrClipHeroImageURL = v14;
 
     if (!v6->_abrClipHeroImageURL)
     {
       heroImageURL = [itemCopy heroImageURL];
-      v15 = v6->_abrClipHeroImageURL;
+      v17 = v6->_abrClipHeroImageURL;
       v6->_abrClipHeroImageURL = heroImageURL;
     }
 
     action = [itemCopy action];
     if ((action - 4) >= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v17 = action - 1;
+      v19 = action - 1;
     }
 
     else
     {
-      v17 = 0;
+      v19 = 0;
     }
 
-    v6->_clipAction = v17;
+    v6->_clipAction = v19;
     bundleID = [itemCopy bundleID];
     clipBundleID = v6->_clipBundleID;
     v6->_clipBundleID = bundleID;
@@ -359,7 +359,7 @@ LABEL_6:
     clipMapItemMUID = v6->_clipMapItemMUID;
     v6->_clipMapItemMUID = mapItemMUID;
 
-    v32 = v6;
+    v34 = v6;
   }
 
   return v6;
@@ -425,11 +425,11 @@ LABEL_6:
 
 - (CPSClipMetadata)initWithCoder:(id)coder
 {
-  v82[4] = *MEMORY[0x277D85DE8];
+  v81[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v80.receiver = self;
-  v80.super_class = CPSClipMetadata;
-  v5 = [(CPSClipMetadata *)&v80 init];
+  v79.receiver = self;
+  v79.super_class = CPSClipMetadata;
+  v5 = [(CPSClipMetadata *)&v79 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"abrClipName"];
@@ -543,11 +543,11 @@ LABEL_6:
     v5->_clipBusinessIconURL = v57;
 
     v59 = MEMORY[0x277CBEB98];
-    v82[0] = objc_opt_class();
-    v82[1] = objc_opt_class();
-    v82[2] = objc_opt_class();
-    v82[3] = objc_opt_class();
-    v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:4];
+    v81[0] = objc_opt_class();
+    v81[1] = objc_opt_class();
+    v81[2] = objc_opt_class();
+    v81[3] = objc_opt_class();
+    v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:4];
     v61 = [v59 setWithArray:v60];
     v62 = [coderCopy decodeObjectOfClasses:v61 forKey:@"clipBusinessIconStyleAttributes"];
     clipBusinessIconStyleAttributes = v5->_clipBusinessIconStyleAttributes;
@@ -558,9 +558,9 @@ LABEL_6:
     v5->_clipMapItemMUID = v64;
 
     v66 = MEMORY[0x277CBEB98];
-    v81[0] = objc_opt_class();
-    v81[1] = objc_opt_class();
-    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:2];
+    v80[0] = objc_opt_class();
+    v80[1] = objc_opt_class();
+    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
     v68 = [v66 setWithArray:v67];
     v69 = [coderCopy decodeObjectOfClasses:v68 forKey:@"clipVerifiedAssociatedDomains"];
     clipVerifiedAssociatedDomains = v5->_clipVerifiedAssociatedDomains;
@@ -588,7 +588,6 @@ LABEL_6:
     v77 = v5;
   }
 
-  v78 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1106,92 +1105,92 @@ LABEL_28:
 
 - (id)_thinnedSizeWithVariantsInfo:(id)info productVariants:(id)variants productVersion:(id)version
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   variantsCopy = variants;
   versionCopy = version;
   array = [MEMORY[0x277CBEB18] array];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = infoCopy;
-  v9 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+  v9 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v52;
+    v11 = *v51;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v52 != v11)
+        if (*v51 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v51 + 1) + 8 * i);
+        v13 = *(*(&v50 + 1) + 8 * i);
         v14 = [v13 safari_arrayForKey:@"targets"];
         v15 = [v13 safari_numberForKey:@"size"];
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __79__CPSClipMetadata__thinnedSizeWithVariantsInfo_productVariants_productVersion___block_invoke;
-        v46[3] = &unk_278DCEDD8;
-        v47 = versionCopy;
-        v48 = variantsCopy;
-        v49 = v15;
-        v50 = array;
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __79__CPSClipMetadata__thinnedSizeWithVariantsInfo_productVariants_productVersion___block_invoke;
+        v45[3] = &unk_278DCEDD8;
+        v46 = versionCopy;
+        v47 = variantsCopy;
+        v48 = v15;
+        v49 = array;
         v16 = v15;
-        [v14 enumerateObjectsUsingBlock:v46];
+        [v14 enumerateObjectsUsingBlock:v45];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+      v10 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
     }
 
     while (v10);
   }
 
   v17 = [array sortedArrayUsingComparator:&__block_literal_global_289];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v18 = variantsCopy;
-  v34 = [v18 countByEnumeratingWithState:&v42 objects:v56 count:16];
-  if (v34)
+  v33 = [v18 countByEnumeratingWithState:&v41 objects:v55 count:16];
+  if (v33)
   {
-    v19 = *v43;
-    v33 = *v43;
+    v19 = *v42;
+    v32 = *v42;
     do
     {
-      for (j = 0; j != v34; ++j)
+      for (j = 0; j != v33; ++j)
       {
-        if (*v43 != v19)
+        if (*v42 != v19)
         {
           objc_enumerationMutation(v18);
         }
 
-        v21 = *(*(&v42 + 1) + 8 * j);
+        v21 = *(*(&v41 + 1) + 8 * j);
+        v37 = 0u;
         v38 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v41 = 0u;
         reverseObjectEnumerator = [array reverseObjectEnumerator];
-        v23 = [reverseObjectEnumerator countByEnumeratingWithState:&v38 objects:v55 count:16];
+        v23 = [reverseObjectEnumerator countByEnumeratingWithState:&v37 objects:v54 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v39;
+          v25 = *v38;
           while (2)
           {
             for (k = 0; k != v24; ++k)
             {
-              if (*v39 != v25)
+              if (*v38 != v25)
               {
                 objc_enumerationMutation(reverseObjectEnumerator);
               }
 
-              v27 = *(*(&v38 + 1) + 8 * k);
+              v27 = *(*(&v37 + 1) + 8 * k);
               device = [v27 device];
               v29 = [device isEqualToString:v21];
 
@@ -1203,7 +1202,7 @@ LABEL_28:
               }
             }
 
-            v24 = [reverseObjectEnumerator countByEnumeratingWithState:&v38 objects:v55 count:16];
+            v24 = [reverseObjectEnumerator countByEnumeratingWithState:&v37 objects:v54 count:16];
             if (v24)
             {
               continue;
@@ -1213,14 +1212,14 @@ LABEL_28:
           }
         }
 
-        v19 = v33;
+        v19 = v32;
       }
 
       v30 = &unk_285684130;
-      v34 = [v18 countByEnumeratingWithState:&v42 objects:v56 count:16];
+      v33 = [v18 countByEnumeratingWithState:&v41 objects:v55 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
   else
@@ -1230,38 +1229,36 @@ LABEL_28:
 
 LABEL_26:
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 void __79__CPSClipMetadata__thinnedSizeWithVariantsInfo_productVariants_productVersion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 safari_stringForKey:@"osVersion"];
   if ([v4 compare:*(a1 + 32)] != 1)
   {
     v5 = [v3 safari_arrayForKey:@"devices"];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           if ([*(a1 + 40) containsObject:v10])
           {
             v11 = objc_alloc_init(CPSDeviceVariant);
@@ -1272,14 +1269,12 @@ void __79__CPSClipMetadata__thinnedSizeWithVariantsInfo_productVariants_productV
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__CPSClipMetadata__thinnedSizeWithVariantsInfo_productVariants_productVersion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1345,11 +1340,11 @@ uint64_t __79__CPSClipMetadata__thinnedSizeWithVariantsInfo_productVariants_prod
     return 0;
   }
 
-  v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v8 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "Updating a demo app clip on physical invocation.", v7, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_2436ED000, v8, OS_LOG_TYPE_INFO, "Updating a demo app clip on physical invocation.", v9, 2u);
   }
 
   return [(NSNumber *)self->_clipSize unsignedLongLongValue]< 0x6400001;
@@ -1566,10 +1561,10 @@ LABEL_14:
 
   if (!hasValidAssociatedDomainsToLaunchAppClip)
   {
-    v10 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(CPSClipMetadata *)v10 _updateInvocationPolicy:?];
+      [(CPSClipMetadata *)v12 _updateInvocationPolicy:?];
     }
 
     invocationPolicy3 = [CPSClipInvocationPolicy ineligiblePolicyWithReason:13];
@@ -1582,15 +1577,15 @@ LABEL_15:
 
 - (BOOL)_preferAMPDefaultNameAndCaptionForCurrentLocale
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
   v4 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"zh_TW"];
-  v15[0] = v4;
+  v14[0] = v4;
   v5 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"zh_HK"];
-  v15[1] = v5;
+  v14[1] = v5;
   v6 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"zh_MO"];
-  v15[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   v8 = [v3 setWithArray:v7];
 
   autoupdatingCurrentLocale = [MEMORY[0x277CBEAF8] autoupdatingCurrentLocale];
@@ -1606,7 +1601,6 @@ LABEL_15:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1699,7 +1693,7 @@ LABEL_15:
 
 - (BOOL)hasValidAssociatedDomainsToLaunchAppClip
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   clipLaunchURL = [(CPSClipMetadata *)self clipLaunchURL];
   if (clipLaunchURL)
   {
@@ -1718,31 +1712,31 @@ LABEL_15:
 
       else
       {
-        v25 = 0u;
         v26 = 0u;
-        v23 = 0u;
+        v27 = 0u;
         v24 = 0u;
+        v25 = 0u;
         obj = self->_clipVerifiedAssociatedDomains;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v30 count:16];
+        v9 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v31 count:16];
         if (v9)
         {
-          v20 = cps_fallbackBundleIdentifier;
-          v10 = *v24;
+          v21 = cps_fallbackBundleIdentifier;
+          v10 = *v25;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v24 != v10)
+              if (*v25 != v10)
               {
                 objc_enumerationMutation(obj);
               }
 
               v12 = MEMORY[0x277D547B0];
-              v29 = *(*(&v23 + 1) + 8 * i);
-              v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-              v22 = 0;
-              v14 = [v12 serviceSpecifiersWithEntitlementValue:v13 error:&v22];
-              v15 = v22;
+              v30 = *(*(&v24 + 1) + 8 * i);
+              v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+              v23 = 0;
+              v14 = [v12 serviceSpecifiersWithEntitlementValue:v13 error:&v23];
+              v15 = v23;
               firstObject = [v14 firstObject];
 
               if (firstObject)
@@ -1757,20 +1751,20 @@ LABEL_15:
 
               else
               {
-                v17 = CPS_LOG_CHANNEL_PREFIXClipServices();
-                if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                v19 = CPS_LOG_CHANNEL_PREFIXClipServices(v17, v18);
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                 {
-                  [(CPSClipMetadata *)v27 hasValidAssociatedDomainsToLaunchAppClip:v17];
+                  [(CPSClipMetadata *)v28 hasValidAssociatedDomainsToLaunchAppClip:v19];
                 }
               }
             }
 
-            v9 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v30 count:16];
+            v9 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v31 count:16];
           }
 
           while (v9);
 LABEL_19:
-          cps_fallbackBundleIdentifier = v20;
+          cps_fallbackBundleIdentifier = v21;
         }
       }
     }
@@ -1786,7 +1780,6 @@ LABEL_19:
     LOBYTE(v9) = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1821,10 +1814,9 @@ LABEL_19:
 
 - (id)description
 {
-  v27 = MEMORY[0x277CCACA8];
+  v26 = MEMORY[0x277CCACA8];
   clipName = [(CPSClipMetadata *)self clipName];
   storeClipCaption = self->_storeClipCaption;
-  v25 = storeClipCaption;
   abrClipCaption = self->_abrClipCaption;
   clipCaption = [(CPSClipMetadata *)self clipCaption];
   clipBundleID = [(CPSClipMetadata *)self clipBundleID];
@@ -1843,6 +1835,17 @@ LABEL_19:
   fullAppIconURL = [(CPSClipMetadata *)self fullAppIconURL];
   if ([(CPSClipMetadata *)self isPoweredByThirdParty])
   {
+    v3 = @"YES";
+  }
+
+  else
+  {
+    v3 = @"NO";
+  }
+
+  v16 = v3;
+  if ([(CPSClipMetadata *)self supportsArcade])
+  {
     v4 = @"YES";
   }
 
@@ -1851,23 +1854,22 @@ LABEL_19:
     v4 = @"NO";
   }
 
-  v17 = v4;
-  if ([(CPSClipMetadata *)self supportsArcade])
-  {
-    v5 = @"YES";
-  }
-
-  else
-  {
-    v5 = @"NO";
-  }
-
-  v16 = v5;
+  v15 = v4;
   provider = [(CPSClipMetadata *)self provider];
   webClipID = [(CPSClipMetadata *)self webClipID];
   clipURLHash = [(CPSClipMetadata *)self clipURLHash];
   clipVersionIdentifier = [(CPSClipMetadata *)self clipVersionIdentifier];
   if ([(CPSClipMetadata *)self clipRequestsLocationConfirmationPermission])
+  {
+    v9 = @"YES";
+  }
+
+  else
+  {
+    v9 = @"NO";
+  }
+
+  if ([(CPSClipMetadata *)self clipRequestsNotificationPermission])
   {
     v10 = @"YES";
   }
@@ -1877,37 +1879,25 @@ LABEL_19:
     v10 = @"NO";
   }
 
-  if ([(CPSClipMetadata *)self clipRequestsNotificationPermission])
-  {
-    v11 = @"YES";
-  }
-
-  else
-  {
-    v11 = @"NO";
-  }
-
   expirationDate = [(CPSClipMetadata *)self expirationDate];
   bundleDisplayName = [(CPSClipMetadata *)self bundleDisplayName];
   clipSize = [(CPSClipMetadata *)self clipSize];
-  v28 = [v27 stringWithFormat:@"\n  clipName = %@, \n  abrClipCaption = %@, \n  storeClipCaption = %@, \n  clipCaption = %@, \n  clipBundleID = %@, \n  clipHeroImageURL = %@, \n  clipOpenButtonTitle = %@, \n  clipURL = %@, \n  clipIpaURL = %@, \n  clipRequestURL = %@, \n  clipMinimumOSVersion = %@, \n  fullAppName = %@, \n  fullAppShortName = %@, \n  fullAppCaption = %@, \n  fullAppContentRating = %@, \n  fullAppBundleID = %@, \n  fullAppStoreURL = %@, \n  fullAppIconURL = %@, \n  isPoweredBy = %@, \n  supportsArcade = %@, \n  provider = %@, \n  webClipID = %@, \n  clipURLHash = %@, \n  clipVersionIdentifier = %llu \n  clipRequestsLocationConfirmationPermission = %@ \n  clipRequestsNotificationPermission = %@ \n  expirationDate = %@ \n  bundleDisplayName = %@ \n  thinnedSize = %@ \n", clipName, abrClipCaption, v25, clipCaption, clipBundleID, clipHeroImageURL, clipOpenButtonTitle, clipURL, clipIpaURL, clipRequestURL, clipMinimumOSVersion, fullAppName, fullAppShortName, fullAppCaption, fullAppContentRating, fullAppBundleID, fullAppStoreURL, fullAppIconURL, v17, v16, provider, webClipID, clipURLHash, clipVersionIdentifier, v10, v11, expirationDate, bundleDisplayName, clipSize];
+  v27 = [v26 stringWithFormat:@"\n  clipName = %@, \n  abrClipCaption = %@, \n  storeClipCaption = %@, \n  clipCaption = %@, \n  clipBundleID = %@, \n  clipHeroImageURL = %@, \n  clipOpenButtonTitle = %@, \n  clipURL = %@, \n  clipIpaURL = %@, \n  clipRequestURL = %@, \n  clipMinimumOSVersion = %@, \n  fullAppName = %@, \n  fullAppShortName = %@, \n  fullAppCaption = %@, \n  fullAppContentRating = %@, \n  fullAppBundleID = %@, \n  fullAppStoreURL = %@, \n  fullAppIconURL = %@, \n  isPoweredBy = %@, \n  supportsArcade = %@, \n  provider = %@, \n  webClipID = %@, \n  clipURLHash = %@, \n  clipVersionIdentifier = %llu \n  clipRequestsLocationConfirmationPermission = %@ \n  clipRequestsNotificationPermission = %@ \n  expirationDate = %@ \n  bundleDisplayName = %@ \n  thinnedSize = %@ \n", clipName, abrClipCaption, storeClipCaption, clipCaption, clipBundleID, clipHeroImageURL, clipOpenButtonTitle, clipURL, clipIpaURL, clipRequestURL, clipMinimumOSVersion, fullAppName, fullAppShortName, fullAppCaption, fullAppContentRating, fullAppBundleID, fullAppStoreURL, fullAppIconURL, v16, v15, provider, webClipID, clipURLHash, clipVersionIdentifier, v9, v10, expirationDate, bundleDisplayName, clipSize];
 
-  return v28;
+  return v27;
 }
 
 - (void)_updateInvocationPolicy:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 clipRequestURL];
   v5 = [a2 clipBundleID];
-  v7 = 138740227;
-  v8 = v4;
-  v9 = 2117;
-  v10 = v5;
-  _os_log_error_impl(&dword_2436ED000, v3, OS_LOG_TYPE_ERROR, "Clip failed associated domain check. url = %{sensitive}@ bundleID = %{sensitive}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138740227;
+  v7 = v4;
+  v8 = 2117;
+  v9 = v5;
+  _os_log_error_impl(&dword_2436ED000, v3, OS_LOG_TYPE_ERROR, "Clip failed associated domain check. url = %{sensitive}@ bundleID = %{sensitive}@", &v6, 0x16u);
 }
 
 - (void)hasValidAssociatedDomainsToLaunchAppClip

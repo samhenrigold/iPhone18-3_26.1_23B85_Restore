@@ -28,7 +28,7 @@ LABEL_8:
   {
 LABEL_9:
     v16 = _HMFPreconditionFailure();
-    return [IDSService(HMDIDSService) _destinationForDevice:v16];
+    return [(IDSService(HMDIDSService) *)v16 _destinationForDevice:v17, v18];
   }
 
   v11 = [objc_opt_class() _destinationForDevice:v8];
@@ -41,33 +41,33 @@ LABEL_9:
 
 + (id)_destinationForDevice:()HMDIDSService
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a3;
   account = [v3 account];
   if ([account isCurrentAccount])
   {
     primaryHandle = [account primaryHandle];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     handles = [account handles];
-    v7 = [handles countByEnumeratingWithState:&v32 objects:v37 count:16];
-    v27 = account;
+    v7 = [handles countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v26 = account;
     if (v7)
     {
       v8 = v7;
-      v9 = *v33;
+      v9 = *v32;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v33 != v9)
+          if (*v32 != v9)
           {
             objc_enumerationMutation(handles);
           }
 
-          v11 = *(*(&v32 + 1) + 8 * i);
+          v11 = *(*(&v31 + 1) + 8 * i);
           if ([v11 isLocal])
           {
             v12 = v11;
@@ -77,7 +77,7 @@ LABEL_9:
           }
         }
 
-        v8 = [handles countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v8 = [handles countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v8)
         {
           continue;
@@ -89,26 +89,26 @@ LABEL_9:
 
 LABEL_12:
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     globalHandles = [v3 globalHandles];
-    v14 = [globalHandles countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v14 = [globalHandles countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v29;
+      v16 = *v28;
       while (2)
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v29 != v16)
+          if (*v28 != v16)
           {
             objc_enumerationMutation(globalHandles);
           }
 
-          internal = [*(*(&v28 + 1) + 8 * j) internal];
+          internal = [*(*(&v27 + 1) + 8 * j) internal];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -132,13 +132,13 @@ LABEL_12:
             {
               destination = [(_HMDGlobalDeviceHandle *)v23 destination];
 
-              account = v27;
+              account = v26;
               goto LABEL_27;
             }
           }
         }
 
-        v15 = [globalHandles countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v15 = [globalHandles countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v15)
         {
           continue;
@@ -148,13 +148,11 @@ LABEL_12:
       }
     }
 
-    account = v27;
+    account = v26;
   }
 
   destination = [v3 remoteDestinationString];
 LABEL_27:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return destination;
 }

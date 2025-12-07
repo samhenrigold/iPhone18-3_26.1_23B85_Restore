@@ -45,7 +45,7 @@
     objc_exception_throw(v8);
   }
 
-  sub_1001B7868(&self->super.super.super.isa, self->size_ + 1);
+  sub_1001B7868(&self->super.super.super.isa, (self->size_ + 1));
   elements = self->elements_;
   if (!elements)
   {
@@ -150,11 +150,12 @@
   }
 
   [stream defaultReadObject];
-  v5 = sub_1001B7E48([stream readInt]);
-  JreStrongAssign(&self->elements_, v5);
+  readInt = [stream readInt];
+  v7 = sub_1001B7E48(readInt, v6);
+  JreStrongAssign(&self->elements_, v7);
   if (self->size_ >= 1)
   {
-    v6 = 0;
+    v8 = 0;
     while (1)
     {
       elements = self->elements_;
@@ -163,8 +164,8 @@
         break;
       }
 
-      IOSObjectArray_Set(elements, v6++, [stream readObject]);
-      if (v6 >= self->size_)
+      IOSObjectArray_Set(elements, v8++, [stream readObject]);
+      if (v8 >= self->size_)
       {
         return;
       }

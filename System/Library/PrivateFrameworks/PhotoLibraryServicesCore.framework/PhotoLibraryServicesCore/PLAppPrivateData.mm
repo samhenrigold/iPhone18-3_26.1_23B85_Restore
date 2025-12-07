@@ -361,7 +361,7 @@ LABEL_14:
         _os_log_impl(&dword_1AA9BD000, v13, OS_LOG_TYPE_ERROR, "Failed to write property list to %@. Error: %@", buf, 0x16u);
       }
 
-      if (PLIsErrorEqualToCode(v11, *MEMORY[0x1E696A250], 513))
+      if (PLIsErrorEqualToCode(v11, *MEMORY[0x1E696A250], 0x201))
       {
         v31 = 0;
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];

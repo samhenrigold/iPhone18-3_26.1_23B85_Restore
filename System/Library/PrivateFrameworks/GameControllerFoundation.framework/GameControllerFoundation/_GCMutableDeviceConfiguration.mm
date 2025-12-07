@@ -7,6 +7,7 @@
 - (void)setDeviceIdentifier:(id)identifier;
 - (void)setIdentifier:(id)identifier;
 - (void)setPriority:(unint64_t)priority;
+- (void)setTransient:(BOOL)transient;
 @end
 
 @implementation _GCMutableDeviceConfiguration
@@ -43,11 +44,15 @@
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copyWithZone:0];
-  identifier = self->super._identifier;
-  self->super._identifier = v4;
+  self->super._identifier = [identifier copyWithZone:0];
 
   MEMORY[0x1EEE66BB8]();
+}
+
+- (void)setTransient:(BOOL)transient
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:transient];
+  [(_GCMutableDeviceConfiguration *)self setValue:v4 forAttribute:@"Transient"];
 }
 
 - (void)setPriority:(unint64_t)priority

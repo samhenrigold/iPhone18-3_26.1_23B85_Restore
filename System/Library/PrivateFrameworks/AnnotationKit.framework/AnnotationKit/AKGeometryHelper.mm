@@ -491,11 +491,11 @@
   v14 = at.x;
   [AKGeometryHelper radiusOfCenteredCircleFor:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
   v21 = v15;
-  [AKGeometryHelper ellipseToCenteredCircleTransform:x, y, width, height];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper, x, y, width, height);
   [AKGeometryHelper intersectRayStartingAt:resultCopy ending:v13 * 0.0 + 0.0 * v14 + 0.0 withCircleWithCenter:v13 * 0.0 + 0.0 * v14 + 0.0 andRadius:v11 * 0.0 + 0.0 * v12 + 0.0 farthestResult:v11 * 0.0 + 0.0 * v12 + 0.0, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v21];
   v20 = v17;
   v22 = v16;
-  [AKGeometryHelper centeredCircleToEllipseTransform:x, y, width, height];
+  objc_msgSend_centeredCircleToEllipseTransform_(AKGeometryHelper, x, y, width, height);
   v18 = vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, v20), 0, v22));
   v19 = v18.f64[1];
   result.x = v18.f64[0];
@@ -936,7 +936,7 @@ LABEL_20:
   x = ellipse.origin.x;
   v8 = point.y;
   v9 = point.x;
-  [AKGeometryHelper ellipseToCenteredCircleTransform:ellipse.origin.x, ellipse.origin.y, ellipse.size.width, ellipse.size.height];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper, a2, ellipse.origin.x, ellipse.origin.y, ellipse.size.width, ellipse.size.height);
   [AKGeometryHelper radiusOfCenteredCircleFor:x, y, width, height];
   return vabdd_f64(hypot(v8 * 0.0 + 0.0 * v9 + 0.0, v8 * 0.0 + 0.0 * v9 + 0.0), v10) < 0.0005;
 }
@@ -970,11 +970,11 @@ LABEL_20:
   v33 = 0u;
   v34 = 0u;
   v32 = 0u;
-  [AKGeometryHelper ellipseToCenteredCircleTransform:ellipse.origin.x];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper, a2, ellipse.origin.x);
   v30 = 0u;
   v31 = 0u;
   v29 = 0u;
-  [AKGeometryHelper centeredCircleToEllipseTransform:v13, v12, width, height];
+  objc_msgSend_centeredCircleToEllipseTransform_(AKGeometryHelper, v13, v12, width, height);
   v14 = *&v34 + y * *&v33 + *&v32 * x;
   v15 = *(&v34 + 1) + y * *(&v33 + 1) + *(&v32 + 1) * x;
   v16 = hypot(v14, v15) * 0.5;
@@ -1011,7 +1011,7 @@ LABEL_20:
   v24 = 0u;
   v25 = 0u;
   v23 = 0u;
-  [AKGeometryHelper ellipseToCenteredCircleTransform:v12, v11, width, height];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper, v12, v11, width, height);
   [AKGeometryHelper intersectRayStartingAt:0 ending:v8 withEllipseOfRect:v7 farthestResult:x, y, v12, v11, width, height];
   v19 = *(&v25 + 1) + v14 * *(&v24 + 1) + *(&v23 + 1) * v15;
   v20 = *&v25 + v14 * *&v24 + *&v23 * v15;
@@ -1066,7 +1066,7 @@ LABEL_20:
   v37 = 0u;
   v38 = 0u;
   v36 = 0u;
-  [AKGeometryHelper centeredCircleToEllipseTransform:x, y, width, v31];
+  objc_msgSend_centeredCircleToEllipseTransform_(AKGeometryHelper, x, y, width, v31);
   v34 = 0u;
   v35 = 0u;
   v32 = 0u;
@@ -1430,7 +1430,7 @@ LABEL_21:
   height = a5.height;
   width = a5.width;
   memset(&v16, 0, sizeof(v16));
-  [a2 _rawAffineTransformForExifOrientation:?];
+  objc_msgSend__rawAffineTransformForExifOrientation_(a2, orientation);
   v9 = *(MEMORY[0x277CBF2C0] + 16);
   *&v15.a = *MEMORY[0x277CBF2C0];
   *&v15.c = v9;
@@ -1489,32 +1489,32 @@ LABEL_14:
 {
   height = a5.height;
   width = a5.width;
-  v9 = [AKGeometryHelper exifOrientationHasReversedAxes:?];
-  if (v9)
+  v8 = [AKGeometryHelper exifOrientationHasReversedAxes:?];
+  if (v8)
   {
-    v10 = height;
+    v9 = height;
   }
 
   else
+  {
+    v9 = width;
+  }
+
+  if (v8)
   {
     v10 = width;
   }
 
-  if (v9)
-  {
-    v11 = width;
-  }
-
   else
   {
-    v11 = height;
+    v10 = height;
   }
 
   *&retstr->a = 0u;
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
 
-  return [AKGeometryHelper affineTransformRecenteringAboutOriginForExifOrientation:size withOriginalSize:v10, v11];
+  return objc_msgSend_affineTransformRecenteringAboutOriginForExifOrientation_withOriginalSize_(AKGeometryHelper, v9, v10);
 }
 
 + (CGAffineTransform)affineTransformForExifOrientation:(SEL)orientation aboutCenter:(int64_t)center
@@ -1522,7 +1522,7 @@ LABEL_14:
   y = a5.y;
   x = a5.x;
   memset(&v20, 0, sizeof(v20));
-  [a2 _rawAffineTransformForExifOrientation:center];
+  objc_msgSend__rawAffineTransformForExifOrientation_(a2, orientation, center);
   v8 = MEMORY[0x277CBF2C0];
   v15 = *(MEMORY[0x277CBF2C0] + 16);
   v16 = *MEMORY[0x277CBF2C0];
@@ -1570,7 +1570,7 @@ LABEL_14:
 {
   y = point.y;
   x = point.x;
-  [self affineTransformForExifOrientation:orientation aboutCenter:{center.x, center.y}];
+  objc_msgSend_affineTransformForExifOrientation_aboutCenter_(self, a2, orientation, center.x, center.y);
   v5 = vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, y), 0, x));
   v6 = v5.f64[1];
   result.x = v5.f64[0];
@@ -1584,7 +1584,7 @@ LABEL_14:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  [self affineTransformForExifOrientation:orientation aboutCenter:{center.x, center.y}];
+  objc_msgSend_affineTransformForExifOrientation_aboutCenter_(self, a2, orientation, center.x, center.y);
   v13.origin.x = x;
   v13.origin.y = y;
   v13.size.width = width;
@@ -2220,7 +2220,7 @@ LABEL_6:
   if (v10)
   {
     [rotationCopy rectangle];
-    [AKGeometryHelper rotationTransformForRect:"rotationTransformForRect:withAngle:" withAngle:?];
+    objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper);
   }
 
   if (a5)
@@ -2244,7 +2244,7 @@ LABEL_6:
   v15.size.height = height;
   MidY = CGRectGetMidY(v15);
 
-  return [a2 rotationTransformAroundPoint:MidX withAngle:{MidY, a5}];
+  return objc_msgSend_rotationTransformAroundPoint_withAngle_(a2, MidX, MidY, a5);
 }
 
 + (CGAffineTransform)rotationTransformAroundPoint:(SEL)point withAngle:(CGPoint)angle
@@ -2285,7 +2285,7 @@ LABEL_6:
   y = rectangle.origin.y;
   x = rectangle.origin.x;
   v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:4];
-  [self rotationTransformForRect:x withAngle:{y, width, height, angle}];
+  objc_msgSend_rotationTransformForRect_withAngle_(self, x, y, width, height, angle);
   v21.origin.x = x;
   v21.origin.y = y;
   v21.size.width = width;

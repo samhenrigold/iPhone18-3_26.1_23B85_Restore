@@ -11,7 +11,7 @@ uint64_t __audioHoseManagerBuffered_SetMagicCookie_block_invoke(uint64_t result,
     v5 = result;
     if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
     {
-      __audioHoseManagerBuffered_SetMagicCookie_block_invoke_cold_1(v5);
+      __audioHoseManagerBuffered_SetMagicCookie_block_invoke_cold_1(v5, a3);
     }
 
     v6 = *(v5 + 40);
@@ -66,16 +66,24 @@ uint64_t __audioHoseManagerBuffered_SetMagicCookie_block_invoke(uint64_t result,
   return result;
 }
 
-uint64_t __audioHoseManagerBuffered_SetMagicCookie_block_invoke_cold_1(uint64_t a1)
+uint64_t __audioHoseManagerBuffered_SetMagicCookie_block_invoke_cold_1(uint64_t a1, uint64_t *a2)
 {
-  if (*(a1 + 40))
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    CMBaseObjectGetDerivedStorage();
+    DerivedStorage = CMBaseObjectGetDerivedStorage();
   }
 
-  audioHoseManagerBuffered_getMagicCookieIDForMagicCookieData(*(a1 + 48));
+  else
+  {
+    DerivedStorage = "";
+  }
+
+  v6 = *(a1 + 48);
+  v7 = *a2;
+  MagicCookieIDForMagicCookieData = audioHoseManagerBuffered_getMagicCookieIDForMagicCookieData(v6);
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v8, v9, v10, v11, v4, DerivedStorage, v6, v7, MagicCookieIDForMagicCookieData);
 }
 
 uint64_t __audioHoseManagerBuffered_SetMagicCookie_block_invoke_cold_2()
@@ -88,7 +96,7 @@ uint64_t __audioHoseManagerBuffered_SetMagicCookie_block_invoke_cold_2()
 
   OUTLINED_FUNCTION_10_10();
   OUTLINED_FUNCTION_2_1();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 @end

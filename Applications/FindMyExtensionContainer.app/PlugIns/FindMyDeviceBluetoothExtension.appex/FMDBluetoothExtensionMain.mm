@@ -17,27 +17,28 @@
 - (void)beginRequestWithExtensionContext:(id)context
 {
   contextCopy = context;
-  v5 = sub_100003F1C();
+  v5 = sub_100003F1C(contextCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412546;
-    v20 = contextCopy;
-    v21 = 2112;
+    v20 = 138412546;
+    v21 = contextCopy;
+    v22 = 2112;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "beginRequestWithExtensionCalled with context %@ and accessory provider = %@", &v19, 0x16u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "beginRequestWithExtensionCalled with context %@ and accessory provider = %@", &v20, 0x16u);
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v6 = sub_100003F1C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100003F1C(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v19 = 138412290;
-      v20 = v7;
-      v8 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "beginRequestWithExtensionCalled with context %@", &v19, 0xCu);
+      v8 = objc_opt_class();
+      v20 = 138412290;
+      v21 = v8;
+      v9 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "beginRequestWithExtensionCalled with context %@", &v20, 0xCu);
     }
 
     [contextCopy setAccessoryProvider:self];
@@ -45,18 +46,18 @@
 
   _auxiliaryConnection = [contextCopy _auxiliaryConnection];
   remoteObjectProxy = [_auxiliaryConnection remoteObjectProxy];
-  v11 = remoteObjectProxy;
-  if (remoteObjectProxy && [remoteObjectProxy conformsToProtocol:&OBJC_PROTOCOL___FMDExtAccessoryDelegateProtocol])
+  v12 = remoteObjectProxy;
+  if (remoteObjectProxy && (remoteObjectProxy = [remoteObjectProxy conformsToProtocol:&OBJC_PROTOCOL___FMDExtAccessoryDelegateProtocol], remoteObjectProxy))
   {
-    [(FMDBluetoothExtensionMain *)self setHostProxy:v11];
+    [(FMDBluetoothExtensionMain *)self setHostProxy:v12];
   }
 
   else
   {
-    v12 = sub_100003F1C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100003F1C(remoteObjectProxy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_10000D88C(v11, v12, v13, v14, v15, v16, v17, v18);
+      sub_10000D88C(v12, v13, v14, v15, v16, v17, v18, v19);
     }
   }
 }
@@ -65,35 +66,35 @@
 {
   completionCopy = completion;
   v4 = +[FMDExtBluetoothManager classicPairedAppleAccessories];
-  v5 = sub_100003F1C();
+  v5 = sub_100003F1C(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = v4;
+    v36 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Bluetooth manager paired devices %@", buf, 0xCu);
   }
 
-  v28 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v4, "count")}];
-  v29 = 0u;
+  v29 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v4, "count")}];
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
   obj = v4;
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v30 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         btAddressData = [v10 btAddressData];
         fm_MACAddressString = [btAddressData fm_MACAddressString];
         v13 = [FMDExtHelper deviceIDFromAddress:fm_MACAddressString];
@@ -124,25 +125,25 @@
         firmwareVersion = [v10 firmwareVersion];
         [v15 setFirmwareVersion:firmwareVersion];
 
-        [v28 addObject:v15];
+        [v29 addObject:v15];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  v24 = sub_100003F1C();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v25 = sub_100003F1C(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = v28;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Bluetooth manager paired devices %@", buf, 0xCu);
+    v36 = v29;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Bluetooth manager paired devices %@", buf, 0xCu);
   }
 
-  v25 = [NSArray arrayWithArray:v28];
-  completionCopy[2](completionCopy, v25, 0);
+  v26 = [NSArray arrayWithArray:v29];
+  completionCopy[2](completionCopy, v26, 0);
 }
 
 - (void)connectionStatusForAccessory:(id)accessory withCompletion:(id)completion
@@ -156,7 +157,7 @@
     connectedServices = [v7 connectedServices];
     discoveryFlags = [v8 discoveryFlags];
     v11 = discoveryFlags & 0x200000;
-    v12 = sub_100003F1C();
+    v12 = sub_100003F1C(discoveryFlags);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       name = [v8 name];
@@ -178,7 +179,7 @@
   {
     accessoryCopy = [NSString stringWithFormat:@"bluetooth accessory with identifier %@ not found", accessoryCopy];
     v15 = [NSError errorWithMessage:accessoryCopy];
-    v16 = sub_100003F1C();
+    v16 = sub_100003F1C(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10000D8F8();
@@ -225,104 +226,106 @@
       intValue = 10;
     }
 
-    v24 = sub_100003F1C();
+    v24 = sub_100003F1C(v18);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       name = [v10 name];
       *buf = 138412802;
-      v41 = name;
-      v42 = 2048;
-      v43 = v12;
-      v44 = 1024;
-      v45 = intValue;
+      v44 = name;
+      v45 = 2048;
+      v46 = v12;
+      v47 = 1024;
+      v48 = intValue;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Accessory %@ connection timeout = %lf retryCount %d", buf, 0x1Cu);
     }
 
     v26 = objc_alloc_init(CBConnection);
     [v26 setPeerDevice:v10];
     [v26 setServiceFlags:4294956991];
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_1000087C4;
-    v38[3] = &unk_10001D380;
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_1000087C4;
+    v41[3] = &unk_10001D380;
     accessoryCopy = v26;
-    v39 = accessoryCopy;
-    [accessoryCopy activateWithCompletion:v38];
+    v42 = accessoryCopy;
+    v28 = [accessoryCopy activateWithCompletion:v41];
     if (intValue >= 1)
     {
-      if ([v10 connectedServices])
+      connectedServices = [v10 connectedServices];
+      if (connectedServices)
       {
-        v28 = 0.0;
-        v29 = 1;
+        v30 = 0.0;
+        v31 = 1;
 LABEL_21:
-        v33 = sub_100003F1C();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v35 = sub_100003F1C(connectedServices);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           name2 = [v10 name];
           *buf = 138412546;
-          v41 = name2;
-          v42 = 2048;
-          v43 = v12 * v28;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Accessory %@ connected after %f", buf, 0x16u);
+          v44 = name2;
+          v45 = 2048;
+          v46 = v12 * v30;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Accessory %@ connected after %f", buf, 0x16u);
         }
 
-        v35 = sub_100003F1C();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v38 = sub_100003F1C(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           name3 = [v10 name];
           *buf = 138412290;
-          v41 = name3;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Bluetooth accessory %@ force connection success", buf, 0xCu);
+          v44 = name3;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Bluetooth accessory %@ force connection success", buf, 0xCu);
         }
 
         goto LABEL_28;
       }
 
-      v32 = 0;
+      v34 = 0;
       while (1)
       {
-        [NSThread sleepForTimeInterval:v12];
-        if (intValue - 1 == v32)
+        v28 = [NSThread sleepForTimeInterval:v12];
+        if (intValue - 1 == v34)
         {
           break;
         }
 
-        ++v32;
-        if ([v10 connectedServices])
+        connectedServices = [v10 connectedServices];
+        ++v34;
+        if (connectedServices)
         {
-          v29 = v32 < intValue;
-          v28 = v32;
+          v31 = v34 < intValue;
+          v30 = v34;
           goto LABEL_21;
         }
       }
     }
 
-    v35 = sub_100003F1C();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v38 = sub_100003F1C(v28);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       name4 = [v10 name];
       *buf = 138412290;
-      v41 = name4;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Bluetooth accessory %@ force connection failed", buf, 0xCu);
+      v44 = name4;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Bluetooth accessory %@ force connection failed", buf, 0xCu);
     }
 
-    v29 = 0;
+    v31 = 0;
 LABEL_28:
 
-    completionCopy[2](completionCopy, v29, 0);
-    v30 = v39;
+    completionCopy[2](completionCopy, v31, 0);
+    v32 = v42;
     goto LABEL_29;
   }
 
   accessoryCopy = [NSString stringWithFormat:@"bluetooth accessory with identifier %@ not found", accessoryCopy];
-  v30 = [NSError errorWithMessage:accessoryCopy];
-  v31 = sub_100003F1C();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v32 = [NSError errorWithMessage:accessoryCopy];
+  v33 = sub_100003F1C(v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     sub_10000D96C();
   }
 
-  (completionCopy)[2](completionCopy, 0, v30);
+  (completionCopy)[2](completionCopy, 0, v32);
 LABEL_29:
 }
 
@@ -337,7 +340,7 @@ LABEL_29:
   {
     accessoryCopy = [NSString stringWithFormat:@"bluetooth accessory with identifier %@ not found", accessoryCopy];
     infoCopy = [NSError errorWithMessage:accessoryCopy];
-    v17 = sub_100003F1C();
+    v17 = sub_100003F1C(infoCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10000DAC0();
@@ -348,7 +351,7 @@ LABEL_29:
   }
 
   colorCodeBest = [v10 colorCodeBest];
-  v13 = sub_100003F1C();
+  v13 = sub_100003F1C(colorCodeBest);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     name = [v11 name];
@@ -364,7 +367,7 @@ LABEL_29:
   {
     infoCopy = [NSString stringWithFormat:@"parsing failed %u %@", colorCodeBest, infoCopy];
     v18 = [NSError errorWithMessage:infoCopy];
-    v19 = sub_100003F1C();
+    v19 = sub_100003F1C(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10000DA4C();
@@ -389,87 +392,89 @@ LABEL_13:
   if (v8)
   {
     accessoryCopy = +[CBProductInfo productInfoWithProductID:](CBProductInfo, "productInfoWithProductID:", [v8 productID]);
-    if (([accessoryCopy flags] & 0x100) != 0)
+    flags = [accessoryCopy flags];
+    if ((flags & 0x100) != 0)
     {
       primaryPlacement = [v9 primaryPlacement];
       secondaryPlacement = [v9 secondaryPlacement];
-      v19 = sub_100003F1C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = secondaryPlacement;
+      v21 = sub_100003F1C(secondaryPlacement);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         name = [v9 name];
         *buf = 138412290;
-        v25 = name;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "In ear detection available for accessory %@", buf, 0xCu);
+        v28 = name;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "In ear detection available for accessory %@", buf, 0xCu);
       }
 
-      v21 = sub_100003F1C();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_100003F1C(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v25 = accessoryCopy;
-        v26 = 1024;
-        v27 = primaryPlacement;
-        v28 = 1024;
-        v29 = secondaryPlacement;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "accessory %@ primaryEarStatus %u secondaryEarStatus = %u", buf, 0x18u);
+        v28 = accessoryCopy;
+        v29 = 1024;
+        v30 = primaryPlacement;
+        v31 = 1024;
+        v32 = v20;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "accessory %@ primaryEarStatus %u secondaryEarStatus = %u", buf, 0x18u);
       }
 
-      v22 = primaryPlacement != 0 && secondaryPlacement != 0;
-      v23 = @"Unknown";
-      if (v22)
+      v25 = primaryPlacement != 0 && v20 != 0;
+      v26 = @"Unknown";
+      if (v25)
       {
-        v23 = @"Safe";
+        v26 = @"Safe";
       }
 
-      if (secondaryPlacement == 1)
+      if (v20 == 1)
       {
-        v23 = @"InEar";
-        v22 = 0;
+        v26 = @"InEar";
+        v25 = 0;
       }
 
       if (primaryPlacement == 1)
       {
-        v14 = @"InEar";
+        v15 = @"InEar";
       }
 
       else
       {
-        v14 = v23;
+        v15 = v26;
       }
 
-      v13 = primaryPlacement != 1 && v22;
+      v14 = primaryPlacement != 1 && v25;
     }
 
     else
     {
-      v11 = sub_100003F1C();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100003F1C(flags);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         name2 = [v9 name];
         *buf = 138412290;
-        v25 = name2;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "In ear detection not available for accessory %@", buf, 0xCu);
+        v28 = name2;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "In ear detection not available for accessory %@", buf, 0xCu);
       }
 
-      v13 = 0;
-      v14 = @"InEarDetectUnavailable";
+      v14 = 0;
+      v15 = @"InEarDetectUnavailable";
     }
 
-    completionCopy[2](completionCopy, v13, v14, 0);
-    v15 = completionCopy;
+    completionCopy[2](completionCopy, v14, v15, 0);
+    v16 = completionCopy;
   }
 
   else
   {
     accessoryCopy = [NSString stringWithFormat:@"bluetooth accessory with identifier %@ not found", accessoryCopy];
-    v15 = [NSError errorWithMessage:accessoryCopy];
-    v16 = sub_100003F1C();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v16 = [NSError errorWithMessage:accessoryCopy];
+    v17 = sub_100003F1C(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10000DB34();
     }
 
-    (completionCopy)[2](completionCopy, 0, @"Unavailable", v15);
+    (completionCopy)[2](completionCopy, 0, @"Unavailable", v16);
   }
 }
 
@@ -504,12 +509,12 @@ LABEL_13:
     newDiscovery = [discoveryFactory5 newDiscovery];
     [(FMDBluetoothExtensionMain *)self setDiscovery:newDiscovery];
 
-    v22 = sub_100003F1C();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_100003F1C(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       durationCopy = duration;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "starting discovery for %lf", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "starting discovery for %lf", buf, 0xCu);
     }
 
     discovery = [(FMDBluetoothExtensionMain *)self discovery];
@@ -521,14 +526,14 @@ LABEL_13:
   else
   {
     accessoryCopy = [NSString stringWithFormat:@"bluetooth accessory with identifier %@ not found", accessoryCopy];
-    v25 = [NSError errorWithMessage:accessoryCopy];
-    v26 = sub_100003FA4();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v26 = [NSError errorWithMessage:accessoryCopy];
+    v27 = sub_100003FA4(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10000DBA8();
     }
 
-    (completionCopy)[2](completionCopy, v25);
+    (completionCopy)[2](completionCopy, v26);
     completionCopy = accessoryCopy;
   }
 }
@@ -560,10 +565,10 @@ LABEL_13:
 
       else
       {
-        v16 = sub_100003F1C();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = sub_100003F1C(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          sub_10000DC1C(accessoryCopy, self, v16);
+          sub_10000DC1C(accessoryCopy, self, v17);
         }
       }
     }
@@ -578,7 +583,7 @@ LABEL_13:
   infoCopy = info;
   channelsCopy = channels;
   completionCopy = completion;
-  v16 = sub_100003FA4();
+  v16 = sub_100003FA4(completionCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = +[NSDate date];
@@ -602,7 +607,7 @@ LABEL_13:
     {
       v23 = v22;
       v46 = channelsCopy;
-      v24 = sub_100003FA4();
+      v24 = sub_100003FA4(v22);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -615,7 +620,7 @@ LABEL_13:
       if (v26)
       {
         v27 = [NSURL fileURLWithPath:v26];
-        v28 = sub_100003FA4();
+        v28 = sub_100003FA4(v27);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
@@ -632,7 +637,7 @@ LABEL_13:
 
       else
       {
-        v28 = sub_100003FA4();
+        v28 = sub_100003FA4(0);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           sub_10000DCE0(v47, v28, v31, v32, v33, v34, v35, v36);
@@ -673,7 +678,7 @@ LABEL_13:
     }
 
     v43 = [[FMDGenericAudioAccessory alloc] initWithAccessoryId:accessoryCopy audioRoutingIdentifier:fm_MACAddressString audioURL:v29 audioAccessoryInfo:0 supportsChangingListeningMode:bOOLValue];
-    v44 = sub_100003FA4();
+    v44 = sub_100003FA4(v43);
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -691,7 +696,7 @@ LABEL_13:
   {
     accessoryCopy = [NSString stringWithFormat:@"bluetooth accessory with identifier %@ not found", accessoryCopy];
     fm_MACAddressString = [NSError errorWithMessage:accessoryCopy];
-    v30 = sub_100003FA4();
+    v30 = sub_100003FA4(fm_MACAddressString);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       sub_10000DD4C();
@@ -706,7 +711,7 @@ LABEL_13:
   accessoryCopy = accessory;
   infoCopy = info;
   completionCopy = completion;
-  v13 = sub_100003FA4();
+  v13 = sub_100003FA4(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = +[NSDate date];
@@ -749,7 +754,7 @@ LABEL_13:
   {
     accessoryCopy = [NSString stringWithFormat:@"bluetooth accessory with identifier %@ not found", accessoryCopy];
     identifier = [NSError errorWithMessage:accessoryCopy];
-    v22 = sub_100003F1C();
+    v22 = sub_100003F1C(identifier);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10000DDC0();

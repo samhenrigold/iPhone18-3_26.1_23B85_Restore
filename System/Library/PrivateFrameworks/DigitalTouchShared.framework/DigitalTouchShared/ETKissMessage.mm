@@ -212,7 +212,7 @@ LABEL_20:
 {
   if (!self->_atlas)
   {
-    v3 = ETFrameworkBundle();
+    v3 = ETFrameworkBundle(self, a2);
     ET_SKSetResourceBundle(v3);
 
     v11 = 0;
@@ -558,138 +558,138 @@ void __32__ETKissMessage_displayInScene___block_invoke_4(uint64_t a1)
   markCopy = mark;
   y = point.y;
   x = point.x;
-  v62[2] = *MEMORY[0x277D85DE8];
+  v64[2] = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   WeakRetained = objc_loadWeakRetained(&self->_lastKiss);
 
   if (WeakRetained)
   {
-    v13 = markCopy;
+    v15 = markCopy;
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
-  if (v13 && (v14 = objc_loadWeakRetained(&self->_lastKiss), v15 = [v14 leavesMark], v14, (v15 & 1) == 0))
+  if (v15 && (v16 = objc_loadWeakRetained(&self->_lastKiss), v17 = [v16 leavesMark], v16, (v17 & 1) == 0))
   {
-    v41 = objc_loadWeakRetained(&self->_lastKiss);
-    [(ETKissMessage *)self _setKissLeavesMark:v41];
+    v43 = objc_loadWeakRetained(&self->_lastKiss);
+    [(ETKissMessage *)self _setKissLeavesMark:v43];
   }
 
   else
   {
-    v16 = ETFrameworkBundle();
-    ET_SKSetResourceBundle(v16);
+    v18 = ETFrameworkBundle(v13, v14);
+    ET_SKSetResourceBundle(v18);
 
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x2050000000;
-    v17 = getSKShaderClass_softClass_1;
-    v60 = getSKShaderClass_softClass_1;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x2050000000;
+    v19 = getSKShaderClass_softClass_1;
+    v62 = getSKShaderClass_softClass_1;
     if (!getSKShaderClass_softClass_1)
     {
-      v52 = MEMORY[0x277D85DD0];
-      v53 = 3221225472;
-      v54 = __getSKShaderClass_block_invoke_1;
-      v55 = COERCE_DOUBLE(&unk_278F7A048);
-      v56 = &v57;
-      __getSKShaderClass_block_invoke_1(&v52);
-      v17 = v58[3];
+      v54 = MEMORY[0x277D85DD0];
+      v55 = 3221225472;
+      v56 = __getSKShaderClass_block_invoke_1;
+      v57 = COERCE_DOUBLE(&unk_278F7A048);
+      v58 = &v59;
+      __getSKShaderClass_block_invoke_1(&v54);
+      v19 = v60[3];
     }
 
-    v18 = v17;
-    _Block_object_dispose(&v57, 8);
-    v19 = [v17 shaderWithFileNamed:@"kiss"];
-    v20 = [getSKUniformClass_1() uniformWithName:@"u_shader_time" float:0.0];
-    v62[0] = self->_atlasUniform;
-    v62[1] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
-    [v19 setUniforms:v21];
+    v20 = v19;
+    _Block_object_dispose(&v59, 8);
+    v21 = [v19 shaderWithFileNamed:@"kiss"];
+    v22 = [getSKUniformClass_1() uniformWithName:@"u_shader_time" float:0.0];
+    v64[0] = self->_atlasUniform;
+    v64[1] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
+    [v21 setUniforms:v23];
 
     clearColor = [MEMORY[0x277D75348] clearColor];
-    v23 = [KissNode kissNodeWithColor:clearColor size:256.0, 256.0];
+    v25 = [KissNode kissNodeWithColor:clearColor size:256.0, 256.0];
 
-    [v23 setShader:v19];
-    v24 = +[ETKissMessage _kissColor];
-    [v23 setColor:v24];
+    [v25 setShader:v21];
+    v26 = +[ETKissMessage _kissColor];
+    [v25 setColor:v26];
 
-    [v23 setColorBlendFactor:1.0];
-    [v23 setBlendMode:1];
-    [v23 setPosition:{x, y}];
-    [v23 setZRotation:angle + 0.175];
+    [v25 setColorBlendFactor:1.0];
+    [v25 setBlendMode:1];
+    [v25 setPosition:{x, y}];
+    [v25 setZRotation:angle + 0.175];
     [sceneCopy size];
-    [v23 setScale:{fmax(v25 / 156.0, 1.0) * 0.35}];
-    node = [v23 node];
+    [v25 setScale:{fmax(v27 / 156.0, 1.0) * 0.35}];
+    node = [v25 node];
     [sceneCopy addChild:node];
 
-    if (v13)
+    if (v15)
     {
-      [(ETKissMessage *)self _setKissLeavesMark:v23];
-      v27 = objc_loadWeakRetained(&self->_lastKiss);
-      [(ETKissMessage *)self _setKissLeavesMark:v27];
+      [(ETKissMessage *)self _setKissLeavesMark:v25];
+      v29 = objc_loadWeakRetained(&self->_lastKiss);
+      [(ETKissMessage *)self _setKissLeavesMark:v29];
 
-      objc_storeWeak(&self->_lastKiss, v23);
-      v52 = 0;
-      v53 = &v52;
-      v54 = 0x2020000000;
-      v28 = 0.0;
+      objc_storeWeak(&self->_lastKiss, v25);
+      v54 = 0;
+      v55 = &v54;
+      v56 = 0x2020000000;
+      v30 = 0.0;
     }
 
     else
     {
-      objc_storeWeak(&self->_lastKiss, v23);
-      v52 = 0;
-      v53 = &v52;
-      v54 = 0x2020000000;
+      objc_storeWeak(&self->_lastKiss, v25);
+      v54 = 0;
+      v55 = &v54;
+      v56 = 0x2020000000;
       isRenderingOffscreen = [(ETMessage *)self isRenderingOffscreen];
-      v28 = 0.3;
+      v30 = 0.3;
       if (!isRenderingOffscreen)
       {
-        v28 = 0.0;
+        v30 = 0.0;
       }
     }
 
-    v55 = 1.0 - v28;
+    v57 = 1.0 - v30;
     SKActionClass_2 = getSKActionClass_2();
-    v31 = *(v53 + 24);
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __62__ETKissMessage__displayKissAtPoint_angle_leavesMark_inScene___block_invoke;
-    v50[3] = &unk_278F7A4B8;
-    v32 = v20;
-    v51 = v32;
-    v33 = [SKActionClass_2 customActionWithDuration:v50 actionBlock:v31];
-    [v23 runAction:v33];
+    v33 = *(v55 + 24);
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __62__ETKissMessage__displayKissAtPoint_angle_leavesMark_inScene___block_invoke;
+    v52[3] = &unk_278F7A4B8;
+    v34 = v22;
+    v53 = v34;
+    v35 = [SKActionClass_2 customActionWithDuration:v52 actionBlock:v33];
+    [v25 runAction:v35];
 
-    if (([v23 leavesMark] & 1) == 0)
+    if (([v25 leavesMark] & 1) == 0)
     {
-      v34 = getSKActionClass_2();
-      v35 = [getSKActionClass_2() waitForDuration:1.0];
-      v61[0] = v35;
       v36 = getSKActionClass_2();
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __62__ETKissMessage__displayKissAtPoint_angle_leavesMark_inScene___block_invoke_2;
-      v45 = &unk_278F7A6A8;
+      v37 = [getSKActionClass_2() waitForDuration:1.0];
+      v63[0] = v37;
+      v38 = getSKActionClass_2();
+      v44 = MEMORY[0x277D85DD0];
+      v45 = 3221225472;
+      v46 = __62__ETKissMessage__displayKissAtPoint_angle_leavesMark_inScene___block_invoke_2;
+      v47 = &unk_278F7A6A8;
       selfCopy = self;
-      v37 = v23;
-      v47 = v37;
-      v49 = &v52;
-      v48 = v32;
-      v38 = [v36 runBlock:&v42];
-      v61[1] = v38;
-      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:{2, v42, v43, v44, v45, selfCopy}];
-      v40 = [v34 sequence:v39];
-      [v37 runAction:v40];
+      v39 = v25;
+      v49 = v39;
+      v51 = &v54;
+      v50 = v34;
+      v40 = [v38 runBlock:&v44];
+      v63[1] = v40;
+      v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:{2, v44, v45, v46, v47, selfCopy}];
+      v42 = [v36 sequence:v41];
+      [v39 runAction:v42];
     }
 
-    _Block_object_dispose(&v52, 8);
+    _Block_object_dispose(&v54, 8);
   }
 }
 
-uint64_t __62__ETKissMessage__displayKissAtPoint_angle_leavesMark_inScene___block_invoke_2(uint64_t a1)
+void *__62__ETKissMessage__displayKissAtPoint_angle_leavesMark_inScene___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) isRenderingOffscreen];
   result = [*(a1 + 40) leavesMark];

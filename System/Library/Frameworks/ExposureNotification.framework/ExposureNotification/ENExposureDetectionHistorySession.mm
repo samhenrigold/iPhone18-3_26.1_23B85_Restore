@@ -36,7 +36,7 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   uTF8String = [(NSString *)self->_appBundleIdentifier UTF8String];
   if (uTF8String)
@@ -79,66 +79,74 @@
   if (v15)
   {
     *uuid = 0;
-    v19 = 0;
+    v18 = 0;
     v16 = v13;
     [(NSUUID *)v15 getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(v16, "sessID", uuid);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
 {
+  v25 = 0;
   v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  NSAppendPrintF_safe();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF_safe(&v25, "%@", v4);
+  v5 = v25;
 
-  if (self->_appBundleIdentifier)
+  appBundleIdentifier = self->_appBundleIdentifier;
+  if (appBundleIdentifier)
   {
-    appBundleIdentifier = self->_appBundleIdentifier;
-    NSAppendPrintF_safe();
-    v5 = v4;
+    v24 = v5;
+    NSAppendPrintF_safe(&v24, ", %@", appBundleIdentifier);
+    v7 = v24;
 
-    v4 = v5;
+    v5 = v7;
   }
 
-  if (self->_region)
+  region = self->_region;
+  if (region)
   {
-    region = self->_region;
-    NSAppendPrintF_safe();
-    v6 = v4;
+    v23 = v5;
+    NSAppendPrintF_safe(&v23, ", %@", region);
+    v9 = v23;
 
-    v4 = v6;
+    v5 = v9;
   }
 
-  self->_systemBuildVersion;
-  NSAppendPrintF_safe();
-  v7 = v4;
-
-  date = self->_date;
-  NSAppendPrintF_safe();
-  v8 = v7;
-
-  fileCount = self->_fileCount;
-  NSAppendPrintF_safe();
-  v9 = v8;
-
-  matchCount = self->_matchCount;
-  NSAppendPrintF_safe();
-  v10 = v9;
-
-  if (self->_exposureClassificationIdentifier)
+  v22 = v5;
+  systemBuildVersion = self->_systemBuildVersion;
+  if (!systemBuildVersion)
   {
-    exposureClassificationIdentifier = self->_exposureClassificationIdentifier;
-    NSAppendPrintF_safe();
-    v11 = v10;
-
-    v10 = v11;
+    systemBuildVersion = @"<>";
   }
 
-  return v10;
+  NSAppendPrintF_safe(&v22, ", Build %@", systemBuildVersion);
+  v11 = v22;
+
+  v21 = v11;
+  NSAppendPrintF_safe(&v21, ", Date %@", self->_date);
+  v12 = v21;
+
+  v20 = v12;
+  NSAppendPrintF_safe(&v20, ", Files %u", self->_fileCount);
+  v13 = v20;
+
+  v19 = v13;
+  NSAppendPrintF_safe(&v19, ", Matches %llu", self->_matchCount);
+  v14 = v19;
+
+  exposureClassificationIdentifier = self->_exposureClassificationIdentifier;
+  if (exposureClassificationIdentifier)
+  {
+    v18 = v14;
+    NSAppendPrintF_safe(&v18, ", Clss %@", exposureClassificationIdentifier);
+    v16 = v18;
+
+    v14 = v16;
+  }
+
+  return v14;
 }
 
 - (ENExposureDetectionHistorySession)initWithXPCObject:(id)object error:(id *)error
@@ -154,7 +162,7 @@
   {
     if (error)
     {
-      ENErrorF(2);
+      ENErrorF(2, "super init failed");
       self = 0;
       *error = selfCopy = 0;
       goto LABEL_10;

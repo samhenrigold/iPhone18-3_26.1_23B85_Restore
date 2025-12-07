@@ -209,7 +209,7 @@
   [v31 setFrame:{v36, v35, v34, v33}];
   [v31 setCornerRadius:13.0];
   [v31 setDropShadowEnabled:1];
-  [(_UIPreviewPresentationController2 *)self preferredContentPlatterTransform];
+  objc_msgSend_preferredContentPlatterTransform(self);
   *v39 = *&v39[7];
   *&v39[2] = *&v39[9];
   *&v39[4] = *&v39[11];
@@ -609,7 +609,7 @@
 {
   if (effect)
   {
-    [effect preferredContentTransform];
+    objc_msgSend_preferredContentTransform(effect, a2);
   }
 
   else
@@ -623,7 +623,7 @@
   v9 = v12;
   v10 = v13;
   [(_UIPreviewPresentationController2 *)self setPreferredContentPlatterTransform:&v8];
-  [(_UIPreviewPresentationController2 *)self preferredContentPlatterTransform];
+  objc_msgSend_preferredContentPlatterTransform(self);
   contentPlatterView = [(_UIPreviewPresentationController2 *)self contentPlatterView];
   v8 = v5;
   v9 = v6;

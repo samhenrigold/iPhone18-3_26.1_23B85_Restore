@@ -66,7 +66,7 @@ void __42__HSHomeSharingLibrary__sendUpdateRequest__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __42__HSHomeSharingLibrary__sendUpdateRequest__block_invoke_2(uint64_t a1, int a2, uint64_t a3)
+void *__42__HSHomeSharingLibrary__sendUpdateRequest__block_invoke_2(uint64_t a1, int a2, uint64_t a3)
 {
   v11[1] = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) set_hasPendingUpdateRequest:0];

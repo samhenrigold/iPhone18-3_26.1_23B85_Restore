@@ -71,12 +71,12 @@
   return v3;
 }
 
-uint64_t __42__NCNotificationThreadsMuteAssertion_hash__block_invoke(uint64_t a1, void *a2)
+char *__42__NCNotificationThreadsMuteAssertion_hash__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 40) + 8) + 24);
   v4 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 hash];
-  *(*(*(a1 + 32) + 8) + 24) = result + v4 * v3;
+  *(*(*(a1 + 32) + 8) + 24) = &result[v4 * v3];
   return result;
 }
 

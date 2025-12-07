@@ -7,7 +7,7 @@
 
 - (id)labelsForVersion:(int64_t)version
 {
-  v7[17] = *MEMORY[0x277D85DE8];
+  v6[17] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBF8];
   if (version > 2)
   {
@@ -18,24 +18,24 @@
 
     else if (version == 4)
     {
-      v7[0] = @"Snow";
-      v7[1] = @"SunriseSunset";
-      v7[2] = @"Cityscape";
-      v7[3] = @"Waterfall";
-      v7[4] = @"Rainbow";
-      v7[5] = @"Skateboarding";
-      v7[6] = @"Forest";
-      v7[7] = @"Airplane";
-      v7[8] = @"Bird";
-      v7[9] = @"Surfing";
-      v7[10] = @"Coffee";
-      v7[11] = @"Biking";
-      v7[12] = @"Table";
-      v7[13] = @"Cooking";
-      v7[14] = @"SpringBloom";
-      v7[15] = @"AutumnFoliage";
-      v7[16] = @"PlayTime";
-      v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:17];
+      v6[0] = @"Snow";
+      v6[1] = @"SunriseSunset";
+      v6[2] = @"Cityscape";
+      v6[3] = @"Waterfall";
+      v6[4] = @"Rainbow";
+      v6[5] = @"Skateboarding";
+      v6[6] = @"Forest";
+      v6[7] = @"Airplane";
+      v6[8] = @"Bird";
+      v6[9] = @"Surfing";
+      v6[10] = @"Coffee";
+      v6[11] = @"Biking";
+      v6[12] = @"Table";
+      v6[13] = @"Cooking";
+      v6[14] = @"SpringBloom";
+      v6[15] = @"AutumnFoliage";
+      v6[16] = @"PlayTime";
+      v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:17];
     }
   }
 
@@ -58,27 +58,24 @@
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (PGSceneMemoryNodeFeatureExtractor)initWithVersion:(int64_t)version error:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   error = [(PGSceneMemoryNodeFeatureExtractor *)self labelsForVersion:version, error];
   v6 = MEMORY[0x277D22C90];
   v7 = +[PGGraphSceneFeatureNode filter];
   relation = [v7 relation];
-  v15[0] = relation;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = relation;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v10 = [v6 chain:v9];
 
-  v14.receiver = self;
-  v14.super_class = PGSceneMemoryNodeFeatureExtractor;
-  v11 = [(PGGraphMemoryNodeFeatureExtractor *)&v14 initWithName:@"Scene" featureNames:error relation:v10 labelForTargetBlock:&__block_literal_global_156];
+  v13.receiver = self;
+  v13.super_class = PGSceneMemoryNodeFeatureExtractor;
+  v11 = [(PGGraphMemoryNodeFeatureExtractor *)&v13 initWithName:@"Scene" featureNames:error relation:v10 labelForTargetBlock:&__block_literal_global_156];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

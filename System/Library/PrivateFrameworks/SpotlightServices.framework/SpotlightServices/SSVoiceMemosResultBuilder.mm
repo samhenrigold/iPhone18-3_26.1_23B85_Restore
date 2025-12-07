@@ -52,16 +52,16 @@
 
 - (id)buildDescriptions
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   transcription = [(SSVoiceMemosResultBuilder *)self transcription];
   v5 = [transcription length];
 
   if (v5)
   {
-    v25.receiver = self;
-    v25.super_class = SSVoiceMemosResultBuilder;
-    buildTitle = [(SSResultBuilder *)&v25 buildTitle];
+    v24.receiver = self;
+    v24.super_class = SSVoiceMemosResultBuilder;
+    buildTitle = [(SSResultBuilder *)&v24 buildTitle];
     text = [buildTitle text];
     [v3 addObject:text];
   }
@@ -115,16 +115,14 @@
   if ([v20 length])
   {
     v21 = [MEMORY[0x1E69CA3A0] textWithString:v20];
-    v26[0] = v21;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+    v25[0] = v21;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
   }
 
   else
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

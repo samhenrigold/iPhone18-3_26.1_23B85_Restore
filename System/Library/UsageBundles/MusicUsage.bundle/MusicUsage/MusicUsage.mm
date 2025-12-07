@@ -190,40 +190,41 @@ double MusicSafeDisplayScale(double result)
   return result;
 }
 
+void sub_1E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 double sub_1E78(uint64_t a1, void *a2, double a3, double a4, double a5)
 {
-  y = CGRectZero.origin.y;
-  v8 = *(*(a1 + 40) + 8);
-  v9 = v8[4];
-  v10 = v8[5];
-  v11 = v8[6];
-  v12 = v8[7];
-  v13 = a2;
-  v27.origin.x = v9;
-  v27.origin.y = v10;
-  v27.size.width = v11;
-  v27.size.height = v12;
-  CGRectGetMinX(v27);
-  v14 = *(*(a1 + 40) + 8);
-  v15 = v14[4];
-  v16 = v14[5];
-  v17 = v14[6];
-  v18 = v14[7];
-  v26 = *(a1 + 48);
+  v7 = *(*(a1 + 40) + 8);
+  v8 = v7[4];
+  v9 = v7[5];
+  v10 = v7[6];
+  v11 = v7[7];
+  v12 = a2;
+  v21.origin.x = v8;
+  v21.origin.y = v9;
+  v21.size.width = v10;
+  v21.size.height = v11;
+  CGRectGetMinX(v21);
+  v20 = *(a1 + 48);
   UIRectCenteredYInRectScale();
-  [v13 setFrame:{MusicRectByApplyingUserInterfaceLayoutDirectionInRect(objc_msgSend(*(a1 + 32), "effectiveUserInterfaceLayoutDirection", v26), v19, v20, v21, v22, *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80))}];
+  [v12 setFrame:{MusicRectByApplyingUserInterfaceLayoutDirectionInRect(objc_msgSend(*(a1 + 32), "effectiveUserInterfaceLayoutDirection", v20), v13, v14, v15, v16, *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80))}];
 
-  v23 = a5 + 0.0 + 8.0;
-  *(*(*(a1 + 40) + 8) + 32) = v23 + *(*(*(a1 + 40) + 8) + 32);
-  v24 = *(*(a1 + 40) + 8);
-  result = *(v24 + 48) - v23;
-  *(v24 + 48) = result;
+  v17 = a5 + 0.0 + 8.0;
+  *(*(*(a1 + 40) + 8) + 32) = v17 + *(*(*(a1 + 40) + 8) + 32);
+  v18 = *(*(a1 + 40) + 8);
+  result = *(v18 + 48) - v17;
+  *(v18 + 48) = result;
   return result;
 }
 
-void sub_25E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -589,9 +590,9 @@ int64_t sub_8FCC(id a1, MusicUsageItem *a2, MusicUsageItem *a3)
   }
 }
 
-void sub_9158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_9158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

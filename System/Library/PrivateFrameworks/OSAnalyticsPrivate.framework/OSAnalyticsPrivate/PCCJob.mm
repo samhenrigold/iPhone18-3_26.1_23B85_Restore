@@ -70,7 +70,7 @@
 
 - (PCCJob)initWithID:(id)d forTarget:(id)target options:(id)options forFile:(id)file
 {
-  v44[3] = *MEMORY[0x277D85DE8];
+  v43[3] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   fileCopy = file;
   v12 = [(PCCJob *)self initWithID:d forTarget:target options:optionsCopy];
@@ -82,7 +82,7 @@
     v14 = OSAIsRSDDisplay();
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
     [standardUserDefaults addSuiteNamed:@"com.apple.osanalytics.factoryproxysync"];
-    v37 = fileCopy;
+    v36 = fileCopy;
     if (OSAIsConfiguredRSDDevice())
     {
       v16 = [standardUserDefaults objectForKey:@"autoCleanupProxiedFiles"];
@@ -103,14 +103,14 @@
     v18 = [(NSString *)v12->_jid isEqualToString:@"<unsolicited>", standardUserDefaults];
     mEMORY[0x277D36B80] = [MEMORY[0x277D36B80] sharedInstance];
     pathSubmission = [mEMORY[0x277D36B80] pathSubmission];
-    if ([v37 hasPrefix:pathSubmission])
+    if ([v36 hasPrefix:pathSubmission])
     {
     }
 
     else
     {
       mEMORY[0x277D36B80]2 = [MEMORY[0x277D36B80] sharedInstance];
-      stringByDeletingLastPathComponent = [v37 stringByDeletingLastPathComponent];
+      stringByDeletingLastPathComponent = [v36 stringByDeletingLastPathComponent];
       v23 = [mEMORY[0x277D36B80]2 isWhitelisted:stringByDeletingLastPathComponent forDomain:@"transfer_paths"];
 
       if (!v23)
@@ -122,30 +122,30 @@
         }
 
         v32 = MEMORY[0x277CCA9B8];
-        v39 = *MEMORY[0x277CCA450];
-        v40 = @"Path non-accessible";
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v38 = *MEMORY[0x277CCA450];
+        v39 = @"Path non-accessible";
+        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
         v33 = [v32 errorWithDomain:@"ProxyJobErrorDomain" code:3 userInfo:v27];
         errObj = v12->_errObj;
         v12->_errObj = v33;
-        fileCopy = v37;
+        fileCopy = v36;
         goto LABEL_16;
       }
     }
 
-    v43[0] = @"<preserve>";
+    v42[0] = @"<preserve>";
     v24 = [MEMORY[0x277CCABB0] numberWithBool:v14 ^ 1u];
-    v44[0] = v24;
-    v43[1] = @"<exempt>";
+    v43[0] = v24;
+    v42[1] = @"<exempt>";
     v25 = [MEMORY[0x277CCABB0] numberWithBool:!v18];
-    v44[1] = v25;
-    v43[2] = @"<cleanup>";
+    v43[1] = v25;
+    v42[2] = @"<cleanup>";
     v26 = [MEMORY[0x277CCABB0] numberWithBool:v16];
-    v44[2] = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:3];
+    v43[2] = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
 
-    fileCopy = v37;
-    [(PCCJob *)v12 packageLog:v37 forRouting:@"<sync>" info:&unk_286EB2300 options:v27];
+    fileCopy = v36;
+    [(PCCJob *)v12 packageLog:v36 forRouting:@"<sync>" info:&unk_286EB2300 options:v27];
     if (v12->_package)
     {
 LABEL_17:
@@ -160,9 +160,9 @@ LABEL_17:
     }
 
     v28 = MEMORY[0x277CCA9B8];
-    v41 = *MEMORY[0x277CCA450];
-    v42 = @"File unavailable";
-    errObj = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x277CCA450];
+    v41 = @"File unavailable";
+    errObj = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
     v30 = [v28 errorWithDomain:@"ProxyJobErrorDomain" code:2 userInfo:errObj];
     v31 = v12->_errObj;
     v12->_errObj = v30;
@@ -173,13 +173,12 @@ LABEL_16:
 
 LABEL_18:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)packageLog:(id)log forRouting:(id)routing info:(id)info options:(id)options
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   logCopy = log;
   routingCopy = routing;
   infoCopy = info;
@@ -193,7 +192,7 @@ LABEL_18:
   v18 = self->_package;
   if (v18)
   {
-    v60 = optionsCopy;
+    v59 = optionsCopy;
     [(OSALog *)v18 closeFileStream];
     filepath = [(OSALog *)self->_package filepath];
     mEMORY[0x277D36B80]2 = [MEMORY[0x277D36B80] sharedInstance];
@@ -217,16 +216,16 @@ LABEL_18:
     mEMORY[0x277D36B80]4 = [MEMORY[0x277D36B80] sharedInstance];
     crashReporterKey = [mEMORY[0x277D36B80]4 crashReporterKey];
 
-    v62 = objc_opt_new();
+    v61 = objc_opt_new();
     filepath3 = [(OSALog *)self->_package filepath];
     fileSystemRepresentation = [filepath3 fileSystemRepresentation];
 
     v30 = listxattr(fileSystemRepresentation, 0, 0, 0);
-    v61 = routingCopy;
+    v60 = routingCopy;
     if (v30 >= 1)
     {
       v31 = v30;
-      v57 = infoCopy;
+      v56 = infoCopy;
       v32 = malloc_type_malloc(v30, 0xD862EED1uLL);
       v33 = listxattr(fileSystemRepresentation, v32, v31, 0);
       if (v33 < 1)
@@ -234,7 +233,7 @@ LABEL_18:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v66 = fileSystemRepresentation;
+          v65 = fileSystemRepresentation;
           _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "failed to get xattr list size for file: %s", buf, 0xCu);
         }
       }
@@ -244,7 +243,7 @@ LABEL_18:
         v35 = v33;
         v36 = MEMORY[0x277D86220];
         *&v34 = 138412290;
-        v56 = v34;
+        v55 = v34;
         v37 = v32;
         do
         {
@@ -254,7 +253,7 @@ LABEL_18:
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v66 = v37;
+              v65 = v37;
               _os_log_impl(&dword_25D12D000, v36, OS_LOG_TYPE_DEFAULT, "failed to get xattr value size for key: %s", buf, 0xCu);
             }
           }
@@ -269,7 +268,7 @@ LABEL_18:
               if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v66 = v37;
+                v65 = v37;
                 _os_log_impl(&dword_25D12D000, v36, OS_LOG_TYPE_DEFAULT, "failed to get xattr value for key: %s", buf, 0xCu);
               }
             }
@@ -284,13 +283,13 @@ LABEL_18:
                 v44 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v40 length:v42 encoding:4];
                 if (v44)
                 {
-                  [v62 setObject:v44 forKeyedSubscript:v43];
+                  [v61 setObject:v44 forKeyedSubscript:v43];
                 }
 
                 else if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
                 {
-                  *buf = v56;
-                  v66 = v43;
+                  *buf = v55;
+                  v65 = v43;
                   _os_log_impl(&dword_25D12D000, v36, OS_LOG_TYPE_DEFAULT, "failed to decode xattr value for key: %@", buf, 0xCu);
                 }
               }
@@ -306,34 +305,34 @@ LABEL_18:
       }
 
       free(v32);
-      infoCopy = v57;
+      infoCopy = v56;
     }
 
-    v63[0] = @"name";
+    v62[0] = @"name";
     filepath4 = [(OSALog *)self->_package filepath];
     lastPathComponent = [filepath4 lastPathComponent];
-    v64[0] = lastPathComponent;
-    v64[1] = crashReporterKey;
-    v63[1] = @"proxied_dev";
-    v63[2] = @"subdir";
-    v64[2] = stringByDeletingLastPathComponent;
-    v64[3] = infoCopy;
-    v63[3] = @"status";
-    v63[4] = @"xattr_list";
-    v64[4] = v62;
-    v63[5] = @"device_class";
+    v63[0] = lastPathComponent;
+    v63[1] = crashReporterKey;
+    v62[1] = @"proxied_dev";
+    v62[2] = @"subdir";
+    v63[2] = stringByDeletingLastPathComponent;
+    v63[3] = infoCopy;
+    v62[3] = @"status";
+    v62[4] = @"xattr_list";
+    v63[4] = v61;
+    v62[5] = @"device_class";
     v47 = [MEMORY[0x277CCABB0] numberWithInt:MGGetSInt32Answer()];
     event = self->_event;
     jid = self->_jid;
-    v64[5] = v47;
-    v64[6] = jid;
-    v63[6] = @"jobId";
-    v63[7] = @"jobEvent";
-    v64[7] = event;
-    v63[8] = @"jobType";
+    v63[5] = v47;
+    v63[6] = jid;
+    v62[6] = @"jobId";
+    v62[7] = @"jobEvent";
+    v63[7] = event;
+    v62[8] = @"jobType";
     type = [(PCCJob *)self type];
-    v64[8] = type;
-    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:9];
+    v63[8] = type;
+    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:9];
     metadata = self->_metadata;
     self->_metadata = v51;
 
@@ -341,25 +340,23 @@ LABEL_18:
     lastTouch = self->_lastTouch;
     self->_lastTouch = date;
 
-    routingCopy = v61;
-    optionsCopy = v60;
+    routingCopy = v60;
+    optionsCopy = v59;
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerResult:(BOOL)result error:(id)error
 {
   resultCopy = result;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (resultCopy)
   {
     [(OSALog *)self->_package retire:"transferred"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "finished transferring log successfully", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "finished transferring log successfully", &v9, 2u);
     }
   }
 
@@ -367,9 +364,9 @@ LABEL_18:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "file send failure, abandoning job: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = errorCopy;
+      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "file send failure, abandoning job: %@", &v9, 0xCu);
     }
 
     objc_storeStrong(&self->_errObj, error);
@@ -377,8 +374,6 @@ LABEL_18:
 
   package = self->_package;
   self->_package = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

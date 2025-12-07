@@ -1,5 +1,6 @@
 @interface PDHandoutAssignedNotificationTrigger
 + (id)dateFormatter:(id)formatter;
++ (void)_logHandoutTypeUpdate:(id)update forID:(id)d isInNotifiedHandoutIDs:(BOOL)ds;
 - (BOOL)baseCriteriaPassesWithHandout:(id)handout database:(id)database;
 - (PDHandoutAssignedNotificationTrigger)initWithDatabase:(id)database;
 - (id)classWithClassID:(id)d database:(id)database;
@@ -318,6 +319,27 @@ LABEL_12:
 LABEL_44:
 
   return v17;
+}
+
++ (void)_logHandoutTypeUpdate:(id)update forID:(id)d isInNotifiedHandoutIDs:(BOOL)ds
+{
+  dsCopy = ds;
+  updateCopy = update;
+  dCopy = d;
+  CLSInitLog();
+  v9 = CLSLogNotifications;
+  if (os_log_type_enabled(CLSLogNotifications, OS_LOG_TYPE_INFO))
+  {
+    v10 = v9;
+    v11 = [NSNumber numberWithBool:dsCopy];
+    v12 = 138412802;
+    v13 = updateCopy;
+    v14 = 2112;
+    v15 = dCopy;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "PDHandoutAssignedNotificationTrigger.handoutWillChange > shouldTriggerNotification_Type%@. Handout ID: %@ In notifiedHandoutIDs: %@", &v12, 0x20u);
+  }
 }
 
 - (void)handoutWillChange:(id)change

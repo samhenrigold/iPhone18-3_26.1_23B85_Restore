@@ -18,7 +18,7 @@
 
 - (id)friendlyDate:(id)date
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD87538);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD87538, &qword_21B4D6940);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v7);
@@ -41,15 +41,15 @@
   v11 = *(v10 - 8);
   if ((*(v11 + 48))(v6, 1, v10) == 1)
   {
-    sub_21B3F2D94(v9, &qword_27CD87538);
-    sub_21B3F2D94(v6, &qword_27CD87538);
+    sub_21B3F2D94(v9, &qword_27CD87538, &qword_21B4D6940);
+    sub_21B3F2D94(v6, &qword_27CD87538, &qword_21B4D6940);
     v12 = 0;
   }
 
   else
   {
     sub_21B4C57B8();
-    sub_21B3F2D94(v9, &qword_27CD87538);
+    sub_21B3F2D94(v9, &qword_27CD87538, &qword_21B4D6940);
     (*(v11 + 8))(v6, v10);
     v13 = sub_21B4C96C8();
 

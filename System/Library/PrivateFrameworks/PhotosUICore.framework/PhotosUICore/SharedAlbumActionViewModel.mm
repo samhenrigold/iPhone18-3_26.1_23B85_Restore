@@ -7,7 +7,7 @@
 
 - (void)photoRecipientViewController:(id)controller didCompleteWithRecipients:(id)recipients
 {
-  sub_1A3C52C70(0, &qword_1EB12C1F0);
+  sub_1A3C52C70(0, &qword_1EB12C1F0, off_1E771F478);
   v6 = sub_1A524CA34();
   controllerCopy = controller;
   selfCopy = self;

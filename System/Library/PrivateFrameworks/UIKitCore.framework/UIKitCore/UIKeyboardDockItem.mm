@@ -121,7 +121,7 @@ LABEL_13:
 
     if (!v36)
     {
-      v37 = +[UIColor blackColor];
+      v37 = objc_msgSend_blackColor(UIColor);
       [(UIKeyboardDockItemButton *)self->_button setTintColor:v37];
 
       titleLabel4 = [(UIButton *)self->_button titleLabel];
@@ -175,7 +175,7 @@ LABEL_23:
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    v11 = 1;
+    isEqualToString = 1;
   }
 
   else if (equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -183,25 +183,25 @@ LABEL_23:
     v6 = v5;
     title = [(UIKeyboardDockItem *)self title];
     title2 = [(UIKeyboardDockItem *)v6 title];
-    if ([title isEqualToString:title2])
+    if (objc_msgSend_isEqualToString_(title))
     {
       identifier = [(UIKeyboardDockItem *)self identifier];
       identifier2 = [(UIKeyboardDockItem *)v6 identifier];
-      v11 = [identifier isEqualToString:identifier2];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
     }
 
     else
     {
-      v11 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    isEqualToString = 0;
   }
 
-  return v11;
+  return isEqualToString;
 }
 
 - (void)setTitle:(id)title image:(id)image

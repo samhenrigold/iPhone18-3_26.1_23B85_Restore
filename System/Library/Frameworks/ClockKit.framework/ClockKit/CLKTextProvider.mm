@@ -316,33 +316,33 @@ LABEL_8:
 - (id)_timeFormatByRemovingWhitespaceAroundDesignatorOfTimeFormat:(id)format andRemovingDesignator:(BOOL)designator designatorExists:(BOOL *)exists
 {
   designatorCopy = designator;
-  v49 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   v8 = 0x277CCA000uLL;
   [MEMORY[0x277CCA968] _componentsFromFormatString:formatCopy];
-  v44 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v9 = v47 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v47 = 0u;
+  v48 = 0u;
+  v9 = v49 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v46 objects:v50 count:16];
   if (v10)
   {
     v11 = v10;
     existsCopy = exists;
-    v41 = formatCopy;
-    v12 = *v45;
+    v43 = formatCopy;
+    v12 = *v47;
     v13 = *MEMORY[0x277CBE630];
     v14 = *MEMORY[0x277CBE638];
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v45 != v12)
+        if (*v47 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * i);
+        v16 = *(*(&v46 + 1) + 8 * i);
         v17 = [v16 objectForKeyedSubscript:v13];
         if (([v17 BOOLValue] & 1) == 0)
         {
@@ -356,7 +356,7 @@ LABEL_8:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v46 objects:v50 count:16];
       if (v11)
       {
         continue;
@@ -368,7 +368,7 @@ LABEL_8:
     v19 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_13:
     exists = existsCopy;
-    formatCopy = v41;
+    formatCopy = v43;
     v8 = 0x277CCA000;
   }
 
@@ -387,85 +387,85 @@ LABEL_13:
     goto LABEL_41;
   }
 
-  if (!CLKDesignatorRequiresWhitespace() || designatorCopy)
+  if (!CLKDesignatorRequiresWhitespace(v20, v21) || designatorCopy)
   {
     if (v19)
     {
-      v21 = [v9 objectAtIndexedSubscript:v19 - 1];
-      v22 = [v21 objectForKeyedSubscript:*MEMORY[0x277CBE630]];
-      if ([v22 BOOLValue])
+      v23 = [v9 objectAtIndexedSubscript:v19 - 1];
+      v24 = [v23 objectForKeyedSubscript:*MEMORY[0x277CBE630]];
+      if ([v24 BOOLValue])
       {
-        v23 = [v21 objectForKeyedSubscript:*MEMORY[0x277CBE638]];
+        v25 = [v23 objectForKeyedSubscript:*MEMORY[0x277CBE638]];
         [MEMORY[0x277CCA900] whitespaceCharacterSet];
-        v25 = v24 = formatCopy;
-        [v23 stringByTrimmingCharactersInSet:v25];
-        v26 = v42 = designatorCopy;
+        v27 = v26 = formatCopy;
+        [v25 stringByTrimmingCharactersInSet:v27];
+        v28 = v44 = designatorCopy;
 
-        formatCopy = v24;
-        v20 = [v26 length] == 0;
+        formatCopy = v26;
+        v22 = [v28 length] == 0;
 
-        designatorCopy = v42;
+        designatorCopy = v44;
       }
 
       else
       {
-        v20 = 0;
+        v22 = 0;
       }
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
 
     if (v19 < [v9 count] - 1)
     {
-      v27 = [v9 objectAtIndexedSubscript:v19 + 1];
-      v28 = [v27 objectForKeyedSubscript:*MEMORY[0x277CBE630]];
-      if ([v28 BOOLValue])
+      v29 = [v9 objectAtIndexedSubscript:v19 + 1];
+      v30 = [v29 objectForKeyedSubscript:*MEMORY[0x277CBE630]];
+      if ([v30 BOOLValue])
       {
-        v29 = [v27 objectForKeyedSubscript:*MEMORY[0x277CBE638]];
+        v31 = [v29 objectForKeyedSubscript:*MEMORY[0x277CBE638]];
         [MEMORY[0x277CCA900] whitespaceCharacterSet];
-        v31 = v30 = formatCopy;
-        [v29 stringByTrimmingCharactersInSet:v31];
-        v32 = v43 = designatorCopy;
+        v33 = v32 = formatCopy;
+        [v31 stringByTrimmingCharactersInSet:v33];
+        v34 = v45 = designatorCopy;
 
-        formatCopy = v30;
-        v33 = [v32 length] == 0;
+        formatCopy = v32;
+        v35 = [v34 length] == 0;
 
-        designatorCopy = v43;
+        designatorCopy = v45;
       }
 
       else
       {
-        v33 = 0;
+        v35 = 0;
       }
 
-      if (v20)
+      if (v22)
       {
 LABEL_36:
-        v34 = [v9 mutableCopy];
-        v35 = v34;
-        if (v33)
+        v36 = [v9 mutableCopy];
+        v37 = v36;
+        if (v35)
         {
-          [v34 removeObjectAtIndex:v19 + 1];
+          [v36 removeObjectAtIndex:v19 + 1];
           if (!designatorCopy)
           {
 LABEL_38:
-            if (!v20)
+            if (!v22)
             {
 LABEL_40:
-              v36 = v35;
+              v38 = v37;
 
-              v37 = [*(v8 + 2408) _formatStringFromComponents:v36];
+              v39 = [*(v8 + 2408) _formatStringFromComponents:v38];
 
-              formatCopy = v37;
-              v9 = v36;
+              formatCopy = v39;
+              v9 = v38;
               goto LABEL_41;
             }
 
 LABEL_39:
-            [v35 removeObjectAtIndex:v19 - 1];
+            [v37 removeObjectAtIndex:v19 - 1];
             goto LABEL_40;
           }
         }
@@ -475,8 +475,8 @@ LABEL_39:
           goto LABEL_38;
         }
 
-        [v35 removeObjectAtIndex:v19];
-        if (!v20)
+        [v37 removeObjectAtIndex:v19];
+        if (!v22)
         {
           goto LABEL_40;
         }
@@ -490,23 +490,23 @@ LABEL_39:
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
-  v33 = 0;
-  if (v20)
+  v35 = 0;
+  if (v22)
   {
     goto LABEL_36;
   }
 
 LABEL_34:
-  if (v33 || designatorCopy)
+  if (v35 || designatorCopy)
   {
     goto LABEL_36;
   }
 
 LABEL_41:
-  v38 = formatCopy;
+  v40 = formatCopy;
 
   return formatCopy;
 }

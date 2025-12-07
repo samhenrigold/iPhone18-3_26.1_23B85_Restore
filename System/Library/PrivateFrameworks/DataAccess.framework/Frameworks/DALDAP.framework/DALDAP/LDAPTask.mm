@@ -1,5 +1,6 @@
 @interface LDAPTask
 - (DATaskManager)taskManager;
+- (id)daLevelErrorForLDAPError:(int)error;
 - (id)delegate;
 - (int64_t)taskStatusForError:(id)error;
 - (void)_performQuery;
@@ -73,7 +74,7 @@
 
 - (void)cancelTaskWithReason:(int)reason underlyingError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277D03988] + 6);
@@ -87,8 +88,8 @@
   if (errorCopy)
   {
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LDAPTask taskStatusForError:](self, "taskStatusForError:", errorCopy, *MEMORY[0x277CCA7E8], *MEMORY[0x277D038E8], errorCopy)}];
-    v13[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:2];
+    v12[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:2];
   }
 
   else
@@ -98,8 +99,6 @@
 
   v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:-1 userInfo:v9];
   [(LDAPTask *)self finishWithError:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)taskStatusForError:(id)error
@@ -263,7 +262,7 @@ LABEL_21:
 
 void __32__LDAPTask_initializeConnection__block_invoke(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = ldap_connection_create_with_url();
@@ -275,67 +274,62 @@ void __32__LDAPTask_initializeConnection__block_invoke(uint64_t a1, void *a2, in
   {
     v12 = [*(a1 + 32) ldConnection];
     *buf = 134218242;
-    v34 = v12;
-    v35 = 2112;
-    v36 = v7;
+    v30 = v12;
+    v31 = 2112;
+    v32 = v7;
     _os_log_impl(&dword_24857C000, v10, v11, "Connection at %p created for url %@", buf, 0x16u);
   }
 
   if ([*(a1 + 40) length])
   {
     v13 = *MEMORY[0x277CEE080];
-    v31[0] = *MEMORY[0x277CEE088];
-    v31[1] = v13;
+    v27[0] = *MEMORY[0x277CEE088];
+    v27[1] = v13;
     v14 = *(a1 + 48);
-    v32[0] = *(a1 + 40);
-    v32[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v28[0] = *(a1 + 40);
+    v28[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
     v16 = [*(a1 + 32) ldConnection];
-    v17 = *MEMORY[0x277CEE050];
+    ldap_connection_add_credential();
+
+    v17 = [*(a1 + 32) ldConnection];
     ldap_connection_add_credential();
 
     v18 = [*(a1 + 32) ldConnection];
-    v19 = *MEMORY[0x277CEE058];
-    ldap_connection_add_credential();
-
-    v20 = [*(a1 + 32) ldConnection];
-    v21 = *MEMORY[0x277CEE068];
     ldap_connection_add_credential();
   }
 
   if (a3)
   {
-    v22 = DALoggingwithCategory();
-    if (os_log_type_enabled(v22, v11))
+    v19 = DALoggingwithCategory();
+    if (os_log_type_enabled(v19, v11))
     {
       *buf = 0;
-      _os_log_impl(&dword_24857C000, v22, v11, "Account requires LDAP+TLS", buf, 2u);
+      _os_log_impl(&dword_24857C000, v19, v11, "Account requires LDAP+TLS", buf, 2u);
     }
 
-    v23 = [*(a1 + 32) ldConnection];
+    v20 = [*(a1 + 32) ldConnection];
     [MEMORY[0x277D03910] ignoreBadLDAPCerts];
     ldap_connection_set_tls();
 
-    v24 = DALoggingwithCategory();
-    if (os_log_type_enabled(v24, v11))
+    v21 = DALoggingwithCategory();
+    if (os_log_type_enabled(v21, v11))
     {
-      v25 = [*(a1 + 32) ldConnection];
+      v22 = [*(a1 + 32) ldConnection];
       *buf = 134217984;
-      v34 = v25;
-      _os_log_impl(&dword_24857C000, v24, v11, "Set TLS requirement for ldConnection %p", buf, 0xCu);
+      v30 = v22;
+      _os_log_impl(&dword_24857C000, v21, v11, "Set TLS requirement for ldConnection %p", buf, 0xCu);
     }
   }
 
-  v26 = [*(a1 + 32) ldConnection];
+  v23 = [*(a1 + 32) ldConnection];
   [*MEMORY[0x277D03708] UTF8String];
   ldap_connection_set_source_application_by_bundle();
 
-  v27 = [*(a1 + 32) ldConnection];
-  v30 = v8;
-  v28 = v8;
+  v24 = [*(a1 + 32) ldConnection];
+  v26 = v8;
+  v25 = v8;
   ldap_connection_start();
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __32__LDAPTask_initializeConnection__block_invoke_2(uint64_t a1)
@@ -389,34 +383,33 @@ void __32__LDAPTask_initializeConnection__block_invoke_4(uint64_t a1)
 {
   if (*(a1 + 68) == 1)
   {
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = [*(a1 + 32) ldConnection];
+    v3 = [*(a1 + 32) ldConnection];
 
-    if (v4)
+    if (v3)
     {
-      v5 = [*(a1 + 32) ldConnection];
+      v4 = [*(a1 + 32) ldConnection];
       ldap_connection_disconnect();
 
       [*(a1 + 32) setLdConnection:0];
     }
 
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __32__LDAPTask_initializeConnection__block_invoke_5;
-    v8[3] = &unk_278F1FA80;
-    v6 = *(a1 + 40);
-    v8[4] = *(a1 + 32);
-    v7 = *(a1 + 56);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 64);
-    (*(v7 + 16))(v7, v6, 0, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __32__LDAPTask_initializeConnection__block_invoke_5;
+    v7[3] = &unk_278F1FA80;
+    v5 = *(a1 + 40);
+    v7[4] = *(a1 + 32);
+    v6 = *(a1 + 56);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 64);
+    (*(v6 + 16))(v6, v5, 0, v7);
   }
 }
 
@@ -446,36 +439,32 @@ void __32__LDAPTask_initializeConnection__block_invoke_5(uint64_t a1, char a2, i
 
 void __32__LDAPTask_initializeConnection__block_invoke_6(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
-    v2 = *(a1 + 40);
-    v3 = *(*(a1 + 40) + 16);
-    v4 = *MEMORY[0x277D85DE8];
+    v2 = *(*(a1 + 40) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v5 = DALoggingwithCategory();
-    v6 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v5, v6))
+    v3 = DALoggingwithCategory();
+    v4 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v3, v4))
     {
-      v7 = *(a1 + 48);
-      v8 = *(a1 + 52);
-      v12[0] = 67109376;
-      v12[1] = v7;
-      v13 = 1024;
-      v14 = v8;
-      _os_log_impl(&dword_24857C000, v5, v6, "Couldn't connect to LDAP+TLS (error %d) or LDAPS (error %d)", v12, 0xEu);
+      v5 = *(a1 + 48);
+      v6 = *(a1 + 52);
+      v9[0] = 67109376;
+      v9[1] = v5;
+      v10 = 1024;
+      v11 = v6;
+      _os_log_impl(&dword_24857C000, v3, v4, "Couldn't connect to LDAP+TLS (error %d) or LDAPS (error %d)", v9, 0xEu);
     }
 
-    v9 = *(a1 + 32);
-    v10 = [v9 daLevelErrorForLDAPError:*(a1 + 52)];
-    [v9 finishWithError:v10];
-
-    v11 = *MEMORY[0x277D85DE8];
+    v7 = *(a1 + 32);
+    v8 = [v7 daLevelErrorForLDAPError:*(a1 + 52)];
+    [v7 finishWithError:v8];
   }
 }
 
@@ -504,34 +493,38 @@ void __32__LDAPTask_initializeConnection__block_invoke_17(uint64_t a1, char a2, 
 
 void __32__LDAPTask_initializeConnection__block_invoke_2_18(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a1 + 52) == 1)
   {
-    v2 = *(a1 + 40);
-    v3 = *(*(a1 + 40) + 16);
-    v4 = *MEMORY[0x277D85DE8];
+    v2 = *(*(a1 + 40) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v5 = DALoggingwithCategory();
-    v6 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v5, v6))
+    v3 = DALoggingwithCategory();
+    v4 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v3, v4))
     {
-      v7 = *(a1 + 48);
-      v11[0] = 67109120;
-      v11[1] = v7;
-      _os_log_impl(&dword_24857C000, v5, v6, "Couldn't connect LDAP, error %d", v11, 8u);
+      v5 = *(a1 + 48);
+      v8[0] = 67109120;
+      v8[1] = v5;
+      _os_log_impl(&dword_24857C000, v3, v4, "Couldn't connect LDAP, error %d", v8, 8u);
     }
 
-    v8 = *(a1 + 32);
-    v9 = [v8 daLevelErrorForLDAPError:*(a1 + 48)];
-    [v8 finishWithError:v9];
-
-    v10 = *MEMORY[0x277D85DE8];
+    v6 = *(a1 + 32);
+    v7 = [v6 daLevelErrorForLDAPError:*(a1 + 48)];
+    [v6 finishWithError:v7];
   }
+}
+
+- (id)daLevelErrorForLDAPError:(int)error
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"LDAPTask.m" lineNumber:212 description:@"Should be implemented in subclass"];
+
+  return 0;
 }
 
 - (DATaskManager)taskManager

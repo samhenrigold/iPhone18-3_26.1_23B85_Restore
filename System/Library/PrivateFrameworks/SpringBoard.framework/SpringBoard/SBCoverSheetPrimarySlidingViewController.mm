@@ -114,18 +114,19 @@ LABEL_7:
 
 - (void)_updatePanelWallpaperEffectView
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   transitionSettings = [(SBCoverSheetSlidingViewController *)self transitionSettings];
-  if ([transitionSettings panelWallpaper])
+  panelWallpaper = [transitionSettings panelWallpaper];
+  if (panelWallpaper)
   {
     [(SBCoverSheetPrimarySlidingViewController *)self _createPanelWallpaperEffectViewIfNeeded];
-    v4 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_panelWallpaperEffectView];
-    v5 = SBLogSystemGestureCoverSheet();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_panelWallpaperEffectView];
+    v6 = SBLogSystemGestureCoverSheet(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = v4;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[SBCoverSheetPrimarySlidingViewController _updatePanelWallpaperEffectView] - _panelWallpaperEffectView %{public}@ will be visible", &v14, 0xCu);
+      v16 = 138543362;
+      v17 = v5;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[SBCoverSheetPrimarySlidingViewController _updatePanelWallpaperEffectView] - _panelWallpaperEffectView %{public}@ will be visible", &v16, 0xCu);
     }
 
     superview = [(SBWallpaperEffectView *)self->_panelWallpaperEffectView superview];
@@ -133,19 +134,19 @@ LABEL_7:
 
     if (superview != parallaxContainerView)
     {
-      v8 = SBLogSystemGestureCoverSheet();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogSystemGestureCoverSheet(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         superview2 = [(SBWallpaperEffectView *)self->_panelWallpaperEffectView superview];
-        v10 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:superview2];
-        v11 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_parallaxContainerView];
-        v14 = 138543874;
-        v15 = v4;
-        v16 = 2114;
-        v17 = v10;
+        v12 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:superview2];
+        v13 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_parallaxContainerView];
+        v16 = 138543874;
+        v17 = v5;
         v18 = 2114;
-        v19 = v11;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[SBCoverSheetPrimarySlidingViewController _updatePanelWallpaperEffectView] - moving _panelWallpaperEffectView %{public}@ from %{public}@ to %{public}@", &v14, 0x20u);
+        v19 = v12;
+        v20 = 2114;
+        v21 = v13;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[SBCoverSheetPrimarySlidingViewController _updatePanelWallpaperEffectView] - moving _panelWallpaperEffectView %{public}@ from %{public}@ to %{public}@", &v16, 0x20u);
       }
 
       [(SBWallpaperEffectView *)self->_panelWallpaperEffectView removeFromSuperview];
@@ -158,11 +159,11 @@ LABEL_7:
 
   else
   {
-    v13 = SBLogSystemGestureCoverSheet();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogSystemGestureCoverSheet(panelWallpaper);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[SBCoverSheetPrimarySlidingViewController _updatePanelWallpaperEffectView] - _panelWallpaperEffectView will NOT be visible", &v14, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[SBCoverSheetPrimarySlidingViewController _updatePanelWallpaperEffectView] - _panelWallpaperEffectView will NOT be visible", &v16, 2u);
     }
 
     [(SBWallpaperEffectView *)self->_panelWallpaperEffectView removeFromSuperview];
@@ -203,7 +204,7 @@ LABEL_7:
   v52 = v8;
 
   contentView = [positionView contentView];
-  [contentView frame];
+  objc_msgSend_frame(contentView);
   v11 = v10;
   v13 = v12;
   v15 = v14;
@@ -315,8 +316,7 @@ LABEL_7:
     UIIntegralTransform();
     panelWallpaperEffectView = self->_panelWallpaperEffectView;
     v58 = v56;
-    [(SBWallpaperEffectView *)panelWallpaperEffectView setTransform:&v58];
-    v41 = SBLogSystemGestureCoverSheet();
+    v41 = SBLogSystemGestureCoverSheet([(SBWallpaperEffectView *)panelWallpaperEffectView setTransform:&v58]);
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(v58.a) = 134217984;
@@ -399,10 +399,10 @@ LABEL_7:
 
 - (void)loadView
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v53.receiver = self;
-  v53.super_class = SBCoverSheetPrimarySlidingViewController;
-  [(SBCoverSheetSlidingViewController *)&v53 loadView];
+  v57 = *MEMORY[0x277D85DE8];
+  v54.receiver = self;
+  v54.super_class = SBCoverSheetPrimarySlidingViewController;
+  [(SBCoverSheetSlidingViewController *)&v54 loadView];
   v3 = +[SBDefaults localDefaults];
   miscellaneousDefaults = [v3 miscellaneousDefaults];
   miscellaneousDefaults = self->_miscellaneousDefaults;
@@ -412,14 +412,14 @@ LABEL_7:
   v6 = self->_miscellaneousDefaults;
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"sensitiveUIEnabled"];
   v8 = MEMORY[0x277D85CD0];
-  v47 = MEMORY[0x277D85DD0];
-  v48 = 3221225472;
-  v49 = __52__SBCoverSheetPrimarySlidingViewController_loadView__block_invoke;
-  v50 = &unk_2783A8C68;
-  objc_copyWeak(&v51, &location);
-  v9 = [(SBMiscellaneousDefaults *)v6 observeDefault:v7 onQueue:MEMORY[0x277D85CD0] withBlock:&v47];
+  v48 = MEMORY[0x277D85DD0];
+  v49 = 3221225472;
+  v50 = __52__SBCoverSheetPrimarySlidingViewController_loadView__block_invoke;
+  v51 = &unk_2783A8C68;
+  objc_copyWeak(&v52, &location);
+  v9 = [(SBMiscellaneousDefaults *)v6 observeDefault:v7 onQueue:MEMORY[0x277D85CD0] withBlock:&v48];
 
-  v10 = [(SBCoverSheetPrimarySlidingViewController *)self view:v47];
+  v10 = [(SBCoverSheetPrimarySlidingViewController *)self view:v48];
   v11 = objc_alloc_init(SBCoverSheetPanelBackgroundContainerView);
   panelBackgroundContainerView = self->_panelBackgroundContainerView;
   self->_panelBackgroundContainerView = v11;
@@ -477,15 +477,15 @@ LABEL_7:
   edgePullGestureRecognizer2 = [(SBGrabberTongue *)self->_grabberTongue edgePullGestureRecognizer];
   v34 = SBSafeCast(v32, edgePullGestureRecognizer2);
 
-  [v34 _edgeRegionSize];
-  self->_defaultPresentGestureEdgeRegionSize = v35;
-  v36 = SBLogSystemGestureCoverSheet();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  _edgeRegionSize = [v34 _edgeRegionSize];
+  self->_defaultPresentGestureEdgeRegionSize = v36;
+  v37 = SBLogSystemGestureCoverSheet(_edgeRegionSize);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     defaultPresentGestureEdgeRegionSize = self->_defaultPresentGestureEdgeRegionSize;
     *buf = 134217984;
-    v55 = defaultPresentGestureEdgeRegionSize;
-    _os_log_impl(&dword_21ED4E000, v36, OS_LOG_TYPE_DEFAULT, "_defaultPresentGestureEdgeRegionSize initialized to %g", buf, 0xCu);
+    v56 = defaultPresentGestureEdgeRegionSize;
+    _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, "_defaultPresentGestureEdgeRegionSize initialized to %g", buf, 0xCu);
   }
 
   controlCenterController = [_sbWindowScene controlCenterController];
@@ -500,23 +500,23 @@ LABEL_7:
     [defaultCenter addObserver:self selector:sel__controlCenterWindowSceneDidConnect_ name:@"SBControlCenterControllerWindowSceneConnectedNotification" object:0];
   }
 
-  v40 = +[SBReachabilityManager sharedInstance];
-  [v40 addObserver:self];
-  dismissPanGestureRecognizer = [v40 dismissPanGestureRecognizer];
+  v41 = +[SBReachabilityManager sharedInstance];
+  [v41 addObserver:self];
+  dismissPanGestureRecognizer = [v41 dismissPanGestureRecognizer];
   edgePullGestureRecognizer3 = [(SBGrabberTongue *)self->_grabberTongue edgePullGestureRecognizer];
   [dismissPanGestureRecognizer requireGestureRecognizerToFail:edgePullGestureRecognizer3];
 
   if (CSFeatureEnabled() && !self->_maskedDimmingView)
   {
-    v43 = [SBCoverSheetDimmingView alloc];
+    v44 = [SBCoverSheetDimmingView alloc];
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen bounds];
-    v45 = [(SBCoverSheetDimmingView *)v43 initWithFrame:?];
+    v46 = [(SBCoverSheetDimmingView *)v44 initWithFrame:?];
     maskedDimmingView = self->_maskedDimmingView;
-    self->_maskedDimmingView = v45;
+    self->_maskedDimmingView = v46;
   }
 
-  objc_destroyWeak(&v51);
+  objc_destroyWeak(&v52);
   objc_destroyWeak(&location);
 }
 
@@ -796,8 +796,7 @@ void __52__SBCoverSheetPrimarySlidingViewController_loadView__block_invoke(uint6
     {
       [(SBWallpaperEffectView *)panelWallpaperEffectView setAlpha:1.0];
       [(PBUIWallpaperEffectViewBase *)self->_panelWallpaperEffectView setHidden:0];
-      -[PBUIWallpaperEffectViewBase setFullscreen:](self->_panelWallpaperEffectView, "setFullscreen:", [transitionSettings trackingWallpaper]);
-      v31 = SBLogSystemGestureCoverSheet();
+      v31 = SBLogSystemGestureCoverSheet(-[PBUIWallpaperEffectViewBase setFullscreen:](self->_panelWallpaperEffectView, "setFullscreen:", [transitionSettings trackingWallpaper]));
       if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_33;
@@ -813,8 +812,7 @@ void __52__SBCoverSheetPrimarySlidingViewController_loadView__block_invoke(uint6
 
     else
     {
-      [(PBUIWallpaperEffectViewBase *)panelWallpaperEffectView setHidden:1];
-      v31 = SBLogSystemGestureCoverSheet();
+      v31 = SBLogSystemGestureCoverSheet([(PBUIWallpaperEffectViewBase *)panelWallpaperEffectView setHidden:1]);
       if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_33;
@@ -909,8 +907,7 @@ LABEL_33:
   [(SBFTouchPassThroughView *)self->_unlockedContentOverlayView setAlpha:1.0];
   if ([transitionSettings panelWallpaper])
   {
-    [(PBUIWallpaperEffectViewBase *)self->_panelWallpaperEffectView setHidden:0];
-    clearColor = SBLogSystemGestureCoverSheet();
+    clearColor = SBLogSystemGestureCoverSheet([(PBUIWallpaperEffectViewBase *)self->_panelWallpaperEffectView setHidden:0]);
     if (os_log_type_enabled(clearColor, OS_LOG_TYPE_DEFAULT))
     {
       v22 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_panelWallpaperEffectView];
@@ -951,10 +948,10 @@ LABEL_47:
 - (void)_endTransitionToAppeared:(BOOL)appeared
 {
   appearedCopy = appeared;
-  v22 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = SBCoverSheetPrimarySlidingViewController;
-  [(SBCoverSheetSlidingViewController *)&v17 _endTransitionToAppeared:?];
+  v23 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = SBCoverSheetPrimarySlidingViewController;
+  [(SBCoverSheetSlidingViewController *)&v18 _endTransitionToAppeared:?];
   [(SBCoverSheetDimmingView *)self->_maskedDimmingView setAlpha:0.0];
   transitionSettings = [(SBCoverSheetSlidingViewController *)self transitionSettings];
   if ([transitionSettings blursPanel])
@@ -981,40 +978,40 @@ LABEL_47:
     [(SBCoverSheetBlurView *)self->_behindCoverSheetBlurView setHidden:1];
   }
 
-  if ([transitionSettings panelWallpaper])
+  panelWallpaper = [transitionSettings panelWallpaper];
+  if (panelWallpaper)
   {
-    [(PBUIWallpaperEffectViewBase *)self->_panelWallpaperEffectView setHidden:1];
-    v8 = SBLogSystemGestureCoverSheet();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogSystemGestureCoverSheet([(PBUIWallpaperEffectViewBase *)self->_panelWallpaperEffectView setHidden:1]);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
-    v9 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_panelWallpaperEffectView];
+    v10 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_panelWallpaperEffectView];
     *buf = 67109378;
-    v19 = appearedCopy;
-    v20 = 2114;
-    v21 = v9;
-    v10 = "[SBCoverSheetPrimarySlidingViewController _endTransitionToAppeared:%{BOOL}i] - _panelWallpaperEffectView was visible with final alpha: %{public}@";
+    v20 = appearedCopy;
+    v21 = 2114;
+    v22 = v10;
+    v11 = "[SBCoverSheetPrimarySlidingViewController _endTransitionToAppeared:%{BOOL}i] - _panelWallpaperEffectView was visible with final alpha: %{public}@";
   }
 
   else
   {
-    v8 = SBLogSystemGestureCoverSheet();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogSystemGestureCoverSheet(panelWallpaper);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
-    v9 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_panelWallpaperEffectView];
+    v10 = [(SBCoverSheetPrimarySlidingViewController *)self _visibilityDescriptionForView:self->_panelWallpaperEffectView];
     *buf = 67109378;
-    v19 = appearedCopy;
-    v20 = 2114;
-    v21 = v9;
-    v10 = "[SBCoverSheetPrimarySlidingViewController _endTransitionToAppeared:%{BOOL}i] - _panelWallpaperEffectView was hidden: %{public}@";
+    v20 = appearedCopy;
+    v21 = 2114;
+    v22 = v10;
+    v11 = "[SBCoverSheetPrimarySlidingViewController _endTransitionToAppeared:%{BOOL}i] - _panelWallpaperEffectView was hidden: %{public}@";
   }
 
-  _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, v10, buf, 0x12u);
+  _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, v11, buf, 0x12u);
 
 LABEL_15:
   if ([transitionSettings fadesContent])
@@ -1027,14 +1024,14 @@ LABEL_15:
     alwaysFadesCoverSheetContent = [transitionSettings alwaysFadesCoverSheetContent];
     contentViewController = [(SBCoverSheetSlidingViewController *)self contentViewController];
     view = [contentViewController view];
-    v14 = view;
-    v15 = 0.0;
+    v15 = view;
+    v16 = 0.0;
     if (appearedCopy | alwaysFadesCoverSheetContent)
     {
-      v15 = 1.0;
+      v16 = 1.0;
     }
 
-    [view setAlpha:v15];
+    [view setAlpha:v16];
   }
 
   delegate = [(SBCoverSheetSlidingViewController *)self delegate];
@@ -1256,40 +1253,39 @@ LABEL_29:
 
 - (void)handleReachabilityModeActivated
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   edgePullGestureRecognizer = [(SBGrabberTongue *)self->_grabberTongue edgePullGestureRecognizer];
   v5 = SBSafeCast(v3, edgePullGestureRecognizer);
 
   if (v5)
   {
-    v6 = +[SBReachabilityManager sharedInstance];
-    [v6 reachabilityYOffset];
-    v8 = v7;
+    v7 = +[SBReachabilityManager sharedInstance];
+    [v7 reachabilityYOffset];
+    v9 = v8;
 
-    [v5 _setEdgeRegionSize:v8];
-    v9 = SBLogSystemGestureCoverSheet();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogSystemGestureCoverSheet([v5 _setEdgeRegionSize:v9]);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
-      v14 = v8;
-      v10 = "reachability activated - setting edgeRegionSize to %g";
-      v11 = v9;
-      v12 = 12;
+      v14 = 134217984;
+      v15 = v9;
+      v11 = "reachability activated - setting edgeRegionSize to %g";
+      v12 = v10;
+      v13 = 12;
 LABEL_6:
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, v10, &v13, v12);
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, v11, &v14, v13);
     }
   }
 
   else
   {
-    v9 = SBLogSystemGestureCoverSheet();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogSystemGestureCoverSheet(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      v10 = "reachability activated - missing recognizer";
-      v11 = v9;
-      v12 = 2;
+      LOWORD(v14) = 0;
+      v11 = "reachability activated - missing recognizer";
+      v12 = v10;
+      v13 = 2;
       goto LABEL_6;
     }
   }
@@ -1297,21 +1293,21 @@ LABEL_6:
 
 - (void)handleReachabilityModeDeactivated
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   edgePullGestureRecognizer = [(SBGrabberTongue *)self->_grabberTongue edgePullGestureRecognizer];
   v5 = SBSafeCast(v3, edgePullGestureRecognizer);
 
-  v6 = SBLogSystemGestureCoverSheet();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = SBLogSystemGestureCoverSheet(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
-    if (v7)
+    if (v8)
     {
       defaultPresentGestureEdgeRegionSize = self->_defaultPresentGestureEdgeRegionSize;
-      v9 = 134217984;
-      v10 = defaultPresentGestureEdgeRegionSize;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "reachability deactivated - setting edgeRegionSize to %g", &v9, 0xCu);
+      v10 = 134217984;
+      v11 = defaultPresentGestureEdgeRegionSize;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "reachability deactivated - setting edgeRegionSize to %g", &v10, 0xCu);
     }
 
     [v5 _setEdgeRegionSize:self->_defaultPresentGestureEdgeRegionSize];
@@ -1319,10 +1315,10 @@ LABEL_6:
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "reachability deactivated - missing recognizer", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "reachability deactivated - missing recognizer", &v10, 2u);
     }
   }
 }
@@ -1362,43 +1358,43 @@ LABEL_6:
 
   if ((v7 & 1) == 0)
   {
-    v11 = SBLogSystemGestureCoverSheet();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = SBLogSystemGestureCoverSheet(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 0;
-      v12 = "Not allowing the present gesture to begin because system gestures aren't allowed.";
-      v13 = &v16;
+      v18 = 0;
+      v14 = "Not allowing the present gesture to begin because system gestures aren't allowed.";
+      v15 = &v18;
 LABEL_8:
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, v12, v13, 2u);
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, v14, v15, 2u);
     }
 
 LABEL_9:
 
-    v10 = 0;
+    v12 = 0;
     goto LABEL_10;
   }
 
   systemGesturesDelegate = [(SBCoverSheetSlidingViewController *)self systemGesturesDelegate];
-  v9 = [systemGesturesDelegate gestureRecognizerShouldBegin:recognizerCopy];
+  v10 = [systemGesturesDelegate gestureRecognizerShouldBegin:recognizerCopy];
 
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    v11 = SBLogSystemGestureCoverSheet();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = SBLogSystemGestureCoverSheet(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 0;
-      v12 = "SystemGesturesDelegate says gesture recognizer should not begin.";
-      v13 = &v15;
+      v17 = 0;
+      v14 = "SystemGesturesDelegate says gesture recognizer should not begin.";
+      v15 = &v17;
       goto LABEL_8;
     }
 
     goto LABEL_9;
   }
 
-  v10 = 1;
+  v12 = 1;
 LABEL_10:
 
-  return v10;
+  return v12;
 }
 
 - (void)grabberTongueBeganPulling:(id)pulling withDistance:(double)distance andVelocity:(double)velocity andGesture:(id)gesture
@@ -1462,7 +1458,7 @@ LABEL_10:
   if (v4)
   {
     contentView = [positionCopy contentView];
-    [contentView frame];
+    objc_msgSend_frame(contentView);
     v8 = v7;
 
     contentViewController = [(SBCoverSheetSlidingViewController *)self contentViewController];
@@ -1595,14 +1591,15 @@ LABEL_18:
     goto LABEL_7;
   }
 
-  if ([(PBUIWallpaperEffectViewBase *)panelWallpaperEffectView transformOptions]== _panelOptions)
+  panelWallpaperEffectView = [(PBUIWallpaperEffectViewBase *)panelWallpaperEffectView transformOptions];
+  if (panelWallpaperEffectView == _panelOptions)
   {
     return;
   }
 
   if (self->_panelWallpaperEffectView)
   {
-    v5 = SBLogSystemGestureCoverSheet();
+    v5 = SBLogSystemGestureCoverSheet(panelWallpaperEffectView);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134217984;
@@ -1616,7 +1613,7 @@ LABEL_18:
   else
   {
 LABEL_7:
-    v6 = SBLogSystemGestureCoverSheet();
+    v6 = SBLogSystemGestureCoverSheet(panelWallpaperEffectView);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134217984;

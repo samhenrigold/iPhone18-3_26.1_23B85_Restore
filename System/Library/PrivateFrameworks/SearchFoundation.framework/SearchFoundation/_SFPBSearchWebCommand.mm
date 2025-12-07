@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setSearchString:(id)string
 {
-  v4 = [string copy];
-  searchString = self->_searchString;
-  self->_searchString = v4;
+  self->_searchString = [string copy];
 
   MEMORY[0x1EEE66BB8]();
 }

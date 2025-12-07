@@ -122,15 +122,14 @@ void __46__CRXFServiceRequest_createProxyOnConnection___block_invoke(uint64_t a1
 
 void __46__CRXFServiceRequest_createProxyOnConnection___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
-  v4 = "[CRXFServiceRequest createProxyOnConnection:]_block_invoke";
-  v5 = 1024;
-  v6 = 72;
-  v7 = 2114;
-  v8 = a1;
-  _os_log_error_impl(&dword_24732C000, a2, OS_LOG_TYPE_ERROR, "%s @%d: remote proxy error: %{public}@", &v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 136315650;
+  v3 = "[CRXFServiceRequest createProxyOnConnection:]_block_invoke";
+  v4 = 1024;
+  v5 = 72;
+  v6 = 2114;
+  v7 = a1;
+  _os_log_error_impl(&dword_24732C000, a2, OS_LOG_TYPE_ERROR, "%s @%d: remote proxy error: %{public}@", &v2, 0x1Cu);
 }
 
 @end

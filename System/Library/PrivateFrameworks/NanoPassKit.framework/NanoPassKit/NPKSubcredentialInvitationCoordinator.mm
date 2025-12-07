@@ -161,28 +161,27 @@
 
   else
   {
-    v8 = pk_General_log();
+    v8 = pk_General_log(0);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
     if (v9)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = pk_General_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         v15 = 138543618;
-        v16 = v12;
+        v16 = v13;
         v17 = 2112;
         v18 = 0;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_ERROR, "Error: %{public}@: Expected to have a configuration but instead found %@!", &v15, 0x16u);
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: %{public}@: Expected to have a configuration but instead found %@!", &v15, 0x16u);
       }
     }
 
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -211,25 +210,25 @@ void __72__NPKSubcredentialInvitationCoordinator_canAcceptInvitation_completion_
 {
   v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = _Block_copy(*(a1 + 40));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = _Block_copy(*(a1 + 40));
       *buf = 138543874;
-      v19 = v7;
+      v19 = v8;
       v20 = 2112;
-      v21 = v8;
+      v21 = v9;
       v22 = 2112;
-      v23 = v9;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Checking whether pass library can accept invitation: %@ completion: %@", buf, 0x20u);
+      v23 = v10;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Checking whether pass library can accept invitation: %@ completion: %@", buf, 0x20u);
     }
   }
 
@@ -239,11 +238,10 @@ void __72__NPKSubcredentialInvitationCoordinator_canAcceptInvitation_completion_
   v15 = &unk_279945A70;
   objc_copyWeak(&v17, (a1 + 48));
   v16 = *(a1 + 40);
-  v10 = _Block_copy(&v12);
-  [WeakRetained _queue_canAcceptInvitation:*(a1 + 32) completion:{v10, v12, v13, v14, v15}];
+  v11 = _Block_copy(&v12);
+  [WeakRetained _queue_canAcceptInvitation:*(a1 + 32) completion:{v11, v12, v13, v14, v15}];
 
   objc_destroyWeak(&v17);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __72__NPKSubcredentialInvitationCoordinator_canAcceptInvitation_completion___block_invoke_60(uint64_t a1, void *a2)
@@ -264,31 +262,27 @@ void __72__NPKSubcredentialInvitationCoordinator_canAcceptInvitation_completion_
 
 uint64_t __72__NPKSubcredentialInvitationCoordinator_canAcceptInvitation_completion___block_invoke_2(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = a1[4];
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = a1[5];
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with error: %@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with error: %@", &v10, 0x16u);
     }
   }
 
-  v9 = a1[5];
-  result = (*(a1[6] + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)listSubcredentialInvitationsWithCompletion:(id)completion
@@ -313,19 +307,19 @@ void __84__NPKSubcredentialInvitationCoordinator_listSubcredentialInvitationsWit
 {
   v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138543362;
-      v17 = v7;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Listing subcredential invitations", buf, 0xCu);
+      v17 = v8;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Listing subcredential invitations", buf, 0xCu);
     }
   }
 
@@ -335,11 +329,10 @@ void __84__NPKSubcredentialInvitationCoordinator_listSubcredentialInvitationsWit
   v13 = &unk_279945AC0;
   objc_copyWeak(&v15, (a1 + 40));
   v14 = *(a1 + 32);
-  v8 = _Block_copy(&v10);
-  [WeakRetained _queue_listSubcredentialInvitationsWithCompletion:{v8, v10, v11, v12, v13}];
+  v9 = _Block_copy(&v10);
+  [WeakRetained _queue_listSubcredentialInvitationsWithCompletion:{v9, v10, v11, v12, v13}];
 
   objc_destroyWeak(&v15);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__NPKSubcredentialInvitationCoordinator_listSubcredentialInvitationsWithCompletion___block_invoke_63(uint64_t a1, void *a2)
@@ -360,31 +353,27 @@ void __84__NPKSubcredentialInvitationCoordinator_listSubcredentialInvitationsWit
 
 uint64_t __84__NPKSubcredentialInvitationCoordinator_listSubcredentialInvitationsWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = [*(a1 + 40) description];
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with invitations: %@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with invitations: %@", &v10, 0x16u);
     }
   }
 
-  v9 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)startProvisioningWithInvitationIdentifier:(id)identifier metadata:(id)metadata completion:(id)completion
@@ -424,44 +413,43 @@ void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithInvitatio
 {
   v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = _Block_copy(*(a1 + 48));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v11 = _Block_copy(*(a1 + 48));
       *buf = 138544130;
-      v17 = v7;
+      v17 = v8;
       v18 = 2112;
-      v19 = v8;
+      v19 = v9;
       v20 = 2112;
-      v21 = v9;
+      v21 = v10;
       v22 = 2112;
-      v23 = v10;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Begin provisioning with invitation identifier: %@ metadata: %@ completion: %@", buf, 0x2Au);
+      v23 = v11;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Begin provisioning with invitation identifier: %@ metadata: %@ completion: %@", buf, 0x2Au);
     }
   }
 
   [WeakRetained setCompletion:*(a1 + 48)];
   [WeakRetained _setUpSubcredentialProvisioningController];
-  v11 = *(a1 + 32);
+  v12 = *(a1 + 32);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithInvitationIdentifier_metadata_completion___block_invoke_65;
   v13[3] = &unk_279945B38;
   objc_copyWeak(&v15, (a1 + 56));
   v14 = *(a1 + 40);
-  [WeakRetained _fetchInvitationWithIdentifier:v11 completion:v13];
+  [WeakRetained _fetchInvitationWithIdentifier:v12 completion:v13];
 
   objc_destroyWeak(&v15);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithInvitationIdentifier_metadata_completion___block_invoke_65(uint64_t a1, void *a2)
@@ -580,28 +568,28 @@ void __93__NPKSubcredentialInvitationCoordinator_startProvisioningWithInvitation
 {
   v29 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = _Block_copy(*(a1 + 48));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v11 = _Block_copy(*(a1 + 48));
       *buf = 138544130;
-      v22 = v7;
+      v22 = v8;
       v23 = 2112;
-      v24 = v8;
+      v24 = v9;
       v25 = 2112;
-      v26 = v9;
+      v26 = v10;
       v27 = 2112;
-      v28 = v10;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Begin provisioning with invitation: %@ metadata: %@ completion: %@", buf, 0x2Au);
+      v28 = v11;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Begin provisioning with invitation: %@ metadata: %@ completion: %@", buf, 0x2Au);
     }
   }
 
@@ -615,19 +603,19 @@ void __93__NPKSubcredentialInvitationCoordinator_startProvisioningWithInvitation
     v18 = &unk_279945B88;
     objc_copyWeak(&v20, (a1 + 56));
     v19 = *(a1 + 40);
-    v11 = _Block_copy(&v15);
-    v12 = [*(a1 + 32) type];
-    if (v12)
+    v12 = _Block_copy(&v15);
+    v13 = [*(a1 + 32) type];
+    if (v13)
     {
-      if (v12 == 1)
+      if (v13 == 1)
       {
-        (*(v11 + 2))(v11, *(a1 + 32), 0);
+        (*(v12 + 2))(v12, *(a1 + 32), 0);
       }
     }
 
     else
     {
-      [WeakRetained deviceContainsInvitationMatchingInvitation:*(a1 + 32) withTimeout:60 completion:v11];
+      [WeakRetained deviceContainsInvitationMatchingInvitation:*(a1 + 32) withTimeout:60 completion:v12];
     }
 
     objc_destroyWeak(&v20);
@@ -635,11 +623,9 @@ void __93__NPKSubcredentialInvitationCoordinator_startProvisioningWithInvitation
 
   else
   {
-    v13 = [WeakRetained _errorWithCode:0 message:@"Unable to start provisioning - insufficient information"];
-    [WeakRetained _handleProvisioningAttemptForConfiguration:0 error:v13];
+    v14 = [WeakRetained _errorWithCode:0 message:@"Unable to start provisioning - insufficient information"];
+    [WeakRetained _handleProvisioningAttemptForConfiguration:0 error:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __93__NPKSubcredentialInvitationCoordinator_startProvisioningWithInvitation_metadata_completion___block_invoke_68(uint64_t a1, void *a2)
@@ -720,28 +706,28 @@ void __107__NPKSubcredentialInvitationCoordinator_deviceContainsInvitationMatchi
 {
   v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 56);
-      v9 = *(a1 + 32);
-      v10 = _Block_copy(*(a1 + 40));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 56);
+      v10 = *(a1 + 32);
+      v11 = _Block_copy(*(a1 + 40));
       *buf = 138544130;
-      v20 = v7;
+      v20 = v8;
       v21 = 2112;
-      v22 = v9;
+      v22 = v10;
       v23 = 2048;
-      v24 = v8;
+      v24 = v9;
       v25 = 2112;
-      v26 = v10;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Checking whether device contains invitation matching invitation: %@ timeout: %lu completion: %@", buf, 0x2Au);
+      v26 = v11;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Checking whether device contains invitation matching invitation: %@ timeout: %lu completion: %@", buf, 0x2Au);
     }
   }
 
@@ -751,11 +737,10 @@ void __107__NPKSubcredentialInvitationCoordinator_deviceContainsInvitationMatchi
   v16 = &unk_279945BD8;
   objc_copyWeak(&v18, (a1 + 48));
   v17 = *(a1 + 40);
-  v11 = _Block_copy(&v13);
-  [WeakRetained _queue_deviceContainsInvitationMatchingInvitation:*(a1 + 32) withTimeout:*(a1 + 56) completion:{v11, v13, v14, v15, v16}];
+  v12 = _Block_copy(&v13);
+  [WeakRetained _queue_deviceContainsInvitationMatchingInvitation:*(a1 + 32) withTimeout:*(a1 + 56) completion:{v12, v13, v14, v15, v16}];
 
   objc_destroyWeak(&v18);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __107__NPKSubcredentialInvitationCoordinator_deviceContainsInvitationMatchingInvitation_withTimeout_completion___block_invoke_73(uint64_t a1, void *a2, void *a3)
@@ -779,35 +764,30 @@ void __107__NPKSubcredentialInvitationCoordinator_deviceContainsInvitationMatchi
 
 uint64_t __107__NPKSubcredentialInvitationCoordinator_deviceContainsInvitationMatchingInvitation_withTimeout_completion___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = [*(a1 + 40) description];
       v9 = [*(a1 + 48) description];
-      v14 = 138543874;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with invitation: %@ error: %@", &v14, 0x20u);
+      v11 = 138543874;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with invitation: %@ error: %@", &v11, 0x20u);
     }
   }
 
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 40);
-  result = (*(*(a1 + 56) + 16))();
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)accountAttestationAnonymizationSaltWithCompletion:(id)completion
@@ -832,19 +812,19 @@ void __91__NPKSubcredentialInvitationCoordinator_accountAttestationAnonymization
 {
   v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138543362;
-      v17 = v7;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Fetching account attestation anonymization salt", buf, 0xCu);
+      v17 = v8;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Fetching account attestation anonymization salt", buf, 0xCu);
     }
   }
 
@@ -854,11 +834,10 @@ void __91__NPKSubcredentialInvitationCoordinator_accountAttestationAnonymization
   v13 = &unk_279945C28;
   objc_copyWeak(&v15, (a1 + 40));
   v14 = *(a1 + 32);
-  v8 = _Block_copy(&v10);
-  [WeakRetained _queue_accountAttestationAnonymizationSaltWithCompletion:{v8, v10, v11, v12, v13}];
+  v9 = _Block_copy(&v10);
+  [WeakRetained _queue_accountAttestationAnonymizationSaltWithCompletion:{v9, v10, v11, v12, v13}];
 
   objc_destroyWeak(&v15);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __91__NPKSubcredentialInvitationCoordinator_accountAttestationAnonymizationSaltWithCompletion___block_invoke_74(uint64_t a1, void *a2, void *a3)
@@ -882,35 +861,30 @@ void __91__NPKSubcredentialInvitationCoordinator_accountAttestationAnonymization
 
 uint64_t __91__NPKSubcredentialInvitationCoordinator_accountAttestationAnonymizationSaltWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = [*(a1 + 40) description];
       v9 = [*(a1 + 48) description];
-      v14 = 138543874;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with anonymizationSalt: %@ error: %@", &v14, 0x20u);
+      v11 = 138543874;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with anonymizationSalt: %@ error: %@", &v11, 0x20u);
     }
   }
 
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 40);
-  result = (*(*(a1 + 56) + 16))();
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)setAccountAttestationAnonymizationSalt:(id)salt completion:(id)completion
@@ -938,22 +912,22 @@ void __91__NPKSubcredentialInvitationCoordinator_setAccountAttestationAnonymizat
 {
   v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
       *buf = 138543618;
-      v18 = v7;
+      v18 = v8;
       v19 = 2112;
-      v20 = v8;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Setting account attestation anonymization salt: %@", buf, 0x16u);
+      v20 = v9;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Setting account attestation anonymization salt: %@", buf, 0x16u);
     }
   }
 
@@ -963,11 +937,10 @@ void __91__NPKSubcredentialInvitationCoordinator_setAccountAttestationAnonymizat
   v14 = &unk_279945A70;
   objc_copyWeak(&v16, (a1 + 48));
   v15 = *(a1 + 40);
-  v9 = _Block_copy(&v11);
-  [WeakRetained _queue_setAccountAttestationAnonymizationSalt:*(a1 + 32) completion:{v9, v11, v12, v13, v14}];
+  v10 = _Block_copy(&v11);
+  [WeakRetained _queue_setAccountAttestationAnonymizationSalt:*(a1 + 32) completion:{v10, v11, v12, v13, v14}];
 
   objc_destroyWeak(&v16);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __91__NPKSubcredentialInvitationCoordinator_setAccountAttestationAnonymizationSalt_completion___block_invoke_76(uint64_t a1, void *a2)
@@ -988,31 +961,27 @@ void __91__NPKSubcredentialInvitationCoordinator_setAccountAttestationAnonymizat
 
 uint64_t __91__NPKSubcredentialInvitationCoordinator_setAccountAttestationAnonymizationSalt_completion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = [*(a1 + 40) description];
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with error: %@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with error: %@", &v10, 0x16u);
     }
   }
 
-  v9 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)requestSubcredentialInvitation:(id)invitation completion:(id)completion
@@ -1040,22 +1009,22 @@ void __83__NPKSubcredentialInvitationCoordinator_requestSubcredentialInvitation_
 {
   v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
       *buf = 138543618;
-      v20 = v7;
+      v20 = v8;
       v21 = 2112;
-      v22 = v8;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Requesting subcredential invitation: %@", buf, 0x16u);
+      v22 = v9;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Requesting subcredential invitation: %@", buf, 0x16u);
     }
   }
 
@@ -1064,17 +1033,16 @@ void __83__NPKSubcredentialInvitationCoordinator_requestSubcredentialInvitation_
   aBlock[2] = __83__NPKSubcredentialInvitationCoordinator_requestSubcredentialInvitation_completion___block_invoke_77;
   aBlock[3] = &unk_279945C78;
   objc_copyWeak(&v18, (a1 + 48));
-  v10 = *(a1 + 32);
-  v9 = (a1 + 32);
-  v16 = v10;
-  v17 = v9[1];
-  v11 = _Block_copy(aBlock);
-  v12 = *v9;
-  v13 = [*v9 originatorIDSHandle];
-  [WeakRetained _queue_requestSubcredentialInvitation:v12 fromIDSHandle:v13 completion:v11];
+  v11 = *(a1 + 32);
+  v10 = (a1 + 32);
+  v16 = v11;
+  v17 = v10[1];
+  v12 = _Block_copy(aBlock);
+  v13 = *v10;
+  v14 = [*v10 originatorIDSHandle];
+  [WeakRetained _queue_requestSubcredentialInvitation:v13 fromIDSHandle:v14 completion:v12];
 
   objc_destroyWeak(&v18);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __83__NPKSubcredentialInvitationCoordinator_requestSubcredentialInvitation_completion___block_invoke_77(id *a1, void *a2)
@@ -1097,31 +1065,27 @@ void __83__NPKSubcredentialInvitationCoordinator_requestSubcredentialInvitation_
 
 uint64_t __83__NPKSubcredentialInvitationCoordinator_requestSubcredentialInvitation_completion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = [*(a1 + 40) description];
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with invitation: %@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with invitation: %@", &v10, 0x16u);
     }
   }
 
-  v9 = *(a1 + 48);
-  result = (*(*(a1 + 56) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)updateSubcredentialMetadataOnPass:(id)pass withCredential:(id)credential completion:(id)completion
@@ -1152,28 +1116,28 @@ void __101__NPKSubcredentialInvitationCoordinator_updateSubcredentialMetadataOnP
 {
   v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = _Block_copy(*(a1 + 48));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v11 = _Block_copy(*(a1 + 48));
       *buf = 138544130;
-      v20 = v7;
+      v20 = v8;
       v21 = 2112;
-      v22 = v8;
+      v22 = v9;
       v23 = 2112;
-      v24 = v9;
+      v24 = v10;
       v25 = 2112;
-      v26 = v10;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Updating metadata on pass: %@ with credential: %@ completion: %@", buf, 0x2Au);
+      v26 = v11;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Updating metadata on pass: %@ with credential: %@ completion: %@", buf, 0x2Au);
     }
   }
 
@@ -1183,11 +1147,10 @@ void __101__NPKSubcredentialInvitationCoordinator_updateSubcredentialMetadataOnP
   v16 = &unk_279945CA0;
   objc_copyWeak(&v18, (a1 + 56));
   v17 = *(a1 + 48);
-  v11 = _Block_copy(&v13);
-  [WeakRetained _queue_updateSubcredentialMetadataOnPass:*(a1 + 32) withCredential:*(a1 + 40) completion:{v11, v13, v14, v15, v16}];
+  v12 = _Block_copy(&v13);
+  [WeakRetained _queue_updateSubcredentialMetadataOnPass:*(a1 + 32) withCredential:*(a1 + 40) completion:{v12, v13, v14, v15, v16}];
 
   objc_destroyWeak(&v18);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __101__NPKSubcredentialInvitationCoordinator_updateSubcredentialMetadataOnPass_withCredential_completion___block_invoke_78(uint64_t a1, void *a2)
@@ -1208,31 +1171,27 @@ void __101__NPKSubcredentialInvitationCoordinator_updateSubcredentialMetadataOnP
 
 uint64_t __101__NPKSubcredentialInvitationCoordinator_updateSubcredentialMetadataOnPass_withCredential_completion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = [*(a1 + 40) description];
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with pass: %@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with pass: %@", &v10, 0x16u);
     }
   }
 
-  v9 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)registerCredentialsWithIdentifiers:(id)identifiers completion:(id)completion
@@ -1260,25 +1219,25 @@ void __87__NPKSubcredentialInvitationCoordinator_registerCredentialsWithIdentifi
 {
   v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = _Block_copy(*(a1 + 40));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = _Block_copy(*(a1 + 40));
       *buf = 138543874;
-      v19 = v7;
+      v19 = v8;
       v20 = 2112;
-      v21 = v8;
+      v21 = v9;
       v22 = 2112;
-      v23 = v9;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Registering credentials with identifiers: %@ completion: %@", buf, 0x20u);
+      v23 = v10;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Registering credentials with identifiers: %@ completion: %@", buf, 0x20u);
     }
   }
 
@@ -1288,11 +1247,10 @@ void __87__NPKSubcredentialInvitationCoordinator_registerCredentialsWithIdentifi
   v15 = &unk_279945CC8;
   objc_copyWeak(&v17, (a1 + 48));
   v16 = *(a1 + 40);
-  v10 = _Block_copy(&v12);
-  [WeakRetained _queue_registerCredentialsWithIdentifiers:*(a1 + 32) completion:{v10, v12, v13, v14, v15}];
+  v11 = _Block_copy(&v12);
+  [WeakRetained _queue_registerCredentialsWithIdentifiers:*(a1 + 32) completion:{v11, v12, v13, v14, v15}];
 
   objc_destroyWeak(&v17);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __87__NPKSubcredentialInvitationCoordinator_registerCredentialsWithIdentifiers_completion___block_invoke_80(uint64_t a1, void *a2, void *a3)
@@ -1316,35 +1274,30 @@ void __87__NPKSubcredentialInvitationCoordinator_registerCredentialsWithIdentifi
 
 uint64_t __87__NPKSubcredentialInvitationCoordinator_registerCredentialsWithIdentifiers_completion___block_invoke_2(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = a1[4];
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = a1[5];
       v9 = a1[6];
-      v14 = 138543874;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with passes: %@ errors: %@", &v14, 0x20u);
+      v11 = 138543874;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with passes: %@ errors: %@", &v11, 0x20u);
     }
   }
 
-  v10 = a1[6];
-  v11 = a1[5];
-  result = (*(a1[7] + 16))();
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)revokeCredentialsWithIdentifiers:(id)identifiers completion:(id)completion
@@ -1372,25 +1325,25 @@ void __85__NPKSubcredentialInvitationCoordinator_revokeCredentialsWithIdentifier
 {
   v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = _Block_copy(*(a1 + 40));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = _Block_copy(*(a1 + 40));
       *buf = 138543874;
-      v19 = v7;
+      v19 = v8;
       v20 = 2112;
-      v21 = v8;
+      v21 = v9;
       v22 = 2112;
-      v23 = v9;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Revoking credentials with identifiers: %@ completion: %@", buf, 0x20u);
+      v23 = v10;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Revoking credentials with identifiers: %@ completion: %@", buf, 0x20u);
     }
   }
 
@@ -1400,11 +1353,10 @@ void __85__NPKSubcredentialInvitationCoordinator_revokeCredentialsWithIdentifier
   v15 = &unk_279945D18;
   objc_copyWeak(&v17, (a1 + 48));
   v16 = *(a1 + 40);
-  v10 = _Block_copy(&v12);
-  [WeakRetained _queue_revokeCredentialsWithIdentifiers:*(a1 + 32) completion:{v10, v12, v13, v14, v15}];
+  v11 = _Block_copy(&v12);
+  [WeakRetained _queue_revokeCredentialsWithIdentifiers:*(a1 + 32) completion:{v11, v12, v13, v14, v15}];
 
   objc_destroyWeak(&v17);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __85__NPKSubcredentialInvitationCoordinator_revokeCredentialsWithIdentifiers_completion___block_invoke_82(uint64_t a1, char a2)
@@ -1423,16 +1375,15 @@ void __85__NPKSubcredentialInvitationCoordinator_revokeCredentialsWithIdentifier
 
 uint64_t __85__NPKSubcredentialInvitationCoordinator_revokeCredentialsWithIdentifiers_completion___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = v7;
@@ -1442,18 +1393,15 @@ uint64_t __85__NPKSubcredentialInvitationCoordinator_revokeCredentialsWithIdenti
         v9 = @"YES";
       }
 
-      v13 = 138543618;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with success: %@", &v13, 0x16u);
+      v11 = 138543618;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with success: %@", &v11, 0x16u);
     }
   }
 
-  v10 = *(a1 + 48);
-  result = (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)removeSharingInvitation:(id)invitation completion:(id)completion
@@ -1481,25 +1429,25 @@ void __76__NPKSubcredentialInvitationCoordinator_removeSharingInvitation_complet
 {
   v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = _Block_copy(*(a1 + 40));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = _Block_copy(*(a1 + 40));
       *buf = 138543874;
-      v19 = v7;
+      v19 = v8;
       v20 = 2112;
-      v21 = v8;
+      v21 = v9;
       v22 = 2112;
-      v23 = v9;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Removing sharing invitation: %@ completion: %@", buf, 0x20u);
+      v23 = v10;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Removing sharing invitation: %@ completion: %@", buf, 0x20u);
     }
   }
 
@@ -1509,11 +1457,10 @@ void __76__NPKSubcredentialInvitationCoordinator_removeSharingInvitation_complet
   v15 = &unk_279945D18;
   objc_copyWeak(&v17, (a1 + 48));
   v16 = *(a1 + 40);
-  v10 = _Block_copy(&v12);
-  [WeakRetained _queue_removeSharingInvitation:*(a1 + 32) completion:{v10, v12, v13, v14, v15}];
+  v11 = _Block_copy(&v12);
+  [WeakRetained _queue_removeSharingInvitation:*(a1 + 32) completion:{v11, v12, v13, v14, v15}];
 
   objc_destroyWeak(&v17);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __76__NPKSubcredentialInvitationCoordinator_removeSharingInvitation_completion___block_invoke_90(uint64_t a1, char a2)
@@ -1532,16 +1479,15 @@ void __76__NPKSubcredentialInvitationCoordinator_removeSharingInvitation_complet
 
 uint64_t __76__NPKSubcredentialInvitationCoordinator_removeSharingInvitation_completion___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = v7;
@@ -1551,18 +1497,15 @@ uint64_t __76__NPKSubcredentialInvitationCoordinator_removeSharingInvitation_com
         v9 = @"YES";
       }
 
-      v13 = 138543618;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with success: %@", &v13, 0x16u);
+      v11 = 138543618;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with success: %@", &v11, 0x16u);
     }
   }
 
-  v10 = *(a1 + 48);
-  result = (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)declineRelatedInvitationsIfNecessaryForInvitation:(id)invitation completion:(id)completion
@@ -1590,25 +1533,25 @@ void __102__NPKSubcredentialInvitationCoordinator_declineRelatedInvitationsIfNec
 {
   v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = _Block_copy(*(a1 + 40));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = _Block_copy(*(a1 + 40));
       *buf = 138543874;
-      v19 = v7;
+      v19 = v8;
       v20 = 2112;
-      v21 = v8;
+      v21 = v9;
       v22 = 2112;
-      v23 = v9;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Declining related invitations if necessary for invitation: %@ completion: %@", buf, 0x20u);
+      v23 = v10;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Declining related invitations if necessary for invitation: %@ completion: %@", buf, 0x20u);
     }
   }
 
@@ -1618,11 +1561,10 @@ void __102__NPKSubcredentialInvitationCoordinator_declineRelatedInvitationsIfNec
   v15 = &unk_279945D18;
   objc_copyWeak(&v17, (a1 + 48));
   v16 = *(a1 + 40);
-  v10 = _Block_copy(&v12);
-  [WeakRetained _queue_declineRelatedInvitationsIfNecessaryForInvitation:*(a1 + 32) completion:{v10, v12, v13, v14, v15}];
+  v11 = _Block_copy(&v12);
+  [WeakRetained _queue_declineRelatedInvitationsIfNecessaryForInvitation:*(a1 + 32) completion:{v11, v12, v13, v14, v15}];
 
   objc_destroyWeak(&v17);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __102__NPKSubcredentialInvitationCoordinator_declineRelatedInvitationsIfNecessaryForInvitation_completion___block_invoke_91(uint64_t a1, char a2)
@@ -1641,16 +1583,15 @@ void __102__NPKSubcredentialInvitationCoordinator_declineRelatedInvitationsIfNec
 
 uint64_t __102__NPKSubcredentialInvitationCoordinator_declineRelatedInvitationsIfNecessaryForInvitation_completion___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = v7;
@@ -1660,18 +1601,15 @@ uint64_t __102__NPKSubcredentialInvitationCoordinator_declineRelatedInvitationsI
         v9 = @"YES";
       }
 
-      v13 = 138543618;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with didDeclineInvitations: %@", &v13, 0x16u);
+      v11 = 138543618;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with didDeclineInvitations: %@", &v11, 0x16u);
     }
   }
 
-  v10 = *(a1 + 48);
-  result = (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion:(id)completion
@@ -1696,22 +1634,22 @@ void __119__NPKSubcredentialInvitationCoordinator_fetchOrInitializeAccountAttest
 {
   v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = _Block_copy(*(a1 + 32));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = _Block_copy(*(a1 + 32));
       *buf = 138543618;
-      v18 = v7;
+      v18 = v8;
       v19 = 2112;
-      v20 = v8;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Initializing account attestation anonymization salt if necessary with completion: %@", buf, 0x16u);
+      v20 = v9;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Initializing account attestation anonymization salt if necessary with completion: %@", buf, 0x16u);
     }
   }
 
@@ -1721,11 +1659,10 @@ void __119__NPKSubcredentialInvitationCoordinator_fetchOrInitializeAccountAttest
   v14 = &unk_279945C28;
   objc_copyWeak(&v16, (a1 + 40));
   v15 = *(a1 + 32);
-  v9 = _Block_copy(&v11);
-  [WeakRetained _queue_fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion:{v9, v11, v12, v13, v14}];
+  v10 = _Block_copy(&v11);
+  [WeakRetained _queue_fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion:{v10, v11, v12, v13, v14}];
 
   objc_destroyWeak(&v16);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __119__NPKSubcredentialInvitationCoordinator_fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion___block_invoke_92(uint64_t a1, void *a2, void *a3)
@@ -1749,35 +1686,30 @@ void __119__NPKSubcredentialInvitationCoordinator_fetchOrInitializeAccountAttest
 
 uint64_t __119__NPKSubcredentialInvitationCoordinator_fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion___block_invoke_2(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = a1[4];
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
       v8 = a1[5];
       v9 = a1[6];
-      v14 = 138543874;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with anonymization salt: %@ error: %@", &v14, 0x20u);
+      v11 = 138543874;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Invoking completion with anonymization salt: %@ error: %@", &v11, 0x20u);
     }
   }
 
-  v10 = a1[6];
-  v11 = a1[5];
-  result = (*(a1[7] + 16))();
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)canAcceptInvitationOnRemoteDeviceForInvitation:(id)invitation completion:(id)completion
@@ -1785,28 +1717,26 @@ uint64_t __119__NPKSubcredentialInvitationCoordinator_fetchOrInitializeAccountAt
   v19 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   completionCopy = completion;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(completionCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       v15 = 138543618;
-      v16 = v12;
+      v16 = v13;
       v17 = 2112;
       v18 = invitationCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending can accept invitation on remote device request for invitation: %@", &v15, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Sending can accept invitation on remote device request for invitation: %@", &v15, 0x16u);
     }
   }
 
   subcredentialProvisioningService = [(NPKSubcredentialInvitationCoordinator *)self subcredentialProvisioningService];
   [subcredentialProvisioningService sendCanAcceptInvitationOnRemoteDeviceRequestForInvitation:invitationCopy completion:completionCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSubcredentialProvisioningOnRemoteDeviceForInvitation:(id)invitation
@@ -1828,60 +1758,61 @@ uint64_t __119__NPKSubcredentialInvitationCoordinator_fetchOrInitializeAccountAt
 
 void __99__NPKSubcredentialInvitationCoordinator_startSubcredentialProvisioningOnRemoteDeviceForInvitation___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (!v5 || v6)
   {
-    v10 = pk_General_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v11 = pk_General_log(WeakRetained);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
     if (v5)
     {
-      if (!v11)
+      if (!v12)
       {
         goto LABEL_13;
       }
 
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_General_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v20 = 138543618;
-        v21 = v14;
-        v22 = 2112;
-        v23 = v6;
-        v15 = "Warning: %{public}@: Expected to initiate subcredential provisioning on the remote device, but encountered an error: %@";
-        v16 = v12;
-        v17 = 22;
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v21 = 138543618;
+        v22 = v16;
+        v23 = 2112;
+        v24 = v6;
+        v17 = "Warning: %{public}@: Expected to initiate subcredential provisioning on the remote device, but encountered an error: %@";
+        v18 = v14;
+        v19 = 22;
 LABEL_11:
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, v15, &v20, v17);
+        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, v17, &v21, v19);
       }
     }
 
     else
     {
-      if (!v11)
+      if (!v12)
       {
         goto LABEL_13;
       }
 
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_General_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = objc_opt_class();
-        v14 = NSStringFromClass(v18);
-        v20 = 138543874;
-        v21 = v14;
-        v22 = 2112;
-        v23 = 0;
-        v24 = 2112;
-        v25 = v6;
-        v15 = "Warning: %{public}@: Expected to initiate subcredential provisioning on the remote device, but failed to obtain the anonymizationSalt: %@ error: %@";
-        v16 = v12;
-        v17 = 32;
+        v20 = objc_opt_class();
+        v16 = NSStringFromClass(v20);
+        v21 = 138543874;
+        v22 = v16;
+        v23 = 2112;
+        v24 = 0;
+        v25 = 2112;
+        v26 = v6;
+        v17 = "Warning: %{public}@: Expected to initiate subcredential provisioning on the remote device, but failed to obtain the anonymizationSalt: %@ error: %@";
+        v18 = v14;
+        v19 = 32;
         goto LABEL_11;
       }
     }
@@ -1889,13 +1820,12 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  v8 = objc_alloc_init(MEMORY[0x277D37D68]);
-  [v8 setAnonymizationSalt:v5];
-  v9 = [WeakRetained subcredentialProvisioningService];
-  [v9 sendAcceptSubcredentialProvisioningRequestForInvitation:*(a1 + 32) metadata:v8];
+  v9 = objc_alloc_init(MEMORY[0x277D37D68]);
+  [v9 setAnonymizationSalt:v5];
+  v10 = [v8 subcredentialProvisioningService];
+  [v10 sendAcceptSubcredentialProvisioningRequestForInvitation:*(a1 + 32) metadata:v9];
 
 LABEL_13:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startProvisioningWithMailboxAddress:(id)address activationCode:(id)code completion:(id)completion
@@ -1936,67 +1866,65 @@ void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithMailboxAd
 {
   v31 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = _Block_copy(*(a1 + 56));
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v11 = _Block_copy(*(a1 + 56));
       *buf = 138544131;
-      v24 = v7;
+      v24 = v8;
       v25 = 2113;
-      v26 = v8;
+      v26 = v9;
       v27 = 2113;
-      v28 = v9;
+      v28 = v10;
       v29 = 2112;
-      v30 = v10;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Begin provisioning with mailbox address: %{private}@, activation code: %{private}@, completion: %@", buf, 0x2Au);
+      v30 = v11;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Begin provisioning with mailbox address: %{private}@, activation code: %{private}@, completion: %@", buf, 0x2Au);
     }
   }
 
   [WeakRetained setCompletion:*(a1 + 56)];
   if ([*(a1 + 32) length])
   {
-    v11 = objc_alloc_init(MEMORY[0x277D380F0]);
-    v12 = *(a1 + 32);
+    v12 = objc_alloc_init(MEMORY[0x277D380F0]);
+    v13 = *(a1 + 32);
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
     v17[2] = __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithMailboxAddress_activationCode_completion___block_invoke_94;
     v17[3] = &unk_279945D68;
-    v18 = v12;
+    v18 = v13;
     v19 = WeakRetained;
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 48);
-    v15 = *(a1 + 56);
-    v20 = v13;
-    v21 = v14;
-    v22 = v15;
-    [v11 retrieveShareInvitationForMailboxAddress:v18 completion:v17];
+    v14 = *(a1 + 40);
+    v15 = *(a1 + 48);
+    v16 = *(a1 + 56);
+    v20 = v14;
+    v21 = v15;
+    v22 = v16;
+    [v12 retrieveShareInvitationForMailboxAddress:v18 completion:v17];
   }
 
   else
   {
-    v11 = [WeakRetained _errorWithCode:0 message:@"Unable to start provisioning - insufficient information"];
-    [WeakRetained _handleProvisioningAttemptForConfiguration:0 error:v11];
+    v12 = [WeakRetained _errorWithCode:0 message:@"Unable to start provisioning - insufficient information"];
+    [WeakRetained _handleProvisioningAttemptForConfiguration:0 error:v12];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithMailboxAddress_activationCode_completion___block_invoke_94(uint64_t a1, void *a2, void *a3)
 {
   v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v6 = a3;
-  v7 = v6;
-  if (v5 && !v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = a3;
+  v7 = isKindOfClass;
+  if (v5 && !isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
     v8 = MEMORY[0x277D37D60];
     v9 = v5;
@@ -2007,29 +1935,27 @@ void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithMailboxAd
 
   else
   {
-    v11 = pk_General_log();
+    v11 = pk_General_log(isKindOfClass);
     v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
 
     if (v12)
     {
-      v13 = pk_General_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = pk_General_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(a1 + 32);
+        v15 = *(a1 + 32);
         v16 = 138478339;
         v17 = v5;
         v18 = 2113;
-        v19 = v14;
+        v19 = v15;
         v20 = 2112;
         v21 = v7;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_ERROR, "Error: Unable to start provisioning for invitation: %{private}@. mailboxAddress: %{private}@. Error: %@", &v16, 0x20u);
+        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_ERROR, "Error: Unable to start provisioning for invitation: %{private}@. mailboxAddress: %{private}@. Error: %@", &v16, 0x20u);
       }
     }
 
     [*(a1 + 40) _handleProvisioningAttemptForConfiguration:0 error:v7];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithMailboxAddress_activationCode_completion___block_invoke_98(uint64_t a1)
@@ -2051,49 +1977,47 @@ void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithMailboxAd
 
   else
   {
-    v9 = pk_General_log();
+    v9 = pk_General_log(0);
     v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
     if (v10)
     {
-      v11 = pk_General_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         v15 = 138543362;
-        v16 = v13;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to initiate subcredential provisioning on the remote device, but failed to obtain the mailboxAddress.", &v15, 0xCu);
+        v16 = v14;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to initiate subcredential provisioning on the remote device, but failed to obtain the mailboxAddress.", &v15, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSubcredentialProvisioningOnLocalDeviceMatchingInvitation:(id)invitation shouldFetchAnonymizationSaltFromRemoteDevice:(BOOL)device completion:(id)completion
 {
   deviceCopy = device;
-  v52 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   completionCopy = completion;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(completionCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543874;
-      v47 = v14;
-      v48 = 2112;
-      v49 = invitationCopy;
-      v50 = 2048;
+      v50 = v15;
+      v51 = 2112;
+      v52 = invitationCopy;
+      v53 = 2048;
       type = [invitationCopy type];
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Start local device provisioning with invitation: %@ of type %lu", buf, 0x20u);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Start local device provisioning with invitation: %@ of type %lu", buf, 0x20u);
     }
   }
 
@@ -2102,13 +2026,13 @@ void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithMailboxAd
   aBlock[1] = 3221225472;
   aBlock[2] = __159__NPKSubcredentialInvitationCoordinator_startSubcredentialProvisioningOnLocalDeviceMatchingInvitation_shouldFetchAnonymizationSaltFromRemoteDevice_completion___block_invoke;
   aBlock[3] = &unk_279945DE0;
-  objc_copyWeak(&v42, &location);
-  v15 = invitationCopy;
-  v39 = v15;
-  v16 = completionCopy;
+  objc_copyWeak(&v45, &location);
+  v16 = invitationCopy;
+  v42 = v16;
+  v17 = completionCopy;
   selfCopy = self;
-  v41 = v16;
-  v17 = _Block_copy(aBlock);
+  v44 = v17;
+  v18 = _Block_copy(aBlock);
   if (deviceCopy)
   {
     subcredentialProvisioningService = [(NPKSubcredentialInvitationCoordinator *)self subcredentialProvisioningService];
@@ -2116,67 +2040,65 @@ void __103__NPKSubcredentialInvitationCoordinator_startProvisioningWithMailboxAd
 
     if (isPairedDeviceConnected)
     {
-      v20 = pk_General_log();
-      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+      v22 = pk_General_log(v21);
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
 
-      if (v21)
+      if (v23)
       {
-        v22 = pk_General_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v25 = pk_General_log(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = objc_opt_class();
-          v24 = NSStringFromClass(v23);
+          v26 = objc_opt_class();
+          v27 = NSStringFromClass(v26);
           *buf = 138543362;
-          v47 = v24;
-          _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Remote device is connected.", buf, 0xCu);
+          v50 = v27;
+          _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Remote device is connected.", buf, 0xCu);
         }
       }
 
       subcredentialProvisioningService2 = [(NPKSubcredentialInvitationCoordinator *)self subcredentialProvisioningService];
-      [subcredentialProvisioningService2 fetchAccountAttestationAnonymizationSaltOnRemoteDeviceWithCompletion:v17];
+      [subcredentialProvisioningService2 fetchAccountAttestationAnonymizationSaltOnRemoteDeviceWithCompletion:v18];
     }
 
     else
     {
-      v26 = pk_General_log();
-      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+      v29 = pk_General_log(v21);
+      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
 
-      if (v27)
+      if (v30)
       {
-        v28 = pk_General_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v32 = pk_General_log(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = objc_opt_class();
-          v30 = NSStringFromClass(v29);
+          v33 = objc_opt_class();
+          v34 = NSStringFromClass(v33);
           *buf = 138543362;
-          v47 = v30;
-          _os_log_impl(&dword_25B300000, v28, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Remote device is not connected; failing immediately...", buf, 0xCu);
+          v50 = v34;
+          _os_log_impl(&dword_25B300000, v32, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Remote device is not connected; failing immediately...", buf, 0xCu);
         }
       }
 
-      v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v32 = [v31 localizedStringForKey:@"COMPANION_UNREACHABLE_ALERT_TITLE" value:&stru_286C934F8 table:@"NanoPassKit"];
-      v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v34 = [v33 localizedStringForKey:@"COMPANION_UNREACHABLE_ALERT_MESSAGE" value:&stru_286C934F8 table:@"NanoPassKit"];
+      v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v36 = [v35 localizedStringForKey:@"COMPANION_UNREACHABLE_ALERT_TITLE" value:&stru_286C934F8 table:@"NanoPassKit"];
+      v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v38 = [v37 localizedStringForKey:@"COMPANION_UNREACHABLE_ALERT_MESSAGE" value:&stru_286C934F8 table:@"NanoPassKit"];
       subcredentialProvisioningService2 = PKDisplayableErrorCustom();
 
-      v44 = *MEMORY[0x277CCA7E8];
-      v45 = subcredentialProvisioningService2;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-      v36 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D389E0] code:19 userInfo:v35];
-      v17[2](v17, 0, v36);
+      v47 = *MEMORY[0x277CCA7E8];
+      v48 = subcredentialProvisioningService2;
+      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      v40 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D389E0] code:19 userInfo:v39];
+      v18[2](v18, 0, v40);
     }
   }
 
   else
   {
-    [(NPKSubcredentialInvitationCoordinator *)self fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion:v17];
+    [(NPKSubcredentialInvitationCoordinator *)self fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion:v18];
   }
 
-  objc_destroyWeak(&v42);
+  objc_destroyWeak(&v45);
   objc_destroyWeak(&location);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __159__NPKSubcredentialInvitationCoordinator_startSubcredentialProvisioningOnLocalDeviceMatchingInvitation_shouldFetchAnonymizationSaltFromRemoteDevice_completion___block_invoke(id *a1, void *a2, void *a3)
@@ -2271,34 +2193,32 @@ void __104__NPKSubcredentialInvitationCoordinator_subcredentialProvisioningContr
 {
   v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = *(a1 + 56);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 56);
       v12 = 138544130;
-      v13 = v7;
+      v13 = v8;
       v14 = 2112;
-      v15 = v8;
+      v15 = v9;
       v16 = 2112;
-      v17 = v9;
+      v17 = v10;
       v18 = 2048;
-      v19 = v10;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Subcredential provisioning controller %@ did finish with error: %@ in state: %lu", &v12, 0x2Au);
+      v19 = v11;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Subcredential provisioning controller %@ did finish with error: %@ in state: %lu", &v12, 0x2Au);
     }
   }
 
   [WeakRetained _endProvisioningWithPassForInvitation:0 error:*(a1 + 40)];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subcredentialProvisioningController:(id)controller didFinishWithPass:(id)pass
@@ -2326,36 +2246,34 @@ void __95__NPKSubcredentialInvitationCoordinator_subcredentialProvisioningContro
 {
   v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
       v11 = 138543874;
-      v12 = v7;
+      v12 = v8;
       v13 = 2112;
-      v14 = v8;
+      v14 = v9;
       v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Subcredential provisioning controller %@ did finish with pass: %@", &v11, 0x20u);
+      v16 = v10;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Subcredential provisioning controller %@ did finish with pass: %@", &v11, 0x20u);
     }
   }
 
   [WeakRetained _endProvisioningWithPassForInvitation:*(a1 + 40) error:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_canAcceptInvitation:(id)invitation completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   completionCopy = completion;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
@@ -2364,7 +2282,8 @@ void __95__NPKSubcredentialInvitationCoordinator_subcredentialProvisioningContro
   _paymentWebService = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
   targetDevice = [_paymentWebService targetDevice];
 
-  if (objc_opt_respondsToSelector())
+  v11 = objc_opt_respondsToSelector();
+  if (v11)
   {
     _paymentWebService2 = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
     [targetDevice paymentWebService:_paymentWebService2 canAcceptInvitation:invitationCopy withCompletionV2:completionCopy];
@@ -2373,19 +2292,19 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v12 = pk_General_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = pk_General_log(v11);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v14)
   {
-    v14 = pk_General_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:canAcceptInvitation:withCompletionV2:]", &v18, 0xCu);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:canAcceptInvitation:withCompletionV2:]", &v19, 0xCu);
     }
   }
 
@@ -2397,13 +2316,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_listSubcredentialInvitationsWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
@@ -2411,7 +2328,8 @@ LABEL_10:
   _paymentWebService = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
   targetDevice = [_paymentWebService targetDevice];
 
-  if (objc_opt_respondsToSelector())
+  v8 = objc_opt_respondsToSelector();
+  if (v8)
   {
     _paymentWebService2 = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
     [targetDevice paymentWebService:_paymentWebService2 subcredentialInvitationsWithCompletion:completionCopy];
@@ -2419,19 +2337,19 @@ LABEL_10:
 
   else
   {
-    v9 = pk_General_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = pk_General_log(v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = pk_General_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_General_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v15 = 138543362;
-        v16 = v13;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:subcredentialInvitationsWithCompletion:]", &v15, 0xCu);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = 138543362;
+        v17 = v15;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:subcredentialInvitationsWithCompletion:]", &v16, 0xCu);
       }
     }
 
@@ -2440,13 +2358,11 @@ LABEL_10:
       completionCopy[2](completionCopy, 0);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_deviceContainsInvitationMatchingInvitation:(id)invitation withTimeout:(unint64_t)timeout completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   completionCopy = completion;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
@@ -2455,7 +2371,8 @@ LABEL_10:
   _paymentWebService = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
   targetDevice = [_paymentWebService targetDevice];
 
-  if (objc_opt_respondsToSelector())
+  v13 = objc_opt_respondsToSelector();
+  if (v13)
   {
     _paymentWebService2 = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
     [targetDevice paymentWebService:_paymentWebService2 matchingInvitationOnDevice:invitationCopy withTimeout:timeout completion:completionCopy];
@@ -2464,19 +2381,19 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v14 = pk_General_log();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v15 = pk_General_log(v13);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-  if (v15)
+  if (v16)
   {
-    v16 = pk_General_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = pk_General_log(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:matchingInvitationOnDevice:withTimeout:completion:]", &v20, 0xCu);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v21 = 138543362;
+      v22 = v20;
+      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:matchingInvitationOnDevice:withTimeout:completion:]", &v21, 0xCu);
     }
   }
 
@@ -2488,13 +2405,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_accountAttestationAnonymizationSaltWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
@@ -2502,7 +2417,8 @@ LABEL_10:
   _paymentWebService = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
   targetDevice = [_paymentWebService targetDevice];
 
-  if (objc_opt_respondsToSelector())
+  v8 = objc_opt_respondsToSelector();
+  if (v8)
   {
     _paymentWebService2 = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
     [targetDevice paymentWebService:_paymentWebService2 accountAttestationAnonymizationSaltWithCompletion:completionCopy];
@@ -2511,19 +2427,19 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v9 = pk_General_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = pk_General_log(v8);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v10)
+  if (v11)
   {
-    v11 = pk_General_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:accountAttestationAnonymizationSaltWithCompletion:]", &v15, 0xCu);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:accountAttestationAnonymizationSaltWithCompletion:]", &v16, 0xCu);
     }
   }
 
@@ -2535,13 +2451,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_setAccountAttestationAnonymizationSalt:(id)salt completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   saltCopy = salt;
   completionCopy = completion;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
@@ -2550,7 +2464,8 @@ LABEL_10:
   _paymentWebService = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
   targetDevice = [_paymentWebService targetDevice];
 
-  if (objc_opt_respondsToSelector())
+  v11 = objc_opt_respondsToSelector();
+  if (v11)
   {
     _paymentWebService2 = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
     [targetDevice paymentWebService:_paymentWebService2 setAccountAttestationAnonymizationSalt:saltCopy withCompletion:completionCopy];
@@ -2559,19 +2474,19 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v12 = pk_General_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = pk_General_log(v11);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v14)
   {
-    v14 = pk_General_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_General_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:setAccountAttestationAnonymizationSalt:withCompletion:]", &v18, 0xCu);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:setAccountAttestationAnonymizationSalt:withCompletion:]", &v19, 0xCu);
     }
   }
 
@@ -2583,13 +2498,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_requestSubcredentialInvitation:(id)invitation fromIDSHandle:(id)handle completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   completionCopy = completion;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
@@ -2598,7 +2511,8 @@ LABEL_10:
   _paymentWebService = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
   targetDevice = [_paymentWebService targetDevice];
 
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
     _paymentWebService2 = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
     [targetDevice paymentWebService:_paymentWebService2 requestSubcredentialInvitation:invitationCopy completion:completionCopy];
@@ -2607,19 +2521,19 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v13 = pk_General_log();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  v14 = pk_General_log(v12);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-  if (v14)
+  if (v15)
   {
-    v15 = pk_General_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_General_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:requestSubcredentialInvitation:completion:]", &v19, 0xCu);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = 138543362;
+      v21 = v19;
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:requestSubcredentialInvitation:completion:]", &v20, 0xCu);
     }
   }
 
@@ -2631,13 +2545,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateSubcredentialMetadataOnPass:(id)pass withCredential:(id)credential completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   credentialCopy = credential;
   completionCopy = completion;
@@ -2647,7 +2559,8 @@ LABEL_10:
   _paymentWebService = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
   targetDevice = [_paymentWebService targetDevice];
 
-  if (objc_opt_respondsToSelector())
+  v14 = objc_opt_respondsToSelector();
+  if (v14)
   {
     _paymentWebService2 = [(NPKSubcredentialInvitationCoordinator *)self _paymentWebService];
     [targetDevice paymentWebService:_paymentWebService2 updateMetadataOnPass:passCopy withCredential:credentialCopy completion:completionCopy];
@@ -2655,19 +2568,19 @@ LABEL_10:
 
   else
   {
-    v15 = pk_General_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v16 = pk_General_log(v14);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-    if (v16)
+    if (v17)
     {
-      v17 = pk_General_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = pk_General_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
-        v21 = 138543362;
-        v22 = v19;
-        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:updateMetadataOnPass:withCredential:completion:]", &v21, 0xCu);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = 138543362;
+        v23 = v21;
+        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Target device does not respond to -[paymentWebService:updateMetadataOnPass:withCredential:completion:]", &v22, 0xCu);
       }
     }
 
@@ -2676,8 +2589,6 @@ LABEL_10:
       completionCopy[2](completionCopy, 0);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_registerCredentialsWithIdentifiers:(id)identifiers completion:(id)completion
@@ -2746,91 +2657,90 @@ LABEL_10:
 
 void __126__NPKSubcredentialInvitationCoordinator__queue_fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (!v5 || v6)
   {
     if (v6)
     {
-      v14 = pk_General_log();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+      v16 = pk_General_log(WeakRetained);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-      if (v15)
+      if (v17)
       {
-        v16 = pk_General_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = pk_General_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = objc_opt_class();
-          v18 = NSStringFromClass(v17);
+          v20 = objc_opt_class();
+          v21 = NSStringFromClass(v20);
           *buf = 138543618;
-          v32 = v18;
-          v33 = 2112;
-          v34 = v6;
-          _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Failed to get anonymization salt: %@. Proceeding anyway...", buf, 0x16u);
+          v35 = v21;
+          v36 = 2112;
+          v37 = v6;
+          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Failed to get anonymization salt: %@. Proceeding anyway...", buf, 0x16u);
         }
       }
     }
 
-    v19 = [MEMORY[0x277D37CC8] createAnonymizationSalt];
-    v20 = pk_General_log();
-    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    v22 = [MEMORY[0x277D37CC8] createAnonymizationSalt];
+    v23 = pk_General_log(v22);
+    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-    if (v21)
+    if (v24)
     {
-      v22 = pk_General_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v26 = pk_General_log(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = objc_opt_class();
-        v24 = NSStringFromClass(v23);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         *buf = 138543362;
-        v32 = v24;
-        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: No salt found, setting default salt", buf, 0xCu);
+        v35 = v28;
+        _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: No salt found, setting default salt", buf, 0xCu);
       }
     }
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __126__NPKSubcredentialInvitationCoordinator__queue_fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion___block_invoke_150;
-    v27[3] = &unk_279945C78;
-    objc_copyWeak(&v30, (a1 + 40));
-    v25 = v19;
-    v28 = v25;
-    v29 = *(a1 + 32);
-    [WeakRetained setAccountAttestationAnonymizationSalt:v25 completion:v27];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __126__NPKSubcredentialInvitationCoordinator__queue_fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion___block_invoke_150;
+    v30[3] = &unk_279945C78;
+    objc_copyWeak(&v33, (a1 + 40));
+    v29 = v22;
+    v31 = v29;
+    v32 = *(a1 + 32);
+    [v8 setAccountAttestationAnonymizationSalt:v29 completion:v30];
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v33);
   }
 
   else
   {
-    v8 = pk_General_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_General_log(WeakRetained);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         *buf = 138543618;
-        v32 = v12;
-        v33 = 2112;
-        v34 = v5;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Found previously established anonymization salt: %@", buf, 0x16u);
+        v35 = v14;
+        v36 = 2112;
+        v37 = v5;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Found previously established anonymization salt: %@", buf, 0x16u);
       }
     }
 
-    v13 = *(a1 + 32);
-    if (v13)
+    v15 = *(a1 + 32);
+    if (v15)
     {
-      (*(v13 + 16))(v13, v5, 0);
+      (*(v15 + 16))(v15, v5, 0);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __126__NPKSubcredentialInvitationCoordinator__queue_fetchOrInitializeAccountAttestationAnonymizationSaltIfNecessaryWithCompletion___block_invoke_150(uint64_t a1, void *a2)
@@ -2838,34 +2748,32 @@ void __126__NPKSubcredentialInvitationCoordinator__queue_fetchOrInitializeAccoun
   v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v5 = pk_General_log();
+  v5 = pk_General_log(WeakRetained);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = *(a1 + 32);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = *(a1 + 32);
       v13 = 138543874;
-      v14 = v9;
+      v14 = v10;
       v15 = 2112;
-      v16 = v10;
+      v16 = v11;
       v17 = 2112;
       v18 = v3;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Set default salt with salt: %@ error: %@", &v13, 0x20u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Set default salt with salt: %@ error: %@", &v13, 0x20u);
     }
   }
 
-  v11 = *(a1 + 40);
-  if (v11)
+  v12 = *(a1 + 40);
+  if (v12)
   {
-    (*(v11 + 16))(v11, *(a1 + 32), v3);
+    (*(v12 + 16))(v12, *(a1 + 32), v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setUpSubcredentialProvisioningController
@@ -2882,7 +2790,7 @@ void __126__NPKSubcredentialInvitationCoordinator__queue_fetchOrInitializeAccoun
 
 - (void)_setUpSharingSessionWithSubcredentialProvisioningController:(id)controller forInvitation:(id)invitation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   invitationCopy = invitation;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
@@ -2899,87 +2807,85 @@ void __126__NPKSubcredentialInvitationCoordinator__queue_fetchOrInitializeAccoun
     {
       [MEMORY[0x277D37D70] createSessionWithDelegate:controllerCopy];
     }
-    v11 = ;
-    [(NPKSubcredentialInvitationCoordinator *)self setSharingSession:v11];
+    v13 = ;
+    [(NPKSubcredentialInvitationCoordinator *)self setSharingSession:v13];
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  v9 = pk_General_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = pk_General_log(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v10)
+  if (v11)
   {
-    v11 = pk_General_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2112;
-      v18 = controllerCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to find a subcredential provisioning controller, but instead found nil!: %@", &v15, 0x16u);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = 138543618;
+      v17 = v15;
+      v18 = 2112;
+      v19 = controllerCopy;
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to find a subcredential provisioning controller, but instead found nil!: %@", &v16, 0x16u);
     }
 
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isInvitationUniqueForPairedReaderIdentifier:(id)identifier
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = objc_alloc_init(MEMORY[0x277D37FC0]);
-  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
   passes = [v4 passes];
-  v6 = [passes countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v6 = [passes countByEnumeratingWithState:&v36 objects:v48 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v36;
+    v8 = *v37;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v36 != v8)
+        if (*v37 != v8)
         {
           objc_enumerationMutation(passes);
         }
 
-        paymentPass = [*(*(&v35 + 1) + 8 * i) paymentPass];
+        paymentPass = [*(*(&v36 + 1) + 8 * i) paymentPass];
         pairedTerminalIdentifier = [paymentPass pairedTerminalIdentifier];
         v12 = pairedTerminalIdentifier;
         if (pairedTerminalIdentifier && ![(__CFString *)pairedTerminalIdentifier caseInsensitiveCompare:identifierCopy])
         {
-          v14 = pk_General_log();
+          v14 = pk_General_log(0);
           v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
           if (v15)
           {
-            v16 = pk_General_log();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v17 = pk_General_log(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              v17 = objc_opt_class();
-              v18 = NSStringFromClass(v17);
+              v18 = objc_opt_class();
+              v19 = NSStringFromClass(v18);
               uniqueID = [paymentPass uniqueID];
               *buf = 138544130;
-              v40 = v18;
-              v41 = 2112;
-              v42 = identifierCopy;
-              v43 = 2112;
-              v44 = v12;
-              v45 = 2112;
-              v46 = uniqueID;
-              _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: The invitation's paired reader identifier (%@) matches the paired reader identifier (%@) of pass with unique ID %@", buf, 0x2Au);
+              v41 = v19;
+              v42 = 2112;
+              v43 = identifierCopy;
+              v44 = 2112;
+              v45 = v12;
+              v46 = 2112;
+              v47 = uniqueID;
+              _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: The invitation's paired reader identifier (%@) matches the paired reader identifier (%@) of pass with unique ID %@", buf, 0x2Au);
             }
           }
 
@@ -2988,63 +2894,63 @@ LABEL_11:
           IsPersonalized = PKPaymentApplicationStateIsPersonalized();
 
           effectiveContactlessPaymentApplicationState = [paymentPass effectiveContactlessPaymentApplicationState];
-          v23 = pk_General_log();
-          v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+          v24 = pk_General_log(effectiveContactlessPaymentApplicationState);
+          v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
 
-          if (v24)
+          if (v25)
           {
-            v25 = pk_General_log();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v27 = pk_General_log(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              v26 = objc_opt_class();
-              v27 = NSStringFromClass(v26);
+              v28 = objc_opt_class();
+              v29 = NSStringFromClass(v28);
               uniqueID2 = [paymentPass uniqueID];
-              v29 = uniqueID2;
-              v30 = @"YES";
+              v31 = uniqueID2;
+              v32 = @"YES";
               *buf = 138544130;
-              v40 = v27;
+              v41 = v29;
               if (IsPersonalized)
               {
-                v31 = @"YES";
+                v33 = @"YES";
               }
 
               else
               {
-                v31 = @"NO";
+                v33 = @"NO";
               }
 
               if (effectiveContactlessPaymentApplicationState != 2)
               {
-                v30 = @"NO";
+                v32 = @"NO";
               }
 
-              v41 = 2112;
-              v42 = uniqueID2;
-              v43 = 2112;
-              v44 = v31;
-              v45 = 2112;
-              v46 = v30;
-              _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Pass with unique ID %@ is personalized: %@ personalizing: %@", buf, 0x2Au);
+              v42 = 2112;
+              v43 = uniqueID2;
+              v44 = 2112;
+              v45 = v33;
+              v46 = 2112;
+              v47 = v32;
+              _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Pass with unique ID %@ is personalized: %@ personalizing: %@", buf, 0x2Au);
             }
           }
 
           if (IsPersonalized)
           {
-            v32 = 1;
+            v34 = 1;
           }
 
           else
           {
-            v32 = effectiveContactlessPaymentApplicationState == 2;
+            v34 = effectiveContactlessPaymentApplicationState == 2;
           }
 
-          v13 = !v32;
+          v13 = !v34;
 
           goto LABEL_31;
         }
       }
 
-      v7 = [passes countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v7 = [passes countByEnumeratingWithState:&v36 objects:v48 count:16];
       if (v7)
       {
         continue;
@@ -3057,13 +2963,12 @@ LABEL_11:
   v13 = 1;
 LABEL_31:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)_fetchInvitationWithIdentifier:(id)identifier completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
@@ -3071,20 +2976,20 @@ LABEL_31:
 
   if (completionCopy)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __83__NPKSubcredentialInvitationCoordinator__fetchInvitationWithIdentifier_completion___block_invoke;
-    v15[3] = &unk_279945E58;
-    v16 = identifierCopy;
-    v17 = completionCopy;
-    [(NPKSubcredentialInvitationCoordinator *)self listSubcredentialInvitationsWithCompletion:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __83__NPKSubcredentialInvitationCoordinator__fetchInvitationWithIdentifier_completion___block_invoke;
+    v16[3] = &unk_279945E58;
+    v17 = identifierCopy;
+    v18 = completionCopy;
+    [(NPKSubcredentialInvitationCoordinator *)self listSubcredentialInvitationsWithCompletion:v16];
 
-    v9 = v16;
+    v10 = v17;
   }
 
   else
   {
-    v11 = pk_General_log();
+    v11 = pk_General_log(v9);
     v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
     if (!v12)
@@ -3092,21 +2997,20 @@ LABEL_31:
       goto LABEL_4;
     }
 
-    v9 = pk_General_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v13);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543618;
-      v19 = v14;
-      v20 = 2112;
-      v21 = 0;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to return an invitation, but no completion block was provided: %@", buf, 0x16u);
+      v20 = v15;
+      v21 = 2112;
+      v22 = 0;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to return an invitation, but no completion block was provided: %@", buf, 0x16u);
     }
   }
 
 LABEL_4:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __83__NPKSubcredentialInvitationCoordinator__fetchInvitationWithIdentifier_completion___block_invoke(uint64_t a1, void *a2)
@@ -3145,7 +3049,7 @@ void __83__NPKSubcredentialInvitationCoordinator__fetchInvitationWithIdentifier_
 
 - (void)_fetchInvitationMatchingInvitation:(id)invitation completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   completionCopy = completion;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
@@ -3153,20 +3057,20 @@ void __83__NPKSubcredentialInvitationCoordinator__fetchInvitationWithIdentifier_
 
   if (completionCopy)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __87__NPKSubcredentialInvitationCoordinator__fetchInvitationMatchingInvitation_completion___block_invoke;
-    v15[3] = &unk_279945E58;
-    v16 = invitationCopy;
-    v17 = completionCopy;
-    [(NPKSubcredentialInvitationCoordinator *)self listSubcredentialInvitationsWithCompletion:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __87__NPKSubcredentialInvitationCoordinator__fetchInvitationMatchingInvitation_completion___block_invoke;
+    v16[3] = &unk_279945E58;
+    v17 = invitationCopy;
+    v18 = completionCopy;
+    [(NPKSubcredentialInvitationCoordinator *)self listSubcredentialInvitationsWithCompletion:v16];
 
-    v9 = v16;
+    v10 = v17;
   }
 
   else
   {
-    v11 = pk_General_log();
+    v11 = pk_General_log(v9);
     v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
     if (!v12)
@@ -3174,21 +3078,20 @@ void __83__NPKSubcredentialInvitationCoordinator__fetchInvitationWithIdentifier_
       goto LABEL_4;
     }
 
-    v9 = pk_General_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v13);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543618;
-      v19 = v14;
-      v20 = 2112;
-      v21 = 0;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to return an invitation, but no completion block was provided: %@", buf, 0x16u);
+      v20 = v15;
+      v21 = 2112;
+      v22 = 0;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to return an invitation, but no completion block was provided: %@", buf, 0x16u);
     }
   }
 
 LABEL_4:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __87__NPKSubcredentialInvitationCoordinator__fetchInvitationMatchingInvitation_completion___block_invoke(uint64_t a1, void *a2)
@@ -3224,7 +3127,7 @@ void __87__NPKSubcredentialInvitationCoordinator__fetchInvitationMatchingInvitat
 
 - (void)_makeConfigurationForInvitation:(id)invitation session:(id)session metadata:(id)metadata paymentWebService:(id)service completion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   sessionCopy = session;
   metadataCopy = metadata;
@@ -3237,49 +3140,49 @@ void __87__NPKSubcredentialInvitationCoordinator__fetchInvitationMatchingInvitat
   {
     if (invitationCopy && sessionCopy && serviceCopy)
     {
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __119__NPKSubcredentialInvitationCoordinator__makeConfigurationForInvitation_session_metadata_paymentWebService_completion___block_invoke;
-      v29[3] = &unk_279945E80;
-      v30 = sessionCopy;
-      v31 = invitationCopy;
-      v32 = metadataCopy;
-      v33 = serviceCopy;
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __119__NPKSubcredentialInvitationCoordinator__makeConfigurationForInvitation_session_metadata_paymentWebService_completion___block_invoke;
+      v31[3] = &unk_279945E80;
+      v32 = sessionCopy;
+      v33 = invitationCopy;
+      v34 = metadataCopy;
+      v35 = serviceCopy;
       selfCopy = self;
-      v35 = completionCopy;
-      [(NPKSubcredentialInvitationCoordinator *)self canAcceptInvitation:v31 completion:v29];
+      v37 = completionCopy;
+      [(NPKSubcredentialInvitationCoordinator *)self canAcceptInvitation:v33 completion:v31];
 
-      v18 = v30;
+      v19 = v32;
     }
 
     else
     {
-      v23 = pk_General_log();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+      v25 = pk_General_log(v18);
+      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
 
-      if (v24)
+      if (v26)
       {
-        v25 = pk_General_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v28 = pk_General_log(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = objc_opt_class();
-          v27 = NSStringFromClass(v26);
+          v29 = objc_opt_class();
+          v30 = NSStringFromClass(v29);
           *buf = 138544386;
-          v37 = v27;
-          v38 = 2112;
-          v39 = sessionCopy;
+          v39 = v30;
           v40 = 2112;
-          v41 = invitationCopy;
+          v41 = sessionCopy;
           v42 = 2112;
-          v43 = metadataCopy;
+          v43 = invitationCopy;
           v44 = 2112;
-          v45 = serviceCopy;
-          _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to make accept invitation configuration with a non-nil sharing session, invitation, and paymentWebService! sharingSession: %@ invitation: %@ metadata: %@ paymentWebService: %@", buf, 0x34u);
+          v45 = metadataCopy;
+          v46 = 2112;
+          v47 = serviceCopy;
+          _os_log_impl(&dword_25B300000, v28, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to make accept invitation configuration with a non-nil sharing session, invitation, and paymentWebService! sharingSession: %@ invitation: %@ metadata: %@ paymentWebService: %@", buf, 0x34u);
         }
       }
 
-      v18 = [(NPKSubcredentialInvitationCoordinator *)self _errorWithCode:0 message:@"Unable to make invitation configuration - insufficient information"];
-      (*(completionCopy + 2))(completionCopy, 0, v18);
+      v19 = [(NPKSubcredentialInvitationCoordinator *)self _errorWithCode:0 message:@"Unable to make invitation configuration - insufficient information"];
+      (*(completionCopy + 2))(completionCopy, 0, v19);
     }
 
 LABEL_14:
@@ -3287,69 +3190,65 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v19 = pk_General_log();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+  v20 = pk_General_log(v18);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-  if (v20)
+  if (v21)
   {
-    v18 = pk_General_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = pk_General_log(v22);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138543618;
-      v37 = v22;
-      v38 = 2112;
-      v39 = 0;
-      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to return a configuration, but no completion block was provided: %@", buf, 0x16u);
+      v39 = v24;
+      v40 = 2112;
+      v41 = 0;
+      _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to return a configuration, but no completion block was provided: %@", buf, 0x16u);
     }
 
     goto LABEL_14;
   }
 
 LABEL_15:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __119__NPKSubcredentialInvitationCoordinator__makeConfigurationForInvitation_session_metadata_paymentWebService_completion___block_invoke(uint64_t a1, void *a2)
 {
   v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = pk_General_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_General_log(v3);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_General_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_General_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 64);
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
         v13 = 138543618;
-        v14 = v9;
+        v14 = v10;
         v15 = 2112;
-        v16 = v3;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Unable to make accept invitation configuration for this invitation! error: %@", &v13, 0x16u);
+        v16 = v4;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Unable to make accept invitation configuration for this invitation! error: %@", &v13, 0x16u);
       }
     }
 
-    v10 = [*(a1 + 64) _errorWithCode:1 message:@"Unable to make invitation configuration - cannot accept invitation"];
-    v11 = *(*(a1 + 72) + 16);
+    v11 = [*(a1 + 64) _errorWithCode:1 message:@"Unable to make invitation configuration - cannot accept invitation"];
+    v12 = *(*(a1 + 72) + 16);
   }
 
   else
   {
-    v10 = [objc_alloc(MEMORY[0x277D382D8]) initWithSession:*(a1 + 32) invitation:*(a1 + 40) metadata:*(a1 + 48) declineRelatedInvitations:0 localDeviceWebService:*(a1 + 56) remoteDeviceWebService:0];
-    v11 = *(*(a1 + 72) + 16);
+    v11 = [objc_alloc(MEMORY[0x277D382D8]) initWithSession:*(a1 + 32) invitation:*(a1 + 40) metadata:*(a1 + 48) declineRelatedInvitations:0 localDeviceWebService:*(a1 + 56) remoteDeviceWebService:0];
+    v12 = *(*(a1 + 72) + 16);
   }
 
-  v11();
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12();
 }
 
 - (void)_handleProvisioningAttemptForConfiguration:(id)configuration error:(id)error
@@ -3426,7 +3325,7 @@ void __90__NPKSubcredentialInvitationCoordinator__handleProvisioningAttemptForCo
 
 - (id)_errorWithCode:(int64_t)code message:(id)message
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if ((code - 1) > 3)
   {
     v4 = 0;
@@ -3439,43 +3338,41 @@ void __90__NPKSubcredentialInvitationCoordinator__handleProvisioningAttemptForCo
 
   v5 = MEMORY[0x277CCA9B8];
   v6 = *MEMORY[0x277D389E0];
-  v13 = *MEMORY[0x277CCA470];
-  v14[0] = message;
+  v12 = *MEMORY[0x277CCA470];
+  v13[0] = message;
   v7 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [v5 errorWithDomain:v6 code:v4 userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (void)_startProvisioningForProvisioningController:(id)controller withConfiguration:(id)configuration
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   configurationCopy = configuration;
   internalQueue = [(NPKSubcredentialInvitationCoordinator *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
 
-  v9 = pk_General_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = pk_General_log(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v10)
+  if (v11)
   {
-    v11 = pk_General_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543874;
-      v21 = v13;
-      v22 = 2112;
-      v23 = controllerCopy;
-      v24 = 2112;
-      v25 = configurationCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Starting provisioning for provisioning controller: %@ with configuration: %@", buf, 0x20u);
+      v22 = v15;
+      v23 = 2112;
+      v24 = controllerCopy;
+      v25 = 2112;
+      v26 = configurationCopy;
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Starting provisioning for provisioning controller: %@ with configuration: %@", buf, 0x20u);
     }
   }
 
@@ -3492,75 +3389,71 @@ void __90__NPKSubcredentialInvitationCoordinator__handleProvisioningAttemptForCo
     block[1] = 3221225472;
     block[2] = __103__NPKSubcredentialInvitationCoordinator__startProvisioningForProvisioningController_withConfiguration___block_invoke;
     block[3] = &unk_279945290;
-    objc_copyWeak(&v19, buf);
-    v17 = controllerCopy;
-    v18 = configurationCopy;
+    objc_copyWeak(&v20, buf);
+    v18 = controllerCopy;
+    v19 = configurationCopy;
     dispatch_async(callbackQueue, block);
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __103__NPKSubcredentialInvitationCoordinator__startProvisioningForProvisioningController_withConfiguration___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = pk_General_log();
+  v3 = pk_General_log(WeakRetained);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
       v12 = 138543874;
-      v13 = v7;
+      v13 = v8;
       v14 = 2112;
-      v15 = v8;
+      v15 = v9;
       v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to start provisioning with a non-nil subcredential provisioning controller and configuration! subcredentialProvisioningController: %@ configuration: %@", &v12, 0x20u);
+      v17 = v10;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Expected to start provisioning with a non-nil subcredential provisioning controller and configuration! subcredentialProvisioningController: %@ configuration: %@", &v12, 0x20u);
     }
   }
 
-  v10 = [WeakRetained _errorWithCode:0 message:@"Unable to start provisioning - insufficient information"];
-  [WeakRetained _endProvisioningWithPassForInvitation:0 error:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = [WeakRetained _errorWithCode:0 message:@"Unable to start provisioning - insufficient information"];
+  [WeakRetained _endProvisioningWithPassForInvitation:0 error:v11];
 }
 
 - (void)_endProvisioningWithPassForInvitation:(id)invitation error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   errorCopy = error;
   callbackQueue = [(NPKSubcredentialInvitationCoordinator *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
-  v9 = pk_General_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = pk_General_log(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v10)
+  if (v11)
   {
-    v11 = pk_General_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v16 = 138543874;
-      v17 = v13;
-      v18 = 2112;
-      v19 = invitationCopy;
-      v20 = 2112;
-      v21 = errorCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: End provisioning with pass: %@ error: %@", &v16, 0x20u);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v17 = 138543874;
+      v18 = v15;
+      v19 = 2112;
+      v20 = invitationCopy;
+      v21 = 2112;
+      v22 = errorCopy;
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: End provisioning with pass: %@ error: %@", &v17, 0x20u);
     }
   }
 
@@ -3571,20 +3464,18 @@ void __103__NPKSubcredentialInvitationCoordinator__startProvisioningForProvision
 
   [(NPKSubcredentialInvitationCoordinator *)self setSharingSession:0];
   [(NPKSubcredentialInvitationCoordinator *)self setFirstUnlockCoordinator:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invokeCompletionWithPassForInvitation:(id)invitation error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   errorCopy = error;
   callbackQueue = [(NPKSubcredentialInvitationCoordinator *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
   completion = [(NPKSubcredentialInvitationCoordinator *)self completion];
-  [(NPKSubcredentialInvitationCoordinator *)self setCompletion:0];
+  v10 = [(NPKSubcredentialInvitationCoordinator *)self setCompletion:0];
   if (completion)
   {
     (completion)[2](completion, invitationCopy, errorCopy);
@@ -3592,24 +3483,22 @@ void __103__NPKSubcredentialInvitationCoordinator__startProvisioningForProvision
 
   else
   {
-    v10 = pk_General_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v11 = pk_General_log(v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v12)
     {
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_General_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v16 = 138543362;
-        v17 = v14;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Attempted to invoke completion handler, but no block was found!", &v16, 0xCu);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: %{public}@: Attempted to invoke completion handler, but no block was found!", &v17, 0xCu);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

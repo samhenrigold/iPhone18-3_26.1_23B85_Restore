@@ -83,41 +83,41 @@
 {
   if (!self->_placeholderPreviewView)
   {
-    _SLLog(v2, 7, @"SLSheetURLPreviewView ensurePlaceholderPreviewImage building placeholder");
-    v4 = objc_alloc(MEMORY[0x1E69DD250]);
+    _SLLog(v7, 7, @"SLSheetURLPreviewView ensurePlaceholderPreviewImage building placeholder", v2, v3, v4, v5, v6, v28);
+    v9 = objc_alloc(MEMORY[0x1E69DD250]);
     imageView = [(SLSheetImagePreviewView *)self imageView];
     [imageView frame];
-    v6 = [v4 initWithFrame:?];
+    v11 = [v9 initWithFrame:?];
     placeholderPreviewView = self->_placeholderPreviewView;
-    self->_placeholderPreviewView = v6;
+    self->_placeholderPreviewView = v11;
 
-    v8 = [MEMORY[0x1E69DC888] colorWithWhite:0.87 alpha:1.0];
-    [(UIView *)self->_placeholderPreviewView setBackgroundColor:v8];
+    v13 = [MEMORY[0x1E69DC888] colorWithWhite:0.87 alpha:1.0];
+    [(UIView *)self->_placeholderPreviewView setBackgroundColor:v13];
 
     [(UIView *)self->_placeholderPreviewView bounds];
-    v10 = v9 * 0.222222222;
+    v15 = v14 * 0.222222222;
     [(UIView *)self->_placeholderPreviewView bounds];
-    v20 = CGRectInset(v19, v10, v10);
-    v11 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithFrame:{v20.origin.x, v20.origin.y, v20.size.width, v20.size.height}];
+    v31 = CGRectInset(v30, v15, v15);
+    v16 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithFrame:{v31.origin.x, v31.origin.y, v31.size.width, v31.size.height}];
     placeholderGlyphView = self->_placeholderGlyphView;
-    self->_placeholderGlyphView = v11;
+    self->_placeholderGlyphView = v16;
 
     [(UIImageView *)self->_placeholderGlyphView setContentMode:2];
     [(UIImageView *)self->_placeholderGlyphView setClipsToBounds:1];
     whiteColor = [MEMORY[0x1E69DC888] whiteColor];
     [(UIImageView *)self->_placeholderGlyphView setTintColor:whiteColor];
 
-    v14 = [MEMORY[0x1E69DCAB8] socialFrameworkImageNamed:@"URLPlaceholderPreviewGlyph"];
-    v15 = [v14 imageWithRenderingMode:2];
-    [(UIImageView *)self->_placeholderGlyphView setImage:v15];
+    v19 = [MEMORY[0x1E69DCAB8] socialFrameworkImageNamed:@"URLPlaceholderPreviewGlyph"];
+    v20 = [v19 imageWithRenderingMode:2];
+    [(UIImageView *)self->_placeholderGlyphView setImage:v20];
 
     image = [(UIImageView *)self->_placeholderGlyphView image];
-    _SLLog(v2, 7, @"SLSheetURLPreviewView ensurePlaceholderPreviewImage loaded placeholder glyph %@");
+    _SLLog(v7, 7, @"SLSheetURLPreviewView ensurePlaceholderPreviewImage loaded placeholder glyph %@", v22, v23, v24, v25, v26, image);
 
-    [(UIView *)self->_placeholderPreviewView addSubview:self->_placeholderGlyphView, image];
-    v16 = self->_placeholderPreviewView;
+    [(UIView *)self->_placeholderPreviewView addSubview:self->_placeholderGlyphView];
+    v27 = self->_placeholderPreviewView;
 
-    [(SLSheetURLPreviewView *)self addSubview:v16];
+    [(SLSheetURLPreviewView *)self addSubview:v27];
   }
 }
 
@@ -126,15 +126,15 @@
   imageCopy = image;
   if (self->_placeholderPreviewView)
   {
-    _SLLog(v3, 7, @"SLSheetURLPreviewView setImage: removing placeholder");
+    _SLLog(v3, 7, @"SLSheetURLPreviewView setImage: removing placeholder", v5, v6, v7, v8, v9, v12.receiver);
     [(UIView *)self->_placeholderPreviewView removeFromSuperview];
     placeholderPreviewView = self->_placeholderPreviewView;
     self->_placeholderPreviewView = 0;
   }
 
-  v7.receiver = self;
-  v7.super_class = SLSheetURLPreviewView;
-  [(SLSheetImagePreviewView *)&v7 setImage:imageCopy];
+  v12.receiver = self;
+  v12.super_class = SLSheetURLPreviewView;
+  [(SLSheetImagePreviewView *)&v12 setImage:imageCopy];
 }
 
 - (BOOL)generatePreviewImageFromAttachments
@@ -164,20 +164,20 @@
 - (void)_generateAutomaticPreviewForURL:(id)l
 {
   lCopy = l;
-  _SLLog(v3, 7, @"SLSheetURLPreviewView _generateAutomaticPreviewForURL: %@");
-  lCopy = [[SLURLPreviewGenerator alloc] initWithFrame:0.0, 0.0, 420.0, 420.0, lCopy];
+  _SLLog(v3, 7, @"SLSheetURLPreviewView _generateAutomaticPreviewForURL: %@", v6, v7, v8, v9, v10, lCopy);
+  v11 = [[SLURLPreviewGenerator alloc] initWithFrame:0.0, 0.0, 420.0, 420.0];
   webPreviewGenerator = self->_webPreviewGenerator;
-  self->_webPreviewGenerator = lCopy;
+  self->_webPreviewGenerator = v11;
 
   objc_initWeak(&location, self);
-  v8 = self->_webPreviewGenerator;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __57__SLSheetURLPreviewView__generateAutomaticPreviewForURL___block_invoke;
-  v9[3] = &unk_1E8176258;
-  objc_copyWeak(&v10, &location);
-  [(SLURLPreviewGenerator *)v8 loadURL:lCopy completion:v9];
-  objc_destroyWeak(&v10);
+  v13 = self->_webPreviewGenerator;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__SLSheetURLPreviewView__generateAutomaticPreviewForURL___block_invoke;
+  v14[3] = &unk_1E8176258;
+  objc_copyWeak(&v15, &location);
+  [(SLURLPreviewGenerator *)v13 loadURL:lCopy completion:v14];
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 }
 
@@ -199,21 +199,20 @@ void __57__SLSheetURLPreviewView__generateAutomaticPreviewForURL___block_invoke(
 void __57__SLSheetURLPreviewView__generateAutomaticPreviewForURL___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = *(a1 + 32);
-  _SLLog(v1, 7, @"SLSheetURLPreviewView _generateAutomaticPreviewForURL: generated web preview %@ into preview view %@");
-  v3 = WeakRetained;
+  _SLLog(v1, 7, @"SLSheetURLPreviewView _generateAutomaticPreviewForURL: generated web preview %@ into preview view %@", v3, v4, v5, v6, v7, *(a1 + 32));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (*(a1 + 32))
     {
-      [WeakRetained setImage:{v5, WeakRetained}];
-      v3 = WeakRetained;
+      [WeakRetained setImage:?];
+      v8 = WeakRetained;
     }
 
-    v4 = v3[55];
-    v3[55] = 0;
+    v9 = v8[55];
+    v8[55] = 0;
 
-    v3 = WeakRetained;
+    v8 = WeakRetained;
   }
 }
 

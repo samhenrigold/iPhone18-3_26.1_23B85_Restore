@@ -27,7 +27,7 @@
 
 - (id)createSerializableObject
 {
-  [(PXGSpriteGeometrySerializable *)self spriteGeometry];
+  objc_msgSend_spriteGeometry(self, a2);
   v2 = PXGSerializeSpriteGeometry(&v4);
 
   return v2;

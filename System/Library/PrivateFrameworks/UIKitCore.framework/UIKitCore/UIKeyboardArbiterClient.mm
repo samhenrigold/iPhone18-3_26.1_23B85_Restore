@@ -204,13 +204,13 @@ LABEL_11:
   [v10 setAvoidDisableKeyboard:0];
 }
 
-uint64_t __46___UIKeyboardArbiterClient_isOnScreenRotating__block_invoke(uint64_t result, void *a2)
+void *__46___UIKeyboardArbiterClient_isOnScreenRotating__block_invoke(void *result, void *a2)
 {
-  if ((*(*(*(result + 32) + 8) + 24) & 1) == 0)
+  if ((*(*(result[4] + 8) + 24) & 1) == 0)
   {
     v2 = result;
     result = [a2 isOnScreenRotating];
-    *(*(*(v2 + 32) + 8) + 24) |= result;
+    *(*(v2[4] + 8) + 24) |= result;
   }
 
   return result;
@@ -353,7 +353,7 @@ uint64_t __79___UIKeyboardArbiterClient_queue_keyboardTransition_event_withInfo_
 {
   v4 = a2;
   v5 = a3;
-  if (([@"_UIScrollKeyboardDuration" isEqual:v4] & 1) != 0 || objc_msgSend(@"_UIScrollKeyboardIAVOffset", "isEqual:", v4))
+  if ((objc_msgSend_isEqual_(@"_UIScrollKeyboardDuration") & 1) != 0 || objc_msgSend_isEqual_(@"_UIScrollKeyboardIAVOffset"))
   {
     v6 = v5;
     objc_opt_class();
@@ -367,9 +367,9 @@ uint64_t __79___UIKeyboardArbiterClient_queue_keyboardTransition_event_withInfo_
     goto LABEL_20;
   }
 
-  if (([@"_UIScrollKeyboardCancelInfo" isEqual:v4] & 1) == 0 && (objc_msgSend(@"_UIKeyboardContextID", "isEqual:", v4) & 1) == 0 && !objc_msgSend(@"_UIKeyboardLayerID", "isEqual:", v4) && !objc_msgSend(@"_UIScrollKeyboardPlacementFrom", "isEqual:", v4) && !objc_msgSend(@"_UIScrollKeyboardPlacementTo", "isEqual:", v4))
+  if ((objc_msgSend_isEqual_(@"_UIScrollKeyboardCancelInfo") & 1) == 0 && (objc_msgSend_isEqual_(@"_UIKeyboardContextID") & 1) == 0 && !objc_msgSend_isEqual_(@"_UIKeyboardLayerID") && !objc_msgSend_isEqual_(@"_UIScrollKeyboardPlacementFrom") && !objc_msgSend_isEqual_(@"_UIScrollKeyboardPlacementTo"))
   {
-    if (![@"Origin" isEqual:v4])
+    if (!objc_msgSend_isEqual_(@"Origin"))
     {
       isKindOfClass = 0;
       goto LABEL_22;

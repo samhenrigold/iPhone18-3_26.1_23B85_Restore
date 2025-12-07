@@ -54,11 +54,11 @@
 
 - (double)solveForTime:(double)time
 {
-  [(TUAnimationFloatFunction *)self startValue];
+  objc_msgSend_startValue(self, a2);
   v6 = v5;
-  [(TUAnimationFloatFunction *)self endValue];
+  objc_msgSend_endValue(self);
   v8 = v7;
-  [(TUAnimationFloatFunction *)self startValue];
+  objc_msgSend_startValue(self);
   v10 = v9;
   timingFunction = [(TUAnimationFloatFunction *)self timingFunction];
   [(TUAnimationFloatFunction *)self speed];

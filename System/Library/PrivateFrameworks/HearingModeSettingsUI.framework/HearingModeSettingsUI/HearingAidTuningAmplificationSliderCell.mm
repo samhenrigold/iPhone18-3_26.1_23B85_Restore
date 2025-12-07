@@ -26,19 +26,18 @@
 {
   v3 = sub_2520046A0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3, v6);
-  v8 = v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12[1] = self;
+  MEMORY[0x28223BE20](v3, v5);
+  v7 = v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11[1] = self;
   selfCopy = self;
   sub_252004620();
   type metadata accessor for HearingAidTuningAmplificationSliderCell();
-  sub_251FEAB30(v8);
-  (*(v4 + 8))(v8, v3);
+  sub_251FEAB30(v7);
+  (*(v4 + 8))(v7, v3);
 
-  v10 = sub_2520046B0();
+  v9 = sub_2520046B0();
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)accessibilityTraits

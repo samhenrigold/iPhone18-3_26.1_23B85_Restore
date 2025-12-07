@@ -32,17 +32,7 @@
   v14.receiver = self;
   v14.super_class = TKSEPClientTokenSession;
   v7 = [(TKClientTokenSession *)&v14 _initWithToken:token LAContext:context parameters:parameters error:?];
-  if (!v7)
-  {
-    goto LABEL_3;
-  }
-
-  v8 = +[TKSEPClientToken builtinTokenIDs];
-  tokenID = [v7 tokenID];
-  stringRepresentation = [tokenID stringRepresentation];
-  v11 = [v8 containsObject:stringRepresentation];
-
-  if ((v11 & 1) == 0)
+  if (v7 && (+[TKSEPClientToken builtinTokenIDs](TKSEPClientToken, "builtinTokenIDs"), v8 = objc_claimAutoreleasedReturnValue(), [v7 tokenID], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "stringRepresentation"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v8, "containsObject:", v10), v10, v9, v8, (v11 & 1) == 0))
   {
     if (error)
     {
@@ -58,7 +48,6 @@
 
   else
   {
-LABEL_3:
     v12 = v7;
   }
 

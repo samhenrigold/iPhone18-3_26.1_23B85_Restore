@@ -17,18 +17,18 @@
 
 - (id)initWithUUID:(int)d gid:(void *)gid name:(void *)name fullName:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v10 = a2;
   gidCopy = gid;
   nameCopy = name;
   if (self)
   {
-    v23.receiver = self;
-    v23.super_class = DDIGroup;
-    v13 = objc_msgSendSuper2(&v23, sel_init);
+    v22.receiver = self;
+    v22.super_class = DDIGroup;
+    v13 = objc_msgSendSuper2(&v22, sel_init);
     if (!v13)
     {
-      [DDIUser initWithUUID:v24 uid:? name:? primaryGroupUUID:? fullName:? homeDirectory:? shell:? memberships:?];
+      [DDIUser initWithUUID:v23 uid:? name:? primaryGroupUUID:? fullName:? homeDirectory:? shell:? memberships:?];
     }
 
     self = v13;
@@ -48,7 +48,6 @@
     self[5] = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return self;
 }
 

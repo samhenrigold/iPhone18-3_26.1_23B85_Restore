@@ -716,13 +716,14 @@ LABEL_11:
 
   if (([v2 isEqualToString:@"sharedWatchJoin"] & 1) == 0)
   {
-    if ([v2 isEqualToString:@"sharedWatchJoinBinge"])
+    v4 = [v2 isEqualToString:@"sharedWatchJoinBinge"];
+    if (v4)
     {
-      v4 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = VUIDefaultLogObject(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v6 = 0;
-        _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "JS provided legacy sharedWatchJoinBinge param", v6, 2u);
+        *v7 = 0;
+        _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "JS provided legacy sharedWatchJoinBinge param", v7, 2u);
       }
 
       goto LABEL_9;

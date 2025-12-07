@@ -59,7 +59,7 @@
 
 + (BOOL)isValidResponseJson:(id)json response:(id)response error:(id)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   jsonCopy = json;
   responseCopy = response;
   errorCopy = error;
@@ -68,11 +68,11 @@
     v10 = _IMStoreLogCategoryDefault();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543362;
+      v15 = 138543362;
       statusCode = errorCopy;
       v11 = "performUrlRequest completed with error %{public}@";
 LABEL_9:
-      _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_ERROR, v11, &v16, 0xCu);
+      _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_ERROR, v11, &v15, 0xCu);
     }
   }
 
@@ -81,7 +81,7 @@ LABEL_9:
     v10 = _IMStoreLogCategoryDefault();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v16 = 134217984;
+      v15 = 134217984;
       statusCode = [responseCopy statusCode];
       v11 = "performUrlRequest completed with bad status code: %ld";
       goto LABEL_9;
@@ -100,17 +100,16 @@ LABEL_9:
     v10 = _IMStoreLogCategoryDefault();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543362;
+      v15 = 138543362;
       statusCode = objc_opt_class();
-      v15 = statusCode;
-      _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_ERROR, "Recived non-dictionary response. Discarding. (%{public}@)", &v16, 0xCu);
+      v14 = statusCode;
+      _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_ERROR, "Recived non-dictionary response. Discarding. (%{public}@)", &v15, 0xCu);
     }
   }
 
   v12 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -360,7 +359,7 @@ LABEL_8:
 
 - (void)signRequest:(id)request
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
@@ -382,31 +381,31 @@ LABEL_8:
   v12 = [requestCopy URL];
   v13 = [v11 componentsWithURL:v12 resolvingAgainstBaseURL:0];
 
-  v29 = v13;
+  v28 = v13;
   query = [v13 query];
   v15 = [NSURLUtil queryStringToQueryDictionary:query];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   signatureQueryParams = [objc_opt_class() signatureQueryParams];
-  v17 = [signatureQueryParams countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v17 = [signatureQueryParams countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       v20 = 0;
       do
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(signatureQueryParams);
         }
 
-        v21 = [v15 valueForKey:*(*(&v30 + 1) + 8 * v20)];
+        v21 = [v15 valueForKey:*(*(&v29 + 1) + 8 * v20)];
         if (v21)
         {
           [v5 appendString:v21];
@@ -416,7 +415,7 @@ LABEL_8:
       }
 
       while (v18 != v20);
-      v18 = [signatureQueryParams countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v18 = [signatureQueryParams countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v18);
@@ -443,8 +442,6 @@ LABEL_8:
     v27 = [v4 componentsJoinedByString:@" "];;
     [requestCopy setValue:v27 forHTTPHeaderField:@"Cookie"];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 + (id)signatureQueryParams

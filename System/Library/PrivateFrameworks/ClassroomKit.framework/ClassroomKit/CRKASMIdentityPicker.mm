@@ -37,7 +37,7 @@
   v4 = [CRKExecutionTimer startedTimerWithDescription:@"Process identity manifest contents"];
   v5 = [(CRKASMIdentityPicker *)self candidatePersistentIDsInManifest:manifest];
   v6 = [(CRKASMIdentityPicker *)self pickIdentityFromCandidates:v5 manifest:manifest];
-  v7 = _CRKLogASM_9();
+  v7 = _CRKLogASM_9(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     stop = [v4 stop];
@@ -51,18 +51,18 @@
 
 - (id)manifest
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [CRKExecutionTimer startedTimerWithDescription:@"Read identity manifest"];
   credentialStore = [(CRKASMIdentityPicker *)self credentialStore];
   identityManifest = [credentialStore identityManifest];
 
-  v6 = _CRKLogASM_9();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CRKLogASM_9(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     stop = [v3 stop];
-    v9 = 138412290;
-    v10 = stop;
-    _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = stop;
+    _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
   }
 
   return identityManifest;
@@ -114,14 +114,15 @@
 - (BOOL)isManifestEntryValid:(id)valid manifest:(id)manifest
 {
   validCopy = valid;
-  if ([validCopy isFullyPopulated])
+  isFullyPopulated = [validCopy isFullyPopulated];
+  if (isFullyPopulated)
   {
     userIdentifier = [validCopy userIdentifier];
     if (userIdentifier || ([(CRKASMIdentityPicker *)self userIdentifier], (v4 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       userIdentifier2 = [validCopy userIdentifier];
       userIdentifier3 = [(CRKASMIdentityPicker *)self userIdentifier];
-      v10 = [userIdentifier2 isEqual:userIdentifier3];
+      v11 = [userIdentifier2 isEqual:userIdentifier3];
 
       if (userIdentifier)
       {
@@ -130,29 +131,29 @@ LABEL_11:
         validityInterval = [validCopy validityInterval];
         crk_containsCurrentDate = [validityInterval crk_containsCurrentDate];
 
-        v12 = v10 & crk_containsCurrentDate;
+        v13 = v11 & crk_containsCurrentDate;
         goto LABEL_12;
       }
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
     }
 
     goto LABEL_11;
   }
 
-  v11 = _CRKLogASM_9();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = _CRKLogASM_9(isFullyPopulated);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [CRKASMIdentityPicker isManifestEntryValid:v11 manifest:?];
+    [CRKASMIdentityPicker isManifestEntryValid:v12 manifest:?];
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_12:
 
-  return v12;
+  return v13;
 }
 
 - (id)pickIdentityFromCandidates:(id)candidates manifest:(id)manifest
@@ -166,30 +167,30 @@ LABEL_12:
 
 - (id)pickIdentityFromOrderedCandidates:(id)candidates manifest:(id)manifest
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   manifestCopy = manifest;
-  v25 = objc_opt_new();
-  v28 = 0u;
+  v26 = objc_opt_new();
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   obj = candidatesCopy;
-  v24 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
-  if (v24)
+  v25 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v25)
   {
-    v23 = *v29;
+    v24 = *v30;
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v29 != v23)
+        if (*v30 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v28 + 1) + 8 * v6);
+        v7 = *(*(&v29 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
         v9 = [manifestCopy entryForPersistentID:v7];
         credentialStore = [(CRKASMIdentityPicker *)self credentialStore];
@@ -214,12 +215,12 @@ LABEL_19:
           fingerprint3 = [v9 fingerprint];
           certificate2 = [v11 certificate];
           fingerprint4 = [certificate2 fingerprint];
-          v16 = [fingerprint3 isEqual:fingerprint4];
+          v17 = [fingerprint3 isEqual:fingerprint4];
 
           if (fingerprint)
           {
 
-            if (v16)
+            if (v17)
             {
               goto LABEL_19;
             }
@@ -228,27 +229,27 @@ LABEL_19:
           else
           {
 
-            if (v16)
+            if (v17)
             {
               goto LABEL_19;
             }
           }
         }
 
-        v17 = _CRKLogASM_9();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = _CRKLogASM_9(v12);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          [(CRKASMIdentityPicker *)v32 pickIdentityFromOrderedCandidates:&v33 manifest:v17];
+          [(CRKASMIdentityPicker *)v33 pickIdentityFromOrderedCandidates:&v34 manifest:v18];
         }
 
-        [v25 addObject:v7];
+        [v26 addObject:v7];
         objc_autoreleasePoolPop(v8);
         ++v6;
       }
 
-      while (v24 != v6);
-      v24 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
-      if (v24)
+      while (v25 != v6);
+      v25 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      if (v25)
       {
         continue;
       }
@@ -261,7 +262,7 @@ LABEL_19:
 LABEL_20:
 
   credentialStore2 = [(CRKASMIdentityPicker *)self credentialStore];
-  [credentialStore2 forgetIdentitiesWithPersistentIDs:v25];
+  [credentialStore2 forgetIdentitiesWithPersistentIDs:v26];
 
   return v11;
 }

@@ -1,11 +1,38 @@
 @interface MRSendCommandMessage
 - (MRPlayerPath)playerPath;
+- (MRSendCommandMessage)initWithCommand:(unsigned int)command options:(id)options playerPath:(id)path;
 - (NSDictionary)options;
 - (unsigned)appOptions;
 - (unsigned)command;
 @end
 
 @implementation MRSendCommandMessage
+
+- (MRSendCommandMessage)initWithCommand:(unsigned int)command options:(id)options playerPath:(id)path
+{
+  v7 = *&command;
+  optionsCopy = options;
+  pathCopy = path;
+  v17.receiver = self;
+  v17.super_class = MRSendCommandMessage;
+  v11 = [(MRProtocolMessage *)&v17 init];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong(&v11->_options, options);
+    v13 = objc_alloc_init(_MRSendCommandMessageProtobuf);
+    [(_MRSendCommandMessageProtobuf *)v13 setCommand:MRMediaRemoteCommandToProtobuf(v7)];
+    v14 = MRMediaRemoteCommandOptionsToProtobuf(optionsCopy);
+    [(_MRSendCommandMessageProtobuf *)v13 setOptions:v14];
+
+    protobuf = [pathCopy protobuf];
+    [(_MRSendCommandMessageProtobuf *)v13 setPlayerPath:protobuf];
+
+    [(MRProtocolMessage *)v12 setUnderlyingCodableMessage:v13];
+  }
+
+  return v12;
+}
 
 - (unsigned)command
 {

@@ -15,19 +15,21 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = type metadata accessor for ShelfHeaderLayout(0);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  height = fits.height;
+  width = fits.width;
+  v6 = type metadata accessor for ShelfHeaderLayout(0);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   traitCollection = [(ShelfHeaderView *)selfCopy traitCollection];
-  v9 = ShelfHeaderLayout.measure(toFit:with:)(traitCollection);
-  v11 = v10;
+  v11 = ShelfHeaderLayout.measure(toFit:with:)(traitCollection, width, height);
+  v13 = v12;
 
-  sub_51A608(v6, type metadata accessor for ShelfHeaderLayout);
-  v12 = v9;
-  v13 = v11;
-  result.height = v13;
-  result.width = v12;
+  sub_51A608(v8, type metadata accessor for ShelfHeaderLayout);
+  v14 = v11;
+  v15 = v13;
+  result.height = v15;
+  result.width = v14;
   return result;
 }
 
@@ -36,17 +38,21 @@
   ObjectType = swift_getObjectType();
   v4 = type metadata accessor for ShelfHeaderLayout(0);
   __chkstk_darwin(v4 - 8);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10.receiver = self;
-  v10.super_class = ObjectType;
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18.receiver = self;
+  v18.super_class = ObjectType;
   selfCopy = self;
-  [(ShelfHeaderView *)&v10 layoutSubviews];
+  [(ShelfHeaderView *)&v18 layoutSubviews];
   v8 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider15ShelfHeaderView_containerView);
   [(ShelfHeaderView *)selfCopy bounds];
   [v8 setFrame:?];
   [(ShelfHeaderView *)selfCopy bounds];
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
   traitCollection = [(ShelfHeaderView *)selfCopy traitCollection];
-  ShelfHeaderLayout.place(at:with:)(traitCollection);
+  ShelfHeaderLayout.place(at:with:)(traitCollection, v10, v12, v14, v16);
 
   sub_51A608(v6, type metadata accessor for ShelfHeaderLayout);
 }

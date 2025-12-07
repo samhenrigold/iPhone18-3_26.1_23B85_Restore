@@ -454,7 +454,7 @@ LABEL_22:
         goto LABEL_22;
       }
 
-      TSDCurveBetween(&v36, &v28, t, a7);
+      TSDCurveBetween(t, a7, &v36, &v28);
       if (!move)
       {
         [(TSDBezierPath *)self moveToPoint:v28, v29];
@@ -488,7 +488,7 @@ LABEL_31:
         goto LABEL_41;
       }
 
-      TSDCurveBetween(&v36, &v28, t, 1.0);
+      TSDCurveBetween(t, 1.0, &v36, &v28);
       if (!move)
       {
         [(TSDBezierPath *)self moveToPoint:v28, v29];
@@ -602,7 +602,7 @@ LABEL_64:
       goto LABEL_64;
     }
 
-    TSDCurveBetween(&v36, &v28, 0.0, a7);
+    TSDCurveBetween(0.0, a7, &v36, &v28);
 LABEL_66:
     [(TSDBezierPath *)self curveToPoint:v34 controlPoint1:v35 controlPoint2:v30, v31, v32, v33];
   }
@@ -1633,7 +1633,7 @@ LABEL_14:
       if (v25 > 0.0 && v25 < 1.0)
       {
         v31 = v25;
-        TSDCurveBetween(&v106, &v98, 0.0, v25);
+        TSDCurveBetween(0.0, v25, &v106, &v98);
         v33 = v15;
         v34 = v99 + v33;
         if (v11)
@@ -1665,7 +1665,7 @@ LABEL_14:
       if (v30 > 0.0 && v30 < 1.0)
       {
         v47 = v30;
-        TSDCurveBetween(&v106, &v98, v31, v47);
+        TSDCurveBetween(v31, v47, &v106, &v98);
         v48 = v99 + v15;
         if (v11)
         {
@@ -1691,12 +1691,12 @@ LABEL_14:
           v15 = v5;
         }
 
-        TSDCurveBetween(&v106, &v98, v47, 1.0);
+        TSDCurveBetween(v47, 1.0, &v106, &v98);
       }
 
       else
       {
-        TSDCurveBetween(&v106, &v98, v31, 1.0);
+        TSDCurveBetween(v31, 1.0, &v106, &v98);
         if (v11)
         {
           v36 = v15;
@@ -1845,7 +1845,7 @@ LABEL_58:
             if (v70 > 0.0 && v70 < 1.0)
             {
               v76 = v70;
-              TSDCurveBetween(&v106, &v98, v70, 1.0);
+              TSDCurveBetween(v70, 1.0, &v106, &v98);
               v78 = v60;
               v79 = v105 + v78;
               if (v9)
@@ -1877,7 +1877,7 @@ LABEL_58:
             if (v75 > 0.0 && v75 < 1.0)
             {
               v93 = v75;
-              TSDCurveBetween(&v106, &v98, v93, v76);
+              TSDCurveBetween(v93, v76, &v106, &v98);
               v94 = v105 + v60;
               if (v9)
               {
@@ -1903,12 +1903,12 @@ LABEL_58:
                 v60 = v5;
               }
 
-              TSDCurveBetween(&v106, &v98, 0.0, v93);
+              TSDCurveBetween(0.0, v93, &v106, &v98);
             }
 
             else
             {
-              TSDCurveBetween(&v106, &v98, 0.0, v76);
+              TSDCurveBetween(0.0, v76, &v106, &v98);
               if (v9)
               {
                 v83 = v60;
@@ -3110,7 +3110,7 @@ LABEL_13:
 
 - (BOOL)isRectangular
 {
-  v30[11] = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   LODWORD(elementCount) = [(TSDBezierPath *)self isFlat];
   if (elementCount)
   {
@@ -3204,11 +3204,11 @@ LABEL_19:
             if (v20 > v10)
             {
               v23 = 0;
-              v24 = v30;
+              v24 = v29 + 1;
               v25 = 1;
               while (1)
               {
-                v26 = &v29[16 * (v25 % (v10 + 1))];
+                v26 = &v29[v25 % (v10 + 1)];
                 v27 = vabdd_f64(*v26, *(v24 - 1));
                 if (v27 > 0.01 != vabdd_f64(v26[1], *v24) <= 0.01 || v25 != 1 && ((v23 ^ (v27 > 0.01)) & 1) == 0)
                 {
@@ -5695,10 +5695,10 @@ LABEL_21:
 {
   y = point.y;
   x = point.x;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   elementCount = [(TSDBezierPath *)self elementCount];
   v13 = 0;
-  v26 = *MEMORY[0x277CBF348];
+  v25 = *MEMORY[0x277CBF348];
   v14 = 0.0;
   v15 = 1.79769313e308;
   if (elementCount)
@@ -5712,30 +5712,29 @@ LABEL_21:
       v18 = 1;
       while (1)
       {
-        v19 = [(TSDBezierPath *)self elementAtIndex:v18 - 1 allPoints:&v27, *&v26];
+        v19 = [(TSDBezierPath *)self elementAtIndex:v18 - 1 allPoints:&v26, *&v25];
         if (v19 > 1)
         {
           if (v19 == 2)
           {
-            v21 = TSDNearestPointOnCurveToPoint(&v27, x, y, 1.0);
-            v22 = TSDPointOnCurve(&v27, v21);
+            v20 = TSDNearestPointOnCurveToPoint(&v26, x, y, 1.0);
+            v21 = TSDPointOnCurve(&v26, v20);
             goto LABEL_14;
           }
 
           if (v19 == 3)
           {
-            v28 = v26;
+            v27 = v25;
 LABEL_11:
-            TSDNearestPointOnLineToPoint(v27.f64, x, y);
-            v21 = v20;
-            v22 = TSDMixPoints(v27.f64[0], v27.f64[1], v28.f64[0], v28.f64[1], v20);
+            v20 = TSDNearestPointOnLineToPoint(v26.f64, x, y);
+            v21 = TSDMixPoints(v26.f64[0], v26.f64[1], v27.f64[0], v27.f64[1], v20);
 LABEL_14:
-            v24 = TSDDistanceSquared(v22, v23, x, y);
-            if (v24 < v15)
+            v23 = TSDDistanceSquared(v21, v22, x, y);
+            if (v23 < v15)
             {
-              v14 = v21;
+              v14 = v20;
               v13 = v18 - 1;
-              v15 = v24;
+              v15 = v23;
             }
           }
         }
@@ -5750,7 +5749,7 @@ LABEL_14:
 
         else
         {
-          v26 = v27;
+          v25 = v26;
         }
 
         if (v18 < v17)
@@ -7293,23 +7292,11 @@ LABEL_19:
 {
   widthCopy = width;
   v7 = CGContextConvertPointToDeviceSpace(context, point);
-  v8 = TSDRoundedPoint();
+  v9 = TSDRoundedPoint(v8, v7.x, v7.y);
   if (widthCopy)
   {
     x = v7.x;
-    if (v8 <= x)
-    {
-      v12 = 0.5;
-    }
-
-    else
-    {
-      v12 = -0.5;
-    }
-
-    v8 = v8 + v12;
-    y = v7.y;
-    if (v9 <= y)
+    if (v9 <= x)
     {
       v13 = 0.5;
     }
@@ -7320,13 +7307,25 @@ LABEL_19:
     }
 
     v9 = v9 + v13;
+    y = v7.y;
+    if (v10 <= y)
+    {
+      v14 = 0.5;
+    }
+
+    else
+    {
+      v14 = -0.5;
+    }
+
+    v10 = v10 + v14;
   }
 
-  v16 = CGContextConvertPointToUserSpace(context, *&v8);
-  v15 = v16.y;
-  v14 = v16.x;
-  result.y = v15;
-  result.x = v14;
+  v17 = CGContextConvertPointToUserSpace(context, *&v9);
+  v16 = v17.y;
+  v15 = v17.x;
+  result.y = v16;
+  result.x = v15;
   return result;
 }
 
@@ -8320,7 +8319,7 @@ LABEL_33:
             {
               v48.a = v29 + 0.5;
               v48.b = v26 + 0.5;
-              std::__tree<CGPoint>::__emplace_unique_key_args<CGPoint,CGPoint>(&v56, &v48.a);
+              std::__tree<CGPoint>::__emplace_unique_key_args<CGPoint,CGPoint>(&v56, &v48.a, &v48);
             }
 
             v29 = v29 + 1.0;
@@ -8480,7 +8479,7 @@ LABEL_33:
             {
               *&v47 = v12 + 0.5;
               *(&v47 + 1) = v9 + 0.5;
-              std::__tree<CGPoint>::__emplace_unique_key_args<CGPoint,CGPoint>(&v44, &v47);
+              std::__tree<CGPoint>::__emplace_unique_key_args<CGPoint,CGPoint>(&v44, &v47, &v47);
               v13 = 1;
             }
 

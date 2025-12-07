@@ -41,16 +41,16 @@ void ___SBXXAddWallpaperAnimationSuspensionAssertion_block_invoke_2(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], v2);
 }
 
-uint64_t ___SBXXAddWallpaperAnimationSuspensionAssertion_block_invoke_3(uint64_t a1)
+uint64_t ___SBXXAddWallpaperAnimationSuspensionAssertion_block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_INFO, "Re-enabling dynamic wallpapers and parallax for assertion with reason=%@", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "Re-enabling dynamic wallpapers and parallax for assertion with reason=%@", &v6, 0xCu);
   }
 
   return [*(a1 + 40) invalidate];

@@ -42,501 +42,476 @@
 
 - (double)currentKeepAliveInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_currentKeepAliveInterval(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_currentKeepAliveInterval(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "currentKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "currentKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v7, 0x20u);
+    v10 = 2048;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (int)growthStage
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_growthStage(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_growthStage(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "growthStage";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "growthStage";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v6, 0x1Cu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (int)previousAction
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_previousAction(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_previousAction(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "previousAction";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "previousAction";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v6, 0x1Cu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (unint64_t)countOfGrowthActions
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_countOfGrowthActions(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_countOfGrowthActions(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "countOfGrowthActions";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "countOfGrowthActions";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns %llu", &v7, 0x20u);
+    v10 = 2048;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns %llu", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (double)minimumKeepAliveInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_minimumKeepAliveInterval(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_minimumKeepAliveInterval(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "minimumKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "minimumKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v7, 0x20u);
+    v10 = 2048;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setMinimumKeepAliveInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setMinimumKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setMinimumKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
+    v10 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v7, 0x20u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v6, 0x20u);
   }
 
-  PCMSGA_setMinimumKeepAliveInterval(&self->_underlyingAlgorithm.currentKeepAliveInterval, interval);
-  v6 = *MEMORY[0x277D85DE8];
+  PCMSGA_setMinimumKeepAliveInterval(&self->_underlyingAlgorithm, interval);
 }
 
 - (double)maximumKeepAliveInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_maximumKeepAliveInterval(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_maximumKeepAliveInterval(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "maximumKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "maximumKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v7, 0x20u);
+    v10 = 2048;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setMaximumKeepAliveInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setMaximumKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setMaximumKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
+    v10 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v7, 0x20u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v6, 0x20u);
   }
 
-  PCMSGA_setMaximumKeepAliveInterval(&self->_underlyingAlgorithm.currentKeepAliveInterval, interval);
-  v6 = *MEMORY[0x277D85DE8];
+  PCMSGA_setMaximumKeepAliveInterval(&self->_underlyingAlgorithm, interval);
 }
 
 - (double)serverStatsExpectedKeepAliveInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = PCMSGA_serverStatsExpectedKeepAliveInterval(&self->_underlyingAlgorithm);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "serverStatsExpectedKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "serverStatsExpectedKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v7, 0x20u);
+    v10 = 2048;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setServerStatsExpectedKeepAliveInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setServerStatsExpectedKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setServerStatsExpectedKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
+    v10 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v7, 0x20u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v6, 0x20u);
   }
 
   PCMSGA_setServerStatsExpectedKeepAliveInterval(&self->_underlyingAlgorithm, interval);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (double)serverStatsMinKeepAliveInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_serverStatsMinKeepAliveInterval(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_serverStatsMinKeepAliveInterval(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "serverStatsMinKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "serverStatsMinKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v7, 0x20u);
+    v10 = 2048;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setServerStatsMinKeepAliveInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setServerStatsMinKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setServerStatsMinKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
+    v10 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v7, 0x20u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v6, 0x20u);
   }
 
   PCMSGA_setServerStatsMinKeepAliveInterval(&self->_underlyingAlgorithm, interval);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (double)serverStatsMaxKeepAliveInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_serverStatsMaxKeepAliveInterval(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_serverStatsMaxKeepAliveInterval(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "serverStatsMaxKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "serverStatsMaxKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v7, 0x20u);
+    v10 = 2048;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setServerStatsMaxKeepAliveInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setServerStatsMaxKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setServerStatsMaxKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
+    v10 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v7, 0x20u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v6, 0x20u);
   }
 
   PCMSGA_setServerStatsMaxKeepAliveInterval(&self->_underlyingAlgorithm, interval);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (double)lastSuccessfulKeepAliveInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
-  SuccessfulKeepAliveInterval = PCMSGA_lastSuccessfulKeepAliveInterval(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  SuccessfulKeepAliveInterval = PCMSGA_lastSuccessfulKeepAliveInterval(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "lastSuccessfulKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "lastSuccessfulKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = SuccessfulKeepAliveInterval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v7, 0x20u);
+    v10 = 2048;
+    v11 = SuccessfulKeepAliveInterval;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return SuccessfulKeepAliveInterval;
 }
 
 - (void)setLastSuccessfulKeepAliveInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setLastSuccessfulKeepAliveInterval";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setLastSuccessfulKeepAliveInterval";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
+    v10 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v7, 0x20u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v6, 0x20u);
   }
 
   PCMSGA_setLastSuccessfulKeepAliveInterval(&self->_underlyingAlgorithm, interval);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)minimumIntervalFallbackEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_minimumIntervalFallbackEnabled(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_minimumIntervalFallbackEnabled(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "minimumIntervalFallbackEnabled";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "minimumIntervalFallbackEnabled";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v6, 0x1Cu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setMinimumIntervalFallbackEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setMinimumIntervalFallbackEnabled";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setMinimumIntervalFallbackEnabled";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = enabledCopy;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %d)", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = enabledCopy;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %d)", &v6, 0x1Cu);
   }
 
   PCMSGA_setMinimumIntervalFallbackEnabled(&self->_underlyingAlgorithm, enabledCopy);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)usingServerStatsAggressively
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_usingServerStatsAggressively(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_usingServerStatsAggressively(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "usingServerStatsAggressively";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "usingServerStatsAggressively";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v6, 0x1Cu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setUsingServerStatsAggressively:(BOOL)aggressively
 {
   aggressivelyCopy = aggressively;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setUsingServerStatsAggressively";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setUsingServerStatsAggressively";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = aggressivelyCopy;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %d)", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = aggressivelyCopy;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %d)", &v6, 0x1Cu);
   }
 
   PCMSGA_setUsingServerStatsAggressively(&self->_underlyingAlgorithm, aggressivelyCopy);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (double)minimumIntervalFallbackStateTimeout
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_minimumIntervalFallbackStateTimeout(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_minimumIntervalFallbackStateTimeout(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "minimumIntervalFallbackStateTimeout";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "minimumIntervalFallbackStateTimeout";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v7, 0x20u);
+    v10 = 2048;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %g", &v6, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setMinimumIntervalFallbackStateTimeout:(double)timeout
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setMinimumIntervalFallbackStateTimeout";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setMinimumIntervalFallbackStateTimeout";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2048;
+    v10 = 2048;
     timeoutCopy = timeout;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v7, 0x20u);
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %g)", &v6, 0x20u);
   }
 
   PCMSGA_setMinimumIntervalFallbackStateTimeout(&self->_underlyingAlgorithm, timeout);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isServerOriginatedKeepAlive
 {
-  v13 = *MEMORY[0x277D85DE8];
-  isServerOriginatedKeepAlive = PCMSGA_isServerOriginatedKeepAlive(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  isServerOriginatedKeepAlive = PCMSGA_isServerOriginatedKeepAlive(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "isServerOriginatedKeepAlive";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "isServerOriginatedKeepAlive";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = isServerOriginatedKeepAlive;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = isServerOriginatedKeepAlive;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns  %d", &v6, 0x1Cu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return isServerOriginatedKeepAlive;
 }
 
 - (void)setIsServerOriginatedKeepAlive:(BOOL)alive
 {
   aliveCopy = alive;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "setIsServerOriginatedKeepAlive";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "setIsServerOriginatedKeepAlive";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = aliveCopy;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %d)", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = aliveCopy;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, %d)", &v6, 0x1Cu);
   }
 
   PCMSGA_setIsServerOriginatedKeepAlive(&self->_underlyingAlgorithm, aliveCopy);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (_PCTimeRange)signalAvoidanceRange
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_signalAvoidanceRange(&self->_underlyingAlgorithm.currentKeepAliveInterval);
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_signalAvoidanceRange(&self->_underlyingAlgorithm, a2);
   v5 = v4;
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315906;
-    v11 = "signalAvoidanceRange";
-    v12 = 2048;
+    v9 = 136315906;
+    v10 = "signalAvoidanceRange";
+    v11 = 2048;
     selfCopy = self;
-    v14 = 2048;
-    v15 = v3;
-    v16 = 2048;
-    v17 = v5;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns {%g,%g}", &v10, 0x2Au);
+    v13 = 2048;
+    v14 = v3;
+    v15 = 2048;
+    v16 = v5;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns {%g,%g}", &v9, 0x2Au);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  v8 = v3;
-  v9 = v5;
-  result.duration = v9;
-  result.start = v8;
+  v7 = v3;
+  v8 = v5;
+  result.duration = v8;
+  result.start = v7;
   return result;
 }
 
@@ -544,42 +519,40 @@
 {
   duration = range.duration;
   start = range.start;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315906;
-    v9 = "setSignalAvoidanceRange";
-    v10 = 2048;
+    v7 = 136315906;
+    v8 = "setSignalAvoidanceRange";
+    v9 = 2048;
     selfCopy = self;
-    v12 = 2048;
-    v13 = start;
-    v14 = 2048;
-    v15 = duration;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, {%g,%g})", &v8, 0x2Au);
+    v11 = 2048;
+    v12 = start;
+    v13 = 2048;
+    v14 = duration;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p, {%g,%g})", &v7, 0x2Au);
   }
 
-  PCMSGA_setSignalAvoidanceRange(&self->_underlyingAlgorithm.currentKeepAliveInterval, start, duration);
-  v7 = *MEMORY[0x277D85DE8];
+  PCMSGA_setSignalAvoidanceRange(&self->_underlyingAlgorithm, start, duration);
 }
 
 - (int)growthState
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PCMSGA_growthStage(&self->_underlyingAlgorithm);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PCMSGA_growthStage(&self->_underlyingAlgorithm, a2);
   logObject = self->_logObject;
   if (os_log_type_enabled(logObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "growthState";
-    v9 = 2048;
+    v6 = 136315650;
+    v7 = "growthState";
+    v8 = 2048;
     selfCopy = self;
-    v11 = 1024;
-    v12 = v3;
-    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns %d", &v7, 0x1Cu);
+    v10 = 1024;
+    v11 = v3;
+    _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "%s(%p) returns %d", &v6, 0x1Cu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -598,13 +571,13 @@
 
 - (PCSharedMultiStageGrowthAlgorithm)initWithCacheInfo:(id)info loggingIdentifier:(id)identifier algorithmName:(id)name
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   identifierCopy = identifier;
   nameCopy = name;
-  v22.receiver = self;
-  v22.super_class = PCSharedMultiStageGrowthAlgorithm;
-  v11 = [(PCSharedMultiStageGrowthAlgorithm *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = PCSharedMultiStageGrowthAlgorithm;
+  v11 = [(PCSharedMultiStageGrowthAlgorithm *)&v21 init];
   if (v11)
   {
     identifierCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"multiStateGrowth.%@", identifierCopy];
@@ -621,23 +594,22 @@
     {
       v19 = @"NO";
       *buf = 134218498;
-      v24 = v15;
-      v25 = 2114;
+      v23 = v15;
+      v24 = 2114;
       if (bOOLValue)
       {
         v19 = @"YES";
       }
 
-      v26 = v19;
-      v27 = 2114;
-      v28 = infoCopy;
+      v25 = v19;
+      v26 = 2114;
+      v27 = infoCopy;
       _os_log_impl(&dword_25E3EF000, logObject, OS_LOG_TYPE_DEFAULT, "Using cached keep alive interval of %g seconds inInitialGrowth? %{public}@ from [%{public}@]", buf, 0x20u);
     }
 
     (PCMSGA_initWith)(&v11->_underlyingAlgorithm, [nameCopy UTF8String], v11->_logObject, bOOLValue, v15);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -670,7 +642,7 @@ uint64_t __50__PCSharedMultiStageGrowthAlgorithm__loadDefaults__block_invoke(uin
 
 + (void)_loadDefaultValue:(double *)value forKey:(__CFString *)key
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = CFPreferencesCopyAppValue(key, @"com.apple.persistentconnection");
   if (v6)
   {
@@ -682,11 +654,11 @@ uint64_t __50__PCSharedMultiStageGrowthAlgorithm__loadDefaults__block_invoke(uin
       v10 = +[PCLog timer];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138543618;
+        v11 = 138543618;
         keyCopy = key;
-        v14 = 2048;
-        v15 = v9;
-        _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: %0.2f", &v12, 0x16u);
+        v13 = 2048;
+        v14 = v9;
+        _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: %0.2f", &v11, 0x16u);
       }
 
       *value = v9;
@@ -694,8 +666,6 @@ uint64_t __50__PCSharedMultiStageGrowthAlgorithm__loadDefaults__block_invoke(uin
 
     CFRelease(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description

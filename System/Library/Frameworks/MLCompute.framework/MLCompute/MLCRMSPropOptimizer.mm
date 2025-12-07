@@ -1,5 +1,6 @@
 @interface MLCRMSPropOptimizer
 + (MLCRMSPropOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor;
++ (MLCRMSPropOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor momentumScale:(float)momentumScale alpha:(float)alpha epsilon:(float)epsilon isCentered:(BOOL)isCentered;
 - (BOOL)compileForDevice:(id)device;
 - (MLCRMSPropOptimizer)initWithDescriptor:(id)descriptor momentumScale:(float)scale alpha:(float)alpha epsilon:(float)epsilon centered:(BOOL)centered;
 - (NSString)description;
@@ -17,6 +18,19 @@
   v8 = [v5 initWithDescriptor:v4 momentumScale:0 alpha:0.0 epsilon:v6 centered:v7];
 
   return v8;
+}
+
++ (MLCRMSPropOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor momentumScale:(float)momentumScale alpha:(float)alpha epsilon:(float)epsilon isCentered:(BOOL)isCentered
+{
+  v7 = isCentered;
+  v12 = optimizerDescriptor;
+  v13 = [self alloc];
+  *&v14 = momentumScale;
+  *&v15 = alpha;
+  *&v16 = epsilon;
+  v17 = [v13 initWithDescriptor:v12 momentumScale:v7 alpha:v14 epsilon:v15 centered:v16];
+
+  return v17;
 }
 
 - (MLCRMSPropOptimizer)initWithDescriptor:(id)descriptor momentumScale:(float)scale alpha:(float)alpha epsilon:(float)epsilon centered:(BOOL)centered

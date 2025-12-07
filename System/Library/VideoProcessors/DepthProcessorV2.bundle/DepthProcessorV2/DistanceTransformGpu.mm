@@ -2,6 +2,7 @@
 - (DistanceTransformGpu)init;
 - (DistanceTransformGpu)initWithParameters:(id *)parameters metalContext:(id)context;
 - (int)allocateResources;
+- (int)computeDistanceWithBuffer:(__CVBuffer *)buffer distance:(__CVBuffer *)distance waitForScheduled:(BOOL)scheduled;
 - (int)computeDistanceWithTexture:(id)texture distance:(id)distance waitForScheduled:(BOOL)scheduled;
 - (int)createDTKernels;
 - (void)dealloc;
@@ -80,7 +81,7 @@
   if (!self->_metalCtx)
   {
     fig_log_get_emitter();
-    v54 = FigSignalErrorAtGM();
+    v54 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v61, v62, v63[1]);
     v3 = 0;
     goto LABEL_8;
   }
@@ -119,28 +120,28 @@
           goto LABEL_8;
         }
 
-        sub_29573267C(&v61);
+        sub_29573267C(v63);
       }
 
       else
       {
-        sub_295732728(&v61);
+        sub_295732728(v63);
       }
     }
 
     else
     {
-      sub_2957327D4(&v61);
+      sub_2957327D4(v63);
     }
   }
 
   else
   {
-    sub_295732880(&v61);
+    sub_295732880(v63);
   }
 
-  v54 = v61;
-  if (v61)
+  v54 = v63[0];
+  if (v63[0])
   {
     objc_msgSend_releaseResources(self, v56, v57, v58, v59, v60);
   }
@@ -301,6 +302,61 @@ LABEL_24:
 LABEL_14:
 
   return scheduledCopy;
+}
+
+- (int)computeDistanceWithBuffer:(__CVBuffer *)buffer distance:(__CVBuffer *)distance waitForScheduled:(BOOL)scheduled
+{
+  if (distance && buffer && self->_metalCtx)
+  {
+    scheduledCopy = scheduled;
+    if ((CVPixelBufferGetPixelFormatType(buffer) == 1751411059 || CVPixelBufferGetPixelFormatType(buffer) == 1751410032 || CVPixelBufferGetPixelFormatType(buffer) == 1278226536) && (CVPixelBufferGetPixelFormatType(distance) == 1751411059 || CVPixelBufferGetPixelFormatType(distance) == 1751410032 || CVPixelBufferGetPixelFormatType(distance) == 1278226536))
+    {
+      v11 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x29EDBB670], v10, 25, self->_width, self->_height, 0);
+      objc_msgSend_setUsage_(v11, v12, 3, v13, v14, v15);
+      v21 = objc_msgSend_device(self->_metalCtx, v16, v17, v18, v19, v20);
+      IOSurface = CVPixelBufferGetIOSurface(buffer);
+      v25 = objc_msgSend_newTextureWithDescriptor_iosurface_plane_(v21, v23, v11, IOSurface, 0, v24);
+
+      if (v25)
+      {
+        v31 = objc_msgSend_device(self->_metalCtx, v26, v27, v28, v29, v30);
+        v32 = CVPixelBufferGetIOSurface(distance);
+        v35 = objc_msgSend_newTextureWithDescriptor_iosurface_plane_(v31, v33, v11, v32, 0, v34);
+
+        if (v35)
+        {
+          v38 = objc_msgSend_computeDistanceWithTexture_distance_waitForScheduled_(self, v36, v25, v35, scheduledCopy, v37);
+        }
+
+        else
+        {
+          sub_295732F38(&v43);
+          v38 = v43;
+        }
+      }
+
+      else
+      {
+        sub_295732FE4(&v44);
+        v38 = v44;
+      }
+
+      return v38;
+    }
+
+    emitter = fig_log_get_emitter();
+    v41 = v5;
+    v42 = 236;
+  }
+
+  else
+  {
+    emitter = fig_log_get_emitter();
+    v41 = v5;
+    v42 = 231;
+  }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFFFFFLL, "<<<< DistanceTransform >>>>", v42, v41);
 }
 
 - (int)createDTKernels

@@ -1,73 +1,73 @@
 uint64_t sub_1D156C7A0@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
 {
-  v130 = a2;
-  v127 = a3;
-  v146 = sub_1D15A26A8();
-  v126 = *(v146 - 8);
-  MEMORY[0x1EEE9AC00](v146);
-  v145 = &v116 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v138 = a2;
+  v135 = a3;
+  v154 = sub_1D15A26A8();
+  v134 = *(v154 - 8);
+  MEMORY[0x1EEE9AC00](v154);
+  v153 = &v124 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v5);
-  v144 = &v116 - v6;
+  v152 = &v124 - v6;
   sub_1D1580868(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v122 = &v116 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v130 = &v124 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15800F0(0);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v129 = (&v116 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v137 = (&v124 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x1EEE9AC00](v11);
-  v125 = &v116 - v12;
+  v133 = &v124 - v12;
   sub_1D1580AB0(0);
   MEMORY[0x1EEE9AC00](v13 - 8);
-  v141 = &v116 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v149 = &v124 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v116 - v16;
+  v17 = &v124 - v16;
   sub_1D15801C4(0);
   MEMORY[0x1EEE9AC00](v18 - 8);
-  v124 = &v116 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v132 = &v124 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v20);
-  v139 = &v116 - v21;
+  v147 = &v124 - v21;
   MEMORY[0x1EEE9AC00](v22);
-  v143 = (&v116 - v23);
+  v151 = (&v124 - v23);
   MEMORY[0x1EEE9AC00](v24);
-  v123 = &v116 - v25;
+  v131 = &v124 - v25;
   MEMORY[0x1EEE9AC00](v26);
-  v28 = &v116 - v27;
-  sub_1D1491C64();
+  v28 = &v124 - v27;
+  sub_1D1491C64(0);
   MEMORY[0x1EEE9AC00](v29 - 8);
-  v31 = &v116 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D148EF60();
+  v31 = &v124 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1D148EF60(0);
   v33 = *(v32 - 8);
   MEMORY[0x1EEE9AC00](v32 - 8);
-  v140 = &v116 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v148 = &v124 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v35);
-  v37 = &v116 - v36;
+  v37 = &v124 - v36;
   v38 = sub_1D15A22A8();
   v39 = *(v38 - 8);
   MEMORY[0x1EEE9AC00](v38);
-  v41 = &v116 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = &v124 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v42);
-  v45 = &v116 - v44;
+  v45 = &v124 - v44;
   v46 = *(v43 + 16);
   if (v46)
   {
-    v138 = v17;
+    v146 = v17;
     v47 = *(a1 + 152);
     v48 = *(a1 + 168);
-    v136 = *(a1 + 160);
-    v135 = v48;
+    v144 = *(a1 + 160);
+    v143 = v48;
     v49 = *(a1 + 184);
-    v134 = *(a1 + 176);
-    v133 = v49;
-    v132 = *(a1 + 192);
+    v142 = *(a1 + 176);
+    v141 = v49;
+    v140 = *(a1 + 192);
     v50 = *(a1 + 200);
     v51 = *(a1 + 208);
-    v120 = v46;
+    v128 = v46;
     v52 = v46 - 1;
     v53 = (*(v33 + 80) + 32) & ~*(v33 + 80);
-    v142 = v43;
-    v119 = v53;
-    v131 = *(v33 + 72);
-    sub_1D158015C(v43 + v53 + v131 * v52, v37, sub_1D148EF60);
+    v150 = v43;
+    v127 = v53;
+    v139 = *(v33 + 72);
+    sub_1D158015C(v43 + v53 + v139 * v52, v37, sub_1D148EF60);
     v54 = v38;
     v55 = *(v39 + 32);
     v55(v41, v37, v54);
@@ -75,199 +75,199 @@ uint64_t sub_1D156C7A0@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>
     if (v51)
     {
       (*(v39 + 8))(v45, v54);
-      v56 = type metadata accessor for SignificantChangeEngine.Output(0);
-      return (*(*(v56 - 8) + 56))(v127, 1, 1, v56);
+      v57 = type metadata accessor for SignificantChangeEngine.Output(0);
+      return (*(*(v57 - 8) + 56))(v135, 1, 1, v57);
     }
 
-    v121 = v39;
-    v137 = v54;
-    v63 = v130;
-    sub_1D1580144(v130, v28);
-    v64 = type metadata accessor for SignificantChangeEngine.State(0);
-    v65 = *(v64 - 8);
-    v66 = *(v65 + 48);
-    v67 = 1;
-    v128 = v64;
-    v68 = v66(v28, 1);
-    v69 = sub_1D15801C4;
-    v118 = v65;
-    if (v68 == 1)
+    v129 = v39;
+    v145 = v54;
+    v65 = v138;
+    sub_1D1580144(v138, v28, v56);
+    v66 = type metadata accessor for SignificantChangeEngine.State(0);
+    v67 = *(v66 - 8);
+    v68 = *(v67 + 48);
+    v69 = 1;
+    v136 = v66;
+    v70 = v68(v28, 1);
+    v71 = sub_1D15801C4;
+    v126 = v67;
+    if (v70 == 1)
     {
-      v70 = v137;
-      v71 = v121;
+      v72 = v145;
+      v73 = v129;
     }
 
     else
     {
-      v71 = v121;
-      v70 = v137;
-      (*(v121 + 16))(v31, v28, v137);
-      v67 = 0;
-      v69 = type metadata accessor for SignificantChangeEngine.State;
+      v73 = v129;
+      v72 = v145;
+      (*(v129 + 16))(v31, v28, v145);
+      v69 = 0;
+      v71 = type metadata accessor for SignificantChangeEngine.State;
     }
 
-    sub_1D158034C(v28, v69);
-    (*(v71 + 56))(v31, v67, 1, v70);
-    v72 = v142;
-    v117 = sub_1D1573C18(v31, v142);
-    v74 = v73;
+    sub_1D158034C(v28, v71);
+    (*(v73 + 56))(v31, v69, 1, v72);
+    v74 = v150;
+    v125 = sub_1D1573C18(v31, v150);
+    v76 = v75;
     sub_1D158034C(v31, sub_1D1491C64);
-    if (v74)
+    if (v76)
     {
-      v75 = v144;
+      v77 = v152;
       sub_1D15A2258();
-      v76 = v145;
-      v77 = sub_1D15A2608();
-      MEMORY[0x1EEE9AC00](v77);
-      *(&v116 - 2) = v75;
-      *(&v116 - 1) = v76;
+      v78 = v153;
+      v79 = sub_1D15A2608();
+      MEMORY[0x1EEE9AC00](v79);
+      *(&v124 - 2) = v77;
+      *(&v124 - 1) = v78;
 
-      sub_1D1565874(sub_1D1583988, (&v116 - 4), v72);
-      v78 = *(v126 + 8);
-      v79 = v146;
-      v78(v76, v146);
-      v78(v75, v79);
-      v147 = v47;
-      v148 = v136;
-      v149 = v135;
-      v150 = v134;
-      v151 = v133;
-      v152 = v132;
-      v153 = v50;
-      v80 = v124;
-      (*(v118 + 56))(v124, 1, 1, v128);
-      sub_1D1574250(&v147, v80, v127);
+      sub_1D1565874(sub_1D1583988, (&v124 - 4), v74);
+      v80 = *(v134 + 8);
+      v81 = v154;
+      v80(v78, v154);
+      v80(v77, v81);
+      v155 = v47;
+      v156 = v144;
+      v157 = v143;
+      v158 = v142;
+      v159 = v141;
+      v160 = v140;
+      v161 = v50;
+      v82 = v132;
+      (*(v126 + 56))(v132, 1, 1, v136);
+      sub_1D1574250(&v155, v82, v135);
 
-      sub_1D158034C(v80, sub_1D15801C4);
-      return (*(v71 + 8))(v45, v70);
+      sub_1D158034C(v82, sub_1D15801C4);
+      return (*(v73 + 8))(v45, v72);
     }
 
-    v81 = type metadata accessor for SignificantChange(0);
-    v82 = *(*(v81 - 8) + 56);
-    v83 = v125;
-    v82(v125, 1, 1, v81);
-    v84 = v123;
-    sub_1D1580144(v63, v123);
-    v85 = v128;
-    if ((v66)(v84, 1, v128) == 1)
+    v83 = type metadata accessor for SignificantChange(0);
+    v84 = *(*(v83 - 8) + 56);
+    v85 = v133;
+    v86.n128_f64[0] = v84(v133, 1, 1, v83);
+    v87 = v131;
+    sub_1D1580144(v65, v131, v86);
+    v88 = v136;
+    if ((v68)(v87, 1, v136) == 1)
     {
-      sub_1D158034C(v84, sub_1D15801C4);
-      v86 = v143;
-      v87 = v129;
+      sub_1D158034C(v87, sub_1D15801C4);
+      v89 = v151;
+      v90 = v137;
     }
 
     else
     {
-      v88 = v84 + *(v85 + 24);
-      v89 = v84;
-      v90 = v122;
-      sub_1D1580850(v88, v122);
-      sub_1D158034C(v89, type metadata accessor for SignificantChangeEngine.State);
-      v91 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
-      v92 = (*(*(v91 - 8) + 48))(v90, 1, v91);
-      v86 = v143;
-      v87 = v129;
-      if (v92 != 1)
+      v91 = v87 + *(v88 + 24);
+      v92 = v87;
+      v93 = v130;
+      sub_1D1580850(v91, v130);
+      sub_1D158034C(v92, type metadata accessor for SignificantChangeEngine.State);
+      v94 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
+      v95 = (*(*(v94 - 8) + 48))(v93, 1, v94);
+      v89 = v151;
+      v90 = v137;
+      if (v95 != 1)
       {
-        sub_1D15800D8(v90 + *(v91 + 24), v129);
-        sub_1D158034C(v90, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+        sub_1D15800D8(v93 + *(v94 + 24), v137, v96);
+        sub_1D158034C(v93, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
 LABEL_18:
-        v124 = v45;
-        v93 = type metadata accessor for SignificantChangeEngine.Output(0);
-        v94 = v138;
-        sub_1D1580144(v63, &v138[*(v93 + 24)]);
-        sub_1D1580218(v83, v94);
-        sub_1D1580218(v87, v94 + *(v93 + 20));
-        v95 = *(v93 - 8);
-        (*(v95 + 56))(v94, 0, 1, v93);
-        result = sub_1D1580144(v63, v86);
-        v96 = v117 + 1;
-        v97 = v137;
-        if (__OFADD__(v117, 1))
+        v132 = v45;
+        v97 = type metadata accessor for SignificantChangeEngine.Output(0);
+        v98 = v146;
+        sub_1D1580144(v65, &v146[*(v97 + 24)], v99);
+        sub_1D1580218(v85, v98);
+        v100.n128_f64[0] = sub_1D1580218(v90, v98 + *(v97 + 20));
+        v101 = *(v97 - 8);
+        v102.n128_f64[0] = (*(v101 + 56))(v98, 0, 1, v97, v100);
+        result = sub_1D1580144(v65, v89, v102);
+        v103 = v125 + 1;
+        v104 = v145;
+        if (__OFADD__(v125, 1))
         {
           __break(1u);
         }
 
         else
         {
-          v130 = v93;
-          if (v120 >= v96)
+          v138 = v97;
+          if (v128 >= v103)
           {
-            if (v96 == v120)
+            if (v103 == v128)
             {
 LABEL_21:
-              sub_1D158034C(v86, sub_1D15801C4);
-              (*(v121 + 8))(v124, v97);
-              v98 = v138;
-              sub_1D158015C(v138, v127, sub_1D1580AB0);
-              return sub_1D158034C(v98, sub_1D1580AB0);
+              sub_1D158034C(v89, sub_1D15801C4);
+              (*(v129 + 8))(v132, v104);
+              v105 = v146;
+              sub_1D158015C(v146, v135, sub_1D1580AB0);
+              return sub_1D158034C(v105, sub_1D1580AB0);
             }
 
-            if (v96 < v120)
+            if (v103 < v128)
             {
-              if ((v96 & 0x8000000000000000) == 0)
+              if ((v103 & 0x8000000000000000) == 0)
               {
-                v129 = (v121 + 8);
-                v99 = (v126 + 8);
-                v100 = (v95 + 48);
-                v126 = v118 + 56;
-                v101 = ~v117 + v120;
-                v102 = v142 + v119 + v131 * v96;
+                v137 = (v129 + 8);
+                v106 = (v134 + 8);
+                v107 = (v101 + 48);
+                v134 = v126 + 56;
+                v108 = ~v125 + v128;
+                v109 = v150 + v127 + v139 * v103;
                 do
                 {
-                  v105 = v140;
-                  sub_1D158015C(v102, v140, sub_1D148EF60);
-                  v106 = v144;
+                  v112 = v148;
+                  sub_1D158015C(v109, v148, sub_1D148EF60);
+                  v113 = v152;
                   sub_1D15A2258();
-                  (*v129)(v105, v97);
-                  v107 = v145;
-                  v108 = sub_1D15A2608();
-                  MEMORY[0x1EEE9AC00](v108);
-                  *(&v116 - 2) = v106;
-                  *(&v116 - 1) = v107;
-                  v109 = v142;
+                  (*v137)(v112, v104);
+                  v114 = v153;
+                  v115 = sub_1D15A2608();
+                  MEMORY[0x1EEE9AC00](v115);
+                  *(&v124 - 2) = v113;
+                  *(&v124 - 1) = v114;
+                  v116 = v150;
 
-                  sub_1D1565874(sub_1D1583988, (&v116 - 4), v109);
-                  v110 = *v99;
-                  v111 = v146;
-                  (*v99)(v107, v146);
-                  v112 = v106;
-                  v86 = v143;
-                  v110(v112, v111);
-                  v147 = v47;
-                  v148 = v136;
-                  v149 = v135;
-                  v150 = v134;
-                  v151 = v133;
-                  v152 = v132;
-                  v153 = v50;
-                  v113 = v141;
-                  sub_1D1574250(&v147, v86, v141);
+                  sub_1D1565874(sub_1D1583988, (&v124 - 4), v116);
+                  v117 = *v106;
+                  v118 = v154;
+                  (*v106)(v114, v154);
+                  v119 = v113;
+                  v89 = v151;
+                  v117(v119, v118);
+                  v155 = v47;
+                  v156 = v144;
+                  v157 = v143;
+                  v158 = v142;
+                  v159 = v141;
+                  v160 = v140;
+                  v161 = v50;
+                  v120 = v149;
+                  sub_1D1574250(&v155, v89, v149);
 
-                  sub_1D158034C(v86, sub_1D15801C4);
-                  v114 = v138;
-                  sub_1D15836B8(v113, v138);
-                  v115 = v130;
-                  if ((*v100)(v114, 1, v130))
+                  sub_1D158034C(v89, sub_1D15801C4);
+                  v121 = v146;
+                  sub_1D15836B8(v120, v146);
+                  v122 = v138;
+                  if ((*v107)(v121, 1, v138))
                   {
-                    v104 = v139;
-                    (*v126)(v139, 1, 1, v128);
+                    v111 = v147;
+                    (*v134)(v147, 1, 1, v136);
                   }
 
                   else
                   {
-                    v103 = v114 + *(v115 + 24);
-                    v104 = v139;
-                    sub_1D1580144(v103, v139);
+                    v110 = v121 + *(v122 + 24);
+                    v111 = v147;
+                    sub_1D1580144(v110, v147, v123);
                   }
 
-                  sub_1D1580230(v104, v86);
-                  v102 += v131;
-                  --v101;
-                  v97 = v137;
+                  sub_1D1580230(v111, v89);
+                  v109 += v139;
+                  --v108;
+                  v104 = v145;
                 }
 
-                while (v101);
+                while (v108);
                 goto LABEL_21;
               }
 
@@ -286,264 +286,264 @@ LABEL_32:
         goto LABEL_31;
       }
 
-      sub_1D158034C(v90, sub_1D1580868);
+      sub_1D158034C(v93, sub_1D1580868);
     }
 
-    v82(v87, 1, 1, v81);
+    v84(v90, 1, 1, v83);
     goto LABEL_18;
   }
 
-  v58 = type metadata accessor for SignificantChange(0);
-  v59 = *(*(v58 - 8) + 56);
-  v60 = v127;
-  v59(v127, 1, 1, v58);
-  v61 = type metadata accessor for SignificantChangeEngine.Output(0);
-  v59(v60 + *(v61 + 20), 1, 1, v58);
-  sub_1D1580144(v130, v60 + *(v61 + 24));
-  v62 = *(*(v61 - 8) + 56);
+  v59 = type metadata accessor for SignificantChange(0);
+  v60 = *(*(v59 - 8) + 56);
+  v61 = v135;
+  v60(v135, 1, 1, v59);
+  v62 = type metadata accessor for SignificantChangeEngine.Output(0);
+  v63.n128_f64[0] = v60(v61 + *(v62 + 20), 1, 1, v59);
+  sub_1D1580144(v138, v61 + *(v62 + 24), v63);
+  v64 = *(*(v62 - 8) + 56);
 
-  return v62(v60, 0, 1, v61);
+  return v64(v61, 0, 1, v62);
 }
 
 uint64_t sub_1D156D6F4@<X0>(void *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v462 = a3;
+  v469 = a3;
   v8 = sub_1D15A25F8();
-  v391 = *(v8 - 8);
-  v392 = v8;
+  v398 = *(v8 - 8);
+  v399 = v8;
   MEMORY[0x1EEE9AC00](v8);
-  v390 = &v379 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v397 = &v386 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1583510(0);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v399 = &v379 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v406 = &v386 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
-  v400 = &v379 - v13;
+  v407 = &v386 - v13;
   v14 = type metadata accessor for SignificantChange.Notification(0);
-  v438 = *(v14 - 8);
-  v439 = v14;
+  v445 = *(v14 - 8);
+  v446 = v14;
   MEMORY[0x1EEE9AC00](v14);
-  v387 = &v379 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v394 = &v386 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v16);
-  v426 = &v379 - v17;
+  v433 = &v386 - v17;
   sub_1D148EF2C(0);
   MEMORY[0x1EEE9AC00](v18 - 8);
-  v418 = &v379 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v425 = &v386 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v20);
-  v396 = &v379 - v21;
+  v403 = &v386 - v21;
   MEMORY[0x1EEE9AC00](v22);
-  v395 = &v379 - v23;
+  v402 = &v386 - v23;
   MEMORY[0x1EEE9AC00](v24);
-  v425 = &v379 - v25;
+  v432 = &v386 - v25;
   MEMORY[0x1EEE9AC00](v26);
-  v435 = &v379 - v27;
+  v442 = &v386 - v27;
   sub_1D15800F0(0);
   MEMORY[0x1EEE9AC00](v28 - 8);
-  v427 = &v379 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v434 = &v386 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v30);
-  v32 = &v379 - v31;
+  v32 = &v386 - v31;
   MEMORY[0x1EEE9AC00](v33);
-  v433 = &v379 - v34;
-  v448 = type metadata accessor for SignificantChangeEngine.State(0);
-  v447 = *(v448 - 8);
-  MEMORY[0x1EEE9AC00](v448);
-  v405 = &v379 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v440 = &v386 - v34;
+  v455 = type metadata accessor for SignificantChangeEngine.State(0);
+  v454 = *(v455 - 8);
+  MEMORY[0x1EEE9AC00](v455);
+  v412 = &v386 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v36);
-  v416 = &v379 - v37;
+  v423 = &v386 - v37;
   v38 = type metadata accessor for SignificantChange(0);
-  v461 = *(v38 - 8);
+  v468 = *(v38 - 8);
   MEMORY[0x1EEE9AC00](v38);
-  v428 = &v379 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v435 = &v386 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v40);
-  v434 = &v379 - v41;
-  v431 = type metadata accessor for SignificantChange.Period(0);
-  v401 = *(v431 - 8);
-  MEMORY[0x1EEE9AC00](v431);
-  v402 = &v379 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v441 = &v386 - v41;
+  v438 = type metadata accessor for SignificantChange.Period(0);
+  v408 = *(v438 - 8);
+  MEMORY[0x1EEE9AC00](v438);
+  v409 = &v386 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v43);
-  v422 = &v379 - v44;
+  v429 = &v386 - v44;
   MEMORY[0x1EEE9AC00](v45);
-  v412 = &v379 - v46;
-  v451 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
-  v440 = *(v451 - 1);
-  MEMORY[0x1EEE9AC00](v451);
-  v407 = &v379 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v419 = &v386 - v46;
+  v458 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
+  v447 = *(v458 - 1);
+  MEMORY[0x1EEE9AC00](v458);
+  v414 = &v386 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15801C4(0);
   MEMORY[0x1EEE9AC00](v48 - 8);
-  v388 = &v379 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v395 = &v386 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v50);
-  v397 = &v379 - v51;
+  v404 = &v386 - v51;
   MEMORY[0x1EEE9AC00](v52);
-  v394 = &v379 - v53;
+  v401 = &v386 - v53;
   MEMORY[0x1EEE9AC00](v54);
-  v414 = &v379 - v55;
+  v421 = &v386 - v55;
   MEMORY[0x1EEE9AC00](v56);
-  v430 = &v379 - v57;
+  v437 = &v386 - v57;
   sub_1D15807FC(0);
   MEMORY[0x1EEE9AC00](v58 - 8);
-  v383 = &v379 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v390 = &v386 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v60);
-  v404 = &v379 - v61;
+  v411 = &v386 - v61;
   MEMORY[0x1EEE9AC00](v62);
-  v386 = &v379 - v63;
+  v393 = &v386 - v63;
   MEMORY[0x1EEE9AC00](v64);
-  v385 = &v379 - v65;
+  v392 = &v386 - v65;
   MEMORY[0x1EEE9AC00](v66);
-  v389 = &v379 - v67;
+  v396 = &v386 - v67;
   MEMORY[0x1EEE9AC00](v68);
-  v415 = &v379 - v69;
+  v422 = &v386 - v69;
   MEMORY[0x1EEE9AC00](v70);
-  v406 = &v379 - v71;
+  v413 = &v386 - v71;
   sub_1D14F104C(0);
   MEMORY[0x1EEE9AC00](v72 - 8);
-  v393 = &v379 - ((v73 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v400 = &v386 - ((v73 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v74);
-  v403 = &v379 - v75;
+  v410 = &v386 - v75;
   MEMORY[0x1EEE9AC00](v76);
-  v413 = &v379 - v77;
+  v420 = &v386 - v77;
   MEMORY[0x1EEE9AC00](v78);
-  v429 = &v379 - v79;
-  v449 = sub_1D15A26A8();
-  v450 = *(v449 - 8);
-  MEMORY[0x1EEE9AC00](v449);
-  v420 = &v379 - ((v80 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v436 = &v386 - v79;
+  v456 = sub_1D15A26A8();
+  v457 = *(v456 - 8);
+  MEMORY[0x1EEE9AC00](v456);
+  v427 = &v386 - ((v80 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v81);
-  v437 = &v379 - v82;
+  v444 = &v386 - v82;
   MEMORY[0x1EEE9AC00](v83);
-  v436 = &v379 - v84;
+  v443 = &v386 - v84;
   MEMORY[0x1EEE9AC00](v85);
-  v384 = &v379 - v86;
+  v391 = &v386 - v86;
   sub_1D1583544(0);
   MEMORY[0x1EEE9AC00](v87 - 8);
-  v446 = (&v379 - ((v88 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v453 = (&v386 - ((v88 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_1D1583578(0);
-  v454 = v89;
-  v445 = *(v89 - 8);
+  v461 = v89;
+  v452 = *(v89 - 1);
   MEMORY[0x1EEE9AC00](v89);
-  v424 = &v379 - ((v90 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v431 = &v386 - ((v90 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v91);
-  v419 = &v379 - v92;
+  v426 = &v386 - v92;
   MEMORY[0x1EEE9AC00](v93);
-  v417 = (&v379 - v94);
+  v424 = (&v386 - v94);
   MEMORY[0x1EEE9AC00](v95);
-  v441 = &v379 - v96;
+  v448 = &v386 - v96;
   MEMORY[0x1EEE9AC00](v97);
-  v408 = &v379 - v98;
+  v415 = &v386 - v98;
   MEMORY[0x1EEE9AC00](v99);
-  v455 = &v379 - v100;
-  v463 = sub_1D15A22A8();
-  v453 = *(v463 - 8);
-  MEMORY[0x1EEE9AC00](v463);
-  v423 = &v379 - ((v101 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v462 = &v386 - v100;
+  v470 = sub_1D15A22A8();
+  v460 = *(v470 - 8);
+  MEMORY[0x1EEE9AC00](v470);
+  v430 = &v386 - ((v101 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v102);
-  v398 = &v379 - v103;
+  v405 = &v386 - v103;
   MEMORY[0x1EEE9AC00](v104);
-  v421 = &v379 - v105;
+  v428 = &v386 - v105;
   MEMORY[0x1EEE9AC00](v106);
-  v432 = (&v379 - v107);
+  v439 = (&v386 - v107);
   MEMORY[0x1EEE9AC00](v108);
-  v411 = &v379 - v109;
+  v418 = &v386 - v109;
   MEMORY[0x1EEE9AC00](v110);
-  v112 = &v379 - v111;
+  v112 = &v386 - v111;
   MEMORY[0x1EEE9AC00](v113);
-  v444 = &v379 - v114;
+  v451 = &v386 - v114;
   MEMORY[0x1EEE9AC00](v115);
-  v452 = &v379 - v116;
-  sub_1D148EF60();
+  v459 = &v386 - v116;
+  sub_1D148EF60(0);
   v118 = *(v117 - 8);
   MEMORY[0x1EEE9AC00](v117);
   MEMORY[0x1EEE9AC00](v119);
   MEMORY[0x1EEE9AC00](v120);
-  v443 = (&v379 - v121);
+  v450 = (&v386 - v121);
   MEMORY[0x1EEE9AC00](v122);
-  v442 = (&v379 - v123);
+  v449 = (&v386 - v123);
   MEMORY[0x1EEE9AC00](v124);
-  v126 = &v379 - v125;
+  v126 = &v386 - v125;
   MEMORY[0x1EEE9AC00](v127);
-  v130 = &v379 - v129;
+  v130 = &v386 - v129;
   v131 = a2[7];
-  v480 = a2[6];
-  v481 = v131;
-  v482 = *(a2 + 16);
+  v487 = a2[6];
+  v488 = v131;
+  v489 = *(a2 + 16);
   v132 = a2[3];
-  v476 = a2[2];
-  v477 = v132;
+  v483 = a2[2];
+  v484 = v132;
   v133 = a2[5];
-  v478 = a2[4];
-  v479 = v133;
+  v485 = a2[4];
+  v486 = v133;
   v134 = a2[1];
-  v474 = *a2;
-  v475 = v134;
+  v481 = *a2;
+  v482 = v134;
   v135 = a1[2];
-  v459 = a4;
-  v458 = v38;
-  v460 = a1;
-  v457 = v112;
-  v382 = v32;
-  v464 = v128;
-  v409 = v137;
-  v410 = v136;
-  v456 = v135;
+  v466 = a4;
+  v465 = v38;
+  v467 = a1;
+  v464 = v112;
+  v389 = v32;
+  v471 = v128;
+  v416 = v137;
+  v417 = v136;
+  v463 = v135;
   if (!v135)
   {
-    if (*(&v480 + 1) > 0)
+    if (*(&v487 + 1) > 0)
     {
       goto LABEL_10;
     }
 
     v138 = 0;
-    if (BYTE8(v481))
+    if (BYTE8(v488))
     {
       goto LABEL_7;
     }
 
 LABEL_15:
-    v381 = sub_1D15708E4(v481, a1);
-    v155 = v154;
-    v156 = v152;
-    v157 = (v153 >> 1);
-    if (v152 <= (v153 >> 1))
+    v388 = sub_1D15708E4(v488, a1);
+    v156 = v155;
+    v157 = v153;
+    v158 = (v154 >> 1);
+    if (v153 <= (v154 >> 1))
     {
-      v158 = (v153 >> 1);
+      v159 = (v154 >> 1);
     }
 
     else
     {
-      v158 = v152;
+      v159 = v153;
     }
 
     do
     {
-      if (v157 == v156)
+      if (v158 == v157)
       {
         swift_unknownObjectRelease();
-        v178 = *(v461 + 56);
-        a4 = v459;
-        v179 = v458;
-        v178(v459, 1, 1, v458);
+        v179 = *(v468 + 56);
+        a4 = v466;
+        v180 = v465;
+        v179(v466, 1, 1, v465);
         v148 = type metadata accessor for SignificantChangeEngine.Output(0);
-        v178(a4 + *(v148 + 20), 1, 1, v179);
+        v179(a4 + *(v148 + 20), 1, 1, v180);
         goto LABEL_11;
       }
 
-      if (v158 == v156)
+      if (v159 == v157)
       {
         __break(1u);
         goto LABEL_101;
       }
 
-      sub_1D158015C(v155 + *(v118 + 72) * v156, v126, sub_1D148EF60);
-      v156 = (v156 + 1);
-      v159 = v126[*(v464 + 48) + 8];
+      sub_1D158015C(v156 + *(v118 + 72) * v157, v126, sub_1D148EF60);
+      v157 = (v157 + 1);
+      v160 = v126[*(v471 + 48) + 8];
       sub_1D158034C(v126, sub_1D148EF60);
     }
 
-    while ((v159 & 1) != 0);
+    while ((v160 & 1) != 0);
     swift_unknownObjectRelease();
-    a4 = v459;
-    a1 = v460;
-    v112 = v457;
-    v135 = v456;
-    if (!v456)
+    a4 = v466;
+    a1 = v467;
+    v112 = v464;
+    v135 = v463;
+    if (!v463)
     {
       goto LABEL_10;
     }
@@ -575,16 +575,16 @@ LABEL_15:
   }
 
   while (v142);
-  a4 = v459;
-  a1 = v460;
-  v112 = v457;
-  v135 = v456;
-  if (v138 < *(&v480 + 1))
+  a4 = v466;
+  a1 = v467;
+  v112 = v464;
+  v135 = v463;
+  if (v138 < *(&v487 + 1))
   {
     goto LABEL_10;
   }
 
-  if ((BYTE8(v481) & 1) == 0)
+  if ((BYTE8(v488) & 1) == 0)
   {
     goto LABEL_15;
   }
@@ -593,101 +593,102 @@ LABEL_7:
   if (!v135)
   {
 LABEL_10:
-    v146 = *(v461 + 56);
-    v147 = v458;
-    v146(a4, 1, 1, v458);
+    v146 = *(v468 + 56);
+    v147 = v465;
+    v146(a4, 1, 1, v465);
     v148 = type metadata accessor for SignificantChangeEngine.Output(0);
     v146(a4 + *(v148 + 20), 1, 1, v147);
 LABEL_11:
-    v149 = a4 + *(v148 + 24);
-    v150 = v462;
+    v150 = a4 + *(v148 + 24);
+    v151 = v469;
     goto LABEL_12;
   }
 
 LABEL_23:
-  v160 = a1 + ((*(v118 + 80) + 32) & ~*(v118 + 80));
-  v380 = sub_1D148EF60;
-  v381 = v160;
-  v161 = v442;
-  v162 = v135;
-  sub_1D158015C(v160, v442, sub_1D148EF60);
-  v163 = (v453 + 32);
-  v164 = *(v453 + 32);
-  v165 = v444;
-  v166 = v463;
-  v164(v444, v161, v463);
-  v164(v452, v165, v166);
-  v442 = *(v118 + 72);
-  v167 = v443;
-  sub_1D158015C(v381 + v442 * (v162 - 1), v443, v380);
-  v168 = v112;
-  v444 = v163;
-  v443 = v164;
-  v164(v112, v167, v166);
-  sub_1D157096C(v460, v480);
-  v170 = v169;
-  MEMORY[0x1EEE9AC00](v169);
-  v171 = v462;
-  *(&v379 - 2) = &v474;
-  *(&v379 - 1) = v171;
+  v161 = a1 + ((*(v118 + 80) + 32) & ~*(v118 + 80));
+  v387 = sub_1D148EF60;
+  v388 = v161;
+  v162 = v449;
+  v163 = v135;
+  sub_1D158015C(v161, v449, sub_1D148EF60);
+  v164 = (v460 + 32);
+  v165 = *(v460 + 32);
+  v166 = v451;
+  v167 = v470;
+  v165(v451, v162, v470);
+  v165(v459, v166, v167);
+  v449 = *(v118 + 72);
+  v168 = v450;
+  sub_1D158015C(v388 + v449 * (v163 - 1), v450, v387);
+  v169 = v112;
+  v451 = v164;
+  v450 = v165;
+  v165(v112, v168, v167);
+  sub_1D157096C(v467, v487);
+  v171 = v170;
+  MEMORY[0x1EEE9AC00](v170);
+  v172 = v469;
+  *(&v386 - 2) = &v481;
+  *(&v386 - 1) = v172;
 
-  sub_1D1565B00(sub_1D1583610, (&v379 - 4), v170);
-  LOBYTE(v465) = BYTE9(v479);
-  v172 = v446;
-  sub_1D1571E0C(v173, &v465, v446);
+  sub_1D1565B00(sub_1D1583610, (&v386 - 4), v171);
+  LOBYTE(v472) = BYTE9(v486);
+  v173 = v453;
+  sub_1D1571E0C(v174, &v472, v453);
 
-  v174 = v454;
-  if ((*(v445 + 48))(v172, 1, v454) != 1)
+  v175 = v461;
+  if ((*(v452 + 48))(v173, 1, v461) != 1)
   {
-    v380 = v170;
-    sub_1D1580248(v172, v455, sub_1D1583578);
-    v180 = v430;
-    sub_1D1580144(v171, v430);
-    v181 = v447 + 48;
-    v182 = v448;
-    v446 = *(v447 + 48);
-    if ((v446)(v180, 1, v448) == 1)
+    v387 = v171;
+    sub_1D1580248(v173, v462, sub_1D1583578);
+    v181 = v437;
+    sub_1D1580144(v172, v437, v182);
+    v183 = v454 + 48;
+    v184 = v455;
+    v453 = *(v454 + 48);
+    if ((v453)(v181, 1, v455) == 1)
     {
-      sub_1D158034C(v180, sub_1D15801C4);
+      sub_1D158034C(v181, sub_1D15801C4);
     }
 
     else
     {
-      v183 = v406;
-      sub_1D15807E4(v180 + *(v182 + 20), v406);
-      sub_1D158034C(v180, type metadata accessor for SignificantChangeEngine.State);
-      v184 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-      if ((*(*(v184 - 8) + 48))(v183, 1, v184) != 1)
+      v185 = v413;
+      sub_1D15807E4(v181 + *(v184 + 20), v413);
+      sub_1D158034C(v181, type metadata accessor for SignificantChangeEngine.State);
+      v186 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+      if ((*(*(v186 - 8) + 48))(v185, 1, v186) != 1)
       {
-        v185 = v429;
-        sub_1D1455A40(v183 + *(v184 + 24), v429);
-        sub_1D158034C(v183, type metadata accessor for SignificantChangeEngine.State.MeanShift);
-        v244 = (*(v450 + 48))(v185, 1, v449);
-        v174 = v454;
-        if (v244 != 1)
+        v187 = v436;
+        sub_1D1455A40(v185 + *(v186 + 24), v436);
+        sub_1D158034C(v185, type metadata accessor for SignificantChangeEngine.State.MeanShift);
+        v248 = (*(v457 + 48))(v187, 1, v456);
+        v175 = v461;
+        if (v248 != 1)
         {
-          v245 = v450;
-          v246 = v384;
-          v247 = v449;
-          (*(v450 + 32))(v384, v185, v449);
-          *&v465 = 0;
-          *(&v465 + 1) = 0xE000000000000000;
+          v249 = v457;
+          v250 = v391;
+          v251 = v456;
+          (*(v457 + 32))(v391, v187, v456);
+          *&v472 = 0;
+          *(&v472 + 1) = 0xE000000000000000;
           sub_1D15A47D8();
 
-          *&v465 = 0x676E697472617453;
-          *(&v465 + 1) = 0xEF203A6D6F726620;
-          sub_1D1580304(&qword_1EE05B3F0, MEMORY[0x1E6969530]);
-          v248 = sub_1D15A4B68();
-          MEMORY[0x1D388A330](v248);
-          v174 = v454;
+          *&v472 = 0x676E697472617453;
+          *(&v472 + 1) = 0xEF203A6D6F726620;
+          sub_1D1580304(&qword_1EE05B3F0, MEMORY[0x1E6969530], MEMORY[0x1E6969570]);
+          v252 = sub_1D15A4B68();
+          MEMORY[0x1D388A330](v252);
+          v175 = v461;
 
-          v157 = *(&v465 + 1);
-          v430 = v465;
-          (*(v245 + 8))(v246, v247);
+          v158 = *(&v472 + 1);
+          v437 = v472;
+          (*(v249 + 8))(v250, v251);
 LABEL_32:
-          v186 = v455 + *(v174 + 48);
-          v445 = v181;
-          if ((BYTE8(v474) & 1) == 0 && *&v474 < *(v186 + v451[5]) || (BYTE8(v475) & 1) == 0 && *(v186 + v451[9]) < *&v475 || (BYTE8(v476) & 1) == 0 && fabs(*(v186 + v451[7])) < *&v476)
+          v189 = v462 + *(v175 + 12);
+          v188.n128_u64[0] = v483;
+          v452 = v183;
+          if ((BYTE8(v481) & 1) == 0 && *&v481 < *(v189 + v458[5]) || (BYTE8(v482) & 1) == 0 && *(v189 + v458[9]) < *&v482 || (BYTE8(v483) & 1) == 0 && fabs(*(v189 + v458[7])) < *&v483)
           {
 
             if (qword_1EE056C98 != -1)
@@ -696,628 +697,628 @@ LABEL_101:
               swift_once();
             }
 
-            v187 = sub_1D15A3268();
-            __swift_project_value_buffer(v187, qword_1EE056CA0);
-            v188 = v408;
-            sub_1D158015C(v455, v408, sub_1D1583578);
+            v190 = sub_1D15A3268();
+            __swift_project_value_buffer(v190, qword_1EE056CA0);
+            v191 = v415;
+            sub_1D158015C(v462, v415, sub_1D1583578);
 
-            v189 = sub_1D15A3248();
-            v190 = sub_1D15A4338();
+            v192 = sub_1D15A3248();
+            v193 = sub_1D15A4338();
 
-            v191 = os_log_type_enabled(v189, v190);
-            v192 = v453;
-            if (v191)
+            v194 = os_log_type_enabled(v192, v193);
+            v195 = v460;
+            if (v194)
             {
-              v193 = swift_slowAlloc();
-              v194 = swift_slowAlloc();
-              *&v465 = v194;
-              *v193 = 136315394;
-              v195 = v190;
-              v196 = sub_1D1479780(v430, v157, &v465);
+              v196 = swift_slowAlloc();
+              v197 = swift_slowAlloc();
+              *&v472 = v197;
+              *v196 = 136315394;
+              v198 = v193;
+              v199 = sub_1D1479780(v437, v158, &v472);
 
-              *(v193 + 4) = v196;
-              *(v193 + 12) = 2080;
-              v197 = v188;
-              v198 = v441;
-              sub_1D158015C(v188, v441, sub_1D1583578);
-              v199 = v407;
-              sub_1D1580248(v198 + *(v454 + 48), v407, type metadata accessor for SignificantChangeEngine.Changepoint);
-              (*(v192 + 8))(v198, v463);
-              v200 = SignificantChangeEngine.Changepoint.description.getter();
-              v202 = v201;
-              sub_1D158034C(v199, type metadata accessor for SignificantChangeEngine.Changepoint);
-              sub_1D158034C(v197, sub_1D1583578);
-              v203 = sub_1D1479780(v200, v202, &v465);
-              v192 = v453;
+              *(v196 + 4) = v199;
+              *(v196 + 12) = 2080;
+              v200 = v191;
+              v201 = v448;
+              sub_1D158015C(v191, v448, sub_1D1583578);
+              v202 = v414;
+              sub_1D1580248(v201 + *(v461 + 12), v414, type metadata accessor for SignificantChangeEngine.Changepoint);
+              (*(v195 + 8))(v201, v470);
+              v203 = SignificantChangeEngine.Changepoint.description.getter();
+              v205 = v204;
+              sub_1D158034C(v202, type metadata accessor for SignificantChangeEngine.Changepoint);
+              sub_1D158034C(v200, sub_1D1583578);
+              v206 = sub_1D1479780(v203, v205, &v472);
+              v195 = v460;
 
-              *(v193 + 14) = v203;
-              _os_log_impl(&dword_1D1446000, v189, v195, "[%s] No significant mean shift; maximum changepoint is: %s", v193, 0x16u);
+              *(v196 + 14) = v206;
+              _os_log_impl(&dword_1D1446000, v192, v198, "[%s] No significant mean shift; maximum changepoint is: %s", v196, 0x16u);
               swift_arrayDestroy();
-              MEMORY[0x1D388BF00](v194, -1, -1);
-              MEMORY[0x1D388BF00](v193, -1, -1);
+              MEMORY[0x1D388BF00](v197, -1, -1);
+              MEMORY[0x1D388BF00](v196, -1, -1);
             }
 
             else
             {
 
-              sub_1D158034C(v188, sub_1D1583578);
+              sub_1D158034C(v191, sub_1D1583578);
             }
 
-            v212 = v464;
-            v213 = (v192 + 8);
-            v214 = 0.0;
-            v216 = v409;
-            v215 = v410;
-            v217 = v456;
-            v218 = v442;
-            v219 = v381;
+            v215 = v471;
+            v216 = (v195 + 8);
+            v217 = 0.0;
+            v219 = v416;
+            v218 = v417;
+            v220 = v463;
+            v221 = v449;
+            v222 = v388;
             do
             {
-              sub_1D158015C(v219, v216, sub_1D148EF60);
-              sub_1D1580248(v216, v215, sub_1D148EF60);
-              v220 = v215 + *(v212 + 48);
-              if (!*(v220 + 8))
+              sub_1D158015C(v222, v219, sub_1D148EF60);
+              sub_1D1580248(v219, v218, sub_1D148EF60);
+              v223 = v218 + *(v215 + 48);
+              if (!*(v223 + 8))
               {
-                v214 = v214 + *v220;
+                v217 = v217 + *v223;
               }
 
-              v221 = *v213;
-              (*v213)(v215, v463);
-              v219 += v218;
-              --v217;
+              v224 = *v216;
+              (*v216)(v218, v470);
+              v222 += v221;
+              --v220;
             }
 
-            while (v217);
-            v222 = v214 / v138;
-            v223 = v463;
-            v224 = v452;
+            while (v220);
+            v225 = v217 / v138;
+            v226 = v470;
+            v227 = v459;
             sub_1D15A2288();
-            v225 = v457;
+            v228 = v464;
             sub_1D15A2258();
-            v226 = v411;
+            v229 = v418;
             sub_1D15A2268();
-            v227 = v412;
-            (*(v453 + 16))(v412, v226, v223);
-            sub_1D1572DA4(v460, v226);
-            v228 = v431;
-            *&v227[*(v431 + 20)] = v222;
-            *&v227[*(v228 + 24)] = v229;
-            v227[*(v228 + 28)] = 2;
-            v230 = v227;
-            v231 = v434;
-            sub_1D1580248(v230, v434, type metadata accessor for SignificantChange.Period);
-            v221(v226, v223);
-            sub_1D158034C(v455, sub_1D1583578);
-            v221(v224, v223);
-            v232 = v458;
-            (*(v438 + 56))(&v231[*(v458 + 24)], 1, 1, v439);
-            *&v231[*(v232 + 20)] = MEMORY[0x1E69E7CC0];
-            v233 = v443;
-            v443(v432, v225, v223);
-            v234 = v433;
-            sub_1D158015C(v231, v433, type metadata accessor for SignificantChange);
-            v235 = *(v461 + 56);
-            v235(v234, 0, 1, v232);
-            (*(v440 + 56))(v435, 1, 1, v451);
-            v236 = v414;
-            sub_1D1580144(v462, v414);
-            v237 = v448;
-            if ((v446)(v236, 1, v448) == 1)
+            v230 = v419;
+            (*(v460 + 16))(v419, v229, v226);
+            sub_1D1572DA4(v467, v229);
+            v231 = v438;
+            *&v230[*(v438 + 20)] = v225;
+            *&v230[*(v231 + 24)] = v232;
+            v230[*(v231 + 28)] = 2;
+            v233 = v230;
+            v234 = v441;
+            sub_1D1580248(v233, v441, type metadata accessor for SignificantChange.Period);
+            v224(v229, v226);
+            sub_1D158034C(v462, sub_1D1583578);
+            v224(v227, v226);
+            v235 = v465;
+            (*(v445 + 56))(&v234[*(v465 + 24)], 1, 1, v446);
+            *&v234[*(v235 + 20)] = MEMORY[0x1E69E7CC0];
+            v236 = v450;
+            v450(v439, v228, v226);
+            v237 = v440;
+            sub_1D158015C(v234, v440, type metadata accessor for SignificantChange);
+            v238 = *(v468 + 56);
+            v238(v237, 0, 1, v235);
+            v239.n128_f64[0] = (*(v447 + 56))(v442, 1, 1, v458);
+            v240 = v421;
+            sub_1D1580144(v469, v421, v239);
+            v241 = v455;
+            if ((v453)(v240, 1, v455) == 1)
             {
-              sub_1D158034C(v236, sub_1D15801C4);
-              v238 = v450;
-              a4 = v459;
+              sub_1D158034C(v240, sub_1D15801C4);
+              v242 = v457;
+              a4 = v466;
             }
 
             else
             {
-              v239 = v389;
-              sub_1D15807E4(v236 + *(v237 + 20), v389);
-              sub_1D158034C(v236, type metadata accessor for SignificantChangeEngine.State);
-              v240 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-              v241 = (*(*(v240 - 8) + 48))(v239, 1, v240);
-              v238 = v450;
-              a4 = v459;
-              if (v241 != 1)
+              v243 = v396;
+              sub_1D15807E4(v240 + *(v241 + 20), v396);
+              sub_1D158034C(v240, type metadata accessor for SignificantChangeEngine.State);
+              v244 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+              v245 = (*(*(v244 - 8) + 48))(v243, 1, v244);
+              v242 = v457;
+              a4 = v466;
+              if (v245 != 1)
               {
-                v243 = v413;
-                sub_1D1455A40(v239 + *(v240 + 24), v413);
-                sub_1D158034C(v239, type metadata accessor for SignificantChangeEngine.State.MeanShift);
+                v247 = v420;
+                sub_1D1455A40(v243 + *(v244 + 24), v420);
+                sub_1D158034C(v243, type metadata accessor for SignificantChangeEngine.State.MeanShift);
                 goto LABEL_59;
               }
 
-              sub_1D158034C(v239, sub_1D15807FC);
+              sub_1D158034C(v243, sub_1D15807FC);
             }
 
-            v242 = v413;
-            (*(v238 + 56))(v413, 1, 1, v449);
-            v243 = v242;
+            v246 = v420;
+            (*(v242 + 56))(v420, 1, 1, v456);
+            v247 = v246;
 LABEL_59:
-            v252 = v415;
-            sub_1D1580218(v433, v415);
-            v253 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-            sub_1D15808F4(v435, v252 + *(v253 + 20));
-            sub_1D150F280(v243, v252 + *(v253 + 24));
-            (*(*(v253 - 8) + 56))(v252, 0, 1, v253);
-            v254 = *(v237 + 24);
-            v255 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
-            v256 = v416;
-            (*(*(v255 - 8) + 56))(&v416[v254], 1, 1, v255);
-            v233(v256, v432, v463);
-            sub_1D1580248(v252, &v256[*(v237 + 20)], sub_1D15807FC);
-            sub_1D1580248(v434, a4, type metadata accessor for SignificantChange);
-            v235(a4, 0, 1, v232);
+            v256 = v422;
+            sub_1D1580218(v440, v422);
+            v257 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+            sub_1D15808F4(v442, v256 + *(v257 + 20));
+            sub_1D150F280(v247, v256 + *(v257 + 24));
+            (*(*(v257 - 8) + 56))(v256, 0, 1, v257);
+            v258 = *(v241 + 24);
+            v259 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
+            v260 = v423;
+            (*(*(v259 - 8) + 56))(&v423[v258], 1, 1, v259);
+            v236(v260, v439, v470);
+            sub_1D1580248(v256, &v260[*(v241 + 20)], sub_1D15807FC);
+            sub_1D1580248(v441, a4, type metadata accessor for SignificantChange);
+            v238(a4, 0, 1, v235);
             v148 = type metadata accessor for SignificantChangeEngine.Output(0);
-            v235(a4 + *(v148 + 20), 1, 1, v232);
-            v257 = *(v148 + 24);
-            v258 = a4 + v257;
-            v259 = v256;
+            v238(a4 + *(v148 + 20), 1, 1, v235);
+            v261 = *(v148 + 24);
+            v262 = a4 + v261;
+            v263 = v260;
 LABEL_99:
-            sub_1D1580248(v259, v258, type metadata accessor for SignificantChangeEngine.State);
-            (*(v447 + 56))(a4 + v257, 0, 1, v237);
+            sub_1D1580248(v263, v262, type metadata accessor for SignificantChangeEngine.State);
+            (*(v454 + 56))(a4 + v261, 0, 1, v241);
             return (*(*(v148 - 8) + 56))(a4, 0, 1, v148);
           }
 
-          v442 = v157;
-          v204 = v394;
-          sub_1D1580144(v171, v394);
-          if ((v446)(v204, 1, v182) == 1)
+          v449 = v158;
+          v207 = v401;
+          sub_1D1580144(v172, v401, v188);
+          if ((v453)(v207, 1, v184) == 1)
           {
-            sub_1D158034C(v204, sub_1D15801C4);
-            v205 = v451;
-            v206 = v440;
-            v207 = v455;
-            v208 = v453;
-            v209 = v395;
-            v210 = v396;
-            v211 = v417;
+            sub_1D158034C(v207, sub_1D15801C4);
+            v208 = v458;
+            v209 = v447;
+            v210 = v462;
+            v211 = v460;
+            v212 = v402;
+            v213 = v403;
+            v214 = v424;
           }
 
           else
           {
-            v249 = v385;
-            sub_1D15807E4(v204 + *(v182 + 20), v385);
-            sub_1D158034C(v204, type metadata accessor for SignificantChangeEngine.State);
-            v250 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-            v251 = (*(*(v250 - 8) + 48))(v249, 1, v250);
-            v205 = v451;
-            v206 = v440;
-            v207 = v455;
-            v209 = v395;
-            v210 = v396;
-            v211 = v417;
-            if (v251 != 1)
+            v253 = v392;
+            sub_1D15807E4(v207 + *(v184 + 20), v392);
+            sub_1D158034C(v207, type metadata accessor for SignificantChangeEngine.State);
+            v254 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+            v255 = (*(*(v254 - 8) + 48))(v253, 1, v254);
+            v208 = v458;
+            v209 = v447;
+            v210 = v462;
+            v212 = v402;
+            v213 = v403;
+            v214 = v424;
+            if (v255 != 1)
             {
-              sub_1D15808BC(v249 + *(v250 + 20), v395);
-              sub_1D158034C(v249, type metadata accessor for SignificantChangeEngine.State.MeanShift);
-              v208 = v453;
+              sub_1D15808BC(v253 + *(v254 + 20), v402);
+              sub_1D158034C(v253, type metadata accessor for SignificantChangeEngine.State.MeanShift);
+              v211 = v460;
 LABEL_61:
-              v471 = v480;
+              v478 = v487;
+              v479 = v488;
+              v480 = v489;
+              v474 = v483;
+              v475 = v484;
+              v476 = v485;
+              v477 = v486;
               v472 = v481;
               v473 = v482;
-              v467 = v476;
-              v468 = v477;
-              v469 = v478;
-              v470 = v479;
-              v465 = v474;
-              v466 = v475;
-              v260 = v425;
-              sub_1D157323C(v209, v380, &v465, v425);
+              v264 = v432;
+              sub_1D157323C(v212, v387, &v472, v432);
 
-              sub_1D158034C(v209, sub_1D148EF2C);
-              v261 = v441;
-              sub_1D158015C(v207, v441, sub_1D1583578);
-              sub_1D1580248(v261 + *(v454 + 48), v210, type metadata accessor for SignificantChangeEngine.Changepoint);
-              v434 = *(v206 + 56);
-              v440 = v206 + 56;
-              (v434)(v210, 0, 1, v205);
-              v471 = v480;
+              sub_1D158034C(v212, sub_1D148EF2C);
+              v265 = v448;
+              sub_1D158015C(v210, v448, sub_1D1583578);
+              sub_1D1580248(v265 + *(v461 + 12), v213, type metadata accessor for SignificantChangeEngine.Changepoint);
+              v441 = *(v209 + 56);
+              v447 = v209 + 56;
+              (v441)(v213, 0, 1, v208);
+              v478 = v487;
+              v479 = v488;
+              v480 = v489;
+              v474 = v483;
+              v475 = v484;
+              v476 = v485;
+              v477 = v486;
               v472 = v481;
               v473 = v482;
-              v467 = v476;
-              v468 = v477;
-              v469 = v478;
-              v470 = v479;
-              v465 = v474;
-              v466 = v475;
-              LODWORD(v435) = sub_1D1573790(v260, v210, &v465);
-              sub_1D158034C(v210, sub_1D148EF2C);
-              v263 = *(v208 + 8);
-              v262 = v208 + 8;
-              v456 = v263;
-              (v263)(v261, v463);
+              LODWORD(v442) = sub_1D1573790(v264, v213, &v472);
+              sub_1D158034C(v213, sub_1D148EF2C);
+              v267 = *(v211 + 8);
+              v266 = v211 + 8;
+              v463 = v267;
+              (v267)(v265, v470);
               if (qword_1EE056C98 != -1)
               {
                 swift_once();
               }
 
-              v464 = v262;
-              v264 = sub_1D15A3268();
-              __swift_project_value_buffer(v264, qword_1EE056CA0);
-              sub_1D158015C(v207, v211, sub_1D1583578);
-              v265 = v442;
+              v471 = v266;
+              v268 = sub_1D15A3268();
+              __swift_project_value_buffer(v268, qword_1EE056CA0);
+              sub_1D158015C(v210, v214, sub_1D1583578);
+              v269 = v449;
 
-              v266 = sub_1D15A3248();
-              v267 = sub_1D15A4338();
+              v270 = sub_1D15A3248();
+              v271 = sub_1D15A4338();
 
-              if (os_log_type_enabled(v266, v267))
+              if (os_log_type_enabled(v270, v271))
               {
-                v268 = swift_slowAlloc();
-                v433 = swift_slowAlloc();
-                *&v465 = v433;
-                *v268 = 136315394;
-                v269 = sub_1D1479780(v430, v265, &v465);
-                LODWORD(v432) = v267;
-                v270 = v269;
+                v272 = swift_slowAlloc();
+                v440 = swift_slowAlloc();
+                *&v472 = v440;
+                *v272 = 136315394;
+                v273 = sub_1D1479780(v437, v269, &v472);
+                LODWORD(v439) = v271;
+                v274 = v273;
 
-                *(v268 + 4) = v270;
-                *(v268 + 12) = 2080;
-                v271 = v441;
-                sub_1D158015C(v211, v441, sub_1D1583578);
-                v272 = v454;
-                v273 = v407;
-                sub_1D1580248(v271 + *(v454 + 48), v407, type metadata accessor for SignificantChangeEngine.Changepoint);
-                v442 = v266;
-                v274 = v463;
-                v275 = v456;
-                (v456)(v271, v463);
-                v276 = SignificantChangeEngine.Changepoint.description.getter();
-                v278 = v277;
-                sub_1D158034C(v273, type metadata accessor for SignificantChangeEngine.Changepoint);
-                sub_1D158034C(v417, sub_1D1583578);
-                v279 = sub_1D1479780(v276, v278, &v465);
-                v205 = v451;
+                *(v272 + 4) = v274;
+                *(v272 + 12) = 2080;
+                v275 = v448;
+                sub_1D158015C(v214, v448, sub_1D1583578);
+                v276 = v461;
+                v277 = v414;
+                sub_1D1580248(v275 + *(v461 + 12), v414, type metadata accessor for SignificantChangeEngine.Changepoint);
+                v449 = v270;
+                v278 = v470;
+                v279 = v463;
+                (v463)(v275, v470);
+                v280 = SignificantChangeEngine.Changepoint.description.getter();
+                v282 = v281;
+                sub_1D158034C(v277, type metadata accessor for SignificantChangeEngine.Changepoint);
+                sub_1D158034C(v424, sub_1D1583578);
+                v283 = sub_1D1479780(v280, v282, &v472);
+                v208 = v458;
 
-                *(v268 + 14) = v279;
-                v280 = v274;
-                v281 = v442;
-                _os_log_impl(&dword_1D1446000, v442, v432, "[%s] Significant Mean Shift Changepoint: %s", v268, 0x16u);
-                v282 = v433;
+                *(v272 + 14) = v283;
+                v284 = v278;
+                v285 = v449;
+                _os_log_impl(&dword_1D1446000, v449, v439, "[%s] Significant Mean Shift Changepoint: %s", v272, 0x16u);
+                v286 = v440;
                 swift_arrayDestroy();
-                MEMORY[0x1D388BF00](v282, -1, -1);
-                MEMORY[0x1D388BF00](v268, -1, -1);
+                MEMORY[0x1D388BF00](v286, -1, -1);
+                MEMORY[0x1D388BF00](v272, -1, -1);
 
-                v283 = v397;
+                v287 = v404;
               }
 
               else
               {
 
-                sub_1D158034C(v211, sub_1D1583578);
-                v280 = v463;
-                v271 = v441;
-                v272 = v454;
-                v283 = v397;
-                v275 = v456;
+                sub_1D158034C(v214, sub_1D1583578);
+                v284 = v470;
+                v275 = v448;
+                v276 = v461;
+                v287 = v404;
+                v279 = v463;
               }
 
-              sub_1D158015C(v455, v271, sub_1D1583578);
-              v284 = v271 + *(v272 + 48);
-              v4 = *(v284 + v205[7]);
-              sub_1D158034C(v284, type metadata accessor for SignificantChangeEngine.Changepoint);
-              v275(v271, v280);
-              sub_1D1580144(v462, v283);
-              v285 = v448;
-              v286 = (v446)(v283, 1, v448);
-              v143 = v449;
-              v138 = v438;
-              if (v286 == 1)
+              sub_1D158015C(v462, v275, sub_1D1583578);
+              v288 = v275 + *(v276 + 12);
+              v4 = *(v288 + v208[7]);
+              sub_1D158034C(v288, type metadata accessor for SignificantChangeEngine.Changepoint);
+              v289.n128_f64[0] = v279(v275, v284);
+              sub_1D1580144(v469, v287, v289);
+              v290 = v455;
+              v291 = (v453)(v287, 1, v455);
+              v143 = v456;
+              v138 = v445;
+              if (v291 == 1)
               {
-                sub_1D158034C(v283, sub_1D15801C4);
-                v141 = v426;
-                v140 = v454;
-                v142 = v399;
-                v118 = v400;
+                sub_1D158034C(v287, sub_1D15801C4);
+                v141 = v433;
+                v140 = v461;
+                v142 = v406;
+                v118 = v407;
               }
 
               else
               {
-                v287 = v283 + *(v285 + 20);
-                v288 = v386;
-                sub_1D15807E4(v287, v386);
-                sub_1D158034C(v283, type metadata accessor for SignificantChangeEngine.State);
-                v289 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-                v290 = (*(*(v289 - 8) + 48))(v288, 1, v289);
-                v141 = v426;
-                v142 = v399;
-                v118 = v400;
-                if (v290 == 1)
+                v292 = v287 + *(v290 + 20);
+                v293 = v393;
+                sub_1D15807E4(v292, v393);
+                sub_1D158034C(v287, type metadata accessor for SignificantChangeEngine.State);
+                v294 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+                v295 = (*(*(v294 - 8) + 48))(v293, 1, v294);
+                v141 = v433;
+                v142 = v406;
+                v118 = v407;
+                if (v295 == 1)
                 {
-                  sub_1D158034C(v288, sub_1D15807FC);
-                  v140 = v454;
+                  sub_1D158034C(v293, sub_1D15807FC);
+                  v140 = v461;
                 }
 
                 else
                 {
-                  v126 = v382;
-                  sub_1D15800D8(v288, v382);
-                  sub_1D158034C(v288, type metadata accessor for SignificantChangeEngine.State.MeanShift);
-                  v139 = v458;
-                  v291 = (*(v461 + 48))(v126, 1, v458);
-                  v140 = v454;
-                  if (v291 != 1)
+                  v126 = v389;
+                  sub_1D15800D8(v293, v389, v296);
+                  sub_1D158034C(v293, type metadata accessor for SignificantChangeEngine.State.MeanShift);
+                  v139 = v465;
+                  v297 = (*(v468 + 48))(v126, 1, v465);
+                  v140 = v461;
+                  if (v297 != 1)
                   {
 LABEL_94:
                     sub_1D158015C(&v126[*(v139 + 6)], v118, sub_1D1583510);
                     sub_1D158034C(v126, type metadata accessor for SignificantChange);
-                    v292 = v439;
+                    v298 = v446;
 LABEL_73:
-                    v293 = v419;
-                    sub_1D158015C(v455, v419, sub_1D1583578);
-                    v294 = *(v140 + 48);
-                    v295 = v450 + 16;
-                    v417 = *(v450 + 16);
-                    (v417)(v420, v293 + v294, v143);
-                    sub_1D158034C(v293 + v294, type metadata accessor for SignificantChangeEngine.Changepoint);
+                    v299 = v426;
+                    sub_1D158015C(v462, v426, sub_1D1583578);
+                    v300 = *(v140 + 12);
+                    v301 = v457 + 16;
+                    v424 = *(v457 + 16);
+                    (v424)(v427, v299 + v300, v143);
+                    sub_1D158034C(v299 + v300, type metadata accessor for SignificantChangeEngine.Changepoint);
                     sub_1D158015C(v118, v142, sub_1D1583510);
-                    v296 = (*(v138 + 48))(v142, 1, v292);
-                    v429 = v295;
-                    if (v296 == 1)
+                    v302 = (*(v138 + 48))(v142, 1, v298);
+                    v436 = v301;
+                    if (v302 == 1)
                     {
-                      v297 = sub_1D1583510;
-                      v298 = v142;
+                      v303 = sub_1D1583510;
+                      v304 = v142;
                     }
 
                     else
                     {
-                      v299 = v387;
-                      sub_1D1580248(v142, v387, type metadata accessor for SignificantChange.Notification);
-                      if (v435)
+                      v305 = v394;
+                      sub_1D1580248(v142, v394, type metadata accessor for SignificantChange.Notification);
+                      if (v442)
                       {
-                        v300 = v450;
-                        (*(v450 + 8))(v420, v143);
+                        v306 = v457;
+                        (*(v457 + 8))(v427, v143);
                         sub_1D158034C(v118, sub_1D1583510);
-                        if (*(v299 + 16))
+                        if (*(v305 + 16))
                         {
-                          sub_1D1580248(v299, v141, type metadata accessor for SignificantChange.Notification);
+                          sub_1D1580248(v305, v141, type metadata accessor for SignificantChange.Notification);
                           goto LABEL_84;
                         }
 
-                        v368 = v299;
-                        v307 = *v299;
-                        v308 = *(v368 + 8);
-                        v369 = v439;
-                        v370 = *(v300 + 32);
-                        v370(v141 + *(v439 + 24), v368 + *(v439 + 24), v143);
-                        v370(v141 + *(v369 + 28), v368 + *(v369 + 28), v143);
+                        v375 = v305;
+                        v313 = *v305;
+                        v314 = *(v375 + 8);
+                        v376 = v446;
+                        v377 = *(v306 + 32);
+                        v377(v141 + *(v446 + 24), v375 + *(v446 + 24), v143);
+                        v377(v141 + *(v376 + 28), v375 + *(v376 + 28), v143);
 LABEL_83:
-                        *v141 = v307;
-                        *(v141 + 8) = v308;
+                        *v141 = v313;
+                        *(v141 + 8) = v314;
                         *(v141 + 16) = 1;
 LABEL_84:
-                        v310 = v463;
-                        v311 = v456;
-                        LODWORD(v433) = v4 <= 0.0;
-                        (v456)(v419, v463);
+                        v316 = v470;
+                        v317 = v463;
+                        LODWORD(v440) = v4 <= 0.0;
+                        (v463)(v426, v470);
                         sub_1D15A2288();
-                        v442 = sub_1D1583578;
-                        v312 = v455;
-                        v313 = v441;
-                        sub_1D158015C(v455, v441, sub_1D1583578);
-                        v430 = *(v454 + 48);
-                        v314 = v454;
+                        v449 = sub_1D1583578;
+                        v318 = v462;
+                        v319 = v448;
+                        sub_1D158015C(v462, v448, sub_1D1583578);
+                        v437 = *(v461 + 12);
+                        v320 = v461;
                         sub_1D15A2288();
-                        v311(v313, v310);
-                        v315 = v421;
+                        v317(v319, v316);
+                        v321 = v428;
                         sub_1D15A2268();
-                        v432 = type metadata accessor for SignificantChangeEngine.Changepoint;
-                        sub_1D158034C(v313 + v430, type metadata accessor for SignificantChangeEngine.Changepoint);
-                        v453 = *(v453 + 16);
-                        v316 = v422;
-                        (v453)(v422, v315, v310);
-                        v317 = v442;
-                        sub_1D158015C(v312, v313, v442);
-                        v318 = v313 + *(v314 + 48);
-                        v319 = *(v318 + v451[11] + 24);
-                        sub_1D158034C(v318, type metadata accessor for SignificantChangeEngine.Changepoint);
-                        sub_1D1572DA4(v460, v315);
-                        v320 = v456;
-                        v321 = v313;
-                        v322 = v431;
-                        *(v316 + *(v431 + 20)) = v319;
-                        *(v316 + v322[6]) = v323;
-                        *(v316 + v322[7]) = 2;
-                        v324 = v463;
-                        v320(v313, v463);
-                        sub_1D158015C(v455, v313, v317);
-                        v325 = v454;
-                        v430 = *(v454 + 48);
+                        v439 = type metadata accessor for SignificantChangeEngine.Changepoint;
+                        sub_1D158034C(v319 + v437, type metadata accessor for SignificantChangeEngine.Changepoint);
+                        v460 = *(v460 + 16);
+                        v322 = v429;
+                        (v460)(v429, v321, v316);
+                        v323 = v449;
+                        sub_1D158015C(v318, v319, v449);
+                        v324 = v319 + *(v320 + 12);
+                        v325 = *(v324 + v458[11] + 24);
+                        sub_1D158034C(v324, type metadata accessor for SignificantChangeEngine.Changepoint);
+                        sub_1D1572DA4(v467, v321);
+                        v326 = v463;
+                        v327 = v319;
+                        v328 = v438;
+                        *(v322 + *(v438 + 20)) = v325;
+                        *(v322 + v328[6]) = v329;
+                        *(v322 + v328[7]) = 2;
+                        v330 = v470;
+                        v326(v319, v470);
+                        sub_1D158015C(v462, v319, v323);
+                        v331 = v461;
+                        v437 = *(v461 + 12);
                         sub_1D15A2288();
-                        v320(v313, v324);
+                        v326(v319, v330);
                         sub_1D15A2258();
-                        v326 = v398;
+                        v332 = v405;
                         sub_1D15A2268();
-                        v327 = v432;
-                        sub_1D158034C(v321 + v430, v432);
-                        v328 = v402;
-                        (v453)(v402, v326, v324);
-                        sub_1D158015C(v455, v321, v442);
-                        v329 = v321 + *(v325 + 48);
-                        v330 = *(v329 + v451[12] + 24);
-                        sub_1D158034C(v329, v327);
-                        v331 = v326;
-                        sub_1D1572DA4(v460, v326);
-                        *(v328 + v322[5]) = v330;
-                        *(v328 + v322[6]) = v332;
-                        *(v328 + v322[7]) = v433;
-                        v333 = v456;
-                        (v456)(v321, v324);
-                        v334 = v422;
-                        v335 = v428;
-                        sub_1D158015C(v422, v428, type metadata accessor for SignificantChange.Period);
+                        v333 = v439;
+                        sub_1D158034C(v327 + v437, v439);
+                        v334 = v409;
+                        (v460)(v409, v332, v330);
+                        sub_1D158015C(v462, v327, v449);
+                        v335 = v327 + *(v331 + 12);
+                        v336 = *(v335 + v458[12] + 24);
+                        sub_1D158034C(v335, v333);
+                        v337 = v332;
+                        sub_1D1572DA4(v467, v332);
+                        *(v334 + v328[5]) = v336;
+                        *(v334 + v328[6]) = v338;
+                        *(v334 + v328[7]) = v440;
+                        v339 = v463;
+                        (v463)(v327, v330);
+                        v340 = v429;
+                        v341 = v435;
+                        sub_1D158015C(v429, v435, type metadata accessor for SignificantChange.Period);
                         sub_1D1583630(0);
-                        v336 = (*(v401 + 80) + 32) & ~*(v401 + 80);
-                        v337 = swift_allocObject();
-                        *(v337 + 16) = xmmword_1D15ACDD0;
-                        sub_1D1580248(v328, v337 + v336, type metadata accessor for SignificantChange.Period);
-                        v333(v331, v324);
-                        sub_1D158034C(v334, type metadata accessor for SignificantChange.Period);
-                        v338 = v324;
-                        v333(v421, v324);
-                        sub_1D158034C(v425, sub_1D148EF2C);
-                        v333(v452, v324);
-                        v339 = v458;
-                        v340 = *(v458 + 24);
-                        sub_1D1580248(v426, v335 + v340, type metadata accessor for SignificantChange.Notification);
-                        v341 = v335 + v340;
-                        v342 = v455;
-                        (*(v438 + 56))(v341, 0, 1, v439);
-                        *(v335 + *(v339 + 20)) = v337;
-                        v443(v423, v457, v324);
-                        v343 = v427;
-                        sub_1D158015C(v335, v427, type metadata accessor for SignificantChange);
-                        v344 = *(v461 + 56);
-                        v345 = v454;
-                        v461 += 56;
-                        v460 = v344;
-                        (v344)(v343, 0, 1, v339);
-                        v346 = v424;
-                        sub_1D158015C(v342, v424, v442);
-                        v347 = v418;
-                        sub_1D1580248(v346 + *(v345 + 48), v418, type metadata accessor for SignificantChangeEngine.Changepoint);
-                        (v434)(v347, 0, 1, v451);
-                        if (v435)
+                        v342 = (*(v408 + 80) + 32) & ~*(v408 + 80);
+                        v343 = swift_allocObject();
+                        *(v343 + 16) = xmmword_1D15ACDD0;
+                        sub_1D1580248(v334, v343 + v342, type metadata accessor for SignificantChange.Period);
+                        v339(v337, v330);
+                        sub_1D158034C(v340, type metadata accessor for SignificantChange.Period);
+                        v344 = v330;
+                        v339(v428, v330);
+                        sub_1D158034C(v432, sub_1D148EF2C);
+                        v339(v459, v330);
+                        v345 = v465;
+                        v346 = *(v465 + 24);
+                        sub_1D1580248(v433, v341 + v346, type metadata accessor for SignificantChange.Notification);
+                        v347 = v341 + v346;
+                        v348 = v462;
+                        (*(v445 + 56))(v347, 0, 1, v446);
+                        *(v341 + *(v345 + 20)) = v343;
+                        v450(v430, v464, v330);
+                        v349 = v434;
+                        sub_1D158015C(v341, v434, type metadata accessor for SignificantChange);
+                        v350 = *(v468 + 56);
+                        v351 = v461;
+                        v468 += 56;
+                        v467 = v350;
+                        (v350)(v349, 0, 1, v345);
+                        v352 = v431;
+                        sub_1D158015C(v348, v431, v449);
+                        v353 = v425;
+                        sub_1D1580248(v352 + *(v351 + 12), v425, type metadata accessor for SignificantChangeEngine.Changepoint);
+                        (v441)(v353, 0, 1, v458);
+                        if (v442)
                         {
-                          v348 = v388;
-                          sub_1D1580144(v462, v388);
-                          v349 = v448;
-                          v350 = (v446)(v348, 1, v448);
-                          a4 = v459;
-                          v351 = v449;
-                          v352 = v404;
-                          if (v350 == 1)
+                          v355 = v395;
+                          sub_1D1580144(v469, v395, v354);
+                          v356 = v455;
+                          v357 = (v453)(v355, 1, v455);
+                          a4 = v466;
+                          v358 = v456;
+                          v359 = v411;
+                          if (v357 == 1)
                           {
-                            sub_1D158034C(v348, sub_1D15801C4);
-                            v353 = v403;
+                            sub_1D158034C(v355, sub_1D15801C4);
+                            v360 = v410;
 LABEL_90:
-                            v361 = v450;
-                            (*(v450 + 56))(v393, 1, 1, v351);
+                            v368 = v457;
+                            (*(v457 + 56))(v400, 1, 1, v358);
                             goto LABEL_91;
                           }
 
-                          v358 = v383;
-                          sub_1D15807E4(v348 + *(v349 + 20), v383);
-                          sub_1D158034C(v348, type metadata accessor for SignificantChangeEngine.State);
-                          v359 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-                          v360 = (*(*(v359 - 8) + 48))(v358, 1, v359);
-                          v353 = v403;
-                          if (v360 == 1)
+                          v365 = v390;
+                          sub_1D15807E4(v355 + *(v356 + 20), v390);
+                          sub_1D158034C(v355, type metadata accessor for SignificantChangeEngine.State);
+                          v366 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+                          v367 = (*(*(v366 - 8) + 48))(v365, 1, v366);
+                          v360 = v410;
+                          if (v367 == 1)
                           {
-                            sub_1D158034C(v358, sub_1D15807FC);
+                            sub_1D158034C(v365, sub_1D15807FC);
                             goto LABEL_90;
                           }
 
-                          v371 = v358 + *(v359 + 24);
-                          v372 = v393;
-                          sub_1D1455A40(v371, v393);
-                          sub_1D158034C(v358, type metadata accessor for SignificantChangeEngine.State.MeanShift);
-                          v361 = v450;
-                          if ((*(v450 + 48))(v372, 1, v351) == 1)
+                          v378 = v365 + *(v366 + 24);
+                          v379 = v400;
+                          sub_1D1455A40(v378, v400);
+                          sub_1D158034C(v365, type metadata accessor for SignificantChangeEngine.State.MeanShift);
+                          v368 = v457;
+                          if ((*(v457 + 48))(v379, 1, v358) == 1)
                           {
 LABEL_91:
-                            v362 = v441;
-                            sub_1D1580248(v455, v441, sub_1D1583578);
-                            v363 = *(v454 + 48);
-                            (v417)(v353, v362 + v363, v351);
-                            v364 = v362 + v363;
-                            v365 = v393;
-                            sub_1D158034C(v364, type metadata accessor for SignificantChangeEngine.Changepoint);
-                            v366 = v362;
-                            v338 = v463;
-                            v357 = v456;
-                            (v456)(v366, v463);
-                            v367 = (*(v361 + 48))(v365, 1, v351);
-                            v347 = v418;
-                            if (v367 != 1)
+                            v369 = v448;
+                            sub_1D1580248(v462, v448, sub_1D1583578);
+                            v370 = *(v461 + 12);
+                            (v424)(v360, v369 + v370, v358);
+                            v371 = v369 + v370;
+                            v372 = v400;
+                            sub_1D158034C(v371, type metadata accessor for SignificantChangeEngine.Changepoint);
+                            v373 = v369;
+                            v344 = v470;
+                            v364 = v463;
+                            (v463)(v373, v470);
+                            v374 = (*(v368 + 48))(v372, 1, v358);
+                            v353 = v425;
+                            if (v374 != 1)
                             {
-                              sub_1D158034C(v365, sub_1D14F104C);
+                              sub_1D158034C(v372, sub_1D14F104C);
                             }
 
                             goto LABEL_98;
                           }
 
-                          sub_1D158034C(v455, sub_1D1583578);
-                          (*(v361 + 32))(v353, v372, v351);
-                          v338 = v463;
-                          v347 = v418;
-                          v357 = v456;
+                          sub_1D158034C(v462, sub_1D1583578);
+                          (*(v368 + 32))(v360, v379, v358);
+                          v344 = v470;
+                          v353 = v425;
+                          v364 = v463;
                         }
 
                         else
                         {
-                          v354 = v342;
-                          v355 = v441;
-                          sub_1D1580248(v354, v441, sub_1D1583578);
-                          v356 = *(v345 + 48);
-                          v353 = v403;
-                          v351 = v449;
-                          (v417)(v403, v355 + v356, v449);
-                          sub_1D158034C(v355 + v356, type metadata accessor for SignificantChangeEngine.Changepoint);
-                          v357 = v456;
-                          (v456)(v355, v324);
-                          a4 = v459;
-                          v352 = v404;
+                          v361 = v348;
+                          v362 = v448;
+                          sub_1D1580248(v361, v448, sub_1D1583578);
+                          v363 = *(v351 + 12);
+                          v360 = v410;
+                          v358 = v456;
+                          (v424)(v410, v362 + v363, v456);
+                          sub_1D158034C(v362 + v363, type metadata accessor for SignificantChangeEngine.Changepoint);
+                          v364 = v463;
+                          (v463)(v362, v330);
+                          a4 = v466;
+                          v359 = v411;
                         }
 
 LABEL_98:
-                        (*(v450 + 56))(v353, 0, 1, v351);
-                        sub_1D1580218(v427, v352);
-                        v373 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-                        sub_1D15808F4(v347, v352 + *(v373 + 20));
-                        sub_1D150F280(v353, v352 + *(v373 + 24));
-                        v357(v424, v338);
-                        (*(*(v373 - 8) + 56))(v352, 0, 1, v373);
-                        v237 = v448;
-                        v374 = *(v448 + 24);
-                        v375 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
-                        v376 = v405;
-                        (*(*(v375 - 8) + 56))(&v405[v374], 1, 1, v375);
-                        v443(v376, v423, v338);
-                        sub_1D1580248(v352, &v376[*(v237 + 20)], sub_1D15807FC);
-                        sub_1D1580248(v428, a4, type metadata accessor for SignificantChange);
-                        v377 = v458;
-                        v378 = v460;
-                        (v460)(a4, 0, 1, v458);
+                        (*(v457 + 56))(v360, 0, 1, v358);
+                        sub_1D1580218(v434, v359);
+                        v380 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+                        sub_1D15808F4(v353, v359 + *(v380 + 20));
+                        sub_1D150F280(v360, v359 + *(v380 + 24));
+                        v364(v431, v344);
+                        (*(*(v380 - 8) + 56))(v359, 0, 1, v380);
+                        v241 = v455;
+                        v381 = *(v455 + 24);
+                        v382 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
+                        v383 = v412;
+                        (*(*(v382 - 8) + 56))(&v412[v381], 1, 1, v382);
+                        v450(v383, v430, v344);
+                        sub_1D1580248(v359, &v383[*(v241 + 20)], sub_1D15807FC);
+                        sub_1D1580248(v435, a4, type metadata accessor for SignificantChange);
+                        v384 = v465;
+                        v385 = v467;
+                        (v467)(a4, 0, 1, v465);
                         v148 = type metadata accessor for SignificantChangeEngine.Output(0);
-                        v378(a4 + *(v148 + 20), 1, 1, v377);
-                        v257 = *(v148 + 24);
-                        v258 = a4 + v257;
-                        v259 = v376;
+                        v385(a4 + *(v148 + 20), 1, 1, v384);
+                        v261 = *(v148 + 24);
+                        v262 = a4 + v261;
+                        v263 = v383;
                         goto LABEL_99;
                       }
 
-                      v297 = type metadata accessor for SignificantChange.Notification;
-                      v298 = v299;
+                      v303 = type metadata accessor for SignificantChange.Notification;
+                      v304 = v305;
                     }
 
-                    v301 = sub_1D158034C(v298, v297);
-                    v302 = v450;
-                    v303 = v390;
-                    MEMORY[0x1D38884F0](v301);
-                    sub_1D1580304(&qword_1EE0594B0, MEMORY[0x1E69693A0]);
-                    v304 = v392;
-                    v305 = v420;
+                    v307 = sub_1D158034C(v304, v303);
+                    v308 = v457;
+                    v309 = v397;
+                    MEMORY[0x1D38884F0](v307);
+                    sub_1D1580304(&qword_1EE0594B0, MEMORY[0x1E69693A0], MEMORY[0x1E6969390]);
+                    v310 = v399;
+                    v311 = v427;
                     sub_1D15A2688();
-                    (*(v391 + 8))(v303, v304);
+                    (*(v398 + 8))(v309, v310);
                     if (v4 > 0.0)
                     {
-                      v306 = 0x6973616572636E69;
+                      v312 = 0x6973616572636E69;
                     }
 
                     else
                     {
-                      v306 = 0x6973616572636564;
+                      v312 = 0x6973616572636564;
                     }
 
                     MEMORY[0x1D388A330](95, 0xE100000000000000);
-                    MEMORY[0x1D388A330](v306, 0xEA0000000000676ELL);
+                    MEMORY[0x1D388A330](v312, 0xEA0000000000676ELL);
 
-                    v308 = *(&v465 + 1);
-                    v307 = v465;
-                    v309 = v439;
+                    v314 = *(&v472 + 1);
+                    v313 = v472;
+                    v315 = v446;
                     _s19HealthVisualization25PresentationDateProvidingPAAE012presentationD010Foundation0D0VvgZ_0();
                     sub_1D158034C(v118, sub_1D1583510);
-                    (*(v302 + 32))(v141 + *(v309 + 28), v305, v449);
+                    (*(v308 + 32))(v141 + *(v315 + 28), v311, v456);
                     goto LABEL_83;
                   }
 
@@ -1325,49 +1326,49 @@ LABEL_98:
                 }
               }
 
-              v292 = v439;
-              (*(v138 + 56))(v118, 1, 1, v439);
+              v298 = v446;
+              (*(v138 + 56))(v118, 1, 1, v446);
               goto LABEL_73;
             }
 
-            sub_1D158034C(v249, sub_1D15807FC);
-            v208 = v453;
+            sub_1D158034C(v253, sub_1D15807FC);
+            v211 = v460;
           }
 
-          (*(v206 + 56))(v209, 1, 1, v205);
+          (*(v209 + 56))(v212, 1, 1, v208);
           goto LABEL_61;
         }
 
 LABEL_31:
-        sub_1D158034C(v185, sub_1D14F104C);
-        v157 = 0x80000001D15C2670;
-        v430 = 0xD000000000000019;
+        sub_1D158034C(v187, sub_1D14F104C);
+        v158 = 0x80000001D15C2670;
+        v437 = 0xD000000000000019;
         goto LABEL_32;
       }
 
-      sub_1D158034C(v183, sub_1D15807FC);
-      v174 = v454;
+      sub_1D158034C(v185, sub_1D15807FC);
+      v175 = v461;
     }
 
-    v185 = v429;
-    (*(v450 + 56))(v429, 1, 1, v449);
+    v187 = v436;
+    (*(v457 + 56))(v436, 1, 1, v456);
     goto LABEL_31;
   }
 
-  v175 = *(v453 + 8);
-  v175(v168, v166);
-  v175(v452, v166);
-  sub_1D158034C(v172, sub_1D1583544);
-  v176 = *(v461 + 56);
-  a4 = v459;
-  v177 = v458;
-  v176(v459, 1, 1, v458);
+  v176 = *(v460 + 8);
+  v176(v169, v167);
+  v176(v459, v167);
+  sub_1D158034C(v173, sub_1D1583544);
+  v177 = *(v468 + 56);
+  a4 = v466;
+  v178 = v465;
+  v177(v466, 1, 1, v465);
   v148 = type metadata accessor for SignificantChangeEngine.Output(0);
-  v176(a4 + *(v148 + 20), 1, 1, v177);
-  v149 = a4 + *(v148 + 24);
-  v150 = v171;
+  v177(a4 + *(v148 + 20), 1, 1, v178);
+  v150 = a4 + *(v148 + 24);
+  v151 = v172;
 LABEL_12:
-  sub_1D1580144(v150, v149);
+  sub_1D1580144(v151, v150, v149);
   return (*(*(v148 - 8) + 56))(a4, 0, 1, v148);
 }
 
@@ -1380,64 +1381,64 @@ uint64_t sub_1D15708E4(uint64_t result, uint64_t a2)
 
   else
   {
-    sub_1D148EF60();
+    sub_1D148EF60(0);
     return a2;
   }
 
   return result;
 }
 
-void sub_1D157096C(uint64_t a1, void (**a2)(uint64_t, uint64_t, uint64_t))
+void sub_1D157096C(uint64_t a1, double (**a2)(char *, char *, uint64_t))
 {
-  sub_1D151E0D0();
-  v139 = v4;
-  v138 = *(v4 - 8);
+  sub_1D151E0D0(0);
+  v141 = v4;
+  v140 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v149 = &v127 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v137 = sub_1D15A26A8();
-  v6 = *(v137 - 8);
-  MEMORY[0x1EEE9AC00](v137);
-  v136 = &v127 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v151 = &v129 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v139 = sub_1D15A26A8();
+  v6 = *(v139 - 8);
+  MEMORY[0x1EEE9AC00](v139);
+  v138 = &v129 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D148EF2C(0);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v135 = &v127 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D148EF60();
+  v137 = &v129 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1D148EF60(0);
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
-  v134 = &v127 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v136 = &v129 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
-  v148 = &v127 - v14;
+  v150 = &v129 - v14;
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v127 - v16;
+  v17 = &v129 - v16;
   MEMORY[0x1EEE9AC00](v18);
-  v158 = &v127 - v19;
+  v160 = &v129 - v19;
   MEMORY[0x1EEE9AC00](v20);
-  v150 = &v127 - v21;
+  v152 = &v129 - v21;
   MEMORY[0x1EEE9AC00](v22);
   MEMORY[0x1EEE9AC00](v23);
-  v25 = &v127 - v24;
+  v25 = &v129 - v24;
   MEMORY[0x1EEE9AC00](v26);
-  v28 = &v127 - v27;
+  v28 = &v129 - v27;
   MEMORY[0x1EEE9AC00](v29);
   MEMORY[0x1EEE9AC00](v30);
-  v32 = &v127 - v31;
+  v32 = &v129 - v31;
   MEMORY[0x1EEE9AC00](v33);
-  v38 = &v127 - v37;
+  v38 = &v129 - v37;
   v39 = *(a1 + 16);
   if (v39)
   {
-    v154 = a2;
-    v146 = v36;
-    v145 = v25;
-    v152 = v35;
-    v153 = v6;
+    v156 = a2;
+    v148 = v36;
+    v147 = v25;
+    v154 = v35;
+    v155 = v6;
     v40 = 0;
-    v151 = v34;
+    v153 = v34;
     v41 = &v38[*(v34 + 48)];
     v42 = a1 + ((*(v11 + 80) + 32) & ~*(v11 + 80));
     v43 = 0.0;
-    v159 = v39;
-    v157 = *&v42;
+    v161 = v39;
+    v159 = *&v42;
     do
     {
       if (v40 >= v39)
@@ -1448,8 +1449,8 @@ LABEL_58:
         return;
       }
 
-      v156 = *(v11 + 72);
-      sub_1D158015C(v42 + v156 * v40, v38, sub_1D148EF60);
+      v158 = *(v11 + 72);
+      sub_1D158015C(v42 + v158 * v40, v38, sub_1D148EF60);
       v44 = v40 + 1;
       if (__OFADD__(v40, 1))
       {
@@ -1464,16 +1465,16 @@ LABEL_58:
       }
 
       ++v40;
-      v39 = v159;
-      v46 = v44 == v159;
-      *&v42 = v157;
+      v39 = v161;
+      v46 = v44 == v161;
+      *&v42 = v159;
     }
 
     while (!v46);
-    v147 = v17;
+    v149 = v17;
     v47 = 0.0;
-    v48 = v151;
-    v49 = v156;
+    v48 = v153;
+    v49 = v158;
     v50 = v32;
     do
     {
@@ -1502,15 +1503,15 @@ LABEL_58:
     }
 
     while (v39);
-    v144 = v55;
-    v57 = *&v157;
-    v58 = v159;
+    v146 = v55;
+    v57 = *&v159;
+    v58 = v161;
     v59 = 0.0;
-    v155 = (*&v55 + 8);
+    v157 = (*&v55 + 8);
     v60 = v48;
-    v61 = *&v152;
-    v62 = v145;
-    v63 = v146;
+    v61 = *&v154;
+    v62 = v147;
+    v63 = v148;
     do
     {
       sub_1D158015C(v57, v63, sub_1D148EF60);
@@ -1546,7 +1547,7 @@ LABEL_58:
     }
 
     while (v58);
-    v146 = v56;
+    v148 = v56;
     if (v43 >= 2.0)
     {
       v68 = v43 + -1.0;
@@ -1564,139 +1565,141 @@ LABEL_58:
     }
 
     v70 = v54;
-    v145 = (v150 + *(v151 + 48));
-    v141 = v154;
-    v143 = v69;
-    v128 = v69 * v69 / (v43 * v43 * v68);
-    v127 = (*&v153 + 32);
-    v133 = (*&v153 + 8);
-    v154 = (*&v144 + 32);
-    v155 = MEMORY[0x1E69E7CC0];
+    v147 = (v152 + *(v153 + 48));
+    v143 = v156;
+    v145 = v69;
+    v130 = v69 * v69 / (v43 * v43 * v68);
+    v129 = (*&v155 + 32);
+    v135 = (*&v155 + 8);
+    v156 = (*&v146 + 32);
+    v157 = MEMORY[0x1E69E7CC0];
     v71 = 0.0;
     v72 = 0.00000001;
-    v140 = NAN;
+    v142 = NAN;
     v73 = 1.0;
     v74 = 2.0;
     v75 = 0.0;
-    v152 = 0.0;
-    v153 = 0.00000001;
+    v154 = 0.0;
+    v155 = 0.00000001;
     v76 = v47 / v43;
-    v77 = *&v157;
+    v77 = *&v159;
     do
     {
-      v157 = v75;
+      v159 = v75;
       v81 = v77;
-      v82 = v150;
-      sub_1D158015C(v77, v150, sub_1D148EF60);
-      v83 = *v145;
-      v84 = v145[8];
-      v85 = v151;
-      v86 = v158 + *(v151 + 48);
-      v87 = *v154;
-      (*v154)(v158, v82, v70);
+      v82 = v152;
+      sub_1D158015C(v77, v152, sub_1D148EF60);
+      v83 = *v147;
+      v84 = v147[8];
+      v85 = v153;
+      v86 = &v160[*(v153 + 48)];
+      v87 = *v156;
+      (*v156)(v160, v82, v70);
       *v86 = v83;
-      *(v86 + 8) = v84;
-      v88 = v158;
-      v89 = v147;
-      sub_1D158015C(v158, v147, sub_1D148EF60);
+      v86[8] = v84;
+      v88 = v160;
+      v89 = v149;
+      sub_1D158015C(v160, v149, sub_1D148EF60);
       v90 = v89 + *(v85 + 48);
       if (*(v90 + 8))
       {
         sub_1D158034C(v88, sub_1D148EF60);
-        v146(v89, v70);
-        v78 = v159;
+        v148(v89, v70);
+        v78 = v161;
         v79 = v81;
-        v80 = v156;
-        v75 = v157;
+        v80 = v158;
+        v75 = v159;
       }
 
       else
       {
-        v144 = *v90;
-        v91 = v146;
-        v146(v89, v70);
-        sub_1D158015C(v88, v148, sub_1D148EF60);
-        v92 = v134;
-        sub_1D158015C(v88, v134, sub_1D148EF60);
-        v93 = v136;
+        v146 = *v90;
+        v91 = v148;
+        v148(v89, v70);
+        sub_1D158015C(v88, v150, sub_1D148EF60);
+        v92 = v136;
+        sub_1D158015C(v88, v136, sub_1D148EF60);
+        v93 = v138;
         sub_1D15A2288();
         v91(v92, v70);
-        v94 = v135;
-        if (v71 >= v141)
+        v94 = v137;
+        if (v71 >= v143)
         {
           v79 = v81;
-          if (v43 >= v141)
+          if (v43 >= v143)
           {
-            v97 = v157 / v71;
+            v97 = v159 / v71;
             v98 = v47 / v43;
-            v131 = vabdd_f64(v157 / v71, v47 / v43);
-            v132 = v76;
-            v142 = v71;
+            v133 = vabdd_f64(v159 / v71, v47 / v43);
+            v134 = v76;
+            v144 = v71;
             v99 = v72;
-            v100 = v143;
-            v101 = v72 / v142 + v143 / v43;
+            v100 = v145;
+            v101 = v72 / v144 + v145 / v43;
             v102 = pow(v101, -0.5);
-            v129 = v131 * v102;
-            v103 = v99 * v99 / (v142 * v142 * (v142 + -1.0)) + v100 * v100 / (v43 * v43 * (v43 + -1.0));
+            v131 = v133 * v102;
+            v103 = v99 * v99 / (v144 * v144 * (v144 + -1.0)) + v100 * v100 / (v43 * v43 * (v43 + -1.0));
             if (v103 <= 0.0)
             {
-              v103 = v128;
+              v103 = v130;
             }
 
-            if (v101 * v101 / v103 > v153)
+            if (v101 * v101 / v103 > v155)
             {
               v104 = v101 * v101 / v103;
             }
 
             else
             {
-              v104 = v153;
+              v104 = v155;
             }
 
-            v130 = v98 - v97;
-            v143 = v100;
-            v131 = v142 * v99 + v43 * v100;
+            v132 = v98 - v97;
+            v145 = v100;
+            v133 = v144 * v99 + v43 * v100;
             v105 = vabdd_f64(v98, v97) / sqrt((v99 + v100) * 0.5);
-            v106 = v129;
-            v113 = StudentsCDF(v129, v104, v107, v108, v109, v110, v111, v112);
+            v106 = v131;
+            v107.n128_f64[0] = v131;
+            v108.n128_f64[0] = v104;
+            v115 = StudentsCDF(v107, v108, v109, v110, v111, v112, v113, v114);
             if (v106 > 0.0)
             {
-              v113 = 1.0 - v113;
+              v115 = 1.0 - v115;
             }
 
-            v114 = v113 + v113;
-            (*v127)(v94, v93, v137);
-            v115 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
-            *(v94 + v115[5]) = v114;
+            v116 = v115 + v115;
+            (*v129)(v94, v93, v139);
+            v117 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
+            *(v94 + v117[5]) = v116;
             v74 = 2.0;
-            *(v94 + v115[6]) = v106;
-            *(v94 + v115[7]) = v130;
-            *(v94 + v115[8]) = v104;
-            *(v94 + v115[9]) = v105;
+            *(v94 + v117[6]) = v106;
+            *(v94 + v117[7]) = v132;
+            *(v94 + v117[8]) = v104;
+            *(v94 + v117[9]) = v105;
             v73 = 1.0;
-            *(v94 + v115[10]) = v131;
-            v116 = v94 + v115[11];
-            v117 = v157;
-            *v116 = v142;
-            *(v116 + 8) = v117;
-            v118 = v140;
-            *(v116 + 16) = v152;
-            *(v116 + 24) = v118;
-            *(v116 + 32) = v99;
-            v71 = v142;
-            v119 = v94 + v115[12];
-            *v119 = v43;
-            *(v119 + 8) = v47;
-            v120 = v132;
-            *(v119 + 16) = v59;
-            *(v119 + 24) = v120;
-            *(v119 + 32) = v143;
-            (*(*(v115 - 1) + 56))(v94, 0, 1, v115);
+            *(v94 + v117[10]) = v133;
+            v118 = v94 + v117[11];
+            v119 = v159;
+            *v118 = v144;
+            *(v118 + 8) = v119;
+            v120 = v142;
+            *(v118 + 16) = v154;
+            *(v118 + 24) = v120;
+            *(v118 + 32) = v99;
+            v71 = v144;
+            v121 = v94 + v117[12];
+            *v121 = v43;
+            *(v121 + 8) = v47;
+            v122 = v134;
+            *(v121 + 16) = v59;
+            *(v121 + 24) = v122;
+            *(v121 + 32) = v145;
+            (*(*(v117 - 1) + 56))(v94, 0, 1, v117);
           }
 
           else
           {
-            (*v133)(v93, v137);
+            (*v135)(v93, v139);
             v96 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
             (*(*(v96 - 8) + 56))(v94, 1, 1, v96);
           }
@@ -1704,75 +1707,75 @@ LABEL_58:
 
         else
         {
-          (*v133)(v93, v137);
+          (*v135)(v93, v139);
           v95 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
           (*(*(v95 - 8) + 56))(v94, 1, 1, v95);
           v79 = v81;
         }
 
-        v80 = v156;
-        v121 = *(v139 + 48);
-        v122 = v149;
-        v87(v149, v148, v70);
-        sub_1D15808F4(v94, v122 + v121);
+        v80 = v158;
+        v123 = *(v141 + 48);
+        v124 = v151;
+        v87(v151, v150, v70);
+        sub_1D15808F4(v94, v124 + v123);
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v155 = sub_1D148CB88(0, v155[2] + 1, 1, v155);
+          v157 = sub_1D148CB88(0, v157[2] + 1, 1, v157);
         }
 
-        v124 = v155[2];
-        v123 = v155[3];
-        if (v124 >= v123 >> 1)
+        v126 = v157[2];
+        v125 = v157[3];
+        if (v126 >= v125 >> 1)
         {
-          v155 = sub_1D148CB88(v123 > 1, v124 + 1, 1, v155);
+          v157 = sub_1D148CB88((v125 > 1), v126 + 1, 1, v157);
         }
 
         sub_1D158034C(v88, sub_1D148EF60);
-        v125 = v155;
-        v155[2] = v124 + 1;
-        sub_1D1580248(v149, v125 + ((*(v138 + 80) + 32) & ~*(v138 + 80)) + *(v138 + 72) * v124, sub_1D151E0D0);
+        v127 = v157;
+        v157[2] = v126 + 1;
+        sub_1D1580248(v151, v127 + ((*(v140 + 80) + 32) & ~*(v140 + 80)) + *(v140 + 72) * v126, sub_1D151E0D0);
         v71 = v71 + v73;
-        v75 = v157 + v144;
-        v72 = v153;
-        v152 = v152 + v144 * v144;
+        v75 = v159 + v146;
+        v72 = v155;
+        v154 = v154 + v146 * v146;
         if (v71 >= v74)
         {
-          if ((v152 - v75 * v75 / v71) / (v71 + -1.0) > v153)
+          if ((v154 - v75 * v75 / v71) / (v71 + -1.0) > v155)
           {
-            v72 = (v152 - v75 * v75 / v71) / (v71 + -1.0);
+            v72 = (v154 - v75 * v75 / v71) / (v71 + -1.0);
           }
 
           else
           {
-            v72 = v153;
+            v72 = v155;
           }
         }
 
-        v140 = v75 / v71;
+        v142 = v75 / v71;
         v43 = v43 + -1.0;
-        v47 = v47 - v144;
-        v59 = v59 - v144 * v144;
+        v47 = v47 - v146;
+        v59 = v59 - v146 * v146;
         v76 = v47 / v43;
-        v78 = v159;
+        v78 = v161;
         if (v43 >= v74)
         {
-          v126 = (v59 - v47 * v47 / v43) / (v43 + -1.0);
-          if (v126 <= v153)
+          v128 = (v59 - v47 * v47 / v43) / (v43 + -1.0);
+          if (v128 <= v155)
           {
-            v126 = v153;
+            v128 = v155;
           }
         }
 
         else
         {
-          v126 = v153;
+          v128 = v155;
         }
 
-        v143 = v126;
+        v145 = v128;
       }
 
       v77 = v79 + v80;
-      v159 = v78 - 1;
+      v161 = v78 - 1;
     }
 
     while (v78 != 1);
@@ -1780,7 +1783,7 @@ LABEL_58:
 
   else
   {
-    v155 = MEMORY[0x1E69E7CC0];
+    v157 = MEMORY[0x1E69E7CC0];
   }
 }
 
@@ -1804,7 +1807,7 @@ uint64_t sub_1D1571714(uint64_t a1, uint64_t *a2, uint64_t a3)
   v46 = &v44 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
   v45 = &v44 - v16;
-  sub_1D151E0D0();
+  sub_1D151E0D0(0);
   v18 = v17;
   MEMORY[0x1EEE9AC00](v17);
   v44 = &v44 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1823,15 +1826,15 @@ uint64_t sub_1D1571714(uint64_t a1, uint64_t *a2, uint64_t a3)
     v29 = sub_1D15A22A8();
     v30 = *(*(v29 - 8) + 8);
     (v30)(v22, v29);
-    v31 = v51[12];
-    if (*&v26[*(v23 + 44)] < v31 || *&v26[*(v23 + 48)] < v31)
+    v31.n128_f64[0] = v51[12];
+    if (*&v26[*(v23 + 44)] < v31.n128_f64[0] || *&v26[*(v23 + 48)] < v31.n128_f64[0])
     {
       sub_1D158034C(v26, type metadata accessor for SignificantChangeEngine.Changepoint);
       goto LABEL_6;
     }
 
     v51 = v30;
-    sub_1D1580144(v48, v6);
+    sub_1D1580144(v48, v6, v31);
     v34 = type metadata accessor for SignificantChangeEngine.State(0);
     if ((*(*(v34 - 8) + 48))(v6, 1, v34) == 1)
     {
@@ -1862,7 +1865,7 @@ uint64_t sub_1D1571714(uint64_t a1, uint64_t *a2, uint64_t a3)
           v41 = v46;
           sub_1D15A2288();
           (v51)(v40, v29);
-          sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530]);
+          sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
           v42 = v39;
           v32 = sub_1D15A3EB8();
           v43 = *(v36 + 8);
@@ -1895,126 +1898,126 @@ LABEL_6:
   return v32 & 1;
 }
 
-uint64_t sub_1D1571E0C@<X0>(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
+void sub_1D1571E0C(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v121 = a3;
-  v140 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
-  v5 = *(v140 - 1);
-  MEMORY[0x1EEE9AC00](v140);
-  v132 = &v114 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v120 = a3;
+  v139 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
+  v5 = *(v139 - 1);
+  MEMORY[0x1EEE9AC00](v139);
+  v131 = &v113 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1583544(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = &v114 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v113 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1583578(0);
   v11 = v10;
   v12 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
-  v120 = &v114 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v119 = &v113 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
-  v126 = &v114 - v15;
+  v125 = &v113 - v15;
   MEMORY[0x1EEE9AC00](v16);
-  v118 = &v114 - v17;
+  v117 = &v113 - v17;
   MEMORY[0x1EEE9AC00](v18);
-  v119 = &v114 - v19;
+  v118 = &v113 - v19;
   MEMORY[0x1EEE9AC00](v20);
-  v117 = &v114 - v21;
+  v116 = &v113 - v21;
   MEMORY[0x1EEE9AC00](v22);
-  v125 = &v114 - v23;
+  v124 = &v113 - v23;
   MEMORY[0x1EEE9AC00](v24);
-  v124 = &v114 - v25;
+  v123 = &v113 - v25;
   MEMORY[0x1EEE9AC00](v26);
-  v123 = &v114 - v27;
+  v122 = &v113 - v27;
   MEMORY[0x1EEE9AC00](v28);
-  v115 = &v114 - v29;
+  v114 = &v113 - v29;
   MEMORY[0x1EEE9AC00](v30);
-  v116 = &v114 - v31;
+  v115 = &v113 - v31;
   MEMORY[0x1EEE9AC00](v32);
-  v131 = &v114 - v33;
-  sub_1D151E0D0();
+  v130 = &v113 - v33;
+  sub_1D151E0D0(0);
   v35 = v34;
   MEMORY[0x1EEE9AC00](v34);
-  v130 = &v114 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v129 = &v113 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v37);
-  v39 = &v114 - v38;
+  v39 = &v113 - v38;
   MEMORY[0x1EEE9AC00](v40);
-  v43 = &v114 - v42;
-  v122 = *a2;
+  v43 = &v113 - v42;
+  v121 = *a2;
   v44 = *(a1 + 16);
-  v127 = v12;
+  v126 = v12;
   if (v44)
   {
     v45 = a1 + ((*(v41 + 80) + 32) & ~*(v41 + 80));
     v46 = *(v41 + 72);
-    v137 = (v5 + 48);
-    v138 = v46;
-    v136 = (v12 + 56);
-    v128 = (v12 + 48);
-    v139 = MEMORY[0x1E69E7CC0];
-    v129 = &v114 - v42;
+    v136 = (v5 + 48);
+    v137 = v46;
+    v135 = (v12 + 56);
+    v127 = (v12 + 48);
+    v138 = MEMORY[0x1E69E7CC0];
+    v128 = &v113 - v42;
     while (1)
     {
       sub_1D158015C(v45, v43, sub_1D151E0D0);
       sub_1D158015C(v43, v39, sub_1D151E0D0);
       v48 = *(v35 + 48);
-      if ((*v137)(&v39[v48], 1, v140) == 1)
+      if ((*v136)(&v39[v48], 1, v139) == 1)
       {
         sub_1D158034C(v43, sub_1D151E0D0);
         sub_1D158034C(&v39[v48], sub_1D148EF2C);
         v47 = sub_1D15A22A8();
         (*(*(v47 - 8) + 8))(v39, v47);
-        (*v136)(v9, 1, 1, v11);
+        (*v135)(v9, 1, 1, v11);
       }
 
       else
       {
-        v134 = type metadata accessor for SignificantChangeEngine.Changepoint;
-        v135 = v44;
-        v49 = v132;
-        sub_1D1580248(&v39[v48], v132, type metadata accessor for SignificantChangeEngine.Changepoint);
+        v133 = type metadata accessor for SignificantChangeEngine.Changepoint;
+        v134 = v44;
+        v49 = v131;
+        sub_1D1580248(&v39[v48], v131, type metadata accessor for SignificantChangeEngine.Changepoint);
         v50 = sub_1D15A22A8();
         v51 = *(v50 - 8);
         (*(v51 + 8))(v39, v50);
         v52 = v39;
         v53 = *(v11 + 48);
         v54 = v43;
-        v55 = v130;
-        sub_1D1580248(v54, v130, sub_1D151E0D0);
-        v133 = *(v35 + 48);
+        v55 = v129;
+        sub_1D1580248(v54, v129, sub_1D151E0D0);
+        v132 = *(v35 + 48);
         (*(v51 + 32))(v9, v55, v50);
         v56 = &v9[v53];
         v39 = v52;
         v57 = v49;
-        v44 = v135;
-        sub_1D1580248(v57, v56, v134);
-        (*v136)(v9, 0, 1, v11);
-        v58 = v55 + v133;
-        v43 = v129;
+        v44 = v134;
+        sub_1D1580248(v57, v56, v133);
+        (*v135)(v9, 0, 1, v11);
+        v58 = v55 + v132;
+        v43 = v128;
         sub_1D158034C(v58, sub_1D148EF2C);
-        if ((*v128)(v9, 1, v11) != 1)
+        if ((*v127)(v9, 1, v11) != 1)
         {
-          sub_1D1580248(v9, v131, sub_1D1583578);
+          sub_1D1580248(v9, v130, sub_1D1583578);
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v139 = sub_1D148CBC4(0, v139[2] + 1, 1, v139);
+            v138 = sub_1D148CBC4(0, v138[2] + 1, 1, v138);
           }
 
-          v60 = v139[2];
-          v59 = v139[3];
+          v60 = v138[2];
+          v59 = v138[3];
           if (v60 >= v59 >> 1)
           {
-            v139 = sub_1D148CBC4(v59 > 1, v60 + 1, 1, v139);
+            v138 = sub_1D148CBC4((v59 > 1), v60 + 1, 1, v138);
           }
 
-          v61 = v139;
-          v139[2] = v60 + 1;
-          sub_1D1580248(v131, v61 + ((*(v127 + 80) + 32) & ~*(v127 + 80)) + *(v127 + 72) * v60, sub_1D1583578);
+          v61 = v138;
+          v138[2] = v60 + 1;
+          sub_1D1580248(v130, v61 + ((*(v126 + 80) + 32) & ~*(v126 + 80)) + *(v126 + 72) * v60, sub_1D1583578);
           goto LABEL_5;
         }
       }
 
       sub_1D158034C(v9, sub_1D1583544);
 LABEL_5:
-      v45 += v138;
+      v45 += v137;
       if (!--v44)
       {
         goto LABEL_14;
@@ -2022,62 +2025,64 @@ LABEL_5:
     }
   }
 
-  v139 = MEMORY[0x1E69E7CC0];
+  v138 = MEMORY[0x1E69E7CC0];
 LABEL_14:
-  v62 = v139[2];
-  if (v122 <= 1)
+  v62 = v138[2];
+  if (v121 <= 1)
   {
-    v63 = v127;
-    v65 = v123;
-    v64 = v124;
-    if (!v122)
+    v63 = v126;
+    v65 = v122;
+    v64 = v123;
+    if (!v121)
     {
       if (v62)
       {
-        v138 = v139 + ((*(v127 + 80) + 32) & ~*(v127 + 80));
-        result = sub_1D158015C(v138, v126, sub_1D1583578);
-        v67 = v120;
+        v137 = v138 + ((*(v126 + 80) + 32) & ~*(v126 + 80));
+        sub_1D158015C(v137, v125, sub_1D1583578);
+        v66 = v119;
         if (v62 == 1)
         {
 LABEL_18:
 
-          v68 = v121;
-          sub_1D1580248(v126, v121, sub_1D1583578);
-          v69 = 0;
-          v63 = v127;
-          return (*(v63 + 56))(v68, v69, 1, v11);
+          v67 = v120;
+          sub_1D1580248(v125, v120, sub_1D1583578);
+          v68 = 0;
+          v63 = v126;
+LABEL_34:
+          (*(v63 + 56))(v67, v68, 1, v11);
+          return;
         }
 
-        v80 = 1;
-        while (v80 < v139[2])
+        v79 = 1;
+        while (v79 < v138[2])
         {
-          sub_1D158015C(v138 + *(v127 + 72) * v80, v67, sub_1D1583578);
-          sub_1D158015C(v67, v65, sub_1D1583578);
-          v81 = v65 + *(v11 + 48);
-          v82 = v140;
-          v83 = *(v81 + v140[5]);
-          sub_1D158034C(v81, type metadata accessor for SignificantChangeEngine.Changepoint);
-          v84 = v126;
-          sub_1D158015C(v126, v64, sub_1D1583578);
-          v85 = v64 + *(v11 + 48);
-          v86 = *(v85 + v82[5]);
-          sub_1D158034C(v85, type metadata accessor for SignificantChangeEngine.Changepoint);
-          v87 = sub_1D15A22A8();
-          v88 = *(*(v87 - 8) + 8);
-          v88(v64, v87);
-          v88(v65, v87);
-          if (v83 >= v86)
+          sub_1D158015C(v137 + *(v126 + 72) * v79, v66, sub_1D1583578);
+          sub_1D158015C(v66, v65, sub_1D1583578);
+          v80 = v65 + *(v11 + 48);
+          v81 = v139;
+          v82 = *(v80 + v139[5]);
+          sub_1D158034C(v80, type metadata accessor for SignificantChangeEngine.Changepoint);
+          v83 = v125;
+          sub_1D158015C(v125, v64, sub_1D1583578);
+          v84 = v64 + *(v11 + 48);
+          v85 = *(v84 + v81[5]);
+          sub_1D158034C(v84, type metadata accessor for SignificantChangeEngine.Changepoint);
+          v86 = sub_1D15A22A8();
+          v87 = *(*(v86 - 8) + 8);
+          v87(v64, v86);
+          v87(v65, v86);
+          if (v82 >= v85)
           {
-            result = sub_1D158034C(v67, sub_1D1583578);
+            sub_1D158034C(v66, sub_1D1583578);
           }
 
           else
           {
-            sub_1D158034C(v84, sub_1D1583578);
-            result = sub_1D1580248(v67, v84, sub_1D1583578);
+            sub_1D158034C(v83, sub_1D1583578);
+            sub_1D1580248(v66, v83, sub_1D1583578);
           }
 
-          if (v62 == ++v80)
+          if (v62 == ++v79)
           {
             goto LABEL_18;
           }
@@ -2089,9 +2094,9 @@ LABEL_18:
 
 LABEL_33:
 
-      v69 = 1;
-      v68 = v121;
-      return (*(v63 + 56))(v68, v69, 1, v11);
+      v68 = 1;
+      v67 = v120;
+      goto LABEL_34;
     }
 
     if (!v62)
@@ -2099,43 +2104,43 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    v137 = (v139 + ((*(v127 + 80) + 32) & ~*(v127 + 80)));
-    v75 = v119;
-    result = sub_1D158015C(v137, v119, sub_1D1583578);
-    v138 = v62;
-    v72 = v62 == 1;
-    v76 = v118;
-    if (!v72)
+    v136 = (v138 + ((*(v126 + 80) + 32) & ~*(v126 + 80)));
+    v74 = v118;
+    sub_1D158015C(v136, v118, sub_1D1583578);
+    v137 = v62;
+    v71 = v62 == 1;
+    v75 = v117;
+    if (!v71)
     {
-      v98 = 1;
-      while (v98 < v139[2])
+      v97 = 1;
+      while (v97 < v138[2])
       {
-        sub_1D158015C(v137 + *(v63 + 72) * v98, v76, sub_1D1583578);
-        sub_1D158015C(v75, v65, sub_1D1583578);
-        v99 = v65 + *(v11 + 48);
-        v100 = v140;
-        v101 = *(v99 + v140[9]);
-        sub_1D158034C(v99, type metadata accessor for SignificantChangeEngine.Changepoint);
-        sub_1D158015C(v76, v64, sub_1D1583578);
-        v102 = v64 + *(v11 + 48);
-        v103 = *(v102 + v100[9]);
-        sub_1D158034C(v102, type metadata accessor for SignificantChangeEngine.Changepoint);
-        v104 = sub_1D15A22A8();
-        v105 = *(*(v104 - 8) + 8);
-        v105(v64, v104);
-        v105(v65, v104);
-        if (v101 >= v103)
+        sub_1D158015C(v136 + *(v63 + 72) * v97, v75, sub_1D1583578);
+        sub_1D158015C(v74, v65, sub_1D1583578);
+        v98 = v65 + *(v11 + 48);
+        v99 = v139;
+        v100 = *(v98 + v139[9]);
+        sub_1D158034C(v98, type metadata accessor for SignificantChangeEngine.Changepoint);
+        sub_1D158015C(v75, v64, sub_1D1583578);
+        v101 = v64 + *(v11 + 48);
+        v102 = *(v101 + v99[9]);
+        sub_1D158034C(v101, type metadata accessor for SignificantChangeEngine.Changepoint);
+        v103 = sub_1D15A22A8();
+        v104 = *(*(v103 - 8) + 8);
+        v104(v64, v103);
+        v104(v65, v103);
+        if (v100 >= v102)
         {
-          result = sub_1D158034C(v76, sub_1D1583578);
+          sub_1D158034C(v75, sub_1D1583578);
         }
 
         else
         {
-          sub_1D158034C(v75, sub_1D1583578);
-          result = sub_1D1580248(v76, v75, sub_1D1583578);
+          sub_1D158034C(v74, sub_1D1583578);
+          sub_1D1580248(v75, v74, sub_1D1583578);
         }
 
-        if (v138 == ++v98)
+        if (v137 == ++v97)
         {
           goto LABEL_27;
         }
@@ -2146,62 +2151,62 @@ LABEL_33:
 
 LABEL_27:
 
-    v74 = v75;
+    v73 = v74;
 LABEL_32:
-    v68 = v121;
-    sub_1D1580248(v74, v121, sub_1D1583578);
-    v69 = 0;
-    return (*(v63 + 56))(v68, v69, 1, v11);
+    v67 = v120;
+    sub_1D1580248(v73, v120, sub_1D1583578);
+    v68 = 0;
+    goto LABEL_34;
   }
 
-  v63 = v127;
-  v71 = v123;
-  v70 = v124;
-  if (v122 != 2)
+  v63 = v126;
+  v70 = v122;
+  v69 = v123;
+  if (v121 != 2)
   {
     if (!v62)
     {
       goto LABEL_33;
     }
 
-    v137 = (v139 + ((*(v127 + 80) + 32) & ~*(v127 + 80)));
-    v77 = v62;
-    v78 = v116;
-    result = sub_1D158015C(v137, v116, sub_1D1583578);
-    v138 = v77;
-    v72 = v77 == 1;
-    v79 = v115;
-    if (!v72)
+    v136 = (v138 + ((*(v126 + 80) + 32) & ~*(v126 + 80)));
+    v76 = v62;
+    v77 = v115;
+    sub_1D158015C(v136, v115, sub_1D1583578);
+    v137 = v76;
+    v71 = v76 == 1;
+    v78 = v114;
+    if (!v71)
     {
-      v106 = 1;
-      while (v106 < v139[2])
+      v105 = 1;
+      while (v105 < v138[2])
       {
-        sub_1D158015C(v137 + *(v63 + 72) * v106, v79, sub_1D1583578);
-        sub_1D158015C(v78, v71, sub_1D1583578);
-        v107 = v71 + *(v11 + 48);
-        v108 = v140;
-        v109 = *(v107 + v140[6]);
-        sub_1D158034C(v107, type metadata accessor for SignificantChangeEngine.Changepoint);
-        sub_1D158015C(v79, v70, sub_1D1583578);
-        v110 = v70 + *(v11 + 48);
-        v111 = *(v110 + v108[6]);
-        sub_1D158034C(v110, type metadata accessor for SignificantChangeEngine.Changepoint);
-        v112 = sub_1D15A22A8();
-        v113 = *(*(v112 - 8) + 8);
-        v113(v70, v112);
-        v113(v71, v112);
-        if (v109 >= v111)
+        sub_1D158015C(v136 + *(v63 + 72) * v105, v78, sub_1D1583578);
+        sub_1D158015C(v77, v70, sub_1D1583578);
+        v106 = v70 + *(v11 + 48);
+        v107 = v139;
+        v108 = *(v106 + v139[6]);
+        sub_1D158034C(v106, type metadata accessor for SignificantChangeEngine.Changepoint);
+        sub_1D158015C(v78, v69, sub_1D1583578);
+        v109 = v69 + *(v11 + 48);
+        v110 = *(v109 + v107[6]);
+        sub_1D158034C(v109, type metadata accessor for SignificantChangeEngine.Changepoint);
+        v111 = sub_1D15A22A8();
+        v112 = *(*(v111 - 8) + 8);
+        v112(v69, v111);
+        v112(v70, v111);
+        if (v108 >= v110)
         {
-          result = sub_1D158034C(v79, sub_1D1583578);
+          sub_1D158034C(v78, sub_1D1583578);
         }
 
         else
         {
-          sub_1D158034C(v78, sub_1D1583578);
-          result = sub_1D1580248(v79, v78, sub_1D1583578);
+          sub_1D158034C(v77, sub_1D1583578);
+          sub_1D1580248(v78, v77, sub_1D1583578);
         }
 
-        if (v138 == ++v106)
+        if (v137 == ++v105)
         {
           goto LABEL_31;
         }
@@ -2212,7 +2217,7 @@ LABEL_32:
 
 LABEL_31:
 
-    v74 = v78;
+    v73 = v77;
     goto LABEL_32;
   }
 
@@ -2221,49 +2226,49 @@ LABEL_31:
     goto LABEL_33;
   }
 
-  v137 = (v139 + ((*(v127 + 80) + 32) & ~*(v127 + 80)));
-  result = sub_1D158015C(v137, v125, sub_1D1583578);
-  v138 = v62;
-  v72 = v62 == 1;
-  v73 = v117;
-  if (v72)
+  v136 = (v138 + ((*(v126 + 80) + 32) & ~*(v126 + 80)));
+  sub_1D158015C(v136, v124, sub_1D1583578);
+  v137 = v62;
+  v71 = v62 == 1;
+  v72 = v116;
+  if (v71)
   {
 LABEL_23:
 
-    v74 = v125;
+    v73 = v124;
     goto LABEL_32;
   }
 
-  v89 = 1;
-  while (v89 < v139[2])
+  v88 = 1;
+  while (v88 < v138[2])
   {
-    sub_1D158015C(v137 + *(v63 + 72) * v89, v73, sub_1D1583578);
-    sub_1D158015C(v73, v71, sub_1D1583578);
-    v90 = v71 + *(v11 + 48);
-    v91 = v140;
-    v92 = *(v90 + v140[10]);
-    sub_1D158034C(v90, type metadata accessor for SignificantChangeEngine.Changepoint);
-    v93 = v125;
-    sub_1D158015C(v125, v70, sub_1D1583578);
-    v94 = v70 + *(v11 + 48);
-    v95 = *(v94 + v91[10]);
-    sub_1D158034C(v94, type metadata accessor for SignificantChangeEngine.Changepoint);
-    v96 = sub_1D15A22A8();
-    v97 = *(*(v96 - 8) + 8);
-    v97(v70, v96);
-    v97(v71, v96);
-    if (v92 >= v95)
+    sub_1D158015C(v136 + *(v63 + 72) * v88, v72, sub_1D1583578);
+    sub_1D158015C(v72, v70, sub_1D1583578);
+    v89 = v70 + *(v11 + 48);
+    v90 = v139;
+    v91 = *(v89 + v139[10]);
+    sub_1D158034C(v89, type metadata accessor for SignificantChangeEngine.Changepoint);
+    v92 = v124;
+    sub_1D158015C(v124, v69, sub_1D1583578);
+    v93 = v69 + *(v11 + 48);
+    v94 = *(v93 + v90[10]);
+    sub_1D158034C(v93, type metadata accessor for SignificantChangeEngine.Changepoint);
+    v95 = sub_1D15A22A8();
+    v96 = *(*(v95 - 8) + 8);
+    v96(v69, v95);
+    v96(v70, v95);
+    if (v91 >= v94)
     {
-      result = sub_1D158034C(v73, sub_1D1583578);
+      sub_1D158034C(v72, sub_1D1583578);
     }
 
     else
     {
-      sub_1D158034C(v93, sub_1D1583578);
-      result = sub_1D1580248(v73, v93, sub_1D1583578);
+      sub_1D158034C(v92, sub_1D1583578);
+      sub_1D1580248(v72, v92, sub_1D1583578);
     }
 
-    if (v138 == ++v89)
+    if (v137 == ++v88)
     {
       goto LABEL_23;
     }
@@ -2275,7 +2280,6 @@ LABEL_58:
   __break(1u);
 LABEL_59:
   __break(1u);
-  return result;
 }
 
 void sub_1D1572DA4(uint64_t a1, uint64_t a2)
@@ -2286,7 +2290,7 @@ void sub_1D1572DA4(uint64_t a1, uint64_t a2)
   v7 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
   v10 = &v40 - v9;
-  sub_1D148EF60();
+  sub_1D148EF60(0);
   v12 = v11;
   MEMORY[0x1EEE9AC00](v11);
   v14 = &v40 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2332,7 +2336,7 @@ void sub_1D1572DA4(uint64_t a1, uint64_t a2)
       v50(v14, v31);
       v34 = v47;
       sub_1D15A2288();
-      v35 = sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530]);
+      v35 = sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
       v36 = v17;
       v37 = v46;
       v49 = v35;
@@ -2424,7 +2428,7 @@ uint64_t sub_1D157323C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   MEMORY[0x1EEE9AC00](v34);
   *(&v40 - 2) = v22;
   sub_1D1565D8C(sub_1D1583698, v47, v9);
-  sub_1D151E0D0();
+  sub_1D151E0D0(0);
   v36 = v35;
   if ((*(*(v35 - 8) + 48))(v9, 1, v35) == 1)
   {
@@ -2523,24 +2527,24 @@ LABEL_10:
   return 0;
 }
 
-uint64_t sub_1D1573A60(uint64_t a1)
+uint64_t sub_1D1573A60(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_1D15A26A8();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D151E0D0();
-  v7 = v6 - 8;
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D158015C(a1, v9, sub_1D151E0D0);
-  v10 = *(v7 + 56);
+  v3 = sub_1D15A26A8();
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1D151E0D0(0);
+  v8 = v7 - 8;
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1D158015C(a1, v10, sub_1D151E0D0);
+  v11 = *(v8 + 56);
   sub_1D15A2288();
-  v11 = sub_1D15A22A8();
-  (*(*(v11 - 8) + 8))(v9, v11);
+  v12 = sub_1D15A22A8();
+  (*(*(v12 - 8) + 8))(v10, v12);
   LOBYTE(a1) = sub_1D15A2658();
-  (*(v3 + 8))(v5, v2);
-  sub_1D158034C(&v9[v10], sub_1D148EF2C);
+  (*(v4 + 8))(v6, v3);
+  sub_1D158034C(&v10[v11], sub_1D148EF2C);
   return a1 & 1;
 }
 
@@ -2552,18 +2556,18 @@ uint64_t sub_1D1573C18(uint64_t a1, uint64_t a2)
   v75 = &v63 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
   v74 = &v63 - v7;
-  sub_1D148EF60();
+  sub_1D148EF60(0);
   v77 = v8;
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v76 = &v63 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D15837D4();
+  sub_1D15837D4(0);
   v73 = v11;
   MEMORY[0x1EEE9AC00](v11);
   v72 = &v63 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
   v71 = &v63 - v14;
-  sub_1D1491C64();
+  sub_1D1491C64(0);
   MEMORY[0x1EEE9AC00](v15 - 8);
   v17 = &v63 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v18 = sub_1D15A22A8();
@@ -2704,446 +2708,446 @@ LABEL_15:
   return 0;
 }
 
-void sub_1D1574250(uint64_t (*a1)(uint64_t a1)@<X1>, uint64_t **a2@<X2>, uint64_t a3@<X8>)
+void sub_1D1574250(uint64_t (*a1)(uint64_t a1)@<X1>, char **a2@<X2>, uint64_t a3@<X8>)
 {
-  v712 = a2;
-  v716 = a1;
-  v709 = a3;
+  v730 = a2;
+  v734 = a1;
+  v727 = a3;
   sub_1D1583510(0);
-  MEMORY[0x1EEE9AC00](v3 - 8);
-  v610 = (&v586 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v662 = sub_1D15A26D8();
-  v661 = *(v662 - 8);
-  MEMORY[0x1EEE9AC00](v662);
-  v660 = &v586 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v664 = type metadata accessor for SignificantChange.Notification(0);
-  v665 = *(v664 - 8);
-  MEMORY[0x1EEE9AC00](v664);
-  v659 = &v586 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v650 = &v586 - v8;
-  MEMORY[0x1EEE9AC00](v9);
-  v616 = &v586 - v10;
-  v663 = type metadata accessor for SignificantChange.Period(0);
-  v666 = *(v663 - 8);
-  MEMORY[0x1EEE9AC00](v663);
-  v611 = &v586 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v668 = &v586 - v13;
-  MEMORY[0x1EEE9AC00](v14);
-  v667 = &v586 - v15;
-  MEMORY[0x1EEE9AC00](v16);
-  v645 = &v586 - v17;
-  MEMORY[0x1EEE9AC00](v18);
-  v644 = &v586 - v19;
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v628 = (&v604 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v680 = sub_1D15A26D8();
+  v679 = *(v680 - 8);
+  MEMORY[0x1EEE9AC00](v680);
+  v678 = &v604 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v682 = type metadata accessor for SignificantChange.Notification(0);
+  v683 = *(v682 - 8);
+  MEMORY[0x1EEE9AC00](v682);
+  v677 = &v604 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v668 = &v604 - v9;
+  MEMORY[0x1EEE9AC00](v10);
+  v634 = &v604 - v11;
+  v681 = type metadata accessor for SignificantChange.Period(0);
+  v684 = *(v681 - 8);
+  MEMORY[0x1EEE9AC00](v681);
+  v629 = &v604 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v686 = &v604 - v14;
+  MEMORY[0x1EEE9AC00](v15);
+  v685 = &v604 - v16;
+  MEMORY[0x1EEE9AC00](v17);
+  v663 = &v604 - v18;
+  MEMORY[0x1EEE9AC00](v19);
+  v662 = &v604 - v20;
   sub_1D15807FC(0);
-  MEMORY[0x1EEE9AC00](v20 - 8);
-  v641 = &v586 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v634 = &v586 - v23;
-  MEMORY[0x1EEE9AC00](v24);
-  v635 = &v586 - v25;
-  MEMORY[0x1EEE9AC00](v26);
-  v618 = &v586 - v27;
-  MEMORY[0x1EEE9AC00](v28);
-  v609 = &v586 - v29;
+  MEMORY[0x1EEE9AC00](v21 - 8);
+  v659 = &v604 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v652 = &v604 - v24;
+  MEMORY[0x1EEE9AC00](v25);
+  v653 = &v604 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v636 = &v604 - v28;
+  MEMORY[0x1EEE9AC00](v29);
+  v627 = &v604 - v30;
   sub_1D15800F0(0);
-  MEMORY[0x1EEE9AC00](v30 - 8);
-  v658 = &v586 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v32);
-  v657 = &v586 - v33;
-  MEMORY[0x1EEE9AC00](v34);
-  v670 = &v586 - v35;
-  MEMORY[0x1EEE9AC00](v36);
-  v653 = &v586 - v37;
-  MEMORY[0x1EEE9AC00](v38);
-  v651 = &v586 - v39;
-  MEMORY[0x1EEE9AC00](v40);
-  v633 = &v586 - v41;
-  MEMORY[0x1EEE9AC00](v42);
-  v652 = &v586 - v43;
-  MEMORY[0x1EEE9AC00](v44);
-  v604 = &v586 - v45;
-  MEMORY[0x1EEE9AC00](v46);
-  v654 = &v586 - v47;
-  MEMORY[0x1EEE9AC00](v48);
-  v617 = &v586 - v49;
-  MEMORY[0x1EEE9AC00](v50);
-  v646 = &v586 - v51;
-  MEMORY[0x1EEE9AC00](v52);
-  v622 = &v586 - v53;
-  MEMORY[0x1EEE9AC00](v54);
-  v621 = &v586 - v55;
-  MEMORY[0x1EEE9AC00](v56);
-  v649 = &v586 - v57;
-  v58 = type metadata accessor for SignificantChange(0);
-  v59 = *(v58 - 8);
-  MEMORY[0x1EEE9AC00](v58);
-  v640 = &v586 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v61);
-  v639 = &v586 - v62;
-  MEMORY[0x1EEE9AC00](v63);
-  v676 = &v586 - v64;
-  MEMORY[0x1EEE9AC00](v65);
-  v643 = &v586 - v66;
-  MEMORY[0x1EEE9AC00](v67);
-  v620 = &v586 - v68;
-  MEMORY[0x1EEE9AC00](v69);
-  v608 = &v586 - v70;
+  MEMORY[0x1EEE9AC00](v31 - 8);
+  v676 = &v604 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v33);
+  v675 = &v604 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v688 = &v604 - v36;
+  MEMORY[0x1EEE9AC00](v37);
+  v671 = &v604 - v38;
+  MEMORY[0x1EEE9AC00](v39);
+  v669 = &v604 - v40;
+  MEMORY[0x1EEE9AC00](v41);
+  v651 = &v604 - v42;
+  MEMORY[0x1EEE9AC00](v43);
+  v670 = &v604 - v44;
+  MEMORY[0x1EEE9AC00](v45);
+  v622 = &v604 - v46;
+  MEMORY[0x1EEE9AC00](v47);
+  v672 = &v604 - v48;
+  MEMORY[0x1EEE9AC00](v49);
+  v635 = &v604 - v50;
+  MEMORY[0x1EEE9AC00](v51);
+  v664 = &v604 - v52;
+  MEMORY[0x1EEE9AC00](v53);
+  v640 = &v604 - v54;
+  MEMORY[0x1EEE9AC00](v55);
+  v639 = &v604 - v56;
+  MEMORY[0x1EEE9AC00](v57);
+  v667 = &v604 - v58;
+  v59 = type metadata accessor for SignificantChange(0);
+  v60 = *(v59 - 8);
+  MEMORY[0x1EEE9AC00](v59);
+  v658 = &v604 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v62);
+  v657 = &v604 - v63;
+  MEMORY[0x1EEE9AC00](v64);
+  v694 = &v604 - v65;
+  MEMORY[0x1EEE9AC00](v66);
+  v661 = &v604 - v67;
+  MEMORY[0x1EEE9AC00](v68);
+  v638 = &v604 - v69;
+  MEMORY[0x1EEE9AC00](v70);
+  v626 = &v604 - v71;
   sub_1D14F104C(0);
-  MEMORY[0x1EEE9AC00](v71 - 8);
-  v673 = &v586 - ((v72 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v73);
-  v687 = &v586 - v74;
-  MEMORY[0x1EEE9AC00](v75);
-  v672 = &v586 - v76;
-  v77 = sub_1D15A26A8();
-  v678 = *(v77 - 8);
-  MEMORY[0x1EEE9AC00](v77);
-  v680 = &v586 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v79);
-  v689 = &v586 - v80;
-  MEMORY[0x1EEE9AC00](v81);
-  v715 = &v586 - v82;
-  MEMORY[0x1EEE9AC00](v83);
-  v683 = &v586 - v84;
-  MEMORY[0x1EEE9AC00](v85);
-  v703 = &v586 - v86;
+  MEMORY[0x1EEE9AC00](v72 - 8);
+  v691 = &v604 - ((v73 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v74);
+  v705 = &v604 - v75;
+  MEMORY[0x1EEE9AC00](v76);
+  v690 = &v604 - v77;
+  v78 = sub_1D15A26A8();
+  v696 = *(v78 - 8);
+  MEMORY[0x1EEE9AC00](v78);
+  v698 = &v604 - ((v79 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v80);
+  v707 = &v604 - v81;
+  MEMORY[0x1EEE9AC00](v82);
+  v733 = &v604 - v83;
+  MEMORY[0x1EEE9AC00](v84);
+  v701 = &v604 - v85;
+  MEMORY[0x1EEE9AC00](v86);
+  v721 = &v604 - v87;
   sub_1D1580868(0);
-  MEMORY[0x1EEE9AC00](v87 - 8);
-  v656 = &v586 - ((v88 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v89);
-  v669 = &v586 - v90;
-  MEMORY[0x1EEE9AC00](v91);
-  v631 = &v586 - v92;
-  MEMORY[0x1EEE9AC00](v93);
-  v632 = &v586 - v94;
-  MEMORY[0x1EEE9AC00](v95);
-  v642 = &v586 - v96;
-  MEMORY[0x1EEE9AC00](v97);
-  v619 = &v586 - v98;
-  MEMORY[0x1EEE9AC00](v99);
-  v648 = &v586 - v100;
-  MEMORY[0x1EEE9AC00](v101);
-  v684 = &v586 - v102;
-  v694 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
-  v691 = *(v694 - 8);
-  MEMORY[0x1EEE9AC00](v694);
-  v627 = &v586 - ((v103 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v104);
-  v628 = &v586 - v105;
-  MEMORY[0x1EEE9AC00](v106);
-  v614 = &v586 - v107;
-  MEMORY[0x1EEE9AC00](v108);
-  v710 = &v586 - v109;
+  MEMORY[0x1EEE9AC00](v88 - 8);
+  v674 = &v604 - ((v89 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v90);
+  v687 = &v604 - v91;
+  MEMORY[0x1EEE9AC00](v92);
+  v649 = &v604 - v93;
+  MEMORY[0x1EEE9AC00](v94);
+  v650 = &v604 - v95;
+  MEMORY[0x1EEE9AC00](v96);
+  v660 = &v604 - v97;
+  MEMORY[0x1EEE9AC00](v98);
+  v637 = &v604 - v99;
+  MEMORY[0x1EEE9AC00](v100);
+  v666 = &v604 - v101;
+  MEMORY[0x1EEE9AC00](v102);
+  v702 = &v604 - v103;
+  v712 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
+  v709 = *(v712 - 8);
+  MEMORY[0x1EEE9AC00](v712);
+  v645 = &v604 - ((v104 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v105);
+  v646 = &v604 - v106;
+  MEMORY[0x1EEE9AC00](v107);
+  v632 = &v604 - v108;
+  MEMORY[0x1EEE9AC00](v109);
+  v728 = &v604 - v110;
   sub_1D15801C4(0);
-  MEMORY[0x1EEE9AC00](v110 - 8);
-  v637 = &v586 - ((v111 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v112);
-  v636 = &v586 - v113;
-  MEMORY[0x1EEE9AC00](v114);
-  v638 = &v586 - v115;
-  MEMORY[0x1EEE9AC00](v116);
-  v625 = &v586 - v117;
-  MEMORY[0x1EEE9AC00](v118);
-  v623 = &v586 - v119;
-  MEMORY[0x1EEE9AC00](v120);
-  v629 = &v586 - v121;
-  MEMORY[0x1EEE9AC00](v122);
-  v626 = &v586 - v123;
-  MEMORY[0x1EEE9AC00](v124);
-  v624 = &v586 - v125;
-  MEMORY[0x1EEE9AC00](v126);
-  v630 = &v586 - v127;
-  MEMORY[0x1EEE9AC00](v128);
-  v613 = &v586 - v129;
-  MEMORY[0x1EEE9AC00](v130);
-  v612 = &v586 - v131;
-  MEMORY[0x1EEE9AC00](v132);
-  v615 = &v586 - v133;
-  MEMORY[0x1EEE9AC00](v134);
-  v697 = &v586 - v135;
-  MEMORY[0x1EEE9AC00](v136);
-  v606 = &v586 - v137;
-  MEMORY[0x1EEE9AC00](v138);
-  v605 = &v586 - v139;
-  MEMORY[0x1EEE9AC00](v140);
-  v607 = &v586 - v141;
-  MEMORY[0x1EEE9AC00](v142);
-  v700 = &v586 - v143;
-  v705 = type metadata accessor for SignificantChangeEngine.State(0);
-  v707 = *(v705 - 8);
-  MEMORY[0x1EEE9AC00](v705);
-  v696 = &v586 - ((v144 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v145);
-  v695 = &v586 - v146;
-  sub_1D148EF60();
-  v706 = v147;
-  v148 = *(v147 - 8);
-  MEMORY[0x1EEE9AC00](v147);
-  *&v704 = &v586 - ((v149 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v150);
-  v693 = &v586 - v151;
-  MEMORY[0x1EEE9AC00](v152);
-  v671 = &v586 - v153;
-  MEMORY[0x1EEE9AC00](v154);
-  v714 = (&v586 - v155);
-  MEMORY[0x1EEE9AC00](v156);
-  v655 = &v586 - v157;
-  MEMORY[0x1EEE9AC00](v158);
-  v674 = &v586 - v159;
-  MEMORY[0x1EEE9AC00](v160);
-  v702 = (&v586 - v161);
-  MEMORY[0x1EEE9AC00](v162);
-  v647 = &v586 - v163;
-  MEMORY[0x1EEE9AC00](v164);
-  v677 = &v586 - v165;
-  MEMORY[0x1EEE9AC00](v166);
-  v682 = &v586 - v167;
-  MEMORY[0x1EEE9AC00](v168);
-  v711 = (&v586 - v169);
-  MEMORY[0x1EEE9AC00](v170);
-  v692 = &v586 - v171;
-  MEMORY[0x1EEE9AC00](v172);
-  v603 = &v586 - v173;
-  MEMORY[0x1EEE9AC00](v174);
-  v675 = &v586 - v175;
-  MEMORY[0x1EEE9AC00](v176);
-  v686 = &v586 - v177;
-  MEMORY[0x1EEE9AC00](v178);
-  v701 = &v586 - v179;
-  MEMORY[0x1EEE9AC00](v180);
-  v708 = (&v586 - v181);
-  MEMORY[0x1EEE9AC00](v182);
-  v184 = &v586 - v183;
-  v185 = sub_1D15A22A8();
-  v186 = *(v185 - 8);
-  MEMORY[0x1EEE9AC00](v185);
-  MEMORY[0x1EEE9AC00](v187);
-  MEMORY[0x1EEE9AC00](&v586 - v188);
-  MEMORY[0x1EEE9AC00](v189);
+  MEMORY[0x1EEE9AC00](v111 - 8);
+  v655 = &v604 - ((v112 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v113);
+  v654 = &v604 - v114;
+  MEMORY[0x1EEE9AC00](v115);
+  v656 = &v604 - v116;
+  MEMORY[0x1EEE9AC00](v117);
+  v643 = &v604 - v118;
+  MEMORY[0x1EEE9AC00](v119);
+  v641 = &v604 - v120;
+  MEMORY[0x1EEE9AC00](v121);
+  v647 = &v604 - v122;
+  MEMORY[0x1EEE9AC00](v123);
+  v644 = &v604 - v124;
+  MEMORY[0x1EEE9AC00](v125);
+  v642 = &v604 - v126;
+  MEMORY[0x1EEE9AC00](v127);
+  v648 = &v604 - v128;
+  MEMORY[0x1EEE9AC00](v129);
+  v631 = &v604 - v130;
+  MEMORY[0x1EEE9AC00](v131);
+  v630 = &v604 - v132;
+  MEMORY[0x1EEE9AC00](v133);
+  v633 = &v604 - v134;
+  MEMORY[0x1EEE9AC00](v135);
+  v715 = &v604 - v136;
+  MEMORY[0x1EEE9AC00](v137);
+  v624 = &v604 - v138;
+  MEMORY[0x1EEE9AC00](v139);
+  v623 = &v604 - v140;
+  MEMORY[0x1EEE9AC00](v141);
+  v625 = &v604 - v142;
+  MEMORY[0x1EEE9AC00](v143);
+  v718 = &v604 - v144;
+  v723 = type metadata accessor for SignificantChangeEngine.State(0);
+  v725 = *(v723 - 8);
+  MEMORY[0x1EEE9AC00](v723);
+  v714 = &v604 - ((v145 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v146);
+  v713 = &v604 - v147;
+  sub_1D148EF60(0);
+  v724 = v148;
+  v149 = *(v148 - 8);
+  MEMORY[0x1EEE9AC00](v148);
+  *&v722 = &v604 - ((v150 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v151);
+  v711 = &v604 - v152;
+  MEMORY[0x1EEE9AC00](v153);
+  v689 = &v604 - v154;
+  MEMORY[0x1EEE9AC00](v155);
+  v732 = (&v604 - v156);
+  MEMORY[0x1EEE9AC00](v157);
+  v673 = &v604 - v158;
+  MEMORY[0x1EEE9AC00](v159);
+  v692 = &v604 - v160;
+  MEMORY[0x1EEE9AC00](v161);
+  v720 = (&v604 - v162);
+  MEMORY[0x1EEE9AC00](v163);
+  v665 = &v604 - v164;
+  MEMORY[0x1EEE9AC00](v165);
+  v695 = &v604 - v166;
+  MEMORY[0x1EEE9AC00](v167);
+  v700 = &v604 - v168;
+  MEMORY[0x1EEE9AC00](v169);
+  v729 = &v604 - v170;
+  MEMORY[0x1EEE9AC00](v171);
+  v710 = &v604 - v172;
+  MEMORY[0x1EEE9AC00](v173);
+  v621 = &v604 - v174;
+  MEMORY[0x1EEE9AC00](v175);
+  v693 = &v604 - v176;
+  MEMORY[0x1EEE9AC00](v177);
+  v704 = &v604 - v178;
+  MEMORY[0x1EEE9AC00](v179);
+  v719 = &v604 - v180;
+  MEMORY[0x1EEE9AC00](v181);
+  v726 = (&v604 - v182);
+  MEMORY[0x1EEE9AC00](v183);
+  v185 = &v604 - v184;
+  v186 = sub_1D15A22A8();
+  v187 = *(v186 - 8);
+  MEMORY[0x1EEE9AC00](v186);
+  MEMORY[0x1EEE9AC00](v188);
+  MEMORY[0x1EEE9AC00](&v604 - v189);
   MEMORY[0x1EEE9AC00](v190);
   MEMORY[0x1EEE9AC00](v191);
   MEMORY[0x1EEE9AC00](v192);
   MEMORY[0x1EEE9AC00](v193);
   MEMORY[0x1EEE9AC00](v194);
   MEMORY[0x1EEE9AC00](v195);
-  v197 = &v586 - v196;
-  v210 = MEMORY[0x1EEE9AC00](v198);
-  v212 = &v586 - v211;
-  v213 = *(v208 + 16);
-  if (!v213)
+  MEMORY[0x1EEE9AC00](v196);
+  v198 = &v604 - v197;
+  v211 = MEMORY[0x1EEE9AC00](v199);
+  v213 = &v604 - v212;
+  v214 = *(v209 + 16);
+  if (!v214)
   {
-    v228 = *(v59 + 56);
-    v229 = v709;
-    v228(v709, 1, 1, v58, v210);
-    v230 = type metadata accessor for SignificantChangeEngine.Output(0);
-    (v228)(v229 + *(v230 + 20), 1, 1, v58);
-    sub_1D1580144(v712, v229 + *(v230 + 24));
-    v231 = *(*(v230 - 8) + 56);
+    v230 = *(v60 + 56);
+    v231 = v727;
+    v230(v727, 1, 1, v59, v211);
+    v232 = type metadata accessor for SignificantChangeEngine.Output(0);
+    v233.n128_f64[0] = (v230)(v231 + *(v232 + 20), 1, 1, v59);
+    sub_1D1580144(v730, v231 + *(v232 + 24), v233);
+    v234 = *(*(v232 - 8) + 56);
 
-    v231(v229, 0, 1, v230);
+    v234(v231, 0, 1, v232);
     return;
   }
 
-  v593 = v205;
-  v589 = v204;
-  v594 = v203;
-  v595 = v202;
-  v596 = v201;
-  v590 = v200;
-  v591 = v199;
-  v592 = v209;
-  v717 = v77;
-  v681 = v58;
-  v679 = v59;
-  v214 = *v716;
-  v698 = *(v716 + 24);
-  v602 = *(v716 + 8);
-  v601 = *(v716 + 5);
-  v215 = *(v716 + 6);
-  v713 = (*(v148 + 80) + 32) & ~*(v148 + 80);
-  v216 = v208 + v713;
-  v699 = v207;
-  v690 = v208;
-  v217 = v206;
-  sub_1D158015C(v208 + v713, v184, sub_1D148EF60);
-  v685 = v186;
-  v218 = *(v186 + 32);
-  v218(v197, v184, v217);
-  v688 = v212;
-  v218(v212, v197, v217);
-  v716 = v213;
-  v219 = v213 - 1;
-  v220 = *(v148 + 72);
-  v221 = v699;
-  v222 = v708;
-  sub_1D158015C(v216 + v220 * v219, v708, sub_1D148EF60);
-  v599 = v186 + 32;
-  v598 = v218;
-  v218(v221, v222, v217);
-  v223 = v700;
-  sub_1D1580144(v712, v700);
-  v224 = v707 + 48;
-  v225 = v705;
-  v597 = *(v707 + 48);
-  if (v597(v223, 1, v705) == 1)
+  v611 = v206;
+  v607 = v205;
+  v612 = v204;
+  v613 = v203;
+  v614 = v202;
+  v608 = v201;
+  v609 = v200;
+  v610 = v210;
+  v735 = v78;
+  v699 = v59;
+  v697 = v60;
+  v215 = *v734;
+  v716 = *(v734 + 24);
+  v620 = *(v734 + 8);
+  v619 = *(v734 + 5);
+  v216 = *(v734 + 6);
+  v731 = (*(v149 + 80) + 32) & ~*(v149 + 80);
+  v217 = v209 + v731;
+  v717 = v208;
+  v708 = v209;
+  v218 = v207;
+  sub_1D158015C(v209 + v731, v185, sub_1D148EF60);
+  v703 = v187;
+  v219 = *(v187 + 32);
+  v219(v198, v185, v218);
+  v706 = v213;
+  v219(v213, v198, v218);
+  v734 = v214;
+  v220 = v214 - 1;
+  v221 = *(v149 + 72);
+  v222 = v717;
+  v223 = v726;
+  sub_1D158015C(v217 + v221 * v220, v726, sub_1D148EF60);
+  v617 = v187 + 32;
+  v616 = v219;
+  v224.n128_f64[0] = (v219)(v222, v223, v218);
+  v225 = v718;
+  sub_1D1580144(v730, v718, v224);
+  v226 = v725 + 48;
+  v227 = v723;
+  v615 = *(v725 + 48);
+  if (v615(v225, 1, v723) == 1)
   {
-    sub_1D158034C(v223, sub_1D15801C4);
-    v226 = v697;
-    sub_1D1579728(v690, v698, v697, v215);
-    v227 = *(v685 + 8);
-    v227(v221, v217);
+    sub_1D158034C(v225, sub_1D15801C4);
+    v228 = v715;
+    sub_1D1579728(v708, v716, v715, v216);
+    v229 = *(v703 + 8);
+    v229(v222, v218);
 LABEL_9:
-    v227(v688, v217);
-    v238 = *(v679 + 56);
-    v239 = v709;
-    v240 = v681;
-    v238(v709, 1, 1, v681);
-    v241 = type metadata accessor for SignificantChangeEngine.Output(0);
-    v238(v239 + *(v241 + 20), 1, 1, v240);
-    sub_1D1580230(v226, v239 + *(v241 + 24));
-    (*(*(v241 - 8) + 56))(v239, 0, 1, v241);
+    v229(v706, v218);
+    v241 = *(v697 + 56);
+    v242 = v727;
+    v243 = v699;
+    v241(v727, 1, 1, v699);
+    v244 = type metadata accessor for SignificantChangeEngine.Output(0);
+    v241(v242 + *(v244 + 20), 1, 1, v243);
+    v245 = sub_1D1580230(v228, v242 + *(v244 + 24));
+    (*(*(v244 - 8) + 56))(v242, 0, 1, v244, v245);
     return;
   }
 
-  v587 = v219;
-  v232 = v695;
-  sub_1D1580248(v223, v695, type metadata accessor for SignificantChangeEngine.State);
-  v718 = v214;
-  v720 = v698;
-  v719 = v602;
-  v721 = v601;
-  v722 = v215;
-  v233 = v696;
-  v234 = v690;
-  sub_1D157A314(&v718, v232, v696);
-  v235 = v684;
-  sub_1D1580850(v232 + *(v225 + 24), v684);
-  v236 = *(v691 + 48);
-  v237 = v694;
-  v700 = v691 + 48;
-  *&v602 = v236;
-  if (v236(v235, 1, v694) == 1)
+  v605 = v220;
+  v235 = v713;
+  sub_1D1580248(v225, v713, type metadata accessor for SignificantChangeEngine.State);
+  v736 = v215;
+  v738 = v716;
+  v737 = v620;
+  v739 = v619;
+  v740 = v216;
+  v236 = v714;
+  v237 = v708;
+  sub_1D157A314(&v736, v235, v714);
+  v238 = v702;
+  sub_1D1580850(v235 + *(v227 + 24), v702);
+  v239 = *(v709 + 48);
+  v240 = v712;
+  v718 = v709 + 48;
+  *&v620 = v239;
+  if (v239(v238, 1, v712) == 1)
   {
-    sub_1D158034C(v235, sub_1D1580868);
-    v226 = v697;
-    sub_1D1579728(v234, v698, v697, v215);
-    sub_1D158034C(v233, type metadata accessor for SignificantChangeEngine.State);
-    sub_1D158034C(v232, type metadata accessor for SignificantChangeEngine.State);
-    v227 = *(v685 + 8);
-    v227(v699, v217);
+    sub_1D158034C(v238, sub_1D1580868);
+    v228 = v715;
+    sub_1D1579728(v237, v716, v715, v216);
+    sub_1D158034C(v236, type metadata accessor for SignificantChangeEngine.State);
+    sub_1D158034C(v235, type metadata accessor for SignificantChangeEngine.State);
+    v229 = *(v703 + 8);
+    v229(v717, v218);
     goto LABEL_9;
   }
 
-  v242 = v710;
-  sub_1D1580248(v235, v710, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-  v243 = *(v242 + *(v237 + 20));
-  v244 = v678;
-  v245 = v678 + 48;
-  v246 = v717;
-  v600 = v217;
-  v586 = v224;
-  if (v243)
+  v246 = v728;
+  sub_1D1580248(v238, v728, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+  v247 = *(v246 + *(v240 + 20));
+  v248 = v696;
+  v249 = v696 + 48;
+  v250 = v735;
+  v618 = v218;
+  v604 = v226;
+  if (v247)
   {
-    v247 = v673;
-    sub_1D1455A40(v242, v673);
-    v248 = *v245;
-    if ((*v245)(v247, 1, v246) == 1)
+    v251 = v691;
+    sub_1D1455A40(v246, v691);
+    v252 = *v249;
+    if ((*v249)(v251, 1, v250) == 1)
     {
       sub_1D15A2288();
-      v249 = v248(v247, 1, v246);
-      v250 = v715;
-      v251 = v702;
-      if (v249 != 1)
+      v253 = v252(v251, 1, v250);
+      v254 = v733;
+      v255 = v720;
+      if (v253 != 1)
       {
-        sub_1D158034C(v247, sub_1D14F104C);
+        sub_1D158034C(v251, sub_1D14F104C);
       }
     }
 
     else
     {
-      (*(v244 + 32))(v680, v247, v246);
-      v250 = v715;
-      v251 = v702;
+      (*(v248 + 32))(v698, v251, v250);
+      v254 = v733;
+      v255 = v720;
     }
 
-    v258 = 0;
-    v712 = (v244 + 8);
-    *&v259 = MEMORY[0x1E69E7CC0];
-    v260 = v680;
+    v262 = 0;
+    v730 = (v248 + 8);
+    *&v263 = MEMORY[0x1E69E7CC0];
+    v264 = v698;
     do
     {
-      v261 = (v258 + 1);
-      if (__OFADD__(v258, 1))
+      v265 = (v262 + 1);
+      if (__OFADD__(v262, 1))
       {
         __break(1u);
 LABEL_160:
-        sub_1D1580248(v261, v242, type metadata accessor for SignificantChange.Notification);
+        sub_1D1580248(v265, v246, type metadata accessor for SignificantChange.Notification);
         goto LABEL_138;
       }
 
-      sub_1D158015C(v216, v251, sub_1D148EF60);
-      v245 = v251;
+      sub_1D158015C(v217, v255, sub_1D148EF60);
+      v249 = v255;
       sub_1D15A2288();
-      sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530]);
-      v262 = v717;
-      v242 = sub_1D15A3EB8();
-      v711 = *v712;
-      v711(v250, v262);
-      if (v242)
+      sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
+      v266 = v735;
+      v246 = sub_1D15A3EB8();
+      v729 = *v730;
+      (v729)(v254, v266);
+      if (v246)
       {
-        sub_1D1580248(v245, v714, sub_1D148EF60);
+        sub_1D1580248(v249, v732, sub_1D148EF60);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v718 = *&v259;
+        v736 = *&v263;
         if (isUniquelyReferenced_nonNull_native)
         {
-          v251 = v245;
+          v255 = v249;
         }
 
         else
         {
-          sub_1D14A7A54(0, *(v259 + 16) + 1, 1);
-          v251 = v702;
-          *&v259 = v718;
+          sub_1D14A7A54(0, *(v263 + 16) + 1, 1);
+          v255 = v720;
+          *&v263 = v736;
         }
 
-        v245 = *(v259 + 16);
-        v264 = *(v259 + 24);
-        if (v245 >= v264 >> 1)
+        v249 = *(v263 + 16);
+        v268 = *(v263 + 24);
+        if (v249 >= v268 >> 1)
         {
-          sub_1D14A7A54(v264 > 1, v245 + 1, 1);
-          v251 = v702;
-          *&v259 = v718;
+          sub_1D14A7A54((v268 > 1), v249 + 1, 1);
+          v255 = v720;
+          *&v263 = v736;
         }
 
-        *(v259 + 16) = v245 + 1;
-        sub_1D1580248(v714, v259 + v713 + v245 * v220, sub_1D148EF60);
-        v250 = v715;
+        *(v263 + 16) = v249 + 1;
+        sub_1D1580248(v732, v263 + v731 + v249 * v221, sub_1D148EF60);
+        v254 = v733;
       }
 
       else
       {
-        sub_1D158034C(v245, sub_1D148EF60);
-        v251 = v245;
+        sub_1D158034C(v249, sub_1D148EF60);
+        v255 = v249;
       }
 
-      ++v258;
-      v216 += v220;
+      ++v262;
+      v217 += v221;
     }
 
-    while (v261 != v716);
-    v265 = *(v259 + 16);
-    v266 = v706;
-    v267 = v671;
-    if (v265)
+    while (v265 != v734);
+    v269 = *(v263 + 16);
+    v270 = v724;
+    v271 = v689;
+    if (v269)
     {
-      v268 = 0;
-      v269 = v259 + v713;
-      v270 = v259 + v713;
+      v272 = 0;
+      v273 = v263 + v731;
+      v274 = v263 + v731;
       while (1)
       {
-        if (v268 >= *(v259 + 16))
+        if (v272 >= *(v263 + 16))
         {
           __break(1u);
 LABEL_162:
@@ -3151,564 +3155,564 @@ LABEL_162:
           goto LABEL_163;
         }
 
-        sub_1D158015C(v270, v267, sub_1D148EF60);
-        if (*(v267 + 8 + *(v266 + 48)) != 1)
+        sub_1D158015C(v274, v271, sub_1D148EF60);
+        if (*(v271 + 8 + *(v270 + 48)) != 1)
         {
           break;
         }
 
-        ++v268;
-        sub_1D158034C(v267, sub_1D148EF60);
-        v270 += v220;
-        if (v265 == v268)
+        ++v272;
+        sub_1D158034C(v271, sub_1D148EF60);
+        v274 += v221;
+        if (v269 == v272)
         {
           goto LABEL_34;
         }
       }
 
-      v321 = v655;
-      sub_1D1580248(v267, v655, sub_1D148EF60);
-      sub_1D1580248(v321, v674, sub_1D148EF60);
-      v322 = 0;
-      v323 = v693;
-      v324 = v693 + 8;
-      v325 = MEMORY[0x1E69E7CC0];
+      v326 = v673;
+      sub_1D1580248(v271, v673, sub_1D148EF60);
+      sub_1D1580248(v326, v692, sub_1D148EF60);
+      v327 = 0;
+      v328 = v711;
+      v329 = v711 + 8;
+      v330 = MEMORY[0x1E69E7CC0];
       do
       {
-        if (v322 >= *(v259 + 16))
+        if (v327 >= *(v263 + 16))
         {
           goto LABEL_162;
         }
 
-        sub_1D158015C(v269, v323, sub_1D148EF60);
-        if (v324[*(v266 + 48)])
+        sub_1D158015C(v273, v328, sub_1D148EF60);
+        if (v329[*(v270 + 48)])
         {
-          sub_1D158034C(v323, sub_1D148EF60);
+          sub_1D158034C(v328, sub_1D148EF60);
         }
 
         else
         {
-          sub_1D1580248(v323, *&v704, sub_1D148EF60);
-          v326 = swift_isUniquelyReferenced_nonNull_native();
-          v718 = v325;
-          if ((v326 & 1) == 0)
+          sub_1D1580248(v328, *&v722, sub_1D148EF60);
+          v331 = swift_isUniquelyReferenced_nonNull_native();
+          v736 = v330;
+          if ((v331 & 1) == 0)
           {
-            sub_1D14A7A54(0, *(*&v325 + 16) + 1, 1);
-            v325 = v718;
+            sub_1D14A7A54(0, *(*&v330 + 16) + 1, 1);
+            v330 = v736;
           }
 
-          v328 = *(*&v325 + 16);
-          v327 = *(*&v325 + 24);
-          if (v328 >= v327 >> 1)
+          v333 = *(*&v330 + 16);
+          v332 = *(*&v330 + 24);
+          if (v333 >= v332 >> 1)
           {
-            sub_1D14A7A54(v327 > 1, v328 + 1, 1);
-            v325 = v718;
+            sub_1D14A7A54((v332 > 1), v333 + 1, 1);
+            v330 = v736;
           }
 
-          *(*&v325 + 16) = v328 + 1;
-          sub_1D1580248(*&v704, *&v325 + v713 + v328 * v220, sub_1D148EF60);
-          v266 = v706;
-          v323 = v693;
+          *(*&v330 + 16) = v333 + 1;
+          sub_1D1580248(*&v722, *&v330 + v731 + v333 * v221, sub_1D148EF60);
+          v270 = v724;
+          v328 = v711;
         }
 
-        ++v322;
-        v269 += v220;
+        ++v327;
+        v273 += v221;
       }
 
-      while (v265 != v322);
-      v329 = *(*&v325 + 16);
+      while (v269 != v327);
+      v334 = *(*&v330 + 16);
 
-      v714 = v329;
-      MEMORY[0x1EEE9AC00](v330);
-      v331 = v674;
-      *(&v586 - 2) = v674;
-      sub_1D1565874(sub_1D158371C, (&v586 - 4), v259);
-      v333 = *(v332 + 16);
+      v732 = v334;
+      MEMORY[0x1EEE9AC00](v335);
+      v336 = v692;
+      *(&v604 - 2) = v692;
+      sub_1D1565874(sub_1D158371C, (&v604 - 4), v263);
+      v338 = *(v337 + 16);
 
-      (*(v678 + 16))(v715, v680, v717);
-      v334 = v708;
-      sub_1D158015C(v331, v708, sub_1D148EF60);
+      (*(v696 + 16))(v733, v698, v735);
+      v339 = v726;
+      sub_1D158015C(v336, v726, sub_1D148EF60);
       sub_1D15A2288();
-      v335 = v685 + 8;
-      v336 = *(v685 + 8);
-      v337 = v600;
-      (v336)(v334, v600);
-      v338 = v667;
+      v340 = v703 + 8;
+      v341 = *(v703 + 8);
+      v342 = v618;
+      (v341)(v339, v618);
+      v343 = v685;
       sub_1D15A2268();
-      v339 = v663;
-      *(v338 + *(v663 + 20)) = 0;
-      *(v338 + v339[6]) = 0;
-      *(v338 + v339[7]) = 2;
-      sub_1D158015C(v331, v334, sub_1D148EF60);
+      v344 = v681;
+      *(v343 + *(v681 + 20)) = 0;
+      *(v343 + v344[6]) = 0;
+      *(v343 + v344[7]) = 2;
+      sub_1D158015C(v336, v339, sub_1D148EF60);
       sub_1D15A2288();
-      v685 = v335;
-      v716 = v336;
-      (v336)(v334, v337);
+      v703 = v340;
+      v734 = v341;
+      (v341)(v339, v342);
       sub_1D15A2258();
-      v340 = v668;
+      v345 = v686;
       sub_1D15A2268();
-      *(v340 + v339[5]) = 0;
-      *(v340 + v339[6]) = v329 / v333;
-      *(v340 + v339[7]) = 0;
-      v341 = *(v694 + 24);
-      v342 = v654;
-      sub_1D15800D8(v710 + v341, v654);
-      v245 = v679;
-      v343 = *(v679 + 48);
-      v258 = v681;
-      if (v343(v342, 1, v681) == 1)
+      *(v345 + v344[5]) = 0;
+      *(v345 + v344[6]) = v334 / v338;
+      *(v345 + v344[7]) = 0;
+      v346 = *(v712 + 24);
+      v347 = v672;
+      sub_1D15800D8(v728 + v346, v672, v348);
+      v249 = v697;
+      v349 = *(v697 + 48);
+      v262 = v699;
+      if (v349(v347, 1, v699) == 1)
       {
-        sub_1D158034C(v342, sub_1D15800F0);
+        sub_1D158034C(v347, sub_1D15800F0);
         goto LABEL_137;
       }
 
-      v393 = *(v342 + *(v258 + 20));
+      v401 = *(v347 + *(v262 + 20));
 
-      sub_1D158034C(v342, type metadata accessor for SignificantChange);
-      if (!*(v393 + 16))
+      sub_1D158034C(v347, type metadata accessor for SignificantChange);
+      if (!*(v401 + 16))
       {
 
         goto LABEL_137;
       }
 
-      v394 = v611;
-      sub_1D158015C(v393 + ((*(v666 + 80) + 32) & ~*(v666 + 80)), v611, type metadata accessor for SignificantChange.Period);
+      v402 = v629;
+      sub_1D158015C(v401 + ((*(v684 + 80) + 32) & ~*(v684 + 80)), v629, type metadata accessor for SignificantChange.Period);
 
-      v395 = *(v394 + v339[6]);
-      sub_1D158034C(v394, type metadata accessor for SignificantChange.Period);
-      if (v395 <= 0.0)
+      v403 = *(v402 + v344[6]);
+      sub_1D158034C(v402, type metadata accessor for SignificantChange.Period);
+      if (v403 <= 0.0)
       {
 LABEL_137:
-        v260 = v664;
-        v242 = v659;
+        v264 = v682;
+        v246 = v677;
         sub_1D15A2288();
-        v501 = v660;
+        v513 = v678;
         sub_1D15A26C8();
-        v502 = sub_1D15A26B8();
-        v504 = v503;
-        (*(v661 + 8))(v501, v662);
+        v514 = sub_1D15A26B8();
+        v516 = v515;
+        (*(v679 + 8))(v513, v680);
         _s19HealthVisualization25PresentationDateProvidingPAAE012presentationD010Foundation0D0VvgZ_0();
-        *v242 = v502;
-        *(v242 + 8) = v504;
-        *(v242 + 16) = 0;
+        *v246 = v514;
+        *(v246 + 8) = v516;
+        *(v246 + 16) = 0;
         goto LABEL_138;
       }
 
-      v396 = v710 + v341;
-      v397 = v604;
-      sub_1D15800D8(v396, v604);
-      v398 = v343(v397, 1, v258);
-      v242 = v659;
-      if (v398 == 1)
+      v405 = v728 + v346;
+      v406 = v622;
+      sub_1D15800D8(v405, v622, v404);
+      v407 = v349(v406, 1, v262);
+      v246 = v677;
+      if (v407 == 1)
       {
-        sub_1D158034C(v397, sub_1D15800F0);
-        v399 = v665;
-        v260 = v664;
-        (*(v665 + 56))(v610, 1, 1, v664);
+        sub_1D158034C(v406, sub_1D15800F0);
+        v408 = v683;
+        v264 = v682;
+        (*(v683 + 56))(v628, 1, 1, v682);
       }
 
       else
       {
-        v261 = v610;
-        sub_1D158015C(v397 + *(v258 + 24), v610, sub_1D1583510);
-        sub_1D158034C(v397, type metadata accessor for SignificantChange);
-        v399 = v665;
-        v260 = v664;
-        if ((*(v665 + 48))(v261, 1, v664) != 1)
+        v265 = v628;
+        sub_1D158015C(v406 + *(v262 + 24), v628, sub_1D1583510);
+        sub_1D158034C(v406, type metadata accessor for SignificantChange);
+        v408 = v683;
+        v264 = v682;
+        if ((*(v683 + 48))(v265, 1, v682) != 1)
         {
           goto LABEL_160;
         }
       }
 
       sub_1D15A2288();
-      v561 = v660;
+      v577 = v678;
       sub_1D15A26C8();
-      v562 = sub_1D15A26B8();
-      v564 = v563;
-      v242 = v659;
-      (*(v661 + 8))(v561, v662);
+      v578 = sub_1D15A26B8();
+      v580 = v579;
+      v246 = v677;
+      (*(v679 + 8))(v577, v680);
       _s19HealthVisualization25PresentationDateProvidingPAAE012presentationD010Foundation0D0VvgZ_0();
-      *v242 = v562;
-      *(v242 + 8) = v564;
-      v565 = v610;
-      *(v242 + 16) = 0;
-      if ((*(v399 + 48))(v565, 1, v260) != 1)
+      *v246 = v578;
+      *(v246 + 8) = v580;
+      v581 = v628;
+      *(v246 + 16) = 0;
+      if ((*(v408 + 48))(v581, 1, v264) != 1)
       {
-        sub_1D158034C(v565, sub_1D1583510);
+        sub_1D158034C(v581, sub_1D1583510);
       }
 
 LABEL_138:
-      if (*(v242 + 16) == 1)
+      if (*(v246 + 16) == 1)
       {
-        v505 = v242;
-        v506 = v650;
-        sub_1D1580248(v505, v650, type metadata accessor for SignificantChange.Notification);
-        v507 = v260;
+        v517 = v246;
+        v518 = v668;
+        sub_1D1580248(v517, v668, type metadata accessor for SignificantChange.Notification);
+        v519 = v264;
       }
 
       else
       {
-        v508 = *v242;
-        v509 = *(v242 + 8);
-        v510 = v242;
-        v507 = v260;
-        v511 = *(v678 + 32);
-        v506 = v650;
-        v512 = v717;
-        v511(v650 + *(v260 + 6), v510 + *(v260 + 6), v717);
-        v511(v506 + *(v507 + 7), v510 + *(v507 + 7), v512);
-        *v506 = v508;
-        *(v506 + 8) = v509;
-        *(v506 + 16) = 1;
+        v520 = *v246;
+        v521 = *(v246 + 8);
+        v522 = v246;
+        v519 = v264;
+        v523 = *(v696 + 32);
+        v518 = v668;
+        v524 = v735;
+        v523(v668 + *(v264 + 6), v522 + *(v264 + 6), v735);
+        v523(v518 + *(v519 + 7), v522 + *(v519 + 7), v524);
+        *v518 = v520;
+        *(v518 + 8) = v521;
+        *(v518 + 16) = 1;
       }
 
-      v513 = v667;
-      v514 = v714;
-      sub_1D158015C(v667, v676, type metadata accessor for SignificantChange.Period);
+      v525 = v685;
+      v526 = v732;
+      sub_1D158015C(v685, v694, type metadata accessor for SignificantChange.Period);
       sub_1D1583630(0);
-      v515 = (*(v666 + 80) + 32) & ~*(v666 + 80);
-      v516 = swift_allocObject();
-      *(v516 + 16) = xmmword_1D15ACDD0;
-      v517 = v516 + v515;
-      v518 = v668;
-      sub_1D158015C(v668, v517, type metadata accessor for SignificantChange.Period);
-      v519 = *(v258 + 24);
-      sub_1D158015C(v506, v676 + v519, type metadata accessor for SignificantChange.Notification);
-      (*(v665 + 56))(v676 + v519, 0, 1, v507);
-      *(v676 + *(v258 + 20)) = v516;
-      v520 = v676;
-      if (v514 < v698)
+      v527 = (*(v684 + 80) + 32) & ~*(v684 + 80);
+      v528 = swift_allocObject();
+      *(v528 + 16) = xmmword_1D15ACDD0;
+      v529 = v528 + v527;
+      v530 = v686;
+      sub_1D158015C(v686, v529, type metadata accessor for SignificantChange.Period);
+      v531 = *(v262 + 24);
+      sub_1D158015C(v518, v694 + v531, type metadata accessor for SignificantChange.Notification);
+      (*(v683 + 56))(v694 + v531, 0, 1, v519);
+      *(v694 + *(v262 + 20)) = v528;
+      v532 = v694;
+      if (v526 < v716)
       {
-        sub_1D158034C(v506, type metadata accessor for SignificantChange.Notification);
-        sub_1D158034C(v518, type metadata accessor for SignificantChange.Period);
-        sub_1D158034C(v513, type metadata accessor for SignificantChange.Period);
-        sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-        v521 = v600;
-        (v716)(v688, v600);
-        v522 = v710;
-        v523 = v627;
-        sub_1D1455A40(v710, v627);
-        v524 = v694;
-        v525 = *(v694 + 24);
-        sub_1D158015C(v520, v523 + v525, type metadata accessor for SignificantChange);
-        v526 = *(v245 + 56);
-        v526(v523 + v525, 0, 1, v258);
-        *(v523 + *(v524 + 20)) = 1;
-        v526(v651, 1, 1, v258);
-        v527 = v653;
-        sub_1D1580248(v520, v653, type metadata accessor for SignificantChange);
-        v526(v527, 0, 1, v258);
-        v528 = v623;
-        sub_1D1580248(v696, v623, type metadata accessor for SignificantChangeEngine.State);
-        v529 = *(v707 + 56);
-        v530 = v705;
-        v529(v528, 0, 1, v705);
-        v531 = v631;
-        sub_1D1580248(v523, v631, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-        (*(v691 + 56))(v531, 0, 1, v524);
-        v532 = v521;
-        v533 = v598;
-        v598(v591, v699, v532);
-        v534 = v625;
-        sub_1D1580230(v528, v625);
-        if (v597(v534, 1, v530) == 1)
+        sub_1D158034C(v518, type metadata accessor for SignificantChange.Notification);
+        sub_1D158034C(v530, type metadata accessor for SignificantChange.Period);
+        sub_1D158034C(v525, type metadata accessor for SignificantChange.Period);
+        sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+        v533 = v618;
+        (v734)(v706, v618);
+        v534 = v728;
+        v535 = v645;
+        sub_1D1455A40(v728, v645);
+        v536 = v712;
+        v537 = *(v712 + 24);
+        sub_1D158015C(v532, v535 + v537, type metadata accessor for SignificantChange);
+        v538 = *(v249 + 56);
+        v538(v535 + v537, 0, 1, v262);
+        *(v535 + *(v536 + 20)) = 1;
+        v538(v669, 1, 1, v262);
+        v539 = v671;
+        sub_1D1580248(v532, v671, type metadata accessor for SignificantChange);
+        v538(v539, 0, 1, v262);
+        v540 = v641;
+        sub_1D1580248(v714, v641, type metadata accessor for SignificantChangeEngine.State);
+        v541 = *(v725 + 56);
+        v542 = v723;
+        v541(v540, 0, 1, v723);
+        v543 = v649;
+        sub_1D1580248(v535, v649, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+        (*(v709 + 56))(v543, 0, 1, v536);
+        v544 = v533;
+        v545 = v616;
+        v616(v609, v717, v544);
+        v546 = v643;
+        v547 = sub_1D1580230(v540, v643);
+        if ((v615)(v546, 1, v542, v547) == 1)
         {
-          sub_1D158034C(v534, sub_1D15801C4);
-          v535 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-          v536 = v634;
-          (*(*(v535 - 8) + 56))(v634, 1, 1, v535);
+          sub_1D158034C(v546, sub_1D15801C4);
+          v548 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+          v549 = v652;
+          (*(*(v548 - 8) + 56))(v652, 1, 1, v548);
         }
 
         else
         {
-          v536 = v634;
-          sub_1D15807E4(v534 + *(v530 + 20), v634);
-          sub_1D158034C(v534, type metadata accessor for SignificantChangeEngine.State);
+          v549 = v652;
+          sub_1D15807E4(v546 + *(v542 + 20), v652);
+          sub_1D158034C(v546, type metadata accessor for SignificantChangeEngine.State);
         }
 
-        v555 = v629;
-        sub_1D1580248(v531, &v629[*(v530 + 24)], sub_1D1580868);
-        v533(v555, v591, v600);
-        sub_1D1580248(v536, v555 + *(v530 + 20), sub_1D15807FC);
-        v529(v555, 0, 1, v530);
-        v556 = v709;
-        sub_1D1580218(v651, v709);
-        v557 = type metadata accessor for SignificantChangeEngine.Output(0);
-        sub_1D1580218(v653, v556 + *(v557 + 20));
-        sub_1D1580230(v555, v556 + *(v557 + 24));
-        (*(*(v557 - 8) + 56))(v556, 0, 1, v557);
-        sub_1D158034C(v674, sub_1D148EF60);
-        v711(v680, v717);
-        sub_1D158034C(v522, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+        v569 = v647;
+        sub_1D1580248(v543, &v647[*(v542 + 24)], sub_1D1580868);
+        v545(v569, v609, v618);
+        sub_1D1580248(v549, v569 + *(v542 + 20), sub_1D15807FC);
+        v541(v569, 0, 1, v542);
+        v570 = v727;
+        sub_1D1580218(v669, v727);
+        v571 = type metadata accessor for SignificantChangeEngine.Output(0);
+        sub_1D1580218(v671, v570 + *(v571 + 20));
+        v572 = sub_1D1580230(v569, v570 + *(v571 + 24));
+        (*(*(v571 - 8) + 56))(v570, 0, 1, v571, v572);
+        sub_1D158034C(v692, sub_1D148EF60);
+        (v729)(v698, v735);
+        sub_1D158034C(v534, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
         return;
       }
 
-      v537 = v708;
-      sub_1D158015C(v674, v708, sub_1D148EF60);
-      v538 = v628;
+      v550 = v726;
+      sub_1D158015C(v692, v726, sub_1D148EF60);
+      v551 = v646;
       sub_1D15A2258();
-      sub_1D158034C(v506, type metadata accessor for SignificantChange.Notification);
-      sub_1D158034C(v518, type metadata accessor for SignificantChange.Period);
-      sub_1D158034C(v513, type metadata accessor for SignificantChange.Period);
-      sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-      v539 = v600;
-      v540 = v716;
-      (v716)(v688, v600);
-      (v540)(v537, v539);
-      (*(v678 + 56))(v538, 0, 1, v717);
-      v541 = v694;
-      v542 = *(v694 + 24);
-      sub_1D158015C(v520, v538 + v542, type metadata accessor for SignificantChange);
-      v543 = *(v245 + 56);
-      v543(v538 + v542, 0, 1, v258);
-      *(v538 + *(v541 + 20)) = 0;
-      v543(v652, 1, 1, v258);
-      v544 = v633;
-      sub_1D1580248(v520, v633, type metadata accessor for SignificantChange);
-      v543(v544, 0, 1, v258);
-      v545 = v624;
-      sub_1D1580248(v696, v624, type metadata accessor for SignificantChangeEngine.State);
-      v546 = *(v707 + 56);
-      v547 = v705;
-      v546(v545, 0, 1, v705);
-      v548 = v632;
-      sub_1D1580248(v538, v632, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-      (*(v691 + 56))(v548, 0, 1, v541);
-      v549 = v598;
-      v598(v592, v699, v539);
-      v550 = v545;
-      v551 = v626;
-      sub_1D1580230(v550, v626);
-      v552 = v597(v551, 1, v547);
-      v497 = v710;
-      if (v552 == 1)
+      sub_1D158034C(v518, type metadata accessor for SignificantChange.Notification);
+      sub_1D158034C(v530, type metadata accessor for SignificantChange.Period);
+      sub_1D158034C(v525, type metadata accessor for SignificantChange.Period);
+      sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+      v552 = v618;
+      v553 = v734;
+      (v734)(v706, v618);
+      (v553)(v550, v552);
+      (*(v696 + 56))(v551, 0, 1, v735);
+      v554 = v712;
+      v555 = *(v712 + 24);
+      sub_1D158015C(v532, v551 + v555, type metadata accessor for SignificantChange);
+      v556 = *(v249 + 56);
+      v556(v551 + v555, 0, 1, v262);
+      *(v551 + *(v554 + 20)) = 0;
+      v556(v670, 1, 1, v262);
+      v557 = v651;
+      sub_1D1580248(v532, v651, type metadata accessor for SignificantChange);
+      v556(v557, 0, 1, v262);
+      v558 = v642;
+      sub_1D1580248(v714, v642, type metadata accessor for SignificantChangeEngine.State);
+      v559 = *(v725 + 56);
+      v560 = v723;
+      v559(v558, 0, 1, v723);
+      v561 = v650;
+      sub_1D1580248(v551, v650, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+      (*(v709 + 56))(v561, 0, 1, v554);
+      v562 = v616;
+      v616(v610, v717, v552);
+      v563 = v558;
+      v564 = v644;
+      v565 = sub_1D1580230(v563, v644);
+      v566 = (v615)(v564, 1, v560, v565);
+      v508 = v728;
+      if (v566 == 1)
       {
-        sub_1D158034C(v551, sub_1D15801C4);
-        v553 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-        v554 = v635;
-        (*(*(v553 - 8) + 56))(v635, 1, 1, v553);
+        sub_1D158034C(v564, sub_1D15801C4);
+        v567 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+        v568 = v653;
+        (*(*(v567 - 8) + 56))(v653, 1, 1, v567);
       }
 
       else
       {
-        v554 = v635;
-        sub_1D15807E4(v551 + *(v547 + 20), v635);
-        sub_1D158034C(v551, type metadata accessor for SignificantChangeEngine.State);
+        v568 = v653;
+        sub_1D15807E4(v564 + *(v560 + 20), v653);
+        sub_1D158034C(v564, type metadata accessor for SignificantChangeEngine.State);
       }
 
-      v558 = v630;
-      sub_1D1580248(v548, &v630[*(v547 + 24)], sub_1D1580868);
-      v549(v558, v592, v600);
-      sub_1D1580248(v554, v558 + *(v547 + 20), sub_1D15807FC);
-      v546(v558, 0, 1, v547);
-      v559 = v709;
-      sub_1D1580218(v652, v709);
-      v560 = type metadata accessor for SignificantChangeEngine.Output(0);
-      sub_1D1580218(v544, v559 + *(v560 + 20));
-      sub_1D1580230(v558, v559 + *(v560 + 24));
-      (*(*(v560 - 8) + 56))(v559, 0, 1, v560);
-      sub_1D158034C(v674, sub_1D148EF60);
-      v711(v680, v717);
+      v573 = v648;
+      sub_1D1580248(v561, &v648[*(v560 + 24)], sub_1D1580868);
+      v562(v573, v610, v618);
+      sub_1D1580248(v568, v573 + *(v560 + 20), sub_1D15807FC);
+      v559(v573, 0, 1, v560);
+      v574 = v727;
+      sub_1D1580218(v670, v727);
+      v575 = type metadata accessor for SignificantChangeEngine.Output(0);
+      sub_1D1580218(v557, v574 + *(v575 + 20));
+      v576 = sub_1D1580230(v573, v574 + *(v575 + 24));
+      (*(*(v575 - 8) + 56))(v574, 0, 1, v575, v576);
+      sub_1D158034C(v692, sub_1D148EF60);
+      (v729)(v698, v735);
       goto LABEL_150;
     }
 
 LABEL_34:
 
-    v271 = v696;
-    v272 = v669;
-    sub_1D1580850(v696 + *(v705 + 24), v669);
-    v273 = v694;
-    if ((v602)(v272, 1, v694) == 1)
+    v275 = v714;
+    v276 = v687;
+    sub_1D1580850(v714 + *(v723 + 24), v687);
+    v277 = v712;
+    if ((v620)(v276, 1, v712) == 1)
     {
-      sub_1D158034C(v272, sub_1D1580868);
-      v274 = v679;
-      v275 = v670;
-      v276 = v681;
-      (*(v679 + 56))(v670, 1, 1, v681);
-      v277 = v707;
+      sub_1D158034C(v276, sub_1D1580868);
+      v279 = v697;
+      v280 = v688;
+      v281 = v699;
+      (*(v697 + 56))(v688, 1, 1, v699);
+      v282 = v725;
     }
 
     else
     {
-      v275 = v670;
-      sub_1D15800D8(v272 + *(v273 + 24), v670);
-      sub_1D158034C(v272, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-      v274 = v679;
-      v276 = v681;
-      v308 = (*(v679 + 48))(v275, 1, v681);
-      v277 = v707;
-      if (v308 != 1)
+      v280 = v688;
+      sub_1D15800D8(v276 + *(v277 + 24), v688, v278);
+      sub_1D158034C(v276, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+      v279 = v697;
+      v281 = v699;
+      v313 = (*(v697 + 48))(v280, 1, v699);
+      v282 = v725;
+      if (v313 != 1)
       {
-        v716 = type metadata accessor for SignificantChange;
-        v377 = v639;
-        sub_1D1580248(v275, v639, type metadata accessor for SignificantChange);
-        v378 = v715;
+        v734 = type metadata accessor for SignificantChange;
+        v384 = v657;
+        sub_1D1580248(v280, v657, type metadata accessor for SignificantChange);
+        v385 = v733;
         sub_1D15A2258();
-        v379 = v640;
-        sub_1D157B418(v378, v640, 0.0, 0.0);
-        v711(v378, v717);
-        sub_1D158034C(v377, type metadata accessor for SignificantChange);
-        sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-        (*(v685 + 8))(v688, v600);
-        v380 = *(v274 + 56);
-        v380(v657, 1, 1, v276);
-        v381 = v658;
-        sub_1D158015C(v379, v658, type metadata accessor for SignificantChange);
-        v380(v381, 0, 1, v276);
-        v382 = v636;
-        sub_1D1580248(v271, v636, type metadata accessor for SignificantChangeEngine.State);
-        v383 = *(v277 + 56);
-        v384 = v705;
-        v707 = v277 + 56;
-        v383(v382, 0, 1, v705);
-        v385 = v383;
-        v386 = v656;
-        sub_1D1455A40(v710, v656);
-        v387 = *(v273 + 24);
-        sub_1D1580248(v379, v386 + v387, v716);
-        v380(v386 + v387, 0, 1, v276);
-        v388 = v600;
-        *(v386 + *(v273 + 20)) = 1;
-        (*(v691 + 56))(v386, 0, 1, v273);
-        v389 = v598;
-        v598(v593, v699, v388);
-        v390 = v637;
-        sub_1D1580230(v382, v637);
-        if (v597(v390, 1, v384) == 1)
+        v386 = v658;
+        sub_1D157B418(v385, v658, 0.0, 0.0);
+        (v729)(v385, v735);
+        sub_1D158034C(v384, type metadata accessor for SignificantChange);
+        sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+        (*(v703 + 8))(v706, v618);
+        v387 = *(v279 + 56);
+        v387(v675, 1, 1, v281);
+        v388 = v676;
+        sub_1D158015C(v386, v676, type metadata accessor for SignificantChange);
+        v387(v388, 0, 1, v281);
+        v389 = v654;
+        sub_1D1580248(v275, v654, type metadata accessor for SignificantChangeEngine.State);
+        v390 = *(v282 + 56);
+        v391 = v723;
+        v725 = v282 + 56;
+        v390(v389, 0, 1, v723);
+        v392 = v390;
+        v393 = v674;
+        sub_1D1455A40(v728, v674);
+        v394 = *(v277 + 24);
+        sub_1D1580248(v386, v393 + v394, v734);
+        v387(v393 + v394, 0, 1, v281);
+        v395 = v618;
+        *(v393 + *(v277 + 20)) = 1;
+        (*(v709 + 56))(v393, 0, 1, v277);
+        v396 = v616;
+        v616(v611, v717, v395);
+        v397 = v655;
+        v398 = sub_1D1580230(v389, v655);
+        if ((v615)(v397, 1, v391, v398) == 1)
         {
-          sub_1D158034C(v390, sub_1D15801C4);
-          v391 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-          v392 = v641;
-          (*(*(v391 - 8) + 56))(v641, 1, 1, v391);
+          sub_1D158034C(v397, sub_1D15801C4);
+          v399 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+          v400 = v659;
+          (*(*(v399 - 8) + 56))(v659, 1, 1, v399);
         }
 
         else
         {
-          v392 = v641;
-          sub_1D15807E4(v390 + *(v384 + 20), v641);
-          sub_1D158034C(v390, type metadata accessor for SignificantChangeEngine.State);
+          v400 = v659;
+          sub_1D15807E4(v397 + *(v391 + 20), v659);
+          sub_1D158034C(v397, type metadata accessor for SignificantChangeEngine.State);
         }
 
-        v485 = v638;
-        sub_1D1580248(v656, &v638[*(v384 + 24)], sub_1D1580868);
-        v389(v485, v593, v388);
-        sub_1D1580248(v392, v485 + *(v384 + 20), sub_1D15807FC);
-        v385(v485, 0, 1, v384);
-        v486 = v709;
-        sub_1D1580218(v657, v709);
-        v487 = type metadata accessor for SignificantChangeEngine.Output(0);
-        sub_1D1580218(v658, v486 + *(v487 + 20));
-        sub_1D1580230(v485, v486 + *(v487 + 24));
-        (*(*(v487 - 8) + 56))(v486, 0, 1, v487);
+        v496 = v656;
+        sub_1D1580248(v674, &v656[*(v391 + 24)], sub_1D1580868);
+        v396(v496, v611, v395);
+        sub_1D1580248(v400, v496 + *(v391 + 20), sub_1D15807FC);
+        v392(v496, 0, 1, v391);
+        v497 = v727;
+        sub_1D1580218(v675, v727);
+        v498 = type metadata accessor for SignificantChangeEngine.Output(0);
+        sub_1D1580218(v676, v497 + *(v498 + 20));
+        sub_1D1580230(v496, v497 + *(v498 + 24));
+        (*(*(v498 - 8) + 56))(v497, 0, 1, v498);
         goto LABEL_124;
       }
     }
 
-    sub_1D158034C(v275, sub_1D15800F0);
-    v309 = type metadata accessor for SignificantChangeEngine.Output(0);
-    v310 = *(v309 + 24);
-    v311 = v697;
-    sub_1D158015C(v271, v697, type metadata accessor for SignificantChangeEngine.State);
-    v312 = *(v277 + 56);
-    v707 = v277 + 56;
-    v313 = v705;
-    v312(v311, 0, 1, v705);
-    v314 = v271;
-    v315 = v709;
-    v316 = v699;
-    sub_1D157BA28(v311, v699, v709 + v310);
-    sub_1D158034C(v311, sub_1D15801C4);
-    sub_1D158034C(v314, type metadata accessor for SignificantChangeEngine.State);
-    sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-    v317 = *(v685 + 8);
-    v318 = v316;
-    v319 = v600;
-    v317(v318, v600);
-    v317(v688, v319);
-    v312(v315 + v310, 0, 1, v313);
-    v320 = *(v274 + 56);
-    v320(v315, 1, 1, v276);
-    v320(v315 + *(v309 + 20), 1, 1, v276);
-    (*(*(v309 - 8) + 56))(v315, 0, 1, v309);
+    sub_1D158034C(v280, sub_1D15800F0);
+    v314 = type metadata accessor for SignificantChangeEngine.Output(0);
+    v315 = *(v314 + 24);
+    v316 = v715;
+    sub_1D158015C(v275, v715, type metadata accessor for SignificantChangeEngine.State);
+    v317 = *(v282 + 56);
+    v725 = v282 + 56;
+    v318 = v723;
+    v317(v316, 0, 1, v723);
+    v319 = v275;
+    v320 = v727;
+    v321 = v717;
+    sub_1D157BA28(v316, v717, v727 + v315);
+    sub_1D158034C(v316, sub_1D15801C4);
+    sub_1D158034C(v319, type metadata accessor for SignificantChangeEngine.State);
+    sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+    v322 = *(v703 + 8);
+    v323 = v321;
+    v324 = v618;
+    v322(v323, v618);
+    v322(v706, v324);
+    v317(v320 + v315, 0, 1, v318);
+    v325 = *(v279 + 56);
+    v325(v320, 1, 1, v281);
+    v325(v320 + *(v314 + 20), 1, 1, v281);
+    (*(*(v314 - 8) + 56))(v320, 0, 1, v314);
 LABEL_124:
-    v711(v680, v717);
+    (v729)(v698, v735);
     goto LABEL_125;
   }
 
-  v252 = v672;
-  sub_1D1455A40(v242, v672);
-  v253 = *v245;
-  v254 = (*v245)(v252, 1, v246);
-  v255 = v716;
-  v712 = v245;
-  v714 = v253;
-  if (v254 == 1)
+  v256 = v690;
+  sub_1D1455A40(v246, v690);
+  v257 = *v249;
+  v258 = (*v249)(v256, 1, v250);
+  v259 = v734;
+  v730 = v249;
+  v732 = v257;
+  if (v258 == 1)
   {
     sub_1D15A2288();
-    v256 = v253(v252, 1, v246);
-    v257 = v701;
-    if (v256 != 1)
+    v260 = v257(v256, 1, v250);
+    v261 = v719;
+    if (v260 != 1)
     {
-      sub_1D158034C(v252, sub_1D14F104C);
+      sub_1D158034C(v256, sub_1D14F104C);
     }
   }
 
   else
   {
-    (*(v244 + 32))(v703, v252, v246);
-    v257 = v701;
+    (*(v248 + 32))(v721, v256, v250);
+    v261 = v719;
   }
 
-  v278 = 0;
-  v279 = v220 * ~v255 - v713;
-  v280 = -(v713 + v220 * v255);
-  v281 = v713 + v220 * v587 + *(v706 + 48) + 8;
-  v282 = v690;
+  v283 = 0;
+  v284 = v221 * ~v259 - v731;
+  v285 = -(v731 + v221 * v259);
+  v286 = v731 + v221 * v605 + *(v724 + 48) + 8;
+  v287 = v708;
   do
   {
-    if (v255 == v278)
+    if (v259 == v283)
     {
-      v301 = type metadata accessor for SignificantChangeEngine.Output(0);
-      v302 = v244;
-      v303 = v709;
-      sub_1D1579728(v282, v698, v709 + *(v301 + 24), v215);
-      sub_1D158034C(v696, type metadata accessor for SignificantChangeEngine.State);
-      sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-      v304 = *(v685 + 8);
-      v305 = v600;
-      v304(v699, v600);
-      v304(v688, v305);
-      v306 = *(v679 + 56);
-      v307 = v681;
-      v306(v303, 1, 1, v681);
-      v306(v303 + *(v301 + 20), 1, 1, v307);
-      (*(*(v301 - 8) + 56))(v303, 0, 1, v301);
-      (*(v302 + 8))(v703, v717);
+      v306 = type metadata accessor for SignificantChangeEngine.Output(0);
+      v307 = v248;
+      v308 = v727;
+      sub_1D1579728(v287, v716, v727 + *(v306 + 24), v216);
+      sub_1D158034C(v714, type metadata accessor for SignificantChangeEngine.State);
+      sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+      v309 = *(v703 + 8);
+      v310 = v618;
+      v309(v717, v618);
+      v309(v706, v310);
+      v311 = *(v697 + 56);
+      v312 = v699;
+      v311(v308, 1, 1, v699);
+      v311(v308 + *(v306 + 20), 1, 1, v312);
+      (*(*(v306 - 8) + 56))(v308, 0, 1, v306);
+      (*(v307 + 8))(v721, v735);
       goto LABEL_54;
     }
 
-    v283 = *(v690 + v281);
-    v278 = (v278 + 1);
-    v279 += v220;
-    v280 += v220;
-    v281 -= v220;
+    v288 = *(v708 + v286);
+    v283 = (v283 + 1);
+    v284 += v221;
+    v285 += v221;
+    v286 -= v221;
   }
 
-  while ((v283 & 1) != 0);
-  if (v278 - 1 >= *(&v698 + 1))
+  while ((v288 & 1) != 0);
+  if (v283 - 1 >= *(&v716 + 1))
   {
-    v700 = v278 - 1;
-    v701 = (v255 - v278 + 1);
-    sub_1D158015C(v690 - v280, v692, sub_1D148EF60);
-    v344 = 0;
-    v714 = (v244 + 8);
-    v702 = (v685 + 8);
-    v704 = MEMORY[0x1E69E7CC0];
-    v345 = v715;
+    v718 = v283 - 1;
+    v719 = (v259 - v283 + 1);
+    sub_1D158015C(v708 - v285, v710, sub_1D148EF60);
+    v350 = 0;
+    v732 = (v248 + 8);
+    v720 = (v703 + 8);
+    v722 = MEMORY[0x1E69E7CC0];
+    v351 = v733;
     do
     {
-      v347 = (v344 + 1);
-      if (__OFADD__(v344, 1))
+      v353 = (v350 + 1);
+      if (__OFADD__(v350, 1))
       {
 LABEL_164:
         __break(1u);
@@ -3717,98 +3721,98 @@ LABEL_165:
         goto LABEL_166;
       }
 
-      v348 = v711;
-      sub_1D158015C(v216, v711, sub_1D148EF60);
+      v354 = v729;
+      sub_1D158015C(v217, v729, sub_1D148EF60);
       sub_1D15A2258();
-      sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530]);
-      v349 = v717;
-      v350 = sub_1D15A3EB8();
-      v712 = *v714;
-      (v712)(v345, v349);
-      if (v350 & 1) != 0 && (v351 = v715, sub_1D15A2258(), v352 = v708, sub_1D158015C(v692, v708, sub_1D148EF60), v353 = v689, sub_1D15A2258(), (*v702)(v352, v600), v354 = v717, LOBYTE(v352) = sub_1D15A3EC8(), v355 = v712, (v712)(v353, v354), v355(v351, v354), v348 = v711, (v352))
+      sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
+      v355 = v735;
+      v356 = sub_1D15A3EB8();
+      v730 = *v732;
+      (v730)(v351, v355);
+      if (v356 & 1) != 0 && (v357 = v733, sub_1D15A2258(), v358 = v726, sub_1D158015C(v710, v726, sub_1D148EF60), v359 = v707, sub_1D15A2258(), (*v720)(v358, v618), v360 = v735, LOBYTE(v358) = sub_1D15A3EC8(), v361 = v730, (v730)(v359, v360), (v361)(v357, v360), v354 = v729, (v358))
       {
-        sub_1D1580248(v711, v682, sub_1D148EF60);
-        *&v356 = v704;
-        v357 = swift_isUniquelyReferenced_nonNull_native();
-        v718 = *&v356;
-        if ((v357 & 1) == 0)
+        sub_1D1580248(v729, v700, sub_1D148EF60);
+        *&v362 = v722;
+        v363 = swift_isUniquelyReferenced_nonNull_native();
+        v736 = *&v362;
+        if ((v363 & 1) == 0)
         {
-          sub_1D14A7A54(0, *(v356 + 16) + 1, 1);
-          *&v356 = v718;
+          sub_1D14A7A54(0, *(v362 + 16) + 1, 1);
+          *&v362 = v736;
         }
 
-        v359 = *(v356 + 16);
-        v358 = *(v356 + 24);
-        v346 = v716;
-        if (v359 >= v358 >> 1)
+        v365 = *(v362 + 16);
+        v364 = *(v362 + 24);
+        v352 = v734;
+        if (v365 >= v364 >> 1)
         {
-          sub_1D14A7A54(v358 > 1, v359 + 1, 1);
-          *&v356 = v718;
+          sub_1D14A7A54((v364 > 1), v365 + 1, 1);
+          *&v362 = v736;
         }
 
-        *(v356 + 16) = v359 + 1;
-        v704 = *&v356;
-        sub_1D1580248(v682, v356 + v713 + v359 * v220, sub_1D148EF60);
+        *(v362 + 16) = v365 + 1;
+        v722 = *&v362;
+        sub_1D1580248(v700, v362 + v731 + v365 * v221, sub_1D148EF60);
       }
 
       else
       {
-        sub_1D158034C(v348, sub_1D148EF60);
-        v346 = v716;
+        sub_1D158034C(v354, sub_1D148EF60);
+        v352 = v734;
       }
 
-      ++v344;
-      v216 += v220;
-      v345 = v715;
+      ++v350;
+      v217 += v221;
+      v351 = v733;
     }
 
-    while (v347 != v346);
-    v366 = *&v704;
-    v367 = *(*&v704 + 16);
-    v368 = v647;
-    if (v367)
+    while (v353 != v352);
+    v373 = *&v722;
+    v374 = *(*&v722 + 16);
+    v375 = v665;
+    if (v374)
     {
-      v369 = 0;
-      v370 = v677;
-      v371 = v677 + 8;
-      v372 = *&v704 + v713;
-      v373 = MEMORY[0x1E69E7CC0];
-      while (v369 < *(v366 + 16))
+      v376 = 0;
+      v377 = v695;
+      v378 = v695 + 8;
+      v379 = *&v722 + v731;
+      v380 = MEMORY[0x1E69E7CC0];
+      while (v376 < *(v373 + 16))
       {
-        sub_1D158015C(v372, v370, sub_1D148EF60);
-        if (v371[*(v706 + 48)])
+        sub_1D158015C(v379, v377, sub_1D148EF60);
+        if (v378[*(v724 + 48)])
         {
-          sub_1D158034C(v370, sub_1D148EF60);
+          sub_1D158034C(v377, sub_1D148EF60);
         }
 
         else
         {
-          sub_1D1580248(v370, v368, sub_1D148EF60);
-          v374 = swift_isUniquelyReferenced_nonNull_native();
-          v718 = v373;
-          if ((v374 & 1) == 0)
+          sub_1D1580248(v377, v375, sub_1D148EF60);
+          v381 = swift_isUniquelyReferenced_nonNull_native();
+          v736 = v380;
+          if ((v381 & 1) == 0)
           {
-            sub_1D14A7A54(0, *(*&v373 + 16) + 1, 1);
-            v373 = v718;
+            sub_1D14A7A54(0, *(*&v380 + 16) + 1, 1);
+            v380 = v736;
           }
 
-          v376 = *(*&v373 + 16);
-          v375 = *(*&v373 + 24);
-          if (v376 >= v375 >> 1)
+          v383 = *(*&v380 + 16);
+          v382 = *(*&v380 + 24);
+          if (v383 >= v382 >> 1)
           {
-            sub_1D14A7A54(v375 > 1, v376 + 1, 1);
-            v373 = v718;
+            sub_1D14A7A54((v382 > 1), v383 + 1, 1);
+            v380 = v736;
           }
 
-          *(*&v373 + 16) = v376 + 1;
-          sub_1D1580248(v368, *&v373 + v713 + v376 * v220, sub_1D148EF60);
-          v370 = v677;
-          v366 = *&v704;
+          *(*&v380 + 16) = v383 + 1;
+          sub_1D1580248(v375, *&v380 + v731 + v383 * v221, sub_1D148EF60);
+          v377 = v695;
+          v373 = *&v722;
         }
 
-        ++v369;
-        v372 += v220;
-        if (v367 == v369)
+        ++v376;
+        v379 += v221;
+        if (v374 == v376)
         {
           goto LABEL_103;
         }
@@ -3820,229 +3824,229 @@ LABEL_166:
 
     else
     {
-      v373 = MEMORY[0x1E69E7CC0];
+      v380 = MEMORY[0x1E69E7CC0];
 LABEL_103:
-      v415 = *(*&v373 + 16);
+      v424 = *(*&v380 + 16);
 
-      v416 = *(v366 + 16);
+      v425 = *(v373 + 16);
 
       sub_1D15A2288();
-      v417 = v708;
-      sub_1D158015C(v692, v708, sub_1D148EF60);
+      v426 = v726;
+      sub_1D158015C(v710, v726, sub_1D148EF60);
       sub_1D15A2258();
-      v418 = *v702;
-      v419 = v600;
-      (*v702)(v417, v600);
+      v427 = *v720;
+      v428 = v618;
+      (*v720)(v426, v618);
       sub_1D15A2268();
-      if (v701 < v716)
+      if (v719 < v734)
       {
-        sub_1D158015C(v690 - v279, v417, sub_1D148EF60);
-        v598(v595, v417, v419);
+        sub_1D158015C(v708 - v284, v426, sub_1D148EF60);
+        v616(v613, v426, v428);
         sub_1D15A2288();
         sub_1D15A2258();
         sub_1D15A2268();
-        v420 = v416 - v415;
-        v421 = v416 - v415 + v700;
-        v422 = v681;
-        v423 = v685;
-        if (!__OFADD__(v416 - v415, v700))
+        v429 = v425 - v424;
+        v430 = v425 - v424 + v718;
+        v431 = v699;
+        v432 = v703;
+        if (!__OFADD__(v425 - v424, v718))
         {
-          if (!__OFADD__(v420, v415))
+          if (!__OFADD__(v429, v424))
           {
-            v424 = v416 + v700;
-            if (!__OFADD__(v421, v415))
+            v433 = v425 + v718;
+            if (!__OFADD__(v430, v424))
             {
-              if ((v420 & 0x8000000000000000) == 0)
+              if ((v429 & 0x8000000000000000) == 0)
               {
-                if (!__OFSUB__(v424, v421))
+                if (!__OFSUB__(v433, v430))
                 {
-                  v425 = v415 - v416;
-                  if (!__OFSUB__(v415, v416))
+                  v434 = v424 - v425;
+                  if (!__OFSUB__(v424, v425))
                   {
-                    v426 = 0;
-                    v427 = v421;
-                    v428 = v415 / v416;
-                    v429 = v424;
-                    v430 = 0.0;
-                    v431 = v709;
+                    v435 = 0;
+                    v436 = v430;
+                    v437 = v424 / v425;
+                    v438 = v433;
+                    v439 = 0.0;
+                    v440 = v727;
                     do
                     {
-                      if (__OFADD__(v425, v426))
+                      if (__OFADD__(v434, v435))
                       {
                         goto LABEL_165;
                       }
 
-                      if (((v425 + v426) & 0x8000000000000000) == 0)
+                      if (((v434 + v435) & 0x8000000000000000) == 0)
                       {
-                        HypergeometricPDF(v426, v427, v416, v429);
-                        v430 = v430 + v432;
+                        HypergeometricPDF(v435, v436, v425, v438);
+                        v439 = v439 + v441;
                       }
 
-                      if (v420 == v426)
+                      if (v429 == v435)
                       {
                         goto LABEL_118;
                       }
                     }
 
-                    while (!__OFADD__(v426++, 1));
+                    while (!__OFADD__(v435++, 1));
                     __break(1u);
 LABEL_118:
-                    v716 = v418;
-                    if (v430 > v214)
+                    v734 = v427;
+                    if (v439 > v215)
                     {
-                      (*(v679 + 56))(v431, 1, 1, v422);
-                      v434 = *(v694 + 24);
-                      v435 = v431;
-                      v436 = type metadata accessor for SignificantChangeEngine.Output(0);
-                      sub_1D15800D8(v710 + v434, v435 + *(v436 + 20));
-                      v437 = *(v436 + 24);
-                      v713 = v437;
-                      v438 = v696;
-                      v439 = v697;
-                      sub_1D158015C(v696, v697, type metadata accessor for SignificantChangeEngine.State);
-                      v715 = *(v707 + 56);
-                      v440 = v705;
-                      (v715)(v439, 0, 1, v705);
-                      v441 = v699;
-                      sub_1D157BA28(v439, v699, v435 + v437);
-                      sub_1D158034C(v439, sub_1D15801C4);
-                      v442 = v600;
-                      v443 = v716;
-                      (v716)(v594, v600);
-                      (v443)(v595, v442);
-                      (v443)(v596, v442);
-                      sub_1D158034C(v438, type metadata accessor for SignificantChangeEngine.State);
-                      sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-                      (v443)(v441, v442);
-                      (v443)(v688, v442);
-                      (v715)(v435 + v713, 0, 1, v440);
-                      (*(*(v436 - 8) + 56))(v435, 0, 1, v436);
-                      sub_1D158034C(v692, sub_1D148EF60);
-                      (v712)(v703, v717);
+                      (*(v697 + 56))(v440, 1, 1, v431);
+                      v443 = *(v712 + 24);
+                      v444 = v440;
+                      v445 = type metadata accessor for SignificantChangeEngine.Output(0);
+                      sub_1D15800D8(v728 + v443, v444 + *(v445 + 20), v446);
+                      v447 = *(v445 + 24);
+                      v731 = v447;
+                      v448 = v714;
+                      v449 = v715;
+                      sub_1D158015C(v714, v715, type metadata accessor for SignificantChangeEngine.State);
+                      v733 = *(v725 + 56);
+                      v450 = v723;
+                      (v733)(v449, 0, 1, v723);
+                      v451 = v717;
+                      sub_1D157BA28(v449, v717, v444 + v447);
+                      sub_1D158034C(v449, sub_1D15801C4);
+                      v452 = v618;
+                      v453 = v734;
+                      (v734)(v612, v618);
+                      (v453)(v613, v452);
+                      (v453)(v614, v452);
+                      sub_1D158034C(v448, type metadata accessor for SignificantChangeEngine.State);
+                      sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+                      (v453)(v451, v452);
+                      (v453)(v706, v452);
+                      (v733)(v444 + v731, 0, 1, v450);
+                      (*(*(v445 - 8) + 56))(v444, 0, 1, v445);
+                      sub_1D158034C(v710, sub_1D148EF60);
+                      (v730)(v721, v735);
 LABEL_125:
-                      sub_1D158034C(v710, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+                      sub_1D158034C(v728, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
                       return;
                     }
 
-                    v444 = *(v423 + 16);
-                    v445 = v644;
-                    v446 = v600;
-                    v444(v644, v596, v600);
-                    v447 = v663;
-                    *(v445 + *(v663 + 20)) = 0;
-                    *(v445 + v447[6]) = v428;
-                    *(v445 + v447[7]) = 2;
-                    v448 = v645;
-                    v444(v645, v594, v446);
-                    *(v448 + v447[5]) = 0;
-                    *(v448 + v447[6]) = 0;
-                    *(v448 + v447[7]) = 1;
-                    v449 = v643;
-                    sub_1D158015C(v445, v643, type metadata accessor for SignificantChange.Period);
+                    v454 = *(v432 + 16);
+                    v455 = v662;
+                    v456 = v618;
+                    v454(v662, v614, v618);
+                    v457 = v681;
+                    *(v455 + *(v681 + 20)) = 0;
+                    *(v455 + v457[6]) = v437;
+                    *(v455 + v457[7]) = 2;
+                    v458 = v663;
+                    v454(v663, v612, v456);
+                    *(v458 + v457[5]) = 0;
+                    *(v458 + v457[6]) = 0;
+                    *(v458 + v457[7]) = 1;
+                    v459 = v661;
+                    sub_1D158015C(v455, v661, type metadata accessor for SignificantChange.Period);
                     sub_1D1583630(0);
-                    v450 = (*(v666 + 80) + 32) & ~*(v666 + 80);
-                    v451 = swift_allocObject();
-                    v715 = v451;
-                    *(v451 + 16) = xmmword_1D15ACDD0;
-                    sub_1D158015C(v448, v451 + v450, type metadata accessor for SignificantChange.Period);
-                    v452 = v449 + *(v422 + 24);
-                    v453 = v664;
-                    v454 = *(v664 + 28);
-                    v455 = v616;
+                    v460 = (*(v684 + 80) + 32) & ~*(v684 + 80);
+                    v461 = swift_allocObject();
+                    v733 = v461;
+                    *(v461 + 16) = xmmword_1D15ACDD0;
+                    sub_1D158015C(v458, v461 + v460, type metadata accessor for SignificantChange.Period);
+                    v462 = v459 + *(v431 + 24);
+                    v463 = v682;
+                    v464 = *(v682 + 28);
+                    v465 = v634;
                     sub_1D15A2288();
-                    v456 = v660;
+                    v466 = v678;
                     sub_1D15A26C8();
-                    v457 = sub_1D15A26B8();
-                    v459 = v458;
-                    (*(v661 + 8))(v456, v662);
-                    v460 = *(v453 + 24);
+                    v467 = sub_1D15A26B8();
+                    v469 = v468;
+                    (*(v679 + 8))(v466, v680);
+                    v470 = *(v463 + 24);
                     _s19HealthVisualization25PresentationDateProvidingPAAE012presentationD010Foundation0D0VvgZ_0();
-                    *v455 = v457;
-                    *(v455 + 1) = v459;
-                    v455[16] = 0;
-                    v461 = v678;
-                    v462 = *(v678 + 32);
-                    v463 = &v455[v460];
-                    v464 = v717;
-                    v462(v452 + *(v453 + 24), v463, v717);
-                    v462(v452 + *(v453 + 28), &v455[v454], v464);
-                    *v452 = v457;
-                    *(v452 + 8) = v459;
-                    *(v452 + 16) = 1;
-                    (*(v665 + 56))(v452, 0, 1, v453);
-                    v465 = v681;
-                    v466 = v643;
-                    *(v643 + *(v681 + 20)) = v715;
-                    v467 = v708;
-                    sub_1D158015C(v692, v708, sub_1D148EF60);
-                    v468 = v614;
+                    *v465 = v467;
+                    *(v465 + 1) = v469;
+                    v465[16] = 0;
+                    v471 = v696;
+                    v472 = *(v696 + 32);
+                    v473 = &v465[v470];
+                    v474 = v735;
+                    v472(v462 + *(v463 + 24), v473, v735);
+                    v472(v462 + *(v463 + 28), &v465[v464], v474);
+                    *v462 = v467;
+                    *(v462 + 8) = v469;
+                    *(v462 + 16) = 1;
+                    (*(v683 + 56))(v462, 0, 1, v463);
+                    v475 = v699;
+                    v476 = v661;
+                    *(v661 + *(v699 + 20)) = v733;
+                    v477 = v726;
+                    sub_1D158015C(v710, v726, sub_1D148EF60);
+                    v478 = v632;
                     sub_1D15A2258();
-                    sub_1D158034C(v645, type metadata accessor for SignificantChange.Period);
-                    sub_1D158034C(v644, type metadata accessor for SignificantChange.Period);
-                    v469 = v600;
-                    v470 = v716;
-                    (v716)(v594, v600);
-                    (v470)(v595, v469);
-                    (v470)(v596, v469);
-                    sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-                    (v470)(v688, v469);
-                    (v470)(v467, v469);
-                    (*(v461 + 56))(v468, 0, 1, v464);
-                    v471 = v694;
-                    v472 = *(v694 + 24);
-                    sub_1D158015C(v466, v468 + v472, type metadata accessor for SignificantChange);
-                    v473 = *(v679 + 56);
-                    v474 = v468 + v472;
-                    v475 = v465;
-                    v473(v474, 0, 1, v465);
-                    *(v468 + *(v471 + 20)) = 1;
-                    v473(v646, 1, 1, v465);
-                    v476 = v617;
-                    sub_1D1580248(v466, v617, type metadata accessor for SignificantChange);
-                    v473(v476, 0, 1, v475);
-                    v477 = v612;
-                    sub_1D1580248(v696, v612, type metadata accessor for SignificantChangeEngine.State);
-                    v478 = *(v707 + 56);
-                    v479 = v705;
-                    v478(v477, 0, 1, v705);
-                    v480 = v642;
-                    sub_1D1580248(v468, v642, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-                    (*(v691 + 56))(v480, 0, 1, v471);
-                    v481 = v598;
-                    v598(v590, v699, v469);
-                    v482 = v613;
-                    sub_1D1580230(v477, v613);
-                    if (v597(v482, 1, v479) == 1)
+                    sub_1D158034C(v663, type metadata accessor for SignificantChange.Period);
+                    sub_1D158034C(v662, type metadata accessor for SignificantChange.Period);
+                    v479 = v618;
+                    v480 = v734;
+                    (v734)(v612, v618);
+                    (v480)(v613, v479);
+                    (v480)(v614, v479);
+                    sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+                    (v480)(v706, v479);
+                    (v480)(v477, v479);
+                    (*(v471 + 56))(v478, 0, 1, v474);
+                    v481 = v712;
+                    v482 = *(v712 + 24);
+                    sub_1D158015C(v476, v478 + v482, type metadata accessor for SignificantChange);
+                    v483 = *(v697 + 56);
+                    v484 = v478 + v482;
+                    v485 = v475;
+                    v483(v484, 0, 1, v475);
+                    *(v478 + *(v481 + 20)) = 1;
+                    v483(v664, 1, 1, v475);
+                    v486 = v635;
+                    sub_1D1580248(v476, v635, type metadata accessor for SignificantChange);
+                    v483(v486, 0, 1, v485);
+                    v487 = v630;
+                    sub_1D1580248(v714, v630, type metadata accessor for SignificantChangeEngine.State);
+                    v488 = *(v725 + 56);
+                    v489 = v723;
+                    v488(v487, 0, 1, v723);
+                    v490 = v660;
+                    sub_1D1580248(v478, v660, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+                    (*(v709 + 56))(v490, 0, 1, v481);
+                    v491 = v616;
+                    v616(v608, v717, v479);
+                    v492 = v631;
+                    v493 = sub_1D1580230(v487, v631);
+                    if ((v615)(v492, 1, v489, v493) == 1)
                     {
-                      sub_1D158034C(v482, sub_1D15801C4);
-                      v483 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-                      v484 = v618;
-                      (*(*(v483 - 8) + 56))(v618, 1, 1, v483);
+                      sub_1D158034C(v492, sub_1D15801C4);
+                      v494 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+                      v495 = v636;
+                      (*(*(v494 - 8) + 56))(v636, 1, 1, v494);
                     }
 
                     else
                     {
-                      v484 = v618;
-                      sub_1D15807E4(v482 + *(v479 + 20), v618);
-                      sub_1D158034C(v482, type metadata accessor for SignificantChangeEngine.State);
+                      v495 = v636;
+                      sub_1D15807E4(v492 + *(v489 + 20), v636);
+                      sub_1D158034C(v492, type metadata accessor for SignificantChangeEngine.State);
                     }
 
-                    v497 = v710;
-                    v498 = v615;
-                    sub_1D1580248(v642, &v615[*(v479 + 24)], sub_1D1580868);
-                    v481(v498, v590, v600);
-                    sub_1D1580248(v484, v498 + *(v479 + 20), sub_1D15807FC);
-                    v478(v498, 0, 1, v479);
-                    v499 = v709;
-                    sub_1D1580218(v646, v709);
-                    v500 = type metadata accessor for SignificantChangeEngine.Output(0);
-                    sub_1D1580218(v476, v499 + *(v500 + 20));
-                    sub_1D1580230(v498, v499 + *(v500 + 24));
-                    (*(*(v500 - 8) + 56))(v499, 0, 1, v500);
-                    sub_1D158034C(v692, sub_1D148EF60);
-                    (v712)(v703, v717);
+                    v508 = v728;
+                    v509 = v633;
+                    sub_1D1580248(v660, &v633[*(v489 + 24)], sub_1D1580868);
+                    v491(v509, v608, v618);
+                    sub_1D1580248(v495, v509 + *(v489 + 20), sub_1D15807FC);
+                    v488(v509, 0, 1, v489);
+                    v510 = v727;
+                    sub_1D1580218(v664, v727);
+                    v511 = type metadata accessor for SignificantChangeEngine.Output(0);
+                    sub_1D1580218(v486, v510 + *(v511 + 20));
+                    v512 = sub_1D1580230(v509, v510 + *(v511 + 24));
+                    (*(*(v511 - 8) + 56))(v510, 0, 1, v511, v512);
+                    sub_1D158034C(v710, sub_1D148EF60);
+                    (v730)(v721, v735);
 LABEL_150:
-                    sub_1D158034C(v497, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+                    sub_1D158034C(v508, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
                     return;
                   }
 
@@ -4081,251 +4085,251 @@ LABEL_168:
     goto LABEL_168;
   }
 
-  v284 = 0;
-  v708 = (v244 + 32);
-  v711 = (v244 + 8);
-  v285 = MEMORY[0x1E69E7CC0];
-  v286 = v687;
-  v287 = v686;
-  v588 = v220;
+  v289 = 0;
+  v726 = (v248 + 32);
+  v729 = (v248 + 8);
+  v290 = MEMORY[0x1E69E7CC0];
+  v291 = v705;
+  v292 = v704;
+  v606 = v221;
   do
   {
-    v289 = (v284 + 1);
-    if (__OFADD__(v284, 1))
+    v294 = (v289 + 1);
+    if (__OFADD__(v289, 1))
     {
 LABEL_163:
       __break(1u);
       goto LABEL_164;
     }
 
-    v290 = v285;
-    sub_1D158015C(v216, v257, sub_1D148EF60);
-    sub_1D1455A40(v242, v286);
-    v291 = v717;
-    if ((v714)(v286, 1, v717) == 1)
+    v295 = v290;
+    sub_1D158015C(v217, v261, sub_1D148EF60);
+    sub_1D1455A40(v246, v291);
+    v296 = v735;
+    if (v732(v291, 1, v735) == 1)
     {
-      sub_1D158034C(v286, sub_1D14F104C);
+      sub_1D158034C(v291, sub_1D14F104C);
     }
 
     else
     {
-      v292 = v683;
-      (*v708)(v683, v286, v291);
-      v293 = v715;
+      v297 = v701;
+      (*v726)(v701, v291, v296);
+      v298 = v733;
       sub_1D15A2258();
-      sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530]);
-      v294 = sub_1D15A3EB8();
-      v295 = *v711;
-      v296 = v293;
-      v286 = v687;
-      (*v711)(v296, v291);
-      v297 = v292;
-      v257 = v701;
-      v295(v297, v291);
-      v287 = v686;
-      if ((v294 & 1) == 0)
+      sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
+      v299 = sub_1D15A3EB8();
+      v300 = *v729;
+      v301 = v298;
+      v291 = v705;
+      (*v729)(v301, v296);
+      v302 = v297;
+      v261 = v719;
+      (v300)(v302, v296);
+      v292 = v704;
+      if ((v299 & 1) == 0)
       {
-        sub_1D158034C(v257, sub_1D148EF60);
-        v242 = v710;
-        v285 = v290;
-        v288 = v588;
+        sub_1D158034C(v261, sub_1D148EF60);
+        v246 = v728;
+        v290 = v295;
+        v293 = v606;
         goto LABEL_43;
       }
     }
 
-    sub_1D1580248(v257, v287, sub_1D148EF60);
-    v285 = v290;
-    v298 = swift_isUniquelyReferenced_nonNull_native();
-    v718 = v290;
-    if ((v298 & 1) == 0)
+    sub_1D1580248(v261, v292, sub_1D148EF60);
+    v290 = v295;
+    v303 = swift_isUniquelyReferenced_nonNull_native();
+    v736 = v295;
+    if ((v303 & 1) == 0)
     {
-      sub_1D14A7A54(0, *(*&v290 + 16) + 1, 1);
-      v285 = v718;
+      sub_1D14A7A54(0, *(*&v295 + 16) + 1, 1);
+      v290 = v736;
     }
 
-    v288 = v588;
-    v300 = *(*&v285 + 16);
-    v299 = *(*&v285 + 24);
-    if (v300 >= v299 >> 1)
+    v293 = v606;
+    v305 = *(*&v290 + 16);
+    v304 = *(*&v290 + 24);
+    if (v305 >= v304 >> 1)
     {
-      sub_1D14A7A54(v299 > 1, v300 + 1, 1);
-      v285 = v718;
+      sub_1D14A7A54((v304 > 1), v305 + 1, 1);
+      v290 = v736;
     }
 
-    *(*&v285 + 16) = v300 + 1;
-    sub_1D1580248(v287, *&v285 + v713 + v300 * v288, sub_1D148EF60);
-    v242 = v710;
+    *(*&v290 + 16) = v305 + 1;
+    sub_1D1580248(v292, *&v290 + v731 + v305 * v293, sub_1D148EF60);
+    v246 = v728;
 LABEL_43:
-    ++v284;
-    v216 += v288;
+    ++v289;
+    v217 += v293;
   }
 
-  while (v289 != v716);
-  v360 = v285;
-  v361 = v648;
-  sub_1D1580850(v696 + *(v705 + 24), v648);
-  v362 = v694;
-  if ((v602)(v361, 1, v694) == 1)
+  while (v294 != v734);
+  v366 = v290;
+  v367 = v666;
+  sub_1D1580850(v714 + *(v723 + 24), v666);
+  v368 = v712;
+  if ((v620)(v367, 1, v712) == 1)
   {
 
-    sub_1D158034C(v361, sub_1D1580868);
-    v363 = v679;
-    v364 = v649;
-    (*(v679 + 56))(v649, 1, 1, v681);
-    v365 = v707;
+    sub_1D158034C(v367, sub_1D1580868);
+    v370 = v697;
+    v371 = v667;
+    (*(v697 + 56))(v667, 1, 1, v699);
+    v372 = v725;
 LABEL_101:
-    sub_1D158034C(v364, sub_1D15800F0);
-    v402 = type metadata accessor for SignificantChangeEngine.Output(0);
-    v403 = *(v402 + 24);
-    v404 = v696;
-    v405 = v697;
-    sub_1D158015C(v696, v697, type metadata accessor for SignificantChangeEngine.State);
-    v406 = *(v365 + 56);
-    v407 = v705;
-    v406(v405, 0, 1, v705);
-    v408 = v709;
-    v409 = v699;
-    sub_1D157BA28(v405, v699, v709 + v403);
-    sub_1D158034C(v405, sub_1D15801C4);
-    sub_1D158034C(v404, type metadata accessor for SignificantChangeEngine.State);
-    sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-    v410 = *(v685 + 8);
-    v411 = v409;
-    v412 = v600;
-    v410(v411, v600);
-    v410(v688, v412);
-    v406(v408 + v403, 0, 1, v407);
-    v413 = *(v363 + 56);
-    v414 = v681;
-    v413(v408, 1, 1, v681);
-    v413(v408 + *(v402 + 20), 1, 1, v414);
-    (*(*(v402 - 8) + 56))(v408, 0, 1, v402);
-    (*v711)(v703, v717);
+    sub_1D158034C(v371, sub_1D15800F0);
+    v411 = type metadata accessor for SignificantChangeEngine.Output(0);
+    v412 = *(v411 + 24);
+    v413 = v714;
+    v414 = v715;
+    sub_1D158015C(v714, v715, type metadata accessor for SignificantChangeEngine.State);
+    v415 = *(v372 + 56);
+    v416 = v723;
+    v415(v414, 0, 1, v723);
+    v417 = v727;
+    v418 = v717;
+    sub_1D157BA28(v414, v717, v727 + v412);
+    sub_1D158034C(v414, sub_1D15801C4);
+    sub_1D158034C(v413, type metadata accessor for SignificantChangeEngine.State);
+    sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+    v419 = *(v703 + 8);
+    v420 = v418;
+    v421 = v618;
+    v419(v420, v618);
+    v419(v706, v421);
+    v415(v417 + v412, 0, 1, v416);
+    v422 = *(v370 + 56);
+    v423 = v699;
+    v422(v417, 1, 1, v699);
+    v422(v417 + *(v411 + 20), 1, 1, v423);
+    (*(*(v411 - 8) + 56))(v417, 0, 1, v411);
+    (*v729)(v721, v735);
     goto LABEL_125;
   }
 
-  v400 = v361 + *(v362 + 24);
-  v364 = v649;
-  sub_1D15800D8(v400, v649);
-  sub_1D158034C(v361, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-  v401 = (*(v679 + 48))(v364, 1, v681);
-  v365 = v707;
-  if (v401 == 1)
+  v409 = v367 + *(v368 + 24);
+  v371 = v667;
+  sub_1D15800D8(v409, v667, v369);
+  sub_1D158034C(v367, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+  v410 = (*(v697 + 48))(v371, 1, v699);
+  v372 = v725;
+  if (v410 == 1)
   {
 
-    v363 = v679;
+    v370 = v697;
     goto LABEL_101;
   }
 
-  v488 = v608;
-  sub_1D1580248(v364, v608, type metadata accessor for SignificantChange);
-  v489 = *(*&v360 + 16);
-  if (v489)
+  v499 = v626;
+  sub_1D1580248(v371, v626, type metadata accessor for SignificantChange);
+  v500 = *(*&v366 + 16);
+  if (v500)
   {
-    v490 = *&v360 + v713;
-    v491 = MEMORY[0x1E69E7CC0];
-    v492 = v685;
-    v493 = v603;
+    v501 = *&v366 + v731;
+    v502 = MEMORY[0x1E69E7CC0];
+    v503 = v703;
+    v504 = v621;
     do
     {
-      v494 = v675;
-      sub_1D158015C(v490, v675, sub_1D148EF60);
-      sub_1D1580248(v494, v493, sub_1D148EF60);
+      v505 = v693;
+      sub_1D158015C(v501, v693, sub_1D148EF60);
+      sub_1D1580248(v505, v504, sub_1D148EF60);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v491 = sub_1D148CB54(0, v491[2] + 1, 1, v491);
+        v502 = sub_1D148CB54(0, v502[2] + 1, 1, v502);
       }
 
-      v496 = v491[2];
-      v495 = v491[3];
-      if (v496 >= v495 >> 1)
+      v507 = v502[2];
+      v506 = v502[3];
+      if (v507 >= v506 >> 1)
       {
-        v491 = sub_1D148CB54(v495 > 1, v496 + 1, 1, v491);
+        v502 = sub_1D148CB54((v506 > 1), v507 + 1, 1, v502);
       }
 
-      v491[2] = v496 + 1;
-      sub_1D1580248(v493, v491 + v713 + v496 * v288, sub_1D148EF60);
-      v490 += v288;
-      --v489;
-      v242 = v710;
-      v365 = v707;
+      v502[2] = v507 + 1;
+      sub_1D1580248(v504, v502 + v731 + v507 * v293, sub_1D148EF60);
+      v501 += v293;
+      --v500;
+      v246 = v728;
+      v372 = v725;
     }
 
-    while (v489);
+    while (v500);
   }
 
   else
   {
-    v491 = MEMORY[0x1E69E7CC0];
-    v492 = v685;
+    v502 = MEMORY[0x1E69E7CC0];
+    v503 = v703;
   }
 
-  v566 = v491[2];
+  v582 = v502[2];
 
-  v567 = *(*&v360 + 16);
+  v583 = *(*&v366 + 16);
 
-  v568 = v715;
+  v584 = v733;
   sub_1D15A2258();
-  v569 = v620;
-  sub_1D157B418(v568, v620, 0.0, v566 / v567);
-  v716 = *v711;
-  (v716)(v568, v717);
-  sub_1D158034C(v488, type metadata accessor for SignificantChange);
-  sub_1D158034C(v695, type metadata accessor for SignificantChangeEngine.State);
-  (*(v492 + 8))(v688, v600);
-  v570 = *(v679 + 56);
-  v571 = v681;
-  v570(v621, 1, 1, v681);
-  v572 = v622;
-  sub_1D158015C(v569, v622, type metadata accessor for SignificantChange);
-  v570(v572, 0, 1, v571);
-  v573 = v605;
-  sub_1D1580248(v696, v605, type metadata accessor for SignificantChangeEngine.State);
-  v574 = v705;
-  v715 = *(v365 + 56);
-  (v715)(v573, 0, 1, v705);
-  v575 = v619;
-  sub_1D1455A40(v242, v619);
-  v576 = v694;
-  v577 = *(v694 + 24);
-  sub_1D1580248(v620, v575 + v577, type metadata accessor for SignificantChange);
-  v570(v575 + v577, 0, 1, v571);
-  *(v575 + *(v576 + 20)) = 0;
-  (*(v691 + 56))(v575, 0, 1, v576);
-  v578 = v598;
-  v598(v589, v699, v600);
-  v579 = v606;
-  sub_1D1580230(v573, v606);
-  if (v597(v579, 1, v574) == 1)
+  v585 = v638;
+  sub_1D157B418(v584, v638, 0.0, v582 / v583);
+  v734 = *v729;
+  (v734)(v584, v735);
+  sub_1D158034C(v499, type metadata accessor for SignificantChange);
+  sub_1D158034C(v713, type metadata accessor for SignificantChangeEngine.State);
+  (*(v503 + 8))(v706, v618);
+  v586 = *(v697 + 56);
+  v587 = v699;
+  v586(v639, 1, 1, v699);
+  v588 = v640;
+  sub_1D158015C(v585, v640, type metadata accessor for SignificantChange);
+  v586(v588, 0, 1, v587);
+  v589 = v623;
+  sub_1D1580248(v714, v623, type metadata accessor for SignificantChangeEngine.State);
+  v590 = v723;
+  v733 = *(v372 + 56);
+  (v733)(v589, 0, 1, v723);
+  v591 = v637;
+  sub_1D1455A40(v246, v637);
+  v592 = v712;
+  v593 = *(v712 + 24);
+  sub_1D1580248(v638, v591 + v593, type metadata accessor for SignificantChange);
+  v586(v591 + v593, 0, 1, v587);
+  *(v591 + *(v592 + 20)) = 0;
+  (*(v709 + 56))(v591, 0, 1, v592);
+  v594 = v616;
+  v616(v607, v717, v618);
+  v595 = v624;
+  v596 = sub_1D1580230(v589, v624);
+  if ((v615)(v595, 1, v590, v596) == 1)
   {
-    sub_1D158034C(v579, sub_1D15801C4);
-    v580 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-    v581 = v609;
-    (*(*(v580 - 8) + 56))(v609, 1, 1, v580);
+    sub_1D158034C(v595, sub_1D15801C4);
+    v597 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+    v598 = v627;
+    (*(*(v597 - 8) + 56))(v627, 1, 1, v597);
   }
 
   else
   {
-    v581 = v609;
-    sub_1D15807E4(v579 + *(v574 + 20), v609);
-    sub_1D158034C(v579, type metadata accessor for SignificantChangeEngine.State);
+    v598 = v627;
+    sub_1D15807E4(v595 + *(v590 + 20), v627);
+    sub_1D158034C(v595, type metadata accessor for SignificantChangeEngine.State);
   }
 
-  v582 = v703;
-  v583 = v607;
-  sub_1D1580248(v619, &v607[*(v574 + 24)], sub_1D1580868);
-  v578(v583, v589, v600);
-  sub_1D1580248(v581, v583 + *(v574 + 20), sub_1D15807FC);
-  (v715)(v583, 0, 1, v574);
-  v584 = v709;
-  sub_1D1580218(v621, v709);
-  v585 = type metadata accessor for SignificantChangeEngine.Output(0);
-  sub_1D1580218(v622, v584 + *(v585 + 20));
-  sub_1D1580230(v583, v584 + *(v585 + 24));
-  (*(*(v585 - 8) + 56))(v584, 0, 1, v585);
-  (v716)(v582, v717);
+  v599 = v721;
+  v600 = v625;
+  sub_1D1580248(v637, &v625[*(v590 + 24)], sub_1D1580868);
+  v594(v600, v607, v618);
+  sub_1D1580248(v598, v600 + *(v590 + 20), sub_1D15807FC);
+  (v733)(v600, 0, 1, v590);
+  v601 = v727;
+  sub_1D1580218(v639, v727);
+  v602 = type metadata accessor for SignificantChangeEngine.Output(0);
+  sub_1D1580218(v640, v601 + *(v602 + 20));
+  v603 = sub_1D1580230(v600, v601 + *(v602 + 24));
+  (*(*(v602 - 8) + 56))(v601, 0, 1, v602, v603);
+  (v734)(v599, v735);
 LABEL_54:
-  sub_1D158034C(v242, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+  sub_1D158034C(v246, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
 }
 
 uint64_t sub_1D1579728@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
@@ -4337,7 +4341,7 @@ uint64_t sub_1D1579728@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   v122 = &v121 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
   v11 = &v121 - v10;
-  sub_1D148EF60();
+  sub_1D148EF60(0);
   v136 = v12;
   v13 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
@@ -4568,318 +4572,320 @@ LABEL_9:
   }
 }
 
-uint64_t sub_1D157A314@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+void sub_1D157A314(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
 {
-  v161 = a3;
-  v162 = a2;
+  v162 = a3;
+  v163 = a2;
   sub_1D15807FC(0);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v6 = &v128 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v129 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15801C4(0);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v148 = &v128 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v147 = &v128 - v10;
-  MEMORY[0x1EEE9AC00](v11);
-  v155 = &v128 - v12;
-  v159 = type metadata accessor for SignificantChangeEngine.State(0);
-  v149 = *(v159 - 8);
-  MEMORY[0x1EEE9AC00](v159);
-  v14 = &v128 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v150 = sub_1D15A26A8();
-  v154 = *(v150 - 8);
-  MEMORY[0x1EEE9AC00](v150);
-  v16 = &v128 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v153 = &v128 - v18;
-  sub_1D1580868(0);
-  MEMORY[0x1EEE9AC00](v19 - 8);
-  v151 = &v128 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v152 = &v128 - v22;
-  MEMORY[0x1EEE9AC00](v23);
-  v157 = &v128 - v24;
-  v160 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
-  v158 = *(v160 - 8);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v149 = &v129 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v148 = &v129 - v11;
+  MEMORY[0x1EEE9AC00](v12);
+  v156 = &v129 - v13;
+  v160 = type metadata accessor for SignificantChangeEngine.State(0);
+  v150 = *(v160 - 8);
   MEMORY[0x1EEE9AC00](v160);
-  v156 = &v128 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = sub_1D15A22A8();
-  v27 = *(v26 - 8);
-  MEMORY[0x1EEE9AC00](v26);
-  v146 = &v128 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = &v128 - v30;
-  MEMORY[0x1EEE9AC00](v32);
-  v34 = &v128 - v33;
-  sub_1D148EF60();
-  MEMORY[0x1EEE9AC00](v35 - 8);
-  MEMORY[0x1EEE9AC00](&v128 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v37);
-  v39 = (&v128 - v38);
-  MEMORY[0x1EEE9AC00](v40);
-  v46 = &v128 - v43;
-  v47 = *(v45 + 2);
-  if (!v47)
+  v15 = &v129 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v151 = sub_1D15A26A8();
+  v155 = *(v151 - 8);
+  MEMORY[0x1EEE9AC00](v151);
+  v17 = &v129 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v154 = &v129 - v19;
+  sub_1D1580868(0);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v152 = &v129 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v153 = &v129 - v23;
+  MEMORY[0x1EEE9AC00](v24);
+  v158 = &v129 - v25;
+  v161 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
+  v159 = *(v161 - 8);
+  MEMORY[0x1EEE9AC00](v161);
+  v157 = &v129 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = sub_1D15A22A8();
+  v28 = *(v27 - 8);
+  MEMORY[0x1EEE9AC00](v27);
+  v147 = &v129 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v30);
+  v32 = &v129 - v31;
+  MEMORY[0x1EEE9AC00](v33);
+  v35 = &v129 - v34;
+  sub_1D148EF60(0);
+  MEMORY[0x1EEE9AC00](v36 - 8);
+  MEMORY[0x1EEE9AC00](&v129 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v38);
+  v40 = (&v129 - v39);
+  MEMORY[0x1EEE9AC00](v41);
+  v47 = &v129 - v44;
+  v48 = *(v46 + 2);
+  if (!v48)
   {
-    v61 = v162;
+    v62 = v163;
 LABEL_23:
-    v110 = v161;
-    return sub_1D158015C(v61, v110, type metadata accessor for SignificantChangeEngine.State);
+    v112 = v162;
+LABEL_24:
+    sub_1D158015C(v62, v112, type metadata accessor for SignificantChangeEngine.State);
+    return;
   }
 
-  v140 = v41;
-  v141 = v16;
-  v145 = v44;
-  v133 = v6;
-  v135 = v14;
-  v139 = *(a1 + 24);
-  v48 = *(a1 + 48);
-  v49 = v47 - 1;
-  v50 = (*(v42 + 80) + 32) & ~*(v42 + 80);
-  v144 = v45;
-  v137 = v50;
-  v51 = v45 + v50;
-  v136 = *(v42 + 72);
-  v143 = v49;
-  v52 = v45 + v50 + v136 * v49;
-  sub_1D158015C(v52, &v128 - v43, sub_1D148EF60);
-  sub_1D158015C(v51, v39, sub_1D148EF60);
-  v53 = *(v27 + 32);
-  v131 = v27 + 32;
-  v53(v34, v39, v26);
-  sub_1D158015C(v52, v39, sub_1D148EF60);
-  v138 = v39;
-  v132 = v53;
-  v53(v31, v39, v26);
-  v54 = v162;
-  v55 = v157;
-  sub_1D1580850(v162 + *(v159 + 24), v157);
-  v56 = v160;
-  v142 = *(v158 + 48);
-  v57 = v26;
-  if (v142(v55, 1, v160) == 1)
+  v141 = v42;
+  v142 = v17;
+  v146 = v45;
+  v134 = v7;
+  v136 = v15;
+  v140 = *(a1 + 24);
+  v49 = *(a1 + 48);
+  v50 = v48 - 1;
+  v51 = (*(v43 + 80) + 32) & ~*(v43 + 80);
+  v145 = v46;
+  v138 = v51;
+  v52 = v46 + v51;
+  v137 = *(v43 + 72);
+  v144 = v50;
+  v53 = v46 + v51 + v137 * v50;
+  sub_1D158015C(v53, &v129 - v44, sub_1D148EF60);
+  sub_1D158015C(v52, v40, sub_1D148EF60);
+  v54 = *(v28 + 32);
+  v132 = v28 + 32;
+  v54(v35, v40, v27);
+  sub_1D158015C(v53, v40, sub_1D148EF60);
+  v139 = v40;
+  v133 = v54;
+  v54(v32, v40, v27);
+  v55 = v163;
+  v56 = v158;
+  sub_1D1580850(v163 + *(v160 + 24), v158);
+  v57 = v161;
+  v143 = *(v159 + 48);
+  v58 = v27;
+  if (v143(v56, 1, v161) == 1)
   {
-    v58 = *(v27 + 8);
-    v58(v31, v26);
-    v58(v34, v26);
-    sub_1D158034C(v46, sub_1D148EF60);
-    v59 = sub_1D1580868;
-    v60 = v55;
+    v59 = *(v28 + 8);
+    v59(v32, v27);
+    v59(v35, v27);
+    sub_1D158034C(v47, sub_1D148EF60);
+    v60 = sub_1D1580868;
+    v61 = v56;
 LABEL_22:
-    sub_1D158034C(v60, v59);
-    v61 = v54;
+    sub_1D158034C(v61, v60);
+    v62 = v55;
     goto LABEL_23;
   }
 
-  v62 = v27;
-  v129 = v31;
-  v134 = v46;
-  v130 = v34;
-  v63 = v156;
-  sub_1D1580248(v55, v156, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-  if ((*(v63 + *(v56 + 20)) & 1) == 0)
+  v63 = v28;
+  v130 = v32;
+  v135 = v47;
+  v131 = v35;
+  v64 = v157;
+  sub_1D1580248(v56, v157, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+  if ((*(v64 + *(v57 + 20)) & 1) == 0)
   {
 LABEL_21:
-    sub_1D158034C(v63, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-    v109 = *(v62 + 8);
-    v109(v129, v57);
-    v109(v130, v57);
-    v59 = sub_1D148EF60;
-    v60 = v134;
+    sub_1D158034C(v64, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+    v111 = *(v63 + 8);
+    v111(v130, v58);
+    v111(v131, v58);
+    v60 = sub_1D148EF60;
+    v61 = v135;
     goto LABEL_22;
   }
 
-  v65 = sub_1D157B384(v143, v144);
-  v157 = v66;
-  v68 = v67;
-  if ((v67 & 1) == 0)
+  v66 = sub_1D157B384(v144, v145);
+  v158 = v67;
+  v69 = v68;
+  if ((v68 & 1) == 0)
   {
-    v69 = v64;
+    v70 = v65;
 
 LABEL_8:
-    sub_1D157DC00(v65, v69, v157, v68, sub_1D158373C, sub_1D148EF60);
-    v71 = v70;
+    sub_1D157DC00(v66, v70, v158, v69, sub_1D158373C, sub_1D148EF60);
+    v72 = v71;
     goto LABEL_15;
   }
 
-  v143 = v64;
+  v144 = v65;
   sub_1D15A4BC8();
   swift_unknownObjectRetain_n();
 
-  v72 = swift_dynamicCastClass();
-  if (!v72)
+  v73 = swift_dynamicCastClass();
+  if (!v73)
   {
     swift_unknownObjectRelease();
-    v72 = MEMORY[0x1E69E7CC0];
+    v73 = MEMORY[0x1E69E7CC0];
   }
 
-  v73 = *(v72 + 16);
+  v74 = *(v73 + 16);
 
-  if (__OFSUB__(v68 >> 1, v157))
+  if (__OFSUB__(v69 >> 1, v158))
   {
     __break(1u);
     goto LABEL_38;
   }
 
-  if (v73 != (v68 >> 1) - v157)
+  if (v74 != (v69 >> 1) - v158)
   {
 LABEL_38:
     swift_unknownObjectRelease();
-    v69 = v143;
+    v70 = v144;
     goto LABEL_8;
   }
 
-  v71 = swift_dynamicCastClass();
+  v72 = swift_dynamicCastClass();
   swift_unknownObjectRelease();
-  if (v71)
+  if (v72)
   {
     goto LABEL_16;
   }
 
-  v71 = MEMORY[0x1E69E7CC0];
+  v72 = MEMORY[0x1E69E7CC0];
 LABEL_15:
   swift_unknownObjectRelease();
 LABEL_16:
-  v74 = *(v71 + 16);
-  if (!v74)
+  v75 = *(v72 + 16);
+  if (!v75)
   {
 
     goto LABEL_21;
   }
 
-  v75 = v57;
-  v76 = v145;
-  sub_1D158015C(v71 + v137 + (v74 - 1) * v136, v145, sub_1D148EF60);
-  v77 = v153;
-  v78 = v138;
-  sub_1D158015C(v134, v138, sub_1D148EF60);
+  v76 = v58;
+  v77 = v146;
+  sub_1D158015C(v72 + v138 + (v75 - 1) * v137, v146, sub_1D148EF60);
+  v78 = v154;
+  v79 = v139;
+  sub_1D158015C(v135, v139, sub_1D148EF60);
   sub_1D15A2258();
-  v79 = *(v62 + 8);
-  v79(v78, v57);
+  v80 = *(v63 + 8);
+  v80(v79, v58);
   sub_1D15A2548();
-  v81 = v80;
-  v138 = v62;
-  v82 = v77;
-  v83 = *(v154 + 8);
-  v84 = v150;
-  v83(v82, v150);
-  v85 = v76;
-  v86 = v84;
-  v87 = v140;
-  sub_1D158015C(v85, v140, sub_1D148EF60);
+  v82 = v81;
+  v139 = v63;
+  v83 = v78;
+  v84 = *(v155 + 8);
+  v85 = v151;
+  v84(v83, v151);
+  v86 = v77;
+  v87 = v85;
   v88 = v141;
+  sub_1D158015C(v86, v141, sub_1D148EF60);
+  v89 = v142;
   sub_1D15A2258();
-  v143 = v75;
-  v157 = v62 + 8;
-  v144 = v79;
-  v79(v87, v75);
+  v144 = v76;
+  v158 = v63 + 8;
+  v145 = v80;
+  v80(v88, v76);
   sub_1D15A2548();
-  v90 = v89;
-  v83(v88, v86);
-  v91 = v155;
-  sub_1D1579728(v71, v139, v155, v48 - (v81 - v90));
+  v91 = v90;
+  v84(v89, v87);
+  v92 = v156;
+  sub_1D1579728(v72, v140, v156, v49 - (v82 - v91));
 
-  v92 = v149;
-  v93 = *(v149 + 48);
-  v94 = v159;
-  if (v93(v91, 1, v159) == 1)
+  v93 = v150;
+  v94 = *(v150 + 48);
+  v95 = v160;
+  if (v94(v92, 1, v160) == 1)
   {
-    v95 = v147;
-    sub_1D158015C(v162, v147, type metadata accessor for SignificantChangeEngine.State);
-    (*(v92 + 56))(v95, 0, 1, v94);
-    v96 = v153;
-    sub_1D15A2288();
+    v96 = v148;
+    sub_1D158015C(v163, v148, type metadata accessor for SignificantChangeEngine.State);
+    (*(v93 + 56))(v96, 0, 1, v95);
     v97 = v154;
-    v98 = v152;
-    (*(v154 + 32))(v152, v96, v86);
-    (*(v97 + 56))(v98, 0, 1, v86);
-    v99 = v160;
-    v100 = *(v160 + 24);
-    v101 = type metadata accessor for SignificantChange(0);
-    (*(*(v101 - 8) + 56))(v98 + v100, 1, 1, v101);
-    *(v98 + *(v99 + 20)) = 1;
-    (*(v158 + 56))(v98, 0, 1, v99);
-    v102 = v146;
-    v103 = v143;
-    v138[2](v146, v129, v143);
-    v104 = v95;
-    v105 = v148;
-    sub_1D1580230(v104, v148);
-    v106 = v93;
-    if (v93(v105, 1, v94) == 1)
+    sub_1D15A2288();
+    v98 = v155;
+    v99 = v153;
+    (*(v155 + 32))(v153, v97, v87);
+    (*(v98 + 56))(v99, 0, 1, v87);
+    v100 = v161;
+    v101 = *(v161 + 24);
+    v102 = type metadata accessor for SignificantChange(0);
+    (*(*(v102 - 8) + 56))(v99 + v101, 1, 1, v102);
+    *(v99 + *(v100 + 20)) = 1;
+    (*(v159 + 56))(v99, 0, 1, v100);
+    v103 = v147;
+    v104 = v144;
+    v139[2](v147, v130, v144);
+    v105 = v96;
+    v106 = v149;
+    v107 = sub_1D1580230(v105, v149);
+    v108 = v94;
+    if ((v94)(v106, 1, v95, v107) == 1)
     {
-      sub_1D158034C(v105, sub_1D15801C4);
-      v107 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-      v108 = v133;
-      (*(*(v107 - 8) + 56))(v133, 1, 1, v107);
+      sub_1D158034C(v106, sub_1D15801C4);
+      v109 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+      v110 = v134;
+      (*(*(v109 - 8) + 56))(v134, 1, 1, v109);
     }
 
     else
     {
-      v108 = v133;
-      sub_1D15807E4(v105 + *(v94 + 20), v133);
-      sub_1D158034C(v105, type metadata accessor for SignificantChangeEngine.State);
+      v110 = v134;
+      sub_1D15807E4(v106 + *(v95 + 20), v134);
+      sub_1D158034C(v106, type metadata accessor for SignificantChangeEngine.State);
     }
 
-    v114 = v156;
-    v112 = v135;
-    sub_1D1580248(v152, &v135[*(v94 + 24)], sub_1D1580868);
-    v132(v112, v102, v103);
-    sub_1D1580248(v108, v112 + *(v94 + 20), sub_1D15807FC);
-    v115 = v155;
-    v116 = v106(v155, 1, v94);
-    v113 = v162;
-    if (v116 != 1)
+    v115 = v157;
+    v113 = v136;
+    sub_1D1580248(v153, &v136[*(v95 + 24)], sub_1D1580868);
+    v133(v113, v103, v104);
+    sub_1D1580248(v110, v113 + *(v95 + 20), sub_1D15807FC);
+    v116 = v156;
+    v117 = v108(v156, 1, v95);
+    v114 = v163;
+    if (v117 != 1)
     {
-      sub_1D158034C(v115, sub_1D15801C4);
+      sub_1D158034C(v116, sub_1D15801C4);
     }
   }
 
   else
   {
-    v103 = v143;
-    v112 = v135;
-    sub_1D1580248(v91, v135, type metadata accessor for SignificantChangeEngine.State);
-    v113 = v162;
-    v114 = v156;
+    v104 = v144;
+    v113 = v136;
+    sub_1D1580248(v92, v136, type metadata accessor for SignificantChangeEngine.State);
+    v114 = v163;
+    v115 = v157;
   }
 
-  v117 = v151;
-  sub_1D1580850(v112 + *(v94 + 24), v151);
-  v118 = v160;
-  v119 = v142(v117, 1, v160);
-  v120 = v161;
-  if (v119 == 1)
+  v118 = v152;
+  sub_1D1580850(v113 + *(v95 + 24), v152);
+  v119 = v161;
+  v120 = v143(v118, 1, v161);
+  v121 = v162;
+  if (v120 == 1)
   {
-    sub_1D158034C(v117, sub_1D1580868);
-    sub_1D158034C(v145, sub_1D148EF60);
-    sub_1D158034C(v114, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-    v121 = v144;
-    v144(v129, v103);
-    v121(v130, v103);
-    sub_1D158034C(v134, sub_1D148EF60);
+    sub_1D158034C(v118, sub_1D1580868);
+    sub_1D158034C(v146, sub_1D148EF60);
+    sub_1D158034C(v115, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+    v122 = v145;
+    v145(v130, v104);
+    v122(v131, v104);
+    sub_1D158034C(v135, sub_1D148EF60);
 LABEL_31:
-    sub_1D158034C(v112, type metadata accessor for SignificantChangeEngine.State);
-    v61 = v113;
-    v110 = v120;
-    return sub_1D158015C(v61, v110, type metadata accessor for SignificantChangeEngine.State);
+    sub_1D158034C(v113, type metadata accessor for SignificantChangeEngine.State);
+    v62 = v114;
+    v112 = v121;
+    goto LABEL_24;
   }
 
-  v122 = *(v117 + *(v118 + 20));
-  sub_1D158034C(v117, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-  v123 = v130;
-  v124 = v129;
-  if (v122)
+  v123 = *(v118 + *(v119 + 20));
+  sub_1D158034C(v118, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+  v124 = v131;
+  v125 = v130;
+  if (v123)
   {
-    v125 = sub_1D15A4BA8();
+    v126 = sub_1D15A4BA8();
 
-    sub_1D158034C(v145, sub_1D148EF60);
-    sub_1D158034C(v114, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-    v126 = v144;
-    v144(v124, v103);
-    v126(v123, v103);
-    sub_1D158034C(v134, sub_1D148EF60);
-    if ((v125 & 1) == 0)
+    sub_1D158034C(v146, sub_1D148EF60);
+    sub_1D158034C(v115, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+    v127 = v145;
+    v145(v125, v104);
+    v127(v124, v104);
+    sub_1D158034C(v135, sub_1D148EF60);
+    if ((v126 & 1) == 0)
     {
       goto LABEL_31;
     }
@@ -4888,15 +4894,15 @@ LABEL_31:
   else
   {
     swift_bridgeObjectRelease_n();
-    sub_1D158034C(v145, sub_1D148EF60);
-    sub_1D158034C(v114, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
-    v127 = v144;
-    v144(v124, v103);
-    v127(v123, v103);
-    sub_1D158034C(v134, sub_1D148EF60);
+    sub_1D158034C(v146, sub_1D148EF60);
+    sub_1D158034C(v115, type metadata accessor for SignificantChangeEngine.State.FrequencyShift);
+    v128 = v145;
+    v145(v125, v104);
+    v128(v124, v104);
+    sub_1D158034C(v135, sub_1D148EF60);
   }
 
-  return sub_1D1580248(v112, v120, type metadata accessor for SignificantChangeEngine.State);
+  sub_1D1580248(v113, v121, type metadata accessor for SignificantChangeEngine.State);
 }
 
 uint64_t sub_1D157B384(uint64_t result, uint64_t a2)
@@ -4908,7 +4914,7 @@ uint64_t sub_1D157B384(uint64_t result, uint64_t a2)
 
   else
   {
-    sub_1D148EF60();
+    sub_1D148EF60(0);
     return a2;
   }
 
@@ -4954,7 +4960,7 @@ uint64_t sub_1D157B418@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, double a3@<D0>, 
   v30 = *(v18 + 72);
   sub_1D158015C(v28 + v54 + v30 * (v29 - 1), v25, type metadata accessor for SignificantChange.Period);
   sub_1D15A2288();
-  sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530]);
+  sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
   v31 = sub_1D15A3EB8();
   (*(v11 + 8))(v16, v10);
   if ((v31 & 1) == 0)
@@ -5041,7 +5047,7 @@ LABEL_15:
   v50 = v45[3];
   if (v51 >= v50 >> 1)
   {
-    v45 = sub_1D148C92C(v50 > 1, v51 + 1, 1, v45);
+    v45 = sub_1D148C92C((v50 > 1), v51 + 1, 1, v45);
   }
 
   sub_1D158034C(v22, type metadata accessor for SignificantChange.Period);
@@ -5056,62 +5062,63 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_1D157BA28@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double sub_1D157BA28@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v30 = a3;
+  v32 = a3;
   sub_1D1580868(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v29 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = &v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15801C4(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v10);
-  v12 = &v29 - v11;
+  v12 = &v31 - v11;
   sub_1D15807FC(0);
   MEMORY[0x1EEE9AC00](v13 - 8);
-  v15 = &v29 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = sub_1D15A22A8();
   v17 = *(v16 - 8);
   v18 = MEMORY[0x1EEE9AC00](v16);
-  v20 = &v29 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v17 + 16))(v20, a2, v16, v18);
-  v21 = a1;
-  sub_1D1580144(a1, v12);
-  v22 = type metadata accessor for SignificantChangeEngine.State(0);
-  v23 = *(*(v22 - 8) + 48);
-  if (v23(v12, 1, v22) == 1)
+  v20 = &v31 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21.n128_f64[0] = (*(v17 + 16))(v20, a2, v16, v18);
+  v22 = a1;
+  sub_1D1580144(a1, v12, v21);
+  v23 = type metadata accessor for SignificantChangeEngine.State(0);
+  v24 = *(*(v23 - 8) + 48);
+  if (v24(v12, 1, v23) == 1)
   {
     sub_1D158034C(v12, sub_1D15801C4);
-    v24 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-    (*(*(v24 - 8) + 56))(v15, 1, 1, v24);
+    v25 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+    (*(*(v25 - 8) + 56))(v15, 1, 1, v25);
   }
 
   else
   {
-    sub_1D15807E4(&v12[*(v22 + 20)], v15);
+    sub_1D15807E4(&v12[*(v23 + 20)], v15);
     sub_1D158034C(v12, type metadata accessor for SignificantChangeEngine.State);
   }
 
-  sub_1D1580144(v21, v9);
-  if (v23(v9, 1, v22) == 1)
+  sub_1D1580144(v22, v9, v26);
+  if (v24(v9, 1, v23) == 1)
   {
     sub_1D158034C(v9, sub_1D15801C4);
-    v25 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
-    v26 = v29;
-    (*(*(v25 - 8) + 56))(v29, 1, 1, v25);
+    v27 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
+    v28 = v31;
+    (*(*(v27 - 8) + 56))(v31, 1, 1, v27);
   }
 
   else
   {
-    v26 = v29;
-    sub_1D1580850(&v9[*(v22 + 24)], v29);
+    v28 = v31;
+    sub_1D1580850(&v9[*(v23 + 24)], v31);
     sub_1D158034C(v9, type metadata accessor for SignificantChangeEngine.State);
   }
 
-  v27 = v30;
-  (*(v17 + 32))(v30, v20, v16);
-  sub_1D1580248(v15, v27 + *(v22 + 20), sub_1D15807FC);
-  return sub_1D1580248(v26, v27 + *(v22 + 24), sub_1D1580868);
+  v29 = v32;
+  (*(v17 + 32))(v32, v20, v16);
+  sub_1D1580248(v15, v29 + *(v23 + 20), sub_1D15807FC);
+  sub_1D1580248(v28, v29 + *(v23 + 24), sub_1D1580868);
+  return result;
 }
 
 uint64_t sub_1D157BE0C(uint64_t a1, uint64_t a2)
@@ -5123,7 +5130,7 @@ uint64_t sub_1D157BE0C(uint64_t a1, uint64_t a2)
   v20 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v19 - v6;
-  sub_1D148EF60();
+  sub_1D148EF60(0);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
@@ -5137,7 +5144,7 @@ uint64_t sub_1D157BE0C(uint64_t a1, uint64_t a2)
   v16 = v20;
   sub_1D15A2288();
   v15(v10, v14);
-  sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530]);
+  sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
   LOBYTE(v14) = sub_1D15A3EB8();
   v17 = *(v22 + 8);
   v17(v16, v3);
@@ -5177,10 +5184,10 @@ uint64_t sub_1D157C088()
   }
 }
 
-uint64_t sub_1D157C114@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1D157C114@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1D1582FD0(a1, a2);
-  *a3 = result;
+  result = sub_1D1582FD0(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5324,10 +5331,10 @@ unint64_t sub_1D157C66C(unsigned __int8 a1)
   }
 }
 
-uint64_t sub_1D157C774@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1D157C774@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1D1583184(a1, a2);
-  *a3 = result;
+  result = sub_1D1583184(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5358,7 +5365,7 @@ uint64_t SignificantChangeEngine.Changepoint.encode(to:)(void *a1)
   sub_1D15A4CE8();
   LOBYTE(v18) = 0;
   sub_1D15A26A8();
-  sub_1D1580304(&qword_1EE05B3F8, MEMORY[0x1E6969530]);
+  sub_1D1580304(&qword_1EE05B3F8, MEMORY[0x1E6969530], MEMORY[0x1E6969538]);
   sub_1D15A4B38();
   if (!v2)
   {
@@ -5425,7 +5432,7 @@ uint64_t SignificantChangeEngine.Changepoint.init(from:)@<X0>(void *a1@<X0>, uin
   v13 = v29;
   v12 = v30;
   LOBYTE(v35) = 0;
-  sub_1D1580304(&qword_1EE05B800, MEMORY[0x1E6969530]);
+  sub_1D1580304(&qword_1EE05B800, MEMORY[0x1E6969530], MEMORY[0x1E6969558]);
   sub_1D15A4A78();
   (*(v12 + 32))(v10, v32, v3);
   LOBYTE(v35) = 1;
@@ -5476,7 +5483,7 @@ uint64_t sub_1D157D108(uint64_t a1, uint64_t a2, uint64_t a3)
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D148EF60();
+  sub_1D148EF60(0);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17[0] = a1;
@@ -5485,7 +5492,7 @@ uint64_t sub_1D157D108(uint64_t a1, uint64_t a2, uint64_t a3)
   v11 = sub_1D15A22A8();
   v12 = *(*(v11 - 8) + 8);
   v12(v10, v11);
-  sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530]);
+  sub_1D1580304(&qword_1EE05B518, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
   v13 = sub_1D15A3EC8();
   v14 = *(v5 + 8);
   v14(v7, v4);
@@ -5544,7 +5551,7 @@ uint64_t SignificantChangeEngine.Changepoint.description.getter()
   sub_1D15A47D8();
   MEMORY[0x1D388A330](0x6F7065676E616843, 0xED00005B7B746E69);
   sub_1D15A26A8();
-  sub_1D1580304(&qword_1EE05B3F0, MEMORY[0x1E6969530]);
+  sub_1D1580304(&qword_1EE05B3F0, MEMORY[0x1E6969530], MEMORY[0x1E6969570]);
   v8 = sub_1D15A4B68();
   MEMORY[0x1D388A330](v8);
 
@@ -5571,14 +5578,14 @@ uint64_t SignificantChangeEngine.Changepoint.description.getter()
   return 0;
 }
 
-uint64_t SignificantChange.description.getter()
+void SignificantChange.description.getter()
 {
   v1 = type metadata accessor for SignificantChange.Period(0);
   v2 = *(v1 - 8);
   MEMORY[0x1EEE9AC00](v1 - 8);
-  v4 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = 0x2865676E616843;
-  v30 = 0xE700000000000000;
+  v4 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = 0x2865676E616843;
+  v29 = 0xE700000000000000;
   v5 = *(v0 + *(type metadata accessor for SignificantChange(0) + 20));
   if (*(v5 + 16))
   {
@@ -5605,82 +5612,80 @@ uint64_t SignificantChange.description.getter()
   v8 = SignificantChange.Period.description.getter();
   MEMORY[0x1D388A330](v8);
 
-  result = MEMORY[0x1D388A330](32, 0xE100000000000000);
-  v10 = *(v5 + 16);
-  if (v10)
+  MEMORY[0x1D388A330](32, 0xE100000000000000);
+  v9 = *(v5 + 16);
+  if (v9)
   {
-    v27 = MEMORY[0x1E69E7CC0];
-    sub_1D14A7854(0, v10, 0);
-    v11 = v27;
-    v12 = v5 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
-    v13 = *(v2 + 72);
+    v26 = MEMORY[0x1E69E7CC0];
+    sub_1D14A7854(0, v9, 0);
+    v10 = v26;
+    v11 = v5 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
+    v12 = *(v2 + 72);
     do
     {
-      sub_1D158015C(v12, v4, type metadata accessor for SignificantChange.Period);
-      v14 = SignificantChange.Period.description.getter();
-      v16 = v15;
-      result = sub_1D158034C(v4, type metadata accessor for SignificantChange.Period);
-      v27 = v11;
-      v18 = v11[2];
-      v17 = v11[3];
-      v19 = v18 + 1;
-      if (v18 >= v17 >> 1)
+      sub_1D158015C(v11, v4, type metadata accessor for SignificantChange.Period);
+      v13 = SignificantChange.Period.description.getter();
+      v15 = v14;
+      sub_1D158034C(v4, type metadata accessor for SignificantChange.Period);
+      v26 = v10;
+      v17 = v10[2];
+      v16 = v10[3];
+      v18 = v17 + 1;
+      if (v17 >= v16 >> 1)
       {
-        result = sub_1D14A7854((v17 > 1), v18 + 1, 1);
-        v11 = v27;
+        sub_1D14A7854((v16 > 1), v17 + 1, 1);
+        v10 = v26;
       }
 
-      v11[2] = v19;
-      v20 = &v11[2 * v18];
-      v20[4] = v14;
-      v20[5] = v16;
-      v12 += v13;
-      --v10;
+      v10[2] = v18;
+      v19 = &v10[2 * v17];
+      v19[4] = v13;
+      v19[5] = v15;
+      v11 += v12;
+      --v9;
     }
 
-    while (v10);
+    while (v9);
 LABEL_14:
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
-    v23 = v11 + 5;
-    v24 = 0xE000000000000000;
-    while (v22 < v11[2])
+    v22 = v10 + 5;
+    v23 = 0xE000000000000000;
+    while (v21 < v10[2])
     {
-      ++v22;
-      v26 = *(v23 - 1);
-      v25 = *v23;
-      v27 = v21;
-      v28 = v24;
+      ++v21;
+      v25 = *(v22 - 1);
+      v24 = *v22;
+      v26 = v20;
+      v27 = v23;
 
-      MEMORY[0x1D388A330](v26, v25);
+      MEMORY[0x1D388A330](v25, v24);
 
-      v21 = v27;
-      v24 = v28;
-      v23 += 2;
-      if (v19 == v22)
+      v20 = v26;
+      v23 = v27;
+      v22 += 2;
+      if (v18 == v21)
       {
         goto LABEL_17;
       }
     }
 
     __break(1u);
-    return result;
+    return;
   }
 
-  v11 = MEMORY[0x1E69E7CC0];
-  v19 = *(MEMORY[0x1E69E7CC0] + 16);
-  if (v19)
+  v10 = MEMORY[0x1E69E7CC0];
+  v18 = *(MEMORY[0x1E69E7CC0] + 16);
+  if (v18)
   {
     goto LABEL_14;
   }
 
-  v21 = 0;
-  v24 = 0xE000000000000000;
+  v20 = 0;
+  v23 = 0xE000000000000000;
 LABEL_17:
 
-  MEMORY[0x1D388A330](v21, v24);
-
-  return v29;
+  MEMORY[0x1D388A330](v20, v23);
 }
 
 uint64_t SignificantChange.Period.description.getter()
@@ -5719,7 +5724,7 @@ uint64_t SignificantChange.Period.description.getter()
   sub_1D15A4178();
   MEMORY[0x1D388A330](0x207265766F2029, 0xE700000000000000);
   sub_1D15A22A8();
-  sub_1D1580304(&qword_1EE05B430, MEMORY[0x1E6968130]);
+  sub_1D1580304(&qword_1EE05B430, MEMORY[0x1E6968130], MEMORY[0x1E6968158]);
   v5 = sub_1D15A4B68();
   MEMORY[0x1D388A330](v5);
 
@@ -5727,7 +5732,7 @@ uint64_t SignificantChange.Period.description.getter()
   return 0;
 }
 
-void sub_1D157DC00(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(void), uint64_t (*a6)(void))
+void sub_1D157DC00(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void))
 {
   v6 = a4 >> 1;
   v7 = (a4 >> 1) - a3;
@@ -5748,7 +5753,7 @@ void sub_1D157DC00(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a
 
     else
     {
-      a5(0);
+      (a5)(0, a2);
       v10 = *(a6(0) - 8);
       v11 = *(v10 + 72);
       v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
@@ -6247,90 +6252,90 @@ BOOL _s19HealthVisualization23SignificantChangeEngineV11ChangepointV2eeoiySbAE_A
 BOOL _s19HealthVisualization23SignificantChangeEngineV6OutputV2eeoiySbAE_AEtFZ_0(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for SignificantChangeEngine.State(0);
-  v55 = *(v4 - 8);
-  v56 = v4;
+  v64 = *(v4 - 8);
+  v65 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v52 = &v51 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = &v60 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15801C4(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v53 = &v51 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v62 = &v60 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1583920(0);
-  v54 = v8;
+  v63 = v8;
   MEMORY[0x1EEE9AC00](v8);
-  v59 = &v51 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = &v60 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for SignificantChange(0);
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
-  v13 = &v51 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v60 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15800F0(0);
   MEMORY[0x1EEE9AC00](v14 - 8);
-  v57 = &v51 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v66 = &v60 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v16);
-  v18 = &v51 - v17;
+  v18 = &v60 - v17;
   sub_1D15838E0(0);
   v20 = v19;
   MEMORY[0x1EEE9AC00](v19);
-  v22 = &v51 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = &v51 - v24;
-  v27 = *(v26 + 48);
-  v60 = a1;
-  sub_1D15800D8(a1, &v51 - v24);
-  v58 = a2;
-  sub_1D15800D8(a2, &v25[v27]);
-  v28 = *(v11 + 48);
-  if (v28(v25, 1, v10) == 1)
+  v22 = &v60 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = MEMORY[0x1EEE9AC00](v23);
+  v26 = &v60 - v25;
+  v28 = *(v27 + 48);
+  v69 = a1;
+  sub_1D15800D8(a1, &v60 - v25, v24);
+  v67 = a2;
+  sub_1D15800D8(a2, &v26[v28], v29);
+  v30 = *(v11 + 48);
+  if (v30(v26, 1, v10) == 1)
   {
-    if (v28(&v25[v27], 1, v10) == 1)
+    if (v30(&v26[v28], 1, v10) == 1)
     {
-      sub_1D158034C(v25, sub_1D15800F0);
+      sub_1D158034C(v26, sub_1D15800F0);
       goto LABEL_8;
     }
 
 LABEL_6:
-    v29 = sub_1D15838E0;
-    v30 = v25;
+    v32 = sub_1D15838E0;
+    v33 = v26;
 LABEL_21:
-    sub_1D158034C(v30, v29);
+    sub_1D158034C(v33, v32);
     return 0;
   }
 
-  sub_1D15800D8(v25, v18);
-  if (v28(&v25[v27], 1, v10) == 1)
+  sub_1D15800D8(v26, v18, v31);
+  if (v30(&v26[v28], 1, v10) == 1)
   {
     sub_1D158034C(v18, type metadata accessor for SignificantChange);
     goto LABEL_6;
   }
 
-  sub_1D1580248(&v25[v27], v13, type metadata accessor for SignificantChange);
-  v31 = _s19HealthVisualization17SignificantChangeV2eeoiySbAC_ACtFZ_0(v18, v13);
+  sub_1D1580248(&v26[v28], v13, type metadata accessor for SignificantChange);
+  v34 = _s19HealthVisualization17SignificantChangeV2eeoiySbAC_ACtFZ_0(v18, v13);
   sub_1D158034C(v13, type metadata accessor for SignificantChange);
   sub_1D158034C(v18, type metadata accessor for SignificantChange);
-  sub_1D158034C(v25, sub_1D15800F0);
-  if ((v31 & 1) == 0)
+  sub_1D158034C(v26, sub_1D15800F0);
+  if ((v34 & 1) == 0)
   {
     return 0;
   }
 
 LABEL_8:
-  v32 = type metadata accessor for SignificantChangeEngine.Output(0);
-  v33 = *(v32 + 20);
-  v34 = *(v20 + 48);
-  sub_1D15800D8(v60 + v33, v22);
-  v35 = v58;
-  sub_1D15800D8(v58 + v33, &v22[v34]);
-  if (v28(v22, 1, v10) != 1)
+  v35 = type metadata accessor for SignificantChangeEngine.Output(0);
+  v36 = *(v35 + 20);
+  v37 = *(v20 + 48);
+  sub_1D15800D8(v69 + v36, v22, v38);
+  v39 = v67;
+  sub_1D15800D8(v67 + v36, &v22[v37], v40);
+  if (v30(v22, 1, v10) != 1)
   {
-    v36 = v57;
-    sub_1D15800D8(v22, v57);
-    if (v28(&v22[v34], 1, v10) != 1)
+    v43 = v66;
+    sub_1D15800D8(v22, v66, v41);
+    if (v30(&v22[v37], 1, v10) != 1)
     {
-      sub_1D1580248(&v22[v34], v13, type metadata accessor for SignificantChange);
-      v37 = _s19HealthVisualization17SignificantChangeV2eeoiySbAC_ACtFZ_0(v36, v13);
+      sub_1D1580248(&v22[v37], v13, type metadata accessor for SignificantChange);
+      v44 = _s19HealthVisualization17SignificantChangeV2eeoiySbAC_ACtFZ_0(v43, v13);
       sub_1D158034C(v13, type metadata accessor for SignificantChange);
-      sub_1D158034C(v36, type metadata accessor for SignificantChange);
+      sub_1D158034C(v43, type metadata accessor for SignificantChange);
       sub_1D158034C(v22, sub_1D15800F0);
-      if ((v37 & 1) == 0)
+      if ((v44 & 1) == 0)
       {
         return 0;
       }
@@ -6338,60 +6343,60 @@ LABEL_8:
       goto LABEL_15;
     }
 
-    sub_1D158034C(v36, type metadata accessor for SignificantChange);
+    sub_1D158034C(v43, type metadata accessor for SignificantChange);
     goto LABEL_13;
   }
 
-  if (v28(&v22[v34], 1, v10) != 1)
+  if (v30(&v22[v37], 1, v10) != 1)
   {
 LABEL_13:
-    v29 = sub_1D15838E0;
-    v30 = v22;
+    v32 = sub_1D15838E0;
+    v33 = v22;
     goto LABEL_21;
   }
 
   sub_1D158034C(v22, sub_1D15800F0);
 LABEL_15:
-  v38 = *(v32 + 24);
-  v39 = *(v54 + 48);
-  v40 = v59;
-  sub_1D1580144(v60 + v38, v59);
-  sub_1D1580144(v35 + v38, v40 + v39);
-  v41 = *(v55 + 48);
-  v42 = v40;
-  v43 = v56;
-  if (v41(v42, 1, v56) == 1)
+  v45 = *(v35 + 24);
+  v46 = *(v63 + 48);
+  v47 = v68;
+  sub_1D1580144(v69 + v45, v68, v42);
+  sub_1D1580144(v39 + v45, v47 + v46, v48);
+  v49 = *(v64 + 48);
+  v50 = v47;
+  v51 = v65;
+  if (v49(v50, 1, v65) == 1)
   {
-    if (v41(v59 + v39, 1, v43) == 1)
+    if (v49(v68 + v46, 1, v51) == 1)
     {
-      sub_1D158034C(v59, sub_1D15801C4);
+      sub_1D158034C(v68, sub_1D15801C4);
       return 1;
     }
 
     goto LABEL_20;
   }
 
-  v44 = v59;
-  v45 = v53;
-  sub_1D1580144(v59, v53);
-  if (v41(v44 + v39, 1, v43) == 1)
+  v53 = v68;
+  v54 = v62;
+  sub_1D1580144(v68, v62, v52);
+  if (v49(v53 + v46, 1, v51) == 1)
   {
-    sub_1D158034C(v45, type metadata accessor for SignificantChangeEngine.State);
+    sub_1D158034C(v54, type metadata accessor for SignificantChangeEngine.State);
 LABEL_20:
-    v29 = sub_1D1583920;
-    v30 = v59;
+    v32 = sub_1D1583920;
+    v33 = v68;
     goto LABEL_21;
   }
 
-  v47 = v59;
-  v48 = v59 + v39;
-  v49 = v52;
-  sub_1D1580248(v48, v52, type metadata accessor for SignificantChangeEngine.State);
-  v50 = _s19HealthVisualization23SignificantChangeEngineV5StateV2eeoiySbAE_AEtFZ_0(v45, v49);
-  sub_1D158034C(v49, type metadata accessor for SignificantChangeEngine.State);
-  sub_1D158034C(v45, type metadata accessor for SignificantChangeEngine.State);
-  sub_1D158034C(v47, sub_1D15801C4);
-  return v50;
+  v56 = v68;
+  v57 = v68 + v46;
+  v58 = v61;
+  sub_1D1580248(v57, v61, type metadata accessor for SignificantChangeEngine.State);
+  v59 = _s19HealthVisualization23SignificantChangeEngineV5StateV2eeoiySbAE_AEtFZ_0(v54, v58);
+  sub_1D158034C(v58, type metadata accessor for SignificantChangeEngine.State);
+  sub_1D158034C(v54, type metadata accessor for SignificantChangeEngine.State);
+  sub_1D158034C(v56, sub_1D15801C4);
+  return v59;
 }
 
 BOOL _s19HealthVisualization23SignificantChangeEngineV5StateV2eeoiySbAE_AEtFZ_0(uint64_t a1, uint64_t a2)
@@ -6507,100 +6512,100 @@ LABEL_14:
 BOOL _s19HealthVisualization23SignificantChangeEngineV5StateV9MeanShiftV2eeoiySbAG_AGtFZ_0(uint64_t a1, uint64_t a2)
 {
   v4 = sub_1D15A26A8();
-  v61 = *(v4 - 8);
-  v62 = v4;
+  v64 = *(v4 - 8);
+  v65 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v56 = &v55 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = &v58 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D14F104C(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v57 = &v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D14BDAD0();
-  v59 = v8;
+  v60 = &v58 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1D14BDAD0(0);
+  v62 = v8;
   MEMORY[0x1EEE9AC00](v8);
-  v60 = &v55 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v63 = &v58 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for SignificantChangeEngine.Changepoint(0);
-  v64 = *(v10 - 8);
-  v65 = v10;
+  v67 = *(v10 - 8);
+  v68 = v10;
   MEMORY[0x1EEE9AC00](v10);
-  v58 = &v55 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D148EF2C(0);
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v63 = &v55 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v66 = &v58 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1583900(0);
   v15 = v14;
   MEMORY[0x1EEE9AC00](v14);
-  v17 = &v55 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = &v58 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v18 = type metadata accessor for SignificantChange(0);
   v19 = *(v18 - 8);
   MEMORY[0x1EEE9AC00](v18);
-  v21 = &v55 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = &v58 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15800F0(0);
   MEMORY[0x1EEE9AC00](v22 - 8);
-  v24 = &v55 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = &v58 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15838E0(0);
-  MEMORY[0x1EEE9AC00](v25 - 8);
-  v27 = &v55 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = *(v28 + 56);
-  v66 = a1;
-  sub_1D15800D8(a1, v27);
-  v30 = a2;
-  sub_1D15800D8(a2, &v27[v29]);
-  v31 = *(v19 + 48);
-  if (v31(v27, 1, v18) == 1)
+  v26 = MEMORY[0x1EEE9AC00](v25 - 8);
+  v28 = &v58 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = *(v29 + 56);
+  v69 = a1;
+  sub_1D15800D8(a1, v28, v26);
+  v31 = a2;
+  sub_1D15800D8(a2, &v28[v30], v32);
+  v33 = *(v19 + 48);
+  if (v33(v28, 1, v18) == 1)
   {
-    if (v31(&v27[v29], 1, v18) == 1)
+    if (v33(&v28[v30], 1, v18) == 1)
     {
-      sub_1D158034C(v27, sub_1D15800F0);
+      sub_1D158034C(v28, sub_1D15800F0);
       goto LABEL_8;
     }
 
 LABEL_6:
-    v32 = sub_1D15838E0;
-    v33 = v27;
+    v35 = sub_1D15838E0;
+    v36 = v28;
 LABEL_21:
-    sub_1D158034C(v33, v32);
+    sub_1D158034C(v36, v35);
     return 0;
   }
 
-  sub_1D15800D8(v27, v24);
-  if (v31(&v27[v29], 1, v18) == 1)
+  sub_1D15800D8(v28, v24, v34);
+  if (v33(&v28[v30], 1, v18) == 1)
   {
     sub_1D158034C(v24, type metadata accessor for SignificantChange);
     goto LABEL_6;
   }
 
-  sub_1D1580248(&v27[v29], v21, type metadata accessor for SignificantChange);
-  v34 = _s19HealthVisualization17SignificantChangeV2eeoiySbAC_ACtFZ_0(v24, v21);
+  sub_1D1580248(&v28[v30], v21, type metadata accessor for SignificantChange);
+  v37 = _s19HealthVisualization17SignificantChangeV2eeoiySbAC_ACtFZ_0(v24, v21);
   sub_1D158034C(v21, type metadata accessor for SignificantChange);
   sub_1D158034C(v24, type metadata accessor for SignificantChange);
-  sub_1D158034C(v27, sub_1D15800F0);
-  if ((v34 & 1) == 0)
+  sub_1D158034C(v28, sub_1D15800F0);
+  if ((v37 & 1) == 0)
   {
     return 0;
   }
 
 LABEL_8:
-  v35 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
-  v36 = *(v35 + 20);
-  v37 = *(v15 + 48);
-  v38 = v66;
-  sub_1D15808BC(v66 + v36, v17);
-  sub_1D15808BC(v30 + v36, &v17[v37]);
-  v39 = v65;
-  v40 = *(v64 + 48);
-  if (v40(v17, 1, v65) != 1)
+  v38 = type metadata accessor for SignificantChangeEngine.State.MeanShift(0);
+  v39 = *(v38 + 20);
+  v40 = *(v15 + 48);
+  v41 = v69;
+  sub_1D15808BC(v69 + v39, v17);
+  sub_1D15808BC(v31 + v39, &v17[v40]);
+  v42 = v68;
+  v43 = *(v67 + 48);
+  if (v43(v17, 1, v68) != 1)
   {
-    v41 = v63;
-    sub_1D15808BC(v17, v63);
-    if (v40(&v17[v37], 1, v39) != 1)
+    v44 = v66;
+    sub_1D15808BC(v17, v66);
+    if (v43(&v17[v40], 1, v42) != 1)
     {
-      v42 = v58;
-      sub_1D1580248(&v17[v37], v58, type metadata accessor for SignificantChangeEngine.Changepoint);
-      v43 = _s19HealthVisualization23SignificantChangeEngineV11ChangepointV2eeoiySbAE_AEtFZ_0(v41, v42);
-      sub_1D158034C(v42, type metadata accessor for SignificantChangeEngine.Changepoint);
-      sub_1D158034C(v41, type metadata accessor for SignificantChangeEngine.Changepoint);
+      v45 = v61;
+      sub_1D1580248(&v17[v40], v61, type metadata accessor for SignificantChangeEngine.Changepoint);
+      v46 = _s19HealthVisualization23SignificantChangeEngineV11ChangepointV2eeoiySbAE_AEtFZ_0(v44, v45);
+      sub_1D158034C(v45, type metadata accessor for SignificantChangeEngine.Changepoint);
+      sub_1D158034C(v44, type metadata accessor for SignificantChangeEngine.Changepoint);
       sub_1D158034C(v17, sub_1D148EF2C);
-      if (!v43)
+      if (!v46)
       {
         return 0;
       }
@@ -6608,87 +6613,87 @@ LABEL_8:
       goto LABEL_15;
     }
 
-    sub_1D158034C(v41, type metadata accessor for SignificantChangeEngine.Changepoint);
+    sub_1D158034C(v44, type metadata accessor for SignificantChangeEngine.Changepoint);
     goto LABEL_13;
   }
 
-  if (v40(&v17[v37], 1, v39) != 1)
+  if (v43(&v17[v40], 1, v42) != 1)
   {
 LABEL_13:
-    v32 = sub_1D1583900;
-    v33 = v17;
+    v35 = sub_1D1583900;
+    v36 = v17;
     goto LABEL_21;
   }
 
   sub_1D158034C(v17, sub_1D148EF2C);
 LABEL_15:
-  v44 = *(v35 + 24);
-  v45 = v60;
-  v46 = *(v59 + 48);
-  sub_1D1455A40(v38 + v44, v60);
-  sub_1D1455A40(v30 + v44, v45 + v46);
-  v48 = v61;
-  v47 = v62;
-  v49 = *(v61 + 48);
-  if (v49(v45, 1, v62) == 1)
+  v47 = *(v38 + 24);
+  v48 = v63;
+  v49 = *(v62 + 48);
+  sub_1D1455A40(v41 + v47, v63);
+  sub_1D1455A40(v31 + v47, v48 + v49);
+  v51 = v64;
+  v50 = v65;
+  v52 = *(v64 + 48);
+  if (v52(v48, 1, v65) == 1)
   {
-    if (v49(v45 + v46, 1, v47) == 1)
+    if (v52(v48 + v49, 1, v50) == 1)
     {
-      sub_1D158034C(v45, sub_1D14F104C);
+      sub_1D158034C(v48, sub_1D14F104C);
       return 1;
     }
 
     goto LABEL_20;
   }
 
-  v50 = v57;
-  sub_1D1455A40(v45, v57);
-  if (v49(v45 + v46, 1, v47) == 1)
+  v53 = v60;
+  sub_1D1455A40(v48, v60);
+  if (v52(v48 + v49, 1, v50) == 1)
   {
-    (*(v48 + 8))(v50, v47);
+    (*(v51 + 8))(v53, v50);
 LABEL_20:
-    v32 = sub_1D14BDAD0;
-    v33 = v45;
+    v35 = sub_1D14BDAD0;
+    v36 = v48;
     goto LABEL_21;
   }
 
-  v52 = v56;
-  (*(v48 + 32))(v56, v45 + v46, v47);
-  sub_1D1580304(&qword_1EC630538, MEMORY[0x1E6969530]);
-  v53 = sub_1D15A3EE8();
-  v54 = *(v48 + 8);
-  v54(v52, v47);
-  v54(v50, v47);
-  sub_1D158034C(v45, sub_1D14F104C);
-  return (v53 & 1) != 0;
+  v55 = v59;
+  (*(v51 + 32))(v59, v48 + v49, v50);
+  sub_1D1580304(&qword_1EC630538, MEMORY[0x1E6969530], MEMORY[0x1E6969550]);
+  v56 = sub_1D15A3EE8();
+  v57 = *(v51 + 8);
+  v57(v55, v50);
+  v57(v53, v50);
+  sub_1D158034C(v48, sub_1D14F104C);
+  return (v56 & 1) != 0;
 }
 
 BOOL _s19HealthVisualization23SignificantChangeEngineV5StateV14FrequencyShiftV2eeoiySbAG_AGtFZ_0(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for SignificantChange(0);
-  v50 = *(v4 - 8);
-  v51 = v4;
+  v53 = *(v4 - 8);
+  v54 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v47 = &v47 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v50 = &v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15800F0(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v48 = &v47 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v51 = &v50 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D15838E0(0);
-  v49 = v8;
+  v52 = v8;
   MEMORY[0x1EEE9AC00](v8);
-  v10 = &v47 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v50 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = sub_1D15A26A8();
   v12 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
-  v14 = &v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v50 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D14F104C(0);
   MEMORY[0x1EEE9AC00](v15 - 8);
-  v17 = &v47 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D14BDAD0();
+  v17 = &v50 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1D14BDAD0(0);
   MEMORY[0x1EEE9AC00](v18 - 8);
-  v20 = &v47 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = &v50 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   v22 = *(v21 + 56);
-  v52 = a1;
+  v55 = a1;
   sub_1D1455A40(a1, v20);
   v23 = a2;
   sub_1D1455A40(a2, &v20[v22]);
@@ -6699,7 +6704,7 @@ BOOL _s19HealthVisualization23SignificantChangeEngineV5StateV14FrequencyShiftV2e
     if (v24(&v20[v22], 1, v11) != 1)
     {
       (*(v12 + 32))(v14, &v20[v22], v11);
-      sub_1D1580304(&qword_1EC630538, MEMORY[0x1E6969530]);
+      sub_1D1580304(&qword_1EC630538, MEMORY[0x1E6969530], MEMORY[0x1E6969550]);
       v27 = sub_1D15A3EE8();
       v28 = *(v12 + 8);
       v28(v14, v11);
@@ -6731,8 +6736,8 @@ LABEL_30:
 LABEL_8:
   v29 = type metadata accessor for SignificantChangeEngine.State.FrequencyShift(0);
   v30 = *(v29 + 20);
-  v31 = v52;
-  v32 = *(v52 + v30);
+  v31 = v55;
+  v32 = *(v55 + v30);
   v33 = *(v23 + v30);
   if (v32)
   {
@@ -6780,23 +6785,23 @@ LABEL_8:
 
   else
   {
-    v38 = sub_1D15A4BA8();
+    v39 = sub_1D15A4BA8();
 
-    if ((v38 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
       return 0;
     }
   }
 
-  v39 = *(v29 + 24);
-  v40 = *(v49 + 48);
-  sub_1D15800D8(v31 + v39, v10);
-  sub_1D15800D8(v23 + v39, &v10[v40]);
-  v41 = v51;
-  v42 = *(v50 + 48);
-  if (v42(v10, 1, v51) == 1)
+  v40 = *(v29 + 24);
+  v41 = *(v52 + 48);
+  sub_1D15800D8(v31 + v40, v10, v38);
+  sub_1D15800D8(v23 + v40, &v10[v41], v42);
+  v43 = v54;
+  v44 = *(v53 + 48);
+  if (v44(v10, 1, v54) == 1)
   {
-    if (v42(&v10[v40], 1, v41) == 1)
+    if (v44(&v10[v41], 1, v43) == 1)
     {
       sub_1D158034C(v10, sub_1D15800F0);
       return 1;
@@ -6805,24 +6810,24 @@ LABEL_8:
     goto LABEL_29;
   }
 
-  v43 = v48;
-  sub_1D15800D8(v10, v48);
-  if (v42(&v10[v40], 1, v41) == 1)
+  v46 = v51;
+  sub_1D15800D8(v10, v51, v45);
+  if (v44(&v10[v41], 1, v43) == 1)
   {
-    sub_1D158034C(v43, type metadata accessor for SignificantChange);
+    sub_1D158034C(v46, type metadata accessor for SignificantChange);
 LABEL_29:
     v25 = sub_1D15838E0;
     v26 = v10;
     goto LABEL_30;
   }
 
-  v45 = v47;
-  sub_1D1580248(&v10[v40], v47, type metadata accessor for SignificantChange);
-  v46 = _s19HealthVisualization17SignificantChangeV2eeoiySbAC_ACtFZ_0(v43, v45);
-  sub_1D158034C(v45, type metadata accessor for SignificantChange);
-  sub_1D158034C(v43, type metadata accessor for SignificantChange);
+  v48 = v50;
+  sub_1D1580248(&v10[v41], v50, type metadata accessor for SignificantChange);
+  v49 = _s19HealthVisualization17SignificantChangeV2eeoiySbAC_ACtFZ_0(v46, v48);
+  sub_1D158034C(v48, type metadata accessor for SignificantChange);
+  sub_1D158034C(v46, type metadata accessor for SignificantChange);
   sub_1D158034C(v10, sub_1D15800F0);
-  return (v46 & 1) != 0;
+  return (v49 & 1) != 0;
 }
 
 double sub_1D157FEAC(char a1)
@@ -6911,7 +6916,7 @@ unint64_t sub_1D15802B0()
   return result;
 }
 
-uint64_t sub_1D1580304(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1D1580304(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7246,13 +7251,13 @@ unint64_t sub_1D1580D2C()
   return result;
 }
 
-void sub_1D1580DE0()
+void sub_1D1580DE0(uint64_t a1)
 {
   sub_1D15800F0(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1D15801C4(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -7602,9 +7607,9 @@ LABEL_5:
   return v22(v23, a2, a2, v21);
 }
 
-uint64_t sub_1D1581504(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t), uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t))
+uint64_t sub_1D1581504(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t))
 {
-  result = a4(319);
+  result = a4(319, a2, a3);
   if (v9 <= 0x3F)
   {
     result = a5(319);
@@ -7622,13 +7627,13 @@ uint64_t sub_1D1581504(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uin
   return result;
 }
 
-void sub_1D15815E4()
+void sub_1D15815E4(uint64_t a1)
 {
   sub_1D14F104C(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1D15800F0(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -7677,10 +7682,10 @@ uint64_t sub_1D15816A0(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t sub_1D158170C()
+uint64_t sub_1D158170C(uint64_t a1)
 {
   result = sub_1D15A26A8();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -8705,7 +8710,7 @@ unint64_t sub_1D15834BC()
   return result;
 }
 
-void sub_1D1583598(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1D1583598(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -8739,20 +8744,20 @@ void sub_1D1583770(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1D15837D4()
+void sub_1D15837D4(uint64_t a1)
 {
   if (!qword_1EE0567D8)
   {
-    sub_1D148EF60();
+    sub_1D148EF60(255);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EE0567D8);
     }
   }
 }
 
-void sub_1D1583880(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1D1583880(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -8832,37 +8837,36 @@ unint64_t sub_1D1583AAC()
   }
 }
 
-uint64_t sub_1D1583AE4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+void sub_1D1583AE4(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
   if (a1 == 0xD000000000000016 && 0x80000001D15C26C0 == a2 || (sub_1D15A4BA8() & 1) != 0)
   {
 
-    v7 = 0;
+    v6 = 0;
   }
 
   else if (a1 == 0xD000000000000017 && 0x80000001D15C26E0 == a2)
   {
 
-    v7 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v8 = sub_1D15A4BA8();
+    v7 = sub_1D15A4BA8();
 
-    if (v8)
+    if (v7)
     {
-      v7 = 1;
+      v6 = 1;
     }
 
     else
     {
-      v7 = 2;
+      v6 = 2;
     }
   }
 
-  *a3 = v7;
-  return result;
+  *a3 = v6;
 }
 
 uint64_t sub_1D1583BC8(uint64_t a1)
@@ -8946,23 +8950,22 @@ uint64_t CountComparisonQueryConfiguration.init(from:)@<X0>(void *a1@<X0>, uint6
   return __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
-uint64_t sub_1D158409C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void sub_1D158409C(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
   if (a1 == 0xD000000000000014 && 0x80000001D15C2700 == a2)
   {
 
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v6 = sub_1D15A4BA8();
+    v5 = sub_1D15A4BA8();
 
-    v5 = v6 ^ 1;
+    v4 = v5 ^ 1;
   }
 
-  *a3 = v5 & 1;
-  return result;
+  *a3 = v4 & 1;
 }
 
 uint64_t sub_1D1584130(uint64_t a1)
@@ -8993,36 +8996,37 @@ uint64_t CountComparisonQueryConfiguration.DurationCondition.encode(to:)(void *a
   return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t CountComparisonQueryConfiguration.DurationCondition.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+void CountComparisonQueryConfiguration.DurationCondition.init(from:)(void *a1@<X0>, void *a2@<X8>)
 {
-  v15 = a2;
+  v14 = a2;
   sub_1D1584838(0, &qword_1EC631498, sub_1D15847E4, &type metadata for CountComparisonQueryConfiguration.DurationCondition.CodingKeys, MEMORY[0x1E69E6F48]);
   v5 = v4;
   v6 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v14 - v7;
+  v8 = &v13 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_1D15847E4();
   sub_1D15A4CD8();
   if (v2)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    goto LABEL_4;
   }
 
-  v9 = v15;
+  v9 = v14;
   v10 = *(sub_1D15A4A88() + 16);
 
   if (v10)
   {
     sub_1D15A4A58();
-    v13 = v12;
+    v12 = v11;
     (*(v6 + 8))(v8, v5);
-    *v9 = v13;
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    *v9 = v12;
+LABEL_4:
+    __swift_destroy_boxed_opaque_existential_1(a1);
+    return;
   }
 
   __break(1u);
-  return result;
 }
 
 uint64_t sub_1D158450C(void *a1)
@@ -9383,7 +9387,7 @@ uint64_t sub_1D15852FC(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-void QuantityCodableCurrentValueSnidgetViewModelExtractor.StatisticsSnidgetFormatter.primaryString.getter(uint64_t a1@<X8>)
+void QuantityCodableCurrentValueSnidgetViewModelExtractor.StatisticsSnidgetFormatter.primaryString.getter(char *a1@<X8>)
 {
   type metadata accessor for QuantityCodableCurrentValueSnidgetViewModelExtractor.StatisticsSnidgetFormatter(0);
   v3 = *v1;
@@ -9442,7 +9446,7 @@ uint64_t QuantityCodableCurrentValueSnidgetViewModelExtractor.StatisticsSnidgetF
   v3 = sub_1D15A2458();
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D1491C64();
+  sub_1D1491C64(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = sub_1D15A22A8();
@@ -9450,7 +9454,7 @@ uint64_t QuantityCodableCurrentValueSnidgetViewModelExtractor.StatisticsSnidgetF
   v49 = v9;
   MEMORY[0x1EEE9AC00](v9);
   v11 = v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D149D54C();
+  sub_1D149D54C(0);
   v13 = v12;
   MEMORY[0x1EEE9AC00](v12);
   v15 = v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -9613,7 +9617,7 @@ uint64_t QuantityCodableCurrentValueSnidgetViewModelExtractor.StatisticsSnidgetF
   return v4 & 1;
 }
 
-void sub_1D1585E70(uint64_t a1@<X8>)
+void sub_1D1585E70(char *a1@<X8>)
 {
   v3 = *v1;
   v4 = *(v1 + 8);
@@ -9681,7 +9685,7 @@ uint64_t QuantityCodableCurrentValueSnidgetViewModelExtractor.SampleCountSnidget
   v3 = sub_1D15A2458();
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D1491C64();
+  sub_1D1491C64(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = sub_1D15A22A8();
@@ -9689,7 +9693,7 @@ uint64_t QuantityCodableCurrentValueSnidgetViewModelExtractor.SampleCountSnidget
   v49 = v9;
   MEMORY[0x1EEE9AC00](v9);
   v11 = v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D149D54C();
+  sub_1D149D54C(0);
   v13 = v12;
   MEMORY[0x1EEE9AC00](v12);
   v15 = v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);

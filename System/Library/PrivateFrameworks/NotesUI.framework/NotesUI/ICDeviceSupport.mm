@@ -22,7 +22,7 @@ uint64_t __40__ICDeviceSupport_UI__isCameraAvailable__block_invoke()
   return v0 & (v2 ^ 1u);
 }
 
-uint64_t __46__ICDeviceSupport_UI__isWritingToolsAvailable__block_invoke()
+void *__46__ICDeviceSupport_UI__isWritingToolsAvailable__block_invoke()
 {
   result = [MEMORY[0x1E69DD318] isWritingToolsAvailable];
   isWritingToolsAvailable_isWritingToolsAvailable = result;

@@ -59,289 +59,293 @@
     shouldLog |= 2u;
   }
 
-  if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    v5 = shouldLog;
+    v6 = shouldLog;
   }
 
   else
   {
-    v5 = shouldLog & 2;
+    v6 = shouldLog & 2;
   }
 
-  if (v5)
+  if (v6)
   {
-    v6 = objc_opt_class();
-    v7 = [(NSArray *)self->_hashes count];
+    v7 = objc_opt_class();
+    v8 = [(NSArray *)self->_hashes count];
     bytesToHash = self->_bytesToHash;
     filePath = self->_filePath;
-    v77.st_dev = 138413058;
-    *&v77.st_mode = v6;
-    WORD2(v77.st_ino) = 2048;
-    *(&v77.st_ino + 6) = v7;
-    HIWORD(v77.st_gid) = 2048;
-    *&v77.st_rdev = bytesToHash;
-    LOWORD(v77.st_atimespec.tv_sec) = 2112;
-    *(&v77.st_atimespec.tv_sec + 2) = filePath;
-    LODWORD(v54) = 42;
-    v52 = &v77;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v82.st_dev = 138413058;
+    *&v82.st_mode = v7;
+    WORD2(v82.st_ino) = 2048;
+    *(&v82.st_ino + 6) = v8;
+    HIWORD(v82.st_gid) = 2048;
+    *&v82.st_rdev = bytesToHash;
+    LOWORD(v82.st_atimespec.tv_sec) = 2112;
+    *(&v82.st_atimespec.tv_sec + 2) = filePath;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking %lu hashes with chunk size: %lld for file: %@", &v82, 42);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [NSString stringWithCString:v10 encoding:4, &v77, v54];
-      free(v11);
-      v52 = v12;
+      v12 = v11;
+      v13 = [NSString stringWithCString:v11 encoding:4];
+      free(v12);
+      v57 = v13;
       SSFileLog();
     }
   }
 
-  v13 = open([(NSString *)self->_filePath fileSystemRepresentation], 0);
-  if (v13 == -1)
+  v14 = open([(NSString *)self->_filePath fileSystemRepresentation], 0);
+  if (v14 == -1)
   {
     __error();
-    v63 = SSError();
-    v33 = +[SSLogConfig sharedDaemonConfig];
-    if (!v33)
+    v68 = SSError();
+    v35 = +[SSLogConfig sharedDaemonConfig];
+    if (!v35)
     {
-      v33 = +[SSLogConfig sharedConfig];
+      v35 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v33 shouldLog];
-    if ([v33 shouldLogToDisk])
+    shouldLog2 = [v35 shouldLog];
+    if ([v35 shouldLogToDisk])
     {
       shouldLog2 |= 2u;
     }
 
-    if (os_log_type_enabled([v33 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v35 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = shouldLog2;
+      v34 = shouldLog2;
     }
 
     else
     {
-      v32 = shouldLog2 & 2;
+      v34 = shouldLog2 & 2;
     }
 
-    if (v32)
+    if (v34)
     {
-      v35 = objc_opt_class();
-      v77.st_dev = 138412546;
-      *&v77.st_mode = v35;
-      WORD2(v77.st_ino) = 2112;
-      *(&v77.st_ino + 6) = v63;
-      LODWORD(v54) = 22;
-      p_c = &v77;
-      v36 = _os_log_send_and_compose_impl();
-      if (v36)
+      v38 = objc_opt_class();
+      v82.st_dev = 138412546;
+      *&v82.st_mode = v38;
+      WORD2(v82.st_ino) = 2112;
+      *(&v82.st_ino + 6) = v68;
+      LODWORD(v59) = 22;
+      v39 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not open asset to check hashes: %@", &v82, v59);
+      if (v39)
       {
-        v37 = v36;
-        v38 = [NSString stringWithCString:v36 encoding:4, &v77, v54];
-        free(v37);
-        p_c = v38;
+        v40 = v39;
+        v41 = [NSString stringWithCString:v39 encoding:4];
+        free(v40);
+        v58 = v41;
         SSFileLog();
       }
 
-      v32 = 0;
+      v34 = 0;
     }
   }
 
   else
   {
-    v14 = v13;
+    v15 = v14;
     st_size = self->_bytesToHash;
-    memset(&v77, 0, sizeof(v77));
-    if (!fstat(v13, &v77))
+    memset(&v82, 0, sizeof(v82));
+    if (!fstat(v14, &v82))
     {
-      st_size = v77.st_size;
+      st_size = v82.st_size;
     }
 
-    v16 = self->_bytesToHash;
+    v17 = self->_bytesToHash;
     selfCopy = self;
     if ([(NSArray *)self->_hashes count]== 1)
     {
-      v18 = st_size;
+      v19 = st_size;
     }
 
     else
     {
-      v18 = v16;
+      v19 = v17;
     }
 
-    v19 = OBJC_IVAR___ISOperation__progress;
+    v20 = OBJC_IVAR___ISOperation__progress;
     [*&selfCopy->ISOperation_opaque[OBJC_IVAR___ISOperation__progress] setMaxValue:st_size];
-    v58 = v19;
-    [*&selfCopy->ISOperation_opaque[v19] setUnits:1];
-    v20 = malloc_type_malloc(0x20000uLL, 0x494493A7uLL);
-    v62 = selfCopy;
-    if (v20)
+    v63 = v20;
+    [*&selfCopy->ISOperation_opaque[v20] setUnits:1];
+    v21 = malloc_type_malloc(0x20000uLL, 0x494493A7uLL);
+    v67 = selfCopy;
+    if (v21)
     {
-      v21 = v20;
+      v22 = v21;
       memset(&c, 0, sizeof(c));
-      v64 = 0u;
-      v65 = 0u;
-      v66 = 0u;
-      v67 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v72 = 0u;
       obj = selfCopy->_hashes;
-      v57 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v75 count:16];
-      if (v57)
+      v62 = [(NSArray *)obj countByEnumeratingWithState:&v69 objects:v80 count:16];
+      if (v62)
       {
-        v22 = 0;
-        v63 = 0;
-        v56 = *v65;
+        v23 = 0;
+        v68 = 0;
+        v61 = *v70;
         while (2)
         {
-          v23 = 0;
+          v24 = 0;
           do
           {
-            if (*v65 != v56)
+            if (*v70 != v61)
             {
               objc_enumerationMutation(obj);
             }
 
-            v59 = v23;
-            v60 = *(*(&v64 + 1) + 8 * v23);
-            v61 = objc_alloc_init(NSAutoreleasePool);
+            v64 = v24;
+            v65 = *(*(&v69 + 1) + 8 * v24);
+            v66 = objc_alloc_init(NSAutoreleasePool);
             CC_MD5_Init(&c);
-            v24 = 0;
-            LOBYTE(v23) = 1;
+            v25 = 0;
+            LOBYTE(v24) = 1;
             do
             {
-              if (v18 <= v24)
+              if (v19 <= v25)
               {
                 break;
               }
 
-              v25 = (v18 - v24) >= 0x20000 ? 0x20000 : v18 - v24;
-              v26 = read(v14, v21, v25);
-              if (v26 < 0)
+              v26 = (v19 - v25) >= 0x20000 ? 0x20000 : v19 - v25;
+              v27 = read(v15, v22, v26);
+              if (v27 < 0)
               {
-                v27 = v14;
+                v28 = v15;
 
                 __error();
-                v63 = SSError();
-                v28 = +[SSLogConfig sharedDaemonConfig];
-                if (!v28)
+                v68 = SSError();
+                v29 = +[SSLogConfig sharedDaemonConfig];
+                if (!v29)
                 {
-                  v28 = +[SSLogConfig sharedConfig];
+                  v29 = +[SSLogConfig sharedConfig];
                 }
 
-                LODWORD(v23) = [v28 shouldLog];
-                if ([v28 shouldLogToDisk])
+                LODWORD(v24) = [v29 shouldLog];
+                if ([v29 shouldLogToDisk])
                 {
-                  LODWORD(v23) = v23 | 2;
+                  LODWORD(v24) = v24 | 2;
                 }
 
-                if (!os_log_type_enabled([v28 OSLogObject], OS_LOG_TYPE_DEFAULT))
+                oSLogObject3 = [v29 OSLogObject];
+                if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
                 {
-                  LODWORD(v23) = v23 & 2;
+                  v24 = v24;
                 }
 
-                if (v23)
+                else
                 {
-                  v29 = objc_opt_class();
-                  v68 = 138412546;
-                  v69 = v29;
-                  v70 = 2112;
-                  v71 = v63;
-                  LODWORD(v54) = 22;
-                  p_c = &v68;
-                  v23 = _os_log_send_and_compose_impl();
-                  if (v23)
+                  v24 &= 2u;
+                }
+
+                if (v24)
+                {
+                  v31 = objc_opt_class();
+                  v73 = 138412546;
+                  v74 = v31;
+                  v75 = 2112;
+                  v76 = v68;
+                  LODWORD(v59) = 22;
+                  v24 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Read failed during hash check: %@", &v73, v59);
+                  if (v24)
                   {
-                    v30 = [NSString stringWithCString:v23 encoding:4, &v68, v54];
-                    free(v23);
-                    p_c = v30;
+                    v32 = [NSString stringWithCString:v24 encoding:4];
+                    free(v24);
+                    v58 = v32;
                     SSFileLog();
-                    LOBYTE(v23) = 0;
+                    LOBYTE(v24) = 0;
                   }
                 }
 
-                v14 = v27;
+                v15 = v28;
               }
 
               else
               {
-                CC_MD5_Update(&c, v21, v26);
-                v24 += v26;
-                v22 += v26;
+                CC_MD5_Update(&c, v22, v27);
+                v25 += v27;
+                v23 += v27;
               }
             }
 
-            while (v26 >= v25);
-            if ((v23 & 1) == 0)
+            while (v27 >= v26);
+            if ((v24 & 1) == 0)
             {
-              goto LABEL_81;
+              goto LABEL_82;
             }
 
             CC_MD5_Final(md, &c);
-            v31 = ISStringFromDigest();
-            if (([v31 isEqualToString:v60] & 1) == 0)
+            v33 = ISStringFromDigest();
+            if (([v33 isEqualToString:v65] & 1) == 0)
             {
-              v44 = v14;
-              v45 = +[SSLogConfig sharedDaemonConfig];
-              if (!v45)
+              v48 = v15;
+              v49 = +[SSLogConfig sharedDaemonConfig];
+              if (!v49)
               {
-                v45 = +[SSLogConfig sharedConfig];
+                v49 = +[SSLogConfig sharedConfig];
               }
 
-              shouldLog3 = [v45 shouldLog];
-              if ([v45 shouldLogToDisk])
+              shouldLog3 = [v49 shouldLog];
+              if ([v49 shouldLogToDisk])
               {
                 shouldLog3 |= 2u;
               }
 
-              if (os_log_type_enabled([v45 OSLogObject], OS_LOG_TYPE_DEFAULT))
+              oSLogObject4 = [v49 OSLogObject];
+              if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
               {
-                v47 = shouldLog3;
+                v52 = shouldLog3;
               }
 
               else
               {
-                v47 = shouldLog3 & 2;
+                v52 = shouldLog3 & 2;
               }
 
-              if (v47)
+              if (v52)
               {
-                v48 = objc_opt_class();
-                v68 = 138412802;
-                v69 = v48;
-                v70 = 2112;
-                v71 = v31;
-                v72 = 2112;
-                v73 = v60;
-                LODWORD(v54) = 32;
-                p_c = &v68;
-                v49 = _os_log_send_and_compose_impl();
-                if (v49)
+                v53 = objc_opt_class();
+                v73 = 138412802;
+                v74 = v53;
+                v75 = 2112;
+                v76 = v33;
+                v77 = 2112;
+                v78 = v65;
+                LODWORD(v59) = 32;
+                v54 = _os_log_send_and_compose_impl(v52, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Got md5: %@ when expecting md5: %@", &v73, v59);
+                if (v54)
                 {
-                  v50 = v49;
-                  v51 = [NSString stringWithCString:v49 encoding:4, &v68, v54];
-                  free(v50);
-                  p_c = v51;
+                  v55 = v54;
+                  v56 = [NSString stringWithCString:v54 encoding:4];
+                  free(v55);
+                  v58 = v56;
                   SSFileLog();
                 }
               }
 
-              v63 = SSError();
-              LODWORD(v14) = v44;
-LABEL_81:
-              [v61 drain];
-              v32 = 0;
-              goto LABEL_82;
+              v68 = SSError();
+              LODWORD(v15) = v48;
+LABEL_82:
+              [v66 drain];
+              v34 = 0;
+              goto LABEL_83;
             }
 
-            [*&v62->ISOperation_opaque[v58] setCurrentValue:v22];
-            [*&v62->ISOperation_opaque[v58] snapshot];
-            [(CheckHashesOperation *)v62 sendProgressToDelegate];
-            [v61 drain];
-            v23 = v59 + 1;
+            [*&v67->ISOperation_opaque[v63] setCurrentValue:v23];
+            [*&v67->ISOperation_opaque[v63] snapshot];
+            [(CheckHashesOperation *)v67 sendProgressToDelegate];
+            [v66 drain];
+            v24 = v64 + 1;
           }
 
-          while ((v59 + 1) != v57);
-          v32 = 1;
-          v57 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v75 count:16];
-          if (v57)
+          while ((v64 + 1) != v62);
+          v34 = 1;
+          v62 = [(NSArray *)obj countByEnumeratingWithState:&v69 objects:v80 count:16];
+          if (v62)
           {
             continue;
           }
@@ -352,67 +356,67 @@ LABEL_81:
 
       else
       {
-        v63 = 0;
-        v32 = 1;
+        v68 = 0;
+        v34 = 1;
       }
 
-LABEL_82:
-      free(v21);
-      self = v62;
+LABEL_83:
+      free(v22);
+      self = v67;
     }
 
     else
     {
-      v39 = +[SSLogConfig sharedDaemonConfig];
-      if (!v39)
+      v42 = +[SSLogConfig sharedDaemonConfig];
+      if (!v42)
       {
-        v39 = +[SSLogConfig sharedConfig];
+        v42 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog4 = [v39 shouldLog];
-      if ([v39 shouldLogToDisk])
+      shouldLog4 = [v42 shouldLog];
+      if ([v42 shouldLogToDisk])
       {
         shouldLog4 |= 2u;
       }
 
-      if (os_log_type_enabled([v39 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject5 = [v42 OSLogObject];
+      if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = shouldLog4;
+        v34 = shouldLog4;
       }
 
       else
       {
-        v32 = shouldLog4 & 2;
+        v34 = shouldLog4 & 2;
       }
 
-      self = v62;
-      if (v32)
+      self = v67;
+      if (v34)
       {
         c.A = 138412290;
         *&c.B = objc_opt_class();
-        LODWORD(v54) = 12;
-        p_c = &c;
-        v41 = _os_log_send_and_compose_impl();
-        if (v41)
+        LODWORD(v59) = 12;
+        v45 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: Could not malloc data buffer to check hashes", &c, v59);
+        if (v45)
         {
-          v42 = v41;
-          v43 = [NSString stringWithCString:v41 encoding:4, &c, v54];
-          free(v42);
-          p_c = v43;
+          v46 = v45;
+          v47 = [NSString stringWithCString:v45 encoding:4];
+          free(v46);
+          v58 = v47;
           SSFileLog();
         }
 
-        v32 = 0;
+        v34 = 0;
       }
 
-      v63 = 0;
+      v68 = 0;
     }
 
-    close(v14);
+    close(v15);
   }
 
-  [(CheckHashesOperation *)self setError:v63, p_c];
-  [(CheckHashesOperation *)self setSuccess:v32];
+  [(CheckHashesOperation *)self setError:v68, v58];
+  [(CheckHashesOperation *)self setSuccess:v34];
 }
 
 @end

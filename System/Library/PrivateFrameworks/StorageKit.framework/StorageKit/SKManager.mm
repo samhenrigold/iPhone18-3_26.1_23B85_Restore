@@ -22,8 +22,11 @@
 - (id)filesystems;
 - (id)formatableFileSystems;
 - (id)knownDiskForDictionary:(id)dictionary;
+- (id)knownDiskForDictionary:(id)dictionary waitingForDaemon:(BOOL)daemon;
 - (id)knownDiskForDictionary:(id)dictionary waitingForDaemon:(BOOL)daemon fromSet:(id)set;
 - (id)knownDisksForDictionaries:(id)dictionaries;
+- (id)knownDisksForDictionaries:(id)dictionaries waitingForDaemon:(BOOL)daemon;
+- (id)knownDisksForDictionaries:(id)dictionaries waitingForDaemon:(BOOL)daemon fromSet:(id)set;
 - (id)newDiskWithDictionary:(id)dictionary;
 - (id)physicalStoresForAPFSVolume:(id)volume;
 - (id)visibleDisks;
@@ -89,13 +92,11 @@
 
 id __26__SKManager_sharedManager__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKManager.m", 63);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -249,29 +250,29 @@ void __26__SKManager_sharedManager__block_invoke_27(uint64_t a1)
 
 - (id)visibleDisks
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
   v4 = self->allDisks;
   objc_sync_enter(v4);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->allDisks;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         role = [v9 role];
         if ([(NSSet *)self->_visibleRoles containsObject:role])
         {
@@ -279,45 +280,44 @@ void __26__SKManager_sharedManager__block_invoke_27(uint64_t a1)
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(v4);
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)diskForBSDname:(id)dname
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dnameCopy = dname;
   if (dnameCopy)
   {
     v5 = self->allDisks;
     objc_sync_enter(v5);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = self->allDisks;
-    v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           diskIdentifier = [v10 diskIdentifier];
           v12 = [diskIdentifier isEqualToString:dnameCopy];
 
@@ -328,7 +328,7 @@ void __26__SKManager_sharedManager__block_invoke_27(uint64_t a1)
           }
         }
 
-        v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -348,36 +348,34 @@ LABEL_12:
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)diskForUUID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   obj = self->allDisks;
   objc_sync_enter(obj);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = self->allDisks;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         volumeUUID = [v9 volumeUUID];
         if ([volumeUUID isEqualToString:dCopy])
         {
@@ -396,7 +394,7 @@ LABEL_13:
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       v13 = 0;
       if (v6)
       {
@@ -415,36 +413,35 @@ LABEL_13:
 LABEL_14:
 
   objc_sync_exit(obj);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)diskForVolumeName:(id)name
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = self->allDisks;
   objc_sync_enter(v5);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = self->allDisks;
-  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         volumeName = [v10 volumeName];
         v12 = [volumeName isEqualToString:nameCopy];
 
@@ -455,7 +452,7 @@ LABEL_14:
         }
       }
 
-      v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -469,7 +466,6 @@ LABEL_14:
 LABEL_11:
 
   objc_sync_exit(v5);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -522,10 +518,10 @@ LABEL_11:
 
 - (id)_diskForString:(id)string
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   memset(uu, 0, sizeof(uu));
-  if ([stringCopy length] != 36 || uuid_parse(objc_msgSend(stringCopy, "UTF8String"), uu) || (-[SKManager diskForUUID:](self, "diskForUUID:", stringCopy), (v12 = objc_claimAutoreleasedReturnValue()) == 0))
+  if ([stringCopy length] != 36 || uuid_parse(objc_msgSend(stringCopy, "UTF8String"), uu) || (-[SKManager diskForUUID:](self, "diskForUUID:", stringCopy), (v11 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     v5 = [objc_opt_class() BSDNameFromString:stringCopy];
     if (v5)
@@ -561,11 +557,9 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v7 = v12;
+  v7 = v11;
   v6 = v7;
 LABEL_13:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -602,14 +596,14 @@ LABEL_13:
 
 - (id)_diskForPath:(id)path
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v27 = 0u;
-  memset(v28, 0, 432);
-  v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  memset(v27, 0, 432);
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   if (([pathCopy isEqualToString:@"/"] & 1) == 0)
   {
     v5 = open([pathCopy fileSystemRepresentation], 2129920);
@@ -618,7 +612,7 @@ LABEL_13:
       v6 = v5;
       if (!fstatfs_ext())
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v28 + 8];
+        v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v27 + 8];
 
         pathCopy = v7;
       }
@@ -629,25 +623,25 @@ LABEL_13:
 
   v8 = self->allDisks;
   objc_sync_enter(v8);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = self->allDisks;
-  v10 = [(NSMutableSet *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [(NSMutableSet *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         mountPoint = [v13 mountPoint];
         v15 = [mountPoint isEqualToString:pathCopy];
 
@@ -658,7 +652,7 @@ LABEL_13:
         }
       }
 
-      v10 = [(NSMutableSet *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [(NSMutableSet *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -671,7 +665,6 @@ LABEL_13:
 LABEL_16:
 
   objc_sync_exit(v8);
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -803,7 +796,7 @@ LABEL_7:
 
 void __24__SKManager_filesystems__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:20];
   v3 = +[SKHelperClient sharedClient];
   v4 = [v3 retrieveFilesystems];
@@ -815,36 +808,36 @@ void __24__SKManager_filesystems__block_invoke(uint64_t a1)
     _os_log_impl(&dword_26BBB8000, v5, OS_LOG_TYPE_DEFAULT, "Initializing filesystems dictionary", buf, 2u);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       v10 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v10);
+        v11 = *(*(&v16 + 1) + 8 * v10);
         v12 = [SKFilesystem alloc];
-        v13 = [(SKFilesystem *)v12 initWithDictionaryRepresentation:v11, v17];
+        v13 = [(SKFilesystem *)v12 initWithDictionaryRepresentation:v11, v16];
         [v2 addObject:v13];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v8);
@@ -853,48 +846,44 @@ void __24__SKManager_filesystems__block_invoke(uint64_t a1)
   v14 = *(a1 + 32);
   v15 = *(v14 + 72);
   *(v14 + 72) = v2;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)formatableFileSystems
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   filesystems = [(SKManager *)self filesystems];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:10];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = filesystems;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 shouldShow])
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -903,28 +892,28 @@ void __24__SKManager_filesystems__block_invoke(uint64_t a1)
 {
   encryptedCopy = encrypted;
   sensitiveCopy = sensitive;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   [(SKManager *)self filesystems];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v9 = v23 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = v22 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         type = [v14 type];
         if ([type isEqualToString:typeCopy] && objc_msgSend(v14, "isCaseSensitive") == sensitiveCopy)
         {
@@ -942,7 +931,7 @@ void __24__SKManager_filesystems__block_invoke(uint64_t a1)
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         continue;
@@ -954,8 +943,6 @@ void __24__SKManager_filesystems__block_invoke(uint64_t a1)
 
   v17 = 0;
 LABEL_14:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1015,15 +1002,116 @@ LABEL_14:
   return v6;
 }
 
+- (id)knownDisksForDictionaries:(id)dictionaries waitingForDaemon:(BOOL)daemon
+{
+  daemonCopy = daemon;
+  dictionariesCopy = dictionaries;
+  allDisksSet = [(SKManager *)self allDisksSet];
+  v8 = [(SKManager *)self knownDisksForDictionaries:dictionariesCopy waitingForDaemon:daemonCopy fromSet:allDisksSet];
+
+  return v8;
+}
+
+- (id)knownDisksForDictionaries:(id)dictionaries waitingForDaemon:(BOOL)daemon fromSet:(id)set
+{
+  daemonCopy = daemon;
+  v52 = *MEMORY[0x277D85DE8];
+  dictionariesCopy = dictionaries;
+  setCopy = set;
+  selfCopy = self;
+  v11 = setCopy;
+  v12 = MEMORY[0x277CBEB18];
+  v13 = [dictionariesCopy count];
+  v14 = v12;
+  v15 = daemonCopy;
+  v16 = v11;
+  v38 = [v14 arrayWithCapacity:v13];
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v17 = dictionariesCopy;
+  v18 = [v17 countByEnumeratingWithState:&v39 objects:v51 count:16];
+  if (v18)
+  {
+    v20 = v18;
+    v21 = *v40;
+    *&v19 = 138413058;
+    v34 = v19;
+    v35 = v11;
+    v36 = v17;
+    do
+    {
+      v22 = 0;
+      v37 = v20;
+      do
+      {
+        if (*v40 != v21)
+        {
+          objc_enumerationMutation(v17);
+        }
+
+        v23 = *(*(&v39 + 1) + 8 * v22);
+        v24 = [(SKManager *)selfCopy knownDiskForDictionary:v23 waitingForDaemon:v15 fromSet:v16, v34];
+        if (v24)
+        {
+          [v38 addObject:v24];
+        }
+
+        else
+        {
+          v25 = +[SKBaseManager sharedManager];
+          [v25 logEvent:@"com.apple.StorageKit.log.fault" eventPayloadBuilder:&__block_literal_global_53];
+
+          v26 = SKGetOSLog();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+          {
+            v27 = [v23 objectForKey:@"volumeName"];
+            v28 = [v23 objectForKey:@"volumeUUID"];
+            [v23 objectForKey:@"diskIdentifier"];
+            v29 = selfCopy;
+            v31 = v30 = v15;
+            v32 = [v23 objectForKey:@"mountPoint"];
+            *buf = v34;
+            v44 = v27;
+            v45 = 2114;
+            v46 = v28;
+            v47 = 2114;
+            v48 = v31;
+            v49 = 2112;
+            v50 = v32;
+            _os_log_impl(&dword_26BBB8000, v26, OS_LOG_TYPE_FAULT, "SKManager: no known disk resembling: {%@,%{public}@,%{public}@,%@}", buf, 0x2Au);
+
+            v15 = v30;
+            selfCopy = v29;
+            v16 = v35;
+
+            v17 = v36;
+          }
+
+          v20 = v37;
+        }
+
+        ++v22;
+      }
+
+      while (v20 != v22);
+      v20 = [v17 countByEnumeratingWithState:&v39 objects:v51 count:16];
+    }
+
+    while (v20);
+  }
+
+  return v38;
+}
+
 id __64__SKManager_knownDisksForDictionaries_waitingForDaemon_fromSet___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKManager.m", 565);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -1091,43 +1179,53 @@ id __64__SKManager_knownDisksForDictionaries_waitingForDaemon_fromSet___block_in
   return v6;
 }
 
+- (id)knownDiskForDictionary:(id)dictionary waitingForDaemon:(BOOL)daemon
+{
+  daemonCopy = daemon;
+  dictionaryCopy = dictionary;
+  allDisksSet = [(SKManager *)self allDisksSet];
+  v8 = [(SKManager *)self knownDiskForDictionary:dictionaryCopy waitingForDaemon:daemonCopy fromSet:allDisksSet];
+
+  return v8;
+}
+
 - (id)knownDiskForDictionary:(id)dictionary waitingForDaemon:(BOOL)daemon fromSet:(id)set
 {
   daemonCopy = daemon;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   setCopy = set;
   if (dictionaryCopy && ([MEMORY[0x277CBEB68] null], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(dictionaryCopy, "isEqual:", v10), v10, (v11 & 1) == 0))
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy_;
-    v40 = __Block_byref_object_dispose_;
-    v41 = 0;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy_;
+    v39 = __Block_byref_object_dispose_;
+    v40 = 0;
     v13 = dispatch_semaphore_create(0);
     waitingForDiskQueue = self->_waitingForDiskQueue;
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_invoke;
-    v29 = &unk_279D1F6F0;
-    v30 = setCopy;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_invoke;
+    v28 = &unk_279D1F6F0;
+    v29 = setCopy;
     v15 = dictionaryCopy;
-    v31 = v15;
-    v34 = &v36;
-    v35 = daemonCopy;
+    v30 = v15;
+    v33 = &v35;
+    v34 = daemonCopy;
     v16 = v13;
-    v32 = v16;
+    v31 = v16;
     selfCopy = self;
-    dispatch_sync(waitingForDiskQueue, &v26);
-    v17 = v37;
-    if (daemonCopy && !v37[5])
+    dispatch_sync(waitingForDiskQueue, &v25);
+    v17 = v36;
+    if (daemonCopy && !v36[5])
     {
       dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
-      v17 = v37;
-      if (!v37[5])
+      v17 = v36;
+      if (!v36[5])
       {
-        v18 = [SKBaseManager sharedManager:v26];
+        v18 = [SKBaseManager sharedManager:v25];
         [v18 logEvent:@"com.apple.StorageKit.log.fault" eventPayloadBuilder:&__block_literal_global_69];
 
         v19 = SKGetOSLog();
@@ -1138,23 +1236,23 @@ id __64__SKManager_knownDisksForDictionaries_waitingForDaemon_fromSet___block_in
           v22 = [v15 objectForKey:@"diskIdentifier"];
           v23 = [v15 objectForKey:@"mountPoint"];
           *buf = 138413058;
-          v43 = v20;
-          v44 = 2114;
-          v45 = v21;
-          v46 = 2114;
-          v47 = v22;
-          v48 = 2112;
-          v49 = v23;
+          v42 = v20;
+          v43 = 2114;
+          v44 = v21;
+          v45 = 2114;
+          v46 = v22;
+          v47 = 2112;
+          v48 = v23;
           _os_log_impl(&dword_26BBB8000, v19, OS_LOG_TYPE_FAULT, "SKManager: no daemon-known disk resembling: {%@,%{public}@,%{public}@,%@}", buf, 0x2Au);
         }
 
-        v17 = v37;
+        v17 = v36;
       }
     }
 
     v12 = v17[5];
 
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v35, 8);
   }
 
   else
@@ -1162,35 +1260,33 @@ id __64__SKManager_knownDisksForDictionaries_waitingForDaemon_fromSet___block_in
     v12 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 void __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
-    v5 = *v17;
+    v5 = *v16;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         if ([v7 matchesDictionary:*(a1 + 40)])
         {
           objc_storeStrong((*(*(a1 + 64) + 8) + 40), v7);
@@ -1198,7 +1294,7 @@ void __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_inv
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v4)
       {
         continue;
@@ -1214,19 +1310,17 @@ LABEL_11:
   {
     v8 = objc_alloc_init(SKWaitingForDiskElement);
     [(SKWaitingForDiskElement *)v8 setDiskDictionary:*(a1 + 40)];
-    v10 = MEMORY[0x277D85DD0];
-    v11 = 3221225472;
-    v12 = __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_invoke_2;
-    v13 = &unk_279D1F6C8;
-    v15 = *(a1 + 64);
-    v14 = *(a1 + 48);
-    [(SKWaitingForDiskElement *)v8 setBlock:&v10];
-    [*(*(a1 + 56) + 64) addObject:{v8, v10, v11, v12, v13}];
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_invoke_2;
+    v12 = &unk_279D1F6C8;
+    v14 = *(a1 + 64);
+    v13 = *(a1 + 48);
+    [(SKWaitingForDiskElement *)v8 setBlock:&v9];
+    [*(*(a1 + 56) + 64) addObject:{v8, v9, v10, v11, v12}];
   }
 
   objc_sync_exit(v2);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_invoke_2(uint64_t a1, void *a2)
@@ -1238,13 +1332,11 @@ void __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_inv
 
 id __61__SKManager_knownDiskForDictionary_waitingForDaemon_fromSet___block_invoke_3()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKManager.m", 650);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -1351,40 +1443,39 @@ void __25__SKManager_addListener___block_invoke(uint64_t a1)
 
 - (void)initialPopulateComplete
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = self->_listeners;
   objc_sync_enter(v3);
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v4 = self->_listeners;
-  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [(SKManager *)self _initialPopulateCompleteForListener:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(SKManager *)self _initialPopulateCompleteForListener:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_sync_exit(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initialPopulateCompleteForListener:(id)listener
@@ -1400,16 +1491,15 @@ void __25__SKManager_addListener___block_invoke(uint64_t a1)
   dispatch_async(callbackQueue, block);
 }
 
-uint64_t __49__SKManager__initialPopulateCompleteForListener___block_invoke(uint64_t a1)
+uint64_t __49__SKManager__initialPopulateCompleteForListener___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SKGetOSLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = SKGetOSLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
-    _os_log_impl(&dword_26BBB8000, v2, OS_LOG_TYPE_DEFAULT, "CLIENT - Initial Populate Complete", v5, 2u);
+    _os_log_impl(&dword_26BBB8000, v3, OS_LOG_TYPE_DEFAULT, "CLIENT - Initial Populate Complete", v5, 2u);
   }
 
-  v3 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
@@ -1421,33 +1511,33 @@ uint64_t __49__SKManager__initialPopulateCompleteForListener___block_invoke(uint
 
 - (void)disksAppeared:(id)appeared
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   appearedCopy = appeared;
   v5 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(appearedCopy, "count")}];
   v6 = [MEMORY[0x277CBEB58] set];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = 1;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 1;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v7 = appearedCopy;
-  v8 = [v7 countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v8)
   {
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         v12 = [(SKManager *)self knownDiskForDictionary:v11 waitingForDaemon:0];
         v13 = v12 == 0;
 
@@ -1463,7 +1553,7 @@ uint64_t __49__SKManager__initialPopulateCompleteForListener___block_invoke(uint
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v8);
@@ -1476,8 +1566,8 @@ uint64_t __49__SKManager__initialPopulateCompleteForListener___block_invoke(uint
   block[3] = &unk_279D1F740;
   block[4] = self;
   v16 = v5;
-  v30 = v16;
-  v31 = &v36;
+  v29 = v16;
+  v30 = &v35;
   dispatch_sync(waitingForDiskQueue, block);
   if ([v6 count])
   {
@@ -1488,86 +1578,84 @@ uint64_t __49__SKManager__initialPopulateCompleteForListener___block_invoke(uint
   v18 = self->_listeners;
   objc_sync_enter(v18);
   allObjects2 = [v16 allObjects];
-  SKLogArrayRedacted(v37[24], "CLIENT - Disks appeared:", allObjects2);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
+  SKLogArrayRedacted(v36[24], "CLIENT - Disks appeared:", allObjects2);
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v20 = self->_listeners;
-  v21 = [(NSHashTable *)v20 countByEnumeratingWithState:&v25 objects:v40 count:16];
+  v21 = [(NSHashTable *)v20 countByEnumeratingWithState:&v24 objects:v39 count:16];
   if (v21)
   {
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(v20);
         }
 
-        [(SKManager *)self _disksAppeared:allObjects2 toListener:*(*(&v25 + 1) + 8 * j), v25];
+        [(SKManager *)self _disksAppeared:allObjects2 toListener:*(*(&v24 + 1) + 8 * j), v24];
       }
 
-      v21 = [(NSHashTable *)v20 countByEnumeratingWithState:&v25 objects:v40 count:16];
+      v21 = [(NSHashTable *)v20 countByEnumeratingWithState:&v24 objects:v39 count:16];
     }
 
     while (v21);
   }
 
   objc_sync_exit(v18);
-  _Block_object_dispose(&v36, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
 }
 
 void __27__SKManager_disksAppeared___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 64) count])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v18 = v1;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v17 = v1;
     obj = *(v1 + 40);
-    v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
-    if (v17)
+    v16 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+    if (v16)
     {
-      v16 = *v24;
+      v15 = *v23;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v3 = *(*(&v23 + 1) + 8 * i);
+          v3 = *(*(&v22 + 1) + 8 * i);
           v4 = objc_opt_new();
-          v21 = 0u;
-          v22 = 0u;
-          v19 = 0u;
           v20 = 0u;
-          v5 = *(*(v18 + 32) + 64);
-          v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v21 = 0u;
+          v18 = 0u;
+          v19 = 0u;
+          v5 = *(*(v17 + 32) + 64);
+          v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
           if (v6)
           {
-            v7 = *v20;
+            v7 = *v19;
             do
             {
               for (j = 0; j != v6; ++j)
               {
-                if (*v20 != v7)
+                if (*v19 != v7)
                 {
                   objc_enumerationMutation(v5);
                 }
 
-                v9 = *(*(&v19 + 1) + 8 * j);
+                v9 = *(*(&v18 + 1) + 8 * j);
                 v10 = [v9 diskDictionary];
                 v11 = [v3 matchesDictionary:v10];
 
@@ -1580,22 +1668,22 @@ void __27__SKManager_disksAppeared___block_invoke(uint64_t a1)
                 }
               }
 
-              v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+              v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
             }
 
             while (v6);
           }
 
-          [*(*(v18 + 32) + 64) minusSet:v4];
+          [*(*(v17 + 32) + 64) minusSet:v4];
         }
 
-        v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v16 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
-      while (v17);
+      while (v16);
     }
 
-    v1 = v18;
+    v1 = v17;
   }
 
   v13 = *(*(v1 + 32) + 24);
@@ -1607,8 +1695,6 @@ void __27__SKManager_disksAppeared___block_invoke(uint64_t a1)
 
   [*(*(v1 + 32) + 24) unionSet:*(v1 + 40)];
   objc_sync_exit(v13);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disksAppeared:(id)appeared toListener:(id)listener
@@ -1671,7 +1757,7 @@ uint64_t __39__SKManager__disksAppeared_toListener___block_invoke(uint64_t a1, v
   return v4;
 }
 
-uint64_t __39__SKManager__disksAppeared_toListener___block_invoke_2(uint64_t a1)
+void *__39__SKManager__disksAppeared_toListener___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)
@@ -1687,65 +1773,65 @@ uint64_t __39__SKManager__disksAppeared_toListener___block_invoke_2(uint64_t a1)
 
 - (void)disksDisappeared:(id)disappeared
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   disappearedCopy = disappeared;
   selfCopy = self;
   allDisksSet = [(SKManager *)self allDisksSet];
   v4 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(disappearedCopy, "count")}];
   obj = self->allDisks;
   objc_sync_enter(obj);
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v5 = self->allDisks;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v49 objects:v55 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v48 objects:v54 count:16];
   if (v6)
   {
-    v7 = *v50;
+    v7 = *v49;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v50 != v7)
+        if (*v49 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v49 + 1) + 8 * i);
+        v9 = *(*(&v48 + 1) + 8 * i);
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
         v10 = disappearedCopy;
-        v11 = [v10 countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v44 objects:v53 count:16];
         if (v11)
         {
-          v12 = *v46;
+          v12 = *v45;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v46 != v12)
+              if (*v45 != v12)
               {
                 objc_enumerationMutation(v10);
               }
 
-              if ([v9 matchesDictionary:{*(*(&v45 + 1) + 8 * j), obj}])
+              if ([v9 matchesDictionary:{*(*(&v44 + 1) + 8 * j), obj}])
               {
                 [v4 addObject:v9];
                 [v9 setIsValid:0];
               }
             }
 
-            v11 = [v10 countByEnumeratingWithState:&v45 objects:v54 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v44 objects:v53 count:16];
           }
 
           while (v11);
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v48 objects:v54 count:16];
     }
 
     while (v6);
@@ -1757,43 +1843,43 @@ uint64_t __39__SKManager__disksAppeared_toListener___block_invoke_2(uint64_t a1)
   obja = selfCopy->_listeners;
   objc_sync_enter(obja);
   SKLogArrayRedacted(OS_LOG_TYPE_DEFAULT, "CLIENT - Disks disappeared:", v4);
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v33 = selfCopy->_listeners;
-  v14 = [(NSHashTable *)v33 countByEnumeratingWithState:&v41 objects:v53 count:16];
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v32 = selfCopy->_listeners;
+  v14 = [(NSHashTable *)v32 countByEnumeratingWithState:&v40 objects:v52 count:16];
   if (v14)
   {
-    v15 = *v42;
-    v31 = v40;
+    v15 = *v41;
+    v30 = v39;
     do
     {
       for (k = 0; k != v14; ++k)
       {
-        if (*v42 != v15)
+        if (*v41 != v15)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v32);
         }
 
-        v17 = *(*(&v41 + 1) + 8 * k);
+        v17 = *(*(&v40 + 1) + 8 * k);
         if (objc_opt_respondsToSelector())
         {
           if ((objc_opt_respondsToSelector() & 1) == 0 || ([v17 visibleDiskRoles], v18 = objc_claimAutoreleasedReturnValue(), v19 = v18 == 0, v18, v19))
           {
-            v22 = [(SKManager *)selfCopy knownDisksForDictionaries:disappearedCopy waitingForDaemon:0 fromSet:allDisksSet, obja, v31];
+            v22 = [(SKManager *)selfCopy knownDisksForDictionaries:disappearedCopy waitingForDaemon:0 fromSet:allDisksSet, obja, v30];
           }
 
           else
           {
             allObjects = [v4 allObjects];
-            v39[0] = MEMORY[0x277D85DD0];
-            v39[1] = 3221225472;
-            v40[0] = __30__SKManager_disksDisappeared___block_invoke;
-            v40[1] = &unk_279D1F768;
-            v40[2] = selfCopy;
-            v40[3] = v17;
-            v21 = [MEMORY[0x277CCAC30] predicateWithBlock:v39];
+            v38[0] = MEMORY[0x277D85DD0];
+            v38[1] = 3221225472;
+            v39[0] = __30__SKManager_disksDisappeared___block_invoke;
+            v39[1] = &unk_279D1F768;
+            v39[2] = selfCopy;
+            v39[3] = v17;
+            v21 = [MEMORY[0x277CCAC30] predicateWithBlock:v38];
             v22 = [allObjects filteredArrayUsingPredicate:v21];
           }
 
@@ -1808,21 +1894,20 @@ uint64_t __39__SKManager__disksAppeared_toListener___block_invoke_2(uint64_t a1)
           block[1] = 3221225472;
           block[2] = __30__SKManager_disksDisappeared___block_invoke_2;
           block[3] = &unk_279D1F718;
-          v37 = v22;
-          v38 = v17;
+          v36 = v22;
+          v37 = v17;
           v27 = v22;
           dispatch_async(MEMORY[0x277D85CD0], block);
         }
       }
 
-      v14 = [(NSHashTable *)v33 countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v14 = [(NSHashTable *)v32 countByEnumeratingWithState:&v40 objects:v52 count:16];
     }
 
     while (v14);
   }
 
   objc_sync_exit(obja);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __30__SKManager_disksDisappeared___block_invoke(uint64_t a1, void *a2)
@@ -1838,7 +1923,7 @@ uint64_t __30__SKManager_disksDisappeared___block_invoke(uint64_t a1, void *a2)
   return v8;
 }
 
-uint64_t __30__SKManager_disksDisappeared___block_invoke_2(uint64_t a1)
+void *__30__SKManager_disksDisappeared___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)
@@ -1854,7 +1939,7 @@ uint64_t __30__SKManager_disksDisappeared___block_invoke_2(uint64_t a1)
 
 - (void)disksChanged:(id)changed
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = [changedCopy mutableCopy];
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -1863,8 +1948,8 @@ uint64_t __30__SKManager_disksDisappeared___block_invoke_2(uint64_t a1)
   aBlock[3] = &unk_279D1F718;
   selfCopy = self;
   aBlock[4] = self;
-  v36 = changedCopy;
-  v68 = v36;
+  v35 = changedCopy;
+  v67 = v35;
   block = _Block_copy(aBlock);
   if (self->_shouldBeBindingsSafe)
   {
@@ -1876,54 +1961,54 @@ uint64_t __30__SKManager_disksDisappeared___block_invoke_2(uint64_t a1)
     block[2]();
   }
 
-  v41 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
-  v38 = self->allDisks;
-  objc_sync_enter(v38);
+  v40 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v37 = self->allDisks;
+  objc_sync_enter(v37);
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v6 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
   if (v6)
   {
-    v7 = *v64;
+    v7 = *v63;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v64 != v7)
+        if (*v63 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v63 + 1) + 8 * i);
+        v9 = *(*(&v62 + 1) + 8 * i);
+        v58 = 0u;
         v59 = 0u;
         v60 = 0u;
         v61 = 0u;
-        v62 = 0u;
         v10 = selfCopy->allDisks;
-        v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v59 objects:v70 count:16];
+        v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v58 objects:v69 count:16];
         if (v11)
         {
-          v12 = *v60;
+          v12 = *v59;
           while (2)
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v60 != v12)
+              if (*v59 != v12)
               {
                 objc_enumerationMutation(v10);
               }
 
-              if ([*(*(&v59 + 1) + 8 * j) matchesDictionary:v9])
+              if ([*(*(&v58 + 1) + 8 * j) matchesDictionary:v9])
               {
 
                 goto LABEL_19;
               }
             }
 
-            v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v59 objects:v70 count:16];
+            v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v58 objects:v69 count:16];
             if (v11)
             {
               continue;
@@ -1933,76 +2018,76 @@ uint64_t __30__SKManager_disksDisappeared___block_invoke_2(uint64_t a1)
           }
         }
 
-        [v41 addObject:v9];
+        [v40 addObject:v9];
 LABEL_19:
         ;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v6 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
     }
 
     while (v6);
   }
 
-  objc_sync_exit(v38);
-  if ([v41 count])
+  objc_sync_exit(v37);
+  if ([v40 count])
   {
-    [(SKManager *)selfCopy disksAppeared:v41];
-    [obj removeObjectsInArray:v41];
+    [(SKManager *)selfCopy disksAppeared:v40];
+    [obj removeObjectsInArray:v40];
   }
 
   v14 = [(SKManager *)selfCopy knownDisksForDictionaries:obj waitingForDaemon:0];
-  v39 = selfCopy->_listeners;
-  objc_sync_enter(v39);
+  v38 = selfCopy->_listeners;
+  objc_sync_enter(v38);
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v42 = selfCopy->_listeners;
-  v15 = [(NSHashTable *)v42 countByEnumeratingWithState:&v55 objects:v69 count:16];
+  v41 = selfCopy->_listeners;
+  v15 = [(NSHashTable *)v41 countByEnumeratingWithState:&v54 objects:v68 count:16];
   if (v15)
   {
-    v16 = *v56;
-    v40 = *v56;
+    v16 = *v55;
+    v39 = *v55;
     do
     {
       for (k = 0; k != v15; ++k)
       {
-        if (*v56 != v16)
+        if (*v55 != v16)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v41);
         }
 
-        v18 = *(*(&v55 + 1) + 8 * k);
+        v18 = *(*(&v54 + 1) + 8 * k);
         if ((objc_opt_respondsToSelector() & 1) == 0 || ([v18 visibleDiskRoles], v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 == 0, v19, v20))
         {
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __26__SKManager_disksChanged___block_invoke_5;
-          v46[3] = &unk_279D1F718;
-          v46[4] = v18;
-          v47 = v14;
-          dispatch_async(MEMORY[0x277D85CD0], v46);
-          v22 = v47;
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __26__SKManager_disksChanged___block_invoke_5;
+          v45[3] = &unk_279D1F718;
+          v45[4] = v18;
+          v46 = v14;
+          dispatch_async(MEMORY[0x277D85CD0], v45);
+          v22 = v46;
         }
 
         else
         {
-          v54[0] = MEMORY[0x277D85DD0];
-          v54[1] = 3221225472;
-          v54[2] = __26__SKManager_disksChanged___block_invoke_2;
-          v54[3] = &unk_279D1F790;
-          v54[4] = v18;
-          v21 = [MEMORY[0x277CCAC30] predicateWithBlock:v54];
-          v22 = [v14 filteredArrayUsingPredicate:v21];
-
           v53[0] = MEMORY[0x277D85DD0];
           v53[1] = 3221225472;
-          v53[2] = __26__SKManager_disksChanged___block_invoke_3;
+          v53[2] = __26__SKManager_disksChanged___block_invoke_2;
           v53[3] = &unk_279D1F790;
           v53[4] = v18;
-          v23 = [MEMORY[0x277CCAC30] predicateWithBlock:v53];
-          v44 = [v14 filteredArrayUsingPredicate:v23];
+          v21 = [MEMORY[0x277CCAC30] predicateWithBlock:v53];
+          v22 = [v14 filteredArrayUsingPredicate:v21];
+
+          v52[0] = MEMORY[0x277D85DD0];
+          v52[1] = 3221225472;
+          v52[2] = __26__SKManager_disksChanged___block_invoke_3;
+          v52[3] = &unk_279D1F790;
+          v52[4] = v18;
+          v23 = [MEMORY[0x277CCAC30] predicateWithBlock:v52];
+          v43 = [v14 filteredArrayUsingPredicate:v23];
 
           listenersAppearedDisks = selfCopy->_listenersAppearedDisks;
           v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v18, "hash")}];
@@ -2010,7 +2095,7 @@ LABEL_19:
 
           v27 = v14;
           v28 = v15;
-          v29 = [MEMORY[0x277CBEB58] setWithArray:v44];
+          v29 = [MEMORY[0x277CBEB58] setWithArray:v43];
           [v29 intersectSet:v26];
           v30 = [MEMORY[0x277CBEB58] setWithArray:v22];
           [v30 minusSet:v26];
@@ -2019,79 +2104,78 @@ LABEL_19:
           [v31 minusSet:v29];
           [v26 minusSet:v29];
           [v26 unionSet:v30];
-          v48[0] = MEMORY[0x277D85DD0];
-          v48[1] = 3221225472;
-          v48[2] = __26__SKManager_disksChanged___block_invoke_4;
-          v48[3] = &unk_279D1F7B8;
-          v49 = v31;
-          v50 = v18;
-          v51 = v29;
-          v52 = v30;
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __26__SKManager_disksChanged___block_invoke_4;
+          v47[3] = &unk_279D1F7B8;
+          v48 = v31;
+          v49 = v18;
+          v50 = v29;
+          v51 = v30;
           v32 = v30;
           v33 = v29;
           v34 = v31;
-          dispatch_async(MEMORY[0x277D85CD0], v48);
+          dispatch_async(MEMORY[0x277D85CD0], v47);
 
           v15 = v28;
           v14 = v27;
-          v16 = v40;
+          v16 = v39;
         }
       }
 
-      v15 = [(NSHashTable *)v42 countByEnumeratingWithState:&v55 objects:v69 count:16];
+      v15 = [(NSHashTable *)v41 countByEnumeratingWithState:&v54 objects:v68 count:16];
     }
 
     while (v15);
   }
 
-  objc_sync_exit(v39);
-  v35 = *MEMORY[0x277D85DE8];
+  objc_sync_exit(v38);
 }
 
 void __26__SKManager_disksChanged___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v13 = *(*(a1 + 32) + 24);
-  objc_sync_enter(v13);
+  v24 = *MEMORY[0x277D85DE8];
+  v12 = *(*(a1 + 32) + 24);
+  objc_sync_enter(v12);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = *(*(a1 + 32) + 24);
-  v2 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v2 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v2)
   {
-    v3 = *v20;
+    v3 = *v19;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v20 != v3)
+        if (*v19 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v19 + 1) + 8 * i);
+        v5 = *(*(&v18 + 1) + 8 * i);
+        v14 = 0u;
         v15 = 0u;
         v16 = 0u;
         v17 = 0u;
-        v18 = 0u;
         v6 = *(a1 + 40);
-        v7 = [v6 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
         if (v7)
         {
-          v8 = *v16;
+          v8 = *v15;
           do
           {
             for (j = 0; j != v7; ++j)
             {
-              if (*v16 != v8)
+              if (*v15 != v8)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v10 = *(*(&v15 + 1) + 8 * j);
-              if ([v5 matchesDictionary:{v10, v13}])
+              v10 = *(*(&v14 + 1) + 8 * j);
+              if ([v5 matchesDictionary:{v10, v12}])
               {
                 v11 = v10;
                 objc_sync_enter(v11);
@@ -2100,21 +2184,20 @@ void __26__SKManager_disksChanged___block_invoke(uint64_t a1)
               }
             }
 
-            v7 = [v6 countByEnumeratingWithState:&v15 objects:v23 count:16];
+            v7 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
           }
 
           while (v7);
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v2 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v2);
   }
 
-  objc_sync_exit(v13);
-  v12 = *MEMORY[0x277D85DE8];
+  objc_sync_exit(v12);
 }
 
 uint64_t __26__SKManager_disksChanged___block_invoke_2(uint64_t a1, void *a2)
@@ -2141,56 +2224,43 @@ uint64_t __26__SKManager_disksChanged___block_invoke_3(uint64_t a1, void *a2)
 
 void __26__SKManager_disksChanged___block_invoke_4(uint64_t a1)
 {
-  if ([*(a1 + 32) count])
+  if ([*(a1 + 32) count] && (objc_opt_respondsToSelector() & 1) != 0)
   {
+    SKLogArrayRedacted(OS_LOG_TYPE_DEFAULT, "CLIENT - Disks changed:", *(a1 + 32));
     v2 = *(a1 + 40);
-    if (objc_opt_respondsToSelector())
-    {
-      SKLogArrayRedacted(OS_LOG_TYPE_DEFAULT, "CLIENT - Disks changed:", *(a1 + 32));
-      v3 = *(a1 + 40);
-      v4 = [*(a1 + 32) allObjects];
-      [v3 disksChanged:v4];
-    }
+    v3 = [*(a1 + 32) allObjects];
+    [v2 disksChanged:v3];
   }
 
-  if ([*(a1 + 48) count])
+  if ([*(a1 + 48) count] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v5 = *(a1 + 40);
-    if (objc_opt_respondsToSelector())
-    {
-      SKLogArrayRedacted(OS_LOG_TYPE_DEFAULT, "CLIENT - Disks disappeared:", *(a1 + 48));
-      v6 = *(a1 + 40);
-      v7 = [*(a1 + 48) allObjects];
-      [v6 disksDisappeared:v7];
-    }
+    SKLogArrayRedacted(OS_LOG_TYPE_DEFAULT, "CLIENT - Disks disappeared:", *(a1 + 48));
+    v4 = *(a1 + 40);
+    v5 = [*(a1 + 48) allObjects];
+    [v4 disksDisappeared:v5];
   }
 
-  if ([*(a1 + 56) count])
+  if ([*(a1 + 56) count] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v8 = *(a1 + 40);
-    if (objc_opt_respondsToSelector())
-    {
-      v9 = *(a1 + 40);
-      v10 = [*(a1 + 56) allObjects];
-      [v9 disksAppeared:v10];
+    v6 = *(a1 + 40);
+    v7 = [*(a1 + 56) allObjects];
+    [v6 disksAppeared:v7];
 
-      v11 = *(a1 + 56);
+    v8 = *(a1 + 56);
 
-      SKLogArrayRedacted(OS_LOG_TYPE_DEFAULT, "CLIENT - Disks appeared:", v11);
-    }
+    SKLogArrayRedacted(OS_LOG_TYPE_DEFAULT, "CLIENT - Disks appeared:", v8);
   }
 }
 
 uint64_t __26__SKManager_disksChanged___block_invoke_5(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
 
-    return [v4 disksChanged:v5];
+    return [v3 disksChanged:v4];
   }
 
   return result;
@@ -2198,31 +2268,31 @@ uint64_t __26__SKManager_disksChanged___block_invoke_5(uint64_t a1)
 
 - (void)managerStalled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   self->diskQueueStuck = 1;
   obj = self->_listeners;
   objc_sync_enter(obj);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_listeners;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     v6 = MEMORY[0x277D85CD0];
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           block[0] = MEMORY[0x277D85DD0];
@@ -2237,43 +2307,42 @@ uint64_t __26__SKManager_disksChanged___block_invoke_5(uint64_t a1)
       }
 
       while (v4 != v7);
-      v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(obj);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)managerResumed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   self->diskQueueStuck = 0;
   v3 = self->_listeners;
   objc_sync_enter(v3);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_listeners;
-  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     v7 = MEMORY[0x277D85CD0];
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __27__SKManager_managerResumed__block_invoke;
@@ -2284,25 +2353,23 @@ uint64_t __26__SKManager_disksChanged___block_invoke_5(uint64_t a1)
       }
 
       while (v5 != v8);
-      v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   objc_sync_exit(v3);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __27__SKManager_managerResumed__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v4 managerResumed];
+    return [v3 managerResumed];
   }
 
   return result;

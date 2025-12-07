@@ -839,11 +839,11 @@ void __51__SHSheetRemoteSceneViewController_reloadMetadata___block_invoke_2(uint
   _os_log_error_impl(&dword_18B359000, log, OS_LOG_TYPE_ERROR, "Could not apply value from remote customization %@ to local customization %@", &v3, 0x16u);
 }
 
-- (uint64_t)reloadMetadata:.cold.1()
+- (void)reloadMetadata:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [SHSheetRemoteSceneViewController runScrollingTestWithName:v0 type:? completionHandler:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [SHSheetRemoteSceneViewController runScrollingTestWithName:v1 type:v2 completionHandler:v3];
 }
 
 - (void)runScrollingTestWithName:(uint64_t)a1 type:(void *)a2 completionHandler:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)

@@ -2,6 +2,7 @@
 - (WiFiUsageDeviceSession)initWithInterfaceName:(id)name andCapabilities:(id)capabilities;
 - (void)displayStateDidChange:(BOOL)change;
 - (void)linkQualityDidChange:(id)change;
+- (void)systemWakeStateDidChange:(BOOL)change wokenByWiFi:(BOOL)fi;
 @end
 
 @implementation WiFiUsageDeviceSession
@@ -43,6 +44,33 @@
     v8 = v7;
 
     if (v8 > 86400.0)
+    {
+      [(WiFiUsageSession *)self sessionDidEnd];
+    }
+  }
+}
+
+- (void)systemWakeStateDidChange:(BOOL)change wokenByWiFi:(BOOL)fi
+{
+  fiCopy = fi;
+  changeCopy = change;
+  NSLog(&cfstr_SUIsawakeUWoke.isa, a2, "[WiFiUsageDeviceSession systemWakeStateDidChange:wokenByWiFi:]", 52, change, fi);
+  v8.receiver = self;
+  v8.super_class = WiFiUsageDeviceSession;
+  [(WiFiUsageSession *)&v8 systemWakeStateDidChange:changeCopy wokenByWiFi:fiCopy];
+  if (changeCopy)
+  {
+    if (![(WiFiUsageSession *)self isSessionActive])
+    {
+      NSLog(&cfstr_SDeviceSession.isa, "[WiFiUsageDeviceSession systemWakeStateDidChange:wokenByWiFi:]");
+      [(WiFiUsageSession *)self sessionDidStart];
+    }
+  }
+
+  else
+  {
+    [(WiFiUsageSession *)self systemAwakeDuration];
+    if (v7 > 86400.0)
     {
       [(WiFiUsageSession *)self sessionDidEnd];
     }

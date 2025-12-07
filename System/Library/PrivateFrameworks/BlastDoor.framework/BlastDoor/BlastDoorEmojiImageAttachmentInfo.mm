@@ -24,12 +24,10 @@
 {
   if (*&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 136])
   {
-    v2 = *&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 128];
-    v3 = *&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 136];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
 
-    return v4;
+    return v2;
   }
 
   else
@@ -45,12 +43,10 @@
 {
   if (*&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 176])
   {
-    v2 = *&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 168];
-    v3 = *&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 176];
 
-    v4 = sub_2146D9588();
+    v2 = sub_2146D9588();
 
-    return v4;
+    return v2;
   }
 
   else
@@ -75,11 +71,10 @@
     }
 
     v4 = *&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 208];
-    v5 = *&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 216];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else
@@ -103,11 +98,10 @@
     }
 
     v4 = *&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 248];
-    v5 = *&self->emojiImageAttachmentInfo[OBJC_IVAR___BlastDoorEmojiImageAttachmentInfo_emojiImageAttachmentInfo + 256];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else

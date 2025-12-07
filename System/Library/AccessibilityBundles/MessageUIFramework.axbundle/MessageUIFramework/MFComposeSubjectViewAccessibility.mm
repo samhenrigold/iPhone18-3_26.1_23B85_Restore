@@ -46,23 +46,22 @@
 - (void)setNotifyOptionSelected:(BOOL)selected
 {
   selectedCopy = selected;
-  v9.receiver = self;
-  v9.super_class = MFComposeSubjectViewAccessibility;
-  [(MFComposeSubjectViewAccessibility *)&v9 setNotifyOptionSelected:?];
+  v8.receiver = self;
+  v8.super_class = MFComposeSubjectViewAccessibility;
+  [(MFComposeSubjectViewAccessibility *)&v8 setNotifyOptionSelected:?];
   v5 = *MEMORY[0x29EDC7F70];
-  v6 = *MEMORY[0x29EDC7FC0];
   if (selectedCopy)
   {
-    v7 = *MEMORY[0x29EDC7FC0];
+    v6 = *MEMORY[0x29EDC7FC0];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = [(MFComposeSubjectViewAccessibility *)self safeValueForKey:@"_notifyButton"];
-  [v8 setAccessibilityTraits:v7 | v5];
+  v7 = [(MFComposeSubjectViewAccessibility *)self safeValueForKey:@"_notifyButton"];
+  [v7 setAccessibilityTraits:v6 | v5];
 }
 
 @end

@@ -60,7 +60,7 @@
   cinematographyScript = self->_cinematographyScript;
   if (cinematographyScript)
   {
-    [(PTCinematographyScript *)cinematographyScript timeRange];
+    objc_msgSend_timeRange(cinematographyScript, a2);
     if (BYTE4(v16))
     {
       v6 = self->_cinematographyScript;
@@ -93,7 +93,7 @@ void __65__PXCinematicEditController_axDescriptionForFocusDecisionAtTime___block
   memset(&v14, 0, sizeof(v14));
   if (v3)
   {
-    [v3 time];
+    objc_msgSend_time(v3);
     if (v14.flags)
     {
       time1 = v14;
@@ -101,7 +101,7 @@ void __65__PXCinematicEditController_axDescriptionForFocusDecisionAtTime___block
       if (!CMTimeCompare(&time1, &v12))
       {
         v5 = *(*(a1 + 32) + 32);
-        [v4 time];
+        objc_msgSend_time(v4);
         v6 = [v5 frameNearestTime:&time1];
         v7 = v6;
         if (v6)
@@ -262,7 +262,7 @@ void __50__PXCinematicEditController_setCinematicAperture___block_invoke(uint64_
   v16 = 0u;
   v14 = 0u;
   cinematographyScript = self->_cinematographyScript;
-  if (cinematographyScript && ([(PTCinematographyScript *)cinematographyScript timeRange], (BYTE4(v16) & 1) != 0))
+  if (cinematographyScript && (objc_msgSend_timeRange(cinematographyScript, a2), (BYTE4(v16) & 1) != 0))
   {
     v7 = self->_cinematographyScript;
     *buf = v14;
@@ -297,7 +297,7 @@ void __55__PXCinematicEditController_removeFocusDecisionAtTime___block_invoke(ui
   memset(&v15, 0, sizeof(v15));
   if (v3)
   {
-    [v3 time];
+    objc_msgSend_time(v3);
     if (v15.flags)
     {
       time1 = v15;
@@ -455,7 +455,7 @@ void __64__PXCinematicEditController_updateFocusDecisionsAnimatedAtTime___block_
   v31 = 0u;
   v29 = 0u;
   v3 = *(*(a1 + 32) + 32);
-  if (v3 && ([v3 timeRange], (BYTE4(v31) & 1) != 0))
+  if (v3 && (objc_msgSend_timeRange(v3), (BYTE4(v31) & 1) != 0))
   {
     v5 = [*(a1 + 32) focusTimelineDelegate];
     *buf = v29;
@@ -511,7 +511,7 @@ void __64__PXCinematicEditController_updateFocusDecisionsAnimatedAtTime___block_
   v5 = a2;
   v6 = v5;
   memset(&v21, 0, sizeof(v21));
-  if (!v5 || ([v5 time], (v21.flags & 1) == 0))
+  if (!v5 || (objc_msgSend_time(v5), (v21.flags & 1) == 0))
   {
     a3 = PLPhotoEditGetLog();
     if (os_log_type_enabled(a3, OS_LOG_TYPE_ERROR))
@@ -556,7 +556,7 @@ LABEL_12:
       goto LABEL_17;
     }
 
-    [a3 time];
+    objc_msgSend_time(a3);
     time2 = *(a1 + 56);
     if (!CMTimeCompare(&time2, &buf) && [v6 isUserDecision])
     {
@@ -608,7 +608,7 @@ void __64__PXCinematicEditController_updateFocusDecisionsAnimatedAtTime___block_
   v7 = v6;
   if (v6)
   {
-    [v6 CMTimeValue];
+    objc_msgSend_CMTimeValue(v6);
   }
 
   else
@@ -707,7 +707,7 @@ void __77__PXCinematicEditController__updatePortraitVideoAdjustmentFromCinematog
           v12 = objc_alloc(MEMORY[0x1E69BDF18]);
           if (v11)
           {
-            [v11 time];
+            objc_msgSend_time(v11);
           }
 
           else

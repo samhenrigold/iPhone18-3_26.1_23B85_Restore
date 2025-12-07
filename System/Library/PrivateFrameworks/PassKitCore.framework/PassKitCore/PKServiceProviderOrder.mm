@@ -62,7 +62,7 @@
     v5->_serviceProviderData = v18;
 
     v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"paymentInstrumentType"];
-    v5->_paymentInstrumentType = [@"Applet" isEqualToString:v20];
+    v5->_paymentInstrumentType = objc_msgSend_isEqualToString_(@"Applet");
 
     v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appletValue"];
     appletValue = v5->_appletValue;

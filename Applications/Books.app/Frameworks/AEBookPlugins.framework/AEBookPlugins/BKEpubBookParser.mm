@@ -75,19 +75,20 @@
 
 - (int)_fullParse
 {
-  v196 = 0;
-  v3 = [(BKEpubBookParser *)self createEpubParser:0 errorCode:&v196];
-  if (!v196)
+  v207 = 0;
+  v3 = [(BKEpubBookParser *)self createEpubParser:0 errorCode:&v207];
+  v4 = v3;
+  if (!v207)
   {
     book = [(BKBookParser *)self book];
     [book resetAsNewlyDownloaded];
 
-    v8 = (*(*v3 + 136))(v3);
+    v9 = (*(*v4 + 136))(v4);
     book2 = [(BKBookParser *)self book];
     bookBundlePath = [book2 bookBundlePath];
-    v11 = [v8 stringByReplacingOccurrencesOfString:bookBundlePath withString:&stru_1E7188];
+    v12 = [v9 stringByReplacingOccurrencesOfString:bookBundlePath withString:&stru_1E7188];
     book3 = [(BKBookParser *)self book];
-    [book3 setBookContentSubpath:v11];
+    [book3 setBookContentSubpath:v12];
 
     book4 = [(BKBookParser *)self book];
     bookAuthor = [book4 bookAuthor];
@@ -98,47 +99,47 @@
       goto LABEL_23;
     }
 
-    v15 = v3[4];
-    if (v15)
+    v16 = *(v4 + 4);
+    if (v16)
     {
-      CFRetain(v15);
-      v16 = v3[4];
+      CFRetain(v16);
+      v17 = *(v4 + 4);
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    v17 = v16;
+    v18 = v17;
     book5 = [(BKBookParser *)self book];
     bookAuthor2 = [book5 bookAuthor];
     if ([bookAuthor2 length])
     {
       book6 = [(BKBookParser *)self book];
       bookAuthor3 = [book6 bookAuthor];
-      v22 = [v17 isEqualToString:bookAuthor3];
+      v23 = [v18 isEqualToString:bookAuthor3];
 
-      if (v22)
+      if (v23)
       {
         goto LABEL_18;
       }
 
-      book5 = _ITEpubParsingLog();
+      book5 = _ITEpubParsingLog(v24);
       if (os_log_type_enabled(book5, OS_LOG_TYPE_DEFAULT))
       {
         book7 = [(BKBookParser *)self book];
         bookAuthor4 = [book7 bookAuthor];
         *buf = 138544386;
-        v198 = @"self.book.bookAuthor";
-        v199 = 2160;
-        v200 = 1752392040;
-        v201 = 2112;
-        v202 = v17;
-        v203 = 2160;
-        v204 = 1752392040;
-        v205 = 2112;
-        v206 = bookAuthor4;
+        v209 = @"self.book.bookAuthor";
+        v210 = 2160;
+        v211 = 1752392040;
+        v212 = 2112;
+        v213 = v18;
+        v214 = 2160;
+        v215 = 1752392040;
+        v216 = 2112;
+        v217 = bookAuthor4;
         _os_log_impl(&dword_0, book5, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
       }
     }
@@ -148,8 +149,8 @@
     }
 
 LABEL_18:
-    v25 = v3[4];
-    if (v25 && (CFRetain(v25), (book9 = v3[4]) != 0))
+    v27 = *(v4 + 4);
+    if (v27 && (CFRetain(v27), (book9 = *(v4 + 4)) != 0))
     {
       book8 = [(BKBookParser *)self book];
       [book8 setBookAuthor:book9];
@@ -164,54 +165,54 @@ LABEL_18:
 LABEL_23:
     book10 = [(BKBookParser *)self book];
     bookTitle = [book10 bookTitle];
-    v30 = bookTitle == 0;
+    v32 = bookTitle == 0;
 
-    if (!v30)
+    if (!v32)
     {
       goto LABEL_38;
     }
 
-    v31 = v3[5];
-    if (v31)
+    v33 = *(v4 + 5);
+    if (v33)
     {
-      CFRetain(v31);
-      v32 = v3[5];
+      CFRetain(v33);
+      v34 = *(v4 + 5);
     }
 
     else
     {
-      v32 = 0;
+      v34 = 0;
     }
 
-    v33 = v32;
+    v35 = v34;
     book11 = [(BKBookParser *)self book];
     bookTitle2 = [book11 bookTitle];
     if ([bookTitle2 length])
     {
       book12 = [(BKBookParser *)self book];
       bookTitle3 = [book12 bookTitle];
-      v38 = [v33 isEqualToString:bookTitle3];
+      v40 = [v35 isEqualToString:bookTitle3];
 
-      if (v38)
+      if (v40)
       {
         goto LABEL_33;
       }
 
-      book11 = _ITEpubParsingLog();
+      book11 = _ITEpubParsingLog(v41);
       if (os_log_type_enabled(book11, OS_LOG_TYPE_DEFAULT))
       {
         book13 = [(BKBookParser *)self book];
         bookTitle4 = [book13 bookTitle];
         *buf = 138544386;
-        v198 = @"self.book.bookTitle";
-        v199 = 2160;
-        v200 = 1752392040;
-        v201 = 2112;
-        v202 = v33;
-        v203 = 2160;
-        v204 = 1752392040;
-        v205 = 2112;
-        v206 = bookTitle4;
+        v209 = @"self.book.bookTitle";
+        v210 = 2160;
+        v211 = 1752392040;
+        v212 = 2112;
+        v213 = v35;
+        v214 = 2160;
+        v215 = 1752392040;
+        v216 = 2112;
+        v217 = bookTitle4;
         _os_log_impl(&dword_0, book11, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
       }
     }
@@ -221,8 +222,8 @@ LABEL_23:
     }
 
 LABEL_33:
-    v41 = v3[5];
-    if (v41 && (CFRetain(v41), (book15 = v3[5]) != 0))
+    v44 = *(v4 + 5);
+    if (v44 && (CFRetain(v44), (book15 = *(v4 + 5)) != 0))
     {
       book14 = [(BKBookParser *)self book];
       [book14 setBookTitle:book15];
@@ -235,33 +236,33 @@ LABEL_33:
     }
 
 LABEL_38:
-    v44 = v3[6];
-    if (v44)
+    v47 = *(v4 + 6);
+    if (v47)
     {
-      CFRetain(v44);
-      v45 = v3[6];
+      CFRetain(v47);
+      v48 = *(v4 + 6);
     }
 
     else
     {
-      v45 = 0;
+      v48 = 0;
     }
 
-    v46 = v45;
+    v49 = v48;
     book16 = [(BKBookParser *)self book];
     bookLanguage = [book16 bookLanguage];
     if ([bookLanguage length])
     {
       book17 = [(BKBookParser *)self book];
       bookLanguage2 = [book17 bookLanguage];
-      v51 = [v46 isEqualToString:bookLanguage2];
+      v54 = [v49 isEqualToString:bookLanguage2];
 
-      if (v51)
+      if (v54)
       {
 LABEL_47:
 
-        v54 = v3[6];
-        if (v54 && (CFRetain(v54), (book19 = v3[6]) != 0))
+        v58 = *(v4 + 6);
+        if (v58 && (CFRetain(v58), (book19 = *(v4 + 6)) != 0))
         {
           book18 = [(BKBookParser *)self book];
           [book18 setBookLanguage:book19];
@@ -273,33 +274,33 @@ LABEL_47:
           [book19 setBookLanguage:0];
         }
 
-        v57 = v3[7];
-        if (v57)
+        v61 = *(v4 + 7);
+        if (v61)
         {
-          CFRetain(v57);
-          v58 = v3[7];
+          CFRetain(v61);
+          v62 = *(v4 + 7);
         }
 
         else
         {
-          v58 = 0;
+          v62 = 0;
         }
 
-        v59 = v58;
+        v63 = v62;
         book20 = [(BKBookParser *)self book];
         genre = [book20 genre];
         if ([genre length])
         {
           book21 = [(BKBookParser *)self book];
           genre2 = [book21 genre];
-          v64 = [v59 isEqualToString:genre2];
+          v68 = [v63 isEqualToString:genre2];
 
-          if (v64)
+          if (v68)
           {
 LABEL_60:
 
-            v67 = v3[7];
-            if (v67 && (CFRetain(v67), (book23 = v3[7]) != 0))
+            v72 = *(v4 + 7);
+            if (v72 && (CFRetain(v72), (book23 = *(v4 + 7)) != 0))
             {
               book22 = [(BKBookParser *)self book];
               [book22 setGenre:book23];
@@ -311,33 +312,33 @@ LABEL_60:
               [book23 setGenre:0];
             }
 
-            v70 = v3[8];
-            if (v70)
+            v75 = *(v4 + 8);
+            if (v75)
             {
-              CFRetain(v70);
-              v71 = v3[8];
+              CFRetain(v75);
+              v76 = *(v4 + 8);
             }
 
             else
             {
-              v71 = 0;
+              v76 = 0;
             }
 
-            v72 = v71;
+            v77 = v76;
             book24 = [(BKBookParser *)self book];
             bookEpubId = [book24 bookEpubId];
             if ([bookEpubId length])
             {
               book25 = [(BKBookParser *)self book];
               bookEpubId2 = [book25 bookEpubId];
-              v77 = [v72 isEqualToString:bookEpubId2];
+              v82 = [v77 isEqualToString:bookEpubId2];
 
-              if (v77)
+              if (v82)
               {
 LABEL_73:
 
-                v80 = v3[8];
-                if (v80 && (CFRetain(v80), (book27 = v3[8]) != 0))
+                v86 = *(v4 + 8);
+                if (v86 && (CFRetain(v86), (book27 = *(v4 + 8)) != 0))
                 {
                   book26 = [(BKBookParser *)self book];
                   [book26 setBookEpubId:book27];
@@ -349,33 +350,33 @@ LABEL_73:
                   [book27 setBookEpubId:0];
                 }
 
-                v83 = v3[9];
-                if (v83)
+                v89 = *(v4 + 9);
+                if (v89)
                 {
-                  CFRetain(v83);
-                  v84 = v3[9];
+                  CFRetain(v89);
+                  v90 = *(v4 + 9);
                 }
 
                 else
                 {
-                  v84 = 0;
+                  v90 = 0;
                 }
 
-                v85 = v84;
+                v91 = v90;
                 book28 = [(BKBookParser *)self book];
                 bookEpubIdWithUUIDScheme = [book28 bookEpubIdWithUUIDScheme];
                 if ([bookEpubIdWithUUIDScheme length])
                 {
                   book29 = [(BKBookParser *)self book];
                   bookEpubIdWithUUIDScheme2 = [book29 bookEpubIdWithUUIDScheme];
-                  v90 = [v85 isEqualToString:bookEpubIdWithUUIDScheme2];
+                  v96 = [v91 isEqualToString:bookEpubIdWithUUIDScheme2];
 
-                  if (v90)
+                  if (v96)
                   {
 LABEL_86:
 
-                    v93 = v3[9];
-                    if (v93 && (CFRetain(v93), (book31 = v3[9]) != 0))
+                    v100 = *(v4 + 9);
+                    if (v100 && (CFRetain(v100), (book31 = *(v4 + 9)) != 0))
                     {
                       book30 = [(BKBookParser *)self book];
                       [book30 setBookEpubIdWithUUIDScheme:book31];
@@ -387,95 +388,95 @@ LABEL_86:
                       [book31 setBookEpubIdWithUUIDScheme:0];
                     }
 
-                    v96 = ITEpubFolder::dcTermsModified(v3);
+                    v103 = ITEpubFolder::dcTermsModified(v4);
                     book32 = [(BKBookParser *)self book];
-                    [book32 setDcTermsModified:v96];
+                    [book32 setDcTermsModified:v103];
 
-                    v98 = ITEpubFolder::readingDirection(v3);
+                    v105 = ITEpubFolder::readingDirection(v4);
                     book33 = [(BKBookParser *)self book];
-                    [book33 setReadingDirection:v98];
+                    [book33 setReadingDirection:v105];
 
-                    active = ITEpubFolder::mediaActiveClass(v3);
+                    active = ITEpubFolder::mediaActiveClass(v4);
                     book34 = [(BKBookParser *)self book];
                     [book34 setMediaActiveClass:active];
 
-                    v102 = ITEpubFolder::pageProgressionDirection(v3);
-                    if (v102)
+                    v109 = ITEpubFolder::pageProgressionDirection(v4);
+                    if (v109)
                     {
-                      v103 = v102;
+                      v110 = v109;
                     }
 
                     else
                     {
-                      v103 = @"default";
+                      v110 = @"default";
                     }
 
                     book35 = [(BKBookParser *)self book];
-                    [book35 setPageProgressionDirection:v103];
+                    [book35 setPageProgressionDirection:v110];
 
-                    v105 = ITEpubFolder::dcTermsContributor(v3);
+                    v112 = ITEpubFolder::dcTermsContributor(v4);
                     book36 = [(BKBookParser *)self book];
-                    [book36 setDcTermsContributor:v105];
+                    [book36 setDcTermsContributor:v112];
 
                     book37 = [(BKBookParser *)self book];
                     bookLanguage3 = [book37 bookLanguage];
                     if (([IMLanguageUtilities languageIsArabic:bookLanguage3]& 1) != 0)
                     {
-                      v109 = 1;
+                      v116 = 1;
                     }
 
                     else
                     {
                       book38 = [(BKBookParser *)self book];
                       bookLanguage4 = [book38 bookLanguage];
-                      v109 = [IMLanguageUtilities languageIsHebrew:bookLanguage4];
+                      v116 = [IMLanguageUtilities languageIsHebrew:bookLanguage4];
                     }
 
                     book39 = [(BKBookParser *)self book];
                     pageProgressionDirection = [book39 pageProgressionDirection];
-                    v114 = [pageProgressionDirection isEqualToString:@"default"];
+                    v121 = [pageProgressionDirection isEqualToString:@"default"];
 
-                    if ((v114 & v109) != 0)
+                    if ((v121 & v116) != 0)
                     {
                       book40 = [(BKBookParser *)self book];
                       [book40 setPageProgressionDirection:@"rtl"];
                     }
 
-                    v116 = ITEpubFolder::coverWritingMode(v3);
-                    if (v116)
+                    v123 = ITEpubFolder::coverWritingMode(v4);
+                    if (v123)
                     {
-                      v117 = v116;
+                      v124 = v123;
                     }
 
                     else
                     {
-                      v117 = @"default";
+                      v124 = @"default";
                     }
 
                     book41 = [(BKBookParser *)self book];
-                    [book41 setCoverWritingModeString:v117];
+                    [book41 setCoverWritingModeString:v124];
 
-                    v119 = ITEpubFolder::scrollDirection(v3);
-                    if (v119)
+                    v126 = ITEpubFolder::scrollDirection(v4);
+                    if (v126)
                     {
-                      v120 = v119;
+                      v127 = v126;
                     }
 
                     else
                     {
-                      v120 = @"default";
+                      v127 = @"default";
                     }
 
                     book42 = [(BKBookParser *)self book];
-                    [book42 setScrollDirection:v120];
+                    [book42 setScrollDirection:v127];
 
-                    if (ITEpubFolder::ebpajGuideVersion(v3))
+                    if (ITEpubFolder::ebpajGuideVersion(v4))
                     {
                       book43 = [(BKBookParser *)self book];
                       bookLanguage5 = [book43 bookLanguage];
-                      v124 = [bookLanguage5 caseInsensitiveCompare:@"ja"] == 0;
+                      v131 = [bookLanguage5 caseInsensitiveCompare:@"ja"] == 0;
 
-                      if (v124 || (-[BKBookParser book](self, "book"), v125 = objc_claimAutoreleasedReturnValue(), [v125 bookLanguage], v126 = objc_claimAutoreleasedReturnValue(), v127 = objc_msgSend(v126, "rangeOfString:options:", @"ja", 9) == 0, v126, v125, v127) && ((-[BKBookParser book](self, "book"), v128 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v128, "bookLanguage"), v129 = objc_claimAutoreleasedReturnValue(), v130 = objc_msgSend(v129, "characterAtIndex:", 2), v129, v128, v130 == 95) || v130 == 45))
+                      if (v131 || (-[BKBookParser book](self, "book"), v132 = objc_claimAutoreleasedReturnValue(), [v132 bookLanguage], v133 = objc_claimAutoreleasedReturnValue(), v134 = objc_msgSend(v133, "rangeOfString:options:", @"ja", 9) == 0, v133, v132, v134) && ((-[BKBookParser book](self, "book"), v135 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v135, "bookLanguage"), v136 = objc_claimAutoreleasedReturnValue(), v137 = objc_msgSend(v136, "characterAtIndex:", 2), v136, v135, v137 == 95) || v137 == 45))
                       {
                         book44 = [(BKBookParser *)self book];
                         [book44 setRespectImageSizeClass:@"gaiji"];
@@ -485,72 +486,72 @@ LABEL_86:
                       }
                     }
 
-                    [(BKEpubBookParser *)self setPublisherInfoFromParser:v3];
-                    [(BKEpubBookParser *)self setAppleDisplayOptionsFromParser:v3];
+                    [(BKEpubBookParser *)self setPublisherInfoFromParser:v4];
+                    [(BKEpubBookParser *)self setAppleDisplayOptionsFromParser:v4];
                     [(BKEpubBookParser *)self resetItunesMetadata];
                     book46 = [(BKBookParser *)self book];
                     bookLanguage6 = [book46 bookLanguage];
-                    v135 = [NSLocale canonicalLanguageIdentifierFromString:bookLanguage6];
+                    v142 = [NSLocale canonicalLanguageIdentifierFromString:bookLanguage6];
                     book47 = [(BKBookParser *)self book];
-                    [book47 setBookLanguage:v135];
+                    [book47 setBookLanguage:v142];
 
-                    v137 = ITEpubFolder::spineIndexInPackage(v3);
-                    if ((v137 & 0x80000000) != 0)
+                    v144 = ITEpubFolder::spineIndexInPackage(v4);
+                    if ((v144 & 0x80000000) != 0)
                     {
-                      v138 = 0;
+                      v145 = 0;
                     }
 
                     else
                     {
-                      v138 = [NSNumber numberWithInt:v137];
+                      v145 = [NSNumber numberWithInt:v144];
                     }
 
                     book48 = [(BKBookParser *)self book];
-                    [book48 setSpineIndexInPackage:v138];
+                    [book48 setSpineIndexInPackage:v145];
 
-                    if (v137 >= 0)
+                    if (v144 >= 0)
                     {
                     }
 
-                    v140 = (*(*v3 + 96))(v3);
-                    [(BKEpubBookParser *)self tryEmbeddedHrefForCoverArtHref:v140];
-                    if (v140)
+                    v147 = (*(*v4 + 96))(v4);
+                    [(BKEpubBookParser *)self tryEmbeddedHrefForCoverArtHref:v147];
+                    if (v147)
                     {
-                      CFRelease(v140);
+                      CFRelease(v147);
                     }
 
                     book49 = [(BKBookParser *)self book];
                     [book49 setDateLastOpened:0];
 
-                    v142 = (*(*v3 + 152))(v3);
+                    v149 = (*(*v4 + 152))(v4);
                     book50 = [(BKBookParser *)self book];
                     parserOPFPath = [book50 parserOPFPath];
                     if ([parserOPFPath length])
                     {
                       book51 = [(BKBookParser *)self book];
                       parserOPFPath2 = [book51 parserOPFPath];
-                      v147 = [v142 isEqualToString:parserOPFPath2];
+                      v154 = [v149 isEqualToString:parserOPFPath2];
 
-                      if (v147)
+                      if (v154)
                       {
                         goto LABEL_123;
                       }
 
-                      book50 = _ITEpubParsingLog();
+                      book50 = _ITEpubParsingLog(v155);
                       if (os_log_type_enabled(book50, OS_LOG_TYPE_DEFAULT))
                       {
                         book52 = [(BKBookParser *)self book];
                         parserOPFPath3 = [book52 parserOPFPath];
                         *buf = 138544386;
-                        v198 = @"self.book.parserOPFPath";
-                        v199 = 2160;
-                        v200 = 1752392040;
-                        v201 = 2112;
-                        v202 = v142;
-                        v203 = 2160;
-                        v204 = 1752392040;
-                        v205 = 2112;
-                        v206 = parserOPFPath3;
+                        v209 = @"self.book.parserOPFPath";
+                        v210 = 2160;
+                        v211 = 1752392040;
+                        v212 = 2112;
+                        v213 = v149;
+                        v214 = 2160;
+                        v215 = 1752392040;
+                        v216 = 2112;
+                        v217 = parserOPFPath3;
                         _os_log_impl(&dword_0, book50, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
                       }
                     }
@@ -560,47 +561,47 @@ LABEL_86:
                     }
 
 LABEL_123:
-                    v150 = (*(*v3 + 152))(v3);
+                    v158 = (*(*v4 + 152))(v4);
                     [(BKBookParser *)self book];
-                    if (v150)
-                      v151 = {;
-                      [v151 setParserOPFPath:v150];
+                    if (v158)
+                      v159 = {;
+                      [v159 setParserOPFPath:v158];
                     }
 
                     else
-                      v150 = {;
-                      [v150 setParserOPFPath:0];
+                      v158 = {;
+                      [v158 setParserOPFPath:0];
                     }
 
-                    v152 = (*(*v3 + 160))(v3);
+                    v160 = (*(*v4 + 160))(v4);
                     book53 = [(BKBookParser *)self book];
                     parserNCXPath = [book53 parserNCXPath];
                     if ([parserNCXPath length])
                     {
                       book54 = [(BKBookParser *)self book];
                       parserNCXPath2 = [book54 parserNCXPath];
-                      v157 = [v152 isEqualToString:parserNCXPath2];
+                      v165 = [v160 isEqualToString:parserNCXPath2];
 
-                      if (v157)
+                      if (v165)
                       {
                         goto LABEL_132;
                       }
 
-                      book53 = _ITEpubParsingLog();
+                      book53 = _ITEpubParsingLog(v166);
                       if (os_log_type_enabled(book53, OS_LOG_TYPE_DEFAULT))
                       {
                         book55 = [(BKBookParser *)self book];
                         parserNCXPath3 = [book55 parserNCXPath];
                         *buf = 138544386;
-                        v198 = @"self.book.parserNCXPath";
-                        v199 = 2160;
-                        v200 = 1752392040;
-                        v201 = 2112;
-                        v202 = v152;
-                        v203 = 2160;
-                        v204 = 1752392040;
-                        v205 = 2112;
-                        v206 = parserNCXPath3;
+                        v209 = @"self.book.parserNCXPath";
+                        v210 = 2160;
+                        v211 = 1752392040;
+                        v212 = 2112;
+                        v213 = v160;
+                        v214 = 2160;
+                        v215 = 1752392040;
+                        v216 = 2112;
+                        v217 = parserNCXPath3;
                         _os_log_impl(&dword_0, book53, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
                       }
                     }
@@ -610,47 +611,47 @@ LABEL_123:
                     }
 
 LABEL_132:
-                    v160 = (*(*v3 + 160))(v3);
+                    v169 = (*(*v4 + 160))(v4);
                     [(BKBookParser *)self book];
-                    if (v160)
-                      v161 = {;
-                      [v161 setParserNCXPath:v160];
+                    if (v169)
+                      v170 = {;
+                      [v170 setParserNCXPath:v169];
                     }
 
                     else
-                      v160 = {;
-                      [v160 setParserNCXPath:0];
+                      v169 = {;
+                      [v169 setParserNCXPath:0];
                     }
 
-                    v162 = (*(*v3 + 80))(v3);
+                    v171 = (*(*v4 + 80))(v4);
                     book56 = [(BKBookParser *)self book];
                     firstDocumentHref = [book56 firstDocumentHref];
                     if ([firstDocumentHref length])
                     {
                       book57 = [(BKBookParser *)self book];
                       firstDocumentHref2 = [book57 firstDocumentHref];
-                      v167 = [v162 isEqualToString:firstDocumentHref2];
+                      v176 = [v171 isEqualToString:firstDocumentHref2];
 
-                      if (v167)
+                      if (v176)
                       {
                         goto LABEL_141;
                       }
 
-                      book56 = _ITEpubParsingLog();
+                      book56 = _ITEpubParsingLog(v177);
                       if (os_log_type_enabled(book56, OS_LOG_TYPE_DEFAULT))
                       {
                         book58 = [(BKBookParser *)self book];
                         firstDocumentHref3 = [book58 firstDocumentHref];
                         *buf = 138544386;
-                        v198 = @"self.book.firstDocumentHref";
-                        v199 = 2160;
-                        v200 = 1752392040;
-                        v201 = 2112;
-                        v202 = v162;
-                        v203 = 2160;
-                        v204 = 1752392040;
-                        v205 = 2112;
-                        v206 = firstDocumentHref3;
+                        v209 = @"self.book.firstDocumentHref";
+                        v210 = 2160;
+                        v211 = 1752392040;
+                        v212 = 2112;
+                        v213 = v171;
+                        v214 = 2160;
+                        v215 = 1752392040;
+                        v216 = 2112;
+                        v217 = firstDocumentHref3;
                         _os_log_impl(&dword_0, book56, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
                       }
                     }
@@ -660,59 +661,59 @@ LABEL_132:
                     }
 
 LABEL_141:
-                    v170 = (*(*v3 + 80))(v3);
+                    v180 = (*(*v4 + 80))(v4);
                     [(BKBookParser *)self book];
-                    if (v170)
-                      v171 = {;
-                      [v171 setFirstDocumentHref:v170];
+                    if (v180)
+                      v181 = {;
+                      [v181 setFirstDocumentHref:v180];
                     }
 
                     else
-                      v170 = {;
-                      [v170 setFirstDocumentHref:0];
+                      v180 = {;
+                      [v180 setFirstDocumentHref:0];
                     }
 
-                    v172 = (*(*v3 + 104))(v3);
+                    v182 = (*(*v4 + 104))(v4);
                     book59 = [(BKBookParser *)self book];
                     tocPageHref = [book59 tocPageHref];
                     if ([tocPageHref length])
                     {
                       book60 = [(BKBookParser *)self book];
                       tocPageHref2 = [book60 tocPageHref];
-                      v177 = [v172 isEqualToString:tocPageHref2];
+                      v187 = [v182 isEqualToString:tocPageHref2];
 
-                      if (v177)
+                      if (v187)
                       {
 LABEL_150:
 
-                        v180 = (*(*v3 + 104))(v3);
+                        v191 = (*(*v4 + 104))(v4);
                         [(BKBookParser *)self book];
-                        if (v180)
-                          v181 = {;
-                          [v181 setTocPageHref:v180];
+                        if (v191)
+                          v192 = {;
+                          [v192 setTocPageHref:v191];
                         }
 
                         else
-                          v180 = {;
-                          [v180 setTocPageHref:0];
+                          v191 = {;
+                          [v191 setTocPageHref:0];
                         }
 
-                        v182 = objc_opt_new();
-                        v183 = objc_opt_new();
-                        v184 = objc_opt_new();
-                        [(BKEpubBookParser *)self constructBKNavigationInfoWithReadable:v3 withAnchorInfo:v182];
-                        [(BKEpubBookParser *)self constructBKLandmarkInfoWithReadable:v3 withAnchorInfo:v183];
-                        [(BKEpubBookParser *)self constructBKPhysicalPageWithReadable:v3 withAnchorInfo:v184];
-                        [(BKEpubBookParser *)self constructBKIdCfiMappingsWithEpub:v3];
-                        [(BKEpubBookParser *)self constructBKDocumentWithReadable:v3 chapters:v182 landmarks:v183 physicalPages:v184];
-                        [(BKEpubBookParser *)self constructBKProtectionInfoWithReadable:v3];
+                        v193 = objc_opt_new();
+                        v194 = objc_opt_new();
+                        v195 = objc_opt_new();
+                        [(BKEpubBookParser *)self constructBKNavigationInfoWithReadable:v4 withAnchorInfo:v193];
+                        [(BKEpubBookParser *)self constructBKLandmarkInfoWithReadable:v4 withAnchorInfo:v194];
+                        [(BKEpubBookParser *)self constructBKPhysicalPageWithReadable:v4 withAnchorInfo:v195];
+                        [(BKEpubBookParser *)self constructBKIdCfiMappingsWithEpub:v4];
+                        [(BKEpubBookParser *)self constructBKDocumentWithReadable:v4 chapters:v193 landmarks:v194 physicalPages:v195];
+                        [(BKEpubBookParser *)self constructBKProtectionInfoWithReadable:v4];
 
                         book61 = [(BKBookParser *)self book];
-                        LODWORD(v183) = [BKEpubBookParser recomputeFixedLayoutDimensionsForBook:book61];
+                        LODWORD(v194) = [BKEpubBookParser recomputeFixedLayoutDimensionsForBook:book61];
 
-                        if (v183)
+                        if (v194)
                         {
-                          v196 = -998;
+                          v207 = -998;
                           book62 = [(BKBookParser *)self book];
                           [book62 resetAsNewlyDownloaded];
                         }
@@ -736,21 +737,21 @@ LABEL_150:
                         goto LABEL_158;
                       }
 
-                      book59 = _ITEpubParsingLog();
+                      book59 = _ITEpubParsingLog(v188);
                       if (os_log_type_enabled(book59, OS_LOG_TYPE_DEFAULT))
                       {
                         book64 = [(BKBookParser *)self book];
                         tocPageHref3 = [book64 tocPageHref];
                         *buf = 138544386;
-                        v198 = @"self.book.tocPageHref";
-                        v199 = 2160;
-                        v200 = 1752392040;
-                        v201 = 2112;
-                        v202 = v172;
-                        v203 = 2160;
-                        v204 = 1752392040;
-                        v205 = 2112;
-                        v206 = tocPageHref3;
+                        v209 = @"self.book.tocPageHref";
+                        v210 = 2160;
+                        v211 = 1752392040;
+                        v212 = 2112;
+                        v213 = v182;
+                        v214 = 2160;
+                        v215 = 1752392040;
+                        v216 = 2112;
+                        v217 = tocPageHref3;
                         _os_log_impl(&dword_0, book59, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
                       }
                     }
@@ -762,21 +763,21 @@ LABEL_150:
                     goto LABEL_150;
                   }
 
-                  book28 = _ITEpubParsingLog();
+                  book28 = _ITEpubParsingLog(v97);
                   if (os_log_type_enabled(book28, OS_LOG_TYPE_DEFAULT))
                   {
                     book65 = [(BKBookParser *)self book];
                     bookEpubIdWithUUIDScheme3 = [book65 bookEpubIdWithUUIDScheme];
                     *buf = 138544386;
-                    v198 = @"self.book.bookEpubIdWithUUIDScheme";
-                    v199 = 2160;
-                    v200 = 1752392040;
-                    v201 = 2112;
-                    v202 = v85;
-                    v203 = 2160;
-                    v204 = 1752392040;
-                    v205 = 2112;
-                    v206 = bookEpubIdWithUUIDScheme3;
+                    v209 = @"self.book.bookEpubIdWithUUIDScheme";
+                    v210 = 2160;
+                    v211 = 1752392040;
+                    v212 = 2112;
+                    v213 = v91;
+                    v214 = 2160;
+                    v215 = 1752392040;
+                    v216 = 2112;
+                    v217 = bookEpubIdWithUUIDScheme3;
                     _os_log_impl(&dword_0, book28, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
                   }
                 }
@@ -788,21 +789,21 @@ LABEL_150:
                 goto LABEL_86;
               }
 
-              book24 = _ITEpubParsingLog();
+              book24 = _ITEpubParsingLog(v83);
               if (os_log_type_enabled(book24, OS_LOG_TYPE_DEFAULT))
               {
                 book66 = [(BKBookParser *)self book];
                 bookEpubId3 = [book66 bookEpubId];
                 *buf = 138544386;
-                v198 = @"self.book.bookEpubId";
-                v199 = 2160;
-                v200 = 1752392040;
-                v201 = 2112;
-                v202 = v72;
-                v203 = 2160;
-                v204 = 1752392040;
-                v205 = 2112;
-                v206 = bookEpubId3;
+                v209 = @"self.book.bookEpubId";
+                v210 = 2160;
+                v211 = 1752392040;
+                v212 = 2112;
+                v213 = v77;
+                v214 = 2160;
+                v215 = 1752392040;
+                v216 = 2112;
+                v217 = bookEpubId3;
                 _os_log_impl(&dword_0, book24, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
               }
             }
@@ -814,21 +815,21 @@ LABEL_150:
             goto LABEL_73;
           }
 
-          book20 = _ITEpubParsingLog();
+          book20 = _ITEpubParsingLog(v69);
           if (os_log_type_enabled(book20, OS_LOG_TYPE_DEFAULT))
           {
             book67 = [(BKBookParser *)self book];
             genre3 = [book67 genre];
             *buf = 138544386;
-            v198 = @"self.book.genre";
-            v199 = 2160;
-            v200 = 1752392040;
-            v201 = 2112;
-            v202 = v59;
-            v203 = 2160;
-            v204 = 1752392040;
-            v205 = 2112;
-            v206 = genre3;
+            v209 = @"self.book.genre";
+            v210 = 2160;
+            v211 = 1752392040;
+            v212 = 2112;
+            v213 = v63;
+            v214 = 2160;
+            v215 = 1752392040;
+            v216 = 2112;
+            v217 = genre3;
             _os_log_impl(&dword_0, book20, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
           }
         }
@@ -840,21 +841,21 @@ LABEL_150:
         goto LABEL_60;
       }
 
-      book16 = _ITEpubParsingLog();
+      book16 = _ITEpubParsingLog(v55);
       if (os_log_type_enabled(book16, OS_LOG_TYPE_DEFAULT))
       {
         book68 = [(BKBookParser *)self book];
         bookLanguage7 = [book68 bookLanguage];
         *buf = 138544386;
-        v198 = @"self.book.bookLanguage";
-        v199 = 2160;
-        v200 = 1752392040;
-        v201 = 2112;
-        v202 = v46;
-        v203 = 2160;
-        v204 = 1752392040;
-        v205 = 2112;
-        v206 = bookLanguage7;
+        v209 = @"self.book.bookLanguage";
+        v210 = 2160;
+        v211 = 1752392040;
+        v212 = 2112;
+        v213 = v49;
+        v214 = 2160;
+        v215 = 1752392040;
+        v216 = 2112;
+        v217 = bookLanguage7;
         _os_log_impl(&dword_0, book16, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", buf, 0x34u);
       }
     }
@@ -866,49 +867,49 @@ LABEL_150:
     goto LABEL_47;
   }
 
-  v4 = _ITEpubParsingLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = _ITEpubParsingLog(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    LODWORD(v198) = v196;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "createEpubParser error: %d", buf, 8u);
+    LODWORD(v209) = v207;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "createEpubParser error: %d", buf, 8u);
   }
 
-  v5 = BCIMLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = BCIMLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v198 = "[BKEpubBookParser _fullParse]";
-    v199 = 2080;
-    v200 = "/Library/Caches/com.apple.xbs/Sources/Alder/ios/AEBookPlugins/Shared/Models/Parsing/BKEpubBookParser.mm";
-    v201 = 1024;
-    LODWORD(v202) = 145;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
+    v209 = "[BKEpubBookParser _fullParse]";
+    v210 = 2080;
+    v211 = "/Library/Caches/com.apple.xbs/Sources/Alder/ios/AEBookPlugins/Shared/Models/Parsing/BKEpubBookParser.mm";
+    v212 = 1024;
+    LODWORD(v213) = 145;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
   }
 
   book62 = BCIMLog();
   if (os_log_type_enabled(book62, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v198) = v196;
+    LODWORD(v209) = v207;
     _os_log_impl(&dword_0, book62, OS_LOG_TYPE_INFO, "@createEpubParser error: %d", buf, 8u);
   }
 
 LABEL_158:
 
-  ITRetain::release(v3);
-  result = v196;
-  if ((v196 + 42005) < 2 || v196 == -42597)
+  ITRetain::release(v4);
+  result = v207;
+  if (v207 + 42005 < 2 || v207 == -42597)
   {
     return -998;
   }
 
-  if (!v196)
+  if (!v207)
   {
     if (self->_illegalEncryptionAlgorithm)
     {
-      v189 = _ITEpubParsingLog();
-      if (os_log_type_enabled(v189, OS_LOG_TYPE_ERROR))
+      v200 = _ITEpubParsingLog(v207);
+      if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
       {
         book69 = [(BKBookParser *)self book];
         assetLogID = [book69 assetLogID];
@@ -917,12 +918,12 @@ LABEL_158:
         book71 = [(BKBookParser *)self book];
         assetID = [book71 assetID];
         *buf = 138543874;
-        v198 = assetLogID;
-        v199 = 2112;
-        v200 = bookBundlePath2;
-        v201 = 2112;
-        v202 = assetID;
-        _os_log_impl(&dword_0, v189, OS_LOG_TYPE_ERROR, "Illegal encryption for book %{public}@ %@:%@", buf, 0x20u);
+        v209 = assetLogID;
+        v210 = 2112;
+        v211 = bookBundlePath2;
+        v212 = 2112;
+        v213 = assetID;
+        _os_log_impl(&dword_0, v200, OS_LOG_TYPE_ERROR, "Illegal encryption for book %{public}@ %@:%@", buf, 0x20u);
       }
 
       return -999;
@@ -990,7 +991,7 @@ LABEL_158:
 {
   if (parse)
   {
-    book4 = _ITEpubParsingLog();
+    book4 = _ITEpubParsingLog(self);
     if (os_log_type_enabled(book4, OS_LOG_TYPE_ERROR))
     {
       book = [(BKBookParser *)self book];
@@ -999,13 +1000,13 @@ LABEL_158:
       bookBundlePath = [book2 bookBundlePath];
       book3 = [(BKBookParser *)self book];
       assetID = [book3 assetID];
-      v43 = 138543874;
-      v44 = assetLogID;
-      v45 = 2112;
-      v46 = bookBundlePath;
-      v47 = 2112;
-      v48 = assetID;
-      _os_log_impl(&dword_0, book4, OS_LOG_TYPE_ERROR, "Skipping all parsing for %{public}@ - %@:%@ -- Why would we do this?", &v43, 0x20u);
+      v47 = 138543874;
+      v48 = assetLogID;
+      v49 = 2112;
+      v50 = bookBundlePath;
+      v51 = 2112;
+      v52 = assetID;
+      _os_log_impl(&dword_0, book4, OS_LOG_TYPE_ERROR, "Skipping all parsing for %{public}@ - %@:%@ -- Why would we do this?", &v47, 0x20u);
     }
 
     goto LABEL_28;
@@ -1017,8 +1018,8 @@ LABEL_158:
 
   if (!bookBundlePath2)
   {
-    v23 = _ITEpubParsingLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v26 = _ITEpubParsingLog(v13);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       databaseKey = [book4 databaseKey];
       bookAuthor = [book4 bookAuthor];
@@ -1026,53 +1027,54 @@ LABEL_158:
       assetLogID2 = [book4 assetLogID];
       bookBundlePath3 = [book4 bookBundlePath];
       assetID2 = [book4 assetID];
-      v43 = 138413570;
-      v44 = databaseKey;
-      v45 = 2112;
-      v46 = bookAuthor;
-      v47 = 2112;
-      v48 = bookTitle;
-      v49 = 2114;
-      v50 = assetLogID2;
+      v47 = 138413570;
+      v48 = databaseKey;
+      v49 = 2112;
+      v50 = bookAuthor;
       v51 = 2112;
-      v52 = bookBundlePath3;
-      v53 = 2112;
-      v54 = assetID2;
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "Parsing Not Possible -- No Bundle Path: [%@] {%@ - %@} - %{public}@ - %@:%@", &v43, 0x3Eu);
+      v52 = bookTitle;
+      v53 = 2114;
+      v54 = assetLogID2;
+      v55 = 2112;
+      v56 = bookBundlePath3;
+      v57 = 2112;
+      v58 = assetID2;
+      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "Parsing Not Possible -- No Bundle Path: [%@] {%@ - %@} - %{public}@ - %@:%@", &v47, 0x3Eu);
     }
 
-    v30 = BCIMLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v33 = BCIMLog();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v43 = 136315650;
-      v44 = "[BKEpubBookParser parse:]";
-      v45 = 2080;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/Alder/ios/AEBookPlugins/Shared/Models/Parsing/BKEpubBookParser.mm";
-      v47 = 1024;
-      LODWORD(v48) = 368;
-      _os_log_impl(&dword_0, v30, OS_LOG_TYPE_INFO, "%s %s:%d", &v43, 0x1Cu);
+      v47 = 136315650;
+      v48 = "[BKEpubBookParser parse:]";
+      v49 = 2080;
+      v50 = "/Library/Caches/com.apple.xbs/Sources/Alder/ios/AEBookPlugins/Shared/Models/Parsing/BKEpubBookParser.mm";
+      v51 = 1024;
+      LODWORD(v52) = 368;
+      _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "%s %s:%d", &v47, 0x1Cu);
     }
 
-    v21 = BCIMLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v24 = BCIMLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       databaseKey2 = [book4 databaseKey];
       bookAuthor2 = [book4 bookAuthor];
       bookTitle2 = [book4 bookTitle];
-      v43 = 138412802;
-      v44 = databaseKey2;
-      v45 = 2112;
-      v46 = bookAuthor2;
-      v47 = 2112;
-      v48 = bookTitle2;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "@Parsing Not Possible -- No Bundle Path: [%@] {%@ - %@}", &v43, 0x20u);
+      v47 = 138412802;
+      v48 = databaseKey2;
+      v49 = 2112;
+      v50 = bookAuthor2;
+      v51 = 2112;
+      v52 = bookTitle2;
+      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, "@Parsing Not Possible -- No Bundle Path: [%@] {%@ - %@}", &v47, 0x20u);
     }
 
-    _fullParse = -1000;
+    v21 = -1000;
     goto LABEL_26;
   }
 
-  if (![book4 wasParsed])
+  wasParsed = [book4 wasParsed];
+  if (!wasParsed)
   {
     goto LABEL_9;
   }
@@ -1082,127 +1084,129 @@ LABEL_158:
   {
 
 LABEL_9:
-    v14 = _ITEpubParsingLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _ITEpubParsingLog(wasParsed);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       assetLogID3 = [book4 assetLogID];
       bookBundlePath4 = [book4 bookBundlePath];
       assetID3 = [book4 assetID];
-      v43 = 138543874;
-      v44 = assetLogID3;
-      v45 = 2112;
-      v46 = bookBundlePath4;
-      v47 = 2112;
-      v48 = assetID3;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Performing full parse on %{public}@ - %@:%@", &v43, 0x20u);
+      v47 = 138543874;
+      v48 = assetLogID3;
+      v49 = 2112;
+      v50 = bookBundlePath4;
+      v51 = 2112;
+      v52 = assetID3;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Performing full parse on %{public}@ - %@:%@", &v47, 0x20u);
     }
 
     _fullParse = [(BKEpubBookParser *)self _fullParse];
+    v21 = _fullParse;
     if (!_fullParse)
     {
-      v34 = +[NSDate date];
-      [book4 setParseDate:v34];
+      v37 = +[NSDate date];
+      [book4 setParseDate:v37];
 
       [book4 setIsDirty:&__kCFBooleanFalse];
 LABEL_28:
-      _fullParse = 0;
+      v21 = 0;
       goto LABEL_29;
     }
 
-    v19 = _ITEpubParsingLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = _ITEpubParsingLog(_fullParse);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v43 = 67109120;
-      LODWORD(v44) = _fullParse;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Full parse failure: %d", &v43, 8u);
+      v47 = 67109120;
+      LODWORD(v48) = v21;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "Full parse failure: %d", &v47, 8u);
     }
 
-    v20 = BCIMLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v23 = BCIMLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v43 = 136315650;
-      v44 = "[BKEpubBookParser parse:]";
-      v45 = 2080;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/Alder/ios/AEBookPlugins/Shared/Models/Parsing/BKEpubBookParser.mm";
-      v47 = 1024;
-      LODWORD(v48) = 347;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "%s %s:%d", &v43, 0x1Cu);
+      v47 = 136315650;
+      v48 = "[BKEpubBookParser parse:]";
+      v49 = 2080;
+      v50 = "/Library/Caches/com.apple.xbs/Sources/Alder/ios/AEBookPlugins/Shared/Models/Parsing/BKEpubBookParser.mm";
+      v51 = 1024;
+      LODWORD(v52) = 347;
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "%s %s:%d", &v47, 0x1Cu);
     }
 
-    v21 = BCIMLog();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v24 = BCIMLog();
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       goto LABEL_26;
     }
 
-    v43 = 67109120;
-    LODWORD(v44) = _fullParse;
-    v22 = "@_fullParse: %d";
+    v47 = 67109120;
+    LODWORD(v48) = v21;
+    v25 = "@_fullParse: %d";
     goto LABEL_18;
   }
 
-  v36 = BEAlwaysFullParseEPUB();
+  v39 = BEAlwaysFullParseEPUB();
 
-  if (v36)
+  if (v39)
   {
     goto LABEL_9;
   }
 
-  v37 = _ITEpubParsingLog();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v40 = _ITEpubParsingLog(wasParsed);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
     assetLogID4 = [book4 assetLogID];
     bookBundlePath5 = [book4 bookBundlePath];
     assetID4 = [book4 assetID];
-    v43 = 138543874;
-    v44 = assetLogID4;
-    v45 = 2112;
-    v46 = bookBundlePath5;
-    v47 = 2112;
-    v48 = assetID4;
-    _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "Performing touchup parse on %{public}@ - %@:%@", &v43, 0x20u);
+    v47 = 138543874;
+    v48 = assetLogID4;
+    v49 = 2112;
+    v50 = bookBundlePath5;
+    v51 = 2112;
+    v52 = assetID4;
+    _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "Performing touchup parse on %{public}@ - %@:%@", &v47, 0x20u);
   }
 
-  _fullParse = [(BKEpubBookParser *)self _touchUpParse];
-  if (_fullParse)
+  _touchUpParse = [(BKEpubBookParser *)self _touchUpParse];
+  v21 = _touchUpParse;
+  if (_touchUpParse)
   {
-    v41 = _ITEpubParsingLog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v45 = _ITEpubParsingLog(_touchUpParse);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      v43 = 67109120;
-      LODWORD(v44) = _fullParse;
-      _os_log_impl(&dword_0, v41, OS_LOG_TYPE_ERROR, "Touch up parse failure: %d", &v43, 8u);
+      v47 = 67109120;
+      LODWORD(v48) = v21;
+      _os_log_impl(&dword_0, v45, OS_LOG_TYPE_ERROR, "Touch up parse failure: %d", &v47, 8u);
     }
 
-    v42 = BCIMLog();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+    v46 = BCIMLog();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
-      v43 = 136315650;
-      v44 = "[BKEpubBookParser parse:]";
-      v45 = 2080;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/Alder/ios/AEBookPlugins/Shared/Models/Parsing/BKEpubBookParser.mm";
-      v47 = 1024;
-      LODWORD(v48) = 360;
-      _os_log_impl(&dword_0, v42, OS_LOG_TYPE_INFO, "%s %s:%d", &v43, 0x1Cu);
+      v47 = 136315650;
+      v48 = "[BKEpubBookParser parse:]";
+      v49 = 2080;
+      v50 = "/Library/Caches/com.apple.xbs/Sources/Alder/ios/AEBookPlugins/Shared/Models/Parsing/BKEpubBookParser.mm";
+      v51 = 1024;
+      LODWORD(v52) = 360;
+      _os_log_impl(&dword_0, v46, OS_LOG_TYPE_INFO, "%s %s:%d", &v47, 0x1Cu);
     }
 
-    v21 = BCIMLog();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v24 = BCIMLog();
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       goto LABEL_26;
     }
 
-    v43 = 67109120;
-    LODWORD(v44) = _fullParse;
-    v22 = "@_touchUpParse: %d";
+    v47 = 67109120;
+    LODWORD(v48) = v21;
+    v25 = "@_touchUpParse: %d";
 LABEL_18:
-    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, v22, &v43, 8u);
+    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, v25, &v47, 8u);
 LABEL_26:
   }
 
 LABEL_29:
 
-  return _fullParse;
+  return v21;
 }
 
 - (void)tryEmbeddedHrefForCoverArtHref:(id)href
@@ -1947,47 +1951,47 @@ LABEL_7:
     v23 = [v21 stringByAppendingPathComponent:href];
 
     v24 = objc_autoreleasePoolPush();
-    v38 = 0;
+    v39 = 0;
     sinfBlob = [sinfNumber sinfBlob];
-    v37 = 0;
-    v26 = [ft9cupR7u6OrU4m1pyhB pK0gFZ9QOdm17E9p9cpP:v23 sinfData:sinfBlob refetch:&v38 error:&v37];
-    v27 = v37;
+    v38 = 0;
+    v26 = [ft9cupR7u6OrU4m1pyhB pK0gFZ9QOdm17E9p9cpP:v23 sinfData:sinfBlob refetch:&v39 error:&v38];
+    v27 = v38;
 
     if (v26)
     {
       if ([(ITEpubFixedLayoutParser *)v26 length])
       {
-        v29 = ITEpubFixedLayoutParser::dimensionsFromData(v26, v28);
-        v30 = v29;
-        if (v29 <= 0)
+        v30 = ITEpubFixedLayoutParser::dimensionsFromData(v26, v29);
+        v31 = v30;
+        if (v30 <= 0)
         {
-          v33 = _ITEpubParsingLog();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v34 = _ITEpubParsingLog(v30);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v33, OS_LOG_TYPE_ERROR, "Width read from decrypted data is 0 for fixed layout.", buf, 2u);
+            _os_log_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "Width read from decrypted data is 0 for fixed layout.", buf, 2u);
           }
         }
 
         else
         {
-          width = HIDWORD(v29);
+          width = HIDWORD(v30);
         }
 
-        if (v30 > 0)
+        if (v31 > 0)
         {
-          height = v30;
+          height = v31;
 LABEL_29:
 
           objc_autoreleasePoolPop(v24);
           goto LABEL_30;
         }
 
-        v31 = _ITEpubParsingLog();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v32 = _ITEpubParsingLog(v30);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          v32 = "Height read from decrypted data is 0 for fixed layout.";
+          v33 = "Height read from decrypted data is 0 for fixed layout.";
           goto LABEL_27;
         }
 
@@ -1996,39 +2000,39 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      v31 = _ITEpubParsingLog();
-      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = _ITEpubParsingLog(0);
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_28;
       }
 
       *buf = 0;
-      v32 = "Decrypted data length is 0. Cannot read fixed layout size from it.";
+      v33 = "Decrypted data length is 0. Cannot read fixed layout size from it.";
     }
 
     else
     {
-      v31 = _ITEpubParsingLog();
-      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = _ITEpubParsingLog(v28);
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_28;
       }
 
       *buf = 0;
-      v32 = "Decrypted data is nil";
+      v33 = "Decrypted data is nil";
     }
 
 LABEL_27:
-    _os_log_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, v32, buf, 2u);
+    _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, v33, buf, 2u);
     goto LABEL_28;
   }
 
 LABEL_30:
 
-  v34 = width;
-  v35 = height;
-  result.height = v35;
-  result.width = v34;
+  v35 = width;
+  v36 = height;
+  result.height = v36;
+  result.width = v35;
   return result;
 }
 
@@ -2069,105 +2073,105 @@ LABEL_30:
       v11 = 768.0;
     }
 
-    v54 = 0u;
-    v55 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     if (v12 && v13)
     {
       v9 = 1024.0;
     }
 
-    v56 = 0uLL;
-    v57 = 0uLL;
+    v58 = 0uLL;
+    v59 = 0uLL;
     obj = [bookCopy sortedDocuments];
-    v14 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+    v14 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
     if (v14)
     {
-      v50 = 0;
-      v16 = *v55;
+      v52 = 0;
+      v16 = *v57;
       *&v15 = 138412802;
-      v49 = v15;
+      v51 = v15;
       while (1)
       {
         v17 = 0;
         do
         {
-          if (*v55 != v16)
+          if (*v57 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v54 + 1) + 8 * v17);
-          [self _computeFixedLayoutDimensionsFrom:v18 forBook:{bookCopy, v49}];
-          v21 = v19;
+          v18 = *(*(&v56 + 1) + 8 * v17);
+          v19 = [self _computeFixedLayoutDimensionsFrom:v18 forBook:{bookCopy, v51}];
           v22 = v20;
-          if (v19 == CGSizeZero.width && v20 == CGSizeZero.height)
+          v23 = v21;
+          if (v20 == CGSizeZero.width && v21 == CGSizeZero.height)
           {
             href = [v18 href];
             tocPageHref = [bookCopy tocPageHref];
-            v30 = [href isEqualToString:tocPageHref];
+            v31 = [href isEqualToString:tocPageHref];
 
-            if (v30)
+            if (v31)
             {
-              v31 = _ITEpubParsingLog();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              v33 = _ITEpubParsingLog(v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
                 href2 = [v18 href];
-                v67.width = v9;
-                v67.height = v11;
-                v33 = NSStringFromCGSize(v67);
+                v69.width = v9;
+                v69.height = v11;
+                v35 = NSStringFromCGSize(v69);
                 *buf = 138412546;
-                v59 = href2;
-                v60 = 2112;
-                v61 = v33;
-                _os_log_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, "Book document (%@) size computed from epub was 0, setting size to %@ and ignoring error because it's the TOC.", buf, 0x16u);
+                v61 = href2;
+                v62 = 2112;
+                v63 = v35;
+                _os_log_impl(&dword_0, v33, OS_LOG_TYPE_ERROR, "Book document (%@) size computed from epub was 0, setting size to %@ and ignoring error because it's the TOC.", buf, 0x16u);
               }
             }
 
             else
             {
-              v34 = _ITEpubParsingLog();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              v36 = _ITEpubParsingLog(v32);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 href3 = [v18 href];
-                v68.width = v9;
-                v68.height = v11;
-                v36 = NSStringFromCGSize(v68);
+                v70.width = v9;
+                v70.height = v11;
+                v38 = NSStringFromCGSize(v70);
                 *buf = 138412546;
-                v59 = href3;
-                v60 = 2112;
-                v61 = v36;
-                _os_log_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "Book document (%@) size computed from epub was 0, setting size to %@ and marking book info as dirty.", buf, 0x16u);
+                v61 = href3;
+                v62 = 2112;
+                v63 = v38;
+                _os_log_impl(&dword_0, v36, OS_LOG_TYPE_ERROR, "Book document (%@) size computed from epub was 0, setting size to %@ and marking book info as dirty.", buf, 0x16u);
               }
 
-              ++v50;
+              ++v52;
             }
 
-            v22 = v11;
-            v21 = v9;
+            v23 = v11;
+            v22 = v9;
           }
 
           else
           {
-            if (v20 == 0.0)
+            if (v21 == 0.0)
             {
-              v24 = _ITEpubParsingLog();
-              v22 = round(v11 * (v21 / v9));
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v25 = _ITEpubParsingLog(v19);
+              v23 = round(v11 * (v22 / v9));
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 href4 = [v18 href];
-                v65.width = v21;
-                v65.height = v22;
-                v26 = NSStringFromCGSize(v65);
-                v66.width = v9;
-                v66.height = v11;
-                v27 = NSStringFromCGSize(v66);
-                *buf = v49;
-                v59 = href4;
-                v60 = 2114;
-                v61 = v26;
+                v67.width = v22;
+                v67.height = v23;
+                v27 = NSStringFromCGSize(v67);
+                v68.width = v9;
+                v68.height = v11;
+                v28 = NSStringFromCGSize(v68);
+                *buf = v51;
+                v61 = href4;
                 v62 = 2114;
                 v63 = v27;
-                _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "Book document (%@) height computed from epub was 0, using %{public}@ based on aspect ratio of previous size %{public}@.", buf, 0x20u);
+                v64 = 2114;
+                v65 = v28;
+                _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Book document (%@) height computed from epub was 0, using %{public}@ based on aspect ratio of previous size %{public}@.", buf, 0x20u);
               }
 
 LABEL_23:
@@ -2175,75 +2179,75 @@ LABEL_23:
               goto LABEL_32;
             }
 
-            if (v19 == 0.0)
+            if (v20 == 0.0)
             {
-              v24 = _ITEpubParsingLog();
-              v21 = round(v9 * (v22 / v11));
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v25 = _ITEpubParsingLog(v19);
+              v22 = round(v9 * (v23 / v11));
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 href5 = [v18 href];
-                v70.width = v21;
-                v70.height = v22;
-                v43 = NSStringFromCGSize(v70);
-                v71.width = v9;
-                v71.height = v11;
-                v44 = NSStringFromCGSize(v71);
-                *buf = v49;
-                v59 = href5;
-                v60 = 2114;
-                v61 = v43;
+                v72.width = v22;
+                v72.height = v23;
+                v45 = NSStringFromCGSize(v72);
+                v73.width = v9;
+                v73.height = v11;
+                v46 = NSStringFromCGSize(v73);
+                *buf = v51;
+                v61 = href5;
                 v62 = 2114;
-                v63 = v44;
-                _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "Book document (%@) width computed from epub was 0, using %{public}@ based on aspect ratio of previous size %{public}@.", buf, 0x20u);
+                v63 = v45;
+                v64 = 2114;
+                v65 = v46;
+                _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Book document (%@) width computed from epub was 0, using %{public}@ based on aspect ratio of previous size %{public}@.", buf, 0x20u);
               }
 
               goto LABEL_23;
             }
 
-            v11 = v20;
-            v9 = v19;
+            v11 = v21;
+            v9 = v20;
           }
 
 LABEL_32:
-          v37 = _ITEpubParsingLog();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+          v39 = _ITEpubParsingLog(v19);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
           {
             href6 = [v18 href];
-            v69.width = v21;
-            v69.height = v22;
-            v39 = NSStringFromCGSize(v69);
+            v71.width = v22;
+            v71.height = v23;
+            v41 = NSStringFromCGSize(v71);
             *buf = 138412546;
-            v59 = href6;
-            v60 = 2114;
-            v61 = v39;
-            _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "Book document (%@) validated size: %{public}@", buf, 0x16u);
+            v61 = href6;
+            v62 = 2114;
+            v63 = v41;
+            _os_log_impl(&dword_0, v39, OS_LOG_TYPE_INFO, "Book document (%@) validated size: %{public}@", buf, 0x16u);
           }
 
-          v40 = [NSNumber numberWithDouble:v21];
-          [v18 setFixedLayoutWidth:v40];
+          v42 = [NSNumber numberWithDouble:v22];
+          [v18 setFixedLayoutWidth:v42];
 
-          v41 = [NSNumber numberWithDouble:v22];
-          [v18 setFixedLayoutHeight:v41];
+          v43 = [NSNumber numberWithDouble:v23];
+          [v18 setFixedLayoutHeight:v43];
 
           v17 = v17 + 1;
         }
 
         while (v14 != v17);
-        v45 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
-        v14 = v45;
-        if (!v45)
+        v47 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+        v14 = v47;
+        if (!v47)
         {
-          v46 = v50 == 0;
+          v48 = v52 == 0;
           goto LABEL_44;
         }
       }
     }
 
-    v46 = 1;
+    v48 = 1;
 LABEL_44:
 
-    v47 = [NSNumber numberWithBool:v46];
-    [bookCopy setHasComputedFixedLayoutSize:v47];
+    v49 = [NSNumber numberWithBool:v48];
+    [bookCopy setHasComputedFixedLayoutSize:v49];
   }
 
 LABEL_45:
@@ -2276,22 +2280,22 @@ LABEL_45:
 
     if ((v12 & 1) == 0)
     {
-      v13 = _ITEpubParsingLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = _ITEpubParsingLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         book3 = [(BKBookParser *)self book];
         publisherName3 = [book3 publisherName];
-        v57 = 138544386;
-        v58 = @"self.book.publisherName";
-        v59 = 2160;
-        v60 = 1752392040;
-        v61 = 2112;
-        v62 = v7;
-        v63 = 2160;
-        v64 = 1752392040;
-        v65 = 2112;
-        v66 = publisherName3;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", &v57, 0x34u);
+        v60 = 138544386;
+        v61 = @"self.book.publisherName";
+        v62 = 2160;
+        v63 = 1752392040;
+        v64 = 2112;
+        v65 = v7;
+        v66 = 2160;
+        v67 = 1752392040;
+        v68 = 2112;
+        v69 = publisherName3;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", &v60, 0x34u);
       }
     }
   }
@@ -2300,8 +2304,8 @@ LABEL_45:
   {
   }
 
-  v16 = parser->var10;
-  if (v16 && (CFRetain(v16), (book5 = parser->var10) != 0))
+  v17 = parser->var10;
+  if (v17 && (CFRetain(v17), (book5 = parser->var10) != 0))
   {
     book4 = [(BKBookParser *)self book];
     [book4 setPublisherName:book5];
@@ -2317,15 +2321,15 @@ LABEL_45:
   if (var11)
   {
     CFRetain(var11);
-    v20 = parser->var11;
+    v21 = parser->var11;
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  v21 = v20;
+  v22 = v21;
   book6 = [(BKBookParser *)self book];
   publisherLocation = [book6 publisherLocation];
   if (![publisherLocation length])
@@ -2337,26 +2341,26 @@ LABEL_22:
 
   book7 = [(BKBookParser *)self book];
   publisherLocation2 = [book7 publisherLocation];
-  v26 = [(__CFString *)v21 isEqualToString:publisherLocation2];
+  v27 = [(__CFString *)v22 isEqualToString:publisherLocation2];
 
-  if ((v26 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    book6 = _ITEpubParsingLog();
+    book6 = _ITEpubParsingLog(v28);
     if (os_log_type_enabled(book6, OS_LOG_TYPE_DEFAULT))
     {
       book8 = [(BKBookParser *)self book];
       publisherLocation3 = [book8 publisherLocation];
-      v57 = 138544386;
-      v58 = @"self.book.publisherLocation";
-      v59 = 2160;
-      v60 = 1752392040;
-      v61 = 2112;
-      v62 = v21;
-      v63 = 2160;
-      v64 = 1752392040;
-      v65 = 2112;
-      v66 = publisherLocation3;
-      _os_log_impl(&dword_0, book6, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", &v57, 0x34u);
+      v60 = 138544386;
+      v61 = @"self.book.publisherLocation";
+      v62 = 2160;
+      v63 = 1752392040;
+      v64 = 2112;
+      v65 = v22;
+      v66 = 2160;
+      v67 = 1752392040;
+      v68 = 2112;
+      v69 = publisherLocation3;
+      _os_log_impl(&dword_0, book6, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", &v60, 0x34u);
     }
 
     goto LABEL_22;
@@ -2364,8 +2368,8 @@ LABEL_22:
 
 LABEL_23:
 
-  v29 = parser->var11;
-  if (v29 && (CFRetain(v29), (book10 = parser->var11) != 0))
+  v31 = parser->var11;
+  if (v31 && (CFRetain(v31), (book10 = parser->var11) != 0))
   {
     book9 = [(BKBookParser *)self book];
     [book9 setPublisherLocation:book10];
@@ -2381,15 +2385,15 @@ LABEL_23:
   if (var12)
   {
     CFRetain(var12);
-    v33 = parser->var12;
+    v35 = parser->var12;
   }
 
   else
   {
-    v33 = 0;
+    v35 = 0;
   }
 
-  v34 = v33;
+  v36 = v35;
   book11 = [(BKBookParser *)self book];
   publisherYear = [book11 publisherYear];
   if (![publisherYear length])
@@ -2401,26 +2405,26 @@ LABEL_35:
 
   book12 = [(BKBookParser *)self book];
   publisherYear2 = [book12 publisherYear];
-  v39 = [(__CFString *)v34 isEqualToString:publisherYear2];
+  v41 = [(__CFString *)v36 isEqualToString:publisherYear2];
 
-  if ((v39 & 1) == 0)
+  if ((v41 & 1) == 0)
   {
-    book11 = _ITEpubParsingLog();
+    book11 = _ITEpubParsingLog(v42);
     if (os_log_type_enabled(book11, OS_LOG_TYPE_DEFAULT))
     {
       book13 = [(BKBookParser *)self book];
       publisherYear3 = [book13 publisherYear];
-      v57 = 138544386;
-      v58 = @"self.book.publisherYear";
-      v59 = 2160;
-      v60 = 1752392040;
-      v61 = 2112;
-      v62 = v34;
-      v63 = 2160;
-      v64 = 1752392040;
-      v65 = 2112;
-      v66 = publisherYear3;
-      _os_log_impl(&dword_0, book11, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", &v57, 0x34u);
+      v60 = 138544386;
+      v61 = @"self.book.publisherYear";
+      v62 = 2160;
+      v63 = 1752392040;
+      v64 = 2112;
+      v65 = v36;
+      v66 = 2160;
+      v67 = 1752392040;
+      v68 = 2112;
+      v69 = publisherYear3;
+      _os_log_impl(&dword_0, book11, OS_LOG_TYPE_DEFAULT, "Parsed value for '%{public}@': '%{mask.hash}@' != current stored value: '%{mask.hash}@'", &v60, 0x34u);
     }
 
     goto LABEL_35;
@@ -2428,8 +2432,8 @@ LABEL_35:
 
 LABEL_36:
 
-  v42 = parser->var12;
-  if (v42 && (CFRetain(v42), (book15 = parser->var12) != 0))
+  v45 = parser->var12;
+  if (v45 && (CFRetain(v45), (book15 = parser->var12) != 0))
   {
     book14 = [(BKBookParser *)self book];
     [book14 setPublisherYear:book15];
@@ -2443,9 +2447,9 @@ LABEL_36:
 
   book16 = [(BKBookParser *)self book];
   publisherName4 = [book16 publisherName];
-  v47 = publisherName4 == 0;
+  v50 = publisherName4 == 0;
 
-  if (v47)
+  if (v50)
   {
     book17 = [(BKBookParser *)self book];
     [book17 setPublisherName:&stru_1E7188];
@@ -2453,9 +2457,9 @@ LABEL_36:
 
   book18 = [(BKBookParser *)self book];
   publisherLocation4 = [book18 publisherLocation];
-  v51 = publisherLocation4 == 0;
+  v54 = publisherLocation4 == 0;
 
-  if (v51)
+  if (v54)
   {
     book19 = [(BKBookParser *)self book];
     [book19 setPublisherLocation:&stru_1E7188];
@@ -2463,9 +2467,9 @@ LABEL_36:
 
   book20 = [(BKBookParser *)self book];
   publisherYear4 = [book20 publisherYear];
-  v55 = publisherYear4 == 0;
+  v58 = publisherYear4 == 0;
 
-  if (v55)
+  if (v58)
   {
     book21 = [(BKBookParser *)self book];
     [book21 setPublisherYear:&stru_1E7188];
@@ -2793,23 +2797,23 @@ LABEL_7:
 {
   book = [(BKBookParser *)self book];
   bookBundlePath = [book bookBundlePath];
-  v6 = [bookBundlePath stringByAppendingPathComponent:@"iTunesMetadata.plist"];
+  v7 = [bookBundlePath stringByAppendingPathComponent:@"iTunesMetadata.plist"];
 
-  if (v6)
+  if (v7)
   {
-    v5 = [NSDictionary dictionaryWithContentsOfFile:?];
-    if (v5)
+    v6 = [NSDictionary dictionaryWithContentsOfFile:?];
+    if (v6)
     {
-      [(BKEpubBookParser *)self setObeyPageBreaksFromPlist:v5];
-      [(BKEpubBookParser *)self setArtworkTemplateFromPlist:v5];
-      [(BKEpubBookParser *)self setLanguageFromPlist:v5];
-      [(BKEpubBookParser *)self setCoverWritingModeFromPlist:v5];
-      [(BKEpubBookParser *)self setScrollAxisModeFromPlist:v5];
-      [(BKEpubBookParser *)self setEndOfBookExperienceFromPlist:v5];
+      [(BKEpubBookParser *)self setObeyPageBreaksFromPlist:v6];
+      [(BKEpubBookParser *)self setArtworkTemplateFromPlist:v6];
+      [(BKEpubBookParser *)self setLanguageFromPlist:v6];
+      [(BKEpubBookParser *)self setCoverWritingModeFromPlist:v6];
+      [(BKEpubBookParser *)self setScrollAxisModeFromPlist:v6];
+      [(BKEpubBookParser *)self setEndOfBookExperienceFromPlist:v6];
     }
   }
 
-  _objc_release_x2();
+  _objc_release_x2(v5);
 }
 
 + (BOOL)isValidMimeType:(id)type

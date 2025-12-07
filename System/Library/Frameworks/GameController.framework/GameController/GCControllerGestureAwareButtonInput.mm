@@ -31,46 +31,49 @@ void __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___bl
       *(v3 + 19) = 1;
     }
 
-    if ([*(a1 + 32) isDoublePressGestureRecognizerEnabled])
+    v8 = [*(a1 + 32) isDoublePressGestureRecognizerEnabled];
+    if (v8)
     {
       [*(a1 + 32) __onqueue_executeDoublePressRecognizerForEvent:v3 queue:*(a1 + 40)];
     }
 
     else
     {
-      if (gc_isInternalBuild())
+      if (gc_isInternalBuild(v8, v9))
       {
-        __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_1((v3 + 16));
+        __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_1(v3 + 16);
       }
 
       [*(a1 + 32) __onqueue_forwardEvent:v3 queue:*(a1 + 40)];
     }
 
-    if ([*(a1 + 32) isSinglePressGestureRecognizerEnabled])
+    v10 = [*(a1 + 32) isSinglePressGestureRecognizerEnabled];
+    if (v10)
     {
       [*(a1 + 32) __onqueue_executeSinglePressRecognizerForEvent:v3 queue:*(a1 + 40)];
     }
 
     else
     {
-      if (gc_isInternalBuild())
+      if (gc_isInternalBuild(v10, v11))
       {
-        __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_2((v3 + 16));
+        __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_2(v3 + 16);
       }
 
       [*(a1 + 32) __onqueue_forwardEvent:v3 queue:*(a1 + 40)];
     }
 
-    if ([*(a1 + 32) isLongPressGestureRecognizerEnabled])
+    v12 = [*(a1 + 32) isLongPressGestureRecognizerEnabled];
+    if (v12)
     {
       [*(a1 + 32) __onqueue_executeLongPressRecognizerForEvent:v3 queue:*(a1 + 40)];
     }
 
     else
     {
-      if (gc_isInternalBuild())
+      if (gc_isInternalBuild(v12, v13))
       {
-        __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_3((v3 + 16));
+        __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_3(v3 + 16);
       }
 
       [*(a1 + 32) __onqueue_forwardEvent:v3 queue:*(a1 + 40)];
@@ -78,19 +81,19 @@ void __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___bl
   }
 }
 
-void __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke(uint64_t a1)
+void __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = a1 + 32;
+  v3 = a1 + 32;
   *(*(a1 + 32) + 20) = 1;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
-    __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_cold_1(v2);
+    __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_cold_1(v3);
   }
 
-  v3 = *v2;
-  if ((*(*v2 + 17) & 1) == 0 && v3[18] == 1 && v3[19] == 1)
+  v4 = *v3;
+  if ((*(*v3 + 17) & 1) == 0 && v4[18] == 1 && v4[19] == 1)
   {
-    v3[17] = 1;
+    v4[17] = 1;
     if (*(*(a1 + 40) + 224))
     {
       block[0] = MEMORY[0x1E69E9820];
@@ -104,14 +107,13 @@ void __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressReco
 
   else
   {
-    v4 = *(a1 + 48);
     [*(a1 + 40) __onqueue_forwardEvent:? queue:?];
   }
 }
 
-uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_112(uint64_t a1)
+uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_112(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_112_cold_1(a1);
   }
@@ -119,9 +121,9 @@ uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePress
   return (*(*(*(a1 + 32) + 224) + 16))();
 }
 
-uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_113(uint64_t a1)
+uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_113(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_113_cold_1(a1);
   }
@@ -129,13 +131,14 @@ uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePress
   return (*(*(*(a1 + 32) + 216) + 16))();
 }
 
-void __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke(uint64_t a1)
+void __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((*(*(a1 + 32) + 17) & 1) == 0)
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(a1, a2);
+    if (isInternalBuild)
     {
-      __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_cold_1();
+      __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_cold_1(isInternalBuild);
     }
 
     *(*(a1 + 32) + 17) = 1;
@@ -151,9 +154,9 @@ void __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecogn
   }
 }
 
-uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_114(uint64_t a1)
+uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_114(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_114_cold_1(a1);
   }
@@ -161,9 +164,9 @@ uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRe
   return (*(*(*(a1 + 32) + 208) + 16))();
 }
 
-uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_115(uint64_t a1)
+uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_115(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_114_cold_1(a1);
   }
@@ -171,9 +174,9 @@ uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRe
   return (*(*(*(a1 + 32) + 208) + 16))();
 }
 
-uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_116(uint64_t a1)
+uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_116(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_116_cold_1(a1);
   }
@@ -181,9 +184,9 @@ uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRe
   return (*(*(*(a1 + 32) + 224) + 16))();
 }
 
-uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_117(uint64_t a1)
+uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_117(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_117_cold_1(a1);
   }
@@ -191,9 +194,9 @@ uint64_t __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRe
   return [*(a1 + 40) __onqueue_forwardEvent:*(a1 + 32) queue:*(a1 + 48)];
 }
 
-uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePressRecognizerForEvent_queue___block_invoke(uint64_t a1)
+uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePressRecognizerForEvent_queue___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePressRecognizerForEvent_queue___block_invoke_cold_1(a1);
   }
@@ -201,9 +204,9 @@ uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePress
   return (*(*(*(a1 + 32) + 224) + 16))();
 }
 
-uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePressRecognizerForEvent_queue___block_invoke_118(uint64_t a1)
+uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePressRecognizerForEvent_queue___block_invoke_118(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePressRecognizerForEvent_queue___block_invoke_118_cold_1(a1);
   }
@@ -211,174 +214,130 @@ uint64_t __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePress
   return [*(a1 + 40) __onqueue_forwardEvent:*(a1 + 32) queue:*(a1 + 48)];
 }
 
-void __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_1(unsigned __int8 *a1)
+void __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *a1;
     OUTLINED_FUNCTION_2_12();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-void __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_2(unsigned __int8 *a1)
+void __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *a1;
     OUTLINED_FUNCTION_2_12();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-void __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_3(unsigned __int8 *a1)
+void __68___GCControllerGestureAwareButtonInput_registerSetValueEvent_queue___block_invoke_cold_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *a1;
     OUTLINED_FUNCTION_2_12();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(*a1 + 16);
     OUTLINED_FUNCTION_2_12();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_112_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v5, v6, "Double recognizer failed, triggering single press gesture handler for %@", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v3, v4, "Double recognizer failed, triggering single press gesture handler for %@", v5, v6, v7, v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __93___GCControllerGestureAwareButtonInput___onqueue_executeDoublePressRecognizerForEvent_queue___block_invoke_113_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v5, v6, "Triggering multi press gesture handler for %@", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v3, v4, "Triggering multi press gesture handler for %@", v5, v6, v7, v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_cold_1()
+void __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 void __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_114_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v5, v6, "Triggering long press gesture handler for %@", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v3, v4, "Triggering long press gesture handler for %@", v5, v6, v7, v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_116_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v5, v6, "Long press recognizer failed, triggering single press gesture handler for %@", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v3, v4, "Long press recognizer failed, triggering single press gesture handler for %@", v5, v6, v7, v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __91___GCControllerGestureAwareButtonInput___onqueue_executeLongPressRecognizerForEvent_queue___block_invoke_117_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(*(a1 + 32) + 16);
     OUTLINED_FUNCTION_2_12();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePressRecognizerForEvent_queue___block_invoke_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_4_5(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v4 = *(a1 + 32);
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v5, v6, "Directly triggering single press gesture handler for %@", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_1_19(&dword_1D2CD5000, v3, v4, "Directly triggering single press gesture handler for %@", v5, v6, v7, v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __93___GCControllerGestureAwareButtonInput___onqueue_executeSinglePressRecognizerForEvent_queue___block_invoke_118_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(*(a1 + 32) + 16);
     OUTLINED_FUNCTION_2_12();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

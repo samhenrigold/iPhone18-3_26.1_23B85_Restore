@@ -8,9 +8,9 @@
 {
   countryCode = [self countryCode];
   defaultCountryCode = [MEMORY[0x1E695CF50] defaultCountryCode];
-  v4 = [countryCode isEqualToString:defaultCountryCode];
+  isEqualToString = objc_msgSend_isEqualToString_(countryCode);
 
-  if (v4)
+  if (isEqualToString)
   {
     formattedStringValue = [self formattedStringValue];
     if (formattedStringValue)

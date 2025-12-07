@@ -10,7 +10,7 @@
 
 - (id)dependentUUIDs
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB58];
   currentActionSets = [(HMDTriggerModel *)self currentActionSets];
   v5 = [v3 setWithCapacity:{objc_msgSend(currentActionSets, "count") + 1}];
@@ -23,36 +23,34 @@
     [v5 addObject:parentUUID2];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   currentActionSets2 = [(HMDTriggerModel *)self currentActionSets];
-  v9 = [currentActionSets2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [currentActionSets2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(currentActionSets2);
         }
 
-        v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v16 + 1) + 8 * i)];
+        v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v15 + 1) + 8 * i)];
         [v5 addObject:v13];
       }
 
-      v10 = [currentActionSets2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [currentActionSets2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -79,7 +77,7 @@
   currentActionSets = [(HMDTriggerModel *)self currentActionSets];
   [dictionary setObject:currentActionSets forKeyedSubscript:*MEMORY[0x277CD2728]];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }
@@ -98,41 +96,39 @@
 
 void __29__HMDTriggerModel_properties__block_invoke()
 {
-  v12[8] = *MEMORY[0x277D85DE8];
-  v11[0] = @"name";
+  v11[8] = *MEMORY[0x277D85DE8];
+  v10[0] = @"name";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[0] = v0;
-  v11[1] = @"configuredName";
+  v11[0] = v0;
+  v10[1] = @"configuredName";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[1] = v1;
-  v11[2] = @"currentActionSets";
+  v11[1] = v1;
+  v10[2] = @"currentActionSets";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[2] = v2;
-  v11[3] = @"active";
+  v11[2] = v2;
+  v10[3] = @"active";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[3] = v3;
-  v11[4] = @"mostRecentFireDate";
+  v11[3] = v3;
+  v10[4] = @"mostRecentFireDate";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[4] = v4;
-  v11[5] = @"owner";
+  v11[4] = v4;
+  v10[5] = @"owner";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[5] = v5;
-  v11[6] = @"owningDevice";
+  v11[5] = v5;
+  v10[6] = @"owningDevice";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[6] = v6;
-  v11[7] = @"autoDelete";
+  v11[6] = v6;
+  v10[7] = @"autoDelete";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[7] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:8];
+  v11[7] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:8];
   v9 = properties__properties;
   properties__properties = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   fieldCopy = field;
   contextCopy = context;
@@ -143,21 +139,21 @@ void __29__HMDTriggerModel_properties__block_invoke()
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v31 = __Block_byref_object_copy__38060;
-      v32 = __Block_byref_object_dispose__38061;
+      v30 = __Block_byref_object_copy__38060;
+      v31 = __Block_byref_object_dispose__38061;
       v11 = MEMORY[0x277CBEB58];
       currentActionSets = [(HMDTriggerModel *)self currentActionSets];
-      v33 = [v11 setWithCapacity:{objc_msgSend(currentActionSets, "count")}];
+      v32 = [v11 setWithCapacity:{objc_msgSend(currentActionSets, "count")}];
 
       currentActionSets2 = [(HMDTriggerModel *)self currentActionSets];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __84__HMDTriggerModel_CoreData__cd_generateValueForProperty_managedObjectField_context___block_invoke;
-      v29[3] = &unk_278686E68;
-      v29[4] = buf;
-      [currentActionSets2 hmf_enumerateWithAutoreleasePoolUsingBlock:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __84__HMDTriggerModel_CoreData__cd_generateValueForProperty_managedObjectField_context___block_invoke;
+      v28[3] = &unk_278686E68;
+      v28[4] = buf;
+      [currentActionSets2 hmf_enumerateWithAutoreleasePoolUsingBlock:v28];
 
-      owner = [*(*&buf[8] + 40) copy];
+      owner = objc_msgSend_copy(*(*&buf[8] + 40));
       _Block_object_dispose(buf, 8);
     }
 
@@ -175,9 +171,9 @@ void __29__HMDTriggerModel_properties__block_invoke()
     {
       owner2 = [(HMDTriggerModel *)self owner];
       uuid = [owner2 uuid];
-      v28 = 0;
-      owner = [HMDBackingStore cdlsFetchManagedObjectWithUUID:uuid ofManagedObjectType:objc_opt_class() error:&v28];
-      v17 = v28;
+      v27 = 0;
+      owner = [HMDBackingStore cdlsFetchManagedObjectWithUUID:uuid ofManagedObjectType:objc_opt_class() error:&v27];
+      v17 = v27;
 
       if (owner)
       {
@@ -199,7 +195,7 @@ void __29__HMDTriggerModel_properties__block_invoke()
           *&buf[12] = 2112;
           *&buf[14] = uuid2;
           *&buf[22] = 2112;
-          v31 = v17;
+          v30 = v17;
           _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFUser with UUID %@: %@", buf, 0x20u);
         }
 
@@ -210,12 +206,10 @@ void __29__HMDTriggerModel_properties__block_invoke()
 
   else
   {
-    v27.receiver = self;
-    v27.super_class = HMDTriggerModel;
-    owner = [(HMDBackingStoreModelObject *)&v27 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
+    v26.receiver = self;
+    v26.super_class = HMDTriggerModel;
+    owner = [(HMDBackingStoreModelObject *)&v26 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return owner;
 }
@@ -257,7 +251,7 @@ void __84__HMDTriggerModel_CoreData__cd_generateValueForProperty_managedObjectFi
     v18[4] = &v19;
     [actionSets2 hmf_enumerateWithAutoreleasePoolUsingBlock:v18];
 
-    owner = [v20[5] copy];
+    owner = objc_msgSend_copy(v20[5]);
     _Block_object_dispose(&v19, 8);
   }
 

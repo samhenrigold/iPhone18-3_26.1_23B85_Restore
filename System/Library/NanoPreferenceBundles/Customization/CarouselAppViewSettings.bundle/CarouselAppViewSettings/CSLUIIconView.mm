@@ -62,7 +62,7 @@
   v7 = layer;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else

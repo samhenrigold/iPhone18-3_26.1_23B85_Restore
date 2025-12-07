@@ -89,7 +89,7 @@ LABEL_6:
 
 - (id)solveWithAvgGradient:(float *)gradient maxNumberOfIterations:(unint64_t)iterations
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v8 = [(PMLModelWeights *)self->_weights length];
   if ([(PMLSparseMatrix *)self->_covariates numberOfColumns]!= v8)
   {
@@ -101,7 +101,7 @@ LABEL_6:
   iterationsCopy = 0;
   if (!iterations)
   {
-    v15 = 0;
+    v14 = 0;
     v13 = 0.0;
     v11 = 1.79769313e308;
     goto LABEL_32;
@@ -114,73 +114,73 @@ LABEL_6:
     v13 = (*(self->_gradientCalculator + 2))(self->_gradientCalculator, self->_weights, self->_covariates, self->_objective, [(PMLMutableDenseVector *)v9 mutablePtr]);
     if (v13 == 1.79769313e308)
     {
-      v16 = PML_LogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = PML_LogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v25 = iterationsCopy;
-        _os_log_error_impl(&dword_260D68000, v16, OS_LOG_TYPE_ERROR, "Stopped after iter %li with DBL_MAX error\n", buf, 0xCu);
+        v23 = iterationsCopy;
+        _os_log_error_impl(&dword_260D68000, v15, OS_LOG_TYPE_ERROR, "Stopped after iter %li with DBL_MAX error\n", buf, 0xCu);
       }
 
-      *&v17 = 1.79769313e308;
+      *&v16 = 1.79769313e308;
       goto LABEL_29;
     }
 
     if (v13 == -1.79769313e308)
     {
-      v16 = PML_LogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = PML_LogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v25 = iterationsCopy;
-        _os_log_error_impl(&dword_260D68000, v16, OS_LOG_TYPE_ERROR, "Stopped after iter %li with -DBL_MAX error\n", buf, 0xCu);
+        v23 = iterationsCopy;
+        _os_log_error_impl(&dword_260D68000, v15, OS_LOG_TYPE_ERROR, "Stopped after iter %li with -DBL_MAX error\n", buf, 0xCu);
       }
 
-      *&v17 = -1.79769313e308;
+      *&v16 = -1.79769313e308;
       goto LABEL_29;
     }
 
     if (v13 == -INFINITY)
     {
-      v16 = PML_LogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = PML_LogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v25 = iterationsCopy;
-        _os_log_error_impl(&dword_260D68000, v16, OS_LOG_TYPE_ERROR, "Stopped after iter %li with -INFINITY error\n", buf, 0xCu);
+        v23 = iterationsCopy;
+        _os_log_error_impl(&dword_260D68000, v15, OS_LOG_TYPE_ERROR, "Stopped after iter %li with -INFINITY error\n", buf, 0xCu);
       }
 
-      *&v17 = -INFINITY;
+      *&v16 = -INFINITY;
       goto LABEL_29;
     }
 
     if (v13 == INFINITY)
     {
-      v16 = PML_LogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = PML_LogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v25 = iterationsCopy;
-        _os_log_error_impl(&dword_260D68000, v16, OS_LOG_TYPE_ERROR, "Stopped after iter %li with INFINITY error\n", buf, 0xCu);
+        v23 = iterationsCopy;
+        _os_log_error_impl(&dword_260D68000, v15, OS_LOG_TYPE_ERROR, "Stopped after iter %li with INFINITY error\n", buf, 0xCu);
       }
 
-      *&v17 = INFINITY;
+      *&v16 = INFINITY;
 LABEL_29:
-      v13 = *&v17;
+      v13 = *&v16;
 LABEL_30:
 
-      v15 = 1;
+      v14 = 1;
       goto LABEL_31;
     }
 
     if (v13 == 0.0)
     {
-      v16 = PML_LogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v15 = PML_LogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v25 = iterationsCopy;
-        _os_log_impl(&dword_260D68000, v16, OS_LOG_TYPE_INFO, "Stopped after iter %li with perfect fit\n", buf, 0xCu);
+        v23 = iterationsCopy;
+        _os_log_impl(&dword_260D68000, v15, OS_LOG_TYPE_INFO, "Stopped after iter %li with perfect fit\n", buf, 0xCu);
       }
 
       goto LABEL_30;
@@ -192,7 +192,6 @@ LABEL_30:
     }
 
     [(PMLModelWeights *)self->_weights length];
-    learningRate = self->_learningRate;
     [(PMLDenseVector *)v9 ptr];
     [(PMLModelWeights *)self->_weights values];
     cblas_saxpy_NEWLAPACK();
@@ -208,56 +207,54 @@ LABEL_30:
     v11 = v13;
     if (iterations == iterationsCopy)
     {
-      v15 = 0;
+      v14 = 0;
       iterationsCopy = iterations;
       v11 = v13;
       goto LABEL_32;
     }
   }
 
-  v15 = 0;
+  v14 = 0;
 LABEL_31:
   objc_autoreleasePoolPop(v12);
 LABEL_32:
-  v18 = PML_LogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v17 = PML_LogHandle();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    v25 = iterationsCopy;
-    v26 = 2048;
-    v27 = v11;
-    _os_log_debug_impl(&dword_260D68000, v18, OS_LOG_TYPE_DEBUG, "Stopped after iter %li with loss %f\n", buf, 0x16u);
+    v23 = iterationsCopy;
+    v24 = 2048;
+    v25 = v11;
+    _os_log_debug_impl(&dword_260D68000, v17, OS_LOG_TYPE_DEBUG, "Stopped after iter %li with loss %f\n", buf, 0x16u);
   }
 
   if (gradient)
   {
-    v19 = [(PMLModelWeights *)self->_weights length];
-    if (v15)
+    v18 = [(PMLModelWeights *)self->_weights length];
+    if (v14)
     {
-      bzero(gradient, v19);
+      bzero(gradient, v18);
       goto LABEL_38;
     }
 
     cblas_sscal_NEWLAPACK();
 LABEL_40:
-    v20 = [MEMORY[0x277CCABB0] numberWithDouble:v13];
+    v19 = [MEMORY[0x277CCABB0] numberWithDouble:v13];
   }
 
   else
   {
-    if (!v15)
+    if (!v14)
     {
       goto LABEL_40;
     }
 
 LABEL_38:
     bzero([(PMLModelWeights *)self->_weights values], [(PMLModelWeights *)self->_weights length]);
-    v20 = 0;
+    v19 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 - (void)setCovariates:(id)covariates

@@ -238,7 +238,7 @@
 
   [(CADisplayLink *)self->_displayLink maximumRefreshRate];
   v4 = llround(1.0 / v3);
-  if ((_UIInternalPreferenceUsesDefault_1(&_MergedGlobals_946, @"UIMotionEffectUIUpdateFrequency") & 1) != 0 || (v5 = *&qword_1ED48B390, *&qword_1ED48B390 <= 0))
+  if (_UIInternalPreferenceUsesDefault_1(&_MergedGlobals_946, @"UIMotionEffectUIUpdateFrequency") || (v5 = *&qword_1ED48B390, *&qword_1ED48B390 <= 0))
   {
     v6 = +[UIDevice currentDevice];
     userInterfaceIdiom = [v6 userInterfaceIdiom];

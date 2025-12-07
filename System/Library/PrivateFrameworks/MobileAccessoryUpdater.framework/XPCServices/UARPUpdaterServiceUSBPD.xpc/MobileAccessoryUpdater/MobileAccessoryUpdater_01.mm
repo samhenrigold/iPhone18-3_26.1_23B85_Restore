@@ -1,95 +1,3 @@
-uint64_t UARPSuperBinaryFinalizeHeader(uint64_t a1, uint64_t a2)
-{
-  v3 = uarpPlatformAssetFindByAssetContextAndList(a1, a2, 1);
-  if (!v3)
-  {
-    return 30;
-  }
-
-  v4 = v3;
-  v12 = 0;
-  __dst = 0;
-  result = uarpPlatformEndpointAssetGetBytesAtOffset(a1, 0, v3, &__dst, 4, 0, &v12);
-  if (result)
-  {
-    return result;
-  }
-
-  if (v12 != 4)
-  {
-    return 11;
-  }
-
-  if (__dst < 2)
-  {
-    return 30;
-  }
-
-  v16 = 0;
-  v15 = 0;
-  memset(v14, 0, sizeof(v14));
-  memset(v13, 0, 44);
-  result = uarpPlatformEndpointAssetGetBytesAtOffset(a1, 0, v4, v13, 44, 0, &v16);
-  if (result)
-  {
-    return result;
-  }
-
-  if (v16 != 44)
-  {
-    return 11;
-  }
-
-  v6 = v13[0];
-  v7 = v13[1];
-  *(v4 + 28) = *(&v13[1] + 12);
-  *v4 = v6;
-  *(v4 + 16) = v7;
-  uarpSuperBinaryHeaderEndianSwap(v13, v13);
-  result = uarpPlatformEndpointAssetSetBytesAtOffset(a1, 0, v4, v13, 44, 0);
-  if (!result)
-  {
-    v8 = *(v4 + 40);
-    if (v8 >= 0x28)
-    {
-      v9 = v8 / 0x28;
-      v10 = *(v4 + 36);
-      do
-      {
-        result = uarpPlatformEndpointAssetGetBytesAtOffset(a1, 0, v4, v14, 40, v10, &v16);
-        if (result)
-        {
-          break;
-        }
-
-        if (v16 != 40)
-        {
-          return 11;
-        }
-
-        uarpPayloadHeaderEndianSwap(v14, v14);
-        result = uarpPlatformEndpointAssetSetBytesAtOffset(a1, 0, v4, v14, 40, v10);
-        if (result)
-        {
-          break;
-        }
-
-        v10 = (v10 + 40);
-        --v9;
-      }
-
-      while (v9);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
 uint64_t uarpSuperBinaryHeaderEndianSwap(unsigned int *a1, _DWORD *a2)
 {
   *a2 = uarpHtonl(*a1);
@@ -468,7 +376,7 @@ LABEL_8:
       }
 
       v17 = 0;
-      v18 = a2 + 632;
+      v18 = (a2 + 632);
       do
       {
         v19 = *v18;
@@ -512,7 +420,7 @@ LABEL_8:
           v8 = *(a2 + 448);
         }
 
-        v18 = v19 + 176;
+        v18 = (v19 + 176);
         ++v17;
       }
 
@@ -676,7 +584,7 @@ void uarpPlatformEndpointDeinit(uint64_t a1)
   uarpPlatformCleanupAssets(a1);
 }
 
-uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
+uint64_t uarpPlatformRemoteEndpointAdd(__int128 *a1, uint64_t a2, __int128 *a3, uint64_t a4)
 {
   result = 30;
   if (a1)
@@ -687,20 +595,20 @@ uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, u
       {
         *(a2 + 40) = a4;
         v7 = *a1;
-        v8 = *(a1 + 16);
-        *(a2 + 32) = *(a1 + 32);
+        v8 = a1[1];
+        *(a2 + 32) = *(a1 + 4);
         *a2 = v7;
         *(a2 + 16) = v8;
         if (!a3 || (v10 = *a3, v9 = a3[1], *(a2 + 32) = *(a3 + 4), *a2 = v10, *(a2 + 16) = v9, (v11 = *(a2 + 4)) != 0) && *a2 && *(a2 + 8) >= v11)
         {
           if (!*(a2 + 12))
           {
-            *(a2 + 12) = *(a1 + 12);
+            *(a2 + 12) = *(a1 + 6);
           }
 
           *(a2 + 48) = 0;
-          v12 = *(a1 + 648);
-          *(a1 + 648) = v12 + 1;
+          v12 = *(a1 + 162);
+          *(a1 + 162) = v12 + 1;
           *(a2 + 56) = v12;
           *(a2 + 60) = 1;
           *(a2 + 62) = 1;
@@ -717,7 +625,7 @@ uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, u
             result = uarpAllocateTransmitBuffers(a1, a2);
             if (!result)
             {
-              if ((*(a1 + 616) - 1) > 1)
+              if ((*(a1 + 154) - 1) > 1)
               {
                 return 0;
               }
@@ -771,9 +679,9 @@ uint64_t uarpPlatformRemoteEndpointRemove(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t uarpPlatformEndpointRequestInfoProperty(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t uarpPlatformEndpointRequestInfoProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a1 && a2 && a3 - 13 >= 0xFFFFFFF4)
+  if (a1 && a2 && (a3 - 13) >= 0xFFFFFFF4)
   {
     return uarpSendInformationRequest(a1, a2, a3);
   }
@@ -1267,9 +1175,9 @@ uint64_t uarpPlatformEndpointAssetSetPayloadIndex2(void *a1, uint64_t a2, int a3
               *(a2 + 592) = v15;
               *(a2 + 608) = v16;
               *(a2 + 576) = v14;
-              for (i = *(v6 + 21); i; i = *(i + 16))
+              for (i = *(v6 + 21); i; i = *(i + 2))
               {
-                uarpProcessPayloadTLVInternal(a1, a2, a2 + 464, *i, *(i + 4), *(i + 8));
+                uarpProcessPayloadTLVInternal(a1, a2, a2 + 464, *i, i[1], *(i + 1));
               }
 
               v18 = *(v6 + 19);
@@ -1458,7 +1366,7 @@ uint64_t uarpPlatformEndpointAssetFullyStaged(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetProcessingComplete(a1, *(a2 + 696), a2, 1u);
+    return uarpAssetProcessingComplete(a1, *(a2 + 696), a2, 1);
   }
 
   else
@@ -1496,8 +1404,7 @@ double uarpPlatformEndpointSuperBinaryMerge(uint64_t a1, __int128 *a2, uint64_t 
       *(a3 + 408) = v9;
       *(a3 + 424) = v10;
       *(a3 + 392) = v8;
-      *(a3 + 452) = *(a2 + 113);
-      *(a3 + 456) = *(a2 + 114);
+      *(a3 + 452) = *(a2 + 452);
       v11 = a2[29];
       v12 = a2[31];
       *(a3 + 480) = a2[30];
@@ -1546,19 +1453,19 @@ double uarpPlatformEndpointSuperBinaryMerge(uint64_t a1, __int128 *a2, uint64_t 
   return result;
 }
 
-void uarpPlatformEndpointCleanupAssets(uint64_t a1)
+void uarpPlatformEndpointCleanupAssets(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    uarpPlatformCleanupAssetsForRemoteEndpoint(a1, 0, 0);
+    uarpPlatformCleanupAssetsForRemoteEndpoint(result, 0, 0);
   }
 }
 
-void uarpPlatformEndpointCleanupAssets2(uint64_t a1, uint64_t a2)
+void uarpPlatformEndpointCleanupAssets2(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    uarpPlatformCleanupAssetsForRemoteEndpoint(a1, a2, 0);
+    uarpPlatformCleanupAssetsForRemoteEndpoint(result, a2, 0);
   }
 }
 
@@ -1767,7 +1674,7 @@ uint64_t uarpPlatformEndpointRescindAllAssets(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetRescind(a1, a2, 0xFFFFu);
+    return uarpAssetRescind(a1, a2, 0xFFFFLL);
   }
 
   else
@@ -1781,7 +1688,7 @@ uint64_t uarpPlatformEndpointApplyStagedAssets(uint64_t a1, uint64_t a2)
   result = 30;
   if (a1 && a2)
   {
-    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0xAu, 6u, 1);
+    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 10, 6u, 1);
     if (v5)
     {
 
@@ -1858,7 +1765,7 @@ uint64_t uarpPlatformEndpointSolicitDynamicAsset(uint64_t a1, uint64_t a2, _DWOR
   return uarpSolicitDynamicAsset(a1, a2, a3);
 }
 
-uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, unsigned int a4, const void *a5, unsigned int a6)
+uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, uint64_t a4, const void *a5, unsigned int a6)
 {
   if (a1 && a2 && a3 && a5)
   {
@@ -1979,7 +1886,7 @@ uint64_t uarpPlatformDelegateForDownstreamID(uint64_t a1, uint64_t a2, int a3)
 
 uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Du, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 29, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -1990,7 +1897,7 @@ uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Fu, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 31, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -2001,7 +1908,7 @@ uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformQueryEndpointComponentDiscovery(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x21u, 8u, 1);
+  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 33, 8u, 1);
   if (!v6)
   {
     return 11;
@@ -2029,7 +1936,7 @@ uint64_t uarpPlatformEndpointBulkInfoQuery(uint64_t a1, uint64_t a2, unsigned in
           v11 = a6;
           if (a6)
           {
-            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x23u, (4 * a5 + 16) & 0xFFFC, 1);
+            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 35, (4 * a5 + 16) & 0xFFFC, 1);
             if (v13)
             {
               v14 = v13;
@@ -2160,7 +2067,7 @@ uint64_t uarpPlatformEndpointBulkInfoResponse(uint64_t a1, uint64_t a2, unsigned
   result = 30;
   if (a1 && a2 && a4 && a5 && a6)
   {
-    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x25u, (a6 + 12), 1);
+    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 37, (a6 + 12), 1);
     if (v13)
     {
       v14 = v13;
@@ -2570,52 +2477,52 @@ uint64_t uarpPlatformConfigureEndpointTags(uint64_t a1, uint64_t a2, int a3, int
   return result;
 }
 
-void sub_100022504(unsigned int *a1)
+void sub_100022504()
 {
-  sub_100002BF8(a1, __stack_chk_guard);
+  sub_100002BF8(__stack_chk_guard);
   sub_100002BA8();
   sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void sub_100022668(unsigned int *a1)
+void sub_100022668()
 {
-  sub_100002BF8(a1, __stack_chk_guard);
+  sub_100002BF8(__stack_chk_guard);
   sub_100002BA8();
   sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void sub_100022718(unsigned int *a1)
+void sub_100022718()
 {
-  sub_100002BF8(a1, __stack_chk_guard);
+  sub_100002BF8(__stack_chk_guard);
   sub_100002BA8();
   sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void sub_1000228FC(unsigned int *a1)
+void sub_1000228FC()
 {
-  sub_100002BF8(a1, __stack_chk_guard);
+  sub_100002BF8(__stack_chk_guard);
   sub_100002BA8();
   sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void sub_100022978(unsigned int *a1)
+void sub_100022978()
 {
-  sub_100002BF8(a1, __stack_chk_guard);
+  sub_100002BF8(__stack_chk_guard);
   sub_100002BA8();
   sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void sub_100022B90(unsigned int *a1)
+void sub_100022B90()
 {
-  sub_100002BF8(a1, __stack_chk_guard);
+  sub_100002BF8(__stack_chk_guard);
   sub_100002BA8();
   sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void sub_100022E50()
@@ -2653,17 +2560,18 @@ void sub_1000231C8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100023384(unsigned int *a1)
+void sub_100023384()
 {
-  sub_100002BF8(a1, __stack_chk_guard);
-  v2[0] = 136315650;
+  sub_100002BF8(__stack_chk_guard);
+  v1[0] = 136315650;
   sub_100002BA8();
-  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "%s: read state <0x%08x>, error <0x%08x>", v2, 0x18u);
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s: read state <0x%08x>, error <0x%08x>", v1, 0x18u);
 }
 
-void sub_100023404(unsigned int *a1)
+void sub_100023404()
 {
-  v1 = sub_100002BF8(a1, __stack_chk_guard)[2];
+  sub_100002BF8(__stack_chk_guard);
+  v1 = *(v0 + 8);
   v5 = 136315906;
   v6 = "[UARPAppleHPM(AccMode7) accMode7FirmwareUpdateGetState:error:]";
   v7 = 1024;
@@ -2675,19 +2583,11 @@ void sub_100023404(unsigned int *a1)
   _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s: read state <0x%08x>, error <0x%08x>, stagedFirmwareVersion <0x%08x>", &v5, 0x1Eu);
 }
 
-void sub_1000234A4(int *a1)
+void sub_1000236C0()
 {
-  v6 = *a1;
-  sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-}
-
-void sub_1000236C0(uint64_t a1)
-{
-  v1 = *(*a1 + 32);
   sub_10000BDEC();
   sub_10000BE00();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100023844()
@@ -2704,12 +2604,18 @@ void sub_1000238C0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_100023BB8(uint64_t a1)
+void sub_100023B44()
 {
-  v1 = *(a1 + 32);
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Disabled updates for accessory %@", v2, v3, v4, v5, v6);
+}
+
+void sub_100023BB8()
+{
   sub_10000BDEC();
   sub_10000BE00();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100023C38()
@@ -2740,6 +2646,13 @@ void sub_100023DA0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
+void sub_100023E10()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessoryID %@", v2, v3, v4, v5, v6);
+}
+
 void sub_100023E84()
 {
   sub_10000BDBC();
@@ -2756,6 +2669,90 @@ void sub_100023F00()
   _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s: solicit %@ for %@", v3, 0x20u);
 }
 
+void sub_100023F8C()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_100024074()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_1000240E8()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_10002415C()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_1000241D0()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_100024244()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_1000242B8()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_10002432C()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_1000243A0()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_100024414()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_100024488()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_1000244FC()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
 void sub_100024570(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -2768,12 +2765,46 @@ void sub_100024570(uint64_t a1, void *a2, void *a3)
   _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "AppleModelNumber %@ from accessory does not match expected model number %@", &v8, 0x16u);
 }
 
-void sub_100024884(uint64_t a1)
+void sub_100024640()
 {
-  v1 = *(a1 + 40);
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_1000246B4()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_100024728()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_10002479C()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_100024810()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Unknown UARPAccessory %@, dropping it", v2, v3, v4, v5, v6);
+}
+
+void sub_100024884()
+{
   sub_10000BDEC();
   sub_10000BE00();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100024904()
@@ -2783,12 +2814,11 @@ void sub_100024904()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100024980(uint64_t a1)
+void sub_100024980()
 {
-  v1 = *(a1 + 40);
   sub_10000BDEC();
   sub_10000BE00();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100024A00()
@@ -2805,6 +2835,48 @@ void sub_100024A7C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
+void sub_100024BB8()
+{
+  v6 = 136315394;
+  sub_10000BDBC();
+  sub_10000BDD0(&_mh_execute_header, v0, v1, "%s: Failed to create power assertion for %@", v2, v3, v4, v5, v6);
+}
+
+void sub_100024D2C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareUpdateInitialize:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: failed to enable CFUp", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100024DA4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareUpdateInitialize:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: failed to start stream", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100024E1C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareUpdateInitialize:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: failed to rx vdm", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100024E94(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareUpdateInitialize:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: firmware update cannot be initiated", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100024F0C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareUpdateWriteData:offset:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: failed to rx vdm", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100024F84()
 {
   v1[0] = 136315394;
@@ -2812,43 +2884,72 @@ void sub_100024F84()
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%s: firmware not ready for more data; bytes written is %lu.", v1, 0x16u);
 }
 
+void sub_100025004(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareUpdateWriteData:offset:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: failed to write ", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000250B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareVerifyStagedAsset:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: failed to end stream", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100025128(void *a1)
 {
   v2 = a1;
   [sub_10000C6C4() rxVdmNoRetryPacketCount];
+  v9 = 136315394;
   sub_10000C674();
-  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM No Retries = %lu", v5, v6, v7, v8, 2u);
+  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM No Retries = %lu", v5, v6, v7, v8, v9);
 }
 
 void sub_1000251B8(void *a1)
 {
   v2 = a1;
   [sub_10000C6C4() rxVdmRetryPacketCount];
+  v9 = 136315394;
   sub_10000C674();
-  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM Retried = %lu", v5, v6, v7, v8, 2u);
+  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM Retried = %lu", v5, v6, v7, v8, v9);
 }
 
 void sub_100025248(void *a1)
 {
   v2 = a1;
   [sub_10000C6C4() rxVdmRetryAverage];
-  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM Average Retries = %f", v5, v6, v7, v8, 2u);
+  *v10 = 136315394;
+  *&v10[4] = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareVerifyStagedAsset:]";
+  *&v10[12] = 2048;
+  *&v10[14] = v3;
+  sub_10000C688(&_mh_execute_header, v4, v5, "%s: RX VDM Average Retries = %f", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 void sub_1000252E4(void *a1)
 {
   v2 = a1;
   [sub_10000C6C4() rxVdmRetryMin];
+  v9 = 136315394;
   sub_10000C674();
-  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM Min Retries = %lu", v5, v6, v7, v8, 2u);
+  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM Min Retries = %lu", v5, v6, v7, v8, v9);
 }
 
 void sub_100025374(void *a1)
 {
   v2 = a1;
   [sub_10000C6C4() rxVdmRetryMax];
+  v9 = 136315394;
   sub_10000C674();
-  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM Max Retries = %lu", v5, v6, v7, v8, 2u);
+  sub_10000C688(&_mh_execute_header, v3, v4, "%s: RX VDM Max Retries = %lu", v5, v6, v7, v8, v9);
+}
+
+void sub_100025404(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM(LegacyPA) legacyPAFirmwareUpdateCleanup:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: failed to disable CFUp", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000254FC(void *a1)
@@ -2883,13 +2984,6 @@ void sub_1000256A0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10002571C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
 void sub_1000257A8(void *a1)
 {
   v2 = a1;
@@ -2903,8 +2997,9 @@ void sub_10002583C(void *a1)
 {
   v1 = a1;
   uarpProcessingStatusToString(4);
+  v8 = 136315394;
   sub_10000EB10();
-  sub_10000EB4C(&_mh_execute_header, v2, v3, "%s: Asset has zero payloads that match requirements; %s", v4, v5, v6, v7, 2u);
+  sub_10000EB4C(&_mh_execute_header, v2, v3, "%s: Asset has zero payloads that match requirements; %s", v4, v5, v6, v7, v8);
 }
 
 void sub_1000258CC(uint64_t a1, uint64_t a2, os_log_t log)
@@ -2941,8 +3036,9 @@ void sub_100025B90(void *a1)
 {
   v1 = a1;
   uarpProcessingStatusToString(4);
+  v8 = 136315394;
   sub_10000EB10();
-  sub_10000EB4C(&_mh_execute_header, v2, v3, "%s: Asset has zero payloads; %s", v4, v5, v6, v7, 2u);
+  sub_10000EB4C(&_mh_execute_header, v2, v3, "%s: Asset has zero payloads; %s", v4, v5, v6, v7, v8);
 }
 
 void sub_100025C20(os_log_t log)
@@ -3004,6 +3100,41 @@ void sub_1000260A4()
   _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s: %@", v1, 0x16u);
 }
 
+void sub_100026124(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPPowerAdapter firmwareApply:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "NOT SUPPORTED %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10002619C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPPowerAdapter firmwareHasStagedAssets:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "NOT SUPPORTED %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026214(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPPowerAdapter firmwareRescind:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "NOT SUPPORTED %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10002628C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPPowerAdapter solicitLogs:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "NOT SUPPORTED %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026304(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPPowerAdapter solicitAnalytics:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "NOT SUPPORTED %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100026404(int a1, NSObject *a2)
 {
   v2 = 136315394;
@@ -3020,27 +3151,46 @@ void sub_100026490(uint64_t a1)
   _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "matchingDict: %@", &v1, 0xCu);
 }
 
-void sub_100026510(uint64_t a1)
+void sub_100026510()
 {
-  v1 = *(a1 + 1872);
   sub_100013958();
   sub_10000BE00();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100026584(uint64_t a1)
+void sub_100026584()
 {
-  v1 = *(a1 + 1872);
   sub_100013958();
   sub_10000BE00();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100026670(uint64_t a1)
+void sub_1000265F8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = *(*(*a1 + 8) + 40);
-  sub_10000BE00();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpSendMessage:controller:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: controller mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000266F0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpTransferPause:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: controller mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026768(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpTransferResume:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: controller mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000267E0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpSuperBinaryOffered:asset:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: controller mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000268C0()
@@ -3048,6 +3198,76 @@ void sub_1000268C0()
   sub_100013970();
   sub_10000BE00();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_100026A00(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpDynamicAssetOffered:asset:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: controller mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026A78(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpApplyStagedAssets:flags:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: controller mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026AF0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpAssetSolicited:tag:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: controller mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026B68(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpAssetSolicited:tag:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: Solicit unhandled tag", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026BE0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpAssetSolicited:tag:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: Solicit Analytics", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026C58(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpAssetSolicited:tag:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: Solicit Logs", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026CD0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpAssetSolicited:tag:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: layer 2 could not prepare dynamic asset", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026D48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpAssetSolicited:tag:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: layer 3 could not prepare dynamic asset", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026DC0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpAssetSolicited:tag:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: Offer dyanmic asset failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100026E38(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[VUARPAccessory uarpRescindAllAssets:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: controller mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100026EB0(uint64_t a1, int a2, os_log_t log)
@@ -3074,6 +3294,20 @@ void sub_100027154()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
+void sub_1000272A0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM receiveVDM:buffer:length:flags:sequence:checkSequence:maxRetries:lengthReceived:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027380(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM checkConnection:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: iecsRead failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100027640()
 {
   sub_10000BDBC();
@@ -3081,36 +3315,155 @@ void sub_100027640()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100027824(unsigned int *a1)
+void sub_1000276BC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100015E00(a1, __stack_chk_guard);
-  sub_100015DEC();
-  sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM setCFUp:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: iecsWrite(DATA1) failed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_100027918(unsigned int *a1)
+void sub_100027734(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100015E00(a1, __stack_chk_guard);
-  sub_100015DEC();
-  sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM setCFUp:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: iecsCommand(CFUp) failed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_100027994(unsigned int *a1)
+void sub_1000277AC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100015E00(a1, __stack_chk_guard);
-  sub_100015DEC();
-  sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM writeCFUs:remoteEndpoint:protocol:buffer:bufferLength:lengthWritten:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: doAtomic4CC failed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_100027A10(unsigned int *a1)
+void sub_100027824()
 {
-  sub_100015E00(a1, __stack_chk_guard);
+  sub_100015E00(__stack_chk_guard);
   sub_100015DEC();
   sub_100002BC4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_1000278A0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM readCFUa:remoteEndpoint:offset:buffer:bufferLength:lengthRead:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: doAtomic4CC failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027918()
+{
+  sub_100015E00(__stack_chk_guard);
+  sub_100015DEC();
+  sub_100002BC4();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_100027994()
+{
+  sub_100015E00(__stack_chk_guard);
+  sub_100015DEC();
+  sub_100002BC4();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_100027A10()
+{
+  sub_100015E00(__stack_chk_guard);
+  sub_100015DEC();
+  sub_100002BC4();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+void sub_100027A8C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processVDOs:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: Failed to process Capability VDOs", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027B04(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processVDOs:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: Failed to process Endpoint VDOs", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027B7C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processVDOs:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: Failed to process Apple VDOs", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027BF4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processCapabilityVDO:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: CFUa read failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027C6C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processCapabilityVDO:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: size mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027CE4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processEndpointVDO:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: CFUa read failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027D5C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processEndpointVDO:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: size mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027DD4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processAppleVDOs:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: CFUa read failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027E4C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processAppleVDOs:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: size mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027EC4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processAppleVDOs:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: Process Apple VDO failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027F3C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPAppleHPM processAppleVDO:error:]";
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s: CFUa read failed", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100027FB4()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100015F38(&_mh_execute_header, v0, v1, "failed to set temporary directory suffix: %d", v2, v3, v4, v5, v6);
+}
+
+void sub_100028034()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100015F38(&_mh_execute_header, v0, v1, "failed to initialize temporary directory: %d", v2, v3, v4, v5, v6);
 }
 
 void sub_1000280B4(uint64_t *a1, int a2, os_log_t log)
@@ -3123,24 +3476,45 @@ void sub_1000280B4(uint64_t *a1, int a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "notify_register_dispatch failed for %@ (%u)", &v4, 0x12u);
 }
 
+void sub_100028140(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = byte_100049268;
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000281B8(os_log_t log)
 {
   v1 = 136315138;
-  v2 = &unk_100049468;
+  v2 = byte_100049468;
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s\n", &v1, 0xCu);
+}
+
+void sub_10002823C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = byte_100049868;
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000282B4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = byte_100049A68;
+  sub_10000C6A8(&_mh_execute_header, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10002832C(os_log_t log)
 {
   v1 = 136315138;
-  v2 = &unk_100049E68;
+  v2 = byte_100049E68;
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s\n", &v1, 0xCu);
 }
 
 void sub_1000283B0(os_log_t log)
 {
   v1 = 136315138;
-  v2 = &unk_10004A068;
+  v2 = byte_10004A068;
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "%s\n", &v1, 0xCu);
 }
 

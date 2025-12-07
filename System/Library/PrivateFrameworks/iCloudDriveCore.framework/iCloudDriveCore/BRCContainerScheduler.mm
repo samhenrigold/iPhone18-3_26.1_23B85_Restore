@@ -50,9 +50,9 @@
 {
   sessionCopy = session;
   workloopCopy = workloop;
-  v108.receiver = self;
-  v108.super_class = BRCContainerScheduler;
-  v9 = [(BRCContainerScheduler *)&v108 init];
+  v107.receiver = self;
+  v107.super_class = BRCContainerScheduler;
+  v9 = [(BRCContainerScheduler *)&v107 init];
   if (v9)
   {
     v10 = [BRCUserDefaults defaultsForMangledID:0];
@@ -64,198 +64,197 @@
     v9->_syncUpBudget = v12;
 
     v14 = v12;
-    v15 = v9->_syncUpBudget;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = v14;
+      v15 = v14;
     }
 
     else
     {
-      v16 = objc_alloc_init(BRCSyncBudgetThrottle);
+      v15 = objc_alloc_init(BRCSyncBudgetThrottle);
 
-      objc_storeStrong(&v9->_syncUpBudget, v16);
-      v17 = v9->_syncUpBudget;
+      objc_storeStrong(&v9->_syncUpBudget, v15);
+      v16 = v9->_syncUpBudget;
       clientState2 = [(BRCAccountSession *)v9->_session clientState];
-      [clientState2 setObject:v17 forKeyedSubscript:@"syncUpBudget"];
+      [clientState2 setObject:v16 forKeyedSubscript:@"syncUpBudget"];
     }
 
-    v19 = [BRCDeadlineScheduler alloc];
+    v18 = [BRCDeadlineScheduler alloc];
     fairClientDBScheduler = [(BRCAccountSession *)v9->_session fairClientDBScheduler];
-    v21 = [(BRCDeadlineScheduler *)v19 initWithName:@"com.apple.brc.sync" fairScheduler:fairClientDBScheduler];
+    v20 = [(BRCDeadlineScheduler *)v18 initWithName:@"com.apple.brc.sync" fairScheduler:fairClientDBScheduler];
     syncScheduler = v9->_syncScheduler;
-    v9->_syncScheduler = v21;
+    v9->_syncScheduler = v20;
 
     syncUpThrottle = [v10 syncUpThrottle];
     [syncUpThrottle minWait];
     [(BRCDeadlineScheduler *)v9->_syncScheduler setCoalescingLeeway:brc_interval_to_nsec() / 10];
 
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke;
-    v104[3] = &unk_278502478;
-    v91 = v16;
-    v105 = v91;
-    v24 = v10;
-    v106 = v24;
-    [(BRCDeadlineScheduler *)v9->_syncScheduler setComputeNextAdmissibleDateForScheduling:v104];
-    v25 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"metadata-sync"];
+    v103[0] = MEMORY[0x277D85DD0];
+    v103[1] = 3221225472;
+    v103[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke;
+    v103[3] = &unk_278502478;
+    v90 = v15;
+    v104 = v90;
+    v23 = v10;
+    v105 = v23;
+    [(BRCDeadlineScheduler *)v9->_syncScheduler setComputeNextAdmissibleDateForScheduling:v103];
+    v24 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"metadata-sync"];
     containerMetadataSyncSource = v9->_containerMetadataSyncSource;
-    v9->_containerMetadataSyncSource = v25;
+    v9->_containerMetadataSyncSource = v24;
 
-    v27 = v9->_containerMetadataSyncSource;
-    v102[0] = MEMORY[0x277D85DD0];
-    v102[1] = 3221225472;
-    v102[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_10;
-    v102[3] = &unk_2784FF400;
-    objc_copyWeak(&v103, &location);
-    [(BRCDeadlineSource *)v27 setEventHandler:v102];
-    v28 = [BRCSyncOperationThrottle alloc];
+    v26 = v9->_containerMetadataSyncSource;
+    v101[0] = MEMORY[0x277D85DD0];
+    v101[1] = 3221225472;
+    v101[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_10;
+    v101[3] = &unk_2784FF400;
+    objc_copyWeak(&v102, &location);
+    [(BRCDeadlineSource *)v26 setEventHandler:v101];
+    v27 = [BRCSyncOperationThrottle alloc];
     containerMetadataMangledID = [MEMORY[0x277CFAE60] containerMetadataMangledID];
-    v30 = [(BRCSyncOperationThrottle *)v28 initWithMangledID:containerMetadataMangledID isSyncDown:1];
+    v29 = [(BRCSyncOperationThrottle *)v27 initWithMangledID:containerMetadataMangledID isSyncDown:1];
     containerMetadataSyncDownThrottle = v9->_containerMetadataSyncDownThrottle;
-    v9->_containerMetadataSyncDownThrottle = v30;
+    v9->_containerMetadataSyncDownThrottle = v29;
 
-    v32 = [BRCSyncOperationThrottle alloc];
+    v31 = [BRCSyncOperationThrottle alloc];
     containerMetadataMangledID2 = [MEMORY[0x277CFAE60] containerMetadataMangledID];
-    v34 = [(BRCSyncOperationThrottle *)v32 initWithMangledID:containerMetadataMangledID2 isSyncDown:0];
+    v33 = [(BRCSyncOperationThrottle *)v31 initWithMangledID:containerMetadataMangledID2 isSyncDown:0];
     containerMetadataSyncUpThrottle = v9->_containerMetadataSyncUpThrottle;
-    v9->_containerMetadataSyncUpThrottle = v34;
+    v9->_containerMetadataSyncUpThrottle = v33;
 
-    v36 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"shared-db-sync"];
+    v35 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"shared-db-sync"];
     sharedDatabaseSyncSource = v9->_sharedDatabaseSyncSource;
-    v9->_sharedDatabaseSyncSource = v36;
+    v9->_sharedDatabaseSyncSource = v35;
 
-    v38 = v9->_sharedDatabaseSyncSource;
-    v100[0] = MEMORY[0x277D85DD0];
-    v100[1] = 3221225472;
-    v100[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_2;
-    v100[3] = &unk_2784FF400;
-    objc_copyWeak(&v101, &location);
-    [(BRCDeadlineSource *)v38 setEventHandler:v100];
-    v39 = [BRCSyncOperationThrottle alloc];
+    v37 = v9->_sharedDatabaseSyncSource;
+    v99[0] = MEMORY[0x277D85DD0];
+    v99[1] = 3221225472;
+    v99[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_2;
+    v99[3] = &unk_2784FF400;
+    objc_copyWeak(&v100, &location);
+    [(BRCDeadlineSource *)v37 setEventHandler:v99];
+    v38 = [BRCSyncOperationThrottle alloc];
     mEMORY[0x277CFAE60] = [MEMORY[0x277CFAE60] sharedDatabaseMangledID];
-    v41 = [(BRCSyncOperationThrottle *)v39 initWithMangledID:mEMORY[0x277CFAE60] isSyncDown:1];
+    v40 = [(BRCSyncOperationThrottle *)v38 initWithMangledID:mEMORY[0x277CFAE60] isSyncDown:1];
     sharedDatabaseSyncDownThrottle = v9->_sharedDatabaseSyncDownThrottle;
-    v9->_sharedDatabaseSyncDownThrottle = v41;
+    v9->_sharedDatabaseSyncDownThrottle = v40;
 
-    v43 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"zone-health-sync"];
+    v42 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"zone-health-sync"];
     zoneHealthSyncSource = v9->_zoneHealthSyncSource;
-    v9->_zoneHealthSyncSource = v43;
+    v9->_zoneHealthSyncSource = v42;
 
-    v45 = v9->_zoneHealthSyncSource;
-    v98[0] = MEMORY[0x277D85DD0];
-    v98[1] = 3221225472;
-    v98[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_3;
-    v98[3] = &unk_2784FF400;
-    objc_copyWeak(&v99, &location);
-    [(BRCDeadlineSource *)v45 setEventHandler:v98];
-    v46 = [BRCSyncOperationThrottle alloc];
+    v44 = v9->_zoneHealthSyncSource;
+    v97[0] = MEMORY[0x277D85DD0];
+    v97[1] = 3221225472;
+    v97[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_3;
+    v97[3] = &unk_2784FF400;
+    objc_copyWeak(&v98, &location);
+    [(BRCDeadlineSource *)v44 setEventHandler:v97];
+    v45 = [BRCSyncOperationThrottle alloc];
     zoneHealthMangledID = [MEMORY[0x277CFAE60] zoneHealthMangledID];
-    v48 = [(BRCSyncOperationThrottle *)v46 initWithMangledID:zoneHealthMangledID isSyncDown:0];
+    v47 = [(BRCSyncOperationThrottle *)v45 initWithMangledID:zoneHealthMangledID isSyncDown:0];
     zoneHealthSyncUpThrottle = v9->_zoneHealthSyncUpThrottle;
-    v9->_zoneHealthSyncUpThrottle = v48;
+    v9->_zoneHealthSyncUpThrottle = v47;
 
-    v50 = [BRCSyncOperationThrottle alloc];
+    v49 = [BRCSyncOperationThrottle alloc];
     zoneHealthMangledID2 = [MEMORY[0x277CFAE60] zoneHealthMangledID];
-    v52 = [(BRCSyncOperationThrottle *)v50 initWithMangledID:zoneHealthMangledID2 isSyncDown:1];
+    v51 = [(BRCSyncOperationThrottle *)v49 initWithMangledID:zoneHealthMangledID2 isSyncDown:1];
     zoneHealthSyncDownThrottle = v9->_zoneHealthSyncDownThrottle;
-    v9->_zoneHealthSyncDownThrottle = v52;
+    v9->_zoneHealthSyncDownThrottle = v51;
 
-    v54 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"migrate-pcs-sync"];
+    v53 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"migrate-pcs-sync"];
     migrateZonePCSSource = v9->_migrateZonePCSSource;
-    v9->_migrateZonePCSSource = v54;
+    v9->_migrateZonePCSSource = v53;
 
-    v56 = v9->_migrateZonePCSSource;
-    v96[0] = MEMORY[0x277D85DD0];
-    v96[1] = 3221225472;
-    v96[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_4;
-    v96[3] = &unk_2784FF400;
-    objc_copyWeak(&v97, &location);
-    [(BRCDeadlineSource *)v56 setEventHandler:v96];
-    v57 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"side-car-sync"];
+    v55 = v9->_migrateZonePCSSource;
+    v95[0] = MEMORY[0x277D85DD0];
+    v95[1] = 3221225472;
+    v95[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_4;
+    v95[3] = &unk_2784FF400;
+    objc_copyWeak(&v96, &location);
+    [(BRCDeadlineSource *)v55 setEventHandler:v95];
+    v56 = [(BRCContainerScheduler *)v9 _newSyncDeadlineSourceWithName:@"side-car-sync"];
     sideCarSyncSource = v9->_sideCarSyncSource;
-    v9->_sideCarSyncSource = v57;
+    v9->_sideCarSyncSource = v56;
 
-    v59 = v9->_sideCarSyncSource;
-    v94[0] = MEMORY[0x277D85DD0];
-    v94[1] = 3221225472;
-    v94[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_5;
-    v94[3] = &unk_2784FF400;
-    objc_copyWeak(&v95, &location);
-    [(BRCDeadlineSource *)v59 setEventHandler:v94];
-    v60 = [BRCSyncOperationThrottle alloc];
+    v58 = v9->_sideCarSyncSource;
+    v93[0] = MEMORY[0x277D85DD0];
+    v93[1] = 3221225472;
+    v93[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_5;
+    v93[3] = &unk_2784FF400;
+    objc_copyWeak(&v94, &location);
+    [(BRCDeadlineSource *)v58 setEventHandler:v93];
+    v59 = [BRCSyncOperationThrottle alloc];
     sideCarMangledID = [MEMORY[0x277CFAE60] sideCarMangledID];
-    v62 = [(BRCSyncOperationThrottle *)v60 initWithMangledID:sideCarMangledID isSyncDown:0];
+    v61 = [(BRCSyncOperationThrottle *)v59 initWithMangledID:sideCarMangledID isSyncDown:0];
     sideCarSyncUpThrottle = v9->_sideCarSyncUpThrottle;
-    v9->_sideCarSyncUpThrottle = v62;
+    v9->_sideCarSyncUpThrottle = v61;
 
-    v64 = [BRCSyncOperationThrottle alloc];
+    v63 = [BRCSyncOperationThrottle alloc];
     sideCarMangledID2 = [MEMORY[0x277CFAE60] sideCarMangledID];
-    v66 = [(BRCSyncOperationThrottle *)v64 initWithMangledID:sideCarMangledID2 isSyncDown:1];
+    v65 = [(BRCSyncOperationThrottle *)v63 initWithMangledID:sideCarMangledID2 isSyncDown:1];
     sideCarSyncDownThrottle = v9->_sideCarSyncDownThrottle;
-    v9->_sideCarSyncDownThrottle = v66;
+    v9->_sideCarSyncDownThrottle = v65;
 
-    v68 = +[BRCAccountsManager sharedManager];
-    v9->_isInSyncBubble = [v68 isInSyncBubble];
+    v67 = +[BRCAccountsManager sharedManager];
+    v9->_isInSyncBubble = [v67 isInSyncBubble];
 
     isInSyncBubble = v9->_isInSyncBubble;
     objc_storeStrong(&v9->_pushWorkloop, workloop);
     if (!isInSyncBubble)
     {
-      v70 = [BRCFairSource alloc];
+      v69 = [BRCFairSource alloc];
       fairClientDBScheduler2 = [(BRCAccountSession *)v9->_session fairClientDBScheduler];
-      v72 = [(BRCFairSource *)v70 initWithName:@"push" scheduler:fairClientDBScheduler2];
+      v71 = [(BRCFairSource *)v69 initWithName:@"push" scheduler:fairClientDBScheduler2];
       pushSource = v9->_pushSource;
-      v9->_pushSource = v72;
+      v9->_pushSource = v71;
 
       [(BRCFairSource *)v9->_pushSource setWorkloop:v9->_pushWorkloop];
-      v92[0] = MEMORY[0x277D85DD0];
-      v92[1] = 3221225472;
-      v92[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_6;
-      v92[3] = &unk_2784FF400;
-      objc_copyWeak(&v93, &location);
-      [(BRCFairSource *)v9->_pushSource setEventHandler:v92];
-      v74 = brc_bread_crumbs();
-      v75 = brc_default_log();
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+      v91[0] = MEMORY[0x277D85DD0];
+      v91[1] = 3221225472;
+      v91[2] = __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_6;
+      v91[3] = &unk_2784FF400;
+      objc_copyWeak(&v92, &location);
+      [(BRCFairSource *)v9->_pushSource setEventHandler:v91];
+      v73 = brc_bread_crumbs();
+      v74 = brc_default_log();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
       {
         [BRCContainerScheduler initWithAccountSession:pushWorkloop:];
       }
 
-      objc_destroyWeak(&v93);
+      objc_destroyWeak(&v92);
     }
 
-    v76 = [(BRCPersistedState *)BRCContainerMetadataSyncPersistedState loadFromClientStateInSession:v9->_session];
+    v75 = [(BRCPersistedState *)BRCContainerMetadataSyncPersistedState loadFromClientStateInSession:v9->_session];
     containerMetadataPersistedState = v9->_containerMetadataPersistedState;
-    v9->_containerMetadataPersistedState = v76;
+    v9->_containerMetadataPersistedState = v75;
 
-    v78 = [(BRCPersistedState *)BRCZoneHealthSyncPersistedState loadFromClientStateInSession:v9->_session];
+    v77 = [(BRCPersistedState *)BRCZoneHealthSyncPersistedState loadFromClientStateInSession:v9->_session];
     zoneHealthPersistedState = v9->_zoneHealthPersistedState;
-    v9->_zoneHealthPersistedState = v78;
+    v9->_zoneHealthPersistedState = v77;
 
-    v80 = [(BRCPersistedState *)BRCSideCarSyncPersistedState loadFromClientStateInSession:v9->_session];
+    v79 = [(BRCPersistedState *)BRCSideCarSyncPersistedState loadFromClientStateInSession:v9->_session];
     sideCarSyncPersistedState = v9->_sideCarSyncPersistedState;
-    v9->_sideCarSyncPersistedState = v80;
+    v9->_sideCarSyncPersistedState = v79;
 
-    v82 = [BRCSideCarSyncDownHandler alloc];
-    v83 = v9->_sideCarSyncPersistedState;
+    v81 = [BRCSideCarSyncDownHandler alloc];
+    v82 = v9->_sideCarSyncPersistedState;
     serverState = [sessionCopy serverState];
     applyScheduler = [sessionCopy applyScheduler];
-    v86 = [(BRCSideCarSyncDownHandler *)v82 initWithSessionContext:sessionCopy sideCarPersistedState:v83 serverPersistedState:serverState applyScheduler:applyScheduler];
+    v85 = [(BRCSideCarSyncDownHandler *)v81 initWithSessionContext:sessionCopy sideCarPersistedState:v82 serverPersistedState:serverState applyScheduler:applyScheduler];
     sideCarSyncDownHandler = v9->_sideCarSyncDownHandler;
-    v9->_sideCarSyncDownHandler = v86;
+    v9->_sideCarSyncDownHandler = v85;
 
-    v88 = [[BRCPeriodicSyncScheduler alloc] initWithContainerScheduler:v9 session:v9->_session];
+    v87 = [[BRCPeriodicSyncScheduler alloc] initWithContainerScheduler:v9 session:v9->_session];
     periodicSyncScheduler = v9->_periodicSyncScheduler;
-    v9->_periodicSyncScheduler = v88;
+    v9->_periodicSyncScheduler = v87;
 
-    objc_destroyWeak(&v95);
-    objc_destroyWeak(&v97);
-    objc_destroyWeak(&v99);
-    objc_destroyWeak(&v101);
-    objc_destroyWeak(&v103);
+    objc_destroyWeak(&v94);
+    objc_destroyWeak(&v96);
+    objc_destroyWeak(&v98);
+    objc_destroyWeak(&v100);
+    objc_destroyWeak(&v102);
 
     objc_destroyWeak(&location);
   }
@@ -263,25 +262,25 @@
   return v9;
 }
 
-uint64_t __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke(uint64_t a1)
+uint64_t __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
+  v3 = (a1 + 32);
+  v4 = *(a1 + 32);
   brc_interval_from_nsec();
-  [v3 updateForTime:?];
-  [*v2 availableBudgetWithDefaults:v2[1]];
-  v5 = v4;
-  [v2[1] syncUpMinimalBudget];
-  if (v5 >= v6)
+  [v4 updateForTime:?];
+  [*v3 availableBudgetWithDefaults:v3[1]];
+  v6 = v5;
+  [v3[1] syncUpMinimalBudget];
+  if (v6 >= v7)
   {
     return 0;
   }
 
-  v7 = brc_bread_crumbs();
-  v8 = brc_default_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = brc_bread_crumbs();
+  v9 = brc_default_log();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_cold_1(v2);
+    __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_cold_1();
   }
 
   [*(a1 + 32) nextDateWithBudgetWithDefaults:*(a1 + 40)];
@@ -326,10 +325,14 @@ void __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_inv
 
 - (void)enablePushNotifications
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Enabling push topics registration%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCContainerScheduler enablePushNotifications];
+  }
+
+  [(BRCFairSource *)self->_pushSource resume];
 }
 
 - (id)_newSyncDeadlineSourceWithName:(id)name
@@ -356,10 +359,9 @@ void __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_inv
 
 - (void)closeContainers
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx shutting down periodic metadata sync%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx shutting down periodic metadata sync%@");
 }
 
 void __40__BRCContainerScheduler_closeContainers__block_invoke(uint64_t a1)
@@ -376,7 +378,7 @@ void __40__BRCContainerScheduler_closeContainers__block_invoke(uint64_t a1)
     v4 = brc_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_1(&v17);
+      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_1();
     }
 
     [v2 cancel];
@@ -397,7 +399,7 @@ void __40__BRCContainerScheduler_closeContainers__block_invoke(uint64_t a1)
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_2(&v17);
+      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_2();
     }
 
     [v5 cancel];
@@ -418,7 +420,7 @@ void __40__BRCContainerScheduler_closeContainers__block_invoke(uint64_t a1)
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_3(&v17);
+      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_3();
     }
 
     [v8 cancel];
@@ -439,7 +441,7 @@ void __40__BRCContainerScheduler_closeContainers__block_invoke(uint64_t a1)
     v13 = brc_default_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_4(&v17);
+      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_4();
     }
 
     [v11 cancel];
@@ -460,7 +462,7 @@ void __40__BRCContainerScheduler_closeContainers__block_invoke(uint64_t a1)
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_5(&v17);
+      __40__BRCContainerScheduler_closeContainers__block_invoke_cold_5();
     }
 
     [v14 cancel];
@@ -480,7 +482,7 @@ void __40__BRCContainerScheduler_closeContainers__block_invoke_38(uint64_t a1)
     v4 = brc_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __40__BRCContainerScheduler_closeContainers__block_invoke_38_cold_1(v7);
+      __40__BRCContainerScheduler_closeContainers__block_invoke_38_cold_1();
     }
 
     [v2 cancel];
@@ -581,10 +583,9 @@ void __30__BRCContainerScheduler_close__block_invoke(uint64_t a1)
 
 - (void)setup
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx loading containers%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx loading containers%@");
 }
 
 - (void)schedulePeriodicSyncInGroup:(id)group completion:(id)completion
@@ -608,7 +609,7 @@ void __30__BRCContainerScheduler_close__block_invoke(uint64_t a1)
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [BRCContainerScheduler schedulePeriodicSyncInGroup:v21 completion:?];
+      [BRCContainerScheduler schedulePeriodicSyncInGroup:completion:];
     }
 
     v12 = [BRCPeriodicSyncOperation alloc];
@@ -678,40 +679,88 @@ void __64__BRCContainerScheduler_schedulePeriodicSyncInGroup_completion___block_
 
 - (unint64_t)recoverAndReportMissingJobs
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   workloop = [(BRCDeadlineScheduler *)self->_syncScheduler workloop];
   dispatch_assert_queue_V2(workloop);
 
-  if ([(BRCContainerScheduler *)self _hasMetadataToSyncUpToContainerMetadata]&& (self->_containerMetadataSyncState & 0xF) == 0)
+  if (![(BRCContainerScheduler *)self _hasMetadataToSyncUpToContainerMetadata]|| (self->_containerMetadataSyncState & 0xF) != 0)
   {
-    v6 = brc_bread_crumbs();
-    v7 = brc_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] container-metadata has things to sync-up but it is not marked as needs-sync-up%@", &v8, 0xCu);
-    }
-
-    [(BRCContainerScheduler *)self _markContainerMetadataNeedsSyncUp];
-    result = 1;
+    return 0;
   }
 
-  else
+  v5 = brc_bread_crumbs();
+  v6 = brc_default_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    result = 0;
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] container-metadata has things to sync-up but it is not marked as needs-sync-up%@", &v7, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  [(BRCContainerScheduler *)self _markContainerMetadataNeedsSyncUp];
+  return 1;
 }
 
 - (void)resume
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Sync: resuming sync%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  session = [(BRCContainerScheduler *)self session];
+  personaIdentifier = [session personaIdentifier];
+  v6 = BRPersonaSpecificName();
+  [defaultCenter addObserver:self selector:sel_syncContextDidBecomeForeground_ name:v6 object:0];
+
+  session2 = [(BRCContainerScheduler *)self session];
+  personaIdentifier2 = [session2 personaIdentifier];
+  v9 = BRPersonaSpecificName();
+  [defaultCenter addObserver:self selector:sel_syncContextDidBecomeBackground_ name:v9 object:0];
+
+  if ([(BRCContainerScheduler *)self _hasMetadataToSyncUpToContainerMetadata])
+  {
+    self->_containerMetadataSyncState |= 1u;
+  }
+
+  if ([(BRCContainerMetadataSyncPersistedState *)self->_containerMetadataPersistedState needsContainerMetadataSyncDown])
+  {
+    self->_containerMetadataSyncState |= 2u;
+  }
+
+  if ([(BRCContainerMetadataSyncPersistedState *)self->_containerMetadataPersistedState needsSharedDBSyncDown])
+  {
+    self->_sharedDBSyncState |= 2u;
+  }
+
+  session3 = [(BRCContainerScheduler *)self session];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __31__BRCContainerScheduler_resume__block_invoke;
+  v13[3] = &unk_2785002E8;
+  v13[4] = self;
+  [session3 enumeratePrivateClientZones:v13];
+
+  if ([(BRCZoneHealthSyncPersistedState *)self->_zoneHealthPersistedState needsSyncDown])
+  {
+    self->_zoneHealthSyncState |= 2u;
+  }
+
+  if ([(BRCSideCarSyncPersistedState *)self->_sideCarSyncPersistedState needsSync])
+  {
+    self->_sideCarSyncState |= 3u;
+  }
+
+  v11 = brc_bread_crumbs();
+  v12 = brc_default_log();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCContainerScheduler resume];
+  }
+
+  [(BRCDeadlineScheduler *)self->_syncScheduler resume];
+  [(BRCDeadlineSource *)self->_containerMetadataSyncSource resume];
+  [(BRCDeadlineSource *)self->_sharedDatabaseSyncSource resume];
+  [(BRCDeadlineSource *)self->_zoneHealthSyncSource resume];
+  [(BRCDeadlineSource *)self->_migrateZonePCSSource resume];
+  [(BRCDeadlineSource *)self->_sideCarSyncSource resume];
+  [(BRCPeriodicSyncScheduler *)self->_periodicSyncScheduler resume];
 }
 
 uint64_t __31__BRCContainerScheduler_resume__block_invoke(uint64_t a1, void *a2)
@@ -736,7 +785,7 @@ uint64_t __31__BRCContainerScheduler_resume__block_invoke(uint64_t a1, void *a2)
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [BRCContainerScheduler didInitialSyncDownForClientZone:v8];
+      [BRCContainerScheduler didInitialSyncDownForClientZone:];
     }
 
     session = [(BRCContainerScheduler *)self session];
@@ -911,10 +960,22 @@ uint64_t __47__BRCContainerScheduler_redoZonePCSPreperation__block_invoke(uint64
 
 - (void)scheduleSyncUpForSideCar
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] marking side-car needs-sync-up%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  clientDB = [(BRCAccountSession *)self->_session clientDB];
+  [clientDB assertOnQueue];
+
+  v4 = brc_bread_crumbs();
+  v5 = brc_default_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCContainerScheduler scheduleSyncUpForSideCar];
+  }
+
+  self->_sideCarSyncState |= 1u;
+  [(BRCSideCarSyncPersistedState *)self->_sideCarSyncPersistedState setNeedsSync:1];
+  clientDB2 = [(BRCAccountSession *)self->_session clientDB];
+  [clientDB2 forceBatchStart];
+
+  [(BRCDeadlineSource *)self->_sideCarSyncSource signal];
 }
 
 - (void)didChangeSyncStatusForZoneHealthForContainer:(id)container
@@ -943,12 +1004,11 @@ uint64_t __70__BRCContainerScheduler_didChangeSyncStatusForZoneHealthForContaine
 
 - (void)_markContainerMetadataNeedsSyncUp
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = self;
-  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] marking container-metadata needs-sync-up with deadline: %lld%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = self;
+  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] marking container-metadata needs-sync-up with deadline: %lld%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)didChangeSyncStatusForContainerMetadataForContainer:(id)container
@@ -1011,23 +1071,24 @@ void __45__BRCContainerScheduler__scheduleAfterFlush___block_invoke(uint64_t a1)
 
 - (void)_syncScheduleForContainersMetadata
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] done syncing container-metadata%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  *buf = 138412546;
+  *(buf + 4) = self;
+  *(buf + 6) = 2112;
+  *(buf + 14) = a2;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] already syncing container-metadata: %@%@", buf, 0x16u);
 }
 
 void __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v43 = a2;
+  v51 = *MEMORY[0x277D85DE8];
+  v42 = a2;
   v5 = a3;
   v6 = *(a1 + 32);
   v7 = *(v6 + 120);
   *(v6 + 120) = 0;
 
-  v45 = 0;
-  v8 = [v5 brc_containerResetErrorForSharedZone:0 resetReason:&v45];
+  v44 = 0;
+  v8 = [v5 brc_containerResetErrorForSharedZone:0 resetReason:&v44];
   v9 = *(*(a1 + 32) + 104);
   if (v8)
   {
@@ -1036,25 +1097,25 @@ void __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invok
     v12 = [*(*(a1 + 32) + 8) clientZoneByMangledID:v11];
     v13 = [v12 enhancedDrivePrivacyEnabled];
     v14 = [*(*(a1 + 32) + 96) lastSyncDownDate];
-    v15 = [AppTelemetryTimeSeriesEvent newZoneResetEventWithZoneMangledID:v11 enhancedDrivePrivacyEnabled:v13 lastSyncDate:v14 error:v5 errorDescription:v45];
+    v15 = [AppTelemetryTimeSeriesEvent newZoneResetEventWithZoneMangledID:v11 enhancedDrivePrivacyEnabled:v13 lastSyncDate:v14 error:v5 errorDescription:v44];
 
     v16 = [*(*(a1 + 32) + 8) analyticsReporter];
     [v16 postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v15];
 
-    memset(v44, 0, sizeof(v44));
-    __brc_create_section(0, "[BRCContainerScheduler _syncScheduleForContainersMetadata]_block_invoke", 890, 0, v44);
+    memset(v43, 0, sizeof(v43));
+    __brc_create_section(0, "[BRCContainerScheduler _syncScheduleForContainersMetadata]_block_invoke", 890, 0, v43);
     v17 = brc_bread_crumbs();
     v18 = brc_default_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v39 = v44[0];
-      v40 = BRCPrettyPrintEnum();
+      v38 = v43[0];
+      v39 = BRCPrettyPrintEnum();
       *buf = 134218498;
-      v47 = v39;
-      v48 = 2080;
-      v49 = v40;
-      v50 = 2112;
-      v51 = v17;
+      v46 = v38;
+      v47 = 2080;
+      v48 = v39;
+      v49 = 2112;
+      v50 = v17;
       _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx resetting container-metadata: %s%@", buf, 0x20u);
     }
 
@@ -1066,7 +1127,7 @@ void __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invok
     }
 
     [*(*(a1 + 32) + 96) containerMetadataWasReset];
-    __brc_leave_section(v44);
+    __brc_leave_section(v43);
 
     v20 = v19 | 2;
   }
@@ -1077,15 +1138,15 @@ void __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invok
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
-    v31 = *(a1 + 32);
+    v30 = *(a1 + 32);
     if (isKindOfClass)
     {
-      [*(v31 + 136) updateForError:v5];
+      [*(v30 + 136) updateForError:v5];
       objc_storeStrong((*(a1 + 32) + 152), a3);
-      v32 = objc_loadWeakRetained((a1 + 40));
-      v11 = v32;
+      v31 = objc_loadWeakRetained((a1 + 40));
+      v11 = v31;
       v20 = v9 | 0x12;
-      if (!v5 && ![v32 shouldPerformAnotherBatch])
+      if (!v5 && ![v31 shouldPerformAnotherBatch])
       {
         v20 = v9 & 0xFFFFFFEC | 0x12;
       }
@@ -1093,28 +1154,28 @@ void __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invok
 
     else
     {
-      [*(v31 + 128) updateForError:v5];
+      [*(v30 + 128) updateForError:v5];
       objc_storeStrong((*(a1 + 32) + 144), a3);
-      v33 = objc_loadWeakRetained((a1 + 40));
-      v11 = v33;
+      v32 = objc_loadWeakRetained((a1 + 40));
+      v11 = v32;
       v20 = v9;
       if (!v5)
       {
-        v34 = [v33 shouldFetchAnotherBatch];
-        v35 = v9 & 0xFFFFFFCD;
-        if (v34)
+        v33 = [v32 shouldFetchAnotherBatch];
+        v34 = v9 & 0xFFFFFFCD;
+        if (v33)
         {
-          v35 = v9;
+          v34 = v9;
         }
 
-        v20 = v35 & 0xFFFFFFCF | 0x20;
+        v20 = v34 & 0xFFFFFFCF | 0x20;
       }
 
       if ([*(a1 + 32) _hasMetadataToSyncUpToContainerMetadata])
       {
-        v36 = brc_bread_crumbs();
-        v37 = brc_default_log();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        v35 = brc_bread_crumbs();
+        v36 = brc_default_log();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invoke_cold_1();
         }
@@ -1139,31 +1200,31 @@ void __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invok
   {
     if (*(*(a1 + 32) + 104))
     {
-      v38 = BRCPrettyPrintBitmap();
+      v37 = BRCPrettyPrintBitmap();
     }
 
     else
     {
-      v38 = @"idle";
+      v37 = @"idle";
     }
 
-    v41 = v38;
+    v40 = v37;
     if (v24)
     {
-      v42 = BRCPrettyPrintBitmap();
+      v41 = BRCPrettyPrintBitmap();
     }
 
     else
     {
-      v42 = @"idle";
+      v41 = @"idle";
     }
 
     *buf = 138412802;
-    v47 = v41;
-    v48 = 2112;
-    v49 = v42;
-    v50 = 2112;
-    v51 = v22;
+    v46 = v40;
+    v47 = 2112;
+    v48 = v41;
+    v49 = 2112;
+    v50 = v22;
     _os_log_debug_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] Container metadata sync state (%@) -> (%@)%@", buf, 0x20u);
   }
 
@@ -1173,8 +1234,6 @@ void __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invok
   [*(*v25 + 16) signal];
   v27 = [*(*v25 + 8) periodicSyncInvestigation];
   [v27 completeInvestigationIfNecessaryWithOldSyncState:v9 newSyncState:*(*v25 + 104)];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invoke_63(uint64_t a1, void *a2)
@@ -1201,15 +1260,14 @@ uint64_t __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_i
 
 - (void)_syncScheduleForSharedDatabase
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] done syncing shared-db%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx scheduling shared-db sync%@");
 }
 
 void __55__BRCContainerScheduler__syncScheduleForSharedDatabase__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = *(a1 + 32);
   v8 = *(v7 + 168);
@@ -1219,19 +1277,19 @@ void __55__BRCContainerScheduler__syncScheduleForSharedDatabase__block_invoke(ui
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v16 = "NO";
-    *v17 = 136315650;
+    v15 = "NO";
+    *v16 = 136315650;
     if (a2)
     {
-      v16 = "YES";
+      v15 = "YES";
     }
 
-    *&v17[4] = v16;
-    v18 = 2112;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v9;
-    _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] Finished sharedb sync down with more coming: %s, error %@%@", v17, 0x20u);
+    *&v16[4] = v15;
+    v17 = 2112;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v9;
+    _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] Finished sharedb sync down with more coming: %s, error %@%@", v16, 0x20u);
   }
 
   [*(*(a1 + 32) + 176) updateForError:v6];
@@ -1267,21 +1325,18 @@ void __55__BRCContainerScheduler__syncScheduleForSharedDatabase__block_invoke(ui
 
   *(v12 + 160) = v13 & 0xFFFFFFF3;
   [*(*(a1 + 32) + 24) signal];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncScheduleForZoneHealth
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] done syncing zone-health%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx scheduling zone-health sync%@");
 }
 
 void __51__BRCContainerScheduler__syncScheduleForZoneHealth__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [*(*(a1 + 32) + 368) workloop];
   dispatch_assert_queue_V2(v6);
@@ -1295,31 +1350,31 @@ void __51__BRCContainerScheduler__syncScheduleForZoneHealth__block_invoke(uint64
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v11 = *(*(a1 + 32) + 352);
-    v12 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v37;
+      v14 = *v36;
       do
       {
         v15 = 0;
         do
         {
-          if (*v37 != v14)
+          if (*v36 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          (*(*(*(&v36 + 1) + 8 * v15++) + 16))();
+          (*(*(*(&v35 + 1) + 8 * v15++) + 16))();
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
       while (v13);
@@ -1330,8 +1385,8 @@ void __51__BRCContainerScheduler__syncScheduleForZoneHealth__block_invoke(uint64
     *(v16 + 352) = 0;
   }
 
-  v35 = 0;
-  if (![v5 brc_containerResetErrorForSharedZone:0 resetReason:&v35])
+  v34 = 0;
+  if (![v5 brc_containerResetErrorForSharedZone:0 resetReason:&v34])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -1392,7 +1447,7 @@ void __51__BRCContainerScheduler__syncScheduleForZoneHealth__block_invoke(uint64
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v41 = v18;
+    v40 = v18;
     _os_log_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEFAULT, "[WARNING] Resetting zone health%@", buf, 0xCu);
   }
 
@@ -1401,7 +1456,7 @@ void __51__BRCContainerScheduler__syncScheduleForZoneHealth__block_invoke(uint64
   v22 = [*(*(a1 + 32) + 8) clientZoneByMangledID:v21];
   v23 = [v22 enhancedDrivePrivacyEnabled];
   v24 = [*(*(a1 + 32) + 192) lastSyncDownDate];
-  v25 = [AppTelemetryTimeSeriesEvent newZoneResetEventWithZoneMangledID:v21 enhancedDrivePrivacyEnabled:v23 lastSyncDate:v24 error:v5 errorDescription:v35];
+  v25 = [AppTelemetryTimeSeriesEvent newZoneResetEventWithZoneMangledID:v21 enhancedDrivePrivacyEnabled:v23 lastSyncDate:v24 error:v5 errorDescription:v34];
 
   v26 = [*(*(a1 + 32) + 8) analyticsReporter];
   [v26 postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v25];
@@ -1424,16 +1479,13 @@ LABEL_22:
   [*(v31 + 32) signal];
   v33 = [*(*(a1 + 32) + 8) periodicSyncInvestigation];
   [v33 completeInvestigationIfNecessaryWithOldSyncState:v8 newSyncState:*(*(a1 + 32) + 200)];
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncScheduleForSideCar
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] done syncing side-car%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx scheduling side-car sync%@");
 }
 
 void __48__BRCContainerScheduler__syncScheduleForSideCar__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1539,23 +1591,21 @@ LABEL_11:
 
 uint64_t __48__BRCContainerScheduler__syncScheduleForSideCar__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v2;
-    _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Resetting side car zone%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v2;
+    _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Resetting side car zone%@", &v6, 0xCu);
   }
 
   [*(*(a1 + 32) + 8) enumerateSharedClientZones:&__block_literal_global_90_0];
   v4 = [*(*(a1 + 32) + 8) serverDB];
   [v4 execute:@"DELETE FROM side_car_lookahead"];
 
-  result = [*(*(a1 + 32) + 248) sideCarZoneWasReset];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 248) sideCarZoneWasReset];
 }
 
 uint64_t __48__BRCContainerScheduler__syncScheduleForSideCar__block_invoke_87(uint64_t a1, void *a2)
@@ -2084,32 +2134,30 @@ LABEL_67:
 
 - (void)receivedUpdatedSideCarServerChangeToken:(id)token requestID:(unint64_t)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = [tokenCopy descriptionWithContext:0];
-    v11 = 138412802;
-    v12 = v10;
-    v13 = 2048;
+    v9 = [tokenCopy descriptionWithContext:0];
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 2048;
     dCopy = d;
-    v15 = 2112;
-    v16 = v7;
-    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Updated side car sync token:%@ requestID:%lld%@", &v11, 0x20u);
+    v14 = 2112;
+    v15 = v7;
+    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Updated side car sync token:%@ requestID:%lld%@", &v10, 0x20u);
   }
 
   [(BRCSideCarSyncPersistedState *)self->_sideCarSyncPersistedState updateWithServerChangeToken:tokenCopy requestID:d];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleCrossZoneMovePCSPrep
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: _migrateZonePCSOperation == nil%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx starting cross zone move migration PCS prep%@");
 }
 
 void __54__BRCContainerScheduler__scheduleCrossZoneMovePCSPrep__block_invoke(uint64_t a1)
@@ -2133,7 +2181,7 @@ void __54__BRCContainerScheduler__scheduleCrossZoneMovePCSPrep__block_invoke_2(u
 
 - (void)syncContextDidBecomeForeground:(id)foreground
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   foregroundCopy = foreground;
   personaIdentifier = [(BRCAccountSession *)self->_session personaIdentifier];
   if ([personaIdentifier isEqualToString:@"__defaultPersonaID__"])
@@ -2162,7 +2210,7 @@ LABEL_8:
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
   currentPersona = [mEMORY[0x277D77BF8] currentPersona];
 
-  v33 = 0;
+  v32 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   v10 = userPersonaUniqueString;
   if (userPersonaUniqueString == personaIdentifier2 || ([userPersonaUniqueString isEqualToString:personaIdentifier2] & 1) != 0)
@@ -2173,17 +2221,17 @@ LABEL_8:
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v32 = 0;
-    v21 = [currentPersona copyCurrentPersonaContextWithError:&v32];
+    v31 = 0;
+    v20 = [currentPersona copyCurrentPersonaContextWithError:&v31];
+    v21 = v31;
     v22 = v32;
-    v23 = v33;
-    v33 = v21;
+    v32 = v20;
 
-    if (v22)
+    if (v21)
     {
-      v24 = brc_bread_crumbs();
-      v25 = brc_default_log();
-      if (os_log_type_enabled(v25, 0x90u))
+      v23 = brc_bread_crumbs();
+      v24 = brc_default_log();
+      if (os_log_type_enabled(v24, 0x90u))
       {
         [BRCContainerScheduler syncContextDidBecomeForeground:];
       }
@@ -2193,18 +2241,18 @@ LABEL_8:
 
     if (v11)
     {
-      v26 = brc_bread_crumbs();
-      v27 = brc_default_log();
-      if (os_log_type_enabled(v27, 0x90u))
+      v25 = brc_bread_crumbs();
+      v26 = brc_default_log();
+      if (os_log_type_enabled(v26, 0x90u))
       {
         personaIdentifier3 = [(BRCAccountSession *)self->_session personaIdentifier];
         *buf = 138412802;
-        v35 = personaIdentifier3;
-        v36 = 2112;
-        v37 = v11;
-        v38 = 2112;
-        v39 = v26;
-        _os_log_error_impl(&dword_223E7A000, v27, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v34 = personaIdentifier3;
+        v35 = 2112;
+        v36 = v11;
+        v37 = 2112;
+        v38 = v25;
+        _os_log_error_impl(&dword_223E7A000, v26, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_34:
@@ -2215,9 +2263,9 @@ LABEL_34:
   {
     if (v6 && ([currentPersona isDataSeparatedPersona] & 1) == 0)
     {
-      v26 = brc_bread_crumbs();
-      v27 = brc_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v25 = brc_bread_crumbs();
+      v26 = brc_default_log();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -2226,9 +2274,9 @@ LABEL_34:
       goto LABEL_34;
     }
 
-    v29 = brc_bread_crumbs();
-    v30 = brc_default_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v28 = brc_bread_crumbs();
+    v29 = brc_default_log();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       __br_notify_register_dispatch_block_invoke_cold_3();
     }
@@ -2252,7 +2300,7 @@ LABEL_11:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v35 = v17;
+        v34 = v17;
         _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] Container became foreground that we didn't think was installed, forcing an apps list refresh%@", buf, 0xCu);
       }
 
@@ -2264,7 +2312,6 @@ LABEL_11:
   [(BRCContainerScheduler *)self _scheduleUpdatePushTopicsRegistration];
 
   _BRRestorePersona();
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCContainerScheduler_syncContextDidBecomeForeground___block_invoke()
@@ -2277,7 +2324,7 @@ void __56__BRCContainerScheduler_syncContextDidBecomeForeground___block_invoke()
 
 - (void)syncContextDidBecomeBackground:(id)background
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   backgroundCopy = background;
   personaIdentifier = [(BRCAccountSession *)self->_session personaIdentifier];
   if ([personaIdentifier isEqualToString:@"__defaultPersonaID__"])
@@ -2306,7 +2353,7 @@ LABEL_8:
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
   currentPersona = [mEMORY[0x277D77BF8] currentPersona];
 
-  v25 = 0;
+  v24 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   v11 = userPersonaUniqueString;
   if (userPersonaUniqueString == personaIdentifier2 || ([userPersonaUniqueString isEqualToString:personaIdentifier2] & 1) != 0)
@@ -2317,17 +2364,17 @@ LABEL_8:
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v24 = 0;
-    v14 = [currentPersona copyCurrentPersonaContextWithError:&v24];
+    v23 = 0;
+    v13 = [currentPersona copyCurrentPersonaContextWithError:&v23];
+    v14 = v23;
     v15 = v24;
-    v16 = v25;
-    v25 = v14;
+    v24 = v13;
 
-    if (v15)
+    if (v14)
     {
-      v17 = brc_bread_crumbs();
-      v18 = brc_default_log();
-      if (os_log_type_enabled(v18, 0x90u))
+      v16 = brc_bread_crumbs();
+      v17 = brc_default_log();
+      if (os_log_type_enabled(v17, 0x90u))
       {
         [BRCContainerScheduler syncContextDidBecomeForeground:];
       }
@@ -2337,18 +2384,18 @@ LABEL_8:
 
     if (v12)
     {
-      v19 = brc_bread_crumbs();
-      v20 = brc_default_log();
-      if (os_log_type_enabled(v20, 0x90u))
+      v18 = brc_bread_crumbs();
+      v19 = brc_default_log();
+      if (os_log_type_enabled(v19, 0x90u))
       {
         personaIdentifier3 = [(BRCAccountSession *)self->_session personaIdentifier];
         *buf = 138412802;
-        v27 = personaIdentifier3;
-        v28 = 2112;
-        v29 = v12;
-        v30 = 2112;
-        v31 = v19;
-        _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v26 = personaIdentifier3;
+        v27 = 2112;
+        v28 = v12;
+        v29 = 2112;
+        v30 = v18;
+        _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_28:
@@ -2359,9 +2406,9 @@ LABEL_28:
   {
     if (v7 && ([currentPersona isDataSeparatedPersona] & 1) == 0)
     {
-      v19 = brc_bread_crumbs();
-      v20 = brc_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v18 = brc_bread_crumbs();
+      v19 = brc_default_log();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -2370,9 +2417,9 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    v22 = brc_bread_crumbs();
-    v23 = brc_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v21 = brc_bread_crumbs();
+    v22 = brc_default_log();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       __br_notify_register_dispatch_block_invoke_cold_3();
     }
@@ -2384,7 +2431,6 @@ LABEL_11:
   [(BRCContainerScheduler *)self _scheduleUpdatePushTopicsRegistration];
 
   _BRRestorePersona();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCContainerScheduler_syncContextDidBecomeBackground___block_invoke()
@@ -2397,19 +2443,24 @@ void __56__BRCContainerScheduler_syncContextDidBecomeBackground___block_invoke()
 
 - (void)_scheduleUpdatePushTopicsRegistration
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] scheduling push topics registration%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  if (!self->_isInSyncBubble)
+  {
+    v3 = brc_bread_crumbs();
+    v4 = brc_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      [BRCContainerScheduler _scheduleUpdatePushTopicsRegistration];
+    }
+
+    [(BRCFairSource *)self->_pushSource signal];
+  }
 }
 
 - (void)_updatePushTopicsRegistration
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] foreground topics: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__BRCContainerScheduler__updatePushTopicsRegistration__block_invoke(uint64_t a1, void *a2)
@@ -2467,7 +2518,7 @@ uint64_t __54__BRCContainerScheduler__updatePushTopicsRegistration__block_invoke
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   topicCopy = topic;
   identifierCopy = identifier;
@@ -2476,20 +2527,18 @@ uint64_t __54__BRCContainerScheduler__updatePushTopicsRegistration__block_invoke
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     environmentName = self->_environmentName;
-    v16 = 138413314;
-    v17 = environmentName;
-    v18 = 2112;
-    v19 = tokenCopy;
-    v20 = 2112;
-    v21 = topicCopy;
-    v22 = 2112;
-    v23 = identifierCopy;
-    v24 = 2112;
-    v25 = v12;
-    _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] received %@ push token %@ for %@:%@%@", &v16, 0x34u);
+    v15 = 138413314;
+    v16 = environmentName;
+    v17 = 2112;
+    v18 = tokenCopy;
+    v19 = 2112;
+    v20 = topicCopy;
+    v21 = 2112;
+    v22 = identifierCopy;
+    v23 = 2112;
+    v24 = v12;
+    _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] received %@ push token %@ for %@:%@%@", &v15, 0x34u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
@@ -2512,7 +2561,7 @@ uint64_t __54__BRCContainerScheduler__updatePushTopicsRegistration__block_invoke
 
 - (void)_connection:(id)_connection didReceiveIncomingMessage:(id)message
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   _connectionCopy = _connection;
   messageCopy = message;
   selfCopy = self;
@@ -2521,17 +2570,17 @@ uint64_t __54__BRCContainerScheduler__updatePushTopicsRegistration__block_invoke
     [BRCContainerScheduler _connection:didReceiveIncomingMessage:];
   }
 
-  v83 = os_transaction_create();
+  v82 = os_transaction_create();
   session = self->_session;
-  v86 = messageCopy;
-  v84 = session;
+  v85 = messageCopy;
+  v83 = session;
   v8 = [@"com.apple.icloud-container." stringByAppendingString:*MEMORY[0x277CFACF8]];
-  topic = [v86 topic];
+  topic = [v85 topic];
   LOBYTE(session) = [topic hasPrefix:v8];
 
   if (session)
   {
-    userInfo = [v86 userInfo];
+    userInfo = [v85 userInfo];
     v11 = [userInfo objectForKeyedSubscript:@"ck"];
 
     objc_opt_class();
@@ -2572,19 +2621,19 @@ uint64_t __54__BRCContainerScheduler__updatePushTopicsRegistration__block_invoke
       v23 = brc_default_log();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
-        v80 = [v12 objectForKeyedSubscript:@"met"];
-        v81 = @"fet";
+        v79 = [v12 objectForKeyedSubscript:@"met"];
+        v80 = @"fet";
         *buf = 138412802;
-        if (v80)
+        if (v79)
         {
-          v81 = @"met";
+          v80 = @"met";
         }
 
-        *&buf[4] = v81;
+        *&buf[4] = v80;
         *&buf[12] = 2112;
         *&buf[14] = v11;
         *&buf[22] = 2112;
-        v101 = v30;
+        v100 = v30;
         _os_log_fault_impl(&dword_223E7A000, v23, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid push payload[%@] %@%@", buf, 0x20u);
       }
 
@@ -2658,7 +2707,7 @@ uint64_t __54__BRCContainerScheduler__updatePushTopicsRegistration__block_invoke
           break;
       }
 
-      cachedCurrentUserRecordName = [(BRCAccountSession *)v84 cachedCurrentUserRecordName];
+      cachedCurrentUserRecordName = [(BRCAccountSession *)v83 cachedCurrentUserRecordName];
       if (cachedCurrentUserRecordName && [v22 isEqualToString:cachedCurrentUserRecordName])
       {
         v28 = *MEMORY[0x277CBBF28];
@@ -2701,7 +2750,7 @@ LABEL_35:
   v12 = brc_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
   {
-    topic2 = [v86 topic];
+    topic2 = [v85 topic];
     v62 = topic2;
     uTF8String = [topic2 UTF8String];
     v64 = v8;
@@ -2710,7 +2759,7 @@ LABEL_35:
     *&buf[12] = 2080;
     *&buf[14] = [v8 UTF8String];
     *&buf[22] = 2112;
-    v101 = v11;
+    v100 = v11;
     _os_log_fault_impl(&dword_223E7A000, v12, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid push topic '%s' (expected prefix '%s')%@", buf, 0x20u);
   }
 
@@ -2723,16 +2772,16 @@ LABEL_36:
   v32 = v17;
   if (v18)
   {
-    memset(v93, 0, sizeof(v93));
-    __brc_create_section(0, "[BRCContainerScheduler _connection:didReceiveIncomingMessage:]", 1911, 0, v93);
+    memset(v92, 0, sizeof(v92));
+    __brc_create_section(0, "[BRCContainerScheduler _connection:didReceiveIncomingMessage:]", 1911, 0, v92);
     v33 = brc_bread_crumbs();
     v34 = brc_default_log();
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
-      v54 = v93[0];
-      topic3 = [v86 topic];
+      v54 = v92[0];
+      topic3 = [v85 topic];
       publicToken = [_connectionCopy publicToken];
-      priority = [v86 priority];
+      priority = [v85 priority];
       v58 = +[BRCSystemResourcesManager manager];
       isSystemInDarkWake = [v58 isSystemInDarkWake];
       v60 = "NO";
@@ -2746,17 +2795,17 @@ LABEL_36:
 
       *&buf[14] = v32;
       *&buf[22] = 2112;
-      v101 = topic3;
-      *v102 = 2112;
-      *&v102[2] = v18;
-      *&v102[10] = 2112;
-      *&v102[12] = publicToken;
-      v103 = 2048;
-      v104 = priority;
-      v105 = 2080;
-      v106 = v60;
-      v107 = 2112;
-      v108 = v33;
+      v100 = topic3;
+      *v101 = 2112;
+      *&v101[2] = v18;
+      *&v101[10] = 2112;
+      *&v101[12] = publicToken;
+      v102 = 2048;
+      v103 = priority;
+      v104 = 2080;
+      v105 = v60;
+      v106 = 2112;
+      v107 = v33;
       _os_log_debug_impl(&dword_223E7A000, v34, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx received a push in the %@ database for topic:'%@' payload:%@ token:%@ priority:%ld DarkWake:%s%@", buf, 0x52u);
     }
 
@@ -2819,9 +2868,9 @@ LABEL_36:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v101 = __Block_byref_object_copy__18;
-    *v102 = __Block_byref_object_dispose__18;
-    *&v102[8] = [(BRCAccountSession *)selfCopy->_session clientZoneByMangledID:v31];
+    v100 = __Block_byref_object_copy__18;
+    *v101 = __Block_byref_object_dispose__18;
+    *&v101[8] = [(BRCAccountSession *)selfCopy->_session clientZoneByMangledID:v31];
     v50 = [(BRCAccountSession *)selfCopy->_session appLibraryByMangledID:v31];
     v51 = v50;
     if (*(*&buf[8] + 40))
@@ -2830,11 +2879,11 @@ LABEL_36:
       v53 = brc_default_log();
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        *v94 = 138412546;
-        v95 = v31;
-        v96 = 2112;
-        v97 = v52;
-        _os_log_impl(&dword_223E7A000, v53, OS_LOG_TYPE_DEFAULT, "[NOTICE] received a push for client zone %@%@", v94, 0x16u);
+        *v93 = 138412546;
+        v94 = v31;
+        v95 = 2112;
+        v96 = v52;
+        _os_log_impl(&dword_223E7A000, v53, OS_LOG_TYPE_DEFAULT, "[NOTICE] received a push for client zone %@%@", v93, 0x16u);
       }
     }
 
@@ -2850,13 +2899,13 @@ LABEL_36:
       {
         defaultClientZone2 = [v51 defaultClientZone];
         mangledID = [defaultClientZone2 mangledID];
-        *v94 = 138412802;
-        v95 = v31;
-        v96 = 2112;
-        v97 = mangledID;
-        v98 = 2112;
-        v99 = v52;
-        _os_log_impl(&dword_223E7A000, v53, OS_LOG_TYPE_DEFAULT, "[NOTICE] received a push for app library %@ -> zone %@%@", v94, 0x20u);
+        *v93 = 138412802;
+        v94 = v31;
+        v95 = 2112;
+        v96 = mangledID;
+        v97 = 2112;
+        v98 = v52;
+        _os_log_impl(&dword_223E7A000, v53, OS_LOG_TYPE_DEFAULT, "[NOTICE] received a push for app library %@ -> zone %@%@", v93, 0x20u);
       }
     }
 
@@ -2868,11 +2917,11 @@ LABEL_36:
         v71 = brc_default_log();
         if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
         {
-          *v94 = 138412546;
-          v95 = v31;
-          v96 = 2112;
-          v97 = v70;
-          _os_log_impl(&dword_223E7A000, v71, OS_LOG_TYPE_DEFAULT, "[NOTICE] receiving a push for an unknown ID shared zone %@, creating the zone%@", v94, 0x16u);
+          *v93 = 138412546;
+          v94 = v31;
+          v95 = 2112;
+          v96 = v70;
+          _os_log_impl(&dword_223E7A000, v71, OS_LOG_TYPE_DEFAULT, "[NOTICE] receiving a push for an unknown ID shared zone %@, creating the zone%@", v93, 0x16u);
         }
 
         v72 = [(BRCAccountSession *)selfCopy->_session getOrCreateSharedZones:v31];
@@ -2892,11 +2941,11 @@ LABEL_36:
       v53 = brc_default_log();
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        *v94 = 138412546;
-        v95 = v31;
-        v96 = 2112;
-        v97 = v52;
-        _os_log_impl(&dword_223E7A000, v53, OS_LOG_TYPE_DEFAULT, "[NOTICE] receiving a push for an unknown ID %@ -> com.apple.CloudDocs%@", v94, 0x16u);
+        *v93 = 138412546;
+        v94 = v31;
+        v95 = 2112;
+        v96 = v52;
+        _os_log_impl(&dword_223E7A000, v53, OS_LOG_TYPE_DEFAULT, "[NOTICE] receiving a push for an unknown ID %@ -> com.apple.CloudDocs%@", v93, 0x16u);
       }
     }
 
@@ -2906,17 +2955,17 @@ LABEL_74:
     block[1] = 3221225472;
     block[2] = __63__BRCContainerScheduler__connection_didReceiveIncomingMessage___block_invoke;
     block[3] = &unk_2785025F8;
-    v92 = buf;
-    v88 = br_syncDownPushTriggered;
-    v89 = v31;
-    v90 = selfCopy;
-    v91 = v83;
+    v91 = buf;
+    v87 = br_syncDownPushTriggered;
+    v88 = v31;
+    v89 = selfCopy;
+    v90 = v82;
     dispatch_async(workloop, block);
 
     _Block_object_dispose(buf, 8);
 LABEL_75:
 
-    __brc_leave_section(v93);
+    __brc_leave_section(v92);
     goto LABEL_76;
   }
 
@@ -2924,38 +2973,37 @@ LABEL_75:
   v41 = brc_default_log();
   if (os_log_type_enabled(v41, 0x90u))
   {
-    [(BRCContainerScheduler *)v86 _connection:v40 didReceiveIncomingMessage:v41];
+    [(BRCContainerScheduler *)v85 _connection:v40 didReceiveIncomingMessage:v41];
   }
 
 LABEL_76:
-  v79 = *MEMORY[0x277D85DE8];
 }
 
 void __63__BRCContainerScheduler__connection_didReceiveIncomingMessage___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 64);
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = a1 + 64;
   if (*(*(*(a1 + 64) + 8) + 40))
   {
-    memset(v16, 0, sizeof(v16));
-    __brc_create_section(0, "[BRCContainerScheduler _connection:didReceiveIncomingMessage:]_block_invoke", 1957, 0, v16);
+    memset(v15, 0, sizeof(v15));
+    __brc_create_section(0, "[BRCContainerScheduler _connection:didReceiveIncomingMessage:]_block_invoke", 1957, 0, v15);
     v3 = brc_bread_crumbs();
     v4 = brc_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v15 = *(*(*v2 + 8) + 40);
+      v14 = *(*(*v2 + 8) + 40);
       *buf = 134218498;
-      v18 = v16[0];
-      v19 = 2112;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v3;
+      v17 = v15[0];
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v3;
       _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx scheduling sync down for client zone %@ because of a push%@", buf, 0x20u);
     }
 
     [*(*(*v2 + 8) + 40) clearStateBits:0x200000];
     [*(*(*(a1 + 64) + 8) + 40) scheduleSyncDownWithGroup:*(a1 + 32)];
-    __brc_leave_section(v16);
+    __brc_leave_section(v15);
   }
 
   else
@@ -2965,7 +3013,7 @@ void __63__BRCContainerScheduler__connection_didReceiveIncomingMessage___block_i
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] no zone found, dropping the push%@", buf, 0xCu);
     }
   }
@@ -2990,14 +3038,12 @@ void __63__BRCContainerScheduler__connection_didReceiveIncomingMessage___block_i
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        __63__BRCContainerScheduler__connection_didReceiveIncomingMessage___block_invoke_cold_1(v2);
+        __63__BRCContainerScheduler__connection_didReceiveIncomingMessage___block_invoke_cold_1();
       }
 
       [*(*(*(a1 + 64) + 8) + 40) scheduleSyncDownWithGroup:*(a1 + 32)];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
@@ -3066,7 +3112,7 @@ void __59__BRCContainerScheduler_notifyAfterNextZoneHealthSyncDown___block_invok
 
 - (void)finishedHealthSyncDownCallback:(unint64_t)callback error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
@@ -3074,308 +3120,203 @@ void __59__BRCContainerScheduler_notifyAfterNextZoneHealthSyncDown___block_invok
   {
     *buf = 134218498;
     callbackCopy = callback;
-    v14 = 2112;
-    v15 = errorCopy;
-    v16 = 2112;
-    v17 = v7;
+    v13 = 2112;
+    v14 = errorCopy;
+    v15 = 2112;
+    v16 = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Completed zone health sync requestID:%lld error:%@%@", buf, 0x20u);
   }
 
   if (!errorCopy)
   {
     session = self->_session;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __62__BRCContainerScheduler_finishedHealthSyncDownCallback_error___block_invoke;
-    v11[3] = &__block_descriptor_40_e30_B16__0__BRCPrivateClientZone_8l;
-    v11[4] = callback;
-    [(BRCAccountSession *)session enumeratePrivateClientZones:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __62__BRCContainerScheduler_finishedHealthSyncDownCallback_error___block_invoke;
+    v10[3] = &__block_descriptor_40_e30_B16__0__BRCPrivateClientZone_8l;
+    v10[4] = callback;
+    [(BRCAccountSession *)session enumeratePrivateClientZones:v10];
     self->_zoneHealthSyncState &= ~2u;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedUpdatedZoneHealthCallback:(id)callback requestID:(unint64_t)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = [callbackCopy descriptionWithContext:0];
-    v11 = 138412802;
-    v12 = v10;
-    v13 = 2048;
+    v9 = [callbackCopy descriptionWithContext:0];
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 2048;
     dCopy = d;
-    v15 = 2112;
-    v16 = v7;
-    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Updated zone health sync token:%@ requestID:%lld%@", &v11, 0x20u);
+    v14 = 2112;
+    v15 = v7;
+    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Updated zone health sync token:%@ requestID:%lld%@", &v10, 0x20u);
   }
 
   [(BRCZoneHealthSyncPersistedState *)self->_zoneHealthPersistedState updateWithServerChangeToken:callbackCopy requestID:d];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithAccountSession:pushWorkloop:.cold.1()
+void __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Push notification source created in a disabled state%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__BRCContainerScheduler_initWithAccountSession_pushWorkloop___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] Sync: no global budget anymore: %@%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Sync: no global budget anymore: %@%@");
 }
 
-void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_1(uint64_t *a1)
+void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx cancelling containerMetadataSyncSource...%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx cancelling containerMetadataSyncSource...%@");
 }
 
-void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_2(uint64_t *a1)
+void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx cancelling sharedDatabaseSyncSource%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx cancelling sharedDatabaseSyncSource%@");
 }
 
-void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_3(uint64_t *a1)
+void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx cancelling zoneHealthSyncSource%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx cancelling zoneHealthSyncSource%@");
 }
 
-void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_4(uint64_t *a1)
+void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx cancelling migrateZonePCSSource%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx cancelling migrateZonePCSSource%@");
 }
 
-void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_5(uint64_t *a1)
+void __40__BRCContainerScheduler_closeContainers__block_invoke_cold_5()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx cancelling sideCarSyncSource%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx cancelling sideCarSyncSource%@");
 }
 
-void __40__BRCContainerScheduler_closeContainers__block_invoke_38_cold_1(uint64_t *a1)
+void __40__BRCContainerScheduler_closeContainers__block_invoke_38_cold_1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx cancelling periodicSyncOperation%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx cancelling periodicSyncOperation%@");
 }
 
 void __40__BRCContainerScheduler_closeContainers__block_invoke_39_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] unscheduling client zone %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)schedulePeriodicSyncInGroup:(uint64_t *)a1 completion:.cold.1(uint64_t *a1)
+- (void)schedulePeriodicSyncInGroup:completion:.cold.1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx Considering containers needing forced sync down%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Considering containers needing forced sync down%@");
 }
 
 void __64__BRCContainerScheduler_schedulePeriodicSyncInGroup_completion___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-- (void)didInitialSyncDownForClientZone:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)didInitialSyncDownForClientZone:.cold.1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx just synced down the default container%@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __71__BRCContainerScheduler_scheduleSyncDownForContainerMetadataWithGroup___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] marking container-metadata needs-sync-down%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __70__BRCContainerScheduler_scheduleSyncDownForSharedDatabaseImmediately___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] scheduling sync for sharedb in %llus%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __64__BRCContainerScheduler_scheduleSyncDownForZoneHealthWithGroup___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] scheduling sync for zone-health%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__BRCContainerScheduler_scheduleSyncDownForSideCarWithGroup___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] scheduling sync for side-car%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__BRCContainerScheduler_redoZonePCSPreperation__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] scheduling sync for zone-pcs%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __70__BRCContainerScheduler_didChangeSyncStatusForZoneHealthForContainer___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] marking zone-health needs-sync-up%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59__BRCContainerScheduler__syncScheduleForContainersMetadata__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] container-metadata still have things to sync up%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx just synced down the default container%@");
 }
 
 - (void)syncContextDidBecomeForeground:.cold.4()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:didReceivePublicToken:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] received public push token %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connection:didReceiveIncomingMessage:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !_isInSyncBubble%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !_isInSyncBubble%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connection:didReceiveIncomingMessage:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_11_1(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connection:didReceiveIncomingMessage:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_11_1(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connection:didReceiveIncomingMessage:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_11_1(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connection:didReceiveIncomingMessage:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_11_1(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connection:(NSObject *)a3 didReceiveIncomingMessage:.cold.6(void *a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [a1 topic];
   v7 = [a1 userInfo];
-  v9 = 138412802;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2112;
-  v14 = a2;
-  _os_log_error_impl(&dword_223E7A000, a3, 0x90u, "[ERROR] unable to parse push for topic:'%@' payload:%@%@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2112;
+  v13 = a2;
+  _os_log_error_impl(&dword_223E7A000, a3, 0x90u, "[ERROR] unable to parse push for topic:'%@' payload:%@%@", &v8, 0x20u);
 }
 
-void __63__BRCContainerScheduler__connection_didReceiveIncomingMessage___block_invoke_cold_1(uint64_t *a1)
+void __63__BRCContainerScheduler__connection_didReceiveIncomingMessage___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
-  v2 = *(*(v1 + 8) + 40);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v3, v4, "[DEBUG] Also scheduling a sync down on the private zone %@%@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __62__BRCContainerScheduler_connection_didReceiveIncomingMessage___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: dropping push notification because we can't adopt persona%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Also scheduling a sync down on the private zone %@%@");
 }
 
 @end

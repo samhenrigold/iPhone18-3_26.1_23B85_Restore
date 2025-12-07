@@ -1,4 +1,5 @@
 @interface CADCompoundFilter
+- (BOOL)applicableToEntityType:(int)type;
 - (BOOL)validate;
 - (CADCompoundFilter)initWithCoder:(id)coder;
 - (CADCompoundFilter)initWithFilters:(id)filters operation:(int64_t)operation;
@@ -33,61 +34,103 @@
 
 - (BOOL)validate
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([(NSArray *)self->_filters count])
+  v15 = *MEMORY[0x277D85DE8];
+  if (![(NSArray *)self->_filters count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v3 = self->_filters;
-    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v4)
+    return 0;
+  }
+
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = self->_filters;
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    while (2)
     {
-      v5 = v4;
-      v6 = *v12;
-      while (2)
+      for (i = 0; i != v5; ++i)
       {
-        for (i = 0; i != v5; ++i)
+        if (*v11 != v6)
         {
-          if (*v12 != v6)
-          {
-            objc_enumerationMutation(v3);
-          }
-
-          if (![*(*(&v11 + 1) + 8 * i) validate])
-          {
-            v8 = 0;
-            goto LABEL_12;
-          }
+          objc_enumerationMutation(v3);
         }
 
-        v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-        if (v5)
+        if (![*(*(&v10 + 1) + 8 * i) validate])
         {
-          continue;
+          v8 = 0;
+          goto LABEL_12;
         }
-
-        break;
       }
+
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v8 = 1;
+  v8 = 1;
 LABEL_12:
-  }
 
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
+}
+
+- (BOOL)applicableToEntityType:(int)type
+{
+  v3 = *&type;
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = self->_filters;
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v12;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v12 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        if (![*(*(&v11 + 1) + 8 * i) applicableToEntityType:{v3, v11}])
+        {
+          v9 = 0;
+          goto LABEL_11;
+        }
+      }
+
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v9 = 1;
+LABEL_11:
+
+  return v9;
 }
 
 - (id)extendWhereClause:(id)clause usingOperation:(int64_t)operation withValues:(id)values andTypes:(id)types
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   clauseCopy = clause;
   valuesCopy = values;
   typesCopy = types;
@@ -99,16 +142,16 @@ LABEL_12:
   v14 = _CADPropertySearchPredicateExtendWhereClause(clauseCopy, operation, @"(");
 
   v15 = self->_operation != 0;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v16 = self->_filters;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     v20 = 2;
     do
     {
@@ -116,12 +159,12 @@ LABEL_12:
       v22 = v14;
       do
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v14 = [*(*(&v26 + 1) + 8 * v21) extendWhereClause:v22 usingOperation:v20 withValues:valuesCopy andTypes:{typesCopy, v26}];
+        v14 = [*(*(&v25 + 1) + 8 * v21) extendWhereClause:v22 usingOperation:v20 withValues:valuesCopy andTypes:{typesCopy, v25}];
 
         ++v21;
         v20 = v15;
@@ -129,7 +172,7 @@ LABEL_12:
       }
 
       while (v18 != v21);
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
       v20 = v15;
     }
 
@@ -138,40 +181,27 @@ LABEL_12:
 
   v23 = _CADPropertySearchPredicateExtendWhereClause(v14, 2, @""));
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (CADCompoundFilter)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11.receiver = self;
-  v11.super_class = CADCompoundFilter;
-  v5 = [(CADFilter *)&v11 initWithCoder:coderCopy];
-  if (!v5)
+  v13.receiver = self;
+  v13.super_class = CADCompoundFilter;
+  v5 = [(CADFilter *)&v13 initWithCoder:coderCopy];
+  v7 = v5;
+  if (v5 && (_CADPropertySearchPredicateGetAllowedFilterTypes(v5, v6), v8 = objc_claimAutoreleasedReturnValue(), [coderCopy decodeObjectOfClasses:v8 forKey:@"filters"], v9 = objc_claimAutoreleasedReturnValue(), filters = v7->_filters, v7->_filters = v9, filters, v8, v7->_operation = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"operation"), !-[CADCompoundFilter validate](v7, "validate")))
   {
-    goto LABEL_3;
-  }
-
-  v6 = _CADPropertySearchPredicateGetAllowedFilterTypes();
-  v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"filters"];
-  filters = v5->_filters;
-  v5->_filters = v7;
-
-  v5->_operation = [coderCopy decodeIntegerForKey:@"operation"];
-  if (![(CADCompoundFilter *)v5 validate])
-  {
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
-LABEL_3:
-    v9 = v5;
+    v11 = v7;
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder

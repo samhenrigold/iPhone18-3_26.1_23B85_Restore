@@ -3,31 +3,30 @@
 
 @implementation RemoveFromPlayQueue
 
-void __papc_RemoveFromPlayQueue_block_invoke(uint64_t a1)
+void __papc_RemoveFromPlayQueue_block_invoke(void *a1)
 {
-  FigReadWriteLockLockForRead();
-  if (*(*(a1 + 32) + 24))
+  v2 = FigReadWriteLockLockForRead();
+  if (*(a1[4] + 24))
   {
-    __papc_RemoveFromPlayQueue_block_invoke_cold_1();
+    __papc_RemoveFromPlayQueue_block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9, v20, cf, SHIDWORD(cf), v22);
     goto LABEL_13;
   }
 
-  papc_checkStartStopAirPlay(*(a1 + 40), NAN);
-  if (*(*(a1 + 32) + 72) != 1)
+  papc_checkStartStopAirPlay(a1[5], NAN);
+  if (*(a1[4] + 72) != 1)
   {
     goto LABEL_13;
   }
 
-  v2 = *(a1 + 48);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *MEMORY[0x1E695E480];
+  v11 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   cf = 0;
   if (*(DerivedStorage + 72) == 1)
   {
-    v7 = *(DerivedStorage + 104);
-    v6 = (DerivedStorage + 104);
-    if (!v7 || (FigBaseObject = FigPlaybackItemGetFigBaseObject(v2), (v9 = *(*(CMBaseObjectGetVTable() + 8) + 48)) == 0) || v9(FigBaseObject, 0x1F0B3D158, v4, &cf))
+    v14 = *(DerivedStorage + 104);
+    v13 = (DerivedStorage + 104);
+    if (!v14 || (FigPlaybackItemGetFigBaseObject(), v16 = v15, (v17 = *(*(CMBaseObjectGetVTable() + 8) + 48)) == 0) || v17(v16, 0x1F0B3D158, v11, &cf))
     {
 LABEL_9:
       if (cf)
@@ -40,7 +39,7 @@ LABEL_9:
 
     if (cf)
     {
-      __papc_RemoveFromPlayQueue_block_invoke_cold_2(Mutable, cf, v6);
+      __papc_RemoveFromPlayQueue_block_invoke_cold_2(Mutable, cf, v13);
       goto LABEL_9;
     }
   }
@@ -53,16 +52,16 @@ LABEL_11:
 
 LABEL_13:
   FigReadWriteLockUnlockForRead();
-  v10 = *(a1 + 48);
-  if (v10)
+  v18 = a1[6];
+  if (v18)
   {
-    CFRelease(v10);
+    CFRelease(v18);
   }
 
-  v11 = *(a1 + 40);
-  if (v11)
+  v19 = a1[5];
+  if (v19)
   {
-    CFRelease(v11);
+    CFRelease(v19);
   }
 }
 

@@ -153,15 +153,15 @@ LABEL_13:
 {
   connectionCopy = connection;
   v5 = [connectionCopy valueForEntitlement:@"com.apple.druid"];
-  v6 = [v5 isEqual:MEMORY[0x1E695E118]];
+  isEqual = objc_msgSend_isEqual_(v5);
 
-  if (v6)
+  if (isEqual)
   {
     [(UIDraggingSystemMonitor *)self xpcQueue_acceptNewConnection:connectionCopy];
     [connectionCopy resume];
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (void)xpcQueue_acceptNewConnection:(id)connection

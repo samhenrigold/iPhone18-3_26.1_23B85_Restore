@@ -6,7 +6,6 @@
 - (double)_frequencyDelta;
 - (id)_optionsData;
 - (id)description;
-- (void)_optionsData;
 - (void)encodeWithCoder:(id)coder;
 - (void)recalculateActionDateToAccountForDelay;
 - (void)setForceDelivery:(BOOL)delivery;
@@ -154,16 +153,14 @@
     self->_options = v7;
   }
 
-  v9 = _FLLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _FLLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = self->_options;
+    v11 = self->_options;
     v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_22E696000, v9, OS_LOG_TYPE_DEFAULT, "Updated options: %@", &v12, 0xCu);
+    v13 = v11;
+    _os_log_impl(&dword_22E696000, v10, OS_LOG_TYPE_DEFAULT, "Updated options: %@", &v12, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_optionsData
@@ -175,14 +172,14 @@
     v4 = MEMORY[0x277CCAC58];
     options2 = [(FLFollowUpNotification *)self options];
     allObjects = [options2 allObjects];
-    v10 = 0;
-    options = [v4 dataWithPropertyList:allObjects format:200 options:0 error:&v10];
-    v7 = v10;
+    v11 = 0;
+    options = [v4 dataWithPropertyList:allObjects format:200 options:0 error:&v11];
+    v7 = v11;
 
     if (!options)
     {
-      v8 = _FLLogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _FLLogSystem(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [FLFollowUpNotification _optionsData];
       }
@@ -196,9 +193,9 @@
 {
   if (data)
   {
-    v9 = 0;
-    v4 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:&v9];
-    v5 = v9;
+    v10 = 0;
+    v4 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:&v10];
+    v5 = v10;
     v6 = [MEMORY[0x277CBEB98] setWithArray:v4];
     [(FLFollowUpNotification *)self setOptions:v6];
 
@@ -206,8 +203,8 @@
 
     if (!options)
     {
-      v8 = _FLLogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _FLLogSystem(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [FLFollowUpNotification set_optionsData:];
       }
@@ -258,19 +255,17 @@
         previousNotificationActionDate = self->_previousNotificationActionDate;
         self->_previousNotificationActionDate = frequency;
 
-        v7 = _FLLogSystem();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = _FLLogSystem(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = self->_previousNotificationActionDate;
+          v9 = self->_previousNotificationActionDate;
           v10 = 138412290;
-          v11 = v8;
-          _os_log_impl(&dword_22E696000, v7, OS_LOG_TYPE_DEFAULT, "Adjusted the target notification eligibility date to %@", &v10, 0xCu);
+          v11 = v9;
+          _os_log_impl(&dword_22E696000, v8, OS_LOG_TYPE_DEFAULT, "Adjusted the target notification eligibility date to %@", &v10, 0xCu);
         }
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -283,22 +278,6 @@
   v6 = [v4 stringWithFormat:@"<%@: %p - title: %@ subtitle: %@ activate: %@ clear: %@ dismiss: %@ previous: %@ created: %@ %@ options: %@>", v5, self, self->_title, self->_subtitleText, self->_activateAction, self->_clearAction, self->_dismissAction, self->_previousNotificationActionDate, self->_creationDate, v3, self->_options];
 
   return v6;
-}
-
-- (void)_optionsData
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_22E696000, v0, v1, "%@: Failed to serialize options for notification %@ with error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)set_optionsData:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_22E696000, v0, v1, "%@: Failed to deserialize options for notification %@ with error %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

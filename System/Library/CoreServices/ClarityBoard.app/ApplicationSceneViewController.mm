@@ -54,8 +54,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100055C60(appear);
+  sub_100055C60(appearCopy);
 }
 
 - (void)scene:(id)scene didUpdateSettings:(id)settings

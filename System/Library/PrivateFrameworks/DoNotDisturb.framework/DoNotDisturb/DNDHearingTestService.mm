@@ -1,5 +1,6 @@
 @interface DNDHearingTestService
 + (id)serviceForClientIdentifier:(id)identifier;
+- (BOOL)setHearingTestIsActive:(BOOL)active error:(id *)error;
 - (id)_initWithClientIdentifier:(id)identifier;
 @end
 
@@ -70,6 +71,97 @@ void __52__DNDHearingTestService_serviceForClientIdentifier___block_invoke_2(uin
 
     [v8 setObject:v10 forKey:v9];
   }
+}
+
+- (BOOL)setHearingTestIsActive:(BOOL)active error:(id *)error
+{
+  activeCopy = active;
+  v34 = *MEMORY[0x277D85DE8];
+  v7 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDHearingTestService.setHearingTestIsActive:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v8 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__6;
+  v21 = __Block_byref_object_dispose__6;
+  v22 = 0;
+  v9 = +[DNDRemoteServiceConnection sharedInstance];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:activeCopy];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __54__DNDHearingTestService_setHearingTestIsActive_error___block_invoke;
+  v16[3] = &unk_27843A0A8;
+  v16[4] = &v23;
+  v16[5] = &v17;
+  [v9 setHearingTestIsActive:v10 withRequestDetails:v8 completionHandler:v16];
+
+  v11 = DNDLogHearingTest;
+  if (*(v24 + 24) == 1)
+  {
+    if (os_log_type_enabled(DNDLogHearingTest, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      v29 = v8;
+      v30 = 1024;
+      LODWORD(v31) = activeCopy;
+      _os_log_impl(&dword_22002F000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set hearing test state; isHearingTestActive=%d", buf, 0x12u);
+      if (!error)
+      {
+        goto LABEL_9;
+      }
+
+      goto LABEL_7;
+    }
+
+LABEL_6:
+    if (!error)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_7;
+  }
+
+  if (!os_log_type_enabled(DNDLogHearingTest, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_6;
+  }
+
+  v15 = v18[5];
+  *buf = 138543874;
+  v29 = v8;
+  v30 = 2114;
+  v31 = v15;
+  v32 = 1024;
+  v33 = activeCopy;
+  _os_log_error_impl(&dword_22002F000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] Error when setting hearing test state; error='%{public}@' isHearingTestActive=%d", buf, 0x1Cu);
+  if (!error)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_7:
+  v12 = v18[5];
+  if (v12)
+  {
+    *error = v12;
+  }
+
+LABEL_9:
+  v13 = *(v24 + 24);
+  _Block_object_dispose(&v17, 8);
+
+  _Block_object_dispose(&v23, 8);
+  os_activity_scope_leave(&state);
+
+  return v13 & 1;
 }
 
 void __54__DNDHearingTestService_setHearingTestIsActive_error___block_invoke(uint64_t a1, void *a2, void *a3)

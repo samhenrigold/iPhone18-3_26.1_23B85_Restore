@@ -18,7 +18,7 @@
 
 void __36__COFeatureStatus_isFastFoldEnabled__block_invoke()
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   isFastFoldEnabled_enabled = _os_feature_enabled_impl();
   v0 = +[CODefaults coordinationBundleID];
   v1 = [CODefaults userDefaultsForIdentifer:v0];
@@ -41,12 +41,12 @@ void __36__COFeatureStatus_isFastFoldEnabled__block_invoke()
     v5 = COLogForCategory(8);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 67109632;
-      v11 = isFastFoldEnabled_enabled;
-      v12 = 1024;
-      v13 = _os_feature_enabled_impl();
-      v14 = 1024;
-      v15 = [v3 BOOLValue];
+      v9 = 67109632;
+      v10 = isFastFoldEnabled_enabled;
+      v11 = 1024;
+      v12 = _os_feature_enabled_impl();
+      v13 = 1024;
+      v14 = [v3 BOOLValue];
       v6 = "Fast fold feature status = %d. FF = %d, defaults = %d";
       v7 = v5;
       v8 = 20;
@@ -59,19 +59,17 @@ void __36__COFeatureStatus_isFastFoldEnabled__block_invoke()
     v5 = COLogForCategory(8);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 67109376;
-      v11 = isFastFoldEnabled_enabled;
-      v12 = 1024;
-      v13 = _os_feature_enabled_impl();
+      v9 = 67109376;
+      v10 = isFastFoldEnabled_enabled;
+      v11 = 1024;
+      v12 = _os_feature_enabled_impl();
       v6 = "Fast fold feature status = %d. FF = %d";
       v7 = v5;
       v8 = 14;
 LABEL_9:
-      _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isIPDiscoveryDiffingEnabled
@@ -86,7 +84,7 @@ LABEL_9:
 
 void __46__COFeatureStatus_isIPDiscoveryDiffingEnabled__block_invoke()
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   isIPDiscoveryDiffingEnabled_enabled = _os_feature_enabled_impl();
   v0 = +[CODefaults coordinationBundleID];
   v1 = [CODefaults userDefaultsForIdentifer:v0];
@@ -109,12 +107,12 @@ void __46__COFeatureStatus_isIPDiscoveryDiffingEnabled__block_invoke()
     v5 = COLogForCategory(8);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 67109632;
-      v11 = isIPDiscoveryDiffingEnabled_enabled;
-      v12 = 1024;
-      v13 = _os_feature_enabled_impl();
-      v14 = 1024;
-      v15 = [v3 BOOLValue];
+      v9 = 67109632;
+      v10 = isIPDiscoveryDiffingEnabled_enabled;
+      v11 = 1024;
+      v12 = _os_feature_enabled_impl();
+      v13 = 1024;
+      v14 = [v3 BOOLValue];
       v6 = "IP Diffing feature status = %d. FF = %d, defaults = %d";
       v7 = v5;
       v8 = 20;
@@ -127,19 +125,17 @@ void __46__COFeatureStatus_isIPDiscoveryDiffingEnabled__block_invoke()
     v5 = COLogForCategory(8);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 67109376;
-      v11 = isIPDiscoveryDiffingEnabled_enabled;
-      v12 = 1024;
-      v13 = _os_feature_enabled_impl();
+      v9 = 67109376;
+      v10 = isIPDiscoveryDiffingEnabled_enabled;
+      v11 = 1024;
+      v12 = _os_feature_enabled_impl();
       v6 = "IP Diffing feature status = %d. FF = %d";
       v7 = v5;
       v8 = 14;
 LABEL_9:
-      _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isDistributedTimersForHH1Enabled

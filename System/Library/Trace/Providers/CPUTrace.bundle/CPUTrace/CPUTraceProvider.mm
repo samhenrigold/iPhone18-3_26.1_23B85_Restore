@@ -35,7 +35,6 @@ LABEL_11:
       return;
     }
 
-    rec = self->_rec;
     if (!hwtrace_live_recording_pause())
     {
       goto LABEL_11;
@@ -131,6 +130,8 @@ LABEL_4:
   }
 
   hwtrace_live_recording_options_init();
+  v17 = 0;
+  v18 = 0;
   hwtrace_live_topology_systems();
   hwtrace_live_recording_options_set_session_policy();
   v6 = hwtrace_live_recording_init_with_options();
@@ -159,8 +160,8 @@ LABEL_9:
     {
       atomic_store(1u, &unk_C950);
       [(CPUTraceProviderConfiguration *)self->_config sizeLimit];
-      [objc_claimAutoreleasedReturnValue() unsignedLongLongValue];
-      sub_36E0();
+      v15 = ([objc_claimAutoreleasedReturnValue() unsignedLongLongValue] << 20);
+      sub_36E0(&v16.__t_, polling_callback, &self->_rec, &v15);
     }
   }
 
@@ -179,7 +180,6 @@ LABEL_9:
 {
   if (self->_state == 1)
   {
-    rec = self->_rec;
     if (!hwtrace_live_recording_start())
     {
       self->_state = 2;
@@ -187,23 +187,22 @@ LABEL_9:
     }
 
     logger = self->_logger;
-    v6 = @"Unable to start recording.";
+    v5 = @"Unable to start recording.";
   }
 
   else
   {
     logger = self->_logger;
-    v6 = @"CPUTrace not configured.";
+    v5 = @"CPUTrace not configured.";
   }
 
-  [(KTProviderLogger *)logger failWithReason:v6];
+  [(KTProviderLogger *)logger failWithReason:v5];
 }
 
 - (void)didStopTracingToFile:(ktrace_file *)file
 {
   if (self->_state == 3)
   {
-    rec = self->_rec;
     if (!hwtrace_live_recording_stop())
     {
       self->_state = 4;
@@ -211,16 +210,16 @@ LABEL_9:
     }
 
     logger = self->_logger;
-    v6 = @"Unable to stop recording.";
+    v5 = @"Unable to stop recording.";
   }
 
   else
   {
     logger = self->_logger;
-    v6 = @"CPUTrace not paused.";
+    v5 = @"CPUTrace not paused.";
   }
 
-  [(KTProviderLogger *)logger failWithReason:v6];
+  [(KTProviderLogger *)logger failWithReason:v5];
 }
 
 - (void)configurePostprocessingWithSession:(ktrace_session *)session
@@ -229,41 +228,38 @@ LABEL_9:
   {
     hwtrace_live_recording_postprocess_options_init();
     hwtrace_live_recording_postprocess_options_set_ktrace_session();
-    rec = self->_rec;
-    v5 = hwtrace_live_recording_postprocess();
+    v4 = hwtrace_live_recording_postprocess();
     hwtrace_live_recording_postprocess_options_deinit();
-    if (!v5)
+    if (!v4)
     {
       return;
     }
 
-    v6 = @"hwtrace_live_recording_postprocess failed.";
+    v5 = @"hwtrace_live_recording_postprocess failed.";
   }
 
   else
   {
-    v6 = @"CPUTrace not stopped.";
+    v5 = @"CPUTrace not stopped.";
   }
 
   logger = self->_logger;
 
-  [(KTProviderLogger *)logger failWithReason:v6];
+  [(KTProviderLogger *)logger failWithReason:v5];
 }
 
 - (void)postprocessingCompleteWithFile:(ktrace_file *)file
 {
   if (self->_state == 4)
   {
-    rec = self->_rec;
     if (hwtrace_live_recording_finalize_postprocessing())
     {
       [(KTProviderLogger *)self->_logger warnWithMessage:@"hwtrace_live_recording_finalize_postprocessing failed"];
     }
 
-    v6 = self->_rec;
-    v7 = hwtrace_recording_init_from_live_recording();
+    v5 = hwtrace_recording_init_from_live_recording();
     logger = self->_logger;
-    if (v7)
+    if (v5)
     {
       [(KTProviderLogger *)logger failWithReason:@"hwtrace_recording_init_from_live_recording failed"];
     }
@@ -299,9 +295,9 @@ LABEL_9:
         }
       }
 
-      v12 = hwtrace_recording_save();
+      v10 = hwtrace_recording_save();
       hwtrace_recording_save_options_deinit();
-      if (v12)
+      if (v10)
       {
         [(KTProviderLogger *)self->_logger failWithReason:@"Unable to save CPUTrace."];
       }
@@ -319,9 +315,9 @@ LABEL_9:
 
   else
   {
-    v9 = self->_logger;
+    v7 = self->_logger;
 
-    [(KTProviderLogger *)v9 failWithReason:@"CPUTrace not stopped."];
+    [(KTProviderLogger *)v7 failWithReason:@"CPUTrace not stopped."];
   }
 }
 
@@ -368,83 +364,79 @@ LABEL_5:
 - (void)iterateThreadCursorsForSystem:(hwtrace_system *)system
 {
   hwtrace_system_tasks();
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x4812000000;
-  v29 = sub_2FC8;
-  v30 = sub_2FEC;
-  v31 = "";
-  memset(v32, 0, sizeof(v32));
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x4812000000;
+  v25 = sub_2FC8;
+  v26 = sub_2FEC;
+  v27 = "";
+  memset(v28, 0, sizeof(v28));
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_3018;
   block[3] = &unk_85E8;
-  block[4] = &v26;
+  block[4] = &v22;
   dispatch_apply(0, 0, block);
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 1065353216;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 1065353216;
-  v3 = v27[6];
-  v4 = v27[7];
+  v20 = 1065353216;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 1065353216;
+  v3 = v23[6];
+  v4 = v23[7];
   if (v3 != v4)
   {
     v5 = v3 + 40;
     do
     {
-      v6 = *(v5 - 40);
       hwtrace_thread_task();
-      v18 = hwtrace_task_id();
-      v7 = v5 + 8;
-      sub_3E48(&v22, (v5 + 8));
-      v8 = sub_41D8(&v19, &v18);
-      if (v8)
+      v14 = hwtrace_task_id();
+      v6 = v5 + 8;
+      sub_3E48(&v18, (v5 + 8));
+      v7 = sub_41D8(&v15, &v14);
+      if (v7)
       {
-        sub_3E48(v8 + 3, (v5 - 32));
+        sub_3E48(v7 + 3, (v5 - 32));
       }
 
       else
       {
-        v16[0] = &v18;
-        v9 = sub_428C(&v19, &v18);
-        if ((v5 - 32) != v9 + 3)
+        v12[0] = &v14;
+        v8 = sub_428C(&v15, &v14, &std::piecewise_construct, v12);
+        if ((v5 - 32) != v8 + 3)
         {
-          *(v9 + 14) = *v5;
-          sub_4548(v9 + 3, *(v5 - 16), 0);
+          *(v8 + 14) = *v5;
+          sub_4548(v8 + 3, *(v5 - 16), 0);
         }
       }
 
       v5 += 88;
     }
 
-    while (v7 + 40 != v4);
-    for (i = v23; i; i = *i)
+    while (v6 + 40 != v4);
+    for (i = v19; i; i = *i)
     {
-      v11 = i[2];
       ats_configure_postprocessing_with_additional_address();
     }
   }
 
-  for (j = v20; j; j = *j)
+  for (j = v16; j; j = *j)
   {
-    v13 = *(j + 4);
-    sub_4B90(v16, (j + 3));
-    for (k = v17; k; k = *k)
+    sub_4B90(v12, (j + 3));
+    for (k = v13; k; k = *k)
     {
-      v15 = k[2];
       ats_configure_postprocessing_with_additional_address();
     }
 
-    sub_38FC(v16);
+    sub_38FC(v12);
   }
 
-  sub_3DC8(&v19);
-  sub_38FC(&v22);
-  _Block_object_dispose(&v26, 8);
-  *&v22 = v32;
-  sub_3130(&v22);
+  sub_3DC8(&v15);
+  sub_38FC(&v18);
+  _Block_object_dispose(&v22, 8);
+  *&v18 = v28;
+  sub_3130(&v18);
 }
 
 @end

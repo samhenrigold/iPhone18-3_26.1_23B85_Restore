@@ -39,12 +39,12 @@
         sub_10130EE10(v19, v17);
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d You should not add an observer for all notifications on the main thread because it's deadlock prone.", v20, v21, v22, v23, v24, v25, v26, "[NSNotificationCenter(CRLAdditions) crl_addObserverForName:object:queue:usingBlock:]");
-      v27 = [NSString stringWithUTF8String:"[NSNotificationCenter(CRLAdditions) crl_addObserverForName:object:queue:usingBlock:]"];
-      v28 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/NSNotificationCenter_CRLAdditions.m"];
-      [CRLAssertionHandler handleFailureInFunction:v27 file:v28 lineNumber:17 isFatal:1 description:"You should not add an observer for all notifications on the main thread because it's deadlock prone."];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d You should not add an observer for all notifications on the main thread because it's deadlock prone.", "[NSNotificationCenter(CRLAdditions) crl_addObserverForName:object:queue:usingBlock:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/NSNotificationCenter_CRLAdditions.m", 17);
+      v20 = [NSString stringWithUTF8String:"[NSNotificationCenter(CRLAdditions) crl_addObserverForName:object:queue:usingBlock:]"];
+      v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/NSNotificationCenter_CRLAdditions.m"];
+      [CRLAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:17 isFatal:1 description:"You should not add an observer for all notifications on the main thread because it's deadlock prone."];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v29, v30);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v22, v23);
       abort();
     }
   }

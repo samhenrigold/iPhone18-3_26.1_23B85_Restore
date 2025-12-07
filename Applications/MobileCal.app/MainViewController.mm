@@ -827,7 +827,7 @@ LABEL_6:
 
 - (BOOL)allowsOverriddenRightNavigationBarItems
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
   NSRequestConcreteImplementation();
   return 0;
@@ -835,7 +835,7 @@ LABEL_6:
 
 - (BOOL)allowsOverriddenToolbarItems
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
   NSRequestConcreteImplementation();
   return 0;
@@ -843,7 +843,7 @@ LABEL_6:
 
 - (void)showEvent:(id)event animated:(BOOL)animated showMode:(unint64_t)mode context:(id)context
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
 
   NSRequestConcreteImplementation();
@@ -851,7 +851,7 @@ LABEL_6:
 
 - (void)selectDate:(id)date animated:(BOOL)animated
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
 
   NSRequestConcreteImplementation();
@@ -859,7 +859,7 @@ LABEL_6:
 
 - (int64_t)intendedSizeClass
 {
-  sub_100026F48();
+  sub_100026F48(self);
   sub_1000475B0();
   NSRequestConcreteImplementation();
   return 0;

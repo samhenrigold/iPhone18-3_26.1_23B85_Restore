@@ -166,7 +166,7 @@
   {
     v32 = self->_backgroundImageName;
     backgroundImageName2 = [v6 backgroundImageName];
-    LODWORD(v32) = [(NSString *)v32 isEqualToString:backgroundImageName2];
+    LODWORD(v32) = objc_msgSend_isEqualToString_(v32);
 
     if (!v32)
     {
@@ -187,7 +187,7 @@ LABEL_20:
   {
     v38 = self->_foregroundImageName;
     foregroundImageName2 = [v6 foregroundImageName];
-    v34 = [(NSString *)v38 isEqualToString:foregroundImageName2];
+    v34 = objc_msgSend_isEqualToString_(v38);
   }
 
 LABEL_21:

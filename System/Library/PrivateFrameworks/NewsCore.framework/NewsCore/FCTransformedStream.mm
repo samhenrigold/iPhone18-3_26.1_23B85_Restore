@@ -35,20 +35,20 @@
 
 - (FCTransformedStream)initWithStream:(id)stream transformBlock:(id)block
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
   blockCopy = block;
   if (!streamCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "stream != nil"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "stream != nil"];
     *buf = 136315906;
-    v18 = "[FCTransformedStream initWithStream:transformBlock:]";
-    v19 = 2080;
-    v20 = "FCTransformedStream.m";
-    v21 = 1024;
-    v22 = 28;
-    v23 = 2114;
-    v24 = v14;
+    v17 = "[FCTransformedStream initWithStream:transformBlock:]";
+    v18 = 2080;
+    v19 = "FCTransformedStream.m";
+    v20 = 1024;
+    v21 = 28;
+    v22 = 2114;
+    v23 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (blockCopy)
@@ -64,22 +64,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "transformBlock != nil"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "transformBlock != nil"];
     *buf = 136315906;
-    v18 = "[FCTransformedStream initWithStream:transformBlock:]";
-    v19 = 2080;
-    v20 = "FCTransformedStream.m";
-    v21 = 1024;
-    v22 = 29;
-    v23 = 2114;
-    v24 = v15;
+    v17 = "[FCTransformedStream initWithStream:transformBlock:]";
+    v18 = 2080;
+    v19 = "FCTransformedStream.m";
+    v20 = 1024;
+    v21 = 29;
+    v22 = 2114;
+    v23 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v16.receiver = self;
-  v16.super_class = FCTransformedStream;
-  v9 = [(FCTransformedStream *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = FCTransformedStream;
+  v9 = [(FCTransformedStream *)&v15 init];
   if (v9)
   {
     v10 = _Block_copy(blockCopy);
@@ -89,7 +89,6 @@ LABEL_6:
     objc_storeStrong(&v9->_stream, stream);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

@@ -173,9 +173,11 @@
 
 - (void)assertCommCenter:(int)center with:(int)with
 {
+  v4 = *&with;
+  v5 = *&center;
   adaptee = [(CLTelephonyServiceAdapter *)self adaptee];
 
-  sub_10057E33C(adaptee, center, with);
+  sub_10057E33C(adaptee, v5, v4);
 }
 
 - (BOOL)syncgetUplinkFrequency:(float *)frequency andBandwidth:(float *)bandwidth
@@ -202,9 +204,10 @@
 
 - (void)fetchUmtsApnForInstance:(int)instance WithReply:(id)reply
 {
+  v5 = *&instance;
   v6 = [(CLTelephonyServiceAdapter *)self adaptee]+ 176;
 
-  sub_100913074(v6, instance, reply);
+  sub_100913074(v6, v5, reply);
 }
 
 - (void)fetchIratStreamingInfoWithReply:(id)reply
@@ -273,25 +276,23 @@
 
 - (BOOL)syncgetCopyServingOperator:(id *)operator
 {
-  __p[0] = 0;
-  __p[1] = 0;
-  v9 = 0;
-  v4 = sub_10057F934([(CLTelephonyServiceAdapter *)self adaptee], __p);
+  memset(&__p, 0, sizeof(__p));
+  v4 = sub_10057F934([(CLTelephonyServiceAdapter *)self adaptee], &__p);
   v5 = [NSString alloc];
-  if (v9 >= 0)
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v6 = __p;
+    p_p = &__p;
   }
 
   else
   {
-    v6 = __p[0];
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  *operator = [v5 initWithUTF8String:v6];
-  if (SHIBYTE(v9) < 0)
+  *operator = [v5 initWithUTF8String:p_p];
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   return v4;
@@ -306,25 +307,23 @@
 
 - (BOOL)syncgetCopyServingProvider:(id *)provider
 {
-  __p[0] = 0;
-  __p[1] = 0;
-  v9 = 0;
-  v4 = sub_10057F934([(CLTelephonyServiceAdapter *)self adaptee], __p);
+  memset(&__p, 0, sizeof(__p));
+  v4 = sub_10057F934([(CLTelephonyServiceAdapter *)self adaptee], &__p);
   v5 = [NSString alloc];
-  if (v9 >= 0)
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v6 = __p;
+    p_p = &__p;
   }
 
   else
   {
-    v6 = __p[0];
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  *provider = [v5 initWithUTF8String:v6];
-  if (SHIBYTE(v9) < 0)
+  *provider = [v5 initWithUTF8String:p_p];
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   return v4;
@@ -332,25 +331,23 @@
 
 - (BOOL)syncgetCopyServingProviderFromCarrierBundle:(id *)bundle
 {
-  __p[0] = 0;
-  __p[1] = 0;
-  v9 = 0;
-  v4 = sub_10057FCBC([(CLTelephonyServiceAdapter *)self adaptee], __p);
+  memset(&__p, 0, sizeof(__p));
+  v4 = sub_10057FCBC([(CLTelephonyServiceAdapter *)self adaptee], &__p);
   v5 = [NSString alloc];
-  if (v9 >= 0)
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v6 = __p;
+    p_p = &__p;
   }
 
   else
   {
-    v6 = __p[0];
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  *bundle = [v5 initWithUTF8String:v6];
-  if (SHIBYTE(v9) < 0)
+  *bundle = [v5 initWithUTF8String:p_p];
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   return v4;
@@ -367,7 +364,7 @@
 {
   adaptee = [(CLTelephonyServiceAdapter *)self adaptee];
 
-  return sub_10057FF4C(adaptee);
+  return sub_10057FF4C(adaptee, strength);
 }
 
 - (int)syncgetSignalStrengthForSim:(int)sim

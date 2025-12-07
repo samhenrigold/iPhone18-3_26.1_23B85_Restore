@@ -5,9 +5,10 @@
 
 uint64_t __35__CKShare_UI__ic_fallbackThumbnail__block_invoke()
 {
-  ic_fallbackThumbnail_thumbnail = [MEMORY[0x1E69DCAB8] ic_applicationIconImageWithSize:{128.0, 128.0}];
+  v0 = [MEMORY[0x1E69DCAB8] ic_applicationIconImageWithSize:{128.0, 128.0}];
+  ic_fallbackThumbnail_thumbnail = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 void __61__CKShare_UI__ic_updateThumbnailsForObject_share_completion___block_invoke(uint64_t a1, void *a2)

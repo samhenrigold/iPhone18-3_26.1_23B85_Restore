@@ -40,7 +40,7 @@
 
 + (id)pf_UUIDFromArbitraryString:()PosterFoundation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   uTF8String = [a3 UTF8String];
   v4 = strlen(uTF8String);
   CC_SHA256(uTF8String, v4, md);
@@ -59,8 +59,6 @@
   v13 = [v5 substringWithRange:{20, 12}];
   v14 = [v8 stringWithFormat:@"%@-%@-%@-%@-%@", v9, v10, v11, v12, v13];
   v15 = [v7 initWithUUIDString:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -72,7 +72,7 @@ uint64_t __45__HMDHAPAccessoryServerIPCache_timerDidFire___block_invoke(uint64_t
 
 - (void)_writeCache:(id)cache
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   dispatch_assert_queue_V2(self->_workQueue);
   v5 = objc_autoreleasePoolPush();
@@ -85,17 +85,17 @@ uint64_t __45__HMDHAPAccessoryServerIPCache_timerDidFire___block_invoke(uint64_t
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v9;
-      v23 = 2048;
-      v24 = [cacheCopy count];
+      v21 = v9;
+      v22 = 2048;
+      v23 = [cacheCopy count];
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Write %lu cached ip addresses", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     store = [(HMDHAPAccessoryServerIPCache *)selfCopy store];
-    v20 = 0;
-    v11 = [store writeDictionary:cacheCopy error:&v20];
-    v12 = v20;
+    v19 = 0;
+    v11 = [store writeDictionary:cacheCopy error:&v19];
+    v12 = v19;
 
     if ((v11 & 1) == 0)
     {
@@ -107,11 +107,11 @@ uint64_t __45__HMDHAPAccessoryServerIPCache_timerDidFire___block_invoke(uint64_t
         v16 = HMFGetLogIdentifier();
         v17 = [cacheCopy count];
         *buf = 138543874;
-        v22 = v16;
-        v23 = 2048;
-        v24 = v17;
-        v25 = 2112;
-        v26 = v12;
+        v21 = v16;
+        v22 = 2048;
+        v23 = v17;
+        v24 = 2112;
+        v25 = v12;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Error writing cache to storage (%lu addresses): %@", buf, 0x20u);
       }
 
@@ -125,24 +125,22 @@ uint64_t __45__HMDHAPAccessoryServerIPCache_timerDidFire___block_invoke(uint64_t
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v18;
+      v21 = v18;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@No need to write clean empty cache", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_readCache
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_workQueue);
   store = [(HMDHAPAccessoryServerIPCache *)self store];
-  v22 = 0;
-  v4 = [store dictionaryFromStoreWithError:&v22];
-  v5 = v22;
+  v21 = 0;
+  v4 = [store dictionaryFromStoreWithError:&v21];
+  v5 = v21;
 
   if (v4)
   {
@@ -154,9 +152,9 @@ uint64_t __45__HMDHAPAccessoryServerIPCache_timerDidFire___block_invoke(uint64_t
       v9 = HMFGetLogIdentifier();
       v10 = [v4 count];
       *buf = 138543618;
-      v24 = v9;
-      v25 = 2048;
-      v26 = v10;
+      v23 = v9;
+      v24 = 2048;
+      v25 = v10;
       v11 = "%{public}@Read %lu entries from cache";
 LABEL_12:
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, v11, buf, 0x16u);
@@ -187,9 +185,9 @@ LABEL_10:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v9;
-      v25 = 2112;
-      v26 = v5;
+      v23 = v9;
+      v24 = 2112;
+      v25 = v5;
       v11 = "%{public}@No cache retrieved %@";
       goto LABEL_12;
     }
@@ -207,7 +205,7 @@ LABEL_13:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v18;
+    v23 = v18;
     _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Cache file not found, create an empty file", buf, 0xCu);
   }
 
@@ -216,7 +214,6 @@ LABEL_13:
   [(HMDHAPAccessoryServerIPCache *)selfCopy3 _writeCache:dictionary];
 
 LABEL_14:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -246,7 +243,7 @@ LABEL_14:
 
 - (void)_deleteDataForDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_workQueue);
   v5 = objc_autoreleasePoolPush();
@@ -255,11 +252,11 @@ LABEL_14:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v8;
-    v17 = 2112;
-    v18 = deviceCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Delete data for device %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2112;
+    v17 = deviceCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Delete data for device %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -286,8 +283,6 @@ LABEL_14:
 
   [(HMDHAPAccessoryServerIPCache *)selfCopy _startFlushTimer];
 LABEL_7:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteDataForDevice:(id)device
@@ -306,7 +301,7 @@ LABEL_7:
 
 - (void)_saveData:(id)data forDevice:(id)device
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_workQueue);
@@ -316,13 +311,13 @@ LABEL_7:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v18 = 138543874;
-    v19 = v11;
-    v20 = 2112;
-    v21 = dataCopy;
-    v22 = 2112;
-    v23 = deviceCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Save data %@ for device %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v11;
+    v19 = 2112;
+    v20 = dataCopy;
+    v21 = 2112;
+    v22 = deviceCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Save data %@ for device %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -349,7 +344,6 @@ LABEL_7:
   [dirtyCache2 setObject:dataCopy forKey:deviceCopy];
 
   [(HMDHAPAccessoryServerIPCache *)selfCopy _startFlushTimer];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveData:(id)data forDevice:(id)device
@@ -371,39 +365,39 @@ LABEL_7:
 
 - (HMDHAPAccessoryServerIPCache)initWithQueue:(id)queue
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   v5 = [HMDHAPAccessoryServerIPStore alloc];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v7 = defaultManager;
-  v45 = 0;
+  v44 = 0;
   if (storeDirectoryPath)
   {
-    if (ipAccessoryCachePath && ([defaultManager fileExistsAtPath:ipAccessoryCachePath isDirectory:&v45] & 1) != 0)
+    if (ipAccessoryCachePath && ([defaultManager fileExistsAtPath:ipAccessoryCachePath isDirectory:&v44] & 1) != 0)
     {
       goto LABEL_24;
     }
 
-    v52 = *MEMORY[0x277CCA180];
-    v53[0] = &unk_283E72740;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+    v51 = *MEMORY[0x277CCA180];
+    v52[0] = &unk_283E72740;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
     v9 = [storeDirectoryPath stringByAppendingString:@"/AccessoryServerIPCache"];
     v10 = ipAccessoryCachePath;
     ipAccessoryCachePath = v9;
 
     if (ipAccessoryCachePath)
     {
-      v44 = 0;
-      v11 = [v7 createDirectoryAtPath:ipAccessoryCachePath withIntermediateDirectories:1 attributes:v8 error:&v44];
-      v12 = v44;
+      v43 = 0;
+      v11 = [v7 createDirectoryAtPath:ipAccessoryCachePath withIntermediateDirectories:1 attributes:v8 error:&v43];
+      v12 = v43;
       v13 = v12;
-      v45 = v11;
+      v44 = v11;
       if (v11)
       {
         selfCopy = self;
-        v43 = v12;
-        v15 = [v7 setAttributes:v8 ofItemAtPath:ipAccessoryCachePath error:&v43];
-        v16 = v43;
+        v42 = v12;
+        v15 = [v7 setAttributes:v8 ofItemAtPath:ipAccessoryCachePath error:&v42];
+        v16 = v42;
 
         v17 = objc_autoreleasePoolPush();
         v18 = HMFGetOSLogHandle();
@@ -414,9 +408,9 @@ LABEL_7:
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v47 = v20;
-            v48 = 2112;
-            v49 = ipAccessoryCachePath;
+            v46 = v20;
+            v47 = 2112;
+            v48 = ipAccessoryCachePath;
             v21 = "%{public}@Created path %@";
             v22 = v19;
             v23 = OS_LOG_TYPE_INFO;
@@ -430,11 +424,11 @@ LABEL_22:
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v47 = v20;
-          v48 = 2112;
-          v49 = ipAccessoryCachePath;
-          v50 = 2112;
-          v51 = v16;
+          v46 = v20;
+          v47 = 2112;
+          v48 = ipAccessoryCachePath;
+          v49 = 2112;
+          v50 = v16;
           v21 = "%{public}@Error setting attributes of %@: %@";
           v22 = v19;
           v23 = OS_LOG_TYPE_ERROR;
@@ -456,11 +450,11 @@ LABEL_24:
         HMFGetLogIdentifier();
         v36 = v35 = self;
         *buf = 138543874;
-        v47 = v36;
-        v48 = 2112;
-        v49 = ipAccessoryCachePath;
-        v50 = 2112;
-        v51 = v13;
+        v46 = v36;
+        v47 = 2112;
+        v48 = ipAccessoryCachePath;
+        v49 = 2112;
+        v50 = v13;
         _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Could not create IP Cache directory path %@ - error %@", buf, 0x20u);
 
         self = v35;
@@ -478,11 +472,11 @@ LABEL_24:
         HMFGetLogIdentifier();
         v32 = v31 = self;
         *buf = 138543874;
-        v47 = v32;
-        v48 = 2112;
-        v49 = storeDirectoryPath;
-        v50 = 2112;
-        v51 = @"/AccessoryServerIPCache";
+        v46 = v32;
+        v47 = 2112;
+        v48 = storeDirectoryPath;
+        v49 = 2112;
+        v50 = @"/AccessoryServerIPCache";
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@No path available for getIPAccessoryCachePath %@ %@", buf, 0x20u);
 
         self = v31;
@@ -500,9 +494,9 @@ LABEL_24:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v47 = v27;
-      v48 = 2112;
-      v49 = storeDirectoryPath;
+      v46 = v27;
+      v47 = 2112;
+      v48 = storeDirectoryPath;
       v28 = storeDirectoryPath;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Store Directory not initialized: %@", buf, 0x16u);
     }
@@ -517,7 +511,6 @@ LABEL_25:
   v39 = objc_opt_new();
   v40 = [(HMDHAPAccessoryServerIPCache *)self initWithQueue:queueCopy store:v38 timerProvider:v39];
 
-  v41 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
@@ -557,10 +550,9 @@ LABEL_25:
 
 void __43__HMDHAPAccessoryServerIPCache_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_118385;
-  logCategory__hmf_once_v9_118385 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_118385;
+  logCategory__hmf_once_v9_118385 = v0;
 }
 
 @end

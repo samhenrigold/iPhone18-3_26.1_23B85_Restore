@@ -684,11 +684,11 @@ LABEL_67:
 LABEL_61:
 }
 
-uint64_t __24__NWURLLoaderTCP_start___block_invoke_4(uint64_t result, int a2)
+void *__24__NWURLLoaderTCP_start___block_invoke_4(void *result, int a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       v3 = *(v2 + 40);

@@ -8,37 +8,34 @@
 
 - (void)performFromView:(id)view
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = 0.0;
-  result = self->super.super.super._result;
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v9 = 0.0;
   if (DDResultCurrencyExtraction())
   {
-    if (v11 > 0.0 && v10 != 0)
+    if (v9 > 0.0 && v8 != 0)
     {
-      v5 = +[DDAction clientActionsDelegate];
-      if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
+      v4 = +[DDAction clientActionsDelegate];
+      if (v4 && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        v6 = [objc_alloc(MEMORY[0x277CCA980]) initWithDouble:v11];
-        v12[0] = v10;
-        v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-        [v5 handleMoneyActionWithAmount:v6 currencies:v7];
+        v5 = [objc_alloc(MEMORY[0x277CCA980]) initWithDouble:v9];
+        v10[0] = v8;
+        v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+        [v4 handleMoneyActionWithAmount:v5 currencies:v6];
       }
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "No money action delegate set, can't perform the action", v9, 2u);
+        *v7 = 0;
+        _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "No money action delegate set, can't perform the action", v7, 2u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)actionAvailableForResult:(__DDResult *)result url:(id)url context:(id)context
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = +[DDAction clientActionsDelegate];
   if (!v6 || (objc_opt_respondsToSelector() & 1) == 0)
@@ -64,7 +61,6 @@ LABEL_7:
   v9 = 1;
 LABEL_8:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

@@ -118,7 +118,7 @@ void __72__SBSoftwareUpdateService_systemServiceServer_client_setPasscodePolicy_
   v1 = BSProcessDescriptionForPID();
   v2 = BSPrettyFunctionName();
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_13(&dword_21ED4E000, v3, v4, "Failed to authenticate %{public}@ in %{public}@: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_13(&dword_21ED4E000, v3, v4, "Failed to authenticate %{public}@ in %{public}@: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)systemServiceServer:(void *)a1 client:setPasscodePolicy:.cold.1(void *a1)
@@ -127,7 +127,7 @@ void __72__SBSoftwareUpdateService_systemServiceServer_client_setPasscodePolicy_
   v1 = BSProcessDescriptionForPID();
   v2 = BSPrettyFunctionName();
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_13(&dword_21ED4E000, v3, v4, "Failed to authenticate %{public}@ in %{public}@: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_13(&dword_21ED4E000, v3, v4, "Failed to authenticate %{public}@ in %{public}@: %{public}@", v5, v6, v7, v8);
 }
 
 @end

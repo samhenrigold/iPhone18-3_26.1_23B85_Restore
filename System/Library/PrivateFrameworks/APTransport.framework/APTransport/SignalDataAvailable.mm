@@ -14,50 +14,48 @@ void __stream_SignalDataAvailable_block_invoke(uint64_t a1)
   else
   {
     v3 = *(v2 + 40);
-    VTable = CMBaseObjectGetVTable();
-    v5 = *(*(VTable + 16) + 72);
-    if (v5)
+    v4 = *(*(CMBaseObjectGetVTable() + 16) + 72);
+    if (v4)
     {
-      v6 = *(VTable + 16) + 72;
-      v7 = v5(v3);
+      v5 = v4(v3);
     }
 
     else
     {
-      v7 = -12782;
+      v5 = -12782;
     }
 
-    *(*(*(a1 + 32) + 8) + 24) = v7;
-    if (*(*(*(a1 + 32) + 8) + 24))
+    *(*(*(a1 + 32) + 8) + 24) = v5;
+    v6 = *(*(*(a1 + 32) + 8) + 24);
+    if (v6)
     {
-      __stream_SignalDataAvailable_block_invoke_cold_2();
+      __stream_SignalDataAvailable_block_invoke_cold_2(v6);
     }
   }
 }
 
-void __unbufnw_SignalDataAvailable_block_invoke(uint64_t a1)
+void __unbufnw_SignalDataAvailable_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  if (!*(v2 + 416))
+  v4 = *(a1 + 32);
+  if (!*(v4 + 416))
   {
     if (gLogCategory_APTransportConnectionUnbufferedNW <= 30)
     {
-      if (gLogCategory_APTransportConnectionUnbufferedNW != -1 || (v3 = OUTLINED_FUNCTION_8_0(), v2 = *(a1 + 32), v3))
+      if (gLogCategory_APTransportConnectionUnbufferedNW != -1 || (v5 = OUTLINED_FUNCTION_8_0(&gLogCategory_APTransportConnectionUnbufferedNW), v4 = *(a1 + 32), v5))
       {
-        v5 = *(v2 + 16);
-        OUTLINED_FUNCTION_7_0();
-        v2 = *(a1 + 32);
+        OUTLINED_FUNCTION_7_0(&gLogCategory_APTransportConnectionUnbufferedNW, "OSStatus unbufnw_SignalDataAvailable(APTransportConnectionRef)_block_invoke", a3, "[%{ptr}] isDataAvailable=1");
+        v4 = *(a1 + 32);
       }
     }
 
-    APTTrafficMetricsDataAvailable(*(v2 + 448));
+    APTTrafficMetricsDataAvailable(*(v4 + 448));
+    v6 = *(a1 + 32);
+    *(v6 + 416) = 1;
+    unbufnwGuts_connectionSendPackages(v6);
     v4 = *(a1 + 32);
-    *(v4 + 416) = 1;
-    unbufnwGuts_connectionSendPackages(v4);
-    v2 = *(a1 + 32);
   }
 
-  CFRelease(v2);
+  CFRelease(v4);
 }
 
 @end

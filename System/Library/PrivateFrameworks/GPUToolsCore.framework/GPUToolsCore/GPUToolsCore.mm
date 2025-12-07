@@ -326,13 +326,13 @@ void GPUTools::Interpose::DYInterposeDefaultStorePointer(GPUTools::Interpose *th
 
 uint64_t GPUTools::Interpose::DYSavePointer(GPUTools::Interpose *this, DYGuestAppClient *a2, void *data, char *__dst, char *a5, uint64_t a6, DYTransportMessage *a7, char a8, _BYTE *a9, BOOL *a10)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (!a2 || !data)
   {
     strcpy(__dst, kDYNullURL[0]);
 LABEL_11:
     v20 = 0;
-    goto LABEL_12;
+    return v20 & 1;
   }
 
   v13 = a7;
@@ -366,14 +366,14 @@ LABEL_11:
   else
   {
     *md = 0;
-    v32 = md;
-    v33 = 0x2020000000;
-    v34 = 0;
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2020000000;
-    v30 = 1;
-    v23 = [(GPUTools::Interpose *)this saveptrQueue];
+    v31 = md;
+    v32 = 0x2020000000;
+    v33 = 0;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
+    v29 = 1;
+    v22 = [(GPUTools::Interpose *)this saveptrQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = ___ZN8GPUTools9Interpose13DYSavePointerEP16DYGuestAppClientmPKvPcmP18DYTransportMessagebbPb_block_invoke;
@@ -383,30 +383,28 @@ LABEL_11:
     block[10] = a2;
     block[4] = this;
     block[5] = a6;
-    block[6] = &v27;
+    block[6] = &v26;
     block[7] = md;
-    v26 = a8;
-    dispatch_sync(v23, block);
+    v25 = a8;
+    dispatch_sync(v22, block);
     if (a9)
     {
-      *a9 = *(v28 + 24);
+      *a9 = *(v27 + 24);
     }
 
-    v20 = v32[24];
-    _Block_object_dispose(&v27, 8);
+    v20 = v31[24];
+    _Block_object_dispose(&v26, 8);
     _Block_object_dispose(md, 8);
   }
 
-LABEL_12:
-  v21 = *MEMORY[0x277D85DE8];
   return v20 & 1;
 }
 
-void sub_24D66DAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_24D66DAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v24 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -481,7 +479,7 @@ Method GPUTools::Interpose::DYInstallObjCMethodOverrides(Method result)
       v3 += 32;
     }
 
-    while (v4 < (v2[1] - *v2) >> 5);
+    while (v4 < (*(v2 + 1) - *v2) >> 5);
   }
 
   return result;
@@ -537,7 +535,7 @@ uint64_t DYTimingBenchmark()
 {
   MEMORY[0x28223BE20]();
   v0 = 0;
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   do
   {
     v1 = mach_absolute_time();
@@ -547,15 +545,13 @@ uint64_t DYTimingBenchmark()
       v2 = __udivti3();
     }
 
-    *&v5[v0] = v2;
+    *&v4[v0] = v2;
     v0 += 8;
   }
 
   while (v0 != 80008);
-  qsort_b(v5, 0x2711uLL, 8uLL, &__block_literal_global_0);
-  result = v6;
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  qsort_b(v4, 0x2711uLL, 8uLL, &__block_literal_global_0);
+  return v5;
 }
 
 uint64_t __DYTimingBenchmark_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -623,16 +619,16 @@ void sub_24D66FB7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_24D670700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_24D670700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t smt_poll_thread_entry(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a1[1];
   v3 = a1[2];
   snprintf(__str, 0x40uLL, "gputools.smt_poll.%p", a1);
@@ -648,7 +644,6 @@ uint64_t smt_poll_thread_entry(void *a1)
     while (*(a1 + 24) != 1);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1083,7 +1078,6 @@ uint64_t GPUTools::FB::Stream::Send(GPUTools::FB::Stream *this)
 
   v2 = *(this + 60);
   *(this + 60) = 0;
-  v3 = *(this + 5);
   result = (*(*(this + 5) + 16))();
   *(this + 60) = v2;
   atomic_store(0, this + 14);
@@ -1254,7 +1248,7 @@ double GPUTools::FB::Stream::Write_nolock(GPUTools::FB::Stream *this, Fbuf *a2, 
   return result;
 }
 
-void *GPUTools::FB::Stream::Writev_nopartial(GPUTools::FB::Stream *this, const void **a2, uint64_t a3, char a4)
+void *GPUTools::FB::Stream::Writev_nopartial(atomic_uint *this, const void **a2, uint64_t a3, char a4)
 {
   v4 = a3;
   v5 = a2;
@@ -1389,24 +1383,24 @@ _DWORD *GPUTools::FB::Stream::Writev_partial(_DWORD *this, Fbuf *a2, uint64_t a3
       {
         var0 = a2->var0.var0;
         v8 = *a2->var0.var0;
-        v9 = *(v6 + 24);
+        v9 = *(v6 + 3);
         if (v9 < v8)
         {
           break;
         }
 
-        v10 = *(v6 + 16);
-        if (v10 + v8 - *(v6 + 8) - 8 > v9)
+        v10 = *(v6 + 2);
+        if (v10 + v8 - *(v6 + 1) - 8 > v9)
         {
-          (*(*(v6 + 40) + 16))();
-          v10 = (*(v6 + 8) + 8);
-          *(v6 + 16) = v10;
+          (*(*(v6 + 5) + 16))();
+          v10 = (*(v6 + 1) + 8);
+          *(v6 + 2) = v10;
           *(v6 + 60) = 1;
           var0 = a2->var0.var0;
         }
 
         this = memcpy(v10, var0, v8);
-        *(v6 + 16) += v8;
+        *(v6 + 2) += v8;
         v11 = a2->var0.var0;
         a2->var1 = a2->var0.var0;
         if (a2->var2 >= 0x24)
@@ -1430,24 +1424,24 @@ _DWORD *GPUTools::FB::Stream::Writev_partial(_DWORD *this, Fbuf *a2, uint64_t a3
       {
         v12 = a2->var0.var0;
         v8 = *a2->var0.var0;
-        v9 = *(v6 + 24);
+        v9 = *(v6 + 3);
         if (v9 < v8)
         {
           break;
         }
 
-        v13 = *(v6 + 16);
-        if (v13 + v8 - *(v6 + 8) - 8 > v9)
+        v13 = *(v6 + 2);
+        if (v13 + v8 - *(v6 + 1) - 8 > v9)
         {
-          (*(*(v6 + 40) + 16))();
-          v13 = (*(v6 + 8) + 8);
-          *(v6 + 16) = v13;
+          (*(*(v6 + 5) + 16))();
+          v13 = (*(v6 + 1) + 8);
+          *(v6 + 2) = v13;
           *(v6 + 60) = 1;
           v12 = a2->var0.var0;
         }
 
         this = memcpy(v13, v12, v8);
-        *(v6 + 16) += v8;
+        *(v6 + 2) += v8;
         ++a2;
         if (!--v4)
         {
@@ -1460,7 +1454,7 @@ _DWORD *GPUTools::FB::Stream::Writev_partial(_DWORD *this, Fbuf *a2, uint64_t a3
   }
 
 LABEL_17:
-  atomic_store(0, (v6 + 56));
+  atomic_store(0, v6 + 14);
   return this;
 }
 
@@ -1503,7 +1497,7 @@ void ***std::__exception_guard_exceptions<std::vector<GPUTools::FB::Fbuf>::__des
   return a1;
 }
 
-void **std::vector<GPUTools::FB::Fbuf>::~vector[abi:ne200100](void **a1)
+char **std::vector<GPUTools::FB::Fbuf>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -1558,7 +1552,7 @@ void GPUTools::DYLockUtils::Lock(os_unfair_lock_t lock, volatile int *a2)
   }
 }
 
-uint64_t GPUTools::DYLockUtils::ShouldUseLegacyLock(GPUTools::DYLockUtils *this)
+uint64_t GPUTools::DYLockUtils::ShouldUseLegacyLock(GPUTools::DYLockUtils *this, uint64_t a2)
 {
   if (GPUTools::DYLockUtils::ShouldUseLegacyLock(void)::onceToken != -1)
   {
@@ -1616,25 +1610,25 @@ void *___ZN8GPUTools11DYLockUtils19ShouldUseLegacyLockEv_block_invoke()
   return result;
 }
 
-void sub_24D673E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_24D673E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
 CFTypeRef DYCreateDictionaryFromVMStatistics(char *valuePtr)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13 = *&off_27930C7A8;
-  v14 = xmmword_27930C7B8;
+  v15 = *MEMORY[0x277D85DE8];
+  v12 = *&off_27930C7A8;
+  v13 = xmmword_27930C7B8;
   *keys = xmmword_27930C758;
-  v9 = *&off_27930C768;
-  v10 = xmmword_27930C778;
-  v15 = @"speculative_count";
-  v11 = *&off_27930C788;
-  v12 = xmmword_27930C798;
+  v8 = *&off_27930C768;
+  v9 = xmmword_27930C778;
+  v14 = @"speculative_count";
+  v10 = *&off_27930C788;
+  v11 = xmmword_27930C798;
   v2 = *MEMORY[0x277CBECE8];
   values[0] = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, valuePtr);
   values[1] = CFNumberCreate(v2, kCFNumberIntType, valuePtr + 4);
@@ -1657,9 +1651,7 @@ CFTypeRef DYCreateDictionaryFromVMStatistics(char *valuePtr)
     CFRelease(values[i]);
   }
 
-  result = CFMakeCollectable(v3);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return CFMakeCollectable(v3);
 }
 
 uint64_t DYFillVMStatisticsFromDictionary(_OWORD *a1, CFDictionaryRef theDict)
@@ -1830,7 +1822,7 @@ char *DYGetCapturePathForLibrary(char *a1, uint64_t a2, const char *a3, const ch
   return result;
 }
 
-uint64_t DYModifyEnvironmentForDualCaptureSupport(uint64_t result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+void *DYModifyEnvironmentForDualCaptureSupport(void *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
   if (sGTMTLCaptureMode == 2)
   {
@@ -1936,11 +1928,12 @@ void *DYSetBlockPointer(void *aBlock, const void **a2)
   return result;
 }
 
-void DYLogv(int a1, const char *a2, va_list a3)
+void DYLogv(uint64_t a1, const char *a2, va_list a3)
 {
+  v3 = a1;
   v4 = 0;
   vasprintf(&v4, a2, a3);
-  _log_asl(a1, v4);
+  _log_asl(v3, v4);
   free(v4);
 }
 
@@ -2025,9 +2018,9 @@ uint64_t DYFSDirectoryExists(uint64_t a1)
   return (v1 & v3);
 }
 
-uint64_t DYFSCreateTempFileURL(uint64_t a1, uint64_t a2, __CFString *a3, uint64_t a4, uint64_t *a5)
+void *DYFSCreateTempFileURL(uint64_t a1, uint64_t a2, __CFString *a3, uint64_t a4, uint64_t *a5)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v10 = [MEMORY[0x277CCAA00] defaultManager];
   if (!a3)
   {
@@ -2044,17 +2037,17 @@ uint64_t DYFSCreateTempFileURL(uint64_t a1, uint64_t a2, __CFString *a3, uint64_
       v15 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
       result = 0;
       *a5 = v15;
-      goto LABEL_14;
+      return result;
     }
 
-    goto LABEL_13;
+    return 0;
   }
 
   close(v12);
   v13 = [v10 stringWithFileSystemRepresentation:buffer length:strlen(buffer)];
   if (![v10 removeItemAtPath:v13 error:a5])
   {
-    goto LABEL_13;
+    return 0;
   }
 
   if (a1)
@@ -2065,9 +2058,7 @@ uint64_t DYFSCreateTempFileURL(uint64_t a1, uint64_t a2, __CFString *a3, uint64_
       goto LABEL_8;
     }
 
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
+    return 0;
   }
 
 LABEL_8:
@@ -2076,13 +2067,10 @@ LABEL_8:
     v13 = [v13 stringByAppendingPathExtension:a2];
   }
 
-  result = [MEMORY[0x277CBEBC0] fileURLWithPath:v13 isDirectory:a4];
-LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CBEBC0] fileURLWithPath:v13 isDirectory:a4];
 }
 
-NSUInteger DYFSCreateDirectory(uint64_t a1, NSSearchPathDirectory directory, void *a3)
+void *DYFSCreateDirectory(uint64_t a1, NSSearchPathDirectory directory, void *a3)
 {
   v8 = 0;
   v5 = NSSearchPathForDirectoriesInDomains(directory, 1uLL, 1);
@@ -2529,7 +2517,7 @@ uint64_t DYIOSurfaceUtilsGetPlaneInfo@<X0>(__IOSurface *a1@<X0>, size_t a2@<X1>,
   return result;
 }
 
-size_t DYIOSurfaceUtilsPerPlaneInfo(__IOSurface *a1, uint64_t a2, uint64_t (*a3)(uint64_t, size_t *))
+uint64_t DYIOSurfaceUtilsPerPlaneInfo(__IOSurface *a1, uint64_t a2, uint64_t (*a3)(uint64_t, size_t *))
 {
   result = DYIOSurfaceUtilsPlaneCount(a1);
   if (result)
@@ -2564,7 +2552,7 @@ void StorePlaneData()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v3 = v0;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(v0 + 34) != 1 || *(v0 + 24) == *v1)
   {
     if (*(v0 + 32) == 1)
@@ -2588,7 +2576,7 @@ void StorePlaneData()
         v9 = v2[3];
         if (v9 <= 0x10000)
         {
-          v10 = &v14;
+          v10 = &v13;
         }
 
         else
@@ -2637,8 +2625,6 @@ void StorePlaneData()
 
     *(v3 + 16) = v6;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t DYIOSurfaceUtilsStoreData(__IOSurface *a1, uint64_t a2, unsigned __int8 a3, char a4)
@@ -2667,8 +2653,8 @@ uint64_t DYGetGuestAppClient(int a1)
 
 void init_guest_app_client(void *a1)
 {
-  g_set_app_client = dispatch_queue_create(0, 0);
-  dispatch_suspend(g_set_app_client);
+  g_set_app_client[0] = dispatch_queue_create(0, 0);
+  dispatch_suspend(g_set_app_client[0]);
   v1 = dispatch_queue_create(0, 0);
   qword_27F0880D0 = v1;
 
@@ -2776,16 +2762,16 @@ uint64_t init_interpose_api(void *a1, uint64_t a2, uint64_t a3, const char *a4, 
   return dlclose(v6);
 }
 
-uint64_t DYResetGraphicsTiming()
+uint64_t DYResetGraphicsTiming(uint64_t a1)
 {
   if (g_interpose_api_once != -1)
   {
     DYDisableBufferSwaps_cold_1();
   }
 
-  v1 = g_interpose_api;
+  v2 = g_interpose_api;
 
-  return v1();
+  return v2();
 }
 
 uint64_t DYGetGraphicsTiming(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2800,34 +2786,34 @@ uint64_t DYGetGraphicsTiming(uint64_t a1, uint64_t a2, uint64_t a3)
   return v6(a1, a2, a3);
 }
 
-uint64_t DYGetProfilingData()
+uint64_t DYGetProfilingData(uint64_t a1)
 {
   if (g_interpose_api_once != -1)
   {
     DYDisableBufferSwaps_cold_1();
   }
 
-  v1 = g_interpose_api;
+  v2 = g_interpose_api;
 
-  return v1();
+  return v2();
 }
 
-uint64_t DYGetAllPerFunctionProfilingData()
+uint64_t DYGetAllPerFunctionProfilingData(uint64_t a1)
 {
   if (g_interpose_api_once != -1)
   {
     DYDisableBufferSwaps_cold_1();
   }
 
-  v1 = g_interpose_api;
+  v2 = g_interpose_api;
 
-  return v1();
+  return v2();
 }
 
-void sub_24D67B0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24D67B0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x253030980](v3, 0x10B0C40F47DA5FCLL);
+  va_start(va, a5);
+  MEMORY[0x253030980](v5, 0x10B0C40F47DA5FCLL, a3);
   GPUTools::FD::IFunctionDecoder::~IFunctionDecoder(va);
   _Unwind_Resume(a1);
 }
@@ -2844,44 +2830,44 @@ uint64_t DYCADisplayLinkInterposeInit(DYGuestAppClient *a1)
   return [v2 addObject:a1];
 }
 
-void ___Z28DYCADisplayLinkInterposeInitP16DYGuestAppClient_block_invoke()
+void ___Z28DYCADisplayLinkInterposeInitP16DYGuestAppClient_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v6[1] = sel__initWithDisplayLink_;
-  v6[2] = &o_CADisplayLink_initWithDisplayLink;
-  v6[3] = CADisplayLink_initWithDisplayLink;
-  v6[4] = objc_opt_class();
-  v6[5] = sel__initWithDisplayLinkItem_;
-  v6[6] = &o_CADisplayLink_initWithDisplayLink;
-  v6[7] = CADisplayLink_initWithDisplayLink;
-  v6[8] = objc_opt_class();
-  v6[9] = sel_setFrameInterval_;
-  v6[10] = &o_CADisplayLink_setFrameInterval;
-  v6[11] = CADisplayLink_setFrameInterval;
-  v6[12] = objc_opt_class();
-  v6[13] = sel_setPreferredFramesPerSecond_;
-  v6[14] = &o_CADisplayLink_setPreferredFramesPerSecond;
-  v6[15] = CADisplayLink_setPreferredFramesPerSecond;
-  v6[16] = objc_opt_class();
-  v6[17] = sel_addToRunLoop_forMode_;
-  v6[18] = &o_CADisplayLink_addToRunLoopForMode;
-  v6[19] = CADisplayLink_addToRunLoopForMode;
-  v6[20] = objc_opt_class();
-  v6[21] = sel_removeFromRunLoop_forMode_;
-  v6[22] = &o_CADisplayLink_removeFromRunLoopForMode;
-  v6[23] = CADisplayLink_removeFromRunLoopForMode;
-  v6[24] = objc_opt_class();
-  v6[25] = sel_invalidate;
-  v6[26] = &o_CADisplayLink_invalidate;
-  v6[27] = CADisplayLink_invalidate;
-  v4 = 0;
+  *&v34 = *MEMORY[0x277D85DE8];
+  *&v7 = objc_opt_class();
+  *(&v7 + 1) = sel__initWithDisplayLink_;
+  v8 = &o_CADisplayLink_initWithDisplayLink;
+  v9 = CADisplayLink_initWithDisplayLink;
+  v10 = objc_opt_class();
+  v11 = sel__initWithDisplayLinkItem_;
+  v12 = &o_CADisplayLink_initWithDisplayLink;
+  v13 = CADisplayLink_initWithDisplayLink;
+  v14 = objc_opt_class();
+  v15 = sel_setFrameInterval_;
+  v16 = &o_CADisplayLink_setFrameInterval;
+  v17 = CADisplayLink_setFrameInterval;
+  v18 = objc_opt_class();
+  v19 = sel_setPreferredFramesPerSecond_;
+  v20 = &o_CADisplayLink_setPreferredFramesPerSecond;
+  v21 = CADisplayLink_setPreferredFramesPerSecond;
+  v22 = objc_opt_class();
+  v23 = sel_addToRunLoop_forMode_;
+  v24 = &o_CADisplayLink_addToRunLoopForMode;
+  v25 = CADisplayLink_addToRunLoopForMode;
+  v26 = objc_opt_class();
+  v27 = sel_removeFromRunLoop_forMode_;
+  v28 = &o_CADisplayLink_removeFromRunLoopForMode;
+  v29 = CADisplayLink_removeFromRunLoopForMode;
+  v30 = objc_opt_class();
+  v31 = sel_invalidate;
+  v32 = &o_CADisplayLink_invalidate;
+  v33 = CADisplayLink_invalidate;
   v5 = 0;
+  v6 = 0;
   __p = 0;
-  std::vector<GPUTools::Interpose::DYObjCMethodOverride>::__init_with_size[abi:ne200100]<GPUTools::Interpose::DYObjCMethodOverride const*,GPUTools::Interpose::DYObjCMethodOverride const*>(&__p, v6, &v7, 7uLL);
+  std::vector<GPUTools::Interpose::DYObjCMethodOverride>::__init_with_size[abi:ne200100]<GPUTools::Interpose::DYObjCMethodOverride const*,GPUTools::Interpose::DYObjCMethodOverride const*>(&__p, &v7, &v34, 7uLL);
   GPUTools::Interpose::DYInstallObjCMethodOverrides(&__p);
-  v0 = objc_opt_class();
-  ClassMethod = class_getClassMethod(v0, sel_displayLinkWithDisplay_target_selector_);
+  v2 = objc_opt_class();
+  ClassMethod = class_getClassMethod(v2, sel_displayLinkWithDisplay_target_selector_);
   if (!ClassMethod)
   {
     __assert_rtn("void DYCADisplayLinkInterposeInit(DYGuestAppClient *)_block_invoke", "", 0, "method");
@@ -2891,11 +2877,9 @@ void ___Z28DYCADisplayLinkInterposeInitP16DYGuestAppClient_block_invoke()
   _appClients = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (__p)
   {
-    v4 = __p;
+    v5 = __p;
     operator delete(__p);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24D67B990(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
@@ -2920,9 +2904,9 @@ CADisplayLink *CADisplayLink_initWithDisplayLink(CADisplayLink *a1, objc_selecto
     }
 
     v5 = ++_CreateCADisplayLinkIdentifierFor(CADisplayLink *)::sDisplayLinkIdentifier;
-    v11[0] = v4;
-    v11[2] = v11;
-    std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(spDisplayLinkIdentifierMap, v11)[3] = v5;
+    v11 = v4;
+    v12 = &v11;
+    std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(spDisplayLinkIdentifierMap, &v11, &std::piecewise_construct, &v12)[3] = v5;
     GPUTools::DYLockUtils::Unlock(&sDisplayLinkIdentifierMapLock, v6);
     IntervalDictionary = _GetIntervalDictionary(v4, v7);
     v10[0] = MEMORY[0x277D85DD0];
@@ -3034,35 +3018,35 @@ uint64_t ___ZL33CADisplayLink_initWithDisplayLinkP13CADisplayLinkP13objc_selecto
   return [a2 sendMessage:v3];
 }
 
-void *std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(float *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -3070,47 +3054,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-void std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3126,7 +3110,7 @@ void std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -3134,7 +3118,7 @@ void std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -3158,7 +3142,7 @@ void std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -3235,45 +3219,37 @@ void *std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::_
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -3314,7 +3290,7 @@ uint64_t ___ZL24CADisplayLink_invalidateP13CADisplayLinkP13objc_selector_block_i
   return [a2 sendMessage:v3];
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__erase_unique<void *>(void *a1, void *a2)
+uint64_t std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::__erase_unique<void *>(void *a1, void *a2)
 {
   result = std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a1, a2);
   if (result)
@@ -3450,35 +3426,35 @@ LABEL_19:
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<_opaque_pthread_t *,unsigned long long>,std::__unordered_map_hasher<_opaque_pthread_t *,std::__hash_value_type<_opaque_pthread_t *,unsigned long long>,std::hash<_opaque_pthread_t *>,std::equal_to<_opaque_pthread_t *>,true>,std::__unordered_map_equal<_opaque_pthread_t *,std::__hash_value_type<_opaque_pthread_t *,unsigned long long>,std::equal_to<_opaque_pthread_t *>,std::hash<_opaque_pthread_t *>,true>,std::allocator<std::__hash_value_type<_opaque_pthread_t *,unsigned long long>>>::__emplace_unique_key_args<_opaque_pthread_t *,std::piecewise_construct_t const&,std::tuple<_opaque_pthread_t *&&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<_opaque_pthread_t *,unsigned long long>,std::__unordered_map_hasher<_opaque_pthread_t *,std::__hash_value_type<_opaque_pthread_t *,unsigned long long>,std::hash<_opaque_pthread_t *>,std::equal_to<_opaque_pthread_t *>,true>,std::__unordered_map_equal<_opaque_pthread_t *,std::__hash_value_type<_opaque_pthread_t *,unsigned long long>,std::equal_to<_opaque_pthread_t *>,std::hash<_opaque_pthread_t *>,true>,std::allocator<std::__hash_value_type<_opaque_pthread_t *,unsigned long long>>>::__emplace_unique_key_args<_opaque_pthread_t *,std::piecewise_construct_t const&,std::tuple<_opaque_pthread_t *&&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -3486,47 +3462,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-uint64_t std::vector<GPUTools::Interpose::DYObjCMethodOverride>::__init_with_size[abi:ne200100]<GPUTools::Interpose::DYObjCMethodOverride const*,GPUTools::Interpose::DYObjCMethodOverride const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<GPUTools::Interpose::DYObjCMethodOverride>::__init_with_size[abi:ne200100]<GPUTools::Interpose::DYObjCMethodOverride const*,GPUTools::Interpose::DYObjCMethodOverride const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3548,7 +3524,7 @@ void sub_24D67CD98(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<GPUTools::Interpose::DYObjCMethodOverride>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<GPUTools::Interpose::DYObjCMethodOverride>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -3575,14 +3551,14 @@ uint64_t GPUTools::Interpose::DYInterposeThreadEntry(GPUTools::Interpose *this, 
     GPUTools::Interpose::DYInterposeThreadEntry();
   }
 
-  GPUTools::Interpose::DYInterposeCommonInit(*(&GPUTools::Interpose::g_context + this), this);
+  GPUTools::Interpose::DYInterposeCommonInit(GPUTools::Interpose::g_context[this], this);
   return 0;
 }
 
 uint64_t GPUTools::Interpose::DYInitInterpose(GPUTools::Interpose *this, DYGuestAppClient *(*a2)(void))
 {
   v2 = a2;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = getenv("GT_TRUE_BINARY");
   if (!v4 || (v5 = v4, MainBundle = CFBundleGetMainBundle(), v7 = CFBundleCopyExecutableURL(MainBundle), CFURLGetFileSystemRepresentation(v7, 1u, buffer, 1024), CFRelease(v7), fprintf(*MEMORY[0x277D85DF8], "true_binary=%s\npath=%s\n", v5, buffer), result = strcmp(buffer, v5), !result))
   {
@@ -3602,8 +3578,8 @@ uint64_t GPUTools::Interpose::DYInitInterpose(GPUTools::Interpose *this, DYGuest
     __dmb(0xBu);
     pthread_attr_init(buffer);
     pthread_attr_setdetachstate(buffer, 2);
-    v16 = 0;
-    pthread_create(&v16, buffer, GPUTools::Interpose::DYInterposeThreadEntry, v2);
+    v15 = 0;
+    pthread_create(&v15, buffer, GPUTools::Interpose::DYInterposeThreadEntry, v2);
     pthread_attr_destroy(buffer);
     v10 = DYGetGuestAppClient(v2);
     v11 = DYGetGlobalClientTransport(v10);
@@ -3628,7 +3604,6 @@ uint64_t GPUTools::Interpose::DYInitInterpose(GPUTools::Interpose *this, DYGuest
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4056,7 +4031,7 @@ LABEL_90:
   return result;
 }
 
-unint64_t GPUTools::error::__init@<X0>(GPUTools::error *this@<X0>, _BYTE *a2@<X8>)
+unint64_t GPUTools::error::__init@<X0>(GPUTools::error *this@<X0>, void *a2@<X8>)
 {
   v4 = _StringForError(this);
   if (!v4)
@@ -4077,13 +4052,13 @@ unint64_t GPUTools::error::__init@<X0>(GPUTools::error *this@<X0>, _BYTE *a2@<X8
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, v5, result);
   }
 
-  a2[v7] = 0;
+  *(a2 + v7) = 0;
   return result;
 }
 
@@ -4816,7 +4791,7 @@ LABEL_158:
           v71 = v13;
           a1 = strlen(v13);
           v7 = v89;
-          if (v89[13])
+          if (*(v89 + 13))
           {
             v9 = a1 + 1;
             v13 = v71;
@@ -5284,7 +5259,7 @@ LABEL_248:
     a1 = strtoul(a3 + 1, &__endptr, 10);
     v7 = v89;
     v11 = a1;
-    if (v89[13])
+    if (*(v89 + 13))
     {
       v13 = ((v17 + 3) & 0xFFFFFFFFFFFFFFFCLL);
     }
@@ -5294,7 +5269,7 @@ LABEL_248:
       v13 = v17;
     }
 
-    if (v89[12] != 1)
+    if (*(v89 + 12) != 1)
     {
       goto LABEL_13;
     }
@@ -5421,9 +5396,9 @@ uint64_t GPUTools::FB::Decoder::Decoder(uint64_t result, int a2, char a3)
   return result;
 }
 
-void GPUTools::FB::Decoder::DecodeHeader(uint64_t a1, uint64_t a2)
+void GPUTools::FB::Decoder::DecodeHeader(uint64_t result, uint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = *(result + 8);
   if ((v3 - 3) >= 2)
   {
     if (v3)
@@ -5438,7 +5413,7 @@ void GPUTools::FB::Decoder::DecodeHeader(uint64_t a1, uint64_t a2)
 
         v13 = *(a2 + 16);
         v9 = *v13;
-        if (*(a1 + 12))
+        if (*(result + 12))
         {
           v9 = bswap32(v9);
           *v13 = v9;
@@ -5473,7 +5448,7 @@ void GPUTools::FB::Decoder::DecodeHeader(uint64_t a1, uint64_t a2)
       {
         if (v3 != 2)
         {
-          dy_abort("unknown or unsupported fbuf version: %d", *(a1 + 8));
+          dy_abort("unknown or unsupported fbuf version: %d", *(result + 8));
         }
 
         v4 = *(a2 + 8);
@@ -5484,7 +5459,7 @@ void GPUTools::FB::Decoder::DecodeHeader(uint64_t a1, uint64_t a2)
 
         v18 = *(a2 + 16);
         v9 = *v18;
-        if (*(a1 + 12))
+        if (*(result + 12))
         {
           v9 = bswap32(v9);
           v19 = bswap32(*(v18 + 4));
@@ -5522,7 +5497,7 @@ void GPUTools::FB::Decoder::DecodeHeader(uint64_t a1, uint64_t a2)
 
       v10 = *(a2 + 16);
       v9 = *v10;
-      if (*(a1 + 12))
+      if (*(result + 12))
       {
         v9 = bswap32(v9);
         *v10 = v9;
@@ -5557,7 +5532,7 @@ void GPUTools::FB::Decoder::DecodeHeader(uint64_t a1, uint64_t a2)
     }
 
     v5 = *(a2 + 16);
-    if (*(a1 + 12) == 1)
+    if (*(result + 12) == 1)
     {
       GPUTools::FB::Decoder::DecodeHeader(*(a2 + 16));
     }
@@ -5579,42 +5554,27 @@ void GPUTools::FB::Decoder::DecodeHeader(uint64_t a1, uint64_t a2)
   *(a2 + 16) = v8;
 }
 
-void GPUTools::FB::Decoder::DecodeCore(unint64_t a1, uint64_t a2)
+void GPUTools::FB::Decoder::DecodeCore(uint64_t a1, uint64_t *a2)
 {
   GPUTools::FB::Decoder::DecodeHeader(a1, a2);
-  v4 = *(a2 + 16);
+  v4 = a2[2];
   if (*(a1 + 8) <= 2)
   {
-    v14 = strlen(*(a2 + 16));
+    strlen(a2[2]);
     operator new[]();
   }
 
   v5 = strlen(v4);
-  v6 = *(a2 + 8);
-  v7 = (v5 & 0xFFFFFFFFFFFFFFFCLL) + *(a2 + 16) + 4;
-  *(a2 + 16) = v7;
+  v6 = a2[1];
+  v7 = (v5 & 0xFFFFFFFFFFFFFFFCLL) + a2[2] + 4;
+  a2[2] = v7;
   v8 = *a2;
-  if (v6 < v7 - *a2)
+  if (v6 < v7 - *a2 || (v9 = a2[3], v10 = *(a2 + 30), v11 = *(a2 + 22), *v9 = *(a2 + 23), *(v9 + 4) = v10, *(v9 + 440) = v8, *(v9 + 432) = v11, GPUTools::FB::Decoder::DecodeArguments(a1, a2, v4, 0, v9 + 48), v12 = a2[2], a2[1] < &v12[-*a2]))
   {
-    goto LABEL_7;
-  }
-
-  v9 = *(a2 + 24);
-  v10 = *(a2 + 120);
-  v11 = *(a2 + 88);
-  *v9 = *(a2 + 92);
-  *(v9 + 4) = v10;
-  *(v9 + 440) = v8;
-  *(v9 + 432) = v11;
-  GPUTools::FB::Decoder::DecodeArguments(a1, a2, v4, 0, v9 + 48);
-  v12 = *(a2 + 16);
-  if (*(a2 + 8) < &v12[-*a2])
-  {
-LABEL_7:
     __assert_rtn("void GPUTools::FB::Decoder::DecodeCore(DecodeJob &) const", "", 0, "job.capacity >= BUFFER_DELTA(job.fbuf, job.read_ptr)");
   }
 
-  v13 = *(a2 + 120);
+  v13 = *(a2 + 30);
   if ((v13 & 1) == 0)
   {
     if ((v13 & 0x40) == 0)
@@ -5623,27 +5583,26 @@ LABEL_7:
     }
 
 LABEL_13:
-    *(*(a2 + 24) + 4) |= 6u;
+    *(a2[3] + 4) |= 6u;
     return;
   }
 
   if (*(a1 + 8) <= 2)
   {
-    __src = *(a2 + 16);
     strlen(v12);
     operator new[]();
   }
 
-  v15 = strlen(v12);
-  v16 = *(a2 + 8);
-  v17 = (v15 & 0xFFFFFFFFFFFFFFFCLL) + *(a2 + 16) + 4;
-  *(a2 + 16) = v17;
-  if (v16 < v17 - *a2 || (GPUTools::FB::Decoder::DecodeArguments(a1, a2, v12, 1, *(a2 + 24) + 24), *(a2 + 8) < *(a2 + 16) - *a2))
+  v14 = strlen(v12);
+  v15 = a2[1];
+  v16 = (v14 & 0xFFFFFFFFFFFFFFFCLL) + a2[2] + 4;
+  a2[2] = v16;
+  if (v15 < v16 - *a2 || (GPUTools::FB::Decoder::DecodeArguments(a1, a2, v12, 1, a2[3] + 24), a2[1] < (a2[2] - *a2)))
   {
     __assert_rtn("void GPUTools::FB::Decoder::DecodeCore(DecodeJob &) const", "", 0, "job.capacity >= BUFFER_DELTA(job.fbuf, job.read_ptr)");
   }
 
-  if ((*(a2 + 120) & 0x40) != 0)
+  if ((a2[15] & 0x40) != 0)
   {
     goto LABEL_13;
   }
@@ -6146,45 +6105,58 @@ uint64_t CALayer_setSublayerTransform(CALayer *a1, objc_selector *a2, CATransfor
   return [_appClients enumerateObjectsUsingBlock:v9];
 }
 
-uint64_t DYOrderedDimensionsFromBounds(uint64_t result)
+uint64_t CALayer_setPosition(CALayer *a1, objc_selector *a2, CGPoint a3)
 {
-  v1 = *(result + 16);
-  v2 = *(result + 24);
-  if (v1 >= v2)
+  o_CALayer_setPosition(a1, a2, a3, *&a3.y);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = ___ZL19CALayer_setPositionP7CALayerP13objc_selector7CGPoint_block_invoke;
+  v5[3] = &unk_27930C9E0;
+  v5[4] = a1;
+  return [_appClients enumerateObjectsUsingBlock:v5];
+}
+
+uint64_t CALayer_setAnchorPoint(CALayer *a1, objc_selector *a2, CGPoint a3)
+{
+  o_CALayer_setAnchorPoint(a1, a2, a3, *&a3.y);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = ___ZL22CALayer_setAnchorPointP7CALayerP13objc_selector7CGPoint_block_invoke;
+  v5[3] = &unk_27930C9E0;
+  v5[4] = a1;
+  return [_appClients enumerateObjectsUsingBlock:v5];
+}
+
+CGFloat DYOrderedDimensionsFromBounds(const CGRect *a1)
+{
+  if (a1->size.width >= a1->size.height)
   {
-    v3 = *(result + 16);
+    return a1->size.width;
   }
 
   else
   {
-    v3 = *(result + 24);
+    return a1->size.height;
   }
-
-  if (v1 >= v2)
-  {
-    v4 = *(result + 24);
-  }
-
-  return result;
 }
 
 void DYEncodeCALayerTransforms(GPUTools::FB::Stream *a1, CALayer *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (!*(gLayersSetPtr + 24))
   {
-    goto LABEL_36;
+    return;
   }
 
-  memset(&v26, 0, 20);
+  memset(&v25, 0, 20);
   {
     v6 = getprogname();
     v7 = strlen(v6);
-    std::string::__init(&v28, v6, v7);
-    v8 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v28, "backboardd");
-    if (SHIBYTE(v28.m13) < 0)
+    std::string::__init(v27, v6, v7);
+    v8 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, "backboardd");
+    if ((v27[23] & 0x80000000) != 0)
     {
-      operator delete(*&v28.m11);
+      operator delete(*v27);
     }
 
     DYEncodeCALayerTransforms(GPUTools::FB::Stream *,CALayer *)::isBackboarddProg = v8;
@@ -6262,9 +6234,22 @@ LABEL_23:
       v16 = v15[2];
       if (!a2 || [v15[2] isDescendantOf:a2])
       {
-        memset(&v28, 0, sizeof(v28));
-        DYFinalLayerTransform(v16, &v28);
-        v27 = v28;
+        v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
+        memset(v27, 0, sizeof(v27));
+        DYFinalLayerTransform(v27, v16);
+        v26[4] = v30;
+        v26[5] = v31;
+        v26[6] = v32;
+        v26[7] = v33;
+        v26[0] = *v27;
+        v26[1] = *&v27[16];
+        v26[2] = v28;
+        v26[3] = v29;
         [(CALayer *)v16 bounds];
         if (v18 >= v19)
         {
@@ -6286,28 +6271,25 @@ LABEL_23:
           v21 = v19;
         }
 
-        GPUTools::FB::Encode(&v26, 0xFFFFE009, 65540, "p@16ddd", v17, v16, &v27, v5 / v21, v4 / v20);
-        GPUTools::FB::Stream::Write(a1, &v26, 1);
+        GPUTools::FB::Encode(&v25, 0xFFFFE009, 65540, "p@16ddd", v17, v16, v26, v5 / v21, v4 / v20);
+        GPUTools::FB::Stream::Write(a1, &v25, 1);
         [(CALayer *)v16 anchorPoint];
-        v28.m11 = v22;
+        *v27 = v22;
         [(CALayer *)v16 anchorPoint];
-        v28.m12 = v23;
-        GPUTools::FB::Encode(&v26, 0xFFFFE00BLL, 65540, "p@2d", v24, v16, &v28);
-        GPUTools::FB::Stream::Write(a1, &v26, 1);
+        *&v27[8] = v23;
+        GPUTools::FB::Encode(&v25, 0xFFFFE00BLL, 65540, "p@2d", v24, v16, v27);
+        GPUTools::FB::Stream::Write(a1, &v25, 1);
       }
 
       v15 = *v15;
     }
 
     while (v15);
-    if (v26.var0.var0)
+    if (v25.var0.var0)
     {
-      free(v26.var0.var0);
+      free(v25.var0.var0);
     }
   }
-
-LABEL_36:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24D680A1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
@@ -6357,9 +6339,9 @@ void GPUTools::FB::Encode(char **this, GPUTools::FB::Fbuf *a2, int a3, uint64_t 
   GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(v10);
 }
 
-void sub_24D680B64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D680B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(va);
   _Unwind_Resume(a1);
 }
@@ -6376,263 +6358,263 @@ void GPUTools::FB::Stream::Write(GPUTools::FB::Stream *this, Fbuf *a2, int a3)
   atomic_store(0, this + 14);
 }
 
-CGFloat DYFinalLayerTransform@<D0>(CALayer *a1@<X0>, CATransform3D *a2@<X8>)
+CGFloat DYFinalLayerTransform@<D0>(uint64_t *__return_ptr a1@<X8>, CALayer *a2@<X0>)
 {
-  v4 = MEMORY[0x277CD9DE8];
-  v5 = *(MEMORY[0x277CD9DE8] + 80);
-  *&a2->m31 = *(MEMORY[0x277CD9DE8] + 64);
-  *&a2->m33 = v5;
-  v6 = v4[7];
-  *&a2->m41 = v4[6];
-  *&a2->m43 = v6;
-  v7 = v4[1];
-  *&a2->m11 = *v4;
-  *&a2->m13 = v7;
-  v8 = v4[3];
-  *&a2->m21 = v4[2];
-  *&a2->m23 = v8;
-  v9 = a1;
+  v5 = MEMORY[0x277CD9DE8];
+  v6 = *(MEMORY[0x277CD9DE8] + 80);
+  *(a1 + 4) = *(MEMORY[0x277CD9DE8] + 64);
+  *(a1 + 5) = v6;
+  v7 = v5[7];
+  *(a1 + 6) = v5[6];
+  *(a1 + 7) = v7;
+  v8 = v5[1];
+  *a1 = *v5;
+  *(a1 + 1) = v8;
+  v9 = v5[3];
+  *(a1 + 2) = v5[2];
+  *(a1 + 3) = v9;
+  v10 = a2;
   do
   {
-    if (v9 != a1)
+    if (v10 != a2)
     {
-      [(CALayer *)v9 anchorPoint];
-      v11 = v10;
-      [(CALayer *)v9 bounds];
-      v13 = v12;
-      [(CALayer *)v9 anchorPoint];
-      v15 = v14;
-      [(CALayer *)v9 bounds];
-      v16 = -(v11 * v13);
-      v18 = -(v15 * v17);
-      [(CALayer *)v9 anchorPointZ];
-      CATransform3DMakeTranslation(&v75, v16, v18, -v19);
-      v20 = *&a2->m33;
-      *&a.m31 = *&a2->m31;
-      *&a.m33 = v20;
-      v21 = *&a2->m43;
-      *&a.m41 = *&a2->m41;
-      *&a.m43 = v21;
-      v22 = *&a2->m13;
-      *&a.m11 = *&a2->m11;
-      *&a.m13 = v22;
-      v23 = *&a2->m23;
-      *&a.m21 = *&a2->m21;
-      *&a.m23 = v23;
-      b = v75;
-      CATransform3DConcat(a2, &a, &b);
+      [(CALayer *)v10 anchorPoint];
+      v12 = v11;
+      [(CALayer *)v10 bounds];
+      v14 = v13;
+      [(CALayer *)v10 anchorPoint];
+      v16 = v15;
+      [(CALayer *)v10 bounds];
+      v17 = -(v12 * v14);
+      v19 = -(v16 * v18);
+      [(CALayer *)v10 anchorPointZ];
+      CATransform3DMakeTranslation(&v76, v17, v19, -v20);
+      v21 = *(a1 + 5);
+      *&a.m31 = *(a1 + 4);
+      *&a.m33 = v21;
+      v22 = *(a1 + 7);
+      *&a.m41 = *(a1 + 6);
+      *&a.m43 = v22;
+      v23 = *(a1 + 1);
+      *&a.m11 = *a1;
+      *&a.m13 = v23;
+      v24 = *(a1 + 3);
+      *&a.m21 = *(a1 + 2);
+      *&a.m23 = v24;
+      b = v76;
+      CATransform3DConcat(a1, &a, &b);
     }
 
-    v24 = *&a2->m33;
-    *&b.m31 = *&a2->m31;
-    *&b.m33 = v24;
-    v25 = *&a2->m43;
-    *&b.m41 = *&a2->m41;
-    *&b.m43 = v25;
-    v26 = *&a2->m13;
-    *&b.m11 = *&a2->m11;
-    *&b.m13 = v26;
-    v27 = *&a2->m23;
-    *&b.m21 = *&a2->m21;
-    *&b.m23 = v27;
-    if (v9)
+    v25 = *(a1 + 5);
+    *&b.m31 = *(a1 + 4);
+    *&b.m33 = v25;
+    v26 = *(a1 + 7);
+    *&b.m41 = *(a1 + 6);
+    *&b.m43 = v26;
+    v27 = *(a1 + 1);
+    *&b.m11 = *a1;
+    *&b.m13 = v27;
+    v28 = *(a1 + 3);
+    *&b.m21 = *(a1 + 2);
+    *&b.m23 = v28;
+    if (v10)
     {
-      [(CALayer *)v9 transform];
+      objc_msgSend_transform(v10);
     }
 
     else
     {
-      memset(&v79, 0, sizeof(v79));
+      memset(&v80, 0, sizeof(v80));
     }
 
-    CATransform3DConcat(&a, &b, &v79);
-    v28 = *&a.m33;
-    *&a2->m31 = *&a.m31;
-    *&a2->m33 = v28;
-    v29 = *&a.m43;
-    *&a2->m41 = *&a.m41;
-    *&a2->m43 = v29;
-    v30 = *&a.m13;
-    *&a2->m11 = *&a.m11;
-    *&a2->m13 = v30;
-    v31 = *&a.m23;
-    *&a2->m21 = *&a.m21;
-    *&a2->m23 = v31;
-    if (v9 != a1)
+    CATransform3DConcat(&a, &b, &v80);
+    v29 = *&a.m33;
+    *(a1 + 4) = *&a.m31;
+    *(a1 + 5) = v29;
+    v30 = *&a.m43;
+    *(a1 + 6) = *&a.m41;
+    *(a1 + 7) = v30;
+    v31 = *&a.m13;
+    *a1 = *&a.m11;
+    *(a1 + 1) = v31;
+    v32 = *&a.m23;
+    *(a1 + 2) = *&a.m21;
+    *(a1 + 3) = v32;
+    if (v10 != a2)
     {
-      v32 = *&a2->m33;
-      *&b.m31 = *&a2->m31;
-      *&b.m33 = v32;
-      v33 = *&a2->m43;
-      *&b.m41 = *&a2->m41;
-      *&b.m43 = v33;
-      v34 = *&a2->m13;
-      *&b.m11 = *&a2->m11;
-      *&b.m13 = v34;
-      v35 = *&a2->m23;
-      *&b.m21 = *&a2->m21;
-      *&b.m23 = v35;
-      if (v9)
+      v33 = *(a1 + 5);
+      *&b.m31 = *(a1 + 4);
+      *&b.m33 = v33;
+      v34 = *(a1 + 7);
+      *&b.m41 = *(a1 + 6);
+      *&b.m43 = v34;
+      v35 = *(a1 + 1);
+      *&b.m11 = *a1;
+      *&b.m13 = v35;
+      v36 = *(a1 + 3);
+      *&b.m21 = *(a1 + 2);
+      *&b.m23 = v36;
+      if (v10)
       {
-        [(CALayer *)v9 sublayerTransform];
+        objc_msgSend_sublayerTransform(v10);
       }
 
       else
       {
-        memset(&v79, 0, sizeof(v79));
+        memset(&v80, 0, sizeof(v80));
       }
 
-      CATransform3DConcat(&a, &b, &v79);
-      v36 = *&a.m33;
-      *&a2->m31 = *&a.m31;
-      *&a2->m33 = v36;
-      v37 = *&a.m43;
-      *&a2->m41 = *&a.m41;
-      *&a2->m43 = v37;
-      v38 = *&a.m13;
-      *&a2->m11 = *&a.m11;
-      *&a2->m13 = v38;
-      v39 = *&a.m23;
-      *&a2->m21 = *&a.m21;
-      *&a2->m23 = v39;
+      CATransform3DConcat(&a, &b, &v80);
+      v37 = *&a.m33;
+      *(a1 + 4) = *&a.m31;
+      *(a1 + 5) = v37;
+      v38 = *&a.m43;
+      *(a1 + 6) = *&a.m41;
+      *(a1 + 7) = v38;
+      v39 = *&a.m13;
+      *a1 = *&a.m11;
+      *(a1 + 1) = v39;
+      v40 = *&a.m23;
+      *(a1 + 2) = *&a.m21;
+      *(a1 + 3) = v40;
     }
 
-    [(CALayer *)v9 position];
-    v41 = v40;
-    [(CALayer *)v9 position];
-    v43 = v42;
-    [(CALayer *)v9 zPosition];
-    CATransform3DMakeTranslation(&a, v41, v43, v44);
-    v75 = a;
-    v45 = *&a2->m33;
-    *&b.m31 = *&a2->m31;
-    *&b.m33 = v45;
-    v46 = *&a2->m43;
-    *&b.m41 = *&a2->m41;
-    *&b.m43 = v46;
-    v47 = *&a2->m13;
-    *&b.m11 = *&a2->m11;
-    *&b.m13 = v47;
-    v48 = *&a2->m23;
-    *&b.m21 = *&a2->m21;
-    *&b.m23 = v48;
-    v79 = a;
-    CATransform3DConcat(&a, &b, &v79);
-    v49 = *&a.m33;
-    *&a2->m31 = *&a.m31;
-    *&a2->m33 = v49;
-    v50 = *&a.m43;
-    *&a2->m41 = *&a.m41;
-    *&a2->m43 = v50;
-    v51 = *&a.m13;
-    *&a2->m11 = *&a.m11;
-    *&a2->m13 = v51;
-    v52 = *&a.m23;
-    *&a2->m21 = *&a.m21;
-    *&a2->m23 = v52;
-    v9 = [(CALayer *)v9 superlayer];
+    [(CALayer *)v10 position];
+    v42 = v41;
+    [(CALayer *)v10 position];
+    v44 = v43;
+    [(CALayer *)v10 zPosition];
+    CATransform3DMakeTranslation(&a, v42, v44, v45);
+    v76 = a;
+    v46 = *(a1 + 5);
+    *&b.m31 = *(a1 + 4);
+    *&b.m33 = v46;
+    v47 = *(a1 + 7);
+    *&b.m41 = *(a1 + 6);
+    *&b.m43 = v47;
+    v48 = *(a1 + 1);
+    *&b.m11 = *a1;
+    *&b.m13 = v48;
+    v49 = *(a1 + 3);
+    *&b.m21 = *(a1 + 2);
+    *&b.m23 = v49;
+    v80 = a;
+    CATransform3DConcat(&a, &b, &v80);
+    v50 = *&a.m33;
+    *(a1 + 4) = *&a.m31;
+    *(a1 + 5) = v50;
+    v51 = *&a.m43;
+    *(a1 + 6) = *&a.m41;
+    *(a1 + 7) = v51;
+    v52 = *&a.m13;
+    *a1 = *&a.m11;
+    *(a1 + 1) = v52;
+    v53 = *&a.m23;
+    *(a1 + 2) = *&a.m21;
+    *(a1 + 3) = v53;
+    v10 = [(CALayer *)v10 superlayer];
   }
 
-  while (v9);
-  v71 = *&a2->m21;
-  v72 = *&a2->m23;
-  v73 = *&a2->m31;
-  v74 = *&a2->m33;
-  v69 = *&a2->m11;
-  v70 = *&a2->m13;
-  m41 = a2->m41;
-  m42 = a2->m42;
-  v68 = *&a2->m43;
-  v55 = NSClassFromString(&cfstr_Uiscreen.isa);
-  if (v55)
+  while (v10);
+  v72 = *(a1 + 2);
+  v73 = *(a1 + 3);
+  v74 = *(a1 + 4);
+  v75 = *(a1 + 5);
+  v70 = *a1;
+  v71 = *(a1 + 1);
+  m41 = *(a1 + 12);
+  m42 = *(a1 + 13);
+  v69 = *(a1 + 7);
+  v56 = NSClassFromString(&cfstr_Uiscreen.isa);
+  if (v56)
   {
-    v56 = [(objc_class *)v55 performSelector:sel_getUid("mainScreen")];
-    v57 = [v56 performSelector:sel_getUid("coordinateSpace")];
-    v58 = [v56 performSelector:sel_getUid("fixedCoordinateSpace")];
+    v57 = [(objc_class *)v56 performSelector:sel_getUid("mainScreen")];
+    v58 = [v57 performSelector:sel_getUid("coordinateSpace")];
+    v59 = [v57 performSelector:sel_getUid("fixedCoordinateSpace")];
     Uid = sel_getUid("convertPoint:toCoordinateSpace:");
-    v61 = fabs(([v57 methodForSelector:Uid])(v57, Uid, v58, 0.0, 0.0));
-    if (v61 >= 0.001 && v61 >= fmax(v61, 0.0) * 0.001)
+    v62 = fabs(([v58 methodForSelector:Uid])(v58, Uid, v59, 0.0, 0.0));
+    if (v62 >= 0.001 && v62 >= fmax(v62, 0.0) * 0.001)
     {
-      v64 = fabs(v60);
-      if (v64 >= 0.001 && v64 >= fmax(v64, 0.0) * 0.001)
+      v65 = fabs(v61);
+      if (v65 >= 0.001 && v65 >= fmax(v65, 0.0) * 0.001)
       {
         memset(&a, 0, sizeof(a));
         CATransform3DMakeRotation(&a, 3.14159265, 0.0, 0.0, 1.0);
         memset(&b, 0, sizeof(b));
         CATransform3DMakeTranslation(&b, -m41, -m42, 0.0);
-        memset(&v79, 0, sizeof(v79));
-        v65 = m41;
-        v66 = m42;
+        memset(&v80, 0, sizeof(v80));
+        v66 = m41;
+        v67 = m42;
         goto LABEL_23;
       }
 
       memset(&a, 0, sizeof(a));
-      v63 = 1.57079633;
+      v64 = 1.57079633;
 LABEL_22:
-      CATransform3DMakeRotation(&a, v63, 0.0, 0.0, 1.0);
+      CATransform3DMakeRotation(&a, v64, 0.0, 0.0, 1.0);
       memset(&b, 0, sizeof(b));
       CATransform3DMakeTranslation(&b, -m41, -m42, 0.0);
-      memset(&v79, 0, sizeof(v79));
-      v65 = m42;
-      v66 = m41;
+      memset(&v80, 0, sizeof(v80));
+      v66 = m42;
+      v67 = m41;
 LABEL_23:
-      CATransform3DMakeTranslation(&v79, v65, v66, 0.0);
-      *&v77.m21 = v71;
-      *&v77.m23 = v72;
-      *&v77.m31 = v73;
-      *&v77.m33 = v74;
-      *&v77.m11 = v69;
-      *&v77.m13 = v70;
-      v77.m41 = m41;
-      v77.m42 = m42;
-      *&v77.m43 = v68;
-      v76 = b;
-      CATransform3DConcat(&v78, &v77, &v76);
-      v77 = v78;
-      v76 = a;
-      CATransform3DConcat(&v78, &v77, &v76);
-      v77 = v78;
-      v76 = v79;
-      CATransform3DConcat(&v78, &v77, &v76);
-      v71 = *&v78.m21;
-      v72 = *&v78.m23;
-      v73 = *&v78.m31;
-      v74 = *&v78.m33;
-      v69 = *&v78.m11;
-      v70 = *&v78.m13;
-      m41 = v78.m41;
-      m42 = v78.m42;
-      v68 = *&v78.m43;
+      CATransform3DMakeTranslation(&v80, v66, v67, 0.0);
+      *&v78.m21 = v72;
+      *&v78.m23 = v73;
+      *&v78.m31 = v74;
+      *&v78.m33 = v75;
+      *&v78.m11 = v70;
+      *&v78.m13 = v71;
+      v78.m41 = m41;
+      v78.m42 = m42;
+      *&v78.m43 = v69;
+      v77 = b;
+      CATransform3DConcat(&v79, &v78, &v77);
+      v78 = v79;
+      v77 = a;
+      CATransform3DConcat(&v79, &v78, &v77);
+      v78 = v79;
+      v77 = v80;
+      CATransform3DConcat(&v79, &v78, &v77);
+      v72 = *&v79.m21;
+      v73 = *&v79.m23;
+      v74 = *&v79.m31;
+      v75 = *&v79.m33;
+      v70 = *&v79.m11;
+      v71 = *&v79.m13;
+      m41 = v79.m41;
+      m42 = v79.m42;
+      v69 = *&v79.m43;
       goto LABEL_24;
     }
 
-    v62 = fabs(v60);
-    if (v62 >= 0.001 && v62 >= fmax(v62, 0.0) * 0.001)
+    v63 = fabs(v61);
+    if (v63 >= 0.001 && v63 >= fmax(v63, 0.0) * 0.001)
     {
       memset(&a, 0, sizeof(a));
-      v63 = -1.57079633;
+      v64 = -1.57079633;
       goto LABEL_22;
     }
   }
 
 LABEL_24:
-  *&a.m21 = v71;
-  *&a.m23 = v72;
-  *&a.m31 = v73;
-  *&a.m33 = v74;
-  *&a.m11 = v69;
-  *&a.m13 = v70;
-  *&b.m11 = v68;
-  *&a2->m21 = v71;
-  *&a2->m23 = v72;
-  *&a2->m31 = v73;
-  *&a2->m33 = v74;
-  *&a2->m11 = v69;
-  *&a2->m13 = v70;
-  a2->m41 = m41;
-  a2->m42 = m42;
+  *&a.m21 = v72;
+  *&a.m23 = v73;
+  *&a.m31 = v74;
+  *&a.m33 = v75;
+  *&a.m11 = v70;
+  *&a.m13 = v71;
+  *&b.m11 = v69;
+  *(a1 + 2) = v72;
+  *(a1 + 3) = v73;
+  *(a1 + 4) = v74;
+  *(a1 + 5) = v75;
+  *a1 = v70;
+  *(a1 + 1) = v71;
+  *(a1 + 12) = m41;
+  *(a1 + 13) = m42;
   result = b.m11;
-  *&a2->m43 = *&b.m11;
+  *(a1 + 7) = *&b.m11;
   return result;
 }
 
@@ -6693,17 +6675,18 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void sub_24D6820BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24D6820BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_1_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+uint64_t OUTLINED_FUNCTION_1_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
 
-  return [v26 countByEnumeratingWithState:&a17 objects:&a26 count:16];
+  return [v25 countByEnumeratingWithState:&a17 objects:va count:{16, a6, a7, a8}];
 }
 
 void GPUTools::FB::EncodeStaticBacktrace(GPUTools::FB *this, GPUTools::FB::Fbuf *a2, unint64_t *a3)
@@ -6909,7 +6892,7 @@ LABEL_2:
   }
 }
 
-void GPUTools::FB::EncodeGLError(GPUTools::FB *this, GPUTools::FB::Fbuf *a2)
+void GPUTools::FB::EncodeGLError(GPUTools::FB::Fbuf *this, GPUTools::FB::Fbuf *a2)
 {
   v2 = *(this + 1);
   *(*this + 32) |= 0x10u;
@@ -7040,7 +7023,7 @@ LABEL_2:
   }
 }
 
-void GPUTools::FB::EncodeGCDQueueInfo(GPUTools::FB *this, GPUTools::FB::Fbuf *a2, int a3)
+void GPUTools::FB::EncodeGCDQueueInfo(GPUTools::FB::Fbuf *this, GPUTools::FB::Fbuf *a2, int a3)
 {
   v3 = *(this + 1);
   *(*this + 32) |= 0x400u;
@@ -7146,29 +7129,29 @@ _DWORD *GPUTools::FB::EncodeThreadLocalFlags(GPUTools::FB *this)
   return result;
 }
 
-void *GPUTools::FB::Encode(char **this, GPUTools::FB::Fbuf *a2, int a3, uint64_t a4, const char *a5, GPUTools::FB::ArgumentProvider *a6)
+_BYTE *GPUTools::FB::Encode(char **this, GPUTools::FB::Fbuf *a2, int a3, uint64_t a4, const char *a5, GPUTools::FB::ArgumentProvider *a6)
 {
   v8 = a2;
-  v126 = *MEMORY[0x277D85DE8];
-  v121 = a3;
+  v125 = *MEMORY[0x277D85DE8];
+  v120 = a3;
   pthread_mutex_lock(&sFunctionChainLock);
-  v123 = 0;
-  v124[0] = &unk_2860A8FA0;
-  v124[1] = &v121;
-  v125 = v124;
-  std::__function::__value_func<void ()(void)>::swap[abi:ne200100](v124, v122);
-  if (v125 == v124)
+  v122 = 0;
+  v123[0] = &unk_2860A8FA0;
+  v123[1] = &v120;
+  v124 = v123;
+  std::__function::__value_func<void ()(void)>::swap[abi:ne200100](v123, v121);
+  if (v124 == v123)
   {
-    (*(*v125 + 32))(v125);
+    (*(*v124 + 32))(v124);
   }
 
-  else if (v125)
+  else if (v124)
   {
-    (*(*v125 + 40))();
+    (*(*v124 + 40))();
   }
 
-  v121 = v10;
-  v114 = a5;
+  v120 = v10;
+  v113 = a5;
   if ((v8 + 12281) < 2 || v8 == -12272)
   {
     if (v8 == -12272)
@@ -7182,7 +7165,7 @@ void *GPUTools::FB::Encode(char **this, GPUTools::FB::Fbuf *a2, int a3, uint64_t
     }
 
     v10 |= v12;
-    v121 = v10;
+    v120 = v10;
   }
 
   else if (v8 == -12288)
@@ -7194,18 +7177,18 @@ void *GPUTools::FB::Encode(char **this, GPUTools::FB::Fbuf *a2, int a3, uint64_t
 
   v13 = *this;
   v14 = this[1];
-  v15 = (v14 - *this);
+  v15 = v14 - *this;
   v16 = *(this + 4);
   if ((v16 - v15) <= 0x23)
   {
-    v110 = (291 - (v16 - v15)) & 0x100;
-    v111 = (v110 + v16);
-    *(this + 4) = v111;
+    v109 = (291 - (v16 - v15)) & 0x100;
+    v110 = (v109 + v16);
+    *(this + 4) = v110;
     if (v13)
     {
-      v112 = reallocf(v13, v111);
-      *this = v112;
-      if (v112)
+      v111 = reallocf(v13, v110);
+      *this = v111;
+      if (v111)
       {
         goto LABEL_139;
       }
@@ -7213,19 +7196,19 @@ void *GPUTools::FB::Encode(char **this, GPUTools::FB::Fbuf *a2, int a3, uint64_t
 
     else
     {
-      v112 = malloc_type_malloc((v110 + v16), 0xF962E99uLL);
-      *this = v112;
-      if (v112)
+      v111 = malloc_type_malloc((v109 + v16), 0xF962E99uLL);
+      *this = v111;
+      if (v111)
       {
 LABEL_139:
-        if ((v112 & 3) != 0)
+        if ((v111 & 3) != 0)
         {
-          dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v112, 4uLL);
+          dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v111, 4uLL);
         }
 
-        v14 = &v112[v15];
-        this[1] = &v112[v15];
-        v10 = v121;
+        v14 = &v111[v15];
+        this[1] = &v111[v15];
+        v10 = v120;
         goto LABEL_14;
       }
     }
@@ -7239,9 +7222,9 @@ LABEL_14:
   *(v14 + 1) = 0u;
   *(*this + 1) = v8;
   *(*this + 8) = v10;
-  v124[0] = 0;
-  pthread_threadid_np(0, v124);
-  *(*this + 1) = v124[0];
+  v123[0] = 0;
+  pthread_threadid_np(0, v123);
+  *(*this + 1) = v123[0];
   v17 = mach_absolute_time();
   if (g_DYTimebaseInfo != dword_27F0982A4)
   {
@@ -7255,18 +7238,18 @@ LABEL_14:
 LABEL_17:
   v18 = (strlen(a4) & 0xFFFFFFFFFFFFFFFCLL) + 4;
   v19 = *this;
-  v20 = (v11 - *this);
+  v20 = v11 - *this;
   v21 = *(this + 4);
   if (v18 > v21 - v20)
   {
-    v107 = (v18 - (v21 - v20) + 255) & 0xFFFFFF00;
-    v108 = (v107 + v21);
-    *(this + 4) = v108;
+    v106 = (v18 - (v21 - v20) + 255) & 0xFFFFFF00;
+    v107 = (v106 + v21);
+    *(this + 4) = v107;
     if (v19)
     {
-      v109 = reallocf(v19, v108);
-      *this = v109;
-      if (v109)
+      v108 = reallocf(v19, v107);
+      *this = v108;
+      if (v108)
       {
         goto LABEL_135;
       }
@@ -7274,18 +7257,18 @@ LABEL_17:
 
     else
     {
-      v109 = malloc_type_malloc((v107 + v21), 0xF962E99uLL);
-      *this = v109;
-      if (v109)
+      v108 = malloc_type_malloc((v106 + v21), 0xF962E99uLL);
+      *this = v108;
+      if (v108)
       {
 LABEL_135:
-        if ((v109 & 3) != 0)
+        if ((v108 & 3) != 0)
         {
-          dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v109, 4uLL);
+          dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v108, 4uLL);
         }
 
-        v11 = &v109[v20];
-        this[1] = &v109[v20];
+        v11 = &v108[v20];
+        this[1] = &v108[v20];
         goto LABEL_18;
       }
     }
@@ -7296,11 +7279,11 @@ LABEL_135:
 LABEL_18:
   bzero(v11, v18);
   strlcpy(this[1], a4, v18);
-  v22 = v114;
+  v22 = v113;
   v23 = &this[1][v18];
   this[1] = v23;
-  v120 = 0;
-  v124[0] = 0;
+  v119 = 0;
+  v123[0] = 0;
   v24 = *a4;
   if (!*a4)
   {
@@ -7310,7 +7293,7 @@ LABEL_18:
   v25 = 0;
   v26 = 0;
   v27 = 0;
-  v117 = 0;
+  v116 = 0;
   v28 = MEMORY[0x277D85DE0];
   do
   {
@@ -7318,7 +7301,7 @@ LABEL_18:
     {
       if (v24 == 64)
       {
-        v120 = 0;
+        v119 = 0;
         v33 = *++a4;
         LOBYTE(v32) = v33;
         if ((v33 & 0x80000000) == 0)
@@ -7338,7 +7321,7 @@ LABEL_18:
             }
 
             v34 = 10 * v34 + v32 - 48;
-            v120 = v34;
+            v119 = v34;
             v35 = *++a4;
             v32 = v35;
           }
@@ -7347,10 +7330,10 @@ LABEL_18:
         }
 
         v26 = 0;
-        v124[0] = (*(*v22 + 72))(v22);
+        v123[0] = (*(*v22 + 72))(v22);
         v25 = 1;
-        v27 = &v120;
-        v117 = v124;
+        v27 = &v119;
+        v116 = v123;
         goto LABEL_21;
       }
 
@@ -7361,7 +7344,7 @@ LABEL_18:
       }
 
 LABEL_48:
-      v115 = a4;
+      v114 = a4;
       if (v25)
       {
         v39 = v24 - 65;
@@ -7371,12 +7354,12 @@ LABEL_48:
         }
 
         v40 = 1;
-        v118 = v27;
-        v116 = v24;
+        v117 = v27;
+        v115 = v24;
         while (1)
         {
           v41 = v26;
-          v42 = v117[v26];
+          v42 = v116[v26];
           switch(v24)
           {
             case 'A':
@@ -7425,7 +7408,7 @@ LABEL_56:
               v44 = this[1];
               v46 = (&v44[v40 - 1] & -v40) - v44;
               v47 = v46 + v43;
-              v48 = (v44 - *this);
+              v48 = v44 - *this;
               v49 = *(this + 4);
               if (v46 + v43 <= v49 - v48)
               {
@@ -7472,11 +7455,11 @@ LABEL_57:
               v51 = *this;
               v50 = this[1];
               v52 = 4 * v27[v26];
-              v113 = ((v50 + 3) & 0xFFFFFFFFFFFFFFFCLL) - v50;
-              v53 = v113 + v52;
-              v54 = (v50 - *this);
+              v112 = ((v50 + 3) & 0xFFFFFFFFFFFFFFFCLL) - v50;
+              v53 = v112 + v52;
+              v54 = v50 - *this;
               v55 = *(this + 4);
-              if (v113 + v52 <= v55 - v54)
+              if (v112 + v52 <= v55 - v54)
               {
                 goto LABEL_61;
               }
@@ -7512,7 +7495,7 @@ LABEL_150:
 
               v50 = &v74[v54];
               this[1] = v50;
-              v27 = v118;
+              v27 = v117;
 LABEL_61:
               bzero(v50, v53);
               v56 = *this;
@@ -7521,13 +7504,13 @@ LABEL_61:
               if (v27[v41])
               {
                 v58 = 0;
-                v59 = &v57[v113 - v56];
+                v59 = &v57[v112 - v56];
                 do
                 {
                   v60 = strlen(*(v42 + v58)) + 1;
                   v61 = *this;
                   v62 = this[1];
-                  v63 = (v62 - *this);
+                  v63 = v62 - *this;
                   v64 = *(this + 4);
                   if (v60 > v64 - v63)
                   {
@@ -7568,20 +7551,20 @@ LABEL_143:
                   memcpy(this[1], *(v42 + v58), v60);
                   v65 = *this;
                   this[1] += v60;
-                  *&v65[4 * v58 + v59] = v52;
+                  *&v59[4 * v58 + v65] = v52;
                   v52 += v60;
                   ++v58;
                 }
 
-                while (v58 < v118[v41]);
+                while (v58 < v117[v41]);
                 v28 = MEMORY[0x277D85DE0];
               }
 
 LABEL_58:
               v26 = v41 + 1;
               --v25;
-              v27 = v118;
-              v24 = v116;
+              v27 = v117;
+              v24 = v115;
               if (!v25)
               {
                 goto LABEL_102;
@@ -7611,7 +7594,7 @@ LABEL_58:
         case 'i':
         case 'x':
           v75 = v24;
-          LODWORD(v119) = (*(*v22 + 32))(v22);
+          LODWORD(v118) = (*(*v22 + 32))(v22);
           goto LABEL_88;
         case 'C':
         case 'D':
@@ -7628,14 +7611,14 @@ LABEL_58:
           v85 = (*(*v22 + 40))(v22);
 LABEL_93:
           v75 = v24;
-          v119 = *&v85;
+          v118 = *&v85;
           v76 = 4;
           goto LABEL_94;
         case 'S':
         case 'U':
         case 'V':
           v94 = (*(*v22 + 80))(v22);
-          v119 = *&v94;
+          v118 = *&v94;
           v75 = v24;
           if (v94)
           {
@@ -7654,22 +7637,22 @@ LABEL_95:
           v86 = this[1];
           v87 = (&v86[v76 - 1] & -v76) - v86;
           v88 = v87 + v77;
-          v89 = &v119;
+          v89 = &v118;
           if (v75 - 83 <= 3 && v75 != 84)
           {
-            if (v119 == 0.0)
+            if (v118 == 0.0)
             {
               v89 = &GPUTools::FB::g_null_string_token;
             }
 
             else
             {
-              v89 = *&v119;
+              v89 = *&v118;
             }
           }
 
           v90 = *this;
-          v91 = (v86 - *this);
+          v91 = v86 - *this;
           v92 = *(this + 4);
           v93 = v92 - v91;
           if (v88 <= v92 - v91)
@@ -7679,34 +7662,34 @@ LABEL_95:
 
           goto LABEL_112;
         case 'b':
-          LOBYTE(v119) = (*(*v22 + 16))(v22);
+          LOBYTE(v118) = (*(*v22 + 16))(v22);
           v95 = 1;
           v77 = 1;
           goto LABEL_111;
         case 'd':
-          v119 = (*(*v22 + 64))(v22);
+          v118 = (*(*v22 + 64))(v22);
           v95 = 4;
           v77 = 8;
           goto LABEL_111;
         case 'f':
         case 'n':
           v75 = v24;
-          LODWORD(v119) = (*(*v22 + 56))(v22);
+          LODWORD(v118) = (*(*v22 + 56))(v22);
 LABEL_88:
           v76 = 4;
           v77 = 4;
           goto LABEL_95;
         case 's':
-          LOWORD(v119) = (*(*v22 + 24))(v22);
+          LOWORD(v118) = (*(*v22 + 24))(v22);
           v95 = 2;
           v77 = 2;
 LABEL_111:
           v86 = this[1];
           v87 = (&v86[v95 - 1] & -v95) - v86;
           v88 = v87 + v77;
-          v89 = &v119;
+          v89 = &v118;
           v90 = *this;
-          v91 = (v86 - *this);
+          v91 = v86 - *this;
           v92 = *(this + 4);
           v93 = v92 - v91;
           if (v87 + v77 <= v92 - v91)
@@ -7753,8 +7736,8 @@ LABEL_101:
           v28 = MEMORY[0x277D85DE0];
 LABEL_102:
           v25 = 0;
-          v22 = v114;
-          a4 = v115 + 1;
+          v22 = v113;
+          a4 = v114 + 1;
           break;
         default:
           dy_abort("unknown format character: '%c' (in '%s')\n", v24, a4);
@@ -7819,13 +7802,13 @@ LABEL_102:
     }
 
     v27 = (*(*v22 + 72))(v22);
-    v117 = (*(*v22 + 72))(v22);
+    v116 = (*(*v22 + 72))(v22);
     v79 = *this;
     v78 = this[1];
     v80 = ((v78 + 3) & 0xFFFFFFFFFFFFFFFCLL) - v78;
     v81 = 4 * v25;
     v82 = v80 + v81;
-    v83 = (v78 - *this);
+    v83 = v78 - *this;
     v84 = *(this + 4);
     if (v80 + v81 > v84 - v83)
     {
@@ -7884,30 +7867,29 @@ LABEL_125:
     **this += v104;
   }
 
-  if (!v123)
+  if (!v122)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v123 + 48))(v123);
-  result = v123;
-  if (v123 == v122)
+  (*(*v122 + 48))(v122);
+  result = v122;
+  if (v122 == v121)
   {
-    result = (*(*v123 + 32))(v123);
+    return (*(*v122 + 32))(v122);
   }
 
-  else if (v123)
+  if (v122)
   {
-    result = (*(*v123 + 40))();
+    return (*(*v122 + 40))();
   }
 
-  v106 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_24D684508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24D684508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   dy_defer::~dy_defer(va);
   _Unwind_Resume(a1);
 }
@@ -7921,7 +7903,7 @@ void GPUTools::FB::CreateFunction(GPUTools::FB *this@<X0>, char *a2@<X3>, uint64
   GPUTools::FD::Function::Function(v22);
   va_copy(v21, va);
   GPUTools::FB::VAListArgumentProvider::VAListArgumentProvider(v20, va);
-  GPUTools::FB::Encode(&v25, this, a4, a3, v20, v13);
+  GPUTools::FB::Encode(&v25, this, a4, a3, v20, v12);
   if (a5)
   {
     v16 = &unk_2860A91A0;
@@ -7929,7 +7911,7 @@ void GPUTools::FB::CreateFunction(GPUTools::FB *this@<X0>, char *a2@<X3>, uint64
     v18 = 0u;
     v19 = 0u;
     GPUTools::FB::FIFOPointerArgumentProvider::push(&v16, a2);
-    GPUTools::FB::Encode(&v25, 0xFFFFD000, 0, a5, &v16, v14);
+    GPUTools::FB::Encode(&v25, 0xFFFFD000, 0, a5, &v16, v13);
     GPUTools::FB::FIFOPointerArgumentProvider::~FIFOPointerArgumentProvider(&v16);
   }
 
@@ -7937,7 +7919,7 @@ void GPUTools::FB::CreateFunction(GPUTools::FB *this@<X0>, char *a2@<X3>, uint64
   GPUTools::FB::Decoder::Decode(&v16, v25, v27, v22);
   if (v24)
   {
-    GPUTools::FD::Function::Function(a6, v22);
+    GPUTools::FD::Function::Function(a6, v22, v14);
   }
 
   else
@@ -7960,19 +7942,19 @@ void GPUTools::FB::CreateFunction(GPUTools::FB *this@<X0>, char *a2@<X3>, uint64
   }
 }
 
-void sub_24D6848A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_24D6848A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(va);
   GPUTools::FD::Function::~Function(va1);
-  v10 = *(v8 - 88);
-  if (v10)
+  v17 = *(v15 - 88);
+  if (v17)
   {
-    free(v10);
+    free(v17);
   }
 
   _Unwind_Resume(a1);
@@ -8079,56 +8061,52 @@ uint64_t std::__function::__func<GPUTools::FB::Encode(GPUTools::FB::Fbuf &,unsig
 
 void *std::__function::__value_func<void ()(void)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  if (a2 == result)
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
   {
-LABEL_8:
-    v6 = *MEMORY[0x277D85DE8];
-    return result;
-  }
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
 
-  v3 = result;
-  result = result[3];
-  v4 = a2[3];
-  if (result != v3)
-  {
-    if (v4 != a2)
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
     {
       v3[3] = v4;
       a2[3] = result;
-      v5 = *MEMORY[0x277D85DE8];
-      return result;
     }
-
-    (*(*v4 + 24))(a2[3], v3);
-    result = (*(*a2[3] + 32))(a2[3]);
-    a2[3] = v3[3];
-    v3[3] = v3;
-    goto LABEL_8;
   }
 
-  if (v4 == a2)
-  {
-    (*(*result + 24))(result, v8);
-    (*(*v3[3] + 32))(v3[3]);
-    v3[3] = 0;
-    (*(*a2[3] + 24))(a2[3], v3);
-    (*(*a2[3] + 32))(a2[3]);
-    a2[3] = 0;
-    v3[3] = v3;
-    (*(v8[0] + 24))(v8, a2);
-    result = (*(v8[0] + 32))(v8);
-  }
-
-  else
-  {
-    (*(*result + 24))(result, a2);
-    result = (*(*v3[3] + 32))(v3[3]);
-    v3[3] = a2[3];
-  }
-
-  a2[3] = a2;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8346,11 +8324,11 @@ uint64_t GPUTools::FD::Argument::ProgramAndUniformLocationFromVariable(GPUTools:
   return result;
 }
 
-size_t GPUTools::FD::Argument::ViewAsGLObjectName(const char **this)
+size_t GPUTools::FD::Argument::ViewAsGLObjectName(const char **this, uint64_t a2)
 {
   if ((*(this + 11) & 0x10) != 0)
   {
-    v3 = *this;
+    v4 = *this;
     if (!*this)
     {
       GPUTools::FD::Argument::GLObjectNameFromVariable();
@@ -8359,34 +8337,34 @@ size_t GPUTools::FD::Argument::ViewAsGLObjectName(const char **this)
     result = strlen(*this);
     if (result)
     {
-      v4 = &v3[result - 1];
+      v5 = &v4[result - 1];
       do
       {
-        v5 = v4;
-        if (v4 < v3)
+        v6 = v5;
+        if (v5 < v4)
         {
           break;
         }
 
-        v6 = *v4;
-        if (v6 < 0)
+        v7 = *v5;
+        if (v7 < 0)
         {
           break;
         }
 
-        v7 = *(MEMORY[0x277D85DE0] + 4 * v6 + 60);
-        v4 = v5 - 1;
+        v8 = *(MEMORY[0x277D85DE0] + 4 * v7 + 60);
+        v5 = v6 - 1;
       }
 
-      while ((v7 & 0x400) != 0);
-      return strtol(v5 + 1, 0, 10);
+      while ((v8 & 0x400) != 0);
+      return strtol(v6 + 1, 0, 10);
     }
   }
 
   else
   {
-    v1 = *(this + 2);
-    if (v1 != 6 && v1 != 12)
+    v2 = *(this + 2);
+    if (v2 != 6 && v2 != 12)
     {
       dy_abort("cannot view argument as OpenGL object name: core_type=%u, sem_type=%u", *(this + 2), *(this + 3));
     }
@@ -8397,40 +8375,40 @@ size_t GPUTools::FD::Argument::ViewAsGLObjectName(const char **this)
   return result;
 }
 
-uint64_t GPUTools::FD::Argument::ViewAsUniformLocation(const char **this)
+uint64_t GPUTools::FD::Argument::ViewAsUniformLocation(const char **this, uint64_t a2)
 {
   if ((*(this + 11) & 0x10) != 0)
   {
-    v2 = *this;
+    v3 = *this;
     if (!*this)
     {
       GPUTools::FD::Argument::UniformLocationFromVariable();
     }
 
-    v3 = strlen(*this);
-    if (v3)
+    v4 = strlen(*this);
+    if (v4)
     {
-      v4 = &v2[v3 - 1];
+      v5 = &v3[v4 - 1];
       do
       {
-        v5 = v4;
-        if (v4 < v2)
+        v6 = v5;
+        if (v5 < v3)
         {
           break;
         }
 
-        v6 = *v4;
-        if (v6 < 0)
+        v7 = *v5;
+        if (v7 < 0)
         {
           break;
         }
 
-        v7 = *(MEMORY[0x277D85DE0] + 4 * v6 + 60);
-        v4 = v5 - 1;
+        v8 = *(MEMORY[0x277D85DE0] + 4 * v7 + 60);
+        v5 = v6 - 1;
       }
 
-      while ((v7 & 0x400) != 0);
-      return strtol(v5 + 1, 0, 10);
+      while ((v8 & 0x400) != 0);
+      return strtol(v6 + 1, 0, 10);
     }
 
     else
@@ -9778,7 +9756,7 @@ uint64_t GTFunctionDecoder::_push(GTFunctionDecoder *this)
   return v4 + 536 * v2;
 }
 
-void GTFunctionDecoder::_decode(_DWORD *a1, uint64_t a2, uint64_t a3, int a4)
+void GTFunctionDecoder::_decode(_DWORD *a1, uint64_t a2, uint64_t **a3, int a4)
 {
   v23 = 0;
   v7 = a4;
@@ -9807,7 +9785,7 @@ void GTFunctionDecoder::_decode(_DWORD *a1, uint64_t a2, uint64_t a3, int a4)
     }
 
     v14 = a1 + 35;
-    v15 = (a3 + 11);
+    v15 = a3 + 11;
     *(a1 + 2) = v11;
     while (1)
     {
@@ -10089,7 +10067,7 @@ LABEL_91:
 LABEL_113:
           a1[9] = v21;
           a1[10] = 0;
-          *(a1 + 22) = *(a3 + 8);
+          *(a1 + 22) = *(a3 + 4);
           if (v12 == 85)
           {
             v22 = *(a3 + 11) & 1 | 8;

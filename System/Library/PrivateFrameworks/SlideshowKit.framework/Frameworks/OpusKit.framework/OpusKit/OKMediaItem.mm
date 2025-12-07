@@ -348,7 +348,7 @@ id __57__OKMediaItem_metadataWithCompletionHandler_force_cache___block_invoke_2(
   return v7;
 }
 
-uint64_t __42__OKMediaItem_metadataWithProgress_error___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
+id __42__OKMediaItem_metadataWithProgress_error___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
   result = [a2 isCancelled];
   if ((result & 1) != 0 || (result = [a2 error]) != 0)
@@ -622,7 +622,7 @@ LABEL_8:
   [a2 finish];
 }
 
-uint64_t __110__OKMediaItem_thumbnailImageForResolution_aspectRatio_scale_quality_colorSpace_completionHandler_force_cache___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void *__110__OKMediaItem_thumbnailImageForResolution_aspectRatio_scale_quality_colorSpace_completionHandler_force_cache___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
   result = [a2 isCancelled];
   if (a3 && !a4 && !result)
@@ -713,7 +713,7 @@ id __110__OKMediaItem_thumbnailImageForResolution_aspectRatio_scale_quality_colo
   return v9;
 }
 
-uint64_t __80__OKMediaItem_thumbnailImageForResolution_aspectRatio_scale_quality_colorSpace___block_invoke(uint64_t a1, void *a2, void *a3)
+id __80__OKMediaItem_thumbnailImageForResolution_aspectRatio_scale_quality_colorSpace___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -768,7 +768,7 @@ uint64_t __80__OKMediaItem_thumbnailImageForResolution_aspectRatio_scale_quality
   return v4;
 }
 
-uint64_t __26__OKMediaItem_resourceURL__block_invoke(uint64_t a1, void *a2, void *a3)
+id __26__OKMediaItem_resourceURL__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -823,7 +823,7 @@ uint64_t __26__OKMediaItem_resourceURL__block_invoke(uint64_t a1, void *a2, void
   return v4;
 }
 
-uint64_t __22__OKMediaItem_avAsset__block_invoke(uint64_t a1, void *a2, void *a3)
+id __22__OKMediaItem_avAsset__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -1006,7 +1006,7 @@ id __83__OKMediaItem_detectRegionsOfInterestWithCompletionHandler_force_cache_co
   return result;
 }
 
-uint64_t __83__OKMediaItem_detectRegionsOfInterestWithCompletionHandler_force_cache_colorSpace___block_invoke_3(uint64_t a1, void *a2, void *a3)
+id __83__OKMediaItem_detectRegionsOfInterestWithCompletionHandler_force_cache_colorSpace___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -1095,7 +1095,7 @@ LABEL_16:
   return v8;
 }
 
-uint64_t __47__OKMediaItem_regionsOfInterestWithColorSpace___block_invoke(uint64_t a1, void *a2, void *a3)
+id __47__OKMediaItem_regionsOfInterestWithColorSpace___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -1114,7 +1114,7 @@ uint64_t __47__OKMediaItem_regionsOfInterestWithColorSpace___block_invoke(uint64
   return result;
 }
 
-uint64_t __47__OKMediaItem_regionsOfInterestWithColorSpace___block_invoke_2(uint64_t a1, void *a2, void *a3)
+id __47__OKMediaItem_regionsOfInterestWithColorSpace___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)

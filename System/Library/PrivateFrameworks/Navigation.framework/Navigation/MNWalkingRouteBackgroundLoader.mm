@@ -40,7 +40,7 @@
 
 - (void)_updateForLocation:(id)location
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v5 = locationCopy;
   if (self->_isFetchingWalkingRoutes)
@@ -59,20 +59,20 @@
       [v11 distanceFromRoute];
       if (v14 <= v13)
       {
-        v28 = +[MNDisplayETAInfo displayETAInfoForRouteInfo:routeCoordinate:](MNDisplayETAInfo, "displayETAInfoForRouteInfo:routeCoordinate:", self->_walkingRouteInfo, [v11 routeCoordinate]);
-        if (v28)
+        v27 = +[MNDisplayETAInfo displayETAInfoForRouteInfo:routeCoordinate:](MNDisplayETAInfo, "displayETAInfoForRouteInfo:routeCoordinate:", self->_walkingRouteInfo, [v11 routeCoordinate]);
+        if (v27)
         {
           displayETAInfo = [(MNActiveRouteInfo *)self->_walkingRouteInfo displayETAInfo];
-          if (!displayETAInfo || (v30 = [v28 displayRemainingMinutesToEndOfRoute], v30 != objc_msgSend(displayETAInfo, "displayRemainingMinutesToEndOfRoute")))
+          if (!displayETAInfo || (v29 = [v27 displayRemainingMinutesToEndOfRoute], v29 != objc_msgSend(displayETAInfo, "displayRemainingMinutesToEndOfRoute")))
           {
-            [(MNActiveRouteInfo *)self->_walkingRouteInfo setDisplayETAInfo:v28];
+            [(MNActiveRouteInfo *)self->_walkingRouteInfo setDisplayETAInfo:v27];
             WeakRetained = objc_loadWeakRetained(&self->_delegate);
-            v32 = objc_opt_respondsToSelector();
+            v31 = objc_opt_respondsToSelector();
 
-            if (v32)
+            if (v31)
             {
-              v33 = objc_loadWeakRetained(&self->_delegate);
-              [v33 walkingRouteBackgroundLoader:self didUpdateWalkingRoute:self->_walkingRouteInfo];
+              v32 = objc_loadWeakRetained(&self->_delegate);
+              [v32 walkingRouteBackgroundLoader:self didUpdateWalkingRoute:self->_walkingRouteInfo];
             }
           }
         }
@@ -84,9 +84,9 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           [v11 distanceFromRoute];
-          v35 = 134217984;
-          v36 = v16;
-          _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_DEFAULT, "Location too far from route: %0.1f", &v35, 0xCu);
+          v33 = 134217984;
+          v34 = v16;
+          _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_DEFAULT, "Location too far from route: %0.1f", &v33, 0xCu);
         }
 
         [(MNWalkingRouteBackgroundLoader *)self _updateWalkingRoute];
@@ -98,26 +98,27 @@
       latitude = self->_lastFailedRequestCoordinate.latitude;
       if (latitude >= -90.0 && latitude <= 90.0 && !self->_pendingRequest)
       {
-        [locationCopy _navigation_geoCoordinate3D];
-        v19 = v18;
-        v21 = v20;
-        v22 = self->_lastFailedRequestCoordinate.latitude;
-        longitude = self->_lastFailedRequestCoordinate.longitude;
-        GEOCalculateDistance();
-        v25 = v24;
+        _navigation_geoCoordinate3D = [locationCopy _navigation_geoCoordinate3D];
+        v20 = v19;
+        v22 = v21;
+        v40.var0 = self->_lastFailedRequestCoordinate.latitude;
+        v40.var1 = self->_lastFailedRequestCoordinate.longitude;
+        v40.var2 = v20;
+        v41.var0 = v22;
+        v24 = GEOCalculateDistance(_navigation_geoCoordinate3D, v23, v40, v41);
         GEOConfigGetDouble();
-        if (v25 > v26)
+        if (v24 > v25)
         {
-          v27 = MNGetMNWalkingRouteBackgroundLoaderLog();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          v26 = MNGetMNWalkingRouteBackgroundLoaderLog();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
-            v35 = 134284033;
-            v36 = v19;
+            v33 = 134284033;
+            v34 = v20;
+            v35 = 2049;
+            v36 = v22;
             v37 = 2049;
-            v38 = v21;
-            v39 = 2049;
-            v40 = v25;
-            _os_log_impl(&dword_1D311E000, v27, OS_LOG_TYPE_INFO, "Retrying request for background loading route from %{private}f, %{private}f. Distance from last failed request is %{private}0.1f meters.", &v35, 0x20u);
+            v38 = v24;
+            _os_log_impl(&dword_1D311E000, v26, OS_LOG_TYPE_INFO, "Retrying request for background loading route from %{private}f, %{private}f. Distance from last failed request is %{private}0.1f meters.", &v33, 0x20u);
           }
 
           [(MNWalkingRouteBackgroundLoader *)self _updateWalkingRoute];
@@ -125,13 +126,11 @@
       }
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateWalkingRoute
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self->_isFetchingWalkingRoutes && !self->_pendingRequest)
   {
     if (self->_dateSinceLastRouteRequest && (GEOConfigGetDouble(), v4 = v3, +[MNTimeManager currentDate](MNTimeManager, "currentDate"), v5 = objc_claimAutoreleasedReturnValue(), [v5 timeIntervalSinceDate:self->_dateSinceLastRouteRequest], v7 = v6, v5, v7 < v4))
@@ -140,9 +139,9 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
-        v23 = v7;
-        v24 = 2048;
-        v25 = v4;
+        v22 = v7;
+        v23 = 2048;
+        v24 = v4;
         _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "Not requesting new background walking route because only %0.1fs has elapsed since the previous request, and at least %0.1fs is required.", buf, 0x16u);
       }
     }
@@ -159,37 +158,35 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 134283777;
-        v23 = *&v11;
-        v24 = 2049;
-        v25 = *&v13;
+        v22 = *&v11;
+        v23 = 2049;
+        v24 = *&v13;
         _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_INFO, "Requesting walking background route from server from %{private}f, %{private}f.", buf, 0x16u);
       }
 
       objc_initWeak(buf, self);
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __53__MNWalkingRouteBackgroundLoader__updateWalkingRoute__block_invoke;
-      v20[3] = &unk_1E842EF88;
-      v20[4] = self;
-      v21[1] = v11;
-      v21[2] = v13;
-      v21[3] = v15;
-      objc_copyWeak(v21, buf);
-      v17 = [(MNWalkingRouteBackgroundLoader *)self _requestWalkingRouteWithHandler:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __53__MNWalkingRouteBackgroundLoader__updateWalkingRoute__block_invoke;
+      v19[3] = &unk_1E842EF88;
+      v19[4] = self;
+      v20[1] = v11;
+      v20[2] = v13;
+      v20[3] = v15;
+      objc_copyWeak(v20, buf);
+      v17 = [(MNWalkingRouteBackgroundLoader *)self _requestWalkingRouteWithHandler:v19];
       pendingRequest = self->_pendingRequest;
       self->_pendingRequest = v17;
 
-      objc_destroyWeak(v21);
+      objc_destroyWeak(v20);
       objc_destroyWeak(buf);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __53__MNWalkingRouteBackgroundLoader__updateWalkingRoute__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (!a2 || v5)
@@ -202,8 +199,8 @@ void __53__MNWalkingRouteBackgroundLoader__updateWalkingRoute__block_invoke(uint
     v8 = MNGetMNWalkingRouteBackgroundLoaderLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v18 = 138412290;
-      v19 = v6;
+      v17 = 138412290;
+      v18 = v6;
       v9 = "Error requesting walking background route from server: %@";
       v10 = v8;
       v11 = OS_LOG_TYPE_ERROR;
@@ -218,31 +215,29 @@ void __53__MNWalkingRouteBackgroundLoader__updateWalkingRoute__block_invoke(uint
     v8 = MNGetMNWalkingRouteBackgroundLoaderLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v18) = 0;
+      LOWORD(v17) = 0;
       v9 = "Received walking background route.";
       v10 = v8;
       v11 = OS_LOG_TYPE_INFO;
       v12 = 2;
 LABEL_7:
-      _os_log_impl(&dword_1D311E000, v10, v11, v9, &v18, v12);
+      _os_log_impl(&dword_1D311E000, v10, v11, v9, &v17, v12);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _handleWalkingRouteResponse:a2];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_requestWalkingRouteWithHandler:(id)handler
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (handlerCopy)
   {
     location = [(MNNavigationSessionState *)self->_navigationSessionState location];
     v6 = location;
-    if (location && ([location coordinate], CLLocationCoordinate2DIsValid(v35)))
+    if (location && ([location coordinate], CLLocationCoordinate2DIsValid(v34)))
     {
       currentWaypoint = [(MNNavigationSessionState *)self->_navigationSessionState currentWaypoint];
       if (currentWaypoint)
@@ -258,7 +253,7 @@ LABEL_7:
           routeInitializerData = [route routeInitializerData];
           directionsRequest = [routeInitializerData directionsRequest];
           [directionsRequest commonOptions];
-          v14 = v29 = currentWaypoint;
+          v14 = v28 = currentWaypoint;
 
           arrivalState = [(MNNavigationSessionState *)self->_navigationSessionState arrivalState];
           v16 = objc_alloc_init(MEMORY[0x1E69A1D30]);
@@ -267,9 +262,9 @@ LABEL_7:
 
           [v16 setRequestType:{-[MNWalkingRouteBackgroundLoader _requestTypeForArrivalState:](self, "_requestTypeForArrivalState:", arrivalState)}];
           [v16 setCurrentLocation:v10];
-          v33[0] = v11;
-          v33[1] = v29;
-          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+          v32[0] = v11;
+          v32[1] = v28;
+          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
           [v16 setWaypoints:v18];
 
           [v16 setCurrentRoute:route];
@@ -285,14 +280,14 @@ LABEL_7:
           [v16 setRequestingAppIdentifier:requestingAppIdentifier];
 
           mEMORY[0x1E69A1D18] = [MEMORY[0x1E69A1D18] sharedService];
-          v30[0] = MEMORY[0x1E69E9820];
-          v30[1] = 3221225472;
-          v30[2] = __66__MNWalkingRouteBackgroundLoader__requestWalkingRouteWithHandler___block_invoke;
-          v30[3] = &unk_1E842EF50;
-          v31 = handlerCopy;
-          v22 = [mEMORY[0x1E69A1D18] requestRoutes:v16 handler:v30];
+          v29[0] = MEMORY[0x1E69E9820];
+          v29[1] = 3221225472;
+          v29[2] = __66__MNWalkingRouteBackgroundLoader__requestWalkingRouteWithHandler___block_invoke;
+          v29[3] = &unk_1E842EF50;
+          v30 = handlerCopy;
+          v22 = [mEMORY[0x1E69A1D18] requestRoutes:v16 handler:v29];
 
-          currentWaypoint = v29;
+          currentWaypoint = v28;
         }
 
         else
@@ -342,14 +337,12 @@ LABEL_7:
     v22 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 void __66__MNWalkingRouteBackgroundLoader__requestWalkingRouteWithHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -358,9 +351,9 @@ void __66__MNWalkingRouteBackgroundLoader__requestWalkingRouteWithHandler___bloc
     v10 = MNGetMNWalkingRouteBackgroundLoaderLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Error requesting walking background route from server: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v8;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Error requesting walking background route from server: %@", &v13, 0xCu);
     }
   }
 
@@ -376,8 +369,6 @@ void __66__MNWalkingRouteBackgroundLoader__requestWalkingRouteWithHandler___bloc
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_requestTypeForArrivalState:(int64_t)state

@@ -14,11 +14,11 @@ uint64_t __62__AFClientLite_SVXAceCommandHandling__handleAceCommand_reply___bloc
   return result;
 }
 
-uint64_t __62__AFClientLite_SVXAceCommandHandling__handleAceCommand_reply___block_invoke_3(uint64_t result, char a2, uint64_t a3)
+id *__62__AFClientLite_SVXAceCommandHandling__handleAceCommand_reply___block_invoke_3(id *result, char a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    return [*(result + 32) invokeWithValue:0];
+    return [result[4] invokeWithValue:0];
   }
 
   return result;

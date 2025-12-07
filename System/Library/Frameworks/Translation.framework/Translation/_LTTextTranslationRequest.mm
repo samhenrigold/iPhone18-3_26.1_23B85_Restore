@@ -46,10 +46,11 @@
 {
   textCopy = text;
   dCopy = d;
-  if (![(_LTTextTranslationRequest *)self preserveGenmoji])
+  preserveGenmoji = [(_LTTextTranslationRequest *)self preserveGenmoji];
+  if ((preserveGenmoji & 1) == 0)
   {
-    v21 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v24 = _LTOSLogTranslationEngine(preserveGenmoji, v9);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       [_LTTextTranslationRequest _replaceAdaptiveImageGlyphsIfNeededForText:requestUniqueID:];
     }
@@ -60,70 +61,70 @@
   if (([textCopy lt_containsSubstringWithAttribute:@"CTAdaptiveImageProvider"] & 1) == 0)
   {
 LABEL_9:
-    v20 = textCopy;
+    v23 = textCopy;
     goto LABEL_14;
   }
 
   if (!self->_genmojiReplacementManager)
   {
-    v8 = objc_alloc_init(_LTGenmojiReplacementManager);
+    v10 = objc_alloc_init(_LTGenmojiReplacementManager);
     genmojiReplacementManager = self->_genmojiReplacementManager;
-    self->_genmojiReplacementManager = v8;
+    self->_genmojiReplacementManager = v10;
   }
 
-  v10 = [MEMORY[0x277CBEB58] set];
+  v12 = [MEMORY[0x277CBEB58] set];
   string = [textCopy string];
-  v12 = [string length];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __88___LTTextTranslationRequest__replaceAdaptiveImageGlyphsIfNeededForText_requestUniqueID___block_invoke;
-  v34[3] = &unk_278B6DA90;
-  v13 = v10;
-  v35 = v13;
-  [string _enumerateEmojiTokensInRange:0 block:{v12, v34}];
-  v14 = +[_LTGenmojiReplacementManager rareEmojiPlaceholderCandidates];
-  v15 = [v14 mutableCopy];
+  v14 = [string length];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __88___LTTextTranslationRequest__replaceAdaptiveImageGlyphsIfNeededForText_requestUniqueID___block_invoke;
+  v37[3] = &unk_278B6DA90;
+  v15 = v12;
+  v38 = v15;
+  [string _enumerateEmojiTokensInRange:0 block:{v14, v37}];
+  v16 = +[_LTGenmojiReplacementManager rareEmojiPlaceholderCandidates];
+  v17 = [v16 mutableCopy];
 
-  [v15 minusSet:v13];
-  allObjects = [v15 allObjects];
+  [v17 minusSet:v15];
+  allObjects = [v17 allObjects];
   if ([allObjects count])
   {
-    v33[0] = 0;
-    v33[1] = v33;
-    v33[2] = 0x2020000000;
-    v33[3] = 0;
-    v17 = [objc_alloc(MEMORY[0x277CCAB48]) initWithAttributedString:textCopy];
-    v18 = [v17 length];
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __88___LTTextTranslationRequest__replaceAdaptiveImageGlyphsIfNeededForText_requestUniqueID___block_invoke_231;
-    v27 = &unk_278B6DAB8;
-    v28 = allObjects;
-    v32 = v33;
-    v29 = dCopy;
-    v19 = v17;
-    v30 = v19;
+    v36[0] = 0;
+    v36[1] = v36;
+    v36[2] = 0x2020000000;
+    v36[3] = 0;
+    v20 = [objc_alloc(MEMORY[0x277CCAB48]) initWithAttributedString:textCopy];
+    v21 = [v20 length];
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __88___LTTextTranslationRequest__replaceAdaptiveImageGlyphsIfNeededForText_requestUniqueID___block_invoke_231;
+    v30 = &unk_278B6DAB8;
+    v31 = allObjects;
+    v35 = v36;
+    v32 = dCopy;
+    v22 = v20;
+    v33 = v22;
     selfCopy = self;
-    [v19 enumerateAttribute:@"CTAdaptiveImageProvider" inRange:0 options:v18 usingBlock:{0, &v24}];
-    v20 = [v19 copy];
+    [v22 enumerateAttribute:@"CTAdaptiveImageProvider" inRange:0 options:v21 usingBlock:{0, &v27}];
+    v23 = [v22 copy];
 
-    _Block_object_dispose(v33, 8);
+    _Block_object_dispose(v36, 8);
   }
 
   else
   {
-    v22 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v25 = _LTOSLogTranslationEngine(0, v19);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [_LTTextTranslationRequest _replaceAdaptiveImageGlyphsIfNeededForText:requestUniqueID:];
     }
 
-    v20 = textCopy;
+    v23 = textCopy;
   }
 
 LABEL_14:
 
-  return v20;
+  return v23;
 }
 
 - (id)_paragraphRequestForText:(id)text
@@ -170,36 +171,37 @@ LABEL_14:
 
 - (void)setText:(id)text
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   textCopy = text;
   objc_storeStrong(&self->_text, text);
   text = [(_LTTextTranslationRequest *)self text];
   paragraphs = [text paragraphs];
 
-  if ([paragraphs count] || -[_LTTextTranslationRequest requiresMultiParagraphPathway](self, "requiresMultiParagraphPathway"))
+  v8 = [paragraphs count];
+  if (v8 || (v8 = [(_LTTextTranslationRequest *)self requiresMultiParagraphPathway], v8))
   {
-    if (self->_session || ([(_LTTranslationRequest *)self batchSessionUUID], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+    if (self->_session || ([(_LTTranslationRequest *)self batchSessionUUID], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
     {
-      v9 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = _LTOSLogTranslationEngine(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         [_LTTextTranslationRequest setText:];
       }
     }
 
     uUID = [MEMORY[0x277CCAD78] UUID];
-    v11 = [_LTTranslationSession alloc];
+    v13 = [_LTTranslationSession alloc];
     logIdentifier = [(_LTTranslationRequest *)self logIdentifier];
-    v13 = [(_LTTranslationSession *)v11 initForFutureServiceWithSessionID:uUID selfLoggingInvocationId:logIdentifier];
+    v15 = [(_LTTranslationSession *)v13 initForFutureServiceWithSessionID:uUID selfLoggingInvocationId:logIdentifier];
     session = self->_session;
-    self->_session = v13;
+    self->_session = v15;
 
-    v15 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v19 = _LTOSLogTranslationEngine(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v24 = 138543362;
-      v25 = uUID;
-      _os_log_impl(&dword_23AAF5000, v15, OS_LOG_TYPE_INFO, "Created _LTTranslationSession for use in a _LTTextTranslationRequest. SessionID: %{public}@", &v24, 0xCu);
+      v27 = 138543362;
+      v28 = uUID;
+      _os_log_impl(&dword_23AAF5000, v19, OS_LOG_TYPE_INFO, "Created _LTTranslationSession for use in a _LTTextTranslationRequest. SessionID: %{public}@", &v27, 0xCu);
     }
 
     uniqueID2 = [uUID copy];
@@ -208,25 +210,23 @@ LABEL_14:
 
   else
   {
-    v18 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v21 = _LTOSLogTranslationEngine(v8, v9);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v19 = v18;
+      v22 = v21;
       uniqueID = [(_LTTranslationRequest *)self uniqueID];
-      v24 = 138543362;
-      v25 = uniqueID;
-      _os_log_impl(&dword_23AAF5000, v19, OS_LOG_TYPE_INFO, "_LTTranslationRequest had text set, creating sub-request with suggested uniqueID: %{public}@", &v24, 0xCu);
+      v27 = 138543362;
+      v28 = uniqueID;
+      _os_log_impl(&dword_23AAF5000, v22, OS_LOG_TYPE_INFO, "_LTTranslationRequest had text set, creating sub-request with suggested uniqueID: %{public}@", &v27, 0xCu);
     }
 
-    v21 = [_LTTextToSpeechTranslationRequest alloc];
+    v24 = [_LTTextToSpeechTranslationRequest alloc];
     uUID = [(_LTTranslationRequest *)self localePair];
     uniqueID2 = [(_LTTranslationRequest *)self uniqueID];
-    v22 = [(_LTTextToSpeechTranslationRequest *)v21 initWithLocalePair:uUID suggestedUniqueID:uniqueID2];
+    v25 = [(_LTTextToSpeechTranslationRequest *)v24 initWithLocalePair:uUID suggestedUniqueID:uniqueID2];
     request = self->_request;
-    self->_request = v22;
+    self->_request = v25;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serviceDelegate
@@ -242,14 +242,14 @@ LABEL_14:
 
 - (void)_startTranslationWithService:(id)service done:(id)done
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   doneCopy = done;
-  v6 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _LTOSLogTranslationEngine(doneCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_INFO, "Text Translation: start with service", buf, 2u);
+    _os_log_impl(&dword_23AAF5000, v7, OS_LOG_TYPE_INFO, "Text Translation: start with service", buf, 2u);
   }
 
   logIdentifier = [(_LTTranslationRequest *)self logIdentifier];
@@ -268,21 +268,21 @@ LABEL_14:
   paragraphOrder = self->_paragraphOrder;
   self->_paragraphOrder = 0;
 
-  v14 = [doneCopy copy];
+  v15 = [doneCopy copy];
   done = self->_done;
-  self->_done = v14;
+  self->_done = v15;
 
   self->_outstandingCount = 0;
   self->_translationFinished = 0;
-  v16 = self->_session == 0;
-  v17 = _LTOSLogTranslationEngine();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
-  if (v16)
+  v17 = self->_session == 0;
+  v20 = _LTOSLogTranslationEngine(v18, v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+  if (v17)
   {
-    if (v18)
+    if (v21)
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_23AAF5000, v17, OS_LOG_TYPE_INFO, "Fallback to text to speech translation", buf, 2u);
+      _os_log_impl(&dword_23AAF5000, v20, OS_LOG_TYPE_INFO, "Fallback to text to speech translation", buf, 2u);
     }
 
     [(_LTTranslationRequest *)self->_request setTaskHint:[(_LTTranslationRequest *)self taskHint]];
@@ -309,10 +309,10 @@ LABEL_14:
 
   else
   {
-    if (v18)
+    if (v21)
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_23AAF5000, v17, OS_LOG_TYPE_INFO, "Using paragraph translation", buf, 2u);
+      _os_log_impl(&dword_23AAF5000, v20, OS_LOG_TYPE_INFO, "Using paragraph translation", buf, 2u);
     }
 
     logIdentifier3 = [(_LTTranslationRequest *)self logIdentifier];
@@ -327,86 +327,84 @@ LABEL_14:
     if (![paragraphs count])
     {
       text3 = [(_LTTextTranslationRequest *)self text];
-      v54[0] = text3;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
+      v56[0] = text3;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
 
-      paragraphs = v25;
+      paragraphs = v28;
     }
 
+    v53 = 0u;
+    v54 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
     obj = paragraphs;
-    v26 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
-    if (v26)
+    v29 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+    if (v29)
     {
-      v27 = *v50;
+      v30 = *v52;
       do
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v50 != v27)
+          if (*v52 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = [(_LTTextTranslationRequest *)self _paragraphRequestForText:*(*(&v49 + 1) + 8 * i)];
-          [v29 setTaskHint:{-[_LTTranslationRequest taskHint](self, "taskHint")}];
-          [v29 setCensorSpeech:{-[_LTTranslationRequest censorSpeech](self, "censorSpeech")}];
-          [v29 setForcedOfflineTranslation:{-[_LTTranslationRequest forcedOfflineTranslation](self, "forcedOfflineTranslation")}];
-          [v29 setPreferOnDeviceIfAvailable:{-[_LTTranslationRequest preferOnDeviceIfAvailable](self, "preferOnDeviceIfAvailable")}];
+          v32 = [(_LTTextTranslationRequest *)self _paragraphRequestForText:*(*(&v51 + 1) + 8 * i)];
+          [v32 setTaskHint:{-[_LTTranslationRequest taskHint](self, "taskHint")}];
+          [v32 setCensorSpeech:{-[_LTTranslationRequest censorSpeech](self, "censorSpeech")}];
+          [v32 setForcedOfflineTranslation:{-[_LTTranslationRequest forcedOfflineTranslation](self, "forcedOfflineTranslation")}];
+          [v32 setPreferOnDeviceIfAvailable:{-[_LTTranslationRequest preferOnDeviceIfAvailable](self, "preferOnDeviceIfAvailable")}];
           appIdentifier2 = [(_LTTranslationRequest *)self appIdentifier];
-          [v29 setAppIdentifier:appIdentifier2];
+          [v32 setAppIdentifier:appIdentifier2];
 
-          [v29 setSourceOrigin:{-[_LTTranslationRequest sourceOrigin](self, "sourceOrigin")}];
-          [v29 setIsFinal:{-[_LTTranslationRequest isFinal](self, "isFinal")}];
-          [v29 set_supportsGenderDisambiguation:{-[_LTTranslationRequest _supportsGenderDisambiguation](self, "_supportsGenderDisambiguation")}];
-          [v29 setOverrideOngoingSessionIfNeeded:{-[_LTTranslationRequest overrideOngoingSessionIfNeeded](self, "overrideOngoingSessionIfNeeded")}];
+          [v32 setSourceOrigin:{-[_LTTranslationRequest sourceOrigin](self, "sourceOrigin")}];
+          [v32 setIsFinal:{-[_LTTranslationRequest isFinal](self, "isFinal")}];
+          [v32 set_supportsGenderDisambiguation:{-[_LTTranslationRequest _supportsGenderDisambiguation](self, "_supportsGenderDisambiguation")}];
+          [v32 setOverrideOngoingSessionIfNeeded:{-[_LTTranslationRequest overrideOngoingSessionIfNeeded](self, "overrideOngoingSessionIfNeeded")}];
           logIdentifier4 = [(_LTTranslationRequest *)self logIdentifier];
-          [v29 setLogIdentifier:logIdentifier4];
+          [v32 setLogIdentifier:logIdentifier4];
 
           objc_initWeak(buf, self);
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __63___LTTextTranslationRequest__startTranslationWithService_done___block_invoke;
-          v46[3] = &unk_278B6DB08;
-          objc_copyWeak(&v47, buf);
-          [v29 setCompletionHandler:v46];
-          uniqueID = [v29 uniqueID];
+          v48[0] = MEMORY[0x277D85DD0];
+          v48[1] = 3221225472;
+          v48[2] = __63___LTTextTranslationRequest__startTranslationWithService_done___block_invoke;
+          v48[3] = &unk_278B6DB08;
+          objc_copyWeak(&v49, buf);
+          [v32 setCompletionHandler:v48];
+          uniqueID = [v32 uniqueID];
           [(NSArray *)array2 addObject:uniqueID];
 
-          [array addObject:v29];
-          objc_destroyWeak(&v47);
+          [array addObject:v32];
+          objc_destroyWeak(&v49);
           objc_destroyWeak(buf);
         }
 
-        v26 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v29 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
       }
 
-      while (v26);
+      while (v29);
     }
 
-    v33 = self->_paragraphOrder;
+    v36 = self->_paragraphOrder;
     self->_paragraphOrder = array2;
-    v34 = array2;
+    v37 = array2;
 
-    *(&self->super.super.isa + v42) = [(NSArray *)v34 count];
-    v35 = [doneCopy copy];
-    v36 = self->_done;
-    self->_done = v35;
+    *(&self->super.super.isa + v44) = [(NSArray *)v37 count];
+    v38 = [doneCopy copy];
+    v39 = self->_done;
+    self->_done = v38;
 
     [(_LTTranslationSession *)self->_session translate:array];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_translationFailedWithError:(id)error
 {
   errorCopy = error;
-  v5 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = _LTOSLogTranslationEngine(errorCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [_LTTextTranslationRequest _translationFailedWithError:];
   }
@@ -416,7 +414,7 @@ LABEL_14:
 
 - (void)_constructFinalParagraphResult
 {
-  v3 = _LTOSLogTranslationEngine();
+  v3 = _LTOSLogTranslationEngine(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -447,8 +445,9 @@ LABEL_14:
 
 - (void)_handleParagraphResponse:(id)response error:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   responseCopy = response;
+  v8 = responseCopy;
   if (error)
   {
     [(_LTTextTranslationRequest *)self translationDidFinishWithError:error];
@@ -456,31 +455,31 @@ LABEL_14:
 
   else
   {
-    v8 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = _LTOSLogTranslationEngine(responseCopy, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = v8;
-      identifier = [responseCopy identifier];
-      v17 = 138543362;
-      v18 = identifier;
-      _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_INFO, "Received translated paragraph for ID: %{public}@", &v17, 0xCu);
+      v10 = v9;
+      identifier = [v8 identifier];
+      v20 = 138543362;
+      v21 = identifier;
+      _os_log_impl(&dword_23AAF5000, v10, OS_LOG_TYPE_INFO, "Received translated paragraph for ID: %{public}@", &v20, 0xCu);
     }
 
     receivedParagraphs = self->_receivedParagraphs;
-    identifier2 = [responseCopy identifier];
-    [(NSMutableDictionary *)receivedParagraphs setObject:responseCopy forKeyedSubscript:identifier2];
+    identifier2 = [v8 identifier];
+    [(NSMutableDictionary *)receivedParagraphs setObject:v8 forKeyedSubscript:identifier2];
 
     outstandingCount = self->_outstandingCount;
     if (outstandingCount)
     {
       self->_outstandingCount = outstandingCount - 1;
-      v14 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v17 = _LTOSLogTranslationEngine(v14, v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v15 = self->_outstandingCount;
-        v17 = 134217984;
-        v18 = v15;
-        _os_log_impl(&dword_23AAF5000, v14, OS_LOG_TYPE_INFO, "New outstanding count: %zd", &v17, 0xCu);
+        v18 = self->_outstandingCount;
+        v20 = 134217984;
+        v21 = v18;
+        _os_log_impl(&dword_23AAF5000, v17, OS_LOG_TYPE_INFO, "New outstanding count: %zd", &v20, 0xCu);
       }
 
       if (!self->_outstandingCount)
@@ -491,15 +490,13 @@ LABEL_14:
 
     else
     {
-      v16 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      v19 = _LTOSLogTranslationEngine(v14, v15);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        [_LTTextTranslationRequest _handleParagraphResponse:v16 error:responseCopy];
+        [_LTTextTranslationRequest _handleParagraphResponse:v19 error:v8];
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getStoredAttributesForRequestIdentifier:(id)identifier alignmentIdentifier:(id)alignmentIdentifier
@@ -519,102 +516,98 @@ LABEL_14:
 
 - (void)_addAlignmentAttributesToResult:(id)result requestIdentifier:(id)identifier
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   identifierCopy = identifier;
   if (resultCopy)
   {
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v22 = resultCopy;
+    v26 = 0u;
+    v23 = resultCopy;
     obj = [resultCopy alignments];
-    v8 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+    v8 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v25;
+      v10 = *v26;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v10)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v24 + 1) + 8 * i);
+          v12 = *(*(&v25 + 1) + 8 * i);
           identifier = [v12 identifier];
           v14 = [(_LTTextTranslationRequest *)self _getStoredAttributesForRequestIdentifier:identifierCopy alignmentIdentifier:identifier];
 
           identifier2 = [v12 identifier];
           v16 = [(_LTTextTranslationRequest *)self _alignmentAttributeKeyFromRequestIdentifier:identifierCopy alignmentIdentifier:identifier2];
 
-          v17 = _LTOSLogTranslationEngine();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v19 = _LTOSLogTranslationEngine(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            v18 = v17;
+            v20 = v19;
             text = [v12 text];
             *buf = 138740483;
-            v29 = text;
-            v30 = 2114;
-            v31 = v16;
-            v32 = 2114;
-            v33 = v14;
-            _os_log_impl(&dword_23AAF5000, v18, OS_LOG_TYPE_INFO, "Alignment '%{sensitive}@' ID: %{public}@; attributes: %{public}@", buf, 0x20u);
+            v30 = text;
+            v31 = 2114;
+            v32 = v16;
+            v33 = 2114;
+            v34 = v14;
+            _os_log_impl(&dword_23AAF5000, v20, OS_LOG_TYPE_INFO, "Alignment '%{sensitive}@' ID: %{public}@; attributes: %{public}@", buf, 0x20u);
           }
 
           [v12 setSourceAttributes:v14];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v9 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
       }
 
       while (v9);
     }
 
-    v20 = [(_LTGenmojiReplacementManager *)self->_genmojiReplacementManager replacementInfoForRequestID:identifierCopy];
-    resultCopy = v22;
-    if ([v20 count])
+    v22 = [(_LTGenmojiReplacementManager *)self->_genmojiReplacementManager replacementInfoForRequestID:identifierCopy];
+    resultCopy = v23;
+    if ([v22 count])
     {
-      [v22 setReplacementInfos:v20];
+      [v23 setReplacementInfos:v22];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translatorDidTranslate:(id)translate
 {
   v12[1] = *MEMORY[0x277D85DE8];
   translateCopy = translate;
-  v5 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = _LTOSLogTranslationEngine(translateCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v11 = 0;
-    _os_log_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_INFO, "Received text to speech result", v11, 2u);
+    _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_INFO, "Received text to speech result", v11, 2u);
   }
 
   if (translateCopy)
   {
     v12[0] = translateCopy;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
   {
-    v6 = MEMORY[0x277CBEBF8];
+    v7 = MEMORY[0x277CBEBF8];
   }
 
-  v7 = [_LTCombinedTranslationResult alloc];
+  v8 = [_LTCombinedTranslationResult alloc];
   localePair = [(_LTTranslationRequest *)self localePair];
-  v9 = [(_LTCombinedTranslationResult *)v7 initWithParagraphResults:v6 localePair:localePair];
+  v10 = [(_LTCombinedTranslationResult *)v8 initWithParagraphResults:v7 localePair:localePair];
 
   [(_LTTranslationRequest *)self logIdentifier];
-  [(_LTTextTranslationRequest *)self _callCompletionHandlersWithResult:v9 error:0];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(_LTTextTranslationRequest *)self _callCompletionHandlersWithResult:v10 error:0];
 }
 
 - (void)translationDidFinishWithError:(id)error
@@ -627,7 +620,7 @@ LABEL_14:
     if (done)
     {
       done[2]();
-      v6 = self->_done;
+      v7 = self->_done;
       self->_done = 0;
     }
 
@@ -635,8 +628,8 @@ LABEL_14:
     {
       [(_LTTranslationRequest *)self->_request logIdentifier];
 
-      v7 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v10 = _LTOSLogTranslationEngine(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [_LTTextTranslationRequest _translationFailedWithError:];
       }
@@ -646,8 +639,8 @@ LABEL_14:
 
     else
     {
-      v8 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v11 = _LTOSLogTranslationEngine(done, v4);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         [_LTTextTranslationRequest translationDidFinishWithError:];
       }
@@ -657,15 +650,16 @@ LABEL_14:
 
 - (void)_callCompletionHandlersWithResult:(id)result error:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
+  v9 = errorCopy;
   if (self->_hasCalledCompletionHandler)
   {
-    v8 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _LTOSLogTranslationEngine(errorCopy, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(_LTTextTranslationRequest *)resultCopy _callCompletionHandlersWithResult:errorCopy error:v8];
+      [(_LTTextTranslationRequest *)resultCopy _callCompletionHandlersWithResult:v9 error:v10];
     }
   }
 
@@ -674,8 +668,8 @@ LABEL_14:
     self->_hasCalledCompletionHandler = 1;
     if (!self->_receivedParagraphs)
     {
-      v9 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = _LTOSLogTranslationEngine(errorCopy, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [_LTTextTranslationRequest _callCompletionHandlersWithResult:error:];
       }
@@ -697,27 +691,27 @@ LABEL_14:
       }
 
       translatedText = [resultCopy translatedText];
-      v15 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v20 = _LTOSLogTranslationEngine(translatedText, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v15;
-        *v23 = 134218498;
-        *&v23[4] = [translatedText length];
-        *&v23[12] = 1024;
-        *&v23[14] = firstObject != 0;
-        v24 = 2112;
-        v25 = errorCopy;
-        _os_log_impl(&dword_23AAF5000, v16, OS_LOG_TYPE_DEFAULT, "Calling _LTTextTranslationRequest.textTranslationHandler with translatedText of length %zu; has result: %{BOOL}i; error: %@", v23, 0x1Cu);
+        v21 = v20;
+        *v29 = 134218498;
+        *&v29[4] = [translatedText length];
+        *&v29[12] = 1024;
+        *&v29[14] = firstObject != 0;
+        v30 = 2112;
+        v31 = v9;
+        _os_log_impl(&dword_23AAF5000, v21, OS_LOG_TYPE_DEFAULT, "Calling _LTTextTranslationRequest.textTranslationHandler with translatedText of length %zu; has result: %{BOOL}i; error: %@", v29, 0x1Cu);
       }
 
       textTranslationHandler2 = [(_LTTextTranslationRequest *)self textTranslationHandler];
-      (textTranslationHandler2)[2](textTranslationHandler2, translatedText, firstObject, errorCopy);
+      (textTranslationHandler2)[2](textTranslationHandler2, translatedText, firstObject, v9);
     }
 
     else
     {
-      v13 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v17 = _LTOSLogTranslationEngine(v13, v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         [_LTTextTranslationRequest _callCompletionHandlersWithResult:error:];
       }
@@ -725,33 +719,31 @@ LABEL_14:
 
     completionHandler = [(_LTTextTranslationRequest *)self completionHandler];
 
-    v19 = _LTOSLogTranslationEngine();
-    v20 = v19;
+    v26 = _LTOSLogTranslationEngine(v24, v25);
+    v27 = v26;
     if (completionHandler)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        *v23 = 67109378;
-        *&v23[4] = resultCopy != 0;
-        *&v23[8] = 2112;
-        *&v23[10] = errorCopy;
-        _os_log_impl(&dword_23AAF5000, v20, OS_LOG_TYPE_DEFAULT, "Calling _LTTextTranslationRequest.completionHandler; has result: %{BOOL}i; error: %@", v23, 0x12u);
+        *v29 = 67109378;
+        *&v29[4] = resultCopy != 0;
+        *&v29[8] = 2112;
+        *&v29[10] = v9;
+        _os_log_impl(&dword_23AAF5000, v27, OS_LOG_TYPE_DEFAULT, "Calling _LTTextTranslationRequest.completionHandler; has result: %{BOOL}i; error: %@", v29, 0x12u);
       }
 
       completionHandler2 = [(_LTTextTranslationRequest *)self completionHandler];
-      (completionHandler2)[2](completionHandler2, resultCopy, errorCopy);
+      (completionHandler2)[2](completionHandler2, resultCopy, v9);
     }
 
-    else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       [_LTTextTranslationRequest _callCompletionHandlersWithResult:error:];
     }
 
-    [(_LTTextTranslationRequest *)self _submitMessagesSELFLoggingIfNeededForInvocationStart:0 error:errorCopy];
+    [(_LTTextTranslationRequest *)self _submitMessagesSELFLoggingIfNeededForInvocationStart:0 error:v9];
     [(_LTTextTranslationRequest *)self _cleanUpTemporaryStorage];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUpTemporaryStorage
@@ -802,43 +794,43 @@ LABEL_14:
         [(_LTTranslationRequest *)self setLogIdentifier:uUID];
       }
 
-      v12 = 2;
+      v14 = 2;
       if (errorCopy)
       {
-        v12 = 3;
+        v14 = 3;
       }
 
       if (startCopy)
       {
-        v13 = 1;
+        v15 = 1;
       }
 
       else
       {
-        v13 = v12;
+        v15 = v14;
       }
 
-      v14 = [_LTSELFLoggingEventData alloc];
+      v16 = [_LTSELFLoggingEventData alloc];
       logIdentifier2 = [(_LTTranslationRequest *)self logIdentifier];
-      v16 = [(_LTSELFLoggingEventData *)v14 initWithType:v13 invocationId:logIdentifier2];
+      v18 = [(_LTSELFLoggingEventData *)v16 initWithType:v15 invocationId:logIdentifier2];
 
-      v17 = [[_LTSELFLoggingInvocationOptions alloc] initWithTask:0 inputMode:0 invocationType:17 translateAppContext:0];
-      [(_LTSELFLoggingEventData *)v16 setStartInvocationOptions:v17];
+      v19 = [[_LTSELFLoggingInvocationOptions alloc] initWithTask:0 inputMode:0 invocationType:17 translateAppContext:0];
+      [(_LTSELFLoggingEventData *)v18 setStartInvocationOptions:v19];
       localePair = [(_LTTranslationRequest *)self localePair];
-      [(_LTSELFLoggingEventData *)v16 setTranslationLocalePair:localePair];
+      [(_LTSELFLoggingEventData *)v18 setTranslationLocalePair:localePair];
 
-      [(_LTSELFLoggingEventData *)v16 setUntrustedClientIdentifier:v7];
-      [(_LTSELFLoggingEventData *)v16 setInvocationEndedError:errorCopy];
-      [_LTTranslator selfLoggingEventWithData:v16];
+      [(_LTSELFLoggingEventData *)v18 setUntrustedClientIdentifier:v7];
+      [(_LTSELFLoggingEventData *)v18 setInvocationEndedError:errorCopy];
+      [_LTTranslator selfLoggingEventWithData:v18];
     }
 
     else
     {
-      v19 = _LTOSLogSELFLogging();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v21 = _LTOSLogSELFLogging(v10, v11);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        *v20 = 0;
-        _os_log_impl(&dword_23AAF5000, v19, OS_LOG_TYPE_INFO, "Ignoring Messages invocation ended event since the log identifier was never set", v20, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_23AAF5000, v21, OS_LOG_TYPE_INFO, "Ignoring Messages invocation ended event since the log identifier was never set", v22, 2u);
       }
     }
   }
@@ -853,22 +845,18 @@ LABEL_14:
 
 - (void)_translationFailedWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleParagraphResponse:(void *)a1 error:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_23AAF5000, v3, OS_LOG_TYPE_FAULT, "Received a paragraph response with ID %{public}@, but we didn't expect any paragraphs to be outstanding; this should never happen", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_23AAF5000, v3, OS_LOG_TYPE_FAULT, "Received a paragraph response with ID %{public}@, but we didn't expect any paragraphs to be outstanding; this should never happen", v5, 0xCu);
 }
 
 - (void)_callCompletionHandlersWithResult:error:.cold.1()
@@ -880,13 +868,12 @@ LABEL_14:
 
 - (void)_callCompletionHandlersWithResult:(os_log_t)log error:.cold.4(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a1 != 0;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_error_impl(&dword_23AAF5000, log, OS_LOG_TYPE_ERROR, "Attempted to call completionHandler even though it's already been called, will not call it again. Combined result exists: %{BOOL}i; error: %@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a1 != 0;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_error_impl(&dword_23AAF5000, log, OS_LOG_TYPE_ERROR, "Attempted to call completionHandler even though it's already been called, will not call it again. Combined result exists: %{BOOL}i; error: %@", v3, 0x12u);
 }
 
 @end

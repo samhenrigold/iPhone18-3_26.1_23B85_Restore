@@ -187,29 +187,29 @@ void __42__SLComposeViewController__isServiceType___block_invoke(uint64_t a1)
 
 + (id)extensionIdentifierForActivityType:(id)type
 {
-  v13[6] = *MEMORY[0x1E69E9840];
+  v18[6] = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E69CDAD8];
-  v12[0] = *MEMORY[0x1E69CDAC0];
-  v12[1] = v4;
-  v13[0] = @"com.apple.share.Facebook.post";
-  v13[1] = @"com.apple.share.Twitter.post";
+  v17[0] = *MEMORY[0x1E69CDAC0];
+  v17[1] = v4;
+  v18[0] = @"com.apple.share.Facebook.post";
+  v18[1] = @"com.apple.share.Twitter.post";
   v5 = *MEMORY[0x1E69CDAC8];
-  v12[2] = *MEMORY[0x1E69CDAE8];
-  v12[3] = v5;
-  v13[2] = @"com.apple.share.SinaWeibo.post";
-  v13[3] = @"com.apple.share.Flickr.post";
+  v17[2] = *MEMORY[0x1E69CDAE8];
+  v17[3] = v5;
+  v18[2] = @"com.apple.share.SinaWeibo.post";
+  v18[3] = @"com.apple.share.Flickr.post";
   v6 = *MEMORY[0x1E69CDAD0];
-  v12[4] = *MEMORY[0x1E69CDAE0];
-  v12[5] = v6;
-  v13[4] = @"com.apple.share.Vimeo.post";
-  v13[5] = @"com.apple.share.TencentWeibo.post";
+  v17[4] = *MEMORY[0x1E69CDAE0];
+  v17[5] = v6;
+  v18[4] = @"com.apple.share.Vimeo.post";
+  v18[5] = @"com.apple.share.TencentWeibo.post";
   v7 = MEMORY[0x1E695DF20];
   typeCopy = type;
-  v9 = [v7 dictionaryWithObjects:v13 forKeys:v12 count:6];
-  v11 = [v9 objectForKey:typeCopy];
-  _SLLog(v3, 7, @"SLComposeViewController extensionIdentifierForActivityType: %@ => %@");
+  v9 = [v7 dictionaryWithObjects:v18 forKeys:v17 count:6];
+  v16 = [v9 objectForKey:typeCopy];
+  _SLLog(v3, 7, @"SLComposeViewController extensionIdentifierForActivityType: %@ => %@", v10, v11, v12, v13, v14, typeCopy);
 
-  return v11;
+  return v16;
 }
 
 + (id)_shareExtensionWithIdentifier:(id)identifier
@@ -294,13 +294,13 @@ LABEL_8:
 
 void __45__SLComposeViewController__isMultiUserDevice__block_invoke()
 {
-  v3 = MKBUserTypeDeviceMode();
-  v1 = [v3 objectForKeyedSubscript:*MEMORY[0x1E69B1A10]];
+  v9 = MKBUserTypeDeviceMode();
+  v1 = [v9 objectForKeyedSubscript:*MEMORY[0x1E69B1A10]];
   v2 = [v1 isEqualToString:*MEMORY[0x1E69B1A18]];
   _isMultiUserDevice_isMultiUserDevice = v2;
   if (v2)
   {
-    _SLLog(v0, 7, @"Built-in Social services disabled for multi-user mode.");
+    _SLLog(v0, 7, @"Built-in Social services disabled for multi-user mode.", v3, v4, v5, v6, v7, v8);
   }
 }
 
@@ -323,96 +323,94 @@ void __45__SLComposeViewController__isMultiUserDevice__block_invoke()
 
   if (v7)
   {
-    _SLLog(v3, 3, @"isAvailableForServiceType: for %@ returning NO");
-    v8 = 0;
+    _SLLog(v3, 3, @"isAvailableForServiceType: for %@ returning NO", v8, v9, v10, v11, v12, v5);
+    v13 = 0;
   }
 
   else
   {
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    v8 = [self _isAvailableForServiceType:v5 inHostApplicationBundleID:bundleIdentifier];
+    v13 = [self _isAvailableForServiceType:v5 inHostApplicationBundleID:bundleIdentifier];
   }
 
-  return v8;
+  return v13;
 }
 
 + (BOOL)isAvailableForExtension:(id)extension inHostApplicationBundleID:(id)d
 {
   extensionCopy = extension;
   dCopy = d;
-  _SLLog(v4, 7, @"SLComposeViewController isAvailableForExtension: %@ inHostApplicationBundleID: %@");
+  _SLLog(v4, 7, @"SLComposeViewController isAvailableForExtension: %@ inHostApplicationBundleID: %@", v9, v10, v11, v12, v13, extensionCopy);
   _plugIn = [extensionCopy _plugIn];
   supersededBy = [_plugIn supersededBy];
 
   if (supersededBy)
   {
-    v11 = 1;
+    v16 = 1;
   }
 
   else
   {
     identifier = [extensionCopy identifier];
-    v13 = [self _serviceTypeForExtensionIdentifier:identifier];
+    v18 = [self _serviceTypeForExtensionIdentifier:identifier];
 
-    _SLLog(v4, 7, @"SLComposeViewController isAvailableForExtension: %@ inHostApplicationBundleID: %@ got serviceType %@");
-    if (v13)
+    _SLLog(v4, 7, @"SLComposeViewController isAvailableForExtension: %@ inHostApplicationBundleID: %@ got serviceType %@", v19, v20, v21, v22, v23, extensionCopy);
+    if (v18)
     {
-      v14 = [SLService serviceForServiceType:v13, extensionCopy, dCopy, v13];
-      v11 = [self _legacyBuiltInAvailabilityForService:v14 inHostApplicationBundleID:dCopy];
+      v24 = [SLService serviceForServiceType:v18];
+      v16 = [self _legacyBuiltInAvailabilityForService:v24 inHostApplicationBundleID:dCopy];
     }
 
     else
     {
-      v11 = 1;
+      v16 = 1;
     }
   }
 
-  return v11;
+  return v16;
 }
 
 + (BOOL)_isAvailableForServiceType:(id)type inHostApplicationBundleID:(id)d
 {
   typeCopy = type;
   dCopy = d;
-  _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType %@");
-  v9 = [self _isServiceType:{typeCopy, typeCopy}];
-  v10 = typeCopy;
-  if (v9)
+  _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType %@", v9, v10, v11, v12, v13, typeCopy);
+  v14 = [self _isServiceType:typeCopy];
+  v15 = typeCopy;
+  if (v14)
   {
-    v11 = [self _extensionIdentifierForServiceType:v10];
-    v12 = v10;
+    v21 = [self _extensionIdentifierForServiceType:v15];
+    v22 = v15;
   }
 
   else
   {
-    v12 = [self _serviceTypeForExtensionIdentifier:v10];
-    v11 = v10;
+    v22 = [self _serviceTypeForExtensionIdentifier:v15];
+    v21 = v15;
   }
 
-  if (v12)
+  if (v22)
   {
-    v13 = [SLService serviceForServiceType:v12];
-    v14 = [self _legacyBuiltInAvailabilityForService:v13 inHostApplicationBundleID:dCopy];
+    v23 = [SLService serviceForServiceType:v22];
+    v24 = [self _legacyBuiltInAvailabilityForService:v23 inHostApplicationBundleID:dCopy];
 
-    [MEMORY[0x1E696AD98] numberWithBool:v14];
-    v21 = v20 = v12;
-    _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType got serviceType %@ isAvailable %@");
+    v55 = [MEMORY[0x1E696AD98] numberWithBool:v24];
+    _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType got serviceType %@ isAvailable %@", v25, v26, v27, v28, v29, v22);
 
-    if ((v14 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
-      v15 = [SLComposeViewController _shareExtensionWithIdentifier:v11, v12, v21];
-      _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType got extension %@ for extensionIdentifer %@");
-      if (v15)
+      v30 = [SLComposeViewController _shareExtensionWithIdentifier:v21];
+      _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType got extension %@ for extensionIdentifer %@", v31, v32, v33, v34, v35, v30);
+      if (v30)
       {
-        _plugIn = [v15 _plugIn];
+        _plugIn = [v30 _plugIn];
         supersededBy = [_plugIn supersededBy];
 
         if (supersededBy)
         {
-          v20 = v11;
-          _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType returning YES for overridden extensionIdentifier %@");
-          v18 = 1;
+          _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType returning YES for overridden extensionIdentifier %@", v43, v44, v45, v46, v47, v21);
+          v48 = 1;
 LABEL_13:
 
           goto LABEL_14;
@@ -421,42 +419,40 @@ LABEL_13:
 
       else
       {
-        v20 = v11;
-        _SLLog(v4, 3, @"SLComposeViewController isAvailableForServiceType failed to get extension for identifier %@");
+        _SLLog(v4, 3, @"SLComposeViewController isAvailableForServiceType failed to get extension for identifier %@", v36, v37, v38, v39, v40, v21);
       }
 
-      v18 = 0;
+      v48 = 0;
       goto LABEL_13;
     }
   }
 
   else
   {
-    v20 = v11;
-    _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType returning YES for extensionIdentifer %@");
+    _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType returning YES for extensionIdentifer %@", v16, v17, v18, v19, v20, v21);
   }
 
-  v18 = 1;
+  v48 = 1;
 LABEL_14:
-  v22 = [MEMORY[0x1E696AD98] numberWithBool:{v18, v20}];
-  _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType %@ returning %@");
+  v56 = [MEMORY[0x1E696AD98] numberWithBool:v48];
+  _SLLog(v4, 7, @"SLComposeViewController isAvailableForServiceType %@ returning %@", v49, v50, v51, v52, v53, v15);
 
-  return v18;
+  return v48;
 }
 
 - (SLComposeViewController)initWithExtension:(id)extension requestedServiceType:(id)type
 {
   extensionCopy = extension;
   typeCopy = type;
-  _SLLog(v4, 7, @"SLComposeViewController initWithExtension: %@ requestedServiceType: %@");
-  v10 = objc_opt_class();
+  _SLLog(v4, 7, @"SLComposeViewController initWithExtension: %@ requestedServiceType: %@", v10, v11, v12, v13, v14, extensionCopy);
+  v15 = objc_opt_class();
   identifier = [extensionCopy identifier];
-  v12 = [v10 _serviceTypeForExtensionIdentifier:identifier];
+  v17 = [v15 _serviceTypeForExtensionIdentifier:identifier];
 
-  if (v12)
+  if (v17)
   {
-    v13 = [SLService serviceForServiceType:v12];
-    if (([v13 isFirstClassService] & 1) == 0 && !objc_msgSend(v13, "hasAccounts"))
+    v18 = [SLService serviceForServiceType:v17];
+    if (([v18 isFirstClassService] & 1) == 0 && !objc_msgSend(v18, "hasAccounts"))
     {
       selfCopy = 0;
       goto LABEL_30;
@@ -465,134 +461,134 @@ LABEL_14:
 
   else
   {
-    v13 = 0;
+    v18 = 0;
   }
 
-  v37.receiver = self;
-  v37.super_class = SLComposeViewController;
-  v15 = [(SLComposeViewController *)&v37 initWithNibName:0 bundle:0];
-  v16 = v15;
-  if (v15)
+  v42.receiver = self;
+  v42.super_class = SLComposeViewController;
+  v20 = [(SLComposeViewController *)&v42 initWithNibName:0 bundle:0];
+  v21 = v20;
+  if (v20)
   {
-    objc_storeStrong(&v15->_extension, extension);
-    v17 = objc_opt_new();
-    itemProviders = v16->_itemProviders;
-    v16->_itemProviders = v17;
+    objc_storeStrong(&v20->_extension, extension);
+    v22 = objc_opt_new();
+    itemProviders = v21->_itemProviders;
+    v21->_itemProviders = v22;
 
     if (typeCopy)
     {
-      v19 = typeCopy;
+      v24 = typeCopy;
     }
 
     else
     {
-      v19 = &stru_1F41EC300;
+      v24 = &stru_1F41EC300;
     }
 
-    serviceType = v16->_serviceType;
-    v16->_serviceType = &v19->isa;
+    serviceType = v21->_serviceType;
+    v21->_serviceType = &v24->isa;
 
-    if (v13)
+    if (v18)
     {
-      v16->_maximumImageCount = [v13 maximumImageCount];
-      v16->_maximumURLCount = [v13 maximumURLCount];
-      v16->_maximumVideoCount = [v13 maximumVideoCount];
+      v21->_maximumImageCount = [v18 maximumImageCount];
+      v21->_maximumURLCount = [v18 maximumURLCount];
+      v21->_maximumVideoCount = [v18 maximumVideoCount];
     }
 
     else
     {
-      v16->_maximumImageCount = 0;
-      v16->_maximumURLCount = 0;
-      v16->_maximumVideoCount = 0;
-      attributes = [(NSExtension *)v16->_extension attributes];
-      v22 = [attributes objectForKeyedSubscript:@"NSExtensionActivationRule"];
+      v21->_maximumImageCount = 0;
+      v21->_maximumURLCount = 0;
+      v21->_maximumVideoCount = 0;
+      attributes = [(NSExtension *)v21->_extension attributes];
+      v27 = [attributes objectForKeyedSubscript:@"NSExtensionActivationRule"];
 
-      if (v22)
+      if (v27)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v23 = [v22 objectForKeyedSubscript:@"NSExtensionActivationSupportsImageWithMaxCount"];
-          if (v23)
+          v28 = [v27 objectForKeyedSubscript:@"NSExtensionActivationSupportsImageWithMaxCount"];
+          if (v28)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v16->_maximumImageCount = [v23 integerValue];
+              v21->_maximumImageCount = [v28 integerValue];
             }
           }
 
-          v24 = [v22 objectForKeyedSubscript:@"NSExtensionActivationSupportsWebURLWithMaxCount"];
+          v29 = [v27 objectForKeyedSubscript:@"NSExtensionActivationSupportsWebURLWithMaxCount"];
 
-          if (v24)
+          if (v29)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v16->_maximumURLCount = [v24 integerValue];
+              v21->_maximumURLCount = [v29 integerValue];
             }
           }
 
-          v25 = [v22 objectForKeyedSubscript:@"NSExtensionActivationSupportsMovieWithMaxCount"];
+          v30 = [v27 objectForKeyedSubscript:@"NSExtensionActivationSupportsMovieWithMaxCount"];
 
-          if (v25)
+          if (v30)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v16->_maximumVideoCount = [v25 integerValue];
+              v21->_maximumVideoCount = [v30 integerValue];
             }
           }
         }
 
         else
         {
-          v16->_maximumImageCount = -1;
-          v16->_maximumURLCount = -1;
-          v16->_maximumVideoCount = -1;
+          v21->_maximumImageCount = -1;
+          v21->_maximumURLCount = -1;
+          v21->_maximumVideoCount = -1;
         }
       }
     }
 
-    if (!v16->_extension)
+    if (!v21->_extension)
     {
-      v16->_didFailLoadingRemoteViewController = 1;
+      v21->_didFailLoadingRemoteViewController = 1;
     }
 
-    objc_initWeak(&location, v16);
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __66__SLComposeViewController_initWithExtension_requestedServiceType___block_invoke;
-    v34[3] = &unk_1E8175D20;
-    objc_copyWeak(&v35, &location);
-    [(NSExtension *)v16->_extension setRequestCompletionBlock:v34];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __66__SLComposeViewController_initWithExtension_requestedServiceType___block_invoke_3;
-    v32[3] = &unk_1E8175B70;
-    objc_copyWeak(&v33, &location);
-    [(NSExtension *)v16->_extension setRequestCancellationBlock:v32];
-    view = [(SLComposeViewController *)v16 view];
+    objc_initWeak(&location, v21);
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __66__SLComposeViewController_initWithExtension_requestedServiceType___block_invoke;
+    v39[3] = &unk_1E8175D20;
+    objc_copyWeak(&v40, &location);
+    [(NSExtension *)v21->_extension setRequestCompletionBlock:v39];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __66__SLComposeViewController_initWithExtension_requestedServiceType___block_invoke_3;
+    v37[3] = &unk_1E8175B70;
+    objc_copyWeak(&v38, &location);
+    [(NSExtension *)v21->_extension setRequestCancellationBlock:v37];
+    view = [(SLComposeViewController *)v21 view];
     [view setOpaque:0];
 
-    view2 = [(SLComposeViewController *)v16 view];
+    view2 = [(SLComposeViewController *)v21 view];
     [view2 setClipsToBounds:0];
 
     clearColor = [MEMORY[0x1E69DC888] clearColor];
-    view3 = [(SLComposeViewController *)v16 view];
+    view3 = [(SLComposeViewController *)v21 view];
     [view3 setBackgroundColor:clearColor];
 
-    view4 = [(SLComposeViewController *)v16 view];
+    view4 = [(SLComposeViewController *)v21 view];
     [view4 setAutoresizingMask:18];
 
-    [(SLComposeViewController *)v16 setModalPresentationStyle:17];
-    [(SLComposeViewController *)v16 setShouldForceNonAnimatedTransition:1];
-    objc_destroyWeak(&v33);
-    objc_destroyWeak(&v35);
+    [(SLComposeViewController *)v21 setModalPresentationStyle:17];
+    [(SLComposeViewController *)v21 setShouldForceNonAnimatedTransition:1];
+    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v40);
     objc_destroyWeak(&location);
   }
 
-  self = v16;
+  self = v21;
   selfCopy = self;
 LABEL_30:
 
@@ -646,32 +642,31 @@ void __66__SLComposeViewController_initWithExtension_requestedServiceType___bloc
 - (SLComposeViewController)initWithServiceType:(id)type
 {
   typeCopy = type;
-  _SLLog(v3, 7, @"SLComposeViewController initWithServiceType: %@");
-  if ([objc_opt_class() _isServiceType:{typeCopy, typeCopy}])
+  _SLLog(v3, 7, @"SLComposeViewController initWithServiceType: %@", v6, v7, v8, v9, v10, typeCopy);
+  if ([objc_opt_class() _isServiceType:typeCopy])
   {
-    v6 = typeCopy;
-    v7 = [objc_opt_class() _extensionIdentifierForServiceType:v6];
+    v11 = typeCopy;
+    v12 = [objc_opt_class() _extensionIdentifierForServiceType:v11];
   }
 
   else
   {
-    v6 = [objc_opt_class() _serviceTypeForExtensionIdentifier:typeCopy];
-    v7 = typeCopy;
+    v11 = [objc_opt_class() _serviceTypeForExtensionIdentifier:typeCopy];
+    v12 = typeCopy;
   }
 
-  v8 = v7;
-  v9 = [SLComposeViewController _shareExtensionWithIdentifier:v7];
-  v18 = v9;
-  _SLLog(v3, 7, @"SLComposeViewController initWithServiceType got extension %@ for identifier %@");
-  if (v9 || (+[SLComposeViewController _unsupportedServiceTypes](SLComposeViewController, "_unsupportedServiceTypes", 0, v8), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 containsObject:v8], v10, !v11) || (+[SLService serviceForServiceType:](SLService, "serviceForServiceType:", v6), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E696AAE8], "mainBundle"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "bundleIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = +[SLComposeViewController _legacyBuiltInAvailabilityForService:inHostApplicationBundleID:](SLComposeViewController, "_legacyBuiltInAvailabilityForService:inHostApplicationBundleID:", v12, v14), v14, v13, v12, v15))
+  v13 = v12;
+  v14 = [SLComposeViewController _shareExtensionWithIdentifier:v12];
+  _SLLog(v3, 7, @"SLComposeViewController initWithServiceType got extension %@ for identifier %@", v15, v16, v17, v18, v19, v14);
+  if (v14 || (+[SLComposeViewController _unsupportedServiceTypes](SLComposeViewController, "_unsupportedServiceTypes"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 containsObject:v13], v20, !v21) || (+[SLService serviceForServiceType:](SLService, "serviceForServiceType:", v11), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E696AAE8], "mainBundle"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "bundleIdentifier"), v24 = objc_claimAutoreleasedReturnValue(), v25 = +[SLComposeViewController _legacyBuiltInAvailabilityForService:inHostApplicationBundleID:](SLComposeViewController, "_legacyBuiltInAvailabilityForService:inHostApplicationBundleID:", v22, v24), v24, v23, v22, v25))
   {
-    self = [(SLComposeViewController *)self initWithExtension:v9 requestedServiceType:v6, v18];
+    self = [(SLComposeViewController *)self initWithExtension:v14 requestedServiceType:v11];
     selfCopy = self;
   }
 
   else
   {
-    _SLLog(v3, 3, @"SLComposeViewController initWithServiceType failed to get extension for identifier %@");
+    _SLLog(v3, 3, @"SLComposeViewController initWithServiceType failed to get extension for identifier %@", v26, v27, v28, v29, v30, v13);
     selfCopy = 0;
   }
 
@@ -699,13 +694,13 @@ void __66__SLComposeViewController_initWithExtension_requestedServiceType___bloc
 
 - (void)dealloc
 {
-  _SLLog(v2, 7, @"SLComposeViewController dealloc %@");
+  _SLLog(v7, 7, @"SLComposeViewController dealloc %@", v2, v3, v4, v5, v6, self);
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v6.receiver = self;
-  v6.super_class = SLComposeViewController;
-  [(SLComposeViewController *)&v6 dealloc];
+  v10.receiver = self;
+  v10.super_class = SLComposeViewController;
+  [(SLComposeViewController *)&v10 dealloc];
 }
 
 - (BOOL)setInitialText:(NSString *)text
@@ -725,14 +720,14 @@ void __66__SLComposeViewController_initWithExtension_requestedServiceType___bloc
 - (BOOL)supportsImageAsset:(id)asset
 {
   assetCopy = asset;
-  _SLLog(v3, 7, @"supportsImageAsset start");
+  _SLLog(v3, 7, @"supportsImageAsset start", v5, v6, v7, v8, v9, v19);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if ((isKindOfClass & 1) == 0)
   {
-    v6 = objc_opt_class();
-    v8 = NSStringFromClass(v6);
-    _SLLog(v3, 3, @"Unsupported asset type %@");
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    _SLLog(v3, 3, @"Unsupported asset type %@", v13, v14, v15, v16, v17, v12);
   }
 
   return isKindOfClass & 1;
@@ -741,14 +736,14 @@ void __66__SLComposeViewController_initWithExtension_requestedServiceType___bloc
 - (BOOL)supportsVideoAsset:(id)asset
 {
   assetCopy = asset;
-  _SLLog(v3, 7, @"supportsVideoAsset start");
+  _SLLog(v3, 7, @"supportsVideoAsset start", v5, v6, v7, v8, v9, v19);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if ((isKindOfClass & 1) == 0)
   {
-    v6 = objc_opt_class();
-    v8 = NSStringFromClass(v6);
-    _SLLog(v3, 3, @"Unsupported asset type %@");
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    _SLLog(v3, 3, @"Unsupported asset type %@", v13, v14, v15, v16, v17, v12);
   }
 
   return isKindOfClass & 1;
@@ -757,7 +752,7 @@ void __66__SLComposeViewController_initWithExtension_requestedServiceType___bloc
 - (BOOL)addImageAsset:(id)asset
 {
   assetCopy = asset;
-  _SLLog(v3, 7, @"addImageAsset: start");
+  _SLLog(v3, 7, @"addImageAsset: start", v6, v7, v8, v9, v10, v12);
   LOBYTE(self) = [(SLComposeViewController *)self _addImageAsset:assetCopy preview:0];
 
   return self;
@@ -765,15 +760,15 @@ void __66__SLComposeViewController_initWithExtension_requestedServiceType___bloc
 
 - (BOOL)_addImageAsset:(id)asset preview:(id)preview
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v40[2] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   previewCopy = preview;
-  _SLLog(v4, 7, @"SLComposeViewController _addImageAsset: %@ preview: %@");
-  if (![(SLComposeViewController *)self supportsImageAsset:assetCopy, assetCopy, previewCopy])
+  _SLLog(v4, 7, @"SLComposeViewController _addImageAsset: %@ preview: %@", v9, v10, v11, v12, v13, assetCopy);
+  if (![(SLComposeViewController *)self supportsImageAsset:assetCopy])
   {
-    _SLLog(v4, 3, @"Asset type not supported");
+    _SLLog(v4, 3, @"Asset type not supported", v14, v15, v16, v17, v18, v36);
 LABEL_11:
-    v19 = 0;
+    v34 = 0;
     goto LABEL_12;
   }
 
@@ -789,298 +784,298 @@ LABEL_11:
   }
 
   scheme = [assetCopy scheme];
-  v11 = [scheme isEqualToString:@"file"];
-  v12 = MEMORY[0x1E69637C0];
-  if (!v11)
+  v21 = [scheme isEqualToString:@"file"];
+  v22 = MEMORY[0x1E69637C0];
+  if (!v21)
   {
-    v12 = MEMORY[0x1E69638B8];
+    v22 = MEMORY[0x1E69638B8];
   }
 
-  v13 = *v12;
+  v23 = *v22;
 
-  v14 = [objc_alloc(MEMORY[0x1E696ACA0]) initWithItem:assetCopy typeIdentifier:v13];
-  v23[0] = @"SLItemProviderIsImage";
-  v23[1] = @"SLItemProviderHasPreview";
-  v24[0] = MEMORY[0x1E695E118];
-  v15 = [MEMORY[0x1E696AD98] numberWithInt:previewCopy != 0];
-  v24[1] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
-  [v14 setUserInfo:v16];
+  v24 = [objc_alloc(MEMORY[0x1E696ACA0]) initWithItem:assetCopy typeIdentifier:v23];
+  v39[0] = @"SLItemProviderIsImage";
+  v39[1] = @"SLItemProviderHasPreview";
+  v40[0] = MEMORY[0x1E695E118];
+  v25 = [MEMORY[0x1E696AD98] numberWithInt:previewCopy != 0];
+  v40[1] = v25;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
+  [v24 setUserInfo:v26];
 
   if (previewCopy)
   {
-    _SLLog(v4, 7, @"SLComposeViewController _addImageAsset:preview: supplying itemProvider.previewImageHandler");
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __50__SLComposeViewController__addImageAsset_preview___block_invoke;
-    v21[3] = &unk_1E8175D48;
-    v22 = previewCopy;
-    [v14 setPreviewImageHandler:v21];
+    _SLLog(v4, 7, @"SLComposeViewController _addImageAsset:preview: supplying itemProvider.previewImageHandler", v27, v28, v29, v30, v31, v36);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __50__SLComposeViewController__addImageAsset_preview___block_invoke;
+    v37[3] = &unk_1E8175D48;
+    v38 = previewCopy;
+    [v24 setPreviewImageHandler:v37];
   }
 
   ++self->_numImagesAdded;
-  v17 = [(NSArray *)self->_itemProviders arrayByAddingObject:v14];
+  v32 = [(NSArray *)self->_itemProviders arrayByAddingObject:v24];
   itemProviders = self->_itemProviders;
-  self->_itemProviders = v17;
+  self->_itemProviders = v32;
 
-  v19 = 1;
+  v34 = 1;
 LABEL_12:
 
-  return v19;
+  return v34;
 }
 
-void __50__SLComposeViewController__addImageAsset_preview___block_invoke(uint64_t a1, void *a2)
+void __50__SLComposeViewController__addImageAsset_preview___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = a2;
-  _SLLog(v2, 7, @"SLComposeViewController _addImageAsset:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@");
-  (*(v4 + 2))(v4, *(a1 + 32), 0);
+  v11 = a2;
+  _SLLog(v3, 7, @"SLComposeViewController _addImageAsset:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@", v6, v7, v8, v9, v10, a3);
+  (*(v11 + 2))(v11, *(a1 + 32), 0);
 }
 
 - (BOOL)addImage:(UIImage *)image
 {
   v5 = image;
-  _SLLog(v3, 7, @"addImage start");
+  _SLLog(v3, 7, @"addImage start", v6, v7, v8, v9, v10, v15);
   if ([(SLComposeViewController *)self canAddContent]&& ((maximumImageCount = self->_maximumImageCount, maximumImageCount == -1) || self->_numImagesAdded < maximumImageCount))
   {
-    v7 = UIImageJPEGRepresentation(v5, 0.8);
-    v8 = [(SLComposeViewController *)self _addImageJPEGData:v7 preview:0];
+    v12 = UIImageJPEGRepresentation(v5, 0.8);
+    v13 = [(SLComposeViewController *)self _addImageJPEGData:v12 preview:0];
   }
 
   else
   {
-    v8 = 0;
+    v13 = 0;
   }
 
-  return v8;
+  return v13;
 }
 
 - (BOOL)_addImageJPEGData:(id)data preview:(id)preview
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   previewCopy = preview;
   if ([(SLComposeViewController *)self canAddContent]&& ((maximumImageCount = self->_maximumImageCount, maximumImageCount == -1) || self->_numImagesAdded < maximumImageCount))
   {
     v10 = objc_alloc(MEMORY[0x1E696ACA0]);
     v11 = [v10 initWithItem:dataCopy typeIdentifier:*MEMORY[0x1E6963808]];
-    v23[0] = @"SLItemProviderIsImage";
-    v23[1] = @"SLItemProviderHasPreview";
-    v24[0] = MEMORY[0x1E695E118];
+    v28[0] = @"SLItemProviderIsImage";
+    v28[1] = @"SLItemProviderHasPreview";
+    v29[0] = MEMORY[0x1E695E118];
     v12 = [MEMORY[0x1E696AD98] numberWithInt:previewCopy != 0];
-    v24[1] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v29[1] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
     [v11 setUserInfo:v13];
 
     if (previewCopy)
     {
-      _SLLog(v4, 7, @"SLComposeViewController _addImageJPEGData:preview: supplying itemProvider.previewImageHandler");
-      v18 = MEMORY[0x1E69E9820];
-      v19 = 3221225472;
-      v20 = __53__SLComposeViewController__addImageJPEGData_preview___block_invoke;
-      v21 = &unk_1E8175D48;
-      v22 = previewCopy;
-      [v11 setPreviewImageHandler:&v18];
+      _SLLog(v4, 7, @"SLComposeViewController _addImageJPEGData:preview: supplying itemProvider.previewImageHandler", v14, v15, v16, v17, v18, v23);
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __53__SLComposeViewController__addImageJPEGData_preview___block_invoke;
+      v26 = &unk_1E8175D48;
+      v27 = previewCopy;
+      [v11 setPreviewImageHandler:&v23];
     }
 
     ++self->_numImagesAdded;
-    v14 = [(NSArray *)self->_itemProviders arrayByAddingObject:v11, v18, v19, v20, v21];
+    v19 = [(NSArray *)self->_itemProviders arrayByAddingObject:v11, v23, v24, v25, v26];
     itemProviders = self->_itemProviders;
-    self->_itemProviders = v14;
+    self->_itemProviders = v19;
 
-    v16 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v16 = 0;
+    v21 = 0;
   }
 
-  return v16;
+  return v21;
 }
 
-void __53__SLComposeViewController__addImageJPEGData_preview___block_invoke(uint64_t a1, void *a2)
+void __53__SLComposeViewController__addImageJPEGData_preview___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = a2;
-  _SLLog(v2, 7, @"SLComposeViewController _addImageJPEGData:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@");
-  (*(v4 + 2))(v4, *(a1 + 32), 0);
+  v11 = a2;
+  _SLLog(v3, 7, @"SLComposeViewController _addImageJPEGData:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@", v6, v7, v8, v9, v10, a3);
+  (*(v11 + 2))(v11, *(a1 + 32), 0);
 }
 
 - (BOOL)removeAllImages
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   canAddContent = [(SLComposeViewController *)self canAddContent];
-  v5 = canAddContent;
+  v10 = canAddContent;
   if (canAddContent)
   {
-    v18 = canAddContent;
-    v6 = [(NSArray *)self->_itemProviders mutableCopy];
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v17 = 1008;
-    v7 = self->_itemProviders;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v8)
+    v24 = canAddContent;
+    v11 = [(NSArray *)self->_itemProviders mutableCopy];
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v23 = 1008;
+    v12 = self->_itemProviders;
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v13)
     {
-      v9 = v8;
-      v10 = *v20;
+      v14 = v13;
+      v15 = *v26;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v20 != v10)
+          if (*v26 != v15)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v12);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
-          userInfo = [v12 userInfo];
-          v14 = [userInfo objectForKeyedSubscript:@"SLItemProviderIsImage"];
+          v17 = *(*(&v25 + 1) + 8 * i);
+          userInfo = [v17 userInfo];
+          v19 = [userInfo objectForKeyedSubscript:@"SLItemProviderIsImage"];
 
-          if (v14)
+          if (v19)
           {
-            [v6 removeObject:v12];
+            [v11 removeObject:v17];
           }
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
-      while (v9);
+      while (v14);
     }
 
     self->_numImagesAdded = 0;
-    v15 = *(&self->super.super.super.isa + v17);
-    *(&self->super.super.super.isa + v17) = v6;
+    v20 = *(&self->super.super.super.isa + v23);
+    *(&self->super.super.super.isa + v23) = v11;
 
-    return v18;
+    return v24;
   }
 
   else
   {
-    _SLLog(v2, 6, @"Can't remove images - sheet already presented, returning NO");
+    _SLLog(v2, 6, @"Can't remove images - sheet already presented, returning NO", v5, v6, v7, v8, v9, v22);
   }
 
-  return v5;
+  return v10;
 }
 
 - (BOOL)_addVideoAsset:(id)asset preview:(id)preview
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   previewCopy = preview;
-  _SLLog(v4, 7, @"SLComposeViewController _addVideoAsset: %@ preview: %@");
-  if ([(SLComposeViewController *)self supportsVideoAsset:assetCopy, assetCopy, previewCopy]&& [(SLComposeViewController *)self canAddContent]&& ((maximumVideoCount = self->_maximumVideoCount, maximumVideoCount == -1) || self->_numVideosAdded < maximumVideoCount))
+  _SLLog(v4, 7, @"SLComposeViewController _addVideoAsset: %@ preview: %@", v9, v10, v11, v12, v13, assetCopy);
+  if ([(SLComposeViewController *)self supportsVideoAsset:assetCopy]&& [(SLComposeViewController *)self canAddContent]&& ((maximumVideoCount = self->_maximumVideoCount, maximumVideoCount == -1) || self->_numVideosAdded < maximumVideoCount))
   {
     scheme = [assetCopy scheme];
-    v11 = [scheme isEqualToString:@"file"];
-    v12 = MEMORY[0x1E69637C0];
-    if (!v11)
+    v16 = [scheme isEqualToString:@"file"];
+    v17 = MEMORY[0x1E69637C0];
+    if (!v16)
     {
-      v12 = MEMORY[0x1E69638B8];
+      v17 = MEMORY[0x1E69638B8];
     }
 
-    v13 = *v12;
+    v18 = *v17;
 
-    v14 = [objc_alloc(MEMORY[0x1E696ACA0]) initWithItem:assetCopy typeIdentifier:v13];
-    v23[0] = @"SLItemProviderIsVideo";
-    v23[1] = @"SLItemProviderHasPreview";
-    v24[0] = MEMORY[0x1E695E118];
-    v15 = [MEMORY[0x1E696AD98] numberWithInt:previewCopy != 0];
-    v24[1] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
-    [v14 setUserInfo:v16];
+    v19 = [objc_alloc(MEMORY[0x1E696ACA0]) initWithItem:assetCopy typeIdentifier:v18];
+    v34[0] = @"SLItemProviderIsVideo";
+    v34[1] = @"SLItemProviderHasPreview";
+    v35[0] = MEMORY[0x1E695E118];
+    v20 = [MEMORY[0x1E696AD98] numberWithInt:previewCopy != 0];
+    v35[1] = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    [v19 setUserInfo:v21];
 
     if (previewCopy)
     {
-      _SLLog(v4, 7, @"SLComposeViewController _addVideoAsset:preview: supplying itemProvider.previewImageHandler");
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __50__SLComposeViewController__addVideoAsset_preview___block_invoke;
-      v21[3] = &unk_1E8175D48;
-      v22 = previewCopy;
-      [v14 setPreviewImageHandler:v21];
+      _SLLog(v4, 7, @"SLComposeViewController _addVideoAsset:preview: supplying itemProvider.previewImageHandler", v22, v23, v24, v25, v26, v31);
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __50__SLComposeViewController__addVideoAsset_preview___block_invoke;
+      v32[3] = &unk_1E8175D48;
+      v33 = previewCopy;
+      [v19 setPreviewImageHandler:v32];
     }
 
     ++self->_numVideosAdded;
-    v17 = [(NSArray *)self->_itemProviders arrayByAddingObject:v14];
+    v27 = [(NSArray *)self->_itemProviders arrayByAddingObject:v19];
     itemProviders = self->_itemProviders;
-    self->_itemProviders = v17;
+    self->_itemProviders = v27;
 
-    v19 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v19 = 0;
+    v29 = 0;
   }
 
-  return v19;
+  return v29;
 }
 
-void __50__SLComposeViewController__addVideoAsset_preview___block_invoke(uint64_t a1, void *a2)
+void __50__SLComposeViewController__addVideoAsset_preview___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = a2;
-  _SLLog(v2, 7, @"SLComposeViewController _addVideoAsset:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@");
-  (*(v4 + 2))(v4, *(a1 + 32), 0);
+  v11 = a2;
+  _SLLog(v3, 7, @"SLComposeViewController _addVideoAsset:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@", v6, v7, v8, v9, v10, a3);
+  (*(v11 + 2))(v11, *(a1 + 32), 0);
 }
 
 - (BOOL)_addVideoData:(id)data preview:(id)preview
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   previewCopy = preview;
   if ([(SLComposeViewController *)self canAddContent]&& ((maximumVideoCount = self->_maximumVideoCount, maximumVideoCount == -1) || self->_numVideosAdded < maximumVideoCount))
   {
     v10 = objc_alloc(MEMORY[0x1E696ACA0]);
     v11 = [v10 initWithItem:dataCopy typeIdentifier:*MEMORY[0x1E6963850]];
-    v23[0] = @"SLItemProviderIsVideo";
-    v23[1] = @"SLItemProviderHasPreview";
-    v24[0] = MEMORY[0x1E695E118];
+    v28[0] = @"SLItemProviderIsVideo";
+    v28[1] = @"SLItemProviderHasPreview";
+    v29[0] = MEMORY[0x1E695E118];
     v12 = [MEMORY[0x1E696AD98] numberWithInt:previewCopy != 0];
-    v24[1] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v29[1] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
     [v11 setUserInfo:v13];
 
     if (previewCopy)
     {
-      _SLLog(v4, 7, @"SLComposeViewController _addVideoData:preview: supplying itemProvider.previewImageHandler");
-      v18 = MEMORY[0x1E69E9820];
-      v19 = 3221225472;
-      v20 = __49__SLComposeViewController__addVideoData_preview___block_invoke;
-      v21 = &unk_1E8175D48;
-      v22 = previewCopy;
-      [v11 setPreviewImageHandler:&v18];
+      _SLLog(v4, 7, @"SLComposeViewController _addVideoData:preview: supplying itemProvider.previewImageHandler", v14, v15, v16, v17, v18, v23);
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __49__SLComposeViewController__addVideoData_preview___block_invoke;
+      v26 = &unk_1E8175D48;
+      v27 = previewCopy;
+      [v11 setPreviewImageHandler:&v23];
     }
 
     ++self->_numVideosAdded;
-    v14 = [(NSArray *)self->_itemProviders arrayByAddingObject:v11, v18, v19, v20, v21];
+    v19 = [(NSArray *)self->_itemProviders arrayByAddingObject:v11, v23, v24, v25, v26];
     itemProviders = self->_itemProviders;
-    self->_itemProviders = v14;
+    self->_itemProviders = v19;
 
-    v16 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v16 = 0;
+    v21 = 0;
   }
 
-  return v16;
+  return v21;
 }
 
-void __49__SLComposeViewController__addVideoData_preview___block_invoke(uint64_t a1, void *a2)
+void __49__SLComposeViewController__addVideoData_preview___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = a2;
-  _SLLog(v2, 7, @"SLComposeViewController _addVideoData:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@");
-  (*(v4 + 2))(v4, *(a1 + 32), 0);
+  v11 = a2;
+  _SLLog(v3, 7, @"SLComposeViewController _addVideoData:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@", v6, v7, v8, v9, v10, a3);
+  (*(v11 + 2))(v11, *(a1 + 32), 0);
 }
 
 - (BOOL)addURL:(NSURL *)url
 {
   v5 = url;
-  _SLLog(v3, 7, @"addURL: start");
+  _SLLog(v3, 7, @"addURL: start", v6, v7, v8, v9, v10, v12);
   LOBYTE(self) = [(SLComposeViewController *)self addURL:v5 withPreviewImage:0];
 
   return self;
@@ -1112,91 +1107,91 @@ void __49__SLComposeViewController__addVideoData_preview___block_invoke(uint64_t
 
 - (BOOL)_addURL:(id)l type:(int64_t)type preview:(id)preview
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v39[3] = *MEMORY[0x1E69E9840];
   lCopy = l;
   previewCopy = preview;
-  v24 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  _SLLog(v5, 7, @"SLComposeViewController _addURL: %@ type: %@ preview: %@");
+  v35 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  _SLLog(v5, 7, @"SLComposeViewController _addURL: %@ type: %@ preview: %@", v11, v12, v13, v14, v15, lCopy);
 
-  if ([(SLComposeViewController *)self canAddContent:lCopy]&& ((maximumURLCount = self->_maximumURLCount, maximumURLCount == -1) || self->_numURLsAdded < maximumURLCount))
+  if ([(SLComposeViewController *)self canAddContent]&& ((maximumURLCount = self->_maximumURLCount, maximumURLCount == -1) || self->_numURLsAdded < maximumURLCount))
   {
     scheme = [lCopy scheme];
-    v13 = [scheme isEqualToString:@"file"];
-    v14 = MEMORY[0x1E69637C0];
-    if (!v13)
+    v18 = [scheme isEqualToString:@"file"];
+    v19 = MEMORY[0x1E69637C0];
+    if (!v18)
     {
-      v14 = MEMORY[0x1E69638B8];
+      v19 = MEMORY[0x1E69638B8];
     }
 
-    v15 = *v14;
+    v20 = *v19;
 
-    v16 = [objc_alloc(MEMORY[0x1E696ACA0]) initWithItem:lCopy typeIdentifier:v15];
-    v28[0] = MEMORY[0x1E695E118];
-    v27[0] = @"SLItemProviderIsURL";
-    v27[1] = @"SLAttachmentURLType";
-    v17 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-    v28[1] = v17;
-    v27[2] = @"SLItemProviderHasPreview";
-    v18 = [MEMORY[0x1E696AD98] numberWithInt:previewCopy != 0];
-    v28[2] = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
-    [v16 setUserInfo:v19];
+    v21 = [objc_alloc(MEMORY[0x1E696ACA0]) initWithItem:lCopy typeIdentifier:v20];
+    v39[0] = MEMORY[0x1E695E118];
+    v38[0] = @"SLItemProviderIsURL";
+    v38[1] = @"SLAttachmentURLType";
+    v22 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+    v39[1] = v22;
+    v38[2] = @"SLItemProviderHasPreview";
+    v23 = [MEMORY[0x1E696AD98] numberWithInt:previewCopy != 0];
+    v39[2] = v23;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:3];
+    [v21 setUserInfo:v24];
 
     if (previewCopy)
     {
-      _SLLog(v5, 7, @"SLComposeViewController _addURL:type:preview: supplying itemProvider.previewImageHandler");
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __48__SLComposeViewController__addURL_type_preview___block_invoke;
-      v25[3] = &unk_1E8175D48;
-      v26 = previewCopy;
-      [v16 setPreviewImageHandler:v25];
+      _SLLog(v5, 7, @"SLComposeViewController _addURL:type:preview: supplying itemProvider.previewImageHandler", v25, v26, v27, v28, v29, v34);
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __48__SLComposeViewController__addURL_type_preview___block_invoke;
+      v36[3] = &unk_1E8175D48;
+      v37 = previewCopy;
+      [v21 setPreviewImageHandler:v36];
     }
 
     ++self->_numURLsAdded;
-    v20 = [(NSArray *)self->_itemProviders arrayByAddingObject:v16];
+    v30 = [(NSArray *)self->_itemProviders arrayByAddingObject:v21];
     itemProviders = self->_itemProviders;
-    self->_itemProviders = v20;
+    self->_itemProviders = v30;
 
-    v22 = 1;
+    v32 = 1;
   }
 
   else
   {
-    v22 = 0;
+    v32 = 0;
   }
 
-  return v22;
+  return v32;
 }
 
-void __48__SLComposeViewController__addURL_type_preview___block_invoke(uint64_t a1, void *a2)
+void __48__SLComposeViewController__addURL_type_preview___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = a2;
-  _SLLog(v2, 7, @"SLComposeViewController _addURL:type:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@");
-  (*(v4 + 2))(v4, *(a1 + 32), 0);
+  v11 = a2;
+  _SLLog(v3, 7, @"SLComposeViewController _addURL:type:preview: itemProvider previewImageHandler got expectedValueClass %@ options %@", v6, v7, v8, v9, v10, a3);
+  (*(v11 + 2))(v11, *(a1 + 32), 0);
 }
 
 - (BOOL)removeAllURLs
 {
-  v33 = *MEMORY[0x1E69E9840];
-  _SLLog(v2, 7, @"SLComposeViewController removeAllURLs");
+  v65 = *MEMORY[0x1E69E9840];
+  _SLLog(v7, 7, @"SLComposeViewController removeAllURLs", v2, v3, v4, v5, v6, v55);
   canAddContent = [(SLComposeViewController *)self canAddContent];
-  v5 = canAddContent;
+  v15 = canAddContent;
   if (canAddContent)
   {
-    v26 = canAddContent;
+    v58 = canAddContent;
     if ([(NSArray *)self->_extensionItems count])
     {
       mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
       bundleIdentifier = [mainBundle bundleIdentifier];
-      v8 = [bundleIdentifier isEqualToString:@"com.apple.itunesu"];
+      v18 = [bundleIdentifier isEqualToString:@"com.apple.itunesu"];
 
-      if (v8)
+      if (v18)
       {
         if (![(NSString *)self->_initialText length])
         {
-          v9 = [(NSArray *)self->_extensionItems objectAtIndexedSubscript:0];
-          attributedContentText = [v9 attributedContentText];
+          v19 = [(NSArray *)self->_extensionItems objectAtIndexedSubscript:0];
+          attributedContentText = [v19 attributedContentText];
           string = [attributedContentText string];
           initialText = self->_initialText;
           self->_initialText = string;
@@ -1205,82 +1200,82 @@ void __48__SLComposeViewController__addURL_type_preview___block_invoke(uint64_t 
         extensionItems = self->_extensionItems;
         self->_extensionItems = 0;
 
-        _SLLog(v2, 7, @"SLComposeViewController removeAllURLs did remove all _extensionItems and transfer the first items text to _initialText");
+        _SLLog(v7, 7, @"SLComposeViewController removeAllURLs did remove all _extensionItems and transfer the first items text to _initialText", v24, v25, v26, v27, v28, v56);
       }
     }
 
-    v27 = [(NSArray *)self->_itemProviders mutableCopy];
-    _SLLog(v2, 7, @"SLComposeViewController removeAllURLs starting with mutableItemProviders %@");
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
+    v59 = [(NSArray *)self->_itemProviders mutableCopy];
+    _SLLog(v7, 7, @"SLComposeViewController removeAllURLs starting with mutableItemProviders %@", v29, v30, v31, v32, v33, v59);
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     selfCopy = self;
-    v14 = self->_itemProviders;
-    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v28 objects:v32 count:16, v27];
-    if (v15)
+    v34 = self->_itemProviders;
+    v35 = [(NSArray *)v34 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    if (v35)
     {
-      v16 = v15;
-      v17 = *v29;
+      v36 = v35;
+      v37 = *v61;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v36; ++i)
         {
-          if (*v29 != v17)
+          if (*v61 != v37)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v34);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * i);
-          userInfo = [v19 userInfo];
-          _SLLog(v2, 7, @"SLComposeViewController removeAllURLs examining itemProvider.userInfo %@");
+          v39 = *(*(&v60 + 1) + 8 * i);
+          userInfo = [v39 userInfo];
+          _SLLog(v7, 7, @"SLComposeViewController removeAllURLs examining itemProvider.userInfo %@", v41, v42, v43, v44, v45, userInfo);
 
-          userInfo2 = [v19 userInfo];
-          v21 = [userInfo2 objectForKeyedSubscript:@"SLItemProviderIsURL"];
+          userInfo2 = [v39 userInfo];
+          v47 = [userInfo2 objectForKeyedSubscript:@"SLItemProviderIsURL"];
 
-          if (v21)
+          if (v47)
           {
-            [(NSArray *)v27 removeObject:v19];
+            [(NSArray *)v59 removeObject:v39];
           }
         }
 
-        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v36 = [(NSArray *)v34 countByEnumeratingWithState:&v60 objects:v64 count:16];
       }
 
-      while (v16);
+      while (v36);
     }
 
-    _SLLog(v2, 7, @"SLComposeViewController removeAllURLs ended with mutableItemProviders %@");
+    _SLLog(v7, 7, @"SLComposeViewController removeAllURLs ended with mutableItemProviders %@", v48, v49, v50, v51, v52, v59);
     selfCopy->_numURLsAdded = 0;
     itemProviders = selfCopy->_itemProviders;
-    selfCopy->_itemProviders = v27;
+    selfCopy->_itemProviders = v59;
 
-    return v26;
+    return v58;
   }
 
   else
   {
-    _SLLog(v2, 6, @"Can't remove URLs - sheet already presented, returning NO");
+    _SLLog(v7, 6, @"Can't remove URLs - sheet already presented, returning NO", v10, v11, v12, v13, v14, v56);
   }
 
-  return v5;
+  return v15;
 }
 
 - (BOOL)addItemProvider:(id)provider
 {
   providerCopy = provider;
-  _SLLog(v3, 7, @"SLComposeViewController addItemProvider: %@");
+  _SLLog(v3, 7, @"SLComposeViewController addItemProvider: %@", v6, v7, v8, v9, v10, providerCopy);
   canAddContent = [(SLComposeViewController *)self canAddContent];
   if (canAddContent)
   {
-    v7 = [(NSArray *)self->_itemProviders arrayByAddingObject:providerCopy];
+    v17 = [(NSArray *)self->_itemProviders arrayByAddingObject:providerCopy];
     itemProviders = self->_itemProviders;
-    self->_itemProviders = v7;
+    self->_itemProviders = v17;
   }
 
   else
   {
-    _SLLog(v3, 6, @"Can't addItemProvider - sheet already presented, returning NO");
+    _SLLog(v3, 6, @"Can't addItemProvider - sheet already presented, returning NO", v11, v12, v13, v14, v15, v20);
   }
 
   return canAddContent;
@@ -1288,31 +1283,31 @@ void __48__SLComposeViewController__addURL_type_preview___block_invoke(uint64_t 
 
 - (BOOL)addExtensionItem:(id)item
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  _SLLog(v3, 7, @"SLComposeViewController addExtensionItem: %@");
+  _SLLog(v3, 7, @"SLComposeViewController addExtensionItem: %@", v6, v7, v8, v9, v10, itemCopy);
   canAddContent = [(SLComposeViewController *)self canAddContent];
   if (canAddContent)
   {
     extensionItems = self->_extensionItems;
     if (extensionItems)
     {
-      v8 = [(NSArray *)extensionItems arrayByAddingObject:itemCopy];
+      v18 = [(NSArray *)extensionItems arrayByAddingObject:itemCopy];
     }
 
     else
     {
-      v11[0] = itemCopy;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+      v22[0] = itemCopy;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     }
 
-    v9 = self->_extensionItems;
-    self->_extensionItems = v8;
+    v19 = self->_extensionItems;
+    self->_extensionItems = v18;
   }
 
   else
   {
-    _SLLog(v3, 6, @"Can't addExtensionItem - sheet already presented, returning NO");
+    _SLLog(v3, 6, @"Can't addExtensionItem - sheet already presented, returning NO", v11, v12, v13, v14, v15, v21);
   }
 
   return canAddContent;
@@ -1418,28 +1413,27 @@ LABEL_19:
 
 - (void)completeWithResult:(int64_t)result
 {
-  resultCopy = result;
-  _SLLog(v3, 7, @"SLComposeViewController completeWithResult: %d");
+  _SLLog(v8, 7, @"SLComposeViewController completeWithResult: %d", v3, v4, v5, v6, v7, result);
   self->_didCompleteSheet = 1;
   if (self->_completionHandler)
   {
     serviceType = [(SLComposeViewController *)self serviceType];
     if ([serviceType isEqualToString:@"com.apple.social.sinaweibo"])
     {
-      v7 = dyld_program_sdk_at_least();
+      v12 = dyld_program_sdk_at_least();
 
       completionHandler = self->_completionHandler;
       if (completionHandler)
       {
         completionHandler[2](completionHandler, result);
-        v9 = self->_completionHandler;
+        v19 = self->_completionHandler;
         self->_completionHandler = 0;
       }
 
-      if ((v7 & 1) == 0)
+      if ((v12 & 1) == 0)
       {
 
-        _SLLog(v3, 6, @"Expecting client to dismiss SLComposeViewController.");
+        _SLLog(v8, 6, @"Expecting client to dismiss SLComposeViewController.", v13, v14, v15, v16, v17, v35);
         return;
       }
     }
@@ -1447,11 +1441,11 @@ LABEL_19:
     else
     {
 
-      v10 = self->_completionHandler;
-      if (v10)
+      v20 = self->_completionHandler;
+      if (v20)
       {
-        v10[2](v10, result);
-        v11 = self->_completionHandler;
+        v20[2](v20, result);
+        v21 = self->_completionHandler;
         self->_completionHandler = 0;
       }
     }
@@ -1460,12 +1454,12 @@ LABEL_19:
   if ([(SLComposeViewController *)self isBeingDismissed])
   {
     presentingViewController = [MEMORY[0x1E696AD98] numberWithBool:{-[SLComposeViewController isBeingDismissed](self, "isBeingDismissed")}];
-    _SLLog(v3, 7, @"SLComposeViewController skipping explicit dismiss because isBeingDismissed is already %@");
+    _SLLog(v8, 7, @"SLComposeViewController skipping explicit dismiss because isBeingDismissed is already %@", v27, v28, v29, v30, v31, presentingViewController);
   }
 
   else
   {
-    _SLLog(v3, 7, @"SLComposeViewController automatically dismissing itself");
+    _SLLog(v8, 7, @"SLComposeViewController automatically dismissing itself", v22, v23, v24, v25, v26, v32);
     presentingViewController = [(SLComposeViewController *)self presentingViewController];
     [presentingViewController dismissViewControllerAnimated:1 completion:0];
   }
@@ -1514,12 +1508,12 @@ LABEL_19:
 {
   if (([(SLComposeViewController *)self isBeingPresented]& 1) != 0)
   {
-    _SLLog(v2, 3, @"Sheet is being presented, delaying dismissal and callbacks");
+    _SLLog(v2, 3, @"Sheet is being presented, delaying dismissal and callbacks", v4, v5, v6, v7, v8, v9);
   }
 
   else
   {
-    _SLLog(v2, 3, @"Sheet not being presented, calling premature completion");
+    _SLLog(v2, 3, @"Sheet not being presented, calling premature completion", v4, v5, v6, v7, v8, v9);
     [(SLComposeViewController *)self completeWithResult:0];
   }
 
@@ -1532,7 +1526,7 @@ LABEL_19:
   controllerCopy = controller;
   if (error)
   {
-    _SLLog(v4, 3, @"HOST: Failed to load remote view controller with error: %@");
+    _SLLog(v4, 3, @"HOST: Failed to load remote view controller with error: %@", v7, v8, v9, v10, v11, error);
     [(SLComposeViewController *)self _handleRemoteViewFailure];
   }
 
@@ -1541,25 +1535,25 @@ LABEL_19:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      _SLLog(v4, 7, @"SLComposeViewController received remoteViewController of class SLRemoteComposeViewController, and setting its delegate to self");
+      _SLLog(v4, 7, @"SLComposeViewController received remoteViewController of class SLRemoteComposeViewController, and setting its delegate to self", v12, v13, v14, v15, v16, v33);
       [controllerCopy setDelegate:self];
     }
 
     view = [controllerCopy view];
     [view setClipsToBounds:0];
 
-    _SLLog(v4, 6, @"HOST: Successfully loaded remote SLComposeVC");
+    _SLLog(v4, 6, @"HOST: Successfully loaded remote SLComposeVC", v18, v19, v20, v21, v22, v33);
     [(SLComposeViewController *)self setRemoteViewController:controllerCopy];
-    _SLLog(v4, 6, @"[remoteViewController setupRemoteViewController]");
+    _SLLog(v4, 6, @"[remoteViewController setupRemoteViewController]", v23, v24, v25, v26, v27, v34);
     [(SLComposeViewController *)self setRemoteViewController:controllerCopy];
     [(SLComposeViewController *)self didLoadSheetViewController];
-    _SLLog(v4, 6, @"Finished setting up remote view controller");
+    _SLLog(v4, 6, @"Finished setting up remote view controller", v28, v29, v30, v31, v32, v35);
   }
 }
 
 - (void)remoteViewController:(id)controller didTerminateWithError:(id)error
 {
-  _SLLog(v4, 7, @"SLComposeViewController remoteViewController: %@ didTerminateWithError: %@");
+  _SLLog(v8, 7, @"SLComposeViewController remoteViewController: %@ didTerminateWithError: %@", error, v4, v5, v6, v7, controller);
   if (!self->_didCompleteSheet)
   {
 
@@ -1570,11 +1564,11 @@ LABEL_19:
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  _SLLog(v3, 7, @"viewWillAppear");
+  _SLLog(v8, 7, @"viewWillAppear", v3, v4, v5, v6, v7, v12.receiver);
   self->_wasPresented = 1;
-  v7.receiver = self;
-  v7.super_class = SLComposeViewController;
-  [(SLComposeViewController *)&v7 viewWillAppear:appearCopy];
+  v12.receiver = self;
+  v12.super_class = SLComposeViewController;
+  [(SLComposeViewController *)&v12 viewWillAppear:appearCopy];
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   self->_savedStatusBarStyle = [mEMORY[0x1E69DC668] statusBarStyle];
 
@@ -1590,66 +1584,65 @@ LABEL_19:
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
     if ([(NSArray *)self->_itemProviders count])
     {
-      v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](self->_itemProviders, "count")}];
-      _SLLog(v3, 7, @"SLComposeViewController building implicit NSExtensionItem from array of %@ _itemProviders");
+      v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](self->_itemProviders, "count")}];
+      _SLLog(v3, 7, @"SLComposeViewController building implicit NSExtensionItem from array of %@ _itemProviders", v13, v14, v15, v16, v17, v12);
 
-      v7 = objc_alloc_init(MEMORY[0x1E696ABE0]);
-      [v7 setAttachments:{self->_itemProviders, v13}];
-      [v6 addObject:v7];
+      v18 = objc_alloc_init(MEMORY[0x1E696ABE0]);
+      [v18 setAttachments:self->_itemProviders];
+      [v6 addObject:v18];
     }
 
     extensionItems = self->_extensionItems;
     if (extensionItems)
     {
-      v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](extensionItems, "count")}];
-      _SLLog(v3, 7, @"SLComposeViewController including %@ explicit NSExtensionItems");
+      v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](extensionItems, "count")}];
+      _SLLog(v3, 7, @"SLComposeViewController including %@ explicit NSExtensionItems", v21, v22, v23, v24, v25, v20);
 
-      [v6 addObjectsFromArray:{self->_extensionItems, v14}];
+      [v6 addObjectsFromArray:self->_extensionItems];
     }
 
     if (self->_initialText)
     {
-      initialText = self->_initialText;
-      _SLLog(v3, 7, @"SLComposeViewController setting first extensionItem.attributedContentText to '%@'");
+      _SLLog(v3, 7, @"SLComposeViewController setting first extensionItem.attributedContentText to '%@'", v7, v8, v9, v10, v11, self->_initialText);
       if (![v6 count])
       {
-        v9 = objc_alloc_init(MEMORY[0x1E696ABE0]);
-        [v6 addObject:v9];
+        v26 = objc_alloc_init(MEMORY[0x1E696ABE0]);
+        [v6 addObject:v26];
       }
 
-      v10 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:self->_initialText];
+      v27 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:self->_initialText];
       firstObject = [v6 firstObject];
-      [firstObject setAttributedContentText:v10];
+      [firstObject setAttributedContentText:v27];
     }
 
-    v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
-    _SLLog(v3, 7, @"SLComposeViewController about to instantiate remote view controller with array of %@ NSExtensionItems");
+    v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
+    _SLLog(v3, 7, @"SLComposeViewController about to instantiate remote view controller with array of %@ NSExtensionItems", v30, v31, v32, v33, v34, v29);
 
     self->_hasInstantiatedExtensionUI = 1;
     extension = self->_extension;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __79__SLComposeViewController__instantiateAndBeginExtensionIfNeededWithCompletion___block_invoke;
-    v17[3] = &unk_1E8175D90;
-    v17[4] = self;
-    v18 = completionCopy;
-    [(NSExtension *)extension instantiateViewControllerWithInputItems:v6 listenerEndpoint:0 connectionHandler:v17, v16];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __79__SLComposeViewController__instantiateAndBeginExtensionIfNeededWithCompletion___block_invoke;
+    v36[3] = &unk_1E8175D90;
+    v36[4] = self;
+    v37 = completionCopy;
+    [(NSExtension *)extension instantiateViewControllerWithInputItems:v6 listenerEndpoint:0 connectionHandler:v36];
   }
 }
 
 void __79__SLComposeViewController__instantiateAndBeginExtensionIfNeededWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v11 = a2;
+  v16 = a2;
   v8 = a3;
   v9 = a4;
-  _SLLog(v4, 7, @"SLComposeViewController finished instantiate remote view controller %@ error %{public}@ extension request identifier %@");
-  v10 = *(a1 + 40);
-  if (v10)
+  _SLLog(v4, 7, @"SLComposeViewController finished instantiate remote view controller %@ error %{public}@ extension request identifier %@", v10, v11, v12, v13, v14, v8);
+  v15 = *(a1 + 40);
+  if (v15)
   {
-    (*(v10 + 16))(v10, v11);
+    (*(v15 + 16))(v15, v16);
   }
 
-  [*(a1 + 32) remoteController:v8 didLoadWithError:{v9, v8, v9, v11}];
+  [*(a1 + 32) remoteController:v8 didLoadWithError:v9];
   [*(a1 + 32) _endDelayingPresentation];
 }
 
@@ -1663,13 +1656,13 @@ void __79__SLComposeViewController__instantiateAndBeginExtensionIfNeededWithComp
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  _SLLog(v3, 7, @"viewDidAppear");
-  v7.receiver = self;
-  v7.super_class = SLComposeViewController;
-  [(SLComposeViewController *)&v7 viewDidAppear:appearCopy];
+  _SLLog(v8, 7, @"viewDidAppear", v3, v4, v5, v6, v7, v16);
+  v19.receiver = self;
+  v19.super_class = SLComposeViewController;
+  [(SLComposeViewController *)&v19 viewDidAppear:appearCopy];
   if (self->_didFailLoadingRemoteViewController)
   {
-    _SLLog(v3, 6, @"ViewDidAppear, but remote VC failed, dismissing");
+    _SLLog(v8, 6, @"ViewDidAppear, but remote VC failed, dismissing", v11, v12, v13, v14, v15, v17);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __41__SLComposeViewController_viewDidAppear___block_invoke;

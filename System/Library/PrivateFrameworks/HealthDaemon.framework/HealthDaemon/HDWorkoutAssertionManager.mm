@@ -1,4 +1,5 @@
 @interface HDWorkoutAssertionManager
+- (id)makeRBSAssertionWithAssertionIdentifier:(id)identifier pid:(int)pid explanation:(id)explanation;
 - (id)takeLiveActivityAssertionWithOwnerIdentifier:(id)identifier clientBundleIdentifier:(id)bundleIdentifier explanation:(id)explanation;
 - (id)takeRBSAssertionWithOwnerIdentifier:(id)identifier assertionIdentifier:(id)assertionIdentifier pid:(int)pid explanation:(id)explanation;
 - (void)assertionManager:(id)manager assertionInvalidated:(id)invalidated;
@@ -35,6 +36,28 @@
   v23 = v22;
 
   return v23;
+}
+
+- (id)makeRBSAssertionWithAssertionIdentifier:(id)identifier pid:(int)pid explanation:(id)explanation
+{
+  v6 = *&pid;
+  v8 = sub_22911C35C();
+  v10 = v9;
+  if (explanation)
+  {
+    v11 = sub_22911C35C();
+    explanation = v12;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  selfCopy = self;
+  v14 = HDWorkoutAssertionManager.makeRBSAssertion(assertionIdentifier:pid:explanation:)(v8, v10, v6, v11, explanation);
+
+  return v14;
 }
 
 - (id)takeLiveActivityAssertionWithOwnerIdentifier:(id)identifier clientBundleIdentifier:(id)bundleIdentifier explanation:(id)explanation

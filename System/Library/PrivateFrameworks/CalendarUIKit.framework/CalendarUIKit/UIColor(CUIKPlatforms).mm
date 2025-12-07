@@ -1,7 +1,7 @@
 @interface UIColor(CUIKPlatforms)
 + (id)cuik_nonTodayTimelineColor;
 + (id)cuik_timelineHourColor;
-- (double)cuik_alphaComponent;
+- (CGFloat)cuik_alphaComponent;
 - (id)cuik_blendWithColor:()CUIKPlatforms;
 - (uint64_t)cuik_colorWithAlphaScaled:()CUIKPlatforms;
 @end
@@ -17,7 +17,7 @@
   return v2;
 }
 
-- (double)cuik_alphaComponent
+- (CGFloat)cuik_alphaComponent
 {
   cGColor = [self CGColor];
 

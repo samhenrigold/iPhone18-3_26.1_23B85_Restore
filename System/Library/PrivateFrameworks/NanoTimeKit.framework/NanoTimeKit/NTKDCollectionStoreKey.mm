@@ -26,27 +26,25 @@
   equalCopy = equal;
   if ([equalCopy isMemberOfClass:objc_opt_class()])
   {
-    collectionIdentifier = self->_collectionIdentifier;
     collectionIdentifier = [equalCopy collectionIdentifier];
     if (NTKEqualStrings())
     {
-      deviceUUID = self->_deviceUUID;
       deviceUUID = [equalCopy deviceUUID];
-      v9 = NTKEqualObjects();
+      v6 = NTKEqualObjects();
     }
 
     else
     {
-      v9 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v9;
+  return v6;
 }
 
 - (id)plistRepresentation

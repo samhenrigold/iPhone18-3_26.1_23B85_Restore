@@ -26,30 +26,30 @@
 
 - (void)resolveItemRefsWithDocument:(id)document
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   documentCopy = document;
-  if ([(NSMutableArray *)self->_itemRef count])
+  if (objc_msgSend_count(self->_itemRef))
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v5 = self->_itemRef;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v23;
+      v8 = *v22;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v22 + 1) + 8 * i);
+          v10 = *(*(&v21 + 1) + 8 * i);
           htmlIds = [documentCopy htmlIds];
           v12 = [htmlIds objectForKeyedSubscript:v10];
 
@@ -62,7 +62,7 @@
               [(NSMutableArray *)itemProps addObjectsFromArray:itemProps];
 
               itemProps2 = [(SGMicrodataItemScope *)self itemProps];
-              v16 = [itemProps2 count];
+              v16 = objc_msgSend_count(itemProps2);
 
               if (v16 >= 0x3E8)
               {
@@ -73,7 +73,7 @@
           }
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v7)
         {
           continue;
@@ -86,18 +86,16 @@
 LABEL_14:
 
     itemProps3 = [(SGMicrodataItemScope *)self itemProps];
-    v18 = [itemProps3 count];
+    v18 = objc_msgSend_count(itemProps3);
 
     if (v18 >= 0x3E9)
     {
       itemProps4 = [(SGMicrodataItemScope *)self itemProps];
-      v20 = [itemProps4 count] - 1000;
+      v20 = objc_msgSend_count(itemProps4) - 1000;
 
       [(NSMutableArray *)self->super._itemProps removeObjectsInRange:1000, v20];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -157,23 +157,21 @@ uint64_t __54__HKHeartbeatSeriesSample__validateWithConfiguration___block_invoke
   if (a2 < 0.0)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v5 = a1[4];
-    v6 = objc_opt_class();
-    v7 = a1[7];
-    v8 = @"Heartbeat datum time since sequence start (%f) must be nonnegative";
+    v5 = objc_opt_class();
+    v6 = a1[7];
+    v7 = @"Heartbeat datum time since sequence start (%f) must be nonnegative";
 LABEL_7:
-    [v4 hk_errorForInvalidArgument:@"@" class:v6 selector:v7 format:{v8, *&a2, v15}];
+    [v4 hk_errorForInvalidArgument:@"@" class:v5 selector:v6 format:{v7, *&a2, v12}];
     goto LABEL_8;
   }
 
   if (*(*(a1[6] + 8) + 24) > a2)
   {
-    v9 = a1[4];
     [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a1[7] format:{@"Heartbeat datum time since sequence start (%f) must not be less than previous datum (%f)", *&a2, *(*(a1[6] + 8) + 24)}];
-    v11 = LABEL_8:;
-    v12 = *(a1[5] + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v8 = LABEL_8:;
+    v9 = *(a1[5] + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
     goto LABEL_9;
   }
@@ -181,10 +179,9 @@ LABEL_7:
   if (a2 > 10000.0)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = a1[4];
-    v6 = objc_opt_class();
-    v7 = a1[7];
-    v8 = @"Heartbeat datum time since sequence start (%f) greater than expected maxiumum 10000";
+    v5 = objc_opt_class();
+    v6 = a1[7];
+    v7 = @"Heartbeat datum time since sequence start (%f) greater than expected maxiumum 10000";
     goto LABEL_7;
   }
 
@@ -310,7 +307,7 @@ uint64_t __66__HKHeartbeatSeriesSample__computeMinimumAndMaximumBeatsPerMinute__
 
 - (void)_enumerateHeartbeatDataWithBlock:(id)block
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (self->_numberOfDataPoints >= 1)
   {
@@ -318,8 +315,8 @@ uint64_t __66__HKHeartbeatSeriesSample__computeMinimumAndMaximumBeatsPerMinute__
     v6 = 0;
     do
     {
-      [(NSData *)self->_heartbeatData getBytes:&v8 range:v5, 16];
-      if ((blockCopy[2](blockCopy, v9 != 0, v8) & 1) == 0)
+      [(NSData *)self->_heartbeatData getBytes:&v7 range:v5, 16];
+      if ((blockCopy[2](blockCopy, v8 != 0, v7) & 1) == 0)
       {
         break;
       }
@@ -330,8 +327,6 @@ uint64_t __66__HKHeartbeatSeriesSample__computeMinimumAndMaximumBeatsPerMinute__
 
     while (v6 < self->_numberOfDataPoints);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setPayload:(id)payload
@@ -370,37 +365,37 @@ uint64_t __66__HKHeartbeatSeriesSample__computeMinimumAndMaximumBeatsPerMinute__
 
 + (id)_heartbeatSeriesSampleFromCSV:(id)v startDate:(id)date metadata:(id)metadata error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   metadataCopy = metadata;
   v11 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:v encoding:4 error:error];
   if ([v11 length])
   {
-    v32 = metadataCopy;
-    v31 = v11;
+    v31 = metadataCopy;
+    v30 = v11;
     v12 = [v11 componentsSeparatedByString:@"\n"];
     v13 = [MEMORY[0x1E695DF88] dataWithCapacity:{16 * objc_msgSend(v12, "count")}];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     v14 = v12;
-    v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v34;
+      v17 = *v33;
       v18 = 0.0;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v34 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * i);
+          v20 = *(*(&v32 + 1) + 8 * i);
           v21 = [v20 rangeOfString:{@", "}];
           if (v21 != 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -410,18 +405,18 @@ uint64_t __66__HKHeartbeatSeriesSample__computeMinimumAndMaximumBeatsPerMinute__
             [v23 doubleValue];
             v18 = v25;
             bOOLValue = [v24 BOOLValue];
-            v39 = 0;
-            v38 = v18;
+            v38 = 0;
+            v37 = v18;
             if ((bOOLValue & 1) == 0)
             {
-              LOBYTE(v39) = 1;
+              LOBYTE(v38) = 1;
             }
 
-            [v13 appendBytes:&v38 length:16];
+            [v13 appendBytes:&v37 length:16];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v16);
@@ -433,18 +428,16 @@ uint64_t __66__HKHeartbeatSeriesSample__computeMinimumAndMaximumBeatsPerMinute__
     }
 
     v28 = [dateCopy dateByAddingTimeInterval:v18];
-    metadataCopy = v32;
-    v27 = [HKHeartbeatSeriesSample _heartbeatSeriesSampleWithData:v13 startDate:dateCopy endDate:v28 device:0 metadata:v32];
+    metadataCopy = v31;
+    v27 = [HKHeartbeatSeriesSample _heartbeatSeriesSampleWithData:v13 startDate:dateCopy endDate:v28 device:0 metadata:v31];
 
-    v11 = v31;
+    v11 = v30;
   }
 
   else
   {
     v27 = 0;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

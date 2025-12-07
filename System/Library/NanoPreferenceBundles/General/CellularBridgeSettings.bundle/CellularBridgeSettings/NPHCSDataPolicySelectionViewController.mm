@@ -267,7 +267,7 @@ LABEL_34:
 - (void)_streamingSwitchFlipped:(id)flipped
 {
   flippedCopy = flipped;
-  v4 = nph_general_log();
+  v4 = nph_general_log(flippedCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;
@@ -313,7 +313,7 @@ LABEL_5:
 
   v6 = 0;
 LABEL_7:
-  v7 = nph_general_log();
+  v7 = nph_general_log(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315650;

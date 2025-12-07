@@ -5,6 +5,7 @@
 - (void)dealloc;
 - (void)enrollResult:(id)result details:(id)details client:(unint64_t)client;
 - (void)homeButtonPressed:(unint64_t)pressed;
+- (void)statusMessage:(unsigned int)message client:(unint64_t)client;
 @end
 
 @implementation BKEnrollTouchIDOperation
@@ -43,11 +44,11 @@
   v13 = *MEMORY[0x1E69E9840];
   memset(v12, 0, 512);
   memset(&v10[30], 0, 32);
-  v4 = [(BiometricKitXPCClient *)self->super.super._xpcClient pullAlignmentData:0];
-  v5 = v4;
-  if (v4)
+  v5 = [(BiometricKitXPCClient *)self->super.super._xpcClient pullAlignmentData:0];
+  v6 = v5;
+  if (v5)
   {
-    [v4 getBytes:v12 length:3060];
+    [v5 getBytes:v12 length:3060];
     if (SWORD3(v12[0]) >= 300)
     {
       [BKEnrollTouchIDOperation createEnrollProgressInfo:];
@@ -55,16 +56,16 @@
 
     else
     {
-      v6 = ComponentSetUpdate();
-      if (v6)
+      v7 = ComponentSetUpdate(&self->_compSet, v12, v10);
+      if (v7)
       {
-        [(BKEnrollTouchIDOperation *)v6 createEnrollProgressInfo:?];
+        [(BKEnrollTouchIDOperation *)v7 createEnrollProgressInfo:?];
       }
 
       else
       {
-        v7 = GenerateEnrollProgressInfo(v10, info, 0);
-        if (v7)
+        v8 = GenerateEnrollProgressInfo(v10, info, 0);
+        if (v8)
         {
           goto LABEL_5;
         }
@@ -79,12 +80,10 @@
     [BKEnrollTouchIDOperation createEnrollProgressInfo:];
   }
 
-  v7 = v11;
+  v8 = v11;
 LABEL_5:
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 - (void)enrollResult:(id)result details:(id)details client:(unint64_t)client
@@ -92,6 +91,119 @@ LABEL_5:
   v5.receiver = self;
   v5.super_class = BKEnrollTouchIDOperation;
   [(BKEnrollOperation *)&v5 enrollResult:result details:details client:client];
+}
+
+- (void)statusMessage:(unsigned int)message client:(unint64_t)client
+{
+  v5 = *&message;
+  v31 = *MEMORY[0x1E69E9840];
+  kdebug_trace();
+  v7 = MEMORY[0x1E69E9C10];
+  if (__osLogTrace)
+  {
+    v8 = __osLogTrace;
+  }
+
+  else
+  {
+    v8 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109376;
+    *v28 = v5;
+    *&v28[4] = 2048;
+    *&v28[6] = client;
+    _os_log_impl(&dword_1C82AD000, v8, OS_LOG_TYPE_DEFAULT, "BKEnrollTouchIDOperation::statusMessage:client: %u, %llu\n", buf, 0x12u);
+  }
+
+  if ((v5 - 100) > 0xFF)
+  {
+    v13 = __statusToFingerprintCaptureError(v5);
+    if (v13)
+    {
+      v14 = v13;
+      delegate = [(BKOperation *)self delegate];
+      v16 = objc_opt_respondsToSelector();
+
+      if (v16)
+      {
+        if (__osLog)
+        {
+          v17 = __osLog;
+        }
+
+        else
+        {
+          v17 = v7;
+        }
+
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          v18 = v17;
+          delegate2 = [(BKOperation *)self delegate];
+          delegate3 = [(BKOperation *)self delegate];
+          *buf = 134218498;
+          *v28 = v14;
+          *&v28[8] = 2048;
+          *&v28[10] = delegate2;
+          v29 = 2112;
+          v30 = delegate3;
+          _os_log_impl(&dword_1C82AD000, v18, OS_LOG_TYPE_DEFAULT, "BKEnrollTouchIDOperation::statusMessage:client: encounteredCaptureError:%ld => delegate:%p(%@)\n", buf, 0x20u);
+        }
+
+        dispatchQueue = [(BKOperation *)self dispatchQueue];
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __49__BKEnrollTouchIDOperation_statusMessage_client___block_invoke_17;
+        v24[3] = &unk_1E8303D98;
+        v24[4] = self;
+        v24[5] = v14;
+        dispatch_async(dispatchQueue, v24);
+      }
+    }
+  }
+
+  else
+  {
+    v9 = [(BKEnrollTouchIDOperation *)self createEnrollProgressInfo:?];
+    delegate4 = [(BKOperation *)self delegate];
+    v11 = objc_opt_respondsToSelector();
+
+    if (v11)
+    {
+      dispatchQueue2 = [(BKOperation *)self dispatchQueue];
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __49__BKEnrollTouchIDOperation_statusMessage_client___block_invoke;
+      block[3] = &unk_1E8304208;
+      block[4] = self;
+      v26 = v9;
+      dispatch_async(dispatchQueue2, block);
+    }
+  }
+
+  v23.receiver = self;
+  v23.super_class = BKEnrollTouchIDOperation;
+  [(BKEnrollOperation *)&v23 statusMessage:v5 client:client];
+  if (__osLogTrace)
+  {
+    v22 = __osLogTrace;
+  }
+
+  else
+  {
+    v22 = v7;
+  }
+
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1C82AD000, v22, OS_LOG_TYPE_DEFAULT, "BKEnrollTouchIDOperation::statusMessage:client: -> void\n", buf, 2u);
+  }
+
+  kdebug_trace();
 }
 
 void __49__BKEnrollTouchIDOperation_statusMessage_client___block_invoke(uint64_t a1)
@@ -108,7 +220,7 @@ void __49__BKEnrollTouchIDOperation_statusMessage_client___block_invoke_17(uint6
 
 - (void)homeButtonPressed:(unint64_t)pressed
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
   {
@@ -149,8 +261,8 @@ void __49__BKEnrollTouchIDOperation_statusMessage_client___block_invoke_17(uint6
       delegate3 = [(BKOperation *)self delegate];
       *buf = 134218242;
       pressedCopy = delegate2;
-      v19 = 2112;
-      v20 = delegate3;
+      v18 = 2112;
+      v19 = delegate3;
       _os_log_impl(&dword_1C82AD000, v10, OS_LOG_TYPE_DEFAULT, "BKEnrollTouchIDOperation::homeButtonPressed: homeButtonPressedInEnrollOperation => delegate:%p(%@)\n", buf, 0x16u);
     }
 
@@ -178,8 +290,6 @@ void __49__BKEnrollTouchIDOperation_statusMessage_client___block_invoke_17(uint6
     *buf = 0;
     _os_log_impl(&dword_1C82AD000, v14, OS_LOG_TYPE_DEFAULT, "BKEnrollTouchIDOperation::homeButtonPressed: -> void\n", buf, 2u);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __46__BKEnrollTouchIDOperation_homeButtonPressed___block_invoke(uint64_t a1)
@@ -190,7 +300,6 @@ void __46__BKEnrollTouchIDOperation_homeButtonPressed___block_invoke(uint64_t a1
 
 - (void)createEnrollProgressInfo:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_1();
@@ -199,12 +308,10 @@ void __46__BKEnrollTouchIDOperation_homeButtonPressed___block_invoke(uint64_t a1
   }
 
   *a2 = 0;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createEnrollProgressInfo:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
@@ -214,12 +321,10 @@ void __46__BKEnrollTouchIDOperation_homeButtonPressed___block_invoke(uint64_t a1
   }
 
   OUTLINED_FUNCTION_6();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createEnrollProgressInfo:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
@@ -229,12 +334,10 @@ void __46__BKEnrollTouchIDOperation_homeButtonPressed___block_invoke(uint64_t a1
   }
 
   OUTLINED_FUNCTION_6();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createEnrollProgressInfo:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
@@ -244,7 +347,6 @@ void __46__BKEnrollTouchIDOperation_homeButtonPressed___block_invoke(uint64_t a1
   }
 
   OUTLINED_FUNCTION_6();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

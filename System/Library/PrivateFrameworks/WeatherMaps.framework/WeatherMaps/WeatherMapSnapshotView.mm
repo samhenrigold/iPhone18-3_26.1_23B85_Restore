@@ -19,7 +19,7 @@
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_220FBFD90();
   selfCopy = self;
-  sub_220E55240(v8);
+  sub_220E55240();
 
   (*(v5 + 8))(v8, v4);
 }

@@ -10,7 +10,7 @@
   v5 = *&description->componentType;
   v6 = *&description->componentManufacturer;
   componentFlagsMask = description->componentFlagsMask;
-  type metadata accessor for KonaSynthesizerAudioUnit();
+  type metadata accessor for KonaSynthesizerAudioUnit(0);
   selfCopy = self;
   v9 = sub_100001874(v5, v6, componentFlagsMask, 0);
   v10 = *(&selfCopy->super.isa + OBJC_IVAR____TtC15KonaSynthesizer16AudioUnitFactory_audioUnit);

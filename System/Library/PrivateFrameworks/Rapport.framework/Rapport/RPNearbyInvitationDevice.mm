@@ -43,26 +43,30 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  NSAppendPrintF();
-  v11 = 0;
+  v15 = 0;
+  NSAppendPrintF(&v15, "RPNearbyInvitationDevice", *&level);
+  v4 = v15;
+  v14 = v4;
   identifier = [(RPEndpoint *)self identifier];
-  NSAppendPrintF();
-  v4 = v11;
+  NSAppendPrintF(&v14, " %@", identifier);
+  v6 = v14;
 
-  deviceColor = [(RPNearbyInvitationDevice *)self deviceColor];
-  NSAppendPrintF();
-  v5 = v4;
+  v13 = v6;
+  NSAppendPrintF(&v13, " color=%d", [(RPNearbyInvitationDevice *)self deviceColor]);
+  v7 = v13;
 
   model = [(RPEndpoint *)self model];
+  v9 = model;
   if (model)
   {
-    NSAppendPrintF();
-    v7 = v5;
+    v12 = v7;
+    NSAppendPrintF(&v12, " %@", model);
+    v10 = v12;
 
-    v5 = v7;
+    v7 = v10;
   }
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)isEqualToDevice:(id)device

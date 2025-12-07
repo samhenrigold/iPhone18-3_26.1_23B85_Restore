@@ -1,9 +1,21 @@
 @interface OrgApacheLuceneIndexDocValues_$4
+- (BOOL)getWithInt:(int)int;
 - (OrgApacheLuceneIndexDocValues_$4)initWithOrgApacheLuceneIndexSortedDocValues:(id)values withInt:(int)int;
 - (void)dealloc;
 @end
 
 @implementation OrgApacheLuceneIndexDocValues_$4
+
+- (BOOL)getWithInt:(int)int
+{
+  v3 = self->val$dv_;
+  if (!v3)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneIndexSortedDocValues *)v3 getOrdWithInt:*&int]>= 0;
+}
 
 - (OrgApacheLuceneIndexDocValues_$4)initWithOrgApacheLuceneIndexSortedDocValues:(id)values withInt:(int)int
 {

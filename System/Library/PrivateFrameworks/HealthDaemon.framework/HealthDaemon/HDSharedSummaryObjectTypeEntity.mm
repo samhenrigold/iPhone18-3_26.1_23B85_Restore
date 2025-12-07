@@ -9,66 +9,63 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"summary_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"summary_id";
   v2 = +[(HDHealthEntity *)HDSharedSummaryEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"summary_id";
-  v5[1] = @"object_type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"summary_id";
+  v4[1] = @"object_type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 + (id)insertWithSummaryID:(int64_t)d objectTypes:(id)types databaseTransaction:(id)transaction error:(id *)error
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   transactionCopy = transaction;
   v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v24 = transactionCopy;
+  v23 = transactionCopy;
   v11 = [transactionCopy databaseForEntityClass:self];
-  v33[0] = @"summary_id";
-  v33[1] = @"object_type";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v32[0] = @"summary_id";
+  v32[1] = @"object_type";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v13 = typesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v29;
+    v16 = *v28;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v29 != v16)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __93__HDSharedSummaryObjectTypeEntity_insertWithSummaryID_objectTypes_databaseTransaction_error___block_invoke;
-        v27[3] = &unk_278616B10;
-        v27[4] = v18;
-        v27[5] = d;
-        v19 = [self insertOrReplaceEntity:0 database:v11 properties:v12 error:error bindingHandler:v27];
+        v18 = *(*(&v27 + 1) + 8 * i);
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __93__HDSharedSummaryObjectTypeEntity_insertWithSummaryID_objectTypes_databaseTransaction_error___block_invoke;
+        v26[3] = &unk_278616B10;
+        v26[4] = v18;
+        v26[5] = d;
+        v19 = [self insertOrReplaceEntity:0 database:v11 properties:v12 error:error bindingHandler:v26];
         if (!v19)
         {
 
@@ -80,7 +77,7 @@
         [v10 addObject:v19];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v15)
       {
         continue;
@@ -92,8 +89,6 @@
 
   v21 = v10;
 LABEL_11:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -155,12 +150,12 @@ id __85__HDSharedSummaryObjectTypeEntity_objectTypesForSummaryID_databaseTransac
   return v3;
 }
 
-uint64_t __85__HDSharedSummaryObjectTypeEntity_objectTypesForSummaryID_databaseTransaction_error___block_invoke_3(uint64_t a1)
+uint64_t __85__HDSharedSummaryObjectTypeEntity_objectTypesForSummaryID_databaseTransaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCD720] dataTypeWithCode:HDSQLiteColumnWithNameAsInt64()];
-  if (v2)
+  v3 = [MEMORY[0x277CCD720] dataTypeWithCode:HDSQLiteColumnWithNameAsInt64()];
+  if (v3)
   {
-    [*(a1 + 32) addObject:v2];
+    [*(a1 + 32) addObject:v3];
   }
 
   return 1;

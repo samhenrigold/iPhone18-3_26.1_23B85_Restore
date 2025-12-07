@@ -16,19 +16,19 @@ void __78__UIApplication_MobileSafariFrameworkExtras__safari_currentKeyboardInpu
   v7 = [v6 addObserverForName:@"SFBrowserViewDidLoadNotification" object:0 queue:v8 usingBlock:&__block_literal_global_7_2];
 }
 
-uint64_t __78__UIApplication_MobileSafariFrameworkExtras__safari_currentKeyboardInputIsRTL__block_invoke_4(uint64_t result)
+id *__78__UIApplication_MobileSafariFrameworkExtras__safari_currentKeyboardInputIsRTL__block_invoke_4(id *result)
 {
   if ((safari_currentKeyboardInputIsRTL_hasValidCache & 1) == 0)
   {
     v1 = result;
     v2 = MEMORY[0x1E695DF58];
-    v3 = [*(result + 32) textInputMode];
+    v3 = [result[4] textInputMode];
     v4 = [v3 primaryLanguage];
     safari_currentKeyboardInputIsRTL_currentKeyboardUsesRTL = [v2 characterDirectionForLanguage:v4] == 2;
 
     safari_currentKeyboardInputIsRTL_hasValidCache = 1;
     safari_currentKeyboardInputIsRTL_useSafariAppDirectionality = 1;
-    v5 = *(v1 + 40);
+    v5 = v1[5];
 
     return [v5 postNotificationName:@"SFDidGetTextInputModeDirectionality" object:0];
   }

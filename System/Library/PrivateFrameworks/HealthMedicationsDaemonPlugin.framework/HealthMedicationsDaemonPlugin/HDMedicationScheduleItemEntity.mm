@@ -4,7 +4,7 @@
 + (BOOL)updateNotification:(BOOL)notification itemIdentifier:(id)identifier transaction:(id)transaction error:(id *)error;
 + (id)insertMedicationScheduleItem:(id)item transaction:(id)transaction error:(id *)error;
 + (id)medicationScheduleItemEntityPropertiesForModel;
-+ (id)medicationScheduleItemFromRow:error:;
++ (id)medicationScheduleItemFromRow:(uint64_t)row error:(uint64_t)error;
 + (id)medicationScheduleItemWithIdentifier:(id)identifier transaction:(id)transaction error:(id *)error;
 @end
 
@@ -18,22 +18,21 @@
   v3[1] = @"scheduled_date_time";
   v3[2] = @"notification_sent";
   v3[3] = @"doses";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
 
-  return v0;
+  return v1;
 }
 
-+ (id)medicationScheduleItemFromRow:error:
++ (id)medicationScheduleItemFromRow:(uint64_t)row error:(uint64_t)error
 {
   objc_opt_self();
-  v0 = HDSQLiteColumnWithNameAsDate();
-  v1 = HDSQLiteColumnWithNameAsBoolean();
+  v2 = HDSQLiteColumnWithNameAsDate();
+  v3 = HDSQLiteColumnWithNameAsBoolean();
   objc_opt_class();
-  v2 = HDSQLiteColumnWithNameAsArrayOfClass();
-  v3 = [objc_alloc(MEMORY[0x277D11588]) initWithScheduledDateTime:v0 notificationSent:v1 doses:v2];
+  v4 = HDSQLiteColumnWithNameAsArrayOfClass();
+  v5 = [objc_alloc(MEMORY[0x277D11588]) initWithScheduledDateTime:v2 notificationSent:v3 doses:v4];
 
-  return v3;
+  return v5;
 }
 
 + (id)medicationScheduleItemWithIdentifier:(id)identifier transaction:(id)transaction error:(id *)error
@@ -86,17 +85,15 @@
 id __89__HDMedicationScheduleItemEntity_medicationScheduleItemWithIdentifier_transaction_error___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@ FROM %@ WHERE %@ = ?", @"identifier", @"scheduled_date_time", @"notification_sent", @"doses", v3, @"identifier", 0];
+  v2 = [objc_opt_class() disambiguatedDatabaseTable];
+  v3 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@ FROM %@ WHERE %@ = ?", @"identifier", @"scheduled_date_time", @"notification_sent", @"doses", v2, @"identifier", 0];
 
-  return v4;
+  return v3;
 }
 
-uint64_t __89__HDMedicationScheduleItemEntity_medicationScheduleItemWithIdentifier_transaction_error___block_invoke_3(uint64_t a1)
+uint64_t __89__HDMedicationScheduleItemEntity_medicationScheduleItemWithIdentifier_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 40);
-  v3 = +[HDMedicationScheduleItemEntity medicationScheduleItemFromRow:error:];
+  v3 = [HDMedicationScheduleItemEntity medicationScheduleItemFromRow:a2 error:?];
   v4 = *(*(a1 + 32) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
@@ -112,7 +109,7 @@ uint64_t __89__HDMedicationScheduleItemEntity_medicationScheduleItemWithIdentifi
   v15 = [transaction databaseForEntityClass:self];
   v16 = [self queryWithDatabase:v15 predicate:predicateCopy limit:0 orderingTerms:termsCopy groupBy:0];
 
-  v17 = +[HDMedicationScheduleItemEntity medicationScheduleItemEntityPropertiesForModel];
+  v17 = +[(HDMedicationScheduleItemEntity *)self];
   v20[0] = MEMORY[0x277D85DD0];
   v20[1] = 3221225472;
   v20[2] = __113__HDMedicationScheduleItemEntity_enumerateItemsWithPredicate_orderingTerms_transaction_error_enumerationHandler___block_invoke;
@@ -125,20 +122,19 @@ uint64_t __89__HDMedicationScheduleItemEntity_medicationScheduleItemWithIdentifi
   return error;
 }
 
-uint64_t __113__HDMedicationScheduleItemEntity_enumerateItemsWithPredicate_orderingTerms_transaction_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __113__HDMedicationScheduleItemEntity_enumerateItemsWithPredicate_orderingTerms_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = +[HDMedicationScheduleItemEntity medicationScheduleItemFromRow:error:];
-  v4 = (*(*(a1 + 32) + 16))();
+  v5 = [HDMedicationScheduleItemEntity medicationScheduleItemFromRow:a4 error:?];
+  v6 = (*(*(a1 + 32) + 16))();
 
-  return v4;
+  return v6;
 }
 
 + (id)insertMedicationScheduleItem:(id)item transaction:(id)transaction error:(id *)error
 {
   itemCopy = item;
   v9 = [transaction databaseForEntityClass:self];
-  v10 = +[HDMedicationScheduleItemEntity medicationScheduleItemEntityPropertiesForModel];
+  v10 = +[(HDMedicationScheduleItemEntity *)self];
   v14[0] = MEMORY[0x277D85DD0];
   v14[1] = 3221225472;
   v14[2] = __81__HDMedicationScheduleItemEntity_insertMedicationScheduleItem_transaction_error___block_invoke;
@@ -165,22 +161,21 @@ void __81__HDMedicationScheduleItemEntity_insertMedicationScheduleItem_transacti
 
 + (BOOL)updateNotification:(BOOL)notification itemIdentifier:(id)identifier transaction:(id)transaction error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277D10B18];
   transactionCopy = transaction;
   v12 = [v10 predicateWithProperty:@"identifier" equalToValue:identifier];
-  v19[0] = @"notification_sent";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = @"notification_sent";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v14 = [transactionCopy databaseForEntityClass:objc_opt_class()];
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __86__HDMedicationScheduleItemEntity_updateNotification_itemIdentifier_transaction_error___block_invoke;
-  v17[3] = &__block_descriptor_33_e34_v16__0__HDSQLiteStatementBinder__8l;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __86__HDMedicationScheduleItemEntity_updateNotification_itemIdentifier_transaction_error___block_invoke;
+  v16[3] = &__block_descriptor_33_e34_v16__0__HDSQLiteStatementBinder__8l;
   notificationCopy = notification;
-  LOBYTE(error) = [self updateProperties:v13 predicate:v12 database:v14 error:error bindingHandler:v17];
+  LOBYTE(error) = [self updateProperties:v13 predicate:v12 database:v14 error:error bindingHandler:v16];
 
-  v15 = *MEMORY[0x277D85DE8];
   return error;
 }
 

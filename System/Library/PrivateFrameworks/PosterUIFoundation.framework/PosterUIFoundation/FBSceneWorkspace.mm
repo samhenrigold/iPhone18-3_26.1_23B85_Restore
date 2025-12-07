@@ -5,30 +5,38 @@
 
 uint64_t __59__FBSceneWorkspace_PosterUIFoundation__pui_posterWorkspace__block_invoke()
 {
-  pui_posterWorkspace___PosterWorkspace = [objc_alloc(MEMORY[0x1E699F7F8]) initWithIdentifier:@"PosterKit"];
+  v0 = [objc_alloc(MEMORY[0x1E699F7F8]) initWithIdentifier:@"PosterKit"];
+  v1 = pui_posterWorkspace___PosterWorkspace;
+  pui_posterWorkspace___PosterWorkspace = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __75__FBSceneWorkspace_PosterUIFoundation__pui_posterKitComplicationsWorkspace__block_invoke()
 {
-  pui_posterKitComplicationsWorkspace___PosterWorkspace = [objc_alloc(MEMORY[0x1E699F7F8]) initWithIdentifier:@"PRComplicationsSceneWorkspace"];
+  v0 = [objc_alloc(MEMORY[0x1E699F7F8]) initWithIdentifier:@"PRComplicationsSceneWorkspace"];
+  v1 = pui_posterKitComplicationsWorkspace___PosterWorkspace;
+  pui_posterKitComplicationsWorkspace___PosterWorkspace = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __85__FBSceneWorkspace_PosterUIFoundation__pui_posterKitExternallyHostedContentWorkspace__block_invoke()
 {
-  pui_posterKitExternallyHostedContentWorkspace___PosterWorkspace = [objc_alloc(MEMORY[0x1E699F7F8]) initWithIdentifier:@"PRExternallyHostedContentSceneWorkspace"];
+  v0 = [objc_alloc(MEMORY[0x1E699F7F8]) initWithIdentifier:@"PRExternallyHostedContentSceneWorkspace"];
+  v1 = pui_posterKitExternallyHostedContentWorkspace___PosterWorkspace;
+  pui_posterKitExternallyHostedContentWorkspace___PosterWorkspace = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __79__FBSceneWorkspace_PosterUIFoundation__pui_posterBoardUIServicesModalWorkspace__block_invoke()
 {
-  pui_posterBoardUIServicesModalWorkspace___PosterWorkspace = [objc_alloc(MEMORY[0x1E699F7F8]) initWithIdentifier:@"PRUISModalWorkspaceIdentifier"];
+  v0 = [objc_alloc(MEMORY[0x1E699F7F8]) initWithIdentifier:@"PRUISModalWorkspaceIdentifier"];
+  v1 = pui_posterBoardUIServicesModalWorkspace___PosterWorkspace;
+  pui_posterBoardUIServicesModalWorkspace___PosterWorkspace = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __56__FBSceneWorkspace_PosterUIFoundation__pui_createScene___block_invoke(uint64_t a1, void *a2)

@@ -61,9 +61,9 @@
 
       if (v10)
       {
-        v12 = [(NSArray *)v9 isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (v12)
+        if (isEqual)
         {
           goto LABEL_16;
         }
@@ -89,7 +89,7 @@
 
       if (v17)
       {
-        v19 = [(UIBarButtonItemGroup *)v16 isEqual:v17];
+        v19 = objc_msgSend_isEqual_(v16);
 
         if ((v19 & 1) == 0)
         {

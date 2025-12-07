@@ -8,37 +8,37 @@
 
 - (MLRTrialDediscoRecipe)initWithAssetURL:(id)l configOverride:(id)override error:(id *)error
 {
-  v77[2] = *MEMORY[0x277D85DE8];
+  v74[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   overrideCopy = override;
   if (!(lCopy | overrideCopy))
   {
-    v58 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"assetURL and configOverride cannot be both nil" userInfo:0];
-    objc_exception_throw(v58);
+    v55 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"assetURL and configOverride cannot be both nil" userInfo:0];
+    objc_exception_throw(v55);
   }
 
   v10 = overrideCopy;
-  v67.receiver = self;
-  v67.super_class = MLRTrialDediscoRecipe;
-  v11 = [(MLRTrialDediscoRecipe *)&v67 init];
+  v64.receiver = self;
+  v64.super_class = MLRTrialDediscoRecipe;
+  v11 = [(MLRTrialDediscoRecipe *)&v64 init];
   if (v11)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     if (lCopy)
     {
       errorCopy = error;
-      v66 = 0;
-      v13 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:8 error:&v66];
-      v14 = v66;
+      v63 = 0;
+      v13 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:8 error:&v63];
+      v14 = v63;
       if (v13)
       {
-        v65 = v14;
-        v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v13 options:0 error:&v65];
-        v16 = v65;
+        v62 = v14;
+        v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v13 options:0 error:&v62];
+        v16 = v62;
 
         if (v15)
         {
-          v61 = v16;
+          v58 = v16;
           v17 = [v15 objectForKeyedSubscript:@"dediscoConfig"];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -49,7 +49,7 @@
             v20 = [v19 mutableCopy];
 
             dictionary = v20;
-            v21 = v61;
+            v21 = v58;
             error = errorCopy;
             if (!v10)
             {
@@ -58,67 +58,65 @@ LABEL_12:
               encodingSchema = v11->_encodingSchema;
               v11->_encodingSchema = v23;
 
-              v25 = v11->_encodingSchema;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v26 = [dictionary objectForKeyedSubscript:@"baseKey"];
+                v25 = [dictionary objectForKeyedSubscript:@"baseKey"];
                 baseKeyFormat = v11->_baseKeyFormat;
-                v11->_baseKeyFormat = v26;
+                v11->_baseKeyFormat = v25;
 
-                v28 = v11->_baseKeyFormat;
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v29 = [dictionary objectForKeyedSubscript:@"DifferentialPrivacyParameters"];
+                  v27 = [dictionary objectForKeyedSubscript:@"DifferentialPrivacyParameters"];
                   dpConfig = v11->_dpConfig;
-                  v11->_dpConfig = v29;
+                  v11->_dpConfig = v27;
 
-                  v31 = [dictionary objectForKeyedSubscript:@"DediscoTaskConfig"];
+                  v29 = [dictionary objectForKeyedSubscript:@"DediscoTaskConfig"];
                   dediscoTaskConfig = v11->_dediscoTaskConfig;
-                  v11->_dediscoTaskConfig = v31;
+                  v11->_dediscoTaskConfig = v29;
 
                   v22 = v11;
-                  v33 = v21;
+                  v31 = v21;
 LABEL_29:
 
                   goto LABEL_30;
                 }
 
-                v64 = dictionary;
-                v34 = MEMORY[0x277CCA9B8];
-                v35 = v21;
-                v36 = *MEMORY[0x277D05640];
-                v68 = *MEMORY[0x277CCA450];
-                v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"key=%@ is of wrong type, value=%@", @"baseKey", v11->_baseKeyFormat];
-                v69 = v37;
-                v38 = MEMORY[0x277CBEAC0];
-                v39 = &v69;
-                v40 = &v68;
+                v61 = dictionary;
+                v32 = MEMORY[0x277CCA9B8];
+                v33 = v21;
+                v34 = *MEMORY[0x277D05640];
+                v65 = *MEMORY[0x277CCA450];
+                v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"key=%@ is of wrong type, value=%@", @"baseKey", v11->_baseKeyFormat];
+                v66 = v35;
+                v36 = MEMORY[0x277CBEAC0];
+                v37 = &v66;
+                v38 = &v65;
               }
 
               else
               {
-                v64 = dictionary;
-                v34 = MEMORY[0x277CCA9B8];
-                v35 = v21;
-                v36 = *MEMORY[0x277D05640];
-                v70 = *MEMORY[0x277CCA450];
-                v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"key=%@ is of wrong type, value=%@", @"encodingSchema", v11->_encodingSchema];
-                v71 = v37;
-                v38 = MEMORY[0x277CBEAC0];
-                v39 = &v71;
-                v40 = &v70;
+                v61 = dictionary;
+                v32 = MEMORY[0x277CCA9B8];
+                v33 = v21;
+                v34 = *MEMORY[0x277D05640];
+                v67 = *MEMORY[0x277CCA450];
+                v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"key=%@ is of wrong type, value=%@", @"encodingSchema", v11->_encodingSchema];
+                v68 = v35;
+                v36 = MEMORY[0x277CBEAC0];
+                v37 = &v68;
+                v38 = &v67;
               }
 
-              v49 = [v38 dictionaryWithObjects:v39 forKeys:v40 count:1];
-              v33 = [v34 errorWithDomain:v36 code:5007 userInfo:v49];
+              v47 = [v36 dictionaryWithObjects:v37 forKeys:v38 count:1];
+              v31 = [v32 errorWithDomain:v34 code:5007 userInfo:v47];
 
               if (error)
               {
-                v50 = v33;
+                v48 = v31;
                 v22 = 0;
-                *error = v33;
+                *error = v31;
               }
 
               else
@@ -126,7 +124,7 @@ LABEL_29:
                 v22 = 0;
               }
 
-              dictionary = v64;
+              dictionary = v61;
               goto LABEL_29;
             }
 
@@ -135,54 +133,54 @@ LABEL_11:
             goto LABEL_12;
           }
 
-          v60 = MEMORY[0x277CCA9B8];
-          v59 = *MEMORY[0x277D05640];
-          v72 = *MEMORY[0x277CCA450];
-          v51 = MEMORY[0x277CCACA8];
-          v52 = [v15 objectForKeyedSubscript:@"dediscoConfig"];
-          v53 = [v51 stringWithFormat:@"key=%@ is of wrong type, value=%@", @"dediscoConfig", v52];
-          v73 = v53;
-          v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-          v33 = [v60 errorWithDomain:v59 code:5007 userInfo:v54];
+          v57 = MEMORY[0x277CCA9B8];
+          v56 = *MEMORY[0x277D05640];
+          v69 = *MEMORY[0x277CCA450];
+          v49 = MEMORY[0x277CCACA8];
+          v50 = [v15 objectForKeyedSubscript:@"dediscoConfig"];
+          v51 = [v49 stringWithFormat:@"key=%@ is of wrong type, value=%@", @"dediscoConfig", v50];
+          v70 = v51;
+          v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+          v31 = [v57 errorWithDomain:v56 code:5007 userInfo:v52];
         }
 
         else
         {
-          v62 = MEMORY[0x277CCA9B8];
-          v46 = *MEMORY[0x277D05640];
-          v74[0] = *MEMORY[0x277CCA450];
+          v59 = MEMORY[0x277CCA9B8];
+          v44 = *MEMORY[0x277D05640];
+          v71[0] = *MEMORY[0x277CCA450];
           lCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Fail to decode recipe from path=%@", lCopy];
-          v74[1] = *MEMORY[0x277CCA7E8];
-          v75[0] = lCopy;
-          v75[1] = v16;
-          v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:2];
-          v33 = [v62 errorWithDomain:v46 code:5007 userInfo:v48];
+          v71[1] = *MEMORY[0x277CCA7E8];
+          v72[0] = lCopy;
+          v72[1] = v16;
+          v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+          v31 = [v59 errorWithDomain:v44 code:5007 userInfo:v46];
         }
 
         if (errorCopy)
         {
-          v55 = v33;
-          *errorCopy = v33;
+          v53 = v31;
+          *errorCopy = v31;
         }
       }
 
       else
       {
-        v41 = MEMORY[0x277CCA9B8];
-        v42 = *MEMORY[0x277D05640];
-        v76[0] = *MEMORY[0x277CCA450];
+        v39 = MEMORY[0x277CCA9B8];
+        v40 = *MEMORY[0x277D05640];
+        v73[0] = *MEMORY[0x277CCA450];
         lCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fail to read recipe with path=%@", lCopy];
-        v76[1] = *MEMORY[0x277CCA7E8];
-        v77[0] = lCopy2;
-        v77[1] = v14;
-        v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
-        v33 = [v41 errorWithDomain:v42 code:5007 userInfo:v44];
+        v73[1] = *MEMORY[0x277CCA7E8];
+        v74[0] = lCopy2;
+        v74[1] = v14;
+        v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
+        v31 = [v39 errorWithDomain:v40 code:5007 userInfo:v42];
 
         if (errorCopy)
         {
-          v45 = v33;
+          v43 = v31;
           v22 = 0;
-          *errorCopy = v33;
+          *errorCopy = v31;
           goto LABEL_29;
         }
       }
@@ -203,7 +201,6 @@ LABEL_11:
   v22 = 0;
 LABEL_30:
 
-  v56 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

@@ -145,29 +145,29 @@ void __76__FAShareSheetInviteConfigurationController_presentWhenReadyWithComplet
 
 void __84__FAShareSheetInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke(uint64_t a1, void *a2, int a3, void *a4, void *a5)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a4;
   v11 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v13 = objc_loadWeakRetained((a1 + 40));
-  v14 = _FALogSystem();
+  v14 = _FALogSystem(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v24 = @"NO";
+    v23 = @"NO";
     *buf = 138413058;
-    v29 = v9;
+    v28 = v9;
     if (a3)
     {
-      v24 = @"YES";
+      v23 = @"YES";
     }
 
-    v30 = 2112;
-    v31 = v24;
-    v32 = 2112;
-    v33 = v10;
-    v34 = 2112;
-    v35 = v11;
+    v29 = 2112;
+    v30 = v23;
+    v31 = 2112;
+    v32 = v10;
+    v33 = 2112;
+    v34 = v11;
     _os_log_debug_impl(&dword_21BB35000, v14, OS_LOG_TYPE_DEBUG, "_activityControllerCompletionHandler type: %@\ncompleted: %@\nreturnedItems: %@\nerror:%@", buf, 0x2Au);
   }
 
@@ -193,15 +193,15 @@ LABEL_16:
 
   if ([v9 isEqualToString:*MEMORY[0x277D54710]] && (objc_msgSend(v13, "didCompleteAirdropTransfer") & 1) == 0)
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __84__FAShareSheetInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke_30;
-    v25[3] = &unk_2782F2AF8;
-    v26 = v13;
-    v27 = WeakRetained;
-    dispatch_async(MEMORY[0x277D85CD0], v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __84__FAShareSheetInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke_30;
+    v24[3] = &unk_2782F2AF8;
+    v25 = v13;
+    v26 = WeakRetained;
+    dispatch_async(MEMORY[0x277D85CD0], v24);
 
-    v18 = v26;
+    v18 = v25;
     goto LABEL_16;
   }
 
@@ -232,8 +232,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __84__FAShareSheetInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke_2(uint64_t a1)

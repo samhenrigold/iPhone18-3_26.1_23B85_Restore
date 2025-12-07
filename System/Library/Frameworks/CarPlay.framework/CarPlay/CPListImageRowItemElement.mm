@@ -19,20 +19,19 @@
 {
   height = size.height;
   width = size.width;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = CarPlayFrameworkGeneralLogging();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = CarPlayFrameworkGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 134349312;
-    v8 = width;
-    v9 = 2050;
-    v10 = height;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "CPListImageRowItemElement setting maxImageSize (%{public}f,%{public}f)", &v7, 0x16u);
+    v6 = 134349312;
+    v7 = width;
+    v8 = 2050;
+    v9 = height;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "CPListImageRowItemElement setting maxImageSize (%{public}f,%{public}f)", &v6, 0x16u);
   }
 
   _maximumImageSize_0_1 = *&width;
   _maximumImageSize_1_1 = *&height;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CPListImageRowItemElement)initWithImage:(id)image

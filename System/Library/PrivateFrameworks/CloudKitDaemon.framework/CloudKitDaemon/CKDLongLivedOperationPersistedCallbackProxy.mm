@@ -40,7 +40,7 @@
 
 - (id)methodSignatureForSelector:(SEL)selector
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_callbackProtocol(self, a2, selector);
   MethodDescription = protocol_getMethodDescription(v5, selector, 1, 1);
 
@@ -59,21 +59,19 @@
     v9 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v12 = v9;
-      v13 = NSStringFromSelector(selector);
-      v16 = objc_msgSend_callbackProtocol(self, v14, v15);
-      v17 = NSStringFromProtocol(v16);
-      v18 = 138412546;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v17;
-      _os_log_error_impl(&dword_22506F000, v12, OS_LOG_TYPE_ERROR, "Unexpectedly found nil for SEL %@ in protocol named %@", &v18, 0x16u);
+      v11 = v9;
+      v12 = NSStringFromSelector(selector);
+      v15 = objc_msgSend_callbackProtocol(self, v13, v14);
+      v16 = NSStringFromProtocol(v15);
+      v17 = 138412546;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_error_impl(&dword_22506F000, v11, OS_LOG_TYPE_ERROR, "Unexpectedly found nil for SEL %@ in protocol named %@", &v17, 0x16u);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -13,10 +13,10 @@
 
 - (HAPPairingIdentity)initWithKeychainItem:(id)item
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   valueData = [itemCopy valueData];
-  v6 = _deserializeDataToKeyPair(valueData, v29, __s);
+  v6 = _deserializeDataToKeyPair(valueData, v28, __s);
 
   if (v6)
   {
@@ -27,13 +27,13 @@
     {
       v10 = HMFGetLogIdentifier();
       v11 = [MEMORY[0x277CCABB0] numberWithInt:v6];
-      v22 = 138543874;
-      v23 = v10;
-      v24 = 2112;
-      v25 = itemCopy;
-      v26 = 2112;
-      v27 = v11;
-      _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unable to deserialize key for item %@: %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v10;
+      v23 = 2112;
+      v24 = itemCopy;
+      v25 = 2112;
+      v26 = v11;
+      _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unable to deserialize key for item %@: %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -43,7 +43,7 @@
   else
   {
     v13 = objc_alloc(MEMORY[0x277D0F8B0]);
-    v14 = [MEMORY[0x277CBEA90] dataWithBytes:v29 length:32];
+    v14 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:32];
     v15 = [v13 initWithPairingKeyData:v14];
 
     v16 = objc_alloc(MEMORY[0x277D0F8B0]);
@@ -57,7 +57,6 @@
     v12 = selfCopy;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

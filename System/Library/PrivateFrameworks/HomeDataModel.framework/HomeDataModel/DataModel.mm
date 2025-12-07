@@ -151,7 +151,7 @@
 - (HMHome)currentHome
 {
   swift_getKeyPath();
-  sub_1D1DF4FF4(&qword_1EE07CFB0, type metadata accessor for DataModel);
+  sub_1D1DF4FF4(&qword_1EE07CFB0, type metadata accessor for DataModel, &protocol conformance descriptor for DataModel);
   selfCopy = self;
   sub_1D1E66CAC();
 
@@ -213,34 +213,33 @@
 - (id)accessoryFor:(id)for in:(id)in
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC642590, qword_1D1E71260);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v18[-v8];
+  v8 = &v17[-v7];
   if (for)
   {
     sub_1D1E66A5C();
-    v10 = sub_1D1E66A7C();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v9 = sub_1D1E66A7C();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v11 = sub_1D1E66A7C();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v10 = sub_1D1E66A7C();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
   inCopy = in;
   accessories = [inCopy accessories];
   sub_1D1741B10(0, &qword_1EE07B690, 0x1E696CAC8);
-  v14 = sub_1D1E67C1C();
+  v13 = sub_1D1E67C1C();
 
-  MEMORY[0x1EEE9AC00](v15);
-  *&v18[-16] = v9;
-  v16 = sub_1D174A6C4(sub_1D1E02250, &v18[-32], v14);
+  MEMORY[0x1EEE9AC00](v14);
+  *&v17[-16] = v8;
+  v15 = sub_1D174A6C4(sub_1D1E02250, &v17[-32], v13);
 
-  sub_1D1741A30(v9, &qword_1EC642590, qword_1D1E71260);
+  sub_1D1741A30(v8, &qword_1EC642590, qword_1D1E71260);
 
-  return v16;
+  return v15;
 }
 
 - (id)accessoryFromAnyHomeFor:(id)for
@@ -283,7 +282,7 @@
   v22[6] = sub_1D1716A30;
   v22[7] = 0;
   v19 = selfCopy;
-  v20 = sub_1D1778964(v19);
+  v20 = sub_1D1778964();
 
   sub_1D1741A30(v11, &qword_1EC642590, qword_1D1E71260);
 
@@ -294,21 +293,20 @@
 {
   v4 = sub_1D1E66A7C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v14[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v13[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
   sub_1D1741B10(0, &qword_1EE07B620, 0x1E696CB98);
-  v11 = sub_1D1E67C1C();
+  v10 = sub_1D1E67C1C();
 
-  v15 = v8;
-  v12 = sub_1D174A6C4(sub_1D1E02234, v14, v11);
+  v14 = v7;
+  v11 = sub_1D174A6C4(sub_1D1E02234, v13, v10);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v11;
 }
 
 - (id)accessoryFor:(id)for
@@ -317,9 +315,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -329,54 +327,53 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E020F8;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1716A30;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E020F8;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1716A30;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)accessoryFor:(id)for homeID:(id)d
 {
   v5 = sub_1D1E66A7C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v20 - v11;
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v19 - v10;
   sub_1D1E66A5C();
   sub_1D1E66A5C();
   selfCopy = self;
-  v14 = sub_1D1E66A2C();
-  v15 = [(DataModel *)selfCopy homeFor:v14];
+  v13 = sub_1D1E66A2C();
+  v14 = [(DataModel *)selfCopy homeFor:v13];
 
-  if (v15)
+  if (v14)
   {
-    v16 = sub_1D1E66A2C();
-    v17 = [(DataModel *)selfCopy accessoryFor:v16 in:v15];
+    v15 = sub_1D1E66A2C();
+    v16 = [(DataModel *)selfCopy accessoryFor:v15 in:v14];
 
-    selfCopy = v16;
+    selfCopy = v15;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  v18 = *(v6 + 8);
-  v18(v10, v5);
-  v18(v12, v5);
+  v17 = *(v6 + 8);
+  v17(v9, v5);
+  v17(v11, v5);
 
-  return v17;
+  return v16;
 }
 
 - (id)actionSetFor:(id)for
@@ -385,9 +382,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -397,19 +394,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E02058;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1A8D27C;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E02058;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1A8D27C;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)cameraProfileFor:(id)for
@@ -418,9 +415,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -430,19 +427,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E02040;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1A8D27C;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E02040;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1A8D27C;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)mediaProfileFor:(id)for
@@ -451,9 +448,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -463,19 +460,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E02028;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1A8D27C;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E02028;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1A8D27C;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)characteristicFor:(id)for
@@ -484,9 +481,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -496,19 +493,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E02010;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1A8D27C;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E02010;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1A8D27C;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)roomFor:(id)for
@@ -517,9 +514,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -529,19 +526,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E01FF8;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1A8D27C;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E01FF8;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1A8D27C;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)serviceFor:(id)for
@@ -550,9 +547,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -562,19 +559,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E01FE0;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1716A30;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E01FE0;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1716A30;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)serviceGroupFor:(id)for
@@ -583,9 +580,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -595,19 +592,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E01FC8;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1716A30;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E01FC8;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1716A30;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)mediaSystemFor:(id)for
@@ -616,9 +613,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -628,19 +625,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E01FB0;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1A8D27C;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E01FB0;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1A8D27C;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)userFor:(id)for
@@ -649,9 +646,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -661,19 +658,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E01F98;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1A8D27C;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E01F98;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1A8D27C;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (id)residentFor:(id)for
@@ -682,9 +679,9 @@
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
-  v8 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v19 - v9;
+  v10 = v18 - v9;
   sub_1D1E66A5C();
   selfCopy = self;
   sortedHomes = [(DataModel *)selfCopy sortedHomes];
@@ -694,19 +691,19 @@
   (*(v5 + 16))(v8, v10, v4);
   v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v15 = swift_allocObject();
-  v16 = (*(v5 + 32))(v15 + v14, v8, v4);
-  v19[1] = v13;
-  v19[2] = sub_1D1E01F80;
-  v19[3] = v15;
-  v19[4] = sub_1D1CCEDD0;
-  v19[5] = 0;
-  v19[6] = sub_1D1A8D27C;
-  v19[7] = 0;
-  v17 = sub_1D1778964(v16);
+  (*(v5 + 32))(v15 + v14, v8, v4);
+  v18[1] = v13;
+  v18[2] = sub_1D1E01F80;
+  v18[3] = v15;
+  v18[4] = sub_1D1CCEDD0;
+  v18[5] = 0;
+  v18[6] = sub_1D1A8D27C;
+  v18[7] = 0;
+  v16 = sub_1D1778964();
 
   (*(v5 + 8))(v10, v4);
 
-  return v17;
+  return v16;
 }
 
 - (void)homeManagerDidUpdateHomes:(id)homes
@@ -727,80 +724,77 @@
 {
   ObjectType = swift_getObjectType();
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6442C0, &qword_1D1E741A0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = sub_1D1E67E7C();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v7 = &v13 - v6;
+  v8 = sub_1D1E67E7C();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
   sub_1D1E67E1C();
   selfCopy = self;
-  v11 = sub_1D1E67E0C();
-  v12 = swift_allocObject();
-  v13 = MEMORY[0x1E69E85E0];
-  v12[2] = v11;
-  v12[3] = v13;
-  v12[4] = selfCopy;
-  v12[5] = ObjectType;
-  sub_1D17C6EF0(0, 0, v8, &unk_1D1EB1E18, v12);
+  v10 = sub_1D1E67E0C();
+  v11 = swift_allocObject();
+  v12 = MEMORY[0x1E69E85E0];
+  v11[2] = v10;
+  v11[3] = v12;
+  v11[4] = selfCopy;
+  v11[5] = ObjectType;
+  sub_1D17C6EF0(0, 0, v7, &unk_1D1EB1E18, v11);
 }
 
 - (void)homeManager:(id)manager didAddHome:(id)home
 {
   ObjectType = swift_getObjectType();
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6442C0, &qword_1D1E741A0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v22 - v10;
-  v12 = sub_1D1E67E7C();
-  (*(*(v12 - 8) + 56))(v11, 1, 1, v12);
+  v10 = &v21 - v9;
+  v11 = sub_1D1E67E7C();
+  (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
   sub_1D1E67E1C();
   managerCopy = manager;
   homeCopy = home;
   selfCopy = self;
-  v16 = homeCopy;
-  v17 = managerCopy;
-  v18 = selfCopy;
-  v19 = sub_1D1E67E0C();
-  v20 = swift_allocObject();
-  v21 = MEMORY[0x1E69E85E0];
-  v20[2] = v19;
-  v20[3] = v21;
-  v20[4] = v16;
-  v20[5] = v17;
-  v20[6] = v18;
-  v20[7] = ObjectType;
-  sub_1D17C6EF0(0, 0, v11, &unk_1D1EB1E10, v20);
+  v15 = homeCopy;
+  v16 = managerCopy;
+  v17 = selfCopy;
+  v18 = sub_1D1E67E0C();
+  v19 = swift_allocObject();
+  v20 = MEMORY[0x1E69E85E0];
+  v19[2] = v18;
+  v19[3] = v20;
+  v19[4] = v15;
+  v19[5] = v16;
+  v19[6] = v17;
+  v19[7] = ObjectType;
+  sub_1D17C6EF0(0, 0, v10, &unk_1D1EB1E10, v19);
 }
 
 - (void)homeManager:(id)manager didRemoveHome:(id)home
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6442C0, &qword_1D1E741A0);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v20 - v9;
-  v11 = sub_1D1E67E7C();
-  (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
+  v9 = &v19 - v8;
+  v10 = sub_1D1E67E7C();
+  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
   sub_1D1E67E1C();
   homeCopy = home;
   selfCopy = self;
-  v14 = homeCopy;
-  v15 = selfCopy;
+  v13 = homeCopy;
+  v14 = selfCopy;
   managerCopy = manager;
-  v17 = sub_1D1E67E0C();
-  v18 = swift_allocObject();
-  v19 = MEMORY[0x1E69E85E0];
-  v18[2] = v17;
-  v18[3] = v19;
-  v18[4] = v14;
-  v18[5] = v15;
-  sub_1D17C6EF0(0, 0, v10, &unk_1D1EB1E08, v18);
+  v16 = sub_1D1E67E0C();
+  v17 = swift_allocObject();
+  v18 = MEMORY[0x1E69E85E0];
+  v17[2] = v16;
+  v17[3] = v18;
+  v17[4] = v13;
+  v17[5] = v14;
+  sub_1D17C6EF0(0, 0, v9, &unk_1D1EB1E08, v17);
 
   if (qword_1EC642408 != -1)
   {
     swift_once();
   }
 
-  sub_1D1D50FD4(v14);
+  sub_1D1D50FD4(v13);
 }
 
 - (void)homeDidUpdateName:(id)name
@@ -1048,29 +1042,27 @@
 - (void)home:(id)home didUpdateAutomaticSoftwareUpdateEnabled:(BOOL)enabled
 {
   updated = type metadata accessor for StateSnapshot.UpdateType(0);
-  v6 = *(*(updated - 8) + 64);
   MEMORY[0x1EEE9AC00](updated);
-  v8 = (&v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC64FFF0, &qword_1D1E7BDE0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v18 - v12;
-  v14 = qword_1EE07DC88;
+  v7 = (&v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC64FFF0, &qword_1D1E7BDE0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v16 - v10;
+  v12 = qword_1EE07DC88;
   homeCopy = home;
-  if (v14 != -1)
+  if (v12 != -1)
   {
     swift_once();
   }
 
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC645BB8, &qword_1D1E7C4E0);
-  __swift_project_value_buffer(v16, qword_1EE07DCE0);
-  *v8 = homeCopy;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC645BB8, &qword_1D1E7C4E0);
+  __swift_project_value_buffer(v14, qword_1EE07DCE0);
+  *v7 = homeCopy;
   swift_storeEnumTagMultiPayload();
-  v17 = homeCopy;
+  v15 = homeCopy;
   sub_1D1E67ECC();
 
-  (*(v10 + 8))(v13, v9);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)homeDidUpdateApplicationData:(id)data
@@ -1084,24 +1076,21 @@
 {
   homeCopy = home;
   roomCopy = room;
-  selfCopy = self;
-  sub_1D1E2E11C(homeCopy, roomCopy, "%s - new application data for room %s — %s");
+  sub_1D1E2E11C(homeCopy, roomCopy, "%s - new application data for room %s — %s", v8, self, v10);
 }
 
 - (void)home:(id)home didUpdateApplicationDataForServiceGroup:(id)group
 {
   homeCopy = home;
   groupCopy = group;
-  selfCopy = self;
-  sub_1D1E2E11C(homeCopy, groupCopy, "%s - new application data for serviceGroup %s — %s");
+  sub_1D1E2E11C(homeCopy, groupCopy, "%s - new application data for serviceGroup %s — %s", v8, self, v10);
 }
 
 - (void)home:(id)home didUpdateApplicationDataForActionSet:(id)set
 {
   homeCopy = home;
   setCopy = set;
-  selfCopy = self;
-  sub_1D1E2E11C(homeCopy, setCopy, "%s - new application data for actionSet %s — %s");
+  sub_1D1E2E11C(homeCopy, setCopy, "%s - new application data for actionSet %s — %s", v8, self, v10);
 }
 
 - (void)home:(id)home didUpdateActionSet:(id)set isExecuting:(BOOL)executing
@@ -1116,20 +1105,19 @@
 - (void)userActionPredictionController:(id)controller didUpdatePredictions:(id)predictions
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6442C0, &qword_1D1E741A0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   sub_1D1741B10(0, &qword_1EE07B650, 0x1E696CCA8);
-  v9 = sub_1D1E67C1C();
-  v10 = sub_1D1E67E7C();
-  (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = controller;
-  v11[5] = v9;
+  v8 = sub_1D1E67C1C();
+  v9 = sub_1D1E67E7C();
+  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = controller;
+  v10[5] = v8;
   controllerCopy = controller;
-  sub_1D17C6EF0(0, 0, v8, &unk_1D1EB1DF0, v11);
+  sub_1D17C6EF0(0, 0, v7, &unk_1D1EB1DF0, v10);
 }
 
 - (void)accessoryDidUpdateName:(id)name
@@ -1219,141 +1207,130 @@
 - (void)accessorySettingsDataSource:(id)source didReceiveSettingsUpdatesForAccessoryWithIdentifier:(id)identifier settings:(id)settings
 {
   updated = type metadata accessor for StateSnapshot.UpdateType(0);
-  v6 = *(*(updated - 8) + 64);
   MEMORY[0x1EEE9AC00](updated);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC64FFF0, &qword_1D1E7BDE0);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v18 - v10;
-  v12 = sub_1D1E66A7C();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v18 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC64FFF0, &qword_1D1E7BDE0);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v15 - v8;
+  v10 = sub_1D1E66A7C();
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1E66A5C();
   if (qword_1EE07DC88 != -1)
   {
     swift_once();
   }
 
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC645BB8, &qword_1D1E7C4E0);
-  __swift_project_value_buffer(v17, qword_1EE07DCE0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC645BB8, &qword_1D1E7C4E0);
+  __swift_project_value_buffer(v14, qword_1EE07DCE0);
   swift_storeEnumTagMultiPayload();
   sub_1D1E67ECC();
-  (*(v8 + 8))(v11, v7);
-  (*(v13 + 8))(v16, v12);
+  (*(v7 + 8))(v9, v6);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)softwareUpdateController:(id)controller accessory:(id)accessory didReceiveUpdate:(id)update
 {
   v8 = sub_1D1E66A7C();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1E66A5C();
   controllerCopy = controller;
   updateCopy = update;
   selfCopy = self;
-  sub_1D1E3129C(v12, updateCopy);
+  sub_1D1E3129C(v11, updateCopy);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)softwareUpdateController:(id)controller accessory:(id)accessory didFailUpdate:(id)update withError:(id)error timestamp:(id)timestamp
 {
   selfCopy = self;
-  v24 = sub_1D1E669FC();
-  v10 = *(v24 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v13 = &selfCopy - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_1D1E66A7C();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &selfCopy - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = sub_1D1E669FC();
+  v10 = *(v22 - 8);
+  MEMORY[0x1EEE9AC00](v22);
+  v12 = &selfCopy - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_1D1E66A7C();
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &selfCopy - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1E66A5C();
   sub_1D1E669BC();
   controllerCopy = controller;
   updateCopy = update;
   errorCopy = error;
-  v22 = selfCopy;
-  sub_1D1E315B0(v18, updateCopy, errorCopy);
+  v20 = selfCopy;
+  sub_1D1E315B0(v16, updateCopy, errorCopy);
 
-  (*(v10 + 8))(v13, v24);
-  (*(v15 + 8))(v18, v14);
+  (*(v10 + 8))(v12, v22);
+  (*(v14 + 8))(v16, v13);
 }
 
 - (void)softwareUpdateController:(id)controller accessory:(id)accessory didUpdateProgress:(id)progress
 {
   v8 = sub_1D1E66A7C();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D1E66A5C();
   controllerCopy = controller;
   progressCopy = progress;
   selfCopy = self;
-  sub_1D1E31928(v12, progressCopy);
+  sub_1D1E31928(v11, progressCopy);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)residentDevice:(id)device didUpdateStatus:(unint64_t)status
 {
   updated = type metadata accessor for StateSnapshot.UpdateType(0);
-  v6 = *(*(updated - 8) + 64);
   MEMORY[0x1EEE9AC00](updated);
-  v8 = (&v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC64FFF0, &qword_1D1E7BDE0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v17 - v12;
-  v14 = qword_1EE07DC88;
+  v7 = (&v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC64FFF0, &qword_1D1E7BDE0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v15 - v10;
+  v12 = qword_1EE07DC88;
   deviceCopy = device;
-  if (v14 != -1)
+  if (v12 != -1)
   {
     swift_once();
   }
 
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC645BB8, &qword_1D1E7C4E0);
-  __swift_project_value_buffer(v16, qword_1EE07DCE0);
-  *v8 = [deviceCopy home];
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC645BB8, &qword_1D1E7C4E0);
+  __swift_project_value_buffer(v14, qword_1EE07DCE0);
+  *v7 = [deviceCopy home];
   swift_storeEnumTagMultiPayload();
   sub_1D1E67ECC();
 
-  (*(v10 + 8))(v13, v9);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)didUpdateSupportedCapabilitiesForResidentDevice:(id)device
 {
   updated = type metadata accessor for StateSnapshot.UpdateType(0);
-  v5 = *(*(updated - 8) + 64);
   MEMORY[0x1EEE9AC00](updated);
-  v7 = (&v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC64FFF0, &qword_1D1E7BDE0);
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v16 - v11;
-  v13 = qword_1EE07DC88;
+  v6 = (&v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC64FFF0, &qword_1D1E7BDE0);
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v14 - v9;
+  v11 = qword_1EE07DC88;
   deviceCopy = device;
-  if (v13 != -1)
+  if (v11 != -1)
   {
     swift_once();
   }
 
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC645BB8, &qword_1D1E7C4E0);
-  __swift_project_value_buffer(v15, qword_1EE07DCE0);
-  *v7 = [deviceCopy home];
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC645BB8, &qword_1D1E7C4E0);
+  __swift_project_value_buffer(v13, qword_1EE07DCE0);
+  *v6 = [deviceCopy home];
   swift_storeEnumTagMultiPayload();
   sub_1D1E67ECC();
 
-  (*(v9 + 8))(v12, v8);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)device:(id)device stateChanged:(unint64_t)changed

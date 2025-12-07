@@ -8,10 +8,10 @@
 {
   if (a3)
   {
-    return [self removeObjectForKey:?];
+    return [result removeObjectForKey:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

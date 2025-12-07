@@ -877,9 +877,9 @@ LABEL_19:
   }
 
   v10 = +[UIKeyboardInputMode dictationInputMode];
-  v11 = [(UIKeyboardInputMode *)currentInputMode2 isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(currentInputMode2);
 
-  if (v11)
+  if (isEqual)
   {
     v12 = +[UIKeyboardInputModeController sharedInputModeController];
     currentInputModeInPreference = [v12 currentInputModeInPreference];
@@ -2092,15 +2092,15 @@ LABEL_34:
         }
 
         v35 = [v8 objectForKey:@"speechRecognitionSource"];
-        v36 = [v35 isEqualToString:@"local"];
+        isEqualToString = objc_msgSend_isEqualToString_(v35);
 
         v37 = ![(UIDictationConnectionCorrectionInfo *)v9 alternativeSelectionCount]&& ![(UIDictationConnectionCorrectionInfo *)v9 characterModificationCount]&& ![(UIDictationConnectionCorrectionInfo *)v9 characterInsertionCount]&& ![(UIDictationConnectionCorrectionInfo *)v9 characterDeletionCount]&& [(UIDictationConnectionCorrectionInfo *)v9 characterSubstitutionCount]== 0;
-        if (!((v29 == 0) | (v37 | v36) & 1))
+        if (!((v29 == 0) | (v37 | isEqualToString) & 1))
         {
           [connectionForStatisticsLogging sendSpeechCorrection:v9 forIdentifier:v29];
         }
 
-        if (!v37 && (v36 & 1) != 0)
+        if (!v37 && (isEqualToString & 1) != 0)
         {
           sharedPreferences = [getAFPreferencesClass_0() sharedPreferences];
           v39 = [sharedPreferences siriDataSharingOptInStatus] == 1;
@@ -2293,9 +2293,9 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
 {
   typeCopy = type;
   invocationSource = [typeCopy invocationSource];
-  v6 = [invocationSource isEqualToString:@"UIDictationInputModeInvocationSourceMicButtonInSafariAddressBar"];
+  isEqualToString = objc_msgSend_isEqualToString_(invocationSource);
 
-  if (v6)
+  if (isEqualToString)
   {
     specificReasonTypeMicButtonOnKeyboardWithInputSwitcher = 10;
   }
@@ -2303,7 +2303,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
   else
   {
     invocationSource2 = [typeCopy invocationSource];
-    v9 = [invocationSource2 isEqualToString:@"UIDictationInputModeInvocationSourceMicButtonInFirstResponderSafariAddressBar"];
+    v9 = objc_msgSend_isEqualToString_(invocationSource2);
 
     if (v9)
     {
@@ -2313,7 +2313,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
     else
     {
       invocationSource3 = [typeCopy invocationSource];
-      v11 = [invocationSource3 isEqualToString:@"UIDictationInputModeInvocationSourceUCBBar"];
+      v11 = objc_msgSend_isEqualToString_(invocationSource3);
 
       if (v11)
       {
@@ -2323,7 +2323,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
       else
       {
         invocationSource4 = [typeCopy invocationSource];
-        v13 = [invocationSource4 isEqualToString:@"UIDictationInputModeInvocationSourceMicButtonInMessagesTextField"];
+        v13 = objc_msgSend_isEqualToString_(invocationSource4);
 
         if (v13)
         {
@@ -2333,7 +2333,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
         else
         {
           invocationSource5 = [typeCopy invocationSource];
-          v15 = [invocationSource5 isEqualToString:@"UIDictationInputModeInvocationSourceLongPressGesture"];
+          v15 = objc_msgSend_isEqualToString_(invocationSource5);
 
           if (v15)
           {
@@ -2343,7 +2343,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
           else
           {
             invocationSource6 = [typeCopy invocationSource];
-            v17 = [invocationSource6 isEqualToString:@"UIDictationInputModeInvocationSourceMicButtonMicButtonInFirstResponderSearchBar"];
+            v17 = objc_msgSend_isEqualToString_(invocationSource6);
 
             if (v17)
             {
@@ -2353,7 +2353,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
             else
             {
               invocationSource7 = [typeCopy invocationSource];
-              v19 = [invocationSource7 isEqualToString:@"UIDictationInputModeInvocationSourceMicButtonInKeyboard"];
+              v19 = objc_msgSend_isEqualToString_(invocationSource7);
 
               if (v19)
               {
@@ -2363,7 +2363,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
               else
               {
                 invocationSource8 = [typeCopy invocationSource];
-                v21 = [invocationSource8 isEqualToString:@"UIDictationInputModeInvocationSourceGenerativeField"];
+                v21 = objc_msgSend_isEqualToString_(invocationSource8);
 
                 if (v21)
                 {
@@ -2373,7 +2373,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
                 else
                 {
                   invocationSource9 = [typeCopy invocationSource];
-                  v23 = [invocationSource9 isEqualToString:@"UIDictationInputModeInvocationSourceDictationPopUpUILanguageSwitcherIcon"];
+                  v23 = objc_msgSend_isEqualToString_(invocationSource9);
 
                   if (v23)
                   {
@@ -2383,7 +2383,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
                   else
                   {
                     invocationSource10 = [typeCopy invocationSource];
-                    v25 = [invocationSource10 isEqualToString:@"UIDictationInputModeInvocationSourceGlobalButtonOnDictationPlane"];
+                    v25 = objc_msgSend_isEqualToString_(invocationSource10);
 
                     if (v25)
                     {
@@ -2393,7 +2393,7 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
                     else
                     {
                       invocationSource11 = [typeCopy invocationSource];
-                      v27 = [invocationSource11 isEqualToString:@"UIDictationInputModeInvocationSourceMicButtonOnKeyboardWithInputSwitcher"];
+                      v27 = objc_msgSend_isEqualToString_(invocationSource11);
 
                       if (v27)
                       {
@@ -2448,9 +2448,9 @@ void __67__UIDictationController_logCorrectionStatisticsForDelegate_reason___blo
 {
   modeCopy = mode;
   v4 = +[UIKeyboardInputMode dictationInputMode];
-  v5 = [modeCopy isEqual:v4];
+  isEqual = objc_msgSend_isEqual_(modeCopy);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UIDictationController *)self setCurrentInputModeForDictation:modeCopy];
     [modeCopy setLastUsedDictationLanguage];
@@ -3045,7 +3045,7 @@ LABEL_15:
 - (id)languageCodeForAssistantLanguageCode:(id)code
 {
   codeCopy = code;
-  if ([codeCopy isEqualToString:@"intl"] & 1) != 0 || (objc_msgSend(codeCopy, "isEqualToString:", @"default"))
+  if (objc_msgSend_isEqualToString_(codeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = @"en_US";
     goto LABEL_14;
@@ -3056,7 +3056,7 @@ LABEL_15:
   {
     v6 = [v5 objectAtIndex:0];
     v7 = [v5 objectAtIndex:1];
-    if ([v6 isEqualToString:@"ko"] && -[__CFString isEqualToString:](v7, "isEqualToString:", @"KR"))
+    if (objc_msgSend_isEqualToString_(v6) && objc_msgSend_isEqualToString_(v7))
     {
 
       v7 = @"KO";
@@ -3085,7 +3085,7 @@ LABEL_14:
 - (BOOL)supportsDictationLanguage:(id)language error:(id *)error
 {
   languageCopy = language;
-  if (+[UIDictationUtilities _isUsingLargeFormatDictationUI](UIDictationUtilities, "_isUsingLargeFormatDictationUI") && (([languageCopy isEqualToString:@"zh_CN"] & 1) != 0 || (objc_msgSend(languageCopy, "hasPrefix:", @"zh-Hans") & 1) != 0))
+  if (+[UIDictationUtilities _isUsingLargeFormatDictationUI](UIDictationUtilities, "_isUsingLargeFormatDictationUI") && ((objc_msgSend_isEqualToString_(languageCopy) & 1) != 0 || ([languageCopy hasPrefix:@"zh-Hans"] & 1) != 0))
   {
 LABEL_8:
     v7 = 0;
@@ -3419,7 +3419,7 @@ LABEL_11:
       languageCode2 = [preferredLocale languageCode];
     }
 
-    if ([languageCode2 isEqualToString:@"ko"] && -[__CFString isEqualToString:](v7, "isEqualToString:", @"KO"))
+    if (objc_msgSend_isEqualToString_(languageCode2) && objc_msgSend_isEqualToString_(v7))
     {
 
       v7 = @"KR";
@@ -3561,7 +3561,7 @@ LABEL_17:
     }
 
     v24 = v30;
-    if ([languageCode isEqualToString:@"en"] && objc_msgSend(regionCode, "isEqualToString:", @"US") && objc_msgSend(objc_opt_class(), "supportsSiriDictationVoiceCommands") && (objc_msgSend(objc_opt_class(), "supportsSiriDictationVoiceCommandsUIRedesign") & 1) != 0)
+    if (objc_msgSend_isEqualToString_(languageCode) && objc_msgSend_isEqualToString_(regionCode) && [objc_opt_class() supportsSiriDictationVoiceCommands] && (objc_msgSend(objc_opt_class(), "supportsSiriDictationVoiceCommandsUIRedesign") & 1) != 0)
     {
       v25 = +[UIKeyboard keyboardBundleIdentifier];
       [optionsCopy setShouldRecognizeCommands:{+[UIDictationUtilities supportsDictationVoiceEditingUIForBundleIdentifier:](UIDictationUtilities, "supportsDictationVoiceEditingUIForBundleIdentifier:", v25)}];
@@ -4686,7 +4686,7 @@ LABEL_7:
         currentLocale = [MEMORY[0x1E695DF58] currentLocale];
         v21 = [currentLocale displayNameForKey:*MEMORY[0x1E695D9B0] value:languageCopy];
 
-        if (v21 && ([v21 isEqualToString:languageCopy] & 1) == 0)
+        if (v21 && (objc_msgSend_isEqualToString_(v21) & 1) == 0)
         {
           v22 = MEMORY[0x1E696AEC0];
           v23 = _UIKitBundle();
@@ -4915,7 +4915,7 @@ void __61__UIDictationController_showLowStorageUserAlertWithLanguage___block_inv
         v43 = +[UIKeyboardInputModeController sharedInputModeController];
         currentInputMode3 = [v43 currentInputMode];
         languageWithRegion = [currentInputMode3 languageWithRegion];
-        if ([v42 isEqualToString:languageWithRegion])
+        if (objc_msgSend_isEqualToString_(v42))
         {
           v46 = 1;
         }
@@ -5302,10 +5302,10 @@ LABEL_60:
 
     keyboardInputModeToReturn2 = [(UIDictationController *)self keyboardInputModeToReturn];
     languageWithRegion = [keyboardInputModeToReturn2 languageWithRegion];
-    v20 = [v17 isEqualToString:languageWithRegion];
+    isEqualToString = objc_msgSend_isEqualToString_(v17);
 
     v53 = optionsCopy;
-    if (v20)
+    if (isEqualToString)
     {
       keyboardInputModeToReturn3 = [(UIDictationController *)self keyboardInputModeToReturn];
       if (!keyboardInputModeToReturn3)
@@ -5345,7 +5345,7 @@ LABEL_13:
           keyboardInputModeToReturn3 = *(*(&v58 + 1) + 8 * v28);
 
           languageWithRegion2 = [keyboardInputModeToReturn3 languageWithRegion];
-          v31 = [v17 isEqualToString:languageWithRegion2];
+          v31 = objc_msgSend_isEqualToString_(v17);
 
           if (v31)
           {
@@ -5407,7 +5407,7 @@ LABEL_24:
           keyboardInputModeToReturn3 = *(*(&v54 + 1) + 8 * v37);
 
           languageWithRegion3 = [keyboardInputModeToReturn3 languageWithRegion];
-          v40 = [v17 isEqualToString:languageWithRegion3];
+          v40 = objc_msgSend_isEqualToString_(v17);
 
           if (v40)
           {
@@ -5452,9 +5452,9 @@ LABEL_34:
     sharedInputModeController2 = [(__objc2_class *)v12[13] sharedInputModeController];
     currentInputMode2 = [sharedInputModeController2 currentInputMode];
     v44 = +[UIKeyboardInputMode dictationInputMode];
-    v45 = [currentInputMode2 isEqual:v44];
+    isEqual = objc_msgSend_isEqual_(currentInputMode2);
 
-    if (v45)
+    if (isEqual)
     {
       [keyboardInputModeToReturn3 setLastUsedDictationLanguage];
       sharedInputModeController3 = [(__objc2_class *)v12[13] sharedInputModeController];
@@ -5723,11 +5723,11 @@ void __91__UIDictationController_switchToDictationInputModeWithTouch_withKeyboar
   v31 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   infoCopy = info;
-  if (([nameCopy isEqualToString:@"UIKeyboardDictationAvailabilityDidChangeNotification"] & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"UIDictationControllerDictationDidFinish") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"UIKeyboardDidBeginDictationNotification") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"UIDictationControllerDidResumeNotification") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"UIDictationControllerDidPauseNotification") & 1) != 0 || objc_msgSend(nameCopy, "isEqualToString:", @"UIDictationWillInsertHypothesisNotification"))
+  if ((objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || objc_msgSend_isEqualToString_(nameCopy))
   {
     if (+[UIKeyboard isKeyboardProcess])
     {
-      if ([nameCopy isEqualToString:@"UIKeyboardDictationAvailabilityDidChangeNotification"])
+      if (objc_msgSend_isEqualToString_(nameCopy))
       {
         v8 = [infoCopy objectForKeyedSubscript:@"reason"];
         v9 = _UIDictationControllerLog();
@@ -5773,7 +5773,7 @@ void __91__UIDictationController_switchToDictationInputModeWithTouch_withKeyboar
       }
     }
 
-    if ([nameCopy isEqualToString:@"UIKeyboardDidBeginDictationNotification"])
+    if (objc_msgSend_isEqualToString_(nameCopy))
     {
       v17 = [infoCopy objectForKeyedSubscript:@"dictationLanguage"];
       v18 = +[UIKeyboardImpl activeInstance];
@@ -5784,7 +5784,7 @@ void __91__UIDictationController_switchToDictationInputModeWithTouch_withKeyboar
 
     else
     {
-      if (![nameCopy isEqualToString:@"UIDictationControllerDictationDidFinish"])
+      if (!objc_msgSend_isEqualToString_(nameCopy))
       {
 LABEL_23:
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -6602,11 +6602,11 @@ void __59__UIDictationController_presentAlertOfType_withCompletion___block_invok
 void __59__UIDictationController_presentAlertOfType_withCompletion___block_invoke_2(uint64_t a1)
 {
   v6 = [*(a1 + 32) firstResponder];
-  if (([*(a1 + 40) isEqual:?] & 1) == 0)
+  if ((objc_msgSend_isEqual_(*(a1 + 40)) & 1) == 0)
   {
     v2 = *(a1 + 48);
     v3 = [v6 inputAccessoryView];
-    if ([v2 isEqual:v3])
+    if (objc_msgSend_isEqual_(v2))
     {
     }
 
@@ -6614,7 +6614,7 @@ void __59__UIDictationController_presentAlertOfType_withCompletion___block_invok
     {
       v4 = *(a1 + 56);
       v5 = [v6 inputAccessoryViewController];
-      LOBYTE(v4) = [v4 isEqual:v5];
+      LOBYTE(v4) = objc_msgSend_isEqual_(v4);
 
       if ((v4 & 1) == 0)
       {
@@ -7939,16 +7939,16 @@ Class __84__UIDictationController_cancelDictationForResponderIfNeeded_wantsKeybo
     language = [(UIDictationController *)self language];
     v7 = [v5 keyboardLanguageForDictationLanguage:language];
 
-    if ([v7 isEqualToString:@"zh_Hans"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = @"Traditional-Simplified";
-      if (([modelCopy isEqualToString:@"zh_HK"] & 1) == 0 && !objc_msgSend(modelCopy, "isEqualToString:", @"zh_TW"))
+      if ((objc_msgSend_isEqualToString_(modelCopy) & 1) == 0 && !objc_msgSend_isEqualToString_(modelCopy))
       {
         v8 = 0;
       }
     }
 
-    else if ([v7 isEqualToString:@"zh_Hant"])
+    else if (objc_msgSend_isEqualToString_(v7))
     {
       if ([modelCopy hasSuffix:@"CN"])
       {
@@ -8733,7 +8733,7 @@ LABEL_48:
 LABEL_7:
         targetHypothesis = [(UIDictationController *)self targetHypothesis];
         lastHypothesis2 = [(UIDictationController *)self lastHypothesis];
-        if ([targetHypothesis isEqualToString:lastHypothesis2])
+        if (objc_msgSend_isEqualToString_(targetHypothesis))
         {
           pendingEdits2 = [(UIDictationController *)self pendingEdits];
           v14 = [pendingEdits2 count];
@@ -8820,9 +8820,9 @@ LABEL_47:
         {
           targetHypothesis2 = [(UIDictationController *)self targetHypothesis];
           previousHypothesis = [(UIDictationController *)self previousHypothesis];
-          v28 = [targetHypothesis2 isEqualToString:previousHypothesis];
+          isEqualToString = objc_msgSend_isEqualToString_(targetHypothesis2);
 
-          if (v28)
+          if (isEqualToString)
           {
             goto LABEL_31;
           }
@@ -8893,7 +8893,7 @@ LABEL_35:
                 [v64 replaceCharactersInRange:editRange withString:{v56, replacementText}];
 
                 replacementText2 = [v53 replacementText];
-                LODWORD(editRange) = [replacementText2 isEqualToString:&stru_1EFB14550];
+                LODWORD(editRange) = objc_msgSend_isEqualToString_(replacementText2);
 
                 v45 += editRange;
                 if (v45 <= v48)
@@ -9277,7 +9277,7 @@ LABEL_43:
     {
       if ([(UIDictationController *)self isIgnoringRTIChanges])
       {
-        if ([newHypothesisCopy isEqualToString:&stru_1EFB14550])
+        if (objc_msgSend_isEqualToString_(newHypothesisCopy))
         {
           textOperations = [inputSystemSourceSession textOperations];
           [textOperations setCustomInfoType:0x1EFB7C8F0];
@@ -9461,9 +9461,9 @@ LABEL_23:
     currentPublicInputMode = [v27 currentPublicInputMode];
     if ([currentPublicInputMode isExtensionInputMode])
     {
-      v29 = [(__CFString *)newHypothesisCopy isEqualToString:&stru_1EFB14550];
+      isEqualToString = objc_msgSend_isEqualToString_(newHypothesisCopy);
 
-      if ((v29 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         [v8 _requestInputManagerSync];
       }
@@ -9727,7 +9727,7 @@ uint64_t __58__UIDictationController_dictationWordwiseBackspaceEnabled__block_in
         if (previousHypothesis)
         {
           previousHypothesis2 = [(UIDictationController *)self previousHypothesis];
-          v34 = [interpretationCopy isEqualToString:previousHypothesis2] ^ 1;
+          v34 = objc_msgSend_isEqualToString_(interpretationCopy) ^ 1;
         }
 
         else
@@ -9748,7 +9748,7 @@ uint64_t __58__UIDictationController_dictationWordwiseBackspaceEnabled__block_in
       else
       {
         previousHypothesis3 = [(UIDictationController *)self previousHypothesis];
-        if (!previousHypothesis3 || (v38 = previousHypothesis3, -[UIDictationController previousHypothesis](self, "previousHypothesis"), v39 = objc_claimAutoreleasedReturnValue(), v40 = [interpretationCopy isEqualToString:v39], v39, v38, (v40 & 1) == 0))
+        if (!previousHypothesis3 || (v38 = previousHypothesis3, [(UIDictationController *)self previousHypothesis], v39 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(interpretationCopy), v39, v38, (isEqualToString & 1) == 0))
         {
           if (![(UIDictationController *)self haveReceivedFirstPartialResultForCurrentUtterance])
           {
@@ -9818,7 +9818,7 @@ uint64_t __94__UIDictationController_dictationConnection_receivedInterpretation_
 - (id)dictationBlockForToken:(id)token
 {
   text = [token text];
-  if (([text isEqualToString:@"\\delete"] & 1) != 0 || objc_msgSend(text, "isEqualToString:", @"\\backspace"))
+  if ((objc_msgSend_isEqualToString_(text) & 1) != 0 || objc_msgSend_isEqualToString_(text))
   {
     v5 = aBlock;
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -9832,7 +9832,7 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([text isEqualToString:@"\\clear"])
+  if (objc_msgSend_isEqualToString_(text))
   {
     v5 = v10;
     v10[0] = MEMORY[0x1E69E9820];
@@ -11809,7 +11809,7 @@ void __94__UIDictationController_dictationConnection_didReceiveVoiceCommandCandi
   v4 = TIInputModeGetLanguage();
   v5 = TIInputModeGetRegion();
 
-  if ([v4 isEqualToString:@"ko"] && -[__CFString isEqualToString:](v5, "isEqualToString:", @"KO"))
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v5))
   {
 
     v5 = @"KR";
@@ -12216,7 +12216,7 @@ void __57__UIDictationController_whitelistedDictationMetadataKeys__block_invoke(
   if ([self canShareDictationData])
   {
     v5 = [entriesCopy objectForKey:@"speechRecognitionSource"];
-    if ([v5 isEqualToString:@"local"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       v6 = os_variant_has_internal_diagnostics() ^ 1;
     }
@@ -12448,9 +12448,9 @@ LABEL_30:
 
           v21 = *(*(&v27 + 1) + 8 * i);
           v22 = [v3 keyboardLanguageForDictationLanguage:v21];
-          v23 = [v22 isEqualToString:languageWithRegion];
+          isEqualToString = objc_msgSend_isEqualToString_(v22);
 
-          if (v23)
+          if (isEqualToString)
           {
             if ([v26 containsObject:v21])
             {
@@ -13140,23 +13140,23 @@ void __52__UIDictationController_activeSLSDictationLanguages__block_invoke(uint6
     }
 
 LABEL_5:
-    v5 = 0;
+    isEqualToString = 0;
     goto LABEL_6;
   }
 
   v2 = +[UIDictationController sharedInstance];
   inputDelegate = [v2 _inputDelegateClassName];
-  if (([inputDelegate isEqualToString:@"UnifiedField"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(inputDelegate) & 1) == 0)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
   v4 = +[UIKeyboard keyboardBundleIdentifier];
-  v5 = [v4 isEqualToString:@"com.apple.mobilesafari"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
 LABEL_6:
-  return v5;
+  return isEqualToString;
 }
 
 + (BOOL)isEventFromMessagesSendButton:(id)button inspectResponderChain:(BOOL)chain
@@ -13179,7 +13179,7 @@ LABEL_6:
       if (qword_1ED498888 && (objc_opt_isKindOfClass() & 1) != 0)
       {
         accessibilityIdentification = [buttonCopy accessibilityIdentification];
-        LODWORD(nextResponder) = [accessibilityIdentification isEqualToString:@"sendButton"];
+        LODWORD(nextResponder) = objc_msgSend_isEqualToString_(accessibilityIdentification);
       }
 
       else
@@ -15243,7 +15243,7 @@ void __108__UIDictationController__handleWKMultipleTextTargetsForText_payloadTex
                 }
 
                 v24 = [v23 substringWithRange:{v19, v21}];
-                if (([v24 isEqualToString:*(a1 + 40)] & 1) == 0)
+                if ((objc_msgSend_isEqualToString_(v24) & 1) == 0)
                 {
                   v25 = a1;
                   v26 = v22;
@@ -16804,10 +16804,10 @@ uint64_t __46__UIDictationController__performDictationRedo__block_invoke(uint64_
     v47[4] = location;
     v26 = location;
     v47[5] = length;
-    v22 = [replacementTextCopy isEqualToString:0x1EFB75A70];
-    v23 = [replacementTextCopy isEqualToString:0x1EFB75A90];
+    isEqualToString = objc_msgSend_isEqualToString_(replacementTextCopy);
+    v23 = objc_msgSend_isEqualToString_(replacementTextCopy);
     inputDelegateManager2 = [v19 inputDelegateManager];
-    if ((v22 | v23))
+    if ((isEqualToString | v23))
     {
       v25 = v29;
     }
@@ -16822,7 +16822,7 @@ uint64_t __46__UIDictationController__performDictationRedo__block_invoke(uint64_
     v32[2] = __233__UIDictationController_performTextReplacementForWebKitWithDeltaRange_targetText_replacementText_originalSelectedRange_voiceCommandDisambiguationSelectedIndex_voiceCommandDisambiguationTargetCount_voiceCommandUUID_completionHandler___block_invoke;
     v32[3] = &unk_1E71153A8;
     v33 = v19;
-    v45 = v22;
+    v45 = isEqualToString;
     v34 = replacementTextCopy;
     v35 = selfCopy;
     v42 = v29;
@@ -17339,9 +17339,9 @@ LABEL_18:
   codeCopy = code;
   dCopy = d;
   currentEuclidLanguage = [(UIDictationController *)self currentEuclidLanguage];
-  v8 = [codeCopy isEqualToString:currentEuclidLanguage];
+  isEqualToString = objc_msgSend_isEqualToString_(codeCopy);
 
-  if ((v8 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UIDictationController *)self setCurrentEuclidLanguage:codeCopy];
     dictationConnection = [(UIDictationController *)self dictationConnection];

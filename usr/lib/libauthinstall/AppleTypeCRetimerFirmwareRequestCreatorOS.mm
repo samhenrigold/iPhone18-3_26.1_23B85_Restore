@@ -159,44 +159,43 @@ LABEL_15:
 
 - (id)generateHashForSubfile:(id)subfile
 {
-  v11 = *MEMORY[0x29EDCA608];
-  memset(&v9, 0, sizeof(v9));
+  v10 = *MEMORY[0x29EDCA608];
+  memset(&v8, 0, sizeof(v8));
   subfileCopy = subfile;
-  CC_SHA384_Init(&v9);
+  CC_SHA384_Init(&v8);
   dataPointer = [subfileCopy dataPointer];
   dataLength = [subfileCopy dataLength];
 
-  CC_SHA384_Update(&v9, dataPointer, dataLength);
-  CC_SHA384_Final(md, &v9);
+  CC_SHA384_Update(&v8, dataPointer, dataLength);
+  CC_SHA384_Final(md, &v8);
   v6 = [MEMORY[0x29EDB8DA0] dataWithBytes:md length:48];
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
 
 - (void)generateRequestDictionary
 {
-  v60[4] = *MEMORY[0x29EDCA608];
+  v59[4] = *MEMORY[0x29EDCA608];
   tagNumber = self->_tagNumber;
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
-  v45 = tagNumber;
+  v44 = tagNumber;
   tagNumber = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"@Timer%u validFormatSpecifiers:Ticket" error:@"%u", 0, tagNumber];
   v6 = MEMORY[0x29EDB8EB0];
-  v50 = tagNumber;
+  v49 = tagNumber;
   [dictionary setObject:? forKeyedSubscript:?];
   tagNumber2 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:BoardID error:%u", @"%u", 0, tagNumber];
   v8 = [MEMORY[0x29EDBA070] numberWithUnsignedShort:self->_boardID];
-  v49 = tagNumber2;
+  v48 = tagNumber2;
   [dictionary setObject:v8 forKeyedSubscript:tagNumber2];
 
   tagNumber3 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:ChipID error:%u", @"%u", 0, tagNumber];
   v10 = [MEMORY[0x29EDBA070] numberWithUnsignedShort:self->_chipID];
-  v48 = tagNumber3;
+  v47 = tagNumber3;
   [dictionary setObject:v10 forKeyedSubscript:tagNumber3];
 
   tagNumber4 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:ECID error:%u", @"%u", 0, tagNumber];
   v12 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:self->_ecid];
-  v47 = tagNumber4;
+  v46 = tagNumber4;
   [dictionary setObject:v12 forKeyedSubscript:tagNumber4];
 
   tagNumber5 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:Nonce error:%u", @"%u", 0, tagNumber];
@@ -214,11 +213,11 @@ LABEL_15:
     v16 = MEMORY[0x29EDB8EA8];
   }
 
-  v44 = tagNumber6;
+  v43 = tagNumber6;
   [dictionary setObject:v16 forKeyedSubscript:?];
   tagNumber7 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:SecurityDomain error:%u", @"%u", 0, tagNumber];
   v18 = [MEMORY[0x29EDBA070] numberWithUnsignedChar:self->_securityDomain];
-  v43 = tagNumber7;
+  v42 = tagNumber7;
   [dictionary setObject:v18 forKeyedSubscript:tagNumber7];
 
   tagNumber8 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:SecurityMode error:%u", @"%u", 0, tagNumber];
@@ -232,33 +231,33 @@ LABEL_15:
     v20 = v14;
   }
 
-  v42 = tagNumber8;
+  v41 = tagNumber8;
   [dictionary setObject:v20 forKeyedSubscript:?];
-  v52 = [(AppleTypeCRetimerFirmwareRequestCreatorOS *)self generateHashForSubfile:self->_rkos];
+  v51 = [(AppleTypeCRetimerFirmwareRequestCreatorOS *)self generateHashForSubfile:self->_rkos];
   tagNumber9 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:RTKitOS error:%u", @"%u", 0, tagNumber];
   productionStatus = self->_productionStatus;
   if (self->_demote && self->_productionStatus)
   {
-    v57[0] = @"Digest";
-    v57[1] = @"EPRO";
-    v58[0] = v52;
-    v58[1] = MEMORY[0x29EDB8EA8];
-    v58[2] = v15;
-    v57[2] = @"DPRO";
-    v57[3] = @"ESEC";
-    v58[3] = v15;
-    v58[4] = MEMORY[0x29EDB8EA8];
-    v57[4] = @"Trusted";
+    v56[0] = @"Digest";
+    v56[1] = @"EPRO";
+    v57[0] = v51;
+    v57[1] = MEMORY[0x29EDB8EA8];
+    v57[2] = v15;
+    v56[2] = @"DPRO";
+    v56[3] = @"ESEC";
+    v57[3] = v15;
+    v57[4] = MEMORY[0x29EDB8EA8];
+    v56[4] = @"Trusted";
     v22 = MEMORY[0x29EDB8DC0];
-    v23 = v58;
-    v24 = v57;
+    v23 = v57;
+    v24 = v56;
     v25 = 5;
   }
 
   else
   {
-    v59[0] = @"Digest";
-    v59[1] = @"EPRO";
+    v58[0] = @"Digest";
+    v58[1] = @"EPRO";
     if (productionStatus)
     {
       v26 = v15;
@@ -269,8 +268,8 @@ LABEL_15:
       v26 = MEMORY[0x29EDB8EA8];
     }
 
-    v60[0] = v52;
-    v60[1] = v26;
+    v59[0] = v51;
+    v59[1] = v26;
     if (self->_securityMode)
     {
       v27 = v15;
@@ -281,13 +280,13 @@ LABEL_15:
       v27 = MEMORY[0x29EDB8EA8];
     }
 
-    v59[2] = @"ESEC";
-    v59[3] = @"Trusted";
-    v60[2] = v27;
-    v60[3] = v15;
+    v58[2] = @"ESEC";
+    v58[3] = @"Trusted";
+    v59[2] = v27;
+    v59[3] = v15;
     v22 = MEMORY[0x29EDB8DC0];
-    v23 = v60;
-    v24 = v59;
+    v23 = v59;
+    v24 = v58;
     v25 = 4;
   }
 
@@ -295,30 +294,30 @@ LABEL_15:
   [dictionary setObject:v28 forKeyedSubscript:tagNumber9];
 
   v29 = [(AppleTypeCRetimerFirmwareRequestCreatorOS *)self generateHashForSubfile:self->_rrko];
-  v30 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:RestoreRTKitOS error:%u", @"%u", 0, v45];
+  v30 = [MEMORY[0x29EDBA0F8] stringWithValidatedFormat:@"Timer validFormatSpecifiers:RestoreRTKitOS error:%u", @"%u", 0, v44];
   v31 = self->_productionStatus;
   if (self->_demote && self->_productionStatus)
   {
-    v53[0] = @"Digest";
-    v53[1] = @"EPRO";
-    v54[0] = v29;
-    v54[1] = MEMORY[0x29EDB8EA8];
-    v54[2] = v15;
-    v53[2] = @"DPRO";
-    v53[3] = @"ESEC";
-    v54[3] = v15;
-    v54[4] = MEMORY[0x29EDB8EA8];
-    v53[4] = @"Trusted";
+    v52[0] = @"Digest";
+    v52[1] = @"EPRO";
+    v53[0] = v29;
+    v53[1] = MEMORY[0x29EDB8EA8];
+    v53[2] = v15;
+    v52[2] = @"DPRO";
+    v52[3] = @"ESEC";
+    v53[3] = v15;
+    v53[4] = MEMORY[0x29EDB8EA8];
+    v52[4] = @"Trusted";
     v32 = MEMORY[0x29EDB8DC0];
-    v33 = v54;
-    v34 = v53;
+    v33 = v53;
+    v34 = v52;
     v35 = 5;
   }
 
   else
   {
-    v55[0] = @"Digest";
-    v55[1] = @"EPRO";
+    v54[0] = @"Digest";
+    v54[1] = @"EPRO";
     if (v31)
     {
       v36 = v15;
@@ -329,8 +328,8 @@ LABEL_15:
       v36 = MEMORY[0x29EDB8EA8];
     }
 
-    v56[0] = v29;
-    v56[1] = v36;
+    v55[0] = v29;
+    v55[1] = v36;
     if (self->_securityMode)
     {
       v37 = v15;
@@ -341,13 +340,13 @@ LABEL_15:
       v37 = MEMORY[0x29EDB8EA8];
     }
 
-    v55[2] = @"ESEC";
-    v55[3] = @"Trusted";
-    v56[2] = v37;
-    v56[3] = v15;
+    v54[2] = @"ESEC";
+    v54[3] = @"Trusted";
+    v55[2] = v37;
+    v55[3] = v15;
     v32 = MEMORY[0x29EDB8DC0];
-    v33 = v56;
-    v34 = v55;
+    v33 = v55;
+    v34 = v54;
     v35 = 4;
   }
 
@@ -359,7 +358,6 @@ LABEL_15:
   self->_requestDictionary = v39;
 
   [(AppleTypeCRetimerRestoreInfoHelperOS *)self verboseLog:@"ATCRT %u: request dictionary = %@", self->_tagNumber - 1, self->_requestDictionary];
-  v41 = *MEMORY[0x29EDCA608];
 }
 
 @end

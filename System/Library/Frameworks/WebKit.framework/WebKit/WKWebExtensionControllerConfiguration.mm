@@ -24,7 +24,7 @@
   v4 = WebKit::WebExtensionController::wrapper(v3);
   if (v2)
   {
-    CFRelease(v2[1]);
+    CFRelease(v2->var1);
   }
 
   return v4;

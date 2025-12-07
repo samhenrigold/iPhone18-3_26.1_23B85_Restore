@@ -81,59 +81,58 @@ LABEL_9:
 {
   if (self->_isSYObjectDataArray)
   {
+    v5 = objc_opt_respondsToSelector();
     decoder = self->_decoder;
-    v6 = objc_opt_respondsToSelector();
-    v7 = self->_decoder;
-    v8 = [(NSArray *)self->_source objectAtIndexedSubscript:index];
-    if (v6)
+    v7 = [(NSArray *)self->_source objectAtIndexedSubscript:index];
+    if (v5)
     {
-      v9 = [(NSArray *)self->_types objectAtIndexedSubscript:index];
-      v10 = -[SYChangeSerializer decodeChangeData:fromProtocolVersion:ofType:](v7, "decodeChangeData:fromProtocolVersion:ofType:", v8, 1, [v9 integerValue]);
+      v8 = [(NSArray *)self->_types objectAtIndexedSubscript:index];
+      v9 = -[SYChangeSerializer decodeChangeData:fromProtocolVersion:ofType:](decoder, "decodeChangeData:fromProtocolVersion:ofType:", v7, 1, [v8 integerValue]);
 
       goto LABEL_10;
     }
 
-    v14 = [(SYChangeSerializer *)v7 SYObjectWithData:v8];
+    v13 = [(SYChangeSerializer *)decoder SYObjectWithData:v7];
   }
 
   else
   {
     compatibilityVersion = self->_compatibilityVersion;
-    v12 = [(NSArray *)self->_source objectAtIndexedSubscript:index];
-    v8 = v12;
-    v13 = self->_decoder;
+    v11 = [(NSArray *)self->_source objectAtIndexedSubscript:index];
+    v7 = v11;
+    v12 = self->_decoder;
     if (compatibilityVersion > 1)
     {
-      [v12 changeObjectWithSerializer:v13];
+      [v11 changeObjectWithSerializer:v12];
     }
 
     else
     {
-      [v12 changeObjectWithSerializer:v13 encodedByVersion:self->_compatibilityVersion];
+      [v11 changeObjectWithSerializer:v12 encodedByVersion:self->_compatibilityVersion];
     }
-    v14 = ;
+    v13 = ;
   }
 
-  v10 = v14;
+  v9 = v13;
 LABEL_10:
 
-  if (!v10)
+  if (!v9)
   {
     if (_sync_log_facilities_pred != -1)
     {
       [_SYLazyChangeArray objectAtIndex:];
     }
 
-    v15 = _sync_log_facilities;
+    v14 = _sync_log_facilities;
     if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_FAULT))
     {
-      [_SYLazyChangeArray objectAtIndex:v15];
+      [_SYLazyChangeArray objectAtIndex:v14];
     }
 
-    v10 = +[SYDegenerateChange degenerateChange];
+    v9 = +[SYDegenerateChange degenerateChange];
   }
 
-  return v10;
+  return v9;
 }
 
 @end

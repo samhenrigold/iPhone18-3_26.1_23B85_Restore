@@ -1,4 +1,5 @@
 @interface BLSHEnvironmentDateInterval
++ (id)intervalWithPresentationInterval:(id)interval previousPresentationDate:(id)date shouldReset:(BOOL)reset environment:(id)environment;
 - (BLSHEnvironmentDateInterval)initWithPresentationInterval:(id)interval previousPresentationDate:(id)date shouldReset:(BOOL)reset environment:(id)environment;
 - (BOOL)isEqual:(id)equal;
 - (id)description;
@@ -6,6 +7,17 @@
 @end
 
 @implementation BLSHEnvironmentDateInterval
+
++ (id)intervalWithPresentationInterval:(id)interval previousPresentationDate:(id)date shouldReset:(BOOL)reset environment:(id)environment
+{
+  resetCopy = reset;
+  environmentCopy = environment;
+  dateCopy = date;
+  intervalCopy = interval;
+  v13 = [[self alloc] initWithPresentationInterval:intervalCopy previousPresentationDate:dateCopy shouldReset:resetCopy environment:environmentCopy];
+
+  return v13;
+}
 
 - (BLSHEnvironmentDateInterval)initWithPresentationInterval:(id)interval previousPresentationDate:(id)date shouldReset:(BOOL)reset environment:(id)environment
 {

@@ -74,7 +74,7 @@
   v38 = 0u;
   v39 = 0u;
   [(UIButtonConfigurationVisualProvider *)self _layoutBounds];
-  [(UIButtonConfigurationVisualProvider *)self _layoutDataInBounds:configurationCopy forConfiguration:?];
+  objc_msgSend__layoutDataInBounds_forConfiguration_(self);
   imageView = self->super._imageView;
   self->super._imageView = v12;
   v14 = v12;
@@ -117,7 +117,7 @@
   background2 = [v5 background];
   [background2 setVisualEffect:visualEffect];
 
-  if (self->_inViewHierarchy && self->_fromConfiguration && ([configurationCopy isEqual:?] & 1) == 0)
+  if (self->_inViewHierarchy && self->_fromConfiguration && (objc_msgSend_isEqual_(configurationCopy) & 1) == 0)
   {
     v10 = [(_UIAnimatedImageTransitionButtonConfigurationVisualProvider *)self _transitioningImageViewForConfiguration:self->_fromConfiguration];
     v11 = [(_UIAnimatedImageTransitionButtonConfigurationVisualProvider *)self _transitioningImageViewForConfiguration:configurationCopy];

@@ -9,6 +9,7 @@
 + (id)personNodesForLocalIdentifiers:(id)identifiers inGraph:(id)graph;
 + (id)personNodesForShareParticipantIdentifiers:(id)identifiers inGraph:(id)graph;
 + (id)personNodesForSharedLibraryParticipantsInGraph:(id)graph;
++ (id)personNodesInAgeCategories:(id)categories includingMe:(BOOL)me inGraph:(id)graph;
 + (id)personNodesIncludingMeInGraph:(id)graph;
 + (id)personNodesWithName:(id)name inGraph:(id)graph;
 + (id)personNodesWithNames:(id)names inGraph:(id)graph;
@@ -622,34 +623,30 @@ void __47__PGGraphPersonNodeCollection_localIdentifiers__block_invoke(uint64_t a
 
 + (id)favoritedPersonNodesIncludingMeInGraph:(id)graph
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = +[PGGraphPersonNode filterIncludingMe];
-  v11 = @"fav";
-  v12[0] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"fav";
+  v11[0] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [v5 filterBySettingProperties:v6];
 
   v8 = [self nodesMatchingFilter:v7 inGraph:graphCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)favoritedPersonNodesExcludingMeInGraph:(id)graph
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = +[PGGraphPersonNode filterExcludingMe];
-  v11 = @"fav";
-  v12[0] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"fav";
+  v11[0] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [v5 filterBySettingProperties:v6];
 
   v8 = [self nodesMatchingFilter:v7 inGraph:graphCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -690,55 +687,61 @@ void __47__PGGraphPersonNodeCollection_localIdentifiers__block_invoke(uint64_t a
   return v5;
 }
 
++ (id)personNodesInAgeCategories:(id)categories includingMe:(BOOL)me inGraph:(id)graph
+{
+  meCopy = me;
+  graphCopy = graph;
+  v9 = [PGGraphPersonNode filterForAgeCategories:categories includingMe:meCopy];
+  v10 = [self nodesMatchingFilter:v9 inGraph:graphCopy];
+
+  return v10;
+}
+
 + (id)personNodesForContactIdentifiers:(id)identifiers inGraph:(id)graph
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   identifiersCopy = identifiers;
   v8 = +[PGGraphPersonNode filterIncludingMe];
-  v14 = @"cnid";
-  v15[0] = identifiersCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"cnid";
+  v14[0] = identifiersCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v10 = [v8 filterBySettingProperties:v9];
 
   v11 = [self nodesMatchingFilter:v10 inGraph:graphCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)personNodesWithNames:(id)names inGraph:(id)graph
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   namesCopy = names;
   v8 = +[PGGraphPersonNode filterIncludingMe];
-  v14 = @"name";
-  v15[0] = namesCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"name";
+  v14[0] = namesCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v10 = [v8 filterBySettingProperties:v9];
 
   v11 = [self nodesMatchingFilter:v10 inGraph:graphCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)personNodesWithName:(id)name inGraph:(id)graph
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   graphCopy = graph;
   if (nameCopy)
   {
     v9 = +[PGGraphPersonNode filterIncludingMe];
-    v16 = @"name";
-    v17 = nameCopy;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v15 = @"name";
+    v16 = nameCopy;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
     v11 = [v9 filterBySettingProperties:v10];
 
     v12 = [self nodesMatchingFilter:v11 inGraph:graphCopy];
@@ -748,69 +751,63 @@ void __47__PGGraphPersonNodeCollection_localIdentifiers__block_invoke(uint64_t a
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v15 = NSStringFromSelector(a2);
+      v14 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v19 = v15;
+      v18 = v14;
       _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%@ called with 'nil' name", buf, 0xCu);
     }
 
     v12 = [[self alloc] initWithGraph:graphCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)personNodesForArrayOfLocalIdentifiers:(id)identifiers inGraph:(id)graph
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   identifiersCopy = identifiers;
   v8 = +[PGGraphPersonNode filterIncludingMe];
-  v14 = @"id";
-  v15[0] = identifiersCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"id";
+  v14[0] = identifiersCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v10 = [v8 filterBySettingProperties:v9];
 
   v11 = [self nodesMatchingFilter:v10 inGraph:graphCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)personNodesForLocalIdentifiers:(id)identifiers inGraph:(id)graph
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   identifiersCopy = identifiers;
   v8 = +[PGGraphPersonNode filterIncludingMe];
-  v14 = @"id";
-  v15[0] = identifiersCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"id";
+  v14[0] = identifiersCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v10 = [v8 filterBySettingProperties:v9];
 
   v11 = [self nodesMatchingFilter:v10 inGraph:graphCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)personNodesForLocalIdentifier:(id)identifier inGraph:(id)graph
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   graphCopy = graph;
   if ([identifierCopy length])
   {
     v9 = +[PGGraphPersonNode filterIncludingMe];
-    v16 = @"id";
-    v17 = identifierCopy;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v15 = @"id";
+    v16 = identifierCopy;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
     v11 = [v9 filterBySettingProperties:v10];
 
     v12 = [self nodesMatchingFilter:v11 inGraph:graphCopy];
@@ -822,16 +819,14 @@ void __47__PGGraphPersonNodeCollection_localIdentifiers__block_invoke(uint64_t a
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v15 = NSStringFromSelector(a2);
+      v14 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v19 = v15;
+      v18 = v14;
       _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%@ called with 'empty' personLocalIdentifier", buf, 0xCu);
     }
 
     v12 = [[self alloc] initWithGraph:graphCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -88,9 +88,34 @@
 - (_TtC15ManagedSettings32OverrideSettingsExtensionContext)initWithInputItems:(id)items contextUUID:(id)d
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8CED28, &qword_20E4C7E30);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8, v8);
-  v10 = &v14 - v9;
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v12 - v7;
+  if (items)
+  {
+    items = sub_20E4C65C0();
+  }
+
+  if (d)
+  {
+    sub_20E4C6190();
+    v9 = sub_20E4C61A0();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+  }
+
+  else
+  {
+    v10 = sub_20E4C61A0();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+  }
+
+  return sub_20E4BCFC0(items, v8);
+}
+
+- (_TtC15ManagedSettings32OverrideSettingsExtensionContext)initWithInputItems:(id)items listenerEndpoint:(id)endpoint contextUUID:(id)d
+{
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8CED28, &qword_20E4C7E30);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v15 - v9;
   if (items)
   {
     items = sub_20E4C65C0();
@@ -109,35 +134,8 @@
     (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
-  return sub_20E4BCFC0(items, v10);
-}
-
-- (_TtC15ManagedSettings32OverrideSettingsExtensionContext)initWithInputItems:(id)items listenerEndpoint:(id)endpoint contextUUID:(id)d
-{
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8CED28, &qword_20E4C7E30);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8, v10);
-  v12 = &v17 - v11;
-  if (items)
-  {
-    items = sub_20E4C65C0();
-  }
-
-  if (d)
-  {
-    sub_20E4C6190();
-    v13 = sub_20E4C61A0();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
-  }
-
-  else
-  {
-    v14 = sub_20E4C61A0();
-    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
-  }
-
   endpointCopy = endpoint;
-  return sub_20E4BD290(items, endpoint, v12);
+  return sub_20E4BD290(items, endpoint, v10);
 }
 
 @end

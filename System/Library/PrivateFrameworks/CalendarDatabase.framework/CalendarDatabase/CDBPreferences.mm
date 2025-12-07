@@ -21,6 +21,7 @@
 - (BOOL)has_suggestEventLocations;
 - (BOOL)has_suggestedLocationsTestMode;
 - (CDBPreferences)initWithPreferences:(id)preferences;
+- (CDBPreferences)initWithReadOnly:(BOOL)only;
 - (NSNumber)get_DefaultAllDayAlarmOffset;
 - (NSNumber)get_DefaultTimedAlarmOffset;
 - (NSString)get_defaultCalendarChangedReason;
@@ -95,6 +96,16 @@ uint64_t __33__CDBPreferences_sharedReadWrite__block_invoke()
   v6 = [[CDBPreferences alloc] initWithPreferences:v5];
 
   return v6;
+}
+
+- (CDBPreferences)initWithReadOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v5 = objc_alloc(MEMORY[0x1E6993020]);
+  v6 = [v5 initWithDomain:*MEMORY[0x1E6993168] readOnly:onlyCopy];
+  v7 = [(CDBPreferences *)self initWithPreferences:v6];
+
+  return v7;
 }
 
 - (CDBPreferences)initWithPreferences:(id)preferences

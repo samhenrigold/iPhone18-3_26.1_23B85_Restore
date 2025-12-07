@@ -49,31 +49,31 @@
 
 - (id)_parentTCCSpecifiers
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v46.receiver = self;
-  v46.super_class = PUIPhotoServicesAuthorizationLevelController;
-  specifiers = [(PSListItemsController *)&v46 specifiers];
+  v48 = *MEMORY[0x277D85DE8];
+  v45.receiver = self;
+  v45.super_class = PUIPhotoServicesAuthorizationLevelController;
+  specifiers = [(PSListItemsController *)&v45 specifiers];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(specifiers, "count")}];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v4 = specifiers;
-  v5 = [v4 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
   v6 = MEMORY[0x277D3FC90];
   if (v5)
   {
-    v7 = *v43;
+    v7 = *v42;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v43 != v7)
+        if (*v42 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v42 + 1) + 8 * i);
+        v9 = *(*(&v41 + 1) + 8 * i);
         if (*&v9[*v6] == 3)
         {
           identifier = [v9 identifier];
@@ -87,7 +87,7 @@
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v5)
       {
         continue;
@@ -99,34 +99,34 @@
 
 LABEL_12:
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v12 = v4;
-  v13 = [v12 countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (!v13)
   {
     goto LABEL_44;
   }
 
   v14 = v13;
-  v15 = *v39;
-  v37 = *MEMORY[0x277D3FE58];
-  v36 = *MEMORY[0x277D3FE18];
+  v15 = *v38;
+  v36 = *MEMORY[0x277D3FE58];
+  v35 = *MEMORY[0x277D3FE18];
   v16 = v5 ^ 1;
-  v34 = v3;
+  v33 = v3;
   do
   {
     v17 = 0;
     do
     {
-      if (*v39 != v15)
+      if (*v38 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v18 = *(*(&v38 + 1) + 8 * v17);
+      v18 = *(*(&v37 + 1) + 8 * v17);
       identifier2 = [v18 identifier];
       intValue2 = [identifier2 intValue];
 
@@ -152,8 +152,8 @@ LABEL_12:
 
         if (v21 == 3 && (intValue2 & 0xFFFFFFFE) == 2)
         {
-          [v18 setProperty:objc_opt_class() forKey:v37];
-          v26 = PhotosUICoreLibraryCore();
+          [v18 setProperty:objc_opt_class() forKey:v36];
+          v26 = PhotosUICoreLibraryCore(0);
           if (intValue2 == 2)
           {
             if (!v26 || !getPXTCCSettingsFullAccessSubtitleSymbolLoc())
@@ -168,7 +168,7 @@ LABEL_12:
             }
 
             limitedLibraryRowSpecifier = PXTCCSettingsFullAccessSubtitleSymbolLoc();
-            [v18 setProperty:limitedLibraryRowSpecifier forKey:v36];
+            [v18 setProperty:limitedLibraryRowSpecifier forKey:v35];
           }
 
           else
@@ -179,12 +179,12 @@ LABEL_12:
             }
 
             v28 = PSPXTCCSettingsLimitedAccessSubtitle(self->_serviceKey);
-            [v18 setProperty:v28 forKey:v36];
+            [v18 setProperty:v28 forKey:v35];
 
             v29 = v18;
             limitedLibraryRowSpecifier = self->_limitedLibraryRowSpecifier;
             self->_limitedLibraryRowSpecifier = v29;
-            v3 = v34;
+            v3 = v33;
           }
 
 LABEL_27:
@@ -198,7 +198,7 @@ LABEL_32:
     }
 
     while (v14 != v17);
-    v30 = [v12 countByEnumeratingWithState:&v38 objects:v47 count:16];
+    v30 = [v12 countByEnumeratingWithState:&v37 objects:v46 count:16];
     v14 = v30;
   }
 
@@ -206,7 +206,6 @@ LABEL_32:
 LABEL_44:
 
   v31 = [v3 copy];
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -291,27 +290,27 @@ LABEL_44:
 
 - (id)footerStringForSpecifiers:(id)specifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   specifiersCopy = specifiers;
-  v4 = [specifiersCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [specifiersCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(specifiersCopy);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         values = [v8 values];
         firstObject = [values firstObject];
         v11 = [firstObject isEqual:&unk_28772B330];
@@ -328,7 +327,7 @@ LABEL_44:
         }
       }
 
-      v5 = [specifiersCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [specifiersCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v5)
       {
         continue;
@@ -341,42 +340,38 @@ LABEL_44:
   v15 = 0;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (void)_presentImagePickerForModifyingSelection
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v18 = *MEMORY[0x277CD9D88];
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277CD9D88];
   serviceKey = [(PUIPhotoServicesAuthorizationLevelController *)self serviceKey];
-  v19[0] = serviceKey;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = serviceKey;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
   if (objc_opt_respondsToSelector())
   {
     v5 = self->_limitedLibraryRowSpecifier;
     v6 = self->_serviceKey;
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __88__PUIPhotoServicesAuthorizationLevelController__presentImagePickerForModifyingSelection__block_invoke;
-    v14 = &unk_279BA1F10;
-    v15 = v5;
-    v16 = v6;
+    v10 = MEMORY[0x277D85DD0];
+    v11 = 3221225472;
+    v12 = __88__PUIPhotoServicesAuthorizationLevelController__presentImagePickerForModifyingSelection__block_invoke;
+    v13 = &unk_279BA1F10;
+    v14 = v5;
+    v15 = v6;
     selfCopy = self;
     v7 = v6;
     v8 = v5;
-    v9 = _Block_copy(&v11);
-    [MEMORY[0x277CD9D58] presentLimitedLibraryPickerFromViewController:self options:v4 completionHandler:{v9, v11, v12, v13, v14}];
+    v9 = _Block_copy(&v10);
+    [MEMORY[0x277CD9D58] presentLimitedLibraryPickerFromViewController:self options:v4 completionHandler:{v9, v10, v11, v12, v13}];
   }
 
   else
   {
     [MEMORY[0x277CD9D58] presentLimitedLibraryPickerFromViewController:self options:v4];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __88__PUIPhotoServicesAuthorizationLevelController__presentImagePickerForModifyingSelection__block_invoke(uint64_t a1)
@@ -409,7 +404,7 @@ uint64_t __88__PUIPhotoServicesAuthorizationLevelController__presentImagePickerF
 - (id)_pickerUsageSectionSpecifiers
 {
   selfCopy = self;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v3 = 0x280027000;
   if (!self->_pickerUsageSectionSpecifiers)
   {
@@ -426,84 +421,84 @@ uint64_t __88__PUIPhotoServicesAuthorizationLevelController__presentImagePickerF
       [v8 setProperty:v9 forKey:*MEMORY[0x277D40140]];
 
       [v8 setProperty:v5 forKey:*MEMORY[0x277D3FE58]];
-      v51[0] = v6;
-      v51[1] = v8;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+      v50[0] = v6;
+      v50[1] = v8;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
       pickerUsageSectionSpecifiers = selfCopy->_pickerUsageSectionSpecifiers;
       selfCopy->_pickerUsageSectionSpecifiers = v10;
 
       v12 = NSClassFromString(&cfstr_Psphotospicker_0.isa);
       if (v12)
       {
-        v42 = v12;
-        v43 = v6;
-        v44 = selfCopy;
-        v45 = [MEMORY[0x277CBEB58] set];
+        v41 = v12;
+        v42 = v6;
+        v43 = selfCopy;
+        v44 = [MEMORY[0x277CBEB58] set];
         mEMORY[0x277D3B240] = [MEMORY[0x277D3B240] sharedInstance];
         photosPickerPresentedLibraryLogsByClient = [mEMORY[0x277D3B240] photosPickerPresentedLibraryLogsByClient];
 
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
         v15 = photosPickerPresentedLibraryLogsByClient;
-        v16 = [v15 countByEnumeratingWithState:&v46 objects:v52 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v45 objects:v51 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v47;
+          v18 = *v46;
           v19 = *MEMORY[0x277D3B268];
           v20 = *MEMORY[0x277D3B270];
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v47 != v18)
+              if (*v46 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v22 = *(*(&v46 + 1) + 8 * i);
+              v22 = *(*(&v45 + 1) + 8 * i);
               v23 = [v22 objectForKeyedSubscript:v19];
               v24 = [v22 objectForKeyedSubscript:v20];
               v25 = [v22 objectForKeyedSubscript:@"pickerUsesOptions"];
               [v24 timeIntervalSinceNow];
               if (v26 <= 0.0 && v26 > -2592000.0 && [v25 BOOLValue])
               {
-                [v45 addObject:v23];
+                [v44 addObject:v23];
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v46 objects:v52 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v45 objects:v51 count:16];
           }
 
           while (v17);
         }
 
-        v27 = [v45 copy];
+        v27 = [v44 copy];
         v3 = 0x280027000uLL;
-        selfCopy = v44;
-        v28 = [v27 containsObject:v44->_serviceKey];
+        selfCopy = v43;
+        v28 = [v27 containsObject:v43->_serviceKey];
 
-        v6 = v43;
+        v6 = v42;
         if (v28)
         {
           v29 = MEMORY[0x277D3FAD8];
           v30 = PUI_LocalizedStringForPrivacy(@"PHOTOS_PICKER_OPTIONS_CELL_TITLE");
-          v31 = [v29 preferenceSpecifierNamed:v30 target:v44 set:0 get:sel__locationSetting_ detail:v42 cell:2 edit:0];
+          v31 = [v29 preferenceSpecifierNamed:v30 target:v43 set:0 get:sel__locationSetting_ detail:v41 cell:2 edit:0];
 
           [v31 setIdentifier:@"PHOTOS_PICKER_OPTIONS_CELL"];
-          [v31 setProperty:v44->_serviceKey forKey:@"appBundleID"];
+          [v31 setProperty:v43->_serviceKey forKey:@"appBundleID"];
           v32 = PUI_LocalizedStringForPrivacy(@"PHOTOS_PICKER_OPTIONS_CELL_NO_LOCATION");
-          v50[0] = v32;
+          v49[0] = v32;
           v33 = PUI_LocalizedStringForPrivacy(@"PHOTOS_PICKER_OPTIONS_CELL_LOCATION");
-          v50[1] = v33;
-          v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
+          v49[1] = v33;
+          v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
           [v31 setValues:&unk_28772B690 titles:v34];
 
-          v35 = [(NSArray *)v44->_pickerUsageSectionSpecifiers arrayByAddingObject:v31];
-          v36 = v44->_pickerUsageSectionSpecifiers;
-          v44->_pickerUsageSectionSpecifiers = v35;
+          v35 = [(NSArray *)v43->_pickerUsageSectionSpecifiers arrayByAddingObject:v31];
+          v36 = v43->_pickerUsageSectionSpecifiers;
+          v43->_pickerUsageSectionSpecifiers = v35;
         }
       }
     }
@@ -522,14 +517,12 @@ uint64_t __88__PUIPhotoServicesAuthorizationLevelController__presentImagePickerF
     v39 = MEMORY[0x277CBEBF8];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
   return v39;
 }
 
 - (id)_limitedLibrarySectionSpecifiers
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if (!self->_limitedLibrarySectionSpecifiers)
   {
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
@@ -544,9 +537,9 @@ uint64_t __88__PUIPhotoServicesAuthorizationLevelController__presentImagePickerF
 
     [v7 setProperty:@"PHOTOS_MANUAL_SELECTION_BUTTON" forKey:v4];
     [v7 setButtonAction:sel__presentImagePickerForModifyingSelection];
-    v14[0] = emptyGroupSpecifier;
-    v14[1] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = emptyGroupSpecifier;
+    v13[1] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     limitedLibrarySectionSpecifiers = self->_limitedLibrarySectionSpecifiers;
     self->_limitedLibrarySectionSpecifiers = v9;
   }
@@ -560,8 +553,6 @@ uint64_t __88__PUIPhotoServicesAuthorizationLevelController__presentImagePickerF
   {
     v11 = MEMORY[0x277CBEBF8];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -608,7 +599,7 @@ uint64_t __77__PUIPhotoServicesAuthorizationLevelController__currentTCCAuthoriza
 
 void __77__PUIPhotoServicesAuthorizationLevelController__currentTCCAuthorizationRight__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5)
   {
@@ -622,26 +613,24 @@ void __77__PUIPhotoServicesAuthorizationLevelController__currentTCCAuthorization
 
   else
   {
-    v8 = _PUILoggingFacility();
+    v8 = _PUILoggingFacility(0);
     v6 = v8;
     if (a3)
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __77__PUIPhotoServicesAuthorizationLevelController__currentTCCAuthorizationRight__block_invoke_2_cold_1(a1);
+        __77__PUIPhotoServicesAuthorizationLevelController__currentTCCAuthorizationRight__block_invoke_2_cold_1();
       }
     }
 
     else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "Finished getting authorization for identity: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "Finished getting authorization for identity: %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -788,15 +777,6 @@ void __77__PUIPhotoServicesAuthorizationLevelController__currentTCCAuthorization
 
     [(PUIPhotoServicesAuthorizationLevelController *)self removeContiguousSpecifiers:pickerUsageSectionSpecifiers animated:1];
   }
-}
-
-void __77__PUIPhotoServicesAuthorizationLevelController__currentTCCAuthorizationRight__block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2657FE000, v2, v3, "Error when requesting TCC for identity: %@ error: %@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

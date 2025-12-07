@@ -6,19 +6,19 @@
 
 + (id)notificationForBulletin:()Bulletin
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   v3 = a3;
   context = [v3 context];
-  v120 = [context objectForKey:@"contentDate"];
+  v118 = [context objectForKey:@"contentDate"];
 
   date = [v3 date];
   defaultAction = [v3 defaultAction];
   context2 = [v3 context];
-  v117 = [context2 objectForKey:@"recordDate"];
+  v115 = [context2 objectForKey:@"recordDate"];
 
   publisherBulletinID = [v3 publisherBulletinID];
   dismissalID = [v3 dismissalID];
-  v116 = [publisherBulletinID isEqualToString:dismissalID];
+  v114 = [publisherBulletinID isEqualToString:dismissalID];
 
   array = [MEMORY[0x277CBEA60] array];
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -38,29 +38,29 @@
     [v8 addObjectsFromArray:additionalAttachments2];
   }
 
-  v121 = v3;
-  v135 = 0u;
-  v136 = 0u;
+  v119 = v3;
   v133 = 0u;
   v134 = 0u;
+  v131 = 0u;
+  v132 = 0u;
   obj = v8;
-  v130 = [obj countByEnumeratingWithState:&v133 objects:v137 count:16];
-  if (v130)
+  v128 = [obj countByEnumeratingWithState:&v131 objects:v135 count:16];
+  if (v128)
   {
-    v128 = *v134;
-    v122 = *MEMORY[0x277CE20D8];
-    v125 = *MEMORY[0x277CE20D0];
-    v124 = *MEMORY[0x277CE20C8];
+    v126 = *v132;
+    v120 = *MEMORY[0x277CE20D8];
+    v123 = *MEMORY[0x277CE20D0];
+    v122 = *MEMORY[0x277CE20C8];
     do
     {
-      for (i = 0; i != v130; ++i)
+      for (i = 0; i != v128; ++i)
       {
-        if (*v134 != v128)
+        if (*v132 != v126)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v133 + 1) + 8 * i);
+        v14 = *(*(&v131 + 1) + 8 * i);
         v15 = [v14 URL];
         path = [v15 path];
 
@@ -83,14 +83,14 @@
           uniformType = [v14 uniformType];
           if (uniformType)
           {
-            [v21 setObject:uniformType forKey:v122];
+            [v21 setObject:uniformType forKey:v120];
           }
 
           v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v14, "thumbnailHidden")}];
-          [v21 setObject:v23 forKey:v125];
+          [v21 setObject:v23 forKey:v123];
 
           v24 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v14, "hiddenFromDefaultExpandedView")}];
-          [v21 setObject:v24 forKey:v124];
+          [v21 setObject:v24 forKey:v122];
 
           v25 = MEMORY[0x277CE1F90];
           identifier = [v14 identifier];
@@ -106,14 +106,14 @@
         }
       }
 
-      v130 = [obj countByEnumeratingWithState:&v133 objects:v137 count:16];
+      v128 = [obj countByEnumeratingWithState:&v131 objects:v135 count:16];
     }
 
-    while (v130);
+    while (v128);
   }
 
-  v30 = v121;
-  icon = [v121 icon];
+  v30 = v119;
+  icon = [v119 icon];
 
   if (!icon)
   {
@@ -121,7 +121,7 @@
     goto LABEL_35;
   }
 
-  icon2 = [v121 icon];
+  icon2 = [v119 icon];
   v33 = [icon2 _bestVariantForFormat:0];
 
   applicationIdentifier = [v33 applicationIdentifier];
@@ -157,12 +157,12 @@
     {
       if (dateComponentDetails)
       {
-        v113 = [dateComponentDetails objectForKey:{*MEMORY[0x277CE2108], isPrecomposed}];
-        v114 = [dateComponentDetails objectForKey:*MEMORY[0x277CE2100]];
-        v115 = [dateComponentDetails objectForKey:*MEMORY[0x277CE2110]];
-        integerValue = [v115 integerValue];
+        v111 = [dateComponentDetails objectForKey:{*MEMORY[0x277CE2108], isPrecomposed}];
+        v112 = [dateComponentDetails objectForKey:*MEMORY[0x277CE2100]];
+        v113 = [dateComponentDetails objectForKey:*MEMORY[0x277CE2110]];
+        integerValue = [v113 integerValue];
 
-        v42 = [MEMORY[0x277CE1FB0] iconWithDateComponents:v113 calendarIdentifier:v114 format:integerValue];
+        v42 = [MEMORY[0x277CE1FB0] iconWithDateComponents:v111 calendarIdentifier:v112 format:integerValue];
       }
 
       else
@@ -179,7 +179,7 @@
   v42 = v41;
 LABEL_34:
 
-  v30 = v121;
+  v30 = v119;
 LABEL_35:
   sound = [v30 sound];
 
@@ -198,7 +198,7 @@ LABEL_35:
     v51 = __52__UNNotification_Bulletin__notificationForBulletin___block_invoke(audioCategory, audioCategory);
     [v47 setAudioCategory:v51];
 
-    context3 = [v121 context];
+    context3 = [v119 context];
     v53 = [context3 objectForKey:@"audioVolume"];
     [v47 setAudioVolume:v53];
 
@@ -225,7 +225,7 @@ LABEL_35:
     v61 = __52__UNNotification_Bulletin__notificationForBulletin___block_invoke(vibrationIdentifier, vibrationIdentifier);
     [v47 setVibrationIdentifier:v61];
 
-    v30 = v121;
+    v30 = v119;
     externalVibrationPatternFileURL = [alertConfiguration externalVibrationPatternFileURL];
     [v47 setVibrationPatternFileURL:externalVibrationPatternFileURL];
   }
@@ -248,7 +248,7 @@ LABEL_35:
   }
 
   contentType = [v30 contentType];
-  v126 = contentType;
+  v124 = contentType;
   if ([contentType isEqualToString:*MEMORY[0x277CF34C8]])
   {
     v67 = MEMORY[0x277CE2158];
@@ -292,19 +292,19 @@ LABEL_35:
   v69 = *v67;
   v70 = objc_alloc_init(MEMORY[0x277CE1F60]);
   [v70 setAttachments:array];
-  context4 = [v121 context];
+  context4 = [v119 context];
   v72 = [context4 objectForKey:@"badge"];
   [v70 setBadge:v72];
 
-  message = [v121 message];
+  message = [v119 message];
   [v70 setBody:message];
 
-  categoryID = [v121 categoryID];
+  categoryID = [v119 categoryID];
   [v70 setCategoryIdentifier:categoryID];
 
   [v70 setCommunicationContext:v65];
   [v70 setContentType:v69];
-  [v70 setDate:v120];
+  [v70 setDate:v118];
   appearance = [defaultAction appearance];
   title = [appearance title];
   [v70 setDefaultActionTitle:title];
@@ -316,109 +316,106 @@ LABEL_35:
   launchBundleID = [defaultAction launchBundleID];
   [v70 setDefaultActionBundleIdentifier:launchBundleID];
 
-  expirationDate = [v121 expirationDate];
+  expirationDate = [v119 expirationDate];
   [v70 setExpirationDate:expirationDate];
 
-  context5 = [v121 context];
+  context5 = [v119 context];
   v81 = [context5 objectForKey:*MEMORY[0x277CF35D0]];
   [v70 setLaunchImageName:v81];
 
-  header = [v121 header];
+  header = [v119 header];
   [v70 setHeader:header];
 
-  footer = [v121 footer];
+  footer = [v119 footer];
   [v70 setFooter:footer];
 
   [v70 setIcon:v42];
   [v70 setSound:v47];
-  [v70 setShouldShowSubordinateIcon:{objc_msgSend(v121, "hasSubordinateIcon")}];
+  [v70 setShouldShowSubordinateIcon:{objc_msgSend(v119, "hasSubordinateIcon")}];
   [v70 setShouldHideDate:date == 0];
-  [v70 setShouldHideTime:{objc_msgSend(v121, "dateIsAllDay")}];
-  context6 = [v121 context];
+  [v70 setShouldHideTime:{objc_msgSend(v119, "dateIsAllDay")}];
+  context6 = [v119 context];
   v85 = [context6 objectForKey:@"shouldIgnoreDoNotDisturb"];
   [v70 setShouldIgnoreDoNotDisturb:{objc_msgSend(v85, "BOOLValue")}];
 
-  [v70 setShouldIgnoreDowntime:{objc_msgSend(v121, "ignoresDowntime")}];
-  [v70 setShouldSuppressScreenLightUp:{objc_msgSend(v121, "turnsOnDisplay") ^ 1}];
+  [v70 setShouldIgnoreDowntime:{objc_msgSend(v119, "ignoresDowntime")}];
+  [v70 setShouldSuppressScreenLightUp:{objc_msgSend(v119, "turnsOnDisplay") ^ 1}];
   [v70 setShouldAuthenticateDefaultAction:{objc_msgSend(defaultAction, "isAuthenticationRequired")}];
   [v70 setShouldBackgroundDefaultAction:{objc_msgSend(defaultAction, "activationMode") == 1}];
   [v70 setShouldPreventNotificationDismissalAfterDefaultAction:{objc_msgSend(defaultAction, "shouldDismissBulletin") ^ 1}];
-  [v70 setShouldSuppressSyncDismissalWhenRemoved:{objc_msgSend(v121, "usesExternalSync")}];
-  [v70 setShouldUseRequestIdentifierForDismissalSync:v116];
-  subtitle = [v121 subtitle];
+  [v70 setShouldSuppressSyncDismissalWhenRemoved:{objc_msgSend(v119, "usesExternalSync")}];
+  [v70 setShouldUseRequestIdentifierForDismissalSync:v114];
+  subtitle = [v119 subtitle];
   [v70 setSubtitle:subtitle];
 
-  threadID = [v121 threadID];
+  threadID = [v119 threadID];
   [v70 setThreadIdentifier:threadID];
 
-  title2 = [v121 title];
+  title2 = [v119 title];
   [v70 setTitle:title2];
 
-  subsectionIDs = [v121 subsectionIDs];
+  subsectionIDs = [v119 subsectionIDs];
   [v70 setTopicIdentifiers:subsectionIDs];
 
-  [v70 setRealertCount:{objc_msgSend(v121, "realertCount")}];
-  context7 = [v121 context];
+  [v70 setRealertCount:{objc_msgSend(v119, "realertCount")}];
+  context7 = [v119 context];
   v91 = [context7 objectForKey:@"userInfo"];
   [v70 setUserInfo:v91];
 
-  summaryArgument = [v121 summaryArgument];
+  summaryArgument = [v119 summaryArgument];
   [v70 setSummaryArgument:summaryArgument];
 
-  [v70 setSummaryArgumentCount:{objc_msgSend(v121, "summaryArgumentCount")}];
-  context8 = [v121 context];
+  [v70 setSummaryArgumentCount:{objc_msgSend(v119, "summaryArgumentCount")}];
+  context8 = [v119 context];
   v94 = [context8 objectForKey:@"targetContentIdentifier"];
   [v70 setTargetContentIdentifier:v94];
 
-  interruptionLevel = [v121 interruptionLevel];
-  v96 = *MEMORY[0x277CE2118];
+  interruptionLevel = [v119 interruptionLevel];
   if (interruptionLevel >= 4)
   {
-    v97 = *MEMORY[0x277CE2118];
+    v96 = *MEMORY[0x277CE2118];
   }
 
   else
   {
-    v97 = interruptionLevel;
+    v96 = interruptionLevel;
   }
 
-  [v70 setInterruptionLevel:v97];
-  [v121 relevanceScore];
-  [v70 setRelevanceScore:v98];
-  filterCriteria = [v121 filterCriteria];
+  [v70 setInterruptionLevel:v96];
+  [v119 relevanceScore];
+  [v70 setRelevanceScore:v97];
+  filterCriteria = [v119 filterCriteria];
   [v70 setFilterCriteria:filterCriteria];
 
-  [v70 setScreenCaptureProhibited:{objc_msgSend(v121, "screenCaptureProhibited")}];
-  speechLanguage = [v121 speechLanguage];
+  [v70 setScreenCaptureProhibited:{objc_msgSend(v119, "screenCaptureProhibited")}];
+  speechLanguage = [v119 speechLanguage];
   [v70 setSpeechLanguage:speechLanguage];
 
-  context9 = [v121 context];
-  v102 = [context9 objectForKey:@"notificationTriggerData"];
+  context9 = [v119 context];
+  v101 = [context9 objectForKey:@"notificationTriggerData"];
 
-  v129 = v47;
-  v131 = v42;
-  if (v102)
+  v127 = v47;
+  v129 = v42;
+  if (v101)
   {
-    v103 = [MEMORY[0x277CE1FF8] bs_secureDecodedFromData:v102];
+    v102 = [MEMORY[0x277CE1FF8] bs_secureDecodedFromData:v101];
   }
 
   else
   {
-    v103 = 0;
+    v102 = 0;
   }
 
-  v104 = MEMORY[0x277CE1FC0];
-  recordID = [v121 recordID];
-  v106 = [v104 requestWithIdentifier:recordID content:v70 trigger:v103];
+  v103 = MEMORY[0x277CE1FC0];
+  recordID = [v119 recordID];
+  v105 = [v103 requestWithIdentifier:recordID content:v70 trigger:v102];
 
-  v107 = MEMORY[0x277CE1F78];
-  section = [v121 section];
-  intentIDs = [v121 intentIDs];
-  v110 = [v107 notificationWithRequest:v106 date:v117 sourceIdentifier:section intentIdentifiers:intentIDs];
+  v106 = MEMORY[0x277CE1F78];
+  section = [v119 section];
+  intentIDs = [v119 intentIDs];
+  v109 = [v106 notificationWithRequest:v105 date:v115 sourceIdentifier:section intentIdentifiers:intentIDs];
 
-  v111 = *MEMORY[0x277D85DE8];
-
-  return v110;
+  return v109;
 }
 
 @end

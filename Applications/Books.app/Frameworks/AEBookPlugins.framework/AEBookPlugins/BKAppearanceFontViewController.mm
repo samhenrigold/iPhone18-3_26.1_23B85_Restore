@@ -34,17 +34,18 @@
 
 - (BKAppearanceFontViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v8.receiver = self;
-  v8.super_class = BKAppearanceFontViewController;
-  v4 = [(BKViewController *)&v8 initWithNibName:name bundle:bundle];
+  v9.receiver = self;
+  v9.super_class = BKAppearanceFontViewController;
+  v4 = [(BKViewController *)&v9 initWithNibName:name bundle:bundle];
+  v5 = v4;
   if (v4)
   {
-    v5 = AEBundle();
-    v6 = [v5 localizedStringForKey:@"Fonts" value:&stru_1E7188 table:0];
-    [(BKAppearanceFontViewController *)v4 setTitle:v6];
+    v6 = AEBundle(v4);
+    v7 = [v6 localizedStringForKey:@"Fonts" value:&stru_1E7188 table:0];
+    [(BKAppearanceFontViewController *)v5 setTitle:v7];
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)dealloc
@@ -500,7 +501,7 @@
     v54 = fonts;
     if ([v9 kind] == &dword_0 + 1)
     {
-      v16 = AEBundle();
+      v16 = AEBundle(1);
       v17 = [v16 localizedStringForKey:@"Original" value:&stru_1E7188 table:0];
       v18 = displayName;
       v19 = v17;
@@ -790,30 +791,31 @@ LABEL_34:
   {
     failedCopy = failed;
     v5 = MGGetBoolAnswer();
-    v6 = AEBundle();
-    v7 = v6;
-    if (v5)
+    v6 = v5;
+    v7 = AEBundle(v5);
+    v8 = v7;
+    if (v6)
     {
-      v8 = @"To download fonts, connect to WLAN.";
+      v9 = @"To download fonts, connect to WLAN.";
     }
 
     else
     {
-      v8 = @"To download fonts, connect to Wi-Fi.";
+      v9 = @"To download fonts, connect to Wi-Fi.";
     }
 
-    v16 = [v6 localizedStringForKey:v8 value:&stru_1E7188 table:0];
+    v19 = [v7 localizedStringForKey:v9 value:&stru_1E7188 table:0];
 
-    v9 = AEBundle();
-    v10 = [v9 localizedStringForKey:@"Couldn’t Download" value:&stru_1E7188 table:0];
-    v11 = [UIAlertController alertControllerWithTitle:v10 message:v16 preferredStyle:1];
+    v11 = AEBundle(v10);
+    v12 = [v11 localizedStringForKey:@"Couldn’t Download" value:&stru_1E7188 table:0];
+    v13 = [UIAlertController alertControllerWithTitle:v12 message:v19 preferredStyle:1];
 
-    v12 = AEBundle();
-    v13 = [v12 localizedStringForKey:@"OK" value:&stru_1E7188 table:0];
-    v14 = [UIAlertAction actionWithTitle:v13 style:1 handler:0];
-    [v11 addAction:v14];
+    v15 = AEBundle(v14);
+    v16 = [v15 localizedStringForKey:@"OK" value:&stru_1E7188 table:0];
+    v17 = [UIAlertAction actionWithTitle:v16 style:1 handler:0];
+    [v13 addAction:v17];
 
-    [(BKAppearanceFontViewController *)self presentViewController:v11 animated:1 completion:0];
+    [(BKAppearanceFontViewController *)self presentViewController:v13 animated:1 completion:0];
     self->_shownCannotDownloadFontAlert = 1;
     object = [failedCopy object];
 

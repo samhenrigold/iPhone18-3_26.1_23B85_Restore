@@ -1,6 +1,8 @@
 @interface IOHIDOutputTransactionClass
 - (IOHIDOutputTransactionClass)initWithDevice:(id)device;
+- (int)getElementValue:(unsigned int)value value:(IOHIDEventStruct *)a4 options:(unsigned int)options;
 - (int)queryInterface:(id)interface outInterface:(void *)outInterface;
+- (int)setElementValue:(unsigned int)value value:(IOHIDEventStruct *)a4 options:(unsigned int)options;
 - (void)dealloc;
 @end
 
@@ -31,6 +33,93 @@ LABEL_3:
   }
 
   return v8;
+}
+
+- (int)setElementValue:(unsigned int)value value:(IOHIDEventStruct *)a4 options:(unsigned int)options
+{
+  v5 = -536870212;
+  if (!a4)
+  {
+    return -536870206;
+  }
+
+  v6 = *&options;
+  v7 = *&value;
+  WeakRetained = objc_loadWeakRetained(&self->super._device);
+  Element = objc_msgSend_getElement_(WeakRetained, v10, v7);
+
+  v12 = _IOHIDValueCreateWithStruct();
+  v14 = v12;
+  if (Element)
+  {
+    v15 = v12 == 0;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  if (v15)
+  {
+    if (!v12)
+    {
+      return v5;
+    }
+  }
+
+  else
+  {
+    v5 = objc_msgSend_setValue_value_options_(self, v13, Element, v12, v6);
+  }
+
+  CFRelease(v14);
+  return v5;
+}
+
+- (int)getElementValue:(unsigned int)value value:(IOHIDEventStruct *)a4 options:(unsigned int)options
+{
+  if (!a4)
+  {
+    return -536870206;
+  }
+
+  v5 = *&options;
+  v7 = *&value;
+  WeakRetained = objc_loadWeakRetained(&self->super._device);
+  Element = objc_msgSend_getElement_(WeakRetained, v10, v7);
+
+  value = 0xAAAAAAAAAAAAAAAALL;
+  Value_value_options = objc_msgSend_getValue_value_options_(self, v12, Element, &value, v5);
+  if (!Value_value_options)
+  {
+    v14 = IOHIDValueGetElement(value);
+    v15 = [HIDLibElement alloc];
+    v17 = objc_msgSend_initWithElementRef_(v15, v16, v14);
+    objc_msgSend_setValueRef_(v17, v18, value);
+    v21 = objc_msgSend_length(v17, v19, v20);
+    a4->type = objc_msgSend_type(v17, v22, v23);
+    a4->elementCookie = objc_msgSend_elementCookie(v17, v24, v25);
+    a4->timestamp = objc_msgSend_timestamp(v17, v26, v27);
+    v30 = v21;
+    if (v21 < 5uLL)
+    {
+      a4->longValueSize = 0;
+      a4->longValue = 0;
+      a4->value = objc_msgSend_integerValue(v17, v28, v29);
+    }
+
+    else
+    {
+      a4->longValueSize = v21;
+      v31 = malloc_type_malloc(v21, 0xA1DABBB7uLL);
+      a4->longValue = v31;
+      BytePtr = IOHIDValueGetBytePtr(value);
+      memmove(v31, BytePtr, v30);
+    }
+  }
+
+  return Value_value_options;
 }
 
 - (IOHIDOutputTransactionClass)initWithDevice:(id)device

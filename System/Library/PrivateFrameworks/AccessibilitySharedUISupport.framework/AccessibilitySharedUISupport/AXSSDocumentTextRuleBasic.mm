@@ -11,7 +11,7 @@
 
 - (void)setAvoidWords:(id)words
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   wordsCopy = words;
   v5 = objc_opt_new();
   selfCopy = self;
@@ -27,37 +27,37 @@
     v8 = objc_opt_new();
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = wordsCopy;
-  v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v9)
   {
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
-        v20 = 0;
-        v21 = &v20;
-        v22 = 0x2020000000;
-        v23 = 0;
+        v12 = *(*(&v23 + 1) + 8 * i);
+        v19 = 0;
+        v20 = &v19;
+        v21 = 0x2020000000;
+        v22 = 0;
         v13 = [v12 length];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __43__AXSSDocumentTextRuleBasic_setAvoidWords___block_invoke;
-        v19[3] = &unk_278BF0468;
-        v19[4] = &v20;
-        [v12 enumerateSubstringsInRange:0 options:v13 usingBlock:{3, v19}];
-        if (v21[6] >= 2)
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __43__AXSSDocumentTextRuleBasic_setAvoidWords___block_invoke;
+        v18[3] = &unk_278BF0468;
+        v18[4] = &v19;
+        [v12 enumerateSubstringsInRange:0 options:v13 usingBlock:{3, v18}];
+        if (v20[6] >= 2)
         {
           v14 = v8;
         }
@@ -68,10 +68,10 @@
         }
 
         [v14 addObject:v12];
-        _Block_object_dispose(&v20, 8);
+        _Block_object_dispose(&v19, 8);
       }
 
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
@@ -81,32 +81,31 @@
   selfCopy->_avoidWords = v5;
 
   [(AXSSDocumentTextRuleBasic *)selfCopy setAvoidPhrases:v8];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)issuesForWord:(id)word atRange:(_NSRange)range previousWord:(id)previousWord previousWordRange:(_NSRange)wordRange inText:(id)text ignoreRuleUntilIndex:(int64_t *)index
 {
   length = range.length;
   location = range.location;
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   wordCopy = word;
   previousWordCopy = previousWord;
   textCopy = text;
-  v48 = wordCopy;
+  v47 = wordCopy;
   if ([wordCopy length])
   {
     string = [wordCopy string];
     caseSensitive = [(AXSSDocumentTextRuleBasic *)self caseSensitive];
     avoidWords = [(AXSSDocumentTextRuleBasic *)self avoidWords];
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __110__AXSSDocumentTextRuleBasic_issuesForWord_atRange_previousWord_previousWordRange_inText_ignoreRuleUntilIndex___block_invoke;
-    v63[3] = &unk_278BF0490;
-    v46 = string;
-    v64 = v46;
-    v65 = !caseSensitive;
-    v50 = v65;
-    v15 = [avoidWords indexOfObjectPassingTest:v63];
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __110__AXSSDocumentTextRuleBasic_issuesForWord_atRange_previousWord_previousWordRange_inText_ignoreRuleUntilIndex___block_invoke;
+    v62[3] = &unk_278BF0490;
+    v45 = string;
+    v63 = v45;
+    v64 = !caseSensitive;
+    v49 = v64;
+    v15 = [avoidWords indexOfObjectPassingTest:v62];
 
     if (v15 == 0x7FFFFFFFFFFFFFFFLL)
     {
@@ -116,16 +115,16 @@
     else
     {
       v16 = objc_opt_new();
-      [v16 setOffendingText:v48];
+      [v16 setOffendingText:v47];
       [v16 setRange:{location, length}];
       v18 = objc_opt_class();
       suggestedWords = [(AXSSDocumentTextRuleBasic *)self suggestedWords];
-      string2 = [v48 string];
+      string2 = [v47 string];
       v21 = [v18 matchReplacementArrayCapitalization:suggestedWords withSource:string2];
       [v16 setSuggestions:v21];
 
       v22 = MEMORY[0x277CCACA8];
-      string3 = [v48 string];
+      string3 = [v47 string];
       v24 = [v22 stringWithFormat:@"The term '%@' may not be the best choice. Consider one of the following terms.", string3];
       [v16 setNote:v24];
 
@@ -137,25 +136,25 @@
 
     if (!v26)
     {
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       obj = [(AXSSDocumentTextRuleBasic *)self avoidPhrases];
-      v27 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
+      v27 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
       if (v27)
       {
-        v52 = *v60;
+        v51 = *v59;
         do
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v60 != v52)
+            if (*v59 != v51)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v59 + 1) + 8 * i);
+            v29 = *(*(&v58 + 1) + 8 * i);
             v30 = [v29 length];
             if (v30 + location < [textCopy length])
             {
@@ -164,27 +163,27 @@
 
               if (![v29 compare:v32 options:1])
               {
-                v55 = 0;
-                v56 = &v55;
-                v57 = 0x2020000000;
-                v58 = 0;
+                v54 = 0;
+                v55 = &v54;
+                v56 = 0x2020000000;
+                v57 = 0;
                 string5 = [textCopy string];
                 v34 = [textCopy length];
-                v54[0] = MEMORY[0x277D85DD0];
-                v54[1] = 3221225472;
-                v54[2] = __110__AXSSDocumentTextRuleBasic_issuesForWord_atRange_previousWord_previousWordRange_inText_ignoreRuleUntilIndex___block_invoke_2;
-                v54[3] = &unk_278BF04B8;
-                v54[5] = location;
-                v54[6] = v30;
-                v54[4] = &v55;
-                [string5 enumerateSubstringsInRange:location options:v34 - location usingBlock:{3, v54}];
+                v53[0] = MEMORY[0x277D85DD0];
+                v53[1] = 3221225472;
+                v53[2] = __110__AXSSDocumentTextRuleBasic_issuesForWord_atRange_previousWord_previousWordRange_inText_ignoreRuleUntilIndex___block_invoke_2;
+                v53[3] = &unk_278BF04B8;
+                v53[5] = location;
+                v53[6] = v30;
+                v53[4] = &v54;
+                [string5 enumerateSubstringsInRange:location options:v34 - location usingBlock:{3, v53}];
 
-                if (*(v56 + 24) == 1)
+                if (*(v55 + 24) == 1)
                 {
                   string6 = [textCopy string];
                   v36 = [string6 substringWithRange:{location, v30}];
 
-                  if ([v29 compare:v36 options:v50])
+                  if ([v29 compare:v36 options:v49])
                   {
                     v37 = v16;
                   }
@@ -199,7 +198,7 @@
                     [v37 setRange:{location, v30}];
                     v39 = objc_opt_class();
                     suggestedWords2 = [(AXSSDocumentTextRuleBasic *)self suggestedWords];
-                    string7 = [v48 string];
+                    string7 = [v47 string];
                     v42 = [v39 matchReplacementArrayCapitalization:suggestedWords2 withSource:string7];
                     [v37 setSuggestions:v42];
 
@@ -212,12 +211,12 @@
                   v16 = v37;
                 }
 
-                _Block_object_dispose(&v55, 8);
+                _Block_object_dispose(&v54, 8);
               }
             }
           }
 
-          v27 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
+          v27 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
         }
 
         while (v27);
@@ -227,8 +226,8 @@
     [v16 setSeverity:{-[AXSSDocumentTextRule severity](self, "severity")}];
     if (v16)
     {
-      v66 = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+      v65 = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
     }
 
     else
@@ -241,8 +240,6 @@
   {
     v17 = MEMORY[0x277CBEBF8];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

@@ -17,30 +17,30 @@ void __CMSMSleep_HandleIdleSleep_block_invoke(uint64_t a1)
   {
     if ((v3 & 1) == 0)
     {
-      v4 = 1;
+      v5 = 1;
 LABEL_8:
-      v5 = *(a1 + 32);
-      v6 = MXGetSerialQueue();
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = __CMSMSleep_HandleIdleSleep_block_invoke_2;
-      v7[3] = &unk_1E7AEADD8;
-      v7[4] = *(a1 + 32);
-      v8 = v4;
-      [v5 setIdleSleepPreventorUpdaterTimer:{MXDispatchUtilityCreateOneShotTimer(10.0, "CMSMSleep_HandleIdleSleep_block_invoke", "CMSessionManager_Sleep.m", 254, 0, 0, v6, v7, 0, 0)}];
+      v6 = *(a1 + 32);
+      v7 = MXGetSerialQueue(v3, v4);
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __CMSMSleep_HandleIdleSleep_block_invoke_2;
+      v8[3] = &unk_1E7AEADD8;
+      v8[4] = *(a1 + 32);
+      v9 = v5;
+      [v6 setIdleSleepPreventorUpdaterTimer:{MXDispatchUtilityCreateOneShotTimer("CMSMSleep_HandleIdleSleep_block_invoke", "CMSessionManager_Sleep.m", 254, 0, 0, v7, v8, 0, 10.0, 0)}];
     }
   }
 
   else if (v3)
   {
-    v4 = 0;
+    v5 = 0;
     goto LABEL_8;
   }
 }
 
 void __CMSMSleep_ExtendPlaybackProcessAssertion_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = CMSMUtility_CopyMXCoreSessionWithID(*(a1 + 32));
   if (v1)
   {
@@ -63,13 +63,11 @@ void __CMSMSleep_ExtendPlaybackProcessAssertion_block_invoke(uint64_t a1)
       CMSMSleep_ReleasePlaybackProcessAssertion(v2);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __CMSMSleep_FetchTemporaryPlaybackProcessAssertion_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = [MXSessionManagerBase copySessionWithMXCoreSessionID:*(a1 + 32)];
   if (v1)
   {
@@ -94,8 +92,6 @@ void __CMSMSleep_FetchTemporaryPlaybackProcessAssertion_block_invoke(uint64_t a1
       [v2 setIsTemporaryAssertionEnabled:0];
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

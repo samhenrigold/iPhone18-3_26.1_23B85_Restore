@@ -44,7 +44,7 @@
 
 - (void)fileTransfer:(id)transfer explicitDownloadSucceededWithPath:(id)path livePhotoBundlePath:(id)bundlePath
 {
-  v6 = sub_1A870CCE0(&unk_1EB3090D0);
+  v6 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v21 - v7;
   v9 = sub_1A88C82E8();
@@ -93,7 +93,7 @@
 
 - (void)updateNicknameHandlesForSharing:(id)sharing blocked:(id)blocked
 {
-  v5 = sub_1A870CCE0(&unk_1EB3090D0);
+  v5 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = v13 - v6;
   v8 = sub_1A88C88F8();
@@ -127,7 +127,7 @@
 
 - (void)unreadCountChanged:(int64_t)changed
 {
-  v5 = sub_1A870CCE0(&unk_1EB3090D0);
+  v5 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = v11 - v6;
   v14 = &type metadata for UnreadCountChangedBroadcast;
@@ -165,7 +165,7 @@
 
 - (void)lastFailedMessageDateChanged:(int64_t)changed
 {
-  v4 = sub_1A870CCE0(&unk_1EB3090D0);
+  v4 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = v9 - v5;
   v10[3] = &type metadata for LastFailedMessageDateChangedBroadcast;
@@ -206,7 +206,7 @@
   sub_1A88C8CB8();
   swift_unknownObjectRelease();
   sub_1A8783C70(0xD00000000000001BLL, 0x80000001A8918A50);
-  sub_1A85F1084(&v5);
+  sub_1A85F1084(v5);
   sub_1A85F1084(v6);
 }
 
@@ -219,7 +219,7 @@
   sub_1A88C8CB8();
   swift_unknownObjectRelease();
   sub_1A8783C70(0xD000000000000025, 0x80000001A8918A70);
-  sub_1A85F1084(&v5);
+  sub_1A85F1084(v5);
   sub_1A85F1084(v6);
 }
 
@@ -252,7 +252,7 @@
 
 - (void)fileTransfer:(id)transfer updatedWithProperties:(id)properties
 {
-  v5 = sub_1A870CCE0(&unk_1EB3090D0);
+  v5 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = v16 - v6;
   v8 = sub_1A88C82E8();
@@ -331,7 +331,7 @@
 
 - (void)chat:(id)chat lastMessageTimeStampOnLoadUpdated:(double)updated
 {
-  v6 = sub_1A870CCE0(&unk_1EB3090D0);
+  v6 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v15 - v7;
   v9 = sub_1A88C82E8();
@@ -357,7 +357,7 @@
 
 - (void)leftChat:(id)chat
 {
-  v4 = sub_1A870CCE0(&unk_1EB3090D0);
+  v4 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = v13 - v5;
   v7 = sub_1A88C82E8();
@@ -407,7 +407,7 @@ LABEL_3:
 
   v13 = 0;
 LABEL_6:
-  v15 = sub_1A870CCE0(&unk_1EB3052E0);
+  v15 = sub_1A870CCE0(&unk_1EB3052E0, &qword_1A88EDCD0);
   MEMORY[0x1EEE9AC00](v15 - 8);
   v17 = &v23 - v16;
   if (date)
@@ -428,7 +428,7 @@ LABEL_6:
 
   _s17IMSharedUtilities23IntentClientBroadcasterC34movedMessageGUIDsToRecentlyDeleted_8chatGUID7queryID12deletionDateySaySSG_SSSgAI10Foundation0Q0VSgtF_0(v10, v11, d, v13, iD, v17);
 
-  sub_1A85EF638(v17, &unk_1EB3052E0);
+  sub_1A85EF638(v17, &unk_1EB3052E0, &qword_1A88EDCD0);
 }
 
 - (void)movedMessagesToRecentlyDeletedForChatsWithGUIDs:(id)ds queryID:(id)d deletionDate:(id)date
@@ -445,7 +445,7 @@ LABEL_6:
     v9 = 0;
   }
 
-  v11 = sub_1A870CCE0(&unk_1EB3052E0);
+  v11 = sub_1A870CCE0(&unk_1EB3052E0, &qword_1A88EDCD0);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v17 - v12;
   if (date)
@@ -464,15 +464,15 @@ LABEL_6:
   selfCopy = self;
   _s17IMSharedUtilities23IntentClientBroadcasterC38movedMessagesToRecentlyDeletedForChats9withGUIDs7queryID12deletionDateySaySSG_SSSg10Foundation0R0VSgtF_0(v8, v9, d, v13);
 
-  sub_1A85EF638(v13, &unk_1EB3052E0);
+  sub_1A85EF638(v13, &unk_1EB3052E0, &qword_1A88EDCD0);
 }
 
 - (void)loadedRecoverableMessagesMetadata:(id)metadata queryID:(id)d
 {
-  v5 = sub_1A870CCE0(&unk_1EB3090D0);
+  v5 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = v17 - v6;
-  sub_1A870CCE0(&qword_1EB303758);
+  sub_1A870CCE0(&qword_1EB303758, &qword_1A88E3ED0);
   v8 = sub_1A88C81A8();
   v9 = sub_1A88C82E8();
   v11 = v10;
@@ -499,7 +499,7 @@ LABEL_6:
 
 - (void)permanentlyDeletedRecoverableMessagesForChatsWithGUIDs:(id)ds deletedChatGUIDs:(id)iDs
 {
-  v5 = sub_1A870CCE0(&unk_1EB3090D0);
+  v5 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = v13 - v6;
   v8 = sub_1A88C85F8();
@@ -524,7 +524,7 @@ LABEL_6:
 
 - (void)chatsNeedRemerging:(id)remerging groupedChats:(id)chats
 {
-  v5 = sub_1A870CCE0(&unk_1EB3090D0);
+  v5 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = sub_1A88C85F8();
@@ -658,7 +658,7 @@ LABEL_4:
     v21 = 0;
   }
 
-  sub_1A85E9718(0, &qword_1ED8C94E0);
+  sub_1A85E9718(0, &qword_1ED8C94E0, off_1E7824910);
   v23 = sub_1A88C85F8();
   v24 = sub_1A88C85F8();
   selfCopy = self;
@@ -700,7 +700,7 @@ LABEL_4:
     v12 = 0;
   }
 
-  sub_1A870CCE0(&qword_1EB303320);
+  sub_1A870CCE0(&qword_1EB303320, &qword_1A88E4760);
   v14 = sub_1A88C85F8();
   selfCopy = self;
   _s17IMSharedUtilities23IntentClientBroadcasterC7account_4chat5style15messagesUpdatedySS_SSSgSo11IMChatStyleVSaySDys11AnyHashableVypGGtF_0(v9, v11, v12, chat, style, v14);
@@ -737,7 +737,7 @@ LABEL_4:
 - (void)account:(id)account chat:(id)chat style:(unsigned __int8)style chatProperties:(id)properties groupID:(id)d chatPersonCentricID:(id)iD statusChanged:(int)changed handleInfo:(id)self0
 {
   styleCopy = style;
-  v13 = sub_1A870CCE0(&unk_1EB3090D0);
+  v13 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v13 - 8);
   v15 = &v34 - v14;
   v16 = sub_1A88C82E8();
@@ -805,7 +805,7 @@ LABEL_6:
 - (void)account:(id)account chat:(id)chat style:(unsigned __int8)style chatProperties:(id)properties chatPersonCentricID:(id)d member:(id)member statusChanged:(int)changed
 {
   styleCopy = style;
-  v12 = sub_1A870CCE0(&unk_1EB3090D0);
+  v12 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v30 - v13;
   v15 = sub_1A88C82E8();
@@ -863,7 +863,7 @@ LABEL_6:
 
 - (void)account:(id)account handleID:(id)d updatedLastReceivedOnGridMessageDate:(id)date
 {
-  v6 = sub_1A870CCE0(&unk_1EB3052E0);
+  v6 = sub_1A870CCE0(&unk_1EB3052E0, &qword_1A88EDCD0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v11 - v7;
   if (date)
@@ -880,7 +880,7 @@ LABEL_6:
   }
 
   sub_1A8783C70(0xD000000000000039, 0x80000001A8919E80);
-  sub_1A85EF638(v8, &unk_1EB3052E0);
+  sub_1A85EF638(v8, &unk_1EB3052E0, &qword_1A88EDCD0);
 }
 
 - (void)groupPhotoUpdatedForChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account userInfo:(id)info
@@ -909,7 +909,7 @@ LABEL_6:
 
 - (void)databaseUpdated:(id)updated
 {
-  v4 = sub_1A870CCE0(&unk_1EB3090D0);
+  v4 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = v13 - v5;
   v7 = sub_1A88C82E8();

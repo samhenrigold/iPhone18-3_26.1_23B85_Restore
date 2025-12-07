@@ -179,7 +179,7 @@
 
 - (void)_setupCloudSyncSupportIfRequired
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained((self + 168));
@@ -194,18 +194,18 @@
       v7 = NSStringFromSelector(sel__setupCloudSyncSupportIfRequired);
       v8 = v7;
       v9 = @"NO";
-      *v12 = 138543874;
-      *&v12[4] = self;
-      *&v12[12] = 2114;
+      *v11 = 138543874;
+      *&v11[4] = self;
+      *&v11[12] = 2114;
       if (supportsCloudSync)
       {
         v9 = @"YES";
       }
 
-      *&v12[14] = v7;
-      *&v12[22] = 2114;
-      v13 = v9;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "%{public}@ %{public}@ : %{public}@", v12, 0x20u);
+      *&v11[14] = v7;
+      *&v11[22] = 2114;
+      v12 = v9;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "%{public}@ %{public}@ : %{public}@", v11, 0x20u);
     }
 
     os_unfair_lock_lock((self + 8));
@@ -222,12 +222,12 @@
       if (supportsCloudSync)
       {
         v10 = *(self + 128);
-        *v12 = MEMORY[0x277D85DD0];
-        *&v12[8] = 3221225472;
-        *&v12[16] = __49__HDCloudSyncCoordinator__enableCloudSyncSupport__block_invoke;
-        v13 = &unk_278613968;
+        *v11 = MEMORY[0x277D85DD0];
+        *&v11[8] = 3221225472;
+        *&v11[16] = __49__HDCloudSyncCoordinator__enableCloudSyncSupport__block_invoke;
+        v12 = &unk_278613968;
         selfCopy = self;
-        dispatch_async(v10, v12);
+        dispatch_async(v10, v11);
       }
 
       else
@@ -236,8 +236,6 @@
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -249,26 +247,26 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke(uint64_t 
 
 - (void)_syncAllProfilesViaGatedBackgroundTaskWithCompletion:(uint64_t)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (completion)
   {
-    v31 = 0;
+    v30 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v34 = __Block_byref_object_copy__41;
-    v35 = __Block_byref_object_dispose__41;
-    v36 = 0;
+    v33 = __Block_byref_object_copy__41;
+    v34 = __Block_byref_object_dispose__41;
+    v35 = 0;
     WeakRetained = objc_loadWeakRetained((completion + 168));
     primaryProfile = [WeakRetained primaryProfile];
     database = [primaryProfile database];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __78__HDCloudSyncCoordinator__computeCoalescedSyncContext_coalescedRequest_error___block_invoke;
-    v32[3] = &unk_278618610;
-    v32[4] = buf;
-    v7 = [(HDHealthEntity *)HDCachedSyncRequestEntity performWriteTransactionWithHealthDatabase:database error:&v31 block:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __78__HDCloudSyncCoordinator__computeCoalescedSyncContext_coalescedRequest_error___block_invoke;
+    v31[3] = &unk_278618610;
+    v31[4] = buf;
+    v7 = [(HDHealthEntity *)HDCachedSyncRequestEntity performWriteTransactionWithHealthDatabase:database error:&v30 block:v31];
 
     if (v7)
     {
@@ -290,23 +288,23 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke(uint64_t 
 
     v13 = v9;
     v14 = v11;
-    v15 = v31;
+    v15 = v30;
     v16 = v15;
     if (v7)
     {
       v17 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:2];
-      v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithCompletion___block_invoke;
-      v26 = &unk_278619590;
+      v22 = MEMORY[0x277D85DD0];
+      v23 = 3221225472;
+      v24 = __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithCompletion___block_invoke;
+      v25 = &unk_278619590;
       completionCopy = completion;
       v18 = v14;
-      v28 = v18;
-      v29 = v17;
-      v30 = v3;
+      v27 = v18;
+      v28 = v17;
+      v29 = v3;
       v19 = v17;
-      v20 = [completion syncAllProfilesWithContext:v13 completion:&v23];
-      [v19 addChild:v20 withPendingUnitCount:{1, v23, v24, v25, v26, completionCopy}];
+      v20 = [completion syncAllProfilesWithContext:v13 completion:&v22];
+      [v19 addChild:v20 withPendingUnitCount:{1, v22, v23, v24, v25, completionCopy}];
       [completion notifyObservers:*(completion + 88) syncRequestStarted:v18 withProgress:v19];
     }
 
@@ -329,13 +327,11 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke(uint64_t 
       (*(v3 + 2))(v3, 0, 0);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = v4;
@@ -362,9 +358,9 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke_2(uint64_
         v17 = [v16 sharedSummaryManager];
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v23 = __61__HDCloudSyncCoordinator__pushSharedSummariesWithCompletion___block_invoke_2;
-        v24 = &unk_2786130D8;
-        v25 = v5;
+        v22 = __61__HDCloudSyncCoordinator__pushSharedSummariesWithCompletion___block_invoke_2;
+        v23 = &unk_2786130D8;
+        v24 = v5;
         v18 = [v17 push:&buf];
       }
 
@@ -389,8 +385,6 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke_2(uint64_
       (*(v5 + 2))(v5, 0, 0);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cloudSyncSupportStatusDidChange
@@ -436,7 +430,7 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke_2(uint64_
 
 - (void)delayNextCloudKitOperation:(double)operation
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   lock_nextAvailableOperationStartTime = Current + operation;
   os_unfair_lock_lock(&self->_lock);
@@ -454,18 +448,16 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke_2(uint64_
     v8 = MEMORY[0x277CBEAA8];
     v9 = v7;
     v10 = [[v8 alloc] initWithTimeIntervalSinceReferenceDate:lock_nextAvailableOperationStartTime];
-    v12 = 138544130;
+    v11 = 138544130;
     selfCopy = self;
-    v14 = 2048;
+    v13 = 2048;
     operationCopy = operation;
-    v16 = 2048;
-    v17 = lock_nextAvailableOperationStartTime - Current;
-    v18 = 2114;
-    v19 = v10;
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: CloudKit operation delay of %0.2lfs requested; next available operation start is in %0.2lfs at %{public}@", &v12, 0x2Au);
+    v15 = 2048;
+    v16 = lock_nextAvailableOperationStartTime - Current;
+    v17 = 2114;
+    v18 = v10;
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: CloudKit operation delay of %0.2lfs requested; next available operation start is in %0.2lfs at %{public}@", &v11, 0x2Au);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)scheduleSyncForAllProfilesViaGatedBackgroundTask:(BOOL)task context:(id)context reason:(id)reason error:(id *)error
@@ -503,7 +495,7 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke_2(uint64_
 
 - (uint64_t)_setupSyncRequestWithContext:(void *)context reason:(void *)reason error:
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v7 = a2;
   contextCopy = context;
   if (!self)
@@ -524,14 +516,14 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke_2(uint64_
       v24 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v44 = v24;
+        v43 = v24;
         [v9 reason];
-        v45 = HKCloudSyncReasonToString();
+        v44 = HKCloudSyncReasonToString();
         *buf = 138543618;
         selfCopy4 = self;
-        v51 = 2114;
-        v52 = v45;
-        _os_log_error_impl(&dword_228986000, v44, OS_LOG_TYPE_ERROR, "%{public}@: Incoming sync request with reason: %{public}@ is disabled because no iPad is present in context", buf, 0x16u);
+        v50 = 2114;
+        v51 = v44;
+        _os_log_error_impl(&dword_228986000, v43, OS_LOG_TYPE_ERROR, "%{public}@: Incoming sync request with reason: %{public}@ is disabled because no iPad is present in context", buf, 0x16u);
       }
 
       v22 = MEMORY[0x277CCA9B8];
@@ -555,8 +547,8 @@ void __48__HDCloudSyncCoordinator_profileDidBecomeReady___block_invoke_2(uint64_
       v21 = HKCloudSyncReasonToString();
       *buf = 138543618;
       selfCopy4 = self;
-      v51 = 2114;
-      v52 = v21;
+      v50 = 2114;
+      v51 = v21;
       _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: Incoming sync request with reason: %{public}@. Sync requests disabled by behavior", buf, 0x16u);
     }
 
@@ -573,9 +565,9 @@ LABEL_13:
     goto LABEL_16;
   }
 
-  v48 = 0;
-  v15 = [self canPerformCloudSyncWithError:&v48];
-  v16 = v48;
+  v47 = 0;
+  v15 = [self canPerformCloudSyncWithError:&v47];
+  v16 = v47;
   if (v15)
   {
     v17 = 0;
@@ -589,10 +581,10 @@ LABEL_13:
   {
     *buf = 138543874;
     selfCopy4 = self;
-    v51 = 2114;
-    v52 = v9;
-    v53 = 2114;
-    v54 = v16;
+    v50 = 2114;
+    v51 = v9;
+    v52 = 2114;
+    v53 = v16;
     _os_log_impl(&dword_228986000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ \n Sync requested on client gated activity, but is not permitted. %{public}@", buf, 0x20u);
   }
 
@@ -639,9 +631,9 @@ LABEL_18:
   date = [MEMORY[0x277CBEAA8] date];
   v31 = objc_loadWeakRetained(self + 21);
   primaryProfile = [v31 primaryProfile];
-  v47 = v28;
-  v33 = [HDCachedSyncRequestEntity insertSyncRequest:syncRequest reason:contextCopy date:date profile:primaryProfile error:&v47];
-  v34 = v47;
+  v46 = v28;
+  v33 = [HDCachedSyncRequestEntity insertSyncRequest:syncRequest reason:contextCopy date:date profile:primaryProfile error:&v46];
+  v34 = v46;
 
   if (!v33)
   {
@@ -651,8 +643,8 @@ LABEL_18:
     {
       *buf = 138543618;
       selfCopy4 = self;
-      v51 = 2114;
-      v52 = v34;
+      v50 = 2114;
+      v51 = v34;
       _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "%{public}@: Error persisting sync request %{public}@", buf, 0x16u);
     }
 
@@ -681,7 +673,6 @@ LABEL_35:
 LABEL_36:
 
 LABEL_37:
-  v42 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
@@ -776,7 +767,7 @@ LABEL_37:
 
 void __64__HDCloudSyncCoordinator_syncAllProfilesWithContext_completion___block_invoke(uint64_t a1)
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 48);
   v4 = *(a1 + 40);
@@ -784,13 +775,13 @@ void __64__HDCloudSyncCoordinator_syncAllProfilesWithContext_completion___block_
   if (v2)
   {
     [*(v2 + 160) checkLastSyncDate];
-    v53 = 0;
-    v6 = [v2 canPerformCloudSyncWithError:&v53];
-    v7 = v53;
+    v52 = 0;
+    v6 = [v2 canPerformCloudSyncWithError:&v52];
+    v7 = v52;
     v8 = v7;
     if (v6)
     {
-      v46 = v7;
+      v45 = v7;
       dispatch_assert_queue_V2(*(v2 + 128));
       v9 = [(HDCloudSyncCoordinator *)v2 _primaryProfile];
       v10 = HDCloudSyncRestorePhaseSyncCompleteStartDate(v9);
@@ -804,13 +795,13 @@ void __64__HDCloudSyncCoordinator_syncAllProfilesWithContext_completion___block_
       }
 
       v14 = kHDEventNameCloudSync;
-      v62[0] = @"reason";
+      v61[0] = @"reason";
       v15 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v4, "reason")}];
-      v62[1] = @"options";
-      v63[0] = v15;
+      v61[1] = @"options";
+      v62[0] = v15;
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "options")}];
-      v63[1] = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
+      v62[1] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:2];
       HDPowerLog(v14, v17, 1);
 
       v18 = MEMORY[0x277CCACA8];
@@ -857,41 +848,41 @@ void __64__HDCloudSyncCoordinator_syncAllProfilesWithContext_completion___block_
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion___block_invoke;
-      v55 = &unk_278619518;
-      v56 = v2;
-      v61 = v32 == 0;
-      v48 = v4;
+      v54 = &unk_278619518;
+      v55 = v2;
+      v60 = v32 == 0;
+      v47 = v4;
       v34 = v4;
-      v57 = v34;
-      v60 = v26;
+      v56 = v34;
+      v59 = v26;
       v35 = v31;
-      v58 = v35;
-      v47 = v5;
-      v59 = v5;
+      v57 = v35;
+      v46 = v5;
+      v58 = v5;
       v36 = _Block_copy(buf);
       WeakRetained = objc_loadWeakRetained((v2 + 168));
       v38 = [WeakRetained profileManager];
       v39 = [v38 allProfileIdentifiers];
 
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion___block_invoke_378;
-      v49[3] = &unk_278619540;
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion___block_invoke_378;
+      v48[3] = &unk_278619540;
       v40 = v36;
-      v52 = v40;
-      v49[4] = v2;
+      v51 = v40;
+      v48[4] = v2;
       v41 = v39;
-      v50 = v41;
-      v51 = v34;
-      v2 = [(HDCloudSyncCoordinator *)v2 _queue_syncProfilesWithIdentifiers:v41 context:v51 completion:v49];
+      v49 = v41;
+      v50 = v34;
+      v2 = [(HDCloudSyncCoordinator *)v2 _queue_syncProfilesWithIdentifiers:v41 context:v50 completion:v48];
       if (!v32)
       {
         objc_storeStrong(v33, v2);
       }
 
-      v5 = v47;
-      v4 = v48;
-      v8 = v46;
+      v5 = v46;
+      v4 = v47;
+      v8 = v45;
     }
 
     else
@@ -915,7 +906,6 @@ void __64__HDCloudSyncCoordinator_syncAllProfilesWithContext_completion___block_
   v43 = *(*(a1 + 56) + 8);
   v44 = *(v43 + 40);
   *(v43 + 40) = v2;
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -942,7 +932,7 @@ void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion__
 
 void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion___block_invoke_2(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (*(a1 + 80) == 1)
   {
     v2 = *(a1 + 32);
@@ -983,23 +973,23 @@ void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion__
     v17 = *(a1 + 32);
     v18 = *(v17 + 56);
     *buf = 138543618;
-    v48 = v17;
-    v49 = 2114;
-    v50 = v18;
+    v43 = v17;
+    v44 = 2114;
+    v45 = v18;
     _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: finish syncAllProfiles: %{public}@", buf, 0x16u);
   }
 
   v19 = kHDEventNameCloudSync;
-  v45[0] = @"reason";
+  v40[0] = @"reason";
   v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "reason")}];
-  v46[0] = v20;
-  v45[1] = @"options";
+  v41[0] = v20;
+  v40[1] = @"options";
   v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "options")}];
-  v46[1] = v21;
-  v45[2] = @"result";
+  v41[1] = v21;
+  v40[2] = @"result";
   v22 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 81)];
-  v46[2] = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:3];
+  v41[2] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
   HDPowerLog(v19, v23, 3);
 
   _HKInitializeLogging();
@@ -1016,51 +1006,45 @@ void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion__
       v28 = *(a1 + 40);
       v29 = *(a1 + 81);
       *buf = 138543618;
-      v48 = v28;
-      v49 = 1024;
-      LODWORD(v50) = v29;
+      v43 = v28;
+      v44 = 1024;
+      LODWORD(v45) = v29;
       _os_signpost_emit_with_name_impl(&dword_228986000, v26, OS_SIGNPOST_INTERVAL_END, v27, "cloud-sync", " enableTelemetry=YES %{public}@, success=%{BOOL}d", buf, 0x12u);
     }
   }
 
   [*(a1 + 56) invalidate];
   [*(*(a1 + 32) + 152) updatePeriodicActivitiesWithSyncSuccess:*(a1 + 81)];
-  v30 = *(a1 + 81);
-  v31 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v32 = v4;
-  v33 = [v32 countByEnumeratingWithState:&v40 objects:v44 count:16];
-  if (v33)
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v30 = v4;
+  v31 = [v30 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v31)
   {
-    v34 = v33;
-    v35 = *v41;
+    v32 = v31;
+    v33 = *v36;
     do
     {
-      v36 = 0;
+      v34 = 0;
       do
       {
-        if (*v41 != v35)
+        if (*v36 != v33)
         {
-          objc_enumerationMutation(v32);
+          objc_enumerationMutation(v30);
         }
 
-        v37 = *(a1 + 81);
-        v38 = *(a1 + 48);
-        (*(*(*(&v40 + 1) + 8 * v36++) + 16))();
+        (*(*(*(&v35 + 1) + 8 * v34++) + 16))();
       }
 
-      while (v34 != v36);
-      v34 = [v32 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      while (v32 != v34);
+      v32 = [v30 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
-    while (v34);
+    while (v32);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion___block_invoke_378(uint64_t a1, char a2, void *a3)
@@ -1107,7 +1091,7 @@ void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion__
 
 - (id)_queue_syncProfilesWithIdentifiers:(void *)identifiers context:(void *)context completion:
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v7 = a2;
   identifiersCopy = identifiers;
   contextCopy = context;
@@ -1117,57 +1101,57 @@ void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion__
     if ([v7 count])
     {
       v9 = objc_alloc_init(MEMORY[0x277D10BB0]);
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __80__HDCloudSyncCoordinator__queue_syncProfilesWithIdentifiers_context_completion___block_invoke;
-      v41[3] = &unk_278619568;
-      v41[4] = self;
-      v25 = contextCopy;
-      v42 = contextCopy;
-      [v9 setDidFinish:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __80__HDCloudSyncCoordinator__queue_syncProfilesWithIdentifiers_context_completion___block_invoke;
+      v40[3] = &unk_278619568;
+      v40[4] = self;
+      v24 = contextCopy;
+      v41 = contextCopy;
+      [v9 setDidFinish:v40];
       _HKInitializeLogging();
       v10 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v45 = v7;
-        v46 = 2114;
-        v47 = identifiersCopy;
+        v44 = v7;
+        v45 = 2114;
+        v46 = identifiersCopy;
         _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "Scheduling cloud sync for profiles %{public}@: %{public}@", buf, 0x16u);
       }
 
-      v30 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(v7, "count")}];
+      v29 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(v7, "count")}];
       [v9 beginTask];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
-      v26 = v7;
+      v25 = v7;
       obj = v7;
-      v32 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
-      if (v32)
+      v31 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+      if (v31)
       {
-        v29 = *v38;
+        v28 = *v37;
         selfCopy = self;
         do
         {
-          for (i = 0; i != v32; ++i)
+          for (i = 0; i != v31; ++i)
           {
-            if (*v38 != v29)
+            if (*v37 != v28)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v37 + 1) + 8 * i);
+            v12 = *(*(&v36 + 1) + 8 * i);
             [v9 beginTask];
-            v33[0] = MEMORY[0x277D85DD0];
-            v33[1] = 3221225472;
-            v34 = __80__HDCloudSyncCoordinator__queue_syncProfilesWithIdentifiers_context_completion___block_invoke_383;
-            v35 = &unk_2786130B0;
-            v36 = v9;
+            v32[0] = MEMORY[0x277D85DD0];
+            v32[1] = 3221225472;
+            v33 = __80__HDCloudSyncCoordinator__queue_syncProfilesWithIdentifiers_context_completion___block_invoke_383;
+            v34 = &unk_2786130B0;
+            v35 = v9;
             v13 = v12;
             v14 = identifiersCopy;
-            v15 = v33;
+            v15 = v32;
             if (!v13)
             {
               currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -1191,7 +1175,7 @@ void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion__
 
               else
               {
-                (v34)(v15, 1, 0);
+                (v33)(v15, 1, 0);
                 [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
               }
               v21 = ;
@@ -1201,39 +1185,37 @@ void __71__HDCloudSyncCoordinator__queue_syncAllProfilesWithContext_completion__
 
             else
             {
-              (v34)(v15, 1, 0);
+              (v33)(v15, 1, 0);
               v21 = [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
             }
 
-            [v30 addChild:v21 withPendingUnitCount:1];
+            [v29 addChild:v21 withPendingUnitCount:1];
           }
 
-          v32 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+          v31 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
         }
 
-        while (v32);
+        while (v31);
       }
 
       [v9 finishTask];
-      contextCopy = v25;
-      v7 = v26;
+      contextCopy = v24;
+      v7 = v25;
     }
 
     else
     {
       (*(contextCopy + 2))(contextCopy, 1, 0);
-      v30 = [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
+      v29 = [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
     }
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v29;
 }
 
 void __80__HDCloudSyncCoordinator__queue_syncProfilesWithIdentifiers_context_completion___block_invoke(uint64_t a1, uint64_t a2, char a3, void *a4)
@@ -1310,12 +1292,12 @@ void __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithComp
 
 - (void)clearClientSyncRequestsQueue
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_daemon);
   primaryProfile = [WeakRetained primaryProfile];
-  v11 = 0;
-  v5 = [HDCachedSyncRequestEntity clearInProgressSyncRequests:primaryProfile error:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [HDCachedSyncRequestEntity clearInProgressSyncRequests:primaryProfile error:&v10];
+  v6 = v10;
 
   v7 = MEMORY[0x277CCC328];
   if (!v5)
@@ -1326,8 +1308,8 @@ void __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithComp
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v14 = 2112;
-      v15 = v6;
+      v13 = 2112;
+      v14 = v6;
       _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Error clearing all in progress sync requests %@", buf, 0x16u);
     }
   }
@@ -1340,8 +1322,6 @@ void __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithComp
     selfCopy2 = self;
     _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Clearing client sync request queue", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)markAllClientSyncRequestsAsInProgress:(id *)progress
@@ -1356,31 +1336,31 @@ void __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithComp
 
 - (void)prepareAllProfilesForPeriodicSyncAndRestore
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_daemon);
   profileManager = [WeakRetained profileManager];
 
   allProfileIdentifiers = [profileManager allProfileIdentifiers];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [allProfileIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allProfileIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allProfileIdentifiers);
         }
 
-        v9 = [profileManager profileForIdentifier:*(*(&v12 + 1) + 8 * v8)];
+        v9 = [profileManager profileForIdentifier:*(*(&v11 + 1) + 8 * v8)];
         cloudSyncManager = [v9 cloudSyncManager];
         [cloudSyncManager prepareForPeriodicSync];
 
@@ -1388,75 +1368,73 @@ void __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithComp
       }
 
       while (v6 != v8);
-      v6 = [allProfileIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allProfileIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resetAllProfilesWithContext:(id)context completion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v7 = objc_alloc_init(MEMORY[0x277D10BB0]);
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___block_invoke;
-  v42[3] = &unk_2786152A8;
-  v28 = completionCopy;
-  v43 = v28;
-  [v7 setDidFinish:v42];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___block_invoke;
+  v41[3] = &unk_2786152A8;
+  v27 = completionCopy;
+  v42 = v27;
+  [v7 setDidFinish:v41];
   _HKInitializeLogging();
   v8 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v47 = 2114;
-    v48 = contextCopy;
+    v46 = 2114;
+    v47 = contextCopy;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning cloud reset for all profiles: %{public}@", buf, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_daemon);
   profileManager = [WeakRetained profileManager];
 
-  v27 = profileManager;
+  v26 = profileManager;
   allProfileIdentifiers = [profileManager allProfileIdentifiers];
   [v7 beginTask];
-  v31 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(allProfileIdentifiers, "count")}];
+  v30 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(allProfileIdentifiers, "count")}];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = allProfileIdentifiers;
-  v33 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+  if (v32)
   {
-    v30 = *v39;
+    v29 = *v38;
     do
     {
       v12 = 0;
       do
       {
-        if (*v39 != v30)
+        if (*v38 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v38 + 1) + 8 * v12);
+        v13 = *(*(&v37 + 1) + 8 * v12);
         [v7 beginTask];
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v35 = __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___block_invoke_401;
-        v36 = &unk_2786130B0;
-        v37 = v7;
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v34 = __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___block_invoke_401;
+        v35 = &unk_2786130B0;
+        v36 = v7;
         v14 = v13;
         v15 = contextCopy;
-        v16 = v34;
+        v16 = v33;
         if (self)
         {
           if (!v14)
@@ -1480,7 +1458,7 @@ void __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithComp
 
             else
             {
-              (v35)(v16, 1, 0);
+              (v34)(v16, 1, 0);
               [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
             }
             v22 = ;
@@ -1488,7 +1466,7 @@ void __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithComp
 
           else
           {
-            (v35)(v16, 1, 0);
+            (v34)(v16, 1, 0);
             v22 = [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
           }
         }
@@ -1498,22 +1476,21 @@ void __79__HDCloudSyncCoordinator__syncAllProfilesViaGatedBackgroundTaskWithComp
           v22 = 0;
         }
 
-        [v31 addChild:v22 withPendingUnitCount:1];
+        [v30 addChild:v22 withPendingUnitCount:1];
         ++v12;
       }
 
-      while (v33 != v12);
-      v24 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
-      v33 = v24;
+      while (v32 != v12);
+      v24 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v32 = v24;
     }
 
     while (v24);
   }
 
   [v7 finishTask];
-  v25 = *MEMORY[0x277D85DE8];
 
-  return v31;
+  return v30;
 }
 
 void __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___block_invoke(uint64_t a1, uint64_t a2, int a3, void *a4)
@@ -1551,7 +1528,7 @@ uint64_t __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___b
 - (id)fetchCloudDescriptionWithContext:(id)context updateCacheAndPrepareForSync:(BOOL)sync completion:(id)completion
 {
   syncCopy = sync;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   _HKInitializeLogging();
@@ -1564,11 +1541,11 @@ uint64_t __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___b
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "Scheduling fetch of cloud description for all profiles with context %{public}@", buf, 0xCu);
   }
 
-  v53[0] = 0;
-  v53[1] = v53;
-  v53[2] = 0x2810000000;
-  v53[3] = &unk_22929BC4D;
-  v54 = 0;
+  v52[0] = 0;
+  v52[1] = v52;
+  v52[2] = 0x2810000000;
+  v52[3] = &unk_22929BC4D;
+  v53 = 0;
   _HKInitializeLogging();
   v9 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
@@ -1584,57 +1561,57 @@ uint64_t __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___b
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v57 = __Block_byref_object_copy__41;
-  v58 = __Block_byref_object_dispose__41;
-  v59 = objc_alloc_init(HDCloudSyncPipelineStageDescription);
+  v56 = __Block_byref_object_copy__41;
+  v57 = __Block_byref_object_dispose__41;
+  v58 = objc_alloc_init(HDCloudSyncPipelineStageDescription);
   v11 = objc_alloc_init(MEMORY[0x277D10BB0]);
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __99__HDCloudSyncCoordinator_fetchCloudDescriptionWithContext_updateCacheAndPrepareForSync_completion___block_invoke;
-  v48[3] = &unk_2786195B8;
-  v51 = v53;
-  v52 = buf;
-  v30 = getPersistedAccountInfo;
-  v49 = v30;
-  v29 = completionCopy;
-  v50 = v29;
-  [v11 setDidFinish:v48];
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __99__HDCloudSyncCoordinator_fetchCloudDescriptionWithContext_updateCacheAndPrepareForSync_completion___block_invoke;
+  v47[3] = &unk_2786195B8;
+  v50 = v52;
+  v51 = buf;
+  v29 = getPersistedAccountInfo;
+  v48 = v29;
+  v28 = completionCopy;
+  v49 = v28;
+  [v11 setDidFinish:v47];
   WeakRetained = objc_loadWeakRetained(&self->_daemon);
   profileManager = [WeakRetained profileManager];
 
   allProfileIdentifiers = [profileManager allProfileIdentifiers];
-  v35 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(allProfileIdentifiers, "count")}];
+  v34 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(allProfileIdentifiers, "count")}];
   [v11 beginTask];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = allProfileIdentifiers;
-  v14 = [obj countByEnumeratingWithState:&v44 objects:v55 count:16];
+  v14 = [obj countByEnumeratingWithState:&v43 objects:v54 count:16];
   if (v14)
   {
-    v34 = *v45;
+    v33 = *v44;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v45 != v34)
+        if (*v44 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * i);
+        v16 = *(*(&v43 + 1) + 8 * i);
         [v11 beginTask];
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v39 = __99__HDCloudSyncCoordinator_fetchCloudDescriptionWithContext_updateCacheAndPrepareForSync_completion___block_invoke_2;
-        v40 = &unk_2786195E0;
-        v41 = v11;
-        v42 = v53;
-        v43 = buf;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v38 = __99__HDCloudSyncCoordinator_fetchCloudDescriptionWithContext_updateCacheAndPrepareForSync_completion___block_invoke_2;
+        v39 = &unk_2786195E0;
+        v40 = v11;
+        v41 = v52;
+        v42 = buf;
         v17 = v16;
         v18 = contextCopy;
-        v19 = v38;
+        v19 = v37;
         if (!v17)
         {
           currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -1656,7 +1633,7 @@ uint64_t __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___b
 
           else
           {
-            v39(v19, 0, 0);
+            v38(v19, 0, 0);
             [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
           }
           v25 = ;
@@ -1664,14 +1641,14 @@ uint64_t __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___b
 
         else
         {
-          v39(v19, 0, 0);
+          v38(v19, 0, 0);
           v25 = [MEMORY[0x277CCAC48] hk_finishedDiscreteProgressWithTotalUnitCount:1];
         }
 
-        [v35 addChild:v25 withPendingUnitCount:1];
+        [v34 addChild:v25 withPendingUnitCount:1];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v44 objects:v55 count:16];
+      v14 = [obj countByEnumeratingWithState:&v43 objects:v54 count:16];
     }
 
     while (v14);
@@ -1680,10 +1657,9 @@ uint64_t __65__HDCloudSyncCoordinator_resetAllProfilesWithContext_completion___b
   [v11 finishTask];
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(v53, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v52, 8);
 
-  return v35;
+  return v34;
 }
 
 void __99__HDCloudSyncCoordinator_fetchCloudDescriptionWithContext_updateCacheAndPrepareForSync_completion___block_invoke(uint64_t a1, uint64_t a2, int a3, void *a4)
@@ -1820,7 +1796,7 @@ void __57__HDCloudSyncCoordinator_addCloudSyncProgressCompletion___block_invoke(
       v3 = *(*(a1 + 32) + 40);
     }
 
-    v7 = [*(a1 + 40) copy];
+    v7 = objc_msgSend_copy(*(a1 + 40));
     v8 = _Block_copy(v7);
     [v3 addObject:v8];
 
@@ -1830,7 +1806,7 @@ void __57__HDCloudSyncCoordinator_addCloudSyncProgressCompletion___block_invoke(
 
 - (BOOL)canPerformCloudSyncWithError:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(HDCloudSyncCoordinator *)self _setupCloudSyncSupportIfRequired];
   WeakRetained = objc_loadWeakRetained(&self->_daemon);
   behavior = [WeakRetained behavior];
@@ -1840,7 +1816,7 @@ void __57__HDCloudSyncCoordinator_addCloudSyncProgressCompletion___block_invoke(
   {
     [MEMORY[0x277CCA9B8] hk_assignError:error code:111 format:@"Cloud sync not supported on this device."];
     LOBYTE(error) = 0;
-    goto LABEL_12;
+    return error;
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -1853,7 +1829,7 @@ void __57__HDCloudSyncCoordinator_addCloudSyncProgressCompletion___block_invoke(
     os_unfair_lock_unlock(&self->_lock);
     if (lock_hasComputedCloudSyncEnabled)
     {
-      goto LABEL_12;
+      return error;
     }
   }
 
@@ -1874,22 +1850,20 @@ void __57__HDCloudSyncCoordinator_addCloudSyncProgressCompletion___block_invoke(
       v11 = "ENABLED";
     }
 
-    v14 = 138543618;
+    v13 = 138543618;
     selfCopy = self;
-    v16 = 2080;
-    v17 = v11;
-    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Cloud sync %s", &v14, 0x16u);
+    v15 = 2080;
+    v16 = v11;
+    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Cloud sync %s", &v13, 0x16u);
   }
 
   [(HDCloudSyncPeriodicActivityScheduler *)self->_periodicActivityScheduler updatePeriodicActivityCriteria];
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (id)stateSyncEntityClasses
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_stateSyncEntityClasses = self->_lock_stateSyncEntityClasses;
   if (!lock_stateSyncEntityClasses)
@@ -1906,40 +1880,40 @@ LABEL_12:
       v8 = [pluginManager pluginsConformingToProtocol:&unk_283D711A8];
       allValues = [v8 allValues];
 
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v10 = allValues;
-      v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v24;
+        v13 = *v23;
         do
         {
           v14 = 0;
           do
           {
-            if (*v24 != v13)
+            if (*v23 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            stateSyncEntityClasses = [*(*(&v23 + 1) + 8 * v14) stateSyncEntityClasses];
+            stateSyncEntityClasses = [*(*(&v22 + 1) + 8 * v14) stateSyncEntityClasses];
             [v5 addObjectsFromArray:stateSyncEntityClasses];
 
             ++v14;
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v12);
       }
 
-      v16 = [v5 copy];
+      v16 = objc_msgSend_copy(v5);
       v17 = self->_lock_stateSyncEntityClasses;
       self->_lock_stateSyncEntityClasses = v16;
 
@@ -1961,17 +1935,15 @@ LABEL_12:
 
   v20 = v19;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)stateSyncDomainForSubscriptionIdentifier
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = HDCloudSyncMedicationsStateChangedSubscriptionIdentifier;
-  v6[0] = @"CloudSyncStateEntityDomainMedications";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = HDCloudSyncMedicationsStateChangedSubscriptionIdentifier;
+  v5[0] = @"CloudSyncStateEntityDomainMedications";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2015,53 +1987,50 @@ LABEL_12:
 
 - (void)scheduleSharedSummaryPushWithMaximumDelay:(double)delay
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v11 = 2048;
+    v10 = 2048;
     delayCopy = delay;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Scheduling shared summaries push with delay %lf.", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __68__HDCloudSyncCoordinator_scheduleSharedSummaryPushWithMaximumDelay___block_invoke;
-  v8[3] = &unk_2786138F8;
-  v8[4] = self;
-  *&v8[5] = delay;
-  dispatch_sync(queue, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __68__HDCloudSyncCoordinator_scheduleSharedSummaryPushWithMaximumDelay___block_invoke;
+  v7[3] = &unk_2786138F8;
+  v7[4] = self;
+  *&v7[5] = delay;
+  dispatch_sync(queue, v7);
 }
 
 void __68__HDCloudSyncCoordinator_scheduleSharedSummaryPushWithMaximumDelay___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 96);
   v3 = *(a1 + 40);
-  v8 = 0;
-  [v2 submitRequestWithMaximumDelay:&v8 error:&__block_literal_global_479 completion:v3];
-  v4 = v8;
+  v7 = 0;
+  [v2 submitRequestWithMaximumDelay:&v7 error:&__block_literal_global_479 completion:v3];
+  v4 = v7;
   if (v4)
   {
     _HKInitializeLogging();
     v5 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
+      v6 = *(a1 + 32);
       *buf = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v4;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v4;
       _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to schedule shared summary push due to error: %{public}@.", buf, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)databaseJournalMergeDidCompleteForProfile:(id)profile type:(int64_t)type
@@ -2172,7 +2141,7 @@ void __77__HDCloudSyncCoordinator_notifyObservers_syncRequestCompleted_success_e
 {
   classesCopy = classes;
   os_unfair_lock_lock(&self->_lock);
-  v5 = [classesCopy copy];
+  v5 = objc_msgSend_copy(classesCopy);
 
   lock_stateSyncEntityClasses = self->_lock_stateSyncEntityClasses;
   self->_lock_stateSyncEntityClasses = v5;
@@ -2243,7 +2212,7 @@ void __77__HDCloudSyncCoordinator_notifyObservers_syncRequestCompleted_success_e
 
 - (id)mergeCloudSyncJournalsWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
@@ -2255,60 +2224,56 @@ void __77__HDCloudSyncCoordinator_notifyObservers_syncRequestCompleted_success_e
   }
 
   v6 = objc_alloc(MEMORY[0x277D10AC8]);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __86__HDCloudSyncCoordinator_CloudSyncJournalMerge__mergeCloudSyncJournalsWithCompletion___block_invoke;
-  v12[3] = &unk_27861A120;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __86__HDCloudSyncCoordinator_CloudSyncJournalMerge__mergeCloudSyncJournalsWithCompletion___block_invoke;
+  v11[3] = &unk_27861A120;
+  v12 = completionCopy;
   v7 = completionCopy;
-  v8 = [v6 initWithDescription:@"Merge pending cloud sync journals" completion:v12];
+  v8 = [v6 initWithDescription:@"Merge pending cloud sync journals" completion:v11];
   v9 = [(HDCloudSyncCoordinator *)self _mergeCloudSyncJournalsWithTaskTree:v8];
   [v8 begin];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_mergeCloudSyncJournalsWithTaskTree:(id)tree
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   treeCopy = tree;
   daemon = [(HDCloudSyncCoordinator *)self daemon];
   profileManager = [daemon profileManager];
   allProfileIdentifiers = [profileManager allProfileIdentifiers];
 
   v8 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(allProfileIdentifiers, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = allProfileIdentifiers;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(HDCloudSyncCoordinator *)self _mergeCloudSyncJournalsForProfile:*(*(&v17 + 1) + 8 * i) taskTree:treeCopy, v17];
+        v14 = [(HDCloudSyncCoordinator *)self _mergeCloudSyncJournalsForProfile:*(*(&v16 + 1) + 8 * i) taskTree:treeCopy, v16];
         [v8 addChild:v14 withPendingUnitCount:1];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2338,7 +2303,7 @@ void __77__HDCloudSyncCoordinator_notifyObservers_syncRequestCompleted_success_e
 
 void __92__HDCloudSyncCoordinator_CloudSyncJournalMerge___mergeCloudSyncJournalsForProfile_taskTree___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) daemon];
@@ -2363,18 +2328,18 @@ void __92__HDCloudSyncCoordinator_CloudSyncJournalMerge___mergeCloudSyncJournals
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v33 = 0;
+    v32 = 0;
     v13 = [v9 database];
-    v25 = 0;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __92__HDCloudSyncCoordinator_CloudSyncJournalMerge___mergeCloudSyncJournalsForProfile_taskTree___block_invoke_301;
-    v22[3] = &unk_27861A148;
+    v24 = 0;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __92__HDCloudSyncCoordinator_CloudSyncJournalMerge___mergeCloudSyncJournalsForProfile_taskTree___block_invoke_301;
+    v21[3] = &unk_27861A148;
     v14 = v9;
-    v23 = v14;
-    v24 = buf;
-    v15 = [v13 performWithJournalType:2 error:&v25 block:v22];
-    v16 = v25;
+    v22 = v14;
+    v23 = buf;
+    v15 = [v13 performWithJournalType:2 error:&v24 block:v21];
+    v16 = v24;
 
     [*(a1 + 48) setCompletedUnitCount:1];
     if (v15)
@@ -2389,14 +2354,14 @@ void __92__HDCloudSyncCoordinator_CloudSyncJournalMerge___mergeCloudSyncJournals
       v19 = *v10;
       if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(a1 + 32);
-        *v26 = 138543874;
-        v27 = v21;
-        v28 = 2114;
-        v29 = v14;
-        v30 = 2114;
-        v31 = v16;
-        _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Failed to merge cloud sync journals for profile %{public}@: %{public}@", v26, 0x20u);
+        v20 = *(a1 + 32);
+        *v25 = 138543874;
+        v26 = v20;
+        v27 = 2114;
+        v28 = v14;
+        v29 = 2114;
+        v30 = v16;
+        _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Failed to merge cloud sync journals for profile %{public}@: %{public}@", v25, 0x20u);
       }
 
       v17 = 1;
@@ -2413,8 +2378,6 @@ void __92__HDCloudSyncCoordinator_CloudSyncJournalMerge___mergeCloudSyncJournals
     [*(a1 + 48) setCompletedUnitCount:1];
     v6[2](v6, 0, 0);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __92__HDCloudSyncCoordinator_CloudSyncJournalMerge___mergeCloudSyncJournalsForProfile_taskTree___block_invoke_301(uint64_t a1, uint64_t a2)

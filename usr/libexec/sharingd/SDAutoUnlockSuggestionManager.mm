@@ -553,53 +553,33 @@ LABEL_20:
   v5 = auto_unlock_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v24 = 138412290;
-    *&v24[4] = peerCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Suggestion manager found peer: %@", v24, 0xCu);
+    *v25 = 138412290;
+    *&v25[4] = peerCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Suggestion manager found peer: %@", v25, 0xCu);
   }
 
   identifier = [peerCopy identifier];
-  if (!identifier)
+  if (identifier && (v7 = identifier, -[SDAutoUnlockSuggestionManager currentBluetoothIDs](self, "currentBluetoothIDs"), v8 = objc_claimAutoreleasedReturnValue(), [peerCopy identifier], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "containsObject:", v9), v9, v8, v7, v10))
   {
-    goto LABEL_7;
-  }
+    v12 = sub_1001116AC(peerCopy, v11);
+    v13 = +[SDAutoUnlockTransport sharedTransport];
+    identifier2 = [peerCopy identifier];
+    v15 = [v13 autoUnlockDeviceForBluetoothID:identifier2];
 
-  v7 = identifier;
-  currentBluetoothIDs = [(SDAutoUnlockSuggestionManager *)self currentBluetoothIDs];
-  identifier2 = [peerCopy identifier];
-  v10 = [currentBluetoothIDs containsObject:identifier2];
-
-  if (v10)
-  {
-    v11 = sub_1001116AC(peerCopy);
-    v12 = +[SDAutoUnlockTransport sharedTransport];
-    identifier3 = [peerCopy identifier];
-    v14 = [v12 autoUnlockDeviceForBluetoothID:identifier3];
-
-    if (v14)
+    if (v15)
     {
-      v15 = [v14 supportsAdvertisingUnlocked]^ 1 | v11;
+      v16 = [v15 supportsAdvertisingUnlocked]^ 1 | v12;
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
-    v18 = auto_unlock_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = auto_unlock_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      if (v14)
-      {
-        v19 = @"YES";
-      }
-
-      else
-      {
-        v19 = @"NO";
-      }
-
-      if ([v14 supportsAdvertisingUnlocked])
+      if (v15)
       {
         v20 = @"YES";
       }
@@ -609,9 +589,7 @@ LABEL_20:
         v20 = @"NO";
       }
 
-      *v24 = 138412802;
-      *&v24[4] = v19;
-      if (v11)
+      if ([v15 supportsAdvertisingUnlocked])
       {
         v21 = @"YES";
       }
@@ -621,14 +599,26 @@ LABEL_20:
         v21 = @"NO";
       }
 
-      *&v24[12] = 2112;
-      *&v24[14] = v20;
-      v25 = 2112;
-      v26 = v21;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Suggestion manager peer (device: %@, supports advertising unlocked: %@, unlocked on wrist: %@)", v24, 0x20u);
+      *v25 = 138412802;
+      *&v25[4] = v20;
+      if (v12)
+      {
+        v22 = @"YES";
+      }
+
+      else
+      {
+        v22 = @"NO";
+      }
+
+      *&v25[12] = 2112;
+      *&v25[14] = v21;
+      v26 = 2112;
+      v27 = v22;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Suggestion manager peer (device: %@, supports advertising unlocked: %@, unlocked on wrist: %@)", v25, 0x20u);
     }
 
-    if (v15)
+    if (v16)
     {
       foundPeers = [(SDAutoUnlockSuggestionManager *)self foundPeers];
       if ([foundPeers containsObject:peerCopy])
@@ -638,7 +628,7 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      unlockEnabled = [v14 unlockEnabled];
+      unlockEnabled = [v15 unlockEnabled];
 
       if ((unlockEnabled & 1) == 0)
       {
@@ -648,8 +638,8 @@ LABEL_27:
           [(SDAutoUnlockSuggestionManager *)self restartScanTimer:sub_1001F0530(3.0)];
         }
 
-        foundPeers = [(SDAutoUnlockSuggestionManager *)self foundPeers];
-        [foundPeers addObject:v14];
+        foundPeers = [(SDAutoUnlockSuggestionManager *)self foundPeers:*v25];
+        [foundPeers addObject:v15];
         goto LABEL_27;
       }
     }
@@ -657,15 +647,14 @@ LABEL_27:
 
   else
   {
-LABEL_7:
-    v14 = auto_unlock_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = auto_unlock_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      identifier4 = [peerCopy identifier];
-      uUIDString = [identifier4 UUIDString];
-      *v24 = 138412290;
-      *&v24[4] = uUIDString;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not looking for peer, ignoring: %@", v24, 0xCu);
+      identifier3 = [peerCopy identifier];
+      uUIDString = [identifier3 UUIDString];
+      *v25 = 138412290;
+      *&v25[4] = uUIDString;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Not looking for peer, ignoring: %@", v25, 0xCu);
     }
   }
 

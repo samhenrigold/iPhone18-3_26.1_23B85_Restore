@@ -53,7 +53,7 @@
   return (self->_category & 0xFFFFFFFE) == 4;
 }
 
-uint64_t __45__PRSentenceCorrection_presentAsGrammarError__block_invoke()
+void *__45__PRSentenceCorrection_presentAsGrammarError__block_invoke()
 {
   if ([objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")])
   {

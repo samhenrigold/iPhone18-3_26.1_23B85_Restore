@@ -19,35 +19,18 @@
   v15.receiver = self;
   v15.super_class = CMContinuityCaptureControl;
   v5 = [(CMContinuityCaptureControl *)&v15 init];
-  if (!v5)
-  {
-    goto LABEL_8;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
-  name = v5->_name;
-  v5->_name = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"class"];
-  v9 = v5->_class;
-  v5->_class = v8;
-
-  v5->_entity = [coderCopy decodeInt64ForKey:@"entity"];
-  v5->_minimumSupportedVersion.major = [coderCopy decodeInt64ForKey:@"minimumSupportedVersionMajor"];
-  v5->_minimumSupportedVersion.minor = [coderCopy decodeInt64ForKey:@"minimumSupportedVersionMinor"];
-  v5->_minimumSupportedVersion.patch = [coderCopy decodeInt64ForKey:@"minimumSupportedVersionPatch"];
-  if (v5->_class)
+  if (v5 && (objc_opt_class(), [coderCopy decodeObjectOfClass:? forKey:?], v6 = objc_claimAutoreleasedReturnValue(), name = v5->_name, v5->_name = v6, name, objc_opt_class(), objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:"), v8 = objc_claimAutoreleasedReturnValue(), v9 = v5->_class, v5->_class = v8, v9, v5->_entity = objc_msgSend(coderCopy, "decodeInt64ForKey:"), v5->_minimumSupportedVersion.major = objc_msgSend(coderCopy, "decodeInt64ForKey:"), v5->_minimumSupportedVersion.minor = objc_msgSend(coderCopy, "decodeInt64ForKey:"), v5->_minimumSupportedVersion.patch = objc_msgSend(coderCopy, "decodeInt64ForKey:"), v5->_class))
   {
     v10 = v5;
     objc_sync_enter(v10);
-    if ([(NSString *)v5->_class isEqualToString:@"CVPixelBufferRef"])
+    if ([(NSString *)v5->_class isEqualToString:?])
     {
-      [coderCopy decodeCVPixelBufferForKey:@"value" expectSourceMedia:1];
+      [coderCopy decodeCVPixelBufferForKey:? expectSourceMedia:?];
     }
 
     else
     {
-      [coderCopy decodePropertyListForKey:@"value"];
+      [coderCopy decodePropertyListForKey:?];
     }
     v11 = ;
     value = v10->_value;
@@ -59,7 +42,6 @@
 
   else
   {
-LABEL_8:
     v13 = 0;
   }
 
@@ -69,7 +51,7 @@ LABEL_8:
 - (CMContinuityCaptureControl)initWithDictionaryRepresentation:(id)representation
 {
   representationCopy = representation;
-  v5 = [representationCopy objectForKeyedSubscript:@"name"];
+  v5 = [representationCopy objectForKeyedSubscript:?];
   if (!v5)
   {
     v6 = CMContinuityCaptureLog(2);
@@ -78,79 +60,69 @@ LABEL_8:
       [CMContinuityCaptureControl initWithDictionaryRepresentation:v6];
     }
 
-    goto LABEL_16;
+    goto LABEL_15;
   }
 
-  v6 = [representationCopy objectForKeyedSubscript:@"attributes"];
-  v7 = [representationCopy objectForKeyedSubscript:@"entity"];
+  v6 = [representationCopy objectForKeyedSubscript:?];
+  v7 = [representationCopy objectForKeyedSubscript:?];
   selfCopy2 = v7;
   if (!v7)
   {
     [CMContinuityCaptureControl initWithDictionaryRepresentation:];
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
-  integerValue = [(CMContinuityCaptureControl *)v7 integerValue];
-  v10 = [representationCopy objectForKeyedSubscript:@"minimumSupportedVersionMajor"];
+  [(CMContinuityCaptureControl *)v7 integerValue];
+  v9 = [representationCopy objectForKeyedSubscript:?];
 
-  if (v10)
+  if (v9)
   {
-    v11 = [representationCopy objectForKeyedSubscript:@"minimumSupportedVersionMajor"];
-    intValue = [v11 intValue];
-    v13 = [representationCopy objectForKeyedSubscript:@"minimumSupportedVersionMinor"];
+    v10 = [representationCopy objectForKeyedSubscript:?];
+    [v10 intValue];
+    v11 = [representationCopy objectForKeyedSubscript:?];
 
-    intValue2 = [v13 intValue];
-    v10 = [representationCopy objectForKeyedSubscript:@"minimumSupportedVersionPatch"];
+    [v11 intValue];
+    v9 = [representationCopy objectForKeyedSubscript:?];
 
-    intValue3 = [v10 intValue];
+    [v9 intValue];
   }
 
-  else
-  {
-    intValue2 = 0;
-    intValue3 = 0;
-    intValue = 1;
-  }
-
-  v23[0] = intValue;
-  v23[1] = intValue2;
-  v23[2] = intValue3;
-  self = [(CMContinuityCaptureControl *)self initWithName:v5 attributes:v6 entity:integerValue minimumSupportedVersion:v23 value:0];
-  v16 = [representationCopy objectForKeyedSubscript:@"class"];
-  v17 = self->_class;
-  self->_class = v16;
+  self = [CMContinuityCaptureControl initWithName:"initWithName:attributes:entity:minimumSupportedVersion:value:" attributes:? entity:? minimumSupportedVersion:? value:?];
+  v12 = [representationCopy objectForKeyedSubscript:?];
+  v13 = self->_class;
+  self->_class = v12;
 
   if (self->_class)
   {
-    v18 = [representationCopy objectForKeyedSubscript:@"value"];
+    v14 = [representationCopy objectForKeyedSubscript:?];
 
-    if (v18)
+    if (v14)
     {
-      if (![(NSString *)self->_class isEqualToString:@"CVPixelBufferRef"])
+      if (![(NSString *)self->_class isEqualToString:?])
       {
         selfCopy = self;
         objc_sync_enter(selfCopy);
-        v20 = [representationCopy objectForKeyedSubscript:@"value"];
+        v16 = [representationCopy objectForKeyedSubscript:?];
         value = selfCopy->_value;
-        selfCopy->_value = v20;
+        selfCopy->_value = v16;
 
         objc_sync_exit(selfCopy);
       }
 
-      goto LABEL_10;
+      goto LABEL_9;
     }
 
-    [(CMContinuityCaptureControl *)v10 initWithDictionaryRepresentation:selfCopy2];
-LABEL_16:
+    [(CMContinuityCaptureControl *)v9 initWithDictionaryRepresentation:selfCopy2];
+LABEL_15:
     selfCopy2 = 0;
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
-LABEL_10:
+LABEL_9:
   self = self;
 
   selfCopy2 = self;
-LABEL_11:
+LABEL_10:
 
   return selfCopy2;
 }
@@ -158,37 +130,35 @@ LABEL_11:
 - (id)dictionaryRepresentation
 {
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  [dictionary setObject:self->_name forKeyedSubscript:@"name"];
-  v4 = [MEMORY[0x277CCABB0] numberWithInteger:self->_entity];
-  [dictionary setObject:v4 forKeyedSubscript:@"entity"];
+  [dictionary setObject:? forKeyedSubscript:?];
+  v4 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  [dictionary setObject:? forKeyedSubscript:?];
 
-  attributes = self->_attributes;
-  if (attributes)
+  if (self->_attributes)
   {
-    [dictionary setObject:attributes forKeyedSubscript:@"attributes"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
-  v6 = self->_class;
-  if (v6)
+  if (self->_class)
   {
-    [dictionary setObject:v6 forKeyedSubscript:@"class"];
-    if (![(NSString *)self->_class isEqualToString:@"CVPixelBufferRef"])
+    [dictionary setObject:? forKeyedSubscript:?];
+    if (![(NSString *)self->_class isEqualToString:?])
     {
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      [dictionary setObject:selfCopy->_value forKeyedSubscript:@"value"];
+      [dictionary setObject:? forKeyedSubscript:?];
       objc_sync_exit(selfCopy);
     }
   }
 
-  v8 = [MEMORY[0x277CCABB0] numberWithInteger:self->_minimumSupportedVersion.major];
-  [dictionary setObject:v8 forKeyedSubscript:@"minimumSupportedVersionMajor"];
+  v6 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  [dictionary setObject:? forKeyedSubscript:?];
 
-  v9 = [MEMORY[0x277CCABB0] numberWithInteger:self->_minimumSupportedVersion.minor];
-  [dictionary setObject:v9 forKeyedSubscript:@"minimumSupportedVersionMinor"];
+  v7 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  [dictionary setObject:? forKeyedSubscript:?];
 
-  v10 = [MEMORY[0x277CCABB0] numberWithInteger:self->_minimumSupportedVersion.patch];
-  [dictionary setObject:v10 forKeyedSubscript:@"minimumSupportedVersionPatch"];
+  v8 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  [dictionary setObject:? forKeyedSubscript:?];
 
   return dictionary;
 }
@@ -197,25 +167,26 @@ LABEL_11:
 {
   coderCopy = coder;
   name = [(CMContinuityCaptureControl *)self name];
-  [coderCopy encodeObject:name forKey:@"name"];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeInt64:-[CMContinuityCaptureControl entity](self forKey:{"entity"), @"entity"}];
-  [coderCopy encodeObject:self->_class forKey:@"class"];
-  v5 = [(NSString *)self->_class isEqualToString:@"CVPixelBufferRef"];
+  [(CMContinuityCaptureControl *)self entity];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  v5 = [(NSString *)self->_class isEqualToString:?];
   value = [(CMContinuityCaptureControl *)self value];
   if (v5)
   {
-    [coderCopy encodeCVPixelBuffer:value forKey:@"value"];
+    [coderCopy encodeCVPixelBuffer:? forKey:?];
   }
 
   else
   {
-    [coderCopy encodeObject:value forKey:@"value"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  [coderCopy encodeInt64:self->_minimumSupportedVersion.major forKey:@"minimumSupportedVersionMajor"];
-  [coderCopy encodeInt64:self->_minimumSupportedVersion.minor forKey:@"minimumSupportedVersionMinor"];
-  [coderCopy encodeInt64:self->_minimumSupportedVersion.patch forKey:@"minimumSupportedVersionPatch"];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -226,20 +197,16 @@ LABEL_11:
   objc_sync_exit(selfCopy);
 
   v5 = [CMContinuityCaptureControl alloc];
-  entity = selfCopy->_entity;
-  attributes = selfCopy->_attributes;
-  name = selfCopy->_name;
-  v11 = *&selfCopy->_minimumSupportedVersion.major;
-  patch = selfCopy->_minimumSupportedVersion.patch;
-  v9 = [(CMContinuityCaptureControl *)v5 initWithName:name attributes:attributes entity:entity minimumSupportedVersion:&v11 value:v4];
+  v8 = *&selfCopy->_minimumSupportedVersion.major;
+  v6 = [CMContinuityCaptureControl initWithName:v5 attributes:"initWithName:attributes:entity:minimumSupportedVersion:value:" entity:v8 minimumSupportedVersion:selfCopy->_minimumSupportedVersion.patch value:?];
 
-  return v9;
+  return v6;
 }
 
 - (NSString)debugDescription
 {
   name = [(CMContinuityCaptureControl *)self name];
-  v4 = [name isEqualToString:@"kCMContinuityCaptureControlDebugInfo"];
+  v4 = [name isEqualToString:?];
 
   v5 = MEMORY[0x277CCACA8];
   name2 = [(CMContinuityCaptureControl *)self name];
@@ -247,16 +214,16 @@ LABEL_11:
   if (v4)
   {
     v8 = self->_class;
-    value = [MEMORY[0x277CCACA8] stringWithFormat:@"[%ld.%ld.%ld]", self->_minimumSupportedVersion.major, self->_minimumSupportedVersion.minor, self->_minimumSupportedVersion.patch];
-    v10 = [v5 stringWithFormat:@"%@ entity:%u %@ minimumSupportedVersion: %@", name2, entity, v8, value];
+    value = [MEMORY[0x277CCACA8] stringWithFormat:self->_minimumSupportedVersion.major, self->_minimumSupportedVersion.minor, self->_minimumSupportedVersion.patch];
+    v10 = [v5 stringWithFormat:name2, entity, v8, value];
   }
 
   else
   {
     value = [(CMContinuityCaptureControl *)self value];
     v11 = self->_class;
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%ld.%ld.%ld]", self->_minimumSupportedVersion.major, self->_minimumSupportedVersion.minor, self->_minimumSupportedVersion.patch];
-    v10 = [v5 stringWithFormat:@"%@ entity:%u value:%@ %@ minimumSupportedVersion: %@", name2, entity, value, v11, v12];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:self->_minimumSupportedVersion.major, self->_minimumSupportedVersion.minor, self->_minimumSupportedVersion.patch];
+    v10 = [v5 stringWithFormat:name2, entity, value, v11, v12];
   }
 
   return v10;
@@ -268,7 +235,7 @@ LABEL_11:
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = [(CMContinuityCaptureControl *)self debugDescription];
-  v7 = [v3 stringWithFormat:@"<%@: %p %@>", v5, self, v6];
+  v7 = [v3 stringWithFormat:v5, self, v6];
 
   return v7;
 }
@@ -367,7 +334,7 @@ LABEL_10:
     v18 = *&version->var0;
     v17->_minimumSupportedVersion.patch = version->var2;
     *&v17->_minimumSupportedVersion.major = v18;
-    [(CMContinuityCaptureControl *)v17 setValue:valueCopy];
+    [(CMContinuityCaptureControl *)v17 setValue:?];
     v19 = v17;
   }
 

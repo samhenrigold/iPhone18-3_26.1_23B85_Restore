@@ -34,10 +34,10 @@
     }
   }
 
-  v103 = 0u;
   v104 = 0u;
-  v101 = 0u;
+  v105 = 0u;
   v102 = 0u;
+  v103 = 0u;
   v9 = *(state + 2);
   if (!v9)
   {
@@ -46,32 +46,32 @@ LABEL_135:
   }
 
   obj = *(state + 2);
-  v100 = [v9 countByEnumeratingWithState:&v101 objects:v105 count:16];
-  if (v100)
+  v101 = [v9 countByEnumeratingWithState:&v102 objects:v106 count:16];
+  if (v101)
   {
-    v99 = *v102;
+    v100 = *v103;
     do
     {
-      for (i = 0; i != v100; i = i + 1)
+      for (i = 0; i != v101; i = i + 1)
       {
-        if (*v102 != v99)
+        if (*v103 != v100)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v101 + 1) + 8 * i);
+        v11 = *(*(&v102 + 1) + 8 * i);
         if (!v11)
         {
           goto LABEL_135;
         }
 
-        getDocValuesType = [*(*(&v101 + 1) + 8 * i) getDocValuesType];
+        getDocValuesType = [*(*(&v102 + 1) + 8 * i) getDocValuesType];
         if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
         {
           sub_10005B5A0();
         }
 
-        if (getDocValuesType != OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+        if (getDocValuesType != OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
         {
           if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
           {
@@ -80,90 +80,90 @@ LABEL_135:
 
           if (getDocValuesType == qword_100557A78)
           {
-            v98 = i;
-            v34 = new_JavaUtilArrayList_init();
+            v99 = i;
             v35 = new_JavaUtilArrayList_init();
-            v36 = *(state + 6);
-            if (!v36)
+            v36 = new_JavaUtilArrayList_init();
+            v37 = *(state + 6);
+            if (!v37)
             {
               goto LABEL_135;
             }
 
-            v37 = v35;
-            v38 = 0;
-            while (v38 < *(v36 + 8))
+            v38 = v36;
+            v39 = 0;
+            while (v39 < *(v37 + 8))
             {
-              v39 = *(v36 + 24 + 8 * v38);
-              if (!v39)
-              {
-                goto LABEL_63;
-              }
-
-              v40 = *(state + 7);
+              v40 = *(v37 + 24 + 8 * v39);
               if (!v40)
               {
-                goto LABEL_135;
+                goto LABEL_63;
               }
 
-              v41 = *(v40 + 8);
-              if (v38 >= v41)
-              {
-                IOSArray_throwOutOfBoundsWithMsg(v41, v38);
-              }
-
-              v42 = *(v40 + 24 + 8 * v38);
-              if (!v42)
+              v41 = *(state + 7);
+              if (!v41)
               {
                 goto LABEL_135;
               }
 
-              v43 = [v42 fieldInfoWithNSString:*(v11 + 8)];
+              v42 = *(v41 + 8);
+              if (v39 >= v42)
+              {
+                IOSArray_throwOutOfBoundsWithMsg(v42, v39);
+              }
+
+              v43 = *(v41 + 24 + 8 * v39);
               if (!v43)
+              {
+                goto LABEL_135;
+              }
+
+              v44 = [v43 fieldInfoWithNSString:*(v11 + 8)];
+              if (!v44)
               {
                 goto LABEL_63;
               }
 
-              v44 = v43;
-              getDocValuesType2 = [v43 getDocValuesType];
+              v45 = v44;
+              getDocValuesType2 = [v44 getDocValuesType];
               if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
               {
                 sub_10005B5A0();
               }
 
-              if (getDocValuesType2 != qword_100557A78 || (v48 = [v39 getNumericWithOrgApacheLuceneIndexFieldInfo:v44], v50 = objc_msgSend(v39, "getDocsWithFieldWithOrgApacheLuceneIndexFieldInfo:", v44), !v48))
+              if (getDocValuesType2 != qword_100557A78 || (v49 = [v40 getNumericWithOrgApacheLuceneIndexFieldInfo:v45], v51 = objc_msgSend(v40, "getDocsWithFieldWithOrgApacheLuceneIndexFieldInfo:", v45), !v49))
               {
 LABEL_63:
-                v46 = OrgApacheLuceneIndexDocValues_emptyNumeric();
-                v47 = *(state + 12);
-                if (!v47)
+                v47 = OrgApacheLuceneIndexDocValues_emptyNumeric();
+                v48 = *(state + 12);
+                if (!v48)
                 {
                   goto LABEL_135;
                 }
 
-                v48 = v46;
-                v49 = *(v47 + 8);
-                if (v38 >= v49)
+                v49 = v47;
+                v50 = *(v48 + 8);
+                if (v39 >= v50)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v49, v38);
+                  IOSArray_throwOutOfBoundsWithMsg(v50, v39);
                 }
 
-                v50 = new_OrgApacheLuceneUtilBits_MatchNoBits_initWithInt_(*(v47 + 12 + 4 * v38));
+                v51 = new_OrgApacheLuceneUtilBits_MatchNoBits_initWithInt_(*(v48 + 12 + 4 * v39));
               }
 
-              v51 = v50;
-              [(JavaUtilArrayList *)v34 addWithId:v48];
-              [(JavaUtilArrayList *)v37 addWithId:v51];
-              ++v38;
-              v36 = *(state + 6);
-              if (!v36)
+              v52 = v51;
+              [(JavaUtilArrayList *)v35 addWithId:v49];
+              [(JavaUtilArrayList *)v38 addWithId:v52];
+              ++v39;
+              v37 = *(state + 6);
+              if (!v37)
               {
                 goto LABEL_135;
               }
             }
 
-            [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeNumericFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v34 withJavaUtilList:v37];
+            [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeNumericFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v35 withJavaUtilList:v38];
 LABEL_94:
-            i = v98;
+            i = v99;
             continue;
           }
 
@@ -174,88 +174,88 @@ LABEL_94:
 
           if (getDocValuesType == qword_100557A80)
           {
-            v98 = i;
-            v52 = new_JavaUtilArrayList_init();
+            v99 = i;
             v53 = new_JavaUtilArrayList_init();
-            v54 = *(state + 6);
-            if (!v54)
+            v54 = new_JavaUtilArrayList_init();
+            v55 = *(state + 6);
+            if (!v55)
             {
               goto LABEL_135;
             }
 
-            v55 = v53;
-            v56 = 0;
-            while (v56 < *(v54 + 8))
+            v56 = v54;
+            v57 = 0;
+            while (v57 < *(v55 + 8))
             {
-              v57 = *(v54 + 24 + 8 * v56);
-              if (!v57)
-              {
-                goto LABEL_84;
-              }
-
-              v58 = *(state + 7);
+              v58 = *(v55 + 24 + 8 * v57);
               if (!v58)
               {
-                goto LABEL_135;
+                goto LABEL_84;
               }
 
-              v59 = *(v58 + 8);
-              if (v56 >= v59)
-              {
-                IOSArray_throwOutOfBoundsWithMsg(v59, v56);
-              }
-
-              v60 = *(v58 + 24 + 8 * v56);
-              if (!v60)
+              v59 = *(state + 7);
+              if (!v59)
               {
                 goto LABEL_135;
               }
 
-              v61 = [v60 fieldInfoWithNSString:*(v11 + 8)];
+              v60 = *(v59 + 8);
+              if (v57 >= v60)
+              {
+                IOSArray_throwOutOfBoundsWithMsg(v60, v57);
+              }
+
+              v61 = *(v59 + 24 + 8 * v57);
               if (!v61)
+              {
+                goto LABEL_135;
+              }
+
+              v62 = [v61 fieldInfoWithNSString:*(v11 + 8)];
+              if (!v62)
               {
                 goto LABEL_84;
               }
 
-              v62 = v61;
-              getDocValuesType3 = [v61 getDocValuesType];
+              v63 = v62;
+              getDocValuesType3 = [v62 getDocValuesType];
               if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
               {
                 sub_10005B5A0();
               }
 
-              if (getDocValuesType3 != qword_100557A80 || (v66 = [v57 getBinaryWithOrgApacheLuceneIndexFieldInfo:v62], v68 = objc_msgSend(v57, "getDocsWithFieldWithOrgApacheLuceneIndexFieldInfo:", v62), !v66))
+              if (getDocValuesType3 != qword_100557A80 || (v67 = [v58 getBinaryWithOrgApacheLuceneIndexFieldInfo:v63], v69 = objc_msgSend(v58, "getDocsWithFieldWithOrgApacheLuceneIndexFieldInfo:", v63), !v67))
               {
 LABEL_84:
-                v64 = OrgApacheLuceneIndexDocValues_emptyBinary();
-                v65 = *(state + 12);
-                if (!v65)
+                v65 = OrgApacheLuceneIndexDocValues_emptyBinary();
+                v66 = *(state + 12);
+                if (!v66)
                 {
                   goto LABEL_135;
                 }
 
-                v66 = v64;
-                v67 = *(v65 + 8);
-                if (v56 >= v67)
+                v67 = v65;
+                v68 = *(v66 + 8);
+                if (v57 >= v68)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v67, v56);
+                  IOSArray_throwOutOfBoundsWithMsg(v68, v57);
                 }
 
-                v68 = new_OrgApacheLuceneUtilBits_MatchNoBits_initWithInt_(*(v65 + 12 + 4 * v56));
+                v69 = new_OrgApacheLuceneUtilBits_MatchNoBits_initWithInt_(*(v66 + 12 + 4 * v57));
               }
 
-              v69 = v68;
-              [(JavaUtilArrayList *)v52 addWithId:v66];
-              [(JavaUtilArrayList *)v55 addWithId:v69];
-              ++v56;
-              v54 = *(state + 6);
-              if (!v54)
+              v70 = v69;
+              [(JavaUtilArrayList *)v53 addWithId:v67];
+              [(JavaUtilArrayList *)v56 addWithId:v70];
+              ++v57;
+              v55 = *(state + 6);
+              if (!v55)
               {
                 goto LABEL_135;
               }
             }
 
-            [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeBinaryFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v52 withJavaUtilList:v55];
+            [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeBinaryFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v53 withJavaUtilList:v56];
             goto LABEL_94;
           }
 
@@ -266,70 +266,70 @@ LABEL_84:
 
           if (getDocValuesType == qword_100557A88)
           {
-            v70 = new_JavaUtilArrayList_init();
-            v71 = *(state + 6);
-            if (!v71)
+            v71 = new_JavaUtilArrayList_init();
+            v72 = *(state + 6);
+            if (!v72)
             {
               goto LABEL_135;
             }
 
-            v72 = v70;
-            v73 = 0;
-            while (v73 < *(v71 + 8))
+            v73 = v71;
+            v74 = 0;
+            while (v74 < *(v72 + 8))
             {
-              v74 = *(v71 + 24 + 8 * v73);
-              if (!v74)
-              {
-                goto LABEL_106;
-              }
-
-              v75 = *(state + 7);
+              v75 = *(v72 + 24 + 8 * v74);
               if (!v75)
               {
-                goto LABEL_135;
+                goto LABEL_106;
               }
 
-              v76 = *(v75 + 8);
-              if (v73 >= v76)
-              {
-                IOSArray_throwOutOfBoundsWithMsg(v76, v73);
-              }
-
-              v77 = *(v75 + 24 + 8 * v73);
-              if (!v77)
+              v76 = *(state + 7);
+              if (!v76)
               {
                 goto LABEL_135;
               }
 
-              v78 = [v77 fieldInfoWithNSString:*(v11 + 8)];
+              v77 = *(v76 + 8);
+              if (v74 >= v77)
+              {
+                IOSArray_throwOutOfBoundsWithMsg(v77, v74);
+              }
+
+              v78 = *(v76 + 24 + 8 * v74);
               if (!v78)
+              {
+                goto LABEL_135;
+              }
+
+              v79 = [v78 fieldInfoWithNSString:*(v11 + 8)];
+              if (!v79)
               {
                 goto LABEL_106;
               }
 
-              v79 = v78;
-              getDocValuesType4 = [v78 getDocValuesType];
+              v80 = v79;
+              getDocValuesType4 = [v79 getDocValuesType];
               if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
               {
                 sub_10005B5A0();
               }
 
-              if (getDocValuesType4 != qword_100557A88 || (v81 = [v74 getSortedWithOrgApacheLuceneIndexFieldInfo:v79]) == 0)
+              if (getDocValuesType4 != qword_100557A88 || (v82 = [v75 getSortedWithOrgApacheLuceneIndexFieldInfo:v80]) == 0)
               {
 LABEL_106:
-                v81 = OrgApacheLuceneIndexDocValues_emptySorted();
+                v82 = OrgApacheLuceneIndexDocValues_emptySorted();
               }
 
-              [(JavaUtilArrayList *)v72 addWithId:v81];
-              ++v73;
-              v71 = *(state + 6);
-              if (!v71)
+              [(JavaUtilArrayList *)v73 addWithId:v82];
+              ++v74;
+              v72 = *(state + 6);
+              if (!v72)
               {
                 goto LABEL_135;
               }
             }
 
-            [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeSortedFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v72];
+            [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeSortedFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v73];
           }
 
           else
@@ -341,70 +341,70 @@ LABEL_106:
 
             if (getDocValuesType == qword_100557A98)
             {
-              v82 = new_JavaUtilArrayList_init();
-              v83 = *(state + 6);
-              if (!v83)
+              v83 = new_JavaUtilArrayList_init();
+              v84 = *(state + 6);
+              if (!v84)
               {
                 goto LABEL_135;
               }
 
-              v84 = v82;
-              v85 = 0;
-              while (v85 < *(v83 + 8))
+              v85 = v83;
+              v86 = 0;
+              while (v86 < *(v84 + 8))
               {
-                v86 = *(v83 + 24 + 8 * v85);
-                if (!v86)
-                {
-                  goto LABEL_125;
-                }
-
-                v87 = *(state + 7);
+                v87 = *(v84 + 24 + 8 * v86);
                 if (!v87)
                 {
-                  goto LABEL_135;
+                  goto LABEL_125;
                 }
 
-                v88 = *(v87 + 8);
-                if (v85 >= v88)
-                {
-                  IOSArray_throwOutOfBoundsWithMsg(v88, v85);
-                }
-
-                v89 = *(v87 + 24 + 8 * v85);
-                if (!v89)
+                v88 = *(state + 7);
+                if (!v88)
                 {
                   goto LABEL_135;
                 }
 
-                v90 = [v89 fieldInfoWithNSString:*(v11 + 8)];
+                v89 = *(v88 + 8);
+                if (v86 >= v89)
+                {
+                  IOSArray_throwOutOfBoundsWithMsg(v89, v86);
+                }
+
+                v90 = *(v88 + 24 + 8 * v86);
                 if (!v90)
+                {
+                  goto LABEL_135;
+                }
+
+                v91 = [v90 fieldInfoWithNSString:*(v11 + 8)];
+                if (!v91)
                 {
                   goto LABEL_125;
                 }
 
-                v91 = v90;
-                getDocValuesType5 = [v90 getDocValuesType];
+                v92 = v91;
+                getDocValuesType5 = [v91 getDocValuesType];
                 if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
                 {
                   sub_10005B5A0();
                 }
 
-                if (getDocValuesType5 != qword_100557A98 || (v93 = [v86 getSortedSetWithOrgApacheLuceneIndexFieldInfo:v91]) == 0)
+                if (getDocValuesType5 != qword_100557A98 || (v94 = [v87 getSortedSetWithOrgApacheLuceneIndexFieldInfo:v92]) == 0)
                 {
 LABEL_125:
-                  v93 = OrgApacheLuceneIndexDocValues_emptySortedSet();
+                  v94 = OrgApacheLuceneIndexDocValues_emptySortedSet();
                 }
 
-                [(JavaUtilArrayList *)v84 addWithId:v93];
-                ++v85;
-                v83 = *(state + 6);
-                if (!v83)
+                [(JavaUtilArrayList *)v85 addWithId:v94];
+                ++v86;
+                v84 = *(state + 6);
+                if (!v84)
                 {
                   goto LABEL_135;
                 }
               }
 
-              [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeSortedSetFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v84];
+              [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeSortedSetFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v85];
             }
 
             else
@@ -416,96 +416,96 @@ LABEL_125:
 
               if (getDocValuesType != qword_100557A90)
               {
-                v94 = JreStrcat("$@", v12, v13, v14, v15, v16, v17, v18, @"type=");
-                v95 = new_JavaLangAssertionError_initWithId_(v94);
-                objc_exception_throw(v95);
+                v95 = JreStrcat("$@", v12, v13, v14, v15, v16, v17, v18, @"type=");
+                v96 = new_JavaLangAssertionError_initWithId_(v95);
+                objc_exception_throw(v96);
               }
 
               v20 = new_JavaUtilArrayList_init();
-              v21 = *(state + 6);
-              if (!v21)
+              v22 = *(state + 6);
+              if (!v22)
               {
                 goto LABEL_135;
               }
 
-              v22 = v20;
-              v23 = 0;
-              while (v23 < *(v21 + 8))
+              v23 = v20;
+              v24 = 0;
+              while (v24 < *(v22 + 8))
               {
-                v24 = *(v21 + 24 + 8 * v23);
-                if (!v24)
-                {
-                  goto LABEL_43;
-                }
-
-                v25 = *(state + 7);
+                v25 = *(v22 + 24 + 8 * v24);
                 if (!v25)
                 {
-                  goto LABEL_135;
+                  goto LABEL_43;
                 }
 
-                v26 = *(v25 + 8);
-                if (v23 >= v26)
-                {
-                  IOSArray_throwOutOfBoundsWithMsg(v26, v23);
-                }
-
-                v27 = *(v25 + 24 + 8 * v23);
-                if (!v27)
+                v26 = *(state + 7);
+                if (!v26)
                 {
                   goto LABEL_135;
                 }
 
-                v28 = [v27 fieldInfoWithNSString:*(v11 + 8)];
+                v27 = *(v26 + 8);
+                if (v24 >= v27)
+                {
+                  IOSArray_throwOutOfBoundsWithMsg(v27, v24);
+                }
+
+                v28 = *(v26 + 24 + 8 * v24);
                 if (!v28)
+                {
+                  goto LABEL_135;
+                }
+
+                v29 = [v28 fieldInfoWithNSString:*(v11 + 8)];
+                if (!v29)
                 {
                   goto LABEL_43;
                 }
 
-                v29 = v28;
-                getDocValuesType6 = [v28 getDocValuesType];
+                v30 = v29;
+                getDocValuesType6 = [v29 getDocValuesType];
                 if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
                 {
                   sub_10005B5A0();
                 }
 
-                if (getDocValuesType6 != qword_100557A90 || (v33 = [v24 getSortedNumericWithOrgApacheLuceneIndexFieldInfo:v29]) == 0)
+                if (getDocValuesType6 != qword_100557A90 || (v34 = [v25 getSortedNumericWithOrgApacheLuceneIndexFieldInfo:v30]) == 0)
                 {
 LABEL_43:
-                  v31 = *(state + 12);
-                  if (!v31)
+                  v32 = *(state + 12);
+                  if (!v32)
                   {
                     goto LABEL_135;
                   }
 
-                  v32 = *(v31 + 8);
-                  if (v23 >= v32)
+                  v33 = *(v32 + 8);
+                  if (v24 >= v33)
                   {
-                    IOSArray_throwOutOfBoundsWithMsg(v32, v23);
+                    IOSArray_throwOutOfBoundsWithMsg(v33, v24);
                   }
 
-                  v33 = OrgApacheLuceneIndexDocValues_emptySortedNumericWithInt_(*(v31 + 12 + 4 * v23));
+                  v34 = OrgApacheLuceneIndexDocValues_emptySortedNumericWithInt_(*(v32 + 12 + 4 * v24), v21);
                 }
 
-                [(JavaUtilArrayList *)v22 addWithId:v33];
-                ++v23;
-                v21 = *(state + 6);
-                if (!v21)
+                [(JavaUtilArrayList *)v23 addWithId:v34];
+                ++v24;
+                v22 = *(state + 6);
+                if (!v22)
                 {
                   goto LABEL_135;
                 }
               }
 
-              [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeSortedNumericFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v22];
+              [(OrgApacheLuceneCodecsDocValuesConsumer *)self mergeSortedNumericFieldWithOrgApacheLuceneIndexFieldInfo:v11 withOrgApacheLuceneIndexMergeState:state withJavaUtilList:v23];
             }
           }
         }
       }
 
-      v100 = [obj countByEnumeratingWithState:&v101 objects:v105 count:16];
+      v101 = [obj countByEnumeratingWithState:&v102 objects:v106 count:16];
     }
 
-    while (v100);
+    while (v101);
   }
 }
 
@@ -539,19 +539,20 @@ LABEL_43:
   }
 
   v9 = [list size];
-  v10 = [list toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", v9, OrgApacheLuceneIndexSortedNumericDocValues_class_())}];
-  v11 = [OrgApacheLuceneCodecsDocValuesConsumer__3 alloc];
-  v11->val$numReaders_ = v9;
-  JreStrongAssign(&v11->val$mergeState_, state);
-  JreStrongAssign(&v11->val$dvs_, v10);
-  v12 = v11;
-  v13 = [OrgApacheLuceneCodecsDocValuesConsumer__4 alloc];
-  v13->val$numReaders_ = v9;
-  JreStrongAssign(&v13->val$dvs_, v10);
+  v10 = v9;
+  v12 = [list toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", v9, OrgApacheLuceneIndexSortedNumericDocValues_class_(v9, v11))}];
+  v13 = [OrgApacheLuceneCodecsDocValuesConsumer__3 alloc];
+  v13->val$numReaders_ = v10;
   JreStrongAssign(&v13->val$mergeState_, state);
+  JreStrongAssign(&v13->val$dvs_, v12);
   v14 = v13;
+  v15 = [OrgApacheLuceneCodecsDocValuesConsumer__4 alloc];
+  v15->val$numReaders_ = v10;
+  JreStrongAssign(&v15->val$dvs_, v12);
+  JreStrongAssign(&v15->val$mergeState_, state);
+  v16 = v15;
 
-  [(OrgApacheLuceneCodecsDocValuesConsumer *)self addSortedNumericFieldWithOrgApacheLuceneIndexFieldInfo:info withJavaLangIterable:v12 withJavaLangIterable:v14];
+  [(OrgApacheLuceneCodecsDocValuesConsumer *)self addSortedNumericFieldWithOrgApacheLuceneIndexFieldInfo:info withJavaLangIterable:v14 withJavaLangIterable:v16];
 }
 
 - (void)mergeSortedFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withOrgApacheLuceneIndexMergeState:(id)state withJavaUtilList:(id)list
@@ -562,27 +563,27 @@ LABEL_43:
   }
 
   v9 = [list size];
-  v10 = [list toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", v9, OrgApacheLuceneIndexSortedDocValues_class_())}];
-  if (!v10)
+  v11 = [list toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", v9, OrgApacheLuceneIndexSortedDocValues_class_(v9, v10))}];
+  if (!v11)
   {
     goto LABEL_32;
   }
 
-  v11 = v10;
+  v12 = v11;
   selfCopy = self;
   infoCopy = info;
-  v36 = [IOSObjectArray arrayWithLength:v10[2] type:OrgApacheLuceneIndexTermsEnum_class_()];
-  v12 = [IOSLongArray arrayWithLength:v36->super.size_];
-  v35 = v9;
+  v37 = [IOSObjectArray arrayWithLength:v11[2] type:OrgApacheLuceneIndexTermsEnum_class_()];
+  v13 = [IOSLongArray arrayWithLength:v37->super.size_];
+  v36 = v9;
   if (v9 >= 1)
   {
-    v13 = 0;
+    v14 = 0;
     while (1)
     {
-      v14 = v11[2];
-      if (v13 >= v14)
+      v15 = v12[2];
+      if (v14 >= v15)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v14, v13);
+        IOSArray_throwOutOfBoundsWithMsg(v15, v14);
       }
 
       if (!state)
@@ -590,66 +591,66 @@ LABEL_43:
         break;
       }
 
-      v15 = *(state + 8);
-      if (!v15)
+      v16 = *(state + 8);
+      if (!v16)
       {
         break;
       }
 
-      v16 = *&v11[2 * v13 + 6];
-      v17 = *(v15 + 8);
-      if (v13 >= v17)
+      v17 = *&v12[2 * v14 + 6];
+      v18 = *(v16 + 8);
+      if (v14 >= v18)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v17, v13);
+        IOSArray_throwOutOfBoundsWithMsg(v18, v14);
       }
 
-      v18 = *(state + 12);
-      if (!v18)
+      v19 = *(state + 12);
+      if (!v19)
       {
         break;
       }
 
-      v19 = *(v15 + 24 + 8 * v13);
-      v20 = *(v18 + 8);
-      if (v13 >= v20)
+      v20 = *(v16 + 24 + 8 * v14);
+      v21 = *(v19 + 8);
+      if (v14 >= v21)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v20, v13);
+        IOSArray_throwOutOfBoundsWithMsg(v21, v14);
       }
 
-      if (v19)
+      if (v20)
       {
-        if (!v16)
+        if (!v17)
         {
           break;
         }
 
-        v21 = *(v18 + 12 + 4 * v13);
-        v22 = new_OrgApacheLuceneUtilLongBitSet_initWithLong_([*&v11[2 * v13 + 6] getValueCount]);
-        if (v21 >= 1)
+        v22 = *(v19 + 12 + 4 * v14);
+        v23 = new_OrgApacheLuceneUtilLongBitSet_initWithLong_([*&v12[2 * v14 + 6] getValueCount]);
+        if (v22 >= 1)
         {
-          v23 = 0;
+          v24 = 0;
           do
           {
-            if ([v19 getWithInt:v23])
+            if ([v20 getWithInt:v24])
             {
-              v24 = [v16 getOrdWithInt:v23];
-              if ((v24 & 0x80000000) == 0)
+              v25 = [v17 getOrdWithInt:v24];
+              if ((v25 & 0x80000000) == 0)
               {
-                [(OrgApacheLuceneUtilLongBitSet *)v22 setWithLong:v24];
+                [(OrgApacheLuceneUtilLongBitSet *)v23 setWithLong:v25];
               }
             }
 
-            v23 = (v23 + 1);
+            v24 = (v24 + 1);
           }
 
-          while (v21 != v23);
+          while (v22 != v24);
         }
 
-        v25 = new_OrgApacheLuceneCodecsDocValuesConsumer_BitsFilteredTermsEnum_initWithOrgApacheLuceneIndexTermsEnum_withOrgApacheLuceneUtilLongBitSet_([v16 termsEnum], v22);
-        IOSObjectArray_SetAndConsume(v36, v13, v25);
-        cardinality = [(OrgApacheLuceneUtilLongBitSet *)v22 cardinality];
-        size = v12->super.size_;
-        if (v13 >= size)
+        v26 = new_OrgApacheLuceneCodecsDocValuesConsumer_BitsFilteredTermsEnum_initWithOrgApacheLuceneIndexTermsEnum_withOrgApacheLuceneUtilLongBitSet_([v17 termsEnum], v23);
+        IOSObjectArray_SetAndConsume(v37, v14, v26);
+        cardinality = [(OrgApacheLuceneUtilLongBitSet *)v23 cardinality];
+        size = v13->super.size_;
+        if (v14 >= size)
         {
           goto LABEL_28;
         }
@@ -657,23 +658,23 @@ LABEL_43:
 
       else
       {
-        if (!v16)
+        if (!v17)
         {
           break;
         }
 
-        IOSObjectArray_Set(v36, v13, [*&v11[2 * v13 + 6] termsEnum]);
-        cardinality = [v16 getValueCount];
-        size = v12->super.size_;
-        if (v13 >= size)
+        IOSObjectArray_Set(v37, v14, [*&v12[2 * v14 + 6] termsEnum]);
+        cardinality = [v17 getValueCount];
+        size = v13->super.size_;
+        if (v14 >= size)
         {
 LABEL_28:
-          IOSArray_throwOutOfBoundsWithMsg(size, v13);
+          IOSArray_throwOutOfBoundsWithMsg(size, v14);
         }
       }
 
-      v12->buffer_[v13++] = cardinality;
-      if (v13 == v35)
+      v13->buffer_[v14++] = cardinality;
+      if (v14 == v36)
       {
         goto LABEL_29;
       }
@@ -684,19 +685,19 @@ LABEL_32:
   }
 
 LABEL_29:
-  v28 = OrgApacheLuceneIndexMultiDocValues_OrdinalMap_buildWithId_withOrgApacheLuceneIndexTermsEnumArray_withLongArray_withFloat_(selfCopy, v36, v12, 0.0);
-  v29 = [OrgApacheLuceneCodecsDocValuesConsumer__5 alloc];
-  JreStrongAssign(&v29->val$map_, v28);
-  JreStrongAssign(&v29->val$dvs_, v11);
-  v30 = v29;
-  v31 = [OrgApacheLuceneCodecsDocValuesConsumer__6 alloc];
-  v31->val$numReaders_ = v35;
-  JreStrongAssign(&v31->val$map_, v28);
-  JreStrongAssign(&v31->val$mergeState_, state);
-  JreStrongAssign(&v31->val$dvs_, v11);
-  v32 = v31;
+  v29 = OrgApacheLuceneIndexMultiDocValues_OrdinalMap_buildWithId_withOrgApacheLuceneIndexTermsEnumArray_withLongArray_withFloat_(selfCopy, v37, v13, 0.0);
+  v30 = [OrgApacheLuceneCodecsDocValuesConsumer__5 alloc];
+  JreStrongAssign(&v30->val$map_, v29);
+  JreStrongAssign(&v30->val$dvs_, v12);
+  v31 = v30;
+  v32 = [OrgApacheLuceneCodecsDocValuesConsumer__6 alloc];
+  v32->val$numReaders_ = v36;
+  JreStrongAssign(&v32->val$map_, v29);
+  JreStrongAssign(&v32->val$mergeState_, state);
+  JreStrongAssign(&v32->val$dvs_, v12);
+  v33 = v32;
 
-  [(OrgApacheLuceneCodecsDocValuesConsumer *)selfCopy addSortedFieldWithOrgApacheLuceneIndexFieldInfo:infoCopy withJavaLangIterable:v30 withJavaLangIterable:v32];
+  [(OrgApacheLuceneCodecsDocValuesConsumer *)selfCopy addSortedFieldWithOrgApacheLuceneIndexFieldInfo:infoCopy withJavaLangIterable:v31 withJavaLangIterable:v33];
 }
 
 - (void)mergeSortedSetFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withOrgApacheLuceneIndexMergeState:(id)state withJavaUtilList:(id)list
@@ -706,133 +707,134 @@ LABEL_29:
     goto LABEL_33;
   }
 
-  v7 = [list toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", objc_msgSend(list, "size"), OrgApacheLuceneIndexSortedSetDocValues_class_())}];
+  v8 = [list size];
+  v10 = [list toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", v8, OrgApacheLuceneIndexSortedSetDocValues_class_(v8, v9))}];
   if (!state)
   {
     goto LABEL_33;
   }
 
-  v8 = *(state + 12);
-  if (!v8)
+  v11 = *(state + 12);
+  if (!v11)
   {
     goto LABEL_33;
   }
 
-  v9 = v7;
-  if (!v7)
+  v12 = v10;
+  if (!v10)
   {
     goto LABEL_33;
   }
 
   infoCopy = info;
-  v10 = &OBJC_IVAR___IOSArray_size_;
-  v40 = *(v8 + 8);
-  v11 = [IOSObjectArray arrayWithLength:v7[2] type:OrgApacheLuceneIndexTermsEnum_class_()];
-  v12 = [IOSLongArray arrayWithLength:v11->super.size_];
-  v13 = 8;
-  if (v11->super.size_ >= 1)
+  v13 = &OBJC_IVAR___IOSArray_size_;
+  v43 = *(v11 + 8);
+  v14 = [IOSObjectArray arrayWithLength:v10[2] type:OrgApacheLuceneIndexTermsEnum_class_()];
+  v15 = [IOSLongArray arrayWithLength:v14->super.size_];
+  v16 = 8;
+  if (v14->super.size_ >= 1)
   {
-    v14 = 0;
-    v43 = v9;
+    v17 = 0;
+    v46 = v12;
     while (1)
     {
-      v15 = *(v9 + v13);
-      if (v14 >= v15)
+      v18 = *(v12 + v16);
+      if (v17 >= v18)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v15, v14);
+        IOSArray_throwOutOfBoundsWithMsg(v18, v17);
       }
 
-      v16 = *(state + 8);
-      if (!v16)
+      v19 = *(state + 8);
+      if (!v19)
       {
         break;
       }
 
-      v17 = v9[v14 + 3];
-      v18 = *v10;
-      v19 = *(v16 + v18);
-      if (v14 >= v19)
+      v20 = v12[v17 + 3];
+      v21 = *v13;
+      v22 = *(v19 + v21);
+      if (v17 >= v22)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v19, v14);
+        IOSArray_throwOutOfBoundsWithMsg(v22, v17);
       }
 
-      v20 = *(v16 + 24 + 8 * v14);
-      v21 = *(state + 12);
-      v22 = *(v21 + v18);
-      if (v14 >= v22)
+      v23 = *(v19 + 24 + 8 * v17);
+      v24 = *(state + 12);
+      v25 = *(v24 + v21);
+      if (v17 >= v25)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v22, v14);
+        IOSArray_throwOutOfBoundsWithMsg(v25, v17);
       }
 
-      if (v20)
+      if (v23)
       {
-        if (!v17)
+        if (!v20)
         {
           break;
         }
 
         stateCopy = state;
-        v24 = v10;
-        v25 = *(v21 + 12 + 4 * v14);
-        v26 = new_OrgApacheLuceneUtilLongBitSet_initWithLong_([v17 getValueCount]);
-        if (v25 >= 1)
+        v27 = v13;
+        v28 = *(v24 + 12 + 4 * v17);
+        v29 = new_OrgApacheLuceneUtilLongBitSet_initWithLong_([v20 getValueCount]);
+        if (v28 >= 1)
         {
-          v27 = 0;
+          v30 = 0;
           do
           {
-            if ([v20 getWithInt:v27])
+            if ([v23 getWithInt:v30])
             {
-              [v17 setDocumentWithInt:v27];
-              nextOrd = [v17 nextOrd];
+              [v20 setDocumentWithInt:v30];
+              nextOrd = [v20 nextOrd];
               if (nextOrd != -1)
               {
-                for (i = nextOrd; i != -1; i = [v17 nextOrd])
+                for (i = nextOrd; i != -1; i = [v20 nextOrd])
                 {
-                  [(OrgApacheLuceneUtilLongBitSet *)v26 setWithLong:i];
+                  [(OrgApacheLuceneUtilLongBitSet *)v29 setWithLong:i];
                 }
               }
             }
 
-            v27 = (v27 + 1);
+            v30 = (v30 + 1);
           }
 
-          while (v27 != v25);
+          while (v30 != v28);
         }
 
-        v30 = new_OrgApacheLuceneCodecsDocValuesConsumer_BitsFilteredTermsEnum_initWithOrgApacheLuceneIndexTermsEnum_withOrgApacheLuceneUtilLongBitSet_([v17 termsEnum], v26);
-        IOSObjectArray_SetAndConsume(v11, v14, v30);
-        cardinality = [(OrgApacheLuceneUtilLongBitSet *)v26 cardinality];
-        v10 = v24;
-        v32 = *(&v12->super.super.isa + *v24);
-        if (v14 >= v32)
+        v33 = new_OrgApacheLuceneCodecsDocValuesConsumer_BitsFilteredTermsEnum_initWithOrgApacheLuceneIndexTermsEnum_withOrgApacheLuceneUtilLongBitSet_([v20 termsEnum], v29);
+        IOSObjectArray_SetAndConsume(v14, v17, v33);
+        cardinality = [(OrgApacheLuceneUtilLongBitSet *)v29 cardinality];
+        v13 = v27;
+        v35 = *(&v15->super.super.isa + *v27);
+        if (v17 >= v35)
         {
           goto LABEL_29;
         }
 
         state = stateCopy;
-        v9 = v43;
+        v12 = v46;
       }
 
       else
       {
-        if (!v17)
+        if (!v20)
         {
           break;
         }
 
-        IOSObjectArray_Set(v11, v14, [v9[v14 + 3] termsEnum]);
-        cardinality = [v17 getValueCount];
-        v32 = *(&v12->super.super.isa + *v10);
-        if (v14 >= v32)
+        IOSObjectArray_Set(v14, v17, [v12[v17 + 3] termsEnum]);
+        cardinality = [v20 getValueCount];
+        v35 = *(&v15->super.super.isa + *v13);
+        if (v17 >= v35)
         {
 LABEL_29:
-          IOSArray_throwOutOfBoundsWithMsg(v32, v14);
+          IOSArray_throwOutOfBoundsWithMsg(v35, v17);
         }
       }
 
-      v12->buffer_[v14++] = cardinality;
-      v13 = *v10;
-      if (v14 >= *(&v11->super.super.isa + v13))
+      v15->buffer_[v17++] = cardinality;
+      v16 = *v13;
+      if (v17 >= *(&v14->super.super.isa + v16))
       {
         goto LABEL_30;
       }
@@ -843,24 +845,24 @@ LABEL_33:
   }
 
 LABEL_30:
-  v33 = OrgApacheLuceneIndexMultiDocValues_OrdinalMap_buildWithId_withOrgApacheLuceneIndexTermsEnumArray_withLongArray_withFloat_(self, v11, v12, 0.0);
-  v34 = [OrgApacheLuceneCodecsDocValuesConsumer__7 alloc];
-  JreStrongAssign(&v34->val$map_, v33);
-  JreStrongAssign(&v34->val$dvs_, v9);
-  v35 = v34;
-  v36 = [OrgApacheLuceneCodecsDocValuesConsumer__8 alloc];
-  v36->val$numReaders_ = v40;
-  JreStrongAssign(&v36->val$mergeState_, state);
-  JreStrongAssign(&v36->val$dvs_, v9);
-  v37 = v36;
-  v38 = [OrgApacheLuceneCodecsDocValuesConsumer__9 alloc];
-  v38->val$numReaders_ = v40;
-  JreStrongAssign(&v38->val$map_, v33);
-  JreStrongAssign(&v38->val$mergeState_, state);
-  JreStrongAssign(&v38->val$dvs_, v9);
-  v39 = v38;
+  v36 = OrgApacheLuceneIndexMultiDocValues_OrdinalMap_buildWithId_withOrgApacheLuceneIndexTermsEnumArray_withLongArray_withFloat_(self, v14, v15, 0.0);
+  v37 = [OrgApacheLuceneCodecsDocValuesConsumer__7 alloc];
+  JreStrongAssign(&v37->val$map_, v36);
+  JreStrongAssign(&v37->val$dvs_, v12);
+  v38 = v37;
+  v39 = [OrgApacheLuceneCodecsDocValuesConsumer__8 alloc];
+  v39->val$numReaders_ = v43;
+  JreStrongAssign(&v39->val$mergeState_, state);
+  JreStrongAssign(&v39->val$dvs_, v12);
+  v40 = v39;
+  v41 = [OrgApacheLuceneCodecsDocValuesConsumer__9 alloc];
+  v41->val$numReaders_ = v43;
+  JreStrongAssign(&v41->val$map_, v36);
+  JreStrongAssign(&v41->val$mergeState_, state);
+  JreStrongAssign(&v41->val$dvs_, v12);
+  v42 = v41;
 
-  [(OrgApacheLuceneCodecsDocValuesConsumer *)self addSortedSetFieldWithOrgApacheLuceneIndexFieldInfo:infoCopy withJavaLangIterable:v35 withJavaLangIterable:v37 withJavaLangIterable:v39];
+  [(OrgApacheLuceneCodecsDocValuesConsumer *)self addSortedSetFieldWithOrgApacheLuceneIndexFieldInfo:infoCopy withJavaLangIterable:v38 withJavaLangIterable:v40 withJavaLangIterable:v42];
 }
 
 @end

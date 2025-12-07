@@ -296,7 +296,7 @@ LABEL_5:
     captureFileOutput = self->_captureFileOutput;
     if (captureFileOutput)
     {
-      [(AVCaptureMovieFileOutput *)captureFileOutput recordedDuration];
+      objc_msgSend_recordedDuration(captureFileOutput);
     }
 
     else
@@ -407,7 +407,7 @@ LABEL_8:
         v11 = captureFileOutput3;
         if (captureFileOutput3)
         {
-          [captureFileOutput3 recordedDuration];
+          objc_msgSend_recordedDuration(captureFileOutput3);
         }
 
         else

@@ -31,10 +31,9 @@ void __50__AEDNotificationObservation_notificationDidFire___block_invoke(uint64_
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained && WeakRetained[5])
   {
-    v4 = WeakRetained;
-    v3 = *(a1 + 32);
+    v2 = WeakRetained;
     (*(WeakRetained[5] + 16))();
-    WeakRetained = v4;
+    WeakRetained = v2;
   }
 }
 

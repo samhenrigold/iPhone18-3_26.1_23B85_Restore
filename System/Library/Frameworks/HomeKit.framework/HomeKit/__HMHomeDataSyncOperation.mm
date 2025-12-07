@@ -21,7 +21,7 @@
 
 - (void)main
 {
-  v43[3] = *MEMORY[0x1E69E9840];
+  v42[3] = *MEMORY[0x1E69E9840];
   manager = [(__HMHomeDataSyncOperation *)self manager];
   v4 = manager;
   if (manager)
@@ -35,27 +35,27 @@
 
     v11 = MEMORY[0x1E69A2A10];
     qualityOfService = [(__HMHomeDataSyncOperation *)self qualityOfService];
-    v42[0] = @"kConfigGenerationCounterKey";
+    v41[0] = @"kConfigGenerationCounterKey";
     v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:generationCounter];
-    v43[0] = v13;
-    v42[1] = @"kHAPMetadataVersionKey";
+    v42[0] = v13;
+    v41[1] = @"kHAPMetadataVersionKey";
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:metadataVersion];
-    v43[1] = v14;
-    v42[2] = @"options";
+    v42[1] = v14;
+    v41[2] = @"options";
     v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(configuration, "options")}];
-    v43[2] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:3];
+    v42[2] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:3];
     v17 = [v11 messageWithName:@"HMHM.fhc" qualityOfService:qualityOfService destination:v10 payload:v16];
 
     objc_initWeak(&location, self);
     objc_initWeak(&from, v4);
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __33____HMHomeDataSyncOperation_main__block_invoke;
-    v33 = &unk_1E754CAE0;
-    objc_copyWeak(&v34, &location);
-    objc_copyWeak(&v35, &from);
-    [v17 setResponseHandler:&v30];
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __33____HMHomeDataSyncOperation_main__block_invoke;
+    v32 = &unk_1E754CAE0;
+    objc_copyWeak(&v33, &location);
+    objc_copyWeak(&v34, &from);
+    [v17 setResponseHandler:&v29];
     v18 = objc_autoreleasePoolPush();
     selfCopy = self;
     v20 = HMFGetOSLogHandle();
@@ -64,9 +64,9 @@
       v21 = HMFGetLogIdentifier();
       shortDescription = [v17 shortDescription];
       *buf = 138543618;
-      v39 = v21;
-      v40 = 2112;
-      v41 = shortDescription;
+      v38 = v21;
+      v39 = 2112;
+      v40 = shortDescription;
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Sending sync request using message: %@", buf, 0x16u);
     }
 
@@ -75,8 +75,8 @@
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v17];
 
-    objc_destroyWeak(&v35);
     objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
@@ -90,7 +90,7 @@
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v28;
+      v38 = v28;
       _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Manager was deallocated before sync operation started", buf, 0xCu);
     }
 
@@ -98,8 +98,6 @@
     configuration = [MEMORY[0x1E696ABC0] hmErrorWithCode:2];
     [(HMFOperation *)selfCopy2 cancelWithError:configuration];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (HMHomeManager)manager

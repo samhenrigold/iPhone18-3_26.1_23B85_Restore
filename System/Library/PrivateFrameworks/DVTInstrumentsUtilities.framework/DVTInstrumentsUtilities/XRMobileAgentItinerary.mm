@@ -8,7 +8,7 @@
 
 - (void)_visitNextStop:(id)stop
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
   v9 = stopCopy;
   self->_updated = 0;
@@ -93,15 +93,15 @@ LABEL_8:
           v30 = objc_msgSend_agentStopDiagnosticsTypeCode(v11, v26, v27, v28, v29);
           v35 = objc_msgSend_mode(v9, v31, v32, v33, v34);
           v36 = *(v9 + 16);
-          v57 = 138413058;
-          v58 = v25;
-          v59 = 1024;
-          v60 = v30;
-          v61 = 2112;
-          v62 = v35;
-          v63 = 1024;
-          v64 = v36;
-          _os_signpost_emit_with_name_impl(&dword_248087000, v18, OS_SIGNPOST_EVENT, v20, "Mobile Agent Moved", "Agent %@ received by %d for mode %@ movement type %d", &v57, 0x22u);
+          v56 = 138413058;
+          v57 = v25;
+          v58 = 1024;
+          v59 = v30;
+          v60 = 2112;
+          v61 = v35;
+          v62 = 1024;
+          v63 = v36;
+          _os_signpost_emit_with_name_impl(&dword_248087000, v18, OS_SIGNPOST_EVENT, v20, "Mobile Agent Moved", "Agent %@ received by %d for mode %@ movement type %d", &v56, 0x22u);
         }
       }
 
@@ -126,13 +126,12 @@ LABEL_15:
     objc_msgSend_goodbye(v9, v5, v6, v7, v8);
 LABEL_21:
 
-    v52 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    sub_2480B4210(v9, v53, v54, v55, v56);
+    sub_2480B4210(v9, v52, v53, v54, v55);
   }
 
   _os_crash();

@@ -176,9 +176,7 @@
 
 - (void)setExistingRecipients:(id)recipients
 {
-  v4 = [NSSet setWithArray:recipients];
-  existingRecipients = self->_existingRecipients;
-  self->_existingRecipients = v4;
+  self->_existingRecipients = [NSSet setWithArray:recipients];
 
   _objc_release_x1();
 }

@@ -164,8 +164,9 @@
   }
 }
 
-void __49__AVAirMessageDispatcher_sendMessage_completion___block_invoke(uint64_t a1, void *a2, int a3)
+void __49__AVAirMessageDispatcher_sendMessage_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = _avairlog();
@@ -174,7 +175,7 @@ void __49__AVAirMessageDispatcher_sendMessage_completion___block_invoke(uint64_t
     v11 = 136315650;
     v12 = "[AVAirMessageDispatcher sendMessage:completion:]_block_invoke";
     v13 = 1024;
-    v14 = a3;
+    v14 = v3;
     v15 = 2112;
     v16 = v5;
     _os_log_impl(&dword_18B49C000, v6, OS_LOG_TYPE_DEFAULT, "%s sendObject completed with status = %d; response message: %@", &v11, 0x1Cu);

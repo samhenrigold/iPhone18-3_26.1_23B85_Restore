@@ -6,12 +6,12 @@
 
 - (ESExchangeEmptyBearerResponse)initWithData:(id)data urlResponse:(id)response error:(id)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   errorCopy = error;
-  v38.receiver = self;
-  v38.super_class = ESExchangeEmptyBearerResponse;
-  v9 = [(ESExchangeEmptyBearerResponse *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = ESExchangeEmptyBearerResponse;
+  v9 = [(ESExchangeEmptyBearerResponse *)&v37 init];
   v10 = v9;
   if (v9)
   {
@@ -27,36 +27,36 @@
       {
         statusCode = v10->_statusCode;
         *buf = 134217984;
-        v41 = statusCode;
+        v40 = statusCode;
         _os_log_impl(&dword_247E05000, v12, v13, "ESExchangeEmptyBearerResponse httpResponse status code %ld", buf, 0xCu);
       }
 
       if (!v10->_error)
       {
-        v32 = errorCopy;
-        v33 = responseCopy;
-        v31 = v11;
+        v31 = errorCopy;
+        v32 = responseCopy;
+        v30 = v11;
         [v11 valueForHTTPHeaderField:@"Www-Authenticate"];
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
-        v30 = v37 = 0u;
-        v15 = [v30 componentsSeparatedByString:{@", "}];
-        v16 = [v15 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v29 = v36 = 0u;
+        v15 = [v29 componentsSeparatedByString:{@", "}];
+        v16 = [v15 countByEnumeratingWithState:&v33 objects:v38 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v35;
+          v18 = *v34;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v35 != v18)
+              if (*v34 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = *(*(&v34 + 1) + 8 * i);
+              v20 = *(*(&v33 + 1) + 8 * i);
               whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
               v22 = [v20 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -71,15 +71,15 @@
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v34 objects:v39 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v33 objects:v38 count:16];
           }
 
           while (v17);
         }
 
-        errorCopy = v32;
-        responseCopy = v33;
-        v11 = v31;
+        errorCopy = v31;
+        responseCopy = v32;
+        v11 = v30;
       }
     }
 
@@ -95,7 +95,6 @@
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

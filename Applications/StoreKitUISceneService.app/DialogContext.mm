@@ -22,20 +22,19 @@
 {
   v2 = type metadata accessor for URL();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10001952C(v6);
-  URL._bridgeToObjectiveC()(v7);
-  v9 = v8;
-  (*(v3 + 8))(v6, v2);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10001952C(v5);
+  URL._bridgeToObjectiveC()(v6);
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
 
-  return v9;
+  return v8;
 }
 
 - (SKDialogProtocol)dialogObserver
 {
-  v2 = sub_1000195D0();
+  v2 = sub_1000195D0(self, a2);
 
   return v2;
 }
@@ -57,15 +56,14 @@
 - (_TtC22StoreKitUISceneService13DialogContext)initWithBundleID:(id)d bundleURL:(id)l processInfo:(id)info dialogObserver:(id)observer
 {
   v8 = type metadata accessor for URL();
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = v13;
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   infoCopy = info;
   swift_unknownObjectRetain();
-  return sub_10001969C(v12, v14, v11, infoCopy, observer);
+  return sub_10001969C(v11, v13, v10, infoCopy, observer);
 }
 
 - (void)handleEngagementRequest:(AMSEngagementRequest *)request bag:(AMSBagProtocol *)bag hostSceneID:(NSString *)d completionHandler:(id)handler

@@ -11,7 +11,7 @@
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupUnsupportedViewController _handleDismissButton]", 30, "Unsupported button\n");
   }
 
   mainController = [(TVLatencyColorimeterSetupBaseViewController *)self mainController];
@@ -23,7 +23,7 @@
   disappearCopy = disappear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupUnsupportedViewController viewDidDisappear:]", 30, "Unsupported ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -36,7 +36,7 @@
   appearCopy = appear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupUnsupportedViewController viewWillAppear:]", 30, "Unsupported ViewWillAppear\n");
   }
 
   v5.receiver = self;

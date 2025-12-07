@@ -1,3 +1,80 @@
+void SelectPointsWithEpipolarThreshold(const double *a1, const double *a2, signed int a3, double *a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8, double a9)
+{
+  v18 = malloc_type_malloc(8 * a3, 0x100004000313F17uLL);
+  if (v18 && (FundamentalEpipolarError_ABSVec(a1, a2, a3, a4, v18), a3 >= 1))
+  {
+    v19 = a3;
+    if (a8)
+    {
+      v20 = 0;
+      v21 = 0;
+      v22 = a2 + 1;
+      v23 = a1 + 1;
+      do
+      {
+        if (v18->f64[v20] < a9)
+        {
+          if (v20 <= 0x7FF)
+          {
+            *(a8 + v20) = 1;
+          }
+
+          v24 = 2 * v21;
+          *(a5 + 8 * v24) = *(v23 - 1);
+          v25 = (16 * v21) | 8;
+          *(a5 + v25) = *v23;
+          *(a6 + 8 * v24) = *(v22 - 1);
+          *(a6 + v25) = *v22;
+          ++v21;
+        }
+
+        ++v20;
+        v22 += 2;
+        v23 += 2;
+      }
+
+      while (a3 != v20);
+    }
+
+    else
+    {
+      v21 = 0;
+      v26 = a2 + 1;
+      v27 = a1 + 1;
+      v28 = v18;
+      do
+      {
+        if (*v28 < a9)
+        {
+          v29 = 2 * v21;
+          *(a5 + 8 * v29) = *(v27 - 1);
+          v30 = (16 * v21) | 8;
+          *(a5 + v30) = *v27;
+          *(a6 + 8 * v29) = *(v26 - 1);
+          *(a6 + v30) = *v26;
+          ++v21;
+        }
+
+        v26 += 2;
+        v27 += 2;
+        ++v28;
+        --v19;
+      }
+
+      while (v19);
+    }
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  *a7 = v21;
+
+  free(v18);
+}
+
 unint64_t jpc::PearlUtils::getBinForCoor(jpc::PearlUtils *this, double a2, unint64_t a3)
 {
   if (a3 < a2)
@@ -533,48 +610,48 @@ void sub_2403D8F5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_2403DA9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, ...)
+void sub_2403DA9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2403DB390(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2403DB390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
-  objc_sync_exit(v2);
+  objc_sync_exit(v3);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2403DBAE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2403DBAE0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ADPearlColorInFieldCalibrationExecutor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_2403DBBC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2403DBBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2403DC058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2403DC058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void GMC_ConstrainWorldPoints(uint64_t a1)
+void GMC_ConstrainWorldPoints(uint64_t a1, uint64_t a2, uint64_t a3, double *a4, uint64_t a5, unsigned int *a6, uint64_t a7, uint64_t a8, float64x2_t *a9, uint64_t a10)
 {
   if (*(a1 + 20))
   {
@@ -614,7 +691,7 @@ CFTypeRef PixelBufferUtils::copyAttachment(CVBufferRef buffer, const __CFString 
   return result;
 }
 
-__CVBuffer *PixelBufferUtils::copyAttachments(__CVBuffer *this, __CVBuffer *a2, CVAttachmentMode a3)
+CFDictionaryRef PixelBufferUtils::copyAttachments(CFDictionaryRef this, __CVBuffer *a2, CVAttachmentMode a3)
 {
   if (this)
   {
@@ -630,22 +707,22 @@ __CVBuffer *PixelBufferUtils::copyAttachments(__CVBuffer *this, __CVBuffer *a2, 
   return this;
 }
 
-unint64_t PixelBufferUtils::pixelFormatAsString@<X0>(unint64_t this@<X0>, char *a2@<X8>)
+unint64_t PixelBufferUtils::pixelFormatAsString@<X0>(uint64_t **__return_ptr a1@<X8>, unint64_t this@<X0>)
 {
   if (this == 32)
   {
-    a2[23] = 4;
+    *(a1 + 23) = 4;
     v3 = 1111970369;
     goto LABEL_5;
   }
 
   if (this == 24)
   {
-    a2[23] = 4;
+    *(a1 + 23) = 4;
     v3 = 1196569650;
 LABEL_5:
-    *a2 = v3;
-    a2[4] = 0;
+    *a1 = v3;
+    *(a1 + 4) = 0;
     return this;
   }
 
@@ -667,21 +744,21 @@ LABEL_5:
     operator new();
   }
 
-  a2[23] = this;
+  *(a1 + 23) = this;
   if (this)
   {
-    this = memcpy(a2, __s, this);
+    this = memcpy(a1, __s, this);
   }
 
-  a2[v4] = 0;
-  if (a2[23] >= 0)
+  *(a1 + v4) = 0;
+  if (*(a1 + 23) >= 0)
   {
-    v5 = a2;
+    v5 = a1;
   }
 
   else
   {
-    v5 = *a2;
+    v5 = *a1;
   }
 
   if (*v5 <= 31)
@@ -744,13 +821,13 @@ LABEL_5:
         HIBYTE(v22) = 0;
 LABEL_30:
         *(&__dst + v15) = 0;
-        if (a2[23] < 0)
+        if (*(a1 + 23) < 0)
         {
-          operator delete(*a2);
+          operator delete(*a1);
         }
 
-        *a2 = __dst;
-        *(a2 + 2) = v22;
+        *a1 = __dst;
+        a1[2] = v22;
         *__s = *v8;
         v19 = v8[9];
         *&__s[*(*__s - 24)] = v8[8];
@@ -850,7 +927,7 @@ uint64_t PixelBufferUtils::pixelFormatFromString(PixelBufferUtils *this, const c
 
 unint64_t PixelBufferUtils::pixelFormatAsFileExtension@<X0>(PixelBufferUtils *this@<X0>, uint64_t a2@<X8>)
 {
-  result = PixelBufferUtils::pixelFormatAsString(this, a2);
+  result = PixelBufferUtils::pixelFormatAsString(a2, this);
   v4 = *(a2 + 23);
   v5 = v4;
   v6 = *a2;
@@ -884,7 +961,7 @@ unint64_t PixelBufferUtils::pixelFormatAsFileExtension@<X0>(PixelBufferUtils *th
   if (v9 < 8)
   {
 LABEL_139:
-    v32 = &v8[v9];
+    v32 = (v8 + v9);
     do
     {
       if (*v10 == 47)
@@ -892,7 +969,7 @@ LABEL_139:
         *v10 = 58;
       }
 
-      ++v10;
+      v10 = (v10 + 1);
     }
 
     while (v10 != v32);
@@ -1123,14 +1200,14 @@ LABEL_33:
 
   if ((v9 & 8) == 0)
   {
-    v10 = &v8[v11];
+    v10 = (v8 + v11);
     goto LABEL_139;
   }
 
 LABEL_11:
   v12 = v9 & 0xFFFFFFFFFFFFFFF8;
   v13 = v11 - (v9 & 0xFFFFFFFFFFFFFFF8);
-  v14 = &v8[v11 + 3];
+  v14 = v8 + v11 + 3;
   while (2)
   {
     v15 = vceq_s8(*(v14 - 3), 0x2F2F2F2F2F2F2F2FLL);
@@ -1242,7 +1319,7 @@ LABEL_20:
 
   if (v9 != v12)
   {
-    v10 = &v8[v12];
+    v10 = (v8 + v12);
     goto LABEL_139;
   }
 
@@ -1281,7 +1358,7 @@ LABEL_69:
   if (v21 < 8)
   {
 LABEL_145:
-    v33 = &v20[v21];
+    v33 = (v20 + v21);
     do
     {
       if (*v22 == 46)
@@ -1303,7 +1380,7 @@ LABEL_145:
   }
 
   v23 = v21 & 0xFFFFFFFFFFFFFFF0;
-  v28 = v20 + 7;
+  v28 = (v20 + 7);
   v29.i64[0] = 0x2E2E2E2E2E2E2E2ELL;
   v29.i64[1] = 0x2E2E2E2E2E2E2E2ELL;
   v30 = v21 & 0xFFFFFFFFFFFFFFF0;
@@ -1527,14 +1604,14 @@ LABEL_117:
 
   if ((v21 & 8) == 0)
   {
-    v22 = &v20[v23];
+    v22 = (v20 + v23);
     goto LABEL_145;
   }
 
 LABEL_79:
   v24 = v21 & 0xFFFFFFFFFFFFFFF8;
   v25 = v23 - (v21 & 0xFFFFFFFFFFFFFFF8);
-  v26 = &v20[v23 + 3];
+  v26 = (v23 + v20 + 3);
   while (2)
   {
     v27 = vceq_s8(*(v26 - 3), 0x2E2E2E2E2E2E2E2ELL);
@@ -1646,7 +1723,7 @@ LABEL_88:
 
   if (v21 != v24)
   {
-    v22 = &v20[v24];
+    v22 = (v20 + v24);
     goto LABEL_145;
   }
 
@@ -1912,7 +1989,7 @@ LABEL_40:
   else
   {
 
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v16 >= 0)
     {
       v14 = __p;
@@ -1944,16 +2021,16 @@ void sub_2403DE0A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PixelBufferUtils::asVImageBuffer(PixelBufferUtils *this@<X0>, __CVBuffer *a2@<X1>, CGRect a3@<0:D0, 8:D1, 16:D2, 24:D3>, vImage_Buffer *a4@<X8>)
+void PixelBufferUtils::asVImageBuffer(vImage_Buffer *__return_ptr a1@<X8>, PixelBufferUtils *this@<X0>, __CVBuffer *a3@<X1>, CGRect a4@<0:D0, 8:D1, 16:D2, 24:D3>)
 {
-  height = a3.size.height;
-  width = a3.size.width;
-  y = a3.origin.y;
-  x = a3.origin.x;
-  BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(this, a2);
-  HeightOfPlane = CVPixelBufferGetHeightOfPlane(this, a2);
-  WidthOfPlane = CVPixelBufferGetWidthOfPlane(this, a2);
-  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(this, a2);
+  height = a4.size.height;
+  width = a4.size.width;
+  y = a4.origin.y;
+  x = a4.origin.x;
+  BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(this, a3);
+  HeightOfPlane = CVPixelBufferGetHeightOfPlane(this, a3);
+  WidthOfPlane = CVPixelBufferGetWidthOfPlane(this, a3);
+  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(this, a3);
   if (!BaseAddressOfPlane)
   {
     NSLog(&cfstr_SDErrorAsvimag.isa, "asVImageBuffer", 287);
@@ -1971,7 +2048,7 @@ void PixelBufferUtils::asVImageBuffer(PixelBufferUtils *this@<X0>, __CVBuffer *a
   v17.origin.y = y;
   v17.size.width = width;
   v17.size.height = height;
-  cropVImageBuffer(a4, v16, v17, PixelFormatType, a2);
+  cropVImageBuffer(a1, v16, v17, PixelFormatType, a3);
 }
 
 void cropVImageBuffer(vImage_Buffer *a1, uint64_t a2, CGRect a3, PixelBufferUtils *a4, uint64_t a5)
@@ -2150,7 +2227,7 @@ LABEL_30:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v15 >= 0)
     {
       v13 = __p;
@@ -2322,7 +2399,7 @@ LABEL_30:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v15 >= 0)
     {
       v13 = __p;
@@ -2353,34 +2430,34 @@ void sub_2403DE988(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PixelBufferUtils::asVImageBuffer(PixelBufferUtils *this@<X0>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, vImage_Buffer *a3@<X8>)
+void PixelBufferUtils::asVImageBuffer(vImage_Buffer *__return_ptr a1@<X8>, PixelBufferUtils *this@<X0>, CGRect a3@<0:D0, 8:D1, 16:D2, 24:D3>)
 {
-  height = a2.size.height;
-  width = a2.size.width;
-  y = a2.origin.y;
-  x = a2.origin.x;
+  height = a3.size.height;
+  width = a3.size.width;
+  y = a3.origin.y;
+  x = a3.origin.x;
   BaseAddress = CVPixelBufferGetBaseAddress(this);
-  v11 = CVPixelBufferGetHeight(this);
-  v12 = CVPixelBufferGetWidth(this);
+  v10 = CVPixelBufferGetHeight(this);
+  v11 = CVPixelBufferGetWidth(this);
   BytesPerRow = CVPixelBufferGetBytesPerRow(this);
   if (!BaseAddress)
   {
     NSLog(&cfstr_SDErrorAsvimag.isa, "asVImageBuffer", 305);
     BytesPerRow = 0;
-    v12 = 0;
     v11 = 0;
+    v10 = 0;
   }
 
-  v15[0] = BaseAddress;
-  v15[1] = v11;
-  v15[2] = v12;
-  v15[3] = BytesPerRow;
+  v14[0] = BaseAddress;
+  v14[1] = v10;
+  v14[2] = v11;
+  v14[3] = BytesPerRow;
   PixelFormatType = CVPixelBufferGetPixelFormatType(this);
-  v16.origin.x = x;
-  v16.origin.y = y;
-  v16.size.width = width;
-  v16.size.height = height;
-  cropVImageBuffer(a3, v15, v16, PixelFormatType, 0);
+  v15.origin.x = x;
+  v15.origin.y = y;
+  v15.size.width = width;
+  v15.size.height = height;
+  cropVImageBuffer(a1, v14, v15, PixelFormatType, 0);
 }
 
 CVPixelBufferRef PixelBufferUtils::createPixelBuffer(size_t width, size_t height, OSType pixelFormatType, int a4)
@@ -2543,7 +2620,7 @@ PixelBufferUtils *PixelBufferUtils::uncompressedEquivalentForPixelFormat(PixelBu
 
   else if (PixelBufferUtils::isPixelFormatCompressed(this))
   {
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v8 >= 0)
     {
       v5 = __p;
@@ -2753,9 +2830,9 @@ LABEL_26:
     CVPixelBufferLockBaseAddress(pixelBuffer, 1uLL);
     memset(&src, 0, sizeof(src));
     v17 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(pixelBuffer, *MEMORY[0x277CBF3A0], &src);
+    PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, *MEMORY[0x277CBF3A0]);
     memset(&dest, 0, sizeof(dest));
-    PixelBufferUtils::asVImageBuffer(a2, *v17, &dest);
+    PixelBufferUtils::asVImageBuffer(&dest, a2, *v17);
     if (v15)
     {
       if (src.width != dest.height || src.height != dest.width)
@@ -2818,9 +2895,9 @@ LABEL_39:
       {
         if (v16 == 1919365990)
         {
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, 0, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, pixelBuffer, 0, *v17);
           src = __p;
-          PixelBufferUtils::asVImageBuffer(a2, 0, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 0, *v17);
           dest = __p;
           v20 = vImageRotate90_PlanarF(&src, &dest, v8, 0.0, 0);
           if (v20)
@@ -2828,9 +2905,9 @@ LABEL_39:
             goto LABEL_75;
           }
 
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, 1, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, pixelBuffer, 1, *v17);
           src = __p;
-          PixelBufferUtils::asVImageBuffer(a2, 1, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 1, *v17);
           dest = __p;
           v20 = vImageRotate90_PlanarF(&src, &dest, v8, 0.0, 0);
           if (v20)
@@ -2838,9 +2915,9 @@ LABEL_39:
             goto LABEL_75;
           }
 
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, 2, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, pixelBuffer, 2, *v17);
           src = __p;
-          PixelBufferUtils::asVImageBuffer(a2, 2, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 2, *v17);
           dest = __p;
           v21 = vImageRotate90_PlanarF(&src, &dest, v8, 0.0, 0);
           goto LABEL_74;
@@ -2848,9 +2925,9 @@ LABEL_39:
 
         if (v16 == 1919365992)
         {
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, 0, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, pixelBuffer, 0, *v17);
           src = __p;
-          PixelBufferUtils::asVImageBuffer(a2, 0, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 0, *v17);
           dest = __p;
           v20 = vImageRotate90_Planar16F(&src, &dest, v8, 0, 0);
           if (v20)
@@ -2858,9 +2935,9 @@ LABEL_39:
             goto LABEL_75;
           }
 
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, 1, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, pixelBuffer, 1, *v17);
           src = __p;
-          PixelBufferUtils::asVImageBuffer(a2, 1, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 1, *v17);
           dest = __p;
           v20 = vImageRotate90_Planar16F(&src, &dest, v8, 0, 0);
           if (v20)
@@ -2868,9 +2945,9 @@ LABEL_39:
             goto LABEL_75;
           }
 
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, 2, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, pixelBuffer, 2, *v17);
           src = __p;
-          PixelBufferUtils::asVImageBuffer(a2, 2, *v17, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 2, *v17);
           dest = __p;
           v21 = vImageRotate90_Planar16F(&src, &dest, v8, 0, 0);
           goto LABEL_74;
@@ -2911,7 +2988,7 @@ LABEL_65:
             if (v16 != 1094862674 && v16 != 1111970369)
             {
 LABEL_89:
-              PixelBufferUtils::pixelFormatAsString(v16, &__p);
+              PixelBufferUtils::pixelFormatAsString(&__p, v16);
               if ((__p.width & 0x8000000000000000) == 0)
               {
                 p_p = &__p;
@@ -2986,8 +3063,8 @@ LABEL_73:
         }
 
 LABEL_49:
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, 0, *v17, &src);
-        PixelBufferUtils::asVImageBuffer(a2, 0, *v17, &dest);
+        PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, 0, *v17);
+        PixelBufferUtils::asVImageBuffer(&dest, a2, 0, *v17);
         v20 = vImageRotate90_Planar8(&src, &dest, v8, 0, 0);
         if (v20)
         {
@@ -2997,9 +3074,9 @@ LABEL_75:
           return v20 != 0;
         }
 
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, 1, *v17, &__p);
+        PixelBufferUtils::asVImageBuffer(&__p, pixelBuffer, 1, *v17);
         src = __p;
-        PixelBufferUtils::asVImageBuffer(a2, 1, *v17, &__p);
+        PixelBufferUtils::asVImageBuffer(&__p, a2, 1, *v17);
         dest = __p;
         v21 = vImageRotate90_Planar16U(&src, &dest, v8, 0, 0);
 LABEL_74:
@@ -3217,13 +3294,13 @@ LABEL_17:
       v66.origin.y = v33;
       v66.size.width = v32;
       v66.size.height = v31;
-      PixelBufferUtils::asVImageBuffer(pixelBuffer, v66, &v60);
+      PixelBufferUtils::asVImageBuffer(&v60, pixelBuffer, v66);
       memset(&v59, 0, sizeof(v59));
       v67.origin.x = v52;
       v67.origin.y = v50;
       v67.size.width = v51;
       v67.size.height = v25;
-      PixelBufferUtils::asVImageBuffer(a2, v67, &v59);
+      PixelBufferUtils::asVImageBuffer(&v59, a2, v67);
       v35 = CVPixelBufferGetPixelFormatType(pixelBuffer);
       v36 = v35;
       if (v35 <= 1380401728)
@@ -3248,13 +3325,13 @@ LABEL_17:
 
 LABEL_68:
             memset(&src, 0, sizeof(src));
-            PixelBufferUtils::asVImageBuffer(pixelBuffer, 0, *&v39, &src);
+            PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, 0, *&v39);
             memset(&dest, 0, sizeof(dest));
             v68.origin.x = v52;
             v68.origin.y = v50;
             v68.size.width = v51;
             v68.size.height = v25;
-            PixelBufferUtils::asVImageBuffer(a2, 0, v68, &dest);
+            PixelBufferUtils::asVImageBuffer(&dest, a2, 0, v68);
             v42 = vImageScale_Planar8(&src, &dest, 0, 0);
             if (!v42)
             {
@@ -3263,13 +3340,13 @@ LABEL_68:
               v69.origin.y = v33;
               v69.size.width = v32;
               v69.size.height = v31;
-              PixelBufferUtils::asVImageBuffer(pixelBuffer, 1, v69, &v56);
+              PixelBufferUtils::asVImageBuffer(&v56, pixelBuffer, 1, v69);
               memset(&v55, 0, sizeof(v55));
               v70.origin.x = v52;
               v70.origin.y = v50;
               v70.size.width = v51;
               v70.size.height = v25;
-              PixelBufferUtils::asVImageBuffer(a2, 1, v70, &v55);
+              PixelBufferUtils::asVImageBuffer(&v55, a2, 1, v70);
               v42 = vImageScale_CbCr8(&v56, &v55, 0, 0);
             }
 
@@ -3288,7 +3365,7 @@ LABEL_78:
               }
 
 LABEL_101:
-              PixelBufferUtils::pixelFormatAsString(v35, &src);
+              PixelBufferUtils::pixelFormatAsString(&src, v35);
               if ((src.width & 0x8000000000000000) == 0)
               {
                 p_src = &src;
@@ -3421,13 +3498,13 @@ LABEL_83:
         v76.origin.y = v33;
         v76.size.width = v32;
         v76.size.height = v31;
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, 0, v76, &src);
+        PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, 0, v76);
         v60 = src;
         v77.origin.x = v52;
         v77.origin.y = v50;
         v77.size.width = v51;
         v77.size.height = v25;
-        PixelBufferUtils::asVImageBuffer(a2, 0, v77, &src);
+        PixelBufferUtils::asVImageBuffer(&src, a2, 0, v77);
         v59 = src;
         v48 = vImageScale_PlanarF(&v60, &v59, 0, 0);
         if (!v48)
@@ -3436,13 +3513,13 @@ LABEL_83:
           v78.origin.y = v33;
           v78.size.width = v32;
           v78.size.height = v31;
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, 1, v78, &src);
+          PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, 1, v78);
           v60 = src;
           v79.origin.x = v52;
           v79.origin.y = v50;
           v79.size.width = v51;
           v79.size.height = v25;
-          PixelBufferUtils::asVImageBuffer(a2, 1, v79, &src);
+          PixelBufferUtils::asVImageBuffer(&src, a2, 1, v79);
           v59 = src;
           v48 = vImageScale_PlanarF(&v60, &v59, 0, 0);
           if (!v48)
@@ -3451,13 +3528,13 @@ LABEL_83:
             v80.origin.y = v33;
             v80.size.width = v32;
             v80.size.height = v31;
-            PixelBufferUtils::asVImageBuffer(pixelBuffer, 2, v80, &src);
+            PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, 2, v80);
             v60 = src;
             v81.origin.x = v52;
             v81.origin.y = v50;
             v81.size.width = v51;
             v81.size.height = v25;
-            PixelBufferUtils::asVImageBuffer(a2, 2, v81, &src);
+            PixelBufferUtils::asVImageBuffer(&src, a2, 2, v81);
             v59 = src;
             v48 = vImageScale_PlanarF(&v60, &v59, 0, 0);
           }
@@ -3476,13 +3553,13 @@ LABEL_83:
           goto LABEL_86;
         }
 
-        PixelBufferUtils::asVImageBuffer(pixelBuffer, 0, *&v45, &src);
+        PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, 0, *&v45);
         v60 = src;
         v71.origin.x = v52;
         v71.origin.y = v50;
         v71.size.width = v51;
         v71.size.height = v25;
-        PixelBufferUtils::asVImageBuffer(a2, 0, v71, &src);
+        PixelBufferUtils::asVImageBuffer(&src, a2, 0, v71);
         v59 = src;
         v48 = vImageScale_Planar16F(&v60, &v59, 0, 0);
         if (!v48)
@@ -3491,13 +3568,13 @@ LABEL_83:
           v72.origin.y = v33;
           v72.size.width = v32;
           v72.size.height = v31;
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, 1, v72, &src);
+          PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, 1, v72);
           v60 = src;
           v73.origin.x = v52;
           v73.origin.y = v50;
           v73.size.width = v51;
           v73.size.height = v25;
-          PixelBufferUtils::asVImageBuffer(a2, 1, v73, &src);
+          PixelBufferUtils::asVImageBuffer(&src, a2, 1, v73);
           v59 = src;
           v48 = vImageScale_Planar16F(&v60, &v59, 0, 0);
           if (!v48)
@@ -3506,13 +3583,13 @@ LABEL_83:
             v74.origin.y = v33;
             v74.size.width = v32;
             v74.size.height = v31;
-            PixelBufferUtils::asVImageBuffer(pixelBuffer, 2, v74, &src);
+            PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, 2, v74);
             v60 = src;
             v75.origin.x = v52;
             v75.origin.y = v50;
             v75.size.width = v51;
             v75.size.height = v25;
-            PixelBufferUtils::asVImageBuffer(a2, 2, v75, &src);
+            PixelBufferUtils::asVImageBuffer(&src, a2, 2, v75);
             v59 = src;
             v42 = vImageScale_Planar16F(&v60, &v59, 0, 0);
             goto LABEL_107;
@@ -3955,9 +4032,9 @@ LABEL_58:
           CVPixelBufferLockBaseAddress(a2, 0);
           memset(&src, 0, sizeof(src));
           v23 = MEMORY[0x277CBF3A0];
-          PixelBufferUtils::asVImageBuffer(pixelBuffer, *MEMORY[0x277CBF3A0], &src);
+          PixelBufferUtils::asVImageBuffer(&src, pixelBuffer, *MEMORY[0x277CBF3A0]);
           memset(&dest, 0, sizeof(dest));
-          PixelBufferUtils::asVImageBuffer(a2, *v23, &dest);
+          PixelBufferUtils::asVImageBuffer(&dest, a2, *v23);
           if (v22 == 1278226536 || v22 == 1751410032)
           {
             width = src.width;
@@ -4234,7 +4311,7 @@ LABEL_272:
               goto LABEL_185;
             }
 
-            PixelBufferUtils::pixelFormatAsString(v22, __p);
+            PixelBufferUtils::pixelFormatAsString(__p, v22);
             if (v110 >= 0)
             {
               v48 = __p;
@@ -4273,7 +4350,7 @@ LABEL_75:
         }
 
 LABEL_146:
-        PixelBufferUtils::pixelFormatAsString(PixelFormatType, &src);
+        PixelBufferUtils::pixelFormatAsString(&src, PixelFormatType);
         if ((src.width & 0x8000000000000000) == 0)
         {
           p_src = &src;
@@ -4424,7 +4501,7 @@ LABEL_207:
       }
 
 LABEL_229:
-      PixelBufferUtils::pixelFormatAsString(v8, &src);
+      PixelBufferUtils::pixelFormatAsString(&src, v8);
       if ((src.width & 0x8000000000000000) == 0)
       {
         v59 = &src;
@@ -4505,7 +4582,7 @@ LABEL_208:
         goto LABEL_176;
       }
 
-      PixelBufferUtils::pixelFormatAsString(v8, &src);
+      PixelBufferUtils::pixelFormatAsString(&src, v8);
       if ((src.width & 0x8000000000000000) == 0)
       {
         v60 = &src;
@@ -4661,7 +4738,7 @@ LABEL_167:
         return convertColorToGrayscale(pixelBuffer, a2);
       }
 
-      PixelBufferUtils::pixelFormatAsString(v10, &src);
+      PixelBufferUtils::pixelFormatAsString(&src, v10);
       if ((src.width & 0x8000000000000000) == 0)
       {
         v52 = &src;
@@ -4735,9 +4812,9 @@ uint64_t copyPixelBufferVImage(__CVBuffer *a1, CGPoint a2, __CVBuffer *a3, CGRec
     CVPixelBufferLockBaseAddress(a3, 1uLL);
     memset(&src, 0, sizeof(src));
     v21 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(a3, *MEMORY[0x277CBF3A0], &src);
+    PixelBufferUtils::asVImageBuffer(&src, a3, *MEMORY[0x277CBF3A0]);
     memset(&dest, 0, sizeof(dest));
-    PixelBufferUtils::asVImageBuffer(a1, *v21, &dest);
+    PixelBufferUtils::asVImageBuffer(&dest, a1, *v21);
     v22 = PixelBufferUtils::pixelSizeForPixelFormat(v20, 0);
     v33.origin.x = x;
     v33.origin.y = y;
@@ -4815,16 +4892,16 @@ uint64_t convert4ChannelFormats(__CVBuffer *a1, int a2, __CVBuffer *a3)
   LODWORD(v86.data) = a2;
   HIDWORD(v86.data) = PixelFormatType;
   src.data = &v86;
-  v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v86.data);
+  v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v86.data, &src);
   v9 = v8[3];
   v10 = *(v8 + 8);
   CVPixelBufferLockBaseAddress(a3, 0);
   CVPixelBufferLockBaseAddress(a1, 1uLL);
   memset(&src, 0, sizeof(src));
   v11 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &src);
+  PixelBufferUtils::asVImageBuffer(&src, a1, *MEMORY[0x277CBF3A0]);
   memset(&v86, 0, sizeof(v86));
-  PixelBufferUtils::asVImageBuffer(a3, *v11, &v86);
+  PixelBufferUtils::asVImageBuffer(&v86, a3, *v11);
   maxFloat = xmmword_2404070B0;
   minFloat[0] = 0;
   minFloat[1] = 0;
@@ -5212,16 +5289,16 @@ BOOL YUVFromBGRAPermutes(__CVBuffer *a1, __CVBuffer *a2, __CVBuffer *a3)
   v13 = RGBA_FORMAT_MAP();
   destYp.data = ((v6 << 32) | 0x20);
   pixelBufferOut.data = &destYp;
-  v14 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v13, destYp.data)[3];
+  v14 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v13, destYp.data, &pixelBufferOut)[3];
   CVPixelBufferLockBaseAddress(a2, 0);
   CVPixelBufferLockBaseAddress(data, 1uLL);
   memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
   v15 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(data, *MEMORY[0x277CBF3A0], &pixelBufferOut);
+  PixelBufferUtils::asVImageBuffer(&pixelBufferOut, data, *MEMORY[0x277CBF3A0]);
   memset(&destYp, 0, sizeof(destYp));
-  PixelBufferUtils::asVImageBuffer(a2, 0, *v15, &destYp);
+  PixelBufferUtils::asVImageBuffer(&destYp, a2, 0, *v15);
   memset(&destCbCr, 0, sizeof(destCbCr));
-  PixelBufferUtils::asVImageBuffer(a2, 1, *v15, &destCbCr);
+  PixelBufferUtils::asVImageBuffer(&destCbCr, a2, 1, *v15);
   if ((YUVFromBGRAPermutes(__CVBuffer *,unsigned int,__CVBuffer *)::isConvesionInfoDefined & 1) == 0)
   {
     v18 = *ymmword_240407E24;
@@ -5264,7 +5341,7 @@ uint64_t convert4ChannelToPlanar<half,float>(__CVBuffer *a1, __CVBuffer *a2)
       LODWORD(v81.data) = v5;
       HIDWORD(v81.data) = PixelFormatType;
       __p.data = &v81;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v81.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v81.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -5276,7 +5353,7 @@ uint64_t convert4ChannelToPlanar<half,float>(__CVBuffer *a1, __CVBuffer *a2)
       v79 = v11;
       memset(&__p, 0, sizeof(__p));
       v12 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &__p);
+      PixelBufferUtils::asVImageBuffer(&__p, a1, *MEMORY[0x277CBF3A0]);
       v82 = 0;
       v14 = *v9;
       if (v6 <= v14)
@@ -5287,7 +5364,7 @@ uint64_t convert4ChannelToPlanar<half,float>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v14, *v12, &v81);
+        PixelBufferUtils::asVImageBuffer(&v81, a2, v14, *v12);
         data = v81.data;
         rowBytes = v81.rowBytes;
       }
@@ -5302,7 +5379,7 @@ uint64_t convert4ChannelToPlanar<half,float>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v20, *v12, &v81);
+        PixelBufferUtils::asVImageBuffer(&v81, a2, v20, *v12);
         v21 = v81.data;
         v22 = v81.rowBytes;
       }
@@ -5316,7 +5393,7 @@ uint64_t convert4ChannelToPlanar<half,float>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v23, *v12, &v81);
+        PixelBufferUtils::asVImageBuffer(&v81, a2, v23, *v12);
         v24 = v81.data;
         v25 = v81.rowBytes;
       }
@@ -5330,7 +5407,7 @@ uint64_t convert4ChannelToPlanar<half,float>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v26, *v12, &v81);
+        PixelBufferUtils::asVImageBuffer(&v81, a2, v26, *v12);
         v27 = v81.data;
         v28 = v81.rowBytes;
       }
@@ -5567,7 +5644,7 @@ LABEL_66:
 
     else
     {
-      PixelBufferUtils::pixelFormatAsString(v5, &__p);
+      PixelBufferUtils::pixelFormatAsString(&__p, v5);
       if ((__p.width & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -5590,7 +5667,7 @@ LABEL_66:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v17 = &__p;
@@ -5636,7 +5713,7 @@ uint64_t convert4ChannelToPlanar<float,float>(__CVBuffer *a1, __CVBuffer *a2)
       LODWORD(v51.data) = v5;
       HIDWORD(v51.data) = PixelFormatType;
       __p.data = &v51;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v51.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v51.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -5647,7 +5724,7 @@ uint64_t convert4ChannelToPlanar<float,float>(__CVBuffer *a1, __CVBuffer *a2)
 
       memset(&__p, 0, sizeof(__p));
       v12 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &__p);
+      PixelBufferUtils::asVImageBuffer(&__p, a1, *MEMORY[0x277CBF3A0]);
       v52 = 0;
       v13 = *v9;
       if (v6 <= v13)
@@ -5658,7 +5735,7 @@ uint64_t convert4ChannelToPlanar<float,float>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v13, *v12, &v51);
+        PixelBufferUtils::asVImageBuffer(&v51, a2, v13, *v12);
         data = v51.data;
         rowBytes = v51.rowBytes;
       }
@@ -5673,7 +5750,7 @@ uint64_t convert4ChannelToPlanar<float,float>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v19, *v12, &v51);
+        PixelBufferUtils::asVImageBuffer(&v51, a2, v19, *v12);
         v20 = v51.data;
         v21 = v51.rowBytes;
       }
@@ -5687,7 +5764,7 @@ uint64_t convert4ChannelToPlanar<float,float>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v22, *v12, &v51);
+        PixelBufferUtils::asVImageBuffer(&v51, a2, v22, *v12);
         v23 = v51.data;
         v24 = v51.rowBytes;
       }
@@ -5709,7 +5786,7 @@ LABEL_46:
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v25, *v12, &v51);
+        PixelBufferUtils::asVImageBuffer(&v51, a2, v25, *v12);
         v26 = v51.data;
         v27 = v51.rowBytes;
         height = __p.height;
@@ -5806,7 +5883,7 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -5828,7 +5905,7 @@ LABEL_46:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v16 = &__p;
@@ -5874,7 +5951,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,float>(__CVBuffer *a1, __CVBuffer
       LODWORD(v52.data) = v5;
       HIDWORD(v52.data) = PixelFormatType;
       __p.data = &v52;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v52.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v52.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -5885,7 +5962,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,float>(__CVBuffer *a1, __CVBuffer
 
       memset(&__p, 0, sizeof(__p));
       v12 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &__p);
+      PixelBufferUtils::asVImageBuffer(&__p, a1, *MEMORY[0x277CBF3A0]);
       v53 = 0;
       v14 = *v9;
       if (v6 <= v14)
@@ -5896,7 +5973,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,float>(__CVBuffer *a1, __CVBuffer
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v14, *v12, &v52);
+        PixelBufferUtils::asVImageBuffer(&v52, a2, v14, *v12);
         data = v52.data;
         rowBytes = v52.rowBytes;
       }
@@ -5911,7 +5988,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,float>(__CVBuffer *a1, __CVBuffer
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v20, *v12, &v52);
+        PixelBufferUtils::asVImageBuffer(&v52, a2, v20, *v12);
         v21 = v52.data;
         v22 = v52.rowBytes;
       }
@@ -5925,7 +6002,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,float>(__CVBuffer *a1, __CVBuffer
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v23, *v12, &v52);
+        PixelBufferUtils::asVImageBuffer(&v52, a2, v23, *v12);
         v24 = v52.data;
         v25 = v52.rowBytes;
       }
@@ -5947,7 +6024,7 @@ LABEL_46:
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v26, *v12, &v52);
+        PixelBufferUtils::asVImageBuffer(&v52, a2, v26, *v12);
         v27 = v52.data;
         v28 = v52.rowBytes;
         height = __p.height;
@@ -6051,7 +6128,7 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -6073,7 +6150,7 @@ LABEL_46:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v17 = &__p;
@@ -6119,7 +6196,7 @@ uint64_t convert4ChannelToPlanar<half,half>(__CVBuffer *a1, __CVBuffer *a2)
       LODWORD(v67.data) = v5;
       HIDWORD(v67.data) = PixelFormatType;
       __p.data = &v67;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v67.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v67.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -6130,7 +6207,7 @@ uint64_t convert4ChannelToPlanar<half,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       memset(&__p, 0, sizeof(__p));
       v12 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &__p);
+      PixelBufferUtils::asVImageBuffer(&__p, a1, *MEMORY[0x277CBF3A0]);
       v68 = 0;
       v13 = *v9;
       if (v6 <= v13)
@@ -6141,7 +6218,7 @@ uint64_t convert4ChannelToPlanar<half,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v13, *v12, &v67);
+        PixelBufferUtils::asVImageBuffer(&v67, a2, v13, *v12);
         data = v67.data;
         rowBytes = v67.rowBytes;
       }
@@ -6156,7 +6233,7 @@ uint64_t convert4ChannelToPlanar<half,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v19, *v12, &v67);
+        PixelBufferUtils::asVImageBuffer(&v67, a2, v19, *v12);
         v20 = v67.data;
         v21 = v67.rowBytes;
       }
@@ -6170,7 +6247,7 @@ uint64_t convert4ChannelToPlanar<half,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v22, *v12, &v67);
+        PixelBufferUtils::asVImageBuffer(&v67, a2, v22, *v12);
         v23 = v67.data;
         v24 = v67.rowBytes;
       }
@@ -6192,7 +6269,7 @@ LABEL_46:
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v25, *v12, &v67);
+        PixelBufferUtils::asVImageBuffer(&v67, a2, v25, *v12);
         v26 = v67.data;
         v27 = v67.rowBytes;
         height = __p.height;
@@ -6313,7 +6390,7 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -6335,7 +6412,7 @@ LABEL_46:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v16 = &__p;
@@ -6381,7 +6458,7 @@ uint64_t convert4ChannelToPlanar<float,half>(__CVBuffer *a1, __CVBuffer *a2)
       LODWORD(v120.data) = v5;
       HIDWORD(v120.data) = PixelFormatType;
       __p.data = &v120;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v120.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v120.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -6392,7 +6469,7 @@ uint64_t convert4ChannelToPlanar<float,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       memset(&__p, 0, sizeof(__p));
       v12 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &__p);
+      PixelBufferUtils::asVImageBuffer(&__p, a1, *MEMORY[0x277CBF3A0]);
       v121 = 0;
       v13 = *v9;
       if (v6 <= v13)
@@ -6403,7 +6480,7 @@ uint64_t convert4ChannelToPlanar<float,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v13, *v12, &v120);
+        PixelBufferUtils::asVImageBuffer(&v120, a2, v13, *v12);
         data = v120.data;
         rowBytes = v120.rowBytes;
       }
@@ -6417,7 +6494,7 @@ uint64_t convert4ChannelToPlanar<float,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v18, *v12, &v120);
+        PixelBufferUtils::asVImageBuffer(&v120, a2, v18, *v12);
         v118 = v120.data;
         v19 = v120.rowBytes;
       }
@@ -6431,7 +6508,7 @@ uint64_t convert4ChannelToPlanar<float,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v20, *v12, &v120);
+        PixelBufferUtils::asVImageBuffer(&v120, a2, v20, *v12);
         v21 = v120.data;
         v22 = v120.rowBytes;
       }
@@ -6451,7 +6528,7 @@ uint64_t convert4ChannelToPlanar<float,half>(__CVBuffer *a1, __CVBuffer *a2)
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v23, *v12, &v120);
+        PixelBufferUtils::asVImageBuffer(&v120, a2, v23, *v12);
         v24 = v120.data;
         v25 = v120.rowBytes;
         height = __p.height;
@@ -6800,7 +6877,7 @@ LABEL_66:
       return 0;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -6822,7 +6899,7 @@ LABEL_66:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v15 = &__p;
@@ -6868,7 +6945,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,half>(__CVBuffer *a1, __CVBuffer 
       LODWORD(v56.data) = v5;
       HIDWORD(v56.data) = PixelFormatType;
       __p.data = &v56;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v56.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v56.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -6879,7 +6956,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,half>(__CVBuffer *a1, __CVBuffer 
 
       memset(&__p, 0, sizeof(__p));
       v12 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &__p);
+      PixelBufferUtils::asVImageBuffer(&__p, a1, *MEMORY[0x277CBF3A0]);
       _S0 = 0.0;
       v57 = 0;
       v14 = *v9;
@@ -6891,7 +6968,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,half>(__CVBuffer *a1, __CVBuffer 
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v14, *v12, &v56);
+        PixelBufferUtils::asVImageBuffer(&v56, a2, v14, *v12);
         data = v56.data;
         rowBytes = v56.rowBytes;
       }
@@ -6906,7 +6983,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,half>(__CVBuffer *a1, __CVBuffer 
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v20, *v12, &v56);
+        PixelBufferUtils::asVImageBuffer(&v56, a2, v20, *v12);
         v21 = v56.data;
         v22 = v56.rowBytes;
       }
@@ -6920,7 +6997,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,half>(__CVBuffer *a1, __CVBuffer 
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v23, *v12, &v56);
+        PixelBufferUtils::asVImageBuffer(&v56, a2, v23, *v12);
         v24 = v56.data;
         v25 = v56.rowBytes;
       }
@@ -6942,7 +7019,7 @@ LABEL_46:
 
       else
       {
-        PixelBufferUtils::asVImageBuffer(a2, v26, *v12, &v56);
+        PixelBufferUtils::asVImageBuffer(&v56, a2, v26, *v12);
         v27 = v56.data;
         v28 = v56.rowBytes;
         height = __p.height;
@@ -7054,7 +7131,7 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -7076,7 +7153,7 @@ LABEL_46:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v17 = &__p;
@@ -7124,7 +7201,7 @@ uint64_t convertColorToGrayscale(__CVBuffer *a1, __CVBuffer *a2)
     data = pixelBufferOut.data;
   }
 
-  if (PixelBufferUtils::convertPixelBufferFormat(a1, data, 0, v8))
+  if (PixelBufferUtils::convertPixelBufferFormat(a1, data, 0))
   {
     CVPixelBufferRelease(data);
     return 0xFFFFFFFFLL;
@@ -7137,40 +7214,40 @@ uint64_t convertColorToGrayscale(__CVBuffer *a1, __CVBuffer *a2)
 
   CVPixelBufferLockBaseAddress(a2, 0);
   memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
-  v11 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(a2, 0, *MEMORY[0x277CBF3A0], &pixelBufferOut);
+  v10 = MEMORY[0x277CBF3A0];
+  PixelBufferUtils::asVImageBuffer(&pixelBufferOut, a2, 0, *MEMORY[0x277CBF3A0]);
   CVPixelBufferLockBaseAddress(data, 1uLL);
   memset(&src, 0, sizeof(src));
-  PixelBufferUtils::asVImageBuffer(data, 0, *v11, &src);
+  PixelBufferUtils::asVImageBuffer(&src, data, 0, *v10);
   PixelFormatType = CVPixelBufferGetPixelFormatType(a2);
-  v13 = PixelFormatType;
+  v12 = PixelFormatType;
   if (PixelFormatType > 1278226535)
   {
     if (PixelFormatType != 1278226536 && PixelFormatType != 1647392359)
     {
 LABEL_15:
-      PixelBufferUtils::pixelFormatAsString(PixelFormatType, __p);
-      if (v18 >= 0)
+      PixelBufferUtils::pixelFormatAsString(__p, PixelFormatType);
+      if (v17 >= 0)
       {
-        v15 = __p;
+        v14 = __p;
       }
 
       else
       {
-        v15 = __p[0];
+        v14 = __p[0];
       }
 
-      NSLog(&cfstr_SDErrorPixelFo.isa, "convertColorToGrayscale", 2137, v13, v15);
-      if (v18 < 0)
+      NSLog(&cfstr_SDErrorPixelFo.isa, "convertColorToGrayscale", 2137, v12, v14);
+      if (v17 < 0)
       {
         operator delete(__p[0]);
       }
 
-      v16 = 1;
+      v15 = 1;
       goto LABEL_24;
     }
 
-    v14 = vImageConvert_Planar8toPlanar16F(&src, &pixelBufferOut, 0);
+    v13 = vImageConvert_Planar8toPlanar16F(&src, &pixelBufferOut, 0);
   }
 
   else
@@ -7185,15 +7262,15 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    v14 = vImageConvert_Planar8toPlanarF(&src, &pixelBufferOut, 1.0, 0.0, 0);
+    v13 = vImageConvert_Planar8toPlanarF(&src, &pixelBufferOut, 1.0, 0.0, 0);
   }
 
-  v16 = v14 != 0;
+  v15 = v13 != 0;
 LABEL_24:
   CVPixelBufferUnlockBaseAddress(data, 1uLL);
   CVPixelBufferUnlockBaseAddress(a2, 0);
   CVPixelBufferRelease(data);
-  return v16;
+  return v15;
 }
 
 void sub_2403E44BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -7218,13 +7295,13 @@ uint64_t convertRGBPlanarFloat(__CVBuffer *a1, __CVBuffer *a2)
   CVPixelBufferLockBaseAddress(a2, 0);
   memset(&dest, 0, sizeof(dest));
   v4 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(a2, *MEMORY[0x277CBF3A0], &dest);
+  PixelBufferUtils::asVImageBuffer(&dest, a2, *MEMORY[0x277CBF3A0]);
   memset(&blue, 0, sizeof(blue));
-  PixelBufferUtils::asVImageBuffer(a1, 0, *v4, &blue);
+  PixelBufferUtils::asVImageBuffer(&blue, a1, 0, *v4);
   memset(&green, 0, sizeof(green));
-  PixelBufferUtils::asVImageBuffer(a1, 1, *v4, &green);
+  PixelBufferUtils::asVImageBuffer(&green, a1, 1, *v4);
   memset(&red, 0, sizeof(red));
-  PixelBufferUtils::asVImageBuffer(a1, 2, *v4, &red);
+  PixelBufferUtils::asVImageBuffer(&red, a1, 2, *v4);
   minFloat[0] = 0;
   minFloat[1] = 0;
   maxFloat = xmmword_2404070B0;
@@ -7245,7 +7322,7 @@ uint64_t convertRGBPlanarFloat(__CVBuffer *a1, __CVBuffer *a2)
     }
 
 LABEL_19:
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, PixelFormatType);
     if (v12 >= 0)
     {
       v10 = __p;
@@ -7344,7 +7421,7 @@ uint64_t convertRGBPlanarHalf(__CVBuffer *a1, __CVBuffer *a2)
   return v10;
 }
 
-uint64_t createBGRAPermutesFromYUV(CVPixelBufferRef pixelBuffer, int a2, CVPixelBufferRef a3)
+uint64_t createBGRAPermutesFromYUV(CVPixelBufferRef pixelBuffer, unsigned int a2, CVPixelBufferRef a3)
 {
   v6 = a2 == 1380411457 || a2 == 1380410945;
   data = a3;
@@ -7372,15 +7449,15 @@ uint64_t createBGRAPermutesFromYUV(CVPixelBufferRef pixelBuffer, int a2, CVPixel
   CVPixelBufferLockBaseAddress(data, 0);
   memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
   v13 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(pixelBuffer, 0, *MEMORY[0x277CBF3A0], &pixelBufferOut);
+  PixelBufferUtils::asVImageBuffer(&pixelBufferOut, pixelBuffer, 0, *MEMORY[0x277CBF3A0]);
   memset(&srcCbCr, 0, sizeof(srcCbCr));
-  PixelBufferUtils::asVImageBuffer(pixelBuffer, 1, *v13, &srcCbCr);
+  PixelBufferUtils::asVImageBuffer(&srcCbCr, pixelBuffer, 1, *v13);
   memset(&dest, 0, sizeof(dest));
-  PixelBufferUtils::asVImageBuffer(data, *v13, &dest);
+  PixelBufferUtils::asVImageBuffer(&dest, data, *v13);
   v14 = RGBA_FORMAT_MAP();
   v19 = v8 | 0x2000000000;
   *&v18.Yp_bias = &v19;
-  v15 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14, v19)[3];
+  v15 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14, v19, &v18)[3];
   if ((createBGRAPermutesFromYUV(__CVBuffer *,unsigned int,__CVBuffer *)::isConvesionInfoDefined & 1) != 0 || (v18 = *ymmword_240407E24, v16 = vImageConvert_YpCbCrToARGB_GenerateConversion(*MEMORY[0x277CB86E8], &v18, &createBGRAPermutesFromYUV(__CVBuffer *,unsigned int,__CVBuffer *)::conversionInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0), createBGRAPermutesFromYUV(__CVBuffer *,unsigned int,__CVBuffer *)::isConvesionInfoDefined = 1, !v16))
   {
     v16 = vImageConvert_420Yp8_CbCr8ToARGB8888(&pixelBufferOut, &srcCbCr, &dest, &createBGRAPermutesFromYUV(__CVBuffer *,unsigned int,__CVBuffer *)::conversionInfo, v15, 0xFFu, 0);
@@ -7422,7 +7499,7 @@ uint64_t createRGBPlanarFloatFromBuffer(__CVBuffer *a1, __CVBuffer *a2)
     data = pixelBufferOut.data;
   }
 
-  if (PixelBufferUtils::convertPixelBufferFormat(a1, data, 0, v8))
+  if (PixelBufferUtils::convertPixelBufferFormat(a1, data, 0))
   {
     CVPixelBufferRelease(data);
     return 0xFFFFFFFFLL;
@@ -7433,38 +7510,38 @@ uint64_t createRGBPlanarFloatFromBuffer(__CVBuffer *a1, __CVBuffer *a2)
     CVPixelBufferLockBaseAddress(data, 1uLL);
     CVPixelBufferLockBaseAddress(a2, 0);
     memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
-    v11 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(data, *MEMORY[0x277CBF3A0], &pixelBufferOut);
+    v10 = MEMORY[0x277CBF3A0];
+    PixelBufferUtils::asVImageBuffer(&pixelBufferOut, data, *MEMORY[0x277CBF3A0]);
     memset(&destA, 0, sizeof(destA));
-    PixelBufferUtils::asVImageBuffer(a2, 0, *v11, &destA);
+    PixelBufferUtils::asVImageBuffer(&destA, a2, 0, *v10);
     memset(&destR, 0, sizeof(destR));
-    PixelBufferUtils::asVImageBuffer(a2, 1, *v11, &destR);
+    PixelBufferUtils::asVImageBuffer(&destR, a2, 1, *v10);
     memset(&destG, 0, sizeof(destG));
-    PixelBufferUtils::asVImageBuffer(a2, 2, *v11, &destG);
-    if (MEMORY[0x245CC04D0](&v14, pixelBufferOut.height, pixelBufferOut.width, 32, 0))
+    PixelBufferUtils::asVImageBuffer(&destG, a2, 2, *v10);
+    if (MEMORY[0x245CC04D0](&v13, pixelBufferOut.height, pixelBufferOut.width, 32, 0))
     {
-      v12 = 0xFFFFFFFFLL;
+      v11 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v13 = vImageConvert_ARGBFFFFtoPlanarF(&pixelBufferOut, &destA, &destR, &destG, &v14, 0);
-      free(v14.data);
-      if (v13)
+      v12 = vImageConvert_ARGBFFFFtoPlanarF(&pixelBufferOut, &destA, &destR, &destG, &v13, 0);
+      free(v13.data);
+      if (v12)
       {
-        v12 = 0xFFFFFFFFLL;
+        v11 = 0xFFFFFFFFLL;
       }
 
       else
       {
-        v12 = 0;
+        v11 = 0;
       }
     }
 
     CVPixelBufferUnlockBaseAddress(data, 1uLL);
     CVPixelBufferUnlockBaseAddress(a2, 0);
     CVPixelBufferRelease(data);
-    return v12;
+    return v11;
   }
 
   else
@@ -7524,9 +7601,9 @@ uint64_t copyPixelBufferMultiPlane(__CVBuffer *a1, CGPoint a2, __CVBuffer *a3, C
     {
       v16 = PixelBufferUtils::pixelSizeForPixelFormat(PixelFormatType, v14);
       memset(&src, 0, sizeof(src));
-      PixelBufferUtils::asVImageBuffer(a3, v14, *v15, &src);
+      PixelBufferUtils::asVImageBuffer(&src, a3, v14, *v15);
       memset(&dest, 0, sizeof(dest));
-      PixelBufferUtils::asVImageBuffer(a1, v14, *v15, &dest);
+      PixelBufferUtils::asVImageBuffer(&dest, a1, v14, *v15);
       v29.origin.x = x;
       v29.origin.y = y;
       v29.size.width = width;
@@ -7606,9 +7683,9 @@ uint64_t convertFloat32ToFloat16(__CVBuffer *a1, __CVBuffer *a2)
       do
       {
         memset(&src, 0, sizeof(src));
-        PixelBufferUtils::asVImageBuffer(a1, (v7 - 1), *v8, &src);
+        PixelBufferUtils::asVImageBuffer(&src, a1, (v7 - 1), *v8);
         memset(&dest, 0, sizeof(dest));
-        PixelBufferUtils::asVImageBuffer(a2, (v7 - 1), *v8, &dest);
+        PixelBufferUtils::asVImageBuffer(&dest, a2, (v7 - 1), *v8);
         v9 = vImageConvert_PlanarFtoPlanar16F(&src, &dest, 0);
         if (v7 >= v5)
         {
@@ -7625,9 +7702,9 @@ uint64_t convertFloat32ToFloat16(__CVBuffer *a1, __CVBuffer *a2)
     {
       memset(&src, 0, sizeof(src));
       v11 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &src);
+      PixelBufferUtils::asVImageBuffer(&src, a1, *MEMORY[0x277CBF3A0]);
       memset(&dest, 0, sizeof(dest));
-      PixelBufferUtils::asVImageBuffer(a2, *v11, &dest);
+      PixelBufferUtils::asVImageBuffer(&dest, a2, *v11);
       v9 = vImageConvert_PlanarFtoPlanar16F(&src, &dest, 0);
     }
 
@@ -7673,12 +7750,12 @@ LABEL_7:
   pixelBuffer = a1;
   if (PlaneCount)
   {
-    PixelBufferUtils::asVImageBuffer(a1, a3, *MEMORY[0x277CBF3A0], &v19);
+    PixelBufferUtils::asVImageBuffer(&v19, a1, a3, *MEMORY[0x277CBF3A0]);
   }
 
   else
   {
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v19);
+    PixelBufferUtils::asVImageBuffer(&v19, a1, *MEMORY[0x277CBF3A0]);
   }
 
   data = v19.data;
@@ -7754,23 +7831,23 @@ LABEL_7:
     }
 
     v15 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(a1, a4, *MEMORY[0x277CBF3A0], &v32);
+    PixelBufferUtils::asVImageBuffer(&v32, a1, a4, *MEMORY[0x277CBF3A0]);
     height = v32.height;
     data = v32.data;
     rowBytes = v32.rowBytes;
     width = v32.width;
-    PixelBufferUtils::asVImageBuffer(a2, a4, *v15, &v32);
+    PixelBufferUtils::asVImageBuffer(&v32, a2, a4, *v15);
   }
 
   else
   {
     v16 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v32);
+    PixelBufferUtils::asVImageBuffer(&v32, a1, *MEMORY[0x277CBF3A0]);
     height = v32.height;
     data = v32.data;
     rowBytes = v32.rowBytes;
     width = v32.width;
-    PixelBufferUtils::asVImageBuffer(a2, *v16, &v32);
+    PixelBufferUtils::asVImageBuffer(&v32, a2, *v16);
   }
 
   v4 = v32.data;
@@ -7832,14 +7909,14 @@ LABEL_30:
 
 uint64_t convertGrayscaleAsColor(__CVBuffer *a1, unint64_t a2, __CVBuffer *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
   if (a2 > 1380401728)
   {
     if (a2 != 1380401729 && a2 != 1380410945 && a2 != 1380411457)
     {
 LABEL_37:
-      PixelBufferUtils::pixelFormatAsString(a2, &red);
+      PixelBufferUtils::pixelFormatAsString(&red, a2);
       if ((red.width & 0x8000000000000000) == 0)
       {
         p_red = &red;
@@ -7872,15 +7949,15 @@ LABEL_62:
   CVPixelBufferLockBaseAddress(a3, 0);
   memset(&red, 0, sizeof(red));
   v7 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &red);
+  PixelBufferUtils::asVImageBuffer(&red, a1, *MEMORY[0x277CBF3A0]);
   memset(&dest, 0, sizeof(dest));
-  PixelBufferUtils::asVImageBuffer(a3, *v7, &dest);
+  PixelBufferUtils::asVImageBuffer(&dest, a3, *v7);
   v8 = RGBA_FORMAT_MAP();
   *&maxFloat = a2 | 0x2000000000;
   pixelBufferOut.data = &maxFloat;
   v9 = 0;
   v10 = 0;
-  v11 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v8, maxFloat)[3];
+  v11 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v8, maxFloat, &pixelBufferOut)[3];
   maxFloat = xmmword_2404070B0;
   minFloat[0] = 0;
   minFloat[1] = 0;
@@ -7906,7 +7983,7 @@ LABEL_62:
 
         CVPixelBufferLockBaseAddress(v12, 0);
         memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
-        PixelBufferUtils::asVImageBuffer(v12, *v7, &pixelBufferOut);
+        PixelBufferUtils::asVImageBuffer(&pixelBufferOut, v12, *v7);
         v13 = vImageConvert_Planar8ToBGRXFFFF(&red, &red, &red, 1.0, &pixelBufferOut, &maxFloat, minFloat, 0);
         if (!v13)
         {
@@ -7920,12 +7997,12 @@ LABEL_62:
 
       if (a2 == 1380410945)
       {
-        v25 = vImageConvert_Planar8ToXRGBFFFF(1.0, &red, &red, &red, &dest, &maxFloat, minFloat, 0);
+        v24 = vImageConvert_Planar8ToXRGBFFFF(1.0, &red, &red, &red, &dest, &maxFloat, minFloat, 0);
       }
 
       else if (*v11 == 3)
       {
-        v25 = vImageConvert_Planar8ToBGRX8888(&red, &red, &red, 0xFFu, &dest, 0);
+        v24 = vImageConvert_Planar8ToBGRX8888(&red, &red, &red, 0xFFu, &dest, 0);
       }
 
       else
@@ -7936,10 +8013,10 @@ LABEL_62:
           goto LABEL_76;
         }
 
-        v25 = vImageConvert_Planar8ToXRGB8888(0xFFu, &red, &red, &red, &dest, 0);
+        v24 = vImageConvert_Planar8ToXRGB8888(0xFFu, &red, &red, &red, &dest, 0);
       }
 
-      v13 = v25;
+      v13 = v24;
       v9 = 0;
       goto LABEL_47;
     }
@@ -7949,11 +8026,11 @@ LABEL_62:
 LABEL_26:
       if (a2 == 1380411457)
       {
-        v20 = CVPixelBufferGetWidth(a3);
-        v21 = CVPixelBufferGetHeight(a3);
+        v19 = CVPixelBufferGetWidth(a3);
+        v20 = CVPixelBufferGetHeight(a3);
         pixelBufferOut.data = 0;
-        v22 = getBufferAttributes();
-        if (CVPixelBufferCreate(*MEMORY[0x277CBECE8], v20, v21, 0x52476641u, v22, &pixelBufferOut))
+        v21 = getBufferAttributes();
+        if (CVPixelBufferCreate(*MEMORY[0x277CBECE8], v19, v20, 0x52476641u, v21, &pixelBufferOut))
         {
           v12 = 0;
         }
@@ -7965,7 +8042,7 @@ LABEL_26:
 
         CVPixelBufferLockBaseAddress(v12, 0);
         memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
-        PixelBufferUtils::asVImageBuffer(v12, *v7, &pixelBufferOut);
+        PixelBufferUtils::asVImageBuffer(&pixelBufferOut, v12, *v7);
         v13 = vImageConvert_PlanarFToBGRXFFFF(&red, &red, &red, 1.0, &pixelBufferOut, 0);
         if (!v13)
         {
@@ -7978,9 +8055,9 @@ LABEL_26:
 
       if (a2 == 1380410945)
       {
-        v19 = vImageConvert_PlanarFToBGRXFFFF(&red, &red, &red, 1.0, &dest, 0);
+        v18 = vImageConvert_PlanarFToBGRXFFFF(&red, &red, &red, 1.0, &dest, 0);
 LABEL_46:
-        v13 = v19;
+        v13 = v18;
 LABEL_47:
         v12 = 0;
 LABEL_48:
@@ -7990,13 +8067,13 @@ LABEL_48:
 
       if (*v11 == 3)
       {
-        v19 = vImageConvert_PlanarFToBGRX8888(&red, &red, &red, 0xFFu, &dest, &maxFloat, minFloat, 0);
+        v18 = vImageConvert_PlanarFToBGRX8888(&red, &red, &red, 0xFFu, &dest, &maxFloat, minFloat, 0);
         goto LABEL_46;
       }
 
       if (!*v11)
       {
-        v19 = vImageConvert_PlanarFToXRGB8888(0xFFu, &red, &red, &red, &dest, &maxFloat, minFloat, 0);
+        v18 = vImageConvert_PlanarFToXRGB8888(0xFFu, &red, &red, &red, &dest, &maxFloat, minFloat, 0);
         goto LABEL_46;
       }
 
@@ -8030,14 +8107,14 @@ LABEL_20:
         v9 = pixelBufferOut.data;
       }
 
-      if (PixelBufferUtils::convertPixelBufferFormat(a1, v9, 0, v18))
+      if (PixelBufferUtils::convertPixelBufferFormat(a1, v9, 0))
       {
         CVPixelBufferRelease(v9);
         v9 = 0;
       }
 
       CVPixelBufferLockBaseAddress(v9, 1uLL);
-      PixelBufferUtils::asVImageBuffer(v9, *v7, &red);
+      PixelBufferUtils::asVImageBuffer(&red, v9, *v7);
       goto LABEL_26;
     }
 
@@ -8082,7 +8159,7 @@ LABEL_49:
 
   if ((v10 & 1) == 0)
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &pixelBufferOut);
+    PixelBufferUtils::pixelFormatAsString(&pixelBufferOut, PixelFormatType);
     if ((pixelBufferOut.width & 0x8000000000000000) == 0)
     {
       p_pixelBufferOut = &pixelBufferOut;
@@ -8141,9 +8218,9 @@ uint64_t convertFloat16ToFloat32(__CVBuffer *a1, __CVBuffer *a2)
       do
       {
         memset(&src, 0, sizeof(src));
-        PixelBufferUtils::asVImageBuffer(a1, (v7 - 1), *v8, &src);
+        PixelBufferUtils::asVImageBuffer(&src, a1, (v7 - 1), *v8);
         memset(&dest, 0, sizeof(dest));
-        PixelBufferUtils::asVImageBuffer(a2, (v7 - 1), *v8, &dest);
+        PixelBufferUtils::asVImageBuffer(&dest, a2, (v7 - 1), *v8);
         v9 = vImageConvert_Planar16FtoPlanarF(&src, &dest, 0);
         if (v7 >= v5)
         {
@@ -8160,9 +8237,9 @@ uint64_t convertFloat16ToFloat32(__CVBuffer *a1, __CVBuffer *a2)
     {
       memset(&src, 0, sizeof(src));
       v11 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &src);
+      PixelBufferUtils::asVImageBuffer(&src, a1, *MEMORY[0x277CBF3A0]);
       memset(&dest, 0, sizeof(dest));
-      PixelBufferUtils::asVImageBuffer(a2, *v11, &dest);
+      PixelBufferUtils::asVImageBuffer(&dest, a2, *v11);
       v9 = vImageConvert_Planar16FtoPlanarF(&src, &dest, 0);
     }
 
@@ -8209,57 +8286,57 @@ void sub_2403E63E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_22;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_22:
     operator new();
   }
 
-  if (v3.u32[0] < 2uLL)
+  if (v4.u32[0] < 2uLL)
   {
     while (1)
     {
-      v7 = v6[1];
-      if (v7 == a2)
+      v8 = v7[1];
+      if (v8 == a2)
       {
-        if (v6[2] == a2)
+        if (v7[2] == a2)
         {
-          return v6;
+          return v7;
         }
       }
 
-      else if ((v7 & (*&v2 - 1)) != v4)
+      else if ((v8 & (*&v3 - 1)) != v5)
       {
         goto LABEL_22;
       }
 
-      v6 = *v6;
-      if (!v6)
+      v7 = *v7;
+      if (!v7)
       {
         goto LABEL_22;
       }
@@ -8268,36 +8345,36 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v6[1];
-    if (v8 == a2)
+    v9 = v7[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v8 >= *&v2)
+    if (v9 >= *&v3)
     {
-      v8 %= *&v2;
+      v9 %= *&v3;
     }
 
-    if (v8 != v4)
+    if (v9 != v5)
     {
       goto LABEL_22;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_22;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__do_rehash<true>(uint64_t a1, unint64_t a2)
@@ -8322,17 +8399,17 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsig
   *(a1 + 8) = 0;
 }
 
-uint64_t std::unordered_map<unsigned long long,std::pair<unsigned char *,int>>::unordered_map(uint64_t result, unint64_t *a2, uint64_t a3)
+uint64_t std::unordered_map<unsigned long long,std::pair<unsigned char *,int>>::unordered_map(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  *result = 0u;
-  *(result + 16) = 0u;
-  *(result + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
   if (a3)
   {
     for (i = a2; i != &a2[3 * a3]; i += 3)
     {
       v4 = *i;
-      v5 = *(result + 8);
+      v5 = *(a1 + 8);
       if (!*&v5)
       {
         goto LABEL_23;
@@ -8423,7 +8500,7 @@ LABEL_24:
     }
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2403E6BB0(_Unwind_Exception *a1)
@@ -8542,9 +8619,9 @@ uint64_t PixelBufferUtils::countDifferentPixels(PixelBufferUtils *this, __CVBuff
     CVPixelBufferLockBaseAddress(a2, 1uLL);
     memset(&v580, 0, sizeof(v580));
     v13 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(this, *MEMORY[0x277CBF3A0], &v580);
+    PixelBufferUtils::asVImageBuffer(&v580, this, *MEMORY[0x277CBF3A0]);
     memset(&v579, 0, sizeof(v579));
-    PixelBufferUtils::asVImageBuffer(a2, *v13, &v579);
+    PixelBufferUtils::asVImageBuffer(&v579, a2, *v13);
     if (PixelFormatType > 1380401728)
     {
       v18 = a5;
@@ -8815,7 +8892,7 @@ LABEL_229:
           }
 
 LABEL_224:
-          PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+          PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
           if ((__p.width & 0x8000000000000000) == 0)
           {
             p_p = &__p;
@@ -8849,13 +8926,13 @@ LABEL_224:
               goto LABEL_224;
             }
 
-            PixelBufferUtils::asVImageBuffer(this, 0, *v13, &__p);
-            PixelBufferUtils::asVImageBuffer(a2, 0, *v13, &__p);
-            PixelBufferUtils::asVImageBuffer(this, 1, *v13, &__p);
-            PixelBufferUtils::asVImageBuffer(a2, 1, *v13, &__p);
-            PixelBufferUtils::asVImageBuffer(this, 2, *v13, &__p);
+            PixelBufferUtils::asVImageBuffer(&__p, this, 0, *v13);
+            PixelBufferUtils::asVImageBuffer(&__p, a2, 0, *v13);
+            PixelBufferUtils::asVImageBuffer(&__p, this, 1, *v13);
+            PixelBufferUtils::asVImageBuffer(&__p, a2, 1, *v13);
+            PixelBufferUtils::asVImageBuffer(&__p, this, 2, *v13);
             v580 = __p;
-            PixelBufferUtils::asVImageBuffer(a2, 2, *v13, &__p);
+            PixelBufferUtils::asVImageBuffer(&__p, a2, 2, *v13);
             v579 = __p;
             if (v580.height != __p.height || v580.width != v579.width)
             {
@@ -9050,13 +9127,13 @@ LABEL_43:
             }
           }
 
-          PixelBufferUtils::asVImageBuffer(this, 0, *v13, &__p);
-          PixelBufferUtils::asVImageBuffer(a2, 0, *v13, &__p);
-          PixelBufferUtils::asVImageBuffer(this, 1, *v13, &__p);
-          PixelBufferUtils::asVImageBuffer(a2, 1, *v13, &__p);
-          PixelBufferUtils::asVImageBuffer(this, 2, *v13, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, this, 0, *v13);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 0, *v13);
+          PixelBufferUtils::asVImageBuffer(&__p, this, 1, *v13);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 1, *v13);
+          PixelBufferUtils::asVImageBuffer(&__p, this, 2, *v13);
           v580 = __p;
-          PixelBufferUtils::asVImageBuffer(a2, 2, *v13, &__p);
+          PixelBufferUtils::asVImageBuffer(&__p, a2, 2, *v13);
           v579 = __p;
           if (*&v580.height == *&__p.height)
           {
@@ -9708,8 +9785,8 @@ LABEL_231:
       }
 
 LABEL_139:
-      PixelBufferUtils::asVImageBuffer(this, 0, *v13, &v580);
-      PixelBufferUtils::asVImageBuffer(a2, 0, *v13, &v579);
+      PixelBufferUtils::asVImageBuffer(&v580, this, 0, *v13);
+      PixelBufferUtils::asVImageBuffer(&v579, a2, 0, *v13);
       v186 = *a4.i32;
       if (v580.height == v579.height && v580.width == v579.width)
       {
@@ -9968,8 +10045,8 @@ LABEL_254:
       }
 
 LABEL_277:
-      PixelBufferUtils::asVImageBuffer(this, 1, *v13, &v580);
-      PixelBufferUtils::asVImageBuffer(a2, 1, *v13, &v579);
+      PixelBufferUtils::asVImageBuffer(&v580, this, 1, *v13);
+      PixelBufferUtils::asVImageBuffer(&v579, a2, 1, *v13);
       v488 = *a4.i32;
       if (*&v580.height != *&v579.height)
       {

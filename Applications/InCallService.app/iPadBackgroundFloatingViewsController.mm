@@ -97,7 +97,7 @@
 - (void)updateBackgroundFor:(int64_t)for
 {
   selfCopy = self;
-  sub_1001922F0();
+  sub_1001922F0(for);
 }
 
 @end

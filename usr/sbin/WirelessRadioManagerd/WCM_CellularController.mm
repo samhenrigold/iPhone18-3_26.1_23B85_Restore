@@ -2,8 +2,8 @@
 - ($F24F406B2B787EFB06265DBA3D28CBD5)getCombinedUplinkFreqRange;
 - (BOOL)clkAlgnTDDFreqCheck;
 - (BOOL)isInCoexBand7LowerEdge;
-- (NSString)description;
 - (WCM_CellularController)init;
+- (WCM_CellularController)initWithConnection:(id)connection processId:(int)id;
 - (unint64_t)getCoexTechForPolicy:(unint64_t)policy;
 - (unint64_t)subSelector;
 - (unint64_t)updateFrameSyncBit:(unint64_t)bit;
@@ -11,7 +11,9 @@
 - (unint64_t)updatePolicyForBB20:(unint64_t)b20;
 - (void)ConstructAntennaMapXpcMsg:(id)msg AntPhyIdxDict:(id)dict AntSpmiIdxDict:(id)idxDict;
 - (void)baseBandProtectionTimerHandler:(id)handler;
+- (void)configureCellularTimeShareConfigReqParamsWithCenterFreq:(unint64_t)freq CoexTech:(unsigned int)tech bandwidth:(unint64_t)bandwidth subId:(unint64_t)id;
 - (void)configureCellularTimeShareConfigReqParamsWithCenterFreq:(unint64_t)freq bandwidth:(unint64_t)bandwidth;
+- (void)configureCellularTimeShareConfigReqParamsWithCenterFreq:(unint64_t)freq instance:(unsigned int)instance bandwidth:(unint64_t)bandwidth;
 - (void)dealloc;
 - (void)disableCellularTimeShareConfigReqSubId:(unint64_t)id;
 - (void)fastChargingHandler:(BOOL)handler;
@@ -26,6 +28,8 @@
 - (void)handleTxPower:(id)power;
 - (void)sacExtractDesenseFreq:(id)freq message:(id)message;
 - (void)sacHandleDesenseNetworkConfig:(id)config;
+- (void)sendBBCameraState:(int)state state:(unsigned __int8)a4;
+- (void)sendBBCoexSensorMessage:(int)message band:(unsigned __int8)band usecase:(unsigned __int8)usecase;
 - (void)sendMessage:(unint64_t)message withArgs:(id)args;
 - (void)sendMessage:(unint64_t)message withArgs:(id)args withExtraKey:(const char *)key andExtraValue:(id)value;
 - (void)sendMessageToAriDriver:(unint64_t)driver withArgs:(id)args withExtraKey:(const char *)key andExtraValue:(id)value;
@@ -37,6 +41,8 @@
 - (void)setClientAntBlockingParams22;
 - (void)setCriticalCarrier:(unint64_t)carrier forCarrierId:(unint64_t)id forTech:(unint64_t)tech;
 - (void)setEnhancedScanFrequencyTableWithBand:(id)band RATs:(id)ts Frequency:(id)frequency;
+- (void)setGpsBandInfoToBB:(BOOL)b l5Enabled:(BOOL)enabled btA2DPEnabled:(BOOL)pEnabled l5Level:(unint64_t)level;
+- (void)setLAACoexConfig:(int)config;
 - (void)setNetworkConfigOfInterest;
 - (void)setRC1Duration:(unint64_t)duration;
 - (void)setScanFrequencyBandFilter:(id)filter;
@@ -49,6 +55,7 @@
 - (void)updateControllerTxPower:(int64_t)power;
 - (void)updateWCI2CoexPolicy:(unint64_t)policy;
 - (void)updateWCI2TxPower:(int64_t)power;
+- (void)updateWatchAntennaPref:(int)pref watchAntPref:(int)antPref;
 - (void)updateWiFiStatusCenterFreq:(unint64_t)freq bandwidth:(unint64_t)bandwidth txPower:(unint64_t)power;
 @end
 
@@ -140,12 +147,12 @@
   [WCM_Logging logLevel:4 message:@"setAllCriticalCarriers: Start to set critical carriers"];
   +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 4, @"setAllCriticalCarriers: previous CC1CarrierId = %llu, new CC1CarrierId = %llu", -[WCM_CellularController CC1CarrierId](self, "CC1CarrierId"), [v3 wcmCellularWCI2Mode_Ext_critical_ul_ca_bitmap]);
   [WCM_Logging logLevel:4 message:@"setAllCriticalCarriers: previous CC1Tech = %llu, new CC1Tech = %llu", [(WCM_CellularController *)self CC1Tech], v4];
-  v35 = 0;
-  v33 = 0u;
-  v34 = 0u;
-  v32 = 0;
-  v30 = 0u;
+  v33 = 0;
   v31 = 0u;
+  v32 = 0u;
+  v30 = 0;
+  v28 = 0u;
+  v29 = 0u;
   if (getActiveULCAConfig)
   {
     v8 = &getActiveULCAConfig->var0[getActiveULCAConfig->var2];
@@ -153,17 +160,17 @@
     var1 = v8->var1;
     var2 = v8->var2;
     var3 = v8->var3;
-    v33 = *&v8->var4;
-    v34 = *&v8->var6;
-    v35 = *&v8->var8;
+    v31 = *&v8->var4;
+    v32 = *&v8->var6;
+    v33 = *&v8->var8;
     v13 = &getActiveULCAConfig->var0[getActiveULCAConfig->var3];
     v14 = v13->var0;
     v15 = v13->var1;
     v16 = v13->var2;
     v17 = v13->var3;
-    v32 = *&v13->var8;
-    v30 = *&v13->var4;
-    v31 = *&v13->var6;
+    v30 = *&v13->var8;
+    v28 = *&v13->var4;
+    v29 = *&v13->var6;
   }
 
   else
@@ -179,10 +186,9 @@
   }
 
   v18 = &unk_1002B7F00 + 72 * activeSubId;
-  v19 = *v18;
   [WCM_Logging logLevel:4 message:@"setAllCriticalCarriers: previous CC1Freq UL/DL = %f/%f, new CC1Freq UL/DL = %f/%f", *v18, *(v18 + 2), *&var0, *&var2];
   cC1CarrierId = [(WCM_CellularController *)self CC1CarrierId];
-  v21 = cC1CarrierId != [v3 wcmCellularWCI2Mode_Ext_critical_ul_ca_bitmap] || -[WCM_CellularController CC1Tech](self, "CC1Tech") != v4;
+  v20 = cC1CarrierId != [v3 wcmCellularWCI2Mode_Ext_critical_ul_ca_bitmap] || -[WCM_CellularController CC1Tech](self, "CC1Tech") != v4;
   if ([objc_msgSend(v3 "activeCoexFeatures")])
   {
     if (*(v18 + 2) == var2 && *(v18 + 3) == var3 && *v18 == var0)
@@ -200,14 +206,14 @@ LABEL_16:
       *(v18 + 1) = var1;
       *(v18 + 2) = var2;
       *(v18 + 3) = var3;
-      *(v18 + 2) = v33;
-      *(v18 + 3) = v34;
-      *(v18 + 8) = v35;
+      *(v18 + 2) = v31;
+      *(v18 + 3) = v32;
+      *(v18 + 8) = v33;
 LABEL_18:
       -[WCM_CellularController setCriticalCarrier:forCarrierId:forTech:](self, "setCriticalCarrier:forCarrierId:forTech:", 1217, [v3 wcmCellularWCI2Mode_Ext_critical_ul_ca_bitmap], v4);
       -[WCM_CellularController setCC1CarrierId:](self, "setCC1CarrierId:", [v3 wcmCellularWCI2Mode_Ext_critical_ul_ca_bitmap]);
       [(WCM_CellularController *)self setCC1Tech:v4];
-      v22 = 1;
+      v21 = 1;
       goto LABEL_23;
     }
 
@@ -215,76 +221,75 @@ LABEL_18:
     *(v18 + 1) = var1;
     *(v18 + 2) = var2;
     *(v18 + 3) = var3;
-    *(v18 + 2) = v33;
-    *(v18 + 3) = v34;
-    *(v18 + 8) = v35;
-    if (v21)
+    *(v18 + 2) = v31;
+    *(v18 + 3) = v32;
+    *(v18 + 8) = v33;
+    if (v20)
     {
       goto LABEL_18;
     }
   }
 
-  else if (v21)
+  else if (v20)
   {
     goto LABEL_18;
   }
 
   [WCM_Logging logLevel:4 message:@"setAllCriticalCarriers: no change in CC1, skip CC1 update"];
-  v22 = 0;
+  v21 = 0;
 LABEL_23:
   +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 4, @"setAllCriticalCarriers: previous CC2CarrierId = %llu, new CC2CarrierId = %llu", -[WCM_CellularController CC2CarrierId](self, "CC2CarrierId"), [v3 wcmCellularWCI2Mode_CC2]);
   [WCM_Logging logLevel:4 message:@"setAllCriticalCarriers: previous CC2Tech = %llu, new CC2Tech = %llu", [(WCM_CellularController *)self CC2Tech], v5];
-  v23 = &unk_1002B7F90 + 72 * activeSubId;
-  v24 = *v23;
-  [WCM_Logging logLevel:4 message:@"setAllCriticalCarriers: previous CC2Freq UL/DL = %f/%f, new CC2Freq UL/DL = %f/%f", *v23, *(v23 + 2), *&v14, *&v16];
+  v22 = &unk_1002B7F90 + 72 * activeSubId;
+  [WCM_Logging logLevel:4 message:@"setAllCriticalCarriers: previous CC2Freq UL/DL = %f/%f, new CC2Freq UL/DL = %f/%f", *v22, *(v22 + 2), *&v14, *&v16];
   cC2CarrierId = [(WCM_CellularController *)self CC2CarrierId];
-  v26 = cC2CarrierId != [v3 wcmCellularWCI2Mode_CC2] || -[WCM_CellularController CC2Tech](self, "CC2Tech") != v5;
+  v24 = cC2CarrierId != [v3 wcmCellularWCI2Mode_CC2] || -[WCM_CellularController CC2Tech](self, "CC2Tech") != v5;
   if ([objc_msgSend(v3 "activeCoexFeatures")])
   {
-    if ((*(v23 + 2) != v16 || *(v23 + 3) != v17 || *v23 != v14 || *(v23 + 1) != v15) && v16 != 0.0)
+    if ((*(v22 + 2) != v16 || *(v22 + 3) != v17 || *v22 != v14 || *(v22 + 1) != v15) && v16 != 0.0)
     {
-      *v23 = v14;
-      *(v23 + 1) = v15;
-      *(v23 + 2) = v16;
-      *(v23 + 3) = v17;
-      *(v23 + 2) = v30;
-      *(v23 + 3) = v31;
-      *(v23 + 8) = v32;
+      *v22 = v14;
+      *(v22 + 1) = v15;
+      *(v22 + 2) = v16;
+      *(v22 + 3) = v17;
+      *(v22 + 2) = v28;
+      *(v22 + 3) = v29;
+      *(v22 + 8) = v30;
 LABEL_34:
       -[WCM_CellularController setCriticalCarrier:forCarrierId:forTech:](self, "setCriticalCarrier:forCarrierId:forTech:", 1218, [v3 wcmCellularWCI2Mode_CC2], v5);
       -[WCM_CellularController setCC2CarrierId:](self, "setCC2CarrierId:", [v3 wcmCellularWCI2Mode_CC2]);
       [(WCM_CellularController *)self setCC2Tech:v5];
-      v27 = 1;
+      v25 = 1;
       goto LABEL_37;
     }
 
-    *v23 = v14;
-    *(v23 + 1) = v15;
-    *(v23 + 2) = v16;
-    *(v23 + 3) = v17;
-    *(v23 + 2) = v30;
-    *(v23 + 3) = v31;
-    *(v23 + 8) = v32;
-    if (v26)
+    *v22 = v14;
+    *(v22 + 1) = v15;
+    *(v22 + 2) = v16;
+    *(v22 + 3) = v17;
+    *(v22 + 2) = v28;
+    *(v22 + 3) = v29;
+    *(v22 + 8) = v30;
+    if (v24)
     {
       goto LABEL_34;
     }
   }
 
-  else if (v26)
+  else if (v24)
   {
     goto LABEL_34;
   }
 
   [WCM_Logging logLevel:4 message:@"setAllCriticalCarriers: no change in CC2, skip CC2 update"];
-  v27 = 0;
+  v25 = 0;
 LABEL_37:
-  v28 = [objc_msgSend(v3 "activeCoexFeatures")];
-  if ((v22 | v27) == 1 && v28)
+  v26 = [objc_msgSend(v3 "activeCoexFeatures")];
+  if ((v21 | v25) == 1 && v26)
   {
-    v29 = xpc_dictionary_create(0, 0, 0);
-    [(WCM_CellularController *)self sendMessage:1235 withArgs:v29];
-    xpc_release(v29);
+    v27 = xpc_dictionary_create(0, 0, 0);
+    [(WCM_CellularController *)self sendMessage:1235 withArgs:v27];
+    xpc_release(v27);
   }
 
   [v3 setWcmCellularCCSetToBB:1];
@@ -491,13 +496,6 @@ LABEL_10:
   [(WCM_Controller *)&v3 dealloc];
 }
 
-- (NSString)description
-{
-  v2 = *(&self->_cellularInstance0.dlBandwidth + 4);
-  v3 = *(&self->_cellularInstance1.dlCPConfig + 4);
-  return [NSString stringWithFormat:@"WCM_CellularController cellularConfig0<UL(freq=%lf bw=%lf) UL2(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf) DL2(freq=%lf bw=%lf) TDD ULDLConfig=%lld, SFF=%lld ULCP=%lld DLCP=%lld FrameOffset=%lld> cellularConfig1<UL(freq=%lf bw=%lf) UL2(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf) DL2(freq=%lf bw=%lf) TDD ULDLConfig=%lld, SFF=%lld ULCP=%lld DLCP=%lld FrameOffset=%lld> activeSubid(%lld)", *(&self->_cellularInstance0.frameOffset + 4), *(&self->_cellularInstance0.ulCenterFreq + 4), *(&self->_cellularInstance0.dlBandwidth + 4), *(&self->_cellularInstance0.ulCenterFreq2 + 4), *(&self->_cellularInstance0.ulBandwidth + 4), *(&self->_cellularInstance0.dlCenterFreq + 4), *(&self->_cellularInstance0.ulBandwidth2 + 4), *(&self->_cellularInstance0.dlCenterFreq2 + 4), *(&self->_cellularInstance0.dlBandwidth2 + 4), *(&self->_cellularInstance0.tddULDLConfig + 4), *(&self->super.mProcessId + 1), *(&self->_cellularInstance0.ulCPConfig + 4), *(&self->_cellularInstance0.dlCPConfig + 4), *(&self->_cellularInstance1.frameOffset + 4), *(&self->_cellularInstance1.ulCenterFreq + 4), *(&self->_cellularInstance1.dlBandwidth + 4), *(&self->_cellularInstance1.ulCenterFreq2 + 4), *(&self->_cellularInstance1.ulBandwidth + 4), *(&self->_cellularInstance1.dlCenterFreq + 4), *(&self->_cellularInstance1.ulBandwidth2 + 4), *(&self->_cellularInstance1.dlCenterFreq2 + 4), *(&self->_cellularInstance1.dlBandwidth2 + 4), *(&self->_cellularInstance1.tddULDLConfig + 4), *(&self->_cellularInstance0.cellBandInfo + 1), *(&self->_cellularInstance1.ulCPConfig + 4), v3, *(&self->_activeConfig + 4)];
-}
-
 - (void)sendMessageToMipcDriver:(unint64_t)driver withArgs:(id)args withExtraKey:(const char *)key andExtraValue:(id)value
 {
   *keys = *off_1002413F0;
@@ -566,6 +564,14 @@ LABEL_10:
     v11.super_class = WCM_CellularController;
     [(WCM_Controller *)&v11 sendMessage:message withArgs:args withExtraKey:key andExtraValue:value];
   }
+}
+
+- (WCM_CellularController)initWithConnection:(id)connection processId:(int)id
+{
+  v6.receiver = self;
+  v6.super_class = WCM_CellularController;
+  [(WCM_Controller *)&v6 initWithConnection:connection processId:*&id];
+  return [(WCM_CellularController *)self handlePowerState:1];
 }
 
 - (void)handlePowerState:(BOOL)state
@@ -1154,6 +1160,68 @@ LABEL_21:
   }
 }
 
+- (void)updateWatchAntennaPref:(int)pref watchAntPref:(int)antPref
+{
+  v4 = *&antPref;
+  v5 = *&pref;
+  [WCM_Logging logLevel:3 message:@"Updating watch antenna pref to cellular modem, coexBand %d, antenna %d", *&pref, *&antPref];
+  if (v4)
+  {
+    if (v5)
+    {
+      if (v5 >= 3)
+      {
+        if ((v5 - 3) > 1)
+        {
+          return;
+        }
+
+        v7 = 2;
+        v8 = 41;
+      }
+
+      else
+      {
+        v7 = 1;
+        v8 = 40;
+      }
+    }
+
+    else
+    {
+      v7 = 2;
+      v8 = 7;
+    }
+
+    if ([(WCM_CellularController *)self watchAntPrefBand]== v5 && [(WCM_CellularController *)self watchAntPref]== v4)
+    {
+      [WCM_Logging logLevel:3 message:@"Already set watch antenna pref band(%ld) to antenna (%ld)", v5, v4];
+    }
+
+    else
+    {
+      [(WCM_CellularController *)self setWatchAntPrefBand:v5];
+      [(WCM_CellularController *)self setWatchAntPref:v4];
+      [WCM_Logging logLevel:3 message:@"Updating watch antenna pref to cellular modem, with antenna %d defaultAntPref %d", v4, v7];
+      v9 = xpc_dictionary_create(0, 0, 0);
+      v10 = xpc_array_create(0, 0);
+      values = xpc_int64_create(v8);
+      object = xpc_int64_create(v4);
+      *keys = *off_100241408;
+      v11 = xpc_dictionary_create(keys, &values, 2uLL);
+      xpc_dictionary_set_uint64(v9, "WCMCellularSetFCM_BCM_Antenna_Switching_RAT", 3uLL);
+      xpc_array_append_value(v10, v11);
+      xpc_dictionary_set_value(v9, "WCMCellularSetFCM_BCM_Antenna_Switching_PortMapInformationSet", v10);
+      [(WCM_CellularController *)self sendMessage:1212 withArgs:v9];
+      xpc_release(v11);
+      xpc_release(values);
+      xpc_release(object);
+      xpc_release(v10);
+      xpc_release(v9);
+    }
+  }
+}
+
 - (void)updateBBRC1Params:(BOOL)params channel:(unint64_t)channel duration:(unint64_t)duration priority:(unsigned int)priority
 {
   v7 = channel == 5;
@@ -1724,7 +1792,7 @@ LABEL_23:
   }
 
   v6 = value;
-  v107 = +[WCM_PolicyManager singleton];
+  v106 = +[WCM_PolicyManager singleton];
   v7 = &self->super.mProcessId + 1;
   if ([(WCM_CellularController *)self activeSubId])
   {
@@ -1733,54 +1801,53 @@ LABEL_23:
 
   v8 = *(v7 + 3);
   v9 = *(v7 + 5);
-  v101 = *(v7 + 4);
-  v102 = *(v7 + 6);
-  v11 = *(v7 + 7);
-  v10 = *(v7 + 8);
-  v12 = *(v7 + 9);
-  v99 = v10;
-  v100 = *(v7 + 10);
+  v100 = *(v7 + 4);
+  v101 = *(v7 + 6);
+  v10 = *(v7 + 7);
+  v11 = *(v7 + 9);
+  v98 = *(v7 + 8);
+  v99 = *(v7 + 10);
   activeSubId = [(WCM_CellularController *)self activeSubId];
-  v97 = *(v7 + 11);
-  v98 = activeSubId;
+  v96 = *(v7 + 11);
+  v97 = activeSubId;
   uint64 = xpc_dictionary_get_uint64(config_legacy, "kSubId");
   if (!xpc_dictionary_get_count(v6))
   {
     [WCM_Logging logLevel:3 message:@"SUB%llu: goes out of interested frequency bands", uint64];
   }
 
-  v15 = &self->super.mProcessId + 1;
+  v14 = &self->super.mProcessId + 1;
   if (uint64)
   {
-    v15 = (&self->_cellularInstance0.cellBandInfo + 1);
+    v14 = (&self->_cellularInstance0.cellBandInfo + 1);
   }
 
-  *(v15 + 12) = 0;
-  *(v15 + 1) = 0u;
-  *(v15 + 5) = 0u;
-  *(v15 + 4) = 0u;
-  v113 = (v15 + 16);
-  *(v15 + 3) = 0u;
-  *(v15 + 2) = 0u;
-  *(v15 + 3) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_ULBandInfo_CenterFreq");
-  v114 = (v15 + 6);
-  *(v15 + 4) = xpc_dictionary_get_double(v6, "kWCMCellularNetworkConfiguration_ULBandInfo_BandWidth");
-  *(v15 + 5) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_DLBandInfo_CenterFreq");
-  *(v15 + 6) = xpc_dictionary_get_double(v6, "kWCMCellularNetworkConfiguration_DLBandInfo_BandWidth");
-  *(v15 + 11) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_TTDUL_DL");
-  *(v15 + 12) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_SubFrameFormat");
-  *(v15 + 2) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_FrameOffset");
-  v112 = (v15 + 10);
-  *(v15 + 52) = 0;
-  v16 = +[WRM_MetricsService getSingleton];
-  v17 = v16;
-  if (v16)
+  *(v14 + 12) = 0;
+  *(v14 + 1) = 0u;
+  *(v14 + 5) = 0u;
+  *(v14 + 4) = 0u;
+  v112 = (v14 + 16);
+  *(v14 + 3) = 0u;
+  *(v14 + 2) = 0u;
+  *(v14 + 3) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_ULBandInfo_CenterFreq");
+  v113 = (v14 + 6);
+  *(v14 + 4) = xpc_dictionary_get_double(v6, "kWCMCellularNetworkConfiguration_ULBandInfo_BandWidth");
+  *(v14 + 5) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_DLBandInfo_CenterFreq");
+  *(v14 + 6) = xpc_dictionary_get_double(v6, "kWCMCellularNetworkConfiguration_DLBandInfo_BandWidth");
+  *(v14 + 11) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_TTDUL_DL");
+  *(v14 + 12) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_SubFrameFormat");
+  *(v14 + 2) = xpc_dictionary_get_int64(v6, "kWCMCellularNetworkConfiguration_FrameOffset");
+  v111 = (v14 + 10);
+  *(v14 + 52) = 0;
+  v15 = +[WRM_MetricsService getSingleton];
+  v16 = v15;
+  if (v15)
   {
-    [v16 initLTECoexMetrics];
+    [v15 initLTECoexMetrics];
   }
 
-  getLTECoexMetrics = [v17 getLTECoexMetrics];
-  v106 = getLTECoexMetrics;
+  getLTECoexMetrics = [v16 getLTECoexMetrics];
+  v105 = getLTECoexMetrics;
   if (getLTECoexMetrics)
   {
     getLTECoexMetrics[20] = 0;
@@ -1788,19 +1855,19 @@ LABEL_23:
     *(getLTECoexMetrics + 40) = 0u;
   }
 
-  v104 = (getLTECoexMetrics + 20);
+  v103 = (getLTECoexMetrics + 20);
   if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
   {
-    *(v15 + 306) = 1;
-    v19 = *(v15 + 10);
-    *(v15 + 9) = *(v15 + 6);
-    *(v15 + 10) = v19;
+    *(v14 + 306) = 1;
+    v18 = *(v14 + 10);
+    *(v14 + 9) = *(v14 + 6);
+    *(v14 + 10) = v18;
     [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
     [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
     +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 3, @"ULCA handleNetworkConfig-1-ULCA critical bitmap %llu", [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")]);
-    if (*(v15 + 5) != 0.0)
+    if (*(v14 + 5) != 0.0)
     {
-      [WCM_Logging logLevel:2 message:@"SUB%llu:  ULCA Logging -  case kWCMCellularNetworkConfiguration_ULBandInfo_CenterFreq UL-(freq=%lf bw=%lf)  DL(freq=%lf, bw=%lf) ", uint64, *(v15 + 18), *(v15 + 19), *(v15 + 20), *(v15 + 21)];
+      [WCM_Logging logLevel:2 message:@"SUB%llu:  ULCA Logging -  case kWCMCellularNetworkConfiguration_ULBandInfo_CenterFreq UL-(freq=%lf bw=%lf)  DL(freq=%lf, bw=%lf) ", uint64, *(v14 + 18), *(v14 + 19), *(v14 + 20), *(v14 + 21)];
     }
   }
 
@@ -1808,7 +1875,7 @@ LABEL_23:
   {
     [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
     [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
-    +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 3, @"ULCA handleNetworkConfig-2-ULCA critical bitmap %llu", [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")], v85, v88, v90, v92);
+    +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 3, @"ULCA handleNetworkConfig-2-ULCA critical bitmap %llu", [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")], v84, v87, v89, v91);
   }
 
   applier[0] = _NSConcreteStackBlock;
@@ -1816,362 +1883,362 @@ LABEL_23:
   applier[2] = sub_1000C2D68;
   applier[3] = &unk_100241418;
   applier[4] = uint64;
-  applier[5] = v15;
+  applier[5] = v14;
   xpc_dictionary_apply(v6, applier);
-  v20 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_LTEBandInformationSet");
-  v108 = uint64;
+  v19 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_LTEBandInformationSet");
+  v107 = uint64;
   selfCopy = self;
-  v103 = &self->super.mProcessId + 1;
+  v102 = &self->super.mProcessId + 1;
   xdict = v6;
-  if (v20)
+  if (v19)
   {
-    v21 = v20;
-    v22 = 1;
+    v20 = v19;
+    v21 = 1;
     goto LABEL_30;
   }
 
-  v23 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_TDSCDMABandInformationSet");
+  v22 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_TDSCDMABandInformationSet");
+  if (v22)
+  {
+    v20 = v22;
+    v21 = 2;
+    goto LABEL_30;
+  }
+
+  v23 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_GSMBandInformationSet");
   if (v23)
   {
-    v21 = v23;
-    v22 = 2;
+    v20 = v23;
+    v21 = 4;
     goto LABEL_30;
   }
 
-  v24 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_GSMBandInformationSet");
+  v24 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_ONEXBandInformationSet");
   if (v24)
   {
-    v21 = v24;
-    v22 = 4;
+    v20 = v24;
+    v21 = 8;
     goto LABEL_30;
   }
 
-  v25 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_ONEXBandInformationSet");
+  v25 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_HDRBandInformationSet");
   if (v25)
   {
-    v21 = v25;
-    v22 = 8;
+    v20 = v25;
+    v21 = 16;
     goto LABEL_30;
   }
 
-  v26 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_HDRBandInformationSet");
+  v26 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_WCDMABandInformationSet");
   if (v26)
   {
-    v21 = v26;
-    v22 = 16;
+    v20 = v26;
+    v21 = 32;
     goto LABEL_30;
   }
 
-  v27 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_WCDMABandInformationSet");
+  v27 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_NGCBandInformationSet");
   if (v27)
   {
-    v21 = v27;
-    v22 = 32;
-    goto LABEL_30;
-  }
-
-  v28 = xpc_dictionary_get_value(v6, "kWCMCellularNetworkConfiguration_NGCBandInformationSet");
-  if (v28)
-  {
-    v21 = v28;
-    v22 = 64;
+    v20 = v27;
+    v21 = 64;
 LABEL_30:
-    v15[32] = v22;
-    count = xpc_array_get_count(v21);
+    v14[32] = v21;
+    count = xpc_array_get_count(v20);
     if (count >= 1)
     {
+      v29 = 0;
       v30 = 0;
+      v110 = 0;
       v31 = 0;
-      v111 = 0;
-      v32 = 0;
-      v110 = v15 + 36;
-      v33 = count + 1;
+      v109 = v14 + 36;
+      v32 = count + 1;
       while (1)
       {
-        v34 = xpc_array_get_value(v21, v33 - 2);
-        if (!v34)
+        v33 = xpc_array_get_value(v20, v32 - 2);
+        if (!v33)
         {
           goto LABEL_54;
         }
 
-        v35 = v34;
-        v36 = xpc_dictionary_get_uint64(v34, "kWCMCellularNetworkConfiguration_BandInfoSet_DirectionMask");
-        int64 = xpc_dictionary_get_int64(v35, "kWCMCellularNetworkConfiguration_BandInfoSet_CenterFreq");
-        v38 = xpc_dictionary_get_double(v35, "kWCMCellularNetworkConfiguration_BandInfoSet_Bandwidth");
-        v39 = v38;
-        v40 = "unknown";
-        if (v36 == 2)
+        v34 = v33;
+        v35 = xpc_dictionary_get_uint64(v33, "kWCMCellularNetworkConfiguration_BandInfoSet_DirectionMask");
+        int64 = xpc_dictionary_get_int64(v34, "kWCMCellularNetworkConfiguration_BandInfoSet_CenterFreq");
+        v37 = xpc_dictionary_get_double(v34, "kWCMCellularNetworkConfiguration_BandInfoSet_Bandwidth");
+        v38 = v37;
+        v39 = "unknown";
+        if (v35 == 2)
         {
-          v40 = "downlink";
+          v39 = "downlink";
         }
 
-        if (v36 == 1)
+        if (v35 == 1)
         {
-          v40 = "uplink";
+          v39 = "uplink";
         }
 
-        [WCM_Logging logLevel:5 message:@"directionMask(%lld:%s) centerFreq(%lld) bandwidth(%lf)", v36, v40, int64, *&v38];
+        [WCM_Logging logLevel:5 message:@"directionMask(%lld:%s) centerFreq(%lld) bandwidth(%lf)", v35, v39, int64, *&v37];
         if (int64 < 1)
         {
           goto LABEL_54;
         }
 
-        if (v36 == 1)
+        if (v35 == 1)
         {
           break;
         }
 
-        if (v36 != 2)
+        if (v35 != 2)
         {
           goto LABEL_54;
         }
 
-        v46 = int64 / 1000.0;
-        v47 = v39 / 1000000.0;
-        v48 = (v15 + 10);
-        if (v111)
+        v45 = int64 / 1000.0;
+        v46 = v38 / 1000000.0;
+        v47 = (v14 + 10);
+        if (v110)
         {
-          v48 = (v15 + 18);
+          v47 = (v14 + 18);
         }
 
-        v49 = (v15 + 20);
-        if ((v111 & 1) == 0)
+        v48 = (v14 + 20);
+        if ((v110 & 1) == 0)
         {
-          v49 = (v15 + 12);
+          v48 = (v14 + 12);
         }
 
+        *v47 = v45;
         *v48 = v46;
-        *v49 = v47;
         if (![objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
         {
-          v111 = 1;
+          v110 = 1;
 LABEL_54:
-          v52 = v31;
+          v51 = v30;
           goto LABEL_55;
         }
 
-        v50 = &v110[18 * v31];
-        *(v50 + 2) = v46;
-        *(v50 + 3) = v47;
-        v51 = &v110[18 * v30];
-        v52 = (v31 + 1);
-        *v51 = 0;
-        *(v51 + 1) = 0;
-        v111 = 1;
-        v30 = v31;
+        v49 = &v109[18 * v30];
+        *(v49 + 2) = v45;
+        *(v49 + 3) = v46;
+        v50 = &v109[18 * v29];
+        v51 = (v30 + 1);
+        *v50 = 0;
+        *(v50 + 1) = 0;
+        v110 = 1;
+        v29 = v30;
 LABEL_55:
-        --v33;
-        v31 = v52;
-        if (v33 <= 1)
+        --v32;
+        v30 = v51;
+        if (v32 <= 1)
         {
           goto LABEL_59;
         }
       }
 
-      v41 = int64 / 1000.0;
-      v42 = v39 / 1000000.0;
-      v43 = (v15 + 6);
-      if (v32)
+      v40 = int64 / 1000.0;
+      v41 = v38 / 1000000.0;
+      v42 = (v14 + 6);
+      if (v31)
       {
-        v43 = (v15 + 14);
+        v42 = (v14 + 14);
       }
 
-      v44 = (v15 + 16);
-      if ((v32 & 1) == 0)
+      v43 = (v14 + 16);
+      if ((v31 & 1) == 0)
       {
-        v44 = (v15 + 8);
+        v43 = (v14 + 8);
       }
 
+      *v42 = v40;
       *v43 = v41;
-      *v44 = v42;
       if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
       {
-        v45 = &v110[18 * v30];
-        *v45 = v41;
-        v45[1] = v42;
-        ++v30;
+        v44 = &v109[18 * v29];
+        *v44 = v40;
+        v44[1] = v41;
+        ++v29;
       }
 
-      v32 = 1;
+      v31 = 1;
       goto LABEL_54;
     }
 
     goto LABEL_58;
   }
 
-  v15[32] = 127;
+  v14[32] = 127;
   [WCM_Logging logLevel:4 message:@"SUB%llu: unknown band info set", uint64];
 LABEL_58:
-  LODWORD(v52) = 0;
+  LODWORD(v51) = 0;
 LABEL_59:
-  if (*(v15 + 104) == 1)
+  if (*(v14 + 104) == 1)
   {
-    v53 = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_ULCPConfig");
-    v54 = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_DLCPConfig");
-    v56 = v108;
-    v55 = selfCopy;
+    v52 = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_ULCPConfig");
+    v53 = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_DLCPConfig");
+    v55 = v107;
+    v54 = selfCopy;
     p_cache = (AntBlockPowerLimitPolicyClient + 16);
-    if (*v114 != 0.0)
+    if (*v113 != 0.0)
     {
-      v58 = v54;
-      [WCM_Logging logLevel:5 message:@"SUB%llu: RRC-connected cell notification ULCP(%lld -> %lld) DLCP(%lld -> %lld)", *v114, v108, *v15, v53, *(v15 + 1), v54];
-      if (v53 != 255)
+      v57 = v53;
+      [WCM_Logging logLevel:5 message:@"SUB%llu: RRC-connected cell notification ULCP(%lld -> %lld) DLCP(%lld -> %lld)", *v113, v107, *v14, v52, *(v14 + 1), v53];
+      if (v52 != 255)
       {
-        *v15 = v53;
+        *v14 = v52;
       }
 
-      if (v58 != 255)
+      if (v57 != 255)
       {
-        *(v15 + 1) = v58;
+        *(v14 + 1) = v57;
       }
     }
   }
 
   else
   {
-    *v15 = 0;
-    *(v15 + 1) = 0;
-    v56 = v108;
-    v55 = selfCopy;
+    *v14 = 0;
+    *(v14 + 1) = 0;
+    v55 = v107;
+    v54 = selfCopy;
     p_cache = AntBlockPowerLimitPolicyClient.cache;
   }
 
-  v59 = *(v15 + 3);
-  v60 = *(v15 + 4);
-  *(v15 + 338) = v59;
-  *(v15 + 339) = v60;
-  v61 = *(v15 + 5);
-  v62 = *(v15 + 6);
-  *(v15 + 340) = v61;
-  *(v15 + 341) = v62;
-  [WCM_Logging logLevel:5 message:@"SUB%llu: Network Config UL(freq=%lf bw=%lf) UL2(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf) DL2(freq=%lf bw=%lf) TDD ULDLConfig=%lld, SFF=%lld ULCP=%lld DLCP=%lld FrameOffset=%lld", v56, v59, v60, *(v15 + 7), *(v15 + 8), v61, v62, *(v15 + 9), *(v15 + 10), *(v15 + 11), *(v15 + 12), *v15, *(v15 + 1), *(v15 + 2)];
-  v63 = v15 + 36;
+  v58 = *(v14 + 3);
+  v59 = *(v14 + 4);
+  *(v14 + 338) = v58;
+  *(v14 + 339) = v59;
+  v60 = *(v14 + 5);
+  v61 = *(v14 + 6);
+  *(v14 + 340) = v60;
+  *(v14 + 341) = v61;
+  [WCM_Logging logLevel:5 message:@"SUB%llu: Network Config UL(freq=%lf bw=%lf) UL2(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf) DL2(freq=%lf bw=%lf) TDD ULDLConfig=%lld, SFF=%lld ULCP=%lld DLCP=%lld FrameOffset=%lld", v55, v58, v59, *(v14 + 7), *(v14 + 8), v60, v61, *(v14 + 9), *(v14 + 10), *(v14 + 11), *(v14 + 12), *v14, *(v14 + 1), *(v14 + 2)];
+  v62 = v14 + 36;
   if ([objc_msgSend(objc_msgSend(p_cache + 273 "singleton")])
   {
-    v15[612] = v52;
-    v15[613] = 0;
-    *(v15 + 2692) = 0;
-    v64 = *(v15 + 10);
-    *(v15 + 9) = *(v15 + 6);
-    *(v15 + 10) = v64;
-    v65 = *(v15 + 7);
-    if (v65 != 0.0)
+    v14[612] = v51;
+    v14[613] = 0;
+    *(v14 + 2692) = 0;
+    v63 = *(v14 + 10);
+    *(v14 + 9) = *(v14 + 6);
+    *(v14 + 10) = v63;
+    v64 = *(v14 + 7);
+    if (v64 != 0.0)
     {
-      v66 = *v113;
-      if (*v113 != 0.0)
+      v65 = *v112;
+      if (*v112 != 0.0)
       {
-        *(v15 + 58) = *(v15 + 18);
-        *(v15 + 27) = v65;
-        *(v15 + 28) = v66;
+        *(v14 + 58) = *(v14 + 18);
+        *(v14 + 27) = v64;
+        *(v14 + 28) = v65;
       }
     }
 
     [WCM_Logging logLevel:4 message:@"-------- ULCA Logging   ----------"];
     [WCM_Logging logLevel:4 message:@"-------- ULCA Config   ----------"];
-    [WCM_Logging logLevel:4 message:@"Total valid entries =%d", v15[612]];
-    if (v15[612])
+    [WCM_Logging logLevel:4 message:@"Total valid entries =%d", v14[612]];
+    if (v14[612])
     {
-      v67 = 0;
-      v68 = v15 + 42;
+      v66 = 0;
+      v67 = v14 + 42;
       do
       {
-        [WCM_Logging logLevel:4 message:@"Entry index %zu ..UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf)", v67++, *(v68 - 3), *(v68 - 2), *(v68 - 1), *v68];
-        v68 += 9;
+        [WCM_Logging logLevel:4 message:@"Entry index %zu ..UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf)", v66++, *(v67 - 3), *(v67 - 2), *(v67 - 1), *v67];
+        v67 += 9;
       }
 
-      while (v67 < v15[612]);
+      while (v66 < v14[612]);
     }
 
-    v69 = *v114;
-    if (*v114 <= 0.0)
+    v68 = *v113;
+    if (*v113 <= 0.0)
     {
-      [(WCM_CellularController *)v55 setActiveConfig:v103, v69];
-      v70 = 0;
+      [(WCM_CellularController *)v54 setActiveConfig:v102, v68];
+      v69 = 0;
     }
 
     else
     {
-      [(WCM_CellularController *)v55 setActiveConfig:v15, v69];
-      v70 = v56;
+      [(WCM_CellularController *)v54 setActiveConfig:v14, v68];
+      v69 = v55;
     }
 
-    [(WCM_CellularController *)v55 setActiveSubId:v70];
-    [v107 evaluateULCARestrictions];
-    v75 = &v63[18 * v15[613]];
-    v77 = *v75;
-    v76 = v75[1];
-    *(v15 + 10) = v76;
-    *(v15 + 6) = v77;
-    if (v106)
+    [(WCM_CellularController *)v54 setActiveSubId:v69];
+    [v106 evaluateULCARestrictions];
+    v74 = &v62[18 * v14[613]];
+    v76 = *v74;
+    v75 = v74[1];
+    *(v14 + 10) = v75;
+    *(v14 + 6) = v76;
+    if (v105)
     {
-      if (v15[612] >= 2)
+      if (v14[612] >= 2)
       {
-        v78 = *(v15 + 2692);
-        *v104 = v78;
-        v79 = (v104 + 4);
-        v117.val[1] = vmovn_s64(vcvtq_u64_f64(*(v15 + 10)));
-        v117.val[0] = vmovn_s64(vcvtq_u64_f64(*(v15 + 9)));
-        vst2_f32(v79, v117);
-        if (v78 == 1)
+        v77 = *(v14 + 2692);
+        *v103 = v77;
+        v78 = (v103 + 4);
+        v116.val[1] = vmovn_s64(vcvtq_u64_f64(*(v14 + 10)));
+        v116.val[0] = vmovn_s64(vcvtq_u64_f64(*(v14 + 9)));
+        vst2_f32(v78, v116);
+        if (v77 == 1)
         {
-          v116.val[0] = vmovn_s64(vcvtq_u64_f64(v77));
-          v116.val[1] = vmovn_s64(vcvtq_u64_f64(v76));
-          v80 = (v104 + 20);
-          vst2_f32(v80, v116);
+          v115.val[0] = vmovn_s64(vcvtq_u64_f64(v76));
+          v115.val[1] = vmovn_s64(vcvtq_u64_f64(v75));
+          v79 = (v103 + 20);
+          vst2_f32(v79, v115);
         }
       }
 
       if ([objc_msgSend(objc_msgSend(p_cache + 273 "singleton")])
       {
-        LODWORD(v86) = *(v104 + 8);
-        [v107 wRMCACoexSubmit_ULCACoexStates:*v104 ULCAPrimaryCarrierULFreq:*(v104 + 1) ULCAPrimaryCarrierDLFreq:*(v104 + 2) ULCAPrimaryCarrierULBW:*(v104 + 3) ULCAPrimaryCarrierDLBW:*(v104 + 4) ULCACriticalCarrierULFreq:*(v104 + 5) ULCACriticalCarrierDLFreq:*(v104 + 3) ULCACriticalCarrierULBW:v86 ULCACriticalCarrierDLBW:?];
+        LODWORD(v85) = *(v103 + 8);
+        [v106 wRMCACoexSubmit_ULCACoexStates:*v103 ULCAPrimaryCarrierULFreq:*(v103 + 1) ULCAPrimaryCarrierDLFreq:*(v103 + 2) ULCAPrimaryCarrierULBW:*(v103 + 3) ULCAPrimaryCarrierDLBW:*(v103 + 4) ULCACriticalCarrierULFreq:*(v103 + 5) ULCACriticalCarrierDLFreq:*(v103 + 3) ULCACriticalCarrierULBW:v85 ULCACriticalCarrierDLBW:?];
       }
     }
 
     [WCM_Logging logLevel:4 message:@"-------- ULCA After coex valuation   ----------"];
     [WCM_Logging logLevel:4 message:@"-------- ULCA After coex valuation   ----------"];
-    [WCM_Logging logLevel:4 message:@"Critical carrier =%d", v15[613]];
-    v81 = &v63[18 * v15[613]];
-    [WCM_Logging logLevel:4 message:@"Critical Carrier UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf)", *v81, *(v81 + 1), *(v81 + 2), *(v81 + 3)];
-    [WCM_Logging logLevel:5 message:@"ULCA Final Frequencies for COEX consideration :- SUB%llu: Network Config UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf)  TDD ULDLConfig=%lld, SFF=%lld ULCP=%lld DLCP=%lld FrameOffset=%lld", v56, *(v15 + 3), *(v15 + 4), *(v15 + 5), *(v15 + 6), *(v15 + 11), *(v15 + 12), *v15, *(v15 + 1), *(v15 + 2)];
+    [WCM_Logging logLevel:4 message:@"Critical carrier =%d", v14[613]];
+    v80 = &v62[18 * v14[613]];
+    [WCM_Logging logLevel:4 message:@"Critical Carrier UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf)", *v80, *(v80 + 1), *(v80 + 2), *(v80 + 3)];
+    [WCM_Logging logLevel:5 message:@"ULCA Final Frequencies for COEX consideration :- SUB%llu: Network Config UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf)  TDD ULDLConfig=%lld, SFF=%lld ULCP=%lld DLCP=%lld FrameOffset=%lld", v55, *(v14 + 3), *(v14 + 4), *(v14 + 5), *(v14 + 6), *(v14 + 11), *(v14 + 12), *v14, *(v14 + 1), *(v14 + 2)];
     [WCM_Logging logLevel:4 message:@"-------- ULCA Logging END  ----------"];
     [objc_msgSend(p_cache + 273 "singleton")];
     [objc_msgSend(p_cache + 273 "singleton")];
-    +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 3, @"ULCA handleNetworkConfig-3-ULCA critical bitmap %llu", [objc_msgSend(p_cache + 273 "singleton")], v87, v89, v91, v93, v94, v95, v96);
+    +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 3, @"ULCA handleNetworkConfig-3-ULCA critical bitmap %llu", [objc_msgSend(p_cache + 273 "singleton")], v86, v88, v90, v92, v93, v94, v95);
   }
 
   else
   {
-    v71 = &v63[18 * v15[613]];
-    v72 = &v63[18 * v15[614]];
-    v73 = *(v15 + 10);
-    *(v71 + 1) = v73;
-    *(v72 + 1) = v73;
-    v74 = *(v15 + 6);
-    *v71 = v74;
-    *v72 = v74;
-    [WCM_Logging logLevel:4 message:@"Non-ULCA devices: Expected all to be PCC: Cell Victim Critical Carrier UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf), WiFi Victim Critical Carrier UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf)", *v71, *(v71 + 1), *(v71 + 2), *(v71 + 3), v74, v73];
+    v70 = &v62[18 * v14[613]];
+    v71 = &v62[18 * v14[614]];
+    v72 = *(v14 + 10);
+    *(v70 + 1) = v72;
+    *(v71 + 1) = v72;
+    v73 = *(v14 + 6);
+    *v70 = v73;
+    *v71 = v73;
+    [WCM_Logging logLevel:4 message:@"Non-ULCA devices: Expected all to be PCC: Cell Victim Critical Carrier UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf), WiFi Victim Critical Carrier UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf)", *v70, *(v70 + 1), *(v70 + 2), *(v70 + 3), v73, v72];
   }
 
-  if (*v112 == 0.0 || v9 != 0.0 && *v112 != v9)
+  if (*v111 == 0.0 || v9 != 0.0 && *v111 != v9)
   {
-    *(v15 + 14) = 0;
-    *(v15 + 15) = 0;
+    *(v14 + 14) = 0;
+    *(v14 + 15) = 0;
   }
 
-  v82 = *v114;
-  if (*v114 != 0.0)
+  v81 = *v113;
+  if (*v113 != 0.0)
   {
-    v83 = *(v15 + 4);
-    *(v15 + 14) = v82;
-    *(v15 + 15) = v83;
-    [(WCM_CellularController *)v55 setActiveConfig:v15];
-    [(WCM_CellularController *)v55 setActiveSubId:v56];
+    v82 = *(v14 + 4);
+    *(v14 + 14) = v81;
+    *(v14 + 15) = v82;
+    [(WCM_CellularController *)v54 setActiveConfig:v14];
+    [(WCM_CellularController *)v54 setActiveSubId:v55];
   }
 
   if ([objc_msgSend(objc_msgSend(p_cache + 273 singleton] && (objc_msgSend(objc_msgSend(objc_msgSend(p_cache + 273, "singleton"), "activeCoexFeatures"), "containsObject:", @"EnableULCA") & 1) == 0)
   {
-    if (v9 == *v112 && v8 == *v114 && v12 == *(v15 + 9) && v11 == *(v15 + 7) && v102 == *(v15 + 6) && v101 == *(v15 + 4) && v100 == *(v15 + 10) && v99 == *v113 && v98 == [(WCM_CellularController *)v55 activeSubId:*v113]&& v97 == *(v15 + 11))
+    if (v9 == *v111 && v8 == *v113 && v11 == *(v14 + 9) && v10 == *(v14 + 7) && v101 == *(v14 + 6) && v100 == *(v14 + 4) && v99 == *(v14 + 10) && v98 == *v112 && v97 == [(WCM_CellularController *)v54 activeSubId:*v112]&& v96 == *(v14 + 11))
     {
       [WCM_Logging logLevel:2 message:@"NW Config Parameters are the same, hence ignoring the network config command"];
       return;
@@ -2182,8 +2249,8 @@ LABEL_59:
 
   if ([objc_msgSend(objc_msgSend(p_cache + 273 "singleton")])
   {
-    clkAlgnTDDFreqCheck = [(WCM_CellularController *)v55 clkAlgnTDDFreqCheck];
-    *(v15 + 105) = clkAlgnTDDFreqCheck;
+    clkAlgnTDDFreqCheck = [(WCM_CellularController *)v54 clkAlgnTDDFreqCheck];
+    *(v14 + 105) = clkAlgnTDDFreqCheck;
     [WCM_Logging logLevel:4 message:@"clkAlgnTDDFreqCheck: After sorting over all cells, setting cellularConfig->btClkAlgnFlag = %d", clkAlgnTDDFreqCheck];
   }
 
@@ -2691,6 +2758,56 @@ LABEL_11:
   xpc_release(v5);
 }
 
+- (void)setLAACoexConfig:(int)config
+{
+  v3 = *&config;
+  v5 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  [v5 wcmCellularLAACoexProtectCQIPeriod];
+  [v5 wcmCellularLAACoexThresholdIn];
+  [v5 wcmCellularLAACoexThresholdOut];
+  [v5 wcmCellularLAACoexDeactTimer];
+  [v5 wcmCellularLAACoexDeactStopTimer];
+  v6 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_BOOL(v6, "WCMCellularSetLAAConfig_CoexEnable", 1);
+  [WCM_Logging logLevel:3 message:@"Setting LAA Coex Config for Cellular with RCU priority: %d", v3];
+  wcmCellularLAACoexProtectCQIPeriod = [v5 wcmCellularLAACoexProtectCQIPeriod];
+  wcmCellularLAACoexThresholdIn = [v5 wcmCellularLAACoexThresholdIn];
+  wcmCellularLAACoexThresholdOut = [v5 wcmCellularLAACoexThresholdOut];
+  if (v3)
+  {
+    wcmCellularLAACoexDeactTimer = 200;
+    wcmCellularLAACoexDeactStopTimer = 200;
+  }
+
+  else
+  {
+    wcmCellularLAACoexDeactTimer = [v5 wcmCellularLAACoexDeactTimer];
+    wcmCellularLAACoexDeactStopTimer = [v5 wcmCellularLAACoexDeactStopTimer];
+  }
+
+  if ((v3 & 7) != 0)
+  {
+    v12 = 255;
+  }
+
+  else
+  {
+    v12 = wcmCellularLAACoexProtectCQIPeriod;
+  }
+
+  xpc_dictionary_set_uint64(v6, "WCMCellularSetLAAConfig_ProtectCQIPeriod", v12);
+  xpc_dictionary_set_uint64(v6, "WCMCellularSetLAAConfig_ThresholdIn", wcmCellularLAACoexThresholdIn);
+  xpc_dictionary_set_uint64(v6, "WCMCellularSetLAAConfig_ThresholdOut", wcmCellularLAACoexThresholdOut);
+  xpc_dictionary_set_uint64(v6, "WCMCellularSetLAAConfig_DeactTimer", wcmCellularLAACoexDeactTimer);
+  xpc_dictionary_set_uint64(v6, "WCMCellularSetLAAConfig_DeactStopTimer", wcmCellularLAACoexDeactStopTimer);
+  v13 = xpc_uint64_create(0);
+  [(WCM_CellularController *)self sendMessage:1211 withArgs:v6 withExtraKey:"kSubId" andExtraValue:v13];
+  [(WCM_CellularController *)self setRc1priority:v3];
+  xpc_release(v13);
+
+  xpc_release(v6);
+}
+
 - (void)setRC1Duration:(unint64_t)duration
 {
   v5 = +[WCM_PolicyManager singleton];
@@ -2747,6 +2864,61 @@ LABEL_10:
   [(WCM_CellularController *)self configureCellularTimeShareConfigReqParamsWithCenterFreq:freq instance:0 bandwidth:bandwidth];
 
   [(WCM_CellularController *)self configureCellularTimeShareConfigReqParamsWithCenterFreq:freq instance:9 bandwidth:bandwidth];
+}
+
+- (void)configureCellularTimeShareConfigReqParamsWithCenterFreq:(unint64_t)freq instance:(unsigned int)instance bandwidth:(unint64_t)bandwidth
+{
+  [WCM_Logging logLevel:4 message:@"configureCellularTimeShareConfigReqParamsWithInstance is called. BB side timesharing will be configured. (centerFreq = %d, instance = %d, bandwidth = %d)", freq, *&instance, bandwidth];
+  [WCM_Logging logLevel:4 message:@"BB20:Updating time share config req params to cellular modem"];
+  v9 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_uint64(v9, "kWCMCellularSetTimeShareConfig_Enable", 1uLL);
+  xpc_dictionary_set_uint64(v9, "kWCMCellularTimeShareConfig_CoexTech", instance);
+  xpc_dictionary_set_uint64(v9, "kWCMCellularTimeShareConfig_CallType", 2uLL);
+  xpc_dictionary_set_uint64(v9, "kWCMCellularTimeShareConfig_LongDrxCycle", 0x28uLL);
+  xpc_dictionary_set_uint64(v9, "kWCMCellularTimeShareConfig_ShortDrxCycle", 0);
+  xpc_dictionary_set_uint64(v9, "kWCMCellularTImeShareConfig_SleepWakeDurScale", 5uLL);
+  v10 = xpc_array_create(0, 0);
+  values = xpc_int64_create(freq);
+  object = xpc_int64_create(bandwidth);
+  *keys = *off_100241498;
+  v11 = xpc_dictionary_create(keys, &values, 2uLL);
+  xpc_array_append_value(v10, v11);
+  xpc_dictionary_set_value(v9, "kWCMCellularTImeShareConfig_BandInformationSet", v10);
+  v12 = xpc_uint64_create(0);
+  [(WCM_CellularController *)self sendMessage:1214 withArgs:v9 withExtraKey:"kSubId" andExtraValue:v12];
+  xpc_release(values);
+  xpc_release(object);
+  xpc_release(v11);
+  xpc_release(v10);
+  xpc_release(v12);
+  xpc_release(v9);
+}
+
+- (void)configureCellularTimeShareConfigReqParamsWithCenterFreq:(unint64_t)freq CoexTech:(unsigned int)tech bandwidth:(unint64_t)bandwidth subId:(unint64_t)id
+{
+  [WCM_Logging logLevel:4 message:@"Cellular/WiFi TimeSharing: Configured to BB (subId = %llu, CoexTech = 0x%X, centerFreq = %llu, bandwidth = %llu, )", id, *&tech, freq, bandwidth];
+  v11 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_uint64(v11, "kWCMCellularSetTimeShareConfig_Enable", 1uLL);
+  xpc_dictionary_set_uint64(v11, "kWCMCellularTimeShareConfig_CoexTech", tech);
+  xpc_dictionary_set_uint64(v11, "kWCMCellularTimeShareConfig_CallType", 2uLL);
+  xpc_dictionary_set_uint64(v11, "kWCMCellularTimeShareConfig_LongDrxCycle", 0x28uLL);
+  xpc_dictionary_set_uint64(v11, "kWCMCellularTimeShareConfig_ShortDrxCycle", 0);
+  xpc_dictionary_set_uint64(v11, "kWCMCellularTImeShareConfig_SleepWakeDurScale", 5uLL);
+  v12 = xpc_array_create(0, 0);
+  values = xpc_int64_create(freq);
+  object = xpc_int64_create(bandwidth);
+  *keys = *off_100241498;
+  v13 = xpc_dictionary_create(keys, &values, 2uLL);
+  xpc_array_append_value(v12, v13);
+  xpc_dictionary_set_value(v11, "kWCMCellularTImeShareConfig_BandInformationSet", v12);
+  v14 = xpc_uint64_create(id);
+  [(WCM_CellularController *)self sendMessage:1214 withArgs:v11 withExtraKey:"kSubId" andExtraValue:v14];
+  xpc_release(values);
+  xpc_release(object);
+  xpc_release(v13);
+  xpc_release(v12);
+  xpc_release(v14);
+  xpc_release(v11);
 }
 
 - (void)disableCellularTimeShareConfigReqSubId:(unint64_t)id
@@ -3642,6 +3814,56 @@ LABEL_49:
   xpc_release(xarray);
 }
 
+- (void)sendBBCoexSensorMessage:(int)message band:(unsigned __int8)band usecase:(unsigned __int8)usecase
+{
+  usecaseCopy = usecase;
+  bandCopy = band;
+  v7 = *&message;
+  [objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  v21 = xpc_dictionary_create(0, 0, 0);
+  v9 = xpc_uint64_create(v7);
+  v10 = xpc_array_create(0, 0);
+  v11 = xpc_dictionary_create(0, 0, 0);
+  v12 = xpc_array_create(0, 0);
+  selfCopy = self;
+  v13 = &self->_cellularInstance1.cellBandInfo + 1;
+  v14 = v13 + 5;
+  [WCM_Logging logLevel:4 message:@"BB21: Requests to send sensor info st %d band %d uc %d to BB %d %d", v7, bandCopy, usecaseCopy, *(v13 + v7), *(v13 + v7 + 5)];
+  if (*(v13 + v7) != bandCopy || (v14[v7] != usecaseCopy ? (v15 = bandCopy == 0) : (v15 = 1), !v15))
+  {
+    *(v13 + v7) = bandCopy;
+    v14[v7] = usecaseCopy;
+    v16 = xpc_uint64_create(bandCopy);
+    xpc_array_append_value(v10, v16);
+    v17 = xpc_uint64_create(usecaseCopy);
+    xpc_array_append_value(v10, v17);
+    xpc_dictionary_set_value(v11, "kWCMCellularTransparentMessage_Type", v9);
+    xpc_dictionary_set_value(v11, "kWCMCellularTransparentMessage_ByteList", v10);
+    xpc_array_append_value(v12, v11);
+    xpc_dictionary_set_value(v21, "kWCMCellularTransparentMessageInformationSet", v12);
+    [(WCM_CellularController *)selfCopy sendMessage:1223 withArgs:v21];
+    if (xpc_array_get_count(v10))
+    {
+      v18 = 0;
+      do
+      {
+        value = xpc_array_get_value(v10, v18);
+        xpc_release(value);
+        ++v18;
+      }
+
+      while (xpc_array_get_count(v10) > v18);
+    }
+  }
+
+  xpc_release(v11);
+  xpc_release(v9);
+  xpc_release(v21);
+  xpc_release(v12);
+
+  xpc_release(v10);
+}
+
 - (void)setWci2TxAntMap
 {
   v3 = xpc_array_create(0, 0);
@@ -4484,27 +4706,87 @@ LABEL_35:
   xpc_release(v5);
 }
 
+- (void)setGpsBandInfoToBB:(BOOL)b l5Enabled:(BOOL)enabled btA2DPEnabled:(BOOL)pEnabled l5Level:(unint64_t)level
+{
+  pEnabledCopy = pEnabled;
+  enabledCopy = enabled;
+  bCopy = b;
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+
+    [WCM_Logging logLevel:4 message:@"Legacy GNSS messaging to BB is disabled in this platform"];
+    return;
+  }
+
+  v11 = xpc_dictionary_create(0, 0, 0);
+  [WCM_Logging logLevel:4 message:@"BB20:Updating GPS band info params to cellular modem, L1=%d, L5=%d, a2dp=%d", bCopy, enabledCopy, pEnabledCopy];
+  if (!pEnabledCopy)
+  {
+    if (enabledCopy)
+    {
+      v12 = 6;
+    }
+
+    else
+    {
+      v12 = 1;
+    }
+
+    v13 = 1;
+    if (enabledCopy || bCopy)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (!enabledCopy)
+  {
+LABEL_13:
+    v13 = 0;
+    v12 = 7;
+    goto LABEL_14;
+  }
+
+  v12 = 5;
+  v13 = 1;
+LABEL_14:
+  xpc_dictionary_set_uint64(v11, "kWCMCellularSetGnssParamsReq_Enabled", v13);
+  xpc_dictionary_set_uint64(v11, "kWCMCellularSetGnssParamsReq_Band", v12);
+  if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
+  {
+    [WCM_Logging logLevel:4 message:@"BB20:Updating GPS L5 band level info params to cellular modem, l5Level=%d", level];
+    xpc_dictionary_set_uint64(v11, "kWCMCellularSetGnssParamsReq_L5Level", level);
+  }
+
+  [WCM_Logging logLevel:4 message:@"BB20:Set GNSS param bitmask=%d", v12];
+  [(WCM_CellularController *)self sendMessage:1220 withArgs:v11];
+
+  xpc_release(v11);
+}
+
 - (void)handleNetworkConfig_bb20:(id)config_bb20
 {
-  v107[0] = &off_100271238;
-  v107[1] = &off_100271250;
-  v108[0] = @"LTE";
-  v108[1] = @"TDSCDMA";
-  v107[2] = &off_100271268;
-  v107[3] = &off_100271280;
-  v108[2] = @"GSM";
-  v108[3] = @"CDMA";
-  v107[4] = &off_100271298;
-  v107[5] = &off_1002712B0;
-  v108[4] = @"HDR";
-  v108[5] = @"WCDMA";
-  v107[6] = &off_1002712C8;
-  v107[7] = &off_1002712E0;
-  v108[6] = @"NR5G";
-  v108[7] = @"UNKNOWN";
-  v107[8] = &off_1002712F8;
-  v108[8] = @"UNKNOWN";
-  v5 = [NSDictionary dictionaryWithObjects:v108 forKeys:v107 count:9];
+  v106[0] = &off_100271238;
+  v106[1] = &off_100271250;
+  v107[0] = @"LTE";
+  v107[1] = @"TDSCDMA";
+  v106[2] = &off_100271268;
+  v106[3] = &off_100271280;
+  v107[2] = @"GSM";
+  v107[3] = @"CDMA";
+  v106[4] = &off_100271298;
+  v106[5] = &off_1002712B0;
+  v107[4] = @"HDR";
+  v107[5] = @"WCDMA";
+  v106[6] = &off_1002712C8;
+  v106[7] = &off_1002712E0;
+  v107[6] = @"NR5G";
+  v107[7] = @"UNKNOWN";
+  v106[8] = &off_1002712F8;
+  v107[8] = @"UNKNOWN";
+  v5 = [NSDictionary dictionaryWithObjects:v107 forKeys:v106 count:9];
   v6 = WRM_IPTelephonyController;
   [WCM_Logging logLevel:3 message:@"handleNetworkConfig_bb20"];
   xdict = xpc_dictionary_get_value(config_bb20, "kMessageArgs");
@@ -4513,7 +4795,7 @@ LABEL_35:
     return;
   }
 
-  v87 = +[WCM_PolicyManager singleton];
+  v86 = +[WCM_PolicyManager singleton];
   v7 = &self->super.mProcessId + 1;
   if ([(WCM_CellularController *)self activeSubId])
   {
@@ -4524,44 +4806,43 @@ LABEL_35:
   v9 = *(v7 + 5);
   v10 = *(v7 + 6);
   v11 = *(v7 + 7);
-  v82 = *(v7 + 8);
-  v13 = *(v7 + 9);
-  v12 = *(v7 + 10);
-  v83 = v12;
-  v84 = *(v7 + 4);
+  v81 = *(v7 + 8);
+  v12 = *(v7 + 9);
+  v82 = *(v7 + 10);
+  v83 = *(v7 + 4);
   activeSubId = [(WCM_CellularController *)self activeSubId];
-  v80 = *(v7 + 11);
-  v81 = activeSubId;
+  v79 = *(v7 + 11);
+  v80 = activeSubId;
   uint64 = xpc_dictionary_get_uint64(config_bb20, "kSubId");
-  v86 = &self->super.mProcessId + 1;
-  v104 = &self->super.mProcessId + 1;
+  v85 = &self->super.mProcessId + 1;
+  v103 = &self->super.mProcessId + 1;
   if (uint64)
   {
-    v104 = (&self->_cellularInstance0.cellBandInfo + 1);
+    v103 = (&self->_cellularInstance0.cellBandInfo + 1);
   }
 
   selfCopy = self;
-  bzero(v104, 0xAB8uLL);
-  *(v104 + 12) = 0;
-  *(v104 + 1) = 0u;
-  *(v104 + 5) = 0u;
-  *(v104 + 4) = 0u;
-  *(v104 + 3) = 0u;
-  *(v104 + 2) = 0u;
-  *(v104 + 3) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_ULBandInfo_CenterFreq");
-  *(v104 + 4) = xpc_dictionary_get_double(xdict, "kWCMCellularNetworkConfiguration_ULBandInfo_BandWidth");
-  *(v104 + 5) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_DLBandInfo_CenterFreq");
-  *(v104 + 6) = xpc_dictionary_get_double(xdict, "kWCMCellularNetworkConfiguration_DLBandInfo_BandWidth");
-  *(v104 + 11) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_TTDUL_DL");
-  *(v104 + 12) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_SubFrameFormat");
-  *(v104 + 2) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_FrameOffset");
-  *(v104 + 52) = 0;
-  v90 = (v104 + 6);
-  *(v104 + 9) = *(v104 + 6);
-  v16 = v104 + 36;
-  *(v104 + 306) = 1;
-  *(v104 + 10) = *(v104 + 10);
-  v104[44] = *(v104 + 17);
+  bzero(v103, 0xAB8uLL);
+  *(v103 + 12) = 0;
+  *(v103 + 1) = 0u;
+  *(v103 + 5) = 0u;
+  *(v103 + 4) = 0u;
+  *(v103 + 3) = 0u;
+  *(v103 + 2) = 0u;
+  *(v103 + 3) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_ULBandInfo_CenterFreq");
+  *(v103 + 4) = xpc_dictionary_get_double(xdict, "kWCMCellularNetworkConfiguration_ULBandInfo_BandWidth");
+  *(v103 + 5) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_DLBandInfo_CenterFreq");
+  *(v103 + 6) = xpc_dictionary_get_double(xdict, "kWCMCellularNetworkConfiguration_DLBandInfo_BandWidth");
+  *(v103 + 11) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_TTDUL_DL");
+  *(v103 + 12) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_SubFrameFormat");
+  *(v103 + 2) = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_FrameOffset");
+  *(v103 + 52) = 0;
+  v89 = (v103 + 6);
+  *(v103 + 9) = *(v103 + 6);
+  v15 = v103 + 36;
+  *(v103 + 306) = 1;
+  *(v103 + 10) = *(v103 + 10);
+  v103[44] = *(v103 + 17);
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
@@ -4569,64 +4850,64 @@ LABEL_35:
   applier[1] = 3221225472;
   applier[2] = sub_1000CA054;
   applier[3] = &unk_1002414A8;
-  applier[4] = v104;
+  applier[4] = v103;
   xpc_dictionary_apply(xdict, applier);
   if (!xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTEBandInformationSet"))
   {
     if (xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCBandInformationSet"))
     {
       value = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCBandInformationSet");
-      v104[32] = 64;
-      v96 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCBandInformationSet");
-      v97 = 0;
-      v18 = 0;
+      v103[32] = 64;
+      v95 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCBandInformationSet");
+      v96 = 0;
+      v17 = 0;
       goto LABEL_24;
     }
 
-    v19 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_TDSCDMABandInformationSet");
-    if (v19)
+    v18 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_TDSCDMABandInformationSet");
+    if (v18)
     {
-      value = v19;
-      v18 = 0;
+      value = v18;
+      v17 = 0;
+      v95 = 0;
       v96 = 0;
-      v97 = 0;
-      v20 = 2;
+      v19 = 2;
     }
 
     else
     {
-      v21 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_GSMBandInformationSet");
-      if (v21)
+      v20 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_GSMBandInformationSet");
+      if (v20)
       {
-        value = v21;
-        v18 = 0;
+        value = v20;
+        v17 = 0;
+        v95 = 0;
         v96 = 0;
-        v97 = 0;
-        v20 = 4;
+        v19 = 4;
       }
 
       else
       {
-        v22 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_ONEXBandInformationSet");
-        if (v22)
+        v21 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_ONEXBandInformationSet");
+        if (v21)
         {
-          value = v22;
-          v18 = 0;
+          value = v21;
+          v17 = 0;
+          v95 = 0;
           v96 = 0;
-          v97 = 0;
-          v20 = 8;
+          v19 = 8;
         }
 
         else
         {
-          v23 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_HDRBandInformationSet");
-          if (v23)
+          v22 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_HDRBandInformationSet");
+          if (v22)
           {
-            value = v23;
-            v18 = 0;
+            value = v22;
+            v17 = 0;
+            v95 = 0;
             v96 = 0;
-            v97 = 0;
-            v20 = 16;
+            v19 = 16;
           }
 
           else
@@ -4634,49 +4915,49 @@ LABEL_35:
             value = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_WCDMABandInformationSet");
             if (!value)
             {
-              v104[32] = 127;
+              v103[32] = 127;
               [WCM_Logging logLevel:4 message:@"SUB%llu: Band Info parsing second pass result -- unknown band info set", uint64];
-              v18 = 0;
-              v97 = 0;
+              v17 = 0;
+              v96 = 0;
               goto LABEL_12;
             }
 
-            v18 = 0;
+            v17 = 0;
+            v95 = 0;
             v96 = 0;
-            v97 = 0;
-            v20 = 32;
+            v19 = 32;
           }
         }
       }
     }
 
-    v104[32] = v20;
+    v103[32] = v19;
     goto LABEL_24;
   }
 
   value = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTEBandInformationSet");
   if (!xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCBandInformationSet"))
   {
-    v104[32] = 1;
-    v97 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTEBandInformationSet");
-    v18 = 0;
+    v103[32] = 1;
+    v96 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTEBandInformationSet");
+    v17 = 0;
 LABEL_12:
-    v96 = 0;
+    v95 = 0;
     goto LABEL_24;
   }
 
   value = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCBandInformationSet");
-  v18 = 1;
-  v104[32] = 1;
-  v97 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTEBandInformationSet");
-  v96 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCBandInformationSet");
+  v17 = 1;
+  v103[32] = 1;
+  v96 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTEBandInformationSet");
+  v95 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCBandInformationSet");
 LABEL_24:
-  v24 = v104[32];
-  if (v24 == 1 || v24 == 64)
+  v23 = v103[32];
+  if (v23 == 1 || v23 == 64)
   {
-    if (!v18)
+    if (!v17)
     {
-      if (v24 == 1 && xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTECarrierInformationSet"))
+      if (v23 == 1 && xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTECarrierInformationSet"))
       {
         xarray = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTECarrierInformationSet");
       }
@@ -4686,12 +4967,12 @@ LABEL_24:
         xarray = 0;
       }
 
-      if (v104[32] == 64 && xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCCarrierInformationSet"))
+      if (v103[32] == 64 && xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCCarrierInformationSet"))
       {
         xarray = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCCarrierInformationSet");
       }
 
-      v100 = 0;
+      v99 = 0;
       if (!value)
       {
         goto LABEL_105;
@@ -4703,38 +4984,28 @@ LABEL_24:
       }
 
       count = xpc_array_get_count(xarray);
-      v26 = xpc_array_get_count(value);
-      v100 = 0;
-      if (v26 != count || !v26 || !count)
+      v25 = xpc_array_get_count(value);
+      v99 = 0;
+      if (v25 != count || !v25 || !count)
       {
         goto LABEL_105;
       }
 
+      v90 = 0;
       v91 = 0;
-      v92 = 0;
       goto LABEL_61;
     }
 
     goto LABEL_31;
   }
 
-  if (v18)
+  if (v17)
   {
 LABEL_31:
     [WCM_Logging logLevel:4 message:@"BB20 bandinfotype is ENDC"];
     if (xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTECarrierInformationSet"))
     {
-      v92 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTECarrierInformationSet");
-    }
-
-    else
-    {
-      v92 = 0;
-    }
-
-    if (xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCCarrierInformationSet"))
-    {
-      v91 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCCarrierInformationSet");
+      v91 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_LTECarrierInformationSet");
     }
 
     else
@@ -4742,18 +5013,23 @@ LABEL_31:
       v91 = 0;
     }
 
-    v100 = 0;
-    if (!v92)
+    if (xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCCarrierInformationSet"))
     {
-      goto LABEL_105;
+      v90 = xpc_dictionary_get_value(xdict, "kWCMCellularNetworkConfiguration_NGCCarrierInformationSet");
     }
 
+    else
+    {
+      v90 = 0;
+    }
+
+    v99 = 0;
     if (!v91)
     {
       goto LABEL_105;
     }
 
-    if (!v97)
+    if (!v90)
     {
       goto LABEL_105;
     }
@@ -4763,12 +5039,17 @@ LABEL_31:
       goto LABEL_105;
     }
 
-    v27 = xpc_array_get_count(v92);
-    v28 = xpc_array_get_count(v91);
-    v29 = xpc_array_get_count(v97);
-    v30 = xpc_array_get_count(v96);
-    v100 = 0;
-    if (v30 != v28 || v29 != v27 || !v29 || !v27 || !v30 || !v28)
+    if (!v95)
+    {
+      goto LABEL_105;
+    }
+
+    v26 = xpc_array_get_count(v91);
+    v27 = xpc_array_get_count(v90);
+    v28 = xpc_array_get_count(v96);
+    v29 = xpc_array_get_count(v95);
+    v99 = 0;
+    if (v29 != v27 || v28 != v26 || !v28 || !v26 || !v29 || !v27)
     {
       goto LABEL_105;
     }
@@ -4776,66 +5057,66 @@ LABEL_31:
     goto LABEL_60;
   }
 
-  if (v24 != 127)
+  if (v23 != 127)
   {
+    v90 = 0;
     v91 = 0;
-    v92 = 0;
 LABEL_60:
     xarray = 0;
 LABEL_61:
-    v31 = xpc_array_get_count(value);
-    if ((v18 & [objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")]) == 1)
+    v30 = xpc_array_get_count(value);
+    if ((v17 & [objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")]) == 1)
     {
-      v32 = xpc_array_get_count(v97);
-      v31 = xpc_array_get_count(v96) + v32;
-      v98 = v32;
+      v31 = xpc_array_get_count(v96);
+      v30 = xpc_array_get_count(v95) + v31;
+      v97 = v31;
     }
 
     else
     {
-      v98 = 0;
+      v97 = 0;
     }
 
-    v103 = v31;
-    if (v31)
+    v102 = v30;
+    if (v30)
     {
-      v101 = 0;
       v100 = 0;
-      v33 = 0;
-      v94 = 0;
-      v105 = 0;
-      v85 = 0;
-      v89 = 0;
-      v102 = uint64;
-      v99 = value;
+      v99 = 0;
+      v32 = 0;
+      v93 = 0;
+      v104 = 0;
+      v84 = 0;
+      v88 = 0;
+      v101 = uint64;
+      v98 = value;
       while (1)
       {
-        if (v18)
+        if (v17)
         {
-          if (v33 >= v98)
+          if (v32 >= v97)
           {
-            int64 = xpc_array_get_int64(v91, v33 - v98);
-            v35 = xpc_array_get_value(v96, v33 - v98);
-            v39 = v101;
-            if ((v94 & 1) == 0)
+            int64 = xpc_array_get_int64(v90, v32 - v97);
+            v34 = xpc_array_get_value(v95, v32 - v97);
+            v38 = v100;
+            if ((v93 & 1) == 0)
             {
-              v39 = v100;
+              v38 = v99;
             }
 
-            v101 = v39;
-            v36 = 64;
-            v94 = 1;
+            v100 = v38;
+            v35 = 64;
+            v93 = 1;
           }
 
           else
           {
-            int64 = xpc_array_get_int64(v92, v33);
-            v35 = xpc_array_get_value(v97, v33);
-            v36 = 1;
+            int64 = xpc_array_get_int64(v91, v32);
+            v34 = xpc_array_get_value(v96, v32);
+            v35 = 1;
           }
 
-          v105 = int64;
-          if (!v35)
+          v104 = int64;
+          if (!v34)
           {
             goto LABEL_102;
           }
@@ -4843,122 +5124,122 @@ LABEL_61:
 
         else
         {
-          v36 = v104[32];
-          v35 = xpc_array_get_value(value, v33);
-          v37 = v104[32];
-          if (v37 == 64 || v37 == 1)
+          v35 = v103[32];
+          v34 = xpc_array_get_value(value, v32);
+          v36 = v103[32];
+          if (v36 == 64 || v36 == 1)
           {
-            v105 = xpc_array_get_int64(xarray, v33);
+            v104 = xpc_array_get_int64(xarray, v32);
           }
 
-          if (!v35)
+          if (!v34)
           {
             goto LABEL_102;
           }
         }
 
-        v40 = v18;
-        v41 = v6;
-        v42 = v5;
-        v43 = xpc_dictionary_get_uint64(v35, "kWCMCellularNetworkConfiguration_BandInfoSet_DirectionMask");
-        v44 = xpc_dictionary_get_int64(v35, "kWCMCellularNetworkConfiguration_BandInfoSet_CenterFreq");
-        v45 = xpc_dictionary_get_double(v35, "kWCMCellularNetworkConfiguration_BandInfoSet_Bandwidth");
-        v46 = "unknown";
-        if (v43 == 2)
+        v39 = v17;
+        v40 = v6;
+        v41 = v5;
+        v42 = xpc_dictionary_get_uint64(v34, "kWCMCellularNetworkConfiguration_BandInfoSet_DirectionMask");
+        v43 = xpc_dictionary_get_int64(v34, "kWCMCellularNetworkConfiguration_BandInfoSet_CenterFreq");
+        v44 = xpc_dictionary_get_double(v34, "kWCMCellularNetworkConfiguration_BandInfoSet_Bandwidth");
+        v45 = "unknown";
+        if (v42 == 2)
         {
-          v46 = "downlink";
+          v45 = "downlink";
         }
 
-        if (v43 == 1)
+        if (v42 == 1)
         {
-          v47 = "uplink";
+          v46 = "uplink";
         }
 
         else
         {
-          v47 = v46;
+          v46 = v45;
         }
 
-        v48 = v41 + 98;
-        v49 = v42;
-        [(__objc2_class *)v48 logLevel:5 message:@"handleNetworkConfig: index(%ld) directionMask(%llu:%s) centerFreq(%lld) bandwidth(%lf) carrierId(%d) bandInfoType(%@) ", v33, v43, v47, v44, *&v45, v105, [(NSDictionary *)v42 objectForKeyedSubscript:[NSNumber numberWithUnsignedInt:v36]]];
-        if (v44 < 1)
+        v47 = v40 + 98;
+        v48 = v41;
+        [(__objc2_class *)v47 logLevel:5 message:@"handleNetworkConfig: index(%ld) directionMask(%llu:%s) centerFreq(%lld) bandwidth(%lf) carrierId(%d) bandInfoType(%@) ", v32, v42, v46, v43, *&v44, v104, [(NSDictionary *)v41 objectForKeyedSubscript:[NSNumber numberWithUnsignedInt:v35]]];
+        if (v43 < 1)
         {
           v6 = WRM_IPTelephonyController;
-          v5 = v42;
-          v18 = v40;
+          v5 = v41;
+          v17 = v39;
         }
 
         else
         {
-          v18 = v40;
-          if (v43 != 1)
+          v17 = v39;
+          if (v42 != 1)
           {
-            value = v99;
-            if (v43 == 2)
+            value = v98;
+            if (v42 == 2)
             {
-              v55 = v44 / 1000.0;
-              v56 = v45 / 1000000.0;
-              v57 = (v104 + 10);
-              if (v85)
+              v54 = v43 / 1000.0;
+              v55 = v44 / 1000000.0;
+              v56 = (v103 + 10);
+              if (v84)
               {
-                v57 = (v104 + 18);
+                v56 = (v103 + 18);
               }
 
-              v58 = (v104 + 20);
-              if ((v85 & 1) == 0)
+              v57 = (v103 + 20);
+              if ((v84 & 1) == 0)
               {
-                v58 = (v104 + 12);
+                v57 = (v103 + 12);
               }
 
+              *v56 = v54;
               *v57 = v55;
-              *v58 = v56;
-              v59 = &v16[18 * v100];
-              *(v59 + 2) = v55;
-              *(v59 + 3) = v56;
-              v59[16] = v36;
-              v59[8] = v105;
-              v100 = (v100 + 1);
-              v85 = 1;
+              v58 = &v15[18 * v99];
+              *(v58 + 2) = v54;
+              *(v58 + 3) = v55;
+              v58[16] = v35;
+              v58[8] = v104;
+              v99 = (v99 + 1);
+              v84 = 1;
             }
 
             v6 = WRM_IPTelephonyController;
-            v5 = v49;
+            v5 = v48;
             goto LABEL_102;
           }
 
-          v50 = v44 / 1000.0;
-          v51 = v45 / 1000000.0;
-          v52 = (v104 + 6);
-          if (v89)
+          v49 = v43 / 1000.0;
+          v50 = v44 / 1000000.0;
+          v51 = (v103 + 6);
+          if (v88)
           {
-            v52 = (v104 + 14);
+            v51 = (v103 + 14);
           }
 
-          v53 = (v104 + 16);
-          if ((v89 & 1) == 0)
+          v52 = (v103 + 16);
+          if ((v88 & 1) == 0)
           {
-            v53 = (v104 + 8);
+            v52 = (v103 + 8);
           }
 
+          *v51 = v49;
           *v52 = v50;
-          *v53 = v51;
-          v54 = &v16[18 * v101];
-          *v54 = v50;
-          *(v54 + 1) = v51;
-          v54[16] = v36;
-          v54[8] = v105;
-          ++v101;
-          v89 = 1;
+          v53 = &v15[18 * v100];
+          *v53 = v49;
+          *(v53 + 1) = v50;
+          v53[16] = v35;
+          v53[8] = v104;
+          ++v100;
+          v88 = 1;
           v6 = WRM_IPTelephonyController;
-          v5 = v49;
+          v5 = v48;
         }
 
-        value = v99;
+        value = v98;
 LABEL_102:
-        ++v33;
-        uint64 = v102;
-        if (v103 == v33)
+        ++v32;
+        uint64 = v101;
+        if (v102 == v32)
         {
           goto LABEL_105;
         }
@@ -4966,127 +5247,127 @@ LABEL_102:
     }
   }
 
-  v100 = 0;
+  v99 = 0;
 LABEL_105:
-  if (*(v104 + 104) == 1)
+  if (*(v103 + 104) == 1)
   {
-    v60 = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_ULCPConfig");
-    v61 = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_DLCPConfig");
-    v62 = *v90;
-    v63 = selfCopy;
-    if (*v90 != 0.0)
+    v59 = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_ULCPConfig");
+    v60 = xpc_dictionary_get_int64(xdict, "kWCMCellularNetworkConfiguration_DLCPConfig");
+    v61 = *v89;
+    v62 = selfCopy;
+    if (*v89 != 0.0)
     {
+      if (v59 != 255)
+      {
+        *v103 = v59;
+      }
+
       if (v60 != 255)
       {
-        *v104 = v60;
-      }
-
-      if (v61 != 255)
-      {
-        *(v104 + 1) = v61;
+        *(v103 + 1) = v60;
       }
     }
   }
 
   else
   {
-    *v104 = 0;
-    *(v104 + 1) = 0;
-    v62 = *(v104 + 3);
-    v63 = selfCopy;
+    *v103 = 0;
+    *(v103 + 1) = 0;
+    v61 = *(v103 + 3);
+    v62 = selfCopy;
   }
 
-  *(v104 + 338) = v62;
-  v64 = *(v104 + 4);
-  v65 = *(v104 + 5);
-  *(v104 + 339) = v64;
-  *(v104 + 340) = v65;
-  v66 = *(v104 + 6);
-  *(v104 + 341) = v66;
-  if (v18)
+  *(v103 + 338) = v61;
+  v63 = *(v103 + 4);
+  v64 = *(v103 + 5);
+  *(v103 + 339) = v63;
+  *(v103 + 340) = v64;
+  v65 = *(v103 + 6);
+  *(v103 + 341) = v65;
+  if (v17)
   {
-    [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: ENDC Network Config LTE PCC UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf) ", uint64, *&v62, v64, v65, v66, v79}];
+    [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: ENDC Network Config LTE PCC UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf) ", uint64, *&v61, v63, v64, v65, v78}];
   }
 
   else
   {
-    [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: %@ Network Config PCC UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf) ", uint64, -[NSDictionary objectForKeyedSubscript:](v5, "objectForKeyedSubscript:", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v104[32])), *(v104 + 3), *(v104 + 4), *(v104 + 5), *(v104 + 6)}];
+    [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: %@ Network Config PCC UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf) ", uint64, -[NSDictionary objectForKeyedSubscript:](v5, "objectForKeyedSubscript:", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v103[32])), *(v103 + 3), *(v103 + 4), *(v103 + 5), *(v103 + 6)}];
   }
 
-  [&v6[98] logLevel:5 message:@"handleNetworkConfig: SUB%lld: cellularConfig->bandInfoType = %d "], uint64, v104[32]);
-  if (((v104[32] != 1) & ~v18) == 0)
+  [&v6[98] logLevel:5 message:@"handleNetworkConfig: SUB%lld: cellularConfig->bandInfoType = %d "], uint64, v103[32]);
+  if (((v103[32] != 1) & ~v17) == 0)
   {
-    [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: TDD ULDLConfig=%lld, SFF=%lld ULCP=%lld DLCP=%lld FrameOffset=%lld", uint64, *(v104 + 11), *(v104 + 12), *v104, *(v104 + 1), *(v104 + 2)}];
+    [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: TDD ULDLConfig=%lld, SFF=%lld ULCP=%lld DLCP=%lld FrameOffset=%lld", uint64, *(v103 + 11), *(v103 + 12), *v103, *(v103 + 1), *(v103 + 2)}];
   }
 
-  *(v104 + 306) = v100;
-  *(v104 + 2692) = 0;
-  [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: LTE/NR total valid entries =%d", uint64, v100}];
-  if (v104[612])
+  *(v103 + 306) = v99;
+  *(v103 + 2692) = 0;
+  [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: LTE/NR total valid entries =%d", uint64, v99}];
+  if (v103[612])
   {
-    v67 = 0;
+    v66 = 0;
     do
     {
-      [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: Entry index %ld ..UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf), carrierid(%d), bandInfoType(%@)", uint64, v67++, *v16, *(v16 + 1), *(v16 + 2), *(v16 + 3), v16[8], -[NSDictionary objectForKeyedSubscript:](v5, "objectForKeyedSubscript:", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v16[16]))}];
-      v16 += 18;
+      [&v6[98] logLevel:5 message:{@"handleNetworkConfig: SUB%lld: Entry index %ld ..UL(freq=%lf bw=%lf) DL(freq=%lf, bw=%lf), carrierid(%d), bandInfoType(%@)", uint64, v66++, *v15, *(v15 + 1), *(v15 + 2), *(v15 + 3), v15[8], -[NSDictionary objectForKeyedSubscript:](v5, "objectForKeyedSubscript:", +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v15[16]))}];
+      v15 += 18;
     }
 
-    while (v67 < v104[612]);
+    while (v66 < v103[612]);
   }
 
-  [(WCM_CellularController *)v63 setActiveSubId:[(WCM_CellularController *)v63 subSelector]];
-  v68 = v86;
-  if ([(WCM_CellularController *)v63 activeSubId])
+  [(WCM_CellularController *)v62 setActiveSubId:[(WCM_CellularController *)v62 subSelector]];
+  v67 = v85;
+  if ([(WCM_CellularController *)v62 activeSubId])
   {
-    v68 = (&v63->_cellularInstance0.cellBandInfo + 1);
+    v67 = (&v62->_cellularInstance0.cellBandInfo + 1);
   }
 
-  [(WCM_CellularController *)v63 setActiveConfig:v68];
-  [v87 evaluateULCARestrictions];
-  v69 = v68 + 36;
-  v70 = &v68[18 * v68[613] + 36];
-  v71 = *v70;
-  *(v68 + 10) = *(v70 + 16);
-  *(v68 + 6) = v71;
-  v68[32] = *(v70 + 64);
-  v72 = +[WRM_EnhancedCTService wrm_EnhancedCTServiceSingleton];
-  activeSubId2 = [(WCM_CellularController *)v63 activeSubId];
+  [(WCM_CellularController *)v62 setActiveConfig:v67];
+  [v86 evaluateULCARestrictions];
+  v68 = v67 + 36;
+  v69 = &v67[18 * v67[613] + 36];
+  v70 = *v69;
+  *(v67 + 10) = *(v69 + 16);
+  *(v67 + 6) = v70;
+  v67[32] = *(v69 + 64);
+  v71 = +[WRM_EnhancedCTService wrm_EnhancedCTServiceSingleton];
+  activeSubId2 = [(WCM_CellularController *)v62 activeSubId];
   if (activeSubId2)
   {
-    v74 = 2 * (activeSubId2 == 1);
+    v73 = 2 * (activeSubId2 == 1);
   }
 
   else
   {
-    v74 = 1;
+    v73 = 1;
   }
 
-  v68[684] = [v72 getBandInfoOnSlot:v74];
+  v67[684] = [v71 getBandInfoOnSlot:v73];
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
-  [(WCM_CellularController *)v63 submitAWDMetricsforNetworkConfiguration];
-  v75 = *(v68 + 5);
-  if (v75 == 0.0 || v9 != 0.0 && v75 != v9)
+  [(WCM_CellularController *)v62 submitAWDMetricsforNetworkConfiguration];
+  v74 = *(v67 + 5);
+  if (v74 == 0.0 || v9 != 0.0 && v74 != v9)
   {
-    *(v68 + 14) = 0;
-    *(v68 + 15) = 0;
+    *(v67 + 14) = 0;
+    *(v67 + 15) = 0;
   }
 
-  v76 = *(v68 + 3);
-  if (v76 != 0.0)
+  v75 = *(v67 + 3);
+  if (v75 != 0.0)
   {
-    v77 = *(v68 + 4);
-    *(v68 + 14) = v76;
-    *(v68 + 15) = v77;
+    v76 = *(v67 + 4);
+    *(v67 + 14) = v75;
+    *(v67 + 15) = v76;
   }
 
   if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")] && (objc_msgSend(objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager, "singleton"), "activeCoexFeatures"), "containsObject:", @"EnableULCA") & 1) == 0)
   {
-    if (v9 == *(v68 + 5) && v8 == *(v68 + 3) && v13 == *(v68 + 9) && v11 == *(v68 + 7) && v10 == *(v68 + 6) && v84 == *(v68 + 4) && v83 == *(v68 + 10) && v82 == *(v68 + 8) && v81 == [(WCM_CellularController *)v63 activeSubId]&& v80 == *(v68 + 11))
+    if (v9 == *(v67 + 5) && v8 == *(v67 + 3) && v12 == *(v67 + 9) && v11 == *(v67 + 7) && v10 == *(v67 + 6) && v83 == *(v67 + 4) && v82 == *(v67 + 10) && v81 == *(v67 + 8) && v80 == [(WCM_CellularController *)v62 activeSubId]&& v79 == *(v67 + 11))
     {
       [&v6[98] logLevel:2 message:{@"handleNeteorkConfig: NW Config Parameters are the same, hence ignoring the network config command"}];
       return;
@@ -5097,18 +5378,57 @@ LABEL_105:
 
   if ([objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")])
   {
-    clkAlgnTDDFreqCheck = [(WCM_CellularController *)v63 clkAlgnTDDFreqCheck];
-    *(v68 + 105) = clkAlgnTDDFreqCheck;
+    clkAlgnTDDFreqCheck = [(WCM_CellularController *)v62 clkAlgnTDDFreqCheck];
+    *(v67 + 105) = clkAlgnTDDFreqCheck;
     [&v6[98] logLevel:4 message:{@"handleNeteorkConfig: clkAlgnTDDFreqCheck: BT Clock Alignment enable = %d", clkAlgnTDDFreqCheck}];
   }
 
-  if ([objc_msgSend(v87 "activeCoexFeatures")])
+  if ([objc_msgSend(v86 "activeCoexFeatures")])
   {
     [&v6[98] logLevel:3 message:{@"handleNeteorkConfig: Receive update of Cell Config, update critical carrier, wcmCellularCCSetToBB = %d", objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager, "singleton"), "wcmCellularCCSetToBB")}];
-    [(WCM_CellularController *)v63 setAllCriticalCarriers];
+    [(WCM_CellularController *)v62 setAllCriticalCarriers];
   }
 
   [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+}
+
+- (void)sendBBCameraState:(int)state state:(unsigned __int8)a4
+{
+  v4 = a4;
+  v5 = *&state;
+  [objc_msgSend(+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  v7 = xpc_dictionary_create(0, 0, 0);
+  v8 = xpc_uint64_create(v5);
+  v9 = xpc_array_create(0, 0);
+  v10 = xpc_dictionary_create(0, 0, 0);
+  v11 = xpc_array_create(0, 0);
+  [WCM_Logging logLevel:4 message:@"BB23: Requests to send camera info type %d enabled? %d", v5, v4];
+  v12 = xpc_uint64_create(v4);
+  xpc_array_append_value(v9, v12);
+  xpc_dictionary_set_value(v10, "kWCMCellularTransparentMessage_Type", v8);
+  xpc_dictionary_set_value(v10, "kWCMCellularTransparentMessage_ByteList", v9);
+  xpc_array_append_value(v11, v10);
+  xpc_dictionary_set_value(v7, "kWCMCellularTransparentMessageInformationSet", v11);
+  [(WCM_CellularController *)self sendMessage:1223 withArgs:v7];
+  if (xpc_array_get_count(v9))
+  {
+    v13 = 0;
+    do
+    {
+      value = xpc_array_get_value(v9, v13);
+      xpc_release(value);
+      ++v13;
+    }
+
+    while (xpc_array_get_count(v9) > v13);
+  }
+
+  xpc_release(v10);
+  xpc_release(v8);
+  xpc_release(v7);
+  xpc_release(v11);
+
+  xpc_release(v9);
 }
 
 @end

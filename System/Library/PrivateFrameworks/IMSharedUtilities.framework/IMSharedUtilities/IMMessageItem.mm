@@ -5706,50 +5706,57 @@ LABEL_13:
 {
   if ([(NSString *)self->_expressiveSendStyleID length])
   {
-    if ([(NSString *)self->_expressiveSendStyleID isEqualToString:@"com.apple.MobileSMS.expressivesend.invisibleink"])
+    v3 = [(NSString *)self->_expressiveSendStyleID isEqualToString:@"com.apple.MobileSMS.expressivesend.invisibleink"];
+    if (v3)
     {
-      v3 = MEMORY[0x1E696AEC0];
-      v4 = IMSharedUtilitiesFrameworkBundle();
-      v5 = v4;
-      v6 = @"IMPACT_INVISIBLE";
+      v5 = MEMORY[0x1E696AEC0];
+      v6 = IMSharedUtilitiesFrameworkBundle(v3, v4);
+      v7 = v6;
+      v8 = @"IMPACT_INVISIBLE";
 LABEL_4:
-      v7 = [v4 localizedStringForKey:v6 value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
-      v8 = [v3 localizedStringWithFormat:v7, 0];
+      v9 = [v6 localizedStringForKey:v8 value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+      v10 = [v5 localizedStringWithFormat:v9, 0];
       goto LABEL_5;
     }
 
-    v9 = [(NSString *)self->_expressiveSendStyleID rangeOfString:@"com.apple.MobileSMS.expressivesend"];
-    if (v10)
+    v11 = [(NSString *)self->_expressiveSendStyleID rangeOfString:@"com.apple.MobileSMS.expressivesend"];
+    if (v12)
     {
-      v11 = v9 + v10 + 1;
-      if (v11 < [(NSString *)self->_expressiveSendStyleID length])
+      v13 = v11 + v12 + 1;
+      if (v13 < [(NSString *)self->_expressiveSendStyleID length])
       {
-        v5 = [(NSString *)self->_expressiveSendStyleID substringFromIndex:v11];
-        if ([v5 isEqualToString:@"gentle"])
+        v7 = [(NSString *)self->_expressiveSendStyleID substringFromIndex:v13];
+        v14 = [v7 isEqualToString:@"gentle"];
+        if (v14)
         {
-          v12 = @"IMPACT_GENTLE";
-        }
-
-        else if ([v5 isEqualToString:@"loud"])
-        {
-          v12 = @"IMPACT_LOUD";
+          v16 = @"IMPACT_GENTLE";
         }
 
         else
         {
-          if (![v5 isEqualToString:@"impact"])
+          v14 = [v7 isEqualToString:@"loud"];
+          if (v14)
           {
-            v8 = 0;
-            goto LABEL_6;
+            v16 = @"IMPACT_LOUD";
           }
 
-          v12 = @"IMPACT_IMPACT";
+          else
+          {
+            v14 = [v7 isEqualToString:@"impact"];
+            if (!v14)
+            {
+              v10 = 0;
+              goto LABEL_6;
+            }
+
+            v16 = @"IMPACT_IMPACT";
+          }
         }
 
-        v14 = MEMORY[0x1E696AEC0];
-        v7 = IMSharedUtilitiesFrameworkBundle();
-        v15 = [v7 localizedStringForKey:v12 value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
-        v8 = [v14 localizedStringWithFormat:v15, 0];
+        v22 = MEMORY[0x1E696AEC0];
+        v9 = IMSharedUtilitiesFrameworkBundle(v14, v15);
+        v23 = [v9 localizedStringForKey:v16 value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+        v10 = [v22 localizedStringWithFormat:v23, 0];
 
 LABEL_5:
 LABEL_6:
@@ -5761,96 +5768,105 @@ LABEL_6:
     else
     {
       [(NSString *)self->_expressiveSendStyleID rangeOfString:@"com.apple.messages.effect"];
-      if (v13)
+      if (v17)
       {
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKConfettiEffect"])
+        v18 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKConfettiEffect"];
+        if (v18)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_CONFETTI";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v18, v19);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_CONFETTI";
           goto LABEL_4;
         }
 
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKHappyBirthdayEffect"])
+        v20 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKHappyBirthdayEffect"];
+        if (v20)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_BALLOONS";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v20, v21);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_BALLOONS";
           goto LABEL_4;
         }
 
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKLasersEffect"])
+        v24 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKLasersEffect"];
+        if (v24)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_LASERS";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v24, v25);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_LASERS";
           goto LABEL_4;
         }
 
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKFireworksEffect"])
+        v26 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKFireworksEffect"];
+        if (v26)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_FIREWORKS";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v26, v27);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_FIREWORKS";
           goto LABEL_4;
         }
 
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKShootingStarEffect"])
+        v28 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKShootingStarEffect"];
+        if (v28)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_SHOOTING_STAR";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v28, v29);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_SHOOTING_STAR";
           goto LABEL_4;
         }
 
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKSparklesEffect"])
+        v30 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKSparklesEffect"];
+        if (v30)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_CELEBRATION";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v30, v31);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_CELEBRATION";
           goto LABEL_4;
         }
 
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKHeartEffect"])
+        v32 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKHeartEffect"];
+        if (v32)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_LOVE";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v32, v33);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_LOVE";
           goto LABEL_4;
         }
 
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKEchoEffect"])
+        v34 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKEchoEffect"];
+        if (v34)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_ECHO";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v34, v35);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_ECHO";
           goto LABEL_4;
         }
 
-        if ([(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKSpotlightEffect"])
+        v36 = [(NSString *)self->_expressiveSendStyleID hasSuffix:@"CKSpotlightEffect"];
+        if (v36)
         {
-          v3 = MEMORY[0x1E696AEC0];
-          v4 = IMSharedUtilitiesFrameworkBundle();
-          v5 = v4;
-          v6 = @"FSM_SENT_WITH_SPOTLIGHT";
+          v5 = MEMORY[0x1E696AEC0];
+          v6 = IMSharedUtilitiesFrameworkBundle(v36, v37);
+          v7 = v6;
+          v8 = @"FSM_SENT_WITH_SPOTLIGHT";
           goto LABEL_4;
         }
       }
     }
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_37:
 
-  return v8;
+  return v10;
 }
 
 - (BOOL)isDeviceActionMessage
@@ -6217,7 +6233,7 @@ LABEL_37:
 
 - (void)addTelemetryMetricsFromDictionary:(id)dictionary
 {
-  sub_1A85E9718(0, &qword_1ED8C9450);
+  sub_1A85E9718(0, &qword_1ED8C9450, 0x1E696AD98);
   v4 = sub_1A88C81A8();
   selfCopy = self;
   IMMessageItem.addTelemetryMetrics(from:)(v4);

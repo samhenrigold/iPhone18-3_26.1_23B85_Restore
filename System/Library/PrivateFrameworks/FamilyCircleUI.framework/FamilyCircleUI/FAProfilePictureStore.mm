@@ -22,11 +22,11 @@
 
 - (FAProfilePictureStore)initWithFamilyCircle:(id)circle
 {
-  v34[19] = *MEMORY[0x277D85DE8];
+  v33[19] = *MEMORY[0x277D85DE8];
   circleCopy = circle;
-  v33.receiver = self;
-  v33.super_class = FAProfilePictureStore;
-  v6 = [(FAProfilePictureStore *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = FAProfilePictureStore;
+  v6 = [(FAProfilePictureStore *)&v32 init];
   v7 = v6;
   if (v6)
   {
@@ -44,34 +44,34 @@
     v7->_recommendedMembersImages = dictionary2;
 
     v14 = *MEMORY[0x277CBD000];
-    v34[0] = *MEMORY[0x277CBD068];
-    v34[1] = v14;
+    v33[0] = *MEMORY[0x277CBD068];
+    v33[1] = v14;
     v15 = *MEMORY[0x277CBCFF8];
-    v34[2] = *MEMORY[0x277CBD058];
-    v34[3] = v15;
+    v33[2] = *MEMORY[0x277CBD058];
+    v33[3] = v15;
     v16 = *MEMORY[0x277CBD070];
-    v34[4] = *MEMORY[0x277CBD0E0];
-    v34[5] = v16;
+    v33[4] = *MEMORY[0x277CBD0E0];
+    v33[5] = v16;
     v17 = *MEMORY[0x277CBD090];
-    v34[6] = *MEMORY[0x277CBD078];
-    v34[7] = v17;
+    v33[6] = *MEMORY[0x277CBD078];
+    v33[7] = v17;
     v18 = *MEMORY[0x277CBD040];
-    v34[8] = *MEMORY[0x277CBCFB8];
-    v34[9] = v18;
+    v33[8] = *MEMORY[0x277CBCFB8];
+    v33[9] = v18;
     v19 = *MEMORY[0x277CBD0B8];
-    v34[10] = *MEMORY[0x277CBD0B0];
-    v34[11] = v19;
+    v33[10] = *MEMORY[0x277CBD0B0];
+    v33[11] = v19;
     v20 = *MEMORY[0x277CBD0C0];
-    v34[12] = *MEMORY[0x277CBD0A8];
-    v34[13] = v20;
+    v33[12] = *MEMORY[0x277CBD0A8];
+    v33[13] = v20;
     v21 = *MEMORY[0x277CBD098];
-    v34[14] = *MEMORY[0x277CBD160];
-    v34[15] = v21;
+    v33[14] = *MEMORY[0x277CBD160];
+    v33[15] = v21;
     v22 = *MEMORY[0x277CBD158];
-    v34[16] = *MEMORY[0x277CBCFC0];
-    v34[17] = v22;
-    v34[18] = *MEMORY[0x277CBD018];
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:19];
+    v33[16] = *MEMORY[0x277CBCFC0];
+    v33[17] = v22;
+    v33[18] = *MEMORY[0x277CBD018];
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:19];
     keysToFetch = v7->_keysToFetch;
     v7->_keysToFetch = v23;
 
@@ -88,7 +88,6 @@
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter2 addObserver:v7 selector:sel__contactsDidChange name:*MEMORY[0x277CBD140] object:0];
 
-  v31 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -127,7 +126,7 @@ uint64_t __41__FAProfilePictureStore_setFamilyCircle___block_invoke(uint64_t a1)
   v4 = *(v3 + 24);
   *(v3 + 24) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (NSDictionary)profileImages
@@ -159,7 +158,7 @@ uint64_t __38__FAProfilePictureStore_profileImages__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)profilePictureForFamilyMember:(id)member
@@ -269,38 +268,38 @@ LABEL_9:
 
 - (void)_fetchProfileImages:(BOOL)images withCompletion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   profileImages = [(FAProfilePictureStore *)self profileImages];
   if (images || ![profileImages count])
   {
     v6 = dispatch_group_create();
-    v29[0] = 0;
-    v29[1] = v29;
-    v29[2] = 0x3032000000;
-    v29[3] = __Block_byref_object_copy__4;
-    v29[4] = __Block_byref_object_dispose__4;
-    v30 = 0;
+    v28[0] = 0;
+    v28[1] = v28;
+    v28[2] = 0x3032000000;
+    v28[3] = __Block_byref_object_copy__4;
+    v28[4] = __Block_byref_object_dispose__4;
+    v29 = 0;
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     members = [(FAFamilyCircle *)self->_familyCircle members];
-    v8 = [members countByEnumeratingWithState:&v25 objects:v31 count:16];
+    v8 = [members countByEnumeratingWithState:&v24 objects:v30 count:16];
     if (v8)
     {
-      v9 = *v26;
+      v9 = *v25;
       do
       {
         v10 = 0;
         do
         {
-          if (*v26 != v9)
+          if (*v25 != v9)
           {
             objc_enumerationMutation(members);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * v10);
+          v11 = *(*(&v24 + 1) + 8 * v10);
           dispatch_group_enter(v6);
           v12 = objc_alloc(MEMORY[0x277D08290]);
           dsid = [v11 dsid];
@@ -309,21 +308,21 @@ LABEL_9:
           [v14 setUseMonogramAsLastResort:0];
           +[FAProfilePictureStore screenScale];
           [v14 setMonogramDiameter:v15 * 80.0];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invoke;
-          v22[3] = &unk_2782F4050;
-          v22[4] = self;
-          v22[5] = v11;
-          v24 = v29;
-          v23 = v6;
-          [v14 startRequestWithCompletionHandler:v22];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invoke;
+          v21[3] = &unk_2782F4050;
+          v21[4] = self;
+          v21[5] = v11;
+          v23 = v28;
+          v22 = v6;
+          [v14 startRequestWithCompletionHandler:v21];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [members countByEnumeratingWithState:&v25 objects:v31 count:16];
+        v8 = [members countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
       while (v8);
@@ -334,19 +333,17 @@ LABEL_9:
     block[2] = __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invoke_48;
     block[3] = &unk_2782F4078;
     block[4] = self;
-    v20 = completionCopy;
-    v21 = v29;
+    v19 = completionCopy;
+    v20 = v28;
     dispatch_group_notify(v6, MEMORY[0x277D85CD0], block);
 
-    _Block_object_dispose(v29, 8);
+    _Block_object_dispose(v28, 8);
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, profileImages, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -373,25 +370,24 @@ void __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invo
 {
   if (a1[4])
   {
-    v2 = a1[6];
-    v3 = *(a1[5] + 24);
+    v2 = *(a1[5] + 24);
 
-    [v3 setObject:? forKeyedSubscript:?];
+    [v2 setObject:? forKeyedSubscript:?];
   }
 
   else
   {
-    v4 = *(a1[8] + 8);
-    v7 = *(v4 + 40);
-    v5 = (v4 + 40);
-    v6 = v7;
-    if (!v7)
+    v3 = *(a1[8] + 8);
+    v6 = *(v3 + 40);
+    v4 = (v3 + 40);
+    v5 = v6;
+    if (!v6)
     {
-      v6 = a1[7];
+      v5 = a1[7];
     }
 
-    objc_storeStrong(v5, v6);
-    v8 = _FALogSystem();
+    objc_storeStrong(v4, v5);
+    v8 = _FALogSystem(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invoke_2_cold_1(a1, v8);
@@ -411,78 +407,78 @@ void __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invo
 
 - (id)profilePicturesWithDiameter:(double)diameter
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = dispatch_group_create();
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   members = [(FAFamilyCircle *)self->_familyCircle members];
-  v8 = [members countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v8 = [members countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v38;
+    v10 = *v37;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v38 != v10)
+        if (*v37 != v10)
         {
           objc_enumerationMutation(members);
         }
 
-        v12 = *(*(&v37 + 1) + 8 * i);
+        v12 = *(*(&v36 + 1) + 8 * i);
         data = [MEMORY[0x277CBEA90] data];
         [v5 setObject:data forKeyedSubscript:v12];
 
         dispatch_group_enter(v6);
       }
 
-      v9 = [members countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v9 = [members countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v9);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = [(FAFamilyCircle *)self->_familyCircle members];
-  v14 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v14 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * j);
+        v18 = *(*(&v32 + 1) + 8 * j);
         v19 = [(FAProfilePictureStore *)self profilePictureForFamilyMember:v18];
         v20 = dispatch_get_global_queue(33, 0);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __53__FAProfilePictureStore_profilePicturesWithDiameter___block_invoke;
         block[3] = &unk_2782F40A0;
-        v27 = v5;
-        v28 = v18;
+        v26 = v5;
+        v27 = v18;
         selfCopy = self;
-        v30 = v19;
+        v29 = v19;
         diameterCopy = diameter;
-        v31 = v6;
+        v30 = v6;
         v21 = v19;
         dispatch_async(v20, block);
       }
 
-      v15 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v15 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v15);
@@ -490,8 +486,6 @@ void __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invo
 
   dispatch_group_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
   v22 = [v5 copy];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -508,28 +502,28 @@ void __53__FAProfilePictureStore_profilePicturesWithDiameter___block_invoke(uint
 
 - (id)profilePictureForFamilyMemberWithAltDSID:(id)d pictureDiameter:(double)diameter
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   members = [(FAFamilyCircle *)self->_familyCircle members];
-  v8 = [members countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [members countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(members);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         altDSID = [v12 altDSID];
         v14 = [altDSID isEqualToString:dCopy];
 
@@ -540,7 +534,7 @@ void __53__FAProfilePictureStore_profilePicturesWithDiameter___block_invoke(uint
         }
       }
 
-      v9 = [members countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [members countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -552,8 +546,6 @@ void __53__FAProfilePictureStore_profilePicturesWithDiameter___block_invoke(uint
 
   v15 = 0;
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -598,15 +590,15 @@ LABEL_11:
         {
           givenName = [v10 givenName];
           familyName = [v10 familyName];
-          v14 = [FAProfilePictureStore profilePictureForContact:v10 serverImageData:0 firstName:givenName lastName:familyName diameter:40.0];
+          v15 = [FAProfilePictureStore profilePictureForContact:v10 serverImageData:0 firstName:givenName lastName:familyName diameter:40.0];
           recommendedMembersImages = self->_recommendedMembersImages;
           identifier2 = [v10 identifier];
-          [(NSMutableDictionary *)recommendedMembersImages setObject:v14 forKeyedSubscript:identifier2];
+          [(NSMutableDictionary *)recommendedMembersImages setObject:v15 forKeyedSubscript:identifier2];
         }
 
         else
         {
-          givenName = _FALogSystem();
+          givenName = _FALogSystem(v12);
           if (os_log_type_enabled(givenName, OS_LOG_TYPE_ERROR))
           {
             *buf = v18;
@@ -621,13 +613,11 @@ LABEL_11:
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)profilePictureForRecommendedFamilyMember:(id)member
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   memberCopy = member;
   recommendedMembersImages = self->_recommendedMembersImages;
   contact = [memberCopy contact];
@@ -636,8 +626,8 @@ LABEL_11:
 
   if (!v8)
   {
-    v16[0] = memberCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = memberCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     [(FAProfilePictureStore *)self fetchProfilePicturesForRecommendedFamilyMembers:v9];
   }
 
@@ -645,8 +635,6 @@ LABEL_11:
   contact2 = [memberCopy contact];
   identifier2 = [contact2 identifier];
   v13 = [(NSMutableDictionary *)v10 objectForKeyedSubscript:identifier2];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -680,15 +668,14 @@ LABEL_11:
 
 void __60__FAProfilePictureStore__fetchProfileImages_withCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
-  v5 = 138412546;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Unable to get image data for member: %@ error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Unable to get image data for member: %@ error: %@", &v4, 0x16u);
 }
 
 @end

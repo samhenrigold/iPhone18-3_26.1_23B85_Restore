@@ -66,7 +66,7 @@
   return v6;
 }
 
-uint64_t __30__JFXCapturePreviewStats_add___block_invoke(uint64_t a1)
+char *__30__JFXCapturePreviewStats_add___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) addObject:*(a1 + 40)];
   result = [*(a1 + 40) dropped];
@@ -81,7 +81,7 @@ uint64_t __30__JFXCapturePreviewStats_add___block_invoke(uint64_t a1)
       *([*(*(a1 + 32) + 8) times] + i) = v7;
       v8 = *([*(*(a1 + 32) + 8) times] + i);
       result = [*(*(*(a1 + 48) + 8) + 40) times];
-      *(result + i) = v8;
+      *&result[i] = v8;
     }
   }
 
@@ -110,13 +110,13 @@ uint64_t __30__JFXCapturePreviewStats_add___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __40__JFXCapturePreviewStats_runningAverage__block_invoke(uint64_t a1)
+char *__40__JFXCapturePreviewStats_runningAverage__block_invoke(uint64_t a1)
 {
   for (i = 0; i != 48; i += 8)
   {
     v3 = *([*(*(a1 + 32) + 8) times] + i);
     result = [*(*(*(a1 + 40) + 8) + 40) times];
-    *(result + i) = v3;
+    *&result[i] = v3;
   }
 
   return result;
@@ -147,7 +147,9 @@ uint64_t __40__JFXCapturePreviewStats_runningAverage__block_invoke(uint64_t a1)
 - (void)_print_NoLock
 {
   name = [self name];
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "------------ Jetty Frame Stats END [%@] -----------", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = name;
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "------------ Jetty Frame Stats END [%@] -----------", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)clear
@@ -164,9 +166,12 @@ uint64_t __40__JFXCapturePreviewStats_runningAverage__block_invoke(uint64_t a1)
 uint64_t __31__JFXCapturePreviewStats_clear__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) removeAllObjects];
-  *(*(a1 + 32) + 8) = objc_alloc_init(JFXCapturePreviewFrameStats);
+  v2 = objc_alloc_init(JFXCapturePreviewFrameStats);
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 8);
+  *(v3 + 8) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 @end

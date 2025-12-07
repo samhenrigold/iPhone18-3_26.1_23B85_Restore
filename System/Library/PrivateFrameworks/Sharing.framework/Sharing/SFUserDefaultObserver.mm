@@ -12,14 +12,12 @@
   v4 = *(&self->super.isa + OBJC_IVAR____TtC7Sharing21SFUserDefaultObserver_storage);
   if (v4)
   {
-    v5 = *(&self->super.isa + OBJC_IVAR____TtC7Sharing21SFUserDefaultObserver_key);
-    v6 = *&self->defaultChangedHandler[OBJC_IVAR____TtC7Sharing21SFUserDefaultObserver_key];
     selfCopy = self;
-    v8 = v4;
+    v6 = v4;
 
-    v9 = sub_1A99767E0();
+    v7 = sub_1A99767E0();
 
-    [v8 removeObserver:selfCopy forKeyPath:v9 context:0];
+    [v6 removeObserver:selfCopy forKeyPath:v7 context:0];
   }
 
   else
@@ -27,9 +25,9 @@
     selfCopy2 = self;
   }
 
-  v11.receiver = self;
-  v11.super_class = ObjectType;
-  [(SFUserDefaultObserver *)&v11 dealloc];
+  v9.receiver = self;
+  v9.super_class = ObjectType;
+  [(SFUserDefaultObserver *)&v9 dealloc];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -72,7 +70,7 @@ LABEL_3:
   {
 LABEL_4:
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_1A97AFD7C(&qword_1EB3B1160, type metadata accessor for NSKeyValueChangeKey);
+    sub_1A97AFD7C(&qword_1EB3B1160, type metadata accessor for NSKeyValueChangeKey, &unk_1A9991BEC);
     sub_1A9976700();
   }
 

@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for PASUIExtensionHostViewController();
+  v6.super_class = type metadata accessor for PASUIExtensionHostViewController(0);
   v2 = v6.receiver;
   [(PASUIExtensionHostViewController *)&v6 viewDidLoad];
   v3 = sub_261149D60();

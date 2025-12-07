@@ -1,13 +1,26 @@
 @interface JavaTextAttributedString
+- (JavaTextAttributedString)initWithJavaTextAttributedCharacterIterator:(id)iterator withInt:(int)int withInt:(int)withInt;
 - (id)getIterator;
 - (id)getIteratorWithJavaTextAttributedCharacterIterator_AttributeArray:(id)array;
 - (id)getIteratorWithJavaTextAttributedCharacterIterator_AttributeArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)addAttributeWithJavaTextAttributedCharacterIterator_Attribute:(id)attribute withId:(id)id;
 - (void)addAttributeWithJavaTextAttributedCharacterIterator_Attribute:(id)attribute withId:(id)id withInt:(int)int withInt:(int)withInt;
+- (void)addAttributesWithJavaUtilMap:(id)map withInt:(int)int withInt:(int)withInt;
 - (void)dealloc;
 @end
 
 @implementation JavaTextAttributedString
+
+- (JavaTextAttributedString)initWithJavaTextAttributedCharacterIterator:(id)iterator withInt:(int)int withInt:(int)withInt
+{
+  if (!iterator)
+  {
+    JreThrowNullPointerException();
+  }
+
+  sub_1002248EC(&self->super.isa, iterator, *&int, withInt, [iterator getAllAttributeKeys]);
+  return self;
+}
 
 - (void)addAttributeWithJavaTextAttributedCharacterIterator_Attribute:(id)attribute withId:(id)id
 {
@@ -309,6 +322,56 @@ LABEL_60:
   v22 = self->attributeMap_;
 
   [(JavaUtilMap *)v22 putWithId:attribute withId:v20];
+}
+
+- (void)addAttributesWithJavaUtilMap:(id)map withInt:(int)int withInt:(int)withInt
+{
+  if (!map)
+  {
+    goto LABEL_12;
+  }
+
+  v5 = *&withInt;
+  v6 = *&int;
+  entrySet = [map entrySet];
+  if (!entrySet)
+  {
+    goto LABEL_12;
+  }
+
+  iterator = [entrySet iterator];
+  if (!iterator)
+  {
+    goto LABEL_12;
+  }
+
+  v10 = iterator;
+  if ([iterator hasNext])
+  {
+    while (1)
+    {
+      next = [v10 next];
+      v13 = JavaUtilMap_Entry_class_(next, v12);
+      if (!next)
+      {
+        break;
+      }
+
+      if (([v13 isInstance:next] & 1) == 0 || (v14 = objc_msgSend(next, "getKey"), objc_opt_class(), v14) && (objc_opt_isKindOfClass() & 1) == 0)
+      {
+        JreThrowClassCastException();
+      }
+
+      -[JavaTextAttributedString addAttributeWithJavaTextAttributedCharacterIterator_Attribute:withId:withInt:withInt:](self, "addAttributeWithJavaTextAttributedCharacterIterator_Attribute:withId:withInt:withInt:", v14, [next getValue], v6, v5);
+      if (([v10 hasNext] & 1) == 0)
+      {
+        return;
+      }
+    }
+
+LABEL_12:
+    JreThrowNullPointerException();
+  }
 }
 
 - (id)getIterator

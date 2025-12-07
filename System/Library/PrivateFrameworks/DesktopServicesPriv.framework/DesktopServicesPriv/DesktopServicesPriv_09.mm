@@ -1,312 +1,18 @@
-void sub_1E571AB80(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,TDeepCFURLIterator::CreateDestinationListForSource(std::shared_ptr<TCFURLInfo const> const&)::$_0 &,std::shared_ptr<TCFURLInfo> *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,TDeepCFURLIterator::CreateDestinationListForSource(std::shared_ptr<TCFURLInfo const> const&)::$_0 &,std::shared_ptr<TCFURLInfo> *,0>(a1, a2, a3, a4);
-  v10 = *a5;
-  v11 = *(a4 + 8);
-  v30 = *a4;
-  v31 = v11;
-  if (v11)
-  {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v12 = TCFURLInfo::LessThan(v10, &v30);
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-  }
-
-  if (v12)
-  {
-    v13 = *a4;
-    *a4 = *a5;
-    *a5 = v13;
-    v14 = *(a4 + 8);
-    *(a4 + 8) = *(a5 + 8);
-    *(a5 + 8) = v14;
-    v15 = *a4;
-    v16 = *(a3 + 8);
-    v30 = *a3;
-    v31 = v16;
-    if (v16)
-    {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v17 = TCFURLInfo::LessThan(v15, &v30);
-    if (v16)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-    }
-
-    if (v17)
-    {
-      v18 = *a3;
-      *a3 = *a4;
-      *a4 = v18;
-      v19 = *(a3 + 8);
-      *(a3 + 8) = *(a4 + 8);
-      *(a4 + 8) = v19;
-      v20 = *a3;
-      v21 = *(a2 + 8);
-      v30 = *a2;
-      v31 = v21;
-      if (v21)
-      {
-        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v22 = TCFURLInfo::LessThan(v20, &v30);
-      if (v21)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v21);
-      }
-
-      if (v22)
-      {
-        v23 = *a2;
-        *a2 = *a3;
-        *a3 = v23;
-        v24 = *(a2 + 8);
-        *(a2 + 8) = *(a3 + 8);
-        *(a3 + 8) = v24;
-        v25 = *a2;
-        v26 = *(a1 + 8);
-        v30 = *a1;
-        v31 = v26;
-        if (v26)
-        {
-          atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        v27 = TCFURLInfo::LessThan(v25, &v30);
-        if (v26)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-        }
-
-        if (v27)
-        {
-          v28 = *a1;
-          *a1 = *a2;
-          *a2 = v28;
-          v29 = *(a1 + 8);
-          *(a1 + 8) = *(a2 + 8);
-          *(a2 + 8) = v29;
-        }
-      }
-    }
-  }
-}
-
-void sub_1E571AD6C(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,TDeepCFURLIterator::CreateDestinationListForSource(std::shared_ptr<TCFURLInfo const> const&)::$_0 &,std::shared_ptr<TCFURLInfo> *>(uint64_t a1, uint64_t a2)
-{
-  v2 = a2;
-  v4 = (a2 - a1) >> 4;
-  if (v4 <= 2)
-  {
-    if (v4 >= 2)
-    {
-      if (v4 == 2)
-      {
-        v5 = *(a2 - 16);
-        v6 = *(a1 + 8);
-        v30 = *a1;
-        v31 = v6;
-        if (v6)
-        {
-          atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        v7 = TCFURLInfo::LessThan(v5, &v30);
-        if (v6)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-        }
-
-        if (v7)
-        {
-          v8 = *a1;
-          *a1 = *(v2 - 16);
-          *(v2 - 16) = v8;
-          v9 = *(a1 + 8);
-          *(a1 + 8) = *(v2 - 8);
-          *(v2 - 8) = v9;
-        }
-
-        return 1;
-      }
-
-      goto LABEL_15;
-    }
-
-    return 1;
-  }
-
-  switch(v4)
-  {
-    case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,TDeepCFURLIterator::CreateDestinationListForSource(std::shared_ptr<TCFURLInfo const> const&)::$_0 &,std::shared_ptr<TCFURLInfo> *,0>(a1, a1 + 16, a2 - 16);
-      return 1;
-    case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,TDeepCFURLIterator::CreateDestinationListForSource(std::shared_ptr<TCFURLInfo const> const&)::$_0 &,std::shared_ptr<TCFURLInfo> *,0>(a1, a1 + 16, a1 + 32, a2 - 16);
-      return 1;
-    case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,TDeepCFURLIterator::CreateDestinationListForSource(std::shared_ptr<TCFURLInfo const> const&)::$_0 &,std::shared_ptr<TCFURLInfo> *,0>(a1, a1 + 16, a1 + 32, a1 + 48, a2 - 16);
-      return 1;
-  }
-
-LABEL_15:
-  v10 = a1 + 32;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,TDeepCFURLIterator::CreateDestinationListForSource(std::shared_ptr<TCFURLInfo const> const&)::$_0 &,std::shared_ptr<TCFURLInfo> *,0>(a1, a1 + 16, a1 + 32);
-  v11 = a1 + 48;
-  if (a1 + 48 == v2)
-  {
-    return 1;
-  }
-
-  v12 = 0;
-  v13 = 0;
-  while (1)
-  {
-    v14 = *v11;
-    v15 = *v10;
-    v16 = *(v10 + 8);
-    v30 = v15;
-    v31 = v16;
-    if (v16)
-    {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v17 = TCFURLInfo::LessThan(v14, &v30);
-    if (v16)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-    }
-
-    if (v17)
-    {
-      v18 = v2;
-      v19 = *v11;
-      v29 = *(v11 + 8);
-      v20 = v12;
-      *v11 = 0;
-      *(v11 + 8) = 0;
-      while (1)
-      {
-        v21 = a1 + v20;
-        v22 = *(a1 + v20 + 32);
-        *(v21 + 32) = 0;
-        *(v21 + 40) = 0;
-        v23 = *(a1 + v20 + 56);
-        *(v21 + 48) = v22;
-        if (v23)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-        }
-
-        if (v20 == -32)
-        {
-          break;
-        }
-
-        v24 = *(a1 + v20 + 24);
-        v30 = *(a1 + v20 + 16);
-        v31 = v24;
-        if (v24)
-        {
-          atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        v25 = TCFURLInfo::LessThan(v19, &v30);
-        if (v24)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v24);
-        }
-
-        v20 -= 16;
-        if (!v25)
-        {
-          v26 = (a1 + v20 + 48);
-          goto LABEL_33;
-        }
-      }
-
-      v26 = a1;
-LABEL_33:
-      v27 = v26[1];
-      *v26 = v19;
-      v26[1] = v29;
-      v2 = v18;
-      if (v27)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-      }
-
-      if (++v13 == 8)
-      {
-        return v11 + 16 == v18;
-      }
-    }
-
-    v10 = v11;
-    v12 += 16;
-    v11 += 16;
-    if (v11 == v2)
-    {
-      return 1;
-    }
-  }
-}
-
-void sub_1E571B00C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
-{
-  if (v10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 void *std::function<void ()(void)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(void)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(void)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::function<void ()(NSDictionary<NSString *,NSObject *> *)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
@@ -436,7 +142,7 @@ void StChangeValueForKeyHelper::~StChangeValueForKeyHelper(StChangeValueForKeyHe
 
 void *std::__function::__value_func<void ()(void)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   if (a2 != result)
   {
     v3 = result;
@@ -446,15 +152,15 @@ void *std::__function::__value_func<void ()(void)>::swap[abi:ne200100](void *res
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -482,7 +188,6 @@ void *std::__function::__value_func<void ()(void)>::swap[abi:ne200100](void *res
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -523,7 +228,7 @@ uint64_t std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject 
 
 void *std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   if (a2 != result)
   {
     v3 = result;
@@ -533,15 +238,15 @@ void *std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> 
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -569,7 +274,6 @@ void *std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> 
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -638,7 +342,7 @@ void std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,std::allocator<std::hash>>::__emplace_multi<NSObject * const&>();
+    std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,std::allocator<std::hash>>::__emplace_multi<NSObject * const&>(a1);
   }
 }
 
@@ -759,7 +463,7 @@ void *std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>
   return v16;
 }
 
-void std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,std::allocator<std::hash>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,std::allocator<std::hash>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -775,7 +479,7 @@ void std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -783,7 +487,7 @@ void std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 36));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 36));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -807,7 +511,7 @@ void std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,
     {
 LABEL_6:
 
-      std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,std::allocator<std::hash>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<NSObject *,std::hash<std::hash>,std::equal_to<std::hash>,std::allocator<std::hash>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -939,7 +643,7 @@ uint64_t std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject 
 BOOL IsDataSeparatedDomainID(const TString *this)
 {
   {
-    operator"" _t("com.apple.CloudDocs.iCloudDriveFileProviderManaged/", 51, &IsDataSeparatedDomainID(TString const&)::kDataSeparatedDomainIDPrefix);
+    operator"" _t(&IsDataSeparatedDomainID(TString const&)::kDataSeparatedDomainIDPrefix, "com.apple.CloudDocs.iCloudDriveFileProviderManaged/", 51);
   }
 
   return TString::BeginsWith(this, &IsDataSeparatedDomainID(TString const&)::kDataSeparatedDomainIDPrefix);
@@ -954,7 +658,7 @@ BOOL IsICloudDriveDomainID(TString *a1)
 
   {
     {
-      operator"" _t("com.apple.CloudDocs.iCloudDriveFileProvider", 43, &IsICloudDriveDomainID(TString const&)::kICloudDriveProviderIDCommonPrefix);
+      operator"" _t(&IsICloudDriveDomainID(TString const&)::kICloudDriveProviderIDCommonPrefix, "com.apple.CloudDocs.iCloudDriveFileProvider", 43);
     }
   }
 
@@ -1028,9 +732,9 @@ id FPSharedItemCreator(FPItem *a1)
   return v1;
 }
 
-void MyFPResolveSymlink(NSURL *a1@<X0>, uint64_t a2@<X8>)
+void MyFPResolveSymlink(uint64_t *__return_ptr a1@<X8>, NSURL *a2@<X0>)
 {
-  v3 = a1;
+  v3 = a2;
   v4 = FPResolveSymlink();
   v5 = v4;
   if (v4)
@@ -1045,8 +749,8 @@ void MyFPResolveSymlink(NSURL *a1@<X0>, uint64_t a2@<X8>)
     v7 = -8064;
   }
 
-  *a2 = v6;
-  *(a2 + 8) = v7;
+  *a1 = v6;
+  *(a1 + 2) = v7;
 }
 
 void FileProviderErrorDomain(TString *a1@<X8>)
@@ -1522,7 +1226,7 @@ uint64_t *TypeForUTI(NSString *a1)
       operator new();
     }
 
-    if ((atomic_load_explicit(&qword_1ECFF4400, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1ECFF4400, memory_order_acquire) & 1) == 0)
     {
       TypeForUTI();
     }
@@ -1621,13 +1325,13 @@ uint64_t *TypeForUTI(NSString *a1)
           }
 
           *buf = &v16;
-          v13 = std::__hash_table<std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},UTType * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(v10, &v16);
+          v13 = std::__hash_table<std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},UTType * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(v10, &v16, &std::piecewise_construct, buf);
         }
 
         else
         {
           *buf = &v16;
-          v13 = std::__hash_table<std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},UTType * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(TypeForUTI(NSString *)::sKnownCache, &v16);
+          v13 = std::__hash_table<std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},UTType * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},UTType * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(TypeForUTI(NSString *)::sKnownCache, &v16, &std::piecewise_construct, buf);
         }
 
         objc_storeStrong(v13 + 3, v4);
@@ -1671,7 +1375,7 @@ void ___Z10TypeForUTIP8NSString_block_invoke()
   }
 }
 
-uint64_t TFSInfo::GetName(TFSInfo *a1, uint64_t a2)
+uint64_t TFSInfo::GetName(os_unfair_lock_s *a1, uint64_t a2)
 {
   TFSInfo::Name(a1, &v5);
   v3 = TPropertyReference::SetAs<TString>(a2, &v5);
@@ -1679,24 +1383,24 @@ uint64_t TFSInfo::GetName(TFSInfo *a1, uint64_t a2)
   return v3;
 }
 
-void sub_1E571DEC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571DEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t TFSInfo::GetPath(TFSInfo *a1, uint64_t a2)
 {
-  TFSInfo::Path(a1, &v5);
+  TFSInfo::Path(&v5, a1);
   v3 = TPropertyReference::SetAs<TString>(a2, &v5);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v5);
   return v3;
 }
 
-void sub_1E571DF28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571DF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -1946,20 +1650,20 @@ uint64_t TFSInfo::IsVolume(uint64_t a1, uint64_t a2)
 
 uint64_t TFSInfo::ObjectIdentifier(TFSInfo *a1, uint64_t a2)
 {
-  TFSInfo::ObjectIdentifier(a1, &v5);
+  TFSInfo::ObjectIdentifier(&v5, a1);
   v3 = TPropertyReference::SetAs<TString>(a2, &v5);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v5.fString.fRef);
   return v3;
 }
 
-void sub_1E571E7E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571E7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::SetOwner(uint64_t a1, unint64_t a2)
+unint64_t TFSInfo::SetOwner(uint64_t a1, unint64_t a2)
 {
   LODWORD(fileSec) = 0;
   v3 = TPropertyReference::As<int>(a2, &fileSec);
@@ -1993,14 +1697,14 @@ uint64_t TFSInfo::SetOwner(uint64_t a1, unint64_t a2)
   return v4;
 }
 
-void sub_1E571E8FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571E8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TAutoRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::SetUserGroups(uint64_t a1, unint64_t a2)
+unint64_t TFSInfo::SetUserGroups(uint64_t a1, unint64_t a2)
 {
   LODWORD(fileSec) = 0;
   v3 = TPropertyReference::As<int>(a2, &fileSec);
@@ -2034,9 +1738,9 @@ uint64_t TFSInfo::SetUserGroups(uint64_t a1, unint64_t a2)
   return v4;
 }
 
-void sub_1E571EA14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571EA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TAutoRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
@@ -2211,7 +1915,7 @@ uint64_t TFSInfo::GetFolderAdornments(uint64_t a1, uint64_t a2, uint64_t a3, int
     }
   }
 
-  TFSInfo::ReadFolderAdornmentsFromDisk(a1, &v23);
+  TFSInfo::ReadFolderAdornmentsFromDisk(&v23, a1);
   v15 = v23;
   v22 = v23;
   os_unfair_lock_lock((a1 + 104));
@@ -2261,24 +1965,24 @@ void sub_1E571F080(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::SetFolderAdornments(uint64_t a1, id **a2)
+uint64_t TFSInfo::SetFolderAdornments(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  TPropertyReference::As<NSObject * {__strong}>(a2, &v27);
-  v3 = v28;
-  if (!v28)
+  v29 = *MEMORY[0x1E69E9840];
+  TPropertyReference::As<NSObject * {__strong}>(a2, &v26);
+  v3 = v27;
+  if (!v27)
   {
-    v4 = objc_cast<NSDictionary,NSObject * {__strong}>(v27);
-    TFSInfo::ReadFolderAdornmentsFromDisk(a1, buf);
+    v4 = objc_cast<NSDictionary,NSObject * {__strong}>(v26);
+    TFSInfo::ReadFolderAdornmentsFromDisk(buf, a1);
     v5 = *buf;
     v6 = DSFolderIconConfigBackwardsCompatibleDictionary(v4, *buf);
 
-    TFSInfo::Path(a1, &v26.fString.fRef);
+    TFSInfo::Path(&v25, a1);
     if (v6)
     {
-      v25 = 0;
-      v7 = DSEncodeCustomFolderIconConfig(v6, &v25);
-      v8 = v25;
+      v24 = 0;
+      v7 = DSEncodeCustomFolderIconConfig(v6, &v24);
+      v8 = v24;
       if (v7)
       {
         if (TFSInfo::IsTopLevelSharedItem(a1))
@@ -2293,7 +1997,7 @@ uint64_t TFSInfo::SetFolderAdornments(uint64_t a1, id **a2)
 
         else
         {
-          v16 = TString::c_str(&v26);
+          v16 = TString::c_str(&v25);
           v17 = DSFolderIconCustomizationXattrName();
           v18 = v7;
           if (setxattr(v16, v17, [v7 bytes], objc_msgSend(v7, "length"), 0, 1))
@@ -2335,7 +2039,7 @@ uint64_t TFSInfo::SetFolderAdornments(uint64_t a1, id **a2)
 
     else
     {
-      v9 = TString::c_str(&v26);
+      v9 = TString::c_str(&v25);
       v10 = DSFolderIconCustomizationXattrName();
       if (!removexattr(v9, v10, 0) || (v11 = __error(), v3 = TCFURLInfo::TranslateXAttrError(*v11, v12, v13), v3 == -1427))
       {
@@ -2353,10 +2057,9 @@ uint64_t TFSInfo::SetFolderAdornments(uint64_t a1, id **a2)
       }
     }
 
-    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v26.fString.fRef);
+    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v25.fString.fRef);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -2514,15 +2217,15 @@ uint64_t TFSInfo::GetVolumeFormatString(uint64_t a1, uint64_t a2, TFSVolumeInfo 
     return 4294959245;
   }
 
-  TFSVolumeInfo::GetVolumeFormatString(*a3, &v6);
+  TFSVolumeInfo::GetVolumeFormatString(&v6, *a3);
   v4 = TPropertyReference::SetAs<TString>(a2, &v6);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v6.fString.fRef);
   return v4;
 }
 
-void sub_1E571F7E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571F7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -2563,106 +2266,106 @@ uint64_t TFSInfo::GetAboutToUnmount(uint64_t a1, uint64_t a2, uint64_t *a3)
   return TPropertyReference::SetAs<BOOL>(a2, &v8);
 }
 
-uint64_t TFSInfo::GetVolUUID(uint64_t a1, uint64_t a2, TFSVolumeInfo **a3)
+uint64_t TFSInfo::GetVolUUID(uint64_t a1, uint64_t a2, TString ***a3)
 {
   if (!*a3)
   {
     return 4294959245;
   }
 
-  TFSVolumeInfo::GetUUID(*a3, &v6);
+  TFSVolumeInfo::GetUUID(&v6, *a3);
   v4 = TPropertyReference::SetAs<TString>(a2, &v6);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v6.fString.fRef);
   return v4;
 }
 
-void sub_1E571F8FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571F8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::GetShortVersion(uint64_t a1, uint64_t a2)
+uint64_t TFSInfo::GetShortVersion(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = &stru_1F5F42870;
+  v9 = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  ShortVersion = TFSInfo::GetShortVersion(a1, &v6);
+  ShortVersion = TFSInfo::GetShortVersion(a1, &v9, a4);
   if (!ShortVersion)
   {
-    ShortVersion = TPropertyReference::SetAs<TString>(a2, &v6);
+    ShortVersion = TPropertyReference::SetAs<TString>(a2, &v9);
   }
 
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v6);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9);
   return ShortVersion;
 }
 
-void sub_1E571F98C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571F98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::GetLongVersion(uint64_t a1, uint64_t a2)
+uint64_t TFSInfo::GetLongVersion(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6.fString.fRef = &stru_1F5F42870;
+  v9.fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  LongVersion = TFSInfo::GetLongVersion(a1, &v6);
+  LongVersion = TFSInfo::GetLongVersion(a1, &v9, a4);
   if (!LongVersion)
   {
-    LongVersion = TPropertyReference::SetAs<TString>(a2, &v6);
+    LongVersion = TPropertyReference::SetAs<TString>(a2, &v9);
   }
 
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v6.fString.fRef);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9.fString.fRef);
   return LongVersion;
 }
 
-void sub_1E571FA20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571FA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::GetSystemVersion(uint64_t a1, uint64_t a2)
+uint64_t TFSInfo::GetSystemVersion(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6.fString.fRef = &stru_1F5F42870;
+  v9.fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  SystemVersion = TFSInfo::GetSystemVersion(a1, &v6);
+  SystemVersion = TFSInfo::GetSystemVersion(a1, &v9, a4);
   if (!SystemVersion)
   {
-    SystemVersion = TPropertyReference::SetAs<TString>(a2, &v6);
+    SystemVersion = TPropertyReference::SetAs<TString>(a2, &v9);
   }
 
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v6.fString.fRef);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9.fString.fRef);
   return SystemVersion;
 }
 
-void sub_1E571FAB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571FAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::GetCopyrightString(uint64_t a1, uint64_t a2)
+uint64_t TFSInfo::GetCopyrightString(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6.fString.fRef = &stru_1F5F42870;
+  v9.fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  CopyrightString = TFSInfo::GetCopyrightString(a1, &v6);
+  CopyrightString = TFSInfo::GetCopyrightString(a1, &v9, a4);
   if (!CopyrightString)
   {
-    CopyrightString = TPropertyReference::SetAs<TString>(a2, &v6);
+    CopyrightString = TPropertyReference::SetAs<TString>(a2, &v9);
   }
 
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v6.fString.fRef);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9.fString.fRef);
   return CopyrightString;
 }
 
-void sub_1E571FB48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571FB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -2682,9 +2385,9 @@ uint64_t TFSInfo::GetKindWithoutPlatformString(TFSInfo *a1, uint64_t a2, uint64_
   return v11;
 }
 
-void sub_1E571FBF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E571FBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -2781,7 +2484,7 @@ uint64_t TFSInfo::GetDeepItemCount(uint64_t a1, uint64_t a2)
   v4 = *(a1 + 80);
   if (v4)
   {
-    TFSInfoOverflow::FolderSizeRecord(v4, v7);
+    TFSInfoOverflow::FolderSizeRecord(v7, v4);
     if (v8)
     {
       v5 = v7[2];
@@ -2812,7 +2515,7 @@ uint64_t TFSInfo::GetDeepVisibleItemCount(uint64_t a1, uint64_t a2)
   v4 = *(a1 + 80);
   if (v4)
   {
-    TFSInfoOverflow::FolderSizeRecord(v4, v7);
+    TFSInfoOverflow::FolderSizeRecord(v7, v4);
     if (v8)
     {
       v5 = v7[3];
@@ -2923,9 +2626,9 @@ uint64_t TFSInfo::GetTagsAndAttributes(uint64_t a1, uint64_t a2, uint64_t a3, ch
   return v13;
 }
 
-void sub_1E5720218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E5720218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   TAutoRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
@@ -2988,15 +2691,15 @@ uint64_t TFSInfo::GetICloudSharePerson(TFSInfo *a1, uint64_t a2)
 
 uint64_t TFSInfo::GetICloudSharePersonString(TFSInfo *a1, uint64_t a2)
 {
-  TFSInfo::CopyICloudSharePersonString(a1, &v5);
+  TFSInfo::CopyICloudSharePersonString(&v5);
   v3 = TPropertyReference::SetAs<TString>(a2, &v5);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v5.fString.fRef);
   return v3;
 }
 
-void sub_1E5720458(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5720458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -3064,7 +2767,7 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v25 = [getSYDocumentAttributesClass() documentAttributesForFileAtURL:v12];
+    v25 = [(objc_class *)getSYDocumentAttributesClass() documentAttributesForFileAtURL:v12];
     TPropertyReference::SetAs<SYDocumentAttributes * {__strong}>(a2, &v25);
     os_unfair_lock_lock((a1 + 108));
     *(a1 + 127) |= 0x1000u;
@@ -3180,20 +2883,20 @@ uint64_t TFSInfo::SetProperty(uint64_t a1, unsigned int a2, uint64_t a3, uint64_
   return v9(v10, a3, a4, a5);
 }
 
-void TFSInfo::ObjectIdentifier(TFSInfo *this@<X0>, TString *a2@<X8>)
+void TFSInfo::ObjectIdentifier(TString *__return_ptr a1@<X8>, TFSInfo *this@<X0>)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = *(this + 120);
   if (v4 == 29)
   {
-    v13 = TFSInfo::GetFPItem(this);
-    v5 = [v13 itemID];
+    v11 = TFSInfo::GetFPItem(this);
+    v5 = [v11 itemID];
     v6 = [v5 identifier];
     v7 = [MEMORY[0x1E696AB08] URLHostAllowedCharacterSet];
     v8 = [v6 stringByAddingPercentEncodingWithAllowedCharacters:v7];
-    a2->fString.fRef = &stru_1F5F42870;
+    a1->fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(a2, v8);
+    TString::SetStringRefAsImmutable(a1, v8);
   }
 
   else
@@ -3203,21 +2906,18 @@ void TFSInfo::ObjectIdentifier(TFSInfo *this@<X0>, TString *a2@<X8>)
       ObjectIdentifier = TFSInfo::GetObjectIdentifier(this);
       VolumeIdentifier = TFSInfo::GetVolumeIdentifier(this);
       snprintf(__str, 0x100uLL, "%llu.%llu", VolumeIdentifier, ObjectIdentifier);
-      TString::TString(a2, __str);
-      v12 = *MEMORY[0x1E69E9840];
+      TString::TString(a1, __str);
       return;
     }
 
-    v13 = TFSInfo::GetFPItem(this);
-    v5 = [v13 providerDomainID];
+    v11 = TFSInfo::GetFPItem(this);
+    v5 = [v11 providerDomainID];
     v6 = [MEMORY[0x1E696AB08] URLHostAllowedCharacterSet];
     v7 = [v5 stringByAddingPercentEncodingWithAllowedCharacters:v6];
-    a2->fString.fRef = &stru_1F5F42870;
+    a1->fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(a2, v7);
+    TString::SetStringRefAsImmutable(a1, v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E5720C1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11)
@@ -3327,12 +3027,12 @@ LABEL_8:
   return v7;
 }
 
-void sub_1E5721110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1E5721110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   CopyURLForFPItem(FPItem *,BOOL)::$_0::~$_0(va);
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   _Unwind_Resume(a1);
 }
 
@@ -3426,7 +3126,7 @@ uint64_t TFSInfo::TFSInfo(uint64_t a1, os_unfair_lock_s **a2, const char *a3, ch
   TString::TString(__dst, a4);
   TFSInfo::SetItemName(a1, __dst);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&__dst[0].fString.fRef);
-  FileSuffix((a1 + 24), &theString);
+  FileSuffix(&theString, (a1 + 24));
   if (a8)
   {
     if (CFStringGetLength(theString))
@@ -3470,14 +3170,14 @@ LABEL_19:
   strlcpy(__dst, a3, 0x400uLL);
   strlcat(__dst, a4, 0x400uLL);
   v19 = strlen(__dst);
-  v24 = CFURLCreateFromFileSystemRepresentation(0, __dst, v19, a8);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=((a1 + 8), v24);
+  v23 = CFURLCreateFromFileSystemRepresentation(0, __dst, v19, a8);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=((a1 + 8), v23);
   if (*(a1 + 8))
   {
     _CFURLCacheSetAutoFlushingEnabled();
   }
 
-  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v24);
+  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v23);
   if (!*(a1 + 8))
   {
     TString::TString(__dst, a4);
@@ -3495,25 +3195,24 @@ LABEL_19:
   *(a1 + 16) = v20;
   if (strchr(a4, 58))
   {
-    ColonsToSlashes((a1 + 24), __dst);
+    ColonsToSlashes(__dst, (a1 + 24));
     TFSInfo::SetDisplayName(a1, __dst);
     goto LABEL_19;
   }
 
 LABEL_20:
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&theString);
-  v22 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-void sub_1E57215BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E57215BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, const void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v7 = va_arg(va1, const void *);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va1);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
-  TFSInfo::~TFSInfo(v3);
+  TFSInfo::~TFSInfo(v5);
   _Unwind_Resume(a1);
 }
 
@@ -3588,9 +3287,9 @@ CFIndex TFSInfo::Initialize(TFSInfo *this, const char *__s)
   return v6;
 }
 
-void sub_1E5721924(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5721924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TAutoRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
@@ -3598,40 +3297,40 @@ void sub_1E5721924(_Unwind_Exception *a1, uint64_t a2, ...)
 void TFSInfo::CopyFSInfo(TFSInfo *this)
 {
   os_unfair_lock_lock(this + 27);
-  v2 = *(this + 123);
+  v3 = *(this + 123);
   os_unfair_lock_unlock(this + 27);
-  if ((v2 & 0x2000000) == 0)
+  if ((v3 & 0x2000000) == 0)
   {
     std::allocate_shared[abi:ne200100]<TFSInfo,std::allocator<TFSInfo>,TFSInfo const&,0>();
   }
 
   os_unfair_lock_lock(this + 27);
-  v3 = *(this + 2);
-  v4 = v3;
-  if (v3)
+  v4 = *(this + 2);
+  v5 = v4;
+  if (v4)
   {
-    CFRetain(v3);
+    CFRetain(v4);
   }
 
   os_unfair_lock_unlock(this + 27);
   _ZNSt3__115allocate_sharedB8ne200100I7TFSInfoNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
 }
 
-const void **TFSInfo::ActualSuffix@<X0>(TFSInfo *this@<X0>, TString *a2@<X8>)
+const void **TFSInfo::ActualSuffix@<X0>(TString *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
   TFSInfo::Name(this, &v5);
   v3 = [(__CFString *)v5.fString.fRef pathExtension];
-  a2->fString.fRef = &stru_1F5F42870;
+  a1->fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(a2, v3);
+  TString::SetStringRefAsImmutable(a1, v3);
 
   return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v5.fString.fRef);
 }
 
-void sub_1E5721AA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5721AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v3);
+  va_start(va, a3);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v4);
 
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
@@ -3665,7 +3364,7 @@ void sub_1E5721BB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id TFSInfo::GetFolderIconConfiguration(TFSInfo *this, unint64_t a2, int a3)
+id TFSInfo::GetFolderIconConfiguration(TFSInfo *this, unint64_t a2, BOOL a3)
 {
   LabelColorBasedOnTag = TFSInfo::GetLabelColorBasedOnTag(this, a3);
   os_unfair_lock_lock(this + 26);
@@ -3763,9 +3462,9 @@ uint64_t FolderTintColorForLabel(int a1)
   }
 }
 
-void FolderIconType(FPItem *a1@<X0>, TString *a2@<X8>)
+void FolderIconType(TString *__return_ptr a1@<X8>, FPItem *a2@<X0>)
 {
-  v3 = a1;
+  v3 = a2;
   v4 = v3;
   if (!v3)
   {
@@ -3779,9 +3478,9 @@ void FolderIconType(FPItem *a1@<X0>, TString *a2@<X8>)
     {
       v8 = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], "com.apple.documents-folder", 26, 0x8000100u, 0, *MEMORY[0x1E695E498]);
       v9 = v8;
-      a2->fString.fRef = &stru_1F5F42870;
+      a1->fString.fRef = &stru_1F5F42870;
       CFRetain(&stru_1F5F42870);
-      TString::SetStringRefAsImmutable(a2, v8);
+      TString::SetStringRefAsImmutable(a1, v8);
     }
 
     else
@@ -3793,9 +3492,9 @@ void FolderIconType(FPItem *a1@<X0>, TString *a2@<X8>)
 
       v5 = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], "com.apple.downloads-folder", 26, 0x8000100u, 0, *MEMORY[0x1E695E498]);
       v9 = v5;
-      a2->fString.fRef = &stru_1F5F42870;
+      a1->fString.fRef = &stru_1F5F42870;
       CFRetain(&stru_1F5F42870);
-      TString::SetStringRefAsImmutable(a2, v5);
+      TString::SetStringRefAsImmutable(a1, v5);
     }
 
 LABEL_13:
@@ -3812,9 +3511,9 @@ LABEL_13:
 
     v6 = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], "com.apple.desktop-folder", 24, 0x8000100u, 0, *MEMORY[0x1E695E498]);
     v9 = v6;
-    a2->fString.fRef = &stru_1F5F42870;
+    a1->fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(a2, v6);
+    TString::SetStringRefAsImmutable(a1, v6);
     goto LABEL_13;
   }
 
@@ -3823,22 +3522,22 @@ LABEL_13:
   {
 LABEL_11:
     v7 = TString::KEmptyString(v3);
-    a2->fString.fRef = &stru_1F5F42870;
+    a1->fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(a2, *v7);
+    TString::SetStringRefAsImmutable(a1, *v7);
     goto LABEL_14;
   }
 
-  a2->fString.fRef = &stru_1F5F42870;
+  a1->fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(a2, @"com.apple.groups-folder");
+  TString::SetStringRefAsImmutable(a1, @"com.apple.groups-folder");
 LABEL_14:
 }
 
-void sub_1E5722170(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5722170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v3);
+  va_start(va, a3);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v4);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
 
   _Unwind_Resume(a1);
@@ -3862,7 +3561,7 @@ void sub_1E572223C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 id TFSInfo::GetFolderIconPackage(TFSInfo *this)
 {
   v2 = TFSInfo::GetFPItem(this);
-  FolderIconType(v2, &theString);
+  FolderIconType(&theString, v2);
 
   if (!CFStringGetLength(theString))
   {
@@ -3890,7 +3589,7 @@ id TFSInfo::GetFolderIconPackage(TFSInfo *this)
     CFRetain(&stru_1F5F42870);
     TString::SetStringRefAsImmutable(&v12, v6);
 
-    TString::non_empty_or(&v13, &v12, &theString);
+    TString::non_empty_or(&theString, &v13, &v12);
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v12.fString.fRef);
 
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v13.fString.fRef);
@@ -3930,9 +3629,9 @@ uint64_t TFSInfo::FetchApplicationDMFPolicy(TFSInfo *this)
   return v3;
 }
 
-void sub_1E5722530(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5722530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -3967,7 +3666,7 @@ uint64_t TFSInfo::FetchFPItemProperties(TFSInfo *this)
   v7 = *(this + 5);
   *(this + 5) = v6;
 
-  KindWithoutPlatformFromUTType(*(this + 5), &cf);
+  KindWithoutPlatformFromUTType(&cf, *(this + 5));
   if ((this + 48) != &cf)
   {
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(this + 6, &cf);
@@ -4079,28 +3778,28 @@ LABEL_31:
   return v11;
 }
 
-void KindWithoutPlatformFromUTType(UTType *a1@<X0>, TString *a2@<X8>)
+void KindWithoutPlatformFromUTType(TString *__return_ptr a1@<X8>, UTType *a2@<X0>)
 {
-  v6 = a1;
-  a2->fString.fRef = &stru_1F5F42870;
+  v6 = a2;
+  a1->fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
   v3 = [(UTType *)v6 _kindString];
   v4 = v3;
   if (v3)
   {
     v5 = v3;
-    if (a2->fString.fRef != v5)
+    if (a1->fString.fRef != v5)
     {
-      TString::SetStringRefAsImmutable(a2, v5);
+      TString::SetStringRefAsImmutable(a1, v5);
     }
   }
 
   else
   {
     v5 = [(UTType *)v6 localizedDescription];
-    if (a2->fString.fRef != v5)
+    if (a1->fString.fRef != v5)
     {
-      TString::SetStringRefAsImmutable(a2, v5);
+      TString::SetStringRefAsImmutable(a1, v5);
     }
   }
 }
@@ -4134,7 +3833,7 @@ uint64_t TFSInfo::SetHasLSProperties(TFSInfo *this, int a2)
 
 uint64_t TFSInfo::GetAliasInfoFrom(TFSInfo *this, BOOL *a2, BOOL *a3, TString *a4, TString *a5)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (TFSInfo::IsAlias(this))
   {
     os_unfair_lock_lock(this + 27);
@@ -4148,7 +3847,7 @@ uint64_t TFSInfo::GetAliasInfoFrom(TFSInfo *this, BOOL *a2, BOOL *a3, TString *a
       }
 
       URL = TFSInfo::MakeURL(this);
-      *v45 = URL;
+      *v44 = URL;
       if (!URL)
       {
         goto LABEL_26;
@@ -4160,29 +3859,29 @@ uint64_t TFSInfo::GetAliasInfoFrom(TFSInfo *this, BOOL *a2, BOOL *a3, TString *a
       os_unfair_lock_unlock(this + 27);
       if ((v13 & 2) != 0)
       {
-        v39 = 0;
+        v38 = 0;
       }
 
       else
       {
         v14 = MEMORY[0x1E692C460](0, v12, 0);
-        v39 = v14;
+        v38 = v14;
         if (v14)
         {
           v15 = MEMORY[0x1E692C4C0](0, *MEMORY[0x1E695EB28], v14);
-          v44.fString.fRef = v15;
+          v43.fString.fRef = v15;
           if (v15)
           {
             v16 = CFGetTypeID(v15);
             if (v16 == CFBooleanGetTypeID())
             {
-              v17 = IsEqual(v44.fString.fRef, *MEMORY[0x1E695E4D0]);
+              v17 = IsEqual(v43.fString.fRef, *MEMORY[0x1E695E4D0]);
               *a3 = v17;
               TFSInfo::SetAliasIsContainer(this, v17);
             }
           }
 
-          v18 = MEMORY[0x1E692C4C0](0, *MEMORY[0x1E695EB98], v39);
+          v18 = MEMORY[0x1E692C4C0](0, *MEMORY[0x1E695EB98], v38);
           cf1 = v18;
           if (v18)
           {
@@ -4193,23 +3892,23 @@ uint64_t TFSInfo::GetAliasInfoFrom(TFSInfo *this, BOOL *a2, BOOL *a3, TString *a
             }
           }
 
-          v20 = MEMORY[0x1E692C4C0](0, *MEMORY[0x1E695EA18], v39);
-          v37 = v20;
+          v20 = MEMORY[0x1E692C4C0](0, *MEMORY[0x1E695EA18], v38);
+          v36 = v20;
           if (v20)
           {
             v21 = CFGetTypeID(v20);
             TypeID = CFStringGetTypeID();
             if (a4)
             {
-              if (v21 == TypeID && a4->fString.fRef != v37)
+              if (v21 == TypeID && a4->fString.fRef != v36)
               {
-                TString::SetStringRefAsImmutable(a4, v37);
+                TString::SetStringRefAsImmutable(a4, v36);
               }
             }
           }
 
-          v23 = MEMORY[0x1E692C4C0](0, *MEMORY[0x1E695EBE8], v39);
-          v36 = v23;
+          v23 = MEMORY[0x1E692C4C0](0, *MEMORY[0x1E695EBE8], v38);
+          v35 = v23;
           if (v23)
           {
             v24 = CFGetTypeID(v23);
@@ -4218,9 +3917,9 @@ uint64_t TFSInfo::GetAliasInfoFrom(TFSInfo *this, BOOL *a2, BOOL *a3, TString *a
             {
               if (v24 == v25)
               {
-                if (a5->fString.fRef != v36)
+                if (a5->fString.fRef != v35)
                 {
-                  TString::SetStringRefAsImmutable(a5, v36);
+                  TString::SetStringRefAsImmutable(a5, v35);
                 }
 
                 v26 = TString::EndsWith(a5, TFSInfo::GetAliasInfoFrom(BOOL &,BOOL &,TString *,TString *)const::burnFolderExtension);
@@ -4229,28 +3928,25 @@ uint64_t TFSInfo::GetAliasInfoFrom(TFSInfo *this, BOOL *a2, BOOL *a3, TString *a
             }
           }
 
+          TAutoRef<void const*,TRetainReleasePolicy<void const*>>::~TAutoRef(&v35);
           TAutoRef<void const*,TRetainReleasePolicy<void const*>>::~TAutoRef(&v36);
-          TAutoRef<void const*,TRetainReleasePolicy<void const*>>::~TAutoRef(&v37);
           TAutoRef<void const*,TRetainReleasePolicy<void const*>>::~TAutoRef(&cf1);
-          TAutoRef<void const*,TRetainReleasePolicy<void const*>>::~TAutoRef(&v44.fString.fRef);
-          TAutoRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TAutoRef(&v39);
+          TAutoRef<void const*,TRetainReleasePolicy<void const*>>::~TAutoRef(&v43.fString.fRef);
+          TAutoRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TAutoRef(&v38);
 LABEL_26:
-          TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(v45);
-LABEL_41:
-          v27 = 0;
-          goto LABEL_47;
+          TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(v44);
+          return 0;
         }
       }
 
-      TAutoRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TAutoRef(&v39);
-      TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(v45);
-      v27 = 4294959232;
-      goto LABEL_47;
+      TAutoRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TAutoRef(&v38);
+      TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(v44);
+      return 4294959232;
     }
 
-    TFSInfo::Path(this, &v44.fString.fRef);
-    v28 = TString::c_str(&v44);
-    if (readlink(v28, v45, 0x400uLL) == -1)
+    TFSInfo::Path(&v43, this);
+    v28 = TString::c_str(&v43);
+    if (readlink(v28, v44, 0x400uLL) == -1)
     {
       v32 = __error();
       v27 = TCFURLInfo::TranslatePOSIXError(*v32, 0, v33);
@@ -4260,9 +3956,9 @@ LABEL_41:
     {
       *a2 = 0;
       *a3 = 1;
-      if (a4 && &v44 != a4)
+      if (a4 && &v43 != a4)
       {
-        TString::SetStringRefAsImmutable(a4, v44.fString.fRef);
+        TString::SetStringRefAsImmutable(a4, v43.fString.fRef);
       }
 
       if (!a5)
@@ -4270,13 +3966,13 @@ LABEL_41:
         goto LABEL_40;
       }
 
-      TPathName::TPathName(&v39, &v44, TPathName::kPOSIXPathNameSeparator);
-      if (v41 != v40)
+      TPathName::TPathName(&v38, &v43, TPathName::kPOSIXPathNameSeparator);
+      if (v40 != v39)
       {
-        v29 = (v40 + 8 * ((v42 + v43) >> 9));
-        v30 = (v42 + v43) & 0x1FF;
+        v29 = (v39 + 8 * ((v41 + v42) >> 9));
+        v30 = (v41 + v42) & 0x1FF;
         v31 = *v29 + 8 * v30;
-        if (v31 != *(v40 + ((v42 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v42 & 0x1FF))
+        if (v31 != *(v39 + ((v41 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v41 & 0x1FF))
         {
           if (!v30)
           {
@@ -4288,53 +3984,50 @@ LABEL_41:
             TString::SetStringRefAsImmutable(a5, *(v31 - 8));
           }
 
-          std::deque<TString>::~deque[abi:ne200100](&v39);
+          std::deque<TString>::~deque[abi:ne200100](&v38);
 LABEL_40:
-          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v44.fString.fRef);
-          goto LABEL_41;
+          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v43.fString.fRef);
+          return 0;
         }
       }
 
-      std::deque<TString>::~deque[abi:ne200100](&v39);
+      std::deque<TString>::~deque[abi:ne200100](&v38);
       v27 = 4294959234;
     }
 
-    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v44.fString.fRef);
-    goto LABEL_47;
+    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v43.fString.fRef);
+    return v27;
   }
 
-  v27 = 4294959226;
-LABEL_47:
-  v34 = *MEMORY[0x1E69E9840];
-  return v27;
+  return 4294959226;
 }
 
-void sub_1E5722E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E5722E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   std::deque<TString>::~deque[abi:ne200100](va);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va1);
   _Unwind_Resume(a1);
 }
 
-const void **TFSInfo::ReadFolderAdornmentsFromDisk@<X0>(TFSInfo *this@<X0>, uint64_t a2@<X8>)
+const void **TFSInfo::ReadFolderAdornmentsFromDisk@<X0>(uint64_t *__return_ptr a1@<X8>, TFSInfo *this@<X0>)
 {
-  TFSInfo::Path(this, &v15.fString.fRef);
+  TFSInfo::Path(&v15, this);
   v3 = TString::c_str(&v15);
   v4 = DSFolderIconCustomizationXattrName();
-  GetDataForXattr<256ul>(0, 1, v3, v4, &v13);
+  GetDataForXattr<256ul>(&v13, 0, 1, v3, v4);
   v5 = v14;
   if (v14 || !v13)
   {
-    *a2 = 0;
-    *(a2 + 8) = v5;
+    *a1 = 0;
+    *(a1 + 2) = v5;
   }
 
   else
@@ -4355,16 +4048,16 @@ const void **TFSInfo::ReadFolderAdornmentsFromDisk@<X0>(TFSInfo *this@<X0>, uint
       v9 = 0;
     }
 
-    *a2 = v9;
-    *(a2 + 8) = v10;
+    *a1 = v9;
+    *(a1 + 2) = v10;
   }
 
   return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v15.fString.fRef);
 }
 
-void sub_1E5722F90(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, ...)
+void sub_1E5722F90(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
@@ -4451,7 +4144,7 @@ void TFSInfo::SetOperationFractionCompleted(TFSInfo *this, double a2)
     }
 
     os_unfair_lock_lock(Overflow + 18);
-    *&v6[12]._os_unfair_lock_opaque = v8;
+    *(v6 + 6) = v8;
     os_unfair_lock_unlock(v6 + 18);
 
     os_unfair_lock_unlock(this + 26);
@@ -4565,7 +4258,7 @@ void TFSInfo::SetICloudSharePerson(TFSInfo *this, NSPersonNameComponents *a2)
   if (v7 || *(this + 10))
   {
     Overflow = TFSInfo::GetOrCreateOverflow(this);
-    os_unfair_lock_lock((Overflow + 72));
+    os_unfair_lock_lock(Overflow + 18);
     if (v7)
     {
       v5 = *(Overflow + 76);
@@ -4577,15 +4270,15 @@ void TFSInfo::SetICloudSharePerson(TFSInfo *this, NSPersonNameComponents *a2)
       else if (v5 == 3)
       {
         *(Overflow + 76) = 1;
-        *(Overflow + 32) = 0;
+        *(Overflow + 4) = 0;
         *Overflow = 0u;
-        *(Overflow + 16) = 0u;
-        *(Overflow + 32) = 0x80000000;
+        *(Overflow + 1) = 0u;
+        *(Overflow + 8) = 0x80000000;
       }
     }
 
     v6 = *(Overflow + 76);
-    os_unfair_lock_unlock((Overflow + 72));
+    os_unfair_lock_unlock(Overflow + 18);
     if (v6 == 1)
     {
       objc_storeStrong(Overflow, a2);
@@ -4646,7 +4339,7 @@ LABEL_5:
       v11 = TFSInfo::GetFPItem(this);
       v12 = [v11 contentType];
 
-      KindWithoutPlatformFromUTType(v12, &cf);
+      KindWithoutPlatformFromUTType(&cf, v12);
       if (&cf != a2)
       {
         TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&a2->fString.fRef, &cf);
@@ -4684,7 +4377,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  TFSInfo::LocalizedTypeDescription(this, &cf);
+  TFSInfo::LocalizedTypeDescription(&cf, this);
   if (&cf != a2)
   {
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&a2->fString.fRef, &cf);
@@ -4738,7 +4431,7 @@ LABEL_5:
     }
 
     os_unfair_lock_unlock(this + 27);
-    TCFURLInfo::StringProperty(v13, *MEMORY[0x1E695EBD0], &cf);
+    TCFURLInfo::StringProperty(&cf, v13, *MEMORY[0x1E695EBD0]);
     if (&cf != a2)
     {
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&a2->fString.fRef, &cf);
@@ -4760,9 +4453,9 @@ LABEL_5:
   return v9;
 }
 
-uint64_t TFSInfo::GetShortVersion(uint64_t a1, const void **a2)
+uint64_t TFSInfo::GetShortVersion(uint64_t a1, const void **a2, uint64_t a3)
 {
-  VersionMetaData = TFSInfo::FetchVersionMetaData(a1);
+  VersionMetaData = TFSInfo::FetchVersionMetaData(a1, a3);
   os_unfair_lock_lock((a1 + 104));
   cf = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
@@ -4779,12 +4472,12 @@ uint64_t TFSInfo::GetShortVersion(uint64_t a1, const void **a2)
   }
 
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
-  v5 = *a1;
+  v6 = *a1;
   if (*a1)
   {
     cf = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(&cf, *v5);
+    TString::SetStringRefAsImmutable(&cf, *v6);
     if (&cf != a2)
     {
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(a2, &cf);
@@ -4804,25 +4497,25 @@ uint64_t TFSInfo::GetShortVersion(uint64_t a1, const void **a2)
   return VersionMetaData;
 }
 
-void sub_1E5723990(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5723990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
-  os_unfair_lock_unlock(v2 + 26);
+  os_unfair_lock_unlock(v3 + 26);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::GetLongVersion(uint64_t a1, TString *a2)
+uint64_t TFSInfo::GetLongVersion(os_unfair_lock_s *a1, TString *a2, uint64_t a3)
 {
-  VersionMetaData = TFSInfo::FetchVersionMetaData(a1);
-  os_unfair_lock_lock((a1 + 104));
+  VersionMetaData = TFSInfo::FetchVersionMetaData(a1, a3);
+  os_unfair_lock_lock(a1 + 26);
   TString::SetStringRefAsImmutable(a2, 0);
-  v5 = *a1;
-  if (*a1)
+  v6 = *&a1->_os_unfair_lock_opaque;
+  if (*&a1->_os_unfair_lock_opaque)
   {
     cf = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(&cf, *(v5 + 8));
+    TString::SetStringRefAsImmutable(&cf, *(v6 + 8));
     if (&cf != a2)
     {
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&a2->fString.fRef, &cf);
@@ -4838,29 +4531,29 @@ uint64_t TFSInfo::GetLongVersion(uint64_t a1, TString *a2)
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
   }
 
-  os_unfair_lock_unlock((a1 + 104));
+  os_unfair_lock_unlock(a1 + 26);
   return VersionMetaData;
 }
 
-void sub_1E5723A84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5723A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
-  os_unfair_lock_unlock(v2 + 26);
+  os_unfair_lock_unlock(v3 + 26);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::GetSystemVersion(uint64_t a1, TString *a2)
+uint64_t TFSInfo::GetSystemVersion(os_unfair_lock_s *a1, TString *a2, uint64_t a3)
 {
-  VersionMetaData = TFSInfo::FetchVersionMetaData(a1);
-  os_unfair_lock_lock((a1 + 104));
+  VersionMetaData = TFSInfo::FetchVersionMetaData(a1, a3);
+  os_unfair_lock_lock(a1 + 26);
   TString::SetStringRefAsImmutable(a2, 0);
-  v5 = *a1;
-  if (*a1)
+  v6 = *&a1->_os_unfair_lock_opaque;
+  if (*&a1->_os_unfair_lock_opaque)
   {
     cf = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(&cf, *(v5 + 16));
+    TString::SetStringRefAsImmutable(&cf, *(v6 + 16));
     if (&cf != a2)
     {
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&a2->fString.fRef, &cf);
@@ -4876,29 +4569,29 @@ uint64_t TFSInfo::GetSystemVersion(uint64_t a1, TString *a2)
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
   }
 
-  os_unfair_lock_unlock((a1 + 104));
+  os_unfair_lock_unlock(a1 + 26);
   return VersionMetaData;
 }
 
-void sub_1E5723B74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5723B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
-  os_unfair_lock_unlock(v2 + 26);
+  os_unfair_lock_unlock(v3 + 26);
   _Unwind_Resume(a1);
 }
 
-uint64_t TFSInfo::GetCopyrightString(uint64_t a1, TString *a2)
+uint64_t TFSInfo::GetCopyrightString(os_unfair_lock_s *a1, TString *a2, uint64_t a3)
 {
-  VersionMetaData = TFSInfo::FetchVersionMetaData(a1);
-  os_unfair_lock_lock((a1 + 104));
+  VersionMetaData = TFSInfo::FetchVersionMetaData(a1, a3);
+  os_unfair_lock_lock(a1 + 26);
   TString::SetStringRefAsImmutable(a2, 0);
-  v5 = *a1;
-  if (*a1)
+  v6 = *&a1->_os_unfair_lock_opaque;
+  if (*&a1->_os_unfair_lock_opaque)
   {
     cf = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    TString::SetStringRefAsImmutable(&cf, *(v5 + 24));
+    TString::SetStringRefAsImmutable(&cf, *(v6 + 24));
     if (&cf != a2)
     {
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&a2->fString.fRef, &cf);
@@ -4914,30 +4607,30 @@ uint64_t TFSInfo::GetCopyrightString(uint64_t a1, TString *a2)
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
   }
 
-  os_unfair_lock_unlock((a1 + 104));
+  os_unfair_lock_unlock(a1 + 26);
   return VersionMetaData;
 }
 
-void sub_1E5723C64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5723C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
-  os_unfair_lock_unlock(v2 + 26);
+  os_unfair_lock_unlock(v3 + 26);
   _Unwind_Resume(a1);
 }
 
 uint64_t *SFBrowsers(void)
 {
   {
-    std::vector<TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>>::vector[abi:ne200100](SFBrowsers(void)::browsers, 2uLL);
+    std::vector<TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>>::vector[abi:ne200100](&SFBrowsers(void)::browsers, 2uLL);
   }
 
-  return SFBrowsers(void)::browsers;
+  return &SFBrowsers(void)::browsers;
 }
 
-int *SFBrowserLock(void)
+int *SFBrowserLock(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1ECFF4408, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ECFF4408, memory_order_acquire) & 1) == 0)
   {
     SFBrowserLock();
   }
@@ -4964,39 +4657,37 @@ const void **TFSInfo::Finalize(TFSInfo *this)
     {
       if (v7[12] >= 1)
       {
-        v8 = *(v7 + 4);
-        v9 = *(v7 + 5);
         SFBrowserCloseNode();
       }
 
-      v10 = *(v7 + 1);
-      if (v10)
+      v8 = *(v7 + 1);
+      if (v8)
       {
         do
         {
-          v11 = v10;
-          v10 = *v10;
+          v9 = v8;
+          v8 = *v8;
         }
 
-        while (v10);
+        while (v8);
       }
 
       else
       {
         do
         {
-          v11 = *(v7 + 2);
-          v12 = *v11 == v7;
-          v7 = v11;
+          v9 = *(v7 + 2);
+          v10 = *v9 == v7;
+          v7 = v9;
         }
 
-        while (!v12);
+        while (!v10);
       }
 
-      v7 = v11;
+      v7 = v9;
     }
 
-    while (v11 != v6);
+    while (v9 != v6);
   }
 
   std::__tree<std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>,std::__map_value_compare<std::pair<__SFBrowser *,__SFNode *>,std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>,std::less<std::pair<__SFBrowser *,__SFNode *>>,true>,std::allocator<std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>>>::destroy(v5, *(v5 + 8));
@@ -5004,10 +4695,10 @@ const void **TFSInfo::Finalize(TFSInfo *this)
   *(v5 + 16) = 0;
   *v5 = v6;
   os_unfair_lock_unlock(v1);
-  SFBrowserLock();
+  SFBrowserLock(v11, v12);
   os_unfair_lock_lock(&dword_1ECFF43FC);
   SFBrowsers();
-  v13 = SFBrowsers(void)::browsers[0];
+  v13 = SFBrowsers(void)::browsers;
   v14 = unk_1ECFF48A0;
   while (v13 != v14)
   {
@@ -5034,11 +4725,12 @@ const void **TFSInfo::Finalize(TFSInfo *this)
   return TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TRef(&v17);
 }
 
-void sub_1E5723E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
+void sub_1E5723E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   os_unfair_lock_unlock(&dword_1ECFF43FC);
   TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TRef(&a9);
-  TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TRef(&a10);
+  TRef<__SFBrowser *,TRetainReleasePolicy<__SFBrowser *>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
@@ -5068,9 +4760,9 @@ CFIndex TFSInfo::SetResourcePropertyForKey(TFSInfo *this, const __CFString *a2, 
   return v5;
 }
 
-void sub_1E5723FD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5723FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TAutoRef<__CFError *,TRetainReleasePolicy<__CFError *>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
@@ -5105,9 +4797,9 @@ CFIndex TFSInfo::SetProperty(TFSInfo *this, const __CFString *a2, const __CFStri
   return v8;
 }
 
-void sub_1E5724080(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5724080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -5130,9 +4822,9 @@ CFIndex TFSInfo::SetTimeProperty(TFSInfo *this, const __CFString *a2, CFAbsolute
   return v6;
 }
 
-void sub_1E5724108(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5724108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TAutoRef<__CFDate const*,TRetainReleasePolicy<__CFDate const*>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
@@ -5200,9 +4892,9 @@ uint64_t TFSInfo::SameIdentity(TFSInfo *this, TFSInfo **a2)
   return TFSInfo::Equal(this, a2);
 }
 
-void sub_1E572432C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E572432C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -5290,9 +4982,9 @@ void *TFSInfo::CopyParentPathURL(TFSInfo *this)
   }
 }
 
-void sub_1E572455C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E572455C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -5503,9 +5195,9 @@ uint64_t TFSInfo::IsLocation(TFSInfo *this)
   return IsLocation;
 }
 
-void sub_1E57247C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E57247C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -5707,7 +5399,7 @@ uint64_t TFSInfo::IsDropBox(TFSInfo *this)
   return v5;
 }
 
-CFIndex TFSInfo::GetVolumeInfoRecord(uint64_t a1, uint64_t a2)
+CFIndex TFSInfo::GetVolumeInfoRecord(uint64_t a1, unsigned int *a2)
 {
   v3 = *(a1 + 8);
   if (v3)
@@ -5726,16 +5418,16 @@ CFIndex TFSInfo::GetVolumeInfoRecord(uint64_t a1, uint64_t a2)
   return VolumeInfoRecord;
 }
 
-void sub_1E5725110(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5725110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TAutoRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t TFSInfo::Delete(TFSInfo *this, int a2, char a3)
 {
-  TFSInfo::Path(this, &theString);
+  TFSInfo::Path(&theString, this);
   if (CFStringGetLength(theString))
   {
     os_unfair_lock_lock(this + 27);
@@ -5843,9 +5535,9 @@ LABEL_12:
   return v6;
 }
 
-void sub_1E5725364(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5725364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
@@ -5865,28 +5557,28 @@ const void ***std::unique_ptr<TFSIterator>::~unique_ptr[abi:ne200100](const void
   return a1;
 }
 
-uint64_t TFSInfo::CreateDirectory(TFSInfo *a1, const TString *a2, TString *a3)
+uint64_t TFSInfo::CreateDirectory(TFSInfo *a1, const TString *a2, TString *a3, uint64_t a4)
 {
-  TFSInfo::Path(a1, &theString);
+  TFSInfo::Path(&theString, a1);
   if (CFStringGetLength(theString))
   {
-    v10.fString.fRef = &stru_1F5F42870;
+    v11.fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    UniqueName = TFSInfo::CreateDirectory(&theString, a2, &v10, v5);
+    UniqueName = TFSInfo::CreateDirectory(&theString, a2, &v11, v6);
     if (a3)
     {
       TUniqueNamer::SetSeed(a3, a2, a2);
       while (UniqueName == -48)
       {
-        *&v9 = &stru_1F5F42870;
+        *&v10 = &stru_1F5F42870;
         CFRetain(&stru_1F5F42870);
-        UniqueName = TUniqueNamer::NextUniqueName(a3, &v9);
+        UniqueName = TUniqueNamer::NextUniqueName(a3, &v10);
         if (!UniqueName)
         {
-          UniqueName = TFSInfo::CreateDirectory(&theString, &v9, &v10, v7);
+          UniqueName = TFSInfo::CreateDirectory(&theString, &v10, &v11, v8);
         }
 
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v9);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v10);
       }
     }
 
@@ -5895,7 +5587,7 @@ uint64_t TFSInfo::CreateDirectory(TFSInfo *a1, const TString *a2, TString *a3)
       _ZNSt3__115allocate_sharedB8ne200100I7TFSInfoNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
     }
 
-    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v10.fString.fRef);
+    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v11.fString.fRef);
   }
 
   else
@@ -5907,11 +5599,11 @@ uint64_t TFSInfo::CreateDirectory(TFSInfo *a1, const TString *a2, TString *a3)
   return UniqueName;
 }
 
-void sub_1E5725528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E5725528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, const void *);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, const void *);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va1);
   _Unwind_Resume(a1);
@@ -5919,7 +5611,7 @@ void sub_1E5725528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 TCFURLInfo *TFSInfo::CreateDirectory(TFSInfo *this, const TString *a2, TString *a3, TString *a4)
 {
-  AppendPath(this, a2, &cf);
+  AppendPath(&cf, this, a2);
   if (&cf != a3)
   {
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&a3->fString.fRef, &cf);
@@ -5954,7 +5646,7 @@ uint64_t TFSInfo::MoveAndRenameTo(uint64_t a1, TFSInfo **a2, TString **a3, TStri
   TString::SetStringRefAsImmutable(this, 0);
   if ((TCFURLInfo::GetBooleanProperty(*(a1 + 8), *MEMORY[0x1E695E340], v8) & 1) == 0)
   {
-    TFSInfo::Path(a1, &theString);
+    TFSInfo::Path(&theString, a1);
     if (!CFStringGetLength(theString))
     {
       v9 = 4294959238;
@@ -5963,7 +5655,7 @@ LABEL_27:
       return v9;
     }
 
-    TFSInfo::Path(*a2, &v23);
+    TFSInfo::Path(&v23, *a2);
     if (!CFStringGetLength(v23))
     {
       v9 = 4294959238;
@@ -5995,8 +5687,8 @@ LABEL_25:
 
     if (CFStringGetLength(v21))
     {
-      SlashesToColons(&v21, &v19);
-      AppendPath(&v23, &v19, &v20);
+      SlashesToColons(&v19, &v21);
+      AppendPath(&v20, &v23, &v19);
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v19.fString.fRef);
       v10 = TString::c_str(&v20);
       if (strlen(v10) < 0x400)
@@ -6046,17 +5738,17 @@ LABEL_24:
   return 4294959217;
 }
 
-void sub_1E5725818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E5725818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va3, a3);
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va3, a5);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v8 = va_arg(va3, const void *);
+  v10 = va_arg(va3, const void *);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va1);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va2);
@@ -6089,7 +5781,7 @@ uint64_t TFSInfo::TriggerMount(TFSInfo *this)
     return 0;
   }
 
-  TFSInfo::Path(this, &theString);
+  TFSInfo::Path(&theString, this);
   if (CFStringGetLength(theString))
   {
     v4 = TString::c_str(&theString);
@@ -6116,31 +5808,31 @@ uint64_t TFSInfo::TriggerMount(TFSInfo *this)
   return v3;
 }
 
-void sub_1E5725A04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5725A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
 TString *TFSInfo::CopyTagsForPath(TFSInfo *this)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 27);
   v2 = *(this + 2);
-  v27 = v2;
+  v26 = v2;
   if (v2)
   {
     CFRetain(v2);
     os_unfair_lock_unlock(this + 27);
-    v26 = 0;
-    if (([v27 isFileURL] & 1) == 0)
+    v25 = 0;
+    if (([v26 isFileURL] & 1) == 0)
     {
       v3 = 0;
       goto LABEL_24;
     }
 
-    v3 = [v27 path];
+    v3 = [v26 path];
     theString = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
     TString::SetStringRefAsImmutable(&theString, v3);
@@ -6149,7 +5841,7 @@ TString *TFSInfo::CopyTagsForPath(TFSInfo *this)
     {
 LABEL_20:
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&theString);
-      v14 = cf_cast<__CFArray const*,void const*>(v26);
+      v14 = cf_cast<__CFArray const*,void const*>(v25);
       v3 = v14;
       if (v14)
       {
@@ -6163,28 +5855,28 @@ LABEL_20:
 
     std::vector<unsigned char>::vector[abi:ne200100](&bytes, 256);
     v4 = TString::c_str(&theString);
-    v5 = getxattr(v4, "com.apple.metadata:_kMDItemUserTags", bytes, v24 - bytes, 0, 1);
+    v5 = getxattr(v4, "com.apple.metadata:_kMDItemUserTags", bytes, v23 - bytes, 0, 1);
     if (v5 >= 1)
     {
       v3 = *MEMORY[0x1E695E480];
-      v22 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], bytes, v5, *MEMORY[0x1E695E498]);
-      v26 = CFPropertyListCreateWithData(v3, v22, 0, 0, 0);
-      if (cf_cast<__CFDictionary const*,void const*>(v26))
+      v21 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], bytes, v5, *MEMORY[0x1E695E498]);
+      v25 = CFPropertyListCreateWithData(v3, v21, 0, 0, 0);
+      if (cf_cast<__CFDictionary const*,void const*>(v25))
       {
         {
-          v17 = MEMORY[0x1E695DFD8];
+          v16 = MEMORY[0x1E695DFD8];
+          v17 = objc_opt_class();
           v18 = objc_opt_class();
           v19 = objc_opt_class();
-          v20 = objc_opt_class();
-          TFSInfo::CopyTagsForPath(void)const::classes = [v17 setWithObjects:{v18, v19, v20, objc_opt_class(), 0}];
+          TFSInfo::CopyTagsForPath(void)const::classes = [v16 setWithObjects:{v17, v18, v19, objc_opt_class(), 0}];
         }
 
         v6 = MEMORY[0x1E696ACD0];
         v7 = TFSInfo::CopyTagsForPath(void)const::classes;
-        v8 = v22;
-        v21 = 0;
-        v9 = [v6 unarchivedObjectOfClasses:v7 fromData:v8 error:&v21];
-        v10 = v21;
+        v8 = v21;
+        v20 = 0;
+        v9 = [v6 unarchivedObjectOfClasses:v7 fromData:v8 error:&v20];
+        v10 = v20;
         v3 = objc_cast<NSArray<FPItem *>,objc_object * {__strong}>(v9);
 
         if (v3)
@@ -6199,24 +5891,24 @@ LABEL_20:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v29 = v10;
+            v28 = v10;
             _os_log_impl(&dword_1E5674000, v13, OS_LOG_TYPE_ERROR, "Failed to unarchive tag array: %@", buf, 0xCu);
           }
         }
 
-        TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TRef(&v22);
+        TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TRef(&v21);
         v12 = 0;
         goto LABEL_17;
       }
 
-      TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TRef(&v22);
+      TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TRef(&v21);
     }
 
     v12 = 1;
 LABEL_17:
     if (bytes)
     {
-      v24 = bytes;
+      v23 = bytes;
       operator delete(bytes);
     }
 
@@ -6227,15 +5919,14 @@ LABEL_17:
 
     TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&theString);
 LABEL_24:
-    TAutoRef<void const*,TRetainReleasePolicy<void const*>>::~TAutoRef(&v26);
+    TAutoRef<void const*,TRetainReleasePolicy<void const*>>::~TAutoRef(&v25);
     goto LABEL_25;
   }
 
   os_unfair_lock_unlock(this + 27);
   v3 = 0;
 LABEL_25:
-  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v27);
-  v15 = *MEMORY[0x1E69E9840];
+  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v26);
   return v3;
 }
 
@@ -6334,30 +6025,31 @@ void sub_1E572603C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-const void **TFSInfo::Rename@<X0>(TFSInfo *this@<X0>, const TString *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void TFSInfo::Rename(TFSInfo *this@<X0>, TString *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   *a4 = &stru_1F5F42870;
-  result = CFRetain(&stru_1F5F42870);
+  CFRetain(&stru_1F5F42870);
   *(a4 + 8) = 0;
-  v9 = *(this + 120);
-  if (v9 > 0x15)
+  v8 = *(this + 120);
+  if (v8 > 0x15)
   {
-    if (v9 == 22 || v9 == 35)
+    if (v8 == 22 || v8 == 35)
     {
-      return TFSInfo::SetItemName(this, a2);
+      goto LABEL_8;
     }
   }
 
   else if (*(this + 120))
   {
-    if (v9 == 1)
+    if (v8 == 1)
     {
       TFSInfo::Name(this, &cf1);
-      v10 = CFEqual(cf1, a2->fString.fRef);
-      result = TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf1);
-      if (!v10)
+      v9 = CFEqual(cf1, a2->fString.fRef);
+      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf1);
+      if (!v9)
       {
-        return TFSInfo::SetItemName(this, a2);
+LABEL_8:
+        TFSInfo::SetItemName(this, a2);
       }
     }
   }
@@ -6365,9 +6057,9 @@ const void **TFSInfo::Rename@<X0>(TFSInfo *this@<X0>, const TString *a2@<X1>, in
   else
   {
     TFSInfo::Name(this, &cf1);
-    v11 = CFEqual(cf1, a2->fString.fRef);
-    result = TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf1);
-    if (!v11)
+    v10 = CFEqual(cf1, a2->fString.fRef);
+    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf1);
+    if (!v10)
     {
       _ZNSt3__115allocate_sharedB8ne200100I7TFSInfoNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
     }
@@ -6382,8 +6074,6 @@ const void **TFSInfo::Rename@<X0>(TFSInfo *this@<X0>, const TString *a2@<X1>, in
       *(a4 + 8) = -8057;
     }
   }
-
-  return result;
 }
 
 CFIndex TFSInfo::SetType(TFSInfo *this, unsigned int a2)
@@ -6440,7 +6130,7 @@ CFIndex TFSInfo::SetIsExtensionHidden(TFSInfo *this, int a2)
   return TFSInfo::SetProperty(this, v6, v8);
 }
 
-void TPropertyReference::As<NSObject * {__strong}>(id **a1@<X0>, uint64_t a2@<X8>)
+void TPropertyReference::As<NSObject * {__strong}>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = 0;
   TPropertyReference::As<NSObject * {__strong}>(a1, &v2, a2);
@@ -6781,18 +6471,18 @@ uint64_t TFSInfo::SetIsIncomplete(TFSInfo *this, int a2)
   return 0;
 }
 
-void sub_1E57269F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E57269F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, const void *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, std::__shared_weak_count *);
-  os_unfair_lock_unlock(v3 + 27);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v7 = va_arg(va1, const void *);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, std::__shared_weak_count *);
+  os_unfair_lock_unlock(v5 + 27);
   TAutoRef<__CFDictionary *,TRetainReleasePolicy<__CFDictionary *>>::~TAutoRef(va);
-  if (v8)
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   TAutoRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TAutoRef(va1);
@@ -6801,15 +6491,18 @@ void sub_1E57269F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 
 uint64_t TFSInfo::GetExtendedFinderInfo(TFSInfo *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  if (*(this + 120) != 29)
+  v6 = *MEMORY[0x1E69E9840];
+  if (*(this + 120) == 29)
   {
-    TCFURLInfo::CopyPropertyValues(*(this + 1));
+    return 0;
   }
 
-  result = 0;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = 0u;
+  v5 = 0u;
+  memset(v3, 0, sizeof(v3));
+  v2 = 0;
+  TCFURLInfo::CopyPropertyValues(*(this + 1), 2048, &v2, v3);
+  return *(&v4 + 1);
 }
 
 CFIndex TFSInfo::SetTotalFinderInfo(TFSInfo *a1, const UInt8 *a2)
@@ -6820,14 +6513,14 @@ CFIndex TFSInfo::SetTotalFinderInfo(TFSInfo *a1, const UInt8 *a2)
   return v3;
 }
 
-void sub_1E5726B44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5726B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TAutoRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t TFSInfo::HasBeenInited(TFSInfo *this)
+uint64_t TFSInfo::HasBeenInited(TFSInfo *this)
 {
   os_unfair_lock_lock(this + 27);
   v2 = *(this + 123);
@@ -6908,7 +6601,7 @@ LABEL_26:
         v18 = *(this + 10);
         if (v18)
         {
-          TFSInfoOverflow::FolderSizeRecord(v18, v19);
+          TFSInfoOverflow::FolderSizeRecord(v19, v18);
           if (v20)
           {
             v6 = v19[0];
@@ -6952,22 +6645,25 @@ void sub_1E5726DB8(_Unwind_Exception *a1)
 
 uint64_t TFSInfo::GetDataLogicalSize(TFSInfo *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 27);
   v3 = *(this + 123);
   os_unfair_lock_unlock(this + 27);
   if ((v3 & 0x2000000) != 0)
   {
-    goto LABEL_6;
+    return -1;
   }
 
   v4 = TFSInfo::GetFPItem(this);
   if (!v4)
   {
-    TCFURLInfo::CopyPropertyValues(*(this + 1));
-LABEL_6:
-    v8 = -1;
-    goto LABEL_11;
+    v10 = 0;
+    if (!TCFURLInfo::CopyPropertyValues(*(this + 1), 128, &v10, v11) && (v10 & 0x80) != 0)
+    {
+      return v12;
+    }
+
+    return -1;
   }
 
   v5 = v4;
@@ -6988,34 +6684,35 @@ LABEL_6:
     v8 = -2;
   }
 
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t TFSInfo::GetResourceLogicalSize(TFSInfo *this)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 27);
   v2 = *(this + 123);
   os_unfair_lock_unlock(this + 27);
   if ((v2 & 0x2000000) != 0)
   {
-    goto LABEL_5;
+    return -1;
   }
 
-  if ((*(this + 120) & 0xFE) != 0x1C)
+  if ((*(this + 120) & 0xFE) == 0x1C)
   {
-    TCFURLInfo::CopyPropertyValues(*(this + 1));
-LABEL_5:
-    result = -1;
-    goto LABEL_6;
+    return 0;
   }
 
-  result = 0;
-LABEL_6:
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = 0;
+  if (TCFURLInfo::CopyPropertyValues(*(this + 1), 512, &v4, v5) || (v4 & 0x200) == 0)
+  {
+    return -1;
+  }
+
+  else
+  {
+    return v6;
+  }
 }
 
 uint64_t TFSInfo::GetPhysicalSize(TFSInfo *this)
@@ -7056,10 +6753,10 @@ uint64_t TFSInfo::GetPhysicalSize(TFSInfo *this)
     v11 = *(this + 10);
     if (v11)
     {
-      TFSInfoOverflow::FolderSizeRecord(v11, v12);
-      if (v14)
+      TFSInfoOverflow::FolderSizeRecord(v12, v11);
+      if (v13)
       {
-        v4 = v13;
+        v4 = v12[1];
       }
 
       else
@@ -7085,61 +6782,62 @@ uint64_t TFSInfo::GetPhysicalSize(TFSInfo *this)
 
 uint64_t TFSInfo::GetResourcePhysicalSize(TFSInfo *this)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 27);
   v2 = *(this + 123);
   os_unfair_lock_unlock(this + 27);
   if ((v2 & 0x2000000) != 0)
   {
-    goto LABEL_7;
+    return -1;
   }
 
   if ((*(this + 120) & 0xFE) != 0x1C)
   {
-    TCFURLInfo::CopyPropertyValues(*(this + 1));
-LABEL_7:
-    result = -1;
-    v5 = *MEMORY[0x1E69E9840];
-    return result;
-  }
+    v4 = 0;
+    if (!TCFURLInfo::CopyPropertyValues(*(this + 1), 1024, &v4, v5) && (v4 & 0x400) != 0)
+    {
+      return v6;
+    }
 
-  v3 = *MEMORY[0x1E69E9840];
+    return -1;
+  }
 
   return TFSInfo::GetResourceLogicalSize(this);
 }
 
 uint64_t TFSInfo::GetDataPhysicalSize(TFSInfo *this)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 27);
   v2 = *(this + 123);
   os_unfair_lock_unlock(this + 27);
   if ((v2 & 0x2000000) != 0)
   {
-    goto LABEL_7;
+    return -1;
   }
 
   if ((*(this + 120) & 0xFE) != 0x1C)
   {
-    TCFURLInfo::CopyPropertyValues(*(this + 1));
-LABEL_7:
-    result = -1;
-    v5 = *MEMORY[0x1E69E9840];
-    return result;
-  }
+    v4 = 0;
+    if (!TCFURLInfo::CopyPropertyValues(*(this + 1), 256, &v4, v5) && (v4 & 0x100) != 0)
+    {
+      return v6;
+    }
 
-  v3 = *MEMORY[0x1E69E9840];
+    return -1;
+  }
 
   return TFSInfo::GetDataLogicalSize(this);
 }
 
 uint64_t TFSInfo::LabelColorForTagName(TFSInfo *this, const TString *a2)
 {
-  buf[3] = *MEMORY[0x1E69E9840];
-  v3 = UserTagsMap();
+  v2 = this;
+  v24 = *MEMORY[0x1E69E9840];
+  v3 = UserTagsMap(this, a2);
   v5 = v4;
   std::mutex::lock(v4);
-  v6 = std::__hash_table<std::__hash_value_type<TString,TProgressInfo>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,TProgressInfo>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,TProgressInfo>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,TProgressInfo>>>::find<TString>(v3, this);
+  v6 = std::__hash_table<std::__hash_value_type<TString,TProgressInfo>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,TProgressInfo>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,TProgressInfo>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,TProgressInfo>>>::find<TString>(v3, v2);
   if (!v6)
   {
     if (v3[3].isa)
@@ -7161,7 +6859,7 @@ uint64_t TFSInfo::LabelColorForTagName(TFSInfo *this, const TString *a2)
             v11 = 0;
           }
 
-          v12 = RetainCF<__CFString const*>(this);
+          v12 = RetainCF<__CFString const*>(&v2->fString.fRef);
           if (v12)
           {
             v13 = CFAutorelease(v12);
@@ -7185,34 +6883,34 @@ uint64_t TFSInfo::LabelColorForTagName(TFSInfo *this, const TString *a2)
           }
         }
 
-        *v20 = &stru_1F5F42870;
+        *v19 = &stru_1F5F42870;
         CFRetain(&stru_1F5F42870);
-        TString::SetStringRefAsImmutable(v20, *(isa + 2));
-        v21 = *(isa + 12);
-        v22 = 1;
-        v19.fString.fRef = &stru_1F5F42870;
+        TString::SetStringRefAsImmutable(v19, *(isa + 2));
+        v20 = *(isa + 12);
+        v21 = 1;
+        v18.fString.fRef = &stru_1F5F42870;
         CFRetain(&stru_1F5F42870);
-        TString::SetStringRefAsImmutable(&v19, *this);
-        v16 = v21;
-        buf[0] = &v19;
-        *(std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::__emplace_unique_key_args<TString,std::piecewise_construct_t const&,std::tuple<TString const&>,std::tuple<>>(v3, &v19) + 12) = v16;
-        LOBYTE(v3) = v21;
-        LODWORD(this) = HIBYTE(v21);
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v19.fString.fRef);
+        TString::SetStringRefAsImmutable(&v18, v2->fString.fRef);
+        v16 = v20;
+        *buf = &v18;
+        *(std::__hash_table<std::__hash_value_type<TString,short>,std::__unordered_map_hasher<TString,std::__hash_value_type<TString,short>,std::hash<TString>,std::equal_to<TString>,true>,std::__unordered_map_equal<TString,std::__hash_value_type<TString,short>,std::equal_to<TString>,std::hash<TString>,true>,std::allocator<std::__hash_value_type<TString,short>>>::__emplace_unique_key_args<TString,std::piecewise_construct_t const&,std::tuple<TString const&>,std::tuple<>>(v3, &v18, &std::piecewise_construct, buf, &v22) + 12) = v16;
+        LOBYTE(v3) = v20;
+        LODWORD(v2) = HIBYTE(v20);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v18.fString.fRef);
         v15 = 1;
       }
 
       else
       {
 LABEL_14:
-        v20[0] = 0;
-        v22 = 0;
+        v19[0] = 0;
+        v21 = 0;
         v3 = LogObj(5);
         if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
         {
-          this = *this;
-          LODWORD(buf[0]) = 138412290;
-          *(buf + 4) = this;
+          v2 = v2->fString.fRef;
+          *buf = 138412290;
+          *&buf[4] = v2;
           _os_log_impl(&dword_1E5674000, v3, OS_LOG_TYPE_ERROR, "Unable to find label color for tag name %@", buf, 0xCu);
         }
 
@@ -7220,9 +6918,9 @@ LABEL_14:
         LOBYTE(v3) = 0;
       }
 
-      if (v22 == 1)
+      if (v21 == 1)
       {
-        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v20);
+        TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v19);
       }
 
       if (v15)
@@ -7233,11 +6931,11 @@ LABEL_14:
 
     else
     {
-      this = LogObj(5);
-      if (os_log_type_enabled(this, OS_LOG_TYPE_DEBUG))
+      v2 = LogObj(5);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
-        *v20 = 0;
-        _os_log_impl(&dword_1E5674000, this, OS_LOG_TYPE_DEBUG, "Tag/color name mapping is empty", v20, 2u);
+        *v19 = 0;
+        _os_log_impl(&dword_1E5674000, v2, OS_LOG_TYPE_DEBUG, "Tag/color name mapping is empty", v19, 2u);
       }
     }
 
@@ -7247,13 +6945,12 @@ LABEL_14:
   }
 
   LODWORD(v3) = *(v6 + 12);
-  LODWORD(this) = v3 >> 8;
+  LODWORD(v2) = v3 >> 8;
 LABEL_3:
   v7 = 0x10000;
 LABEL_25:
   std::mutex::unlock(v5);
-  v17 = *MEMORY[0x1E69E9840];
-  return v3 | (this << 8) | v7;
+  return v3 | (v2 << 8) | v7;
 }
 
 void sub_1E572756C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, const void *a11, uint64_t a12, char a13)
@@ -7291,9 +6988,9 @@ CFIndex TFSInfo::SetModeDetails(TFSInfo *this, mode_t a2)
   return v5;
 }
 
-void sub_1E5727670(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5727670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TAutoRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>::~TAutoRef(va);
   _Unwind_Resume(a1);
 }
@@ -7897,7 +7594,7 @@ uint64_t TFSInfo::GetHasAnyVisibleChildren(TFSInfo *this, const __CFURL *a2)
 uint64_t TFSInfo::GetFlatItemCount(TFSInfo *this, const __CFURL *a2, const __CFString *a3)
 {
   v3 = a3;
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (*(this + 120) == 29)
   {
     v5 = TFSInfo::GetFPItem(this);
@@ -7916,16 +7613,16 @@ uint64_t TFSInfo::GetFlatItemCount(TFSInfo *this, const __CFURL *a2, const __CFS
         v8 = v7;
       }
 
-      goto LABEL_26;
+      return v8;
     }
 
-    v21 = LogObj(4);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = LogObj(4);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = TFSInfo::GetFPItem(this);
-      *v27 = 138543362;
-      *&v27[4] = v22;
-      _os_log_impl(&dword_1E5674000, v21, OS_LOG_TYPE_ERROR, "Failed to get item count for FPv2 directory: %{public}@", v27, 0xCu);
+      v21 = TFSInfo::GetFPItem(this);
+      *v25 = 138543362;
+      *&v25[4] = v21;
+      _os_log_impl(&dword_1E5674000, v20, OS_LOG_TYPE_ERROR, "Failed to get item count for FPv2 directory: %{public}@", v25, 0xCu);
     }
 
     goto LABEL_25;
@@ -7938,12 +7635,12 @@ uint64_t TFSInfo::GetFlatItemCount(TFSInfo *this, const __CFURL *a2, const __CFS
     if (v12)
     {
       v14 = [v12 providerDomainID];
-      *v27 = &stru_1F5F42870;
+      *v25 = &stru_1F5F42870;
       CFRetain(&stru_1F5F42870);
-      TString::SetStringRefAsImmutable(v27, v14);
+      TString::SetStringRefAsImmutable(v25, v14);
 
-      v15 = IsICloudDriveDomainID(v27);
-      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v27);
+      v15 = IsICloudDriveDomainID(v25);
+      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(v25);
 
       if (v15)
       {
@@ -7958,27 +7655,26 @@ uint64_t TFSInfo::GetFlatItemCount(TFSInfo *this, const __CFURL *a2, const __CFS
           v8 = -2;
         }
 
-        goto LABEL_26;
+        return v8;
       }
     }
 
-    v21 = LogObj(4);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = LogObj(4);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(this + 1);
-      v24 = SanitizedURL(v23);
-      v25 = TFSInfo::GetFPItem(this);
-      *v27 = 138543618;
-      *&v27[4] = v24;
-      v28 = 2114;
-      v29 = v25;
-      _os_log_impl(&dword_1E5674000, v21, OS_LOG_TYPE_ERROR, "Failed to get item count for dataless directory: %{public}@, fpItem: %{public}@", v27, 0x16u);
+      v22 = *(this + 1);
+      v23 = SanitizedURL(v22);
+      v24 = TFSInfo::GetFPItem(this);
+      *v25 = 138543618;
+      *&v25[4] = v23;
+      v26 = 2114;
+      v27 = v24;
+      _os_log_impl(&dword_1E5674000, v20, OS_LOG_TYPE_ERROR, "Failed to get item count for dataless directory: %{public}@, fpItem: %{public}@", v25, 0x16u);
     }
 
 LABEL_25:
 
-    v8 = -2;
-    goto LABEL_26;
+    return -2;
   }
 
   if ((a2 & 1) == 0)
@@ -7986,85 +7682,79 @@ LABEL_25:
     v10 = TCFURLInfo::GetFlatItemDirEntryCount(*(this + 1), 0);
     if (v11)
     {
-      v8 = v10;
-LABEL_26:
-      v26 = *MEMORY[0x1E69E9840];
-      return v8;
+      return v10;
     }
   }
 
   v18 = *(this + 1);
-  v19 = *MEMORY[0x1E69E9840];
 
   return TCFURLInfo::GetFlatItemCountWithIteration(v18, a2, v3);
 }
 
-uint64_t GetDataForXattr<256ul>@<X0>(u_int32_t position@<W2>, int options@<W3>, const char *a3@<X0>, const char *a4@<X1>, uint64_t a5@<X8>)
+uint64_t *GetDataForXattr<256ul>@<X0>(uint64_t *__return_ptr a1@<X8>, u_int32_t position@<W2>, int options@<W3>, const char *a4@<X0>, const char *a5@<X1>)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  memset(v25, 0, 512);
-  v10 = getxattr(a3, a4, v25, 0x100uLL, position, options);
+  v25 = *MEMORY[0x1E69E9840];
+  memset(v24, 0, 512);
+  v10 = getxattr(a4, a5, v24, 0x100uLL, position, options);
   if ((v10 & 0x8000000000000000) == 0)
   {
-    result = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v25 length:v10];
+    result = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v24 length:v10];
 LABEL_3:
-    *a5 = result;
+    *a1 = result;
 LABEL_4:
-    *(a5 + 8) = 0;
-    goto LABEL_5;
+    *(a1 + 2) = 0;
+    return result;
   }
 
-  v13 = *__error();
-  if (v13 == 34)
+  v12 = *__error();
+  if (v12 == 34)
   {
-    v16 = getxattr(a3, a4, 0, 0, position, options);
-    v17 = __error();
-    if (v16 < 0)
+    v15 = getxattr(a4, a5, 0, 0, position, options);
+    v16 = __error();
+    if (v15 < 0)
     {
-      v24 = *v17;
+      v23 = *v16;
     }
 
     else
     {
-      v20 = malloc_type_malloc(v16, 0xAA1F0E95uLL);
-      v21 = getxattr(a3, a4, v20, v16, position, options);
-      v22 = __error();
-      if (v21 > 0)
+      v19 = malloc_type_malloc(v15, 0xAA1F0E95uLL);
+      v20 = getxattr(a4, a5, v19, v15, position, options);
+      v21 = __error();
+      if (v20 > 0)
       {
-        result = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v20 length:v21 freeWhenDone:1];
+        result = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v19 length:v20 freeWhenDone:1];
         goto LABEL_3;
       }
 
-      v24 = *v22;
-      free(v20);
+      v23 = *v21;
+      free(v19);
     }
 
-    result = TCFURLInfo::TranslateXAttrError(v24, v18, v19);
-    *a5 = 0;
-    if (v24 != -1427)
+    result = TCFURLInfo::TranslateXAttrError(v23, v17, v18);
+    *a1 = 0;
+    if (v23 != -1427)
     {
-      *(a5 + 8) = result;
-      goto LABEL_5;
+      *(a1 + 2) = result;
+      return result;
     }
 
     goto LABEL_4;
   }
 
-  result = TCFURLInfo::TranslateXAttrError(v13, v14, v15);
+  result = TCFURLInfo::TranslateXAttrError(v12, v13, v14);
   if (result == -1427)
   {
-    v23 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v23 = result;
+    v22 = result;
   }
 
-  *a5 = 0;
-  *(a5 + 8) = v23;
-LABEL_5:
-  v12 = *MEMORY[0x1E69E9840];
+  *a1 = 0;
+  *(a1 + 2) = v22;
   return result;
 }
 
@@ -8525,14 +8215,14 @@ BOOL TFSInfo::FetchFlatFileVersion(uint64_t a1, TString *a2)
   return v6;
 }
 
-void sub_1E5728694(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E5728694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
+  v6 = va_arg(va2, const void *);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   TAutoRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>::~TAutoRef(va1);
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(va2);
@@ -8543,71 +8233,70 @@ BOOL TFSInfo::FetchPlistVersion(uint64_t a1, TString *a2)
 {
   os_unfair_lock_lock((a1 + 108));
   v4 = *(a1 + 16);
-  v20 = v4;
+  v19 = v4;
   if (v4)
   {
     CFRetain(v4);
     os_unfair_lock_unlock((a1 + 108));
-    v5 = *MEMORY[0x1E695E480];
     Unique = _CFBundleCreateUnique();
     bundle = Unique;
-    v7 = Unique != 0;
+    v6 = Unique != 0;
     if (Unique)
     {
       ValueForInfoDictionaryKey = CFBundleGetValueForInfoDictionaryKey(Unique, @"CFBundleShortVersionString");
-      v9 = ValueForInfoDictionaryKey;
+      v8 = ValueForInfoDictionaryKey;
       if (ValueForInfoDictionaryKey)
       {
-        v10 = CFGetTypeID(ValueForInfoDictionaryKey);
-        if (v10 == CFStringGetTypeID())
+        v9 = CFGetTypeID(ValueForInfoDictionaryKey);
+        if (v9 == CFStringGetTypeID())
         {
-          v18.fString.fRef = &stru_1F5F42870;
+          v17.fString.fRef = &stru_1F5F42870;
           CFRetain(&stru_1F5F42870);
-          TString::SetStringRefAsImmutable(&v18, v9);
-          if (&v18 != a2)
+          TString::SetStringRefAsImmutable(&v17, v8);
+          if (&v17 != a2)
           {
-            TString::SetStringRefAsImmutable(a2, v18.fString.fRef);
+            TString::SetStringRefAsImmutable(a2, v17.fString.fRef);
           }
 
-          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v18.fString.fRef);
+          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v17.fString.fRef);
         }
       }
 
-      v11 = CFBundleGetValueForInfoDictionaryKey(bundle, @"CFBundleGetInfoString");
-      v12 = v11;
-      if (v11)
+      v10 = CFBundleGetValueForInfoDictionaryKey(bundle, @"CFBundleGetInfoString");
+      v11 = v10;
+      if (v10)
       {
-        v13 = CFGetTypeID(v11);
-        if (v13 == CFStringGetTypeID())
+        v12 = CFGetTypeID(v10);
+        if (v12 == CFStringGetTypeID())
         {
-          v18.fString.fRef = &stru_1F5F42870;
+          v17.fString.fRef = &stru_1F5F42870;
           CFRetain(&stru_1F5F42870);
-          TString::SetStringRefAsImmutable(&v18, v12);
-          if (&a2[1] != &v18)
+          TString::SetStringRefAsImmutable(&v17, v11);
+          if (&a2[1] != &v17)
           {
-            TString::SetStringRefAsImmutable(a2 + 1, v18.fString.fRef);
+            TString::SetStringRefAsImmutable(a2 + 1, v17.fString.fRef);
           }
 
-          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v18.fString.fRef);
+          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v17.fString.fRef);
         }
       }
 
-      v14 = CFBundleGetValueForInfoDictionaryKey(bundle, @"NSHumanReadableCopyright");
-      v15 = v14;
-      if (v14)
+      v13 = CFBundleGetValueForInfoDictionaryKey(bundle, @"NSHumanReadableCopyright");
+      v14 = v13;
+      if (v13)
       {
-        v16 = CFGetTypeID(v14);
-        if (v16 == CFStringGetTypeID())
+        v15 = CFGetTypeID(v13);
+        if (v15 == CFStringGetTypeID())
         {
-          v18.fString.fRef = &stru_1F5F42870;
+          v17.fString.fRef = &stru_1F5F42870;
           CFRetain(&stru_1F5F42870);
-          TString::SetStringRefAsImmutable(&v18, v15);
-          if (&a2[3] != &v18)
+          TString::SetStringRefAsImmutable(&v17, v14);
+          if (&a2[3] != &v17)
           {
-            TString::SetStringRefAsImmutable(a2 + 3, v18.fString.fRef);
+            TString::SetStringRefAsImmutable(a2 + 3, v17.fString.fRef);
           }
 
-          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v18.fString.fRef);
+          TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v17.fString.fRef);
         }
       }
     }
@@ -8618,21 +8307,21 @@ BOOL TFSInfo::FetchPlistVersion(uint64_t a1, TString *a2)
   else
   {
     os_unfair_lock_unlock((a1 + 108));
-    v7 = 0;
+    v6 = 0;
   }
 
-  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v20);
-  return v7;
+  TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&v19);
+  return v6;
 }
 
-void sub_1E57288D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E57288D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
+  v6 = va_arg(va2, const void *);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   TAutoRef<__CFBundle *,TRetainReleasePolicy<__CFBundle *>>::~TAutoRef(va1);
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(va2);
@@ -8660,14 +8349,14 @@ BOOL TFSInfo::IsFramework(TFSInfo *this)
   return v3;
 }
 
-void sub_1E57289C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E57289C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(va);
   _Unwind_Resume(a1);
 }
 
-const void *TFSInfo::SFNodeFromSFBrowser(TFSInfo *a1, uint64_t a2, int a3)
+uint64_t TFSInfo::SFNodeFromSFBrowser(TFSInfo *a1, uint64_t a2, int a3)
 {
   v27 = 0;
   if ((a1 - 32) < 2)
@@ -8821,8 +8510,8 @@ uint64_t TFSInfo::BrowserOpenNode(TFSInfo *a1, unint64_t a2, uint64_t a3, uint64
   v10 = TFSInfo::OpenBrowserMap(v9);
   v14[0] = a1;
   v14[1] = a2;
-  v14[3] = v14;
-  v11 = std::__tree<std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>,std::__map_value_compare<std::pair<__SFBrowser *,__SFNode *>,std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>,std::less<std::pair<__SFBrowser *,__SFNode *>>,true>,std::allocator<std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>>>::__emplace_unique_key_args<std::pair<__SFBrowser *,__SFNode *>,std::piecewise_construct_t const&,std::tuple<std::pair<__SFBrowser *,__SFNode *>&&>,std::tuple<>>(v10, v14);
+  v15 = v14;
+  v11 = std::__tree<std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>,std::__map_value_compare<std::pair<__SFBrowser *,__SFNode *>,std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>,std::less<std::pair<__SFBrowser *,__SFNode *>>,true>,std::allocator<std::__value_type<std::pair<__SFBrowser *,__SFNode *>,int>>>::__emplace_unique_key_args<std::pair<__SFBrowser *,__SFNode *>,std::piecewise_construct_t const&,std::tuple<std::pair<__SFBrowser *,__SFNode *>&&>,std::tuple<>>(v10, v14, &std::piecewise_construct, &v15);
   v12 = *(v11 + 48);
   *(v11 + 48) = v12 + 1;
   *a5 = v12 == 0;
@@ -8838,11 +8527,11 @@ uint64_t TFSInfo::BrowserOpenNode(TFSInfo *a1, unint64_t a2, uint64_t a3, uint64
   }
 }
 
-void ___ZN7TFSInfo19SFNodeFromSFBrowserE17FSInfoVirtualTypePK7__CFURLb_block_invoke(uint64_t a1)
+void ___ZN7TFSInfo19SFNodeFromSFBrowserE17FSInfoVirtualTypePK7__CFURLb_block_invoke(void *a1)
 {
   v3 = 0;
-  TFSInfo::BrowserCloseNode(*(a1 + 32), *(a1 + 40), &v3);
-  v2 = *(a1 + 48);
+  TFSInfo::BrowserCloseNode(a1[4], a1[5], &v3);
+  v2 = a1[6];
 
   dispatch_source_cancel(v2);
 }
@@ -8922,7 +8611,7 @@ BOOL TFSInfo::IsBrowserOpen(TFSInfo *a1)
   return v5;
 }
 
-const void *TFSInfo::SFNodeFromURL(uint64_t a1, int a2, char *a3)
+uint64_t TFSInfo::SFNodeFromURL(uint64_t a1, int a2, char *a3)
 {
   v6 = 32;
   result = TFSInfo::SFNodeFromSFBrowser(0x20, a1, a2);
@@ -9229,7 +8918,7 @@ id TFSInfo::ApproximateUTType(TFSInfo *this)
   TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>::~TRef(&theString);
   if (!v4)
   {
-    TFSInfo::ActualSuffix(this, &theString);
+    TFSInfo::ActualSuffix(&theString, this);
     os_unfair_lock_lock(this + 27);
     v5 = *(this + 123);
     os_unfair_lock_unlock(this + 27);
@@ -9266,12 +8955,12 @@ LABEL_12:
   return v4;
 }
 
-uint64_t TFSInfo::FetchVersionMetaData(uint64_t a1)
+uint64_t TFSInfo::FetchVersionMetaData(uint64_t a1, int a2)
 {
   os_unfair_lock_lock((a1 + 108));
-  v2 = *(a1 + 123);
+  v3 = *(a1 + 123);
   os_unfair_lock_unlock((a1 + 108));
-  if ((v2 & 0x10000000) == 0)
+  if ((v3 & 0x10000000) == 0)
   {
     _ZNSt3__111make_uniqueB8ne200100I12TVersionDataJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS3_EEEEDpOT0_();
   }
@@ -9279,9 +8968,9 @@ uint64_t TFSInfo::FetchVersionMetaData(uint64_t a1)
   return 0;
 }
 
-void sub_1E572987C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E572987C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<TVersionData>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -9317,7 +9006,7 @@ uint64_t TFSInfo::GetOldLocation(TFSInfo *this)
   }
 }
 
-unint64_t TFSInfo::GetOldIconOrigin(TFSInfo *this)
+uint64_t TFSInfo::GetOldIconOrigin(TFSInfo *this)
 {
   result = TFSInfo::HasBeenInited(this);
   if (result)
@@ -9745,4 +9434,364 @@ LABEL_45:
     default:
       return 4294959246;
   }
+}
+
+void TFSInfo::CopyICloudSharePersonString(TString *__return_ptr a1@<X8>)
+{
+  v2 = UseFileProviderFramework();
+  v3 = TString::KEmptyString(v2);
+  a1->fString.fRef = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  TString::SetStringRefAsImmutable(a1, *v3);
+}
+
+uint64_t TPropertyReference::SetAs<__CFArray const*>(uint64_t a1, CFTypeRef *a2)
+{
+  v2 = *(a1 + 8);
+  switch(v2)
+  {
+    case 1:
+      if (v2 != 1)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 2:
+      if (v2 != 2)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 3:
+      if (v2 != 3)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 4:
+      if (v2 != 4)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 5:
+      if (v2 != 5)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 6:
+      if (v2 != 6)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 7:
+      if (v2 != 7)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 8:
+      if (v2 != 8)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 9:
+      if (v2 != 9)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 10:
+      if (v2 != 10)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 11:
+      if (v2 == 11)
+      {
+        return 4294959246;
+      }
+
+      goto LABEL_45;
+    case 12:
+      if (v2 != 12)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 13:
+      if (v2 != 13)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 14:
+      if (v2 != 14)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 15:
+      if (v2 != 15)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 16:
+      if (v2 != 16)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 17:
+      if (v2 != 17)
+      {
+        goto LABEL_45;
+      }
+
+      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=(*a1, *a2);
+      return 0;
+    case 18:
+      if (v2 != 18)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 19:
+      if (v2 != 19)
+      {
+        goto LABEL_45;
+      }
+
+      v4 = *a1;
+
+      return TPropertyValue::SetAs<__CFArray const*>(v4, a2);
+    case 20:
+      if (v2 != 20)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 21:
+      if (v2 != 21)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 22:
+      if (v2 != 22)
+      {
+        goto LABEL_45;
+      }
+
+      return 4294959246;
+    case 23:
+      if (v2 != 23)
+      {
+LABEL_45:
+        std::__throw_bad_variant_access[abi:ne200100]();
+      }
+
+      return 4294959246;
+    default:
+      return 4294959246;
+  }
+}
+
+void TFSInfo::FolderStats(TFSInfo *this@<X0>, uint64_t a2@<X8>)
+{
+  os_unfair_lock_lock(this + 26);
+  os_unfair_lock_lock(this + 27);
+  v4 = *(this + 123);
+  os_unfair_lock_unlock(this + 27);
+  if ((v4 & 0x8000000) != 0 && *(this + 10) && (os_unfair_lock_lock(this + 27), v5 = *(this + 123), os_unfair_lock_unlock(this + 27), (v5 & 0x20) != 0))
+  {
+    TFSInfoOverflow::FolderSizeRecord(a2, *(this + 10));
+  }
+
+  else
+  {
+    *a2 = 0;
+    *(a2 + 32) = 0;
+  }
+
+  os_unfair_lock_unlock(this + 26);
+}
+
+void TFSInfoOverflow::FolderSizeRecord(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
+{
+  os_unfair_lock_lock(this + 18);
+  v4 = *&this[10]._os_unfair_lock_opaque;
+  if (v4)
+  {
+    v5 = v4[1];
+    *a1 = *v4;
+    *(a1 + 1) = v5;
+    LOBYTE(v4) = 1;
+  }
+
+  else
+  {
+    *a1 = 0;
+  }
+
+  *(a1 + 32) = v4;
+
+  os_unfair_lock_unlock(this + 18);
+}
+
+const void **TFSInfo::SynchronizeVersionsForce(TString **a1, uint64_t *a2, uint64_t a3)
+{
+  cf1 = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  v19 = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  v18 = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  v17 = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  os_unfair_lock_lock(a1 + 26);
+  v6 = *a1;
+  if (!*a1)
+  {
+    _ZNSt3__111make_uniqueB8ne200100I12TVersionDataJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS3_EEEEDpOT0_();
+  }
+
+  cf = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  TString::SetStringRefAsImmutable(&cf, *v6);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&cf1, &cf);
+  CFRetain(&stru_1F5F42870);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  cf = &stru_1F5F42870;
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
+  v7 = *a1;
+  cf = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  TString::SetStringRefAsImmutable(&cf, *(v7 + 8));
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&v19, &cf);
+  CFRetain(&stru_1F5F42870);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  cf = &stru_1F5F42870;
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
+  v8 = *a1;
+  cf = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  TString::SetStringRefAsImmutable(&cf, *(v8 + 16));
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&v18, &cf);
+  CFRetain(&stru_1F5F42870);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  cf = &stru_1F5F42870;
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
+  v9 = *a1;
+  cf = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  TString::SetStringRefAsImmutable(&cf, *(v9 + 24));
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::operator=<__CFString const*,TRetainReleasePolicy<__CFString const*>>(&v17, &cf);
+  CFRetain(&stru_1F5F42870);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  cf = &stru_1F5F42870;
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
+  os_unfair_lock_unlock(a1 + 26);
+  cf = &stru_1F5F42870;
+  CFRetain(&stru_1F5F42870);
+  ShortVersion = TFSInfo::GetShortVersion(*a2, &cf, 0);
+  if (!ShortVersion && !CFEqual(cf1, cf))
+  {
+    os_unfair_lock_lock(a1 + 26);
+    if (*a1 != &cf)
+    {
+      TString::SetStringRefAsImmutable(*a1, cf);
+    }
+
+    v15 = 1936225906;
+    std::__tree<Property>::__emplace_unique_key_args<Property,Property>(a3, &v15, &v15);
+    os_unfair_lock_unlock(a1 + 26);
+  }
+
+  if (!TFSInfo::GetLongVersion(*a2, &cf, 0) && !CFEqual(v19, cf))
+  {
+    os_unfair_lock_lock(a1 + 26);
+    v11 = *a1 + 1;
+    if (v11 != &cf)
+    {
+      TString::SetStringRefAsImmutable(v11, cf);
+    }
+
+    v15 = 1986359923;
+    std::__tree<Property>::__emplace_unique_key_args<Property,Property>(a3, &v15, &v15);
+    os_unfair_lock_unlock(a1 + 26);
+  }
+
+  if (!TFSInfo::GetSystemVersion(*a2, &cf, 0) && !CFEqual(v18, cf))
+  {
+    os_unfair_lock_lock(a1 + 26);
+    v12 = *a1 + 2;
+    if (v12 != &cf)
+    {
+      TString::SetStringRefAsImmutable(v12, cf);
+    }
+
+    v15 = 1937340018;
+    std::__tree<Property>::__emplace_unique_key_args<Property,Property>(a3, &v15, &v15);
+    os_unfair_lock_unlock(a1 + 26);
+  }
+
+  if (!TFSInfo::GetCopyrightString(*a2, &cf, 0) && !CFEqual(v17, cf))
+  {
+    os_unfair_lock_lock(a1 + 26);
+    v13 = *a1 + 3;
+    if (v13 != &cf)
+    {
+      TString::SetStringRefAsImmutable(v13, cf);
+    }
+
+    v15 = 1668313715;
+    std::__tree<Property>::__emplace_unique_key_args<Property,Property>(a3, &v15, &v15);
+    os_unfair_lock_unlock(a1 + 26);
+  }
+
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v17);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v18);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v19);
+  return TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&cf1);
 }

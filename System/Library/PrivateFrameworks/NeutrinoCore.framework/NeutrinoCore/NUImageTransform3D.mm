@@ -593,7 +593,7 @@ LABEL_14:
 
 - (_OWORD)initWithTransform3D:(float64x2_t *)d
 {
-  a53 = *MEMORY[0x1E69E9840];
+  v136 = *MEMORY[0x1E69E9840];
   v128 = d[1];
   v129 = *d;
   v126 = d[3];
@@ -632,7 +632,7 @@ LABEL_14:
     *(v55 + 17) = v61;
     *(v55 + 14) = v63;
     *(v55 + 15) = v62;
-    v64 = v55 + 16;
+    v64 = (v55 + 16);
     if ((vandq_s8(v57, vdupq_laneq_s64(v57, 1)).u64[0] & 0x8000000000000000) != 0)
     {
       v90 = *v54;
@@ -654,17 +654,17 @@ LABEL_14:
     else
     {
       v65 = d[5];
-      a46 = d[4];
-      a47 = v65;
+      v132 = d[4];
+      v133 = v65;
       v66 = d[7];
-      a48 = d[6];
-      a49 = v66;
+      v134 = d[6];
+      v135 = v66;
       v67 = d[1];
-      buf = *d;
-      a43 = v67;
+      *&a50 = *d;
+      *&a52 = v67;
       v68 = d[3];
-      a44 = d[2];
-      a45 = v68;
+      v130 = d[2];
+      v131 = v68;
       __invert_d4();
       v56[3] = a35;
       v56[4] = a36;
@@ -674,7 +674,7 @@ LABEL_14:
       v56[8] = a40;
       v56[5] = a37;
       v56[6] = a38;
-      v130 = vld2q_f64(d->f64);
+      v137 = vld2q_f64(d->f64);
       v69 = d[2];
       v70 = d[3];
       v71 = d[4];
@@ -691,7 +691,7 @@ LABEL_14:
       v82 = vnegq_f64(v79);
       v83 = vmlaq_f64(vmlaq_f64(vmulq_f64(v69, vmlaq_f64(vmulq_f64(v78, v82), v77, v80)), vmlaq_f64(vmulq_f64(v73, v81), v78, v71), v75), vmlaq_f64(vmulq_f64(v77, vnegq_f64(v71)), v73, v79), v76);
       v84 = vmlaq_f64(vmlaq_f64(vmulq_f64(v70, vmlaq_f64(vmulq_f64(v77, v81), v78, v79)), vmlaq_f64(vmulq_f64(v74, v82), v77, v72), v76), vmlaq_f64(vmulq_f64(v78, vnegq_f64(v72)), v74, v80), v75);
-      if (vaddvq_f64(vsubq_f64(vmulq_f64(v130.val[0], vzip1q_s64(v84, v83)), vmulq_f64(v130.val[1], vzip2q_s64(v84, v83)))) == 0.0)
+      if (vaddvq_f64(vsubq_f64(vmulq_f64(v137.val[0], vzip1q_s64(v84, v83)), vmulq_f64(v137.val[1], vzip2q_s64(v84, v83)))) == 0.0)
       {
         if (_NULogOnceToken != -1)
         {
@@ -704,9 +704,9 @@ LABEL_14:
           v86 = MEMORY[0x1E696AEC0];
           v87 = v85;
           v88 = [v86 stringWithFormat:@"Supplied transform is not invertible"];
-          LODWORD(buf.f64[0]) = 138543362;
-          *(buf.f64 + 4) = v88;
-          _os_log_impl(&dword_1C0184000, v87, OS_LOG_TYPE_DEFAULT, "Continue: %{public}@", &buf, 0xCu);
+          LODWORD(a50) = 138543362;
+          *(&a50 + 4) = v88;
+          _os_log_impl(&dword_1C0184000, v87, OS_LOG_TYPE_DEFAULT, "Continue: %{public}@", &a50, 0xCu);
 
           v89 = _NULogOnceToken;
           if (dispatch_get_specific(NUCurrentlyExecutingJobNameKey))
@@ -737,11 +737,11 @@ LABEL_12:
             v104 = v96;
             callStackSymbols = [v102 callStackSymbols];
             v106 = [callStackSymbols componentsJoinedByString:@"\n"];
-            LODWORD(buf.f64[0]) = 138543618;
-            *(buf.f64 + 4) = specific;
-            WORD2(buf.f64[1]) = 2114;
-            *(&buf.f64[1] + 6) = v106;
-            _os_log_error_impl(&dword_1C0184000, v104, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", &buf, 0x16u);
+            LODWORD(a50) = 138543618;
+            *(&a50 + 4) = specific;
+            WORD2(a51) = 2114;
+            *(&a51 + 6) = v106;
+            _os_log_error_impl(&dword_1C0184000, v104, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", &a50, 0x16u);
           }
 
 LABEL_18:
@@ -756,9 +756,9 @@ LABEL_18:
           v110 = v107;
           callStackSymbols2 = [v109 callStackSymbols];
           v112 = [callStackSymbols2 componentsJoinedByString:@"\n"];
-          LODWORD(buf.f64[0]) = 138543362;
-          *(buf.f64 + 4) = v112;
-          _os_log_error_impl(&dword_1C0184000, v110, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", &buf, 0xCu);
+          LODWORD(a50) = 138543362;
+          *(&a50 + 4) = v112;
+          _os_log_error_impl(&dword_1C0184000, v110, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", &a50, 0xCu);
         }
 
         goto LABEL_18;

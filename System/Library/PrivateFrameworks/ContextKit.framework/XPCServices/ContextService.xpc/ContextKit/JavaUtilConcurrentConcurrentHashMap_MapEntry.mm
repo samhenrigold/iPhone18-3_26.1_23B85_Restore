@@ -29,13 +29,13 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  LODWORD(getKey) = [JavaUtilMap_Entry_class_() isInstance:equal];
+  getKey = [JavaUtilMap_Entry_class_(self a2)];
   if (getKey)
   {
-    v6 = JavaUtilMap_Entry_class_();
+    v7 = JavaUtilMap_Entry_class_(getKey, v6);
     if (equal)
     {
-      if (([v6 isInstance:equal] & 1) == 0)
+      if (([v7 isInstance:equal] & 1) == 0)
       {
         JreThrowClassCastException();
       }
@@ -43,14 +43,14 @@
       getKey = [equal getKey];
       if (getKey)
       {
-        v7 = getKey;
+        v8 = getKey;
         getKey = [equal getValue];
         if (getKey)
         {
-          v8 = getKey;
-          if (v7 == self->key_ || (LODWORD(getKey) = [v7 isEqual:?], getKey))
+          v9 = getKey;
+          if (v8 == self->key_ || (LODWORD(getKey) = [v8 isEqual:?], getKey))
           {
-            if (v8 == self->val_)
+            if (v9 == self->val_)
             {
               LOBYTE(getKey) = 1;
             }
@@ -58,7 +58,7 @@
             else
             {
 
-              LOBYTE(getKey) = [v8 isEqual:?];
+              LOBYTE(getKey) = [v9 isEqual:?];
             }
           }
         }

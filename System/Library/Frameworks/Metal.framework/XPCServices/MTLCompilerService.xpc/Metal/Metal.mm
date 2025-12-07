@@ -1,4 +1,4 @@
-void MTLConnectionCtx::MTLConnectionCtx(uint64_t a1, int a2)
+void MTLConnectionCtx::MTLConnectionCtx(uint64_t a1, int a2, uint64_t a3)
 {
   *a1 = 850045863;
   *(a1 + 8) = 0u;
@@ -178,7 +178,7 @@ void MTLCompilerServiceTimer::stop(dispatch_object_t *this)
   }
 }
 
-_BYTE *MTLCompilerServiceTimer::TimeoutTypeToString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *MTLCompilerServiceTimer::TimeoutTypeToString@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 > 2)
   {
@@ -193,7 +193,7 @@ _BYTE *MTLCompilerServiceTimer::TimeoutTypeToString@<X0>(unsigned int a1@<W0>, _
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -207,13 +207,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -335,20 +335,20 @@ std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep MTLCompilerServ
 void MTLCompilerService::MTLCompilerService(MTLCompilerService *this)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(this, &unk_1000056EB);
-  *(v2 + 3) = 850045863;
-  v3 = v2 + 24;
-  *(v2 + 12) = 0;
+  v2[3] = 850045863;
+  v3 = v2 + 3;
+  v2[12] = 0;
   *(v2 + 2) = 0u;
   *(v2 + 3) = 0u;
   *(v2 + 4) = 0u;
   *(v2 + 5) = 0u;
-  *(v2 + 13) = dispatch_queue_create(0, 0);
-  bzero(v3 + 88, 0x428uLL);
+  v2[13] = dispatch_queue_create(0, 0);
+  bzero(v3 + 11, 0x428uLL);
   *(v3 + 288) = 1065353216;
-  v3[1160] = 0;
+  *(v3 + 1160) = 0;
   *(v3 + 291) = 0;
   *(v3 + 80) = 0u;
-  pthread_mutex_init((v3 + 1168), 0);
+  pthread_mutex_init((v3 + 146), 0);
   pthread_cond_init((this + 1256), 0);
 }
 
@@ -513,7 +513,7 @@ LABEL_7:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      MTLCompilerService::errorHandler(&v34);
+      MTLCompilerService::errorHandler();
     }
 
     std::string::basic_string[abi:ne200100]<0>(&v30, "XPC_ERROR_CONNECTION_INVALID - Connection to host app '");
@@ -566,7 +566,7 @@ LABEL_7:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      MTLCompilerService::errorHandler(&v34);
+      MTLCompilerService::errorHandler();
     }
 
     std::string::basic_string[abi:ne200100]<0>(&v30, "XPC_ERROR_CONNECTION_INTERRUPTED - Host app '");
@@ -622,7 +622,7 @@ LABEL_7:
       v5 = xpc_copy_description(object);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        MTLCompilerService::errorHandler(&v34);
+        MTLCompilerService::errorHandler();
         if (!v5)
         {
           goto LABEL_13;
@@ -686,7 +686,7 @@ LABEL_13:
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      MTLCompilerService::errorHandler(&v34);
+      MTLCompilerService::errorHandler();
     }
 
     std::string::basic_string[abi:ne200100]<0>(&v30, "XPC_ERROR_TERMINATION_IMMINENT - Compiler service for client '");
@@ -858,42 +858,18 @@ void MTLCompilerService::messageHandler(uint64_t a1, xpc_object_t xdict)
 
     ConnectionCtxInstance = MTLCompilerService::getConnectionCtxInstance(a1, v8, uint64);
     v11 = xdicta;
-    if (!string)
+    if (!string || ((v12 = xpc_dictionary_get_value(xdicta, "targetData"), (length = v12) == 0) ? (v14 = 0) : (v14 = xpc_data_get_bytes_ptr(v12), length = xpc_data_get_length(length)), pthread_mutex_lock((a1 + 1192)), v15 = *(MTLConnectionCtx::getDispatch(ConnectionCtxInstance) + 32), Service = MTLConnectionCtx::getService(ConnectionCtxInstance), v17 = v15(Service, string, v14, length), pthread_mutex_unlock((a1 + 1192)), v17 != -1))
     {
-      goto LABEL_19;
-    }
-
-    value = xpc_dictionary_get_value(xdicta, "targetData");
-    length = value;
-    if (value)
-    {
-      bytes_ptr = xpc_data_get_bytes_ptr(value);
-      length = xpc_data_get_length(length);
-    }
-
-    else
-    {
-      bytes_ptr = 0;
-    }
-
-    pthread_mutex_lock((a1 + 1192));
-    v15 = *(MTLConnectionCtx::getDispatch(ConnectionCtxInstance) + 32);
-    Service = MTLConnectionCtx::getService(ConnectionCtxInstance);
-    v17 = v15(Service, string, bytes_ptr, length);
-    pthread_mutex_unlock((a1 + 1192));
-    if (v17 != -1)
-    {
-LABEL_19:
-      v18 = xpc_dictionary_get_value(v11, "data");
-      if (xpc_get_type(v18) == &_xpc_type_data)
+      value = xpc_dictionary_get_value(v11, "data");
+      if (xpc_get_type(value) == &_xpc_type_data)
       {
-        v19 = xpc_data_get_bytes_ptr(v18);
-        xpc_data_get_length(v18);
+        bytes_ptr = xpc_data_get_bytes_ptr(value);
+        xpc_data_get_length(value);
       }
 
       else
       {
-        v19 = 0;
+        bytes_ptr = 0;
       }
 
       if (v6 == 16)
@@ -901,8 +877,8 @@ LABEL_19:
         v20 = xpc_dictionary_get_value(v11, "machOFD");
         if (xpc_get_type(v20) == &_xpc_type_fd)
         {
-          v19[3] = xpc_fd_dup(v20);
-          *(v19 + 129) = 0;
+          bytes_ptr[3] = xpc_fd_dup(v20);
+          *(bytes_ptr + 129) = 0;
         }
       }
 
@@ -944,12 +920,12 @@ __n128 ___ZN18MTLCompilerService14messageHandlerEPU24objcproto13OS_xpc_object8NS
   return result;
 }
 
-uint64_t MTLCompilerService::getConnectionCtxInstance(MTLCompilerService *this, unint64_t a2, uint64_t a3)
+uint64_t MTLCompilerService::getConnectionCtxInstance(MTLCompilerService *this, uint64_t a2, uint64_t a3)
 {
   pthread_mutex_lock((this + 1192));
-  v8[0] = a2;
-  v8[2] = v8;
-  v6 = &std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(this + 143, v8)[a3];
+  v8 = a2;
+  v9 = &v8;
+  v6 = &std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(this + 286, &v8, &std::piecewise_construct, &v9)[a3];
   pthread_mutex_unlock((this + 1192));
   result = v6[3];
   if (!result)
@@ -1090,7 +1066,7 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-MTLCompilerServiceTimer *std::unique_ptr<MTLCompilerServiceTimer>::reset[abi:ne200100](MTLCompilerServiceTimer **a1, MTLCompilerServiceTimer *a2)
+NSObject **std::unique_ptr<MTLCompilerServiceTimer>::reset[abi:ne200100](NSObject ***a1, NSObject **a2)
 {
   result = *a1;
   *a1 = a2;
@@ -1158,30 +1134,27 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
 
 void std::__call_once_proxy[abi:ne200100]<std::tuple<MTLCompilerService::createIdleTimer(NSObject  {objcproto17OS_dispatch_queue}* const&)::$_0 &&>>(uint64_t ***a1)
 {
-  v1 = **a1;
-  v2 = *v1;
-  v3 = std::string::basic_string[abi:ne200100]<0>(&v7, "Idle");
-  std::string::assign(v3, "iOS");
+  v1 = std::string::basic_string[abi:ne200100]<0>(&v4, "Idle");
+  std::string::assign(v1, "iOS");
   if (MTLEnvVarAggregator::GET_MTL_IDLE_EXIT_TIMEOUT_SECONDS(0, 0))
   {
-    v4 = v1[1];
-    v6 = 2;
-    if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
+    v3 = 2;
+    if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v7.__r_.__value_.__l.__data_, v7.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v4.__r_.__value_.__l.__data_, v4.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v7;
+      __p = v4;
     }
 
     operator new();
   }
 
-  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v7.__r_.__value_.__l.__data_);
+    operator delete(v4.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1195,7 +1168,7 @@ void sub_100002850(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MTLEnvVarAggregator::GET_MTL_IDLE_EXIT_TIMEOUT_SECONDS(MTLEnvVarAggregator *this, uint64_t a2)
+uint64_t MTLEnvVarAggregator::GET_MTL_IDLE_EXIT_TIMEOUT_SECONDS(MTLEnvVarAggregator *this, _BOOL8 a2)
 {
   if (!MTLEnvVarAggregator::isInternalBuild(this))
   {
@@ -1479,35 +1452,35 @@ uint64_t MTLEnvVarAggregator::isInternalBuild(MTLEnvVarAggregator *this)
   return v1 & 1;
 }
 
-uint64_t std::__call_once_proxy[abi:ne200100]<std::tuple<MTLCompilerService::createHangTimer(NSObject  {objcproto13OS_xpc_object}* const&,NSObject {objcproto17OS_dispatch_queue}* const&)::$_0 &&>>(uint64_t ***a1)
+NSObject **std::__call_once_proxy[abi:ne200100]<std::tuple<MTLCompilerService::createHangTimer(NSObject  {objcproto13OS_xpc_object}* const&,NSObject {objcproto17OS_dispatch_queue}* const&)::$_0 &&>>(uint64_t ***a1, uint64_t a2, int a3)
 {
-  v1 = ***a1;
+  v3 = ***a1;
   result = MTLEnvVarAggregator::GET_MTL_HANG_TIMER_LENGTH_IN_SECONDS(0, 700);
   if (result)
   {
-    v4 = _NSConcreteStackBlock;
-    v5 = 3221225472;
-    v6 = ___ZZN18MTLCompilerService15createHangTimerERKPU24objcproto13OS_xpc_object8NSObjectRKPU28objcproto17OS_dispatch_queueS0_ENK3__0clEv_block_invoke;
-    v7 = &__block_descriptor_44_e5_v8__0l;
+    v6 = _NSConcreteStackBlock;
+    v7 = 3221225472;
+    v8 = ___ZZN18MTLCompilerService15createHangTimerERKPU24objcproto13OS_xpc_object8NSObjectRKPU28objcproto17OS_dispatch_queueS0_ENK3__0clEv_block_invoke;
+    v9 = &__block_descriptor_44_e5_v8__0l;
     if (result == 700)
     {
-      v3 = 0;
+      v5 = 0;
     }
 
     else
     {
-      v3 = 2;
+      v5 = 2;
     }
 
-    v8 = v1;
-    v9 = v3;
+    v10 = v3;
+    v11 = v5;
     operator new();
   }
 
   return result;
 }
 
-void sub_100002EF0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_100002EF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -1691,33 +1664,33 @@ void MTLCompilationContext::~MTLCompilationContext(MTLCompilationContext *this)
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1725,47 +1698,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1781,7 +1754,7 @@ void std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_p
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1789,7 +1762,7 @@ void std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_p
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1813,7 +1786,7 @@ void std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_p
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -1840,7 +1813,7 @@ void std::__hash_table<std::__hash_value_type<long long,std::array<std::unique_p
   *(a1 + 8) = 0;
 }
 
-void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,void *>>>::operator()[abi:ne200100](uint64_t a1, MTLConnectionCtx **__p)
+void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,std::array<std::unique_ptr<MTLConnectionCtx>,64ul>>,void *>>>::operator()[abi:ne200100](uint64_t a1, std::mutex **__p)
 {
   if (*(a1 + 8) == 1)
   {
@@ -1862,7 +1835,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   }
 }
 
-MTLConnectionCtx *std::unique_ptr<MTLConnectionCtx>::reset[abi:ne200100](MTLConnectionCtx **a1, MTLConnectionCtx *a2)
+std::mutex *std::unique_ptr<MTLConnectionCtx>::reset[abi:ne200100](std::mutex **a1, std::mutex *a2)
 {
   result = *a1;
   *a1 = a2;
@@ -1876,20 +1849,9 @@ MTLConnectionCtx *std::unique_ptr<MTLConnectionCtx>::reset[abi:ne200100](MTLConn
   return result;
 }
 
-uint64_t *OUTLINED_FUNCTION_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  if (*(result + 23) < 0)
-  {
-    v3 = *result;
-  }
-
-  return result;
-}
-
 __int128 *MTLSandboxExtensionContainer::MTLCompilerSandboxExtensions(MTLSandboxExtensionContainer *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     MTLSandboxExtensionContainer::MTLCompilerSandboxExtensions();
   }
@@ -1957,14 +1919,14 @@ uint64_t MTLSandboxExtensionContainer::setSandbox(uint64_t a1, xpc_object_t obje
   return v4 & 1;
 }
 
-void sub_100003A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN28MTLSandboxExtensionContainer10setSandboxEPU24objcproto13OS_xpc_object8NSObject_block_invoke(uint64_t a1, int a2, xpc_object_t object)
+uint64_t ___ZN28MTLSandboxExtensionContainer10setSandboxEPU24objcproto13OS_xpc_object8NSObject_block_invoke(uint64_t a1, uint64_t a2, xpc_object_t object)
 {
   v5 = *(a1 + 40);
   if (xpc_get_type(object) != &_xpc_type_string)
@@ -2178,7 +2140,7 @@ LABEL_11:
   }
 }
 
-void MTLSandboxExtensionContainer::resetSandbox(uint64_t a1, xpc_object_t object)
+void MTLSandboxExtensionContainer::resetSandbox(uint64_t result, xpc_object_t object)
 {
   if (object)
   {
@@ -2188,7 +2150,7 @@ void MTLSandboxExtensionContainer::resetSandbox(uint64_t a1, xpc_object_t object
       applier[1] = 3221225472;
       applier[2] = ___ZN28MTLSandboxExtensionContainer12resetSandboxEPU24objcproto13OS_xpc_object8NSObject_block_invoke;
       applier[3] = &__block_descriptor_40_e36_B24__0Q8__NSObject_OS_xpc_object__16l;
-      applier[4] = a1;
+      applier[4] = result;
       xpc_array_apply(object, applier);
     }
 
@@ -2199,7 +2161,7 @@ void MTLSandboxExtensionContainer::resetSandbox(uint64_t a1, xpc_object_t object
   }
 }
 
-uint64_t ___ZN28MTLSandboxExtensionContainer12resetSandboxEPU24objcproto13OS_xpc_object8NSObject_block_invoke(uint64_t a1, int a2, xpc_object_t object)
+uint64_t ___ZN28MTLSandboxExtensionContainer12resetSandboxEPU24objcproto13OS_xpc_object8NSObject_block_invoke(uint64_t a1, uint64_t a2, xpc_object_t object)
 {
   v4 = *(a1 + 32);
   if (xpc_get_type(object) != &_xpc_type_string)
@@ -2280,34 +2242,33 @@ LABEL_15:
   *(v16 + 8 * v13) = v17;
   if (!v17)
   {
-    v18 = *(v4[6] + 8 * v13);
     sandbox_extension_release();
-    v19 = v4[1];
-    if (v13 < 0xAAAAAAAAAAAAAAABLL * ((v19 - *v4) >> 3) - 1)
+    v18 = v4[1];
+    if (v13 < 0xAAAAAAAAAAAAAAABLL * ((v18 - *v4) >> 3) - 1)
     {
-      v20 = *v4 + v12;
-      if (*(v20 + 23) < 0)
+      v19 = *v4 + v12;
+      if (*(v19 + 23) < 0)
       {
-        operator delete(*v20);
+        operator delete(*v19);
       }
 
-      v21 = *(v19 - 24);
-      *(v20 + 16) = *(v19 - 8);
-      *v20 = v21;
-      *(v19 - 1) = 0;
-      *(v19 - 24) = 0;
+      v20 = *(v18 - 24);
+      *(v19 + 16) = *(v18 - 8);
+      *v19 = v20;
+      *(v18 - 1) = 0;
+      *(v18 - 24) = 0;
       *(v4[3] + 8 * v13) = *(v4[4] - 8);
       *(v4[6] + 8 * v13) = *(v4[7] - 8);
-      v19 = v4[1];
+      v18 = v4[1];
     }
 
-    v22 = (v19 - 24);
-    if (*(v19 - 1) < 0)
+    v21 = (v18 - 24);
+    if (*(v18 - 1) < 0)
     {
-      operator delete(*v22);
+      operator delete(*v21);
     }
 
-    v4[1] = v22;
+    v4[1] = v21;
     v4[4] -= 8;
     v4[7] -= 8;
   }
@@ -2418,7 +2379,7 @@ uint64_t std::vector<std::string>::__emplace_back_slow_path<char const*&>(uint64
   return v7;
 }
 
-size_t std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const*&,0>(uint64_t a1, _BYTE *a2, const char **a3)
+size_t std::allocator_traits<std::allocator<std::string>>::construct[abi:ne200100]<std::string,char const*&,0>(uint64_t a1, void *a2, const char **a3)
 {
   v4 = *a3;
   result = strlen(*a3);
@@ -2433,13 +2394,13 @@ size_t std::allocator_traits<std::allocator<std::string>>::construct[abi:ne20010
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, v4, result);
   }
 
-  a2[v6] = 0;
+  *(a2 + v6) = 0;
   return result;
 }
 
@@ -2484,6 +2445,17 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
+int main(int argc, const char **argv, const char **envp)
+{
+  Instance = MTLCompilerService::getInstance(*&argc);
+  if (MTLCompilerService::initializeSandbox(Instance))
+  {
+    xpc_main(main::$_0::__invoke);
+  }
+
+  return 1;
+}
+
 void main::$_0::__invoke(MTLCompilerService *a1)
 {
   Instance = MTLCompilerService::getInstance(a1);
@@ -2517,38 +2489,38 @@ void MTLCompilerServiceTimer::MTLCompilerServiceTimer(uint64_t *a1)
 
 void MTLCompilerService::initializeSandbox()
 {
-  v5 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void MTLCompilerService::errorHandler(uint64_t *a1)
+void MTLCompilerService::errorHandler()
 {
-  OUTLINED_FUNCTION_0(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0(__stack_chk_guard);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 {
-  OUTLINED_FUNCTION_0(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0(__stack_chk_guard);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 {
-  OUTLINED_FUNCTION_0(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0(__stack_chk_guard);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 {
-  OUTLINED_FUNCTION_0(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0(__stack_chk_guard);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void ___ZN18MTLCompilerService12eventHandlerEPU24objcproto13OS_xpc_object8NSObject_block_invoke_cold_1(const _xpc_type_s *a1)
@@ -2574,7 +2546,7 @@ void MTLEnvVarAggregator::GET_MTL_HANG_TIMER_LENGTH_IN_SECONDS()
 
 void MTLSandboxExtensionContainer::MTLCompilerSandboxExtensions()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     qword_10000C5C0 = 0;
     *&algn_10000C590[32] = 0u;
@@ -2583,7 +2555,7 @@ void MTLSandboxExtensionContainer::MTLCompilerSandboxExtensions()
     xmmword_10000C580 = 0u;
     __cxa_atexit(MTLSandboxExtensionContainer::~MTLSandboxExtensionContainer, &xmmword_10000C580, &_mh_execute_header);
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 

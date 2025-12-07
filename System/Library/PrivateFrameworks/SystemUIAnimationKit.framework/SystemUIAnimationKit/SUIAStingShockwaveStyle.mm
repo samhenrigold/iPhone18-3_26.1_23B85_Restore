@@ -188,11 +188,11 @@
   if (!v7)
   {
     v7 = objc_alloc_init(_SUIAShockwaveColorOverlayConfiguration);
-    colorMatrix = [_stingSettings colorMatrix];
-    v9 = colorMatrix;
-    if (colorMatrix)
+    v8 = objc_msgSend_colorMatrix(_stingSettings);
+    v9 = v8;
+    if (v8)
     {
-      [colorMatrix caColorMatrix];
+      objc_msgSend_caColorMatrix(v8);
     }
 
     else

@@ -10,7 +10,7 @@
   swift_unknownObjectRetain();
   sub_1C6017390();
   swift_unknownObjectRelease();
-  sub_1C5C6BF64(&v4);
+  sub_1C5C6BF64(v4);
   return result;
 }
 

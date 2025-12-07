@@ -94,7 +94,7 @@
 - (void)voicemailManagerChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
@@ -186,15 +186,16 @@ void __54__PHCarPlayVoicemailViewController_playMessageWithID___block_invoke_2(u
   {
     if (*(a1 + 32))
     {
-      if ([WeakRetained isRestrictedMessage:?])
+      v4 = [WeakRetained isRestrictedMessage:?];
+      if (v4)
       {
-        v4 = PHDefaultLog();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        v5 = PHDefaultLog(v4);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v5 = *(a1 + 32);
-          v20 = 138412290;
-          v21 = v5;
-          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Screen Time: Voicemail playback from notification is restricted for message: %@", &v20, 0xCu);
+          v6 = *(a1 + 32);
+          v22 = 138412290;
+          v23 = v6;
+          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Screen Time: Voicemail playback from notification is restricted for message: %@", &v22, 0xCu);
         }
 
         [v3 showRestrictedAlertForMessage:*(a1 + 32)];
@@ -202,44 +203,45 @@ void __54__PHCarPlayVoicemailViewController_playMessageWithID___block_invoke_2(u
 
       else
       {
-        v8 = [*(a1 + 32) isDataAvailable];
-        v9 = PHDefaultLog();
-        v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-        if (v8)
+        v9 = [*(a1 + 32) isDataAvailable];
+        v10 = v9;
+        v11 = PHDefaultLog(v9);
+        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+        if (v10)
         {
-          if (v10)
+          if (v12)
           {
-            v11 = *(a1 + 32);
-            v20 = 138412290;
-            v21 = v11;
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHCarPlayVoicemailController will play %@", &v20, 0xCu);
+            v13 = *(a1 + 32);
+            v22 = 138412290;
+            v23 = v13;
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHCarPlayVoicemailController will play %@", &v22, 0xCu);
           }
 
-          v12 = objc_alloc_init(PHCarPlayVoicemailPlayerViewController);
-          [(PHCarPlayVoicemailPlayerViewController *)v12 setRepresentedVoicemail:*(a1 + 32)];
-          v13 = [v3 navigationController];
-          [v13 pushViewController:v12 animated:0];
+          v14 = objc_alloc_init(PHCarPlayVoicemailPlayerViewController);
+          [(PHCarPlayVoicemailPlayerViewController *)v14 setRepresentedVoicemail:*(a1 + 32)];
+          v15 = [v3 navigationController];
+          [v15 pushViewController:v14 animated:0];
         }
 
         else
         {
-          if (v10)
+          if (v12)
           {
-            v14 = *(a1 + 32);
-            v20 = 138412290;
-            v21 = v14;
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHCarPlayVoicemailController wont play %@ because it has no data", &v20, 0xCu);
+            v16 = *(a1 + 32);
+            v22 = 138412290;
+            v23 = v16;
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHCarPlayVoicemailController wont play %@ because it has no data", &v22, 0xCu);
           }
 
-          v15 = +[PHCarPlayVoicemailManager sharedVoicemailManager];
-          v16 = [v15 voicemails];
-          v17 = [v16 count];
+          v17 = +[PHCarPlayVoicemailManager sharedVoicemailManager];
+          v18 = [v17 voicemails];
+          v19 = [v18 count];
 
-          if (v17)
+          if (v19)
           {
-            v18 = [v3 mainTableView];
-            v19 = [NSIndexPath indexPathForRow:0 inSection:0];
-            [v18 scrollToRowAtIndexPath:v19 atScrollPosition:1 animated:0];
+            v20 = [v3 mainTableView];
+            v21 = [NSIndexPath indexPathForRow:0 inSection:0];
+            [v20 scrollToRowAtIndexPath:v21 atScrollPosition:1 animated:0];
           }
         }
       }
@@ -247,13 +249,13 @@ void __54__PHCarPlayVoicemailViewController_playMessageWithID___block_invoke_2(u
 
     else
     {
-      v6 = PHDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = PHDefaultLog(WeakRetained);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 40);
-        v20 = 138412290;
-        v21 = v7;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHCarPlayVoicemailController wont play message with id %@ because it could not be found. Adding to playback queue", &v20, 0xCu);
+        v8 = *(a1 + 40);
+        v22 = 138412290;
+        v23 = v8;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHCarPlayVoicemailController wont play message with id %@ because it could not be found. Adding to playback queue", &v22, 0xCu);
       }
 
       [*(a1 + 48) addMessageIDToPlaybackQueue:*(a1 + 40)];
@@ -268,15 +270,15 @@ void __54__PHCarPlayVoicemailViewController_playMessageWithID___block_invoke_2(u
 
   if (firstObject)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       messagePlaybackQueue2 = [(PHCarPlayVoicemailViewController *)self messagePlaybackQueue];
-      v8 = 138412546;
-      v9 = firstObject;
-      v10 = 2112;
-      v11 = messagePlaybackQueue2;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Found a messageID: %@ from the playback queue: %@ that needs to be played", &v8, 0x16u);
+      v9 = 138412546;
+      v10 = firstObject;
+      v11 = 2112;
+      v12 = messagePlaybackQueue2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Found a messageID: %@ from the playback queue: %@ that needs to be played", &v9, 0x16u);
     }
 
     messagePlaybackQueue3 = [(PHCarPlayVoicemailViewController *)self messagePlaybackQueue];
@@ -294,13 +296,13 @@ void __54__PHCarPlayVoicemailViewController_playMessageWithID___block_invoke_2(u
 
   if (v6)
   {
-    messagePlaybackQueue3 = PHDefaultLog();
+    messagePlaybackQueue3 = PHDefaultLog(v7);
     if (os_log_type_enabled(messagePlaybackQueue3, OS_LOG_TYPE_DEFAULT))
     {
       messagePlaybackQueue2 = [(PHCarPlayVoicemailViewController *)self messagePlaybackQueue];
-      v9 = 138412290;
-      v10 = messagePlaybackQueue2;
-      _os_log_impl(&_mh_execute_header, messagePlaybackQueue3, OS_LOG_TYPE_DEFAULT, "Message already exists in queue: %@ not adding it", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = messagePlaybackQueue2;
+      _os_log_impl(&_mh_execute_header, messagePlaybackQueue3, OS_LOG_TYPE_DEFAULT, "Message already exists in queue: %@ not adding it", &v10, 0xCu);
     }
   }
 
@@ -476,12 +478,12 @@ LABEL_14:
 - (void)programmaticallySelectRowAtIndexPath:(id)path
 {
   pathCopy = path;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(pathCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = pathCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "programmaticallySelectRowAtIndexPath:%@", &v16, 0xCu);
+    v18 = 138412290;
+    v19 = pathCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "programmaticallySelectRowAtIndexPath:%@", &v18, 0xCu);
   }
 
   v6 = +[PHCarPlayVoicemailManager sharedVoicemailManager];
@@ -489,14 +491,15 @@ LABEL_14:
   v8 = [voicemails objectAtIndex:{objc_msgSend(pathCopy, "row")}];
 
   v9 = [(PHCarPlayVoicemailViewController *)self isRestrictedMessage:v8];
+  v10 = v9;
   if (v9)
   {
-    v10 = PHDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PHDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v8;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Screen Time: Voicemail playback is restricted for message: %@", &v16, 0xCu);
+      v18 = 138412290;
+      v19 = v8;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Screen Time: Voicemail playback is restricted for message: %@", &v18, 0xCu);
     }
 
     mainTableView = [(PHCarPlayGenericTableViewController *)self mainTableView];
@@ -507,27 +510,28 @@ LABEL_14:
 
   else
   {
-    if ([v8 isDataAvailable])
+    isDataAvailable = [v8 isDataAvailable];
+    if (isDataAvailable)
     {
-      v12 = objc_alloc_init(PHCarPlayVoicemailPlayerViewController);
-      [(PHCarPlayVoicemailPlayerViewController *)v12 setRepresentedVoicemail:v8];
+      v14 = objc_alloc_init(PHCarPlayVoicemailPlayerViewController);
+      [(PHCarPlayVoicemailPlayerViewController *)v14 setRepresentedVoicemail:v8];
       navigationController = [(PHCarPlayVoicemailViewController *)self navigationController];
-      [navigationController pushViewController:v12 animated:1];
+      [navigationController pushViewController:v14 animated:1];
     }
 
     else
     {
-      v12 = PHDefaultLog();
-      if (os_log_type_enabled(&v12->super.super.super.super, OS_LOG_TYPE_DEFAULT))
+      v14 = PHDefaultLog(isDataAvailable);
+      if (os_log_type_enabled(&v14->super.super.super.super, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = v8;
-        _os_log_impl(&_mh_execute_header, &v12->super.super.super.super, OS_LOG_TYPE_DEFAULT, "Did not select voicemail as it was still pending %@", &v16, 0xCu);
+        v18 = 138412290;
+        v19 = v8;
+        _os_log_impl(&_mh_execute_header, &v14->super.super.super.super, OS_LOG_TYPE_DEFAULT, "Did not select voicemail as it was still pending %@", &v18, 0xCu);
       }
     }
   }
 
-  if (((v9 | !+[PHCarPlayUtilities activeInterfaceMechanismIsHardware]) & 1) == 0)
+  if (((v10 | !+[PHCarPlayUtilities activeInterfaceMechanismIsHardware]) & 1) == 0)
   {
     mainTableView2 = [(PHCarPlayGenericTableViewController *)self mainTableView];
     [mainTableView2 deselectRowAtIndexPath:pathCopy animated:0];

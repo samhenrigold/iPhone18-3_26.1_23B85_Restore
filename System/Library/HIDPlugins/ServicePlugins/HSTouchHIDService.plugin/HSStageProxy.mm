@@ -26,107 +26,107 @@
   encodeStateToData = [(HSStageProxy *)self encodeStateToData];
   if (!encodeStateToData)
   {
-    v5 = 0;
+    v7 = 0;
     goto LABEL_18;
   }
 
-  HSUtil::Buffer::Buffer(v15, encodeStateToData);
-  HSUtil::Decoder::Decoder(v12, v15);
-  HSUtil::Decoder::decodeElement(v12, v9);
-  if (!LODWORD(v12[0]))
+  HSUtil::Buffer::Buffer(v17, encodeStateToData);
+  HSUtil::Decoder::Decoder(v14, v17, v5, v6);
+  HSUtil::Decoder::decodeElement(v11, v14);
+  if (!v14[0])
   {
     if (!*encode)
     {
-      HSUtil::Encoder::_encodeDecoder(encode, v9);
+      HSUtil::Encoder::_encodeDecoder(encode, v11);
       if (!*encode)
       {
-        v5 = 1;
+        v7 = 1;
         goto LABEL_8;
       }
     }
 
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStageProxy.mm", v16);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStageProxy.mm", v18);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       [HSStageProxy(Other) hsEncode:];
     }
   }
 
-  v5 = 0;
+  v7 = 0;
 LABEL_8:
-  if (v11)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-  v6 = v10;
-  v10 = 0;
-  if (v6)
+  v8 = v12;
+  v12 = 0;
+  if (v8)
   {
-    std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v6);
+    std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v8);
     operator delete();
   }
 
-  if (v14)
+  if (v16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
 
-  v7 = v13;
-  v13 = 0;
-  if (v7)
+  v9 = v15;
+  v15 = 0;
+  if (v9)
   {
-    std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v7);
+    std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v9);
     operator delete();
   }
 
-  HSUtil::Buffer::~Buffer(v15);
+  HSUtil::Buffer::~Buffer(v17);
 LABEL_18:
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)hsDecode:(void *)decode
 {
-  v5 = HSUtil::EncoderBuf::EncoderBuf(&v11);
-  if (!v11)
+  v5 = HSUtil::EncoderBuf::EncoderBuf(&v12);
+  if (!v12)
   {
     HSUtil::Encoder::_encodeDecoder(v5, decode);
   }
 
-  v6 = HSUtil::EncoderBuf::buffer(&v11);
+  v6 = HSUtil::EncoderBuf::buffer(&v12);
   if (*(v6 + 5))
   {
-    v7 = HSUtil::Buffer::getNSData(v6);
-    v8 = [(HSStageProxy *)self decodeStateFromData:v7];
+    v8 = HSUtil::Buffer::getNSData(v6, v7);
+    v9 = [(HSStageProxy *)self decodeStateFromData:v8];
   }
 
   else
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStageProxy.mm", v10);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSStageProxy.mm", v11);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       [HSStageProxy(Other) hsDecode:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  HSUtil::Buffer::~Buffer(&v17);
-  if (v15)
+  HSUtil::Buffer::~Buffer(&v18);
+  if (v16)
   {
-    v16 = v15;
-    operator delete(v15);
+    v17 = v16;
+    operator delete(v16);
   }
 
-  if (v13)
+  if (v14)
   {
-    v14 = v13;
-    operator delete(v13);
+    v15 = v14;
+    operator delete(v14);
   }
 
-  std::__function::__value_func<BOOL ()(HSUtil::Encoder &,objc_object *)>::~__value_func[abi:ne200100](&v12);
-  return v8;
+  std::__function::__value_func<BOOL ()(HSUtil::Encoder &,objc_object *)>::~__value_func[abi:ne200100](&v13);
+  return v9;
 }
 
 - (void)lock

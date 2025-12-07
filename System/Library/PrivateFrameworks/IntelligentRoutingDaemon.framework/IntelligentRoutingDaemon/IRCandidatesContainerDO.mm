@@ -25,40 +25,38 @@
 
 - (id)exportAsDictionary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   candidates = [(IRCandidatesContainerDO *)self candidates];
-  v5 = [candidates countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [candidates countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(candidates);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         exportAsDictionary = [v9 exportAsDictionary];
         candidateIdentifier = [v9 candidateIdentifier];
         [v3 setObject:exportAsDictionary forKeyedSubscript:candidateIdentifier];
       }
 
-      v6 = [candidates countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [candidates countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

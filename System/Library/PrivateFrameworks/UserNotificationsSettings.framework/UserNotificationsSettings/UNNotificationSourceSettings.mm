@@ -71,13 +71,13 @@
 
 - (UNNotificationSourceSettings)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"notificationSettings"];
   v6 = MEMORY[0x277CBEB98];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"topicSettings"];
 
@@ -85,7 +85,6 @@
   v11 = [coderCopy decodeBoolForKey:@"restricted"];
 
   v12 = [(UNNotificationSourceSettings *)self initWithNotificationSettings:v5 topicSettings:v9 muteAssertion:v10 isRestricted:v11];
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

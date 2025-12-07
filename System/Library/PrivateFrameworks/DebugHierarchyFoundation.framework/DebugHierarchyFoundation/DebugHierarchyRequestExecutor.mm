@@ -42,29 +42,29 @@
 
 - (id)runWithError:(id *)error
 {
-  v78 = +[NSDate date];
-  v4 = DebugHierarchyRequestsOSLog();
+  v83 = +[NSDate date];
+  v4 = DebugHierarchyRequestsOSLog(v83);
   v5 = os_signpost_id_make_with_pointer(v4, self);
   v6 = v4;
   v7 = v6;
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 136446210;
-    v83 = "Initial Standalone Actions";
+    v88 = "Initial Standalone Actions";
     _os_signpost_emit_with_name_impl(&dword_0, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "Request Executor", "Begin %{public}s", buf, 0xCu);
   }
 
   actionExecutor = [(DebugHierarchyRequestExecutor *)self actionExecutor];
   [actionExecutor executeInitialStandaloneActions];
 
-  v9 = DebugHierarchyRequestsOSLog();
-  v10 = os_signpost_id_make_with_pointer(v9, self);
-  v11 = v9;
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v10 = DebugHierarchyRequestsOSLog(v9);
+  v11 = os_signpost_id_make_with_pointer(v10, self);
+  v12 = v10;
+  v13 = v12;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v12, OS_SIGNPOST_INTERVAL_END, v10, "Request Executor", "Completed", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v13, OS_SIGNPOST_INTERVAL_END, v11, "Request Executor", "Completed", buf, 2u);
   }
 
   requestContext = [(DebugHierarchyRequestExecutor *)self requestContext];
@@ -73,23 +73,22 @@
 
   if (objectDiscovery == &dword_0 + 2)
   {
-    v24 = DebugHierarchyRequestsOSLog();
-    v25 = os_signpost_id_make_with_pointer(v24, self);
-    v26 = v24;
-    v27 = v26;
-    if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    v26 = DebugHierarchyRequestsOSLog(v17);
+    v27 = os_signpost_id_make_with_pointer(v26, self);
+    v28 = v26;
+    v29 = v28;
+    if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       *buf = 136446210;
-      v83 = "Actions With Known Objects";
-      _os_signpost_emit_with_name_impl(&dword_0, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "Request Executor", "Begin %{public}s", buf, 0xCu);
+      v88 = "Actions With Known Objects";
+      _os_signpost_emit_with_name_impl(&dword_0, v29, OS_SIGNPOST_INTERVAL_BEGIN, v27, "Request Executor", "Begin %{public}s", buf, 0xCu);
     }
 
-    [(DebugHierarchyRequestExecutor *)self _executeRequestActionsWithKnownObjects];
-    v28 = DebugHierarchyRequestsOSLog();
-    v21 = os_signpost_id_make_with_pointer(v28, self);
-    v29 = v28;
-    v23 = v29;
-    if (v21 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v29))
+    v30 = DebugHierarchyRequestsOSLog([(DebugHierarchyRequestExecutor *)self _executeRequestActionsWithKnownObjects]);
+    v23 = os_signpost_id_make_with_pointer(v30, self);
+    v31 = v30;
+    v25 = v31;
+    if (v23 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v31))
     {
       goto LABEL_22;
     }
@@ -100,90 +99,89 @@
 
   if (objectDiscovery == &dword_0 + 1)
   {
-    v16 = DebugHierarchyRequestsOSLog();
-    v17 = os_signpost_id_make_with_pointer(v16, self);
-    v18 = v16;
-    v19 = v18;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v18 = DebugHierarchyRequestsOSLog(v17);
+    v19 = os_signpost_id_make_with_pointer(v18, self);
+    v20 = v18;
+    v21 = v20;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
       *buf = 136446210;
-      v83 = "Actions With Crawler";
-      _os_signpost_emit_with_name_impl(&dword_0, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "Request Executor", "Begin %{public}s", buf, 0xCu);
+      v88 = "Actions With Crawler";
+      _os_signpost_emit_with_name_impl(&dword_0, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "Request Executor", "Begin %{public}s", buf, 0xCu);
     }
 
-    [(DebugHierarchyRequestExecutor *)self _executeRequestActionsWithCrawler];
-    v20 = DebugHierarchyRequestsOSLog();
-    v21 = os_signpost_id_make_with_pointer(v20, self);
-    v22 = v20;
-    v23 = v22;
-    if (v21 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v22))
+    v22 = DebugHierarchyRequestsOSLog([(DebugHierarchyRequestExecutor *)self _executeRequestActionsWithCrawler]);
+    v23 = os_signpost_id_make_with_pointer(v22, self);
+    v24 = v22;
+    v25 = v24;
+    if (v23 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v24))
     {
       goto LABEL_22;
     }
 
     *buf = 0;
 LABEL_21:
-    _os_signpost_emit_with_name_impl(&dword_0, v23, OS_SIGNPOST_INTERVAL_END, v21, "Request Executor", "Completed", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v25, OS_SIGNPOST_INTERVAL_END, v23, "Request Executor", "Completed", buf, 2u);
 LABEL_22:
   }
 
-  v30 = DebugHierarchyRequestsOSLog();
-  v31 = os_signpost_id_make_with_pointer(v30, self);
-  v32 = v30;
-  v33 = v32;
-  if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+  v32 = DebugHierarchyRequestsOSLog(v17);
+  v33 = os_signpost_id_make_with_pointer(v32, self);
+  v34 = v32;
+  v35 = v34;
+  if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
   {
     *buf = 136446210;
-    v83 = "Final Standalone Actions";
-    _os_signpost_emit_with_name_impl(&dword_0, v33, OS_SIGNPOST_INTERVAL_BEGIN, v31, "Request Executor", "Begin %{public}s", buf, 0xCu);
+    v88 = "Final Standalone Actions";
+    _os_signpost_emit_with_name_impl(&dword_0, v35, OS_SIGNPOST_INTERVAL_BEGIN, v33, "Request Executor", "Begin %{public}s", buf, 0xCu);
   }
 
   actionExecutor2 = [(DebugHierarchyRequestExecutor *)self actionExecutor];
   [actionExecutor2 executeFinalStandaloneActions];
 
-  v35 = DebugHierarchyRequestsOSLog();
-  v36 = os_signpost_id_make_with_pointer(v35, self);
-  v37 = v35;
-  v38 = v37;
-  if (v36 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+  v38 = DebugHierarchyRequestsOSLog(v37);
+  v39 = os_signpost_id_make_with_pointer(v38, self);
+  v40 = v38;
+  v41 = v40;
+  if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v38, OS_SIGNPOST_INTERVAL_END, v36, "Request Executor", "Completed", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v41, OS_SIGNPOST_INTERVAL_END, v39, "Request Executor", "Completed", buf, 2u);
   }
 
-  v39 = +[NSDate date];
-  [v39 timeIntervalSinceDate:v78];
-  v77 = v39;
-  v40 = [(DebugHierarchyRequestExecutor *)self _performanceMetricsDictionaryRequestActionDuration:?];
+  v42 = +[NSDate date];
+  [v42 timeIntervalSinceDate:v83];
+  v82 = v42;
+  v43 = [(DebugHierarchyRequestExecutor *)self _performanceMetricsDictionaryRequestActionDuration:?];
   requestContext2 = [(DebugHierarchyRequestExecutor *)self requestContext];
   metaData = [requestContext2 metaData];
-  [metaData setObject:v40 forKeyedSubscript:@"metaDataRequestPerformance"];
+  [metaData setObject:v43 forKeyedSubscript:@"metaDataRequestPerformance"];
 
-  v43 = DebugHierarchyRequestsOSLog();
-  v44 = os_signpost_id_make_with_pointer(v43, self);
-  v45 = v43;
-  v46 = v45;
-  if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+  v47 = DebugHierarchyRequestsOSLog(v46);
+  v48 = os_signpost_id_make_with_pointer(v47, self);
+  v49 = v47;
+  v50 = v49;
+  if (v48 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v46, OS_SIGNPOST_INTERVAL_BEGIN, v44, "Request Executor", "Begin Response Generation", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v50, OS_SIGNPOST_INTERVAL_BEGIN, v48, "Request Executor", "Begin Response Generation", buf, 2u);
   }
 
   requestContext3 = [(DebugHierarchyRequestExecutor *)self requestContext];
   requestResponse = [requestContext3 requestResponse];
 
-  v49 = DebugHierarchyRequestsOSLog();
-  v50 = os_signpost_id_make_with_pointer(v49, self);
-  v51 = v49;
-  v52 = v51;
-  if (v50 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
+  v54 = DebugHierarchyRequestsOSLog(v53);
+  v55 = os_signpost_id_make_with_pointer(v54, self);
+  v56 = v54;
+  v57 = v56;
+  if (v55 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v52, OS_SIGNPOST_INTERVAL_END, v50, "Request Executor", "Completed", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v57, OS_SIGNPOST_INTERVAL_END, v55, "Request Executor", "Completed", buf, 2u);
   }
 
-  v53 = +[DebugHierarchyTargetHub sharedHub];
-  runtimeInfo = [v53 runtimeInfo];
+  v58 = +[DebugHierarchyTargetHub sharedHub];
+  runtimeInfo = [v58 runtimeInfo];
   requestContext4 = [(DebugHierarchyRequestExecutor *)self requestContext];
   contextRuntimeInfo = [requestContext4 contextRuntimeInfo];
   [runtimeInfo mergeWith:contextRuntimeInfo];
@@ -194,45 +192,45 @@ LABEL_22:
 
   if (contextRuntimeInfo)
   {
-    v59 = [(DebugHierarchyRequestExecutor *)self _v1CompatibleRequestResponseFromResponse:requestResponse];
+    v64 = [(DebugHierarchyRequestExecutor *)self _v1CompatibleRequestResponseFromResponse:requestResponse];
 
-    requestResponse = v59;
+    requestResponse = v64;
   }
 
-  v79 = 0;
-  v60 = [requestResponse generateJSONDataWithError:&v79];
-  v61 = v79;
-  v62 = v61;
-  if (v61)
+  v84 = 0;
+  v65 = [requestResponse generateJSONDataWithError:&v84];
+  v66 = v84;
+  v67 = v66;
+  if (v66)
   {
-    localizedDescription = [v61 localizedDescription];
-    v64 = [NSString stringWithCString:"[DebugHierarchyRequestExecutor runWithError:]" encoding:4];
-    v65 = [DebugHierarchyLogEntry errorLogEntryWithTitle:@"Error generating request response data." message:localizedDescription methodSignature:v64];
+    localizedDescription = [v66 localizedDescription];
+    v69 = [NSString stringWithCString:"[DebugHierarchyRequestExecutor runWithError:]" encoding:4];
+    v70 = [DebugHierarchyLogEntry errorLogEntryWithTitle:@"Error generating request response data." message:localizedDescription methodSignature:v69];
 
     requestContext6 = [(DebugHierarchyRequestExecutor *)self requestContext];
     request3 = [requestContext6 request];
-    [request3 addLogEntry:v65];
+    [request3 addLogEntry:v70];
 
-    v80 = @"request";
+    v85 = @"request";
     requestContext7 = [(DebugHierarchyRequestExecutor *)self requestContext];
     request4 = [requestContext7 request];
     dictionaryRepresentation = [request4 dictionaryRepresentation];
-    v81 = dictionaryRepresentation;
-    v71 = [NSDictionary dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+    v86 = dictionaryRepresentation;
+    v76 = [NSDictionary dictionaryWithObjects:&v86 forKeys:&v85 count:1];
 
-    v72 = [v71 generateJSONDataWithError:0];
+    v77 = [v76 generateJSONDataWithError:0];
   }
 
   else
   {
-    v72 = v60;
+    v77 = v65;
   }
 
   requestContext8 = [(DebugHierarchyRequestExecutor *)self requestContext];
   request5 = [requestContext8 request];
-  v75 = [request5 formattedResponseDataForRawRequestResultData:v72];
+  v80 = [request5 formattedResponseDataForRawRequestResultData:v77];
 
-  return v75;
+  return v80;
 }
 
 - (id)_v1CompatibleRequestResponseFromResponse:(id)response

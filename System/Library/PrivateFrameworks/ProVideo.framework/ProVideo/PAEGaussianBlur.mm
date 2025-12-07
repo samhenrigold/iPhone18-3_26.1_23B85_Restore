@@ -28,7 +28,7 @@
   return [PAEGaussianBlur properties]::sProps;
 }
 
-uint64_t __29__PAEGaussianBlur_properties__block_invoke()
+void *__29__PAEGaussianBlur_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:0];
@@ -243,29 +243,29 @@ LABEL_14:
   versionAtCreation = [v10 versionAtCreation];
   v14 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
   imageType = [input imageType];
-  [(PAESharedDefaultBase *)self getScaleForImage:input];
-  v17 = v41[1];
-  v16 = v41[2];
-  v41[0] = 0.0;
-  [v9 getFloatValue:v41 fromParm:1 atFxTime:info->var0.var1];
-  v40 = 0;
-  [v9 getBoolValue:&v40 fromParm:5 atFxTime:info->var0.var1];
-  if (v41[0] <= 0.0)
+  objc_msgSend_getScaleForImage_(self);
+  v17 = v37[1];
+  v16 = v37[2];
+  v37[0] = 0.0;
+  [v9 getFloatValue:v37 fromParm:1 atFxTime:info->var0.var1];
+  v36 = 0;
+  [v9 getBoolValue:&v36 fromParm:5 atFxTime:info->var0.var1];
+  if (v37[0] <= 0.0)
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, v37[0]);
     }
 
     else
     {
-      v39 = 0.0;
+      v35 = 0.0;
     }
 
-    [output setHeliumRef:&v39];
-    if (v39 != 0.0)
+    [output setHeliumRef:&v35];
+    if (*&v35)
     {
-      (*(**&v39 + 24))(*&v39);
+      (*(**&v35 + 24))(*&v35);
     }
 
     return 1;
@@ -273,13 +273,13 @@ LABEL_14:
 
   else
   {
-    v41[0] = v41[0] * 0.5;
-    v39 = 0.0;
-    [v9 getFloatValue:&v39 fromParm:2 atFxTime:info->var0.var1];
-    v39 = v17 * (v39 * 0.01);
-    v38 = 0.0;
-    [v9 getFloatValue:&v38 fromParm:3 atFxTime:info->var0.var1];
-    v38 = v16 * (v38 * 0.01);
+    v37[0] = v37[0] * 0.5;
+    v35 = 0.0;
+    [v9 getFloatValue:&v35 fromParm:2 atFxTime:info->var0.var1];
+    v35 = v17 * (v35 * 0.01);
+    v34 = 0.0;
+    [v9 getFloatValue:&v34 fromParm:3 atFxTime:info->var0.var1];
+    v34 = v16 * (v34 * 0.01);
     if (v14)
     {
       v18 = imageType == 3;
@@ -295,113 +295,106 @@ LABEL_14:
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       else
       {
-        v37 = 0;
+        v33 = 0;
       }
 
-      v36 = 0;
-      [v9 getBoolValue:&v36 fromParm:4 atFxTime:info->var0.var1];
-      if (v36 == 1)
+      v32 = 0;
+      [v9 getBoolValue:&v32 fromParm:4 atFxTime:info->var0.var1];
+      if (v32 == 1)
       {
-        v34 = v37;
-        if (v37)
+        v30 = v33;
+        if (v33)
         {
-          (*(*v37 + 16))(v37);
+          (*(*v33 + 16))(v33);
         }
 
-        [(PAESharedDefaultBase *)self smear:&v34 fromImage:input toImage:input];
-        v19 = v35;
-        if (v37 == v35)
+        objc_msgSend_smear_fromImage_toImage_(self);
+        v19 = v31;
+        if (v33 == v31)
         {
-          if (v37)
+          if (v33)
           {
-            (*(*v35 + 24))(v35);
+            (*(*v31 + 24))(v31);
           }
         }
 
         else
         {
-          if (v37)
+          if (v33)
           {
-            (*(*v37 + 24))();
-            v19 = v35;
+            (*(*v33 + 24))();
+            v19 = v31;
           }
 
-          v37 = v19;
-          v35 = 0;
+          v33 = v19;
+          v31 = 0;
         }
 
-        if (v34)
+        if (v30)
         {
-          (*(*v34 + 24))(v34);
+          (*(*v30 + 24))(v30);
         }
       }
 
-      v35 = 0;
-      if (v40 == 1)
+      v31 = 0;
+      if (v36 == 1)
       {
-        v32 = v37;
-        if (v37)
-        {
-          (*(*v37 + 16))(v37);
-        }
-
-        HIDWORD(v20) = HIDWORD(v41[0]);
-        *&v20 = v41[0];
-        HIDWORD(v22) = HIDWORD(v38);
-        HIDWORD(v21) = HIDWORD(v39);
-        v23 = v39;
-        v24 = v38;
-        *v31 = v23;
-        *&v31[1] = v24;
-        LODWORD(v22) = 2139095039;
-        LODWORD(v21) = 1.5;
-        [(PAEFilterDefaultBase *)self makePrescaledBlurNode:&v32 radius:v31 withScale:v20 minInputScale:v21 maxInputScale:v22];
+        v28 = v33;
         if (v33)
         {
-          v35 = v33;
-          v33 = 0;
+          (*(*v33 + 16))(v33);
         }
 
-        if (v32)
+        HIDWORD(v20) = HIDWORD(v37[0]);
+        *&v20 = v37[0];
+        HIDWORD(v21) = HIDWORD(v34);
+        LODWORD(v21) = 2139095039;
+        objc_msgSend_makePrescaledBlurNode_radius_withScale_minInputScale_maxInputScale_(self, v20, COERCE_DOUBLE(__PAIR64__(HIDWORD(v35), 1.5)), v21);
+        if (v29)
         {
-          (*(*v32 + 24))(v32);
+          v31 = v29;
+        }
+
+        if (v28)
+        {
+          (*(*v28 + 24))(v28);
         }
       }
 
       else
       {
-        v25 = HGObject::operator new(0x1B0uLL);
-        HGaussianBlur::HGaussianBlur(v25);
-        v26 = v41[0];
-        v27 = v39;
-        v28 = v38;
-        HGaussianBlur::init(v25, v26, v27, v28, versionAtCreation == 0, info->var1 == 2, 0);
-        (*(*v25 + 120))(v25, 0, v37);
-        v29 = *v25;
-        v35 = v25;
-        (*(v29 + 16))(v25);
-        (*(*v25 + 24))(v25);
+        v22 = HGObject::operator new(0x1B0uLL);
+        HGaussianBlur::HGaussianBlur(v22);
+        v23 = v37[0];
+        v24 = v35;
+        v25 = v34;
+        HGaussianBlur::init(v22, v23, v24, v25, versionAtCreation == 0, info->var1 == 2, 0);
+        (*(*v22 + 120))(v22, 0, v33);
+        v26 = *v22;
+        v31 = v22;
+        (*(v26 + 16))(v22);
+        (*(*v22 + 24))(v22);
       }
 
-      if (v36 == 1)
+      if (v32 == 1)
       {
-        [(PAESharedDefaultBase *)self crop:&v35 fromImage:input toImage:output];
+        [(PAESharedDefaultBase *)self crop:&v31 fromImage:input toImage:output];
       }
 
-      [output setHeliumRef:&v35];
-      if (v35)
+      [output setHeliumRef:&v31];
+      if (v31)
       {
-        (*(*v35 + 24))(v35);
+        (*(*v31 + 24))(v31);
       }
 
-      if (v37)
+      if (v33)
       {
-        (*(*v37 + 24))(v37);
+        (*(*v33 + 24))(v33);
       }
     }
   }

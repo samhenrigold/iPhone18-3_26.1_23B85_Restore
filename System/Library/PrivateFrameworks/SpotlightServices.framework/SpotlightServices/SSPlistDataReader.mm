@@ -6,6 +6,7 @@
 - (SSPlistDataReader)initWithPlistContainer:(_MDPlistContainer *)container obj:(id *)obj;
 - (double)doubleValueForBundle:(id)bundle;
 - (double)doubleValueForKey:(const char *)key;
+- (id)description;
 - (int64_t)intValueForBundle:(id)bundle defaultValue:(int64_t)value;
 - (int64_t)intValueForKey:(const char *)key defaultValue:(int64_t)value;
 - (unint64_t)count;
@@ -63,24 +64,24 @@
 
 - (unint64_t)count
 {
-  if (!self->_container)
+  if (self->_container)
+  {
+    return _MDPlistDictionaryGetCount();
+  }
+
+  else
   {
     return 0;
   }
-
-  obj = self->_obj;
-  return _MDPlistDictionaryGetCount();
 }
 
 - (NSMutableArray)allKeys
 {
-  v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[SSPlistDataReader count](self, "count")}];
+  v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend_count(self, a2)}];
   v4 = v3;
   if (self->_container)
   {
-    v8 = v3;
-    v6 = *&self->_obj.containerBytes;
-    reference = self->_obj.reference;
+    v6 = v3;
     _MDPlistDictionaryIterate();
   }
 
@@ -100,9 +101,7 @@ void __28__SSPlistDataReader_allKeys__block_invoke(uint64_t a1, uint64_t a2)
   v4 = array;
   if (self->_container)
   {
-    v8 = array;
-    v6 = *&self->_obj.containerBytes;
-    reference = self->_obj.reference;
+    v6 = array;
     _MDPlistDictionaryIterate();
   }
 
@@ -130,24 +129,16 @@ void __30__SSPlistDataReader_blocklist__block_invoke(uint64_t a1, uint64_t a2, u
   }
 
   [list UTF8String];
-  obj = self->_obj;
   return _MDPlistDictionaryGetPlistObjectForKey() != 0;
 }
 
 - (double)doubleValueForKey:(const char *)key
 {
   v3 = -1.0;
-  if (key)
+  if (key && self->_container && _MDPlistDictionaryGetPlistObjectForKey())
   {
-    if (self->_container)
-    {
-      obj = self->_obj;
-      if (_MDPlistDictionaryGetPlistObjectForKey())
-      {
-        _MDPlistNumberGetDoubleValue();
-        return v4;
-      }
-    }
+    _MDPlistNumberGetDoubleValue();
+    return v4;
   }
 
   return v3;
@@ -164,16 +155,9 @@ void __30__SSPlistDataReader_blocklist__block_invoke(uint64_t a1, uint64_t a2, u
 
 - (int64_t)intValueForKey:(const char *)key defaultValue:(int64_t)value
 {
-  if (key)
+  if (key && self->_container && _MDPlistDictionaryGetPlistObjectForKey())
   {
-    if (self->_container)
-    {
-      obj = self->_obj;
-      if (_MDPlistDictionaryGetPlistObjectForKey())
-      {
-        return _MDPlistNumberGetIntValue();
-      }
-    }
+    return _MDPlistNumberGetIntValue();
   }
 
   return value;
@@ -185,6 +169,13 @@ void __30__SSPlistDataReader_blocklist__block_invoke(uint64_t a1, uint64_t a2, u
   v7 = -[SSPlistDataReader intValueForKey:defaultValue:](self, "intValueForKey:defaultValue:", [lowercaseString UTF8String], value);
 
   return v7;
+}
+
+- (id)description
+{
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  return [v3 stringWithFormat:@"<%@ %p> : (count=%d)", v4, self, objc_msgSend_count(self)];
 }
 
 @end

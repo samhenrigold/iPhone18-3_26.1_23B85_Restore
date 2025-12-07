@@ -1,218 +1,12 @@
-const void *llvm::MCContext::getXCOFFSection(uint64_t a1, void *a2, size_t a3, uint64_t a4, char a5, int a6, uint64_t a7, uint64_t a8)
-{
-  if ((a8 & 0x100000000) == 0)
-  {
-    if (a2)
-    {
-      std::string::basic_string[abi:nn200100](&v26, a2, a3);
-      v12 = HIBYTE(v28);
-      v14 = v26;
-      v13 = v27;
-    }
-
-    else
-    {
-      v13 = 0;
-      v14 = 0;
-      v12 = 0;
-      v26 = 0;
-      v27 = 0;
-      v28 = 0;
-    }
-
-    if ((v12 & 0x80u) == 0)
-    {
-      v18 = &v26;
-    }
-
-    else
-    {
-      v18 = v14;
-    }
-
-    if ((v12 & 0x80u) == 0)
-    {
-      v19 = v12;
-    }
-
-    else
-    {
-      v19 = v13;
-    }
-
-    if (v19 <= 0x7FFFFFFFFFFFFFF7)
-    {
-      if (v19 >= 0x17)
-      {
-        operator new();
-      }
-
-      HIBYTE(v30) = v19;
-      if (v19)
-      {
-        memmove(&__dst, v18, v19);
-      }
-
-      *(&__dst + v19) = 0;
-      LOBYTE(v31) = a5;
-      v20 = 1;
-      goto LABEL_34;
-    }
-
-LABEL_55:
-    std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
-  }
-
-  if (a2)
-  {
-    std::string::basic_string[abi:nn200100](&v33, a2, a3);
-    v15 = HIBYTE(v35);
-    v17 = v33;
-    v16 = v34;
-  }
-
-  else
-  {
-    v16 = 0;
-    v17 = 0;
-    v15 = 0;
-    v33 = 0;
-    v34 = 0;
-    v35 = 0;
-  }
-
-  if ((v15 & 0x80u) == 0)
-  {
-    v21 = &v33;
-  }
-
-  else
-  {
-    v21 = v17;
-  }
-
-  if ((v15 & 0x80u) == 0)
-  {
-    v22 = v15;
-  }
-
-  else
-  {
-    v22 = v16;
-  }
-
-  if (v22 > 0x7FFFFFFFFFFFFFF7)
-  {
-    goto LABEL_55;
-  }
-
-  if (v22 >= 0x17)
-  {
-    operator new();
-  }
-
-  HIBYTE(v30) = v22;
-  if (v22)
-  {
-    memmove(&__dst, v21, v22);
-  }
-
-  v20 = 0;
-  *(&__dst + v22) = 0;
-  v31 = a8;
-LABEL_34:
-  v32 = v20;
-  *__p = __dst;
-  v37 = v30;
-  __dst = 0uLL;
-  v30 = 0;
-  v38 = v31;
-  v39 = v20;
-  v40 = 0;
-  v23 = *(a1 + 1880);
-  if (!v23)
-  {
-LABEL_40:
-    operator new();
-  }
-
-  while (1)
-  {
-    while (1)
-    {
-      v24 = v23;
-      if (!llvm::MCContext::XCOFFSectionKey::operator<(__p, v23 + 4))
-      {
-        break;
-      }
-
-      v23 = *v24;
-      if (!*v24)
-      {
-        goto LABEL_40;
-      }
-    }
-
-    if (!llvm::MCContext::XCOFFSectionKey::operator<(v24 + 4, __p))
-    {
-      break;
-    }
-
-    v23 = v24[1];
-    if (!v23)
-    {
-      goto LABEL_40;
-    }
-  }
-
-  if (SHIBYTE(v37) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v30) < 0)
-  {
-    operator delete(__dst);
-    if ((a8 & 0x100000000) == 0)
-    {
-LABEL_45:
-      if (SHIBYTE(v28) < 0)
-      {
-        operator delete(v26);
-      }
-
-      goto LABEL_52;
-    }
-  }
-
-  else if ((a8 & 0x100000000) == 0)
-  {
-    goto LABEL_45;
-  }
-
-  if (SHIBYTE(v35) < 0)
-  {
-    operator delete(v33);
-  }
-
-LABEL_52:
-  if (*(v24[8] + 264) != a6)
-  {
-    llvm::report_fatal_error("section's multiply symbols policy does not match", 1);
-  }
-
-  return v24[8];
-}
-
 void llvm::MCContext::getSPIRVSection(llvm::MCContext *this)
 {
-  v1 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(this + 760, 224, 3);
+  v1 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(this + 190, 224, 3);
   llvm::MCSection::MCSection(v1, 6, &str_25, 0, 2, 0);
   *v2 = &unk_2883F02B8;
   operator new();
 }
 
-uint64_t llvm::MCContext::getDXContainerSection(uint64_t a1, uint64_t *a2, unint64_t a3, int a4)
+uint64_t llvm::MCContext::getDXContainerSection(uint64_t a1, uint64_t *a2, size_t a3, int a4)
 {
   v6 = llvm::StringMap<llvm::MCSectionMachO *,llvm::MallocAllocator>::try_emplace<>((a1 + 1896), a2, a3);
   v7 = *v6;
@@ -220,7 +14,7 @@ uint64_t llvm::MCContext::getDXContainerSection(uint64_t a1, uint64_t *a2, unint
   {
     v9 = v6;
     v10 = *v7;
-    v11 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a1 + 376, 224, 3);
+    v11 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((a1 + 376), 224, 3);
     llvm::MCSection::MCSection(v11, 7, (v7 + 2), v10, a4, 0);
     *v12 = &unk_2883F0400;
     (*v9)[1] = v12;
@@ -230,28 +24,28 @@ uint64_t llvm::MCContext::getDXContainerSection(uint64_t a1, uint64_t *a2, unint
   return v7[1];
 }
 
-void llvm::MCContext::getDwarfFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unsigned int a6@<W5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, unsigned int a10)
+void llvm::MCContext::getDwarfFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int128 *a7@<X6>, __int128 *a8@<X7>, uint64_t x8_0@<X8>, unsigned int a9)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v18[0] = a2;
-  v18[1] = a3;
-  v17[0] = a4;
-  v17[1] = a5;
-  *&v19 = &a10;
-  v15 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 1560, &a10);
-  v21 = *a7;
-  v22 = *(a7 + 16);
-  v19 = *a8;
-  v20 = *(a8 + 16);
-  llvm::MCDwarfLineTableHeader::tryGetFile((v15 + 5), v18, v17, &v21, &v19, *(a1 + 1712), a6, a9);
-  v16 = *MEMORY[0x277D85DE8];
+  v12 = a6;
+  v22 = *MEMORY[0x277D85DE8];
+  v17[0] = a2;
+  v17[1] = a3;
+  v16[0] = a4;
+  v16[1] = a5;
+  *&v18 = &a9;
+  v15 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 1560), &a9, &std::piecewise_construct, &v18);
+  v20 = *a7;
+  v21 = *(a7 + 16);
+  v18 = *a8;
+  v19 = *(a8 + 2);
+  llvm::MCDwarfLineTableHeader::tryGetFile((v15 + 5), v17, v16, &v20, &v18, *(a1 + 1712), v12, x8_0);
 }
 
-BOOL llvm::MCContext::isValidDwarfFileNumber(llvm::MCContext *this, unsigned int a2, unsigned int a3)
+BOOL llvm::MCContext::isValidDwarfFileNumber(uint64_t **this, unsigned int a2, unsigned int a3)
 {
   v9 = a3;
   v10 = &v9;
-  v5 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 1560, &v9);
+  v5 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 195, &v9, &std::piecewise_construct, &v10);
   if (!a2)
   {
     return *(this + 856) > 4u;
@@ -262,7 +56,7 @@ BOOL llvm::MCContext::isValidDwarfFileNumber(llvm::MCContext *this, unsigned int
     return 0;
   }
 
-  v6 = v5[17] + 72 * a2;
+  v6 = &v5[17][9 * a2];
   v7 = *(v6 + 23);
   if (v7 < 0)
   {
@@ -272,7 +66,7 @@ BOOL llvm::MCContext::isValidDwarfFileNumber(llvm::MCContext *this, unsigned int
   return v7 != 0;
 }
 
-uint64_t llvm::MCContext::getCVContext(llvm::MCContext *this)
+llvm::CodeViewContext *llvm::MCContext::getCVContext(llvm::MCContext *this)
 {
   result = *(this + 22);
   if (!result)
@@ -283,24 +77,27 @@ uint64_t llvm::MCContext::getCVContext(llvm::MCContext *this)
   return result;
 }
 
-uint64_t std::function<void ()(llvm::SMDiagnostic const&,BOOL,llvm::SourceMgr const&,std::vector<llvm::MDNode const*> &)>::operator()(uint64_t a1, uint64_t a2, char a3)
+void std::function<void ()(llvm::SMDiagnostic const&,BOOL,llvm::SourceMgr const&,std::vector<llvm::MDNode const*> &)>::operator()(uint64_t a1, uint64_t a2, char a3)
 {
-  v6 = a3;
+  v7 = a3;
   v3 = *(a1 + 24);
   if (v3)
   {
-    return (*(*v3 + 48))(v3, a2, &v6);
+    (*(*v3 + 48))(v3, a2, &v7);
   }
 
-  v5 = std::__throw_bad_function_call[abi:nn200100]();
-  return llvm::MCContext::reportCommon(v5);
+  else
+  {
+    v4 = std::__throw_bad_function_call[abi:nn200100]();
+    llvm::MCContext::reportCommon(v4, v5, v6);
+  }
 }
 
 void llvm::MCContext::reportCommon(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v19[21] = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  memset(v7, 0, sizeof(v7));
+  v18[21] = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  memset(v6, 0, sizeof(v6));
   if (a2)
   {
     v4 = *(a1 + 72);
@@ -319,46 +116,45 @@ void llvm::MCContext::reportCommon(uint64_t a1, uint64_t a2, uint64_t a3)
   else
   {
     v5 = 0;
-    v4 = v7;
+    v4 = v6;
   }
 
-  v12 = 0;
-  *v10 = 0uLL;
-  v11 = 0uLL;
-  v9 = 0uLL;
+  v11 = 0;
+  *v9 = 0uLL;
+  v10 = 0uLL;
+  v8 = 0uLL;
+  v12 = 0uLL;
   v13 = 0uLL;
   v14 = 0uLL;
-  v15 = 0uLL;
   __p = 0uLL;
-  v17 = 0;
-  v18[0] = v19;
-  v18[1] = 0x400000000;
-  std::function<void ()(llvm::SMDiagnostic &,llvm::SourceMgr const*)>::operator()(a3, &v9, v4);
-  std::function<void ()(llvm::SMDiagnostic const&,BOOL,llvm::SourceMgr const&,std::vector<llvm::MDNode const*> &)>::operator()(a1 + 112, &v9, v5);
-  llvm::SmallVector<llvm::SMFixIt,4u>::~SmallVector(v18);
+  v16 = 0;
+  v17[0] = v18;
+  v17[1] = 0x400000000;
+  std::function<void ()(llvm::SMDiagnostic &,llvm::SourceMgr const*)>::operator()(a3, &v8, v4);
+  std::function<void ()(llvm::SMDiagnostic const&,BOOL,llvm::SourceMgr const&,std::vector<llvm::MDNode const*> &)>::operator()(a1 + 112, &v8, v5);
+  llvm::SmallVector<llvm::SMFixIt,4u>::~SmallVector(v17);
   if (__p)
   {
     *(&__p + 1) = __p;
     operator delete(__p);
   }
 
-  if (SHIBYTE(v15) < 0)
+  if (SHIBYTE(v14) < 0)
   {
-    operator delete(*(&v14 + 1));
+    operator delete(*(&v13 + 1));
   }
 
-  if (SBYTE7(v14) < 0)
+  if (SBYTE7(v13) < 0)
   {
-    operator delete(v13);
+    operator delete(v12);
   }
 
-  if (SBYTE7(v11) < 0)
+  if (SBYTE7(v10) < 0)
   {
-    operator delete(v10[0]);
+    operator delete(v9[0]);
   }
 
-  llvm::SourceMgr::~SourceMgr(v7);
-  v6 = *MEMORY[0x277D85DE8];
+  llvm::SourceMgr::~SourceMgr(v6);
 }
 
 _DWORD *std::function<void ()(llvm::SMDiagnostic &,llvm::SourceMgr const*)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -411,7 +207,7 @@ _DWORD *llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMa
   return result;
 }
 
-void std::__tree<std::__value_type<llvm::MCSymbol *,llvm::MCPseudoProbeInlineTree>,std::__map_value_compare<llvm::MCSymbol *,std::__value_type<llvm::MCSymbol *,llvm::MCPseudoProbeInlineTree>,std::less<llvm::MCSymbol *>,true>,std::allocator<std::__value_type<llvm::MCSymbol *,llvm::MCPseudoProbeInlineTree>>>::destroy(void *a1)
+void std::__tree<std::__value_type<llvm::MCSymbol *,llvm::MCPseudoProbeInlineTree>,std::__map_value_compare<llvm::MCSymbol *,std::__value_type<llvm::MCSymbol *,llvm::MCPseudoProbeInlineTree>,std::less<llvm::MCSymbol *>,true>,std::allocator<std::__value_type<llvm::MCSymbol *,llvm::MCPseudoProbeInlineTree>>>::destroy(void **a1)
 {
   if (a1)
   {
@@ -424,15 +220,15 @@ void std::__tree<std::__value_type<llvm::MCSymbol *,llvm::MCPseudoProbeInlineTre
       operator delete(v2);
     }
 
-    std::__hash_table<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::__unordered_map_hasher<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,std::equal_to<std::tuple<unsigned long long,unsigned int>>,true>,std::__unordered_map_equal<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::equal_to<std::tuple<unsigned long long,unsigned int>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,true>,std::allocator<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>>>::~__hash_table((a1 + 5));
+    std::__hash_table<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::__unordered_map_hasher<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,std::equal_to<std::tuple<unsigned long long,unsigned int>>,true>,std::__unordered_map_equal<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::equal_to<std::tuple<unsigned long long,unsigned int>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,true>,std::allocator<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>>>::~__hash_table(a1 + 5);
 
     operator delete(a1);
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::__unordered_map_hasher<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,std::equal_to<std::tuple<unsigned long long,unsigned int>>,true>,std::__unordered_map_equal<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::equal_to<std::tuple<unsigned long long,unsigned int>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,true>,std::allocator<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::__unordered_map_hasher<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,std::equal_to<std::tuple<unsigned long long,unsigned int>>,true>,std::__unordered_map_equal<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::equal_to<std::tuple<unsigned long long,unsigned int>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,true>,std::allocator<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::__unordered_map_hasher<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,std::equal_to<std::tuple<unsigned long long,unsigned int>>,true>,std::__unordered_map_equal<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::equal_to<std::tuple<unsigned long long,unsigned int>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,true>,std::allocator<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::__unordered_map_hasher<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,std::equal_to<std::tuple<unsigned long long,unsigned int>>,true>,std::__unordered_map_equal<std::tuple<unsigned long long,unsigned int>,std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>,std::equal_to<std::tuple<unsigned long long,unsigned int>>,llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::InlineSiteHash,true>,std::allocator<std::__hash_value_type<std::tuple<unsigned long long,unsigned int>,std::unique_ptr<llvm::MCPseudoProbeInlineTree>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -749,7 +545,7 @@ _DWORD *llvm::DenseMap<llvm::StringRef,llvm::detail::DenseSetEmpty,llvm::DenseMa
   return result;
 }
 
-uint64_t *llvm::StringMap<llvm::MCSymbol *,llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul> &>::try_emplace<>(uint64_t a1, uint64_t *a2, unint64_t a3)
+uint64_t *llvm::StringMap<llvm::MCSymbol *,llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul> &>::try_emplace<>(uint64_t a1, uint64_t *a2, size_t a3)
 {
   v6 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3);
   i = (*a1 + 8 * v6);
@@ -772,17 +568,17 @@ uint64_t *llvm::StringMap<llvm::MCSymbol *,llvm::BumpPtrAllocatorImpl<llvm::Mall
   }
 
   v10 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(*(a1 + 24), a3 + 17, 3);
-  v11 = v10;
-  v12 = v10 + 16;
+  v12 = v10;
+  v13 = v10 + 16;
   if (a3)
   {
     memcpy((v10 + 16), a2, a3);
   }
 
-  *(v12 + a3) = 0;
-  *v11 = a3;
-  v11[1] = 0;
-  *i = v11;
+  *(v13 + a3) = 0;
+  *v12 = a3;
+  v12[1] = 0;
+  *i = v12;
   ++*(a1 + 12);
     ;
   }
@@ -790,7 +586,7 @@ uint64_t *llvm::StringMap<llvm::MCSymbol *,llvm::BumpPtrAllocatorImpl<llvm::Mall
   return i;
 }
 
-uint64_t *llvm::StringMap<unsigned int,llvm::MallocAllocator>::try_emplace<>(llvm::StringMapImpl *a1, uint64_t *a2, unint64_t a3)
+uint64_t *llvm::StringMap<unsigned int,llvm::MallocAllocator>::try_emplace<>(llvm::StringMapImpl *a1, uint64_t *a2, size_t a3)
 {
   v6 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3);
   i = (*a1 + 8 * v6);
@@ -813,17 +609,17 @@ uint64_t *llvm::StringMap<unsigned int,llvm::MallocAllocator>::try_emplace<>(llv
   }
 
   v10 = operator new(a3 + 17, 8uLL);
-  v11 = v10;
-  v12 = v10 + 16;
+  v12 = v10;
+  v13 = v10 + 16;
   if (a3)
   {
     memcpy(v10 + 16, a2, a3);
   }
 
-  v12[a3] = 0;
-  *v11 = a3;
-  *(v11 + 2) = 0;
-  *i = v11;
+  v13[a3] = 0;
+  *v12 = a3;
+  *(v12 + 2) = 0;
+  *i = v12;
   ++*(a1 + 3);
     ;
   }
@@ -831,7 +627,7 @@ uint64_t *llvm::StringMap<unsigned int,llvm::MallocAllocator>::try_emplace<>(llv
   return i;
 }
 
-unint64_t *llvm::StringMap<BOOL,llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul> &>::try_emplace<BOOL>(uint64_t a1, uint64_t *a2, unint64_t a3, _BYTE *a4)
+unint64_t *llvm::StringMap<BOOL,llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul> &>::try_emplace<BOOL>(uint64_t a1, uint64_t *a2, size_t a3, _BYTE *a4)
 {
   v8 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3);
   i = (*a1 + 8 * v8);
@@ -854,17 +650,17 @@ unint64_t *llvm::StringMap<BOOL,llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator
   }
 
   v12 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(*(a1 + 24), a3 + 17, 3);
-  v13 = v12;
-  v14 = v12 + 16;
+  v14 = v12;
+  v15 = v12 + 16;
   if (a3)
   {
     memcpy((v12 + 16), a2, a3);
   }
 
-  *(v14 + a3) = 0;
-  *v13 = a3;
-  *(v13 + 8) = *a4;
-  *i = v13;
+  *(v15 + a3) = 0;
+  *v14 = a3;
+  *(v14 + 8) = *a4;
+  *i = v14;
   ++*(a1 + 12);
     ;
   }
@@ -1078,7 +874,7 @@ char *llvm::DenseMap<std::pair<unsigned int,unsigned int>,llvm::MCSymbol *,llvm:
         }
 
         v11 += 2;
-        v16 += 4;
+        v16 += 32;
       }
 
       while (v14 != v11);
@@ -1136,7 +932,7 @@ char *llvm::DenseMap<std::pair<unsigned int,unsigned int>,llvm::MCSymbol *,llvm:
       }
 
       v25 += 2;
-      v30 += 4;
+      v30 += 32;
     }
 
     while (v28 != v25);
@@ -1318,15 +1114,15 @@ BOOL llvm::MCContext::ELFEntrySizeKey::operator<(const void **a1, const void **a
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,llvm::MCSectionGOFF *>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::MCSectionGOFF *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::MCSectionGOFF *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,llvm::MCSectionGOFF *>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::MCSectionGOFF *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::MCSectionGOFF *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 BOOL llvm::MCContext::COFFSectionKey::operator<(const void **a1, const void **a2)
@@ -1694,40 +1490,40 @@ __n128 std::__function::__func<llvm::MCContext::reportError(llvm::SMLoc,llvm::Tw
 
 void std::__function::__func<llvm::MCContext::reportError(llvm::SMLoc,llvm::Twine const&)::$_0,std::allocator<llvm::MCContext::reportError(llvm::SMLoc,llvm::Twine const&)::$_0>,void ()(llvm::SMDiagnostic &,llvm::SourceMgr const*)>::operator()(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
-  v19[22] = *MEMORY[0x277D85DE8];
-  llvm::SourceMgr::GetMessage(*a3, **(a1 + 8), 0, *(a1 + 16), 0, 0, 0, 0, &v8);
-  *a2 = v8;
+  v18[22] = *MEMORY[0x277D85DE8];
+  llvm::SourceMgr::GetMessage(*a3, **(a1 + 8), 0, *(a1 + 16), 0, 0, 0, 0, &v7);
+  *a2 = v7;
   if (*(a2 + 39) < 0)
   {
     operator delete(*(a2 + 16));
   }
 
-  *(a2 + 16) = v9;
-  v4 = v10;
-  HIBYTE(v10) = 0;
-  LOBYTE(v9) = 0;
-  v5 = v11;
+  *(a2 + 16) = v8;
+  v4 = v9;
+  HIBYTE(v9) = 0;
+  LOBYTE(v8) = 0;
+  v5 = v10;
   *(a2 + 32) = v4;
   *(a2 + 40) = v5;
-  *(a2 + 48) = v12;
+  *(a2 + 48) = v11;
   if (*(a2 + 79) < 0)
   {
     operator delete(*(a2 + 56));
   }
 
-  *(a2 + 56) = v13;
-  *(a2 + 72) = v14;
-  HIBYTE(v14) = 0;
-  LOBYTE(v13) = 0;
+  *(a2 + 56) = v12;
+  *(a2 + 72) = v13;
+  HIBYTE(v13) = 0;
+  LOBYTE(v12) = 0;
   if (*(a2 + 103) < 0)
   {
     operator delete(*(a2 + 80));
   }
 
-  *(a2 + 80) = *v15;
-  *(a2 + 96) = v16;
-  HIBYTE(v16) = 0;
-  LOBYTE(v15[0]) = 0;
+  *(a2 + 80) = *v14;
+  *(a2 + 96) = v15;
+  HIBYTE(v15) = 0;
+  LOBYTE(v14[0]) = 0;
   v6 = *(a2 + 104);
   if (v6)
   {
@@ -1736,55 +1532,53 @@ void std::__function::__func<llvm::MCContext::reportError(llvm::SMLoc,llvm::Twin
   }
 
   *(a2 + 104) = *__p;
-  *(a2 + 120) = v18;
+  *(a2 + 120) = v17;
   __p[1] = 0;
-  v18 = 0;
+  v17 = 0;
   __p[0] = 0;
-  llvm::SmallVectorImpl<llvm::SMFixIt>::operator=(a2 + 128, v19);
-  llvm::SmallVector<llvm::SMFixIt,4u>::~SmallVector(v19);
+  llvm::SmallVectorImpl<llvm::SMFixIt>::operator=(a2 + 128, v18);
+  llvm::SmallVector<llvm::SMFixIt,4u>::~SmallVector(v18);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v16) < 0)
+  if (SHIBYTE(v15) < 0)
   {
-    operator delete(v15[0]);
+    operator delete(v14[0]);
   }
 
-  if (SHIBYTE(v14) < 0)
+  if (SHIBYTE(v13) < 0)
   {
-    operator delete(v13);
+    operator delete(v12);
   }
 
-  if (SHIBYTE(v10) < 0)
+  if (SHIBYTE(v9) < 0)
   {
-    operator delete(v9);
+    operator delete(v8);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t llvm::SmallVectorImpl<llvm::SMFixIt>::operator=(uint64_t a1, uint64_t a2)
+uint64_t llvm::SmallVectorImpl<llvm::SMFixIt>::operator=(uint64_t a1, uint64_t **a2)
 {
   if (a1 == a2)
   {
     return a1;
   }
 
-  v5 = a2 + 16;
+  v5 = (a2 + 2);
   v4 = *a2;
-  if (*a2 == a2 + 16)
+  if (*a2 == (a2 + 2))
   {
-    v10 = *(a2 + 8);
+    v10 = *(a2 + 2);
     v11 = *(a1 + 8);
     if (v11 >= v10)
     {
       v12 = *a1;
       if (v10)
       {
-        v13 = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<llvm::SMFixIt *,llvm::SMFixIt *,llvm::SMFixIt *>(v4, v4 + 40 * v10, v12);
+        v13 = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<llvm::SMFixIt *,llvm::SMFixIt *,llvm::SMFixIt *>(v4, &v4[5 * v10], v12);
         v12 = *a1;
         LODWORD(v11) = *(a1 + 8);
       }
@@ -1809,7 +1603,7 @@ uint64_t llvm::SmallVectorImpl<llvm::SMFixIt>::operator=(uint64_t a1, uint64_t a
     {
       if (v11)
       {
-        std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<llvm::SMFixIt *,llvm::SMFixIt *,llvm::SMFixIt *>(v4, v4 + 40 * v11, *a1);
+        std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<llvm::SMFixIt *,llvm::SMFixIt *,llvm::SMFixIt *>(v4, &v4[5 * v11], *a1);
         goto LABEL_20;
       }
     }
@@ -1822,12 +1616,12 @@ uint64_t llvm::SmallVectorImpl<llvm::SMFixIt>::operator=(uint64_t a1, uint64_t a
 
     v11 = 0;
 LABEL_20:
-    v14 = *(a2 + 8);
+    v14 = *(a2 + 2);
     if (v11 != v14)
     {
-      v15 = *a2 + 40 * v14;
+      v15 = &(*a2)[5 * v14];
       v16 = *a1 + 40 * v11;
-      v17 = *a2 + 40 * v11;
+      v17 = &(*a2)[5 * v11];
       do
       {
         *v16 = *v17;
@@ -1854,7 +1648,7 @@ LABEL_23:
   v7 = *(a1 + 8);
   if (v7)
   {
-    v8 = v6 + 40 * v7 - 24;
+    v8 = &v6[5 * v7 - 3];
     v9 = -40 * v7;
     do
     {
@@ -1877,9 +1671,9 @@ LABEL_23:
   }
 
   *a1 = *a2;
-  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 8) = a2[1];
   *a2 = v5;
-  *(a2 + 8) = 0;
+  a2[1] = 0;
   return a1;
 }
 
@@ -1953,7 +1747,7 @@ uint64_t std::__function::__value_func<void ()(llvm::SMDiagnostic &,llvm::Source
 
 void llvm::MCDwarfLineTableHeader::tryGetFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __int128 *a4@<X3>, __int128 *a5@<X4>, unsigned int a6@<W5>, unsigned int a7@<W6>, uint64_t a8@<X8>)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v15 = *(a1 + 375);
   if (v15 >= 0)
   {
@@ -2037,13 +1831,13 @@ void llvm::MCDwarfLineTableHeader::tryGetFile(uint64_t a1@<X0>, uint64_t a2@<X1>
 
         *(a8 + 8) &= ~1u;
         *a8 = 0;
-        goto LABEL_92;
+        return;
       }
     }
   }
 
 LABEL_27:
-  v77 = a5;
+  v76 = a5;
   if (a7)
   {
 LABEL_37:
@@ -2170,7 +1964,7 @@ LABEL_72:
       goto LABEL_72;
     }
 
-    if (*(a1 + 448) != *(v77 + 16))
+    if (*(a1 + 448) != *(v76 + 16))
     {
       getErrorErrorCat();
       *__dst = 3;
@@ -2183,14 +1977,14 @@ LABEL_72:
       v54 = *a3;
       v55 = *(a3 + 8);
       *&__dst[16] = 0;
-      v87[0] = 0;
+      v86[0] = 0;
       *__dst = v54;
       *&__dst[8] = v55;
-      v87[1] = v55;
-      v88 = 0;
+      v86[1] = v55;
+      v87 = 0;
       llvm::sys::path::reverse_iterator::operator++(__dst);
-      v56 = v87[0];
-      if (v87[0])
+      v56 = v86[0];
+      if (v86[0])
       {
         v57 = *&__dst[16];
         v58 = *a3;
@@ -2220,7 +2014,7 @@ LABEL_72:
         *(a2 + 8) = v61;
         if (!v61)
         {
-          v70 = 0;
+          v69 = 0;
           goto LABEL_100;
         }
 
@@ -2230,7 +2024,7 @@ LABEL_72:
 
       if (!*(a2 + 8))
       {
-        v70 = 0;
+        v69 = 0;
         goto LABEL_100;
       }
     }
@@ -2257,14 +2051,14 @@ LABEL_72:
       }
 
       __dst[v64] = 0;
-      v67 = llvm::SmallVectorTemplateCommon<std::string,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::string,false>>(a1 + 8, __dst, 1);
-      v68 = *(a1 + 8) + 24 * *(a1 + 16);
-      v69 = *v67;
-      *(v68 + 16) = *(v67 + 16);
-      *v68 = v69;
-      *(v67 + 8) = 0;
-      *(v67 + 16) = 0;
-      *v67 = 0;
+      v66 = llvm::SmallVectorTemplateCommon<std::string,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<std::string,false>>(a1 + 8, __dst, 1);
+      v67 = *(a1 + 8) + 24 * *(a1 + 16);
+      v68 = *v66;
+      *(v67 + 16) = *(v66 + 16);
+      *v67 = v68;
+      *(v66 + 8) = 0;
+      *(v66 + 16) = 0;
+      *v66 = 0;
       ++*(a1 + 16);
       if ((__dst[23] & 0x80000000) != 0)
       {
@@ -2272,24 +2066,24 @@ LABEL_72:
       }
     }
 
-    v70 = v63 + 1;
+    v69 = v63 + 1;
 LABEL_100:
-    v71 = *(a3 + 8);
-    if (v71 <= 0x7FFFFFFFFFFFFFF7)
+    v70 = *(a3 + 8);
+    if (v70 <= 0x7FFFFFFFFFFFFFF7)
     {
-      v72 = *a3;
-      if (v71 >= 0x17)
+      v71 = *a3;
+      if (v70 >= 0x17)
       {
         operator new();
       }
 
-      __dst[23] = v71;
-      if (v71)
+      __dst[23] = v70;
+      if (v70)
       {
-        memmove(__dst, v72, v71);
+        memmove(__dst, v71, v70);
       }
 
-      __dst[v71] = 0;
+      __dst[v70] = 0;
       if (*(v53 + 23) < 0)
       {
         operator delete(*v53);
@@ -2297,37 +2091,37 @@ LABEL_100:
 
       *v53 = *__dst;
       *(v53 + 16) = *&__dst[16];
-      *(v53 + 24) = v70;
-      v73 = *a4;
+      *(v53 + 24) = v69;
+      v72 = *a4;
       *(v53 + 44) = *(a4 + 16);
-      *(v53 + 28) = v73;
-      v74 = *(a4 + 16);
-      v75 = *(a1 + 449);
-      if (!v74)
+      *(v53 + 28) = v72;
+      v73 = *(a4 + 16);
+      v74 = *(a1 + 449);
+      if (!v73)
       {
-        v75 = 0;
+        v74 = 0;
       }
 
-      *(a1 + 449) = v75;
-      *(a1 + 450) |= v74;
-      v76 = *v77;
-      *(v53 + 64) = *(v77 + 16);
-      *(v53 + 48) = v76;
-      if (*(v77 + 16) == 1)
+      *(a1 + 449) = v74;
+      *(a1 + 450) |= v73;
+      v75 = *v76;
+      *(v53 + 64) = *(v76 + 16);
+      *(v53 + 48) = v75;
+      if (*(v76 + 16) == 1)
       {
         *(a1 + 448) = 1;
       }
 
       *(a8 + 8) &= ~1u;
       *a8 = a7;
-      goto LABEL_92;
+      return;
     }
 
 LABEL_115:
     std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
   }
 
-  *__dst = v87;
+  *__dst = v86;
   if (v20 <= 1)
   {
     a7 = 1;
@@ -2339,20 +2133,20 @@ LABEL_115:
   }
 
   *&__dst[8] = xmmword_2750C12F0;
-  v79[0] = v18;
-  v79[1] = v17;
-  v79[2] = 0;
-  v80 = 1797;
+  v78[0] = v18;
+  v78[1] = v17;
+  v78[2] = 0;
+  v79 = 1797;
   v27 = *a3;
   v26 = *(a3 + 8);
-  v81[0] = v79;
-  v81[2] = v27;
-  v81[3] = v26;
-  v82 = 1282;
-  v83 = llvm::Twine::toStringRef(v81, __dst);
-  v84 = v28;
-  v85 = a7;
-  v29 = llvm::StringMap<unsigned int,llvm::MallocAllocator>::try_emplace<unsigned int>((a1 + 328), v83, v28, &v85);
+  v80[0] = v78;
+  v80[2] = v27;
+  v80[3] = v26;
+  v81 = 1282;
+  v82 = llvm::Twine::toStringRef(v80, __dst);
+  v83 = v28;
+  v84 = a7;
+  v29 = llvm::StringMap<unsigned int,llvm::MallocAllocator>::try_emplace<unsigned int>((a1 + 328), v82, v28, &v84);
   v31 = v30;
   if ((v30 & 1) == 0)
   {
@@ -2361,7 +2155,7 @@ LABEL_115:
     *a8 = *(v32 + 8);
   }
 
-  if (*__dst != v87)
+  if (*__dst != v86)
   {
     free(*__dst);
   }
@@ -2371,9 +2165,6 @@ LABEL_115:
     v20 = *(a1 + 104);
     goto LABEL_37;
   }
-
-LABEL_92:
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::MCGenDwarfLabelEntry::Make(_BYTE *a1, uint64_t a2, uint64_t *a3, char **a4)
@@ -2511,7 +2302,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::MCDwarfFrameInf
   std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::vector<llvm::MCCFIInstruction>::__init_with_size[abi:nn200100]<llvm::MCCFIInstruction*,llvm::MCCFIInstruction*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<llvm::MCCFIInstruction>::__init_with_size[abi:nn200100]<llvm::MCCFIInstruction*,llvm::MCCFIInstruction*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2521,7 +2312,7 @@ uint64_t std::vector<llvm::MCCFIInstruction>::__init_with_size[abi:nn200100]<llv
   return result;
 }
 
-void std::vector<llvm::MCCFIInstruction>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<llvm::MCCFIInstruction>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -2587,7 +2378,7 @@ std::string::value_type *std::__uninitialized_allocator_copy_impl[abi:nn200100]<
   return result;
 }
 
-void std::vector<char>::__vallocate[abi:nn200100](uint64_t a1, uint64_t a2)
+void std::vector<char>::__vallocate[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2717,7 +2508,7 @@ void llvm::MCExpr::print(unsigned __int8 *a1, llvm::raw_ostream *a2, _BYTE *a3, 
             if (*v24 == 1)
             {
               v25 = *(v24 + 16);
-              if ((v25 & 0x8000000000000000) != 0)
+              if (v25 < 0)
               {
                 v36 = a2;
                 goto LABEL_113;
@@ -3266,16 +3057,9 @@ LABEL_134:
   *v44 = 41;
 }
 
-char *llvm::MCSymbolRefExpr::getVariantKindName(__int16 a1)
-{
-  v1 = a1 - 1;
-  v2 = qword_2750C8200[v1];
-  return off_279EFF320[v1];
-}
-
 unint64_t llvm::MCSymbolRefExpr::create(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a3 + 184, 24, 3);
+  result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((a3 + 184), 24, 3);
   if (*(*(a3 + 144) + 18))
   {
     v9 = 0x10000;
@@ -3297,7 +3081,7 @@ uint64_t llvm::MCSymbolRefExpr::getVariantKindForName(uint64_t a1, uint64_t a2)
 {
   v139[0] = a1;
   v139[1] = a2;
-  llvm::StringRef::lower(v139, v137);
+  llvm::StringRef::lower(v137, v139);
   v2 = v137[1];
   if (v138 >= 0)
   {
@@ -4605,7 +4389,7 @@ uint64_t llvm::MCExpr::findAssociatedFragment(llvm::MCExpr *this)
       else
       {
 
-        return llvm::MCSymbol::getFragment(v6, 1);
+        return llvm::MCSymbol::getFragment(v6, 1u);
       }
     }
 
@@ -4834,7 +4618,7 @@ uint64_t llvm::MCAsmLayout::canGetFragmentOffset(llvm::MCAsmLayout *this, const 
   return v5 & 1;
 }
 
-BOOL llvm::MCAsmLayout::ensureValid(llvm::MCAsmLayout *this, const llvm::MCFragment *a2)
+BOOL llvm::MCAsmLayout::ensureValid(llvm::MCAssembler **this, const llvm::MCFragment *a2)
 {
   v8 = *(a2 + 2);
   v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::FindAndConstruct(this + 19, &v8)[1];
@@ -4858,7 +4642,7 @@ BOOL llvm::MCAsmLayout::ensureValid(llvm::MCAsmLayout *this, const llvm::MCFragm
   return result;
 }
 
-BOOL getSymbolOffsetImpl(const llvm::MCAsmLayout *a1, const llvm::MCSymbol *a2, _BOOL8 a3, unint64_t *a4)
+uint64_t getSymbolOffsetImpl(llvm::MCAssembler **a1, const llvm::MCSymbol *a2, _BOOL8 a3, unint64_t *a4)
 {
   v8 = *(a2 + 1);
   if ((v8 & 0x3800) != 0x1000)
@@ -4932,16 +4716,17 @@ LABEL_9:
   return 1;
 }
 
-uint64_t *llvm::MCSymbol::getName(llvm::MCSymbol *this)
+uint64_t llvm::MCSymbol::getName(llvm::MCSymbol *this)
 {
-  if ((*this & 4) == 0)
+  if ((*this & 4) != 0)
+  {
+    return *(this - 1) + 16;
+  }
+
+  else
   {
     return 0;
   }
-
-  v2 = *(this - 1);
-  v3 = *v2;
-  return v2 + 2;
 }
 
 uint64_t llvm::MCFragment::destroy(uint64_t this)
@@ -5044,10 +4829,10 @@ LABEL_28:
   }
 }
 
-unint64_t llvm::MCObjectFileInfo::initMachOMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2)
+size_t llvm::MCObjectFileInfo::initMachOMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2)
 {
   *(this + 8) = 0;
-  *(this + 57) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__eh_frame", 0xA, 1744830475, 0, 4, 0);
+  *(this + 57) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__eh_frame", 10, 1744830475, 0, 4, 0);
   v4 = *(a2 + 9);
   v5 = v4 > 0x21;
   v6 = (1 << v4) & 0x3F0000888;
@@ -5061,7 +4846,7 @@ unint64_t llvm::MCObjectFileInfo::initMachOMCObjectFileInfo(llvm::MCObjectFileIn
   }
 
   v9 = *(this + 108);
-  v10 = *(v9 + 2048);
+  v10 = *(v9 + 256);
   if (!v10 || (v11 = *(v10 + 4), v11 == 2))
   {
     if (*(a2 + 7) == 24)
@@ -5095,24 +4880,24 @@ LABEL_18:
   *(this + 3) = llvm::MCContext::getMachOSection(v9, "__TEXT", 6uLL, "__text", 6, 0x80000000, 0, 2, 0);
   *(this + 4) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__data", 6, 0, 0, 19, 0);
   *(this + 5) = 0;
-  *(this + 52) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_data", 0xD, 17, 0, 19, 0);
-  *(this + 53) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_bss", 0xC, 18, 0, 12, 0);
-  *(this + 67) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_vars", 0xD, 19, 0, 19, 0);
-  *(this + 68) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_init", 0xD, 21, 0, 19, 0);
+  *(this + 52) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_data", 13, 17, 0, 19, 0);
+  *(this + 53) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_bss", 12, 18, 0, 12, 0);
+  *(this + 67) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_vars", 13, 19, 0, 19, 0);
+  *(this + 68) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_init", 13, 21, 0, 19, 0);
   *(this + 69) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__cstring", 9, 2, 0, 5, 0);
   *(this + 70) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__ustring", 9, 0, 0, 6, 0);
-  *(this + 78) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__literal4", 0xA, 3, 0, 8, 0);
-  *(this + 79) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__literal8", 0xA, 4, 0, 9, 0);
-  *(this + 80) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__literal16", 0xB, 14, 0, 10, 0);
+  *(this + 78) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__literal4", 10, 3, 0, 8, 0);
+  *(this + 79) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__literal8", 10, 4, 0, 9, 0);
+  *(this + 80) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__literal16", 11, 14, 0, 10, 0);
   *(this + 6) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__const", 7, 0, 0, 4, 0);
   v13 = *(a2 + 6);
   MachOSection = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__const", 7, 0, 0, 20, 0);
   *(this + 73) = MachOSection;
   if ((v13 & 0xFFFFFFFD) == 0x15)
   {
-    *(this + 71) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__textcoal_nt", 0xD, -2147483637, 0, 2, 0);
-    *(this + 72) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__const_coal", 0xC, 11, 0, 4, 0);
-    MachOSection = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__datacoal_nt", 0xD, 11, 0, 19, 0);
+    *(this + 71) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__textcoal_nt", 13, -2147483637, 0, 2, 0);
+    *(this + 72) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__const_coal", 12, 11, 0, 4, 0);
+    MachOSection = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__datacoal_nt", 13, 11, 0, 19, 0);
     v15 = MachOSection;
   }
 
@@ -5127,11 +4912,11 @@ LABEL_18:
   *(this + 75) = MachOSection;
   *(this + 76) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__common", 8, 1, 0, 15, 0);
   *(this + 77) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__bss", 5, 1, 0, 15, 0);
-  *(this + 81) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__la_symbol_ptr", 0xF, 7, 0, 0, 0);
-  *(this + 82) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__nl_symbol_ptr", 0xF, 6, 0, 0, 0);
-  *(this + 83) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_ptr", 0xC, 20, 0, 0, 0);
-  *(this + 84) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__llvm_addrsig", 0xE, 0, 0, 19, 0);
-  *(this + 7) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__gcc_except_tab", 0x10, 0, 0, 20, 0);
+  *(this + 81) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__la_symbol_ptr", 15, 7, 0, 0, 0);
+  *(this + 82) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__nl_symbol_ptr", 15, 6, 0, 0, 0);
+  *(this + 83) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__thread_ptr", 12, 20, 0, 0, 0);
+  *(this + 84) = llvm::MCContext::getMachOSection(*(this + 108), "__DATA", 6uLL, "__llvm_addrsig", 14, 0, 0, 19, 0);
+  *(this + 7) = llvm::MCContext::getMachOSection(*(this + 108), "__TEXT", 6uLL, "__gcc_except_tab", 16, 0, 0, 20, 0);
   *(this + 49) = 0;
   *(this + 50) = 0;
   *(this + 48) = 0;
@@ -5161,7 +4946,7 @@ LABEL_18:
   }
 
 LABEL_26:
-  *(this + 8) = llvm::MCContext::getMachOSection(*(this + 108), "__LD", 4uLL, "__compact_unwind", 0x10, 0x2000000, 0, 4, 0);
+  *(this + 8) = llvm::MCContext::getMachOSection(*(this + 108), "__LD", 4uLL, "__compact_unwind", 16, 0x2000000, 0, 4, 0);
   v18 = *(a2 + 6);
   if ((v18 - 37) < 2)
   {
@@ -5200,45 +4985,45 @@ LABEL_28:
   }
 
 LABEL_29:
-  *(this + 23) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_names", 0xD, 0x2000000, 0, 0, "debug_names_begin");
-  *(this + 24) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__apple_names", 0xD, 0x2000000, 0, 0, "names_begin");
-  *(this + 25) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__apple_objc", 0xC, 0x2000000, 0, 0, "objc_begin");
-  *(this + 26) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__apple_namespac", 0x10, 0x2000000, 0, 0, "namespac_begin");
-  *(this + 27) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__apple_types", 0xD, 0x2000000, 0, 0, "types_begin");
-  *(this + 47) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__swift_ast", 0xB, 0x2000000, 0, 0, 0);
-  *(this + 9) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_abbrev", 0xE, 0x2000000, 0, 0, "section_abbrev");
-  *(this + 10) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_info", 0xC, 0x2000000, 0, 0, "section_info");
-  *(this + 11) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_line", 0xC, 0x2000000, 0, 0, "section_line");
-  *(this + 12) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_line_str", 0x10, 0x2000000, 0, 0, "section_line_str");
-  *(this + 13) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_frame", 0xD, 0x2000000, 0, 0, 0);
-  *(this + 22) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_pubnames", 0x10, 0x2000000, 0, 0, 0);
-  *(this + 14) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_pubtypes", 0x10, 0x2000000, 0, 0, 0);
-  *(this + 45) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_gnu_pubn", 0x10, 0x2000000, 0, 0, 0);
-  *(this + 46) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_gnu_pubt", 0x10, 0x2000000, 0, 0, 0);
-  *(this + 16) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_str", 0xB, 0x2000000, 0, 0, "info_string");
-  *(this + 37) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_str_offs", 0x10, 0x2000000, 0, 0, "section_str_off");
-  *(this + 38) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_addr", 0xC, 0x2000000, 0, 0, "section_info");
-  *(this + 17) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_loc", 0xB, 0x2000000, 0, 0, "section_debug_loc");
-  *(this + 40) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_loclists", 0x10, 0x2000000, 0, 0, "section_debug_loc");
-  *(this + 18) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_aranges", 0xF, 0x2000000, 0, 0, 0);
-  *(this + 19) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_ranges", 0xE, 0x2000000, 0, 0, "debug_range");
-  *(this + 39) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_rnglists", 0x10, 0x2000000, 0, 0, "debug_range");
-  *(this + 20) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_macinfo", 0xF, 0x2000000, 0, 0, "debug_macinfo");
-  *(this + 21) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_macro", 0xD, 0x2000000, 0, 0, "debug_macro");
-  *(this + 15) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_inlined", 0xF, 0x2000000, 0, 0, 0);
-  *(this + 43) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_cu_index", 0x10, 0x2000000, 0, 0, 0);
-  *(this + 44) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_tu_index", 0x10, 0x2000000, 0, 0, 0);
-  *(this + 54) = llvm::MCContext::getMachOSection(*(this + 108), "__LLVM_STACKMAPS", 0x10uLL, "__llvm_stackmaps", 0x10, 0, 0, 0, 0);
-  *(this + 55) = llvm::MCContext::getMachOSection(*(this + 108), "__LLVM_FAULTMAPS", 0x10uLL, "__llvm_faultmaps", 0x10, 0, 0, 0, 0);
+  *(this + 23) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_names", 13, 0x2000000, 0, 0, "debug_names_begin");
+  *(this + 24) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__apple_names", 13, 0x2000000, 0, 0, "names_begin");
+  *(this + 25) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__apple_objc", 12, 0x2000000, 0, 0, "objc_begin");
+  *(this + 26) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__apple_namespac", 16, 0x2000000, 0, 0, "namespac_begin");
+  *(this + 27) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__apple_types", 13, 0x2000000, 0, 0, "types_begin");
+  *(this + 47) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__swift_ast", 11, 0x2000000, 0, 0, 0);
+  *(this + 9) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_abbrev", 14, 0x2000000, 0, 0, "section_abbrev");
+  *(this + 10) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_info", 12, 0x2000000, 0, 0, "section_info");
+  *(this + 11) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_line", 12, 0x2000000, 0, 0, "section_line");
+  *(this + 12) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_line_str", 16, 0x2000000, 0, 0, "section_line_str");
+  *(this + 13) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_frame", 13, 0x2000000, 0, 0, 0);
+  *(this + 22) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_pubnames", 16, 0x2000000, 0, 0, 0);
+  *(this + 14) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_pubtypes", 16, 0x2000000, 0, 0, 0);
+  *(this + 45) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_gnu_pubn", 16, 0x2000000, 0, 0, 0);
+  *(this + 46) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_gnu_pubt", 16, 0x2000000, 0, 0, 0);
+  *(this + 16) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_str", 11, 0x2000000, 0, 0, "info_string");
+  *(this + 37) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_str_offs", 16, 0x2000000, 0, 0, "section_str_off");
+  *(this + 38) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_addr", 12, 0x2000000, 0, 0, "section_info");
+  *(this + 17) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_loc", 11, 0x2000000, 0, 0, "section_debug_loc");
+  *(this + 40) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_loclists", 16, 0x2000000, 0, 0, "section_debug_loc");
+  *(this + 18) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_aranges", 15, 0x2000000, 0, 0, 0);
+  *(this + 19) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_ranges", 14, 0x2000000, 0, 0, "debug_range");
+  *(this + 39) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_rnglists", 16, 0x2000000, 0, 0, "debug_range");
+  *(this + 20) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_macinfo", 15, 0x2000000, 0, 0, "debug_macinfo");
+  *(this + 21) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_macro", 13, 0x2000000, 0, 0, "debug_macro");
+  *(this + 15) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_inlined", 15, 0x2000000, 0, 0, 0);
+  *(this + 43) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_cu_index", 16, 0x2000000, 0, 0, 0);
+  *(this + 44) = llvm::MCContext::getMachOSection(*(this + 108), "__DWARF", 7uLL, "__debug_tu_index", 16, 0x2000000, 0, 0, 0);
+  *(this + 54) = llvm::MCContext::getMachOSection(*(this + 108), "__LLVM_STACKMAPS", 0x10uLL, "__llvm_stackmaps", 16, 0, 0, 0, 0);
+  *(this + 55) = llvm::MCContext::getMachOSection(*(this + 108), "__LLVM_FAULTMAPS", 0x10uLL, "__llvm_faultmaps", 16, 0, 0, 0, 0);
   result = llvm::MCContext::getMachOSection(*(this + 108), "__LLVM", 6uLL, "__remarks", 9, 0x2000000, 0, 0, 0);
   *(this + 56) = result;
   v21 = *(this + 108);
-  if (*(v21 + 16))
+  if (v21[2])
   {
-    v22 = *(v21 + 8);
+    v22 = v21[1];
     if (v22)
     {
-      v23 = strlen(*(v21 + 8));
+      v23 = strlen(v21[1]);
     }
 
     else
@@ -5246,12 +5031,12 @@ LABEL_29:
       v23 = 0;
     }
 
-    *(this + 97) = llvm::MCContext::getMachOSection(v21, v22, v23, "__swift5_fieldmd", 0x10, 0, 0, 0, 0);
+    *(this + 97) = llvm::MCContext::getMachOSection(v21, v22, v23, "__swift5_fieldmd", 16, 0, 0, 0, 0);
     v24 = *(this + 108);
-    v25 = *(v24 + 8);
+    v25 = v24[1];
     if (v25)
     {
-      v26 = strlen(*(v24 + 8));
+      v26 = strlen(v24[1]);
     }
 
     else
@@ -5259,12 +5044,12 @@ LABEL_29:
       v26 = 0;
     }
 
-    *(this + 98) = llvm::MCContext::getMachOSection(v24, v25, v26, "__swift5_assocty", 0x10, 0, 0, 0, 0);
+    *(this + 98) = llvm::MCContext::getMachOSection(v24, v25, v26, "__swift5_assocty", 16, 0, 0, 0, 0);
     v27 = *(this + 108);
-    v28 = *(v27 + 8);
+    v28 = v27[1];
     if (v28)
     {
-      v29 = strlen(*(v27 + 8));
+      v29 = strlen(v27[1]);
     }
 
     else
@@ -5272,12 +5057,12 @@ LABEL_29:
       v29 = 0;
     }
 
-    *(this + 99) = llvm::MCContext::getMachOSection(v27, v28, v29, "__swift5_builtin", 0x10, 0, 0, 0, 0);
+    *(this + 99) = llvm::MCContext::getMachOSection(v27, v28, v29, "__swift5_builtin", 16, 0, 0, 0, 0);
     v30 = *(this + 108);
-    v31 = *(v30 + 8);
+    v31 = v30[1];
     if (v31)
     {
-      v32 = strlen(*(v30 + 8));
+      v32 = strlen(v30[1]);
     }
 
     else
@@ -5285,12 +5070,12 @@ LABEL_29:
       v32 = 0;
     }
 
-    *(this + 100) = llvm::MCContext::getMachOSection(v30, v31, v32, "__swift5_capture", 0x10, 0, 0, 0, 0);
+    *(this + 100) = llvm::MCContext::getMachOSection(v30, v31, v32, "__swift5_capture", 16, 0, 0, 0, 0);
     v33 = *(this + 108);
-    v34 = *(v33 + 8);
+    v34 = v33[1];
     if (v34)
     {
-      v35 = strlen(*(v33 + 8));
+      v35 = strlen(v33[1]);
     }
 
     else
@@ -5298,12 +5083,12 @@ LABEL_29:
       v35 = 0;
     }
 
-    *(this + 101) = llvm::MCContext::getMachOSection(v33, v34, v35, "__swift5_typeref", 0x10, 0, 0, 0, 0);
+    *(this + 101) = llvm::MCContext::getMachOSection(v33, v34, v35, "__swift5_typeref", 16, 0, 0, 0, 0);
     v36 = *(this + 108);
-    v37 = *(v36 + 8);
+    v37 = v36[1];
     if (v37)
     {
-      v38 = strlen(*(v36 + 8));
+      v38 = strlen(v36[1]);
     }
 
     else
@@ -5311,12 +5096,12 @@ LABEL_29:
       v38 = 0;
     }
 
-    *(this + 102) = llvm::MCContext::getMachOSection(v36, v37, v38, "__swift5_reflstr", 0x10, 0, 0, 0, 0);
+    *(this + 102) = llvm::MCContext::getMachOSection(v36, v37, v38, "__swift5_reflstr", 16, 0, 0, 0, 0);
     v39 = *(this + 108);
-    v40 = *(v39 + 8);
+    v40 = v39[1];
     if (v40)
     {
-      v41 = strlen(*(v39 + 8));
+      v41 = strlen(v39[1]);
     }
 
     else
@@ -5324,12 +5109,12 @@ LABEL_29:
       v41 = 0;
     }
 
-    *(this + 103) = llvm::MCContext::getMachOSection(v39, v40, v41, "__swift5_proto", 0xE, 0, 0, 0, 0);
+    *(this + 103) = llvm::MCContext::getMachOSection(v39, v40, v41, "__swift5_proto", 14, 0, 0, 0, 0);
     v42 = *(this + 108);
-    v43 = *(v42 + 8);
+    v43 = v42[1];
     if (v43)
     {
-      v44 = strlen(*(v42 + 8));
+      v44 = strlen(v42[1]);
     }
 
     else
@@ -5337,12 +5122,12 @@ LABEL_29:
       v44 = 0;
     }
 
-    *(this + 104) = llvm::MCContext::getMachOSection(v42, v43, v44, "__swift5_protos", 0xF, 0, 0, 0, 0);
+    *(this + 104) = llvm::MCContext::getMachOSection(v42, v43, v44, "__swift5_protos", 15, 0, 0, 0, 0);
     v45 = *(this + 108);
-    v46 = *(v45 + 8);
+    v46 = v45[1];
     if (v46)
     {
-      v47 = strlen(*(v45 + 8));
+      v47 = strlen(v45[1]);
     }
 
     else
@@ -5350,12 +5135,12 @@ LABEL_29:
       v47 = 0;
     }
 
-    *(this + 105) = llvm::MCContext::getMachOSection(v45, v46, v47, "__swift5_acfuncs", 0x10, 0, 0, 0, 0);
+    *(this + 105) = llvm::MCContext::getMachOSection(v45, v46, v47, "__swift5_acfuncs", 16, 0, 0, 0, 0);
     v48 = *(this + 108);
-    v49 = *(v48 + 8);
+    v49 = v48[1];
     if (v49)
     {
-      v50 = strlen(*(v48 + 8));
+      v50 = strlen(v48[1]);
     }
 
     else
@@ -5363,7 +5148,7 @@ LABEL_29:
       v50 = 0;
     }
 
-    result = llvm::MCContext::getMachOSection(v48, v49, v50, "__swift5_mpenum", 0xF, 0, 0, 0, 0);
+    result = llvm::MCContext::getMachOSection(v48, v49, v50, "__swift5_mpenum", 15, 0, 0, 0, 0);
     *(this + 106) = result;
   }
 
@@ -5371,7 +5156,7 @@ LABEL_29:
   return result;
 }
 
-uint64_t llvm::MCObjectFileInfo::initELFMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2, int a3)
+unint64_t llvm::MCObjectFileInfo::initELFMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2, int a3)
 {
   v5 = *(a2 + 6);
   if (v5 <= 15)
@@ -5781,7 +5566,7 @@ void llvm::MCObjectFileInfo::initGOFFMCObjectFileInfo(llvm::MCObjectFileInfo *th
   *(this + 5) = v4;
   v5 = *(this + 108);
   v6 = *(this + 3);
-  v7 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v5 + 184, 24, 3);
+  v7 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v5 + 184), 24, 3);
   *v7 = 1;
   *(v7 + 1) = *(v7 + 4) << 24;
   *(v7 + 8) = 0;
@@ -5792,9 +5577,9 @@ void llvm::MCObjectFileInfo::initGOFFMCObjectFileInfo(llvm::MCObjectFileInfo *th
 
 uint64_t llvm::MCObjectFileInfo::initCOFFMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2)
 {
-  *(this + 57) = llvm::MCContext::getCOFFSection(*(this + 108), ".eh_frame", 9uLL, 1073741888, 19, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  *(this + 57) = llvm::MCContext::getCOFFSection(*(this + 108), ".eh_frame", 9uLL, 1073741888, 0x13u, &str_25, 0, 0, 0xFFFFFFFF, 0);
   v4 = *(a2 + 6);
-  *(this + 5) = llvm::MCContext::getCOFFSection(*(this + 108), ".bss", 4uLL, -1073741696, 15, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  *(this + 5) = llvm::MCContext::getCOFFSection(*(this + 108), ".bss", 4uLL, -1073741696, 0xFu, &str_25, 0, 0, 0xFFFFFFFF, 0);
   if (v4 == 35)
   {
     v5 = 1610743840;
@@ -5805,13 +5590,13 @@ uint64_t llvm::MCObjectFileInfo::initCOFFMCObjectFileInfo(llvm::MCObjectFileInfo
     v5 = 1610612768;
   }
 
-  *(this + 3) = llvm::MCContext::getCOFFSection(*(this + 108), ".text", 5uLL, v5, 2, &str_25, 0, 0, 0xFFFFFFFF, 0);
-  *(this + 4) = llvm::MCContext::getCOFFSection(*(this + 108), ".data", 5uLL, -1073741760, 19, &str_25, 0, 0, 0xFFFFFFFF, 0);
-  *(this + 6) = llvm::MCContext::getCOFFSection(*(this + 108), ".rdata", 6uLL, 1073741888, 4, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  *(this + 3) = llvm::MCContext::getCOFFSection(*(this + 108), ".text", 5uLL, v5, 2u, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  *(this + 4) = llvm::MCContext::getCOFFSection(*(this + 108), ".data", 5uLL, -1073741760, 0x13u, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  *(this + 6) = llvm::MCContext::getCOFFSection(*(this + 108), ".rdata", 6uLL, 1073741888, 4u, &str_25, 0, 0, 0xFFFFFFFF, 0);
   v6 = *(a2 + 6);
   if (v6 > 0x26 || (COFFSection = 0, ((1 << v6) & 0x480000000ALL) == 0))
   {
-    COFFSection = llvm::MCContext::getCOFFSection(*(this + 108), ".gcc_except_table", 0x11uLL, 1073741888, 4, &str_25, 0, 0, 0xFFFFFFFF, 0);
+    COFFSection = llvm::MCContext::getCOFFSection(*(this + 108), ".gcc_except_table", 0x11uLL, 1073741888, 4u, &str_25, 0, 0, 0xFFFFFFFF, 0);
   }
 
   *(this + 7) = COFFSection;
@@ -5854,20 +5639,20 @@ uint64_t llvm::MCObjectFileInfo::initCOFFMCObjectFileInfo(llvm::MCObjectFileInfo
   *(this + 27) = llvm::MCContext::getCOFFSection(*(this + 108), ".apple_types", 0xCuLL, 1107296320, 0, &str_25, 0, 0, 0xFFFFFFFF, "types_begin");
   *(this + 25) = llvm::MCContext::getCOFFSection(*(this + 108), ".apple_objc", 0xBuLL, 1107296320, 0, &str_25, 0, 0, 0xFFFFFFFF, "objc_begin");
   *(this + 85) = llvm::MCContext::getCOFFSection(*(this + 108), ".drectve", 8uLL, 2560, 0, &str_25, 0, 0, 0xFFFFFFFF, 0);
-  *(this + 86) = llvm::MCContext::getCOFFSection(*(this + 108), ".pdata", 6uLL, 1073741888, 19, &str_25, 0, 0, 0xFFFFFFFF, 0);
-  *(this + 87) = llvm::MCContext::getCOFFSection(*(this + 108), ".xdata", 6uLL, 1073741888, 19, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  *(this + 86) = llvm::MCContext::getCOFFSection(*(this + 108), ".pdata", 6uLL, 1073741888, 0x13u, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  *(this + 87) = llvm::MCContext::getCOFFSection(*(this + 108), ".xdata", 6uLL, 1073741888, 0x13u, &str_25, 0, 0, 0xFFFFFFFF, 0);
   *(this + 88) = llvm::MCContext::getCOFFSection(*(this + 108), ".sxdata", 7uLL, 512, 0, &str_25, 0, 0, 0xFFFFFFFF, 0);
   *(this + 89) = llvm::MCContext::getCOFFSection(*(this + 108), ".gehcont$y", 0xAuLL, 1073741888, 0, &str_25, 0, 0, 0xFFFFFFFF, 0);
   *(this + 90) = llvm::MCContext::getCOFFSection(*(this + 108), ".gfids$y", 8uLL, 1073741888, 0, &str_25, 0, 0, 0xFFFFFFFF, 0);
   *(this + 91) = llvm::MCContext::getCOFFSection(*(this + 108), ".giats$y", 8uLL, 1073741888, 0, &str_25, 0, 0, 0xFFFFFFFF, 0);
   *(this + 92) = llvm::MCContext::getCOFFSection(*(this + 108), ".gljmp$y", 8uLL, 1073741888, 0, &str_25, 0, 0, 0xFFFFFFFF, 0);
-  *(this + 52) = llvm::MCContext::getCOFFSection(*(this + 108), ".tls$", 5uLL, -1073741760, 19, &str_25, 0, 0, 0xFFFFFFFF, 0);
-  result = llvm::MCContext::getCOFFSection(*(this + 108), ".llvm_stackmaps", 0xFuLL, 1073741888, 4, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  *(this + 52) = llvm::MCContext::getCOFFSection(*(this + 108), ".tls$", 5uLL, -1073741760, 0x13u, &str_25, 0, 0, 0xFFFFFFFF, 0);
+  result = llvm::MCContext::getCOFFSection(*(this + 108), ".llvm_stackmaps", 0xFuLL, 1073741888, 4u, &str_25, 0, 0, 0xFFFFFFFF, 0);
   *(this + 54) = result;
   return result;
 }
 
-uint64_t llvm::MCObjectFileInfo::initWasmMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2)
+unint64_t llvm::MCObjectFileInfo::initWasmMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2)
 {
   v3 = *(this + 108);
   v42[0] = ".text";
@@ -6063,25 +5848,25 @@ uint64_t llvm::MCObjectFileInfo::initWasmMCObjectFileInfo(llvm::MCObjectFileInfo
   return result;
 }
 
-const void *llvm::MCObjectFileInfo::initXCOFFMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2)
+uint64_t llvm::MCObjectFileInfo::initXCOFFMCObjectFileInfo(llvm::MCObjectFileInfo *this, const llvm::Triple *a2)
 {
-  *(this + 3) = llvm::MCContext::getXCOFFSection(*(this + 108), ".text", 5uLL, 2, 0, 1, 0, 0);
-  *(this + 4) = llvm::MCContext::getXCOFFSection(*(this + 108), ".data", 5uLL, 19, 5, 1, 0, 0);
-  XCOFFSection = llvm::MCContext::getXCOFFSection(*(this + 108), ".rodata", 7uLL, 4, 1, 1, 0, 0);
+  *(this + 3) = llvm::MCContext::getXCOFFSection(*(this + 108), ".text", 5uLL, 2u, 256, 1, 0, 0);
+  *(this + 4) = llvm::MCContext::getXCOFFSection(*(this + 108), ".data", 5uLL, 0x13u, 261, 1, 0, 0);
+  XCOFFSection = llvm::MCContext::getXCOFFSection(*(this + 108), ".rodata", 7uLL, 4u, 257, 1, 0, 0);
   *(this + 6) = XCOFFSection;
-  XCOFFSection[24] = 2;
-  v4 = llvm::MCContext::getXCOFFSection(*(this + 108), ".rodata.8", 9uLL, 4, 1, 1, 0, 0);
+  *(XCOFFSection + 24) = 2;
+  v4 = llvm::MCContext::getXCOFFSection(*(this + 108), ".rodata.8", 9uLL, 4u, 257, 1, 0, 0);
   *(this + 95) = v4;
-  v4[24] = 3;
-  v5 = llvm::MCContext::getXCOFFSection(*(this + 108), ".rodata.16", 0xAuLL, 4, 1, 1, 0, 0);
+  *(v4 + 24) = 3;
+  v5 = llvm::MCContext::getXCOFFSection(*(this + 108), ".rodata.16", 0xAuLL, 4u, 257, 1, 0, 0);
   *(this + 96) = v5;
-  v5[24] = 4;
-  *(this + 52) = llvm::MCContext::getXCOFFSection(*(this + 108), ".tdata", 6uLL, 13, 20, 1, 0, 0);
-  v6 = llvm::MCContext::getXCOFFSection(*(this + 108), "TOC", 3uLL, 19, 15, 0, 0, 0);
+  *(v5 + 24) = 4;
+  *(this + 52) = llvm::MCContext::getXCOFFSection(*(this + 108), ".tdata", 6uLL, 0xDu, 276, 1, 0, 0);
+  v6 = llvm::MCContext::getXCOFFSection(*(this + 108), "TOC", 3uLL, 0x13u, 271, 0, 0, 0);
   *(this + 94) = v6;
-  v6[24] = 2;
-  *(this + 7) = llvm::MCContext::getXCOFFSection(*(this + 108), ".gcc_except_table", 0x11uLL, 4, 1, 0, 0, 0);
-  *(this + 8) = llvm::MCContext::getXCOFFSection(*(this + 108), ".eh_info_table", 0xEuLL, 19, 5, 0, 0, 0);
+  *(v6 + 24) = 2;
+  *(this + 7) = llvm::MCContext::getXCOFFSection(*(this + 108), ".gcc_except_table", 0x11uLL, 4u, 257, 0, 0, 0);
+  *(this + 8) = llvm::MCContext::getXCOFFSection(*(this + 108), ".eh_info_table", 0xEuLL, 0x13u, 261, 0, 0, 0);
   *(this + 9) = llvm::MCContext::getXCOFFSection(*(this + 108), ".dwabrev", 8uLL, 0, 0, 1, ".dwabrev", 0x100060000);
   *(this + 10) = llvm::MCContext::getXCOFFSection(*(this + 108), ".dwinfo", 7uLL, 0, 0, 1, ".dwinfo", 0x100010000);
   *(this + 11) = llvm::MCContext::getXCOFFSection(*(this + 108), ".dwline", 7uLL, 0, 0, 1, ".dwline", 0x100020000);
@@ -6228,15 +6013,16 @@ uint64_t llvm::MCObjectWriter::isSymbolRefDifferenceFullyResolved(uint64_t a1, u
   return v11(a1, a2, v9, v10, a5);
 }
 
-void llvm::MCPseudoProbeInlineTree::addPseudoProbe(uint64_t a1, uint64_t *a2, uint64_t a3)
+void llvm::MCPseudoProbeInlineTree::addPseudoProbe(float *a1, uint64_t *a2, _DWORD *a3)
 {
-  if (*(a3 + 8))
+  if (a3[2])
   {
     a2 = *a3;
   }
 
   v4 = *a2;
-  llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::getOrAddNode();
+  v5 = 0;
+  llvm::MCPseudoProbeInlineTreeBase<llvm::MCPseudoProbe,llvm::MCPseudoProbeInlineTree>::getOrAddNode(a1, &v4);
 }
 
 void std::default_delete<llvm::MCPseudoProbeInlineTree>::operator()[abi:nn200100](uint64_t a1)
@@ -6317,22 +6103,16 @@ uint64_t llvm::MCRegisterInfo::getDwarfRegNum(uint64_t a1, unsigned int a2, int 
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(uint64_t a1, _DWORD *a2)
 {
-  v7 = 0;
-  if (llvm::DenseMapBase<llvm::DenseMap<unsigned int,unsigned int,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,unsigned int>>,unsigned int,unsigned int,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,unsigned int>>::LookupBucketFor<unsigned int>(a1, a2, &v7))
+  v4 = 0;
+  if (llvm::DenseMapBase<llvm::DenseMap<unsigned int,unsigned int,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,unsigned int>>,unsigned int,unsigned int,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,unsigned int>>::LookupBucketFor<unsigned int>(a1, a2, &v4))
   {
-    result = v7;
-    v4 = *a1;
-    v5 = *(a1 + 16);
+    return v4;
   }
 
   else
   {
-    v5 = *(a1 + 16);
-    result = *a1 + 8 * v5;
+    return *a1 + 8 * *(a1 + 16);
   }
-
-  v6 = *a1 + 8 * v5;
-  return result;
 }
 
 double llvm::MCSection::MCSection(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
@@ -7605,7 +7385,7 @@ LABEL_207:
   }
 }
 
-llvm::raw_ostream *printName(llvm::raw_ostream *a1, unsigned __int8 *a2, int64_t a3)
+llvm::raw_ostream *printName(char **a1, unsigned __int8 *a2, int64_t a3)
 {
   v4 = a2;
   v19[0] = a2;
@@ -7619,15 +7399,15 @@ llvm::raw_ostream *printName(llvm::raw_ostream *a1, unsigned __int8 *a2, int64_t
 
   else
   {
-    v7 = *(a1 + 4);
-    if (v7 >= *(a1 + 3))
+    v7 = a1[4];
+    if (v7 >= a1[3])
     {
       result = llvm::raw_ostream::write(a1, 34);
     }
 
     else
     {
-      *(a1 + 4) = v7 + 1;
+      a1[4] = v7 + 1;
       *v7 = 34;
     }
 
@@ -7641,28 +7421,28 @@ llvm::raw_ostream *printName(llvm::raw_ostream *a1, unsigned __int8 *a2, int64_t
         {
           if (v4 + 1 != v8)
           {
-            v13 = *(a1 + 4);
-            if (v13 >= *(a1 + 3))
+            v13 = a1[4];
+            if (v13 >= a1[3])
             {
               result = llvm::raw_ostream::write(a1, 92);
             }
 
             else
             {
-              *(a1 + 4) = v13 + 1;
+              a1[4] = v13 + 1;
               *v13 = 92;
             }
 
             v16 = v4[1];
-            v17 = *(a1 + 4);
-            if (v17 >= *(a1 + 3))
+            v17 = a1[4];
+            if (v17 >= a1[3])
             {
               result = llvm::raw_ostream::write(a1, v16);
             }
 
             else
             {
-              *(a1 + 4) = v17 + 1;
+              a1[4] = v17 + 1;
               *v17 = v16;
             }
 
@@ -7670,47 +7450,47 @@ llvm::raw_ostream *printName(llvm::raw_ostream *a1, unsigned __int8 *a2, int64_t
             goto LABEL_31;
           }
 
-          v15 = *(a1 + 4);
-          if (*(a1 + 3) - v15 > 1uLL)
+          v15 = a1[4];
+          if ((a1[3] - v15) > 1)
           {
             *v15 = 23644;
             goto LABEL_30;
           }
 
           v11 = a1;
-          v12 = "\\\";
+          v12 = "\\\"";
         }
 
         else
         {
           if (v9 != 34)
           {
-            v14 = *(a1 + 4);
-            if (v14 >= *(a1 + 3))
+            v14 = a1[4];
+            if (v14 >= a1[3])
             {
               result = llvm::raw_ostream::write(a1, v9);
             }
 
             else
             {
-              *(a1 + 4) = v14 + 1;
+              a1[4] = v14 + 1;
               *v14 = v9;
             }
 
             goto LABEL_31;
           }
 
-          v10 = *(a1 + 4);
-          if (*(a1 + 3) - v10 > 1uLL)
+          v10 = a1[4];
+          if ((a1[3] - v10) > 1)
           {
             *v10 = 8796;
 LABEL_30:
-            *(a1 + 4) += 2;
+            a1[4] += 2;
             goto LABEL_31;
           }
 
           v11 = a1;
-          v12 = "\\"";
+          v12 = "\";
         }
 
         result = llvm::raw_ostream::write(v11, v12, 2uLL);
@@ -7721,8 +7501,8 @@ LABEL_31:
       while (v4 < v8);
     }
 
-    v18 = *(a1 + 4);
-    if (v18 >= *(a1 + 3))
+    v18 = a1[4];
+    if (v18 >= a1[3])
     {
 
       return llvm::raw_ostream::write(a1, 34);
@@ -7730,7 +7510,7 @@ LABEL_31:
 
     else
     {
-      *(a1 + 4) = v18 + 1;
+      a1[4] = v18 + 1;
       *v18 = 34;
     }
   }
@@ -7959,22 +7739,22 @@ LABEL_42:
 
 void llvm::MCSectionMachO::ParseSectionSpecifier(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, int *a5@<X4>, _BYTE *a6@<X5>, _DWORD *a7@<X6>, void *a8@<X8>)
 {
-  v62[10] = *MEMORY[0x277D85DE8];
-  v53[0] = a1;
-  v53[1] = a2;
+  v61[10] = *MEMORY[0x277D85DE8];
+  v52[0] = a1;
+  v52[1] = a2;
   *a6 = 0;
-  v60 = v62;
-  v61 = 0x500000000;
-  llvm::StringRef::split(v53, &v60, 44, -1, 1);
-  if (!v61)
+  v59 = v61;
+  v60 = 0x500000000;
+  llvm::StringRef::split(v52, &v59, 44, -1, 1);
+  if (!v60)
   {
     *a3 = 0;
     a3[1] = 0;
     goto LABEL_8;
   }
 
-  v14 = llvm::StringRef::trim(v60, " \t\n\v\f\r", 6);
-  v15 = v61;
+  v14 = llvm::StringRef::trim(v59, " \t\n\v\f\r", 6);
+  v15 = v60;
   *a3 = v14;
   a3[1] = v16;
   if (v15 <= 1)
@@ -7986,8 +7766,8 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v17 = llvm::StringRef::trim(v60 + 2, " \t\n\v\f\r", 6);
-  v18 = v61;
+  v17 = llvm::StringRef::trim(v59 + 2, " \t\n\v\f\r", 6);
+  v18 = v60;
   *a4 = v17;
   a4[1] = v19;
   v20 = a4 + 1;
@@ -7999,24 +7779,24 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v21 = llvm::StringRef::trim(v60 + 4, " \t\n\v\f\r", 6);
+  v21 = llvm::StringRef::trim(v59 + 4, " \t\n\v\f\r", 6);
   v23 = v22;
-  if (v61 <= 3)
+  if (v60 <= 3)
   {
 LABEL_10:
     v26 = 0;
     v29 = 0;
     v27 = 0;
+    v50 = 0;
     v51 = 0;
-    v52 = 0;
     goto LABEL_11;
   }
 
-  v24 = llvm::StringRef::trim(v60 + 6, " \t\n\v\f\r", 6);
+  v24 = llvm::StringRef::trim(v59 + 6, " \t\n\v\f\r", 6);
   v26 = v25;
-  v51 = v24;
-  v52 = v25;
-  if (v61 < 5)
+  v50 = v24;
+  v51 = v25;
+  if (v60 < 5)
   {
     v29 = 0;
     v27 = 0;
@@ -8024,30 +7804,30 @@ LABEL_10:
 
   else
   {
-    v27 = llvm::StringRef::trim(v60 + 8, " \t\n\v\f\r", 6);
+    v27 = llvm::StringRef::trim(v59 + 8, " \t\n\v\f\r", 6);
     v29 = v28;
   }
 
 LABEL_11:
-  *&v50 = v27;
-  *(&v50 + 1) = v29;
+  *&v49 = v27;
+  *(&v49 + 1) = v29;
   if (!*v20)
   {
     getErrorErrorCat();
-    v57 = 3;
-    v58 = &getErrorErrorCat(void)::ErrorErrorCat;
+    v56 = 3;
+    v57 = &getErrorErrorCat(void)::ErrorErrorCat;
     v30 = "mach-o section specifier requires a segment and section separated by a comma";
     goto LABEL_15;
   }
 
-  if (*v20 >= 0x11uLL)
+  if (*v20 >= 0x11)
   {
     getErrorErrorCat();
-    v57 = 3;
-    v58 = &getErrorErrorCat(void)::ErrorErrorCat;
+    v56 = 3;
+    v57 = &getErrorErrorCat(void)::ErrorErrorCat;
     v30 = "mach-o section specifier requires a section whose length is between 1 and 16 characters";
 LABEL_15:
-    v55 = v30;
+    v54 = v30;
     goto LABEL_16;
   }
 
@@ -8059,89 +7839,89 @@ LABEL_15:
     goto LABEL_17;
   }
 
-  v48 = a7;
-  v49 = a8;
-  v32 = 0;
-  v33 = &qword_279EFF7E8;
-  v34 = 23552;
-  while (v23 != *v33 || memcmp(v21, *(v33 - 1), v23))
+  v47 = a7;
+  v48 = a8;
+  v31 = 0;
+  v32 = &qword_279EFF7E8;
+  v33 = 23552;
+  while (v23 != *v32 || memcmp(v21, *(v32 - 1), v23))
   {
-    ++v32;
-    v33 += 4;
-    v34 -= 1024;
-    if (!v34)
+    ++v31;
+    v32 += 4;
+    v33 -= 1024;
+    if (!v33)
     {
       getErrorErrorCat();
-      v57 = 3;
-      v58 = &getErrorErrorCat(void)::ErrorErrorCat;
-      v35 = "mach-o section specifier uses an unknown section type";
+      v56 = 3;
+      v57 = &getErrorErrorCat(void)::ErrorErrorCat;
+      v34 = "mach-o section specifier uses an unknown section type";
       goto LABEL_26;
     }
   }
 
-  *a5 = v32;
+  *a5 = v31;
   *a6 = 1;
   if (v26)
   {
-    v57 = v59;
-    v58 = 0x100000000;
-    llvm::StringRef::split(&v51, &v57, 43, -1, 0);
-    if (v58)
+    v56 = v58;
+    v57 = 0x100000000;
+    llvm::StringRef::split(&v50, &v56, 43, -1, 0);
+    if (v57)
     {
-      v37 = v57;
-      v38 = (v57 + 16 * v58);
-      v39 = &qword_279EFFAD0;
-      v40 = v49;
+      v36 = v56;
+      v37 = (v56 + 16 * v57);
+      v38 = &qword_279EFFAD0;
+      v39 = v48;
       do
       {
-        v41 = v39;
-        v42 = 440;
+        v40 = v38;
+        v41 = 440;
         while (1)
         {
-          v43 = llvm::StringRef::trim(v37, " \t\n\v\f\r", 6);
-          v44 = *v39;
-          if (v45 == *v39 && (!v44 || !memcmp(v43, *(v39 - 1), v44)))
+          v42 = llvm::StringRef::trim(v36, " \t\n\v\f\r", 6);
+          v43 = *v38;
+          if (v44 == *v38 && (!v43 || !memcmp(v42, *(v38 - 1), v43)))
           {
             break;
           }
 
-          v39 += 5;
-          v42 -= 40;
-          if (!v42)
+          v38 += 5;
+          v41 -= 40;
+          if (!v41)
           {
             getErrorErrorCat();
-            v55 = 3;
-            v56 = &getErrorErrorCat(void)::ErrorErrorCat;
-            v54 = "mach-o section specifier has invalid attribute";
+            v54 = 3;
+            v55 = &getErrorErrorCat(void)::ErrorErrorCat;
+            v53 = "mach-o section specifier has invalid attribute";
             llvm::make_error<llvm::StringError,char const*&,std::error_code>();
           }
         }
 
-        v46 = *a5 | *(v39 - 4);
-        *a5 = v46;
-        v37 += 2;
-        v39 = v41;
+        v45 = *a5 | *(v38 - 4);
+        *a5 = v45;
+        v36 += 2;
+        v38 = v40;
       }
 
-      while (v37 != v38);
+      while (v36 != v37);
     }
 
     else
     {
-      v46 = *a5;
-      v40 = v49;
+      v45 = *a5;
+      v39 = v48;
     }
 
     if (v29)
     {
-      if (v46 == 8)
+      if (v45 == 8)
       {
-        if (llvm::StringRef::getAsInteger<unsigned int>(&v50, 0, v48, v36))
+        if (llvm::StringRef::getAsInteger<unsigned int>(&v49, 0, v47, v35))
         {
           getErrorErrorCat();
-          v55 = 3;
-          v56 = &getErrorErrorCat(void)::ErrorErrorCat;
-          v47 = "mach-o section specifier has a malformed stub size";
+          v54 = 3;
+          v55 = &getErrorErrorCat(void)::ErrorErrorCat;
+          v46 = "mach-o section specifier has a malformed stub size";
           goto LABEL_52;
         }
 
@@ -8149,56 +7929,54 @@ LABEL_15:
       }
 
       getErrorErrorCat();
-      v55 = 3;
-      v56 = &getErrorErrorCat(void)::ErrorErrorCat;
-      v47 = "mach-o section specifier cannot have a stub size specified because it does not have type 'symbol_stubs'";
+      v54 = 3;
+      v55 = &getErrorErrorCat(void)::ErrorErrorCat;
+      v46 = "mach-o section specifier cannot have a stub size specified because it does not have type 'symbol_stubs'";
     }
 
     else
     {
-      if (v46 != 8)
+      if (v45 != 8)
       {
 LABEL_50:
-        *v40 = 0;
-        if (v57 != v59)
+        *v39 = 0;
+        if (v56 != v58)
         {
-          free(v57);
+          free(v56);
         }
 
         goto LABEL_17;
       }
 
       getErrorErrorCat();
-      v55 = 3;
-      v56 = &getErrorErrorCat(void)::ErrorErrorCat;
-      v47 = "mach-o section specifier of type 'symbol_stubs' requires a size specifier";
+      v54 = 3;
+      v55 = &getErrorErrorCat(void)::ErrorErrorCat;
+      v46 = "mach-o section specifier of type 'symbol_stubs' requires a size specifier";
     }
 
 LABEL_52:
-    v54 = v47;
+    v53 = v46;
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
-  if (v32 == 8)
+  if (v31 == 8)
   {
     getErrorErrorCat();
-    v57 = 3;
-    v58 = &getErrorErrorCat(void)::ErrorErrorCat;
-    v35 = "mach-o section specifier of type 'symbol_stubs' requires a size specifier";
+    v56 = 3;
+    v57 = &getErrorErrorCat(void)::ErrorErrorCat;
+    v34 = "mach-o section specifier of type 'symbol_stubs' requires a size specifier";
 LABEL_26:
-    v55 = v35;
+    v54 = v34;
 LABEL_16:
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
-  *v49 = 0;
+  *v48 = 0;
 LABEL_17:
-  if (v60 != v62)
+  if (v59 != v61)
   {
-    free(v60);
+    free(v59);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t llvm::StringRef::getAsInteger<unsigned int>(__int128 *a1, llvm::StringRef *a2, _DWORD *a3, unint64_t *a4)
@@ -8566,7 +8344,7 @@ llvm::raw_ostream *llvm::MCSectionXCOFF::printCsectDirective(llvm::MCSectionXCOF
   return result;
 }
 
-llvm::raw_ostream *llvm::MCSectionXCOFF::printSwitchToSection(llvm::raw_ostream *this, uint64_t a2, int a3, llvm::raw_ostream *a4)
+llvm::raw_ostream *llvm::MCSectionXCOFF::printSwitchToSection(llvm::raw_ostream *this, uint64_t a2, BOOL a3, llvm::raw_ostream *a4)
 {
   v5 = this;
   v6 = *(this + 220);
@@ -8673,7 +8451,7 @@ LABEL_14:
 
     v7 = "Printing for this SectionKind is unimplemented.";
 LABEL_44:
-    llvm::report_fatal_error(v7, 1);
+    llvm::report_fatal_error(v7, 1, a3);
   }
 
   v11 = *(this + 224);
@@ -8941,69 +8719,66 @@ LABEL_31:
 
 void llvm::MCStreamer::emitIntValue(void *a1, uint64_t a2)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 8);
   if (((v4 + 63) & 0x1FFFFFFC0) == 0x40)
   {
     LimitedValue = llvm::APInt::getLimitedValue(a2, 0xFFFFFFFFFFFFFFFFLL);
     v6 = *(*a1 + 512);
-    v7 = *MEMORY[0x277D85DE8];
-    v8 = *(a2 + 8) >> 3;
+    v7 = *(a2 + 8) >> 3;
 
-    v6(a1, LimitedValue, v8);
+    v6(a1, LimitedValue, v7);
   }
 
   else
   {
     if (*(*(a1[1] + 144) + 16))
     {
-      v13 = *(a2 + 8);
+      v11 = *(a2 + 8);
       if (v4 > 0x40)
       {
         operator new[]();
       }
 
-      v12 = *a2;
+      v10 = *a2;
     }
 
     else
     {
-      llvm::APInt::byteSwap(a2, &v12);
+      llvm::APInt::byteSwap(a2, &v10);
     }
 
-    v9 = *(a2 + 8) >> 3;
-    __dst = v16;
-    v15 = xmmword_2750C16E0;
-    llvm::SmallVectorImpl<char>::resizeImpl<false>(&__dst, v9);
-    if (v13 >= 0x41)
+    v8 = *(a2 + 8) >> 3;
+    __dst = v14;
+    v13 = xmmword_2750C16E0;
+    llvm::SmallVectorImpl<char>::resizeImpl<false>(&__dst, v8);
+    if (v11 >= 0x41)
     {
-      v10 = v12;
+      v9 = v10;
     }
 
     else
     {
-      v10 = &v12;
+      v9 = &v10;
     }
 
-    memcpy(__dst, v10, v9);
-    (*(*a1 + 488))(a1, __dst, v15);
-    if (__dst != v16)
+    memcpy(__dst, v9, v8);
+    (*(*a1 + 488))(a1, __dst, v13);
+    if (__dst != v14)
     {
       free(__dst);
     }
 
-    if (v13 >= 0x41 && v12)
+    if (v11 >= 0x41 && v10)
     {
-      MEMORY[0x277C69E10](v12, 0x1000C8000313F17);
+      MEMORY[0x277C69E10](v10, 0x1000C8000313F17);
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 
 uint64_t llvm::MCStreamer::emitFill(llvm::MCStreamer *this, uint64_t a2, unsigned int a3)
 {
-  v6 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(*(this + 1) + 184, 24, 3);
+  v6 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((*(this + 1) + 184), 24, 3);
   *v6 = 1;
   *(v6 + 1) = *(v6 + 4) << 24;
   *(v6 + 8) = 0;
@@ -9013,33 +8788,31 @@ uint64_t llvm::MCStreamer::emitFill(llvm::MCStreamer *this, uint64_t a2, unsigne
   return v7(this, v6, a3, 0);
 }
 
-void llvm::MCStreamer::tryEmitDwarfFileDirective(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int128 *a7@<X6>, __int128 *a8@<X7>, uint64_t a9@<X8>, unsigned int a10)
+void llvm::MCStreamer::tryEmitDwarfFileDirective(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t x8_0@<X8>, unsigned int a9)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v10 = *(a1 + 8);
-  v14 = *a7;
-  v15 = *(a7 + 16);
-  v12 = *a8;
-  v13 = *(a8 + 2);
-  llvm::MCContext::getDwarfFile(v10, a3, a4, a5, a6, a2, &v14, &v12, a9, a10);
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *a7;
+  v14 = *(a7 + 16);
+  v11 = *a8;
+  v12 = *(a8 + 16);
+  llvm::MCContext::getDwarfFile(v10, a3, a4, a5, a6, a2, &v13, &v11, x8_0, a9);
 }
 
-void llvm::MCStreamer::emitDwarfFile0Directive(uint64_t a1, void *a2, size_t a3, void *a4, size_t a5, __int128 *a6, uint64_t a7, int a8)
+void llvm::MCStreamer::emitDwarfFile0Directive(uint64_t a1, void *a2, size_t a3, void *a4, size_t a5, uint64_t a6, uint64_t a7, int a8)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 8);
-  v12 = *a6;
-  v13 = *(a6 + 16);
-  v10 = *a7;
-  v11 = *(a7 + 16);
-  llvm::MCContext::setMCLineTableRootFile(v8, a8, a2, a3, a4, a5, &v12, &v10);
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *a6;
+  v12 = *(a6 + 16);
+  v9 = *a7;
+  v10 = *(a7 + 16);
+  llvm::MCContext::setMCLineTableRootFile(v8, a8, a2, a3, a4, a5, &v11, &v9);
 }
 
-uint64_t llvm::MCStreamer::emitCFIBKeyFrame(llvm::MCStreamer *this)
+uint64_t llvm::MCStreamer::emitCFIBKeyFrame(llvm::MCStreamer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, a2, a3, a4, a5, a6);
   if (result)
   {
     *(result + 80) = 1;
@@ -9048,37 +8821,37 @@ uint64_t llvm::MCStreamer::emitCFIBKeyFrame(llvm::MCStreamer *this)
   return result;
 }
 
-uint64_t llvm::MCStreamer::getCurrentDwarfFrameInfo(llvm::MCStreamer *this)
+uint64_t llvm::MCStreamer::getCurrentDwarfFrameInfo(llvm::MCStreamer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v4 = *(this + 14);
-  if (v4)
+  v9 = *(this + 14);
+  if (v9)
   {
-    return *(this + 3) + 88 * *(*(this + 6) + 16 * v4 - 16);
+    return *(this + 3) + 88 * *(*(this + 6) + 16 * v9 - 16);
   }
 
-  v6 = *(this + 1);
-  v7 = *(this + 36);
-  if (v7)
+  v11 = *(this + 1);
+  v12 = *(this + 36);
+  if (v12)
   {
-    v8 = *v7;
+    v13 = *v12;
   }
 
   else
   {
-    v8 = 0;
+    v13 = 0;
   }
 
-  v11 = v1;
-  v12 = v2;
-  v9 = "this directive must appear between .cfi_startproc and .cfi_endproc directives";
-  v10 = 259;
-  llvm::MCContext::reportError(v6, v8, &v9);
+  v16 = v6;
+  v17 = v7;
+  v14 = "this directive must appear between .cfi_startproc and .cfi_endproc directives";
+  v15 = 259;
+  llvm::MCContext::reportError(v11, v13, &v14, a4, a5, a6);
   return 0;
 }
 
-uint64_t llvm::MCStreamer::emitCFIMTETaggedFrame(llvm::MCStreamer *this)
+uint64_t llvm::MCStreamer::emitCFIMTETaggedFrame(llvm::MCStreamer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, a2, a3, a4, a5, a6);
   if (result)
   {
     *(result + 81) = 1;
@@ -9100,12 +8873,12 @@ uint64_t llvm::MCStreamer::emitDwarfLocDirective(uint64_t result, int a2, int a3
   return result;
 }
 
-unint64_t llvm::MCStreamer::getDwarfLineTableSymbol(llvm::MCStreamer *this, unsigned int a2)
+uint64_t *llvm::MCStreamer::getDwarfLineTableSymbol(llvm::MCStreamer *this, unsigned int a2)
 {
   v4 = *(this + 1);
   LODWORD(v11[0]) = a2;
   v13[0] = v11;
-  v5 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 1560, v11);
+  v5 = std::__tree<std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,llvm::MCDwarfLineTable>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,llvm::MCDwarfLineTable>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v4 + 1560), v11, &std::piecewise_construct, v13);
   result = v5[5];
   if (!result)
   {
@@ -9127,7 +8900,7 @@ unint64_t llvm::MCStreamer::getDwarfLineTableSymbol(llvm::MCStreamer *this, unsi
   return result;
 }
 
-uint64_t llvm::MCStreamer::emitCVFileDirective(uint64_t a1, unsigned int a2, uint64_t *a3, unint64_t a4, uint64_t a5, uint64_t a6, char a7)
+uint64_t llvm::MCStreamer::emitCVFileDirective(uint64_t a1, unsigned int a2, uint64_t *a3, size_t a4, uint64_t a5, uint64_t a6, char a7)
 {
   CVContext = llvm::MCContext::getCVContext(*(a1 + 8));
 
@@ -9144,88 +8917,80 @@ BOOL llvm::MCStreamer::emitCVFuncIdDirective(llvm::MCContext **this, unsigned in
 BOOL llvm::MCStreamer::emitCVInlineSiteIdDirective(uint64_t a1, unsigned int a2, unsigned int a3, int a4, int a5, int a6, uint64_t a7)
 {
   CVContext = llvm::MCContext::getCVContext(*(a1 + 8));
-  v15 = *(CVContext + 232);
-  if (0xAAAAAAAAAAAAAAABLL * ((*(CVContext + 240) - v15) >> 4) > a3 && *(v15 + 48 * a3))
+  v18 = *(CVContext + 29);
+  if (0xAAAAAAAAAAAAAAABLL * ((*(CVContext + 30) - v18) >> 4) > a3 && *(v18 + 48 * a3))
   {
-    v16 = llvm::MCContext::getCVContext(*(a1 + 8));
+    v19 = llvm::MCContext::getCVContext(*(a1 + 8));
 
-    return llvm::CodeViewContext::recordInlinedCallSiteId(v16, a2, a3, a4, a5, a6);
+    return llvm::CodeViewContext::recordInlinedCallSiteId(v19, a2, a3, a4, a5, a6);
   }
 
   else
   {
-    v18 = *(a1 + 8);
-    v19 = "parent function id not introduced by .cv_func_id or .cv_inline_site_id";
-    v20 = 259;
-    llvm::MCContext::reportError(v18, a7, &v19);
+    v21 = *(a1 + 8);
+    v22 = "parent function id not introduced by .cv_func_id or .cv_inline_site_id";
+    v23 = 259;
+    llvm::MCContext::reportError(v21, a7, &v22, v15, v16, v17);
     return 1;
   }
 }
 
 void llvm::MCStreamer::emitCVDefRangeDirective(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v9 = v11;
-  v10 = xmmword_2750C86D0;
-  llvm::SmallVectorImpl<char>::resizeImpl<false>(&v9, 0xAuLL);
-  *v9 = 4421;
-  *(v9 + 2) = a4;
-  (*(*a1 + 768))(a1, a2, a3, v9, v10);
-  if (v9 != v11)
+  v10[3] = *MEMORY[0x277D85DE8];
+  v8 = v10;
+  v9 = xmmword_2750C86D0;
+  llvm::SmallVectorImpl<char>::resizeImpl<false>(&v8, 0xAuLL);
+  *v8 = 4421;
+  *(v8 + 2) = a4;
+  (*(*a1 + 768))(a1, a2, a3, v8, v9);
+  if (v8 != v10)
   {
-    free(v9);
+    free(v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v9 = v11;
-  v10 = xmmword_2750C86D0;
-  llvm::SmallVectorImpl<char>::resizeImpl<false>(&v9, 0xAuLL);
-  *v9 = 4419;
-  *(v9 + 2) = a4;
-  (*(*a1 + 768))(a1, a2, a3, v9, v10);
-  if (v9 != v11)
+  v10[3] = *MEMORY[0x277D85DE8];
+  v8 = v10;
+  v9 = xmmword_2750C86D0;
+  llvm::SmallVectorImpl<char>::resizeImpl<false>(&v8, 0xAuLL);
+  *v8 = 4419;
+  *(v8 + 2) = a4;
+  (*(*a1 + 768))(a1, a2, a3, v8, v9);
+  if (v8 != v10)
   {
-    free(v9);
+    free(v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::MCStreamer::emitCVDefRangeDirective(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v9 = v11;
-  v10 = xmmword_2750C86D0;
-  llvm::SmallVectorImpl<char>::resizeImpl<false>(&v9, 6uLL);
-  *v9 = 4417;
-  *(v9 + 2) = a4;
-  (*(*a1 + 768))(a1, a2, a3, v9, v10);
-  if (v9 != v11)
+  v10[3] = *MEMORY[0x277D85DE8];
+  v8 = v10;
+  v9 = xmmword_2750C86D0;
+  llvm::SmallVectorImpl<char>::resizeImpl<false>(&v8, 6uLL);
+  *v8 = 4417;
+  *(v8 + 2) = a4;
+  (*(*a1 + 768))(a1, a2, a3, v8, v9);
+  if (v8 != v10)
   {
-    free(v9);
+    free(v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v9 = v11;
-  v10 = xmmword_2750C86D0;
-  llvm::SmallVectorImpl<char>::resizeImpl<false>(&v9, 6uLL);
-  *v9 = 4418;
-  *(v9 + 2) = a4;
-  (*(*a1 + 768))(a1, a2, a3, v9, v10);
-  if (v9 != v11)
+  v10[3] = *MEMORY[0x277D85DE8];
+  v8 = v10;
+  v9 = xmmword_2750C86D0;
+  llvm::SmallVectorImpl<char>::resizeImpl<false>(&v8, 6uLL);
+  *v8 = 4418;
+  *(v8 + 2) = a4;
+  (*(*a1 + 768))(a1, a2, a3, v8, v9);
+  if (v8 != v10)
   {
-    free(v9);
+    free(v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t llvm::MCStreamer::emitLabel(uint64_t a1, llvm::MCSymbol *this, uint64_t a3)
@@ -9245,234 +9010,234 @@ uint64_t llvm::MCStreamer::emitLabel(uint64_t a1, llvm::MCSymbol *this, uint64_t
 
   if (llvm::MCSymbol::getFragment(this, 1u) || (*(this + 1) & 0x3800) == 0x1000)
   {
-    v7 = *(a1 + 8);
+    v10 = *(a1 + 8);
     if ((*this & 4) != 0)
     {
-      v10 = *(this - 1);
-      v11 = *v10;
-      v8 = v10 + 2;
-      v9 = v11;
+      v13 = *(this - 1);
+      v14 = *v13;
+      v11 = v13 + 2;
+      v12 = v14;
     }
 
     else
     {
-      v8 = 0;
-      v9 = 0;
+      v11 = 0;
+      v12 = 0;
     }
 
-    v16[0] = "symbol '";
-    v16[2] = v8;
-    v16[3] = v9;
-    v17 = 1283;
-    v18[0] = v16;
-    v18[2] = "' is already defined";
-    v19 = 770;
-    return llvm::MCContext::reportError(v7, a3, v18);
+    v19[0] = "symbol '";
+    v19[2] = v11;
+    v19[3] = v12;
+    v20 = 1283;
+    v21[0] = v19;
+    v21[2] = "' is already defined";
+    v22 = 770;
+    return llvm::MCContext::reportError(v10, a3, v21, v7, v8, v9);
   }
 
   else
   {
-    v13 = *(a1 + 152);
-    if (v13)
+    v16 = *(a1 + 152);
+    if (v16)
     {
-      v14 = *(*(a1 + 144) + 32 * v13 - 32);
+      v17 = *(*(a1 + 144) + 32 * v16 - 32);
     }
 
     else
     {
-      v14 = 0;
+      v17 = 0;
     }
 
-    *this = *this & 7 | (v14 + 48);
+    *this = *this & 7 | (v17 + 48);
     result = *(a1 + 16);
     if (result)
     {
-      v15 = *(*result + 16);
+      v18 = *(*result + 16);
 
-      return v15();
+      return v18();
     }
   }
 
   return result;
 }
 
-void llvm::MCStreamer::emitCFIStartProc(uint64_t a1, char a2, uint64_t a3)
+void llvm::MCStreamer::emitCFIStartProc(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v4 = *(a1 + 56);
-  if (v4 && ((v5 = *(a1 + 152), !v5) ? (v6 = 0) : (v6 = *(*(a1 + 144) + 32 * v5 - 32)), v6 == *(*(a1 + 48) + 16 * v4 - 8)))
+  v7 = *(a1 + 56);
+  if (v7 && ((v8 = *(a1 + 152), !v8) ? (v9 = 0) : (v9 = *(*(a1 + 144) + 32 * v8 - 32)), v9 == *(*(a1 + 48) + 16 * v7 - 8)))
   {
-    v26 = *(a1 + 8);
-    *&v37 = "starting new .cfi frame before finishing the previous one";
-    *v39 = 259;
-    llvm::MCContext::reportError(v26, a3, &v37);
+    v29 = *(a1 + 8);
+    *&v40 = "starting new .cfi frame before finishing the previous one";
+    *v42 = 259;
+    llvm::MCContext::reportError(v29, a3, &v40, a4, a5, a6);
   }
 
   else
   {
-    memset(v39, 0, 42);
-    v37 = 0u;
-    v38 = 0u;
-    *&v39[44] = 0x7FFFFFFF;
-    *&v39[48] = 0;
-    v39[41] = a2;
-    (**a1)(a1, &v37);
-    v7 = *(*(a1 + 8) + 144);
-    if (v7)
+    memset(v42, 0, 42);
+    v40 = 0u;
+    v41 = 0u;
+    *&v42[44] = 0x7FFFFFFF;
+    *&v42[48] = 0;
+    v42[41] = a2;
+    (**a1)(a1, &v40, a3, a4, a5, a6);
+    v10 = *(*(a1 + 8) + 144);
+    if (v10)
     {
-      v8 = *(v7 + 448);
-      for (i = *(v7 + 456); v8 != i; v8 += 20)
+      v11 = *(v10 + 448);
+      for (i = *(v10 + 456); v11 != i; v11 += 20)
       {
-        if (*v8 <= 7u && ((1 << *v8) & 0xB0) != 0)
+        if (*v11 <= 7u && ((1 << *v11) & 0xB0) != 0)
         {
-          *&v39[24] = v8[4];
+          *&v42[24] = v11[4];
         }
       }
     }
 
-    v12 = *(a1 + 32);
-    v11 = (a1 + 24);
-    v13 = *(a1 + 152);
-    if (v13)
+    v15 = *(a1 + 32);
+    v14 = (a1 + 24);
+    v16 = *(a1 + 152);
+    if (v16)
     {
-      v14 = *(*(a1 + 144) + 32 * v13 - 32);
+      v17 = *(*(a1 + 144) + 32 * v16 - 32);
     }
 
     else
     {
-      v14 = 0;
+      v17 = 0;
     }
 
-    v15 = 0x2E8BA2E8BA2E8BA3 * ((v12 - *(a1 + 24)) >> 3);
-    v16 = *(a1 + 56);
-    if (v16 >= *(a1 + 60))
+    v18 = 0x2E8BA2E8BA2E8BA3 * ((v15 - *(a1 + 24)) >> 3);
+    v19 = *(a1 + 56);
+    if (v19 >= *(a1 + 60))
     {
-      llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back((a1 + 48), v15, v14);
-      v12 = *(a1 + 32);
+      llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back((a1 + 48), v18, v17);
+      v15 = *(a1 + 32);
     }
 
     else
     {
-      v17 = (*(a1 + 48) + 16 * v16);
-      *v17 = v15;
-      v17[1] = v14;
-      *(a1 + 56) = v16 + 1;
+      v20 = (*(a1 + 48) + 16 * v19);
+      *v20 = v18;
+      v20[1] = v17;
+      *(a1 + 56) = v19 + 1;
     }
 
-    v18 = *(a1 + 40);
-    if (v12 >= v18)
+    v21 = *(a1 + 40);
+    if (v15 >= v21)
     {
-      v22 = 0x2E8BA2E8BA2E8BA3 * ((v12 - *v11) >> 3);
-      v23 = v22 + 1;
-      if ((v22 + 1) > 0x2E8BA2E8BA2E8BALL)
+      v25 = 0x2E8BA2E8BA2E8BA3 * ((v15 - *v14) >> 3);
+      v26 = v25 + 1;
+      if ((v25 + 1) > 0x2E8BA2E8BA2E8BALL)
       {
         std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
       }
 
-      v24 = 0x2E8BA2E8BA2E8BA3 * ((v18 - *v11) >> 3);
-      if (2 * v24 > v23)
+      v27 = 0x2E8BA2E8BA2E8BA3 * ((v21 - *v14) >> 3);
+      if (2 * v27 > v26)
       {
-        v23 = 2 * v24;
+        v26 = 2 * v27;
       }
 
-      if (v24 >= 0x1745D1745D1745DLL)
+      if (v27 >= 0x1745D1745D1745DLL)
       {
-        v25 = 0x2E8BA2E8BA2E8BALL;
+        v28 = 0x2E8BA2E8BA2E8BALL;
       }
 
       else
       {
-        v25 = v23;
+        v28 = v26;
       }
 
-      if (v25)
+      if (v28)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::MCDwarfFrameInfo>>(a1 + 24, v25);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::MCDwarfFrameInfo>>(a1 + 24, v28);
       }
 
-      v27 = 88 * v22;
-      v28 = v38;
-      *v27 = v37;
-      *(v27 + 16) = v28;
-      *(v27 + 40) = 0;
-      *(v27 + 48) = 0;
-      *(88 * v22 + 0x20) = 0;
-      std::vector<llvm::MCCFIInstruction>::__init_with_size[abi:nn200100]<llvm::MCCFIInstruction*,llvm::MCCFIInstruction*>(88 * v22 + 32, *v39, *&v39[8], 0xCCCCCCCCCCCCCCCDLL * ((*&v39[8] - *v39) >> 4));
-      v29 = *&v39[24];
-      *(v27 + 66) = *&v39[34];
-      *(v27 + 56) = v29;
-      v21 = 88 * v22 + 88;
-      v30 = *(a1 + 24);
-      v31 = *(a1 + 32);
-      v32 = (v27 + v30 - v31);
-      if (v30 != v31)
+      v30 = 88 * v25;
+      v31 = v41;
+      *v30 = v40;
+      *(v30 + 16) = v31;
+      *(v30 + 40) = 0;
+      *(v30 + 48) = 0;
+      *(88 * v25 + 0x20) = 0;
+      std::vector<llvm::MCCFIInstruction>::__init_with_size[abi:nn200100]<llvm::MCCFIInstruction*,llvm::MCCFIInstruction*>((88 * v25 + 32), *v42, *&v42[8], 0xCCCCCCCCCCCCCCCDLL * ((*&v42[8] - *v42) >> 4));
+      v32 = *&v42[24];
+      *(v30 + 66) = *&v42[34];
+      *(v30 + 56) = v32;
+      v24 = 88 * v25 + 88;
+      v33 = *(a1 + 24);
+      v34 = *(a1 + 32);
+      v35 = (v30 + v33 - v34);
+      if (v33 != v34)
       {
-        v33 = *(a1 + 24);
-        v34 = v32;
+        v36 = *(a1 + 24);
+        v37 = v35;
         do
         {
-          v35 = *(v33 + 16);
-          *v34 = *v33;
-          *(v34 + 1) = v35;
-          *(v34 + 5) = 0;
-          *(v34 + 6) = 0;
-          *(v34 + 4) = 0;
-          *(v34 + 2) = *(v33 + 32);
-          *(v34 + 6) = *(v33 + 48);
-          *(v33 + 32) = 0;
-          *(v33 + 40) = 0;
-          *(v33 + 48) = 0;
-          v36 = *(v33 + 56);
-          *(v34 + 66) = *(v33 + 66);
-          *(v34 + 56) = v36;
-          v33 += 88;
-          v34 += 88;
+          v38 = *(v36 + 16);
+          *v37 = *v36;
+          *(v37 + 1) = v38;
+          *(v37 + 5) = 0;
+          *(v37 + 6) = 0;
+          *(v37 + 4) = 0;
+          *(v37 + 2) = *(v36 + 32);
+          *(v37 + 6) = *(v36 + 48);
+          *(v36 + 32) = 0;
+          *(v36 + 40) = 0;
+          *(v36 + 48) = 0;
+          v39 = *(v36 + 56);
+          *(v37 + 66) = *(v36 + 66);
+          *(v37 + 56) = v39;
+          v36 += 88;
+          v37 += 88;
         }
 
-        while (v33 != v31);
+        while (v36 != v34);
         do
         {
-          v40 = v30 + 4;
-          std::vector<llvm::MCCFIInstruction>::__destroy_vector::operator()[abi:nn200100](&v40);
-          v30 += 11;
+          v43 = v33 + 4;
+          std::vector<llvm::MCCFIInstruction>::__destroy_vector::operator()[abi:nn200100](&v43);
+          v33 += 11;
         }
 
-        while (v30 != v31);
-        v30 = *v11;
+        while (v33 != v34);
+        v33 = *v14;
       }
 
-      *(a1 + 24) = v32;
-      *(a1 + 32) = v21;
+      *(a1 + 24) = v35;
+      *(a1 + 32) = v24;
       *(a1 + 40) = 0;
-      if (v30)
+      if (v33)
       {
-        operator delete(v30);
+        operator delete(v33);
       }
     }
 
     else
     {
-      v19 = v38;
-      *v12 = v37;
-      *(v12 + 16) = v19;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = 0;
-      *(v12 + 32) = 0;
-      std::vector<llvm::MCCFIInstruction>::__init_with_size[abi:nn200100]<llvm::MCCFIInstruction*,llvm::MCCFIInstruction*>(v12 + 32, *v39, *&v39[8], 0xCCCCCCCCCCCCCCCDLL * ((*&v39[8] - *v39) >> 4));
-      v20 = *&v39[24];
-      *(v12 + 66) = *&v39[34];
-      *(v12 + 56) = v20;
-      v21 = v12 + 88;
+      v22 = v41;
+      *v15 = v40;
+      *(v15 + 16) = v22;
+      *(v15 + 40) = 0;
+      *(v15 + 48) = 0;
+      *(v15 + 32) = 0;
+      std::vector<llvm::MCCFIInstruction>::__init_with_size[abi:nn200100]<llvm::MCCFIInstruction*,llvm::MCCFIInstruction*>((v15 + 32), *v42, *&v42[8], 0xCCCCCCCCCCCCCCCDLL * ((*&v42[8] - *v42) >> 4));
+      v23 = *&v42[24];
+      *(v15 + 66) = *&v42[34];
+      *(v15 + 56) = v23;
+      v24 = v15 + 88;
     }
 
-    *(a1 + 32) = v21;
-    v40 = v39;
-    std::vector<llvm::MCCFIInstruction>::__destroy_vector::operator()[abi:nn200100](&v40);
+    *(a1 + 32) = v24;
+    v43 = v42;
+    std::vector<llvm::MCCFIInstruction>::__destroy_vector::operator()[abi:nn200100](&v43);
   }
 }
 
-uint64_t llvm::MCStreamer::emitCFIEndProc(llvm::MCStreamer *this)
+uint64_t llvm::MCStreamer::emitCFIEndProc(llvm::MCStreamer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, a2, a3, a4, a5, a6);
   if (result)
   {
     result = (*(*this + 8))(this, result);
@@ -9485,25 +9250,25 @@ uint64_t llvm::MCStreamer::emitCFIEndProc(llvm::MCStreamer *this)
 void llvm::MCStreamer::emitCFIDefCfa(llvm::MCStreamer *this, int a2, int a3)
 {
   v6 = (*(*this + 80))(this);
-  LODWORD(v9) = 7;
-  *(&v9 + 1) = v6;
-  v10 = a2;
-  v11 = a3;
-  v16 = 0;
-  v13 = 0;
-  v14 = 0;
-  v12 = 0;
-  v15 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  LODWORD(v14) = 7;
+  *(&v14 + 1) = v6;
+  v15 = a2;
+  v16 = a3;
+  v21 = 0;
+  v18 = 0;
+  v19 = 0;
+  v17 = 0;
+  v20 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v7, v8, v9, v10, v11);
   if (CurrentDwarfFrameInfo)
   {
-    v8 = CurrentDwarfFrameInfo;
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v9);
-    *(v8 + 56) = a2;
+    v13 = CurrentDwarfFrameInfo;
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v14);
+    *(v13 + 56) = a2;
   }
 }
 
-void std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100](uint64_t *a1, __int128 *a2)
+void std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100](char **a1, __int128 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -9548,7 +9313,7 @@ void std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100](uint64_t *a1, 
     v17 = *(a2 + 5);
     if (v17 != v18)
     {
-      std::vector<char>::__vallocate[abi:nn200100](80 * v10 + 32, v17 - v18);
+      std::vector<char>::__vallocate[abi:nn200100]((80 * v10 + 32), v17 - v18);
     }
 
     if (*(a2 + 79) < 0)
@@ -9563,29 +9328,29 @@ void std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100](uint64_t *a1, 
       *(80 * v10 + 0x38) = v19;
     }
 
-    v14 = v15 + 80;
+    v14 = (v15 + 80);
     v20 = *a1;
     v21 = a1[1];
-    v22 = v15 + *a1 - v21;
+    v22 = (v15 + *a1 - v21);
     if (v21 != *a1)
     {
       v23 = *a1;
-      v24 = v15 + *a1 - v21;
+      v24 = (v15 + *a1 - v21);
       do
       {
         v25 = *v23;
         *(v24 + 12) = *(v23 + 12);
         *v24 = v25;
-        *(v24 + 40) = 0;
-        *(v24 + 48) = 0;
-        *(v24 + 32) = 0;
-        *(v24 + 32) = *(v23 + 2);
-        *(v24 + 48) = *(v23 + 6);
+        *(v24 + 5) = 0;
+        *(v24 + 6) = 0;
+        *(v24 + 4) = 0;
+        *(v24 + 2) = *(v23 + 2);
+        *(v24 + 6) = *(v23 + 6);
         *(v23 + 4) = 0;
         *(v23 + 5) = 0;
         *(v23 + 6) = 0;
         v26 = *(v23 + 56);
-        *(v24 + 72) = *(v23 + 9);
+        *(v24 + 9) = *(v23 + 9);
         *(v24 + 56) = v26;
         *(v23 + 8) = 0;
         *(v23 + 9) = 0;
@@ -9618,15 +9383,15 @@ void std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100](uint64_t *a1, 
   {
     v6 = *a2;
     *(v5 + 12) = *(a2 + 12);
-    *(v5 + 32) = 0;
+    *(v5 + 4) = 0;
     *v5 = v6;
-    *(v5 + 40) = 0;
-    *(v5 + 48) = 0;
+    *(v5 + 5) = 0;
+    *(v5 + 6) = 0;
     v8 = *(a2 + 4);
     v7 = *(a2 + 5);
     if (v7 != v8)
     {
-      std::vector<char>::__vallocate[abi:nn200100](v5 + 32, v7 - v8);
+      std::vector<char>::__vallocate[abi:nn200100](v5 + 4, v7 - v8);
     }
 
     if (*(a2 + 79) < 0)
@@ -9637,7 +9402,7 @@ void std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100](uint64_t *a1, 
     else
     {
       v9 = *(a2 + 56);
-      *(v5 + 72) = *(a2 + 9);
+      *(v5 + 9) = *(a2 + 9);
       *(v5 + 56) = v9;
     }
 
@@ -9650,139 +9415,141 @@ void std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100](uint64_t *a1, 
 void llvm::MCStreamer::emitCFIDefCfaOffset(llvm::MCStreamer *this, int a2)
 {
   v4 = (*(*this + 80))(this);
-  LODWORD(v6) = 6;
-  *(&v6 + 1) = v4;
-  v7 = 0;
-  v8 = a2;
-  v13 = 0;
-  v10 = 0;
-  v11 = 0;
-  v9 = 0;
+  LODWORD(v11) = 6;
+  *(&v11 + 1) = v4;
   v12 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v13 = a2;
+  v18 = 0;
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
+  v17 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v5, v6, v7, v8, v9);
   if (CurrentDwarfFrameInfo)
   {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v6);
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v11);
   }
 }
 
 void llvm::MCStreamer::emitCFIAdjustCfaOffset(llvm::MCStreamer *this, int a2)
 {
   v4 = (*(*this + 80))(this);
-  LODWORD(v6) = 9;
-  *(&v6 + 1) = v4;
-  v7 = 0;
-  v8 = a2;
-  v13 = 0;
-  v10 = 0;
-  v11 = 0;
-  v9 = 0;
+  LODWORD(v11) = 9;
+  *(&v11 + 1) = v4;
   v12 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v13 = a2;
+  v18 = 0;
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
+  v17 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v5, v6, v7, v8, v9);
   if (CurrentDwarfFrameInfo)
   {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v6);
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v11);
   }
 }
 
 void llvm::MCStreamer::emitCFIDefCfaRegister(llvm::MCStreamer *this, int a2)
 {
   v4 = (*(*this + 80))(this);
-  LODWORD(v7) = 5;
-  *(&v7 + 1) = v4;
-  v8 = a2;
-  v9 = 0;
+  LODWORD(v12) = 5;
+  *(&v12 + 1) = v4;
+  v13 = a2;
   v14 = 0;
-  v11 = 0;
-  v12 = 0;
-  v10 = 0;
-  v13 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v19 = 0;
+  v16 = 0;
+  v17 = 0;
+  v15 = 0;
+  v18 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v5, v6, v7, v8, v9);
   if (CurrentDwarfFrameInfo)
   {
-    v6 = CurrentDwarfFrameInfo;
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v7);
-    *(v6 + 56) = a2;
+    v11 = CurrentDwarfFrameInfo;
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v12);
+    *(v11 + 56) = a2;
   }
 }
 
 void llvm::MCStreamer::emitCFILLVMDefAspaceCfa(llvm::MCStreamer *this, int a2, int a3, int a4)
 {
   v8 = (*(*this + 80))(this);
-  LODWORD(v11) = 4;
-  *(&v11 + 1) = v8;
-  v12 = a2;
-  v13 = a3;
-  v14 = a4;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  LODWORD(v16) = 4;
+  *(&v16 + 1) = v8;
+  v17 = a2;
+  v18 = a3;
+  v19 = a4;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v9, v10, v11, v12, v13);
   if (CurrentDwarfFrameInfo)
   {
-    v10 = CurrentDwarfFrameInfo;
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v11);
-    *(v10 + 56) = a2;
+    v15 = CurrentDwarfFrameInfo;
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v16);
+    *(v15 + 56) = a2;
   }
 }
 
 void llvm::MCStreamer::emitCFIOffset(llvm::MCStreamer *this, int a2, int a3)
 {
   v6 = (*(*this + 80))(this);
-  LODWORD(v8) = 3;
-  *(&v8 + 1) = v6;
-  v9 = a2;
-  v10 = a3;
-  v15 = 0;
-  v12 = 0;
-  v13 = 0;
-  v11 = 0;
-  v14 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  LODWORD(v13) = 3;
+  *(&v13 + 1) = v6;
+  v14 = a2;
+  v15 = a3;
+  v20 = 0;
+  v17 = 0;
+  v18 = 0;
+  v16 = 0;
+  v19 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v7, v8, v9, v10, v11);
   if (CurrentDwarfFrameInfo)
   {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v8);
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v13);
   }
 }
 
 void llvm::MCStreamer::emitCFIRelOffset(llvm::MCStreamer *this, int a2, int a3)
 {
   v6 = (*(*this + 80))(this);
-  LODWORD(v8) = 8;
-  *(&v8 + 1) = v6;
-  v9 = a2;
-  v10 = a3;
-  v15 = 0;
-  v12 = 0;
-  v13 = 0;
-  v11 = 0;
-  v14 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  LODWORD(v13) = 8;
+  *(&v13 + 1) = v6;
+  v14 = a2;
+  v15 = a3;
+  v20 = 0;
+  v17 = 0;
+  v18 = 0;
+  v16 = 0;
+  v19 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v7, v8, v9, v10, v11);
   if (CurrentDwarfFrameInfo)
   {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v8);
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v13);
   }
 }
 
-uint64_t llvm::MCStreamer::emitCFIPersonality(llvm::MCStreamer *this, const llvm::MCSymbol *a2, int a3)
+uint64_t llvm::MCStreamer::emitCFIPersonality(llvm::MCStreamer *this, const llvm::MCSymbol *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v6 = a3;
+  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, a2, a3, a4, a5, a6);
   if (result)
   {
     *(result + 16) = a2;
-    *(result + 60) = a3;
+    *(result + 60) = v6;
   }
 
   return result;
 }
 
-uint64_t llvm::MCStreamer::emitCFILsda(llvm::MCStreamer *this, const llvm::MCSymbol *a2, int a3)
+uint64_t llvm::MCStreamer::emitCFILsda(llvm::MCStreamer *this, const llvm::MCSymbol *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v6 = a3;
+  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, a2, a3, a4, a5, a6);
   if (result)
   {
     *(result + 24) = a2;
-    *(result + 64) = a3;
+    *(result + 64) = v6;
   }
 
   return result;
@@ -9791,73 +9558,294 @@ uint64_t llvm::MCStreamer::emitCFILsda(llvm::MCStreamer *this, const llvm::MCSym
 void llvm::MCStreamer::emitCFIRememberState(llvm::MCStreamer *this)
 {
   v2 = (*(*this + 80))(this);
-  LODWORD(v4) = 1;
-  *(&v4 + 1) = v2;
-  v5 = 0;
+  LODWORD(v9) = 1;
+  *(&v9 + 1) = v2;
   v10 = 0;
-  v7 = 0;
-  v8 = 0;
-  v6 = 0;
-  v9 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v15 = 0;
+  v12 = 0;
+  v13 = 0;
+  v11 = 0;
+  v14 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v3, v4, v5, v6, v7);
   if (CurrentDwarfFrameInfo)
   {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v4);
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v9);
   }
 }
 
 void llvm::MCStreamer::emitCFIRestoreState(llvm::MCStreamer *this)
 {
   v2 = (*(*this + 80))(this);
-  LODWORD(v4) = 2;
-  *(&v4 + 1) = v2;
-  v5 = 0;
+  LODWORD(v9) = 2;
+  *(&v9 + 1) = v2;
   v10 = 0;
-  v7 = 0;
-  v8 = 0;
-  v6 = 0;
-  v9 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v15 = 0;
+  v12 = 0;
+  v13 = 0;
+  v11 = 0;
+  v14 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v3, v4, v5, v6, v7);
   if (CurrentDwarfFrameInfo)
   {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v4);
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v9);
   }
 }
 
 void llvm::MCStreamer::emitCFISameValue(llvm::MCStreamer *this, int a2)
 {
   v4 = (*(*this + 80))(this);
-  LODWORD(v6) = 0;
-  *(&v6 + 1) = v4;
-  v7 = a2;
-  v8 = 0;
+  LODWORD(v11) = 0;
+  *(&v11 + 1) = v4;
+  v12 = a2;
   v13 = 0;
-  v10 = 0;
-  v11 = 0;
-  v9 = 0;
-  v12 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v18 = 0;
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
+  v17 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v5, v6, v7, v8, v9);
   if (CurrentDwarfFrameInfo)
   {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v6);
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v11);
   }
 }
 
 void llvm::MCStreamer::emitCFIRestore(llvm::MCStreamer *this, int a2)
 {
   v4 = (*(*this + 80))(this);
-  LODWORD(v6) = 11;
-  *(&v6 + 1) = v4;
-  v7 = a2;
-  v8 = 0;
+  LODWORD(v11) = 11;
+  *(&v11 + 1) = v4;
+  v12 = a2;
   v13 = 0;
-  v10 = 0;
-  v11 = 0;
-  v9 = 0;
-  v12 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  v18 = 0;
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
+  v17 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v5, v6, v7, v8, v9);
   if (CurrentDwarfFrameInfo)
   {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v6);
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v11);
   }
+}
+
+void llvm::MCStreamer::emitCFIEscape(llvm::MCStreamer *a1, char *a2, uint64_t a3)
+{
+  v5 = (*(*a1 + 80))(a1);
+  LODWORD(v12) = 10;
+  *(&v12 + 1) = v5;
+  v13 = 0;
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
+  if (a3)
+  {
+    if (a3 >= 0)
+    {
+      operator new();
+    }
+
+    std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
+  }
+
+  v18 = 0;
+  v17 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(a1, v6, v7, v8, v9, v10);
+  if (CurrentDwarfFrameInfo)
+  {
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v12);
+  }
+}
+
+void llvm::MCStreamer::emitCFIGnuArgsSize(llvm::MCStreamer *this, int a2)
+{
+  v4 = (*(*this + 80))(this);
+  LODWORD(v11) = 16;
+  *(&v11 + 1) = v4;
+  v12 = 0;
+  v13 = a2;
+  v18 = 0;
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
+  v17 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v5, v6, v7, v8, v9);
+  if (CurrentDwarfFrameInfo)
+  {
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v11);
+  }
+}
+
+uint64_t llvm::MCStreamer::emitCFISignalFrame(llvm::MCStreamer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, a2, a3, a4, a5, a6);
+  if (result)
+  {
+    *(result + 72) = 1;
+  }
+
+  return result;
+}
+
+void llvm::MCStreamer::emitCFIUndefined(llvm::MCStreamer *this, int a2)
+{
+  v4 = (*(*this + 80))(this);
+  LODWORD(v11) = 12;
+  *(&v11 + 1) = v4;
+  v12 = a2;
+  v13 = 0;
+  v18 = 0;
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
+  v17 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v5, v6, v7, v8, v9);
+  if (CurrentDwarfFrameInfo)
+  {
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v11);
+  }
+}
+
+void llvm::MCStreamer::emitCFIRegister(llvm::MCStreamer *this, int a2, int a3)
+{
+  v6 = (*(*this + 80))(this);
+  LODWORD(v13) = 13;
+  *(&v13 + 1) = v6;
+  v14 = a2;
+  v15 = a3;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v7, v8, v9, v10, v11);
+  if (CurrentDwarfFrameInfo)
+  {
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v13);
+  }
+}
+
+void llvm::MCStreamer::emitCFIWindowSave(llvm::MCStreamer *this)
+{
+  v2 = (*(*this + 80))(this);
+  LODWORD(v9) = 14;
+  *(&v9 + 1) = v2;
+  v10 = 0;
+  v15 = 0;
+  v12 = 0;
+  v13 = 0;
+  v11 = 0;
+  v14 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v3, v4, v5, v6, v7);
+  if (CurrentDwarfFrameInfo)
+  {
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v9);
+  }
+}
+
+void llvm::MCStreamer::emitCFINegateRAState(llvm::MCStreamer *this)
+{
+  v2 = (*(*this + 80))(this);
+  LODWORD(v9) = 15;
+  *(&v9 + 1) = v2;
+  v10 = 0;
+  v15 = 0;
+  v12 = 0;
+  v13 = 0;
+  v11 = 0;
+  v14 = 0;
+  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, v3, v4, v5, v6, v7);
+  if (CurrentDwarfFrameInfo)
+  {
+    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v9);
+  }
+}
+
+uint64_t llvm::MCStreamer::emitCFIReturnColumn(llvm::MCStreamer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v6 = a2;
+  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this, a2, a3, a4, a5, a6);
+  if (result)
+  {
+    *(result + 76) = v6;
+  }
+
+  return result;
+}
+
+uint64_t llvm::MCStreamer::EnsureValidWinFrameInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v7 = *(a1 + 8);
+  v8 = *(v7 + 144);
+  if (*(v8 + 420) != 4 || ((v9 = *(v8 + 428), v9 != 6) ? (v10 = v9 == 0) : (v10 = 1), v10))
+  {
+    v11 = ".seh_* directives are not supported on this target";
+LABEL_8:
+    v14 = v11;
+    v15 = 259;
+    llvm::MCContext::reportError(v7, a2, &v14, a4, a5, a6);
+    return 0;
+  }
+
+  v12 = *(a1 + 104);
+  if (!v12 || *(v12 + 8))
+  {
+    v11 = ".seh_ directive must appear within an active frame";
+    goto LABEL_8;
+  }
+
+  return v12;
+}
+
+uint64_t llvm::MCStreamer::emitWinCFIStartProc(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v7 = a1[1];
+  v8 = *(v7 + 144);
+  if (*(v8 + 420) == 4)
+  {
+    v9 = *(v8 + 428);
+    if (v9 != 6 && v9 != 0)
+    {
+      v12 = a1[13];
+      if (v12)
+      {
+        if (!*(v12 + 8))
+        {
+          v13 = "Starting a function before ending the previous one!";
+          LOWORD(v14) = 259;
+          llvm::MCContext::reportError(v7, a3, &v13, a4, a5, a6);
+        }
+      }
+
+      (*(*a1 + 80))(a1, a2, a3, a4, a5, a6);
+      a1[14] = (a1[11] - a1[10]) >> 3;
+      operator new();
+    }
+  }
+
+  v13 = ".seh_* directives are not supported on this target";
+  LOWORD(v14) = 259;
+  return llvm::MCContext::reportError(v7, a3, &v13, a4, a5, a6);
+}
+
+uint64_t *std::unique_ptr<llvm::WinEH::FrameInfo>::~unique_ptr[abi:nn200100](uint64_t *a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    v5 = (v2 + 160);
+    std::vector<llvm::WinEH::FrameInfo::Segment>::__destroy_vector::operator()[abi:nn200100](&v5);
+    v5 = (v2 + 136);
+    std::vector<std::pair<llvm::MCSymbol *,llvm::WinEH::FrameInfo::Epilog>>::__destroy_vector::operator()[abi:nn200100](&v5);
+    MEMORY[0x277C69E30](*(v2 + 112), 8);
+    v3 = *(v2 + 88);
+    if (v3)
+    {
+      *(v2 + 96) = v3;
+      operator delete(v3);
+    }
+
+    MEMORY[0x277C69E40](v2, 0x1060C40CDDC3B8FLL);
+  }
+
+  return a1;
 }

@@ -7,7 +7,7 @@ void __98__UIViewController_MCUI__MCUIReturnToSender_returnToAccountSettings_vie
 {
   if (a3)
   {
-    NSLog(&cfstr_Mcuiviewcontro.isa, *(a1 + 32), a3);
+    NSLog(&cfstr_Mcuiviewcontro.isa, a2, *(a1 + 32), a3);
   }
 }
 

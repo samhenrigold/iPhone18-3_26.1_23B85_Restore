@@ -19,6 +19,7 @@
 - (void)localSpeechServiceDidReceiveTRPDetected:(id)detected;
 - (void)localSpeechServiceDidReceivedEagerRecognitionCandidateWithRequestId:(id)id rcId:(unint64_t)rcId speechPackage:(id)package duration:(double)duration;
 - (void)localSpeechServiceDidReceivedEagerRecognitionCandidateWithRequestId:(id)id rcId:(unint64_t)rcId speechPackage:(id)package duration:(double)duration metadata:(id)metadata;
+- (void)localSpeechServiceDidReceivedEagerResultWithRequestId:(id)id rcId:(unint64_t)rcId shouldAccept:(BOOL)accept mitigationSignal:(BOOL)signal featuresToLog:(id)log;
 - (void)localSpeechServiceDidReceivedFinalResultCandidateWithRequestId:(id)id speechPackage:(id)package;
 - (void)localSpeechServiceDidReceivedFinalResultWithRequestId:(id)id speechPackage:(id)package;
 - (void)localSpeechServiceDidReceivedFinalResultWithRequestId:(id)id speechPackage:(id)package metadata:(id)metadata;
@@ -47,7 +48,7 @@
 
 - (id)_connection
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   xpcConnection = self->_xpcConnection;
   if (!xpcConnection)
@@ -64,11 +65,11 @@
       uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
       xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
       *buf = 136315650;
-      v30 = "[LBLocalSpeechRecognizerClient _connection]";
-      v31 = 2112;
-      v32 = uuidString;
-      v33 = 2112;
-      v34 = xpcConnectionUUIDString;
+      v29 = "[LBLocalSpeechRecognizerClient _connection]";
+      v30 = 2112;
+      v31 = uuidString;
+      v32 = 2112;
+      v33 = xpcConnectionUUIDString;
       _os_log_impl(&dword_256130000, v8, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Creating new xpc connection...", buf, 0x20u);
     }
 
@@ -79,33 +80,31 @@
     objc_initWeak(buf, self);
     v13 = self->_xpcConnectionUUIDString;
     v14 = self->_xpcConnection;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __44__LBLocalSpeechRecognizerClient__connection__block_invoke;
-    v26[3] = &unk_279823918;
-    objc_copyWeak(&v28, buf);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __44__LBLocalSpeechRecognizerClient__connection__block_invoke;
+    v25[3] = &unk_279823918;
+    objc_copyWeak(&v27, buf);
     v15 = v13;
-    v27 = v15;
-    [(NSXPCConnection *)v14 setInterruptionHandler:v26];
+    v26 = v15;
+    [(NSXPCConnection *)v14 setInterruptionHandler:v25];
     v16 = self->_xpcConnection;
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __44__LBLocalSpeechRecognizerClient__connection__block_invoke_328;
-    v23 = &unk_279823918;
-    objc_copyWeak(&v25, buf);
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __44__LBLocalSpeechRecognizerClient__connection__block_invoke_328;
+    v22 = &unk_279823918;
+    objc_copyWeak(&v24, buf);
     v17 = v15;
-    v24 = v17;
-    [(NSXPCConnection *)v16 setInvalidationHandler:&v20];
-    [(NSXPCConnection *)self->_xpcConnection resume:v20];
+    v23 = v17;
+    [(NSXPCConnection *)v16 setInvalidationHandler:&v19];
+    [(NSXPCConnection *)self->_xpcConnection resume:v19];
 
-    objc_destroyWeak(&v25);
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v27);
 
     objc_destroyWeak(buf);
     xpcConnection = self->_xpcConnection;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return xpcConnection;
 }
@@ -153,15 +152,15 @@
 
 void __44__LBLocalSpeechRecognizerClient__connection__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "[LBLocalSpeechRecognizerClient _connection]_block_invoke";
-    v17 = 2112;
-    v18 = @"com.apple.siri.localspeechrecognitionbridge.xpc";
-    _os_log_impl(&dword_256130000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Interrupted", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[LBLocalSpeechRecognizerClient _connection]_block_invoke";
+    v16 = 2112;
+    v17 = @"com.apple.siri.localspeechrecognitionbridge.xpc";
+    _os_log_impl(&dword_256130000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Interrupted", &v14, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -198,32 +197,30 @@ LABEL_9:
         v13 = *(a1 + 32);
         v10 = v12;
         v11 = [v4 xpcConnectionUUIDString];
-        v15 = 136315650;
-        v16 = "[LBLocalSpeechRecognizerClient _connection]_block_invoke";
-        v17 = 2112;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v11;
-        _os_log_impl(&dword_256130000, v10, OS_LOG_TYPE_INFO, "%s Ignore since the UUID of xpc connection not match : %@ vs. %@", &v15, 0x20u);
+        v14 = 136315650;
+        v15 = "[LBLocalSpeechRecognizerClient _connection]_block_invoke";
+        v16 = 2112;
+        v17 = v13;
+        v18 = 2112;
+        v19 = v11;
+        _os_log_impl(&dword_256130000, v10, OS_LOG_TYPE_INFO, "%s Ignore since the UUID of xpc connection not match : %@ vs. %@", &v14, 0x20u);
         goto LABEL_9;
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __44__LBLocalSpeechRecognizerClient__connection__block_invoke_328(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "[LBLocalSpeechRecognizerClient _connection]_block_invoke";
-    v17 = 2112;
-    v18 = @"com.apple.siri.localspeechrecognitionbridge.xpc";
-    _os_log_impl(&dword_256130000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Invalidated", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[LBLocalSpeechRecognizerClient _connection]_block_invoke";
+    v16 = 2112;
+    v17 = @"com.apple.siri.localspeechrecognitionbridge.xpc";
+    _os_log_impl(&dword_256130000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Invalidated", &v14, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -259,24 +256,22 @@ LABEL_9:
         v13 = *(a1 + 32);
         v10 = v12;
         v11 = [v4 xpcConnectionUUIDString];
-        v15 = 136315650;
-        v16 = "[LBLocalSpeechRecognizerClient _connection]_block_invoke";
-        v17 = 2112;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v11;
-        _os_log_impl(&dword_256130000, v10, OS_LOG_TYPE_INFO, "%s Ignore since the UUID of xpc connection not match : %@ vs. %@", &v15, 0x20u);
+        v14 = 136315650;
+        v15 = "[LBLocalSpeechRecognizerClient _connection]_block_invoke";
+        v16 = 2112;
+        v17 = v13;
+        v18 = 2112;
+        v19 = v11;
+        _os_log_impl(&dword_256130000, v10, OS_LOG_TYPE_INFO, "%s Ignore since the UUID of xpc connection not match : %@ vs. %@", &v14, 0x20u);
         goto LABEL_9;
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceRequestAttentionAssetDownload
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
@@ -284,13 +279,13 @@ LABEL_9:
     v4 = v3;
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
-    v11 = 136315650;
-    v12 = "[LBLocalSpeechRecognizerClient localSpeechServiceRequestAttentionAssetDownload]";
-    v13 = 2112;
-    v14 = uuidString;
-    v15 = 2112;
-    v16 = xpcConnectionUUIDString;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[LBLocalSpeechRecognizerClient localSpeechServiceRequestAttentionAssetDownload]";
+    v12 = 2112;
+    v13 = uuidString;
+    v14 = 2112;
+    v15 = xpcConnectionUUIDString;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v10, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -301,13 +296,11 @@ LABEL_9:
     v9 = objc_loadWeakRetained(&self->_delegate);
     [v9 localSpeechRecognizerClient:self requestAttentionAssetDownload:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceDidDetectedFinalEndpointAtTime:(double)time
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v5 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
@@ -316,12 +309,12 @@ LABEL_9:
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
     *buf = 136315906;
-    v17 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidDetectedFinalEndpointAtTime:]";
-    v18 = 2112;
-    v19 = uuidString;
-    v20 = 2112;
-    v21 = xpcConnectionUUIDString;
-    v22 = 2048;
+    v16 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidDetectedFinalEndpointAtTime:]";
+    v17 = 2112;
+    v18 = uuidString;
+    v19 = 2112;
+    v20 = xpcConnectionUUIDString;
+    v21 = 2048;
     timeCopy = time;
     _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:time = %f", buf, 0x2Au);
   }
@@ -330,12 +323,12 @@ LABEL_9:
   {
     audioCapture = self->_audioCapture;
     requestId = self->_requestId;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpointAtTime___block_invoke;
-    v15[3] = &unk_2798238C0;
-    v15[4] = self;
-    [(LBAudioCapture *)audioCapture stopAudioCaptureWithReason:0 requestId:requestId completion:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpointAtTime___block_invoke;
+    v14[3] = &unk_2798238C0;
+    v14[4] = self;
+    [(LBAudioCapture *)audioCapture stopAudioCaptureWithReason:0 requestId:requestId completion:v14];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -346,26 +339,24 @@ LABEL_9:
     v13 = objc_loadWeakRetained(&self->_delegate);
     [v13 localSpeechRecognizerClient:self receivedFinalEndpointDetectedAtTime:time];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpointAtTime___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
     v6 = LBLogContextFacilityLocalSRBridge;
     if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_ERROR))
     {
-      v10 = v6;
-      v11 = [v5 localizedDescription];
-      v12 = 136315394;
-      v13 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidDetectedFinalEndpointAtTime:]_block_invoke";
-      v14 = 2112;
-      v15 = v11;
-      _os_log_error_impl(&dword_256130000, v10, OS_LOG_TYPE_ERROR, "%s Failed to stop audio capture, error : %@", &v12, 0x16u);
+      v9 = v6;
+      v10 = [v5 localizedDescription];
+      v11 = 136315394;
+      v12 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidDetectedFinalEndpointAtTime:]_block_invoke";
+      v13 = 2112;
+      v14 = v10;
+      _os_log_error_impl(&dword_256130000, v9, OS_LOG_TYPE_ERROR, "%s Failed to stop audio capture, error : %@", &v11, 0x16u);
     }
   }
 
@@ -373,13 +364,11 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
   v7 = *(a1 + 32);
   v8 = *(v7 + 72);
   *(v7 + 72) = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceDidReceiveMultiUserTRPCandidatePackage:(id)package
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   packageCopy = package;
   dispatch_assert_queue_V2(self->_queue);
   v5 = LBLogContextFacilityLocalSRBridge;
@@ -388,15 +377,15 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v6 = v5;
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
-    v13 = 136315906;
-    v14 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveMultiUserTRPCandidatePackage:]";
-    v15 = 2112;
-    v16 = uuidString;
-    v17 = 2112;
-    v18 = xpcConnectionUUIDString;
-    v19 = 2112;
-    v20 = packageCopy;
-    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received MultiUserTRP candidate: %@", &v13, 0x2Au);
+    v12 = 136315906;
+    v13 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveMultiUserTRPCandidatePackage:]";
+    v14 = 2112;
+    v15 = uuidString;
+    v16 = 2112;
+    v17 = xpcConnectionUUIDString;
+    v18 = 2112;
+    v19 = packageCopy;
+    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received MultiUserTRP candidate: %@", &v12, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -407,13 +396,11 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v11 = objc_loadWeakRetained(&self->_delegate);
     [v11 localSpeechRecognizerClient:self receivedMultiUserTRPCandidatePackage:packageCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceDidReceiveTRPDetected:(id)detected
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   detectedCopy = detected;
   dispatch_assert_queue_V2(self->_queue);
   v5 = LBLogContextFacilityLocalSRBridge;
@@ -422,15 +409,15 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v6 = v5;
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
-    v13 = 136315906;
-    v14 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveTRPDetected:]";
-    v15 = 2112;
-    v16 = uuidString;
-    v17 = 2112;
-    v18 = xpcConnectionUUIDString;
-    v19 = 2112;
-    v20 = detectedCopy;
-    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received TRP Detected: %@", &v13, 0x2Au);
+    v12 = 136315906;
+    v13 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveTRPDetected:]";
+    v14 = 2112;
+    v15 = uuidString;
+    v16 = 2112;
+    v17 = xpcConnectionUUIDString;
+    v18 = 2112;
+    v19 = detectedCopy;
+    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received TRP Detected: %@", &v12, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -441,13 +428,11 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v11 = objc_loadWeakRetained(&self->_delegate);
     [v11 localSpeechRecognizerClient:self receivedTRPDetected:detectedCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceDidReceiveTCUStateUpdate:(id)update
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   dispatch_assert_queue_V2(self->_queue);
   v5 = LBLogContextFacilityLocalSRBridge;
@@ -456,15 +441,15 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v6 = v5;
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
-    v13 = 136315906;
-    v14 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveTCUStateUpdate:]";
-    v15 = 2112;
-    v16 = uuidString;
-    v17 = 2112;
-    v18 = xpcConnectionUUIDString;
-    v19 = 2112;
-    v20 = updateCopy;
-    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received TCU state update: %@", &v13, 0x2Au);
+    v12 = 136315906;
+    v13 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveTCUStateUpdate:]";
+    v14 = 2112;
+    v15 = uuidString;
+    v16 = 2112;
+    v17 = xpcConnectionUUIDString;
+    v18 = 2112;
+    v19 = updateCopy;
+    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received TCU state update: %@", &v12, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -475,13 +460,11 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v11 = objc_loadWeakRetained(&self->_delegate);
     [v11 localSpeechRecognizerClient:self receivedTCUStateUpdate:updateCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceDidReceiveContinuityEndDetected:(id)detected
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   detectedCopy = detected;
   dispatch_assert_queue_V2(self->_queue);
   v5 = LBLogContextFacilityLocalSRBridge;
@@ -490,15 +473,15 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v6 = v5;
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
-    v17 = 136315906;
-    v18 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveContinuityEndDetected:]";
-    v19 = 2112;
-    v20 = uuidString;
-    v21 = 2112;
-    v22 = xpcConnectionUUIDString;
-    v23 = 2112;
-    v24 = detectedCopy;
-    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received Continuity End Detected: %@", &v17, 0x2Au);
+    v16 = 136315906;
+    v17 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveContinuityEndDetected:]";
+    v18 = 2112;
+    v19 = uuidString;
+    v20 = 2112;
+    v21 = xpcConnectionUUIDString;
+    v22 = 2112;
+    v23 = detectedCopy;
+    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received Continuity End Detected: %@", &v16, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -512,27 +495,25 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
       v12 = v11;
       uuidString2 = [(LBLocalSpeechRecognizerClient *)self uuidString];
       xpcConnectionUUIDString2 = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
-      v17 = 136315906;
-      v18 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveContinuityEndDetected:]";
-      v19 = 2112;
-      v20 = uuidString2;
-      v21 = 2112;
-      v22 = xpcConnectionUUIDString2;
-      v23 = 2112;
-      v24 = detectedCopy;
-      _os_log_impl(&dword_256130000, v12, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Delegate - Received Continuity End Detected: %@", &v17, 0x2Au);
+      v16 = 136315906;
+      v17 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveContinuityEndDetected:]";
+      v18 = 2112;
+      v19 = uuidString2;
+      v20 = 2112;
+      v21 = xpcConnectionUUIDString2;
+      v22 = 2112;
+      v23 = detectedCopy;
+      _os_log_impl(&dword_256130000, v12, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Delegate - Received Continuity End Detected: %@", &v16, 0x2Au);
     }
 
     v15 = objc_loadWeakRetained(&self->_delegate);
     [v15 localSpeechRecognizerClient:self receivedContinuityEndDetected:detectedCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceDidReceiveTRPCandidatePackage:(id)package
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   packageCopy = package;
   dispatch_assert_queue_V2(self->_queue);
   v5 = LBLogContextFacilityLocalSRBridge;
@@ -541,13 +522,13 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v6 = v5;
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
-    v13 = 136315650;
-    v14 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveTRPCandidatePackage:]";
-    v15 = 2112;
-    v16 = uuidString;
-    v17 = 2112;
-    v18 = xpcConnectionUUIDString;
-    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received TRP Candidate Package", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceiveTRPCandidatePackage:]";
+    v14 = 2112;
+    v15 = uuidString;
+    v16 = 2112;
+    v17 = xpcConnectionUUIDString;
+    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Received TRP Candidate Package", &v12, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -558,13 +539,11 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v11 = objc_loadWeakRetained(&self->_delegate);
     [v11 localSpeechRecognizerClient:self receivedTRPCandidatePackage:packageCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceDidReceivedVoiceIdScoreCard:(id)card
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   cardCopy = card;
   dispatch_assert_queue_V2(self->_queue);
   v5 = LBLogContextFacilityLocalSRBridge;
@@ -574,15 +553,15 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
     spIdKnownUserScores = [cardCopy spIdKnownUserScores];
-    v14 = 136315906;
-    v15 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceivedVoiceIdScoreCard:]";
-    v16 = 2112;
-    v17 = uuidString;
-    v18 = 2112;
-    v19 = xpcConnectionUUIDString;
-    v20 = 2112;
-    v21 = spIdKnownUserScores;
-    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Client received voiceId scores: %@", &v14, 0x2Au);
+    v13 = 136315906;
+    v14 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceivedVoiceIdScoreCard:]";
+    v15 = 2112;
+    v16 = uuidString;
+    v17 = 2112;
+    v18 = xpcConnectionUUIDString;
+    v19 = 2112;
+    v20 = spIdKnownUserScores;
+    _os_log_impl(&dword_256130000, v6, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Client received voiceId scores: %@", &v13, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -593,13 +572,11 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     v12 = objc_loadWeakRetained(&self->_delegate);
     [v12 localSpeechRecognizerClient:self receivedVoiceIdScoreCard:cardCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localSpeechServiceDidCompletionRecognitionWithStatistics:(id)statistics requestId:(id)id endpointMode:(int64_t)mode error:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   statisticsCopy = statistics;
   idCopy = id;
   errorCopy = error;
@@ -611,19 +588,19 @@ void __82__LBLocalSpeechRecognizerClient_localSpeechServiceDidDetectedFinalEndpo
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
     localizedDescription = [errorCopy localizedDescription];
-    v24 = 136316418;
-    v25 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidCompletionRecognitionWithStatistics:requestId:endpointMode:error:]";
-    v26 = 2112;
-    v27 = uuidString;
-    v28 = 2112;
-    v29 = xpcConnectionUUIDString;
-    v30 = 2112;
-    v31 = idCopy;
-    v32 = 2050;
+    v23 = 136316418;
+    v24 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidCompletionRecognitionWithStatistics:requestId:endpointMode:error:]";
+    v25 = 2112;
+    v26 = uuidString;
+    v27 = 2112;
+    v28 = xpcConnectionUUIDString;
+    v29 = 2112;
+    v30 = idCopy;
+    v31 = 2050;
     modeCopy = mode;
-    v34 = 2114;
-    v35 = localizedDescription;
-    _os_log_impl(&dword_256130000, v14, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Notify task %@ completed with endpointMode %{public}ld, error : %{public}@", &v24, 0x3Eu);
+    v33 = 2114;
+    v34 = localizedDescription;
+    _os_log_impl(&dword_256130000, v14, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Notify task %@ completed with endpointMode %{public}ld, error : %{public}@", &v23, 0x3Eu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -649,8 +626,38 @@ LABEL_7:
   }
 
 LABEL_8:
+}
 
-  v23 = *MEMORY[0x277D85DE8];
+- (void)localSpeechServiceDidReceivedEagerResultWithRequestId:(id)id rcId:(unint64_t)rcId shouldAccept:(BOOL)accept mitigationSignal:(BOOL)signal featuresToLog:(id)log
+{
+  signalCopy = signal;
+  acceptCopy = accept;
+  v27 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  logCopy = log;
+  dispatch_assert_queue_V2(self->_queue);
+  v14 = LBLogContextFacilityLocalSRBridge;
+  if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v14;
+    uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
+    xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
+    v19 = 136315906;
+    v20 = "[LBLocalSpeechRecognizerClient localSpeechServiceDidReceivedEagerResultWithRequestId:rcId:shouldAccept:mitigationSignal:featuresToLog:]";
+    v21 = 2112;
+    v22 = uuidString;
+    v23 = 2112;
+    v24 = xpcConnectionUUIDString;
+    v25 = 2112;
+    v26 = idCopy;
+    _os_log_impl(&dword_256130000, v15, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Sending EagerResult for request:%@", &v19, 0x2Au);
+  }
+
+  if (acceptCopy)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    [WeakRetained localSpeechRecognizerClient:self didAcceptedEagerResultWithRequestId:idCopy rcId:rcId mitigationSignal:signalCopy featuresToLog:logCopy];
+  }
 }
 
 - (void)localSpeechServiceDidReceivedEagerRecognitionCandidateWithRequestId:(id)id rcId:(unint64_t)rcId speechPackage:(id)package duration:(double)duration metadata:(id)metadata
@@ -788,16 +795,16 @@ LABEL_8:
 
 - (void)_invalidate
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   xpcConnection = self->_xpcConnection;
   if (xpcConnection)
   {
     v4 = LBLogContextFacilityLocalSRBridge;
     if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "[LBLocalSpeechRecognizerClient _invalidate]";
-      _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[LBLocalSpeechRecognizerClient _invalidate]";
+      _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_INFO, "%s ", &v7, 0xCu);
       xpcConnection = self->_xpcConnection;
     }
 
@@ -809,18 +816,16 @@ LABEL_8:
     xpcConnectionUUIDString = self->_xpcConnectionUUIDString;
     self->_xpcConnectionUUIDString = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[LBLocalSpeechRecognizerClient invalidate]";
+    v7 = "[LBLocalSpeechRecognizerClient invalidate]";
     _os_log_impl(&dword_256130000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -831,7 +836,6 @@ LABEL_8:
   block[3] = &unk_2798239B8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trpCandidateReadyForExecutionForRequestId:(id)id withTrpId:(id)trpId
@@ -853,7 +857,7 @@ LABEL_8:
 
 void __85__LBLocalSpeechRecognizerClient_trpCandidateReadyForExecutionForRequestId_withTrpId___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -861,19 +865,17 @@ void __85__LBLocalSpeechRecognizerClient_trpCandidateReadyForExecutionForRequest
     v4 = v2;
     v5 = [v3 uuidString];
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
-    v9 = 136315650;
-    v10 = "[LBLocalSpeechRecognizerClient trpCandidateReadyForExecutionForRequestId:withTrpId:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[LBLocalSpeechRecognizerClient trpCandidateReadyForExecutionForRequestId:withTrpId:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v8, 0x20u);
   }
 
   v7 = [*(a1 + 32) _service];
   [v7 trpCandidateReadyForExecutionForRequestId:*(a1 + 40) withTrpId:*(a1 + 48)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTCUState:(id)state
@@ -892,7 +894,7 @@ void __85__LBLocalSpeechRecognizerClient_trpCandidateReadyForExecutionForRequest
 
 void __48__LBLocalSpeechRecognizerClient_updateTCUState___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -900,19 +902,17 @@ void __48__LBLocalSpeechRecognizerClient_updateTCUState___block_invoke(uint64_t 
     v4 = v2;
     v5 = [v3 uuidString];
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
-    v9 = 136315650;
-    v10 = "[LBLocalSpeechRecognizerClient updateTCUState:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[LBLocalSpeechRecognizerClient updateTCUState:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v8, 0x20u);
   }
 
   v7 = [*(a1 + 32) _service];
   [v7 updateTCUState:*(a1 + 40)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendVisualContextAndCorrectionsInfo:(id)info interactionIdentifier:(id)identifier
@@ -957,7 +957,7 @@ void __91__LBLocalSpeechRecognizerClient_sendVisualContextAndCorrectionsInfo_int
 
 void __80__LBLocalSpeechRecognizerClient_sendSpeechCorrectionInfo_interactionIdentifier___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -965,33 +965,29 @@ void __80__LBLocalSpeechRecognizerClient_sendSpeechCorrectionInfo_interactionIde
     v4 = v2;
     v5 = [v3 uuidString];
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
-    v9 = 136315650;
-    v10 = "[LBLocalSpeechRecognizerClient sendSpeechCorrectionInfo:interactionIdentifier:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[LBLocalSpeechRecognizerClient sendSpeechCorrectionInfo:interactionIdentifier:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v8, 0x20u);
   }
 
   v7 = [*(a1 + 32) _service];
   [v7 sendSpeechCorrectionInfo:*(a1 + 40) interactionIdentifier:*(a1 + 48)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetCacheAndCompileAllAssets
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315138;
-    v5 = "[LBLocalSpeechRecognizerClient resetCacheAndCompileAllAssets]";
-    _os_log_debug_impl(&dword_256130000, v2, OS_LOG_TYPE_DEBUG, "%s No longer supported.", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[LBLocalSpeechRecognizerClient resetCacheAndCompileAllAssets]";
+    _os_log_debug_impl(&dword_256130000, v2, OS_LOG_TYPE_DEBUG, "%s No longer supported.", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVoiceCommandContextWithRequestId:(id)id prefixText:(id)text postfixText:(id)postfixText selectedText:(id)selectedText disambiguationActive:(id)active cursorInVisibleText:(id)visibleText favorCommandSuppression:(id)suppression abortCommandSuppression:(id)self0 undoEvent:(id)self1
@@ -1034,7 +1030,7 @@ void __80__LBLocalSpeechRecognizerClient_sendSpeechCorrectionInfo_interactionIde
 
 void __207__LBLocalSpeechRecognizerClient_updateVoiceCommandContextWithRequestId_prefixText_postfixText_selectedText_disambiguationActive_cursorInVisibleText_favorCommandSuppression_abortCommandSuppression_undoEvent___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -1044,20 +1040,18 @@ void __207__LBLocalSpeechRecognizerClient_updateVoiceCommandContextWithRequestId
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
     v7 = *(a1 + 40);
     *buf = 136315906;
-    v11 = "[LBLocalSpeechRecognizerClient updateVoiceCommandContextWithRequestId:prefixText:postfixText:selectedText:disambiguationActive:cursorInVisibleText:favorCommandSuppression:abortCommandSuppression:undoEvent:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
+    v10 = "[LBLocalSpeechRecognizerClient updateVoiceCommandContextWithRequestId:prefixText:postfixText:selectedText:disambiguationActive:cursorInVisibleText:favorCommandSuppression:abortCommandSuppression:undoEvent:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
     _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:requestId : %@", buf, 0x2Au);
   }
 
   v8 = [*(a1 + 32) _service];
   [v8 updateVoiceCommandContextWithRequestId:*(a1 + 40) prefixText:*(a1 + 48) postfixText:*(a1 + 56) selectedText:*(a1 + 64) disambiguationActive:*(a1 + 72) cursorInVisibleText:*(a1 + 80) favorCommandSuppression:*(a1 + 88) abortCommandSuppression:*(a1 + 96) undoEvent:*(a1 + 104)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeLocalRecognitionWithRequestId:(id)id prefixText:(id)text postfixText:(id)postfixText selectedText:(id)selectedText
@@ -1085,7 +1079,7 @@ void __207__LBLocalSpeechRecognizerClient_updateVoiceCommandContextWithRequestId
 
 void __105__LBLocalSpeechRecognizerClient_resumeLocalRecognitionWithRequestId_prefixText_postfixText_selectedText___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -1094,21 +1088,19 @@ void __105__LBLocalSpeechRecognizerClient_resumeLocalRecognitionWithRequestId_pr
     v5 = [v3 uuidString];
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
     v7 = *(a1 + 40);
-    v10 = 136315906;
-    v11 = "[LBLocalSpeechRecognizerClient resumeLocalRecognitionWithRequestId:prefixText:postfixText:selectedText:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:requestId : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[LBLocalSpeechRecognizerClient resumeLocalRecognitionWithRequestId:prefixText:postfixText:selectedText:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:requestId : %@", &v9, 0x2Au);
   }
 
   v8 = [*(a1 + 32) _service];
   [v8 resumeLocalRecognitionWithRequestId:*(a1 + 40) prefixText:*(a1 + 48) postfixText:*(a1 + 56) selectedText:*(a1 + 64)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseLocalSpeechRecognitionForRequestId:(id)id
@@ -1127,7 +1119,7 @@ void __105__LBLocalSpeechRecognizerClient_resumeLocalRecognitionWithRequestId_pr
 
 void __73__LBLocalSpeechRecognizerClient_pauseLocalSpeechRecognitionForRequestId___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -1136,21 +1128,19 @@ void __73__LBLocalSpeechRecognizerClient_pauseLocalSpeechRecognitionForRequestId
     v5 = [v3 uuidString];
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
     v7 = *(a1 + 40);
-    v10 = 136315906;
-    v11 = "[LBLocalSpeechRecognizerClient pauseLocalSpeechRecognitionForRequestId:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:requestId : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[LBLocalSpeechRecognizerClient pauseLocalSpeechRecognitionForRequestId:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:requestId : %@", &v9, 0x2Au);
   }
 
   v8 = [*(a1 + 32) _service];
   [v8 pauseLocalSpeechRecognitionForRequestId:*(a1 + 40)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableLocalSpeechRecognitionForRequestId:(id)id
@@ -1169,7 +1159,7 @@ void __73__LBLocalSpeechRecognizerClient_pauseLocalSpeechRecognitionForRequestId
 
 void __75__LBLocalSpeechRecognizerClient_disableLocalSpeechRecognitionForRequestId___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -1178,27 +1168,25 @@ void __75__LBLocalSpeechRecognizerClient_disableLocalSpeechRecognitionForRequest
     v5 = [v3 uuidString];
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
     v7 = *(a1 + 40);
-    v10 = 136315906;
-    v11 = "[LBLocalSpeechRecognizerClient disableLocalSpeechRecognitionForRequestId:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:requestId : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[LBLocalSpeechRecognizerClient disableLocalSpeechRecognitionForRequestId:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:requestId : %@", &v9, 0x2Au);
   }
 
   v8 = [*(a1 + 32) _service];
   [v8 disableLocalSpeechRecognitionForRequestId:*(a1 + 40)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopSpeechRecognitionTaskWithReason:(unint64_t)reason requestId:(id)id shouldInvalidateAfterStop:(BOOL)stop completion:(id)completion
 {
   stopCopy = stop;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   idCopy = id;
   completionCopy = completion;
   v12 = LBLogContextFacilityLocalSRBridge;
@@ -1208,32 +1196,32 @@ void __75__LBLocalSpeechRecognizerClient_disableLocalSpeechRecognitionForRequest
     uuidString = [(LBLocalSpeechRecognizerClient *)self uuidString];
     xpcConnectionUUIDString = [(LBLocalSpeechRecognizerClient *)self xpcConnectionUUIDString];
     *buf = 136316418;
-    v25 = "[LBLocalSpeechRecognizerClient _stopSpeechRecognitionTaskWithReason:requestId:shouldInvalidateAfterStop:completion:]";
-    v26 = 2112;
-    v27 = uuidString;
-    v28 = 2112;
-    v29 = xpcConnectionUUIDString;
-    v30 = 2050;
+    v24 = "[LBLocalSpeechRecognizerClient _stopSpeechRecognitionTaskWithReason:requestId:shouldInvalidateAfterStop:completion:]";
+    v25 = 2112;
+    v26 = uuidString;
+    v27 = 2112;
+    v28 = xpcConnectionUUIDString;
+    v29 = 2050;
     reasonCopy = reason;
-    v32 = 2112;
-    v33 = idCopy;
-    v34 = 1024;
-    v35 = stopCopy;
+    v31 = 2112;
+    v32 = idCopy;
+    v33 = 1024;
+    v34 = stopCopy;
     _os_log_impl(&dword_256130000, v13, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:reason : %{public}lu, requestId %@, shouldInvalidate %d", buf, 0x3Au);
   }
 
   if (self->_shouldEnableAudioCapture && (audioCapture = self->_audioCapture) != 0)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __117__LBLocalSpeechRecognizerClient__stopSpeechRecognitionTaskWithReason_requestId_shouldInvalidateAfterStop_completion___block_invoke;
-    v19[3] = &unk_279823820;
-    v19[4] = self;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __117__LBLocalSpeechRecognizerClient__stopSpeechRecognitionTaskWithReason_requestId_shouldInvalidateAfterStop_completion___block_invoke;
+    v18[3] = &unk_279823820;
+    v18[4] = self;
     reasonCopy2 = reason;
-    v20 = idCopy;
-    v23 = stopCopy;
-    v21 = completionCopy;
-    [(LBAudioCapture *)audioCapture stopAudioCaptureWithReason:reason requestId:v20 completion:v19];
+    v19 = idCopy;
+    v22 = stopCopy;
+    v20 = completionCopy;
+    [(LBAudioCapture *)audioCapture stopAudioCaptureWithReason:reason requestId:v19 completion:v18];
   }
 
   else
@@ -1251,8 +1239,6 @@ void __75__LBLocalSpeechRecognizerClient_disableLocalSpeechRecognitionForRequest
       (*(completionCopy + 2))(completionCopy, 1, 0);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __117__LBLocalSpeechRecognizerClient__stopSpeechRecognitionTaskWithReason_requestId_shouldInvalidateAfterStop_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1328,7 +1314,7 @@ uint64_t __117__LBLocalSpeechRecognizerClient__stopSpeechRecognitionTaskWithReas
 
 void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettings___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -1338,13 +1324,13 @@ void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettin
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
     v7 = [*(a1 + 40) description];
     *buf = 136315906;
-    v30 = "[LBLocalSpeechRecognizerClient startSpeechRecognitionResultsWithSettings:]_block_invoke";
-    v31 = 2112;
-    v32 = v5;
-    v33 = 2112;
-    v34 = v6;
-    v35 = 2114;
-    v36 = v7;
+    v29 = "[LBLocalSpeechRecognizerClient startSpeechRecognitionResultsWithSettings:]_block_invoke";
+    v30 = 2112;
+    v31 = v5;
+    v32 = 2112;
+    v33 = v6;
+    v34 = 2114;
+    v35 = v7;
     _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:settings : %{public}@", buf, 0x2Au);
   }
 
@@ -1372,15 +1358,15 @@ void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettin
       v21 = [*(a1 + 32) xpcConnectionUUIDString];
       v22 = [v15 description];
       *buf = 136316162;
-      v30 = "[LBLocalSpeechRecognizerClient startSpeechRecognitionResultsWithSettings:]_block_invoke";
-      v31 = 2112;
-      v32 = v20;
-      v33 = 2112;
-      v34 = v21;
-      v35 = 2114;
-      v36 = v22;
-      v37 = 2048;
-      v38 = v16;
+      v29 = "[LBLocalSpeechRecognizerClient startSpeechRecognitionResultsWithSettings:]_block_invoke";
+      v30 = 2112;
+      v31 = v20;
+      v32 = 2112;
+      v33 = v21;
+      v34 = 2114;
+      v35 = v22;
+      v36 = 2048;
+      v37 = v16;
       _os_log_impl(&dword_256130000, v19, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:start audio capture in parallel with record context : %{public}@, startTime : %llu", buf, 0x34u);
     }
 
@@ -1391,14 +1377,14 @@ void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettin
 
     v23 = *(*(a1 + 32) + 32);
     v24 = [*(a1 + 40) requestId];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettings___block_invoke_287;
-    v27[3] = &unk_2798237D0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettings___block_invoke_287;
+    v26[3] = &unk_2798237D0;
     v25 = *(a1 + 40);
-    v27[4] = *(a1 + 32);
-    v28 = v25;
-    [v23 startAudioCaptureWithRecordContext:v15 startHostTime:v16 siriSessionUUID:v24 completion:v27];
+    v26[4] = *(a1 + 32);
+    v27 = v25;
+    [v23 startAudioCaptureWithRecordContext:v15 startHostTime:v16 siriSessionUUID:v24 completion:v26];
   }
 
   else
@@ -1406,8 +1392,6 @@ void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettin
     v15 = [v11 _service];
     [v15 startSpeechRecognitionResultsWithSettings:*(a1 + 40)];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettings___block_invoke_287(uint64_t a1, char a2, void *a3)
@@ -1430,34 +1414,31 @@ void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettin
 
 void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettings___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
-    v10 = [*(a1 + 32) _service];
-    [v10 startSpeechRecognitionResultsWithSettings:*(a1 + 40)];
-    v2 = *MEMORY[0x277D85DE8];
+    v8 = [*(a1 + 32) _service];
+    [v8 startSpeechRecognitionResultsWithSettings:*(a1 + 40)];
   }
 
   else
   {
-    v3 = LBLogContextFacilityLocalSRBridge;
+    v2 = LBLogContextFacilityLocalSRBridge;
     if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 48);
-      v8 = v3;
-      v9 = [v7 localizedDescription];
+      v5 = *(a1 + 48);
+      v6 = v2;
+      v7 = [v5 localizedDescription];
       *buf = 136315394;
-      v12 = "[LBLocalSpeechRecognizerClient startSpeechRecognitionResultsWithSettings:]_block_invoke_2";
-      v13 = 2112;
-      v14 = v9;
-      _os_log_error_impl(&dword_256130000, v8, OS_LOG_TYPE_ERROR, "%s Failed to start audio capture with error : %@", buf, 0x16u);
+      v10 = "[LBLocalSpeechRecognizerClient startSpeechRecognitionResultsWithSettings:]_block_invoke_2";
+      v11 = 2112;
+      v12 = v7;
+      _os_log_error_impl(&dword_256130000, v6, OS_LOG_TYPE_ERROR, "%s Failed to start audio capture with error : %@", buf, 0x16u);
     }
 
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) requestId];
-    [v4 localSpeechServiceDidCompletionRecognitionWithStatistics:0 requestId:v5 endpointMode:0 error:*(a1 + 48)];
-
-    v6 = *MEMORY[0x277D85DE8];
+    v3 = *(a1 + 32);
+    v4 = [*(a1 + 40) requestId];
+    [v3 localSpeechServiceDidCompletionRecognitionWithStatistics:0 requestId:v4 endpointMode:0 error:*(a1 + 48)];
   }
 }
 
@@ -1478,7 +1459,7 @@ void __75__LBLocalSpeechRecognizerClient_startSpeechRecognitionResultsWithSettin
 
 void __82__LBLocalSpeechRecognizerClient_preheatLocalSpeechRecognitionWithLanguage_source___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -1486,19 +1467,17 @@ void __82__LBLocalSpeechRecognizerClient_preheatLocalSpeechRecognitionWithLangua
     v4 = v2;
     v5 = [v3 uuidString];
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
-    v9 = 136315650;
-    v10 = "[LBLocalSpeechRecognizerClient preheatLocalSpeechRecognitionWithLanguage:source:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Preheating local ASR", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[LBLocalSpeechRecognizerClient preheatLocalSpeechRecognitionWithLanguage:source:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:Preheating local ASR", &v8, 0x20u);
   }
 
   v7 = [*(a1 + 32) _service];
   [v7 preheatLocalSpeechRecognitionWithLanguage:*(a1 + 40) source:*(a1 + 48)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToServiceIfNeeded
@@ -1534,7 +1513,7 @@ void __57__LBLocalSpeechRecognizerClient_connectToServiceIfNeeded__block_invoke(
 
 id __72__LBLocalSpeechRecognizerClient_setLocalSpeechRecognizerClientDelegate___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
@@ -1542,47 +1521,44 @@ id __72__LBLocalSpeechRecognizerClient_setLocalSpeechRecognizerClientDelegate___
     v4 = v2;
     v5 = [v3 uuidString];
     v6 = [*(a1 + 32) xpcConnectionUUIDString];
-    v9 = 136315650;
-    v10 = "[LBLocalSpeechRecognizerClient setLocalSpeechRecognizerClientDelegate:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[LBLocalSpeechRecognizerClient setLocalSpeechRecognizerClientDelegate:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_256130000, v4, OS_LOG_TYPE_DEFAULT, "%s LBLocalSpeechRecognizerClient[%@], xpcConnection[%@]:", &v8, 0x20u);
   }
 
-  result = objc_storeWeak((*(a1 + 32) + 48), *(a1 + 40));
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return objc_storeWeak((*(a1 + 32) + 48), *(a1 + 40));
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = LBLogContextFacilityLocalSRBridge;
   if (os_log_type_enabled(LBLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[LBLocalSpeechRecognizerClient dealloc]";
+    v6 = "[LBLocalSpeechRecognizerClient dealloc]";
     _os_log_impl(&dword_256130000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   [(LBLocalSpeechRecognizerClient *)self _invalidate];
-  v5.receiver = self;
-  v5.super_class = LBLocalSpeechRecognizerClient;
-  [(LBLocalSpeechRecognizerClient *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = LBLocalSpeechRecognizerClient;
+  [(LBLocalSpeechRecognizerClient *)&v4 dealloc];
 }
 
 - (LBLocalSpeechRecognizerClient)initWithDelegate:(id)delegate xpcListenerEndpoint:(id)endpoint audioCapture:(id)capture
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   endpointCopy = endpoint;
   captureCopy = capture;
-  v24.receiver = self;
-  v24.super_class = LBLocalSpeechRecognizerClient;
-  v11 = [(LBLocalSpeechRecognizerClient *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = LBLocalSpeechRecognizerClient;
+  v11 = [(LBLocalSpeechRecognizerClient *)&v23 init];
   if (v11)
   {
     if (LBLogInitIfNeeded_once != -1)
@@ -1620,14 +1596,13 @@ id __72__LBLocalSpeechRecognizerClient_setLocalSpeechRecognizerClientDelegate___
     {
       v21 = v11->_uuidString;
       *buf = 136315394;
-      v26 = "[LBLocalSpeechRecognizerClient initWithDelegate:xpcListenerEndpoint:audioCapture:]";
-      v27 = 2112;
-      v28 = v21;
+      v25 = "[LBLocalSpeechRecognizerClient initWithDelegate:xpcListenerEndpoint:audioCapture:]";
+      v26 = 2112;
+      v27 = v21;
       _os_log_impl(&dword_256130000, v20, OS_LOG_TYPE_DEFAULT, "%s Created LBLocalSpeechRecognizerClient with uuid [%@]", buf, 0x16u);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

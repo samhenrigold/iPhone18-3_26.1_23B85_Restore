@@ -20,17 +20,17 @@
 
 - (CGRect)frameForSegmentWithIdentifier:(int64_t)identifier
 {
-  v7[0] = 0;
-  v7[1] = v7;
-  v7[2] = 0x4010000000;
-  v7[3] = &unk_1A561E057;
-  v5 = *(MEMORY[0x1E695F058] + 16);
-  v8 = *MEMORY[0x1E695F058];
-  v9 = v5;
+  v6[0] = 0;
+  v6[1] = v6;
+  v6[2] = 0x4010000000;
+  v6[3] = &unk_1A561E057;
+  v4 = *(MEMORY[0x1E695F058] + 16);
+  v7 = *MEMORY[0x1E695F058];
+  v8 = v4;
   originalTimeline = [(PXStoryDerivedTimeline *)self originalTimeline];
   if (originalTimeline)
   {
-    [originalTimeline timeRangeForSegmentWithIdentifier:identifier];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(originalTimeline);
   }
 
   [(PXStoryGridTimeline *)self size];
@@ -243,7 +243,7 @@ LABEL_15:
     v17[3] = 0;
     if (timelineCopy)
     {
-      [timelineCopy timeRange];
+      objc_msgSend_timeRange(timelineCopy);
     }
 
     [timelineCopy size];

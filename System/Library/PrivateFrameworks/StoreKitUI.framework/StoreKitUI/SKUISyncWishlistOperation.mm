@@ -140,17 +140,17 @@ void *__44__SKUISyncWishlistOperation_setResultBlock___block_invoke(uint64_t a1)
 - (BOOL)_loadRemoteItemsForWishlist:(id)wishlist didChange:(BOOL *)change error:(id *)error
 {
   wishlistCopy = wishlist;
-  v49[0] = 0;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__8;
-  v47 = __Block_byref_object_dispose__9;
-  v48 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v48[0] = 0;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__8;
+  v46 = __Block_byref_object_dispose__9;
+  v47 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   uRLBag = [(SKUIClientContext *)self->_clientContext URLBag];
   v10 = [uRLBag valueForKey:@"viewWishlistBaseUrl" error:0];
 
@@ -179,21 +179,20 @@ void *__44__SKUISyncWishlistOperation_setResultBlock___block_invoke(uint64_t a1)
 
     if (v24)
     {
-      LOWORD(v33) = 0;
-      LODWORD(v30) = 2;
-      v25 = _os_log_send_and_compose_impl();
+      LOWORD(v32) = 0;
+      v25 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_215BAE000, v23, 0, "[Wishlist]: No bag key for viewWishlist", &v32, 2);
 
       if (!v25)
       {
 LABEL_14:
 
         v26 = SSError();
-        v11 = v44[5];
-        v44[5] = v26;
+        v11 = v43[5];
+        v43[5] = v26;
         goto LABEL_15;
       }
 
-      v23 = [MEMORY[0x277CCACA8] stringWithCString:v25 encoding:{4, &v33, v30}];
+      v23 = [MEMORY[0x277CCACA8] stringWithCString:v25 encoding:4];
       free(v25);
       SSFileLog();
     }
@@ -212,50 +211,50 @@ LABEL_14:
   v15 = [(SKUIClientContext *)self->_clientContext valueForConfigurationKey:@"sfsuffix"];
   [v13 setStoreFrontSuffix:v15];
 
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__8;
-  v37 = __Block_byref_object_dispose__9;
-  v38 = 0;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __73__SKUISyncWishlistOperation__loadRemoteItemsForWishlist_didChange_error___block_invoke;
-  v32[3] = &unk_278200150;
-  v32[4] = &v43;
-  v32[5] = &v33;
-  v32[6] = &v39;
-  [v13 setOutputBlock:v32];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__8;
+  v36 = __Block_byref_object_dispose__9;
+  v37 = 0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __73__SKUISyncWishlistOperation__loadRemoteItemsForWishlist_didChange_error___block_invoke;
+  v31[3] = &unk_278200150;
+  v31[4] = &v42;
+  v31[5] = &v32;
+  v31[6] = &v38;
+  [v13 setOutputBlock:v31];
   [v13 main];
-  if (*(v40 + 24) == 1)
+  if (*(v39 + 24) == 1)
   {
-    v16 = v34[5];
-    v17 = (v44 + 5);
-    obj = v44[5];
-    v18 = [(SKUISyncWishlistOperation *)self _mergeItems:v16 wishlist:wishlistCopy didChange:v49 error:&obj];
+    v16 = v33[5];
+    v17 = (v43 + 5);
+    obj = v43[5];
+    v18 = [(SKUISyncWishlistOperation *)self _mergeItems:v16 wishlist:wishlistCopy didChange:v48 error:&obj];
     objc_storeStrong(v17, obj);
-    *(v40 + 24) = v18;
+    *(v39 + 24) = v18;
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
 
 LABEL_15:
-  v27 = v40;
-  v28 = *(v40 + 24);
-  if (change && (v40[3] & 1) != 0)
+  v27 = v39;
+  v28 = *(v39 + 24);
+  if (change && (v39[3] & 1) != 0)
   {
-    *change = v49[0];
+    *change = v48[0];
     v28 = *(v27 + 24);
   }
 
   if (error && (v28 & 1) == 0)
   {
-    *error = v44[5];
-    v28 = *(v40 + 24);
+    *error = v43[5];
+    v28 = *(v39 + 24);
   }
 
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
 
   return v28 & 1;
 }
@@ -451,89 +450,92 @@ void __66__SKUISyncWishlistOperation__mergeItems_wishlist_didChange_error___bloc
 
 - (void)_sendLocalChangesForWishlist:(id)wishlist
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   wishlistCopy = wishlist;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __58__SKUISyncWishlistOperation__sendLocalChangesForWishlist___block_invoke;
-  v23[3] = &unk_2781FE0B0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __58__SKUISyncWishlistOperation__sendLocalChangesForWishlist___block_invoke;
+  v22[3] = &unk_2781FE0B0;
   v5 = v4;
-  v24 = v5;
-  [wishlistCopy performTransactionWithBlock:v23];
+  v23 = v5;
+  [wishlistCopy performTransactionWithBlock:v22];
   if (![v5 count])
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (!v8)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
   v10 = [v5 count];
-  v26 = 134217984;
-  v27 = v10;
-  LODWORD(v18) = 12;
-  v17 = &v26;
-  v11 = _os_log_send_and_compose_impl();
+  v25 = 134217984;
+  v26 = v10;
+  v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_215BAE000, oSLogObject, 2, "[Wishlist]: Syncing %ld local changes", &v25);
 
   if (v11)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:{4, &v26, v18}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
     free(v11);
     v17 = oSLogObject;
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = v5;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [*(*(&v19 + 1) + 8 * i) main];
+        [*(*(&v18 + 1) + 8 * i) main];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v14);
   }
 
-LABEL_19:
+LABEL_20:
 }
 
 uint64_t __58__SKUISyncWishlistOperation__sendLocalChangesForWishlist___block_invoke(uint64_t a1, void *a2)

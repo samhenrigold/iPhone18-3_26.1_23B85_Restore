@@ -53,7 +53,7 @@ LABEL_6:
   integerValue = [v4 integerValue];
   items = [self items];
   v7 = [items count];
-  if (integerValue || [v4 isEqualToString:@"0"])
+  if (integerValue || objc_msgSend_isEqualToString_(v4))
   {
     v8 = 0;
     if (integerValue <= 0x7FFFFFFFFFFFFFFELL && integerValue < v7)

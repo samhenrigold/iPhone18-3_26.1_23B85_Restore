@@ -1,11 +1,11 @@
-void sub_29C8C81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29C8C81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -14,17 +14,18 @@ void sub_29C8C81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_29C8C81C4(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_29C8C885C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_29C8C885C(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_29C8C97C8(v5, v6);
+      sub_29C8C97C8(v6, v7);
     }
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  *(*(*(a1 + 48) + 8) + 24) = v5 != 0;
+  *(*(*(a1 + 48) + 8) + 24) = v6 != 0;
   [*(a1 + 32) signal];
 }
 
@@ -33,27 +34,27 @@ void sub_29C8C841C(uint64_t a1)
   v2 = [MEMORY[0x29EDC1130] sharedInstance];
   v3 = [v2 _quickFetchFMIPEnabledstate];
 
-  v4 = *(a1 + 48);
-  if (v4 != 2)
+  v5 = *(a1 + 48);
+  if (v5 != 2)
   {
-    if (v4 != 3)
+    if (v5 != 3)
     {
       return;
     }
 
-    v20 = [*(a1 + 32) accountType];
-    v5 = [v20 identifier];
-    if ([v5 isEqual:*MEMORY[0x29EDB81C8]])
+    v25 = [*(a1 + 32) accountType];
+    v6 = [v25 identifier];
+    if ([v6 isEqual:*MEMORY[0x29EDB81C8]])
     {
-      v6 = [*(a1 + 32) aa_isAccountClass:*MEMORY[0x29EDBE2C0]];
+      v7 = [*(a1 + 32) aa_isAccountClass:*MEMORY[0x29EDBE2C0]];
 
-      if (!v6)
+      if (!v7)
       {
         return;
       }
 
-      v20 = dispatch_get_global_queue(2, 0);
-      dispatch_async(v20, &unk_2A23D5778);
+      v25 = dispatch_get_global_queue(2, 0);
+      dispatch_async(v25, &unk_2A23D5778);
       goto LABEL_24;
     }
 
@@ -62,33 +63,34 @@ void sub_29C8C841C(uint64_t a1)
 
   if (v3)
   {
-    v7 = [*(a1 + 40) accountType];
-    v8 = [v7 identifier];
-    v9 = [v8 isEqual:*MEMORY[0x29EDB8208]];
+    v8 = [*(a1 + 40) accountType];
+    v9 = [v8 identifier];
+    v10 = [v9 isEqual:*MEMORY[0x29EDB8208]];
 
-    v10 = *(a1 + 40);
-    if (v9)
+    v11 = *(a1 + 40);
+    if (v10)
     {
-      if (![v10 isPropertyDirty:@"credential"])
+      v12 = [v11 isPropertyDirty:@"credential"];
+      if (!v12)
       {
         return;
       }
 
-      v20 = sub_29C8C885C();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_29C8C885C(v12);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_29C8C7000, v20, OS_LOG_TYPE_DEFAULT, "FMIP token has changed", buf, 2u);
+        _os_log_impl(&dword_29C8C7000, v25, OS_LOG_TYPE_DEFAULT, "FMIP token has changed", buf, 2u);
       }
 
-      v11 = @"FMIP-auth-token";
+      v13 = @"FMIP-auth-token";
     }
 
     else
     {
-      v20 = [v10 accountType];
-      v5 = [v20 identifier];
-      if (![v5 isEqual:*MEMORY[0x29EDB81C8]])
+      v25 = [v11 accountType];
+      v6 = [v25 identifier];
+      if (![v6 isEqual:*MEMORY[0x29EDB81C8]])
       {
 LABEL_23:
 
@@ -97,93 +99,96 @@ LABEL_24:
         return;
       }
 
-      v14 = [*(a1 + 40) aa_isAccountClass:*MEMORY[0x29EDBE2C0]];
+      v16 = [*(a1 + 40) aa_isAccountClass:*MEMORY[0x29EDBE2C0]];
 
-      if (!v14)
+      if (!v16)
       {
         return;
       }
 
-      v15 = [*(a1 + 32) aa_isSuspended];
-      if (v15 == [*(a1 + 40) aa_isSuspended])
+      v17 = [*(a1 + 32) aa_isSuspended];
+      v18 = [*(a1 + 40) aa_isSuspended];
+      if (v17 == v18)
       {
-        if ([*(a1 + 40) isPropertyDirty:@"credential"])
+        v19 = [*(a1 + 40) isPropertyDirty:@"credential"];
+        if (v19)
         {
-          v20 = sub_29C8C885C();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v25 = sub_29C8C885C(v19);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            *v22 = 0;
-            _os_log_impl(&dword_29C8C7000, v20, OS_LOG_TYPE_DEFAULT, "iCloud token has changed", v22, 2u);
+            *v27 = 0;
+            _os_log_impl(&dword_29C8C7000, v25, OS_LOG_TYPE_DEFAULT, "iCloud token has changed", v27, 2u);
           }
 
-          v11 = @"iCloud-auth-token";
+          v13 = @"iCloud-auth-token";
         }
 
         else
         {
-          v16 = *(a1 + 32);
-          if (v16)
+          v20 = *(a1 + 32);
+          if (v20)
           {
-            [v16 fmipAccountInfoForProactiveChanges];
+            [v20 fmipAccountInfoForProactiveChanges];
           }
 
           else
           {
             [MEMORY[0x29EDB8DC0] dictionary];
           }
-          v20 = ;
-          v17 = *(a1 + 40);
-          if (v17)
+          v25 = ;
+          v21 = *(a1 + 40);
+          if (v21)
           {
-            [v17 fmipAccountInfoForProactiveChanges];
+            [v21 fmipAccountInfoForProactiveChanges];
           }
 
           else
           {
             [MEMORY[0x29EDB8DC0] dictionary];
           }
-          v18 = ;
-          if (([v20 isEqual:v18]& 1) != 0)
+          v22 = ;
+          v23 = [v25 isEqual:v22];
+          if (v23)
           {
 
             goto LABEL_24;
           }
 
-          v19 = sub_29C8C885C();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v24 = sub_29C8C885C(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            *v21 = 0;
-            _os_log_impl(&dword_29C8C7000, v19, OS_LOG_TYPE_DEFAULT, "FMIP info changed", v21, 2u);
+            *v26 = 0;
+            _os_log_impl(&dword_29C8C7000, v24, OS_LOG_TYPE_DEFAULT, "FMIP info changed", v26, 2u);
           }
 
-          v11 = @"FMIP-info";
+          v13 = @"FMIP-info";
         }
       }
 
       else
       {
-        v20 = sub_29C8C885C();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v25 = sub_29C8C885C(v18);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          *v23 = 0;
-          _os_log_impl(&dword_29C8C7000, v20, OS_LOG_TYPE_DEFAULT, "iCloud account needs to verify terms changed", v23, 2u);
+          *v28 = 0;
+          _os_log_impl(&dword_29C8C7000, v25, OS_LOG_TYPE_DEFAULT, "iCloud account needs to verify terms changed", v28, 2u);
         }
 
-        v11 = @"iCloud-terms-changed";
+        v13 = @"iCloud-terms-changed";
       }
     }
 
-    v12 = [MEMORY[0x29EDC1130] sharedInstance];
-    [v12 didChangeFMIPAccountInfo:v11];
+    v14 = [MEMORY[0x29EDC1130] sharedInstance];
+    [v14 didChangeFMIPAccountInfo:v13];
 
     return;
   }
 
-  v13 = sub_29C8C885C();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_29C8C885C(v4);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 0;
-    _os_log_impl(&dword_29C8C7000, v13, OS_LOG_TYPE_DEFAULT, "iCloud account info did change but FMIP is not enabled", v25, 2u);
+    *v30 = 0;
+    _os_log_impl(&dword_29C8C7000, v15, OS_LOG_TYPE_DEFAULT, "iCloud account info did change but FMIP is not enabled", v30, 2u);
   }
 }
 
@@ -193,16 +198,16 @@ void sub_29C8C8814()
   [v0 primaryAppleAccountRemoved];
 }
 
-id sub_29C8C885C()
+id sub_29C8C885C(uint64_t a1)
 {
   if (qword_2A1A11878 != -1)
   {
     sub_29C8C9840();
   }
 
-  v1 = qword_2A1A11880;
+  v2 = qword_2A1A11880;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C88A0()
@@ -212,16 +217,16 @@ uint64_t sub_29C8C88A0()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C88E4()
+id sub_29C8C88E4(uint64_t a1)
 {
   if (qword_2A1796678 != -1)
   {
     sub_29C8C9854();
   }
 
-  v1 = qword_2A1796680;
+  v2 = qword_2A1796680;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8928()
@@ -231,16 +236,16 @@ uint64_t sub_29C8C8928()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C896C()
+id sub_29C8C896C(uint64_t a1)
 {
   if (qword_2A1796688 != -1)
   {
     sub_29C8C9868();
   }
 
-  v1 = qword_2A1796690;
+  v2 = qword_2A1796690;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C89B0()
@@ -250,16 +255,16 @@ uint64_t sub_29C8C89B0()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C89F4()
+id sub_29C8C89F4(uint64_t a1)
 {
   if (qword_2A1796698 != -1)
   {
     sub_29C8C987C();
   }
 
-  v1 = qword_2A17966A0;
+  v2 = qword_2A17966A0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8A38()
@@ -269,16 +274,16 @@ uint64_t sub_29C8C8A38()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8A7C()
+id sub_29C8C8A7C(uint64_t a1)
 {
   if (qword_2A17966A8 != -1)
   {
     sub_29C8C9890();
   }
 
-  v1 = qword_2A17966B0;
+  v2 = qword_2A17966B0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8AC0()
@@ -288,16 +293,16 @@ uint64_t sub_29C8C8AC0()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8B04()
+id sub_29C8C8B04(uint64_t a1)
 {
   if (qword_2A17966B8 != -1)
   {
     sub_29C8C98A4();
   }
 
-  v1 = qword_2A17966C0;
+  v2 = qword_2A17966C0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8B48()
@@ -307,16 +312,16 @@ uint64_t sub_29C8C8B48()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8B8C()
+id sub_29C8C8B8C(uint64_t a1)
 {
   if (qword_2A17966C8 != -1)
   {
     sub_29C8C98B8();
   }
 
-  v1 = qword_2A17966D0;
+  v2 = qword_2A17966D0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8BD0()
@@ -326,16 +331,16 @@ uint64_t sub_29C8C8BD0()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8C14()
+id sub_29C8C8C14(uint64_t a1)
 {
   if (qword_2A17966D8 != -1)
   {
     sub_29C8C98CC();
   }
 
-  v1 = qword_2A17966E0;
+  v2 = qword_2A17966E0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8C58()
@@ -345,16 +350,16 @@ uint64_t sub_29C8C8C58()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8C9C()
+id sub_29C8C8C9C(uint64_t a1)
 {
   if (qword_2A17966E8 != -1)
   {
     sub_29C8C98E0();
   }
 
-  v1 = qword_2A17966F0;
+  v2 = qword_2A17966F0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8CE0()
@@ -364,16 +369,16 @@ uint64_t sub_29C8C8CE0()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8D24()
+id sub_29C8C8D24(uint64_t a1)
 {
   if (qword_2A17966F8 != -1)
   {
     sub_29C8C98F4();
   }
 
-  v1 = qword_2A1796700;
+  v2 = qword_2A1796700;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8D68()
@@ -383,16 +388,16 @@ uint64_t sub_29C8C8D68()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8DAC()
+id sub_29C8C8DAC(uint64_t a1)
 {
   if (qword_2A1796708 != -1)
   {
     sub_29C8C9908();
   }
 
-  v1 = qword_2A1796710;
+  v2 = qword_2A1796710;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8DF0()
@@ -402,16 +407,16 @@ uint64_t sub_29C8C8DF0()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8E34()
+id sub_29C8C8E34(uint64_t a1)
 {
   if (qword_2A1796718 != -1)
   {
     sub_29C8C991C();
   }
 
-  v1 = qword_2A1796720;
+  v2 = qword_2A1796720;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8E78()
@@ -421,16 +426,16 @@ uint64_t sub_29C8C8E78()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8EBC()
+id sub_29C8C8EBC(uint64_t a1)
 {
   if (qword_2A1796728 != -1)
   {
     sub_29C8C9930();
   }
 
-  v1 = qword_2A1796730;
+  v2 = qword_2A1796730;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8F00()
@@ -440,16 +445,16 @@ uint64_t sub_29C8C8F00()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8F44()
+id sub_29C8C8F44(uint64_t a1)
 {
   if (qword_2A1796738 != -1)
   {
     sub_29C8C9944();
   }
 
-  v1 = qword_2A1796740;
+  v2 = qword_2A1796740;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C8F88()
@@ -459,16 +464,16 @@ uint64_t sub_29C8C8F88()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C8FCC()
+id sub_29C8C8FCC(uint64_t a1)
 {
   if (qword_2A1796748 != -1)
   {
     sub_29C8C9958();
   }
 
-  v1 = qword_2A1796750;
+  v2 = qword_2A1796750;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C9010()
@@ -478,16 +483,16 @@ uint64_t sub_29C8C9010()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C9054()
+id sub_29C8C9054(uint64_t a1)
 {
   if (qword_2A1796758 != -1)
   {
     sub_29C8C996C();
   }
 
-  v1 = qword_2A1796760;
+  v2 = qword_2A1796760;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_29C8C9098()
@@ -497,19 +502,19 @@ uint64_t sub_29C8C9098()
   return MEMORY[0x2A1C71028]();
 }
 
-id sub_29C8C90DC()
+id sub_29C8C90DC(uint64_t a1)
 {
   if (qword_2A1796768 != -1)
   {
     sub_29C8C9980();
   }
 
-  v1 = qword_2A1796770;
+  v2 = qword_2A1796770;
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_29C8C9120()
+void *sub_29C8C9120()
 {
   result = [MEMORY[0x29EDC1100] BOOLForKey:@"ShowAutomationLogs" inDomain:@"com.apple.icloud.findmydeviced.notbackedup"];
   if (result)
@@ -684,9 +689,8 @@ id sub_29C8C976C(void *a1)
 
 void sub_29C8C97C8(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C8C7000, a2, OS_LOG_TYPE_ERROR, "Error fetching the FMIP state to decide if iCloud account can be deleted : %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C8C7000, a2, OS_LOG_TYPE_ERROR, "Error fetching the FMIP state to decide if iCloud account can be deleted : %@", &v2, 0xCu);
 }

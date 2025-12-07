@@ -18,6 +18,7 @@
 - (void)endAuthorizationRequestDelegateTransactionWithSessionIdentifier:(id)identifier error:(id)error;
 - (void)enqueueAuthorizationRequestForObjectType:(id)type sourceEntity:(id)entity promptIfNeeded:(BOOL)needed authorizationNeededHandler:(id)handler completionHandler:(id)completionHandler;
 - (void)enqueueAuthorizationRequestToWriteTypes:(id)types readTypes:(id)readTypes authorizationNeededHandler:(id)handler requestCompletionHandler:(id)completionHandler;
+- (void)enqueueObjectAuthorizationRequestWithContext:(id)context sourceEntity:(id)entity promptIfNeeded:(BOOL)needed authorizationNeededHandler:(id)handler completion:(id)completion;
 - (void)handleAuthorizationRequestsForBundleIdentifier:(id)identifier promptHandler:(id)handler requestCompletionHandler:(id)completionHandler;
 - (void)handleHealthConceptAuthorizationRequestsWithPromptHandler:(id)handler objectType:(id)type completion:(id)completion;
 - (void)handleObjectAuthorizationRequestsWithPromptHandler:(id)handler objectType:(id)type completion:(id)completion;
@@ -55,7 +56,7 @@
   if (v11)
   {
     objc_storeWeak(&v11->_profile, profileCopy);
-    v13 = [identifierCopy copy];
+    v13 = objc_msgSend_copy(identifierCopy);
     sourceBundleIdentifier = v12->_sourceBundleIdentifier;
     v12->_sourceBundleIdentifier = v13;
 
@@ -96,56 +97,52 @@
 
 - (BOOL)clientHasAuthorizationForAllTypes
 {
-  v20 = *MEMORY[0x277D85DE8];
-  if ([(NSString *)self->_sourceBundleIdentifier isEqualToString:*MEMORY[0x277CCE558]])
+  v19 = *MEMORY[0x277D85DE8];
+  if (![(NSString *)self->_sourceBundleIdentifier isEqualToString:*MEMORY[0x277CCE558]])
   {
-    v3 = [HDKeyValueDomain alloc];
-    v4 = *MEMORY[0x277CCE548];
-    WeakRetained = objc_loadWeakRetained(&self->_profile);
-    v6 = [(HDKeyValueDomain *)v3 initWithCategory:5 domainName:v4 profile:WeakRetained];
+    return 0;
+  }
 
-    v7 = *MEMORY[0x277CCE550];
-    v15 = 0;
-    v8 = [(HDKeyValueDomain *)v6 numberForKey:v7 error:&v15];
-    v9 = v15;
-    v10 = v9;
-    if (v8)
-    {
-      v11 = [v8 integerValue] == 1;
-    }
+  v3 = [HDKeyValueDomain alloc];
+  v4 = *MEMORY[0x277CCE548];
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  v6 = [(HDKeyValueDomain *)v3 initWithCategory:5 domainName:v4 profile:WeakRetained];
 
-    else
-    {
-      if (v9)
-      {
-        _HKInitializeLogging();
-        v12 = HKLogAuthorization();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543618;
-          selfCopy = self;
-          v18 = 2114;
-          v19 = v10;
-          _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch authorization status for all types: %{public}@", buf, 0x16u);
-        }
-      }
-
-      v11 = 0;
-    }
+  v7 = *MEMORY[0x277CCE550];
+  v14 = 0;
+  v8 = [(HDKeyValueDomain *)v6 numberForKey:v7 error:&v14];
+  v9 = v14;
+  v10 = v9;
+  if (v8)
+  {
+    v11 = [v8 integerValue] == 1;
   }
 
   else
   {
+    if (v9)
+    {
+      _HKInitializeLogging();
+      v12 = HKLogAuthorization();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        selfCopy = self;
+        v17 = 2114;
+        v18 = v10;
+        _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch authorization status for all types: %{public}@", buf, 0x16u);
+      }
+    }
+
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)filteredObjectsForReadAuthorization:(id)authorization anchor:(id)anchor error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   anchorCopy = anchor;
   clientHasAuthorizationForAllTypes = [(HDClientAuthorizationOracle *)self clientHasAuthorizationForAllTypes];
@@ -174,32 +171,30 @@ LABEL_3:
     v14 = HKLogAuthorization();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = [authorizationCopy count];
+      v16 = [authorizationCopy count];
       firstObject = [authorizationCopy firstObject];
       hk_objectType = [firstObject hk_objectType];
-      v20 = *error;
-      v21 = 138544130;
+      v19 = *error;
+      v20 = 138544130;
       selfCopy = self;
-      v23 = 2048;
-      v24 = v17;
-      v25 = 2112;
-      v26 = hk_objectType;
-      v27 = 2114;
-      v28 = v20;
-      _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Failed to find authorization status record for %ld objects of type %@ with an error: %{public}@", &v21, 0x2Au);
+      v22 = 2048;
+      v23 = v16;
+      v24 = 2112;
+      v25 = hk_objectType;
+      v26 = 2114;
+      v27 = v19;
+      _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Failed to find authorization status record for %ld objects of type %@ with an error: %{public}@", &v20, 0x2Au);
     }
   }
 
 LABEL_9:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)filterForClientUserAnnotatedMedications:(id)medications error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   medicationsCopy = medications;
   clientHasAuthorizationForAllTypes = [(HDClientAuthorizationOracle *)self clientHasAuthorizationForAllTypes];
   if (self)
@@ -227,14 +222,14 @@ LABEL_3:
     v12 = HKLogAuthorization();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = *error;
-      v16 = 138543874;
+      v14 = *error;
+      v15 = 138543874;
       selfCopy = self;
-      v18 = 2112;
-      v19 = medicationsCopy;
-      v20 = 2112;
-      v21 = v15;
-      _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Failed to find authorization status record for objects: %@ with an error: %@", &v16, 0x20u);
+      v17 = 2112;
+      v18 = medicationsCopy;
+      v19 = 2112;
+      v20 = v14;
+      _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Failed to find authorization status record for objects: %@ with an error: %@", &v15, 0x20u);
     }
 
     v8 = 0;
@@ -246,7 +241,6 @@ LABEL_3:
   }
 
 LABEL_11:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -300,16 +294,15 @@ void __69__HDClientAuthorizationOracle_authorizationStatusForType_completion___b
       v6 = 0;
     }
 
-    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
-    (*(v5 + 16))(v5, v9, 0);
+    v8 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
+    (*(v5 + 16))(v5, v8, 0);
   }
 
   else
   {
-    v7 = a1[6];
-    v8 = *(a1[6] + 16);
+    v7 = *(a1[6] + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -436,7 +429,7 @@ LABEL_16:
 
 - (id)authorizationStatusRecordsForTypes:(id)types error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v8 = typesCopy;
   if (!typesCopy || ![typesCopy count])
@@ -473,44 +466,43 @@ LABEL_18:
 
   if (v13)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v26 = v8;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v25 = v8;
     v14 = v8;
-    v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v28;
+      v17 = *v27;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v28 != v17)
+          if (*v27 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * i);
+          v19 = *(*(&v26 + 1) + 8 * i);
           v20 = [v13 objectForKeyedSubscript:v19];
           v21 = [HDAuthorizationStatus authorizationStatusForRecordForObjectType:v19 authorizationStatusRecord:v20 clientEntitlements:self->_entitlements];
           [v13 setObject:v21 forKeyedSubscript:v19];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v16);
     }
 
     v22 = v13;
-    v8 = v26;
+    v8 = v25;
   }
 
 LABEL_19:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -693,7 +685,7 @@ LABEL_6:
 
 - (BOOL)isAuthorizationStatusDeterminedForTypes:(id)types error:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   clientHasAuthorizationForAllTypes = [(HDClientAuthorizationOracle *)self clientHasAuthorizationForAllTypes];
   if (self)
@@ -716,32 +708,32 @@ LABEL_3:
   v11 = [authorizationManager authorizationStatusForTypes:typesCopy bundleIdentifier:self->_sourceBundleIdentifier error:error];
   v12 = [v11 mutableCopy];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v32 = typesCopy;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v31 = typesCopy;
   v13 = typesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (!v14)
   {
     goto LABEL_21;
   }
 
   v15 = v14;
-  v16 = *v39;
-  v33 = *MEMORY[0x277CCCCE0];
+  v16 = *v38;
+  v32 = *MEMORY[0x277CCCCE0];
   do
   {
     v17 = 0;
     do
     {
-      if (*v39 != v16)
+      if (*v38 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v38 + 1) + 8 * v17);
+      v18 = *(*(&v37 + 1) + 8 * v17);
       [v18 code];
       if (!HKDataTypeRequiresAuthorization() || ([v18 code], (HKDataTypeRequiresPerObjectAuthorization() & 1) != 0))
       {
@@ -754,7 +746,7 @@ LABEL_13:
       selfCopy = self;
       entitlements = self->_entitlements;
       identifier = [v18 identifier];
-      LOBYTE(entitlements) = [(_HKEntitlements *)entitlements arrayEntitlement:v33 containsString:identifier];
+      LOBYTE(entitlements) = [(_HKEntitlements *)entitlements arrayEntitlement:v32 containsString:identifier];
 
       if (entitlements)
       {
@@ -777,7 +769,7 @@ LABEL_14:
     }
 
     while (v15 != v17);
-    v24 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v24 = [v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
     v15 = v24;
   }
 
@@ -786,33 +778,33 @@ LABEL_21:
 
   if ([v12 count])
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     allValues = [v12 allValues];
-    v26 = [allValues countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v26 = [allValues countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v35;
+      v28 = *v34;
       while (2)
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v35 != v28)
+          if (*v34 != v28)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if (([*(*(&v34 + 1) + 8 * i) integerValue] - 101) > 3)
+          if (([*(*(&v33 + 1) + 8 * i) integerValue] - 101) > 3)
           {
             v8 = 0;
             goto LABEL_32;
           }
         }
 
-        v27 = [allValues countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v27 = [allValues countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v27)
         {
           continue;
@@ -831,10 +823,9 @@ LABEL_32:
     v8 = 0;
   }
 
-  typesCopy = v32;
+  typesCopy = v31;
 
 LABEL_35:
-  v30 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -845,7 +836,7 @@ void __42__HDClientAuthorizationOracle__invalidate__block_invoke(uint64_t a1)
 
   if ([*(*(a1 + 32) + 40) count])
   {
-    v3 = [*(*(a1 + 32) + 40) copy];
+    v3 = objc_msgSend_copy(*(*(a1 + 32) + 40));
     [*(*(a1 + 32) + 40) removeAllObjects];
     [v7 cancelAuthorizationRequestsWithIdentifiers:v3];
   }
@@ -862,7 +853,7 @@ void __42__HDClientAuthorizationOracle__invalidate__block_invoke(uint64_t a1)
 
 - (void)performIfAuthorizedToReadObjects:(id)objects onQueue:(id)queue usingBlock:(id)block errorHandler:(id)handler
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   queueCopy = queue;
   blockCopy = block;
@@ -922,12 +913,12 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v16 = objectsCopy;
-  v17 = [v16 countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v55 objects:v59 count:16];
   if (!v17)
   {
 
@@ -935,35 +926,35 @@ LABEL_19:
   }
 
   v18 = v17;
-  v38 = a2;
-  v39 = handlerCopy;
-  v40 = blockCopy;
-  v41 = queueCopy;
-  v42 = objectsCopy;
+  v37 = a2;
+  v38 = handlerCopy;
+  v39 = blockCopy;
+  v40 = queueCopy;
+  v41 = objectsCopy;
   v19 = 0;
   obj = v16;
-  v46 = *v57;
-  v43 = 1;
+  v45 = *v56;
+  v42 = 1;
   do
   {
     v20 = 0;
     v21 = v19;
     do
     {
-      if (*v57 != v46)
+      if (*v56 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v56 + 1) + 8 * v20);
+      v22 = *(*(&v55 + 1) + 8 * v20);
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       authorizationManager = [WeakRetained authorizationManager];
       sourceBundleIdentifier = self->_sourceBundleIdentifier;
       entitlements = self->_entitlements;
       v27 = objc_loadWeakRetained(&self->_profile);
-      v55 = v21;
-      v28 = [authorizationManager isClientAuthorizedToReadObject:v22 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v27 error:&v55];
-      v19 = v55;
+      v54 = v21;
+      v28 = [authorizationManager isClientAuthorizedToReadObject:v22 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v27 error:&v54];
+      v19 = v54;
 
       if (v28 == 1)
       {
@@ -972,7 +963,7 @@ LABEL_19:
 
       else
       {
-        v43 = 0;
+        v42 = 0;
       }
 
       ++v20;
@@ -980,24 +971,24 @@ LABEL_19:
     }
 
     while (v18 != v20);
-    v18 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+    v18 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
   }
 
   while (v18);
 
-  if (v43)
+  if (v42)
   {
-    queueCopy = v41;
-    objectsCopy = v42;
-    handlerCopy = v39;
-    blockCopy = v40;
+    queueCopy = v40;
+    objectsCopy = v41;
+    handlerCopy = v38;
+    blockCopy = v39;
 LABEL_20:
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __96__HDClientAuthorizationOracle_performIfAuthorizedToReadObjects_onQueue_usingBlock_errorHandler___block_invoke;
     aBlock[3] = &unk_278614E28;
-    v53 = array;
-    v54 = blockCopy;
+    v52 = array;
+    v53 = blockCopy;
     v29 = _Block_copy(aBlock);
     v30 = v29;
     if (queueCopy)
@@ -1010,41 +1001,39 @@ LABEL_20:
       v29[2](v29);
     }
 
-    v31 = v53;
+    v31 = v52;
     goto LABEL_24;
   }
 
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __96__HDClientAuthorizationOracle_performIfAuthorizedToReadObjects_onQueue_usingBlock_errorHandler___block_invoke_2;
-  v47[3] = &unk_2786173F0;
-  v47[4] = self;
-  v48 = obj;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __96__HDClientAuthorizationOracle_performIfAuthorizedToReadObjects_onQueue_usingBlock_errorHandler___block_invoke_2;
+  v46[3] = &unk_2786173F0;
+  v46[4] = self;
+  v47 = obj;
   v19 = v19;
-  v49 = v19;
-  handlerCopy = v39;
-  v51 = v38;
-  v50 = v39;
-  v33 = _Block_copy(v47);
-  v34 = v33;
-  blockCopy = v40;
-  queueCopy = v41;
-  if (v41)
+  v48 = v19;
+  handlerCopy = v38;
+  v50 = v37;
+  v49 = v38;
+  v32 = _Block_copy(v46);
+  v33 = v32;
+  blockCopy = v39;
+  queueCopy = v40;
+  if (v40)
   {
-    dispatch_async(v41, v33);
+    dispatch_async(v40, v32);
   }
 
   else
   {
-    v33[2](v33);
+    v32[2](v32);
   }
 
-  objectsCopy = v42;
+  objectsCopy = v41;
 
-  v31 = v48;
+  v31 = v47;
 LABEL_24:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HDClientAuthorizationOracle_performIfAuthorizedToReadObjects_onQueue_usingBlock_errorHandler___block_invoke(uint64_t a1)
@@ -1066,7 +1055,7 @@ void __96__HDClientAuthorizationOracle_performIfAuthorizedToReadObjects_onQueue_
 
 uint64_t __96__HDClientAuthorizationOracle_performIfAuthorizedToReadObjects_onQueue_usingBlock_errorHandler___block_invoke_2(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1[4] + 8));
   v3 = [WeakRetained daemon];
   v4 = [v3 behavior];
@@ -1079,11 +1068,11 @@ uint64_t __96__HDClientAuthorizationOracle_performIfAuthorizedToReadObjects_onQu
     v7 = HKLogAuthorization();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1[4] + 16);
+      v9 = *(a1[4] + 16);
       *buf = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v6;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Client %@ is not read authorized for objects of data type(s) %@", buf, 0x16u);
     }
   }
@@ -1094,29 +1083,25 @@ uint64_t __96__HDClientAuthorizationOracle_performIfAuthorizedToReadObjects_onQu
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1[4] + 16);
+      v10 = *(a1[4] + 16);
       *buf = 138543362;
-      v15 = v11;
+      v13 = v10;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Client %{public}@ is not read authorized for objects of data type(s).", buf, 0xCu);
     }
   }
 
   if (!a1[6])
   {
-    v12 = [MEMORY[0x277CCA890] currentHandler];
-    [v12 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:517 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
-
-    v13 = a1[6];
+    v11 = [MEMORY[0x277CCA890] currentHandler];
+    [v11 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:517 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
   }
 
-  result = (*(a1[7] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)performIfAuthorizedToReadTypes:(id)types onQueue:(id)queue usingBlock:(id)block errorHandler:(id)handler
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   queueCopy = queue;
   blockCopy = block;
@@ -1176,12 +1161,12 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v16 = typesCopy;
-  v17 = [v16 countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v55 objects:v59 count:16];
   if (!v17)
   {
 
@@ -1189,35 +1174,35 @@ LABEL_19:
   }
 
   v18 = v17;
-  v38 = a2;
-  v39 = handlerCopy;
-  v40 = blockCopy;
-  v41 = queueCopy;
-  v42 = typesCopy;
+  v37 = a2;
+  v38 = handlerCopy;
+  v39 = blockCopy;
+  v40 = queueCopy;
+  v41 = typesCopy;
   v19 = 0;
   obj = v16;
-  v46 = *v57;
-  v43 = 1;
+  v45 = *v56;
+  v42 = 1;
   do
   {
     v20 = 0;
     v21 = v19;
     do
     {
-      if (*v57 != v46)
+      if (*v56 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v56 + 1) + 8 * v20);
+      v22 = *(*(&v55 + 1) + 8 * v20);
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       authorizationManager = [WeakRetained authorizationManager];
       sourceBundleIdentifier = self->_sourceBundleIdentifier;
       entitlements = self->_entitlements;
       v27 = objc_loadWeakRetained(&self->_profile);
-      v55 = v21;
-      v28 = [authorizationManager isClientAuthorizedToReadType:v22 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v27 error:&v55];
-      v19 = v55;
+      v54 = v21;
+      v28 = [authorizationManager isClientAuthorizedToReadType:v22 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v27 error:&v54];
+      v19 = v54;
 
       if (v28 == 1)
       {
@@ -1226,7 +1211,7 @@ LABEL_19:
 
       else
       {
-        v43 = 0;
+        v42 = 0;
       }
 
       ++v20;
@@ -1234,24 +1219,24 @@ LABEL_19:
     }
 
     while (v18 != v20);
-    v18 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+    v18 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
   }
 
   while (v18);
 
-  if (v43)
+  if (v42)
   {
-    queueCopy = v41;
-    typesCopy = v42;
-    handlerCopy = v39;
-    blockCopy = v40;
+    queueCopy = v40;
+    typesCopy = v41;
+    handlerCopy = v38;
+    blockCopy = v39;
 LABEL_20:
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __94__HDClientAuthorizationOracle_performIfAuthorizedToReadTypes_onQueue_usingBlock_errorHandler___block_invoke;
     aBlock[3] = &unk_278614008;
-    v54 = blockCopy;
-    v53 = array;
+    v53 = blockCopy;
+    v52 = array;
     v29 = _Block_copy(aBlock);
     v30 = v29;
     if (queueCopy)
@@ -1264,41 +1249,39 @@ LABEL_20:
       v29[2](v29);
     }
 
-    v31 = v54;
+    v31 = v53;
     goto LABEL_24;
   }
 
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __94__HDClientAuthorizationOracle_performIfAuthorizedToReadTypes_onQueue_usingBlock_errorHandler___block_invoke_2;
-  v47[3] = &unk_2786173F0;
-  v47[4] = self;
-  v48 = obj;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __94__HDClientAuthorizationOracle_performIfAuthorizedToReadTypes_onQueue_usingBlock_errorHandler___block_invoke_2;
+  v46[3] = &unk_2786173F0;
+  v46[4] = self;
+  v47 = obj;
   v19 = v19;
-  v49 = v19;
-  handlerCopy = v39;
-  v51 = v38;
-  v50 = v39;
-  v33 = _Block_copy(v47);
-  v34 = v33;
-  blockCopy = v40;
-  queueCopy = v41;
-  if (v41)
+  v48 = v19;
+  handlerCopy = v38;
+  v50 = v37;
+  v49 = v38;
+  v32 = _Block_copy(v46);
+  v33 = v32;
+  blockCopy = v39;
+  queueCopy = v40;
+  if (v40)
   {
-    dispatch_async(v41, v33);
+    dispatch_async(v40, v32);
   }
 
   else
   {
-    v33[2](v33);
+    v32[2](v32);
   }
 
-  typesCopy = v42;
+  typesCopy = v41;
 
-  v31 = v48;
+  v31 = v47;
 LABEL_24:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __94__HDClientAuthorizationOracle_performIfAuthorizedToReadTypes_onQueue_usingBlock_errorHandler___block_invoke(uint64_t a1)
@@ -1320,7 +1303,7 @@ void __94__HDClientAuthorizationOracle_performIfAuthorizedToReadTypes_onQueue_us
 
 uint64_t __94__HDClientAuthorizationOracle_performIfAuthorizedToReadTypes_onQueue_usingBlock_errorHandler___block_invoke_2(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1[4] + 8));
   v3 = [WeakRetained daemon];
   v4 = [v3 behavior];
@@ -1339,9 +1322,9 @@ uint64_t __94__HDClientAuthorizationOracle_performIfAuthorizedToReadTypes_onQueu
     v8 = a1[5];
     v9 = *(a1[4] + 16);
     *buf = 138412546;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v8;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v8;
     v10 = "Client %@ is not read authorized for data type(s) %@";
     v11 = v6;
     v12 = 22;
@@ -1354,9 +1337,9 @@ uint64_t __94__HDClientAuthorizationOracle_performIfAuthorizedToReadTypes_onQueu
       goto LABEL_5;
     }
 
-    v15 = *(a1[4] + 16);
+    v14 = *(a1[4] + 16);
     *buf = 138543362;
-    v19 = v15;
+    v17 = v14;
     v10 = "Client %{public}@ is not read authorized for data type(s).";
     v11 = v6;
     v12 = 12;
@@ -1367,20 +1350,16 @@ LABEL_5:
 
   if (!a1[6])
   {
-    v16 = [MEMORY[0x277CCA890] currentHandler];
-    [v16 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:582 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
-
-    v17 = a1[6];
+    v15 = [MEMORY[0x277CCA890] currentHandler];
+    [v15 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:582 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
   }
 
-  result = (*(a1[7] + 16))();
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)performIfAuthorizedToSaveObjects:(id)objects onQueue:(id)queue usingBlock:(id)block errorHandler:(id)handler
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   queueCopy = queue;
   blockCopy = block;
@@ -1439,26 +1418,26 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v54 = 0u;
-  v55 = 0u;
   v53 = 0u;
+  v54 = 0u;
   v52 = 0u;
+  v51 = 0u;
   v16 = objectsCopy;
-  v43 = [v16 countByEnumeratingWithState:&v52 objects:v56 count:16];
-  if (!v43)
+  v42 = [v16 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  if (!v42)
   {
 
     goto LABEL_16;
   }
 
-  v36 = a2;
-  v37 = handlerCopy;
-  v38 = blockCopy;
-  v39 = queueCopy;
-  v40 = objectsCopy;
+  v35 = a2;
+  v36 = handlerCopy;
+  v37 = blockCopy;
+  v38 = queueCopy;
+  v39 = objectsCopy;
   obj = v16;
   v17 = 0;
-  v42 = *v53;
+  v41 = *v52;
   LOBYTE(blockCopy) = 1;
   do
   {
@@ -1466,44 +1445,44 @@ LABEL_16:
     v19 = v17;
     do
     {
-      if (*v53 != v42)
+      if (*v52 != v41)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v52 + 1) + 8 * v18);
+      v20 = *(*(&v51 + 1) + 8 * v18);
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       authorizationManager = [WeakRetained authorizationManager];
       sourceBundleIdentifier = self->_sourceBundleIdentifier;
       entitlements = self->_entitlements;
       v25 = objc_loadWeakRetained(&self->_profile);
-      v51 = v19;
-      v26 = [authorizationManager isClientAuthorizedToWriteObject:v20 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v25 error:&v51];
-      v17 = v51;
+      v50 = v19;
+      v26 = [authorizationManager isClientAuthorizedToWriteObject:v20 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v25 error:&v50];
+      v17 = v50;
 
       LODWORD(blockCopy) = (v26 == 1) & blockCopy;
       ++v18;
       v19 = v17;
     }
 
-    while (v43 != v18);
-    v43 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+    while (v42 != v18);
+    v42 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
   }
 
-  while (v43);
+  while (v42);
 
   if (blockCopy)
   {
-    queueCopy = v39;
-    objectsCopy = v40;
-    handlerCopy = v37;
-    blockCopy = v38;
+    queueCopy = v38;
+    objectsCopy = v39;
+    handlerCopy = v36;
+    blockCopy = v37;
 LABEL_17:
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __96__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjects_onQueue_usingBlock_errorHandler___block_invoke;
     aBlock[3] = &unk_278613658;
-    v50 = blockCopy;
+    v49 = blockCopy;
     v27 = _Block_copy(aBlock);
     v28 = v27;
     if (queueCopy)
@@ -1516,41 +1495,39 @@ LABEL_17:
       v27[2](v27);
     }
 
-    v29 = v50;
+    v29 = v49;
     goto LABEL_21;
   }
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __96__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjects_onQueue_usingBlock_errorHandler___block_invoke_2;
-  v44[3] = &unk_2786173F0;
-  v44[4] = self;
-  v45 = obj;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __96__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjects_onQueue_usingBlock_errorHandler___block_invoke_2;
+  v43[3] = &unk_2786173F0;
+  v43[4] = self;
+  v44 = obj;
   v17 = v17;
-  v46 = v17;
-  handlerCopy = v37;
-  v48 = v36;
-  v47 = v37;
-  v31 = _Block_copy(v44);
-  v32 = v31;
-  queueCopy = v39;
-  objectsCopy = v40;
-  if (v39)
+  v45 = v17;
+  handlerCopy = v36;
+  v47 = v35;
+  v46 = v36;
+  v30 = _Block_copy(v43);
+  v31 = v30;
+  queueCopy = v38;
+  objectsCopy = v39;
+  if (v38)
   {
-    dispatch_async(v39, v31);
+    dispatch_async(v38, v30);
   }
 
   else
   {
-    v31[2](v31);
+    v30[2](v30);
   }
 
-  blockCopy = v38;
+  blockCopy = v37;
 
-  v29 = v45;
+  v29 = v44;
 LABEL_21:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __96__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjects_onQueue_usingBlock_errorHandler___block_invoke(uint64_t a1)
@@ -1563,7 +1540,7 @@ uint64_t __96__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjects_onQu
 
 uint64_t __96__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjects_onQueue_usingBlock_errorHandler___block_invoke_2(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   HDSetHealthInUseDefaultWithReason(@"Saving objects to the database.");
   WeakRetained = objc_loadWeakRetained((a1[4] + 8));
   v3 = [WeakRetained daemon];
@@ -1577,11 +1554,11 @@ uint64_t __96__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjects_onQu
     v7 = HKLogAuthorization();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1[4] + 16);
+      v9 = *(a1[4] + 16);
       *buf = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v6;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Client %@ is not write authorized to save objects for data type(s) %@", buf, 0x16u);
     }
   }
@@ -1592,29 +1569,25 @@ uint64_t __96__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjects_onQu
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1[4] + 16);
+      v10 = *(a1[4] + 16);
       *buf = 138543362;
-      v15 = v11;
+      v13 = v10;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Client %{public}@ is not write authorized to save objects for data type(s).", buf, 0xCu);
     }
   }
 
   if (!a1[6])
   {
-    v12 = [MEMORY[0x277CCA890] currentHandler];
-    [v12 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:643 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
-
-    v13 = a1[6];
+    v11 = [MEMORY[0x277CCA890] currentHandler];
+    [v11 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:643 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
   }
 
-  result = (*(a1[7] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)performIfAuthorizedToSaveObjectsWithTypes:(id)types onQueue:(id)queue usingBlock:(id)block errorHandler:(id)handler
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   queueCopy = queue;
   blockCopy = block;
@@ -1673,26 +1646,26 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v54 = 0u;
-  v55 = 0u;
   v53 = 0u;
+  v54 = 0u;
   v52 = 0u;
+  v51 = 0u;
   v16 = typesCopy;
-  v43 = [v16 countByEnumeratingWithState:&v52 objects:v56 count:16];
-  if (!v43)
+  v42 = [v16 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  if (!v42)
   {
 
     goto LABEL_16;
   }
 
-  v36 = a2;
-  v37 = handlerCopy;
-  v38 = blockCopy;
-  v39 = queueCopy;
-  v40 = typesCopy;
+  v35 = a2;
+  v36 = handlerCopy;
+  v37 = blockCopy;
+  v38 = queueCopy;
+  v39 = typesCopy;
   obj = v16;
   v17 = 0;
-  v42 = *v53;
+  v41 = *v52;
   LOBYTE(blockCopy) = 1;
   do
   {
@@ -1700,44 +1673,44 @@ LABEL_16:
     v19 = v17;
     do
     {
-      if (*v53 != v42)
+      if (*v52 != v41)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v52 + 1) + 8 * v18);
+      v20 = *(*(&v51 + 1) + 8 * v18);
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       authorizationManager = [WeakRetained authorizationManager];
       sourceBundleIdentifier = self->_sourceBundleIdentifier;
       entitlements = self->_entitlements;
       v25 = objc_loadWeakRetained(&self->_profile);
-      v51 = v19;
-      v26 = [authorizationManager isClientAuthorizedToWriteType:v20 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v25 error:&v51];
-      v17 = v51;
+      v50 = v19;
+      v26 = [authorizationManager isClientAuthorizedToWriteType:v20 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v25 error:&v50];
+      v17 = v50;
 
       LODWORD(blockCopy) = (v26 == 1) & blockCopy;
       ++v18;
       v19 = v17;
     }
 
-    while (v43 != v18);
-    v43 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+    while (v42 != v18);
+    v42 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
   }
 
-  while (v43);
+  while (v42);
 
   if (blockCopy)
   {
-    queueCopy = v39;
-    typesCopy = v40;
-    handlerCopy = v37;
-    blockCopy = v38;
+    queueCopy = v38;
+    typesCopy = v39;
+    handlerCopy = v36;
+    blockCopy = v37;
 LABEL_17:
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __105__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke;
     aBlock[3] = &unk_278613658;
-    v50 = blockCopy;
+    v49 = blockCopy;
     v27 = _Block_copy(aBlock);
     v28 = v27;
     if (queueCopy)
@@ -1750,41 +1723,39 @@ LABEL_17:
       v27[2](v27);
     }
 
-    v29 = v50;
+    v29 = v49;
     goto LABEL_21;
   }
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __105__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke_2;
-  v44[3] = &unk_2786173F0;
-  v44[4] = self;
-  v45 = obj;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __105__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke_2;
+  v43[3] = &unk_2786173F0;
+  v43[4] = self;
+  v44 = obj;
   v17 = v17;
-  v46 = v17;
-  handlerCopy = v37;
-  v48 = v36;
-  v47 = v37;
-  v31 = _Block_copy(v44);
-  v32 = v31;
-  queueCopy = v39;
-  typesCopy = v40;
-  if (v39)
+  v45 = v17;
+  handlerCopy = v36;
+  v47 = v35;
+  v46 = v36;
+  v30 = _Block_copy(v43);
+  v31 = v30;
+  queueCopy = v38;
+  typesCopy = v39;
+  if (v38)
   {
-    dispatch_async(v39, v31);
+    dispatch_async(v38, v30);
   }
 
   else
   {
-    v31[2](v31);
+    v30[2](v30);
   }
 
-  blockCopy = v38;
+  blockCopy = v37;
 
-  v29 = v45;
+  v29 = v44;
 LABEL_21:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __105__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke(uint64_t a1)
@@ -1797,7 +1768,7 @@ uint64_t __105__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjectsWith
 
 uint64_t __105__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke_2(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   HDSetHealthInUseDefaultWithReason(@"Saving objects to the database.");
   WeakRetained = objc_loadWeakRetained((a1[4] + 8));
   v3 = [WeakRetained daemon];
@@ -1817,9 +1788,9 @@ uint64_t __105__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjectsWith
     v8 = a1[5];
     v9 = *(a1[4] + 16);
     *buf = 138412546;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v8;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v8;
     v10 = "Client %@ is not write authorized for data type(s) %@";
     v11 = v6;
     v12 = 22;
@@ -1832,9 +1803,9 @@ uint64_t __105__HDClientAuthorizationOracle_performIfAuthorizedToSaveObjectsWith
       goto LABEL_5;
     }
 
-    v15 = *(a1[4] + 16);
+    v14 = *(a1[4] + 16);
     *buf = 138543362;
-    v19 = v15;
+    v17 = v14;
     v10 = "Client %{public}@ is not write authorized for data type(s).";
     v11 = v6;
     v12 = 12;
@@ -1845,20 +1816,16 @@ LABEL_5:
 
   if (!a1[6])
   {
-    v16 = [MEMORY[0x277CCA890] currentHandler];
-    [v16 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:704 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
-
-    v17 = a1[6];
+    v15 = [MEMORY[0x277CCA890] currentHandler];
+    [v15 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:704 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
   }
 
-  result = (*(a1[7] + 16))();
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)performIfAuthorizedToDeleteObjects:(id)objects onQueue:(id)queue usingBlock:(id)block errorHandler:(id)handler
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   queueCopy3 = queue;
   blockCopy = block;
@@ -1914,8 +1881,8 @@ LABEL_21:
       aBlock[1] = 3221225472;
       aBlock[2] = __98__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjects_onQueue_usingBlock_errorHandler___block_invoke;
       aBlock[3] = &unk_278618D00;
-      v51 = blockCopy;
-      v52 = v16;
+      v50 = blockCopy;
+      v51 = v16;
       v31 = _Block_copy(aBlock);
       v32 = v31;
       if (queueCopy3)
@@ -1928,7 +1895,7 @@ LABEL_21:
         v31[2](v31);
       }
 
-      v33 = v51;
+      v33 = v50;
       goto LABEL_25;
     }
   }
@@ -1938,13 +1905,13 @@ LABEL_21:
     goto LABEL_6;
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v21 = objectsCopy;
-  v44 = [v21 countByEnumeratingWithState:&v54 objects:v58 count:16];
-  if (!v44)
+  v43 = [v21 countByEnumeratingWithState:&v53 objects:v57 count:16];
+  if (!v43)
   {
 
     v17 = 0;
@@ -1952,14 +1919,14 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v37 = a2;
-  v38 = handlerCopy;
-  v39 = blockCopy;
+  v36 = a2;
+  v37 = handlerCopy;
+  v38 = blockCopy;
   queue = queueCopy3;
-  v41 = objectsCopy;
+  v40 = objectsCopy;
   obj = v21;
   v17 = 0;
-  v43 = *v55;
+  v42 = *v54;
   LOBYTE(blockCopy) = 1;
   do
   {
@@ -1967,78 +1934,76 @@ LABEL_21:
     v23 = v17;
     do
     {
-      if (*v55 != v43)
+      if (*v54 != v42)
       {
         objc_enumerationMutation(obj);
       }
 
-      v24 = *(*(&v54 + 1) + 8 * v22);
+      v24 = *(*(&v53 + 1) + 8 * v22);
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       authorizationManager = [WeakRetained authorizationManager];
       sourceBundleIdentifier = self->_sourceBundleIdentifier;
       entitlements = self->_entitlements;
       v29 = objc_loadWeakRetained(&self->_profile);
-      v53 = v23;
-      v30 = [authorizationManager isClientAuthorizedToWriteObject:v24 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v29 error:&v53];
-      v17 = v53;
+      v52 = v23;
+      v30 = [authorizationManager isClientAuthorizedToWriteObject:v24 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v29 error:&v52];
+      v17 = v52;
 
       LODWORD(blockCopy) = (v30 == 1) & blockCopy;
       ++v22;
       v23 = v17;
     }
 
-    while (v44 != v22);
-    v44 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+    while (v43 != v22);
+    v43 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
   }
 
-  while (v44);
+  while (v43);
 
   if (blockCopy)
   {
     v16 = 1;
     queueCopy3 = queue;
-    objectsCopy = v41;
-    handlerCopy = v38;
-    blockCopy = v39;
+    objectsCopy = v40;
+    handlerCopy = v37;
+    blockCopy = v38;
     goto LABEL_21;
   }
 
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __98__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjects_onQueue_usingBlock_errorHandler___block_invoke_2;
-  v45[3] = &unk_2786173F0;
-  v45[4] = self;
-  v46 = obj;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __98__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjects_onQueue_usingBlock_errorHandler___block_invoke_2;
+  v44[3] = &unk_2786173F0;
+  v44[4] = self;
+  v45 = obj;
   v17 = v17;
-  v47 = v17;
-  handlerCopy = v38;
-  v49 = v37;
-  v48 = v38;
-  v35 = _Block_copy(v45);
-  v36 = v35;
+  v46 = v17;
+  handlerCopy = v37;
+  v48 = v36;
+  v47 = v37;
+  v34 = _Block_copy(v44);
+  v35 = v34;
   queueCopy3 = queue;
   if (queue)
   {
-    dispatch_async(queue, v35);
+    dispatch_async(queue, v34);
   }
 
   else
   {
-    v35[2](v35);
+    v34[2](v34);
   }
 
-  objectsCopy = v41;
-  blockCopy = v39;
+  objectsCopy = v40;
+  blockCopy = v38;
 
-  v33 = v46;
+  v33 = v45;
 LABEL_25:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjects_onQueue_usingBlock_errorHandler___block_invoke_2(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1[4] + 8));
   v3 = [WeakRetained daemon];
   v4 = [v3 behavior];
@@ -2051,11 +2016,11 @@ uint64_t __98__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjects_on
     v7 = HKLogAuthorization();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1[4] + 16);
+      v9 = *(a1[4] + 16);
       *buf = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v6;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Client %@ is not authorized to delete objects for data type(s) %@", buf, 0x16u);
     }
   }
@@ -2066,29 +2031,25 @@ uint64_t __98__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjects_on
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1[4] + 16);
+      v10 = *(a1[4] + 16);
       *buf = 138543362;
-      v15 = v11;
+      v13 = v10;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Client %{public}@ is not authorized to delete objects for data type(s).", buf, 0xCu);
     }
   }
 
   if (!a1[6])
   {
-    v12 = [MEMORY[0x277CCA890] currentHandler];
-    [v12 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:767 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
-
-    v13 = a1[6];
+    v11 = [MEMORY[0x277CCA890] currentHandler];
+    [v11 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:767 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
   }
 
-  result = (*(a1[7] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)performIfAuthorizedToDeleteObjectsWithTypes:(id)types onQueue:(id)queue usingBlock:(id)block errorHandler:(id)handler
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   queueCopy3 = queue;
   blockCopy = block;
@@ -2144,8 +2105,8 @@ LABEL_21:
       aBlock[1] = 3221225472;
       aBlock[2] = __107__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke;
       aBlock[3] = &unk_278618D00;
-      v51 = blockCopy;
-      v52 = v16;
+      v50 = blockCopy;
+      v51 = v16;
       v31 = _Block_copy(aBlock);
       v32 = v31;
       if (queueCopy3)
@@ -2158,7 +2119,7 @@ LABEL_21:
         v31[2](v31);
       }
 
-      v33 = v51;
+      v33 = v50;
       goto LABEL_25;
     }
   }
@@ -2168,13 +2129,13 @@ LABEL_21:
     goto LABEL_6;
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v21 = typesCopy;
-  v44 = [v21 countByEnumeratingWithState:&v54 objects:v58 count:16];
-  if (!v44)
+  v43 = [v21 countByEnumeratingWithState:&v53 objects:v57 count:16];
+  if (!v43)
   {
 
     v17 = 0;
@@ -2182,14 +2143,14 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v37 = a2;
-  v38 = handlerCopy;
-  v39 = blockCopy;
+  v36 = a2;
+  v37 = handlerCopy;
+  v38 = blockCopy;
   queue = queueCopy3;
-  v41 = typesCopy;
+  v40 = typesCopy;
   obj = v21;
   v17 = 0;
-  v43 = *v55;
+  v42 = *v54;
   LOBYTE(blockCopy) = 1;
   do
   {
@@ -2197,78 +2158,76 @@ LABEL_21:
     v23 = v17;
     do
     {
-      if (*v55 != v43)
+      if (*v54 != v42)
       {
         objc_enumerationMutation(obj);
       }
 
-      v24 = *(*(&v54 + 1) + 8 * v22);
+      v24 = *(*(&v53 + 1) + 8 * v22);
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       authorizationManager = [WeakRetained authorizationManager];
       sourceBundleIdentifier = self->_sourceBundleIdentifier;
       entitlements = self->_entitlements;
       v29 = objc_loadWeakRetained(&self->_profile);
-      v53 = v23;
-      v30 = [authorizationManager isClientAuthorizedToWriteType:v24 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v29 error:&v53];
-      v17 = v53;
+      v52 = v23;
+      v30 = [authorizationManager isClientAuthorizedToWriteType:v24 sourceBundleIdentifier:sourceBundleIdentifier clientEntitlements:entitlements profile:v29 error:&v52];
+      v17 = v52;
 
       LODWORD(blockCopy) = (v30 == 1) & blockCopy;
       ++v22;
       v23 = v17;
     }
 
-    while (v44 != v22);
-    v44 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+    while (v43 != v22);
+    v43 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
   }
 
-  while (v44);
+  while (v43);
 
   if (blockCopy)
   {
     v16 = 1;
     queueCopy3 = queue;
-    typesCopy = v41;
-    handlerCopy = v38;
-    blockCopy = v39;
+    typesCopy = v40;
+    handlerCopy = v37;
+    blockCopy = v38;
     goto LABEL_21;
   }
 
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __107__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke_2;
-  v45[3] = &unk_2786173F0;
-  v45[4] = self;
-  v46 = obj;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __107__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke_2;
+  v44[3] = &unk_2786173F0;
+  v44[4] = self;
+  v45 = obj;
   v17 = v17;
-  v47 = v17;
-  handlerCopy = v38;
-  v49 = v37;
-  v48 = v38;
-  v35 = _Block_copy(v45);
-  v36 = v35;
+  v46 = v17;
+  handlerCopy = v37;
+  v48 = v36;
+  v47 = v37;
+  v34 = _Block_copy(v44);
+  v35 = v34;
   queueCopy3 = queue;
   if (queue)
   {
-    dispatch_async(queue, v35);
+    dispatch_async(queue, v34);
   }
 
   else
   {
-    v35[2](v35);
+    v34[2](v34);
   }
 
-  typesCopy = v41;
-  blockCopy = v39;
+  typesCopy = v40;
+  blockCopy = v38;
 
-  v33 = v46;
+  v33 = v45;
 LABEL_25:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __107__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjectsWithTypes_onQueue_usingBlock_errorHandler___block_invoke_2(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1[4] + 8));
   v3 = [WeakRetained daemon];
   v4 = [v3 behavior];
@@ -2287,9 +2246,9 @@ uint64_t __107__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjectsWi
     v8 = a1[5];
     v9 = *(a1[4] + 16);
     *buf = 138412546;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v8;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v8;
     v10 = "Client %@ is not authorized to delete for data type(s) %@";
     v11 = v6;
     v12 = 22;
@@ -2302,9 +2261,9 @@ uint64_t __107__HDClientAuthorizationOracle_performIfAuthorizedToDeleteObjectsWi
       goto LABEL_5;
     }
 
-    v15 = *(a1[4] + 16);
+    v14 = *(a1[4] + 16);
     *buf = 138412290;
-    v19 = v15;
+    v17 = v14;
     v10 = "Client %@ is not authorized to delete for data type(s).";
     v11 = v6;
     v12 = 12;
@@ -2315,15 +2274,32 @@ LABEL_5:
 
   if (!a1[6])
   {
-    v16 = [MEMORY[0x277CCA890] currentHandler];
-    [v16 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:831 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
-
-    v17 = a1[6];
+    v15 = [MEMORY[0x277CCA890] currentHandler];
+    [v15 handleFailureInMethod:a1[8] object:a1[4] file:@"HDClientAuthorizationOracle.m" lineNumber:831 description:{@"Invalid parameter not satisfying: %@", @"error != nil"}];
   }
 
-  result = (*(a1[7] + 16))();
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
+}
+
+- (void)enqueueObjectAuthorizationRequestWithContext:(id)context sourceEntity:(id)entity promptIfNeeded:(BOOL)needed authorizationNeededHandler:(id)handler completion:(id)completion
+{
+  neededCopy = needed;
+  contextCopy = context;
+  entityCopy = entity;
+  handlerCopy = handler;
+  completionCopy = completion;
+  if (self && [(_HKEntitlements *)self->_entitlements hasEntitlement:*MEMORY[0x277CCB868]])
+  {
+    WeakRetained = [contextCopy samples];
+    (*(completionCopy + 2))(completionCopy, 0, WeakRetained, 0);
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_profile);
+    authorizationManager = [WeakRetained authorizationManager];
+    v17 = [authorizationManager enqueueObjectAuthorizationRequestForBundleIdentifier:self->_sourceBundleIdentifier context:contextCopy promptIfNeeded:neededCopy authorizationNeededHandler:handlerCopy completion:completionCopy];
+  }
 }
 
 - (void)handleObjectAuthorizationRequestsWithPromptHandler:(id)handler objectType:(id)type completion:(id)completion
@@ -2338,7 +2314,7 @@ LABEL_5:
 
 - (void)enqueueAuthorizationRequestForObjectType:(id)type sourceEntity:(id)entity promptIfNeeded:(BOOL)needed authorizationNeededHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   entityCopy = entity;
   handlerCopy = handler;
@@ -2349,28 +2325,26 @@ LABEL_5:
   {
     sourceBundleIdentifier = self->_sourceBundleIdentifier;
     *buf = 138412290;
-    v31 = sourceBundleIdentifier;
+    v30 = sourceBundleIdentifier;
     _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "Enqueuing per object health concept authorization request for %@", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __145__HDClientAuthorizationOracle_enqueueAuthorizationRequestForObjectType_sourceEntity_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke;
-  v24[3] = &unk_278618D28;
-  v24[4] = self;
-  v25 = typeCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __145__HDClientAuthorizationOracle_enqueueAuthorizationRequestForObjectType_sourceEntity_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke;
+  v23[3] = &unk_278618D28;
+  v23[4] = self;
+  v24 = typeCopy;
   neededCopy = needed;
-  v26 = entityCopy;
-  v27 = handlerCopy;
-  v28 = completionHandlerCopy;
+  v25 = entityCopy;
+  v26 = handlerCopy;
+  v27 = completionHandlerCopy;
   v19 = completionHandlerCopy;
   v20 = handlerCopy;
   v21 = entityCopy;
   v22 = typeCopy;
-  dispatch_async(queue, v24);
-
-  v23 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v23);
 }
 
 void __145__HDClientAuthorizationOracle_enqueueAuthorizationRequestForObjectType_sourceEntity_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke(uint64_t a1)
@@ -2424,17 +2398,15 @@ void __152__HDClientAuthorizationOracle__queue_enqueueAuthorizationRequestForObj
   dispatch_async(v11, block);
 }
 
-uint64_t __152__HDClientAuthorizationOracle__queue_enqueueAuthorizationRequestForObjectType_sourceEntity_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke_2(uint64_t a1)
+uint64_t __152__HDClientAuthorizationOracle__queue_enqueueAuthorizationRequestForObjectType_sourceEntity_promptIfNeeded_authorizationNeededHandler_completionHandler___block_invoke_2(void *a1)
 {
-  [*(*(a1 + 32) + 40) removeObject:*(a1 + 40)];
-  result = *(a1 + 56);
+  [*(a1[4] + 40) removeObject:a1[5]];
+  result = a1[7];
   if (result)
   {
-    v3 = *(a1 + 64);
-    v4 = *(a1 + 48);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -2569,7 +2541,7 @@ void __119__HDClientAuthorizationOracle_createRecalibrateEstimatesRequestRecordF
 
 - (void)enqueueAuthorizationRequestToWriteTypes:(id)types readTypes:(id)readTypes authorizationNeededHandler:(id)handler requestCompletionHandler:(id)completionHandler
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   readTypesCopy = readTypes;
   handlerCopy = handler;
@@ -2608,16 +2580,16 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  v50 = 0;
+  v49 = 0;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v16 = [WeakRetained profileExtensionsConformingToProtocol:&unk_283D71148];
   firstObject = [v16 firstObject];
 
   if (firstObject)
   {
-    v49 = 0;
-    v18 = [firstObject deviceConfigurationSupportsHealthRecords:&v50 error:&v49];
-    v19 = v49;
+    v48 = 0;
+    v18 = [firstObject deviceConfigurationSupportsHealthRecords:&v49 error:&v48];
+    v19 = v48;
     v20 = v19;
     if ((v18 & 1) == 0 && v19)
     {
@@ -2626,12 +2598,12 @@ LABEL_37:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v52 = v20;
+        v51 = v20;
         _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Failed to determine Health Records feature availability with error: %{public}@", buf, 0xCu);
       }
     }
 
-    if (v50)
+    if (v49)
     {
       goto LABEL_26;
     }
@@ -2680,7 +2652,7 @@ LABEL_26:
     {
       sourceBundleIdentifier = self->_sourceBundleIdentifier;
       *buf = 138412290;
-      v52 = sourceBundleIdentifier;
+      v51 = sourceBundleIdentifier;
       _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "Enqueuing authorization request for %@", buf, 0xCu);
     }
 
@@ -2690,10 +2662,10 @@ LABEL_26:
     block[2] = __133__HDClientAuthorizationOracle_enqueueAuthorizationRequestToWriteTypes_readTypes_authorizationNeededHandler_requestCompletionHandler___block_invoke_418;
     block[3] = &unk_278618DC8;
     block[4] = self;
-    v45 = typesCopy;
-    v46 = readTypesCopy;
-    v47 = handlerCopy;
-    v48 = completionHandlerCopy;
+    v44 = typesCopy;
+    v45 = readTypesCopy;
+    v46 = handlerCopy;
+    v47 = completionHandlerCopy;
     dispatch_async(queue, block);
   }
 
@@ -2717,7 +2689,6 @@ LABEL_26:
   }
 
 LABEL_38:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __133__HDClientAuthorizationOracle_enqueueAuthorizationRequestToWriteTypes_readTypes_authorizationNeededHandler_requestCompletionHandler___block_invoke_418(uint64_t a1)
@@ -2787,17 +2758,15 @@ void __158__HDClientAuthorizationOracle__queue_enqueueAuthorizationRequestForBun
   dispatch_async(v11, block);
 }
 
-uint64_t __158__HDClientAuthorizationOracle__queue_enqueueAuthorizationRequestForBundleIdentifier_writeTypes_readTypes_authorizationNeededHandler_requestCompletionHandler___block_invoke_2(uint64_t a1)
+uint64_t __158__HDClientAuthorizationOracle__queue_enqueueAuthorizationRequestForBundleIdentifier_writeTypes_readTypes_authorizationNeededHandler_requestCompletionHandler___block_invoke_2(void *a1)
 {
-  [*(*(a1 + 32) + 40) removeObject:*(a1 + 40)];
-  result = *(a1 + 56);
+  [*(a1[4] + 40) removeObject:a1[5]];
+  result = a1[7];
   if (result)
   {
-    v3 = *(a1 + 64);
-    v4 = *(a1 + 48);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -2827,13 +2796,11 @@ void __158__HDClientAuthorizationOracle__queue_enqueueAuthorizationRequestForBun
 
 void __158__HDClientAuthorizationOracle__queue_enqueueAuthorizationRequestForBundleIdentifier_writeTypes_readTypes_authorizationNeededHandler_requestCompletionHandler___block_invoke_4(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5[0] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [WeakRetained cancelAuthorizationRequestsWithIdentifiers:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAuthorizationRequestsForBundleIdentifier:(id)identifier promptHandler:(id)handler requestCompletionHandler:(id)completionHandler
@@ -2959,7 +2926,7 @@ LABEL_7:
 
 void __127__HDClientAuthorizationOracle_Privileged___queue_beginAuthorizationRequestDelegateTransactionWithSessionIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -2968,15 +2935,13 @@ void __127__HDClientAuthorizationOracle_Privileged___queue_beginAuthorizationReq
     v7 = HKLogAuthorization();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Could not begin transaction: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Could not begin transaction: %{public}@", &v8, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __127__HDClientAuthorizationOracle_Privileged___queue_beginAuthorizationRequestDelegateTransactionWithSessionIdentifier_completion___block_invoke_498(uint64_t a1, void *a2, void *a3)
@@ -3003,7 +2968,7 @@ void __127__HDClientAuthorizationOracle_Privileged___queue_beginAuthorizationReq
 
 uint64_t __127__HDClientAuthorizationOracle_Privileged___queue_beginAuthorizationRequestDelegateTransactionWithSessionIdentifier_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     objc_storeStrong((*(a1 + 40) + 56), *(a1 + 48));
@@ -3017,18 +2982,14 @@ uint64_t __127__HDClientAuthorizationOracle_Privileged___queue_beginAuthorizatio
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         v5 = *(a1 + 48);
-        v10 = 138543362;
-        v11 = v5;
-        _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "Starting transaction %{public}@", &v10, 0xCu);
+        v7 = 138543362;
+        v8 = v5;
+        _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "Starting transaction %{public}@", &v7, 0xCu);
       }
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 56);
-  result = (*(*(a1 + 64) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 64) + 16))();
 }
 
 - (void)endAuthorizationRequestDelegateTransactionWithSessionIdentifier:(id)identifier error:(id)error
@@ -3052,7 +3013,7 @@ uint64_t __127__HDClientAuthorizationOracle_Privileged___queue_beginAuthorizatio
 
 void __113__HDClientAuthorizationOracle_Privileged__endAuthorizationRequestDelegateTransactionWithSessionIdentifier_error___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a1[5];
   v3 = *(a1[4] + 56);
   if (v3 == v2 || v2 && [v3 isEqual:?])
@@ -3067,9 +3028,9 @@ void __113__HDClientAuthorizationOracle_Privileged__endAuthorizationRequestDeleg
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = a1[5];
-        v15 = 138543362;
-        v16 = v7;
-        _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "Ending transaction %{public}@", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v7;
+        _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "Ending transaction %{public}@", &v14, 0xCu);
       }
     }
 
@@ -3088,17 +3049,15 @@ void __113__HDClientAuthorizationOracle_Privileged__endAuthorizationRequestDeleg
     v11 = HKLogAuthorization();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = a1[5];
-      v14 = *(a1[4] + 56);
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2114;
-      v18 = v14;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "No active transaction to end (Ending %{public}@, but active is %{public}@)", &v15, 0x16u);
+      v12 = a1[5];
+      v13 = *(a1[4] + 56);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2114;
+      v17 = v13;
+      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "No active transaction to end (Ending %{public}@, but active is %{public}@)", &v14, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDefaultAuthorizationStatusesForSource:(id)source completion:(id)completion
@@ -3167,7 +3126,7 @@ void __113__HDClientAuthorizationOracle_Privileged__endAuthorizationRequestDeleg
   }
 }
 
-void __98__HDClientAuthorizationOracle_Privileged__updateDefaultAuthorizationStatusesForSource_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __98__HDClientAuthorizationOracle_Privileged__updateDefaultAuthorizationStatusesForSource_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   v6 = *(a1 + 32);
@@ -3231,10 +3190,9 @@ void __98__HDClientAuthorizationOracle_Privileged__updateDefaultAuthorizationSta
 
   else
   {
-    v4 = a1[6];
-    v5 = *(a1[6] + 16);
+    v4 = *(a1[6] + 16);
 
-    v5();
+    v4();
   }
 }
 

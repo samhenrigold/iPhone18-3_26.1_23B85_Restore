@@ -1,10 +1,18 @@
 @interface ASAuthorizationPublicKeyCredentialLargeBlobRegistrationOutput
++ (id)_outputWithIsSupported:(BOOL)supported;
 - (ASAuthorizationPublicKeyCredentialLargeBlobRegistrationOutput)initWithCoder:(id)coder;
 - (id)_initWithIsSupported:(BOOL)supported;
 - (id)copyWithZone:(_NSZone *)zone;
 @end
 
 @implementation ASAuthorizationPublicKeyCredentialLargeBlobRegistrationOutput
+
++ (id)_outputWithIsSupported:(BOOL)supported
+{
+  v3 = [[self alloc] _initWithIsSupported:supported];
+
+  return v3;
+}
 
 - (id)_initWithIsSupported:(BOOL)supported
 {

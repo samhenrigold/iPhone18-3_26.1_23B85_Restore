@@ -187,14 +187,14 @@
 
 - (unint64_t)updatePosterConfiguration:(id)configuration
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   configuration = self->_configuration;
   if (configuration)
   {
     _path = [(PRSPosterConfiguration *)configuration _path];
     _path2 = [configurationCopy _path];
-    v24 = _path;
+    v25 = _path;
     serverIdentity = [_path serverIdentity];
     serverIdentity2 = [_path2 serverIdentity];
     posterUUID = [serverIdentity posterUUID];
@@ -206,64 +206,64 @@
       objc_storeStrong(&self->_configuration, configuration);
       version = [serverIdentity2 version];
       version2 = [serverIdentity version];
-      v16 = PRUISLogCommon();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      v17 = PRUISLogCommon(version2);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
       if (version == version2)
       {
-        if (v17)
+        if (v18)
         {
           pui_shortDescription = [(FBScene *)self->_scene pui_shortDescription];
           *buf = 138543362;
-          v28 = pui_shortDescription;
-          _os_log_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_DEFAULT, "Refreshing ambient poster %{public}@.", buf, 0xCu);
+          v29 = pui_shortDescription;
+          _os_log_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEFAULT, "Refreshing ambient poster %{public}@.", buf, 0xCu);
         }
 
-        v19 = 2;
+        v20 = 2;
       }
 
       else
       {
-        if (v17)
+        if (v18)
         {
           pui_shortDescription2 = [(FBScene *)self->_scene pui_shortDescription];
           *buf = 138543874;
-          v28 = pui_shortDescription2;
-          v29 = 2048;
+          v29 = pui_shortDescription2;
+          v30 = 2048;
           version3 = [serverIdentity version];
-          v31 = 2048;
+          v32 = 2048;
           version4 = [serverIdentity2 version];
-          _os_log_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_DEFAULT, "Updating ambient poster %{public}@ from version %llu to %llu.", buf, 0x20u);
+          _os_log_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEFAULT, "Updating ambient poster %{public}@ from version %llu to %llu.", buf, 0x20u);
         }
 
-        v19 = 1;
+        v20 = 1;
       }
 
       scene = self->_scene;
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __62__PRUISAmbientPosterViewController_updatePosterConfiguration___block_invoke;
-      v25[3] = &unk_1E83A7868;
-      v25[4] = self;
-      v26 = _path2;
-      [(FBScene *)scene pruis_updateWithoutActivating:v25];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __62__PRUISAmbientPosterViewController_updatePosterConfiguration___block_invoke;
+      v26[3] = &unk_1E83A7868;
+      v26[4] = self;
+      v27 = _path2;
+      [(FBScene *)scene pruis_updateWithoutActivating:v26];
     }
 
     else
     {
-      v20 = PRUISLogCommon();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = PRUISLogCommon(v14);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1CAE63000, v20, OS_LOG_TYPE_DEFAULT, "Cannot update to proposed poster configuration.", buf, 2u);
+        _os_log_impl(&dword_1CAE63000, v21, OS_LOG_TYPE_DEFAULT, "Cannot update to proposed poster configuration.", buf, 2u);
       }
 
-      v19 = 3;
+      v20 = 3;
     }
 
     [(PRUISAmbientPosterViewController *)self _registerForAmbientPresentationTraitChanges];
-    if (v19 > 2)
+    if (v20 > 2)
     {
-      v19 = 3;
+      v20 = 3;
       goto LABEL_18;
     }
   }
@@ -273,7 +273,7 @@
     objc_storeStrong(&self->_configuration, configuration);
     [(PRUISAmbientPosterViewController *)self _setupScene];
     [(PRUISAmbientPosterViewController *)self _registerForAmbientPresentationTraitChanges];
-    v19 = 0;
+    v20 = 0;
   }
 
   [(PRUISAmbientPosterViewController *)self _updateSnapshots];
@@ -281,7 +281,7 @@
   [(PRUISAmbientPosterViewController *)self _updateSceneWithCompletion:0];
 LABEL_18:
 
-  return v19;
+  return v20;
 }
 
 - (void)setExtensionUserInteractionEnabled:(BOOL)enabled
@@ -401,8 +401,8 @@ LABEL_18:
 
     v7 = *MEMORY[0x1E69C53D0];
 LABEL_4:
-    v12 = [objc_alloc(MEMORY[0x1E69C5350]) initWithType:v7 location:{x, y}];
-    [(PRUISAmbientPosterViewController *)self eventOccurred:v12];
+    v13 = [objc_alloc(MEMORY[0x1E69C5350]) initWithType:v7 location:{x, y}];
+    [(PRUISAmbientPosterViewController *)self eventOccurred:v13];
 
     return;
   }
@@ -417,42 +417,43 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v11 = PRUISLogCommon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = PRUISLogCommon(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "Client has not requested taps", buf, 2u);
+    _os_log_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_DEFAULT, "Client has not requested taps", buf, 2u);
   }
 }
 
 - (void)eventOccurred:(id)occurred
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   occurredCopy = occurred;
   isActive = [(FBScene *)self->_scene isActive];
-  newAction = PRUISLogCommon();
-  v7 = os_log_type_enabled(newAction, OS_LOG_TYPE_DEFAULT);
-  if (isActive)
+  v6 = isActive;
+  newAction = PRUISLogCommon(isActive);
+  v8 = os_log_type_enabled(newAction, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       type = [occurredCopy type];
-      v11 = 138412290;
-      v12 = type;
-      _os_log_impl(&dword_1CAE63000, newAction, OS_LOG_TYPE_DEFAULT, "Sending rendering event of type: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = type;
+      _os_log_impl(&dword_1CAE63000, newAction, OS_LOG_TYPE_DEFAULT, "Sending rendering event of type: %@", &v12, 0xCu);
     }
 
     newAction = [occurredCopy newAction];
-    v9 = [MEMORY[0x1E695DFD8] setWithObject:newAction];
-    [(FBScene *)self->_scene sendActions:v9];
+    v10 = [MEMORY[0x1E695DFD8] setWithObject:newAction];
+    [(FBScene *)self->_scene sendActions:v10];
   }
 
-  else if (v7)
+  else if (v8)
   {
     type2 = [occurredCopy type];
-    v11 = 138412290;
-    v12 = type2;
-    _os_log_impl(&dword_1CAE63000, newAction, OS_LOG_TYPE_DEFAULT, "Trying to send rendering event when the scene is not active. Event type: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = type2;
+    _os_log_impl(&dword_1CAE63000, newAction, OS_LOG_TYPE_DEFAULT, "Trying to send rendering event when the scene is not active. Event type: %@", &v12, 0xCu);
   }
 }
 
@@ -857,7 +858,7 @@ void __47__PRUISAmbientPosterViewController_viewDidLoad__block_invoke(uint64_t a
   v18 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   processHandle = [connect processHandle];
-  v8 = PRUISLogCommon();
+  v8 = PRUISLogCommon(processHandle);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     pui_shortDescription = [sceneCopy pui_shortDescription];
@@ -883,7 +884,7 @@ void __47__PRUISAmbientPosterViewController_viewDidLoad__block_invoke(uint64_t a
 {
   v9 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
-  v5 = PRUISLogCommon();
+  v5 = PRUISLogCommon(actionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -898,7 +899,7 @@ void __47__PRUISAmbientPosterViewController_viewDidLoad__block_invoke(uint64_t a
 {
   v13 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v5 = PRUISLogCommon();
+  v5 = PRUISLogCommon(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     [changeCopy contentState];
@@ -926,64 +927,65 @@ void __47__PRUISAmbientPosterViewController_viewDidLoad__block_invoke(uint64_t a
 
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   deactivateCopy = deactivate;
   errorCopy = error;
-  v8 = PRUISLogCommon();
+  v8 = PRUISLogCommon(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     pui_shortDescription = [deactivateCopy pui_shortDescription];
     v10 = [errorCopy descriptionWithMultilinePrefix:0];
     *buf = 138543618;
-    v22 = *&pui_shortDescription;
-    v23 = 2114;
-    v24 = v10;
+    v24 = *&pui_shortDescription;
+    v25 = 2114;
+    v26 = v10;
     _os_log_impl(&dword_1CAE63000, v8, OS_LOG_TYPE_DEFAULT, "Poster %{public}@ deactivated with error: %{public}@", buf, 0x16u);
   }
 
   [(PRUISSessionReconnectPolicy *)self->_reconnectPolicy sessionDidDisconnect];
   presentationMode = self->_presentationMode;
-  if ([(PRUISAmbientPosterViewController *)self _appearState]&& presentationMode == 2)
+  _appearState = [(PRUISAmbientPosterViewController *)self _appearState];
+  if (_appearState && presentationMode == 2)
   {
-    [(PRUISSessionReconnectPolicy *)self->_reconnectPolicy sessionReconnectDelay];
-    v13 = v12;
-    v14 = PRUISLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    sessionReconnectDelay = [(PRUISSessionReconnectPolicy *)self->_reconnectPolicy sessionReconnectDelay];
+    v15 = v14;
+    v16 = PRUISLogCommon(sessionReconnectDelay);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v22 = v13;
-      _os_log_impl(&dword_1CAE63000, v14, OS_LOG_TYPE_DEFAULT, "Will attempt reactivation of ambient scene in %0.3f seconds.", buf, 0xCu);
+      v24 = v15;
+      _os_log_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_DEFAULT, "Will attempt reactivation of ambient scene in %0.3f seconds.", buf, 0xCu);
     }
 
-    v15 = dispatch_time(0, (v13 * 1000000000.0));
+    v17 = dispatch_time(0, (v15 * 1000000000.0));
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __65__PRUISAmbientPosterViewController_sceneDidDeactivate_withError___block_invoke;
     block[3] = &unk_1E83A72F8;
     block[4] = self;
-    dispatch_after(v15, MEMORY[0x1E69E96A0], block);
+    dispatch_after(v17, MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    v16 = PRUISLogCommon();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = PRUISLogCommon(_appearState);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_DEFAULT, "Not attempting reactivation of ambient scene at this time.", buf, 2u);
+      _os_log_impl(&dword_1CAE63000, v18, OS_LOG_TYPE_DEFAULT, "Not attempting reactivation of ambient scene at this time.", buf, 2u);
     }
 
     [(PRUISAmbientPosterViewController *)self _teardownScene];
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __65__PRUISAmbientPosterViewController_sceneDidDeactivate_withError___block_invoke_117;
-  v18[3] = &unk_1E83A7900;
-  v18[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __65__PRUISAmbientPosterViewController_sceneDidDeactivate_withError___block_invoke_117;
+  v20[3] = &unk_1E83A7900;
+  v20[4] = self;
+  v21 = deactivateCopy;
   v19 = deactivateCopy;
-  v17 = deactivateCopy;
-  [(PRUISAmbientPosterViewController *)self _enumerateSceneObserversRespondingToSelector:sel_ambientPosterViewController_didDeactivateScene_ usingBlock:v18];
+  [(PRUISAmbientPosterViewController *)self _enumerateSceneObserversRespondingToSelector:sel_ambientPosterViewController_didDeactivateScene_ usingBlock:v20];
 }
 
 - (void)scene:(id)scene didUpdateClientSettingsWithDiff:(id)diff oldClientSettings:(id)settings transitionContext:(id)context
@@ -1061,14 +1063,14 @@ void __47__PRUISAmbientPosterViewController_viewDidLoad__block_invoke(uint64_t a
 
 - (id)cancelTouchesForCurrentEventInHostedContent
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssertMain();
   objc_initWeak(&location, self);
-  v19[1] = MEMORY[0x1E69E9820];
-  v19[2] = 3221225472;
-  v19[3] = __79__PRUISAmbientPosterViewController_cancelTouchesForCurrentEventInHostedContent__block_invoke;
-  v19[4] = &unk_1E83A7500;
-  objc_copyWeak(&v20, &location);
+  v21[1] = MEMORY[0x1E69E9820];
+  v21[2] = 3221225472;
+  v21[3] = __79__PRUISAmbientPosterViewController_cancelTouchesForCurrentEventInHostedContent__block_invoke;
+  v21[4] = &unk_1E83A7500;
+  objc_copyWeak(&v22, &location);
   v3 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
   view = [(PRUISAmbientPosterViewController *)self view];
   _window = [view _window];
@@ -1076,76 +1078,77 @@ void __47__PRUISAmbientPosterViewController_viewDidLoad__block_invoke(uint64_t a
   if (v3 && _window)
   {
     [*MEMORY[0x1E69DDA98] _initialTouchTimestampForWindow:_window];
-    v7 = v6;
+    v8 = v7;
     layerManager = [(FBScene *)self->_scene layerManager];
     layers = [layerManager layers];
 
-    [(PRUISAmbientPosterViewController *)self _createCancelTouchesAssertionsForLayers:layers withInitialTouchTimestamp:v3 server:v7];
-    v10 = objc_alloc(MEMORY[0x1E698E778]);
+    [(PRUISAmbientPosterViewController *)self _createCancelTouchesAssertionsForLayers:layers withInitialTouchTimestamp:v3 server:v8];
+    v11 = objc_alloc(MEMORY[0x1E698E778]);
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
-    v13 = MEMORY[0x1E69E96A0];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __79__PRUISAmbientPosterViewController_cancelTouchesForCurrentEventInHostedContent__block_invoke_129;
-    v18[3] = &unk_1E83A7950;
-    objc_copyWeak(v19, &location);
-    v14 = [v10 initWithIdentifier:uUIDString forReason:@"cancel touches in poster" queue:MEMORY[0x1E69E96A0] invalidationBlock:v18];
+    v14 = MEMORY[0x1E69E96A0];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __79__PRUISAmbientPosterViewController_cancelTouchesForCurrentEventInHostedContent__block_invoke_129;
+    v20[3] = &unk_1E83A7950;
+    objc_copyWeak(v21, &location);
+    v15 = [v11 initWithIdentifier:uUIDString forReason:@"cancel touches in poster" queue:MEMORY[0x1E69E96A0] invalidationBlock:v20];
 
-    v15 = PRUISLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = PRUISLogCommon(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v24 = 2114;
-      v25 = v14;
-      _os_log_impl(&dword_1CAE63000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Made cancel touches group assertion: %{public}@", buf, 0x16u);
+      v26 = 2114;
+      v27 = v15;
+      _os_log_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Made cancel touches group assertion: %{public}@", buf, 0x16u);
     }
 
-    objc_destroyWeak(v19);
+    objc_destroyWeak(v21);
   }
 
   else
   {
-    layers = PRUISLogCommon();
+    layers = PRUISLogCommon(v6);
     if (os_log_type_enabled(layers, OS_LOG_TYPE_DEFAULT))
     {
       isActive = [(FBScene *)self->_scene isActive];
       *buf = 138544130;
       selfCopy2 = self;
-      v24 = 2114;
-      v25 = v3;
       v26 = 2114;
-      v27 = _window;
-      v28 = 1024;
-      v29 = isActive;
+      v27 = v3;
+      v28 = 2114;
+      v29 = _window;
+      v30 = 1024;
+      v31 = isActive;
       _os_log_impl(&dword_1CAE63000, layers, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did not make cancel touches group assertion because of server: %{public}@, window: %{public}@, or [scene isActive]: %{BOOL}u", buf, 0x26u);
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 
-  return v14;
+  return v15;
 }
 
 void __79__PRUISAmbientPosterViewController_cancelTouchesForCurrentEventInHostedContent__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PRUISLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PRUISLogCommon(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543618;
-      v7 = WeakRetained;
-      v8 = 2114;
-      v9 = v3;
-      _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending cancellation touch delivery policy failed with error: %{public}@", &v6, 0x16u);
+      v7 = 138543618;
+      v8 = v5;
+      v9 = 2114;
+      v10 = v3;
+      _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending cancellation touch delivery policy failed with error: %{public}@", &v7, 0x16u);
     }
   }
 }
@@ -1238,8 +1241,7 @@ void __79__PRUISAmbientPosterViewController_cancelTouchesForCurrentEventInHosted
         endpoint = [v18 endpoint];
         [v19 setAssertionEndpoint:endpoint];
 
-        [serverCopy ipc_addPolicy:v19];
-        v21 = PRUISLogCommon();
+        v21 = PRUISLogCommon([serverCopy ipc_addPolicy:v19]);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = v24;
@@ -1748,7 +1750,7 @@ void __53__PRUISAmbientPosterViewController__takeNewSnapshots__block_invoke(uint
 {
   v12 = *MEMORY[0x1E69E9840];
   v6 = a4;
-  v7 = PRUISLogCommon();
+  v7 = PRUISLogCommon(v6);
   v8 = v7;
   if (!a3 || v6)
   {
@@ -1799,7 +1801,7 @@ void __72__PRUISAmbientPosterViewController__fetchSnapshotsWithRequest_animated_
   v9 = WeakRetained;
   if (!v6 || v7)
   {
-    v10 = PRUISLogCommon();
+    v10 = PRUISLogCommon(WeakRetained);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __72__PRUISAmbientPosterViewController__fetchSnapshotsWithRequest_animated___block_invoke_cold_1();
@@ -1904,7 +1906,7 @@ void __79__PRUISAmbientPosterViewController__registerForAmbientPresentationTrait
   v14 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 traitCollection];
-  v4 = PRUISLogCommon();
+  v4 = PRUISLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v2[125] pui_shortDescription];
@@ -1976,7 +1978,7 @@ void __79__PRUISAmbientPosterViewController__registerForAmbientPresentationTrait
   scene = self->_scene;
   if (!scene)
   {
-    v5 = PRUISLogCommon();
+    v5 = PRUISLogCommon(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v14 = 0;
@@ -2015,7 +2017,7 @@ void __79__PRUISAmbientPosterViewController__registerForAmbientPresentationTrait
 
 void __47__PRUISAmbientPosterViewController__setupScene__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -2030,15 +2032,15 @@ void __47__PRUISAmbientPosterViewController__setupScene__block_invoke(uint64_t a
 
     [v10 addExtension:objc_opt_class()];
     [v10 setDelegate:v3];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __47__PRUISAmbientPosterViewController__setupScene__block_invoke_2;
-    v16[3] = &unk_1E83A7AC8;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __47__PRUISAmbientPosterViewController__setupScene__block_invoke_2;
+    v17[3] = &unk_1E83A7AC8;
     v11 = *(a1 + 32);
-    v16[5] = v3;
-    v16[6] = v6;
-    v16[4] = v11;
-    [v10 pruis_updateWithoutActivating:v16];
+    v17[5] = v3;
+    v17[6] = v6;
+    v17[4] = v11;
+    [v10 pruis_updateWithoutActivating:v17];
     objc_storeStrong(v3 + 125, v10);
     v12 = [v5 instanceIdentifier];
     v13 = v3[128];
@@ -2046,13 +2048,13 @@ void __47__PRUISAmbientPosterViewController__setupScene__block_invoke(uint64_t a
 
     if (v10)
     {
-      v14 = PRUISLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = PRUISLogCommon(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [v10 pui_shortDescription];
+        v16 = [v10 pui_shortDescription];
         *buf = 138412290;
-        v18 = v15;
-        _os_log_impl(&dword_1CAE63000, v14, OS_LOG_TYPE_DEFAULT, "Created new ambient poster scene: %@", buf, 0xCu);
+        v19 = v16;
+        _os_log_impl(&dword_1CAE63000, v15, OS_LOG_TYPE_DEFAULT, "Created new ambient poster scene: %@", buf, 0xCu);
       }
     }
 
@@ -2065,11 +2067,11 @@ LABEL_9:
         goto LABEL_10;
       }
 
-      v14 = PRUISLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = PRUISLogCommon(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1CAE63000, v14, OS_LOG_TYPE_DEFAULT, "Failed to create new ambient poster scene again.", buf, 2u);
+        _os_log_impl(&dword_1CAE63000, v15, OS_LOG_TYPE_DEFAULT, "Failed to create new ambient poster scene again.", buf, 2u);
       }
     }
 
@@ -2240,173 +2242,173 @@ void __47__PRUISAmbientPosterViewController__setupScene__block_invoke_214(uint64
 
 - (void)_updateTouchDeliveryPolicies
 {
-  v75 = *MEMORY[0x1E69E9840];
-  BSDispatchQueueAssertMain();
-  if (self->_shouldShareTouchesWithHost && self->_presentationMode == 2 && self->_scene && (-[PRUISAmbientPosterViewController view](self, "view"), v3 = objc_claimAutoreleasedReturnValue(), [v3 _window], v4 = objc_claimAutoreleasedReturnValue(), v4, v3, v4))
+  v78 = *MEMORY[0x1E69E9840];
+  v3 = BSDispatchQueueAssertMain();
+  if (self->_shouldShareTouchesWithHost && self->_presentationMode == 2 && self->_scene && (-[PRUISAmbientPosterViewController view](self, "view"), v4 = objc_claimAutoreleasedReturnValue(), [v4 _window], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v5))
   {
     layerManager = [(FBScene *)self->_scene layerManager];
     layers = [layerManager layers];
 
-    v7 = objc_alloc(MEMORY[0x1E695DFA8]);
+    v8 = objc_alloc(MEMORY[0x1E695DFA8]);
     allKeys = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions allKeys];
-    v47 = [v7 initWithArray:allKeys];
+    v50 = [v8 initWithArray:allKeys];
 
     view = [(PRUISAmbientPosterViewController *)self view];
     _window = [view _window];
     _contextId = [_window _contextId];
 
-    v11 = PRUISLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = PRUISLogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       selfCopy4 = self;
-      v65 = 2114;
-      v66 = layers;
-      _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "[%@] Updating touch delivery policies for layers: %{public}@", buf, 0x16u);
+      v68 = 2114;
+      v69 = layers;
+      _os_log_impl(&dword_1CAE63000, v13, OS_LOG_TYPE_DEFAULT, "[%@] Updating touch delivery policies for layers: %{public}@", buf, 0x16u);
     }
 
-    v61 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
+    v63 = 0u;
     obj = layers;
-    v12 = [obj countByEnumeratingWithState:&v59 objects:v74 count:16];
-    if (v12)
+    v14 = [obj countByEnumeratingWithState:&v62 objects:v77 count:16];
+    if (v14)
     {
-      v46 = *v60;
-      *&v13 = 138412802;
-      v43 = v13;
+      v49 = *v63;
+      *&v15 = 138412802;
+      v46 = v15;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v60 != v46)
+          if (*v63 != v49)
           {
             objc_enumerationMutation(obj);
           }
 
-          contextID = [*(*(&v59 + 1) + 8 * i) contextID];
-          v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-          [v47 removeObject:v16];
+          contextID = [*(*(&v62 + 1) + 8 * i) contextID];
+          v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+          [v50 removeObject:v18];
 
           touchDeliveryPolicyAssertions = self->_touchDeliveryPolicyAssertions;
-          v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-          v19 = [(NSMutableDictionary *)touchDeliveryPolicyAssertions objectForKey:v18];
-          LODWORD(touchDeliveryPolicyAssertions) = v19 == 0;
+          v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+          v21 = [(NSMutableDictionary *)touchDeliveryPolicyAssertions objectForKey:v20];
+          LODWORD(touchDeliveryPolicyAssertions) = v21 == 0;
 
           if (touchDeliveryPolicyAssertions)
           {
-            v20 = objc_alloc_init(MEMORY[0x1E698E440]);
-            v21 = [MEMORY[0x1E698E438] policyRequiringSharingOfTouchesDeliveredToChildContextId:contextID withHostContextId:_contextId];
-            endpoint = [(__CFString *)v20 endpoint];
-            [v21 setAssertionEndpoint:endpoint];
+            v22 = objc_alloc_init(MEMORY[0x1E698E440]);
+            v23 = [MEMORY[0x1E698E438] policyRequiringSharingOfTouchesDeliveredToChildContextId:contextID withHostContextId:_contextId];
+            endpoint = [(__CFString *)v22 endpoint];
+            [v23 setAssertionEndpoint:endpoint];
 
             objc_initWeak(&location, self);
-            v52 = MEMORY[0x1E69E9820];
-            v53 = 3221225472;
-            v54 = __64__PRUISAmbientPosterViewController__updateTouchDeliveryPolicies__block_invoke;
-            v55 = &unk_1E83A7B18;
-            objc_copyWeak(&v57, &location);
-            v23 = v21;
-            v56 = v23;
-            v24 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
-            if (v24)
+            v55 = MEMORY[0x1E69E9820];
+            v56 = 3221225472;
+            v57 = __64__PRUISAmbientPosterViewController__updateTouchDeliveryPolicies__block_invoke;
+            v58 = &unk_1E83A7B18;
+            objc_copyWeak(&v60, &location);
+            v25 = v23;
+            v59 = v25;
+            v26 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
+            v27 = v26;
+            if (v26)
             {
-              v25 = PRUISLogCommon();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v28 = PRUISLogCommon(v26);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v43;
+                *buf = v46;
                 selfCopy4 = self;
-                v65 = 2114;
-                v66 = v20;
-                v67 = 2050;
-                v68 = contextID;
-                _os_log_impl(&dword_1CAE63000, v25, OS_LOG_TYPE_DEFAULT, "[%@] Saving touch policy assertion %{public}@ for context id 0x%{public}llx", buf, 0x20u);
+                v68 = 2114;
+                v69 = v22;
+                v70 = 2050;
+                v71 = contextID;
+                _os_log_impl(&dword_1CAE63000, v28, OS_LOG_TYPE_DEFAULT, "[%@] Saving touch policy assertion %{public}@ for context id 0x%{public}llx", buf, 0x20u);
               }
 
-              v26 = self->_touchDeliveryPolicyAssertions;
-              if (!v26)
+              v29 = self->_touchDeliveryPolicyAssertions;
+              if (!v29)
               {
-                v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
-                v28 = self->_touchDeliveryPolicyAssertions;
-                self->_touchDeliveryPolicyAssertions = v27;
+                v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
+                v31 = self->_touchDeliveryPolicyAssertions;
+                self->_touchDeliveryPolicyAssertions = v30;
 
-                v26 = self->_touchDeliveryPolicyAssertions;
+                v29 = self->_touchDeliveryPolicyAssertions;
               }
 
-              v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-              [(NSMutableDictionary *)v26 setObject:v20 forKey:v29];
+              v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+              [(NSMutableDictionary *)v29 setObject:v22 forKey:v32];
 
-              [v24 ipc_addPolicy:v23];
+              [v27 ipc_addPolicy:v25];
             }
 
-            objc_destroyWeak(&v57);
+            objc_destroyWeak(&v60);
             objc_destroyWeak(&location);
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v59 objects:v74 count:16];
+        v14 = [obj countByEnumeratingWithState:&v62 objects:v77 count:16];
       }
 
-      while (v12);
+      while (v14);
     }
 
-    v50 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v30 = v47;
-    v31 = [v30 countByEnumeratingWithState:&v48 objects:v73 count:16];
-    if (v31)
+    v52 = 0u;
+    v33 = v50;
+    v34 = [v33 countByEnumeratingWithState:&v51 objects:v76 count:16];
+    if (v34)
     {
-      v32 = *v49;
+      v35 = *v52;
       do
       {
-        for (j = 0; j != v31; ++j)
+        for (j = 0; j != v34; ++j)
         {
-          if (*v49 != v32)
+          if (*v52 != v35)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v33);
           }
 
-          v34 = *(*(&v48 + 1) + 8 * j);
-          v35 = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions objectForKey:v34];
-          [(__CFString *)v35 invalidate];
-          [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions removeObjectForKey:v34];
-          v36 = PRUISLogCommon();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v37 = *(*(&v51 + 1) + 8 * j);
+          v38 = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions objectForKey:v37];
+          [(__CFString *)v38 invalidate];
+          v39 = PRUISLogCommon([(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions removeObjectForKey:v37]);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
-            unsignedIntValue = [v34 unsignedIntValue];
+            unsignedIntValue = [v37 unsignedIntValue];
             *buf = 138412802;
             selfCopy4 = self;
-            v65 = 2114;
-            v66 = v35;
-            v67 = 2050;
-            v68 = unsignedIntValue;
-            _os_log_impl(&dword_1CAE63000, v36, OS_LOG_TYPE_DEFAULT, "[%@] Invalidating assertion %{public}@ for context id 0x%{public}llx", buf, 0x20u);
+            v68 = 2114;
+            v69 = v38;
+            v70 = 2050;
+            v71 = unsignedIntValue;
+            _os_log_impl(&dword_1CAE63000, v39, OS_LOG_TYPE_DEFAULT, "[%@] Invalidating assertion %{public}@ for context id 0x%{public}llx", buf, 0x20u);
           }
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v48 objects:v73 count:16];
+        v34 = [v33 countByEnumeratingWithState:&v51 objects:v76 count:16];
       }
 
-      while (v31);
+      while (v34);
     }
   }
 
   else
   {
-    obj = PRUISLogCommon();
+    obj = PRUISLogCommon(v3);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_DEFAULT))
     {
       if (self->_shouldShareTouchesWithHost)
       {
-        v38 = @"YES";
+        v41 = @"YES";
       }
 
       else
       {
-        v38 = @"NO";
+        v41 = @"NO";
       }
 
       presentationMode = self->_presentationMode;
@@ -2415,14 +2417,14 @@ void __47__PRUISAmbientPosterViewController__setupScene__block_invoke_214(uint64
       _window2 = [view2 _window];
       *buf = 138413314;
       selfCopy4 = self;
-      v65 = 2114;
-      v66 = v38;
-      v67 = 2050;
-      v68 = presentationMode;
-      v69 = 2114;
-      v70 = scene;
-      v71 = 2114;
-      v72 = _window2;
+      v68 = 2114;
+      v69 = v41;
+      v70 = 2050;
+      v71 = presentationMode;
+      v72 = 2114;
+      v73 = scene;
+      v74 = 2114;
+      v75 = _window2;
       _os_log_impl(&dword_1CAE63000, obj, OS_LOG_TYPE_DEFAULT, "[%@] Couldn't update touch delivery policies: _shouldShareTouchesWithHost=%{public}@; _presentationMode=%{public}ld; _scene=%{public}@; window=%{public}@", buf, 0x34u);
     }
   }
@@ -2430,22 +2432,23 @@ void __47__PRUISAmbientPosterViewController__setupScene__block_invoke_214(uint64
 
 void __64__PRUISAmbientPosterViewController__updateTouchDeliveryPolicies__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PRUISLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PRUISLogCommon(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v7 = 138412802;
-      v8 = WeakRetained;
-      v9 = 2114;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "[%@] Sending touch delivery policy %{public}@ failed with error: %{public}@", &v7, 0x20u);
+      v7 = *(a1 + 32);
+      v8 = 138412802;
+      v9 = v5;
+      v10 = 2114;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v3;
+      _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "[%@] Sending touch delivery policy %{public}@ failed with error: %{public}@", &v8, 0x20u);
     }
   }
 }
@@ -2453,7 +2456,7 @@ void __64__PRUISAmbientPosterViewController__updateTouchDeliveryPolicies__block_
 - (void)_clearTouchDeliveryPolicies
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = PRUISLogCommon();
+  v3 = PRUISLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -2567,21 +2570,21 @@ LABEL_5:
   }
 }
 
-uint64_t __94__PRUISAmbientPosterViewController__backlightLuminanceTraitDidChange_previousTraitCollection___block_invoke(uint64_t result, int a2)
+id *__94__PRUISAmbientPosterViewController__backlightLuminanceTraitDidChange_previousTraitCollection___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _screenDidTurnOff];
+    return [result[4] _screenDidTurnOff];
   }
 
   return result;
 }
 
-uint64_t __94__PRUISAmbientPosterViewController__backlightLuminanceTraitDidChange_previousTraitCollection___block_invoke_2(uint64_t result, int a2)
+id *__94__PRUISAmbientPosterViewController__backlightLuminanceTraitDidChange_previousTraitCollection___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _screenDidTurnOn];
+    return [result[4] _screenDidTurnOn];
   }
 
   return result;
@@ -2589,56 +2592,57 @@ uint64_t __94__PRUISAmbientPosterViewController__backlightLuminanceTraitDidChang
 
 - (void)_screenDidTurnOn
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   bs_isAppearingOrAppeared = [(PRUISAmbientPosterViewController *)self bs_isAppearingOrAppeared];
-  v4 = PRUISLogCommon();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (!bs_isAppearingOrAppeared)
+  v4 = bs_isAppearingOrAppeared;
+  v5 = PRUISLogCommon(bs_isAppearingOrAppeared);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (!v4)
   {
-    if (v5)
+    if (v6)
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "Ignoring screen turn on because we're not active", &v12, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring screen turn on because we're not active", &v14, 2u);
     }
 
     goto LABEL_10;
   }
 
-  if (v5)
+  if (v6)
   {
     pui_shortDescription = [(FBScene *)self->_scene pui_shortDescription];
-    v12 = 138543362;
-    v13 = pui_shortDescription;
-    _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "Scene %{public}@ observed screen turn on", &v12, 0xCu);
+    v14 = 138543362;
+    v15 = pui_shortDescription;
+    _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Scene %{public}@ observed screen turn on", &v14, 0xCu);
   }
 
   if (!self->_clientWantsScreenWakeEvents)
   {
     if (self->_clientEverWantedScreenWakeEvents)
     {
-      v4 = PRUISLogCommon();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = PRUISLogCommon(v8);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         pui_shortDescription2 = [(FBScene *)self->_scene pui_shortDescription];
-        v12 = 138543362;
-        v13 = pui_shortDescription2;
-        _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "Ignoring screen wake event because scene %{public}@ wanted them and later disabled them", &v12, 0xCu);
+        v14 = 138543362;
+        v15 = pui_shortDescription2;
+        _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring screen wake event because scene %{public}@ wanted them and later disabled them", &v14, 0xCu);
       }
     }
 
     else
     {
       ++self->_pendingScreenWakeCount;
-      v4 = PRUISLogCommon();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = PRUISLogCommon(v8);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         pui_shortDescription3 = [(FBScene *)self->_scene pui_shortDescription];
-        v11 = [MEMORY[0x1E696AD98] numberWithInteger:self->_pendingScreenWakeCount];
-        v12 = 138543618;
-        v13 = pui_shortDescription3;
-        v14 = 2112;
-        v15 = v11;
-        _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "Deferring screen wake event for scene %{public}@. total deferred: %@", &v12, 0x16u);
+        v13 = [MEMORY[0x1E696AD98] numberWithInteger:self->_pendingScreenWakeCount];
+        v14 = 138543618;
+        v15 = pui_shortDescription3;
+        v16 = 2112;
+        v17 = v13;
+        _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Deferring screen wake event for scene %{public}@. total deferred: %@", &v14, 0x16u);
       }
     }
 
@@ -2647,13 +2651,13 @@ LABEL_10:
     return;
   }
 
-  v7 = PRUISLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = PRUISLogCommon(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     pui_shortDescription4 = [(FBScene *)self->_scene pui_shortDescription];
-    v12 = 138543362;
-    v13 = pui_shortDescription4;
-    _os_log_impl(&dword_1CAE63000, v7, OS_LOG_TYPE_DEFAULT, "Sending prompt screen wake event to scene %{public}@", &v12, 0xCu);
+    v14 = 138543362;
+    v15 = pui_shortDescription4;
+    _os_log_impl(&dword_1CAE63000, v9, OS_LOG_TYPE_DEFAULT, "Sending prompt screen wake event to scene %{public}@", &v14, 0xCu);
   }
 
   [(FBScene *)self->_scene pui_postSignificantEvent:3];
@@ -2668,38 +2672,38 @@ LABEL_10:
 
 - (void)_setClientWantsScreenWakeEvents:(BOOL)events
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self->_clientWantsScreenWakeEvents != events)
   {
     eventsCopy = events;
     self->_clientWantsScreenWakeEvents = events;
-    v5 = PRUISLogCommon();
+    v5 = PRUISLogCommon(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       pui_shortDescription = [(FBScene *)self->_scene pui_shortDescription];
       clientWantsScreenWakeEvents = self->_clientWantsScreenWakeEvents;
       clientEverWantedScreenWakeEvents = self->_clientEverWantedScreenWakeEvents;
       v9 = [MEMORY[0x1E696AD98] numberWithInteger:self->_pendingScreenWakeCount];
-      v12 = 138544130;
-      v13 = pui_shortDescription;
-      v14 = 1024;
-      v15 = clientWantsScreenWakeEvents;
-      v16 = 1024;
-      v17 = clientEverWantedScreenWakeEvents;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Scene %{public}@ wants screen wake events: %{BOOL}u  ever wanted screen wake events: %{BOOL}u  pending wake events: %@", &v12, 0x22u);
+      v13 = 138544130;
+      v14 = pui_shortDescription;
+      v15 = 1024;
+      v16 = clientWantsScreenWakeEvents;
+      v17 = 1024;
+      v18 = clientEverWantedScreenWakeEvents;
+      v19 = 2112;
+      v20 = v9;
+      _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Scene %{public}@ wants screen wake events: %{BOOL}u  ever wanted screen wake events: %{BOOL}u  pending wake events: %@", &v13, 0x22u);
     }
 
     if (self->_clientWantsScreenWakeEvents && !self->_clientEverWantedScreenWakeEvents && self->_pendingScreenWakeCount)
     {
-      v10 = PRUISLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PRUISLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         pui_shortDescription2 = [(FBScene *)self->_scene pui_shortDescription];
-        v12 = 138543362;
-        v13 = pui_shortDescription2;
-        _os_log_impl(&dword_1CAE63000, v10, OS_LOG_TYPE_DEFAULT, "Sending deferred screen wake event to scene %{public}@", &v12, 0xCu);
+        v13 = 138543362;
+        v14 = pui_shortDescription2;
+        _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "Sending deferred screen wake event to scene %{public}@", &v13, 0xCu);
       }
 
       [(FBScene *)self->_scene pui_postSignificantEvent:3];

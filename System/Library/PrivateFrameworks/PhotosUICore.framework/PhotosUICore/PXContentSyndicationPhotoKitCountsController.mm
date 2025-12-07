@@ -45,7 +45,7 @@
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  [(PXContentSyndicationCountsController *)self actualDetailedCounts];
+  objc_msgSend_actualDetailedCounts(self);
   v5 = -1;
   if (fetchResultCount != -1)
   {
@@ -88,7 +88,7 @@
   assetsCountsController = self->_assetsCountsController;
   if (assetsCountsController)
   {
-    [(PXAssetsDataSourceCountsController *)assetsCountsController counts];
+    objc_msgSend_counts(assetsCountsController, a2);
   }
 
   v4[0] = MEMORY[0x1E69E9820];

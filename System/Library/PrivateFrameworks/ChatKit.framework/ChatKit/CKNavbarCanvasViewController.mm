@@ -888,7 +888,7 @@ LABEL_31:
 {
   beginCopy = begin;
   canvasView = [(CKNavbarCanvasViewController *)self canvasView];
-  leftItemView = [canvasView leftItemView];
+  v6 = objc_msgSend_leftItemView(canvasView);
 
   canvasView2 = [(CKNavbarCanvasViewController *)self canvasView];
   buttonViewFaceTimeAudio = [canvasView2 buttonViewFaceTimeAudio];
@@ -903,7 +903,7 @@ LABEL_31:
 
   if (![(CKNavbarCanvasViewController *)self shouldShowAvatarView])
   {
-    [leftItemView frame];
+    [v6 frame];
     v20.x = v13;
     v20.y = v15;
     if (!CGRectContainsPoint(v23, v20))
@@ -1106,7 +1106,7 @@ LABEL_31:
 {
   if (![(CKNavbarCanvasViewController *)self isInEditingMode])
   {
-    if ((v3 = [(CKNavbarCanvasViewController *)self navBarContext], v3 <= 4) && ((1 << v3) & 0x1A) != 0 && !CKIsRunningInMessagesTranscriptExtension() || ![(CKNavbarCanvasViewController *)self shouldShowAvatarView])
+    if ((v3 = [(CKNavbarCanvasViewController *)self navBarContext], v3 <= 4) && ((1 << v3) & 0x1A) != 0 && !CKIsRunningInMessagesTranscriptExtension(v3) || ![(CKNavbarCanvasViewController *)self shouldShowAvatarView])
     {
       delegate = [(CKNavbarCanvasViewController *)self delegate];
       canvasView = [(CKNavbarCanvasViewController *)self canvasView];
@@ -1544,12 +1544,12 @@ LABEL_3:
   {
     self->_canShowBackButtonView = view;
     canvasView = [(CKNavbarCanvasViewController *)self canvasView];
-    leftItemView = [canvasView leftItemView];
+    v6 = objc_msgSend_leftItemView(canvasView);
     backButtonView = [(CKNavbarCanvasViewController *)self backButtonView];
 
     if (view)
     {
-      if (leftItemView == backButtonView)
+      if (v6 == backButtonView)
       {
         return;
       }
@@ -1561,7 +1561,7 @@ LABEL_3:
 
     else
     {
-      if (leftItemView != backButtonView)
+      if (v6 != backButtonView)
       {
         return;
       }
@@ -1632,36 +1632,37 @@ LABEL_3:
 
 - (id)_rightItemViewForTraitCollection:(id)collection
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
-  if ([(CKNavbarCanvasViewController *)self editing])
+  editing = [(CKNavbarCanvasViewController *)self editing];
+  if (editing)
   {
     if (IMOSLoggingEnabled())
     {
-      v5 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         editCancelButtonView = [(CKNavbarCanvasViewController *)self editCancelButtonView];
-        v20 = 138412290;
-        v21 = editCancelButtonView;
-        _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "Right item view: User is editing, returning %@", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = editCancelButtonView;
+        _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "Right item view: User is editing, returning %@", &v21, 0xCu);
       }
     }
 
     editCancelButtonView2 = [(CKNavbarCanvasViewController *)self editCancelButtonView];
   }
 
-  else if (CKIsRunningInMessagesTranscriptExtension())
+  else if (CKIsRunningInMessagesTranscriptExtension(editing))
   {
     if (IMOSLoggingEnabled())
     {
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         doneButton = [(CKNavbarCanvasViewController *)self doneButton];
-        v20 = 138412290;
-        v21 = doneButton;
-        _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Right item view: Running in transcript extension, returning %@", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = doneButton;
+        _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "Right item view: Running in transcript extension, returning %@", &v21, 0xCu);
       }
     }
 
@@ -1677,13 +1678,13 @@ LABEL_3:
   {
     if (IMOSLoggingEnabled())
     {
-      v10 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         persistentMenuButton = [(CKNavbarCanvasViewController *)self persistentMenuButton];
-        v20 = 138412290;
-        v21 = persistentMenuButton;
-        _os_log_impl(&dword_19020E000, v10, OS_LOG_TYPE_INFO, "Right item view: We want to show the persistent menu, returning %@", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = persistentMenuButton;
+        _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_INFO, "Right item view: We want to show the persistent menu, returning %@", &v21, 0xCu);
       }
     }
 
@@ -1693,18 +1694,18 @@ LABEL_3:
   else
   {
     _shouldShowFacetimeButton = [(CKNavbarCanvasViewController *)self _shouldShowFacetimeButton];
-    v13 = IMOSLoggingEnabled();
+    v14 = IMOSLoggingEnabled();
     if (_shouldShowFacetimeButton)
     {
-      if (v13)
+      if (v14)
       {
-        v14 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v15 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           unifiedCallButton = [(CKNavbarCanvasViewController *)self unifiedCallButton];
-          v20 = 138412290;
-          v21 = unifiedCallButton;
-          _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "Right item view: We want to show the facetime button, returning %@", &v20, 0xCu);
+          v21 = 138412290;
+          v22 = unifiedCallButton;
+          _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "Right item view: We want to show the facetime button, returning %@", &v21, 0xCu);
         }
       }
 
@@ -1713,15 +1714,15 @@ LABEL_3:
 
     else
     {
-      if (v13)
+      if (v14)
       {
-        v16 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v17 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           detailsButton = [(CKNavbarCanvasViewController *)self detailsButton];
-          v20 = 138412290;
-          v21 = detailsButton;
-          _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_INFO, "Right item view: By default, returning %@", &v20, 0xCu);
+          v21 = 138412290;
+          v22 = detailsButton;
+          _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "Right item view: By default, returning %@", &v21, 0xCu);
         }
       }
 
@@ -1729,9 +1730,9 @@ LABEL_3:
     }
   }
 
-  v18 = editCancelButtonView2;
+  v19 = editCancelButtonView2;
 
-  return v18;
+  return v19;
 }
 
 - (BOOL)_shouldShowFacetimeButton
@@ -1994,13 +1995,13 @@ LABEL_6:
     self->_editCancelButtonView = v4;
 
     v6 = self->_editCancelButtonView;
-    v7 = CKFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UIButton *)v6 setTitle:v8 forState:0];
+    v8 = CKFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UIButton *)v6 setTitle:v9 forState:0];
 
     titleLabel = [(UIButton *)self->_editCancelButtonView titleLabel];
-    v10 = [MEMORY[0x1E69DB878] systemFontOfSize:17.0];
-    [titleLabel setFont:v10];
+    v11 = [MEMORY[0x1E69DB878] systemFontOfSize:17.0];
+    [titleLabel setFont:v11];
 
     [(UIButton *)self->_editCancelButtonView addTarget:self action:sel__buttonPressed_ forEvents:64];
     editCancelButtonView = self->_editCancelButtonView;
@@ -2167,9 +2168,9 @@ LABEL_8:
     self->_doneButton = v4;
 
     v6 = self->_doneButton;
-    v7 = CKFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"DONE" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UIButton *)v6 setTitle:v8 forState:0];
+    v8 = CKFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"DONE" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UIButton *)v6 setTitle:v9 forState:0];
 
     [(UIButton *)self->_doneButton addTarget:self action:sel__buttonPressed_ forControlEvents:64];
     doneButton = self->_doneButton;

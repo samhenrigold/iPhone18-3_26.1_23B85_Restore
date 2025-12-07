@@ -17,27 +17,27 @@
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allValues = [(NSMutableDictionary *)self->_components allValues];
-  v4 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         componentSystem = [v8 componentSystem];
         v10 = componentSystem;
         if (componentSystem)
@@ -47,16 +47,15 @@
         }
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
-  v12.receiver = self;
-  v12.super_class = GKEntity;
-  [(GKEntity *)&v12 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = GKEntity;
+  [(GKEntity *)&v11 dealloc];
 }
 
 + (GKEntity)entity
@@ -83,25 +82,25 @@
 
 - (GKEntity)initWithCoder:(id)coder
 {
-  v27[12] = *MEMORY[0x277D85DE8];
+  v26[12] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(GKEntity *)self init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v27[2] = objc_opt_class();
-    v27[3] = objc_opt_class();
-    v27[4] = objc_opt_class();
-    v27[5] = objc_opt_class();
-    v27[6] = objc_opt_class();
-    v27[7] = objc_opt_class();
-    v27[8] = objc_opt_class();
-    v27[9] = objc_opt_class();
-    v27[10] = objc_opt_class();
-    v27[11] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:12];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v26[2] = objc_opt_class();
+    v26[3] = objc_opt_class();
+    v26[4] = objc_opt_class();
+    v26[5] = objc_opt_class();
+    v26[6] = objc_opt_class();
+    v26[7] = objc_opt_class();
+    v26[8] = objc_opt_class();
+    v26[9] = objc_opt_class();
+    v26[10] = objc_opt_class();
+    v26[11] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:12];
     [v6 addObjectsFromArray:v7];
 
     allowedClasses = [coderCopy allowedClasses];
@@ -111,29 +110,29 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = v6;
-      v21 = coderCopy;
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
+      v19 = v6;
+      v20 = coderCopy;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v23;
+        v13 = *v22;
         do
         {
           v14 = 0;
           do
           {
-            if (*v23 != v13)
+            if (*v22 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v22 + 1) + 8 * v14);
+            v15 = *(*(&v21 + 1) + 8 * v14);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -148,18 +147,17 @@
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v12);
       }
 
-      v6 = v20;
-      coderCopy = v21;
+      v6 = v19;
+      coderCopy = v20;
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -173,24 +171,24 @@
 
 - (void)updateWithDeltaTime:(NSTimeInterval)seconds
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->_components objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 == v7)
+        if (*v11 == v7)
         {
-          v9 = *(*(&v11 + 1) + 8 * i);
+          v9 = *(*(&v10 + 1) + 8 * i);
           if ([v9 usesPerComponentUpdate])
           {
             continue;
@@ -200,7 +198,7 @@
         else
         {
           objc_enumerationMutation(objectEnumerator);
-          v9 = *(*(&v11 + 1) + 8 * i);
+          v9 = *(*(&v10 + 1) + 8 * i);
           if ([v9 usesPerComponentUpdate])
           {
             continue;
@@ -210,13 +208,11 @@
         [v9 updateWithDeltaTime:seconds];
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addComponent:(GKComponent *)component

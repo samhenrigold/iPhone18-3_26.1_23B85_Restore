@@ -48,39 +48,39 @@ void __43__TSSetupAssistantSIMSetupFlow_needsToRun___block_invoke(uint64_t a1)
   v2 = [(TSSIMSetupFlow *)&v8 init];
   if (v2)
   {
-    v2->_inBuddy = BYSetupAssistantNeedsToRun();
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v3 = BYSetupAssistantNeedsToRun();
+    v2->_inBuddy = v3;
+    v4 = _TSLogDomain(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       inBuddy = v2->_inBuddy;
       *buf = 67109378;
       v10 = inBuddy;
       v11 = 2080;
       v12 = "[TSSetupAssistantSIMSetupFlow init]";
-      _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "_inBuddy:%d @%s", buf, 0x12u);
+      _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "_inBuddy:%d @%s", buf, 0x12u);
     }
 
-    v5 = +[TSUserInPurchaseFlowAssertion sharedInstance];
-    [v5 assertUserInPurchaseFlowStartOver:0 caller:v2];
+    v6 = +[TSUserInPurchaseFlowAssertion sharedInstance];
+    [v6 assertUserInPurchaseFlowStartOver:0 caller:v2];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (TSSetupAssistantSIMSetupFlow)initWithIccid:(id)iccid showAddPlan:(BOOL)plan forceDualSIMSetup:(BOOL)setup allowDismiss:(BOOL)dismiss
 {
   dismissCopy = dismiss;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   iccidCopy = iccid;
-  v12 = _TSLogDomain();
+  v12 = _TSLogDomain(iccidCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v20[0] = 67109378;
-    v20[1] = dismissCopy;
-    v21 = 2080;
-    v22 = "[TSSetupAssistantSIMSetupFlow initWithIccid:showAddPlan:forceDualSIMSetup:allowDismiss:]";
-    _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "allowDismiss: %d @%s", v20, 0x12u);
+    v19[0] = 67109378;
+    v19[1] = dismissCopy;
+    v20 = 2080;
+    v21 = "[TSSetupAssistantSIMSetupFlow initWithIccid:showAddPlan:forceDualSIMSetup:allowDismiss:]";
+    _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "allowDismiss: %d @%s", v19, 0x12u);
   }
 
   v13 = [(TSSetupAssistantSIMSetupFlow *)self init];
@@ -101,7 +101,6 @@ void __43__TSSetupAssistantSIMSetupFlow_needsToRun___block_invoke(uint64_t a1)
     [v17 assertUserInPurchaseFlowStartOver:0 caller:v14];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -117,23 +116,21 @@ void __43__TSSetupAssistantSIMSetupFlow_needsToRun___block_invoke(uint64_t a1)
 
 - (id)firstViewController
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v3 = [[TSAddCellularPlanViewController alloc] initWithType:!self->_showAddPlan allowDismiss:self->_cancelButton != 0];
-  [(TSAddCellularPlanViewController *)v3 setDelegate:self];
-  v4 = _TSLogDomain();
+  v4 = _TSLogDomain([(TSAddCellularPlanViewController *)v3 setDelegate:self]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = objc_opt_class();
-    v10 = 2080;
-    v11 = "[TSSetupAssistantSIMSetupFlow firstViewController]";
-    v5 = v9;
-    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = objc_opt_class();
+    v9 = 2080;
+    v10 = "[TSSetupAssistantSIMSetupFlow firstViewController]";
+    v5 = v8;
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v7, 0x16u);
   }
 
   [(TSSIMSetupFlow *)self setTopViewController:v3];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -183,7 +180,7 @@ void __52__TSSetupAssistantSIMSetupFlow_firstViewController___block_invoke_2(uin
   if (*(a1 + 48))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     if (WeakRetained)
     {
       *(WeakRetained + 97) = 1;
@@ -201,10 +198,9 @@ void __52__TSSetupAssistantSIMSetupFlow_firstViewController___block_invoke_2(uin
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = *(*(a1 + 32) + 16);
+    v6 = *(*(a1 + 32) + 16);
 
-    v7();
+    v6();
   }
 }
 

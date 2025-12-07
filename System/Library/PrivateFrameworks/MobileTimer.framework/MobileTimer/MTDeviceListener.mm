@@ -50,7 +50,7 @@ uint64_t __40__MTDeviceListener_sharedDeviceListener__block_invoke()
 
 - (void)handleNotification:(id)notification ofType:(int64_t)type completion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = MTLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -61,48 +61,45 @@ uint64_t __40__MTDeviceListener_sharedDeviceListener__block_invoke()
   }
 
   workScheduler = [(MTDeviceListener *)self workScheduler];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __57__MTDeviceListener_handleNotification_ofType_completion___block_invoke;
-  v10[3] = &unk_1E7B0C9D8;
-  v10[4] = self;
-  [workScheduler performBlock:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __57__MTDeviceListener_handleNotification_ofType_completion___block_invoke;
+  v9[3] = &unk_1E7B0C9D8;
+  v9[4] = self;
+  [workScheduler performBlock:v9];
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MTDeviceListener_handleNotification_ofType_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() _latestKeyBagValueForHasBeenUnlockedSinceBoot];
-  [*(a1 + 32) setInternalHasBeenUnlockedSinceBoot:v3];
-  v4 = MTLogForCategory(0);
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (v3)
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = [objc_opt_class() _latestKeyBagValueForHasBeenUnlockedSinceBoot];
+  [*(a1 + 32) setInternalHasBeenUnlockedSinceBoot:v2];
+  v3 = MTLogForCategory(0);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  if (v2)
   {
-    if (v5)
+    if (v4)
     {
-      v6 = *(a1 + 32);
+      v5 = *(a1 + 32);
       *buf = 138543362;
-      v12 = v6;
-      v7 = "%{public}@ device has been unlocked";
+      v10 = v5;
+      v6 = "%{public}@ device has been unlocked";
 LABEL_6:
-      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
     }
   }
 
-  else if (v5)
+  else if (v4)
   {
-    v8 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138543362;
-    v12 = v8;
-    v7 = "%{public}@ device hasn't been unlocked";
+    v10 = v7;
+    v6 = "%{public}@ device hasn't been unlocked";
     goto LABEL_6;
   }
 
@@ -112,25 +109,22 @@ LABEL_6:
   block[3] = &unk_1E7B0C9D8;
   block[4] = *(a1 + 32);
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MTDeviceListener_handleNotification_ofType_completion___block_invoke_9(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ posting MTDeviceHasBeenUnlockedForFirstTime notification", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ posting MTDeviceHasBeenUnlockedForFirstTime notification", &v5, 0xCu);
   }
 
   v4 = [MEMORY[0x1E696AD88] defaultCenter];
   [v4 postNotificationName:@"MTDeviceHasBeenUnlockedForFirstTime" object:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)hasBeenUnlockedSinceBoot
@@ -168,27 +162,24 @@ void __57__MTDeviceListener_handleNotification_ofType_completion___block_invoke_
 
 intptr_t __45__MTDeviceListener__hasBeenUnlockedSinceBoot__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) internalHasBeenUnlockedSinceBoot] & 1) == 0)
   {
-    v2 = *(a1 + 32);
-    [v2 setInternalHasBeenUnlockedSinceBoot:{objc_msgSend(objc_opt_class(), "_latestKeyBagValueForHasBeenUnlockedSinceBoot")}];
-    v3 = MTLogForCategory(0);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    [*(a1 + 32) setInternalHasBeenUnlockedSinceBoot:{objc_msgSend(objc_opt_class(), "_latestKeyBagValueForHasBeenUnlockedSinceBoot")}];
+    v2 = MTLogForCategory(0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v7 = 138543618;
-      v8 = v4;
-      v9 = 1024;
-      v10 = [v4 internalHasBeenUnlockedSinceBoot];
-      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Found initial hasBeenUnlockedSinceBoot value of [%d]", &v7, 0x12u);
+      v3 = *(a1 + 32);
+      v5 = 138543618;
+      v6 = v3;
+      v7 = 1024;
+      v8 = [v3 internalHasBeenUnlockedSinceBoot];
+      _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Found initial hasBeenUnlockedSinceBoot value of [%d]", &v5, 0x12u);
     }
   }
 
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) internalHasBeenUnlockedSinceBoot];
-  result = dispatch_semaphore_signal(*(a1 + 40));
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 40));
 }
 
 + (BOOL)_latestKeyBagValueForHasBeenUnlockedSinceBoot
@@ -233,30 +224,28 @@ intptr_t __45__MTDeviceListener__hasBeenUnlockedSinceBoot__block_invoke(uint64_t
 
 - (void)printDiagnostics
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(6);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v6[0]) = 0;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "-----MTDeviceListener-----", v6, 2u);
+    LOWORD(v5[0]) = 0;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "-----MTDeviceListener-----", v5, 2u);
   }
 
   v3 = MTLogForCategory(6);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     hasBeenUnlockedSinceBoot = [objc_opt_class() hasBeenUnlockedSinceBoot];
-    v6[0] = 67240192;
-    v6[1] = hasBeenUnlockedSinceBoot;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Unlocked since boot: %{public}d", v6, 8u);
+    v5[0] = 67240192;
+    v5[1] = hasBeenUnlockedSinceBoot;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Unlocked since boot: %{public}d", v5, 8u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"Unlocked since boot";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"Unlocked since boot";
   hasBeenUnlockedSinceBoot = [objc_opt_class() hasBeenUnlockedSinceBoot];
   v3 = @"NO";
   if (hasBeenUnlockedSinceBoot)
@@ -264,9 +253,8 @@ intptr_t __45__MTDeviceListener__hasBeenUnlockedSinceBoot__block_invoke(uint64_t
     v3 = @"YES";
   }
 
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

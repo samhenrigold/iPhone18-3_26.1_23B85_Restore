@@ -175,10 +175,10 @@
             goto LABEL_26;
           }
 
-          v26 = kCKAssetChunkLength;
-          v27 = &off_1003E0DE0;
-          v17 = &v27;
-          v18 = &v26;
+          v25 = kCKAssetChunkLength;
+          v26 = &off_1003E0DE0;
+          v17 = &v26;
+          v18 = &v25;
           goto LABEL_15;
         }
 
@@ -205,9 +205,9 @@
 
     else if (type == 3)
     {
-      v26 = kCKAssetChunkLength;
-      v27 = &off_1003E0DE0;
-      v23 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v25 = kCKAssetChunkLength;
+      v26 = &off_1003E0DE0;
+      v23 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
       [v14 setAssetChunkerOptions:v23];
     }
 
@@ -238,18 +238,17 @@ LABEL_21:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v31 = pathCopy;
+    v30 = pathCopy;
     _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Not using fxd for: %@", buf, 0xCu);
-    v25 = pathCopy;
-    _MBLog();
+    _MBLog(@"I ", "Not using fxd for: %@", pathCopy);
   }
 
-  v28 = kCKAssetChunkLength;
-  v29 = &off_1003E0DE0;
-  v17 = &v29;
-  v18 = &v28;
+  v27 = kCKAssetChunkLength;
+  v28 = &off_1003E0DE0;
+  v17 = &v28;
+  v18 = &v27;
 LABEL_15:
-  v22 = [NSDictionary dictionaryWithObjects:v17 forKeys:v18 count:1, v25];
+  v22 = [NSDictionary dictionaryWithObjects:v17 forKeys:v18 count:1];
   [v14 setAssetChunkerOptions:v22];
 LABEL_25:
 

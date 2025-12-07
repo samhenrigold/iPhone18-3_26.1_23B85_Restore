@@ -53,7 +53,7 @@ void __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationW
   v6 = WeakRetained;
   if (WeakRetained)
   {
-    if (*(WeakRetained + 40) == 1 && (v7 = WeakRetained + 4, WeakRetained[4]) && (v8 = [v4 rawValue], v8 == objc_msgSend(*v7, "rawValue")))
+    if (*(WeakRetained + 40) == 1 && (v7 = WeakRetained + 4, WeakRetained[4]) && (v8 = objc_msgSend_rawValue(v4), v8 == objc_msgSend_rawValue(*v7)))
     {
       objc_storeStrong(v6 + 4, a2);
       (*(*(a1 + 32) + 16))();
@@ -102,22 +102,23 @@ void __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationW
   if (WeakRetained)
   {
     v5 = *(a1 + 32);
+    v6 = v5;
     if (v3)
     {
-      v6 = LACLogDTOLocation();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = LACLogDTOLocation(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationWithCompletion___block_invoke_3_cold_1(WeakRetained, v3, v6);
+        __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationWithCompletion___block_invoke_3_cold_1(WeakRetained, v3, v7);
       }
 
-      v7 = +[LACDTOLocationState nullInstance];
+      v8 = +[LACDTOLocationState nullInstance];
 
-      v5 = v7;
+      v6 = v8;
     }
 
-    v8 = WeakRetained[4];
-    WeakRetained[4] = v5;
-    v9 = v5;
+    v9 = WeakRetained[4];
+    WeakRetained[4] = v6;
+    v10 = v6;
 
     (*(*(a1 + 40) + 16))();
   }
@@ -126,33 +127,33 @@ void __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationW
 - (id)_kvsValueForLocationState:(id)state
 {
   stateCopy = state;
-  if ([stateCopy rawValue] == -1)
+  if (objc_msgSend_rawValue(stateCopy) == -1)
   {
     v5 = 0;
   }
 
   else
   {
-    if ((-[LACFeatureFlagsProviderDTO featureFlagDimpleKeyZeroDelayRatchetEnabled](self->_featureFlags, "featureFlagDimpleKeyZeroDelayRatchetEnabled") & 1) != 0 || [stateCopy rawValue] != 2)
+    if (([(LACFeatureFlagsProviderDTO *)self->_featureFlags featureFlagDimpleKeyZeroDelayRatchetEnabled]& 1) != 0 || objc_msgSend_rawValue(stateCopy) != 2)
     {
       v9 = [LACDTOKVStoreValue alloc];
-      rawValue = [stateCopy rawValue];
+      v8 = objc_msgSend_rawValue(stateCopy);
       v7 = v9;
     }
 
     else
     {
-      v6 = LACLogDTOLocation();
+      v6 = LACLogDTOLocation(2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [(LACDTOLocationProviderPersistenceDecorator *)self _kvsValueForLocationState:v6];
       }
 
       v7 = [LACDTOKVStoreValue alloc];
-      rawValue = LACDTOLocationStateRawValueAwayFromFamiliarLocation;
+      v8 = LACDTOLocationStateRawValueAwayFromFamiliarLocation;
     }
 
-    v5 = [(LACDTOKVStoreValue *)v7 initWithByte:rawValue];
+    v5 = [(LACDTOKVStoreValue *)v7 initWithByte:v8];
   }
 
   return v5;
@@ -160,22 +161,20 @@ void __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationW
 
 void __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationWithCompletion___block_invoke_3_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@ did finish query with error %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@ did finish query with error %{public}@", &v3, 0x16u);
 }
 
 - (void)_kvsValueForLocationState:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "%{public}@ RZD is disabled. Falling back to previous location value", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "%{public}@ RZD is disabled. Falling back to previous location value", &v2, 0xCu);
 }
 
 @end

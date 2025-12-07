@@ -1,5 +1,6 @@
 @interface HMFTimerManager
 - (BOOL)_cancelTimerManagerIfEmpty;
+- (HMFTimerManager)initWithOptions:(unsigned int)options;
 - (HMFTimerManager)initWithOptions:(unsigned int)options dataSource:(id)source;
 - (HMFTimerManagerDelegate)delegate;
 - (id)_removeExpiredTimerContextsAndRefreshNextTimer;
@@ -10,10 +11,20 @@
 - (void)_removeTimerContextsWithMatchingObject:(id)object;
 - (void)cancelTimerForContext:(id)context;
 - (void)notifyDidFireForTimerContexts:(id)contexts shouldDispatch:(BOOL)dispatch;
+- (void)refreshTimerManagerWithShouldDispatchNotifications:(BOOL)notifications;
 - (void)timerDidFire:(id)fire;
 @end
 
 @implementation HMFTimerManager
+
+- (HMFTimerManager)initWithOptions:(unsigned int)options
+{
+  v3 = *&options;
+  v5 = objc_alloc_init(HMFTimerManagerDefaultDataSource);
+  v6 = [(HMFTimerManager *)self initWithOptions:v3 dataSource:v5];
+
+  return v6;
+}
 
 - (HMFTimerManager)initWithOptions:(unsigned int)options dataSource:(id)source
 {
@@ -181,29 +192,29 @@ uint64_t __58__HMFTimerManager__removeTimerContextsWithMatchingObject___block_in
 
 - (id)_removeExpiredTimerContextsAndRefreshNextTimer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_sortedTimerContexts;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v16 + 1) + 8 * v8);
+      v9 = *(*(&v15 + 1) + 8 * v8);
       [v9 expirationTime];
       v11 = v10;
       [(HMFTimerManagerDataSource *)self->_dataSource currentTime];
@@ -216,7 +227,7 @@ LABEL_3:
       [v3 addObject:v9];
       if (v6 == ++v8)
       {
-        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -237,10 +248,27 @@ LABEL_3:
     -[NSMutableArray removeObjectsInRange:](self->_sortedTimerContexts, "removeObjectsInRange:", 0, [v3 count]);
   }
 
-  [(HMFTimerManager *)self _refreshNextTimerIfNeededWithTimeInterval:v13, v16];
-  v14 = *MEMORY[0x277D85DE8];
+  [(HMFTimerManager *)self _refreshNextTimerIfNeededWithTimeInterval:v13, v15];
 
   return v3;
+}
+
+- (void)refreshTimerManagerWithShouldDispatchNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  os_unfair_lock_lock_with_options();
+  if ([(HMFTimerManager *)self _cancelTimerManagerIfEmpty])
+  {
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  else
+  {
+    _removeExpiredTimerContextsAndRefreshNextTimer = [(HMFTimerManager *)self _removeExpiredTimerContextsAndRefreshNextTimer];
+    os_unfair_lock_unlock(&self->_lock);
+    [(HMFTimerManager *)self notifyDidFireForTimerContexts:_removeExpiredTimerContextsAndRefreshNextTimer shouldDispatch:notificationsCopy];
+  }
 }
 
 - (void)notifyDidFireForTimerContexts:(id)contexts shouldDispatch:(BOOL)dispatch

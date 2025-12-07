@@ -9,18 +9,18 @@
 
 - (id)findTupleForATVState:(unint64_t)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   v6 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HMFGetLogIdentifier();
     v8 = [HAPBTLETuple atvState2String:state];
-    v14 = 138543618;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[ATVModel] findTupleForState state %@\n", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[ATVModel] findTupleForState state %@\n", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -28,142 +28,139 @@
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:state];
   v11 = [atvLUT objectForKey:v10];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (ATVModel)init
 {
-  v65[4] = *MEMORY[0x277D85DE8];
-  v58.receiver = self;
-  v58.super_class = ATVModel;
-  v2 = [(ATVModel *)&v58 init];
+  v64[4] = *MEMORY[0x277D85DE8];
+  v57.receiver = self;
+  v57.super_class = ATVModel;
+  v2 = [(ATVModel *)&v57 init];
   v3 = v2;
   if (v2)
   {
-    v52 = v2;
+    v51 = v2;
     v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:20];
-    v53 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
+    v52 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
     v5 = [HAPBTLETuple makeTupleWithATVState:2 MaxHAPConnections:3];
-    v65[0] = v5;
+    v64[0] = v5;
     v6 = [HAPBTLETuple makeTupleWithATVState:66 MaxHAPConnections:2];
-    v65[1] = v6;
+    v64[1] = v6;
     v7 = [HAPBTLETuple makeTupleWithATVState:4 MaxHAPConnections:2];
-    v65[2] = v7;
+    v64[2] = v7;
     v8 = [HAPBTLETuple makeTupleWithATVState:68 MaxHAPConnections:1];
-    v65[3] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:4];
-    [v53 addObjectsFromArray:v9];
+    v64[3] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:4];
+    [v52 addObjectsFromArray:v9];
 
-    v50 = [HAPBTLETuple makeTupleWithATVState:258 MaxHAPConnections:2];
-    v64[0] = v50;
-    v49 = [HAPBTLETuple makeTupleWithATVState:514 MaxHAPConnections:1];
-    v64[1] = v49;
-    v48 = [HAPBTLETuple makeTupleWithATVState:1026 MaxHAPConnections:1];
-    v64[2] = v48;
-    v47 = [HAPBTLETuple makeTupleWithATVState:2050 MaxHAPConnections:1];
-    v64[3] = v47;
-    v46 = [HAPBTLETuple makeTupleWithATVState:322 MaxHAPConnections:1];
-    v64[4] = v46;
+    v49 = [HAPBTLETuple makeTupleWithATVState:258 MaxHAPConnections:2];
+    v63[0] = v49;
+    v48 = [HAPBTLETuple makeTupleWithATVState:514 MaxHAPConnections:1];
+    v63[1] = v48;
+    v47 = [HAPBTLETuple makeTupleWithATVState:1026 MaxHAPConnections:1];
+    v63[2] = v47;
+    v46 = [HAPBTLETuple makeTupleWithATVState:2050 MaxHAPConnections:1];
+    v63[3] = v46;
+    v45 = [HAPBTLETuple makeTupleWithATVState:322 MaxHAPConnections:1];
+    v63[4] = v45;
     v10 = [HAPBTLETuple makeTupleWithATVState:578 MaxHAPConnections:1];
-    v64[5] = v10;
+    v63[5] = v10;
     v11 = [HAPBTLETuple makeTupleWithATVState:1090 MaxHAPConnections:1];
-    v64[6] = v11;
+    v63[6] = v11;
     v12 = [HAPBTLETuple makeTupleWithATVState:386 MaxHAPConnections:1];
-    v64[7] = v12;
+    v63[7] = v12;
     v13 = [HAPBTLETuple makeTupleWithATVState:450 MaxHAPConnections:1];
-    v64[8] = v13;
+    v63[8] = v13;
     v14 = [HAPBTLETuple makeTupleWithATVState:260 MaxHAPConnections:1];
-    v64[9] = v14;
+    v63[9] = v14;
     v15 = [HAPBTLETuple makeTupleWithATVState:516 MaxHAPConnections:1];
-    v64[10] = v15;
+    v63[10] = v15;
     v16 = [HAPBTLETuple makeTupleWithATVState:324 MaxHAPConnections:1];
-    v64[11] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:12];
-    [v53 addObjectsFromArray:v17];
+    v63[11] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:12];
+    [v52 addObjectsFromArray:v17];
 
-    v51 = [HAPBTLETuple makeTupleWithATVState:10 MaxHAPConnections:2];
-    v63[0] = v51;
+    v50 = [HAPBTLETuple makeTupleWithATVState:10 MaxHAPConnections:2];
+    v62[0] = v50;
     v18 = [HAPBTLETuple makeTupleWithATVState:18 MaxHAPConnections:1];
-    v63[1] = v18;
+    v62[1] = v18;
     v19 = [HAPBTLETuple makeTupleWithATVState:74 MaxHAPConnections:1];
-    v63[2] = v19;
+    v62[2] = v19;
     v20 = [HAPBTLETuple makeTupleWithATVState:82 MaxHAPConnections:1];
-    v63[3] = v20;
+    v62[3] = v20;
     v21 = [HAPBTLETuple makeTupleWithATVState:138 MaxHAPConnections:1];
-    v63[4] = v21;
+    v62[4] = v21;
     v22 = [HAPBTLETuple makeTupleWithATVState:146 MaxHAPConnections:1];
-    v63[5] = v22;
+    v62[5] = v22;
     v23 = [HAPBTLETuple makeTupleWithATVState:202 MaxHAPConnections:1];
-    v63[6] = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:7];
-    [v53 addObjectsFromArray:v24];
+    v62[6] = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:7];
+    [v52 addObjectsFromArray:v24];
 
     v25 = [HAPBTLETuple makeTupleWithATVState:130 MaxHAPConnections:1];
-    v62[0] = v25;
+    v61[0] = v25;
     v26 = [HAPBTLETuple makeTupleWithATVState:194 MaxHAPConnections:1];
-    v62[1] = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
-    [v53 addObjectsFromArray:v27];
+    v61[1] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+    [v52 addObjectsFromArray:v27];
 
     v28 = [HAPBTLETuple makeTupleWithATVState:4098 MaxHAPConnections:1];
-    v61[0] = v28;
+    v60[0] = v28;
     v29 = [HAPBTLETuple makeTupleWithATVState:8194 MaxHAPConnections:1];
-    v61[1] = v29;
+    v60[1] = v29;
     v30 = [HAPBTLETuple makeTupleWithATVState:16386 MaxHAPConnections:1];
-    v61[2] = v30;
+    v60[2] = v30;
     v31 = [HAPBTLETuple makeTupleWithATVState:4162 MaxHAPConnections:1];
-    v61[3] = v31;
+    v60[3] = v31;
     v32 = [HAPBTLETuple makeTupleWithATVState:8258 MaxHAPConnections:1];
-    v61[4] = v32;
+    v60[4] = v32;
     v33 = [HAPBTLETuple makeTupleWithATVState:4100 MaxHAPConnections:1];
-    v61[5] = v33;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:6];
-    [v53 addObjectsFromArray:v34];
+    v60[5] = v33;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:6];
+    [v52 addObjectsFromArray:v34];
 
     v35 = [HAPBTLETuple makeTupleWithATVState:1 MaxHAPConnections:5];
-    v60 = v35;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
-    [v53 addObjectsFromArray:v36];
+    v59 = v35;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+    [v52 addObjectsFromArray:v36];
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
-    v37 = v53;
-    v38 = [v37 countByEnumeratingWithState:&v54 objects:v59 count:16];
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v37 = v52;
+    v38 = [v37 countByEnumeratingWithState:&v53 objects:v58 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v55;
+      v40 = *v54;
       do
       {
         v41 = 0;
         do
         {
-          if (*v55 != v40)
+          if (*v54 != v40)
           {
             objc_enumerationMutation(v37);
           }
 
-          [ATVModel addTuple:*(*(&v54 + 1) + 8 * v41++) ToLUT:v4];
+          [ATVModel addTuple:*(*(&v53 + 1) + 8 * v41++) ToLUT:v4];
         }
 
         while (v39 != v41);
-        v39 = [v37 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v39 = [v37 countByEnumeratingWithState:&v53 objects:v58 count:16];
       }
 
       while (v39);
     }
 
     v42 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v4];
-    v3 = v52;
-    atvLUT = v52->_atvLUT;
-    v52->_atvLUT = v42;
+    v3 = v51;
+    atvLUT = v51->_atvLUT;
+    v51->_atvLUT = v42;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

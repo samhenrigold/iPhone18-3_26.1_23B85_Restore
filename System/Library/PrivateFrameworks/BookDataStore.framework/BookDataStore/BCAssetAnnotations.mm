@@ -1,4 +1,5 @@
 @interface BCAssetAnnotations
+- (BOOL)isEqualExceptForDate:(id)date ignoringEmptySalt:(BOOL)salt;
 - (NSString)debugDescription;
 - (id)mutableCopy;
 - (void)_configureFromAssetAnnotations:(id)annotations withMergers:(id)mergers;
@@ -27,12 +28,36 @@
 
   else
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E47059F8();
     }
   }
+}
+
+- (BOOL)isEqualExceptForDate:(id)date ignoringEmptySalt:(BOOL)salt
+{
+  saltCopy = salt;
+  dateCopy = date;
+  v7 = BUProtocolCast();
+  v17.receiver = self;
+  v17.super_class = BCAssetAnnotations;
+  LOBYTE(saltCopy) = [(BCCloudData *)&v17 isEqualExceptForDate:dateCopy ignoringEmptySalt:saltCopy];
+
+  assetID = [(BCAssetAnnotations *)self assetID];
+  assetID2 = [v7 assetID];
+  v10 = [assetID isEqualToString:assetID2];
+
+  assetVersion = [(BCAssetAnnotations *)self assetVersion];
+  assetVersion2 = [v7 assetVersion];
+  v13 = [assetVersion isEqualToString:assetVersion2];
+
+  bookAnnotations = [(BCAssetAnnotations *)self bookAnnotations];
+  bookAnnotations2 = [v7 bookAnnotations];
+  LOBYTE(assetVersion2) = [bookAnnotations isEqual:bookAnnotations2];
+
+  return saltCopy & v10 & v13 & assetVersion2;
 }
 
 - (void)_configureFromAssetAnnotations:(id)annotations withMergers:(id)mergers
@@ -55,44 +80,43 @@
 
   if (assetVersion)
   {
-    v12 = BDSCloudKitDevelopmentLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = BDSCloudKitDevelopmentLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       assetID3 = [(BCAssetAnnotations *)self assetID];
-      v14 = [(BCAssetAnnotations *)self debugDescription];
+      v15 = [(BCAssetAnnotations *)self debugDescription];
       assetID4 = [annotationsCopy assetID];
       *buf = 138543874;
       v19 = assetID3;
       v20 = 2112;
-      v21 = v14;
+      v21 = v15;
       v22 = 2114;
       v23 = assetID4;
-      _os_log_impl(&dword_1E45E0000, v12, OS_LOG_TYPE_DEFAULT, "\\BCAssetAnnotations configured: %{public}@ %@ from assetDetail:%{public}@\\"", buf, 0x20u);
+      _os_log_impl(&dword_1E45E0000, v13, OS_LOG_TYPE_DEFAULT, "\\BCAssetAnnotations configured: %{public}@ %@ from assetDetail:%{public}@\", buf, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_mergeInAssetID:(id)d assetVersion:(id)version serializedData:(id)data
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   dCopy = d;
   versionCopy = version;
   dataCopy = data;
   v11 = objc_alloc_init(BCAnnotationsProtoBook);
   v12 = [objc_alloc(MEMORY[0x1E69C65B8]) initWithData:dataCopy];
-  if (BCAnnotationsProtoBookReadFrom(v11, v12))
+  v13 = BCAnnotationsProtoBookReadFrom(v11, v12);
+  if (v13)
   {
-    v67 = v12;
-    v69 = dataCopy;
+    v73 = v12;
+    v75 = dataCopy;
     assetID = [(BCAssetAnnotations *)self assetID];
-    v14 = [assetID isEqualToString:dCopy];
+    v15 = [assetID isEqualToString:dCopy];
 
-    if ((v14 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      v15 = BDSCloudKitLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = BDSCloudKitLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_1E4705AC0(self);
       }
@@ -100,280 +124,281 @@
       [(BCAssetAnnotations *)self setAssetID:dCopy];
     }
 
-    v16 = objc_alloc_init(BCAnnotationsProtoBook);
-    [(BCAnnotationsProtoBook *)v16 setAssetID:dCopy];
-    v17 = +[BDSAppVersion appVersion];
-    [(BCAnnotationsProtoBook *)v16 setAppVersion:v17];
+    v18 = objc_alloc_init(BCAnnotationsProtoBook);
+    [(BCAnnotationsProtoBook *)v18 setAssetID:dCopy];
+    v19 = +[BDSAppVersion appVersion];
+    [(BCAnnotationsProtoBook *)v18 setAppVersion:v19];
 
     bookAnnotations = [(BCAssetAnnotations *)self bookAnnotations];
-    v19 = [bookAnnotations length];
+    v21 = [bookAnnotations length];
 
-    if (v19)
+    if (v21)
     {
-      v20 = objc_alloc(MEMORY[0x1E69C65B8]);
+      v22 = objc_alloc(MEMORY[0x1E69C65B8]);
       bookAnnotations2 = [(BCAssetAnnotations *)self bookAnnotations];
-      v22 = [v20 initWithData:bookAnnotations2];
+      v24 = [v22 initWithData:bookAnnotations2];
 
-      v23 = BCAnnotationsProtoBookReadFrom(v16, v22);
-      if ((v23 & 1) == 0)
+      v25 = BCAnnotationsProtoBookReadFrom(v18, v24);
+      v26 = v25;
+      if ((v25 & 1) == 0)
       {
-        v24 = BDSCloudKitLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v27 = BDSCloudKitLog(v25);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           sub_1E4705B64(self);
         }
       }
 
-      v66 = v23 ^ 1;
+      v72 = v26 ^ 1;
     }
 
     else
     {
-      v66 = 1;
+      v72 = 1;
     }
 
-    v70 = versionCopy;
-    v71 = dCopy;
-    v26 = v16;
-    v68 = v11;
-    v72 = v11;
+    v76 = versionCopy;
+    v77 = dCopy;
+    v29 = v18;
+    v74 = v11;
+    v78 = v11;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     [MEMORY[0x1E695DF70] array];
-    v75 = p_super = &v26->super.super;
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    annotations = [(BCAnnotationsProtoBook *)v26 annotations];
-    v29 = [annotations countByEnumeratingWithState:&v80 objects:v88 count:16];
+    v81 = p_super = &v29->super.super;
+    v86 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    annotations = [(BCAnnotationsProtoBook *)v29 annotations];
+    v32 = [annotations countByEnumeratingWithState:&v86 objects:v94 count:16];
     selfCopy = self;
-    if (v29)
+    if (v32)
     {
-      v30 = v29;
-      v31 = 0;
-      v32 = *v81;
+      v33 = v32;
+      v34 = 0;
+      v35 = *v87;
       do
       {
-        for (i = 0; i != v30; ++i)
+        for (i = 0; i != v33; ++i)
         {
-          if (*v81 != v32)
+          if (*v87 != v35)
           {
             objc_enumerationMutation(annotations);
           }
 
-          v34 = *(*(&v80 + 1) + 8 * i);
-          if (sub_1E46157D8(v34))
+          v37 = *(*(&v86 + 1) + 8 * i);
+          v38 = sub_1E46157D8(v37);
+          if (v38)
           {
-            uuid = [v34 uuid];
-            [dictionary setObject:v34 forKeyedSubscript:uuid];
+            uuid = [v37 uuid];
+            [dictionary setObject:v37 forKeyedSubscript:uuid];
           }
 
           else
           {
-            v36 = BDSCloudKitLog();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+            v40 = BDSCloudKitLog(v38);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v87 = v34;
-              _os_log_error_impl(&dword_1E45E0000, v36, OS_LOG_TYPE_ERROR, "skipping annotation not valid for sync %@", buf, 0xCu);
+              v93 = v37;
+              _os_log_error_impl(&dword_1E45E0000, v40, OS_LOG_TYPE_ERROR, "skipping annotation not valid for sync %@", buf, 0xCu);
             }
 
-            [v75 addObject:v34];
-            v31 = 1;
+            [v81 addObject:v37];
+            v34 = 1;
           }
         }
 
-        v30 = [annotations countByEnumeratingWithState:&v80 objects:v88 count:16];
+        v33 = [annotations countByEnumeratingWithState:&v86 objects:v94 count:16];
       }
 
-      while (v30);
+      while (v33);
     }
 
     else
     {
-      v31 = 0;
+      v34 = 0;
     }
 
     annotations2 = [p_super annotations];
-    [annotations2 removeObjectsInArray:v75];
+    [annotations2 removeObjectsInArray:v81];
 
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    annotations3 = [(BCAnnotationsProtoBook *)v72 annotations];
-    v39 = [annotations3 countByEnumeratingWithState:&v76 objects:buf count:16];
-    if (v39)
+    v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    annotations3 = [(BCAnnotationsProtoBook *)v78 annotations];
+    v43 = [annotations3 countByEnumeratingWithState:&v82 objects:buf count:16];
+    if (v43)
     {
-      v40 = v39;
-      v41 = *v77;
-      v73 = dictionary;
+      v44 = v43;
+      v45 = *v83;
+      v79 = dictionary;
       do
       {
-        for (j = 0; j != v40; ++j)
+        for (j = 0; j != v44; ++j)
         {
-          if (*v77 != v41)
+          if (*v83 != v45)
           {
             objc_enumerationMutation(annotations3);
           }
 
-          v43 = *(*(&v76 + 1) + 8 * j);
-          uuid2 = [v43 uuid];
-          v45 = [dictionary objectForKeyedSubscript:uuid2];
-          if (sub_1E46157D8(v43))
+          v47 = *(*(&v82 + 1) + 8 * j);
+          uuid2 = [v47 uuid];
+          v49 = [dictionary objectForKeyedSubscript:uuid2];
+          v50 = sub_1E46157D8(v47);
+          if (v50)
           {
-            if (v45)
+            if (v49)
             {
-              [v43 modificationDate];
-              v47 = v46;
-              [(BCProtoAnnotation *)v45 modificationDate];
-              if (v47 > v48)
+              [v47 modificationDate];
+              v52 = v51;
+              [(BCProtoAnnotation *)v49 modificationDate];
+              if (v52 > v53)
               {
-                v49 = annotations3;
-                deleted = [v43 deleted];
+                v54 = annotations3;
+                deleted = [v47 deleted];
                 mEMORY[0x1E698F550] = [MEMORY[0x1E698F550] shared];
                 verboseLoggingEnabled = [mEMORY[0x1E698F550] verboseLoggingEnabled];
 
                 if (deleted)
                 {
-                  annotations3 = v49;
+                  annotations3 = v54;
                   if (verboseLoggingEnabled)
                   {
-                    v53 = BDSCloudKitDevelopmentLog();
-                    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+                    v59 = BDSCloudKitDevelopmentLog(v58);
+                    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
                     {
-                      uuid3 = [v43 uuid];
-                      *v84 = 138412290;
-                      v85 = uuid3;
-                      _os_log_impl(&dword_1E45E0000, v53, OS_LOG_TYPE_DEFAULT, "\\Annotation updated: annotation %@ is deleted, making a tombstone\\"", v84, 0xCu);
+                      uuid3 = [v47 uuid];
+                      *v90 = 138412290;
+                      v91 = uuid3;
+                      _os_log_impl(&dword_1E45E0000, v59, OS_LOG_TYPE_DEFAULT, "\\Annotation updated: annotation %@ is deleted, making a tombstone\", v90, 0xCu);
 
-                      annotations3 = v49;
+                      annotations3 = v54;
                     }
                   }
 
-                  [v43 modificationDate];
-                  [(BCProtoAnnotation *)v45 setModificationDate:?];
-                  bc_turnProtoAnnotationIntoTombstone(v45);
+                  [v47 modificationDate];
+                  [(BCProtoAnnotation *)v49 setModificationDate:?];
+                  bc_turnProtoAnnotationIntoTombstone(v49);
                 }
 
                 else
                 {
-                  annotations3 = v49;
+                  annotations3 = v54;
                   if (verboseLoggingEnabled)
                   {
-                    v60 = BDSCloudKitDevelopmentLog();
-                    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+                    v67 = BDSCloudKitDevelopmentLog(v58);
+                    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
                     {
-                      locationCFIString = [v43 locationCFIString];
-                      *v84 = 138412290;
-                      v85 = locationCFIString;
-                      _os_log_impl(&dword_1E45E0000, v60, OS_LOG_TYPE_DEFAULT, "\\Annotation updated: annotation at location %@\\"", v84, 0xCu);
+                      locationCFIString = [v47 locationCFIString];
+                      *v90 = 138412290;
+                      v91 = locationCFIString;
+                      _os_log_impl(&dword_1E45E0000, v67, OS_LOG_TYPE_DEFAULT, "\\Annotation updated: annotation at location %@\", v90, 0xCu);
 
-                      annotations3 = v49;
+                      annotations3 = v54;
                     }
                   }
 
-                  [v43 copyTo:v45];
+                  [v47 copyTo:v49];
                 }
 
-                v31 = 1;
-                dictionary = v73;
+                v34 = 1;
+                dictionary = v79;
               }
             }
 
             else
             {
-              v45 = objc_alloc_init(BCProtoAnnotation);
-              [v43 copyTo:v45];
-              [p_super addAnnotation:v45];
+              v49 = objc_alloc_init(BCProtoAnnotation);
+              [v47 copyTo:v49];
+              [p_super addAnnotation:v49];
               mEMORY[0x1E698F550]2 = [MEMORY[0x1E698F550] shared];
               verboseLoggingEnabled2 = [mEMORY[0x1E698F550]2 verboseLoggingEnabled];
 
               if (verboseLoggingEnabled2)
               {
-                v58 = BDSCloudKitDevelopmentLog();
-                if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+                v65 = BDSCloudKitDevelopmentLog(v64);
+                if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
                 {
-                  locationCFIString2 = [(BCProtoAnnotation *)v45 locationCFIString];
-                  *v84 = 138412290;
-                  v85 = locationCFIString2;
-                  _os_log_impl(&dword_1E45E0000, v58, OS_LOG_TYPE_DEFAULT, "\\Annotations updated: new annotation synced down at %@\\"", v84, 0xCu);
+                  locationCFIString2 = [(BCProtoAnnotation *)v49 locationCFIString];
+                  *v90 = 138412290;
+                  v91 = locationCFIString2;
+                  _os_log_impl(&dword_1E45E0000, v65, OS_LOG_TYPE_DEFAULT, "\\Annotations updated: new annotation synced down at %@\", v90, 0xCu);
                 }
               }
 
-              v31 = 1;
+              v34 = 1;
             }
           }
 
           else
           {
-            v55 = BDSCloudKitLog();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+            v61 = BDSCloudKitLog(v50);
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
             {
-              *v84 = 138412290;
-              v85 = v43;
-              _os_log_error_impl(&dword_1E45E0000, v55, OS_LOG_TYPE_ERROR, "skipping annotation not valid for sync %@.", v84, 0xCu);
+              *v90 = 138412290;
+              v91 = v47;
+              _os_log_error_impl(&dword_1E45E0000, v61, OS_LOG_TYPE_ERROR, "skipping annotation not valid for sync %@.", v90, 0xCu);
             }
           }
         }
 
-        v40 = [annotations3 countByEnumeratingWithState:&v76 objects:buf count:16];
+        v44 = [annotations3 countByEnumeratingWithState:&v82 objects:buf count:16];
       }
 
-      while (v40);
+      while (v44);
     }
 
-    v25 = p_super;
-    versionCopy = v70;
-    if ((v66 | v31))
+    v28 = p_super;
+    versionCopy = v76;
+    if ((v72 | v34))
     {
-      [(BCAssetAnnotations *)selfCopy setAssetVersion:v70];
-      v62 = objc_alloc_init(MEMORY[0x1E69C65C0]);
-      [p_super writeTo:v62];
-      immutableData = [v62 immutableData];
+      [(BCAssetAnnotations *)selfCopy setAssetVersion:v76];
+      v69 = objc_alloc_init(MEMORY[0x1E69C65C0]);
+      [p_super writeTo:v69];
+      immutableData = [v69 immutableData];
       [(BCAssetAnnotations *)selfCopy setBookAnnotations:immutableData];
     }
 
-    dCopy = v71;
-    v11 = v68;
-    dataCopy = v69;
-    v12 = v67;
+    dCopy = v77;
+    v11 = v74;
+    dataCopy = v75;
+    v12 = v73;
   }
 
   else
   {
-    v25 = BDSCloudKitLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v28 = BDSCloudKitLog(v13);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_1E4705A34(self);
     }
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveConflictsFromRecord:(id)record withResolvers:(id)resolvers
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   recordCopy = record;
-  v31.receiver = self;
-  v31.super_class = BCAssetAnnotations;
-  [(BCCloudData *)&v31 resolveConflictsFromRecord:recordCopy withResolvers:resolvers];
+  v33.receiver = self;
+  v33.super_class = BCAssetAnnotations;
+  v7 = [(BCCloudData *)&v33 resolveConflictsFromRecord:recordCopy withResolvers:resolvers];
   if (recordCopy)
   {
-    v7 = [BCCloudData localIdentifierFromRecord:recordCopy];
+    v8 = [BCCloudData localIdentifierFromRecord:recordCopy];
     modificationDate = [(BCAssetAnnotations *)self modificationDate];
     if (modificationDate)
     {
-      v9 = modificationDate;
+      v10 = modificationDate;
       modificationDate2 = [(BCAssetAnnotations *)self modificationDate];
       [modificationDate2 timeIntervalSinceReferenceDate];
-      v12 = v11;
+      v13 = v12;
       modificationDate3 = [recordCopy modificationDate];
       [modificationDate3 timeIntervalSinceReferenceDate];
-      v15 = v14;
+      v16 = v15;
 
-      if (v12 > v15)
+      if (v13 > v16)
       {
         [(BCCloudData *)self incrementEditGeneration];
         goto LABEL_20;
@@ -381,24 +406,25 @@
     }
 
     objc_opt_class();
-    v16 = [recordCopy objectForKey:@"assetAnnotations"];
-    v17 = BUDynamicCast();
-    fileURL = [v17 fileURL];
+    v17 = [recordCopy objectForKey:@"assetAnnotations"];
+    v18 = BUDynamicCast();
+    fileURL = [v18 fileURL];
 
     if (fileURL)
     {
-      v19 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:fileURL];
+      v20 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:fileURL];
     }
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    if (!-[NSObject length](v7, "length") || ![v19 length])
+    v21 = [v8 length];
+    if (!v21 || (v21 = [v20 length]) == 0)
     {
-      v24 = BDSCloudKitLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = BDSCloudKitLog(v21);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_1E4705BF0(self);
       }
@@ -406,8 +432,8 @@
       goto LABEL_18;
     }
 
-    v20 = [recordCopy objectForKeyedSubscript:@"assetVersion"];
-    [(BCAssetAnnotations *)self _mergeInAssetID:v7 assetVersion:v20 serializedData:v19];
+    v22 = [recordCopy objectForKeyedSubscript:@"assetVersion"];
+    [(BCAssetAnnotations *)self _mergeInAssetID:v8 assetVersion:v22 serializedData:v20];
 
     hasChanges = [(BCAssetAnnotations *)self hasChanges];
     mEMORY[0x1E698F550] = [MEMORY[0x1E698F550] shared];
@@ -422,8 +448,8 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v24 = BDSCloudKitDevelopmentLog();
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = BDSCloudKitDevelopmentLog(v26);
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_18:
 
@@ -433,14 +459,14 @@ LABEL_18:
       assetID = [(BCAssetAnnotations *)self assetID];
       recordID = [recordCopy recordID];
       recordName = [recordID recordName];
-      v28 = [(BCAssetAnnotations *)self debugDescription];
+      v31 = [(BCAssetAnnotations *)self debugDescription];
       *buf = 138412802;
-      v33 = assetID;
-      v34 = 2112;
-      v35 = recordName;
+      v35 = assetID;
       v36 = 2112;
-      v37 = v28;
-      v29 = "\\BCAssetAnnotations %@ Resolving: Adopted properties from record: %@ %@\\"";
+      v37 = recordName;
+      v38 = 2112;
+      v39 = v31;
+      v32 = "\\BCAssetAnnotations %@ Resolving: Adopted properties from record: %@ %@\";
     }
 
     else
@@ -450,8 +476,8 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v24 = BDSCloudKitDevelopmentLog();
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = BDSCloudKitDevelopmentLog(v26);
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_18;
       }
@@ -459,30 +485,28 @@ LABEL_18:
       assetID = [(BCAssetAnnotations *)self assetID];
       recordID = [recordCopy recordID];
       recordName = [recordID recordName];
-      v28 = [(BCAssetAnnotations *)self debugDescription];
+      v31 = [(BCAssetAnnotations *)self debugDescription];
       *buf = 138412802;
-      v33 = assetID;
-      v34 = 2112;
-      v35 = recordName;
+      v35 = assetID;
       v36 = 2112;
-      v37 = v28;
-      v29 = "\\BCAssetAnnotations %@ Resolving: Identical properties from record: %@ %@\\"";
+      v37 = recordName;
+      v38 = 2112;
+      v39 = v31;
+      v32 = "\\BCAssetAnnotations %@ Resolving: Identical properties from record: %@ %@\";
     }
 
-    _os_log_impl(&dword_1E45E0000, v24, OS_LOG_TYPE_DEFAULT, v29, buf, 0x20u);
+    _os_log_impl(&dword_1E45E0000, v27, OS_LOG_TYPE_DEFAULT, v32, buf, 0x20u);
 
     goto LABEL_18;
   }
 
-  v7 = BDSCloudKitLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = BDSCloudKitLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_1E4705C7C(self);
   }
 
 LABEL_20:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)debugDescription

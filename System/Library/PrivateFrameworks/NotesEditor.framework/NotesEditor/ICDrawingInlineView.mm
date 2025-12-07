@@ -452,11 +452,11 @@ void __64__ICDrawingInlineView_animateImageArrivalWithAnimationDuration___block_
   [*v2 setIc_backgroundColor:v3];
 }
 
-uint64_t __64__ICDrawingInlineView_animateImageArrivalWithAnimationDuration___block_invoke_2(uint64_t result)
+id *__64__ICDrawingInlineView_animateImageArrivalWithAnimationDuration___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) setIc_backgroundColor:0];
+    return [result[4] setIc_backgroundColor:0];
   }
 
   return result;
@@ -747,38 +747,38 @@ void __48__ICDrawingInlineView_updateImageWithAnimation___block_invoke_4(uint64_
   [MEMORY[0x277CD9FF0] setDisableActions:1];
   [MEMORY[0x277CD9FF0] setAnimationDuration:0.0];
   attachment = [(ICDrawingInlineView *)self attachment];
-  orientation = [attachment orientation];
+  [attachment orientation];
 
-  [MEMORY[0x277D35EC0] defaultSizeOrientationTransform:orientation];
+  objc_msgSend_defaultSizeOrientationTransform_(MEMORY[0x277D35EC0]);
   imageLayer = [(ICDrawingInlineView *)self imageLayer];
-  v57[0] = *(&v57[3] + 8);
-  v57[1] = *(&v57[4] + 8);
-  v57[2] = *(&v57[5] + 8);
-  [imageLayer setAffineTransform:v57];
+  v56[0] = *(&v56[3] + 8);
+  v56[1] = *(&v56[4] + 8);
+  v56[2] = *(&v56[5] + 8);
+  [imageLayer setAffineTransform:v56];
 
   [(ICDrawingInlineView *)self imageFrame];
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
   imageLayer2 = [(ICDrawingInlineView *)self imageLayer];
-  [imageLayer2 setFrame:{v11, v13, v15, v17}];
+  [imageLayer2 setFrame:{v10, v12, v14, v16}];
 
   [MEMORY[0x277CD9FF0] commit];
   [MEMORY[0x277CD9FF0] begin];
   [MEMORY[0x277CD9FF0] setDisableActions:1];
-  v19 = 0.1;
+  v18 = 0.1;
   if (!animationCopy)
   {
-    v19 = 0.0;
+    v18 = 0.0;
   }
 
-  [MEMORY[0x277CD9FF0] setAnimationDuration:v19];
+  [MEMORY[0x277CD9FF0] setAnimationDuration:v18];
   attachment2 = [(ICDrawingInlineView *)self attachment];
   previewUpdateDate = [attachment2 previewUpdateDate];
   attachment3 = [(ICDrawingInlineView *)self attachment];
   modificationDate = [attachment3 modificationDate];
-  v24 = [previewUpdateDate compare:modificationDate];
+  v23 = [previewUpdateDate compare:modificationDate];
 
   if (animationCopy)
   {
@@ -787,12 +787,12 @@ void __48__ICDrawingInlineView_updateImageWithAnimation___block_invoke_4(uint64_
 
   attachment4 = [(ICDrawingInlineView *)self attachment];
   [MEMORY[0x277D35EC0] defaultPixelSize];
-  v27 = v26;
-  v29 = v28;
+  v26 = v25;
+  v28 = v27;
   ic_appearanceInfo = [(ICDrawingInlineView *)self ic_appearanceInfo];
-  v31 = [attachment4 attachmentPreviewImageWithMinSize:objc_msgSend(ic_appearanceInfo scale:"type") appearanceType:1 requireAppearance:{v27, v29, 1.0}];
+  v30 = [attachment4 attachmentPreviewImageWithMinSize:objc_msgSend(ic_appearanceInfo scale:"type") appearanceType:1 requireAppearance:{v26, v28, 1.0}];
 
-  if ((imageCopy || v24 != -1) && (v31 || ([0 size], v35 = v34, v37 = v36, objc_msgSend(MEMORY[0x277D35EC0], "defaultPixelSize"), v35 == v39) && v37 == v38))
+  if ((imageCopy || v23 != -1) && (v30 || ([0 size], v34 = v33, v36 = v35, objc_msgSend(MEMORY[0x277D35EC0], "defaultPixelSize"), v34 == v38) && v36 == v37))
   {
     thumbnailDisplay = [(ICDrawingInlineView *)self thumbnailDisplay];
     ic_CGImage = [imageCopy ic_CGImage];
@@ -807,13 +807,13 @@ void __48__ICDrawingInlineView_updateImageWithAnimation___block_invoke_4(uint64_
       goto LABEL_16;
     }
 
-    v33 = 0;
+    v32 = 0;
   }
 
   else
   {
     ic_CGImage = [imageCopy ic_CGImage];
-    v33 = 1;
+    v32 = 1;
   }
 
   borderColor = [(ICDrawingInlineView *)self borderColor];
@@ -822,13 +822,13 @@ void __48__ICDrawingInlineView_updateImageWithAnimation___block_invoke_4(uint64_
   [layer3 setBorderColor:cGColor];
 
   [(ICDrawingInlineView *)self updateBorderWidth];
-  if (v33)
+  if (v32)
   {
-    v44 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.04];
-    [(ICDrawingInlineView *)self setIc_backgroundColor:v44];
+    v43 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.04];
+    [(ICDrawingInlineView *)self setIc_backgroundColor:v43];
 
     [(ICDrawingInlineView *)self observePreviewGenerationProgress:0];
-    v45 = *"333?";
+    v44 = *"333?";
     goto LABEL_20;
   }
 
@@ -848,7 +848,7 @@ LABEL_16:
   [loadingProgressLayer removeFromSuperlayer];
 
   [(ICDrawingInlineView *)self setLoadingProgressLayer:0];
-  v45 = 1.0;
+  v44 = 1.0;
 LABEL_20:
   if (!hasImage || !animationCopy)
   {
@@ -863,21 +863,21 @@ LABEL_20:
     goto LABEL_24;
   }
 
-  v50 = MEMORY[0x277D75D18];
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __50__ICDrawingInlineView_updateLayerImage_animation___block_invoke;
-  v55[3] = &unk_2781ABEB8;
-  v55[4] = self;
-  v56 = ic_CGImage;
-  [v50 ic_animateWithDuration:v55 animations:0 completion:0.3];
+  v49 = MEMORY[0x277D75D18];
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __50__ICDrawingInlineView_updateLayerImage_animation___block_invoke;
+  v54[3] = &unk_2781ABEB8;
+  v54[4] = self;
+  v55 = ic_CGImage;
+  [v49 ic_animateWithDuration:v54 animations:0 completion:0.3];
 
   if (imageCopy)
   {
 LABEL_24:
     imageLayer4 = [(ICDrawingInlineView *)self imageLayer];
-    *&v53 = v45;
-    [imageLayer4 setOpacity:v53];
+    *&v52 = v44;
+    [imageLayer4 setOpacity:v52];
   }
 
 LABEL_25:

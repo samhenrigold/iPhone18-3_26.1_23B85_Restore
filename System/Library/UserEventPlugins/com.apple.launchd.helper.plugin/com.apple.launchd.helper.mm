@@ -1,4 +1,4 @@
-void sub_6D8(uint64_t a1, uint64_t a2, void *a3)
+void sub_6D8(uint64_t a1, __FSEventStream *a2, void *a3)
 {
   if (a1 == 1)
   {
@@ -73,7 +73,6 @@ void sub_6D8(uint64_t a1, uint64_t a2, void *a3)
       if (!v21)
       {
         _os_assumes_log();
-        v24 = v8[4];
       }
 
       xpc_event_provider_get_queue();
@@ -125,7 +124,7 @@ void sub_6D8(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-char *sub_A70(const char *a1)
+char *sub_A70(char *a1)
 {
   v1 = a1;
   if (!strncmp(a1, "/var/", 5uLL))
@@ -139,16 +138,16 @@ char *sub_A70(const char *a1)
 const char *sub_AB8()
 {
   v0 = off_4130();
-  v18 = 0;
-  memset(&v17, 0, sizeof(v17));
-  v16 = 0;
-  memset(&v15, 0, sizeof(v15));
+  v17 = 0;
+  memset(&v16, 0, sizeof(v16));
+  v15 = 0;
+  memset(&v14, 0, sizeof(v14));
   v1 = *(v0 + 16);
   if (v1)
   {
-    memset(&v21, 0, sizeof(v21));
-    result = stat(v1, &v21);
-    if (result || (v21.st_mode & 0xF000) != 0x8000 || (v21.st_mode & 0x49) == 0)
+    memset(&v20, 0, sizeof(v20));
+    result = stat(v1, &v20);
+    if (result || (v20.st_mode & 0xF000) != 0x8000 || (v20.st_mode & 0x49) == 0)
     {
       return result;
     }
@@ -162,7 +161,7 @@ const char *sub_AB8()
       if (os_signpost_enabled(qword_4148))
       {
         *buf = 136446210;
-        v20 = v5;
+        v19 = v5;
         _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_EVENT, v4, "PollStateForExecutable", "executable_found=%{public, signpost.telemetry:string1}s enableTelemetry=YES ", buf, 0xCu);
       }
     }
@@ -180,7 +179,7 @@ const char *sub_AB8()
   if (v8)
   {
     value = xpc_uint64_get_value(v8);
-    result = getpwuid_r(value, &v17, &v21, 0x1000uLL, &v18);
+    result = getpwuid_r(value, &v16, &v20, 0x1000uLL, &v17);
     if (result)
     {
       v10 = 1;
@@ -188,7 +187,7 @@ const char *sub_AB8()
 
     else
     {
-      v10 = v18 == 0;
+      v10 = v17 == 0;
     }
 
     if (v10)
@@ -218,8 +217,8 @@ const char *sub_AB8()
   if (result)
   {
     ++v7;
-    result = getpwnam_r(result, &v17, &v21, 0x1000uLL, &v18);
-    if (!result && v18 != 0)
+    result = getpwnam_r(result, &v16, &v20, 0x1000uLL, &v17);
+    if (!result && v17 != 0)
     {
       ++v11;
     }
@@ -231,7 +230,7 @@ const char *sub_AB8()
     if (result)
     {
       ++v7;
-      result = getgrnam_r(result, &v15, &v21, 0x1000uLL, &v16);
+      result = getgrnam_r(result, &v14, &v20, 0x1000uLL, &v15);
       if (result)
       {
         v13 = 1;
@@ -239,7 +238,7 @@ const char *sub_AB8()
 
       else
       {
-        v13 = v16 == 0;
+        v13 = v15 == 0;
       }
 
       if (!v13)
@@ -250,7 +249,6 @@ const char *sub_AB8()
 
     if (v11 >= v7)
     {
-      v14 = *(v0 + 8);
       xpc_event_provider_token_set_state();
     }
   }

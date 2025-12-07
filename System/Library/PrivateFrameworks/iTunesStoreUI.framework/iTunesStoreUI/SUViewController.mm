@@ -438,47 +438,51 @@
 - (void)enqueueOperation:(id)operation cancelOnDealloc:(BOOL)dealloc
 {
   deallocCopy = dealloc;
-  v17 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  *v15 = 138543874;
-  *&v15[4] = objc_opt_class();
-  *&v15[12] = 2112;
-  *&v15[14] = operationCopy;
-  *&v15[22] = 1024;
-  LODWORD(v16) = deallocCopy;
-  v11 = *&v15[4];
-  LODWORD(v14) = 28;
-  v12 = _os_log_send_and_compose_impl();
+  v14 = 138543874;
+  v15 = objc_opt_class();
+  v16 = 2112;
+  v17 = operationCopy;
+  v18 = 1024;
+  v19 = deallocCopy;
+  v11 = v15;
+  v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Enqueueing operation: %@, cancelOnDealloc: %d", &v14, 28);
 
   if (v12)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, v15, v14, *v15, *&v15[16], v16}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [(SUViewController *)self trackOperation:operationCopy cancelOnDealloc:deallocCopy];
@@ -614,9 +618,9 @@ LABEL_9:
       clientInterface = [(SUViewController *)self clientInterface];
       [clientInterface _presentDialog:dialogCopy];
 
-LABEL_18:
+LABEL_19:
       v10 = 1;
-      goto LABEL_19;
+      goto LABEL_20;
     }
   }
 
@@ -627,32 +631,35 @@ LABEL_18:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      LODWORD(v23) = 138543362;
-      *(&v23 + 4) = objc_opt_class();
-      v15 = *(&v23 + 4);
-      LODWORD(v22) = 12;
-      v21 = &v23;
-      v16 = _os_log_send_and_compose_impl();
+      v22 = 138543362;
+      v23 = objc_opt_class();
+      v15 = v23;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Presenting dialog", &v22, 12);
 
       if (!v16)
       {
-LABEL_15:
+LABEL_16:
 
         pendingDialogs = self->_pendingDialogs;
         if (!pendingDialogs)
@@ -665,19 +672,19 @@ LABEL_15:
         }
 
         [(NSMutableArray *)pendingDialogs addObject:dialogCopy, v21];
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v23, v22, v23}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
       free(v16);
       v21 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
-LABEL_19:
+LABEL_20:
 
   return v10;
 }
@@ -710,43 +717,47 @@ LABEL_19:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(&oSLogObject->super.super.super, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(&oSLogObject->super.super.super, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      LODWORD(v20) = 138412290;
-      *(&v20 + 4) = objc_opt_class();
-      v13 = *(&v20 + 4);
-      LODWORD(v19) = 12;
-      v14 = _os_log_send_and_compose_impl();
+      v19 = 138412290;
+      v20 = objc_opt_class();
+      v13 = v20;
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Can't present multiple footer view controllers", &v19, 12);
 
       if (!v14)
       {
-LABEL_15:
+LABEL_16:
 
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v20, v19, v20}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
 
-LABEL_14:
+LABEL_15:
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   if (controllerCopy)
@@ -786,10 +797,10 @@ LABEL_14:
       [(UIViewController *)self->_footerViewController viewDidAppear:0];
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-LABEL_16:
+LABEL_17:
 }
 
 - (void)reloadContentSizeForViewInPopover
@@ -1988,16 +1999,21 @@ LABEL_19:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v11 = shouldLog | 2;
+    LODWORD(v11) = shouldLog | 2;
   }
 
   else
   {
-    v11 = shouldLog;
+    LODWORD(v11) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
@@ -2009,28 +2025,28 @@ LABEL_19:
       v13 = objc_opt_class();
       v14 = v13;
       requestProperties = [operationCopy requestProperties];
-      [requestProperties URL];
+      v16 = [requestProperties URL];
       v18 = 138544130;
       v19 = v13;
       v20 = 2114;
       v21 = operationCopy;
       v22 = 2112;
       v23 = errorCopy;
-      v25 = v24 = 2112;
-      LODWORD(v17) = 42;
-      v16 = _os_log_send_and_compose_impl();
+      v24 = 2112;
+      v25 = v16;
+      v17 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: %{public}@ operation failed with error: %@ URL: %@", &v18, 42);
 
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
-LABEL_13:
+LABEL_14:
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   if (!v11)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v18 = 138543874;
@@ -2040,19 +2056,18 @@ LABEL_13:
   v22 = 2112;
   v23 = errorCopy;
   v14 = v19;
-  LODWORD(v17) = 32;
-  v16 = _os_log_send_and_compose_impl();
-LABEL_11:
+  v17 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: %{public}@ operation failed with error: %@", &v18, 32);
+LABEL_12:
 
-  if (v16)
+  if (v17)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v18, v17}];
-    free(v16);
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
+    free(v17);
     SSFileLog();
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 
   [operationCopy setDelegate:0];
   [(NSMutableArray *)self->_cancelOnDeallocOperations removeObject:operationCopy];
@@ -2061,48 +2076,52 @@ LABEL_14:
 
 - (void)operationFinished:(id)finished
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   finishedCopy = finished;
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v9 = objc_opt_class();
   v10 = v9;
-  v13 = 138543874;
-  v14 = v9;
-  v15 = 2114;
-  v16 = finishedCopy;
-  v17 = 1024;
+  v12 = 138543874;
+  v13 = v9;
+  v14 = 2114;
+  v15 = finishedCopy;
+  v16 = 1024;
   success = [finishedCopy success];
-  LODWORD(v12) = 28;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: %{public}@ operation finished. Success: %d", &v12, 28);
 
   if (v11)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v13, v12}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [finishedCopy setDelegate:0];

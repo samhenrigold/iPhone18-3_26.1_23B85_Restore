@@ -1,6 +1,6 @@
 @interface _CUIThemeGradientRendition
 + (NSArray)_nodesFromNodeList:(uint64_t)list count:(_DWORD *)count header:(uint64_t)header;
-+ (void)_parseGradientInfoFromCSIHeader:(uint64_t)header;
++ (void)_parseGradientInfoFromCSIHeader:(uint64_t)header@<X1>;
 - (id)_initWithCSIHeader:(const _csiheader *)header version:(unsigned int)version;
 - (void)dealloc;
 @end
@@ -110,60 +110,60 @@ LABEL_29:
   return +[NSArray array];
 }
 
-+ (void)_parseGradientInfoFromCSIHeader:(uint64_t)header
++ (void)_parseGradientInfoFromCSIHeader:(uint64_t)header@<X1>
 {
   objc_opt_self();
-  a2[1] = 0.0;
-  a2[2] = 0.0;
-  *a2 = 0.0;
-  selfCopy = self;
-  v11 = *(self + 172);
-  if (v11)
+  a3[1] = 0.0;
+  a3[2] = 0.0;
+  *a3 = 0.0;
+  headerCopy = header;
+  v5 = *(header + 172);
+  if (v5)
   {
-    v12 = 0;
-    v33 = self + 176 + 4 * v11 + *(self + 168) + 4;
-    v34 = self + 176;
-    v13 = 1;
-    while ((v13 & 1) != 0)
+    v6 = 0;
+    v27 = header + 176 + 4 * v5 + *(header + 168) + 4;
+    v28 = header + 176;
+    v7 = 1;
+    while ((v7 & 1) != 0)
     {
-      v14 = v33 + *(v34 + 4 * v12);
-      v15 = *v14;
-      v16 = *(v14 + 12);
-      if (*v14 == 1145131591)
+      v8 = v27 + *(v28 + 4 * v6);
+      v9 = *v8;
+      v10 = *(v8 + 12);
+      if (*v8 == 1145131591)
       {
-        v16 = bswap32(v16);
-        v17 = bswap32(*(v14 + 64));
+        v10 = bswap32(v10);
+        v11 = bswap32(*(v8 + 64));
       }
 
       else
       {
-        v17 = *(v14 + 64);
+        v11 = *(v8 + 64);
       }
 
-      *a2 = v16;
-      if (v17 >= 2)
+      *a3 = v10;
+      if (v11 >= 2)
       {
-        a2[1] = *(v14 + 56);
-        v18 = *(v14 + 68);
-        v19 = *(v14 + 72);
-        v20 = *(v14 + 76);
-        v21 = bswap32(v18);
-        v22 = bswap32(v19);
-        v23 = bswap32(v20);
-        v24 = v15 == 1145131591 ? v23 : v20;
-        v25 = v15 == 1145131591 ? v22 : v19;
-        v26 = v15 == 1145131591 ? v21 : v18;
-        v27 = [_CUIThemeGradientRendition _nodesFromNodeList:(v14 + 80) count:v17 header:?];
-        v28 = (v14 + 80 + 72 * v17);
-        v29 = [_CUIThemeGradientRendition _nodesFromNodeList:v28 count:v26 header:?];
-        v30 = &v28[18 * v26];
-        v31 = [_CUIThemeGradientRendition _nodesFromNodeList:v30 count:v25 header:?];
-        v32 = [[CUIPSDGradientEvaluator alloc] initWithColorStops:v27 colorMidpoints:v29 opacityStops:v31 opacityMidpoints:[_CUIThemeGradientRendition _nodesFromNodeList:? count:? header:?]dither:*(v14 + 4) & 1, *(v14 + 60), *(v14 + 24), *(v14 + 32), *(v14 + 40), *(v14 + 48)];
-        *(a2 + 2) = v32;
-        [(CUIPSDGradientEvaluator *)v32 setBlendMode:*(v14 + 20)];
-        v13 = 0;
-        v12 = 1;
-        if (*(selfCopy + 172) > 1u)
+        a3[1] = *(v8 + 56);
+        v12 = *(v8 + 68);
+        v13 = *(v8 + 72);
+        v14 = *(v8 + 76);
+        v15 = bswap32(v12);
+        v16 = bswap32(v13);
+        v17 = bswap32(v14);
+        v18 = v9 == 1145131591 ? v17 : v14;
+        v19 = v9 == 1145131591 ? v16 : v13;
+        v20 = v9 == 1145131591 ? v15 : v12;
+        v21 = [_CUIThemeGradientRendition _nodesFromNodeList:(v8 + 80) count:v11 header:?];
+        v22 = (v8 + 80 + 72 * v11);
+        v23 = [_CUIThemeGradientRendition _nodesFromNodeList:v22 count:v20 header:?];
+        v24 = &v22[18 * v20];
+        v25 = [_CUIThemeGradientRendition _nodesFromNodeList:v24 count:v19 header:?];
+        v26 = [[CUIPSDGradientEvaluator alloc] initWithColorStops:v21 colorMidpoints:v23 opacityStops:v25 opacityMidpoints:[_CUIThemeGradientRendition _nodesFromNodeList:? count:? header:?]dither:*(v8 + 4) & 1, *(v8 + 60), *(v8 + 24), *(v8 + 32), *(v8 + 40), *(v8 + 48)];
+        *(a3 + 2) = v26;
+        [(CUIPSDGradientEvaluator *)v26 setBlendMode:*(v8 + 20)];
+        v7 = 0;
+        v6 = 1;
+        if (*(headerCopy + 172) > 1u)
         {
           continue;
         }
@@ -172,42 +172,42 @@ LABEL_29:
       return;
     }
 
-    _CUILog(4, "Warning: Ignoring extra gradient data found in CSI", v5, v6, v7, v8, v9, v10, header);
+    _CUILog(4, "Warning: Ignoring extra gradient data found in CSI");
   }
 }
 
 - (id)_initWithCSIHeader:(const _csiheader *)header version:(unsigned int)version
 {
-  v15.receiver = self;
-  v15.super_class = _CUIThemeGradientRendition;
-  v5 = [(CUIThemeRendition *)&v15 _initWithCSIHeader:header version:*&version];
-  v12 = 0;
+  v16.receiver = self;
+  v16.super_class = _CUIThemeGradientRendition;
+  v5 = [(CUIThemeRendition *)&v16 _initWithCSIHeader:header version:*&version];
   v13 = 0;
   v14 = 0;
-  [(_CUIThemeGradientRendition *)header _parseGradientInfoFromCSIHeader:v11];
-  v6 = v14;
-  if (v14)
+  v15 = 0;
+  [(_CUIThemeGradientRendition *)header _parseGradientInfoFromCSIHeader:?];
+  v8 = v15;
+  if (v15)
   {
     if ((*(header + 7) & 0xF) == 1)
     {
-      SRGB = _CUIColorSpaceGetSRGB();
+      SRGB = _CUIColorSpaceGetSRGB(v6, v7);
     }
 
     else
     {
-      SRGB = _CUIColorSpaceGetGenericRGB();
+      SRGB = _CUIColorSpaceGetGenericRGB(v6, v7);
     }
 
-    v9 = SRGB;
-    [v5 setBlendMode:{objc_msgSend(v6, "blendMode")}];
-    v5[28] = v13;
-    [v5 setSubtype:v12];
-    v5[27] = [[CUIThemeGradient alloc] _initWithGradientEvaluator:v6 colorSpace:v9];
+    v11 = SRGB;
+    [v5 setBlendMode:{objc_msgSend(v8, "blendMode")}];
+    v5[28] = v14;
+    [v5 setSubtype:v13];
+    v5[27] = [[CUIThemeGradient alloc] _initWithGradientEvaluator:v8 colorSpace:v11];
   }
 
   else
   {
-    v8 = v5;
+    v10 = v5;
     return 0;
   }
 

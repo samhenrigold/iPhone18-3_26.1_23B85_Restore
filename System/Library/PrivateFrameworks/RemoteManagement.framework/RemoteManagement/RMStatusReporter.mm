@@ -1,10 +1,20 @@
 @interface RMStatusReporter
++ (id)newStatusReporterWithStatusEngine:(id)engine onlyIfNeeded:(BOOL)needed;
 - (RMStatusReporter)initWithStatusEngine:(id)engine onlyIfNeeded:(BOOL)needed;
 - (id)statusReportReturningError:(id *)error;
 - (void)acknowledgeStatusSent;
 @end
 
 @implementation RMStatusReporter
+
++ (id)newStatusReporterWithStatusEngine:(id)engine onlyIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  engineCopy = engine;
+  v6 = [[RMStatusReporter alloc] initWithStatusEngine:engineCopy onlyIfNeeded:neededCopy];
+
+  return v6;
+}
 
 - (RMStatusReporter)initWithStatusEngine:(id)engine onlyIfNeeded:(BOOL)needed
 {

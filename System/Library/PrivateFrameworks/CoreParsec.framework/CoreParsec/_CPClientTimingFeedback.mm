@@ -101,7 +101,6 @@ LABEL_14:
   to;
   if ([(_CPClientTimingFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -109,7 +108,6 @@ LABEL_14:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
@@ -117,19 +115,16 @@ LABEL_14:
 
   if (eventName)
   {
-    eventName = self->_eventName;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPClientTimingFeedback *)self queryId])
   {
-    queryId = self->_queryId;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPClientTimingFeedback *)self nanosecondInterval])
   {
-    nanosecondInterval = self->_nanosecondInterval;
     PBDataWriterWriteUint64Field();
   }
 

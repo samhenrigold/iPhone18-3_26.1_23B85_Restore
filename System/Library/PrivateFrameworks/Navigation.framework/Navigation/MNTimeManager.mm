@@ -34,13 +34,12 @@
 
 - (void)_resetToDefaultProvider
 {
-  provider = self->_provider;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v4 = objc_alloc_init(MNDeviceTimeProvider);
-    v5 = self->_provider;
-    self->_provider = v4;
+    v3 = objc_alloc_init(MNDeviceTimeProvider);
+    provider = self->_provider;
+    self->_provider = v3;
   }
 }
 

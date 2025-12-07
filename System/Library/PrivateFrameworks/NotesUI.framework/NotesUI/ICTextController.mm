@@ -109,9 +109,10 @@
 
 - (void)resetTrackedToDoParagraphs
 {
-  self->_trackedToDoParagraphs = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  self->_trackedToDoParagraphs = v3;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v3);
 }
 
 - (ICNote)note
@@ -574,41 +575,36 @@
   return result;
 }
 
-void __156__ICTextController_ICTableAdditions__p_setCellsInTable_fromAttributedString_textTable_atCellOffset_filterPastedAttributes_isReadingSelectionFromPasteboard___block_invoke(int a1, NSRange range2, uint64_t a3, NSUInteger a4)
+void __156__ICTextController_ICTableAdditions__p_setCellsInTable_fromAttributedString_textTable_atCellOffset_filterPastedAttributes_isReadingSelectionFromPasteboard___block_invoke(void *a1, NSRange range2, uint64_t a3, NSUInteger a4)
 {
-  v6 = v5;
+  location = v5;
   length = range2.length;
   range2.length = range2.location;
-  v9 = v8;
-  v10 = *(*(v8 + 32) + 8);
-  if (*(v10 + 24) == 1)
+  v9 = *(a1[4] + 8);
+  if (*(v9 + 24) == 1)
   {
-    *(v10 + 24) = 0;
-    v12 = *(*(v11 + 40) + 8);
-    *(v12 + 32) = range2.location;
-    *(v12 + 40) = v13;
-    v14 = v11 + 48;
+    *(v9 + 24) = 0;
+    v10 = *(a1[5] + 8);
+    *(v10 + 32) = range2.location;
+    *(v10 + 40) = v11;
+    v12 = a1 + 6;
   }
 
   else
   {
-    v16 = *(*(v15 + 40) + 8);
-    v17 = *(v16 + 32);
-    range2.location = *(v16 + 40);
-    *(*(*(v9 + 40) + 8) + 32) = NSUnionRange(range2, *&range2.length);
-    v18 = *(v9 + 48);
-    v14 = v9 + 48;
-    v22.location = v6;
-    v22.length = a4;
-    v20 = NSUnionRange(*(*(v18 + 8) + 32), v22);
-    location = v20.location;
-    v6 = v20.location;
-    a4 = v20.length;
+    *(*(a1[5] + 8) + 32) = NSUnionRange(*(*(a1[5] + 8) + 32), *&range2.length);
+    v13 = a1[6];
+    v12 = a1 + 6;
+    v16.location = location;
+    v16.length = a4;
+    v14 = NSUnionRange(*(*(v13 + 8) + 32), v16);
+    location = v14.location;
+    a4 = v14.length;
   }
 
-  v21 = *(*v14 + 8);
-  *(v21 + 32) = v6;
-  *(v21 + 40) = a4;
+  v15 = *(*v12 + 8);
+  *(v15 + 32) = location;
+  *(v15 + 40) = a4;
 }
 
 void __156__ICTextController_ICTableAdditions__p_setCellsInTable_fromAttributedString_textTable_atCellOffset_filterPastedAttributes_isReadingSelectionFromPasteboard___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -714,7 +710,7 @@ LABEL_8:
   }
 
   typingAttributes = [view typingAttributes];
-  v13 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+  v13 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
 
   if (!v13)
   {
@@ -749,7 +745,7 @@ LABEL_6:
   }
 
   typingAttributes = [viewCopy typingAttributes];
-  v10 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+  v10 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
 
   if (!v10)
   {
@@ -896,7 +892,7 @@ void __56__ICTextController_attachmentsExistInRange_textStorage___block_invoke(u
           if (v21 >= [textStorage length])
           {
             typingAttributes = [viewCopy typingAttributes];
-            v22 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+            v22 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
           }
 
           else
@@ -1117,7 +1113,7 @@ LABEL_11:
   if (!v43 || attributesCopy)
   {
     typingAttributes = [viewCopy typingAttributes];
-    v35 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+    v35 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
     v36 = [(ICTextController *)self indentParagraphStyle:v35 byAmount:amountCopy2];
     if (v36 != v35)
     {
@@ -1250,9 +1246,9 @@ void __86__ICTextController_indentRange_byAmount_inTextStorage_textView_forceUpd
   }
 }
 
-uint64_t __86__ICTextController_indentRange_byAmount_inTextStorage_textView_forceUpdateAttributes___block_invoke_3(uint64_t result, uint64_t a2)
+uint64_t *__86__ICTextController_indentRange_byAmount_inTextStorage_textView_forceUpdateAttributes___block_invoke_3(uint64_t *result, uint64_t a2)
 {
-  if (*(result + 40) >= 1)
+  if (result[5] >= 1)
   {
     v11 = v5;
     v12 = v4;
@@ -1264,11 +1260,11 @@ uint64_t __86__ICTextController_indentRange_byAmount_inTextStorage_textView_forc
     v10 = 0;
     do
     {
-      result = [*(v9 + 32) replaceCharactersInRange:a2 withString:{0, @"    ", v11, v12, v13, v14, v15, v16}];
+      result = [v9[4] replaceCharactersInRange:a2 withString:{0, @"    ", v11, v12, v13, v14, v15, v16}];
       ++v10;
     }
 
-    while (v10 < *(v9 + 40));
+    while (v10 < v9[5]);
   }
 
   return result;
@@ -1585,8 +1581,8 @@ uint64_t __64__ICTextController_setTextStyle_range_inTextStorage_inTextView___bl
 void __60__ICTextController_containsOnlyStyle_inRange_inTextStorage___block_invoke(uint64_t a1, void *a2, unint64_t a3, uint64_t a4, _BYTE *a5)
 {
   v9 = a2;
-  v10 = [v9 objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
-  v11 = [v9 objectForKeyedSubscript:*MEMORY[0x1E69DB5F8]];
+  v10 = objc_msgSend_objectForKeyedSubscript_(v9);
+  v11 = objc_msgSend_objectForKeyedSubscript_(v9);
 
   if (a4)
   {
@@ -1971,8 +1967,8 @@ LABEL_38:
 {
   v14[2] = *MEMORY[0x1E69E9840];
   undoCopy = undo;
-  v5 = [undoCopy objectForKeyedSubscript:@"View"];
-  v6 = [undoCopy objectForKeyedSubscript:@"Attrs"];
+  v5 = objc_msgSend_objectForKeyedSubscript_(undoCopy);
+  v6 = objc_msgSend_objectForKeyedSubscript_(undoCopy);
 
   note = [(ICTextController *)self note];
   textStorage = [note textStorage];
@@ -2001,7 +1997,7 @@ LABEL_38:
   v8 = [typingAttributes mutableCopy];
 
   v9 = MEMORY[0x1E69B7600];
-  v10 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+  v10 = objc_msgSend_objectForKeyedSubscript_(v8);
   IsList = ICTTNamedStyleIsList();
   note = [(ICTextController *)self note];
   textStorage = [note textStorage];
@@ -2048,22 +2044,22 @@ LABEL_38:
   {
     typingAttributes3 = [viewCopy typingAttributes];
     v26 = MEMORY[0x1E69B75E0];
-    v27 = [typingAttributes3 objectForKeyedSubscript:*MEMORY[0x1E69B75E0]];
+    v27 = objc_msgSend_objectForKeyedSubscript_(typingAttributes3);
     [v8 setObject:v27 forKeyedSubscript:*v26];
 
     typingAttributes4 = [viewCopy typingAttributes];
     v29 = *MEMORY[0x1E69DB648];
-    v30 = [typingAttributes4 objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
+    v30 = objc_msgSend_objectForKeyedSubscript_(typingAttributes4);
     [v8 setObject:v30 forKeyedSubscript:v29];
 
     typingAttributes5 = [viewCopy typingAttributes];
     v32 = MEMORY[0x1E69B75F0];
-    v33 = [typingAttributes5 objectForKeyedSubscript:*MEMORY[0x1E69B75F0]];
+    v33 = objc_msgSend_objectForKeyedSubscript_(typingAttributes5);
     [v8 setObject:v33 forKeyedSubscript:*v32];
 
     typingAttributes6 = [viewCopy typingAttributes];
     v35 = *MEMORY[0x1E69DB650];
-    v36 = [typingAttributes6 objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
+    v36 = objc_msgSend_objectForKeyedSubscript_(typingAttributes6);
     [v8 setObject:v36 forKeyedSubscript:v35];
   }
 
@@ -2408,7 +2404,7 @@ LABEL_6:
   if (([styleCopy isList] & 1) != 0 || location >= objc_msgSend(stringCopy, "length") || (objc_msgSend(stringCopy, "attribute:atIndex:effectiveRange:", *MEMORY[0x1E69DB5F8], location, 0), v14 = objc_claimAutoreleasedReturnValue(), v14, !v14))
   {
     v15 = -[ICTTTextController preferredAttributesForICTTTextStyle:](self, "preferredAttributesForICTTTextStyle:", [styleCopy style]);
-    v17 = [v15 objectForKeyedSubscript:*MEMORY[0x1E69DB688]];
+    v17 = objc_msgSend_objectForKeyedSubscript_(v15);
     v16 = [v17 mutableCopy];
   }
 
@@ -2608,106 +2604,105 @@ LABEL_6:
 {
   length = range.length;
   location = range.location;
-  v78 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   v7 = [MEMORY[0x1E695DFA8] set];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  v74[0] = 0;
-  v74[1] = v74;
-  v74[2] = 0x3032000000;
-  v74[3] = __Block_byref_object_copy__47;
-  v74[4] = __Block_byref_object_dispose__47;
-  v75 = 0;
   v72[0] = 0;
   v72[1] = v72;
   v72[2] = 0x3032000000;
   v72[3] = __Block_byref_object_copy__47;
   v72[4] = __Block_byref_object_dispose__47;
   v73 = 0;
+  v70[0] = 0;
+  v70[1] = v70;
+  v70[2] = 0x3032000000;
+  v70[3] = __Block_byref_object_copy__47;
+  v70[4] = __Block_byref_object_dispose__47;
+  v71 = 0;
   string = [storageCopy string];
-  v65[0] = MEMORY[0x1E69E9820];
-  v65[1] = 3221225472;
-  v65[2] = __71__ICTextController_ensureUniqueParagraphStyleUUIDsInTextStorage_range___block_invoke;
-  v65[3] = &unk_1E846C3F8;
-  v50 = storageCopy;
-  v66 = v50;
-  v54 = dictionary;
-  v67 = v54;
-  v53 = dictionary2;
-  v68 = v53;
-  v70 = v72;
-  v71 = v74;
-  v48 = v7;
-  v69 = v48;
-  [string ic_enumerateParagraphsInRange:location usingBlock:{length, v65}];
+  v63[0] = MEMORY[0x1E69E9820];
+  v63[1] = 3221225472;
+  v63[2] = __71__ICTextController_ensureUniqueParagraphStyleUUIDsInTextStorage_range___block_invoke;
+  v63[3] = &unk_1E846C3F8;
+  v48 = storageCopy;
+  v64 = v48;
+  v52 = dictionary;
+  v65 = v52;
+  v51 = dictionary2;
+  v66 = v51;
+  v68 = v70;
+  v69 = v72;
+  v46 = v7;
+  v67 = v46;
+  [string ic_enumerateParagraphsInRange:location usingBlock:{length, v63}];
 
-  if ([v54 count])
+  if ([v52 count])
   {
-    allKeys = [v54 allKeys];
+    allKeys = [v52 allKeys];
     v12 = [allKeys sortedArrayUsingComparator:&__block_literal_global_89];
 
     dictionary3 = [MEMORY[0x1E695DF90] dictionary];
-    v63 = 0u;
-    v64 = 0u;
     v61 = 0u;
     v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     obj = v12;
     v13 = 0;
-    v14 = [obj countByEnumeratingWithState:&v61 objects:v77 count:16];
+    v14 = [obj countByEnumeratingWithState:&v59 objects:v75 count:16];
     if (v14)
     {
       v15 = 0;
-      v16 = *v62;
+      v16 = *v60;
       v17 = 0x7FFFFFFFFFFFFFFFLL;
       while (1)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v62 != v16)
+          if (*v60 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v61 + 1) + 8 * i);
-          rangeValue = [v19 rangeValue];
-          v22 = v21;
-          v23 = [v54 objectForKeyedSubscript:v19];
-          v24 = v23;
+          rangeValue = [*(*(&v59 + 1) + 8 * i) rangeValue];
+          v21 = v20;
+          v22 = objc_msgSend_objectForKeyedSubscript_(v52);
+          v23 = v22;
           if (v17 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            if (rangeValue == v17 + v15 && [v23 isEqual:v13])
+            if (rangeValue == v17 + v15 && [v22 isEqual:v13])
             {
-              v79.location = v17;
-              v79.length = v15;
-              v80.location = rangeValue;
-              v80.length = v22;
-              v25 = NSUnionRange(v79, v80);
-              v17 = v25.location;
-              v15 = v25.length;
+              v77.location = v17;
+              v77.length = v15;
+              v78.location = rangeValue;
+              v78.length = v21;
+              v24 = NSUnionRange(v77, v78);
+              v17 = v24.location;
+              v15 = v24.length;
               goto LABEL_13;
             }
 
-            v26 = [MEMORY[0x1E696B098] valueWithRange:{v17, v15}];
-            [dictionary3 setObject:v13 forKeyedSubscript:v26];
+            v25 = [MEMORY[0x1E696B098] valueWithRange:{v17, v15}];
+            [dictionary3 setObject:v13 forKeyedSubscript:v25];
           }
 
-          v27 = v24;
+          v26 = v23;
 
-          v13 = v27;
-          v15 = v22;
+          v13 = v26;
+          v15 = v21;
           v17 = rangeValue;
 LABEL_13:
         }
 
-        v14 = [obj countByEnumeratingWithState:&v61 objects:v77 count:16];
+        v14 = [obj countByEnumeratingWithState:&v59 objects:v75 count:16];
         if (!v14)
         {
 
           if (v17 != 0x7FFFFFFFFFFFFFFFLL && v13)
           {
-            v28 = [MEMORY[0x1E696B098] valueWithRange:{v17, v15}];
-            [dictionary3 setObject:v13 forKeyedSubscript:v28];
+            v27 = [MEMORY[0x1E696B098] valueWithRange:{v17, v15}];
+            [dictionary3 setObject:v13 forKeyedSubscript:v27];
             goto LABEL_19;
           }
 
@@ -2716,76 +2711,75 @@ LABEL_13:
       }
     }
 
-    v28 = obj;
+    v27 = obj;
 LABEL_19:
 
 LABEL_20:
     objc_opt_class();
-    v29 = ICDynamicCast();
-    [v29 beginSkippingTimestampUpdates];
-    [v50 beginEditing];
-    v59[0] = MEMORY[0x1E69E9820];
-    v59[1] = 3221225472;
-    v59[2] = __71__ICTextController_ensureUniqueParagraphStyleUUIDsInTextStorage_range___block_invoke_4;
-    v59[3] = &unk_1E846C420;
-    v30 = v50;
-    v60 = v30;
-    [dictionary3 enumerateKeysAndObjectsUsingBlock:v59];
-    [v30 endEditing];
-    [v29 endSkippingTimestampUpdates];
+    v28 = ICDynamicCast();
+    [v28 beginSkippingTimestampUpdates];
+    [v48 beginEditing];
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __71__ICTextController_ensureUniqueParagraphStyleUUIDsInTextStorage_range___block_invoke_4;
+    v57[3] = &unk_1E846C420;
+    v29 = v48;
+    v58 = v29;
+    [dictionary3 enumerateKeysAndObjectsUsingBlock:v57];
+    [v29 endEditing];
+    [v28 endSkippingTimestampUpdates];
   }
 
   note = [(ICTextController *)self note];
   textContentStorage = [note textContentStorage];
   outlineController = [textContentStorage outlineController];
   collapsedUUIDs = [outlineController collapsedUUIDs];
-  v35 = [collapsedUUIDs mutableCopy];
+  v34 = [collapsedUUIDs mutableCopy];
 
-  v36 = MEMORY[0x1E695DFA8];
-  allKeys2 = [v53 allKeys];
-  v38 = [v36 setWithArray:allKeys2];
+  v35 = MEMORY[0x1E695DFA8];
+  allKeys2 = [v51 allKeys];
+  v37 = [v35 setWithArray:allKeys2];
 
-  [v38 intersectSet:v35];
-  if ([v38 count])
+  [v37 intersectSet:v34];
+  if ([v37 count])
   {
-    v57 = 0u;
-    v58 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v39 = v38;
-    v40 = [v39 countByEnumeratingWithState:&v55 objects:v76 count:16];
-    if (v40)
+    v53 = 0u;
+    v54 = 0u;
+    v38 = v37;
+    v39 = [v38 countByEnumeratingWithState:&v53 objects:v74 count:16];
+    if (v39)
     {
-      v41 = *v56;
+      v40 = *v54;
       do
       {
-        for (j = 0; j != v40; ++j)
+        for (j = 0; j != v39; ++j)
         {
-          if (*v56 != v41)
+          if (*v54 != v40)
           {
-            objc_enumerationMutation(v39);
+            objc_enumerationMutation(v38);
           }
 
-          v43 = *(*(&v55 + 1) + 8 * j);
-          [v35 removeObject:v43];
-          v44 = [v53 objectForKeyedSubscript:v43];
-          [v35 addObject:v44];
+          [v34 removeObject:*(*(&v53 + 1) + 8 * j)];
+          v42 = objc_msgSend_objectForKeyedSubscript_(v51);
+          [v34 addObject:v42];
         }
 
-        v40 = [v39 countByEnumeratingWithState:&v55 objects:v76 count:16];
+        v39 = [v38 countByEnumeratingWithState:&v53 objects:v74 count:16];
       }
 
-      while (v40);
+      while (v39);
     }
 
     note2 = [(ICTextController *)self note];
     textContentStorage2 = [note2 textContentStorage];
     outlineController2 = [textContentStorage2 outlineController];
-    [outlineController2 setCollapsedUUIDs:v35];
+    [outlineController2 setCollapsedUUIDs:v34];
   }
 
+  _Block_object_dispose(v70, 8);
   _Block_object_dispose(v72, 8);
-  _Block_object_dispose(v74, 8);
 }
 
 void __71__ICTextController_ensureUniqueParagraphStyleUUIDsInTextStorage_range___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
@@ -3565,7 +3559,7 @@ LABEL_9:
         {
           v28 = [textStorage attributesAtIndex:v53 effectiveRange:0];
           v29 = MEMORY[0x1E69B7600];
-          v50 = [v28 objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+          v50 = objc_msgSend_objectForKeyedSubscript_(v28);
 
           v54 = *v29;
           v30 = [MEMORY[0x1E69B78C0] paragraphStyleNamed:{objc_msgSend(v50, "style")}];
@@ -4483,7 +4477,7 @@ LABEL_15:
   if (v13 <= location)
   {
     typingAttributes = [viewCopy typingAttributes];
-    v15 = [typingAttributes objectForKeyedSubscript:*v14];
+    v15 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
   }
 
   else
@@ -4841,7 +4835,7 @@ void __135__ICTextController_setNote_stylingTextUsingSeparateTextStorageForRende
     if (viewCopy)
     {
       typingAttributes = [viewCopy typingAttributes];
-      v17 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
+      v17 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
 
       goto LABEL_14;
     }
@@ -5344,7 +5338,7 @@ LABEL_11:
   _Block_object_dispose(&v51, 8);
 }
 
-void __78__ICTextController_updateTrackedAttributesInTextStorage_range_changeInLength___block_invoke(uint64_t a1, NSUInteger a2, uint64_t a3)
+void __78__ICTextController_updateTrackedAttributesInTextStorage_range_changeInLength___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   location = a2;
   v62 = *MEMORY[0x1E69E9840];
@@ -5353,7 +5347,7 @@ void __78__ICTextController_updateTrackedAttributesInTextStorage_range_changeInL
   length = a3 - location;
   v9 = [*(a1 + 40) trackedToDoParagraphs];
   v10 = [v7 todoTrackingUUID];
-  v11 = [v9 objectForKeyedSubscript:v10];
+  v11 = objc_msgSend_objectForKeyedSubscript_(v9);
 
   if (!v11)
   {
@@ -5364,7 +5358,7 @@ LABEL_7:
       v29 = v28;
       v30 = [*(a1 + 40) trackedToDoParagraphs];
       v31 = [v7 todoTrackingUUID];
-      v32 = [v30 objectForKeyedSubscript:v31];
+      v32 = objc_msgSend_objectForKeyedSubscript_(v30);
 
       if (!v32)
       {
@@ -6603,14 +6597,14 @@ LABEL_22:
   return result;
 }
 
-void __58__ICTextController_numberListsInAttributedString_inRange___block_invoke(uint64_t a1, void *a2, NSUInteger a3, uint64_t a4, _BYTE *a5)
+void __58__ICTextController_numberListsInAttributedString_inRange___block_invoke(uint64_t a1, void *a2, char *a3, uint64_t a4, _BYTE *a5)
 {
   v9 = a2;
   v51 = v9;
   if (!v9 || ![v9 isList])
   {
-    v17 = a3 + a4;
-    if (a3 >= a3 + a4)
+    v17 = &a3[a4];
+    if (a3 >= &a3[a4])
     {
       v19 = a3;
     }
@@ -6631,7 +6625,7 @@ void __58__ICTextController_numberListsInAttributedString_inRange___block_invoke
           break;
         }
 
-        v19 = v21 + v23;
+        v19 = (v21 + v23);
       }
 
       while (v21 + v23 < v17);
@@ -6695,8 +6689,8 @@ LABEL_21:
   }
 
   v47 = a5;
-  v26 = a3 + a4;
-  if (a3 >= a3 + a4)
+  v26 = &a3[a4];
+  if (a3 >= &a3[a4])
   {
     LOBYTE(v25) = 0;
   }
@@ -6705,7 +6699,7 @@ LABEL_21:
   {
     v25 = 0;
     v27 = a3;
-    v49 = a3 + a4;
+    v49 = &a3[a4];
     do
     {
       v28 = [*(a1 + 32) string];
@@ -6750,7 +6744,7 @@ LABEL_21:
       }
 
       ++v16;
-      v27 = v29 + v31;
+      v27 = (v29 + v31);
     }
 
     while (v29 + v31 < v26);
@@ -6768,7 +6762,7 @@ LABEL_21:
 LABEL_22:
   if (a3 > *(a1 + 72) + *(a1 + 64) && !(([v51 indent] != 0) | v25 & 1))
   {
-    *(*(*(a1 + 56) + 8) + 40) = a3 - *(*(*(a1 + 56) + 8) + 32);
+    *(*(*(a1 + 56) + 8) + 40) = &a3[-*(*(*(a1 + 56) + 8) + 32)];
     *a5 = 1;
   }
 }
@@ -7235,14 +7229,18 @@ void __47__ICTextController_toggleBlockQuoteInTextView___block_invoke_cold_1(voi
   [a1 blockQuoteLevel];
   [a2 blockQuoteLevel];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v3, v4, "blockQuoteLevel changed from %ld to %ld.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v3, v4, "blockQuoteLevel changed from %ld to %ld.", v5, v6, v7, v8);
 }
 
 - (void)addToTagsInTextView:(void *)a1 forRange:(void *)a2 .cold.1(void *a1, void *a2)
 {
   v3 = [a1 ic_loggingDescription];
-  v10 = [a2 ic_loggingIdentifier];
-  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v4, v5, "User adopted tag (%@) for inline attachment (%@)", v6, v7, v8, v9, 2u);
+  v4 = [a2 ic_loggingIdentifier];
+  *v11 = 138412546;
+  *&v11[4] = v3;
+  *&v11[12] = 2112;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v5, v6, "User adopted tag (%@) for inline attachment (%@)", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 @end

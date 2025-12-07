@@ -7,7 +7,7 @@
 
 + (__CFDictionary)htmlForFileURL:(__CFURL *)l referringURLPrefix:(__CFString *)prefix uti:(__CFString *)uti
 {
-  if (!sub_232CE4820() || !sub_232CE48F0())
+  if (!sub_232CE4820(0) || !sub_232CE48F0())
   {
     return 0;
   }
@@ -34,7 +34,7 @@
 
 + (__CFDictionary)htmlForFileData:(__CFData *)data referringURLPrefix:(__CFString *)prefix uti:(__CFString *)uti
 {
-  if (!sub_232CE4820() || !sub_232CE4C40())
+  if (!sub_232CE4820(0) || !sub_232CE4C40())
   {
     return 0;
   }

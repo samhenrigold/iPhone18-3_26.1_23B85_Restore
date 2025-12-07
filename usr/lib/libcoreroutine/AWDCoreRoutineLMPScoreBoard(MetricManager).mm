@@ -59,17 +59,17 @@ LABEL_9:
 
 - (id)description
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
   instances = [self instances];
-  v6 = [instances count];
+  v7 = [instances count];
   instances2 = [self instances];
-  v8 = [instances2 valueForKey:@"description"];
-  v9 = [v8 componentsJoinedByString:@"|"];
-  v10 = [v2 stringWithFormat:@"%@, count %lu {%@}", v4, v6, v9];
+  v9 = [instances2 valueForKey:@"description"];
+  v10 = [v9 componentsJoinedByString:@"|"];
+  v11 = [v3 stringWithFormat:@"%@, count %lu {%@}", v5, v7, v10];
 
-  return v10;
+  return v11;
 }
 
 @end

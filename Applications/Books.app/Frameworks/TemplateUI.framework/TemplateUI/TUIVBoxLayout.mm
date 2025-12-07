@@ -30,7 +30,7 @@
   v12 = v11;
   if (v11)
   {
-    [(TUILayout *)v11 specifiedWidth];
+    objc_msgSend_specifiedWidth(v11);
     if ((v13 & 0x6000000000000) == 0x2000000000000)
     {
       [(TUILayout *)v12 setSpecifiedWidthComputeInherited:1];
@@ -49,8 +49,8 @@
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  children = [(TUILayout *)self children];
-  v4 = [children countByEnumeratingWithState:&v16 objects:v23 count:16];
+  v3 = objc_msgSend_children(self, a3);
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v23 count:16];
   if (v4)
   {
     v5 = *v17;
@@ -60,7 +60,7 @@
       {
         if (*v17 != v5)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         *&v15 = [*(*(&v16 + 1) + 8 * i) validatedIntrinsicWidthConsideringSpecified];
@@ -68,7 +68,7 @@
         sub_57F44(&__p, &v15);
       }
 
-      v4 = [children countByEnumeratingWithState:&v16 objects:v23 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v16 objects:v23 count:16];
     }
 
     while (v4);
@@ -113,8 +113,8 @@ LABEL_14:
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  children = [(TUILayout *)self children];
-  v4 = [children countByEnumeratingWithState:&v11 objects:v18 count:16];
+  v3 = objc_msgSend_children(self, a3);
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v18 count:16];
   if (v4)
   {
     v5 = *v12;
@@ -124,7 +124,7 @@ LABEL_14:
       {
         if (*v12 != v5)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         *&v10 = [*(*(&v11 + 1) + 8 * i) validatedIntrinsicHeightConsideringSpecified];
@@ -132,7 +132,7 @@ LABEL_14:
         sub_57F44(&__p, &v10);
       }
 
-      v4 = [children countByEnumeratingWithState:&v11 objects:v18 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v11 objects:v18 count:16];
     }
 
     while (v4);
@@ -157,8 +157,8 @@ LABEL_14:
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  children = [(TUILayout *)self children];
-  v4 = [children countByEnumeratingWithState:&v11 objects:v18 count:16];
+  v3 = objc_msgSend_children(self, a3);
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v18 count:16];
   if (v4)
   {
     v5 = *v12;
@@ -168,7 +168,7 @@ LABEL_14:
       {
         if (*v12 != v5)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         *&v10 = [*(*(&v11 + 1) + 8 * i) computedHeight];
@@ -176,7 +176,7 @@ LABEL_14:
         sub_57F44(&__p, &v10);
       }
 
-      v4 = [children countByEnumeratingWithState:&v11 objects:v18 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v11 objects:v18 count:16];
     }
 
     while (v4);
@@ -210,7 +210,7 @@ LABEL_14:
       v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      obj = [(TUILayout *)self children];
+      obj = objc_msgSend_children(self);
       v7 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
       if (v7)
       {
@@ -289,8 +289,8 @@ LABEL_14:
     else
     {
       v23 = [TUIVStack alloc];
-      children = [(TUILayout *)self children];
-      v25 = [(TUIVStack *)v23 initWithLayout:self children:children];
+      v24 = objc_msgSend_children(self);
+      v25 = [(TUIVStack *)v23 initWithLayout:self children:v24];
 
       guideProvider2 = [(TUILayout *)self guideProvider];
       v27 = [guideProvider2 guideLayoutControllerForLayout:self];
@@ -306,8 +306,8 @@ LABEL_14:
     if ([*(&self->super.super.isa + v34) count] == &dword_0 + 1)
     {
       firstObject = [*(&self->super.super.isa + v34) firstObject];
-      specifiedHeight = [(TUILayout *)self specifiedHeight];
-      [firstObject setSpecifiedHeight:{specifiedHeight, v32}];
+      v31 = objc_msgSend_specifiedHeight(self);
+      [firstObject setSpecifiedHeight:{v31, v32}];
       [firstObject setValignEnabled:1];
     }
   }
@@ -508,14 +508,14 @@ LABEL_14:
   [(TUILayout *)&v15 computedHeightAbovePivot];
   v4 = v3;
   controller = [(TUILayout *)self controller];
-  v6 = [(TUILayout *)self box];
+  v6 = objc_msgSend_box(self);
   pivotChild = [v6 pivotChild];
   v8 = [controller layoutForModel:pivotChild];
 
   if (v8)
   {
-    children = [(TUILayout *)self children];
-    v10 = [children indexOfObjectIdenticalTo:v8];
+    v9 = objc_msgSend_children(self);
+    v10 = [v9 indexOfObjectIdenticalTo:v8];
 
     if (v10 != 0x7FFFFFFFFFFFFFFFLL)
     {
@@ -621,8 +621,8 @@ LABEL_14:
     }
 
     v18 = objc_opt_new();
-    model = [(TUILayout *)self model];
-    [model appendLayoutChildrenToArray:v18];
+    v9 = objc_msgSend_model(self);
+    [v9 appendLayoutChildrenToArray:v18];
 
     v22 = 0u;
     v23 = 0u;
@@ -679,7 +679,7 @@ LABEL_14:
 
 - (BOOL)groupedContainingIsGrouped
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   grouped = [v2 grouped];
 
   return grouped;

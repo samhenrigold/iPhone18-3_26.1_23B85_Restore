@@ -50,58 +50,58 @@ uint64_t __58__AVApplicationStateMonitor_sharedApplicationStateMonitor__block_in
 
 - (AVApplicationStateMonitor)init
 {
-  v17.receiver = self;
-  v17.super_class = AVApplicationStateMonitor;
-  v2 = [(AVApplicationStateMonitor *)&v17 init];
-  if (v2)
+  v18.receiver = self;
+  v18.super_class = AVApplicationStateMonitor;
+  v3 = [(AVApplicationStateMonitor *)&v18 init];
+  if (v3)
   {
-    v2->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avapplicationutilities.ivars");
-    v3 = [objc_msgSend(MEMORY[0x1E69C75D0] "currentProcess")];
-    if (v3)
+    v3->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avapplicationutilities.ivars", v2);
+    v4 = [objc_msgSend(MEMORY[0x1E69C75D0] "currentProcess")];
+    if (v4)
     {
-      v4 = v3;
-      v5 = [v3 taskState] == 4 || objc_msgSend(v4, "taskState") == 2;
-      endowmentNamespaces = [v4 endowmentNamespaces];
-      v7 = [endowmentNamespaces containsObject:*MEMORY[0x1E699F9D0]];
-      if (v5 && (v7 & 1) != 0)
+      v5 = v4;
+      v6 = [v4 taskState] == 4 || objc_msgSend(v5, "taskState") == 2;
+      endowmentNamespaces = [v5 endowmentNamespaces];
+      v8 = [endowmentNamespaces containsObject:*MEMORY[0x1E699F9D0]];
+      if (v6 && (v8 & 1) != 0)
       {
         _hostApplicationHasForegroundExemption = 1;
       }
 
       else
       {
-        _hostApplicationHasForegroundExemption = [(AVApplicationStateMonitor *)v2 _hostApplicationHasForegroundExemption];
+        _hostApplicationHasForegroundExemption = [(AVApplicationStateMonitor *)v3 _hostApplicationHasForegroundExemption];
       }
 
-      v2->_hostApplicationInForeground = _hostApplicationHasForegroundExemption;
+      v3->_hostApplicationInForeground = _hostApplicationHasForegroundExemption;
     }
 
     else
     {
-      v2->_hostApplicationInForeground = 1;
+      v3->_hostApplicationInForeground = 1;
     }
 
-    objc_initWeak(&location, v2);
+    objc_initWeak(&location, v3);
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __33__AVApplicationStateMonitor_init__block_invoke;
-    v14[3] = &unk_1E7460BB0;
-    objc_copyWeak(&v15, &location);
-    v2->_didEnterBackgroundNotificationToken = [defaultCenter addObserverForName:@"UIApplicationDidEnterBackgroundNotification" object:0 queue:0 usingBlock:v14];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __33__AVApplicationStateMonitor_init__block_invoke;
+    v15[3] = &unk_1E7460BB0;
+    objc_copyWeak(&v16, &location);
+    v3->_didEnterBackgroundNotificationToken = [defaultCenter addObserverForName:@"UIApplicationDidEnterBackgroundNotification" object:0 queue:0 usingBlock:v15];
     defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __33__AVApplicationStateMonitor_init__block_invoke_2;
-    v12[3] = &unk_1E7460BB0;
-    objc_copyWeak(&v13, &location);
-    v2->_willEnterForegroundNotificationToken = [defaultCenter2 addObserverForName:@"UIApplicationWillEnterForegroundNotification" object:0 queue:0 usingBlock:v12];
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(&v15);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __33__AVApplicationStateMonitor_init__block_invoke_2;
+    v13[3] = &unk_1E7460BB0;
+    objc_copyWeak(&v14, &location);
+    v3->_willEnterForegroundNotificationToken = [defaultCenter2 addObserverForName:@"UIApplicationWillEnterForegroundNotification" object:0 queue:0 usingBlock:v13];
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t __33__AVApplicationStateMonitor_init__block_invoke(uint64_t a1, uint64_t a2)

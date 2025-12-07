@@ -40,80 +40,84 @@
   fileIdentity = [interactionCopy fileIdentity];
   itemURL = [fileIdentity itemURL];
 
-  if (itemURL && [itemURL length])
+  if (itemURL)
   {
-    v7 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:itemURL];
-    if (!v7)
+    v7 = [itemURL length];
+    if (v7)
     {
-      itemURLBookmarkData = __atxlog_handle_default();
-      if (os_log_type_enabled(itemURLBookmarkData, OS_LOG_TYPE_ERROR))
+      v8 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:itemURL];
+      if (!v8)
       {
-        [ATXDocumentInteractionEvent initWithBMAppDocumentInteraction:];
+        itemURLBookmarkData = __atxlog_handle_default(0);
+        if (os_log_type_enabled(itemURLBookmarkData, OS_LOG_TYPE_ERROR))
+        {
+          [ATXDocumentInteractionEvent initWithBMAppDocumentInteraction:];
+        }
+
+        selfCopy = 0;
+        goto LABEL_23;
       }
 
-      selfCopy = 0;
-      goto LABEL_23;
-    }
+      fileIdentity2 = [interactionCopy fileIdentity];
+      itemURLBookmarkData = [fileIdentity2 itemURLBookmarkData];
 
-    fileIdentity2 = [interactionCopy fileIdentity];
-    itemURLBookmarkData = [fileIdentity2 itemURLBookmarkData];
-
-    if (itemURLBookmarkData)
-    {
-      appIdentity = [interactionCopy appIdentity];
-      bundleIdentifier = [appIdentity bundleIdentifier];
-
-      if (bundleIdentifier)
+      if (itemURLBookmarkData)
       {
-        appIdentity2 = [interactionCopy appIdentity];
-        bundleIdentifier2 = [appIdentity2 bundleIdentifier];
+        appIdentity = [interactionCopy appIdentity];
+        bundleIdentifier = [appIdentity bundleIdentifier];
 
-        type = [interactionCopy type];
-        if (type < 5)
+        if (bundleIdentifier)
         {
-          v15 = type;
-          remoteUser = [interactionCopy remoteUser];
-          self = [(ATXDocumentInteractionEvent *)self initWithInteractionType:v15 originalFileURL:v7 bookmarkData:itemURLBookmarkData isRemote:remoteUser != 0 bundleIdentifier:bundleIdentifier2];
+          appIdentity2 = [interactionCopy appIdentity];
+          bundleIdentifier2 = [appIdentity2 bundleIdentifier];
 
-          selfCopy = self;
+          type = [interactionCopy type];
+          if (type < 5)
+          {
+            v18 = type;
+            remoteUser = [interactionCopy remoteUser];
+            self = [(ATXDocumentInteractionEvent *)self initWithInteractionType:v18 originalFileURL:v8 bookmarkData:itemURLBookmarkData isRemote:remoteUser != 0 bundleIdentifier:bundleIdentifier2];
+
+            selfCopy = self;
 LABEL_22:
 
 LABEL_23:
-          goto LABEL_24;
+            goto LABEL_24;
+          }
+
+          v21 = __atxlog_handle_default(type);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+          {
+            [(ATXDocumentInteractionEvent *)interactionCopy initWithBMAppDocumentInteraction:v21];
+          }
         }
 
-        v18 = __atxlog_handle_default();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        else
         {
-          [(ATXDocumentInteractionEvent *)interactionCopy initWithBMAppDocumentInteraction:v18];
+          bundleIdentifier2 = __atxlog_handle_default(v14);
+          if (os_log_type_enabled(bundleIdentifier2, OS_LOG_TYPE_ERROR))
+          {
+            [ATXDocumentInteractionEvent initWithBMAppDocumentInteraction:];
+          }
         }
       }
 
       else
       {
-        bundleIdentifier2 = __atxlog_handle_default();
+        bundleIdentifier2 = __atxlog_handle_default(v11);
         if (os_log_type_enabled(bundleIdentifier2, OS_LOG_TYPE_ERROR))
         {
           [ATXDocumentInteractionEvent initWithBMAppDocumentInteraction:];
         }
       }
-    }
 
-    else
-    {
-      bundleIdentifier2 = __atxlog_handle_default();
-      if (os_log_type_enabled(bundleIdentifier2, OS_LOG_TYPE_ERROR))
-      {
-        [ATXDocumentInteractionEvent initWithBMAppDocumentInteraction:];
-      }
+      selfCopy = 0;
+      goto LABEL_22;
     }
-
-    selfCopy = 0;
-    goto LABEL_22;
   }
 
-  v7 = __atxlog_handle_default();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = __atxlog_handle_default(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [ATXDocumentInteractionEvent initWithBMAppDocumentInteraction:];
   }
@@ -222,11 +226,10 @@ LABEL_14:
 
 - (void)initWithBMAppDocumentInteraction:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 type];
-  _os_log_fault_impl(&dword_226368000, a2, OS_LOG_TYPE_FAULT, "Document Interaction - %lu not handled in switch statement.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 type];
+  _os_log_fault_impl(&dword_226368000, a2, OS_LOG_TYPE_FAULT, "Document Interaction - %lu not handled in switch statement.", &v3, 0xCu);
 }
 
 @end

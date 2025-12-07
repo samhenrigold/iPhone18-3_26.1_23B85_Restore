@@ -109,7 +109,7 @@
 
   else
   {
-    v10 = PRUISLogCommon();
+    v10 = PRUISLogCommon(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PRUISModalEntryPointAmbientEditingSwitcherWithActiveConfiguration initWithBSXPCCoder:];
@@ -124,14 +124,15 @@
 - (void)encodeWithBSXPCCoder:(id)coder
 {
   serverPosterPath = self->_serverPosterPath;
-  v9 = 0;
+  v10 = 0;
   coderCopy = coder;
-  v6 = [(PFServerPosterPath *)serverPosterPath extendContentsReadAccessToAuditToken:0 error:&v9];
-  v7 = v9;
+  v6 = [(PFServerPosterPath *)serverPosterPath extendContentsReadAccessToAuditToken:0 error:&v10];
+  v7 = v10;
+  v8 = v7;
   if (!v6)
   {
-    v8 = PRUISLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = PRUISLogCommon(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [PRUISModalEntryPointAmbientEditingSwitcherWithActiveConfiguration encodeWithBSXPCCoder:];
     }
@@ -144,7 +145,7 @@
 
 - (void)initWithActiveConfiguration:(char *)a1 transitionOverlayRenderId:transitionOverlayContextId:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -152,7 +153,7 @@
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -162,7 +163,7 @@
 
 - (void)initWithActiveConfiguration:(char *)a1 transitionOverlayRenderId:transitionOverlayContextId:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -170,7 +171,7 @@
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

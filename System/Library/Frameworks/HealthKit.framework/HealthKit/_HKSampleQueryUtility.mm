@@ -96,7 +96,7 @@
 
 - (void)handleAddedObjects:(id)objects deletedObjects:(id)deletedObjects queryAnchor:(id)anchor error:(id)error resultsHandler:(id)handler
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   deletedObjectsCopy = deletedObjects;
   anchorCopy = anchor;
@@ -110,42 +110,42 @@
   else
   {
     obj = anchor;
-    v31 = handlerCopy;
+    v30 = handlerCopy;
     v17 = objc_alloc_init(MEMORY[0x1E696AD50]);
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     v18 = deletedObjectsCopy;
-    v19 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v34;
+      v21 = *v33;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v34 != v21)
+          if (*v33 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v33 + 1) + 8 * i);
+          v23 = *(*(&v32 + 1) + 8 * i);
           samples = self->_samples;
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = __92___HKSampleQueryUtility_handleAddedObjects_deletedObjects_queryAnchor_error_resultsHandler___block_invoke;
-          v32[3] = &unk_1E7385078;
-          v32[4] = v23;
-          v25 = [(NSMutableArray *)samples indexOfObjectPassingTest:v32, obj];
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v31[2] = __92___HKSampleQueryUtility_handleAddedObjects_deletedObjects_queryAnchor_error_resultsHandler___block_invoke;
+          v31[3] = &unk_1E7385078;
+          v31[4] = v23;
+          v25 = [(NSMutableArray *)samples indexOfObjectPassingTest:v31, obj];
           if (v25 != 0x7FFFFFFFFFFFFFFFLL)
           {
             [v17 addIndex:v25];
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v20);
@@ -155,16 +155,14 @@
     [(NSMutableArray *)self->_samples addObjectsFromArray:objectsCopy];
     v26 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"startDate" ascending:self->_sortStartDateAscending];
     v27 = self->_samples;
-    v37 = v26;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+    v36 = v26;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
     [(NSMutableArray *)v27 sortUsingDescriptors:v28];
 
     objc_storeStrong(&self->_queryAnchor, obj);
-    v16 = v31;
-    (*(v31 + 2))(v31, self, self->_samples, 0);
+    v16 = v30;
+    (*(v30 + 2))(v30, self, self->_samples, 0);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop

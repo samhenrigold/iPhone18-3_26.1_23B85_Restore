@@ -68,7 +68,7 @@
 
 - (void)enableCapability
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;

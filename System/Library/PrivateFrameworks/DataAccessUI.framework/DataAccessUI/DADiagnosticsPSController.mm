@@ -72,33 +72,33 @@
 
 - (id)specifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   diagnosticSpecifiers = [(DADiagnosticsPSController *)self diagnosticSpecifiers];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [diagnosticSpecifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [diagnosticSpecifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     v7 = MEMORY[0x277D3FCB8];
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(diagnosticSpecifiers);
         }
 
-        objc_storeWeak((*(*(&v16 + 1) + 8 * v8++) + *v7), self);
+        objc_storeWeak((*(*(&v15 + 1) + 8 * v8++) + *v7), self);
       }
 
       while (v5 != v8);
-      v5 = [diagnosticSpecifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [diagnosticSpecifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -112,7 +112,6 @@
   v12 = *(&self->super.super.super.super.super.isa + v9);
   v13 = v12;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -127,16 +126,15 @@
     simpleConfirmSheetDismissedSEL = self->_simpleConfirmSheetDismissedSEL;
     if (simpleConfirmSheetDismissedSEL)
     {
-      v9 = self->_simpleConfirmSheetDismissedSEL;
       [(DADiagnosticsPSController *)self performSelector:simpleConfirmSheetDismissedSEL withObject:0 afterDelay:1.0];
     }
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = DADiagnosticsPSController;
-    [(DADiagnosticsPSController *)&v10 alertView:viewCopy clickedButtonAtIndex:index];
+    v9.receiver = self;
+    v9.super_class = DADiagnosticsPSController;
+    [(DADiagnosticsPSController *)&v9 alertView:viewCopy clickedButtonAtIndex:index];
   }
 }
 
@@ -283,7 +281,7 @@ LABEL_6:
 
 - (void)saveLogsWithNotes:(id)notes
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   notesCopy = notes;
   pathsOfAllLogFiles = [(DADiagnosticsPSController *)self pathsOfAllLogFiles];
   v6 = validPathsForPaths(pathsOfAllLogFiles);
@@ -306,62 +304,62 @@ LABEL_6:
   {
     v16 = [v13 stringByAppendingPathComponent:@"Notes.log"];
     [notesCopy writeToFile:v16 atomically:1 encoding:4 error:0];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v29 = v6;
+    v28 = v6;
     v17 = v6;
-    v18 = [v17 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v38;
+      v20 = *v37;
 LABEL_4:
       v21 = 0;
       while (1)
       {
-        if (*v38 != v20)
+        if (*v37 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        if (![(DADiagnosticsPSController *)self saveFileAtPath:*(*(&v37 + 1) + 8 * v21) toDirectory:v13 withExtension:@"log" error:0])
+        if (![(DADiagnosticsPSController *)self saveFileAtPath:*(*(&v36 + 1) + 8 * v21) toDirectory:v13 withExtension:@"log" error:0])
         {
           break;
         }
 
         if (v19 == ++v21)
         {
-          v19 = [v17 countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
           if (v19)
           {
             goto LABEL_4;
           }
 
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
           v34 = 0u;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
           v22 = v17;
-          v23 = [v22 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v34;
+            v25 = *v33;
             do
             {
               for (i = 0; i != v24; ++i)
               {
-                if (*v34 != v25)
+                if (*v33 != v25)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                [(DADiagnosticsPSController *)self purgeFileAtPath:*(*(&v33 + 1) + 8 * i)];
+                [(DADiagnosticsPSController *)self purgeFileAtPath:*(*(&v32 + 1) + 8 * i)];
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v32 objects:v40 count:16];
             }
 
             while (v24);
@@ -372,19 +370,17 @@ LABEL_4:
       }
     }
 
-    v6 = v29;
+    v6 = v28;
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __47__DADiagnosticsPSController_saveLogsWithNotes___block_invoke;
   block[3] = &unk_278F21738;
-  v31 = v13;
+  v30 = v13;
   selfCopy = self;
   v27 = v13;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __47__DADiagnosticsPSController_saveLogsWithNotes___block_invoke(uint64_t a1)
@@ -407,20 +403,19 @@ void __47__DADiagnosticsPSController_saveLogsWithNotes___block_invoke(uint64_t a
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"DIAG_NOTES_TITLE" value:&stru_285ACAC78 table:@"Diagnostic"];
   v6 = objc_opt_class();
-  v11 = [v3 preferenceSpecifierNamed:v5 target:self set:0 get:0 detail:v6 cell:1 edit:objc_opt_class()];
+  v10 = [v3 preferenceSpecifierNamed:v5 target:self set:0 get:0 detail:v6 cell:1 edit:objc_opt_class()];
 
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  [v11 setProperty:v8 forKey:*MEMORY[0x277D400B8]];
+  [v10 setProperty:v8 forKey:*MEMORY[0x277D400B8]];
 
-  [v11 setProperty:self forKey:@"kDADiagnosticSaveNotesDelegate"];
-  v9 = *&v11[*MEMORY[0x277D3FC98]];
-  v10 = objc_opt_new();
+  [v10 setProperty:self forKey:@"kDADiagnosticSaveNotesDelegate"];
+  v9 = objc_opt_new();
   *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC38]) = 1;
-  [v10 setParentController:self];
-  [v10 setSpecifier:v11];
-  objc_storeWeak(&v11[*MEMORY[0x277D3FCB8]], self);
-  [(DADiagnosticsPSController *)self pushController:v10];
+  [v9 setParentController:self];
+  [v9 setSpecifier:v10];
+  objc_storeWeak(&v10[*MEMORY[0x277D3FCB8]], self);
+  [(DADiagnosticsPSController *)self pushController:v9];
 }
 
 - (void)handleSaveAllLogsStep2
@@ -485,38 +480,36 @@ void __47__DADiagnosticsPSController_saveLogsWithNotes___block_invoke(uint64_t a
 
 - (void)handleClearAllLogsForSpecifier:(id)specifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   pathsOfAllLogFiles = [(DADiagnosticsPSController *)self pathsOfAllLogFiles];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [pathsOfAllLogFiles countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [pathsOfAllLogFiles countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(pathsOfAllLogFiles);
         }
 
-        [(DADiagnosticsPSController *)self purgeFileAtPath:*(*(&v10 + 1) + 8 * v8++)];
+        [(DADiagnosticsPSController *)self purgeFileAtPath:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [pathsOfAllLogFiles countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [pathsOfAllLogFiles countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeFileAtPath:(id)path

@@ -697,7 +697,7 @@ void __40__TITestUserPersona_updateFromKeyplane___block_invoke_149(uint64_t a1, 
   [v6 setRotationMatrix:v11];
 }
 
-uint64_t __40__TITestUserPersona_updateFromKeyplane___block_invoke_2_150(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__40__TITestUserPersona_updateFromKeyplane___block_invoke_2_150(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 containsObject:*(a1 + 32)];
   *a4 = result;

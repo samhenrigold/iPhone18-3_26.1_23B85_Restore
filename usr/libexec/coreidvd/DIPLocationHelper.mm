@@ -30,7 +30,7 @@
   managerCopy = manager;
   errorCopy = error;
   selfCopy = self;
-  sub_10059AFF4(managerCopy);
+  sub_10059AFF4(managerCopy, errorCopy);
 }
 
 - (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status

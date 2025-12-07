@@ -11,32 +11,33 @@
 
 - (uint64_t)mad_saveChangesWithError:()MediaAnalysis
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if ([self hasChanges])
   {
     v5 = mach_continuous_time();
-    v16 = 0;
-    v6 = [self save:&v16];
-    v7 = v16;
+    v17 = 0;
+    v6 = [self save:&v17];
+    v7 = v17;
+    v8 = v7;
     if (v6)
     {
-      v8 = VCPSignPostPersistentLog();
-      v9 = VCPSignPostPersistentLog();
-      v10 = os_signpost_id_generate(v9);
+      v9 = VCPSignPostPersistentLog(v7);
+      v10 = VCPSignPostPersistentLog(v9);
+      v11 = os_signpost_id_generate(v10);
 
-      if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
       {
-        v11 = qos_class_self();
-        v12 = VCPMAQoSDescription(v11);
-        v13 = v12;
-        uTF8String = [v12 UTF8String];
+        v12 = qos_class_self();
+        v13 = VCPMAQoSDescription(v12);
+        v14 = v13;
+        uTF8String = [v13 UTF8String];
         *buf = 134349570;
-        v18 = v5;
-        v19 = 2082;
-        v20 = "SaveToDisk";
-        v21 = 2082;
-        v22 = uTF8String;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_EVENT, v10, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x20u);
+        v19 = v5;
+        v20 = 2082;
+        v21 = "SaveToDisk";
+        v22 = 2082;
+        v23 = uTF8String;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_EVENT, v11, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s  enableTelemetry=YES ", buf, 0x20u);
       }
 
       if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
@@ -51,13 +52,13 @@
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v7;
+        v19 = v8;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[MACD] Failed to save changes to CoreData Analysis Store - %@", buf, 0xCu);
       }
 
       if (a3)
       {
-        *a3 = [v7 copy];
+        *a3 = [v8 copy];
       }
     }
   }

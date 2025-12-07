@@ -80,800 +80,757 @@
 
 uint64_t __41__ASDPersonalizationStore_sharedInstance__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_52 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_52;
+  _MergedGlobals_52 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (void)flushMetricsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] flushMetricsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __59__ASDPersonalizationStore_flushMetricsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __59__ASDPersonalizationStore_flushMetricsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __59__ASDPersonalizationStore_flushMetricsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __59__ASDPersonalizationStore_flushMetricsWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __59__ASDPersonalizationStore_flushMetricsWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB758;
-    v8 = *(a1 + 32);
-    [v4 flushMetricsWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __59__ASDPersonalizationStore_flushMetricsWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __59__ASDPersonalizationStore_flushMetricsWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB758;
+    v7 = *(a1 + 32);
+    [v4 flushMetricsWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)getClusterMappingsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: getClusterMappingsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __65__ASDPersonalizationStore_getClusterMappingsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __65__ASDPersonalizationStore_getClusterMappingsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __65__ASDPersonalizationStore_getClusterMappingsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __65__ASDPersonalizationStore_getClusterMappingsWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __65__ASDPersonalizationStore_getClusterMappingsWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB7A8;
-    v8 = *(a1 + 32);
-    [v4 getClusterMappingsWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __65__ASDPersonalizationStore_getClusterMappingsWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __65__ASDPersonalizationStore_getClusterMappingsWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB7A8;
+    v7 = *(a1 + 32);
+    [v4 getClusterMappingsWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)getTasteProfileToken:(id)token
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: getTasteProfileToken", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __48__ASDPersonalizationStore_getTasteProfileToken___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = tokenCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __48__ASDPersonalizationStore_getTasteProfileToken___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = tokenCopy;
   v8 = tokenCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __48__ASDPersonalizationStore_getTasteProfileToken___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __48__ASDPersonalizationStore_getTasteProfileToken___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __48__ASDPersonalizationStore_getTasteProfileToken___block_invoke_3;
-    v7[3] = &unk_1E7CDD6F8;
-    v8 = *(a1 + 32);
-    [v4 getGroupingToken:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __48__ASDPersonalizationStore_getTasteProfileToken___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __48__ASDPersonalizationStore_getTasteProfileToken___block_invoke_3;
+    v6[3] = &unk_1E7CDD6F8;
+    v7 = *(a1 + 32);
+    [v4 getGroupingToken:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)getGroupingToken:(id)token
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: getGroupingToken", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __44__ASDPersonalizationStore_getGroupingToken___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = tokenCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __44__ASDPersonalizationStore_getGroupingToken___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = tokenCopy;
   v8 = tokenCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __44__ASDPersonalizationStore_getGroupingToken___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __44__ASDPersonalizationStore_getGroupingToken___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __44__ASDPersonalizationStore_getGroupingToken___block_invoke_3;
-    v7[3] = &unk_1E7CDD6F8;
-    v8 = *(a1 + 32);
-    [v4 getGroupingToken:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __44__ASDPersonalizationStore_getGroupingToken___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __44__ASDPersonalizationStore_getGroupingToken___block_invoke_3;
+    v6[3] = &unk_1E7CDD6F8;
+    v7 = *(a1 + 32);
+    [v4 getGroupingToken:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)getAppEventsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] getPersonalizationEventsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __59__ASDPersonalizationStore_getAppEventsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __59__ASDPersonalizationStore_getAppEventsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __59__ASDPersonalizationStore_getAppEventsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __59__ASDPersonalizationStore_getAppEventsWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __59__ASDPersonalizationStore_getAppEventsWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB7A8;
-    v8 = *(a1 + 32);
-    [v4 getAppEventsWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __59__ASDPersonalizationStore_getAppEventsWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __59__ASDPersonalizationStore_getAppEventsWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB7A8;
+    v7 = *(a1 + 32);
+    [v4 getAppEventsWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)recordLaunchesWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] recordLaunchesCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __61__ASDPersonalizationStore_recordLaunchesWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __61__ASDPersonalizationStore_recordLaunchesWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __61__ASDPersonalizationStore_recordLaunchesWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __61__ASDPersonalizationStore_recordLaunchesWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __61__ASDPersonalizationStore_recordLaunchesWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB758;
-    v8 = *(a1 + 32);
-    [v4 recordLaunchesWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __61__ASDPersonalizationStore_recordLaunchesWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __61__ASDPersonalizationStore_recordLaunchesWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB758;
+    v7 = *(a1 + 32);
+    [v4 recordLaunchesWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)recordMetricsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] recordMetricsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __60__ASDPersonalizationStore_recordMetricsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __60__ASDPersonalizationStore_recordMetricsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __60__ASDPersonalizationStore_recordMetricsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __60__ASDPersonalizationStore_recordMetricsWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __60__ASDPersonalizationStore_recordMetricsWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB758;
-    v8 = *(a1 + 32);
-    [v4 recordMetricsWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __60__ASDPersonalizationStore_recordMetricsWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __60__ASDPersonalizationStore_recordMetricsWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB758;
+    v7 = *(a1 + 32);
+    [v4 recordMetricsWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)reportAppEvent:(id)event completionBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   blockCopy = block;
   v8 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = objc_opt_class();
-    v9 = v18;
+    v17 = objc_opt_class();
+    v9 = v17;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: reportAppEvent", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __58__ASDPersonalizationStore_reportAppEvent_completionBlock___block_invoke;
-  v14[3] = &unk_1E7CDD720;
-  v15 = eventCopy;
-  v16 = blockCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __58__ASDPersonalizationStore_reportAppEvent_completionBlock___block_invoke;
+  v13[3] = &unk_1E7CDD720;
+  v14 = eventCopy;
+  v15 = blockCopy;
   v11 = eventCopy;
   v12 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v13];
 }
 
 void __58__ASDPersonalizationStore_reportAppEvent_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __58__ASDPersonalizationStore_reportAppEvent_completionBlock___block_invoke_2;
-    v10[3] = &unk_1E7CDB730;
-    v11 = *(a1 + 40);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __58__ASDPersonalizationStore_reportAppEvent_completionBlock___block_invoke_3;
-    v8[3] = &unk_1E7CDB758;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __58__ASDPersonalizationStore_reportAppEvent_completionBlock___block_invoke_2;
+    v9[3] = &unk_1E7CDB730;
+    v10 = *(a1 + 40);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __58__ASDPersonalizationStore_reportAppEvent_completionBlock___block_invoke_3;
+    v7[3] = &unk_1E7CDB758;
     v5 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    [v4 reportAppEvent:v5 completionBlock:v8];
+    v8 = *(a1 + 40);
+    [v4 reportAppEvent:v5 completionBlock:v7];
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 
 - (void)resetActorIDWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetMetricsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __59__ASDPersonalizationStore_resetActorIDWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __59__ASDPersonalizationStore_resetActorIDWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __59__ASDPersonalizationStore_resetActorIDWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __59__ASDPersonalizationStore_resetActorIDWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __59__ASDPersonalizationStore_resetActorIDWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB758;
-    v8 = *(a1 + 32);
-    [v4 resetActorIDWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __59__ASDPersonalizationStore_resetActorIDWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __59__ASDPersonalizationStore_resetActorIDWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB758;
+    v7 = *(a1 + 32);
+    [v4 resetActorIDWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)reloadClusterMappingsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: resetMetricsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __68__ASDPersonalizationStore_reloadClusterMappingsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __68__ASDPersonalizationStore_reloadClusterMappingsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __68__ASDPersonalizationStore_reloadClusterMappingsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __68__ASDPersonalizationStore_reloadClusterMappingsWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __68__ASDPersonalizationStore_reloadClusterMappingsWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB758;
-    v8 = *(a1 + 32);
-    [v4 reloadClusterMappingsWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __68__ASDPersonalizationStore_reloadClusterMappingsWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __68__ASDPersonalizationStore_reloadClusterMappingsWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB758;
+    v7 = *(a1 + 32);
+    [v4 reloadClusterMappingsWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)resetMetricsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetMetricsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __59__ASDPersonalizationStore_resetMetricsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __59__ASDPersonalizationStore_resetMetricsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __59__ASDPersonalizationStore_resetMetricsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __59__ASDPersonalizationStore_resetMetricsWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __59__ASDPersonalizationStore_resetMetricsWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB758;
-    v8 = *(a1 + 32);
-    [v4 resetMetricsWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __59__ASDPersonalizationStore_resetMetricsWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __59__ASDPersonalizationStore_resetMetricsWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB758;
+    v7 = *(a1 + 32);
+    [v4 resetMetricsWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)sendMetricsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] sendMetricsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __58__ASDPersonalizationStore_sendMetricsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __58__ASDPersonalizationStore_sendMetricsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __58__ASDPersonalizationStore_sendMetricsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __58__ASDPersonalizationStore_sendMetricsWithCompletionBlock___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __58__ASDPersonalizationStore_sendMetricsWithCompletionBlock___block_invoke_3;
-    v7[3] = &unk_1E7CDB758;
-    v8 = *(a1 + 32);
-    [v4 sendMetricsWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __58__ASDPersonalizationStore_sendMetricsWithCompletionBlock___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __58__ASDPersonalizationStore_sendMetricsWithCompletionBlock___block_invoke_3;
+    v6[3] = &unk_1E7CDB758;
+    v7 = *(a1 + 32);
+    [v4 sendMetricsWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
 - (void)setClusterMapping:(id)mapping completionBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   blockCopy = block;
   v8 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = objc_opt_class();
-    v9 = v18;
+    v17 = objc_opt_class();
+    v9 = v17;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: setClusterMapping", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __61__ASDPersonalizationStore_setClusterMapping_completionBlock___block_invoke;
-  v14[3] = &unk_1E7CDD720;
-  v15 = mappingCopy;
-  v16 = blockCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __61__ASDPersonalizationStore_setClusterMapping_completionBlock___block_invoke;
+  v13[3] = &unk_1E7CDD720;
+  v14 = mappingCopy;
+  v15 = blockCopy;
   v11 = mappingCopy;
   v12 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v13];
 }
 
 void __61__ASDPersonalizationStore_setClusterMapping_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __61__ASDPersonalizationStore_setClusterMapping_completionBlock___block_invoke_2;
-    v10[3] = &unk_1E7CDB730;
-    v11 = *(a1 + 40);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __61__ASDPersonalizationStore_setClusterMapping_completionBlock___block_invoke_3;
-    v8[3] = &unk_1E7CDB758;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __61__ASDPersonalizationStore_setClusterMapping_completionBlock___block_invoke_2;
+    v9[3] = &unk_1E7CDB730;
+    v10 = *(a1 + 40);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __61__ASDPersonalizationStore_setClusterMapping_completionBlock___block_invoke_3;
+    v7[3] = &unk_1E7CDB758;
     v5 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    [v4 setClusterMapping:v5 completionBlock:v8];
+    v8 = *(a1 + 40);
+    [v4 setClusterMapping:v5 completionBlock:v7];
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 
 - (void)setClusterMappings:(id)mappings completionBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   mappingsCopy = mappings;
   blockCopy = block;
   v8 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = objc_opt_class();
-    v9 = v18;
+    v17 = objc_opt_class();
+    v9 = v17;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: setClusterMappings", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __62__ASDPersonalizationStore_setClusterMappings_completionBlock___block_invoke;
-  v14[3] = &unk_1E7CDD720;
-  v15 = mappingsCopy;
-  v16 = blockCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __62__ASDPersonalizationStore_setClusterMappings_completionBlock___block_invoke;
+  v13[3] = &unk_1E7CDD720;
+  v14 = mappingsCopy;
+  v15 = blockCopy;
   v11 = mappingsCopy;
   v12 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v13];
 }
 
 void __62__ASDPersonalizationStore_setClusterMappings_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __62__ASDPersonalizationStore_setClusterMappings_completionBlock___block_invoke_2;
-    v10[3] = &unk_1E7CDB730;
-    v11 = *(a1 + 40);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __62__ASDPersonalizationStore_setClusterMappings_completionBlock___block_invoke_3;
-    v8[3] = &unk_1E7CDB758;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __62__ASDPersonalizationStore_setClusterMappings_completionBlock___block_invoke_2;
+    v9[3] = &unk_1E7CDB730;
+    v10 = *(a1 + 40);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __62__ASDPersonalizationStore_setClusterMappings_completionBlock___block_invoke_3;
+    v7[3] = &unk_1E7CDB758;
     v5 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    [v4 setClusterMappings:v5 completionBlock:v8];
+    v8 = *(a1 + 40);
+    [v4 setClusterMappings:v5 completionBlock:v7];
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 
 - (void)tasteProfileFeatureEnabled:(id)enabled
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Taste profile enabled", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __54__ASDPersonalizationStore_tasteProfileFeatureEnabled___block_invoke;
-  v10[3] = &unk_1E7CDD6D0;
-  v11 = enabledCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __54__ASDPersonalizationStore_tasteProfileFeatureEnabled___block_invoke;
+  v9[3] = &unk_1E7CDD6D0;
+  v10 = enabledCopy;
   v8 = enabledCopy;
-  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getPersonalizationServiceWithCompletionHandler:v9];
 }
 
 void __54__ASDPersonalizationStore_tasteProfileFeatureEnabled___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __54__ASDPersonalizationStore_tasteProfileFeatureEnabled___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __54__ASDPersonalizationStore_tasteProfileFeatureEnabled___block_invoke_3;
-    v7[3] = &unk_1E7CDB758;
-    v8 = *(a1 + 32);
-    [v4 tasteProfileFeatureEnabledWithCompletionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __54__ASDPersonalizationStore_tasteProfileFeatureEnabled___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __54__ASDPersonalizationStore_tasteProfileFeatureEnabled___block_invoke_3;
+    v6[3] = &unk_1E7CDB758;
+    v7 = *(a1 + 32);
+    [v4 tasteProfileFeatureEnabledWithCompletionBlock:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 

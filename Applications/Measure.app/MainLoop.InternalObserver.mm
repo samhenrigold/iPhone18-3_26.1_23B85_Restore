@@ -29,7 +29,7 @@
   swift_unknownObjectWeakInit();
   v3 = OBJC_IVAR____TtCC7Measure8MainLoopP33_3089E251FF26A255EE4B430BFB36566C16InternalObserver__resetEvent;
   KeyPath = swift_getKeyPath();
-  v5 = sub_10000F974(&unk_1004A8748);
+  v5 = sub_10000F974(&unk_1004A8748, &unk_1003DC3B8);
   if (qword_1004A04D8 != -1)
   {
     swift_once();

@@ -57,14 +57,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    count = self->_count;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    duration = self->_duration;
 
     PBDataWriterWriteUint64Field();
   }

@@ -27,62 +27,62 @@
 
 - (void)handleDisconnection
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [(NSMutableDictionary *)selfCopy->_selectorValueDict allKeys];
-  v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
-  v3 = v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v16 = 0u;
+  v13 = 0u;
+  v3 = v14 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         pointerValue = [v7 pointerValue];
-        if ([objc_opt_class() getCachePolicyForSelector:pointerValue] != 1)
+        v9 = [objc_opt_class() getCachePolicyForSelector:pointerValue];
+        if (v9 != 1)
         {
-          v9 = CTLogClientCache();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          v11 = CTLogClientCache(v9, v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
-            v10 = NSStringFromSelector(pointerValue);
-            [(FrameworkCache *)v10 handleDisconnection:v16];
+            v12 = NSStringFromSelector(pointerValue);
+            [(FrameworkCache *)v12 handleDisconnection:v17];
           }
 
           [(NSMutableDictionary *)selfCopy->_selectorValueDict removeObjectForKey:v7];
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(selfCopy);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (SEL)getCacheableSelectorForNotification:(id)notification
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   if ((_MergedGlobals_2 & 1) == 0)
   {
-    v14[0] = sel_currentDataServiceDescriptorChanged_;
-    v14[1] = sel_getCurrentDataServiceDescriptor_;
-    std::map<objc_selector *,objc_selector *>::map[abi:nn200100](v13, v14, 1);
-    [FrameworkCache getCacheableSelectorForNotification:v13];
+    v13[0] = sel_currentDataServiceDescriptorChanged_;
+    v13[1] = sel_getCurrentDataServiceDescriptor_;
+    std::map<objc_selector *,objc_selector *>::map[abi:nn200100](v12, v13, 1);
+    [FrameworkCache getCacheableSelectorForNotification:v12];
   }
 
   selector = [notificationCopy selector];
@@ -118,7 +118,6 @@ LABEL_11:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -165,20 +164,20 @@ LABEL_11:
 
 - (void)handleValue:(id)value forSelector:(SEL)selector
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if ([objc_opt_class() getCachePolicyForSelector:selector])
   {
     v7 = [MEMORY[0x1E696B098] valueWithPointer:selector];
     selfCopy = self;
-    objc_sync_enter(selfCopy);
+    v9 = objc_sync_enter(selfCopy);
     if (valueCopy)
     {
-      v9 = CTLogClientCache();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = CTLogClientCache(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v10 = NSStringFromSelector(selector);
-        [(FrameworkCache *)v10 handleValue:valueCopy forSelector:v15];
+        v12 = NSStringFromSelector(selector);
+        [(FrameworkCache *)v12 handleValue:valueCopy forSelector:v18];
       }
 
       [(NSMutableDictionary *)selfCopy->_selectorValueDict setObject:valueCopy forKey:v7];
@@ -186,15 +185,15 @@ LABEL_11:
 
     else
     {
-      v11 = [(NSMutableDictionary *)selfCopy->_selectorValueDict objectForKey:v7];
+      v13 = [(NSMutableDictionary *)selfCopy->_selectorValueDict objectForKey:v7];
 
-      if (v11)
+      if (v13)
       {
-        v12 = CTLogClientCache();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v16 = CTLogClientCache(v14, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v13 = NSStringFromSelector(selector);
-          [(FrameworkCache *)v13 handleValue:v15 forSelector:v12];
+          v17 = NSStringFromSelector(selector);
+          [(FrameworkCache *)v17 handleValue:v18 forSelector:v16];
         }
 
         [(NSMutableDictionary *)selfCopy->_selectorValueDict removeObjectForKey:v7];
@@ -203,13 +202,11 @@ LABEL_11:
 
     objc_sync_exit(selfCopy);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleNotification:(id)notification
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = [objc_opt_class() getCacheableSelectorForNotification:notificationCopy];
   if (v5)
@@ -221,11 +218,11 @@ LABEL_11:
 
     if (v8)
     {
-      v9 = CTLogClientCache();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = CTLogClientCache(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v10 = NSStringFromSelector([notificationCopy selector]);
-        [(FrameworkCache *)v10 handleNotification:v12, v9];
+        v12 = NSStringFromSelector([notificationCopy selector]);
+        [(FrameworkCache *)v12 handleNotification:v13, v11];
       }
 
       [(NSMutableDictionary *)selfCopy->_selectorValueDict removeObjectForKey:v6];
@@ -233,33 +230,31 @@ LABEL_11:
 
     objc_sync_exit(selfCopy);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForSelector:(SEL)selector
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = [MEMORY[0x1E696B098] valueWithPointer:selector];
   v6 = [(NSMutableDictionary *)selfCopy->_selectorValueDict objectForKey:v5];
+  v8 = v6;
   if (v6)
   {
-    v7 = CTLogClientCache();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = CTLogClientCache(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v8 = NSStringFromSelector(selector);
-      [(FrameworkCache *)v8 valueForSelector:v6, v12];
+      v10 = NSStringFromSelector(selector);
+      [(FrameworkCache *)v10 valueForSelector:v8, v13];
     }
 
-    v9 = v6;
+    v11 = v8;
   }
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x1E69E9840];
 
-  return v6;
+  return v8;
 }
 
 @end

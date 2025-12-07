@@ -15,7 +15,7 @@
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -24,16 +24,16 @@
   v4 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
   {
-    v10 = v4;
-    v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
+    v9 = v4;
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
     *buf = 138543362;
-    v14 = v12;
-    _os_log_fault_impl(&dword_1883EA000, v10, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.", buf, 0xCu);
+    v13 = v11;
+    _os_log_fault_impl(&dword_1883EA000, v9, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.", buf, 0xCu);
 
     if (!run)
     {
-      goto LABEL_6;
+      return 0;
     }
 
     goto LABEL_5;
@@ -47,8 +47,6 @@ LABEL_5:
     *run = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v7, @"CKInternalErrorDomain", 1017, @"%@ is no longer supported", v6);
   }
 
-LABEL_6:
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

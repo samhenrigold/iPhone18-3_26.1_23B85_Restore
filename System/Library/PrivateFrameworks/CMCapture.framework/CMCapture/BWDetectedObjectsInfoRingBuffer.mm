@@ -206,27 +206,37 @@
 - (void)transferObjectsToSampleBuffer:(opaqueCMSampleBuffer *)buffer transformToBufferSpace:(BOOL)space sourceCropRect:(CGRect)rect
 {
   OUTLINED_FUNCTION_12_30();
-  v50 = v5;
-  v51 = v6;
+  v51 = v5;
+  v52 = v6;
   OUTLINED_FUNCTION_9_7();
   v8 = v7;
   v10 = v9;
   v12 = v11;
   FigSimpleMutexLock();
   v13 = *(v12 + 8);
-  memset(&v49, 0, sizeof(v49));
-  CMSampleBufferGetPresentationTimeStamp(&v49, v10);
-  *&v48.a = *&v49.value;
-  *&v48.c = v49.epoch;
-  DetectedObjectsInfoClosestToPTS = doirb_findDetectedObjectsInfoClosestToPTS(v13, &v48);
+  memset(&v50, 0, sizeof(v50));
+  CMSampleBufferGetPresentationTimeStamp(&v50, v10);
+  *&v49.a = *&v50.value;
+  *&v49.c = v50.epoch;
+  DetectedObjectsInfoClosestToPTS = doirb_findDetectedObjectsInfoClosestToPTS(v13, &v49);
   if (DetectedObjectsInfoClosestToPTS)
   {
     v15 = DetectedObjectsInfoClosestToPTS;
     v16 = CMGetAttachment(v10, *off_1E798A3C8, 0);
-    if (!v16 || (v17 = v16, v18 = [objc_msgSend(v16 objectForKeyedSubscript:{*off_1E798B5A8), "intValue"}], (v19 = objc_msgSend(objc_msgSend(v17, "objectForKeyedSubscript:", *off_1E798B5A0), "intValue")) == 0) || !v18)
+    if (!v16)
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      goto LABEL_12;
+    }
+
+    v17 = v16;
+    v18 = [objc_msgSend(v16 objectForKeyedSubscript:{*off_1E798B5A8), "intValue"}];
+    v19 = [objc_msgSend(v17 objectForKeyedSubscript:{*off_1E798B5A0), "intValue"}];
+    if (!v19 || !v18)
+    {
+      OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       goto LABEL_12;
     }
 
@@ -234,34 +244,34 @@
     {
       v20 = v19;
       v21 = [v17 objectForKeyedSubscript:*off_1E798B540];
-      if (BWDeviceModelHasCharleston() && [v21 isEqualToString:*off_1E798A0F8])
+      if (BWDeviceModelHasCharleston(v21, v22) && objc_msgSend_isEqualToString_(v21))
       {
-        v25 = OUTLINED_FUNCTION_5_49();
-        TransformFromSensorSpaceToSampleBufferWithNondisruptiveSwitching = mscsnu_getTransformFromSensorSpaceToSampleBufferWithNondisruptiveSwitching(v25, v17, v26);
-        OUTLINED_FUNCTION_14(TransformFromSensorSpaceToSampleBufferWithNondisruptiveSwitching, v28, v29, v30, v31, v32, v33, v34, v43, v45, *&v47.a, *&v47.b, *&v47.c, *&v47.d, *&v47.tx, *&v47.ty, *&v48.a, *&v48.b, *&v48.c, *&v48.d, *&v48.tx);
-        IsIdentity = CGAffineTransformIsIdentity(&v47);
+        v26 = OUTLINED_FUNCTION_5_49();
+        TransformFromSensorSpaceToSampleBufferWithNondisruptiveSwitching = mscsnu_getTransformFromSensorSpaceToSampleBufferWithNondisruptiveSwitching(v26, v17, v27);
+        OUTLINED_FUNCTION_14(TransformFromSensorSpaceToSampleBufferWithNondisruptiveSwitching, v29, v30, v31, v32, v33, v34, v35, v44, v46, *&v48.a, *&v48.b, *&v48.c, *&v48.d, *&v48.tx, *&v48.ty, *&v49.a, *&v49.b, *&v49.c, *&v49.d, *&v49.tx);
+        IsIdentity = CGAffineTransformIsIdentity(&v48);
         if (!IsIdentity)
         {
-          OUTLINED_FUNCTION_14(IsIdentity, v36, v37, v38, v39, v40, v41, v42, v44, v46, *&v47.a, *&v47.b, *&v47.c, *&v47.d, *&v47.tx, *&v47.ty, *&v48.a, *&v48.b, *&v48.c, *&v48.d, *&v48.tx);
-          v22 = FigCaptureMetadataUtilitiesApplyAffineTransformToDetectedObjectsInfo(v15, &v47);
+          OUTLINED_FUNCTION_14(IsIdentity, v37, v38, v39, v40, v41, v42, v43, v45, v47, *&v48.a, *&v48.b, *&v48.c, *&v48.d, *&v48.tx, *&v48.ty, *&v49.a, *&v49.b, *&v49.c, *&v49.d, *&v49.tx);
+          v23 = FigCaptureMetadataUtilitiesApplyAffineTransformToDetectedObjectsInfo(v15, &v48);
           goto LABEL_11;
         }
       }
 
       else
       {
-        v52.origin.x = OUTLINED_FUNCTION_3_1();
-        if (!CGRectIsEmpty(v52))
+        v53.origin.x = OUTLINED_FUNCTION_3_1();
+        if (!CGRectIsEmpty(v53))
         {
-          v53.origin.x = OUTLINED_FUNCTION_3_1();
-          v56.size.width = v18;
-          v56.size.height = v20;
-          if (!CGRectEqualToRect(v53, v56))
+          v54.origin.x = OUTLINED_FUNCTION_3_1();
+          v57.size.width = v18;
+          v57.size.height = v20;
+          if (!CGRectEqualToRect(v54, v57))
           {
-            CGAffineTransformMakeScale(&v48, 1.0 / v18, 1.0 / v20);
-            v54.origin.x = OUTLINED_FUNCTION_3_1();
-            v55 = CGRectApplyAffineTransform(v54, v23);
-            DetectedObjectsInfoForCropRect = FigCaptureMetadataUtilitiesCreateDetectedObjectsInfoForCropRect(v15, v55.origin.x, v55.origin.y, v55.size.width);
+            CGAffineTransformMakeScale(&v49, 1.0 / v18, 1.0 / v20);
+            v55.origin.x = OUTLINED_FUNCTION_3_1();
+            v56 = CGRectApplyAffineTransform(v55, v24);
+            DetectedObjectsInfoForCropRect = FigCaptureMetadataUtilitiesCreateDetectedObjectsInfoForCropRect(v15, v56.origin.x, v56.origin.y, v56.size.width, v56.size.height);
             [v17 setObject:DetectedObjectsInfoForCropRect forKeyedSubscript:*off_1E798B220];
 
             goto LABEL_12;
@@ -270,9 +280,9 @@
       }
     }
 
-    v22 = CFPropertyListCreateDeepCopy(*MEMORY[0x1E695E480], v15, 1uLL);
+    v23 = CFPropertyListCreateDeepCopy(*MEMORY[0x1E695E480], v15, 1uLL);
 LABEL_11:
-    [v17 setObject:v22 forKeyedSubscript:*off_1E798B220];
+    [v17 setObject:v23 forKeyedSubscript:*off_1E798B220];
   }
 
 LABEL_12:

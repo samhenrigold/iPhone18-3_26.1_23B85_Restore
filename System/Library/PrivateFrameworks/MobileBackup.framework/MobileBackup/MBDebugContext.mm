@@ -12,8 +12,10 @@
 - (int64_t)time;
 - (void)dealloc;
 - (void)removeValueForName:(id)name;
+- (void)setBool:(BOOL)bool forName:(id)name;
 - (void)setDelegate:(id)delegate andSelector:(SEL)selector forName:(id)name;
 - (void)setFlag:(id)flag;
+- (void)setInt:(int)int forName:(id)name;
 - (void)setSimulatedDate:(id)date;
 - (void)setValue:(id)value forName:(id)name;
 @end
@@ -29,9 +31,9 @@
 
 - (MBDebugContext)init
 {
-  v11.receiver = self;
-  v11.super_class = MBDebugContext;
-  v2 = [(MBDebugContext *)&v11 init];
+  v9.receiver = self;
+  v9.super_class = MBDebugContext;
+  v2 = [(MBDebugContext *)&v9 init];
   if (v2)
   {
     v3 = [NSMutableDictionary alloc];
@@ -44,7 +46,7 @@
       {
         v6 = v5;
 LABEL_9:
-        v2->_dictionary = [v3 initWithDictionary:{v6, v9, v10}];
+        v2->_dictionary = [v3 initWithDictionary:v6];
         return v2;
       }
 
@@ -52,13 +54,11 @@ LABEL_9:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v13 = @"com.apple.MobileBackup";
-        v14 = 2112;
-        v15 = @"DebugContext";
+        v11 = @"com.apple.MobileBackup";
+        v12 = 2112;
+        v13 = @"DebugContext";
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Preference %@ %@ not a dictionary", buf, 0x16u);
-        v9 = @"com.apple.MobileBackup";
-        v10 = @"DebugContext";
-        _MBLog();
+        _MBLog(@"Df", "Preference %@ %@ not a dictionary", @"com.apple.MobileBackup", @"DebugContext");
       }
 
       CFRelease(v5);
@@ -159,6 +159,16 @@ LABEL_9:
   return v6;
 }
 
+- (void)setBool:(BOOL)bool forName:(id)name
+{
+  boolCopy = bool;
+  dictionary = self->_dictionary;
+  objc_sync_enter(dictionary);
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKeyedSubscript:"numberWithBool:" numberWithBool:boolCopy], name];
+
+  objc_sync_exit(dictionary);
+}
+
 - (BOOL)BOOLForName:(id)name
 {
   dictionary = self->_dictionary;
@@ -166,6 +176,13 @@ LABEL_9:
   LOBYTE(name) = [-[NSMutableDictionary objectForKeyedSubscript:](self->_dictionary objectForKeyedSubscript:{name), "BOOLValue"}];
   objc_sync_exit(dictionary);
   return name;
+}
+
+- (void)setInt:(int)int forName:(id)name
+{
+  v6 = [NSNumber numberWithInt:*&int];
+
+  [(MBDebugContext *)self setValue:v6 forName:name];
 }
 
 - (int)intForName:(id)name
@@ -216,10 +233,9 @@ LABEL_9:
 {
   dictionary = self->_dictionary;
   objc_sync_enter(dictionary);
-  v4 = self->_dictionary;
-  v5 = MBStringWithDictionary();
+  v3 = MBStringWithDictionary();
   objc_sync_exit(dictionary);
-  return v5;
+  return v3;
 }
 
 @end

@@ -72,19 +72,7 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (!v5)
-    {
-      goto LABEL_12;
-    }
-
-    showBlankEntryButton = [(MOSuggestionSheetOptions *)self showBlankEntryButton];
-    if (showBlankEntryButton != [v5 showBlankEntryButton])
-    {
-      goto LABEL_12;
-    }
-
-    showCancelButton = [(MOSuggestionSheetOptions *)self showCancelButton];
-    if (showCancelButton == [v5 showCancelButton] && (v8 = -[MOSuggestionSheetOptions presentFullScreen](self, "presentFullScreen"), v8 == objc_msgSend(v5, "presentFullScreen")) && (v9 = -[MOSuggestionSheetOptions presentationIsAnimated](self, "presentationIsAnimated"), v9 == objc_msgSend(v5, "presentationIsAnimated")) && (v10 = -[MOSuggestionSheetOptions selectedTabIsRecommended](self, "selectedTabIsRecommended"), v10 == objc_msgSend(v5, "selectedTabIsRecommended")) && (-[MOSuggestionSheetOptions peekDetentRatio](self, "peekDetentRatio"), v12 = v11, objc_msgSend(v5, "peekDetentRatio"), v12 == v13))
+    if (v5 && (v6 = -[MOSuggestionSheetOptions showBlankEntryButton](self, "showBlankEntryButton"), v6 == [v5 showBlankEntryButton]) && (v7 = -[MOSuggestionSheetOptions showCancelButton](self, "showCancelButton"), v7 == objc_msgSend(v5, "showCancelButton")) && (v8 = -[MOSuggestionSheetOptions presentFullScreen](self, "presentFullScreen"), v8 == objc_msgSend(v5, "presentFullScreen")) && (v9 = -[MOSuggestionSheetOptions presentationIsAnimated](self, "presentationIsAnimated"), v9 == objc_msgSend(v5, "presentationIsAnimated")) && (v10 = -[MOSuggestionSheetOptions selectedTabIsRecommended](self, "selectedTabIsRecommended"), v10 == objc_msgSend(v5, "selectedTabIsRecommended")) && (-[MOSuggestionSheetOptions peekDetentRatio](self, "peekDetentRatio"), v12 = v11, objc_msgSend(v5, "peekDetentRatio"), v12 == v13))
     {
       selectedSuggestionId = [(MOSuggestionSheetOptions *)self selectedSuggestionId];
       selectedSuggestionId2 = [v5 selectedSuggestionId];
@@ -102,7 +90,6 @@
 
     else
     {
-LABEL_12:
       v16 = 0;
     }
   }

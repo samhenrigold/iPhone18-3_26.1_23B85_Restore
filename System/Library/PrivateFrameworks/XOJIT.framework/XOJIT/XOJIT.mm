@@ -1,19 +1,17 @@
 uint64_t sub_274E5D3D8()
 {
-  v1 = *(v0 + 24);
 
-  v2 = OUTLINED_FUNCTION_18();
+  v0 = OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2821FE8E8](v2);
+  return MEMORY[0x2821FE8E8](v0);
 }
 
 uint64_t sub_274E5D408()
 {
-  v1 = *(v0 + 24);
 
-  v2 = OUTLINED_FUNCTION_18();
+  v0 = OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2821FE8E8](v2);
+  return MEMORY[0x2821FE8E8](v0);
 }
 
 uint64_t _s5XOJIT5XOJITC11DylibHandleVwet_0(uint64_t a1, int a2)
@@ -176,9 +174,9 @@ uint64_t MemoryBuffer.init(identifier:fromFile:)()
     type metadata accessor for XOJITError();
     OUTLINED_FUNCTION_5();
     *(swift_allocObject() + 16) = v3;
-    sub_274E61948();
-    v4 = OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_28(v4, v5);
+    v4 = sub_274E61948();
+    v5 = OUTLINED_FUNCTION_3(v4);
+    OUTLINED_FUNCTION_28(v5, v6);
   }
 
   return v0;
@@ -197,14 +195,14 @@ unint64_t sub_274E61948()
   return result;
 }
 
-uint64_t MemoryBuffer.__allocating_init(fromFile:)()
+uint64_t MemoryBuffer.__allocating_init(fromFile:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_4();
-  v0 = swift_allocObject();
+  v2 = swift_allocObject();
 
   OUTLINED_FUNCTION_32();
   MemoryBuffer.init(identifier:fromFile:)();
-  return v0;
+  return v2;
 }
 
 uint64_t MemoryBuffer.deinit()
@@ -266,7 +264,7 @@ uint64_t sub_274E61AA4(uint64_t result, uint64_t a2)
 
       v4(v6);
 
-      return sub_274E66B68(v4);
+      return sub_274E66B68(v4, v5);
     }
 
 LABEL_11:
@@ -283,43 +281,44 @@ void XOJIT.__allocating_init(fromXPCConnection:oopJITLinkageType:opaqueOwner:)(u
   XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:)(v4, v5, a3);
 }
 
-void XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:)(uint64_t a1, unint64_t a2, uint64_t a3)
+void XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:)(void *a1, unint64_t a2, uint64_t a3)
 {
   v7 = 0;
-  v15 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v15[1] = *MEMORY[0x277D85DE8];
   v3[4] = 0;
   v3[2] = 0;
   v3[5] = 0;
   if (qword_2809A24A0 != -1)
   {
     OUTLINED_FUNCTION_2(&qword_2809A24A0);
-    v7 = v3[4];
-    v14 = v3[5];
+    v8 = v3[4];
+    v7 = v3[5];
   }
 
   v3[4] = 0;
   v3[5] = 0;
-  sub_274E66B68(v7);
+  sub_274E66B68(v8, v7);
   v3[3] = a3;
   OUTLINED_FUNCTION_1();
-  if (v8)
-  {
-    v10 = 0;
-  }
-
-  else
-  {
-    v10 = v9;
-  }
-
-  if (v8)
+  if (v9)
   {
     v11 = 0;
   }
 
   else
   {
-    v11 = v3;
+    v11 = v10;
+  }
+
+  if (v9)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v3;
   }
 
   if ((a2 & 0x8000000000000000) != 0)
@@ -329,32 +328,32 @@ void XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:)(uint64_t a1, u
 
   else if (!HIDWORD(a2))
   {
-    v12 = XOJIT_XOJIT_NoopMutatingCallback;
-    v13 = unk_2809A2FC0;
+    v13 = XOJIT_XOJIT_NoopMutatingCallback;
+    v14 = unk_2809A2FC0;
     swift_unknownObjectRetain();
-    XOJIT_XOJIT_CreateFromXPCWithOOPJITType(v10, v11, v12, v13, a1, a2);
+    XOJIT_XOJIT_CreateFromXPCWithOOPJITType(v11, v12, v13, v14, a1, a2, v15);
   }
 
   __break(1u);
 }
 
-void XOJIT.__allocating_init(fromXPCConnection:oopJITLinkageType:opaqueOwner:reportError:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void XOJIT.__allocating_init(fromXPCConnection:oopJITLinkageType:opaqueOwner:reportError:)(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_6();
   swift_allocObject();
   XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:reportError:)(a1, a2, a3, a4, a5);
 }
 
-void XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:reportError:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:reportError:)(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = 0;
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = 0;
   OUTLINED_FUNCTION_23();
   if (qword_2809A24A0 != -1)
   {
     OUTLINED_FUNCTION_2(&qword_2809A24A0);
-    v11 = v5[4];
-    v18 = v5[5];
+    v12 = v5[4];
+    v11 = v5[5];
   }
 
   v5[3] = a3;
@@ -362,27 +361,27 @@ void XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:reportError:)(ui
   v5[5] = a5;
   swift_unknownObjectRetain();
   v13 = OUTLINED_FUNCTION_19();
-  sub_274E66B78(v13);
-  sub_274E66B68(v11);
+  sub_274E66B78(v13, v14);
+  sub_274E66B68(v12, v11);
   OUTLINED_FUNCTION_1();
-  if (v14)
-  {
-    v16 = 0;
-  }
-
-  else
-  {
-    v16 = v15;
-  }
-
-  if (v14)
+  if (v15)
   {
     v17 = 0;
   }
 
   else
   {
-    v17 = v5;
+    v17 = v16;
+  }
+
+  if (v15)
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v18 = v5;
   }
 
   if ((a2 & 0x8000000000000000) != 0)
@@ -392,13 +391,13 @@ void XOJIT.init(fromXPCConnection:oopJITLinkageType:opaqueOwner:reportError:)(ui
 
   else if (!HIDWORD(a2))
   {
-    XOJIT_XOJIT_CreateFromXPCWithOOPJITType(v16, v17, XOJIT_XOJIT_NoopMutatingCallback, unk_2809A2FC0, a1, a2);
+    XOJIT_XOJIT_CreateFromXPCWithOOPJITType(v17, v18, XOJIT_XOJIT_NoopMutatingCallback, unk_2809A2FC0, a1, a2, &v19);
   }
 
   __break(1u);
 }
 
-void XOJIT.__allocating_init(fromXPCConnection:opaqueOwner:)(uint64_t a1, uint64_t a2)
+void XOJIT.__allocating_init(fromXPCConnection:opaqueOwner:)(void *a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_6();
   swift_allocObject();
@@ -414,21 +413,40 @@ void XOJIT.__allocating_init()()
 
 void XOJIT.init()()
 {
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_23();
   if (qword_2809A24A0 != -1)
   {
     OUTLINED_FUNCTION_2(&qword_2809A24A0);
-    v2 = v0[4];
-    v3 = v0[5];
+    v1 = v0[4];
+    v2 = v0[5];
   }
 
   v0[3] = 0;
   v0[4] = 0;
   v0[5] = 0;
-  sub_274E66B68(v2);
+  sub_274E66B68(v1, v2);
   OUTLINED_FUNCTION_1();
-  XOJIT_XOJIT_CreateInProcess();
+  if (v3)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = v4;
+  }
+
+  if (v3)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = v0;
+  }
+
+  XOJIT_XOJIT_CreateInProcess(v5, v6, XOJIT_XOJIT_NoopMutatingCallback, unk_2809A2FC0, &v7);
 }
 
 void XOJIT.__allocating_init(reportError:)()
@@ -441,65 +459,79 @@ void XOJIT.__allocating_init(reportError:)()
 
 void XOJIT.init(reportError:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_23();
   if (qword_2809A24A0 != -1)
   {
     OUTLINED_FUNCTION_2(&qword_2809A24A0);
-    v8 = v2[4];
-    v7 = v2[5];
   }
 
   v2[3] = 0;
   v2[4] = a1;
   v2[5] = a2;
-  sub_274E66B78(a1);
-  v6 = OUTLINED_FUNCTION_19();
-  sub_274E66B68(v6);
+  sub_274E66B78(a1, a2);
+  v5 = OUTLINED_FUNCTION_19();
+  sub_274E66B68(v5, v6);
   OUTLINED_FUNCTION_1();
-  XOJIT_XOJIT_CreateInProcess();
+  if (v7)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  if (v7)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = v2;
+  }
+
+  XOJIT_XOJIT_CreateInProcess(v9, v10, XOJIT_XOJIT_NoopMutatingCallback, unk_2809A2FC0, &v11);
 }
 
 void *XOJIT.deinit()
 {
   v1 = sub_2750BF218();
-  v2 = OUTLINED_FUNCTION_7(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2, v7);
+  OUTLINED_FUNCTION_7();
+  v3 = v2;
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_25();
-  v8 = v0[2];
-  if (v8)
+  v5 = v0[2];
+  if (v5)
   {
     OUTLINED_FUNCTION_13();
+    v6 = sub_2750BF1F8();
+    v7 = sub_2750BF318();
+    if (os_log_type_enabled(v6, v7))
+    {
+      v8 = swift_slowAlloc();
+      *v8 = 0;
+      _os_log_impl(&dword_274E5C000, v6, v7, "Destroying XOJIT C++ instance...", v8, 2u);
+      MEMORY[0x277C6A700](v8, -1, -1);
+    }
+
+    XOJIT_XOJIT_Destroy(v5);
     v9 = sub_2750BF1F8();
     v10 = sub_2750BF318();
     if (os_log_type_enabled(v9, v10))
     {
       v11 = swift_slowAlloc();
       *v11 = 0;
-      _os_log_impl(&dword_274E5C000, v9, v10, "Destroying XOJIT C++ instance...", v11, 2u);
+      _os_log_impl(&dword_274E5C000, v9, v10, "Destroyed XOJIT C++ instance.", v11, 2u);
       MEMORY[0x277C6A700](v11, -1, -1);
     }
 
-    XOJIT_XOJIT_Destroy(v8);
-    v12 = sub_2750BF1F8();
-    v13 = sub_2750BF318();
-    if (os_log_type_enabled(v12, v13))
-    {
-      v14 = swift_slowAlloc();
-      *v14 = 0;
-      _os_log_impl(&dword_274E5C000, v12, v13, "Destroyed XOJIT C++ instance.", v14, 2u);
-      MEMORY[0x277C6A700](v14, -1, -1);
-    }
-
-    (*(v4 + 8))(v0, v1);
+    (*(v3 + 8))(v0, v1);
   }
 
-  v15 = v0[3];
   swift_unknownObjectRelease();
-  v16 = v0[5];
-  sub_274E66B68(v0[4]);
+  sub_274E66B68(v0[4], v0[5]);
   return v0;
 }
 
@@ -521,9 +553,9 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
       type metadata accessor for XOJITError();
       OUTLINED_FUNCTION_5();
       v2 = swift_allocObject();
-      OUTLINED_FUNCTION_40(v2);
-      v3 = OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_15(v3, v4);
+      v3 = OUTLINED_FUNCTION_40(v2);
+      v4 = OUTLINED_FUNCTION_3(v3);
+      OUTLINED_FUNCTION_15(v4, v5);
     }
   }
 
@@ -593,52 +625,34 @@ uint64_t XOJIT.objectLinkingLayer.getter@<X0>(void *a1@<X8>)
   return result;
 }
 
-Swift::Int32 __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> XOJIT.runProgramOnMainThread(symbol:jitDylibName:arguments:)(Swift::String symbol, Swift::String jitDylibName, Swift::OpaquePointer arguments)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  result = sub_274E626A0(symbol._countAndFlagsBits, symbol._object, jitDylibName._countAndFlagsBits, jitDylibName._object, arguments._rawValue, XOJIT_XOJIT_RunAsMain);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-Swift::Int32 __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> XOJIT.runProgramOnAnyThread(symbol:jitDylibName:arguments:)(Swift::String symbol, Swift::String jitDylibName, Swift::OpaquePointer arguments)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  result = sub_274E626A0(symbol._countAndFlagsBits, symbol._object, jitDylibName._countAndFlagsBits, jitDylibName._object, arguments._rawValue, XOJIT_XOJIT_RunOnAnyThread);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 uint64_t sub_274E626A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, unint64_t, uint64_t, unsigned int *))
 {
   v7 = v6;
-  v30 = *MEMORY[0x277D85DE8];
-  v29 = -1;
+  v28 = *MEMORY[0x277D85DE8];
+  v27 = -1;
   v8 = *(a5 + 16);
   if (v8)
   {
-    v28 = MEMORY[0x277D84F90];
+    v26 = MEMORY[0x277D84F90];
     sub_274E66D0C(0, v8, 0);
-    v10 = v28;
-    v11 = (a5 + 40);
+    v10 = v26;
+    v11 = a5 + 40;
     do
     {
-      v12 = *(v11 - 1);
-      v13 = *v11;
-      v14 = sub_2750BF288();
-      v15 = strdup((v14 + 32));
+      v12 = sub_2750BF288();
+      v13 = strdup((v12 + 32));
 
-      v17 = *(v28 + 16);
-      v16 = *(v28 + 24);
-      v18 = v17 + 1;
-      if (v17 >= v16 >> 1)
+      v15 = *(v26 + 16);
+      v14 = *(v26 + 24);
+      v16 = v15 + 1;
+      if (v15 >= v14 >> 1)
       {
-        sub_274E66D0C((v16 > 1), v17 + 1, 1);
+        sub_274E66D0C((v14 > 1), v15 + 1, 1);
       }
 
-      *(v28 + 16) = v18;
-      *(v28 + 8 * v17 + 32) = v15;
-      v11 += 2;
+      *(v26 + 16) = v16;
+      *(v26 + 8 * v15 + 32) = v13;
+      v11 += 16;
       --v8;
     }
 
@@ -648,45 +662,44 @@ uint64_t sub_274E626A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   else
   {
     v10 = MEMORY[0x277D84F90];
-    v18 = *(MEMORY[0x277D84F90] + 16);
+    v16 = *(MEMORY[0x277D84F90] + 16);
   }
 
-  v19 = *(v7 + 16);
-  if (!v19)
+  v17 = *(v7 + 16);
+  if (!v17)
   {
 LABEL_15:
     __break(1u);
   }
 
-  if (v18 >> 31)
+  if (v16 >> 31)
   {
     __break(1u);
     goto LABEL_15;
   }
 
-  v20 = sub_2750BF288();
-  v21 = sub_2750BF288();
-  v22 = a6(v19, v20 + 32, v21 + 32, v18, v10 + 32, &v29);
+  v18 = sub_2750BF288();
+  v19 = sub_2750BF288();
+  v20 = a6(v17, v18 + 32, v19 + 32, v16, v10 + 32, &v27);
 
-  if (v22)
+  if (v20)
   {
     type metadata accessor for XOJITError();
     OUTLINED_FUNCTION_5();
-    *(swift_allocObject() + 16) = v22;
-    sub_274E61948();
-    v23 = OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_28(v23, v24);
+    *(swift_allocObject() + 16) = v20;
+    v21 = sub_274E61948();
+    v22 = OUTLINED_FUNCTION_3(v21);
+    OUTLINED_FUNCTION_28(v22, v23);
   }
 
   else
   {
-    v22 = v29;
+    v20 = v27;
   }
 
   sub_274E628AC(v10);
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v20;
 }
 
 void sub_274E628AC(uint64_t a1)
@@ -706,13 +719,12 @@ void sub_274E628AC(uint64_t a1)
   }
 }
 
-uint64_t XOJIT.runNewInitializers(for:)(uint64_t a1)
+llvm::orc::ExecutionSession *XOJIT.runNewInitializers(for:)(uint64_t a1)
 {
   result = *(v1 + 16);
   if (result)
   {
-    v4 = *(*(a1 + 8) + 16);
-    XOJIT_XOJIT_RunNewInitializers(result);
+    XOJIT_XOJIT_RunNewInitializers(result, *(*(a1 + 8) + 16));
   }
 
   __break(1u);
@@ -722,49 +734,52 @@ uint64_t XOJIT.runNewInitializers(for:)(uint64_t a1)
 uint64_t sub_274E62950()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
-uint64_t XOJIT.callOnAnyThread<A>(_:_:)(uint64_t *a1)
+uint64_t XOJIT.callOnAnyThread<A>(_:_:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = *a1;
-  v4 = sub_2750BF1B8();
-  v5 = *(v4 + 48);
-  v6 = *(v4 + 52);
+  v7 = *a1;
+  sub_2750BF1B8();
   swift_allocObject();
   sub_2750BF1A8();
-  v7 = sub_2750BF198();
-  v9 = v8;
+  v8 = sub_2750BF198();
+  v10 = v9;
 
-  if (!v2)
+  if (!v6)
   {
 
-    sub_274E62B2C(v7, v9, v1);
+    sub_274E62B2C(v8, v10, v5, v7);
   }
 
   return result;
 }
 
-void sub_274E62A50(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_274E62A50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = *(a3 + 16);
-  if (v3)
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = *(a3 + 16);
+  if (v5)
   {
-    XOJIT_XOJIT_CallOnAnyThread(v3);
+    v6 = a2 - a1;
+    if (!a1)
+    {
+      v6 = 0;
+    }
+
+    XOJIT_XOJIT_CallOnAnyThread(v5, a4, a1, v6);
   }
 
   __break(1u);
 }
 
-void sub_274E62B2C(uint64_t a1, unint64_t a2, uint64_t a3)
+void sub_274E62B2C(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v6 = a2 >> 62;
+  v27 = *MEMORY[0x277D85DE8];
+  v8 = a2 >> 62;
 
-  switch(v6)
+  switch(v8)
   {
     case 1uLL:
       if (a1 >> 32 < a1)
@@ -776,43 +791,43 @@ LABEL_24:
 
       else
       {
-        v11 = sub_2750BF1C8();
-        if (!v11)
+        v13 = sub_2750BF1C8();
+        if (!v13)
         {
 LABEL_14:
-          v14 = (a1 >> 32) - a1;
+          v16 = (a1 >> 32) - a1;
 LABEL_15:
-          v16 = sub_2750BF1D8();
-          if (v16 >= v14)
+          v18 = sub_2750BF1D8();
+          if (v18 >= v16)
           {
-            v17 = v14;
+            v19 = v16;
           }
 
           else
           {
-            v17 = v16;
+            v19 = v18;
           }
 
-          v18 = (v17 + v11);
-          if (v11)
+          v20 = (v19 + v13);
+          if (v13)
           {
-            v7 = v18;
+            v9 = v20;
           }
 
           else
           {
-            v7 = 0;
+            v9 = 0;
           }
 
-          v8 = v11;
+          v10 = v13;
 LABEL_22:
-          sub_274E62A50(v8, v7, a3);
+          sub_274E62A50(v10, v9, a3, a4);
         }
 
-        v15 = sub_2750BF1E8();
-        if (!__OFSUB__(a1, v15))
+        v17 = sub_2750BF1E8();
+        if (!__OFSUB__(a1, v17))
         {
-          v11 += a1 - v15;
+          v13 += a1 - v17;
           goto LABEL_14;
         }
       }
@@ -820,97 +835,98 @@ LABEL_22:
       __break(1u);
       return;
     case 2uLL:
-      v9 = *(a1 + 16);
-      v10 = *(a1 + 24);
-      v11 = sub_2750BF1C8();
-      if (!v11)
+      v11 = *(a1 + 16);
+      v12 = *(a1 + 24);
+      v13 = sub_2750BF1C8();
+      if (!v13)
       {
         goto LABEL_6;
       }
 
-      v12 = sub_2750BF1E8();
-      if (__OFSUB__(v9, v12))
+      v14 = sub_2750BF1E8();
+      if (__OFSUB__(v11, v14))
       {
         goto LABEL_24;
       }
 
-      v11 += v9 - v12;
+      v13 += v11 - v14;
 LABEL_6:
-      v13 = __OFSUB__(v10, v9);
-      v14 = v10 - v9;
-      if (v13)
+      v15 = __OFSUB__(v12, v11);
+      v16 = v12 - v11;
+      if (v15)
       {
         __break(1u);
 LABEL_9:
 
-        sub_274E68484(0, 0, a3);
+        sub_274E68484(0, 0, a3, a4);
       }
 
       goto LABEL_15;
     case 3uLL:
       goto LABEL_9;
     default:
-      v19 = a1;
-      v20 = a2;
-      v21 = BYTE2(a2);
-      v22 = BYTE3(a2);
-      v23 = BYTE4(a2);
-      v24 = BYTE5(a2);
-      v7 = &v19 + BYTE6(a2);
-      v8 = &v19;
+      v21 = a1;
+      v22 = a2;
+      v23 = BYTE2(a2);
+      v24 = BYTE3(a2);
+      v25 = BYTE4(a2);
+      v26 = BYTE5(a2);
+      v9 = &v21 + BYTE6(a2);
+      v10 = &v21;
       goto LABEL_22;
   }
 }
 
-void XOJIT.callOnAnyThread<A>(symbol:in:_:)(uint64_t a1, uint64_t a2, uint64_t *a3)
+void XOJIT.callOnAnyThread<A>(symbol:in:_:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v6 = *a3;
-  v5 = a3[1];
+  v10 = *a3;
+  v9 = a3[1];
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A24B0, &qword_2750C04C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_2750C04A0;
-  *(inited + 32) = v6;
-  *(inited + 40) = v5;
+  *(inited + 32) = v10;
+  *(inited + 40) = v9;
   *(inited + 48) = 1;
-  v10 = 1;
-  v9 = 0;
-  v8 = 5;
+  v14 = 1;
+  v13 = 0;
+  v12 = 5;
 
-  XOJIT.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(inited, a1, a2, &v9, &v10, &v8);
+  XOJIT.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(inited, a1, a2, &v13, &v14, &v12);
 }
 
-void XOJIT.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5, unsigned __int8 *a6)
+void XOJIT.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(uint64_t a1, uint64_t a2, void x2_0, unsigned __int8 *x3_0, unsigned __int8 *a3, unsigned __int8 *a6)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v7 = *a4;
-  v27 = *a5;
+  v28[2] = *MEMORY[0x277D85DE8];
+  v7 = *x3_0;
+  v27 = *a3;
   v26 = *a6;
   v8 = *(a1 + 16);
   v9 = MEMORY[0x277D84F90];
   if (v8)
   {
-    v25 = *a4;
-    v28 = MEMORY[0x277D84F90];
+    v28[0] = MEMORY[0x277D84F90];
     sub_274E66DCC(0, v8, 0);
-    v9 = v28;
-    v11 = *(v28 + 16);
+    v9 = v28[0];
+    v11 = *(v28[0] + 16);
     v12 = 16 * v11;
     v13 = (a1 + 48);
     do
     {
       v14 = *v13;
       v15 = *(*(v13 - 1) + 16);
-      v16 = *(v28 + 24);
+      v28[0] = v9;
+      v16 = *(v9 + 3);
       v17 = v11 + 1;
       if (v11 >= v16 >> 1)
       {
         sub_274E66DCC((v16 > 1), v11 + 1, 1);
+        v9 = v28[0];
       }
 
-      *(v28 + 16) = v17;
-      v18 = v28 + v12;
-      *(v18 + 32) = v15;
-      *(v18 + 40) = v14;
+      *(v9 + 2) = v17;
+      v18 = &v9[v12];
+      *(v18 + 4) = v15;
+      *(v18 + 10) = v14;
       v12 += 16;
       v13 += 24;
       v11 = v17;
@@ -918,7 +934,7 @@ void XOJIT.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(uint64
     }
 
     while (v8);
-    v6 = v24;
+    v6 = v25;
   }
 
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -937,44 +953,54 @@ void XOJIT.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(uint64
   v21 = &v9[16 * v20 + 32];
   *v21 = 0;
   *(v21 + 8) = 1;
+  v28[0] = 0;
+  v28[1] = 0;
   v22 = *(v6 + 16);
   if (v22)
   {
-    v23 = sub_2750BF288();
-    XOJIT_XOJIT_SymbolLookup(v22, v27, v9 + 4, (v23 + 32), v7);
+    if (v26 >= 5)
+    {
+      v23 = 63;
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    v24 = sub_2750BF288();
+    XOJIT_XOJIT_SymbolLookup(v22, v27, v9 + 4, (v24 + 32), v7, v23, v28);
   }
 
   __break(1u);
 }
 
-uint64_t XOJIT.loadDylib(_:)@<X0>(void *a1@<X8>)
+uint64_t XOJIT.loadDylib(_:)@<X0>(void *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (!*(v1 + 16))
+  if (!*(v2 + 16))
   {
     __break(1u);
   }
 
   sub_2750BF288();
-  v3 = OUTLINED_FUNCTION_39();
-  Dylib = XOJIT_XOJIT_LoadDylib(v3, v4, v5);
+  v4 = OUTLINED_FUNCTION_39();
+  Dylib = XOJIT_XOJIT_LoadDylib(v4, v5, v6);
 
   if (Dylib)
   {
     type metadata accessor for XOJITError();
     OUTLINED_FUNCTION_5();
     *(swift_allocObject() + 16) = Dylib;
-    sub_274E61948();
-    v8 = OUTLINED_FUNCTION_3();
-    result = OUTLINED_FUNCTION_20(v8, v9);
+    v9 = sub_274E61948();
+    v10 = OUTLINED_FUNCTION_3(v9);
+    return OUTLINED_FUNCTION_20(v10, v11);
   }
 
   else
   {
-    *a1 = 0;
+    *a2 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -991,9 +1017,9 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
       type metadata accessor for XOJITError();
       OUTLINED_FUNCTION_5();
       v5 = swift_allocObject();
-      OUTLINED_FUNCTION_40(v5);
-      v6 = OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_15(v6, v7);
+      v6 = OUTLINED_FUNCTION_40(v5);
+      v7 = OUTLINED_FUNCTION_3(v6);
+      OUTLINED_FUNCTION_15(v7, v8);
     }
   }
 
@@ -1016,9 +1042,9 @@ uint64_t XOJIT.JITDylib.executionSession.getter@<X0>(void *a1@<X8>)
   result = *(*v1 + 16);
   if (result)
   {
-    ExecutionSession = XOJIT_XOJIT_GetExecutionSession();
+    XOJIT_XOJIT_GetExecutionSession();
     *a1 = v2;
-    a1[1] = ExecutionSession;
+    a1[1] = v5;
   }
 
   else
@@ -1065,35 +1091,33 @@ uint64_t XOJIT.loadLinkableFile(path:archives:identifier:)(char *a1, uint64_t a2
     OUTLINED_FUNCTION_5();
     v14 = swift_allocObject();
     *(v14 + 16) = v12;
-    sub_274E61948();
-    v15 = OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_20(v15, v16);
-LABEL_11:
-    v20 = *MEMORY[0x277D85DE8];
+    v15 = sub_274E61948();
+    v16 = OUTLINED_FUNCTION_3(v15);
+    OUTLINED_FUNCTION_20(v16, v17);
     return v14;
   }
 
-  v17 = v22[0];
+  v18 = v22[0];
   if (v22[0])
   {
-    v18 = v21;
+    v19 = v21;
 
-    if (v18)
+    if (v19)
     {
-      v19 = 2 * (v18 == 1);
+      v20 = 2 * (v19 == 1);
     }
 
     else
     {
-      v19 = 1;
+      v20 = 1;
     }
 
     type metadata accessor for MemoryBuffer();
     OUTLINED_FUNCTION_5();
     v14 = swift_allocObject();
-    sub_274E6179C(v17);
-    *a1 = v19;
-    goto LABEL_11;
+    sub_274E6179C(v18);
+    *a1 = v20;
+    return v14;
   }
 
   __break(1u);
@@ -1104,17 +1128,37 @@ uint64_t XOJIT.ObjectLinkingLayer.add(object:name:to:)(uint64_t a1, uint64_t a2,
 {
   v6 = *(a5 + 8);
   v7 = *(v5 + 8);
+  if (a4)
+  {
+    v8 = a3;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (a4)
+  {
+    v9 = a4;
+  }
+
+  else
+  {
+    v9 = 0xE000000000000000;
+  }
+
   type metadata accessor for LLVMMemoryBuffer();
   swift_initStackObject();
 
-  v8 = OUTLINED_FUNCTION_33();
-  sub_274E68B58(v8, v9);
-  v10 = *(v6 + 16);
-  v11 = sub_274E68B44();
-  v12 = LLVMOrcObjectLayerAddObjectFile(v7, v10, v11);
-  if (v12)
+  v10 = OUTLINED_FUNCTION_33();
+  sub_274E68B58(v10, v11, v8, v9);
+  v12 = *(v6 + 16);
+  v13 = sub_274E68B44();
+  v14 = LLVMOrcObjectLayerAddObjectFile(v7, v12, v13);
+  if (v14)
   {
-    LLVMGetErrorMessage(v12);
+    LLVMGetErrorMessage(v14);
   }
 }
 
@@ -1148,10 +1192,9 @@ uint64_t sub_274E63698()
   v3 = v2;
   OUTLINED_FUNCTION_9();
   *v4 = v3;
-  v6 = *(v5 + 64);
-  v7 = *v1;
+  v5 = *v1;
   OUTLINED_FUNCTION_8();
-  *v8 = v7;
+  *v6 = v5;
   *(v3 + 72) = v0;
 
   if (v0)
@@ -1162,11 +1205,10 @@ uint64_t sub_274E63698()
 
   else
   {
-    v9 = *(v3 + 56);
 
     OUTLINED_FUNCTION_26();
 
-    return v10();
+    return v7();
   }
 }
 
@@ -1183,11 +1225,10 @@ uint64_t sub_274E637CC()
   v1 = swift_task_alloc();
   *(v0 + 32) = v1;
   *(v1 + 16) = *(v0 + 16);
-  v2 = *(MEMORY[0x277D85A40] + 4);
-  v3 = swift_task_alloc();
-  *(v0 + 40) = v3;
-  *v3 = v0;
-  v3[1] = sub_274E638B4;
+  v2 = swift_task_alloc();
+  *(v0 + 40) = v2;
+  *v2 = v0;
+  v2[1] = sub_274E638B4;
 
   return MEMORY[0x2822008A0]();
 }
@@ -1199,36 +1240,32 @@ uint64_t sub_274E638B4()
   v3 = v2;
   OUTLINED_FUNCTION_9();
   *v4 = v3;
-  v6 = *(v5 + 40);
-  v7 = *v1;
+  v5 = *v1;
   OUTLINED_FUNCTION_8();
-  *v8 = v7;
+  *v6 = v5;
   *(v3 + 48) = v0;
 
   if (v0)
   {
-    v9 = sub_274E639DC;
+    v7 = sub_274E639DC;
   }
 
   else
   {
-    v10 = *(v3 + 32);
 
-    v9 = sub_274E639B8;
+    v7 = sub_274E639B8;
   }
 
-  return MEMORY[0x2822009F8](v9, 0, 0);
+  return MEMORY[0x2822009F8](v7, 0, 0);
 }
 
 uint64_t sub_274E639DC()
 {
   OUTLINED_FUNCTION_12();
-  v1 = *(v0 + 32);
 
   OUTLINED_FUNCTION_26();
-  v3 = *(v0 + 48);
 
-  return v2();
+  return v0();
 }
 
 void sub_274E63A64(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t, uint64_t))
@@ -1280,11 +1317,10 @@ void sub_274E63BDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   if (*(a3 + 16))
   {
     OUTLINED_FUNCTION_38();
-    v9 = *(v8 + 16);
     sub_274E61A64();
-    v10 = OUTLINED_FUNCTION_22();
+    v8 = OUTLINED_FUNCTION_22();
 
-    a8(v10);
+    a8(v8);
   }
 
   else
@@ -1347,10 +1383,9 @@ uint64_t sub_274E63DE8()
   v3 = v2;
   OUTLINED_FUNCTION_9();
   *v4 = v3;
-  v6 = *(v5 + 64);
-  v7 = *v1;
+  v5 = *v1;
   OUTLINED_FUNCTION_8();
-  *v8 = v7;
+  *v6 = v5;
   *(v3 + 72) = v0;
 
   if (v0)
@@ -1361,36 +1396,36 @@ uint64_t sub_274E63DE8()
 
   else
   {
-    v9 = *(v3 + 56);
 
     OUTLINED_FUNCTION_26();
 
-    return v10();
+    return v7();
   }
 }
 
 uint64_t sub_274E63F08()
 {
   OUTLINED_FUNCTION_12();
-  v1 = *(v0 + 56);
 
   OUTLINED_FUNCTION_26();
-  v3 = *(v0 + 72);
 
-  return v2();
+  return v0();
 }
 
-void sub_274E63F64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_274E63F64(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int8 a8)
 {
-  if (*(a3 + 16))
+  v8 = *(a3 + 16);
+  if (v8)
   {
-    v6 = *(a6 + 16);
-    sub_274E61A64();
+    v11 = result;
+    v12 = *(a6 + 16);
+    v13 = sub_274E61A64();
 
-    XOJIT_XOJIT_LinkStaticArchiveWithForceLoadAsync();
+    XOJIT_XOJIT_LinkStaticArchiveWithForceLoadAsync(v8, v12, v13, a8, v11, a2);
   }
 
   __break(1u);
+  return result;
 }
 
 uint64_t _s5XOJIT10XOJITErrorC4KindO9hashValueSivg_0()
@@ -1409,39 +1444,35 @@ uint64_t sub_274E64110()
   return sub_2750BF3C8();
 }
 
-void XOJIT.ExecutionSession.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5, unsigned __int8 *a6)
+void XOJIT.ExecutionSession.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(uint64_t a1, uint64_t a2, uint64_t x2_0, unsigned __int8 *a3, unsigned __int8 *a4, unsigned __int8 *a6)
 {
-  v7 = *a5;
+  v7 = *a4;
   v8 = *a6;
-  v9 = *v6;
-  v12 = *a4;
-  v11 = v7;
-  v10 = v8;
-  XOJIT.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(a1, a2, a3, &v12, &v11, &v10);
+  v11 = *a3;
+  v10 = v7;
+  v9 = v8;
+  XOJIT.lookup(searchOrder:name:lookupFlags:lookupKind:requiredState:)(a1, a2, x2_0, &v11, &v10, &v9);
 }
 
 void XOJIT.ExecutionSession.createJITDylib(name:)()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v2 = *v0;
-  v1 = v0[1];
-  v4[0] = 0;
-  v3 = sub_2750BF288();
-  LLVMOrcExecutionSessionCreateJITDylib(v1, v4, (v3 + 32));
+  v5[1] = *MEMORY[0x277D85DE8];
+  v3 = *(v2 + 8);
+  v5[0] = 0;
+  v4 = sub_2750BF288();
+  LLVMOrcExecutionSessionCreateJITDylib(v3, v5, (v4 + 32));
 }
 
 void XOJIT.ExecutionSession.createBareJITDylib(name:)()
 {
-  v2 = *v0;
-  v1 = v0[1];
-  v3 = sub_2750BF288();
-  LLVMOrcExecutionSessionCreateBareJITDylib(v1, (v3 + 32));
+  v3 = *(v2 + 8);
+  v4 = sub_2750BF288();
+  LLVMOrcExecutionSessionCreateBareJITDylib(v3, (v4 + 32));
 }
 
 uint64_t XOJIT.MachOHeaderOptions.Dylib.name.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -1449,7 +1480,6 @@ uint64_t XOJIT.MachOHeaderOptions.Dylib.name.getter()
 uint64_t XOJIT.MachOHeaderOptions.Dylib.name.setter()
 {
   OUTLINED_FUNCTION_38();
-  v3 = v1[1];
 
   *v1 = v2;
   v1[1] = v0;
@@ -1491,14 +1521,13 @@ uint64_t XOJIT.MachOHeaderOptions.idDylib.getter@<X0>(uint64_t a1@<X8>)
 
 __n128 XOJIT.MachOHeaderOptions.idDylib.setter(__n128 *a1)
 {
-  v7 = *a1;
+  v6 = *a1;
   v2 = a1[1].n128_u64[0];
   v3 = a1[1].n128_u32[2];
   v4 = a1[1].n128_u8[12];
-  v5 = v1->n128_u64[1];
 
-  result = v7;
-  *v1 = v7;
+  result = v6;
+  *v1 = v6;
   v1[1].n128_u64[0] = v2;
   v1[1].n128_u8[12] = v4;
   v1[1].n128_u32[2] = v3;
@@ -1507,7 +1536,6 @@ __n128 XOJIT.MachOHeaderOptions.idDylib.setter(__n128 *a1)
 
 uint64_t XOJIT.MachOHeaderOptions.loadDylibs.setter(uint64_t a1)
 {
-  v3 = *(v1 + 32);
 
   *(v1 + 32) = a1;
   return result;
@@ -1515,7 +1543,6 @@ uint64_t XOJIT.MachOHeaderOptions.loadDylibs.setter(uint64_t a1)
 
 uint64_t XOJIT.MachOHeaderOptions.rpaths.setter(uint64_t a1)
 {
-  v3 = *(v1 + 40);
 
   *(v1 + 40) = a1;
   return result;
@@ -1538,19 +1565,7 @@ __n128 XOJIT.MachOHeaderOptions.init(idDylib:loadDylibs:rpaths:)@<Q0>(__n128 *a1
   return result;
 }
 
-void sub_274E6463C(uint64_t *a1)
-{
-  v2 = *a1;
-  v1 = a1[1];
-  v3 = a1[2];
-  v4 = *(a1 + 28);
-  v5 = *(a1 + 6);
-  v6 = a1[5];
-  v7 = a1[4];
-  XOJIT_MachOHeaderOptions_Create();
-}
-
-uint64_t sub_274E6496C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
+uint64_t sub_274E6496C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if ((a2 & 0x1000000000000000) == 0)
   {
@@ -1601,15 +1616,15 @@ uint64_t sub_274E64ABC()
   return MEMORY[0x2821FE8D8](v1);
 }
 
-void XOJIT.createJITDylib(name:options:)(uint64_t a1, uint64_t a2, uint64_t a3)
+void XOJIT.createJITDylib(name:options:)(uint64_t result, void x1_0, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v4 = *a3;
-  v5 = *(a3 + 8);
-  v6 = *(a3 + 24);
-  v7 = *(a3 + 32);
-  v8 = *(a3 + 40);
-  v17 = 0;
+  v17[1] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  v5 = *(a2 + 8);
+  v6 = *(a2 + 24);
+  v7 = *(a2 + 32);
+  v8 = *(a2 + 40);
+  v17[0] = 0;
   if (v7)
   {
     v11 = v4;
@@ -1630,7 +1645,7 @@ void XOJIT.createJITDylib(name:options:)(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     OUTLINED_FUNCTION_19();
     v10 = sub_2750BF288();
-    XOJIT_XOJIT_CreateJITDylib(v9, (v10 + 32), 0);
+    XOJIT_XOJIT_CreateJITDylib(v9, (v10 + 32), 0, v17);
   }
 
   __break(1u);
@@ -1639,21 +1654,21 @@ void XOJIT.createJITDylib(name:options:)(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void XOJIT.createBareJITDylib(name:)()
 {
-  v1 = *(v0 + 16);
-  v2 = sub_2750BF288();
-  LLVMOrcExecutionSessionCreateBareJITDylib(v1, (v2 + 32));
+  v3 = *(v2 + 16);
+  v4 = sub_2750BF288();
+  LLVMOrcExecutionSessionCreateBareJITDylib(v3, (v4 + 32));
 }
 
-uint64_t XOJIT.setLoadableAtPathViaRegex(jd:regex:replacement:)(uint64_t result)
+uint64_t XOJIT.setLoadableAtPathViaRegex(jd:regex:replacement:)(uint64_t result, uint64_t a2)
 {
-  v2 = *(v1 + 16);
-  if (v2)
+  v3 = *(v2 + 16);
+  if (v3)
   {
-    v3 = *(*(result + 8) + 16);
-    v4 = sub_2750BF288();
-    OUTLINED_FUNCTION_32();
+    v4 = *(*(result + 8) + 16);
     v5 = sub_2750BF288();
-    XOJIT_XOJIT_SetLoadableAtPathViaRegex(v2, v3, (v4 + 32), (v5 + 32));
+    OUTLINED_FUNCTION_32();
+    v6 = sub_2750BF288();
+    XOJIT_XOJIT_SetLoadableAtPathViaRegex(v3, v4, (v5 + 32), (v6 + 32));
   }
 
   __break(1u);
@@ -1683,7 +1698,6 @@ uint64_t XOJIT.ReplacementManager.init(_:)(uint64_t a1)
 uint64_t XOJIT.ReplacementManager.deinit()
 {
   XOJIT_DisposeReplacementManager(*(v0 + 24));
-  v1 = *(v0 + 16);
 
   return v0;
 }
@@ -1696,32 +1710,47 @@ uint64_t XOJIT.ReplacementManager.__deallocating_deinit()
   return MEMORY[0x2821FE8D8](v0);
 }
 
-uint64_t XOJIT.ReplacementManager.addWithReplacement(object:name:to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t XOJIT.ReplacementManager.addWithReplacement(object:name:to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a5 + 8);
+  if (a4)
+  {
+    v4 = a3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if (a4)
+  {
+    v5 = a4;
+  }
+
+  else
+  {
+    v5 = 0xE000000000000000;
+  }
+
   type metadata accessor for LLVMMemoryBuffer();
   swift_initStackObject();
 
-  v7 = OUTLINED_FUNCTION_33();
-  sub_274E68B58(v7, v8);
-  v9 = *(v5 + 24);
-  v10 = *(v6 + 16);
+  v6 = OUTLINED_FUNCTION_33();
+  sub_274E68B58(v6, v7, v4, v5);
   sub_274E68B44();
-  v11 = OUTLINED_FUNCTION_22();
-  v14 = XOJIT_ReplacementManager_AddObjectFile(v11, v12, v13);
-  if (v14)
+  v8 = OUTLINED_FUNCTION_22();
+  v11 = XOJIT_ReplacementManager_AddObjectFile(v8, v9, v10);
+  if (v11)
   {
-    LLVMGetErrorMessage(v14);
+    LLVMGetErrorMessage(v11);
   }
 }
 
-uint64_t XOJIT.ReplacementManager.addWithReplacement(object:to:)(uint64_t a1, uint64_t a2)
+uint64_t XOJIT.ReplacementManager.addWithReplacement(object:to:)()
 {
-  v3 = *(v2 + 24);
-  v4 = *(*(a2 + 8) + 16);
   sub_274E61A64();
-  v5 = OUTLINED_FUNCTION_22();
-  result = XOJIT_ReplacementManager_AddObjectFile(v5, v6, v7);
+  v0 = OUTLINED_FUNCTION_22();
+  result = XOJIT_ReplacementManager_AddObjectFile(v0, v1, v2);
   if (result)
   {
     LLVMGetErrorMessage(result);
@@ -1762,10 +1791,9 @@ uint64_t sub_274E65158()
   v3 = v2;
   OUTLINED_FUNCTION_9();
   *v4 = v3;
-  v6 = *(v5 + 56);
-  v7 = *v1;
+  v5 = *v1;
   OUTLINED_FUNCTION_8();
-  *v8 = v7;
+  *v6 = v5;
   *(v3 + 64) = v0;
 
   if (v0)
@@ -1776,32 +1804,29 @@ uint64_t sub_274E65158()
 
   else
   {
-    v9 = *(v3 + 48);
 
     OUTLINED_FUNCTION_26();
 
-    return v10();
+    return v7();
   }
 }
 
 uint64_t sub_274E65278()
 {
   OUTLINED_FUNCTION_12();
-  v1 = *(v0 + 48);
 
   OUTLINED_FUNCTION_26();
-  v3 = *(v0 + 64);
 
-  return v2();
+  return v0();
 }
 
 void sub_274E652D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a3 + 24);
-  v6 = *(a5 + 16);
-  sub_274E61A64();
+  v7 = *(a3 + 24);
+  v8 = *(a5 + 16);
+  v9 = sub_274E61A64();
 
-  XOJIT_ReplacementManager_AddObjectFileAsync(v5, v6);
+  XOJIT_ReplacementManager_AddObjectFileAsync(v7, v8, v9, a1, a2);
 }
 
 uint64_t XOJIT.ORCRuntimeBridge.__allocating_init(_:)(uint64_t a1)
@@ -1814,31 +1839,22 @@ uint64_t XOJIT.ORCRuntimeBridge.__allocating_init(_:)(uint64_t a1)
 
 void XOJIT.ORCRuntimeBridge.jit_dlopen(name:)()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  if (*(*(v0 + 16) + 16))
+  if (*(*(v2 + 16) + 16))
   {
     sub_2750BF288();
-    v1 = OUTLINED_FUNCTION_39();
-    XOJIT_OrcRTJITDlopen(v1);
+    v3 = OUTLINED_FUNCTION_39();
+    XOJIT_OrcRTJITDlopen(v3, v4, v5);
   }
 
   __break(1u);
 }
 
-uint64_t XOJIT.ORCRuntimeBridge.deinit()
-{
-  v1 = *(v0 + 16);
-
-  return v0;
-}
-
 uint64_t XOJIT.ORCRuntimeBridge.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
 
-  v2 = OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_4();
 
-  return MEMORY[0x2821FE8D8](v2);
+  return MEMORY[0x2821FE8D8](v0);
 }
 
 uint64_t XOJIT.UVSymbolString.description.getter()
@@ -1849,7 +1865,7 @@ uint64_t XOJIT.UVSymbolString.description.getter()
   v2 = swift_allocObject();
   *(v2 + 24) = 0;
   *(v2 + 16) = 0;
-  v10 = v1;
+  v8 = v1;
   OUTLINED_FUNCTION_21();
   v3 = swift_allocObject();
   *(v3 + 16) = sub_274E66F00;
@@ -1864,7 +1880,7 @@ uint64_t XOJIT.UVSymbolString.description.getter()
   v5 = _Block_copy(aBlock);
   swift_retain_n();
 
-  XOJIT_SymbolString_WithStringRepresentationsDo(&v10, 1, v5);
+  XOJIT_SymbolString_WithStringRepresentationsDo(&v8, 1, v5);
 
   _Block_release(v5);
   swift_beginAccess();
@@ -1874,9 +1890,7 @@ uint64_t XOJIT.UVSymbolString.description.getter()
   }
 
   v6 = *(v2 + 16);
-  v7 = *(v2 + 24);
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1894,20 +1908,18 @@ uint64_t sub_274E65668(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t sub_274E656A8(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v4 = sub_2750BF278();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8, v6);
+  MEMORY[0x28223BE20](v4 - 8);
   sub_2750BF268();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2608, &qword_2750C0FD8);
-  sub_274E68174(&qword_2809A2610, &qword_2809A2608, &qword_2750C0FD8);
+  sub_274E68174(&qword_2809A2610, &qword_2809A2608, &qword_2750C0FD8, MEMORY[0x277D836F8]);
   result = sub_2750BF258();
-  if (v8)
+  if (v6)
   {
-    v9 = result;
-    v10 = v8;
+    v7 = result;
+    v8 = v6;
     swift_beginAccess();
-    v11 = a3[1];
-    *a3 = v9;
-    a3[1] = v10;
+    *a3 = v7;
+    a3[1] = v8;
   }
 
   else
@@ -1921,59 +1933,56 @@ uint64_t sub_274E656A8(uint64_t a1, uint64_t a2, uint64_t *a3)
 void XOJIT.UVSymbolString.withStringRepresentationDo(_:)()
 {
   OUTLINED_FUNCTION_38();
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = *v1;
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = *v1;
   OUTLINED_FUNCTION_21();
   v3 = swift_allocObject();
   *(v3 + 16) = v2;
   *(v3 + 24) = v0;
-  v7[4] = sub_274E687C4;
-  v7[5] = v3;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 1107296256;
+  v6[4] = sub_274E687C4;
+  v6[5] = v3;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 1107296256;
   OUTLINED_FUNCTION_11();
-  v7[2] = v4;
-  v7[3] = &block_descriptor_20;
-  v5 = _Block_copy(v7);
+  v6[2] = v4;
+  v6[3] = &block_descriptor_20;
+  v5 = _Block_copy(v6);
 
-  XOJIT_SymbolString_WithStringRepresentationsDo(v8, 1, v5);
+  XOJIT_SymbolString_WithStringRepresentationsDo(v7, 1, v5);
   _Block_release(v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_274E658D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v7 = *(a1 + 32);
 
-  v8(a2, a3, a4);
+  v7(a2, a3, a4);
 }
 
 uint64_t XOJIT.UVSymbolString.hashValue.getter()
 {
-  v1 = *v0;
   sub_2750BF398();
   OUTLINED_FUNCTION_31();
   return sub_2750BF3C8();
 }
 
-uint64_t sub_274E659D0()
+uint64_t sub_274E659D0(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2750BF398();
-  MEMORY[0x277C69990](v1);
+  MEMORY[0x277C69990](v2);
   return sub_2750BF3C8();
 }
 
-void XOJIT.intern(_:)(unint64_t **a1@<X8>)
+void XOJIT.intern(_:)(size_t **a2@<X8>)
 {
-  v2 = *(v1 + 16);
-  if (v2)
+  v3 = *(v2 + 16);
+  if (v3)
   {
-    v4 = sub_2750BF288();
-    v5 = XOJIT_XOJIT_Intern(v2, (v4 + 32));
+    v5 = sub_2750BF288();
+    v6 = XOJIT_XOJIT_Intern(v3, (v5 + 32));
 
-    *a1 = v5;
+    *a2 = v6;
   }
 
   else
@@ -1985,7 +1994,6 @@ void XOJIT.intern(_:)(unint64_t **a1@<X8>)
 uint64_t XOJIT.SymbolTableStream.Record.name.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -1993,7 +2001,6 @@ uint64_t XOJIT.SymbolTableStream.Record.name.getter()
 uint64_t XOJIT.SymbolTableStream.Record.name.setter()
 {
   OUTLINED_FUNCTION_38();
-  v3 = v1[1];
 
   *v1 = v2;
   v1[1] = v0;
@@ -2019,34 +2026,28 @@ BOOL static XOJIT.SymbolTableStream.Record.== infix(_:_:)(void *a1, void *a2)
   return result;
 }
 
-uint64_t XOJIT.SymbolTableStream.Record.hash(into:)()
+uint64_t XOJIT.SymbolTableStream.Record.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v2 = *(v1 + 16);
   sub_2750BF298();
-  return MEMORY[0x277C699A0](v3);
+  return MEMORY[0x277C699A0](v2);
 }
 
 uint64_t XOJIT.SymbolTableStream.Record.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v1 = *(v0 + 16);
   sub_2750BF398();
   sub_2750BF298();
-  MEMORY[0x277C699A0](v3);
+  MEMORY[0x277C699A0](v1);
   return sub_2750BF3C8();
 }
 
-uint64_t sub_274E65C1C()
+uint64_t sub_274E65C1C(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v2 = *(v1 + 16);
   sub_2750BF398();
   sub_2750BF298();
-  MEMORY[0x277C699A0](v3);
+  MEMORY[0x277C699A0](v2);
   return sub_2750BF3C8();
 }
 
@@ -2067,34 +2068,29 @@ uint64_t sub_274E65CC8()
 uint64_t XOJIT.listenToSymbolTableStream()@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A24C8, &qword_2750C04F8);
-  v4 = OUTLINED_FUNCTION_7(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v4, v9);
-  v11 = &v30 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A24D0, &qword_2750C0500);
-  v13 = OUTLINED_FUNCTION_7(v12);
-  v15 = v14;
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v13, v18);
-  (*(v15 + 104))(&v30 - v19, *MEMORY[0x277D85778], v12);
-  v20 = *(type metadata accessor for XOJIT.SymbolTableStream(0) + 20);
+  OUTLINED_FUNCTION_7();
+  v5 = v4;
+  MEMORY[0x28223BE20](v6);
+  v8 = &v20 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A24D0, &qword_2750C0500);
+  OUTLINED_FUNCTION_7();
+  v11 = v10;
+  MEMORY[0x28223BE20](v12);
+  (*(v11 + 104))(&v20 - v13, *MEMORY[0x277D85778], v9);
+  v14 = *(type metadata accessor for XOJIT.SymbolTableStream(0) + 20);
   sub_2750BF2D8();
-  v21 = *(v15 + 8);
-  v22 = OUTLINED_FUNCTION_33();
-  v23(v22);
-  (*(v6 + 16))(v11, a1 + v20, v3);
-  v24 = type metadata accessor for XOJIT.Context(0);
-  v25 = *(v24 + 48);
-  v26 = *(v24 + 52);
-  v27 = swift_allocObject();
-  result = (*(v6 + 32))(v27 + OBJC_IVAR____TtCFC5XOJIT5XOJIT25listenToSymbolTableStreamFT_VS0_17SymbolTableStreamL_7Context_continuation, v11, v3);
-  v29 = *(v1 + 16);
-  if (v29)
+  v15 = OUTLINED_FUNCTION_33();
+  v16(v15);
+  (*(v5 + 16))(v8, a1 + v14, v3);
+  type metadata accessor for XOJIT.Context(0);
+  v17 = swift_allocObject();
+  result = (*(v5 + 32))(v17 + OBJC_IVAR____TtCFC5XOJIT5XOJIT25listenToSymbolTableStreamFT_VS0_17SymbolTableStreamL_7Context_continuation, v8, v3);
+  v19 = *(v1 + 16);
+  if (v19)
   {
 
-    XOJIT_XOJIT_GetObjectLinkingLayer(v29);
-    XOJIT_SymbolTableCallbackPlugin_Create();
+    XOJIT_XOJIT_GetObjectLinkingLayer(v19);
+    XOJIT_SymbolTableCallbackPlugin_Create(sub_274E66308, sub_274E6636C, v17);
   }
 
   __break(1u);
@@ -2103,26 +2099,25 @@ uint64_t XOJIT.listenToSymbolTableStream()@<X0>(uint64_t a1@<X8>)
 
 void sub_274E65F3C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v6 = swift_allocObject();
   *(v6 + 16) = a1;
   *(v6 + 24) = a3;
-  v11[0] = a2;
+  v10[0] = a2;
   v7 = swift_allocObject();
   *(v7 + 16) = sub_274E6816C;
   *(v7 + 24) = v6;
-  v10[4] = sub_274E687C4;
-  v10[5] = v7;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 1107296256;
-  v10[2] = sub_274E658D8;
-  v10[3] = &block_descriptor_202;
-  v8 = _Block_copy(v10);
+  v9[4] = sub_274E687C4;
+  v9[5] = v7;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 1107296256;
+  v9[2] = sub_274E658D8;
+  v9[3] = &block_descriptor_202;
+  v8 = _Block_copy(v9);
 
-  XOJIT_SymbolString_WithStringRepresentationsDo(v11, 1, v8);
+  XOJIT_SymbolString_WithStringRepresentationsDo(v10, 1, v8);
 
   _Block_release(v8);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_274E66080(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2137,48 +2132,46 @@ uint64_t sub_274E66080(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_274E660B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v31 = a4;
+  v27 = a4;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2600, &qword_2750C0FD0);
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8, v11);
-  v13 = v24 - v12;
-  v14 = sub_2750BF278();
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x28223BE20](v14 - 8, v16);
-  v28 = a1;
-  v29 = a2;
+  MEMORY[0x28223BE20](v8);
+  v11 = v20 - v10;
+  v12 = sub_2750BF278();
+  MEMORY[0x28223BE20](v12 - 8);
+  v24 = a1;
+  v25 = a2;
   sub_2750BF268();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2608, &qword_2750C0FD8);
-  sub_274E68174(&qword_2809A2610, &qword_2809A2608, &qword_2750C0FD8);
+  sub_274E68174(&qword_2809A2610, &qword_2809A2608, &qword_2750C0FD8, MEMORY[0x277D836F8]);
   result = sub_2750BF258();
-  if (v18)
+  if (v14)
   {
-    v26 = v8;
-    v27 = v4;
+    v22 = v8;
+    v23 = v4;
     if (a3)
     {
-      v19 = result;
-      v20 = v18;
-      v24[1] = OBJC_IVAR____TtCFC5XOJIT5XOJIT25listenToSymbolTableStreamFT_VS0_17SymbolTableStreamL_7Context_continuation;
+      v15 = result;
+      v16 = v14;
+      v20[1] = OBJC_IVAR____TtCFC5XOJIT5XOJIT25listenToSymbolTableStreamFT_VS0_17SymbolTableStreamL_7Context_continuation;
 
-      v28 = v19;
-      v29 = v20;
-      v21 = v31;
-      v30 = v31;
+      v24 = v15;
+      v25 = v16;
+      v17 = v27;
+      v26 = v27;
 
-      v25 = v19;
+      v21 = v15;
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A24C8, &qword_2750C04F8);
       sub_2750BF2E8();
-      v22 = *(v9 + 8);
-      v23 = v26;
-      v22(v13, v26);
-      v28 = v25;
-      v29 = v20;
-      v30 = v21;
+      v18 = *(v9 + 8);
+      v19 = v22;
+      v18(v11, v22);
+      v24 = v21;
+      v25 = v16;
+      v26 = v17;
       sub_2750BF2E8();
 
-      return (v22)(v13, v23);
+      return (v18)(v11, v19);
     }
 
     else
@@ -2216,9 +2209,10 @@ uint64_t XOJIT.addSymbolTableCallback(_:)(uint64_t a1, uint64_t a2)
   v6 = *(v2 + 16);
   if (v6)
   {
+    v7 = result;
 
     XOJIT_XOJIT_GetObjectLinkingLayer(v6);
-    XOJIT_SymbolTableCallbackPlugin_Create();
+    XOJIT_SymbolTableCallbackPlugin_Create(sub_274E6649C, sub_274E664AC, v7);
   }
 
   __break(1u);
@@ -2229,11 +2223,10 @@ uint64_t sub_274E66424(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
-    v6 = *(result + 16);
-    v5 = *(result + 24);
+    v5 = *(result + 16);
 
-    v7 = a2;
-    v6(&v7, a3);
+    v6 = a2;
+    v5(&v6, a3);
   }
 
   else
@@ -2257,13 +2250,12 @@ uint64_t sub_274E664A0(uint64_t result)
 uint64_t sub_274E664B4()
 {
   v1 = sub_2750BF218();
-  v2 = OUTLINED_FUNCTION_7(v1);
-  v19 = v3;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v2, v6);
+  OUTLINED_FUNCTION_7();
+  v16 = v2;
+  MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_25();
-  v7 = objc_opt_self();
-  v8 = [v7 standardUserDefaults];
+  v4 = objc_opt_self();
+  v5 = [v4 standardUserDefaults];
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A24E0, &qword_2750C0508);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_2750C04A0;
@@ -2272,49 +2264,47 @@ uint64_t sub_274E664B4()
   *(inited + 72) = MEMORY[0x277D83B88];
   *(inited + 48) = 0;
   sub_2750BF238();
-  v10 = sub_2750BF228();
+  v7 = sub_2750BF228();
 
-  [v8 registerDefaults_];
+  [v5 registerDefaults_];
 
-  v11 = [v7 standardUserDefaults];
-  v12 = sub_2750BF248();
-  v13 = [v11 integerForKey_];
+  v8 = [v4 standardUserDefaults];
+  v9 = sub_2750BF248();
+  v10 = [v8 integerForKey_];
 
-  if (v13 <= 0)
+  if (v10 <= 0)
   {
-    v14 = sysconf(58);
-    if (v14 < 0)
+    v11 = sysconf(58);
+    if (v11 < 0)
     {
       OUTLINED_FUNCTION_13();
-      v15 = sub_2750BF1F8();
-      v16 = sub_2750BF318();
-      if (os_log_type_enabled(v15, v16))
+      v12 = sub_2750BF1F8();
+      v13 = sub_2750BF318();
+      if (os_log_type_enabled(v12, v13))
       {
-        v17 = swift_slowAlloc();
-        *v17 = 134217984;
-        *(v17 + 4) = 8;
-        _os_log_impl(&dword_274E5C000, v15, v16, "failed to determine cpu count; limiting to %ld threads", v17, 0xCu);
-        MEMORY[0x277C6A700](v17, -1, -1);
+        v14 = swift_slowAlloc();
+        *v14 = 134217984;
+        *(v14 + 4) = 8;
+        _os_log_impl(&dword_274E5C000, v12, v13, "failed to determine cpu count; limiting to %ld threads", v14, 0xCu);
+        MEMORY[0x277C6A700](v14, -1, -1);
       }
 
-      (*(v19 + 8))(v0, v1);
+      (*(v16 + 8))(v0, v1);
       return 8;
     }
 
     else
     {
-      return v14;
+      return v11;
     }
   }
 
-  return v13;
+  return v10;
 }
 
 uint64_t sub_274E667B0()
 {
   sub_274E66740();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
 
   return MEMORY[0x2821FE8D8](v0);
 }
@@ -2323,17 +2313,14 @@ uint64_t sub_274E66808(uint64_t a1, void (*a2)(uint64_t, uint64_t (*)()))
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2618, &qword_2750C0FE0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4, v7);
-  v9 = &v16 - v8;
-  (*(v5 + 16))(&v16 - v8, a1, v4);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2620, &qword_2750C0FE8);
-  v11 = *(v10 + 48);
-  v12 = *(v10 + 52);
-  v13 = swift_allocObject();
-  (*(v5 + 32))(v13 + *(*v13 + 88), v9, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v11 - v6;
+  (*(v5 + 16))(&v11 - v6, a1, v4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2620, &qword_2750C0FE8);
+  v8 = swift_allocObject();
+  (*(v5 + 32))(v8 + *(*v8 + 88), v7, v4);
 
-  a2(v14, sub_274E66A84);
+  a2(v9, sub_274E66A84);
 }
 
 uint64_t sub_274E66960(uint64_t result, uint64_t a2)
@@ -2342,20 +2329,18 @@ uint64_t sub_274E66960(uint64_t result, uint64_t a2)
   {
     if (a2)
     {
-      v3 = *(*result + 88);
       type metadata accessor for XOJITError();
-      v4 = swift_allocObject();
-      *(v4 + 16) = a2;
+      v3 = swift_allocObject();
+      *(v3 + 16) = a2;
       sub_274E61948();
       swift_allocError();
-      *v5 = v4;
+      *v4 = v3;
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2618, &qword_2750C0FE0);
       sub_2750BF2B8();
     }
 
     else
     {
-      v6 = *(*result + 88);
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2618, &qword_2750C0FE0);
       sub_2750BF2C8();
     }
@@ -2374,20 +2359,17 @@ uint64_t sub_274E66A88()
   v1 = OBJC_IVAR____TtCFC5XOJIT5XOJIT25listenToSymbolTableStreamFT_VS0_17SymbolTableStreamL_7Context_continuation;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A24C8, &qword_2750C04F8);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(*v0 + 48);
-  v4 = *(*v0 + 52);
 
   return MEMORY[0x2821FE8D8](v0);
 }
 
 uint64_t sub_274E66B30()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8D8](v0);
 }
 
-uint64_t sub_274E66B68(uint64_t result)
+uint64_t sub_274E66B68(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2396,7 +2378,7 @@ uint64_t sub_274E66B68(uint64_t result)
   return result;
 }
 
-uint64_t sub_274E66B78(uint64_t result)
+uint64_t sub_274E66B78(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2480,27 +2462,26 @@ char *sub_274E66BAC(char *result, int64_t a2, char a3, char *a4)
 
 uint64_t sub_274E66CAC()
 {
-  v1 = *(v0 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809A2630, &qword_2750C0FF8);
   swift_arrayDestroy();
 
   return MEMORY[0x2821FE8D8](v0);
 }
 
-char *sub_274E66D0C(char *a1, int64_t a2, char a3)
+char *sub_274E66D0C(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_274E68284(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-uint64_t sub_274E66D2C(uint64_t a1, unint64_t a2)
+uint64_t sub_274E66D2C(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
@@ -2510,7 +2491,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2518,7 +2498,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-char *sub_274E66DCC(char *a1, int64_t a2, char a3)
+char *sub_274E66DCC(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_274E68384(a1, a2, a3, *v3);
   *v3 = result;
@@ -2537,20 +2517,6 @@ unint64_t sub_274E66E10()
   return result;
 }
 
-void sub_274E66EBC(uint64_t a1, uint64_t a2)
-{
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 56);
-  sub_274E63F64(a1, a2, *(v2 + 16), *(v2 + 24), *(v2 + 32), *(v2 + 40));
-}
-
-uint64_t sub_274E66F08(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 24);
-  return v4(a2, a3);
-}
-
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
@@ -2558,7 +2524,7 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_274E66F90(uint64_t a1, uint64_t *a2)
+uint64_t sub_274E66F90(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -2706,7 +2672,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -3498,13 +3463,13 @@ uint64_t storeEnumTagSinglePayload for XOJIT.UVSymbolString(uint64_t result, uns
   return result;
 }
 
-void sub_274E67E34()
+void sub_274E67E34(uint64_t a1)
 {
   sub_274E686F4(319, &qword_2809A2560, &type metadata for XOJIT.SymbolTableStream.Record, MEMORY[0x277D857B8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_274E686F4(319, qword_2809A2568, &type metadata for XOJIT.SymbolTableStream.Record, MEMORY[0x277D85788]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -3585,11 +3550,9 @@ LABEL_8:
 
 uint64_t sub_274E67FA8(uint64_t a1)
 {
-  v1 = *(a1 + 80);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -3600,12 +3563,11 @@ uint64_t sub_274E67FA8(uint64_t a1)
   return result;
 }
 
-void sub_274E6805C()
+void sub_274E6805C(uint64_t a1)
 {
   sub_274E686F4(319, qword_2809A2568, &type metadata for XOJIT.SymbolTableStream.Record, MEMORY[0x277D85788]);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
@@ -3617,7 +3579,7 @@ uint64_t sub_274E68110(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_274E68174(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_274E68174(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -3641,14 +3603,14 @@ void sub_274E681BC(uint64_t a1)
   sub_274E64A68(a1, *(v1 + 16), *(v1 + 24), *(v1 + 32), *(v1 + 40), v2 | *(v1 + 48));
 }
 
-double sub_274E68224(uint64_t a1)
+double sub_274E68224(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(v1 + 48);
-  v3 = *(*(v1 + 16) + 16);
-  v5[0] = a1;
-  v5[1] = *(v1 + 40);
-  v6 = v2;
-  return XOJIT_MachOHeaderOptions_SetIDDylib(v3, v5);
+  v4 = *(v3 + 48);
+  v5 = *(*(v3 + 16) + 16);
+  v7[0] = a1;
+  v7[1] = *(v3 + 40);
+  v8 = v4;
+  return XOJIT_MachOHeaderOptions_SetIDDylib(v5, v7);
 }
 
 char *sub_274E68284(char *result, int64_t a2, char a3, char *a4)
@@ -3797,13 +3759,13 @@ char *sub_274E68384(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-void sub_274E68484(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_274E68484(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v5 = WORD2(a2);
-  v4 = a2;
-  sub_274E62A50(&v3, &v3 + BYTE6(a2), a3);
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = a1;
+  v6 = WORD2(a2);
+  v5 = a2;
+  sub_274E62A50(&v4, &v4 + BYTE6(a2), a3, a4);
 }
 
 uint64_t orc_rt_CWrapperFunctionResultGetOutOfBandError(void *a1)
@@ -3974,7 +3936,7 @@ uint64_t OUTLINED_FUNCTION_2(uint64_t a1)
   return MEMORY[0x2821FEB58](a1, XOJIT_XOJIT_GetExecutionSession);
 }
 
-uint64_t OUTLINED_FUNCTION_3()
+uint64_t OUTLINED_FUNCTION_3(uint64_t a1)
 {
 
   return swift_allocError();
@@ -4017,7 +3979,7 @@ uint64_t OUTLINED_FUNCTION_16()
   return LLVMDisposeErrorMessage(v0);
 }
 
-uint64_t OUTLINED_FUNCTION_17()
+uint64_t OUTLINED_FUNCTION_17(uint64_t a1, uint64_t a2)
 {
 
   return swift_allocError();
@@ -4035,13 +3997,6 @@ void OUTLINED_FUNCTION_23()
   v0[2] = 0;
   v0[4] = 0;
   v0[5] = 0;
-}
-
-uint64_t OUTLINED_FUNCTION_26()
-{
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_28(uint64_t a1, void *a2)
@@ -4088,25 +4043,25 @@ uint64_t sub_274E68B44()
   return result;
 }
 
-uint64_t sub_274E68B58(uint64_t a1, uint64_t a2)
+uint64_t sub_274E68B58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  *(v2 + 16) = 0;
+  *(v4 + 16) = 0;
   if (a1)
   {
-    v4 = a2 - a1;
+    v6 = a2 - a1;
   }
 
   else
   {
-    v4 = 0;
+    v6 = 0;
   }
 
-  v5 = sub_2750BF288();
+  v7 = sub_2750BF288();
 
-  v6 = LLVMCreateMemoryBufferWithMemoryRange(a1, v4, (v5 + 32));
+  v8 = LLVMCreateMemoryBufferWithMemoryRange(a1, v6, (v7 + 32));
 
-  *(v2 + 16) = v6;
-  return v2;
+  *(v4 + 16) = v8;
+  return v4;
 }
 
 uint64_t sub_274E68BF0()
@@ -4253,7 +4208,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t libcd_set_hash_types(uint64_t a1, int *a2, unsigned int a3)
+uint64_t libcd_set_hash_types(uint64_t a1, unsigned int *a2, unsigned int a3)
 {
   free(*(a1 + 160));
   *(a1 + 160) = 0;
@@ -4292,17 +4247,16 @@ LABEL_7:
   }
 }
 
-uint64_t *_libcd_get_hash_info(int a1)
+void *_libcd_get_hash_info(int a1)
 {
   if (a1 < 3)
   {
     result = (&_known_hash_types + 16 * a1);
-    if (*result < 0x21)
+    if (*result < 0x21uLL)
     {
       return result;
     }
 
-    v2 = *result;
     _libcd_err_log("%s: internal error, hash len (%d) is larger than max known hash len (%d)\n");
   }
 
@@ -4407,42 +4361,41 @@ void _libcd_err_log(char *a1, ...)
 size_t libcd_cd_size(uint64_t a1, int a2)
 {
   hash_info = _libcd_get_hash_info(a2);
-  v4 = *(a1 + 224);
-  v5 = *(a1 + 96);
-  if (v5)
+  v4 = *(a1 + 96);
+  if (v4)
   {
-    v6 = strlen(v5) + 1;
+    v5 = strlen(v4) + 1;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = *(a1 + 192);
-  if (v7)
+  v6 = *(a1 + 192);
+  if (v6)
   {
-    v8 = strlen(v7) + 1;
+    v7 = strlen(v6) + 1;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = 88;
+  v8 = 88;
   if (*(a1 + 224))
   {
-    v9 = 108;
+    v8 = 108;
   }
 
-  v10 = v6 + v8 + v9;
+  v9 = v5 + v7 + v8;
   if (*(a1 + 224))
   {
-    v10 += 20;
+    v9 += 20;
   }
 
-  return v10 + (*(a1 + 120) + ((*a1 + 4095) >> 12)) * *hash_info;
+  return v9 + (*(a1 + 120) + ((*a1 + 4095) >> 12)) * *hash_info;
 }
 
 uint64_t libcd_superblob_size(uint64_t a1)
@@ -4487,7 +4440,7 @@ uint64_t libcd_superblob_size(uint64_t a1)
   return v7 + 8 * v8;
 }
 
-uint64_t libcd_serialize_as_type(uint64_t a1, unsigned int a2)
+uint64_t libcd_serialize_as_type(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 64) || !*(a1 + 72))
   {
@@ -4497,12 +4450,12 @@ uint64_t libcd_serialize_as_type(uint64_t a1, unsigned int a2)
 
   if (!*(a1 + 8) || !*(a1 + 16))
   {
-    _libcd_err_log("%s: No write method set\n");
+    _libcd_err_log("%s: No write method set\n", a2);
     return 1;
   }
 
   *(a1 + 40) = 0;
-  v3 = a1 + 104;
+  v3 = (a1 + 104);
   v4 = *(a1 + 168) - 1;
   v5 = (a1 + 104);
   do
@@ -4529,170 +4482,167 @@ uint64_t libcd_serialize_as_type(uint64_t a1, unsigned int a2)
     return 5;
   }
 
-  v32[0] = bswap32(a2);
-  v32[1] = bswap32(libcd_superblob_size(a1));
-  v32[2] = bswap32(v7);
-  if (!(*(a1 + 8))(a1, *(a1 + 40), v32, 12))
+  v31[0] = bswap32(a2);
+  v31[1] = bswap32(libcd_superblob_size(a1));
+  v31[2] = bswap32(v7);
+  if (!(*(a1 + 8))(a1, *(a1 + 40), v31, 12))
   {
-    _libcd_err_log("%s: serialize superblob header failed\n");
+    _libcd_err_log("%s: serialize superblob header failed\n", v8);
     return 1;
   }
 
   if (v6)
   {
-    v8 = v4 + 1;
+    v9 = v4 + 1;
   }
 
   else
   {
-    v8 = v4;
+    v9 = v4;
   }
 
-  v9 = 8 * v8;
-  v10 = 8 * v8 + 12;
-  v11 = malloc_type_calloc(v8, 8uLL, 0x100004000313F17uLL);
-  v12 = v11;
+  v10 = 8 * v9;
+  v11 = 8 * v9 + 12;
+  v12 = malloc_type_calloc(v9, 8uLL, 0x100004000313F17uLL);
+  v13 = v12;
   if (*(a1 + 168))
   {
-    v13 = 0;
-    v14 = v11 + 1;
+    v14 = 0;
+    v15 = v12 + 1;
     do
     {
-      v15 = v13 + 4095;
-      if (!v13)
+      v16 = v14 + 4095;
+      if (!v14)
       {
-        v15 = 0;
+        v16 = 0;
       }
 
-      *(v14 - 1) = bswap32(v15);
-      *v14 = bswap32(v10);
-      v16 = *(*(a1 + 160) + 4 * v13++);
-      v10 += libcd_cd_size(a1, v16);
-      v14 += 2;
+      *(v15 - 1) = bswap32(v16);
+      *v15 = bswap32(v11);
+      v17 = *(*(a1 + 160) + 4 * v14++);
+      v11 += libcd_cd_size(a1, v17);
+      v15 += 2;
     }
 
-    while (v13 < *(a1 + 168));
+    while (v14 < *(a1 + 168));
   }
 
   else
   {
-    LODWORD(v13) = 0;
+    LODWORD(v14) = 0;
   }
 
-  v19 = *v3;
+  v20 = *v3;
   if (*v3)
   {
-    v20 = &v12[8 * v13 + 4];
+    v21 = &v13[8 * v14 + 4];
     do
     {
-      *(v20 - 1) = bswap32(*(v19 + 8));
-      *v20 = bswap32(v10);
-      v10 += *(v19 + 24);
-      v19 = *v19;
-      LODWORD(v13) = v13 + 1;
-      v20 += 8;
+      *(v21 - 1) = bswap32(*(v20 + 2));
+      *v21 = bswap32(v11);
+      v11 += *(v20 + 6);
+      v20 = *v20;
+      LODWORD(v14) = v14 + 1;
+      v21 += 8;
     }
 
-    while (v19);
+    while (v20);
   }
 
   if (*(a1 + 128))
   {
-    v21 = &v12[8 * v13];
-    *v21 = 256;
-    *(v21 + 1) = bswap32(v10);
+    v22 = &v13[8 * v14];
+    *v22 = 256;
+    *(v22 + 1) = bswap32(v11);
   }
 
-  if (!(*(a1 + 8))(a1, *(a1 + 40), v12, v9))
+  if (!(*(a1 + 8))(a1, *(a1 + 40), v13, v10))
   {
     _libcd_err_log("%s: serialize superblob indices failed\n");
     goto LABEL_50;
   }
 
-  free(v12);
+  free(v13);
   if (!*(a1 + 168))
   {
     goto LABEL_40;
   }
 
-  v22 = 0;
+  v23 = 0;
   do
   {
-    v23 = _libcd_serialize_cd(a1, *(*(a1 + 160) + 4 * v22));
-    if (v23)
+    v24 = _libcd_serialize_cd(a1, *(*(a1 + 160) + 4 * v23));
+    if (v24)
     {
-      v17 = v23;
-      _libcd_err_log("%s: serialize code directory type %d failed, error %d\n", "libcd_serialize_as_type", *(*(a1 + 160) + 4 * v22), v23);
-      return v17;
+      v18 = v24;
+      _libcd_err_log("%s: serialize code directory type %d failed, error %d\n", "libcd_serialize_as_type", *(*(a1 + 160) + 4 * v23), v24);
+      return v18;
     }
 
-    ++v22;
+    ++v23;
   }
 
-  while (v22 < *(a1 + 168));
+  while (v23 < *(a1 + 168));
   do
   {
 LABEL_40:
     v3 = *v3;
     if (!v3)
     {
-      v24 = *(a1 + 128);
-      if (!v24)
+      v26 = *(a1 + 128);
+      if (!v26)
       {
         return 0;
       }
 
-      v25 = malloc_type_calloc(1uLL, v24, 0xEFBE620uLL);
-      if (!v25)
+      v27 = malloc_type_calloc(1uLL, v26, 0xEFBE620uLL);
+      if (!v27)
       {
-        v28 = *(a1 + 128);
-        v29 = __error();
-        _libcd_err_log("%s: serialize signature space(%zu) failed allocating space (%d)\n", "libcd_serialize_as_type", v28, *v29);
+        v29 = *(a1 + 128);
+        v30 = __error();
+        _libcd_err_log("%s: serialize signature space(%zu) failed allocating space (%d)\n", "libcd_serialize_as_type", v29, *v30);
         return 6;
       }
 
-      v12 = v25;
-      v26 = *(a1 + 136);
-      if (v26 == 4)
+      v13 = v27;
+      v28 = *(a1 + 136);
+      if (v28 == 4)
       {
-        v30 = *(a1 + 128);
         if ((*(*(a1 + 144) + 16))())
         {
 LABEL_46:
-          if ((*(a1 + 8))(a1, *(a1 + 40), v12, *(a1 + 128)))
+          if ((*(a1 + 8))(a1, *(a1 + 40), v13, *(a1 + 128)))
           {
-            free(v12);
+            free(v13);
             return 0;
           }
 
-          v31 = *(a1 + 128);
           _libcd_err_log("%s: serialize signature space (%zu) failed\n");
 LABEL_50:
-          free(v12);
+          free(v13);
           return 1;
         }
       }
 
-      else if (v26 != 3 || ((*(a1 + 144))(a1, *(a1 + 152), *(a1 + 128), v25) & 1) != 0)
+      else if (v28 != 3 || ((*(a1 + 144))(a1, *(a1 + 152), *(a1 + 128), v27) & 1) != 0)
       {
         goto LABEL_46;
       }
 
       _libcd_err_log("%s: Failed to generate signature\n", "libcd_serialize_as_type");
-      free(v12);
+      free(v13);
       return 4;
     }
   }
 
-  while ((*(a1 + 8))(a1, *(a1 + 40), *(v3 + 16), *(v3 + 24)));
-  v27 = *(v3 + 8);
-  _libcd_err_log("%s: serialize raw blob data, slot %#x, failed\n");
+  while ((*(a1 + 8))(a1, *(a1 + 40), v3[2], v3[3]));
+  _libcd_err_log("%s: serialize raw blob data, slot %#x, failed\n", v25);
   return 1;
 }
 
 uint64_t _libcd_serialize_cd(uint64_t a1, int a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   hash_info = _libcd_get_hash_info(a2);
   v5 = libcd_cd_size(a1, a2);
   v6 = malloc_type_calloc(1uLL, v5, 0x5D0887uLL);
@@ -4737,7 +4687,7 @@ uint64_t _libcd_serialize_cd(uint64_t a1, int a2)
     v15 = bswap32((*a1 + 4095) >> 12);
     v7[1].i32[2] = bswap32(v13);
     v7[1].i32[3] = v15;
-    v53 = v5;
+    v44 = v5;
     if (HIDWORD(v14))
     {
       v7[3].i64[1] = bswap64(v14);
@@ -4818,107 +4768,101 @@ uint64_t _libcd_serialize_cd(uint64_t a1, int a2)
     if (*(a1 + 120))
     {
       v26 = (hash_info[1])();
-      v27 = (((*(v26 + 8) + *(v26 + 16) + 19) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
-      MEMORY[0x28223BE20](v26, v28);
-      v30 = &v52 - v29;
-      v31 = malloc_type_calloc(*(a1 + 120), *hash_info, 0x7426B6D8uLL);
+      MEMORY[0x28223BE20](v26);
+      v28 = &v43 - v27;
+      v29 = malloc_type_calloc(*(a1 + 120), *hash_info, 0x7426B6D8uLL);
       for (i = *(a1 + 112); i; i = *i)
       {
         ccdigest_init();
-        v34 = i[2];
-        v33 = i[3];
         ccdigest_update();
-        (*(v26 + 56))(v26, v30, &v31[*hash_info * (*(a1 + 120) - *(i + 2))]);
+        (*(v26 + 56))(v26, v28, &v29[*hash_info * (*(a1 + 120) - *(i + 2))]);
       }
 
-      memcpy(v22, v31, *hash_info * *(a1 + 120));
-      v35 = v22 + *hash_info * *(a1 + 120);
-      free(v31);
+      memcpy(v22, v29, *hash_info * *(a1 + 120));
+      free(v29);
     }
 
-    v36 = *a1 + 4095;
-    v54 = 0;
-    v37 = (v36 >> 12);
-    if ((v36 >> 12))
+    v31 = *a1 + 4095;
+    v45 = 0;
+    v32 = (v31 >> 12);
+    if ((v31 >> 12))
     {
-      v38 = 0;
+      v33 = 0;
       do
       {
-        v39 = *hash_info;
-        v54 = _libcd_hash_page(a1, v38);
-        if (v54)
+        v45 = _libcd_hash_page(a1);
+        if (v45)
         {
-          v40 = 1;
+          v34 = 1;
         }
 
         else
         {
-          v40 = v37 - 1 == v38;
+          v34 = v32 - 1 == v33;
         }
 
-        ++v38;
+        ++v33;
       }
 
-      while (!v40);
+      while (!v34);
     }
 
-    if (v54)
+    if (v45)
     {
       _libcd_err_log("%s: serialize page hashes failed\n", "_libcd_serialize_cd");
       free(v7);
-      result = v54;
+      return v45;
     }
 
-    else if ((*(a1 + 8))(a1, *(a1 + 40), v7, v53))
+    else if ((*(a1 + 8))(a1, *(a1 + 40), v7, v44))
     {
-      v42 = (hash_info[1])();
-      v43 = (((*(v42 + 8) + *(v42 + 16) + 19) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
-      MEMORY[0x28223BE20](v42, v44);
-      v46 = &v52 - v45;
-      v47 = malloc_type_calloc(1uLL, *hash_info, 0xC6665FD8uLL);
-      if (v47)
+      v35 = (hash_info[1])();
+      MEMORY[0x28223BE20](v35);
+      v37 = &v43 - v36;
+      v38 = malloc_type_calloc(1uLL, *hash_info, 0xC6665FD8uLL);
+      if (v38)
       {
-        v48 = v47;
+        v39 = v38;
         ccdigest_init();
         ccdigest_update();
-        (*(v42 + 56))(v42, v46, v48);
-        v49 = *(a1 + 168);
-        if (v49)
+        (*(v35 + 56))(v35, v37, v39);
+        v40 = *(a1 + 168);
+        if (v40)
         {
-          v50 = *(a1 + 176);
-          while (*(v50 + 24) == 1)
+          v41 = *(a1 + 176);
+          while (*(v41 + 24) == 1)
           {
-            if (*v50 == a2)
+            if (*v41 == a2)
+            {
+              goto LABEL_52;
+            }
+
+            v41 += 28;
+            if (!--v40)
             {
               goto LABEL_53;
             }
-
-            v50 += 28;
-            if (!--v49)
-            {
-              goto LABEL_54;
-            }
           }
 
-          *v50 = a2;
-          *(v50 + 24) = 1;
-LABEL_53:
-          v51 = *v48;
-          *(v50 + 20) = v48[4];
-          *(v50 + 4) = v51;
+          *v41 = a2;
+          *(v41 + 24) = 1;
+LABEL_52:
+          v42 = *v39;
+          *(v41 + 20) = v39[4];
+          *(v41 + 4) = v42;
         }
 
-LABEL_54:
-        free(v48);
+LABEL_53:
+        free(v39);
         free(v7);
-        result = 0;
+        return 0;
       }
 
       else
       {
         _libcd_err_log("%s: Failed to allocated memory for cdhash\n", "_libcd_serialize_cd");
         free(v7);
-        result = 6;
+        return 6;
       }
     }
 
@@ -4926,52 +4870,45 @@ LABEL_54:
     {
       _libcd_err_log("%s: failed to write directory\n", "_libcd_serialize_cd");
       free(v7);
-      result = 1;
+      return 1;
     }
   }
 
   else
   {
     _libcd_err_log("%s: Failed to allocate temporary memory for code directory\n", "_libcd_serialize_cd");
-    result = 6;
+    return 6;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t _libcd_hash_page(uint64_t a1, uint64_t a2)
+uint64_t _libcd_hash_page(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v11 = v2;
-  v21 = *MEMORY[0x277D85DE8];
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v10 = v1;
+  v17 = *MEMORY[0x277D85DE8];
   memset(__src, 0, sizeof(__src));
-  v12 = (*(v5 + 8))();
-  v13 = (((*(v12 + 8) + *(v12 + 16) + 19) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v12, v14);
-  v16 = &v19[-v15];
-  bzero(v19, 0x1000uLL);
-  if ((*(v11 + 64))(v11, v10, v10 << 12, 4096, v19))
+  v11 = (*(v4 + 8))();
+  MEMORY[0x28223BE20](v11);
+  v13 = &v15[-v12];
+  bzero(v15, 0x1000uLL);
+  if ((*(v10 + 64))(v10, v9, v9 << 12, 4096, v15))
   {
     ccdigest_init();
     ccdigest_update();
-    (*(v12 + 56))(v12, v16, __src);
-    memcpy(v4, __src, *v6);
-    result = 0;
+    (*(v11 + 56))(v11, v13, __src);
+    memcpy(v3, __src, *v5);
+    return 0;
   }
 
   else
   {
-    _libcd_err_log("%s: read page %d at pos %zu failed (pages: %d)\n", "_libcd_hash_page", v10, v10 << 12, v8);
-    result = 2;
+    _libcd_err_log("%s: read page %d at pos %zu failed (pages: %d)\n", "_libcd_hash_page", v9, v9 << 12, v7);
+    return 2;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void xojit::ReplacementManager::ReplacementManager(xojit::ReplacementManager *this, llvm::orc::ObjectLinkingLayer *a2, llvm::orc::ExecutorProcessControl *a3)
@@ -5056,13 +4993,6 @@ uint64_t llvm::orc::ObjectLinkingLayer::addPlugin(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-void xojit::ReplacementManager::~ReplacementManager(xojit::ReplacementManager *this)
-{
-  dsema = dispatch_semaphore_create(0);
-  v2 = *(*this + 8);
-  operator new();
-}
-
 uint64_t llvm::orc::ExecutionSession::dispatchTask(uint64_t a1, uint64_t *a2)
 {
   v2 = *(*(a1 + 72) + 24);
@@ -5080,39 +5010,39 @@ uint64_t llvm::orc::ExecutionSession::dispatchTask(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t xojit::ReplacementManager::addWithReplacement@<X0>(uint64_t *a1@<X0>, std::string::size_type a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t xojit::ReplacementManager::addWithReplacement@<X0>(uint64_t *a1@<X0>, std::string::size_type a2@<X1>, std::string::size_type *a3@<X2>, int32x2_t *a4@<X8>)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v8 = *(*a1 + 8);
   v9 = *(*a3 + 8);
   v10 = *(*a3 + 16) - v9;
   v11 = (*(**a3 + 16))();
-  *v81 = v9;
-  *&v81[8] = v10;
-  *&v81[16] = v11;
-  *&v81[24] = v12;
-  llvm::orc::getObjectFileInterface(v8, v81, &v84);
-  if ((v88 & 1) == 0)
+  *v80 = v9;
+  *&v80[8] = v10;
+  *&v80[16] = v11;
+  *&v80[24] = v12;
+  llvm::orc::getObjectFileInterface(v8, v80, &v83);
+  if ((v87 & 1) == 0)
   {
     v14 = *(*a1 + 8);
-    v15 = v87;
-    v80 = v87;
-    if (v87 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+    v15 = v86;
+    v79 = v86;
+    if (v86 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
     {
-      atomic_fetch_add((v87 + 8), 1uLL);
-      v15 = v80;
+      atomic_fetch_add((v86 + 8), 1uLL);
+      v15 = v79;
     }
 
     if (v15)
     {
       v16 = *v15;
-      *v81 = &v81[24];
-      *&v81[8] = xmmword_2750C1200;
-      llvm::SmallVectorImpl<char>::append<char const*,void>(v81, (v15 + 16), (v15 + 16 + v16));
+      *v80 = &v80[24];
+      *&v80[8] = xmmword_2750C1200;
+      llvm::SmallVectorImpl<char>::append<char const*,void>(v80, (v15 + 16), (v15 + 16 + v16));
       v17 = a1[10];
       a1[10] = v17 + 1;
-      std::to_string(&v78, v17);
-      v18 = std::string::insert(&v78, 0, "$", 1uLL);
+      std::to_string(&v77, v17);
+      v18 = std::string::insert(&v77, 0, "$", 1uLL);
       v19 = v18->__r_.__value_.__r.__words[2];
       *&__p.__r_.__value_.__l.__data_ = *&v18->__r_.__value_.__l.__data_;
       __p.__r_.__value_.__r.__words[2] = v19;
@@ -5135,27 +5065,27 @@ uint64_t xojit::ReplacementManager::addWithReplacement@<X0>(uint64_t *a1@<X0>, s
         size = __p.__r_.__value_.__l.__size_;
       }
 
-      llvm::SmallVectorImpl<char>::append<char const*,void>(v81, p_p, p_p + size);
+      llvm::SmallVectorImpl<char>::append<char const*,void>(v80, p_p, p_p + size);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v78.__r_.__value_.__l.__data_);
+        operator delete(v77.__r_.__value_.__l.__data_);
       }
 
-      llvm::orc::ExecutionSession::intern(v14, *v81, *&v81[8], &__p);
-      v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v84, &v80)[4];
-      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v84, &__p)[4] = v22;
-      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::erase(&v84, &v80);
-      if (v87 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+      llvm::orc::ExecutionSession::intern(v14, *v80, *&v80[8], &__p);
+      v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v83, &v79)[4];
+      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v83, &__p)[4] = v22;
+      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::erase(&v83, &v79);
+      if (v86 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((v87 + 8), 0xFFFFFFFFFFFFFFFFLL);
+        atomic_fetch_add((v86 + 8), 0xFFFFFFFFFFFFFFFFLL);
       }
 
-      v87 = __p.__r_.__value_.__r.__words[0];
+      v86 = __p.__r_.__value_.__r.__words[0];
       if (__p.__r_.__value_.__r.__words[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
       {
         atomic_fetch_add((__p.__r_.__value_.__r.__words[0] + 8), 1uLL);
@@ -5165,12 +5095,12 @@ uint64_t xojit::ReplacementManager::addWithReplacement@<X0>(uint64_t *a1@<X0>, s
         }
       }
 
-      if (*v81 != &v81[24])
+      if (*v80 != &v80[24])
       {
-        free(*v81);
+        free(*v80);
       }
 
-      v23 = v80;
+      v23 = v79;
     }
 
     else
@@ -5178,7 +5108,7 @@ uint64_t xojit::ReplacementManager::addWithReplacement@<X0>(uint64_t *a1@<X0>, s
       v23 = 0;
     }
 
-    v67 = v14;
+    v66 = v14;
     if ((v23 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
     {
       atomic_fetch_add((v23 + 8), 0xFFFFFFFFFFFFFFFFLL);
@@ -5188,23 +5118,23 @@ uint64_t xojit::ReplacementManager::addWithReplacement@<X0>(uint64_t *a1@<X0>, s
     v24 = (*(**a3 + 16))();
     v26 = v25;
     __p.__r_.__value_.__r.__words[0] = a2;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct((a1 + 11), &__p);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct(a1 + 11, &__p);
     v28 = v27;
     *&v29 = 0;
-    v82 = 0u;
-    memset(v83, 0, sizeof(v83));
-    v68 = 0u;
-    *v81 = v29;
-    *&v81[16] = 0u;
-    v69 = 0;
-    v70 = 0uLL;
+    v81 = 0u;
+    memset(v82, 0, sizeof(v82));
+    v67 = 0u;
+    *v80 = v29;
+    *&v80[16] = 0u;
+    v68 = 0;
+    v69 = 0uLL;
+    v70 = 0;
     v71 = 0;
     v72 = 0;
     v73 = 0;
     v74 = 0;
     v75 = 0;
     v76 = 0;
-    v77 = 0;
     v30 = llvm::StringMapImpl::LookupBucketFor((v27 + 2), v24, v26);
     v31 = *(v28 + 1);
     v32 = v30;
@@ -5220,44 +5150,44 @@ uint64_t xojit::ReplacementManager::addWithReplacement@<X0>(uint64_t *a1@<X0>, s
     }
 
     v34 = operator new(v26 + 105, 8uLL);
-    v36 = v34;
-    v37 = v34 + 104;
+    v37 = v34;
+    v38 = v34 + 104;
     if (v26)
     {
       memcpy(v34 + 104, v24, v26);
     }
 
-    *&v35 = 0;
-    v37[v26] = 0;
-    v38 = v68;
-    *v36 = v26;
-    *(v36 + 1) = v38;
-    v39 = *(&v68 + 1);
-    v68 = v35;
-    *(v36 + 2) = v39;
-    *(v36 + 6) = v69;
-    v69 = 0;
-    *(v36 + 4) = v70;
-    v40 = *(&v70 + 1);
-    v70 = v35;
-    *(v36 + 5) = v40;
-    *(v36 + 12) = v71;
+    *&v36 = 0;
+    v38[v26] = 0;
+    v39 = v67;
+    *v37 = v26;
+    *(v37 + 1) = v39;
+    v40 = *(&v67 + 1);
+    v67 = v36;
+    *(v37 + 2) = v40;
+    *(v37 + 6) = v68;
+    v68 = 0;
+    *(v37 + 4) = v69;
+    v41 = *(&v69 + 1);
+    v69 = v36;
+    *(v37 + 5) = v41;
+    *(v37 + 12) = v70;
+    v70 = 0;
+    *(v37 + 7) = v71;
     v71 = 0;
-    *(v36 + 7) = v72;
+    *(v37 + 8) = v72;
     v72 = 0;
-    *(v36 + 8) = v73;
+    *(v37 + 18) = v73;
     v73 = 0;
-    *(v36 + 18) = v74;
+    *(v37 + 10) = v74;
     v74 = 0;
-    *(v36 + 10) = v75;
+    *(v37 + 11) = v75;
     v75 = 0;
-    *(v36 + 11) = v76;
+    *(v37 + 24) = v76;
     v76 = 0;
-    *(v36 + 24) = v77;
-    v77 = 0;
-    *(v31 + 8 * v32) = v36;
+    *(v31 + 8 * v32) = v37;
     ++v28[5];
-    for (i = (*(v28 + 1) + 8 * llvm::StringMapImpl::RehashTable((v28 + 2), v32)); ; ++i)
+    for (i = (*(v28 + 1) + 8 * llvm::StringMapImpl::RehashTable((v28 + 2), v32, v35)); ; ++i)
     {
       v33 = *i;
       if (*i && v33 + 1 != 0)
@@ -5267,31 +5197,31 @@ uint64_t xojit::ReplacementManager::addWithReplacement@<X0>(uint64_t *a1@<X0>, s
     }
 
 LABEL_39:
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(&v75);
-    MEMORY[0x277C69E30](v75, 8);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(&v72);
-    MEMORY[0x277C69E30](v72, 8);
-    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v70);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(&v68);
-    MEMORY[0x277C69E30](v68, 8);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(&v83[1] + 8);
-    MEMORY[0x277C69E30](*(&v83[1] + 1), 8);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(v83);
-    MEMORY[0x277C69E30](*&v83[0], 8);
-    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v81[24]);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(v81);
-    MEMORY[0x277C69E30](*v81, 8);
-    if (v85)
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(&v74);
+    MEMORY[0x277C69E30](v74, 8);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(&v71);
+    MEMORY[0x277C69E30](v71, 8);
+    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v69);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(&v67);
+    MEMORY[0x277C69E30](v67, 8);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(&v82[1] + 8);
+    MEMORY[0x277C69E30](*(&v82[1] + 1), 8);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(v82);
+    MEMORY[0x277C69E30](*&v82[0], 8);
+    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v80[24]);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(v80);
+    MEMORY[0x277C69E30](*v80, 8);
+    if (v84)
     {
-      if (v86)
+      if (v85)
       {
-        v43 = 16 * v86;
-        v44 = v84;
-        while ((*v44 | 8) == 0xFFFFFFFFFFFFFFF8)
+        v44 = 16 * v85;
+        v45 = v83;
+        while ((**&v45 | 8) == 0xFFFFFFFFFFFFFFF8)
         {
-          v44 += 16;
-          v43 -= 16;
-          if (!v43)
+          *&v45 += 16;
+          v44 -= 16;
+          if (!v44)
           {
             goto LABEL_44;
           }
@@ -5300,28 +5230,28 @@ LABEL_39:
 
       else
       {
-        v44 = v84;
+        v45 = v83;
       }
 
-      v61 = v84 + 16 * v86;
+      v62 = *&v83 + 16 * v85;
 LABEL_68:
-      if (v44 != v61)
+      if (*&v45 != v62)
       {
-        *v81 = 0;
-        if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v33 + 1, v44, v81) & 1) != 0 || (*v81 = 0, (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v33 + 4, v44, v81)) || (*v81 = 0, llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v33 + 7, v44, v81)))
+        *v80 = 0;
+        if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v33 + 1, *&v45, v80) & 1) != 0 || (*v80 = 0, (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v33 + 4, *&v45, v80)) || (*v80 = 0, llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v33 + 7, *&v45, v80)))
         {
-          *(v44 + 9) |= 2u;
+          *(*&v45 + 9) |= 2u;
         }
 
         while (1)
         {
-          v44 += 16;
-          if (v44 == v61)
+          *&v45 += 16;
+          if (*&v45 == v62)
           {
             break;
           }
 
-          if ((*v44 | 8) != 0xFFFFFFFFFFFFFFF8)
+          if ((**&v45 | 8) != 0xFFFFFFFFFFFFFFF8)
           {
             goto LABEL_68;
           }
@@ -5330,40 +5260,40 @@ LABEL_68:
     }
 
 LABEL_44:
-    v45 = a1[10];
-    a1[10] = v45 + 1;
-    std::to_string(&__p, v45);
-    v46 = std::string::insert(&__p, 0, "__replacement_tag$", 0x12uLL);
-    v47 = v46->__r_.__value_.__r.__words[2];
-    *v81 = *&v46->__r_.__value_.__l.__data_;
-    *&v81[16] = v47;
-    v46->__r_.__value_.__l.__size_ = 0;
-    v46->__r_.__value_.__r.__words[2] = 0;
-    v46->__r_.__value_.__r.__words[0] = 0;
-    if (v81[23] >= 0)
+    v46 = a1[10];
+    a1[10] = v46 + 1;
+    std::to_string(&__p, v46);
+    v47 = std::string::insert(&__p, 0, "__replacement_tag$", 0x12uLL);
+    v48 = v47->__r_.__value_.__r.__words[2];
+    *v80 = *&v47->__r_.__value_.__l.__data_;
+    *&v80[16] = v48;
+    v47->__r_.__value_.__l.__size_ = 0;
+    v47->__r_.__value_.__r.__words[2] = 0;
+    v47->__r_.__value_.__r.__words[0] = 0;
+    if (v80[23] >= 0)
     {
-      v48 = v81;
+      v49 = v80;
     }
 
     else
     {
-      v48 = *v81;
+      v49 = *v80;
     }
 
-    if (v81[23] >= 0)
+    if (v80[23] >= 0)
     {
-      v49 = v81[23];
+      v50 = v80[23];
     }
 
     else
     {
-      v49 = *&v81[8];
+      v50 = *&v80[8];
     }
 
-    llvm::orc::ExecutionSession::intern(v67, v48, v49, &v78);
-    if ((v81[23] & 0x80000000) != 0)
+    llvm::orc::ExecutionSession::intern(v66, v49, v50, &v77);
+    if ((v80[23] & 0x80000000) != 0)
     {
-      operator delete(*v81);
+      operator delete(*v80);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5372,88 +5302,85 @@ LABEL_44:
     }
 
     __p.__r_.__value_.__r.__words[0] = a2;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct((a1 + 11), &__p);
-    v51 = v50;
-    v52 = v50[5];
-    v53 = v50[6];
-    if (v52 >= v53)
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct(a1 + 11, &__p);
+    v52 = v51;
+    v53 = v51[5];
+    v54 = v51[6];
+    if (v53 >= v54)
     {
-      v56 = v50[4];
-      v57 = (v52 - v56) >> 3;
-      v58 = v57 + 1;
-      if ((v57 + 1) >> 61)
+      v57 = v51[4];
+      v58 = (v53 - v57) >> 3;
+      v59 = v58 + 1;
+      if ((v58 + 1) >> 61)
       {
         std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
       }
 
-      v59 = v53 - v56;
-      if (v59 >> 2 > v58)
+      v60 = v54 - v57;
+      if (v60 >> 2 > v59)
       {
-        v58 = v59 >> 2;
+        v59 = v60 >> 2;
       }
 
-      if (v59 >= 0x7FFFFFFFFFFFFFF8)
+      if (v60 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v60 = 0x1FFFFFFFFFFFFFFFLL;
+        v61 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v60 = v58;
+        v61 = v59;
       }
 
-      *&v82 = v50 + 4;
-      if (v60)
+      *&v81 = v51 + 4;
+      if (v61)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>((v50 + 4), v60);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>((v51 + 4), v61);
       }
 
-      v62 = (8 * v57);
-      *v81 = 0;
-      *&v81[8] = v62;
-      *&v81[16] = 8 * v57;
-      *&v81[24] = 0;
-      v63 = v78.__r_.__value_.__r.__words[0];
-      *v62 = v78.__r_.__value_.__r.__words[0];
-      if (v63 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+      v63 = (8 * v58);
+      *v80 = 0;
+      *&v80[8] = v63;
+      *&v80[16] = 8 * v58;
+      *&v80[24] = 0;
+      v64 = v77.__r_.__value_.__r.__words[0];
+      *v63 = v77.__r_.__value_.__r.__words[0];
+      if (v64 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((v63 + 8), 1uLL);
-        v62 = *&v81[16];
+        atomic_fetch_add((v64 + 8), 1uLL);
+        v63 = *&v80[16];
       }
 
-      *&v81[16] = v62 + 1;
-      std::vector<llvm::orc::SymbolStringPtr>::__swap_out_circular_buffer(v50 + 4, v81);
-      v55 = v51[5];
-      std::__split_buffer<llvm::orc::SymbolStringPtr>::~__split_buffer(v81);
+      *&v80[16] = v63 + 1;
+      std::vector<llvm::orc::SymbolStringPtr>::__swap_out_circular_buffer(v51 + 4, v80);
+      v56 = v52[5];
+      std::__split_buffer<llvm::orc::SymbolStringPtr>::~__split_buffer(v80);
     }
 
     else
     {
-      v54 = v78.__r_.__value_.__r.__words[0];
-      *v52 = v78.__r_.__value_.__r.__words[0];
-      if (v54 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+      v55 = v77.__r_.__value_.__r.__words[0];
+      *v53 = v77.__r_.__value_.__r.__words[0];
+      if (v55 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((v54 + 8), 1uLL);
+        atomic_fetch_add((v55 + 8), 1uLL);
       }
 
-      v55 = v52 + 1;
+      v56 = v53 + 1;
     }
 
-    v51[5] = v55;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v84, &v78)[4] = 0x4000;
-    v64 = *a1;
+    v52[5] = v56;
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v83, &v77)[4] = 0x4000;
     operator new();
   }
 
-  v13 = v84;
-  v84 = 0;
+  v13 = v83;
+  v83 = 0;
   *a4 = v13;
-  result = llvm::Expected<llvm::orc::MaterializationUnit::Interface>::~Expected(&v84);
-  v66 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<llvm::orc::MaterializationUnit::Interface>::~Expected(&v83);
 }
 
-void llvm::orc::ExecutionSession::intern(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X2>, unint64_t **a4@<X8>)
+void llvm::orc::ExecutionSession::intern(uint64_t a1@<X0>, uint64_t *a2@<X1>, size_t a3@<X2>, size_t **a4@<X8>)
 {
   v7 = *(*(a1 + 72) + 8);
   std::mutex::lock(v7);
@@ -5461,15 +5388,15 @@ void llvm::orc::ExecutionSession::intern(uint64_t a1@<X0>, uint64_t *a2@<X1>, un
   v8 = llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::try_emplace<int>(&v7[1], a2, a3, &v10);
   v9 = *v8;
   *a4 = *v8;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+  if ((v9 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
   {
-    atomic_fetch_add(v9 + 1, 1uLL);
+    atomic_fetch_add((v9 + 8), 1uLL);
   }
 
   std::mutex::unlock(v7);
 }
 
-int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::erase(uint64_t a1, void *a2)
+int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::erase(int32x2_t *a1, void *a2)
 {
   v5 = 0;
   if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v5))
@@ -5481,14 +5408,14 @@ int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JIT
     }
 
     *v4 = -16;
-    result = vadd_s32(*(a1 + 8), 0x1FFFFFFFFLL);
-    *(a1 + 8) = result;
+    result = vadd_s32(a1[1], 0x1FFFFFFFFLL);
+    a1[1] = result;
   }
 
   return result;
 }
 
-void llvm::orc::JITDylib::define<llvm::orc::BasicObjectLayerMaterializationUnit>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void llvm::orc::JITDylib::define<llvm::orc::BasicObjectLayerMaterializationUnit>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   if (*(*a2 + 16))
   {
@@ -5505,13 +5432,6 @@ void llvm::orc::JITDylib::define<llvm::orc::BasicObjectLayerMaterializationUnit>
   {
     *a4 = 0;
   }
-}
-
-void xojit::ReplacementManager::applyPendingUpdatesFor(xojit::ReplacementManager *this, llvm::orc::JITDylib *a2)
-{
-  v3 = *MEMORY[0x277D85DE8];
-  v2 = *(*this + 8);
-  operator new();
 }
 
 uint64_t *llvm::orc::SymbolLookupSet::add(uint64_t *a1, uint64_t *a2, int a3)
@@ -5648,7 +5568,7 @@ void *std::__split_buffer<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>
   return result;
 }
 
-unint64_t **llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::try_emplace<int>(llvm::StringMapImpl *a1, uint64_t *a2, unint64_t a3, int *a4)
+size_t **llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::try_emplace<int>(llvm::StringMapImpl *a1, uint64_t *a2, size_t a3, int *a4)
 {
   v8 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3);
   i = (*a1 + 8 * v8);
@@ -5671,18 +5591,18 @@ unint64_t **llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::t
   }
 
   v12 = operator new(a3 + 17, 8uLL);
-  v13 = v12;
-  v14 = (v12 + 2);
+  v14 = v12;
+  v15 = (v12 + 2);
   if (a3)
   {
     memcpy(v12 + 2, a2, a3);
   }
 
-  v14[a3] = 0;
-  v15 = *a4;
-  *v13 = a3;
-  v13[1] = v15;
-  *i = v13;
+  v15[a3] = 0;
+  v16 = *a4;
+  *v14 = a3;
+  v14[1] = v16;
+  *i = v14;
   ++*(a1 + 3);
     ;
   }
@@ -5906,7 +5826,7 @@ uint64_t std::__split_buffer<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::Sym
   return a1;
 }
 
-uint64_t std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>>::__init_with_size[abi:nn200100]<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>*,std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>>::__init_with_size[abi:nn200100]<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>*,std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5916,7 +5836,7 @@ uint64_t std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLooku
   return result;
 }
 
-void std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6013,8 +5933,8 @@ void std::__assoc_sub_state::__attach_future[abi:nn200100](uint64_t a1)
   v2 = *(a1 + 136);
   if ((v2 & 2) != 0)
   {
-    v3 = std::__throw_future_error[abi:nn200100]();
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::CallImpl<llvm::orc::ExecutorProcessControl::MemoryAccess::writeUInt64s(llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>)::{lambda(llvm::Error)#1}>(v3);
+    std::__throw_future_error[abi:nn200100]();
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::CallImpl<llvm::orc::ExecutorProcessControl::MemoryAccess::writeUInt64s(llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>)::{lambda(llvm::Error)#1}>(v3, v4);
   }
 
   else
@@ -6051,7 +5971,7 @@ void std::promise<llvm::MSVCPError>::set_value(uint64_t *a1, void *a2)
 
   else
   {
-    v3 = std::__throw_future_error[abi:nn200100]();
+    std::__throw_future_error[abi:nn200100]();
   }
 
   std::__assoc_state<llvm::MSVCPError>::set_value<llvm::MSVCPError>(v3, a2);
@@ -6062,7 +5982,7 @@ void std::__assoc_state<llvm::MSVCPError>::set_value<llvm::MSVCPError>(uint64_t 
   std::mutex::lock((a1 + 24));
   if ((*(a1 + 136) & 1) != 0 || (v6.__ptr_ = 0, v4 = *(a1 + 16), std::exception_ptr::~exception_ptr(&v6), v4))
   {
-    v5 = std::__throw_future_error[abi:nn200100]();
+    std::__throw_future_error[abi:nn200100]();
     llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   }
 
@@ -6405,9 +6325,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -6422,7 +6342,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::Dense
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(16 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -6432,8 +6352,8 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::Dense
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -6456,7 +6376,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::Dense
       }
 
       v11 += 2;
-      v16 += 4;
+      v16 += 32;
     }
 
     while (v14 != v11);
@@ -6558,37 +6478,37 @@ void *llvm::SmallVectorImpl<char>::append<char const*,void>(void *result, _BYTE 
   return result;
 }
 
-double llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct(uint64_t a1, uint64_t *a2)
+double llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct(void *a1, uint64_t *a2)
 {
   v9 = 0;
-  v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::LookupBucketFor<llvm::orc::JITDylib *>(*a1, *(a1 + 16), *a2, &v9);
+  v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::LookupBucketFor<llvm::orc::JITDylib *>(*a1, *(a1 + 4), *a2, &v9);
   v6 = v9;
   if (v4)
   {
     return result;
   }
 
-  v7 = *(a1 + 8);
-  v8 = *(a1 + 16);
+  v7 = *(a1 + 2);
+  v8 = *(a1 + 4);
   if (4 * v7 + 4 >= 3 * v8)
   {
     v8 *= 2;
     goto LABEL_9;
   }
 
-  if (v8 + ~v7 - *(a1 + 12) <= v8 >> 3)
+  if (v8 + ~v7 - *(a1 + 3) <= v8 >> 3)
   {
 LABEL_9:
     llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::grow(a1, v8);
     v9 = 0;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::LookupBucketFor<llvm::orc::JITDylib *>(*a1, *(a1 + 16), *a2, &v9);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::LookupBucketFor<llvm::orc::JITDylib *>(*a1, *(a1 + 4), *a2, &v9);
     v6 = v9;
   }
 
-  ++*(a1 + 8);
+  ++*(a1 + 2);
   if (*v6 != -4096)
   {
-    --*(a1 + 12);
+    --*(a1 + 3);
   }
 
   *v6 = *a2;
@@ -6845,9 +6765,9 @@ uint64_t llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llvm
   return a1;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::destroyAll(uint64_t result)
+_DWORD *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::destroyAll(_DWORD *result)
 {
-  v1 = *(result + 16);
+  v1 = result[4];
   if (v1)
   {
     v2 = 104 * v1;
@@ -6875,14 +6795,14 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::Replacem
   return result;
 }
 
-uint64_t xojit::ReplacementManager::Plugin::Plugin(uint64_t this, xojit::ReplacementManager *a2)
+xojit::ReplacementManager::Plugin *xojit::ReplacementManager::Plugin::Plugin(xojit::ReplacementManager::Plugin *this, xojit::ReplacementManager *a2)
 {
   *this = &unk_2883E99F8;
-  *(this + 8) = a2;
-  *(this + 16) = 0u;
-  *(this + 32) = 0u;
-  *(this + 48) = 0u;
-  *(this + 64) = 0;
+  *(this + 1) = a2;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *(this + 3) = 0u;
+  *(this + 8) = 0;
   if (*(*(a2 + 1) + 64) == 38)
   {
     xojit::ReplacementManager::Plugin::initializeMCDisassembler(this);
@@ -6891,7 +6811,7 @@ uint64_t xojit::ReplacementManager::Plugin::Plugin(uint64_t this, xojit::Replace
   return this;
 }
 
-uint64_t *llvm::handleAllErrors<xojit::ReplacementManager::Plugin::Plugin(xojit::ReplacementManager&)::{lambda(llvm::ErrorInfoBase &)#1}>(uint64_t **a1)
+const void **llvm::handleAllErrors<xojit::ReplacementManager::Plugin::Plugin(xojit::ReplacementManager&)::{lambda(llvm::ErrorInfoBase &)#1}>(const void ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -6899,7 +6819,7 @@ uint64_t *llvm::handleAllErrors<xojit::ReplacementManager::Plugin::Plugin(xojit:
   result = v2;
   if (v2)
   {
-    return (*(*v2 + 8))(v2);
+    return (*(*v2 + 1))(v2);
   }
 
   return result;
@@ -6907,157 +6827,155 @@ uint64_t *llvm::handleAllErrors<xojit::ReplacementManager::Plugin::Plugin(xojit:
 
 void xojit::ReplacementManager::Plugin::initializeMCDisassembler(xojit::ReplacementManager::Plugin *this)
 {
-  v2 = *(*(this + 1) + 8);
-  if (*(v2 + 63) < 0)
+  v3 = *(*(this + 1) + 8);
+  if (*(v3 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v48, *(v2 + 40), *(v2 + 48));
+    std::string::__init_copy_ctor_external(&v47, *(v3 + 40), *(v3 + 48));
   }
 
   else
   {
-    v48 = *(v2 + 40);
+    v47 = *(v3 + 40);
   }
 
-  v49 = *(v2 + 64);
-  v50 = *(v2 + 80);
+  v48 = *(v3 + 64);
+  v49 = *(v3 + 80);
+  v44 = 0;
   v45 = 0;
   v46 = 0;
-  v47 = 0;
-  v3 = llvm::TargetRegistry::lookupTarget(&v48, &v45);
-  if (v3)
+  v4 = llvm::TargetRegistry::lookupTarget(&v47, &v44);
+  if (v4)
   {
-    v4 = v3;
-    if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v5 = v4;
+    if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v5 = &v48;
+      v6 = &v47;
     }
 
     else
     {
-      v5 = v48.__r_.__value_.__r.__words[0];
+      v6 = v47.__r_.__value_.__r.__words[0];
     }
 
-    if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = SHIBYTE(v48.__r_.__value_.__r.__words[2]);
+      size = SHIBYTE(v47.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v48.__r_.__value_.__l.__size_;
+      size = v47.__r_.__value_.__l.__size_;
     }
 
-    MCSubtargetInfo = llvm::Target::createMCSubtargetInfo(v3, v5, size, "", 0, "", 0);
-    v8 = *(this + 2);
+    MCSubtargetInfo = llvm::Target::createMCSubtargetInfo(v4, v6, size, "", 0, "", 0);
+    v9 = *(this + 2);
     *(this + 2) = MCSubtargetInfo;
-    if (v8)
+    if (v9)
     {
-      (*(*v8 + 8))(v8);
+      (*(*v9 + 8))(v9);
       MCSubtargetInfo = *(this + 2);
     }
 
     if (MCSubtargetInfo)
     {
-      v9 = (v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v48 : v48.__r_.__value_.__r.__words[0];
-      v10 = (v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? SHIBYTE(v48.__r_.__value_.__r.__words[2]) : v48.__r_.__value_.__l.__size_;
-      MCRegInfo = llvm::Target::createMCRegInfo(v4, v9, v10);
-      v12 = std::unique_ptr<llvm::MCRegisterInfo>::reset[abi:nn200100](this + 3, MCRegInfo);
+      v10 = (v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v47 : v47.__r_.__value_.__r.__words[0];
+      v11 = (v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? SHIBYTE(v47.__r_.__value_.__r.__words[2]) : v47.__r_.__value_.__l.__size_;
+      MCRegInfo = llvm::Target::createMCRegInfo(v5, v10, v11);
+      v13 = std::unique_ptr<llvm::MCRegisterInfo>::reset[abi:nn200100](this + 3, MCRegInfo);
       if (*(this + 3))
       {
-        v13 = *(v4 + 64);
-        if (v13)
+        v14 = *(v5 + 64);
+        if (v14)
         {
-          v14 = v13(v12);
+          v15 = v14(v13);
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
         }
 
-        v21 = *(this + 4);
-        *(this + 4) = v14;
-        if (v21)
+        v22 = *(this + 4);
+        *(this + 4) = v15;
+        if (v22)
         {
-          MEMORY[0x277C69E40](v21, 0x10F0C40CB53E019);
-          v14 = *(this + 4);
+          MEMORY[0x277C69E40](v22, 0x10F0C40CB53E019);
+          v15 = *(this + 4);
         }
 
-        if (v14)
+        if (v15)
         {
-          v22 = *(v4 + 72);
-          if (v22)
+          v23 = *(v5 + 72);
+          if (v23)
           {
-            v23 = v22();
+            v24 = v23();
           }
 
           else
           {
-            v23 = 0;
+            v24 = 0;
           }
 
-          v24 = *(this + 5);
-          *(this + 5) = v23;
-          if (v24)
+          v25 = *(this + 5);
+          *(this + 5) = v24;
+          if (v25)
           {
-            (*(*v24 + 8))(v24);
-            v23 = *(this + 5);
+            (*(*v25 + 8))(v25);
+            v24 = *(this + 5);
           }
 
-          if (v23)
+          if (v24)
           {
             LOWORD(__p[0]) = 2048;
             *(__p + 4) = 2;
             HIDWORD(__p[1]) = 2;
-            v32 = 0u;
-            *v33 = 0u;
-            v34 = 0u;
+            v31 = 0u;
+            *v32 = 0u;
+            v33 = 0u;
+            *v34 = 0u;
             *v35 = 0u;
-            *v36 = 0u;
+            v36 = 0u;
             v37 = 0u;
             v38 = 0u;
             v39 = 0u;
-            v40 = 0u;
-            if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v25 = &v48;
+              v26 = &v47;
             }
 
             else
             {
-              v25 = v48.__r_.__value_.__r.__words[0];
+              v26 = v47.__r_.__value_.__r.__words[0];
             }
 
-            if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v26 = SHIBYTE(v48.__r_.__value_.__r.__words[2]);
+              v27 = SHIBYTE(v47.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v26 = v48.__r_.__value_.__l.__size_;
+              v27 = v47.__r_.__value_.__l.__size_;
             }
 
-            MCAsmInfo = llvm::Target::createMCAsmInfo(v4, *(this + 3), v25, v26, __p);
-            v28 = *(this + 6);
+            MCAsmInfo = llvm::Target::createMCAsmInfo(v5, *(this + 3), v26, v27, __p);
+            v29 = *(this + 6);
             *(this + 6) = MCAsmInfo;
-            if (v28)
+            if (v29)
             {
-              (*(*v28 + 8))(v28);
+              (*(*v29 + 8))(v29);
               MCAsmInfo = *(this + 6);
             }
 
             if (MCAsmInfo)
             {
-              v30 = *(this + 2);
-              v29 = *(this + 3);
               operator new();
             }
 
             std::operator+<char>();
             getErrorErrorCat();
-            v43.__r_.__value_.__r.__words[0] = 3;
-            v43.__r_.__value_.__l.__size_ = &getErrorErrorCat(void)::ErrorErrorCat;
+            v42.__r_.__value_.__r.__words[0] = 3;
+            v42.__r_.__value_.__l.__size_ = &getErrorErrorCat(void)::ErrorErrorCat;
             llvm::make_error<llvm::StringError,std::string,std::error_code>();
           }
         }
@@ -7066,49 +6984,49 @@ void xojit::ReplacementManager::Plugin::initializeMCDisassembler(xojit::Replacem
 
     std::operator+<char>();
     getErrorErrorCat();
-    v44.__r_.__value_.__r.__words[0] = 3;
-    v44.__r_.__value_.__l.__size_ = &getErrorErrorCat(void)::ErrorErrorCat;
+    v43.__r_.__value_.__r.__words[0] = 3;
+    v43.__r_.__value_.__l.__size_ = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,std::string,std::error_code>();
   }
 
   std::operator+<char>();
-  v15 = std::string::append(&v43, "': ", 3uLL);
-  v16 = v15->__r_.__value_.__r.__words[2];
-  *&v44.__r_.__value_.__l.__data_ = *&v15->__r_.__value_.__l.__data_;
-  v44.__r_.__value_.__r.__words[2] = v16;
-  v15->__r_.__value_.__l.__size_ = 0;
-  v15->__r_.__value_.__r.__words[2] = 0;
-  v15->__r_.__value_.__r.__words[0] = 0;
-  if (v47 >= 0)
+  v16 = std::string::append(&v42, "': ", 3uLL);
+  v17 = v16->__r_.__value_.__r.__words[2];
+  *&v43.__r_.__value_.__l.__data_ = *&v16->__r_.__value_.__l.__data_;
+  v43.__r_.__value_.__r.__words[2] = v17;
+  v16->__r_.__value_.__l.__size_ = 0;
+  v16->__r_.__value_.__r.__words[2] = 0;
+  v16->__r_.__value_.__r.__words[0] = 0;
+  if (v46 >= 0)
   {
-    v17 = &v45;
+    v18 = &v44;
   }
 
   else
   {
-    v17 = v45;
+    v18 = v44;
   }
 
-  if (v47 >= 0)
+  if (v46 >= 0)
   {
-    v18 = HIBYTE(v47);
+    v19 = HIBYTE(v46);
   }
 
   else
   {
-    v18 = v46;
+    v19 = v45;
   }
 
-  v19 = std::string::append(&v44, v17, v18);
-  v20 = v19->__r_.__value_.__r.__words[2];
-  *__p = *&v19->__r_.__value_.__l.__data_;
-  *&v32 = v20;
-  v19->__r_.__value_.__l.__size_ = 0;
-  v19->__r_.__value_.__r.__words[2] = 0;
-  v19->__r_.__value_.__r.__words[0] = 0;
+  v20 = std::string::append(&v43, v18, v19);
+  v21 = v20->__r_.__value_.__r.__words[2];
+  *__p = *&v20->__r_.__value_.__l.__data_;
+  *&v31 = v21;
+  v20->__r_.__value_.__l.__size_ = 0;
+  v20->__r_.__value_.__r.__words[2] = 0;
+  v20->__r_.__value_.__r.__words[0] = 0;
   getErrorErrorCat();
-  v41 = 3;
-  v42 = &getErrorErrorCat(void)::ErrorErrorCat;
+  v40 = 3;
+  v41 = &getErrorErrorCat(void)::ErrorErrorCat;
   llvm::make_error<llvm::StringError,std::string,std::error_code>();
 }
 
@@ -7161,12 +7079,12 @@ void xojit::ReplacementManager::Plugin::~Plugin(xojit::ReplacementManager::Plugi
 
 void xojit::ReplacementManager::Plugin::modifyPassConfig(void *a1, void *a2, uint64_t a3, __int128 **a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v8 = a1[1];
   std::mutex::lock((v8 + 16));
   v9 = a1[1];
-  *&v23 = *a2;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct(v9 + 88, &v23);
+  *&v21 = *a2;
+  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct((v9 + 88), &v21);
   v11 = v10;
   v14 = *(a3 + 96);
   v13 = a3 + 96;
@@ -7182,55 +7100,53 @@ void xojit::ReplacementManager::Plugin::modifyPassConfig(void *a1, void *a2, uin
     v16 = v12;
   }
 
-  v17 = *(v13 + 8);
   if (v15 >= 0)
   {
-    v18 = *(v13 + 23);
+    v17 = *(v13 + 23);
   }
 
   else
   {
-    v18 = *(v13 + 8);
+    v17 = *(v13 + 8);
   }
 
-  Key = llvm::StringMapImpl::FindKey((v10 + 8), v16, v18);
+  Key = llvm::StringMapImpl::FindKey((v10 + 8), v16, v17);
   if (Key != -1 && Key != *(v11 + 16))
   {
-    v20 = *a4;
-    *&v23 = a1;
-    *(&v23 + 1) = a2;
-    v24 = off_2815A4200 + 2;
-    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::insert(a4, v20, &v23);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v23);
-    *&v23 = a1;
-    *(&v23 + 1) = a2;
-    v24 = &off_2815A4208 + 2;
-    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100]((a4 + 12), &v23);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v23);
+    v19 = *a4;
+    *&v21 = a1;
+    *(&v21 + 1) = a2;
+    v22 = off_2815A4200 + 2;
+    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::insert(a4, v19, &v21);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v21);
+    *&v21 = a1;
+    *(&v21 + 1) = a2;
+    v22 = &off_2815A4208 + 2;
+    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](a4 + 12, &v21);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v21);
     if (a1[8])
     {
       if (a1[5])
       {
-        v21 = *a4;
-        *&v23 = a1;
-        v24 = &off_2815A4210 + 2;
-        std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::insert(a4, v21, &v23);
-        llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v23);
+        v20 = *a4;
+        *&v21 = a1;
+        v22 = &off_2815A4210 + 2;
+        std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::insert(a4, v20, &v21);
+        llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v21);
       }
     }
   }
 
   std::mutex::unlock((v8 + 16));
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t **llvm::handleErrors<xojit::ReplacementManager::Plugin::Plugin(xojit::ReplacementManager&)::{lambda(llvm::ErrorInfoBase &)#1}>@<X0>(uint64_t **result@<X0>, uint64_t **a2@<X8>)
+const void ***llvm::handleErrors<xojit::ReplacementManager::Plugin::Plugin(xojit::ReplacementManager&)::{lambda(llvm::ErrorInfoBase &)#1}>@<X0>(const void ***result@<X0>, const void ***a2@<X8>)
 {
   v3 = *result;
   if (*result)
   {
     *result = 0;
-    if ((*(*v3 + 48))(v3, &llvm::ErrorList::ID))
+    if ((*(*v3 + 6))(v3, &llvm::ErrorList::ID))
     {
       *a2 = 0;
       v4 = v3[1];
@@ -7260,7 +7176,7 @@ uint64_t **llvm::handleErrors<xojit::ReplacementManager::Plugin::Plugin(xojit::R
 
           if (v10)
           {
-            (*(*v10 + 8))(v10);
+            (*(*v10 + 1))(v10);
           }
 
           ++v4;
@@ -7270,16 +7186,16 @@ uint64_t **llvm::handleErrors<xojit::ReplacementManager::Plugin::Plugin(xojit::R
         *a2 = v6;
       }
 
-      return (*(*v3 + 8))(v3);
+      return (*(*v3 + 1))(v3);
     }
 
     else
     {
-      result = (*(*v3 + 48))(v3, &llvm::ErrorInfoBase::ID);
+      result = (*(*v3 + 6))(v3, &llvm::ErrorInfoBase::ID);
       if (result)
       {
         *a2 = 0;
-        v8 = *(*v3 + 8);
+        v8 = *(*v3 + 1);
 
         return v8(v3);
       }
@@ -7299,7 +7215,7 @@ uint64_t **llvm::handleErrors<xojit::ReplacementManager::Plugin::Plugin(xojit::R
   return result;
 }
 
-uint64_t *llvm::ErrorList::join@<X0>(uint64_t **a1@<X0>, uint64_t **a2@<X1>, uint64_t **a3@<X8>)
+const void **llvm::ErrorList::join@<X0>(const void ***a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   result = *a1;
   v7 = *a2;
@@ -7310,7 +7226,7 @@ uint64_t *llvm::ErrorList::join@<X0>(uint64_t **a1@<X0>, uint64_t **a2@<X1>, uin
 
   if (v7)
   {
-    if ((*(*result + 48))(result, &llvm::ErrorList::ID))
+    if ((*(*result + 6))(result, &llvm::ErrorList::ID))
     {
       v8 = *a1;
       if (*a2)
@@ -7336,7 +7252,7 @@ uint64_t *llvm::ErrorList::join@<X0>(uint64_t **a1@<X0>, uint64_t **a2@<X1>, uin
           if (v10)
           {
 LABEL_9:
-            result = (*(*v10 + 8))(v10);
+            result = (*(*v10 + 1))(v10);
           }
 
 LABEL_21:
@@ -7357,7 +7273,7 @@ LABEL_21:
       v15 = 0;
       if (result)
       {
-        result = (*(*result + 8))(result);
+        result = (*(*result + 1))(result);
       }
 
       goto LABEL_21;
@@ -7368,7 +7284,7 @@ LABEL_21:
       operator new();
     }
 
-    v13 = (*a2 + 1);
+    v13 = (*a2 + 8);
     v14 = *v13;
     v15 = *a1;
     *a1 = 0;
@@ -7377,7 +7293,7 @@ LABEL_21:
     v15 = 0;
     if (result)
     {
-      result = (*(*result + 8))(result);
+      result = (*(*result + 1))(result);
     }
 
     v7 = *a2;
@@ -7393,7 +7309,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t *std::vector<std::unique_ptr<llvm::ErrorInfoBase>>::push_back[abi:nn200100](uint64_t *result, uint64_t *a2)
+const void **std::vector<std::unique_ptr<llvm::ErrorInfoBase>>::push_back[abi:nn200100](const void **result, uint64_t *a2)
 {
   v3 = result;
   v5 = result[1];
@@ -7450,7 +7366,7 @@ uint64_t *std::vector<std::unique_ptr<llvm::ErrorInfoBase>>::push_back[abi:nn200
     v6 = *a2;
     *a2 = 0;
     *v5 = v6;
-    v7 = v5 + 1;
+    v7 = v5 + 8;
   }
 
   v3[1] = v7;
@@ -7700,7 +7616,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t llvm::Target::createMCSubtargetInfo(uint64_t a1, llvm::formatv_object_base *a2, llvm::formatv_object_base *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t llvm::Target::createMCSubtargetInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v7 = *(a1 + 88);
   if (!v7)
@@ -7736,7 +7652,7 @@ uint64_t *std::unique_ptr<llvm::MCRegisterInfo>::reset[abi:nn200100](uint64_t *r
   return result;
 }
 
-uint64_t (*llvm::Target::createMCRegInfo(uint64_t a1, llvm::formatv_object_base *a2, llvm::formatv_object_base *a3))(void **)
+uint64_t (*llvm::Target::createMCRegInfo(uint64_t a1, uint64_t a2, uint64_t a3))(void **)
 {
   v3 = *(a1 + 80);
   if (v3)
@@ -7755,7 +7671,7 @@ uint64_t (*llvm::Target::createMCRegInfo(uint64_t a1, llvm::formatv_object_base 
   return v3;
 }
 
-uint64_t llvm::Target::createMCAsmInfo(uint64_t a1, uint64_t a2, llvm::formatv_object_base *a3, llvm::formatv_object_base *a4, uint64_t a5)
+uint64_t llvm::Target::createMCAsmInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = *(a1 + 48);
   if (!v5)
@@ -7776,7 +7692,7 @@ uint64_t llvm::Target::createMCAsmInfo(uint64_t a1, uint64_t a2, llvm::formatv_o
   return v8;
 }
 
-uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:nn200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7788,11 +7704,11 @@ uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 llvm::MCContext *std::unique_ptr<llvm::MCContext>::reset[abi:nn200100](llvm::MCContext **a1, llvm::MCContext *a2)
@@ -7838,11 +7754,11 @@ void std::vector<std::string>::clear[abi:nn200100](void ***a1)
   a1[1] = v2;
 }
 
-__int128 *std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::insert(uint64_t a1, __int128 *a2, __int128 *a3)
+__int128 *std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::insert(__int128 **a1, __int128 *a2, __int128 *a3)
 {
   v4 = a2;
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
+  v7 = a1[1];
+  v6 = a1[2];
   if (v7 >= v6)
   {
     v9 = *a1;
@@ -7878,8 +7794,8 @@ __int128 *std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGr
     }
 
     v17[0] = 0;
-    v17[1] = (32 * v15);
-    v17[2] = (32 * v15);
+    v17[1] = 32 * v15;
+    v17[2] = 32 * v15;
     v17[3] = 0;
     std::__split_buffer<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::emplace_back<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>(v17, a3);
     v4 = std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__swap_out_circular_buffer(a1, v17, v4);
@@ -7888,13 +7804,13 @@ __int128 *std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGr
 
   else if (a2 == v7)
   {
-    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(*(a1 + 8), a3);
-    *(a1 + 8) = v7 + 2;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(a1[1], a3);
+    a1[1] = v7 + 2;
   }
 
   else
   {
-    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__move_range(a1, a2, *(a1 + 8), (a2 + 2));
+    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__move_range(a1, a2, a1[1], (a2 + 2));
     if (v4 != a3)
     {
       v8 = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v4);
@@ -7905,10 +7821,10 @@ __int128 *std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGr
   return v4;
 }
 
-uint64_t std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](uint64_t a1, __int128 *a2)
+uint64_t std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](__int128 **a1, __int128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
+  v4 = a1[1];
+  v5 = a1[2];
   if (v4 >= v5)
   {
     v8 = (v4 - *a1) >> 5;
@@ -7943,14 +7859,14 @@ uint64_t std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGra
     v12 = 32 * v8;
     llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v12, a2);
     v7 = v12 + 32;
-    v13 = *(a1 + 8);
+    v13 = a1[1];
     v14 = v12 + *a1 - v13;
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>,llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>*>(a1, *a1, v13, v14);
     v15 = *a1;
     *a1 = v14;
-    *(a1 + 8) = v12 + 32;
-    v16 = *(a1 + 16);
-    *(a1 + 16) = 0;
+    a1[1] = (v12 + 32);
+    v16 = a1[2];
+    a1[2] = 0;
     v17[2] = v15;
     v17[3] = v16;
     v17[0] = v15;
@@ -7964,7 +7880,7 @@ uint64_t std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGra
     v7 = result + 32;
   }
 
-  *(a1 + 8) = v7;
+  a1[1] = v7;
   return result;
 }
 
@@ -7991,7 +7907,7 @@ __int128 *std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGr
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)> *,llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)> *,llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)> *>(&v13, a2, v7, v6);
 }
 
-uint64_t std::__split_buffer<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::emplace_back<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>(__int128 **a1, __int128 *a2)
+uint64_t std::__split_buffer<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::emplace_back<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -8006,7 +7922,7 @@ uint64_t std::__split_buffer<llvm::unique_function<llvm::Error ()(llvm::jitlink:
 
       else
       {
-        v8 = v4 - *a1;
+        v8 = (v4 - *a1) >> 4;
       }
 
       v9 = a1[4];
@@ -8017,35 +7933,35 @@ uint64_t std::__split_buffer<llvm::unique_function<llvm::Error ()(llvm::jitlink:
     v6 = (((v5 - *a1) >> 5) + 1 + ((((v5 - *a1) >> 5) + 1) >> 63)) >> 1;
     std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)> *,llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)> *,llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)> *>(v11, v5, v4, &v5[-2 * v6]);
     v4 = v7;
-    a1[1] -= 2 * v6;
+    a1[1] -= 32 * v6;
     a1[2] = v7;
   }
 
   result = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v4, a2);
-  a1[2] += 2;
+  a1[2] += 32;
   return result;
 }
 
-uint64_t std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__swap_out_circular_buffer(uint64_t a1, void *a2, __int128 *a3)
+uint64_t std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__swap_out_circular_buffer(__int128 **a1, void *a2, __int128 *a3)
 {
   v6 = a2[1];
-  std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>,llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>*>(a1, a3, *(a1 + 8), a2[2]);
+  std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>,llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>*>(a1, a3, a1[1], a2[2]);
   v7 = *a1;
   v8 = a2[1];
-  a2[2] += *(a1 + 8) - a3;
-  *(a1 + 8) = a3;
+  a2[2] += a1[1] - a3;
+  a1[1] = a3;
   v9 = v8 + v7 - a3;
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>,llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>*>(a1, v7, a3, v9);
   a2[1] = v9;
   v10 = *a1;
-  *(a1 + 8) = *a1;
+  a1[1] = *a1;
   *a1 = a2[1];
   a2[1] = v10;
-  v11 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v11 = a1[1];
+  a1[1] = a2[2];
   a2[2] = v11;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v12 = a1[2];
+  a1[2] = a2[3];
   a2[3] = v12;
   *a2 = a2[1];
   return v6;
@@ -8175,70 +8091,69 @@ uint64_t std::__split_buffer<llvm::unique_function<llvm::Error ()(llvm::jitlink:
   return a1;
 }
 
-void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<xojit::ReplacementManager::Plugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1}>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<xojit::ReplacementManager::Plugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1}>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v231 = *MEMORY[0x277D85DE8];
+  v228 = *MEMORY[0x277D85DE8];
   v5 = *a1;
   v4 = a1[1];
-  v163 = *(*a1 + 8);
-  std::mutex::lock((v163 + 16));
+  v160 = *(*a1 + 8);
+  std::mutex::lock((v160 + 16));
   v6 = *(v5 + 8);
-  v169 = *(*(v6 + 8) + 32);
-  v164 = v4;
-  *&v217 = *v4;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct(v6 + 88, &v217);
+  v166 = *(*(v6 + 8) + 32);
+  v161 = v4;
+  *&v214 = *v4;
+  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct((v6 + 88), &v214);
   v8 = *(a2 + 119);
   if (v8 >= 0)
   {
-    v9 = (a2 + 96);
+    v9 = (a2 + 24);
   }
 
   else
   {
-    v9 = *(a2 + 96);
+    v9 = *(a2 + 12);
   }
 
-  v10 = *(a2 + 104);
   if (v8 >= 0)
   {
-    v11 = *(a2 + 119);
+    v10 = *(a2 + 119);
   }
 
   else
   {
-    v11 = *(a2 + 104);
+    v10 = *(a2 + 13);
   }
 
-  __n = *llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llvm::MallocAllocator>::try_emplace<>((v7 + 8), v9, v11);
-  v12 = *(v5 + 8);
-  v13 = *(v12 + 80);
-  *(v12 + 80) = v13 + 1;
-  std::to_string(&v190, v13);
-  v187 = 0;
-  v188 = 0;
-  v189 = 0;
+  __n = *llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llvm::MallocAllocator>::try_emplace<>((v7 + 8), v9, v10);
+  v11 = *(v5 + 8);
+  v12 = *(v11 + 80);
+  *(v11 + 80) = v12 + 1;
+  std::to_string(&v187, v12);
   v184 = 0;
   v185 = 0;
   v186 = 0;
   v181 = 0;
   v182 = 0;
   v183 = 0;
-  v168 = a2;
-  if (!*(a2 + 208))
+  v178 = 0;
+  v179 = 0;
+  v180 = 0;
+  v165 = a2;
+  if (!a2[52])
   {
     goto LABEL_55;
   }
 
-  v15 = *(a2 + 216);
-  if (v15)
+  v14 = a2[54];
+  if (v14)
   {
-    v16 = 24 * v15;
-    v17 = *(a2 + 200);
-    while (*v17 >= 0xFFFFFFFFFFFFFFFELL)
+    v15 = 24 * v14;
+    v16 = *(a2 + 25);
+    while (*v16 >= 0xFFFFFFFFFFFFFFFELL)
     {
-      v17 += 3;
-      v16 -= 24;
-      if (!v16)
+      v16 += 3;
+      v15 -= 24;
+      if (!v15)
       {
         goto LABEL_55;
       }
@@ -8247,88 +8162,88 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
 
   else
   {
-    v17 = *(a2 + 200);
+    v16 = *(a2 + 25);
   }
 
-  v18 = *(a2 + 200) + 24 * v15;
-  if (v17 == v18)
+  v17 = *(a2 + 25) + 24 * v14;
+  if (v16 == v17)
   {
 LABEL_55:
-    v179 = 0uLL;
-    v180 = 0;
-    v176 = 0;
+    v176 = 0uLL;
     v177 = 0;
-    v178 = 0;
+    v173 = 0;
+    v174 = 0;
+    v175 = 0;
     goto LABEL_56;
   }
 
   do
   {
-    v19 = v17[2];
-    v20 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v19 + 56);
-    v22 = *(v19 + 56) + 8 * *(v19 + 72);
-    if (v22 != v20)
+    v18 = v16[2];
+    v19 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v18 + 56);
+    v21 = *(v18 + 56) + 8 * *(v18 + 72);
+    if (v21 != v19)
     {
+      v22 = v19;
       v23 = v20;
-      v24 = v21;
       while (1)
       {
-        v25 = *v23;
-        *&v217 = v25;
-        v26 = *v25;
-        if (!*v25)
+        v24 = *v22;
+        *&v214 = v24;
+        v25 = *v24;
+        if (!*v24)
         {
           goto LABEL_43;
         }
 
-        v27 = v25[2];
-        v28 = *v19;
-        v29 = *(v19 + 8);
-        if ((~v27 & 0xC00000000000000) == 0 && *v26 && *(v26 + 16) == 108)
+        v26 = v24[2];
+        v27 = *v18;
+        v28 = *(v18 + 8);
+        if ((~v26 & 0xC00000000000000) == 0 && *v25 && *(v25 + 16) == 108)
         {
           goto LABEL_43;
         }
 
-        if ((v27 & 0x2000000000000000) != 0)
+        if ((v26 & 0x2000000000000000) != 0)
         {
           break;
         }
 
-        v32 = *v26;
-        v30 = v26 + 16;
-        v31 = v32;
-        if (v32 >= 3)
+        v31 = *v25;
+        v29 = v25 + 16;
+        v30 = v31;
+        if (v31 >= 3)
         {
-          v33 = *v30 == 9311 && *(v30 + 2) == 115;
-          if (v33 && *(v30 + v31 - 2) == 30036)
+          v32 = *v29 == 9311 && *(v29 + 2) == 115;
+          if (v32 && *(v29 + v30 - 2) == 30036)
           {
-            v37 = &v184;
+            v36 = &v181;
             goto LABEL_42;
           }
         }
 
-        if (v29 == 23)
+        if (v28 == 23)
         {
-          if (bswap64(*v28) == 0x5F5F444154412C5FLL && bswap64(v28[1]) == 0x5F6F626A635F696DLL && bswap64(*(v28 + 15)) == 0x6D616765696E666FLL)
+          if (bswap64(*v27) == 0x5F5F444154412C5FLL && bswap64(v27[1]) == 0x5F6F626A635F696DLL && bswap64(*(v27 + 15)) == 0x6D616765696E666FLL)
           {
             goto LABEL_43;
           }
 
 LABEL_41:
-          v37 = &v181;
+          v36 = &v178;
 LABEL_42:
-          std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](v37, &v217);
+          std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](v36, &v214);
           goto LABEL_43;
         }
 
-        if (v29 != 16)
+        if (v28 != 16)
         {
           goto LABEL_41;
         }
 
-        v35 = *v28;
-        v34 = v28[1];
-        if (v35 != 0x5F2C545845545F5FLL || v34 != 0x676E69727473635FLL)
+        v34 = *v27;
+        v33 = v27[1];
+        if (v34 != 0x5F2C545845545F5FLL || v33 != 0x676E69727473635FLL)
         {
           goto LABEL_41;
         }
@@ -8336,253 +8251,253 @@ LABEL_42:
         do
         {
 LABEL_43:
-          ++v23;
+          ++v22;
         }
 
-        while (v23 != v24 && (*v23 | 0x1000) == 0xFFFFFFFFFFFFF000);
-        if (v23 == v22)
+        while (v22 != v23 && (*v22 | 0x1000) == 0xFFFFFFFFFFFFF000);
+        if (v22 == v21)
         {
           goto LABEL_48;
         }
       }
 
-      v37 = &v187;
+      v36 = &v184;
       goto LABEL_42;
     }
 
 LABEL_48:
-    v17 += 3;
-    a2 = v168;
-    if (v17 == v18)
+    v16 += 3;
+    a2 = v165;
+    if (v16 == v17)
     {
       break;
     }
 
-    while (*v17 >= 0xFFFFFFFFFFFFFFFELL)
+    while (*v16 >= 0xFFFFFFFFFFFFFFFELL)
     {
-      v17 += 3;
-      if (v17 == v18)
+      v16 += 3;
+      if (v16 == v17)
       {
         goto LABEL_53;
       }
     }
   }
 
-  while (v17 != v18);
+  while (v16 != v17);
 LABEL_53:
-  v179 = 0uLL;
-  v180 = 0;
-  v176 = 0;
+  v176 = 0uLL;
   v177 = 0;
-  v178 = 0;
-  if (v187 != v188)
+  v173 = 0;
+  v174 = 0;
+  v175 = 0;
+  if (v184 != v185)
   {
-    llvm::jitlink::LinkGraph::createSection();
+    llvm::jitlink::LinkGraph::createSection(v165, "__TEXT,__stubs", 14, 5);
   }
 
 LABEL_56:
-  SectionByName = llvm::jitlink::LinkGraph::findSectionByName(a2, "__LD,__compact_unwind", 21, v14);
+  SectionByName = llvm::jitlink::LinkGraph::findSectionByName(a2, "__LD,__compact_unwind", 21, v13);
   if (SectionByName)
   {
-    v40 = SectionByName;
-    v41 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(SectionByName + 32);
-    v43 = *(v40 + 32) + 8 * *(v40 + 48);
-    if (v43 != v41)
+    v39 = SectionByName;
+    v40 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(SectionByName + 32);
+    v42 = *(v39 + 32) + 8 * *(v39 + 48);
+    if (v42 != v40)
     {
+      v43 = v40;
       v44 = v41;
-      v45 = v42;
       do
       {
-        v46 = *(*v44 + 40);
-        v47 = *(*v44 + 48);
-        while (v46 != v47)
+        v45 = *(*v43 + 40);
+        v46 = *(*v43 + 48);
+        while (v45 != v46)
         {
-          *&v204 = *v46;
-          *&v217 = 0;
-          if (llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>(&v176, &v204, &v217))
+          *&v201 = *v45;
+          *&v214 = 0;
+          if (llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>(&v173, &v201, &v214))
           {
-            if (v217 != v176 + 16 * v178)
+            if (v214 != v173 + 16 * v175)
             {
-              *v46 = *(v217 + 8);
+              *v45 = *(v214 + 8);
             }
           }
 
-          v46 += 4;
+          v45 += 4;
         }
 
         do
         {
-          ++v44;
+          ++v43;
         }
 
-        while (v44 != v45 && (*v44 | 0x1000) == 0xFFFFFFFFFFFFF000);
+        while (v43 != v44 && (*v43 | 0x1000) == 0xFFFFFFFFFFFFF000);
       }
 
-      while (v44 != v43);
+      while (v43 != v42);
     }
   }
 
-  v48 = v184;
-  v49 = v185;
-  v50 = __n;
-  if (v184 != v185)
+  v47 = v181;
+  v48 = v182;
+  v49 = __n;
+  if (v181 != v182)
   {
     while (2)
     {
-      v51 = *v48;
-      v52 = **v48;
-      v195[0] = v52;
-      if ((v52 - 1) >= 0xFFFFFFFFFFFFFFE0)
+      v50 = *v47;
+      v51 = **v47;
+      v192[0] = v51;
+      if ((v51 - 1) >= 0xFFFFFFFFFFFFFFE0)
       {
-        *&v217 = v52;
+        *&v214 = v51;
       }
 
       else
       {
-        atomic_fetch_add((v52 + 8), 1uLL);
-        v52 = v195[0];
-        *&v217 = v195[0];
-        if ((v195[0] - 1) < 0xFFFFFFFFFFFFFFE0)
+        atomic_fetch_add((v51 + 8), 1uLL);
+        v51 = v192[0];
+        *&v214 = v192[0];
+        if ((v192[0] - 1) < 0xFFFFFFFFFFFFFFE0)
         {
-          atomic_fetch_add((v195[0] + 8), 1uLL);
-          *(&v217 + 1) = v195[0];
-          if ((v195[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          atomic_fetch_add((v192[0] + 8), 1uLL);
+          *(&v214 + 1) = v192[0];
+          if ((v192[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v195[0] + 8), 1uLL);
+            atomic_fetch_add((v192[0] + 8), 1uLL);
           }
 
 LABEL_75:
-          *&v204 = 0;
-          v53 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v50 + 56), &v217, &v204);
-          v54 = v53;
-          v55 = v204;
-          if (v53)
+          *&v201 = 0;
+          v52 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v49 + 56), &v214, &v201);
+          v53 = v52;
+          v54 = v201;
+          if (v52)
           {
-            v56 = *(&v217 + 1);
+            v55 = *(&v214 + 1);
           }
 
           else
           {
-            v57 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::InsertIntoBucketImpl<llvm::orc::SymbolStringPtr>(v50 + 56, &v217, &v217, v204);
-            v55 = v57;
-            if ((*v57 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+            v56 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::InsertIntoBucketImpl<llvm::orc::SymbolStringPtr>(v49 + 56, &v214, &v214, v201);
+            v54 = v56;
+            if ((*v56 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add((*v57 + 8), 0xFFFFFFFFFFFFFFFFLL);
+              atomic_fetch_add((*v56 + 8), 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            v56 = 0;
-            *(&v39 + 1) = 0;
-            *v57 = 0u;
-            *v57 = v217;
-            v217 = 0u;
+            v55 = 0;
+            *(&v38 + 1) = 0;
+            *v56 = 0u;
+            *v56 = v214;
+            v214 = 0u;
           }
 
-          if ((v56 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          if ((v55 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v56 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v55 + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
 
-          if ((v217 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          if ((v214 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v217 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v214 + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
 
-          if (v51[3] <= 7)
+          if (v50[3] <= 7)
           {
-            v66 = *v195[0];
-            v203 = 1283;
-            v199 = "expected async function pointer ";
-            v201 = (v195[0] + 16);
-            v202 = v66;
-            *&v204 = &v199;
-            v205 = " to have size 8; got ";
-            v206 = 770;
-            std::to_string(&__p, v51[3]);
-            v67 = v206;
-            if (v206)
+            v65 = *v192[0];
+            v200 = 1283;
+            v196 = "expected async function pointer ";
+            v198 = (v192[0] + 16);
+            v199 = v65;
+            *&v201 = &v196;
+            v202 = " to have size 8; got ";
+            v203 = 770;
+            std::to_string(&__p, v50[3]);
+            v66 = v203;
+            if (v203)
             {
-              if (v206 == 1)
+              if (v203 == 1)
               {
-                *&v217 = &__p;
-                v68 = 1;
-                v67 = 4;
+                *&v214 = &__p;
+                v67 = 1;
+                v66 = 4;
               }
 
               else
               {
-                if (HIBYTE(v206) != 1)
+                if (HIBYTE(v203) != 1)
                 {
-                  v67 = 2;
+                  v66 = 2;
                 }
 
-                v75 = &v204;
-                if (HIBYTE(v206) == 1)
+                v74 = &v201;
+                if (HIBYTE(v203) == 1)
                 {
-                  v75 = v204;
+                  v74 = v201;
                 }
 
-                *&v217 = v75;
-                *(&v217 + 1) = *(&v204 + 1);
+                *&v214 = v74;
+                *(&v214 + 1) = *(&v201 + 1);
                 p_p = &__p;
-                v68 = 4;
+                v67 = 4;
               }
             }
 
             else
             {
-              v68 = 1;
+              v67 = 1;
             }
 
-            BYTE8(v219) = v67;
-            BYTE9(v219) = v68;
+            BYTE8(v216) = v66;
+            BYTE9(v216) = v67;
             getErrorErrorCat();
             operator new();
           }
 
-          v58 = v51[2] & 0xC00000000000000;
-          if (v54)
+          v57 = v50[2] & 0xC00000000000000;
+          if (v53)
           {
-            if (v58 == 0xC00000000000000)
+            if (v57 == 0xC00000000000000)
             {
-              v59 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct((v50 + 80), v195)[1];
-              if ((v59 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+              v58 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct((v49 + 80), v192)[1];
+              if ((v58 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
               {
-                atomic_fetch_add((v59 + 8), 1uLL);
+                atomic_fetch_add((v58 + 8), 1uLL);
               }
 
-              if ((*v51 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+              if ((*v50 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
               {
-                atomic_fetch_add((*v51 + 8), 0xFFFFFFFFFFFFFFFFLL);
+                atomic_fetch_add((*v50 + 8), 0xFFFFFFFFFFFFFFFFLL);
               }
 
-              *v51 = v59;
-              if ((v59 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+              *v50 = v58;
+              if ((v58 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
               {
-                atomic_fetch_add((v59 + 8), 1uLL);
-                atomic_fetch_add((v59 + 8), 0xFFFFFFFFFFFFFFFFLL);
+                atomic_fetch_add((v58 + 8), 1uLL);
+                atomic_fetch_add((v58 + 8), 0xFFFFFFFFFFFFFFFFLL);
               }
             }
 
-            v60 = *v195[0];
-            v203 = 773;
-            v199 = (v195[0] + 16);
-            v200 = v60;
-            v201 = "$";
-            *&v204 = &v199;
-            v205 = &v190;
-            v206 = 1026;
-            *&v217 = &v204;
+            v59 = *v192[0];
+            v200 = 773;
+            v196 = (v192[0] + 16);
+            v197 = v59;
+            v198 = "$";
+            *&v201 = &v196;
+            v202 = &v187;
+            v203 = 1026;
+            *&v214 = &v201;
             p_p = "$impl";
-            WORD4(v219) = 770;
-            llvm::Twine::str(&v217, &__p);
+            WORD4(v216) = 770;
+            llvm::Twine::str(&v214, &__p);
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v61 = &__p;
+              v60 = &__p;
             }
 
             else
             {
-              v61 = __p.__r_.__value_.__r.__words[0];
+              v60 = __p.__r_.__value_.__r.__words[0];
             }
 
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -8595,105 +8510,105 @@ LABEL_75:
               size = __p.__r_.__value_.__l.__size_;
             }
 
-            llvm::orc::ExecutionSession::intern(v169, v61, size, v193);
+            llvm::orc::ExecutionSession::intern(v166, v60, size, v190);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            v63 = v55[1];
-            if ((v63 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+            v62 = v54[1];
+            if ((v62 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add((v63 + 8), 0xFFFFFFFFFFFFFFFFLL);
+              atomic_fetch_add((v62 + 8), 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            v64 = v193[0];
-            v55[1] = v193[0];
-            if (v64 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+            v63 = v190[0];
+            v54[1] = v190[0];
+            if (v63 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add(v64 + 1, 1uLL);
-              v64 = v193[0];
+              atomic_fetch_add(v63 + 1, 1uLL);
+              v63 = v190[0];
             }
 
-            v65 = *(llvm::jitlink::LinkGraph::addDefinedSymbol(v168, v51[1], v51[2] & 0x1FFFFFFFFFFFFFFLL, v64 + 2, *v64, v51[3], (v51[2] & 0x200000000000000) != 0, 1, 0, 1) + 23) & 2;
-            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v179, v193)[4] = v65 << 8;
-            llvm::jitlink::LinkGraph::makeExternal(v168, v51);
-            if (v193[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+            v64 = *(llvm::jitlink::LinkGraph::addDefinedSymbol(v165, v50[1], v50[2] & 0x1FFFFFFFFFFFFFFLL, v63 + 2, *v63, v50[3], (v50[2] >> 57) & 1, 1, 0, 1) + 23) & 2;
+            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v176, v190)[4] = v64 << 8;
+            llvm::jitlink::LinkGraph::makeExternal(v165, v50);
+            if (v190[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add(v193[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+              atomic_fetch_add(v190[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            v50 = __n;
+            v49 = __n;
           }
 
-          else if (v58 == 0xC00000000000000)
+          else if (v57 == 0xC00000000000000)
           {
-            v69 = *v195[0];
-            v203 = 773;
-            v199 = (v195[0] + 16);
-            v200 = v69;
-            v201 = "$";
-            *&v204 = &v199;
-            v205 = &v190;
-            v206 = 1026;
-            *&v217 = &v204;
+            v68 = *v192[0];
+            v200 = 773;
+            v196 = (v192[0] + 16);
+            v197 = v68;
+            v198 = "$";
+            *&v201 = &v196;
+            v202 = &v187;
+            v203 = 1026;
+            *&v214 = &v201;
             p_p = "$promoted";
-            WORD4(v219) = 770;
-            llvm::Twine::str(&v217, &__p);
+            WORD4(v216) = 770;
+            llvm::Twine::str(&v214, &__p);
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v70 = &__p;
+              v69 = &__p;
             }
 
             else
             {
-              v70 = __p.__r_.__value_.__r.__words[0];
+              v69 = __p.__r_.__value_.__r.__words[0];
             }
 
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v71 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+              v70 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v71 = __p.__r_.__value_.__l.__size_;
+              v70 = __p.__r_.__value_.__l.__size_;
             }
 
-            llvm::orc::ExecutionSession::intern(v169, v70, v71, v193);
+            llvm::orc::ExecutionSession::intern(v166, v69, v70, v190);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            v72 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct((v50 + 80), v195);
-            v73 = v72[1];
-            if ((v73 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+            v71 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct((v49 + 80), v192);
+            v72 = v71[1];
+            if ((v72 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add((v73 + 8), 0xFFFFFFFFFFFFFFFFLL);
+              atomic_fetch_add((v72 + 8), 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            v74 = v193[0];
-            v72[1] = v193[0];
-            if (v74 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+            v73 = v190[0];
+            v71[1] = v190[0];
+            if (v73 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add(v74 + 1, 1uLL);
+              atomic_fetch_add(v73 + 1, 1uLL);
             }
 
-            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v179, v193);
-            llvm::jitlink::LinkGraph::addDefinedSymbol(v168, v51[1], v51[2] & 0x1FFFFFFFFFFFFFFLL, v193[0] + 2, *v193[0], v51[3], 0, 1, 0, 1);
-            if (v193[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v176, v190);
+            llvm::jitlink::LinkGraph::addDefinedSymbol(v165, v50[1], v50[2] & 0x1FFFFFFFFFFFFFFLL, v190[0] + 2, *v190[0], v50[3], 0, 1, 0, 1);
+            if (v190[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add(v193[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+              atomic_fetch_add(v190[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
             }
           }
 
-          if ((v195[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          if ((v192[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v195[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v192[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
 
-          if (++v48 == v49)
+          if (++v47 == v48)
           {
             goto LABEL_136;
           }
@@ -8705,286 +8620,285 @@ LABEL_75:
       break;
     }
 
-    *(&v217 + 1) = v52;
+    *(&v214 + 1) = v51;
     goto LABEL_75;
   }
 
 LABEL_136:
-  v76 = v181;
-  v77 = v182;
-  if (v181 != v182)
+  v75 = v178;
+  v76 = v179;
+  if (v178 != v179)
   {
     do
     {
-      v78 = *v76;
-      v79 = **v76;
-      v195[0] = v79;
-      if ((v79 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+      v77 = *v75;
+      v78 = **v75;
+      v192[0] = v78;
+      if ((v78 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((v79 + 8), 1uLL);
+        atomic_fetch_add((v78 + 8), 1uLL);
       }
 
-      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(v50 + 32, v195, &v217);
-      v80 = v78[2] & 0xC00000000000000;
+      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(v49 + 32, v192, &v214);
+      v79 = v77[2] & 0xC00000000000000;
       if (p_p == 1)
       {
-        if (v80 == 0xC00000000000000)
+        if (v79 == 0xC00000000000000)
         {
-          v81 = *v195[0];
-          v203 = 773;
-          v199 = (v195[0] + 16);
-          v200 = v81;
-          v201 = "$";
-          *&v204 = &v199;
-          v205 = &v190;
-          v206 = 1026;
-          *&v217 = &v204;
+          v80 = *v192[0];
+          v200 = 773;
+          v196 = (v192[0] + 16);
+          v197 = v80;
+          v198 = "$";
+          *&v201 = &v196;
+          v202 = &v187;
+          v203 = 1026;
+          *&v214 = &v201;
           p_p = "$promoted";
-          WORD4(v219) = 770;
-          llvm::Twine::str(&v217, &__p);
+          WORD4(v216) = 770;
+          llvm::Twine::str(&v214, &__p);
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v82 = &__p;
+            v81 = &__p;
           }
 
           else
           {
-            v82 = __p.__r_.__value_.__r.__words[0];
+            v81 = __p.__r_.__value_.__r.__words[0];
           }
 
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v83 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+            v82 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v83 = __p.__r_.__value_.__l.__size_;
+            v82 = __p.__r_.__value_.__l.__size_;
           }
 
-          llvm::orc::ExecutionSession::intern(v169, v82, v83, v193);
+          llvm::orc::ExecutionSession::intern(v166, v81, v82, v190);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          v84 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct((v50 + 80), v195);
-          v85 = v84[1];
-          if ((v85 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          v83 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct((v49 + 80), v192);
+          v84 = v83[1];
+          if ((v84 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v85 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v84 + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
 
-          v86 = v193[0];
-          v84[1] = v193[0];
-          if (v86 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+          v85 = v190[0];
+          v83[1] = v190[0];
+          if (v85 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add(v86 + 1, 1uLL);
+            atomic_fetch_add(v85 + 1, 1uLL);
           }
 
-          llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v179, v193)[4] = 0;
-          llvm::jitlink::LinkGraph::addDefinedSymbol(v168, v78[1], v78[2] & 0x1FFFFFFFFFFFFFFLL, v193[0] + 2, *v193[0], v78[3], 0, 1, 0, 0);
-          if (v193[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+          llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v176, v190)[4] = 0;
+          llvm::jitlink::LinkGraph::addDefinedSymbol(v165, v77[1], v77[2] & 0x1FFFFFFFFFFFFFFLL, v190[0] + 2, *v190[0], v77[3], 0, 1, 0, 0);
+          if (v190[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add(v193[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add(v190[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
           }
         }
       }
 
       else
       {
-        if (v80 == 0xC00000000000000)
+        if (v79 == 0xC00000000000000)
         {
-          v87 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct((v50 + 80), v195)[1];
-          if ((v87 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          v86 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct((v49 + 80), v192)[1];
+          if ((v86 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v87 + 8), 1uLL);
+            atomic_fetch_add((v86 + 8), 1uLL);
           }
 
-          if ((*v78 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          if ((*v77 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((*v78 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((*v77 + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
 
-          *v78 = v87;
-          if ((v87 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          *v77 = v86;
+          if ((v86 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v87 + 8), 1uLL);
-            atomic_fetch_add((v87 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v86 + 8), 1uLL);
+            atomic_fetch_add((v86 + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
         }
 
-        llvm::jitlink::LinkGraph::makeExternal(v168, v78);
+        llvm::jitlink::LinkGraph::makeExternal(v165, v77);
       }
 
-      if ((v195[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+      if ((v192[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((v195[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
+        atomic_fetch_add((v192[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
       }
 
-      ++v76;
+      ++v75;
     }
 
-    while (v76 != v77);
+    while (v75 != v76);
   }
 
-  *&v39 = 0;
-  v88 = v179;
-  v179 = v39;
-  v89 = v180;
-  v180 = 0;
-  v90 = *(*v164 + 32);
-  v217 = v88;
-  v174[0] = 0;
-  v174[1] = 0;
-  LODWORD(p_p) = v89;
-  v175 = 0;
-  llvm::orc::ExecutionSession::OL_defineMaterializing(v164, &v217, a3);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v217);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v174);
+  *&v38 = 0;
+  v87 = v176;
+  v176 = v38;
+  v88 = v177;
+  v177 = 0;
+  v214 = v87;
+  v171[0] = 0;
+  v171[1] = 0;
+  LODWORD(p_p) = v88;
+  v172 = 0;
+  llvm::orc::ExecutionSession::OL_defineMaterializing(v161, &v214, a3);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v214);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v171);
   if (*a3)
   {
     goto LABEL_264;
   }
 
+  v156 = 0;
   v159 = 0;
-  v162 = 0;
-  v160 = 0;
-  v92 = 0;
-  v93 = 0;
-  v94 = v168;
-  v95 = *(v168 + 184);
-  v217 = llvm::orc::MachOObjCCatListSectionName;
-  v219 = llvm::orc::MachOObjCCatList2SectionName;
-  p_p = v95;
-  v220 = v95;
-  v221 = llvm::orc::MachOObjCClassListSectionName;
-  v223 = llvm::orc::MachOObjCNLCatListSectionName;
-  v222 = v95;
-  v224 = v95;
-  v225 = llvm::orc::MachOSwift5ProtoSectionName;
-  v227 = llvm::orc::MachOSwift5ProtosSectionName;
-  v226 = 4;
-  v228 = 4;
-  v229 = llvm::orc::MachOSwift5TypesSectionName;
-  v230 = 4;
-  v212 = 0;
-  v211 = 0;
-  v213 = 0;
-  v215 = 0;
-  v214 = 0;
-  v216 = 0;
+  v157 = 0;
+  v90 = 0;
+  v91 = 0;
+  v92 = v165;
+  v93 = v165[46];
+  v214 = llvm::orc::MachOObjCCatListSectionName;
+  v216 = llvm::orc::MachOObjCCatList2SectionName;
+  p_p = v93;
+  v217 = v93;
+  v218 = llvm::orc::MachOObjCClassListSectionName;
+  v220 = llvm::orc::MachOObjCNLCatListSectionName;
+  v219 = v93;
+  v221 = v93;
+  v222 = llvm::orc::MachOSwift5ProtoSectionName;
+  v224 = llvm::orc::MachOSwift5ProtosSectionName;
+  v223 = 4;
+  v225 = 4;
+  v226 = llvm::orc::MachOSwift5TypesSectionName;
+  v227 = 4;
   v209 = 0;
   v208 = 0;
   v210 = 0;
+  v212 = 0;
+  v211 = 0;
+  v213 = 0;
+  v206 = 0;
+  v205 = 0;
+  v207 = 0;
   while (2)
   {
-    v96 = v94;
-    v98 = *(&v217 + v93);
-    v97 = *(&v217 + v93 + 8);
-    __na = *(&v217 + v93 + 16);
-    v99 = llvm::jitlink::LinkGraph::findSectionByName(v96, v98, v97, v91);
-    if (!v99)
+    v94 = v92;
+    v96 = *(&v214 + v91);
+    v95 = *(&v214 + v91 + 8);
+    __na = *(&v214 + v91 + 16);
+    v97 = llvm::jitlink::LinkGraph::findSectionByName(v94, v96, v95, v89);
+    if (!v97)
     {
-      v94 = v168;
+      v92 = v165;
       goto LABEL_234;
     }
 
-    v100 = v99;
-    v170 = v97;
-    v101 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v99 + 32);
-    v103 = *(v100 + 32) + 8 * *(v100 + 48);
-    if (v103 == v101)
+    v98 = v97;
+    v167 = v95;
+    v99 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v97 + 32);
+    v101 = *(v98 + 32) + 8 * *(v98 + 48);
+    if (v101 == v99)
     {
       goto LABEL_193;
     }
 
-    v104 = v101;
-    v105 = v102;
-    v106 = v92;
+    v102 = v99;
+    v103 = v100;
+    v104 = v90;
     while (2)
     {
-      v207 = *v104;
-      v107 = v207[4];
-      v109 = v207[5];
-      v108 = v207[6];
-      if (v107 != ((v108 - v109) >> 5) * __na)
+      v204 = *v102;
+      v105 = v204[4];
+      v107 = v204[5];
+      v106 = v204[6];
+      if (v105 != ((v106 - v107) >> 5) * __na)
       {
-        v194 = 1283;
-        v193[0] = "unexpected block size for section ";
-        v193[2] = v98;
-        v193[3] = v170;
-        v195[0] = v193;
-        v195[2] = ": ";
-        v196 = 770;
-        std::to_string(&v192, v107);
-        __p.__r_.__value_.__r.__words[0] = v195;
-        __p.__r_.__value_.__r.__words[2] = &v192;
-        v198 = 1026;
-        v199 = &__p;
-        v201 = "; expected ";
-        v203 = 770;
-        std::to_string(&v191, ((v207[6] - v207[5]) >> 5) * __na);
-        *&v204 = &v199;
-        v205 = &v191;
-        v206 = 1026;
+        v191 = 1283;
+        v190[0] = "unexpected block size for section ";
+        v190[2] = v96;
+        v190[3] = v167;
+        v192[0] = v190;
+        v192[2] = ": ";
+        v193 = 770;
+        std::to_string(&v189, v105);
+        __p.__r_.__value_.__r.__words[0] = v192;
+        __p.__r_.__value_.__r.__words[2] = &v189;
+        v195 = 1026;
+        v196 = &__p;
+        v198 = "; expected ";
+        v200 = 770;
+        std::to_string(&v188, ((v204[6] - v204[5]) >> 5) * __na);
+        *&v201 = &v196;
+        v202 = &v188;
+        v203 = 1026;
         getErrorErrorCat();
         operator new();
       }
 
-      if (v109 != v108)
+      if (v107 != v106)
       {
-        v110 = 0;
+        v108 = 0;
         do
         {
-          v111 = *v109;
-          v109 += 32;
-          if ((*(*(v111 + 8) + 8) & 3) == 0)
+          v109 = *v107;
+          v107 += 32;
+          if ((*(*(v109 + 8) + 8) & 3) == 0)
           {
-            ++v110;
+            ++v108;
           }
         }
 
-        while (v109 != v108);
-        if (v110)
+        while (v107 != v106);
+        if (v108)
         {
-          llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v214, &v207, &v204);
-          v112 = v207;
-          if (v110 != (v207[6] - v207[5]) >> 5)
+          llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v211, &v204, &v201);
+          v110 = v204;
+          if (v108 != (v204[6] - v204[5]) >> 5)
           {
-            *&v204 = 0;
-            v113 = v213;
-            if ((llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(v106, v213, v207, &v204) & 1) == 0)
+            *&v201 = 0;
+            v111 = v210;
+            if ((llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(v104, v210, v204, &v201) & 1) == 0)
             {
-              if (4 * v212 + 4 >= 3 * v113)
+              if (4 * v209 + 4 >= 3 * v111)
               {
-                v115 = 2 * v113;
+                v113 = 2 * v111;
               }
 
               else
               {
-                if (v113 + ~v212 - HIDWORD(v212) > v113 >> 3)
+                if (v111 + ~v209 - HIDWORD(v209) > v111 >> 3)
                 {
                   goto LABEL_182;
                 }
 
-                v115 = v113;
+                v113 = v111;
               }
 
-              llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::grow(&v211, v115);
-              *&v204 = 0;
-              v106 = v211;
-              llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(v211, v213, v112, &v204);
+              llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::grow(&v208, v113);
+              *&v201 = 0;
+              v104 = v208;
+              llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>,llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Block *,unsigned long>>::LookupBucketFor<llvm::jitlink::Block *>(v208, v210, v110, &v201);
 LABEL_182:
-              v114 = v204;
-              LODWORD(v212) = v212 + 1;
-              if (*v204 != -4096)
+              v112 = v201;
+              LODWORD(v209) = v209 + 1;
+              if (*v201 != -4096)
               {
-                --HIDWORD(v212);
+                --HIDWORD(v209);
               }
 
-              *v204 = v112;
-              *(v114 + 8) = v110;
+              *v201 = v110;
+              *(v112 + 8) = v108;
             }
           }
         }
@@ -8992,11 +8906,11 @@ LABEL_182:
 
       do
       {
-        ++v104;
+        ++v102;
       }
 
-      while (v104 != v105 && (*v104 | 0x1000) == 0xFFFFFFFFFFFFF000);
-      if (v104 != v103)
+      while (v102 != v103 && (*v102 | 0x1000) == 0xFFFFFFFFFFFFF000);
+      if (v102 != v101)
       {
         continue;
       }
@@ -9004,198 +8918,198 @@ LABEL_182:
       break;
     }
 
-    v162 = v211;
-    v160 = v212;
-    v159 = v213;
+    v159 = v208;
+    v157 = v209;
+    v156 = v210;
 LABEL_193:
-    v161 = v93;
-    v94 = v168;
-    if (v160)
+    v158 = v91;
+    v92 = v165;
+    if (v157)
     {
-      v116 = v162;
-      v117 = v162;
-      v118 = v159;
-      if (v159)
+      v114 = v159;
+      v115 = v159;
+      v116 = v156;
+      if (v156)
       {
-        v117 = v162;
-        v119 = 16 * v159;
-        while ((*v117 | 0x1000) == 0xFFFFFFFFFFFFF000)
+        v115 = v159;
+        v117 = 16 * v156;
+        while ((*v115 | 0x1000) == 0xFFFFFFFFFFFFF000)
         {
-          v117 += 2;
-          v119 -= 16;
-          if (!v119)
+          v115 += 2;
+          v117 -= 16;
+          if (!v117)
           {
             goto LABEL_226;
           }
         }
 
-        v116 = v162;
-        v118 = v159;
+        v114 = v159;
+        v116 = v156;
       }
 
-      v165 = (v116 + 16 * v118);
-      v166 = v100;
-      while (v117 != v165)
+      v162 = (v114 + 16 * v116);
+      v163 = v98;
+      while (v115 != v162)
       {
-        v120 = *v117;
-        v121 = (((*(*v117 + 48) - *(*v117 + 40)) >> 5) - v117[1]) * __na;
-        v122 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v94, v121, 0);
-        v123 = *v120;
-        v124 = v120[1];
-        *&v204 = v122;
-        *(&v204 + 1) = v121;
-        v199 = v123;
-        __p.__r_.__value_.__r.__words[0] = 1 << (v124 >> 3);
-        v195[0] = v124 >> 8;
-        v125 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::MutableArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v94, v100, &v204, &v199, &__p, v195);
-        v127 = v120[5];
-        v126 = v120[6];
-        if (v127 != v126)
+        v118 = *v115;
+        v119 = (((*(*v115 + 48) - *(*v115 + 40)) >> 5) - v115[1]) * __na;
+        v120 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v92, v119, 0);
+        v121 = *v118;
+        v122 = v118[1];
+        *&v201 = v120;
+        *(&v201 + 1) = v119;
+        v196 = v121;
+        __p.__r_.__value_.__r.__words[0] = 1 << (v122 >> 3);
+        v192[0] = v122 >> 8;
+        v123 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::MutableArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v92, v98, &v201, &v196, &__p, v192);
+        v125 = v118[5];
+        v124 = v118[6];
+        if (v125 != v124)
         {
-          v128 = v125;
-          v129 = 0;
-          v171 = v122;
+          v126 = v123;
+          v127 = 0;
+          v168 = v120;
           do
           {
-            v130 = *v127;
-            if ((*(*(*v127 + 8) + 8) & 3) != 0)
+            v128 = *v125;
+            if ((*(*(*v125 + 8) + 8) & 3) != 0)
             {
-              v204 = *(v127 + 12);
-              LODWORD(v205) = *(v127 + 28);
-              v131 = v128[6];
-              v132 = v128[7];
-              if (v131 >= v132)
+              v201 = *(v125 + 12);
+              LODWORD(v202) = *(v125 + 28);
+              v129 = v126[6];
+              v130 = v126[7];
+              if (v129 >= v130)
               {
-                v134 = v128[5];
-                v135 = (v131 - v134) >> 5;
-                v136 = v135 + 1;
-                if ((v135 + 1) >> 59)
+                v132 = v126[5];
+                v133 = (v129 - v132) >> 5;
+                v134 = v133 + 1;
+                if ((v133 + 1) >> 59)
                 {
                   std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
                 }
 
-                v137 = v132 - v134;
-                if (v137 >> 4 > v136)
+                v135 = v130 - v132;
+                if (v135 >> 4 > v134)
                 {
-                  v136 = v137 >> 4;
+                  v134 = v135 >> 4;
                 }
 
-                if (v137 >= 0x7FFFFFFFFFFFFFE0)
+                if (v135 >= 0x7FFFFFFFFFFFFFE0)
                 {
-                  v138 = 0x7FFFFFFFFFFFFFFLL;
+                  v136 = 0x7FFFFFFFFFFFFFFLL;
                 }
 
                 else
                 {
-                  v138 = v136;
+                  v136 = v134;
                 }
 
-                if (v138)
+                if (v136)
                 {
-                  std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::jitlink::Edge>>((v128 + 5), v138);
+                  std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::jitlink::Edge>>((v126 + 5), v136);
                 }
 
-                v139 = 32 * v135;
-                *v139 = v130;
-                *(v139 + 8) = v129;
-                *(v139 + 12) = v204;
-                *(v139 + 28) = v205;
-                v133 = 32 * v135 + 32;
-                v140 = v128[5];
-                v141 = v128[6] - v140;
-                v142 = v139 - v141;
-                memcpy((v139 - v141), v140, v141);
-                v143 = v128[5];
-                v128[5] = v142;
-                v128[6] = v133;
-                v128[7] = 0;
-                if (v143)
+                v137 = 32 * v133;
+                *v137 = v128;
+                *(v137 + 8) = v127;
+                *(v137 + 12) = v201;
+                *(v137 + 28) = v202;
+                v131 = 32 * v133 + 32;
+                v138 = v126[5];
+                v139 = v126[6] - v138;
+                v140 = v137 - v139;
+                memcpy((v137 - v139), v138, v139);
+                v141 = v126[5];
+                v126[5] = v140;
+                v126[6] = v131;
+                v126[7] = 0;
+                if (v141)
                 {
-                  operator delete(v143);
+                  operator delete(v141);
                 }
 
-                v122 = v171;
+                v120 = v168;
               }
 
               else
               {
-                *v131 = v130;
-                *(v131 + 8) = v129;
-                *(v131 + 12) = v204;
-                *(v131 + 28) = v205;
-                v133 = v131 + 32;
+                *v129 = v128;
+                *(v129 + 8) = v127;
+                *(v129 + 12) = v201;
+                *(v129 + 28) = v202;
+                v131 = v129 + 32;
               }
 
-              v128[6] = v133;
-              memcpy((v122 + v129), (v120[3] + *(v127 + 8)), __na);
-              v129 += __na;
+              v126[6] = v131;
+              memcpy((v120 + v127), (v118[3] + *(v125 + 8)), __na);
+              v127 += __na;
             }
 
-            v127 += 32;
+            v125 += 32;
           }
 
-          while (v127 != v126);
+          while (v125 != v124);
         }
 
-        v117 += 2;
-        if (v117 == v165)
+        v115 += 2;
+        if (v115 == v162)
         {
-          v94 = v168;
-          v100 = v166;
+          v92 = v165;
+          v98 = v163;
         }
 
         else
         {
-          v94 = v168;
-          v100 = v166;
+          v92 = v165;
+          v98 = v163;
           do
           {
-            if ((*v117 | 0x1000) != 0xFFFFFFFFFFFFF000)
+            if ((*v115 | 0x1000) != 0xFFFFFFFFFFFFF000)
             {
               break;
             }
 
-            v117 += 2;
+            v115 += 2;
           }
 
-          while (v117 != v165);
+          while (v115 != v162);
         }
       }
     }
 
 LABEL_226:
-    v144 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v100 + 56);
-    v146 = *(v100 + 56) + 8 * *(v100 + 72);
-    if (v146 != v144)
+    v142 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v98 + 56);
+    v144 = *(v98 + 56) + 8 * *(v98 + 72);
+    if (v144 != v142)
     {
-      v147 = v144;
-      v148 = v145;
+      v145 = v142;
+      v146 = v143;
       do
       {
-        __p.__r_.__value_.__r.__words[0] = *v147;
-        *&v204 = *(__p.__r_.__value_.__r.__words[0] + 8);
-        v199 = 0;
-        if (llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>(&v214, &v204, &v199))
+        __p.__r_.__value_.__r.__words[0] = *v145;
+        *&v201 = *(__p.__r_.__value_.__r.__words[0] + 8);
+        v196 = 0;
+        if (llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::LookupBucketFor<llvm::jitlink::Symbol *>(&v211, &v201, &v196))
         {
-          llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v208, &__p, &v204);
+          llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v205, &__p, &v201);
         }
 
         do
         {
-          ++v147;
+          ++v145;
         }
 
-        while (v147 != v148 && (*v147 | 0x1000) == 0xFFFFFFFFFFFFF000);
+        while (v145 != v146 && (*v145 | 0x1000) == 0xFFFFFFFFFFFFF000);
       }
 
-      while (v147 != v146);
+      while (v145 != v144);
     }
 
-    v93 = v161;
-    v92 = v162;
+    v91 = v158;
+    v90 = v159;
 LABEL_234:
-    v93 += 24;
-    if (v93 != 168)
+    v91 += 24;
+    if (v91 != 168)
     {
       continue;
     }
@@ -9203,17 +9117,17 @@ LABEL_234:
     break;
   }
 
-  if (v209)
+  if (v206)
   {
-    if (v210)
+    if (v207)
     {
-      v149 = 8 * v210;
-      v150 = v208;
-      while ((*v150 | 0x1000) == 0xFFFFFFFFFFFFF000)
+      v147 = 8 * v207;
+      v148 = v205;
+      while ((*v148 | 0x1000) == 0xFFFFFFFFFFFFF000)
       {
-        ++v150;
-        v149 -= 8;
-        if (!v149)
+        ++v148;
+        v147 -= 8;
+        if (!v147)
         {
           goto LABEL_250;
         }
@@ -9222,28 +9136,28 @@ LABEL_234:
 
     else
     {
-      v150 = v208;
+      v148 = v205;
     }
 
-    v151 = &v208[v210];
-    if (v150 != v151)
+    v149 = &v205[v207];
+    if (v148 != v149)
     {
-      v152 = *v150;
+      v150 = *v148;
 LABEL_245:
-      v153 = *(v152[1] + 16);
-      *&v204 = v152;
-      llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::erase(v153 + 56, &v204);
-      if ((*v152 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+      v151 = *(v150[1] + 16);
+      *&v201 = v150;
+      llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::erase(v151 + 56, &v201);
+      if ((*v150 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((*v152 + 8), 0xFFFFFFFFFFFFFFFFLL);
+        atomic_fetch_add((*v150 + 8), 0xFFFFFFFFFFFFFFFFLL);
       }
 
-      while (++v150 != v151)
+      while (++v148 != v149)
       {
-        v152 = *v150;
-        if ((*v150 | 0x1000) != 0xFFFFFFFFFFFFF000)
+        v150 = *v148;
+        if ((*v148 | 0x1000) != 0xFFFFFFFFFFFFF000)
         {
-          if (v150 != v151)
+          if (v148 != v149)
           {
             goto LABEL_245;
           }
@@ -9255,17 +9169,17 @@ LABEL_245:
   }
 
 LABEL_250:
-  if (v215)
+  if (v212)
   {
-    if (v216)
+    if (v213)
     {
-      v154 = 8 * v216;
-      v155 = v214;
-      while ((*v155 | 0x1000) == 0xFFFFFFFFFFFFF000)
+      v152 = 8 * v213;
+      v153 = v211;
+      while ((*v153 | 0x1000) == 0xFFFFFFFFFFFFF000)
       {
-        ++v155;
-        v154 -= 8;
-        if (!v154)
+        ++v153;
+        v152 -= 8;
+        if (!v152)
         {
           goto LABEL_263;
         }
@@ -9274,21 +9188,21 @@ LABEL_250:
 
     else
     {
-      v155 = v214;
+      v153 = v211;
     }
 
-    v156 = &v214[v216];
-    if (v155 != v156)
+    v154 = &v211[v213];
+    if (v153 != v154)
     {
-      v157 = *v155;
+      v155 = *v153;
 LABEL_259:
-      llvm::jitlink::LinkGraph::removeBlock(v94, v157);
-      while (++v155 != v156)
+      llvm::jitlink::LinkGraph::removeBlock(v92, v155);
+      while (++v153 != v154)
       {
-        v157 = *v155;
-        if ((*v155 | 0x1000) != 0xFFFFFFFFFFFFF000)
+        v155 = *v153;
+        if ((*v153 | 0x1000) != 0xFFFFFFFFFFFFF000)
         {
-          if (v155 != v156)
+          if (v153 != v154)
           {
             goto LABEL_259;
           }
@@ -9301,12 +9215,18 @@ LABEL_259:
 
 LABEL_263:
   *a3 = 0;
-  MEMORY[0x277C69E30](v208, 8);
-  MEMORY[0x277C69E30](v214, 8);
+  MEMORY[0x277C69E30](v205, 8);
   MEMORY[0x277C69E30](v211, 8);
+  MEMORY[0x277C69E30](v208, 8);
 LABEL_264:
-  MEMORY[0x277C69E30](v176, 8);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v179);
+  MEMORY[0x277C69E30](v173, 8);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v176);
+  if (v178)
+  {
+    v179 = v178;
+    operator delete(v178);
+  }
+
   if (v181)
   {
     v182 = v181;
@@ -9319,19 +9239,12 @@ LABEL_264:
     operator delete(v184);
   }
 
-  if (v187)
+  if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
   {
-    v188 = v187;
-    operator delete(v187);
+    operator delete(v187.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v190.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v190.__r_.__value_.__l.__data_);
-  }
-
-  std::mutex::unlock((v163 + 16));
-  v158 = *MEMORY[0x277D85DE8];
+  std::mutex::unlock((v160 + 16));
 }
 
 void std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](uint64_t a1, void *a2)
@@ -9393,8 +9306,9 @@ void std::vector<llvm::jitlink::Symbol *>::push_back[abi:nn200100](uint64_t a1, 
   *(a1 + 8) = v6;
 }
 
-void *llvm::jitlink::LinkGraph::addDefinedSymbol(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6, char a7, char a8, unsigned __int8 a9, char a10)
+void *llvm::jitlink::LinkGraph::addDefinedSymbol(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, size_t a5, uint64_t a6, uint64_t a7, char a8, unsigned __int8 a9, char a10)
 {
+  v10 = a7;
   v17 = *(a1 + 120);
   std::mutex::lock(v17);
   v22 = 0;
@@ -9406,7 +9320,7 @@ void *llvm::jitlink::LinkGraph::addDefinedSymbol(uint64_t a1, uint64_t a2, uint6
   }
 
   std::mutex::unlock(v17);
-  result = llvm::jitlink::LinkGraph::addDefinedSymbol(a1, a2, a3, &v21, a6, a7, a8, a9, a10);
+  result = llvm::jitlink::LinkGraph::addDefinedSymbol(a1, a2, a3, &v21, a6, v10, a8, a9, a10);
   if (v21 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
   {
     atomic_fetch_add(v21 + 1, 0xFFFFFFFFFFFFFFFFLL);
@@ -9482,7 +9396,7 @@ void llvm::jitlink::Block::addEdge(void *a1, char a2, int a3, uint64_t a4, uint6
   a1[6] = v9;
 }
 
-uint64_t llvm::jitlink::LinkGraph::transferDefinedSymbol(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+void *llvm::jitlink::LinkGraph::transferDefinedSymbol(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   v8 = *(a2[1] + 16);
   v9 = a2[2] & 0xFE00000000000000 | a4 & 0x1FFFFFFFFFFFFFFLL;
@@ -9514,13 +9428,13 @@ uint64_t llvm::jitlink::LinkGraph::transferDefinedSymbol(uint64_t a1, void *a2, 
   return result;
 }
 
-uint64_t llvm::jitlink::LinkGraph::makeExternal(uint64_t a1, uint64_t a2)
+void *llvm::jitlink::LinkGraph::makeExternal(unsigned int *a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
   if ((*(v4 + 8) & 2) != 0)
   {
     v13[0] = a2;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::erase(a1 + 248, v13);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::erase((a1 + 62), v13);
     v9 = *(a2 + 8);
     v10 = v9[1] & 0xFFFFFFFFFFFFFFFDLL;
     *v9 = 0;
@@ -9542,7 +9456,7 @@ uint64_t llvm::jitlink::LinkGraph::makeExternal(uint64_t a1, uint64_t a2)
   }
 
   v12 = a2;
-  return llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(a1 + 224, &v12, v13);
+  return llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>((a1 + 56), &v12, v13);
 }
 
 uint64_t llvm::jitlink::LinkGraph::findSectionByName(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
@@ -9563,7 +9477,7 @@ uint64_t llvm::jitlink::LinkGraph::findSectionByName(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-uint64_t *llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llvm::MallocAllocator>::try_emplace<>(llvm::StringMapImpl *a1, uint64_t *a2, unint64_t a3)
+uint64_t *llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llvm::MallocAllocator>::try_emplace<>(llvm::StringMapImpl *a1, uint64_t *a2, size_t a3)
 {
   v6 = llvm::StringMapImpl::LookupBucketFor(a1, a2, a3);
   i = (*a1 + 8 * v6);
@@ -9586,22 +9500,22 @@ uint64_t *llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llv
   }
 
   v11 = operator new(a3 + 105, 8uLL);
-  v12 = v11;
-  v13 = v11 + 104;
+  v13 = v11;
+  v14 = v11 + 104;
   if (a3)
   {
     memcpy(v11 + 104, a2, a3);
   }
 
-  v13[a3] = 0;
-  *v12 = a3;
-  *(v12 + 8) = 0u;
-  *(v12 + 24) = 0u;
-  *(v12 + 40) = 0u;
-  *(v12 + 56) = 0u;
-  *(v12 + 72) = 0u;
-  *(v12 + 88) = 0u;
-  *i = v12;
+  v14[a3] = 0;
+  *v13 = a3;
+  *(v13 + 8) = 0u;
+  *(v13 + 24) = 0u;
+  *(v13 + 40) = 0u;
+  *(v13 + 56) = 0u;
+  *(v13 + 72) = 0u;
+  *(v13 + 88) = 0u;
+  *i = v13;
   ++*(a1 + 3);
     ;
   }
@@ -9609,7 +9523,7 @@ uint64_t *llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llv
   return i;
 }
 
-BOOL llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(char *a1, size_t __n, void *__s2, uint64_t a4)
+uint64_t llvm::DenseMapInfo<llvm::StringRef,void>::isEqual(char *a1, size_t __n, void *__s2, uint64_t a4)
 {
   if (__s2 == -2)
   {
@@ -9647,10 +9561,10 @@ llvm::jitlink::Section **std::unique_ptr<llvm::jitlink::Section>::~unique_ptr[ab
   return a1;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::try_emplace<std::unique_ptr<llvm::jitlink::Section>>@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, uint64_t *a3@<X2>, unint64_t *a4@<X3>, uint64_t a5@<X8>)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::try_emplace<std::unique_ptr<llvm::jitlink::Section>>@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>, unint64_t *a5@<X3>)
 {
   v14 = 0;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::LookupBucketFor<llvm::StringRef>(a1, a2, &v14, a4);
+  result = llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::LookupBucketFor<llvm::StringRef>(a1, a2, &v14, a5);
   v10 = v14;
   if (result)
   {
@@ -9669,9 +9583,9 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm:
   }
 
   v13 = *a1 + 24 * *(a1 + 16);
-  *a5 = v10;
-  *(a5 + 8) = v13;
-  *(a5 + 16) = v11;
+  *a4 = v10;
+  *(a4 + 8) = v13;
+  *(a4 + 16) = v11;
   return result;
 }
 
@@ -9772,9 +9686,9 @@ LABEL_3:
   return a4;
 }
 
-_OWORD *llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::grow(uint64_t a1, int a2)
+_OWORD *llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -9789,18 +9703,18 @@ _OWORD *llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,l
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(24 * v8, 8uLL);
   *a1 = result;
   if (v4)
   {
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::moveFromOldBuckets(a1, v4, v4 + 3 * v3, v10);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::moveFromOldBuckets(a1, v4, &v4[3 * v3], v10);
 
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v11 = *(a1 + 16);
+  a1[1] = 0;
+  v11 = *(a1 + 4);
   if (v11)
   {
     v12 = 24 * v11;
@@ -9815,4 +9729,79 @@ _OWORD *llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,l
   }
 
   return result;
+}
+
+llvm::jitlink::Section **llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::moveFromOldBuckets(llvm::jitlink::Section **result, llvm::jitlink::Section **a2, llvm::jitlink::Section **a3, unint64_t *a4)
+{
+  v5 = result;
+  result[1] = 0;
+  v6 = *(result + 4);
+  if (v6)
+  {
+    v7 = *result;
+    v8 = 24 * v6;
+    do
+    {
+      *v7 = xmmword_2750C1220;
+      v7 = (v7 + 24);
+      v8 -= 24;
+    }
+
+    while (v8);
+  }
+
+  if (a2 != a3)
+  {
+    v9 = a2 + 2;
+    do
+    {
+      if (*(v9 - 2) <= 0xFFFFFFFFFFFFFFFDLL)
+      {
+        v13 = 0;
+        llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::LookupBucketFor<llvm::StringRef>(v5, (v9 - 2), &v13, a4);
+        v10 = v13;
+        *v13 = *(v9 - 1);
+        v11 = *v9;
+        *v9 = 0;
+        *(v10 + 2) = v11;
+        ++*(v5 + 2);
+        result = std::unique_ptr<llvm::jitlink::Section>::~unique_ptr[abi:nn200100](v9);
+      }
+
+      v12 = v9 + 1;
+      v9 += 3;
+    }
+
+    while (v12 != a3);
+  }
+
+  return result;
+}
+
+void *llvm::jitlink::LinkGraph::addDefinedSymbol(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, char a6, char a7, int a8, char a9)
+{
+  v15 = *a4;
+  *a4 = 0;
+  v16 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a1, 32, 3);
+  v17 = v16;
+  *v16 = v15;
+  v16[1] = a2;
+  v18 = 0x1000000000000000;
+  if (!a9)
+  {
+    v18 = 0;
+  }
+
+  v19 = 0x2000000000000000;
+  if (!a8)
+  {
+    v19 = 0;
+  }
+
+  v16[2] = ((a6 & 1) << 57) | ((a7 & 3) << 58) | v19 & 0xFE00000000000000 | v18 & 0xFE00000000000000 | a3 & 0x1FFFFFFFFFFFFFFLL;
+  v16[3] = a5;
+  v20 = *(a2 + 16);
+  v22 = v16;
+  llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(v20 + 56, &v22, v23);
+  return v17;
 }

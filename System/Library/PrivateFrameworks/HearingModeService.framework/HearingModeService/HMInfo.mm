@@ -142,16 +142,23 @@
 
 - (void)setConstantsWith:(unsigned int)with
 {
-  if (gLogCategory_HMDeviceRecord <= 50 && (gLogCategory_HMDeviceRecord != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_HMDeviceRecord <= 50)
   {
-    [HMInfo setConstantsWith:];
+    if (gLogCategory_HMDeviceRecord != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      self = [HMInfo setConstantsWith:with];
+    }
   }
 
   if (with - 8231 < 2)
   {
-    if (gLogCategory_HMDeviceRecord <= 50 && (gLogCategory_HMDeviceRecord != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_HMDeviceRecord <= 50)
     {
-      [HMInfo setConstantsWith:];
+      if (gLogCategory_HMDeviceRecord != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(HMInfo *)self setConstantsWith:a2, *&with];
+      }
     }
 
     v28 = &unk_286437C08;
@@ -169,9 +176,12 @@
 
   else if (with == 8212 || with == 8228)
   {
-    if (gLogCategory_HMDeviceRecord <= 50 && (gLogCategory_HMDeviceRecord != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_HMDeviceRecord <= 50)
     {
-      [HMInfo setConstantsWith:];
+      if (gLogCategory_HMDeviceRecord != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(HMInfo *)self setConstantsWith:a2, *&with];
+      }
     }
 
     v28 = &unk_286437C80;
@@ -207,44 +217,44 @@
     v28 = &unk_286437CB0;
   }
 
-  transparencyModeLowerBound = self->_transparencyModeLowerBound;
-  self->_transparencyModeLowerBound = v14;
+  transparencyModeLowerBound = selfCopy->_transparencyModeLowerBound;
+  selfCopy->_transparencyModeLowerBound = v14;
 
-  transparencyModeUpperBound = self->_transparencyModeUpperBound;
-  self->_transparencyModeUpperBound = v11;
+  transparencyModeUpperBound = selfCopy->_transparencyModeUpperBound;
+  selfCopy->_transparencyModeUpperBound = v11;
 
-  transparencyModeHours = self->_transparencyModeHours;
-  self->_transparencyModeHours = v10;
+  transparencyModeHours = selfCopy->_transparencyModeHours;
+  selfCopy->_transparencyModeHours = v10;
 
-  transparencyModeDays = self->_transparencyModeDays;
-  self->_transparencyModeDays = v9;
+  transparencyModeDays = selfCopy->_transparencyModeDays;
+  selfCopy->_transparencyModeDays = v9;
 
-  adaptiveModeLowerBound = self->_adaptiveModeLowerBound;
-  self->_adaptiveModeLowerBound = v8;
+  adaptiveModeLowerBound = selfCopy->_adaptiveModeLowerBound;
+  selfCopy->_adaptiveModeLowerBound = v8;
 
-  adaptiveModeUpperBound = self->_adaptiveModeUpperBound;
-  self->_adaptiveModeUpperBound = v7;
+  adaptiveModeUpperBound = selfCopy->_adaptiveModeUpperBound;
+  selfCopy->_adaptiveModeUpperBound = v7;
 
-  adaptiveModeHours = self->_adaptiveModeHours;
-  self->_adaptiveModeHours = v6;
+  adaptiveModeHours = selfCopy->_adaptiveModeHours;
+  selfCopy->_adaptiveModeHours = v6;
 
-  adaptiveModeDays = self->_adaptiveModeDays;
-  self->_adaptiveModeDays = v9;
+  adaptiveModeDays = selfCopy->_adaptiveModeDays;
+  selfCopy->_adaptiveModeDays = v9;
 
-  noiseCancellationModeLowerBound = self->_noiseCancellationModeLowerBound;
-  self->_noiseCancellationModeLowerBound = v12;
+  noiseCancellationModeLowerBound = selfCopy->_noiseCancellationModeLowerBound;
+  selfCopy->_noiseCancellationModeLowerBound = v12;
 
-  noiseCancellationModeUpperBound = self->_noiseCancellationModeUpperBound;
-  self->_noiseCancellationModeUpperBound = v5;
+  noiseCancellationModeUpperBound = selfCopy->_noiseCancellationModeUpperBound;
+  selfCopy->_noiseCancellationModeUpperBound = v5;
 
-  noiseCancellationModeHours = self->_noiseCancellationModeHours;
-  self->_noiseCancellationModeHours = v13;
+  noiseCancellationModeHours = selfCopy->_noiseCancellationModeHours;
+  selfCopy->_noiseCancellationModeHours = v13;
 
-  noiseCancellationModeDays = self->_noiseCancellationModeDays;
-  self->_noiseCancellationModeDays = v9;
+  noiseCancellationModeDays = selfCopy->_noiseCancellationModeDays;
+  selfCopy->_noiseCancellationModeDays = v9;
 
-  noiseReductionRating = self->_noiseReductionRating;
-  self->_noiseReductionRating = v28;
+  noiseReductionRating = selfCopy->_noiseReductionRating;
+  selfCopy->_noiseReductionRating = v28;
 }
 
 @end

@@ -37,12 +37,12 @@
 
 - (JETreatmentProfile)initWithConfigDictionary:(id)dictionary topic:(id)topic
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   topicCopy = topic;
-  v33.receiver = self;
-  v33.super_class = JETreatmentProfile;
-  v8 = [(JETreatmentProfile *)&v33 init];
+  v35.receiver = self;
+  v35.super_class = JETreatmentProfile;
+  v8 = [(JETreatmentProfile *)&v35 init];
   if (!v8)
   {
     goto LABEL_28;
@@ -60,93 +60,97 @@
     v10 = 0;
   }
 
-  if (v10 && [v10 integerValue] > 1)
+  if (v10)
   {
-    v14 = [dictionaryCopy objectForKeyedSubscript:@"treatments"];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    integerValue = [v10 integerValue];
+    if (integerValue > 1)
     {
-      v15 = v14;
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-
-    v16 = [dictionaryCopy objectForKeyedSubscript:@"treatments"];
-
-    if (v16 && !v15)
-    {
-      v11 = JEMetricsOSLog();
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = [dictionaryCopy objectForKeyedSubscript:@"treatments"];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
       {
-        goto LABEL_10;
+        v16 = v15;
       }
 
-      *buf = 0;
-      v12 = "JetEngine: Treatment profile doesn't have valid treatments configuration";
-      goto LABEL_9;
-    }
-
-    v27 = v10;
-    v17 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v15, "count")}];
-    v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v18 = v15;
-    v19 = [v18 countByEnumeratingWithState:&v28 objects:v34 count:16];
-    if (v19)
-    {
-      v20 = v19;
-      v21 = *v29;
-      do
+      else
       {
-        for (i = 0; i != v20; ++i)
-        {
-          if (*v29 != v21)
-          {
-            objc_enumerationMutation(v18);
-          }
+        v16 = 0;
+      }
 
-          v23 = [JETreatment treatmentWithConfiguration:*(*(&v28 + 1) + 8 * i) topic:topicCopy];
-          if (v23)
-          {
-            [v17 addObject:v23];
-          }
+      v17 = [dictionaryCopy objectForKeyedSubscript:@"treatments"];
+
+      if (v17 && !v16)
+      {
+        v12 = JEMetricsOSLog(v18);
+        if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_10;
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        *buf = 0;
+        v13 = "JetEngine: Treatment profile doesn't have valid treatments configuration";
+        goto LABEL_9;
       }
 
-      while (v20);
-    }
+      v29 = v10;
+      v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v16, "count")}];
+      v30 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      v20 = v16;
+      v21 = [v20 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      if (v21)
+      {
+        v22 = v21;
+        v23 = *v31;
+        do
+        {
+          for (i = 0; i != v22; ++i)
+          {
+            if (*v31 != v23)
+            {
+              objc_enumerationMutation(v20);
+            }
 
-    v24 = [v17 copy];
-    treatments = v8->_treatments;
-    v8->_treatments = v24;
+            v25 = [JETreatment treatmentWithConfiguration:*(*(&v30 + 1) + 8 * i) topic:topicCopy];
+            if (v25)
+            {
+              [v19 addObject:v25];
+            }
+          }
+
+          v22 = [v20 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        }
+
+        while (v22);
+      }
+
+      v26 = [v19 copy];
+      treatments = v8->_treatments;
+      v8->_treatments = v26;
 
 LABEL_28:
-    v13 = v8;
-    goto LABEL_29;
+      v14 = v8;
+      goto LABEL_29;
+    }
   }
 
-  v11 = JEMetricsOSLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = JEMetricsOSLog(integerValue);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    v12 = "JetEngine: Treatment profile configuration is empty or the format version is not supported";
+    v13 = "JetEngine: Treatment profile configuration is empty or the format version is not supported";
 LABEL_9:
-    _os_log_impl(&dword_1AB012000, v11, OS_LOG_TYPE_ERROR, v12, buf, 2u);
+    _os_log_impl(&dword_1AB012000, v12, OS_LOG_TYPE_ERROR, v13, buf, 2u);
   }
 
 LABEL_10:
 
-  v13 = 0;
+  v14 = 0;
 LABEL_29:
 
-  return v13;
+  return v14;
 }
 
 - (id)performTreatments:(id)treatments

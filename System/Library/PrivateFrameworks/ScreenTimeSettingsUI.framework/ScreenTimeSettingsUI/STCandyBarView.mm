@@ -296,11 +296,11 @@ void __35__STCandyBarView_updateConstraints__block_invoke(uint64_t a1, void *a2,
   [v5 enumerateObjectsUsingBlock:v7];
 }
 
-void __41__STCandyBarView_updateSectionViewImages__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void __41__STCandyBarView_updateSectionViewImages__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v16 = [*(a1 + 32) objectAtIndexedSubscript:?];
   v5 = [v16 sectionView];
-  if ([*(a1 + 40) count] - 1 == a3)
+  if (([*(a1 + 40) count] - 1) == a3)
   {
     v6 = [*(a1 + 40) count];
     v7 = *(a1 + 48);
@@ -435,7 +435,7 @@ void __32__STCandyBarView_setUsageItems___block_invoke(uint64_t a1, void *a2, ui
   }
 }
 
-void __32__STCandyBarView_setUsageItems___block_invoke_2(id *a1, void *a2, uint64_t a3)
+void __32__STCandyBarView_setUsageItems___block_invoke_2(id *a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   v28 = objc_opt_new();
@@ -476,7 +476,7 @@ void __32__STCandyBarView_setUsageItems___block_invoke_2(id *a1, void *a2, uint6
     [v17 setActive:1];
   }
 
-  if ([a1[6] count] - 1 == a3)
+  if (([a1[6] count] - 1) == a3)
   {
     v19 = [v7 trailingAnchor];
     v20 = [a1[4] trailingAnchor];

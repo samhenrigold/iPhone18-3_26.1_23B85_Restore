@@ -12,9 +12,9 @@
 - (BOOL)isEqual:(id)equal
 {
   v3 = objc_opt_class();
-  v4 = objc_opt_class();
+  objc_opt_class();
 
-  return [v3 isEqual:v4];
+  return objc_msgSend_isEqual_(v3);
 }
 
 - (CGSize)preferredContentSize

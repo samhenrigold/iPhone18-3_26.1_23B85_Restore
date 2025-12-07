@@ -1,5 +1,5 @@
 @interface PKApplicationMessageRegistration
-+ (id)_createLocalWithIdentifier:(void *)identifier createdDate:(void *)date priority:(char)priority badge:;
++ (id)_createLocalWithIdentifier:(void *)identifier createdDate:(void *)date priority:(uint64_t)priority badge:;
 + (id)createWithKey:(id)key createdDate:(id)date priority:(unint64_t)priority badge:(BOOL)badge;
 - (BOOL)isEqual:(id)equal;
 - (PKApplicationMessageRegistration)initWithCoder:(id)coder;
@@ -10,14 +10,15 @@
 
 @implementation PKApplicationMessageRegistration
 
-+ (id)_createLocalWithIdentifier:(void *)identifier createdDate:(void *)date priority:(char)priority badge:
++ (id)_createLocalWithIdentifier:(void *)identifier createdDate:(void *)date priority:(uint64_t)priority badge:
 {
+  priorityCopy = priority;
   identifierCopy = identifier;
   v9 = a2;
   objc_opt_self();
   v10 = [[PKApplicationMessageKey alloc] _initWithSource:v9 identifier:?];
 
-  v11 = [[PKApplicationMessageRegistration alloc] _initWithKey:v10 createdDate:identifierCopy priority:date badge:priority];
+  v11 = [[PKApplicationMessageRegistration alloc] _initWithKey:v10 createdDate:identifierCopy priority:date badge:priorityCopy];
   return v11;
 }
 

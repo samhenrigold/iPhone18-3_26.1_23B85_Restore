@@ -16,7 +16,7 @@
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"type" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"step" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"status" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
@@ -24,16 +24,14 @@
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"session" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"flow" dataType:2 requestOnly:0 fieldNumber:6 protoDataType:13 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"interaction_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_344_107976];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
@@ -188,7 +186,7 @@ LABEL_28:
 
 - (id)jsonDictionary
 {
-  v27[7] = *MEMORY[0x1E69E9840];
+  v26[7] = *MEMORY[0x1E69E9840];
   type = [(BMDeviceExpertTroubleshooting *)self type];
   step = [(BMDeviceExpertTroubleshooting *)self step];
   status = [(BMDeviceExpertTroubleshooting *)self status];
@@ -207,68 +205,68 @@ LABEL_28:
   interaction = [(BMDeviceExpertTroubleshooting *)self interaction];
   jsonDictionary = [interaction jsonDictionary];
 
-  v26[0] = @"type";
+  v25[0] = @"type";
   null = type;
   if (!type)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null;
-  v27[0] = null;
-  v26[1] = @"step";
+  v22 = null;
+  v26[0] = null;
+  v25[1] = @"step";
   null2 = step;
   if (!step)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null2;
-  v27[1] = null2;
-  v26[2] = @"status";
+  v21 = null2;
+  v26[1] = null2;
+  v25[2] = @"status";
   null3 = status;
   if (!status)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = type;
-  v21 = null3;
-  v27[2] = null3;
-  v26[3] = @"version";
+  v24 = type;
+  v20 = null3;
+  v26[2] = null3;
+  v25[3] = @"version";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = step;
-  v27[3] = null4;
-  v26[4] = @"session";
+  v23 = step;
+  v26[3] = null4;
+  v25[4] = @"session";
   null5 = session;
   if (!session)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[4] = null5;
-  v26[5] = @"flow";
+  v26[4] = null5;
+  v25[5] = @"flow";
   null6 = flow;
   if (!flow)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[5] = null6;
-  v26[6] = @"interaction";
+  v26[5] = null6;
+  v25[6] = @"interaction";
   null7 = jsonDictionary;
   if (!jsonDictionary)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[6] = null7;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:7];
+  v26[6] = null7;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
   if (jsonDictionary)
   {
     if (flow)
@@ -306,14 +304,14 @@ LABEL_21:
 
   if (status)
   {
-    if (v24)
+    if (v23)
     {
       goto LABEL_25;
     }
 
 LABEL_33:
 
-    if (v25)
+    if (v24)
     {
       goto LABEL_26;
     }
@@ -321,13 +319,13 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_33;
   }
 
 LABEL_25:
-  if (v25)
+  if (v24)
   {
     goto LABEL_26;
   }
@@ -335,14 +333,13 @@ LABEL_25:
 LABEL_34:
 
 LABEL_26:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (BMDeviceExpertTroubleshooting)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"type"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -363,14 +360,14 @@ LABEL_4:
           goto LABEL_63;
         }
 
-        v54 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v53 = objc_alloc(MEMORY[0x1E696ABC0]);
         v24 = *MEMORY[0x1E698F240];
-        v68 = *MEMORY[0x1E696A578];
+        v67 = *MEMORY[0x1E696A578];
         v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"step"];
-        v69 = v25;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+        v68 = v25;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
         v11 = v26 = error;
-        v27 = [v54 initWithDomain:v24 code:2 userInfo:v11];
+        v27 = [v53 initWithDomain:v24 code:2 userInfo:v11];
         v10 = 0;
         v19 = 0;
         *v26 = v27;
@@ -387,8 +384,8 @@ LABEL_4:
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"status"];
-    v56 = v8;
-    v52 = v10;
+    v55 = v8;
+    v51 = v10;
     if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -401,20 +398,20 @@ LABEL_4:
           goto LABEL_62;
         }
 
-        v50 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v49 = objc_alloc(MEMORY[0x1E696ABC0]);
         v30 = *MEMORY[0x1E698F240];
-        v66 = *MEMORY[0x1E696A578];
-        v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"status"];
-        v67 = v53;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+        v65 = *MEMORY[0x1E696A578];
+        v52 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"status"];
+        v66 = v52;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
         v31 = v30;
-        v10 = v52;
+        v10 = v51;
         v12 = 0;
         v19 = 0;
-        *errorCopy = [v50 initWithDomain:v31 code:2 userInfo:v13];
+        *errorCopy = [v49 initWithDomain:v31 code:2 userInfo:v13];
 LABEL_61:
 
-        v8 = v56;
+        v8 = v55;
 LABEL_62:
 
         goto LABEL_63;
@@ -429,7 +426,7 @@ LABEL_62:
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"version"];
-    v49 = v12;
+    v48 = v12;
     if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -437,37 +434,37 @@ LABEL_62:
       {
         if (!errorCopy)
         {
-          v53 = 0;
+          v52 = 0;
           v19 = 0;
           goto LABEL_61;
         }
 
-        v55 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v54 = objc_alloc(MEMORY[0x1E696ABC0]);
         v32 = *MEMORY[0x1E698F240];
-        v64 = *MEMORY[0x1E696A578];
-        v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"version"];
-        v65 = v47;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+        v63 = *MEMORY[0x1E696A578];
+        v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"version"];
+        v64 = v46;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
         v33 = v32;
-        v10 = v52;
-        v34 = [v55 initWithDomain:v33 code:2 userInfo:v14];
-        v53 = 0;
+        v10 = v51;
+        v34 = [v54 initWithDomain:v33 code:2 userInfo:v14];
+        v52 = 0;
         v19 = 0;
         *errorCopy = v34;
         goto LABEL_60;
       }
 
-      v53 = v13;
+      v52 = v13;
     }
 
     else
     {
-      v53 = 0;
+      v52 = 0;
     }
 
     v14 = [dictionaryCopy objectForKeyedSubscript:@"session"];
     selfCopy = self;
-    v45 = v7;
+    v44 = v7;
     if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -475,39 +472,39 @@ LABEL_62:
       {
         if (!errorCopy)
         {
-          v47 = 0;
+          v46 = 0;
           v19 = 0;
           goto LABEL_59;
         }
 
-        v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v47 = objc_alloc(MEMORY[0x1E696ABC0]);
         v35 = *MEMORY[0x1E698F240];
-        v62 = *MEMORY[0x1E696A578];
+        v61 = *MEMORY[0x1E696A578];
         v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"session"];
-        v63 = v16;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-        v36 = [v48 initWithDomain:v35 code:2 userInfo:v15];
-        v47 = 0;
+        v62 = v16;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+        v36 = [v47 initWithDomain:v35 code:2 userInfo:v15];
+        v46 = 0;
         v19 = 0;
         *errorCopy = v36;
 LABEL_58:
 
         self = selfCopy;
-        v10 = v52;
+        v10 = v51;
 LABEL_59:
-        v7 = v45;
+        v7 = v44;
 LABEL_60:
 
-        v12 = v49;
+        v12 = v48;
         goto LABEL_61;
       }
 
-      v47 = v14;
+      v46 = v14;
     }
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     v15 = [dictionaryCopy objectForKeyedSubscript:@"flow"];
@@ -523,13 +520,13 @@ LABEL_60:
           goto LABEL_58;
         }
 
-        v43 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v42 = objc_alloc(MEMORY[0x1E696ABC0]);
         v37 = *MEMORY[0x1E698F240];
-        v60 = *MEMORY[0x1E696A578];
+        v59 = *MEMORY[0x1E696A578];
         v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"flow"];
-        v61 = v17;
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-        v38 = [v43 initWithDomain:v37 code:2 userInfo:v18];
+        v60 = v17;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v38 = [v42 initWithDomain:v37 code:2 userInfo:v18];
         v16 = 0;
         v19 = 0;
         *errorCopy = v38;
@@ -549,7 +546,7 @@ LABEL_60:
     {
       v18 = 0;
 LABEL_22:
-      v19 = [(BMDeviceExpertTroubleshooting *)selfCopy initWithType:v56 step:v52 status:v49 version:v53 session:v47 flow:v16 interaction:v18];
+      v19 = [(BMDeviceExpertTroubleshooting *)selfCopy initWithType:v55 step:v51 status:v48 version:v52 session:v46 flow:v16 interaction:v18];
       selfCopy = v19;
 LABEL_56:
 
@@ -561,9 +558,9 @@ LABEL_57:
     if (objc_opt_isKindOfClass())
     {
       v28 = v17;
-      v57 = 0;
-      v18 = [[BMDeviceExpertTroubleshootingInteraction alloc] initWithJSONDictionary:v28 error:&v57];
-      v29 = v57;
+      v56 = 0;
+      v18 = [[BMDeviceExpertTroubleshootingInteraction alloc] initWithJSONDictionary:v28 error:&v56];
+      v29 = v56;
       if (!v29)
       {
 
@@ -586,13 +583,13 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v42 = *MEMORY[0x1E698F240];
-      v58 = *MEMORY[0x1E696A578];
+      v43 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v41 = *MEMORY[0x1E698F240];
+      v57 = *MEMORY[0x1E696A578];
       v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"interaction"];
-      v59 = v18;
-      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-      *errorCopy = [v44 initWithDomain:v42 code:2 userInfo:v39];
+      v58 = v18;
+      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+      *errorCopy = [v43 initWithDomain:v41 code:2 userInfo:v39];
     }
 
     v19 = 0;
@@ -610,10 +607,10 @@ LABEL_57:
   {
     v20 = objc_alloc(MEMORY[0x1E696ABC0]);
     v21 = *MEMORY[0x1E698F240];
-    v70 = *MEMORY[0x1E696A578];
+    v69 = *MEMORY[0x1E696A578];
     v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"type"];
-    v71[0] = v22;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:&v70 count:1];
+    v70[0] = v22;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:&v69 count:1];
     v23 = v21;
     v10 = v22;
     v8 = 0;
@@ -628,7 +625,6 @@ LABEL_63:
   v19 = 0;
 LABEL_64:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -661,7 +657,6 @@ LABEL_64:
 
   if (self->_hasVersion)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
   }
 
@@ -957,35 +952,33 @@ LABEL_55:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"type" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"step" number:2 type:13 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"status" number:3 type:13 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"version" number:4 type:2 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"session" number:5 type:13 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"flow" number:6 type:13 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"interaction" number:7 type:14 subMessageClass:objc_opt_class()];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
-id __40__BMDeviceExpertTroubleshooting_columns__block_invoke(uint64_t a1, void *a2)
+id __40__BMDeviceExpertTroubleshooting_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 interaction];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 interaction];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

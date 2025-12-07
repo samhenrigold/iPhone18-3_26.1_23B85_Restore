@@ -93,15 +93,14 @@
 
 - (RSNodeSampleMessage)initWithMirrorPoints:(id)points
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessageMirrorPointsAttachmentKey";
-  v13[0] = points;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessageMirrorPointsAttachmentKey";
+  v12[0] = points;
   v4 = MEMORY[0x277CBEAC0];
   pointsCopy = points;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -124,15 +123,14 @@
 
 - (RSNodeSampleMessage)initWithObjects:(id)objects
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessageObjectsAttachmentKey";
-  v13[0] = objects;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessageObjectsAttachmentKey";
+  v12[0] = objects;
   v4 = MEMORY[0x277CBEAC0];
   objectsCopy = objects;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -155,15 +153,14 @@
 
 - (RSNodeSampleMessage)initWithKeyFrames:(id)frames
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessageKeyFramesAttachmentKey";
-  v13[0] = frames;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessageKeyFramesAttachmentKey";
+  v12[0] = frames;
   v4 = MEMORY[0x277CBEAC0];
   framesCopy = frames;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -186,15 +183,14 @@
 
 - (RSNodeSampleMessage)initWithSemanticImage:(id)image
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessageSemanticImageAttachmentKey";
-  v13[0] = image;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessageSemanticImageAttachmentKey";
+  v12[0] = image;
   v4 = MEMORY[0x277CBEAC0];
   imageCopy = image;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -217,15 +213,14 @@
 
 - (RSNodeSampleMessage)initWithGeometryMeta:(id)meta
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessageGeometryMetaAttachmentKey";
-  v13[0] = meta;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessageGeometryMetaAttachmentKey";
+  v12[0] = meta;
   v4 = MEMORY[0x277CBEAC0];
   metaCopy = meta;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -248,15 +243,14 @@
 
 - (RSNodeSampleMessage)initWithTemporalMeta:(id)meta
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessageTemporalMetaAttachmentKey";
-  v13[0] = meta;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessageTemporalMetaAttachmentKey";
+  v12[0] = meta;
   v4 = MEMORY[0x277CBEAC0];
   metaCopy = meta;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -279,15 +273,14 @@
 
 - (RSNodeSampleMessage)initWithFloorPlan:(id)plan
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessageFloorPlanAttachmentKey";
-  v13[0] = plan;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessageFloorPlanAttachmentKey";
+  v12[0] = plan;
   v4 = MEMORY[0x277CBEAC0];
   planCopy = plan;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -310,15 +303,14 @@
 
 - (RSNodeSampleMessage)initWithPointCloud:(id)cloud
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessagePointCloudAttachmentKey";
-  v13[0] = cloud;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessagePointCloudAttachmentKey";
+  v12[0] = cloud;
   v4 = MEMORY[0x277CBEAC0];
   cloudCopy = cloud;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -341,15 +333,14 @@
 
 - (RSNodeSampleMessage)initWithFrame:(id)frame
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = @"_RSNodeSampleMessageFrameAttachmentKey";
-  v13[0] = frame;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = @"_RSNodeSampleMessageFrameAttachmentKey";
+  v12[0] = frame;
   v4 = MEMORY[0x277CBEAC0];
   frameCopy = frame;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithSampleBuffer_attachments_(self, v8, 0, v7);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

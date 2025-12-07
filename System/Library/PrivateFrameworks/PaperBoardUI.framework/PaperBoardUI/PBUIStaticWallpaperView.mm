@@ -28,13 +28,13 @@
 
 - (void)_setupWallpaperImageFromConfiguration:(id)configuration options:(unint64_t)options
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   wallpaperOptions = [configurationCopy wallpaperOptions];
   wallpaperImageHashData = [configurationCopy wallpaperImageHashData];
-  v48 = [wallpaperImageHashData base64EncodedStringWithOptions:0];
+  v49 = [wallpaperImageHashData base64EncodedStringWithOptions:0];
   [(PBUIStaticWallpaperView *)self setDisplayedImageHashData:wallpaperImageHashData];
-  [(PBUIStaticWallpaperView *)self setDisplayedImageHashString:v48];
+  [(PBUIStaticWallpaperView *)self setDisplayedImageHashString:v49];
   wallpaperImage = [configurationCopy wallpaperImage];
   v7 = wallpaperImage;
   if (wallpaperImage)
@@ -75,7 +75,7 @@
     v19 = 1;
   }
 
-  v43 = v19;
+  v44 = v19;
   if (_canDownscaleSampleImage)
   {
     v20 = v16;
@@ -97,15 +97,14 @@
   }
 
   [(PBUIStaticWallpaperView *)self _setSampleImage:v7, 1.0, v18];
-  [(PBUIStaticWallpaperView *)self _setDisplayedImage:v7];
-  v22 = PBUILogCommon();
+  v22 = PBUILogCommon([(PBUIStaticWallpaperView *)self _setDisplayedImage:v7]);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     v23 = PBUIStringForWallpaperVariant([(PBUIWallpaperView *)self variant]);
     *buf = 138543618;
-    v60 = v7;
-    v61 = 2114;
-    v62 = v23;
+    v61 = v7;
+    v62 = 2114;
+    v63 = v23;
     _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_DEFAULT, "[LegacyPoster displayedImage] configuration wallpaper image for display image %{public}@ for variant %{public}@", buf, 0x16u);
   }
 
@@ -132,31 +131,31 @@
   v25 = 0;
   v26 = 0;
 LABEL_23:
-  v57[0] = 0;
-  v57[1] = v57;
-  v57[2] = 0x3032000000;
-  v57[3] = __Block_byref_object_copy_;
-  v57[4] = __Block_byref_object_dispose_;
-  v58 = 0;
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __73__PBUIStaticWallpaperView__setupWallpaperImageFromConfiguration_options___block_invoke;
-  v56[3] = &unk_278361FB8;
-  v56[4] = self;
-  v56[5] = v57;
-  v27 = MEMORY[0x223D62EE0](v56);
+  v58[0] = 0;
+  v58[1] = v58;
+  v58[2] = 0x3032000000;
+  v58[3] = __Block_byref_object_copy_;
+  v58[4] = __Block_byref_object_dispose_;
+  v59 = 0;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __73__PBUIStaticWallpaperView__setupWallpaperImageFromConfiguration_options___block_invoke;
+  v57[3] = &unk_278361FB8;
+  v57[4] = self;
+  v57[5] = v58;
+  v27 = MEMORY[0x223D62EE0](v57);
   needsWallpaperDimmingTreatment = [configurationCopy needsWallpaperDimmingTreatment];
   needsInactiveAppearanceTreatment = [configurationCopy needsInactiveAppearanceTreatment];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __73__PBUIStaticWallpaperView__setupWallpaperImageFromConfiguration_options___block_invoke_2;
-  v52[3] = &unk_278361FE0;
-  v54 = v21;
-  v55 = v43;
-  v52[4] = self;
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __73__PBUIStaticWallpaperView__setupWallpaperImageFromConfiguration_options___block_invoke_2;
+  v53[3] = &unk_278361FE0;
+  v55 = v21;
+  v56 = v44;
+  v53[4] = self;
   v30 = v25;
-  v53 = v30;
-  [(PBUIStaticWallpaperView *)self _generateImageForImage:v7 cacheKey:v30 options:options downsampleFactor:needsWallpaperDimmingTreatment needsDimmingTreatment:needsInactiveAppearanceTreatment needsInactiveAppearanceTreatment:v27 averageColorProvider:v21 generationHandler:v52];
+  v54 = v30;
+  [(PBUIStaticWallpaperView *)self _generateImageForImage:v7 cacheKey:v30 options:options downsampleFactor:needsWallpaperDimmingTreatment needsDimmingTreatment:needsInactiveAppearanceTreatment needsInactiveAppearanceTreatment:v27 averageColorProvider:v21 generationHandler:v53];
   if (v20)
   {
     if (v26)
@@ -170,14 +169,14 @@ LABEL_23:
       v31 = 0;
     }
 
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __73__PBUIStaticWallpaperView__setupWallpaperImageFromConfiguration_options___block_invoke_2;
-    v50[3] = &unk_278362008;
-    v50[4] = self;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __73__PBUIStaticWallpaperView__setupWallpaperImageFromConfiguration_options___block_invoke_2;
+    v51[3] = &unk_278362008;
+    v51[4] = self;
     v32 = v31;
-    v51 = v32;
-    [(PBUIStaticWallpaperView *)self _generateImageForImage:v7 cacheKey:v32 options:options downsampleFactor:needsWallpaperDimmingTreatment needsDimmingTreatment:needsInactiveAppearanceTreatment needsInactiveAppearanceTreatment:v27 averageColorProvider:1.0 generationHandler:v50];
+    v52 = v32;
+    [(PBUIStaticWallpaperView *)self _generateImageForImage:v7 cacheKey:v32 options:options downsampleFactor:needsWallpaperDimmingTreatment needsDimmingTreatment:needsInactiveAppearanceTreatment needsInactiveAppearanceTreatment:v27 averageColorProvider:1.0 generationHandler:v51];
   }
 
   _computeAverageColor = [(PBUIStaticWallpaperView *)self _computeAverageColor];
@@ -188,19 +187,20 @@ LABEL_23:
   v36 = [v34 initWithColorBoxes:colorBoxes];
 
   averageColor = [v36 averageColor];
-  if (!averageColor || ([v36 averageColor], v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D75348], "blackColor"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v38, "_isSimilarToColor:withinPercentage:", v39, 0.00000011920929), v39, v38, averageColor, v40))
+  v38 = averageColor;
+  if (!averageColor || ([v36 averageColor], v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D75348], "blackColor"), v40 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend(v39, "_isSimilarToColor:withinPercentage:", v40, 0.00000011920929), v40, v39, v38, v41))
   {
-    v41 = PBUILogCommon();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v42 = PBUILogCommon(averageColor);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v42 = PBUIStringForWallpaperVariant([(PBUIWallpaperView *)self variant]);
+      v43 = PBUIStringForWallpaperVariant([(PBUIWallpaperView *)self variant]);
       *buf = 138543362;
-      v60 = v42;
-      _os_log_impl(&dword_21E67D000, v41, OS_LOG_TYPE_DEFAULT, "[LegacyPoster displayedImage] displayed image similar to black color for variant %{public}@!!", buf, 0xCu);
+      v61 = v43;
+      _os_log_impl(&dword_21E67D000, v42, OS_LOG_TYPE_DEFAULT, "[LegacyPoster displayedImage] displayed image similar to black color for variant %{public}@!!", buf, 0xCu);
     }
   }
 
-  _Block_object_dispose(v57, 8);
+  _Block_object_dispose(v58, 8);
 }
 
 id __73__PBUIStaticWallpaperView__setupWallpaperImageFromConfiguration_options___block_invoke(uint64_t a1)
@@ -223,7 +223,7 @@ void __73__PBUIStaticWallpaperView__setupWallpaperImageFromConfiguration_options
 {
   v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PBUILogCommon();
+  v4 = PBUILogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 48);
@@ -655,7 +655,7 @@ void __43__PBUIStaticWallpaperView_setContentsRect___block_invoke(uint64_t a1)
 
 - (void)_setupContentViewWithOptions:(unint64_t)options
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = [PBUIStaticWallpaperImageView alloc];
   _displayedImage = [(PBUIStaticWallpaperView *)self _displayedImage];
   v6 = [(PBUIStaticWallpaperImageView *)v4 initWithImage:_displayedImage];
@@ -664,15 +664,15 @@ void __43__PBUIStaticWallpaperView_setContentsRect___block_invoke(uint64_t a1)
   layer = [(PBUIStaticWallpaperImageView *)v6 layer];
   [layer setContentsOpaque:1];
 
-  v8 = PBUILogCommon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = PBUILogCommon(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     _displayedImage2 = [(PBUIStaticWallpaperView *)self _displayedImage];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = _displayedImage2;
-    _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_INFO, "set up content view %{public}@ with image %{public}@", &v10, 0x16u);
+    v11 = 138543618;
+    v12 = v6;
+    v13 = 2114;
+    v14 = _displayedImage2;
+    _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_INFO, "set up content view %{public}@ with image %{public}@", &v11, 0x16u);
   }
 
   [(PBUIStaticWallpaperView *)self _setUpStaticImageContentView:v6];

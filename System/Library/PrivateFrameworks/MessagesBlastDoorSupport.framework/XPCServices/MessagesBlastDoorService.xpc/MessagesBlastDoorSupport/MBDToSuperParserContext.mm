@@ -13,6 +13,7 @@
 - (void)_popValueFromStack:(id)stack attributeName:(id)name;
 - (void)_pushValue:(id)value ontoStack:(id)stack attributeName:(id)name;
 - (void)_updateCurrentAttributesWithMessagePartNumber;
+- (void)appendBreadcrumbText:(id)text withOptions:(unsigned int)options;
 - (void)appendFileTransferAttribute:(id)attribute attachments:(id)attachments imageInfo:(id)info stickerInfo:(id)stickerInfo emojiImageInfo:(id)imageInfo;
 - (void)appendString:(id)string;
 - (void)dealloc;
@@ -418,6 +419,22 @@
 
   _Block_object_dispose(&v25, 8);
   return v19 != 0x7FFFFFFFFFFFFFFFLL;
+}
+
+- (void)appendBreadcrumbText:(id)text withOptions:(unsigned int)options
+{
+  v4 = *&options;
+  v11[0] = MBDIMBreadcrumbTextMarkerAttributeName;
+  v11[1] = MBDIMBreadcrumbTextOptionFlags;
+  v12[0] = text;
+  textCopy = text;
+  v7 = [NSNumber numberWithUnsignedInt:v4];
+  v12[1] = v7;
+  v8 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
+
+  v9 = [NSAttributedString alloc];
+  v10 = [v9 initWithString:MBDIMBreadcrumbCharacterString attributes:v8];
+  [(NSMutableAttributedString *)self->_body appendAttributedString:v10];
 }
 
 - (NSAttributedString)body

@@ -65,18 +65,18 @@ uint64_t __33__TVRUISiriManager_sharedManager__block_invoke()
 
   if (!siriAssertion)
   {
-    v4 = _TVRUISiriLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TVRUISiriLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Grabbing activation assertion", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Grabbing activation assertion", v10, 2u);
     }
 
-    v5 = objc_alloc(MEMORY[0x277D551C0]);
+    v6 = objc_alloc(MEMORY[0x277D551C0]);
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    v8 = [v5 initWithIdentifier:bundleIdentifier reason:1];
-    [(TVRUISiriManager *)self setSiriAssertion:v8];
+    v9 = [v6 initWithIdentifier:bundleIdentifier reason:1];
+    [(TVRUISiriManager *)self setSiriAssertion:v9];
   }
 }
 
@@ -86,11 +86,11 @@ uint64_t __33__TVRUISiriManager_sharedManager__block_invoke()
 
   if (siriAssertion)
   {
-    v4 = _TVRUISiriLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TVRUISiriLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Releasing activation assertion", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Releasing activation assertion", v7, 2u);
     }
 
     siriAssertion2 = [(TVRUISiriManager *)self siriAssertion];
@@ -182,7 +182,7 @@ void __90__TVRUISiriManager_buttonEventListenerDidReceiveButtonUpWithButtonIdent
 
 - (void)_donateTipsTrigger
 {
-  v2 = _TVRUITipsLog();
+  v2 = _TVRUITipsLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;

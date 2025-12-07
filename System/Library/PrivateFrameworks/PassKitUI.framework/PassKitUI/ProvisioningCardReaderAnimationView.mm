@@ -15,7 +15,9 @@
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   width = fits.width;
-  PKFloatRoundToPixel();
+  fits.height = 2.12;
+  fits.width = fits.width * 0.85 * 2.12;
+  PKFloatRoundToPixel(fits, *&fits.height);
   v5 = v4;
   v6 = width;
   result.height = v5;

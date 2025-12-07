@@ -33,7 +33,7 @@
   {
     [(OKTransitionCATransition *)self prepareInView:view, subview, toSubview, interactive, in, out, duration, progress];
     [MEMORY[0x277CD9FF0] begin];
-    [(OKTransition *)self duration];
+    objc_msgSend_duration(self);
     [MEMORY[0x277CD9FF0] setAnimationDuration:?];
     v16 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B8]];
     [MEMORY[0x277CD9FF0] setAnimationTimingFunction:v16];

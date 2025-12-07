@@ -28,16 +28,16 @@
 
 - (MDMMAIDBearerTokenAuthenticator)initWithRMAccountID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v17.receiver = self;
-  v17.super_class = MDMMAIDBearerTokenAuthenticator;
-  v5 = [(MDMMAIDBearerTokenAuthenticator *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MDMMAIDBearerTokenAuthenticator;
+  v5 = [(MDMMAIDBearerTokenAuthenticator *)&v16 init];
   if (v5)
   {
-    v16 = 0;
-    v6 = [MDMAccountUtilities rmAccountWithIdentifier:dCopy fromStore:0 error:&v16];
-    v7 = v16;
+    v15 = 0;
+    v6 = [MDMAccountUtilities rmAccountWithIdentifier:dCopy fromStore:0 error:&v15];
+    v7 = v15;
     if (v6)
     {
       dmc_bearerToken = [v6 dmc_bearerToken];
@@ -53,7 +53,7 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v19 = v7;
+        v18 = v7;
         _os_log_impl(&dword_22E997000, v11, OS_LOG_TYPE_ERROR, "Could not extract auth token from RM account: %{public}@", buf, 0xCu);
       }
 
@@ -67,7 +67,6 @@
     v5->_personaID = dmc_personaIdentifier;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -169,7 +168,7 @@
 
 void __88__MDMMAIDBearerTokenAuthenticator_fetchTokenWithAuthParams_accountID_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -180,8 +179,8 @@ void __88__MDMMAIDBearerTokenAuthenticator_fetchTokenWithAuthParams_accountID_co
     v8 = *DMCLogObjects();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_INFO, "Fetched MAID tokens", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_INFO, "Fetched MAID tokens", &v11, 2u);
     }
 
     v9 = *(*(a1 + 40) + 16);
@@ -192,17 +191,15 @@ void __88__MDMMAIDBearerTokenAuthenticator_fetchTokenWithAuthParams_accountID_co
     v10 = *DMCLogObjects();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = v6;
-      _os_log_impl(&dword_22E997000, v10, OS_LOG_TYPE_ERROR, "Unable to fetch MAID token: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v6;
+      _os_log_impl(&dword_22E997000, v10, OS_LOG_TYPE_ERROR, "Unable to fetch MAID token: %{public}@", &v11, 0xCu);
     }
 
     v9 = *(*(a1 + 40) + 16);
   }
 
   v9();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshTokenWithAuthParams:(id)params accountID:(id)d completionHandler:(id)handler
@@ -223,7 +220,7 @@ void __88__MDMMAIDBearerTokenAuthenticator_fetchTokenWithAuthParams_accountID_co
 
 void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v7 = a3;
   if (v7)
@@ -231,31 +228,31 @@ void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_
     goto LABEL_9;
   }
 
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__4;
-  v32 = __Block_byref_object_dispose__4;
-  v33 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__4;
+  v31 = __Block_byref_object_dispose__4;
+  v32 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v8 = MEMORY[0x277D03550];
   v9 = [*(a1 + 32) personaID];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_completionHandler___block_invoke_11;
-  v19[3] = &unk_278857118;
-  v22 = &v24;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_completionHandler___block_invoke_11;
+  v18[3] = &unk_278857118;
+  v21 = &v23;
   v10 = *(a1 + 40);
-  v23 = &v28;
+  v22 = &v27;
   v11 = *(a1 + 32);
-  v20 = v10;
-  v21 = v11;
-  v12 = [v8 performBlockUnderPersona:v9 block:v19];
+  v19 = v10;
+  v20 = v11;
+  v12 = [v8 performBlockUnderPersona:v9 block:v18];
 
-  v13 = *(v25 + 24);
+  v13 = *(v24 + 24);
   if (v13)
   {
     v14 = *DMCLogObjects();
@@ -271,25 +268,23 @@ void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_
     v15 = *DMCLogObjects();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = v29[5];
+      v17 = v28[5];
       *buf = 138543362;
-      v35 = v17;
+      v34 = v17;
       _os_log_impl(&dword_22E997000, v15, OS_LOG_TYPE_ERROR, "Failed to update account MAID tokens during refresh: %{public}@", buf, 0xCu);
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), 0, v29[5], v16);
+    (*(*(a1 + 48) + 16))(*(a1 + 48), 0, v28[5], v16);
   }
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
 
   if (v13)
   {
 LABEL_9:
     (*(*(a1 + 48) + 16))(*(a1 + 48), v5, v7, v6);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_completionHandler___block_invoke_11(void *a1)
@@ -350,7 +345,7 @@ void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_
 
 - (void)_processTokenResponse:(id)response data:(id)data error:(id)error completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dataCopy = data;
   errorCopy = error;
@@ -360,9 +355,9 @@ void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_
   {
     v14 = v13;
     *buf = 134218242;
-    v30 = [dataCopy length];
-    v31 = 2114;
-    v32 = responseCopy;
+    v29 = [dataCopy length];
+    v30 = 2114;
+    v31 = responseCopy;
     _os_log_impl(&dword_22E997000, v14, OS_LOG_TYPE_DEFAULT, "Exchange MAID for bearer token finished with data: %lu bytes, response: %{public}@", buf, 0x16u);
   }
 
@@ -372,7 +367,7 @@ void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v30 = errorCopy;
+      v29 = errorCopy;
       _os_log_impl(&dword_22E997000, v15, OS_LOG_TYPE_ERROR, "Failed to exchange for bearer token with error: %{public}@", buf, 0xCu);
     }
 
@@ -384,16 +379,16 @@ void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_
     statusCode = [responseCopy statusCode];
     if (statusCode == 200)
     {
-      v26 = 0;
-      v17 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v26];
-      v18 = v26;
+      v25 = 0;
+      v17 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v25];
+      v18 = v25;
       if (v18)
       {
         v19 = *DMCLogObjects();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v30 = v18;
+          v29 = v18;
           _os_log_impl(&dword_22E997000, v19, OS_LOG_TYPE_ERROR, "Failed to deserialize server's response with error: %{public}@", buf, 0xCu);
         }
 
@@ -410,15 +405,15 @@ void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v30 = "[MDMMAIDBearerTokenAuthenticator _processTokenResponse:data:error:completionHandler:]";
-            v31 = 2112;
-            v32 = v17;
+            v29 = "[MDMMAIDBearerTokenAuthenticator _processTokenResponse:data:error:completionHandler:]";
+            v30 = 2112;
+            v31 = v17;
             _os_log_impl(&dword_22E997000, v23, OS_LOG_TYPE_DEBUG, "%s results: %@", buf, 0x16u);
           }
 
-          v27 = @"token";
-          v28 = v21;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+          v26 = @"token";
+          v27 = v21;
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
           (handlerCopy)[2](handlerCopy, v24, 0);
         }
 
@@ -451,8 +446,6 @@ void __90__MDMMAIDBearerTokenAuthenticator_refreshTokenWithAuthParams_accountID_
       handlerCopy[2](handlerCopy, 0, v20);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_createAuthInvalidError

@@ -62,7 +62,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      MTLReportFailure(1, "[MTLTileRenderPipelineColorAttachmentDescriptorArrayInternal setObject:atIndexedSubscript:]", 201, @"attachment is not a MTLTileRenderPipelineColorAttachmentDescriptor.", v4, v5, v6, v7, v13);
+      MTLReportFailure(1uLL, "[MTLTileRenderPipelineColorAttachmentDescriptorArrayInternal setObject:atIndexedSubscript:]", 201, @"attachment is not a MTLTileRenderPipelineColorAttachmentDescriptor.", v4, v5, v6, v7, v13);
     }
   }
 

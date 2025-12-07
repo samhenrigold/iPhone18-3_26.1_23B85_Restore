@@ -107,14 +107,14 @@
 
 - (void)copyValueOfEntitlement:(id)entitlement
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   entitlementCopy = entitlement;
   error = 0;
   v5 = *MEMORY[0x277CBECE8];
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -150,7 +150,6 @@
 
   CFRelease(v7);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

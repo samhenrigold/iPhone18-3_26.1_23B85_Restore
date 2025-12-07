@@ -43,29 +43,29 @@
 
   v7 = MEMORY[0x277CCAAB0];
   invitationToken = [(ASSecureCloudShareItem *)self invitationToken];
-  v14 = 0;
-  v9 = [v7 archivedDataWithRootObject:invitationToken requiringSecureCoding:1 error:&v14];
-  v10 = v14;
+  v16 = 0;
+  v9 = [v7 archivedDataWithRootObject:invitationToken requiringSecureCoding:1 error:&v16];
+  v10 = v16;
 
   if (!v9 || v10)
   {
-    ASLoggingInitialize();
-    v12 = ASLogDefault;
+    ASLoggingInitialize(v11, v12);
+    v14 = ASLogDefault;
     if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_ERROR))
     {
       [(ASSecureCloudShareItem(InvitationCodingSupport) *)v10 codableShareItem];
     }
 
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
     [(ASCodableSecureCloudShareItem *)v3 setInvitationToken:v9];
-    v11 = v3;
+    v13 = v3;
   }
 
-  return v11;
+  return v13;
 }
 
 - (ASSecureCloudShareItem)initWithZoneName:(id)name shareURL:(id)l invitationToken:(id)token

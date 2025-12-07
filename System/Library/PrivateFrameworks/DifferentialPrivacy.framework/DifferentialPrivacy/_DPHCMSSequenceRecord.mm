@@ -1,10 +1,24 @@
 @interface _DPHCMSSequenceRecord
 - (BOOL)copyFromManagedObject:(id)object;
 - (BOOL)copyToManagedObject:(id)object;
+- (_DPHCMSSequenceRecord)initWithKey:(id)key plainSequence:(id)sequence sequence:(id)a5 sequenceHashIndex:(unsigned __int16)index sequenceBitIndex:(unsigned int)bitIndex creationDate:(double)date submitted:(BOOL)submitted objectId:(id)self0;
 - (id)description;
 @end
 
 @implementation _DPHCMSSequenceRecord
+
+- (_DPHCMSSequenceRecord)initWithKey:(id)key plainSequence:(id)sequence sequence:(id)a5 sequenceHashIndex:(unsigned __int16)index sequenceBitIndex:(unsigned int)bitIndex creationDate:(double)date submitted:(BOOL)submitted objectId:(id)self0
+{
+  v12.receiver = self;
+  v12.super_class = _DPHCMSSequenceRecord;
+  result = [(_DPCMSSequenceRecord *)&v12 initWithKey:key plainSequence:sequence sequence:a5 sequenceHashIndex:index creationDate:submitted submitted:id objectId:date];
+  if (result)
+  {
+    result->_sequenceBitIndex = bitIndex;
+  }
+
+  return result;
+}
 
 - (id)description
 {

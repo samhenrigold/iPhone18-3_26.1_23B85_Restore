@@ -1,7 +1,9 @@
 @interface STSCredential
++ (STSCredential)credentialWithType:(unsigned __int8)type identifier:(id)identifier subIdentifier:(id)subIdentifier;
 + (id)unifiedAccessCredentialWithAID:(id)d publicKeyIdentifier:(id)identifier;
 + (id)unifiedAccessCredentialWithAIDs:(id)ds primaryPublicKeyIdentifier:(id)identifier secondaryAid:(id)aid secondaryPublicKeyIdentifier:(id)keyIdentifier;
 - (STSCredential)initWithCoder:(id)coder;
+- (STSCredential)initWithType:(unsigned __int8)type identifier:(id)identifier subIdentifier:(id)subIdentifier;
 - (STSCredential)initWithType:(unsigned __int8)type identifier:(id)identifier subIdentifier:(id)subIdentifier secondaryIdentifier:(id)secondaryIdentifier secondarySubIdentifier:(id)secondarySubIdentifier;
 - (__SecAccessControl)copyAccessControl;
 - (id)description;
@@ -9,6 +11,16 @@
 @end
 
 @implementation STSCredential
+
++ (STSCredential)credentialWithType:(unsigned __int8)type identifier:(id)identifier subIdentifier:(id)subIdentifier
+{
+  typeCopy = type;
+  subIdentifierCopy = subIdentifier;
+  identifierCopy = identifier;
+  v9 = [[STSCredential alloc] initWithType:typeCopy identifier:identifierCopy subIdentifier:subIdentifierCopy];
+
+  return v9;
+}
 
 + (id)unifiedAccessCredentialWithAID:(id)d publicKeyIdentifier:(id)identifier
 {
@@ -50,6 +62,16 @@
   }
 
   return v18;
+}
+
+- (STSCredential)initWithType:(unsigned __int8)type identifier:(id)identifier subIdentifier:(id)subIdentifier
+{
+  typeCopy = type;
+  subIdentifierCopy = subIdentifier;
+  identifierCopy = identifier;
+  v10 = [[STSCredential alloc] initWithType:typeCopy identifier:identifierCopy subIdentifier:subIdentifierCopy secondaryIdentifier:0 secondarySubIdentifier:0];
+
+  return v10;
 }
 
 - (STSCredential)initWithCoder:(id)coder

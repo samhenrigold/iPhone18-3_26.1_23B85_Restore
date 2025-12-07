@@ -44,26 +44,25 @@
 - (void)advertisingB389Lost:(id)lost
 {
   v5 = sub_10028088C(&unk_100976120, &qword_1007F9260);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (lost)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for UUID();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = type metadata accessor for UUID();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = type metadata accessor for UUID();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = type metadata accessor for UUID();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  SDB389SetupAgent.advertisingB389Lost(_:)(v8);
+  SDB389SetupAgent.advertisingB389Lost(_:)(v7);
 
-  sub_100005508(v8, &unk_100976120, &qword_1007F9260);
+  sub_100005508(v7, &unk_100976120, &qword_1007F9260);
 }
 
 - (void)showNFCPromptWithConfig:(id)config responseHandler:(id)handler
@@ -100,7 +99,7 @@
   configCopy = config;
   selfCopy = self;
   SDB389SetupAgent.updateNFCPromptConfig(_:responseHandler:)(config, v6, v7);
-  sub_100015D04(v6);
+  sub_100015D04(v6, v7);
 }
 
 - (void)dismissNFCPrompt
@@ -115,33 +114,31 @@
 {
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (void)setupDevice:(id)device homeIdentifier:(id)identifier completion:(id)completion
 {
   v6 = sub_10028088C(&unk_100976120, &qword_1007F9260);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v12 - v8;
+  v8 = &v11 - v7;
   if (identifier)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = type metadata accessor for UUID();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v9 = type metadata accessor for UUID();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v11 = type metadata accessor for UUID();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v10 = type metadata accessor for UUID();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
-  sub_100005508(v9, &unk_100976120, &qword_1007F9260);
+  sub_100005508(v8, &unk_100976120, &qword_1007F9260);
 }
 
 - (void)remoteAlertHandleDidActivate:(id)activate

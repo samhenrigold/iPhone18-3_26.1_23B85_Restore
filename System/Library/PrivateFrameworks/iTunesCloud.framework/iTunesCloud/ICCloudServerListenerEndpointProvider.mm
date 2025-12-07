@@ -32,9 +32,11 @@
 
 uint64_t __63__ICCloudServerListenerEndpointProvider__remoteObjectInterface__block_invoke()
 {
-  _remoteObjectInterface_sListenerEndpointProviderRemoteObjectInterface = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2CCEED8];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2CCEED8];
+  v1 = _remoteObjectInterface_sListenerEndpointProviderRemoteObjectInterface;
+  _remoteObjectInterface_sListenerEndpointProviderRemoteObjectInterface = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_remoteObjectInterface

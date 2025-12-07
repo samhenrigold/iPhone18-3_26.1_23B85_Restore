@@ -17,7 +17,7 @@
 
 + (UIEdgeInsets)secondaryToolbarPaddingForSizeClass:(int64_t)class safeAreaInsets:(UIEdgeInsets)insets
 {
-  sub_1A3C7E7F0(class, insets.bottom);
+  sub_1A3C7E7F0(class, insets.bottom, a2);
   result.right = v7;
   result.bottom = v6;
   result.left = v5;
@@ -28,7 +28,7 @@
 - (PXPhotosChromeSpec)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PhotosChromeSpec();
+  v3.super_class = type metadata accessor for PhotosChromeSpec(self, a2);
   return [(PXPhotosChromeSpec *)&v3 init];
 }
 

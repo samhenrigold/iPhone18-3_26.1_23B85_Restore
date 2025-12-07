@@ -82,66 +82,54 @@
 
 + (id)stringForLocationConsumer:(unint64_t)consumer
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (consumer >= 5)
+  v14 = *MEMORY[0x1E69E9840];
+  if (consumer < 5)
   {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      v10 = NSStringFromSelector(a2);
-      *buf = 138412546;
-      v12 = v10;
-      v13 = 2048;
-      consumerCopy = consumer;
-      _os_log_error_impl(&dword_1A7FD3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ called with invalid PPLocationConsumer value of %lu", buf, 0x16u);
-    }
-
-    v6 = MEMORY[0x1E695DF30];
-    v7 = *MEMORY[0x1E695D930];
-    v8 = NSStringFromSelector(a2);
-    [v6 raise:v7 format:{@"%@ called with invalid PPLocationConsumer value of %lu", v8, consumer}];
-
-    result = @"invalid";
+    return off_1E77F6CB8[consumer];
   }
 
-  else
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    result = off_1E77F6CB8[consumer];
+    v9 = NSStringFromSelector(a2);
+    *buf = 138412546;
+    v11 = v9;
+    v12 = 2048;
+    consumerCopy = consumer;
+    _os_log_error_impl(&dword_1A7FD3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ called with invalid PPLocationConsumer value of %lu", buf, 0x16u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = MEMORY[0x1E695DF30];
+  v7 = *MEMORY[0x1E695D930];
+  v8 = NSStringFromSelector(a2);
+  [v6 raise:v7 format:{@"%@ called with invalid PPLocationConsumer value of %lu", v8, consumer}];
+
+  return @"invalid";
 }
 
 + (id)stringForDeviceFilter:(unint64_t)filter
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (filter >= 3)
+  v14 = *MEMORY[0x1E69E9840];
+  if (filter < 3)
   {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      v10 = NSStringFromSelector(a2);
-      *buf = 138412546;
-      v12 = v10;
-      v13 = 2048;
-      filterCopy = filter;
-      _os_log_error_impl(&dword_1A7FD3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ called with invalid PPDeviceFilter value of %lu", buf, 0x16u);
-    }
-
-    v6 = MEMORY[0x1E695DF30];
-    v7 = *MEMORY[0x1E695D930];
-    v8 = NSStringFromSelector(a2);
-    [v6 raise:v7 format:{@"%@ called with invalid PPDeviceFilter value of %lu", v8, filter}];
-
-    result = @"invalid";
+    return off_1E77F6CA0[filter];
   }
 
-  else
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    result = off_1E77F6CA0[filter];
+    v9 = NSStringFromSelector(a2);
+    *buf = 138412546;
+    v11 = v9;
+    v12 = 2048;
+    filterCopy = filter;
+    _os_log_error_impl(&dword_1A7FD3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ called with invalid PPDeviceFilter value of %lu", buf, 0x16u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = MEMORY[0x1E695DF30];
+  v7 = *MEMORY[0x1E695D930];
+  v8 = NSStringFromSelector(a2);
+  [v6 raise:v7 format:{@"%@ called with invalid PPDeviceFilter value of %lu", v8, filter}];
+
+  return @"invalid";
 }
 
 @end

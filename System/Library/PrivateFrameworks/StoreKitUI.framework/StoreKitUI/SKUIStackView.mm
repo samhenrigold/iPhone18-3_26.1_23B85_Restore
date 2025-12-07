@@ -103,7 +103,7 @@
   [(NSMutableArray *)stackViews enumerateObjectsUsingBlock:v12];
 }
 
-void __66__SKUIStackView_performCompressionAnimationWithCompletionHandler___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __66__SKUIStackView_performCompressionAnimationWithCompletionHandler___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v45[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
@@ -138,7 +138,7 @@ void __66__SKUIStackView_performCompressionAnimationWithCompletionHandler___bloc
 
   if (v25)
   {
-    [v25 transform];
+    objc_msgSend_transform(v25);
   }
 
   else
@@ -161,7 +161,7 @@ void __66__SKUIStackView_performCompressionAnimationWithCompletionHandler___bloc
   v30 = MEMORY[0x277CCAE60];
   if (v22)
   {
-    [v22 transform];
+    objc_msgSend_transform(v22);
   }
 
   else
@@ -186,7 +186,7 @@ void __66__SKUIStackView_performCompressionAnimationWithCompletionHandler___bloc
   v35 = v34;
   [v29 duration];
   [v32 setDuration:v35 + v36];
-  if (*(a1 + 40) && [*(*(a1 + 32) + 416) count] - 1 == a3)
+  if (*(a1 + 40) && ([*(*(a1 + 32) + 416) count] - 1) == a3)
   {
     v37 = [SKUIBlockAnimationDelegate alloc];
     v40[0] = MEMORY[0x277D85DD0];

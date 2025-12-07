@@ -77,104 +77,94 @@
 
 - (id)responseForServerData:(id)data
 {
-  v22 = *MEMORY[0x1E69E9840];
-  if (!self->_ntlmError)
+  v19 = *MEMORY[0x1E69E9840];
+  if (self->_ntlmError)
   {
-    if (self->_ntlmGeneratorRef)
+    return 0;
+  }
+
+  if (self->_ntlmGeneratorRef)
+  {
+    account = [(ECSASLAuthenticator *)self account];
+    domain = [(ECAuthenticatableAccount *)account domain];
+    if (domain)
     {
-      account = [(ECSASLAuthenticator *)self account];
-      domain = [(ECAuthenticatableAccount *)account domain];
-      if (domain)
-      {
-        v7 = domain;
-      }
-
-      else
-      {
-        v7 = &stru_1F273A5E0;
-      }
-
-      username = [(ECAuthenticatableAccount *)account username];
-      if (username)
-      {
-        v9 = username;
-      }
-
-      else
-      {
-        v9 = &stru_1F273A5E0;
-      }
-
-      [(ECAuthenticatableAccount *)account password];
-      v10 = MFLogGeneral();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-      {
-        *buf = 138412546;
-        v19 = v9;
-        v20 = 2112;
-        v21 = v7;
-        _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_INFO, "NTLM - respond to server challenge; user = %@; domain = %@", buf, 0x16u);
-      }
-
-      ntlmGeneratorRef = self->_ntlmGeneratorRef;
-      ClientResponse = NtlmCreateClientResponse();
+      v7 = domain;
     }
 
     else
     {
-      if ([data length])
-      {
-        v13 = MFLogGeneral();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_INFO, "*** Unexpected server response during NTLM authentication", buf, 2u);
-        }
-      }
-
-      v14 = NtlmGeneratorCreate();
-      self->_ntlmError = v14;
-      if (v14)
-      {
-        goto LABEL_19;
-      }
-
-      v17 = self->_ntlmGeneratorRef;
-      ClientResponse = NtlmCreateClientRequest();
+      v7 = &stru_1F273A5E0;
     }
 
-    self->_ntlmError = ClientResponse;
-    if (!ClientResponse)
+    username = [(ECAuthenticatableAccount *)account username];
+    if (username)
     {
-LABEL_21:
-      result = 0;
-      goto LABEL_22;
+      v9 = username;
     }
 
-LABEL_19:
-    v15 = MFLogGeneral();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    else
     {
-      [(_MFNTLMAuthenticator *)&self->_ntlmError responseForServerData:v15];
+      v9 = &stru_1F273A5E0;
     }
 
-    goto LABEL_21;
+    [(ECAuthenticatableAccount *)account password];
+    v10 = MFLogGeneral();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_INFO, "NTLM - respond to server challenge; user = %@; domain = %@", buf, 0x16u);
+    }
+
+    ClientResponse = NtlmCreateClientResponse();
   }
 
-  result = 0;
-LABEL_22:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  else
+  {
+    if ([data length])
+    {
+      v12 = MFLogGeneral();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_INFO, "*** Unexpected server response during NTLM authentication", buf, 2u);
+      }
+    }
+
+    v13 = NtlmGeneratorCreate();
+    self->_ntlmError = v13;
+    if (v13)
+    {
+      goto LABEL_19;
+    }
+
+    ClientResponse = NtlmCreateClientRequest();
+  }
+
+  self->_ntlmError = ClientResponse;
+  if (ClientResponse)
+  {
+LABEL_19:
+    v14 = MFLogGeneral();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [(_MFNTLMAuthenticator *)&self->_ntlmError responseForServerData:v14];
+    }
+  }
+
+  return 0;
 }
 
 - (void)responseForServerData:(int *)a1 .cold.1(int *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "*** Error %ld occurred during NTLM authentication", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "*** Error %ld occurred during NTLM authentication", &v3, 0xCu);
 }
 
 @end

@@ -274,7 +274,6 @@ LABEL_16:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -294,7 +293,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  updated = self->_updated;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -309,7 +307,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  hasAvatar = self->_hasAvatar;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -324,12 +321,10 @@ LABEL_5:
   }
 
 LABEL_20:
-  publicSuccess = self->_publicSuccess;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_6:
-    privateSuccess = self->_privateSuccess;
     PBDataWriterWriteUint32Field();
   }
 
@@ -341,7 +336,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x40) != 0)
   {
-    publicOperationalErrorCode = self->_publicOperationalErrorCode;
     PBDataWriterWriteUint32Field();
   }
 
@@ -350,16 +344,15 @@ LABEL_7:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x10) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) == 0)
   {
-    if ((v7 & 8) == 0)
+    if ((v5 & 8) == 0)
     {
       goto LABEL_15;
     }
 
 LABEL_23:
-    linkQuality = self->_linkQuality;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -369,22 +362,20 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  privateOperationalErrorCode = self->_privateOperationalErrorCode;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
     goto LABEL_23;
   }
 
 LABEL_15:
-  if ((v7 & 2) == 0)
+  if ((v5 & 2) == 0)
   {
     return;
   }
 
 LABEL_24:
-  connectionType = self->_connectionType;
 
   PBDataWriterWriteUint32Field();
 }

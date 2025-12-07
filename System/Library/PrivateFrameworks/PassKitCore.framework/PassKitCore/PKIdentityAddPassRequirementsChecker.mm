@@ -7,7 +7,7 @@
 
 - (BOOL)hasConflictingIdentityPassWithIdentityPasses:(id)passes
 {
-  sub_1AD3D3200(0, &unk_1EB599EA0);
+  sub_1AD3D3200(0, &unk_1EB599EA0, off_1E79C1868);
   v4 = sub_1ADB06610();
   v5 = (self + OBJC_IVAR____TtC11PassKitCore36PKIdentityAddPassRequirementsChecker_documentType);
   if ((self->documentType[OBJC_IVAR____TtC11PassKitCore36PKIdentityAddPassRequirementsChecker_documentType] & 1) != 0 || (v6 = *v5, *v5 == 2))

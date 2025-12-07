@@ -24,6 +24,7 @@
 - (void)setConfiguration:(id)configuration;
 - (void)updateZone:(id)zone withNewZone:(id)newZone;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFSessionTrackerAppHeartRateConfigViewController
@@ -59,6 +60,33 @@
   bundleIdentifier = [v2 bundleIdentifier];
 
   return bundleIdentifier;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = HPRFSessionTrackerAppHeartRateConfigViewController;
+  [(HPRFSessionTrackerAppHeartRateConfigViewController *)&v9 viewWillAppear:appear];
+  +[HPRFSessionTrackerAppSettingsNavigationDonation donateUserVisitForHeartRateZonesSettings];
+  _HKInitializeLogging();
+  v4 = HKLogWorkouts;
+  if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_INFO))
+  {
+    LOWORD(buf[0]) = 0;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Viewing Heart Rate Zones", buf, 2u);
+  }
+
+  objc_initWeak(buf, self);
+  request = [(HPRFSessionTrackerAppHeartRateConfigViewController *)self request];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_885C;
+  v6[3] = &unk_351E0;
+  objc_copyWeak(&v7, buf);
+  [request fetchActiveAndInactiveConfigurationWithCompletion:v6];
+
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(buf);
 }
 
 - (void)_mainThread_handleLoadingActiveConfiguration:(id)configuration inactiveConfiguration:(id)inactiveConfiguration

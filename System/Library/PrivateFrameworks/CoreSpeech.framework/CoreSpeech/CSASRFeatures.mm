@@ -83,10 +83,9 @@
   trailingSilenceDuration = self->_trailingSilenceDuration;
   eosLikelihood = self->_eosLikelihood;
   v6 = [(NSArray *)self->_pauseCounts componentsJoinedByString:@", "];
-  taskName = self->_taskName;
-  v8 = [NSString stringWithFormat:@"{wordCount: %ld, trailingSilDuration: %ld, eosLikelihood: %f, pauseCounts: (%@), silencePosterior: %f, taskName: %@, processedAudioDurationInMilliseconds: %ld, acousticEndpointerScore: %f}", wordCount, trailingSilenceDuration, *&eosLikelihood, v6, *&self->_silencePosterior, taskName, self->_processedAudioDurationInMilliseconds, *&self->_acousticEndpointerScore];
+  v7 = [NSString stringWithFormat:@"{wordCount: %ld, trailingSilDuration: %ld, eosLikelihood: %f, pauseCounts: (%@), silencePosterior: %f, taskName: %@, processedAudioDurationInMilliseconds: %ld, acousticEndpointerScore: %f}", wordCount, trailingSilenceDuration, *&eosLikelihood, v6, *&self->_silencePosterior, self->_taskName, self->_processedAudioDurationInMilliseconds, *&self->_acousticEndpointerScore];
 
-  return v8;
+  return v7;
 }
 
 - (CSASRFeatures)initWithWordCount:(int64_t)count trailingSilenceDuration:(int64_t)duration eosLikelihood:(double)likelihood pauseCounts:(id)counts silencePosterior:(double)posterior taskName:(id)name processedAudioDurationInMilliseconds:(int64_t)milliseconds acousticEndpointerScore:(double)self0

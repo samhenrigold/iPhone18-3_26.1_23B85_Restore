@@ -191,7 +191,7 @@
     {
       if (configCopy)
       {
-        [configCopy ear_toString];
+        objc_msgSend_ear_toString(configCopy);
       }
 
       quasar::SpeechRecognizer::GetSpeechModelInfo();

@@ -53,8 +53,9 @@
 
 - (void)presentationTransitionDidEnd:(BOOL)end
 {
+  endCopy = end;
   selfCopy = self;
-  sub_18B506C8C(end);
+  sub_18B506C8C(endCopy);
 }
 
 - (void)backgroundTapHandler
@@ -62,11 +63,12 @@
   v2 = *(&self->super.super.isa + OBJC_IVAR____TtC5AVKit37InputPickeriPadPresentationController_dismissHandler);
   if (v2)
   {
+    v3 = *(&self->super._traitInitializationComplete + OBJC_IVAR____TtC5AVKit37InputPickeriPadPresentationController_dismissHandler);
     selfCopy = self;
-    v4 = sub_18B4A324C(v2);
-    v2(v4);
+    v5 = sub_18B4A324C(v2, v3);
+    v2(v5);
 
-    sub_18B4A31A4(v2);
+    sub_18B4A31A4(v2, v3);
   }
 }
 

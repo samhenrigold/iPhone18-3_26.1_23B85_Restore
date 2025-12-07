@@ -4,8 +4,6 @@
 - (id)initWithWindowScene:(void *)scene activityManager:;
 - (id)previewContextForAction:(id)action;
 - (id)showPreviewForAction:(id)action withContext:(id)context;
-- (uint64_t)removeObserver:(uint64_t)result;
-- (uint64_t)removePreviewProvider:(uint64_t)result;
 - (void)_dismissBanner:(uint64_t)banner;
 - (void)_notifyDidBeginPreview:(void *)preview forAction:;
 - (void)_notifyDidEndPreview:(uint64_t)preview forAction:(void *)action withResult:(void *)result;
@@ -13,6 +11,8 @@
 - (void)_presentBanner:(uint64_t)banner;
 - (void)addPreviewProvider:(uint64_t)provider;
 - (void)provideDiscreteNoActionInteractionFeedback;
+- (void)removeObserver:(void *)result;
+- (void)removePreviewProvider:(void *)result;
 @end
 
 @implementation SBSystemActionPreviewCoordinator
@@ -25,12 +25,12 @@
   {
     if (!v6)
     {
-      [SBSystemActionPreviewCoordinator initWithWindowScene:? activityManager:?];
+      [SBSystemActionPreviewCoordinator initWithWindowScene:self activityManager:?];
     }
 
     if (!sceneCopy)
     {
-      [SBSystemActionPreviewCoordinator initWithWindowScene:? activityManager:?];
+      [SBSystemActionPreviewCoordinator initWithWindowScene:self activityManager:?];
     }
 
     v10.receiver = self;
@@ -163,7 +163,7 @@ LABEL_12:
       {
         weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
         v28 = self[3];
-        v27 = (self + 3);
+        v27 = self + 3;
         *v27 = weakObjectsHashTable;
 
         v25 = *v27;
@@ -274,7 +274,7 @@ LABEL_46:
           {
             strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
             v56 = self[5];
-            v55 = (self + 5);
+            v55 = self + 5;
             *v55 = strongToStrongObjectsMapTable;
 
             v53 = *v55;
@@ -347,7 +347,7 @@ LABEL_25:
           }
 
           newSimplePreviewElement = [v5 newSimplePreviewElement];
-          v32 = SBLogSystemActionPreviewing();
+          v32 = SBLogSystemActionPreviewing(newSimplePreviewElement);
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -386,7 +386,7 @@ LABEL_25:
           {
             strongToStrongObjectsMapTable2 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
             v40 = self[4];
-            v39 = (self + 4);
+            v39 = self + 4;
             *v39 = strongToStrongObjectsMapTable2;
 
             v37 = *v39;
@@ -411,25 +411,25 @@ LABEL_37:
   return self;
 }
 
-void __69__SBSystemActionPreviewCoordinator_showPreviewForAction_withContext___block_invoke(uint64_t a1, void *a2)
+void __69__SBSystemActionPreviewCoordinator_showPreviewForAction_withContext___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = a2;
+  v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    [SBSystemActionPreviewCoordinator _notifyDidInvalidateExpansionOfPreview:v5 forAction:*(a1 + 32) withResult:?];
+    [SBSystemActionPreviewCoordinator _notifyDidInvalidateExpansionOfPreview:v6 forAction:*(a1 + 32) withResult:?];
   }
 }
 
-void __69__SBSystemActionPreviewCoordinator_showPreviewForAction_withContext___block_invoke_2(uint64_t a1, void *a2)
+void __69__SBSystemActionPreviewCoordinator_showPreviewForAction_withContext___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = a2;
+  v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    [SBSystemActionPreviewCoordinator _notifyDidEndPreview:v5 forAction:*(a1 + 32) withResult:?];
+    [SBSystemActionPreviewCoordinator _notifyDidEndPreview:v6 forAction:*(a1 + 32) withResult:?];
   }
 }
 
@@ -556,7 +556,7 @@ void __70__SBSystemActionPreviewCoordinator__showPreviewForAction_withContext___
   }
 }
 
-uint64_t __70__SBSystemActionPreviewCoordinator__showPreviewForAction_withContext___block_invoke_2_74(uint64_t a1, uint64_t a2)
+void *__70__SBSystemActionPreviewCoordinator__showPreviewForAction_withContext___block_invoke_2_74(uint64_t a1, uint64_t a2)
 {
   v3 = [(SBSystemActionCompoundPreviewAssertion *)a2 state];
   [*(a1 + 32) setPreviewing:v3 & 1];
@@ -574,11 +574,11 @@ uint64_t __70__SBSystemActionPreviewCoordinator__showPreviewForAction_withContex
   return result;
 }
 
-uint64_t __70__SBSystemActionPreviewCoordinator__showPreviewForAction_withContext___block_invoke_3_78(uint64_t result, uint64_t a2, uint64_t a3)
+id *__70__SBSystemActionPreviewCoordinator__showPreviewForAction_withContext___block_invoke_3_78(id *result, uint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
-    return [*(result + 32) pop];
+    return [result[4] pop];
   }
 
   return result;
@@ -605,21 +605,21 @@ uint64_t __70__SBSystemActionPreviewCoordinator__showPreviewForAction_withContex
   }
 }
 
-- (uint64_t)removePreviewProvider:(uint64_t)result
+- (void)removePreviewProvider:(void *)result
 {
   if (result)
   {
-    return OUTLINED_FUNCTION_0_46(*(result + 8), a2);
+    return OUTLINED_FUNCTION_0_46(result[1], a2);
   }
 
   return result;
 }
 
-- (uint64_t)removeObserver:(uint64_t)result
+- (void)removeObserver:(void *)result
 {
   if (result)
   {
-    return OUTLINED_FUNCTION_0_46(*(result + 16), a2);
+    return OUTLINED_FUNCTION_0_46(result[2], a2);
   }
 
   return result;
@@ -778,46 +778,46 @@ uint64_t __70__SBSystemActionPreviewCoordinator__showPreviewForAction_withContex
   }
 }
 
-- (void)initWithWindowScene:(const char *)a1 activityManager:.cold.1(const char *a1)
+- (void)initWithWindowScene:(const char *)a1 activityManager:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"activityManager != ((void *)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"activityManager != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBSystemActionPreviewCoordinator.m";
-    v9 = 1024;
-    v10 = 59;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBSystemActionPreviewCoordinator.m";
+    v10 = 1024;
+    v11 = 59;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithWindowScene:(const char *)a1 activityManager:.cold.2(const char *a1)
+- (void)initWithWindowScene:(const char *)a1 activityManager:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"windowScene != ((void *)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"windowScene != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBSystemActionPreviewCoordinator.m";
-    v9 = 1024;
-    v10 = 58;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBSystemActionPreviewCoordinator.m";
+    v10 = 1024;
+    v11 = 58;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

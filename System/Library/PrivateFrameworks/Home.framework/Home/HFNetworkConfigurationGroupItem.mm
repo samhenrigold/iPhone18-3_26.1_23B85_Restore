@@ -86,7 +86,7 @@ HFNetworkConfigurationItem *__61__HFNetworkConfigurationGroupItem_initWithGroup_
 
 id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   v3 = [a2 mutableCopy];
   v4 = [*(a1 + 32) group];
   v5 = [v4 hf_home];
@@ -96,16 +96,16 @@ id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_inv
     v6 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v72 = *(a1 + 32);
-      v73 = [v72 group];
-      v74 = [v73 hf_title];
-      v75 = [*(a1 + 32) group];
+      v71 = *(a1 + 32);
+      v72 = [v71 group];
+      v73 = [v72 hf_title];
+      v74 = [*(a1 + 32) group];
       *buf = 134218498;
-      v89 = v72;
-      v90 = 2112;
-      v91 = v74;
-      v92 = 2112;
-      v93 = v75;
+      v88 = v71;
+      v89 = 2112;
+      v90 = v73;
+      v91 = 2112;
+      v92 = v74;
       _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "<HFNetworkConfigurationGroupItem %p (%@)>: Nil home for HMAccessoryNetworkProtectionGroup %@", buf, 0x20u);
     }
   }
@@ -117,7 +117,7 @@ id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_inv
   [v8 addObject:v9];
 
   [v8 na_safeAddObject:v5];
-  v86 = v8;
+  v85 = v8;
   [v3 setObject:v8 forKeyedSubscript:@"dependentHomeKitObjects"];
   v10 = [*(a1 + 32) group];
   v11 = [v10 hf_title];
@@ -131,16 +131,16 @@ id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_inv
     v14 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v76 = *(a1 + 32);
-      v77 = [v76 group];
-      v78 = [v77 hf_title];
-      v79 = [*(a1 + 32) group];
+      v75 = *(a1 + 32);
+      v76 = [v75 group];
+      v77 = [v76 hf_title];
+      v78 = [*(a1 + 32) group];
       *buf = 134218498;
-      v89 = v76;
-      v90 = 2112;
-      v91 = v78;
-      v92 = 2112;
-      v93 = v79;
+      v88 = v75;
+      v89 = 2112;
+      v90 = v77;
+      v91 = 2112;
+      v92 = v78;
       _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "<HFNetworkConfigurationGroupItem %p (%@)>: Nil manufacturer for HMAccessoryNetworkProtectionGroup %@", buf, 0x20u);
     }
   }
@@ -156,16 +156,16 @@ id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_inv
     v20 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v80 = *(a1 + 32);
-      v81 = [v80 group];
-      v82 = [v81 hf_title];
-      v83 = [*(a1 + 32) group];
+      v79 = *(a1 + 32);
+      v80 = [v79 group];
+      v81 = [v80 hf_title];
+      v82 = [*(a1 + 32) group];
       *buf = 134218498;
-      v89 = v80;
-      v90 = 2112;
-      v91 = v82;
-      v92 = 2112;
-      v93 = v83;
+      v88 = v79;
+      v89 = 2112;
+      v90 = v81;
+      v91 = 2112;
+      v92 = v82;
       _os_log_error_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_ERROR, "<HFNetworkConfigurationGroupItem %p (%@)>: Nil category for HMAccessoryNetworkProtectionGroup %@", buf, 0x20u);
     }
   }
@@ -190,26 +190,26 @@ id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_inv
   v31 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v85 = v5;
+    v84 = v5;
     v32 = *(a1 + 32);
-    v84 = [v32 group];
-    v33 = [v84 hf_title];
+    v83 = [v32 group];
+    v33 = [v83 hf_title];
     v34 = [v3 objectForKeyedSubscript:@"HFResultNetworkConfigurationTargetProtectionMode"];
     v35 = [v34 unsignedLongValue];
     v36 = [v3 objectForKeyedSubscript:@"HFResultNetworkConfigurationCurrentProtectionMode"];
     v37 = [v36 unsignedLongValue];
     v38 = [*(a1 + 32) group];
     *buf = 134219010;
-    v89 = v32;
-    v5 = v85;
-    v90 = 2112;
-    v91 = v33;
-    v92 = 2048;
-    v93 = v35;
-    v94 = 2048;
-    v95 = v37;
-    v96 = 2112;
-    v97 = v38;
+    v88 = v32;
+    v5 = v84;
+    v89 = 2112;
+    v90 = v33;
+    v91 = 2048;
+    v92 = v35;
+    v93 = 2048;
+    v94 = v37;
+    v95 = 2112;
+    v96 = v38;
     _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "<HFNetworkConfigurationGroupItem %p (%@)>: Protection mode to display (target %lu, current %lu) for HMAccessoryNetworkProtectionGroup %@", buf, 0x34u);
 
     v21 = 0x277CD1000;
@@ -218,12 +218,12 @@ id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_inv
   v39 = 0x277CCA000uLL;
   v40 = MEMORY[0x277CCABB0];
   v41 = [*(a1 + 32) profiles];
-  v87[0] = MEMORY[0x277D85DD0];
-  v87[1] = 3221225472;
-  v87[2] = __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_invoke_14;
-  v87[3] = &unk_277DFC330;
-  v87[4] = *(a1 + 32);
-  v42 = [v40 numberWithBool:{objc_msgSend(v41, "na_any:", v87)}];
+  v86[0] = MEMORY[0x277D85DD0];
+  v86[1] = 3221225472;
+  v86[2] = __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_invoke_14;
+  v86[3] = &unk_277DFC330;
+  v86[4] = *(a1 + 32);
+  v42 = [v40 numberWithBool:{objc_msgSend(v41, "na_any:", v86)}];
   [v3 setObject:v42 forKeyedSubscript:@"HFResultNetworkConfigurationProtectionModeMismatch"];
 
   v43 = MEMORY[0x277CCABB0];
@@ -240,20 +240,20 @@ id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_inv
     v48 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
-      v67 = *(a1 + 32);
-      v68 = [v67 group];
-      v69 = [v68 hf_title];
+      v66 = *(a1 + 32);
+      v67 = [v66 group];
+      v68 = [v67 hf_title];
+      v69 = [*(a1 + 32) group];
+      v21 = [v69 targetProtectionMode];
       v70 = [*(a1 + 32) group];
-      v21 = [v70 targetProtectionMode];
-      v71 = [*(a1 + 32) group];
       *buf = 134218754;
-      v89 = v67;
-      v90 = 2112;
-      v91 = v69;
-      v92 = 2048;
-      v93 = v21;
-      v94 = 2112;
-      v95 = v71;
+      v88 = v66;
+      v89 = 2112;
+      v90 = v68;
+      v91 = 2048;
+      v92 = v21;
+      v93 = 2112;
+      v94 = v70;
       _os_log_error_impl(&dword_20D9BF000, v48, OS_LOG_TYPE_ERROR, "<HFNetworkConfigurationGroupItem %p (%@)>: Invalid targetProtectionMode %lu for HMAccessoryNetworkProtectionGroup %@", buf, 0x2Au);
 
       v39 = 0x277CCA000;
@@ -303,14 +303,12 @@ id __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_inv
 
   v64 = [MEMORY[0x277D2C900] futureWithResult:v3];
 
-  v65 = *MEMORY[0x277D85DE8];
-
   return v64;
 }
 
 uint64_t __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___block_invoke_14(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CD1CA8];
   v5 = [v3 currentProtectionMode];
@@ -322,25 +320,24 @@ uint64_t __63__HFNetworkConfigurationGroupItem__subclass_updateWithOptions___blo
     v8 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = [v11 group];
-      v13 = [v12 hf_title];
-      v14 = [*(a1 + 32) group];
-      v15 = 134219010;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v13;
-      v19 = 2048;
-      v20 = [v14 targetProtectionMode];
-      v21 = 2048;
-      v22 = [v3 currentProtectionMode];
-      v23 = 2112;
-      v24 = v3;
-      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "<HFNetworkConfigurationGroupItem %p (%@)>: Protection mode mismatch (target %lu != current %lu) for HMNetworkConfigurationProfile %@", &v15, 0x34u);
+      v10 = *(a1 + 32);
+      v11 = [v10 group];
+      v12 = [v11 hf_title];
+      v13 = [*(a1 + 32) group];
+      v14 = 134219010;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v12;
+      v18 = 2048;
+      v19 = [v13 targetProtectionMode];
+      v20 = 2048;
+      v21 = [v3 currentProtectionMode];
+      v22 = 2112;
+      v23 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "<HFNetworkConfigurationGroupItem %p (%@)>: Protection mode mismatch (target %lu != current %lu) for HMNetworkConfigurationProfile %@", &v14, 0x34u);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7 ^ 1u;
 }
 

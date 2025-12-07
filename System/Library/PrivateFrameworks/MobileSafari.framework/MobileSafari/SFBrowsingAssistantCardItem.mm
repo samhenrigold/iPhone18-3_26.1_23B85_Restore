@@ -131,7 +131,7 @@ LABEL_8:
 
   swift_getObjCClassMetadata();
   v25 = static SFBrowsingAssistantCardItem.readerCard(readerContext:title:summary:disclaimer:contextMenuInteraction:showReaderHandler:listenToPageHandler:listenToPageActionState:)(context, v27, title, v18, summary, disclaimer, v21, interactionCopy, sub_18BA2A9D8, v23, v16, v24, state);
-  sub_18B7B171C(v16);
+  sub_18B7B171C(v16, v24);
   swift_unknownObjectRelease();
 
   return v25;
@@ -158,7 +158,7 @@ LABEL_8:
   swift_getObjCClassMetadata();
   v12 = swift_unknownObjectRetain();
   v13 = static SFBrowsingAssistantCardItem.readerOptionsCard(readerContext:dismissReaderHandler:listenToPageHandler:listenToPageActionState:)(v12, sub_18BA2A9D8, v10, v9, v11, state);
-  sub_18B7B171C(v9);
+  sub_18B7B171C(v9, v11);
   swift_unknownObjectRelease();
 
   return v13;
@@ -180,7 +180,7 @@ LABEL_8:
   }
 
   v7 = _sSo27SFBrowsingAssistantCardItemC12MobileSafariE18listenToPageAction10forHandler5stateSo8UIActionCSgyycSg_So08SFReaderc6ListenhiJ5StateVtFZ_0(v5, v6, state);
-  sub_18B7B171C(v5);
+  sub_18B7B171C(v5, v6);
 
   return v7;
 }
@@ -273,10 +273,11 @@ LABEL_8:
   v6 = (self + OBJC_IVAR___SFBrowsingAssistantCardItem_selectionHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_18B7B171C(v7);
+  sub_18B7B171C(v7, v8);
 }
 
 - (unint64_t)type

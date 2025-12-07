@@ -168,34 +168,34 @@ LABEL_13:
 - (id)summarizeCompletedSessions
 {
   selfCopy = self;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = self->_completedSessions;
-  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
   v4 = 0.0;
   if (v3)
   {
     v5 = v3;
-    v27 = selfCopy;
+    v26 = selfCopy;
     v6 = 0;
     v7 = 0;
     v8 = 0;
     v9 = 0;
     v10 = 0;
-    v29 = *v31;
+    v28 = *v30;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v29)
+        if (*v30 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * i);
+        v12 = *(*(&v29 + 1) + 8 * i);
         sessionEndDate = [v12 sessionEndDate];
         sessionStartDate = [v12 sessionStartDate];
         [sessionEndDate timeIntervalSinceDate:sessionStartDate];
@@ -230,12 +230,12 @@ LABEL_13:
         [v12 numEngagementsInSuggestionsWidgetTodayPage];
       }
 
-      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v5);
     v16 = v10;
-    selfCopy = v27;
+    selfCopy = v26;
   }
 
   else
@@ -252,37 +252,35 @@ LABEL_13:
     v4 = v16 / [(NSMutableArray *)selfCopy->_completedSessions count];
   }
 
-  v34[0] = @"NumberOfLockUnlockSessions";
+  v33[0] = @"NumberOfLockUnlockSessions";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMutableArray count](selfCopy->_completedSessions, "count")}];
-  v35[0] = v17;
-  v34[1] = @"AverageSessionLength";
+  v34[0] = v17;
+  v33[1] = @"AverageSessionLength";
   v18 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v35[1] = v18;
-  v34[2] = @"NumSessionsWithAppLibraryPredictionEngagement";
+  v34[1] = v18;
+  v33[2] = @"NumSessionsWithAppLibraryPredictionEngagement";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
-  v35[2] = v19;
-  v34[3] = @"NumSessionsWithAppPanelEngagement";
+  v34[2] = v19;
+  v33[3] = @"NumSessionsWithAppPanelEngagement";
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
-  v35[3] = v20;
-  v34[4] = @"NumSessionsWithSpotlightActionEngagement";
+  v34[3] = v20;
+  v33[4] = @"NumSessionsWithSpotlightActionEngagement";
   v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-  v35[4] = v21;
-  v34[5] = @"NumSessionsWithSpotlightAppEngagement";
+  v34[4] = v21;
+  v33[5] = @"NumSessionsWithSpotlightAppEngagement";
   v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
-  v35[5] = v22;
-  v34[6] = @"NumSessionsWithSuggestionWidgetEngagement";
+  v34[5] = v22;
+  v33[6] = @"NumSessionsWithSuggestionWidgetEngagement";
   v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
-  v35[6] = v23;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:7];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v34[6] = v23;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:7];
 
   return v24;
 }
 
 + (id)_currentSettings
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = CFPreferencesCopyValue(@"SBSearchDisabledDomains", @"com.apple.spotlightui", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
   v4 = [v3 containsObject:@"DOMAIN_ZKWS"];
@@ -303,26 +301,26 @@ LABEL_13:
   [v2 setAppLibraryEnabled:bOOLValue];
   v8 = objc_opt_new();
   v9 = [v8 loadHomeScreenAndTodayPageConfigurationsWithError:0];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     v13 = *MEMORY[0x277CEBAE8];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         pageIndex = [v15 pageIndex];
         v17 = [MEMORY[0x277CEB568] appPredictionPanelExistsInPage:v15];
         if (pageIndex == v13)
@@ -352,13 +350,11 @@ LABEL_13:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -405,7 +401,7 @@ void __55__ATXHomeScreenLogUnlockSessionManager_currentSettings__block_invoke(ui
   v5 = [coderCopy decodeBoolForKey:@"isInSession"];
   v6 = MEMORY[0x277D42620];
   v7 = objc_opt_class();
-  v8 = __atxlog_handle_metrics();
+  v8 = __atxlog_handle_metrics(v7);
   v9 = [v6 robustDecodeObjectOfClass:v7 forKey:@"currentSession" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXHomeScreenLogUnlockSessionManager" errorCode:-1 logHandle:v8];
 
   v10 = objc_autoreleasePoolPush();
@@ -414,12 +410,12 @@ void __55__ATXHomeScreenLogUnlockSessionManager_currentSettings__block_invoke(ui
   v13 = [v11 initWithObjects:{v12, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v10);
   v14 = MEMORY[0x277D42620];
-  v15 = __atxlog_handle_metrics();
-  v16 = [v14 robustDecodeObjectOfClasses:v13 forKey:@"completedSessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXHomeScreenLogUnlockSessionManager" errorCode:-1 logHandle:v15];
+  v16 = __atxlog_handle_metrics(v15);
+  v17 = [v14 robustDecodeObjectOfClasses:v13 forKey:@"completedSessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXHomeScreenLogUnlockSessionManager" errorCode:-1 logHandle:v16];
 
-  if (v16)
+  if (v17)
   {
-    self = [(ATXHomeScreenLogUnlockSessionManager *)self initWithIsInSession:v5 currentSession:v9 completedSessions:v16];
+    self = [(ATXHomeScreenLogUnlockSessionManager *)self initWithIsInSession:v5 currentSession:v9 completedSessions:v17];
     selfCopy = self;
   }
 

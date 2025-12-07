@@ -4,8 +4,11 @@
 + (id)assetFetchResultForMomentNodes:(id)nodes inLocationOrAreaNode:(id)node requireInteresting:(BOOL)interesting curationManager:(id)manager progressReporter:(id)reporter;
 + (id)assetLocalIdentifiersFromAssets:(id)assets;
 + (id)assetUUIDsFromAssets:(id)assets;
++ (id)feederForMemoriesWithAssetCollection:(id)collection memoryCurationSession:(id)session graph:(id)graph allowGuestAsset:(BOOL)asset;
 + (id)feederForMemoriesWithAssetFetchResult:(id)result memoryCurationSession:(id)session graph:(id)graph;
++ (id)feederForMemoriesWithAssetLocalIdentifiers:(id)identifiers memoryCurationSession:(id)session graph:(id)graph allowGuestAsset:(BOOL)asset;
 + (id)feederForMemoriesWithFeeder:(id)feeder topTierAestheticScore:(double)score didFeederChange:(BOOL *)change curationContext:(id)context;
++ (id)keyAssetFetchResultForHighlightGroupUUIDs:(id)ds curationManager:(id)manager allowGuestAsset:(BOOL)asset;
 + (id)scoringContextForMemoriesWithAssets:(id)assets withTopTierAestheticScore:(double)score;
 @end
 
@@ -13,7 +16,7 @@
 
 + (BOOL)dates:(id)dates passSpreadicityWithMinimumCardinal:(unint64_t)cardinal minimumTimeInterval:(double)interval
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
   if ([datesCopy count] >= cardinal)
   {
@@ -25,52 +28,52 @@
     if ([v11 count] >= cardinal)
     {
       cardinalCopy = cardinal;
-      v56 = v9;
-      v57 = datesCopy;
-      v58 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v11, "count")}];
+      v55 = v9;
+      v56 = datesCopy;
+      v57 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v11, "count")}];
+      v74 = 0u;
       v75 = 0u;
       v76 = 0u;
       v77 = 0u;
-      v78 = 0u;
-      v55 = v11;
+      v54 = v11;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v75 objects:v93 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v74 objects:v92 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v76;
+        v15 = *v75;
         v16 = 1.79769313e308;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v76 != v15)
+            if (*v75 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v75 + 1) + 8 * i);
+            v18 = *(*(&v74 + 1) + 8 * i);
+            v70 = 0u;
             v71 = 0u;
             v72 = 0u;
             v73 = 0u;
-            v74 = 0u;
             objects = [v18 objects];
-            v20 = [objects countByEnumeratingWithState:&v71 objects:v92 count:16];
+            v20 = [objects countByEnumeratingWithState:&v70 objects:v91 count:16];
             if (v20)
             {
               v21 = v20;
               v22 = 0;
-              v23 = *v72;
+              v23 = *v71;
               do
               {
                 for (j = 0; j != v21; ++j)
                 {
-                  if (*v72 != v23)
+                  if (*v71 != v23)
                   {
                     objc_enumerationMutation(objects);
                   }
 
-                  v25 = *(*(&v71 + 1) + 8 * j);
+                  v25 = *(*(&v70 + 1) + 8 * j);
                   if (v22)
                   {
                     v26 = [v22 earlierDate:v25];
@@ -84,7 +87,7 @@
                   }
                 }
 
-                v21 = [objects countByEnumeratingWithState:&v71 objects:v92 count:16];
+                v21 = [objects countByEnumeratingWithState:&v70 objects:v91 count:16];
               }
 
               while (v21);
@@ -95,26 +98,26 @@
               v22 = 0;
             }
 
-            v69 = 0u;
-            v70 = 0u;
-            v67 = 0u;
             v68 = 0u;
-            v27 = v58;
-            v28 = [v27 countByEnumeratingWithState:&v67 objects:v91 count:16];
+            v69 = 0u;
+            v66 = 0u;
+            v67 = 0u;
+            v27 = v57;
+            v28 = [v27 countByEnumeratingWithState:&v66 objects:v90 count:16];
             if (v28)
             {
               v29 = v28;
-              v30 = *v68;
+              v30 = *v67;
               do
               {
                 for (k = 0; k != v29; ++k)
                 {
-                  if (*v68 != v30)
+                  if (*v67 != v30)
                   {
                     objc_enumerationMutation(v27);
                   }
 
-                  [v22 timeIntervalSinceDate:*(*(&v67 + 1) + 8 * k)];
+                  [v22 timeIntervalSinceDate:*(*(&v66 + 1) + 8 * k)];
                   v33 = fabs(v32);
                   if (v16 >= v33)
                   {
@@ -122,7 +125,7 @@
                   }
                 }
 
-                v29 = [v27 countByEnumeratingWithState:&v67 objects:v91 count:16];
+                v29 = [v27 countByEnumeratingWithState:&v66 objects:v90 count:16];
               }
 
               while (v29);
@@ -134,7 +137,7 @@
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v75 objects:v93 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v74 objects:v92 count:16];
         }
 
         while (v14);
@@ -149,31 +152,31 @@
       [v34 setTimeStyle:0];
       [v34 setDateStyle:1];
       v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v62 = 0u;
       v63 = 0u;
       v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
-      v36 = [v58 sortedArrayUsingSelector:sel_compare_];
-      v37 = [v36 countByEnumeratingWithState:&v63 objects:v90 count:16];
-      datesCopy = v57;
+      v36 = [v57 sortedArrayUsingSelector:sel_compare_];
+      v37 = [v36 countByEnumeratingWithState:&v62 objects:v89 count:16];
+      datesCopy = v56;
       if (v37)
       {
         v38 = v37;
-        v39 = *v64;
+        v39 = *v63;
         do
         {
           for (m = 0; m != v38; ++m)
           {
-            if (*v64 != v39)
+            if (*v63 != v39)
             {
               objc_enumerationMutation(v36);
             }
 
-            v41 = [v34 stringFromDate:*(*(&v63 + 1) + 8 * m)];
+            v41 = [v34 stringFromDate:*(*(&v62 + 1) + 8 * m)];
             [v35 addObject:v41];
           }
 
-          v38 = [v36 countByEnumeratingWithState:&v63 objects:v90 count:16];
+          v38 = [v36 countByEnumeratingWithState:&v62 objects:v89 count:16];
         }
 
         while (v38);
@@ -181,32 +184,32 @@
 
       v42 = [v35 componentsJoinedByString:{@", "}];
       v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v58 = 0u;
       v59 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
-      allObjects2 = [v57 allObjects];
+      allObjects2 = [v56 allObjects];
       v45 = [allObjects2 sortedArrayUsingSelector:sel_compare_];
 
-      v46 = [v45 countByEnumeratingWithState:&v59 objects:v89 count:16];
+      v46 = [v45 countByEnumeratingWithState:&v58 objects:v88 count:16];
       if (v46)
       {
         v47 = v46;
-        v48 = *v60;
+        v48 = *v59;
         do
         {
           for (n = 0; n != v47; ++n)
           {
-            if (*v60 != v48)
+            if (*v59 != v48)
             {
               objc_enumerationMutation(v45);
             }
 
-            v50 = [v34 stringFromDate:*(*(&v59 + 1) + 8 * n)];
+            v50 = [v34 stringFromDate:*(*(&v58 + 1) + 8 * n)];
             [v43 addObject:v50];
           }
 
-          v47 = [v45 countByEnumeratingWithState:&v59 objects:v89 count:16];
+          v47 = [v45 countByEnumeratingWithState:&v58 objects:v88 count:16];
         }
 
         while (v47);
@@ -217,20 +220,20 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         *buf = 67110146;
-        v80 = v16 >= interval;
-        v81 = 1024;
-        v82 = cardinalCopy;
-        v83 = 1024;
-        v84 = (interval / 86400.0);
-        v85 = 2112;
-        v86 = v42;
-        v87 = 2112;
-        v88 = v51;
+        v79 = v16 >= interval;
+        v80 = 1024;
+        v81 = cardinalCopy;
+        v82 = 1024;
+        v83 = (interval / 86400.0);
+        v84 = 2112;
+        v85 = v42;
+        v86 = 2112;
+        v87 = v51;
         _os_log_debug_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "passesSpreadicity %d for cardinal %d, interval %d days, with consolidated dates %@\n\toriginal dates %@", buf, 0x28u);
       }
 
-      v11 = v55;
-      v9 = v56;
+      v11 = v54;
+      v9 = v55;
     }
 
     else
@@ -244,14 +247,13 @@
     v8 = 0;
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (id)assetFetchResultForMomentNodes:(id)nodes inLocationOrAreaNode:(id)node requireInteresting:(BOOL)interesting curationManager:(id)manager progressReporter:(id)reporter
 {
   interestingCopy = interesting;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   nodeCopy = node;
   managerCopy = manager;
@@ -261,9 +263,9 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v47 = 130;
-      *&v47[4] = 2080;
-      *&v47[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/PGMemoryGenerationHelper.m";
+      *v46 = 130;
+      *&v46[4] = 2080;
+      *&v46[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/PGMemoryGenerationHelper.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -276,10 +278,10 @@
   v18 = [label isEqualToString:@"Area"];
   v19 = [label isEqualToString:@"State"];
   defaultAssetFetchOptionsForMemories = [managerCopy defaultAssetFetchOptionsForMemories];
-  v45 = nodesCopy;
+  v44 = nodesCopy;
   v21 = nodesCopy;
   v22 = v21;
-  v44 = managerCopy;
+  v43 = managerCopy;
   if (interestingCopy)
   {
     interestingSubset = [v21 interestingSubset];
@@ -294,8 +296,8 @@
 
   v27 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:defaultAssetFetchOptionsForMemories];
   v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v42 = v27;
-  v43 = label;
+  v41 = v27;
+  v42 = label;
   if (v17)
   {
     fetchedObjects = [v27 fetchedObjects];
@@ -317,9 +319,9 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        *v47 = "+[PGMemoryGenerationHelper assetFetchResultForMomentNodes:inLocationOrAreaNode:requireInteresting:curationManager:progressReporter:]";
-        *&v47[8] = 2112;
-        *&v47[10] = label;
+        *v46 = "+[PGMemoryGenerationHelper assetFetchResultForMomentNodes:inLocationOrAreaNode:requireInteresting:curationManager:progressReporter:]";
+        *&v46[8] = 2112;
+        *&v46[10] = label;
         _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s called for location node %@, see rdar://75269533", buf, 0x16u);
       }
 
@@ -352,16 +354,16 @@ LABEL_14:
     v39 = 0;
   }
 
-  managerCopy = v44;
+  managerCopy = v43;
   if ([reporterCopy isCancelledWithProgress:1.0])
   {
     nodeCopy = v33;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v47 = 168;
-      *&v47[4] = 2080;
-      *&v47[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/PGMemoryGenerationHelper.m";
+      *v46 = 168;
+      *&v46[4] = 2080;
+      *&v46[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/PGMemoryGenerationHelper.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -374,122 +376,142 @@ LABEL_14:
     nodeCopy = v33;
   }
 
-  nodesCopy = v45;
+  nodesCopy = v44;
 LABEL_23:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
++ (id)keyAssetFetchResultForHighlightGroupUUIDs:(id)ds curationManager:(id)manager allowGuestAsset:(BOOL)asset
+{
+  assetCopy = asset;
+  managerCopy = manager;
+  dsCopy = ds;
+  photoLibrary = [managerCopy photoLibrary];
+  librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
+  dsCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"uuid IN %@", dsCopy];
+
+  [librarySpecificFetchOptions setInternalPredicate:dsCopy];
+  v12 = [MEMORY[0x277CD9958] fetchHighlightsWithOptions:librarySpecificFetchOptions];
+  defaultAssetFetchOptionsForMemories = [managerCopy defaultAssetFetchOptionsForMemories];
+
+  [defaultAssetFetchOptionsForMemories setIncludeGuestAssets:assetCopy];
+  v14 = [MEMORY[0x277CD97A8] fetchKeyAssetByHighlightUUIDForHighlights:v12 options:defaultAssetFetchOptionsForMemories];
+  v15 = objc_alloc(MEMORY[0x277CD98D0]);
+  allValues = [v14 allValues];
+  v17 = *MEMORY[0x277CD9BE0];
+  v18 = MEMORY[0x277CBEB98];
+  fetchPropertySets = [defaultAssetFetchOptionsForMemories fetchPropertySets];
+  v20 = [v18 setWithArray:fetchPropertySets];
+  v21 = [v15 initWithObjects:allValues photoLibrary:photoLibrary fetchType:v17 fetchPropertySets:v20 identifier:0 registerIfNeeded:0];
+
+  return v21;
+}
+
 + (id)assetLocalIdentifiersFromAssets:(id)assets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v4 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = assetsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        localIdentifier = [*(*(&v13 + 1) + 8 * i) localIdentifier];
+        localIdentifier = [*(*(&v12 + 1) + 8 * i) localIdentifier];
         [v4 addObject:localIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)assetUUIDsFromAssets:(id)assets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v4 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = assetsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        uuid = [*(*(&v13 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v12 + 1) + 8 * i) uuid];
         [v4 addObject:uuid];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (BOOL)prepareAssets:(id)assets forMemoriesWithTopTierAestheticScore:(double)score curationContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   contextCopy = context;
   v10 = [self scoringContextForMemoriesWithAssets:assetsCopy withTopTierAestheticScore:score];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v11 = assetsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v14 |= [*(*(&v19 + 1) + 8 * i) prepareWithAlternateJunkingHeuristics:1 withContext:v10 curationContext:contextCopy blockSocialMediaImportedAssets:{PGMemoryGenerationBlockSocialMediaImportedAssets, v19}];
+        v14 |= [*(*(&v18 + 1) + 8 * i) prepareWithAlternateJunkingHeuristics:1 withContext:v10 curationContext:contextCopy blockSocialMediaImportedAssets:{PGMemoryGenerationBlockSocialMediaImportedAssets, v18}];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
@@ -500,7 +522,6 @@ LABEL_23:
     LOBYTE(v14) = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
@@ -561,6 +582,40 @@ LABEL_23:
   }
 
   return v25;
+}
+
++ (id)feederForMemoriesWithAssetLocalIdentifiers:(id)identifiers memoryCurationSession:(id)session graph:(id)graph allowGuestAsset:(BOOL)asset
+{
+  assetCopy = asset;
+  graphCopy = graph;
+  sessionCopy = session;
+  identifiersCopy = identifiers;
+  curationManager = [sessionCopy curationManager];
+  defaultAssetFetchOptionsForMemories = [curationManager defaultAssetFetchOptionsForMemories];
+
+  [defaultAssetFetchOptionsForMemories setIncludeGuestAssets:assetCopy];
+  v15 = [MEMORY[0x277CD97A8] fetchAssetsWithLocalIdentifiers:identifiersCopy options:defaultAssetFetchOptionsForMemories];
+
+  v16 = [self feederForMemoriesWithAssetFetchResult:v15 memoryCurationSession:sessionCopy graph:graphCopy];
+
+  return v16;
+}
+
++ (id)feederForMemoriesWithAssetCollection:(id)collection memoryCurationSession:(id)session graph:(id)graph allowGuestAsset:(BOOL)asset
+{
+  assetCopy = asset;
+  graphCopy = graph;
+  sessionCopy = session;
+  collectionCopy = collection;
+  curationManager = [sessionCopy curationManager];
+  defaultAssetFetchOptionsForMemories = [curationManager defaultAssetFetchOptionsForMemories];
+
+  [defaultAssetFetchOptionsForMemories setIncludeGuestAssets:assetCopy];
+  v15 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:collectionCopy options:defaultAssetFetchOptionsForMemories];
+
+  v16 = [self feederForMemoriesWithAssetFetchResult:v15 memoryCurationSession:sessionCopy graph:graphCopy];
+
+  return v16;
 }
 
 @end

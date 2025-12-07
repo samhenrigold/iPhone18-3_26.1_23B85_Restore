@@ -45,7 +45,7 @@
 
   if (format != 875704422 && format != 1278226534)
   {
-    PixelBufferUtils::pixelFormatAsString(*&format, pixelBufferOut);
+    PixelBufferUtils::pixelFormatAsString(pixelBufferOut, *&format);
     if (v69 >= 0)
     {
       v33 = pixelBufferOut;
@@ -316,7 +316,7 @@
 
 - (BOOL)pushFrames:(id)frames
 {
-  v3 = (MEMORY[0x28223BE20])(self, a2, frames);
+  v3 = MEMORY[0x28223BE20](self, a2, frames);
   v50 = *MEMORY[0x277D85DE8];
   v5 = v4;
   bytes = [v5 bytes];

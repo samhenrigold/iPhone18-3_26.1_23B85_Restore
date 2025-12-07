@@ -4,6 +4,7 @@
 + (void)enqueBanner:(id)banner;
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event;
 - (CLSNotificationBannerWindow)init;
+- (void)_hideBanner:(id)banner quickly:(BOOL)quickly;
 - (void)_showBanner:(id)banner;
 - (void)handlePan:(id)pan;
 @end
@@ -21,32 +22,32 @@
 
 - (CLSNotificationBannerWindow)init
 {
-  v4 = objc_msgSend_sharedApplication(MEMORY[0x277D75128], a2, v2);
-  v7 = sub_24351D11C(v4, v5, v6);
-  v10 = objc_msgSend_windowScene(v7, v8, v9);
-  v26.receiver = self;
-  v26.super_class = CLSNotificationBannerWindow;
-  v11 = [(CLSNotificationBannerWindow *)&v26 initWithWindowScene:v10];
-  v13 = v11;
-  if (v11)
+  v6 = objc_msgSend_sharedApplication(MEMORY[0x277D75128], a2, v2, v3, v4);
+  v11 = sub_24351D11C(v6, v7, v8, v9, v10);
+  v16 = objc_msgSend_windowScene(v11, v12, v13, v14, v15);
+  v43.receiver = self;
+  v43.super_class = CLSNotificationBannerWindow;
+  v17 = [(CLSNotificationBannerWindow *)&v43 initWithWindowScene:v16];
+  v21 = v17;
+  if (v17)
   {
-    objc_msgSend_setOpaque_(v11, v12, 0);
-    objc_msgSend_setUserInteractionEnabled_(v13, v14, 1);
-    objc_msgSend_setHidden_(v13, v15, 0);
-    v16 = objc_alloc_init(CLSNotificationBannerViewController);
-    v17 = *(v13 + 920);
-    *(v13 + 920) = v16;
+    objc_msgSend_setOpaque_(v17, v18, 0, v19, v20);
+    objc_msgSend_setUserInteractionEnabled_(v21, v22, 1, v23, v24);
+    objc_msgSend_setHidden_(v21, v25, 0, v26, v27);
+    v28 = objc_alloc_init(CLSNotificationBannerViewController);
+    v29 = *(v21 + 920);
+    *(v21 + 920) = v28;
 
-    objc_msgSend_setRootViewController_(v13, v18, *(v13 + 920));
-    v19 = objc_alloc(MEMORY[0x277D757F8]);
-    v21 = objc_msgSend_initWithTarget_action_(v19, v20, v13, sel_handlePan_);
-    objc_msgSend_addGestureRecognizer_(v13, v22, v21);
-    v23 = dispatch_semaphore_create(1);
-    v24 = *(v13 + 928);
-    *(v13 + 928) = v23;
+    objc_msgSend_setRootViewController_(v21, v30, *(v21 + 920), v31, v32);
+    v33 = objc_alloc(MEMORY[0x277D757F8]);
+    v36 = objc_msgSend_initWithTarget_action_(v33, v34, v21, sel_handlePan_, v35);
+    objc_msgSend_addGestureRecognizer_(v21, v37, v36, v38, v39);
+    v40 = dispatch_semaphore_create(1);
+    v41 = *(v21 + 928);
+    *(v21 + 928) = v40;
   }
 
-  return v13;
+  return v21;
 }
 
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event
@@ -54,27 +55,34 @@
   y = inside.y;
   x = inside.x;
   eventCopy = event;
-  v10 = objc_msgSend_currentBannerViewController(self, v8, v9);
-  v12 = objc_msgSend_windowPointInside_withEvent_(v10, v11, eventCopy, x, y);
+  v12 = objc_msgSend_currentBannerViewController(self, v8, v9, v10, v11);
+  v16 = objc_msgSend_windowPointInside_withEvent_(v12, v13, eventCopy, v14, v15, x, y);
 
-  return v12;
+  return v16;
 }
 
 - (void)handlePan:(id)pan
 {
   panCopy = pan;
-  v8 = objc_msgSend_currentBannerViewController(self, v5, v6);
-  objc_msgSend_handleWindowPan_(v8, v7, panCopy);
+  v12 = objc_msgSend_currentBannerViewController(self, v5, v6, v7, v8);
+  objc_msgSend_handleWindowPan_(v12, v9, panCopy, v10, v11);
 }
 
 - (void)_showBanner:(id)banner
 {
   bannerCopy = banner;
-  v7 = objc_msgSend_currentBannerViewController(self, v5, v6);
-  objc_msgSend_addBannerView_(v7, v8, bannerCopy);
+  v9 = objc_msgSend_currentBannerViewController(self, v5, v6, v7, v8);
+  objc_msgSend_addBannerView_(v9, v10, bannerCopy, v11, v12);
 
-  v13 = objc_msgSend_currentBannerViewController(self, v9, v10);
-  objc_msgSend_showCurrentBanner(v13, v11, v12);
+  v21 = objc_msgSend_currentBannerViewController(self, v13, v14, v15, v16);
+  objc_msgSend_showCurrentBanner(v21, v17, v18, v19, v20);
+}
+
+- (void)_hideBanner:(id)banner quickly:(BOOL)quickly
+{
+  quicklyCopy = quickly;
+  v9 = objc_msgSend_currentBannerViewController(self, a2, banner, quickly, v4);
+  objc_msgSend_hideBannerQuickly_(v9, v6, quicklyCopy, v7, v8);
 }
 
 + (id)queue
@@ -95,21 +103,21 @@
   if (!atomic_fetch_add_explicit(&dword_27ED78314, 1u, memory_order_relaxed))
   {
     objc_sync_enter(@"CLSNotificationBannerSyncObject");
-    v7 = objc_alloc_init(CLSNotificationBannerWindow);
-    v8 = qword_27ED78318;
-    qword_27ED78318 = v7;
+    v9 = objc_alloc_init(CLSNotificationBannerWindow);
+    v10 = qword_27ED78318;
+    qword_27ED78318 = v9;
 
     objc_sync_exit(@"CLSNotificationBannerSyncObject");
   }
 
-  v9 = objc_msgSend_queue(self, v4, v5);
+  v11 = objc_msgSend_queue(self, v4, v5, v6, v7);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_24351D7C8;
   block[3] = &unk_278DBEF40;
+  v14 = bannerCopy;
   v12 = bannerCopy;
-  v10 = bannerCopy;
-  dispatch_async(v9, block);
+  dispatch_async(v11, block);
 }
 
 @end

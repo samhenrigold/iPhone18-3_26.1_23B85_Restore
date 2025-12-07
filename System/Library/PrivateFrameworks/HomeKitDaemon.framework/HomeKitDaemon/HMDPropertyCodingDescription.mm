@@ -8,10 +8,10 @@
 
 - (id)initWithModel:(void *)model property:
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = HMDPropertyCodingDescription;
-  v5 = objc_msgSendSuper2(&v30, sel_init);
+  v33 = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = HMDPropertyCodingDescription;
+  v5 = objc_msgSendSuper2(&v27, sel_init);
   v6 = v5;
   if (v5)
   {
@@ -42,33 +42,31 @@
       v14 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_."];
       invertedSet = [v14 invertedSet];
 
-      v33 = 0u;
-      v34 = 0u;
+      v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v28 = v12;
+      v28 = 0u;
+      v29 = 0u;
+      v25 = v12;
       obj = [v12 componentsSeparatedByString:@"|"];
-      v16 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v16 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v16)
       {
         v17 = v16;
-        v26 = a2;
         modelCopy = model;
         v18 = 0;
-        v19 = *v32;
+        v19 = *v29;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v32 != v19)
+            if (*v29 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v31 + 1) + 8 * i);
+            v21 = *(*(&v28 + 1) + 8 * i);
             if (![v21 length] || objc_msgSend(v21, "rangeOfCharacterFromSet:", invertedSet) != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v25 = *(v26 + 112);
               [modelCopy entity];
               [objc_claimAutoreleasedReturnValue() name];
               objc_claimAutoreleasedReturnValue();
@@ -96,7 +94,7 @@ LABEL_25:
             v18 |= 1 << v22;
           }
 
-          v17 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v17 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
         }
 
         while (v17);
@@ -107,7 +105,7 @@ LABEL_25:
         v18 = 0;
       }
 
-      v12 = v28;
+      v12 = v25;
     }
 
     else
@@ -118,7 +116,6 @@ LABEL_25:
     v6[3] = v18;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

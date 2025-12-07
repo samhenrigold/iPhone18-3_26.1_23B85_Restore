@@ -7,10 +7,10 @@
 
 - (SESConfigAliro)init
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = SESConfigAliro;
-  v2 = [(SESConfigAliro *)&v19 init];
+  v21 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = SESConfigAliro;
+  v2 = [(SESConfigAliro *)&v18 init];
   if (!v2)
   {
     goto LABEL_8;
@@ -55,10 +55,10 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v18 = 0;
-  [SESConfigUtilities getVersion:v7 error:&v18];
+  v17 = 0;
+  [SESConfigUtilities getVersion:v7 error:&v17];
   v9 = v8;
-  v10 = v18;
+  v10 = v17;
   v2->_productVersion = v9;
   if (v10)
   {
@@ -68,7 +68,7 @@ LABEL_14:
     {
       v13 = v2->_mgProductVersion;
       *buf = 138412290;
-      v21 = v13;
+      v20 = v13;
       _os_log_impl(&dword_1E0FCB000, v12, OS_LOG_TYPE_ERROR, "Invalid ProductVersion value %@", buf, 0xCu);
     }
 
@@ -79,19 +79,18 @@ LABEL_8:
   v14 = v2;
 LABEL_15:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)getConfiguration:(id *)configuration
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v5 = [SESConfig alloc];
   *&v6 = self->_productVersion;
   v7 = [(SESConfig *)v5 initWithDeviceClass:self->_mgDeviceClass productVersion:v6];
-  v51 = 0;
-  v8 = [(SESConfig *)v7 getContentsOfAssetFile:@"_settings" component:2 error:&v51];
-  v9 = v51;
+  v50 = 0;
+  v8 = [(SESConfig *)v7 getContentsOfAssetFile:@"_settings" component:2 error:&v50];
+  v9 = v50;
   v10 = v9;
   if (v9)
   {
@@ -130,31 +129,31 @@ LABEL_13:
       {
         if ([@"iPhone" isEqualToString:self->_mgDeviceClass])
         {
-          v44 = v8;
-          v45 = v7;
+          v43 = v8;
+          v44 = v7;
           v14 = @"MinOSPhone";
 LABEL_21:
-          v49 = 0u;
-          v50 = 0u;
-          v47 = 0u;
           v48 = 0u;
-          v43 = v13;
+          v49 = 0u;
+          v46 = 0u;
+          v47 = 0u;
+          v42 = v13;
           v16 = v13;
-          v23 = [v16 countByEnumeratingWithState:&v47 objects:v54 count:16];
+          v23 = [v16 countByEnumeratingWithState:&v46 objects:v53 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v48;
+            v25 = *v47;
 LABEL_23:
             v26 = 0;
             while (1)
             {
-              if (*v48 != v25)
+              if (*v47 != v25)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v27 = *(*(&v47 + 1) + 8 * v26);
+              v27 = *(*(&v46 + 1) + 8 * v26);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -162,17 +161,17 @@ LABEL_23:
                 if (v28)
                 {
                   v29 = v28;
-                  v46 = 0;
-                  [SESConfigUtilities getVersion:v28 error:&v46];
+                  v45 = 0;
+                  [SESConfigUtilities getVersion:v28 error:&v45];
                   v31 = v30;
-                  v32 = v46;
+                  v32 = v45;
                   if (v32)
                   {
                     v33 = SESDefaultLogObject();
                     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v53 = v32;
+                      v52 = v32;
                       _os_log_impl(&dword_1E0FCB000, v33, OS_LOG_TYPE_ERROR, "Failed to retrieve version %@", buf, 0xCu);
                     }
                   }
@@ -191,7 +190,7 @@ LABEL_23:
                 if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v53 = v14;
+                  v52 = v14;
                   v34 = v29;
                   v35 = "Missing key %@";
                   v36 = 12;
@@ -217,7 +216,7 @@ LABEL_39:
 
               if (v24 == ++v26)
               {
-                v24 = [v16 countByEnumeratingWithState:&v47 objects:v54 count:16];
+                v24 = [v16 countByEnumeratingWithState:&v46 objects:v53 count:16];
                 if (v24)
                 {
                   goto LABEL_23;
@@ -237,17 +236,17 @@ LABEL_39:
 
           v12 = 0;
 LABEL_45:
-          v8 = v44;
-          v7 = v45;
-          v13 = v43;
+          v8 = v43;
+          v7 = v44;
+          v13 = v42;
           v10 = 0;
           goto LABEL_46;
         }
 
         if ([@"Watch" isEqualToString:self->_mgDeviceClass])
         {
-          v44 = v8;
-          v45 = v7;
+          v43 = v8;
+          v44 = v7;
           v14 = @"MinOSWatch";
           goto LABEL_21;
         }
@@ -271,7 +270,7 @@ LABEL_49:
     }
 
     v16 = SESDefaultLogObject();
-    SESCreateAndLogError(0, v16, SESErrorDomain, 0, @"Wrong class for configurations", v20, v21, v22, v42);
+    SESCreateAndLogError(0, v16, SESErrorDomain, 0, @"Wrong class for configurations", v20, v21, v22, v41);
   }
 
   else
@@ -291,8 +290,6 @@ LABEL_46:
 
 LABEL_50:
 LABEL_51:
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

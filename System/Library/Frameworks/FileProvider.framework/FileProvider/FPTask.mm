@@ -228,7 +228,7 @@ LABEL_22:
 
 - (int)_prepareRedirections:(void *)redirections
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   standardOutput = [(FPTask *)self standardOutput];
 
   if (standardOutput)
@@ -261,16 +261,15 @@ LABEL_22:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_8:
-        v12 = 136315138;
-        v13 = strerror(standardError);
-        _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to perform spawn action (%s).", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = strerror(standardError);
+        _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to perform spawn action (%s).", &v11, 0xCu);
       }
 
 LABEL_9:
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return standardError;
 }
 
@@ -317,18 +316,18 @@ LABEL_9:
 
 - (int)execAsync
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   argv = [(FPTask *)self argv];
   if (![argv count])
   {
     [FPTask execAsync];
   }
 
-  v26 = 0;
+  v25 = 0;
 
   newPreparedArgvArray = [(FPTask *)self newPreparedArgvArray];
-  v25 = 0;
-  v5 = posix_spawn_file_actions_init(&v25);
+  v24 = 0;
+  v5 = posix_spawn_file_actions_init(&v24);
   if (v5)
   {
     v6 = v5;
@@ -337,7 +336,7 @@ LABEL_9:
     {
       v8 = strerror(v6);
       *buf = 136315138;
-      v28 = v8;
+      v27 = v8;
       v9 = "[WARNING] Unable to initialize the file actions properly (%s).";
 LABEL_8:
       _os_log_impl(&dword_1AAAE1000, v7, OS_LOG_TYPE_DEFAULT, v9, buf, 0xCu);
@@ -347,7 +346,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v10 = [(FPTask *)self _prepareRedirections:&v25];
+  v10 = [(FPTask *)self _prepareRedirections:&v24];
   v11 = fp_current_or_default_log();
   v7 = v11;
   if (v10)
@@ -356,7 +355,7 @@ LABEL_8:
     {
       v12 = strerror(v10);
       *buf = 136315138;
-      v28 = v12;
+      v27 = v12;
       v9 = "[WARNING] Unable to setup redirections properly (%s).";
       goto LABEL_8;
     }
@@ -372,20 +371,20 @@ LABEL_9:
     [(FPTask *)self execAsync];
   }
 
-  v20 = posix_spawnp(&v26, *newPreparedArgvArray, &v25, 0, newPreparedArgvArray, *MEMORY[0x1E69E97E8]);
-  if (v20)
+  v19 = posix_spawnp(&v25, *newPreparedArgvArray, &v24, 0, newPreparedArgvArray, *MEMORY[0x1E69E97E8]);
+  if (v19)
   {
-    v21 = v20;
+    v20 = v19;
     v7 = fp_current_or_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       argv2 = [(FPTask *)self argv];
-      v23 = [argv2 componentsJoinedByString:{@", "}];
-      v24 = strerror(v21);
+      v22 = [argv2 componentsJoinedByString:{@", "}];
+      v23 = strerror(v20);
       *buf = 138412546;
-      v28 = v23;
-      v29 = 2080;
-      v30 = v24;
+      v27 = v22;
+      v28 = 2080;
+      v29 = v23;
       _os_log_impl(&dword_1AAAE1000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to spawn a new process (argv: [%@], error: %s).", buf, 0x16u);
     }
 
@@ -395,7 +394,7 @@ LABEL_9:
   v13 = 1;
 LABEL_10:
   free(newPreparedArgvArray);
-  v14 = posix_spawn_file_actions_destroy(&v25);
+  v14 = posix_spawn_file_actions_destroy(&v24);
   if (v14)
   {
     v15 = v14;
@@ -404,28 +403,25 @@ LABEL_10:
     {
       v17 = strerror(v15);
       *buf = 136315138;
-      v28 = v17;
+      v27 = v17;
       _os_log_impl(&dword_1AAAE1000, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to destroy the file actions properly (%s).", buf, 0xCu);
     }
   }
 
   if (v13)
   {
-    result = v26;
+    return v25;
   }
 
   else
   {
-    result = -1;
+    return -1;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (int)exec
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   argv = [(FPTask *)self argv];
   if (![argv count])
   {
@@ -433,8 +429,8 @@ LABEL_10:
   }
 
   newPreparedArgvArray = [(FPTask *)self newPreparedArgvArray];
-  v34 = 0;
-  v5 = posix_spawn_file_actions_init(&v34);
+  v33 = 0;
+  v5 = posix_spawn_file_actions_init(&v33);
   if (v5)
   {
     v6 = v5;
@@ -443,12 +439,12 @@ LABEL_10:
     {
       v8 = strerror(v6);
       *buf = 136315138;
-      v36 = v8;
+      v35 = v8;
       _os_log_impl(&dword_1AAAE1000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to initialize the file actions properly (%s).", buf, 0xCu);
     }
   }
 
-  v9 = [(FPTask *)self _prepareRedirections:&v34];
+  v9 = [(FPTask *)self _prepareRedirections:&v33];
   if (v9)
   {
     v10 = v9;
@@ -457,24 +453,24 @@ LABEL_10:
     {
       v12 = strerror(v10);
       *buf = 136315138;
-      v36 = v12;
+      v35 = v12;
       _os_log_impl(&dword_1AAAE1000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to setup redirections properly (%s).", buf, 0xCu);
     }
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
     v13 = signal(20, 0);
-    v33 = 2;
-    pthread_sigmask(1, &v33, 0);
+    v32 = 2;
+    pthread_sigmask(1, &v32, 0);
     v14 = fp_current_or_default_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [(FPTask *)self execAsync];
     }
 
-    v15 = posix_spawnp(&v32, *newPreparedArgvArray, &v34, 0, newPreparedArgvArray, *MEMORY[0x1E69E97E8]);
+    v15 = posix_spawnp(&v31, *newPreparedArgvArray, &v33, 0, newPreparedArgvArray, *MEMORY[0x1E69E97E8]);
     if (v15)
     {
       v10 = v15;
@@ -485,9 +481,9 @@ LABEL_10:
         v18 = [argv2 componentsJoinedByString:{@", "}];
         v19 = strerror(v10);
         *buf = 138412546;
-        v36 = v18;
-        v37 = 2080;
-        v38 = v19;
+        v35 = v18;
+        v36 = 2080;
+        v37 = v19;
         _os_log_impl(&dword_1AAAE1000, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to spawn a new process (argv: [%@], error: %s).", buf, 0x16u);
       }
 
@@ -499,15 +495,15 @@ LABEL_10:
       v20 = dispatch_get_global_queue(0, 0);
       v21 = dispatch_source_create(MEMORY[0x1E69E9700], 2uLL, 0, v20);
 
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __14__FPTask_exec__block_invoke;
-      v30[3] = &unk_1E793DE38;
-      v31 = v32;
-      v30[4] = self;
-      dispatch_source_set_event_handler(v21, v30);
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __14__FPTask_exec__block_invoke;
+      v29[3] = &unk_1E793DE38;
+      v30 = v31;
+      v29[4] = self;
+      dispatch_source_set_event_handler(v21, v29);
       dispatch_resume(v21);
-      while (waitpid(v32, &self->_waitStatus, 0) < 0)
+      while (waitpid(v31, &self->_waitStatus, 0) < 0)
       {
         if (*__error() != 4)
         {
@@ -535,7 +531,7 @@ LABEL_10:
       dispatch_source_cancel(v21);
     }
 
-    pthread_sigmask(2, &v33, 0);
+    pthread_sigmask(2, &v32, 0);
     if (v13 != -1)
     {
       signal(20, v13);
@@ -543,7 +539,7 @@ LABEL_10:
   }
 
   free(newPreparedArgvArray);
-  v24 = posix_spawn_file_actions_destroy(&v34);
+  v24 = posix_spawn_file_actions_destroy(&v33);
   if (v24)
   {
     v25 = v24;
@@ -552,12 +548,11 @@ LABEL_10:
     {
       v27 = strerror(v25);
       *buf = 136315138;
-      v36 = v27;
+      v35 = v27;
       _os_log_impl(&dword_1AAAE1000, v26, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to destroy the file actions properly (%s).", buf, 0xCu);
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -576,7 +571,7 @@ void __14__FPTask_exec__block_invoke(uint64_t a1)
 
 + (BOOL)exec:(id)exec stdoutString:(id *)string stderrString:(id *)stderrString error:(id *)error
 {
-  v65[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   execCopy = exec;
   pipe = [MEMORY[0x1E696AE00] pipe];
   pipe2 = [MEMORY[0x1E696AE00] pipe];
@@ -597,55 +592,55 @@ void __14__FPTask_exec__block_invoke(uint64_t a1)
   if ((execAsync & 0x80000000) == 0)
   {
     v16 = dispatch_queue_create("queue for reading the task output and error streams concurrently", MEMORY[0x1E69E96A8]);
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x3032000000;
-    v55 = __Block_byref_object_copy__24;
-    v56 = __Block_byref_object_dispose__24;
-    v57 = 0;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy__24;
+    v55 = __Block_byref_object_dispose__24;
+    v56 = 0;
     if (string)
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __47__FPTask_exec_stdoutString_stderrString_error___block_invoke;
       block[3] = &unk_1E793AA20;
-      v51 = &v52;
-      v50 = pipe;
+      v50 = &v51;
+      v49 = pipe;
       dispatch_async(v16, block);
     }
 
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x3032000000;
-    v46 = __Block_byref_object_copy__24;
-    v47 = __Block_byref_object_dispose__24;
-    v48 = 0;
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x3032000000;
+    v45 = __Block_byref_object_copy__24;
+    v46 = __Block_byref_object_dispose__24;
+    v47 = 0;
     if (stderrString)
     {
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = __47__FPTask_exec_stdoutString_stderrString_error___block_invoke_53;
-      v40[3] = &unk_1E793AA20;
-      v42 = &v43;
-      v41 = pipe2;
-      dispatch_async(v16, v40);
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __47__FPTask_exec_stdoutString_stderrString_error___block_invoke_53;
+      v39[3] = &unk_1E793AA20;
+      v41 = &v42;
+      v40 = pipe2;
+      dispatch_async(v16, v39);
     }
 
     dispatch_barrier_sync(v16, &__block_literal_global_47);
     if (string)
     {
       v17 = objc_alloc(MEMORY[0x1E696AEC0]);
-      *string = [v17 initWithData:v53[5] encoding:4];
+      *string = [v17 initWithData:v52[5] encoding:4];
     }
 
     if (stderrString)
     {
       v18 = objc_alloc(MEMORY[0x1E696AEC0]);
-      *stderrString = [v18 initWithData:v44[5] encoding:4];
+      *stderrString = [v18 initWithData:v43[5] encoding:4];
     }
 
-    v39 = 0;
-    while (waitpid(execAsync, &v39, 0) < 0)
+    v38 = 0;
+    while (waitpid(execAsync, &v38, 0) < 0)
     {
       if (*__error() != 4)
       {
@@ -669,44 +664,44 @@ void __14__FPTask_exec__block_invoke(uint64_t a1)
       }
     }
 
-    v25 = v39 & 0x7F;
+    v25 = v38 & 0x7F;
     if (v25 == 127)
     {
-      v25 = (v39 >> 8);
+      v25 = (v38 >> 8);
     }
 
-    else if ((v39 & 0x7F) == 0)
+    else if ((v38 & 0x7F) == 0)
     {
-      v26 = BYTE1(v39);
-      if (error && BYTE1(v39))
+      v26 = BYTE1(v38);
+      if (error && BYTE1(v38))
       {
-        v60 = *MEMORY[0x1E696A578];
-        v35 = BYTE1(v39);
-        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Task finished with exit code %d", BYTE1(v39)];
-        v61 = v27;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-        v36 = [v28 mutableCopy];
+        v59 = *MEMORY[0x1E696A578];
+        v34 = BYTE1(v38);
+        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Task finished with exit code %d", BYTE1(v38)];
+        v60 = v27;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v35 = [v28 mutableCopy];
 
         if (string)
         {
-          [v36 setObject:*string forKeyedSubscript:@"stdout"];
+          [v35 setObject:*string forKeyedSubscript:@"stdout"];
         }
 
         if (stderrString)
         {
-          [v36 setObject:*stderrString forKeyedSubscript:@"stderr"];
+          [v35 setObject:*stderrString forKeyedSubscript:@"stderr"];
         }
 
-        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"FPTaskErrorDomain" code:2 userInfo:v36];
+        *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"FPTaskErrorDomain" code:2 userInfo:v35];
 
-        v26 = v35;
+        v26 = v34;
       }
 
       v23 = v26 == 0;
 LABEL_36:
-      _Block_object_dispose(&v43, 8);
+      _Block_object_dispose(&v42, 8);
 
-      _Block_object_dispose(&v52, 8);
+      _Block_object_dispose(&v51, 8);
       goto LABEL_37;
     }
 
@@ -714,17 +709,17 @@ LABEL_36:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v63 = v25;
+      v62 = v25;
       _os_log_impl(&dword_1AAAE1000, v29, OS_LOG_TYPE_INFO, "[INFO] command terminated due to signal %d", buf, 8u);
     }
 
     if (error)
     {
       v30 = MEMORY[0x1E696ABC0];
-      v58 = *MEMORY[0x1E696A578];
+      v57 = *MEMORY[0x1E696A578];
       v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Task terminated due to signal %d", v25];
-      v59 = v31;
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+      v58 = v31;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
       *error = [v30 errorWithDomain:@"FPTaskErrorDomain" code:3 userInfo:v32];
     }
 
@@ -736,9 +731,9 @@ LABEL_35:
   if (error)
   {
     v24 = MEMORY[0x1E696ABC0];
-    v64 = *MEMORY[0x1E696A578];
-    v65[0] = @"Failed to spawn task";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:&v64 count:1];
+    v63 = *MEMORY[0x1E696A578];
+    v64[0] = @"Failed to spawn task";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:1];
     [v24 errorWithDomain:@"FPTaskErrorDomain" code:-1 userInfo:v16];
     *error = v23 = 0;
 LABEL_37:
@@ -749,7 +744,6 @@ LABEL_37:
   v23 = 0;
 LABEL_38:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -811,23 +805,18 @@ void __47__FPTask_exec_stdoutString_stderrString_error___block_invoke_53(uint64_
 
 - (void)execAsync
 {
-  v10 = *MEMORY[0x1E69E9840];
   argv = [self argv];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_9(&dword_1AAAE1000, v2, v3, "[DEBUG] Spawning FPTask with command '%@'", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_9(&dword_1AAAE1000, v2, v3, "[DEBUG] Spawning FPTask with command '%@'", v4, v5, v6, v7);
 }
 
 - (void)exec
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 + (void)exec:(uint64_t)a1 stdoutString:(uint8_t *)buf stderrString:(int)a3 error:(os_log_t)log .cold.1(uint64_t a1, uint8_t *buf, int a3, os_log_t log)
@@ -841,24 +830,18 @@ void __47__FPTask_exec_stdoutString_stderrString_error___block_invoke_53(uint64_
 
 void __47__FPTask_exec_stdoutString_stderrString_error___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __47__FPTask_exec_stdoutString_stderrString_error___block_invoke_53_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

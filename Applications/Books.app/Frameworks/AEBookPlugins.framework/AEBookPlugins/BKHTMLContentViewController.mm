@@ -468,7 +468,7 @@ LABEL_26:
   [builderCopy removeMenuForIdentifier:UIMenuShare];
   [builderCopy replaceChildrenOfMenuForIdentifier:UIMenuStandardEdit fromChildrenBlock:&stru_1E3068];
   v34 = [UIImage systemImageNamed:@"doc.on.doc"];
-  v35 = AEBundle();
+  v35 = AEBundle(v34);
   v36 = [v35 localizedStringForKey:@"Copy" value:&stru_1E7188 table:0];
   v77 = v34;
   v37 = [UIKeyCommand commandWithTitle:v36 image:v34 action:"copy:" input:@"C" modifierFlags:0x80000 propertyList:0];
@@ -508,14 +508,13 @@ LABEL_26:
   }
 
   v45 = [UIImage systemImageNamed:@"magnifyingglass.circle"];
-  v46 = AEBundle();
+  v46 = AEBundle(v45);
   v47 = [v46 localizedStringForKey:@"Look Up" value:&stru_1E7188 table:0];
   v74 = v44;
   v48 = [UICommand commandWithTitle:v47 image:v45 action:"lookupSelection:" propertyList:v44];
 
   v73 = v48;
-  [v41 addObject:v48];
-  v49 = AEBundle();
+  v49 = AEBundle([v41 addObject:v48]);
   v50 = [v49 localizedStringForKey:@"Translate" value:&stru_1E7188 table:0];
 
   v51 = [UIImage _systemImageNamed:@"translate"];
@@ -571,13 +570,13 @@ LABEL_26:
   }
 
   v62 = [UIImage systemImageNamed:@"doc.text.magnifyingglass"];
-  v63 = AEBundle();
+  v63 = AEBundle(v62);
   v64 = [v63 localizedStringForKey:@"Search" value:&stru_1E7188 table:0];
   v65 = [UICommand commandWithTitle:v64 image:v62 action:"searchUsingSelection:" propertyList:v61];
 
   [v41 addObject:v65];
   v66 = [UIImage systemImageNamed:@"square.and.arrow.up"];
-  v67 = AEBundle();
+  v67 = AEBundle(v66);
   v68 = [v67 localizedStringForKey:@"Share" value:&stru_1E7188 table:0];
   v69 = [UICommand commandWithTitle:v68 image:v66 action:"_share:" propertyList:UICommandTagShare];
 
@@ -1570,6 +1569,7 @@ LABEL_20:
   location = [k2Copy location];
   selectionRects = [location selectionRects];
   annotationLocation = [k2Copy annotationLocation];
+  v8 = annotationLocation;
   if (!annotationLocation)
   {
     if (!selectionRects)
@@ -1577,23 +1577,23 @@ LABEL_20:
       goto LABEL_8;
     }
 
-    v9 = 0;
+    v10 = 0;
 LABEL_7:
     [(BKHTMLContentViewController *)self _highlightAnnotation:k2Copy rects:selectionRects];
     goto LABEL_14;
   }
 
   annotationRectsCache = [(BKHTMLContentViewController *)self annotationRectsCache];
-  v9 = [annotationRectsCache objectForKeyedSubscript:annotationLocation];
+  v10 = [annotationRectsCache objectForKeyedSubscript:v8];
 
   if (selectionRects)
   {
     goto LABEL_7;
   }
 
-  if (v9)
+  if (v10)
   {
-    [(BKHTMLContentViewController *)self _highlightAnnotation:k2Copy rects:v9];
+    [(BKHTMLContentViewController *)self _highlightAnnotation:k2Copy rects:v10];
     goto LABEL_14;
   }
 
@@ -1601,30 +1601,30 @@ LABEL_8:
   if (location)
   {
     webViewProxy = [(BKHTMLContentViewController *)self webViewProxy];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1E960;
-    v13[3] = &unk_1E3140;
-    objc_copyWeak(&v17, &location);
-    v14 = annotationLocation;
-    v15 = k2Copy;
-    v16 = location;
-    [webViewProxy clientRectsForLocation:v16 completion:v13];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1E960;
+    v14[3] = &unk_1E3140;
+    objc_copyWeak(&v18, &location);
+    v15 = v8;
+    v16 = k2Copy;
+    v17 = location;
+    [webViewProxy clientRectsForLocation:v17 completion:v14];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
   }
 
   else
   {
-    v11 = _AEAnnotationLocationLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _AEAnnotationLocationLog(annotationLocation);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "_highlightAnnotationWK2 nil location.", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "_highlightAnnotationWK2 nil location.", v13, 2u);
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_14:
 
   objc_destroyWeak(&location);
@@ -1728,69 +1728,70 @@ LABEL_14:
   if (changedCopy)
   {
     ordinal = [changedCopy ordinal];
-    if (ordinal == [(BKContentViewController *)self ordinal])
+    ordinal2 = [(BKContentViewController *)self ordinal];
+    if (ordinal == ordinal2)
     {
-      v8 = _AEAnnotationLocationLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _AEAnnotationLocationLog(ordinal2);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         annotationUuid = [v6 annotationUuid];
         *buf = 138412290;
-        v28 = annotationUuid;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "_annotationChanged for %@", buf, 0xCu);
+        v30 = annotationUuid;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "_annotationChanged for %@", buf, 0xCu);
       }
 
       if ([v6 annotationType] == 2)
       {
         annotationUuid2 = [v6 annotationUuid];
-        v11 = [NSPredicate predicateWithFormat:@"owner == %@", annotationUuid2, 0];
+        v12 = [NSPredicate predicateWithFormat:@"owner == %@", annotationUuid2, 0];
 
         highlightViews = [(BKContentViewController *)self highlightViews];
-        v13 = [highlightViews filteredArrayUsingPredicate:v11];
+        v14 = [highlightViews filteredArrayUsingPredicate:v12];
 
-        v14 = _AEAnnotationLocationLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = _AEAnnotationLocationLog(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           annotationUuid3 = [v6 annotationUuid];
           *buf = 138412546;
-          v28 = annotationUuid3;
-          v29 = 2112;
-          v30 = v13;
-          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "_annotationChanged for %@ found views: %@", buf, 0x16u);
+          v30 = annotationUuid3;
+          v31 = 2112;
+          v32 = v14;
+          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "_annotationChanged for %@ found views: %@", buf, 0x16u);
         }
 
+        v26 = 0u;
+        v27 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v22 = 0u;
-        v23 = 0u;
-        v16 = v13;
-        v17 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
-        if (v17)
+        v18 = v14;
+        v19 = [v18 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        if (v19)
         {
-          v18 = v17;
-          v19 = *v23;
+          v20 = v19;
+          v21 = *v25;
           do
           {
-            v20 = 0;
+            v22 = 0;
             do
             {
-              if (*v23 != v19)
+              if (*v25 != v21)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v18);
               }
 
-              [(BKContentViewController *)self removeHighlightView:*(*(&v22 + 1) + 8 * v20)];
-              v20 = v20 + 1;
+              [(BKContentViewController *)self removeHighlightView:*(*(&v24 + 1) + 8 * v22)];
+              v22 = v22 + 1;
             }
 
-            while (v18 != v20);
-            v18 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
+            while (v20 != v22);
+            v20 = [v18 countByEnumeratingWithState:&v24 objects:v28 count:16];
           }
 
-          while (v18);
+          while (v20);
         }
 
-        v21 = [NSArray arrayWithObject:v6];
-        [(BKHTMLContentViewController *)self highlightAnnotations:v21];
+        v23 = [NSArray arrayWithObject:v6];
+        [(BKHTMLContentViewController *)self highlightAnnotations:v23];
       }
     }
   }
@@ -2202,45 +2203,46 @@ LABEL_13:
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [(BKHTMLContentViewController *)self rectForLocation:locationCopy];
-      v9 = v8;
-      v11 = v10;
-      v13 = v12;
-      v15 = v14;
-      v16 = objc_retainBlock(completionCopy);
-      v21 = v16;
-      if (v16)
+      v10 = v9;
+      v12 = v11;
+      v14 = v13;
+      v16 = v15;
+      v17 = objc_retainBlock(completionCopy);
+      v22 = v17;
+      if (v17)
       {
-        v17.n128_u64[0] = v9;
-        v18.n128_u64[0] = v11;
-        v19.n128_u64[0] = v13;
-        v20.n128_u64[0] = v15;
-        (*(v16 + 2))(v17, v18, v19, v20);
+        v18.n128_u64[0] = v10;
+        v19.n128_u64[0] = v12;
+        v20.n128_u64[0] = v14;
+        v21.n128_u64[0] = v16;
+        (*(v17 + 2))(v18, v19, v20, v21);
       }
     }
 
     else
     {
-      v22 = _AECaptureLocationLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = _AECaptureLocationLog(isKindOfClass);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = objc_opt_class();
-        v24 = NSStringFromClass(v23);
-        v30 = 138412290;
-        v31 = v24;
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
+        v31 = 138412290;
+        v32 = v25;
       }
 
-      v25 = objc_retainBlock(completionCopy);
-      v21 = v25;
-      if (v25)
+      v26 = objc_retainBlock(completionCopy);
+      v22 = v26;
+      if (v26)
       {
-        v26.n128_u64[0] = *&CGRectZero.origin.x;
-        v27.n128_u64[0] = *&CGRectZero.origin.y;
-        v28.n128_u64[0] = *&CGRectZero.size.width;
-        v29.n128_u64[0] = *&CGRectZero.size.height;
-        (*(v25 + 2))(v26, v27, v28, v29);
+        v27.n128_u64[0] = *&CGRectZero.origin.x;
+        v28.n128_u64[0] = *&CGRectZero.origin.y;
+        v29.n128_u64[0] = *&CGRectZero.size.width;
+        v30.n128_u64[0] = *&CGRectZero.size.height;
+        (*(v26 + 2))(v27, v28, v29, v30);
       }
     }
   }
@@ -2588,7 +2590,7 @@ LABEL_13:
 {
   if (self->_highlightDummyAnnotation)
   {
-    v3 = _AEAnnotationLocationLog();
+    v3 = _AEAnnotationLocationLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       highlightDummyAnnotation = self->_highlightDummyAnnotation;
@@ -3961,44 +3963,45 @@ LABEL_36:
   pageCopy = page;
   if ([(BKContentViewController *)self pageOffset]< 0 || [(BKContentViewController *)self pageOffset]== 0x7FFFFFFFFFFFFFFFLL || ![(BKHTMLContentViewController *)self isLocationFromThisDocument:pageCopy])
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(v11) = 0;
   }
 
   else
   {
     objc_opt_class();
     v5 = BUDynamicCast();
+    v6 = v5;
     if (v5)
     {
       loader = [(BKHTMLContentViewController *)self loader];
       currentVisbleCFILocation = [loader currentVisbleCFILocation];
-      v8 = [currentVisbleCFILocation cfi];
-      v9 = [v5 cfi];
-      v10 = [v8 rangeIntersectsCFI:v9];
+      v9 = [currentVisbleCFILocation cfi];
+      v10 = [v6 cfi];
+      v11 = [v9 rangeIntersectsCFI:v10];
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    v12 = _AEAnnotationLocationLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _AEAnnotationLocationLog(v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       loader2 = [(BKHTMLContentViewController *)self loader];
       currentVisbleCFILocation2 = [loader2 currentVisbleCFILocation];
-      v15 = [NSNumber numberWithBool:v10];
-      v16 = 138412802;
-      v17 = currentVisbleCFILocation2;
-      v18 = 2112;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v15;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "isLocationOnCurrentPage: currentVisibleCFI:%@ forLocation:%@ isVisible:%@", &v16, 0x20u);
+      v16 = [NSNumber numberWithBool:v11];
+      v17 = 138412802;
+      v18 = currentVisbleCFILocation2;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "isLocationOnCurrentPage: currentVisibleCFI:%@ forLocation:%@ isVisible:%@", &v17, 0x20u);
     }
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)isLocationVisible:(id)visible annotation:(id)annotation completion:(id)completion
@@ -4436,7 +4439,7 @@ LABEL_15:
 
 - (void)_setupSelectionContextMenu
 {
-  v3 = AEBundle();
+  v3 = AEBundle(self);
   v2 = [v3 localizedStringForKey:@"Last page in this chapter" value:&stru_1E7188 table:0];
 }
 
@@ -4614,7 +4617,7 @@ LABEL_8:
   v8 = coordinatorCopy;
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -4867,7 +4870,7 @@ LABEL_8:
 
 - (void)navigationHandlerWebContentProcessAttemptingReload:(id)reload
 {
-  v4 = _AEBookPluginsLifeCycleLog();
+  v4 = _AEBookPluginsLifeCycleLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = 138412290;
@@ -4885,8 +4888,7 @@ LABEL_8:
 - (void)navigationHandlerWebContentLoadFailed:(id)failed reason:(id)reason
 {
   reasonCopy = reason;
-  [(BKHTMLContentViewController *)self setLoadFailureCount:[(BKHTMLContentViewController *)self loadFailureCount]+ 1];
-  v6 = _AEBookPluginsLifeCycleLog();
+  v6 = _AEBookPluginsLifeCycleLog([(BKHTMLContentViewController *)self setLoadFailureCount:[(BKHTMLContentViewController *)self loadFailureCount]+ 1]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = [NSNumber numberWithUnsignedInteger:[(BKHTMLContentViewController *)self loadFailureCount]];
@@ -5070,110 +5072,110 @@ LABEL_10:
 - (void)_bkaxPerformEditAction:(id)action
 {
   actionCopy = action;
-  v5 = AEBundle();
+  v5 = AEBundle(actionCopy);
   v6 = [v5 localizedStringForKey:@"Select highlight" value:&stru_1E7188 table:0];
   v7 = [actionCopy isEqualToString:v6];
 
   if (v7)
   {
-    v8 = @"selectAnnotation:";
+    v9 = @"selectAnnotation:";
     goto LABEL_21;
   }
 
-  v9 = AEBundle();
-  v10 = [v9 localizedStringForKey:@"Open link" value:&stru_1E7188 table:0];
-  v11 = [actionCopy isEqualToString:v10];
+  v10 = AEBundle(v8);
+  v11 = [v10 localizedStringForKey:@"Open link" value:&stru_1E7188 table:0];
+  v12 = [actionCopy isEqualToString:v11];
 
-  if (v11)
+  if (v12)
   {
-    v8 = @"selectBookmarkedLink:";
+    v9 = @"selectBookmarkedLink:";
     goto LABEL_21;
   }
 
-  v12 = AEBundle();
-  v13 = [v12 localizedStringForKey:@"Add note" value:&stru_1E7188 table:0];
-  v14 = [actionCopy isEqualToString:v13];
+  v14 = AEBundle(v13);
+  v15 = [v14 localizedStringForKey:@"Add note" value:&stru_1E7188 table:0];
+  v16 = [actionCopy isEqualToString:v15];
 
-  if (v14)
+  if (v16)
   {
-    v8 = @"annotateSelection:";
+    v9 = @"annotateSelection:";
     goto LABEL_21;
   }
 
-  v15 = AEBundle();
-  v16 = [v15 localizedStringForKey:@"Highlight" value:&stru_1E7188 table:0];
-  v17 = [actionCopy isEqualToString:v16];
-
-  if (v17)
-  {
-    v8 = @"bookmarkSelection:";
-    goto LABEL_21;
-  }
-
-  v18 = AEBundle();
-  v19 = [v18 localizedStringForKey:@"Lookup" value:&stru_1E7188 table:0];
+  v18 = AEBundle(v17);
+  v19 = [v18 localizedStringForKey:@"Highlight" value:&stru_1E7188 table:0];
   v20 = [actionCopy isEqualToString:v19];
 
   if (v20)
   {
-    v8 = @"lookupSelection:";
+    v9 = @"bookmarkSelection:";
     goto LABEL_21;
   }
 
-  v21 = AEBundle();
-  v22 = [v21 localizedStringForKey:@"Search" value:&stru_1E7188 table:0];
-  v23 = [actionCopy isEqualToString:v22];
+  v22 = AEBundle(v21);
+  v23 = [v22 localizedStringForKey:@"Lookup" value:&stru_1E7188 table:0];
+  v24 = [actionCopy isEqualToString:v23];
 
-  if (v23)
+  if (v24)
   {
-    v8 = @"searchUsingSelection:";
+    v9 = @"lookupSelection:";
     goto LABEL_21;
   }
 
-  v24 = AEBundle();
-  v25 = [v24 localizedStringForKey:@"Translate" value:&stru_1E7188 table:0];
-  v26 = [actionCopy isEqualToString:v25];
+  v26 = AEBundle(v25);
+  v27 = [v26 localizedStringForKey:@"Search" value:&stru_1E7188 table:0];
+  v28 = [actionCopy isEqualToString:v27];
 
-  if (v26)
+  if (v28)
   {
-    v8 = @"translateSelection:";
+    v9 = @"searchUsingSelection:";
     goto LABEL_21;
   }
 
-  v27 = AEBundle();
-  v28 = [v27 localizedStringForKey:@"Copy" value:&stru_1E7188 table:0];
-  v29 = [actionCopy isEqualToString:v28];
-
-  if (v29)
-  {
-    v8 = @"copy:";
-    goto LABEL_21;
-  }
-
-  v30 = AEBundle();
-  v31 = [v30 localizedStringForKey:@"Share selection" value:&stru_1E7188 table:0];
+  v30 = AEBundle(v29);
+  v31 = [v30 localizedStringForKey:@"Translate" value:&stru_1E7188 table:0];
   v32 = [actionCopy isEqualToString:v31];
 
   if (v32)
   {
-    v8 = @"shareSelection:";
+    v9 = @"translateSelection:";
+    goto LABEL_21;
+  }
+
+  v34 = AEBundle(v33);
+  v35 = [v34 localizedStringForKey:@"Copy" value:&stru_1E7188 table:0];
+  v36 = [actionCopy isEqualToString:v35];
+
+  if (v36)
+  {
+    v9 = @"copy:";
+    goto LABEL_21;
+  }
+
+  v38 = AEBundle(v37);
+  v39 = [v38 localizedStringForKey:@"Share selection" value:&stru_1E7188 table:0];
+  v40 = [actionCopy isEqualToString:v39];
+
+  if (v40)
+  {
+    v9 = @"shareSelection:";
     goto LABEL_21;
   }
 
   if ([actionCopy isEqualToString:@"Debug end of book experience"])
   {
-    v8 = @"endOfBook:";
+    v9 = @"endOfBook:";
 LABEL_21:
-    if ([(BKHTMLContentViewController *)self _bkaxPerformSelector:v8])
+    if ([(BKHTMLContentViewController *)self _bkaxPerformSelector:v9])
     {
       goto LABEL_25;
     }
   }
 
-  v33 = BCIMLog();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  v41 = BCIMLog();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
   {
-    sub_136C0C(actionCopy, v33, v34, v35, v36, v37, v38, v39);
+    sub_136C0C(actionCopy, v41, v42, v43, v44, v45, v46, v47);
   }
 
 LABEL_25:
@@ -5193,80 +5195,89 @@ LABEL_25:
 
 - (void)_bkaxCheckCanPerformEditActions
 {
-  v25 = +[NSMutableArray array];
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"selectAnnotation:") withSender:0])
+  v34 = +[NSMutableArray array];
+  v3 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"selectAnnotation:") withSender:0];
+  if (v3)
   {
-    v3 = AEBundle();
-    v4 = [v3 localizedStringForKey:@"Select highlight" value:&stru_1E7188 table:0];
-    [v25 addObject:v4];
+    v4 = AEBundle(v3);
+    v5 = [v4 localizedStringForKey:@"Select highlight" value:&stru_1E7188 table:0];
+    [v34 addObject:v5];
   }
 
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"selectBookmarkedLink:") withSender:0])
+  v6 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"selectBookmarkedLink:") withSender:0];
+  if (v6)
   {
-    v5 = AEBundle();
-    v6 = [v5 localizedStringForKey:@"Open link" value:&stru_1E7188 table:0];
-    [v25 addObject:v6];
+    v7 = AEBundle(v6);
+    v8 = [v7 localizedStringForKey:@"Open link" value:&stru_1E7188 table:0];
+    [v34 addObject:v8];
   }
 
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"annotateSelection:") withSender:0])
+  v9 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"annotateSelection:") withSender:0];
+  if (v9)
   {
-    v7 = AEBundle();
-    v8 = [v7 localizedStringForKey:@"Add note" value:&stru_1E7188 table:0];
-    [v25 addObject:v8];
+    v10 = AEBundle(v9);
+    v11 = [v10 localizedStringForKey:@"Add note" value:&stru_1E7188 table:0];
+    [v34 addObject:v11];
   }
 
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"bookmarkSelection:") withSender:0])
+  v12 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"bookmarkSelection:") withSender:0];
+  if (v12)
   {
-    v9 = AEBundle();
-    v10 = [v9 localizedStringForKey:@"Highlight" value:&stru_1E7188 table:0];
-    [v25 addObject:v10];
+    v13 = AEBundle(v12);
+    v14 = [v13 localizedStringForKey:@"Highlight" value:&stru_1E7188 table:0];
+    [v34 addObject:v14];
   }
 
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"lookupSelection:") withSender:0])
+  v15 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"lookupSelection:") withSender:0];
+  if (v15)
   {
-    v11 = AEBundle();
-    v12 = [v11 localizedStringForKey:@"Lookup" value:&stru_1E7188 table:0];
-    [v25 addObject:v12];
+    v16 = AEBundle(v15);
+    v17 = [v16 localizedStringForKey:@"Lookup" value:&stru_1E7188 table:0];
+    [v34 addObject:v17];
   }
 
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"searchUsingSelection:") withSender:0])
+  v18 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"searchUsingSelection:") withSender:0];
+  if (v18)
   {
-    v13 = AEBundle();
-    v14 = [v13 localizedStringForKey:@"Search" value:&stru_1E7188 table:0];
-    [v25 addObject:v14];
+    v19 = AEBundle(v18);
+    v20 = [v19 localizedStringForKey:@"Search" value:&stru_1E7188 table:0];
+    [v34 addObject:v20];
   }
 
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"translateSelection:") withSender:0])
+  v21 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"translateSelection:") withSender:0];
+  if (v21)
   {
-    v15 = AEBundle();
-    v16 = [v15 localizedStringForKey:@"Translate" value:&stru_1E7188 table:0];
-    [v25 addObject:v16];
+    v22 = AEBundle(v21);
+    v23 = [v22 localizedStringForKey:@"Translate" value:&stru_1E7188 table:0];
+    [v34 addObject:v23];
   }
 
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"copy:") withSender:0]|| [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"copyContent:") withSender:0])
+  v24 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"copy:") withSender:0];
+  if ((v24 & 1) != 0 || (v24 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"copyContent:") withSender:0], v24))
   {
-    v17 = AEBundle();
-    v18 = [v17 localizedStringForKey:@"Copy" value:&stru_1E7188 table:0];
-    [v25 addObject:v18];
+    v25 = AEBundle(v24);
+    v26 = [v25 localizedStringForKey:@"Copy" value:&stru_1E7188 table:0];
+    [v34 addObject:v26];
   }
 
-  if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"shareSelection:") withSender:0])
+  v27 = [(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"shareSelection:") withSender:0];
+  if (v27)
   {
-    v19 = AEBundle();
-    v20 = [v19 localizedStringForKey:@"Share selection" value:&stru_1E7188 table:0];
-    [v25 addObject:v20];
+    v28 = AEBundle(v27);
+    v29 = [v28 localizedStringForKey:@"Share selection" value:&stru_1E7188 table:0];
+    [v34 addObject:v29];
   }
 
   if ([(BKHTMLContentViewController *)self canPerformAction:NSSelectorFromString(@"endOfBook:") withSender:0])
   {
-    [v25 addObject:@"Debug end of book experience"];
+    [v34 addObject:@"Debug end of book experience"];
   }
 
   webView2 = [(BKHTMLContentViewController *)self webView2];
   webView22 = [(BKHTMLContentViewController *)self webView2];
-  v23 = [v25 copy];
-  v24 = [webView22 be_updateAXValueForMessage:v23];
-  [webView2 be_updateAXCurrentReadingStateWithMessage:@"BEWebProcessPluginOperationsParameterKey" forValue:v24];
+  v32 = [v34 copy];
+  v33 = [webView22 be_updateAXValueForMessage:v32];
+  [webView2 be_updateAXCurrentReadingStateWithMessage:@"BEWebProcessPluginOperationsParameterKey" forValue:v33];
 }
 
 - (void)readAloudEventHandler:(id)handler performedAction:(id)action turnStyle:(id)style
@@ -5658,7 +5669,7 @@ LABEL_17:
 
     if (style == 1)
     {
-      v9 = 1;
+      v10 = 1;
     }
 
     else
@@ -5668,14 +5679,14 @@ LABEL_17:
         goto LABEL_8;
       }
 
-      v9 = 0;
+      v10 = 0;
     }
 
-    [delegate contentViewController:self setTurnState:v9];
+    [delegate contentViewController:self setTurnState:v10];
 LABEL_8:
-    v10 = objc_opt_respondsToSelector();
+    contentViewControllerReadAloudState = objc_opt_respondsToSelector();
     v11 = delegate;
-    if ((v10 & 1) == 0)
+    if ((contentViewControllerReadAloudState & 1) == 0)
     {
       goto LABEL_20;
     }
@@ -5698,7 +5709,7 @@ LABEL_8:
 
         else
         {
-          contentViewControllerReadAloudState = 0;
+          LODWORD(contentViewControllerReadAloudState) = 0;
           v11 = delegate;
         }
 
@@ -5711,12 +5722,12 @@ LABEL_8:
         goto LABEL_20;
     }
 
-    [v11 contentViewController:self setReadAloudState:v12];
+    contentViewControllerReadAloudState = [v11 contentViewController:self setReadAloudState:v12];
   }
 
 LABEL_20:
 
-  _objc_release_x2();
+  _objc_release_x2(contentViewControllerReadAloudState);
 }
 
 - (void)webViewDidEnterFullscreen:(id)fullscreen
@@ -5968,7 +5979,7 @@ LABEL_20:
 
         else
         {
-          v17 = _AEAnnotationLocationLog();
+          v17 = _AEAnnotationLocationLog(v13);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
@@ -6014,42 +6025,42 @@ LABEL_20:
   predicateForOverlayCache = [(BKHTMLContentViewController *)self predicateForOverlayCache];
   v5 = [fetchedObjects filteredArrayUsingPredicate:predicateForOverlayCache];
 
-  v6 = _AEAnnotationLocationLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _AEAnnotationLocationLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [v5 valueForKey:@"annotationUuid"];
-    v14 = 138543362;
-    v15 = v7;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Preparing overlay cache for annotations:%{public}@", &v14, 0xCu);
+    v8 = [v5 valueForKey:@"annotationUuid"];
+    v15 = 138543362;
+    v16 = v8;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Preparing overlay cache for annotations:%{public}@", &v15, 0xCu);
   }
 
-  v8 = objc_alloc_init(NSDictionary);
+  v9 = objc_alloc_init(NSDictionary);
   delegate = [(BKContentViewController *)self delegate];
-  v10 = objc_opt_respondsToSelector();
+  v11 = objc_opt_respondsToSelector();
 
-  if (v10)
+  if (v11)
   {
     delegate2 = [(BKContentViewController *)self delegate];
-    v12 = [delegate2 contentViewController:self locationRectsForAnnotations:v5];
+    v13 = [delegate2 contentViewController:self locationRectsForAnnotations:v5];
 
-    v8 = v12;
+    v9 = v13;
   }
 
-  v13 = [v8 count];
-  if (v13 == [v5 count])
+  v14 = [v9 count];
+  if (v14 == [v5 count])
   {
-    [(BKHTMLContentViewController *)self _setupAnnotationRectCachesFromClientRects:v8];
+    [(BKHTMLContentViewController *)self _setupAnnotationRectCachesFromClientRects:v9];
   }
 
   else
   {
-    [(BKHTMLContentViewController *)self _fetchMissingCfiLocationRects:v8 forAnnotations:v5];
+    [(BKHTMLContentViewController *)self _fetchMissingCfiLocationRects:v9 forAnnotations:v5];
   }
 }
 
 - (void)invalidateContentBasedOverlayCache
 {
-  v3 = _AEAnnotationLocationLog();
+  v3 = _AEAnnotationLocationLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -6062,7 +6073,7 @@ LABEL_20:
 
 - (void)invalidateContentBasedOverlay
 {
-  v3 = _AEAnnotationLocationLog();
+  v3 = _AEAnnotationLocationLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -6185,54 +6196,59 @@ LABEL_20:
 
     else if (type == 1)
     {
-      if ([v16 annotationType] == 2)
+      annotationType = [v16 annotationType];
+      if (annotationType == 2)
       {
-        v18 = _AEAnnotationLocationLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = _AEAnnotationLocationLog(annotationType);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           annotationUuid3 = [v17 annotationUuid];
           *buf = 138412290;
-          v34 = annotationUuid3;
-          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "controller didInsert range annotation: %@.  Highlighting...", buf, 0xCu);
+          v36 = annotationUuid3;
+          _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "controller didInsert range annotation: %@.  Highlighting...", buf, 0xCu);
         }
 
         [(BKHTMLContentViewController *)self removeDummyHighlight];
-        v20 = [NSArray arrayWithObject:v17];
-        [(BKHTMLContentViewController *)self highlightAnnotations:v20];
+        v21 = [NSArray arrayWithObject:v17];
+        [(BKHTMLContentViewController *)self highlightAnnotations:v21];
       }
 
-      else if ([v17 annotationType] == 1)
+      else
       {
-        v24 = _AEAnnotationLocationLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        annotationType2 = [v17 annotationType];
+        if (annotationType2 == 1)
         {
-          annotationUuid4 = [v17 annotationUuid];
-          *buf = 138412290;
-          v34 = annotationUuid4;
-          _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "controller didInsert point annotation: %@", buf, 0xCu);
+          v26 = _AEAnnotationLocationLog(annotationType2);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          {
+            annotationUuid4 = [v17 annotationUuid];
+            *buf = 138412290;
+            v36 = annotationUuid4;
+            _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "controller didInsert point annotation: %@", buf, 0xCu);
+          }
+
+          objc_initWeak(buf, self);
+          objc_opt_class();
+          location = [v17 location];
+          v29 = BUDynamicCast();
+
+          if (v29 && [(BKHTMLContentViewController *)self isLocationFromThisDocument:v29])
+          {
+            loader = [(BKHTMLContentViewController *)self loader];
+            v31[0] = _NSConcreteStackBlock;
+            v31[1] = 3221225472;
+            v31[2] = sub_2BF9C;
+            v31[3] = &unk_1E3680;
+            objc_copyWeak(&v34, buf);
+            v32 = v17;
+            selfCopy = self;
+            [loader clientRectsForLocation:v29 completion:v31];
+
+            objc_destroyWeak(&v34);
+          }
+
+          objc_destroyWeak(buf);
         }
-
-        objc_initWeak(buf, self);
-        objc_opt_class();
-        location = [v17 location];
-        v27 = BUDynamicCast();
-
-        if (v27 && [(BKHTMLContentViewController *)self isLocationFromThisDocument:v27])
-        {
-          loader = [(BKHTMLContentViewController *)self loader];
-          v29[0] = _NSConcreteStackBlock;
-          v29[1] = 3221225472;
-          v29[2] = sub_2BF9C;
-          v29[3] = &unk_1E3680;
-          objc_copyWeak(&v32, buf);
-          v30 = v17;
-          selfCopy = self;
-          [loader clientRectsForLocation:v27 completion:v29];
-
-          objc_destroyWeak(&v32);
-        }
-
-        objc_destroyWeak(buf);
       }
     }
   }
@@ -6426,7 +6442,7 @@ LABEL_20:
   {
     if (self->_locationEnsuredFirstPaintWorkBlock)
     {
-      v7 = _AESwipeLog();
+      v7 = _AESwipeLog(performCopy);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *v10 = 0;

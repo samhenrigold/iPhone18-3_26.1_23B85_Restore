@@ -1,4 +1,5 @@
 @interface HMDCharacteristicUpdateTuple
++ (id)characteristicUpdateTuplesWithCharacteristics:(id)characteristics isBroadcast:(BOOL)broadcast;
 - (BOOL)isEqual:(id)equal;
 - (HMDCharacteristicUpdateTuple)initWithCharacteristic:(id)characteristic updatedValue:(id)value isBroadcast:(BOOL)broadcast reasons:(unint64_t)reasons;
 - (id)attributeDescriptions;
@@ -10,27 +11,25 @@
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   characteristic = [(HMDCharacteristicUpdateTuple *)self characteristic];
   v5 = [v3 initWithName:@"characteristic" value:characteristic];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   value = [(HMDCharacteristicUpdateTuple *)self value];
   v8 = [v6 initWithName:@"value" value:value];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDCharacteristicUpdateTuple *)self isBroadcast];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"isBroadcast" value:v10];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCharacteristicUpdateTuple reasons](self, "reasons")}];
   v14 = [v12 initWithName:@"reasons" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -94,7 +93,7 @@
 
 - (id)updatedValue
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   characteristicResponse = [(HMDCharacteristicUpdateTuple *)self characteristicResponse];
   request = [characteristicResponse request];
   v5 = [request isMemberOfClass:objc_opt_class()];
@@ -121,13 +120,13 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           v17 = HMFGetLogIdentifier();
-          v21 = 138543874;
-          v22 = v17;
-          v23 = 2112;
-          v24 = selfCopy;
-          v25 = 2112;
-          v26 = lastKnownValue;
-          _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating tuple to last known characteristic value %@ -> %@", &v21, 0x20u);
+          v20 = 138543874;
+          v21 = v17;
+          v22 = 2112;
+          v23 = selfCopy;
+          v24 = 2112;
+          v25 = lastKnownValue;
+          _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating tuple to last known characteristic value %@ -> %@", &v20, 0x20u);
         }
 
         objc_autoreleasePoolPop(v14);
@@ -141,7 +140,6 @@
   }
 
   value2 = [(HMDCharacteristicUpdateTuple *)self value];
-  v19 = *MEMORY[0x277D85DE8];
 
   return value2;
 }
@@ -163,6 +161,49 @@
   }
 
   return v14;
+}
+
++ (id)characteristicUpdateTuplesWithCharacteristics:(id)characteristics isBroadcast:(BOOL)broadcast
+{
+  broadcastCopy = broadcast;
+  v23 = *MEMORY[0x277D85DE8];
+  characteristicsCopy = characteristics;
+  v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(characteristicsCopy, "count")}];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v17 = characteristicsCopy;
+  v7 = [MEMORY[0x277CBEB98] setWithArray:characteristicsCopy];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v19;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v19 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = *(*(&v18 + 1) + 8 * i);
+        v13 = [HMDCharacteristicUpdateTuple alloc];
+        value = [v12 value];
+        v15 = [(HMDCharacteristicUpdateTuple *)v13 initWithCharacteristic:v12 updatedValue:value isBroadcast:broadcastCopy];
+
+        [v6 addObject:v15];
+      }
+
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    }
+
+    while (v9);
+  }
+
+  return v6;
 }
 
 @end

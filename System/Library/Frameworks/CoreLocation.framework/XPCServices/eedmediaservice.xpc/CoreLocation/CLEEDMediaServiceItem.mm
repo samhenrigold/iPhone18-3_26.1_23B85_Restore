@@ -348,9 +348,9 @@ LABEL_10:
     stagingURL = [itemCopy stagingURL];
     path = [stagingURL path];
     *buf = 136446467;
-    v73 = "[CLEEDMediaServiceItem encryptMediaItem:returnedAuthTag:]";
-    v74 = 2113;
-    *v75 = path;
+    v99 = "[CLEEDMediaServiceItem encryptMediaItem:returnedAuthTag:]";
+    v100 = 2113;
+    *v101 = path;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, Encrypting media file at path:%{private}@", buf, 0x16u);
   }
 
@@ -362,11 +362,11 @@ LABEL_10:
   if (v14)
   {
     mediaItemID = [itemCopy mediaItemID];
-    v70 = 0;
-    v71 = 0;
-    [(CLEEDMediaServiceItem *)self generateEncrytionKeyForMediaID:mediaItemID returningKey:&v71 IV:&v70];
-    v16 = v71;
-    v17 = v70;
+    v96 = 0;
+    v97 = 0;
+    [(CLEEDMediaServiceItem *)self generateEncrytionKeyForMediaID:mediaItemID returningKey:&v97 IV:&v96];
+    v16 = v97;
+    v17 = v96;
 
     if (!v16 || !v17)
     {
@@ -437,8 +437,8 @@ LABEL_31:
 
     if (!v28)
     {
-      v45 = sub_1000012D8();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v64 = sub_1000012D8(v29, v30, v31, v32);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
         sub_100013F48();
       }
@@ -446,26 +446,26 @@ LABEL_31:
       goto LABEL_28;
     }
 
-    v68 = v28;
+    v94 = v28;
     tagCopy = tag;
     stagingURL6 = [itemCopy stagingURL];
     path6 = [stagingURL6 path];
-    v31 = [path6 stringByAppendingString:@".encrypted"];
-    v23 = [NSURL fileURLWithPath:v31];
+    v35 = [path6 stringByAppendingString:@".encrypted"];
+    v23 = [NSURL fileURLWithPath:v35];
 
     path7 = [v23 path];
-    v33 = fopen([path7 UTF8String], "wb");
+    v37 = fopen([path7 UTF8String], "wb");
 
-    __stream = v33;
-    if (!v33)
+    __stream = v37;
+    if (!v37)
     {
-      v46 = sub_1000012D8();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v65 = sub_1000012D8(v38, v39, v40, v41);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         sub_100013EAC();
       }
 
-      fclose(v68);
+      fclose(v94);
       stagingURL7 = [itemCopy stagingURL];
       path8 = [stagingURL7 path];
       [CLEEDMediaService deleteFileAtPath:path8];
@@ -474,40 +474,40 @@ LABEL_31:
       goto LABEL_29;
     }
 
-    v66 = v23;
+    v92 = v23;
     path4 = [NSMutableData dataWithCapacity:0x100000];
     mediaItem = [(CLEEDMediaServiceItem *)self mediaItem];
-    v35 = [mediaItem mediaItemSizeBytes] >> 20;
+    v43 = [mediaItem mediaItemSizeBytes] >> 20;
     mediaItem2 = [(CLEEDMediaServiceItem *)self mediaItem];
     if (([mediaItem2 mediaItemSizeBytes] & 0xFFFFF) != 0)
     {
-      v37 = v35 + 1;
+      v45 = v43 + 1;
     }
 
     else
     {
-      v37 = v35;
+      v45 = v43;
     }
 
-    v64 = v37;
+    v90 = v45;
 
-    v38 = 1;
+    v46 = 1;
     while (1)
     {
-      if (feof(v68))
+      if (feof(v94))
       {
         goto LABEL_71;
       }
 
-      v39 = fread([path4 mutableBytes], 1uLL, 0x100000uLL, v68);
-      if (!v39)
+      v47 = fread([path4 mutableBytes], 1uLL, 0x100000uLL, v94);
+      if (!v47)
       {
         goto LABEL_71;
       }
 
-      v40 = v39;
-      v41 = ferror(v68);
-      if (v40 > 0x100000 || v41)
+      v48 = v47;
+      v49 = ferror(v94);
+      if (v48 > 0x100000 || v49)
       {
         break;
       }
@@ -517,26 +517,27 @@ LABEL_31:
         sub_100013358();
       }
 
-      v42 = qword_100029E68;
+      v53 = qword_100029E68;
       if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136446978;
-        v73 = "[CLEEDMediaServiceItem encryptMediaItem:returnedAuthTag:]";
-        v74 = 1026;
-        *v75 = v38;
-        *&v75[4] = 1026;
-        *&v75[6] = v64;
-        *&v75[10] = 2050;
-        *&v75[12] = v40;
-        _os_log_debug_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "#EED2EMS,%{public}s, Encrypting chunk %{public}d of %{public}d, chunkLength:%{public}zu", buf, 0x22u);
+        v99 = "[CLEEDMediaServiceItem encryptMediaItem:returnedAuthTag:]";
+        v100 = 1026;
+        *v101 = v46;
+        *&v101[4] = 1026;
+        *&v101[6] = v90;
+        *&v101[10] = 2050;
+        *&v101[12] = v48;
+        _os_log_debug_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "#EED2EMS,%{public}s, Encrypting chunk %{public}d of %{public}d, chunkLength:%{public}zu", buf, 0x22u);
       }
 
       [path4 bytes];
       [path4 mutableBytes];
-      if (CCCryptorGCMEncrypt())
+      v54 = CCCryptorGCMEncrypt();
+      if (v54)
       {
-        v49 = sub_1000012D8();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v68 = sub_1000012D8(v54, v55, v56, v57);
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
           sub_100013DB4();
         }
@@ -544,38 +545,39 @@ LABEL_31:
         goto LABEL_70;
       }
 
-      v43 = fwrite([path4 bytes], 1uLL, v40, __stream);
-      v44 = ferror(__stream);
-      if (!v44)
+      v58 = fwrite([path4 bytes], 1uLL, v48, __stream);
+      v59 = ferror(__stream);
+      v63 = v59;
+      if (!v59)
       {
-        ++v38;
-        if (v43 == v40)
+        ++v46;
+        if (v58 == v48)
         {
           continue;
         }
       }
 
-      v49 = sub_1000012D8();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v68 = sub_1000012D8(v59, v60, v61, v62);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446978;
-        v73 = "[CLEEDMediaServiceItem encryptMediaItem:returnedAuthTag:]";
-        v74 = 1026;
-        *v75 = v44;
-        *&v75[4] = 2050;
-        *&v75[6] = v40;
-        *&v75[14] = 2050;
-        *&v75[16] = v43;
-        _os_log_error_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "#EED2EMS,%{public}s, Failed to write file,error code:%{public}d, readSize:%{public}zu, sizeWritten:%{public}zu", buf, 0x26u);
+        v99 = "[CLEEDMediaServiceItem encryptMediaItem:returnedAuthTag:]";
+        v100 = 1026;
+        *v101 = v63;
+        *&v101[4] = 2050;
+        *&v101[6] = v48;
+        *&v101[14] = 2050;
+        *&v101[16] = v58;
+        _os_log_error_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "#EED2EMS,%{public}s, Failed to write file,error code:%{public}d, readSize:%{public}zu, sizeWritten:%{public}zu", buf, 0x26u);
       }
 
       goto LABEL_70;
     }
 
-    if (v41)
+    if (v49)
     {
-      v49 = sub_1000012D8();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v68 = sub_1000012D8(v49, v50, v51, v52);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         sub_100013CA4();
       }
@@ -583,45 +585,45 @@ LABEL_31:
 
     else
     {
-      if (v40 <= 0x100000)
+      if (v48 <= 0x100000)
       {
 LABEL_71:
-        fclose(v68);
+        fclose(v94);
         fclose(__stream);
         path13 = [NSMutableData dataWithLength:16];
         [path13 mutableBytes];
         [path13 length];
-        v53 = CCCryptorGCMFinalize();
-        CCCryptorRelease(cryptorRef);
-        if (!v53)
+        v72 = CCCryptorGCMFinalize();
+        v73 = CCCryptorRelease(cryptorRef);
+        if (!v72)
         {
-          v58 = path13;
+          v81 = path13;
           *tagCopy = path13;
-          v59 = sub_1000012D8();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+          v85 = sub_1000012D8(v81, v82, v83, v84);
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
           {
-            v60 = [*tagCopy base64EncodedStringWithOptions:0];
-            uTF8String = [v60 UTF8String];
+            v86 = [*tagCopy base64EncodedStringWithOptions:0];
+            uTF8String = [v86 UTF8String];
             *buf = 136446467;
-            v73 = "[CLEEDMediaServiceItem encryptMediaItem:returnedAuthTag:]";
-            v74 = 2081;
-            *v75 = uTF8String;
-            _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, AuthenticationTag:%{private}s", buf, 0x16u);
+            v99 = "[CLEEDMediaServiceItem encryptMediaItem:returnedAuthTag:]";
+            v100 = 2081;
+            *v101 = uTF8String;
+            _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, AuthenticationTag:%{private}s", buf, 0x16u);
           }
 
           stagingURL8 = [itemCopy stagingURL];
           path9 = [stagingURL8 path];
           [CLEEDMediaService deleteFileAtPath:path9];
 
-          v23 = v66;
-          v19 = v66;
+          v23 = v92;
+          v19 = v92;
 LABEL_76:
 
           goto LABEL_30;
         }
 
-        v54 = sub_1000012D8();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        v77 = sub_1000012D8(v73, v74, v75, v76);
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
           sub_100013E30();
         }
@@ -630,8 +632,8 @@ LABEL_76:
         path10 = [stagingURL9 path];
         [CLEEDMediaService deleteFileAtPath:path10];
 
-        v23 = v66;
-        path11 = [v66 path];
+        v23 = v92;
+        path11 = [v92 path];
         [CLEEDMediaService deleteFileAtPath:path11];
 
 LABEL_75:
@@ -639,8 +641,8 @@ LABEL_75:
         goto LABEL_76;
       }
 
-      v49 = sub_1000012D8();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v68 = sub_1000012D8(v49, v50, v51, v52);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         sub_100013D20();
       }
@@ -648,14 +650,14 @@ LABEL_75:
 
 LABEL_70:
 
-    fclose(v68);
+    fclose(v94);
     fclose(__stream);
     stagingURL10 = [itemCopy stagingURL];
     path12 = [stagingURL10 path];
     [CLEEDMediaService deleteFileAtPath:path12];
 
-    v23 = v66;
-    path13 = [v66 path];
+    v23 = v92;
+    path13 = [v92 path];
     [CLEEDMediaService deleteFileAtPath:path13];
     goto LABEL_75;
   }

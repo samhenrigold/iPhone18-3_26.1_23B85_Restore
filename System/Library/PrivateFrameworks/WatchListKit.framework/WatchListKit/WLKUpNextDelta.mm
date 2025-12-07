@@ -15,41 +15,41 @@
 
 - (WLKUpNextDelta)initWithDictionary:(id)dictionary
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v30.receiver = self;
-  v30.super_class = WLKUpNextDelta;
-  v5 = [(WLKUpNextDelta *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = WLKUpNextDelta;
+  v5 = [(WLKUpNextDelta *)&v29 init];
   if (v5)
   {
     v6 = [dictionaryCopy copy];
     backingDictionary = v5->_backingDictionary;
     v5->_backingDictionary = v6;
 
-    v25 = dictionaryCopy;
+    v24 = dictionaryCopy;
     v8 = [dictionaryCopy wlk_arrayForKey:@"upNextChanges"];
     v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       do
       {
         v14 = 0;
         do
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [WLKUpNextDelta useWidgetImagesIfAvailable:*(*(&v26 + 1) + 8 * v14)];
+          v15 = [WLKUpNextDelta useWidgetImagesIfAvailable:*(*(&v25 + 1) + 8 * v14)];
           v16 = [[WLKDeltaContinuationMetadata alloc] initWithDictionary:v15 context:0];
           if (v16)
           {
@@ -60,7 +60,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v12);
@@ -70,17 +70,16 @@
     items = v5->_items;
     v5->_items = v17;
 
-    dictionaryCopy = v25;
-    v19 = [v25 wlk_dateFromMillisecondsSince1970ForKey:@"timestamp"];
+    dictionaryCopy = v24;
+    v19 = [v24 wlk_dateFromMillisecondsSince1970ForKey:@"timestamp"];
     timestamp = v5->_timestamp;
     v5->_timestamp = v19;
 
-    v21 = [v25 wlk_dateFromMillisecondsSince1970ForKey:@"expiresAt"];
+    v21 = [v24 wlk_dateFromMillisecondsSince1970ForKey:@"expiresAt"];
     expirationDate = v5->_expirationDate;
     v5->_expirationDate = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -130,7 +129,7 @@
 
 - (id)_deltaByMergingItemsFromDelta:(id)delta
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   deltaCopy = delta;
   v5 = [(NSArray *)self->_items mutableCopy];
   if (!v5)
@@ -138,57 +137,57 @@
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   additions = [deltaCopy additions];
-  v7 = [additions countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v7 = [additions countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v37;
+    v9 = *v36;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v9)
+        if (*v36 != v9)
         {
           objc_enumerationMutation(additions);
         }
 
-        [WLKContinuationMetadataBase add:*(*(&v36 + 1) + 8 * i) toCollection:v5];
+        [WLKContinuationMetadataBase add:*(*(&v35 + 1) + 8 * i) toCollection:v5];
       }
 
-      v8 = [additions countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v8 = [additions countByEnumeratingWithState:&v35 objects:v41 count:16];
     }
 
     while (v8);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   removals = [deltaCopy removals];
-  v12 = [removals countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v12 = [removals countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v33;
+    v14 = *v32;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(removals);
         }
 
-        [WLKContinuationMetadataBase remove:*(*(&v32 + 1) + 8 * j) fromCollection:v5];
+        [WLKContinuationMetadataBase remove:*(*(&v31 + 1) + 8 * j) fromCollection:v5];
       }
 
-      v13 = [removals countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v13 = [removals countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v13);
@@ -196,33 +195,33 @@
 
   v16 = [(NSDictionary *)self->_backingDictionary mutableCopy];
   v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v18 = v5;
-  v19 = [v18 countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v29;
+    v21 = *v28;
     do
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v29 != v21)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        dictionary = [*(*(&v28 + 1) + 8 * k) dictionary];
+        dictionary = [*(*(&v27 + 1) + 8 * k) dictionary];
         if (dictionary)
         {
           [v17 addObject:dictionary];
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v27 objects:v39 count:16];
     }
 
     while (v20);
@@ -232,7 +231,6 @@
   [v16 setObject:v24 forKeyedSubscript:@"upNextChanges"];
 
   v25 = [[WLKUpNextDelta alloc] initWithDictionary:v16];
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -253,12 +251,13 @@
 - (WLKUpNextDelta)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  if ([coderCopy allowsKeyedCoding])
+  allowsKeyedCoding = [coderCopy allowsKeyedCoding];
+  if (allowsKeyedCoding)
   {
-    v5 = WLKPlistClasses();
-    v6 = [coderCopy decodeObjectOfClasses:v5 forKey:@"upNextDelta"];
+    v6 = WLKPlistClasses(allowsKeyedCoding);
+    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"upNextDelta"];
 
-    self = [(WLKUpNextDelta *)self initWithDictionary:v6];
+    self = [(WLKUpNextDelta *)self initWithDictionary:v7];
     selfCopy = self;
   }
 

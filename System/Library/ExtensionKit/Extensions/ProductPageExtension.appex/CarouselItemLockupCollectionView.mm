@@ -11,7 +11,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension32CarouselItemLockupCollectionView_artworkViews) = _swiftEmptyArrayStorage;
   v4 = OBJC_IVAR____TtC20ProductPageExtension32CarouselItemLockupCollectionView____lazy_storage___artworkViewPool;
-  v5 = sub_10000A5D4(&unk_10094B8B0);
+  v5 = sub_10000A5D4(&unk_10094B8B0, &qword_100791B08);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension32CarouselItemLockupCollectionView_numberOfArtworks) = 0;
   result = sub_10077156C();

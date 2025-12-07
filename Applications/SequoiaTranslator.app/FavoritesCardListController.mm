@@ -54,11 +54,11 @@
 
 - (void)controller:(id)controller didChangeObject:(id)object atIndexPath:(id)path forChangeType:(unint64_t)type newIndexPath:(id)indexPath
 {
-  v12 = sub_100005AD4(&unk_1003AB970);
+  v12 = sub_100005AD4(&unk_1003AB970, &unk_1002DD540);
   v13 = __chkstk_darwin(v12 - 8);
-  v15 = &v26[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v13);
-  v17 = &v26[-v16];
+  v17 = v26 - v16;
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;

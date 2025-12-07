@@ -10,7 +10,9 @@
 - (void)_setProResControlEnabled:(id)enabled specifier:(id)specifier;
 - (void)emitNavigationEvent;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CameraCodecSettingsController
@@ -488,6 +490,14 @@ LABEL_7:
   [(CameraCodecSettingsController *)self setTitle:v3];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CameraCodecSettingsController;
+  [(CameraCodecSettingsController *)&v4 viewDidAppear:appear];
+  [(CameraCodecSettingsController *)self emitNavigationEvent];
+}
+
 - (void)emitNavigationEvent
 {
   v3 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Camera/CameraFormatsSettingsList"];
@@ -506,6 +516,19 @@ LABEL_7:
   v15 = v13;
   v14 = [NSArray arrayWithObjects:&v15 count:1];
   [(CameraCodecSettingsController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.camera" title:v8 localizedNavigationComponents:v14 deepLink:v3];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CameraCodecSettingsController;
+  [(CameraSettingsBaseController *)&v4 viewWillAppear:appear];
+  if ([(CameraCodecSettingsController *)self _didAppearAtLeastOnce])
+  {
+    [(CameraSettingsBaseController *)self reloadSpecifiers];
+  }
+
+  [(CameraCodecSettingsController *)self set_didAppearAtLeastOnce:1];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

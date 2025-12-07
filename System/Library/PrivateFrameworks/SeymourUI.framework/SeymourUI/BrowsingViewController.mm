@@ -14,7 +14,7 @@
 - (void)viewDidLoad
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for BrowsingViewController();
+  v4.super_class = type metadata accessor for BrowsingViewController(0);
   v2 = v4.receiver;
   [(BrowsingViewController *)&v4 viewDidLoad];
   v3 = *&v2[OBJC_IVAR____TtC9SeymourUI22BrowsingViewController_pictureInPicturePresenter] + OBJC_IVAR____TtC9SeymourUI25PictureInPicturePresenter_display;
@@ -52,7 +52,7 @@
   height = size.height;
   width = size.width;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for BrowsingViewController();
+  v9.super_class = type metadata accessor for BrowsingViewController(0);
   swift_unknownObjectRetain();
   v7 = v9.receiver;
   [(BrowsingViewController *)&v9 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];

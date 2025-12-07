@@ -14,29 +14,27 @@
 - (KNLiveVideoSourceCollaborationCommandUsageState)initWithSingleCollaborationCommandUsageToken:(id)token hasMultipleCollaborationCommandUsageTokens:(BOOL)tokens
 {
   tokenCopy = token;
-  v13.receiver = self;
-  v13.super_class = KNLiveVideoSourceCollaborationCommandUsageState;
-  v9 = [(KNLiveVideoSourceCollaborationCommandUsageState *)&v13 init];
-  if (v9)
+  v11.receiver = self;
+  v11.super_class = KNLiveVideoSourceCollaborationCommandUsageState;
+  v7 = [(KNLiveVideoSourceCollaborationCommandUsageState *)&v11 init];
+  if (v7)
   {
-    v10 = objc_msgSend_copy(tokenCopy, v7, v8);
-    singleCollaborationCommandUsageToken = v9->_singleCollaborationCommandUsageToken;
-    v9->_singleCollaborationCommandUsageToken = v10;
+    v8 = [tokenCopy copy];
+    singleCollaborationCommandUsageToken = v7->_singleCollaborationCommandUsageToken;
+    v7->_singleCollaborationCommandUsageToken = v8;
 
-    v9->_definedSingleCollaborationCommandUsageToken = v9->_singleCollaborationCommandUsageToken != 0;
-    v9->_hasMultipleCollaborationCommandUsageTokens = tokens;
+    v7->_definedSingleCollaborationCommandUsageToken = v7->_singleCollaborationCommandUsageToken != 0;
+    v7->_hasMultipleCollaborationCommandUsageTokens = tokens;
   }
 
-  return v9;
+  return v7;
 }
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = objc_opt_class();
-  v6 = objc_msgSend_initWithFormat_(v3, v5, @"<%@ %p: singleCollaborationCommandUsageToken=%@ hasMultipleCollaborationCommandUsageTokens=%d>", v4, self, self->_singleCollaborationCommandUsageToken, self->_hasMultipleCollaborationCommandUsageTokens);
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<%@ %p: singleCollaborationCommandUsageToken=%@ hasMultipleCollaborationCommandUsageTokens=%d>", objc_opt_class(), self, self->_singleCollaborationCommandUsageToken, self->_hasMultipleCollaborationCommandUsageTokens];
 
-  return v6;
+  return v2;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -44,7 +42,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v13 = 1;
+    v12 = 1;
   }
 
   else
@@ -52,28 +50,27 @@
     objc_opt_class();
     v5 = TSUDynamicCast();
     v6 = v5;
-    v13 = v5 && ((v7 = *(v5 + 16), v8 = self->_singleCollaborationCommandUsageToken, v9 = v7, !(v8 | v9)) || (v11 = v9, isEqual = objc_msgSend_isEqual_(v8, v10, v9), v11, v8, isEqual)) && self->_hasMultipleCollaborationCommandUsageTokens == v6[8];
+    v12 = v5 && ((v7 = *(v5 + 16), v8 = self->_singleCollaborationCommandUsageToken, v9 = v7, !(v8 | v9)) || (v10 = v9, v11 = [v8 isEqual:v9], v10, v8, v11)) && self->_hasMultipleCollaborationCommandUsageTokens == v6[8];
   }
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash
 {
   v3 = objc_alloc_init(MEMORY[0x277D811E8]);
-  objc_msgSend_addObject_(v3, v4, self->_singleCollaborationCommandUsageToken);
-  objc_msgSend_addBool_(v3, v5, self->_hasMultipleCollaborationCommandUsageTokens);
-  v8 = objc_msgSend_hashValue(v3, v6, v7);
+  [v3 addObject:self->_singleCollaborationCommandUsageToken];
+  [v3 addBool:self->_hasMultipleCollaborationCommandUsageTokens];
+  hashValue = [v3 hashValue];
 
-  return v8;
+  return hashValue;
 }
 
 + (id)emptyUsageState
 {
-  v2 = [self alloc];
-  hasMultipleCollaborationCommandUsageTokens = objc_msgSend_initWithSingleCollaborationCommandUsageToken_hasMultipleCollaborationCommandUsageTokens_(v2, v3, 0, 0);
+  v2 = [[self alloc] initWithSingleCollaborationCommandUsageToken:0 hasMultipleCollaborationCommandUsageTokens:0];
 
-  return hasMultipleCollaborationCommandUsageTokens;
+  return v2;
 }
 
 - (id)usageStateByAddingCollaborationCommandUsageToken:(id)token
@@ -87,28 +84,28 @@
   singleCollaborationCommandUsageToken = self->_singleCollaborationCommandUsageToken;
   if (singleCollaborationCommandUsageToken)
   {
-    if (objc_msgSend_isEqual_(self->_singleCollaborationCommandUsageToken, v4, tokenCopy))
+    if (([(NSUUID *)self->_singleCollaborationCommandUsageToken isEqual:tokenCopy]& 1) != 0)
     {
 LABEL_4:
-      hasMultipleCollaborationCommandUsageTokens = self;
+      selfCopy = self;
       goto LABEL_8;
     }
 
-    v8 = [KNLiveVideoSourceCollaborationCommandUsageState alloc];
-    v10 = 0;
+    v7 = [KNLiveVideoSourceCollaborationCommandUsageState alloc];
+    v8 = 0;
   }
 
   else
   {
-    v8 = [KNLiveVideoSourceCollaborationCommandUsageState alloc];
-    v10 = tokenCopy;
+    v7 = [KNLiveVideoSourceCollaborationCommandUsageState alloc];
+    v8 = tokenCopy;
   }
 
-  hasMultipleCollaborationCommandUsageTokens = objc_msgSend_initWithSingleCollaborationCommandUsageToken_hasMultipleCollaborationCommandUsageTokens_(v8, v9, v10, singleCollaborationCommandUsageToken != 0);
+  selfCopy = [(KNLiveVideoSourceCollaborationCommandUsageState *)v7 initWithSingleCollaborationCommandUsageToken:v8 hasMultipleCollaborationCommandUsageTokens:singleCollaborationCommandUsageToken != 0];
 LABEL_8:
-  v11 = hasMultipleCollaborationCommandUsageTokens;
+  v9 = selfCopy;
 
-  return v11;
+  return v9;
 }
 
 - (KNLiveVideoSourceCollaborationCommandUsageState)initWithMessage:(const void *)message unarchiver:(id)unarchiver
@@ -130,14 +127,15 @@ LABEL_8:
       v8 = objc_alloc(MEMORY[0x277CCAD78]);
       if (*(message + 3))
       {
-        v10 = objc_msgSend_tsp_initWithMessage_(v8, v9, *(message + 3));
+        v9 = *(message + 3);
       }
 
       else
       {
-        v10 = objc_msgSend_tsp_initWithMessage_(v8, v9, MEMORY[0x277D809E0]);
+        v9 = MEMORY[0x277D809E0];
       }
 
+      v10 = [v8 tsp_initWithMessage:v9];
       singleCollaborationCommandUsageToken = v6->_singleCollaborationCommandUsageToken;
       v6->_singleCollaborationCommandUsageToken = v10;
 
@@ -152,27 +150,27 @@ LABEL_8:
 {
   archiverCopy = archiver;
   hasMultipleCollaborationCommandUsageTokens = self->_hasMultipleCollaborationCommandUsageTokens;
-  v8 = *(message + 4);
-  *(message + 4) = v8 | 2;
+  v7 = *(message + 4);
+  *(message + 4) = v7 | 2;
   *(message + 32) = hasMultipleCollaborationCommandUsageTokens;
   singleCollaborationCommandUsageToken = self->_singleCollaborationCommandUsageToken;
   if (singleCollaborationCommandUsageToken)
   {
-    *(message + 4) = v8 | 3;
-    v10 = *(message + 3);
-    if (!v10)
+    *(message + 4) = v7 | 3;
+    v9 = *(message + 3);
+    if (!v9)
     {
-      v11 = *(message + 1);
-      if (v11)
+      v10 = *(message + 1);
+      if (v10)
       {
-        v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
+        v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v10 = MEMORY[0x277C8F000](v11);
-      *(message + 3) = v10;
+      v9 = MEMORY[0x277C8F000](v10);
+      *(message + 3) = v9;
     }
 
-    objc_msgSend_tsp_saveToMessage_(singleCollaborationCommandUsageToken, v6, v10);
+    [(NSUUID *)singleCollaborationCommandUsageToken tsp_saveToMessage:v9];
   }
 }
 

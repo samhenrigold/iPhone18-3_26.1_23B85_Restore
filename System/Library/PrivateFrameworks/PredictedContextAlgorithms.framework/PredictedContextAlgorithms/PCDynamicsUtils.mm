@@ -21,29 +21,29 @@
 
 + (id)candidateDataMapFromVisits:(id)visits
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   v4 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:512 valueOptions:0 capacity:{objc_msgSend(visitsCopy, "count")}];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v5 = visitsCopy;
-  v39 = [v5 countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v39)
+  v38 = [v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v38)
   {
-    v38 = *v42;
-    v35 = v5;
+    v37 = *v41;
+    v34 = v5;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        if (*v42 != v38)
+        if (*v41 != v37)
         {
           objc_enumerationMutation(v5);
         }
 
-        v7 = *(*(&v41 + 1) + 8 * i);
+        v7 = *(*(&v40 + 1) + 8 * i);
         locationOfInterest = [v7 locationOfInterest];
         loiIdentifier = [locationOfInterest loiIdentifier];
 
@@ -75,7 +75,7 @@
         v23 = 0.0;
         if ([predictedContext hasDateInterval])
         {
-          v40 = loiIdentifier;
+          v39 = loiIdentifier;
           predictedContext2 = [v7 predictedContext];
           dateInterval = [predictedContext2 dateInterval];
           if ([dateInterval hasStartDate])
@@ -83,17 +83,17 @@
             predictedContext3 = [v7 predictedContext];
             dateInterval2 = [predictedContext3 dateInterval];
             [dateInterval2 startDate];
-            v37 = v21;
+            v36 = v21;
             v28 = v11;
             v30 = v29 = v4;
             hasDate = [v30 hasDate];
 
             v4 = v29;
             v11 = v28;
-            v21 = v37;
+            v21 = v36;
 
-            v5 = v35;
-            loiIdentifier = v40;
+            v5 = v34;
+            loiIdentifier = v39;
             if (!hasDate)
             {
               goto LABEL_15;
@@ -106,7 +106,7 @@
             v23 = v31;
           }
 
-          loiIdentifier = v40;
+          loiIdentifier = v39;
         }
 
 LABEL_15:
@@ -114,43 +114,41 @@ LABEL_15:
         [v4 setObject:v32 forKey:v7];
       }
 
-      v39 = [v5 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v38 = [v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)buildLoiCoordinateMapFromCandidateDataMap:(id)map
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v21 = mapCopy;
+  v20 = mapCopy;
   objectEnumerator = [mapCopy objectEnumerator];
-  v6 = [objectEnumerator countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [objectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         loiIdentifier = [v10 loiIdentifier];
         if (loiIdentifier)
         {
@@ -174,50 +172,49 @@ LABEL_15:
         }
       }
 
-      v7 = [objectEnumerator countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [objectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
 
   v18 = [dictionary copy];
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 + (id)computeProgressScaleFromCandidateDataMap:(id)map lastVisit:(id)visit currentLocation:(id)location
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   visitCopy = visit;
   locationCopy = location;
-  v28 = [self buildLoiCoordinateMapFromCandidateDataMap:mapCopy];
-  v29 = locationCopy;
-  v30 = visitCopy;
+  v27 = [self buildLoiCoordinateMapFromCandidateDataMap:mapCopy];
+  v28 = locationCopy;
+  v29 = visitCopy;
   v11 = [self computeProgressScaleWithLOIs:? lastVisit:? currentLocation:?];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v31 = mapCopy;
+  v30 = mapCopy;
   objectEnumerator = [mapCopy objectEnumerator];
-  v14 = [objectEnumerator countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v14 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v33;
+    v16 = *v32;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * i);
+        v18 = *(*(&v31 + 1) + 8 * i);
         loiIdentifier = [v18 loiIdentifier];
         v20 = [v11 objectForKeyedSubscript:loiIdentifier];
         v21 = v20;
@@ -237,29 +234,28 @@ LABEL_15:
         [dictionary setObject:v23 forKeyedSubscript:visitIdentifier];
       }
 
-      v15 = [objectEnumerator countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v15 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v15);
   }
 
   v25 = [dictionary copy];
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 + (id)locationOfLastVisitWithVisitHistory:(id)history currentTime:(double)time isInTransition:(BOOL *)transition exitTime:(double *)exitTime
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   v11 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v59 = v12;
-    v60 = 2048;
+    v58 = v12;
+    v59 = 2048;
     timeCopy = COERCE_DOUBLE([historyCopy count]);
     _os_log_impl(&dword_1CEE74000, v11, OS_LOG_TYPE_DEFAULT, "[%@] input visit history number %lu", buf, 0x16u);
   }
@@ -270,33 +266,33 @@ LABEL_15:
     goto LABEL_25;
   }
 
-  v57[0] = 0;
-  v57[1] = v57;
-  v57[2] = 0x2020000000;
-  v57[3] = 0xFFEFFFFFFFFFFFFFLL;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__2;
-  v55 = __Block_byref_object_dispose__2;
-  v56 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy__2;
-  v49 = __Block_byref_object_dispose__2;
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x2020000000;
+  v56[3] = 0xFFEFFFFFFFFFFFFFLL;
   v50 = 0;
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __91__PCDynamicsUtils_locationOfLastVisitWithVisitHistory_currentTime_isInTransition_exitTime___block_invoke;
-  v44[3] = &unk_1E83B8778;
-  *&v44[7] = time;
-  v44[4] = &v51;
-  v44[5] = v57;
-  v44[6] = &v45;
-  [historyCopy enumerateObjectsUsingBlock:v44];
-  v13 = v52;
-  v14 = v52[5];
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__2;
+  v54 = __Block_byref_object_dispose__2;
+  v55 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__2;
+  v48 = __Block_byref_object_dispose__2;
+  v49 = 0;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __91__PCDynamicsUtils_locationOfLastVisitWithVisitHistory_currentTime_isInTransition_exitTime___block_invoke;
+  v43[3] = &unk_1E83B8778;
+  *&v43[7] = time;
+  v43[4] = &v50;
+  v43[5] = v56;
+  v43[6] = &v44;
+  [historyCopy enumerateObjectsUsingBlock:v43];
+  v13 = v51;
+  v14 = v51[5];
   if (v14)
   {
     v15 = v14;
@@ -304,7 +300,7 @@ LABEL_15:
 
   else
   {
-    v15 = v46[5];
+    v15 = v45[5];
     if (!v15)
     {
       if (transition)
@@ -315,10 +311,10 @@ LABEL_15:
       v15 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v43 = NSStringFromSelector(a2);
+        v42 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v59 = v43;
-        v60 = 2048;
+        v58 = v42;
+        v59 = 2048;
         timeCopy = time;
         _os_log_impl(&dword_1CEE74000, v15, OS_LOG_TYPE_ERROR, "[%@] no valid visit found for dynamic weighting at current time: %.2f", buf, 0x16u);
       }
@@ -361,17 +357,17 @@ LABEL_15:
       loiIdentifier = [v15 loiIdentifier];
       v34 = [PCAlgorithmsCommonUtils uuidStringFromData:loiIdentifier];
       *buf = 138413571;
-      v59 = v22;
-      v60 = 2048;
+      v58 = v22;
+      v59 = 2048;
       timeCopy = v24;
-      v62 = 2048;
-      v63 = v26;
-      v64 = 2053;
-      v65 = v29;
-      v66 = 2053;
-      v67 = v32;
-      v68 = 2117;
-      v69 = v34;
+      v61 = 2048;
+      v62 = v26;
+      v63 = 2053;
+      v64 = v29;
+      v65 = 2053;
+      v66 = v32;
+      v67 = 2117;
+      v68 = v34;
       _os_log_impl(&dword_1CEE74000, v21, OS_LOG_TYPE_INFO, "[%@] selected visit: entry: %.2f, exit: %.2f, lat: %{sensitive}.2f, lon: %{sensitive}.2f, id: %{sensitive}@", buf, 0x3Eu);
     }
 
@@ -390,7 +386,7 @@ LABEL_15:
     {
       v40 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v59 = v40;
+      v58 = v40;
       _os_log_impl(&dword_1CEE74000, v39, OS_LOG_TYPE_ERROR, "[%@] selected visit does not have a location", buf, 0xCu);
     }
 
@@ -398,13 +394,11 @@ LABEL_15:
   }
 
 LABEL_24:
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
 
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(v57, 8);
+  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(v56, 8);
 LABEL_25:
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -472,7 +466,7 @@ LABEL_12:
 
 + (id)currentLocationWithLocationHistory:(id)history currentTime:(double)time
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = [PCLocationUtils currentLocationWithLocationHistory:history currentTime:?];
   if (v6)
   {
@@ -485,34 +479,32 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = NSStringFromSelector(a2);
-      v12 = 138412546;
-      v13 = v9;
-      v14 = 2048;
+      v11 = 138412546;
+      v12 = v9;
+      v13 = 2048;
       timeCopy = time;
-      _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "[%@] no valid current location found for dynamic weighting at current time: %.2f", &v12, 0x16u);
+      _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "[%@] no valid current location found for dynamic weighting at current time: %.2f", &v11, 0x16u);
     }
 
     v7 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)computeProgressScaleWithLOIs:(id)is lastVisit:(id)visit currentLocation:(id)location
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   isCopy = is;
   visitCopy = visit;
   locationCopy = location;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
   v11 = isCopy;
-  v12 = [v11 countByEnumeratingWithState:&v90 objects:v108 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v89 objects:v107 count:16];
   if (v12)
   {
     v14 = v12;
@@ -522,33 +514,33 @@ LABEL_12:
       v15 = 0;
     }
 
-    v89 = v15;
-    v88 = *v91;
+    v88 = v15;
+    v87 = *v90;
     v16 = @"missing";
     if (locationCopy)
     {
       v16 = @"present";
     }
 
-    v85 = v16;
+    v84 = v16;
     *&v13 = 138413827;
-    v83 = v13;
-    v86 = dictionary;
+    v82 = v13;
+    v85 = dictionary;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v91 != v88)
+        if (*v90 != v87)
         {
           objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v90 + 1) + 8 * i);
-        v19 = [v11 objectForKeyedSubscript:{v18, v83}];
+        v18 = *(*(&v89 + 1) + 8 * i);
+        v19 = [v11 objectForKeyedSubscript:{v18, v82}];
         v20 = v19;
         if (v19)
         {
-          v21 = v89;
+          v21 = v88;
         }
 
         else
@@ -585,15 +577,15 @@ LABEL_12:
             v37 = NSStringFromSelector(a2);
             v38 = [PCAlgorithmsCommonUtils uuidStringFromData:v18];
             *buf = 138412547;
-            v95 = v37;
-            v96 = 2117;
-            v97 = v38;
+            v94 = v37;
+            v95 = 2117;
+            v96 = v38;
             v39 = v36;
             v40 = "[%@], total distance is too low, skip loiId: %{sensitive}@";
 LABEL_25:
             _os_log_impl(&dword_1CEE74000, v39, OS_LOG_TYPE_DEBUG, v40, buf, 0x16u);
 
-            dictionary = v86;
+            dictionary = v85;
             goto LABEL_28;
           }
 
@@ -623,9 +615,9 @@ LABEL_25:
             v37 = NSStringFromSelector(a2);
             v38 = [PCAlgorithmsCommonUtils uuidStringFromData:v18];
             *buf = 138412547;
-            v95 = v37;
-            v96 = 2117;
-            v97 = v38;
+            v94 = v37;
+            v95 = 2117;
+            v96 = v38;
             v39 = v36;
             v40 = "[%@], moved distance is too low, skip loiId: %{sensitive}@";
             goto LABEL_25;
@@ -636,7 +628,7 @@ LABEL_25:
           v61 = v33 / v34;
           v62 = v60 * v53 + v49 * (v25 / v34) + v57 * v61;
           [PCDynamicsUtils progressToWeightWithProgressRatio:v62 / v34 minWeight:0.1 penaltyStep:0.5 graceZone:0.2 gamma:2.0];
-          v84 = v63;
+          v83 = v63;
           [visitCopy x];
           v65 = v64 + v59 * v62;
           [visitCopy y];
@@ -651,7 +643,7 @@ LABEL_25:
           v75 = sqrt(v73 + (v74 - v69) * (v74 - v69));
           [PCDynamicsUtils lateralDeviationToWeightWithLateralRatio:v75 / v34 minWeight:0.1 penaltyStep:0.6 graceZoneRatio:0.3 gamma:2.0];
           v77 = v76;
-          [PCLocationUtils boundValue:v84 * v76 toMin:0.1 max:1.0];
+          [PCLocationUtils boundValue:v83 * v76 toMin:0.1 max:1.0];
           v78 = [MEMORY[0x1E696AD98] numberWithDouble:?];
           [dictionary setObject:v78 forKeyedSubscript:v18];
 
@@ -660,23 +652,23 @@ LABEL_25:
           {
             v79 = NSStringFromSelector(a2);
             v80 = [PCAlgorithmsCommonUtils uuidStringFromData:v18];
-            *buf = v83;
-            v95 = v79;
-            v96 = 2117;
-            v97 = v80;
-            v98 = 2048;
-            v99 = v34;
-            v100 = 2048;
-            v101 = v62;
-            v102 = 2048;
-            v103 = v75;
-            v104 = 2048;
-            v105 = v84;
-            v106 = 2048;
-            v107 = v77;
+            *buf = v82;
+            v94 = v79;
+            v95 = 2117;
+            v96 = v80;
+            v97 = 2048;
+            v98 = v34;
+            v99 = 2048;
+            v100 = v62;
+            v101 = 2048;
+            v102 = v75;
+            v103 = 2048;
+            v104 = v83;
+            v105 = 2048;
+            v106 = v77;
             _os_log_impl(&dword_1CEE74000, v36, OS_LOG_TYPE_DEBUG, "[%@] loi id: %{sensitive}@, total distance between last loi and predicted loi: %.2f, progress distance: %.2f, lateral deviation distance: %.2f, progress scale factor: %.2f, lateral scale factor: %.2f", buf, 0x48u);
 
-            dictionary = v86;
+            dictionary = v85;
           }
         }
 
@@ -695,16 +687,16 @@ LABEL_25:
               *&v45 = COERCE_DOUBLE(@"present");
             }
 
-            v95 = v42;
-            v96 = 2112;
-            v97 = v43;
-            v98 = 2112;
-            v99 = *&v45;
-            v100 = 2112;
-            v101 = *&v85;
+            v94 = v42;
+            v95 = 2112;
+            v96 = v43;
+            v97 = 2112;
+            v98 = *&v45;
+            v99 = 2112;
+            v100 = *&v84;
             _os_log_impl(&dword_1CEE74000, v41, OS_LOG_TYPE_DEFAULT, "[%@] skipping Loi %@: missing required values - loiCoord: %@, currentLocation: %@", buf, 0x2Au);
 
-            dictionary = v86;
+            dictionary = v85;
           }
 
           v36 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
@@ -714,33 +706,31 @@ LABEL_25:
 LABEL_28:
       }
 
-      v14 = [v11 countByEnumeratingWithState:&v90 objects:v108 count:16];
+      v14 = [v11 countByEnumeratingWithState:&v89 objects:v107 count:16];
     }
 
     while (v14);
   }
-
-  v81 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 + (id)computeTravelFeasibilityForCandidateDataMap:(id)map currentLocation:(id)location currentTime:(double)time
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   locationCopy = location;
   v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(mapCopy, "count")}];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   obj = [mapCopy objectEnumerator];
-  v9 = [obj countByEnumeratingWithState:&v71 objects:v87 count:16];
+  v9 = [obj countByEnumeratingWithState:&v70 objects:v86 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v72;
+    v11 = *v71;
     if (locationCopy)
     {
       v12 = @"present";
@@ -751,17 +741,17 @@ LABEL_28:
       v12 = @"missing";
     }
 
-    v62 = v12;
+    v61 = v12;
     do
     {
       for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v72 != v11)
+        if (*v71 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v71 + 1) + 8 * i);
+        v14 = *(*(&v70 + 1) + 8 * i);
         coordinate = [v14 coordinate];
         if (!coordinate || ([v14 entryTime], v16 == 0.0))
         {
@@ -783,9 +773,9 @@ LABEL_28:
                 v56 = logb = i;
                 v57 = [PCAlgorithmsCommonUtils uuidStringFromData:v56];
                 *buf = 138412546;
-                v76 = v55;
-                v77 = 2112;
-                v78 = v57;
+                v75 = v55;
+                v76 = 2112;
+                v77 = v57;
                 _os_log_impl(&dword_1CEE74000, v54, OS_LOG_TYPE_DEFAULT, "%@ - visit %@, predicted Loi entry time is earlier than current time, setting feasibility scale factor to neutral", buf, 0x16u);
 
                 i = logb;
@@ -840,23 +830,23 @@ LABEL_28:
               v42 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
               if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
               {
-                v66 = NSStringFromSelector(a2);
+                v65 = NSStringFromSelector(a2);
                 loga = [v14 visitIdentifier];
                 v43 = [PCAlgorithmsCommonUtils uuidStringFromData:loga];
                 loiIdentifier = [v14 loiIdentifier];
                 v45 = [PCAlgorithmsCommonUtils uuidStringFromData:loiIdentifier];
                 *buf = 138413570;
-                v76 = v66;
-                v77 = 2112;
-                v78 = v43;
-                v79 = 2112;
-                v80 = v45;
-                v81 = 2048;
-                v82 = v35;
-                v83 = 2048;
-                v84 = v37;
-                v85 = 2048;
-                v86 = v38;
+                v75 = v65;
+                v76 = 2112;
+                v77 = v43;
+                v78 = 2112;
+                v79 = v45;
+                v80 = 2048;
+                v81 = v35;
+                v82 = 2048;
+                v83 = v37;
+                v84 = 2048;
+                v85 = v38;
                 _os_log_impl(&dword_1CEE74000, v42, OS_LOG_TYPE_INFO, "[%@] Computed feasibility for visitID: %@, loiID: %@, distance: %.2f, requiredSpeed: %.2f, scale factor: %.2f", buf, 0x3Eu);
               }
             }
@@ -872,7 +862,7 @@ LABEL_28:
         v42 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
         if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
-          v67 = NSStringFromSelector(a2);
+          v66 = NSStringFromSelector(a2);
           [v14 visitIdentifier];
           v48 = log = v42;
           coordinate5 = [v14 coordinate];
@@ -894,102 +884,99 @@ LABEL_28:
             v51 = @"missing";
           }
 
-          v76 = v67;
-          v77 = 2112;
-          v78 = v48;
+          v75 = v66;
+          v76 = 2112;
+          v77 = v48;
           v53 = v48;
           v42 = log;
-          v79 = 2112;
-          v80 = v50;
-          v81 = 2112;
-          v82 = *&v51;
-          v83 = 2112;
-          v84 = *&v62;
+          v78 = 2112;
+          v79 = v50;
+          v80 = 2112;
+          v81 = *&v51;
+          v82 = 2112;
+          v83 = *&v61;
           _os_log_impl(&dword_1CEE74000, log, OS_LOG_TYPE_DEFAULT, "[%@] skipping candidate visit %@: missing required values - targetCoord: %@, entryTime: %@, currentLocation: %@", buf, 0x34u);
         }
 
 LABEL_30:
       }
 
-      v10 = [obj countByEnumeratingWithState:&v71 objects:v87 count:16];
+      v10 = [obj countByEnumeratingWithState:&v70 objects:v86 count:16];
     }
 
     while (v10);
   }
 
   v59 = [v8 copy];
-  v60 = *MEMORY[0x1E69E9840];
 
   return v59;
 }
 
 + (void)updateProbabilitiesForCandidateVisits:(id)visits withCandidateDataMap:(id)map progressScaleByVisitMap:(id)visitMap feasibilityByVisitMap:(id)byVisitMap dirctionScaleByVisitMap:(id)scaleByVisitMap etaScaleByVisitMap:(id)etaScaleByVisitMap currentTime:(double)time
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   mapCopy = map;
   visitMapCopy = visitMap;
   byVisitMapCopy = byVisitMap;
   scaleByVisitMapCopy = scaleByVisitMap;
   etaScaleByVisitMapCopy = etaScaleByVisitMap;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v22 = [visitsCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v22 = [visitsCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v28;
+    v24 = *v27;
     do
     {
       v25 = 0;
       do
       {
-        if (*v28 != v24)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(visitsCopy);
         }
 
-        [self updateProbabilityForCandidateVisit:*(*(&v27 + 1) + 8 * v25++) withCandidateDataMap:mapCopy progressScaleByVisitMap:visitMapCopy feasibilityByVisitMap:byVisitMapCopy dirctionScaleByVisitMap:scaleByVisitMapCopy etaScaleByVisitMap:etaScaleByVisitMapCopy currentTime:time];
+        [self updateProbabilityForCandidateVisit:*(*(&v26 + 1) + 8 * v25++) withCandidateDataMap:mapCopy progressScaleByVisitMap:visitMapCopy feasibilityByVisitMap:byVisitMapCopy dirctionScaleByVisitMap:scaleByVisitMapCopy etaScaleByVisitMap:etaScaleByVisitMapCopy currentTime:time];
       }
 
       while (v23 != v25);
-      v23 = [visitsCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v23 = [visitsCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v23);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 + (id)filterValidLocationPredictions:(id)predictions
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   predictionsCopy = predictions;
   array = [MEMORY[0x1E695DF70] array];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v5 = predictionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       v9 = 0;
       do
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v30 + 1) + 8 * v9);
+        v10 = *(*(&v29 + 1) + 8 * v9);
         if (![v10 hasPredictedContext] || (objc_msgSend(v10, "predictedContext"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "hasContextType"), v11, (v12 & 1) == 0))
         {
           predictedContext = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
@@ -1000,7 +987,7 @@ LABEL_30:
 
           v19 = NSStringFromSelector(a2);
           *buf = 138412290;
-          v35 = v19;
+          v34 = v19;
           v20 = predictedContext;
           v21 = OS_LOG_TYPE_ERROR;
           v22 = "%@ prediction missing predicted context or context type. Skipping.";
@@ -1030,7 +1017,7 @@ LABEL_30:
                 {
                   v24 = NSStringFromSelector(a2);
                   *buf = 138412290;
-                  v35 = v24;
+                  v34 = v24;
                   _os_log_impl(&dword_1CEE74000, v23, OS_LOG_TYPE_DEFAULT, "%@ not a Location prediction, skipping", buf, 0xCu);
                 }
               }
@@ -1048,7 +1035,7 @@ LABEL_30:
           {
             v19 = NSStringFromSelector(a2);
             *buf = 138412290;
-            v35 = v19;
+            v34 = v19;
             v20 = predictedContext;
             v21 = OS_LOG_TYPE_ERROR;
             v22 = "[%@] nil LOI identifier, skipping";
@@ -1063,7 +1050,7 @@ LABEL_30:
           {
             v19 = NSStringFromSelector(a2);
             *buf = 138412290;
-            v35 = v19;
+            v34 = v19;
             v20 = predictedContext;
             v21 = OS_LOG_TYPE_DEFAULT;
             v22 = "%@ invalid LOI or location in predictedContextLocation, skipping";
@@ -1078,7 +1065,7 @@ LABEL_17:
       }
 
       while (v7 != v9);
-      v25 = [v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v25 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
       v7 = v25;
     }
 
@@ -1086,7 +1073,6 @@ LABEL_17:
   }
 
   v26 = [array copy];
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -1127,7 +1113,7 @@ LABEL_17:
 
 + (void)updateProbabilityForCandidateVisit:(id)visit withCandidateDataMap:(id)map progressScaleByVisitMap:(id)visitMap feasibilityByVisitMap:(id)byVisitMap dirctionScaleByVisitMap:(id)scaleByVisitMap etaScaleByVisitMap:(id)etaScaleByVisitMap currentTime:(double)time
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   visitCopy = visit;
   mapCopy = map;
   visitMapCopy = visitMap;
@@ -1160,7 +1146,7 @@ LABEL_11:
 
     v34 = NSStringFromSelector(a2);
     *buf = 138412290;
-    v83 = v34;
+    v82 = v34;
     v35 = "[%@] candidate visit missing loi or context info, skipping.";
     v36 = v29;
     v37 = OS_LOG_TYPE_ERROR;
@@ -1191,7 +1177,7 @@ LABEL_16:
 
     v34 = NSStringFromSelector(a2);
     *buf = 138412290;
-    v83 = v34;
+    v82 = v34;
     v35 = "[%@] candidate visit is not a location prediction, skipping.";
     v36 = v29;
     v37 = OS_LOG_TYPE_DEFAULT;
@@ -1215,146 +1201,145 @@ LABEL_16:
       v33 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
     }
 
-    v81 = v33;
+    v80 = v33;
 
     [v29 entryTime];
-    v42 = v41 - time;
-    [v81 doubleValue];
-    [PCDynamicsUtils adjustedScaleFactorWithOriginalScaleFactor:"adjustedScaleFactorWithOriginalScaleFactor:timeUntilEntrySeconds:" timeUntilEntrySeconds:?];
-    v44 = v43;
-    visitIdentifier2 = [v29 visitIdentifier];
-    v46 = [byVisitMapCopy objectForKeyedSubscript:visitIdentifier2];
-    v47 = v46;
-    if (v46)
-    {
-      v48 = v46;
-    }
-
-    else
-    {
-      v48 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
-    }
-
-    v78 = v48;
-
-    visitIdentifier3 = [v29 visitIdentifier];
-    v50 = [scaleByVisitMapCopy objectForKeyedSubscript:visitIdentifier3];
-    v51 = v50;
-    if (v50)
-    {
-      v52 = v50;
-    }
-
-    else
-    {
-      v52 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
-    }
-
-    v80 = v52;
-
-    visitIdentifier4 = [v29 visitIdentifier];
-    v54 = [etaScaleByVisitMapCopy objectForKeyedSubscript:visitIdentifier4];
-    v55 = v54;
-    if (v54)
-    {
-      v56 = v54;
-    }
-
-    else
-    {
-      v56 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
-    }
-
-    v79 = v56;
-
+    v41 = v40 - time;
     [v80 doubleValue];
     [PCDynamicsUtils adjustedScaleFactorWithOriginalScaleFactor:"adjustedScaleFactorWithOriginalScaleFactor:timeUntilEntrySeconds:" timeUntilEntrySeconds:?];
-    v58 = v57;
-    [v79 doubleValue];
-    [PCDynamicsUtils adjustedScaleFactorWithOriginalScaleFactor:"adjustedScaleFactorWithOriginalScaleFactor:timeUntilEntrySeconds:" timeUntilEntrySeconds:?];
-    v60 = v59;
-    [v78 doubleValue];
-    v62 = v61;
-    if (v58 >= v60)
+    v43 = v42;
+    visitIdentifier2 = [v29 visitIdentifier];
+    v45 = [byVisitMapCopy objectForKeyedSubscript:visitIdentifier2];
+    v46 = v45;
+    if (v45)
     {
-      v63 = v58;
+      v47 = v45;
     }
 
     else
     {
-      v63 = v60;
+      v47 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
+    }
+
+    v77 = v47;
+
+    visitIdentifier3 = [v29 visitIdentifier];
+    v49 = [scaleByVisitMapCopy objectForKeyedSubscript:visitIdentifier3];
+    v50 = v49;
+    if (v49)
+    {
+      v51 = v49;
+    }
+
+    else
+    {
+      v51 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
+    }
+
+    v79 = v51;
+
+    visitIdentifier4 = [v29 visitIdentifier];
+    v53 = [etaScaleByVisitMapCopy objectForKeyedSubscript:visitIdentifier4];
+    v54 = v53;
+    if (v53)
+    {
+      v55 = v53;
+    }
+
+    else
+    {
+      v55 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
+    }
+
+    v78 = v55;
+
+    [v79 doubleValue];
+    [PCDynamicsUtils adjustedScaleFactorWithOriginalScaleFactor:"adjustedScaleFactorWithOriginalScaleFactor:timeUntilEntrySeconds:" timeUntilEntrySeconds:?];
+    v57 = v56;
+    [v78 doubleValue];
+    [PCDynamicsUtils adjustedScaleFactorWithOriginalScaleFactor:"adjustedScaleFactorWithOriginalScaleFactor:timeUntilEntrySeconds:" timeUntilEntrySeconds:?];
+    v59 = v58;
+    [v77 doubleValue];
+    v61 = v60;
+    if (v57 >= v59)
+    {
+      v62 = v57;
+    }
+
+    else
+    {
+      v62 = v59;
     }
 
     [v29 entryTime];
-    if (v64 > 0.0 && ([v29 entryTime], v65 >= time))
+    if (v63 > 0.0 && ([v29 entryTime], v64 >= time))
     {
       predictedContext4 = [visitCopy predictedContext];
       [predictedContext4 probability];
-      v70 = v69;
+      v69 = v68;
 
-      [PCLocationUtils boundValue:v44 * v62 * v63 * v70 toMin:0.0 max:1.0];
-      v72 = v71;
+      [PCLocationUtils boundValue:v43 * v61 * v62 * v69 toMin:0.0 max:1.0];
+      v71 = v70;
       predictedContext5 = [visitCopy predictedContext];
-      [predictedContext5 setProbability:v72];
+      [predictedContext5 setProbability:v71];
 
-      v66 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+      v65 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
       {
-        v77 = NSStringFromSelector(a2);
+        v76 = NSStringFromSelector(a2);
         loiIdentifier = [v29 loiIdentifier];
-        v74 = [PCAlgorithmsCommonUtils uuidStringFromData:loiIdentifier];
-        [v78 doubleValue];
+        v73 = [PCAlgorithmsCommonUtils uuidStringFromData:loiIdentifier];
+        [v77 doubleValue];
         *buf = 138414338;
-        v83 = v77;
-        v84 = 2112;
-        v85 = v74;
-        v86 = 2048;
-        v87 = v42;
-        v88 = 2048;
-        v89 = v70;
-        v90 = 2048;
-        v91 = v44;
-        v92 = 2048;
-        v93 = v75;
-        v94 = 2048;
-        v95 = v58;
-        v96 = 2048;
-        v97 = v60;
-        v98 = 2048;
-        v99 = v72;
-        _os_log_impl(&dword_1CEE74000, v66, OS_LOG_TYPE_DEFAULT, "[%@] updated probability for visit, loiID: %@, seconds until entry: %.3f, original prob: %.3f, progress factor: %.3f, feasibility factor: %.3f, direction factor: %.3f, ETA factor: %.3f, adjusted prob: %.3f", buf, 0x5Cu);
+        v82 = v76;
+        v83 = 2112;
+        v84 = v73;
+        v85 = 2048;
+        v86 = v41;
+        v87 = 2048;
+        v88 = v69;
+        v89 = 2048;
+        v90 = v43;
+        v91 = 2048;
+        v92 = v74;
+        v93 = 2048;
+        v94 = v57;
+        v95 = 2048;
+        v96 = v59;
+        v97 = 2048;
+        v98 = v71;
+        _os_log_impl(&dword_1CEE74000, v65, OS_LOG_TYPE_DEFAULT, "[%@] updated probability for visit, loiID: %@, seconds until entry: %.3f, original prob: %.3f, progress factor: %.3f, feasibility factor: %.3f, direction factor: %.3f, ETA factor: %.3f, adjusted prob: %.3f", buf, 0x5Cu);
       }
     }
 
     else
     {
-      v66 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+      v65 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
       {
-        v67 = NSStringFromSelector(a2);
+        v66 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v83 = v67;
-        _os_log_impl(&dword_1CEE74000, v66, OS_LOG_TYPE_DEFAULT, "[%@] candidate visit's predicted entry time is not set or is earlier than current time, skip feasibility check", buf, 0xCu);
+        v82 = v66;
+        _os_log_impl(&dword_1CEE74000, v65, OS_LOG_TYPE_DEFAULT, "[%@] candidate visit's predicted entry time is not set or is earlier than current time, skip feasibility check", buf, 0xCu);
       }
     }
 
-    v39 = v81;
+    v38 = v80;
   }
 
   else
   {
-    v39 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v38 = _plc_log_get_normal_handle(PCLogCategoryDynamicsWeighting);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = NSStringFromSelector(a2);
+      v39 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v83 = v40;
-      _os_log_impl(&dword_1CEE74000, v39, OS_LOG_TYPE_DEFAULT, "[%@] no candidate data found for this visit, skipping.", buf, 0xCu);
+      v82 = v39;
+      _os_log_impl(&dword_1CEE74000, v38, OS_LOG_TYPE_DEFAULT, "[%@] no candidate data found for this visit, skipping.", buf, 0xCu);
     }
   }
 
 LABEL_14:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 + (double)adjustedScaleFactorWithOriginalScaleFactor:(double)factor timeUntilEntrySeconds:(double)seconds
@@ -1375,42 +1360,41 @@ LABEL_14:
 
 + (id)neutralScaleFactorsForDataMap:(id)map
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(mapCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   objectEnumerator = [mapCopy objectEnumerator];
-  v6 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
         visitIdentifier = [v10 visitIdentifier];
         [v4 setObject:v11 forKeyedSubscript:visitIdentifier];
       }
 
-      v7 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

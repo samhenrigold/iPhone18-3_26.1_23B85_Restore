@@ -55,7 +55,7 @@
   selfCopy = self;
   sub_1D21C5F40(v7, tag);
 
-  sub_1D2174E10(0, &qword_1EDC876F8);
+  sub_1D2174E10(0, &qword_1EDC876F8, 0x1E696AD98);
   v10 = sub_1D2250AEC();
 
   return v10;

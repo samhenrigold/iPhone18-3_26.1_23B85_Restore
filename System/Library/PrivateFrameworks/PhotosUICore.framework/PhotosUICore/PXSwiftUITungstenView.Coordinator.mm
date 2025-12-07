@@ -8,7 +8,7 @@
 {
   gestureCopy = gesture;
 
-  sub_1A4830F94();
+  sub_1A4830F94(gestureCopy);
 }
 
 @end

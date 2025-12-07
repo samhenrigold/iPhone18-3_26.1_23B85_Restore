@@ -50,17 +50,17 @@
 
 - (void)addHashtag:(id)hashtag
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   hashtagCopy = hashtag;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     reminderChangeItem = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
-    v12 = 138412546;
-    v13 = reminderChangeItem;
-    v14 = 2112;
-    v15 = hashtagCopy;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding hashtag {reminderChangeItem: %@, hashtag: %@}", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = reminderChangeItem;
+    v13 = 2112;
+    v14 = hashtagCopy;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding hashtag {reminderChangeItem: %@, hashtag: %@}", &v11, 0x16u);
   }
 
   reminderChangeItem2 = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
@@ -75,8 +75,6 @@
   [v9 addObject:hashtagCopy];
   reminderChangeItem3 = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
   [reminderChangeItem3 setHashtags:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addHashtagWithType:(int64_t)type name:(id)name
@@ -132,17 +130,17 @@
 
 - (void)removeHashtag:(id)hashtag
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   hashtagCopy = hashtag;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     reminderChangeItem = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
-    v12 = 138412546;
-    v13 = reminderChangeItem;
-    v14 = 2112;
-    v15 = hashtagCopy;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Removing hashtag {reminderChangeItem: %@, hashtag: %@}", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = reminderChangeItem;
+    v13 = 2112;
+    v14 = hashtagCopy;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Removing hashtag {reminderChangeItem: %@, hashtag: %@}", &v11, 0x16u);
   }
 
   reminderChangeItem2 = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
@@ -152,13 +150,11 @@
   [v9 removeObject:hashtagCopy];
   reminderChangeItem3 = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
   [reminderChangeItem3 setHashtags:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllHashtags
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   reminderChangeItem = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
   hashtags = [reminderChangeItem hashtags];
   v5 = [hashtags count];
@@ -169,17 +165,15 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       reminderChangeItem2 = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
-      v11 = 138412290;
-      v12 = reminderChangeItem2;
-      _os_log_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_INFO, "Removing all hashtags {reminderChangeItem: %@}", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = reminderChangeItem2;
+      _os_log_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_INFO, "Removing all hashtags {reminderChangeItem: %@}", &v10, 0xCu);
     }
 
     v8 = [MEMORY[0x1E695DFD8] set];
     reminderChangeItem3 = [(REMReminderHashtagContextChangeItem *)self reminderChangeItem];
     [reminderChangeItem3 setHashtags:v8];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)undeleteHashtagWithID:(id)d

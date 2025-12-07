@@ -9,6 +9,7 @@
 - (void)_applyTransitionFraction:(double)fraction fromOption:(id)option toOption:(id)toOption forCustomEditMode:(int64_t)mode slot:(id)slot;
 - (void)_configureForTransitionFraction:(double)fraction fromEditMode:(int64_t)mode toEditMode:(int64_t)editMode;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_startClockTimer;
 - (void)_stopClockTimer;
 - (void)_timeUpdated:(CLKClockTimerDate *)updated;
@@ -20,6 +21,7 @@
 - (void)cleanupAfterEditing;
 - (void)layoutSubviews;
 - (void)prepareForEditing;
+- (void)screenWillTurnOnAnimated:(BOOL)animated;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 @end
 
@@ -367,6 +369,16 @@ LABEL_9:
   [(CLKUIMetalQuadView *)self->_quadView setFrame:?];
 }
 
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKLilypadFaceView;
+  groupCopy = group;
+  [(NTKLilypadFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIMetalQuadView *)self->_quadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
+}
+
 - (void)_updateClearColorAndColorMode
 {
   [(NTKLilypadFaceView *)self _activeClearColorForCurrentColorMode];
@@ -392,13 +404,12 @@ LABEL_9:
   if (mode == 15)
   {
     toOptionCopy = toOption;
-    v11 = dword_8800[[option backgroundStyle] == 0];
-    backgroundStyle = [toOptionCopy backgroundStyle];
+    [option backgroundStyle];
+    [toOptionCopy backgroundStyle];
 
-    v13 = *&dword_8800[backgroundStyle == 0];
     CLKInterpolateBetweenFloatsUnclipped();
-    *&v14 = v14;
-    self->_activeColorMode = *&v14;
+    *&v11 = v11;
+    self->_activeColorMode = *&v11;
 
     [(NTKLilypadFaceView *)self _updateClearColorAndColorMode];
   }
@@ -422,6 +433,14 @@ LABEL_9:
   [(NTKLilypadFaceView *)self _complicationAlphaForEditMode:editMode];
   CLKInterpolateBetweenFloatsClipped();
   [complicationContainerView setAlpha:?];
+}
+
+- (void)screenWillTurnOnAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKLilypadFaceView;
+  [(NTKLilypadFaceView *)&v4 screenWillTurnOnAnimated:animated];
+  [(NTKLilypadQuad *)self->_quad resetStartTime];
 }
 
 - (id)_swatchImageForEditOption:(id)option mode:(int64_t)mode withSelectedOptions:(id)options

@@ -42,7 +42,7 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [FBSExtensionInfo _initWithBundleProxy:proxyCopy url:a2];
+    [(FBSExtensionInfo *)proxyCopy _initWithBundleProxy:a2 url:self];
   }
 
   v9 = [(FBSExtensionInfo *)self _initWithPlugInKitProxy:proxyCopy];
@@ -55,7 +55,7 @@
   proxyCopy = proxy;
   if (!proxyCopy)
   {
-    [FBSExtensionInfo _initWithPlugInKitProxy:a2];
+    [(FBSExtensionInfo *)a2 _initWithPlugInKitProxy:?];
   }
 
   v6 = proxyCopy;
@@ -78,45 +78,45 @@
   return v7;
 }
 
-- (void)_initWithBundleProxy:(uint64_t)a1 url:(const char *)a2 .cold.1(uint64_t a1, const char *a2)
+- (void)_initWithBundleProxy:(uint64_t)a3 url:.cold.1(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"proxy must be of type LSPlugInKitProxy : proxy=%@", a1];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"proxy must be of type LSPlugInKitProxy : proxy=%@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a2);
+    v5 = NSStringFromSelector(a2);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    OUTLINED_FUNCTION_8();
+    v10 = @"FBSExtensionInfo.m";
+    v11 = 1024;
+    v12 = 22;
+    v13 = v8;
+    v14 = v4;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
+  }
+
+  [v4 UTF8String];
+  _bs_set_crash_log_message();
+}
+
+- (void)_initWithPlugInKitProxy:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
+{
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"proxy"];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v4 = NSStringFromSelector(a1);
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
     v9 = @"FBSExtensionInfo.m";
     v10 = 1024;
-    v11 = 22;
+    v11 = 27;
     v12 = v7;
     v13 = v3;
     _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
   [v3 UTF8String];
-  _bs_set_crash_log_message();
-}
-
-- (void)_initWithPlugInKitProxy:(const char *)a1 .cold.1(const char *a1)
-{
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"proxy"];
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    OUTLINED_FUNCTION_8();
-    v8 = @"FBSExtensionInfo.m";
-    v9 = 1024;
-    v10 = 27;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
-  }
-
-  [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 

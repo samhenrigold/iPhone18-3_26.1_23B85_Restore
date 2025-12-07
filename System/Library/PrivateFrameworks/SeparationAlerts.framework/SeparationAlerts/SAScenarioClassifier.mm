@@ -62,7 +62,7 @@
 
 - (void)dealloc
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   currentUnsafeLocation = [(SAScenarioClassifier *)self currentUnsafeLocation];
 
   if (currentUnsafeLocation)
@@ -74,31 +74,31 @@
   safeLocations = [(SAScenarioClassifier *)self safeLocations];
   allObjects = [safeLocations allObjects];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(SAScenarioClassifier *)self _removeSafeLocation:*(*(&v22 + 1) + 8 * v11++)];
+        [(SAScenarioClassifier *)self _removeSafeLocation:*(*(&v21 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
@@ -128,10 +128,9 @@
   delegate = self->_delegate;
   self->_delegate = 0;
 
-  v21.receiver = self;
-  v21.super_class = SAScenarioClassifier;
-  [(SAScenarioClassifier *)&v21 dealloc];
-  v20 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = SAScenarioClassifier;
+  [(SAScenarioClassifier *)&v20 dealloc];
 }
 
 - (BOOL)_setNewScenarioClass:(unint64_t)class
@@ -153,27 +152,27 @@
 
 - (BOOL)_isInsideAnySafeLocation
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   safeLocations = [(SAScenarioClassifier *)self safeLocations];
-  v4 = [safeLocations countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [safeLocations countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(safeLocations);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         statesBySafeLocation = [(SAScenarioClassifier *)self statesBySafeLocation];
         v10 = [statesBySafeLocation objectForKeyedSubscript:v8];
         v11 = [v10 isEqual:&unk_287710120];
@@ -185,7 +184,7 @@
         }
       }
 
-      v5 = [safeLocations countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [safeLocations countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -198,33 +197,32 @@
   v12 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)_hasAllSafeLocationStatesKnown
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   safeLocations = [(SAScenarioClassifier *)self safeLocations];
-  v4 = [safeLocations countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [safeLocations countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(safeLocations);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         statesBySafeLocation = [(SAScenarioClassifier *)self statesBySafeLocation];
         v10 = [statesBySafeLocation objectForKeyedSubscript:v8];
         v11 = [v10 isEqual:&unk_287710138];
@@ -236,7 +234,7 @@ LABEL_11:
         }
       }
 
-      v5 = [safeLocations countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [safeLocations countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -249,7 +247,6 @@ LABEL_11:
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -268,7 +265,7 @@ LABEL_11:
 
 - (void)_notifyAllClientsOfScenarioChangeFrom:(unint64_t)from to:(unint64_t)to
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = TASALog;
   if (os_log_type_enabled(TASALog, OS_LOG_TYPE_DEFAULT))
   {
@@ -278,38 +275,38 @@ LABEL_11:
     uTF8String = [v10 UTF8String];
     v12 = [SAScenarioClassifier convertSAScenarioClassToString:to];
     *buf = 68289795;
-    v27 = 2082;
-    v28 = "";
-    v29 = 2113;
-    v30 = deviceUuid;
-    v31 = 2081;
-    v32 = uTF8String;
-    v33 = 2081;
+    v26 = 2082;
+    v27 = "";
+    v28 = 2113;
+    v29 = deviceUuid;
+    v30 = 2081;
+    v31 = uTF8String;
+    v32 = 2081;
     uTF8String2 = [v12 UTF8String];
     _os_log_impl(&dword_2656EA000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier notifyScenarioChange, device:%{private}@, from:%{private}s, to:%{private}s}", buf, 0x30u);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   clients = [(SAScenarioClassifier *)self clients];
-  v14 = [clients countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [clients countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(clients);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * v17);
+        v18 = *(*(&v20 + 1) + 8 * v17);
         deviceUuid2 = [(SAScenarioClassifier *)self deviceUuid];
         [v18 didChangeScenarioClassFrom:from to:to forDevice:deviceUuid2];
 
@@ -317,18 +314,16 @@ LABEL_11:
       }
 
       while (v15 != v17);
-      v15 = [clients countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [clients countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDetermineState:(unint64_t)state forUnsafeLocation:(id)location forDevice:(id)device
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   deviceCopy = device;
   deviceUuid = [(SAScenarioClassifier *)self deviceUuid];
@@ -346,13 +341,13 @@ LABEL_11:
     v13 = TASALog;
     if (os_log_type_enabled(TASALog, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 68289283;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2113;
-      v31 = deviceCopy;
-      _os_log_impl(&dword_2656EA000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier setting current unsafe location from nil, device:%{private}@}", &v26, 0x1Cu);
+      v25 = 68289283;
+      v26 = 0;
+      v27 = 2082;
+      v28 = "";
+      v29 = 2113;
+      v30 = deviceCopy;
+      _os_log_impl(&dword_2656EA000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier setting current unsafe location from nil, device:%{private}@}", &v25, 0x1Cu);
     }
 
     [(SAScenarioClassifier *)self setCurrentUnsafeLocation:locationCopy];
@@ -368,16 +363,16 @@ LABEL_11:
   {
     if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
     {
-      v26 = 68289283;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2113;
-      v31 = deviceCopy;
+      v25 = 68289283;
+      v26 = 0;
+      v27 = 2082;
+      v28 = "";
+      v29 = 2113;
+      v30 = deviceCopy;
       v21 = "{msg%{public}.0s:#SAScenarioClassifier forUnsafeLocation location, device:%{private}@}";
       v22 = v18;
 LABEL_23:
-      _os_log_impl(&dword_2656EA000, v22, OS_LOG_TYPE_ERROR, v21, &v26, 0x1Cu);
+      _os_log_impl(&dword_2656EA000, v22, OS_LOG_TYPE_ERROR, v21, &v25, 0x1Cu);
       goto LABEL_24;
     }
 
@@ -386,15 +381,15 @@ LABEL_23:
 
   if (os_log_type_enabled(TASALog, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 68289539;
-    v27 = 0;
-    v28 = 2082;
-    v29 = "";
-    v30 = 2113;
-    v31 = deviceCopy;
-    v32 = 2049;
+    v25 = 68289539;
+    v26 = 0;
+    v27 = 2082;
+    v28 = "";
+    v29 = 2113;
+    v30 = deviceCopy;
+    v31 = 2049;
     stateCopy = state;
-    _os_log_impl(&dword_2656EA000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier didDetermineState unsafe, device:%{private}@, state:%{private}ld}", &v26, 0x26u);
+    _os_log_impl(&dword_2656EA000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier didDetermineState unsafe, device:%{private}@, state:%{private}ld}", &v25, 0x26u);
   }
 
   scenarioClassification = [(SAScenarioClassifier *)self scenarioClassification];
@@ -409,12 +404,12 @@ LABEL_23:
           v20 = TASALog;
           if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
           {
-            v26 = 68289283;
-            v27 = 0;
-            v28 = 2082;
-            v29 = "";
-            v30 = 2113;
-            v31 = deviceCopy;
+            v25 = 68289283;
+            v26 = 0;
+            v27 = 2082;
+            v28 = "";
+            v29 = 2113;
+            v30 = deviceCopy;
             v21 = "{msg%{public}.0s:#SAScenarioClassifier forUnsafeLocation not supported, device:%{private}@}";
 LABEL_22:
             v22 = v20;
@@ -427,16 +422,16 @@ LABEL_22:
 
       if (state == 2)
       {
-        v25 = TASALog;
+        v24 = TASALog;
         if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
         {
-          v26 = 68289283;
-          v27 = 0;
-          v28 = 2082;
-          v29 = "";
-          v30 = 2113;
-          v31 = deviceCopy;
-          _os_log_impl(&dword_2656EA000, v25, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SAScenarioClassifier forUnsafeLocation unexpected, device:%{private}@}", &v26, 0x1Cu);
+          v25 = 68289283;
+          v26 = 0;
+          v27 = 2082;
+          v28 = "";
+          v29 = 2113;
+          v30 = deviceCopy;
+          _os_log_impl(&dword_2656EA000, v24, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SAScenarioClassifier forUnsafeLocation unexpected, device:%{private}@}", &v25, 0x1Cu);
         }
 
         goto LABEL_35;
@@ -486,25 +481,23 @@ LABEL_35:
     v20 = TASALog;
     if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
     {
-      v26 = 68289283;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2113;
-      v31 = deviceCopy;
+      v25 = 68289283;
+      v26 = 0;
+      v27 = 2082;
+      v28 = "";
+      v29 = 2113;
+      v30 = deviceCopy;
       v21 = "{msg%{public}.0s:#SAScenarioClassifier forUnsafeLocation in safe, device:%{private}@}";
       goto LABEL_22;
     }
   }
 
 LABEL_24:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDetermineState:(unint64_t)state forSafeLocation:(id)location forDevice:(id)device
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   deviceCopy = device;
   deviceUuid = [(SAScenarioClassifier *)self deviceUuid];
@@ -520,15 +513,15 @@ LABEL_24:
       v14 = TASALog;
       if (os_log_type_enabled(TASALog, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 68289539;
-        v24 = 0;
-        v25 = 2082;
-        v26 = "";
-        v27 = 2113;
-        v28 = deviceCopy;
-        v29 = 2049;
+        v22 = 68289539;
+        v23 = 0;
+        v24 = 2082;
+        v25 = "";
+        v26 = 2113;
+        v27 = deviceCopy;
+        v28 = 2049;
         stateCopy = state;
-        _os_log_impl(&dword_2656EA000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier didDetermineState safe, device:%{private}@, state:%{private}ld}", &v23, 0x26u);
+        _os_log_impl(&dword_2656EA000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier didDetermineState safe, device:%{private}@, state:%{private}ld}", &v22, 0x26u);
       }
 
       v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:state];
@@ -550,13 +543,13 @@ LABEL_24:
             v19 = TASALog;
             if (os_log_type_enabled(TASALog, OS_LOG_TYPE_DEFAULT))
             {
-              v23 = 68289283;
-              v24 = 0;
-              v25 = 2082;
-              v26 = "";
-              v27 = 2113;
-              v28 = deviceCopy;
-              _os_log_impl(&dword_2656EA000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#warning #SAScenarioClassifier forSafeLocation in unsafe, device:%{private}@}", &v23, 0x1Cu);
+              v22 = 68289283;
+              v23 = 0;
+              v24 = 2082;
+              v25 = "";
+              v26 = 2113;
+              v27 = deviceCopy;
+              _os_log_impl(&dword_2656EA000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#warning #SAScenarioClassifier forSafeLocation in unsafe, device:%{private}@}", &v22, 0x1Cu);
             }
           }
 
@@ -569,13 +562,13 @@ LABEL_24:
                 v18 = TASALog;
                 if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
                 {
-                  v23 = 68289283;
-                  v24 = 0;
-                  v25 = 2082;
-                  v26 = "";
-                  v27 = 2113;
-                  v28 = deviceCopy;
-                  _os_log_impl(&dword_2656EA000, v18, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SAScenarioClassifier forSafeLocation not supported, device:%{private}@}", &v23, 0x1Cu);
+                  v22 = 68289283;
+                  v23 = 0;
+                  v24 = 2082;
+                  v25 = "";
+                  v26 = 2113;
+                  v27 = deviceCopy;
+                  _os_log_impl(&dword_2656EA000, v18, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SAScenarioClassifier forSafeLocation not supported, device:%{private}@}", &v22, 0x1Cu);
                 }
               }
 
@@ -617,8 +610,6 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addClient:(id)client
@@ -637,7 +628,7 @@ LABEL_27:
 
 - (void)ingestTAEvent:(id)event
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -728,11 +719,11 @@ LABEL_28:
       currentVisit2 = v36;
       deviceUuid2 = [(SAScenarioClassifier *)self deviceUuid];
       *buf = 68289283;
-      v44 = 0;
-      v45 = 2082;
-      v46 = "";
-      v47 = 2113;
-      v48 = deviceUuid2;
+      v43 = 0;
+      v44 = 2082;
+      v45 = "";
+      v46 = 2113;
+      v47 = deviceUuid2;
       _os_log_impl(&dword_2656EA000, currentVisit2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#warning #SAScenarioClassifier visit while in safe, device:%{private}@}", buf, 0x1Cu);
 
       goto LABEL_28;
@@ -752,11 +743,11 @@ LABEL_28:
     v20 = v38;
     deviceUuid3 = [(SAScenarioClassifier *)self deviceUuid];
     *buf = 68289283;
-    v44 = 0;
-    v45 = 2082;
-    v46 = "";
-    v47 = 2113;
-    v48 = deviceUuid3;
+    v43 = 0;
+    v44 = 2082;
+    v45 = "";
+    v46 = 2113;
+    v47 = deviceUuid3;
     _os_log_impl(&dword_2656EA000, v20, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#warning #SAScenarioClassifier visit while in unsafe, device:%{private}@}", buf, 0x1Cu);
   }
 
@@ -800,11 +791,11 @@ LABEL_28:
         v22 = v21;
         deviceUuid5 = [(SAScenarioClassifier *)self deviceUuid];
         *buf = 68289283;
-        v44 = 0;
-        v45 = 2082;
-        v46 = "";
-        v47 = 2113;
-        v48 = deviceUuid5;
+        v43 = 0;
+        v44 = 2082;
+        v45 = "";
+        v46 = 2113;
+        v47 = deviceUuid5;
         _os_log_impl(&dword_2656EA000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#warning #SAScenarioClassifier LOI while in safe, device:%{private}@}", buf, 0x1Cu);
       }
 
@@ -825,11 +816,11 @@ LABEL_28:
     deviceUuid3 = v40;
     deviceUuid6 = [(SAScenarioClassifier *)self deviceUuid];
     *buf = 68289283;
-    v44 = 0;
-    v45 = 2082;
-    v46 = "";
-    v47 = 2113;
-    v48 = deviceUuid6;
+    v43 = 0;
+    v44 = 2082;
+    v45 = "";
+    v46 = 2113;
+    v47 = deviceUuid6;
     _os_log_impl(&dword_2656EA000, deviceUuid3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#warning #SAScenarioClassifier LOI while in unsafe, device:%{private}@}", buf, 0x1Cu);
   }
 
@@ -843,13 +834,11 @@ LABEL_38:
   }
 
 LABEL_41:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addUnsafeLocation:(id)location
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   currentUnsafeLocation = [(SAScenarioClassifier *)self currentUnsafeLocation];
 
@@ -863,17 +852,17 @@ LABEL_41:
       currentUnsafeLocation2 = [(SAScenarioClassifier *)self currentUnsafeLocation];
       identifier = [currentUnsafeLocation2 identifier];
       identifier2 = [(CLRegion *)locationCopy identifier];
-      v21[0] = 68289795;
-      v21[1] = 0;
-      v22 = 2082;
-      v23 = "";
-      v24 = 2113;
-      v25 = deviceUuid;
-      v26 = 2113;
-      v27 = identifier;
-      v28 = 2113;
-      v29 = identifier2;
-      _os_log_impl(&dword_2656EA000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SAScenarioClassifier addUnsafeLocation replacing already existing unsafe, device:%{private}@, old:%{private}@, new:%{private}@}", v21, 0x30u);
+      v20[0] = 68289795;
+      v20[1] = 0;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2113;
+      v24 = deviceUuid;
+      v25 = 2113;
+      v26 = identifier;
+      v27 = 2113;
+      v28 = identifier2;
+      _os_log_impl(&dword_2656EA000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SAScenarioClassifier addUnsafeLocation replacing already existing unsafe, device:%{private}@, old:%{private}@, new:%{private}@}", v20, 0x30u);
     }
 
     delegate = [(SAScenarioClassifier *)self delegate];
@@ -892,8 +881,6 @@ LABEL_41:
   delegate2 = [(SAScenarioClassifier *)self delegate];
   deviceUuid3 = [(SAScenarioClassifier *)self deviceUuid];
   [delegate2 startMonitorUnsafeLocationExit:v17 forDevice:deviceUuid3];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeUnsafeLocation:(id)location
@@ -909,27 +896,27 @@ LABEL_41:
 
 - (id)_findSafeLocationWithUUID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   safeLocations = [(SAScenarioClassifier *)self safeLocations];
-  v6 = [safeLocations countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [safeLocations countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(safeLocations);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [dCopy isEqual:identifier];
 
@@ -940,7 +927,7 @@ LABEL_41:
         }
       }
 
-      v6 = [safeLocations countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [safeLocations countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -952,14 +939,12 @@ LABEL_41:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)_addSafeLocation:(id)location
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   identifier = [locationCopy identifier];
   v6 = [(SAScenarioClassifier *)self _findSafeLocationWithUUID:identifier];
@@ -972,15 +957,15 @@ LABEL_11:
       v8 = v7;
       deviceUuid = [(SAScenarioClassifier *)self deviceUuid];
       identifier2 = [locationCopy identifier];
-      v16[0] = 68289539;
-      v16[1] = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2113;
-      v20 = deviceUuid;
-      v21 = 2117;
-      v22 = identifier2;
-      _os_log_impl(&dword_2656EA000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier addSafeLocation replacing, device:%{private}@, location:%{sensitive}@}", v16, 0x26u);
+      v15[0] = 68289539;
+      v15[1] = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2113;
+      v19 = deviceUuid;
+      v20 = 2117;
+      v21 = identifier2;
+      _os_log_impl(&dword_2656EA000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#SAScenarioClassifier addSafeLocation replacing, device:%{private}@, location:%{sensitive}@}", v15, 0x26u);
     }
 
     [(SAScenarioClassifier *)self _removeSafeLocation:v6];
@@ -995,13 +980,11 @@ LABEL_11:
   delegate = [(SAScenarioClassifier *)self delegate];
   deviceUuid2 = [(SAScenarioClassifier *)self deviceUuid];
   [delegate startMonitorSafeLocation:locationCopy forDevice:deviceUuid2];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeSafeLocation:(id)location
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   identifier = [locationCopy identifier];
   v6 = [(SAScenarioClassifier *)self _findSafeLocationWithUUID:identifier];
@@ -1027,19 +1010,17 @@ LABEL_11:
       v12 = v11;
       deviceUuid2 = [(SAScenarioClassifier *)self deviceUuid];
       identifier2 = [locationCopy identifier];
-      v16[0] = 68289539;
-      v16[1] = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2113;
-      v20 = deviceUuid2;
-      v21 = 2117;
-      v22 = identifier2;
-      _os_log_impl(&dword_2656EA000, v12, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SAScenarioClassifier removeSafeLocation not in set, device:%{private}@, location:%{sensitive}@}", v16, 0x26u);
+      v15[0] = 68289539;
+      v15[1] = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2113;
+      v19 = deviceUuid2;
+      v20 = 2117;
+      v21 = identifier2;
+      _os_log_impl(&dword_2656EA000, v12, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#SAScenarioClassifier removeSafeLocation not in set, device:%{private}@, location:%{sensitive}@}", v15, 0x26u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCurrentTime

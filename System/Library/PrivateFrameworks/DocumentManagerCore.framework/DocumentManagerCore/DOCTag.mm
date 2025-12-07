@@ -28,38 +28,38 @@
 
 + (id)tagsLoadedFromUserDefaults
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.DocumentManagerCore"];
   v3 = [v2 pathForResource:@"UIDocumentPickerDefaultTags" ofType:@"plist"];
 
-  v22 = v3;
-  v21 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v3];
+  v21 = v3;
+  v20 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v3];
   v4 = [MEMORY[0x277CCAC58] propertyListWithData:? options:? format:? error:?];
   v5 = [v4 objectForKey:@"_LOCALIZABLE_"];
   v6 = [v5 objectForKey:@"FinderTagDict"];
   v7 = [v6 objectForKey:@"FinderTags"];
 
   v8 = [objc_alloc(MEMORY[0x277CBEB40]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = v7;
-  v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v24;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         v14 = [v13 objectForKey:@"n"];
         v15 = [v13 objectForKey:@"l"];
         v16 = v15;
@@ -77,13 +77,11 @@
         [v8 addObject:v18];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

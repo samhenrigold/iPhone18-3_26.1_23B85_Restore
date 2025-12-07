@@ -21,6 +21,7 @@
 - (void)_setup;
 - (void)reloadContentViewImpressionItems;
 - (void)setAccount:(id)account;
+- (void)setAnonymousMetrics:(BOOL)metrics;
 - (void)setBag:(id)bag;
 - (void)setClientInfo:(id)info;
 - (void)setClientOptions:(id)options;
@@ -30,6 +31,7 @@
 - (void)setMediaContentDelegate:(id)delegate;
 - (void)setMetricsOverlay:(id)overlay;
 - (void)setTitle:(id)title;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
 @end
@@ -153,6 +155,13 @@
   accountCopy = account;
   dynamicViewController = [(AMSUIDynamicViewController *)self dynamicViewController];
   [dynamicViewController setAccount:accountCopy];
+}
+
+- (void)setAnonymousMetrics:(BOOL)metrics
+{
+  metricsCopy = metrics;
+  dynamicViewController = [(AMSUIDynamicViewController *)self dynamicViewController];
+  [dynamicViewController setAnonymousMetrics:metricsCopy];
 }
 
 - (void)setBag:(id)bag
@@ -342,6 +351,13 @@
   [(AMSUIDynamicViewController *)&v4 viewDidLoad];
   dynamicViewController = [(AMSUIDynamicViewController *)self dynamicViewController];
   [(AMSUICommonViewController *)self setChildViewController:dynamicViewController];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AMSUIDynamicViewController;
+  [(AMSUIDynamicViewController *)&v3 viewDidAppear:appear];
 }
 
 - (void)viewWillLayoutSubviews

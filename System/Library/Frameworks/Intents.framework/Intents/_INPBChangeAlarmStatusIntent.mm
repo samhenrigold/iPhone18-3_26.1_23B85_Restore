@@ -3,6 +3,7 @@
 - (_INPBChangeAlarmStatusIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)operationAsString:(int)string;
 - (int)StringAsOperation:(id)operation;
 - (unint64_t)hash;
 - (void)addAlarms:(id)alarms;
@@ -16,7 +17,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   alarmSearch = [(_INPBChangeAlarmStatusIntent *)self alarmSearch];
   dictionaryRepresentation = [alarmSearch dictionaryRepresentation];
@@ -25,30 +26,30 @@
   if ([(NSArray *)self->_alarms count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v7 = self->_alarms;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation2 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -76,8 +77,6 @@
 
     [dictionary setObject:v16 forKeyedSubscript:@"operation"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -248,7 +247,7 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   toCopy = to;
   alarmSearch = [(_INPBChangeAlarmStatusIntent *)self alarmSearch];
 
@@ -258,33 +257,32 @@ LABEL_18:
     PBDataWriterWriteSubmessage();
   }
 
-  v19 = 0u;
-  v20 = 0u;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = self->_alarms;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -300,11 +298,8 @@ LABEL_18:
 
   if ([(_INPBChangeAlarmStatusIntent *)self hasOperation])
   {
-    operation = self->_operation;
     PBDataWriterWriteInt32Field();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsOperation:(id)operation
@@ -328,6 +323,21 @@ LABEL_18:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)operationAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7288148[string - 1];
   }
 
   return v4;

@@ -3,7 +3,7 @@
 
 @implementation AXSGuidedAccessEnabledByManagedConfiguration
 
-uint64_t ___AXSGuidedAccessEnabledByManagedConfiguration_block_invoke()
+void *___AXSGuidedAccessEnabledByManagedConfiguration_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

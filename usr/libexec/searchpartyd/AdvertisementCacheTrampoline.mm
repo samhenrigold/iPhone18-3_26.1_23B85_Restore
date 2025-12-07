@@ -1,5 +1,6 @@
 @interface AdvertisementCacheTrampoline
 - (_TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline)init;
+- (void)advertisementCacheSimulation:(BOOL)simulation completion:(id)completion;
 - (void)advertisementsForSearchCriteria:(id)criteria completion:(id)completion;
 - (void)beaconAdvertisementAtFileURL:(id)l beaconIdentifier:(id)identifier scanDate:(id)date completion:(id)completion;
 - (void)beaconPayloadsForSearchCriteria:(id)criteria completion:(id)completion;
@@ -17,15 +18,14 @@
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = swift_allocObject();
   *(v7 + 16) = v5;
-  v8 = (self + OBJC_IVAR____TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline_implementation);
+  v8 = self + OBJC_IVAR____TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline_implementation;
   swift_beginAccess();
-  v9 = *v8;
-  v10 = v8[3];
+  v9 = *(v8 + 3);
   ObjectType = swift_getObjectType();
-  v12 = *(v10 + 32);
+  v11 = *(v9 + 32);
   selfCopy = self;
   swift_unknownObjectRetain();
-  v12(v6, sub_10026AE30, v7, ObjectType, v10);
+  v11(v6, sub_10026AE30, v7, ObjectType, v9);
   swift_unknownObjectRelease();
 }
 
@@ -34,68 +34,63 @@
   v6 = _Block_copy(completion);
   v7 = swift_allocObject();
   *(v7 + 16) = v6;
-  v8 = (self + OBJC_IVAR____TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline_implementation);
+  v8 = self + OBJC_IVAR____TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline_implementation;
   swift_beginAccess();
-  v9 = *v8;
-  v10 = v8[3];
+  v9 = *(v8 + 3);
   ObjectType = swift_getObjectType();
   criteriaCopy = criteria;
   selfCopy = self;
   swift_unknownObjectRetain();
-  v12 = sub_1003CCA70();
-  v14 = v13;
-  v16 = v15;
-  v17 = swift_allocObject();
-  *(v17 + 16) = sub_1001BC2E0;
-  *(v17 + 24) = v7;
-  v18 = *(v10 + 24);
+  v11 = sub_1003CCA70();
+  v13 = v12;
+  v15 = v14;
+  v16 = swift_allocObject();
+  *(v16 + 16) = sub_1001BC2E0;
+  *(v16 + 24) = v7;
+  v17 = *(v9 + 24);
 
-  v18(v12, v14, v16, sub_10026ACF4, v17, ObjectType, v10);
+  v17(v11, v13, v15, sub_10026ACF4, v16, ObjectType, v9);
   swift_unknownObjectRelease();
 }
 
 - (void)beaconAdvertisementAtFileURL:(id)l beaconIdentifier:(id)identifier scanDate:(id)date completion:(id)completion
 {
   v8 = type metadata accessor for Date();
-  v35 = *(v8 - 8);
-  v36 = v8;
-  v9 = *(v35 + 64);
+  v31 = *(v8 - 8);
+  v32 = v8;
   __chkstk_darwin(v8);
-  v30 = &selfCopy - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for UUID();
-  v33 = *(v11 - 8);
-  v34 = v11;
-  v12 = *(v33 + 64);
-  __chkstk_darwin(v11);
-  v14 = &selfCopy - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for URL();
-  v31 = *(v15 - 8);
-  v32 = v15;
-  v16 = *(v31 + 64);
-  __chkstk_darwin(v15);
-  v18 = &selfCopy - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = _Block_copy(completion);
+  v26 = &selfCopy - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for UUID();
+  v29 = *(v10 - 8);
+  v30 = v10;
+  __chkstk_darwin(v10);
+  v12 = &selfCopy - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for URL();
+  v27 = *(v13 - 8);
+  v28 = v13;
+  __chkstk_darwin(v13);
+  v15 = &selfCopy - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = _Block_copy(completion);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  v20 = swift_allocObject();
-  *(v20 + 16) = v19;
-  v21 = (self + OBJC_IVAR____TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline_implementation);
+  v17 = swift_allocObject();
+  *(v17 + 16) = v16;
+  v18 = self + OBJC_IVAR____TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline_implementation;
   swift_beginAccess();
-  v22 = *v21;
-  v23 = v21[1];
+  v19 = *(v18 + 1);
   ObjectType = swift_getObjectType();
-  v25 = *(v23 + 8);
+  v21 = *(v19 + 8);
   selfCopy = self;
   swift_unknownObjectRetain();
-  v26 = v14;
-  v27 = v14;
-  v28 = v30;
-  v25(v18, v26, v30, sub_1001BC108, v20, ObjectType, v23);
+  v22 = v12;
+  v23 = v12;
+  v24 = v26;
+  v21(v15, v22, v26, sub_1001BC108, v17, ObjectType, v19);
 
-  (*(v35 + 8))(v28, v36);
-  (*(v33 + 8))(v27, v34);
-  (*(v31 + 8))(v18, v32);
+  (*(v31 + 8))(v24, v32);
+  (*(v29 + 8))(v23, v30);
+  (*(v27 + 8))(v15, v28);
   swift_unknownObjectRelease();
 }
 
@@ -122,23 +117,46 @@
   _Block_release(v6);
 }
 
+- (void)advertisementCacheSimulation:(BOOL)simulation completion:(id)completion
+{
+  simulationCopy = simulation;
+  v6 = _Block_copy(completion);
+  v7 = self + OBJC_IVAR____TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline_implementation;
+  swift_beginAccess();
+  v8 = *v7;
+  v9 = *(v7 + 1);
+  ObjectType = swift_getObjectType();
+  v14 = v8;
+  selfCopy = self;
+  v12 = *(v7 + 1);
+  v13 = *(v7 + 2);
+  (*(v12 + 16))(simulationCopy, ObjectType);
+  *v7 = v14;
+  *(v7 + 1) = v9;
+  *(v7 + 1) = v12;
+  *(v7 + 2) = v13;
+  swift_endAccess();
+  v6[2](v6, 0);
+
+  _Block_release(v6);
+}
+
 - (void)clearCacheWithCompletion:(id)completion
 {
   v4 = sub_1000BC4D4(&qword_101698C00, &qword_10138B570);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v12 - v6;
-  v8 = _Block_copy(completion);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  v10 = type metadata accessor for TaskPriority();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = sub_10001E370;
-  v11[5] = v9;
-  sub_10025EDD4(0, 0, v7, &unk_101395730, v11);
+  v6 = &v11 - v5;
+  v7 = _Block_copy(completion);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = sub_10001E370;
+  v10[5] = v8;
+  sub_10025EDD4(0, 0, v6, &unk_101395730, v10);
 }
 
 - (_TtC12searchpartydP33_EBCE4CC9FC18641636B173DB27D7BE0028AdvertisementCacheTrampoline)init

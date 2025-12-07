@@ -147,8 +147,9 @@ LABEL_7:
 
 - (double)readValueFor:(id)for
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   forCopy = for;
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
@@ -158,8 +159,8 @@ LABEL_7:
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  v60 = 0;
+  v59 = 0;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
@@ -169,23 +170,22 @@ LABEL_7:
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v48 = 0;
-  v36 = 0;
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
+  v47 = 0;
+  v35 = 0;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  memset(v22, 0, sizeof(v22));
-  v23 = 0u;
-  memset(v24, 0, sizeof(v24));
-  v25 = 0;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  memset(v21, 0, sizeof(v21));
+  v22 = 0u;
+  memset(v23, 0, sizeof(v23));
+  v24 = 0;
   if (![(DSAppleSMCDevice *)self isConnectionOpen])
   {
     v5 = DiagnosticLogHandleForCategory(6);
@@ -196,21 +196,21 @@ LABEL_7:
   }
 
   v6 = [forCopy cStringUsingEncoding:4];
-  v49 = smckSMCMakeUInt32Key(v6);
-  BYTE6(v52) = 9;
-  v7 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v49, &v26);
-  if (v7 || BYTE8(v28))
+  v48 = smckSMCMakeUInt32Key(v6);
+  BYTE6(v51) = 9;
+  v7 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v48, &v25);
+  if (v7 || BYTE8(v27))
   {
     v12 = DiagnosticLogHandleForCategory(6);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315650;
-      v17 = v6;
-      v18 = 1024;
-      v19 = v7;
-      v20 = 1024;
-      v21 = BYTE8(v28);
-      v15 = "Could not retrieve Key info from AppleSMC for key: %s (0x%X, 0x%X)";
+      v15 = 136315650;
+      v16 = v6;
+      v17 = 1024;
+      v18 = v7;
+      v19 = 1024;
+      v20 = BYTE8(v27);
+      v14 = "Could not retrieve Key info from AppleSMC for key: %s (0x%X, 0x%X)";
       goto LABEL_18;
     }
 
@@ -219,50 +219,50 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (HIDWORD(v27) > 0x78)
+  if (HIDWORD(v26) > 0x78)
   {
 LABEL_13:
     v11 = NAN;
     goto LABEL_14;
   }
 
-  BYTE4(v40) = 0;
-  v37 = smckSMCMakeUInt32Key(v6);
-  DWORD2(v39) = HIDWORD(v27);
-  BYTE6(v40) = 5;
-  v8 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v37, v22);
-  if (v8 || BYTE8(v23))
+  BYTE4(v39) = 0;
+  v36 = smckSMCMakeUInt32Key(v6);
+  DWORD2(v38) = HIDWORD(v26);
+  BYTE6(v39) = 5;
+  v8 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v36, v21);
+  if (v8 || BYTE8(v22))
   {
     v12 = DiagnosticLogHandleForCategory(6);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315650;
-      v17 = v6;
-      v18 = 1024;
-      v19 = v8;
-      v20 = 1024;
-      v21 = BYTE8(v23);
-      v15 = "Could not read data value from AppleSMC for key: %s (0x%X, 0x%X)";
+      v15 = 136315650;
+      v16 = v6;
+      v17 = 1024;
+      v18 = v8;
+      v19 = 1024;
+      v20 = BYTE8(v22);
+      v14 = "Could not read data value from AppleSMC for key: %s (0x%X, 0x%X)";
 LABEL_18:
-      _os_log_error_impl(&dword_248BD5000, v12, OS_LOG_TYPE_ERROR, v15, &v16, 0x18u);
+      _os_log_error_impl(&dword_248BD5000, v12, OS_LOG_TYPE_ERROR, v14, &v15, 0x18u);
       goto LABEL_12;
     }
 
     goto LABEL_12;
   }
 
-  v9 = returnEnumForDataTypeStr(v28);
-  v11 = convertKeyToValueMiniT(v9, DWORD2(v39), v24, v10);
+  v9 = returnEnumForDataTypeStr(v27);
+  v11 = convertKeyToValueMiniT(v9, DWORD2(v38), v23, v10);
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (int)readDataFor:(id)for value:(void *)value size:(unint64_t)size
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   forCopy = for;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
@@ -272,8 +272,8 @@ LABEL_14:
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v62 = 0;
+  v61 = 0;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
@@ -283,23 +283,22 @@ LABEL_14:
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v50 = 0;
-  v38 = 0;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
+  v49 = 0;
+  v37 = 0;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
   *__n = 0u;
-  memset(v24, 0, sizeof(v24));
-  v25 = 0u;
-  memset(v26, 0, sizeof(v26));
-  v27 = 0;
+  memset(v23, 0, sizeof(v23));
+  v24 = 0u;
+  memset(v25, 0, sizeof(v25));
+  v26 = 0;
   if (![(DSAppleSMCDevice *)self isConnectionOpen])
   {
     v9 = DiagnosticLogHandleForCategory(6);
@@ -310,21 +309,21 @@ LABEL_14:
   }
 
   v10 = [forCopy cStringUsingEncoding:4];
-  v51 = smckSMCMakeUInt32Key(v10);
-  BYTE6(v54) = 9;
-  v11 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v51, &v28);
-  if (v11 || BYTE8(v30))
+  v50 = smckSMCMakeUInt32Key(v10);
+  BYTE6(v53) = 9;
+  v11 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v50, &v27);
+  if (v11 || BYTE8(v29))
   {
     v14 = DiagnosticLogHandleForCategory(6);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315650;
-      v19 = v10;
-      v20 = 1024;
-      v21 = v11;
-      v22 = 1024;
-      v23 = BYTE8(v30);
-      v17 = "Could not retrieve Key info from AppleSMC for key: %s (0x%X, 0x%X)";
+      v17 = 136315650;
+      v18 = v10;
+      v19 = 1024;
+      v20 = v11;
+      v21 = 1024;
+      v22 = BYTE8(v29);
+      v16 = "Could not retrieve Key info from AppleSMC for key: %s (0x%X, 0x%X)";
       goto LABEL_18;
     }
 
@@ -337,14 +336,14 @@ LABEL_13:
   v12 = 0;
   if (HIDWORD(__n[1]) <= 0x78 && HIDWORD(__n[1]) <= size)
   {
-    BYTE4(v42) = 0;
-    v39 = smckSMCMakeUInt32Key(v10);
-    DWORD2(v41) = HIDWORD(__n[1]);
-    BYTE6(v42) = 5;
-    v13 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v39, v24);
-    if (!v13 && !BYTE8(v25))
+    BYTE4(v41) = 0;
+    v38 = smckSMCMakeUInt32Key(v10);
+    DWORD2(v40) = HIDWORD(__n[1]);
+    BYTE6(v41) = 5;
+    v13 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v38, v23);
+    if (!v13 && !BYTE8(v24))
     {
-      memcpy(value, v26, HIDWORD(__n[1]));
+      memcpy(value, v25, HIDWORD(__n[1]));
       v12 = 1;
       goto LABEL_14;
     }
@@ -352,15 +351,15 @@ LABEL_13:
     v14 = DiagnosticLogHandleForCategory(6);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315650;
-      v19 = v10;
-      v20 = 1024;
-      v21 = v13;
-      v22 = 1024;
-      v23 = BYTE8(v25);
-      v17 = "Could not read data value from AppleSMC for key: %s (0x%X, 0x%X)";
+      v17 = 136315650;
+      v18 = v10;
+      v19 = 1024;
+      v20 = v13;
+      v21 = 1024;
+      v22 = BYTE8(v24);
+      v16 = "Could not read data value from AppleSMC for key: %s (0x%X, 0x%X)";
 LABEL_18:
-      _os_log_error_impl(&dword_248BD5000, v14, OS_LOG_TYPE_ERROR, v17, &v18, 0x18u);
+      _os_log_error_impl(&dword_248BD5000, v14, OS_LOG_TYPE_ERROR, v16, &v17, 0x18u);
       goto LABEL_13;
     }
 
@@ -369,15 +368,15 @@ LABEL_18:
 
 LABEL_14:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)writeValueFor:(id)for andValue:(id)value
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   forCopy = for;
   valueCopy = value;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
@@ -387,15 +386,15 @@ LABEL_14:
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v53 = 0;
+  v52 = 0;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  memset(v40, 0, sizeof(v40));
-  v41 = 0;
-  v36 = 0;
-  memset(v35, 0, sizeof(v35));
-  memset(v25, 0, sizeof(v25));
+  memset(v39, 0, sizeof(v39));
+  v40 = 0;
+  v35 = 0;
+  memset(v34, 0, sizeof(v34));
+  memset(v24, 0, sizeof(v24));
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
@@ -403,8 +402,7 @@ LABEL_14:
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0;
+  v33 = 0;
   if (![(DSAppleSMCDevice *)self isConnectionOpen])
   {
     v8 = DiagnosticLogHandleForCategory(6);
@@ -415,21 +413,21 @@ LABEL_14:
   }
 
   v9 = [forCopy cStringUsingEncoding:4];
-  v42 = smckSMCMakeUInt32Key(v9);
-  BYTE6(v45) = 9;
-  v10 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v42, v35);
-  if (v10 || BYTE8(v35[2]))
+  v41 = smckSMCMakeUInt32Key(v9);
+  BYTE6(v44) = 9;
+  v10 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v41, v34);
+  if (v10 || BYTE8(v34[2]))
   {
     v15 = DiagnosticLogHandleForCategory(6);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315650;
-      v20 = v9;
-      v21 = 1024;
-      v22 = v10;
-      v23 = 1024;
-      v24 = BYTE8(v35[2]);
-      v18 = "Could not retrieve Key info from AppleSMC for key: %s (0x%X, 0x%X)";
+      v18 = 136315650;
+      v19 = v9;
+      v20 = 1024;
+      v21 = v10;
+      v22 = 1024;
+      v23 = BYTE8(v34[2]);
+      v17 = "Could not retrieve Key info from AppleSMC for key: %s (0x%X, 0x%X)";
       goto LABEL_20;
     }
 
@@ -439,16 +437,16 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v40[4] = 0;
+  v39[4] = 0;
   v11 = 0;
-  v37 = smckSMCMakeUInt32Key(v9);
-  *(&v39 + 1) = *(&v35[1] + 12);
-  v40[6] = 6;
-  if (BYTE12(v35[1]) <= 0x78u)
+  v36 = smckSMCMakeUInt32Key(v9);
+  *(&v38 + 1) = *(&v34[1] + 12);
+  v39[6] = 6;
+  if (BYTE12(v34[1]) <= 0x78u)
   {
-    v12 = returnEnumForDataTypeStr(v35[2]);
+    v12 = returnEnumForDataTypeStr(v34[2]);
     [valueCopy floatValue];
-    if (translateFloatToFixed(v12, &v40[12], HIDWORD(v35[1]), v13) != 1)
+    if (translateFloatToFixed(v12, &v39[12], HIDWORD(v34[1]), v13) != 1)
     {
       v15 = DiagnosticLogHandleForCategory(6);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -459,8 +457,8 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v14 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v37, v25);
-    if (!v14 && !BYTE8(v26))
+    v14 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v36, v24);
+    if (!v14 && !BYTE8(v25))
     {
       v11 = 1;
       goto LABEL_14;
@@ -469,15 +467,15 @@ LABEL_13:
     v15 = DiagnosticLogHandleForCategory(6);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315650;
-      v20 = v9;
-      v21 = 1024;
-      v22 = v14;
-      v23 = 1024;
-      v24 = BYTE8(v26);
-      v18 = "Could not write data value from AppleSMC for key: %s (0x%X, 0x%X)";
+      v18 = 136315650;
+      v19 = v9;
+      v20 = 1024;
+      v21 = v14;
+      v22 = 1024;
+      v23 = BYTE8(v25);
+      v17 = "Could not write data value from AppleSMC for key: %s (0x%X, 0x%X)";
 LABEL_20:
-      _os_log_error_impl(&dword_248BD5000, v15, OS_LOG_TYPE_ERROR, v18, &v19, 0x18u);
+      _os_log_error_impl(&dword_248BD5000, v15, OS_LOG_TYPE_ERROR, v17, &v18, 0x18u);
       goto LABEL_13;
     }
 
@@ -486,19 +484,19 @@ LABEL_20:
 
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)writeDataFor:(id)for value:(void *)value size:(unint64_t)size
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   forCopy = for;
+  v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  memset(v38, 0, sizeof(v38));
-  v39 = 0;
-  memset(v25, 0, sizeof(v25));
+  memset(v37, 0, sizeof(v37));
+  v38 = 0;
+  memset(v24, 0, sizeof(v24));
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
@@ -506,8 +504,7 @@ LABEL_14:
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0;
+  v33 = 0;
   if (![(DSAppleSMCDevice *)self isConnectionOpen])
   {
     v9 = DiagnosticLogHandleForCategory(6);
@@ -518,9 +515,9 @@ LABEL_14:
   }
 
   v10 = [forCopy cStringUsingEncoding:4];
-  v38[6] = 6;
-  v35 = smckSMCMakeUInt32Key(v10);
-  DWORD2(v37) = size;
+  v37[6] = 6;
+  v34 = smckSMCMakeUInt32Key(v10);
+  DWORD2(v36) = size;
   if (size)
   {
     v11 = size - 1;
@@ -529,11 +526,11 @@ LABEL_14:
       v11 = 31;
     }
 
-    memcpy(&v38[12], value, v11 + 1);
+    memcpy(&v37[12], value, v11 + 1);
   }
 
-  v12 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v35, v25);
-  v13 = v12 | BYTE8(v26);
+  v12 = callIOFunction(2, [(DSAppleSMCDevice *)self dataPort], &v34, v24);
+  v13 = v12 | BYTE8(v25);
   v14 = v13 == 0;
   if (v13)
   {
@@ -541,90 +538,73 @@ LABEL_14:
     v16 = DiagnosticLogHandleForCategory(6);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315650;
-      v20 = v10;
-      v21 = 1024;
-      v22 = v15;
-      v23 = 1024;
-      v24 = BYTE8(v26);
-      _os_log_error_impl(&dword_248BD5000, v16, OS_LOG_TYPE_ERROR, "Failed to write AppleSMC data for key: %s (0x%X, 0x%X)", &v19, 0x18u);
+      v18 = 136315650;
+      v19 = v10;
+      v20 = 1024;
+      v21 = v15;
+      v22 = 1024;
+      v23 = BYTE8(v25);
+      _os_log_error_impl(&dword_248BD5000, v16, OS_LOG_TYPE_ERROR, "Failed to write AppleSMC data for key: %s (0x%X, 0x%X)", &v18, 0x18u);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)openAppleSMC:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openAppleSMC:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openAppleSMC:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openAppleSMC:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)closeAppleSMC
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readValueFor:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeValueFor:andValue:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeValueFor:andValue:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

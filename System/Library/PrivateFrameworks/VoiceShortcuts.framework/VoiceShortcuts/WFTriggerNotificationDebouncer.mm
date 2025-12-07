@@ -16,7 +16,7 @@
 
 - (void)debouncerDidFire:(id)fire
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   queue = [(WFTriggerNotificationDebouncer *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -53,11 +53,11 @@
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 136315394;
-      v21 = "[WFTriggerNotificationDebouncer debouncerDidFire:]";
-      v22 = 2114;
-      v23 = v10;
-      _os_log_impl(&dword_23103C000, delegate, OS_LOG_TYPE_DEBUG, "%s Debouncer fired with notification item: %{public}@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[WFTriggerNotificationDebouncer debouncerDidFire:]";
+      v21 = 2114;
+      v22 = v10;
+      _os_log_impl(&dword_23103C000, delegate, OS_LOG_TYPE_DEBUG, "%s Debouncer fired with notification item: %{public}@", &v19, 0x16u);
     }
 
     delegate = [(WFTriggerNotificationDebouncer *)self delegate];
@@ -71,17 +71,15 @@
 
   else if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    v20 = 136315394;
-    v21 = "[WFTriggerNotificationDebouncer debouncerDidFire:]";
-    v22 = 2114;
-    v23 = v8;
-    _os_log_impl(&dword_23103C000, delegate, OS_LOG_TYPE_FAULT, "%s No WFTriggerNotificationDebouncerItem item found for trigger identifier: %{public}@", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[WFTriggerNotificationDebouncer debouncerDidFire:]";
+    v21 = 2114;
+    v22 = v8;
+    _os_log_impl(&dword_23103C000, delegate, OS_LOG_TYPE_FAULT, "%s No WFTriggerNotificationDebouncerItem item found for trigger identifier: %{public}@", &v19, 0x16u);
   }
 
   notificationItemTable2 = [(WFTriggerNotificationDebouncer *)self notificationItemTable];
   [notificationItemTable2 removeObjectForKey:v8];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEventsWithIdentifiers:(id)identifiers notificationType:(unint64_t)type configuredTrigger:(id)trigger workflowReference:(id)reference
@@ -107,16 +105,16 @@
 
 void __112__WFTriggerNotificationDebouncer_addEventsWithIdentifiers_notificationType_configuredTrigger_workflowReference___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
-    v22 = 136315394;
-    v23 = "[WFTriggerNotificationDebouncer addEventsWithIdentifiers:notificationType:configuredTrigger:workflowReference:]_block_invoke";
-    v24 = 2112;
-    v25 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEBUG, "%s Adding eventIDs: %@", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "[WFTriggerNotificationDebouncer addEventsWithIdentifiers:notificationType:configuredTrigger:workflowReference:]_block_invoke";
+    v23 = 2112;
+    v24 = v3;
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEBUG, "%s Adding eventIDs: %@", &v21, 0x16u);
   }
 
   v4 = [*(a1 + 40) identifier];
@@ -141,9 +139,9 @@ void __112__WFTriggerNotificationDebouncer_addEventsWithIdentifiers_notification
     v15 = getWFTriggersLogObject();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 136315138;
-      v23 = "[WFTriggerNotificationDebouncer addEventsWithIdentifiers:notificationType:configuredTrigger:workflowReference:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEBUG, "%s Creating a new notification item and debouncer, because none were found", &v22, 0xCu);
+      v21 = 136315138;
+      v22 = "[WFTriggerNotificationDebouncer addEventsWithIdentifiers:notificationType:configuredTrigger:workflowReference:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEBUG, "%s Creating a new notification item and debouncer, because none were found", &v21, 0xCu);
     }
 
     v16 = objc_alloc(MEMORY[0x277D79F00]);
@@ -158,11 +156,11 @@ void __112__WFTriggerNotificationDebouncer_addEventsWithIdentifiers_notification
   v18 = getWFTriggersLogObject();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v22 = 136315394;
-    v23 = "[WFTriggerNotificationDebouncer addEventsWithIdentifiers:notificationType:configuredTrigger:workflowReference:]_block_invoke";
-    v24 = 2114;
-    v25 = v14;
-    _os_log_impl(&dword_23103C000, v18, OS_LOG_TYPE_DEBUG, "%s Poking debouncer with notification item: %{public}@", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "[WFTriggerNotificationDebouncer addEventsWithIdentifiers:notificationType:configuredTrigger:workflowReference:]_block_invoke";
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&dword_23103C000, v18, OS_LOG_TYPE_DEBUG, "%s Poking debouncer with notification item: %{public}@", &v21, 0x16u);
   }
 
   v19 = [*(a1 + 48) notificationItemTable];
@@ -170,8 +168,6 @@ void __112__WFTriggerNotificationDebouncer_addEventsWithIdentifiers_notification
 
   v20 = [(WFTriggerNotificationDebouncerItem *)v14 debouncer];
   [v20 poke];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (WFTriggerNotificationDebouncer)init

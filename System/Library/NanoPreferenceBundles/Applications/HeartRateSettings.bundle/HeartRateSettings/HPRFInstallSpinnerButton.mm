@@ -3,6 +3,7 @@
 - (HPRFInstallSpinnerButton)initWithFrame:(CGRect)frame showSquare:(BOOL)square;
 - (void)layoutSubviews;
 - (void)prepareProgressIndicatorIfNeeded;
+- (void)setProgress:(double)progress animated:(BOOL)animated;
 - (void)showProgressAnimation;
 - (void)stopSpinnerView;
 @end
@@ -160,6 +161,24 @@
   progressIndicator = self->_progressIndicator;
 
   [(SUUICircleProgressIndicator *)progressIndicator setHidden:0];
+}
+
+- (void)setProgress:(double)progress animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if (progress > 0.0 && self->_showingSpinner)
+  {
+    [(HPRFInstallSpinnerButton *)self stopSpinnerView];
+  }
+
+  if (progress > 0.0)
+  {
+    [(HPRFInstallSpinnerButton *)self prepareProgressIndicatorIfNeeded];
+  }
+
+  progressIndicator = self->_progressIndicator;
+
+  [(SUUICircleProgressIndicator *)progressIndicator setProgress:animatedCopy animated:progress];
 }
 
 @end

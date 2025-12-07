@@ -14,28 +14,28 @@
   endDateCopy = endDate;
   anchorDateCopy = anchorDate;
   componentsCopy = components;
-  v64.receiver = self;
-  v64.super_class = HDQuantityDistributionCalculator;
-  v18 = [(HDQuantityDistributionCalculator *)&v64 init];
+  v62.receiver = self;
+  v62.super_class = HDQuantityDistributionCalculator;
+  v18 = [(HDQuantityDistributionCalculator *)&v62 init];
   v19 = v18;
   if (v18)
   {
-    v62 = v18;
+    v60 = v18;
     v20 = dateCopy;
     v21 = endDateCopy;
-    v60 = anchorDateCopy;
+    v58 = anchorDateCopy;
     v22 = anchorDateCopy;
-    v59 = componentsCopy;
+    v57 = componentsCopy;
     v23 = componentsCopy;
-    v63 = v20;
+    v61 = v20;
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-    v61 = v22;
-    v58 = endDateCopy;
-    v57 = dateCopy;
+    v59 = v22;
+    v56 = endDateCopy;
+    v55 = dateCopy;
     if ([v20 hk_isBeforeDate:?])
     {
       hk_negativeComponents = [v23 hk_negativeComponents];
-      for (i = v61; [i hk_isAfterDate:v63]; i = v27)
+      for (i = v59; [i hk_isAfterDate:v61]; i = v27)
       {
         v27 = [currentCalendar dateByAddingComponents:hk_negativeComponents toDate:i options:4];
       }
@@ -43,10 +43,10 @@
 
     else
     {
-      for (i = v61; ; i = hk_negativeComponents)
+      for (i = v59; ; i = hk_negativeComponents)
       {
         hk_negativeComponents = [currentCalendar dateByAddingComponents:v23 toDate:i options:0];
-        if ([hk_negativeComponents hk_isAfterDate:v63])
+        if ([hk_negativeComponents hk_isAfterDate:v61])
         {
           break;
         }
@@ -64,115 +64,113 @@
       v29 -= 64;
     }
 
-    p_histogramState = &v62->_histogramState;
-    begin = v62->_histogramState._dateBuckets.__begin_;
+    p_histogramState = &v60->_histogramState;
+    begin = v60->_histogramState._dateBuckets.__begin_;
     v35 = -v30;
-    if (-v30 > ((v62->_histogramState._dateBuckets.__cap_ - begin) >> 6))
+    if (-v30 > ((v60->_histogramState._dateBuckets.__cap_ - begin) >> 6))
     {
       if (!(v35 >> 58))
       {
-        v56 = v62->_histogramState._dateBuckets.__begin_;
-        end = v62->_histogramState._dateBuckets.__end_;
-        v65 = &v62->_histogramState;
+        v63 = &v60->_histogramState;
         std::__allocate_at_least[abi:ne200100]<std::allocator<HistogramBucket>>(v35);
       }
 
       goto LABEL_41;
     }
 
-    v37 = v62->_histogramState._dateBuckets.__end_;
-    v38 = (v37 - begin) >> 6;
-    if (v38 >= v35)
+    end = v60->_histogramState._dateBuckets.__end_;
+    v37 = (end - begin) >> 6;
+    if (v37 >= v35)
     {
-      if (v38 > v35)
+      if (v37 > v35)
       {
-        v43 = (begin - v29);
-        while (v43 != v37)
+        v42 = (begin - v29);
+        while (v42 != end)
         {
-          v44 = *(v37 - 3);
-          if (v44)
+          v43 = *(end - 3);
+          if (v43)
           {
-            *(v37 - 2) = v44;
-            operator delete(v44);
+            *(end - 2) = v43;
+            operator delete(v43);
           }
 
-          v37 = (v37 - 64);
+          end = (end - 64);
         }
 
-        v62->_histogramState._dateBuckets.__end_ = v43;
+        v60->_histogramState._dateBuckets.__end_ = v42;
       }
     }
 
     else
     {
-      cap = v62->_histogramState._dateBuckets.__cap_;
-      if (-v30 - v38 > (cap - v37) >> 6)
+      cap = v60->_histogramState._dateBuckets.__cap_;
+      if (-v30 - v37 > (cap - end) >> 6)
       {
         if (!(v35 >> 58))
         {
-          v40 = cap - begin;
-          v41 = v40 >> 5;
-          if (v40 >> 5 <= v35)
+          v39 = cap - begin;
+          v40 = v39 >> 5;
+          if (v39 >> 5 <= v35)
           {
-            v41 = -v30;
+            v40 = -v30;
           }
 
-          if (v40 >= 0x7FFFFFFFFFFFFFC0)
+          if (v39 >= 0x7FFFFFFFFFFFFFC0)
           {
-            v42 = 0x3FFFFFFFFFFFFFFLL;
+            v41 = 0x3FFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v42 = v41;
+            v41 = v40;
           }
 
-          v65 = &v62->_histogramState;
-          std::__allocate_at_least[abi:ne200100]<std::allocator<HistogramBucket>>(v42);
+          v63 = &v60->_histogramState;
+          std::__allocate_at_least[abi:ne200100]<std::allocator<HistogramBucket>>(v41);
         }
 
 LABEL_41:
         std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
       }
 
-      v45 = (v37 - begin) >> 6;
-      bzero(v62->_histogramState._dateBuckets.__end_, -(v29 + (v38 << 6)));
-      v62->_histogramState._dateBuckets.__end_ = (v37 - v29 + -64 * v45);
+      v44 = (end - begin) >> 6;
+      bzero(v60->_histogramState._dateBuckets.__end_, -(v29 + (v37 << 6)));
+      v60->_histogramState._dateBuckets.__end_ = (end - v29 + -64 * v44);
     }
 
-    v46 = v28;
+    v45 = v28;
 
+    v46 = 0;
     v47 = 0;
-    v48 = 0;
-    for (k = v46; [k hk_isBeforeDate:{v21, v55}]; k = v52)
+    for (k = v45; [k hk_isBeforeDate:{v21, v54}]; k = v51)
     {
       [k timeIntervalSinceReferenceDate];
-      v51 = p_histogramState->_dateBuckets.__begin_;
-      if (v47)
+      v50 = p_histogramState->_dateBuckets.__begin_;
+      if (v46)
       {
-        *(v51 + v48 - 56) = v50;
+        *(v50 + v47 - 56) = v49;
       }
 
-      *(v51 + v48) = v50;
-      v52 = [currentCalendar dateByAddingComponents:v23 toDate:k options:0];
+      *(v50 + v47) = v49;
+      v51 = [currentCalendar dateByAddingComponents:v23 toDate:k options:0];
 
-      v48 += 64;
-      --v47;
+      v47 += 64;
+      --v46;
     }
 
-    if (v47)
+    if (v46)
     {
       [k timeIntervalSinceReferenceDate];
-      *(p_histogramState->_dateBuckets.__begin_ + v48 - 56) = v53;
+      *(p_histogramState->_dateBuckets.__begin_ + v47 - 56) = v52;
     }
 
-    v19 = v62;
-    v62->_histogramState._histogramBucketAnchor = anchor;
-    v62->_histogramState._histogramBucketSize = size;
-    dateCopy = v57;
-    endDateCopy = v58;
-    componentsCopy = v59;
-    anchorDateCopy = v60;
+    v19 = v60;
+    v60->_histogramState._histogramBucketAnchor = anchor;
+    v60->_histogramState._histogramBucketSize = size;
+    dateCopy = v55;
+    endDateCopy = v56;
+    componentsCopy = v57;
+    anchorDateCopy = v58;
   }
 
   return v19;
@@ -180,27 +178,25 @@ LABEL_41:
 
 - (void)addDataPoint:(double)point startTime:(double)time endTime:(double)endTime
 {
-  v69[8] = *MEMORY[0x277D85DE8];
+  v68[8] = *MEMORY[0x277D85DE8];
   begin = self->_histogramState._dateBuckets.__begin_;
   v6 = self->_histogramState._dateBuckets.__end_ - begin;
   currentStartDateBucket = self->_histogramState._currentStartDateBucket;
   if (currentStartDateBucket < v6 >> 6)
   {
     v11 = v6 >> 6;
-    v12 = (begin + 64 * currentStartDateBucket + 8);
-    while (*v12 <= time)
+    for (i = (begin + 64 * currentStartDateBucket + 8); *i <= time; i += 8)
     {
       self->_histogramState._currentStartDateBucket = ++currentStartDateBucket;
-      v12 += 8;
       if (v11 == currentStartDateBucket)
       {
-        goto LABEL_80;
+        return;
       }
     }
 
     if (currentStartDateBucket < v11)
     {
-      v13 = *(v12 - 1);
+      v13 = *(i - 1);
       if (v13 <= time)
       {
         v14 = time == endTime;
@@ -211,8 +207,8 @@ LABEL_41:
 
         if (v13 < endTime || v14)
         {
-          v67 = v11 - 1;
-          v66 = vdupq_lane_s64(*&point, 0);
+          v66 = v11 - 1;
+          v65 = vdupq_lane_s64(*&point, 0);
           while (1)
           {
             v16 = begin + 64 * currentStartDateBucket;
@@ -296,7 +292,7 @@ LABEL_41:
             else
             {
               v19 = *(v16 + 1);
-              v20 = vcgtq_f64(v66, v19);
+              v20 = vcgtq_f64(v65, v19);
               v21.i64[0] = *(v16 + 2);
               *&v21.i64[1] = point;
               v19.f64[0] = point;
@@ -309,7 +305,7 @@ LABEL_41:
               v41 = 16 - v34;
               *(v16 + 4) = 16 - v17;
               v42 = *(v16 + 5);
-              v69[0] = 0;
+              v68[0] = 0;
               v43 = *(v16 + 7);
               v44 = (v18 - v42) >> 3;
               if (16 - v34 > ((v43 - v18) >> 3))
@@ -384,8 +380,8 @@ LABEL_58:
                 }
 
                 v53 = 0;
-                v54 = v69[0];
-                if (v42 > v69)
+                v54 = v68[0];
+                if (v42 > v68)
                 {
                   v54 = 0;
                 }
@@ -469,7 +465,7 @@ LABEL_74:
             v34 = *(v16 + 4) + v17;
 LABEL_75:
             ++*(v35 + 8 * v34);
-            if (currentStartDateBucket != v67)
+            if (currentStartDateBucket != v66)
             {
               v63 = time == endTime;
               ++currentStartDateBucket;
@@ -486,15 +482,12 @@ LABEL_75:
               }
             }
 
-            break;
+            return;
           }
         }
       }
     }
   }
-
-LABEL_80:
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (id)quantityDistributionsWithUnit:(id)unit

@@ -213,7 +213,7 @@
     v4 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:?];
     [v4 setObject:&unk_1EFE31A98 forKey:@"Alpha"];
     v5 = MEMORY[0x1E696B098];
-    [(UIInputViewSetPlacement_FloatingApplicator *)self scaledPopoverTransform];
+    objc_msgSend_scaledPopoverTransform(self);
     v6 = [v5 valueWithCGAffineTransform:v9];
     [v4 setObject:v6 forKey:@"Transform"];
   }
@@ -224,7 +224,7 @@
     v10[0] = @"Alpha";
     v10[1] = @"Transform";
     v7 = MEMORY[0x1E696B098];
-    [(UIInputViewSetPlacement_FloatingApplicator *)self scaledPopoverTransform];
+    objc_msgSend_scaledPopoverTransform(self, a2);
     v6 = [v7 valueWithCGAffineTransform:v9];
     v11[1] = v6;
     v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];

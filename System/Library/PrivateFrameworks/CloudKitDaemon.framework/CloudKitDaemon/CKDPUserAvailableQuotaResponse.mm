@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    storageAvailableBytes = self->_storageAvailableBytes;
     PBDataWriterWriteUint64Field();
   }
 }

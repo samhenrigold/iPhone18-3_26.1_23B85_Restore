@@ -571,29 +571,32 @@ uint64_t __76__CRKCardPresentation__fullyConfigureWithRequestedCard_animated_com
 
       return v3();
     }
+
+    return result;
   }
 
-  else
+  WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v5 = WeakRetained;
+  if (WeakRetained)
   {
-    WeakRetained = objc_loadWeakRetained((a1 + 56));
-    if (WeakRetained)
-    {
-      [WeakRetained _configureWithRequestedCard:*(a1 + 40) animated:*(a1 + 64) completion:*(a1 + 48)];
-    }
-
-    else
-    {
-      v5 = *(a1 + 48);
-      if (v5)
-      {
-        (*(v5 + 16))(v5, 0, 0);
-      }
-    }
-
-    return MEMORY[0x2821F96F8]();
+    v7 = WeakRetained;
+    v6 = [WeakRetained _configureWithRequestedCard:*(a1 + 40) animated:*(a1 + 64) completion:*(a1 + 48)];
+LABEL_11:
+    v5 = v7;
+    goto LABEL_12;
   }
 
-  return result;
+  v6 = *(a1 + 48);
+  if (v6)
+  {
+    v7 = 0;
+    v6 = (*(v6 + 16))(v6, 0, 0);
+    goto LABEL_11;
+  }
+
+LABEL_12:
+
+  return MEMORY[0x2821F96F8](v6, v5);
 }
 
 - (void)_configureWithRequestedCard:(id)card animated:(BOOL)animated completion:(id)completion
@@ -1110,6 +1113,27 @@ void __84__CRKCardPresentation_cardViewController_requestCardSectionViewSourceFo
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+void __60__CRKCardPresentation_setConfiguration_animated_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_243247000, a2, a3, "Failed to establish Parsec session: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __71__CRKCardPresentation__configureWithRequestedCard_animated_completion___block_invoke_152_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_243247000, a2, a3, "Failed to load card view controller from provider\n    Provider: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __71__CRKCardPresentation__configureWithRequestedCard_animated_completion___block_invoke_4_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_243247000, a2, a3, "Failed to load card section view providers from card: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

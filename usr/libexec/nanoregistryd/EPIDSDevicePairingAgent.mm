@@ -1,6 +1,7 @@
 @interface EPIDSDevicePairingAgent
 - (EPIDSDevicePairingAgent)initWithRemoteObjects:(id)objects;
 - (void)addIDSPairingAgentObserver:(id)observer;
+- (void)disablePairingCheck:(BOOL)check;
 - (void)removeIDSPairingAgentObserver:(id)observer;
 - (void)update;
 @end
@@ -81,6 +82,50 @@
   }
 
 LABEL_7:
+}
+
+- (void)disablePairingCheck:(BOOL)check
+{
+  if (self->_isDisabled != check)
+  {
+    checkCopy = check;
+    self->_isDisabled = check;
+    if (check)
+    {
+      self->_isPaired = 0;
+    }
+
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v4 = self->_remoteObjects;
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v10;
+      do
+      {
+        v8 = 0;
+        do
+        {
+          if (*v10 != v7)
+          {
+            objc_enumerationMutation(v4);
+          }
+
+          [*(*(&v9 + 1) + 8 * v8) setDisconnected:{checkCopy, v9}];
+          v8 = v8 + 1;
+        }
+
+        while (v6 != v8);
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      }
+
+      while (v6);
+    }
+  }
 }
 
 - (void)update

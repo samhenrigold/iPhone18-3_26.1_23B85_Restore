@@ -124,7 +124,7 @@ LABEL_15:
 
 - (BOOL)_areEscalationsSupportedAndNotSnoozedWithCurrentDate:(id)date gregorianCalendar:(id)calendar featureStatus:(id)status
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   calendarCopy = calendar;
   statusCopy = status;
@@ -153,17 +153,16 @@ LABEL_15:
       v21 = v20;
       v22 = [statusCopy objectForKeyedSubscript:v11];
       unsatisfiedRequirementIdentifiersDescription = [v22 unsatisfiedRequirementIdentifiersDescription];
-      v26 = 138543618;
-      v27 = v20;
-      v28 = 2114;
-      v29 = unsatisfiedRequirementIdentifiersDescription;
-      _os_log_impl(&dword_258977000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Escalations not supported due to: %{public}@", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v20;
+      v27 = 2114;
+      v28 = unsatisfiedRequirementIdentifiersDescription;
+      _os_log_impl(&dword_258977000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Escalations not supported due to: %{public}@", &v25, 0x16u);
 
       v17 = 0;
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -296,38 +295,36 @@ LABEL_15:
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    *v9 = 138543362;
-    *&v9[4] = objc_opt_class();
-    v7 = *&v9[4];
-    _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed samples added", v9, 0xCu);
+    *v8 = 138543362;
+    *&v8[4] = objc_opt_class();
+    v7 = *&v8[4];
+    _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed samples added", v8, 0xCu);
   }
 
-  [(HDMHLoggingPatternEscalationsManager *)self _notifyObserversForPromptedAssessmentUpdate];
-  v8 = *MEMORY[0x277D85DE8];
+  [(HDMHLoggingPatternEscalationsManager *)self _notifyObserversForPromptedAssessmentUpdate:*v8];
 }
 
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    *v9 = 138543362;
-    *&v9[4] = objc_opt_class();
-    v7 = *&v9[4];
-    _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed samples removed", v9, 0xCu);
+    *v8 = 138543362;
+    *&v8[4] = objc_opt_class();
+    v7 = *&v8[4];
+    _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed samples removed", v8, 0xCu);
   }
 
-  [(HDMHLoggingPatternEscalationsManager *)self _notifyObserversForPromptedAssessmentUpdate];
-  v8 = *MEMORY[0x277D85DE8];
+  [(HDMHLoggingPatternEscalationsManager *)self _notifyObserversForPromptedAssessmentUpdate:*v8];
 }
 
 - (HDProfile)profile
@@ -339,16 +336,14 @@ LABEL_15:
 
 - (void)promptedAssessment:(uint64_t)a3 featureStatus:pendingStateOfMind:error:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_258977000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error seeking pattern in logging: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_258977000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error seeking pattern in logging: %{public}@", &v6, 0x16u);
 }
 
 @end

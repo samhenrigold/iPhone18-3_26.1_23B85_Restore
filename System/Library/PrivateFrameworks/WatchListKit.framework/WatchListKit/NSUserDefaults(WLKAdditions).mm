@@ -11,9 +11,9 @@
     +[NSUserDefaults(WLKAdditions) wlk_userDefaults];
   }
 
-  v1 = wlk_userDefaults___wlkDefaults;
+  v2 = wlk_userDefaults___wlkDefaults;
 
-  return v1;
+  return v2;
 }
 
 @end

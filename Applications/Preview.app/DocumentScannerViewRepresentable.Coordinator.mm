@@ -9,7 +9,7 @@
 
 - (void)documentCameraViewController:(id)controller didFinishWithScan:(id)scan
 {
-  v6 = sub_100005804(&unk_100206DF0);
+  v6 = sub_100005804(&unk_100206DF0, &qword_10019A7C0);
   __chkstk_darwin(v6 - 8);
   v8 = &v13 - v7;
   v9 = type metadata accessor for TaskPriority();

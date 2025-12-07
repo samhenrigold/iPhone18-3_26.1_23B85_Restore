@@ -2,6 +2,7 @@
 + (id)_extensionAuxiliaryHostProtocol;
 + (id)_extensionAuxiliaryVendorProtocol;
 - (void)openFlowDivertControlSocketWithCompletionHandler:(id)handler;
+- (void)setDelegateInterface:(unsigned int)interface;
 - (void)setInitialFlowDivertControlSocket:(id)socket;
 @end
 
@@ -21,9 +22,11 @@
 
 uint64_t __73__NEExtensionAppProxyProviderHostContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_2026 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0DC8];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0DC8];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_2026;
+  _extensionAuxiliaryHostProtocol_protocol_2026 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -40,9 +43,11 @@ uint64_t __73__NEExtensionAppProxyProviderHostContext__extensionAuxiliaryHostPro
 
 uint64_t __75__NEExtensionAppProxyProviderHostContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  _extensionAuxiliaryVendorProtocol_protocol_2031 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0D28];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C0D28];
+  v1 = _extensionAuxiliaryVendorProtocol_protocol_2031;
+  _extensionAuxiliaryVendorProtocol_protocol_2031 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)openFlowDivertControlSocketWithCompletionHandler:(id)handler
@@ -50,6 +55,13 @@ uint64_t __75__NEExtensionAppProxyProviderHostContext__extensionAuxiliaryVendorP
   handlerCopy = handler;
   delegate = [(NEExtensionProviderHostContext *)&self->super.super.super.super.isa delegate];
   [delegate extension:self didRequestFlowDivertControlSocketWithCompletionHandler:handlerCopy];
+}
+
+- (void)setDelegateInterface:(unsigned int)interface
+{
+  v3 = *&interface;
+  vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.super.super.isa vendorContext];
+  [vendorContext setDelegateInterface:v3];
 }
 
 - (void)setInitialFlowDivertControlSocket:(id)socket

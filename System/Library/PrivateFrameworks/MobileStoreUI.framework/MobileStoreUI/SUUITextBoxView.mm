@@ -213,7 +213,7 @@
 {
   titleCopy = title;
   moreButtonTitle = [(SUUITextBoxView *)self moreButtonTitle];
-  if (moreButtonTitle != titleCopy && ([moreButtonTitle isEqualToString:titleCopy] & 1) == 0)
+  if (moreButtonTitle != titleCopy && (objc_msgSend_isEqualToString_(moreButtonTitle) & 1) == 0)
   {
     _moreButtonLabel = [(SUUITextBoxView *)self _moreButtonLabel];
     [_moreButtonLabel setText:titleCopy];
@@ -271,7 +271,7 @@
 {
   textCopy = text;
   text = [(UILabel *)self->_ratingLabel text];
-  if (text != textCopy && ([text isEqualToString:textCopy] & 1) == 0)
+  if (text != textCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     ratingLabel = self->_ratingLabel;
     if (textCopy)
@@ -291,10 +291,10 @@
         [(UILabel *)v10 setFont:v11];
 
         v12 = self->_ratingLabel;
-        primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v13 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v13)
         {
-          [(UILabel *)v12 setTextColor:primaryTextColor];
+          [(UILabel *)v12 setTextColor:v13];
         }
 
         else
@@ -325,7 +325,7 @@
 {
   subtitleCopy = subtitle;
   text = [(UILabel *)self->_subtitleLabel text];
-  if (text != subtitleCopy && ([text isEqualToString:subtitleCopy] & 1) == 0)
+  if (text != subtitleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     subtitleLabel = self->_subtitleLabel;
     if (subtitleCopy)
@@ -406,7 +406,7 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     v5 = titleCopy;
     if (titleCopy)
@@ -508,7 +508,7 @@
     Lines = CTFrameGetLines(titleTextFrame);
     Count = CFArrayGetCount(Lines);
     v93 = v88;
-    v16 = &v88[-2 * MEMORY[0x28223BE20]()];
+    v16 = &v88[-2 * MEMORY[0x28223BE20](Count)];
     v99.location = 0;
     v99.length = Count;
     CTFrameGetLineOrigins(self->_titleTextFrame, v99, v16);
@@ -604,7 +604,7 @@
     v35 = v31;
   }
 
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v31);
   v36 = &v88[-2 * v35];
   v100.location = 0;
   v100.length = v35;
@@ -617,11 +617,11 @@
   *&v97.c = v38;
   *&v97.tx = v13[2];
   CGContextSetTextMatrix(v37, &v97);
-  primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-  v40 = primaryTextColor;
-  if (primaryTextColor)
+  v39 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  v40 = v39;
+  if (v39)
   {
-    [primaryTextColor set];
+    [v39 set];
   }
 
   else

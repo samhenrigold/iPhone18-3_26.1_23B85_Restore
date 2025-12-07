@@ -33,7 +33,7 @@
   swift_getObjectType();
   swift_unknownObjectRetain();
   MEMORY[0x1E69E5928](self);
-  sub_1BE928E30();
+  sub_1BE928E30(delegate);
   MEMORY[0x1E69E5920](self);
 }
 
@@ -41,7 +41,7 @@
 {
   swift_getObjectType();
   MEMORY[0x1E69E5928](coder);
-  MFComposeFormattingViewController.init(coder:)();
+  MFComposeFormattingViewController.init(coder:)(coder, v3);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
@@ -115,7 +115,7 @@
   swift_getObjectType();
   MEMORY[0x1E69E5928](finish);
   MEMORY[0x1E69E5928](self);
-  sub_1BE92E644();
+  sub_1BE92E644(finish);
   MEMORY[0x1E69E5920](self);
   MEMORY[0x1E69E5920](finish);
 }

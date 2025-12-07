@@ -300,7 +300,6 @@ LABEL_11:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -320,7 +319,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  coexMode = self->_coexMode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -335,7 +333,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  a2dpConnectionCount = self->_a2dpConnectionCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -350,7 +347,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  hidConnectionCount = self->_hidConnectionCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -365,7 +361,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  scoConnectionCount = self->_scoConnectionCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -380,7 +375,6 @@ LABEL_7:
   }
 
 LABEL_17:
-  wifiInfraChannel = self->_wifiInfraChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -395,7 +389,6 @@ LABEL_8:
   }
 
 LABEL_18:
-  wifiInfraChainConfig = self->_wifiInfraChainConfig;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -407,7 +400,6 @@ LABEL_9:
     }
 
 LABEL_20:
-    clamshellClosed = self->_clamshellClosed;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -418,7 +410,6 @@ LABEL_20:
   }
 
 LABEL_19:
-  wifiInfraPhyMode = self->_wifiInfraPhyMode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -433,7 +424,6 @@ LABEL_10:
   }
 
 LABEL_21:
-  rssi = self->_rssi;
 
   PBDataWriterWriteInt32Field();
 }

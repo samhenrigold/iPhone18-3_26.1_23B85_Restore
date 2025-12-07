@@ -426,7 +426,7 @@ void *__53__WKPDFView_web_countStringMatches_options_maxCount___block_invoke(uin
   result = objc_loadWeak((*(a1 + 32) + 1096));
   if (result)
   {
-    result = [result _page];
+    result = objc_msgSend__page(result);
     v3 = v7;
     if (v7)
     {
@@ -552,7 +552,7 @@ LABEL_23:
   Weak = objc_loadWeak(&self->_webView.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     if (v19)
     {
       v18 = 0;
@@ -817,7 +817,7 @@ LABEL_4:
   Weak = objc_loadWeak(&self->_webView.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     if (v29)
     {
       view = [(PDFHostViewController *)self->_hostViewController.m_ptr view];
@@ -1031,22 +1031,22 @@ LABEL_4:
 - (void)pdfHostViewControllerExtensionProcessDidCrash:(id)crash
 {
   WTF::RunLoop::mainSingleton(self);
-  v6 = 0;
-  objc_copyWeak(&v6, &self->_webView.m_weakReference);
-  v4 = WTF::fastMalloc(0x10);
-  *v4 = &unk_1F110D928;
-  *(v4 + 8) = 0;
-  objc_moveWeak((v4 + 8), &v6);
-  v7 = v4;
-  WTF::RunLoop::dispatch();
-  v5 = v7;
   v7 = 0;
-  if (v5)
+  objc_copyWeak(&v7, &self->_webView.m_weakReference);
+  v5 = WTF::fastMalloc(v4, 0x10);
+  *v5 = &unk_1F110D928;
+  v5[1] = 0;
+  objc_moveWeak(v5 + 1, &v7);
+  v8 = v5;
+  WTF::RunLoop::dispatch();
+  v6 = v8;
+  v8 = 0;
+  if (v6)
   {
-    (*(*v5 + 8))(v5);
+    (*(*v6 + 8))(v6);
   }
 
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v7);
 }
 
 - (optional<WebKit::InteractionInformationAtPosition>)positionInformationForActionSheetAssistant:(optional<WebKit::InteractionInformationAtPosition> *__return_ptr)retstr
@@ -1176,7 +1176,7 @@ uint64_t __48__WKPDFView_actionSheetAssistant_performAction___block_invoke(uint6
     v27.size.height = v21;
     WebCore::FloatRect::FloatRect(v26, &v27);
     v26[16] = 1;
-    v22 = WTF::fastMalloc(0x10);
+    v22 = WTF::fastMalloc(1, 0x10);
     *v22 = &unk_1F110D950;
     v25 = v22;
     [(WKShareSheet *)v17 presentWithParameters:v29 inRect:v26 completionHandler:&v25];
@@ -1206,7 +1206,7 @@ uint64_t __48__WKPDFView_actionSheetAssistant_performAction___block_invoke(uint6
   Weak = objc_loadWeak(&self->_webView.m_weakReference);
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     if (v7)
     {
       LOBYTE(Weak) = (*(**(v7 + 120) + 464))(*(v7 + 120), element);
@@ -1225,7 +1225,7 @@ uint64_t __48__WKPDFView_actionSheetAssistant_performAction___block_invoke(uint6
 {
   v8 = v5;
   Weak = objc_loadWeak(&self->_webView.m_weakReference);
-  if (Weak && (Weak = [Weak _page], v14))
+  if (Weak && (Weak = objc_msgSend__page(Weak), v14))
   {
     v10 = *(v14 + 120);
     isa = actions.m_ptr->super.isa;
@@ -1484,7 +1484,7 @@ uint64_t __48__WKPDFView_actionSheetAssistant_performAction___block_invoke(uint6
   Weak = objc_loadWeak((crash + 8));
   if (Weak)
   {
-    [Weak _page];
+    objc_msgSend__page(Weak);
     if (v2)
     {
       WebKit::WebPageProxy::dispatchProcessDidTerminate(v2, *(v2 + 352), 5);

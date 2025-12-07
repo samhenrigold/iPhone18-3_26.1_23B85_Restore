@@ -9,7 +9,7 @@
 
 - (id)promiseForEnqueueingEvents:(id)events
 {
-  sub_1AB016760(0, &qword_1EB434E60);
+  sub_1AB016760(0, &qword_1EB434E60, 0x1E698CA08);
   v4 = sub_1AB460954();
   selfCopy = self;
   v6 = sub_1AB3C82DC(v4);

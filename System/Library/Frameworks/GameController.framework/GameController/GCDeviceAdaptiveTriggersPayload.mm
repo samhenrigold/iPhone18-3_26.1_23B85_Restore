@@ -17,10 +17,10 @@
 
 - (id)initSlopeFeedbackWithStartPosition:(float)position endPosition:(float)endPosition startStrength:(float)strength endStrength:(float)endStrength
 {
-  v28[2] = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = GCDeviceAdaptiveTriggersPayload;
-  v10 = [(GCDeviceAdaptiveTriggersPayload *)&v27 init];
+  v27[2] = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = GCDeviceAdaptiveTriggersPayload;
+  v10 = [(GCDeviceAdaptiveTriggersPayload *)&v26 init];
   v11 = v10;
   if (v10)
   {
@@ -39,25 +39,24 @@
 
     *&v19 = strength;
     v20 = [MEMORY[0x1E696AD98] numberWithFloat:v19];
-    v28[0] = v20;
+    v27[0] = v20;
     *&v21 = endStrength;
     v22 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
-    v28[1] = v22;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+    v27[1] = v22;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
     strengths = v11->_strengths;
     v11->_strengths = v23;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)initFeedbackWithStartPosition:(float)position resistiveStrength:(float)strength
 {
-  v19[1] = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = GCDeviceAdaptiveTriggersPayload;
-  v6 = [(GCDeviceAdaptiveTriggersPayload *)&v18 init];
+  v18[1] = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = GCDeviceAdaptiveTriggersPayload;
+  v6 = [(GCDeviceAdaptiveTriggersPayload *)&v17 init];
   v7 = v6;
   if (v6)
   {
@@ -71,13 +70,12 @@
 
     *&v12 = strength;
     v13 = [MEMORY[0x1E696AD98] numberWithFloat:v12];
-    v19[0] = v13;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18[0] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     strengths = v7->_strengths;
     v7->_strengths = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -109,10 +107,10 @@
 
 - (id)initWeaponWithStartPosition:(float)position endPosition:(float)endPosition resistiveStrength:(float)strength
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = GCDeviceAdaptiveTriggersPayload;
-  v8 = [(GCDeviceAdaptiveTriggersPayload *)&v23 init];
+  v23[1] = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = GCDeviceAdaptiveTriggersPayload;
+  v8 = [(GCDeviceAdaptiveTriggersPayload *)&v22 init];
   v9 = v8;
   if (v8)
   {
@@ -131,22 +129,21 @@
 
     *&v17 = strength;
     v18 = [MEMORY[0x1E696AD98] numberWithFloat:v17];
-    v24[0] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     strengths = v9->_strengths;
     v9->_strengths = v19;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)initVibrationWithStartPosition:(float)position amplitude:(float)amplitude frequency:(float)frequency
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = GCDeviceAdaptiveTriggersPayload;
-  v8 = [(GCDeviceAdaptiveTriggersPayload *)&v23 init];
+  v23[1] = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = GCDeviceAdaptiveTriggersPayload;
+  v8 = [(GCDeviceAdaptiveTriggersPayload *)&v22 init];
   v9 = v8;
   if (v8)
   {
@@ -160,8 +157,8 @@
 
     *&v14 = amplitude;
     v15 = [MEMORY[0x1E696AD98] numberWithFloat:v14];
-    v24[0] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     amplitudes = v9->_amplitudes;
     v9->_amplitudes = v16;
 
@@ -171,7 +168,6 @@
     v9->_frequency = v19;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

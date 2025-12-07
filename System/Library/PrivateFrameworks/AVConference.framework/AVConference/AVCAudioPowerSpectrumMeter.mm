@@ -436,7 +436,7 @@ LABEL_33:
     }
 
 LABEL_31:
-    v33 = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{@"Invalid baseband stream token state", *v35, *&v35[16], v36, *v37, *&v37[8], v38}];
+    v33 = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{@"Invalid baseband stream token state", *v35, *&v35[8], v36, *v37, *&v37[8], v38}];
     result = 0;
     *error = v33;
     return result;
@@ -747,7 +747,7 @@ LABEL_21:
   return v5;
 }
 
-uint64_t __76__AVCAudioPowerSpectrumMeter_registerPowerSpectrumForCellularTapType_error___block_invoke(uint64_t a1)
+void *__76__AVCAudioPowerSpectrumMeter_registerPowerSpectrumForCellularTapType_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedRegisterPowerSpectrumForCellularTapType:*(a1 + 56) error:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1110,7 +1110,7 @@ LABEL_21:
   return v5;
 }
 
-uint64_t __78__AVCAudioPowerSpectrumMeter_unregisterPowerSpectrumForCellularTapType_error___block_invoke(uint64_t a1)
+void *__78__AVCAudioPowerSpectrumMeter_unregisterPowerSpectrumForCellularTapType_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedUnregisterPowerSpectrumForCellularTapType:*(a1 + 56) error:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1325,7 +1325,7 @@ uint64_t __78__AVCAudioPowerSpectrumMeter_unregisterPowerSpectrumForCellularTapT
   dispatch_sync(stateQueue, v3);
 }
 
-uint64_t __54__AVCAudioPowerSpectrumMeter_invalidateBasebandTokens__block_invoke(uint64_t a1)
+void *__54__AVCAudioPowerSpectrumMeter_invalidateBasebandTokens__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) removeAllObjects];
   *(*(a1 + 32) + 44) = 0;

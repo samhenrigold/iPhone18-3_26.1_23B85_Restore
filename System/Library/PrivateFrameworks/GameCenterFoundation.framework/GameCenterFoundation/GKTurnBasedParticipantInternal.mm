@@ -20,32 +20,30 @@
   return v3;
 }
 
-void __57__GKTurnBasedParticipantInternal_secureCodedPropertyKeys__block_invoke()
+void __57__GKTurnBasedParticipantInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[9] = *MEMORY[0x277D85DE8];
-  v3[0] = @"sessionID";
-  v4[0] = objc_opt_class();
-  v3[1] = @"lastTurnDate";
-  v4[1] = objc_opt_class();
-  v3[2] = @"timeoutDate";
-  v4[2] = objc_opt_class();
-  v3[3] = @"invitedBy";
-  v4[3] = objc_opt_class();
-  v3[4] = @"inviteMessage";
-  v4[4] = objc_opt_class();
-  v3[5] = @"status";
-  v4[5] = objc_opt_class();
-  v3[6] = @"matchOutcome";
-  v4[6] = objc_opt_class();
-  v3[7] = @"slot";
-  v4[7] = objc_opt_class();
-  v3[8] = @"player";
-  v4[8] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:9];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_274_0;
-  secureCodedPropertyKeys_sSecureCodedKeys_274_0 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[9] = *MEMORY[0x277D85DE8];
+  v4[0] = @"sessionID";
+  v5[0] = objc_opt_class();
+  v4[1] = @"lastTurnDate";
+  v5[1] = objc_opt_class();
+  v4[2] = @"timeoutDate";
+  v5[2] = objc_opt_class();
+  v4[3] = @"invitedBy";
+  v5[3] = objc_opt_class();
+  v4[4] = @"inviteMessage";
+  v5[4] = objc_opt_class();
+  v4[5] = @"status";
+  v5[5] = objc_opt_class();
+  v4[6] = @"matchOutcome";
+  v5[6] = objc_opt_class();
+  v4[7] = @"slot";
+  v5[7] = objc_opt_class();
+  v4[8] = @"player";
+  v5[8] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:9];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_274_0;
+  secureCodedPropertyKeys_sSecureCodedKeys_274_0 = v2;
 }
 
 - (BOOL)isEqual:(id)equal

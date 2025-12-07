@@ -7,7 +7,7 @@
 
 - (int64_t)appendData:(id)data
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   memset(__b, 170, sizeof(__b));
   bytes = [dataCopy bytes];
@@ -69,17 +69,17 @@ LABEL_6:
           {
             v15 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:v9 freeWhenDone:0];
 
-            v26.receiver = self;
-            v26.super_class = MFLineEndingConverterFilter;
+            v25.receiver = self;
+            v25.super_class = MFLineEndingConverterFilter;
             v10 = v15;
-            [(MFBaseFilterDataConsumer *)&v26 appendData:v15];
+            [(MFBaseFilterDataConsumer *)&v25 appendData:v15];
           }
 
           v16 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v12 length:&bytes[~v12] freeWhenDone:0];
 
-          v25.receiver = self;
-          v25.super_class = MFLineEndingConverterFilter;
-          [(MFBaseFilterDataConsumer *)&v25 appendData:v16];
+          v24.receiver = self;
+          v24.super_class = MFLineEndingConverterFilter;
+          [(MFBaseFilterDataConsumer *)&v24 appendData:v16];
           v9 = 0;
           v12 = bytes;
         }
@@ -121,10 +121,10 @@ LABEL_24:
     v8 = &off_1E8455000;
     v18 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:v9 freeWhenDone:0];
 
-    v24.receiver = self;
-    v24.super_class = MFLineEndingConverterFilter;
+    v23.receiver = self;
+    v23.super_class = MFLineEndingConverterFilter;
     v17 = v18;
-    [(MFBaseFilterDataConsumer *)&v24 appendData:v18];
+    [(MFBaseFilterDataConsumer *)&v23 appendData:v18];
     if (bytes)
     {
       goto LABEL_26;
@@ -148,15 +148,14 @@ LABEL_27:
   {
     v19 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v12 length:&v7[-v12] freeWhenDone:0];
 
-    v23.receiver = self;
-    v23.super_class = MFLineEndingConverterFilter;
+    v22.receiver = self;
+    v22.super_class = MFLineEndingConverterFilter;
     v17 = v19;
-    objc_msgSendSuper2(&v23, v8[470], v19);
+    objc_msgSendSuper2(&v22, v8[470], v19);
   }
 
   v20 = [dataCopy length];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

@@ -28,16 +28,16 @@
 
 - (id)earliestEventCreationDateWithError:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AEB0];
   v6 = NSStringFromSelector(sel_creationDate);
   v7 = [v5 sortDescriptorWithKey:v6 ascending:1];
 
   stream = [(_CDSpotlightEventIndexerDataSource *)self stream];
-  v27[0] = stream;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
-  v26 = v7;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v26[0] = stream;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+  v25 = v7;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
   v11 = [_DKEventQuery eventQueryWithPredicate:0 eventStreams:v9 offset:0 limit:1 sortDescriptors:v10];
 
   v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_CDSpotlightEventIndexerDataSource.m"];
@@ -47,9 +47,9 @@
   [v11 setTracker:&__block_literal_global_22];
   [v11 setReadMetadata:0];
   knowledgeStore = [(_CDSpotlightEventIndexerDataSource *)self knowledgeStore];
-  v25 = 0;
-  v15 = [knowledgeStore executeQuery:v11 error:&v25];
-  v16 = v25;
+  v24 = 0;
+  v15 = [knowledgeStore executeQuery:v11 error:&v24];
+  v16 = v24;
 
   if (error)
   {
@@ -79,8 +79,6 @@
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -116,7 +114,7 @@ LABEL_7:
 
 - (id)searchableItemIdentifiersForTombstonedEventsInInterval:(id)interval latestTombstoneDate:(id *)date error:(id *)error
 {
-  v54[2] = *MEMORY[0x1E69E9840];
+  v53[2] = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   v8 = +[_DKTombstoneMetadataKey eventStreamName];
   stream = [(_CDSpotlightEventIndexerDataSource *)self stream];
@@ -124,25 +122,25 @@ LABEL_7:
   v11 = [_DKQuery predicateForObjectsWithMetadataKey:v8 andStringValue:name];
 
   startDate = [intervalCopy startDate];
-  v45 = intervalCopy;
+  v44 = intervalCopy;
   endDate = [intervalCopy endDate];
   v14 = [_DKQuery predicateForEventsWithCreationInDateRangeFromAfter:startDate to:endDate];
 
-  v44 = v11;
-  v54[0] = v11;
-  v54[1] = v14;
-  v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+  v43 = v11;
+  v53[0] = v11;
+  v53[1] = v14;
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
   v15 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:?];
   v16 = MEMORY[0x1E696AEB0];
   v17 = NSStringFromSelector(sel_creationDate);
   v18 = [v16 sortDescriptorWithKey:v17 ascending:1];
 
   v19 = +[_DKSystemEventStreams tombstoneStream];
-  v53 = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
-  v52 = v18;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
-  v42 = v15;
+  v52 = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+  v51 = v18;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
+  v41 = v15;
   v22 = [_DKEventQuery eventQueryWithPredicate:v15 eventStreams:v20 offset:0 limit:0 sortDescriptors:v21];
 
   v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_CDSpotlightEventIndexerDataSource.m"];
@@ -152,9 +150,9 @@ LABEL_7:
   [v22 setTracker:&__block_literal_global_17];
   [v22 setReadMetadata:0];
   knowledgeStore = [(_CDSpotlightEventIndexerDataSource *)self knowledgeStore];
-  v50 = 0;
-  v26 = [knowledgeStore executeQuery:v22 error:&v50];
-  v27 = v50;
+  v49 = 0;
+  v26 = [knowledgeStore executeQuery:v22 error:&v49];
+  v27 = v49;
 
   if (error)
   {
@@ -164,45 +162,45 @@ LABEL_7:
 
   if (v26)
   {
-    v40 = v14;
+    v39 = v14;
     lastObject = [v26 lastObject];
     *date = [lastObject creationDate];
 
     v30 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v26, "count")}];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     v31 = v26;
-    v32 = [v31 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v45 objects:v50 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v47;
+      v34 = *v46;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v47 != v34)
+          if (*v46 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          stringValue = [*(*(&v46 + 1) + 8 * i) stringValue];
+          stringValue = [*(*(&v45 + 1) + 8 * i) stringValue];
           if (stringValue)
           {
             [v30 addObject:stringValue];
           }
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
       while (v33);
     }
 
     v37 = [v30 copy];
-    v14 = v40;
+    v14 = v39;
   }
 
   else
@@ -210,14 +208,12 @@ LABEL_7:
     v37 = 0;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
-
   return v37;
 }
 
 - (id)bundleIDToSearchableItemsDictionaryWithCreationDateInInterval:(id)interval limit:(int64_t)limit nextBatch:(BOOL *)batch latestCreationDate:(id *)date error:(id *)error
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   startDate = [intervalCopy startDate];
   endDate = [intervalCopy endDate];
@@ -229,10 +225,10 @@ LABEL_7:
   v17 = [v15 sortDescriptorWithKey:v16 ascending:1];
 
   stream = [(_CDSpotlightEventIndexerDataSource *)self stream];
-  v35[0] = stream;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
-  v34 = v17;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+  v34[0] = stream;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+  v33 = v17;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
   v21 = [_DKEventQuery eventQueryWithPredicate:v14 eventStreams:v19 offset:0 limit:limit sortDescriptors:v20];
 
   v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_CDSpotlightEventIndexerDataSource.m"];
@@ -241,9 +237,9 @@ LABEL_7:
 
   [v21 setTracker:&__block_literal_global_20_0];
   knowledgeStore = [(_CDSpotlightEventIndexerDataSource *)self knowledgeStore];
-  v33 = 0;
-  v25 = [knowledgeStore executeQuery:v21 error:&v33];
-  v26 = v33;
+  v32 = 0;
+  v25 = [knowledgeStore executeQuery:v21 error:&v32];
+  v26 = v32;
 
   if (error)
   {
@@ -264,8 +260,6 @@ LABEL_7:
   {
     v29 = 0;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }

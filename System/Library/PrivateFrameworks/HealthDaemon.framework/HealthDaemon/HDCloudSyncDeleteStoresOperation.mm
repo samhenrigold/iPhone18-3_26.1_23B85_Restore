@@ -25,7 +25,7 @@
   v9 = [(HDCloudSyncOperation *)&v13 initWithConfiguration:configuration cloudState:state];
   if (v9)
   {
-    v10 = [deleteCopy copy];
+    v10 = objc_msgSend_copy(deleteCopy);
     storeRecordsToDelete = v9->_storeRecordsToDelete;
     v9->_storeRecordsToDelete = v10;
   }
@@ -36,7 +36,7 @@
 - (void)main
 {
   selfCopy = self;
-  v126 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_storeRecordsToDelete count])
   {
     v3 = objc_alloc_init(MEMORY[0x277D10BB0]);
@@ -48,21 +48,21 @@
     v5 = [(NSArray *)selfCopy->_storeRecordsToDelete hk_mapToSet:&__block_literal_global_42];
     configuration = [(HDCloudSyncOperation *)selfCopy configuration];
     cachedCloudState = [configuration cachedCloudState];
-    v120[0] = 0;
-    v8 = [cachedCloudState zonesByIdentifierWithError:v120];
-    v9 = v120[0];
+    v118[0] = 0;
+    v8 = [cachedCloudState zonesByIdentifierWithError:v118];
+    v9 = v118[0];
 
     if (v8 || !v9)
     {
       if (!v8)
       {
         _HKInitializeLogging();
-        v13 = *MEMORY[0x277CCC328];
+        v12 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
           *&buf[4] = selfCopy;
-          _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ No cached zones found.", buf, 0xCu);
+          _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ No cached zones found.", buf, 0xCu);
         }
       }
 
@@ -70,9 +70,9 @@
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __60__HDCloudSyncDeleteStoresOperation__individualZonesToDelete__block_invoke_297;
-      v123 = &unk_278618B00;
-      v124 = selfCopy;
-      v125 = v5;
+      v121 = &unk_278618B00;
+      v122 = selfCopy;
+      v123 = v5;
       v11 = [allValues hk_map:buf];
     }
 
@@ -96,331 +96,329 @@
     if ([v11 count])
     {
       [(HDSynchronousTaskGroup *)selfCopy->_taskGroup beginTask];
-      v15 = [HDCloudSyncDeleteZonesOperation alloc];
+      v14 = [HDCloudSyncDeleteZonesOperation alloc];
       configuration2 = [(HDCloudSyncOperation *)selfCopy configuration];
       cloudState = [(HDCloudSyncOperation *)selfCopy cloudState];
-      v18 = [(HDCloudSyncDeleteZonesOperation *)v15 initWithConfiguration:configuration2 cloudState:cloudState];
+      v17 = [(HDCloudSyncDeleteZonesOperation *)v14 initWithConfiguration:configuration2 cloudState:cloudState];
 
-      [(HDCloudSyncDeleteZonesOperation *)v18 setZonesToDelete:v11];
+      [(HDCloudSyncDeleteZonesOperation *)v17 setZonesToDelete:v11];
       _HKInitializeLogging();
-      v19 = *MEMORY[0x277CCC328];
+      v18 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
-        v20 = v19;
-        v21 = [v11 count];
-        v22 = [v11 componentsJoinedByString:{@", "}];
+        v19 = v18;
+        v20 = [v11 count];
+        v21 = [v11 componentsJoinedByString:{@", "}];
         *buf = 138543874;
         *&buf[4] = selfCopy;
         *&buf[12] = 2048;
-        *&buf[14] = v21;
+        *&buf[14] = v20;
         *&buf[22] = 2112;
-        v123 = v22;
-        _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: Deleting %ld individual sync zones: %@", buf, 0x20u);
+        v121 = v21;
+        _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: Deleting %ld individual sync zones: %@", buf, 0x20u);
       }
 
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __63__HDCloudSyncDeleteStoresOperation__deleteIndividualZoneStores__block_invoke;
-      v123 = &unk_278613088;
-      v124 = selfCopy;
-      [(HDCloudSyncOperation *)v18 setOnError:buf];
-      v120[0] = MEMORY[0x277D85DD0];
-      v120[1] = 3221225472;
-      v120[2] = __63__HDCloudSyncDeleteStoresOperation__deleteIndividualZoneStores__block_invoke_2;
-      v120[3] = &unk_278613060;
-      v120[4] = selfCopy;
-      [(HDCloudSyncOperation *)v18 setOnSuccess:v120];
-      [(HDCloudSyncOperation *)v18 start];
+      v121 = &unk_278613088;
+      v122 = selfCopy;
+      [(HDCloudSyncOperation *)v17 setOnError:buf];
+      v118[0] = MEMORY[0x277D85DD0];
+      v118[1] = 3221225472;
+      v118[2] = __63__HDCloudSyncDeleteStoresOperation__deleteIndividualZoneStores__block_invoke_2;
+      v118[3] = &unk_278613060;
+      v118[4] = selfCopy;
+      [(HDCloudSyncOperation *)v17 setOnSuccess:v118];
+      [(HDCloudSyncOperation *)v17 start];
     }
 
     [(HDSynchronousTaskGroup *)selfCopy->_taskGroup beginTask];
+    v103 = 0u;
+    v104 = 0u;
     v105 = 0u;
     v106 = 0u;
-    v107 = 0u;
-    v108 = 0u;
     configuration3 = [(HDCloudSyncOperation *)selfCopy configuration];
     repository = [configuration3 repository];
     allCKContainers = [repository allCKContainers];
 
-    v26 = [allCKContainers countByEnumeratingWithState:&v105 objects:v120 count:16];
-    if (v26)
+    v25 = [allCKContainers countByEnumeratingWithState:&v103 objects:v118 count:16];
+    if (v25)
     {
-      v27 = v26;
-      v28 = *v106;
-      v88 = allCKContainers;
-      v87 = *v106;
-      v99 = selfCopy;
+      v26 = v25;
+      v27 = *v104;
+      v86 = allCKContainers;
+      v85 = *v104;
+      v97 = selfCopy;
       do
       {
-        for (i = 0; i != v27; i = v42 + 1)
+        for (i = 0; i != v26; i = v41 + 1)
         {
-          if (*v106 != v28)
+          if (*v104 != v27)
           {
             objc_enumerationMutation(allCKContainers);
           }
 
-          v98 = i;
-          v30 = *(*(&v105 + 1) + 8 * i);
+          v96 = i;
+          v29 = *(*(&v103 + 1) + 8 * i);
           configuration4 = [(HDCloudSyncOperation *)selfCopy configuration];
           repository2 = [configuration4 repository];
-          v33 = [repository2 cachedOwnerIdentifierForContainer:v30];
-          string = [v33 string];
+          v32 = [repository2 cachedOwnerIdentifierForContainer:v29];
+          string = [v32 string];
 
-          v104 = string;
+          v102 = string;
           if (string)
           {
-            v97 = [(NSArray *)selfCopy->_storeRecordsToDelete hk_mapToSet:&__block_literal_global_313_0];
+            v95 = [(NSArray *)selfCopy->_storeRecordsToDelete hk_mapToSet:&__block_literal_global_313_0];
             configuration5 = [(HDCloudSyncOperation *)selfCopy configuration];
             cachedCloudState2 = [configuration5 cachedCloudState];
-            v96 = v30;
-            containerIdentifier = [v30 containerIdentifier];
-            v119 = 0;
-            v38 = [cachedCloudState2 unifiedSyncZoneForContainerID:containerIdentifier error:&v119];
-            v39 = v119;
+            v94 = v29;
+            containerIdentifier = [v29 containerIdentifier];
+            v117 = 0;
+            v37 = [cachedCloudState2 unifiedSyncZoneForContainerID:containerIdentifier error:&v117];
+            v38 = v117;
 
-            v40 = v38;
-            v95 = v39;
-            if (v38 || !v39)
+            v39 = v37;
+            v93 = v38;
+            if (v37 || !v38)
             {
-              v43 = v97;
-              v42 = v98;
-              if (v40)
+              v42 = v95;
+              v41 = v96;
+              if (v39)
               {
-                v45 = objc_opt_class();
-                v118 = 0;
-                v93 = v40;
-                v46 = [v40 recordsForClass:v45 error:&v118];
-                v47 = v118;
-                v94 = v46;
-                if (v46 || !v47)
+                v44 = objc_opt_class();
+                v116 = 0;
+                v91 = v39;
+                v45 = [v39 recordsForClass:v44 error:&v116];
+                v46 = v116;
+                v92 = v45;
+                if (v45 || !v46)
                 {
-                  v91 = v47;
-                  if ([v46 count] >= 2)
+                  v89 = v46;
+                  if ([v45 count] >= 2)
                   {
                     _HKInitializeLogging();
-                    v51 = *MEMORY[0x277CCC328];
+                    v50 = *MEMORY[0x277CCC328];
                     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
                     {
-                      v81 = v51;
-                      zoneIdentifier = [v40 zoneIdentifier];
+                      v80 = v50;
+                      zoneIdentifier = [v39 zoneIdentifier];
                       *buf = 138543618;
                       *&buf[4] = selfCopy;
                       *&buf[12] = 2114;
                       *&buf[14] = zoneIdentifier;
-                      _os_log_fault_impl(&dword_228986000, v81, OS_LOG_TYPE_FAULT, "%{public}@ Retrieved multiple registry records for %{public}@. This is unexpected.", buf, 0x16u);
+                      _os_log_fault_impl(&dword_228986000, v80, OS_LOG_TYPE_FAULT, "%{public}@ Retrieved multiple registry records for %{public}@. This is unexpected.", buf, 0x16u);
                     }
                   }
 
-                  firstObject = [v94 firstObject];
-                  v52 = objc_opt_class();
-                  v117 = 0;
-                  v53 = [v93 recordsForClass:v52 error:&v117];
-                  v54 = v117;
-                  v92 = v53;
-                  if (v53 || !v54)
+                  firstObject = [v92 firstObject];
+                  v51 = objc_opt_class();
+                  v115 = 0;
+                  v52 = [v91 recordsForClass:v51 error:&v115];
+                  v53 = v115;
+                  v90 = v52;
+                  if (v52 || !v53)
                   {
-                    v90 = v54;
-                    v57 = [v53 hk_mapToSet:&__block_literal_global_318];
-                    if ([v57 intersectsSet:v97])
+                    v88 = v53;
+                    v56 = [v52 hk_mapToSet:&__block_literal_global_318];
+                    if ([v56 intersectsSet:v95])
                     {
-                      v89 = v27;
-                      v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                      v87 = v26;
+                      v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                      v111 = 0u;
+                      v112 = 0u;
                       v113 = 0u;
                       v114 = 0u;
-                      v115 = 0u;
-                      v116 = 0u;
                       obj = selfCopy->_storeRecordsToDelete;
-                      v59 = [(NSArray *)obj countByEnumeratingWithState:&v113 objects:buf count:16];
-                      if (v59)
+                      v58 = [(NSArray *)obj countByEnumeratingWithState:&v111 objects:buf count:16];
+                      if (v58)
                       {
-                        v60 = v59;
-                        v61 = *v114;
-                        v100 = *v114;
-                        v101 = v57;
+                        v59 = v58;
+                        v60 = *v112;
+                        v98 = *v112;
+                        v99 = v56;
                         do
                         {
-                          for (j = 0; j != v60; ++j)
+                          for (j = 0; j != v59; ++j)
                           {
-                            if (*v114 != v61)
+                            if (*v112 != v60)
                             {
                               objc_enumerationMutation(obj);
                             }
 
-                            v63 = *(*(&v113 + 1) + 8 * j);
-                            storeIdentifier = [v63 storeIdentifier];
-                            if ([v57 containsObject:storeIdentifier])
+                            v62 = *(*(&v111 + 1) + 8 * j);
+                            storeIdentifier = [v62 storeIdentifier];
+                            if ([v56 containsObject:storeIdentifier])
                             {
                               configuration6 = [(HDCloudSyncOperation *)selfCopy configuration];
                               repository3 = [configuration6 repository];
                               syncIdentityManager = [repository3 syncIdentityManager];
                               [syncIdentityManager currentSyncIdentity];
-                              v69 = v68 = v58;
-                              identity = [v69 identity];
-                              [firstObject removeStoreIdentifier:storeIdentifier ownerIdentifier:v104 syncIdentity:identity];
+                              v68 = v67 = v57;
+                              identity = [v68 identity];
+                              [firstObject removeStoreIdentifier:storeIdentifier ownerIdentifier:v102 syncIdentity:identity];
 
-                              v58 = v68;
-                              selfCopy = v99;
+                              v57 = v67;
+                              selfCopy = v97;
 
-                              v57 = v101;
-                              recordID = [v63 recordID];
-                              [v68 addObject:recordID];
+                              v56 = v99;
+                              recordID = [v62 recordID];
+                              [v67 addObject:recordID];
 
-                              v61 = v100;
+                              v60 = v98;
                             }
                           }
 
-                          v60 = [(NSArray *)obj countByEnumeratingWithState:&v113 objects:buf count:16];
+                          v59 = [(NSArray *)obj countByEnumeratingWithState:&v111 objects:buf count:16];
                         }
 
-                        while (v60);
+                        while (v59);
                       }
 
                       [(HDSynchronousTaskGroup *)selfCopy->_taskGroup beginTask];
-                      v72 = [HDCloudSyncModifyRecordsOperation alloc];
+                      v71 = [HDCloudSyncModifyRecordsOperation alloc];
                       configuration7 = [(HDCloudSyncOperation *)selfCopy configuration];
                       if (firstObject)
                       {
                         record = [firstObject record];
-                        v121 = record;
-                        [MEMORY[0x277CBEA60] arrayWithObjects:&v121 count:1];
-                        v76 = v75 = v58;
-                        v77 = v96;
-                        v78 = [(HDCloudSyncModifyRecordsOperation *)v72 initWithConfiguration:configuration7 container:v96 recordsToSave:v76 recordIDsToDelete:v75];
+                        v119 = record;
+                        [MEMORY[0x277CBEA60] arrayWithObjects:&v119 count:1];
+                        v75 = v74 = v57;
+                        v76 = v94;
+                        v77 = [(HDCloudSyncModifyRecordsOperation *)v71 initWithConfiguration:configuration7 container:v94 recordsToSave:v75 recordIDsToDelete:v74];
 
-                        v58 = v75;
+                        v57 = v74;
                       }
 
                       else
                       {
-                        v77 = v96;
-                        v78 = [(HDCloudSyncModifyRecordsOperation *)v72 initWithConfiguration:configuration7 container:v96 recordsToSave:MEMORY[0x277CBEBF8] recordIDsToDelete:v58];
+                        v76 = v94;
+                        v77 = [(HDCloudSyncModifyRecordsOperation *)v71 initWithConfiguration:configuration7 container:v94 recordsToSave:MEMORY[0x277CBEBF8] recordIDsToDelete:v57];
                       }
 
-                      v27 = v89;
-                      v28 = v87;
+                      v26 = v87;
+                      v27 = v85;
 
-                      v110[0] = MEMORY[0x277D85DD0];
-                      v110[1] = 3221225472;
-                      v110[2] = __72__HDCloudSyncDeleteStoresOperation__deleteUnifiedZoneStoresInContainer___block_invoke_2;
-                      v110[3] = &unk_278616348;
-                      v111 = v77;
-                      v112 = selfCopy;
-                      [(HDCloudSyncOperation *)v78 setOnError:v110];
-                      v109[0] = MEMORY[0x277D85DD0];
-                      v109[1] = 3221225472;
-                      v109[2] = __72__HDCloudSyncDeleteStoresOperation__deleteUnifiedZoneStoresInContainer___block_invoke_322;
-                      v109[3] = &unk_278613060;
-                      v109[4] = selfCopy;
-                      [(HDCloudSyncOperation *)v78 setOnSuccess:v109];
-                      [(HDCloudSyncOperation *)v78 start];
+                      v108[0] = MEMORY[0x277D85DD0];
+                      v108[1] = 3221225472;
+                      v108[2] = __72__HDCloudSyncDeleteStoresOperation__deleteUnifiedZoneStoresInContainer___block_invoke_2;
+                      v108[3] = &unk_278616348;
+                      v109 = v76;
+                      v110 = selfCopy;
+                      [(HDCloudSyncOperation *)v77 setOnError:v108];
+                      v107[0] = MEMORY[0x277D85DD0];
+                      v107[1] = 3221225472;
+                      v107[2] = __72__HDCloudSyncDeleteStoresOperation__deleteUnifiedZoneStoresInContainer___block_invoke_322;
+                      v107[3] = &unk_278613060;
+                      v107[4] = selfCopy;
+                      [(HDCloudSyncOperation *)v77 setOnSuccess:v107];
+                      [(HDCloudSyncOperation *)v77 start];
 
-                      allCKContainers = v88;
-                      v43 = v97;
-                      v42 = v98;
+                      allCKContainers = v86;
+                      v42 = v95;
+                      v41 = v96;
                     }
 
-                    v55 = v90;
+                    v54 = v88;
                   }
 
                   else
                   {
-                    v55 = v54;
+                    v54 = v53;
                     _HKInitializeLogging();
-                    v56 = *MEMORY[0x277CCC328];
+                    v55 = *MEMORY[0x277CCC328];
                     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                     {
-                      v83 = v56;
-                      zoneIdentifier2 = [v93 zoneIdentifier];
+                      v82 = v55;
+                      zoneIdentifier2 = [v91 zoneIdentifier];
                       *buf = 138543874;
                       *&buf[4] = selfCopy;
                       *&buf[12] = 2114;
                       *&buf[14] = zoneIdentifier2;
                       *&buf[22] = 2114;
-                      v123 = v55;
-                      _os_log_error_impl(&dword_228986000, v83, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", buf, 0x20u);
+                      v121 = v54;
+                      _os_log_error_impl(&dword_228986000, v82, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", buf, 0x20u);
 
-                      v43 = v97;
-                      v42 = v98;
+                      v42 = v95;
+                      v41 = v96;
                     }
 
-                    [(HDCloudSyncOperation *)selfCopy finishWithSuccess:0 error:v55];
+                    [(HDCloudSyncOperation *)selfCopy finishWithSuccess:0 error:v54];
                   }
 
-                  v50 = v91;
+                  v49 = v89;
                 }
 
                 else
                 {
-                  v48 = v47;
+                  v47 = v46;
                   _HKInitializeLogging();
-                  v49 = *MEMORY[0x277CCC328];
+                  v48 = *MEMORY[0x277CCC328];
                   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                   {
-                    v79 = v49;
-                    zoneIdentifier3 = [v40 zoneIdentifier];
+                    v78 = v48;
+                    zoneIdentifier3 = [v39 zoneIdentifier];
                     *buf = 138543874;
                     *&buf[4] = selfCopy;
                     *&buf[12] = 2114;
                     *&buf[14] = zoneIdentifier3;
                     *&buf[22] = 2114;
-                    v123 = v48;
-                    _os_log_error_impl(&dword_228986000, v79, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get registry records for %{public}@, %{public}@", buf, 0x20u);
+                    v121 = v47;
+                    _os_log_error_impl(&dword_228986000, v78, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get registry records for %{public}@, %{public}@", buf, 0x20u);
                   }
 
-                  v50 = v48;
-                  [(HDCloudSyncOperation *)selfCopy finishWithSuccess:0 error:v48];
+                  v49 = v47;
+                  [(HDCloudSyncOperation *)selfCopy finishWithSuccess:0 error:v47];
                 }
 
-                v40 = v93;
+                v39 = v91;
               }
             }
 
             else
             {
               _HKInitializeLogging();
-              v41 = *MEMORY[0x277CCC328];
-              v42 = v98;
+              v40 = *MEMORY[0x277CCC328];
+              v41 = v96;
               if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
                 *&buf[4] = selfCopy;
                 *&buf[12] = 2114;
-                *&buf[14] = v39;
-                _os_log_error_impl(&dword_228986000, v41, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached unified zone, %{public}@", buf, 0x16u);
+                *&buf[14] = v38;
+                _os_log_error_impl(&dword_228986000, v40, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached unified zone, %{public}@", buf, 0x16u);
               }
 
-              [(HDCloudSyncOperation *)selfCopy finishWithSuccess:0 error:v39];
-              v43 = v97;
+              [(HDCloudSyncOperation *)selfCopy finishWithSuccess:0 error:v38];
+              v42 = v95;
             }
 
-            v44 = v96;
+            v43 = v94;
           }
 
           else
           {
-            v43 = [MEMORY[0x277CCA9B8] hk_error:3 class:objc_opt_class() selector:sel__deleteUnifiedZoneStoresInContainer_ format:{@"No cached owner identifier for %@", v30}];
-            [(HDCloudSyncOperation *)selfCopy finishWithSuccess:0 error:v43];
-            v44 = v30;
-            v42 = v98;
+            v42 = [MEMORY[0x277CCA9B8] hk_error:3 class:objc_opt_class() selector:sel__deleteUnifiedZoneStoresInContainer_ format:{@"No cached owner identifier for %@", v29}];
+            [(HDCloudSyncOperation *)selfCopy finishWithSuccess:0 error:v42];
+            v43 = v29;
+            v41 = v96;
           }
         }
 
-        v27 = [allCKContainers countByEnumeratingWithState:&v105 objects:v120 count:16];
+        v26 = [allCKContainers countByEnumeratingWithState:&v103 objects:v118 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
 
     [(HDSynchronousTaskGroup *)selfCopy->_taskGroup finishTask];
-    v85 = selfCopy->_taskGroup;
-    v86 = *MEMORY[0x277D85DE8];
+    v84 = selfCopy->_taskGroup;
 
-    [(HDSynchronousTaskGroup *)v85 finishTask];
+    [(HDSynchronousTaskGroup *)v84 finishTask];
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85DE8];
 
     [(HDCloudSyncOperation *)selfCopy finishWithSuccess:1 error:0];
   }
@@ -428,13 +426,13 @@
 
 id __60__HDCloudSyncDeleteStoresOperation__individualZonesToDelete__block_invoke_297(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 zoneType] == 1)
   {
-    v22 = 0;
-    v4 = [v3 recordsForClass:objc_opt_class() error:&v22];
-    v5 = v22;
+    v21 = 0;
+    v4 = [v3 recordsForClass:objc_opt_class() error:&v21];
+    v5 = v21;
     v6 = v5;
     if (v4)
     {
@@ -454,14 +452,14 @@ id __60__HDCloudSyncDeleteStoresOperation__individualZonesToDelete__block_invoke
         v8 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
         {
-          v19 = *(a1 + 32);
-          v20 = v8;
-          v21 = [v3 zoneIdentifier];
+          v18 = *(a1 + 32);
+          v19 = v8;
+          v20 = [v3 zoneIdentifier];
           *buf = 138543618;
-          v24 = v19;
-          v25 = 2114;
-          v26 = v21;
-          _os_log_fault_impl(&dword_228986000, v20, OS_LOG_TYPE_FAULT, "%{public}@ Retrieved multiple store records for %{public}@. This is unexpected.", buf, 0x16u);
+          v23 = v18;
+          v24 = 2114;
+          v25 = v20;
+          _os_log_fault_impl(&dword_228986000, v19, OS_LOG_TYPE_FAULT, "%{public}@ Retrieved multiple store records for %{public}@. This is unexpected.", buf, 0x16u);
         }
       }
 
@@ -484,16 +482,16 @@ id __60__HDCloudSyncDeleteStoresOperation__individualZonesToDelete__block_invoke
       v12 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 32);
-        v17 = v12;
-        v18 = [v3 zoneIdentifier];
+        v15 = *(a1 + 32);
+        v16 = v12;
+        v17 = [v3 zoneIdentifier];
         *buf = 138543874;
-        v24 = v16;
-        v25 = 2114;
-        v26 = v18;
-        v27 = 2114;
-        v28 = v6;
-        _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", buf, 0x20u);
+        v23 = v15;
+        v24 = 2114;
+        v25 = v17;
+        v26 = 2114;
+        v27 = v6;
+        _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get store records for %{public}@, %{public}@", buf, 0x20u);
       }
 
       [*(a1 + 32) finishWithSuccess:0 error:v6];
@@ -506,32 +504,28 @@ id __60__HDCloudSyncDeleteStoresOperation__individualZonesToDelete__block_invoke
     v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __72__HDCloudSyncDeleteStoresOperation__deleteUnifiedZoneStoresInContainer___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = v5;
-    v9 = [v7 containerIdentifier];
-    v10 = 138543618;
-    v11 = v9;
-    v12 = 2114;
-    v13 = v4;
-    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "Failed to delete store records and update registry in container %{public}@: %{public}@", &v10, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = v5;
+    v8 = [v6 containerIdentifier];
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Failed to delete store records and update registry in container %{public}@: %{public}@", &v9, 0x16u);
   }
 
   [*(*(a1 + 40) + 104) failTaskWithError:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors

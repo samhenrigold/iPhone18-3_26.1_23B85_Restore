@@ -18,6 +18,7 @@
 - (void)removeEventListener:(id)listener listener:(id)a4;
 - (void)skipAdTapped:(float)tapped atVolume:(float)volume;
 - (void)videoTapped:(float)tapped atVolume:(float)volume;
+- (void)viewabilityChanged:(BOOL)changed playtime:(float)playtime atVolume:(float)volume;
 - (void)volumeChanged:(float)changed playtime:(float)playtime;
 - (void)volumeMuted:(float)muted;
 - (void)volumeUnmuted:(float)unmuted atVolume:(float)volume;
@@ -69,29 +70,30 @@
 - (void)playFailed:(id)failed
 {
   failedCopy = failed;
-  if ([(APWebProcessVideoAdJSO *)self playFailedRequestCount]< 2)
+  playFailedRequestCount = [(APWebProcessVideoAdJSO *)self playFailedRequestCount];
+  if (playFailedRequestCount < 2)
   {
     if ([failedCopy length] >= 0x1F5)
     {
-      v6 = [failedCopy substringToIndex:500];
+      v7 = [failedCopy substringToIndex:500];
 
-      v7 = sub_3260();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v9 = sub_3260(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v11 = 138478083;
-        v12 = objc_opt_class();
-        v13 = 2114;
-        v14 = @"Play failed error description truncated to 500 characters.";
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "[%{private}@] %{public}@", &v11, 0x16u);
+        v13 = 138478083;
+        v14 = objc_opt_class();
+        v15 = 2114;
+        v16 = @"Play failed error description truncated to 500 characters.";
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "[%{private}@] %{public}@", &v13, 0x16u);
       }
 
-      failedCopy = v6;
+      failedCopy = v7;
     }
 
     delegate = [(APWebProcessVideoAdJSO *)self delegate];
-    v9 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v11)
     {
       delegate2 = [(APWebProcessVideoAdJSO *)self delegate];
       [delegate2 webProcessVideoAdJSOMediaPlaybackFailedWithErrorDescription:failedCopy];
@@ -102,10 +104,10 @@
 
   else
   {
-    v5 = sub_3260();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_3260(playFailedRequestCount);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_6E24(self, v5);
+      sub_6E24(self, v6);
     }
   }
 }
@@ -232,6 +234,21 @@
   }
 }
 
+- (void)viewabilityChanged:(BOOL)changed playtime:(float)playtime atVolume:(float)volume
+{
+  changedCopy = changed;
+  delegate = [(APWebProcessVideoAdJSO *)self delegate];
+  v10 = objc_opt_respondsToSelector();
+
+  if (v10)
+  {
+    delegate2 = [(APWebProcessVideoAdJSO *)self delegate];
+    *&v11 = playtime;
+    *&v12 = volume;
+    [delegate2 webProcessVideoAdJSOViewabilityChanged:changedCopy playTime:v11 volume:v12];
+  }
+}
+
 - (void)moreInfoTapped:(float)tapped atVolume:(float)volume
 {
   delegate = [(APWebProcessVideoAdJSO *)self delegate];
@@ -250,36 +267,37 @@
 {
   IsReduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled();
   IsVideoAutoplayEnabled = UIAccessibilityIsVideoAutoplayEnabled();
-  v4 = sub_3260();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v4 = IsVideoAutoplayEnabled;
+  v5 = sub_3260(IsVideoAutoplayEnabled);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = objc_opt_class();
-    v6 = @"NO";
+    v6 = objc_opt_class();
+    v7 = @"NO";
     if (IsReduceMotionEnabled)
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
     else
     {
-      v7 = @"NO";
+      v8 = @"NO";
     }
 
-    v9 = 138478339;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v7;
-    if (IsVideoAutoplayEnabled)
+    v10 = 138478339;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v8;
+    if (v4)
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
-    v13 = 2114;
-    v14 = v6;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "[%{private}@] Checking if video should autoplay with values isReduceMotionEnabled: %{public}@, isVideoAutoplayEnabled: %{public}@", &v9, 0x20u);
+    v14 = 2114;
+    v15 = v7;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "[%{private}@] Checking if video should autoplay with values isReduceMotionEnabled: %{public}@, isVideoAutoplayEnabled: %{public}@", &v10, 0x20u);
   }
 
-  return !IsReduceMotionEnabled && IsVideoAutoplayEnabled;
+  return !IsReduceMotionEnabled && v4;
 }
 
 - (void)videoTapped:(float)tapped atVolume:(float)volume
@@ -342,7 +360,7 @@
 {
   listenerCopy = listener;
   v7 = a4;
-  v8 = sub_3260();
+  v8 = sub_3260(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *v14 = 138478083;
@@ -367,7 +385,7 @@
       [listenersDictionary2 setObject:v12 forKey:listenerCopy];
     }
 
-    if (([v12 containsObject:{v7, *v14, *&v14[16]}] & 1) == 0)
+    if (([v12 containsObject:{v7, *v14, *&v14[8]}] & 1) == 0)
     {
       [v12 addObject:v7];
     }
@@ -380,7 +398,7 @@
 {
   listenerCopy = listener;
   v7 = a4;
-  v8 = sub_3260();
+  v8 = sub_3260(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v13 = 138478083;
@@ -411,7 +429,7 @@
 
 - (void)_callListenersOfContentSizeChange
 {
-  v3 = sub_3260();
+  v3 = sub_3260(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 138478083;

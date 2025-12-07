@@ -95,9 +95,9 @@
 
 - (CEKWheelScrubberView)initWithFrame:(CGRect)frame
 {
-  v42.receiver = self;
-  v42.super_class = CEKWheelScrubberView;
-  v3 = [(CEKWheelScrubberView *)&v42 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v44.receiver = self;
+  v44.super_class = CEKWheelScrubberView;
+  v3 = [(CEKWheelScrubberView *)&v44 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -193,11 +193,11 @@
     blackColor = [MEMORY[0x1E69DC888] blackColor];
     [(CEKWheelScrubberView *)v4 setOpaqueGradientsWithColor:blackColor];
 
-    if (CEKHapticsAllowed())
+    if (CEKHapticsAllowed(v38, v39))
     {
-      v38 = objc_alloc_init(CEKSelectionFeedbackGenerator);
+      v40 = objc_alloc_init(CEKSelectionFeedbackGenerator);
       selectionFeedbackGenerator = v4->__selectionFeedbackGenerator;
-      v4->__selectionFeedbackGenerator = v38;
+      v4->__selectionFeedbackGenerator = v40;
     }
 
     v4->_selectionLoupeVisibility = 0;
@@ -207,7 +207,7 @@
     [(CEKWheelScrubberView *)v4 _updateSelectionLoupeAlphaAnimated:0];
     [(CEKWheelScrubberView *)v4 _updateCustomThumbnailAlphaAnimated:0];
     v4->__decelerationTargetIndex = 0x7FFFFFFFFFFFFFFFLL;
-    v40 = v4;
+    v42 = v4;
   }
 
   return v4;
@@ -481,7 +481,7 @@
   }
 }
 
-uint64_t __50__CEKWheelScrubberView_setSelectionText_animated___block_invoke(uint64_t a1)
+void *__50__CEKWheelScrubberView_setSelectionText_animated___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setText:*(a1 + 40)];
   if (*(a1 + 48) == 1)
@@ -706,11 +706,11 @@ LABEL_12:
   }
 }
 
-uint64_t __68__CEKWheelScrubberView__updateCollectionViewForMarkedIndexAnimated___block_invoke(uint64_t result, uint64_t a2)
+id *__68__CEKWheelScrubberView__updateCollectionViewForMarkedIndexAnimated___block_invoke(id *result, id a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
-    return [*(result + 40) deselectItemAtIndexPath:a2 animated:*(result + 48)];
+    return [result[5] deselectItemAtIndexPath:a2 animated:*(result + 48)];
   }
 
   return result;

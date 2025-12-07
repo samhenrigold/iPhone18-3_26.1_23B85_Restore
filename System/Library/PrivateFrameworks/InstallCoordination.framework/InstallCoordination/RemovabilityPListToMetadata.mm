@@ -98,40 +98,32 @@ LABEL_24:
 
 void ___RemovabilityPListToMetadata_block_invoke_cold_1()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_5_2();
-  OUTLINED_FUNCTION_6_0(&dword_1DA47A000, v0, v1, "%s: Failed to deserialize removability metadata for identity %@, version %lu", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_0(&dword_1DA47A000, v0, v1, "%s: Failed to deserialize removability metadata for identity %@, version %lu", v2);
 }
 
 void ___RemovabilityPListToMetadata_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ___RemovabilityPListToMetadata_block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ___RemovabilityPListToMetadata_block_invoke_cold_4()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_5_2();
-  OUTLINED_FUNCTION_6_0(&dword_1DA47A000, v0, v1, "%s: Deserialized key for removability entry is not string %@ : %@", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_0(&dword_1DA47A000, v0, v1, "%s: Deserialized key for removability entry is not string %@ : %@", v2);
 }
 
 @end

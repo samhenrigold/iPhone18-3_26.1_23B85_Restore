@@ -2,6 +2,7 @@
 - (AXLTLockScreenObserver)init;
 - (AXLTLockScreenObserverDelegate)delegate;
 - (void)_registerScreenNotification;
+- (void)_updateScreenLock:(int)lock;
 @end
 
 @implementation AXLTLockScreenObserver
@@ -55,6 +56,48 @@ void __53__AXLTLockScreenObserver__registerScreenNotification__block_invoke(uint
     state64 = 0;
     notify_get_state(a2, &state64);
     [WeakRetained _updateScreenLock:state64];
+  }
+}
+
+- (void)_updateScreenLock:(int)lock
+{
+  v3 = *&lock;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = AXLogLiveTranscription();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    v14 = 138412290;
+    v15 = v6;
+    _os_log_impl(&dword_256022000, v5, OS_LOG_TYPE_INFO, "Updating system lock status: %@", &v14, 0xCu);
+  }
+
+  if (self->_isScreenLocked != v3)
+  {
+    self->_isScreenLocked = v3 != 0;
+    delegate = [(AXLTLockScreenObserver *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate2 = [(AXLTLockScreenObserver *)self delegate];
+      [delegate2 screenLockStateChanged:self->_isScreenLocked];
+    }
+
+    isScreenLocked = self->_isScreenLocked;
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    v12 = defaultCenter;
+    if (isScreenLocked)
+    {
+      v13 = @"AXLTScreenLockedNotification";
+    }
+
+    else
+    {
+      v13 = @"AXLTScreenUnlockedNotification";
+    }
+
+    [defaultCenter postNotificationName:v13 object:0];
   }
 }
 

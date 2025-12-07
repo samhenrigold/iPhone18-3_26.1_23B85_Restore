@@ -1,12 +1,12 @@
 @interface NSString(UIStringDrawingLegacy)
+- (__CFString)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:lineBreakMode:letterSpacing:includeEmoji:;
+- (__CFString)_legacy_sizeWithFont:()UIStringDrawingLegacy constrainedToSize:lineBreakMode:lineSpacing:;
 - (double)_legacy_drawInRect:()UIStringDrawingLegacy withFont:lineBreakMode:alignment:lineSpacing:includeEmoji:truncationRect:;
 - (double)_legacy_sizeWithFont:()UIStringDrawingLegacy;
 - (double)_legacy_sizeWithFont:()UIStringDrawingLegacy forWidth:lineBreakMode:letterSpacing:;
 - (uint64_t)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:fontSize:lineBreakMode:baselineAdjustment:includeEmoji:;
-- (uint64_t)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:lineBreakMode:letterSpacing:includeEmoji:;
-- (uint64_t)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:minFontSize:actualFontSize:lineBreakMode:baselineAdjustment:includeEmoji:;
-- (uint64_t)_legacy_sizeWithFont:()UIStringDrawingLegacy constrainedToSize:lineBreakMode:lineSpacing:;
-- (uint64_t)_legacy_sizeWithFont:()UIStringDrawingLegacy minFontSize:actualFontSize:forWidth:lineBreakMode:;
+- (void)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:minFontSize:actualFontSize:lineBreakMode:baselineAdjustment:includeEmoji:;
+- (void)_legacy_sizeWithFont:()UIStringDrawingLegacy minFontSize:actualFontSize:forWidth:lineBreakMode:;
 @end
 
 @implementation NSString(UIStringDrawingLegacy)
@@ -66,7 +66,7 @@
   return ceil(v16);
 }
 
-- (uint64_t)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:lineBreakMode:letterSpacing:includeEmoji:
+- (__CFString)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:lineBreakMode:letterSpacing:includeEmoji:
 {
   if (a4 >= 0.0)
   {
@@ -132,7 +132,7 @@
   return result;
 }
 
-- (uint64_t)_legacy_sizeWithFont:()UIStringDrawingLegacy constrainedToSize:lineBreakMode:lineSpacing:
+- (__CFString)_legacy_sizeWithFont:()UIStringDrawingLegacy constrainedToSize:lineBreakMode:lineSpacing:
 {
   v21[2] = *MEMORY[0x1E69E9840];
   if (a2 >= 0.0 && a5)
@@ -245,7 +245,7 @@
   return v31;
 }
 
-- (uint64_t)_legacy_sizeWithFont:()UIStringDrawingLegacy minFontSize:actualFontSize:forWidth:lineBreakMode:
+- (void)_legacy_sizeWithFont:()UIStringDrawingLegacy minFontSize:actualFontSize:forWidth:lineBreakMode:
 {
   if (a5)
   {
@@ -364,7 +364,7 @@ LABEL_8:
   return [self _legacy_drawAtPoint:v19 forWidth:a8 withFont:a10 lineBreakMode:a2 letterSpacing:a3 includeEmoji:{a4, 0.0}];
 }
 
-- (uint64_t)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:minFontSize:actualFontSize:lineBreakMode:baselineAdjustment:includeEmoji:
+- (void)_legacy_drawAtPoint:()UIStringDrawingLegacy forWidth:withFont:minFontSize:actualFontSize:lineBreakMode:baselineAdjustment:includeEmoji:
 {
   v21 = 0.0;
   [self _legacy_sizeWithFont:a7 minFontSize:&v21 actualFontSize:a5 forWidth:a4 lineBreakMode:?];

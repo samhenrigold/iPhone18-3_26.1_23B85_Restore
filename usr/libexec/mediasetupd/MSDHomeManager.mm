@@ -278,48 +278,49 @@ LABEL_11:
   os_unfair_lock_lock(&self->_readinessLock);
   isWaitingToStart = self->_isWaitingToStart;
   os_unfair_lock_unlock(&self->_readinessLock);
-  v9 = sub_100030FE4();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_100030FE4(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (isWaitingToStart)
   {
-    if (v10)
+    if (v11)
     {
-      v14 = 136315138;
-      v15 = "[MSDHomeManager homeManager:didAddHome:]";
-      v11 = "%s HMHomeManager still prewarming. Will refresh once HMHomeManager is fully ready.";
-      v12 = v9;
-      v13 = 12;
+      v16 = 136315138;
+      v17 = "[MSDHomeManager homeManager:didAddHome:]";
+      v12 = "%s HMHomeManager still prewarming. Will refresh once HMHomeManager is fully ready.";
+      v13 = v10;
+      v14 = 12;
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v11, &v14, v13);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v12, &v16, v14);
     }
   }
 
   else
   {
-    if (v10)
+    if (v11)
     {
-      v14 = 138478083;
-      v15 = managerCopy;
-      v16 = 2113;
-      v17 = homeCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "HMHomeManager %{private}@ Added Home %{private}@", &v14, 0x16u);
+      v16 = 138478083;
+      v17 = managerCopy;
+      v18 = 2113;
+      v19 = homeCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "HMHomeManager %{private}@ Added Home %{private}@", &v16, 0x16u);
     }
 
-    if (![homeCopy isCurrentUserRestrictedGuest])
+    isCurrentUserRestrictedGuest = [homeCopy isCurrentUserRestrictedGuest];
+    if (!isCurrentUserRestrictedGuest)
     {
       [homeCopy setDelegate:self];
-      v9 = +[MSDDataController sharedInstance];
-      [v9 refreshDataForReason:0 completion:&stru_100051210];
+      v10 = +[MSDDataController sharedInstance];
+      [v10 refreshDataForReason:0 completion:&stru_100051210];
       goto LABEL_11;
     }
 
-    v9 = sub_100030FE4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100030FE4(isCurrentUserRestrictedGuest);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      v11 = "Determined that the user was a restricted guest. Skipping CloudKit refresh";
-      v12 = v9;
-      v13 = 2;
+      LOWORD(v16) = 0;
+      v12 = "Determined that the user was a restricted guest. Skipping CloudKit refresh";
+      v13 = v10;
+      v14 = 2;
       goto LABEL_9;
     }
   }
@@ -336,39 +337,39 @@ LABEL_11:
   os_unfair_lock_unlock(&self->_readinessLock);
   if (isWaitingToStart)
   {
-    v9 = sub_100030FE4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100030FE4(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "[MSDHomeManager homeManager:didRemoveHome:]";
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s HMHomeManager still prewarming. Will refresh once HMHomeManager is fully ready.", &v14, 0xCu);
+      v16 = 136315138;
+      v17 = "[MSDHomeManager homeManager:didRemoveHome:]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s HMHomeManager still prewarming. Will refresh once HMHomeManager is fully ready.", &v16, 0xCu);
     }
   }
 
   else
   {
     uuid = [homeCopy uuid];
-    v11 = [managerCopy isHomeRemovedPermanently:uuid];
+    v12 = [managerCopy isHomeRemovedPermanently:uuid];
 
-    v12 = sub_100030FE4();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100030FE4(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = @"NO";
-      v14 = 138478339;
-      v15 = managerCopy;
-      v16 = 2113;
-      if (v11)
+      v15 = @"NO";
+      v16 = 138478339;
+      v17 = managerCopy;
+      v18 = 2113;
+      if (v12)
       {
-        v13 = @"YES";
+        v15 = @"YES";
       }
 
-      v17 = homeCopy;
-      v18 = 2113;
-      v19 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "HMHomeManager %{private}@ Removed Home %{private}@ isRemovedPermanently: %{private}@", &v14, 0x20u);
+      v19 = homeCopy;
+      v20 = 2113;
+      v21 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "HMHomeManager %{private}@ Removed Home %{private}@ isRemovedPermanently: %{private}@", &v16, 0x20u);
     }
 
-    if (v11)
+    if (v12)
     {
       [(MSDHomeManager *)self _homeWasRemoved];
     }
@@ -382,27 +383,27 @@ LABEL_11:
   os_unfair_lock_lock(&self->_readinessLock);
   isWaitingToStart = self->_isWaitingToStart;
   os_unfair_lock_unlock(&self->_readinessLock);
-  v9 = sub_100030FE4();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_100030FE4(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (isWaitingToStart)
   {
-    if (v10)
+    if (v11)
     {
-      v11 = 136315138;
-      v12 = "[MSDHomeManager homeManager:didRemoveHomePermanently:]";
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s HMHomeManager still prewarming. Will refresh once HMHomeManager is fully ready.", &v11, 0xCu);
+      v12 = 136315138;
+      v13 = "[MSDHomeManager homeManager:didRemoveHomePermanently:]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s HMHomeManager still prewarming. Will refresh once HMHomeManager is fully ready.", &v12, 0xCu);
     }
   }
 
   else
   {
-    if (v10)
+    if (v11)
     {
-      v11 = 138478083;
-      v12 = managerCopy;
-      v13 = 2113;
-      v14 = permanentlyCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "HMHomeManager %{private}@ Permanently Removed Home %{private}@", &v11, 0x16u);
+      v12 = 138478083;
+      v13 = managerCopy;
+      v14 = 2113;
+      v15 = permanentlyCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "HMHomeManager %{private}@ Permanently Removed Home %{private}@", &v12, 0x16u);
     }
 
     [(MSDHomeManager *)self _homeWasRemoved];
@@ -413,18 +414,19 @@ LABEL_11:
 {
   homesCopy = homes;
   v5 = [(MSDHomeManager *)self isHomeManagerReady:homesCopy];
-  v6 = sub_100030FE4();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = v5;
+  v7 = sub_100030FE4(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     [homesCopy status];
-    v7 = HMHomeManagerStatusToString();
-    v11 = 136315650;
-    v12 = "[MSDHomeManager homeManagerDidUpdateHomes:]";
-    v13 = 2112;
-    v14 = v7;
-    v15 = 1024;
-    v16 = v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s manager status: %@, managerIsReady: %i", &v11, 0x1Cu);
+    v8 = HMHomeManagerStatusToString();
+    v13 = 136315650;
+    v14 = "[MSDHomeManager homeManagerDidUpdateHomes:]";
+    v15 = 2112;
+    v16 = v8;
+    v17 = 1024;
+    v18 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s manager status: %@, managerIsReady: %i", &v13, 0x1Cu);
   }
 
   os_unfair_lock_lock(&self->_readinessLock);
@@ -435,15 +437,15 @@ LABEL_11:
 
   isWaitingToStart = self->_isWaitingToStart;
   os_unfair_lock_unlock(&self->_readinessLock);
-  if (v5 && !isWaitingToStart)
+  if (v6 && !isWaitingToStart)
   {
-    v9 = sub_100030FE4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100030FE4(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       homes = [homesCopy homes];
-      v11 = 138477827;
-      v12 = homes;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Received update on homes: %{private}@", &v11, 0xCu);
+      v13 = 138477827;
+      v14 = homes;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received update on homes: %{private}@", &v13, 0xCu);
     }
 
     [(MSDHomeManager *)self _addHomeDelegates:homesCopy];
@@ -454,45 +456,46 @@ LABEL_11:
 {
   managerCopy = manager;
   v6 = [(MSDHomeManager *)self isHomeManagerReady:managerCopy];
-  v7 = sub_100030FE4();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v7 = v6;
+  v8 = sub_100030FE4(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     [managerCopy status];
-    v8 = HMHomeManagerStatusToString();
+    v9 = HMHomeManagerStatusToString();
     *buf = 136315650;
     *&buf[4] = "[MSDHomeManager homeManager:didUpdateStatus:]";
     *&buf[12] = 2112;
-    *&buf[14] = v8;
+    *&buf[14] = v9;
     *&buf[22] = 1024;
-    v15 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s manager status: %@, managerIsReady: %i", buf, 0x1Cu);
+    v16 = v7;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s manager status: %@, managerIsReady: %i", buf, 0x1Cu);
   }
 
-  if (v6)
+  if (v7)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v15) = 0;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10000EAC8;
-    v11[3] = &unk_100051238;
-    v13 = buf;
-    v11[4] = self;
-    v12 = managerCopy;
-    [(MSDHomeManager *)self _withReadinessLock:v11];
+    LOBYTE(v16) = 0;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10000EAC8;
+    v12[3] = &unk_100051238;
+    v14 = buf;
+    v12[4] = self;
+    v13 = managerCopy;
+    [(MSDHomeManager *)self _withReadinessLock:v12];
     if (*(*&buf[8] + 24))
     {
       [(MSDHomeManager *)self _handleHomeKitFinishedInitialization];
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_10000EC94;
-      v10[3] = &unk_100050AC0;
-      v10[4] = self;
-      [(MSDHomeManager *)self _withReadinessLock:v10];
-      v9 = +[MSDDataController sharedInstance];
-      [v9 refreshDataForReason:9 completion:&stru_100051258];
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10000EC94;
+      v11[3] = &unk_100050AC0;
+      v11[4] = self;
+      [(MSDHomeManager *)self _withReadinessLock:v11];
+      v10 = +[MSDDataController sharedInstance];
+      [v10 refreshDataForReason:9 completion:&stru_100051258];
     }
 
     _Block_object_dispose(buf, 8);
@@ -502,7 +505,7 @@ LABEL_11:
 - (void)homeDidEnableMultiUser:(id)user
 {
   userCopy = user;
-  v4 = sub_100030FE4();
+  v4 = sub_100030FE4(userCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
@@ -522,7 +525,7 @@ LABEL_11:
   managerCopy = manager;
   invitationCopy = invitation;
   handlerCopy = handler;
-  v10 = sub_100030FE4();
+  v10 = sub_100030FE4(handlerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315651;
@@ -576,17 +579,19 @@ LABEL_11:
 - (void)_noteHomesStillLoading
 {
   os_unfair_lock_assert_owner(&self->_readinessLock);
-  if (![(MSDHomeManager *)self isWaitingForHomesToLoad])
+  isWaitingForHomesToLoad = [(MSDHomeManager *)self isWaitingForHomesToLoad];
+  if ((isWaitingForHomesToLoad & 1) == 0)
   {
     self->_waitingForHomesToLoad = 1;
-    self->signpostID = MSDGenerateSignpostID();
-    v3 = MSDSignpostFacility();
-    v4 = v3;
+    v4 = MSDGenerateSignpostID(isWaitingForHomesToLoad);
+    self->signpostID = v4;
+    v5 = MSDSignpostFacility(v4);
+    v6 = v5;
     signpostID = self->signpostID;
-    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
+    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
-      *v6 = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "LookupHomes", &unk_10003DCC2, v6, 2u);
+      *v8 = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "LookupHomes", &unk_10003DCC2, v8, 2u);
     }
   }
 }

@@ -112,7 +112,7 @@ LABEL_2:
     goto LABEL_11;
   }
 
-  [n decimalValue];
+  objc_msgSend_decimalValue(n);
   v10 = (v16 & 0x1F00) == 4096;
 LABEL_17:
   v5 = !v10;
@@ -253,20 +253,20 @@ LABEL_60:
 
 LABEL_62:
           v26 = malloc_type_calloc(1uLL, 0x2038uLL, 0x109004015BCA0ECuLL);
-          v26->super.isa = [dataCopy bytes];
+          *v26 = [dataCopy bytes];
           v27 = [dataCopy length];
-          v26[5].super.isa = 1;
-          v26[2].super.isa = v27;
-          v26[3].super.isa = v16;
-          v26[1].super.isa = options;
-          if (skipJSONWhitespace(v26, error, (options & 0x10) != 0) && (v28 = v26[3].super.isa, v26[2].super.isa > v28))
+          v26[5] = 1;
+          v26[2] = v27;
+          v26[3] = v16;
+          v26[1] = options;
+          if (skipJSONWhitespace(v26, error, (options & 0x10) != 0) && (v28 = v26[3], v26[2] > v28))
           {
             if ((options & 0x10) != 0)
             {
               v29 = newJSONObject(v26, 1, error);
 LABEL_86:
               v39 = v29;
-              if (v29 && v26[3].super.isa < v26[2].super.isa)
+              if (v29 && v26[3] < v26[2])
               {
                 if ((skipJSONWhitespace(v26, error, 1) & 1) == 0)
                 {
@@ -275,14 +275,14 @@ LABEL_95:
                   goto LABEL_75;
                 }
 
-                isa = v26[3].super.isa;
-                if (isa != v26[2].super.isa)
+                v42 = v26[3];
+                if (v42 != v26[2])
                 {
                   if (error)
                   {
-                    v43 = v26[6].super.isa;
-                    v33 = isa >= v43;
-                    v44 = isa - v43;
+                    v43 = v26[6];
+                    v33 = v42 >= v43;
+                    v44 = v42 - v43;
                     if (v33)
                     {
                       v45 = v44;
@@ -293,8 +293,8 @@ LABEL_95:
                       v45 = 0;
                     }
 
-                    v46 = [[NSString alloc] initWithFormat:@"%@ around line %lu, column %lu.", @"Garbage at end", v26[5].super.isa, v45];
-                    v47 = [[NSNumber alloc] initWithUnsignedInteger:v26[3].super.isa];
+                    v46 = [[NSString alloc] initWithFormat:@"%@ around line %lu, column %lu.", @"Garbage at end", v26[5], v45];
+                    v47 = [[NSNumber alloc] initWithUnsignedInteger:v26[3]];
                     v56 = @"NSDebugDescription";
                     v57 = @"NSJSONSerializationErrorIndex";
                     v58 = v46;
@@ -309,7 +309,7 @@ LABEL_95:
 LABEL_78:
               for (i = 9; i != 1033; i += 4)
               {
-                v41 = v26[i].super.isa;
+                v41 = v26[i];
                 if (v41)
                 {
                 }
@@ -319,7 +319,7 @@ LABEL_78:
               return v39;
             }
 
-            if ((options & 4) != 0 || (*(v26->super.isa + v28) | 0x20) == 0x7B)
+            if ((options & 4) != 0 || (*(*v26 + v28) | 0x20) == 0x7B)
             {
               v29 = newJSONValue(v26, error);
               goto LABEL_86;
@@ -330,7 +330,7 @@ LABEL_78:
               goto LABEL_75;
             }
 
-            v49 = v26[6].super.isa;
+            v49 = v26[6];
             v33 = v28 >= v49;
             v50 = v28 - v49;
             if (v33)
@@ -343,7 +343,7 @@ LABEL_78:
               v51 = 0;
             }
 
-            v36 = [[NSString alloc] initWithFormat:@"%@ around line %lu, column %lu.", @"JSON text did not start with array or object and option to allow fragments not set.", v26[5].super.isa, v51];
+            v36 = [[NSString alloc] initWithFormat:@"%@ around line %lu, column %lu.", @"JSON text did not start with array or object and option to allow fragments not set.", v26[5], v51];
           }
 
           else
@@ -371,8 +371,8 @@ LABEL_75:
               goto LABEL_78;
             }
 
-            v31 = v26[3].super.isa;
-            v32 = v26[6].super.isa;
+            v31 = v26[3];
+            v32 = v26[6];
             v33 = v31 >= v32;
             v34 = v31 - v32;
             if (v33)
@@ -385,11 +385,11 @@ LABEL_75:
               v35 = 0;
             }
 
-            v36 = [[NSString alloc] initWithFormat:@"%@ around line %lu, column %lu.", @"JSON text did not have any content", v26[5].super.isa, v35];
+            v36 = [[NSString alloc] initWithFormat:@"%@ around line %lu, column %lu.", @"JSON text did not have any content", v26[5], v35];
           }
 
           v37 = v36;
-          v38 = [[NSNumber alloc] initWithUnsignedInteger:v26[3].super.isa];
+          v38 = [[NSNumber alloc] initWithUnsignedInteger:v26[3]];
           v56 = @"NSDebugDescription";
           v57 = @"NSJSONSerializationErrorIndex";
           v58 = v37;

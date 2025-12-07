@@ -40,8 +40,7 @@
   v5.receiver = self;
   v5.super_class = BKPanGestureRecognizer;
   [(BKPanGestureRecognizer *)&v5 reset];
-  [(BKPanGestureRecognizer *)self setTrackingTouch:0];
-  v3 = _AEPanGRLog();
+  v3 = _AEPanGRLog([(BKPanGestureRecognizer *)self setTrackingTouch:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -53,7 +52,7 @@
 {
   beganCopy = began;
   eventCopy = event;
-  v8 = _AEPanGRLog();
+  v8 = _AEPanGRLog(eventCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -69,57 +68,57 @@
 
   if (trackingTouch)
   {
-    v10 = _AEPanGRLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AEPanGRLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "tracking touch -- ignoring new touches", buf, 2u);
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "tracking touch -- ignoring new touches", buf, 2u);
     }
   }
 
   else
   {
-    v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = beganCopy;
-    v11 = beganCopy;
-    v12 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
-    if (v12)
+    v27 = 0u;
+    v24 = beganCopy;
+    v12 = beganCopy;
+    v13 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v26;
+      v14 = v13;
+      v15 = *v27;
       do
       {
-        for (i = 0; i != v13; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v26 != v14)
+          if (*v27 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * i);
-          window = [v16 window];
-          [v16 locationInView:0];
+          v17 = *(*(&v26 + 1) + 8 * i);
+          window = [v17 window];
+          [v17 locationInView:0];
           [window convertPoint:0 toWindow:?];
-          v19 = v18;
-          v21 = v20;
+          v20 = v19;
+          v22 = v21;
 
-          v22 = [NSValue valueWithCGPoint:v19, v21];
-          objc_setAssociatedObject(v16, &unk_193938, v22, &dword_0 + 1);
+          v23 = [NSValue valueWithCGPoint:v20, v22];
+          objc_setAssociatedObject(v17, &unk_193938, v23, &dword_0 + 1);
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v24.receiver = self;
-    v24.super_class = BKPanGestureRecognizer;
-    [(BKPanGestureRecognizer *)&v24 touchesBegan:v11 withEvent:eventCopy];
-    beganCopy = v23;
+    v25.receiver = self;
+    v25.super_class = BKPanGestureRecognizer;
+    [(BKPanGestureRecognizer *)&v25 touchesBegan:v12 withEvent:eventCopy];
+    beganCopy = v24;
   }
 }
 
@@ -134,12 +133,12 @@
     goto LABEL_2;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v14 = movedCopy;
-  v15 = [v14 countByEnumeratingWithState:&v64 objects:v72 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v69 objects:v77 count:16];
   if (!v15)
   {
 
@@ -149,23 +148,23 @@ LABEL_2:
   }
 
   v16 = v15;
-  v59 = eventCopy;
-  v60 = movedCopy;
+  v64 = eventCopy;
+  v65 = movedCopy;
   v11 = 0;
-  v17 = *v65;
+  v17 = *v70;
   v18 = 0.0;
-  v61 = v14;
+  v66 = v14;
   selfCopy = self;
   do
   {
     for (i = 0; i != v16; i = i + 1)
     {
-      if (*v65 != v17)
+      if (*v70 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v64 + 1) + 8 * i);
+      v20 = *(*(&v69 + 1) + 8 * i);
       v21 = objc_getAssociatedObject(v20, &unk_193938);
       v22 = v21;
       if (v21)
@@ -182,55 +181,55 @@ LABEL_2:
         v32 = vabdd_f64(v29, v24);
         window2 = [v20 window];
         [window2 bounds];
-        Width = CGRectGetWidth(v77);
+        Width = CGRectGetWidth(v82);
 
         view = [v20 view];
         [v20 locationInView:view];
         v37 = v36;
 
-        v38 = &OBJC_IVAR___BKPanGestureRecognizer__rightSideMovementThreshold;
+        v39 = &OBJC_IVAR___BKPanGestureRecognizer__rightSideMovementThreshold;
         if (v37 < Width * 0.5)
         {
-          v38 = &OBJC_IVAR___BKPanGestureRecognizer__leftSideMovementThreshold;
+          v39 = &OBJC_IVAR___BKPanGestureRecognizer__leftSideMovementThreshold;
         }
 
-        v39 = *(&self->super.super.super.isa + *v38);
-        if (v32 <= v39)
+        v40 = *(&self->super.super.super.isa + *v39);
+        if (v32 <= v40)
         {
           v32 = vabdd_f64(v31, v26);
-          if (v32 <= v39)
+          if (v32 <= v40)
           {
             goto LABEL_25;
           }
 
-          v45 = _AEPanGRLog();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v47 = _AEPanGRLog(v38);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218240;
-            v69 = v32;
-            v70 = 2048;
-            v71 = v39;
-            _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEFAULT, "enough movement in a touch %f > %f", buf, 0x16u);
+            v74 = v32;
+            v75 = 2048;
+            v76 = v40;
+            _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "enough movement in a touch %f > %f", buf, 0x16u);
           }
 
-          v41 = _AEPanGRLog();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+          v43 = _AEPanGRLog(v48);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
-            v75.x = v24;
-            v75.y = v26;
-            v46 = NSStringFromCGPoint(v75);
-            v76.x = v29;
-            v76.y = v31;
-            NSStringFromCGPoint(v76);
-            v48 = v47 = v11;
+            v80.x = v24;
+            v80.y = v26;
+            v49 = NSStringFromCGPoint(v80);
+            v81.x = v29;
+            v81.y = v31;
+            NSStringFromCGPoint(v81);
+            v51 = v50 = v11;
             *buf = 138412546;
-            v69 = *&v46;
-            v70 = 2112;
-            v71 = *&v48;
-            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "start %@ moved %@", buf, 0x16u);
+            v74 = *&v49;
+            v75 = 2112;
+            v76 = *&v51;
+            _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "start %@ moved %@", buf, 0x16u);
 
-            v11 = v47;
-            v14 = v61;
+            v11 = v50;
+            v14 = v66;
 
             self = selfCopy;
           }
@@ -238,61 +237,61 @@ LABEL_2:
 
         else
         {
-          v40 = _AEPanGRLog();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 134218240;
-            v69 = v32;
-            v70 = 2048;
-            v71 = v39;
-            _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "enough movement in a touch %f > %f", buf, 0x16u);
-          }
-
-          v41 = _AEPanGRLog();
+          v41 = _AEPanGRLog(v38);
           if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            v73.x = v24;
-            v73.y = v26;
-            NSStringFromCGPoint(v73);
-            v43 = v42 = v11;
-            v74.x = v29;
-            v74.y = v31;
-            v44 = NSStringFromCGPoint(v74);
+            *buf = 134218240;
+            v74 = v32;
+            v75 = 2048;
+            v76 = v40;
+            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "enough movement in a touch %f > %f", buf, 0x16u);
+          }
+
+          v43 = _AEPanGRLog(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          {
+            v78.x = v24;
+            v78.y = v26;
+            NSStringFromCGPoint(v78);
+            v45 = v44 = v11;
+            v79.x = v29;
+            v79.y = v31;
+            v46 = NSStringFromCGPoint(v79);
             *buf = 138412546;
-            v69 = *&v43;
-            v70 = 2112;
-            v71 = *&v44;
-            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "start %@ moved %@", buf, 0x16u);
+            v74 = *&v45;
+            v75 = 2112;
+            v76 = *&v46;
+            _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "start %@ moved %@", buf, 0x16u);
 
             self = selfCopy;
-            v11 = v42;
-            v14 = v61;
+            v11 = v44;
+            v14 = v66;
           }
         }
 
         if (v32 > v18)
         {
-          v49 = v20;
+          v52 = v20;
 
           v18 = v32;
-          v11 = v49;
+          v11 = v52;
         }
       }
 
 LABEL_25:
     }
 
-    v16 = [v14 countByEnumeratingWithState:&v64 objects:v72 count:16];
+    v16 = [v14 countByEnumeratingWithState:&v69 objects:v77 count:16];
   }
 
   while (v16);
 
-  v50 = v14;
-  movedCopy = v60;
+  v53 = v14;
+  movedCopy = v65;
   if (!v11)
   {
 LABEL_3:
-    v10 = [(BKPanGestureRecognizer *)self trackingTouch:v59];
+    v10 = [(BKPanGestureRecognizer *)self trackingTouch:v64];
 
     v11 = 0;
     v12 = 0;
@@ -305,48 +304,49 @@ LABEL_3:
     goto LABEL_38;
   }
 
-  v51 = v50;
+  v54 = v53;
   trackingTouch2 = [(BKPanGestureRecognizer *)self trackingTouch];
 
   if (!trackingTouch2)
   {
-    v53 = _AEPanGRLog();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v57 = _AEPanGRLog(v56);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v69 = *&v11;
-      _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, "Now tracking touch %@", buf, 0xCu);
+      v74 = *&v11;
+      _os_log_impl(&dword_0, v57, OS_LOG_TYPE_DEFAULT, "Now tracking touch %@", buf, 0xCu);
     }
 
     [(BKPanGestureRecognizer *)self setTrackingTouch:v11];
   }
 
-  [(BKPanGestureRecognizer *)self setState:1, eventCopy, v60];
+  [(BKPanGestureRecognizer *)self setState:1, eventCopy, v65];
   v13 = [NSSet setWithObject:v11];
 
   allTouches = [eventCopy allTouches];
-  v55 = [allTouches mutableCopy];
+  v59 = [allTouches mutableCopy];
 
-  [v55 removeObject:v11];
-  if ([v55 count])
+  [v59 removeObject:v11];
+  v60 = [v59 count];
+  if (v60)
   {
-    v56 = _AEPanGRLog();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+    v61 = _AEPanGRLog(v60);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v69 = *&v55;
-      v70 = 2112;
-      v71 = *&v11;
-      _os_log_impl(&dword_0, v56, OS_LOG_TYPE_DEFAULT, "Ending touches %@. Tracking %@", buf, 0x16u);
+      v74 = *&v59;
+      v75 = 2112;
+      v76 = *&v11;
+      _os_log_impl(&dword_0, v61, OS_LOG_TYPE_DEFAULT, "Ending touches %@. Tracking %@", buf, 0x16u);
     }
 
-    [(BKPanGestureRecognizer *)self touchesEnded:v55 withEvent:eventCopy];
+    [(BKPanGestureRecognizer *)self touchesEnded:v59 withEvent:eventCopy];
   }
 
 LABEL_37:
-  v63.receiver = self;
-  v63.super_class = BKPanGestureRecognizer;
-  [(BKPanGestureRecognizer *)&v63 touchesMoved:v13 withEvent:eventCopy];
+  v68.receiver = self;
+  v68.super_class = BKPanGestureRecognizer;
+  [(BKPanGestureRecognizer *)&v68 touchesMoved:v13 withEvent:eventCopy];
   v12 = v11;
 LABEL_38:
   trackingTouch3 = [(BKPanGestureRecognizer *)self trackingTouch];

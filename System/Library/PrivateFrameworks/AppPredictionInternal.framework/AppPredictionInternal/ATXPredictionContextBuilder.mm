@@ -1,6 +1,8 @@
 @interface ATXPredictionContextBuilder
 + (id)loadContextOverrideFromJSONFile:(id)file;
 + (id)sharedInstance;
+- (ATXPredictionContextBuilder)initWithAppInfoManager:(id)manager locationManager:(id)locationManager motionManagerWrapper:(id)wrapper ambientLightMonitor:(id)monitor deviceStateMonitorClass:(Class)class contextSourcesInitialized:(BOOL)initialized;
+- (ATXPredictionContextBuilder)initWithAppInfoManager:(id)manager locationManager:(id)locationManager motionManagerWrapper:(id)wrapper ambientLightMonitor:(id)monitor deviceStateMonitorClass:(Class)class contextSourcesInitialized:(BOOL)initialized contextStream:(id)stream biomeStreamsInitialized:(BOOL)self0;
 - (BOOL)tryInitBiomeStreamsAndReturnSuccess:(id)success;
 - (BOOL)tryInitContextSourcesAndReturnSuccess:(id)success;
 - (NSDate)now;
@@ -78,6 +80,44 @@
   return v3;
 }
 
+- (ATXPredictionContextBuilder)initWithAppInfoManager:(id)manager locationManager:(id)locationManager motionManagerWrapper:(id)wrapper ambientLightMonitor:(id)monitor deviceStateMonitorClass:(Class)class contextSourcesInitialized:(BOOL)initialized
+{
+  initializedCopy = initialized;
+  monitorCopy = monitor;
+  wrapperCopy = wrapper;
+  locationManagerCopy = locationManager;
+  managerCopy = manager;
+  v18 = objc_opt_new();
+  LOBYTE(v21) = 1;
+  v19 = [(ATXPredictionContextBuilder *)self initWithAppInfoManager:managerCopy locationManager:locationManagerCopy motionManagerWrapper:wrapperCopy ambientLightMonitor:monitorCopy deviceStateMonitorClass:class contextSourcesInitialized:initializedCopy contextStream:v18 biomeStreamsInitialized:v21];
+
+  return v19;
+}
+
+- (ATXPredictionContextBuilder)initWithAppInfoManager:(id)manager locationManager:(id)locationManager motionManagerWrapper:(id)wrapper ambientLightMonitor:(id)monitor deviceStateMonitorClass:(Class)class contextSourcesInitialized:(BOOL)initialized contextStream:(id)stream biomeStreamsInitialized:(BOOL)self0
+{
+  initializedCopy = initialized;
+  managerCopy = manager;
+  locationManagerCopy = locationManager;
+  wrapperCopy = wrapper;
+  monitorCopy = monitor;
+  streamCopy = stream;
+  v26.receiver = self;
+  v26.super_class = ATXPredictionContextBuilder;
+  v21 = [(ATXPredictionContextBuilder *)&v26 init];
+  if (v21)
+  {
+    v22 = objc_opt_new();
+    [v22 updateAppInfoManager:managerCopy locationManager:locationManagerCopy motionManagerWrapper:wrapperCopy ambientLightMonitor:monitorCopy deviceStateMonitorClass:class contextSourcesInitialized:initializedCopy];
+    [v22 updatePredictionContextStream:streamCopy biomeStreamsInitialized:streamsInitialized];
+    v23 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v22];
+    lock = v21->_lock;
+    v21->_lock = v23;
+  }
+
+  return v21;
+}
+
 + (id)sharedInstance
 {
   block[0] = MEMORY[0x277D85DD0];
@@ -97,14 +137,13 @@
 
 void __45__ATXPredictionContextBuilder_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
+  v1 = objc_autoreleasePoolPush();
   objc_opt_class();
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_7;
-  sharedInstance__pasExprOnceResult_7 = v4;
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_7;
+  sharedInstance__pasExprOnceResult_7 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (BOOL)tryInitContextSourcesAndReturnSuccess:(id)success
@@ -255,7 +294,7 @@ void __93__ATXPredictionContextBuilder_updateContextStreamAndReturnPredictionCon
 
 void __93__ATXPredictionContextBuilder_updateContextStreamAndReturnPredictionContextForCurrentContext__block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) tryInitBiomeStreamsAndReturnSuccess:v3] && *(a1 + 40))
   {
@@ -269,22 +308,19 @@ void __93__ATXPredictionContextBuilder_updateContextStreamAndReturnPredictionCon
     v9 = [v8 previousLOI];
     [v9 setCoordinate:{v7.latitude, v7.longitude}];
 
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_default(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
-      v16 = 138412290;
-      v17 = v13;
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "%@ - updating prediction context Biome stream.", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v13;
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "%@ - updating prediction context Biome stream.", &v15, 0xCu);
     }
 
     v14 = [v3 predictionContextStream];
     [v14 sendEvent:*(a1 + 40)];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)now
@@ -311,7 +347,7 @@ void __93__ATXPredictionContextBuilder_updateContextStreamAndReturnPredictionCon
   contextCopy = context;
   if (!contextCopy && !valuesCopy)
   {
-    v12 = __atxlog_handle_default();
+    v12 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [ATXPredictionContextBuilder _getContextForOverrideKey:v12 fromContextOverride:? withDefaultContext:? allowNilValues:?];
@@ -384,35 +420,36 @@ void __93__ATXPredictionContextBuilder_updateContextStreamAndReturnPredictionCon
 
 - (id)locationMotionContextForContextOverride:(id)override guardedData:(id)data
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   overrideCopy = override;
   dataCopy = data;
-  v74 = [(ATXPredictionContextBuilder *)self locationMotionContextForCurrentContext:?];
-  v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v74, "locationEnabled")}];
-  v69 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverrideLocationEnabled" fromContextOverride:overrideCopy withDefaultContext:v6 allowNilValues:0];
+  v75 = [(ATXPredictionContextBuilder *)self locationMotionContextForCurrentContext:?];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v75, "locationEnabled")}];
+  v70 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverrideLocationEnabled" fromContextOverride:overrideCopy withDefaultContext:v6 allowNilValues:0];
 
-  v7 = [MEMORY[0x277D41C40] stringForMotionType:{objc_msgSend(v74, "motionType")}];
-  v71 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverrideMotionType" fromContextOverride:overrideCopy withDefaultContext:v7 allowNilValues:0];
+  v7 = [MEMORY[0x277D41C40] stringForMotionType:{objc_msgSend(v75, "motionType")}];
+  v72 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverrideMotionType" fromContextOverride:overrideCopy withDefaultContext:v7 allowNilValues:0];
 
-  v91 = 0;
-  v67 = [MEMORY[0x277D41C40] motionTypeForString:v71 found:&v91];
-  if ((v91 & 1) == 0)
+  v92 = 0;
+  v8 = [MEMORY[0x277D41C40] motionTypeForString:v72 found:&v92];
+  v68 = v8;
+  if ((v92 & 1) == 0)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_default(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [ATXPredictionContextBuilder locationMotionContextForContextOverride:v8 guardedData:?];
+      [ATXPredictionContextBuilder locationMotionContextForContextOverride:v9 guardedData:?];
     }
 
-    v67 = 4;
+    v68 = 4;
   }
 
-  v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v74, "canPredictClipsGivenRecentMotion")}];
-  v68 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverridecanPredictClipsGivenRecentMotion" fromContextOverride:overrideCopy withDefaultContext:v9 allowNilValues:0];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v75, "canPredictClipsGivenRecentMotion")}];
+  v69 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverridecanPredictClipsGivenRecentMotion" fromContextOverride:overrideCopy withDefaultContext:v10 allowNilValues:0];
 
   locationManager = [dataCopy locationManager];
   getCurrentLocation = [locationManager getCurrentLocation];
-  v12 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverrideCurrentLocation" fromContextOverride:overrideCopy withDefaultContext:getCurrentLocation allowNilValues:1];
+  v13 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverrideCurrentLocation" fromContextOverride:overrideCopy withDefaultContext:getCurrentLocation allowNilValues:1];
 
   locationManager2 = [dataCopy locationManager];
   previousLOIAndCurrentLOI = [locationManager2 previousLOIAndCurrentLOI];
@@ -420,164 +457,164 @@ void __93__ATXPredictionContextBuilder_updateContextStreamAndReturnPredictionCon
 
   if (first)
   {
-    v15 = objc_alloc(MEMORY[0x277CE41F8]);
+    v16 = objc_alloc(MEMORY[0x277CE41F8]);
     [first coordinate];
-    v17 = v16;
+    v18 = v17;
     [first coordinate];
-    v19 = [v15 initWithLatitude:v17 longitude:v18];
-    v20 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverridePreviousLocation" fromContextOverride:overrideCopy withDefaultContext:v19 allowNilValues:1];
+    v20 = [v16 initWithLatitude:v18 longitude:v19];
+    v21 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverridePreviousLocation" fromContextOverride:overrideCopy withDefaultContext:v20 allowNilValues:1];
   }
 
   else
   {
-    v20 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverridePreviousLocation" fromContextOverride:overrideCopy withDefaultContext:0 allowNilValues:1];
+    v21 = [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverridePreviousLocation" fromContextOverride:overrideCopy withDefaultContext:0 allowNilValues:1];
   }
 
-  v85 = 0;
-  v86 = &v85;
-  v87 = 0x3032000000;
-  v88 = __Block_byref_object_copy__23;
-  v89 = __Block_byref_object_dispose__23;
-  v90 = 0;
-  v21 = dispatch_semaphore_create(0);
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x3032000000;
+  v89 = __Block_byref_object_copy__23;
+  v90 = __Block_byref_object_dispose__23;
+  v91 = 0;
+  v22 = dispatch_semaphore_create(0);
   locationManager3 = [dataCopy locationManager];
-  v82[0] = MEMORY[0x277D85DD0];
-  v82[1] = 3221225472;
-  v82[2] = __83__ATXPredictionContextBuilder_locationMotionContextForContextOverride_guardedData___block_invoke;
-  v82[3] = &unk_278597EC0;
-  v84 = &v85;
-  v70 = v21;
-  v83 = v70;
-  [locationManager3 fetchAllLocationsOfInterest:v82];
+  v83[0] = MEMORY[0x277D85DD0];
+  v83[1] = 3221225472;
+  v83[2] = __83__ATXPredictionContextBuilder_locationMotionContextForContextOverride_guardedData___block_invoke;
+  v83[3] = &unk_278597EC0;
+  v85 = &v86;
+  v71 = v22;
+  v84 = v71;
+  [locationManager3 fetchAllLocationsOfInterest:v83];
 
-  if ([MEMORY[0x277D425A0] waitForSemaphore:v70 timeoutSeconds:5.0] == 1)
+  v24 = [MEMORY[0x277D425A0] waitForSemaphore:v71 timeoutSeconds:5.0];
+  if (v24 == 1)
   {
-    v23 = __atxlog_handle_default();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = __atxlog_handle_default(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [ATXPredictionContextBuilder locationMotionContextForContextOverride:v23 guardedData:?];
+      [ATXPredictionContextBuilder locationMotionContextForContextOverride:v25 guardedData:?];
     }
   }
 
-  [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverrideLocationsOfInterest" fromContextOverride:overrideCopy withDefaultContext:v86[5] allowNilValues:1];
-  v80 = 0u;
+  [(ATXPredictionContextBuilder *)self _getContextForOverrideKey:@"ATXContextOverrideLocationsOfInterest" fromContextOverride:overrideCopy withDefaultContext:v87[5] allowNilValues:1];
   v81 = 0u;
-  v78 = 0u;
-  obj = v79 = 0u;
-  v24 = [obj countByEnumeratingWithState:&v78 objects:v92 count:16];
-  v25 = *MEMORY[0x277D41CB8];
-  v26 = 0;
-  if (v24)
+  v82 = 0u;
+  v79 = 0u;
+  obj = v80 = 0u;
+  v26 = [obj countByEnumeratingWithState:&v79 objects:v93 count:16];
+  v27 = *MEMORY[0x277D41CB8];
+  v28 = 0;
+  if (v26)
   {
-    v77 = 0;
-    v27 = *MEMORY[0x277CE41E0];
-    v28 = *v79;
-    v29 = *MEMORY[0x277D41CB8];
-    v30 = *MEMORY[0x277D41CB8];
+    v78 = 0;
+    v29 = *MEMORY[0x277CE41E0];
+    v30 = *v80;
     v31 = *MEMORY[0x277D41CB8];
-    v32 = *MEMORY[0x277CE41E0];
+    v32 = *MEMORY[0x277D41CB8];
+    v33 = *MEMORY[0x277D41CB8];
+    v34 = *MEMORY[0x277CE41E0];
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v79 != v28)
+        if (*v80 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v78 + 1) + 8 * i);
-        v35 = objc_alloc(MEMORY[0x277CE41F8]);
-        [v34 coordinate];
-        v37 = v36;
-        [v34 coordinate];
-        v38 = [v35 initWithLatitude:v37 longitude:?];
-        [v12 distanceFromLocation:v38];
-        if (v12)
+        v36 = *(*(&v79 + 1) + 8 * i);
+        v37 = objc_alloc(MEMORY[0x277CE41F8]);
+        [v36 coordinate];
+        v39 = v38;
+        [v36 coordinate];
+        v40 = [v37 initWithLatitude:v39 longitude:?];
+        [v13 distanceFromLocation:v40];
+        if (v13)
         {
-          v40 = v39;
-          if (v39 < 400.0 && v39 < v32)
+          v42 = v41;
+          if (v41 < 400.0 && v41 < v34)
           {
-            v42 = v34;
+            v44 = v36;
 
-            v32 = v40;
-            v77 = v42;
+            v34 = v42;
+            v78 = v44;
           }
         }
 
-        [v20 distanceFromLocation:v38];
-        if (v20)
+        [v21 distanceFromLocation:v40];
+        if (v21)
         {
-          v44 = v43;
-          if (v43 < 400.0 && v43 < v27)
+          v46 = v45;
+          if (v45 < 400.0 && v45 < v29)
           {
-            v46 = v34;
+            v48 = v36;
 
-            v27 = v44;
-            v26 = v46;
+            v29 = v46;
+            v28 = v48;
           }
         }
 
-        if (v12)
+        if (v13)
         {
-          if (![v34 type])
+          if (![v36 type])
           {
-            [v12 distanceFromLocation:v38];
-            v25 = v47;
+            [v13 distanceFromLocation:v40];
+            v27 = v49;
           }
 
-          if ([v34 type] == 1)
+          if ([v36 type] == 1)
           {
-            [v12 distanceFromLocation:v38];
-            v29 = v48;
-          }
-
-          if ([v34 type] == 2)
-          {
-            [v12 distanceFromLocation:v38];
-            v30 = v49;
-          }
-
-          if ([v34 type] == 3)
-          {
-            [v12 distanceFromLocation:v38];
+            [v13 distanceFromLocation:v40];
             v31 = v50;
+          }
+
+          if ([v36 type] == 2)
+          {
+            [v13 distanceFromLocation:v40];
+            v32 = v51;
+          }
+
+          if ([v36 type] == 3)
+          {
+            [v13 distanceFromLocation:v40];
+            v33 = v52;
           }
         }
       }
 
-      v24 = [obj countByEnumeratingWithState:&v78 objects:v92 count:16];
+      v26 = [obj countByEnumeratingWithState:&v79 objects:v93 count:16];
     }
 
-    while (v24);
+    while (v26);
   }
 
   else
   {
-    v77 = 0;
-    v29 = *MEMORY[0x277D41CB8];
-    v30 = *MEMORY[0x277D41CB8];
+    v78 = 0;
     v31 = *MEMORY[0x277D41CB8];
+    v32 = *MEMORY[0x277D41CB8];
+    v33 = *MEMORY[0x277D41CB8];
   }
 
-  v51 = [ATXPredictionLocationMotionContext alloc];
-  bOOLValue = [v69 BOOLValue];
-  v53 = [MEMORY[0x277CCABB0] numberWithDouble:v25];
-  [v53 doubleValue];
-  v55 = v54;
-  v56 = [MEMORY[0x277CCABB0] numberWithDouble:v29];
-  [v56 doubleValue];
-  v58 = v57;
-  v59 = [MEMORY[0x277CCABB0] numberWithDouble:v30];
-  [v59 doubleValue];
-  v61 = v60;
-  v62 = [MEMORY[0x277CCABB0] numberWithDouble:v31];
-  [v62 doubleValue];
-  v64 = -[ATXPredictionLocationMotionContext initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:](v51, "initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:", v77, v26, v67, v12, bOOLValue, [v68 BOOLValue], v55, v58, v61, v63);
+  v53 = [ATXPredictionLocationMotionContext alloc];
+  bOOLValue = [v70 BOOLValue];
+  v55 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
+  [v55 doubleValue];
+  v57 = v56;
+  v58 = [MEMORY[0x277CCABB0] numberWithDouble:v31];
+  [v58 doubleValue];
+  v60 = v59;
+  v61 = [MEMORY[0x277CCABB0] numberWithDouble:v32];
+  [v61 doubleValue];
+  v63 = v62;
+  v64 = [MEMORY[0x277CCABB0] numberWithDouble:v33];
+  [v64 doubleValue];
+  v66 = -[ATXPredictionLocationMotionContext initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:](v53, "initWithCurrentLOI:previousLOI:motionType:currentLocation:locationEnabled:distanceFromHome:distanceFromWork:distanceFromSchool:distanceFromGym:canPredictClipsGivenRecentMotion:", v78, v28, v68, v13, bOOLValue, [v69 BOOLValue], v57, v60, v63, v65);
 
-  _Block_object_dispose(&v85, 8);
-  v65 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v86, 8);
 
-  return v64;
+  return v66;
 }
 
 void __83__ATXPredictionContextBuilder_locationMotionContextForContextOverride_guardedData___block_invoke(uint64_t a1, void *a2)
@@ -730,14 +767,14 @@ void __67__ATXPredictionContextBuilder_predictionContextForContextOverride___blo
 
 + (id)loadContextOverrideFromJSONFile:(id)file
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   appPredictionDirectory = [MEMORY[0x277CEBCB0] appPredictionDirectory];
-  v81 = fileCopy;
+  v80 = fileCopy;
   v5 = [appPredictionDirectory stringByAppendingPathComponent:fileCopy];
   v6 = [v5 stringByAppendingPathExtension:@"json"];
 
-  v80 = v6;
+  v79 = v6;
   v7 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v6];
   if (v7)
   {
@@ -798,8 +835,8 @@ void __67__ATXPredictionContextBuilder_predictionContextForContextOverride___blo
     v34 = objc_opt_new();
     v35 = objc_opt_new();
     uUIDString = [v35 UUIDString];
-    LODWORD(v78) = BMUserFocusInferredModeTypeFromString();
-    v37 = [v33 initWithAbsoluteTimestamp:v34 modeIdentifier:0 origin:1 originBundleID:0 isAutomationEnabled:uUIDString isStart:0 uuid:&unk_283A55730 originAnchorType:&unk_283A55748 uiLocation:MEMORY[0x277CBEBF8] confidenceScore:v78 serializedTriggers:MEMORY[0x277CBEC28] modeType:0 shouldSuggestTriggers:? userModeName:?];
+    LODWORD(v77) = BMUserFocusInferredModeTypeFromString();
+    v37 = [v33 initWithAbsoluteTimestamp:v34 modeIdentifier:0 origin:1 originBundleID:0 isAutomationEnabled:uUIDString isStart:0 uuid:&unk_283A55730 originAnchorType:&unk_283A55748 uiLocation:MEMORY[0x277CBEBF8] confidenceScore:v77 serializedTriggers:MEMORY[0x277CBEC28] modeType:0 shouldSuggestTriggers:? userModeName:?];
     [v9 setObject:v37 forKeyedSubscript:@"ATXContextOverrideInferredModeEvent"];
   }
 
@@ -828,43 +865,43 @@ void __67__ATXPredictionContextBuilder_predictionContextForContextOverride___blo
 
   if (v47)
   {
-    v79 = v7;
+    v78 = v7;
     v48 = [v9 objectForKeyedSubscript:@"ATXContextOverrideCandidateIdentifiersLaunchAge"];
     v49 = objc_opt_new();
+    v81 = 0u;
     v82 = 0u;
     v83 = 0u;
     v84 = 0u;
-    v85 = 0u;
     v50 = v48;
-    v51 = [v50 countByEnumeratingWithState:&v82 objects:v86 count:16];
+    v51 = [v50 countByEnumeratingWithState:&v81 objects:v85 count:16];
     if (v51)
     {
       v52 = v51;
-      v53 = *v83;
+      v53 = *v82;
       do
       {
         for (i = 0; i != v52; ++i)
         {
-          if (*v83 != v53)
+          if (*v82 != v53)
           {
             objc_enumerationMutation(v50);
           }
 
-          v55 = *(*(&v82 + 1) + 8 * i);
+          v55 = *(*(&v81 + 1) + 8 * i);
           v56 = MEMORY[0x277CBEAA8];
           v57 = [v50 objectForKeyedSubscript:v55];
           v58 = [v56 dateWithTimeIntervalSince1970:{objc_msgSend(v57, "integerValue")}];
           [v49 setObject:v58 forKeyedSubscript:v55];
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v82 objects:v86 count:16];
+        v52 = [v50 countByEnumeratingWithState:&v81 objects:v85 count:16];
       }
 
       while (v52);
     }
 
     [v9 setObject:v49 forKeyedSubscript:@"ATXContextOverrideCandidateIdentifiersLaunchAge"];
-    v7 = v79;
+    v7 = v78;
   }
 
   v59 = [v9 valueForKey:@"ATXContextOverrideBluetoothEvent"];
@@ -897,8 +934,6 @@ void __67__ATXPredictionContextBuilder_predictionContextForContextOverride___blo
     v75 = [(ATXMicrolocationVisitDuetEvent *)v70 initWithDominantMicrolocationUUID:v71 microlocationProbabilities:v72 startDate:v73 endDate:v74];
     [v9 setObject:v75 forKeyedSubscript:@"ATXContextOverrideMicrolocationVisitEvent"];
   }
-
-  v76 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -962,18 +997,19 @@ void __67__ATXPredictionContextBuilder_predictionContextForContextOverride___blo
 
 void __121__ATXPredictionContextBuilder_CandidateContext__predictionContextForCurrentContextAndCandidatePublisher_contextOverride___block_invoke(uint64_t a1, void *a2)
 {
-  if ([a2 state])
+  v3 = [a2 state];
+  if (v3)
   {
-    v3 = __atxlog_handle_relevance_model();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_relevance_model(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __121__ATXPredictionContextBuilder_CandidateContext__predictionContextForCurrentContextAndCandidatePublisher_contextOverride___block_invoke_cold_1(a1, v3);
+      __121__ATXPredictionContextBuilder_CandidateContext__predictionContextForCurrentContextAndCandidatePublisher_contextOverride___block_invoke_cold_1(a1, v4);
     }
 
-    v4 = objc_opt_new();
-    v5 = *(*(a1 + 40) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    v5 = objc_opt_new();
+    v6 = *(*(a1 + 40) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
   }
 }
 
@@ -992,15 +1028,12 @@ void __121__ATXPredictionContextBuilder_CandidateContext__predictionContextForCu
 
 void __121__ATXPredictionContextBuilder_CandidateContext__predictionContextForCurrentContextAndCandidatePublisher_contextOverride___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%@ - Error when querying for recently launched candidate. Returning empty set.", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%@ - Error when querying for recently launched candidate. Returning empty set.", &v5, 0xCu);
 }
 
 @end

@@ -28,6 +28,7 @@
 - (void)_persistenceDidUpdateSummaryForMessage:(id)message;
 - (void)_registerStateCapture;
 - (void)_setupPostingDelayDefaultsObserver;
+- (void)_updatePostingDelay:(BOOL)delay;
 - (void)activeAccountsDidChangeForNotificationCenterObserver:(id)observer;
 - (void)addSettingsObserver:(id)observer;
 - (void)cancelSummaryRequestForMessageWithExternalReference:(id)reference;
@@ -43,6 +44,7 @@
 - (void)notificationCenterObserver:(id)observer messagesUpdated:(id)updated flags:(id)flags;
 - (void)notificationCenterObserver:(id)observer removedVIPs:(id)ps;
 - (void)notifyMessagesAdded:(id)added context:(id)context;
+- (void)notifyMessagesAdded:(id)added isSummaryDownload:(BOOL)download;
 - (void)nts_removeNotificationsForRemovedAccounts;
 - (void)nts_resetUserNotificationCenterTopics;
 - (void)persistenceDidChangeGlobalMessageID:(int64_t)d orConversationID:(int64_t)iD message:(id)message generationWindow:(id)window;
@@ -93,9 +95,9 @@
   persistenceCopy = persistence;
   registryCopy = registry;
   collectorCopy = collector;
-  v68.receiver = self;
-  v68.super_class = MFUserNotificationCenterController;
-  v18 = [(MFUserNotificationCenterController *)&v68 init];
+  v67.receiver = self;
+  v67.super_class = MFUserNotificationCenterController;
+  v18 = [(MFUserNotificationCenterController *)&v67 init];
   v19 = v18;
   if (v18)
   {
@@ -179,7 +181,6 @@
     contentProtectionQueue = v19->_contentProtectionQueue;
     v19->_contentProtectionQueue = v55;
 
-    v57 = v19->_contentProtectionQueue;
     EFRegisterContentProtectionObserver();
     [(MFUserNotificationCenterController *)v19 _setupPostingDelayDefaultsObserver];
     [(MFUserNotificationCenterController *)v19 _registerStateCapture];
@@ -328,6 +329,23 @@
 
   objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
+}
+
+- (void)_updatePostingDelay:(BOOL)delay
+{
+  delayCopy = delay;
+  delayedNotificationPresenter = [(MFUserNotificationCenterController *)self delayedNotificationPresenter];
+  [(MFUserNotificationCenterController *)self _postingDelayIsMailForeground:delayCopy];
+  [delayedNotificationPresenter setPostingDelay:?];
+}
+
+- (void)notifyMessagesAdded:(id)added isSummaryDownload:(BOOL)download
+{
+  downloadCopy = download;
+  addedCopy = added;
+  v6 = objc_alloc_init(_MFUserNotificationCenterControllerContext);
+  [(_MFUserNotificationCenterControllerContext *)v6 setIsSummaryDownload:downloadCopy];
+  [(MFUserNotificationCenterController *)self notifyMessagesAdded:addedCopy context:v6];
 }
 
 - (void)notifyMessagesAdded:(id)added context:(id)context
@@ -608,26 +626,16 @@ LABEL_14:
   [v25 setSubtitle:subtitle];
 
   dateReceived2 = [messageCopy dateReceived];
-  if (!dateReceived2)
+  if (dateReceived2 && ([messageCopy dateReceived], v29 = objc_claimAutoreleasedReturnValue(), +[NSDate date](NSDate, "date"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v29, "ef_isEarlierThanDate:", v30), v30, v29, dateReceived2, v31))
   {
-    goto LABEL_12;
-  }
-
-  dateReceived3 = [messageCopy dateReceived];
-  v30 = +[NSDate date];
-  v31 = [dateReceived3 ef_isEarlierThanDate:v30];
-
-  if (v31)
-  {
-    dateReceived4 = [messageCopy dateReceived];
-    [v25 setDate:dateReceived4];
+    dateReceived3 = [messageCopy dateReceived];
+    [v25 setDate:dateReceived3];
   }
 
   else
   {
-LABEL_12:
-    dateReceived4 = +[NSDate date];
-    [v25 setDate:dateReceived4];
+    dateReceived3 = +[NSDate date];
+    [v25 setDate:dateReceived3];
   }
 
   [v25 setCategoryIdentifier:@"mail-message"];

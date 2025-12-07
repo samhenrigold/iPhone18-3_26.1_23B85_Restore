@@ -99,7 +99,7 @@ LABEL_12:
 {
   v3 = MEMORY[0x1E696AEC0];
   identifier = [(LNViewEntity *)self identifier];
-  v5 = LNViewLocationAsString(&self->_location);
+  v5 = LNViewLocationAsString(&self->_location.x);
   v6 = [v3 stringWithFormat:@"%@ @ %@", identifier, v5];
 
   return v6;

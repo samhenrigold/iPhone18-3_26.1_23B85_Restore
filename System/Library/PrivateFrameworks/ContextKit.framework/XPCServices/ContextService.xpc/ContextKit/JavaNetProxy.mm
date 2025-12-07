@@ -24,7 +24,7 @@
     sub_10014A084();
   }
 
-  if (v5 != JavaNetProxy_TypeEnum_values_)
+  if (v5 != JavaNetProxy_TypeEnum_values_[0])
   {
     address = self->address_;
     if (address)

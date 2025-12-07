@@ -398,9 +398,9 @@ uint64_t _IAPSendXPCMessageWithTimeout(_xpc_connection_s *a1, void *a2, uint64_t
   return v7;
 }
 
-void sub_2546BC974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2546BC974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -673,7 +673,7 @@ LABEL_50:
 
         if (v18 == MEMORY[0x277D86480])
         {
-          NSLog(&cfstr_SDUnhandledRep.isa, "IAPAppRegisterClient", 505, v29, __dst[0]);
+          NSLog(&cfstr_SDUnhandledRep.isa, "IAPAppRegisterClient", 505, v28, __dst[0]);
         }
 
         else
@@ -723,7 +723,7 @@ LABEL_25:
 
         else if (v26 == MEMORY[0x277D86480])
         {
-          NSLog(&cfstr_SDUnhandledRep.isa, "IAPAppRegisterClient", 553, v29);
+          NSLog(&cfstr_SDUnhandledRep.isa, "IAPAppRegisterClient", 553, v28);
         }
 
         else
@@ -746,7 +746,6 @@ LABEL_25:
   xpc_release(v11);
   pthread_mutex_unlock(&__eaClientPortLock);
   NSLog(&cfstr_Iapappregister_5.isa, v19);
-  v27 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -840,7 +839,7 @@ LABEL_24:
   return v12;
 }
 
-BOOL IAPAppToAppSocketPath(int a1, int a2, char *__str)
+BOOL IAPAppToAppSocketPath(int a1, uint64_t a2, char *__str)
 {
   if (__str)
   {
@@ -849,13 +848,13 @@ BOOL IAPAppToAppSocketPath(int a1, int a2, char *__str)
 
   else
   {
-    NSLog(&cfstr_ErrorSSDErrorP.isa, "/Library/Caches/com.apple.xbs/Sources/IAPFramework/IAP/IPC_Client/IAPApp.mm", "IAPAppToAppSocketPath", 371);
+    NSLog(&cfstr_ErrorSSDErrorP.isa, a2, "/Library/Caches/com.apple.xbs/Sources/IAPFramework/IAP/IPC_Client/IAPApp.mm", "IAPAppToAppSocketPath", 371);
   }
 
   return __str != 0;
 }
 
-BOOL IAPAppToAppFifoPath(int a1, int a2, char *__str)
+BOOL IAPAppToAppFifoPath(int a1, uint64_t a2, char *__str)
 {
   if (__str)
   {
@@ -864,13 +863,13 @@ BOOL IAPAppToAppFifoPath(int a1, int a2, char *__str)
 
   else
   {
-    NSLog(&cfstr_ErrorSSDErrorP.isa, "/Library/Caches/com.apple.xbs/Sources/IAPFramework/IAP/IPC_Client/IAPApp.mm", "IAPAppToAppFifoPath", 384);
+    NSLog(&cfstr_ErrorSSDErrorP.isa, a2, "/Library/Caches/com.apple.xbs/Sources/IAPFramework/IAP/IPC_Client/IAPApp.mm", "IAPAppToAppFifoPath", 384);
   }
 
   return __str != 0;
 }
 
-BOOL IAPAppFromAppFifoPath(int a1, int a2, char *__str)
+BOOL IAPAppFromAppFifoPath(int a1, uint64_t a2, char *__str)
 {
   if (__str)
   {
@@ -879,7 +878,7 @@ BOOL IAPAppFromAppFifoPath(int a1, int a2, char *__str)
 
   else
   {
-    NSLog(&cfstr_SSDErrorPathIs.isa, "/Library/Caches/com.apple.xbs/Sources/IAPFramework/IAP/IPC_Client/IAPApp.mm", "IAPAppFromAppFifoPath", 397);
+    NSLog(&cfstr_SSDErrorPathIs.isa, a2, "/Library/Caches/com.apple.xbs/Sources/IAPFramework/IAP/IPC_Client/IAPApp.mm", "IAPAppFromAppFifoPath", 397);
   }
 
   return __str != 0;
@@ -987,8 +986,9 @@ uint64_t IAPAppGetClientIDForIAP2D()
   return v0;
 }
 
-BOOL IAPAppCreateSessionForAccessory(unsigned int a1, unsigned int a2, _DWORD *a3)
+BOOL IAPAppCreateSessionForAccessory(uint64_t a1, unsigned int a2, _DWORD *a3)
 {
+  v5 = a1;
   v16 = 2;
   v6 = RetainConnectionToIAPDaemonWithConnectionID(a1, &v16);
   if (v6)
@@ -996,7 +996,7 @@ BOOL IAPAppCreateSessionForAccessory(unsigned int a1, unsigned int a2, _DWORD *a
     v7 = v6;
     v8 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v8, "requestType", "IAPAppCreateSessionForAccessory");
-    xpc_dictionary_set_uint64(v8, "connectionID", a1);
+    xpc_dictionary_set_uint64(v8, "connectionID", v5);
     xpc_dictionary_set_uint64(v8, "eaProtocolID", a2);
     if (v16)
     {
@@ -1069,8 +1069,9 @@ LABEL_22:
   return 0;
 }
 
-BOOL IAPAppOpenSessionFromAppToAccessory(unsigned int a1, unsigned int a2, unsigned int a3)
+BOOL IAPAppOpenSessionFromAppToAccessory(uint64_t a1, unsigned int a2, unsigned int a3)
 {
+  v5 = a1;
   v14 = 2;
   v6 = RetainConnectionToIAPDaemonWithConnectionID(a1, &v14);
   if (v6)
@@ -1078,7 +1079,7 @@ BOOL IAPAppOpenSessionFromAppToAccessory(unsigned int a1, unsigned int a2, unsig
     v7 = v6;
     v8 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v8, "requestType", "IAPAppOpenSessionFromAppToAccessory");
-    xpc_dictionary_set_uint64(v8, "connectionID", a1);
+    xpc_dictionary_set_uint64(v8, "connectionID", v5);
     xpc_dictionary_set_uint64(v8, "eaProtocolID", a2);
     xpc_dictionary_set_uint64(v8, "eaSessionID", a3);
     v9 = _IAPSendXPCMessageWithTimeout(v7, v8, __IAPAppSendXPCMessageDefaultTimeoutMs);
@@ -1133,8 +1134,9 @@ LABEL_17:
   return 0;
 }
 
-BOOL IAPAppOpenSessionFromAccessoryToApp(unsigned int a1, unsigned int a2, unsigned int a3)
+BOOL IAPAppOpenSessionFromAccessoryToApp(uint64_t a1, unsigned int a2, unsigned int a3)
 {
+  v5 = a1;
   v14 = 2;
   v6 = RetainConnectionToIAPDaemonWithConnectionID(a1, &v14);
   if (v6)
@@ -1142,7 +1144,7 @@ BOOL IAPAppOpenSessionFromAccessoryToApp(unsigned int a1, unsigned int a2, unsig
     v7 = v6;
     v8 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v8, "requestType", "IAPAppOpenSessionFromAccessoryToApp");
-    xpc_dictionary_set_uint64(v8, "connectionID", a1);
+    xpc_dictionary_set_uint64(v8, "connectionID", v5);
     xpc_dictionary_set_uint64(v8, "eaProtocolID", a2);
     xpc_dictionary_set_uint64(v8, "eaSessionID", a3);
     v9 = _IAPSendXPCMessageWithTimeout(v7, v8, __IAPAppSendXPCMessageDefaultTimeoutMs);
@@ -1197,8 +1199,9 @@ LABEL_17:
   return 0;
 }
 
-BOOL IAPAppCloseSessionToAccessory(unsigned int a1, unsigned int a2)
+BOOL IAPAppCloseSessionToAccessory(uint64_t a1, unsigned int a2)
 {
+  v3 = a1;
   v12 = 2;
   v4 = RetainConnectionToIAPDaemonWithConnectionID(a1, &v12);
   if (v4)
@@ -1206,7 +1209,7 @@ BOOL IAPAppCloseSessionToAccessory(unsigned int a1, unsigned int a2)
     v5 = v4;
     v6 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v6, "requestType", "IAPAppCloseSessionToAccessory");
-    xpc_dictionary_set_uint64(v6, "connectionID", a1);
+    xpc_dictionary_set_uint64(v6, "connectionID", v3);
     xpc_dictionary_set_uint64(v6, "eaSessionID", a2);
     v7 = _IAPSendXPCMessageWithTimeout(v5, v6, __IAPAppSendXPCMessageDefaultTimeoutMs);
     if (!v7)
@@ -1319,8 +1322,9 @@ void __IAPAppStopAccessibility_block_invoke()
   }
 }
 
-BOOL IAPAppSendAccessibilityResponse(unsigned int a1, uint64_t a2)
+BOOL IAPAppSendAccessibilityResponse(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   v14 = 2;
   v4 = RetainConnectionToIAPDaemonWithConnectionID(a1, &v14);
   v5 = v4;
@@ -1329,7 +1333,7 @@ BOOL IAPAppSendAccessibilityResponse(unsigned int a1, uint64_t a2)
     v6 = objc_autoreleasePoolPush();
     v7 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v7, "requestType", "IAPAppAccessibilityResponse");
-    xpc_dictionary_set_uint64(v7, "connectionID", a1);
+    xpc_dictionary_set_uint64(v7, "connectionID", v3);
     v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:a2 format:200 options:0 error:0];
     if (v8)
     {
@@ -1396,8 +1400,9 @@ LABEL_23:
   return result;
 }
 
-BOOL IAPAppSendPointOfInterestInformation(unsigned int a1, void *a2, void *a3)
+BOOL IAPAppSendPointOfInterestInformation(uint64_t a1, void *a2, void *a3)
 {
+  v5 = a1;
   v15 = 2;
   v6 = RetainConnectionToIAPDaemonWithConnectionID(a1, &v15);
   v7 = v6;
@@ -1406,7 +1411,7 @@ BOOL IAPAppSendPointOfInterestInformation(unsigned int a1, void *a2, void *a3)
     v8 = objc_autoreleasePoolPush();
     v9 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v9, "requestType", "IAPDestinationtInformation");
-    xpc_dictionary_set_uint64(v9, "connectionID", a1);
+    xpc_dictionary_set_uint64(v9, "connectionID", v5);
     xpc_dictionary_set_data(v9, "IAPDestinationtInformationIdentifierStr", [objc_msgSend(a3 dataUsingEncoding:{4), "bytes"}], objc_msgSend(a3, "lengthOfBytesUsingEncoding:", 4));
     xpc_dictionary_set_data(v9, "IAPDestinationInformationParametersStr", [a2 bytes], objc_msgSend(a2, "length"));
     v10 = _IAPSendXPCMessageWithTimeout(v7, v9, __IAPAppSendXPCMessageDefaultTimeoutMs);
@@ -1469,8 +1474,9 @@ LABEL_22:
   return result;
 }
 
-void IAPAppBeginOOBBTPairingForConnection(unsigned int a1)
+void IAPAppBeginOOBBTPairingForConnection(uint64_t a1)
 {
+  v1 = a1;
   v6 = 2;
   v2 = RetainConnectionToIAPDaemonWithConnectionID(a1, &v6);
   if (v2)
@@ -1479,7 +1485,7 @@ void IAPAppBeginOOBBTPairingForConnection(unsigned int a1)
     v4 = objc_autoreleasePoolPush();
     v5 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(v5, "requestType", "IAPAppBeginOOBPairingStr");
-    xpc_dictionary_set_uint64(v5, "connectionID", a1);
+    xpc_dictionary_set_uint64(v5, "connectionID", v1);
     xpc_connection_send_message(v3, v5);
     xpc_release(v5);
     objc_autoreleasePoolPop(v4);
@@ -1808,7 +1814,7 @@ LABEL_27:
   return result;
 }
 
-void *IAPRegisterEAAuthGetters(void *result, void *a2)
+uint64_t (*IAPRegisterEAAuthGetters(uint64_t (*result)(void), uint64_t (*a2)(void)))(void)
 {
   _eaAuthDataGetter = result;
   _eaAuthSerialStringGetter = a2;
@@ -2994,22 +3000,21 @@ void __invalidateIAPDServerPort(__CFMachPort *a1, void *a2)
 BOOL __hasSandbox(NSString *a1)
 {
   getpid();
-  v2 = *MEMORY[0x277D861D8];
   [(NSString *)a1 UTF8String];
-  v3 = sandbox_check();
-  if (v3)
+  v2 = sandbox_check();
+  if (v2)
   {
     syslog(6, "%s: Client not sandboxed to %@", "__hasSandbox", a1);
-    v4 = "NOT ";
+    v3 = "NOT ";
   }
 
   else
   {
-    v4 = "";
+    v3 = "";
   }
 
-  syslog(7, "%s: Client %ssandboxed to %@", "__hasSandbox", v4, a1);
-  return v3 == 0;
+  syslog(7, "%s: Client %ssandboxed to %@", "__hasSandbox", v3, a1);
+  return v2 == 0;
 }
 
 uint64_t __hasEntitlement(const NSString *a1)
@@ -4137,7 +4142,7 @@ uint64_t IAPAudioUnregisterVolumeChangedCallback()
   return 1;
 }
 
-_xpc_connection_s *IAPAudioSetVolumeForTransport(unsigned int a1, float a2)
+uint64_t IAPAudioSetVolumeForTransport(unsigned int a1, float a2)
 {
   v7 = 2;
   result = RetainConnectionToIAPDaemonOwningPhysicalConnector(&v7);
@@ -4403,7 +4408,7 @@ LABEL_21:
   return 0;
 }
 
-_xpc_connection_s *IAPAudioStartPlaybackForTransport(unsigned int a1)
+uint64_t IAPAudioStartPlaybackForTransport(unsigned int a1)
 {
   v5 = 2;
   result = RetainConnectionToIAPDaemonOwningPhysicalConnector(&v5);
@@ -4426,7 +4431,7 @@ _xpc_connection_s *IAPAudioStartPlaybackForTransport(unsigned int a1)
   return result;
 }
 
-_xpc_connection_s *IAPAudioStopPlaybackForTransport(unsigned int a1)
+uint64_t IAPAudioStopPlaybackForTransport(unsigned int a1)
 {
   v5 = 2;
   result = RetainConnectionToIAPDaemonOwningPhysicalConnector(&v5);
@@ -4870,14 +4875,14 @@ uint64_t IsAppVisibleInCurrentMode(uint64_t a1)
   return v6;
 }
 
-void sub_2546C7E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2546C7E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __IsAppVisibleInCurrentMode_block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__IsAppVisibleInCurrentMode_block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isEqual:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6418,7 +6423,7 @@ uint64_t IAPBluetoothXPCHandleReply(const char *a1, void *a2)
 
 uint64_t IAPBluetoothDeviceAllocAccessoryPairingInfo(uint64_t a1)
 {
-  v23[5] = *MEMORY[0x277D85DE8];
+  v22[5] = *MEMORY[0x277D85DE8];
   v2 = RetainConnectionToIAP2Daemon();
   if (v2)
   {
@@ -6442,16 +6447,16 @@ LABEL_7:
 LABEL_14:
       xpc_release(v4);
       xpc_release(v3);
-      goto LABEL_15;
+      return v7;
     }
 
     uint64 = xpc_dictionary_get_uint64(v6, "connectionID");
     string = xpc_dictionary_get_string(v6, "btInfoAccessoryMfg");
     v10 = xpc_dictionary_get_string(v6, "btInfoAccessoryModel");
-    v20 = 0;
+    v19 = 0;
     length = 0;
     data = xpc_dictionary_get_data(v6, "btInfoPairUUID", &length);
-    v12 = xpc_dictionary_get_data(v6, "btInfoPairTypes", &v20);
+    v12 = xpc_dictionary_get_data(v6, "btInfoPairTypes", &v19);
     v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:uint64];
     if (string)
     {
@@ -6462,18 +6467,18 @@ LABEL_10:
         v15 = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:4];
 LABEL_13:
         v16 = [MEMORY[0x277CBEA90] dataWithBytes:data length:length];
-        v17 = [MEMORY[0x277CBEA90] dataWithBytes:v12 length:v20];
-        v22[0] = @"IAPAppBTPairingConnectionIDKey";
-        v22[1] = @"IAPAppBTPairingAccManufacturer";
-        v23[0] = v13;
-        v23[1] = v14;
-        v22[2] = @"IAPAppBTPairingAccModel";
-        v22[3] = @"IAPAppBTPairingUUIDKey";
-        v23[2] = v15;
-        v23[3] = v16;
-        v22[4] = @"IAPAppBTPairingTypesSupportedKey";
-        v23[4] = v17;
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
+        v17 = [MEMORY[0x277CBEA90] dataWithBytes:v12 length:v19];
+        v21[0] = @"IAPAppBTPairingConnectionIDKey";
+        v21[1] = @"IAPAppBTPairingAccManufacturer";
+        v22[0] = v13;
+        v22[1] = v14;
+        v21[2] = @"IAPAppBTPairingAccModel";
+        v21[3] = @"IAPAppBTPairingUUIDKey";
+        v22[2] = v15;
+        v22[3] = v16;
+        v21[4] = @"IAPAppBTPairingTypesSupportedKey";
+        v22[4] = v17;
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
         xpc_release(v6);
         goto LABEL_14;
       }
@@ -6493,10 +6498,7 @@ LABEL_13:
   }
 
   syslog(3, "%s ERROR: piAP2XpcConn = NULL !\n", "IAPBluetoothDeviceAllocAccessoryPairingInfo");
-  v7 = 0;
-LABEL_15:
-  v18 = *MEMORY[0x277D85DE8];
-  return v7;
+  return 0;
 }
 
 uint64_t IAPBluetoothDeviceStartBLEUpdates(uint64_t a1, unsigned int a2, BOOL a3, BOOL a4)

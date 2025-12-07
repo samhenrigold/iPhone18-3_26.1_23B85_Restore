@@ -10,7 +10,7 @@
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(BKSDisplayRenderOverlay *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(BKSDisplayRenderOverlay *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;
@@ -18,10 +18,10 @@
 
 - (id)succinctDescriptionBuilder
 {
-  v3 = [MEMORY[0x1E698E680] builderWithObject:self->_descriptor];
-  v4 = [v3 appendObject:self->_descriptor withName:@"descriptor"];
+  v2 = [MEMORY[0x1E698E680] builderWithObject:?];
+  v3 = [v2 appendObject:? withName:?];
 
-  return v3;
+  return v2;
 }
 
 - (id)succinctDescription
@@ -47,8 +47,7 @@
 
 void __48__BKSDisplayRenderOverlay_dismissWithAnimation___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v1 = *(a1 + 40);
   BSRunLoopPerformAfterCACommit();
 }
 

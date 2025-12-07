@@ -62,53 +62,53 @@
 - (NSDictionary)initWithFMDCoder:(id)coder error:(id *)error
 {
   coderCopy = coder;
-  v31 = +[NSMutableDictionary dictionary];
+  v32 = +[NSMutableDictionary dictionary];
   v5 = 0;
   v6 = 0;
   while (1)
   {
     v7 = [NSSet setWithObject:&OBJC_PROTOCOL___FMDCodable];
     v8 = [NSString stringWithFormat:@"FM.key.%ld", v5];
-    v33 = v6;
-    v9 = [coderCopy decodeObjectOfProtocols:v7 forKey:v8 error:&v33];
-    v10 = v33;
+    v34 = v6;
+    v9 = [coderCopy decodeObjectOfProtocols:v7 forKey:v8 error:&v34];
+    v10 = v34;
 
     if (v10)
     {
       userInfo = [v10 userInfo];
-      v15 = [NSMutableDictionary dictionaryWithDictionary:userInfo];
+      v16 = [NSMutableDictionary dictionaryWithDictionary:userInfo];
 
-      v38 = NSLocalizedFailureReasonErrorKey;
-      v16 = [NSString stringWithFormat:@"Unexpected object nil for key FM.key.%lu", v5];
-      v39 = v16;
-      v17 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-      v18 = [NSError errorWithDomain:@"FMDictionaryError" code:-1 userInfo:v17];
-      [v15 setObject:v18 forKeyedSubscript:NSUnderlyingErrorKey];
+      v39 = NSLocalizedFailureReasonErrorKey;
+      v17 = [NSString stringWithFormat:@"Unexpected object nil for key FM.key.%lu", v5];
+      v40 = v17;
+      v18 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v19 = [NSError errorWithDomain:@"FMDictionaryError" code:-1 userInfo:v18];
+      [v16 setObject:v19 forKeyedSubscript:NSUnderlyingErrorKey];
 
       domain = [v10 domain];
-      v20 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", domain, [v10 code], v15);
+      v21 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", domain, [v10 code], v16);
 
       goto LABEL_11;
     }
 
     if (!v9)
     {
-      v20 = 0;
+      v21 = 0;
       goto LABEL_12;
     }
 
-    v11 = [NSSet setWithObject:&OBJC_PROTOCOL___FMDCodable];
-    v12 = [NSString stringWithFormat:@"FM.object.%ld", v5];
-    v32 = 0;
-    v13 = [coderCopy decodeObjectOfProtocols:v11 forKey:v12 error:&v32];
-    v6 = v32;
+    v12 = [NSSet setWithObject:&OBJC_PROTOCOL___FMDCodable];
+    v13 = [NSString stringWithFormat:@"FM.object.%ld", v5];
+    v33 = 0;
+    v14 = [coderCopy decodeObjectOfProtocols:v12 forKey:v13 error:&v33];
+    v6 = v33;
 
-    if (!v13)
+    if (!v14)
     {
       break;
     }
 
-    [v31 setObject:v13 forKey:v9];
+    [v32 setObject:v14 forKey:v9];
 
     ++v5;
   }
@@ -116,49 +116,49 @@
   if (v6)
   {
     userInfo2 = [v6 userInfo];
-    v15 = [NSMutableDictionary dictionaryWithDictionary:userInfo2];
+    v16 = [NSMutableDictionary dictionaryWithDictionary:userInfo2];
 
-    v36 = NSLocalizedFailureReasonErrorKey;
-    v22 = [NSString stringWithFormat:@"Unexpected object nil for key FM.object.%lu", v5];
-    v37 = v22;
-    v23 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v24 = [NSError errorWithDomain:@"FMDictionaryError" code:-1 userInfo:v23];
-    [v15 setObject:v24 forKeyedSubscript:NSUnderlyingErrorKey];
+    v37 = NSLocalizedFailureReasonErrorKey;
+    v23 = [NSString stringWithFormat:@"Unexpected object nil for key FM.object.%lu", v5];
+    v38 = v23;
+    v24 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v25 = [NSError errorWithDomain:@"FMDictionaryError" code:-1 userInfo:v24];
+    [v16 setObject:v25 forKeyedSubscript:NSUnderlyingErrorKey];
 
     domain = [v6 domain];
-    v20 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", domain, [v6 code], v15);
+    v21 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", domain, [v6 code], v16);
   }
 
   else
   {
-    v34 = NSLocalizedFailureReasonErrorKey;
-    v15 = [NSString stringWithFormat:@"Unexpected object nil for key FM.object.%lu", v5];
-    v35 = v15;
-    domain = [NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-    v20 = [NSError errorWithDomain:@"FMDictionaryError" code:-1 userInfo:domain];
+    v35 = NSLocalizedFailureReasonErrorKey;
+    v16 = [NSString stringWithFormat:@"Unexpected object nil for key FM.object.%lu", v5];
+    v36 = v16;
+    domain = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v21 = [NSError errorWithDomain:@"FMDictionaryError" code:-1 userInfo:domain];
   }
 
 LABEL_11:
 
 LABEL_12:
-  if (v20)
+  if (v21)
   {
-    v25 = sub_10017DAFC();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = sub_10017DAFC(v11);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      sub_100227D3C(v20, v25);
+      sub_100227D3C(v21, v26);
     }
 
     if (error)
     {
-      v26 = v20;
-      *error = v20;
+      v27 = v21;
+      *error = v21;
     }
   }
 
-  v27 = [(NSDictionary *)self initWithDictionary:v31];
+  v28 = [(NSDictionary *)self initWithDictionary:v32];
 
-  return v27;
+  return v28;
 }
 
 - (id)stringForCaseInsensitiveStringKey:(id)key

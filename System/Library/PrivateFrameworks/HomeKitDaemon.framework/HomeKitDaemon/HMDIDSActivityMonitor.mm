@@ -26,7 +26,7 @@
 
 - (void)listenWithDelegate:(id)delegate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -34,9 +34,9 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Enabling IDSActivityMonitor", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Enabling IDSActivityMonitor", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -45,8 +45,6 @@
 
   activityMonitor2 = [(HMDIDSActivityMonitor *)selfCopy activityMonitor];
   [activityMonitor2 setListeningForUpdates:1];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDIDSActivityMonitor)initWithActivity:(id)activity serviceIdentifier:(id)identifier
@@ -80,10 +78,9 @@
 
 void __36__HMDIDSActivityMonitor_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_206150;
-  logCategory__hmf_once_v2_206150 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_206150;
+  logCategory__hmf_once_v2_206150 = v0;
 }
 
 @end

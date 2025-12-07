@@ -37,7 +37,7 @@
 
 - (void)_axApplyCustomAction:(id)action
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   actionCopy = action;
   _axMainImageView = [(PUVideoTileViewControllerAccessibility *)self _axMainImageView];
   accessibilityCustomActions = [_axMainImageView accessibilityCustomActions];
@@ -48,27 +48,27 @@
     v7 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        name = [*(*(&v17 + 1) + 8 * v12) name];
+        name = [*(*(&v16 + 1) + 8 * v12) name];
         name2 = [actionCopy name];
         v15 = [name isEqualToString:name2];
 
@@ -82,7 +82,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -95,8 +95,6 @@
   [v8 addObject:actionCopy];
   [_axMainImageView setAccessibilityCustomActions:v8];
 LABEL_13:
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 @end

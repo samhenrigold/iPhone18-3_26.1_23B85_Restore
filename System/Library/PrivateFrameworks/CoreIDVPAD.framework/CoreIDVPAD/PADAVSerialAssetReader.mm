@@ -61,7 +61,7 @@
       v34 = 0;
       if (v7)
       {
-        [v7 duration];
+        objc_msgSend_duration(v7);
         v18 = v32;
         v19 = v33;
       }

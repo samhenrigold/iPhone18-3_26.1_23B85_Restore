@@ -112,7 +112,7 @@
   {
     self->_shouldInsetContentForGrabber = grabber;
     view = [(SBHWidgetSearchController *)self view];
-    [view bounds];
+    objc_msgSend_bounds(view);
     [(SBHWidgetSearchController *)self updateSearchBarContentInsetsWithWidth:v5];
   }
 }
@@ -124,7 +124,7 @@
     self->_applicationCellIncludesGalleryListView = view;
     [(SBHWidgetSearchController *)self _setupTextFieldMetrics];
     view = [(SBHWidgetSearchController *)self view];
-    [view bounds];
+    objc_msgSend_bounds(view);
     [(SBHWidgetSearchController *)self updateSearchBarContentInsetsWithWidth:v5];
   }
 }
@@ -145,7 +145,7 @@
       self->_widthDefiningGridSizeClass = v6;
 
       view = [(SBHWidgetSearchController *)self view];
-      [view bounds];
+      objc_msgSend_bounds(view);
       [(SBHWidgetSearchController *)self updateSearchBarContentInsetsWithWidth:v9];
 
       classCopy = v10;
@@ -326,80 +326,80 @@
   {
     searchBar = [(SBHWidgetSearchController *)self searchBar];
     v5 = objc_alloc_init(SBHDefaultIconListLayoutProvider);
-    v6 = [(SBHDefaultIconListLayoutProvider *)v5 layoutForIconLocation:@"SBIconLocationRoot"];
-    v7 = v6;
+    listLayoutProvider = [(SBHDefaultIconListLayoutProvider *)v5 layoutForIconLocation:@"SBIconLocationRoot"];
+    v7 = listLayoutProvider;
     widthDefiningGridSizeClass = self->_widthDefiningGridSizeClass;
     if (!widthDefiningGridSizeClass)
     {
       goto LABEL_8;
     }
 
-    v9 = fmax(SBHIconListLayoutIconImageInfoForGridSizeClass(v6, widthDefiningGridSizeClass), 0.0);
+    v9 = fmax(SBHIconListLayoutIconImageInfoForGridSizeClass(listLayoutProvider, widthDefiningGridSizeClass), 0.0);
     listLayoutProvider = self->_listLayoutProvider;
     if (listLayoutProvider)
     {
-      v11 = [(SBIconListLayoutProvider *)listLayoutProvider layoutForIconLocation:@"SBIconLocationRoot"];
-      v12 = SBHIconListLayoutIconImageInfoForGridSizeClass(v11, self->_widthDefiningGridSizeClass);
-      if (v12 > 0.0)
+      v10 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationRoot"];
+      v11 = SBHIconListLayoutIconImageInfoForGridSizeClass(v10, self->_widthDefiningGridSizeClass);
+      if (v11 > 0.0)
       {
-        v9 = v12;
+        v9 = v11;
       }
     }
 
     if (v9 <= 0.0)
     {
 LABEL_8:
-      v13 = SBHScreenTypeForCurrentDevice();
+      v12 = SBHScreenTypeForCurrentDevice(listLayoutProvider, widthDefiningGridSizeClass);
       if (self->_addWidgetSheetStyle == 1)
       {
         v9 = 450.0;
       }
 
-      else if ((v13 - 100) >= 0x13)
+      else if ((v12 - 100) >= 0x13)
       {
         v9 = SBHIconListLayoutIconImageInfoForGridSizeClass(v7, @"SBHIconGridSizeClassMedium");
       }
 
       else
       {
-        v9 = dbl_1BEE89C90[v13 - 100];
+        v9 = dbl_1BEE89C90[v12 - 100];
       }
     }
 
-    v14 = (width - v9) * 0.5;
+    v13 = (width - v9) * 0.5;
     [(SBHWidgetSearchController *)self textFieldExtraHeight];
-    v16 = v15;
+    v15 = v14;
     [(SBHWidgetSearchController *)self textFieldToWidgetsSpacing];
-    v18 = v17;
+    v17 = v16;
     if (self->_addWidgetSheetStyle == 1)
     {
-      v19 = 0.0;
+      v18 = 0.0;
       if (self->_shouldInsetContentForGrabber)
       {
         if (_SBHAddWidgetSheetGrabberHeight_onceToken != -1)
         {
-          v21 = v18;
+          v20 = v17;
           [SBHWidgetSearchController updateSearchBarContentInsetsWithWidth:];
-          v18 = v21;
+          v17 = v20;
         }
 
-        v19 = *&_SBHAddWidgetSheetGrabberHeight_grabberHeight + 21.0;
+        v18 = *&_SBHAddWidgetSheetGrabberHeight_grabberHeight + 21.0;
       }
     }
 
     else
     {
-      v20 = 27.0;
+      v19 = 27.0;
       if (self->_shouldInsetContentForGrabber)
       {
-        v20 = v14;
+        v19 = v13;
       }
 
-      v19 = v16 + v20;
-      v18 = v16 + v18;
+      v18 = v15 + v19;
+      v17 = v15 + v17;
     }
 
-    [searchBar setContentInset:{v19, v14, v18, v14}];
+    [searchBar setContentInset:{v18, v13, v17, v13}];
   }
 }
 

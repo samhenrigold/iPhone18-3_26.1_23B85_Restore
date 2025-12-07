@@ -24,13 +24,13 @@
 - (void)playbackCoordinator:(id)coordinator broadcastLocalParticipantStateDictionary:(id)dictionary
 {
   type metadata accessor for AVPlaybackCoordinationParticipantStateKey(0);
-  sub_20C50EAB4(&qword_27C7C4358, type metadata accessor for AVPlaybackCoordinationParticipantStateKey);
-  sub_20C5A02BC();
+  sub_20C50EAB4(&qword_27C7C4358, type metadata accessor for AVPlaybackCoordinationParticipantStateKey, &unk_20C5A2A94);
+  v5 = sub_20C5A02BC();
   if (swift_unknownObjectWeakLoadStrong())
   {
     type metadata accessor for MediaPlayerSyncCoordinator();
     selfCopy = self;
-    sub_20C50D114();
+    sub_20C50D114(v5);
     swift_unknownObjectRelease();
   }
 }
@@ -38,14 +38,15 @@
 - (void)playbackCoordinator:(id)coordinator broadcastTransportControlStateDictionary:(id)dictionary forItemWithIdentifier:(id)identifier
 {
   type metadata accessor for AVPlaybackCoordinationTransportControlStateKey(0);
-  sub_20C50EAB4(&qword_27C7C4348, type metadata accessor for AVPlaybackCoordinationTransportControlStateKey);
-  sub_20C5A02BC();
-  sub_20C5A039C();
+  sub_20C50EAB4(&qword_27C7C4348, type metadata accessor for AVPlaybackCoordinationTransportControlStateKey, &unk_20C5A2BD4);
+  v6 = sub_20C5A02BC();
+  v7 = sub_20C5A039C();
+  v9 = v8;
   if (swift_unknownObjectWeakLoadStrong())
   {
     type metadata accessor for MediaPlayerSyncCoordinator();
     selfCopy = self;
-    sub_20C50D178();
+    sub_20C50D178(v7, v9, v6);
     swift_unknownObjectRelease();
   }
 }

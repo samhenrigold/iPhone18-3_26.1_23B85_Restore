@@ -5,6 +5,7 @@
 - (void)_handleSingleTap:(id)tap;
 - (void)_hideOverlayViewWithCompletionBlock:(id)block;
 - (void)_overlayIdleTimerFired:(id)fired;
+- (void)_showOverlayViewQuickHide:(BOOL)hide;
 @end
 
 @implementation VideosPlaybackViewControllerAccessibility
@@ -91,6 +92,20 @@
   v5.receiver = self;
   v5.super_class = VideosPlaybackViewControllerAccessibility;
   [(VideosPlaybackViewControllerAccessibility *)&v5 _handleSingleTap:tapCopy];
+}
+
+- (void)_showOverlayViewQuickHide:(BOOL)hide
+{
+  hideCopy = hide;
+  _axOverlayViewVisible = [(VideosPlaybackViewControllerAccessibility *)self _axOverlayViewVisible];
+  v7.receiver = self;
+  v7.super_class = VideosPlaybackViewControllerAccessibility;
+  [(VideosPlaybackViewControllerAccessibility *)&v7 _showOverlayViewQuickHide:hideCopy];
+  _axOverlayViewVisible2 = [(VideosPlaybackViewControllerAccessibility *)self _axOverlayViewVisible];
+  if (_axOverlayViewVisible != _axOverlayViewVisible2)
+  {
+    [(VideosPlaybackViewControllerAccessibility *)self _axAnnounceControlsVisible:_axOverlayViewVisible2];
+  }
 }
 
 - (void)_overlayIdleTimerFired:(id)fired

@@ -185,7 +185,7 @@
 
 - (void)setLoopingEnabled:(BOOL)loopingEnabled
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   if (*(impl + 16) != loopingEnabled)
   {
@@ -203,14 +203,14 @@
       v6 = -1;
     }
 
-    v16 = v6;
-    LengthInBeats = v15;
-    if (v15 <= outData)
+    v15 = v6;
+    LengthInBeats = v14;
+    if (v14 <= outData)
     {
       LengthInBeats = MusicTrackImpl::DoGetLengthInBeats(*impl);
     }
 
-    v15 = LengthInBeats;
+    v14 = LengthInBeats;
     if (kAVASScope)
     {
       v8 = *kAVASScope;
@@ -220,7 +220,7 @@ LABEL_16:
         v11 = MusicTrackSetProperty(*impl, 7u, &outData, ioLength);
         _AVAE_CheckNoErr("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioSequencerImpl.mm", 517, "EnableLooping", "MusicTrackSetProperty(mTrack, kSequenceTrackProperty_LoopRegion, &region, pLen)", v11, 0);
         *(impl + 16) = v4;
-        goto LABEL_17;
+        return;
       }
     }
 
@@ -233,29 +233,26 @@ LABEL_16:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v10 = "dis";
-      v18 = "AVAudioSequencerImpl.mm";
-      v19 = 1024;
+      v17 = "AVAudioSequencerImpl.mm";
+      v18 = 1024;
       *buf = 136316162;
       if (v4)
       {
         v10 = "en";
       }
 
-      v20 = 516;
-      v21 = 2080;
-      v22 = v10;
-      v23 = 2048;
-      v24 = outData;
-      v25 = 2048;
-      v26 = LengthInBeats;
+      v19 = 516;
+      v20 = 2080;
+      v21 = v10;
+      v22 = 2048;
+      v23 = outData;
+      v24 = 2048;
+      v25 = LengthInBeats;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d %sabling looping [%.2f - %.2f]", buf, 0x30u);
     }
 
     goto LABEL_16;
   }
-
-LABEL_17:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isLoopingEnabled
@@ -270,7 +267,7 @@ LABEL_17:
 - (void)setLoopRange:(AVBeatRange)loopRange
 {
   start = loopRange.start;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   v6 = loopRange.start + loopRange.length;
   if (loopRange.length == 1.79769313e308)
@@ -286,7 +283,7 @@ LABEL_17:
   ioLength = 24;
   Property = MusicTrackGetProperty(*impl, 7u, &outData, &ioLength);
   _AVAE_CheckNoErr("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioSequencerImpl.mm", 490, "SetLoopEnd", "MusicTrackGetProperty(mTrack, kSequenceTrackProperty_LoopRegion, &region, &pLen)", Property, 0);
-  v20 = length;
+  v19 = length;
   if (kAVASScope)
   {
     v9 = *kAVASScope;
@@ -305,13 +302,13 @@ LABEL_17:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v22 = "AVAudioSequencerImpl.mm";
-    v23 = 1024;
-    v24 = 493;
-    v25 = 2048;
-    v26 = length;
-    v27 = 2048;
-    v28 = outData;
+    v21 = "AVAudioSequencerImpl.mm";
+    v22 = 1024;
+    v23 = 493;
+    v24 = 2048;
+    v25 = length;
+    v26 = 2048;
+    v27 = outData;
     _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d end -> %.2f [start %.2f]", buf, 0x26u);
   }
 
@@ -341,20 +338,19 @@ LABEL_11:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v22 = "AVAudioSequencerImpl.mm";
-    v23 = 1024;
-    v24 = 474;
-    v25 = 2048;
-    v26 = start;
-    v27 = 2048;
-    v28 = v20;
+    v21 = "AVAudioSequencerImpl.mm";
+    v22 = 1024;
+    v23 = 474;
+    v24 = 2048;
+    v25 = start;
+    v26 = 2048;
+    v27 = v19;
     _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d start -> %.2f [end %.2f]", buf, 0x26u);
   }
 
 LABEL_18:
   v16 = MusicTrackSetProperty(*v12, 7u, &outData, ioLength);
   _AVAE_CheckNoErr("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioSequencerImpl.mm", 475, "SetLoopStart", "MusicTrackSetProperty(mTrack, kSequenceTrackProperty_LoopRegion, &region, pLen)", v16, 0);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (AVBeatRange)loopRange
@@ -393,19 +389,17 @@ LABEL_18:
   impl = self->_impl;
   v5 = destinationAudioUnit;
   v6 = v5;
-  v7 = (impl + 1);
   if (impl[1] != v5)
   {
     if (v5)
     {
-      [(AVAudioUnit *)v5 audioComponentDescription];
+      objc_msgSend_audioComponentDescription(v5);
     }
 
-    v8 = *impl;
     [(AVAudioUnit *)v6 audioUnit];
-    v9 = MusicTrackSetDestinationAU();
-    _AVAE_CheckNoErr("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioSequencerImpl.mm", 348, "SetDestinationAudioUnit", "MusicTrackSetDestinationAU(mTrack, inUnit.audioUnit, &desc)", v9, 0);
-    objc_storeStrong(v7, destinationAudioUnit);
+    v7 = MusicTrackSetDestinationAU();
+    _AVAE_CheckNoErr("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioSequencerImpl.mm", 348, "SetDestinationAudioUnit", "MusicTrackSetDestinationAU(mTrack, inUnit.audioUnit, &desc)", v7, 0);
+    objc_storeStrong(impl + 1, destinationAudioUnit);
   }
 }
 

@@ -31,7 +31,7 @@
     connection = v7->_connection;
     if (connection)
     {
-      [(NSXPCConnection *)connection auditToken];
+      objc_msgSend_auditToken(connection);
       v9 = DWORD1(v42);
     }
 
@@ -170,29 +170,27 @@ LABEL_17:
 
 void __54__SUManagerServerClient_monitorClientStateIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D46FB0];
   v4 = a2;
   v5 = [v3 descriptor];
   [v5 setValues:1];
-  v12[0] = @"com.apple.frontboard.visibility";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = @"com.apple.frontboard.visibility";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   [v5 setEndowmentNamespaces:v6];
 
   [v4 setStateDescriptor:v5];
   v7 = [MEMORY[0x277D46FA0] predicateMatchingHandle:*(a1 + 32)];
-  v11 = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v10 = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
   [v4 setPredicates:v8];
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __54__SUManagerServerClient_monitorClientStateIfNecessary__block_invoke_2;
-  v10[3] = &unk_279CABB70;
-  v10[4] = *(a1 + 40);
-  [v4 setUpdateHandler:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __54__SUManagerServerClient_monitorClientStateIfNecessary__block_invoke_2;
+  v9[3] = &unk_279CABB70;
+  v9[4] = *(a1 + 40);
+  [v4 setUpdateHandler:v9];
 }
 
 void __54__SUManagerServerClient_monitorClientStateIfNecessary__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -269,24 +267,23 @@ void __54__SUManagerServerClient_monitorClientStateIfNecessary__block_invoke_2(u
     shortDescription = [(SUManagerServerClient *)selfCopy shortDescription];
     SULogDebug(@"Trying to waking up %@...", v4, v5, v6, v7, v8, v9, v10, shortDescription);
 
-    pid = selfCopy->_pid;
-    v12 = SBSProcessAssertionCreateForPID();
-    if (v12)
+    v11 = SBSProcessAssertionCreateForPID();
+    if (v11)
     {
-      v13 = dispatch_time(0, 5000000000);
-      v14 = dispatch_get_global_queue(0, 0);
+      v12 = dispatch_time(0, 5000000000);
+      v13 = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __42__SUManagerServerClient_wakeupIfNecessary__block_invoke;
       block[3] = &__block_descriptor_40_e5_v8__0l;
-      block[4] = v12;
-      dispatch_after(v13, v14, block);
+      block[4] = v11;
+      dispatch_after(v12, v13, block);
     }
 
     else
     {
       shortDescription2 = [(SUManagerServerClient *)selfCopy shortDescription];
-      SULogError(@"Unable to wakeup %@", v16, v17, v18, v19, v20, v21, v22, shortDescription2);
+      SULogError(@"Unable to wakeup %@", v15, v16, v17, v18, v19, v20, v21, shortDescription2);
     }
   }
 
@@ -323,7 +320,6 @@ void __54__SUManagerServerClient_monitorClientStateIfNecessary__block_invoke_2(u
   {
     obj->_isMessagable = v3;
     shortDescription = [(SUManagerServerClient *)obj shortDescription];
-    obj->_isMessagable;
     SULogDebug(@"%@ - messagability changed: isMessagable? %@", v5, v6, v7, v8, v9, v10, v11, shortDescription);
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -357,7 +353,6 @@ void __54__SUManagerServerClient_monitorClientStateIfNecessary__block_invoke_2(u
 LABEL_6:
     v3->_isForeground = v4;
     shortDescription = [(SUManagerServerClient *)v3 shortDescription];
-    obj->_isMessagable;
     SULogDebug(@"%@ - foregroundness changed: isForeground? %@", v6, v7, v8, v9, v10, v11, v12, shortDescription);
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -386,12 +381,6 @@ LABEL_7:
 {
   debuggingCopy = debugging;
   shortDescription = [(SUManagerServerClient *)self shortDescription];
-  isMessagable = self->_isMessagable;
-  isVisible = self->_isVisible;
-  taskState = self->_taskState;
-  isApplication = self->_isApplication;
-  isForeground = self->_isForeground;
-  pid = self->_pid;
   SULogDebug(@"[%@] %@ foreground:%d _pid:%d  _taskState:%u _isApplication:%d _isMessagable:%d _isVisible:%d", shortDescription, v5, v6, v7, v8, v9, v10, debuggingCopy);
 }
 

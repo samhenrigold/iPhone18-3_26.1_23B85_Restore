@@ -19,49 +19,49 @@
 + (id)resultDictionaryForString:(id)string referenceDate:(id)date ignoreDurationForApproximateTime:(BOOL)time
 {
   timeCopy = time;
-  v121 = *MEMORY[0x1E69E9840];
+  v120 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   dateCopy = date;
   [MEMORY[0x1E695DF70] array];
-  v85 = v84 = self;
-  v86 = stringCopy;
+  v84 = v83 = self;
+  v85 = stringCopy;
   v9 = [objc_opt_class() dateResultsFromString:stringCopy referenceDate:dateCopy];
   currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
+  v111 = 0u;
   v112 = 0u;
   v113 = 0u;
   v114 = 0u;
-  v115 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v112 objects:v120 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v111 objects:v119 count:16];
   v12 = v10;
   if (v11)
   {
     v13 = v11;
-    v14 = *v113;
+    v14 = *v112;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v113 != v14)
+        if (*v112 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
         if (dateCopy)
         {
-          date = [*(*(&v112 + 1) + 8 * i) date];
+          date = [*(*(&v111 + 1) + 8 * i) date];
           v17 = [date isSameDayAsDate:dateCopy inCalendar:currentCalendar];
 
           if (!v17)
           {
 
-            v12 = [objc_opt_class() dateResultsFromString:v86 referenceDate:0];
+            v12 = [objc_opt_class() dateResultsFromString:v85 referenceDate:0];
             goto LABEL_12;
           }
         }
       }
 
-      v13 = [v10 countByEnumeratingWithState:&v112 objects:v120 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v111 objects:v119 count:16];
       if (v13)
       {
         continue;
@@ -75,8 +75,8 @@
 
 LABEL_12:
 
-  v82 = v12;
-  v83 = dateCopy;
+  v81 = v12;
+  v82 = dateCopy;
   if (![v12 count])
   {
     v21 = 0;
@@ -86,44 +86,44 @@ LABEL_12:
     v42 = 0;
     v43 = 0;
     v44 = MEMORY[0x1E695E0F0];
-    v91 = MEMORY[0x1E695E0F0];
+    v90 = MEMORY[0x1E695E0F0];
     goto LABEL_88;
   }
 
-  v110 = 0u;
-  v111 = 0u;
-  v108 = 0u;
   v109 = 0u;
+  v110 = 0u;
+  v107 = 0u;
+  v108 = 0u;
   v18 = v12;
-  v19 = [v18 countByEnumeratingWithState:&v108 objects:v119 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v107 objects:v118 count:16];
   if (!v19)
   {
 
     v21 = 0;
 LABEL_38:
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
     v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
     v45 = v18;
     v46 = v18;
-    v47 = [v46 countByEnumeratingWithState:&v100 objects:v117 count:16];
+    v47 = [v46 countByEnumeratingWithState:&v99 objects:v116 count:16];
     if (v47)
     {
       v48 = v47;
       v38 = 0;
-      v49 = *v101;
+      v49 = *v100;
       do
       {
         for (j = 0; j != v48; ++j)
         {
-          if (*v101 != v49)
+          if (*v100 != v49)
           {
             objc_enumerationMutation(v46);
           }
 
-          v51 = *(*(&v100 + 1) + 8 * j);
-          if (!v38 || ([*(*(&v100 + 1) + 8 * j) timeIsApproximate] & 1) == 0)
+          v51 = *(*(&v99 + 1) + 8 * j);
+          if (!v38 || ([*(*(&v99 + 1) + 8 * j) timeIsApproximate] & 1) == 0)
           {
             v52 = v51;
 
@@ -131,7 +131,7 @@ LABEL_38:
           }
         }
 
-        v48 = [v46 countByEnumeratingWithState:&v100 objects:v117 count:16];
+        v48 = [v46 countByEnumeratingWithState:&v99 objects:v116 count:16];
       }
 
       while (v48);
@@ -148,54 +148,54 @@ LABEL_38:
 
   v20 = v19;
   v21 = 0;
-  v22 = *v109;
-  v88 = 0;
-  v90 = *v109;
+  v22 = *v108;
+  v87 = 0;
+  v89 = *v108;
   do
   {
     v23 = 0;
-    v92 = v20;
+    v91 = v20;
     do
     {
-      if (*v109 != v22)
+      if (*v108 != v22)
       {
         objc_enumerationMutation(v18);
       }
 
-      v24 = *(*(&v108 + 1) + 8 * v23);
+      v24 = *(*(&v107 + 1) + 8 * v23);
       if (([v24 timeIsSignificant] & 1) == 0)
       {
-        v94 = v21;
-        v106 = 0u;
-        v107 = 0u;
-        v104 = 0u;
+        v93 = v21;
         v105 = 0u;
+        v106 = 0u;
+        v103 = 0u;
+        v104 = 0u;
         v25 = v18;
         v26 = v18;
-        v27 = [v26 countByEnumeratingWithState:&v104 objects:v118 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v103 objects:v117 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v105;
+          v29 = *v104;
 LABEL_21:
           v30 = 0;
           while (1)
           {
-            if (*v105 != v29)
+            if (*v104 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v104 + 1) + 8 * v30);
+            v31 = *(*(&v103 + 1) + 8 * v30);
             if (v24 != v31)
             {
               range = [v24 range];
               v34 = v33;
-              v124.location = [v31 range];
-              v124.length = v35;
-              v123.location = range;
-              v123.length = v34;
-              if (NSIntersectionRange(v123, v124).length)
+              v123.location = [v31 range];
+              v123.length = v35;
+              v122.location = range;
+              v122.length = v34;
+              if (NSIntersectionRange(v122, v123).length)
               {
                 break;
               }
@@ -203,7 +203,7 @@ LABEL_21:
 
             if (v28 == ++v30)
             {
-              v28 = [v26 countByEnumeratingWithState:&v104 objects:v118 count:16];
+              v28 = [v26 countByEnumeratingWithState:&v103 objects:v117 count:16];
               if (v28)
               {
                 goto LABEL_21;
@@ -218,14 +218,14 @@ LABEL_21:
         {
 LABEL_28:
 
-          v26 = v88;
-          v88 = v24;
+          v26 = v87;
+          v87 = v24;
         }
 
-        v20 = v92;
-        v21 = v94;
+        v20 = v91;
+        v21 = v93;
         v18 = v25;
-        v22 = v90;
+        v22 = v89;
       }
 
       timeZone = [v24 timeZone];
@@ -241,13 +241,13 @@ LABEL_28:
     }
 
     while (v23 != v20);
-    v20 = [v18 countByEnumeratingWithState:&v108 objects:v119 count:16];
+    v20 = [v18 countByEnumeratingWithState:&v107 objects:v118 count:16];
   }
 
   while (v20);
 
-  v38 = v88;
-  if (!v88)
+  v38 = v87;
+  if (!v87)
   {
     goto LABEL_38;
   }
@@ -256,9 +256,9 @@ LABEL_51:
   date2 = [v38 date];
   [v38 duration];
   v54 = v53;
-  v91 = rangesSafeToRemove(v38);
+  v90 = rangesSafeToRemove(v38);
   timeIsApproximate = [v38 timeIsApproximate];
-  v89 = v38;
+  v88 = v38;
   if ([v38 timeIsSignificant])
   {
     v56 = 1;
@@ -274,30 +274,30 @@ LABEL_70:
   }
 
   timeIsApproximate2 = timeIsApproximate;
-  v95 = v21;
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
+  v94 = v21;
   v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   v57 = v18;
-  v58 = [v57 countByEnumeratingWithState:&v96 objects:v116 count:16];
+  v58 = [v57 countByEnumeratingWithState:&v95 objects:v115 count:16];
   if (v58)
   {
     v59 = v58;
     v56 = 0;
     v60 = 0;
-    v61 = *v97;
+    v61 = *v96;
     v44 = MEMORY[0x1E695E0F0];
     do
     {
       for (k = 0; k != v59; ++k)
       {
-        if (*v97 != v61)
+        if (*v96 != v61)
         {
           objc_enumerationMutation(v57);
         }
 
-        v63 = *(*(&v96 + 1) + 8 * k);
+        v63 = *(*(&v95 + 1) + 8 * k);
         if ([v63 timeIsSignificant])
         {
           if (![v63 timeIsApproximate] || v60 == 0)
@@ -321,7 +321,7 @@ LABEL_70:
         }
       }
 
-      v59 = [v57 countByEnumeratingWithState:&v96 objects:v116 count:16];
+      v59 = [v57 countByEnumeratingWithState:&v95 objects:v115 count:16];
     }
 
     while (v59);
@@ -334,7 +334,7 @@ LABEL_70:
     v44 = MEMORY[0x1E695E0F0];
   }
 
-  v21 = v95;
+  v21 = v94;
   timeIsApproximate = timeIsApproximate2;
 LABEL_73:
 
@@ -343,7 +343,7 @@ LABEL_73:
     if (timeCopy)
     {
       v71 = timeIsApproximate;
-      if (![v83 isSameDayAsDate:date2 inCalendar:0])
+      if (![v82 isSameDayAsDate:date2 inCalendar:0])
       {
         v71 = 0;
         v43 = 0;
@@ -391,8 +391,8 @@ LABEL_81:
     }
 
     v43 = date2;
-    [v85 addObjectsFromArray:v91];
-    [v85 addObjectsFromArray:v44];
+    [v84 addObjectsFromArray:v90];
+    [v84 addObjectsFromArray:v44];
     if (v56)
     {
       goto LABEL_82;
@@ -408,7 +408,7 @@ LABEL_87:
   v40 = timeIsApproximate;
 LABEL_88:
   v75 = objc_opt_new();
-  v76 = [v84 stripRanges:v85 fromString:v86];
+  v76 = [v83 stripRanges:v84 fromString:v85];
   [v75 setValue:v76 forKey:@"EKEventTimeDetectorResultTitleKey"];
   [v75 setValue:v43 forKey:@"EKEventTimeDetectorResultStartDateKey"];
   [v75 setValue:v42 forKey:@"EKEventTimeDetectorResultEndDateKey"];
@@ -425,8 +425,6 @@ LABEL_88:
   {
     [v75 setValue:v21 forKey:@"EKEventTimeDetectorResultTimeZoneKey"];
   }
-
-  v79 = *MEMORY[0x1E69E9840];
 
   return v75;
 }
@@ -463,39 +461,40 @@ LABEL_88:
 uint64_t __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invoke()
 {
   dateResultsFromString_referenceDate__s_dateScanner = DDScannerCreate();
-  dateResultsFromString_referenceDate__dateScannerQueue = dispatch_queue_create("EKEventTimeDetectorDateScannerQueue", 0);
+  v0 = dispatch_queue_create("EKEventTimeDetectorDateScannerQueue", 0);
+  v1 = dateResultsFromString_referenceDate__dateScannerQueue;
+  dateResultsFromString_referenceDate__dateScannerQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invoke_2(uint64_t a1)
 {
   if (dateResultsFromString_referenceDate__s_dateScanner)
   {
-    v2 = *(a1 + 32);
     if (DDScannerScanString())
     {
-      v3 = DDScannerCopyResultsWithOptions();
-      if (v3)
+      v2 = DDScannerCopyResultsWithOptions();
+      if (v2)
       {
-        v4 = v3;
-        v5 = *(a1 + 48);
-        v6 = *(a1 + 40);
-        v13 = v5;
-        Count = CFArrayGetCount(v4);
+        v3 = v2;
+        v4 = *(a1 + 48);
+        v5 = *(a1 + 40);
+        v13 = v4;
+        Count = CFArrayGetCount(v3);
         if (Count >= 1)
         {
-          v7 = 0;
-          v14 = v4;
+          v6 = 0;
+          v14 = v3;
           do
           {
-            CFArrayGetValueAtIndex(v4, v7);
+            ValueAtIndex = CFArrayGetValueAtIndex(v3, v6);
             DDResultGetRange();
             v8 = DDResultGetType();
             if (([@"Date" isEqualToString:v8] & 1) != 0 || (objc_msgSend(@"Time", "isEqualToString:", v8) & 1) != 0 || (objc_msgSend(@"DateTime", "isEqualToString:", v8) & 1) != 0 || (objc_msgSend(@"DateDuration", "isEqualToString:", v8) & 1) != 0 || (objc_msgSend(@"TimeDuration", "isEqualToString:", v8) & 1) != 0 || objc_msgSend(@"Timestamp", "isEqualToString:", v8))
             {
-              v9 = v6;
-              if (!v6)
+              v9 = v5;
+              if (!v5)
               {
                 v9 = [MEMORY[0x1E695DF00] date];
               }
@@ -508,22 +507,22 @@ void __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invok
                 DDResultCopyExtractedDateFromReferenceDate();
               }
 
-              if (resultHasApproxTime())
+              if (resultHasApproxTime(ValueAtIndex))
               {
-                resultHasExactTime();
+                resultHasExactTime(ValueAtIndex);
               }
 
               DDResultIsPastDate();
-              v4 = v14;
+              v3 = v14;
             }
 
-            ++v7;
+            ++v6;
           }
 
-          while (Count != v7);
+          while (Count != v6);
         }
 
-        CFRelease(v4);
+        CFRelease(v3);
       }
     }
   }
@@ -531,7 +530,7 @@ void __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invok
 
 + (id)stripRanges:(id)ranges fromString:(id)string
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v6 = MEMORY[0x1E695DF70];
   v7 = [ranges sortedArrayUsingComparator:&__block_literal_global_24];
@@ -550,18 +549,18 @@ void __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invok
       rangeValue2 = [v14 rangeValue];
       v17 = v16;
 
-      v45.location = rangeValue;
-      v45.length = v13;
-      v47.location = rangeValue2;
-      v47.length = v17;
-      if (NSIntersectionRange(v45, v47).length)
+      v44.location = rangeValue;
+      v44.length = v13;
+      v46.location = rangeValue2;
+      v46.length = v17;
+      if (NSIntersectionRange(v44, v46).length)
       {
         v18 = MEMORY[0x1E696B098];
-        v46.location = rangeValue;
-        v46.length = v13;
-        v48.location = rangeValue2;
-        v48.length = v17;
-        v19 = NSUnionRange(v46, v48);
+        v45.location = rangeValue;
+        v45.length = v13;
+        v47.location = rangeValue2;
+        v47.length = v17;
+        v19 = NSUnionRange(v45, v47);
         v20 = [v18 valueWithRange:{v19.location, v19.length}];
         [v8 setObject:v20 atIndexedSubscript:v9];
 
@@ -577,17 +576,17 @@ void __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invok
     while (v9 < [v8 count] - 1);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v21 = v8;
-  v22 = [v21 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v37 objects:v41 count:16];
   v23 = stringCopy;
   if (v22)
   {
     v24 = v22;
-    v25 = *v39;
+    v25 = *v38;
     v23 = stringCopy;
     do
     {
@@ -595,12 +594,12 @@ void __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invok
       v27 = v23;
       do
       {
-        if (*v39 != v25)
+        if (*v38 != v25)
         {
           objc_enumerationMutation(v21);
         }
 
-        rangeValue3 = [*(*(&v38 + 1) + 8 * v26) rangeValue];
+        rangeValue3 = [*(*(&v37 + 1) + 8 * v26) rangeValue];
         v23 = [v27 stringByReplacingCharactersInRange:rangeValue3 withString:{v29, &stru_1F1B49D68}];
 
         ++v26;
@@ -608,7 +607,7 @@ void __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invok
       }
 
       while (v24 != v26);
-      v24 = [v21 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v24 = [v21 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v24);
@@ -636,8 +635,6 @@ void __59__EKEventTimeDetector_dateResultsFromString_referenceDate___block_invok
 
     v23 = v35;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

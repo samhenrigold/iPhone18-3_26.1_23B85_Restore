@@ -7,12 +7,10 @@
 
 - (void)dealloc
 {
-  opaque_1 = self->_symbolOwner._opaque_1;
-  opaque_2 = self->_symbolOwner._opaque_2;
   CSRelease();
-  v5.receiver = self;
-  v5.super_class = SACSSymbolOwnerWrapper;
-  [(SACSSymbolOwnerWrapper *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = SACSSymbolOwnerWrapper;
+  [(SACSSymbolOwnerWrapper *)&v3 dealloc];
 }
 
 - (uint64_t)symbolOwner

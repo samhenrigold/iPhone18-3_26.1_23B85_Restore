@@ -15,10 +15,10 @@
 
 - (VCAggregatorSecondDisplay)initWithDelegate:(id)delegate withMode:(unsigned int)mode options:(id)options
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = VCAggregatorSecondDisplay;
-  v7 = [(VCAggregator *)&v21 initWithDelegate:delegate nwParentActivity:0];
+  v33 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = VCAggregatorSecondDisplay;
+  v7 = [(VCAggregator *)&v20 initWithDelegate:delegate nwParentActivity:0];
   v8 = v7;
   if (v7)
   {
@@ -48,13 +48,13 @@
           {
             shouldReportLowLatencyInterfaceStatistics = v8->super.super._shouldReportLowLatencyInterfaceStatistics;
             *buf = 136315906;
-            v23 = v10;
-            v24 = 2080;
-            v25 = "[VCAggregatorSecondDisplay initWithDelegate:withMode:options:]";
-            v26 = 1024;
-            v27 = 195;
-            v28 = 1024;
-            LODWORD(v29) = shouldReportLowLatencyInterfaceStatistics;
+            v22 = v10;
+            v23 = 2080;
+            v24 = "[VCAggregatorSecondDisplay initWithDelegate:withMode:options:]";
+            v25 = 1024;
+            v26 = 195;
+            v27 = 1024;
+            LODWORD(v28) = shouldReportLowLatencyInterfaceStatistics;
             v13 = " [%s] %s:%d _shouldReportLowLatencyInterfaceStatistics=%d";
             v14 = v11;
             v15 = 34;
@@ -84,17 +84,17 @@ LABEL_13:
           {
             v18 = v8->super.super._shouldReportLowLatencyInterfaceStatistics;
             *buf = 136316418;
-            v23 = v16;
-            v24 = 2080;
-            v25 = "[VCAggregatorSecondDisplay initWithDelegate:withMode:options:]";
-            v26 = 1024;
-            v27 = 195;
-            v28 = 2112;
-            v29 = v9;
-            v30 = 2048;
-            v31 = v8;
-            v32 = 1024;
-            v33 = v18;
+            v22 = v16;
+            v23 = 2080;
+            v24 = "[VCAggregatorSecondDisplay initWithDelegate:withMode:options:]";
+            v25 = 1024;
+            v26 = 195;
+            v27 = 2112;
+            v28 = v9;
+            v29 = 2048;
+            v30 = v8;
+            v31 = 1024;
+            v32 = v18;
             v13 = " [%s] %s:%d %@(%p) _shouldReportLowLatencyInterfaceStatistics=%d";
             v14 = v17;
             v15 = 54;
@@ -105,7 +105,6 @@ LABEL_13:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -118,21 +117,21 @@ LABEL_13:
 
 - (id)aggregatedSessionReport
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3052000000;
-  v17 = __Block_byref_object_copy__4;
-  v18 = __Block_byref_object_dispose__4;
-  v19 = 0;
+  v29 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3052000000;
+  v16 = __Block_byref_object_copy__4;
+  v17 = __Block_byref_object_dispose__4;
+  v18 = 0;
   stateQueue = self->super.super._stateQueue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __52__VCAggregatorSecondDisplay_aggregatedSessionReport__block_invoke;
-  v13[3] = &unk_278BD4CF8;
-  v13[4] = self;
-  v13[5] = &v14;
-  dispatch_sync(stateQueue, v13);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __52__VCAggregatorSecondDisplay_aggregatedSessionReport__block_invoke;
+  v12[3] = &unk_278BD4CF8;
+  v12[4] = self;
+  v12[5] = &v13;
+  dispatch_sync(stateQueue, v12);
   if (VRTraceGetErrorLogLevelForModule("") >= 7)
   {
     v4 = VRTraceErrorLogLevelToCSTR(7u);
@@ -140,7 +139,7 @@ LABEL_13:
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
       aggregatorVideoStreamMode = self->_aggregatorVideoStreamMode;
-      v7 = v15[5];
+      v7 = v14[5];
       if (v7)
       {
         v8 = [objc_msgSend(v7 "description")];
@@ -152,49 +151,48 @@ LABEL_13:
       }
 
       *buf = 136316162;
-      v21 = v4;
-      v22 = 2080;
-      v23 = "[VCAggregatorSecondDisplay aggregatedSessionReport]";
-      v24 = 1024;
-      v25 = 460;
-      v26 = 1024;
-      v27 = aggregatorVideoStreamMode;
-      v28 = 2080;
-      v29 = v8;
+      v20 = v4;
+      v21 = 2080;
+      v22 = "[VCAggregatorSecondDisplay aggregatedSessionReport]";
+      v23 = 1024;
+      v24 = 460;
+      v25 = 1024;
+      v26 = aggregatorVideoStreamMode;
+      v27 = 2080;
+      v28 = v8;
       _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SecondDisplay: For mode=%u sessionReport=%s", buf, 0x2Cu);
     }
   }
 
-  v9 = v15[5];
-  v10 = v15[5];
-  _Block_object_dispose(&v14, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = v14[5];
+  v10 = v14[5];
+  _Block_object_dispose(&v13, 8);
   return v10;
 }
 
-uint64_t __52__VCAggregatorSecondDisplay_aggregatedSessionReport__block_invoke(uint64_t result)
+void *__52__VCAggregatorSecondDisplay_aggregatedSessionReport__block_invoke(void *result)
 {
-  v100[4] = *MEMORY[0x277D85DE8];
-  if (*(*(result + 32) + 1472) != 0.0)
+  v99[4] = *MEMORY[0x277D85DE8];
+  if (*(result[4] + 1472) != 0.0)
   {
     v1 = result;
-    v84 = objc_alloc(MEMORY[0x277CBEB38]);
-    v2 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{(*(*(v1 + 32) + 1472) * objc_msgSend(*(v1 + 32), "RTPeriod"))}];
-    v3 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 216)];
-    v4 = [MEMORY[0x277CCABA8] numberWithInt:*(*(v1 + 32) + 1540)];
-    v5 = [MEMORY[0x277CCABA8] numberWithInt:*(*(v1 + 32) + 1544)];
-    v6 = [MEMORY[0x277CCABA8] numberWithInt:*(*(v1 + 32) + 448)];
-    v7 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1756)];
-    v8 = [MEMORY[0x277CCABA8] numberWithInt:*(*(v1 + 32) + 1552)];
-    v9 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 432)];
-    *(*(*(v1 + 40) + 8) + 40) = [v84 initWithObjectsAndKeys:{v2, @"DRTN", v3, @"DRCT", v4, @"VW", v5, @"VH", v6, @"TT", v7, @"RTCPTOCNT", v8, @"VCVSConfigHDRMode", &unk_284FA5780, @"RVER", v9, @"RtxRDKScreenSharing", objc_msgSend(MEMORY[0x277CCABA8], "numberWithUnsignedInt:", *(*(v1 + 32) + 474)), @"FecRDKScreenSharing", 0}];
-    [*(v1 + 32) addScreenSharingSpecificReportingKeys:*(*(*(v1 + 40) + 8) + 40)];
-    v10 = [*(v1 + 32) dispatchedAggregatedSessionReport];
-    [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(v10 forKeyedSubscript:{"objectForKeyedSubscript:", @"THERMDUR", @"THERMDUR"}];
-    [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(v10 forKeyedSubscript:{"objectForKeyedSubscript:", @"PCONFQ", @"PCONFQ"}];
-    [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(v10 forKeyedSubscript:{"objectForKeyedSubscript:", @"PCONP", @"PCONP"}];
-    v11 = [*(v1 + 32) previousChannelSequence];
-    v12 = *(v1 + 32);
+    v83 = objc_alloc(MEMORY[0x277CBEB38]);
+    v2 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{(*(v1[4] + 1472) * objc_msgSend(v1[4], "RTPeriod"))}];
+    v3 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 216)];
+    v4 = [MEMORY[0x277CCABA8] numberWithInt:*(v1[4] + 1540)];
+    v5 = [MEMORY[0x277CCABA8] numberWithInt:*(v1[4] + 1544)];
+    v6 = [MEMORY[0x277CCABA8] numberWithInt:*(v1[4] + 448)];
+    v7 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1756)];
+    v8 = [MEMORY[0x277CCABA8] numberWithInt:*(v1[4] + 1552)];
+    v9 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 432)];
+    *(*(v1[5] + 8) + 40) = [v83 initWithObjectsAndKeys:{v2, @"DRTN", v3, @"DRCT", v4, @"VW", v5, @"VH", v6, @"TT", v7, @"RTCPTOCNT", v8, @"VCVSConfigHDRMode", &unk_284FA5780, @"RVER", v9, @"RtxRDKScreenSharing", objc_msgSend(MEMORY[0x277CCABA8], "numberWithUnsignedInt:", *(v1[4] + 474)), @"FecRDKScreenSharing", 0}];
+    [v1[4] addScreenSharingSpecificReportingKeys:*(*(v1[5] + 8) + 40)];
+    v10 = [v1[4] dispatchedAggregatedSessionReport];
+    [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(v10 forKeyedSubscript:{"objectForKeyedSubscript:", @"THERMDUR", @"THERMDUR"}];
+    [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(v10 forKeyedSubscript:{"objectForKeyedSubscript:", @"PCONFQ", @"PCONFQ"}];
+    [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(v10 forKeyedSubscript:{"objectForKeyedSubscript:", @"PCONP", @"PCONP"}];
+    v11 = [v1[4] previousChannelSequence];
+    v12 = v1[4];
     if (v11)
     {
       v13 = [v12 previousChannelSequence];
@@ -207,55 +205,55 @@ uint64_t __52__VCAggregatorSecondDisplay_aggregatedSessionReport__block_invoke(u
       v14 = &OBJC_IVAR___VCAggregatorSecondDisplay__channelSequenceStats;
     }
 
-    v15 = *(v1 + 32);
+    v15 = v1[4];
     if (v13)
     {
       v16 = &v15[*v14];
-      [*(*(*(v1 + 40) + 8) + 40) setObject:v13 forKeyedSubscript:@"CHSEQ"];
-      [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", v16[1]), @"5GCHCNT"}];
-      [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", *v16), @"24GCHCNT"}];
-      [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", v16[2]), @"DFSCHCNT"}];
-      [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", v16[3]), @"INSLCNT"}];
-      v15 = *(v1 + 32);
+      [*(*(v1[5] + 8) + 40) setObject:v13 forKeyedSubscript:@"CHSEQ"];
+      [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", v16[1]), @"5GCHCNT"}];
+      [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", *v16), @"24GCHCNT"}];
+      [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", v16[2]), @"DFSCHCNT"}];
+      [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", v16[3]), @"INSLCNT"}];
+      v15 = v1[4];
     }
 
-    [v15 addLowLatencyInterfaceStatisticsToPayload:*(*(*(v1 + 40) + 8) + 40)];
-    v17 = *(v1 + 32);
+    [v15 addLowLatencyInterfaceStatisticsToPayload:*(*(v1[5] + 8) + 40)];
+    v17 = v1[4];
     v18 = *(v17 + 1944);
     if (v18)
     {
-      [*(*(*(v1 + 40) + 8) + 40) setObject:v18 forKeyedSubscript:@"REMFWVER"];
-      v17 = *(v1 + 32);
+      [*(*(v1[5] + 8) + 40) setObject:v18 forKeyedSubscript:@"REMFWVER"];
+      v17 = v1[4];
     }
 
     v19 = *(v17 + 1936);
     if (v19)
     {
-      [*(*(*(v1 + 40) + 8) + 40) setObject:v19 forKeyedSubscript:@"REMOSVER"];
-      v17 = *(v1 + 32);
+      [*(*(v1[5] + 8) + 40) setObject:v19 forKeyedSubscript:@"REMOSVER"];
+      v17 = v1[4];
     }
 
     if (*(v17 + 1944))
     {
-      [*(*(*(v1 + 40) + 8) + 40) setObject:*(v17 + 1952) forKeyedSubscript:@"REMMDL"];
-      v17 = *(v1 + 32);
+      [*(*(v1[5] + 8) + 40) setObject:*(v17 + 1952) forKeyedSubscript:@"REMMDL"];
+      v17 = v1[4];
     }
 
-    [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", *(v17 + 1564)), @"FOVE"}];
-    v20 = *(v1 + 32);
+    [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", *(v17 + 1564)), @"FOVE"}];
+    v20 = v1[4];
     v21 = *(v20 + 232);
     if (v21)
     {
-      [*(*(*(v1 + 40) + 8) + 40) setObject:v21 forKeyedSubscript:@"CallID"];
-      v20 = *(v1 + 32);
+      [*(*(v1[5] + 8) + 40) setObject:v21 forKeyedSubscript:@"CallID"];
+      v20 = v1[4];
     }
 
-    [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", *(v20 + 1144) == 0), @"MSSuccess"}];
-    [*(*(*(v1 + 40) + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", *(*(v1 + 32) + 1144)), @"MSEndReason"}];
-    v22 = *(v1 + 32);
+    [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", *(v20 + 1144) == 0), @"MSSuccess"}];
+    [*(*(v1[5] + 8) + 40) setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", *(v1[4] + 1144)), @"MSEndReason"}];
+    v22 = v1[4];
     v23 = v22[184];
     v24 = (v23 * [v22 RTPeriod]);
-    v26 = *(v1 + 32);
+    v26 = v1[4];
     if (*(v26 + 216) == 2)
     {
       if (v24)
@@ -281,18 +279,18 @@ uint64_t __52__VCAggregatorSecondDisplay_aggregatedSessionReport__block_invoke(u
         v34 = (*(v26 + 1512) / v32);
       }
 
-      v46 = *(*(*(v1 + 40) + 8) + 40);
-      v99[0] = @"VSP";
-      v100[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v27];
-      v99[1] = @"ARFR";
-      v100[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v33];
-      v99[2] = @"ARBR";
-      v100[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v34];
-      v99[3] = @"RBR";
-      v100[3] = [*(*(v1 + 32) + 1784) description];
-      [v46 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v100, v99, 4)}];
-      [*(v1 + 32) addFECStatsHolderKPIs:*(*(*(v1 + 40) + 8) + 40) usingFECStatsHolder:*(*(v1 + 32) + 1168)];
-      v48 = *(v1 + 32);
+      v46 = *(*(v1[5] + 8) + 40);
+      v98[0] = @"VSP";
+      v99[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v27];
+      v98[1] = @"ARFR";
+      v99[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v33];
+      v98[2] = @"ARBR";
+      v99[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v34];
+      v98[3] = @"RBR";
+      v99[3] = [*(v1[4] + 1784) description];
+      [v46 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v99, v98, 4)}];
+      [v1[4] addFECStatsHolderKPIs:*(*(v1[5] + 8) + 40) usingFECStatsHolder:*(v1[4] + 1168)];
+      v48 = v1[4];
       v49 = *(v48 + 1504);
       if (v49)
       {
@@ -334,7 +332,7 @@ LABEL_38:
         if (v24)
         {
 LABEL_40:
-          v87 = *(v48 + 1704) / v24;
+          v86 = *(v48 + 1704) / v24;
 LABEL_43:
           v63 = *(v48 + 1472);
           if (v63 == 0.0)
@@ -361,41 +359,41 @@ LABEL_43:
             v66 = 0;
           }
 
-          v67 = *(*(*(v1 + 40) + 8) + 40);
-          v97[0] = @"AVSI";
-          v98[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v50];
-          v97[1] = @"VS";
-          v98[1] = [*(*(v1 + 32) + 1808) description];
-          v97[2] = @"VSTCNT";
-          v98[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1504)];
-          v97[3] = @"MVSI";
-          v98[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(*(*(v1 + 32) + 1496) * 1000.0)];
-          v97[4] = @"VRFR";
-          v98[4] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v52];
-          v97[5] = @"VREFR";
-          v98[5] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v53];
-          v97[6] = @"VRRFR";
-          v98[6] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v54];
-          v97[7] = @"VRExFR";
-          v98[7] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v55];
-          v97[8] = @"AFIRFR";
-          v98[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v51];
-          v97[9] = @"VPBEVALPD";
-          v98[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v62];
-          v97[10] = @"PEVFR";
-          v98[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v66];
-          v97[11] = @"VMFRERC";
-          v98[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1684)];
-          v97[12] = @"VAFRERC";
-          v98[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v64];
-          v97[13] = @"MVSTCT";
-          v98[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1688)];
-          v97[14] = @"MNVFR";
-          v98[14] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1692)];
-          v97[15] = @"VRDFR";
-          v98[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v87];
-          [v67 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v98, v97, 16)}];
-          v70 = *(v1 + 32);
+          v67 = *(*(v1[5] + 8) + 40);
+          v96[0] = @"AVSI";
+          v97[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v50];
+          v96[1] = @"VS";
+          v97[1] = [*(v1[4] + 1808) description];
+          v96[2] = @"VSTCNT";
+          v97[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1504)];
+          v96[3] = @"MVSI";
+          v97[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(*(v1[4] + 1496) * 1000.0)];
+          v96[4] = @"VRFR";
+          v97[4] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v52];
+          v96[5] = @"VREFR";
+          v97[5] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v53];
+          v96[6] = @"VRRFR";
+          v97[6] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v54];
+          v96[7] = @"VRExFR";
+          v97[7] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v55];
+          v96[8] = @"AFIRFR";
+          v97[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v51];
+          v96[9] = @"VPBEVALPD";
+          v97[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v62];
+          v96[10] = @"PEVFR";
+          v97[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v66];
+          v96[11] = @"VMFRERC";
+          v97[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1684)];
+          v96[12] = @"VAFRERC";
+          v97[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v64];
+          v96[13] = @"MVSTCT";
+          v97[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1688)];
+          v96[14] = @"MNVFR";
+          v97[14] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1692)];
+          v96[15] = @"VRDFR";
+          v97[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v86];
+          [v67 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v97, v96, 16)}];
+          v70 = v1[4];
           v71 = *(v70 + 1716);
           if (v71)
           {
@@ -448,52 +446,52 @@ LABEL_43:
             v80 = *(v70 + 1664) / v75;
           }
 
-          v81 = *(*(*(v1 + 40) + 8) + 40);
-          v95[0] = @"ARRFD";
-          v95[1] = @"MRRFD";
-          v96[0] = @"N/A";
-          v96[1] = @"N/A";
-          v95[2] = @"ARRPD";
-          v95[3] = @"MRRPD";
-          v96[2] = @"N/A";
-          v96[3] = @"N/A";
-          v95[4] = @"AVRFD";
-          v95[5] = @"MVRFD";
-          v96[4] = @"N/A";
-          v96[5] = @"N/A";
-          v95[6] = @"AVRPD";
-          v95[7] = @"MVRPD";
-          v96[6] = @"N/A";
-          v96[7] = @"N/A";
-          v95[8] = @"MINHEL";
-          v96[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v74];
-          v95[9] = @"MAXHEL";
-          v96[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1724)];
-          v95[10] = @"AHEL";
-          v96[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v72];
-          v95[11] = @"HEL";
-          v96[11] = [*(*(v1 + 32) + 1864) description];
-          v95[12] = @"HELSCNT";
-          v96[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1716)];
-          v95[13] = @"AJBSCH";
-          v96[13] = [MEMORY[0x277CCABA8] numberWithDouble:v77];
-          v95[14] = @"PJBQZ";
-          v96[14] = [MEMORY[0x277CCABA8] numberWithDouble:v76];
-          v95[15] = @"MJBL";
-          v96[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1656)];
-          v95[16] = @"JBQS";
-          v96[16] = [*(*(v1 + 32) + 1848) description];
-          v95[17] = @"AJBL";
-          v96[17] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v78];
-          v95[18] = @"AVPO";
-          v96[18] = [MEMORY[0x277CCABA8] numberWithDouble:v80];
-          v95[19] = @"MVPO";
-          v96[19] = [MEMORY[0x277CCABA8] numberWithDouble:*(*(v1 + 32) + 1672)];
-          v95[20] = @"TWJBL";
-          v96[20] = [MEMORY[0x277CCABA8] numberWithDouble:v79];
-          v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:21];
+          v81 = *(*(v1[5] + 8) + 40);
+          v94[0] = @"ARRFD";
+          v94[1] = @"MRRFD";
+          v95[0] = @"N/A";
+          v95[1] = @"N/A";
+          v94[2] = @"ARRPD";
+          v94[3] = @"MRRPD";
+          v95[2] = @"N/A";
+          v95[3] = @"N/A";
+          v94[4] = @"AVRFD";
+          v94[5] = @"MVRFD";
+          v95[4] = @"N/A";
+          v95[5] = @"N/A";
+          v94[6] = @"AVRPD";
+          v94[7] = @"MVRPD";
+          v95[6] = @"N/A";
+          v95[7] = @"N/A";
+          v94[8] = @"MINHEL";
+          v95[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v74];
+          v94[9] = @"MAXHEL";
+          v95[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1724)];
+          v94[10] = @"AHEL";
+          v95[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v72];
+          v94[11] = @"HEL";
+          v95[11] = [*(v1[4] + 1864) description];
+          v94[12] = @"HELSCNT";
+          v95[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1716)];
+          v94[13] = @"AJBSCH";
+          v95[13] = [MEMORY[0x277CCABA8] numberWithDouble:v77];
+          v94[14] = @"PJBQZ";
+          v95[14] = [MEMORY[0x277CCABA8] numberWithDouble:v76];
+          v94[15] = @"MJBL";
+          v95[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1656)];
+          v94[16] = @"JBQS";
+          v95[16] = [*(v1[4] + 1848) description];
+          v94[17] = @"AJBL";
+          v95[17] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v78];
+          v94[18] = @"AVPO";
+          v95[18] = [MEMORY[0x277CCABA8] numberWithDouble:v80];
+          v94[19] = @"MVPO";
+          v95[19] = [MEMORY[0x277CCABA8] numberWithDouble:*(v1[4] + 1672)];
+          v94[20] = @"TWJBL";
+          v95[20] = [MEMORY[0x277CCABA8] numberWithDouble:v79];
+          v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:21];
           v60 = v81;
-          goto LABEL_63;
+          return [v60 addEntriesFromDictionary:v59];
         }
       }
 
@@ -506,7 +504,7 @@ LABEL_43:
         }
       }
 
-      v87 = 0;
+      v86 = 0;
       goto LABEL_43;
     }
 
@@ -539,8 +537,8 @@ LABEL_20:
 LABEL_26:
     if (v28 == 0.0)
     {
-      v83 = 0;
-      v85 = 0;
+      v82 = 0;
+      v84 = 0;
       v40 = 0;
       v36 = 0;
       v38 = 0;
@@ -554,7 +552,7 @@ LABEL_26:
 
     else
     {
-      v83 = (*(v26 + 1568) / v28);
+      v82 = (*(v26 + 1568) / v28);
       *&v35 = *(v26 + 1584) / v28;
       v36 = *&v35;
       LODWORD(v35) = *(v26 + 1600);
@@ -568,106 +566,102 @@ LABEL_26:
       v42 = *&v41;
       LODWORD(v41) = *(v26 + 1620);
       *&v43 = v41 / v28;
-      v85 = *&v43;
+      v84 = *&v43;
       LODWORD(v43) = *(v26 + 1708);
       v44 = (v43 / v28);
       if (v24)
       {
 LABEL_28:
-        v86 = *(v26 + 1696) / v24;
+        v85 = *(v26 + 1696) / v24;
         v45 = *(v26 + 1700) / v24;
 LABEL_35:
-        v88 = *(*(*(v1 + 40) + 8) + 40);
-        v93[0] = @"ATXBR";
-        v94[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v29];
-        v93[1] = @"ASBR";
-        v94[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v30];
-        v93[2] = @"TBR";
-        v94[2] = [*(*(v1 + 32) + 1792) description];
-        v93[3] = @"SBR";
-        v94[3] = [*(*(v1 + 32) + 1800) description];
-        v93[4] = @"MTBR";
-        v94[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1528)];
-        v93[5] = @"MSBR";
-        v94[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1520)];
-        v93[6] = @"MPLR";
-        v94[6] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1532)];
-        v93[7] = @"PLR";
-        v94[7] = [*(*(v1 + 32) + 1816) description];
-        v93[8] = @"APLR";
-        v94[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v40];
-        v93[9] = @"AWFPD";
-        v94[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v36];
-        v93[10] = @"AWFT";
-        v94[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v38];
-        v93[11] = @"ANAKR";
-        v94[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v31];
-        v93[12] = @"ABL";
-        v94[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v42];
-        v93[13] = @"MBL";
-        v94[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1612)];
-        v93[14] = @"BL";
-        v94[14] = [*(*(v1 + 32) + 1824) description];
-        v93[15] = @"ARTT";
-        v94[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v44];
-        v93[16] = @"MRTT";
-        v94[16] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1712)];
-        v93[17] = @"RTT";
-        v94[17] = [*(*(v1 + 32) + 1856) description];
-        v93[18] = @"AEXT";
-        v94[18] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v83];
-        v93[19] = @"MEXT";
-        v94[19] = [MEMORY[0x277CCABA8] numberWithDouble:*(*(v1 + 32) + 1576)];
-        v93[20] = @"EXT";
-        v94[20] = [*(*(v1 + 32) + 1832) description];
-        v93[21] = @"ABWE";
-        v94[21] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v85];
-        v93[22] = @"MBWE";
-        v94[22] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(*(v1 + 32) + 1624)];
-        v93[23] = @"BWE";
-        v94[23] = [*(*(v1 + 32) + 1840) description];
-        v93[24] = @"VTEFR";
-        v94[24] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v45];
-        v93[25] = @"VTCFR";
-        v94[25] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v86];
-        [v88 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v94, v93, 26)}];
-        v56 = *(v1 + 32);
-        v57 = *(*(*(v1 + 40) + 8) + 40);
-        v91 = @"CDC";
-        v92 = [MEMORY[0x277CCABA8] numberWithInt:*(v56 + 1548)];
-        [v57 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v92, &v91, 1)}];
-        v58 = *(*(*(v1 + 40) + 8) + 40);
-        v89[0] = @"ARSFD";
-        v89[1] = @"MRSFD";
-        v90[0] = @"N/A";
-        v90[1] = @"N/A";
-        v89[2] = @"ARSPD";
-        v89[3] = @"MRSPD";
-        v90[2] = @"N/A";
-        v90[3] = @"N/A";
-        v89[4] = @"AVSFD";
-        v89[5] = @"MVSFD";
-        v90[4] = @"N/A";
-        v90[5] = @"N/A";
-        v89[6] = @"AVSPD";
-        v89[7] = @"MVSPD";
-        v90[6] = @"N/A";
-        v90[7] = @"N/A";
-        v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:8];
+        v87 = *(*(v1[5] + 8) + 40);
+        v92[0] = @"ATXBR";
+        v93[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v29];
+        v92[1] = @"ASBR";
+        v93[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v30];
+        v92[2] = @"TBR";
+        v93[2] = [*(v1[4] + 1792) description];
+        v92[3] = @"SBR";
+        v93[3] = [*(v1[4] + 1800) description];
+        v92[4] = @"MTBR";
+        v93[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1528)];
+        v92[5] = @"MSBR";
+        v93[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1520)];
+        v92[6] = @"MPLR";
+        v93[6] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1532)];
+        v92[7] = @"PLR";
+        v93[7] = [*(v1[4] + 1816) description];
+        v92[8] = @"APLR";
+        v93[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v40];
+        v92[9] = @"AWFPD";
+        v93[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v36];
+        v92[10] = @"AWFT";
+        v93[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v38];
+        v92[11] = @"ANAKR";
+        v93[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v31];
+        v92[12] = @"ABL";
+        v93[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v42];
+        v92[13] = @"MBL";
+        v93[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1612)];
+        v92[14] = @"BL";
+        v93[14] = [*(v1[4] + 1824) description];
+        v92[15] = @"ARTT";
+        v93[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v44];
+        v92[16] = @"MRTT";
+        v93[16] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1712)];
+        v92[17] = @"RTT";
+        v93[17] = [*(v1[4] + 1856) description];
+        v92[18] = @"AEXT";
+        v93[18] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v82];
+        v92[19] = @"MEXT";
+        v93[19] = [MEMORY[0x277CCABA8] numberWithDouble:*(v1[4] + 1576)];
+        v92[20] = @"EXT";
+        v93[20] = [*(v1[4] + 1832) description];
+        v92[21] = @"ABWE";
+        v93[21] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v84];
+        v92[22] = @"MBWE";
+        v93[22] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*(v1[4] + 1624)];
+        v92[23] = @"BWE";
+        v93[23] = [*(v1[4] + 1840) description];
+        v92[24] = @"VTEFR";
+        v93[24] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v45];
+        v92[25] = @"VTCFR";
+        v93[25] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v85];
+        [v87 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v93, v92, 26)}];
+        v56 = v1[4];
+        v57 = *(*(v1[5] + 8) + 40);
+        v90 = @"CDC";
+        v91 = [MEMORY[0x277CCABA8] numberWithInt:*(v56 + 1548)];
+        [v57 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v91, &v90, 1)}];
+        v58 = *(*(v1[5] + 8) + 40);
+        v88[0] = @"ARSFD";
+        v88[1] = @"MRSFD";
+        v89[0] = @"N/A";
+        v89[1] = @"N/A";
+        v88[2] = @"ARSPD";
+        v88[3] = @"MRSPD";
+        v89[2] = @"N/A";
+        v89[3] = @"N/A";
+        v88[4] = @"AVSFD";
+        v88[5] = @"MVSFD";
+        v89[4] = @"N/A";
+        v89[5] = @"N/A";
+        v88[6] = @"AVSPD";
+        v88[7] = @"MVSPD";
+        v89[6] = @"N/A";
+        v89[7] = @"N/A";
+        v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:8];
         v60 = v58;
-LABEL_63:
-        result = [v60 addEntriesFromDictionary:v59];
-        goto LABEL_64;
+        return [v60 addEntriesFromDictionary:v59];
       }
     }
 
-    v86 = 0;
+    v85 = 0;
     v45 = 0;
     goto LABEL_35;
   }
 
-LABEL_64:
-  v82 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1094,7 +1088,7 @@ LABEL_64:
 
 id __67__VCAggregatorSecondDisplay_processEventWithCategory_type_payload___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 8)
   {
     v2 = VRTraceErrorLogLevelToCSTR(8u);
@@ -1105,13 +1099,13 @@ id __67__VCAggregatorSecondDisplay_processEventWithCategory_type_payload___block
       {
         v4 = *(a1 + 48);
         *buf = 136315906;
-        v13 = v2;
-        v14 = 2080;
-        v15 = "[VCAggregatorSecondDisplay processEventWithCategory:type:payload:]_block_invoke";
-        v16 = 1024;
-        v17 = 749;
-        v18 = 1024;
-        v19 = v4;
+        v12 = v2;
+        v13 = 2080;
+        v14 = "[VCAggregatorSecondDisplay processEventWithCategory:type:payload:]_block_invoke";
+        v15 = 1024;
+        v16 = 749;
+        v17 = 1024;
+        v18 = v4;
         _os_log_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SecondDisplay: received method=%d", buf, 0x22u);
       }
     }
@@ -1132,9 +1126,9 @@ id __67__VCAggregatorSecondDisplay_processEventWithCategory_type_payload___block
   v5 = *(a1 + 48);
   v6 = *(a1 + 50);
   v7 = *(a1 + 40);
-  v11.receiver = *(a1 + 32);
-  v11.super_class = VCAggregatorSecondDisplay;
-  result = objc_msgSendSuper2(&v11, sel_dispatchedProcessEventWithCategory_type_payload_, v5, v6, v7);
+  v10.receiver = *(a1 + 32);
+  v10.super_class = VCAggregatorSecondDisplay;
+  result = objc_msgSendSuper2(&v10, sel_dispatchedProcessEventWithCategory_type_payload_, v5, v6, v7);
   v9 = *(a1 + 48);
   if (v9 <= 0xC8)
   {
@@ -1143,7 +1137,7 @@ id __67__VCAggregatorSecondDisplay_processEventWithCategory_type_payload___block
       case 0x1Fu:
         if (*(a1 + 50) == 1)
         {
-          result = [*(a1 + 32) updateReceiverVideoStreamConfiguration:*(a1 + 40)];
+          return [*(a1 + 32) updateReceiverVideoStreamConfiguration:*(a1 + 40)];
         }
 
         break;
@@ -1152,13 +1146,12 @@ id __67__VCAggregatorSecondDisplay_processEventWithCategory_type_payload___block
         if (result)
         {
           *(*(a1 + 32) + 448) = [objc_msgSend(*(a1 + 40) objectForKeyedSubscript:{@"TransportType", "intValue"}];
-          result = [*(a1 + 32) initializeLowLatencyInterfaceStatistics];
+          return [*(a1 + 32) initializeLowLatencyInterfaceStatistics];
         }
 
         break;
       case 0x9Cu:
-        result = [*(a1 + 32) processResiliencyEnablementConfig:*(a1 + 40)];
-        break;
+        return [*(a1 + 32) processResiliencyEnablementConfig:*(a1 + 40)];
     }
   }
 
@@ -1171,13 +1164,13 @@ id __67__VCAggregatorSecondDisplay_processEventWithCategory_type_payload___block
 
     else if (v9 == 240)
     {
-      result = [*(a1 + 32) processRealtimeStats:*(a1 + 40)];
+      return [*(a1 + 32) processRealtimeStats:*(a1 + 40)];
     }
   }
 
   else if (v9 == 201)
   {
-    result = [*(a1 + 32) updateSenderVideoStreamConfiguration:*(a1 + 40)];
+    return [*(a1 + 32) updateSenderVideoStreamConfiguration:*(a1 + 40)];
   }
 
   else if (v9 == 202)
@@ -1190,24 +1183,22 @@ id __67__VCAggregatorSecondDisplay_processEventWithCategory_type_payload___block
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __67__VCAggregatorSecondDisplay_processEventWithCategory_type_payload___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 48);
-  v5 = 136315906;
-  v6 = a1;
-  v7 = 2080;
-  v8 = "[VCAggregatorSecondDisplay processEventWithCategory:type:payload:]_block_invoke";
-  v9 = 1024;
-  v10 = 749;
-  v11 = 1024;
-  v12 = v3;
-  _os_log_debug_impl(&dword_23D4DF000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d SecondDisplay: received method=%d", &v5, 0x22u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315906;
+  v5 = a1;
+  v6 = 2080;
+  v7 = "[VCAggregatorSecondDisplay processEventWithCategory:type:payload:]_block_invoke";
+  v8 = 1024;
+  v9 = 749;
+  v10 = 1024;
+  v11 = v3;
+  _os_log_debug_impl(&dword_23D4DF000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d SecondDisplay: received method=%d", &v4, 0x22u);
 }
 
 @end

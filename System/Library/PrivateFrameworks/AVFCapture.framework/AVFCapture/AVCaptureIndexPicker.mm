@@ -20,7 +20,7 @@
   {
     v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v12, v13))
     {
       objc_exception_throw(v11);
     }
@@ -47,9 +47,9 @@
 
 - (AVCaptureIndexPicker)initWithLocalizedTitle:(id)title symbolName:(id)name localizedIndexTitles:(id)titles
 {
-  v11.receiver = self;
-  v11.super_class = AVCaptureIndexPicker;
-  initSubclass = [(AVCaptureControl *)&v11 initSubclass];
+  v13.receiver = self;
+  v13.super_class = AVCaptureIndexPicker;
+  initSubclass = [(AVCaptureControl *)&v13 initSubclass];
   if (initSubclass)
   {
     if ([titles count])
@@ -65,7 +65,7 @@
     {
       v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v10, v11))
       {
         objc_exception_throw(v9);
       }
@@ -84,7 +84,7 @@
   {
     v14 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v15, v16))
     {
       objc_exception_throw(v14);
     }
@@ -168,7 +168,7 @@
   {
     if (index < 0)
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"Selected index %ld is less than 0", index, v10];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"Selected index %ld is less than 0", index, v11];
     }
 
     else
@@ -188,7 +188,7 @@
     }
 
     v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v9, v10))
     {
       objc_exception_throw(v9);
     }

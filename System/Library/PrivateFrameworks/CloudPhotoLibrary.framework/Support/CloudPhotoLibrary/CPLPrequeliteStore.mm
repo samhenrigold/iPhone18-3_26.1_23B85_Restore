@@ -2,11 +2,13 @@
 + (BOOL)shouldPreventWipeOnUpgrade;
 + (void)_writeStoreMarkerAtURL:(id)l reason:(id)reason;
 + (void)wipeStoreAtNextOpeningWithCloudLibraryStorageURL:(id)l reason:(id)reason;
+- (BOOL)_closeWipeAndReOpenWithReason:(id)reason warnUserIfPossible:(BOOL)possible createRadar:(BOOL)radar error:(id *)error;
 - (BOOL)_fix22666940;
 - (BOOL)_fixStoreAfterAnyVersionChange;
 - (BOOL)_hasDeactivateMarker;
 - (BOOL)_initializeDB;
 - (BOOL)_openWithError:(id *)error;
+- (BOOL)_performWithFlags:(unsigned int)flags action:(id)action;
 - (BOOL)_postUpgradeToVersion:(int64_t)version;
 - (BOOL)_setupDBIfNeeded;
 - (BOOL)_upgradeDB:(int64_t)b;
@@ -243,25 +245,26 @@
 
     objc_initWeak(&location, self);
     db = self->_db;
-    v10 = _NSConcreteStackBlock;
-    v11 = 3221225472;
-    v12 = sub_100002138;
-    v13 = &unk_10027B4C0;
-    objc_copyWeak(&v14, &location);
-    [(PQLConnection *)db setProfilingHook:&v10];
-    v6 = sqlite3_trace_v2([(PQLConnection *)self->_db dbHandle:v10], 2u, sub_1000024A4, self);
+    v11 = _NSConcreteStackBlock;
+    v12 = 3221225472;
+    v13 = sub_100002138;
+    v14 = &unk_10027B4C0;
+    objc_copyWeak(&v15, &location);
+    [(PQLConnection *)db setProfilingHook:&v11];
+    v6 = sqlite3_trace_v2([(PQLConnection *)self->_db dbHandle:v11], 2u, sub_1000024A4, self);
+    v7 = v6;
     if (v6 && (_CPLSilentLogging & 1) == 0)
     {
-      v7 = sub_100150214();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_100150214(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         dbHandle = [(PQLConnection *)self->_db dbHandle];
-        v9 = sqlite3_errstr(v6);
-        sub_1001BC0F4(dbHandle, v9, v16, v7);
+        v10 = sqlite3_errstr(v7);
+        sub_1001BC0F4(dbHandle, v10, v17, v8);
       }
     }
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 }
@@ -275,6 +278,56 @@
     transactionStatistics = self->_transactionStatistics;
     self->_transactionStatistics = 0;
   }
+}
+
+- (BOOL)_performWithFlags:(unsigned int)flags action:(id)action
+{
+  v4 = *&flags;
+  actionCopy = action;
+  if (self->_shouldProfile)
+  {
+    Current = CFAbsoluteTimeGetCurrent();
+    v8 = [(PQLConnection *)self->_db performWithFlags:v4 action:actionCopy];
+    v10 = CFAbsoluteTimeGetCurrent();
+    if (self->_transactionStatistics)
+    {
+      v11 = v10 - Current;
+      if (self->_showStatsForAllTransactions || v11 > 10.0)
+      {
+        self->_lastLongTransactionDate = v10;
+        if ((_CPLSilentLogging & 1) == 0)
+        {
+          v12 = sub_10015060C(v9);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          {
+            _transactionStatsDescription = [(CPLPrequeliteStore *)self _transactionStatsDescription];
+            sub_1001BC1C4(_transactionStatsDescription, v15, v12, v11);
+          }
+        }
+      }
+
+      else if (v10 - self->_lastLongTransactionDate > 3600.0)
+      {
+        sub_1001BC158(v9);
+        [(CPLPrequeliteStore *)self _unsetupProfilingHooks];
+      }
+
+      [(NSMutableDictionary *)self->_transactionStatistics removeAllObjects];
+    }
+
+    else if (v10 - Current > 10.0)
+    {
+      sub_1001BC228(self, v10);
+      [(CPLPrequeliteStore *)self _setupProfilingHooks];
+    }
+  }
+
+  else
+  {
+    v8 = [(PQLConnection *)self->_db performWithFlags:v4 action:actionCopy];
+  }
+
+  return v8 & 1;
 }
 
 - (BOOL)_fix22666940
@@ -291,15 +344,15 @@
   remappedRecords = [abstractObject remappedRecords];
   platformObject3 = [remappedRecords platformObject];
 
-  v55 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v45 = clientCache;
+  v55 = 0u;
+  v46 = clientCache;
   v9 = clientCache;
   v10 = platformObject;
   obj = [v9 _badContainerRelationsIdentifiers];
-  v11 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+  v11 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
   _deleteBadRelations = v11 == 0;
   if (!v11)
   {
@@ -309,118 +362,119 @@ LABEL_36:
   }
 
   v13 = v11;
-  v40 = v11 == 0;
-  v41 = abstractObject;
-  v46 = 0;
+  v41 = v11 == 0;
+  v42 = abstractObject;
+  v47 = 0;
   v14 = 0;
-  v15 = *v54;
-  v50 = CPLPrimaryScopeIdentifier;
+  v15 = *v55;
+  v51 = CPLPrimaryScopeIdentifier;
   do
   {
     v16 = 0;
     v17 = -v14;
-    v42 = &v13[v14];
-    v47 = -v14;
-    v48 = v13;
+    v43 = &v13[v14];
+    v48 = -v14;
+    v49 = v13;
     do
     {
-      if (*v54 != v15)
+      if (*v55 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v53 + 1) + 8 * v16);
+      v18 = *(*(&v54 + 1) + 8 * v16);
       v19 = objc_autoreleasePoolPush();
+      v20 = v19;
       if (v17 == v16 && (_CPLSilentLogging & 1) == 0)
       {
-        v20 = sub_100150214();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v21 = sub_100150214(v19);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Found some bad container relations to fix", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Found some bad container relations to fix", buf, 2u);
         }
       }
 
       buf[0] = 0;
       if (v18)
       {
-        v21 = v18;
-        v22 = [[CPLScopedIdentifier alloc] initWithScopeIdentifier:v50 identifier:v21];
+        v22 = v18;
+        v23 = [[CPLScopedIdentifier alloc] initWithScopeIdentifier:v51 identifier:v22];
       }
 
       else
       {
-        v22 = 0;
+        v23 = 0;
       }
 
-      v23 = [platformObject2 cloudScopedIdentifierForLocalScopedIdentifier:v22 isFinal:buf];
+      v24 = [platformObject2 cloudScopedIdentifierForLocalScopedIdentifier:v23 isFinal:buf];
 
-      if (v23)
+      if (v24)
       {
-        identifier = [v23 identifier];
-        v25 = [v10 _relatedIdentifierForRecordWithIdentifier:identifier];
+        identifier = [v24 identifier];
+        v26 = [v10 _relatedIdentifierForRecordWithIdentifier:identifier];
 
-        if (v25)
+        if (v26)
         {
-          v26 = v15;
-          v27 = [CPLScopedIdentifier alloc];
-          identifier2 = [v23 identifier];
-          v29 = v10;
-          v30 = [v10 _relatedIdentifierForRecordWithIdentifier:identifier2];
-          v31 = [v27 initWithScopeIdentifier:v50 identifier:v30];
+          v27 = v15;
+          v28 = [CPLScopedIdentifier alloc];
+          identifier2 = [v24 identifier];
+          v30 = v10;
+          v31 = [v10 _relatedIdentifierForRecordWithIdentifier:identifier2];
+          v32 = [v28 initWithScopeIdentifier:v51 identifier:v31];
 
-          if (!v31)
+          if (!v32)
           {
             goto LABEL_20;
           }
 
-          v32 = [platformObject2 localScopedIdentifierForCloudScopedIdentifier:v31 isFinal:buf];
-          if (v32)
+          v33 = [platformObject2 localScopedIdentifierForCloudScopedIdentifier:v32 isFinal:buf];
+          if (v33)
           {
             goto LABEL_18;
           }
 
-          v35 = [platformObject3 realScopedIdentifierForRemappedScopedIdentifier:v31];
-          v10 = v29;
-          if (v35)
+          v36 = [platformObject3 realScopedIdentifierForRemappedScopedIdentifier:v32];
+          v10 = v30;
+          if (v36)
           {
-            v36 = [platformObject2 localScopedIdentifierForCloudScopedIdentifier:v35 isFinal:buf];
-            if (v36)
+            v37 = [platformObject2 localScopedIdentifierForCloudScopedIdentifier:v36 isFinal:buf];
+            if (v37)
             {
-              v32 = v36;
-              if ([v45 hasRecordWithScopedIdentifier:v36])
+              v33 = v37;
+              if ([v46 hasRecordWithScopedIdentifier:v37])
               {
-                [(CPLPrequeliteStore *)selfCopy recordUpgradeEvent:@"FIX: Cloud %@'s item: %@ => %@", v23, v31, v35];
-                v37 = [v29 remapAllRecordsWithPreviousScopedIdentifier:v31 newScopedIdentifier:v35 error:0];
+                [(CPLPrequeliteStore *)selfCopy recordUpgradeEvent:@"FIX: Cloud %@'s item: %@ => %@", v24, v32, v36];
+                v38 = [v30 remapAllRecordsWithPreviousScopedIdentifier:v32 newScopedIdentifier:v36 error:0];
 
-                if (!v37)
+                if (!v38)
                 {
 
 LABEL_35:
-                  objc_autoreleasePoolPop(v19);
-                  abstractObject = v41;
-                  v10 = v29;
-                  _deleteBadRelations = v40;
+                  objc_autoreleasePoolPop(v20);
+                  abstractObject = v42;
+                  v10 = v30;
+                  _deleteBadRelations = v41;
                   goto LABEL_36;
                 }
 
 LABEL_18:
-                [(CPLPrequeliteStore *)selfCopy recordUpgradeEvent:@"FIX: Client %@'s item: %@", v18, v32];
-                identifier3 = [v32 identifier];
-                v34 = [v45 _updateRelatedIdentifier:identifier3 forRecordWithIdentifier:v18];
+                [(CPLPrequeliteStore *)selfCopy recordUpgradeEvent:@"FIX: Client %@'s item: %@", v18, v33];
+                identifier3 = [v33 identifier];
+                v35 = [v46 _updateRelatedIdentifier:identifier3 forRecordWithIdentifier:v18];
 
-                if ((v34 & 1) == 0)
+                if ((v35 & 1) == 0)
                 {
                   goto LABEL_35;
                 }
 
-                ++v46;
+                ++v47;
 LABEL_20:
-                v10 = v29;
+                v10 = v30;
 LABEL_21:
-                v15 = v26;
-                v17 = v47;
-                v13 = v48;
+                v15 = v27;
+                v17 = v48;
+                v13 = v49;
                 goto LABEL_22;
               }
             }
@@ -432,38 +486,38 @@ LABEL_21:
 
 LABEL_22:
 
-      objc_autoreleasePoolPop(v19);
+      objc_autoreleasePoolPop(v20);
       ++v16;
     }
 
     while (v13 != v16);
-    v38 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
-    v13 = v38;
-    v14 = v42;
+    v39 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+    v13 = v39;
+    v14 = v43;
   }
 
-  while (v38);
+  while (v39);
 
-  if (v42)
+  if (v43)
   {
-    abstractObject = v41;
-    if (v42 == v46)
+    abstractObject = v42;
+    if (v43 == v47)
     {
-      [(CPLPrequeliteStore *)selfCopy recordUpgradeEvent:@"Fixed %lu relations", v42];
+      [(CPLPrequeliteStore *)selfCopy recordUpgradeEvent:@"Fixed %lu relations", v43];
       _deleteBadRelations = 1;
     }
 
     else
     {
-      _deleteBadRelations = [v45 _deleteBadRelations];
-      [(CPLPrequeliteStore *)selfCopy recordUpgradeEvent:@"Fixed %lu relations and deleted %lu", v42, v42 - v46];
+      _deleteBadRelations = [v46 _deleteBadRelations];
+      [(CPLPrequeliteStore *)selfCopy recordUpgradeEvent:@"Fixed %lu relations and deleted %lu", v43, v43 - v47];
     }
   }
 
   else
   {
     _deleteBadRelations = 1;
-    abstractObject = v41;
+    abstractObject = v42;
   }
 
 LABEL_37:
@@ -551,30 +605,31 @@ LABEL_8:
     else if (version == 21)
     {
       dbURL = self->_dbURL;
+      v23 = 0;
       v22 = 0;
-      v21 = 0;
-      v11 = [(NSURL *)dbURL getResourceValue:&v22 forKey:NSURLCreationDateKey error:&v21];
-      v12 = v22;
-      v13 = v21;
+      v11 = [(NSURL *)dbURL getResourceValue:&v23 forKey:NSURLCreationDateKey error:&v22];
+      v12 = v23;
+      v13 = v22;
+      v14 = v13;
       if ((v11 & 1) == 0)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v14 = sub_100150214();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = sub_100150214(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             path = [(NSURL *)self->_dbURL path];
             *buf = 138412546;
-            v24 = path;
-            v25 = 2112;
-            v26 = v13;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Can't get creation date for %@: %@", buf, 0x16u);
+            v25 = path;
+            v26 = 2112;
+            v27 = v14;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Can't get creation date for %@: %@", buf, 0x16u);
           }
         }
 
-        v16 = +[NSDate date];
+        v17 = +[NSDate date];
 
-        v12 = v16;
+        v12 = v17;
       }
 
       v7 = [(CPLPrequeliteStore *)self addGlobalVariable:self->_libraryCreationDateVar defaultValue:v12 error:0];
@@ -607,9 +662,9 @@ LABEL_8:
       case 'Q':
         v8 = 136;
 LABEL_37:
-        v17 = *&self->CPLPlatformObject_opaque[v8];
+        v18 = *&self->CPLPlatformObject_opaque[v8];
         selfCopy2 = self;
-        v18 = 0;
+        v19 = 0;
         goto LABEL_38;
     }
 
@@ -631,12 +686,12 @@ LABEL_37:
     v9 = 224;
   }
 
-  v17 = *&self->CPLPlatformObject_opaque[v9];
-  v18 = &off_10028F0E8;
+  v18 = *&self->CPLPlatformObject_opaque[v9];
+  v19 = &off_10028F0E8;
   selfCopy2 = self;
 LABEL_38:
 
-  return [(CPLPrequeliteStore *)selfCopy2 addGlobalVariable:v17 defaultValue:v18 error:0];
+  return [(CPLPrequeliteStore *)selfCopy2 addGlobalVariable:v18 defaultValue:v19 error:0];
 }
 
 - (BOOL)_postUpgradeToVersion:(int64_t)version
@@ -846,7 +901,7 @@ LABEL_18:
     v33 = v32;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      sub_1001BC66C();
+      sub_1001BC66C(v31);
     }
 
     v34 = [(CPLPrequeliteStore *)selfCopy addGlobalVariable:selfCopy->_mainScopeIdentifierVar defaultValue:v31 error:0];
@@ -875,7 +930,7 @@ LABEL_18:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v40 = sub_100150214();
+      v40 = sub_100150214(v32);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
@@ -919,17 +974,17 @@ LABEL_26:
   if (self->_postUpgradeMigrations)
   {
     [(CPLPrequeliteStore *)self _openUpgradeJournal];
-    v38 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
+    v38 = 0u;
     obj = self->_postUpgradeMigrations;
-    v33 = [(NSMutableArray *)obj countByEnumeratingWithState:&v36 objects:v44 count:16];
-    if (v33)
+    v34 = [(NSMutableArray *)obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+    if (v34)
     {
       errorCopy = error;
       v5 = 0;
-      v32 = *v37;
+      v33 = *v38;
       v6 = &_CPLSilentLogging;
       v7 = &CPLFeatureNameEPP_ptr;
       v8 = &CPLFeatureNameEPP_ptr;
@@ -939,37 +994,38 @@ LABEL_26:
         v10 = v5;
         do
         {
-          if (*v37 != v32)
+          if (*v38 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v36 + 1) + 8 * v9);
-          context = objc_autoreleasePoolPush();
+          v11 = *(*(&v37 + 1) + 8 * v9);
+          v12 = objc_autoreleasePoolPush();
+          context = v12;
           if ((*v6 & 1) == 0)
           {
-            v12 = sub_100150214();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v13 = sub_100150214(v12);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               migrationDescription = [v11 migrationDescription];
               *buf = 138412290;
-              v43 = migrationDescription;
-              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Start migration '%@'", buf, 0xCu);
+              v44 = migrationDescription;
+              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Start migration '%@'", buf, 0xCu);
             }
           }
 
-          v14 = v7[46];
+          v15 = v7[46];
           date = [v8[249] date];
-          v16 = [v14 stringFromDate:date];
+          v17 = [v15 stringFromDate:date];
           migrationDescription2 = [v11 migrationDescription];
-          [(CPLPrequeliteStore *)self recordUpgradeEvent:@"%@: Performing migration '%@'", v16, migrationDescription2];
+          [(CPLPrequeliteStore *)self recordUpgradeEvent:@"%@: Performing migration '%@'", v17, migrationDescription2];
 
           date2 = [v8[249] date];
-          v35 = v10;
-          v19 = [v11 performMigrationWithError:&v35];
-          v5 = v35;
+          v36 = v10;
+          v20 = [v11 performMigrationWithError:&v36];
+          v5 = v36;
 
-          if ((v19 & 1) == 0 && v5)
+          if ((v20 & 1) == 0 && v5)
           {
             if ((*v6 & 1) == 0)
             {
@@ -979,23 +1035,23 @@ LABEL_26:
             [(PQLConnection *)self->_db setLastError:v5];
 
             objc_autoreleasePoolPop(context);
-            v26 = 0;
+            v27 = 0;
             error = errorCopy;
             goto LABEL_23;
           }
 
-          v20 = v7[46];
+          v21 = v7[46];
           [v8[249] date];
-          v22 = v21 = v6;
-          v23 = [v20 stringFromDate:v22];
+          v23 = v22 = v6;
+          v24 = [v21 stringFromDate:v23];
           migrationDescription3 = [v11 migrationDescription];
           [date2 timeIntervalSinceNow];
-          [(CPLPrequeliteStore *)self recordUpgradeEvent:@"%@: Performed migration '%@' in %.1fs: Done", v23, migrationDescription3, -v25];
+          [(CPLPrequeliteStore *)self recordUpgradeEvent:@"%@: Performed migration '%@' in %.1fs: Done", v24, migrationDescription3, -v26];
 
-          v6 = v21;
-          if ((*v21 & 1) == 0)
+          v6 = v22;
+          if ((*v22 & 1) == 0)
           {
-            sub_1001BC7B4(v40, v11, &v41);
+            sub_1001BC7B4(v41, v11, &v42);
           }
 
           objc_autoreleasePoolPop(context);
@@ -1005,9 +1061,9 @@ LABEL_26:
           v8 = &CPLFeatureNameEPP_ptr;
         }
 
-        while (v33 != v9);
-        v33 = [(NSMutableArray *)obj countByEnumeratingWithState:&v36 objects:v44 count:16];
-        if (v33)
+        while (v34 != v9);
+        v34 = [(NSMutableArray *)obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+        if (v34)
         {
           continue;
         }
@@ -1016,13 +1072,13 @@ LABEL_26:
       }
 
       error = errorCopy;
-      v26 = v19;
+      v27 = v20;
     }
 
     else
     {
       v5 = 0;
-      v26 = 1;
+      v27 = 1;
     }
 
 LABEL_23:
@@ -1031,10 +1087,10 @@ LABEL_23:
     postUpgradeMigrations = self->_postUpgradeMigrations;
     self->_postUpgradeMigrations = 0;
 
-    if (error && !v26)
+    if (error && !v27)
     {
-      v28 = v5;
-      v26 = 0;
+      v29 = v5;
+      v27 = 0;
       *error = v5;
     }
   }
@@ -1042,10 +1098,10 @@ LABEL_23:
   else
   {
     v5 = 0;
-    v26 = 1;
+    v27 = 1;
   }
 
-  return v26;
+  return v27;
 }
 
 - (NSURL)deactivateMarkerURL
@@ -1067,6 +1123,120 @@ LABEL_23:
   v6 = [v3 fileExistsAtPath:path];
 
   return v6;
+}
+
+- (BOOL)_closeWipeAndReOpenWithReason:(id)reason warnUserIfPossible:(BOOL)possible createRadar:(BOOL)radar error:(id *)error
+{
+  radarCopy = radar;
+  possibleCopy = possible;
+  reasonCopy = reason;
+  failInsteadOfWipe = self->_failInsteadOfWipe;
+  _hasDeactivateMarker = [(CPLPrequeliteStore *)self _hasDeactivateMarker];
+  if ((_hasDeactivateMarker & 1) == 0 && failInsteadOfWipe)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v13 = sub_100150214(_hasDeactivateMarker);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v39 = reasonCopy;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Trying to wipe database for reason '%@' but we were asked to prevent wipes", buf, 0xCu);
+      }
+    }
+
+    v14 = [CPLErrors preventWipeErrorWithReason:reasonCopy preventedByUser:0];
+    [(PQLConnection *)self->_db setLastError:v14];
+    if (error)
+    {
+      v15 = v14;
+      v16 = 0;
+      *error = v14;
+      goto LABEL_32;
+    }
+
+LABEL_31:
+    v16 = 0;
+    goto LABEL_32;
+  }
+
+  if (((_hasDeactivateMarker ^ 1) & possibleCopy) == 1 && +[CPLPrequeliteStore shouldWarnUserBeforeWipeOnUpgrade])
+  {
+    v17 = [CPLPrequelitePreventWipeNotification alloc];
+    abstractObject = [(CPLPrequeliteStore *)self abstractObject];
+    engineLibrary = [abstractObject engineLibrary];
+    libraryIdentifier = [engineLibrary libraryIdentifier];
+    v21 = reasonCopy;
+    if (qword_1002D2B58 != -1)
+    {
+      sub_1001BC840();
+    }
+
+    v22 = [qword_1002D2B50 objectForKeyedSubscript:v21];
+    if (!v22)
+    {
+      v35 = v17;
+      if ([v21 length] && (+[NSCharacterSet lowercaseLetterCharacterSet](NSCharacterSet, "lowercaseLetterCharacterSet"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "characterIsMember:", objc_msgSend(v21, "characterAtIndex:", 0)), v23, v24))
+      {
+        v22 = [v21 mutableCopy];
+        v34 = [v21 substringToIndex:1];
+        uppercaseString = [v34 uppercaseString];
+        [v22 replaceCharactersInRange:0 withString:{1, uppercaseString}];
+      }
+
+      else
+      {
+        v22 = v21;
+      }
+
+      v17 = v35;
+    }
+
+    v14 = [(CPLPrequelitePreventWipeNotification *)v17 initWithLibraryIdentifier:libraryIdentifier reason:v22];
+    if ([(CPLPrequelitePreventWipeNotification *)v14 shouldPreventWipeOnUpgradeCreateRadar:radarCopy])
+    {
+      sub_1001BC974(v21, self, error);
+      goto LABEL_31;
+    }
+  }
+
+  db = self->_db;
+  v37 = 0;
+  v27 = [(PQLConnection *)db close:&v37];
+  v28 = v37;
+  v14 = v28;
+  if ((v27 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+  {
+    sub_1001BC854(v28);
+  }
+
+  v29 = self->_db;
+  self->_db = 0;
+
+  [(CPLPrequeliteStore *)self _wipeWithReason:reasonCopy];
+  self->_reentrencyGuard = 1;
+  v36 = 0;
+  v16 = [(CPLPrequeliteStore *)self _openWithError:&v36];
+  v30 = v36;
+  v31 = v30;
+  if (!v16)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      sub_1001BC8E4(v30);
+    }
+
+    if (error)
+    {
+      v32 = v31;
+      *error = v31;
+    }
+  }
+
+  self->_reentrencyGuard = 0;
+
+LABEL_32:
+  return v16;
 }
 
 - (id)_wipeReasonFromCorruptionInfo:(id)info
@@ -1125,11 +1295,11 @@ LABEL_7:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_100150214();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_100150214(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        *v12 = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Database has been marked as deactivated - wiping everything", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Database has been marked as deactivated - wiping everything", v13, 2u);
       }
     }
 
@@ -1181,12 +1351,12 @@ LABEL_7:
     goto LABEL_28;
   }
 
-  v24 = 0;
-  if ([(CPLPrequeliteStore *)self _wipeIfDeactivated:longLongValue didWipeDatabase:&v24 error:0])
+  v25 = 0;
+  if ([(CPLPrequeliteStore *)self _wipeIfDeactivated:longLongValue didWipeDatabase:&v25 error:0])
   {
-    if ((v24 & 1) != 0 || longLongValue == 94)
+    if ((v25 & 1) != 0 || longLongValue == 94)
     {
-      if ((v24 & 1) == 0 && [(CPLSimpleUpgradeHistory *)self->_history versionHasChanged]&& ![(CPLPrequeliteStore *)self _fixStoreAfterAnyVersionChange])
+      if ((v25 & 1) == 0 && [(CPLSimpleUpgradeHistory *)self->_history versionHasChanged]&& ![(CPLPrequeliteStore *)self _fixStoreAfterAnyVersionChange])
       {
         goto LABEL_27;
       }
@@ -1204,10 +1374,10 @@ LABEL_7:
       self->_failInsteadOfWipe = 0;
       if ((v7 & 1) == 0)
       {
-        v20 = +[NSDate date];
-        v21 = [CPLDateFormatter stringFromDate:v20];
+        v21 = +[NSDate date];
+        v22 = [CPLDateFormatter stringFromDate:v21];
         lastCPLError = [(PQLConnection *)self->_db lastCPLError];
-        [(CPLPrequeliteStore *)self recordUpgradeEvent:@"%@: Upgrade from %lld to %lld: Failed (%@)", v21, longLongValue, 94, lastCPLError];
+        [(CPLPrequeliteStore *)self recordUpgradeEvent:@"%@: Upgrade from %lld to %lld: Failed (%@)", v22, longLongValue, 94, lastCPLError];
 
         [(CPLPrequeliteStore *)self _closeUpgradeJournal];
 LABEL_27:
@@ -1245,15 +1415,15 @@ LABEL_27:
 LABEL_18:
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v18 = sub_100150214();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v19 = sub_100150214(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v19 = [(CPLPrequeliteStore *)self valueForGlobalVariable:self->_mainScopeIdentifierVar];
+            v20 = [(CPLPrequeliteStore *)self valueForGlobalVariable:self->_mainScopeIdentifierVar];
             *buf = 138412546;
-            v26 = v19;
-            v27 = 2112;
-            v28 = v14;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Main scope identifier has changed (from %@ to %@)", buf, 0x16u);
+            v27 = v20;
+            v28 = 2112;
+            v29 = v14;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Main scope identifier has changed (from %@ to %@)", buf, 0x16u);
           }
         }
 
@@ -1338,14 +1508,14 @@ LABEL_28:
   objc_initWeak(&location, self);
   objc_initWeak(&from, self->_db);
   v8 = self->_db;
-  v67[0] = _NSConcreteStackBlock;
-  v67[1] = 3221225472;
-  v67[2] = sub_100153338;
-  v67[3] = &unk_10027B530;
-  objc_copyWeak(&v68, &location);
-  v69[1] = a2;
-  objc_copyWeak(v69, &from);
-  [(PQLConnection *)v8 setSqliteErrorHandler:v67];
+  v73[0] = _NSConcreteStackBlock;
+  v73[1] = 3221225472;
+  v73[2] = sub_100153338;
+  v73[3] = &unk_10027B530;
+  objc_copyWeak(&v74, &location);
+  v75[1] = a2;
+  objc_copyWeak(v75, &from);
+  [(PQLConnection *)v8 setSqliteErrorHandler:v73];
   v9 = self->_db;
   sqliteErrorHandler = [(PQLConnection *)v9 sqliteErrorHandler];
   [(PQLConnection *)v9 setAutoRollbackHandler:sqliteErrorHandler];
@@ -1357,18 +1527,19 @@ LABEL_28:
 
   if ((v14 & 1) == 0)
   {
-    v66 = 0;
-    v15 = [v12 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:0 attributes:0 error:&v66];
-    lastCPLError = v66;
+    v72 = 0;
+    v15 = [v12 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:0 attributes:0 error:&v72];
+    v16 = v72;
+    lastCPLError = v16;
     if (v15)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v17 = sub_100150214();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v18 = sub_100150214(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           path2 = [uRLByDeletingLastPathComponent path];
-          sub_1001BCD00(path2, v74, v17);
+          sub_1001BCD00(path2, v80, v18);
         }
       }
     }
@@ -1377,11 +1548,11 @@ LABEL_28:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v19 = sub_100150214();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = sub_100150214(v16);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           path3 = [uRLByDeletingLastPathComponent path];
-          sub_1001BCCB0(path3, lastCPLError, v74);
+          sub_1001BCCB0(path3, lastCPLError, v80);
         }
       }
 
@@ -1392,12 +1563,13 @@ LABEL_28:
     }
   }
 
-  v21 = self->_db;
+  v22 = self->_db;
   dbURL = self->_dbURL;
-  v65 = 0;
-  v23 = [(PQLConnection *)v21 openAtURL:dbURL sharedCache:0 error:&v65];
-  lastCPLError = v65;
-  if (v23)
+  v71 = 0;
+  v24 = [(PQLConnection *)v22 openAtURL:dbURL sharedCache:0 error:&v71];
+  v25 = v71;
+  lastCPLError = v25;
+  if (v24)
   {
     if (self->_showStatsForAllTransactions)
     {
@@ -1409,15 +1581,15 @@ LABEL_28:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v24 = sub_100150214();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = sub_100150214(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         path4 = [(NSURL *)self->_dbURL path];
-        sub_1001BCD50(path4, lastCPLError, v73);
+        sub_1001BCD50(path4, lastCPLError, v79);
       }
     }
 
-    v26 = self->_db;
+    v28 = self->_db;
     self->_db = 0;
 
     if (lastCPLError)
@@ -1437,7 +1609,7 @@ LABEL_28:
     if (lastCPLError)
     {
 LABEL_29:
-      v28 = 0;
+      v30 = 0;
       goto LABEL_44;
     }
 
@@ -1457,15 +1629,15 @@ LABEL_29:
 
 LABEL_30:
   clientCacheIdentifier = [(CPLPrequeliteStore *)self clientCacheIdentifier];
-  v30 = [(CPLPrequeliteStore *)self valueForGlobalVariable:self->_clientCacheIdentifierAsKnownByClient];
-  v31 = clientCacheIdentifier;
-  v32 = v30;
-  v33 = v32;
-  if (!v31 || !v32)
+  v32 = [(CPLPrequeliteStore *)self valueForGlobalVariable:self->_clientCacheIdentifierAsKnownByClient];
+  v33 = clientCacheIdentifier;
+  v34 = v32;
+  v35 = v34;
+  if (!v33 || !v34)
   {
-    v37 = (v31 | v32) != 0;
+    v40 = (v33 | v34) != 0;
 
-    if (v37)
+    if (v40)
     {
       goto LABEL_33;
     }
@@ -1473,24 +1645,24 @@ LABEL_30:
 LABEL_38:
     if (_CPLSilentLogging)
     {
-      v36 = 1;
+      v39 = 1;
       goto LABEL_43;
     }
 
-    v35 = sub_100150214();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v38 = sub_100150214(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "Client is in sync with client cache", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "Client is in sync with client cache", buf, 2u);
     }
 
-    v36 = 1;
+    v39 = 1;
     goto LABEL_42;
   }
 
-  v34 = [v31 isEqual:v32];
+  v36 = [v33 isEqual:v34];
 
-  if (v34)
+  if (v36)
   {
     goto LABEL_38;
   }
@@ -1498,44 +1670,45 @@ LABEL_38:
 LABEL_33:
   if (_CPLSilentLogging)
   {
-    v36 = 0;
+    v39 = 0;
     goto LABEL_43;
   }
 
-  v35 = sub_100150214();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+  v38 = sub_100150214(v37);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "Client is not in sync with client cache", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "Client is not in sync with client cache", buf, 2u);
   }
 
-  v36 = 0;
+  v39 = 0;
 LABEL_42:
 
 LABEL_43:
-  self->_isClientInSyncWithClientCache = v36;
+  self->_isClientInSyncWithClientCache = v39;
 
   lastCPLError = 0;
-  v28 = 1;
+  v30 = 1;
 LABEL_44:
-  v38 = [(CPLPrequeliteStore *)self valueForGlobalVariable:self->_libraryCreationDateVar];
+  v41 = [(CPLPrequeliteStore *)self valueForGlobalVariable:self->_libraryCreationDateVar];
   libraryCreationDate = self->_libraryCreationDate;
-  self->_libraryCreationDate = v38;
+  self->_libraryCreationDate = v41;
 
-  if ((v28 & 1) == 0)
+  if ((v30 & 1) == 0)
   {
     corruptionInfo = [(CPLPrequeliteStore *)self corruptionInfo];
+    v49 = corruptionInfo;
     if (corruptionInfo)
     {
-      sub_1001BCDA0();
-      v45 = [CPLErrors cplErrorWithCode:3 description:@"Library is corrupted"];
+      sub_1001BCDA0(corruptionInfo);
+      v50 = [CPLErrors cplErrorWithCode:3 description:@"Library is corrupted"];
 
-      lastCPLError = v45;
+      lastCPLError = v50;
     }
 
     if (error)
     {
-      v46 = lastCPLError;
+      v51 = lastCPLError;
       *error = lastCPLError;
     }
 
@@ -1545,21 +1718,22 @@ LABEL_44:
   if ([(CPLSimpleUpgradeHistory *)self->_history versionHasChanged])
   {
     disabledFeatures = [(CPLPrequeliteStore *)self disabledFeatures];
-    if ([disabledFeatures count])
+    v44 = [disabledFeatures count];
+    if (v44)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v41 = sub_100150214();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v45 = sub_100150214(v44);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = [disabledFeatures componentsJoinedByString:{@", "}];
-          sub_1001BCEB0(v42, buf, v41);
+          v46 = [disabledFeatures componentsJoinedByString:{@", "}];
+          sub_1001BCEB0(v46, buf, v45);
         }
       }
 
-      v43 = [(CPLPrequeliteStore *)self setShouldUpdateDisabledFeaturesWithError:error];
+      v47 = [(CPLPrequeliteStore *)self setShouldUpdateDisabledFeaturesWithError:error];
 
-      if ((v43 & 1) == 0)
+      if ((v47 & 1) == 0)
       {
         goto LABEL_69;
       }
@@ -1570,32 +1744,15 @@ LABEL_44:
     }
 
 LABEL_62:
-    if (![(CPLSimpleUpgradeHistory *)self->_history versionHasChanged])
+    if (!-[CPLSimpleUpgradeHistory versionHasChanged](self->_history, "versionHasChanged") && (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v55 = objc_claimAutoreleasedReturnValue(), v56 = [v55 BOOLForKey:@"CPLAlwaysReidentifyScopes"], v55, !v56) || (-[CPLPrequeliteStore abstractObject](self, "abstractObject"), v57 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v57, "scopes"), v58 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v58, "platformObject"), v59 = objc_claimAutoreleasedReturnValue(), v58, v57, v60 = objc_msgSend(v59, "forceIdentifyUknownScopesWithError:", error), v59, (v60 & 1) != 0))
     {
-      v49 = +[NSUserDefaults standardUserDefaults];
-      v50 = [v49 BOOLForKey:@"CPLAlwaysReidentifyScopes"];
-
-      if (!v50)
-      {
-        goto LABEL_66;
-      }
-    }
-
-    abstractObject = [(CPLPrequeliteStore *)self abstractObject];
-    scopes = [abstractObject scopes];
-    platformObject = [scopes platformObject];
-
-    v54 = [platformObject forceIdentifyUknownScopesWithError:error];
-    if (v54)
-    {
-LABEL_66:
       if (!self->_reentrencyGuard && self->_didWipeLibrary)
       {
-        abstractObject2 = [(CPLPrequeliteStore *)self abstractObject];
-        [abstractObject2 noteOtherResetEvent:@"wipe" cause:self->_wipeReason];
+        abstractObject = [(CPLPrequeliteStore *)self abstractObject];
+        [abstractObject noteOtherResetEvent:@"wipe" cause:self->_wipeReason];
 
-        abstractObject3 = [(CPLPrequeliteStore *)self abstractObject];
-        engineLibrary = [abstractObject3 engineLibrary];
+        abstractObject2 = [(CPLPrequeliteStore *)self abstractObject];
+        engineLibrary = [abstractObject2 engineLibrary];
         [engineLibrary notifyAttachedObjectsPullQueueIsFull];
 
         wipeReason = self->_wipeReason;
@@ -1604,28 +1761,28 @@ LABEL_66:
         self->_didWipeLibrary = 0;
       }
 
-      abstractObject4 = [(CPLPrequeliteStore *)self abstractObject];
-      engineLibrary2 = [abstractObject4 engineLibrary];
+      abstractObject3 = [(CPLPrequeliteStore *)self abstractObject];
+      engineLibrary2 = [abstractObject3 engineLibrary];
       libraryIdentifier = [engineLibrary2 libraryIdentifier];
       [CPLPrequelitePreventWipeNotification resetNotificationForLibraryIdentifier:libraryIdentifier];
 
       lastCPLError = 0;
-      v62 = 1;
+      v68 = 1;
       goto LABEL_72;
     }
 
     goto LABEL_69;
   }
 
-  v47 = +[NSUserDefaults standardUserDefaults];
-  v48 = [v47 BOOLForKey:@"CPLAlwaysCheckDisabledFeatures"];
+  v52 = +[NSUserDefaults standardUserDefaults];
+  v53 = [v52 BOOLForKey:@"CPLAlwaysCheckDisabledFeatures"];
 
-  if (!v48)
+  if (!v53)
   {
     goto LABEL_62;
   }
 
-  sub_1001BCE44();
+  sub_1001BCE44(v54);
   if ([(CPLPrequeliteStore *)self setShouldUpdateDisabledFeaturesWithError:error])
   {
     goto LABEL_62;
@@ -1634,25 +1791,25 @@ LABEL_66:
 LABEL_69:
   lastCPLError = 0;
 LABEL_70:
-  v63 = self->_db;
-  if (!v63)
+  v69 = self->_db;
+  if (!v69)
   {
-    v62 = 0;
+    v68 = 0;
     goto LABEL_74;
   }
 
-  [(PQLConnection *)v63 close:0];
-  v62 = 0;
-  abstractObject4 = self->_db;
+  [(PQLConnection *)v69 close:0];
+  v68 = 0;
+  abstractObject3 = self->_db;
   self->_db = 0;
 LABEL_72:
 
 LABEL_74:
-  objc_destroyWeak(v69);
-  objc_destroyWeak(&v68);
+  objc_destroyWeak(v75);
+  objc_destroyWeak(&v74);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-  return v62;
+  return v68;
 }
 
 - (BOOL)openWithError:(id *)error
@@ -1677,7 +1834,7 @@ LABEL_74:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      sub_1001BCF6C();
+      sub_1001BCF6C(v12);
     }
 
     if (error)
@@ -2187,69 +2344,68 @@ LABEL_14:
 LABEL_15:
     self->_hasCachedPushPullGatekeepers = 0;
     self->_hasModifiedPushPullGatekeepers = 0;
-    v23 = self->_cachedPushPullGatekeepers;
+    v22 = self->_cachedPushPullGatekeepers;
     self->_cachedPushPullGatekeepers = 0;
 
-    v22 = 0;
+    v21 = 0;
     goto LABEL_16;
   }
 
   v7 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(gatekeepersCopy, "count")}];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = gatekeepersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        [v7 addObject:v15];
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
+        [v7 addObject:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
   }
 
-  v16 = [v8 copy];
-  v17 = self->_cachedPushPullGatekeepers;
-  self->_cachedPushPullGatekeepers = v16;
+  v15 = [v8 copy];
+  v16 = self->_cachedPushPullGatekeepers;
+  self->_cachedPushPullGatekeepers = v15;
 
-  v18 = [NSPropertyListSerialization dataWithPropertyList:v7 format:200 options:0 error:error];
-  if (!v18)
+  v17 = [NSPropertyListSerialization dataWithPropertyList:v7 format:200 options:0 error:error];
+  if (!v17)
   {
 
     goto LABEL_15;
   }
 
-  v19 = v18;
-  v20 = [(CPLPrequeliteStore *)self setValue:v18 forGlobalVariable:self->_pushPullGatekeepersVar error:error];
+  v18 = v17;
+  v19 = [(CPLPrequeliteStore *)self setValue:v17 forGlobalVariable:self->_pushPullGatekeepersVar error:error];
 
-  if ((v20 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
     goto LABEL_15;
   }
 
 LABEL_13:
-  v22 = 1;
+  v21 = 1;
 LABEL_16:
 
-  return v22;
+  return v21;
 }
 
 - (NSArray)pushPullGatekeepers
@@ -2303,7 +2459,7 @@ LABEL_16:
 
           v14 = *(*(&v26 + 1) + 8 * v13);
           v15 = NSClassFromString(v14);
-          if (v15 && (v16 = v15, [(objc_class *)v15 isSubclassOfClass:objc_opt_class()]))
+          if (v15 && (v16 = v15, v15 = [(objc_class *)v15 isSubclassOfClass:objc_opt_class()], v15))
           {
             v17 = [[v16 alloc] initWithStore:abstractObject];
             if (v17)
@@ -2325,7 +2481,7 @@ LABEL_16:
               goto LABEL_18;
             }
 
-            v17 = sub_100150214();
+            v17 = sub_100150214(v15);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
@@ -2368,7 +2524,7 @@ LABEL_28:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_100150214();
+      v3 = sub_100150214(v6);
       if (os_log_type_enabled(&v3->super, OS_LOG_TYPE_ERROR))
       {
         *v33 = 138412290;
@@ -2618,23 +2774,24 @@ LABEL_5:
 
   if ((v9 & 1) == 0)
   {
-    v15 = 0;
-    v10 = [reasonCopy writeToURL:lCopy atomically:1 encoding:4 error:&v15];
-    v11 = v15;
+    v16 = 0;
+    v10 = [reasonCopy writeToURL:lCopy atomically:1 encoding:4 error:&v16];
+    v11 = v16;
+    v12 = v11;
     if (v10)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v12 = sub_100150214();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_100150214(v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           uRLByDeletingLastPathComponent = [lCopy URLByDeletingLastPathComponent];
           path2 = [uRLByDeletingLastPathComponent path];
           *buf = 138412546;
-          v17 = path2;
-          v18 = 2114;
-          v19 = reasonCopy;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Will wipe CPL database at %@ at next launch: %{public}@", buf, 0x16u);
+          v18 = path2;
+          v19 = 2114;
+          v20 = reasonCopy;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Will wipe CPL database at %@ at next launch: %{public}@", buf, 0x16u);
 
 LABEL_9:
           goto LABEL_10;
@@ -2646,17 +2803,17 @@ LABEL_9:
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_100150214();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100150214(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         uRLByDeletingLastPathComponent = [lCopy path];
         *buf = 138412802;
-        v17 = uRLByDeletingLastPathComponent;
-        v18 = 2114;
-        v19 = reasonCopy;
-        v20 = 2112;
-        v21 = v11;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to store wipe marker at %@ (reason: %{public}@): %@", buf, 0x20u);
+        v18 = uRLByDeletingLastPathComponent;
+        v19 = 2114;
+        v20 = reasonCopy;
+        v21 = 2112;
+        v22 = v12;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to store wipe marker at %@ (reason: %{public}@): %@", buf, 0x20u);
         goto LABEL_9;
       }
 
@@ -3145,65 +3302,65 @@ LABEL_10:
 
 - (void)emergencyClose
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 1;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v15 = sub_100157ED4;
-  v16 = &unk_1002729E8;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 1;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v16 = sub_100157ED4;
+  v17 = &unk_1002729E8;
   selfCopy = self;
-  v18 = &v19;
-  v3 = v14;
+  v19 = &v20;
+  v3 = v15;
   os_unfair_lock_lock(&self->_emergencyCloseLock);
-  v15(v3);
+  v16(v3);
   os_unfair_lock_unlock(&self->_emergencyCloseLock);
 
-  if (v20[3])
+  if (v21[3])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v4 = sub_100150214();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = sub_100150214(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         queue = self->_queue;
         *buf = 138412546;
         *&buf[4] = self;
         *&buf[12] = 2112;
         *&buf[14] = queue;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Requesting emergency close of %@ - suspending %@", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Requesting emergency close of %@ - suspending %@", buf, 0x16u);
       }
     }
 
-    v6 = dispatch_queue_create("com.apple.cpl.emergencyclose", 0);
+    v7 = dispatch_queue_create("com.apple.cpl.emergencyclose", 0);
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v24 = 0;
-    v7 = dispatch_time(0, 10000000000);
+    v25 = 0;
+    v8 = dispatch_time(0, 10000000000);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100157F04;
     block[3] = &unk_100272028;
     block[4] = self;
     block[5] = buf;
-    dispatch_after(v7, v6, block);
-    v8 = self->_queue;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1001BB808;
-    v10[3] = &unk_100273F80;
-    v10[4] = self;
-    v11 = v6;
-    v12 = buf;
-    v9 = v6;
-    dispatch_sync(v8, v10);
+    dispatch_after(v8, v7, block);
+    v9 = self->_queue;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1001BB808;
+    v11[3] = &unk_100273F80;
+    v11[4] = self;
+    v12 = v7;
+    v13 = buf;
+    v10 = v7;
+    dispatch_sync(v9, v11);
 
     _Block_object_dispose(buf, 8);
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 - (void)markAsCorrupted
@@ -3391,7 +3548,7 @@ LABEL_16:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100150214();
+    v3 = sub_100150214(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v11 = 138412290;
@@ -3421,35 +3578,35 @@ LABEL_16:
   cloudLibraryStateStorageURL = [engineLibrary cloudLibraryStateStorageURL];
 
   v9 = +[NSFileManager defaultManager];
-  v17 = sub_100158DF4(v9, v10, v11, v12, v13, v14, v15, v16, v22, v23);
-  v18 = v24;
+  v17 = sub_100158DF4(v9, v10, v11, v12, v13, v14, v15, v16, v23, v24);
+  v18 = v25;
 
   if ((v17 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
-    v19 = sub_100150214();
-    if (sub_1000033C0(v19))
+    v20 = sub_100150214(v19);
+    if (sub_1000033C0(v20))
     {
       path = [cloudLibraryStateStorageURL path];
       sub_100158D84();
-      v26 = v18;
-      sub_10003752C(&_mh_execute_header, v9, v21, "Error trying to delete %@: %@", v25);
+      v27 = v18;
+      sub_10003752C(&_mh_execute_header, v9, v22, "Error trying to delete %@: %@", v26);
     }
   }
 }
 
 - (BOOL)_upgradeDB:(int64_t)b
 {
-  [(PQLConnection *)self->_db setLastError:0];
+  v6 = [(PQLConnection *)self->_db setLastError:0];
   if (self->_reentrencyGuard)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_100150214();
-      if (sub_10000FBDC(v6))
+      v7 = sub_100150214(v6);
+      if (sub_10000FBDC(v7))
       {
         *buf = 0;
         sub_100158DCC();
-        _os_log_impl(v7, v8, v9, v10, v11, 2u);
+        _os_log_impl(v8, v9, v10, v11, v12, 2u);
       }
     }
 
@@ -3460,20 +3617,20 @@ LABEL_16:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = sub_100150214();
-      if (sub_1000033C0(v18))
+      v19 = sub_100150214(v6);
+      if (sub_1000033C0(v19))
       {
         *buf = 134217984;
         bCopy3 = b;
-        sub_10004DA10(&_mh_execute_header, v19, v20, "Database in version %lld is too old. Wiping everything. This will require a reset sync.", buf);
+        sub_10004DA10(&_mh_execute_header, v20, v21, "Database in version %lld is too old. Wiping everything. This will require a reset sync.", buf);
       }
     }
 
     [(CPLPrequeliteStore *)self recordUpgradeEvent:@"Will need to wipe everything because the current version is really too old."];
-    v21 = @"wiping everything because the current version is really too old";
+    v22 = @"wiping everything because the current version is really too old";
     selfCopy2 = self;
-    v23 = 0;
-    return [(CPLPrequeliteStore *)selfCopy2 _closeWipeAndReOpenWithReason:v21 warnUserIfPossible:v23 createRadar:0 error:0];
+    v24 = 0;
+    return [(CPLPrequeliteStore *)selfCopy2 _closeWipeAndReOpenWithReason:v22 warnUserIfPossible:v24 createRadar:0 error:0];
   }
 
   if ((b - 95) <= 0xFFFFFFFFFFFFFFB0)
@@ -3482,62 +3639,62 @@ LABEL_16:
     {
       if (_CPLSilentLogging)
       {
-        v16 = @"wiping database because the current version is really too old";
-        v17 = @"Will need to wipe database because the current version is really too old.";
+        v17 = @"wiping database because the current version is really too old";
+        v18 = @"Will need to wipe database because the current version is really too old.";
         goto LABEL_38;
       }
 
-      v36 = sub_100150214();
-      if (sub_1000033C0(v36))
+      v38 = sub_100150214(v6);
+      if (sub_1000033C0(v38))
       {
         *buf = 134217984;
         bCopy3 = b;
-        sub_10004DA10(&_mh_execute_header, v37, v38, "Database in version %lld is too old. Let's clear it and request a reset sync.", buf);
+        sub_10004DA10(&_mh_execute_header, v39, v40, "Database in version %lld is too old. Let's clear it and request a reset sync.", buf);
       }
 
-      v16 = @"wiping database because the current version is really too old";
-      v17 = @"Will need to wipe database because the current version is really too old.";
+      v17 = @"wiping database because the current version is really too old";
+      v18 = @"Will need to wipe database because the current version is really too old.";
     }
 
     else
     {
       if (_CPLSilentLogging)
       {
-        v16 = @"wiping database because the current version is too new";
-        v17 = @"Will need to wipe database because the current version is too new.";
+        v17 = @"wiping database because the current version is too new";
+        v18 = @"Will need to wipe database because the current version is too new.";
         goto LABEL_38;
       }
 
-      v13 = sub_100150214();
-      if (sub_1000033C0(v13))
+      v14 = sub_100150214(v6);
+      if (sub_1000033C0(v14))
       {
         *buf = 134217984;
         bCopy3 = b;
-        sub_10004DA10(&_mh_execute_header, v14, v15, "Database in version %lld is too new for this engine. Let's clear it, request a reset sync and cross our fingers.", buf);
+        sub_10004DA10(&_mh_execute_header, v15, v16, "Database in version %lld is too new for this engine. Let's clear it, request a reset sync and cross our fingers.", buf);
       }
 
-      v16 = @"wiping database because the current version is too new";
-      v17 = @"Will need to wipe database because the current version is too new.";
+      v17 = @"wiping database because the current version is too new";
+      v18 = @"Will need to wipe database because the current version is too new.";
     }
 
 LABEL_38:
-    [(CPLPrequeliteStore *)self recordUpgradeEvent:v17];
+    [(CPLPrequeliteStore *)self recordUpgradeEvent:v18];
     selfCopy2 = self;
-    v21 = v16;
-    v23 = b > 0xF;
-    return [(CPLPrequeliteStore *)selfCopy2 _closeWipeAndReOpenWithReason:v21 warnUserIfPossible:v23 createRadar:0 error:0];
+    v22 = v17;
+    v24 = b > 0xF;
+    return [(CPLPrequeliteStore *)selfCopy2 _closeWipeAndReOpenWithReason:v22 warnUserIfPossible:v24 createRadar:0 error:0];
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v24 = sub_100150214();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = sub_100150214(v6);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       sub_100158E10();
       bCopy4 = b;
-      v46 = v25;
+      v48 = v26;
       bCopy6 = 94;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "Upgrading %@ from version %lld to %lld", buf, 0x20u);
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "Upgrading %@ from version %lld to %lld", buf, 0x20u);
     }
   }
 
@@ -3548,56 +3705,56 @@ LABEL_38:
   {
     if (b == 94)
     {
-      v12 = 1;
+      v13 = 1;
       goto LABEL_32;
     }
 
     ++b;
-    v28 = objc_autoreleasePoolPush();
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_1001BACA0;
-    v40[3] = &unk_10027B508;
-    v40[4] = self;
+    v29 = objc_autoreleasePoolPush();
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v42[2] = sub_1001BACA0;
+    v42[3] = &unk_10027B508;
+    v42[4] = self;
     bCopy5 = b;
-    v41 = storages;
-    v29 = [(CPLPrequeliteStore *)self _performWithFlags:10 action:v40];
+    v43 = storages;
+    v30 = [(CPLPrequeliteStore *)self _performWithFlags:10 action:v42];
 
-    objc_autoreleasePoolPop(v28);
+    objc_autoreleasePoolPop(v29);
   }
 
-  while ((v29 & 1) != 0);
+  while ((v30 & 1) != 0);
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v30 = sub_100150214();
-    if (sub_10002B0A8(v30))
+    v32 = sub_100150214(v31);
+    if (sub_10002B0A8(v32))
     {
       sub_100158E10();
       bCopy4 = b - 1;
-      v46 = v31;
+      v48 = v33;
       bCopy6 = b;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to upgrade %@ from version %lld to %lld - will need to wipe the database", buf, 0x20u);
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to upgrade %@ from version %lld to %lld - will need to wipe the database", buf, 0x20u);
     }
   }
 
   [(CPLPrequeliteStore *)self recordUpgradeEvent:@"Will need to wipe everything because failed to upgrade from version %lld to %lld.", b - 1, b];
   lastCPLError = [(PQLConnection *)self->_db lastCPLError];
-  v33 = [NSString alloc];
+  v35 = [NSString alloc];
   domain = [lastCPLError domain];
-  v35 = [v33 initWithFormat:@"wiping everything because database failed to upgrade from version %lld to %lld (%@/%ld)", b - 1, b, domain, objc_msgSend(lastCPLError, "code")];
+  v37 = [v35 initWithFormat:@"wiping everything because database failed to upgrade from version %lld to %lld (%@/%ld)", b - 1, b, domain, objc_msgSend(lastCPLError, "code")];
 
-  v12 = [sub_100158E24() _closeWipeAndReOpenWithReason:? warnUserIfPossible:? createRadar:? error:?];
+  v13 = [sub_100158E24() _closeWipeAndReOpenWithReason:? warnUserIfPossible:? createRadar:? error:?];
 LABEL_32:
 
-  return v12;
+  return v13;
 }
 
 - (void)_deleteCorruptionInfo
 {
   _corruptionMarkerURL = [(CPLPrequeliteStore *)self _corruptionMarkerURL];
   v3 = +[NSFileManager defaultManager];
-  v11 = sub_100158DF4(v3, v4, v5, v6, v7, v8, v9, v10, v18, v19);
-  v12 = v20;
+  v11 = sub_100158DF4(v3, v4, v5, v6, v7, v8, v9, v10, v19, v20);
+  v12 = v21;
   if (v11)
   {
 LABEL_2:
@@ -3610,13 +3767,13 @@ LABEL_2:
 
   if ((v14 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
-    v15 = sub_100150214();
-    if (sub_100003448(v15))
+    v16 = sub_100150214(v15);
+    if (sub_100003448(v16))
     {
       path = [_corruptionMarkerURL path];
       sub_100158D84();
-      v22 = v12;
-      sub_10003752C(&_mh_execute_header, v3, v17, "Failed to remove corruption info at %@: %@", v21);
+      v23 = v12;
+      sub_10003752C(&_mh_execute_header, v3, v18, "Failed to remove corruption info at %@: %@", v22);
     }
 
     goto LABEL_2;
@@ -3629,21 +3786,22 @@ LABEL_4:
 {
   variableCopy = variable;
   valueCopy = value;
+  v10 = valueCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_100150214();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_100150214(valueCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       type = [(CPLPrequeliteStore *)variableCopy type];
       *buf = 138413058;
       selfCopy = self;
-      v27 = 2112;
-      v28 = variableCopy;
       v29 = 2112;
-      v30 = type;
+      v30 = variableCopy;
       v31 = 2112;
-      v32 = valueCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%@ adding global variable %@ (%@ - default:%@)", buf, 0x2Au);
+      v32 = type;
+      v33 = 2112;
+      v34 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%@ adding global variable %@ (%@ - default:%@)", buf, 0x2Au);
     }
   }
 
@@ -3653,14 +3811,14 @@ LABEL_4:
 
   if (db)
   {
-    v14 = valueCopy;
+    v16 = v10;
     defaultValue = [(CPLPrequeliteStore *)variableCopy defaultValue];
-    v16 = defaultValue;
-    if (v14 && defaultValue)
+    v18 = defaultValue;
+    if (v16 && defaultValue)
     {
-      v17 = [v14 isEqual:defaultValue];
+      v19 = [v16 isEqual:defaultValue];
 
-      if (v17)
+      if (v19)
       {
         goto LABEL_12;
       }
@@ -3669,20 +3827,20 @@ LABEL_4:
     else
     {
 
-      if (!(v14 | v16))
+      if (!(v16 | v18))
       {
 LABEL_12:
-        [(CPLPrequeliteStore *)self _cacheValue:v14 forVariable:variableCopy];
-        v20 = 1;
+        [(CPLPrequeliteStore *)self _cacheValue:v16 forVariable:variableCopy];
+        v22 = 1;
         goto LABEL_20;
       }
     }
 
-    v18 = self->_db;
-    v19 = [(CPLPrequeliteStore *)variableCopy bindableValueForValue:v14];
-    LOBYTE(v18) = [(PQLConnection *)v18 cplExecute:@"UPDATE globals SET %@ = %@", variableCopy, v19];
+    v20 = self->_db;
+    v21 = [(CPLPrequeliteStore *)variableCopy bindableValueForValue:v16];
+    LOBYTE(v20) = [(PQLConnection *)v20 cplExecute:@"UPDATE globals SET %@ = %@", variableCopy, v21];
 
-    if (v18)
+    if (v20)
     {
       goto LABEL_12;
     }
@@ -3690,45 +3848,45 @@ LABEL_12:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v21 = sub_100150214();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = sub_100150214(v15);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       type2 = [(CPLPrequeliteStore *)variableCopy type];
       lastCPLError = [(PQLConnection *)self->_db lastCPLError];
       *buf = 138413058;
       selfCopy = variableCopy;
-      v27 = 2112;
-      v28 = type2;
       v29 = 2112;
-      v30 = valueCopy;
+      v30 = type2;
       v31 = 2112;
-      v32 = lastCPLError;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Unable to add global variable %@ (%@ - default: %@) to database: %@", buf, 0x2Au);
+      v32 = v10;
+      v33 = 2112;
+      v34 = lastCPLError;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Unable to add global variable %@ (%@ - default: %@) to database: %@", buf, 0x2Au);
     }
   }
 
   if (error)
   {
     [(PQLConnection *)self->_db lastCPLError];
-    *error = v20 = 0;
+    *error = v22 = 0;
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
 LABEL_20:
 
-  return v20;
+  return v22;
 }
 
 - (void)_deleteWipeReason
 {
   _wipeStoreMarkerURL = [(CPLPrequeliteStore *)self _wipeStoreMarkerURL];
   v3 = +[NSFileManager defaultManager];
-  v11 = sub_100158DF4(v3, v4, v5, v6, v7, v8, v9, v10, v18, v19);
-  v12 = v20;
+  v11 = sub_100158DF4(v3, v4, v5, v6, v7, v8, v9, v10, v19, v20);
+  v12 = v21;
   if (v11)
   {
 LABEL_2:
@@ -3741,13 +3899,13 @@ LABEL_2:
 
   if ((v14 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
-    v15 = sub_100150214();
-    if (sub_100003448(v15))
+    v16 = sub_100150214(v15);
+    if (sub_100003448(v16))
     {
       path = [_wipeStoreMarkerURL path];
       sub_100158D84();
-      v22 = v12;
-      sub_10003752C(&_mh_execute_header, v3, v17, "Failed to remove wipe reason at %@: %@", v21);
+      v23 = v12;
+      sub_10003752C(&_mh_execute_header, v3, v18, "Failed to remove wipe reason at %@: %@", v22);
     }
 
     goto LABEL_2;

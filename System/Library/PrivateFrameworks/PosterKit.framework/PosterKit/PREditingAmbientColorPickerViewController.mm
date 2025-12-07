@@ -34,7 +34,7 @@
 
     else
     {
-      v16 = PRBundle();
+      v16 = PRBundle(0);
       v17 = [v16 localizedStringForKey:@"EDIT_COLOR_PICKER_DEFAULT_PROMPT" value:&stru_1F1C13D90 table:@"PosterKit"];
       [(PREditingAmbientColorPickerViewController *)v12 setTitle:v17];
     }

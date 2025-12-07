@@ -33,7 +33,7 @@
 
 - (void)start
 {
-  v3 = sub_10003C49C(&unk_1001FFE20);
+  v3 = sub_10003C49C(&unk_1001FFE20, &unk_10017ED10);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = *(&self->super.isa + OBJC_IVAR____TtC11Diagnostics28DeviceTimberLorryDevelopment_state);

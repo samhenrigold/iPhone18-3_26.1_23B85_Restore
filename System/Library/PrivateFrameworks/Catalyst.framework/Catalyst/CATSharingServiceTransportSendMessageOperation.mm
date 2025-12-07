@@ -36,7 +36,7 @@
   v5[3] = &unk_278DA72D0;
   v5[4] = self;
   v3 = v5;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(v3);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_17;
@@ -63,7 +63,7 @@ void __56__CATSharingServiceTransportSendMessageOperation_cancel__block_invoke(u
   v4[3] = &unk_278DA72D0;
   v4[4] = self;
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_17;
@@ -74,7 +74,7 @@ void __56__CATSharingServiceTransportSendMessageOperation_cancel__block_invoke(u
 
 - (void)sendMessage
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if ([(CATOperation *)self isExecuting])
@@ -113,7 +113,7 @@ void __61__CATSharingServiceTransportSendMessageOperation_sendMessage__block_inv
   v4 = v3;
   v8 = v4;
   v5 = v7;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_17;
@@ -133,7 +133,7 @@ void __61__CATSharingServiceTransportSendMessageOperation_sendMessage__block_inv
 - (void)didSendMessageWithError:(id)error
 {
   errorCopy = error;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v4);
 
   if ([(CATOperation *)self isExecuting])

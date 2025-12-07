@@ -1,3 +1,4499 @@
+unint64_t sub_1008A1C24(char a1)
+{
+  result = 0x7274536465657073;
+  switch(a1)
+  {
+    case 1:
+      result = 0xD000000000000010;
+      break;
+    case 2:
+      result = 0x696E556465657073;
+      break;
+    case 3:
+      result = 0xD000000000000010;
+      break;
+    case 4:
+      result = 0x6972745374737567;
+      break;
+    case 5:
+      result = 0x756C615674737567;
+      break;
+    case 6:
+      result = 0x74696E5574737567;
+      break;
+    case 7:
+      result = 0x6562614C74737567;
+      break;
+    case 8:
+      result = 0x6F69746365726964;
+      break;
+    case 9:
+      result = 0xD000000000000014;
+      break;
+    case 10:
+      result = 0xD000000000000021;
+      break;
+    case 11:
+      result = 0xD000000000000015;
+      break;
+    case 12:
+      result = 0xD000000000000010;
+      break;
+    case 13:
+      result = 0x656C676E61;
+      break;
+    case 14:
+      result = 0xD000000000000018;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A1E20(double *a1, uint64_t a2)
+{
+  v4 = *a1 == *a2 && *(a1 + 1) == *(a2 + 8);
+  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v5 = *(a1 + 2) == *(a2 + 16) && *(a1 + 3) == *(a2 + 24);
+  if (!v5 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v6 = *(a1 + 4) == *(a2 + 32) && *(a1 + 5) == *(a2 + 40);
+  if (!v6 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v7 = *(a1 + 6) == *(a2 + 48) && *(a1 + 7) == *(a2 + 56);
+  if (!v7 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v8 = *(a1 + 8) == *(a2 + 64) && *(a1 + 9) == *(a2 + 72);
+  if (!v8 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v9 = *(a1 + 10) == *(a2 + 80) && *(a1 + 11) == *(a2 + 88);
+  if (!v9 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v10 = *(a1 + 12) == *(a2 + 96) && *(a1 + 13) == *(a2 + 104);
+  if (!v10 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v11 = *(a1 + 14) == *(a2 + 112) && *(a1 + 15) == *(a2 + 120);
+  if (!v11 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v12 = *(a1 + 16) == *(a2 + 128) && *(a1 + 17) == *(a2 + 136);
+  if (!v12 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v13 = *(a1 + 18) == *(a2 + 144) && *(a1 + 19) == *(a2 + 152);
+  if (!v13 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v14 = *(a1 + 20) == *(a2 + 160) && *(a1 + 21) == *(a2 + 168);
+  if (!v14 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v15 = *(a1 + 22) == *(a2 + 176) && *(a1 + 23) == *(a2 + 184);
+  if (!v15 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v16 = *(a1 + 24) == *(a2 + 192) && *(a1 + 25) == *(a2 + 200);
+  if (!v16 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || a1[26] != *(a2 + 208))
+  {
+    return 0;
+  }
+
+  if (*(a1 + 27) == *(a2 + 216) && *(a1 + 28) == *(a2 + 224))
+  {
+    return 1;
+  }
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t sub_1008A2038(void *a1)
+{
+  v3 = v1;
+  v5 = sub_10022C350(&qword_100CE2500, &qword_100A95058);
+  sub_1000037C4();
+  v7 = v6;
+  __chkstk_darwin(v8);
+  v10 = &v40 - v9;
+  sub_1000161C0(a1, a1[3]);
+  sub_1008A2BB4();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v11 = *v3;
+  v12 = v3[1];
+  v48 = 0;
+  sub_100004D8C(v11, v12, &v48);
+  if (!v2)
+  {
+    v13 = v3[2];
+    v14 = v3[3];
+    v47 = 1;
+    sub_100004D8C(v13, v14, &v47);
+    v15 = v3[4];
+    v16 = v3[5];
+    v46 = 2;
+    sub_100004D8C(v15, v16, &v46);
+    v17 = v3[6];
+    v18 = v3[7];
+    v45 = 3;
+    sub_100004D8C(v17, v18, &v45);
+    v19 = v3[8];
+    v20 = v3[9];
+    v44 = 4;
+    sub_100004D8C(v19, v20, &v44);
+    v21 = v3[10];
+    v22 = v3[11];
+    v43 = 5;
+    sub_100004D8C(v21, v22, &v43);
+    v23 = v3[12];
+    v24 = v3[13];
+    v42 = 6;
+    sub_100004D8C(v23, v24, &v42);
+    v25 = v3[14];
+    v26 = v3[15];
+    v41 = 7;
+    sub_100004D8C(v25, v26, &v41);
+    v27 = v3[16];
+    v28 = v3[17];
+    HIBYTE(v40) = 8;
+    sub_100004D8C(v27, v28, &v40 + 7);
+    v29 = v3[18];
+    v30 = v3[19];
+    BYTE6(v40) = 9;
+    sub_100004D8C(v29, v30, &v40 + 6);
+    v31 = v3[20];
+    v32 = v3[21];
+    BYTE5(v40) = 10;
+    sub_100004D8C(v31, v32, &v40 + 5);
+    v33 = v3[22];
+    v34 = v3[23];
+    BYTE4(v40) = 11;
+    sub_100004D8C(v33, v34, &v40 + 4);
+    v35 = v3[24];
+    v36 = v3[25];
+    BYTE3(v40) = 12;
+    sub_100004D8C(v35, v36, &v40 + 3);
+    BYTE2(v40) = 13;
+    KeyedEncodingContainer.encode(_:forKey:)();
+    v37 = v3[27];
+    v38 = v3[28];
+    BYTE1(v40) = 14;
+    sub_100004D8C(v37, v38, &v40 + 1);
+  }
+
+  return (*(v7 + 8))(v10, v5);
+}
+
+void *sub_1008A22F0@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  sub_10022C350(&qword_100CE24F0, &qword_100A95050);
+  sub_1000037C4();
+  __chkstk_darwin(v5);
+  sub_1000161C0(a1, a1[3]);
+  sub_1008A2BB4();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (v2)
+  {
+    return sub_100006F14(a1);
+  }
+
+  v55 = a2;
+  LOBYTE(v57[0]) = 0;
+  v6 = KeyedDecodingContainer.decode(_:forKey:)();
+  v50 = v7;
+  sub_10001FB50(1);
+  v8 = KeyedDecodingContainer.decode(_:forKey:)();
+  v49 = v9;
+  sub_10001FB50(2);
+  v54 = KeyedDecodingContainer.decode(_:forKey:)();
+  v48 = v10;
+  sub_10001FB50(3);
+  v53 = KeyedDecodingContainer.decode(_:forKey:)();
+  v47 = v11;
+  sub_10001FB50(4);
+  v52 = KeyedDecodingContainer.decode(_:forKey:)();
+  v46 = v12;
+  sub_10001FB50(5);
+  v51 = KeyedDecodingContainer.decode(_:forKey:)();
+  v45 = v13;
+  sub_10001FB50(6);
+  v38 = KeyedDecodingContainer.decode(_:forKey:)();
+  v44 = v14;
+  sub_10001FB50(7);
+  v37 = KeyedDecodingContainer.decode(_:forKey:)();
+  v43 = v15;
+  sub_10001FB50(8);
+  v36 = KeyedDecodingContainer.decode(_:forKey:)();
+  v42 = v16;
+  sub_10001FB50(9);
+  v17 = KeyedDecodingContainer.decode(_:forKey:)();
+  v41 = v18;
+  v19 = v17;
+  sub_10001FB50(10);
+  v35 = KeyedDecodingContainer.decode(_:forKey:)();
+  v40 = v20;
+  sub_10001FB50(11);
+  v33 = KeyedDecodingContainer.decode(_:forKey:)();
+  v34 = v21;
+  sub_10001FB50(12);
+  v32 = KeyedDecodingContainer.decode(_:forKey:)();
+  v39 = v22;
+  sub_10001FB50(13);
+  KeyedDecodingContainer.decode(_:forKey:)();
+  v24 = v23;
+  v58[0] = 14;
+  v25 = KeyedDecodingContainer.decode(_:forKey:)();
+  v30 = v26;
+  v31 = v25;
+  v27 = sub_100015094();
+  v28(v27);
+  v56[0] = v6;
+  v56[1] = v50;
+  v56[2] = v8;
+  v56[3] = v49;
+  v56[4] = v54;
+  v56[5] = v48;
+  v56[6] = v53;
+  v56[7] = v47;
+  v56[8] = v52;
+  v56[9] = v46;
+  v56[10] = v51;
+  v56[11] = v45;
+  v56[12] = v38;
+  v56[13] = v44;
+  v56[14] = v37;
+  v56[15] = v43;
+  v56[16] = v36;
+  v56[17] = v42;
+  v56[18] = v19;
+  v56[19] = v41;
+  v56[20] = v35;
+  v56[21] = v40;
+  v56[22] = v33;
+  v56[23] = v34;
+  v56[24] = v32;
+  v56[25] = v39;
+  v56[26] = v24;
+  v56[27] = v31;
+  v56[28] = v30;
+  sub_1001A86C8(v56, v57);
+  sub_100006F14(a1);
+  v57[0] = v6;
+  v57[1] = v50;
+  v57[2] = v8;
+  v57[3] = v49;
+  v57[4] = v54;
+  v57[5] = v48;
+  v57[6] = v53;
+  v57[7] = v47;
+  v57[8] = v52;
+  v57[9] = v46;
+  v57[10] = v51;
+  v57[11] = v45;
+  v57[12] = v38;
+  v57[13] = v44;
+  v57[14] = v37;
+  v57[15] = v43;
+  v57[16] = v36;
+  v57[17] = v42;
+  v57[18] = v19;
+  v57[19] = v41;
+  v57[20] = v35;
+  v57[21] = v40;
+  v57[22] = v33;
+  v57[23] = v34;
+  v57[24] = v32;
+  v57[25] = v39;
+  v57[26] = v24;
+  v57[27] = v31;
+  v57[28] = v30;
+  sub_1006826B0(v57);
+  return memcpy(v55, v56, 0xE8uLL);
+}
+
+uint64_t sub_1008A2AA4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  result = sub_1008A17A4(a1, a2);
+  *a3 = result;
+  return result;
+}
+
+uint64_t sub_1008A2ACC(uint64_t a1)
+{
+  v2 = sub_1008A2BB4();
+
+  return CodingKey.description.getter(a1, v2);
+}
+
+uint64_t sub_1008A2B08(uint64_t a1)
+{
+  v2 = sub_1008A2BB4();
+
+  return CodingKey.debugDescription.getter(a1, v2);
+}
+
+void *sub_1008A2B44@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  result = sub_1008A22F0(a1, __src);
+  if (!v2)
+  {
+    return memcpy(a2, __src, 0xE8uLL);
+  }
+
+  return result;
+}
+
+unint64_t sub_1008A2BB4()
+{
+  result = qword_100CE24F8;
+  if (!qword_100CE24F8)
+  {
+    result = swift_getWitnessTable(byte_100A95124, &type metadata for WindComponentPreprocessedDataModel.CodingKeys, v0, v1);
+    atomic_store(result, &qword_100CE24F8);
+  }
+
+  return result;
+}
+
+_BYTE *storeEnumTagSinglePayload for WindComponentPreprocessedDataModel.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 14 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 14) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xF2)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xF1)
+  {
+    v6 = ((a2 - 242) >> 8) + 1;
+    *result = a2 + 14;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 14;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+unint64_t sub_1008A2CE8()
+{
+  result = qword_100CE2508;
+  if (!qword_100CE2508)
+  {
+    result = swift_getWitnessTable(byte_100A950FC, &type metadata for WindComponentPreprocessedDataModel.CodingKeys, v0, v1);
+    atomic_store(result, &qword_100CE2508);
+  }
+
+  return result;
+}
+
+unint64_t sub_1008A2D40()
+{
+  result = qword_100CE2510;
+  if (!qword_100CE2510)
+  {
+    result = swift_getWitnessTable(aUh, &type metadata for WindComponentPreprocessedDataModel.CodingKeys, v0, v1);
+    atomic_store(result, &qword_100CE2510);
+  }
+
+  return result;
+}
+
+unint64_t sub_1008A2D98()
+{
+  result = qword_100CE2518;
+  if (!qword_100CE2518)
+  {
+    result = swift_getWitnessTable(aG_0, &type metadata for WindComponentPreprocessedDataModel.CodingKeys, v0, v1);
+    atomic_store(result, &qword_100CE2518);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A2DEC()
+{
+  v0 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for Locale();
+  __chkstk_darwin(v4 - 8);
+  v5 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v5 - 8);
+  v6 = type metadata accessor for LocalizedStringResource();
+  sub_100007074(v6, static OpenMoonIntent.title);
+  sub_10000703C(v6, static OpenMoonIntent.title);
+  String.LocalizationValue.init(stringLiteral:)();
+  static Locale.current.getter();
+  (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
+  return LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+}
+
+double (*static OpenMoonIntent.title.modify())(uint64_t a1)
+{
+  if (qword_100CA2960 != -1)
+  {
+    swift_once();
+  }
+
+  v0 = type metadata accessor for LocalizedStringResource();
+  v1 = sub_10000703C(v0, static OpenMoonIntent.title);
+  sub_100005E7C(v1);
+  return j_j__swift_endAccess_1;
+}
+
+uint64_t sub_1008A30F8()
+{
+  v0 = sub_10022C350(&qword_100CA2D70, &unk_100A3D520);
+  __chkstk_darwin(v0 - 8);
+  v2 = &v12[-v1];
+  v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v12[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = type metadata accessor for Locale();
+  __chkstk_darwin(v7 - 8);
+  v8 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v8 - 8);
+  v9 = type metadata accessor for LocalizedStringResource();
+  __chkstk_darwin(v9);
+  v10 = type metadata accessor for IntentDescription();
+  sub_100007074(v10, static OpenMoonIntent.description);
+  sub_10000703C(v10, static OpenMoonIntent.description);
+  String.LocalizationValue.init(stringLiteral:)();
+  static Locale.current.getter();
+  (*(v4 + 104))(v6, enum case for LocalizedStringResource.BundleDescription.main(_:), v3);
+  LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+  sub_10001B350(v2, 1, 1, v9);
+  return IntentDescription.init(_:categoryName:searchKeywords:)();
+}
+
+double (*static OpenMoonIntent.description.modify())(uint64_t a1)
+{
+  if (qword_100CA2968 != -1)
+  {
+    swift_once();
+  }
+
+  v0 = type metadata accessor for IntentDescription();
+  v1 = sub_10000703C(v0, static OpenMoonIntent.description);
+  sub_100005E7C(v1);
+  return j__swift_endAccess_1;
+}
+
+uint64_t static OpenMoonIntent.parameterSummary.getter()
+{
+  v0 = sub_10022C350(&qword_100CE2520, &qword_100A95180);
+  sub_100003810(v0);
+  sub_100003828();
+  __chkstk_darwin(v1);
+  sub_100005E40();
+  sub_10022C350(&qword_100CE2528, &qword_100A95188);
+  sub_100003B20();
+  sub_100003828();
+  __chkstk_darwin(v2);
+  sub_1008A367C();
+  ParameterSummaryString.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v3._object = 0x8000000100AE3140;
+  v3._countAndFlagsBits = 0xD000000000000016;
+  ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
+  swift_getKeyPath();
+  sub_10022C350(&qword_100CE2538, &qword_100A951B8);
+  ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
+
+  v4._countAndFlagsBits = 0;
+  v4._object = 0xE000000000000000;
+  ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v4);
+  ParameterSummaryString.init(stringInterpolation:)();
+  return IntentParameterSummary.init(_:table:_:)();
+}
+
+unint64_t sub_1008A367C()
+{
+  result = qword_100CE2530;
+  if (!qword_100CE2530)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for OpenMoonIntent, &type metadata for OpenMoonIntent, v0, v1);
+    atomic_store(result, &qword_100CE2530);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A36D0(uint64_t a1, uint64_t a2)
+{
+  swift_getKeyPath();
+  sub_1008A367C();
+  v2 = static IntentParameterSummary.ParameterKeyPathsBuilder.buildExpression<A>(_:)();
+
+  sub_10022C350(&unk_100CE49D0, &qword_100A556A0);
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_100A3BD20;
+  *(v3 + 32) = v2;
+
+  v4 = static IntentParameterSummary.ParameterKeyPathsBuilder.buildBlock(_:)();
+
+  return v4;
+}
+
+uint64_t sub_1008A378C()
+{
+  v1 = sub_10022C350(&qword_100CBCC30, &unk_100A53C40);
+  sub_1000037C4();
+  v3 = v2;
+  sub_100003828();
+  __chkstk_darwin(v4);
+  sub_100005E40();
+  sub_1004839E0();
+  static ResolverSpecificationBuilder.buildExpression<A>(_:)();
+  sub_100483A34();
+  static ResolverSpecificationBuilder.buildExpression<A>(_:)();
+  sub_10015E1DC();
+  static ResolverSpecificationBuilder.buildPartialBlock<A>(first:)();
+  static ResolverSpecificationBuilder.buildPartialBlock<A, each B>(accumulated:next:)();
+  return (*(v3 + 8))(v0, v1);
+}
+
+uint64_t sub_1008A3910(uint64_t a1)
+{
+  v3 = sub_10022C350(&unk_100CB2CF0, &unk_100A2D7F0);
+  sub_100003810(v3);
+  sub_100003828();
+  __chkstk_darwin(v4);
+  sub_100005E40();
+  sub_1000D47CC(a1, v1);
+  IntentParameter.wrappedValue.setter();
+  return sub_1001AEDF4(a1);
+}
+
+uint64_t sub_1008A3998()
+{
+  v0 = sub_10022C350(&qword_100CE2598, &qword_100A953D0);
+  __chkstk_darwin(v0);
+  v1 = sub_10022C350(&qword_100CE2540, &qword_100A951C0);
+  sub_100007074(v1, static OpenMoonIntent.urlRepresentation);
+  sub_10000703C(v1, static OpenMoonIntent.urlRepresentation);
+  sub_1008A367C();
+  IntentURLRepresentation.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v2._object = 0x8000000100AE3270;
+  v2._countAndFlagsBits = 0xD000000000000026;
+  IntentURLRepresentation.StringInterpolation.appendLiteral(_:)(v2);
+  swift_getKeyPath();
+  sub_10022C350(&qword_100CE2538, &qword_100A951B8);
+  IntentURLRepresentation.StringInterpolation.appendInterpolation<A, B>(_:)();
+
+  v3._countAndFlagsBits = 0x3D6574616426;
+  v3._object = 0xE600000000000000;
+  IntentURLRepresentation.StringInterpolation.appendLiteral(_:)(v3);
+  swift_getKeyPath();
+  sub_10022C350(&qword_100CE25A0, &unk_100A95400);
+  IntentURLRepresentation.StringInterpolation.appendInterpolation<A, B>(_:)();
+
+  v4._countAndFlagsBits = 0;
+  v4._object = 0xE000000000000000;
+  IntentURLRepresentation.StringInterpolation.appendLiteral(_:)(v4);
+  return IntentURLRepresentation.init(stringInterpolation:)();
+}
+
+uint64_t OpenMoonIntent.urlRepresentation.unsafeMutableAddressor()
+{
+  if (qword_100CA2970 != -1)
+  {
+    sub_10001FB68(&qword_100CA2970);
+  }
+
+  v0 = sub_10022C350(&qword_100CE2540, &qword_100A951C0);
+
+  return sub_10000703C(v0, static OpenMoonIntent.urlRepresentation);
+}
+
+uint64_t static OpenMoonIntent.urlRepresentation.getter@<X0>(uint64_t a1@<X8>)
+{
+  if (qword_100CA2970 != -1)
+  {
+    sub_10001FB68(&qword_100CA2970);
+  }
+
+  v2 = sub_10022C350(&qword_100CE2540, &qword_100A951C0);
+  v3 = sub_10000703C(v2, static OpenMoonIntent.urlRepresentation);
+  swift_beginAccess();
+  sub_100003B20();
+  return (*(v4 + 16))(a1, v3, v2);
+}
+
+uint64_t static OpenMoonIntent.urlRepresentation.setter(uint64_t a1)
+{
+  if (qword_100CA2970 != -1)
+  {
+    sub_10001FB68(&qword_100CA2970);
+  }
+
+  v2 = sub_10022C350(&qword_100CE2540, &qword_100A951C0);
+  v3 = sub_10000703C(v2, static OpenMoonIntent.urlRepresentation);
+  swift_beginAccess();
+  v4 = *(v2 - 8);
+  (*(v4 + 24))(v3, a1, v2);
+  swift_endAccess();
+  return (*(v4 + 8))(a1, v2);
+}
+
+double (*static OpenMoonIntent.urlRepresentation.modify())(uint64_t a1)
+{
+  if (qword_100CA2970 != -1)
+  {
+    sub_10001FB68(&qword_100CA2970);
+  }
+
+  v0 = sub_10022C350(&qword_100CE2540, &qword_100A951C0);
+  v1 = sub_10000703C(v0, static OpenMoonIntent.urlRepresentation);
+  sub_100005E7C(v1);
+  return j_j__swift_endAccess_1;
+}
+
+uint64_t OpenMoonIntent.init()()
+{
+  sub_10022C350(&qword_100CA2E28, &unk_100A9DAF0);
+  sub_1000037C4();
+  v54 = v2;
+  v55 = v1;
+  sub_100003828();
+  __chkstk_darwin(v3);
+  v53 = &v41 - v4;
+  v56 = type metadata accessor for InputConnectionBehavior();
+  sub_1000037C4();
+  v58 = v5;
+  __chkstk_darwin(v6);
+  sub_1000037D8();
+  v57 = v8 - v7;
+  v9 = sub_10022C350(&qword_100CA2D68, &unk_100A2C4D0);
+  v10 = sub_100003810(v9);
+  __chkstk_darwin(v10);
+  v52 = &v41 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v51 = &v41 - v13;
+  v14 = sub_10022C350(&qword_100CA2D70, &unk_100A3D520);
+  sub_100003810(v14);
+  sub_100003828();
+  __chkstk_darwin(v15);
+  sub_100005E40();
+  v16 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  sub_1000037C4();
+  v18 = v17;
+  __chkstk_darwin(v19);
+  sub_1000037D8();
+  v22 = v21 - v20;
+  v23 = type metadata accessor for Locale();
+  v24 = sub_100003810(v23);
+  __chkstk_darwin(v24);
+  sub_1000037D8();
+  v25 = type metadata accessor for String.LocalizationValue();
+  v26 = sub_100003810(v25);
+  __chkstk_darwin(v26);
+  sub_1000037D8();
+  v27 = type metadata accessor for LocalizedStringResource();
+  v50 = v27;
+  sub_100003B20();
+  __chkstk_darwin(v28);
+  sub_1000037D8();
+  v41 = v30 - v29;
+  v49 = sub_10022C350(&qword_100CA2D78, &qword_100A2C4E0);
+  String.LocalizationValue.init(stringLiteral:)();
+  static Locale.current.getter();
+  v31 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v32 = *(v18 + 104);
+  v42 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v43 = v16;
+  v32(v22, enum case for LocalizedStringResource.BundleDescription.main(_:), v16);
+  v44 = v32;
+  v45 = v18 + 104;
+  sub_100010E98();
+  LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+  String.LocalizationValue.init(stringLiteral:)();
+  static Locale.current.getter();
+  v32(v22, v31, v16);
+  sub_100010E98();
+  LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+  sub_10001B350(v0, 0, 1, v27);
+  static LocationSearchEntity.makeCurrentLocation()();
+  v59 = v63;
+  v60 = v64;
+  v61 = v65;
+  v62 = v66;
+  v33 = type metadata accessor for IntentDialog();
+  v46 = v33;
+  v34 = v51;
+  sub_10001B350(v51, 1, 1, v33);
+  sub_10001B350(v52, 1, 1, v33);
+  v47 = enum case for InputConnectionBehavior.default(_:);
+  v35 = *(v58 + 104);
+  v58 += 104;
+  v48 = v35;
+  v35(v57);
+  sub_10022C350(&qword_100CA2D80, &qword_100A2C4E8);
+  sub_100006F64(&qword_100CA2D88, &qword_100CA2D80, &qword_100A2C4E8, &protocol conformance descriptor for ResolverSpecificationBuilder<A>.Specification<A1, Pack{repeat B1}>);
+  sub_10015E074();
+  v36 = v34;
+  v52 = IntentParameter<>.init<A>(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:resolvers:)();
+  v49 = sub_10022C350(&qword_100CA2E30, &qword_100A2C560);
+  String.LocalizationValue.init(stringLiteral:)();
+  static Locale.current.getter();
+  v37 = v42;
+  v38 = v43;
+  v39 = v44;
+  v44(v22, v42, v43);
+  sub_100010E98();
+  LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+  String.LocalizationValue.init(stringLiteral:)();
+  static Locale.current.getter();
+  v39(v22, v37, v38);
+  sub_100010E98();
+  LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+  sub_10001B350(v0, 0, 1, v50);
+  sub_10001B350(v36, 1, 1, v46);
+  (*(v54 + 104))(v53, enum case for IntentParameter.DateKind.dateTime<A>(_:), v55);
+  v48(v57, v47, v56);
+  IntentParameter<>.init(title:description:kind:requestValueDialog:inputConnectionBehavior:)();
+  return v52;
+}
+
+uint64_t sub_1008A44B4@<X0>(uint64_t a1@<X8>)
+{
+  v2 = OpenMoonIntent.urlRepresentation.unsafeMutableAddressor();
+  swift_beginAccess();
+  v3 = sub_10022C350(&qword_100CE2540, &qword_100A951C0);
+  return (*(*(v3 - 8) + 16))(a1, v2, v3);
+}
+
+unint64_t sub_1008A4540()
+{
+  result = qword_100CE2548;
+  if (!qword_100CE2548)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for OpenMoonIntent, &type metadata for OpenMoonIntent, v0, v1);
+    atomic_store(result, &qword_100CE2548);
+  }
+
+  return result;
+}
+
+unint64_t sub_1008A4598()
+{
+  result = qword_100CE2550;
+  if (!qword_100CE2550)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for OpenMoonIntent, &type metadata for OpenMoonIntent, v0, v1);
+    atomic_store(result, &qword_100CE2550);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A4608@<X0>(uint64_t a1@<X8>)
+{
+  v2 = OpenMoonIntent.title.unsafeMutableAddressor();
+  swift_beginAccess();
+  v3 = type metadata accessor for LocalizedStringResource();
+  return (*(*(v3 - 8) + 16))(a1, v2, v3);
+}
+
+uint64_t sub_1008A4688(uint64_t a1, uint64_t a2)
+{
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  v5 = sub_1008A5748();
+  *v4 = v2;
+  v4[1] = sub_1004801A8;
+
+  return URLRepresentableIntent.perform()(a2, v5);
+}
+
+uint64_t sub_1008A4734@<X0>(uint64_t *a1@<X8>)
+{
+  result = OpenMoonIntent.init()();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t sub_1008A475C(uint64_t a1)
+{
+  v2 = sub_1008A367C();
+
+  return static AppIntent.persistentIdentifier.getter(a1, v2);
+}
+
+uint64_t sub_1008A4798()
+{
+  type metadata accessor for _AssistantIntent();
+  sub_1000037C4();
+  __chkstk_darwin(v1);
+  sub_1000037D8();
+  OpenMoonIntent.init()();
+  sub_1008A367C();
+  _AssistantIntent.init<A>(_:phrases:parameterValues:)();
+  static _AssistantIntent.Builder.buildExpression(_:)();
+  v2 = sub_100049858();
+  v3(v2);
+  sub_10022C350(&qword_100CADD98, &qword_100A3D4F0);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_100A2C3F0;
+  *(v4 + 32) = v0;
+  v5 = static _AssistantIntent.Builder.buildBlock(_:)();
+
+  return v5;
+}
+
+uint64_t sub_1008A48DC(uint64_t a1)
+{
+  v46 = a1;
+  v1 = sub_10022C350(&qword_100CE2578, &qword_100A953B8);
+  __chkstk_darwin(v1);
+  v2 = sub_10022C350(&qword_100CE2580, &qword_100A953C0);
+  v48 = v2;
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v34 - v4;
+  sub_1008A367C();
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v44 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v6 = *(v3 + 8);
+  v6(v5, v2);
+  v47 = v6;
+  v49 = v3 + 8;
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v43 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v6(v5, v2);
+  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v41 = "When is the next full moon?";
+  v7._object = 0x8000000100AE3180;
+  v7._countAndFlagsBits = 0xD000000000000017;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v7);
+  swift_getKeyPath();
+  v45 = sub_1008A566C();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
+
+  v8._countAndFlagsBits = 63;
+  v8._object = 0xE100000000000000;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v8);
+  _AssistantIntent.Phrase.init(stringInterpolation:)();
+  v42 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v47(v5, v48);
+  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v9._object = (v41 | 0x8000000000000000);
+  v9._countAndFlagsBits = 0xD000000000000017;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v9);
+  swift_getKeyPath();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
+
+  v10._countAndFlagsBits = 544106784;
+  v10._object = 0xE400000000000000;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v10);
+  swift_getKeyPath();
+  v38 = sub_10015E1DC();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
+
+  v11._countAndFlagsBits = 63;
+  v11._object = 0xE100000000000000;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v11);
+  _AssistantIntent.Phrase.init(stringInterpolation:)();
+  v41 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v13 = v47;
+  v12 = v48;
+  v47(v5, v48);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v40 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v13(v5, v12);
+  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v14._object = 0x8000000100AE31C0;
+  v14._countAndFlagsBits = 0xD000000000000018;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v14);
+  swift_getKeyPath();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
+
+  v15._countAndFlagsBits = 63;
+  v15._object = 0xE100000000000000;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v15);
+  _AssistantIntent.Phrase.init(stringInterpolation:)();
+  v39 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v47(v5, v48);
+  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v16._object = 0x8000000100AE31C0;
+  v16._countAndFlagsBits = 0xD000000000000018;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v16);
+  swift_getKeyPath();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
+
+  v17._countAndFlagsBits = 544106784;
+  v17._object = 0xE400000000000000;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v17);
+  swift_getKeyPath();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
+
+  v18._countAndFlagsBits = 63;
+  v18._object = 0xE100000000000000;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v18);
+  _AssistantIntent.Phrase.init(stringInterpolation:)();
+  v45 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v20 = v47;
+  v19 = v48;
+  v47(v5, v48);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v37 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v20(v5, v19);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v36 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v20(v5, v19);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v35 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v20(v5, v19);
+  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v21._countAndFlagsBits = 0xD000000000000016;
+  v21._object = 0x8000000100AE3250;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v21);
+  swift_getKeyPath();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
+
+  v22._countAndFlagsBits = 46;
+  v22._object = 0xE100000000000000;
+  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v22);
+  _AssistantIntent.Phrase.init(stringInterpolation:)();
+  v23 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v20(v5, v19);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v24 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v20(v5, v19);
+  sub_10022C350(&qword_100CE2588, &qword_100A953C8);
+  v25 = swift_allocObject();
+  *(v25 + 16) = xmmword_100A55560;
+  v26 = v43;
+  *(v25 + 32) = v44;
+  *(v25 + 40) = v26;
+  v27 = v41;
+  *(v25 + 48) = v42;
+  *(v25 + 56) = v27;
+  v28 = v39;
+  *(v25 + 64) = v40;
+  *(v25 + 72) = v28;
+  v30 = v36;
+  v29 = v37;
+  *(v25 + 80) = v45;
+  *(v25 + 88) = v29;
+  v31 = v35;
+  *(v25 + 96) = v30;
+  *(v25 + 104) = v31;
+  *(v25 + 112) = v23;
+  *(v25 + 120) = v24;
+  v32 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
+
+  return v32;
+}
+
+uint64_t sub_1008A5188(uint64_t a1)
+{
+  v2 = sub_10022C350(&unk_100CB2CF0, &unk_100A2D7F0);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v6 - v3;
+  sub_1000D47CC(a1, &v6 - v3);
+  return sub_1008A3910(v4);
+}
+
+uint64_t sub_1008A521C()
+{
+  v0 = type metadata accessor for _AssistantIntent.Value();
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0);
+  v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getKeyPath();
+  sub_10015E1DC();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  sub_1008A367C();
+  _AssistantIntent.Value.init<A>(for:builder:)();
+  v4 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
+  v5 = *(v1 + 8);
+  v5(v3, v0);
+  swift_getKeyPath();
+  sub_1008A566C();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  _AssistantIntent.Value.init<A>(for:builder:)();
+  v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
+  v5(v3, v0);
+  sub_10022C350(&qword_100CBCBD8, &qword_100A549E0);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_100A2D320;
+  *(v7 + 32) = v4;
+  *(v7 + 40) = v6;
+  v8 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
+
+  return v8;
+}
+
+uint64_t sub_1008A540C()
+{
+  v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
+  v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
+  v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
+  v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
+  v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
+  sub_10022C350(&qword_100CADD90, &unk_100A54580);
+  v5 = swift_allocObject();
+  *(v5 + 16) = xmmword_100A3B030;
+  *(v5 + 32) = v0;
+  *(v5 + 40) = v1;
+  *(v5 + 48) = v2;
+  *(v5 + 56) = v3;
+  *(v5 + 64) = v4;
+  v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
+
+  return v6;
+}
+
+uint64_t sub_1008A5524()
+{
+  type metadata accessor for _AssistantIntent.NegativeAssistantIntentPhrases();
+  sub_1000037C4();
+  __chkstk_darwin(v1);
+  sub_1000037D8();
+  sub_1008A367C();
+  _AssistantIntent.NegativeAssistantIntentPhrases.init<A>(for:phrases:)();
+  static _AssistantIntent.NegativeAssistantIntentPhrasesBuilder.buildExpression(_:)();
+  v2 = sub_100049858();
+  v3(v2);
+  sub_10022C350(&qword_100CADD88, &unk_100A3D4E0);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_100A2C3F0;
+  *(v4 + 32) = v0;
+  v5 = static _AssistantIntent.NegativeAssistantIntentPhrasesBuilder.buildBlock(_:)();
+
+  return v5;
+}
+
+unint64_t sub_1008A566C()
+{
+  result = qword_100CE2568;
+  if (!qword_100CE2568)
+  {
+    v4[3] = v0;
+    v4[4] = v1;
+    v3 = sub_10022E824(&unk_100CB2CF0, &unk_100A2D7F0);
+    v4[0] = sub_1008A56F0();
+    result = swift_getWitnessTable(&protocol conformance descriptor for <A> A?, v3, v4);
+    atomic_store(result, &qword_100CE2568);
+  }
+
+  return result;
+}
+
+unint64_t sub_1008A56F0()
+{
+  result = qword_100CE2570;
+  if (!qword_100CE2570)
+  {
+    v3 = type metadata accessor for Date();
+    result = swift_getWitnessTable(&protocol conformance descriptor for Date, v3, v0, v1);
+    atomic_store(result, &qword_100CE2570);
+  }
+
+  return result;
+}
+
+unint64_t sub_1008A5748()
+{
+  result = qword_100CE2590;
+  if (!qword_100CE2590)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for OpenMoonIntent, &type metadata for OpenMoonIntent, v0, v1);
+    atomic_store(result, &qword_100CE2590);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A579C()
+{
+  v1 = OBJC_IVAR____TtC7Weather28LocationViewCollisionOptions__value;
+  v2 = sub_10022C350(&qword_100CE2750, &qword_100A95550);
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t sub_1008A584C(uint64_t a1, uint64_t a2)
+{
+  sub_10011BE3C(a1, a2);
+  _print_unlocked<A, B>(_:_:)();
+
+  return 0;
+}
+
+uint64_t sub_1008A58DC(float *a1)
+{
+  v1 = *a1;
+
+  return sub_100168264(v2, v3, v1);
+}
+
+void sub_1008A5918()
+{
+  v0 = [objc_allocWithZone(LSApplicationWorkspace) init];
+  URL._bridgeToObjectiveC()(v1);
+  v4 = v2;
+  v3 = Dictionary.init(dictionaryLiteral:)();
+  sub_1008CAC30(v4, v3, v0);
+}
+
+double sub_1008A5A04@<D0>(uint64_t a1@<X8>)
+{
+  sub_10022C350(&qword_100CAC3F8, &qword_100A3B368);
+  v2 = swift_allocObject();
+  *(v2 + 16) = xmmword_100A3BBA0;
+  static Color.black.getter();
+  Color.opacity(_:)();
+
+  *(v2 + 32) = Gradient.Stop.init(color:location:)();
+  *(v2 + 40) = v3;
+  static Color.black.getter();
+  Color.opacity(_:)();
+
+  *(v2 + 48) = Gradient.Stop.init(color:location:)();
+  *(v2 + 56) = v4;
+  static Color.black.getter();
+  Color.opacity(_:)();
+
+  *(v2 + 64) = Gradient.Stop.init(color:location:)();
+  *(v2 + 72) = v5;
+  Gradient.init(stops:)();
+  static UnitPoint.leading.getter();
+  static UnitPoint.trailing.getter();
+  LinearGradient.init(gradient:startPoint:endPoint:)();
+  result = *&v7;
+  *a1 = v7;
+  *(a1 + 16) = v8;
+  *(a1 + 32) = v9;
+  return result;
+}
+
+unint64_t sub_1008A5B54()
+{
+  result = qword_100CE27F8;
+  if (!qword_100CE27F8)
+  {
+    result = swift_getWitnessTable(&protocol conformance descriptor for LinearGradient, &type metadata for LinearGradient, v0, v1);
+    atomic_store(result, &qword_100CE27F8);
+  }
+
+  return result;
+}
+
+void sub_1008A5BA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+  sub_10000C778();
+  a19 = v20;
+  a20 = v21;
+  v23 = v22;
+  v25 = v24;
+  sub_10001E790();
+  v26 = type metadata accessor for Location();
+  sub_1000037C4();
+  v28 = v27;
+  v30 = *(v29 + 64);
+  __chkstk_darwin(v31);
+  sub_100040690();
+  v32 = static OS_dispatch_queue.main.getter();
+  firstly<A, B>(on:disposeOn:closure:)();
+
+  sub_100007E8C();
+  v33 = swift_allocObject();
+  swift_weakInit();
+  (*(v28 + 16))(&a9 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0), v25, v26);
+  v34 = (*(v28 + 80) + 24) & ~*(v28 + 80);
+  v35 = swift_allocObject();
+  *(v35 + 16) = v33;
+  (*(v28 + 32))(v35 + v34, &a9 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0), v26);
+  *(v35 + v34 + v30) = v23 & 1;
+  v36 = zalgo.getter();
+  sub_10022C350(&qword_100CD1FC0, &qword_100A77710);
+  Promise.then<A>(on:closure:)();
+
+  sub_10000536C();
+}
+
+void sub_1008A5DA4(char a1)
+{
+  sub_10001E790();
+  sub_100040690();
+  v2 = static OS_dispatch_queue.main.getter();
+  sub_1000E5A8C(v2, v3, sub_1008B1648, v4, &type metadata for MainState);
+
+  *(swift_allocObject() + 16) = a1 & 1;
+  v5 = zalgo.getter();
+  Promise.then<A, B>(on:disposeOn:closure:)();
+}
+
+uint64_t sub_1008A5EC4(char a1, char a2)
+{
+  sub_10001E790();
+  sub_100040690();
+  v4 = static OS_dispatch_queue.main.getter();
+  sub_1000E5A8C(v4, v5, sub_1008B1648, v6, &type metadata for MainState);
+
+  v7 = sub_100086BF4(a1 & 1);
+  *(swift_allocObject() + 16) = a2;
+  Promise.then<A, B>(on:disposeOn:closure:)();
+}
+
+uint64_t sub_1008A5FEC(uint64_t *a1, uint64_t a2, int a3)
+{
+  v6 = type metadata accessor for TimeState(0);
+  __chkstk_darwin(v6 - 8);
+  v8 = v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for Location();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v37 = v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = *a1;
+  v12 = v36 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations;
+  result = *(v12 + *(type metadata accessor for LocationsState(0) + 32));
+  v14 = *(result + 16);
+  if (v14)
+  {
+    v27[2] = v3;
+    v34 = a3;
+    v30 = (v36 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_weatherData);
+    v15 = v10 + 16;
+    v32 = *(v10 + 16);
+    v33 = OBJC_IVAR____TtCV7Weather9MainState8_Storage_time;
+    v16 = (*(v10 + 80) + 32) & ~*(v10 + 80);
+    v31 = v8;
+    v17 = result + v16;
+    v18 = *(v15 + 56);
+    v35 = v15;
+    v28 = (v15 - 8);
+    v29 = v18;
+    v27[1] = result;
+
+    v19 = v37;
+    do
+    {
+      v32(v19, v17, v9);
+      v20 = v9;
+      v21 = v31;
+      v23 = *v30;
+      v22 = v30[1];
+      v25 = v30[2];
+      v24 = v30[3];
+      sub_1000863F8(v36 + v33, v31);
+
+      v26 = v23;
+      v9 = v20;
+      sub_100186B34(v37, v26, v22, v25, v24, v21, v34 & 1);
+
+      v19 = v37;
+
+      (*v28)(v19, v20);
+      sub_100087544();
+      v17 += v29;
+      --v14;
+    }
+
+    while (v14);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A62A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v8 = (&v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *v8 = a1;
+  swift_storeEnumTagMultiPayload();
+  swift_errorRetain();
+  sub_10005C1D4(v8);
+  sub_100087544();
+  return sub_10018E604(a4);
+}
+
+uint64_t sub_1008A6378()
+{
+  type metadata accessor for LocationsState(0);
+
+  sub_1001919F8();
+}
+
+void sub_1008A6458()
+{
+  sub_1000C87D0();
+  v1 = v0;
+  sub_10022C350(&qword_100CBEE00, &qword_100A56660);
+  v2 = type metadata accessor for Location();
+  sub_1000037C4();
+  v4 = v3;
+  v5 = (*(v3 + 80) + 32) & ~*(v3 + 80);
+  v6 = swift_allocObject();
+  *(v6 + 16) = xmmword_100A2C3F0;
+  (*(v4 + 16))(v6 + v5, v1, v2);
+  sub_1001919F8();
+  swift_setDeallocating();
+  sub_1005C2034();
+  sub_100020DD4();
+}
+
+uint64_t sub_1008A6574(uint64_t a1)
+{
+  (*(a1 + 16))(&v2);
+  sub_10022C350(&qword_100CE2A18, &unk_100A95938);
+  sub_1008B1694();
+  swift_allocObject();
+  return Promise.init(value:)();
+}
+
+uint64_t sub_1008A65D8@<X0>(uint64_t *a1@<X0>, uint64_t a3@<X2>, char a4@<W3>, BOOL *a5@<X8>)
+{
+  v8 = *a1;
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  v10 = result;
+  if (result)
+  {
+    sub_1008A6674(a3, a4 & 1, v8);
+  }
+
+  *a5 = v10 == 0;
+  return result;
+}
+
+uint64_t sub_1008A6674(uint64_t a1, int a2, uint64_t a3)
+{
+  v4 = v3;
+  LODWORD(v113) = a2;
+  v110 = *v3;
+  v109 = type metadata accessor for DispatchWorkItemFlags();
+  v108 = *(v109 - 8);
+  __chkstk_darwin(v109);
+  v106 = v90 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v107 = type metadata accessor for DispatchQoS();
+  v105 = *(v107 - 8);
+  __chkstk_darwin(v107);
+  v104 = v90 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v125 = type metadata accessor for OSSignpostID();
+  v118 = *(v125 - 8);
+  __chkstk_darwin(v125);
+  v121 = v90 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v102 = v9;
+  __chkstk_darwin(v10);
+  v126 = v90 - v11;
+  v12 = type metadata accessor for AppConfiguration();
+  v13 = *(v12 - 8);
+  v116 = v12;
+  v117 = v13;
+  __chkstk_darwin(v12);
+  v124 = v90 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v115 = v14;
+  __chkstk_darwin(v15);
+  v127 = v90 - v16;
+  v17 = type metadata accessor for TimeState(0);
+  __chkstk_darwin(v17 - 8);
+  v19 = v90 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = type metadata accessor for Location();
+  v21 = __chkstk_darwin(v20);
+  v122 = v22;
+  v23 = v90 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = *(a3 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_weatherData);
+  v25 = *(a3 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_weatherData + 8);
+  v26 = *(a3 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_weatherData + 16);
+  v27 = *(a3 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_weatherData + 24);
+  v128 = v28;
+  v29 = *(v28 + 16);
+  v123 = v30;
+  v119 = v29;
+  v120 = v28 + 16;
+  (v29)(v23, a1, v21);
+  type metadata accessor for WeatherDataUpdateRequestLog(0);
+  swift_allocObject();
+  swift_bridgeObjectRetain_n();
+  swift_bridgeObjectRetain_n();
+  swift_bridgeObjectRetain_n();
+  v114 = v23;
+  v31 = sub_10005B8AC(2u, v23, 0, v24, v25, v26, v27);
+  sub_1000863F8(a3 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_time, v19);
+  v32 = a1;
+  v33 = a1;
+  v34 = v31;
+  v35 = v4;
+  LOBYTE(v31) = sub_1008A8954(v33, v31, v24, v25, v26, v27, v19);
+
+  v36 = type metadata accessor for Date();
+  v37 = (*(*(v36 - 8) + 8))(v19, v36);
+  if (v31)
+  {
+    __chkstk_darwin(v37);
+    v90[-4] = v4;
+    v90[-3] = v32;
+    v38 = v32;
+    v99 = v32;
+    v112 = v34;
+    v90[-2] = v34;
+    syncOnMain(_:)();
+    sub_1000161C0(v4 + 15, v4[18]);
+    dispatch thunk of AppConfigurationManagerType.appConfiguration.getter();
+    v98 = v4[56];
+    v39 = v126;
+    OSSignpostID.init(log:)();
+    v103 = v113 & 1;
+    v100 = v35;
+    v101 = sub_100086BF4(v113 & 1);
+    v40 = swift_allocObject();
+    v90[1] = v40;
+    swift_weakInit();
+    v41 = v118;
+    v42 = *(v118 + 16);
+    v92 = v118 + 16;
+    v93 = v42;
+    v43 = v121;
+    v44 = v39;
+    v45 = v125;
+    v42(v121, v44, v125);
+    v46 = v114;
+    v47 = v38;
+    v48 = v123;
+    v119(v114, v47, v123);
+    v91 = *(v41 + 80);
+    v49 = v41;
+    v50 = (v91 + 32) & ~v91;
+    v111 = *(v128 + 80);
+    v51 = v128;
+    v94 = v102 + v111;
+    v52 = (v102 + v111 + v50) & ~v111;
+    v102 = v111 | 7;
+    v97 = v111 | 7 | v91;
+    v53 = swift_allocObject();
+    *(v53 + 16) = v40;
+    *(v53 + 24) = v112;
+    v54 = *(v49 + 32);
+    v95 = v49 + 32;
+    v96 = v54;
+    v54(v53 + v50, v43, v45);
+    v55 = *(v51 + 32);
+    v128 = v51 + 32;
+    v113 = v55;
+    v55(v53 + v52, v46, v48);
+    aBlock[4] = sub_100086CC8;
+    aBlock[5] = v53;
+    aBlock[0] = _NSConcreteStackBlock;
+    aBlock[1] = 1107296256;
+    aBlock[2] = sub_1000742F0;
+    aBlock[3] = &unk_100C746C8;
+    v56 = _Block_copy(aBlock);
+
+    v57 = v104;
+    static DispatchQoS.unspecified.getter();
+    v129 = _swiftEmptyArrayStorage;
+    sub_1000675AC(&qword_100CD81C0, &type metadata accessor for DispatchWorkItemFlags);
+    sub_10022C350(&qword_100CB4680, &qword_100A2EC00);
+    sub_10006768C(&qword_100CD81D0, &qword_100CB4680, &qword_100A2EC00);
+    v58 = v106;
+    v59 = v109;
+    dispatch thunk of SetAlgebra.init<A>(_:)();
+    OS_dispatch_queue.async(group:qos:flags:execute:)();
+    _Block_release(v56);
+    (*(v108 + 8))(v58, v59);
+    (*(v105 + 8))(v57, v107);
+
+    v60 = v99;
+    v61 = v119;
+    v119(v46, v99, v48);
+    v62 = (v111 + 16) & ~v111;
+    v63 = v122;
+    v64 = swift_allocObject();
+    v113(v64 + v62, v46, v48);
+    sub_10022C350(&qword_100CE2960, &unk_100A95800);
+    v108 = firstly<A, B>(on:disposeOn:closure:)();
+
+    v107 = swift_allocObject();
+    swift_weakInit();
+    v65 = v125;
+    v93(v121, v126, v125);
+    v61(v46, v60, v48);
+    v66 = v117;
+    v67 = *(v117 + 16);
+    v109 = v117 + 16;
+    v110 = v67;
+    v67(v124, v127, v116);
+    v68 = (v91 + 24) & ~v91;
+    v69 = (v94 + v68) & ~v111;
+    v70 = (v63 + v69 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v71 = (v70 + 15) & 0xFFFFFFFFFFFFFFF8;
+    v72 = *(v66 + 80);
+    v73 = (v71 + v72 + 8) & ~v72;
+    v74 = v73 + v115;
+    v75 = swift_allocObject();
+    *(v75 + 16) = v98;
+    v96(v75 + v68, v121, v65);
+    v76 = v114;
+    v113(v75 + v69, v114, v123);
+    *(v75 + v70) = v112;
+    *(v75 + v71) = v107;
+    v121 = *(v66 + 32);
+    v77 = v124;
+    v78 = v116;
+    (v121)(v75 + v73, v124, v116);
+    *(v75 + v74) = v103;
+
+    v79 = zalgo.getter();
+    v107 = Promise.then<A>(on:closure:)();
+
+    v80 = swift_allocObject();
+    swift_weakInit();
+    v81 = v76;
+    v82 = v123;
+    v119(v76, v99, v123);
+    v83 = v78;
+    v110(v77, v127, v78);
+    v84 = (v111 + 32) & ~v111;
+    v85 = (v84 + v122 + v72) & ~v72;
+    v86 = v85 + v115;
+    v87 = swift_allocObject();
+    *(v87 + 16) = v112;
+    *(v87 + 24) = v80;
+    v113(v87 + v84, v81, v82);
+    (v121)(v87 + v85, v124, v83);
+    *(v87 + v86) = v103;
+
+    v88 = zalgo.getter();
+    Promise.error(on:closure:)();
+
+    (*(v118 + 8))(v126, v125);
+    (*(v117 + 8))(v127, v83);
+  }
+}
+
+uint64_t sub_1008A743C()
+{
+  v1 = sub_100017580();
+  type metadata accessor for WeatherDataUpdateRequestLog.Event(v1);
+  sub_100003D98();
+  __chkstk_darwin(v2);
+  sub_1000037D8();
+  v5 = v4 - v3;
+  *(v4 - v3) = v0;
+  swift_storeEnumTagMultiPayload();
+  swift_errorRetain();
+  sub_10005C1D4(v5);
+  sub_100006A88();
+  return sub_100087544();
+}
+
+uint64_t sub_1008A74CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v30 = a5;
+  v31 = a1;
+  v27 = a3;
+  v28 = a4;
+  v32 = a2;
+  v5 = type metadata accessor for NewsDataModel(0);
+  v29 = *(v5 - 8);
+  v6 = *(v29 + 64);
+  __chkstk_darwin(v5 - 8);
+  v26 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for Location();
+  v25 = v7;
+  v8 = *(v7 - 8);
+  v9 = *(v8 + 64);
+  __chkstk_darwin(v7);
+  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for WeatherData(0);
+  v12 = *(v11 - 8);
+  v13 = *(v12 + 64);
+  __chkstk_darwin(v11 - 8);
+  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = sub_10022C350(&qword_100CA3538, &qword_100A2D560);
+  __chkstk_darwin(v15 - 8);
+  v17 = &v25 - v16;
+  v18 = type metadata accessor for TaskPriority();
+  sub_10001B350(v17, 1, 1, v18);
+  sub_1000863F8(v27, v14);
+  (*(v8 + 16))(v10, v28, v7);
+  sub_1000863F8(v30, &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v19 = (*(v12 + 80) + 48) & ~*(v12 + 80);
+  v20 = (v13 + *(v8 + 80) + v19) & ~*(v8 + 80);
+  v21 = (v9 + *(v29 + 80) + v20) & ~*(v29 + 80);
+  v22 = swift_allocObject();
+  *(v22 + 2) = 0;
+  *(v22 + 3) = 0;
+  v23 = v32;
+  *(v22 + 4) = v31;
+  *(v22 + 5) = v23;
+  sub_100086450(v14, &v22[v19]);
+  (*(v8 + 32))(&v22[v20], v10, v25);
+  sub_100086450(v26, &v22[v21]);
+
+  sub_1006C0138();
+}
+
+uint64_t sub_1008A7838(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8[11] = a7;
+  v8[12] = a8;
+  v8[9] = a5;
+  v8[10] = a6;
+  v8[8] = a4;
+  v9 = type metadata accessor for Location();
+  v8[13] = v9;
+  v10 = *(v9 - 8);
+  v8[14] = v10;
+  v8[15] = *(v10 + 64);
+  v8[16] = swift_task_alloc();
+  v11 = *(type metadata accessor for NewsDataModel(0) - 8);
+  v8[17] = v11;
+  v8[18] = *(v11 + 64);
+  v8[19] = swift_task_alloc();
+  v12 = *(type metadata accessor for WeatherData(0) - 8);
+  v8[20] = v12;
+  v8[21] = *(v12 + 64);
+  v8[22] = swift_task_alloc();
+  v13 = *(type metadata accessor for PreprocessedWeatherData(0) - 8);
+  v8[23] = v13;
+  v8[24] = *(v13 + 64);
+  v8[25] = swift_task_alloc();
+  v8[26] = swift_task_alloc();
+  v8[27] = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  v8[28] = swift_task_alloc();
+
+  return _swift_task_switch(sub_1008A7A64, 0, 0);
+}
+
+uint64_t sub_1008A7A64()
+{
+  sub_10019225C();
+  Strong = swift_weakLoadStrong();
+  v0[29] = Strong;
+  if (Strong)
+  {
+    v2 = Strong;
+    v3 = v0[28];
+    swift_storeEnumTagMultiPayload();
+    sub_10005C1D4(v3);
+    sub_100006A88();
+    sub_100087544();
+    sub_1000161C0((v2 + 160), *(v2 + 184));
+    v4 = swift_task_alloc();
+    v0[30] = v4;
+    *v4 = v0;
+    v4[1] = sub_1008A7BD4;
+    v5 = v0[26];
+    v6 = v0[10];
+    v7 = v0[11];
+
+    return sub_1000FF7F4(v5, v6, v7);
+  }
+
+  else
+  {
+    v9 = sub_100192454();
+    sub_1005B3D94(v9, v10);
+    sub_1000D3C88();
+
+    sub_100003B14();
+
+    return v11();
+  }
+}
+
+uint64_t sub_1008A7BD4()
+{
+  sub_100003B08();
+  v1 = *v0;
+  sub_100003AF8();
+  *v2 = v1;
+
+  return _swift_task_switch(sub_1008A7CC4, 0, 0);
+}
+
+uint64_t sub_1008A7CC4()
+{
+  v26 = v0[29];
+  v1 = v0[22];
+  v18 = v0[25];
+  v2 = v0[19];
+  v22 = v0[18];
+  v23 = v0[24];
+  v21 = v0[17];
+  v3 = v0[16];
+  v20 = v3;
+  v24 = v0[15];
+  v5 = v0[13];
+  v4 = v0[14];
+  v19 = v2;
+  v16 = v0[12];
+  v17 = v0[11];
+  v15 = v0[10];
+  v27 = v0[9];
+  sub_100007E8C();
+  v25 = swift_allocObject();
+  swift_beginAccess();
+  swift_weakLoadStrong();
+  swift_weakInit();
+
+  sub_10003BFF4();
+  sub_1000863F8(v15, v1);
+  sub_100041BE8();
+  v6 = sub_100003940();
+  sub_1000863F8(v6, v7);
+  sub_100028CC8();
+  sub_1000863F8(v16, v2);
+  (*(v4 + 16))(v3, v17, v5);
+  sub_1008B1680();
+  v8 = (v23 + *(v21 + 80) + v1) & ~*(v21 + 80);
+  v9 = (v22 + *(v4 + 80) + v8) & ~*(v4 + 80);
+  v10 = (v24 + v9 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v26;
+  sub_100037E28();
+  sub_100086450(v1, v12);
+  sub_1000306A4();
+  sub_100086450(v18, v11 + v1);
+  sub_1000243CC();
+  sub_100086450(v19, v11 + v8);
+  (*(v4 + 32))(v11 + v9, v20, v5);
+  *(v11 + v10) = v27;
+  *(v11 + ((v10 + 15) & 0xFFFFFFFFFFFFFFF8)) = v25;
+
+  asyncMain(block:)();
+
+  sub_100025454();
+  sub_100087544();
+
+  sub_1000D3C88();
+
+  sub_100003B14();
+
+  return v13();
+}
+
+uint64_t sub_1008A7F84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  sub_100188AAC(a2, a3, a4, a5, a6);
+  sub_10018E2C0(1, 0);
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  if (result)
+  {
+    sub_10018E604(a5);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A801C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned __int8 a12, uint64_t a13)
+{
+  v53 = a7;
+  v54 = a8;
+  v55 = a6;
+  v42 = a2;
+  v43 = a5;
+  v41 = a3;
+  v51 = a10;
+  v52 = a9;
+  v50 = a11;
+  v49 = a12;
+  v48 = a13;
+  v15 = type metadata accessor for WeatherServiceCaching.Options();
+  v16 = *(v15 - 8);
+  v46 = v15;
+  v47 = v16;
+  __chkstk_darwin(v15);
+  v18 = &v40 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = sub_10022C350(&qword_100CAD030, &unk_100A3C400);
+  __chkstk_darwin(v19 - 8);
+  v21 = &v40 - v20;
+  v22 = sub_10022C350(&qword_100CAD038, &unk_100A95810);
+  __chkstk_darwin(v22 - 8);
+  v24 = &v40 - v23;
+  v25 = sub_10022C350(&qword_100CACE08, &unk_100A3C1B0);
+  __chkstk_darwin(v25 - 8);
+  v27 = &v40 - v26;
+  Options = type metadata accessor for WeatherServiceFetchOptions();
+  v44 = *(Options - 8);
+  v45 = Options;
+  __chkstk_darwin(Options);
+  v30 = &v40 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v33 = (&v40 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *v33 = a1;
+  swift_storeEnumTagMultiPayload();
+  swift_errorRetain();
+  sub_10005C1D4(v33);
+  sub_100087544();
+  Location.timeZone.getter();
+  v34 = type metadata accessor for TimeZone();
+  sub_10001B350(v27, 0, 1, v34);
+  v35 = type metadata accessor for WeatherServiceLocationOptions();
+  (*(*(v35 - 8) + 16))(v24, a4, v35);
+  sub_10001B350(v24, 0, 1, v35);
+  v36 = AppConfiguration.treatmentIDs.getter();
+  v37 = type metadata accessor for WeatherNetworkActivity();
+  sub_10001B350(v21, 1, 1, v37);
+  v56 = _swiftEmptyArrayStorage;
+  sub_1000675AC(&qword_100CE2968, &type metadata accessor for WeatherServiceCaching.Options);
+  sub_10022C350(&qword_100CE2970, &qword_100A95820);
+  sub_10006768C(&qword_100CE2978, &qword_100CE2970, &qword_100A95820);
+  v38 = v46;
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  sub_10007F81C(0, 0, v27, v24, v18, v36, v21, 0, v30);
+
+  (*(v47 + 8))(v18, v38);
+  sub_100018144(v21, &qword_100CAD030, &unk_100A3C400);
+  sub_100018144(v24, &qword_100CAD038, &unk_100A95810);
+  sub_100018144(v27, &qword_100CACE08, &unk_100A3C1B0);
+  sub_10007FB34(v41, v53, v54, v52, v51, v50, v30, v49 & 1, v42);
+  return (*(v44 + 8))(v30, v45);
+}
+
+void sub_1008A852C()
+{
+  sub_10000C778();
+  v18 = v0;
+  v2 = v1;
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  type metadata accessor for MainAction(0);
+  sub_1000037E8();
+  __chkstk_darwin(v9);
+  sub_1000037D8();
+  v12 = v11 - v10;
+  type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  sub_100003D98();
+  __chkstk_darwin(v13);
+  sub_1000037D8();
+  v16 = v15 - v14;
+  swift_storeEnumTagMultiPayload();
+  sub_10005C1D4(v16);
+  sub_100006A88();
+  sub_100087544();
+  *v12 = Location.id.getter();
+  *(v12 + 8) = v17;
+  *(v12 + 16) = v18;
+  *(v12 + 32) = v4;
+  *(v12 + 40) = v2;
+  type metadata accessor for WeatherDataAction(0);
+  swift_storeEnumTagMultiPayload();
+  swift_storeEnumTagMultiPayload();
+  v20 = 0;
+  memset(v19, 0, sizeof(v19));
+
+  sub_10004F034(v12, v19, v8, v6);
+  sub_100018144(v19, &unk_100CD81B0, &unk_100A3B000);
+  sub_100031FA8();
+  sub_100087544();
+
+  sub_1005B3D94(v4, v2);
+
+  sub_10000536C();
+}
+
+uint64_t sub_1008A86C0(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v23 = a3;
+  v7 = type metadata accessor for MainAction(0);
+  __chkstk_darwin(v7);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_storeEnumTagMultiPayload();
+  sub_10005C1D4(v12);
+  sub_100087544();
+  v13 = Location.id.getter();
+  v15 = v14;
+  swift_errorRetain();
+  v16 = sub_100897C14(a5);
+  v18 = v17;
+  *&v24[0] = 0;
+  *(&v24[0] + 1) = 0xE000000000000000;
+  v26 = a5;
+  sub_10022C350(&qword_100CD8220, &qword_100A4A330);
+  _print_unlocked<A, B>(_:_:)();
+  v19 = v24[0];
+  *v9 = v13;
+  *(v9 + 1) = v15;
+  *(v9 + 2) = v16;
+  *(v9 + 3) = v18;
+  *(v9 + 2) = v19;
+  type metadata accessor for WeatherDataAction(0);
+  swift_storeEnumTagMultiPayload();
+  swift_storeEnumTagMultiPayload();
+  v25 = 0;
+  memset(v24, 0, sizeof(v24));
+  sub_10004F034(v9, v24, a2, v23);
+  sub_100018144(v24, &unk_100CD81B0, &unk_100A3B000);
+  sub_100087544();
+  *&v24[0] = 0;
+  *(&v24[0] + 1) = 0xE000000000000000;
+  _StringGuts.grow(_:)(27);
+
+  *&v24[0] = 0xD000000000000019;
+  *(&v24[0] + 1) = 0x8000000100AE3700;
+  swift_getErrorValue();
+  v20._countAndFlagsBits = Error.localizedDescription.getter();
+  String.append(_:)(v20);
+
+  sub_1005B3D94(*&v24[0], *(&v24[0] + 1));
+}
+
+uint64_t sub_1008A8954(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v90 = a7;
+  v100 = a5;
+  v95 = type metadata accessor for HourTemperatureStatistics();
+  v103 = *(v95 - 8);
+  __chkstk_darwin(v95);
+  v102 = &v78 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v80 = sub_10022C350(&qword_100CB10F8, &qword_100A95930);
+  v79 = *(v80 - 8);
+  __chkstk_darwin(v80);
+  v78 = &v78 - v10;
+  v11 = type metadata accessor for Calendar.Component();
+  v93 = *(v11 - 8);
+  v94 = v11;
+  __chkstk_darwin(v11);
+  v92 = &v78 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v13);
+  v91 = &v78 - v14;
+  v15 = sub_10022C350(&qword_100CACE08, &unk_100A3C1B0);
+  __chkstk_darwin(v15 - 8);
+  v89 = &v78 - v16;
+  v84 = type metadata accessor for Calendar();
+  v83 = *(v84 - 8);
+  __chkstk_darwin(v84);
+  v97 = &v78 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v88 = type metadata accessor for TimeZone();
+  v87 = *(v88 - 8);
+  __chkstk_darwin(v88);
+  v86 = &v78 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v19);
+  v85 = &v78 - v20;
+  v82 = type metadata accessor for Date();
+  v81 = *(v82 - 8);
+  __chkstk_darwin(v82);
+  v99 = &v78 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = type metadata accessor for WeatherData.WeatherStatisticsState(0);
+  __chkstk_darwin(v22 - 8);
+  v24 = &v78 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = sub_10022C350(&qword_100CA37B0, &unk_100A2D740);
+  __chkstk_darwin(v25 - 8);
+  v27 = &v78 - v26;
+  v28 = sub_10022C350(&qword_100CA3898, &qword_100A314D0);
+  __chkstk_darwin(v28 - 8);
+  v30 = &v78 - v29;
+  v31 = sub_10022C350(&qword_100CD4D40, &unk_100A7C928);
+  __chkstk_darwin(v31 - 8);
+  v33 = &v78 - v32;
+  v101 = type metadata accessor for WeatherStatisticsModel();
+  v96 = *(v101 - 8);
+  __chkstk_darwin(v101);
+  v98 = &v78 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v37 = &v78 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = type metadata accessor for Location();
+  v39 = *(v38 - 8);
+  v40 = *(v39 + 16);
+  v107 = a1;
+  v104 = v39 + 16;
+  v105 = v40;
+  v40(v37, a1, v38);
+  swift_storeEnumTagMultiPayload();
+  v106 = a2;
+  sub_10005C1D4(v37);
+  sub_100087544();
+  type metadata accessor for SettingReader();
+  static SettingReader.shared.getter();
+  static Settings.Daemon.clearDailyStatisticsCacheOnNextLaunch.getter();
+  SettingReader.read<A>(_:)();
+
+  if (v112 & 1) != 0 || (static SettingReader.shared.getter(), static Settings.Daemon.clearDailySummaryCacheOnNextLaunch.getter(), SettingReader.read<A>(_:)(), , , (v111) || (static SettingReader.shared.getter(), static Settings.Daemon.clearHourlyStatisticsCacheOnNextLaunch.getter(), SettingReader.read<A>(_:)(), , , (v110) || (static SettingReader.shared.getter(), static Settings.Daemon.clearMonthlyStatisticsCacheOnNextLaunch.getter(), SettingReader.read<A>(_:)(), , , (v109))
+  {
+    v41 = &v37[*(sub_10022C350(&qword_100CC77A0, &qword_100A642B0) + 48)];
+    v105(v37, v107, v38);
+    v42 = 0x8000000100AE37E0;
+    v43 = 0xD00000000000001ALL;
+    goto LABEL_6;
+  }
+
+  static SettingReader.shared.getter();
+  static Settings.Daemon.disableStatisticsCaching.getter();
+  SettingReader.read<A>(_:)();
+
+  if (v108)
+  {
+    v41 = &v37[*(sub_10022C350(&qword_100CC77A0, &qword_100A642B0) + 48)];
+    v105(v37, v107, v38);
+    v42 = 0x8000000100AE37C0;
+    v43 = 0xD00000000000001BLL;
+    goto LABEL_6;
+  }
+
+  v45 = v107;
+  v46 = Location.id.getter();
+  sub_1000864C0(v46, v47, v100);
+
+  v48 = type metadata accessor for LocationWeatherDataState(0);
+  if (sub_100024D10(v27, 1, v48) == 1)
+  {
+    v49 = &qword_100CA37B0;
+    v50 = &unk_100A2D740;
+    v51 = v27;
+LABEL_15:
+    sub_100018144(v51, v49, v50);
+    sub_10001B350(v33, 1, 1, v101);
+LABEL_16:
+    sub_100018144(v33, &qword_100CD4D40, &unk_100A7C928);
+    v41 = &v37[*(sub_10022C350(&qword_100CC77A0, &qword_100A642B0) + 48)];
+    v105(v37, v45, v38);
+    v42 = 0x8000000100AE3760;
+    v43 = 0xD00000000000001CLL;
+LABEL_6:
+    *v41 = v43;
+    v41[1] = v42;
+    swift_storeEnumTagMultiPayload();
+    sub_10005C1D4(v37);
+    sub_100087544();
+    return 1;
+  }
+
+  sub_1001A0D3C();
+  sub_100087544();
+  v52 = type metadata accessor for WeatherData(0);
+  if (sub_100024D10(v30, 1, v52) == 1)
+  {
+    v49 = &qword_100CA3898;
+    v50 = &qword_100A314D0;
+    v51 = v30;
+    goto LABEL_15;
+  }
+
+  sub_1000863F8(&v30[*(v52 + 32)], v24);
+  sub_100087544();
+  sub_100882BD0(v33);
+  sub_100087544();
+  v53 = v101;
+  if (sub_100024D10(v33, 1, v101) == 1)
+  {
+    goto LABEL_16;
+  }
+
+  (*(v96 + 32))(v98, v33, v53);
+  v54 = v85;
+  Location.timeZone.getter();
+  Date.startOfDay(timeZone:)();
+  v55 = v87;
+  v56 = *(v87 + 8);
+  v57 = v88;
+  v56(v54, v88);
+  v58 = v89;
+  TimeZone.init(secondsFromGMT:)();
+  result = sub_100024D10(v58, 1, v57);
+  if (result != 1)
+  {
+    v59 = v86;
+    (*(v55 + 32))(v86, v58, v57);
+    static Calendar.gregorianCalendar(with:)();
+    v56(v59, v57);
+    v60 = v93;
+    v61 = v94;
+    v62 = *(v93 + 104);
+    v63 = v91;
+    v62(v91, enum case for Calendar.Component.hour(_:), v94);
+    v64 = v92;
+    v62(v92, enum case for Calendar.Component.year(_:), v61);
+    v65 = Calendar.ordinality(of:in:for:)();
+    LOBYTE(v62) = v66;
+    v67 = *(v60 + 8);
+    v67(v64, v61);
+    result = (v67)(v63, v61);
+    v68 = v95;
+    if (v62)
+    {
+LABEL_26:
+      (*(v83 + 8))(v97, v84);
+      (*(v81 + 8))(v99, v82);
+      (*(v96 + 8))(v98, v101);
+      return 0;
+    }
+
+    v100 = v65 + 24;
+    if (!__OFADD__(v65, 24))
+    {
+      v69 = v78;
+      WeatherStatisticsModel.hourlyTemperatureStatistics.getter();
+      v70 = v80;
+      v71 = HourlyWeatherStatistics.hours.getter();
+      result = (*(v79 + 8))(v69, v70);
+      v72 = *(v71 + 16);
+      v94 = v103 + 16;
+      while (1)
+      {
+        if (!v72)
+        {
+
+          v77 = &v37[*(sub_10022C350(&qword_100CC77A0, &qword_100A642B0) + 48)];
+          v105(v37, v107, v38);
+          *v77 = 0xD00000000000001DLL;
+          *(v77 + 1) = 0x8000000100AE37A0;
+          swift_storeEnumTagMultiPayload();
+          sub_10005C1D4(v37);
+          sub_100087544();
+          (*(v83 + 8))(v97, v84);
+          (*(v81 + 8))(v99, v82);
+          (*(v96 + 8))(v98, v101);
+          return 1;
+        }
+
+        if (v72 > *(v71 + 16))
+        {
+          break;
+        }
+
+        --v72;
+        v73 = v102;
+        v74 = v103;
+        (*(v103 + 16))(v102, v71 + ((*(v74 + 80) + 32) & ~*(v74 + 80)) + *(v74 + 72) * v72, v68);
+        v75 = HourTemperatureStatistics.hour.getter();
+        result = (*(v74 + 8))(v73, v68);
+        if (v75 == v100)
+        {
+
+          v76 = &v37[*(sub_10022C350(&qword_100CC77A0, &qword_100A642B0) + 48)];
+          v105(v37, v107, v38);
+          *v76 = 0xD00000000000001BLL;
+          *(v76 + 1) = 0x8000000100AE3780;
+          swift_storeEnumTagMultiPayload();
+          sub_10005C1D4(v37);
+          sub_100087544();
+          goto LABEL_26;
+        }
+      }
+
+      __break(1u);
+    }
+
+    __break(1u);
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_1008A97F4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = type metadata accessor for WeatherData.WeatherStatisticsState(0);
+  __chkstk_darwin(v5);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_storeEnumTagMultiPayload();
+  sub_1008A98B0(a2, v7, a3);
+  return sub_100087544();
+}
+
+uint64_t sub_1008A98B0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v30 = a3;
+  v28 = a2;
+  v6 = type metadata accessor for Location();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v29 = v8;
+  v31 = &v25[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = type metadata accessor for WeatherData.WeatherStatisticsState(0);
+  v27 = *(v9 - 8);
+  v10 = *(v27 + 64);
+  __chkstk_darwin(v9 - 8);
+  v11 = type metadata accessor for DispatchPredicate();
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v25[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_100040690();
+  *v14 = static OS_dispatch_queue.main.getter();
+  (*(v12 + 104))(v14, enum case for DispatchPredicate.onQueue(_:), v11);
+  v15 = _dispatchPreconditionTest(_:)();
+  result = (*(v12 + 8))(v14, v11);
+  if (v15)
+  {
+    (*(v4 + 16))(&v32, result);
+    v26 = sub_1008AB6E8(a1, v32);
+
+    v17 = &v25[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    sub_1000863F8(v28, v17);
+    (*(v7 + 16))(v31, a1, v6);
+    v18 = (*(v27 + 80) + 24) & ~*(v27 + 80);
+    v19 = v18 + v10;
+    v20 = (v18 + v10) & 0xFFFFFFFFFFFFFFF8;
+    v21 = *(v7 + 80);
+    v28 = v6;
+    v22 = (v21 + v20 + 16) & ~v21;
+    v23 = v30;
+    v24 = swift_allocObject();
+    *(v24 + 16) = v23;
+    sub_100086450(v17, v24 + v18);
+    LOBYTE(v17) = v26 & 1;
+    *(v24 + v19) = v26 & 1;
+    *(v24 + v20 + 8) = v4;
+    (*(v7 + 32))(v24 + v22, v31, v28);
+
+    sub_10018C9B4(a1, v17, sub_1008B1014);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A9C2C(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+{
+  v27 = a8;
+  v28 = a7;
+  v29 = a2;
+  v30 = a3;
+  v31 = a6;
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v13 = (&v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = *a1;
+  v15 = a1[1];
+  v16 = static os_signpost_type_t.end.getter();
+  sub_10022C350(&qword_100CA40C8, &unk_100A2E170);
+  v17 = swift_allocObject();
+  *(v17 + 16) = xmmword_100A2C3F0;
+  v26 = a4;
+  v18 = Location.name.getter();
+  v20 = v19;
+  *(v17 + 56) = &type metadata for String;
+  *(v17 + 64) = sub_100035744();
+  *(v17 + 32) = v18;
+  *(v17 + 40) = v20;
+  os_signpost(_:dso:log:name:signpostID:_:_:)(v16, &_mh_execute_header, v29, "Weather:resolveCountryCode", 26, 2, v30, "location %{private}s", 20, 2, v17);
+
+  *v13 = v14;
+  v13[1] = v15;
+  swift_storeEnumTagMultiPayload();
+  sub_100088528(v14, v15);
+  sub_10005C1D4(v13);
+  sub_100087544();
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  if (result)
+  {
+    if (v15 == 1)
+    {
+      v22 = 0;
+      v23 = 0;
+    }
+
+    else
+    {
+      v22 = CountryCode.value.getter();
+      v23 = v24;
+    }
+
+    sub_1008A9E5C(v26, v28, v22, v23, v27 & 1, a5);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008A9E5C(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(char *, uint64_t), int a5, uint64_t a6)
+{
+  v106 = a6;
+  LODWORD(v96) = a5;
+  v84 = a4;
+  v82 = a3;
+  v77 = a1;
+  v83 = *v6;
+  v98 = type metadata accessor for Location();
+  v105 = *(v98 - 8);
+  v99 = *(v105 + 64);
+  __chkstk_darwin(v98);
+  v95 = &v73 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v89 = &v73 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for OSSignpostID();
+  v92 = *(v9 - 8);
+  v93 = v9;
+  v94 = *(v92 + 64);
+  __chkstk_darwin(v9);
+  v91 = &v73 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v102 = &v73 - v12;
+  v13 = type metadata accessor for TimeZone();
+  v14 = *(v13 - 8);
+  v107 = v13;
+  v108 = v14;
+  __chkstk_darwin(v13);
+  v101 = &v73 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v100 = type metadata accessor for Calendar();
+  v97 = *(v100 - 8);
+  __chkstk_darwin(v100);
+  v104 = &v73 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v75 = type metadata accessor for WeatherServiceCaching.Options();
+  v76 = *(v75 - 8);
+  __chkstk_darwin(v75);
+  v74 = &v73 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = sub_10022C350(&qword_100CAD030, &unk_100A3C400);
+  __chkstk_darwin(v18 - 8);
+  v20 = &v73 - v19;
+  v21 = sub_10022C350(&qword_100CAD038, &unk_100A95810);
+  __chkstk_darwin(v21 - 8);
+  v23 = &v73 - v22;
+  v24 = sub_10022C350(&qword_100CACE08, &unk_100A3C1B0);
+  __chkstk_darwin(v24 - 8);
+  v26 = &v73 - v25;
+  Options = type metadata accessor for WeatherServiceFetchOptions();
+  v87 = *(Options - 8);
+  __chkstk_darwin(Options);
+  v103 = &v73 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = type metadata accessor for WeatherServiceLocationOptions();
+  v81 = *(v28 - 8);
+  v29 = v81;
+  __chkstk_darwin(v28);
+  v31 = &v73 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v86 = type metadata accessor for AppConfiguration();
+  v85 = *(v86 - 8);
+  __chkstk_darwin(v86);
+  v33 = &v73 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73 = v6;
+  sub_1000161C0(v6 + 15, v6[18]);
+  dispatch thunk of AppConfigurationManagerType.appConfiguration.getter();
+  v79 = v33;
+  AppConfiguration.locationDecimalPrecision.getter();
+  v34 = v31;
+  v80 = v31;
+  WeatherServiceLocationOptions.init(decimalPrecision:limitsPrecision:)();
+  v35 = v77;
+  Location.timeZone.getter();
+  sub_10001B350(v26, 0, 1, v107);
+  v36 = *(v29 + 16);
+  v78 = v28;
+  v36(v23, v34, v28);
+  sub_10001B350(v23, 0, 1, v28);
+  v37 = AppConfiguration.treatmentIDs.getter();
+  v38 = type metadata accessor for WeatherNetworkActivity();
+  sub_10001B350(v20, 1, 1, v38);
+  v109 = _swiftEmptyArrayStorage;
+  sub_1000675AC(&qword_100CE2968, &type metadata accessor for WeatherServiceCaching.Options);
+  sub_10022C350(&qword_100CE2970, &qword_100A95820);
+  sub_10006768C(&qword_100CE2978, &qword_100CE2970, &qword_100A95820);
+  v39 = v74;
+  v40 = v75;
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  sub_10007F81C(v82, v84, v26, v23, v39, v37, v20, 0, v103);
+
+  (*(v76 + 8))(v39, v40);
+  sub_100018144(v20, &qword_100CAD030, &unk_100A3C400);
+  sub_100018144(v23, &qword_100CAD038, &unk_100A95810);
+  sub_100018144(v26, &qword_100CACE08, &unk_100A3C1B0);
+  v41 = v101;
+  v42 = v35;
+  Location.timeZone.getter();
+  static Calendar.currentCalendar(with:)();
+  v43 = *(v108 + 8);
+  v108 += 8;
+  v84 = v43;
+  v43(v41, v107);
+  v44 = v73[56];
+  v45 = v102;
+  OSSignpostID.init(log:)();
+  v46 = static os_signpost_type_t.begin.getter();
+  sub_10022C350(&qword_100CA40C8, &unk_100A2E170);
+  v47 = swift_allocObject();
+  *(v47 + 16) = xmmword_100A2C3F0;
+  v48 = v42;
+  v49 = Location.name.getter();
+  v51 = v50;
+  *(v47 + 56) = &type metadata for String;
+  *(v47 + 64) = sub_100035744();
+  *(v47 + 32) = v49;
+  *(v47 + 40) = v51;
+  v72 = 2;
+  v52 = v45;
+  os_signpost(_:dso:log:name:signpostID:_:_:)(v46, &_mh_execute_header, v44, "Weather:fetchStatistics", 23, 2, v45, "location %{private}s", 20, v72, v47);
+
+  v53 = v89;
+  swift_storeEnumTagMultiPayload();
+  sub_10005C1D4(v53);
+  sub_100087544();
+  v96 = sub_1000925AC();
+  updated = Location.clLocation.getter();
+  v54 = v48;
+  Location.timeZone.getter();
+  v55 = swift_allocObject();
+  swift_weakInit();
+  v56 = v105;
+  v57 = v95;
+  v58 = v54;
+  v59 = v98;
+  (*(v105 + 16))(v95, v58, v98);
+  v60 = v91;
+  v61 = v92;
+  v62 = v93;
+  (*(v92 + 16))(v91, v52, v93);
+  v63 = (*(v56 + 80) + 24) & ~*(v56 + 80);
+  v64 = (v99 + v63 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v65 = (*(v61 + 80) + v64 + 8) & ~*(v61 + 80);
+  v66 = swift_allocObject();
+  *(v66 + 16) = v55;
+  (*(v105 + 32))(v66 + v63, v57, v59);
+  *(v66 + v64) = v106;
+  (*(v61 + 32))(v66 + v65, v60, v62);
+
+  v67 = updated;
+  v69 = v103;
+  v68 = v104;
+  v70 = v101;
+  WeatherService.fetchStatistics(for:calendar:options:timeZone:completion:)();
+
+  v84(v70, v107);
+  (*(v61 + 8))(v102, v62);
+  (*(v97 + 8))(v68, v100);
+  (*(v87 + 8))(v69, Options);
+  (*(v81 + 8))(v80, v78);
+  (*(v85 + 8))(v79, v86);
+}
+
+uint64_t sub_1008AAA44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+{
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v13 = (&v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *v13 = a1;
+  swift_storeEnumTagMultiPayload();
+  swift_errorRetain();
+  sub_10005C1D4(v13);
+  sub_100087544();
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  if (result)
+  {
+    sub_1008A9E5C(a4, a5, 0, 0, a6 & 1, a2);
+  }
+
+  return result;
+}
+
+void sub_1008AAB6C(void (*a1)(uint64_t, char *, uint64_t), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v79 = a5;
+  v84 = a4;
+  v81 = a3;
+  v76 = a1;
+  v6 = type metadata accessor for Location();
+  v82 = *(v6 - 8);
+  v83 = v6;
+  __chkstk_darwin(v6);
+  v8 = &v70 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = v7;
+  __chkstk_darwin(v9);
+  v80 = &v70 - v10;
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v13 = (&v70 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = type metadata accessor for WeatherStatisticsModel();
+  v15 = *(v14 - 8);
+  v16 = *(v15 + 64);
+  __chkstk_darwin(v14);
+  v75 = &v70 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v19 = &v70 - v18;
+  v20 = sub_10022C350(&qword_100CE2A10, &unk_100A95920);
+  __chkstk_darwin(v20);
+  v22 = &v70 - v21;
+  swift_beginAccess();
+  v77 = a2;
+  Strong = swift_weakLoadStrong();
+  if (Strong)
+  {
+    v24 = Strong;
+    sub_1000302D8(v76, v22, &qword_100CE2A10, &unk_100A95920);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    v74 = v24;
+    if (EnumCaseMultiPayload == 1)
+    {
+      v26 = *v22;
+      *v13 = *v22;
+      swift_storeEnumTagMultiPayload();
+      swift_errorRetain();
+      sub_10005C1D4(v13);
+      sub_100087544();
+      v27 = static os_signpost_type_t.end.getter();
+      v28 = *(v24 + 448);
+      sub_10022C350(&qword_100CA40C8, &unk_100A2E170);
+      v29 = swift_allocObject();
+      *(v29 + 16) = xmmword_100A2C3F0;
+      v30 = v28;
+      v31 = v81;
+      v32 = Location.name.getter();
+      v34 = v33;
+      *(v29 + 56) = &type metadata for String;
+      *(v29 + 64) = sub_100035744();
+      *(v29 + 32) = v32;
+      *(v29 + 40) = v34;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v27, &_mh_execute_header, v30, "Weather:fetchStatistics", 23, 2, v79, "location %{private}s failed", 27, 2, v29);
+
+      v35 = swift_allocObject();
+      swift_beginAccess();
+      swift_weakLoadStrong();
+      swift_weakInit();
+
+      v37 = v82;
+      v36 = v83;
+      v38 = v80;
+      (*(v82 + 16))(v80, v31, v83);
+      v39 = (*(v37 + 80) + 24) & ~*(v37 + 80);
+      v40 = (v78 + v39 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v41 = swift_allocObject();
+      *(v41 + 16) = v35;
+      (*(v37 + 32))(v41 + v39, v38, v36);
+      *(v41 + v40) = v26;
+      *(v41 + ((v40 + 15) & 0xFFFFFFFFFFFFFFF8)) = v84;
+
+      swift_errorRetain();
+
+      asyncMain(block:)();
+    }
+
+    else
+    {
+      v53 = *(v15 + 32);
+      v72 = v15 + 32;
+      v73 = v19;
+      v76 = v53;
+      v71 = v14;
+      v53(v19, v22, v14);
+      swift_storeEnumTagMultiPayload();
+      sub_10005C1D4(v13);
+      sub_100087544();
+      v54 = static os_signpost_type_t.end.getter();
+      v55 = *(v24 + 448);
+      sub_10022C350(&qword_100CA40C8, &unk_100A2E170);
+      v56 = swift_allocObject();
+      *(v56 + 16) = xmmword_100A2C3F0;
+      v57 = v55;
+      v58 = v81;
+      v59 = Location.name.getter();
+      v61 = v60;
+      *(v56 + 56) = &type metadata for String;
+      *(v56 + 64) = sub_100035744();
+      *(v56 + 32) = v59;
+      *(v56 + 40) = v61;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v54, &_mh_execute_header, v57, "Weather:fetchStatistics", 23, 2, v79, "location %{private}s", 20, 2, v56);
+
+      v79 = swift_allocObject();
+      swift_beginAccess();
+      swift_weakLoadStrong();
+      swift_weakInit();
+
+      v63 = v82;
+      v62 = v83;
+      v64 = v80;
+      (*(v82 + 16))(v80, v58, v83);
+      v70 = v15;
+      v65 = v75;
+      v66 = v71;
+      (*(v15 + 16))(v75, v73, v71);
+      v67 = (*(v63 + 80) + 24) & ~*(v63 + 80);
+      v68 = (v78 + *(v15 + 80) + v67) & ~*(v15 + 80);
+      v69 = swift_allocObject();
+      *(v69 + 16) = v79;
+      (*(v63 + 32))(v69 + v67, v64, v62);
+      v76(v69 + v68, v65, v66);
+      *(v69 + ((v16 + v68 + 7) & 0xFFFFFFFFFFFFFFF8)) = v84;
+
+      asyncMain(block:)();
+
+      (*(v70 + 8))(v73, v66);
+    }
+  }
+
+  else
+  {
+    if (qword_100CA2730 != -1)
+    {
+      swift_once();
+    }
+
+    v42 = type metadata accessor for Logger();
+    sub_10000703C(v42, qword_100D90BE8);
+    v43 = v82;
+    v44 = v83;
+    (*(v82 + 16))(v8, v81, v83);
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v45, v46))
+    {
+      v47 = swift_slowAlloc();
+      v48 = swift_slowAlloc();
+      v85[0] = v48;
+      *v47 = 141558275;
+      *(v47 + 4) = 1752392040;
+      *(v47 + 12) = 2081;
+      v49 = Location.id.getter();
+      v51 = v50;
+      (*(v43 + 8))(v8, v44);
+      v52 = sub_100078694(v49, v51, v85);
+
+      *(v47 + 14) = v52;
+      _os_log_impl(&_mh_execute_header, v45, v46, "Lost instance of self while fetching WeatherStatistics. locationID=%{private,mask.hash}s", v47, 0x16u);
+      sub_100006F14(v48);
+    }
+
+    else
+    {
+
+      (*(v43 + 8))(v8, v44);
+    }
+  }
+}
+
+uint64_t sub_1008AB494(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v7 = type metadata accessor for WeatherData.WeatherStatisticsState(0);
+  __chkstk_darwin(v7);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  if (result)
+  {
+    v11 = type metadata accessor for WeatherStatisticsModel();
+    (*(*(v11 - 8) + 16))(v9, a3, v11);
+    swift_storeEnumTagMultiPayload();
+    sub_1008A98B0(a2, v9, a4);
+
+    return sub_100087544();
+  }
+
+  return result;
+}
+
+uint64_t sub_1008AB5CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = type metadata accessor for WeatherData.WeatherStatisticsState(0);
+  __chkstk_darwin(v6);
+  v8 = (&v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  if (result)
+  {
+    swift_getErrorValue();
+    *v8 = Error.localizedDescription.getter();
+    v8[1] = v10;
+    swift_storeEnumTagMultiPayload();
+    sub_1008A98B0(a2, v8, a4);
+
+    return sub_100087544();
+  }
+
+  return result;
+}
+
+uint64_t sub_1008AB6E8(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_10022C350(&qword_100CADBA0, &qword_100A3D250);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v9 = &v19 - v8;
+  if (sub_10018A0DC(a1, a2))
+  {
+    v10 = 1;
+  }
+
+  else
+  {
+    sub_1008ABD28(a2, v9);
+    sub_1000302D8(v9, v6, &qword_100CADBA0, &qword_100A3D250);
+    v11 = type metadata accessor for Location.Identifier();
+    if (sub_100024D10(v6, 1, v11) == 1)
+    {
+      sub_100018144(v6, &qword_100CADBA0, &qword_100A3D250);
+      v12 = 0;
+      v13 = 0;
+    }
+
+    else
+    {
+      v12 = Location.Identifier.id.getter();
+      v13 = v14;
+      (*(*(v11 - 8) + 8))(v6, v11);
+    }
+
+    v15 = Location.id.getter();
+    if (v13)
+    {
+      if (v12 == v15 && v13 == v16)
+      {
+        v10 = 1;
+      }
+
+      else
+      {
+        v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      }
+
+      sub_100018144(v9, &qword_100CADBA0, &qword_100A3D250);
+    }
+
+    else
+    {
+      sub_100018144(v9, &qword_100CADBA0, &qword_100A3D250);
+
+      v10 = 0;
+    }
+  }
+
+  return v10 & 1;
+}
+
+uint64_t sub_1008AB8F4(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
+{
+  v39 = a5;
+  v8 = type metadata accessor for WeatherStatisticsModel();
+  v37 = *(v8 - 8);
+  v38 = v8;
+  __chkstk_darwin(v8);
+  v36 = &v35 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v40 = type metadata accessor for MainAction(0);
+  __chkstk_darwin(v40);
+  v11 = (&v35 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = type metadata accessor for WeatherData.WeatherStatisticsState(0);
+  __chkstk_darwin(v12);
+  v14 = (&v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v17 = &v35 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1000675AC(&qword_100CE08F0, type metadata accessor for WeatherData.WeatherStatisticsState);
+  *v17 = ShortDescribable.description.getter();
+  *(v17 + 1) = v18;
+  v17[16] = a3;
+  swift_storeEnumTagMultiPayload();
+  sub_10005C1D4(v17);
+  sub_100087544();
+  sub_1000863F8(a2, v14);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload == 1)
+    {
+      v21 = v36;
+      v20 = v37;
+      v22 = v14;
+      v23 = v38;
+      (*(v37 + 32))(v36, v22, v38);
+      v24 = *(a4 + 48);
+      v25 = *(a4 + 56);
+      v26 = *(sub_10022C350(&qword_100CAC0B0, &unk_100A41710) + 48);
+      *v11 = Location.id.getter();
+      v11[1] = v27;
+      (*(v20 + 16))(v11 + v26, v21, v23);
+      type metadata accessor for WeatherDataAction(0);
+      swift_storeEnumTagMultiPayload();
+      swift_storeEnumTagMultiPayload();
+      v43 = 0;
+      v41 = 0u;
+      v42 = 0u;
+      sub_10004F034(v11, &v41, v24, v25);
+      sub_100018144(&v41, &unk_100CD81B0, &unk_100A3B000);
+      sub_100087544();
+      return (*(v20 + 8))(v21, v23);
+    }
+
+    v31 = *(a4 + 48);
+    v32 = *(a4 + 56);
+    *v11 = Location.id.getter();
+    v11[1] = v34;
+    type metadata accessor for WeatherDataAction(0);
+  }
+
+  else
+  {
+    v29 = *v14;
+    v30 = v14[1];
+    v31 = *(a4 + 48);
+    v32 = *(a4 + 56);
+    *v11 = Location.id.getter();
+    v11[1] = v33;
+    v11[2] = v29;
+    v11[3] = v30;
+    type metadata accessor for WeatherDataAction(0);
+  }
+
+  swift_storeEnumTagMultiPayload();
+  swift_storeEnumTagMultiPayload();
+  v43 = 0;
+  v41 = 0u;
+  v42 = 0u;
+  sub_10004F034(v11, &v41, v31, v32);
+  sub_100018144(&v41, &unk_100CD81B0, &unk_100A3B000);
+  return sub_100087544();
+}
+
+uint64_t sub_1008ABD28@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = type metadata accessor for AveragesDetailViewState(0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for ModalViewState(0);
+  __chkstk_darwin(v7);
+  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for ModalViewState.LocationDetailModal(0);
+  __chkstk_darwin(v10);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v13);
+  v15 = &v19 - v14;
+  sub_1000863F8(a1 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_modalView, v9);
+  if (swift_getEnumCaseMultiPayload() != 5)
+  {
+    goto LABEL_6;
+  }
+
+  sub_100086450(v9, v15);
+  sub_1000863F8(v15, v12);
+  if (swift_getEnumCaseMultiPayload() != 5)
+  {
+    sub_100087544();
+LABEL_6:
+    sub_100087544();
+    v16 = 1;
+    goto LABEL_7;
+  }
+
+  sub_100086450(v12, v6);
+  Location.identifier.getter();
+  sub_100087544();
+  sub_100087544();
+  v16 = 0;
+LABEL_7:
+  v17 = type metadata accessor for Location.Identifier();
+  return sub_10001B350(a2, v16, 1, v17);
+}
+
+void sub_1008ABFC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+{
+  v20 = a8;
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v18 = (&v19 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *v18 = a1;
+  swift_storeEnumTagMultiPayload();
+  swift_errorRetain();
+  sub_10005C1D4(v18);
+  sub_100087544();
+  sub_10016F998(a4, a5, a6, a7, v20, a9, a10 & 1, 0, 0, a2, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30);
+}
+
+void sub_1008AC0EC(void (*a1)(uint64_t, char *, uint64_t), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  v72 = a8;
+  v70 = a7;
+  v71 = a6;
+  v69 = a5;
+  v81 = a3;
+  v82 = a4;
+  v75 = a1;
+  v78 = type metadata accessor for OSSignpostID();
+  v68 = *(v78 - 8);
+  v11 = *(v68 + 64);
+  __chkstk_darwin(v78);
+  v77 = &v59 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v80 = type metadata accessor for Location();
+  v12 = *(v80 - 8);
+  v13 = *(v12 + 64);
+  __chkstk_darwin(v80);
+  v79 = &v59 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for AvailableDataSets();
+  v15 = *(v14 - 8);
+  v16 = *(v15 + 64);
+  __chkstk_darwin(v14);
+  v76 = &v59 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v19 = &v59 - v18;
+  v20 = sub_10022C350(&qword_100CE2A20, &unk_100A95948);
+  __chkstk_darwin(v20);
+  v22 = &v59 - v21;
+  swift_beginAccess();
+  Strong = swift_weakLoadStrong();
+  if (Strong)
+  {
+    v67 = a11;
+    v66 = a10;
+    v73 = a9;
+    sub_1000302D8(v75, v22, &qword_100CE2A20, &unk_100A95948);
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      v23 = *v22;
+      v25 = v79;
+      v24 = v80;
+      (*(v12 + 16))(v79, v82, v80);
+      v26 = (*(v12 + 80) + 40) & ~*(v12 + 80);
+      v27 = swift_allocObject();
+      v28 = v66;
+      *(v27 + 2) = v81;
+      *(v27 + 3) = v28;
+      *(v27 + 4) = v67;
+      (*(v12 + 32))(&v27[v26], v25, v24);
+      *&v27[(v13 + v26 + 7) & 0xFFFFFFFFFFFFFFF8] = v23;
+
+      swift_errorRetain();
+      asyncMain(block:)();
+
+      v29 = static os_signpost_type_t.end.getter();
+      v30 = *(Strong + 448);
+      sub_10022C350(&qword_100CA40C8, &unk_100A2E170);
+      v31 = swift_allocObject();
+      *(v31 + 16) = xmmword_100A2C3F0;
+      v32 = v30;
+      v33 = Location.name.getter();
+      v35 = v34;
+      *(v31 + 56) = &type metadata for String;
+      *(v31 + 64) = sub_100035744();
+      *(v31 + 32) = v33;
+      *(v31 + 40) = v35;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v29, &_mh_execute_header, v32, "Weather:fetchAvailableDataSets", 30, 2, v73, "location %{private}s failed", 27, 2, v31);
+
+      v83 = 0;
+      v84 = 0xE000000000000000;
+      _StringGuts.grow(_:)(44);
+
+      v83 = 0xD00000000000002ALL;
+      v84 = 0x8000000100AE3820;
+      swift_getErrorValue();
+      v36._countAndFlagsBits = Error.localizedDescription.getter();
+      String.append(_:)(v36);
+
+      sub_1005B3D94(v83, v84);
+    }
+
+    else
+    {
+      v37 = v15;
+      v38 = *(v15 + 32);
+      v63 = v15 + 32;
+      v75 = v38;
+      v65 = v19;
+      v62 = v14;
+      v38(v19, v22, v14);
+      (*(v12 + 16))(v79, v82, v80);
+      v39 = v68;
+      (*(v68 + 16))(v77, v73, v78);
+      v64 = v37;
+      (*(v37 + 16))(v76, v19, v14);
+      v40 = (*(v12 + 80) + 16) & ~*(v12 + 80);
+      v41 = (v13 + v40 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v61 = (v41 + 39) & 0xFFFFFFFFFFFFFFF8;
+      v60 = (v61 + 15) & 0xFFFFFFFFFFFFFFF8;
+      v42 = (*(v39 + 80) + v60 + 8) & ~*(v39 + 80);
+      v43 = (v11 + v42 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v44 = (*(v37 + 80) + v43 + 16) & ~*(v37 + 80);
+      v45 = swift_allocObject();
+      (*(v12 + 32))(v45 + v40, v79, v80);
+      v46 = (v45 + v41);
+      v48 = v71;
+      v47 = v72;
+      *v46 = v69;
+      v46[1] = v48;
+      v46[2] = v70;
+      v46[3] = v47;
+      *(v45 + v61) = v81;
+      v49 = Strong;
+      *(v45 + v60) = Strong;
+      (*(v39 + 32))(v45 + v42, v77, v78);
+      v50 = (v45 + v43);
+      v51 = v67;
+      *v50 = v66;
+      v50[1] = v51;
+      v52 = v62;
+      v75(v45 + v44, v76, v62);
+
+      asyncMain(block:)();
+
+      v53 = static os_signpost_type_t.end.getter();
+      v54 = *(v49 + 448);
+      sub_10022C350(&qword_100CA40C8, &unk_100A2E170);
+      v55 = swift_allocObject();
+      *(v55 + 16) = xmmword_100A2C3F0;
+      v56 = Location.name.getter();
+      v58 = v57;
+      *(v55 + 56) = &type metadata for String;
+      *(v55 + 64) = sub_100035744();
+      *(v55 + 32) = v56;
+      *(v55 + 40) = v58;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v53, &_mh_execute_header, v54, "Weather:fetchAvailableDataSets", 30, 2, v73, "location %{private}s", 20, 2, v55);
+
+      (*(v64 + 8))(v65, v52);
+    }
+  }
+
+  else
+  {
+    sub_1005B3D94(0xD000000000000022, 0x8000000100AE3610);
+  }
+}
+
+void sub_1008AC91C(void (*a1)(_OWORD *__return_ptr), void (*a2)(_OWORD *__return_ptr), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t (*a9)(uint64_t), uint64_t a10, uint64_t a11)
+{
+  v54 = a7;
+  v55 = a8;
+  v66 = a6;
+  v63 = a3;
+  v64 = a2;
+  v65 = type metadata accessor for MainAction(0);
+  __chkstk_darwin(v65);
+  v13 = (&v53 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v16 = &v53 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = type metadata accessor for LocationCoordinate();
+  v58 = *(v17 - 8);
+  v59 = v17;
+  __chkstk_darwin(v17);
+  v57 = &v53 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v19);
+  v56 = &v53 - v20;
+  v60 = type metadata accessor for Location();
+  v62 = *(v60 - 8);
+  __chkstk_darwin(v60);
+  v61 = &v53 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = sub_10022C350(&unk_100CE49F0, &unk_100A3AFA0);
+  __chkstk_darwin(v22 - 8);
+  v24 = &v53 - v23;
+  v25 = type metadata accessor for LocationsState(0);
+  __chkstk_darwin(v25 - 8);
+  v27 = &v53 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = type metadata accessor for CurrentLocation();
+  __chkstk_darwin(v28);
+  v30 = &v53 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v31);
+  v33 = &v53 - v32;
+  if (Location.kind.getter())
+  {
+    v53 = updated;
+    v64(v67);
+    sub_1000863F8(*&v67[0] + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v27);
+
+    sub_1000302D8(v27, v24, &unk_100CE49F0, &unk_100A3AFA0);
+    sub_100087544();
+    if (sub_100024D10(v24, 1, v28) == 1)
+    {
+      sub_100018144(v24, &unk_100CE49F0, &unk_100A3AFA0);
+    }
+
+    else
+    {
+      sub_100086450(v24, v33);
+      sub_1000863F8(v33, v30);
+      if (swift_getEnumCaseMultiPayload())
+      {
+        sub_100087544();
+        sub_100087544();
+      }
+
+      else
+      {
+        v34 = v60;
+        (*(v62 + 32))();
+        Location.coordinate.getter();
+        v35 = v56;
+        LocationCoordinate.init(_:)();
+        v64 = a1;
+        Location.coordinate.getter();
+        v36 = v57;
+        LocationCoordinate.init(_:)();
+        sub_1000675AC(&qword_100CAAA28, &type metadata accessor for LocationCoordinate);
+        v37 = v59;
+        v38 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v39 = *(v58 + 8);
+        v39(v36, v37);
+        v39(v35, v37);
+        if ((v38 & 1) == 0)
+        {
+          v44 = v61;
+          v43 = v62;
+          (*(v62 + 16))(v16, v61, v34);
+          swift_storeEnumTagMultiPayload();
+          sub_10005C1D4(v16);
+          sub_100087544();
+          v45 = static os_signpost_type_t.end.getter();
+          v46 = v34;
+          v47 = v43;
+          v48 = *(v54 + 448);
+          sub_10022C350(&qword_100CA40C8, &unk_100A2E170);
+          v49 = swift_allocObject();
+          *(v49 + 16) = xmmword_100A2C3F0;
+          v50 = Location.name.getter();
+          v52 = v51;
+          *(v49 + 56) = &type metadata for String;
+          *(v49 + 64) = sub_100035744();
+          *(v49 + 32) = v50;
+          *(v49 + 40) = v52;
+          os_signpost(_:dso:log:name:signpostID:_:_:)(v45, &_mh_execute_header, v48, "Weather:fetchAvailableDataSets", 30, 2, v55, "location %{private}s", 20, 2, v49);
+
+          (*(v47 + 8))(v44, v46);
+          sub_100087544();
+          return;
+        }
+
+        (*(v62 + 8))(v61, v34);
+        sub_100087544();
+      }
+    }
+  }
+
+  swift_storeEnumTagMultiPayload();
+  sub_10005C1D4(v16);
+  sub_100087544();
+  v40 = *(sub_10022C350(&qword_100CAC0C0, &unk_100A53DF0) + 48);
+  *v13 = Location.id.getter();
+  v13[1] = v41;
+  v42 = type metadata accessor for AvailableDataSets();
+  (*(*(v42 - 8) + 16))(v13 + v40, a11, v42);
+  type metadata accessor for WeatherDataAction(0);
+  swift_storeEnumTagMultiPayload();
+  swift_storeEnumTagMultiPayload();
+  v68 = 0;
+  memset(v67, 0, sizeof(v67));
+  sub_10004F034(v13, v67, a9, a10);
+  sub_100018144(v67, &unk_100CD81B0, &unk_100A3B000);
+  sub_100087544();
+  sub_10018E2C0(1, 0);
+}
+
+uint64_t sub_1008AD0F4(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = type metadata accessor for MainAction(0);
+  __chkstk_darwin(v8);
+  v10 = (v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  updated = type metadata accessor for WeatherDataUpdateRequestLog.Event(0);
+  __chkstk_darwin(updated);
+  v13 = v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_storeEnumTagMultiPayload();
+  sub_10005C1D4(v13);
+  sub_100087544();
+  v14 = Location.id.getter();
+  v16 = v15;
+  *&v20[0] = a5;
+  swift_errorRetain();
+  sub_10022C350(&qword_100CD8220, &qword_100A4A330);
+  v17 = String.init<A>(describing:)();
+  *v10 = v14;
+  v10[1] = v16;
+  v10[2] = v17;
+  v10[3] = v18;
+  type metadata accessor for WeatherDataAction(0);
+  swift_storeEnumTagMultiPayload();
+  swift_storeEnumTagMultiPayload();
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
+  sub_10004F034(v10, v20, a2, a3);
+  sub_100018144(v20, &unk_100CD81B0, &unk_100A3B000);
+  return sub_100087544();
+}
+
+uint64_t sub_1008AD2CC()
+{
+
+  sub_100006F14((v0 + 80));
+  sub_100006F14((v0 + 120));
+  sub_100006F14((v0 + 160));
+  sub_100006F14((v0 + 200));
+  sub_100006F14((v0 + 240));
+  sub_100006F14((v0 + 280));
+  sub_100006F14((v0 + 328));
+  sub_100006F14((v0 + 368));
+  sub_100006F14((v0 + 408));
+
+  sub_100006F14((v0 + 480));
+
+  return v0;
+}
+
+uint64_t sub_1008AD3A8()
+{
+  sub_1008AD2CC();
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t sub_1008AD3DC()
+{
+  sub_100017580();
+  v2 = type metadata accessor for Location();
+  sub_100003810(v2);
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = v1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+
+  return sub_1008A62A4(v0, v4, v5, v6);
+}
+
+uint64_t sub_1008AD448@<X0>(void (*a1)(uint64_t, uint64_t)@<X0>, void (*a2)(uint64_t, uint64_t)@<X1>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+{
+  v213 = a3;
+  v214 = a2;
+  v215 = a1;
+  v221 = a4;
+  v174 = sub_10022C350(&qword_100CE29D8, &qword_100A95880);
+  __chkstk_darwin(v174);
+  v176 = &v127 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v177 = &v127 - v6;
+  __chkstk_darwin(v7);
+  v179 = &v127 - v8;
+  __chkstk_darwin(v9);
+  v180 = &v127 - v10;
+  __chkstk_darwin(v11);
+  v181 = &v127 - v12;
+  __chkstk_darwin(v13);
+  v182 = &v127 - v14;
+  __chkstk_darwin(v15);
+  v183 = &v127 - v16;
+  __chkstk_darwin(v17);
+  v184 = &v127 - v18;
+  __chkstk_darwin(v19);
+  v185 = &v127 - v20;
+  __chkstk_darwin(v21);
+  v186 = &v127 - v22;
+  __chkstk_darwin(v23);
+  v175 = (&v127 - v24);
+  v25 = sub_10022C350(&qword_100CE2988, &qword_100A95830);
+  v211 = *(v25 - 8);
+  v212 = v25;
+  __chkstk_darwin(v25);
+  v225 = (&v127 - v26);
+  v27 = sub_10022C350(&qword_100CE2990, &qword_100A95838);
+  v209 = *(v27 - 8);
+  v210 = v27;
+  __chkstk_darwin(v27);
+  v224 = &v127 - v28;
+  v29 = sub_10022C350(&qword_100CE2998, &qword_100A95840);
+  v207 = *(v29 - 8);
+  v208 = v29;
+  __chkstk_darwin(v29);
+  v187 = &v127 - v30;
+  v31 = sub_10022C350(&qword_100CE29A0, &qword_100A95848);
+  v205 = *(v31 - 8);
+  v206 = v31;
+  __chkstk_darwin(v31);
+  v188 = &v127 - v32;
+  v204 = sub_10022C350(&qword_100CE29A8, &qword_100A95850);
+  v203 = *(v204 - 8);
+  __chkstk_darwin(v204);
+  v189 = &v127 - v33;
+  v202 = sub_10022C350(&qword_100CE29B0, &qword_100A95858);
+  v201 = *(v202 - 8);
+  __chkstk_darwin(v202);
+  v190 = &v127 - v34;
+  v200 = sub_10022C350(&qword_100CAD2A0, &qword_100A3C640);
+  v199 = *(v200 - 8);
+  __chkstk_darwin(v200);
+  v191 = &v127 - v35;
+  v198 = sub_10022C350(&qword_100CAD290, &qword_100A3C630);
+  v197 = *(v198 - 8);
+  __chkstk_darwin(v198);
+  v192 = &v127 - v36;
+  v196 = sub_10022C350(&qword_100CE29B8, &qword_100A95860);
+  v195 = *(v196 - 8);
+  __chkstk_darwin(v196);
+  v38 = &v127 - v37;
+  v194 = sub_10022C350(&qword_100CE29C0, &unk_100A95868);
+  v193 = *(v194 - 8);
+  __chkstk_darwin(v194);
+  v222 = (&v127 - v39);
+  v40 = sub_10022C350(&qword_100CE2A00, &unk_100A958E8);
+  __chkstk_darwin(v40 - 8);
+  v178 = &v127 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v42);
+  v220 = &v127 - v43;
+  __chkstk_darwin(v44);
+  v223 = &v127 - v45;
+  ProductRequirementsFactory.AppRequiredProducts.current.getter();
+  v46 = v38;
+  ProductRequirementsFactory.AppRequiredProducts.minutely.getter();
+  ProductRequirementsFactory.AppRequiredProducts.hourly.getter();
+  ProductRequirementsFactory.AppRequiredProducts.daily.getter();
+  ProductRequirementsFactory.AppRequiredProducts.airQuality.getter();
+  ProductRequirementsFactory.AppRequiredProducts.changes.getter();
+  ProductRequirementsFactory.AppRequiredProducts.alerts.getter();
+  ProductRequirementsFactory.AppRequiredProducts.availability.getter();
+  ProductRequirementsFactory.AppRequiredProducts.news.getter();
+  ProductRequirementsFactory.AppRequiredProducts.historicalComparisons.getter();
+  v47 = type metadata accessor for CurrentWeather();
+  sub_10022C350(&qword_100CB0BA0, &unk_100A40F70);
+  v48 = sub_10022C350(&qword_100CA7030, &qword_100A32000);
+  v49 = sub_10022C350(&qword_100CA7000, &unk_100A3E7F0);
+  sub_10022C350(&qword_100CC62B8, &qword_100A61CA0);
+  sub_10022C350(&qword_100CACDF8, &unk_100A3E410);
+  sub_10022C350(&qword_100CD00E0, &unk_100A74880);
+  v50 = type metadata accessor for WeatherAvailability();
+  sub_10022C350(&qword_100CE29C8, &qword_100A9AC10);
+  sub_10022C350(&qword_100CABD10, &qword_100A3ABB0);
+  v218 = v50;
+  v217 = v49;
+  v219 = v48;
+  v216 = v47;
+  v51 = v225;
+  v52 = v224;
+  v53 = v187;
+  v54 = v46;
+  v55 = v192;
+  v56 = v191;
+  v57 = v190;
+  v58 = v189;
+  v59 = v188;
+  WeatherService.cachedWeather<A, B, C, D, E, F, G, H, I, J>(for:including:_:_:_:_:_:_:_:_:_:options:)();
+  v60 = v220;
+  (*(v211 + 8))(v51, v212);
+  (*(v209 + 8))(v52, v210);
+  (*(v207 + 8))(v53, v208);
+  (*(v205 + 8))(v59, v206);
+  (*(v203 + 8))(v58, v204);
+  (*(v201 + 8))(v57, v202);
+  (*(v199 + 8))(v56, v200);
+  (*(v197 + 8))(v55, v198);
+  (*(v195 + 8))(v54, v196);
+  (*(v193 + 8))(v222, v194);
+  sub_10011C0F0(v223, v60, &qword_100CE2A00, &unk_100A958E8);
+  v61 = sub_10022C350(&qword_100CE29E0, &qword_100A95888);
+  if (sub_100024D10(v60, 1, v61) != 1)
+  {
+    v62 = v221;
+    v63 = v178;
+    sub_1000302D8(v60, v178, &qword_100CE2A00, &unk_100A958E8);
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      v67 = v175;
+      sub_10011C0F0(v63, v175, &qword_100CE29D8, &qword_100A95880);
+      sub_1000302D8(v67, v186, &qword_100CE29D8, &qword_100A95880);
+      v68 = v174;
+      v69 = *(v174 + 48);
+      v210 = *(v174 + 64);
+      v211 = v69;
+      v70 = *(v174 + 80);
+      v208 = *(v174 + 96);
+      v209 = v70;
+      v207 = *(v174 + 112);
+
+      v71 = v68[36];
+      v205 = v68[40];
+      v206 = v71;
+      v204 = v68[44];
+      sub_1000302D8(v67, v185, &qword_100CE29D8, &qword_100A95880);
+      v224 = v68[12];
+      v203 = v68[16];
+      v202 = v68[20];
+      v201 = v68[24];
+      v200 = v68[28];
+
+      v199 = v68[36];
+      v198 = v68[40];
+      v197 = v68[44];
+      sub_1000302D8(v67, v184, &qword_100CE29D8, &qword_100A95880);
+      v196 = v68[12];
+      v223 = v68[16];
+      v195 = v68[20];
+      v194 = v68[24];
+      v193 = v68[28];
+
+      v192 = v68[36];
+      v191 = v68[40];
+      v190 = v68[44];
+      sub_1000302D8(v67, v183, &qword_100CE29D8, &qword_100A95880);
+      v189 = v68[12];
+      v188 = v68[16];
+      v222 = v68[20];
+      v187 = v68[24];
+      v178 = v68[28];
+
+      v173 = v68[36];
+      v172 = v68[40];
+      v171 = v68[44];
+      sub_1000302D8(v67, v182, &qword_100CE29D8, &qword_100A95880);
+      v170 = v68[12];
+      v169 = v68[16];
+      v168 = v68[20];
+      v215 = v68[24];
+      v167 = v68[28];
+
+      v166 = v68[36];
+      v165 = v68[40];
+      v164 = v68[44];
+      v72 = v181;
+      sub_1000302D8(v67, v181, &qword_100CE29D8, &qword_100A95880);
+      v163 = v68[12];
+      v162 = v68[16];
+      v161 = v68[20];
+      v160 = v68[24];
+      v213 = v68[28];
+      v73 = v72;
+
+      v159 = v68[36];
+      v158 = v68[40];
+      v157 = v68[44];
+      v74 = v180;
+      sub_1000302D8(v67, v180, &qword_100CE29D8, &qword_100A95880);
+      v156 = v68[12];
+      v155 = v68[16];
+      v154 = v68[20];
+      v153 = v68[24];
+      v152 = v68[28];
+      v212 = *(v74 + v68[32]);
+      v151 = v68[36];
+      v150 = v68[40];
+      v149 = v68[44];
+      v75 = v179;
+      sub_1000302D8(v67, v179, &qword_100CE29D8, &qword_100A95880);
+      v148 = v68[12];
+      v147 = v68[16];
+      v146 = v68[20];
+      v145 = v68[24];
+      v144 = v68[28];
+      v76 = v75;
+
+      v131 = v68[36];
+      v143 = v68[40];
+      v142 = v68[44];
+      v77 = v177;
+      sub_1000302D8(v67, v177, &qword_100CE29D8, &qword_100A95880);
+      v141 = v68[12];
+      v140 = v68[16];
+      v139 = v68[20];
+      v138 = v68[24];
+      v137 = v68[28];
+
+      v136 = v68[36];
+      v128 = v68[40];
+      v135 = v68[44];
+      v78 = v176;
+      sub_10011C0F0(v67, v176, &qword_100CE29D8, &qword_100A95880);
+      v214 = v68[12];
+      v134 = v68[16];
+      v133 = v68[20];
+      v130 = v68[24];
+      v132 = v68[28];
+
+      v129 = v68[36];
+      v127 = v68[40];
+      v174 = v68[44];
+      v225 = *(v216 - 8);
+      v79 = v62;
+      v225[4](v62, v186, v216);
+      v80 = type metadata accessor for FetchedForecast(0);
+      sub_10011C0F0(&v224[v185], v62 + v80[5], &qword_100CB0BA0, &unk_100A40F70);
+      v81 = v80[6];
+      v224 = *(v219 - 8);
+      (*(v224 + 4))(v62 + v81, v184 + v223, v219);
+      v82 = v80[7];
+      v83 = v217;
+      v223 = *(v217 - 8);
+      (*(v223 + 32))(v62 + v82, v222 + v183, v217);
+      sub_10011C0F0(v215 + v182, v62 + v80[8], &qword_100CC62B8, &qword_100A61CA0);
+      sub_10011C0F0(v73 + v213, v62 + v80[9], &qword_100CACDF8, &unk_100A3E410);
+      *(v62 + v80[10]) = v212;
+      v84 = v80[11];
+      v175 = v80;
+      v85 = v218;
+      v86 = *(v218 - 8);
+      (*(v86 + 32))(v79 + v84, v76 + v131, v218);
+      sub_10011C0F0(v77 + v128, v79 + v80[12], &qword_100CE29C8, &qword_100A9AC10);
+      sub_10011C0F0(v78 + v174, v79 + v80[13], &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(v78 + v127, &qword_100CE29C8, &qword_100A9AC10);
+      v87 = *(v86 + 8);
+      v87(v78 + v129, v85);
+      v212 = v87;
+      v213 = v86 + 8;
+      sub_100018144(v78 + v132, &qword_100CACDF8, &unk_100A3E410);
+      sub_100018144(v78 + v130, &qword_100CC62B8, &qword_100A61CA0);
+      v222 = *(v223 + 8);
+      v223 += 8;
+      v222(v78 + v133, v83);
+      v88 = *(v224 + 1);
+      v224 += 8;
+      v89 = v219;
+      v88(v78 + v134, v219);
+      v215 = v88;
+      sub_100018144(v214 + v78, &qword_100CB0BA0, &unk_100A40F70);
+      v90 = v225[1];
+      ++v225;
+      v91 = v216;
+      v90(v78, v216);
+      v92 = v90;
+      sub_100018144(v77 + v135, &qword_100CABD10, &qword_100A3ABB0);
+      v87(v77 + v136, v85);
+      sub_100018144(v77 + v137, &qword_100CACDF8, &unk_100A3E410);
+      sub_100018144(v77 + v138, &qword_100CC62B8, &qword_100A61CA0);
+      v93 = v217;
+      v94 = v222;
+      v222(v77 + v139, v217);
+      v95 = v89;
+      v88(v77 + v140, v89);
+      sub_100018144(v77 + v141, &qword_100CB0BA0, &unk_100A40F70);
+      v214 = v92;
+      v92(v77, v91);
+      v96 = v179;
+      sub_100018144(v179 + v142, &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(v96 + v143, &qword_100CE29C8, &qword_100A9AC10);
+      sub_100018144(v96 + v144, &qword_100CACDF8, &unk_100A3E410);
+      sub_100018144(v96 + v145, &qword_100CC62B8, &qword_100A61CA0);
+      v94(v96 + v146, v93);
+      v97 = v215;
+      v215(v96 + v147, v95);
+      sub_100018144(v96 + v148, &qword_100CB0BA0, &unk_100A40F70);
+      v92(v96, v91);
+      v98 = v180;
+      sub_100018144(v180 + v149, &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(v98 + v150, &qword_100CE29C8, &qword_100A9AC10);
+      v99 = v212;
+      v212(v98 + v151, v218);
+      sub_100018144(v98 + v152, &qword_100CACDF8, &unk_100A3E410);
+      sub_100018144(v98 + v153, &qword_100CC62B8, &qword_100A61CA0);
+      v100 = v217;
+      v101 = v222;
+      v222(v98 + v154, v217);
+      v102 = v219;
+      v97(v98 + v155, v219);
+      sub_100018144(v98 + v156, &qword_100CB0BA0, &unk_100A40F70);
+      v103 = v214;
+      v214(v98, v91);
+      v104 = v181;
+      sub_100018144(v181 + v157, &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(v104 + v158, &qword_100CE29C8, &qword_100A9AC10);
+      v105 = v218;
+      v99(v104 + v159, v218);
+      sub_100018144(v104 + v160, &qword_100CC62B8, &qword_100A61CA0);
+      v101(v104 + v161, v100);
+      v215(v104 + v162, v102);
+      sub_100018144(v104 + v163, &qword_100CB0BA0, &unk_100A40F70);
+      v103(v104, v216);
+      v106 = v182;
+      sub_100018144(v182 + v164, &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(v106 + v165, &qword_100CE29C8, &qword_100A9AC10);
+      v107 = v105;
+      v108 = v105;
+      v109 = v212;
+      v212(v106 + v166, v107);
+      sub_100018144(v106 + v167, &qword_100CACDF8, &unk_100A3E410);
+      v101(v106 + v168, v100);
+      v110 = v219;
+      v111 = v215;
+      v215(v106 + v169, v219);
+      sub_100018144(v106 + v170, &qword_100CB0BA0, &unk_100A40F70);
+      v112 = v216;
+      v113 = v214;
+      v214(v106, v216);
+      v114 = v183;
+      sub_100018144(v183 + v171, &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(v114 + v172, &qword_100CE29C8, &qword_100A9AC10);
+      v109(v114 + v173, v108);
+      sub_100018144(v114 + v178, &qword_100CACDF8, &unk_100A3E410);
+      sub_100018144(&v187[v114], &qword_100CC62B8, &qword_100A61CA0);
+      v111(&v188[v114], v110);
+      sub_100018144(&v189[v114], &qword_100CB0BA0, &unk_100A40F70);
+      v113(v114, v112);
+      v115 = v113;
+      v116 = v184;
+      sub_100018144(&v190[v184], &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(&v191[v116], &qword_100CE29C8, &qword_100A9AC10);
+      v117 = v218;
+      v118 = v109;
+      v109(&v192[v116], v218);
+      sub_100018144(v116 + v193, &qword_100CACDF8, &unk_100A3E410);
+      sub_100018144(v116 + v194, &qword_100CC62B8, &qword_100A61CA0);
+      v119 = v217;
+      v120 = v222;
+      v222(v116 + v195, v217);
+      sub_100018144(v116 + v196, &qword_100CB0BA0, &unk_100A40F70);
+      v115(v116, v112);
+      v121 = v185;
+      sub_100018144(v185 + v197, &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(v121 + v198, &qword_100CE29C8, &qword_100A9AC10);
+      v118(v121 + v199, v117);
+      sub_100018144(v121 + v200, &qword_100CACDF8, &unk_100A3E410);
+      sub_100018144(v121 + v201, &qword_100CC62B8, &qword_100A61CA0);
+      v122 = v119;
+      v120(v121 + v202, v119);
+      v123 = v219;
+      v124 = v215;
+      v215(v121 + v203, v219);
+      v214(v121, v112);
+      v125 = v186;
+      sub_100018144(v186 + v204, &qword_100CABD10, &qword_100A3ABB0);
+      sub_100018144(v125 + v205, &qword_100CE29C8, &qword_100A9AC10);
+      v118(v125 + v206, v218);
+      sub_100018144(v125 + v207, &qword_100CACDF8, &unk_100A3E410);
+      sub_100018144(v125 + v208, &qword_100CC62B8, &qword_100A61CA0);
+      v222(v125 + v209, v122);
+      v60 = v220;
+      v124(v125 + v210, v123);
+      sub_100018144(v125 + v211, &qword_100CB0BA0, &unk_100A40F70);
+      v65 = v221;
+      v66 = 0;
+      v64 = v175;
+      goto LABEL_6;
+    }
+
+    sub_100018144(v63, &qword_100CE29E0, &qword_100A95888);
+  }
+
+  v64 = type metadata accessor for FetchedForecast(0);
+  v65 = v221;
+  v66 = 1;
+LABEL_6:
+  sub_10001B350(v65, v66, 1, v64);
+  return sub_100018144(v60, &qword_100CE2A00, &unk_100A958E8);
+}
+
+void sub_1008AF260()
+{
+  sub_10000C778();
+  v3 = v2;
+  v24 = v4;
+  type metadata accessor for ListViewTipManager.LocationNameAndLocationOfInterestType(0);
+  sub_10000548C();
+  v6 = v5;
+  __chkstk_darwin(v7);
+  sub_1000037D8();
+  v10 = (v9 - v8);
+  v11 = *v1;
+  Hasher.init(_seed:)();
+  v12 = *v3;
+  v13 = v3[1];
+  String.hash(into:)();
+  v25 = v0;
+  type metadata accessor for LocationOfInterestType();
+  sub_1000675AC(&qword_100CA3590, &type metadata accessor for LocationOfInterestType);
+  dispatch thunk of Hashable.hash(into:)();
+  v14 = Hasher._finalize()();
+  v15 = -1 << *(v11 + 32);
+  v16 = v14 & ~v15;
+  if ((*(v11 + 56 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16))
+  {
+    v17 = ~v15;
+    v18 = *(v6 + 72);
+    while (1)
+    {
+      sub_1000863F8(*(v11 + 48) + v18 * v16, v10);
+      v19 = *v10 == v12 && v10[1] == v13;
+      if (v19 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (static LocationOfInterestType.== infix(_:_:)())
+      {
+        break;
+      }
+
+      sub_10003BC2C();
+      v16 = (v16 + 1) & v17;
+      if (((*(v11 + 56 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16) & 1) == 0)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    sub_10003BC2C();
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v23 = *v1;
+    v26 = *v1;
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      sub_1006A19B8();
+      v23 = v26;
+    }
+
+    sub_100086450(*(v23 + 48) + v18 * v16, v24);
+    sub_1008AFA34(v16);
+    *v1 = v26;
+    v20 = v24;
+    v21 = 0;
+  }
+
+  else
+  {
+LABEL_10:
+    v20 = v24;
+    v21 = 1;
+  }
+
+  sub_10001B350(v20, v21, 1, v25);
+  sub_10000536C();
+}
+
+void sub_1008AF4D0()
+{
+  sub_100071768();
+  sub_1000B91E8();
+  v4 = sub_100542CB0(v2);
+  sub_1000164A8(v4, v5, v6);
+
+  Hasher._finalize()();
+  sub_100086900();
+  if (v7)
+  {
+    while (1)
+    {
+      v8 = 0xE800000000000000;
+      v9 = 0x73776F626E696172;
+      switch(*(*(v3 + 48) + v1))
+      {
+        case 1:
+          v9 = 0x6E696E746867696CLL;
+          v8 = 0xE900000000000067;
+          break;
+        case 2:
+          v8 = 0xE400000000000000;
+          v9 = 1818845544;
+          break;
+        case 3:
+          v8 = 0xE500000000000000;
+          v9 = 0x656B6F6D73;
+          break;
+        case 4:
+          v8 = 0xE300000000000000;
+          v9 = 6778726;
+          break;
+        case 5:
+          v8 = 0xE400000000000000;
+          v9 = 1702519144;
+          break;
+        default:
+          break;
+      }
+
+      v10 = 0xE800000000000000;
+      v11 = 0x73776F626E696172;
+      switch(v2)
+      {
+        case 1:
+          v11 = 0x6E696E746867696CLL;
+          v10 = 0xE900000000000067;
+          break;
+        case 2:
+          v10 = 0xE400000000000000;
+          v11 = 1818845544;
+          break;
+        case 3:
+          v10 = 0xE500000000000000;
+          v11 = 0x656B6F6D73;
+          break;
+        case 4:
+          v10 = 0xE300000000000000;
+          v11 = 6778726;
+          break;
+        case 5:
+          v10 = 0xE400000000000000;
+          v11 = 1702519144;
+          break;
+        default:
+          break;
+      }
+
+      if (v9 == v11 && v8 == v10)
+      {
+        break;
+      }
+
+      v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if (v13)
+      {
+        goto LABEL_22;
+      }
+
+      sub_1000F007C();
+      if ((v14 & 1) == 0)
+      {
+        goto LABEL_25;
+      }
+    }
+
+LABEL_22:
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v17 = *v0;
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      sub_1006A1DF8();
+    }
+
+    v16 = sub_1000B7C30();
+    sub_1008AFD38(v16);
+    *v0 = v17;
+  }
+
+LABEL_25:
+  sub_100051A4C();
+}
+
+void sub_1008AF6D8()
+{
+  sub_100071768();
+  sub_1000B91E8();
+  v4 = sub_100542D8C(v2);
+  sub_1000164A8(v4, v5, v6);
+
+  Hasher._finalize()();
+  sub_100086900();
+  if (v7)
+  {
+    while (1)
+    {
+      v8 = 0xE800000000000000;
+      v9 = 0x746E617361656C70;
+      switch(*(*(v3 + 48) + v1))
+      {
+        case 1:
+          v9 = 0x617361656C706E75;
+          v8 = 0xEA0000000000746ELL;
+          break;
+        case 2:
+          v8 = 0xE300000000000000;
+          v9 = 7630696;
+          break;
+        case 3:
+          v8 = 0xE600000000000000;
+          v9 = 0x796C6C696863;
+          break;
+        case 4:
+          v8 = 0xE500000000000000;
+          v10 = 1734833517;
+          goto LABEL_10;
+        case 5:
+          v8 = 0xE300000000000000;
+          v9 = 7959140;
+          break;
+        case 6:
+          v8 = 0xE500000000000000;
+          v10 = 1684957559;
+LABEL_10:
+          v9 = v10 & 0xFFFF0000FFFFFFFFLL | 0x7900000000;
+          break;
+        case 7:
+          v8 = 0xE400000000000000;
+          v9 = 1835819363;
+          break;
+        default:
+          break;
+      }
+
+      v11 = 0xE800000000000000;
+      v12 = 0x746E617361656C70;
+      switch(v2)
+      {
+        case 1:
+          v12 = 0x617361656C706E75;
+          v11 = 0xEA0000000000746ELL;
+          break;
+        case 2:
+          v11 = 0xE300000000000000;
+          v12 = 7630696;
+          break;
+        case 3:
+          v11 = 0xE600000000000000;
+          v12 = 0x796C6C696863;
+          break;
+        case 4:
+          v11 = 0xE500000000000000;
+          v13 = 1734833517;
+          goto LABEL_19;
+        case 5:
+          v11 = 0xE300000000000000;
+          v12 = 7959140;
+          break;
+        case 6:
+          v11 = 0xE500000000000000;
+          v13 = 1684957559;
+LABEL_19:
+          v12 = v13 & 0xFFFF0000FFFFFFFFLL | 0x7900000000;
+          break;
+        case 7:
+          v11 = 0xE400000000000000;
+          v12 = 1835819363;
+          break;
+        default:
+          break;
+      }
+
+      if (v9 == v12 && v8 == v11)
+      {
+        break;
+      }
+
+      v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if (v15)
+      {
+        goto LABEL_28;
+      }
+
+      sub_1000F007C();
+      if ((v16 & 1) == 0)
+      {
+        goto LABEL_31;
+      }
+    }
+
+LABEL_28:
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *v0;
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      sub_1006A1E0C();
+    }
+
+    v18 = sub_1000B7C30();
+    sub_1008AFF80(v18);
+    *v0 = v19;
+  }
+
+LABEL_31:
+  sub_100051A4C();
+}
+
+uint64_t sub_1008AF928(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  Namespace.ID.hash(into:)();
+  v3 = Hasher._finalize()();
+  v4 = ~(-1 << *(v2 + 32));
+  while (1)
+  {
+    v5 = v3 & v4;
+    if (((1 << (v3 & v4)) & *(v2 + 56 + (((v3 & v4) >> 3) & 0xFFFFFFFFFFFFFF8))) == 0)
+    {
+      return 0;
+    }
+
+    if (static Namespace.ID.== infix(_:_:)())
+    {
+      break;
+    }
+
+    v3 = v5 + 1;
+  }
+
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *v1;
+  v10 = *v1;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    sub_1006A204C();
+    v8 = v10;
+  }
+
+  v6 = *(*(v8 + 48) + 8 * v5);
+  sub_1008B01F0(v5);
+  *v1 = v10;
+  return v6;
+}
+
+void sub_1008AFA34(int64_t a1)
+{
+  v30 = type metadata accessor for ListViewTipManager.LocationNameAndLocationOfInterestType(0);
+  v3 = *(v30 - 8);
+  __chkstk_darwin(v30);
+  v5 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *v1;
+  v7 = *v1 + 56;
+  v8 = -1 << *(*v1 + 32);
+  v9 = (a1 + 1) & ~v8;
+  if (((1 << v9) & *(v7 + 8 * (v9 >> 6))) != 0)
+  {
+    v10 = ~v8;
+
+    v11 = _HashTable.previousHole(before:)();
+    if ((*(v7 + 8 * (v9 >> 6)) & (1 << v9)) != 0)
+    {
+      v12 = (v11 + 1) & v10;
+      v31 = *(v3 + 72);
+      v13 = v10;
+      while (1)
+      {
+        v14 = v7;
+        v15 = v31 * v9;
+        sub_1000863F8(*(v6 + 48) + v31 * v9, v5);
+        Hasher.init(_seed:)();
+        String.hash(into:)();
+        v16 = v13;
+        type metadata accessor for LocationOfInterestType();
+        sub_1000675AC(&qword_100CA3590, &type metadata accessor for LocationOfInterestType);
+        dispatch thunk of Hashable.hash(into:)();
+        v17 = Hasher._finalize()();
+        sub_100087544();
+        v18 = v17 & v16;
+        v13 = v16;
+        if (a1 >= v12)
+        {
+          if (v18 < v12 || a1 < v18)
+          {
+            goto LABEL_24;
+          }
+        }
+
+        else if (v18 < v12 && a1 < v18)
+        {
+          goto LABEL_24;
+        }
+
+        v21 = *(v6 + 48);
+        v22 = v31 * a1;
+        v23 = v21 + v31 * a1;
+        v24 = v21 + v15 + v31;
+        if (v31 * a1 < v15 || v23 >= v24)
+        {
+          break;
+        }
+
+        a1 = v9;
+        if (v22 != v15)
+        {
+          swift_arrayInitWithTakeBackToFront();
+          goto LABEL_23;
+        }
+
+LABEL_24:
+        v9 = (v9 + 1) & v16;
+        v7 = v14;
+        if (((*(v14 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+        {
+          goto LABEL_25;
+        }
+      }
+
+      swift_arrayInitWithTakeFrontToBack();
+LABEL_23:
+      a1 = v9;
+      goto LABEL_24;
+    }
+
+LABEL_25:
+
+    *(v7 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
+  }
+
+  else
+  {
+    *(v7 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
+  }
+
+  v26 = *(v6 + 16);
+  v27 = __OFSUB__(v26, 1);
+  v28 = v26 - 1;
+  if (v27)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(v6 + 16) = v28;
+    ++*(v6 + 36);
+  }
+}
+
+unint64_t sub_1008AFD38(unint64_t result)
+{
+  v2 = result;
+  v3 = *v1;
+  v4 = *v1 + 56;
+  v5 = -1 << *(*v1 + 32);
+  v6 = (result + 1) & ~v5;
+  if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
+  {
+    v7 = ~v5;
+
+    v8 = _HashTable.previousHole(before:)();
+    if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
+    {
+      v9 = (v8 + 1) & v7;
+      do
+      {
+        Hasher.init(_seed:)();
+        String.hash(into:)();
+
+        v10 = Hasher._finalize()() & v7;
+        if (v2 >= v9)
+        {
+          if (v10 >= v9 && v2 >= v10)
+          {
+LABEL_15:
+            v13 = *(v3 + 48);
+            v14 = (v13 + v2);
+            v15 = (v13 + v6);
+            if (v2 != v6 || v14 >= v15 + 1)
+            {
+              *v14 = *v15;
+              v2 = v6;
+            }
+          }
+        }
+
+        else if (v10 >= v9 || v2 >= v10)
+        {
+          goto LABEL_15;
+        }
+
+        v6 = (v6 + 1) & v7;
+      }
+
+      while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
+    }
+
+    *(v4 + ((v2 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v2) - 1;
+  }
+
+  else
+  {
+    *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
+  }
+
+  v17 = *(v3 + 16);
+  v18 = __OFSUB__(v17, 1);
+  v19 = v17 - 1;
+  if (v18)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(v3 + 16) = v19;
+    ++*(v3 + 36);
+  }
+
+  return result;
+}
+
+unint64_t sub_1008AFF80(unint64_t result)
+{
+  v2 = result;
+  v3 = *v1;
+  v4 = *v1 + 56;
+  v5 = -1 << *(*v1 + 32);
+  v6 = (result + 1) & ~v5;
+  if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
+  {
+    v7 = ~v5;
+
+    v8 = _HashTable.previousHole(before:)();
+    if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
+    {
+      v9 = (v8 + 1) & v7;
+      do
+      {
+        Hasher.init(_seed:)();
+        String.hash(into:)();
+
+        v10 = Hasher._finalize()() & v7;
+        if (v2 >= v9)
+        {
+          if (v10 >= v9 && v2 >= v10)
+          {
+LABEL_15:
+            v13 = *(v3 + 48);
+            v14 = (v13 + v2);
+            v15 = (v13 + v6);
+            if (v2 != v6 || v14 >= v15 + 1)
+            {
+              *v14 = *v15;
+              v2 = v6;
+            }
+          }
+        }
+
+        else if (v10 >= v9 || v2 >= v10)
+        {
+          goto LABEL_15;
+        }
+
+        v6 = (v6 + 1) & v7;
+      }
+
+      while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
+    }
+
+    *(v4 + ((v2 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v2) - 1;
+  }
+
+  else
+  {
+    *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
+  }
+
+  v17 = *(v3 + 16);
+  v18 = __OFSUB__(v17, 1);
+  v19 = v17 - 1;
+  if (v18)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(v3 + 16) = v19;
+    ++*(v3 + 36);
+  }
+
+  return result;
+}
+
+unint64_t sub_1008B01F0(unint64_t result)
+{
+  v2 = result;
+  v3 = *v1;
+  v4 = *v1 + 56;
+  v5 = -1 << *(*v1 + 32);
+  v6 = (result + 1) & ~v5;
+  if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
+  {
+    v7 = ~v5;
+
+    v8 = _HashTable.previousHole(before:)();
+    if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
+    {
+      v9 = (v8 + 1) & v7;
+      do
+      {
+        Hasher.init(_seed:)();
+        Namespace.ID.hash(into:)();
+        v10 = Hasher._finalize()() & v7;
+        if (v2 >= v9)
+        {
+          if (v10 >= v9 && v2 >= v10)
+          {
+LABEL_15:
+            v13 = *(v3 + 48);
+            v14 = (v13 + 8 * v2);
+            v15 = (v13 + 8 * v6);
+            if (v2 != v6 || v14 >= v15 + 1)
+            {
+              *v14 = *v15;
+              v2 = v6;
+            }
+          }
+        }
+
+        else if (v10 >= v9 || v2 >= v10)
+        {
+          goto LABEL_15;
+        }
+
+        v6 = (v6 + 1) & v7;
+      }
+
+      while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
+    }
+
+    *(v4 + ((v2 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v2) - 1;
+  }
+
+  else
+  {
+    *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
+  }
+
+  v17 = *(v3 + 16);
+  v18 = __OFSUB__(v17, 1);
+  v19 = v17 - 1;
+  if (v18)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(v3 + 16) = v19;
+    ++*(v3 + 36);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008B038C()
+{
+  v1 = type metadata accessor for WeatherData(0);
+  sub_100003AE8(v1);
+  v3 = (*(v2 + 80) + 32) & ~*(v2 + 80);
+  v5 = *(v4 + 64);
+  v6 = type metadata accessor for Location();
+  sub_100003AE8(v6);
+  v8 = (v3 + v5 + *(v7 + 80)) & ~*(v7 + 80);
+  v9 = type metadata accessor for NewsDataModel(0);
+  sub_100003810(v9);
+  v10 = sub_100040C54();
+
+  return sub_1008A74CC(v10, v11, v0 + v3, v0 + v8, v0 + v12);
+}
+
+uint64_t sub_1008B04A0()
+{
+  sub_100017580();
+  v2 = type metadata accessor for Location();
+  sub_100003AE8(v2);
+  v4 = (*(v3 + 80) + 24) & ~*(v3 + 80);
+  v6 = *(v5 + 64);
+  v7 = type metadata accessor for WeatherServiceLocationOptions();
+  sub_100003AE8(v7);
+  v9 = (v4 + v6 + *(v8 + 80)) & ~*(v8 + 80);
+  v11 = *(v10 + 64);
+  v12 = type metadata accessor for AppConfiguration();
+  sub_100003AE8(v12);
+  v14 = (v9 + v11 + *(v13 + 80)) & ~*(v13 + 80);
+  sub_100069BF8();
+  v15 = type metadata accessor for TimeState(0);
+  sub_100003AE8(v15);
+  sub_1000FFCA0();
+  return sub_1008A801C(v0, v16, v1 + v4, v1 + v9, v1 + v14, v17, v18, v19, v24, v23, v20, v21, v22);
+}
+
+uint64_t sub_1008B068C()
+{
+  type metadata accessor for Location();
+  sub_10000548C();
+  sub_100069BF8();
+
+  v0 = sub_1000751C4();
+  v1(v0);
+
+  sub_100036F2C();
+
+  return swift_deallocObject();
+}
+
 __n128 sub_1008B0758()
 {
   v0 = type metadata accessor for Location();
@@ -13,7 +4509,7 @@ uint64_t sub_1008B07E4()
   sub_100003AE8(v2);
   v3 = type metadata accessor for Location();
   sub_100003AE8(v3);
-  v4 = type metadata accessor for NewsDataModel();
+  v4 = type metadata accessor for NewsDataModel(0);
   sub_100003810(v4);
   v5 = *(v0 + 40);
   v6 = swift_task_alloc();
@@ -29,16 +4525,16 @@ uint64_t sub_1008B098C()
 {
   v0 = type metadata accessor for WeatherData(0);
   sub_100003AE8(v0);
-  v1 = type metadata accessor for PreprocessedWeatherData();
+  v1 = type metadata accessor for PreprocessedWeatherData(0);
   sub_100003AE8(v1);
-  v2 = type metadata accessor for NewsDataModel();
+  v2 = type metadata accessor for NewsDataModel(0);
   sub_100003AE8(v2);
   v3 = type metadata accessor for Location();
   sub_100003AE8(v3);
   sub_100049E3C();
   sub_1000A40A4();
 
-  return sub_1008A7F84(v4, v5, v6, v7, v8, v9);
+  return sub_1008A7F84(v4, v5, v6, v7, v8, v9, v10);
 }
 
 uint64_t sub_1008B0B20()
@@ -231,7 +4727,7 @@ uint64_t sub_1008B16C0()
   __chkstk_darwin(v11);
   sub_1000037D8();
   v14 = v13 - v12;
-  sub_10022C350(&qword_100CC74A0);
+  sub_10022C350(&qword_100CC74A0, &qword_100A63CA0);
   (*(v10 + 104))(v14, enum case for FeatureState.default(_:), v8);
   static Domain.weatherInternal.getter();
   (*(v2 + 104))(v6, enum case for Access.protected(_:), v0);
@@ -253,9 +4749,10 @@ uint64_t sub_1008B1898()
   (*(v3 + 104))(v0, enum case for Domain.standard(_:));
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  result = sub_100005908();
+  v8 = 0;
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
+  result = sub_100005908(49, 0x8000000100AE38E0, &v8);
   qword_100D91240 = result;
   return result;
 }
@@ -273,9 +4770,10 @@ uint64_t sub_1008B1A00()
   (*(v3 + 104))(v0, enum case for Domain.standard(_:));
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  result = sub_100005908();
+  v8 = 0;
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
+  result = sub_100005908(66, 0x8000000100AE3890, &v8);
   qword_100D91248 = result;
   return result;
 }
@@ -293,18 +4791,19 @@ uint64_t sub_1008B1B68()
   (*(v3 + 104))(v0, enum case for Domain.standard(_:));
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD0);
-  sub_100003B6C();
-  result = sub_100005908();
+  v8 = 12;
+  v6 = sub_10022C350(&qword_100CAFFD0, &unk_100A964A0);
+  sub_100003B6C(v6);
+  result = sub_100005908(51, 0x8000000100AE3850, &v8);
   qword_100D91250 = result;
   return result;
 }
 
 uint64_t sub_1008B1CD4()
 {
-  sub_1000180EC(v0 + OBJC_IVAR____TtC7Weather43WeatherConditionBackgroundModelInputFactory____lazy_storage___locationAnimationKind, &qword_100CC3788);
-  sub_1000180EC(v0 + OBJC_IVAR____TtC7Weather43WeatherConditionBackgroundModelInputFactory____lazy_storage___animationKind, &qword_100CE2C00);
-  sub_100006F14(v0 + OBJC_IVAR____TtC7Weather43WeatherConditionBackgroundModelInputFactory_weatherConditionBackgroundTimeDataFactory);
+  sub_1000180EC(v0 + OBJC_IVAR____TtC7Weather43WeatherConditionBackgroundModelInputFactory____lazy_storage___locationAnimationKind, &qword_100CC3788, &qword_100A5C580);
+  sub_1000180EC(v0 + OBJC_IVAR____TtC7Weather43WeatherConditionBackgroundModelInputFactory____lazy_storage___animationKind, &qword_100CE2C00, &unk_100A95B30);
+  sub_100006F14((v0 + OBJC_IVAR____TtC7Weather43WeatherConditionBackgroundModelInputFactory_weatherConditionBackgroundTimeDataFactory));
   return v0;
 }
 
@@ -416,7 +4915,7 @@ unint64_t sub_1008B1E7C()
   result = qword_100CE2BF8;
   if (!qword_100CE2BF8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aZ_0, &type metadata for WeatherConditionBackgroundModelInputFactory.BackgroundViewType, v0, v1);
     atomic_store(result, &qword_100CE2BF8);
   }
 
@@ -425,77 +4924,77 @@ unint64_t sub_1008B1E7C()
 
 void sub_1008B1ED0(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v131 = a2;
-  v128 = sub_10022C350(&qword_100CA53F8);
+  v132 = a2;
+  v129 = sub_10022C350(&qword_100CA53F8, &unk_100A3B3E0);
   sub_1000037C4();
-  v120 = v3;
+  v121 = v3;
   sub_100003828();
   __chkstk_darwin(v4);
-  v6 = &v109 - v5;
+  v6 = &v110 - v5;
   v7 = type metadata accessor for WeatherCondition();
   __chkstk_darwin(v7 - 8);
   sub_1000037D8();
   sub_100003918(v9 - v8);
-  v119 = type metadata accessor for CurrentWeather();
+  v120 = type metadata accessor for CurrentWeather();
   sub_1000037C4();
-  v118 = v10;
+  v119 = v10;
   __chkstk_darwin(v11);
   sub_1000037D8();
   sub_100003918(v13 - v12);
   v14 = type metadata accessor for Condition();
   sub_1000037C4();
-  v127 = v15;
+  v128 = v15;
   __chkstk_darwin(v16);
   sub_100003848();
-  v121 = v17;
+  v122 = v17;
   sub_10000386C();
   __chkstk_darwin(v18);
-  sub_100003918(&v109 - v19);
-  v143 = type metadata accessor for Date();
+  sub_100003918(&v110 - v19);
+  v144 = type metadata accessor for Date();
   sub_1000037C4();
-  v136 = v20;
+  v137 = v20;
   __chkstk_darwin(v21);
   sub_1000037D8();
-  v142 = v23 - v22;
-  v141 = type metadata accessor for Calendar();
+  v143 = v23 - v22;
+  v142 = type metadata accessor for Calendar();
   sub_1000037C4();
-  v132 = v24;
+  v133 = v24;
   __chkstk_darwin(v25);
   sub_1000037D8();
-  v140 = v27 - v26;
-  v138 = sub_10022C350(&qword_100CA7008);
+  v141 = v27 - v26;
+  v139 = sub_10022C350(&qword_100CA7008, &qword_100A31FF0);
   sub_100003828();
   __chkstk_darwin(v28);
-  v124 = &v109 - v29;
-  v30 = sub_10022C350(&qword_100CA7000);
+  v125 = &v110 - v29;
+  v30 = sub_10022C350(&qword_100CA7000, &unk_100A3E7F0);
   sub_1000037C4();
-  v123 = v31;
+  v124 = v31;
   __chkstk_darwin(v32);
   sub_100003848();
-  v137 = v33;
+  v138 = v33;
   sub_10000386C();
   __chkstk_darwin(v34);
-  v36 = &v109 - v35;
-  sub_10022C350(&qword_100CAB9B0);
+  v36 = &v110 - v35;
+  sub_10022C350(&qword_100CAB9B0, &qword_100A3A820);
   sub_100003828();
   __chkstk_darwin(v37);
-  sub_100003918(&v109 - v38);
-  v129 = type metadata accessor for DayWeather();
+  sub_100003918(&v110 - v38);
+  v130 = type metadata accessor for DayWeather();
   sub_1000037C4();
   v40 = v39;
   __chkstk_darwin(v41);
   sub_100003848();
-  v125 = v42;
+  v126 = v42;
   sub_10000386C();
   __chkstk_darwin(v43);
-  v139 = &v109 - v44;
+  v140 = &v110 - v44;
   sub_10000386C();
   __chkstk_darwin(v45);
-  v130 = &v109 - v46;
-  sub_10022C350(&qword_100CB1288);
+  v131 = &v110 - v46;
+  sub_10022C350(&qword_100CB1288, &unk_100A5D770);
   sub_100003828();
   __chkstk_darwin(v47);
-  v49 = &v109 - v48;
+  v49 = &v110 - v48;
   v50 = type metadata accessor for WeatherDataModel();
   sub_1000037C4();
   v52 = v51;
@@ -505,136 +5004,138 @@ void sub_1008B1ED0(uint64_t a1@<X0>, uint64_t a2@<X8>)
   sub_100727E74(a1, v49);
   if (sub_100024D10(v49, 1, v50) == 1)
   {
-    sub_10003FDF4(a1, &qword_100CB1288);
+    sub_10003FDF4(a1, &qword_100CB1288, &unk_100A5D770);
     v57 = v49;
     v58 = &qword_100CB1288;
+    v59 = &unk_100A5D770;
 LABEL_12:
-    sub_10003FDF4(v57, v58);
-    v82 = 1;
-    v83 = v131;
+    sub_10003FDF4(v57, v58, v59);
+    v83 = 1;
+    v84 = v132;
 LABEL_26:
-    v108 = type metadata accessor for LocationConditionData();
-    sub_10001B350(v83, v82, 1, v108);
+    v109 = type metadata accessor for LocationConditionData();
+    sub_10001B350(v84, v83, 1, v109);
     return;
   }
 
-  v110 = v14;
-  v113 = v6;
-  v115 = a1;
-  v111 = v52;
+  v111 = v14;
+  v114 = v6;
+  v116 = a1;
+  v112 = v52;
   (*(v52 + 32))(v56, v49, v50);
-  v112 = v56;
+  v113 = v56;
   WeatherDataModel.dailyForecast.getter();
-  v59 = v123;
-  (*(v123 + 16))(v137, v36, v30);
-  sub_1008B2B34(&qword_100CA7010);
   v60 = v124;
+  (*(v124 + 16))(v138, v36, v30);
+  sub_1008B2B34(&qword_100CA7010, &protocol conformance descriptor for Forecast<A>);
+  v61 = v125;
   dispatch thunk of Sequence.makeIterator()();
-  v137 = *(v138 + 36);
-  v61 = sub_1008B2B34(&qword_100CA7018);
-  v138 = v40 + 32;
-  v133 = v136 + 1;
-  v134 = (v40 + 16);
-  ++v132;
-  v136 = (v40 + 8);
-  v62 = v129;
-  v114 = v50;
-  v63 = v36;
-  v64 = v60;
-  v65 = v125;
-  v135 = v36;
+  v138 = *(v139 + 36);
+  v62 = sub_1008B2B34(&qword_100CA7018, &protocol conformance descriptor for Forecast<A>);
+  v139 = v40 + 32;
+  v134 = v137 + 1;
+  v135 = (v40 + 16);
+  ++v133;
+  v137 = (v40 + 8);
+  v63 = v130;
+  v115 = v50;
+  v64 = v36;
+  v65 = v61;
+  v66 = v126;
+  v136 = v36;
   while (1)
   {
     dispatch thunk of Collection.endIndex.getter();
-    if (*(v64 + v137) == v144)
+    if (*(v65 + v138) == v145)
     {
-      sub_10003FDF4(v64, &qword_100CA7008);
-      (*(v59 + 8))(v63, v30);
-      v76 = 1;
-      v77 = v126;
+      sub_10003FDF4(v65, &qword_100CA7008, &qword_100A31FF0);
+      (*(v60 + 8))(v64, v30);
+      v77 = 1;
+      v78 = v127;
       goto LABEL_9;
     }
 
-    v66 = dispatch thunk of Collection.subscript.read();
-    v67 = v61;
-    v68 = v139;
-    (*v134)(v139);
-    v66(&v144, 0);
-    v69 = v64;
-    v70 = v30;
-    v71 = v67;
+    v67 = dispatch thunk of Collection.subscript.read();
+    v68 = v62;
+    v69 = v140;
+    (*v135)(v140);
+    v67(&v145, 0);
+    v70 = v65;
+    v71 = v30;
+    v72 = v68;
     dispatch thunk of Collection.formIndex(after:)();
-    v72 = *v138;
-    (*v138)(v65, v68, v62);
-    v73 = v140;
+    v73 = *v139;
+    (*v139)(v66, v69, v63);
+    v74 = v141;
     static Calendar.current.getter();
-    v74 = v142;
+    v75 = v143;
     DayWeather.date.getter();
-    v75 = Calendar.isDateInToday(_:)();
-    (*v133)(v74, v143);
-    (*v132)(v73, v141);
-    if (v75)
+    v76 = Calendar.isDateInToday(_:)();
+    (*v134)(v75, v144);
+    (*v133)(v74, v142);
+    if (v76)
     {
       break;
     }
 
-    (*v136)(v65, v62);
-    v30 = v70;
-    v63 = v135;
-    v64 = v69;
-    v61 = v71;
+    (*v137)(v66, v63);
+    v30 = v71;
+    v64 = v136;
+    v65 = v70;
+    v62 = v72;
   }
 
-  sub_10003FDF4(v69, &qword_100CA7008);
-  (*(v59 + 8))(v135, v70);
-  v77 = v126;
-  v72(v126, v65, v62);
-  v76 = 0;
+  sub_10003FDF4(v70, &qword_100CA7008, &qword_100A31FF0);
+  (*(v60 + 8))(v136, v71);
+  v78 = v127;
+  v73(v127, v66, v63);
+  v77 = 0;
 LABEL_9:
-  v78 = v114;
-  sub_10001B350(v77, v76, 1, v62);
-  v101 = sub_100024D10(v77, 1, v62) == 1;
-  v79 = v128;
-  v80 = v113;
-  v81 = v127;
-  if (v101)
+  v79 = v115;
+  sub_10001B350(v78, v77, 1, v63);
+  v102 = sub_100024D10(v78, 1, v63) == 1;
+  v80 = v129;
+  v81 = v114;
+  v82 = v128;
+  if (v102)
   {
-    sub_10003FDF4(v115, &qword_100CB1288);
-    (*(v111 + 8))(v112, v78);
+    sub_10003FDF4(v116, &qword_100CB1288, &unk_100A5D770);
+    (*(v112 + 8))(v113, v79);
     v58 = &qword_100CAB9B0;
-    v57 = v77;
+    v59 = &qword_100A3A820;
+    v57 = v78;
     goto LABEL_12;
   }
 
-  (*v138)(v130, v77, v62);
-  v84 = v116;
-  v85 = v112;
+  (*v139)(v131, v78, v63);
+  v85 = v117;
+  v86 = v113;
   WeatherDataModel.currentWeather.getter();
-  v86 = v117;
+  v87 = v118;
   CurrentWeather.condition.getter();
-  v87 = *(v118 + 8);
-  v88 = v119;
-  v87(v84, v119);
-  v89 = v122;
-  v90 = v86;
-  v91 = v85;
-  v92 = v81;
-  sub_1008B2B84(v90, v122);
-  v93 = *(v81 + 16);
-  v94 = v110;
-  v93(v121, v89, v110);
+  v88 = *(v119 + 8);
+  v89 = v120;
+  v88(v85, v120);
+  v90 = v123;
+  v91 = v87;
+  v92 = v86;
+  v93 = v82;
+  sub_1008B2B84(v91, v123);
+  v94 = *(v82 + 16);
+  v95 = v111;
+  v94(v122, v90, v111);
   WeatherDataModel.currentWeather.getter();
   CurrentWeather.temperature.getter();
-  v95 = v88;
-  v96 = v120;
-  v87(v84, v95);
+  v96 = v89;
+  v97 = v121;
+  v88(v85, v96);
   Measurement.value.getter();
-  v98 = v97;
-  v99 = *(v96 + 8);
-  v99(v80, v79);
-  v100 = round(v98);
+  v99 = v98;
+  v100 = *(v97 + 8);
+  v100(v81, v80);
+  v101 = round(v99);
   sub_1000091D0();
-  if (!(v102 ^ v103 | v101))
+  if (!(v103 ^ v104 | v102))
   {
     __break(1u);
 LABEL_27:
@@ -642,12 +5143,12 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  if (v100 <= -2147483650.0)
+  if (v101 <= -2147483650.0)
   {
     goto LABEL_27;
   }
 
-  if (v100 >= 2147483650.0)
+  if (v101 >= 2147483650.0)
   {
 LABEL_28:
     __break(1u);
@@ -658,23 +5159,23 @@ LABEL_29:
 
   DayWeather.highTemperature.getter();
   Measurement.value.getter();
-  v105 = v104;
-  v99(v80, v79);
-  v106 = round(v105);
+  v106 = v105;
+  v100(v81, v80);
+  v107 = round(v106);
   sub_1000091D0();
-  if (!(v102 ^ v103 | v101))
+  if (!(v103 ^ v104 | v102))
   {
     goto LABEL_29;
   }
 
-  if (v106 <= -2147483650.0)
+  if (v107 <= -2147483650.0)
   {
 LABEL_30:
     __break(1u);
     goto LABEL_31;
   }
 
-  if (v106 >= 2147483650.0)
+  if (v107 >= 2147483650.0)
   {
 LABEL_31:
     __break(1u);
@@ -685,29 +5186,29 @@ LABEL_32:
 
   DayWeather.lowTemperature.getter();
   Measurement.value.getter();
-  v99(v80, v79);
+  v100(v81, v80);
   sub_1000091D0();
-  if (!(v102 ^ v103 | v101))
+  if (!(v103 ^ v104 | v102))
   {
     goto LABEL_32;
   }
 
-  if (v107 <= -2147483650.0)
+  if (v108 <= -2147483650.0)
   {
 LABEL_33:
     __break(1u);
     goto LABEL_34;
   }
 
-  if (v107 < 2147483650.0)
+  if (v108 < 2147483650.0)
   {
-    v83 = v131;
+    v84 = v132;
     LocationConditionData.init(locationCondition:temperature:temperatureHigh:temperatureLow:)();
-    sub_10003FDF4(v115, &qword_100CB1288);
-    (*(v92 + 8))(v122, v94);
-    (*v136)(v130, v129);
-    (*(v111 + 8))(v91, v114);
-    v82 = 0;
+    sub_10003FDF4(v116, &qword_100CB1288, &unk_100A5D770);
+    (*(v93 + 8))(v123, v95);
+    (*v137)(v131, v130);
+    (*(v112 + 8))(v92, v115);
+    v83 = 0;
     goto LABEL_26;
   }
 
@@ -715,13 +5216,13 @@ LABEL_34:
   __break(1u);
 }
 
-uint64_t sub_1008B2B34(unint64_t *a1)
+uint64_t sub_1008B2B34(unint64_t *a1, const char *a2)
 {
   result = *a1;
   if (!result)
   {
-    sub_10022E824(&qword_100CA7000);
-    result = swift_getWitnessTable();
+    v5 = sub_10022E824(&qword_100CA7000, &unk_100A3E7F0);
+    result = swift_getWitnessTable(a2, v5);
     atomic_store(result, a1);
   }
 
@@ -961,7 +5462,7 @@ LABEL_69:
   return (*(v6 + 8))(a1, v4);
 }
 
-uint64_t sub_1008B31A4()
+uint64_t sub_1008B31A4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -973,10 +5474,10 @@ uint64_t sub_1008B323C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void (*a3)(char 
   v339 = a6;
   v337 = a3;
   v296 = a7;
-  v11 = sub_10022C350(&qword_100CA5008);
+  v11 = sub_10022C350(&qword_100CA5008, &unk_100A2F7B0);
   __chkstk_darwin(v11 - 8);
   v278 = &v271 - v12;
-  v276 = type metadata accessor for LocationComponentContainerViewModel();
+  v276 = type metadata accessor for LocationComponentContainerViewModel(0);
   __chkstk_darwin(v276);
   sub_100003848();
   v305 = v13;
@@ -1547,7 +6048,7 @@ LABEL_34:
           v356[13] = a5;
           v356[14] = a5;
           v340 = v249;
-          WitnessTable = swift_getWitnessTable();
+          WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for <A> A?, v252, &v340);
           v342 = WitnessTable;
           v343 = WitnessTable;
           v344 = v249;
@@ -1610,7 +6111,7 @@ LABEL_35:
   return result;
 }
 
-uint64_t type metadata accessor for MonthlyAveragesChartInput()
+uint64_t type metadata accessor for MonthlyAveragesChartInput(uint64_t a1)
 {
   result = qword_100CE2CE8;
   if (!qword_100CE2CE8)
@@ -1621,25 +6122,25 @@ uint64_t type metadata accessor for MonthlyAveragesChartInput()
   return result;
 }
 
-void sub_1008B4AD4()
+void sub_1008B4AD4(uint64_t a1)
 {
   type metadata accessor for Calendar();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Date();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for TemperatureScaleConfiguration();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
-        sub_1008B4BB8();
-        if (v3 <= 0x3F)
+        sub_1008B4BB8(319);
+        if (v4 <= 0x3F)
         {
-          sub_1008B4CBC();
-          if (v4 <= 0x3F)
+          sub_1008B4CBC(319);
+          if (v5 <= 0x3F)
           {
             type metadata accessor for Locale();
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -1650,59 +6151,59 @@ void sub_1008B4AD4()
   }
 }
 
-void sub_1008B4BB8()
+void sub_1008B4BB8(uint64_t a1)
 {
   if (!qword_100CE2CF8)
   {
     type metadata accessor for MonthTemperatureStatistics();
-    sub_1008B4DC0(&qword_100CD6890, &type metadata accessor for MonthTemperatureStatistics);
-    sub_1008B4DC0(&qword_100CD6898, &type metadata accessor for MonthTemperatureStatistics);
-    sub_1008B4DC0(&qword_100CD68A0, &type metadata accessor for MonthTemperatureStatistics);
-    v0 = type metadata accessor for MonthlyWeatherStatistics();
-    if (!v1)
+    sub_1008B4DC0(&qword_100CD6890, &type metadata accessor for MonthTemperatureStatistics, &protocol conformance descriptor for MonthTemperatureStatistics);
+    sub_1008B4DC0(&qword_100CD6898, &type metadata accessor for MonthTemperatureStatistics, &protocol conformance descriptor for MonthTemperatureStatistics);
+    sub_1008B4DC0(&qword_100CD68A0, &type metadata accessor for MonthTemperatureStatistics, &protocol conformance descriptor for MonthTemperatureStatistics);
+    v1 = type metadata accessor for MonthlyWeatherStatistics();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100CE2CF8);
+      atomic_store(v1, &qword_100CE2CF8);
     }
   }
 }
 
-void sub_1008B4CBC()
+void sub_1008B4CBC(uint64_t a1)
 {
   if (!qword_100CE2D00)
   {
     type metadata accessor for MonthPrecipitationStatistics();
-    sub_1008B4DC0(&qword_100CD6878, &type metadata accessor for MonthPrecipitationStatistics);
-    sub_1008B4DC0(&qword_100CD6880, &type metadata accessor for MonthPrecipitationStatistics);
-    sub_1008B4DC0(&qword_100CD6888, &type metadata accessor for MonthPrecipitationStatistics);
-    v0 = type metadata accessor for MonthlyWeatherStatistics();
-    if (!v1)
+    sub_1008B4DC0(&qword_100CD6878, &type metadata accessor for MonthPrecipitationStatistics, &protocol conformance descriptor for MonthPrecipitationStatistics);
+    sub_1008B4DC0(&qword_100CD6880, &type metadata accessor for MonthPrecipitationStatistics, &protocol conformance descriptor for MonthPrecipitationStatistics);
+    sub_1008B4DC0(&qword_100CD6888, &type metadata accessor for MonthPrecipitationStatistics, &protocol conformance descriptor for MonthPrecipitationStatistics);
+    v1 = type metadata accessor for MonthlyWeatherStatistics();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100CE2D00);
+      atomic_store(v1, &qword_100CE2D00);
     }
   }
 }
 
-uint64_t sub_1008B4DC0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1008B4DC0(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
   return result;
 }
 
-uint64_t sub_1008B4E08()
+uint64_t sub_1008B4E08(uint64_t a1, uint64_t a2)
 {
   if ((static Calendar.== infix(_:_:)() & 1) == 0)
   {
     return 0;
   }
 
-  type metadata accessor for MonthlyAveragesChartInput();
+  type metadata accessor for MonthlyAveragesChartInput(0);
   if ((static Date.== infix(_:_:)() & 1) == 0)
   {
     return 0;
@@ -1714,19 +6215,19 @@ uint64_t sub_1008B4E08()
   }
 
   type metadata accessor for MonthTemperatureStatistics();
-  sub_1008B4DC0(&qword_100CD6890, &type metadata accessor for MonthTemperatureStatistics);
+  sub_1008B4DC0(&qword_100CD6890, &type metadata accessor for MonthTemperatureStatistics, &protocol conformance descriptor for MonthTemperatureStatistics);
   sub_100010ED8(&qword_100CD6898);
-  v0 = sub_100010ED8(&qword_100CD68A0);
-  if ((sub_10001D0C8(v0) & 1) == 0)
+  v2 = sub_100010ED8(&qword_100CD68A0);
+  if ((sub_10001D0C8(v2) & 1) == 0)
   {
     return 0;
   }
 
   type metadata accessor for MonthPrecipitationStatistics();
-  sub_1008B4DC0(&qword_100CD6878, &type metadata accessor for MonthPrecipitationStatistics);
+  sub_1008B4DC0(&qword_100CD6878, &type metadata accessor for MonthPrecipitationStatistics, &protocol conformance descriptor for MonthPrecipitationStatistics);
   sub_100010ED8(&qword_100CD6880);
-  v1 = sub_100010ED8(&qword_100CD6888);
-  if ((sub_10001D0C8(v1) & 1) == 0)
+  v3 = sub_100010ED8(&qword_100CD6888);
+  if ((sub_10001D0C8(v3) & 1) == 0)
   {
     return 0;
   }
@@ -1734,7 +6235,7 @@ uint64_t sub_1008B4E08()
   return static Locale.== infix(_:_:)();
 }
 
-uint64_t type metadata accessor for DetailChartsViewModel()
+uint64_t type metadata accessor for DetailChartsViewModel(uint64_t a1)
 {
   result = qword_100CE2D98;
   if (!qword_100CE2D98)
@@ -1745,28 +6246,28 @@ uint64_t type metadata accessor for DetailChartsViewModel()
   return result;
 }
 
-void sub_1008B5060()
+void sub_1008B5060(uint64_t a1)
 {
   type metadata accessor for Date();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1008B50E4();
-    if (v1 <= 0x3F)
+    sub_1008B50E4(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_1008B50E4()
+void sub_1008B50E4(uint64_t a1)
 {
   if (!qword_100CE2DA8)
   {
-    type metadata accessor for DetailChartViewModel();
-    v0 = type metadata accessor for Array();
-    if (!v1)
+    type metadata accessor for DetailChartViewModel(255);
+    v1 = type metadata accessor for Array();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100CE2DA8);
+      atomic_store(v1, &qword_100CE2DA8);
     }
   }
 }
@@ -1775,7 +6276,7 @@ void sub_1008B513C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   if (static Date.== infix(_:_:)())
   {
-    v28 = *(type metadata accessor for DetailChartsViewModel() + 20);
+    v28 = *(type metadata accessor for DetailChartsViewModel(0) + 20);
     v29 = *(a1 + v28);
     v30 = *(a2 + v28);
 
@@ -1790,7 +6291,7 @@ uint64_t sub_1008B51D4(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = type metadata accessor for PressureComponentViewModel();
+  v4 = type metadata accessor for PressureComponentViewModel(0);
   sub_100005824(v4[5]);
   v7 = v7 && v5 == v6;
   if (!v7 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
@@ -1824,61 +6325,61 @@ uint64_t sub_1008B51D4(uint64_t a1, uint64_t a2)
 uint64_t sub_1008B52C0()
 {
   v1 = type metadata accessor for ChartDarkeningScrim();
-  sub_1008B9FA8(&unk_100CE3010, &type metadata accessor for ChartDarkeningScrim);
+  sub_1008B9FA8(&unk_100CE3010, &type metadata accessor for ChartDarkeningScrim, &protocol conformance descriptor for ChartDarkeningScrim);
   dispatch thunk of RawRepresentable.rawValue.getter();
   (*(*(v1 - 8) + 8))(v0, v1);
   dispatch thunk of RawRepresentable.rawValue.getter();
-  sub_1008B9FA8(&qword_100CAC3F0, &type metadata accessor for ChartDarkeningScrim);
+  sub_1008B9FA8(&qword_100CAC3F0, &type metadata accessor for ChartDarkeningScrim, &protocol conformance descriptor for ChartDarkeningScrim);
   return dispatch thunk of OptionSet.init(rawValue:)();
 }
 
 uint64_t sub_1008B53E0(uint64_t a1, uint64_t a2)
 {
-  v31 = a1;
-  v29 = sub_10022C350(&unk_100CE3020);
+  v32 = a1;
+  v30 = sub_10022C350(&unk_100CE3020, &qword_100A95E28);
   sub_1000037E8();
   __chkstk_darwin(v4);
   sub_100003848();
-  v30 = v5;
+  v31 = v5;
   __chkstk_darwin(v6);
-  v8 = &v26 - v7;
+  v8 = &v27 - v7;
   v9 = type metadata accessor for PredictedLocationsNotificationSubscription.Kind();
   sub_1000037C4();
   v11 = v10;
-  v13 = __chkstk_darwin(v12);
-  v15 = &v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = &v26 - v16;
-  v18 = *(v11 + 16);
-  v28 = v2;
-  v18(v15, v2, v9);
-  v26 = sub_1008B9FA8(&qword_100CB9BD0, &type metadata accessor for PredictedLocationsNotificationSubscription.Kind);
+  __chkstk_darwin(v12);
+  v14 = &v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __chkstk_darwin(v15);
+  v18 = &v27 - v17;
+  v19 = *(v11 + 16);
+  v29 = v2;
+  v19(v14, v2, v9, v16);
+  v27 = sub_1008B9FA8(&qword_100CB9BD0, &type metadata accessor for PredictedLocationsNotificationSubscription.Kind, &protocol conformance descriptor for PredictedLocationsNotificationSubscription.Kind);
   dispatch thunk of SetAlgebra.intersection(_:)();
-  v19 = v29;
-  sub_1008B9FA8(&qword_100CE3030, &type metadata accessor for PredictedLocationsNotificationSubscription.Kind);
-  v27 = a2;
-  v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v21 = *(v19 + 48);
-  *v8 = (v20 & 1) == 0;
-  if (v20)
+  v20 = v30;
+  sub_1008B9FA8(&qword_100CE3030, &type metadata accessor for PredictedLocationsNotificationSubscription.Kind, &protocol conformance descriptor for PredictedLocationsNotificationSubscription.Kind);
+  v28 = a2;
+  v21 = dispatch thunk of static Equatable.== infix(_:_:)();
+  v22 = *(v20 + 48);
+  *v8 = (v21 & 1) == 0;
+  if (v21)
   {
-    (*(v11 + 32))(&v8[v21], v17, v9);
+    (*(v11 + 32))(&v8[v22], v18, v9);
   }
 
   else
   {
-    (*(v11 + 8))(v17, v9);
-    v22 = v27;
-    v18(&v8[v21], v27, v9);
-    v18(v15, v22, v9);
+    (*(v11 + 8))(v18, v9);
+    v23 = v28;
+    (v19)(&v8[v22], v28, v9);
+    (v19)(v14, v23, v9);
     dispatch thunk of SetAlgebra.formUnion(_:)();
   }
 
-  v23 = v30;
-  sub_1008B9F38(v8, v30);
-  v24 = *v23;
-  (*(v11 + 32))(v31, &v23[*(v19 + 48)], v9);
-  return v24;
+  v24 = v31;
+  sub_1008B9F38(v8, v31);
+  v25 = *v24;
+  (*(v11 + 32))(v32, &v24[*(v20 + 48)], v9);
+  return v25;
 }
 
 void sub_1008B5770()
@@ -1890,61 +6391,61 @@ void sub_1008B5770()
 
 void sub_1008B57AC(uint64_t a1, void *a2, uint64_t a3, void (**a4)(void))
 {
-  v226 = a4;
-  v6 = sub_10022C350(&unk_100CE2F20);
+  v235 = a4;
+  v6 = sub_10022C350(&unk_100CE2F20, &unk_100A2D7D0);
   __chkstk_darwin(v6 - 8);
-  v204 = &v193 - v7;
-  v203 = type metadata accessor for Location.Identifier();
-  v202 = *(v203 - 8);
-  __chkstk_darwin(v203);
-  v201 = &v193 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v200 = type metadata accessor for LocationsState();
-  __chkstk_darwin(v200);
-  v199 = &v193 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v207 = type metadata accessor for LocationModel();
-  v198 = *(v207 - 8);
-  __chkstk_darwin(v207);
-  v197 = &v193 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_10022C350(&qword_100CA6890);
-  __chkstk_darwin(v11 - 8);
-  v209 = &v193 - v12;
-  v208 = type metadata accessor for SavedLocation();
-  __chkstk_darwin(v208);
-  v196 = &v193 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v206 = &v193 - v15;
-  v16 = sub_10022C350(&unk_100CB2CF0);
-  __chkstk_darwin(v16 - 8);
-  v210 = &v193 - v17;
-  v212 = type metadata accessor for Location();
+  v213 = &v202 - v7;
+  v212 = type metadata accessor for Location.Identifier();
   v211 = *(v212 - 8);
   __chkstk_darwin(v212);
-  v217 = &v193 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = sub_10022C350(&qword_100CACE08);
+  v210 = &v202 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v209 = type metadata accessor for LocationsState(0);
+  __chkstk_darwin(v209);
+  v208 = &v202 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v216 = type metadata accessor for LocationModel();
+  v207 = *(v216 - 8);
+  __chkstk_darwin(v216);
+  v206 = &v202 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_10022C350(&qword_100CA6890, &qword_100A31680);
+  __chkstk_darwin(v11 - 8);
+  v218 = &v202 - v12;
+  v217 = type metadata accessor for SavedLocation();
+  __chkstk_darwin(v217);
+  v205 = &v202 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v215 = &v202 - v15;
+  v16 = sub_10022C350(&unk_100CB2CF0, &unk_100A2D7F0);
+  __chkstk_darwin(v16 - 8);
+  v219 = &v202 - v17;
+  v221 = type metadata accessor for Location();
+  v220 = *(v221 - 8);
+  __chkstk_darwin(v221);
+  v226 = &v202 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = sub_10022C350(&qword_100CACE08, &unk_100A3C1B0);
   __chkstk_darwin(v19 - 8);
-  v213 = &v193 - v20;
-  v218 = type metadata accessor for TimeZone();
-  v216 = *(v218 - 8);
-  __chkstk_darwin(v218);
-  v214 = &v193 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v222 = &v202 - v20;
+  v227 = type metadata accessor for TimeZone();
+  v225 = *(v227 - 8);
+  __chkstk_darwin(v227);
+  v223 = &v202 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v22);
-  v215 = &v193 - v23;
-  v222 = type metadata accessor for MainAction();
-  __chkstk_darwin(v222);
-  v25 = &v193 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v224 = type metadata accessor for NotificationLocation();
-  __chkstk_darwin(v224);
-  v221 = &v193 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = sub_10022C350(&unk_100CE2F30);
+  v224 = &v202 - v23;
+  v231 = type metadata accessor for MainAction(0);
+  __chkstk_darwin(v231);
+  v25 = &v202 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v233 = type metadata accessor for NotificationLocation(0);
+  __chkstk_darwin(v233);
+  v230 = &v202 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = sub_10022C350(&unk_100CE2F30, &qword_100A95DC0);
   __chkstk_darwin(v27 - 8);
-  v223 = &v193 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v232 = &v202 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v29);
-  v31 = &v193 - v30;
-  v32 = sub_10022C350(&qword_100CB3AB0);
+  v31 = &v202 - v30;
+  v32 = sub_10022C350(&qword_100CB3AB0, &unk_100A2FB80);
   __chkstk_darwin(v32 - 8);
-  v205 = &v193 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v214 = &v202 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v34);
-  v36 = &v193 - v35;
+  v36 = &v202 - v35;
   if (qword_100CA26F0 != -1)
   {
     swift_once();
@@ -1953,7 +6454,7 @@ void sub_1008B57AC(uint64_t a1, void *a2, uint64_t a3, void (**a4)(void))
   v37 = type metadata accessor for Logger();
   v38 = sub_10000703C(v37, qword_100D90B38);
   v39 = a2;
-  v225 = v38;
+  v234 = v38;
   v40 = Logger.logObject.getter();
   v41 = static os_log_type_t.error.getter();
 
@@ -1961,8 +6462,8 @@ void sub_1008B57AC(uint64_t a1, void *a2, uint64_t a3, void (**a4)(void))
   {
     v42 = swift_slowAlloc();
     v43 = swift_slowAlloc();
-    v219 = v25;
-    v220 = a3;
+    v228 = v25;
+    v229 = a3;
     v44 = v36;
     v45 = v31;
     v46 = v43;
@@ -1974,11 +6475,11 @@ void sub_1008B57AC(uint64_t a1, void *a2, uint64_t a3, void (**a4)(void))
     *(v42 + 4) = v49;
     *v46 = v49;
     _os_log_impl(&_mh_execute_header, v40, v41, "Received notification with content: %{public}@", v42, 0xCu);
-    sub_1000180EC(v46, &qword_100CBE0F8);
+    sub_1000180EC(v46, &qword_100CBE0F8, &qword_100A55780);
     v31 = v45;
     v36 = v44;
-    v25 = v219;
-    a3 = v220;
+    v25 = v228;
+    a3 = v229;
   }
 
   v50 = [v39 notification];
@@ -1988,68 +6489,72 @@ void sub_1008B57AC(uint64_t a1, void *a2, uint64_t a3, void (**a4)(void))
   v53 = [v52 userInfo];
 
   v54 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v55 = sub_1008B913C(v54);
+  sub_1008B913C(v54);
+  v56 = v55;
 
-  if (v55)
+  if (v56)
   {
     sub_100879D00();
-    if (*(&v228 + 1))
+    if (*(&v237 + 1))
     {
-      v56 = v39;
+      v57 = v39;
       if (swift_dynamicCast())
       {
-        v58 = v230;
-        v57 = v231;
-        sub_1008B93F4(v55, v36);
-        v195 = v58;
-        sub_1008B94B8(v58, v57, v39, v31);
-        v59 = v223;
-        sub_1005C1F54(v31, v223, &unk_100CE2F30);
-        if (sub_100024D10(v59, 1, v224) != 1)
+        v59 = v239;
+        v58 = v240;
+        sub_1008B93F4(v56, v36);
+        v204 = v59;
+        sub_1008B94B8(v59, v58, v39, v31);
+        v60 = v232;
+        sub_1005C1F54(v31, v232, &unk_100CE2F30, &qword_100A95DC0);
+        if (sub_100024D10(v60, 1, v233) != 1)
         {
 
-          v93 = v221;
-          sub_10003D708(v59, v221, type metadata accessor for NotificationLocation);
-          v94 = *(a3 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-          v95 = *(sub_10022C350(&qword_100CB1AC0) + 48);
-          sub_1008B9EDC(v93, v25, type metadata accessor for NotificationLocation);
-          sub_1005C1F54(v36, &v25[v95], &qword_100CB3AB0);
-          type metadata accessor for NotificationsAction();
+          v97 = v230;
+          sub_10003D708(v60, v230, type metadata accessor for NotificationLocation);
+          v98 = *(a3 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+          v99 = *(a3 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher + 8);
+          v100 = *(sub_10022C350(&qword_100CB1AC0, &qword_100A65F80) + 48);
+          sub_1008B9EDC(v97, v25, type metadata accessor for NotificationLocation);
+          sub_1005C1F54(v36, &v25[v100], &qword_100CB3AB0, &unk_100A2FB80);
+          type metadata accessor for NotificationsAction(0);
           swift_storeEnumTagMultiPayload();
           swift_storeEnumTagMultiPayload();
-          v229 = 0;
-          v227 = 0u;
-          v228 = 0u;
-          sub_10004F034(v25, &v227, v94);
-          sub_1000180EC(&v227, &unk_100CD81B0);
+          v238 = 0;
+          v236 = 0u;
+          v237 = 0u;
+          sub_10004F034(v25, &v236, v98, v99);
+          sub_1000180EC(&v236, &unk_100CD81B0, &unk_100A3B000);
           sub_10004FCA8(v25, type metadata accessor for MainAction);
-          sub_10004FCA8(v93, type metadata accessor for NotificationLocation);
-          v60 = v226;
+          sub_10004FCA8(v97, type metadata accessor for NotificationLocation);
+          v61 = v235;
 LABEL_30:
-          v60[2](v60);
-          v96 = v31;
+          v61[2](v61);
+          v101 = v31;
 LABEL_41:
-          sub_1000180EC(v96, &unk_100CE2F30);
-          sub_1000180EC(v36, &qword_100CB3AB0);
-          v92 = v60;
+          sub_1000180EC(v101, &unk_100CE2F30, &qword_100A95DC0);
+          sub_1000180EC(v36, &qword_100CB3AB0, &unk_100A2FB80);
+          v96 = v61;
 LABEL_42:
-          _Block_release(v92);
+          _Block_release(v96);
           return;
         }
 
-        sub_1000180EC(v59, &unk_100CE2F30);
+        sub_1000180EC(v60, &unk_100CE2F30, &qword_100A95DC0);
         sub_100879D00();
-        v194 = v31;
-        if (*(&v228 + 1))
+        v203 = v31;
+        if (*(&v237 + 1))
         {
           if (swift_dynamicCast())
           {
-            v219 = v25;
-            v220 = a3;
-            v223 = v36;
-            v60 = v226;
+            v228 = v25;
+            v229 = a3;
+            v232 = v36;
+            v61 = v235;
+            v63 = v239;
+            v62 = v240;
             sub_100879D00();
-            if (*(&v228 + 1))
+            if (*(&v237 + 1))
             {
               if ((swift_dynamicCast() & 1) == 0)
               {
@@ -2057,7 +6562,7 @@ LABEL_42:
               }
 
               sub_100879D00();
-              if (*(&v228 + 1))
+              if (*(&v237 + 1))
               {
                 if ((swift_dynamicCast() & 1) == 0)
                 {
@@ -2065,71 +6570,72 @@ LABEL_42:
                 }
 
                 sub_100879D00();
-                if (*(&v228 + 1))
+                if (*(&v237 + 1))
                 {
                   if (swift_dynamicCast())
                   {
-                    v61 = v213;
+                    v64 = v222;
                     TimeZone.init(identifier:)();
 
-                    v62 = v218;
-                    if (sub_100024D10(v61, 1, v218) == 1)
+                    v65 = v227;
+                    if (sub_100024D10(v64, 1, v227) == 1)
                     {
 
-                      v63 = &qword_100CACE08;
-                      v64 = v61;
+                      v66 = &qword_100CACE08;
+                      v67 = &unk_100A3C1B0;
+                      v68 = v64;
 LABEL_35:
-                      sub_1000180EC(v64, v63);
+                      sub_1000180EC(v68, v66, v67);
 LABEL_37:
-                      v36 = v223;
+                      v36 = v232;
                       goto LABEL_38;
                     }
 
-                    v109 = v216;
-                    v110 = v61;
-                    v111 = v215;
-                    (*(v216 + 32))(v215, v110, v62);
-                    (*(v109 + 16))(v214, v111, v62);
-                    v112 = type metadata accessor for Date();
-                    sub_10001B350(v210, 1, 1, v112);
+                    v114 = v225;
+                    v115 = v64;
+                    v116 = v224;
+                    (*(v225 + 32))(v224, v115, v65);
+                    (*(v114 + 16))(v223, v116, v65);
+                    v117 = type metadata accessor for Date();
+                    sub_10001B350(v219, 1, 1, v117);
 
-                    v221 = v57;
+                    v230 = v58;
                     Location.init(id:name:timeZone:coordinate:lastRefreshDate:searchTitle:searchSubtitle:preciseName:secondaryName:)();
-                    v113 = (v220 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder);
-                    sub_1000161C0((v220 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder), *(v220 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder + 24));
+                    v118 = (v229 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder);
+                    sub_1000161C0((v229 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder), *(v229 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder + 24));
                     Location.coordinate.getter();
                     sub_100589768();
-                    if (v114)
+                    if (v119)
                     {
 
-                      v115 = v39;
-                      v116 = v221;
+                      v120 = v39;
+                      v121 = v230;
 
-                      v117 = Logger.logObject.getter();
-                      v118 = static os_log_type_t.default.getter();
+                      v122 = Logger.logObject.getter();
+                      v123 = static os_log_type_t.default.getter();
 
-                      if (os_log_type_enabled(v117, v118))
+                      if (os_log_type_enabled(v122, v123))
                       {
-                        v119 = swift_slowAlloc();
-                        *&v227 = swift_slowAlloc();
-                        *v119 = 141558531;
-                        *(v119 + 4) = 1752392040;
-                        *(v119 + 12) = 2081;
-                        v120 = sub_100078694(v195, v116, &v227);
+                        v124 = swift_slowAlloc();
+                        *&v236 = swift_slowAlloc();
+                        *v124 = 141558531;
+                        *(v124 + 4) = 1752392040;
+                        *(v124 + 12) = 2081;
+                        v125 = sub_100078694(v204, v121, &v236);
 
-                        *(v119 + 14) = v120;
-                        *(v119 + 22) = 2082;
-                        v121 = [v115 notification];
-                        v122 = [v121 request];
+                        *(v124 + 14) = v125;
+                        *(v124 + 22) = 2082;
+                        v126 = [v120 notification];
+                        v127 = [v126 request];
 
-                        v123 = [v122 identifier];
-                        v124 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-                        v126 = v125;
+                        v128 = [v127 identifier];
+                        v129 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                        v131 = v130;
 
-                        v127 = sub_100078694(v124, v126, &v227);
+                        v132 = sub_100078694(v129, v131, &v236);
 
-                        *(v119 + 24) = v127;
-                        _os_log_impl(&_mh_execute_header, v117, v118, "Dispatching action to route to current location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s", v119, 0x20u);
+                        *(v124 + 24) = v132;
+                        _os_log_impl(&_mh_execute_header, v122, v123, "Dispatching action to route to current location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s", v124, 0x20u);
                         swift_arrayDestroy();
                       }
 
@@ -2137,232 +6643,237 @@ LABEL_37:
                       {
                       }
 
-                      v36 = v223;
-                      v131 = *(v220 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-                      v132 = *(sub_10022C350(&qword_100CB1AC0) + 48);
-                      v133 = v219;
+                      v36 = v232;
+                      v137 = *(v229 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+                      v138 = *(v229 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher + 8);
+                      v139 = *(sub_10022C350(&qword_100CB1AC0, &qword_100A65F80) + 48);
+                      v140 = v228;
                       swift_storeEnumTagMultiPayload();
-                      sub_1005C1F54(v36, v133 + v132, &qword_100CB3AB0);
-                      type metadata accessor for NotificationsAction();
+                      sub_1005C1F54(v36, v140 + v139, &qword_100CB3AB0, &unk_100A2FB80);
+                      type metadata accessor for NotificationsAction(0);
                       swift_storeEnumTagMultiPayload();
                       swift_storeEnumTagMultiPayload();
-                      v229 = 0;
-                      v227 = 0u;
-                      v228 = 0u;
-                      sub_10004F034(v133, &v227, v131);
-                      sub_1000180EC(&v227, &unk_100CD81B0);
-                      v134 = type metadata accessor for MainAction;
-                      v135 = v133;
+                      v238 = 0;
+                      v236 = 0u;
+                      v237 = 0u;
+                      sub_10004F034(v140, &v236, v137, v138);
+                      sub_1000180EC(&v236, &unk_100CD81B0, &unk_100A3B000);
+                      v141 = type metadata accessor for MainAction;
+                      v142 = v140;
 LABEL_50:
-                      sub_10004FCA8(v135, v134);
-                      (*(v211 + 8))(v217, v212);
-                      (*(v216 + 8))(v215, v218);
-                      v31 = v194;
+                      sub_10004FCA8(v142, v141);
+                      (*(v220 + 8))(v226, v221);
+                      (*(v225 + 8))(v224, v227);
+                      v31 = v203;
                       goto LABEL_30;
                     }
 
-                    sub_1000161C0(v113, v113[3]);
+                    sub_1000161C0(v118, v118[3]);
                     Location.coordinate.getter();
-                    v128 = v209;
-                    sub_1001A34D0();
+                    v133 = v218;
+                    sub_1001A34D0(v63, v62);
 
-                    if (sub_100024D10(v128, 1, v208) == 1)
+                    if (sub_100024D10(v133, 1, v217) == 1)
                     {
-                      v129 = &qword_100CA6890;
-                      v130 = v128;
+                      v134 = &qword_100CA6890;
+                      v135 = &qword_100A31680;
+                      v136 = v133;
                     }
 
                     else
                     {
-                      v136 = v206;
-                      sub_10003D708(v128, v206, &type metadata accessor for SavedLocation);
-                      v137 = sub_1000668DC();
-                      v138 = v199;
-                      sub_1008B9EDC(v137 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v199, type metadata accessor for LocationsState);
+                      v143 = v215;
+                      sub_10003D708(v133, v215, &type metadata accessor for SavedLocation);
+                      v144 = sub_1000668DC();
+                      v145 = v208;
+                      sub_1008B9EDC(v144 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v208, type metadata accessor for LocationsState);
 
-                      v139 = *(v138 + *(v200 + 40));
+                      v146 = *(v145 + *(v209 + 40));
 
-                      sub_10004FCA8(v138, type metadata accessor for LocationsState);
-                      v140 = v201;
+                      sub_10004FCA8(v145, type metadata accessor for LocationsState);
+                      v147 = v210;
                       SavedLocation.identifier.getter();
-                      v141 = Location.Identifier.id.getter();
-                      v143 = v142;
-                      (*(v202 + 8))(v140, v203);
-                      v144 = v204;
-                      sub_100879FB8(v141, v143, v139);
+                      v148 = Location.Identifier.id.getter();
+                      v150 = v149;
+                      (*(v211 + 8))(v147, v212);
+                      v151 = v213;
+                      sub_100879FB8(v148, v150, v146);
 
-                      v145 = v207;
-                      if (sub_100024D10(v144, 1, v207) != 1)
+                      v152 = v216;
+                      if (sub_100024D10(v151, 1, v216) != 1)
                       {
 
-                        (*(v198 + 32))(v197, v144, v145);
-                        sub_1008B9EDC(v136, v196, &type metadata accessor for SavedLocation);
-                        v171 = v39;
-                        v172 = Logger.logObject.getter();
-                        v173 = static os_log_type_t.default.getter();
+                        (*(v207 + 32))(v206, v151, v152);
+                        sub_1008B9EDC(v143, v205, &type metadata accessor for SavedLocation);
+                        v179 = v39;
+                        v180 = Logger.logObject.getter();
+                        v181 = static os_log_type_t.default.getter();
 
-                        if (os_log_type_enabled(v172, v173))
+                        if (os_log_type_enabled(v180, v181))
                         {
-                          v174 = swift_slowAlloc();
-                          *&v227 = swift_slowAlloc();
-                          *v174 = 141558531;
-                          *(v174 + 4) = 1752392040;
-                          *(v174 + 12) = 2081;
-                          v175 = v196;
-                          v176 = SavedLocation.id.getter();
-                          v178 = v177;
-                          sub_10004FCA8(v175, &type metadata accessor for SavedLocation);
-                          v179 = sub_100078694(v176, v178, &v227);
+                          v182 = swift_slowAlloc();
+                          *&v236 = swift_slowAlloc();
+                          *v182 = 141558531;
+                          *(v182 + 4) = 1752392040;
+                          *(v182 + 12) = 2081;
+                          v183 = v205;
+                          v184 = SavedLocation.id.getter();
+                          v186 = v185;
+                          sub_10004FCA8(v183, &type metadata accessor for SavedLocation);
+                          v187 = sub_100078694(v184, v186, &v236);
 
-                          *(v174 + 14) = v179;
-                          *(v174 + 22) = 2082;
-                          v180 = [v171 notification];
-                          v181 = [v180 request];
+                          *(v182 + 14) = v187;
+                          *(v182 + 22) = 2082;
+                          v188 = [v179 notification];
+                          v189 = [v188 request];
 
-                          v182 = [v181 identifier];
-                          v183 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-                          v185 = v184;
+                          v190 = [v189 identifier];
+                          v191 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                          v193 = v192;
 
-                          v186 = sub_100078694(v183, v185, &v227);
+                          v194 = sub_100078694(v191, v193, &v236);
 
-                          *(v174 + 24) = v186;
-                          _os_log_impl(&_mh_execute_header, v172, v173, "Dispatching action to route to location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s", v174, 0x20u);
+                          *(v182 + 24) = v194;
+                          _os_log_impl(&_mh_execute_header, v180, v181, "Dispatching action to route to location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s", v182, 0x20u);
                           swift_arrayDestroy();
                         }
 
                         else
                         {
 
-                          sub_10004FCA8(v196, &type metadata accessor for SavedLocation);
+                          sub_10004FCA8(v205, &type metadata accessor for SavedLocation);
                         }
 
-                        v187 = *(v220 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-                        v188 = *(sub_10022C350(&qword_100CB1AC0) + 48);
-                        v189 = v198;
-                        v190 = v219;
-                        v191 = v197;
-                        v192 = v207;
-                        (*(v198 + 16))(v219, v197, v207);
+                        v196 = *(v229 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+                        v195 = *(v229 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher + 8);
+                        v197 = *(sub_10022C350(&qword_100CB1AC0, &qword_100A65F80) + 48);
+                        v198 = v207;
+                        v199 = v228;
+                        v200 = v206;
+                        v201 = v216;
+                        (*(v207 + 16))(v228, v206, v216);
                         swift_storeEnumTagMultiPayload();
-                        v36 = v223;
-                        sub_1005C1F54(v223, v190 + v188, &qword_100CB3AB0);
-                        type metadata accessor for NotificationsAction();
+                        v36 = v232;
+                        sub_1005C1F54(v232, v199 + v197, &qword_100CB3AB0, &unk_100A2FB80);
+                        type metadata accessor for NotificationsAction(0);
                         swift_storeEnumTagMultiPayload();
                         swift_storeEnumTagMultiPayload();
-                        v229 = 0;
-                        v227 = 0u;
-                        v228 = 0u;
-                        sub_10004F034(v190, &v227, v187);
-                        sub_1000180EC(&v227, &unk_100CD81B0);
-                        sub_10004FCA8(v190, type metadata accessor for MainAction);
-                        (*(v189 + 8))(v191, v192);
-                        v134 = &type metadata accessor for SavedLocation;
-                        v135 = v206;
+                        v238 = 0;
+                        v236 = 0u;
+                        v237 = 0u;
+                        sub_10004F034(v199, &v236, v196, v195);
+                        sub_1000180EC(&v236, &unk_100CD81B0, &unk_100A3B000);
+                        sub_10004FCA8(v199, type metadata accessor for MainAction);
+                        (*(v198 + 8))(v200, v201);
+                        v141 = &type metadata accessor for SavedLocation;
+                        v142 = v215;
                         goto LABEL_50;
                       }
 
-                      sub_10004FCA8(v136, &type metadata accessor for SavedLocation);
-                      v129 = &unk_100CE2F20;
-                      v130 = v144;
+                      sub_10004FCA8(v143, &type metadata accessor for SavedLocation);
+                      v134 = &unk_100CE2F20;
+                      v135 = &unk_100A2D7D0;
+                      v136 = v151;
                     }
 
-                    sub_1000180EC(v130, v129);
+                    sub_1000180EC(v136, v134, v135);
                     sub_100879D00();
 
-                    if (*(&v228 + 1))
+                    if (*(&v237 + 1))
                     {
                       if (swift_dynamicCast())
                       {
-                        v146 = v230;
+                        v153 = v239;
 LABEL_58:
-                        v147 = v39;
+                        v154 = v39;
 
-                        v148 = Logger.logObject.getter();
-                        v149 = static os_log_type_t.default.getter();
+                        v155 = Logger.logObject.getter();
+                        v156 = static os_log_type_t.default.getter();
 
-                        if (os_log_type_enabled(v148, v149))
+                        if (os_log_type_enabled(v155, v156))
                         {
-                          v150 = swift_slowAlloc();
-                          *&v227 = swift_slowAlloc();
-                          *v150 = 141558787;
-                          *(v150 + 4) = 1752392040;
-                          *(v150 + 12) = 2081;
-                          v151 = sub_100078694(v195, v57, &v227);
+                          v157 = swift_slowAlloc();
+                          *&v236 = swift_slowAlloc();
+                          *v157 = 141558787;
+                          *(v157 + 4) = 1752392040;
+                          *(v157 + 12) = 2081;
+                          v158 = sub_100078694(v204, v58, &v236);
 
-                          *(v150 + 14) = v151;
-                          *(v150 + 22) = 2082;
-                          v152 = [v147 notification];
-                          v153 = [v152 request];
+                          *(v157 + 14) = v158;
+                          *(v157 + 22) = 2082;
+                          v159 = [v154 notification];
+                          v160 = [v159 request];
 
-                          v154 = [v153 identifier];
-                          v155 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-                          v157 = v156;
+                          v161 = [v160 identifier];
+                          v162 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                          v164 = v163;
 
-                          v158 = sub_100078694(v155, v157, &v227);
+                          v165 = sub_100078694(v162, v164, &v236);
 
-                          *(v150 + 24) = v158;
-                          *(v150 + 32) = 1024;
-                          v159 = v146;
-                          *(v150 + 34) = v146;
-                          _os_log_impl(&_mh_execute_header, v148, v149, "Dispatching action to route to preview location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s, isPredictedLocation=%{BOOL}d", v150, 0x26u);
+                          *(v157 + 24) = v165;
+                          *(v157 + 32) = 1024;
+                          v166 = v153;
+                          *(v157 + 34) = v153;
+                          _os_log_impl(&_mh_execute_header, v155, v156, "Dispatching action to route to preview location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s, isPredictedLocation=%{BOOL}d", v157, 0x26u);
                           swift_arrayDestroy();
                         }
 
                         else
                         {
 
-                          v159 = v146;
+                          v166 = v153;
                         }
 
-                        v160 = v217;
-                        v162 = v219;
-                        v161 = v220;
-                        v163 = v205;
-                        if (v159)
+                        v167 = v226;
+                        v169 = v228;
+                        v168 = v229;
+                        v170 = v214;
+                        if (v166)
                         {
-                          v164 = type metadata accessor for URL();
-                          sub_10001B350(v163, 1, 1, v164);
+                          v171 = type metadata accessor for URL();
+                          sub_10001B350(v170, 1, 1, v171);
                         }
 
                         else
                         {
-                          sub_1005C1F54(v223, v205, &qword_100CB3AB0);
+                          sub_1005C1F54(v232, v214, &qword_100CB3AB0, &unk_100A2FB80);
                         }
 
-                        v165 = *(v161 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-                        v166 = *(sub_10022C350(&qword_100CB1AC0) + 48);
-                        v167 = *(sub_10022C350(&unk_100CE2F60) + 48);
-                        v168 = v211;
-                        v169 = v160;
-                        v170 = v212;
-                        (*(v211 + 16))(v162, v169, v212);
-                        *(v162 + v167) = v159;
+                        v173 = *(v168 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+                        v172 = *(v168 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher + 8);
+                        v174 = *(sub_10022C350(&qword_100CB1AC0, &qword_100A65F80) + 48);
+                        v175 = *(sub_10022C350(&unk_100CE2F60, &unk_100A42090) + 48);
+                        v176 = v220;
+                        v177 = v167;
+                        v178 = v221;
+                        (*(v220 + 16))(v169, v177, v221);
+                        *(v169 + v175) = v166;
                         swift_storeEnumTagMultiPayload();
-                        sub_1005C1F54(v163, v162 + v166, &qword_100CB3AB0);
-                        type metadata accessor for NotificationsAction();
+                        sub_1005C1F54(v170, v169 + v174, &qword_100CB3AB0, &unk_100A2FB80);
+                        type metadata accessor for NotificationsAction(0);
                         swift_storeEnumTagMultiPayload();
                         swift_storeEnumTagMultiPayload();
-                        v229 = 0;
-                        v227 = 0u;
-                        v228 = 0u;
-                        sub_10004F034(v162, &v227, v165);
-                        sub_1000180EC(&v227, &unk_100CD81B0);
-                        sub_10004FCA8(v162, type metadata accessor for MainAction);
-                        sub_1000180EC(v163, &qword_100CB3AB0);
-                        (*(v168 + 8))(v217, v170);
-                        (*(v216 + 8))(v215, v218);
-                        v31 = v194;
-                        v36 = v223;
+                        v238 = 0;
+                        v236 = 0u;
+                        v237 = 0u;
+                        sub_10004F034(v169, &v236, v173, v172);
+                        sub_1000180EC(&v236, &unk_100CD81B0, &unk_100A3B000);
+                        sub_10004FCA8(v169, type metadata accessor for MainAction);
+                        sub_1000180EC(v170, &qword_100CB3AB0, &unk_100A2FB80);
+                        (*(v176 + 8))(v226, v178);
+                        (*(v225 + 8))(v224, v227);
+                        v31 = v203;
+                        v36 = v232;
                         goto LABEL_30;
                       }
                     }
 
                     else
                     {
-                      sub_1000180EC(&v227, &qword_100CE2F40);
+                      sub_1000180EC(&v236, &qword_100CE2F40, &qword_100A2D880);
                     }
 
-                    v146 = 0;
+                    v153 = 0;
                     goto LABEL_58;
                   }
 
@@ -2373,8 +6884,9 @@ LABEL_36:
               }
             }
 
-            v63 = &qword_100CE2F40;
-            v64 = &v227;
+            v66 = &qword_100CE2F40;
+            v67 = &qword_100A2D880;
+            v68 = &v236;
             goto LABEL_35;
           }
         }
@@ -2382,37 +6894,37 @@ LABEL_36:
         else
         {
 
-          sub_1000180EC(&v227, &qword_100CE2F40);
+          sub_1000180EC(&v236, &qword_100CE2F40, &qword_100A2D880);
         }
 
-        v60 = v226;
+        v61 = v235;
 LABEL_38:
-        v97 = v39;
-        v98 = Logger.logObject.getter();
-        v99 = static os_log_type_t.error.getter();
+        v102 = v39;
+        v103 = Logger.logObject.getter();
+        v104 = static os_log_type_t.error.getter();
 
-        if (os_log_type_enabled(v98, v99))
+        if (os_log_type_enabled(v103, v104))
         {
-          v100 = swift_slowAlloc();
-          v101 = swift_slowAlloc();
-          *&v227 = v101;
-          *v100 = 136446210;
-          v102 = [v97 notification];
-          v103 = [v102 request];
+          v105 = swift_slowAlloc();
+          v106 = swift_slowAlloc();
+          *&v236 = v106;
+          *v105 = 136446210;
+          v107 = [v102 notification];
+          v108 = [v107 request];
 
-          v104 = [v103 identifier];
-          v105 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v107 = v106;
+          v109 = [v108 identifier];
+          v110 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v112 = v111;
 
-          v108 = sub_100078694(v105, v107, &v227);
+          v113 = sub_100078694(v110, v112, &v236);
 
-          *(v100 + 4) = v108;
-          _os_log_impl(&_mh_execute_header, v98, v99, "Unable to find saved location or preview location for notification: %{public}s", v100, 0xCu);
-          sub_100006F14(v101);
+          *(v105 + 4) = v113;
+          _os_log_impl(&_mh_execute_header, v103, v104, "Unable to find saved location or preview location for notification: %{public}s", v105, 0xCu);
+          sub_100006F14(v106);
         }
 
-        v60[2](v60);
-        v96 = v194;
+        v61[2](v61);
+        v101 = v203;
         goto LABEL_41;
       }
     }
@@ -2420,241 +6932,245 @@ LABEL_38:
     else
     {
 
-      sub_1000180EC(&v227, &qword_100CE2F40);
-      v56 = v39;
+      sub_1000180EC(&v236, &qword_100CE2F40, &qword_100A2D880);
+      v57 = v39;
     }
 
-    v78 = v56;
-    v79 = Logger.logObject.getter();
-    v80 = static os_log_type_t.error.getter();
+    v82 = v57;
+    v83 = Logger.logObject.getter();
+    v84 = static os_log_type_t.error.getter();
 
-    v81 = os_log_type_enabled(v79, v80);
-    v82 = v226;
-    if (v81)
+    v85 = os_log_type_enabled(v83, v84);
+    v86 = v235;
+    if (v85)
     {
-      v83 = swift_slowAlloc();
-      v84 = swift_slowAlloc();
-      *&v227 = v84;
-      *v83 = 136446210;
-      v85 = [v78 notification];
-      v86 = [v85 request];
+      v87 = swift_slowAlloc();
+      v88 = swift_slowAlloc();
+      *&v236 = v88;
+      *v87 = 136446210;
+      v89 = [v82 notification];
+      v90 = [v89 request];
 
-      v87 = [v86 identifier];
-      v88 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v90 = v89;
+      v91 = [v90 identifier];
+      v92 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v94 = v93;
 
-      v91 = sub_100078694(v88, v90, &v227);
+      v95 = sub_100078694(v92, v94, &v236);
 
-      *(v83 + 4) = v91;
-      _os_log_impl(&_mh_execute_header, v79, v80, "Missing location identifier for notification: %{public}s", v83, 0xCu);
-      sub_100006F14(v84);
+      *(v87 + 4) = v95;
+      _os_log_impl(&_mh_execute_header, v83, v84, "Missing location identifier for notification: %{public}s", v87, 0xCu);
+      sub_100006F14(v88);
     }
 
-    v82[2](v82);
-    v92 = v82;
+    v86[2](v86);
+    v96 = v86;
     goto LABEL_42;
   }
 
-  v65 = v39;
-  v66 = Logger.logObject.getter();
-  v67 = static os_log_type_t.error.getter();
+  v69 = v39;
+  v70 = Logger.logObject.getter();
+  v71 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v66, v67))
+  if (os_log_type_enabled(v70, v71))
   {
-    v68 = swift_slowAlloc();
-    v69 = swift_slowAlloc();
-    *&v227 = v69;
-    *v68 = 136446210;
-    v70 = [v65 notification];
-    v71 = [v70 request];
+    v72 = swift_slowAlloc();
+    v73 = swift_slowAlloc();
+    *&v236 = v73;
+    *v72 = 136446210;
+    v74 = [v69 notification];
+    v75 = [v74 request];
 
-    v72 = [v71 identifier];
-    v73 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v75 = v74;
+    v76 = [v75 identifier];
+    v77 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v79 = v78;
 
-    v76 = sub_100078694(v73, v75, &v227);
+    v80 = sub_100078694(v77, v79, &v236);
 
-    *(v68 + 4) = v76;
-    _os_log_impl(&_mh_execute_header, v66, v67, "Received unexpected notification user info values for notification: %{public}s", v68, 0xCu);
-    sub_100006F14(v69);
+    *(v72 + 4) = v80;
+    _os_log_impl(&_mh_execute_header, v70, v71, "Received unexpected notification user info values for notification: %{public}s", v72, 0xCu);
+    sub_100006F14(v73);
   }
 
-  v77 = v226;
-  v226[2](v226);
+  v81 = v235;
+  v235[2](v235);
 
-  _Block_release(v77);
+  _Block_release(v81);
 }
 
 uint64_t UserNotificationMonitor.userNotificationCenter(_:didReceive:withCompletionHandler:)(uint64_t a1, void *a2, uint64_t (*a3)(void), uint64_t a4)
 {
   v5 = v4;
-  v233 = a4;
-  v8 = sub_10022C350(&unk_100CE2F20);
+  v259 = a4;
+  v8 = sub_10022C350(&unk_100CE2F20, &unk_100A2D7D0);
   sub_100003810(v8);
   sub_100003828();
   __chkstk_darwin(v9);
   sub_1000039BC();
   sub_100003918(v10);
-  v209 = type metadata accessor for Location.Identifier();
+  v235 = type metadata accessor for Location.Identifier();
   sub_1000037C4();
-  v208 = v11;
+  v234 = v11;
   __chkstk_darwin(v12);
   sub_1000037D8();
-  sub_100003918(v14 - v13);
-  v206 = type metadata accessor for LocationsState();
+  v15 = sub_100003918(v14 - v13);
+  v232 = type metadata accessor for LocationsState(v15);
   sub_1000037E8();
-  __chkstk_darwin(v15);
+  __chkstk_darwin(v16);
   sub_1000037D8();
-  sub_100003918(v17 - v16);
-  v213 = type metadata accessor for LocationModel();
+  sub_100003918(v18 - v17);
+  v239 = type metadata accessor for LocationModel();
   sub_1000037C4();
-  v204 = v18;
-  __chkstk_darwin(v19);
+  v230 = v19;
+  __chkstk_darwin(v20);
   sub_1000037D8();
-  v203 = v21 - v20;
-  v22 = sub_10022C350(&qword_100CA6890);
-  sub_100003810(v22);
+  v229 = v22 - v21;
+  v23 = sub_10022C350(&qword_100CA6890, &qword_100A31680);
+  sub_100003810(v23);
   sub_100003828();
-  __chkstk_darwin(v23);
+  __chkstk_darwin(v24);
   sub_1000039BC();
-  sub_100003918(v24);
-  v214 = type metadata accessor for SavedLocation();
+  sub_100003918(v25);
+  v240 = type metadata accessor for SavedLocation();
   sub_1000037E8();
-  __chkstk_darwin(v25);
-  sub_100003848();
-  sub_100003908();
   __chkstk_darwin(v26);
-  v212 = v201 - v27;
-  v28 = sub_10022C350(&unk_100CB2CF0);
-  sub_100003810(v28);
-  sub_100003828();
-  __chkstk_darwin(v29);
-  sub_1000039BC();
-  sub_100003918(v30);
-  v219 = type metadata accessor for Location();
-  sub_1000037C4();
-  v218 = v31;
-  __chkstk_darwin(v32);
-  sub_1000037D8();
-  v220 = v34 - v33;
-  v35 = sub_10022C350(&qword_100CACE08);
-  sub_100003810(v35);
-  sub_100003828();
-  __chkstk_darwin(v36);
-  sub_1000039BC();
-  sub_100003918(v37);
-  v225 = type metadata accessor for TimeZone();
-  sub_1000037C4();
-  v223 = v38;
-  __chkstk_darwin(v39);
   sub_100003848();
   sub_100003908();
+  __chkstk_darwin(v27);
+  v238 = v227 - v28;
+  v29 = sub_10022C350(&unk_100CB2CF0, &unk_100A2D7F0);
+  sub_100003810(v29);
+  sub_100003828();
+  __chkstk_darwin(v30);
+  sub_1000039BC();
+  sub_100003918(v31);
+  v245 = type metadata accessor for Location();
+  sub_1000037C4();
+  v244 = v32;
+  __chkstk_darwin(v33);
+  sub_1000037D8();
+  v246 = v35 - v34;
+  v36 = sub_10022C350(&qword_100CACE08, &unk_100A3C1B0);
+  sub_100003810(v36);
+  sub_100003828();
+  __chkstk_darwin(v37);
+  sub_1000039BC();
+  sub_100003918(v38);
+  v251 = type metadata accessor for TimeZone();
+  sub_1000037C4();
+  v249 = v39;
   __chkstk_darwin(v40);
-  v222 = v201 - v41;
-  v228 = type metadata accessor for MainAction();
-  sub_1000037E8();
-  __chkstk_darwin(v42);
-  sub_1000037D8();
-  v45 = v44 - v43;
-  v230 = type metadata accessor for NotificationLocation();
-  sub_1000037E8();
-  __chkstk_darwin(v46);
-  sub_1000037D8();
-  v227 = (v48 - v47);
-  v49 = sub_10022C350(&unk_100CE2F30);
-  v50 = sub_100003810(v49);
-  __chkstk_darwin(v50);
-  sub_100003848();
-  v229 = v51;
-  __chkstk_darwin(v52);
-  v54 = v201 - v53;
-  v55 = sub_10022C350(&qword_100CB3AB0);
-  v56 = sub_100003810(v55);
-  __chkstk_darwin(v56);
   sub_100003848();
   sub_100003908();
+  __chkstk_darwin(v41);
+  v248 = v227 - v42;
+  v254 = type metadata accessor for MainAction(0);
+  sub_1000037E8();
+  __chkstk_darwin(v43);
+  sub_1000037D8();
+  v46 = v45 - v44;
+  v256 = type metadata accessor for NotificationLocation(0);
+  sub_1000037E8();
+  __chkstk_darwin(v47);
+  sub_1000037D8();
+  v253 = (v49 - v48);
+  v50 = sub_10022C350(&unk_100CE2F30, &qword_100A95DC0);
+  v51 = sub_100003810(v50);
+  __chkstk_darwin(v51);
+  sub_100003848();
+  v255 = v52;
+  __chkstk_darwin(v53);
+  v55 = v227 - v54;
+  v56 = sub_10022C350(&qword_100CB3AB0, &unk_100A2FB80);
+  v57 = sub_100003810(v56);
   __chkstk_darwin(v57);
-  v59 = (v201 - v58);
+  sub_100003848();
+  sub_100003908();
+  __chkstk_darwin(v58);
+  v60 = (v227 - v59);
   if (qword_100CA26F0 != -1)
   {
     swift_once();
   }
 
-  v60 = type metadata accessor for Logger();
-  v61 = sub_10000703C(v60, qword_100D90B38);
-  v62 = a2;
-  v232 = v61;
-  v63 = Logger.logObject.getter();
-  v64 = static os_log_type_t.error.getter();
+  v61 = type metadata accessor for Logger();
+  v62 = sub_10000703C(v61, qword_100D90B38);
+  v63 = a2;
+  v258 = v62;
+  v64 = Logger.logObject.getter();
+  v65 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v63, v64))
+  if (os_log_type_enabled(v64, v65))
   {
-    v65 = sub_100018264();
-    v224 = v5;
-    v226 = v45;
-    v66 = v59;
-    v67 = v54;
-    v68 = v65;
-    v69 = v62;
-    v70 = swift_slowAlloc();
-    *v68 = 138543362;
-    v71 = a3;
-    v72 = [v69 notification];
-    v73 = [v72 request];
+    v66 = sub_100018264();
+    v250 = v5;
+    v252 = v46;
+    v67 = v60;
+    v68 = v55;
+    v69 = v66;
+    v70 = v63;
+    v71 = swift_slowAlloc();
+    *v69 = 138543362;
+    v72 = a3;
+    v73 = [v70 notification];
+    v74 = [v73 request];
 
-    v74 = [v73 content];
-    *(v68 + 4) = v74;
-    *v70 = v74;
-    a3 = v71;
-    _os_log_impl(&_mh_execute_header, v63, v64, "Received notification with content: %{public}@", v68, 0xCu);
-    sub_1000180EC(v70, &qword_100CBE0F8);
-    v62 = v69;
-    sub_100003884();
-    v54 = v67;
-    v59 = v66;
-    v45 = v226;
-    v5 = v224;
-    sub_100003884();
+    v75 = [v74 content];
+    *(v69 + 4) = v75;
+    *v71 = v75;
+    a3 = v72;
+    _os_log_impl(&_mh_execute_header, v64, v65, "Received notification with content: %{public}@", v69, 0xCu);
+    sub_1000180EC(v71, &qword_100CBE0F8, &qword_100A55780);
+    v76 = v71;
+    v63 = v70;
+    sub_100003884(v76);
+    v77 = v69;
+    v55 = v68;
+    v60 = v67;
+    v46 = v252;
+    v5 = v250;
+    sub_100003884(v77);
   }
 
-  v75 = [v62 notification];
-  v76 = v62;
-  v77 = [v75 request];
+  v78 = [v63 notification];
+  v79 = v63;
+  v80 = [v78 request];
 
-  v78 = [v77 content];
-  v79 = [v78 userInfo];
+  v81 = [v80 content];
+  v82 = [v81 userInfo];
 
-  v80 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v81 = sub_1008B913C(v80);
+  v83 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  sub_1008B913C(v83);
+  v85 = v84;
 
-  if (!v81)
+  if (!v85)
   {
-    v91 = v76;
-    v92 = Logger.logObject.getter();
-    v93 = static os_log_type_t.error.getter();
+    v107 = v79;
+    v108 = Logger.logObject.getter();
+    v109 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v92, v93))
+    if (os_log_type_enabled(v108, v109))
     {
       sub_100018264();
-      v94 = sub_10000C940();
-      sub_100017F9C(v94);
-      *v79 = 136446210;
-      v95 = [v91 notification];
-      v96 = [v95 request];
+      v110 = sub_10000C940();
+      sub_100017F9C(v110);
+      *v82 = 136446210;
+      v111 = [v107 notification];
+      v112 = [v111 request];
 
-      v97 = [v96 identifier];
+      v113 = [v112 identifier];
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       sub_100016DAC();
 
       sub_1000751D4();
       sub_100020C58();
-      *(v79 + 1) = v97;
-      v100 = "Received unexpected notification user info values for notification: %{public}s";
+      *(v82 + 1) = v113;
+      v116 = "Received unexpected notification user info values for notification: %{public}s";
 LABEL_25:
-      sub_1000318C8(&_mh_execute_header, v98, v99, v100);
+      sub_1000318C8(&_mh_execute_header, v114, v115, v116);
       sub_100006F14(a3);
-      a3 = v59;
-      sub_100003884();
+      v123 = a3;
+      a3 = v60;
+      sub_100003884(v123);
       sub_100007E54();
     }
 
@@ -2663,153 +7179,157 @@ LABEL_26:
     return a3();
   }
 
-  v231 = v76;
+  v257 = v79;
   sub_100879D00();
-  if (!v235)
+  if (!v261)
   {
 
-    sub_1000180EC(&v234, &qword_100CE2F40);
-    v83 = v231;
+    sub_1000180EC(&v260, &qword_100CE2F40, &qword_100A2D880);
+    v87 = v257;
     goto LABEL_23;
   }
 
-  v82 = swift_dynamicCast();
-  v83 = v231;
-  if ((v82 & 1) == 0)
+  v86 = swift_dynamicCast();
+  v87 = v257;
+  if ((v86 & 1) == 0)
   {
 
 LABEL_23:
-    v101 = v83;
-    v92 = Logger.logObject.getter();
-    v102 = static os_log_type_t.error.getter();
+    v117 = v87;
+    v108 = Logger.logObject.getter();
+    v118 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v92, v102))
+    if (os_log_type_enabled(v108, v118))
     {
       sub_100018264();
-      v103 = sub_10000C940();
-      sub_100017F9C(v103);
-      *v83 = 136446210;
-      v104 = [v101 notification];
-      v105 = [v104 request];
+      v119 = sub_10000C940();
+      sub_100017F9C(v119);
+      *v87 = 136446210;
+      v120 = [v117 notification];
+      v121 = [v120 request];
 
-      v106 = [v105 identifier];
+      v122 = [v121 identifier];
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       sub_100016DAC();
 
       sub_1000751D4();
       sub_100020C58();
-      *(v83 + 1) = v106;
-      v100 = "Missing location identifier for notification: %{public}s";
+      *(v87 + 1) = v122;
+      v116 = "Missing location identifier for notification: %{public}s";
       goto LABEL_25;
     }
 
     goto LABEL_26;
   }
 
-  v85 = v236;
-  v84 = v237;
-  sub_1008B93F4(v81, v59);
-  v201[1] = v85;
-  sub_1008B94B8(v85, v84, v83, v54);
-  v86 = v229;
-  sub_1005C1F54(v54, v229, &unk_100CE2F30);
-  if (sub_100024D10(v86, 1, v230) == 1)
+  v89 = v262;
+  v88 = v263;
+  sub_1008B93F4(v85, v60);
+  v227[1] = v89;
+  sub_1008B94B8(v89, v88, v87, v55);
+  v90 = v255;
+  sub_1005C1F54(v55, v255, &unk_100CE2F30, &qword_100A95DC0);
+  if (sub_100024D10(v90, 1, v256) == 1)
   {
-    sub_1000180EC(v86, &unk_100CE2F30);
+    sub_1000180EC(v90, &unk_100CE2F30, &qword_100A95DC0);
     sub_100879D00();
-    v201[0] = v54;
-    if (v235)
+    v227[0] = v55;
+    if (v261)
     {
       if (swift_dynamicCast())
       {
-        v226 = v45;
-        v229 = v59;
+        v252 = v46;
+        v255 = v60;
+        v92 = v262;
+        v91 = v263;
         sub_10000EE68();
         sub_100879D00();
-        if (v235)
+        if (v261)
         {
-          if ((sub_100049E4C() & 1) == 0)
+          if ((sub_100049E4C(v93, v94, v95, &type metadata for Double) & 1) == 0)
           {
             goto LABEL_33;
           }
 
           sub_10000EE68();
           sub_100879D00();
-          if (v235)
+          if (v261)
           {
-            if ((sub_100049E4C() & 1) == 0)
+            if ((sub_100049E4C(v96, v97, v98, &type metadata for Double) & 1) == 0)
             {
               goto LABEL_33;
             }
 
             sub_10000EE68();
             sub_100879D00();
-            if (v235)
+            if (v261)
             {
-              if (sub_100049E4C())
+              if (sub_100049E4C(v99, v100, v101, &type metadata for String))
               {
-                v87 = v221;
+                v102 = v247;
                 TimeZone.init(identifier:)();
 
-                v88 = v225;
-                if (sub_100024D10(v87, 1, v225) == 1)
+                v103 = v251;
+                if (sub_100024D10(v102, 1, v251) == 1)
                 {
 
-                  v89 = &qword_100CACE08;
-                  v90 = v87;
+                  v104 = &qword_100CACE08;
+                  v105 = &unk_100A3C1B0;
+                  v106 = v102;
 LABEL_32:
-                  sub_1000180EC(v90, v89);
+                  sub_1000180EC(v106, v104, v105);
 LABEL_34:
-                  v59 = v229;
+                  v60 = v255;
                   goto LABEL_35;
                 }
 
-                v227 = a3;
-                v125 = v222;
-                v124 = v223;
-                (*(v223 + 32))(v222, v87, v88);
-                (*(v124 + 16))(v216, v125, v88);
-                v126 = type metadata accessor for Date();
-                sub_10001B350(v217, 1, 1, v126);
+                v253 = a3;
+                v144 = v248;
+                v143 = v249;
+                (*(v249 + 32))(v248, v102, v103);
+                (*(v143 + 16))(v242, v144, v103);
+                v145 = type metadata accessor for Date();
+                sub_10001B350(v243, 1, 1, v145);
 
-                v127 = v220;
+                v146 = v246;
                 Location.init(id:name:timeZone:coordinate:lastRefreshDate:searchTitle:searchSubtitle:preciseName:secondaryName:)();
-                v224 = v5;
-                v128 = v5 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder;
-                sub_1000161C0((v224 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder), *(v224 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder + 24));
+                v250 = v5;
+                v147 = v5 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder;
+                sub_1000161C0((v250 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder), *(v250 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_locationFinder + 24));
                 Location.coordinate.getter();
                 sub_100589768();
-                if (v129)
+                if (v148)
                 {
 
-                  v130 = v231;
+                  v149 = v257;
 
-                  v131 = Logger.logObject.getter();
-                  v132 = static os_log_type_t.default.getter();
+                  v150 = Logger.logObject.getter();
+                  v151 = static os_log_type_t.default.getter();
 
-                  if (os_log_type_enabled(v131, v132))
+                  if (os_log_type_enabled(v150, v151))
                   {
                     swift_slowAlloc();
-                    v234 = sub_1000248B0();
+                    v152 = sub_1000248B0();
+                    v260 = v152;
                     sub_10000CB2C(7.2226e-34);
-                    v133 = sub_10001882C();
+                    v153 = sub_10001882C();
 
-                    *(v128 + 14) = v133;
-                    *(v128 + 22) = 2082;
-                    v134 = [v130 notification];
-                    v135 = [v134 request];
+                    *(v147 + 14) = v153;
+                    *(v147 + 22) = 2082;
+                    v154 = [v149 notification];
+                    v155 = [v154 request];
 
-                    v136 = [v135 identifier];
+                    v156 = [v155 identifier];
                     static String._unconditionallyBridgeFromObjectiveC(_:)();
                     sub_100016DAC();
 
-                    v127 = v220;
-                    sub_100078694(v135, v81, &v234);
+                    v146 = v246;
+                    sub_100078694(v155, v85, &v260);
                     sub_100020C58();
-                    *(v128 + 24) = v136;
-                    _os_log_impl(&_mh_execute_header, v131, v132, "Dispatching action to route to current location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s", v128, 0x20u);
+                    *(v147 + 24) = v156;
+                    _os_log_impl(&_mh_execute_header, v150, v151, "Dispatching action to route to current location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s", v147, 0x20u);
                     swift_arrayDestroy();
-                    sub_100003884();
+                    sub_100003884(v152);
                     sub_100007E54();
                   }
 
@@ -2817,95 +7337,98 @@ LABEL_34:
                   {
                   }
 
-                  v59 = v229;
-                  v140 = v226;
-                  v141 = *(v224 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-                  v142 = *(sub_10022C350(&qword_100CB1AC0) + 48);
+                  v60 = v255;
+                  v161 = v252;
+                  v162 = *(v250 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+                  v163 = *(v250 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher + 8);
+                  v164 = *(sub_10022C350(&qword_100CB1AC0, &qword_100A65F80) + 48);
                   swift_storeEnumTagMultiPayload();
-                  sub_1005C1F54(v59, v140 + v142, &qword_100CB3AB0);
-                  type metadata accessor for NotificationsAction();
+                  sub_1005C1F54(v60, v161 + v164, &qword_100CB3AB0, &unk_100A2FB80);
+                  type metadata accessor for NotificationsAction(0);
                   swift_storeEnumTagMultiPayload();
-                  sub_10001161C();
+                  sub_10001161C(v161);
                   sub_10001997C();
-                  sub_10004F034(v140, v143, v141);
-                  sub_1000180EC(&v234, &unk_100CD81B0);
+                  sub_10004F034(v161, v165, v162, v163);
+                  sub_1000180EC(&v260, &unk_100CD81B0, &unk_100A3B000);
                   sub_10001FBB0();
-                  sub_10004FCA8(v140, v144);
-                  (*(v218 + 8))(v127, v219);
+                  sub_10004FCA8(v161, v166);
+                  (*(v244 + 8))(v146, v245);
 LABEL_46:
-                  v145 = (*(v223 + 8))(v222, v225);
-                  v54 = v201[0];
-                  (v227)(v145);
+                  v167 = (*(v249 + 8))(v248, v251);
+                  v55 = v227[0];
+                  (v253)(v167);
                   goto LABEL_28;
                 }
 
-                sub_1000161C0(v128, *(v128 + 24));
+                sub_1000161C0(v147, *(v147 + 24));
                 Location.coordinate.getter();
-                v137 = v215;
-                sub_1001A34D0();
+                v157 = v241;
+                sub_1001A34D0(v92, v91);
 
-                if (sub_100024D10(v137, 1, v214) == 1)
+                if (sub_100024D10(v157, 1, v240) == 1)
                 {
-                  v138 = &qword_100CA6890;
-                  v139 = v137;
+                  v158 = &qword_100CA6890;
+                  v159 = &qword_100A31680;
+                  v160 = v157;
                 }
 
                 else
                 {
-                  v146 = v212;
-                  sub_10003D708(v137, v212, &type metadata accessor for SavedLocation);
-                  v147 = sub_1000668DC();
-                  v148 = v205;
-                  sub_1008B9EDC(v147 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v205, type metadata accessor for LocationsState);
+                  v168 = v238;
+                  sub_10003D708(v157, v238, &type metadata accessor for SavedLocation);
+                  v169 = sub_1000668DC();
+                  v170 = v231;
+                  sub_1008B9EDC(v169 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v231, type metadata accessor for LocationsState);
 
-                  v137 = *(v148 + *(v206 + 40));
+                  v157 = *(v170 + *(v232 + 40));
 
-                  sub_10004FCA8(v148, type metadata accessor for LocationsState);
-                  v149 = v207;
+                  sub_10004FCA8(v170, type metadata accessor for LocationsState);
+                  v171 = v233;
                   SavedLocation.identifier.getter();
-                  v150 = Location.Identifier.id.getter();
-                  v152 = v151;
-                  (*(v208 + 8))(v149, v209);
-                  v153 = v210;
-                  sub_100879FB8(v150, v152, v137);
+                  v172 = Location.Identifier.id.getter();
+                  v174 = v173;
+                  (*(v234 + 8))(v171, v235);
+                  v175 = v236;
+                  sub_100879FB8(v172, v174, v157);
 
-                  v154 = v213;
-                  if (sub_100024D10(v153, 1, v213) != 1)
+                  v176 = v239;
+                  if (sub_100024D10(v175, 1, v239) != 1)
                   {
 
-                    (*(v204 + 32))(v203, v153, v154);
-                    sub_1008B9EDC(v146, v202, &type metadata accessor for SavedLocation);
-                    v178 = v231;
-                    v179 = Logger.logObject.getter();
-                    v180 = static os_log_type_t.default.getter();
+                    (*(v230 + 32))(v229, v175, v176);
+                    sub_1008B9EDC(v168, v228, &type metadata accessor for SavedLocation);
+                    v202 = v257;
+                    v203 = Logger.logObject.getter();
+                    v204 = static os_log_type_t.default.getter();
 
-                    if (os_log_type_enabled(v179, v180))
+                    if (os_log_type_enabled(v203, v204))
                     {
                       swift_slowAlloc();
-                      v234 = sub_1000248B0();
+                      v205 = sub_1000248B0();
+                      v260 = v205;
                       sub_10000CB2C(7.2226e-34);
-                      v181 = v202;
-                      v182 = SavedLocation.id.getter();
-                      v184 = v183;
+                      v206 = v228;
+                      v207 = SavedLocation.id.getter();
+                      v209 = v208;
                       sub_10001D0F0();
-                      sub_10004FCA8(v181, v185);
-                      v186 = sub_100078694(v182, v184, &v234);
+                      sub_10004FCA8(v206, v210);
+                      v211 = sub_100078694(v207, v209, &v260);
 
-                      *(v137 + 14) = v186;
-                      *(v137 + 22) = 2082;
-                      v187 = [v178 notification];
-                      v188 = [v187 request];
+                      *(v157 + 14) = v211;
+                      *(v157 + 22) = 2082;
+                      v212 = [v202 notification];
+                      v213 = [v212 request];
 
-                      v189 = [v188 identifier];
+                      v214 = [v213 identifier];
                       static String._unconditionallyBridgeFromObjectiveC(_:)();
                       sub_100016DAC();
 
-                      v190 = sub_1000751D4();
+                      v215 = sub_1000751D4();
 
-                      *(v137 + 24) = v190;
-                      _os_log_impl(&_mh_execute_header, v179, v180, "Dispatching action to route to location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s", v137, 0x20u);
+                      *(v157 + 24) = v215;
+                      _os_log_impl(&_mh_execute_header, v203, v204, "Dispatching action to route to location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s", v157, 0x20u);
                       swift_arrayDestroy();
-                      sub_100003884();
+                      sub_100003884(v205);
                       sub_100007E54();
                     }
 
@@ -2913,137 +7436,141 @@ LABEL_46:
                     {
 
                       sub_10001D0F0();
-                      sub_10004FCA8(v202, v191);
+                      sub_10004FCA8(v228, v216);
                     }
 
-                    v192 = *(v224 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-                    v193 = *(sub_10022C350(&qword_100CB1AC0) + 48);
-                    v194 = v204;
-                    v195 = v226;
-                    v196 = v203;
-                    v197 = v213;
-                    (*(v204 + 16))(v226, v203, v213);
+                    v218 = *(v250 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+                    v217 = *(v250 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher + 8);
+                    v219 = *(sub_10022C350(&qword_100CB1AC0, &qword_100A65F80) + 48);
+                    v220 = v230;
+                    v221 = v252;
+                    v222 = v229;
+                    v223 = v239;
+                    (*(v230 + 16))(v252, v229, v239);
                     swift_storeEnumTagMultiPayload();
-                    v59 = v229;
-                    sub_1005C1F54(v229, v195 + v193, &qword_100CB3AB0);
-                    type metadata accessor for NotificationsAction();
+                    v60 = v255;
+                    sub_1005C1F54(v255, v221 + v219, &qword_100CB3AB0, &unk_100A2FB80);
+                    type metadata accessor for NotificationsAction(0);
                     swift_storeEnumTagMultiPayload();
-                    sub_10001161C();
+                    sub_10001161C(v221);
                     sub_10001997C();
-                    sub_10004F034(v195, v198, v192);
-                    sub_1000180EC(&v234, &unk_100CD81B0);
+                    sub_10004F034(v221, v224, v218, v217);
+                    sub_1000180EC(&v260, &unk_100CD81B0, &unk_100A3B000);
                     sub_10001FBB0();
-                    sub_10004FCA8(v195, v199);
-                    (*(v194 + 8))(v196, v197);
+                    sub_10004FCA8(v221, v225);
+                    (*(v220 + 8))(v222, v223);
                     sub_10001D0F0();
-                    sub_10004FCA8(v212, v200);
-                    (*(v218 + 8))(v220, v219);
+                    sub_10004FCA8(v238, v226);
+                    (*(v244 + 8))(v246, v245);
                     goto LABEL_46;
                   }
 
                   sub_10001D0F0();
-                  sub_10004FCA8(v146, v155);
-                  v138 = &unk_100CE2F20;
-                  v139 = v153;
+                  sub_10004FCA8(v168, v177);
+                  v158 = &unk_100CE2F20;
+                  v159 = &unk_100A2D7D0;
+                  v160 = v175;
                 }
 
-                sub_1000180EC(v139, v138);
+                sub_1000180EC(v160, v158, v159);
                 sub_10000EE68();
                 sub_100879D00();
 
-                if (v235)
+                if (v261)
                 {
                   if (swift_dynamicCast())
                   {
-                    v156 = v236;
+                    v178 = v262;
 LABEL_54:
-                    v157 = v231;
+                    v179 = v257;
 
-                    v158 = Logger.logObject.getter();
-                    v159 = static os_log_type_t.default.getter();
+                    v180 = Logger.logObject.getter();
+                    v181 = static os_log_type_t.default.getter();
 
-                    if (os_log_type_enabled(v158, v159))
+                    if (os_log_type_enabled(v180, v181))
                     {
                       swift_slowAlloc();
-                      v234 = sub_1000248B0();
+                      v182 = sub_1000248B0();
+                      v260 = v182;
                       sub_10000CB2C(7.2227e-34);
-                      v160 = sub_10001882C();
+                      v183 = sub_10001882C();
 
-                      *(v137 + 14) = v160;
-                      *(v137 + 22) = 2082;
-                      v161 = [v157 notification];
-                      v162 = [v161 request];
+                      *(v157 + 14) = v183;
+                      *(v157 + 22) = 2082;
+                      v184 = [v179 notification];
+                      v185 = [v184 request];
 
-                      v163 = [v162 identifier];
+                      v186 = [v185 identifier];
                       static String._unconditionallyBridgeFromObjectiveC(_:)();
                       sub_100016DAC();
 
                       sub_1000751D4();
                       sub_100020C58();
-                      *(v137 + 24) = v163;
-                      *(v137 + 32) = 1024;
-                      v164 = v156;
-                      *(v137 + 34) = v156;
-                      _os_log_impl(&_mh_execute_header, v158, v159, "Dispatching action to route to preview location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s, isPredictedLocation=%{BOOL}d", v137, 0x26u);
+                      *(v157 + 24) = v186;
+                      *(v157 + 32) = 1024;
+                      v187 = v178;
+                      *(v157 + 34) = v178;
+                      _os_log_impl(&_mh_execute_header, v180, v181, "Dispatching action to route to preview location; notificationLocation=%{private,mask.hash}s, notificationIdentifier=%{public}s, isPredictedLocation=%{BOOL}d", v157, 0x26u);
                       swift_arrayDestroy();
-                      sub_100003884();
+                      sub_100003884(v182);
                       sub_100007E54();
                     }
 
                     else
                     {
 
-                      v164 = v156;
+                      v187 = v178;
                     }
 
-                    v165 = v226;
-                    v166 = v224;
-                    v167 = v211;
-                    if (v164)
+                    v188 = v252;
+                    v189 = v250;
+                    v190 = v237;
+                    if (v187)
                     {
-                      v168 = type metadata accessor for URL();
-                      sub_10001B350(v167, 1, 1, v168);
+                      v191 = type metadata accessor for URL();
+                      sub_10001B350(v190, 1, 1, v191);
                     }
 
                     else
                     {
-                      sub_1005C1F54(v229, v211, &qword_100CB3AB0);
+                      sub_1005C1F54(v255, v237, &qword_100CB3AB0, &unk_100A2FB80);
                     }
 
-                    v169 = *(v166 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-                    v170 = *(sub_10022C350(&qword_100CB1AC0) + 48);
-                    v171 = *(sub_10022C350(&unk_100CE2F60) + 48);
-                    v172 = v218;
-                    v173 = v220;
-                    v174 = v219;
-                    (*(v218 + 16))(v165, v220, v219);
-                    *(v165 + v171) = v164;
+                    v193 = *(v189 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+                    v192 = *(v189 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher + 8);
+                    v194 = *(sub_10022C350(&qword_100CB1AC0, &qword_100A65F80) + 48);
+                    v195 = *(sub_10022C350(&unk_100CE2F60, &unk_100A42090) + 48);
+                    v196 = v244;
+                    v197 = v246;
+                    v198 = v245;
+                    (*(v244 + 16))(v188, v246, v245);
+                    *(v188 + v195) = v187;
                     swift_storeEnumTagMultiPayload();
-                    sub_1005C1F54(v167, v165 + v170, &qword_100CB3AB0);
-                    type metadata accessor for NotificationsAction();
+                    sub_1005C1F54(v190, v188 + v194, &qword_100CB3AB0, &unk_100A2FB80);
+                    type metadata accessor for NotificationsAction(0);
                     swift_storeEnumTagMultiPayload();
-                    sub_10001161C();
+                    sub_10001161C(v188);
                     sub_10001997C();
-                    sub_10004F034(v165, v175, v169);
-                    sub_1000180EC(&v234, &unk_100CD81B0);
+                    sub_10004F034(v188, v199, v193, v192);
+                    sub_1000180EC(&v260, &unk_100CD81B0, &unk_100A3B000);
                     sub_10001FBB0();
-                    sub_10004FCA8(v165, v176);
-                    sub_1000180EC(v167, &qword_100CB3AB0);
-                    (*(v172 + 8))(v173, v174);
-                    v177 = (*(v223 + 8))(v222, v225);
-                    v54 = v201[0];
-                    v59 = v229;
-                    (v227)(v177);
+                    sub_10004FCA8(v188, v200);
+                    sub_1000180EC(v190, &qword_100CB3AB0, &unk_100A2FB80);
+                    (*(v196 + 8))(v197, v198);
+                    v201 = (*(v249 + 8))(v248, v251);
+                    v55 = v227[0];
+                    v60 = v255;
+                    (v253)(v201);
                     goto LABEL_28;
                   }
                 }
 
                 else
                 {
-                  sub_1000180EC(&v234, &qword_100CE2F40);
+                  sub_1000180EC(&v260, &qword_100CE2F40, &qword_100A2D880);
                 }
 
-                v156 = 0;
+                v178 = 0;
                 goto LABEL_54;
               }
 
@@ -3054,8 +7581,9 @@ LABEL_33:
           }
         }
 
-        v89 = &qword_100CE2F40;
-        v90 = &v234;
+        v104 = &qword_100CE2F40;
+        v105 = &qword_100A2D880;
+        v106 = &v260;
         goto LABEL_32;
       }
     }
@@ -3063,70 +7591,72 @@ LABEL_33:
     else
     {
 
-      sub_1000180EC(&v234, &qword_100CE2F40);
+      sub_1000180EC(&v260, &qword_100CE2F40, &qword_100A2D880);
     }
 
 LABEL_35:
-    v115 = v83;
-    v116 = Logger.logObject.getter();
-    v117 = static os_log_type_t.error.getter();
+    v133 = v87;
+    v134 = Logger.logObject.getter();
+    v135 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v116, v117))
+    if (os_log_type_enabled(v134, v135))
     {
       sub_100018264();
-      v118 = sub_10000C940();
-      sub_100017F9C(v118);
-      *v83 = 136446210;
-      v119 = [v115 notification];
-      v120 = [v119 request];
+      v136 = sub_10000C940();
+      sub_100017F9C(v136);
+      *v87 = 136446210;
+      v137 = [v133 notification];
+      v138 = [v137 request];
 
-      v121 = [v120 identifier];
+      v139 = [v138 identifier];
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       sub_100016DAC();
 
       sub_1000751D4();
       sub_100020C58();
-      *(v83 + 1) = v121;
-      sub_1000318C8(&_mh_execute_header, v122, v123, "Unable to find saved location or preview location for notification: %{public}s");
+      *(v87 + 1) = v139;
+      sub_1000318C8(&_mh_execute_header, v140, v141, "Unable to find saved location or preview location for notification: %{public}s");
       sub_100006F14(a3);
-      a3 = v59;
-      sub_100003884();
+      v142 = a3;
+      a3 = v60;
+      sub_100003884(v142);
       sub_100007E54();
     }
 
     a3();
-    v114 = v201[0];
+    v132 = v227[0];
     goto LABEL_38;
   }
 
-  v108 = v227;
-  sub_10003D708(v86, v227, type metadata accessor for NotificationLocation);
-  v109 = *(v5 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-  v110 = *(sub_10022C350(&qword_100CB1AC0) + 48);
-  sub_1008B9EDC(v108, v45, type metadata accessor for NotificationLocation);
-  sub_1005C1F54(v59, v45 + v110, &qword_100CB3AB0);
-  type metadata accessor for NotificationsAction();
+  v125 = v253;
+  sub_10003D708(v90, v253, type metadata accessor for NotificationLocation);
+  v126 = *(v5 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+  v127 = *(v5 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher + 8);
+  v128 = *(sub_10022C350(&qword_100CB1AC0, &qword_100A65F80) + 48);
+  sub_1008B9EDC(v125, v46, type metadata accessor for NotificationLocation);
+  sub_1005C1F54(v60, v46 + v128, &qword_100CB3AB0, &unk_100A2FB80);
+  type metadata accessor for NotificationsAction(0);
   swift_storeEnumTagMultiPayload();
-  sub_10001161C();
+  sub_10001161C(v46);
   sub_10001997C();
-  sub_10004F034(v45, v111, v109);
-  sub_1000180EC(&v234, &unk_100CD81B0);
+  sub_10004F034(v46, v129, v126, v127);
+  sub_1000180EC(&v260, &unk_100CD81B0, &unk_100A3B000);
   sub_10001FBB0();
-  sub_10004FCA8(v45, v112);
-  v113 = sub_10004FCA8(v108, type metadata accessor for NotificationLocation);
-  (a3)(v113);
+  sub_10004FCA8(v46, v130);
+  v131 = sub_10004FCA8(v125, type metadata accessor for NotificationLocation);
+  (a3)(v131);
 LABEL_28:
-  v114 = v54;
+  v132 = v55;
 LABEL_38:
-  sub_1000180EC(v114, &unk_100CE2F30);
-  return sub_1000180EC(v59, &qword_100CB3AB0);
+  sub_1000180EC(v132, &unk_100CE2F30, &qword_100A95DC0);
+  return sub_1000180EC(v60, &qword_100CB3AB0, &unk_100A2FB80);
 }
 
-unint64_t sub_1008B913C(uint64_t a1)
+void sub_1008B913C(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    sub_10022C350(&qword_100CE3040);
+    sub_10022C350(&qword_100CE3040, &qword_100A95E88);
     v2 = static _DictionaryStorage.allocate(capacity:)();
   }
 
@@ -3145,99 +7675,93 @@ unint64_t sub_1008B913C(uint64_t a1)
   v5 = v4 & *(a1 + 64);
   v6 = (v3 + 63) >> 6;
 
-  v8 = 0;
-  while (1)
+  v7 = 0;
+  while (v5)
   {
-    if (!v5)
-    {
-      while (1)
-      {
-        v9 = v8 + 1;
-        if (__OFADD__(v8, 1))
-        {
-          break;
-        }
-
-        if (v9 >= v6)
-        {
-
-          return v2;
-        }
-
-        v5 = *(a1 + 64 + 8 * v9);
-        ++v8;
-        if (v5)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      __break(1u);
-LABEL_22:
-      __break(1u);
-LABEL_23:
-      __break(1u);
-      return result;
-    }
-
-    v9 = v8;
+    v8 = v7;
 LABEL_12:
-    v10 = __clz(__rbit64(v5)) | (v9 << 6);
-    sub_1001663A0(*(a1 + 48) + 40 * v10, __src);
-    sub_100109514(*(a1 + 56) + 32 * v10, &__src[40]);
+    v9 = __clz(__rbit64(v5)) | (v8 << 6);
+    sub_1001663A0(*(a1 + 48) + 40 * v9, __src);
+    sub_100109514(*(a1 + 56) + 32 * v9, &__src[40]);
     memcpy(__dst, __src, sizeof(__dst));
     sub_1001663A0(__dst, v19);
     if (!swift_dynamicCast())
     {
-      break;
+      sub_1000180EC(__dst, &qword_100CE3048, &unk_100A95E90);
+
+      return;
     }
 
     v5 &= v5 - 1;
     sub_100109514(&__dst[40], v20);
-    sub_1000180EC(__dst, &qword_100CE3048);
+    sub_1000180EC(__dst, &qword_100CE3048, &unk_100A95E90);
     v21 = v18;
     sub_100166170(v20, v22);
-    v11 = v21;
+    v10 = v21;
     sub_100166170(v22, v23);
     sub_100166170(v23, &v21);
-    result = sub_100031B34();
-    v12 = result;
+    v11 = sub_100031B34();
+    v12 = v11;
     if (v13)
     {
-      *(v2[6] + 16 * result) = v11;
+      *(v2[6] + 16 * v11) = v10;
 
       v14 = (v2[7] + 32 * v12);
       sub_100006F14(v14);
-      result = sub_100166170(&v21, v14);
-      v8 = v9;
+      sub_100166170(&v21, v14);
+      v7 = v8;
     }
 
     else
     {
       if (v2[2] >= v2[3])
       {
-        goto LABEL_22;
+        goto LABEL_21;
       }
 
-      *(v2 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      *(v2[6] + 16 * result) = v11;
-      result = sub_100166170(&v21, (v2[7] + 32 * result));
+      *(v2 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << v11;
+      *(v2[6] + 16 * v11) = v10;
+      sub_100166170(&v21, (v2[7] + 32 * v11));
       v15 = v2[2];
       v16 = __OFADD__(v15, 1);
       v17 = v15 + 1;
       if (v16)
       {
-        goto LABEL_23;
+        goto LABEL_22;
       }
 
       v2[2] = v17;
-      v8 = v9;
+      v7 = v8;
     }
   }
 
-  sub_1000180EC(__dst, &qword_100CE3048);
+  while (1)
+  {
+    v8 = v7 + 1;
+    if (__OFADD__(v7, 1))
+    {
+      break;
+    }
 
-  return 0;
+    if (v8 >= v6)
+    {
+
+      return;
+    }
+
+    v5 = *(a1 + 64 + 8 * v8);
+    ++v7;
+    if (v5)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  __break(1u);
+LABEL_21:
+  __break(1u);
+LABEL_22:
+  __break(1u);
 }
 
 uint64_t sub_1008B93F4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -3258,10 +7782,10 @@ uint64_t sub_1008B94B8@<X0>(uint64_t a1@<X1>, unint64_t a2@<X2>, void *a3@<X3>, 
 {
   v60 = a3;
   v61 = a4;
-  v6 = sub_10022C350(&unk_100CE2F20);
+  v6 = sub_10022C350(&unk_100CE2F20, &unk_100A2D7D0);
   __chkstk_darwin(v6 - 8);
   v8 = &v58[-v7];
-  v9 = type metadata accessor for LocationsState();
+  v9 = type metadata accessor for LocationsState(0);
   v10 = v9 - 8;
   __chkstk_darwin(v9);
   v12 = &v58[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -3303,7 +7827,7 @@ uint64_t sub_1008B94B8@<X0>(uint64_t a1@<X1>, unint64_t a2@<X2>, void *a3@<X3>, 
       *v33 = 141558531;
       *(v33 + 4) = 1752392040;
       *(v33 + 12) = 2081;
-      sub_1008B9FA8(&qword_100CE3038, &type metadata accessor for LocationModel);
+      sub_1008B9FA8(&qword_100CE3038, &type metadata accessor for LocationModel, &protocol conformance descriptor for LocationModel);
       v59 = v32;
       dispatch thunk of Identifiable.id.getter();
       (*(v14 + 8))(v16, v13);
@@ -3335,11 +7859,11 @@ uint64_t sub_1008B94B8@<X0>(uint64_t a1@<X1>, unint64_t a2@<X2>, void *a3@<X3>, 
 
     v56 = v61;
     v28(v61, v19, v13);
-    v55 = type metadata accessor for NotificationLocation();
+    v55 = type metadata accessor for NotificationLocation(0);
     goto LABEL_20;
   }
 
-  sub_1000180EC(v8, &unk_100CE2F20);
+  sub_1000180EC(v8, &unk_100CE2F20, &unk_100A2D7D0);
   if (static Location.currentLocationID.getter() == a1 && v22 == a2)
   {
 
@@ -3386,7 +7910,7 @@ LABEL_13:
       swift_arrayDestroy();
     }
 
-    v55 = type metadata accessor for NotificationLocation();
+    v55 = type metadata accessor for NotificationLocation(0);
     v56 = v61;
 LABEL_20:
     swift_storeEnumTagMultiPayload();
@@ -3396,7 +7920,7 @@ LABEL_20:
     return sub_10001B350(v26, v27, 1, v25);
   }
 
-  v25 = type metadata accessor for NotificationLocation();
+  v25 = type metadata accessor for NotificationLocation(0);
   v26 = v61;
   v27 = 1;
   return sub_10001B350(v26, v27, 1, v25);
@@ -3404,7 +7928,7 @@ LABEL_20:
 
 void sub_1008B9C54(uint64_t a1, uint64_t a2, uint64_t a3, void (**a4)(void, void))
 {
-  a4[2](a4, 26);
+  (a4[2])(a4, 26, a3);
 
   _Block_release(a4);
 }
@@ -3422,21 +7946,23 @@ void sub_1008B9CE0(void *a1, int a2, void *a3, void *a4, void *aBlock, void (*a6
 
 Swift::Void __swiftcall UserNotificationMonitor.userNotificationCenter(_:openSettingsFor:)(UNUserNotificationCenter _, UNNotification_optional openSettingsFor)
 {
-  type metadata accessor for MainAction();
+  type metadata accessor for MainAction(0);
   sub_1000037E8();
   __chkstk_darwin(v3);
   sub_1000037D8();
   v6 = v5 - v4;
-  v7 = *(v2 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
-  type metadata accessor for NotificationsAction();
+  v7 = v2 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher;
+  v8 = *(v2 + OBJC_IVAR____TtC7Weather23UserNotificationMonitor_dispatcher);
+  v9 = *(v7 + 8);
+  type metadata accessor for NotificationsAction(0);
   swift_storeEnumTagMultiPayload();
   swift_storeEnumTagMultiPayload();
-  v10 = 0;
-  memset(v9, 0, sizeof(v9));
-  sub_10004F034(v6, v9, v7);
-  sub_1000180EC(v9, &unk_100CD81B0);
+  v12 = 0;
+  memset(v11, 0, sizeof(v11));
+  sub_10004F034(v6, v11, v8, v9);
+  sub_1000180EC(v11, &unk_100CD81B0, &unk_100A3B000);
   sub_10001FBB0();
-  sub_10004FCA8(v6, v8);
+  sub_10004FCA8(v6, v10);
 }
 
 uint64_t sub_1008B9EDC(uint64_t a1, uint64_t a2, void (*a3)(void))
@@ -3450,46 +7976,46 @@ uint64_t sub_1008B9EDC(uint64_t a1, uint64_t a2, void (*a3)(void))
 
 uint64_t sub_1008B9F38(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10022C350(&unk_100CE3020);
+  v4 = sub_10022C350(&unk_100CE3020, &qword_100A95E28);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_1008B9FA8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1008B9FA8(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
   return result;
 }
 
-uint64_t sub_1008BA000@<X0>(uint64_t a1@<X1>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t sub_1008BA000@<X0>(uint64_t a1@<X1>, uint64_t a3@<X3>, char *a4@<X8>)
 {
-  v23[1] = a2;
-  v23[2] = a1;
-  v4 = sub_10022C350(&qword_100CC62B8);
-  __chkstk_darwin(v4 - 8);
-  v6 = v23 - v5;
-  v7 = type metadata accessor for AirQuality();
+  v24[1] = a3;
+  v24[2] = a1;
+  v5 = sub_10022C350(&qword_100CC62B8, &qword_100A61CA0);
+  __chkstk_darwin(v5 - 8);
+  v7 = v24 - v6;
+  v8 = type metadata accessor for AirQuality();
   sub_1000037C4();
-  v9 = v8;
-  __chkstk_darwin(v10);
+  v10 = v9;
+  __chkstk_darwin(v11);
   sub_1000037D8();
-  v13 = (v12 - v11);
+  v14 = (v13 - v12);
   if (qword_100CA2A00 != -1)
   {
     swift_once();
   }
 
   sub_10001D108();
-  sub_1008BB548(v14, v15, v16);
+  sub_1008BB548(v15, v16, v17, byte_100A95EF0);
   Configurable.setting<A>(_:)();
-  if (v25 == 1)
+  if (v26 == 1)
   {
     goto LABEL_4;
   }
@@ -3500,51 +8026,51 @@ uint64_t sub_1008BA000@<X0>(uint64_t a1@<X1>, uint64_t a2@<X3>, uint64_t a3@<X8>
   }
 
   Configurable.setting<A>(_:)();
-  if (v24 != 1)
+  if (v25 != 1)
   {
     type metadata accessor for WeatherData(0);
     WeatherDataModel.airQuality.getter();
-    if (sub_100024D10(v6, 1, v7) != 1)
+    if (sub_100024D10(v7, 1, v8) != 1)
     {
-      v22 = *(v9 + 32);
-      v22(v13, v6, v7);
-      v22(a3, v13, v7);
-      type metadata accessor for LocationViewComponent();
+      v23 = *(v10 + 32);
+      v23(v14, v7, v8);
+      v23(a4, v14, v8);
+      type metadata accessor for LocationViewComponent(0);
       swift_storeEnumTagMultiPayload();
       sub_100006AA0();
-      return sub_10001B350(v17, v18, v19, v20);
+      return sub_10001B350(v18, v19, v20, v21);
     }
 
-    sub_100018144(v6, &qword_100CC62B8);
+    sub_100018144(v7, &qword_100CC62B8, &qword_100A61CA0);
 LABEL_4:
-    type metadata accessor for LocationViewComponent();
-    v17 = sub_100007E1C();
-    return sub_10001B350(v17, v18, v19, v20);
+    type metadata accessor for LocationViewComponent(0);
+    v18 = sub_100007E1C();
+    return sub_10001B350(v18, v19, v20, v21);
   }
 
-  return sub_1008BA2CC(a3);
+  return sub_1008BA2CC(a4);
 }
 
 uint64_t sub_1008BA2CC@<X0>(uint64_t a1@<X8>)
 {
-  v35 = a1;
+  v36 = a1;
   v1 = type metadata accessor for Location();
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
-  v4 = &v32 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_10022C350(&qword_100CA37B0);
+  v4 = &v33 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_10022C350(&qword_100CA37B0, &unk_100A2D740);
   __chkstk_darwin(v5 - 8);
-  v7 = &v32 - v6;
-  v8 = sub_10022C350(&qword_100CA3898);
+  v7 = &v33 - v6;
+  v8 = sub_10022C350(&qword_100CA3898, &qword_100A314D0);
   __chkstk_darwin(v8 - 8);
-  v10 = &v32 - v9;
-  v11 = sub_10022C350(&qword_100CC62B8);
+  v10 = &v33 - v9;
+  v11 = sub_10022C350(&qword_100CC62B8, &qword_100A61CA0);
   __chkstk_darwin(v11 - 8);
-  v13 = &v32 - v12;
+  v13 = &v33 - v12;
   v14 = type metadata accessor for AirQuality();
-  v34 = *(v14 - 8);
+  v35 = *(v14 - 8);
   __chkstk_darwin(v14);
-  v33 = &v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34 = &v33 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_100CA2AA8 != -1)
   {
     swift_once();
@@ -3561,20 +8087,22 @@ uint64_t sub_1008BA2CC@<X0>(uint64_t a1@<X8>)
   if (sub_100024D10(v7, 1, v20) == 1)
   {
     v21 = &qword_100CA37B0;
-    v22 = v7;
+    v22 = &unk_100A2D740;
+    v23 = v7;
 LABEL_7:
-    sub_100018144(v22, v21);
+    sub_100018144(v23, v21, v22);
     sub_10001B350(v13, 1, 1, v14);
     goto LABEL_8;
   }
 
   sub_1001A0D3C();
   sub_10010603C(v7, type metadata accessor for LocationWeatherDataState);
-  v23 = type metadata accessor for WeatherData(0);
-  if (sub_100024D10(v10, 1, v23) == 1)
+  v24 = type metadata accessor for WeatherData(0);
+  if (sub_100024D10(v10, 1, v24) == 1)
   {
     v21 = &qword_100CA3898;
-    v22 = v10;
+    v22 = &qword_100A314D0;
+    v23 = v10;
     goto LABEL_7;
   }
 
@@ -3582,34 +8110,34 @@ LABEL_7:
   sub_10010603C(v10, type metadata accessor for WeatherData);
   if (sub_100024D10(v13, 1, v14) != 1)
   {
-    v28 = v33;
-    v29 = *(v34 + 32);
-    v29(v33, v13, v14);
-    v30 = v35;
-    v29(v35, v28, v14);
-    v31 = type metadata accessor for LocationViewComponent();
+    v29 = v34;
+    v30 = *(v35 + 32);
+    v30(v34, v13, v14);
+    v31 = v36;
+    v30(v36, v29, v14);
+    v32 = type metadata accessor for LocationViewComponent(0);
     swift_storeEnumTagMultiPayload();
-    v25 = v30;
-    v26 = 0;
-    v24 = v31;
-    return sub_10001B350(v25, v26, 1, v24);
+    v26 = v31;
+    v27 = 0;
+    v25 = v32;
+    return sub_10001B350(v26, v27, 1, v25);
   }
 
 LABEL_8:
-  sub_100018144(v13, &qword_100CC62B8);
-  v24 = type metadata accessor for LocationViewComponent();
-  v25 = v35;
-  v26 = 1;
-  return sub_10001B350(v25, v26, 1, v24);
+  sub_100018144(v13, &qword_100CC62B8, &qword_100A61CA0);
+  v25 = type metadata accessor for LocationViewComponent(0);
+  v26 = v36;
+  v27 = 1;
+  return sub_10001B350(v26, v27, 1, v25);
 }
 
 uint64_t sub_1008BA700@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v39 = a2;
-  v3 = sub_10022C350(&qword_100CB0BA0);
+  v3 = sub_10022C350(&qword_100CB0BA0, &unk_100A40F70);
   __chkstk_darwin(v3 - 8);
   v5 = &v37 - v4;
-  v6 = sub_10022C350(&qword_100CAE8F0);
+  v6 = sub_10022C350(&qword_100CAE8F0, &qword_100A3E420);
   sub_1000037C4();
   v38 = v7;
   __chkstk_darwin(v8);
@@ -3626,13 +8154,13 @@ uint64_t sub_1008BA700@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   }
 
   sub_10001D108();
-  sub_1008BB548(v18, v19, v20);
+  sub_1008BB548(v18, v19, v20, byte_100A95EF0);
   Configurable.setting<A>(_:)();
   if (v40 == 1)
   {
     v21 = v39;
     sub_1008BAAF8(a1, v39);
-    v22 = type metadata accessor for LocationViewComponent();
+    v22 = type metadata accessor for LocationViewComponent(0);
     v23 = v21;
     v24 = 0;
 LABEL_14:
@@ -3640,7 +8168,7 @@ LABEL_14:
     return sub_10001B350(v23, v24, v33, v22);
   }
 
-  if (*(a1 + *(type metadata accessor for NextHourPrecipitationComponentParameters() + 28)) == 1)
+  if (*(a1 + *(type metadata accessor for NextHourPrecipitationComponentParameters(0) + 28)) == 1)
   {
     *v17 = vdupq_n_s64(0x40AC200000000000uLL);
     v25 = &enum case for PrecipitationRelevancyWindow.window(_:);
@@ -3659,9 +8187,9 @@ LABEL_14:
   {
     v27 = sub_100010EF0();
     v28(v27);
-    sub_100018144(v5, &qword_100CB0BA0);
+    sub_100018144(v5, &qword_100CB0BA0, &unk_100A40F70);
 LABEL_13:
-    v22 = type metadata accessor for LocationViewComponent();
+    v22 = type metadata accessor for LocationViewComponent(0);
     v23 = v39;
     v24 = 1;
     goto LABEL_14;
@@ -3680,12 +8208,12 @@ LABEL_13:
 
   v29 = v39;
   WeatherDataModel.currentWeather.getter();
-  HourPrecipitationComponent = type metadata accessor for NextHourPrecipitationComponent();
+  HourPrecipitationComponent = type metadata accessor for NextHourPrecipitationComponent(0);
   static WeatherClock.date.getter();
   v31 = sub_100010EF0();
   v32(v31);
   (v37)(v29 + *(HourPrecipitationComponent + 24), v10, v38);
-  type metadata accessor for LocationViewComponent();
+  type metadata accessor for LocationViewComponent(0);
   swift_storeEnumTagMultiPayload();
   sub_100006AA0();
   return sub_10001B350(v23, v24, v33, v22);
@@ -3695,7 +8223,7 @@ uint64_t sub_1008BAAF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v65 = a1;
   v66 = a2;
-  v2 = sub_10022C350(&qword_100CAE8F0);
+  v2 = sub_10022C350(&qword_100CAE8F0, &qword_100A3E420);
   v67 = *(v2 - 8);
   v68 = v2;
   __chkstk_darwin(v2);
@@ -3722,7 +8250,7 @@ uint64_t sub_1008BAAF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v14 = type metadata accessor for ApparentPrecipitationIntensity();
   __chkstk_darwin(v14 - 8);
   v51 = &v47 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_10022C350(&qword_100CACCC8);
+  v16 = sub_10022C350(&qword_100CACCC8, &unk_100A3E7D0);
   __chkstk_darwin(v16 - 8);
   v17 = type metadata accessor for Precipitation();
   v18 = *(v17 - 8);
@@ -3765,7 +8293,7 @@ uint64_t sub_1008BAAF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v31(v34, v33);
   v35 = v57;
   WeatherMetadata.init(date:expirationDate:latitude:longitude:)();
-  sub_10022C350(&qword_100CE30F8);
+  sub_10022C350(&qword_100CE30F8, &qword_100A95F48);
   v36 = v69;
   v37 = (*(v69 + 80) + 32) & ~*(v69 + 80);
   v38 = swift_allocObject();
@@ -3776,59 +8304,59 @@ uint64_t sub_1008BAAF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v41 = v35;
   v42 = v63;
   (*(v62 + 16))(v61, v35, v63);
-  sub_1008BB548(&qword_100CB1738, 255, &type metadata accessor for MinuteWeather);
-  sub_1008BB548(&qword_100CB1740, 255, &type metadata accessor for MinuteWeather);
-  sub_1008BB548(&unk_100CB1748, 255, &type metadata accessor for MinuteWeather);
+  sub_1008BB548(&qword_100CB1738, 255, &type metadata accessor for MinuteWeather, &protocol conformance descriptor for MinuteWeather);
+  sub_1008BB548(&qword_100CB1740, 255, &type metadata accessor for MinuteWeather, &protocol conformance descriptor for MinuteWeather);
+  sub_1008BB548(&unk_100CB1748, 255, &type metadata accessor for MinuteWeather, &protocol conformance descriptor for MinuteWeather);
   v43 = v64;
   Forecast.init(_:metadata:)();
-  type metadata accessor for NextHourPrecipitationComponentParameters();
+  type metadata accessor for NextHourPrecipitationComponentParameters(0);
   type metadata accessor for WeatherData(0);
   v44 = v66;
   WeatherDataModel.currentWeather.getter();
-  HourPrecipitationComponent = type metadata accessor for NextHourPrecipitationComponent();
+  HourPrecipitationComponent = type metadata accessor for NextHourPrecipitationComponent(0);
   static WeatherClock.date.getter();
   (*(v40 + 8))(v41, v42);
   (*(v69 + 8))(v48, v39);
   (*(v67 + 32))(v44 + *(HourPrecipitationComponent + 24), v43, v68);
-  type metadata accessor for LocationViewComponent();
+  type metadata accessor for LocationViewComponent(0);
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t sub_1008BB370@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1008BB370@<X0>(uint64_t *a3@<X8>)
 {
-  v2 = type metadata accessor for CurrentWeather();
+  v4 = type metadata accessor for CurrentWeather();
   sub_1000037C4();
-  v4 = v3;
-  __chkstk_darwin(v5);
+  v6 = v5;
+  __chkstk_darwin(v7);
   sub_1000037D8();
-  v8 = v7 - v6;
-  v9 = Array<A>.alerts(prominence:)();
-  if (*(v9 + 16))
+  v10 = v9 - v8;
+  v11 = Array<A>.alerts(prominence:)();
+  if (*(v11 + 16))
   {
-    v10 = *(Array<A>.originalAlerts(prominence:)() + 16);
+    v12 = *(Array<A>.originalAlerts(prominence:)() + 16);
 
     type metadata accessor for WeatherData(0);
     WeatherDataModel.currentWeather.getter();
-    type metadata accessor for SevereAlertComponent();
+    type metadata accessor for SevereAlertComponent(0);
     CurrentWeather.date.getter();
-    (*(v4 + 8))(v8, v2);
-    *a1 = v9;
-    a1[1] = v10;
-    type metadata accessor for LocationViewComponent();
+    (*(v6 + 8))(v10, v4);
+    *a3 = v11;
+    a3[1] = v12;
+    type metadata accessor for LocationViewComponent(0);
     swift_storeEnumTagMultiPayload();
     sub_100006AA0();
-    return sub_10001B350(v11, v12, v13, v14);
+    return sub_10001B350(v13, v14, v15, v16);
   }
 
   else
   {
-    type metadata accessor for LocationViewComponent();
-    v16 = sub_100007E1C();
-    sub_10001B350(v16, v17, v18, v19);
+    type metadata accessor for LocationViewComponent(0);
+    v18 = sub_100007E1C();
+    sub_10001B350(v18, v19, v20, v21);
   }
 }
 
-uint64_t type metadata accessor for NextHourPrecipitationComponentParameters()
+uint64_t type metadata accessor for NextHourPrecipitationComponentParameters(uint64_t a1)
 {
   result = qword_100CE3158;
   if (!qword_100CE3158)
@@ -3839,29 +8367,29 @@ uint64_t type metadata accessor for NextHourPrecipitationComponentParameters()
   return result;
 }
 
-uint64_t sub_1008BB548(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t sub_1008BB548(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), const char *a4)
 {
   result = *a1;
   if (!result)
   {
-    a3(a2);
-    result = swift_getWitnessTable();
+    v7 = a3(a2);
+    result = swift_getWitnessTable(a4, v7);
     atomic_store(result, a1);
   }
 
   return result;
 }
 
-void sub_1008BB5B8()
+void sub_1008BB5B8(uint64_t a1)
 {
   type metadata accessor for Location();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for WeatherData(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_1003CA6A4();
-      if (v2 <= 0x3F)
+      sub_1003CA6A4(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -3874,29 +8402,29 @@ uint64_t sub_1008BB65C(uint64_t a1)
   v3 = v1;
   type metadata accessor for Location();
   sub_1000037C4();
-  v56 = v6;
-  v57 = v5;
+  v58 = v6;
+  v59 = v5;
   __chkstk_darwin(v5);
   sub_1000037D8();
-  v55 = v8 - v7;
+  v57 = v8 - v7;
   type metadata accessor for Logger();
   sub_1000037C4();
-  v59 = v10;
-  v60 = v9;
+  v61 = v10;
+  v62 = v9;
   __chkstk_darwin(v9);
   sub_1000088C0();
   __chkstk_darwin(v11);
-  sub_100003C54(v12, v13, v14, v15, v16, v17, v18, v19, v54);
-  v20 = sub_10022C350(&qword_100CA6890);
+  sub_100003C54(v12, v13, v14, v15, v16, v17, v18, v19, v56);
+  v20 = sub_10022C350(&qword_100CA6890, &qword_100A31680);
   __chkstk_darwin(v20 - 8);
-  v22 = &v54 - v21;
-  v23 = type metadata accessor for LocationsState();
+  v22 = &v56 - v21;
+  v23 = type metadata accessor for LocationsState(0);
   __chkstk_darwin(v23);
   sub_1000037D8();
   v26 = v25 - v24;
   v27 = *(v1 + 16);
-  v27(&v61);
-  sub_1001A0BE0(v61 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v26);
+  v27(&v63);
+  sub_1001A0BE0(v63 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v26);
 
   v28 = *(*(v26 + *(v23 + 24)) + 16);
   type metadata accessor for SavedLocationsManager();
@@ -3906,24 +8434,24 @@ uint64_t sub_1008BB65C(uint64_t a1)
   {
     static Logger.map.getter();
 
-    v46 = Logger.logObject.getter();
-    v47 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v46, v47))
+    v48 = Logger.logObject.getter();
+    v49 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v48, v49))
     {
-      v48 = swift_slowAlloc();
-      *v48 = 134349056;
-      v27(&v61);
-      sub_1001A0BE0(v61 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v26);
+      v50 = swift_slowAlloc();
+      *v50 = 134349056;
+      v27(&v63);
+      sub_1001A0BE0(v63 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v26);
 
-      v49 = *(v26 + *(v23 + 36));
+      v51 = *(v26 + *(v23 + 36));
 
       sub_1001A0C44(v26);
-      v50 = *(v49 + 16);
+      v52 = *(v51 + 16);
 
-      *(v48 + 4) = v50;
+      *(v50 + 4) = v52;
 
-      _os_log_impl(&_mh_execute_header, v46, v47, "Returning that we cannot add location via map interaction because user has reached the maximum locations, locationsCount=%{public}ld", v48, 0xCu);
-      sub_100003884();
+      _os_log_impl(&_mh_execute_header, v48, v49, "Returning that we cannot add location via map interaction because user has reached the maximum locations, locationsCount=%{public}ld", v50, 0xCu);
+      sub_100003884(v50);
     }
 
     else
@@ -3931,65 +8459,65 @@ uint64_t sub_1008BB65C(uint64_t a1)
     }
 
     sub_100014484();
-    v52 = v2;
+    v54 = v2;
     goto LABEL_11;
   }
 
   sub_1000161C0((v3 + 48), *(v3 + 72));
   Location.coordinate.getter();
-  Location.name.getter();
-  sub_1001A34D0();
+  v30 = Location.name.getter();
+  sub_1001A34D0(v30, v31);
 
-  v30 = type metadata accessor for SavedLocation();
-  v31 = 1;
-  v32 = sub_100024D10(v22, 1, v30);
+  v32 = type metadata accessor for SavedLocation();
+  v33 = 1;
+  v34 = sub_100024D10(v22, 1, v32);
   sub_1008BC194(v22);
-  if (v32 != 1)
+  if (v34 != 1)
   {
-    v33 = v58;
+    v35 = v60;
     static Logger.map.getter();
-    v35 = v55;
-    v34 = v56;
-    v36 = a1;
     v37 = v57;
-    (*(v56 + 16))(v55, v36, v57);
-    v38 = Logger.logObject.getter();
-    v39 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v38, v39))
+    v36 = v58;
+    v38 = a1;
+    v39 = v59;
+    (*(v58 + 16))(v57, v38, v59);
+    v40 = Logger.logObject.getter();
+    v41 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v40, v41))
     {
-      v40 = swift_slowAlloc();
-      v41 = swift_slowAlloc();
-      v61 = v41;
-      *v40 = 141558275;
-      *(v40 + 4) = 1752392040;
-      *(v40 + 12) = 2081;
+      v42 = swift_slowAlloc();
+      v43 = swift_slowAlloc();
+      v63 = v43;
+      *v42 = 141558275;
+      *(v42 + 4) = 1752392040;
+      *(v42 + 12) = 2081;
       sub_1002F33A8();
-      v42 = dispatch thunk of CustomStringConvertible.description.getter();
-      v44 = v43;
-      (*(v34 + 8))(v35, v37);
-      v45 = sub_100078694(v42, v44, &v61);
+      v44 = dispatch thunk of CustomStringConvertible.description.getter();
+      v46 = v45;
+      (*(v36 + 8))(v37, v39);
+      v47 = sub_100078694(v44, v46, &v63);
 
-      *(v40 + 14) = v45;
-      _os_log_impl(&_mh_execute_header, v38, v39, "Returning that we cannot add location via map interaction because user already has the location in their saved locations, location=%{private,mask.hash}s", v40, 0x16u);
-      sub_100006F14(v41);
-      sub_100003884();
-      sub_100003884();
+      *(v42 + 14) = v47;
+      _os_log_impl(&_mh_execute_header, v40, v41, "Returning that we cannot add location via map interaction because user already has the location in their saved locations, location=%{private,mask.hash}s", v42, 0x16u);
+      sub_100006F14(v43);
+      sub_100003884(v43);
+      sub_100003884(v42);
     }
 
     else
     {
 
-      (*(v34 + 8))(v35, v37);
+      (*(v36 + 8))(v37, v39);
     }
 
     sub_100014484();
-    v52 = v33;
+    v54 = v35;
 LABEL_11:
-    v51(v52, v60);
+    v53(v54, v62);
     return 0;
   }
 
-  return v31;
+  return v33;
 }
 
 uint64_t sub_1008BBB5C(uint64_t a1)
@@ -4040,8 +8568,8 @@ uint64_t sub_1008BBB5C(uint64_t a1)
       *(v30 + 14) = v35;
       _os_log_impl(&_mh_execute_header, v27, v28, "Returning that we cannot view a location via map interaction because user has already selected it, location=%{private,mask.hash}s", v30, 0x16u);
       sub_100006F14(v31);
-      sub_100003884();
-      sub_100003884();
+      sub_100003884(v31);
+      sub_100003884(v30);
     }
 
     else
@@ -4090,8 +8618,8 @@ uint64_t sub_1008BBB5C(uint64_t a1)
       *(v42 + 14) = v47;
       _os_log_impl(&_mh_execute_header, v40, v41, "Returning that we cannot view a location via map interaction because user is previewing it, location=%{private,mask.hash}s", v42, 0x16u);
       sub_100006F14(v43);
-      sub_100003884();
-      sub_100003884();
+      sub_100003884(v43);
+      sub_100003884(v42);
     }
 
     else
@@ -4110,16 +8638,19 @@ uint64_t sub_1008BBB5C(uint64_t a1)
 
 uint64_t sub_1008BC004(uint64_t a1)
 {
-  v3 = type metadata accessor for LocationsState();
+  v3 = type metadata accessor for LocationsState(0);
+  v4 = v3 - 8;
   __chkstk_darwin(v3);
   sub_1000037D8();
-  v6 = v5 - v4;
+  v7 = v6 - v5;
   sub_1000161C0((v1 + 88), *(v1 + 112));
-  (*(v1 + 16))(&v8);
-  sub_1001A0BE0(v8 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v6);
+  (*(v1 + 16))(&v10);
+  sub_1001A0BE0(v10 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_locations, v7);
 
-  sub_1001A0C44(v6);
-  LOBYTE(a1) = sub_100496284(a1);
+  v8 = *(v7 + *(v4 + 36));
+
+  sub_1001A0C44(v7);
+  LOBYTE(a1) = sub_100496284(a1, v8);
 
   return a1 & 1;
 }
@@ -4127,8 +8658,8 @@ uint64_t sub_1008BC004(uint64_t a1)
 uint64_t sub_1008BC0F8()
 {
 
-  sub_100006F14(v0 + 48);
-  sub_100006F14(v0 + 88);
+  sub_100006F14((v0 + 48));
+  sub_100006F14((v0 + 88));
   return v0;
 }
 
@@ -4141,48 +8672,48 @@ uint64_t sub_1008BC13C()
 
 uint64_t sub_1008BC194(uint64_t a1)
 {
-  v2 = sub_10022C350(&qword_100CA6890);
+  v2 = sub_10022C350(&qword_100CA6890, &qword_100A31680);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_1008BC228@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1008BC228@<X0>(uint64_t a2@<X8>)
 {
-  *a1 = static HorizontalAlignment.leading.getter();
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  v3 = sub_10022C350(&qword_100CE3248);
-  return sub_1008BC278(v1, a1 + *(v3 + 44));
+  *a2 = static HorizontalAlignment.leading.getter();
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  v4 = sub_10022C350(&qword_100CE3248, &unk_100A96090);
+  return sub_1008BC278(v2, a2 + *(v4 + 44));
 }
 
 uint64_t sub_1008BC278@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v104 = a2;
-  v99 = type metadata accessor for DetailNewsComponentView();
+  v99 = type metadata accessor for DetailNewsComponentView(0);
   __chkstk_darwin(v99);
   v94 = (&v92 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v4 = sub_10022C350(&qword_100CA7188);
+  v4 = sub_10022C350(&qword_100CA7188, &qword_100A35360);
   __chkstk_darwin(v4 - 8);
   v97 = &v92 - v5;
-  v96 = type metadata accessor for DetailComponentContainerViewModel();
+  v96 = type metadata accessor for DetailComponentContainerViewModel(0);
   __chkstk_darwin(v96);
   v93 = &v92 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_10022C350(&qword_100CA7190);
+  v7 = sub_10022C350(&qword_100CA7190, &qword_100A322B0);
   __chkstk_darwin(v7 - 8);
   v100 = &v92 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
   v110 = &v92 - v10;
-  v95 = type metadata accessor for MonthlyAveragesChart();
+  v95 = type metadata accessor for MonthlyAveragesChart(0);
   __chkstk_darwin(v95);
   v103 = &v92 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v12);
   v108 = &v92 - v13;
-  v14 = sub_10022C350(&qword_100CA7198);
+  v14 = sub_10022C350(&qword_100CA7198, &qword_100A322B8);
   __chkstk_darwin(v14);
   v102 = &v92 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v16);
   v18 = &v92 - v17;
-  v19 = sub_10022C350(&qword_100CA71A0);
+  v19 = sub_10022C350(&qword_100CA71A0, &unk_100A322C0);
   __chkstk_darwin(v19 - 8);
   v21 = &v92 - v20;
   v22 = type metadata accessor for ConditionDetailPlatterViewModel(0);
@@ -4190,12 +8721,12 @@ uint64_t sub_1008BC278@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v105 = &v92 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v24);
   v98 = (&v92 - v25);
-  v26 = sub_10022C350(&qword_100CA71A8);
+  v26 = sub_10022C350(&qword_100CA71A8, &unk_100A496E0);
   __chkstk_darwin(v26 - 8);
   v101 = &v92 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v28);
   v109 = &v92 - v29;
-  v30 = type metadata accessor for PrecipitationAveragesHeroChartView();
+  v30 = type metadata accessor for PrecipitationAveragesHeroChartView(0);
   v31 = v30 - 8;
   __chkstk_darwin(v30);
   v107 = &v92 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -4215,10 +8746,10 @@ uint64_t sub_1008BC278@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v35[8] = 0;
   v41 = OBJC_IVAR____TtCV7Weather36PrecipitationAveragesDetailViewModel8_Storage_summaryPlatterViewModel;
   swift_beginAccess();
-  sub_100035AD0(v40 + v41, v21, &qword_100CA71A0);
+  sub_100035AD0(v40 + v41, v21, &qword_100CA71A0, &unk_100A322C0);
   if (sub_100024D10(v21, 1, v22) == 1)
   {
-    sub_1000180EC(v21, &qword_100CA71A0);
+    sub_1000180EC(v21, &qword_100CA71A0, &unk_100A322C0);
     v42 = 1;
     v43 = v18;
     v45 = v109;
@@ -4276,10 +8807,10 @@ uint64_t sub_1008BC278@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   swift_beginAccess();
   v58 = v40 + v57;
   v59 = v97;
-  sub_100035AD0(v58, v97, &qword_100CA7188);
+  sub_100035AD0(v58, v97, &qword_100CA7188, &qword_100A35360);
   if (sub_100024D10(v59, 1, v96) == 1)
   {
-    sub_1000180EC(v59, &qword_100CA7188);
+    sub_1000180EC(v59, &qword_100CA7188, &qword_100A35360);
     v60 = 1;
     v61 = v99;
   }
@@ -4308,7 +8839,7 @@ uint64_t sub_1008BC278@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     v72(v71, v68, v73);
     sub_1000311F8(v62, type metadata accessor for DetailComponentContainerViewModel);
     *v64 = swift_getKeyPath();
-    sub_10022C350(&qword_100CA62E0);
+    sub_10022C350(&qword_100CA62E0, &qword_100A3D5F0);
     swift_storeEnumTagMultiPayload();
     *(v64 + *(v61 + 28)) = 0;
     v74 = v64;
@@ -4347,31 +8878,31 @@ uint64_t sub_1008BC278@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v82 = v107;
   sub_1008BCF74(v106, v107, type metadata accessor for PrecipitationAveragesHeroChartView);
   v83 = v101;
-  sub_100035AD0(v45, v101, &qword_100CA71A8);
+  sub_100035AD0(v45, v101, &qword_100CA71A8, &unk_100A496E0);
   v84 = v108;
   v85 = v103;
   sub_1008BCF74(v108, v103, type metadata accessor for MonthlyAveragesChart);
   v86 = v100;
-  sub_100035AD0(v110, v100, &qword_100CA7190);
+  sub_100035AD0(v110, v100, &qword_100CA7190, &qword_100A322B0);
   v87 = v102;
-  sub_100035AD0(v43, v102, &qword_100CA7198);
+  sub_100035AD0(v43, v102, &qword_100CA7198, &qword_100A322B8);
   v88 = v82;
   v89 = v104;
   sub_1008BCF74(v88, v104, type metadata accessor for PrecipitationAveragesHeroChartView);
-  v90 = sub_10022C350(&qword_100CE3250);
-  sub_100035AD0(v83, v89 + v90[12], &qword_100CA71A8);
+  v90 = sub_10022C350(&qword_100CE3250, &qword_100A960D0);
+  sub_100035AD0(v83, v89 + v90[12], &qword_100CA71A8, &unk_100A496E0);
   sub_1008BCF74(v85, v89 + v90[16], type metadata accessor for MonthlyAveragesChart);
-  sub_100035AD0(v86, v89 + v90[20], &qword_100CA7190);
-  sub_100035AD0(v87, v89 + v90[24], &qword_100CA7198);
-  sub_1000180EC(v43, &qword_100CA7198);
-  sub_1000180EC(v110, &qword_100CA7190);
+  sub_100035AD0(v86, v89 + v90[20], &qword_100CA7190, &qword_100A322B0);
+  sub_100035AD0(v87, v89 + v90[24], &qword_100CA7198, &qword_100A322B8);
+  sub_1000180EC(v43, &qword_100CA7198, &qword_100A322B8);
+  sub_1000180EC(v110, &qword_100CA7190, &qword_100A322B0);
   sub_1000311F8(v84, type metadata accessor for MonthlyAveragesChart);
-  sub_1000180EC(v109, &qword_100CA71A8);
+  sub_1000180EC(v109, &qword_100CA71A8, &unk_100A496E0);
   sub_1000311F8(v106, type metadata accessor for PrecipitationAveragesHeroChartView);
-  sub_1000180EC(v87, &qword_100CA7198);
-  sub_1000180EC(v86, &qword_100CA7190);
+  sub_1000180EC(v87, &qword_100CA7198, &qword_100A322B8);
+  sub_1000180EC(v86, &qword_100CA7190, &qword_100A322B0);
   sub_1000311F8(v85, type metadata accessor for MonthlyAveragesChart);
-  sub_1000180EC(v83, &qword_100CA71A8);
+  sub_1000180EC(v83, &qword_100CA71A8, &unk_100A496E0);
   return sub_1000311F8(v107, type metadata accessor for PrecipitationAveragesHeroChartView);
 }
 
@@ -4388,8 +8919,8 @@ unint64_t sub_1008BCFD4()
   result = qword_100CE3258;
   if (!qword_100CE3258)
   {
-    sub_10022E824(&qword_100CE3260);
-    result = swift_getWitnessTable();
+    v3 = sub_10022E824(&qword_100CE3260, &unk_100A96110);
+    result = swift_getWitnessTable(&protocol conformance descriptor for VStack<A>, v3, v0, v1);
     atomic_store(result, &qword_100CE3258);
   }
 
@@ -4408,7 +8939,7 @@ uint64_t sub_1008BD038@<X0>(uint64_t a1@<X8>)
   }
 
   *(a1 + 56) = v4;
-  sub_10022C350(&qword_100CA49D8);
+  sub_10022C350(&qword_100CA49D8, &unk_100A42010);
   sub_1008BD0F8();
   *a1 = ObservedObject.init(wrappedValue:)();
   *(a1 + 8) = v5;
@@ -4420,8 +8951,8 @@ unint64_t sub_1008BD0F8()
   result = qword_100CA49E0;
   if (!qword_100CA49E0)
   {
-    sub_10022E824(&qword_100CA49D8);
-    result = swift_getWitnessTable();
+    v3 = sub_10022E824(&qword_100CA49D8, &unk_100A42010);
+    result = swift_getWitnessTable(asc_100AA1480, v3, v0, v1);
     atomic_store(result, &qword_100CA49E0);
   }
 
@@ -4596,7 +9127,7 @@ uint64_t sub_1008BD5E4(uint64_t a1)
 uint64_t sub_1008BD620(void *a1)
 {
   v3 = v1;
-  v5 = sub_10022C350(&qword_100CE3488);
+  v5 = sub_10022C350(&qword_100CE3488, &qword_100A96330);
   sub_1000037C4();
   v7 = v6;
   sub_100003828();
@@ -4613,34 +9144,34 @@ uint64_t sub_1008BD620(void *a1)
     LOBYTE(v22) = 1;
     sub_100003CDC();
     KeyedEncodingContainer.encode(_:forKey:)();
-    v11 = type metadata accessor for NewsArticle();
+    v11 = type metadata accessor for NewsArticle(0);
     LOBYTE(v22) = 2;
     type metadata accessor for URL();
     sub_10001FBC8();
-    sub_1008BE864(v12, v13);
+    sub_1008BE864(v12, v13, &protocol conformance descriptor for URL);
     sub_100010F00();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
     v20 = v11;
     LOBYTE(v22) = 3;
     type metadata accessor for Date();
     sub_100004DA8();
-    sub_1008BE864(v14, v15);
+    sub_1008BE864(v14, v15, &protocol conformance descriptor for Date);
     sub_100003CDC();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     LOBYTE(v22) = 4;
     sub_100010F00();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     LOBYTE(v22) = 5;
-    type metadata accessor for NewsChannel();
+    type metadata accessor for NewsChannel(0);
     sub_1000150A4();
-    sub_1008BE864(v16, v17);
+    sub_1008BE864(v16, v17, byte_100A7498C);
     sub_100003CDC();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     v18 = v20;
     v22 = *(v3 + *(v20 + 40));
     v21 = 6;
-    sub_10022C350(&qword_100CCC930);
-    sub_1005FFB2C(&qword_100CCB5A8);
+    sub_10022C350(&qword_100CCC930, &qword_100A41810);
+    sub_1005FFB2C(&qword_100CCB5A8, &protocol witness table for String, &protocol conformance descriptor for <A> [A]);
     sub_100010F00();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     v22 = *(v3 + *(v18 + 44));
@@ -4649,8 +9180,8 @@ uint64_t sub_1008BD620(void *a1)
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     v22 = *(v3 + *(v18 + 48));
     v21 = 8;
-    sub_10022C350(&qword_100CE3478);
-    sub_1008BE7C8(&qword_100CE3498, &qword_100CCB4D0);
+    sub_10022C350(&qword_100CE3478, &qword_100A96328);
+    sub_1008BE7C8(&qword_100CE3498, &qword_100CCB4D0, &protocol conformance descriptor for UUID, &protocol conformance descriptor for <A> [A]);
     sub_100003CDC();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
@@ -4661,7 +9192,7 @@ uint64_t sub_1008BD620(void *a1)
 uint64_t sub_1008BD9F0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v50 = a2;
-  v52 = type metadata accessor for NewsChannel();
+  v52 = type metadata accessor for NewsChannel(0);
   sub_1000037E8();
   __chkstk_darwin(v3);
   sub_1000037D8();
@@ -4679,17 +9210,17 @@ uint64_t sub_1008BD9F0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   __chkstk_darwin(v11);
   sub_1000037D8();
   v15 = v14 - v13;
-  sub_10022C350(&qword_100CB3AB0);
+  sub_10022C350(&qword_100CB3AB0, &unk_100A2FB80);
   sub_100003828();
   __chkstk_darwin(v16);
   v18 = &v49 - v17;
-  v54 = sub_10022C350(&qword_100CE3460);
+  v54 = sub_10022C350(&qword_100CE3460, &qword_100A96320);
   sub_1000037C4();
   v20 = v19;
   sub_100003828();
   __chkstk_darwin(v21);
   v23 = &v49 - v22;
-  v61 = type metadata accessor for NewsArticle();
+  v61 = type metadata accessor for NewsArticle(0);
   sub_1000037E8();
   __chkstk_darwin(v24);
   sub_1000037D8();
@@ -4718,7 +9249,7 @@ uint64_t sub_1008BD9F0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     v27[3] = v34;
     LOBYTE(v63) = 2;
     sub_10001FBC8();
-    v37 = sub_1008BE864(v35, v36);
+    v37 = sub_1008BE864(v35, v36, &protocol conformance descriptor for URL);
     v38 = v18;
     v39 = v58;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
@@ -4726,7 +9257,7 @@ uint64_t sub_1008BD9F0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     sub_10043D988(v38, v27 + v61[6]);
     LOBYTE(v63) = 3;
     sub_100004DA8();
-    sub_1008BE864(v40, v41);
+    sub_1008BE864(v40, v41, &protocol conformance descriptor for Date);
     v42 = v30;
     v43 = v57;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -4736,13 +9267,13 @@ uint64_t sub_1008BD9F0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     (*(v55 + 32))(v27 + v61[8], v10, v39);
     LOBYTE(v63) = 5;
     sub_1000150A4();
-    sub_1008BE864(v44, v45);
+    sub_1008BE864(v44, v45, byte_100A749B4);
     v46 = v51;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     sub_1008BE6A8(v46, v27 + v61[9]);
-    sub_10022C350(&qword_100CCC930);
+    sub_10022C350(&qword_100CCC930, &qword_100A41810);
     v62 = 6;
-    sub_1005FFB2C(&qword_100CCB588);
+    sub_1005FFB2C(&qword_100CCB588, &protocol witness table for String, &protocol conformance descriptor for <A> [A]);
     sub_1000751F0();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     *(v27 + v61[10]) = v63;
@@ -4751,9 +9282,9 @@ uint64_t sub_1008BD9F0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v60 = 0;
     *(v27 + v61[11]) = v63;
-    sub_10022C350(&qword_100CE3478);
+    sub_10022C350(&qword_100CE3478, &qword_100A96328);
     v62 = 8;
-    sub_1008BE7C8(&qword_100CE3480, &qword_100CCB4A8);
+    sub_1008BE7C8(&qword_100CE3480, &qword_100CCB4A8, &protocol conformance descriptor for UUID, &protocol conformance descriptor for <A> [A]);
     sub_1000751F0();
     v47 = v54;
     v48 = v60;
@@ -4765,7 +9296,7 @@ uint64_t sub_1008BD9F0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
       sub_100006F14(v59);
 
       v32 = v61;
-      sub_1000180EC(v27 + v61[6], &qword_100CB3AB0);
+      sub_1000180EC(v27 + v61[6], &qword_100CB3AB0, &unk_100A2FB80);
       (*(v56 + 8))(v27 + v32[7], v57);
       (*(v55 + 8))(v27 + v32[8], v58);
       sub_1008BE770(v27 + v32[9], type metadata accessor for NewsChannel);
@@ -4789,11 +9320,11 @@ uint64_t sub_1008BE2A4(void *a1, void *a2)
   __chkstk_darwin(v7);
   sub_1000037D8();
   v10 = v9 - v8;
-  sub_10022C350(&qword_100CB3AB0);
+  sub_10022C350(&qword_100CB3AB0, &unk_100A2FB80);
   sub_100003828();
   __chkstk_darwin(v11);
   v13 = &v32 - v12;
-  v14 = sub_10022C350(qword_100CAD4D0);
+  v14 = sub_10022C350(qword_100CAD4D0, &unk_100A3EA40);
   sub_1000037E8();
   sub_100003828();
   __chkstk_darwin(v15);
@@ -4810,7 +9341,7 @@ uint64_t sub_1008BE2A4(void *a1, void *a2)
     goto LABEL_27;
   }
 
-  v20 = type metadata accessor for NewsArticle();
+  v20 = type metadata accessor for NewsArticle(0);
   v21 = *(v20 + 24);
   v22 = *(v14 + 48);
   sub_1000E594C(a1 + v21, v17);
@@ -4821,12 +9352,12 @@ uint64_t sub_1008BE2A4(void *a1, void *a2)
     sub_100003A40(&v17[v22]);
     if (v18)
     {
-      sub_1000180EC(v17, &qword_100CB3AB0);
+      sub_1000180EC(v17, &qword_100CB3AB0, &unk_100A2FB80);
       goto LABEL_21;
     }
 
 LABEL_19:
-    sub_1000180EC(v17, qword_100CAD4D0);
+    sub_1000180EC(v17, qword_100CAD4D0, &unk_100A3EA40);
 LABEL_27:
     v30 = 0;
     return v30 & 1;
@@ -4842,12 +9373,12 @@ LABEL_27:
 
   (*(v6 + 32))(v10, &v17[v22], v4);
   sub_10001FBC8();
-  sub_1008BE864(v24, v25);
+  sub_1008BE864(v24, v25, &protocol conformance descriptor for URL);
   v26 = dispatch thunk of static Equatable.== infix(_:_:)();
   v27 = *(v6 + 8);
   v27(v10, v4);
   v27(v13, v4);
-  sub_1000180EC(v17, &qword_100CB3AB0);
+  sub_1000180EC(v17, &qword_100CB3AB0, &unk_100A2FB80);
   if ((v26 & 1) == 0)
   {
     goto LABEL_27;
@@ -4890,7 +9421,7 @@ unint64_t sub_1008BE654()
   result = qword_100CE3468;
   if (!qword_100CE3468)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_100A963FC, &type metadata for NewsArticle.CodingKeys, v0, v1);
     atomic_store(result, &qword_100CE3468);
   }
 
@@ -4899,14 +9430,14 @@ unint64_t sub_1008BE654()
 
 uint64_t sub_1008BE6A8(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for NewsChannel();
+  v4 = type metadata accessor for NewsChannel(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1008BE70C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for NewsArticle();
+  v4 = type metadata accessor for NewsArticle(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -4919,27 +9450,27 @@ uint64_t sub_1008BE770(uint64_t a1, void (*a2)(void))
   return a1;
 }
 
-uint64_t sub_1008BE7C8(unint64_t *a1, unint64_t *a2)
+uint64_t sub_1008BE7C8(unint64_t *a1, unint64_t *a2, const char *a3, const char *a4)
 {
   result = *a1;
   if (!result)
   {
-    sub_10022E824(&qword_100CE3478);
-    sub_1008BE864(a2, &type metadata accessor for UUID);
-    result = swift_getWitnessTable();
+    v9 = sub_10022E824(&qword_100CE3478, &qword_100A96328);
+    v10 = sub_1008BE864(a2, &type metadata accessor for UUID, a3);
+    result = swift_getWitnessTable(a4, v9, &v10);
     atomic_store(result, a1);
   }
 
   return result;
 }
 
-uint64_t sub_1008BE864(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1008BE864(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
@@ -5120,7 +9651,7 @@ unint64_t sub_1008BEA14()
   result = qword_100CE34A0;
   if (!qword_100CE34A0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aQ_3, &type metadata for NewsArticle.CodingKeys, v0, v1);
     atomic_store(result, &qword_100CE34A0);
   }
 
@@ -5132,7 +9663,7 @@ unint64_t sub_1008BEA6C()
   result = qword_100CE34A8;
   if (!qword_100CE34A8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_100A96344, &type metadata for NewsArticle.CodingKeys, v0, v1);
     atomic_store(result, &qword_100CE34A8);
   }
 
@@ -5144,14 +9675,14 @@ unint64_t sub_1008BEAC4()
   result = qword_100CE34B0;
   if (!qword_100CE34B0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aEt, &type metadata for NewsArticle.CodingKeys, v0, v1);
     atomic_store(result, &qword_100CE34B0);
   }
 
   return result;
 }
 
-uint64_t _s7ModulesV8LocationV17NotableConditionsCMa()
+uint64_t _s7ModulesV8LocationV17NotableConditionsCMa(uint64_t a1)
 {
   result = qword_100CE34B8;
   if (!qword_100CE34B8)
@@ -5190,10 +9721,10 @@ uint64_t sub_1008BECB8()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(55, v7, v8);
   qword_100D91278 = result;
   return result;
 }
@@ -5211,10 +9742,10 @@ uint64_t sub_1008BEE0C()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(50, v7, v8);
   qword_100D91280 = result;
   return result;
 }
@@ -5232,10 +9763,10 @@ uint64_t sub_1008BEF60()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(53, v7, v8);
   qword_100D91288 = result;
   return result;
 }
@@ -5253,10 +9784,10 @@ uint64_t sub_1008BF0B4()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(41, v7, v8);
   qword_100D91290 = result;
   return result;
 }
@@ -5274,10 +9805,10 @@ uint64_t sub_1008BF204()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(51, v7, v8);
   qword_100D91298 = result;
   return result;
 }
@@ -5295,10 +9826,10 @@ uint64_t sub_1008BF354()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(32, v7, v8);
   qword_100D912A0 = result;
   return result;
 }
@@ -5316,10 +9847,10 @@ uint64_t sub_1008BF4A4()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(31, v7, v8);
   qword_100D912A8 = result;
   return result;
 }
@@ -5337,10 +9868,10 @@ uint64_t sub_1008BF5F4()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(32, v7, v8);
   qword_100D912B0 = result;
   return result;
 }
@@ -5358,4565 +9889,10 @@ uint64_t sub_1008BF744()
   v3(v2);
   v4 = sub_100003F94();
   v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
+  v6 = sub_10022C350(&qword_100CAFFD8, &unk_100A63CC0);
+  sub_100003B6C(v6);
   sub_100008300();
-  result = sub_100019C40();
+  result = sub_100019C40(48, v7, v8);
   qword_100D912B8 = result;
   return result;
-}
-
-uint64_t sub_1008BF894()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D912C0 = result;
-  return result;
-}
-
-uint64_t sub_1008BF9E4()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D912C8 = result;
-  return result;
-}
-
-uint64_t sub_1008BFB34()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D912E0 = result;
-  return result;
-}
-
-uint64_t sub_1008BFC84()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D912E8 = result;
-  return result;
-}
-
-uint64_t sub_1008BFDD4()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D912F8 = result;
-  return result;
-}
-
-uint64_t sub_1008BFF24()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D91300 = result;
-  return result;
-}
-
-uint64_t sub_1008C0074()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D91308 = result;
-  return result;
-}
-
-uint64_t sub_1008C01C4()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D91310 = result;
-  return result;
-}
-
-uint64_t sub_1008C0314()
-{
-  type metadata accessor for Domain();
-  sub_100005C98();
-  __chkstk_darwin(v0);
-  sub_100008BE4();
-  sub_100010714();
-  __chkstk_darwin(v1);
-  sub_1000101A4();
-  v2 = sub_100003FA4();
-  v3(v2);
-  v4 = sub_100003F94();
-  v5(v4);
-  sub_10022C350(&qword_100CAFFD8);
-  sub_100003B6C();
-  sub_100008300();
-  result = sub_100019C40();
-  qword_100D91318 = result;
-  return result;
-}
-
-uint64_t sub_1008C046C()
-{
-  v0 = type metadata accessor for Access();
-  sub_1000037C4();
-  v2 = v1;
-  __chkstk_darwin(v3);
-  sub_1000037D8();
-  v6 = v5 - v4;
-  _s7ModulesV8LocationV17NotableConditionsCMa();
-  (*(v2 + 104))(v6, enum case for Access.protected(_:), v0);
-  result = sub_1008BEBA4(0, 0, 0, v6);
-  qword_100D91320 = result;
-  return result;
-}
-
-uint64_t sub_1008C0548()
-{
-  v0 = type metadata accessor for Access();
-  sub_1000037C4();
-  v2 = v1;
-  __chkstk_darwin(v3);
-  sub_1000037D8();
-  v6 = v5 - v4;
-  sub_10022C350(&qword_100CAFFD0);
-  (*(v2 + 104))(v6, enum case for Access.public(_:), v0);
-  result = Setting<>.init(_:defaultValue:min:max:access:)();
-  qword_100D91328 = result;
-  return result;
-}
-
-uint64_t sub_1008C0668(uint64_t a1, int a2, int a3, int a4)
-{
-  LODWORD(v168) = a4;
-  LODWORD(v167) = a3;
-  LODWORD(v173) = a2;
-  v5 = sub_10022C350(&qword_100CAEC90);
-  __chkstk_darwin(v5 - 8);
-  v169 = &v149 - v6;
-  v155 = sub_10022C350(&qword_100CAC450);
-  sub_1000037C4();
-  v154 = v7;
-  __chkstk_darwin(v8);
-  v153 = &v149 - v9;
-  type metadata accessor for WeatherFormatPlaceholder();
-  sub_1000037C4();
-  v164 = v11;
-  v165 = v10;
-  __chkstk_darwin(v10);
-  sub_1000037D8();
-  v157 = v13 - v12;
-  v14 = sub_10022C350(&qword_100CAA9F0);
-  __chkstk_darwin(v14 - 8);
-  v161 = &v149 - v15;
-  v175 = type metadata accessor for NSUnitSpeed.WeatherFormatUsage();
-  sub_1000037C4();
-  v160 = v16;
-  __chkstk_darwin(v17);
-  sub_1000037D8();
-  v159 = v19 - v18;
-  type metadata accessor for NSUnitSpeed.BaseWeatherFormatStyle();
-  sub_1000037C4();
-  v162 = v21;
-  v163 = v20;
-  __chkstk_darwin(v20);
-  sub_100003848();
-  v176 = v22;
-  __chkstk_darwin(v23);
-  v25 = &v149 - v24;
-  v166 = type metadata accessor for FloatingPointRoundingRule();
-  sub_1000037C4();
-  v27 = v26;
-  __chkstk_darwin(v28);
-  sub_1000037D8();
-  v31 = v30 - v29;
-  v32 = sub_10022C350(&qword_100CACCC8);
-  sub_1000037C4();
-  v177 = v33;
-  __chkstk_darwin(v34);
-  sub_100003848();
-  v156 = v35;
-  __chkstk_darwin(v36);
-  v38 = &v149 - v37;
-  __chkstk_darwin(v39);
-  v172 = &v149 - v40;
-  __chkstk_darwin(v41);
-  v43 = &v149 - v42;
-  v152 = type metadata accessor for Beaufort.Category();
-  sub_1000037C4();
-  v151 = v44;
-  __chkstk_darwin(v45);
-  sub_1000037D8();
-  v48 = v47 - v46;
-  v49 = a1;
-  v50 = ConditionUnits.windSpeed.getter();
-  v51 = NSUnitSpeed.isBeaufort.getter();
-
-  v170 = v49;
-  v171 = v32;
-  v150 = v25;
-  v174 = v43;
-  if (v51)
-  {
-    v52 = &MainInitialStateProvider;
-    v53 = [objc_opt_self() mainBundle];
-    sub_10000FD84(0x6425206563726F66, 0xE800000000000000, v54, v55, v56, v57, v58, 0xD000000000000061);
-
-    sub_10022C350(&qword_100CA40C8);
-    v59 = swift_allocObject();
-    *(v59 + 16) = xmmword_100A2C3F0;
-    Wind.speed.getter();
-    Measurement<>.beaufortCategory(useExtendedScale:)();
-    v158 = *(v177 + 8);
-    v158(v43, v32);
-    v60 = Beaufort.Category.level.getter();
-    (*(v151 + 8))(v48, v152);
-    *(v59 + 56) = &type metadata for Int;
-    *(v59 + 64) = &protocol witness table for Int;
-    *(v59 + 32) = v60;
-    v166 = static String.localizedStringWithFormat(_:_:)();
-    v167 = v61;
-  }
-
-  else
-  {
-    Wind.speed.getter();
-    v62 = ConditionUnits.windSpeed.getter();
-    Measurement<>.converted(to:)();
-
-    v63 = v177 + 8;
-    v64 = *(v177 + 8);
-    v64(v43, v32);
-    v158 = v64;
-    v152 = v63;
-    v65 = &enum case for FloatingPointRoundingRule.awayFromZero(_:);
-    if ((v167 & 1) == 0)
-    {
-      v65 = &enum case for FloatingPointRoundingRule.toNearestOrAwayFromZero(_:);
-    }
-
-    v66 = v166;
-    (*(v27 + 104))(v31, *v65, v166);
-    Measurement.rounded(_:)();
-    (*(v27 + 8))(v31, v66);
-    v64(v38, v32);
-    static Set<>.full.getter();
-    v67 = v160;
-    v68 = v159;
-    v69 = v175;
-    (*(v160 + 104))(v159, enum case for NSUnitSpeed.WeatherFormatUsage.windSpeed(_:), v175);
-    v70 = type metadata accessor for Locale();
-    v71 = v161;
-    sub_10001B350(v161, 1, 1, v70);
-    static WeatherFormatStyle<>.weather(_:usage:locale:)();
-
-    sub_10003FDF4(v71, &qword_100CAA9F0);
-    (*(v67 + 8))(v68, v69);
-    v72 = v176;
-    NSUnitSpeed.BaseWeatherFormatStyle.accessible.getter();
-    v73 = v163;
-    v74 = *(v162 + 8);
-    v74(v25, v163);
-    v76 = v164;
-    v75 = v165;
-    v77 = v157;
-    (*(v164 + 104))(v157, enum case for WeatherFormatPlaceholder.none(_:), v165);
-    type metadata accessor for UnitManager();
-    static UnitManager.standard.getter();
-    sub_1008C1578();
-    v78 = v172;
-    v166 = Measurement.formatted<A>(_:placeholder:unitManager:)();
-    v167 = v79;
-
-    (*(v76 + 8))(v77, v75);
-    v74(v72, v73);
-    v158(v78, v32);
-    v52 = &MainInitialStateProvider;
-  }
-
-  v80 = [objc_opt_self() mainBundle];
-  if ((v173 & 1) == 0)
-  {
-    sub_1000091E0();
-    sub_10000FD84(0xD000000000000017, v103, v104, v105, v106, v107, v108, 0x10000000000000B8);
-
-    sub_10022C350(&qword_100CA40C8);
-    v109 = swift_allocObject();
-    *(v109 + 16) = xmmword_100A2D320;
-    Wind.compassDirection.getter();
-    v110 = Wind.CompassDirection.accessibilityDescription.getter();
-    v112 = v111;
-    *(v109 + 56) = &type metadata for String;
-    v113 = sub_100035744();
-    *(v109 + 32) = v110;
-    *(v109 + 40) = v112;
-    *(v109 + 96) = &type metadata for String;
-    *(v109 + 104) = v113;
-    v115 = v166;
-    v114 = v167;
-    *(v109 + 64) = v113;
-    *(v109 + 72) = v115;
-    *(v109 + 80) = v114;
-    v100 = static String.localizedStringWithFormat(_:_:)();
-    v102 = v116;
-
-    goto LABEL_12;
-  }
-
-  sub_1000091E0();
-  sub_10000FD84(0x100000000000001ELL, v81, v82, v83, v84, v85, v86, 0x10000000000000F7);
-
-  sub_10022C350(&qword_100CA40C8);
-  v87 = swift_allocObject();
-  *(v87 + 16) = xmmword_100A3BBA0;
-  v88 = v153;
-  Wind.direction.getter();
-  v89 = v155;
-  Measurement.value.getter();
-  v91 = v90;
-  v92 = v90;
-  result = (*(v154 + 8))(v88, v89);
-  if ((*&v92 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-  {
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  if (v91 <= -9.22337204e18)
-  {
-LABEL_18:
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (v91 >= 9.22337204e18)
-  {
-LABEL_19:
-    __break(1u);
-    return result;
-  }
-
-  *(v87 + 56) = &type metadata for Int;
-  *(v87 + 64) = &protocol witness table for Int;
-  *(v87 + 32) = v91;
-  Wind.compassDirection.getter();
-  v94 = Wind.CompassDirection.accessibilityDescription.getter();
-  v96 = v95;
-  *(v87 + 96) = &type metadata for String;
-  v97 = sub_100035744();
-  *(v87 + 72) = v94;
-  *(v87 + 80) = v96;
-  *(v87 + 136) = &type metadata for String;
-  *(v87 + 144) = v97;
-  v99 = v166;
-  v98 = v167;
-  *(v87 + 104) = v97;
-  *(v87 + 112) = v99;
-  *(v87 + 120) = v98;
-  v100 = static String.localizedStringWithFormat(_:_:)();
-  v102 = v101;
-
-  v52 = &MainInitialStateProvider;
-LABEL_12:
-  v117 = v171;
-  v119 = v175;
-  v118 = v176;
-  v120 = v169;
-  if (v168)
-  {
-    v173 = v100;
-    Wind.gust.getter();
-    if (sub_100024D10(v120, 1, v117) == 1)
-    {
-      sub_10003FDF4(v120, &qword_100CAEC90);
-      return v173;
-    }
-
-    else
-    {
-      v121 = *(v177 + 32);
-      v177 += 32;
-      v178 = v102;
-      v121(v156, v120, v117);
-      v122 = [objc_opt_self() *&v52[52].flags];
-      v149 = 0x8000000100AE4250;
-      v172 = sub_10000FD84(0x7075207374737547, 0xEE004025206F7420, v123, v124, v125, v126, v127, 0xD0000000000000BELL);
-      v169 = v128;
-
-      sub_10022C350(&qword_100CA40C8);
-      v129 = swift_allocObject();
-      *(v129 + 16) = xmmword_100A2C3F0;
-      v130 = ConditionUnits.windGust.getter();
-      Measurement<>.converted(to:)();
-
-      static Set<>.full.getter();
-      v131 = v160;
-      v132 = v159;
-      (*(v160 + 104))(v159, enum case for NSUnitSpeed.WeatherFormatUsage.windGust(_:), v119);
-      v133 = type metadata accessor for Locale();
-      v134 = v161;
-      sub_10001B350(v161, 1, 1, v133);
-      v135 = v150;
-      static WeatherFormatStyle<>.weather(_:usage:locale:)();
-
-      sub_10003FDF4(v134, &qword_100CAA9F0);
-      (*(v131 + 8))(v132, v119);
-      NSUnitSpeed.BaseWeatherFormatStyle.accessible.getter();
-      v136 = v163;
-      v175 = *(v162 + 8);
-      v175(v135, v163);
-      v138 = v164;
-      v137 = v165;
-      v139 = v157;
-      (*(v164 + 104))(v157, enum case for WeatherFormatPlaceholder.none(_:), v165);
-      type metadata accessor for UnitManager();
-      static UnitManager.standard.getter();
-      sub_1008C1578();
-      v140 = v174;
-      v170 = Measurement.formatted<A>(_:placeholder:unitManager:)();
-      v168 = v141;
-
-      (*(v138 + 8))(v139, v137);
-      v175(v118, v136);
-      v142 = v158;
-      v158(v140, v117);
-      *(v129 + 56) = &type metadata for String;
-      *(v129 + 64) = sub_100035744();
-      v143 = v168;
-      *(v129 + 32) = v170;
-      *(v129 + 40) = v143;
-      v144 = static String.localizedStringWithFormat(_:_:)();
-      v146 = v145;
-
-      sub_10022C350(&qword_100CA7300);
-      v147 = swift_allocObject();
-      *(v147 + 16) = xmmword_100A2D320;
-      v148 = v178;
-      *(v147 + 32) = v173;
-      *(v147 + 40) = v148;
-      *(v147 + 48) = v144;
-      *(v147 + 56) = v146;
-      v179 = v147;
-      sub_10022C350(&qword_100CCC930);
-      sub_1001141C8();
-      v100 = BidirectionalCollection<>.joined(separator:)();
-
-      v142(v156, v117);
-    }
-  }
-
-  return v100;
-}
-
-unint64_t sub_1008C1578()
-{
-  result = qword_100CAECB0;
-  if (!qword_100CAECB0)
-  {
-    type metadata accessor for NSUnitSpeed.BaseWeatherFormatStyle();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CAECB0);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C15D0(char a1)
-{
-  switch(a1)
-  {
-    case 1:
-      if (qword_100CA27B0 != -1)
-      {
-        sub_10000F960();
-      }
-
-      v30 = type metadata accessor for Logger();
-      sub_1000212C4(v30, qword_100D90D68);
-      v31 = Logger.logObject.getter();
-      v32 = static os_log_type_t.default.getter();
-      if (sub_100007E70(v32))
-      {
-        *sub_10002C894() = 67109120;
-        if (qword_100CA20E0 != -1)
-        {
-          sub_1000091F4();
-        }
-
-        v33 = sub_10022C350(&qword_100CA35A0);
-        sub_10000703C(v33, qword_100D8FE58);
-        sub_100049E6C();
-        sub_10003C9E8();
-        sub_100020C70();
-        sub_100075200();
-        sub_100023488(&_mh_execute_header, v34, v35, "AirQualityTip.isValid=%{BOOL}d");
-        sub_100008370();
-      }
-
-      if (qword_100CA20E0 != -1)
-      {
-        sub_1000091F4();
-      }
-
-      v8 = sub_10022C350(&qword_100CA35A0);
-      v9 = qword_100D8FE58;
-      goto LABEL_57;
-    case 2:
-      if (qword_100CA27B0 != -1)
-      {
-        sub_10000F960();
-      }
-
-      v18 = type metadata accessor for Logger();
-      sub_1000212C4(v18, qword_100D90D68);
-      v19 = Logger.logObject.getter();
-      v20 = static os_log_type_t.default.getter();
-      if (sub_100007E70(v20))
-      {
-        *sub_10002C894() = 67109120;
-        if (qword_100CA20F0 != -1)
-        {
-          sub_100004DC0();
-        }
-
-        v21 = sub_10022C350(&qword_100CA35A0);
-        sub_10000703C(v21, qword_100D8FE88);
-        sub_100049E6C();
-        sub_10003C9E8();
-        sub_100020C70();
-        sub_100075200();
-        sub_100023488(&_mh_execute_header, v22, v23, "MapTip.isValid=%{BOOL}d");
-        sub_100008370();
-      }
-
-      if (qword_100CA20F0 != -1)
-      {
-        sub_100004DC0();
-      }
-
-      v8 = sub_10022C350(&qword_100CA35A0);
-      v9 = qword_100D8FE88;
-      goto LABEL_57;
-    case 3:
-      if (qword_100CA27B0 != -1)
-      {
-        sub_10000F960();
-      }
-
-      v24 = type metadata accessor for Logger();
-      sub_1000212C4(v24, qword_100D90D68);
-      v25 = Logger.logObject.getter();
-      v26 = static os_log_type_t.default.getter();
-      if (sub_100007E70(v26))
-      {
-        *sub_10002C894() = 67109120;
-        if (qword_100CA2100 != -1)
-        {
-          sub_100010F18();
-        }
-
-        v27 = sub_10022C350(&qword_100CA35A0);
-        sub_10000703C(v27, qword_100D8FEB8);
-        sub_100049E6C();
-        sub_10003C9E8();
-        sub_100020C70();
-        sub_100075200();
-        sub_100023488(&_mh_execute_header, v28, v29, "WindMapTip.isValid=%{BOOL}d");
-        sub_100008370();
-      }
-
-      if (qword_100CA2100 != -1)
-      {
-        sub_100010F18();
-      }
-
-      v8 = sub_10022C350(&qword_100CA35A0);
-      v9 = qword_100D8FEB8;
-      goto LABEL_57;
-    case 4:
-      if (qword_100CA27B0 != -1)
-      {
-        sub_10000F960();
-      }
-
-      v10 = type metadata accessor for Logger();
-      sub_1000212C4(v10, qword_100D90D68);
-      v11 = Logger.logObject.getter();
-      v12 = static os_log_type_t.default.getter();
-      if (sub_100007E70(v12))
-      {
-        v13 = sub_10002C894();
-        *v13 = 67109120;
-        if (qword_100CA2118 != -1)
-        {
-          sub_10001A100();
-        }
-
-        v14 = sub_10022C350(&qword_100CA35A0);
-        sub_10000703C(v14, qword_100D8FF00);
-        sub_100028CF0();
-        Tips.Parameter.wrappedValue.getter();
-        sub_100020C70();
-        if (v1)
-        {
-          goto LABEL_59;
-        }
-
-        if (qword_100CA2108 != -1)
-        {
-          sub_100017FAC();
-        }
-
-        sub_10000703C(v14, qword_100D8FED0);
-        sub_100028CF0();
-        Tips.Parameter.wrappedValue.getter();
-        sub_100020C70();
-        if ((v1 & 1) == 0)
-        {
-LABEL_59:
-          v17 = 0;
-        }
-
-        else
-        {
-          v17 = 1;
-        }
-
-        v13[1] = v17;
-        sub_100023488(&_mh_execute_header, v15, v16, "UVIndexTip.isValid=%{BOOL}d");
-        sub_100008370();
-      }
-
-      if (qword_100CA2118 != -1)
-      {
-        sub_10001A100();
-      }
-
-      v44 = sub_10022C350(&qword_100CA35A0);
-      sub_10000703C(v44, qword_100D8FF00);
-      sub_100028CF0();
-      Tips.Parameter.wrappedValue.getter();
-      sub_100020C70();
-      if (v1)
-      {
-        v42 = 0;
-      }
-
-      else
-      {
-        if (qword_100CA2108 != -1)
-        {
-          sub_100017FAC();
-        }
-
-        sub_10000703C(v44, qword_100D8FED0);
-        sub_100028CF0();
-        Tips.Parameter.wrappedValue.getter();
-        v42 = v45;
-        swift_endAccess();
-      }
-
-      return v42 & 1;
-    case 5:
-      if (qword_100CA27B0 != -1)
-      {
-        sub_10000F960();
-      }
-
-      v36 = type metadata accessor for Logger();
-      sub_1000212C4(v36, qword_100D90D68);
-      v37 = Logger.logObject.getter();
-      v38 = static os_log_type_t.default.getter();
-      if (sub_100007E70(v38))
-      {
-        *sub_10002C894() = 67109120;
-        if (qword_100CA2128 != -1)
-        {
-          sub_100006AB0();
-        }
-
-        v39 = sub_10022C350(&qword_100CA35A0);
-        sub_10000703C(v39, qword_100D8FF30);
-        sub_100049E6C();
-        sub_10003C9E8();
-        sub_100020C70();
-        sub_100075200();
-        sub_100023488(&_mh_execute_header, v40, v41, "WindTip.isValid=%{BOOL}d");
-        sub_100008370();
-      }
-
-      if (qword_100CA2128 != -1)
-      {
-        sub_100006AB0();
-      }
-
-      v8 = sub_10022C350(&qword_100CA35A0);
-      v9 = qword_100D8FF30;
-      goto LABEL_57;
-    default:
-      if (qword_100CA27B0 != -1)
-      {
-        sub_10000F960();
-      }
-
-      v2 = type metadata accessor for Logger();
-      sub_1000212C4(v2, qword_100D90D68);
-      v3 = Logger.logObject.getter();
-      v4 = static os_log_type_t.default.getter();
-      if (sub_100007E70(v4))
-      {
-        *sub_10002C894() = 67109120;
-        if (qword_100CA20C8 != -1)
-        {
-          sub_1000150BC();
-        }
-
-        v5 = sub_10022C350(&qword_100CA35A0);
-        sub_10000703C(v5, qword_100D8FE10);
-        sub_100049E6C();
-        sub_10003C9E8();
-        sub_100020C70();
-        sub_100075200();
-        sub_100023488(&_mh_execute_header, v6, v7, "DailyForecastTip.isValid=%{BOOL}d");
-        sub_100008370();
-      }
-
-      if (qword_100CA20C8 != -1)
-      {
-        sub_1000150BC();
-      }
-
-      v8 = sub_10022C350(&qword_100CA35A0);
-      v9 = qword_100D8FE10;
-LABEL_57:
-      sub_10000703C(v8, v9);
-      sub_100028CF0();
-      Tips.Parameter.wrappedValue.getter();
-      swift_endAccess();
-      v42 = v45 ^ 1;
-      return v42 & 1;
-  }
-}
-
-uint64_t sub_1008C1D54(char a1)
-{
-  if (qword_100CA27B0 != -1)
-  {
-    sub_10000F960();
-  }
-
-  v2 = type metadata accessor for Logger();
-  sub_1000212C4(v2, qword_100D90D68);
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    v6 = swift_slowAlloc();
-    v13[0] = v6;
-    *v5 = 136315138;
-    v7 = sub_1008C22D4(a1);
-    v9 = sub_100078694(v7, v8, v13);
-
-    *(v5 + 4) = v9;
-    _os_log_impl(&_mh_execute_header, v3, v4, "Setting tip %s to appear", v5, 0xCu);
-    sub_100006F14(v6);
-
-    sub_100008370();
-  }
-
-  switch(a1)
-  {
-    case 1:
-      if (qword_100CA20D8 != -1)
-      {
-        swift_once();
-      }
-
-      v10 = sub_10022C350(&qword_100CA35A0);
-      v11 = qword_100D8FE40;
-      break;
-    case 2:
-      if (qword_100CA20E8 != -1)
-      {
-        swift_once();
-      }
-
-      v10 = sub_10022C350(&qword_100CA35A0);
-      v11 = qword_100D8FE70;
-      break;
-    case 3:
-      if (qword_100CA20F8 != -1)
-      {
-        swift_once();
-      }
-
-      v10 = sub_10022C350(&qword_100CA35A0);
-      v11 = qword_100D8FEA0;
-      break;
-    case 4:
-      if (qword_100CA2110 != -1)
-      {
-        swift_once();
-      }
-
-      v10 = sub_10022C350(&qword_100CA35A0);
-      v11 = qword_100D8FEE8;
-      break;
-    case 5:
-      if (qword_100CA2120 != -1)
-      {
-        swift_once();
-      }
-
-      v10 = sub_10022C350(&qword_100CA35A0);
-      v11 = qword_100D8FF18;
-      break;
-    default:
-      if (qword_100CA20C0 != -1)
-      {
-        swift_once();
-      }
-
-      v10 = sub_10022C350(&qword_100CA35A0);
-      v11 = qword_100D8FDF8;
-      break;
-  }
-
-  sub_1000212C4(v10, v11);
-  v14 = 1;
-  swift_beginAccess();
-  Tips.Parameter.wrappedValue.setter();
-  return swift_endAccess();
-}
-
-uint64_t sub_1008C20C8(char a1)
-{
-  switch(a1)
-  {
-    case 1:
-      if (qword_100CA20E0 != -1)
-      {
-        sub_1000091F4();
-      }
-
-      v1 = sub_10022C350(&qword_100CA35A0);
-      v2 = qword_100D8FE58;
-      break;
-    case 2:
-      if (qword_100CA20F0 != -1)
-      {
-        sub_100004DC0();
-      }
-
-      v1 = sub_10022C350(&qword_100CA35A0);
-      v2 = qword_100D8FE88;
-      break;
-    case 3:
-      if (qword_100CA2100 != -1)
-      {
-        sub_100010F18();
-      }
-
-      v1 = sub_10022C350(&qword_100CA35A0);
-      v2 = qword_100D8FEB8;
-      break;
-    case 4:
-      if (qword_100CA2118 != -1)
-      {
-        sub_10001A100();
-      }
-
-      v1 = sub_10022C350(&qword_100CA35A0);
-      v2 = qword_100D8FF00;
-      break;
-    case 5:
-      if (qword_100CA2128 != -1)
-      {
-        sub_100006AB0();
-      }
-
-      v1 = sub_10022C350(&qword_100CA35A0);
-      v2 = qword_100D8FF30;
-      break;
-    default:
-      if (qword_100CA20C8 != -1)
-      {
-        sub_1000150BC();
-      }
-
-      v1 = sub_10022C350(&qword_100CA35A0);
-      v2 = qword_100D8FE10;
-      break;
-  }
-
-  sub_1000212C4(v1, v2);
-  swift_beginAccess();
-  Tips.Parameter.wrappedValue.setter();
-  return swift_endAccess();
-}
-
-uint64_t sub_1008C22D4(char a1)
-{
-  result = 0x726F46796C696164;
-  switch(a1)
-  {
-    case 1:
-      result = 0x696C617551726961;
-      break;
-    case 2:
-      result = 7364973;
-      break;
-    case 3:
-      result = 0x70614D646E6977;
-      break;
-    case 4:
-      result = 0x7865646E497675;
-      break;
-    case 5:
-      result = 1684957559;
-      break;
-    default:
-      return result;
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C2388(Swift::String string)
-{
-  object = string._object;
-  v2._countAndFlagsBits = string._countAndFlagsBits;
-  v2._object = object;
-  v3 = _findStringSwitchCase(cases:string:)(&off_100C45A78, v2);
-
-  if (v3 >= 6)
-  {
-    return 6;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-unint64_t sub_1008C23F8@<X0>(Swift::String *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = sub_1008C2388(*a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t sub_1008C2428@<X0>(uint64_t *a1@<X8>)
-{
-  result = sub_1008C22D4(*v1);
-  *a1 = result;
-  a1[1] = v4;
-  return result;
-}
-
-_BYTE *storeEnumTagSinglePayload for WeatherTip(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 5 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 5) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xFB)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xFA)
-  {
-    v6 = ((a2 - 251) >> 8) + 1;
-    *result = a2 + 5;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 5;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C2524()
-{
-  result = qword_100CE35A0;
-  if (!qword_100CE35A0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE35A0);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C2578(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for DisplayMetrics();
-
-  return _swift_getEnumTagSinglePayloadGeneric(a1, a2, v4, sub_10021D61C);
-}
-
-uint64_t sub_1008C25D0(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for DisplayMetrics();
-
-  return _swift_storeEnumTagSinglePayloadGeneric(a1, a2, a3, v6, sub_10021D69C);
-}
-
-uint64_t sub_1008C2638()
-{
-  v1 = type metadata accessor for EnvironmentValues();
-  sub_1000037C4();
-  v3 = v2;
-  __chkstk_darwin(v4);
-  sub_1000037D8();
-  v7 = v6 - v5;
-  v8 = (v0 + *(type metadata accessor for InteractiveMapView() + 60));
-  v9 = *v8;
-  if (*(v8 + 8) != 1)
-  {
-
-    static os_log_type_t.fault.getter();
-    v10 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
-
-    EnvironmentValues.init()();
-    swift_getAtKeyPath();
-    sub_1000E4DF8(v9, 0);
-    (*(v3 + 8))(v7, v1);
-    LOBYTE(v9) = v12;
-  }
-
-  return v9 & 1;
-}
-
-uint64_t sub_1008C277C()
-{
-  sub_10000C76C();
-  v2 = type metadata accessor for EnvironmentValues();
-  sub_1000037C4();
-  v4 = v3;
-  __chkstk_darwin(v5);
-  sub_1000037D8();
-  v8 = v7 - v6;
-  sub_10022C350(&qword_100CB3B70);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v9);
-  v11 = &v16 - v10;
-  v12 = type metadata accessor for InteractiveMapView();
-  sub_1000302D8(v1 + *(v12 + 68), v11, &qword_100CB3B70);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    type metadata accessor for ColorScheme();
-    sub_1000037E8();
-    return (*(v13 + 32))(v0, v11);
-  }
-
-  else
-  {
-    static os_log_type_t.fault.getter();
-    v15 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
-
-    EnvironmentValues.init()();
-    swift_getAtKeyPath();
-
-    return (*(v4 + 8))(v8, v2);
-  }
-}
-
-uint64_t sub_1008C2958@<X0>(uint64_t a1@<X8>)
-{
-  v195 = a1;
-  type metadata accessor for AccessibilityChildBehavior();
-  sub_1000037C4();
-  v193 = v3;
-  v194 = v2;
-  __chkstk_darwin(v2);
-  sub_1000037D8();
-  v192 = v5 - v4;
-  v6 = sub_10022C350(&qword_100CAE2A0);
-  sub_100003810(v6);
-  sub_100003828();
-  __chkstk_darwin(v7);
-  sub_1000039BC();
-  v191 = v8;
-  v9 = sub_10022C350(&qword_100CB3688);
-  sub_100003810(v9);
-  sub_100003828();
-  __chkstk_darwin(v10);
-  sub_1000039BC();
-  sub_100003990(v11);
-  v12 = type metadata accessor for InteractiveMapView();
-  v197 = *(v12 - 8);
-  v198 = v12;
-  v196 = *(v197 + 64);
-  __chkstk_darwin(v12);
-  v199 = &v144 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_10022C350(&qword_100CBEDF0);
-  sub_100003810(v14);
-  sub_100003828();
-  __chkstk_darwin(v15);
-  v17 = &v144 - v16;
-  v156 = &v144 - v16;
-  v18 = type metadata accessor for InteractiveMapViewModel();
-  sub_100003B20();
-  __chkstk_darwin(v19);
-  v167 = &v144 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v21);
-  __chkstk_darwin(v22);
-  v166 = &v144 - v23;
-  __chkstk_darwin(v24);
-  v26 = &v144 - v25;
-  __chkstk_darwin(v27);
-  v29 = &v144 - v28;
-  v30 = type metadata accessor for WeatherMapDisplayMode();
-  sub_1000037C4();
-  v32 = v31;
-  __chkstk_darwin(v33);
-  sub_1000037D8();
-  v36 = v35 - v34;
-  v159 = v35 - v34;
-  *&v164 = type metadata accessor for WeatherMap();
-  sub_1000037C4();
-  v162 = v37;
-  __chkstk_darwin(v38);
-  sub_1000037D8();
-  sub_100003990(v40 - v39);
-  v169 = sub_10022C350(&qword_100CE3838);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v41);
-  sub_1000039BC();
-  sub_100003990(v42);
-  v172 = sub_10022C350(&qword_100CE3840);
-  sub_1000037C4();
-  v170 = v43;
-  sub_100003828();
-  __chkstk_darwin(v44);
-  sub_1000039BC();
-  sub_100003990(v45);
-  v174 = sub_10022C350(&qword_100CE3848);
-  sub_1000037C4();
-  v173 = v46;
-  sub_100003828();
-  __chkstk_darwin(v47);
-  sub_1000039BC();
-  sub_100003990(v48);
-  v179 = sub_10022C350(&qword_100CE3850);
-  sub_1000037C4();
-  v178 = v49;
-  sub_100003828();
-  __chkstk_darwin(v50);
-  sub_1000039BC();
-  sub_100003990(v51);
-  v176 = sub_10022C350(&qword_100CE3858);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v52);
-  sub_1000039BC();
-  sub_100003990(v53);
-  v185 = sub_10022C350(&qword_100CE3860);
-  sub_1000037C4();
-  v182 = v54;
-  sub_100003828();
-  __chkstk_darwin(v55);
-  sub_1000039BC();
-  sub_100003990(v56);
-  v180 = sub_10022C350(&qword_100CE3868);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v57);
-  sub_1000039BC();
-  sub_100003990(v58);
-  v183 = sub_10022C350(&qword_100CE3870);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v59);
-  sub_1000039BC();
-  sub_100003990(v60);
-  v186 = sub_10022C350(&qword_100CE3878);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v61);
-  sub_1000039BC();
-  v189 = v62;
-  v188 = sub_10022C350(&qword_100CE3880);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v63);
-  sub_1000039BC();
-  v190 = v64;
-  v65 = *(v32 + 16);
-  v160 = *(v12 + 32);
-  v65(v36, &v1[v160], v30);
-  v158 = sub_1008C2638();
-  v66 = *(v1 + 3);
-  v200 = v1;
-  sub_1009899B8();
-  v157 = *&v29[v18[5]];
-  v151 = v29;
-
-  sub_1008C6EE4();
-  sub_1008C3D5C(v17);
-  v155 = sub_1008C3F10();
-  v154 = v67;
-  v153 = v68;
-  v152 = v69;
-  sub_1009899B8();
-
-  sub_10002CB60();
-  type metadata accessor for WeatherData(0);
-  type metadata accessor for WeatherDataModel();
-  v150 = Dictionary.mapKeysAndValues<A, B>(_:)();
-
-  sub_1009899B8();
-  v70 = v18;
-  LODWORD(v149) = v26[v18[8]];
-  sub_10002CB60();
-  sub_1009899B8();
-  sub_10002CB60();
-  v71 = v166;
-  sub_1009899B8();
-  sub_1008C6EE4();
-  sub_1009899B8();
-  sub_1008C6EE4();
-  sub_1009899B8();
-  sub_1008C6EE4();
-  v167 = Array<A>.init(hideScale:controlsLoadDelay:controlsFadeOnResize:controlsHidden:forceOverlayPaused:isUserInteractionEnabled:)();
-  sub_1009899B8();
-  v72 = &v26[v18[16]];
-  v73 = *(v72 + 1);
-  v149 = *v72;
-  v148 = v73;
-
-  sub_10002CB60();
-  sub_1009899B8();
-  v147 = v71[v18[17]];
-  sub_1008C6EE4();
-  v74 = v200;
-  v146 = *(v200 + *(v198 + 10));
-  v75 = v199;
-  sub_1000BBF54(v200, v199, type metadata accessor for InteractiveMapView);
-  v76 = *(v197 + 80);
-  v77 = (v76 + 16) & ~v76;
-  v78 = v77 + v196;
-  v145 = swift_allocObject();
-  sub_1008C7374(v75, v145 + v77);
-  sub_1000BBF54(v74, v75, type metadata accessor for InteractiveMapView);
-  v166 = v76;
-  v196 = v78;
-  v79 = swift_allocObject();
-  v197 = v77;
-  sub_1008C7374(v75, v79 + v77);
-
-  sub_10022C350(&qword_100CE3888);
-  type metadata accessor for MapContentStatusBanner();
-  sub_1008C7480();
-  sub_1008C8004(&qword_100CE38D8, type metadata accessor for MapContentStatusBanner);
-  sub_1008C8004(&qword_100CE38E0, type metadata accessor for MapContentStatusBanner);
-  v80 = v151;
-  v81 = v161;
-  WeatherMap.init<A, B>(displayMode:startsFocused:locations:overlayKind:selectedLocationId:weatherData:options:cacheIdentifier:isPreferredForCachedInstance:debugIdentifier:supplementaryOverlay:contentStatusBanner:)();
-  sub_1009899B8();
-  v82 = 1;
-  v167 = v70;
-  LODWORD(v77) = v80[v70[12]];
-  sub_1008C6EE4();
-  v83 = v77 == 1;
-  v84 = v165;
-  if (v83)
-  {
-    sub_1008C277C();
-    v82 = 0;
-  }
-
-  v85 = type metadata accessor for ColorScheme();
-  sub_10001B350(v84, v82, 1, v85);
-  v86 = v169;
-  v87 = v163;
-  sub_10011C0F0(v84, v163 + *(v169 + 36), &qword_100CB3688);
-  v88 = (*(v162 + 32))(v87, v81, v164);
-  __chkstk_darwin(v88);
-  v89 = v200;
-  v90 = sub_1008C77C0();
-  v91 = v168;
-  View.buttons(_:buttons:)();
-  sub_1000180EC(v87, &qword_100CE3838);
-  v92 = *(v89 + *(v198 + 12));
-  if (v92)
-  {
-    v93 = type metadata accessor for InteractiveMapDelegate();
-    v94 = swift_allocObject();
-    *(v94 + 40) = type metadata accessor for ObservableResolver();
-    *(v94 + 48) = &protocol witness table for ObservableResolver;
-    *(v94 + 16) = v92;
-    *(v94 + 56) = v66;
-    v164 = *v200;
-    v165 = v200[2];
-    v95 = v165;
-    *(v94 + 64) = v164;
-    *(v94 + 80) = v95;
-    v203[3] = v93;
-    v203[4] = sub_1008C8004(&qword_100CE3900, type metadata accessor for InteractiveMapDelegate);
-    v203[0] = v94;
-
-    swift_unknownObjectRetain();
-    swift_unknownObjectRetain();
-    v201 = v86;
-    v202 = v90;
-    OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
-    v97 = v171;
-    v98 = v172;
-    View.delegate(_:)();
-    (*(v170 + 8))(v91, v98);
-    sub_100006F14(v203);
-    sub_10022C350(&qword_100CE3748);
-    v99 = v191;
-    State.wrappedValue.getter();
-    v203[0] = v98;
-    v203[1] = OpaqueTypeConformance2;
-    swift_getOpaqueTypeConformance2();
-    v100 = v175;
-    v101 = v174;
-    View.performanceTestConditions(_:)();
-    sub_1000180EC(v99, &qword_100CAE2A0);
-    (*(v173 + 8))(v97, v101);
-    sub_1009899B8();
-    LOBYTE(v101) = v80[*(v167 + 12)];
-    sub_1008C6EE4();
-    if (v101)
-    {
-      v102 = static Edge.Set.all.getter();
-    }
-
-    else
-    {
-      v102 = Edge.Set.init(rawValue:)();
-    }
-
-    v103 = v102;
-    v104 = static SafeAreaRegions.all.getter();
-    v105 = v177;
-    (*(v178 + 32))(v177, v100, v179);
-    v106 = v105 + *(v176 + 36);
-    *v106 = v104;
-    *(v106 + 8) = v103;
-    v107 = v192;
-    static AccessibilityChildBehavior.contain.getter();
-    sub_1008C78A8();
-    v108 = v181;
-    View.accessibilityElement(children:)();
-    (*(v193 + 8))(v107, v194);
-    sub_10021D9F0(v105);
-    v109 = v200;
-    v110 = sub_1007DABFC();
-    v111 = v199;
-    sub_1000BBF54(v109, v199, type metadata accessor for InteractiveMapView);
-    v112 = swift_allocObject();
-    v113 = v197;
-    sub_1008C7374(v111, v112 + v197);
-    v114 = v184;
-    (*(v182 + 32))(v184, v108, v185);
-    v115 = v180;
-    *(v114 + *(v180 + 52)) = v110;
-    v116 = (v114 + *(v115 + 56));
-    *v116 = sub_1008C79F0;
-    v116[1] = v112;
-    v117 = sub_10003C620();
-    sub_1000BBF54(v117, v118, type metadata accessor for InteractiveMapView);
-    v119 = swift_allocObject();
-    sub_1008C7374(v111, v119 + v113);
-    v120 = v187;
-    sub_10011C0F0(v114, v187, &qword_100CE3868);
-    v121 = (v120 + *(v183 + 36));
-    *v121 = sub_1008C7A08;
-    v121[1] = v119;
-    v121[2] = 0;
-    v121[3] = 0;
-    v122 = sub_10003C620();
-    v198 = type metadata accessor for InteractiveMapView;
-    sub_1000BBF54(v122, v123, type metadata accessor for InteractiveMapView);
-    v124 = swift_allocObject();
-    sub_1008C7374(v111, v124 + v113);
-    v125 = v189;
-    sub_10011C0F0(v120, v189, &qword_100CE3870);
-    v126 = (v125 + *(v186 + 36));
-    *v126 = 0;
-    v126[1] = 0;
-    v126[2] = sub_1008C7A20;
-    v126[3] = v124;
-    v127 = objc_opt_self();
-    v128 = [v127 defaultCenter];
-    v129 = v188;
-    v130 = v190;
-    NSNotificationCenter.publisher(for:object:)();
-
-    v131 = sub_10003C620();
-    sub_1000BBF54(v131, v132, type metadata accessor for InteractiveMapView);
-    v133 = swift_allocObject();
-    v134 = v197;
-    sub_1008C7374(v111, v133 + v197);
-    sub_10011C0F0(v125, v130, &qword_100CE3878);
-    v135 = (v130 + *(v129 + 56));
-    *v135 = sub_1008C7AA4;
-    v135[1] = v133;
-    v136 = [v127 defaultCenter];
-    v137 = sub_10022C350(&qword_100CE3910);
-    v138 = v195;
-    NSNotificationCenter.publisher(for:object:)();
-
-    v139 = sub_10003C620();
-    sub_1000BBF54(v139, v140, v198);
-    v141 = swift_allocObject();
-    sub_1008C7374(v111, v141 + v134);
-    result = sub_10011C0F0(v130, v138, &qword_100CE3880);
-    v143 = (v138 + *(v137 + 56));
-    *v143 = sub_1008C7B34;
-    v143[1] = v141;
-  }
-
-  else
-  {
-    type metadata accessor for ObservableResolver();
-    sub_1008C8004(&qword_100CB0468, &type metadata accessor for ObservableResolver);
-    result = EnvironmentObject.error()();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C3D5C@<X0>(uint64_t a1@<X8>)
-{
-  v11[1] = a1;
-  v2 = type metadata accessor for InteractiveMapView();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2 - 8);
-  sub_1000BBF54(v1, v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InteractiveMapView);
-  type metadata accessor for MainActor();
-  v5 = static MainActor.shared.getter();
-  v6 = (*(v3 + 80) + 32) & ~*(v3 + 80);
-  v7 = swift_allocObject();
-  *(v7 + 16) = v5;
-  *(v7 + 24) = &protocol witness table for MainActor;
-  sub_1008C7374(v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v7 + v6);
-  sub_1000BBF54(v1, v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InteractiveMapView);
-  v8 = static MainActor.shared.getter();
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  *(v9 + 24) = &protocol witness table for MainActor;
-  sub_1008C7374(v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v9 + v6);
-  type metadata accessor for WeatherMapOverlayKind();
-  return Binding.init(get:set:)();
-}
-
-uint64_t sub_1008C3F10()
-{
-  v1 = type metadata accessor for InteractiveMapView();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v1 - 8);
-  sub_1000BBF54(v0, &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InteractiveMapView);
-  type metadata accessor for MainActor();
-  v4 = static MainActor.shared.getter();
-  v5 = (*(v2 + 80) + 32) & ~*(v2 + 80);
-  v6 = swift_allocObject();
-  *(v6 + 16) = v4;
-  *(v6 + 24) = &protocol witness table for MainActor;
-  sub_1008C7374(&v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v6 + v5);
-  sub_1000BBF54(v0, &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InteractiveMapView);
-  v7 = static MainActor.shared.getter();
-  v8 = swift_allocObject();
-  *(v8 + 16) = v7;
-  *(v8 + 24) = &protocol witness table for MainActor;
-  sub_1008C7374(&v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v8 + v5);
-  sub_10022C350(&qword_100CA6078);
-  Binding.init(get:set:)();
-  return v10;
-}
-
-uint64_t sub_1008C40D4(void *a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v6 = a3[1];
-  *a1 = *a3;
-  a1[1] = v6;
-  v7 = *(type metadata accessor for WeatherData(0) + 24);
-  v8 = type metadata accessor for WeatherDataModel();
-  (*(*(v8 - 8) + 16))(a2, a4 + v7, v8);
-}
-
-uint64_t sub_1008C4168@<X0>(uint64_t a1@<X8>)
-{
-  v2 = sub_10022C350(&qword_100CE38A0);
-  __chkstk_darwin(v2);
-  v4 = &v18 - v3;
-  v5 = type metadata accessor for InteractiveMapViewModel();
-  v6 = v5 - 8;
-  __chkstk_darwin(v5);
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  v9 = v8[*(v6 + 40)];
-  sub_1008C6EE4();
-  if (v9 == 1)
-  {
-    sub_1008C42E8(v4);
-    v10 = static Edge.Set.all.getter();
-    EdgeInsets.init(_all:)();
-    v11 = &v4[*(v2 + 36)];
-    *v11 = v10;
-    *(v11 + 1) = v12;
-    *(v11 + 2) = v13;
-    *(v11 + 3) = v14;
-    *(v11 + 4) = v15;
-    v11[40] = 0;
-    sub_10011C0F0(v4, a1, &qword_100CE38A0);
-    v16 = 0;
-  }
-
-  else
-  {
-    v16 = 1;
-  }
-
-  return sub_10001B350(a1, v16, 1, v2);
-}
-
-uint64_t sub_1008C42E8@<X0>(uint64_t a1@<X8>)
-{
-  v2 = v1;
-  v4 = type metadata accessor for InteractiveMapView();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4 - 8);
-  sub_1000BBF54(v2, &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InteractiveMapView);
-  v7 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-  v8 = swift_allocObject();
-  sub_1008C7374(&v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v8 + v7);
-  v9 = sub_10022C350(&qword_100CA6F50);
-  v26[10] = sub_10071E894;
-  v26[11] = 0;
-  LOBYTE(v26[12]) = 0;
-  v26[0] = v9;
-  if (qword_100CA1F40 != -1)
-  {
-    swift_once();
-  }
-
-  swift_beginAccess();
-  result = sub_1000302D8(&xmmword_100D8FB90, &v24, &unk_100CAF270);
-  if (v25)
-  {
-    sub_100013188(&v24, &v26[3]);
-    v26[1] = sub_1008C7BC8;
-    v26[2] = v8;
-    v11 = Dictionary.init(dictionaryLiteral:)();
-    v26[8] = _swiftEmptyArrayStorage;
-    v26[9] = v11;
-    memcpy(v27, v26, 0x61uLL);
-    static Alignment.center.getter();
-    _FrameLayout.init(width:height:alignment:)();
-    v12 = [objc_opt_self() secondarySystemBackgroundColor];
-    v13 = Color.init(uiColor:)();
-    v14 = static Edge.Set.all.getter();
-    v15 = (a1 + *(sub_10022C350(&qword_100CE38B0) + 36));
-    v16 = *(type metadata accessor for RoundedRectangle() + 20);
-    v17 = enum case for RoundedCornerStyle.continuous(_:);
-    v18 = type metadata accessor for RoundedCornerStyle();
-    (*(*(v18 - 8) + 104))(&v15[v16], v17, v18);
-    __asm { FMOV            V0.2D, #16.0 }
-
-    *v15 = _Q0;
-    *&v15[*(sub_10022C350(&qword_100CB34E0) + 36)] = 256;
-    result = memcpy(a1, v27, 0x98uLL);
-    *(a1 + 152) = v13;
-    *(a1 + 160) = v14;
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C45FC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = type metadata accessor for InteractiveMapViewModel();
-  v5 = v4 - 8;
-  __chkstk_darwin(v4);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  sub_1000302D8(&v7[*(v5 + 88)], a2, &qword_100CA5010);
-  sub_1008C6EE4();
-  v8 = *(type metadata accessor for InteractiveMapView() + 36);
-  v9 = type metadata accessor for MapContentStatusBanner();
-  sub_10042F370(a1 + v8, a2 + *(v9 + 20));
-  v10 = *(v9 + 24);
-  *(a2 + v10) = swift_getKeyPath();
-  sub_10022C350(&qword_100CB3278);
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t sub_1008C4724(uint64_t a1)
-{
-  v46 = type metadata accessor for ButtonGroup.Alignment();
-  v2 = *(v46 - 8);
-  __chkstk_darwin(v46);
-  v47 = &v40 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for ButtonGroup();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for InteractiveMapViewModel();
-  __chkstk_darwin(v8);
-  v10 = &v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  v11 = v10[*(v8 + 32)];
-  sub_1008C6EE4();
-  v12 = &off_100A2C000;
-  if (v11)
-  {
-    v13 = static ButtonGroupsBuilder.buildOptional(_:)();
-  }
-
-  else
-  {
-    v44 = v4;
-    v14 = static Solarium.isEnabled.getter();
-    v15 = v2;
-    v16 = enum case for ButtonGroup.Alignment.trailing(_:);
-    v42 = v15;
-    v17 = *(v15 + 104);
-    v18 = (v17)(v47, enum case for ButtonGroup.Alignment.trailing(_:), v46);
-    v43 = &v40;
-    __chkstk_darwin(v18);
-    *(&v40 - 2) = a1;
-    v45 = (v5 + 8);
-    if (v14)
-    {
-      v19 = v16;
-      v41 = v17;
-      v21 = v46;
-      v20 = v47;
-      ButtonGroup.init(alignment:buttons:)();
-      v43 = static ButtonGroupsBuilder.buildExpression(_:)();
-      v22 = v44;
-      v23 = *v45;
-      (*v45)(v7, v44);
-      sub_1009899B8();
-      v24 = v10[*(v8 + 44)];
-      sub_1008C6EE4();
-      if (v24 == 1)
-      {
-        v41(v20, v19, v21);
-        static ButtonGroup.singleRoundButton(alignment:button:)();
-        (*(v42 + 8))(v20, v21);
-        v25 = static ButtonGroupsBuilder.buildExpression(_:)();
-        v23(v7, v22);
-        sub_10022C350(&qword_100CB34E8);
-        v26 = swift_allocObject();
-        v12 = &off_100A2C000;
-        *(v26 + 16) = xmmword_100A2C3F0;
-        *(v26 + 32) = v25;
-        static ButtonGroupsBuilder.buildBlock(_:)();
-
-        v27 = static ButtonGroupsBuilder.buildOptional(_:)();
-      }
-
-      else
-      {
-        v27 = static ButtonGroupsBuilder.buildOptional(_:)();
-        v12 = &off_100A2C000;
-      }
-
-      sub_10022C350(&qword_100CB34E8);
-      v35 = swift_allocObject();
-      *(v35 + 16) = xmmword_100A2D320;
-      *(v35 + 32) = v43;
-      *(v35 + 40) = v27;
-      static ButtonGroupsBuilder.buildBlock(_:)();
-
-      v34 = static ButtonGroupsBuilder.buildEither(first:)();
-    }
-
-    else
-    {
-      v28 = v47;
-      ButtonGroup.init(alignment:buttons:)();
-      v29 = static ButtonGroupsBuilder.buildExpression(_:)();
-      v30 = v44;
-      v31 = *v45;
-      (*v45)(v7, v44);
-      v17(v28, v16, v46);
-      ButtonGroup.init(alignment:buttons:)();
-      v32 = static ButtonGroupsBuilder.buildExpression(_:)();
-      v31(v7, v30);
-      sub_10022C350(&qword_100CB34E8);
-      v33 = swift_allocObject();
-      *(v33 + 16) = xmmword_100A2D320;
-      *(v33 + 32) = v29;
-      *(v33 + 40) = v32;
-      static ButtonGroupsBuilder.buildBlock(_:)();
-
-      v34 = static ButtonGroupsBuilder.buildEither(second:)();
-      v12 = &off_100A2C000;
-    }
-
-    sub_10022C350(&qword_100CB34E8);
-    v36 = swift_allocObject();
-    *(v36 + 16) = *(v12 + 63);
-    *(v36 + 32) = v34;
-    static ButtonGroupsBuilder.buildBlock(_:)();
-
-    v13 = static ButtonGroupsBuilder.buildOptional(_:)();
-  }
-
-  sub_10022C350(&qword_100CB34E8);
-  v37 = swift_allocObject();
-  *(v37 + 16) = *(v12 + 63);
-  *(v37 + 32) = v13;
-  v38 = static ButtonGroupsBuilder.buildBlock(_:)();
-
-  return v38;
-}
-
-uint64_t sub_1008C4CDC(uint64_t a1)
-{
-  v2 = type metadata accessor for InteractiveMapView();
-  v17 = *(v2 - 8);
-  v3 = *(v17 + 64);
-  __chkstk_darwin(v2 - 8);
-  v4 = type metadata accessor for InteractiveMapViewModel();
-  __chkstk_darwin(v4);
-  v5 = type metadata accessor for ButtonGroup.Button();
-  v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static ButtonGroup.Button.overlayMenu.getter();
-  v16 = static ButtonsBuilder.buildExpression(_:)();
-  v9 = *(v6 + 8);
-  v9(v8, v5);
-  sub_1009899B8();
-  sub_1008C6EE4();
-  sub_1000BBF54(a1, &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InteractiveMapView);
-  v10 = (*(v17 + 80) + 16) & ~*(v17 + 80);
-  v11 = swift_allocObject();
-  sub_1008C7374(&v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v11 + v10);
-  static ButtonGroup.Button.currentLocation(isPermissionGranted:openSettings:)();
-
-  v12 = static ButtonsBuilder.buildExpression(_:)();
-  v9(v8, v5);
-  sub_10022C350(&qword_100CB34F0);
-  v13 = swift_allocObject();
-  *(v13 + 16) = xmmword_100A2D320;
-  *(v13 + 32) = v16;
-  *(v13 + 40) = v12;
-  v14 = static ButtonsBuilder.buildBlock(_:)();
-
-  return v14;
-}
-
-uint64_t sub_1008C4FA0(uint64_t a1)
-{
-  v2 = type metadata accessor for InteractiveMapView();
-  v24 = *(v2 - 8);
-  v3 = *(v24 + 64);
-  __chkstk_darwin(v2 - 8);
-  v4 = type metadata accessor for InteractiveMapViewModel();
-  v5 = v4 - 8;
-  __chkstk_darwin(v4);
-  v7 = v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for ButtonGroup.Button();
-  v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  v23[1] = v7[*(v5 + 44)];
-  sub_1008C6EE4();
-  sub_1000BBF54(a1, v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for InteractiveMapView);
-  v12 = (*(v24 + 80) + 16) & ~*(v24 + 80);
-  v13 = swift_allocObject();
-  sub_1008C7374(v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v13 + v12);
-  static ButtonGroup.Button.currentLocation(isPermissionGranted:openSettings:)();
-
-  v14 = static ButtonsBuilder.buildExpression(_:)();
-  v15 = *(v9 + 8);
-  v15(v11, v8);
-  sub_1009899B8();
-  v16 = v7[*(v5 + 52)];
-  sub_1008C6EE4();
-  if (v16 == 1)
-  {
-    static ButtonGroup.Button.locationPicker.getter();
-    v17 = static ButtonsBuilder.buildExpression(_:)();
-    v15(v11, v8);
-    sub_10022C350(&qword_100CB34F0);
-    v18 = swift_allocObject();
-    *(v18 + 16) = xmmword_100A2C3F0;
-    *(v18 + 32) = v17;
-    static ButtonsBuilder.buildBlock(_:)();
-
-    v19 = static ButtonsBuilder.buildOptional(_:)();
-  }
-
-  else
-  {
-    v19 = static ButtonsBuilder.buildOptional(_:)();
-  }
-
-  sub_10022C350(&qword_100CB34F0);
-  v20 = swift_allocObject();
-  *(v20 + 16) = xmmword_100A2D320;
-  *(v20 + 32) = v14;
-  *(v20 + 40) = v19;
-  v21 = static ButtonsBuilder.buildBlock(_:)();
-
-  return v21;
-}
-
-uint64_t sub_1008C52F0()
-{
-  v0 = type metadata accessor for ButtonGroup.Button();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static ButtonGroup.Button.overlayMenu.getter();
-  v4 = static ButtonsBuilder.buildExpression(_:)();
-  (*(v1 + 8))(v3, v0);
-  sub_10022C350(&qword_100CB34F0);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_100A2C3F0;
-  *(v5 + 32) = v4;
-  v6 = static ButtonsBuilder.buildBlock(_:)();
-
-  return v6;
-}
-
-uint64_t sub_1008C5404(uint64_t a1)
-{
-  v2 = sub_10022C350(&qword_100CAE2A0);
-  __chkstk_darwin(v2 - 8);
-  v4 = &v6 - v3;
-  type metadata accessor for InteractiveMapView();
-  sub_1000302D8(a1, v4, &qword_100CAE2A0);
-  sub_10022C350(&qword_100CE3748);
-  return State.wrappedValue.setter();
-}
-
-uint64_t sub_1008C54D4()
-{
-  v0 = type metadata accessor for WeatherMapTrackingState(0);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v13 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v5 = &v13 - v4;
-  v6 = type metadata accessor for InteractiveMapViewModel();
-  v7 = v6 - 8;
-  __chkstk_darwin(v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  sub_1000BBF54(&v9[*(v7 + 84)], v5, type metadata accessor for WeatherMapTrackingState);
-  sub_1008C6EE4();
-  v10 = sub_10022C350(&qword_100CA6660);
-  sub_10001B350(v2, 1, 3, v10);
-  v11 = sub_1000BBBA8(v5, v2);
-  sub_1008C6EE4();
-  result = sub_1008C6EE4();
-  if (v11)
-  {
-    return sub_1009BEE08();
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C5670()
-{
-  v0 = type metadata accessor for WeatherMapTrackingState(0);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v14 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = type metadata accessor for InteractiveMapViewModel();
-  v4 = v3 - 8;
-  __chkstk_darwin(v3);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for WeatherMapOverlayKind();
-  v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  sub_1000BBF54(&v6[*(v4 + 84)], v2, type metadata accessor for WeatherMapTrackingState);
-  sub_1008C6EE4();
-  v11 = sub_10022C350(&qword_100CA6660);
-  if (sub_100024D10(v2, 3, v11))
-  {
-    return sub_1008C6EE4();
-  }
-
-  v13 = *v2;
-  (*(v8 + 32))(v10, &v2[*(v11 + 48)], v7);
-  sub_1009BEFA4(v13, v10);
-  return (*(v8 + 8))(v10, v7);
-}
-
-uint64_t sub_1008C5898()
-{
-  v0 = type metadata accessor for WeatherMapOverlayKind();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for InteractiveMapViewModel();
-  v5 = v4 - 8;
-  __chkstk_darwin(v4);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v10 = &v12 - v9;
-  sub_1009899B8();
-  LOBYTE(v5) = v10[*(v5 + 56)];
-  sub_1008C6EE4();
-  sub_1009899B8();
-  (*(v1 + 16))(v3, v7, v0);
-  sub_1008C6EE4();
-  sub_1009BEFA4(v5, v3);
-  return (*(v1 + 8))(v3, v0);
-}
-
-uint64_t sub_1008C5A50@<X0>(void *a1@<X8>)
-{
-  v2 = type metadata accessor for InteractiveMapViewModel();
-  v3 = v2 - 8;
-  __chkstk_darwin(v2);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  v6 = &v5[*(v3 + 32)];
-  v8 = *v6;
-  v7 = *(v6 + 1);
-
-  result = sub_1008C6EE4();
-  *a1 = v8;
-  a1[1] = v7;
-  return result;
-}
-
-uint64_t sub_1008C5B10(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v6 = type metadata accessor for InteractiveMapViewModel();
-  __chkstk_darwin(v6);
-  v43 = v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v10 = v41 - v9;
-  v11 = sub_10022C350(&qword_100CA65D8);
-  __chkstk_darwin(v11 - 8);
-  v44 = v41 - v12;
-  v13 = type metadata accessor for Location();
-  v48 = *(v13 - 8);
-  __chkstk_darwin(v13);
-  v15 = v41 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v45 = v41 - v17;
-  v18 = a1[1];
-  v46 = *a1;
-  v47 = v18;
-  v19 = *(a4 + 24);
-  v41[1] = a4;
-  v41[2] = v19;
-  sub_1009899B8();
-  v42 = v6;
-  v20 = *&v10[*(v6 + 20)];
-
-  v21 = v13;
-  result = sub_1008C6EE4();
-  v23 = *(v20 + 16);
-  if (!v23)
-  {
-LABEL_13:
-
-    v32 = 1;
-    v33 = v44;
-LABEL_16:
-    sub_10001B350(v33, v32, 1, v21);
-    if (sub_100024D10(v33, 1, v21) == 1)
-    {
-      return sub_1000180EC(v33, &qword_100CA65D8);
-    }
-
-    (*(v48 + 32))(v45, v33, v21);
-    v34 = v43;
-    sub_1009899B8();
-    v35 = &v34[*(v42 + 24)];
-    v37 = *v35;
-    v36 = *(v35 + 1);
-
-    sub_1008C6EE4();
-    if (v47)
-    {
-      if (v46 == v37 && v47 == v36)
-      {
-
-        return (*(v48 + 8))(v45, v21);
-      }
-
-      v39 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      if (v39)
-      {
-        return (*(v48 + 8))(v45, v21);
-      }
-    }
-
-    else
-    {
-    }
-
-    v40 = v45;
-    sub_1009BE7D8(v45);
-    return (*(v48 + 8))(v40, v21);
-  }
-
-  v24 = 0;
-  v25 = v20 + ((*(v48 + 80) + 32) & ~*(v48 + 80));
-  v26 = (v48 + 8);
-  v27 = v21;
-  while (v24 < *(v20 + 16))
-  {
-    (*(v48 + 16))(v15, v25 + *(v48 + 72) * v24, v21);
-    v28 = Location.id.getter();
-    if (v47)
-    {
-      if (v28 == v46 && v47 == v29)
-      {
-
-        goto LABEL_15;
-      }
-
-      v31 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      if (v31)
-      {
-
-        v21 = v27;
-LABEL_15:
-        v33 = v44;
-        (*(v48 + 32))(v44, v15, v21);
-        v32 = 0;
-        goto LABEL_16;
-      }
-    }
-
-    else
-    {
-    }
-
-    ++v24;
-    v21 = v27;
-    result = (*v26)(v15, v27);
-    if (v23 == v24)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1008C5F68@<X0>(uint64_t a1@<X8>)
-{
-  v2 = type metadata accessor for InteractiveMapViewModel();
-  __chkstk_darwin(v2 - 8);
-  v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  v5 = type metadata accessor for WeatherMapOverlayKind();
-  (*(*(v5 - 8) + 16))(a1, v4, v5);
-  return sub_1008C6EE4();
-}
-
-uint64_t sub_1008C6040(uint64_t a1)
-{
-  v2 = type metadata accessor for WeatherMapOverlayKind();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for InteractiveMapViewModel();
-  __chkstk_darwin(v6 - 8);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1009899B8();
-  (*(v3 + 16))(v5, v8, v2);
-  sub_1008C6EE4();
-  sub_1008C8004(&qword_100CE3918, &type metadata accessor for WeatherMapOverlayKind);
-  v9 = dispatch thunk of static Equatable.== infix(_:_:)();
-  result = (*(v3 + 8))(v5, v2);
-  if ((v9 & 1) == 0)
-  {
-    return sub_1009BEC10(a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C61FC@<X0>(uint64_t a1@<X8>)
-{
-  v2 = objc_opt_self();
-  v3 = [v2 mainBundle];
-  v20._object = 0x8000000100ADCCB0;
-  v4._object = 0x8000000100ADCC90;
-  v20._countAndFlagsBits = 0xD000000000000054;
-  v4._countAndFlagsBits = 0xD000000000000013;
-  v5._countAndFlagsBits = 0;
-  v5._object = 0xE000000000000000;
-  v6 = NSLocalizedString(_:tableName:bundle:value:comment:)(v4, 0, v3, v5, v20);
-
-  v7 = [v2 mainBundle];
-  v21._object = 0x8000000100ADF580;
-  v8._object = 0x8000000100ADF510;
-  v21._countAndFlagsBits = 0xD000000000000036;
-  v8._countAndFlagsBits = 0x100000000000006ALL;
-  v9._countAndFlagsBits = 0;
-  v9._object = 0xE000000000000000;
-  NSLocalizedString(_:tableName:bundle:value:comment:)(v8, 0, v7, v9, v21);
-
-  v10 = static String.localizedStringWithFormat(_:_:)();
-  v12 = v11;
-
-  v13 = sub_100737E14();
-  v15 = v14;
-  static Color.blue.getter();
-  v16 = Color.hex.getter();
-  v18 = v17;
-
-  *a1 = 1;
-  *(a1 + 8) = 0x616C732E69666977;
-  *(a1 + 16) = 0xEA00000000006873;
-  *(a1 + 24) = v6;
-  *(a1 + 40) = v10;
-  *(a1 + 48) = v12;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = v13;
-  *(a1 + 72) = v15;
-  *(a1 + 80) = v16;
-  *(a1 + 88) = v18;
-  return result;
-}
-
-void *sub_1008C63B8@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = sub_1000161C0(a1, a1[3]);
-  sub_1008C61FC(v5);
-  sub_10042F370(*v3 + 16, a2);
-  return memcpy((a2 + 40), v5, 0x60uLL);
-}
-
-uint64_t sub_1008C6424()
-{
-  sub_1000161C0(v0 + 2, v0[5]);
-  sub_10022C350(&qword_100CC55F8);
-  result = dispatch thunk of ResolverType.resolve<A>(_:)();
-  if (!v27)
-  {
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v2 = v0[7];
-  v3 = v0[8];
-  v4 = v0[9];
-  sub_1000161C0(v0 + 2, v0[5]);
-  sub_10022C350(&qword_100CB4460);
-
-  swift_unknownObjectRetain();
-  result = dispatch thunk of ResolverType.resolve<A>(_:name:)();
-  v5 = v23;
-  if (!v23)
-  {
-LABEL_7:
-    __break(1u);
-    goto LABEL_8;
-  }
-
-  v6 = v25;
-  sub_1000161C0(v0 + 2, v0[5]);
-  sub_10022C350(&qword_100CB4458);
-  result = dispatch thunk of ResolverType.resolve<A>(_:)();
-  if (!v21)
-  {
-LABEL_8:
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  sub_1000161C0(v0 + 2, v0[5]);
-  sub_10022C350(&qword_100CB4468);
-  result = dispatch thunk of ResolverType.resolve<A>(_:)();
-  if (v18)
-  {
-    v7 = type metadata accessor for LocationRowPreviewViewController(0);
-    ObjectType = swift_getObjectType();
-    v9 = sub_10002D7F8(v26, v27);
-    v10 = __chkstk_darwin(v9);
-    v12 = v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v13 + 16))(v12, v10);
-    v14 = type metadata accessor for LocationRowViewModelProvider();
-    sub_1006270B4(v12, v2, v3, v4, v5, v20, v17, v7, v14, ObjectType, &off_100C5F610, v6, v17[0], v17[1], v17[2], v18, v19, v20[0], v20[1], v20[2], v21, v22, v23, v24);
-    v16 = v15;
-    sub_100006F14(v26);
-    sub_1008C8004(&qword_100CCCDD8, type metadata accessor for LocationRowPreviewViewController);
-    return v16;
-  }
-
-LABEL_9:
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1008C6708()
-{
-  sub_1000161C0((v0 + 16), *(v0 + 40));
-  sub_10022C350(&qword_100CB97B0);
-  dispatch thunk of ResolverType.resolve<A>(_:)();
-  result = v2;
-  if (!v2)
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C67D0(uint64_t a1)
-{
-  v2 = type metadata accessor for Location();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for WeatherMap.LocationAction();
-  v7 = *(v6 - 8);
-  v8 = __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v7 + 16))(v10, a1, v6, v8);
-  v11 = (*(v7 + 88))(v10, v6);
-  if (v11 == enum case for WeatherMap.LocationAction.addLocation(_:))
-  {
-    (*(v7 + 96))(v10, v6);
-    (*(v3 + 32))(v5, v10, v2);
-    v12 = sub_1008BC004(v5);
-    sub_1009BE5A4(v5, v12 & 1);
-    return (*(v3 + 8))(v5, v2);
-  }
-
-  if (v11 == enum case for WeatherMap.LocationAction.viewLocation(_:))
-  {
-    (*(v7 + 96))(v10, v6);
-    (*(v3 + 32))(v5, v10, v2);
-    sub_1009BE7F4(v5);
-    return (*(v3 + 8))(v5, v2);
-  }
-
-  if (v11 == enum case for WeatherMap.LocationAction.openLocationInMaps(_:))
-  {
-    (*(v7 + 96))(v10, v6);
-    (*(v3 + 32))(v5, v10, v2);
-    sub_1009BE948(v5);
-    return (*(v3 + 8))(v5, v2);
-  }
-
-  if (v11 == enum case for WeatherMap.LocationAction.none(_:))
-  {
-    return sub_1009BE4DC();
-  }
-
-  if (v11 == enum case for WeatherMap.LocationAction.dismiss(_:))
-  {
-    return sub_1009BED58();
-  }
-
-  sub_10022C350(&qword_100CB97B8);
-  v14 = swift_allocObject();
-  *(v14 + 16) = xmmword_100A2C3F0;
-  *(v14 + 56) = &type metadata for String;
-  strcpy((v14 + 32), "Unknown action");
-  *(v14 + 47) = -18;
-  print(_:separator:terminator:)();
-
-  return (*(v7 + 8))(v10, v6);
-}
-
-uint64_t sub_1008C6B4C(uint64_t a1)
-{
-  v2 = type metadata accessor for WeatherMapTrackingState(0);
-  __chkstk_darwin(v2 - 8);
-  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for InteractiveMapViewModel();
-  v6 = v5 - 8;
-  __chkstk_darwin(v5);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v11 = &v16 - v10;
-  sub_1009899B8();
-  sub_1000BBF54(&v11[*(v6 + 84)], v4, type metadata accessor for WeatherMapTrackingState);
-  sub_1008C6EE4();
-  sub_1009899B8();
-  v12 = &v8[*(v6 + 32)];
-  v13 = *v12;
-  v14 = v12[1];
-
-  sub_1008C6EE4();
-  sub_1009BF228(a1, v4, v13, v14);
-
-  return sub_1008C6EE4();
-}
-
-uint64_t sub_1008C6D24()
-{
-  sub_100006F14(v0 + 16);
-
-  swift_unknownObjectRelease();
-  swift_unknownObjectRelease();
-  return v0;
-}
-
-uint64_t sub_1008C6D5C()
-{
-  sub_1008C6D24();
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t sub_1008C6EE4()
-{
-  v1 = sub_100017580();
-  v2(v1);
-  sub_1000037E8();
-  (*(v3 + 8))(v0);
-  return v0;
-}
-
-uint64_t type metadata accessor for InteractiveMapView()
-{
-  result = qword_100CE37A8;
-  if (!qword_100CE37A8)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-void sub_1008C6FAC()
-{
-  sub_100081B54(319, &qword_100CE37B8);
-  if (v0 <= 0x3F)
-  {
-    sub_1008C71F8();
-    if (v1 <= 0x3F)
-    {
-      sub_100081B54(319, &qword_100CE37C8);
-      if (v2 <= 0x3F)
-      {
-        sub_100081B54(319, &qword_100CE37D0);
-        if (v3 <= 0x3F)
-        {
-          type metadata accessor for WeatherMapDisplayMode();
-          if (v4 <= 0x3F)
-          {
-            sub_100081B54(319, &qword_100CA5088);
-            if (v5 <= 0x3F)
-            {
-              sub_1008C729C(319, &unk_100CE37D8, &qword_100CAE2A0, &unk_100A96750, &type metadata accessor for State);
-              if (v6 <= 0x3F)
-              {
-                sub_100061960();
-                if (v7 <= 0x3F)
-                {
-                  sub_1008C729C(319, &qword_100CE0E10, &qword_100CA6028, &unk_100A40610, &type metadata accessor for Environment);
-                  if (v8 <= 0x3F)
-                  {
-                    sub_10009BE44(319, &qword_100CA3C80);
-                    if (v9 <= 0x3F)
-                    {
-                      sub_10009BE44(319, &qword_100CE0E20);
-                      if (v10 <= 0x3F)
-                      {
-                        sub_1008C7300();
-                        if (v11 <= 0x3F)
-                        {
-                          swift_cvw_initStructMetadataWithLayoutString();
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-void sub_1008C71F8()
-{
-  if (!qword_100CE37C0)
-  {
-    sub_10022E824(&qword_100CA4AF0);
-    sub_100006F64(&qword_100CA4AF8, &qword_100CA4AF0);
-    v0 = type metadata accessor for ObservedObject();
-    if (!v1)
-    {
-      atomic_store(v0, &qword_100CE37C0);
-    }
-  }
-}
-
-void sub_1008C729C(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
-{
-  if (!*a2)
-  {
-    v8 = sub_10022E824(a3);
-    v9 = a5(a1, v8);
-    if (!v10)
-    {
-      atomic_store(v9, a2);
-    }
-  }
-}
-
-void sub_1008C7300()
-{
-  if (!qword_100CB3BF0)
-  {
-    type metadata accessor for ColorScheme();
-    v0 = type metadata accessor for Environment();
-    if (!v1)
-    {
-      atomic_store(v0, &qword_100CB3BF0);
-    }
-  }
-}
-
-uint64_t sub_1008C7374(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for InteractiveMapView();
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_1008C7408(uint64_t (*a1)(uint64_t))
-{
-  sub_10000C76C();
-  v2 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v2);
-  sub_10001164C();
-
-  return a1(v1 + v3);
-}
-
-unint64_t sub_1008C7480()
-{
-  result = qword_100CE3890;
-  if (!qword_100CE3890)
-  {
-    sub_10022E824(&qword_100CE3888);
-    sub_1008C7504();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE3890);
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C7504()
-{
-  result = qword_100CE3898;
-  if (!qword_100CE3898)
-  {
-    sub_10022E824(&qword_100CE38A0);
-    sub_1008C7590();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE3898);
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C7590()
-{
-  result = qword_100CE38A8;
-  if (!qword_100CE38A8)
-  {
-    sub_10022E824(&qword_100CE38B0);
-    sub_1008C7648();
-    sub_100006F64(&qword_100CB80A0, &qword_100CB34E0);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE38A8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C7648()
-{
-  result = qword_100CE38B8;
-  if (!qword_100CE38B8)
-  {
-    sub_10022E824(&qword_100CE38C0);
-    sub_1008C7700();
-    sub_100006F64(&qword_100CC0538, &qword_100CC0540);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE38B8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C7700()
-{
-  result = qword_100CE38C8;
-  if (!qword_100CE38C8)
-  {
-    sub_10022E824(&qword_100CE38D0);
-    sub_100006F64(&qword_100CA6E80, &qword_100CA6E88);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE38C8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C77C0()
-{
-  result = qword_100CE38E8;
-  if (!qword_100CE38E8)
-  {
-    sub_10022E824(&qword_100CE3838);
-    sub_1008C8004(&qword_100CBEDD8, &type metadata accessor for WeatherMap);
-    sub_100006F64(&qword_100CE38F0, &qword_100CE38F8);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE38E8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C78A8()
-{
-  result = qword_100CE3908;
-  if (!qword_100CE3908)
-  {
-    sub_10022E824(&qword_100CE3858);
-    sub_10022E824(&qword_100CE3848);
-    sub_10022E824(&qword_100CE3840);
-    sub_10022E824(&qword_100CE3838);
-    sub_1008C77C0();
-    swift_getOpaqueTypeConformance2();
-    swift_getOpaqueTypeConformance2();
-    swift_getOpaqueTypeConformance2();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE3908);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C7A38(uint64_t (*a1)(uint64_t))
-{
-  v2 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v2);
-  sub_10001164C();
-
-  return a1(v1 + v3);
-}
-
-uint64_t sub_1008C7ABC(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t))
-{
-  sub_100017580();
-  v4 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v4);
-  sub_10001164C();
-
-  return a2(v2, v3 + v5);
-}
-
-uint64_t sub_1008C7B34()
-{
-  v0 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v0);
-  sub_10001164C();
-  return sub_1009BEE08();
-}
-
-uint64_t sub_1008C7B98()
-{
-  type metadata accessor for InteractiveMapView();
-
-  return sub_1008CA570(1);
-}
-
-void *sub_1008C7BC8@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v4);
-  sub_10001164C();
-
-  return sub_1008C63B8(a1, a2);
-}
-
-uint64_t sub_1008C7C40()
-{
-  sub_10000C76C();
-  v0 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v0);
-  sub_1000138B8();
-
-  return sub_1008C5A50(v1);
-}
-
-uint64_t sub_1008C7C9C()
-{
-  sub_100017580();
-  v0 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v0);
-  v1 = sub_100037B1C();
-
-  return sub_1008C5B10(v1, v2, v3, v4);
-}
-
-uint64_t sub_1008C7CF8()
-{
-  sub_10000C76C();
-  v0 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v0);
-  sub_1000138B8();
-
-  return sub_1008C5F68(v1);
-}
-
-uint64_t sub_1008C7D54()
-{
-  type metadata accessor for InteractiveMapView();
-  sub_100003A0C();
-  v4 = (*(v3 + 80) + 32) & ~*(v3 + 80);
-  swift_unknownObjectRelease();
-  v5 = v1 + v4;
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  swift_unknownObjectRelease();
-  v6 = v0[8];
-  type metadata accessor for WeatherMapDisplayMode();
-  sub_1000037E8();
-  (*(v7 + 8))(v1 + v4 + v6);
-  sub_10000EE8C();
-  v8 = v1 + v4 + v0[11];
-  v9 = type metadata accessor for WeatherMapPerformanceTestConditions();
-  if (!sub_100020660(v9))
-  {
-    sub_100003B20();
-    (*(v10 + 8))(v8, v2);
-  }
-
-  sub_10022C350(&qword_100CE3748);
-
-  v11 = v0[13];
-  sub_10022C350(&qword_100CA62E0);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = type metadata accessor for UserInterfaceSizeClass();
-    if (!sub_100017854(v5 + v11))
-    {
-      sub_100003B20();
-      (*(v13 + 8))(v5 + v11, v12);
-    }
-  }
-
-  else
-  {
-  }
-
-  sub_100028D10();
-  sub_10022C350(&qword_100CB3B70);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    type metadata accessor for ColorScheme();
-    sub_1000037E8();
-    (*(v14 + 8))(v0 + v5);
-  }
-
-  else
-  {
-  }
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1008C7FA8()
-{
-  sub_100017580();
-  v0 = type metadata accessor for InteractiveMapView();
-  sub_100003810(v0);
-  v1 = sub_100037B1C();
-
-  return sub_1008C6040(v1);
-}
-
-uint64_t sub_1008C8004(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C8050@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
-{
-  sub_10022C350(&qword_100CACF38);
-  sub_100003828();
-  __chkstk_darwin(v4);
-  v6 = &v46 - v5;
-  v50 = &v46 - v5;
-  v7 = type metadata accessor for FeelsLikeComponentViewModel(0);
-  v8 = (v7 - 8);
-  __chkstk_darwin(v7);
-  sub_1000037D8();
-  v11 = (v10 - v9);
-  v12 = type metadata accessor for FeelsLikeComponentPreprocessedDataModel();
-  v13 = v12 - 8;
-  __chkstk_darwin(v12);
-  sub_1000037D8();
-  v16 = (v15 - v14);
-  sub_1008C84AC(a1, v15 - v14, type metadata accessor for FeelsLikeComponentPreprocessedDataModel);
-  v17 = v16[2];
-  v51 = v16[3];
-  v18 = v16[4];
-  v19 = v16[5];
-  v48 = v17;
-  v49 = v18;
-  sub_1001163D0(v16 + *(v13 + 36), v6);
-  v20 = (v16 + *(v13 + 40));
-  v21 = v20[1];
-  v47 = *v20;
-  sub_10022C350(&qword_100CA7300);
-  v22 = swift_allocObject();
-  *(v22 + 16) = xmmword_100A2D320;
-  if (v19)
-  {
-    v23 = v18;
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  if (v19)
-  {
-    v24 = v19;
-  }
-
-  else
-  {
-    v24 = 0xE000000000000000;
-  }
-
-  v52 = v17;
-  v53 = v51;
-  swift_bridgeObjectRetain_n();
-  swift_bridgeObjectRetain_n();
-
-  v25._countAndFlagsBits = v23;
-  v25._object = v24;
-  String.append(_:)(v25);
-
-  v26 = v53;
-  *(v22 + 32) = v52;
-  *(v22 + 40) = v26;
-  v27 = v47;
-  *(v22 + 48) = v47;
-  *(v22 + 56) = v21;
-  v52 = v22;
-
-  sub_10022C350(&qword_100CCC930);
-  sub_1001141C8();
-  v28 = BidirectionalCollection<>.joined(separator:)();
-  v30 = v29;
-
-  v31 = v50;
-  v32 = v51;
-  *v11 = v48;
-  v11[1] = v32;
-  v11[2] = v49;
-  v11[3] = v19;
-  sub_100736098(v31, v11 + v8[8]);
-  v33 = (v11 + v8[9]);
-  *v33 = v27;
-  v33[1] = v21;
-  v34 = (v11 + v8[10]);
-  *v34 = v28;
-  v34[1] = v30;
-  v35 = v16[1];
-  *a2 = *v16;
-  *(a2 + 8) = v35;
-  *(a2 + 16) = 0x656D6F6D72656874;
-  *(a2 + 24) = 0xEB00000000726574;
-  *(a2 + 32) = 0;
-  type metadata accessor for LocationComponentHeaderViewModel(0);
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  swift_storeEnumTagMultiPayload();
-  v36 = type metadata accessor for LocationComponentContainerViewModel();
-  sub_1008C84AC(v11, a2 + v36[5], type metadata accessor for FeelsLikeComponentViewModel);
-  type metadata accessor for LocationComponentViewModel();
-  swift_storeEnumTagMultiPayload();
-  v37 = a2 + v36[8];
-  v38 = *(sub_10022C350(&qword_100CA6690) + 48);
-  v39 = enum case for TemperatureChartKind.feelsLike(_:);
-  type metadata accessor for TemperatureChartKind();
-  sub_1000037E8();
-  (*(v40 + 104))(v37, v39);
-  v41 = enum case for DetailCondition.conditions(_:);
-  type metadata accessor for DetailCondition();
-  sub_1000037E8();
-  (*(v42 + 104))(v37, v41);
-  *(v37 + v38) = 0;
-  v43 = type metadata accessor for LocationComponentAction(0);
-  swift_storeEnumTagMultiPayload();
-  sub_10001B350(v37, 0, 1, v43);
-  sub_10013D288();
-
-  v44 = Dictionary.init(dictionaryLiteral:)();
-  sub_1008C850C(v11, type metadata accessor for FeelsLikeComponentViewModel);
-  result = sub_1008C850C(v16, type metadata accessor for FeelsLikeComponentPreprocessedDataModel);
-  *(a2 + v36[6]) = 256;
-  *(a2 + v36[7]) = v44;
-  return result;
-}
-
-uint64_t sub_1008C84AC(uint64_t a1, uint64_t a2, void (*a3)(void))
-{
-  a3(0);
-  sub_1000037E8();
-  (*(v5 + 16))(a2, a1);
-  return a2;
-}
-
-uint64_t sub_1008C850C(uint64_t a1, void (*a2)(void))
-{
-  a2(0);
-  sub_1000037E8();
-  (*(v3 + 8))(a1);
-  return a1;
-}
-
-uint64_t sub_1008C8564@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
-{
-  sub_1000161C0(a1, a1[3]);
-  sub_10022C350(&qword_100CB4458);
-  result = dispatch thunk of ResolverType.resolve<A>(_:)();
-  if (v7)
-  {
-    sub_1000161C0(a1, a1[3]);
-    result = dispatch thunk of ResolverType.resolve<A>(_:name:)();
-    if (v6 != 2)
-    {
-      v5 = type metadata accessor for WeatherConditionBackgroundModelFactory();
-      swift_allocObject();
-      result = WeatherConditionBackgroundModelFactory.init(gradientManager:automationEnabled:isDemoPresetActive:)();
-      a2[3] = v5;
-      a2[4] = &protocol witness table for WeatherConditionBackgroundModelFactory;
-      *a2 = result;
-      return result;
-    }
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-unint64_t sub_1008C8678@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
-{
-  sub_1000161C0(a1, a1[3]);
-  sub_10022C350(&qword_100CE3A70);
-  result = dispatch thunk of ResolverType.resolve<A>(_:)();
-  if (v7)
-  {
-    sub_1000161C0(a1, a1[3]);
-    sub_10022C350(&qword_100CE3A78);
-    result = dispatch thunk of ResolverType.resolve<A>(_:)();
-    if (v6)
-    {
-      type metadata accessor for WeatherConditionBackgroundManager();
-      swift_allocObject();
-      v5 = WeatherConditionBackgroundManager.init(configurationManager:templateManager:)();
-      result = sub_100067704();
-      *a2 = v5;
-      a2[1] = &protocol witness table for WeatherConditionBackgroundManager;
-      a2[2] = result;
-      return result;
-    }
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1008C87A4(uint64_t *a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 >= 0x7FFFFFFF && *(a1 + 16))
-    {
-      v2 = *a1 + 2147483646;
-    }
-
-    else
-    {
-      v3 = *a1;
-      if (*a1 >= 0xFFFFFFFF)
-      {
-        LODWORD(v3) = -1;
-      }
-
-      v2 = v3 - 1;
-      if (v2 < 0)
-      {
-        v2 = -1;
-      }
-    }
-  }
-
-  else
-  {
-    v2 = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t sub_1008C87F8(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0x7FFFFFFE)
-  {
-    *result = a2 - 0x7FFFFFFF;
-    *(result + 8) = 0;
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 16) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 16) = 0;
-    }
-
-    if (a2)
-    {
-      *result = a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C8848@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *&v71 = a1;
-  v70 = a2;
-  v66 = type metadata accessor for ConditionDetailMapView();
-  sub_1000037E8();
-  __chkstk_darwin(v2);
-  sub_1000037D8();
-  v5 = v4 - v3;
-  v6 = type metadata accessor for ConditionDetailMapViewModel();
-  __chkstk_darwin(v6 - 8);
-  sub_1000037D8();
-  v64[0] = v8 - v7;
-  v64[1] = sub_10022C350(&qword_100CE3CF0);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v9);
-  v11 = v64 - v10;
-  v69 = sub_10022C350(&qword_100CE3CF8);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v12);
-  v65 = v64 - v13;
-  v14 = type metadata accessor for WindCategoryTableView(0);
-  sub_1000037E8();
-  __chkstk_darwin(v15);
-  sub_1000037D8();
-  v18 = (v17 - v16);
-  v67 = sub_10022C350(&qword_100CE3D00);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v19);
-  v21 = v64 - v20;
-  sub_10022C350(&qword_100CE3D08);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v22);
-  v24 = v64 - v23;
-  v68 = sub_10022C350(&qword_100CE3D10);
-  sub_1000037E8();
-  sub_100003828();
-  __chkstk_darwin(v25);
-  v27 = v64 - v26;
-  type metadata accessor for ConditionDetailDynamicContentIdentifier();
-  sub_1000037E8();
-  __chkstk_darwin(v28);
-  sub_1000037D8();
-  v31 = v30 - v29;
-  sub_100010F38();
-  sub_1008C9698(v71, v31, v32);
-  switch(swift_getEnumCaseMultiPayload())
-  {
-    case 1u:
-      v55 = v64[0];
-      sub_1008C9410(v31, v64[0]);
-      v56 = v66;
-      sub_1008C9698(v55, v5 + *(v66 + 20), type metadata accessor for ConditionDetailMapViewModel);
-      *v5 = swift_getKeyPath();
-      *(v5 + 8) = 0;
-      *(v5 + 16) = 0;
-      v57 = (v5 + *(v56 + 24));
-      *v57 = 0;
-      v57[1] = 0;
-      sub_1008C9698(v5, v11, type metadata accessor for ConditionDetailMapView);
-      swift_storeEnumTagMultiPayload();
-      sub_10022C350(&qword_100CE3D18);
-      sub_1008C9474();
-      sub_10001A120();
-      sub_1008C9594(v58, v59);
-      v60 = v65;
-      _ConditionalContent<>.init(storage:)();
-      v61 = sub_100075210();
-      sub_100035AD0(v61, v62, v63);
-      sub_1000234A8();
-      swift_storeEnumTagMultiPayload();
-      sub_1008C94D8();
-      sub_1008C95DC();
-      sub_10001FBF8();
-      _ConditionalContent<>.init(storage:)();
-      sub_1000180EC(v60, &qword_100CE3CF8);
-      sub_1008C96F8(v5, type metadata accessor for ConditionDetailMapView);
-      sub_1000150DC();
-      v41 = v55;
-      return sub_1008C96F8(v41, v40);
-    case 2u:
-      swift_storeEnumTagMultiPayload();
-      sub_100004DE0();
-      sub_1008C9594(v42, v43);
-      _ConditionalContent<>.init(storage:)();
-      v44 = &qword_100CE3D10;
-      v45 = sub_100075210();
-      sub_100035AD0(v45, v46, v47);
-      sub_1000234A8();
-      swift_storeEnumTagMultiPayload();
-      sub_1008C94D8();
-      sub_1008C95DC();
-      sub_10001FBF8();
-      _ConditionalContent<>.init(storage:)();
-      v48 = v27;
-      return sub_1000180EC(v48, v44);
-    case 3u:
-      v49 = sub_10022C350(&qword_100CB19E8);
-      __src[10] = sub_10071E948;
-      __src[11] = 0;
-      LOBYTE(__src[12]) = 0;
-      __src[0] = v49;
-      if (qword_100CA1F40 != -1)
-      {
-        swift_once();
-      }
-
-      swift_beginAccess();
-      result = sub_100035AD0(&xmmword_100D8FB90, __dst, &unk_100CAF270);
-      if (*&__dst[24])
-      {
-        sub_100013188(__dst, &__src[3]);
-        __src[1] = sub_1005D31D8;
-        __src[2] = 0;
-        v51 = Dictionary.init(dictionaryLiteral:)();
-        __src[8] = _swiftEmptyArrayStorage;
-        __src[9] = v51;
-        memcpy(__dst, __src, sizeof(__dst));
-        v44 = &qword_100CE3D18;
-        sub_100035AD0(__dst, v11, &qword_100CE3D18);
-        swift_storeEnumTagMultiPayload();
-        sub_10022C350(&qword_100CE3D18);
-        sub_1008C9474();
-        sub_10001A120();
-        sub_1008C9594(v52, v53);
-        v54 = v65;
-        _ConditionalContent<>.init(storage:)();
-        sub_100035AD0(v54, v21, &qword_100CE3CF8);
-        sub_1000234A8();
-        swift_storeEnumTagMultiPayload();
-        sub_1008C94D8();
-        sub_1008C95DC();
-        sub_10001FBF8();
-        _ConditionalContent<>.init(storage:)();
-        sub_1000180EC(v54, &qword_100CE3CF8);
-        v48 = __dst;
-        return sub_1000180EC(v48, v44);
-      }
-
-      else
-      {
-        __break(1u);
-      }
-
-      return result;
-    default:
-      v33 = *v31;
-      v71 = *(v31 + 8);
-      *v18 = swift_getKeyPath();
-      sub_10022C350(&qword_100CA2E38);
-      swift_storeEnumTagMultiPayload();
-      v34 = v18 + *(v14 + 20);
-      *v34 = v33;
-      *(v34 + 8) = v71;
-      sub_1008C9698(v18, v24, type metadata accessor for WindCategoryTableView);
-      swift_storeEnumTagMultiPayload();
-      sub_100004DE0();
-      sub_1008C9594(v35, v36);
-      _ConditionalContent<>.init(storage:)();
-      v37 = sub_100075210();
-      sub_100035AD0(v37, v38, v39);
-      sub_1000234A8();
-      swift_storeEnumTagMultiPayload();
-      sub_1008C94D8();
-      sub_1008C95DC();
-      sub_10001FBF8();
-      _ConditionalContent<>.init(storage:)();
-      sub_1000180EC(v27, &qword_100CE3D10);
-      v40 = type metadata accessor for WindCategoryTableView;
-      v41 = v18;
-      return sub_1008C96F8(v41, v40);
-  }
-}
-
-uint64_t sub_1008C90F0(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ConditionDetailMapViewModel();
-  __chkstk_darwin(v4 - 8);
-  sub_1000037D8();
-  v7 = (v6 - v5);
-  type metadata accessor for ConditionDetailDynamicContentIdentifier();
-  sub_1000037E8();
-  v9 = __chkstk_darwin(v8);
-  v11 = (&v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v9);
-  v13 = (&v30 - v12);
-  sub_10022C350(&qword_100CE3CE8);
-  sub_100003828();
-  v15 = __chkstk_darwin(v14);
-  v17 = &v30 - v16;
-  v18 = (&v30 + *(v15 + 56) - v16);
-  sub_1008C9698(a1, &v30 - v16, type metadata accessor for ConditionDetailDynamicContentIdentifier);
-  sub_1008C9698(a2, v18, type metadata accessor for ConditionDetailDynamicContentIdentifier);
-  switch(swift_getEnumCaseMultiPayload())
-  {
-    case 1u:
-      sub_100010F38();
-      sub_1008C9698(v17, v11, v23);
-      if (sub_100013E60() != 1)
-      {
-        sub_1000150DC();
-        sub_1008C96F8(v11, v25);
-        goto LABEL_11;
-      }
-
-      sub_1008C9410(v18, v7);
-      v24 = sub_1007EDCA4(v11, v7);
-      sub_1008C96F8(v7, type metadata accessor for ConditionDetailMapViewModel);
-      sub_1008C96F8(v11, type metadata accessor for ConditionDetailMapViewModel);
-      sub_100006AE8();
-      return v24 & 1;
-    case 2u:
-      if (sub_100013E60() != 2)
-      {
-        goto LABEL_11;
-      }
-
-      goto LABEL_19;
-    case 3u:
-      if (sub_100013E60() == 3)
-      {
-        goto LABEL_19;
-      }
-
-      goto LABEL_11;
-    default:
-      sub_100010F38();
-      sub_1008C9698(v17, v13, v19);
-      v21 = *v13;
-      v20 = v13[1];
-      v22 = v13[2];
-      if (sub_100013E60())
-      {
-
-LABEL_11:
-        sub_1000180EC(v17, &qword_100CE3CE8);
-        goto LABEL_12;
-      }
-
-      v26 = v18[2];
-      v27 = v21 == *v18 && v20 == v18[1];
-      if (!v27 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-      {
-
-        goto LABEL_22;
-      }
-
-      v28 = sub_1009E9E08(v22, v26);
-
-      if ((v28 & 1) == 0)
-      {
-LABEL_22:
-        sub_100006AE8();
-LABEL_12:
-        v24 = 0;
-        return v24 & 1;
-      }
-
-LABEL_19:
-      sub_100006AE8();
-      v24 = 1;
-      return v24 & 1;
-  }
-}
-
-uint64_t sub_1008C9410(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ConditionDetailMapViewModel();
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-unint64_t sub_1008C9474()
-{
-  result = qword_100CE3D20;
-  if (!qword_100CE3D20)
-  {
-    sub_10022E824(&qword_100CE3D18);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE3D20);
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C94D8()
-{
-  result = qword_100CE3D30;
-  if (!qword_100CE3D30)
-  {
-    sub_10022E824(&qword_100CE3D10);
-    sub_1008C9594(&qword_100CE3D38, type metadata accessor for WindCategoryTableView);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE3D30);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C9594(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-unint64_t sub_1008C95DC()
-{
-  result = qword_100CE3D40;
-  if (!qword_100CE3D40)
-  {
-    sub_10022E824(&qword_100CE3CF8);
-    sub_1008C9474();
-    sub_1008C9594(&qword_100CE3D28, type metadata accessor for ConditionDetailMapView);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CE3D40);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008C9698(uint64_t a1, uint64_t a2, void (*a3)(void))
-{
-  a3(0);
-  sub_1000037E8();
-  (*(v5 + 16))(a2, a1);
-  return a2;
-}
-
-uint64_t sub_1008C96F8(uint64_t a1, void (*a2)(void))
-{
-  a2(0);
-  sub_1000037E8();
-  (*(v3 + 8))(a1);
-  return a1;
-}
-
-uint64_t sub_1008C9750(uint64_t a1)
-{
-  type metadata accessor for MainAction();
-  sub_1000037E8();
-  __chkstk_darwin(v3);
-  v5 = &v10[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v6 = *(v1 + 16);
-  type metadata accessor for Date();
-  sub_1000037E8();
-  (*(v7 + 16))(v5, a1);
-  type metadata accessor for MoonDetailViewAction();
-  swift_storeEnumTagMultiPayload();
-  swift_storeEnumTagMultiPayload();
-  sub_1000082D8();
-  sub_10004F034(v5, v8, v6);
-  sub_1000E17D8(v10);
-  return sub_1000547B8(v5);
-}
-
-uint64_t sub_1008C9850(uint64_t a1)
-{
-  type metadata accessor for MainAction();
-  sub_1000037E8();
-  __chkstk_darwin(v3);
-  v5 = &v10[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v6 = *(v1 + 16);
-  type metadata accessor for Date();
-  sub_1000037E8();
-  (*(v7 + 16))(v5, a1);
-  type metadata accessor for MoonDetailSelectedDate();
-  swift_storeEnumTagMultiPayload();
-  type metadata accessor for MoonDetailViewAction();
-  swift_storeEnumTagMultiPayload();
-  swift_storeEnumTagMultiPayload();
-  sub_1000082D8();
-  sub_10004F034(v5, v8, v6);
-  sub_1000E17D8(v10);
-  return sub_1000547B8(v5);
-}
-
-uint64_t sub_1008C999C(uint64_t a1)
-{
-  v2 = sub_10022C350(&qword_100CB5268);
-  sub_1000037C4();
-  v67 = v3;
-  __chkstk_darwin(v4);
-  v66 = &v64 - v5;
-  v6 = sub_10022C350(&unk_100CB2CF0);
-  __chkstk_darwin(v6 - 8);
-  v65 = &v64 - v7;
-  v69 = type metadata accessor for ActivityAction();
-  __chkstk_darwin(v69);
-  v70 = (&v64 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = type metadata accessor for URLHandlerMatch.Values();
-  sub_1000037C4();
-  v11 = v10;
-  __chkstk_darwin(v12);
-  v14 = &v64 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v17 = &v64 - v16;
-  v18 = type metadata accessor for URLHandlerMatch();
-  sub_1000037C4();
-  v20 = v19;
-  __chkstk_darwin(v21);
-  v23 = &v64 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v24);
-  v26 = &v64 - v25;
-  v73 = v2;
-  v74 = a1;
-  URLHandlerContext.match.getter();
-  URLHandlerMatch.values.getter();
-  v29 = *(v20 + 8);
-  v27 = (v20 + 8);
-  v28 = v29;
-  (v29)(v26, v18);
-  LOBYTE(a1) = sub_10022F3D4();
-  v30 = *(v11 + 8);
-  v68 = v17;
-  v71 = v30;
-  v30(v17, v9);
-  if (a1)
-  {
-    sub_1000161C0((v72 + 48), *(v72 + 72));
-    v31 = v70;
-    swift_storeEnumTagMultiPayload();
-    v32 = static LocationSearchEntityFromStringResolver.__derived_struct_equals(_:_:)();
-    v33 = static VerticalSizingBehaviorKey.defaultValue.getter();
-    sub_100366814(v31, v32 & 1, v33 & 1);
-    sub_1002AC218(v31);
-  }
-
-  else
-  {
-    URLHandlerContext.match.getter();
-    URLHandlerMatch.values.getter();
-    (v28)(v23, v18);
-    v34 = sub_10022F730();
-    v36 = v35;
-    v38 = v37;
-    v71(v14, v9);
-    v39 = v9;
-    if (v38)
-    {
-      v70 = v28;
-      v71 = v27;
-      v72 = v18;
-      v41 = v73;
-      v40 = v74;
-      if (qword_100CA2758 != -1)
-      {
-        swift_once();
-      }
-
-      v42 = type metadata accessor for Logger();
-      sub_10000703C(v42, qword_100D90C60);
-      v44 = v66;
-      v43 = v67;
-      (*(v67 + 16))(v66, v40, v41);
-      v45 = Logger.logObject.getter();
-      v46 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v45, v46))
-      {
-        v47 = v44;
-        v48 = swift_slowAlloc();
-        v74 = swift_slowAlloc();
-        v75 = v74;
-        *v48 = 141558275;
-        *(v48 + 4) = 1752392040;
-        *(v48 + 12) = 2081;
-        URLHandlerContext.match.getter();
-        URLHandlerMatch.values.getter();
-        v70(v26, v72);
-        v49 = String.init<A>(describing:)();
-        v50 = v43;
-        v52 = v51;
-        (*(v50 + 8))(v47, v41);
-        v53 = sub_100078694(v49, v52, &v75);
-
-        *(v48 + 14) = v53;
-        _os_log_impl(&_mh_execute_header, v45, v46, "No coordinates available in URL, matches=%{private,mask.hash}s", v48, 0x16u);
-        sub_100006F14(v74);
-      }
-
-      else
-      {
-
-        (*(v43 + 8))(v44, v41);
-      }
-    }
-
-    else
-    {
-      v54 = v36;
-      URLHandlerContext.match.getter();
-      v55 = v68;
-      URLHandlerMatch.values.getter();
-      (v28)(v26, v18);
-      v56 = sub_10022FA00();
-      v57 = v39;
-      v59 = v58;
-      v71(v55, v57);
-      v60 = type metadata accessor for Date();
-      v61 = v65;
-      sub_10001B350(v65, 1, 1, v60);
-      sub_100066E08();
-      v62 = Dictionary.init(dictionaryLiteral:)();
-      sub_1002A2C08(v56, v59, 18, v61, v62, 0, 0, *&v34, v54);
-
-      sub_1001AEDF4(v61);
-    }
-  }
-
-  return 1;
-}
-
-unint64_t sub_1008CA074(uint64_t a1)
-{
-  result = sub_1008CA09C();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1008CA09C()
-{
-  result = qword_100CDD810;
-  if (!qword_100CDD810)
-  {
-    type metadata accessor for LocationURLHandler();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100CDD810);
-  }
-
-  return result;
-}
-
-uint64_t sub_1008CA0F0(uint64_t a1, uint64_t a2)
-{
-  v27 = a2;
-  v2 = type metadata accessor for TimeState();
-  __chkstk_darwin(v2 - 8);
-  v30 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for WeatherDataConfiguration();
-  v28 = *(v4 - 8);
-  v29 = v4;
-  __chkstk_darwin(v4);
-  v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for AppConfigurationState();
-  __chkstk_darwin(v7 - 8);
-  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for CurrentWeather();
-  v11 = *(v10 - 8);
-  __chkstk_darwin(v10);
-  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Date();
-  v15 = *(v14 - 8);
-  v16 = __chkstk_darwin(v14);
-  v18 = &v27 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v20 = &v27 - v19;
-  type metadata accessor for WeatherData(0);
-  WeatherDataModel.currentWeather.getter();
-  CurrentWeather.date.getter();
-  (*(v11 + 8))(v13, v10);
-  v21 = v27;
-  sub_10019CD2C(v27 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_appConfiguration, v9, type metadata accessor for AppConfigurationState);
-  AppConfiguration.weatherData.getter();
-  v22 = type metadata accessor for AppConfiguration();
-  (*(*(v22 - 8) + 8))(v9, v22);
-  WeatherDataConfiguration.offlineDataFreshnessInterval.getter();
-  (*(v28 + 8))(v6, v29);
-  Date.addingTimeInterval(_:)();
-  v23 = v30;
-  sub_10019CD2C(v21 + OBJC_IVAR____TtCV7Weather9MainState8_Storage_time, v30, type metadata accessor for TimeState);
-  v24 = static Date.> infix(_:_:)();
-  v25 = *(v15 + 8);
-  v25(v18, v14);
-  v25(v20, v14);
-  v25(v23, v14);
-  return v24 & 1;
-}
-
-uint64_t sub_1008CA4BC(uint64_t a1, void (*a2)(void))
-{
-  a2(0);
-  sub_1000037E8();
-  (*(v3 + 8))(a1);
-  return a1;
-}
-
-uint64_t sub_1008CA514(uint64_t a1, uint64_t a2, void (*a3)(void))
-{
-  a3(0);
-  sub_1000037E8();
-  v4 = sub_100003940();
-  v5(v4);
-  return a2;
-}
-
-uint64_t sub_1008CA570(char a1)
-{
-  type metadata accessor for URL();
-  sub_10000548C();
-  v5 = v4;
-  __chkstk_darwin(v6);
-  sub_100005384();
-  sub_1008CA848(a1, v2);
-  v7 = [objc_allocWithZone(LSApplicationWorkspace) init];
-  URL._bridgeToObjectiveC()(v8);
-  v10 = v9;
-  v11 = Dictionary.init(dictionaryLiteral:)();
-  sub_1008CAC30(v10, v11, v7);
-
-  (*(v5 + 8))(v2, v1);
-  return 1;
-}
-
-BOOL sub_1008CA688()
-{
-  v2 = sub_10022C350(&qword_100CB3AB0);
-  __chkstk_darwin(v2 - 8);
-  v4 = &v15 - v3;
-  type metadata accessor for URL();
-  sub_10000548C();
-  v6 = v5;
-  __chkstk_darwin(v7);
-  sub_100005384();
-  URL.init(string:)();
-  v8 = sub_100024D10(v4, 1, v0);
-  if (v8 == 1)
-  {
-    sub_1000E6774(v4);
-  }
-
-  else
-  {
-    (*(v6 + 32))(v1, v4, v0);
-    v9 = [objc_allocWithZone(LSApplicationWorkspace) init];
-    URL._bridgeToObjectiveC()(v10);
-    v12 = v11;
-    v13 = Dictionary.init(dictionaryLiteral:)();
-    sub_1008CAC30(v12, v13, v9);
-
-    (*(v6 + 8))(v1, v0);
-  }
-
-  return v8 != 1;
-}
-
-uint64_t sub_1008CA848@<X0>(char a1@<W0>, uint64_t a2@<X8>)
-{
-  v4 = sub_10022C350(&qword_100CB3AB0);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v9 = &v34 - v8;
-  __chkstk_darwin(v10);
-  v12 = &v34 - v11;
-  __chkstk_darwin(v13);
-  v15 = &v34 - v14;
-  __chkstk_darwin(v16);
-  v18 = &v34 - v17;
-  __chkstk_darwin(v19);
-  v21 = &v34 - v20;
-  switch(a1)
-  {
-    case 1:
-      sub_10001D148();
-      URL.init(string:)();
-      v22 = type metadata accessor for URL();
-      sub_100003A40(v18);
-      if (v23)
-      {
-        goto LABEL_20;
-      }
-
-      sub_100006494();
-      v25 = *(v31 + 32);
-      v26 = a2;
-      v27 = v18;
-      return v25(v26, v27, v22);
-    case 2:
-      sub_10001D148();
-      URL.init(string:)();
-      v22 = type metadata accessor for URL();
-      sub_100003A40(v15);
-      if (v23)
-      {
-        goto LABEL_17;
-      }
-
-      sub_100006494();
-      v25 = *(v29 + 32);
-      v26 = a2;
-      v27 = v15;
-      return v25(v26, v27, v22);
-    case 3:
-      sub_10001D148();
-      URL.init(string:)();
-      v22 = type metadata accessor for URL();
-      sub_100003A40(v12);
-      if (v23)
-      {
-        goto LABEL_18;
-      }
-
-      sub_100006494();
-      v25 = *(v30 + 32);
-      v26 = a2;
-      v27 = v12;
-      return v25(v26, v27, v22);
-    case 4:
-      URL.init(string:)();
-      v22 = type metadata accessor for URL();
-      sub_100003A40(v9);
-      if (v23)
-      {
-        __break(1u);
-LABEL_17:
-        __break(1u);
-LABEL_18:
-        __break(1u);
-LABEL_19:
-        __break(1u);
-LABEL_20:
-        __break(1u);
-LABEL_21:
-        __break(1u);
-LABEL_22:
-        result = _assertionFailure(_:_:file:line:flags:)();
-        __break(1u);
-      }
-
-      else
-      {
-        sub_100006494();
-        v25 = *(v28 + 32);
-        v26 = a2;
-        v27 = v9;
-        return v25(v26, v27, v22);
-      }
-
-      return result;
-    case 5:
-      sub_10001D148();
-      URL.init(string:)();
-      v33 = type metadata accessor for URL();
-      if (sub_100024D10(v6, 1, v33) == 1)
-      {
-        goto LABEL_21;
-      }
-
-      return (*(*(v33 - 8) + 32))(a2, v6, v33);
-    case 6:
-      goto LABEL_22;
-    default:
-      sub_10001D148();
-      URL.init(string:)();
-      v22 = type metadata accessor for URL();
-      sub_100003A40(v21);
-      if (v23)
-      {
-        goto LABEL_19;
-      }
-
-      sub_100006494();
-      v25 = *(v24 + 32);
-      v26 = a2;
-      v27 = v21;
-      return v25(v26, v27, v22);
-  }
-}
-
-id sub_1008CAC30(uint64_t a1, uint64_t a2, void *a3)
-{
-  isa = Dictionary._bridgeToObjectiveC()().super.isa;
-
-  v6 = [a3 openSensitiveURL:a1 withOptions:isa];
-
-  return v6;
-}
-
-uint64_t sub_1008CACB4()
-{
-  v1 = OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_label;
-  v2 = type metadata accessor for WeatherNetworkActivity.Label();
-  v3 = *(*(v2 - 8) + 8);
-  v3(v0 + v1, v2);
-  v3(v0 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_metadataLabel, v2);
-  v3(v0 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesLabel, v2);
-  v3(v0 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_overlayTileLabel, v2);
-
-  return v0;
-}
-
-uint64_t sub_1008CADC0()
-{
-  sub_1008CACB4();
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t sub_1008CAE20()
-{
-  v0 = type metadata accessor for NetworkActivityCompletion();
-  __chkstk_darwin(v0);
-  sub_1000037D8();
-  v3 = v2 - v1;
-  type metadata accessor for UnfairLock();
-
-  Lock.sync<A>(_:)();
-
-  sub_10005ABDC();
-  return sub_10005AE3C(v3);
-}
-
-uint64_t sub_1008CAF14@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
-{
-  v146 = a3;
-  v147 = a2;
-  v6 = type metadata accessor for NWActivity.CompletionReason();
-  v143 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v137 = &v125 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v142 = &v125 - v9;
-  __chkstk_darwin(v10);
-  v138 = &v125 - v11;
-  v12 = sub_10022C350(&qword_100CC2B20);
-  __chkstk_darwin(v12 - 8);
-  v136 = &v125 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v135 = &v125 - v15;
-  v130 = type metadata accessor for WeatherNetworkActivity.Label();
-  v129 = *(v130 - 8);
-  __chkstk_darwin(v130);
-  v134 = &v125 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v128 = type metadata accessor for WeatherNetworkActivity.Domain();
-  v127 = *(v128 - 8);
-  __chkstk_darwin(v128);
-  v140 = &v125 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v133 = type metadata accessor for WeatherNetworkActivity();
-  v132 = *(v133 - 8);
-  __chkstk_darwin(v133);
-  v131 = &v125 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v148 = type metadata accessor for WeatherMap.Event();
-  v19 = *(v148 - 8);
-  __chkstk_darwin(v148);
-  v21 = &v125 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v22);
-  v141 = &v125 - v23;
-  __chkstk_darwin(v24);
-  v26 = &v125 - v25;
-  __chkstk_darwin(v27);
-  v29 = &v125 - v28;
-  v30 = type metadata accessor for WeatherMapPurpose();
-  v31 = *(v30 - 8);
-  v32 = __chkstk_darwin(v30);
-  v34 = (&v125 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v31 + 16))(v34, a1, v30, v32);
-  if ((*(v31 + 88))(v34, v30) != enum case for WeatherMapPurpose.interactive(_:))
-  {
-    (*(v31 + 8))(v34, v30);
-LABEL_16:
-    v63 = type metadata accessor for NetworkActivityCompletion();
-    result = sub_10001B350(a4 + *(v63 + 24), 1, 1, v6);
-    *a4 = _swiftEmptyArrayStorage;
-    a4[1] = _swiftEmptyArrayStorage;
-    return result;
-  }
-
-  v144 = v19;
-  v126 = v6;
-  v139 = a4;
-  (*(v31 + 96))(v34, v30);
-  v35 = v34[1];
-  v125 = *v34;
-  v145 = v35;
-  v36 = (v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_locationId);
-  v37 = *(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_locationId + 8);
-  if (!v37 || (v125 == *v36 ? (v38 = v37 == v145) : (v38 = 0), !v38 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
-  {
-    v39 = v144;
-    v40 = *(v144 + 104);
-    v41 = v148;
-    v40(v29, enum case for WeatherMap.Event.willStartLoading(_:), v148);
-    v42 = static WeatherMap.Event.== infix(_:_:)();
-    v43 = *(v39 + 8);
-    v43(v29, v41);
-    if ((v42 & 1) == 0)
-    {
-      v44 = v148;
-      v40(v29, enum case for WeatherMap.Event.loadingWasInterruptedByUserInteraction(_:), v148);
-      v45 = static WeatherMap.Event.== infix(_:_:)();
-      v43(v29, v44);
-      if ((v45 & 1) == 0)
-      {
-
-        a4 = v139;
-        v6 = v126;
-        goto LABEL_16;
-      }
-    }
-  }
-
-  v46 = v144;
-  v47 = *(v144 + 16);
-  v48 = v26;
-  v49 = v148;
-  v47(v26, v146, v148);
-  v50 = (*(v46 + 88))(v26, v49);
-  if (v50 == enum case for WeatherMap.Event.didFinishLoading(_:))
-  {
-
-    v47(v21, v26, v49);
-    (*(v46 + 96))(v21, v49);
-    v51 = v49;
-    v52 = OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_rootActivity;
-    v53 = v147;
-    v54 = *(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_rootActivity);
-    v55 = v139;
-    if (v54)
-    {
-      v56 = *v21;
-      *v36 = 0;
-      v36[1] = 0;
-      v57 = v53;
-
-      *(v57 + v52) = 0;
-
-      v59 = v142;
-      v58 = v143;
-      v60 = &enum case for NWActivity.CompletionReason.success(_:);
-      if (!v56)
-      {
-        v60 = &enum case for NWActivity.CompletionReason.failure(_:);
-      }
-
-      v61 = v126;
-      (*(v143 + 104))(v142, *v60, v126);
-      sub_100316A04(v54, v59, v55);
-
-      (*(v58 + 8))(v59, v61);
-      return (*(v46 + 8))(v48, v51);
-    }
-
-    else
-    {
-      if (qword_100CA2718 != -1)
-      {
-        swift_once();
-      }
-
-      v82 = type metadata accessor for Logger();
-      sub_10000703C(v82, qword_100D90BA0);
-      v83 = Logger.logObject.getter();
-      v84 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v83, v84))
-      {
-        v85 = swift_slowAlloc();
-        *v85 = 0;
-        _os_log_impl(&_mh_execute_header, v83, v84, "Map indicated it had finished loading for interactive map activity that wasn't tracked", v85, 2u);
-      }
-
-      v86 = type metadata accessor for NetworkActivityCompletion();
-      sub_10001B350(&v55[*(v86 + 24)], 1, 1, v126);
-      *v55 = _swiftEmptyArrayStorage;
-      *(v55 + 1) = _swiftEmptyArrayStorage;
-      return (*(v46 + 8))(v48, v148);
-    }
-  }
-
-  v64 = v50;
-  v65 = v139;
-  if (v50 == enum case for WeatherMap.Event.overlay(_:))
-  {
-
-    v66 = v141;
-    v47(v141, v26, v49);
-    (*(v46 + 96))(v66, v49);
-    v67 = type metadata accessor for WeatherMap.Event.Overlay();
-    v68 = *(v67 - 8);
-    v69 = (*(v68 + 88))(v66, v67);
-    if (v69 == enum case for WeatherMap.Event.Overlay.didFinishLoadingTiles(_:))
-    {
-      (*(v68 + 96))(v66, v67);
-      v70 = *(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesActivity);
-      if (v70)
-      {
-        *(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesActivity) = 0;
-        v71 = v143;
-        v72 = &enum case for NWActivity.CompletionReason.success(_:);
-        if (!*v66)
-        {
-          v72 = &enum case for NWActivity.CompletionReason.failure(_:);
-        }
-
-        v73 = v138;
-        v74 = v126;
-        (*(v143 + 104))(v138, *v72, v126);
-        sub_100316A04(v70, v73, v65);
-
-        (*(v71 + 8))(v73, v74);
-        return (*(v46 + 8))(v48, v49);
-      }
-
-      if (qword_100CA2718 != -1)
-      {
-        swift_once();
-      }
-
-      v111 = type metadata accessor for Logger();
-      sub_10000703C(v111, qword_100D90BA0);
-      v78 = Logger.logObject.getter();
-      v79 = static os_log_type_t.error.getter();
-      if (!os_log_type_enabled(v78, v79))
-      {
-        goto LABEL_56;
-      }
-
-      v80 = swift_slowAlloc();
-      *v80 = 0;
-      v81 = "Map indicated tiles had finished loading for interactive map activity that wasn't tracked";
-    }
-
-    else
-    {
-      if (v69 == enum case for WeatherMap.Event.Overlay.remove(_:))
-      {
-        (*(v68 + 96))(v66, v67);
-        v87 = sub_10022C350(&qword_100CE4068);
-        v88 = *(v87 + 48);
-        v89 = *(v87 + 64);
-        v90 = type metadata accessor for NetworkActivityCompletion();
-        sub_10001B350(v65 + *(v90 + 24), 1, 1, v126);
-        *v65 = _swiftEmptyArrayStorage;
-        v65[1] = _swiftEmptyArrayStorage;
-        v91 = type metadata accessor for WeatherMapStallStatistics();
-        (*(*(v91 - 8) + 8))(&v66[v89], v91);
-        v92 = type metadata accessor for WeatherMapSessionStatistics();
-        (*(*(v92 - 8) + 8))(&v66[v88], v92);
-        v93 = type metadata accessor for WeatherMapOverlayKind();
-        (*(*(v93 - 8) + 8))(v66, v93);
-        return (*(v46 + 8))(v48, v49);
-      }
-
-      if (v69 != enum case for WeatherMap.Event.Overlay.willStartLoadingTiles(_:))
-      {
-        (*(v68 + 8))(v66, v67);
-        goto LABEL_57;
-      }
-
-      v103 = OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesActivity;
-      v104 = v147;
-      if (!*(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesActivity))
-      {
-        (*(v127 + 104))(v140, enum case for WeatherNetworkActivity.Domain.weather(_:), v128);
-        (*(v129 + 16))(v134, v104 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesLabel, v130);
-        v120 = type metadata accessor for UUID();
-        sub_10001B350(v135, 1, 1, v120);
-        sub_10001B350(v136, 1, 1, v120);
-        v121 = v131;
-        WeatherNetworkActivity.init(domain:label:token:parentToken:)();
-        v122 = WeatherNetworkActivity.createNWActivity()();
-        (*(v132 + 8))(v121, v133);
-
-        NWActivity.parentActivity.setter();
-        *(v104 + v103) = v122;
-
-        sub_10022C350(&unk_100CE49D0);
-        v123 = swift_allocObject();
-        *(v123 + 16) = xmmword_100A3BD20;
-        *(v123 + 32) = v122;
-        v124 = type metadata accessor for NetworkActivityCompletion();
-        sub_10001B350(v65 + *(v124 + 24), 1, 1, v126);
-        *v65 = v123;
-        goto LABEL_58;
-      }
-
-      if (qword_100CA2718 != -1)
-      {
-        swift_once();
-      }
-
-      v105 = type metadata accessor for Logger();
-      sub_10000703C(v105, qword_100D90BA0);
-      v78 = Logger.logObject.getter();
-      v79 = static os_log_type_t.error.getter();
-      if (!os_log_type_enabled(v78, v79))
-      {
-        goto LABEL_56;
-      }
-
-      v80 = swift_slowAlloc();
-      *v80 = 0;
-      v81 = "InteractiveMapNetworkActivityFlow received duplicate overlay(.willStartLoadingTiles) events";
-    }
-
-LABEL_55:
-    _os_log_impl(&_mh_execute_header, v78, v79, v81, v80, 2u);
-    v49 = v148;
-
-LABEL_56:
-
-    goto LABEL_57;
-  }
-
-  if (v50 == enum case for WeatherMap.Event.willStartLoading(_:))
-  {
-    v75 = OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_rootActivity;
-    v76 = v147;
-    if (!*(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_rootActivity))
-    {
-      (*(v127 + 104))(v140, enum case for WeatherNetworkActivity.Domain.weather(_:), v128);
-      (*(v129 + 16))(v134, v76 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_label, v130);
-      v113 = type metadata accessor for UUID();
-      sub_10001B350(v135, 1, 1, v113);
-      sub_10001B350(v136, 1, 1, v113);
-      v114 = v131;
-      WeatherNetworkActivity.init(domain:label:token:parentToken:)();
-      v115 = WeatherNetworkActivity.createNWActivity()();
-      (*(v132 + 8))(v114, v133);
-      v116 = v145;
-      *v36 = v125;
-      v36[1] = v116;
-
-      *(v147 + v75) = v115;
-
-      sub_10022C350(&unk_100CE49D0);
-      v117 = swift_allocObject();
-      *(v117 + 16) = xmmword_100A3BD20;
-      *(v117 + 32) = v115;
-      v118 = type metadata accessor for NetworkActivityCompletion();
-      v119 = v139;
-      sub_10001B350(v139 + *(v118 + 24), 1, 1, v126);
-      *v119 = v117;
-      v119[1] = _swiftEmptyArrayStorage;
-      return (*(v46 + 8))(v48, v49);
-    }
-
-    if (qword_100CA2718 != -1)
-    {
-      swift_once();
-    }
-
-    v77 = type metadata accessor for Logger();
-    sub_10000703C(v77, qword_100D90BA0);
-    v78 = Logger.logObject.getter();
-    v79 = static os_log_type_t.error.getter();
-    if (!os_log_type_enabled(v78, v79))
-    {
-      goto LABEL_56;
-    }
-
-    v80 = swift_slowAlloc();
-    *v80 = 0;
-    v81 = "InteractiveMapNetworkActivityFlow received duplicate willStartLoading events";
-    goto LABEL_55;
-  }
-
-  v94 = enum case for WeatherMap.Event.loadingWasInterruptedByUserInteraction(_:);
-
-  if (v64 != v94)
-  {
-LABEL_57:
-    v112 = type metadata accessor for NetworkActivityCompletion();
-    sub_10001B350(v65 + *(v112 + 24), 1, 1, v126);
-    *v65 = _swiftEmptyArrayStorage;
-LABEL_58:
-    v65[1] = _swiftEmptyArrayStorage;
-    return (*(v46 + 8))(v48, v49);
-  }
-
-  v95 = v147;
-  v96 = *(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesActivity);
-  v97 = OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_rootActivity;
-  v98 = *(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_rootActivity);
-  *(v147 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesActivity) = 0;
-  *(v95 + v97) = 0;
-  sub_10022C350(&qword_100CE1B90);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_100A2D320;
-  *(inited + 32) = v96;
-  *(inited + 40) = v98;
-  v149 = _swiftEmptyArrayStorage;
-
-  v100 = 0;
-  v101 = _swiftEmptyArrayStorage;
-  while (v100 != 2)
-  {
-    if (*(inited + 8 * v100++ + 32))
-    {
-
-      specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((v149 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v149 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-      {
-        specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-      }
-
-      specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v101 = v149;
-    }
-  }
-
-  swift_setDeallocating();
-  sub_100195474();
-  v106 = v143;
-  v107 = v137;
-  v108 = v126;
-  (*(v143 + 104))(v137, enum case for NWActivity.CompletionReason.cancelled(_:), v126);
-
-  v109 = *(type metadata accessor for NetworkActivityCompletion() + 24);
-  v110 = v139;
-  (*(v106 + 32))(v139 + v109, v107, v108);
-  sub_10001B350(v110 + v109, 0, 1, v108);
-  *v110 = _swiftEmptyArrayStorage;
-  v110[1] = v101;
-  return (*(v144 + 8))(v26, v148);
-}
-
-uint64_t sub_1008CC1E0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v49 = a2;
-  v5 = sub_10022C350(&qword_100CC2B20);
-  v6 = sub_100003810(v5);
-  __chkstk_darwin(v6);
-  sub_100003C38();
-  v48 = v7 - v8;
-  sub_10000386C();
-  __chkstk_darwin(v9);
-  v47 = &v44 - v10;
-  v11 = type metadata accessor for WeatherNetworkActivity.Domain();
-  sub_1000037C4();
-  v44 = v12;
-  __chkstk_darwin(v13);
-  sub_1000037D8();
-  v46 = v15 - v14;
-  v16 = sub_10022C350(&qword_100CE1B88);
-  v17 = sub_100003810(v16);
-  __chkstk_darwin(v17);
-  v19 = &v44 - v18;
-  v20 = type metadata accessor for WeatherNetworkActivity.Label();
-  sub_1000037C4();
-  v45 = v21;
-  __chkstk_darwin(v22);
-  sub_100003C38();
-  v25 = v23 - v24;
-  __chkstk_darwin(v26);
-  sub_100008C44();
-  v27 = type metadata accessor for WeatherMapPurpose();
-  sub_1000037C4();
-  v29 = v28;
-  __chkstk_darwin(v30);
-  sub_1000037D8();
-  v33 = (v32 - v31);
-  (*(v29 + 16))(v32 - v31, a1, v27);
-  if ((*(v29 + 88))(v33, v27) == enum case for WeatherMapPurpose.interactive(_:))
-  {
-    (*(v29 + 96))(v33, v27);
-    v34 = *(v2 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_locationId + 8);
-    if (v34)
-    {
-      if (*v33 == *(v2 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_locationId) && v34 == v33[1])
-      {
-      }
-
-      else
-      {
-        v36 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if ((v36 & 1) == 0)
-        {
-          goto LABEL_15;
-        }
-      }
-
-      if (*(v2 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_rootActivity))
-      {
-
-        sub_100024EAC(v19);
-        if (sub_100024D10(v19, 1, v20) != 1)
-        {
-          v41 = v45;
-          (*(v45 + 32))(v3, v19, v20);
-          (*(v44 + 104))(v46, enum case for WeatherNetworkActivity.Domain.weather(_:), v11);
-          (*(v41 + 16))(v25, v3, v20);
-          v42 = type metadata accessor for UUID();
-          sub_10001B350(v47, 1, 1, v42);
-          v43 = v48;
-          NWActivity.token.getter();
-          sub_10001B350(v43, 0, 1, v42);
-          v38 = v49;
-          WeatherNetworkActivity.init(domain:label:token:parentToken:)();
-
-          (*(v41 + 8))(v3, v20);
-          v37 = 0;
-          goto LABEL_16;
-        }
-
-        sub_100896F94(v19);
-      }
-    }
-
-    else
-    {
-    }
-  }
-
-  else
-  {
-    (*(v29 + 8))(v33, v27);
-  }
-
-LABEL_15:
-  v37 = 1;
-  v38 = v49;
-LABEL_16:
-  v39 = type metadata accessor for WeatherNetworkActivity();
-  return sub_10001B350(v38, v37, 1, v39);
-}
-
-uint64_t sub_1008CC678@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v42 = a2;
-  v5 = sub_10022C350(&qword_100CC2B20);
-  v6 = sub_100003810(v5);
-  __chkstk_darwin(v6);
-  sub_100003C38();
-  v9 = v7 - v8;
-  __chkstk_darwin(v10);
-  v41 = &v39 - v11;
-  v12 = type metadata accessor for WeatherNetworkActivity.Label();
-  sub_1000037C4();
-  v40 = v13;
-  __chkstk_darwin(v14);
-  sub_1000037D8();
-  v17 = v16 - v15;
-  v18 = type metadata accessor for WeatherNetworkActivity.Domain();
-  sub_1000037C4();
-  v39 = v19;
-  __chkstk_darwin(v20);
-  sub_1000037D8();
-  v23 = v22 - v21;
-  v24 = type metadata accessor for WeatherMapPurpose();
-  sub_1000037C4();
-  v26 = v25;
-  __chkstk_darwin(v27);
-  sub_1000037D8();
-  v30 = (v29 - v28);
-  (*(v26 + 16))(v29 - v28, a1, v24);
-  if ((*(v26 + 88))(v30, v24) != enum case for WeatherMapPurpose.interactive(_:))
-  {
-    (*(v26 + 8))(v30, v24);
-    goto LABEL_14;
-  }
-
-  (*(v26 + 96))(v30, v24);
-  v31 = *(v3 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_locationId + 8);
-  if (!v31)
-  {
-
-    goto LABEL_14;
-  }
-
-  if (*v30 == *(v3 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_locationId) && v31 == v30[1])
-  {
-  }
-
-  else
-  {
-    v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if ((v33 & 1) == 0)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  if (!*(v3 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_tilesActivity))
-  {
-LABEL_14:
-    v36 = 1;
-    v35 = v42;
-    goto LABEL_15;
-  }
-
-  (*(v39 + 104))(v23, enum case for WeatherNetworkActivity.Domain.weather(_:), v18);
-  (*(v40 + 16))(v17, v3 + OBJC_IVAR____TtC7Weather33InteractiveMapNetworkActivityFlow_overlayTileLabel, v12);
-  v34 = type metadata accessor for UUID();
-  sub_10001B350(v41, 1, 1, v34);
-
-  NWActivity.token.getter();
-  sub_10001B350(v9, 0, 1, v34);
-  v35 = v42;
-  WeatherNetworkActivity.init(domain:label:token:parentToken:)();
-
-  v36 = 0;
-LABEL_15:
-  v37 = type metadata accessor for WeatherNetworkActivity();
-  return sub_10001B350(v35, v36, 1, v37);
 }

@@ -991,34 +991,33 @@ LABEL_20:
 {
   payloadCopy = payload;
   v5 = +[NSMutableArray array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   profile = [payloadCopy profile];
   payloads = [profile payloads];
 
-  v8 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [payloads countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v16 != v10)
+      if (*v15 != v10)
       {
         objc_enumerationMutation(payloads);
       }
 
-      v12 = *(*(&v15 + 1) + 8 * v11);
+      v12 = *(*(&v14 + 1) + 8 * v11);
       if (v12 == payloadCopy)
       {
         break;
       }
 
-      v13 = *(*(&v15 + 1) + 8 * v11);
       if (objc_opt_isKindOfClass())
       {
         [v5 addObject:v12];
@@ -1026,7 +1025,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [payloads countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -1083,34 +1082,33 @@ LABEL_9:
 {
   payloadCopy = payload;
   v5 = +[NSMutableArray array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   profile = [payloadCopy profile];
   payloads = [profile payloads];
 
-  v8 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [payloads countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v16 != v10)
+      if (*v15 != v10)
       {
         objc_enumerationMutation(payloads);
       }
 
-      v12 = *(*(&v15 + 1) + 8 * v11);
+      v12 = *(*(&v14 + 1) + 8 * v11);
       if (v12 == payloadCopy)
       {
         break;
       }
 
-      v13 = *(*(&v15 + 1) + 8 * v11);
       if (objc_opt_isKindOfClass())
       {
         [v5 addObject:v12];
@@ -1118,7 +1116,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [payloads countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           goto LABEL_3;

@@ -31,7 +31,7 @@
     secondaryDir = self->secondaryDir_;
     v5[0] = self->primaryDir_;
     v5[1] = secondaryDir;
-    v4 = [IOSObjectArray arrayWithObjects:v5 count:2 type:JavaIoCloseable_class_()];
+    v4 = [IOSObjectArray arrayWithObjects:v5 count:2 type:JavaIoCloseable_class_(self, a2)];
     OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v4);
     self->doClose_ = 0;
   }

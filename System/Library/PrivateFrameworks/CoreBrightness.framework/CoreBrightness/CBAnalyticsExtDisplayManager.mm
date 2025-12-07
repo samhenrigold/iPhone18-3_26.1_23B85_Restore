@@ -39,7 +39,7 @@
   return sharedInstance__sharedObject_3;
 }
 
-uint64_t __46__CBAnalyticsExtDisplayManager_sharedInstance__block_invoke(uint64_t a1)
+void *__46__CBAnalyticsExtDisplayManager_sharedInstance__block_invoke(uint64_t a1)
 {
   v4 = a1;
   v3 = a1;
@@ -60,9 +60,7 @@ uint64_t __46__CBAnalyticsExtDisplayManager_sharedInstance__block_invoke(uint64_
   selfCopy = [(CBAnalyticsExtDisplayManager *)&v23 init];
   if (!selfCopy)
   {
-LABEL_29:
-    v26 = selfCopy;
-    goto LABEL_30;
+    return selfCopy;
   }
 
   v2 = os_log_create("com.apple.CoreBrightness.CBAnalyticsExtDisplayManager", "default");
@@ -128,7 +126,7 @@ LABEL_29:
       _os_log_debug_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEBUG, "Init with timestamps {{%@}}", v27, 0xCu);
     }
 
-    goto LABEL_29;
+    return selfCopy;
   }
 
   if (*(selfCopy + 1))
@@ -163,10 +161,7 @@ LABEL_29:
 
   MEMORY[0x1E69E5920](selfCopy);
   selfCopy = 0;
-  v26 = 0;
-LABEL_30:
-  *MEMORY[0x1E69E9840];
-  return v26;
+  return 0;
 }
 
 - (void)dealloc
@@ -224,18 +219,18 @@ LABEL_30:
   return v5 & 1;
 }
 
-uint64_t __58__CBAnalyticsExtDisplayManager_handleColorSampleInternal___block_invoke(uint64_t result)
+id *__58__CBAnalyticsExtDisplayManager_handleColorSampleInternal___block_invoke(id *result)
 {
   v1 = result;
-  if (*(result + 32))
+  if (result[4])
   {
-    result = [*(*(result + 40) + 40) setObject:*(result + 32) forKey:{objc_msgSend(*(result + 40), "stringForType:", objc_msgSend(*(result + 32), "type"))}];
-    if (!*(*(v1 + 40) + 24))
+    result = [*(result[5] + 5) setObject:result[4] forKey:{objc_msgSend(result[5], "stringForType:", objc_msgSend(result[4], "type"))}];
+    if (!*(v1[5] + 3))
     {
-      result = [*(v1 + 40) startReporting];
+      result = [v1[5] startReporting];
     }
 
-    *(*(*(v1 + 48) + 8) + 24) = 1;
+    *(*(v1[6] + 1) + 24) = 1;
   }
 
   return result;
@@ -306,8 +301,6 @@ uint64_t __58__CBAnalyticsExtDisplayManager_handleColorSampleInternal___block_in
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)logColorSample:(id)sample withType:(id)type
@@ -361,7 +354,6 @@ uint64_t __58__CBAnalyticsExtDisplayManager_handleColorSampleInternal___block_in
   v19[9] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(sample, "mode")}];
   -[CBAnalyticsExtDisplayManager sendEventLazy:andDict:](self, "sendEventLazy:andDict:", @"com.apple.corebrightness.extdisplay.als.colorsample", [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:10]);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEventOnceADayLazyInternal:(id)internal andDict:(id)dict
@@ -444,8 +436,6 @@ void __70__CBAnalyticsExtDisplayManager_sendEventOnceADayLazyInternal_andDict___
 
     [*(a1 + 32) sendEventLazy:*(a1 + 40) andDict:*(a1 + 48)];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEventLazy:(id)lazy andDict:(id)dict
@@ -478,7 +468,6 @@ void __70__CBAnalyticsExtDisplayManager_sendEventOnceADayLazyInternal_andDict___
   }
 
   AnalyticsSendEventLazy();
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)startReporting
@@ -594,9 +583,12 @@ void __46__CBAnalyticsExtDisplayManager_setUserActive___block_invoke(uint64_t a1
     *(*(a1 + 32) + 48) = *(a1 + 40) & 1;
     if (*(a1 + 40))
     {
-      if ([*(*(a1 + 32) + 40) count] && !*(*(a1 + 32) + 24))
+      if ([*(*(a1 + 32) + 40) count])
       {
-        [*(a1 + 32) startReporting];
+        if (!*(*(a1 + 32) + 24))
+        {
+          [*(a1 + 32) startReporting];
+        }
       }
     }
 
@@ -637,8 +629,6 @@ void __46__CBAnalyticsExtDisplayManager_setUserActive___block_invoke(uint64_t a1
       *(*(a1 + 32) + 24) = 0;
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)stopReportingInternal:(unint64_t)internal
@@ -727,8 +717,6 @@ void __54__CBAnalyticsExtDisplayManager_stopReportingInternal___block_invoke(uin
     dispatch_release(*(*(a1 + 32) + 24));
     *(*(a1 + 32) + 24) = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isFirstEventToday:(id)today

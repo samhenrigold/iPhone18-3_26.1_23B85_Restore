@@ -19,7 +19,18 @@
 - (void)_connectionInvalidated;
 - (void)_handleCompletion:(id)completion withSuccess:(BOOL)success error:(id)error;
 - (void)_invalidate;
+- (void)_presentActionSheetTemplate:(id)template animated:(BOOL)animated completion:(id)completion;
+- (void)_presentAlertTemplate:(id)template animated:(BOOL)animated completion:(id)completion;
+- (void)_pushEntityTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion;
+- (void)_pushGridTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion;
+- (void)_pushInformationTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion;
+- (void)_pushListTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion;
+- (void)_pushMapTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion;
+- (void)_pushNowPlayingTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion;
+- (void)_pushSearchTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion;
 - (void)_pushTabBarTemplate:(id)template animated:(BOOL)animated completion:(id)completion;
+- (void)_pushTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion;
+- (void)_pushVoiceControlTemplate:(id)template animated:(BOOL)animated completion:(id)completion;
 - (void)_sceneConnect:(id)connect;
 - (void)bannerDidAppearWithIdentifier:(id)identifier;
 - (void)bannerDidDisappearWithIdentifier:(id)identifier;
@@ -27,10 +38,21 @@
 - (void)clientAssistantCellUnavailableWithError:(id)error;
 - (void)clientPushNowPlayingTemplateAnimated:(BOOL)animated;
 - (void)clientPushedIllegalTemplateOfClass:(id)class;
+- (void)dismissTemplateAnimated:(BOOL)animated completion:(void *)completion;
+- (void)popTemplateAnimated:(BOOL)animated completion:(void *)completion;
+- (void)popToRootTemplateAnimated:(BOOL)animated completion:(void *)completion;
+- (void)popToTemplate:(CPTemplate *)targetTemplate animated:(BOOL)animated completion:(void *)completion;
+- (void)presentTemplate:(CPTemplate *)templateToPresent animated:(BOOL)animated completion:(void *)completion;
+- (void)pushTemplate:(CPTemplate *)templateToPush animated:(BOOL)animated completion:(void *)completion;
 - (void)selectTabBarTemplateIndex:(int64_t)index;
 - (void)setPrefersDarkUserInterfaceStyle:(BOOL)prefersDarkUserInterfaceStyle;
+- (void)setRootTemplate:(CPTemplate *)rootTemplate animated:(BOOL)animated completion:(void *)completion;
+- (void)templateDidAppearWithIdentifier:(id)identifier animated:(BOOL)animated;
+- (void)templateDidDisappearWithIdentifier:(id)identifier animated:(BOOL)animated;
 - (void)templateIdentifierDidDismiss:(id)dismiss;
 - (void)templateIdentifierDidPop:(id)pop;
+- (void)templateWillAppearWithIdentifier:(id)identifier animated:(BOOL)animated;
+- (void)templateWillDisappearWithIdentifier:(id)identifier animated:(BOOL)animated;
 - (void)updateInterestingLayoutGuideWithInsets:(UIEdgeInsets)insets;
 - (void)updateTabBarTemplate:(id)template;
 @end
@@ -62,56 +84,408 @@
   }
 }
 
-void __62__CPInterfaceController_popToRootTemplateAnimated_completion___block_invoke(uint64_t a1, int a2)
+- (void)setRootTemplate:(CPTemplate *)rootTemplate animated:(BOOL)animated completion:(void *)completion
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  if (a2)
+  v6 = animated;
+  v7 = rootTemplate;
+  v36 = *MEMORY[0x277D85DE8];
+  v10 = rootTemplate;
+  v11 = completion;
+  v12 = CarPlayFrameworkGeneralLogging(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *MEMORY[0x277D85DE8];
-    v5 = *(a1 + 32);
+    v13 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    *buf = 138412546;
+    v33 = v10;
+    v34 = 2112;
+    v35 = v13;
+    _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "Setting root template %@ animated %@", buf, 0x16u);
+  }
 
-    [v5 _handleCompletion:v3 withSuccess:1 error:0];
+  if (CPRootTemplateClasses_onceToken != -1)
+  {
+    [CPInterfaceController setRootTemplate:animated:completion:];
+  }
+
+  v14 = CPRootTemplateClasses_classes;
+  v15 = v10;
+  v16 = [v14 containsObject:object_getClass(v15)];
+  v17 = MEMORY[0x277CBE660];
+  if ((v16 & 1) == 0)
+  {
+    v18 = MEMORY[0x277CBEAD8];
+    v19 = *MEMORY[0x277CBE660];
+    NSStringFromSelector(a2);
+    v20 = a2;
+    v21 = v11;
+    v22 = v7;
+    selfCopy = self;
+    v25 = v24 = v6;
+    v26 = v19;
+    v17 = MEMORY[0x277CBE660];
+    [v18 raise:v26 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v15, v25, v14, 0}];
+
+    v6 = v24;
+    self = selfCopy;
+    v7 = v22;
+    v11 = v21;
+    a2 = v20;
+  }
+
+  if (CPAllowedTemplateClassesForCurrentEntitlement_onceToken != -1)
+  {
+    [CPInterfaceController setRootTemplate:animated:completion:];
+  }
+
+  v27 = CPAllowedTemplateClassesForCurrentEntitlement_allowedTemplateClasses;
+  v28 = v15;
+  if (([v27 containsObject:object_getClass(v28)] & 1) == 0)
+  {
+    v29 = MEMORY[0x277CBEAD8];
+    v30 = *v17;
+    v31 = NSStringFromSelector(a2);
+    [v29 raise:v30 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v28, v31, v27, 0}];
+  }
+
+  if (![(CPTemplate *)self->_rootTemplate isEqual:v28])
+  {
+    objc_storeStrong(&self->_rootTemplate, v7);
+    [(CPInterfaceController *)self _pushTemplate:v28 presentationStyle:1 animated:v6 completion:v11];
+  }
+}
+
+- (void)pushTemplate:(CPTemplate *)templateToPush animated:(BOOL)animated completion:(void *)completion
+{
+  v6 = animated;
+  v39[1] = *MEMORY[0x277D85DE8];
+  v9 = templateToPush;
+  v10 = completion;
+  if (CPPushableTemplateClasses_onceToken != -1)
+  {
+    [CPInterfaceController pushTemplate:animated:completion:];
+  }
+
+  v11 = CPPushableTemplateClasses_classes;
+  v12 = v9;
+  v13 = [v11 containsObject:object_getClass(v12)];
+  v14 = MEMORY[0x277CBE660];
+  if ((v13 & 1) == 0)
+  {
+    v15 = MEMORY[0x277CBEAD8];
+    v16 = *MEMORY[0x277CBE660];
+    NSStringFromSelector(a2);
+    v17 = v10;
+    v19 = v18 = v6;
+    [v15 raise:v16 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v12, v19, v11, 0}];
+
+    v6 = v18;
+    v10 = v17;
+    v14 = MEMORY[0x277CBE660];
+  }
+
+  if (CPAllowedTemplateClassesForCurrentEntitlement_onceToken != -1)
+  {
+    [CPInterfaceController pushTemplate:animated:completion:];
+  }
+
+  v20 = CPAllowedTemplateClassesForCurrentEntitlement_allowedTemplateClasses;
+  v21 = v12;
+  if (([v20 containsObject:object_getClass(v21)] & 1) == 0)
+  {
+    v22 = MEMORY[0x277CBEAD8];
+    v23 = *v14;
+    v24 = NSStringFromSelector(a2);
+    [v22 raise:v23 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v21, v24, v20, 0}];
+  }
+
+  templateMapTable = [(CPInterfaceController *)self templateMapTable];
+  v26 = [templateMapTable count];
+
+  if (v26)
+  {
+    templateMapTable2 = [(CPInterfaceController *)self templateMapTable];
+    identifier = [(CPTemplate *)v21 identifier];
+    v29 = [templateMapTable2 objectForKey:identifier];
+
+    if (!v29)
+    {
+      [(CPInterfaceController *)self _pushTemplate:v21 presentationStyle:0 animated:v6 completion:v10];
+      goto LABEL_15;
+    }
+
+    v30 = MEMORY[0x277CCA9B8];
+    v36 = *MEMORY[0x277CCA450];
+    v37 = @"Pushing the same template instance more than once is not supported.";
+    v31 = MEMORY[0x277CBEAC0];
+    v32 = &v37;
+    v33 = &v36;
   }
 
   else
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277CCA450];
-    v11[0] = @"No templates were available to be popped.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-    v8 = [v6 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v7];
-    [v2 _handleCompletion:v3 withSuccess:0 error:v8];
-
-    v9 = *MEMORY[0x277D85DE8];
+    v30 = MEMORY[0x277CCA9B8];
+    v38 = *MEMORY[0x277CCA450];
+    v39[0] = @"Attempting to push a template without a root template. Set a root template first with setRootTemplate.";
+    v31 = MEMORY[0x277CBEAC0];
+    v32 = v39;
+    v33 = &v38;
   }
+
+  v34 = [v31 dictionaryWithObjects:v32 forKeys:v33 count:1];
+  v35 = [v30 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v34];
+
+  [(CPInterfaceController *)self _handleCompletion:v10 withSuccess:0 error:v35];
+LABEL_15:
+}
+
+- (void)_pushTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v26 = *MEMORY[0x277D85DE8];
+  templateCopy = template;
+  completionCopy = completion;
+  v12 = CarPlayFrameworkGeneralLogging(completionCopy);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = CPSStringFromBOOL(animatedCopy);
+    *buf = 138543874;
+    v21 = templateCopy;
+    v22 = 2050;
+    styleCopy = style;
+    v24 = 2114;
+    v25 = v13;
+    _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "Creating template: %{public}@; presentation style: %{public}lu; animated: %{public}@", buf, 0x20u);
+  }
+
+  if ([templateCopy isMemberOfClass:objc_opt_class()])
+  {
+    [(CPInterfaceController *)self _pushMapTemplate:templateCopy presentationStyle:style animated:animatedCopy completion:completionCopy];
+  }
+
+  else if ([templateCopy isMemberOfClass:objc_opt_class()])
+  {
+    [(CPInterfaceController *)self _pushGridTemplate:templateCopy presentationStyle:style animated:animatedCopy completion:completionCopy];
+  }
+
+  else if ([templateCopy isMemberOfClass:objc_opt_class()])
+  {
+    [(CPInterfaceController *)self _pushListTemplate:templateCopy presentationStyle:style animated:animatedCopy completion:completionCopy];
+  }
+
+  else if ([templateCopy isMemberOfClass:objc_opt_class()])
+  {
+    [(CPInterfaceController *)self _pushSearchTemplate:templateCopy presentationStyle:style animated:animatedCopy completion:completionCopy];
+  }
+
+  else if ([templateCopy isMemberOfClass:objc_opt_class()])
+  {
+    [(CPInterfaceController *)self _pushNowPlayingTemplate:templateCopy presentationStyle:style animated:animatedCopy completion:completionCopy];
+  }
+
+  else if ([templateCopy isMemberOfClass:objc_opt_class()])
+  {
+    [(CPInterfaceController *)self _pushTabBarTemplate:templateCopy animated:animatedCopy completion:completionCopy];
+  }
+
+  else if ([templateCopy isMemberOfClass:objc_opt_class()])
+  {
+    [(CPInterfaceController *)self _pushInformationTemplate:templateCopy presentationStyle:style animated:animatedCopy completion:completionCopy];
+  }
+
+  else
+  {
+    if (![templateCopy conformsToProtocol:&unk_284A1E2C8])
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"Template %@ was requested to be pushed but is not a pushable template.", templateCopy}];
+      goto LABEL_22;
+    }
+
+    [(CPInterfaceController *)self _pushEntityTemplate:templateCopy presentationStyle:style animated:animatedCopy completion:completionCopy];
+  }
+
+  [templateCopy setTemplateDelegate:self];
+  templateMapTable = [(CPInterfaceController *)self templateMapTable];
+  identifier = [templateCopy identifier];
+  [templateMapTable setObject:templateCopy forKey:identifier];
+
+  v17 = CarPlayFrameworkGeneralLogging(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    templateMapTable2 = [(CPInterfaceController *)self templateMapTable];
+    v19 = [templateMapTable2 count];
+    *buf = 134217984;
+    v21 = v19;
+    _os_log_impl(&dword_236ED4000, v17, OS_LOG_TYPE_DEFAULT, "Template did push, stack count: %lu", buf, 0xCu);
+  }
+
+LABEL_22:
+}
+
+- (void)popToRootTemplateAnimated:(BOOL)animated completion:(void *)completion
+{
+  v4 = animated;
+  v16 = *MEMORY[0x277D85DE8];
+  v6 = completion;
+  v7 = CarPlayFrameworkGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:v4];
+    *buf = 138412290;
+    v15 = v8;
+    _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Requesting pop to root template animated: %@", buf, 0xCu);
+  }
+
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:v4];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __62__CPInterfaceController_popToRootTemplateAnimated_completion___block_invoke;
+  v12[3] = &unk_278A108B0;
+  v12[4] = self;
+  v13 = v6;
+  v11 = v6;
+  [templateProvider popToRootTemplateAnimated:v10 reply:v12];
+}
+
+void __62__CPInterfaceController_popToRootTemplateAnimated_completion___block_invoke(uint64_t a1, int a2)
+{
+  v9[1] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  if (a2)
+  {
+    v4 = *(a1 + 32);
+
+    [v4 _handleCompletion:v3 withSuccess:1 error:0];
+  }
+
+  else
+  {
+    v5 = MEMORY[0x277CCA9B8];
+    v8 = *MEMORY[0x277CCA450];
+    v9[0] = @"No templates were available to be popped.";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = [v5 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v6];
+    [v2 _handleCompletion:v3 withSuccess:0 error:v7];
+  }
+}
+
+- (void)popTemplateAnimated:(BOOL)animated completion:(void *)completion
+{
+  v4 = animated;
+  v16 = *MEMORY[0x277D85DE8];
+  v6 = completion;
+  v7 = CarPlayFrameworkGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:v4];
+    *buf = 138412290;
+    v15 = v8;
+    _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Requesting template pop animated: %@", buf, 0xCu);
+  }
+
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:v4];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __56__CPInterfaceController_popTemplateAnimated_completion___block_invoke;
+  v12[3] = &unk_278A108B0;
+  v12[4] = self;
+  v13 = v6;
+  v11 = v6;
+  [templateProvider popTemplateAnimated:v10 reply:v12];
 }
 
 void __56__CPInterfaceController_popTemplateAnimated_completion___block_invoke(uint64_t a1, int a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   if (a2)
   {
-    v4 = *MEMORY[0x277D85DE8];
-    v5 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    [v5 _handleCompletion:v3 withSuccess:1 error:0];
+    [v4 _handleCompletion:v3 withSuccess:1 error:0];
   }
 
   else
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277CCA450];
-    v11[0] = @"No templates were available to be popped.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-    v8 = [v6 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v7];
-    [v2 _handleCompletion:v3 withSuccess:0 error:v8];
-
-    v9 = *MEMORY[0x277D85DE8];
+    v5 = MEMORY[0x277CCA9B8];
+    v8 = *MEMORY[0x277CCA450];
+    v9[0] = @"No templates were available to be popped.";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = [v5 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v6];
+    [v2 _handleCompletion:v3 withSuccess:0 error:v7];
   }
+}
+
+- (void)popToTemplate:(CPTemplate *)targetTemplate animated:(BOOL)animated completion:(void *)completion
+{
+  v6 = animated;
+  v37 = *MEMORY[0x277D85DE8];
+  v9 = targetTemplate;
+  v10 = completion;
+  v11 = CarPlayFrameworkGeneralLogging(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    *buf = 138412546;
+    v34 = v9;
+    v35 = 2112;
+    v36 = v12;
+    _os_log_impl(&dword_236ED4000, v11, OS_LOG_TYPE_DEFAULT, "Requesting pop to template %@ animated %@", buf, 0x16u);
+  }
+
+  if (CPPushableTemplateClasses_onceToken != -1)
+  {
+    [CPInterfaceController popToTemplate:animated:completion:];
+  }
+
+  v13 = CPPushableTemplateClasses_classes;
+  v14 = v9;
+  v15 = [v13 containsObject:object_getClass(v14)];
+  v16 = MEMORY[0x277CBE660];
+  if ((v15 & 1) == 0)
+  {
+    v17 = MEMORY[0x277CBEAD8];
+    v18 = *MEMORY[0x277CBE660];
+    NSStringFromSelector(a2);
+    v19 = a2;
+    v6 = v20 = v6;
+    [v17 raise:v18 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v14, v6, v13, 0}];
+
+    LOBYTE(v6) = v20;
+    a2 = v19;
+    v16 = MEMORY[0x277CBE660];
+  }
+
+  if (CPAllowedTemplateClassesForCurrentEntitlement_onceToken != -1)
+  {
+    [CPInterfaceController setRootTemplate:animated:completion:];
+  }
+
+  v21 = CPAllowedTemplateClassesForCurrentEntitlement_allowedTemplateClasses;
+  v22 = v14;
+  if (([v21 containsObject:object_getClass(v22)] & 1) == 0)
+  {
+    v23 = MEMORY[0x277CBEAD8];
+    v24 = *v16;
+    v25 = NSStringFromSelector(a2);
+    [v23 raise:v24 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v22, v25, v21, 0}];
+  }
+
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __59__CPInterfaceController_popToTemplate_animated_completion___block_invoke;
+  v29[3] = &unk_278A10900;
+  v29[4] = self;
+  v30 = v22;
+  v32 = v6;
+  v31 = v10;
+  v27 = v10;
+  v28 = v22;
+  [templateProvider containsTemplate:v28 reply:v29];
 }
 
 void __59__CPInterfaceController_popToTemplate_animated_completion___block_invoke(uint64_t a1, char a2)
@@ -131,60 +505,168 @@ void __59__CPInterfaceController_popToTemplate_animated_completion___block_invok
 
 void __59__CPInterfaceController_popToTemplate_animated_completion___block_invoke_2(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(a1 + 56) == 1)
   {
     v3 = [*(a1 + 32) templateProvider];
     v4 = *(a1 + 40);
     v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 57)];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __59__CPInterfaceController_popToTemplate_animated_completion___block_invoke_3;
-    v11[3] = &unk_278A108B0;
-    v11[4] = *(a1 + 32);
-    v12 = *(a1 + 48);
-    [v3 popToTemplate:v4 animated:v5 reply:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __59__CPInterfaceController_popToTemplate_animated_completion___block_invoke_3;
+    v10[3] = &unk_278A108B0;
+    v10[4] = *(a1 + 32);
+    v11 = *(a1 + 48);
+    [v3 popToTemplate:v4 animated:v5 reply:v10];
   }
 
   else
   {
     v6 = *(a1 + 48);
     v7 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = @"The specified template does not exist in the current navigation hierarchy.";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = @"The specified template does not exist in the current navigation hierarchy.";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v9 = [v7 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v8];
     [v2 _handleCompletion:v6 withSuccess:0 error:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CPInterfaceController_popToTemplate_animated_completion___block_invoke_3(uint64_t a1, int a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   if (a2)
   {
-    v4 = *MEMORY[0x277D85DE8];
-    v5 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    [v5 _handleCompletion:v3 withSuccess:1 error:0];
+    [v4 _handleCompletion:v3 withSuccess:1 error:0];
   }
 
   else
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277CCA450];
-    v11[0] = @"The specified template does not exist in the current navigation hierarchy.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-    v8 = [v6 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v7];
-    [v2 _handleCompletion:v3 withSuccess:0 error:v8];
-
-    v9 = *MEMORY[0x277D85DE8];
+    v5 = MEMORY[0x277CCA9B8];
+    v8 = *MEMORY[0x277CCA450];
+    v9[0] = @"The specified template does not exist in the current navigation hierarchy.";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = [v5 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v6];
+    [v2 _handleCompletion:v3 withSuccess:0 error:v7];
   }
+}
+
+- (void)presentTemplate:(CPTemplate *)templateToPresent animated:(BOOL)animated completion:(void *)completion
+{
+  v6 = animated;
+  v38 = *MEMORY[0x277D85DE8];
+  v9 = templateToPresent;
+  v10 = completion;
+  v11 = CarPlayFrameworkGeneralLogging(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    *buf = 138412546;
+    v35 = v9;
+    v36 = 2112;
+    v37 = v12;
+    _os_log_impl(&dword_236ED4000, v11, OS_LOG_TYPE_DEFAULT, "Requesting present template %@ animated %@", buf, 0x16u);
+  }
+
+  if (CPPresentableTemplateClasses_onceToken != -1)
+  {
+    [CPInterfaceController presentTemplate:animated:completion:];
+  }
+
+  v13 = CPPresentableTemplateClasses_classes;
+  v14 = v9;
+  v15 = [v13 containsObject:object_getClass(v14)];
+  v16 = MEMORY[0x277CBE660];
+  if ((v15 & 1) == 0)
+  {
+    v17 = MEMORY[0x277CBEAD8];
+    v18 = *MEMORY[0x277CBE660];
+    NSStringFromSelector(a2);
+    v19 = a2;
+    v20 = v10;
+    v22 = v21 = v6;
+    [v17 raise:v18 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v14, v22, v13, 0}];
+
+    v6 = v21;
+    v10 = v20;
+    a2 = v19;
+    v16 = MEMORY[0x277CBE660];
+  }
+
+  if (CPAllowedTemplateClassesForCurrentEntitlement_onceToken != -1)
+  {
+    [CPInterfaceController setRootTemplate:animated:completion:];
+  }
+
+  v23 = CPAllowedTemplateClassesForCurrentEntitlement_allowedTemplateClasses;
+  v24 = v14;
+  if (([v23 containsObject:object_getClass(v24)] & 1) == 0)
+  {
+    v25 = MEMORY[0x277CBEAD8];
+    v26 = *v16;
+    v27 = NSStringFromSelector(a2);
+    [v25 raise:v26 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v24, v27, v23, 0}];
+  }
+
+  if (self->_presentedTemplate)
+  {
+    v28 = MEMORY[0x277CCA9B8];
+    v32 = *MEMORY[0x277CCA450];
+    v33 = @"Presenting a template while a template is already presented is not supported.";
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    presentedTemplate = [v28 errorWithDomain:@"CarPlayErrorDomain" code:-1 userInfo:v29];
+
+    [(CPInterfaceController *)self _handleCompletion:v10 withSuccess:0 error:presentedTemplate];
+  }
+
+  else
+  {
+    if ([(CPTemplate *)v24 isMemberOfClass:objc_opt_class()])
+    {
+      [(CPInterfaceController *)self _presentActionSheetTemplate:v24 animated:v6 completion:v10];
+    }
+
+    else if ([(CPTemplate *)v24 isMemberOfClass:objc_opt_class()])
+    {
+      [(CPInterfaceController *)self _presentAlertTemplate:v24 animated:v6 completion:v10];
+    }
+
+    else if ([(CPTemplate *)v24 isMemberOfClass:objc_opt_class()])
+    {
+      [(CPInterfaceController *)self _pushVoiceControlTemplate:v24 animated:v6 completion:v10];
+    }
+
+    [(CPTemplate *)v24 setTemplateDelegate:self];
+    v31 = v24;
+    presentedTemplate = self->_presentedTemplate;
+    self->_presentedTemplate = v31;
+  }
+}
+
+- (void)dismissTemplateAnimated:(BOOL)animated completion:(void *)completion
+{
+  v4 = animated;
+  v6 = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:v4];
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __60__CPInterfaceController_dismissTemplateAnimated_completion___block_invoke;
+  v14 = &unk_278A10928;
+  selfCopy = self;
+  v16 = v6;
+  v9 = v6;
+  [templateProvider dismissTemplateAnimated:v8 reply:&v11];
+
+  objc_storeStrong(&self->_lastPresentedTemplate, self->_presentedTemplate);
+  [(CPTemplate *)self->_presentedTemplate invalidateTemplateProvider:v11];
+  presentedTemplate = self->_presentedTemplate;
+  self->_presentedTemplate = 0;
 }
 
 - (CPTemplate)presentedTemplate
@@ -367,6 +849,25 @@ LABEL_3:
 LABEL_8:
 }
 
+- (void)_pushVoiceControlTemplate:(id)template animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  templateCopy = template;
+  completionCopy = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __71__CPInterfaceController__pushVoiceControlTemplate_animated_completion___block_invoke;
+  v14[3] = &unk_278A10A18;
+  v15 = templateCopy;
+  selfCopy = self;
+  v17 = completionCopy;
+  v12 = completionCopy;
+  v13 = templateCopy;
+  [templateProvider presentVoiceTemplate:v13 withProxyDelegate:v13 animated:v11 reply:v14];
+}
+
 uint64_t __71__CPInterfaceController__pushVoiceControlTemplate_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) connectTemplateProvider:a2];
@@ -374,6 +875,25 @@ uint64_t __71__CPInterfaceController__pushVoiceControlTemplate_animated_completi
   v4 = *(a1 + 48);
 
   return [v3 _handleCompletion:v4 withSuccess:1 error:0];
+}
+
+- (void)_pushGridTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  templateCopy = template;
+  completionCopy = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __81__CPInterfaceController__pushGridTemplate_presentationStyle_animated_completion___block_invoke;
+  v16[3] = &unk_278A10A40;
+  v17 = templateCopy;
+  selfCopy = self;
+  v19 = completionCopy;
+  v14 = completionCopy;
+  v15 = templateCopy;
+  [templateProvider pushGridTemplate:v15 withProxyDelegate:v15 animated:v13 presentationStyle:style reply:v16];
 }
 
 uint64_t __81__CPInterfaceController__pushGridTemplate_presentationStyle_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -385,6 +905,25 @@ uint64_t __81__CPInterfaceController__pushGridTemplate_presentationStyle_animate
   return [v3 _handleCompletion:v4 withSuccess:1 error:0];
 }
 
+- (void)_pushInformationTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  templateCopy = template;
+  completionCopy = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __88__CPInterfaceController__pushInformationTemplate_presentationStyle_animated_completion___block_invoke;
+  v16[3] = &unk_278A10A68;
+  v17 = templateCopy;
+  selfCopy = self;
+  v19 = completionCopy;
+  v14 = completionCopy;
+  v15 = templateCopy;
+  [templateProvider pushInformationTemplate:v15 withProxyDelegate:v15 animated:v13 presentationStyle:style reply:v16];
+}
+
 uint64_t __88__CPInterfaceController__pushInformationTemplate_presentationStyle_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) connectTemplateProvider:a2];
@@ -392,6 +931,43 @@ uint64_t __88__CPInterfaceController__pushInformationTemplate_presentationStyle_
   v4 = *(a1 + 48);
 
   return [v3 _handleCompletion:v4 withSuccess:1 error:0];
+}
+
+- (void)_pushMapTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  templateCopy = template;
+  completionCopy = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __80__CPInterfaceController__pushMapTemplate_presentationStyle_animated_completion___block_invoke;
+  v26[3] = &unk_278A10A90;
+  v14 = templateCopy;
+  v27 = v14;
+  [templateProvider pushMapTemplate:v14 withProxyDelegate:v14 animated:v13 presentationStyle:style reply:v26];
+
+  templateProvider2 = [(CPInterfaceController *)self templateProvider];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __80__CPInterfaceController__pushMapTemplate_presentationStyle_animated_completion___block_invoke_2;
+  v24[3] = &unk_278A10AB8;
+  v16 = v14;
+  v25 = v16;
+  [templateProvider2 requestBannerProviderWithReply:v24];
+
+  templateProvider3 = [(CPInterfaceController *)self templateProvider];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __80__CPInterfaceController__pushMapTemplate_presentationStyle_animated_completion___block_invoke_3;
+  v20[3] = &unk_278A10AE0;
+  v21 = v16;
+  selfCopy = self;
+  v23 = completionCopy;
+  v18 = completionCopy;
+  v19 = v16;
+  [templateProvider3 requestNavigationProviderForMapTemplate:v19 withReply:v20];
 }
 
 uint64_t __80__CPInterfaceController__pushMapTemplate_presentationStyle_animated_completion___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -403,6 +979,25 @@ uint64_t __80__CPInterfaceController__pushMapTemplate_presentationStyle_animated
   return [v3 _handleCompletion:v4 withSuccess:1 error:0];
 }
 
+- (void)_pushListTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  templateCopy = template;
+  completionCopy = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __81__CPInterfaceController__pushListTemplate_presentationStyle_animated_completion___block_invoke;
+  v16[3] = &unk_278A10B08;
+  v17 = templateCopy;
+  selfCopy = self;
+  v19 = completionCopy;
+  v14 = completionCopy;
+  v15 = templateCopy;
+  [templateProvider pushListTemplate:v15 withProxyDelegate:v15 animated:v13 presentationStyle:style reply:v16];
+}
+
 uint64_t __81__CPInterfaceController__pushListTemplate_presentationStyle_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) connectTemplateProvider:a2];
@@ -412,6 +1007,25 @@ uint64_t __81__CPInterfaceController__pushListTemplate_presentationStyle_animate
   return [v3 _handleCompletion:v4 withSuccess:1 error:0];
 }
 
+- (void)_pushSearchTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  templateCopy = template;
+  completionCopy = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __83__CPInterfaceController__pushSearchTemplate_presentationStyle_animated_completion___block_invoke;
+  v16[3] = &unk_278A10B30;
+  v17 = templateCopy;
+  selfCopy = self;
+  v19 = completionCopy;
+  v14 = completionCopy;
+  v15 = templateCopy;
+  [templateProvider pushSearchTemplate:v15 withProxyDelegate:v15 animated:v13 presentationStyle:style reply:v16];
+}
+
 uint64_t __83__CPInterfaceController__pushSearchTemplate_presentationStyle_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) connectTemplateProvider:a2];
@@ -419,6 +1033,25 @@ uint64_t __83__CPInterfaceController__pushSearchTemplate_presentationStyle_anima
   v4 = *(a1 + 48);
 
   return [v3 _handleCompletion:v4 withSuccess:1 error:0];
+}
+
+- (void)_pushNowPlayingTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  templateCopy = template;
+  completionCopy = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __87__CPInterfaceController__pushNowPlayingTemplate_presentationStyle_animated_completion___block_invoke;
+  v16[3] = &unk_278A10B58;
+  v17 = templateCopy;
+  selfCopy = self;
+  v19 = completionCopy;
+  v14 = completionCopy;
+  v15 = templateCopy;
+  [templateProvider pushNowPlayingTemplate:v15 withProxyDelegate:v15 animated:v13 presentationStyle:style reply:v16];
 }
 
 uint64_t __87__CPInterfaceController__pushNowPlayingTemplate_presentationStyle_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -432,30 +1065,30 @@ uint64_t __87__CPInterfaceController__pushNowPlayingTemplate_presentationStyle_a
 
 - (void)_pushTabBarTemplate:(id)template animated:(BOOL)animated completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   completionCopy = completion;
   [templateCopy setInterfaceController:self];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   templates = [templateCopy templates];
-  v10 = [templates countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [templates countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       v12 = 0;
       do
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(templates);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * v12);
+        v13 = *(*(&v22 + 1) + 8 * v12);
         location[1] = MEMORY[0x277D85DD0];
         location[2] = 3221225472;
         location[3] = __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke;
@@ -466,7 +1099,7 @@ uint64_t __87__CPInterfaceController__pushNowPlayingTemplate_presentationStyle_a
       }
 
       while (v10 != v12);
-      v10 = [templates countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [templates countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -474,46 +1107,42 @@ uint64_t __87__CPInterfaceController__pushNowPlayingTemplate_presentationStyle_a
 
   objc_initWeak(location, self);
   templateProvider = [(CPInterfaceController *)self templateProvider];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke_54;
-  v18[3] = &unk_278A10BA8;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke_54;
+  v17[3] = &unk_278A10BA8;
   v15 = templateCopy;
-  v19 = v15;
-  objc_copyWeak(&v21, location);
+  v18 = v15;
+  objc_copyWeak(&v20, location);
   v16 = completionCopy;
-  v20 = v16;
-  [templateProvider setTabBarTemplate:v15 withProxyDelegate:v15 reply:v18 animated:MEMORY[0x277CBEC28]];
+  v19 = v16;
+  [templateProvider setTabBarTemplate:v15 withProxyDelegate:v15 reply:v17 animated:MEMORY[0x277CBEC28]];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(location);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = CarPlayFrameworkGeneralLogging();
+  v6 = CarPlayFrameworkGeneralLogging(v5);
   v7 = v6;
   if (v5 || (a2 & 1) == 0)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke_cold_1(a1);
+      __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Prepared a tab for %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Prepared a tab for %@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke_54(uint64_t a1, uint64_t a2)
@@ -521,6 +1150,25 @@ void __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block
   [*(a1 + 32) connectTemplateProvider:a2];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained _handleCompletion:*(a1 + 40) withSuccess:1 error:0];
+}
+
+- (void)_pushEntityTemplate:(id)template presentationStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  templateCopy = template;
+  completionCopy = completion;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __83__CPInterfaceController__pushEntityTemplate_presentationStyle_animated_completion___block_invoke;
+  v16[3] = &unk_278A10BD0;
+  v17 = templateCopy;
+  selfCopy = self;
+  v19 = completionCopy;
+  v14 = completionCopy;
+  v15 = templateCopy;
+  [templateProvider pushEntityTemplate:v15 withProxyDelegate:v15 animated:v13 presentationStyle:style reply:v16];
 }
 
 uint64_t __83__CPInterfaceController__pushEntityTemplate_presentationStyle_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -534,32 +1182,31 @@ uint64_t __83__CPInterfaceController__pushEntityTemplate_presentationStyle_anima
 
 - (void)updateTabBarTemplate:(id)template
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   templateCopy = template;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   templates = [templateCopy templates];
-  v6 = [templates countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [templates countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(templates);
         }
 
-        v12 = *(*(&v13 + 1) + 8 * i);
         [CPInterfaceController _pushTemplate:"_pushTemplate:presentationStyle:animated:completion:" presentationStyle:? animated:? completion:?];
       }
 
-      v7 = [templates countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [templates countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -567,33 +1214,29 @@ uint64_t __83__CPInterfaceController__pushEntityTemplate_presentationStyle_anima
 
   templateProvider = [(CPInterfaceController *)self templateProvider];
   [templateProvider updateTabBarTemplate:templateCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CPInterfaceController_updateTabBarTemplate___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = CarPlayFrameworkGeneralLogging();
+  v6 = CarPlayFrameworkGeneralLogging(v5);
   v7 = v6;
   if (v5 || (a2 & 1) == 0)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke_cold_1(a1);
+      __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Prepared a tab for %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Prepared a tab for %@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)selectTabBarTemplateIndex:(int64_t)index
@@ -602,40 +1245,74 @@ void __46__CPInterfaceController_updateTabBarTemplate___block_invoke(uint64_t a1
   [templateProvider selectTabBarTemplateAtIndex:index];
 }
 
+- (void)_presentActionSheetTemplate:(id)template animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  templateCopy = template;
+  [templateCopy setTemplateDelegate:self];
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __73__CPInterfaceController__presentActionSheetTemplate_animated_completion___block_invoke;
+  v13[3] = &unk_278A10928;
+  v13[4] = self;
+  v14 = completionCopy;
+  v12 = completionCopy;
+  [templateProvider presentActionSheetTemplate:templateCopy withProxyDelegate:templateCopy animated:v11 reply:v13];
+}
+
+- (void)_presentAlertTemplate:(id)template animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  templateCopy = template;
+  templateProvider = [(CPInterfaceController *)self templateProvider];
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:animatedCopy];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __67__CPInterfaceController__presentAlertTemplate_animated_completion___block_invoke;
+  v13[3] = &unk_278A10928;
+  v13[4] = self;
+  v14 = completionCopy;
+  v12 = completionCopy;
+  [templateProvider presentAlertTemplate:templateCopy withProxyDelegate:templateCopy animated:v11 reply:v13];
+}
+
 - (void)_sceneConnect:(id)connect
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   _FBSScene = [connectCopy _FBSScene];
-  if (CPCurrentProcessHasTemplateEntitlement() && ([_FBSScene settings], v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v6, (isKindOfClass & 1) != 0))
+  HasTemplateEntitlement = CPCurrentProcessHasTemplateEntitlement(_FBSScene, v6, v7, v8);
+  if (HasTemplateEntitlement && ([_FBSScene settings], v10 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v10, (isKindOfClass & 1) != 0))
   {
-    v8 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v12 = CarPlayFrameworkGeneralLogging(HasTemplateEntitlement);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       _identifier = [connectCopy _identifier];
-      v14 = 138543362;
-      v15 = _identifier;
-      _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "Connecting to listener endpoint for scene identifier: %{public}@", &v14, 0xCu);
+      v17 = 138543362;
+      v18 = _identifier;
+      _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "Connecting to listener endpoint for scene identifier: %{public}@", &v17, 0xCu);
     }
 
-    v10 = objc_alloc_init(MEMORY[0x277CCAEA0]);
+    v14 = objc_alloc_init(MEMORY[0x277CCAEA0]);
     settings = [_FBSScene settings];
     endpoint = [settings endpoint];
-    [v10 _setEndpoint:endpoint];
+    [v14 _setEndpoint:endpoint];
 
-    [(CPInterfaceController *)self _connectToListenerEndpoint:v10];
+    [(CPInterfaceController *)self _connectToListenerEndpoint:v14];
   }
 
   else
   {
-    v10 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v14 = CarPlayFrameworkGeneralLogging(HasTemplateEntitlement);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CPInterfaceController _sceneConnect:];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidate
@@ -731,8 +1408,7 @@ void __46__CPInterfaceController_updateTabBarTemplate___block_invoke(uint64_t a1
   v18 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A1AF58];
   [v3 setInterface:v18 forSelector:sel_pushListTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:1 ofReply:0];
 
-  [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A570];
-  v19 = v77 = self;
+  v19 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A570];
   [self _allowlistClassesForBaseTemplateProvider:?];
   v20 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
   v21 = v19;
@@ -809,55 +1485,56 @@ void __46__CPInterfaceController_updateTabBarTemplate___block_invoke(uint64_t a1
   [v3 setInterface:v54 forSelector:sel_pushNowPlayingTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:1 ofReply:0];
 
   v55 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A6F0];
+  selfCopy = self;
   [self _allowlistClassesForBaseTemplateProvider:v55];
-  v56 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
-  [v55 setClasses:v56 forSelector:sel_updateNowPlayingTemplate_withProxyDelegate_canThrottle_ argumentIndex:0 ofReply:0];
+  v57 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+  [v55 setClasses:v57 forSelector:sel_updateNowPlayingTemplate_withProxyDelegate_canThrottle_ argumentIndex:0 ofReply:0];
 
-  v57 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A0D600];
-  [v55 setInterface:v57 forSelector:sel_updateNowPlayingTemplate_withProxyDelegate_canThrottle_ argumentIndex:1 ofReply:0];
+  v58 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A0D600];
+  [v55 setInterface:v58 forSelector:sel_updateNowPlayingTemplate_withProxyDelegate_canThrottle_ argumentIndex:1 ofReply:0];
 
-  v58 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-  [v55 setClasses:v58 forSelector:sel_updateNowPlayingTemplate_withProxyDelegate_canThrottle_ argumentIndex:2 ofReply:0];
+  v59 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+  [v55 setClasses:v59 forSelector:sel_updateNowPlayingTemplate_withProxyDelegate_canThrottle_ argumentIndex:2 ofReply:0];
 
   [v3 setInterface:v55 forSelector:sel_pushNowPlayingTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:0 ofReply:1];
-  v76 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A1E228];
-  v59 = MEMORY[0x277CBEB98];
-  v60 = objc_opt_class();
-  v61 = [v59 setWithObjects:{v60, objc_opt_class(), 0}];
-  [v76 setClasses:v61 forSelector:sel_searchTemplateWithIdentifier_updateSearchResultsForSearchText_completionResults_ argumentIndex:0 ofReply:1];
+  v77 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A1E228];
+  v60 = MEMORY[0x277CBEB98];
+  v61 = objc_opt_class();
+  v62 = [v60 setWithObjects:{v61, objc_opt_class(), 0}];
+  [v77 setClasses:v62 forSelector:sel_searchTemplateWithIdentifier_updateSearchResultsForSearchText_completionResults_ argumentIndex:0 ofReply:1];
 
-  [v3 setInterface:v76 forSelector:sel_pushSearchTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:1 ofReply:0];
-  v75 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A750];
-  [v3 setInterface:v75 forSelector:sel_pushSearchTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:0 ofReply:1];
-  v62 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A19658];
-  [v3 setInterface:v62 forSelector:sel_presentVoiceTemplate_withProxyDelegate_animated_reply_ argumentIndex:1 ofReply:0];
+  [v3 setInterface:v77 forSelector:sel_pushSearchTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:1 ofReply:0];
+  v76 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A750];
+  [v3 setInterface:v76 forSelector:sel_pushSearchTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:0 ofReply:1];
+  v63 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A19658];
+  [v3 setInterface:v63 forSelector:sel_presentVoiceTemplate_withProxyDelegate_animated_reply_ argumentIndex:1 ofReply:0];
 
-  v63 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A7B0];
-  [self _allowlistClassesForBaseTemplateProvider:v63];
-  [v3 setInterface:v63 forSelector:sel_presentVoiceTemplate_withProxyDelegate_animated_reply_ argumentIndex:0 ofReply:1];
-  v64 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A199C0];
-  [v3 setInterface:v64 forSelector:sel_setTabBarTemplate_withProxyDelegate_reply_animated_ argumentIndex:1 ofReply:0];
+  v64 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A7B0];
+  [self _allowlistClassesForBaseTemplateProvider:v64];
+  [v3 setInterface:v64 forSelector:sel_presentVoiceTemplate_withProxyDelegate_animated_reply_ argumentIndex:0 ofReply:1];
+  v65 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A199C0];
+  [v3 setInterface:v65 forSelector:sel_setTabBarTemplate_withProxyDelegate_reply_animated_ argumentIndex:1 ofReply:0];
 
-  v65 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A810];
-  v66 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-  [v65 setClasses:v66 forSelector:sel_updateTabBarTemplate_ argumentIndex:0 ofReply:0];
+  v66 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A810];
+  v67 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+  [v66 setClasses:v67 forSelector:sel_updateTabBarTemplate_ argumentIndex:0 ofReply:0];
 
-  [v3 setInterface:v65 forSelector:sel_setTabBarTemplate_withProxyDelegate_reply_animated_ argumentIndex:0 ofReply:1];
-  v67 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A1E388];
-  [v3 setInterface:v67 forSelector:sel_pushEntityTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:1 ofReply:0];
+  [v3 setInterface:v66 forSelector:sel_setTabBarTemplate_withProxyDelegate_reply_animated_ argumentIndex:0 ofReply:1];
+  v68 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A1E388];
+  [v3 setInterface:v68 forSelector:sel_pushEntityTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:1 ofReply:0];
 
-  v68 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A870];
-  [v77 _allowlistClassesForBaseTemplateProvider:v68];
-  v69 = MEMORY[0x277CBEB98];
-  v70 = objc_opt_class();
+  v69 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A2A870];
+  [selfCopy _allowlistClassesForBaseTemplateProvider:v69];
+  v70 = MEMORY[0x277CBEB98];
   v71 = objc_opt_class();
-  v72 = [v69 setWithObjects:{v70, v71, objc_opt_class(), 0}];
-  [v68 setClasses:v72 forSelector:sel_updateEntityTemplate_withProxyDelegate_ argumentIndex:0 ofReply:0];
+  v72 = objc_opt_class();
+  v73 = [v70 setWithObjects:{v71, v72, objc_opt_class(), 0}];
+  [v69 setClasses:v73 forSelector:sel_updateEntityTemplate_withProxyDelegate_ argumentIndex:0 ofReply:0];
 
-  v73 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A1E388];
-  [v68 setInterface:v73 forSelector:sel_updateEntityTemplate_withProxyDelegate_ argumentIndex:1 ofReply:0];
+  v74 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284A1E388];
+  [v69 setInterface:v74 forSelector:sel_updateEntityTemplate_withProxyDelegate_ argumentIndex:1 ofReply:0];
 
-  [v3 setInterface:v68 forSelector:sel_pushEntityTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:0 ofReply:1];
+  [v3 setInterface:v69 forSelector:sel_pushEntityTemplate_withProxyDelegate_animated_presentationStyle_reply_ argumentIndex:0 ofReply:1];
 
   return v3;
 }
@@ -916,7 +1593,7 @@ void __46__CPInterfaceController_updateTabBarTemplate___block_invoke(uint64_t a1
 
 void __52__CPInterfaceController__connectToListenerEndpoint___block_invoke(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __52__CPInterfaceController__connectToListenerEndpoint___block_invoke_cold_1();
@@ -928,7 +1605,7 @@ void __52__CPInterfaceController__connectToListenerEndpoint___block_invoke(uint6
 
 void __52__CPInterfaceController__connectToListenerEndpoint___block_invoke_431(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __52__CPInterfaceController__connectToListenerEndpoint___block_invoke_431_cold_1();
@@ -938,13 +1615,13 @@ void __52__CPInterfaceController__connectToListenerEndpoint___block_invoke_431(u
   [WeakRetained _connectionInvalidated];
 }
 
-void __52__CPInterfaceController__connectToListenerEndpoint___block_invoke_432()
+void __52__CPInterfaceController__connectToListenerEndpoint___block_invoke_432(uint64_t a1)
 {
-  v0 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CarPlayFrameworkGeneralLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_236ED4000, v0, OS_LOG_TYPE_DEFAULT, "Fetched interface controller image sizes.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_236ED4000, v1, OS_LOG_TYPE_DEFAULT, "Fetched interface controller image sizes.", v2, 2u);
   }
 }
 
@@ -1087,7 +1764,7 @@ void __53__CPInterfaceController__synchronousTemplateProvider__block_invoke(uint
 {
   if (a2)
   {
-    v2 = CarPlayFrameworkGeneralLogging();
+    v2 = CarPlayFrameworkGeneralLogging(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v3 = 0;
@@ -1138,10 +1815,10 @@ LABEL_5:
 
   else
   {
-    v15 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = CarPlayFrameworkGeneralLogging(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(CPInterfaceController *)identifierCopy _templateWithIdentifier:v15];
+      [(CPInterfaceController *)identifierCopy _templateWithIdentifier:v16];
     }
 
     v10 = 0;
@@ -1150,6 +1827,90 @@ LABEL_5:
 LABEL_6:
 
   return v10;
+}
+
+- (void)templateWillAppearWithIdentifier:(id)identifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6 = [(CPInterfaceController *)self _templateWithIdentifier:identifier];
+  if (v6)
+  {
+    v10 = v6;
+    delegate = [(CPInterfaceController *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    v6 = v10;
+    if (v8)
+    {
+      delegate2 = [(CPInterfaceController *)self delegate];
+      [delegate2 templateWillAppear:v10 animated:animatedCopy];
+
+      v6 = v10;
+    }
+  }
+}
+
+- (void)templateDidAppearWithIdentifier:(id)identifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6 = [(CPInterfaceController *)self _templateWithIdentifier:identifier];
+  if (v6)
+  {
+    v10 = v6;
+    delegate = [(CPInterfaceController *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    v6 = v10;
+    if (v8)
+    {
+      delegate2 = [(CPInterfaceController *)self delegate];
+      [delegate2 templateDidAppear:v10 animated:animatedCopy];
+
+      v6 = v10;
+    }
+  }
+}
+
+- (void)templateWillDisappearWithIdentifier:(id)identifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6 = [(CPInterfaceController *)self _templateWithIdentifier:identifier];
+  if (v6)
+  {
+    v10 = v6;
+    delegate = [(CPInterfaceController *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    v6 = v10;
+    if (v8)
+    {
+      delegate2 = [(CPInterfaceController *)self delegate];
+      [delegate2 templateWillDisappear:v10 animated:animatedCopy];
+
+      v6 = v10;
+    }
+  }
+}
+
+- (void)templateDidDisappearWithIdentifier:(id)identifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6 = [(CPInterfaceController *)self _templateWithIdentifier:identifier];
+  if (v6)
+  {
+    v10 = v6;
+    delegate = [(CPInterfaceController *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    v6 = v10;
+    if (v8)
+    {
+      delegate2 = [(CPInterfaceController *)self delegate];
+      [delegate2 templateDidDisappear:v10 animated:animatedCopy];
+
+      v6 = v10;
+    }
+  }
 }
 
 - (BOOL)isCarPlayCanvasActive
@@ -1190,7 +1951,7 @@ void __64__CPInterfaceController_updateInterestingLayoutGuideWithInsets___block_
 
 void __62__CPInterfaceController_clientPushNowPlayingTemplateAnimated___block_invoke(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1205,18 +1966,17 @@ void __62__CPInterfaceController_clientPushNowPlayingTemplateAnimated___block_in
 {
   v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CarPlayFrameworkGeneralLogging(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138543362;
-      v8 = v4;
-      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Failed to request now playing template with %{public}@", &v7, 0xCu);
+      v8 = v5;
+      _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "Failed to request now playing template with %{public}@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientAssistantCellUnavailableWithError:(id)error
@@ -1254,10 +2014,10 @@ void __65__CPInterfaceController_clientAssistantCellUnavailableWithError___block
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __65__CPInterfaceController_clientExceededAudioMetadataThrottleLimit__block_invoke()
+void __65__CPInterfaceController_clientExceededAudioMetadataThrottleLimit__block_invoke(uint64_t a1)
 {
-  v0 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = CarPlayFrameworkGeneralLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     __65__CPInterfaceController_clientExceededAudioMetadataThrottleLimit__block_invoke_cold_1();
   }
@@ -1288,17 +2048,15 @@ void __50__CPInterfaceController_templateIdentifierDidPop___block_invoke(uint64_
     v4 = [*(a1 + 32) templateMapTable];
     [v4 removeObjectForKey:*(a1 + 40)];
 
-    v5 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CarPlayFrameworkGeneralLogging(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 32) templateMapTable];
+      v7 = [*(a1 + 32) templateMapTable];
       v8 = 134217984;
-      v9 = [v6 count];
-      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Template did pop, stack count: %lu", &v8, 0xCu);
+      v9 = [v7 count];
+      _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "Template did pop, stack count: %lu", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)templateIdentifierDidDismiss:(id)dismiss
@@ -1342,16 +2100,14 @@ void __54__CPInterfaceController_templateIdentifierDidDismiss___block_invoke(uin
   v10 = [*(a1 + 32) templateMapTable];
   [v10 removeObjectForKey:*(a1 + 40)];
 
-  v11 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = CarPlayFrameworkGeneralLogging(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [*(a1 + 32) templateMapTable];
+    v13 = [*(a1 + 32) templateMapTable];
     v14 = 134217984;
-    v15 = [v12 count];
-    _os_log_impl(&dword_236ED4000, v11, OS_LOG_TYPE_DEFAULT, "Template did dismiss, stack count: %lu", &v14, 0xCu);
+    v15 = [v13 count];
+    _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "Template did dismiss, stack count: %lu", &v14, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_activeMapTemplate
@@ -1458,22 +2214,12 @@ void __52__CPInterfaceController_bannerTappedWithIdentifier___block_invoke(uint6
   return WeakRetained;
 }
 
-void __65__CPInterfaceController__pushTabBarTemplate_animated_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_236ED4000, v2, v3, "Failed to create a tab for %@ with %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_templateWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_236ED4000, a2, OS_LOG_TYPE_ERROR, "Unable to identify a template with identifier %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_236ED4000, a2, OS_LOG_TYPE_ERROR, "Unable to identify a template with identifier %@", &v2, 0xCu);
 }
 
 @end

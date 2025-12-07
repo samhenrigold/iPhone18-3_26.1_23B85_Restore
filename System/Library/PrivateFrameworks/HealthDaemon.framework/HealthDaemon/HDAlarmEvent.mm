@@ -48,19 +48,19 @@ LABEL_6:
   v20 = [(HDAlarmEvent *)&v32 init];
   if (v20)
   {
-    v21 = [identifierCopy copy];
+    v21 = objc_msgSend_copy(identifierCopy);
     clientIdentifier = v20->_clientIdentifier;
     v20->_clientIdentifier = v21;
 
-    v23 = [eventIdentifierCopy copy];
+    v23 = objc_msgSend_copy(eventIdentifierCopy);
     eventIdentifier = v20->_eventIdentifier;
     v20->_eventIdentifier = v23;
 
-    v25 = [dateCopy copy];
+    v25 = objc_msgSend_copy(dateCopy);
     dueDate = v20->_dueDate;
     v20->_dueDate = v25;
 
-    v27 = [v19 copy];
+    v27 = objc_msgSend_copy(v19);
     dueDateComponents = v20->_dueDateComponents;
     v20->_dueDateComponents = v27;
 

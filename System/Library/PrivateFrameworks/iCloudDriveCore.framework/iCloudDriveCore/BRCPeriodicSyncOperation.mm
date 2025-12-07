@@ -50,23 +50,23 @@
 
 - (BOOL)scheduleSyncDownIfNeededForZoneID:(id)d zoneIfAny:(id)any zoneType:(unsigned __int8 *)type
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   dCopy = d;
   anyCopy = any;
   session = [(BRCContainerScheduler *)self->_scheduler session];
   zoneName = [dCopy zoneName];
-  memset(v71, 0, sizeof(v71));
-  __brc_create_section(0, "[BRCPeriodicSyncOperation scheduleSyncDownIfNeededForZoneID:zoneIfAny:zoneType:]", 75, 0, v71);
+  memset(v70, 0, sizeof(v70));
+  __brc_create_section(0, "[BRCPeriodicSyncOperation scheduleSyncDownIfNeededForZoneID:zoneIfAny:zoneType:]", 75, 0, v70);
   v12 = brc_bread_crumbs();
   v13 = brc_default_log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v73 = v71[0];
-    v74 = 2112;
-    v75 = zoneName;
-    v76 = 2112;
-    v77 = v12;
+    v72 = v70[0];
+    v73 = 2112;
+    v74 = zoneName;
+    v75 = 2112;
+    v76 = v12;
     _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx considering whether or not to schedule sync down for %@%@", buf, 0x20u);
   }
 
@@ -159,13 +159,13 @@ LABEL_41:
       goto LABEL_40;
     }
 
-    v70 = [session privateServerZoneByID:zoneName];
-    clientZone = [v70 clientZone];
-    if (!v70)
+    v69 = [session privateServerZoneByID:zoneName];
+    clientZone = [v69 clientZone];
+    if (!v69)
     {
-      v66 = brc_bread_crumbs();
-      v67 = brc_default_log();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+      v65 = brc_bread_crumbs();
+      v66 = brc_default_log();
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
       {
         [BRCPeriodicSyncOperation scheduleSyncDownIfNeededForZoneID:zoneIfAny:zoneType:];
       }
@@ -177,14 +177,14 @@ LABEL_41:
       v30 = brc_default_log();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        clientZone2 = [v70 clientZone];
+        clientZone2 = [v69 clientZone];
         [BRCPeriodicSyncOperation scheduleSyncDownIfNeededForZoneID:clientZone2 zoneIfAny:v29 zoneType:buf];
       }
 
       goto LABEL_47;
     }
 
-    changeState = [v70 changeState];
+    changeState = [v69 changeState];
     changeToken = [changeState changeToken];
     currentServerChangeToken3 = [anyCopy currentServerChangeToken];
     v40 = changeToken;
@@ -207,20 +207,20 @@ LABEL_41:
       if ((v43 & 1) == 0)
       {
 LABEL_46:
-        clientZone3 = [v70 clientZone];
-        v68 = ([clientZone3 syncState] & 0xA) == 0;
+        clientZone3 = [v69 clientZone];
+        v67 = ([clientZone3 syncState] & 0xA) == 0;
 
-        if (v68)
+        if (v67)
         {
-          v61 = brc_bread_crumbs();
-          v62 = brc_default_log();
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+          v60 = brc_bread_crumbs();
+          v61 = brc_default_log();
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
           {
-            clientZone4 = [v70 clientZone];
-            [BRCPeriodicSyncOperation scheduleSyncDownIfNeededForZoneID:clientZone4 zoneIfAny:v61 zoneType:buf];
+            clientZone4 = [v69 clientZone];
+            [BRCPeriodicSyncOperation scheduleSyncDownIfNeededForZoneID:clientZone4 zoneIfAny:v60 zoneType:buf];
           }
 
-          clientZone5 = [v70 clientZone];
+          clientZone5 = [v69 clientZone];
           group2 = [(_BRCOperation *)self group];
           [clientZone5 scheduleSyncDownWithGroup:group2];
 
@@ -324,15 +324,14 @@ LABEL_18:
 LABEL_42:
 
 LABEL_57:
-  __brc_leave_section(v71);
+  __brc_leave_section(v70);
 
-  v59 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 - (void)main
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   group = [(_BRCOperation *)self group];
 
   if (!group)
@@ -354,13 +353,13 @@ LABEL_57:
   }
 
   zoneAppRetriever = [(BRCSessionContext *)self->super._sessionContext zoneAppRetriever];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __32__BRCPeriodicSyncOperation_main__block_invoke;
-  v22[3] = &unk_278506078;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __32__BRCPeriodicSyncOperation_main__block_invoke;
+  v21[3] = &unk_278506078;
   v9 = v4;
-  v23 = v9;
-  [zoneAppRetriever enumeratePrivateServerZones:v22];
+  v22 = v9;
+  [zoneAppRetriever enumeratePrivateServerZones:v21];
 
   v10 = [objc_alloc(MEMORY[0x277CBC3D0]) initWithRecordZoneIDs:v9];
   v11 = objc_opt_new();
@@ -371,22 +370,22 @@ LABEL_57:
   configuration = [v10 configuration];
   [configuration setAllowsCellularAccess:isCellularEnabled];
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __32__BRCPeriodicSyncOperation_main__block_invoke_2;
-  v21[3] = &unk_278500DC8;
-  v21[4] = self;
-  [v10 setFetchRecordZonesCompletionBlock:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __32__BRCPeriodicSyncOperation_main__block_invoke_2;
+  v20[3] = &unk_278500DC8;
+  v20[4] = self;
+  [v10 setFetchRecordZonesCompletionBlock:v20];
   v15 = brc_bread_crumbs();
   v16 = brc_default_log();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v10;
-    v28 = 2112;
-    v29 = v15;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v10;
+    v27 = 2112;
+    v28 = v15;
     _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Running operation to fetch %@: %@%@", buf, 0x20u);
   }
 
@@ -394,8 +393,6 @@ LABEL_57:
   configuration2 = [v10 configuration];
   v19 = [v17 numberWithBool:{objc_msgSend(configuration2, "allowsCellularAccess")}];
   [(_BRCOperation *)self addSubOperation:v10 overrideContext:0 allowsCellularAccess:v19];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __32__BRCPeriodicSyncOperation_main__block_invoke(uint64_t a1, void *a2)
@@ -414,14 +411,14 @@ uint64_t __32__BRCPeriodicSyncOperation_main__block_invoke(uint64_t a1, void *a2
 
 void __32__BRCPeriodicSyncOperation_main__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  memset(v23, 0, sizeof(v23));
+  memset(v22, 0, sizeof(v22));
   v7 = *(a1 + 32);
   if (v7)
   {
-    [v7 logSections];
+    objc_msgSend_logSections(v7);
   }
 
   v8 = brc_bread_crumbs();
@@ -429,11 +426,11 @@ void __32__BRCPeriodicSyncOperation_main__block_invoke_2(uint64_t a1, void *a2, 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v25 = v23[0];
-    v26 = 2112;
-    v27 = v5;
-    v28 = 2112;
-    v29 = v8;
+    v24 = v22[0];
+    v25 = 2112;
+    v26 = v5;
+    v27 = 2112;
+    v28 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx completed fetching changed zone\nzones: %@%@", buf, 0x20u);
   }
 
@@ -483,26 +480,24 @@ LABEL_18:
 
   v12 = *(a1 + 32);
   v13 = *(v12 + 256);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __32__BRCPeriodicSyncOperation_main__block_invoke_18;
-  v19[3] = &unk_278507798;
-  v19[4] = v12;
-  v20 = v10;
-  v21 = v5;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __32__BRCPeriodicSyncOperation_main__block_invoke_18;
+  v18[3] = &unk_278507798;
+  v18[4] = v12;
+  v19 = v10;
+  v20 = v5;
   v6 = v6;
-  v22 = v6;
-  [v13 performAsyncOnClientReadWriteDatabaseWorkloop:v19];
+  v21 = v6;
+  [v13 performAsyncOnClientReadWriteDatabaseWorkloop:v18];
 
 LABEL_19:
-  __brc_leave_section(v23);
-
-  v18 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v22);
 }
 
 void __32__BRCPeriodicSyncOperation_main__block_invoke_18(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) finishIfCancelled])
   {
@@ -511,35 +506,35 @@ void __32__BRCPeriodicSyncOperation_main__block_invoke_18(uint64_t a1, void *a2)
 
   else
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
-    v24 = 0;
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
     v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
     v4 = *(a1 + 48);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __32__BRCPeriodicSyncOperation_main__block_invoke_2_22;
-    v16[3] = &unk_278507748;
-    v16[4] = *(a1 + 32);
-    v16[5] = &v21;
-    v16[6] = &v17;
-    [v4 enumerateKeysAndObjectsUsingBlock:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __32__BRCPeriodicSyncOperation_main__block_invoke_2_22;
+    v15[3] = &unk_278507748;
+    v15[4] = *(a1 + 32);
+    v15[5] = &v20;
+    v15[6] = &v16;
+    [v4 enumerateKeysAndObjectsUsingBlock:v15];
     v5 = [*(a1 + 56) userInfo];
     v6 = [v5 objectForKey:*MEMORY[0x277CBBFB0]];
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __32__BRCPeriodicSyncOperation_main__block_invoke_3;
-    v15[3] = &unk_278507770;
-    v15[4] = *(a1 + 32);
-    v15[5] = &v21;
-    v15[6] = &v17;
-    [v6 enumerateKeysAndObjectsUsingBlock:v15];
-    if (*(v22 + 12))
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __32__BRCPeriodicSyncOperation_main__block_invoke_3;
+    v14[3] = &unk_278507770;
+    v14[4] = *(a1 + 32);
+    v14[5] = &v20;
+    v14[6] = &v16;
+    [v6 enumerateKeysAndObjectsUsingBlock:v14];
+    if (*(v21 + 12))
     {
       v7 = @"useful";
     }
@@ -554,7 +549,7 @@ void __32__BRCPeriodicSyncOperation_main__block_invoke_18(uint64_t a1, void *a2)
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v22 + 12))
+      if (*(v21 + 12))
       {
         v10 = "useful";
       }
@@ -565,31 +560,29 @@ void __32__BRCPeriodicSyncOperation_main__block_invoke_18(uint64_t a1, void *a2)
       }
 
       *buf = 136315394;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v8;
+      v25 = v10;
+      v26 = 2112;
+      v27 = v8;
       _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[NOTICE] scheduled a %s periodic sync%@", buf, 0x16u);
     }
 
-    if (*(v22 + 12))
+    if (*(v21 + 12))
     {
       v11 = [*(*(a1 + 32) + 256) periodicSyncInvestigation];
-      [v11 setZonesOutOfSync:*(v22 + 12) zonesType:*(v18 + 24)];
+      [v11 setZonesOutOfSync:*(v21 + 12) zonesType:*(v17 + 24)];
     }
 
     v12 = [*(*(a1 + 32) + 256) analyticsReporter];
-    v13 = [AppTelemetryTimeSeriesEvent newMissingPushEventWithNumberOutOfSync:*(v22 + 12) zonesType:*(v18 + 24)];
+    v13 = [AppTelemetryTimeSeriesEvent newMissingPushEventWithNumberOutOfSync:*(v21 + 12) zonesType:*(v17 + 24)];
     [v12 postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v13];
 
     [*(a1 + 32) completedWithResult:0 error:0];
-    _Block_object_dispose(&v17, 8);
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v20, 8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __32__BRCPeriodicSyncOperation_main__block_invoke_2_22(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__32__BRCPeriodicSyncOperation_main__block_invoke_2_22(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) scheduleSyncDownIfNeededForZoneID:a2 zoneIfAny:a3 zoneType:*(*(a1 + 48) + 8) + 24];
   *(*(*(a1 + 40) + 8) + 24) += result;

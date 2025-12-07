@@ -23,7 +23,7 @@
 - (void)handleMuteButtonTapped
 {
   selfCopy = self;
-  sub_1883B8();
+  sub_1883B8(v2);
 }
 
 - (NSArray)accessibilityElements
@@ -60,7 +60,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for StoryCardCollectionViewCell();
+  v7.super_class = type metadata accessor for StoryCardCollectionViewCell(0);
   [(StoryCardCollectionViewCell *)&v7 setAccessibilityElements:v5.super.isa];
 }
 

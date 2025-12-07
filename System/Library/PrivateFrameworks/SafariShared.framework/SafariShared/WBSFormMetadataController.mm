@@ -180,21 +180,22 @@ void __81__WBSFormMetadataController__handleFillingInContext_operation_completio
 void __81__WBSFormMetadataController__handleFillingInContext_operation_completionHandler___block_invoke_3(uint64_t a1, void *a2, int a3)
 {
   v5 = a2;
+  v7 = v5;
   *(*(a1 + 32) + 32) = 0;
   if (a3)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __81__WBSFormMetadataController__handleFillingInContext_operation_completionHandler___block_invoke_3_cold_1(v6);
+      __81__WBSFormMetadataController__handleFillingInContext_operation_completionHandler___block_invoke_3_cold_1(v8);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v7 = *(a1 + 48);
-  if (v7)
+  v9 = *(a1 + 48);
+  if (v9)
   {
-    (*(v7 + 16))(v7, v5);
+    (*(v9 + 16))(v9, v7);
   }
 }
 
@@ -465,24 +466,24 @@ JSValueRef __99__WBSFormMetadataController_fillForm_inFrame_withPassword_focused
 
 void __99__WBSFormMetadataController_fillForm_inFrame_withPassword_focusedFieldControlID_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = [v3 toObjectOfClass:objc_opt_class()];
-  if (!v4)
+  v5 = [v3 toObjectOfClass:objc_opt_class()];
+  if (!v5)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = [v3 toObject];
-      v7 = objc_opt_class();
-      __99__WBSFormMetadataController_fillForm_inFrame_withPassword_focusedFieldControlID_completionHandler___block_invoke_2_cold_1(v7, v9, v5, v6);
+      v7 = [v3 toObject];
+      v8 = objc_opt_class();
+      __99__WBSFormMetadataController_fillForm_inFrame_withPassword_focusedFieldControlID_completionHandler___block_invoke_2_cold_1(v8, v10, v6, v7);
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v9 = *(a1 + 32);
+  if (v9)
   {
-    (*(v8 + 16))(v8, v4);
+    (*(v9 + 16))(v9, v5);
   }
 }
 
@@ -537,7 +538,7 @@ void __99__WBSFormMetadataController_fillForm_inFrame_withPassword_focusedFieldC
     v10 = SafariShared::JSUtilities::globalJSObjectByName(jsContextForMetadataControllerScriptWorld, "FormMetadataJS", v8);
     if (v10)
     {
-      SafariShared::JSUtilities::jsString(fieldCopy, &string);
+      SafariShared::JSUtilities::jsString(&string, fieldCopy);
       *v12 = JSValueMakeString(v9, string);
       if (string)
       {
@@ -649,18 +650,18 @@ LABEL_16:
 {
   length = range.length;
   location = range.location;
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   fieldCopy = field;
   frameCopy = frame;
-  v11 = frameCopy;
+  v12 = frameCopy;
   if (self->_isCurrentlyFilling)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(frameCopy, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v19) = 138543362;
-      *(&v19 + 4) = fieldCopy;
-      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Ignoring request to select range in %{public}@ because filling is in progress.", &v19, 0xCu);
+      LODWORD(v20) = 138543362;
+      *(&v20 + 4) = fieldCopy;
+      _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Ignoring request to select range in %{public}@ because filling is in progress.", &v20, 0xCu);
     }
   }
 
@@ -672,16 +673,16 @@ LABEL_16:
       if (*(m_table - 3))
       {
         jsContextForMetadataControllerScriptWorld = [frameCopy jsContextForMetadataControllerScriptWorld];
-        v16 = jsContextForMetadataControllerScriptWorld;
+        v17 = jsContextForMetadataControllerScriptWorld;
         if (jsContextForMetadataControllerScriptWorld)
         {
-          v18 = SafariShared::JSUtilities::globalJSObjectByName(jsContextForMetadataControllerScriptWorld, "FormMetadataJS", v15);
-          if (v18)
+          v19 = SafariShared::JSUtilities::globalJSObjectByName(jsContextForMetadataControllerScriptWorld, "FormMetadataJS", v16);
+          if (v19)
           {
-            *&v19 = SafariShared::JSUtilities::translateNSToJSValue(v16, fieldCopy, v17);
-            *(&v19 + 1) = JSValueMakeNumber(v16, location);
-            Number = JSValueMakeNumber(v16, length);
-            SafariShared::JSUtilities::callJSMethodWithArguments(v16, v18, "setFormFieldSelection", &v19, 3);
+            *&v20 = SafariShared::JSUtilities::translateNSToJSValue(v17, fieldCopy, v18);
+            *(&v20 + 1) = JSValueMakeNumber(v17, location);
+            Number = JSValueMakeNumber(v17, length);
+            SafariShared::JSUtilities::callJSMethodWithArguments(v17, v19, "setFormFieldSelection", &v20, 3);
           }
         }
       }
@@ -1171,7 +1172,7 @@ uint64_t __132__WBSFormMetadataController__formMetadataByAddingInformationAboutU
     v10 = SafariShared::FrameMetadata::jsMetadataForForm([(WBSFormMetadataController *)self metadataForFrame:frameCopy requestType:0], v8, 0);
     if (v10)
     {
-      SafariShared::JSUtilities::jsString("_safariLockedFormMetadata", &propertyName);
+      SafariShared::JSUtilities::jsString(&propertyName, "_safariLockedFormMetadata");
       JSObjectSetProperty(jsContextForMetadataControllerScriptWorld, v8, propertyName, v10, 0, 0);
       if (propertyName)
       {
@@ -1188,7 +1189,7 @@ uint64_t __132__WBSFormMetadataController__formMetadataByAddingInformationAboutU
   if (v7)
   {
     jsContextForMetadataControllerScriptWorld = [frameCopy jsContextForMetadataControllerScriptWorld];
-    SafariShared::JSUtilities::jsString("_safariLockedFormMetadata", &propertyName);
+    SafariShared::JSUtilities::jsString(&propertyName, "_safariLockedFormMetadata");
     JSObjectDeleteProperty(jsContextForMetadataControllerScriptWorld, v7, propertyName, 0);
     if (propertyName)
     {
@@ -1525,7 +1526,7 @@ id __104__WBSFormMetadataController_getMetadataForTextField_inFrame_textFieldMet
   }
 
   v10 = SafariShared::JSUtilities::globalJSObjectByName(v6, "document", v9);
-  SafariShared::JSUtilities::jsString("body", &propertyName);
+  SafariShared::JSUtilities::jsString(&propertyName, "body");
   Property = JSObjectGetProperty(v6, v10, propertyName, 0);
   v13 = JSValueToObject(v6, Property, 0);
   if (propertyName)
@@ -1572,10 +1573,10 @@ LABEL_8:
   if (!m_table)
   {
 LABEL_9:
-    v23 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = WBS_LOG_CHANNEL_PREFIXAutoFill(frameRef, v15);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [WBSFormMetadataController textFieldFocused:v23 inFrame:? textFieldMetadata:? formMetadata:?];
+      [WBSFormMetadataController textFieldFocused:v24 inFrame:? textFieldMetadata:? formMetadata:?];
     }
 
     goto LABEL_11;
@@ -1591,21 +1592,21 @@ LABEL_9:
     [WBSFormMetadataController textFieldFocused:inFrame:textFieldMetadata:formMetadata:];
   }
 
-  v16 = *(m_table - 2);
-  v17 = (~(frameRef << 32) + frameRef) ^ ((~(frameRef << 32) + frameRef) >> 22);
-  v18 = 9 * ((v17 + ~(v17 << 13)) ^ ((v17 + ~(v17 << 13)) >> 8));
-  v19 = (v18 ^ (v18 >> 15)) + ~((v18 ^ (v18 >> 15)) << 27);
-  v20 = v16 & ((v19 >> 31) ^ v19);
-  v21 = *&m_table[4 * v20];
-  if (v21 != frameRef)
+  v17 = *(m_table - 2);
+  v18 = (~(frameRef << 32) + frameRef) ^ ((~(frameRef << 32) + frameRef) >> 22);
+  v19 = 9 * ((v18 + ~(v18 << 13)) ^ ((v18 + ~(v18 << 13)) >> 8));
+  v20 = (v19 ^ (v19 >> 15)) + ~((v19 ^ (v19 >> 15)) << 27);
+  v21 = v17 & ((v20 >> 31) ^ v20);
+  v22 = *&m_table[4 * v21];
+  if (v22 != frameRef)
   {
-    v22 = 1;
-    while (v21)
+    v23 = 1;
+    while (v22)
     {
-      v20 = (v20 + v22) & v16;
-      v21 = *&m_table[4 * v20];
-      ++v22;
-      if (v21 == frameRef)
+      v21 = (v21 + v23) & v17;
+      v22 = *&m_table[4 * v21];
+      ++v23;
+      if (v22 == frameRef)
       {
         goto LABEL_11;
       }
@@ -2191,7 +2192,7 @@ void __57__WBSFormMetadataController_formMetadataClassificationJS__block_invoke(
 {
   v5 = a2;
   v6 = [*(a1 + 32) JSGlobalContextRef];
-  SafariShared::JSUtilities::jsString(v5, &name);
+  SafariShared::JSUtilities::jsString(&name, v5);
   FunctionWithCallback = JSObjectMakeFunctionWithCallback(v6, name, a3);
   if (name)
   {
@@ -2204,10 +2205,10 @@ void __57__WBSFormMetadataController_formMetadataClassificationJS__block_invoke(
 
 void __57__WBSFormMetadataController_formMetadataClassificationJS__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v6 = a2;
+  v7 = a2;
   v4 = a3;
-  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  SafariShared::JSUtilities::logExceptionInChannel(v5, [v6 JSGlobalContextRef], objc_msgSend(v4, "JSValueRef"));
+  v6 = WBS_LOG_CHANNEL_PREFIXAutoFill(v4, v5);
+  SafariShared::JSUtilities::logExceptionInChannel(v6, [v7 JSGlobalContextRef], objc_msgSend(v4, "JSValueRef"));
 }
 
 + (id)classifyFormMetadata:(id)metadata

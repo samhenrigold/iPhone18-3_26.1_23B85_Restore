@@ -8,26 +8,26 @@
 
 - (id)floatMatrixWithEntities:(id)entities progressReporter:(id)reporter error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   reporterCopy = reporter;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v8 = entitiesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v37;
+    v12 = *v36;
     do
     {
       v13 = v10;
       do
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(v8);
         }
@@ -37,7 +37,7 @@
 
       while (v13);
       v11 += v10;
-      v10 = [v8 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v10);
@@ -52,8 +52,8 @@
   featureExtractors = [(MAFlattenFeatureExtractor *)self featureExtractors];
   v16 = [featureExtractors count];
 
-  v31 = reporterCopy;
-  v33 = [reporterCopy progressReportersForParallelOperationsWithCount:v16];
+  v30 = reporterCopy;
+  v32 = [reporterCopy progressReportersForParallelOperationsWithCount:v16];
   v17 = 0;
   if (v16)
   {
@@ -67,10 +67,10 @@
       featureExtractors2 = [(MAFlattenFeatureExtractor *)self featureExtractors];
       v24 = [featureExtractors2 objectAtIndexedSubscript:v18];
 
-      v25 = [v33 objectAtIndexedSubscript:v18];
-      v35 = v17;
-      v26 = [v24 floatMatrixWithEntities:v8 progressReporter:v25 error:&v35];
-      v17 = v35;
+      v25 = [v32 objectAtIndexedSubscript:v18];
+      v34 = v17;
+      v26 = [v24 floatMatrixWithEntities:v8 progressReporter:v25 error:&v34];
+      v17 = v34;
 
       if (v26)
       {
@@ -100,42 +100,40 @@
     *error = v17;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)defaultFloatVectorWithError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MAMutableFloatVector);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   featureExtractors = [(MAFlattenFeatureExtractor *)self featureExtractors];
-  v7 = [featureExtractors countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [featureExtractors countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v21;
+    v10 = *v20;
     while (2)
     {
       v11 = 0;
       v12 = v9;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(featureExtractors);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v11);
+        v13 = *(*(&v19 + 1) + 8 * v11);
         v14 = objc_autoreleasePoolPush();
-        v19 = v12;
-        v15 = [v13 defaultFloatVectorWithError:&v19];
-        v9 = v19;
+        v18 = v12;
+        v15 = [v13 defaultFloatVectorWithError:&v18];
+        v9 = v18;
 
         if (!v15)
         {
@@ -153,7 +151,7 @@
       }
 
       while (v8 != v11);
-      v8 = [featureExtractors countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [featureExtractors countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v8)
       {
         continue;
@@ -176,19 +174,17 @@ LABEL_12:
     *error = v9;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (MAFlattenFeatureExtractor)initWithName:(id)name featureExtractors:(id)extractors
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   extractorsCopy = extractors;
-  v38.receiver = self;
-  v38.super_class = MAFlattenFeatureExtractor;
-  v8 = [(MAFlattenFeatureExtractor *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = MAFlattenFeatureExtractor;
+  v8 = [(MAFlattenFeatureExtractor *)&v37 init];
   if (v8)
   {
     if (nameCopy)
@@ -199,34 +195,34 @@ LABEL_12:
     else
     {
       v9 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"Flatten["];
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
       v10 = extractorsCopy;
-      v11 = [v10 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v35;
+        v13 = *v34;
         do
         {
           v14 = 0;
           do
           {
-            if (*v35 != v13)
+            if (*v34 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            name = [*(*(&v34 + 1) + 8 * v14) name];
+            name = [*(*(&v33 + 1) + 8 * v14) name];
             [v9 appendFormat:@"...%@, ", name];
 
             ++v14;
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v34 objects:v40 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v33 objects:v39 count:16];
         }
 
         while (v12);
@@ -239,34 +235,34 @@ LABEL_12:
     v8->_name = v9;
 
     v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v18 = extractorsCopy;
-    v19 = [v18 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v29 objects:v38 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v31;
+      v21 = *v30;
       do
       {
         v22 = 0;
         do
         {
-          if (*v31 != v21)
+          if (*v30 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          featureNames = [*(*(&v30 + 1) + 8 * v22) featureNames];
+          featureNames = [*(*(&v29 + 1) + 8 * v22) featureNames];
           [(NSArray *)v17 addObjectsFromArray:featureNames];
 
           ++v22;
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v29 objects:v38 count:16];
       }
 
       while (v20);
@@ -281,7 +277,6 @@ LABEL_12:
     v8->_featureExtractors = v26;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

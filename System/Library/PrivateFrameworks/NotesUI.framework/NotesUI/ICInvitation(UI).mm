@@ -16,13 +16,13 @@
 {
   v4 = a3;
   objc_opt_class();
-  v5 = [v4 objectForKeyedSubscript:*MEMORY[0x1E695B830]];
+  v5 = objc_msgSend_objectForKeyedSubscript_(v4);
   v6 = ICDynamicCast();
   [self setRootObjectType:v6];
 
   [self setServerShare:v4];
   objc_opt_class();
-  v7 = [v4 objectForKeyedSubscript:*MEMORY[0x1E695B828]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v4);
   v8 = ICDynamicCast();
   [self setTitle:v8];
 
@@ -34,17 +34,17 @@
 
   objc_opt_class();
   encryptedValues = [v4 encryptedValues];
-  v12 = [encryptedValues objectForKeyedSubscript:*MEMORY[0x1E69B75B8]];
+  v12 = objc_msgSend_objectForKeyedSubscript_(encryptedValues);
   v13 = ICDynamicCast();
   [self setSnippet:v13];
 
   objc_opt_class();
-  v14 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69B75B0]];
+  v14 = objc_msgSend_objectForKeyedSubscript_(v4);
   v15 = ICDynamicCast();
   [self setSnippetAttachmentType:{objc_msgSend(v15, "integerValue")}];
 
   objc_opt_class();
-  v16 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69B75A8]];
+  v16 = objc_msgSend_objectForKeyedSubscript_(v4);
   v17 = ICDynamicCast();
   [self setSnippetAttachmentCount:{objc_msgSend(v17, "integerValue")}];
 
@@ -55,22 +55,22 @@
   [self setThumbnailDataDark:v19];
 
   objc_opt_class();
-  v20 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69B7578]];
+  v20 = objc_msgSend_objectForKeyedSubscript_(v4);
   v21 = ICDynamicCast();
   [self setNoteCount:{objc_msgSend(v21, "integerValue")}];
 
   objc_opt_class();
-  v22 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69B7580]];
+  v22 = objc_msgSend_objectForKeyedSubscript_(v4);
   v23 = ICDynamicCast();
   [self setNoteCountRecursive:{objc_msgSend(v23, "integerValue")}];
 
   objc_opt_class();
-  v24 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69B75C0]];
+  v24 = objc_msgSend_objectForKeyedSubscript_(v4);
   v25 = ICDynamicCast();
   [self setSubfolderCount:{objc_msgSend(v25, "integerValue")}];
 
   objc_opt_class();
-  v27 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69B75C8]];
+  v27 = objc_msgSend_objectForKeyedSubscript_(v4);
 
   v26 = ICDynamicCast();
   [self setSubfolderCountRecursive:{objc_msgSend(v26, "integerValue")}];

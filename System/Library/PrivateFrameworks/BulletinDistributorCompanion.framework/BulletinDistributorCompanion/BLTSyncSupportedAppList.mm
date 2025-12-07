@@ -18,13 +18,13 @@
 
 - (BLTSyncSupportedAppList)init
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v53.receiver = self;
-  v53.super_class = BLTSyncSupportedAppList;
-  v2 = [(BLTSyncSupportedAppList *)&v53 init];
+  v57 = *MEMORY[0x277D85DE8];
+  v54.receiver = self;
+  v54.super_class = BLTSyncSupportedAppList;
+  v2 = [(BLTSyncSupportedAppList *)&v54 init];
   if (!v2)
   {
-    goto LABEL_23;
+    return v2;
   }
 
   v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -46,21 +46,21 @@
   _syncSupportedAppListStoreURL = [(BLTSyncSupportedAppList *)v2 _syncSupportedAppListStoreURL];
   v11 = _syncSupportedAppListStoreURL;
   v12 = 0x277CBE000uLL;
-  v43 = _syncSupportedAppListStoreURL;
+  v44 = _syncSupportedAppListStoreURL;
   if (keyExistsAndHasValidFormat)
   {
     v13 = MEMORY[0x277CBEB58];
-    v50 = 0;
-    v14 = [MEMORY[0x277CBEA60] arrayWithContentsOfURL:_syncSupportedAppListStoreURL error:&v50];
-    v15 = v50;
+    v51 = 0;
+    v14 = [MEMORY[0x277CBEA60] arrayWithContentsOfURL:_syncSupportedAppListStoreURL error:&v51];
+    v15 = v51;
     v16 = [v13 setWithArray:v14];
     appListStore = v2->_appListStore;
     v2->_appListStore = v16;
 
     if (v15)
     {
-      v18 = blt_general_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = blt_general_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [(BLTSyncSupportedAppList *)v11 init];
       }
@@ -73,21 +73,21 @@
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       path = [v11 path];
-      v21 = [defaultManager fileExistsAtPath:path];
+      v22 = [defaultManager fileExistsAtPath:path];
 
-      if (v21)
+      if (v22)
       {
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v51 = 0;
-        v23 = [defaultManager2 removeItemAtURL:v11 error:&v51];
-        v24 = v51;
+        v52 = 0;
+        v24 = [defaultManager2 removeItemAtURL:v11 error:&v52];
+        v25 = v52;
 
-        if (!v23)
+        if (!v24)
         {
-          v42 = blt_general_log();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v43 = blt_general_log(v26);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
-            [(BLTSyncSupportedAppList *)v24 init];
+            [(BLTSyncSupportedAppList *)v25 init];
           }
 
           goto LABEL_13;
@@ -103,89 +103,87 @@ LABEL_13:
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
   [defaultWorkspace addObserver:v2];
 
-  v26 = [MEMORY[0x277CBEB58] set];
+  v28 = [MEMORY[0x277CBEB58] set];
   [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
-  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  obj = v49 = 0u;
-  v27 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
-  if (v27)
+  v49 = 0u;
+  obj = v50 = 0u;
+  v29 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+  if (v29)
   {
-    v28 = v27;
-    v29 = *v47;
+    v30 = v29;
+    v31 = *v48;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v47 != v29)
+        if (*v48 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = *(*(&v46 + 1) + 8 * i);
-        v32 = objc_autoreleasePoolPush();
-        bundleIdentifier = [v31 bundleIdentifier];
-        [v26 addObject:bundleIdentifier];
+        v33 = *(*(&v47 + 1) + 8 * i);
+        v34 = objc_autoreleasePoolPush();
+        bundleIdentifier = [v33 bundleIdentifier];
+        [v28 addObject:bundleIdentifier];
 
-        v54 = v31;
-        v34 = [*(v12 + 2656) arrayWithObjects:&v54 count:1];
-        v45 = 0;
-        v35 = [(BLTSyncSupportedAppList *)v2 supportedBundleIDsFromRecords:v34 nonSyncSupportedBundleIDs:&v45];
-        v36 = v12;
-        v37 = v45;
+        v55 = v33;
+        v36 = [*(v12 + 2656) arrayWithObjects:&v55 count:1];
+        v46 = 0;
+        v37 = [(BLTSyncSupportedAppList *)v2 supportedBundleIDsFromRecords:v36 nonSyncSupportedBundleIDs:&v46];
+        v38 = v12;
+        v39 = v46;
 
-        [(BLTSyncSupportedAppList *)v2 _handleAppListInstalled:v35 removed:v37];
-        v12 = v36;
+        [(BLTSyncSupportedAppList *)v2 _handleAppListInstalled:v37 removed:v39];
+        v12 = v38;
 
-        objc_autoreleasePoolPop(v32);
+        objc_autoreleasePoolPop(v34);
       }
 
-      v28 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v30 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
-    while (v28);
+    while (v30);
   }
 
-  v38 = [(NSMutableSet *)v2->_appListStore mutableCopy];
-  [v38 minusSet:v26];
-  if ([v38 count])
+  v40 = [(NSMutableSet *)v2->_appListStore mutableCopy];
+  [v40 minusSet:v28];
+  if ([v40 count])
   {
-    allObjects = [v38 allObjects];
+    allObjects = [v40 allObjects];
     [(BLTSyncSupportedAppList *)v2 _handleAppListInstalled:0 removed:allObjects];
   }
 
-LABEL_23:
-  v40 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)supportedBundleIDsFromRecords:(id)records nonSyncSupportedBundleIDs:(id *)ds
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = recordsCopy;
-  v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       v10 = 0;
       do
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * v10);
+        v11 = *(*(&v27 + 1) + 8 * v10);
         v12 = [MEMORY[0x277CD3A68] appInfoWithApplicationRecord:v11];
         supportedActions = [v12 supportedActions];
         if ([supportedActions count])
@@ -227,7 +225,7 @@ LABEL_13:
           if (!localizedName)
           {
             null2 = [MEMORY[0x277CBEB68] null];
-            v25 = null2;
+            v24 = null2;
           }
 
           bundleIdentifier2 = [v11 bundleIdentifier];
@@ -260,14 +258,12 @@ LABEL_14:
       }
 
       while (v8 != v10);
-      v22 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v22 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       v8 = v22;
     }
 
     while (v22);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -326,7 +322,7 @@ uint64_t __36__BLTSyncSupportedAppList_installed__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (NSSet)removed
@@ -358,7 +354,7 @@ uint64_t __34__BLTSyncSupportedAppList_removed__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (BOOL)_handleAppListInstalled:(id)installed removed:(id)removed
@@ -531,30 +527,30 @@ void __60__BLTSyncSupportedAppList_updateStoreWithInstalled_removed___block_invo
   if (v7)
   {
     v8 = [MEMORY[0x277CBEA90] data];
-    v20 = 0;
-    v9 = [v8 writeToURL:v7 options:0 error:&v20];
-    v10 = v20;
+    v22 = 0;
+    v9 = [v8 writeToURL:v7 options:0 error:&v22];
+    v10 = v22;
 
     if (v9)
     {
       v11 = *MEMORY[0x277CBE878];
-      v19 = v10;
-      v12 = [v7 setResourceValue:MEMORY[0x277CBEC38] forKey:v11 error:&v19];
-      v13 = v19;
+      v21 = v10;
+      v12 = [v7 setResourceValue:MEMORY[0x277CBEC38] forKey:v11 error:&v21];
+      v13 = v21;
 
       if (v12)
       {
-        v18 = v13;
-        v14 = [v6 writeToURL:v7 options:0x10000000 error:&v18];
-        v10 = v18;
+        v20 = v13;
+        v14 = [v6 writeToURL:v7 options:0x10000000 error:&v20];
+        v10 = v20;
 
         if (v14)
         {
-          v15 = blt_general_log();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          v16 = blt_general_log(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
-            v17 = 0;
-            _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_INFO, "Sync supported app list written.", &v17, 2u);
+            *v19 = 0;
+            _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_INFO, "Sync supported app list written.", v19, 2u);
           }
 
           goto LABEL_11;
@@ -573,13 +569,13 @@ void __60__BLTSyncSupportedAppList_updateStoreWithInstalled_removed___block_invo
     v10 = 0;
   }
 
-  v16 = [MEMORY[0x277CCAA00] defaultManager];
-  [v16 removeItemAtURL:v7 error:0];
+  v17 = [MEMORY[0x277CCAA00] defaultManager];
+  [v17 removeItemAtURL:v7 error:0];
 
-  v15 = blt_general_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = blt_general_log(v18);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    __60__BLTSyncSupportedAppList_updateStoreWithInstalled_removed___block_invoke_cold_1(v10, v7 == 0, v15);
+    __60__BLTSyncSupportedAppList_updateStoreWithInstalled_removed___block_invoke_cold_1(v10, v7 == 0, v16);
   }
 
 LABEL_11:
@@ -594,16 +590,15 @@ LABEL_11:
 
 - (void)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error removing sync supported store: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error removing sync supported store: %@", &v2, 0xCu);
 }
 
 void __60__BLTSyncSupportedAppList_updateStoreWithInstalled_removed___block_invoke_cold_1(__CFString *a1, char a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = @"Unknown error";
   if (a2)
   {
@@ -615,10 +610,9 @@ void __60__BLTSyncSupportedAppList_updateStoreWithInstalled_removed___block_invo
     v3 = a1;
   }
 
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "Error storing sync supported app list. %@", &v5, 0xCu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "Error storing sync supported app list. %@", &v4, 0xCu);
 }
 
 @end

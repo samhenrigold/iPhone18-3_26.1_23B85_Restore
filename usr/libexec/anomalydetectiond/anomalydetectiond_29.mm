@@ -6113,7 +6113,7 @@ uint64_t CMMsl::Item::Item(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::Item::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::Item::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

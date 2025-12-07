@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isValid;
 - (PCTelephonyActivity)initWithActivity:(id)activity;
+- (PCTelephonyActivity)initWithCallUUID:(id)d conversationUUID:(id)iD isVideo:(BOOL)video service:(int)service;
 - (id)bundleIdentifier;
 - (id)callImage;
 - (id)callUUID;
@@ -20,6 +21,44 @@
 @end
 
 @implementation PCTelephonyActivity
+
+- (PCTelephonyActivity)initWithCallUUID:(id)d conversationUUID:(id)iD isVideo:(BOOL)video service:(int)service
+{
+  v6 = *&service;
+  dCopy = d;
+  iDCopy = iD;
+  v19.receiver = self;
+  v19.super_class = PCTelephonyActivity;
+  v12 = [(PCTelephonyActivity *)&v19 initWithActivityType:@"com.apple.ProximityControl.activity.call"];
+  v13 = v12;
+  if (v12)
+  {
+    makeIneligibleForProcessing(v12);
+    v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v15 = v14;
+    if (dCopy)
+    {
+      [v14 setObject:dCopy forKey:@"callUUID"];
+    }
+
+    if (iDCopy)
+    {
+      [v15 setObject:iDCopy forKey:@"conversationUUID"];
+    }
+
+    v16 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+    [v15 setObject:v16 forKey:@"service"];
+
+    v17 = [v15 copy];
+    [(PCTelephonyActivity *)v13 setUserInfo:v17];
+
+    v13->_hostedOnCurrentDeviceIsValid = 0;
+    v13->_hostedOnCurrentDevice = 0;
+    v13->_isVideo = video;
+  }
+
+  return v13;
+}
 
 - (id)initFromSensitiveCall:(id)call
 {
@@ -464,7 +503,7 @@ LABEL_12:
 
 - (id)callImage
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   callImage = self->_callImage;
   if (!callImage)
   {
@@ -472,14 +511,14 @@ LABEL_12:
     contactStore = [mEMORY[0x277D6EDF8] contactStore];
     descriptorForRequiredKeys = [MEMORY[0x277CBDBD0] descriptorForRequiredKeys];
     v6 = *MEMORY[0x277CBD028];
-    v28[0] = descriptorForRequiredKeys;
-    v28[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[0] = descriptorForRequiredKeys;
+    v27[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
 
     contactIdentifier = [(PCTelephonyActivity *)self contactIdentifier];
-    v26 = 0;
-    v9 = [contactStore unifiedContactWithIdentifier:contactIdentifier keysToFetch:v7 error:&v26];
-    v10 = v26;
+    v25 = 0;
+    v9 = [contactStore unifiedContactWithIdentifier:contactIdentifier keysToFetch:v7 error:&v25];
+    v10 = v25;
 
     if (v9)
     {
@@ -501,16 +540,14 @@ LABEL_12:
     [mainScreen scale];
     v19 = [v16 scopeWithPointSize:0 scale:0 rightToLeft:44.0 style:{44.0, v18}];
 
-    v27 = v12;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+    v26 = v12;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
     v21 = [v15 avatarImageForContacts:v20 scope:v19];
     v22 = self->_callImage;
     self->_callImage = v21;
 
     callImage = self->_callImage;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return callImage;
 }

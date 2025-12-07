@@ -21,7 +21,7 @@
 - (id)heuristicResultWithEnvironment:(id)environment
 {
   environmentCopy = environment;
-  v4 = __atxlog_handle_context_heuristic();
+  v4 = __atxlog_handle_context_heuristic(environmentCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -36,26 +36,27 @@
   v9 = [v7 valueForKey:calleeContactIDsKey];
 
   v10 = objc_opt_new();
-  if ([v9 count])
+  v11 = [v9 count];
+  if (v11)
   {
-    v11 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_context_heuristic(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "ATXOngoingCall: Found a donation in the context store on an active call where either calleeContactIDsKey or calleeHandlesKey is set", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXOngoingCall: Found a donation in the context store on an active call where either calleeContactIDsKey or calleeHandlesKey is set", v19, 2u);
     }
 
-    v12 = [[ATXOngoingCallSuggestionProducer alloc] initWithEnvironment:environmentCopy];
-    v13 = [(ATXOngoingCallSuggestionProducer *)v12 suggestionsForOngoingCall:v9];
+    v13 = [[ATXOngoingCallSuggestionProducer alloc] initWithEnvironment:environmentCopy];
+    v14 = [(ATXOngoingCallSuggestionProducer *)v13 suggestionsForOngoingCall:v9];
 
-    v10 = v13;
+    v10 = v14;
   }
 
-  v14 = [ATXContextHeuristicResult alloc];
-  v15 = [MEMORY[0x277CBEB98] set];
-  v16 = [(ATXContextHeuristicResult *)v14 initWithSuggestions:v10 additionalRefreshTriggers:v15];
+  v15 = [ATXContextHeuristicResult alloc];
+  v16 = [MEMORY[0x277CBEB98] set];
+  v17 = [(ATXContextHeuristicResult *)v15 initWithSuggestions:v10 additionalRefreshTriggers:v16];
 
-  return v16;
+  return v17;
 }
 
 @end

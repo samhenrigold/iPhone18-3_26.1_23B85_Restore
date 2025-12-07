@@ -45,33 +45,32 @@
 
 - (NSData)hashValue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   sha384DigestOperationInternal = self->_sha384DigestOperationInternal;
-  *v15.count = *(sha384DigestOperationInternal + 8);
+  *v14.count = *(sha384DigestOperationInternal + 8);
   v3 = *(sha384DigestOperationInternal + 40);
   v4 = *(sha384DigestOperationInternal + 72);
   v5 = *(sha384DigestOperationInternal + 24);
-  *&v15.hash[4] = *(sha384DigestOperationInternal + 56);
-  *&v15.hash[6] = v4;
-  *v15.hash = v5;
-  *&v15.hash[2] = v3;
+  *&v14.hash[4] = *(sha384DigestOperationInternal + 56);
+  *&v14.hash[6] = v4;
+  *v14.hash = v5;
+  *&v14.hash[2] = v3;
   v6 = *(sha384DigestOperationInternal + 104);
   v7 = *(sha384DigestOperationInternal + 136);
   v8 = *(sha384DigestOperationInternal + 88);
-  *&v15.wbuf[4] = *(sha384DigestOperationInternal + 120);
-  *&v15.wbuf[6] = v7;
-  *v15.wbuf = v8;
-  *&v15.wbuf[2] = v6;
+  *&v14.wbuf[4] = *(sha384DigestOperationInternal + 120);
+  *&v14.wbuf[6] = v7;
+  *v14.wbuf = v8;
+  *&v14.wbuf[2] = v6;
   v9 = *(sha384DigestOperationInternal + 168);
   v10 = *(sha384DigestOperationInternal + 200);
   v11 = *(sha384DigestOperationInternal + 152);
-  *&v15.wbuf[12] = *(sha384DigestOperationInternal + 184);
-  *&v15.wbuf[14] = v10;
-  *&v15.wbuf[8] = v11;
-  *&v15.wbuf[10] = v9;
-  CC_SHA384_Final(md, &v15);
+  *&v14.wbuf[12] = *(sha384DigestOperationInternal + 184);
+  *&v14.wbuf[14] = v10;
+  *&v14.wbuf[8] = v11;
+  *&v14.wbuf[10] = v9;
+  CC_SHA384_Final(md, &v14);
   v12 = [MEMORY[0x277CBEA90] dataWithBytes:md length:48];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -24,7 +24,7 @@
   v21 = [(HDCachedQueryMetadata *)&v35 init];
   if (v21)
   {
-    v22 = [identifierCopy copy];
+    v22 = objc_msgSend_copy(identifierCopy);
     cachingIdentifier = v21->_cachingIdentifier;
     v21->_cachingIdentifier = v22;
 
@@ -33,15 +33,15 @@
     objc_storeStrong(&v21->_queryStartIndex, index);
     objc_storeStrong(&v21->_queryEndIndex, endIndex);
     v21->_generationNumber = number;
-    v24 = [versionCopy copy];
+    v24 = objc_msgSend_copy(versionCopy);
     buildVersion = v21->_buildVersion;
     v21->_buildVersion = v24;
 
-    v26 = [dateCopy copy];
+    v26 = objc_msgSend_copy(dateCopy);
     anchorDate = v21->_anchorDate;
     v21->_anchorDate = v26;
 
-    v28 = [componentsCopy copy];
+    v28 = objc_msgSend_copy(componentsCopy);
     intervalComponents = v21->_intervalComponents;
     v21->_intervalComponents = v28;
   }

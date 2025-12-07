@@ -25,9 +25,11 @@
 
 uint64_t __34__CNSuggestedRecipientItem_os_log__block_invoke()
 {
-  os_log_cn_once_object_1 = os_log_create("com.apple.contacts.autocomplete.ui", "suggestions");
+  v0 = os_log_create("com.apple.contacts.autocomplete.ui", "suggestions");
+  v1 = os_log_cn_once_object_1;
+  os_log_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CNSuggestedRecipientItem)initWithRecipient:(id)recipient

@@ -46,7 +46,7 @@
 + (id)_errorFromQueryResult:(int64_t)result
 {
   v3 = 0;
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   switch(result)
   {
     case 0:
@@ -82,13 +82,12 @@
 LABEL_7:
       v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"MAQueryResult %zd: %@", result, v3];
       v6 = MEMORY[0x277CCA9B8];
-      v10 = *MEMORY[0x277CCA450];
-      v11[0] = v5;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       v3 = [v6 errorWithDomain:@"LTTranslationDaemonErrorDomain" code:v4 userInfo:v7];
 
 LABEL_8:
-      v8 = *MEMORY[0x277D85DE8];
 
       return v3;
   }
@@ -127,7 +126,7 @@ LABEL_8:
 
 + (id)queryAssetType:(id)type filter:(unint64_t)filter error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v9 = [objc_alloc(MEMORY[0x277D289D8]) initWithType:typeCopy];
   [v9 setDoNotBlockOnNetworkStatus:1];
@@ -152,26 +151,26 @@ LABEL_8:
   {
     results = [v9 results];
     v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(results, "count")}];
-    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
     v13 = results;
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v26;
+      v16 = *v27;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v16)
+          if (*v27 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [[_LTDMAAssetModel alloc] initWithProvider:*(*(&v25 + 1) + 8 * i)];
+          v18 = [[_LTDMAAssetModel alloc] initWithProvider:*(*(&v26 + 1) + 8 * i)];
           v19 = [[_LTDAssetModel alloc] initWithProvider:v18];
           if (v19)
           {
@@ -179,33 +178,31 @@ LABEL_8:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
       while (v15);
     }
 
-    v20 = _LTOSLogAssets();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = _LTOSLogAssets(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v21 = v20;
-      v22 = [v11 count];
+      v23 = v22;
+      v24 = [v11 count];
       *buf = 134217984;
-      v30 = v22;
-      _os_log_impl(&dword_232E53000, v21, OS_LOG_TYPE_INFO, "Asset query sync found %zu assets", buf, 0xCu);
+      v31 = v24;
+      _os_log_impl(&dword_232E53000, v23, OS_LOG_TYPE_INFO, "Asset query sync found %zu assets", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)_errorFromDownloadResult:(int64_t)result
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (result > 47)
   {
     if ((result - 59) < 3)
@@ -215,9 +212,9 @@ LABEL_8:
 LABEL_17:
       v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"MAQueryResult %zd: %@", result, v4];
       v9 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA450];
-      v14[0] = v8;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x277CCA450];
+      v13[0] = v8;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       v6 = [v9 errorWithDomain:@"LTTranslationDaemonErrorDomain" code:v5 userInfo:v10];
 
       goto LABEL_18;
@@ -271,7 +268,6 @@ LABEL_16:
   }
 
 LABEL_18:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -311,7 +307,7 @@ LABEL_18:
 
 + (void)downloadAsset:(id)asset options:(unint64_t)options progress:(id)progress completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   progressCopy = progress;
   completionCopy = completion;
@@ -322,44 +318,44 @@ LABEL_18:
     if ([v13 managedAssetProvider] == 1)
     {
       v15 = [self maDownloadOptionsFrom:options];
-      v16 = _LTOSLogAssets();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = _LTOSLogAssets(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v37 = v13;
-        _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_INFO, "Requested MobileAsset download of asset %{public}@", buf, 0xCu);
+        v38 = v13;
+        _os_log_impl(&dword_232E53000, v17, OS_LOG_TYPE_INFO, "Requested MobileAsset download of asset %{public}@", buf, 0xCu);
       }
 
       progress = [v13 progress];
       [progress setOfflineState:1];
 
       provider = [v13 provider];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __64___LTDMAAssetService_downloadAsset_options_progress_completion___block_invoke;
-      v32[3] = &unk_2789B65D8;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __64___LTDMAAssetService_downloadAsset_options_progress_completion___block_invoke;
+      v33[3] = &unk_2789B65D8;
       selfCopy = self;
-      v19 = v13;
-      v33 = v19;
-      v20 = progressCopy;
+      v20 = v13;
       v34 = v20;
-      [provider attachProgressCallBack:v32];
+      v21 = progressCopy;
+      v35 = v21;
+      [provider attachProgressCallBack:v33];
 
       _queue = [self _queue];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __64___LTDMAAssetService_downloadAsset_options_progress_completion___block_invoke_338;
-      v26[3] = &unk_2789B6650;
-      v14 = v19;
-      v27 = v14;
-      v28 = v15;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __64___LTDMAAssetService_downloadAsset_options_progress_completion___block_invoke_338;
+      v27[3] = &unk_2789B6650;
+      v14 = v20;
+      v28 = v14;
+      v29 = v15;
       selfCopy2 = self;
-      v29 = completionCopy;
-      v30 = v20;
-      v22 = v15;
-      dispatch_async(_queue, v26);
+      v30 = completionCopy;
+      v31 = v21;
+      v23 = v15;
+      dispatch_async(_queue, v27);
 
-      v23 = v33;
+      v24 = v34;
       goto LABEL_11;
     }
   }
@@ -370,18 +366,16 @@ LABEL_18:
     v14 = 0;
   }
 
-  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"MA asset service unsupported asset type"];
-  v23 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:16 description:v22 userInfo:0];
-  v24 = _LTOSLogAssets();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"MA asset service unsupported asset type"];
+  v24 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:16 description:v23 userInfo:0];
+  v26 = _LTOSLogAssets(v24, v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     [_LTDMAAssetService downloadAsset:v13 options:? progress:? completion:?];
   }
 
-  (*(completionCopy + 2))(completionCopy, v23);
+  (*(completionCopy + 2))(completionCopy, v24);
 LABEL_11:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (void)purgeAsset:(id)asset completion:(id)completion
@@ -400,12 +394,12 @@ LABEL_11:
       block[2] = __44___LTDMAAssetService_purgeAsset_completion___block_invoke;
       block[3] = &unk_2789B6300;
       v9 = v8;
-      v15 = v9;
+      v16 = v9;
       selfCopy = self;
-      v16 = completionCopy;
+      v17 = completionCopy;
       dispatch_async(_queue, block);
 
-      v11 = v15;
+      v11 = v16;
       goto LABEL_9;
     }
   }
@@ -418,8 +412,8 @@ LABEL_11:
 
   v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"MA asset service unsupported asset type"];
   v12 = [MEMORY[0x277CCA9B8] ltd_errorWithCode:20 description:v11 userInfo:0];
-  v13 = _LTOSLogAssets();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = _LTOSLogAssets(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [_LTDMAAssetService purgeAsset:v8 completion:?];
   }
@@ -431,22 +425,18 @@ LABEL_9:
 
 + (void)downloadAsset:(uint64_t)a1 options:progress:completion:.cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_1(&dword_232E53000, v1, v2, "MobileAsset failed to download asset %{public}@: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_232E53000, v1, v2, "MobileAsset failed to download asset %{public}@: %@", v3, DWORD2(v3));
 }
 
 + (void)purgeAsset:(uint64_t)a1 completion:.cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_1(&dword_232E53000, v1, v2, "MobileAsset failed to purge asset %{public}@: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_232E53000, v1, v2, "MobileAsset failed to purge asset %{public}@: %@", v3, DWORD2(v3));
 }
 
 @end

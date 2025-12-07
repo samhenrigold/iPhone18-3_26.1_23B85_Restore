@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToQuestion:(id)question;
 - (PGMergeCandidateQuestion)initWithPerson:(id)person score:(double)score;
+- (void)persistWithCreationDate:(id)date questionVersion:(signed __int16)version;
 - (void)remove;
 @end
 
@@ -37,6 +38,12 @@
 {
   v2 = [MEMORY[0x277CD9940] changeRequestForPerson:self->_person];
   [v2 setQuestionType:0];
+}
+
+- (void)persistWithCreationDate:(id)date questionVersion:(signed __int16)version
+{
+  v5 = [MEMORY[0x277CD9940] changeRequestForPerson:{self->_person, version}];
+  [v5 setQuestionType:{-[PGMergeCandidateQuestion type](self, "type")}];
 }
 
 - (PGMergeCandidateQuestion)initWithPerson:(id)person score:(double)score

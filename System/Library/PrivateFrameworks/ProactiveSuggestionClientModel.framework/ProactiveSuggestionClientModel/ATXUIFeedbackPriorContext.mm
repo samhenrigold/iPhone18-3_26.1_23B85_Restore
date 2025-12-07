@@ -69,7 +69,7 @@
 
 - (void)addClientModelCacheUpdate:(id)update
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   uuid = [updateCopy uuid];
 
@@ -83,16 +83,16 @@
     uuid3 = [updateCopy uuid];
     [(NSMutableDictionary *)clientModelCacheUpdates setObject:updateCopy forKey:uuid3];
 
-    v10 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_feedback(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v15 = 138412546;
-      v16 = v12;
-      v17 = 2112;
-      v18 = updateCopy;
-      _os_log_impl(&dword_1DEFC4000, v10, OS_LOG_TYPE_DEFAULT, "%@ - added client model cache update %@", &v15, 0x16u);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v16 = 138412546;
+      v17 = v14;
+      v18 = 2112;
+      v19 = updateCopy;
+      _os_log_impl(&dword_1DEFC4000, v12, OS_LOG_TYPE_DEFAULT, "%@ - added client model cache update %@", &v16, 0x16u);
     }
 
     [(ATXUIFeedbackPriorContext *)self pruneUnreferencedClientModelCachesIfPossible];
@@ -100,19 +100,17 @@
 
   else
   {
-    v13 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_feedback(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [ATXUIFeedbackPriorContext addClientModelCacheUpdate:];
+      [ATXUIFeedbackPriorContext addClientModelCacheUpdate:?];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addBlendingModelUICacheUpdate:(id)update
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   uuid = [updateCopy uuid];
 
@@ -126,16 +124,16 @@
     uuid3 = [updateCopy uuid];
     [(NSMutableDictionary *)blendingModelCacheUpdates setObject:updateCopy forKey:uuid3];
 
-    v10 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_feedback(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v15 = 138412546;
-      v16 = v12;
-      v17 = 2112;
-      v18 = updateCopy;
-      _os_log_impl(&dword_1DEFC4000, v10, OS_LOG_TYPE_DEFAULT, "%@ - added blending ui cache update %@", &v15, 0x16u);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v16 = 138412546;
+      v17 = v14;
+      v18 = 2112;
+      v19 = updateCopy;
+      _os_log_impl(&dword_1DEFC4000, v12, OS_LOG_TYPE_DEFAULT, "%@ - added blending ui cache update %@", &v16, 0x16u);
     }
 
     [(ATXUIFeedbackPriorContext *)self pruneBlendingModelCachesOverMaxNum];
@@ -143,14 +141,12 @@
 
   else
   {
-    v13 = __atxlog_handle_feedback();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_feedback(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [ATXUIFeedbackPriorContext addBlendingModelUICacheUpdate:];
+      [ATXUIFeedbackPriorContext addBlendingModelUICacheUpdate:?];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePinnedBlendingModelUICacheUpdateUUID:(id)d
@@ -181,7 +177,7 @@
 
 - (id)clientModelCacheUpdatesForUICacheUpdateUUID:(id)d
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -190,30 +186,30 @@
     if (v5)
     {
       context = objc_autoreleasePoolPush();
-      v21 = v5;
+      v20 = v5;
       clientModelCacheUpdateUUIDs = [v5 clientModelCacheUpdateUUIDs];
       allValues = [clientModelCacheUpdateUUIDs allValues];
 
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       allValues2 = [(NSMutableDictionary *)self->_clientModelCacheUpdates allValues];
-      v10 = [allValues2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [allValues2 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v23;
+        v12 = *v22;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v23 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(allValues2);
             }
 
-            v14 = *(*(&v22 + 1) + 8 * i);
+            v14 = *(*(&v21 + 1) + 8 * i);
             uuid = [v14 uuid];
             v16 = [allValues containsObject:uuid];
 
@@ -223,14 +219,14 @@
             }
           }
 
-          v11 = [allValues2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v11 = [allValues2 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v11);
       }
 
       objc_autoreleasePoolPop(context);
-      v5 = v21;
+      v5 = v20;
     }
 
     v17 = [v6 copy];
@@ -241,8 +237,6 @@
     v17 = MEMORY[0x1E695E0F0];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
@@ -251,7 +245,8 @@
   dCopy = d;
   if (dCopy)
   {
-    if (([(NSMutableOrderedSet *)self->_cacheUpdateOrdering containsObject:dCopy]& 1) != 0)
+    v5 = [(NSMutableOrderedSet *)self->_cacheUpdateOrdering containsObject:dCopy];
+    if (v5)
     {
       [(ATXUIFeedbackPriorContext *)self _pruneBlendingModelCachesOlderThanUUID:dCopy];
       [(ATXUIFeedbackPriorContext *)self pruneUnreferencedClientModelCachesIfPossible];
@@ -260,8 +255,8 @@
 
     else
     {
-      v5 = __atxlog_handle_feedback();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_feedback(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [ATXUIFeedbackPriorContext pruneContextStateOlderThanBlendingUUID:?];
       }
@@ -271,18 +266,18 @@
 
 - (void)pruneBlendingModelCachesOverMaxNum
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if ([(NSMutableDictionary *)self->_blendingModelCacheUpdates count]< 3)
   {
-    goto LABEL_18;
+    return;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   reversedOrderedSet = [(NSMutableOrderedSet *)self->_cacheUpdateOrdering reversedOrderedSet];
-  v4 = [reversedOrderedSet countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v4 = [reversedOrderedSet countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (!v4)
   {
 LABEL_12:
@@ -292,17 +287,17 @@ LABEL_12:
 
   v5 = v4;
   v6 = 0;
-  v7 = *v17;
+  v7 = *v16;
 LABEL_4:
   v8 = 0;
   while (1)
   {
-    if (*v17 != v7)
+    if (*v16 != v7)
     {
       objc_enumerationMutation(reversedOrderedSet);
     }
 
-    v9 = *(*(&v16 + 1) + 8 * v8);
+    v9 = *(*(&v15 + 1) + 8 * v8);
     v10 = [(NSMutableDictionary *)self->_blendingModelCacheUpdates objectForKey:v9];
 
     if (!v10)
@@ -319,7 +314,7 @@ LABEL_4:
 LABEL_10:
     if (v5 == ++v8)
     {
-      v5 = [reversedOrderedSet countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v5 = [reversedOrderedSet countByEnumeratingWithState:&v15 objects:v23 count:16];
       if (v5)
       {
         goto LABEL_4;
@@ -333,63 +328,58 @@ LABEL_10:
 
   if (!v11)
   {
-    goto LABEL_18;
+    return;
   }
 
-  [(ATXUIFeedbackPriorContext *)self pruneContextStateOlderThanBlendingUUID:v11];
-  v12 = __atxlog_handle_feedback();
+  v12 = __atxlog_handle_feedback([(ATXUIFeedbackPriorContext *)self pruneContextStateOlderThanBlendingUUID:v11]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     *buf = 138412546;
-    v21 = v14;
-    v22 = 2048;
-    v23 = 2;
+    v20 = v14;
+    v21 = 2048;
+    v22 = 2;
     _os_log_impl(&dword_1DEFC4000, v12, OS_LOG_TYPE_DEFAULT, "%@ - reached more than %lu ui cache updates, pruned context state", buf, 0x16u);
   }
 
 LABEL_17:
-LABEL_18:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pruneBlendingModelCachesOlderThanUUID:(id)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__4;
-  v20 = __Block_byref_object_dispose__4;
-  v21 = objc_opt_new();
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__4;
+  v19 = __Block_byref_object_dispose__4;
+  v20 = objc_opt_new();
   cacheUpdateOrdering = self->_cacheUpdateOrdering;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __68__ATXUIFeedbackPriorContext__pruneBlendingModelCachesOlderThanUUID___block_invoke;
-  v12[3] = &unk_1E86A4280;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__ATXUIFeedbackPriorContext__pruneBlendingModelCachesOlderThanUUID___block_invoke;
+  v11[3] = &unk_1E86A4280;
   v6 = dCopy;
-  v13 = v6;
+  v12 = v6;
   selfCopy = self;
-  v15 = &v16;
-  [(NSMutableOrderedSet *)cacheUpdateOrdering enumerateObjectsUsingBlock:v12];
-  [(NSMutableOrderedSet *)self->_cacheUpdateOrdering removeObjectsInArray:v17[5]];
-  v7 = __atxlog_handle_feedback();
+  v14 = &v15;
+  [(NSMutableOrderedSet *)cacheUpdateOrdering enumerateObjectsUsingBlock:v11];
+  v7 = __atxlog_handle_feedback([(NSMutableOrderedSet *)self->_cacheUpdateOrdering removeObjectsInArray:v16[5]]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v10 = v17[5];
+    v10 = v16[5];
     *buf = 138412546;
-    v23 = v9;
-    v24 = 2112;
-    v25 = v10;
+    v22 = v9;
+    v23 = 2112;
+    v24 = v10;
     _os_log_impl(&dword_1DEFC4000, v7, OS_LOG_TYPE_DEFAULT, "%@ - _pruneBlendingModelCachesOlderThanUUID removed blending caches with UUIDs: %@", buf, 0x16u);
   }
 
-  _Block_object_dispose(&v16, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
 }
 
 void __68__ATXUIFeedbackPriorContext__pruneBlendingModelCachesOlderThanUUID___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -421,61 +411,59 @@ void __68__ATXUIFeedbackPriorContext__pruneBlendingModelCachesOlderThanUUID___bl
 
 - (void)pruneUnreferencedClientModelCachesIfPossible
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v20[0] = 0;
-  v20[1] = v20;
-  v20[2] = 0x3032000000;
-  v20[3] = __Block_byref_object_copy__4;
-  v20[4] = __Block_byref_object_dispose__4;
+  v25 = *MEMORY[0x1E69E9840];
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x3032000000;
+  v19[3] = __Block_byref_object_copy__4;
+  v19[4] = __Block_byref_object_dispose__4;
   _referencedClientModelCaches = [(ATXUIFeedbackPriorContext *)self _referencedClientModelCaches];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__4;
-  v18 = __Block_byref_object_dispose__4;
-  v19 = objc_opt_new();
-  v12[0] = 0;
-  v12[1] = v12;
-  v12[2] = 0x2020000000;
   v13 = 0;
-  v10[0] = 0;
-  v10[1] = v10;
-  v10[2] = 0x3032000000;
-  v10[3] = __Block_byref_object_copy__4;
-  v10[4] = __Block_byref_object_dispose__4;
-  v11 = objc_opt_new();
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__4;
+  v17 = __Block_byref_object_dispose__4;
+  v18 = objc_opt_new();
+  v11[0] = 0;
+  v11[1] = v11;
+  v11[2] = 0x2020000000;
+  v12 = 0;
+  v9[0] = 0;
+  v9[1] = v9;
+  v9[2] = 0x3032000000;
+  v9[3] = __Block_byref_object_copy__4;
+  v9[4] = __Block_byref_object_dispose__4;
+  v10 = objc_opt_new();
   reversedOrderedSet = [(NSMutableOrderedSet *)self->_cacheUpdateOrdering reversedOrderedSet];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __73__ATXUIFeedbackPriorContext_pruneUnreferencedClientModelCachesIfPossible__block_invoke;
-  v9[3] = &unk_1E86A42A8;
-  v9[4] = self;
-  v9[5] = v12;
-  v9[6] = v20;
-  v9[7] = &v14;
-  v9[8] = v10;
-  [reversedOrderedSet enumerateObjectsUsingBlock:v9];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __73__ATXUIFeedbackPriorContext_pruneUnreferencedClientModelCachesIfPossible__block_invoke;
+  v8[3] = &unk_1E86A42A8;
+  v8[4] = self;
+  v8[5] = v11;
+  v8[6] = v19;
+  v8[7] = &v13;
+  v8[8] = v9;
+  [reversedOrderedSet enumerateObjectsUsingBlock:v8];
 
-  [(NSMutableOrderedSet *)self->_cacheUpdateOrdering removeObjectsInArray:v15[5]];
-  v4 = __atxlog_handle_feedback();
+  v4 = __atxlog_handle_feedback([(NSMutableOrderedSet *)self->_cacheUpdateOrdering removeObjectsInArray:v14[5]]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v7 = v15[5];
+    v7 = v14[5];
     *buf = 138412546;
-    v23 = v6;
-    v24 = 2112;
-    v25 = v7;
+    v22 = v6;
+    v23 = 2112;
+    v24 = v7;
     _os_log_impl(&dword_1DEFC4000, v4, OS_LOG_TYPE_DEFAULT, "%@ - _pruneUnreferencedClientModelCaches removed client caches with UUIDs: %@", buf, 0x16u);
   }
 
-  _Block_object_dispose(v10, 8);
-  _Block_object_dispose(v12, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(v9, 8);
+  _Block_object_dispose(v11, 8);
+  _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(v20, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v19, 8);
 }
 
 uint64_t __73__ATXUIFeedbackPriorContext_pruneUnreferencedClientModelCachesIfPossible__block_invoke(void *a1, void *a2)
@@ -558,40 +546,39 @@ void __76__ATXUIFeedbackPriorContext__validateCacheUpdateOrderingAndCacheDictMap
 
 - (id)_referencedClientModelCaches
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_blendingModelCacheUpdates allValues];
-  v5 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        clientModelCacheUpdateUUIDs = [*(*(&v14 + 1) + 8 * i) clientModelCacheUpdateUUIDs];
+        clientModelCacheUpdateUUIDs = [*(*(&v13 + 1) + 8 * i) clientModelCacheUpdateUUIDs];
         allValues2 = [clientModelCacheUpdateUUIDs allValues];
         [v3 addObjectsFromArray:allValues2];
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [v3 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -628,152 +615,156 @@ void __76__ATXUIFeedbackPriorContext__validateCacheUpdateOrderingAndCacheDictMap
 
 - (ATXUIFeedbackPriorContext)initWithProto:(id)proto
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      cacheUpdateOrderings = [v5 cacheUpdateOrderings];
-      v7 = [cacheUpdateOrderings _pas_mappedArrayWithTransform:&__block_literal_global_6];
+      v6 = protoCopy;
+      cacheUpdateOrderings = [v6 cacheUpdateOrderings];
+      v8 = [cacheUpdateOrderings _pas_mappedArrayWithTransform:&__block_literal_global_6];
 
-      v8 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithArray:v7];
-      cacheUpdateOrderingsCount = [v5 cacheUpdateOrderingsCount];
-      if (cacheUpdateOrderingsCount == [v8 count])
+      v9 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithArray:v8];
+      cacheUpdateOrderingsCount = [v6 cacheUpdateOrderingsCount];
+      v11 = [v9 count];
+      if (cacheUpdateOrderingsCount == v11)
       {
-        v65 = v8;
-        v66 = v7;
-        v10 = objc_opt_new();
-        v72 = 0u;
-        v73 = 0u;
-        v74 = 0u;
+        v68 = v9;
+        v69 = v8;
+        v12 = objc_opt_new();
         v75 = 0u;
-        v67 = v5;
-        blendingModelCacheUpdates = [v5 blendingModelCacheUpdates];
-        v12 = [blendingModelCacheUpdates countByEnumeratingWithState:&v72 objects:v77 count:16];
-        if (v12)
+        v76 = 0u;
+        v77 = 0u;
+        v78 = 0u;
+        v70 = v6;
+        blendingModelCacheUpdates = [v6 blendingModelCacheUpdates];
+        v14 = [blendingModelCacheUpdates countByEnumeratingWithState:&v75 objects:v80 count:16];
+        if (v14)
         {
-          v13 = v12;
-          v14 = *v73;
+          v15 = v14;
+          v16 = *v76;
           do
           {
-            for (i = 0; i != v13; ++i)
+            for (i = 0; i != v15; ++i)
             {
-              if (*v73 != v14)
+              if (*v76 != v16)
               {
                 objc_enumerationMutation(blendingModelCacheUpdates);
               }
 
-              v16 = [[ATXBlendingModelUICacheUpdate alloc] initWithProto:*(*(&v72 + 1) + 8 * i)];
-              v17 = v16;
-              if (v16)
+              v18 = [[ATXBlendingModelUICacheUpdate alloc] initWithProto:*(*(&v75 + 1) + 8 * i)];
+              v19 = v18;
+              if (v18)
               {
-                uuid = [(ATXBlendingModelUICacheUpdate *)v16 uuid];
-                [v10 setObject:v17 forKey:uuid];
+                uuid = [(ATXBlendingModelUICacheUpdate *)v18 uuid];
+                [v12 setObject:v19 forKey:uuid];
               }
             }
 
-            v13 = [blendingModelCacheUpdates countByEnumeratingWithState:&v72 objects:v77 count:16];
+            v15 = [blendingModelCacheUpdates countByEnumeratingWithState:&v75 objects:v80 count:16];
           }
 
-          while (v13);
+          while (v15);
         }
 
-        v5 = v67;
-        blendingModelCacheUpdatesCount = [v67 blendingModelCacheUpdatesCount];
-        if (blendingModelCacheUpdatesCount == [v10 count])
+        v6 = v70;
+        blendingModelCacheUpdatesCount = [v70 blendingModelCacheUpdatesCount];
+        v22 = [v12 count];
+        if (blendingModelCacheUpdatesCount == v22)
         {
           selfCopy = self;
-          v20 = objc_opt_new();
-          v68 = 0u;
-          v69 = 0u;
-          v70 = 0u;
+          v23 = objc_opt_new();
           v71 = 0u;
-          clientModelCacheUpdates = [v67 clientModelCacheUpdates];
-          v22 = [clientModelCacheUpdates countByEnumeratingWithState:&v68 objects:v76 count:16];
-          if (v22)
+          v72 = 0u;
+          v73 = 0u;
+          v74 = 0u;
+          clientModelCacheUpdates = [v70 clientModelCacheUpdates];
+          v25 = [clientModelCacheUpdates countByEnumeratingWithState:&v71 objects:v79 count:16];
+          if (v25)
           {
-            v23 = v22;
-            v24 = *v69;
+            v26 = v25;
+            v27 = *v72;
             do
             {
-              for (j = 0; j != v23; ++j)
+              for (j = 0; j != v26; ++j)
               {
-                if (*v69 != v24)
+                if (*v72 != v27)
                 {
                   objc_enumerationMutation(clientModelCacheUpdates);
                 }
 
-                v26 = [[ATXClientModelCacheUpdate alloc] initWithProto:*(*(&v68 + 1) + 8 * j)];
-                v27 = v26;
-                if (v26)
+                v29 = [[ATXClientModelCacheUpdate alloc] initWithProto:*(*(&v71 + 1) + 8 * j)];
+                v30 = v29;
+                if (v29)
                 {
-                  uuid2 = [(ATXClientModelCacheUpdate *)v26 uuid];
-                  [v20 setObject:v27 forKey:uuid2];
+                  uuid2 = [(ATXClientModelCacheUpdate *)v29 uuid];
+                  [v23 setObject:v30 forKey:uuid2];
                 }
               }
 
-              v23 = [clientModelCacheUpdates countByEnumeratingWithState:&v68 objects:v76 count:16];
+              v26 = [clientModelCacheUpdates countByEnumeratingWithState:&v71 objects:v79 count:16];
             }
 
-            while (v23);
+            while (v26);
           }
 
-          v5 = v67;
-          clientModelCacheUpdatesCount = [v67 clientModelCacheUpdatesCount];
-          v8 = v65;
-          if (clientModelCacheUpdatesCount == [v20 count])
+          v6 = v70;
+          clientModelCacheUpdatesCount = [v70 clientModelCacheUpdatesCount];
+          v33 = [v23 count];
+          v9 = v68;
+          if (clientModelCacheUpdatesCount == v33)
           {
-            contextClassString = [v67 contextClassString];
-            context = [v67 context];
-            v32 = context;
-            v33 = 0;
+            contextClassString = [v70 contextClassString];
+            context = [v70 context];
+            v36 = context;
+            v37 = 0;
             if (contextClassString && context)
             {
               validContextClassNames = [(ATXUIFeedbackPriorContext *)selfCopy validContextClassNames];
-              v35 = [validContextClassNames containsObject:contextClassString];
+              v39 = [validContextClassNames containsObject:contextClassString];
 
-              if (v35)
+              if (v39)
               {
-                v33 = [objc_alloc(NSClassFromString(&contextClassString->isa)) initWithProtoData:v32];
+                v37 = [objc_alloc(NSClassFromString(&contextClassString->isa)) initWithProtoData:v36];
               }
 
               else
               {
-                v33 = 0;
+                v37 = 0;
               }
             }
 
-            v63 = v32;
-            if ([v67 hasPinnedBlendingModelUICacheUpdateUUID])
+            v66 = v36;
+            if ([v70 hasPinnedBlendingModelUICacheUpdateUUID])
             {
-              v58 = objc_alloc(MEMORY[0x1E696AFB0]);
-              pinnedBlendingModelUICacheUpdateUUID = [v67 pinnedBlendingModelUICacheUpdateUUID];
-              v60 = [v58 initWithUUIDString:pinnedBlendingModelUICacheUpdateUUID];
+              v62 = objc_alloc(MEMORY[0x1E696AFB0]);
+              pinnedBlendingModelUICacheUpdateUUID = [v70 pinnedBlendingModelUICacheUpdateUUID];
+              v64 = [v62 initWithUUIDString:pinnedBlendingModelUICacheUpdateUUID];
             }
 
             else
             {
-              v60 = 0;
+              v64 = 0;
             }
 
-            v7 = v66;
-            self = [(ATXUIFeedbackPriorContext *)selfCopy initWithCacheUpdateOrdering:v65 blendingModelCacheUpdates:v10 clientModelCacheUpdates:v20 context:v33 pinnedBlendingModelUICacheUpdateUUID:v60];
+            v8 = v69;
+            self = [(ATXUIFeedbackPriorContext *)selfCopy initWithCacheUpdateOrdering:v68 blendingModelCacheUpdates:v12 clientModelCacheUpdates:v23 context:v37 pinnedBlendingModelUICacheUpdateUUID:v64];
 
             selfCopy2 = self;
-            v5 = v67;
+            v6 = v70;
           }
 
           else
           {
-            contextClassString = __atxlog_handle_blending_ecosystem();
+            contextClassString = __atxlog_handle_blending_ecosystem(v33);
             self = selfCopy;
-            v7 = v66;
+            v8 = v69;
             if (os_log_type_enabled(contextClassString, OS_LOG_TYPE_FAULT))
             {
-              [(ATXUIFeedbackPriorContext *)contextClassString initWithProto:v51, v52, v53, v54, v55, v56, v57];
+              [(ATXUIFeedbackPriorContext *)contextClassString initWithProto:v55, v56, v57, v58, v59, v60, v61];
             }
 
             selfCopy2 = 0;
@@ -782,23 +773,23 @@ void __76__ATXUIFeedbackPriorContext__validateCacheUpdateOrderingAndCacheDictMap
 
         else
         {
-          v20 = __atxlog_handle_blending_ecosystem();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+          v23 = __atxlog_handle_blending_ecosystem(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
           {
-            [(ATXUIFeedbackPriorContext *)v20 initWithProto:v44, v45, v46, v47, v48, v49, v50];
+            [(ATXUIFeedbackPriorContext *)v23 initWithProto:v48, v49, v50, v51, v52, v53, v54];
           }
 
           selfCopy2 = 0;
-          v7 = v66;
+          v8 = v69;
         }
       }
 
       else
       {
-        v10 = __atxlog_handle_blending_ecosystem();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v12 = __atxlog_handle_blending_ecosystem(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
-          [(ATXUIFeedbackPriorContext *)v10 initWithProto:v37, v38, v39, v40, v41, v42, v43];
+          [(ATXUIFeedbackPriorContext *)v12 initWithProto:v41, v42, v43, v44, v45, v46, v47];
         }
 
         selfCopy2 = 0;
@@ -807,10 +798,10 @@ void __76__ATXUIFeedbackPriorContext__validateCacheUpdateOrderingAndCacheDictMap
 
     else
     {
-      v5 = __atxlog_handle_blending_ecosystem();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_blending_ecosystem(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v5];
+        [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v6];
       }
 
       selfCopy2 = 0;
@@ -822,7 +813,6 @@ void __76__ATXUIFeedbackPriorContext__validateCacheUpdateOrderingAndCacheDictMap
     selfCopy2 = 0;
   }
 
-  v61 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -856,10 +846,9 @@ id __43__ATXUIFeedbackPriorContext_initWithProto___block_invoke(uint64_t a1, voi
   encodeAsProto = [(ATXProactiveSuggestionFeedbackContextProtocol *)self->_context encodeAsProto];
   [v3 setContext:encodeAsProto];
 
-  context = self->_context;
-  v15 = objc_opt_class();
-  v16 = NSStringFromClass(v15);
-  [v3 setContextClassString:v16];
+  v14 = objc_opt_class();
+  v15 = NSStringFromClass(v14);
+  [v3 setContextClassString:v15];
 
   pinnedBlendingModelUICacheUpdateUUID = self->_pinnedBlendingModelUICacheUpdateUUID;
   if (pinnedBlendingModelUICacheUpdateUUID)
@@ -891,7 +880,7 @@ id __43__ATXUIFeedbackPriorContext_initWithProto___block_invoke(uint64_t a1, voi
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_blending_ecosystem();
+  v7 = __atxlog_handle_blending_ecosystem(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"protobufData" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXBiomeUIContext" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
@@ -1019,38 +1008,29 @@ LABEL_21:
   return [(NSUUID *)self->_pinnedBlendingModelUICacheUpdateUUID hash]- v6 + 32 * v6;
 }
 
-- (void)addClientModelCacheUpdate:.cold.1()
+- (void)addClientModelCacheUpdate:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-- (void)addBlendingModelUICacheUpdate:.cold.1()
+- (void)addBlendingModelUICacheUpdate:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)pruneContextStateOlderThanBlendingUUID:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v10 = [*(a1 + 16) allKeys];
+  v9 = [*(a1 + 16) allKeys];
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

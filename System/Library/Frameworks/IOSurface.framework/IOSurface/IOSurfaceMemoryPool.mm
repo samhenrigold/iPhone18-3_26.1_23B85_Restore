@@ -10,10 +10,10 @@
 
 - (IOSurfaceMemoryPool)initWithProperties:(id)properties
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = IOSurfaceMemoryPool;
-  v4 = [(IOSurfaceMemoryPool *)&v15 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = IOSurfaceMemoryPool;
+  v4 = [(IOSurfaceMemoryPool *)&v14 init];
   if (v4)
   {
     v5 = IOCFSerialize(properties, 1uLL);
@@ -21,7 +21,7 @@
     {
       v6 = v5;
       output = 0;
-      v17 = 0;
+      v16 = 0;
       outputCnt = 2;
       v7 = _ioSurfaceConnect();
       BytePtr = CFDataGetBytePtr(v6);
@@ -30,18 +30,16 @@
       CFRelease(v6);
       if (!v10)
       {
-        v11 = v17;
+        v11 = v16;
         v4->_poolPort = output;
         v4->_poolId = v11;
-        goto LABEL_7;
+        return v4;
       }
     }
 
-    v4 = 0;
+    return 0;
   }
 
-LABEL_7:
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -49,23 +47,18 @@ LABEL_7:
 {
   input[1] = *MEMORY[0x1E69E9840];
   v4 = IOCFSerialize(memory, 1uLL);
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    input[0] = self->_poolPort;
-    v6 = _ioSurfaceConnect();
-    BytePtr = CFDataGetBytePtr(v5);
-    Length = CFDataGetLength(v5);
-    v9 = IOConnectCallMethod(v6, 0x2Fu, input, 1u, BytePtr, Length, 0, 0, 0, 0);
-    CFRelease(v5);
+    return -536870206;
   }
 
-  else
-  {
-    v9 = -536870206;
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
+  v5 = v4;
+  input[0] = self->_poolPort;
+  v6 = _ioSurfaceConnect();
+  BytePtr = CFDataGetBytePtr(v5);
+  Length = CFDataGetLength(v5);
+  v9 = IOConnectCallMethod(v6, 0x2Fu, input, 1u, BytePtr, Length, 0, 0, 0, 0);
+  CFRelease(v5);
   return v9;
 }
 
@@ -98,7 +91,6 @@ LABEL_7:
     mach_vm_deallocate(*MEMORY[0x1E69E9A60], outputStruct[0], bufferSize);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -106,34 +98,28 @@ LABEL_7:
 {
   input[1] = *MEMORY[0x1E69E9840];
   v4 = IOCFSerialize(flush, 1uLL);
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    input[0] = self->_poolPort;
-    v6 = _ioSurfaceConnect();
-    BytePtr = CFDataGetBytePtr(v5);
-    Length = CFDataGetLength(v5);
-    v9 = IOConnectCallMethod(v6, 0x30u, input, 1u, BytePtr, Length, 0, 0, 0, 0);
-    CFRelease(v5);
+    return -536870206;
   }
 
-  else
-  {
-    v9 = -536870206;
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
+  v5 = v4;
+  input[0] = self->_poolPort;
+  v6 = _ioSurfaceConnect();
+  BytePtr = CFDataGetBytePtr(v5);
+  Length = CFDataGetLength(v5);
+  v9 = IOConnectCallMethod(v6, 0x30u, input, 1u, BytePtr, Length, 0, 0, 0, 0);
+  CFRelease(v5);
   return v9;
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   mach_port_mod_refs(*MEMORY[0x1E69E9A60], self->_poolPort, 0, -1);
-  v4.receiver = self;
-  v4.super_class = IOSurfaceMemoryPool;
-  [(IOSurfaceMemoryPool *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = IOSurfaceMemoryPool;
+  [(IOSurfaceMemoryPool *)&v3 dealloc];
 }
 
 @end

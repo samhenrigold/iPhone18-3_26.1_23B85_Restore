@@ -34,7 +34,7 @@
 
   else
   {
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [VUIActionRemoveFromPlayHistory performWithTargetResponder:v6 completionHandler:?];

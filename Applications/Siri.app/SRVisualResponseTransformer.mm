@@ -89,7 +89,8 @@ LABEL_12:
 
 + (int64_t)currentIdiom
 {
-  if (SiriUIDeviceIsPad())
+  SiriUIDeviceIsPad(self, a2);
+  if (v2)
   {
     return 2;
   }

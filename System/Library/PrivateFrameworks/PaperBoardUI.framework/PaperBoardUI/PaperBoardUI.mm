@@ -28,35 +28,35 @@ uint64_t getPUIDynamicRotationIsActiveSymbolLoc()
   return v0;
 }
 
-void sub_21E67F5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E67F5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id PBUILogCommon()
+id PBUILogCommon(uint64_t a1)
 {
   if (PBUILogCommon_onceToken != -1)
   {
     PBUILogCommon_cold_1();
   }
 
-  v1 = PBUILogCommon___logObj;
+  v2 = PBUILogCommon___logObj;
 
-  return v1;
+  return v2;
 }
 
-id PBUILogRuntime()
+id PBUILogRuntime(uint64_t a1)
 {
   if (PBUILogRuntime_onceToken != -1)
   {
     PBUILogRuntime_cold_1();
   }
 
-  v1 = PBUILogRuntime___logObj;
+  v2 = PBUILogRuntime___logObj;
 
-  return v1;
+  return v2;
 }
 
 __CFString *PBUIStringForWallpaperVariant(uint64_t a1)
@@ -72,28 +72,28 @@ __CFString *PBUIStringForWallpaperVariant(uint64_t a1)
   }
 }
 
-id PBUIRenderingLogFenceReason()
+id PBUIRenderingLogFenceReason(uint64_t a1)
 {
   if (PBUIRenderingLogFenceReason_onceToken != -1)
   {
     PBUIRenderingLogFenceReason_cold_1();
   }
 
-  v1 = PBUIRenderingLogFenceReason___logObj;
+  v2 = PBUIRenderingLogFenceReason___logObj;
 
-  return v1;
+  return v2;
 }
 
-id PBUILogSnapshot()
+id PBUILogSnapshot(uint64_t a1)
 {
   if (PBUILogSnapshot_onceToken != -1)
   {
     PBUILogSnapshot_cold_1();
   }
 
-  v1 = PBUILogSnapshot___logObj;
+  v2 = PBUILogSnapshot___logObj;
 
-  return v1;
+  return v2;
 }
 
 id NSStringFrom_PBUIPosterViewControllerUpdateReasons(uint64_t a1)
@@ -172,23 +172,25 @@ uint64_t getPUIPosterSignificantEventOptionsContainsEventSymbolLoc()
   return v0;
 }
 
-void sub_21E6805D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6805D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 __CFString *PBUIWallpaperStyleDescription(unint64_t a1)
@@ -260,7 +262,7 @@ void *_BackdropRenderingHintForWallpaperAverageColor(void *result)
   return result;
 }
 
-uint64_t PBUIReplicaDebugModeIsEnabled()
+uint64_t PBUIReplicaDebugModeIsEnabled(uint64_t a1, uint64_t a2)
 {
   if (PBUIReplicaDebugModeIsEnabled_onceToken != -1)
   {
@@ -509,9 +511,9 @@ id getPUIImageEncoderClass()
   return v1;
 }
 
-void sub_21E682C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E682C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -573,9 +575,9 @@ id getPRSPosterConfigurationClass()
   return v1;
 }
 
-void sub_21E683E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E683E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -612,9 +614,9 @@ uint64_t getPLKLegibilityEnvironmentVariantLockScreenSymbolLoc()
   return v0;
 }
 
-void sub_21E684254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E684254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -651,9 +653,9 @@ uint64_t getPLKLegibilityEnvironmentVariantHomeScreenSymbolLoc()
   return v0;
 }
 
-void sub_21E684374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E684374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -687,23 +689,23 @@ void sub_21E686524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21E688130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E688130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21E6883B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21E6883B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21E688688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21E688688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -749,7 +751,7 @@ void PhotosPlayerLibrary()
   }
 }
 
-uint64_t __PhotosPlayerLibraryCore_block_invoke()
+uint64_t __PhotosPlayerLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotosPlayerLibraryCore_frameworkLibrary = result;
@@ -859,6 +861,13 @@ __CFString *PBUIStringForWallpaperTransformOptions(uint64_t a1)
   }
 }
 
+void sub_21E689D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -897,9 +906,9 @@ id getMTMaterialViewClass()
   return v1;
 }
 
-void sub_21E68D0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E68D0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -941,16 +950,16 @@ Class __getMTMaterialViewClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __MaterialKitLibraryCore_block_invoke()
+uint64_t __MaterialKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MaterialKitLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_21E68E448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E68E448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -962,22 +971,23 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21E68E7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_21E68E7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_21E68F924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void PBUIRegisterForWallpaperExternalChangeNotification()
+void sub_21E68F924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void PBUIRegisterForWallpaperExternalChangeNotification(uint64_t result, uint64_t a2)
 {
   if (PBUIRegisterForWallpaperExternalChangeNotification___once != -1)
   {
@@ -1008,9 +1018,9 @@ uint64_t PBUIRegisterForExternalWallpaperChangeNotificationWithHandler(void *a1)
   return v3;
 }
 
-void sub_21E6965E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6965E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1033,10 +1043,11 @@ void __PBUIRegisterForWallpaperExternalChangeNotification_block_invoke_2()
   [v0 postNotificationName:@"SBFWallpaperDidChangeNotification" object:0];
 }
 
-void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 unint64_t PBUIIrisWallpaperPlaybackStateForISPlaybackState(unint64_t result)
@@ -1111,16 +1122,16 @@ uint64_t __PBUILogCommon_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id PBUIRenderingLogLocalRenderer()
+id PBUIRenderingLogLocalRenderer(uint64_t a1)
 {
   if (PBUIRenderingLogLocalRenderer_onceToken != -1)
   {
     PBUIRenderingLogLocalRenderer_cold_1();
   }
 
-  v1 = PBUIRenderingLogLocalRenderer___logObj;
+  v2 = PBUIRenderingLogLocalRenderer___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PBUIRenderingLogLocalRenderer_block_invoke()
@@ -1132,16 +1143,16 @@ uint64_t __PBUIRenderingLogLocalRenderer_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id PBUIRenderingLogRendererService()
+id PBUIRenderingLogRendererService(uint64_t a1)
 {
   if (PBUIRenderingLogRendererService_onceToken != -1)
   {
     PBUIRenderingLogRendererService_cold_1();
   }
 
-  v1 = PBUIRenderingLogRendererService___logObj;
+  v2 = PBUIRenderingLogRendererService___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PBUIRenderingLogRendererService_block_invoke()
@@ -1162,16 +1173,16 @@ uint64_t __PBUIRenderingLogFenceReason_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id PBUIRenderingLogImageUtilities()
+id PBUIRenderingLogImageUtilities(uint64_t a1)
 {
   if (PBUIRenderingLogImageUtilities_onceToken != -1)
   {
     PBUIRenderingLogImageUtilities_cold_1();
   }
 
-  v1 = PBUIRenderingLogImageUtilities___logObj;
+  v2 = PBUIRenderingLogImageUtilities___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PBUIRenderingLogImageUtilities_block_invoke()
@@ -1192,16 +1203,16 @@ uint64_t __PBUILogSnapshot_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id PBUILogCaching()
+id PBUILogCaching(uint64_t a1)
 {
   if (PBUILogCaching_onceToken != -1)
   {
     PBUILogCaching_cold_1();
   }
 
-  v1 = PBUILogCaching___logObj;
+  v2 = PBUILogCaching___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PBUILogCaching_block_invoke()
@@ -1222,16 +1233,16 @@ uint64_t __PBUILogRuntime_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id PBUILogPower()
+id PBUILogPower(uint64_t a1)
 {
   if (PBUILogPower_onceToken != -1)
   {
     PBUILogPower_cold_1();
   }
 
-  v1 = PBUILogPower___logObj;
+  v2 = PBUILogPower___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PBUILogPower_block_invoke()
@@ -1243,7 +1254,7 @@ uint64_t __PBUILogPower_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void ___sharedWallpaperMetricsTelemetryIdentifier_block_invoke()
+void ___sharedWallpaperMetricsTelemetryIdentifier_block_invoke(uint64_t a1)
 {
   if (MEMORY[0x282227600])
   {
@@ -1252,10 +1263,10 @@ void ___sharedWallpaperMetricsTelemetryIdentifier_block_invoke()
 
   else
   {
-    v0 = PBUILogPower();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = PBUILogPower(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      ___sharedWallpaperMetricsTelemetryIdentifier_block_invoke_cold_1(v0);
+      ___sharedWallpaperMetricsTelemetryIdentifier_block_invoke_cold_1(v1);
     }
   }
 }
@@ -1266,9 +1277,9 @@ void __PBUIReplicaDebugModeIsEnabled_block_invoke()
   PBUIReplicaDebugModeIsEnabled___isEnabled = [v0 BOOLForKey:@"PBUIReplicaDebugMode"];
 }
 
-void sub_21E69E0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21E69E0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1280,16 +1291,16 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-id __possibleWallpaperFileNames()
+id __possibleWallpaperFileNames(uint64_t a1)
 {
   if (__possibleWallpaperFileNames_onceToken != -1)
   {
     __possibleWallpaperFileNames_cold_1();
   }
 
-  v1 = __possibleWallpaperFileNames_possibleWallpaperFileNames;
+  v2 = __possibleWallpaperFileNames_possibleWallpaperFileNames;
 
-  return v1;
+  return v2;
 }
 
 id __wallpaperImageFilename(uint64_t a1, uint64_t a2)
@@ -1457,9 +1468,9 @@ LABEL_9:
   return v4;
 }
 
-void sub_21E6A1478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21E6A1478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1508,15 +1519,16 @@ void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_21E6A5DBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, id a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_21E6A5DBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, id a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  objc_destroyWeak((v25 + 40));
-  objc_destroyWeak((v25 + 32));
+  va_start(va, a24);
+  objc_destroyWeak((v24 + 40));
+  objc_destroyWeak((v24 + 32));
   objc_destroyWeak(&location);
   objc_destroyWeak(&a17);
-  _Block_object_dispose(&a25, 8);
-  _Block_object_dispose((v26 - 160), 8);
-  _Block_object_dispose((v26 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 160), 8);
+  _Block_object_dispose((v25 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1527,8 +1539,9 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-id PBUIStringForWallpaperLocations(char a1)
+id PBUIStringForWallpaperLocations(uint64_t a1)
 {
+  v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
@@ -1536,7 +1549,7 @@ id PBUIStringForWallpaperLocations(char a1)
   v6[3] = &unk_2783623D0;
   v7 = v2;
   v3 = v2;
-  PBUIWallpaperEnumerateVariantsForLocations(a1, v6);
+  PBUIWallpaperEnumerateVariantsForLocations(v1, v6);
   v4 = [v3 componentsJoinedByString:@"+"];
 
   return v4;
@@ -1621,7 +1634,7 @@ BOOL PBUIDeviceMotionModeForPRPosterDeviceMotionMode(_BOOL8 result)
 {
   if (result != 2)
   {
-    return result == 1;
+    return result;
   }
 
   return result;
@@ -1670,10 +1683,10 @@ void sub_21E6AC24C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21E6AE134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_21E6AE134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a66, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x210], 8);
   _Block_object_dispose(&STACK[0x230], 8);
   _Block_object_dispose(&STACK[0x250], 8);
@@ -1720,7 +1733,7 @@ void sub_21E6B1D18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-__CFString *PBUIStringForPosterWallpaperPairingType(unsigned int a1)
+__CFString *PBUIStringForPosterWallpaperPairingType(int a1)
 {
   if (a1 >= 3)
   {
@@ -1735,7 +1748,7 @@ __CFString *PBUIStringForPosterWallpaperPairingType(unsigned int a1)
   return v2;
 }
 
-__CFString *PBUIStringForPosterWallpaperMigrationProvider(unsigned int a1)
+__CFString *PBUIStringForPosterWallpaperMigrationProvider(int a1)
 {
   if (a1 >= 3)
   {
@@ -1822,14 +1835,14 @@ id soft_MTCoreMaterialRecipeNameForMaterialRecipeAndUserInterfaceStyle(uint64_t 
   return v3;
 }
 
-void sub_21E6B468C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6B468C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __MaterialKitLibraryCore_block_invoke_0()
+uint64_t __MaterialKitLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   MaterialKitLibraryCore_frameworkLibrary_0 = result;
@@ -2108,9 +2121,9 @@ id soft_MTCoreMaterialRecipeNameForMaterialRecipeAndUserInterfaceStyle_0(uint64_
   return v3;
 }
 
-void sub_21E6BA814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6BA814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2122,17 +2135,18 @@ void sub_21E6BB234(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t __MaterialKitLibraryCore_block_invoke_1()
+uint64_t __MaterialKitLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   MaterialKitLibraryCore_frameworkLibrary_1 = result;
   return result;
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 uint64_t PBUIWallpaperTypeForString(void *a1)
@@ -2186,10 +2200,11 @@ void sub_21E6BDEB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_4(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_1_4(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 uint64_t OUTLINED_FUNCTION_2_2()
@@ -2265,31 +2280,31 @@ void __PBUIGetMagnifyModes_block_invoke()
 LABEL_7:
 }
 
-uint64_t PosterBoardServicesLibraryCore()
+uint64_t PosterBoardServicesLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = PosterBoardServicesLibraryCore_frameworkLibrary;
-  v5 = PosterBoardServicesLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = PosterBoardServicesLibraryCore_frameworkLibrary;
+  v6 = PosterBoardServicesLibraryCore_frameworkLibrary;
   if (!PosterBoardServicesLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_278363440;
-    v7 = *off_278363450;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    PosterBoardServicesLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_278363440;
+    v8 = *off_278363450;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    PosterBoardServicesLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_21E6C14A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C14A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2304,14 +2319,20 @@ uint64_t __PosterBoardServicesLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t PosterBoardServicesLibrary()
 {
-  v1 = 0;
-  result = PosterBoardServicesLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = PosterBoardServicesLibraryCore(&v3);
+  if (!v0)
   {
-    PosterBoardServicesLibrary_cold_1(&v1);
+    PosterBoardServicesLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 id getPRSWallpaperObserverClass()
@@ -2338,9 +2359,9 @@ id getPRSWallpaperObserverClass()
   return v1;
 }
 
-void sub_21E6C1670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C1670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2383,9 +2404,9 @@ id getPRSWallpaperObserverConfigurationClass()
   return v1;
 }
 
-void sub_21E6C17A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C17A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2428,9 +2449,9 @@ id getPRSWallpaperLocationStateObserverClass()
   return v1;
 }
 
-void sub_21E6C18E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C18E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2473,9 +2494,9 @@ id getPRSPosterUpdaterClass()
   return v1;
 }
 
-void sub_21E6C1A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C1A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2518,9 +2539,9 @@ id getPRSPosterUpdateClass()
   return v1;
 }
 
-void sub_21E6C1B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C1B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2563,9 +2584,9 @@ id getPRSServiceClass()
   return v1;
 }
 
-void sub_21E6C1C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C1C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2598,31 +2619,31 @@ Class __getPRSPosterConfigurationClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t PosterFoundationLibraryCore()
+uint64_t PosterFoundationLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = PosterFoundationLibraryCore_frameworkLibrary;
-  v5 = PosterFoundationLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = PosterFoundationLibraryCore_frameworkLibrary;
+  v6 = PosterFoundationLibraryCore_frameworkLibrary;
   if (!PosterFoundationLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_278363490;
-    v7 = *off_2783634A0;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    PosterFoundationLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_278363490;
+    v8 = *off_2783634A0;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    PosterFoundationLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_21E6C1E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C1E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2637,14 +2658,20 @@ uint64_t __PosterFoundationLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t PosterFoundationLibrary()
 {
-  v1 = 0;
-  result = PosterFoundationLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = PosterFoundationLibraryCore(&v3);
+  if (!v0)
   {
-    PosterFoundationLibrary_cold_1(&v1);
+    PosterFoundationLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 uint64_t getPFFileProtectionNoneAttributesSymbolLoc()
@@ -2666,9 +2693,9 @@ uint64_t getPFFileProtectionNoneAttributesSymbolLoc()
   return v0;
 }
 
-void sub_21E6C203C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C203C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2712,9 +2739,9 @@ uint64_t getPF_IS_PAD_DEVICESymbolLoc()
   return v0;
 }
 
-void sub_21E6C21A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C21A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2754,9 +2781,9 @@ id getPFPosterExtensionInstanceClass()
   return v1;
 }
 
-void sub_21E6C2308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2799,9 +2826,9 @@ id getPFDeviceMotionUtilitiesClass()
   return v1;
 }
 
-void sub_21E6C2440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2839,9 +2866,9 @@ uint64_t getPFPosterRoleLockScreenSymbolLoc()
   return v0;
 }
 
-void sub_21E6C2584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2868,31 +2895,31 @@ id getPFPosterRoleLockScreen()
   return v1;
 }
 
-uint64_t PosterUIFoundationLibraryCore()
+uint64_t PosterUIFoundationLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = PosterUIFoundationLibraryCore_frameworkLibrary;
-  v5 = PosterUIFoundationLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = PosterUIFoundationLibraryCore_frameworkLibrary;
+  v6 = PosterUIFoundationLibraryCore_frameworkLibrary;
   if (!PosterUIFoundationLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_2783634B8;
-    v7 = *off_2783634C8;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    PosterUIFoundationLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_2783634B8;
+    v8 = *off_2783634C8;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    PosterUIFoundationLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_21E6C2734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2907,14 +2934,20 @@ uint64_t __PosterUIFoundationLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t PosterUIFoundationLibrary()
 {
-  v1 = 0;
-  result = PosterUIFoundationLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = PosterUIFoundationLibraryCore(&v3);
+  if (!v0)
   {
-    PosterUIFoundationLibrary_cold_1(&v1);
+    PosterUIFoundationLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 id getPUIPosterLevelSetClass()
@@ -2941,9 +2974,9 @@ id getPUIPosterLevelSetClass()
   return v1;
 }
 
-void sub_21E6C2900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2986,9 +3019,9 @@ id getPUIPosterSnapshotAnalysisDescriptorClass()
   return v1;
 }
 
-void sub_21E6C2A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3031,9 +3064,9 @@ id getPUIPosterSnapshotOutputDescriptorClass()
   return v1;
 }
 
-void sub_21E6C2B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3076,9 +3109,9 @@ id getPUIPosterSnapshotUISceneDescriptorClass()
   return v1;
 }
 
-void sub_21E6C2CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3121,9 +3154,9 @@ id getPUIPosterSnapshotHostConfigurationDescriptorClass()
   return v1;
 }
 
-void sub_21E6C2DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3166,9 +3199,9 @@ id getPUIPosterSnapshotDescriptorClass()
   return v1;
 }
 
-void sub_21E6C2F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C2F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3211,9 +3244,9 @@ id getPUIColorStatisticsClass()
   return v1;
 }
 
-void sub_21E6C3050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3256,9 +3289,9 @@ id getPUIDiscreteGradientVariatedCustomStyleClass()
   return v1;
 }
 
-void sub_21E6C3188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3315,9 +3348,9 @@ id getPUIImageOnDiskFormatClass()
   return v1;
 }
 
-void sub_21E6C3318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3360,9 +3393,9 @@ id getPUIMappedImageCacheManagerClass()
   return v1;
 }
 
-void sub_21E6C3450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3405,9 +3438,9 @@ id getPUICARemoteRendererClass()
   return v1;
 }
 
-void sub_21E6C3588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3450,9 +3483,9 @@ id getPUITreatImageRequestClass()
   return v1;
 }
 
-void sub_21E6C36C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C36C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3495,9 +3528,9 @@ id getPUIMaterialTreatmentClass()
   return v1;
 }
 
-void sub_21E6C37F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C37F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3540,9 +3573,9 @@ id getPUICodableImageClass()
   return v1;
 }
 
-void sub_21E6C3930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3585,9 +3618,9 @@ id getPUIPosterSnapshotDestinationClass()
   return v1;
 }
 
-void sub_21E6C3A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3630,9 +3663,9 @@ id getPUIWallpaperInactiveTreatmentClass()
   return v1;
 }
 
-void sub_21E6C3BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3675,9 +3708,9 @@ id getPUIWallpaperLegibilityTreatmentClass()
   return v1;
 }
 
-void sub_21E6C3CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3715,9 +3748,9 @@ uint64_t getPUIImageEncoderErrorDomainSymbolLoc()
   return v0;
 }
 
-void sub_21E6C3E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3763,9 +3796,9 @@ uint64_t getPUISceneRoleRenderingSymbolLoc()
   return v0;
 }
 
-void sub_21E6C3F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C3F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3820,9 +3853,9 @@ uint64_t getPUIIOSurfaceFromCGImageSymbolLoc()
   return v0;
 }
 
-void sub_21E6C414C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C414C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3866,9 +3899,9 @@ uint64_t getPUIFeatureEnabledSymbolLoc()
   return v0;
 }
 
-void sub_21E6C42D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C42D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3921,9 +3954,9 @@ uint64_t getPUIIOSurfaceUpdatePurgableSymbolLoc()
   return v0;
 }
 
-void sub_21E6C44A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C44A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3967,9 +4000,9 @@ uint64_t getPUICreateIOSurfaceForImageSymbolLoc()
   return v0;
 }
 
-void sub_21E6C462C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C462C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4016,9 +4049,9 @@ uint64_t getPUIMaterialsIsLowQualityDeviceSymbolLoc()
   return v0;
 }
 
-void sub_21E6C47DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C47DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4062,9 +4095,9 @@ uint64_t getPUIHomeScreenLegibilityMaterialRecipeBundleSymbolLoc()
   return v0;
 }
 
-void sub_21E6C4948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C4948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4108,9 +4141,9 @@ uint64_t getPUIHomeScreenLegibilityMaterialShouldAdjustAlphaForWeightingSymbolLo
   return v0;
 }
 
-void sub_21E6C4AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C4AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4154,9 +4187,9 @@ uint64_t getPUIHomeScreenLegibilityMaterialRecipeScaleAdjustmentSymbolLoc()
   return v0;
 }
 
-void sub_21E6C4C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C4C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4202,9 +4235,9 @@ uint64_t getPUIPosterSnapshotBundleInfoKeyDeviceInterfaceOrientationSymbolLoc()
   return v0;
 }
 
-void sub_21E6C4D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C4D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4250,9 +4283,9 @@ uint64_t getPUIPosterSnapshotBundleInfoKeyInterfaceOrientationSymbolLoc()
   return v0;
 }
 
-void sub_21E6C4F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C4F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4279,31 +4312,31 @@ id getPUIPosterSnapshotBundleInfoKeyInterfaceOrientation()
   return v1;
 }
 
-uint64_t PosterBoardUIServicesLibraryCore()
+uint64_t PosterBoardUIServicesLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = PosterBoardUIServicesLibraryCore_frameworkLibrary;
-  v5 = PosterBoardUIServicesLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = PosterBoardUIServicesLibraryCore_frameworkLibrary;
+  v6 = PosterBoardUIServicesLibraryCore_frameworkLibrary;
   if (!PosterBoardUIServicesLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_2783634E0;
-    v7 = *off_2783634F0;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    PosterBoardUIServicesLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_2783634E0;
+    v8 = *off_2783634F0;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    PosterBoardUIServicesLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_21E6C50BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C50BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4318,14 +4351,20 @@ uint64_t __PosterBoardUIServicesLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t PosterBoardUIServicesLibrary()
 {
-  v1 = 0;
-  result = PosterBoardUIServicesLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = PosterBoardUIServicesLibraryCore(&v3);
+  if (!v0)
   {
-    PosterBoardUIServicesLibrary_cold_1(&v1);
+    PosterBoardUIServicesLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 id getPRUISPosterWorkspaceClass()
@@ -4352,9 +4391,9 @@ id getPRUISPosterWorkspaceClass()
   return v1;
 }
 
-void sub_21E6C5288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C5288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4373,31 +4412,31 @@ Class __getPRUISPosterWorkspaceClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t PosterFuturesKitLibraryCore()
+uint64_t PosterFuturesKitLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = PosterFuturesKitLibraryCore_frameworkLibrary;
-  v5 = PosterFuturesKitLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = PosterFuturesKitLibraryCore_frameworkLibrary;
+  v6 = PosterFuturesKitLibraryCore_frameworkLibrary;
   if (!PosterFuturesKitLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_278363508;
-    v7 = *off_278363518;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    PosterFuturesKitLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_278363508;
+    v8 = *off_278363518;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    PosterFuturesKitLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_21E6C540C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C540C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4412,14 +4451,20 @@ uint64_t __PosterFuturesKitLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t PosterFuturesKitLibrary()
 {
-  v1 = 0;
-  result = PosterFuturesKitLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = PosterFuturesKitLibraryCore(&v3);
+  if (!v0)
   {
-    PosterFuturesKitLibrary_cold_1(&v1);
+    PosterFuturesKitLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 id getPFTSchedulerClass()
@@ -4446,9 +4491,9 @@ id getPFTSchedulerClass()
   return v1;
 }
 
-void sub_21E6C55D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C55D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4467,31 +4512,31 @@ Class __getPFTSchedulerClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t PosterLegibilityKitLibraryCore()
+uint64_t PosterLegibilityKitLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = PosterLegibilityKitLibraryCore_frameworkLibrary;
-  v5 = PosterLegibilityKitLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = PosterLegibilityKitLibraryCore_frameworkLibrary;
+  v6 = PosterLegibilityKitLibraryCore_frameworkLibrary;
   if (!PosterLegibilityKitLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_278363530;
-    v7 = *off_278363540;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    PosterLegibilityKitLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_278363530;
+    v8 = *off_278363540;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    PosterLegibilityKitLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_21E6C575C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C575C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4506,14 +4551,20 @@ uint64_t __PosterLegibilityKitLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t PosterLegibilityKitLibrary()
 {
-  v1 = 0;
-  result = PosterLegibilityKitLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = PosterLegibilityKitLibraryCore(&v3);
+  if (!v0)
   {
-    PosterLegibilityKitLibrary_cold_1(&v1);
+    PosterLegibilityKitLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 id getPLKColorBoxesClass()
@@ -4540,9 +4591,9 @@ id getPLKColorBoxesClass()
   return v1;
 }
 
-void sub_21E6C5928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C5928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4585,9 +4636,9 @@ id getPLKLegibilityEnvironmentClass()
   return v1;
 }
 
-void sub_21E6C5A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C5A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4630,9 +4681,9 @@ id getPLKLegibilityEnvironmentBuilderClass()
   return v1;
 }
 
-void sub_21E6C5B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C5B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4675,9 +4726,9 @@ id getPLKLegibilityDescriptorClass()
   return v1;
 }
 
-void sub_21E6C5CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C5CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4720,9 +4771,9 @@ id getPLKLegibilityEnvironmentVariantContextClass()
   return v1;
 }
 
-void sub_21E6C5E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C5E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4760,9 +4811,9 @@ uint64_t getPLKLegibilityEnvironmentVariantDefaultSymbolLoc()
   return v0;
 }
 
-void sub_21E6C5F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C5F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4826,9 +4877,9 @@ uint64_t getPLKLegibilityStyleForUILegibilityStyleSymbolLoc()
   return v0;
 }
 
-void sub_21E6C615C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C615C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4872,9 +4923,9 @@ uint64_t getPLKCalculateContrastFromColorBoxesSymbolLoc()
   return v0;
 }
 
-void sub_21E6C62DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C62DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4921,9 +4972,9 @@ uint64_t getPLKAverageColorFromColorBoxesSymbolLoc()
   return v0;
 }
 
-void sub_21E6C64A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C64A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4951,31 +5002,31 @@ id soft_PLKAverageColorFromColorBoxes(void *a1, double a2, double a3, double a4,
   return v13;
 }
 
-uint64_t PosterKitLibraryCore()
+uint64_t PosterKitLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = PosterKitLibraryCore_frameworkLibrary;
-  v5 = PosterKitLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = PosterKitLibraryCore_frameworkLibrary;
+  v6 = PosterKitLibraryCore_frameworkLibrary;
   if (!PosterKitLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_278363558;
-    v7 = *off_278363568;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    PosterKitLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_278363558;
+    v8 = *off_278363568;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    PosterKitLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_21E6C66C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C66C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4990,14 +5041,20 @@ uint64_t __PosterKitLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t PosterKitLibrary()
 {
-  v1 = 0;
-  result = PosterKitLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = PosterKitLibraryCore(&v3);
+  if (!v0)
   {
-    PosterKitLibrary_cold_1(&v1);
+    PosterKitLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 id getPRRenderingServiceServerClass()
@@ -5024,9 +5081,9 @@ id getPRRenderingServiceServerClass()
   return v1;
 }
 
-void sub_21E6C688C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C688C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5069,9 +5126,9 @@ id getPRRenderingServiceEndpointDidChangeActionClass()
   return v1;
 }
 
-void sub_21E6C69C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C69C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5114,9 +5171,9 @@ id getPRRenderingServiceServerKeepAliveAssertionManagerClass()
   return v1;
 }
 
-void sub_21E6C6AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C6AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5159,9 +5216,9 @@ id getPRRenderingServiceSceneComponentClass()
   return v1;
 }
 
-void sub_21E6C6C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C6C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5204,9 +5261,9 @@ id getPRPosterPathModelObjectCacheClass()
   return v1;
 }
 
-void sub_21E6C6D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21E6C6D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5252,7 +5309,7 @@ LABEL_8:
   return v4;
 }
 
-uint64_t _PRNeedsWallpaperCaptureView()
+uint64_t _PRNeedsWallpaperCaptureView(uint64_t a1, uint64_t a2)
 {
   if (_PRNeedsWallpaperCaptureView_onceToken != -1)
   {
@@ -5278,9 +5335,9 @@ uint64_t _PRCollectionsPosterDescriptorNeedsSnapshotReplacement(void *a1)
   return v2;
 }
 
-void sub_21E6C7BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21E6C7BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5336,7 +5393,7 @@ Class __getMTMaterialViewClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-uint64_t __MaterialKitLibraryCore_block_invoke_2()
+uint64_t __MaterialKitLibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   MaterialKitLibraryCore_frameworkLibrary_2 = result;
@@ -5570,7 +5627,7 @@ id PBUIMagicWallpaperRepresentativeThumbnailForClass(void *a1)
   return v8;
 }
 
-void _PBUIMagicWallpaperEnsure()
+void _PBUIMagicWallpaperEnsure(uint64_t result, uint64_t a2)
 {
   if (_PBUIMagicWallpaperEnsure___once != -1)
   {
@@ -5578,16 +5635,16 @@ void _PBUIMagicWallpaperEnsure()
   }
 }
 
-id PBUIMagicWallpaperEnumeration()
+id PBUIMagicWallpaperEnumeration(uint64_t a1, uint64_t a2)
 {
   if (_PBUIMagicWallpaperEnsure___once != -1)
   {
     PBUIMagicWallpaperClassForIdentifier_cold_1();
   }
 
-  v1 = __wallpaperEnumeration;
+  v3 = __wallpaperEnumeration;
 
-  return v1;
+  return v3;
 }
 
 id BundlePathForWallpaperIdentifier(void *a1)
@@ -5607,10 +5664,11 @@ id BundlePathForWallpaperIdentifier(void *a1)
   return v3;
 }
 
-void sub_21E6CE120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_21E6CE120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose((v51 - 256), 8);
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v50 - 256), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5621,13 +5679,14 @@ void sub_21E6CED10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21E6D303C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_21E6D303C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 224), 8);
-  _Block_object_dispose((v41 - 176), 8);
-  _Block_object_dispose((v41 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v40 - 224), 8);
+  _Block_object_dispose((v40 - 176), 8);
+  _Block_object_dispose((v40 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5638,9 +5697,9 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21E6D39E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_21E6D39E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5753,9 +5812,9 @@ void sub_21E6E3FA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21E6E52AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_21E6E52AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -5781,16 +5840,16 @@ void sub_21E6E5EE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id PBUIColorSamplingQueue()
+id PBUIColorSamplingQueue(uint64_t a1)
 {
   if (PBUIColorSamplingQueue_onceToken != -1)
   {
     PBUIColorSamplingQueue_cold_1();
   }
 
-  v1 = PBUIColorSamplingQueue_queue;
+  v2 = PBUIColorSamplingQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 void sub_21E6E74E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -5967,11 +6026,12 @@ void sub_21E6EBD00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21E6EC660(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, char a27)
+void sub_21E6EC660(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, ...)
 {
-  objc_destroyWeak((v27 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v26 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 

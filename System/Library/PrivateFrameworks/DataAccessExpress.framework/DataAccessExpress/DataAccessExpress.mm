@@ -15,11 +15,11 @@ id DALoggingwithCategory(unint64_t a1)
   return v2;
 }
 
-void sub_2243C1394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_2243C1394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a46, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x290], 8);
   _Block_object_dispose(&STACK[0x330], 8);
   _Block_object_dispose(&STACK[0x3D0], 8);
@@ -48,72 +48,72 @@ void sub_2243C2558(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2243C3440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t buf, uint64_t a15, ...)
+void sub_2243C3440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t buf, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t bufa, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C393C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2243C393C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C3F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2243C3F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C41E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2243C41E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C43D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2243C43D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C4634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2243C4634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C4BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2243C4BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C4ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2243C4ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C5248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2243C5248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C543C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2243C543C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -142,188 +142,210 @@ id getESDConnectionClass()
   return v1;
 }
 
-void sub_2243C59C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2243C59C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243C8A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2243C8A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243CB158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CC44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
-{
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CC9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CCCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CCED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CD224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CD728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CD98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2243CB158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
   va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243CE02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2243CC44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CE678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CEB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CEE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CF30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CF858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243CFF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
-{
+  va_start(va, a32);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2243D056C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243D0BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2243CC9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ExchangeSyncExpressLibraryCore()
+void sub_2243CCCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CCED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CD224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CD728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CD98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CDDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CE02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CE678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CEB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CEE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CF30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CF858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243CFF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243D056C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243D0918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243D0BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2243D1610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ExchangeSyncExpressLibraryCore(uint64_t a1)
+{
   if (!ExchangeSyncExpressLibraryCore_frameworkLibrary)
   {
     ExchangeSyncExpressLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = ExchangeSyncExpressLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return ExchangeSyncExpressLibraryCore_frameworkLibrary;
 }
 
 uint64_t __ExchangeSyncExpressLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ExchangeSyncExpressLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getESDConnectionClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!ExchangeSyncExpressLibraryCore())
+  if (!ExchangeSyncExpressLibraryCore(&v3))
   {
     __getESDConnectionClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("ESDConnection");
@@ -611,7 +633,7 @@ void *_createWorkSettingsFromSettings(unint64_t a1)
 void __DACPLoggingAppendDataToLogFile_block_invoke_3(uint64_t a1)
 {
   v1 = a1;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (!v2)
   {
@@ -680,7 +702,7 @@ LABEL_8:
 LABEL_15:
   v15 = 0;
   v16 = 0;
-  v32 = 0;
+  v31 = 0;
   do
   {
     if (v15)
@@ -704,7 +726,7 @@ LABEL_15:
     v19 = *(v2 + 8);
     v20 = +[DACPLogShared shared];
     *buf = 0;
-    v21 = [(DACPLogShared *)v20 _logData:v4 UUID:v15 startNewFile:v17 != 0 sizeCheck:v8 wantsCompressed:v18 != 0 maxFileCount:v19 outDidCreateNewFile:&v32 outNewFilePath:buf];
+    v21 = [(DACPLogShared *)v20 _logData:v4 UUID:v15 startNewFile:v17 != 0 sizeCheck:v8 wantsCompressed:v18 != 0 maxFileCount:v19 outDidCreateNewFile:&v31 outNewFilePath:buf];
     if (*buf)
     {
       CFRetain(*buf);
@@ -749,7 +771,7 @@ LABEL_27:
   }
 
   v27 = v2[6];
-  if (v27 && v32)
+  if (v27 && v31)
   {
     (*(v27 + 16))(v27, v15);
   }
@@ -782,8 +804,6 @@ LABEL_37:
     block[4] = *(v1 + 32);
     dispatch_async(_callbackQueue_queue, block);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __DACPLoggingAppendDataToLogFile_block_invoke_4(uint64_t a1)
@@ -867,11 +887,11 @@ void DACPLoggingSlurpFileIntoLogFile(int a1, const void *a2, const __CFString *a
 
 void __DACPLoggingSlurpFileIntoLogFile_block_invoke_2(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = *(a1 + 48);
-  v31 = *(a1 + 64);
-  v32 = *(a1 + 56);
+  v30 = *(a1 + 64);
+  v31 = *(a1 + 56);
   if (v1[3] < 1)
   {
     goto LABEL_7;
@@ -892,18 +912,18 @@ void __DACPLoggingSlurpFileIntoLogFile_block_invoke_2(uint64_t a1)
     }
 
 LABEL_7:
-    v30 = 0;
+    v29 = 0;
     goto LABEL_8;
   }
 
 LABEL_6:
   Current = CFAbsoluteTimeGetCurrent();
   *v1[8] = CFDateCreate(0, Current + 13.0);
-  v30 = v1[3];
+  v29 = v1[3];
 LABEL_8:
   v6 = 0;
   v7 = 0;
-  v33 = 0;
+  v32 = 0;
   v8 = *(v1[8] + 8);
   do
   {
@@ -954,9 +974,9 @@ LABEL_8:
 
     v15 = open(v13, 0);
     *cf = 0;
-    HIDWORD(v28) = v11;
-    LOBYTE(v28) = v10 != 0;
-    v16 = [+[DACPLogShared shared](DACPLogShared _slurpToFileUUID:"_slurpToFileUUID:slurpeeFileDescriptor:prefix:suffix:startNewFile:sizeCheck:wantsCompressed:maxLogFileCount:outDidCreateNewFile:outNewFilePath:" slurpeeFileDescriptor:v8 prefix:v15 suffix:v32 startNewFile:v31 sizeCheck:v9 != 0 wantsCompressed:v30 maxLogFileCount:v28 outDidCreateNewFile:&v33 outNewFilePath:cf];
+    HIDWORD(v27) = v11;
+    LOBYTE(v27) = v10 != 0;
+    v16 = [+[DACPLogShared shared](DACPLogShared _slurpToFileUUID:"_slurpToFileUUID:slurpeeFileDescriptor:prefix:suffix:startNewFile:sizeCheck:wantsCompressed:maxLogFileCount:outDidCreateNewFile:outNewFilePath:" slurpeeFileDescriptor:v8 prefix:v15 suffix:v31 startNewFile:v30 sizeCheck:v9 != 0 wantsCompressed:v29 maxLogFileCount:v27 outDidCreateNewFile:&v32 outNewFilePath:cf];
     if (*cf)
     {
       CFRetain(*cf);
@@ -1013,7 +1033,7 @@ LABEL_28:
   }
 
   v22 = v1[6];
-  if (v22 && v33)
+  if (v22 && v32)
   {
     (*(v22 + 16))(v22, v6);
   }
@@ -1048,8 +1068,6 @@ LABEL_28:
     (*(v26 + 16))();
     _Block_release(*(a1 + 32));
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void DACPLoggingAddCustomLogConfiguration(const __CFArray *a1, const __CFDictionary *a2)
@@ -1589,7 +1607,7 @@ CFStringRef _createDefaultLogFileName()
 
 void _recomputeQueueRecomputeMaxAcceptedLevel()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   explicit = atomic_load_explicit(&_logFileSettings, memory_order_acquire);
   if (explicit)
   {
@@ -1629,28 +1647,26 @@ void _recomputeQueueRecomputeMaxAcceptedLevel()
     v1 = -1;
   }
 
-  atomic_store(v1, &_DACPLoggingMaxAcceptedLevel);
+  atomic_store(v1, _DACPLoggingMaxAcceptedLevel);
   v5 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = v1;
-    _os_log_impl(&dword_2243BD000, v5, OS_LOG_TYPE_INFO, "Recomputed max accepted logging level. New max: %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v1;
+    _os_log_impl(&dword_2243BD000, v5, OS_LOG_TYPE_INFO, "Recomputed max accepted logging level. New max: %d", v6, 8u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void _configurationQueueRereadDefaultsForSetting(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 8);
-    v12 = 138412290;
-    v13 = v3;
-    _os_log_impl(&dword_2243BD000, v2, OS_LOG_TYPE_INFO, "Rereading configuration for %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v3;
+    _os_log_impl(&dword_2243BD000, v2, OS_LOG_TYPE_INFO, "Rereading configuration for %@", &v11, 0xCu);
   }
 
   explicit = atomic_load_explicit((a1 + 104), memory_order_acquire);
@@ -1687,7 +1703,6 @@ LABEL_10:
   }
 
   dispatch_async(_recomputeQueue_queue, &__block_literal_global_118);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 BOOL DACPLoggingFlush(dispatch_time_t timeout)
@@ -1799,42 +1814,46 @@ uint64_t DACPLoggingCustomMaxLogFileLevel(const void *a1)
 
 void _setCustomCreateLogFormatBlock(const void *a1, const void *a2, int a3, int a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (_init_once != -1)
   {
     DACPLoggingAppendDataToLogFile_cold_1();
   }
 
   v8 = _settingsForFacility(a1);
-  if (!a3 || (!a2 ? (v9 = 0) : (v9 = _Block_copy(a2)), v10 = atomic_exchange_explicit((v8 + 64), v9, memory_order_release), v11 = v8 + 157, LOBYTE(v11) = atomic_load_explicit((v8 + 157), memory_order_acquire), !v10))
+  if (a3)
   {
-LABEL_11:
-    if (!a4)
+    v9 = a2 ? _Block_copy(a2) : 0;
+    v10 = atomic_exchange_explicit((v8 + 64), v9, memory_order_release);
+    v11 = v8 + 157;
+    LOBYTE(v11) = atomic_load_explicit((v8 + 157), memory_order_acquire);
+    if (v10)
     {
-      goto LABEL_22;
-    }
+      if (!v11)
+      {
+        CFRelease(v10);
+        if (!a4)
+        {
+          return;
+        }
 
-    goto LABEL_12;
+        goto LABEL_12;
+      }
+
+      v12 = DALoggingwithCategory(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        explicit = atomic_load_explicit((v8 + 8), memory_order_acquire);
+        v19 = 138412290;
+        v20 = explicit;
+        _os_log_impl(&dword_2243BD000, v12, OS_LOG_TYPE_DEFAULT, "Leaking old createFileLogFormatBlock because it was set after logging has begun for facilities %@", &v19, 0xCu);
+      }
+    }
   }
 
-  if (v11)
-  {
-    v12 = DALoggingwithCategory(0);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      explicit = atomic_load_explicit((v8 + 8), memory_order_acquire);
-      v20 = 138412290;
-      v21 = explicit;
-      _os_log_impl(&dword_2243BD000, v12, OS_LOG_TYPE_DEFAULT, "Leaking old createFileLogFormatBlock because it was set after logging has begun for facilities %@", &v20, 0xCu);
-    }
-
-    goto LABEL_11;
-  }
-
-  CFRelease(v10);
   if (!a4)
   {
-    goto LABEL_22;
+    return;
   }
 
 LABEL_12:
@@ -1859,9 +1878,9 @@ LABEL_12:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         v18 = atomic_load_explicit((v8 + 8), memory_order_acquire);
-        v20 = 138412290;
-        v21 = v18;
-        _os_log_impl(&dword_2243BD000, v17, OS_LOG_TYPE_DEFAULT, "Leaking old createConsoleLogFormatBlock because it was set after logging has begun for facilities %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v18;
+        _os_log_impl(&dword_2243BD000, v17, OS_LOG_TYPE_DEFAULT, "Leaking old createConsoleLogFormatBlock because it was set after logging has begun for facilities %@", &v19, 0xCu);
       }
     }
 
@@ -1870,9 +1889,6 @@ LABEL_12:
       CFRelease(v15);
     }
   }
-
-LABEL_22:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___init_block_invoke()
@@ -1948,7 +1964,7 @@ void ___workQueue_block_invoke()
 
 void _workQueueRefreshUUIDForWorkSettings(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [+[DACPLogShared shared](DACPLogShared _getUUIDForFolder:"_getUUIDForFolder:baseName:" baseName:a1[2], a1[1]];
   v3 = DALoggingwithCategory(0);
   v4 = v3;
@@ -1959,8 +1975,8 @@ void _workQueueRefreshUUIDForWorkSettings(void *a1)
       goto LABEL_7;
     }
 
-    *v13 = 138412290;
-    *&v13[4] = v2;
+    *v12 = 138412290;
+    *&v12[4] = v2;
     v5 = "Got UUID: %@";
     v6 = v4;
     v7 = OS_LOG_TYPE_INFO;
@@ -1974,14 +1990,14 @@ void _workQueueRefreshUUIDForWorkSettings(void *a1)
       goto LABEL_7;
     }
 
-    *v13 = 0;
+    *v12 = 0;
     v5 = "Could not get file UUID.";
     v6 = v4;
     v7 = OS_LOG_TYPE_ERROR;
     v8 = 2;
   }
 
-  _os_log_impl(&dword_2243BD000, v6, v7, v5, v13, v8);
+  _os_log_impl(&dword_2243BD000, v6, v7, v5, v12, v8);
 LABEL_7:
   v9 = [v2 copy];
   v10 = a1[8];
@@ -1993,7 +2009,6 @@ LABEL_7:
   }
 
   *(v10 + 8) = v9;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___startObservingDefaultChanges_block_invoke()
@@ -2053,7 +2068,7 @@ dispatch_queue_t ___configurationQueue_block_invoke()
 
 uint64_t _configurationQueueReadDefaultsValue(const __CFString *a1, const __CFString *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = 4294967293;
   valuePtr = -3;
   if (a1)
@@ -2070,7 +2085,7 @@ uint64_t _configurationQueueReadDefaultsValue(const __CFString *a1, const __CFSt
   v6 = CFPreferencesCopyAppValue(a2, v5);
   if (!v6)
   {
-    goto LABEL_21;
+    return v4;
   }
 
   v7 = v6;
@@ -2084,9 +2099,9 @@ uint64_t _configurationQueueReadDefaultsValue(const __CFString *a1, const __CFSt
       {
 LABEL_8:
         *buf = 138412546;
-        v18 = a1;
-        v19 = 2112;
-        v20 = a2;
+        v17 = a1;
+        v18 = 2112;
+        v19 = a2;
         v10 = "Defaults domain %@ and key %@ cannot be converted into an integer.";
 LABEL_15:
         _os_log_impl(&dword_2243BD000, v9, OS_LOG_TYPE_ERROR, v10, buf, 0x16u);
@@ -2106,9 +2121,9 @@ LABEL_15:
       }
 
       *buf = 138412546;
-      v18 = a1;
-      v19 = 2112;
-      v20 = a2;
+      v17 = a1;
+      v18 = 2112;
+      v19 = a2;
       v10 = "Defaults domain %@ and key %@ is not a number.";
       goto LABEL_15;
     }
@@ -2137,23 +2152,21 @@ LABEL_17:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v18 = a1;
-      v19 = 2112;
-      v20 = a2;
-      v21 = 1024;
-      v22 = valuePtr;
+      v17 = a1;
+      v18 = 2112;
+      v19 = a2;
+      v20 = 1024;
+      v21 = valuePtr;
       _os_log_impl(&dword_2243BD000, v13, OS_LOG_TYPE_ERROR, "Rejecting domain %@ key %@ value of %d.", buf, 0x1Cu);
     }
 
-    v4 = 4294967293;
+    return 4294967293;
   }
 
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-uint64_t DACustomLogDirectory()
+uint64_t DACustomLogDirectory(uint64_t a1, uint64_t a2)
 {
   if (DACustomLogDirectory_onceToken != -1)
   {
@@ -2170,97 +2183,95 @@ CFTypeRef __DACustomLogDirectory_block_invoke()
   return result;
 }
 
-void setDALogLevel(unsigned int a1)
+void setDALogLevel(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v12 = *MEMORY[0x277D85DE8];
   if (_initLogging_logPred != -1)
   {
     setDALogLevel_cold_1();
   }
 
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
-  v2 = _allDALogFacilities();
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v2 = _allDALogFacilities(a1);
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        DACPLoggingSetCustomMaxLogFileLevel(*(*(&v8 + 1) + 8 * i), a1);
+        DACPLoggingSetCustomMaxLogFileLevel(*(*(&v7 + 1) + 8 * i), v1);
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-id _allDALogFacilities()
+id _allDALogFacilities(uint64_t a1)
 {
   if (_allDALogFacilities_pred != -1)
   {
     _allDALogFacilities_cold_1();
   }
 
-  v1 = _allDALogFacilities__sAllDAFacilities;
+  v2 = _allDALogFacilities__sAllDAFacilities;
 
-  return v1;
+  return v2;
 }
 
-void setDALogOutputLevel(unsigned int a1)
+void setDALogOutputLevel(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v12 = *MEMORY[0x277D85DE8];
   if (_initLogging_logPred != -1)
   {
     setDALogLevel_cold_1();
   }
 
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
-  v2 = _allDALogFacilities();
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v2 = _allDALogFacilities(a1);
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        DACPLoggingSetCustomMaxConsoleLevel(*(*(&v8 + 1) + 8 * i), a1);
+        DACPLoggingSetCustomMaxConsoleLevel(*(*(&v7 + 1) + 8 * i), v1);
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t getDALogLevel()
+uint64_t getDALogLevel(uint64_t a1)
 {
   if (_initLogging_logPred != -1)
   {
@@ -2270,7 +2281,7 @@ uint64_t getDALogLevel()
   return DACPLoggingCustomMaxLogFileLevel(@"DA");
 }
 
-uint64_t getDAOutputLevel()
+uint64_t getDAOutputLevel(uint64_t a1)
 {
   if (_initLogging_logPred != -1)
   {
@@ -2343,7 +2354,7 @@ uint64_t __DALoggingwithCategory_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t DAGreenTeaLogger()
+uint64_t DAGreenTeaLogger(uint64_t a1, uint64_t a2)
 {
   if (DAGreenTeaLogger_onceToken != -1)
   {
@@ -2362,7 +2373,7 @@ uint64_t __DAGreenTeaLogger_block_invoke()
 
 void DAGreenTeaLog(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:a1];
   if (DAGreenTeaLogger_onceToken != -1)
   {
@@ -2373,12 +2384,10 @@ void DAGreenTeaLog(uint64_t a1)
   v3 = v2;
   if (v2 && os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543362;
-    v6 = v1;
-    _os_log_impl(&dword_2243BD000, v3, OS_LOG_TYPE_INFO, "%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v1;
+    _os_log_impl(&dword_2243BD000, v3, OS_LOG_TYPE_INFO, "%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t DALogSimulateCrashReport(void *a1)
@@ -2404,146 +2413,149 @@ uint64_t DALogSimulateCrashReport(void *a1)
   return MEMORY[0x2821F96F8]();
 }
 
-void ___initLogging_block_invoke()
+void ___initLogging_block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v32 = 0u;
-  v33 = 0u;
+  v47 = *MEMORY[0x277D85DE8];
   v34 = 0u;
   v35 = 0u;
-  v0 = _allDALogFacilities();
-  v1 = [v0 countByEnumeratingWithState:&v32 objects:v44 count:16];
-  if (v1)
+  v36 = 0u;
+  v37 = 0u;
+  v1 = _allDALogFacilities(a1);
+  v2 = [v1 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  if (v2)
   {
-    v2 = v1;
-    v3 = *v33;
+    v3 = v2;
+    v4 = *v35;
     do
     {
-      v4 = 0;
+      v5 = 0;
       do
       {
-        if (*v33 != v3)
+        if (*v35 != v4)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v32 + 1) + 8 * v4);
-        if (([v5 isEqualToString:@"Accounts"] & 1) == 0)
+        v6 = *(*(&v34 + 1) + 8 * v5);
+        if (([v6 isEqualToString:@"Accounts"] & 1) == 0)
         {
-          v43 = v5;
-          v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-          v41[0] = @"logDirectory";
+          v45 = v6;
+          v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+          v43[0] = @"logDirectory";
           if (DACustomLogDirectory_onceToken != -1)
           {
             ___initLogging_block_invoke_cold_1();
           }
 
-          v42[0] = DACustomLogDirectory_retval;
-          v42[1] = @"dataaccess";
-          v41[1] = @"logName";
-          v41[2] = @"consoleLevelDefaultsKey";
-          v41[3] = @"logFileLevelDefaultsKey";
-          v42[2] = @"DAOutputLevel";
-          v42[3] = @"DALogLevel";
-          DACPLoggingAddCustomLogConfiguration(v6, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4]);
+          v44[0] = DACustomLogDirectory_retval;
+          v44[1] = @"dataaccess";
+          v43[1] = @"logName";
+          v43[2] = @"consoleLevelDefaultsKey";
+          v43[3] = @"logFileLevelDefaultsKey";
+          v44[2] = @"DAOutputLevel";
+          v44[3] = @"DALogLevel";
+          DACPLoggingAddCustomLogConfiguration(v7, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4]);
         }
 
-        ++v4;
+        ++v5;
       }
 
-      while (v2 != v4);
-      v2 = [v0 countByEnumeratingWithState:&v32 objects:v44 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
-    while (v2);
+    while (v3);
   }
 
-  v40 = @"Accounts";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
-  v38[0] = @"logDirectory";
+  v42 = @"Accounts";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+  v40[0] = @"logDirectory";
   if (DACustomLogDirectory_onceToken != -1)
   {
     ___initLogging_block_invoke_cold_1();
   }
 
-  v39[0] = DACustomLogDirectory_retval;
-  v39[1] = @"DAAccountMigration";
-  v38[1] = @"logName";
-  v38[2] = @"consoleLevelDefaultsKey";
-  v38[3] = @"logFileLevelDefaultsKey";
-  v39[2] = @"DAOutputLevel";
-  v39[3] = @"DALogLevel";
-  DACPLoggingAddCustomLogConfiguration(v7, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4]);
-  v8 = [DABehaviorOptions DAManagedDefaultForKey:@"DALogLevel"];
+  v41[0] = DACustomLogDirectory_retval;
+  v41[1] = @"DAAccountMigration";
+  v40[1] = @"logName";
+  v40[2] = @"consoleLevelDefaultsKey";
+  v40[3] = @"logFileLevelDefaultsKey";
+  v41[2] = @"DAOutputLevel";
+  v41[3] = @"DALogLevel";
+  DACPLoggingAddCustomLogConfiguration(v8, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4]);
+  v9 = [DABehaviorOptions DAManagedDefaultForKey:@"DALogLevel"];
 
-  if (!v8 && +[DABehaviorOptions isAppleInternalInstall])
+  if (!v9)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v9 = _allDALogFacilities();
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v37 count:16];
+    v10 = +[DABehaviorOptions isAppleInternalInstall];
     if (v10)
     {
-      v11 = v10;
-      v12 = *v29;
-      do
+      v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v11 = _allDALogFacilities(v10);
+      v12 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
+      if (v12)
       {
-        for (i = 0; i != v11; ++i)
+        v13 = v12;
+        v14 = *v31;
+        do
         {
-          if (*v29 != v12)
+          for (i = 0; i != v13; ++i)
           {
-            objc_enumerationMutation(v9);
+            if (*v31 != v14)
+            {
+              objc_enumerationMutation(v11);
+            }
+
+            DACPLoggingSetCustomMaxLogFileLevel(*(*(&v30 + 1) + 8 * i), 7u);
           }
 
-          DACPLoggingSetCustomMaxLogFileLevel(*(*(&v28 + 1) + 8 * i), 7u);
+          v13 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v28 objects:v37 count:16];
+        while (v13);
       }
-
-      while (v11);
     }
   }
 
-  v14 = [MEMORY[0x277CCAC38] processInfo];
-  v15 = [v14 processName];
-  v16 = _CPLog_to_os_log_type_block_invoke_sProcessName;
-  _CPLog_to_os_log_type_block_invoke_sProcessName = v15;
+  v16 = [MEMORY[0x277CCAC38] processInfo];
+  v17 = [v16 processName];
+  v18 = _CPLog_to_os_log_type_block_invoke_sProcessName;
+  _CPLog_to_os_log_type_block_invoke_sProcessName = v17;
 
-  _CPLog_to_os_log_type_block_invoke_sPID = getpid();
-  v24 = 0u;
-  v25 = 0u;
+  v19 = getpid();
+  _CPLog_to_os_log_type_block_invoke_sPID = v19;
   v26 = 0u;
   v27 = 0u;
-  v17 = _allDALogFacilities();
-  v18 = [v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
-  if (v18)
+  v28 = 0u;
+  v29 = 0u;
+  v20 = _allDALogFacilities(v19);
+  v21 = [v20 countByEnumeratingWithState:&v26 objects:v38 count:16];
+  if (v21)
   {
-    v19 = v18;
-    v20 = *v25;
+    v22 = v21;
+    v23 = *v27;
     do
     {
-      for (j = 0; j != v19; ++j)
+      for (j = 0; j != v22; ++j)
       {
-        if (*v25 != v20)
+        if (*v27 != v23)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v20);
         }
 
-        v22 = *(*(&v24 + 1) + 8 * j);
-        DACPLoggingSetCustomCreateFileLogFormatBlock(v22, &__block_literal_global_55);
-        DACPLoggingSetCustomCreateConsoleLogFormatBlock(v22, &__block_literal_global_90);
+        v25 = *(*(&v26 + 1) + 8 * j);
+        DACPLoggingSetCustomCreateFileLogFormatBlock(v25, &__block_literal_global_55);
+        DACPLoggingSetCustomCreateConsoleLogFormatBlock(v25, &__block_literal_global_90);
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v26 objects:v38 count:16];
     }
 
-    while (v19);
+    while (v22);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___initLogging_block_invoke_2(int a1, unsigned int a2, const __CFDate *a3, int a4, uint64_t a5, char *__s, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -2725,22 +2737,23 @@ uint64_t ___allDALogFacilities_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id _fileOpsQueue()
+id _fileOpsQueue(uint64_t a1)
 {
   if (_fileOpsQueue_onceToken != -1)
   {
     _fileOpsQueue_cold_1();
   }
 
-  v1 = _fileOpsQueue_queue;
+  v2 = _fileOpsQueue_queue;
 
-  return v1;
+  return v2;
 }
 
-void sub_2243D9AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_2243D9AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2753,7 +2766,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 id _homeDirectoryPathComponentsForUID(uid_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = getpwuid(a1);
   if (v2)
   {
@@ -2774,34 +2787,35 @@ id _homeDirectoryPathComponentsForUID(uid_t a1)
     v7 = DALoggingwithCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10[0] = 67109120;
-      v10[1] = a1;
-      _os_log_impl(&dword_2243BD000, v7, OS_LOG_TYPE_ERROR, "Could not gather information for user %d. Not granting access to write logs.", v10, 8u);
+      v9[0] = 67109120;
+      v9[1] = a1;
+      _os_log_impl(&dword_2243BD000, v7, OS_LOG_TYPE_ERROR, "Could not gather information for user %d. Not granting access to write logs.", v9, 8u);
     }
   }
 
   v6 = 0;
 LABEL_8:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
-void sub_2243DA40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_2243DA40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
-  _Block_object_dispose((v31 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
+  _Block_object_dispose((v30 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2243DAA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_2243DAA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 176), 8);
-  _Block_object_dispose((v33 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 176), 8);
+  _Block_object_dispose((v32 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2857,7 +2871,7 @@ void __getESDConnectionClass_block_invoke_cold_2(void *a1)
 
 void __DACPLoggingSlurpFileIntoLogFile_block_invoke_2_cold_1(const __CFString *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
@@ -2873,9 +2887,9 @@ void __DACPLoggingSlurpFileIntoLogFile_block_invoke_2_cold_1(const __CFString *a
     if (v5)
     {
       v6 = v5;
-      v16.location = 0;
-      v16.length = v4;
-      CFStringGetCharacters(a1, v16, v5);
+      v15.location = 0;
+      v15.length = v4;
+      CFStringGetCharacters(a1, v15, v5);
       Mutable = CFStringCreateMutable(0, 0);
       if (Mutable)
       {
@@ -2898,7 +2912,7 @@ void __DACPLoggingSlurpFileIntoLogFile_block_invoke_2_cold_1(const __CFString *a
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v14 = v8;
+          v13 = v8;
           _os_log_impl(&dword_2243BD000, v11, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
 
@@ -2908,8 +2922,6 @@ void __DACPLoggingSlurpFileIntoLogFile_block_invoke_2_cold_1(const __CFString *a
       free(v6);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __DACPLoggingSlurpFileIntoLogFile_block_invoke_2_cold_2()

@@ -32,24 +32,24 @@ void __56___HMMediaProfile__notifyDelegateOfUpdatedMediaSession___block_invoke(u
 
 - (void)refreshStateWithCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v14 = objc_autoreleasePoolPush();
+    v13 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v16 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@nil completion handler", &v19, 0xCu);
+      v16 = HMFGetLogIdentifier();
+      v18 = 138543362;
+      v19 = v16;
+      _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@nil completion handler", &v18, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v14);
-    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
-    objc_exception_throw(v18);
+    objc_autoreleasePoolPop(v13);
+    v17 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
+    objc_exception_throw(v17);
   }
 
   v5 = handlerCopy;
@@ -68,17 +68,15 @@ void __56___HMMediaProfile__notifyDelegateOfUpdatedMediaSession___block_invoke(u
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v11;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot determine media session", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v11;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot determine media session", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:2];
     (v5)[2](v5, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mergeFromNewObject:(id)object
@@ -121,27 +119,27 @@ void __56___HMMediaProfile__notifyDelegateOfUpdatedMediaSession___block_invoke(u
 
 - (void)fetchAccessorySleepWakeStateWithCompletion:(id)completion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
-    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMMediaProfile fetchAccessorySleepWakeStateWithCompletion:]", @"completion"];
-    v31 = objc_autoreleasePoolPush();
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMMediaProfile fetchAccessorySleepWakeStateWithCompletion:]", @"completion"];
+    v30 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v33 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v34 = HMFGetLogIdentifier();
+      v33 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v41 = v34;
-      v42 = 2112;
-      v43 = v30;
-      _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v40 = v33;
+      v41 = 2112;
+      v42 = v29;
+      _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v31);
-    v35 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v30 userInfo:0];
-    objc_exception_throw(v35);
+    objc_autoreleasePoolPop(v30);
+    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v29 userInfo:0];
+    objc_exception_throw(v34);
   }
 
   v5 = completionCopy;
@@ -165,14 +163,14 @@ void __56___HMMediaProfile__notifyDelegateOfUpdatedMediaSession___block_invoke(u
         v15 = [v13 initWithTarget:messageTargetUUID];
 
         v16 = [objc_alloc(MEMORY[0x1E69A2A10]) initWithName:@"HMFetchAppleMediaAccessorySleepWakeStateMessage" destination:v15 payload:0];
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_invoke;
-        v36[3] = &unk_1E754E480;
-        v37 = context;
+        v35[0] = MEMORY[0x1E69E9820];
+        v35[1] = 3221225472;
+        v35[2] = __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_invoke;
+        v35[3] = &unk_1E754E480;
+        v36 = context;
         selfCopy2 = self;
-        v39 = v5;
-        [v16 setResponseHandler:v36];
+        v38 = v5;
+        [v16 setResponseHandler:v35];
         v17 = [v16 copy];
         [messageDispatcher sendMessage:v17];
 
@@ -193,9 +191,9 @@ LABEL_14:
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v41 = v25;
-        v42 = 2112;
-        v43 = context;
+        v40 = v25;
+        v41 = 2112;
+        v42 = context;
         _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch sleep wake state due to no message dispatcher given by context: %@", buf, 0x16u);
       }
 
@@ -217,7 +215,7 @@ LABEL_14:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v41 = v21;
+    v40 = v21;
     _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch sleep wake state due to no accessory on media profile", buf, 0xCu);
   }
 
@@ -225,8 +223,6 @@ LABEL_14:
   context = [MEMORY[0x1E696ABC0] hmErrorWithCode:21];
   (v5)[2](v5, 0, context);
 LABEL_15:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -251,7 +247,7 @@ void __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_inv
 
 void __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -261,71 +257,68 @@ void __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_inv
     {
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 32);
-      v20 = 138543618;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v6;
-      _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Fetch accessory SleepWake state request message responded with error: %@", &v20, 0x16u);
+      v18 = 138543618;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Fetch accessory SleepWake state request message responded with error: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
-    v7 = *(a1 + 32);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v8 = [*(a1 + 48) hmf_numberForKey:@"HMFetchAppleMediaAccessorySleepWakeStateKey"];
-    if (v8)
+    v7 = [*(a1 + 48) hmf_numberForKey:@"HMFetchAppleMediaAccessorySleepWakeStateKey"];
+    if (v7)
     {
-      v9 = objc_autoreleasePoolPush();
-      v10 = *(a1 + 40);
-      v11 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v8 = objc_autoreleasePoolPush();
+      v9 = *(a1 + 40);
+      v10 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v12 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v12;
-        v22 = 2112;
-        v23 = v8;
-        _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Fetch accessory SleepWake state request message responded with result: %@", &v20, 0x16u);
+        v11 = HMFGetLogIdentifier();
+        v18 = 138543618;
+        v19 = v11;
+        v20 = 2112;
+        v21 = v7;
+        _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Fetch accessory SleepWake state request message responded with result: %@", &v18, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v9);
-      v13 = *(a1 + 56);
-      v14 = *(a1 + 40);
-      v15 = v8;
-      v16 = v15;
-      if (v14)
+      objc_autoreleasePoolPop(v8);
+      v12 = *(a1 + 56);
+      v13 = *(a1 + 40);
+      v14 = v7;
+      v15 = v14;
+      if (v13)
       {
-        if ([v15 unsignedIntValue] == 2)
+        if ([v14 unsignedIntValue] == 2)
         {
-          v14 = 2;
+          v13 = 2;
         }
 
         else
         {
-          v14 = [v16 unsignedIntValue] == 1;
+          v13 = [v15 unsignedIntValue] == 1;
         }
       }
 
-      (*(v13 + 16))(v13, v14, *(a1 + 32));
+      (*(v12 + 16))(v12, v13, *(a1 + 32));
     }
 
     else
     {
-      v17 = *(a1 + 56);
-      v18 = [MEMORY[0x1E696ABC0] hmErrorWithCode:-1];
-      (*(v17 + 16))(v17, 0, v18);
+      v16 = *(a1 + 56);
+      v17 = [MEMORY[0x1E696ABC0] hmErrorWithCode:-1];
+      (*(v16 + 16))(v16, 0, v17);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mediaProfile:(id)profile didUpdateMediaSession:(id)session
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   sessionCopy = session;
   delegate = [(HMMediaProfile *)self delegate];
@@ -341,9 +334,9 @@ void __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_inv
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v52 = v14;
-      v53 = 2112;
-      v54 = sessionCopy;
+      v51 = v14;
+      v52 = 2112;
+      v53 = sessionCopy;
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Notifying client of updated media session: %@", buf, 0x16u);
     }
 
@@ -351,15 +344,15 @@ void __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_inv
     accessoryProfile = [(HMAccessoryProfile *)selfCopy accessoryProfile];
     context = [accessoryProfile context];
     delegateCaller = [context delegateCaller];
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __53__HMMediaProfile_mediaProfile_didUpdateMediaSession___block_invoke;
-    v46[3] = &unk_1E754E5E8;
-    v47 = delegate2;
-    v48 = selfCopy;
-    v49 = sessionCopy;
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __53__HMMediaProfile_mediaProfile_didUpdateMediaSession___block_invoke;
+    v45[3] = &unk_1E754E5E8;
+    v46 = delegate2;
+    v47 = selfCopy;
+    v48 = sessionCopy;
     v18 = delegate2;
-    [delegateCaller invokeBlock:v46];
+    [delegateCaller invokeBlock:v45];
   }
 
   delegate3 = [(HMMediaProfile *)self delegate];
@@ -384,9 +377,9 @@ void __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_inv
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v52 = v25;
-      v53 = 2112;
-      v54 = sessionCopy;
+      v51 = v25;
+      v52 = 2112;
+      v53 = sessionCopy;
       _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_INFO, "%{public}@Notifying media object of updated media session: %@", buf, 0x16u);
     }
 
@@ -394,51 +387,49 @@ void __61__HMMediaProfile_fetchAccessorySleepWakeStateWithCompletion___block_inv
     accessoryProfile2 = [(HMAccessoryProfile *)selfCopy2 accessoryProfile];
     context2 = [accessoryProfile2 context];
     delegateCaller2 = [context2 delegateCaller];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __53__HMMediaProfile_mediaProfile_didUpdateMediaSession___block_invoke_65;
-    v42[3] = &unk_1E754E5E8;
-    v43 = v21;
-    v44 = selfCopy2;
-    v45 = sessionCopy;
-    [delegateCaller2 invokeBlock:v42];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __53__HMMediaProfile_mediaProfile_didUpdateMediaSession___block_invoke_65;
+    v41[3] = &unk_1E754E5E8;
+    v42 = v21;
+    v43 = selfCopy2;
+    v44 = sessionCopy;
+    [delegateCaller2 invokeBlock:v41];
   }
 
   accessory = [(HMAccessoryProfile *)self accessory];
   home = [accessory home];
   mediaSystems = [home mediaSystems];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v32 = mediaSystems;
-  v33 = [v32 countByEnumeratingWithState:&v38 objects:v50 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v37 objects:v49 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v39;
+    v35 = *v38;
     do
     {
       v36 = 0;
       do
       {
-        if (*v39 != v35)
+        if (*v38 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        [*(*(&v38 + 1) + 8 * v36++) updateMediaSession:sessionCopy forMediaProfile:{self, v38}];
+        [*(*(&v37 + 1) + 8 * v36++) updateMediaSession:sessionCopy forMediaProfile:{self, v37}];
       }
 
       while (v34 != v36);
-      v34 = [v32 countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v37 objects:v49 count:16];
     }
 
     while (v34);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (NSUUID)containerUUID

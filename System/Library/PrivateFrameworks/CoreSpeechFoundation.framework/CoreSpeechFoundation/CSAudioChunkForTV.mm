@@ -27,18 +27,16 @@
   {
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (CSAudioChunkForTV)initWithXPCObject:(id)object
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v15.receiver = self;
-  v15.super_class = CSAudioChunkForTV;
-  v5 = [(CSAudioChunkForTV *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = CSAudioChunkForTV;
+  v5 = [(CSAudioChunkForTV *)&v14 init];
   if (v5)
   {
     v6 = xpc_dictionary_get_double(objectCopy, "avgPower");
@@ -64,13 +62,12 @@
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v17 = "[CSAudioChunkForTV initWithXPCObject:]";
+        v16 = "[CSAudioChunkForTV initWithXPCObject:]";
         _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s invalid packets", buf, 0xCu);
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

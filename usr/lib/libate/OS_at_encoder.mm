@@ -16,17 +16,16 @@
 
 - (NSString)debugDescription
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   result = objc_lookUpClass("NSString");
   if (result)
   {
-    v4 = result;
-    v6[0] = 0;
-    ATEncoder_GetDescription(self);
-    result = [(NSString *)v4 stringWithCString:v6 encoding:1];
+    v6 = result;
+    v7[0] = 0;
+    ATEncoder_GetDescription(self, v7, 4096, v4, v5);
+    return [(NSString *)v6 stringWithCString:v7 encoding:1];
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 

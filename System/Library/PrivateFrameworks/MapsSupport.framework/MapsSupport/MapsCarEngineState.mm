@@ -160,43 +160,30 @@
 - (BOOL)isEqualToEngineState:(id)state
 {
   stateCopy = state;
-  if (!stateCopy)
+  v12 = 0;
+  if (stateCopy)
   {
-    goto LABEL_7;
-  }
+    engineType = [(MapsCarEngineState *)self engineType];
+    if (engineType == [stateCopy engineType])
+    {
+      lowRangeWarning = [(MapsCarEngineState *)self lowRangeWarning];
+      if (lowRangeWarning == [stateCopy lowRangeWarning])
+      {
+        range = [stateCopy range];
+        if (range)
+        {
+          v8 = range;
+          range2 = [(MapsCarEngineState *)self range];
+          range3 = [stateCopy range];
+          v11 = [range2 isEqualToNumber:range3];
 
-  engineType = [(MapsCarEngineState *)self engineType];
-  if (engineType != [stateCopy engineType])
-  {
-    goto LABEL_7;
-  }
-
-  lowRangeWarning = [(MapsCarEngineState *)self lowRangeWarning];
-  if (lowRangeWarning != [stateCopy lowRangeWarning])
-  {
-    goto LABEL_7;
-  }
-
-  range = [stateCopy range];
-  if (!range)
-  {
-    goto LABEL_7;
-  }
-
-  v8 = range;
-  range2 = [(MapsCarEngineState *)self range];
-  range3 = [stateCopy range];
-  v11 = [range2 isEqualToNumber:range3];
-
-  if (v11)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_7:
-    v12 = 0;
+          if (v11)
+          {
+            v12 = 1;
+          }
+        }
+      }
+    }
   }
 
   return v12;

@@ -11,7 +11,7 @@
 - (_TtC8AppStoreP33_50FB26AE35933B3A04EC44A4A275C3B010HeaderView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC8AppStoreP33_50FB26AE35933B3A04EC44A4A275C3B010HeaderView_mediaView;
-  type metadata accessor for StoryCardMediaView();
+  type metadata accessor for StoryCardMediaView(0);
   *(&self->super.super.super.isa + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v5 = OBJC_IVAR____TtC8AppStoreP33_50FB26AE35933B3A04EC44A4A275C3B010HeaderView_gradientBlurView;
   v6 = objc_allocWithZone(type metadata accessor for TodayCardProtectionLayerView());

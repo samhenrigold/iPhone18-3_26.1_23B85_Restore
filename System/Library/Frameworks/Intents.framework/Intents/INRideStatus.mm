@@ -80,7 +80,7 @@
 
 - (id)_dictionaryRepresentation
 {
-  v50[15] = *MEMORY[0x1E69E9840];
+  v49[15] = *MEMORY[0x1E69E9840];
   phase = [(INRideStatus *)self phase];
   if ((phase - 1) > 5)
   {
@@ -93,19 +93,19 @@
   }
 
   v5 = v4;
-  v49[0] = @"rideIdentifier";
+  v48[0] = @"rideIdentifier";
   rideIdentifier = self->_rideIdentifier;
-  v47 = rideIdentifier;
+  v46 = rideIdentifier;
   if (!rideIdentifier)
   {
     rideIdentifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = rideIdentifier;
-  v50[0] = rideIdentifier;
-  v50[1] = v5;
-  v49[1] = @"phase";
-  v49[2] = @"completionStatus";
+  v33 = rideIdentifier;
+  v49[0] = rideIdentifier;
+  v49[1] = v5;
+  v48[1] = @"phase";
+  v48[2] = @"completionStatus";
   completionStatus = self->_completionStatus;
   null = completionStatus;
   if (!completionStatus)
@@ -113,8 +113,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[2] = null;
-  v49[3] = @"vehicle";
+  v49[2] = null;
+  v48[3] = @"vehicle";
   vehicle = self->_vehicle;
   null2 = vehicle;
   if (!vehicle)
@@ -122,8 +122,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[3] = null2;
-  v49[4] = @"driver";
+  v49[3] = null2;
+  v48[4] = @"driver";
   driver = self->_driver;
   null3 = driver;
   if (!driver)
@@ -131,8 +131,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[4] = null3;
-  v49[5] = @"estimatedPickupDate";
+  v49[4] = null3;
+  v48[5] = @"estimatedPickupDate";
   estimatedPickupDate = self->_estimatedPickupDate;
   null4 = estimatedPickupDate;
   if (!estimatedPickupDate)
@@ -140,8 +140,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[5] = null4;
-  v49[6] = @"estimatedDropOffDate";
+  v49[5] = null4;
+  v48[6] = @"estimatedDropOffDate";
   estimatedDropOffDate = self->_estimatedDropOffDate;
   null5 = estimatedDropOffDate;
   if (!estimatedDropOffDate)
@@ -149,8 +149,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[6] = null5;
-  v49[7] = @"estimatedPickupEndDate";
+  v49[6] = null5;
+  v48[7] = @"estimatedPickupEndDate";
   estimatedPickupEndDate = self->_estimatedPickupEndDate;
   null6 = estimatedPickupEndDate;
   if (!estimatedPickupEndDate)
@@ -158,9 +158,9 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v45 = null;
-  v50[7] = null6;
-  v49[8] = @"scheduledPickupTime";
+  v44 = null;
+  v49[7] = null6;
+  v48[8] = @"scheduledPickupTime";
   scheduledPickupTime = self->_scheduledPickupTime;
   null7 = scheduledPickupTime;
   if (!scheduledPickupTime)
@@ -168,10 +168,10 @@
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48 = v5;
-  v32 = null7;
-  v50[8] = null7;
-  v49[9] = @"pickupLocation";
+  v47 = v5;
+  v31 = null7;
+  v49[8] = null7;
+  v48[9] = @"pickupLocation";
   pickupLocation = self->_pickupLocation;
   null8 = pickupLocation;
   if (!pickupLocation)
@@ -179,10 +179,10 @@
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43 = null2;
-  v31 = null8;
-  v50[9] = null8;
-  v49[10] = @"waypoints";
+  v42 = null2;
+  v30 = null8;
+  v49[9] = null8;
+  v48[10] = @"waypoints";
   waypoints = self->_waypoints;
   null9 = waypoints;
   if (!waypoints)
@@ -190,10 +190,10 @@
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v41 = null3;
-  v30 = null9;
-  v50[10] = null9;
-  v49[11] = @"dropOffLocation";
+  v40 = null3;
+  v29 = null9;
+  v49[10] = null9;
+  v48[11] = @"dropOffLocation";
   dropOffLocation = self->_dropOffLocation;
   null10 = dropOffLocation;
   if (!dropOffLocation)
@@ -201,11 +201,11 @@
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33 = null6;
-  v39 = null4;
-  v28 = null10;
-  v50[11] = null10;
-  v49[12] = @"rideOption";
+  v32 = null6;
+  v38 = null4;
+  v27 = null10;
+  v49[11] = null10;
+  v48[12] = @"rideOption";
   rideOption = self->_rideOption;
   null11 = rideOption;
   if (!rideOption)
@@ -213,8 +213,8 @@
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[12] = null11;
-  v49[13] = @"userActivityForCancelingInApplication";
+  v49[12] = null11;
+  v48[13] = @"userActivityForCancelingInApplication";
   userActivityForCancelingInApplication = self->_userActivityForCancelingInApplication;
   null12 = userActivityForCancelingInApplication;
   if (!userActivityForCancelingInApplication)
@@ -222,8 +222,8 @@
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[13] = null12;
-  v49[14] = @"additionalActionActivities";
+  v49[13] = null12;
+  v48[14] = @"additionalActionActivities";
   additionalActionActivities = self->_additionalActionActivities;
   null13 = additionalActionActivities;
   if (!additionalActionActivities)
@@ -231,8 +231,8 @@
     null13 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[14] = null13;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:{15, v28}];
+  v49[14] = null13;
+  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:{15, v27}];
   if (additionalActionActivities)
   {
     if (userActivityForCancelingInApplication)
@@ -304,13 +304,11 @@ LABEL_35:
   {
   }
 
-  if (!v47)
+  if (!v46)
   {
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v34;
 }
 
 - (id)descriptionAtIndent:(unint64_t)indent
@@ -328,7 +326,7 @@ LABEL_35:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeObject:self->_rideIdentifier forKey:@"rideIdentifier"];
   [coderCopy encodeInteger:self->_phase forKey:@"phase"];
@@ -346,27 +344,27 @@ LABEL_35:
   v5 = INUserActivitySerializeToData(self->_userActivityForCancelingInApplication);
   [coderCopy encodeObject:v5 forKey:@"userActivityForCancelingInApplication"];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = self->_additionalActionActivities;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = INUserActivitySerializeToData(*(*(&v15 + 1) + 8 * i));
+        v12 = INUserActivitySerializeToData(*(*(&v14 + 1) + 8 * i));
         if (v12)
         {
           if (!v9)
@@ -374,11 +372,11 @@ LABEL_35:
             v9 = objc_opt_new();
           }
 
-          [v9 addObject:{v12, v15}];
+          [v9 addObject:{v12, v14}];
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -391,17 +389,15 @@ LABEL_35:
 
   v13 = [v9 copy];
   [coderCopy encodeObject:v13 forKey:@"additionalActionActivities"];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (INRideStatus)initWithCoder:(id)coder
 {
-  v59[2] = *MEMORY[0x1E69E9840];
+  v58[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v56.receiver = self;
-  v56.super_class = INRideStatus;
-  v5 = [(INRideStatus *)&v56 init];
+  v55.receiver = self;
+  v55.super_class = INRideStatus;
+  v5 = [(INRideStatus *)&v55 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rideIdentifier"];
@@ -434,9 +430,9 @@ LABEL_35:
     v5->_pickupLocation = v18;
 
     v20 = MEMORY[0x1E695DFD8];
-    v59[0] = objc_opt_class();
-    v59[1] = objc_opt_class();
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
+    v58[0] = objc_opt_class();
+    v58[1] = objc_opt_class();
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
     v22 = [v20 setWithArray:v21];
     v23 = [coderCopy decodeObjectOfClasses:v22 forKey:@"waypoints"];
     waypoints = v5->_waypoints;
@@ -464,33 +460,33 @@ LABEL_35:
     v5->_userActivityForCancelingInApplication = v34;
 
     v36 = MEMORY[0x1E695DFD8];
-    v58[0] = objc_opt_class();
-    v58[1] = objc_opt_class();
-    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
+    v57[0] = objc_opt_class();
+    v57[1] = objc_opt_class();
+    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
     v38 = [v36 setWithArray:v37];
     v39 = [coderCopy decodeObjectOfClasses:v38 forKey:@"additionalActionActivities"];
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v40 = v39;
-    v41 = [v40 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v41 = [v40 countByEnumeratingWithState:&v51 objects:v56 count:16];
     if (v41)
     {
       v42 = v41;
       v43 = 0;
-      v44 = *v53;
+      v44 = *v52;
       do
       {
         for (i = 0; i != v42; ++i)
         {
-          if (*v53 != v44)
+          if (*v52 != v44)
           {
             objc_enumerationMutation(v40);
           }
 
-          v46 = *(*(&v52 + 1) + 8 * i);
+          v46 = *(*(&v51 + 1) + 8 * i);
           if (!v43)
           {
             v43 = objc_opt_new();
@@ -499,11 +495,11 @@ LABEL_35:
           v47 = INUserActivityDeserializeFromData(v46);
           if (v47)
           {
-            [v43 addObject:{v47, v52}];
+            [v43 addObject:{v47, v51}];
           }
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
       while (v42);
@@ -519,7 +515,6 @@ LABEL_35:
     v5->_additionalActionActivities = v48;
   }
 
-  v50 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -623,21 +618,21 @@ LABEL_35:
   }
 }
 
-uint64_t __74__INRideStatus_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_2(uint64_t result, uint64_t a2)
+id *__74__INRideStatus_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setVehicle:a2];
+    return [result[4] setVehicle:a2];
   }
 
   return result;
 }
 
-uint64_t __74__INRideStatus_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_3(uint64_t result, uint64_t a2)
+id *__74__INRideStatus_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setDriver:a2];
+    return [result[4] setDriver:a2];
   }
 
   return result;

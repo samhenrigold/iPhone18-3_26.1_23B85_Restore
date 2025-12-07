@@ -170,29 +170,26 @@ void __55__TPSDeviceCapabilityCondition__valuesFromValuesArray___block_invoke(ui
 
 void __60__TPSDeviceCapabilityCondition_targetingValidationsForType___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
-  OUTLINED_FUNCTION_0_1(&dword_232D6F000, v2, v3, "Invalid Device Capability: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_232D6F000, v2, v3, "Invalid Device Capability: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __60__TPSDeviceCapabilityCondition_targetingValidationsForType___block_invoke_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
-  OUTLINED_FUNCTION_0_1(&dword_232D6F000, v2, v3, "Unknown Device Capability Type: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_232D6F000, v2, v3, "Unknown Device Capability Type: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __55__TPSDeviceCapabilityCondition__valuesFromValuesArray___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unexpected value for device capability condition: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unexpected value for device capability condition: %@", &v2, 0xCu);
 }
 
 @end

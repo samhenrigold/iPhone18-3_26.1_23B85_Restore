@@ -22,27 +22,28 @@
 
 - (void)preheatWithLanguageCode:(id)code
 {
-  sub_1DC51772C();
+  v4 = sub_1DC51772C();
+  v6 = v5;
   selfCopy = self;
-  sub_1DC2C5CD4();
+  sub_1DC2C5CD4(v4, v6);
 }
 
 - (BOOL)isOverrideStoreValid
 {
   selfCopy = self;
-  v3 = sub_1DC401068();
+  v10 = sub_1DC401068(selfCopy, v3, v4, v5, v6, v7, v8, v9);
 
-  return v3 & 1;
+  return v10 & 1;
 }
 
 - (id)matchWithInputs:(id)inputs overrideNamespace:(int)namespace
 {
   sub_1DC298C74(0, &qword_1EDAC7F98, 0x1E69D1338);
-  sub_1DC517A1C();
+  v6 = sub_1DC517A1C();
   selfCopy = self;
-  v6 = sub_1DC4014C8();
+  v8 = sub_1DC4014C8(v6, namespace);
 
-  return v6;
+  return v8;
 }
 
 @end

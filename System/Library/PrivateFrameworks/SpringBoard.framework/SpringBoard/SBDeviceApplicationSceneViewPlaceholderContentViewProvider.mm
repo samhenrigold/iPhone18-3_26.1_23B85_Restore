@@ -64,13 +64,13 @@
   _snapshotsDidChange__i = v4 + 1;
 }
 
-uint64_t __82__SBDeviceApplicationSceneViewPlaceholderContentViewProvider__snapshotsDidChange___block_invoke(uint64_t result)
+id *__82__SBDeviceApplicationSceneViewPlaceholderContentViewProvider__snapshotsDidChange___block_invoke(id *result)
 {
   v1 = _snapshotsDidChange__i;
   _snapshotsDidChange__i = 0;
   if (v1 >= 2)
   {
-    return [*(result + 32) _snapshotsDidChange:0];
+    return [result[4] _snapshotsDidChange:0];
   }
 
   return result;

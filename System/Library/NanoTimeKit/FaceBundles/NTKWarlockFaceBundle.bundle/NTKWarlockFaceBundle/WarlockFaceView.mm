@@ -23,7 +23,7 @@
 - (void)_prepareForEditing
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for WarlockFaceView();
+  v4.super_class = type metadata accessor for WarlockFaceView(0);
   v2 = v4.receiver;
   [(WarlockFaceView *)&v4 _prepareForEditing];
   sub_1A6A0();
@@ -89,14 +89,14 @@
   *&selfCopy->NTKFaceView_opaque[OBJC_IVAR____TtC20NTKWarlockFaceBundle15WarlockFaceView_digitalTimeView] = 0;
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for WarlockFaceView();
+  v6.super_class = type metadata accessor for WarlockFaceView(0);
   [(WarlockFaceView *)&v6 dealloc];
 }
 
 - (void)_loadSnapshotContentViews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for WarlockFaceView();
+  v4.super_class = type metadata accessor for WarlockFaceView(0);
   v2 = v4.receiver;
   [(WarlockFaceView *)&v4 _loadSnapshotContentViews];
   blackColor = [objc_opt_self() blackColor];
@@ -131,7 +131,7 @@
 - (void)_applyShowContentForUnadornedSnapshot
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for WarlockFaceView();
+  v5.super_class = type metadata accessor for WarlockFaceView(0);
   v2 = v5.receiver;
   [(WarlockFaceView *)&v5 _applyShowContentForUnadornedSnapshot];
   timeView = [v2 timeView];
@@ -152,7 +152,7 @@
 {
   discardCopy = discard;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for WarlockFaceView();
+  v11.super_class = type metadata accessor for WarlockFaceView(0);
   v6 = v11.receiver;
   groupCopy = group;
   [(WarlockFaceView *)&v11 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
@@ -200,7 +200,7 @@
 {
   if (sub_2CB4C(options))
   {
-    sub_B2AC(0, &qword_58670);
+    sub_B2AC(0, &qword_58670, NSNumber_ptr);
     v4.super.isa = sub_376A0().super.isa;
   }
 
@@ -217,8 +217,8 @@
   v10 = _Block_copy(handler);
   if (options)
   {
-    sub_B2AC(0, &qword_58670);
-    sub_B2AC(0, &qword_5A038);
+    sub_B2AC(0, &qword_58670, NSNumber_ptr);
+    sub_B2AC(0, &qword_5A038, NTKEditOption_ptr);
     sub_13794();
     options = sub_374D0();
   }
@@ -238,7 +238,7 @@
   optionCopy = option;
   selfCopy = self;
   v14 = sub_2BC7C(option, mode, options, v10, v11);
-  sub_103EC(v10);
+  sub_103EC(v10, v11);
 
   return v14;
 }

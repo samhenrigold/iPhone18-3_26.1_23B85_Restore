@@ -17,7 +17,7 @@
   sampled_impl = self->_sampled_impl;
   if (*(sampled_impl + 56) == 1)
   {
-    v4 = sampled_impl[6];
+    v4 = *(sampled_impl + 6);
     if (WORD2(*(v4 + 28344)) | HIWORD(*(v4 + 28344)))
     {
       if ((*(sampled_impl + 58) & 1) == 0)
@@ -30,17 +30,19 @@
         block[4] = v5;
         if (AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setupDriverIntersectionTableIfNeeded(void)::onceToken != -1)
         {
+          v7 = v5;
           dispatch_once(&AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setupDriverIntersectionTableIfNeeded(void)::onceToken, block);
+          v5 = v7;
         }
 
-        AGX::DriverIntersectionFunctionTableBase<AGX::DriverIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>,AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendProgramAddressTables();
+        AGX::DriverIntersectionFunctionTableBase<AGX::DriverIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>,AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendProgramAddressTables(*(v5 + 6288), *(sampled_impl + 1), *(sampled_impl + 2));
       }
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = AGXG18PFamilySampledComputeContext;
-  [(AGXG18PFamilyComputeContext *)&v7 endEncoding];
+  v8.receiver = self;
+  v8.super_class = AGXG18PFamilySampledComputeContext;
+  [(AGXG18PFamilyComputeContext *)&v8 endEncoding];
   return [objc_alloc(MEMORY[0x29EDBB730]) initWithEncoderMappings:*(self->_sampled_impl + 1) perInvocationMappings:*self->_sampled_impl internalMappings:*(self->_sampled_impl + 2)];
 }
 
@@ -54,7 +56,7 @@
     AGX::SampledComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::duplicateShaderAddresses(sampled_impl);
     v5 = sampled_impl[6];
     *(v5 + 2060) |= 1u;
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v5, 0x16u, &v12, &v11);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v5, 22, &v12, &v11);
     if (*(sampled_impl + 56) == 1)
     {
       v6 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
@@ -297,7 +299,7 @@ LABEL_10:
               dispatch_once(&AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setupDriverIntersectionTableIfNeeded(void)::onceToken, &block);
             }
 
-            AGX::DriverIntersectionFunctionTableBase<AGX::DriverIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>,AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendProgramAddressTables();
+            AGX::DriverIntersectionFunctionTableBase<AGX::DriverIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>,AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendProgramAddressTables(*(v23 + 6288), v13[1], v13[2]);
           }
         }
       }

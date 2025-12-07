@@ -99,11 +99,11 @@
 
   if (control == endCopy)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "User has entered their old password.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "User has entered their old password.", buf, 2u);
     }
 
     text = [endCopy text];
@@ -115,14 +115,14 @@
   {
     control2 = [(RUITableViewRow *)self->_newPasswordRow control];
 
-    oldPassword = _AAUILogSystem();
-    v8 = os_log_type_enabled(oldPassword, OS_LOG_TYPE_DEFAULT);
+    oldPassword = _AAUILogSystem(v8);
+    v10 = os_log_type_enabled(oldPassword, OS_LOG_TYPE_DEFAULT);
     if (control2 == endCopy)
     {
-      if (v8)
+      if (v10)
       {
-        *v13 = 0;
-        _os_log_impl(&dword_1C5355000, oldPassword, OS_LOG_TYPE_DEFAULT, "User has entered a new password. Will not commit just yet.", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_1C5355000, oldPassword, OS_LOG_TYPE_DEFAULT, "User has entered a new password. Will not commit just yet.", v15, 2u);
       }
 
       text2 = [endCopy text];
@@ -130,17 +130,17 @@
       self->_newPassword = text2;
     }
 
-    else if (v8)
+    else if (v10)
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1C5355000, oldPassword, OS_LOG_TYPE_DEFAULT, "Received delegate callback from unknown textField, ignoring...", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_1C5355000, oldPassword, OS_LOG_TYPE_DEFAULT, "Received delegate callback from unknown textField, ignoring...", v14, 2u);
     }
   }
 }
 
 - (void)_handleChangeForObjectModel:(id)model completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   completionCopy = completion;
   objc_opt_class();
@@ -158,96 +158,95 @@
 
   if (v10)
   {
-    v11 = [(AAUIAuthKitPasswordChangeHook *)self _tableViewRowWithID:v10 inObjectModel:modelCopy];
+    v12 = [(AAUIAuthKitPasswordChangeHook *)self _tableViewRowWithID:v10 inObjectModel:modelCopy];
     oldPasswordRow = self->_oldPasswordRow;
-    self->_oldPasswordRow = v11;
+    self->_oldPasswordRow = v12;
 
-    [(RUITableViewRow *)self->_oldPasswordRow setTextFieldChangeObserver:self];
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _AAUILogSystem([(RUITableViewRow *)self->_oldPasswordRow setTextFieldChangeObserver:self]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = self->_oldPasswordRow;
-      v29 = 138412546;
-      v30 = v14;
-      v31 = 2112;
-      v32 = v10;
-      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Found old password row %@ for identifier %@.", &v29, 0x16u);
+      v15 = self->_oldPasswordRow;
+      v31 = 138412546;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v10;
+      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Found old password row %@ for identifier %@.", &v31, 0x16u);
     }
   }
 
   else
   {
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AAUILogSystem(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Server did not provide an old password row identifier.", &v29, 2u);
+      LOWORD(v31) = 0;
+      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "Server did not provide an old password row identifier.", &v31, 2u);
     }
 
-    v13 = self->_oldPasswordRow;
+    v14 = self->_oldPasswordRow;
     self->_oldPasswordRow = 0;
   }
 
   objc_opt_class();
   clientInfo2 = [modelCopy clientInfo];
-  v17 = [clientInfo2 objectForKeyedSubscript:@"newPasswordRowId"];
+  v18 = [clientInfo2 objectForKeyedSubscript:@"newPasswordRowId"];
   if (objc_opt_isKindOfClass())
   {
-    v18 = v17;
+    v19 = v18;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v19 = _AAUILogSystem();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-  if (v18)
+  v21 = _AAUILogSystem(v20);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  if (v19)
   {
-    if (v20)
+    if (v22)
     {
       newPasswordRow = self->_newPasswordRow;
-      v29 = 138412546;
-      v30 = newPasswordRow;
-      v31 = 2112;
-      v32 = v18;
-      _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "Found new password row %@ for identifier %@.", &v29, 0x16u);
+      v31 = 138412546;
+      v32 = newPasswordRow;
+      v33 = 2112;
+      v34 = v19;
+      _os_log_impl(&dword_1C5355000, v21, OS_LOG_TYPE_DEFAULT, "Found new password row %@ for identifier %@.", &v31, 0x16u);
     }
 
-    v22 = [(AAUIAuthKitPasswordChangeHook *)self _tableViewRowWithID:v18 inObjectModel:modelCopy];
-    v23 = self->_newPasswordRow;
-    self->_newPasswordRow = v22;
+    v24 = [(AAUIAuthKitPasswordChangeHook *)self _tableViewRowWithID:v19 inObjectModel:modelCopy];
+    v25 = self->_newPasswordRow;
+    self->_newPasswordRow = v24;
 
     [(RUITableViewRow *)self->_newPasswordRow setTextFieldChangeObserver:self];
   }
 
   else
   {
-    if (v20)
+    if (v22)
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "Server did not provide a new password row identifier.", &v29, 2u);
+      LOWORD(v31) = 0;
+      _os_log_impl(&dword_1C5355000, v21, OS_LOG_TYPE_DEFAULT, "Server did not provide a new password row identifier.", &v31, 2u);
     }
 
-    v24 = self->_newPasswordRow;
+    v26 = self->_newPasswordRow;
     self->_newPasswordRow = 0;
   }
 
   objc_opt_class();
   clientInfo3 = [modelCopy clientInfo];
-  v26 = [clientInfo3 objectForKeyedSubscript:@"passwordUpdated"];
+  v28 = [clientInfo3 objectForKeyedSubscript:@"passwordUpdated"];
   if (objc_opt_isKindOfClass())
   {
-    v27 = v26;
+    v29 = v28;
   }
 
   else
   {
-    v27 = 0;
+    v29 = 0;
   }
 
-  bOOLValue = [v27 BOOLValue];
+  bOOLValue = [v29 BOOLValue];
   if (bOOLValue)
   {
     [(AAUIAuthKitPasswordChangeHook *)self _updateiCloudAccountWithCompletion:completionCopy];
@@ -261,14 +260,14 @@
 
 - (void)_harvestDataFromServerHTTPResponse:(id)response
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   responseCopy = response;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(responseCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138477827;
-    v11 = responseCopy;
-    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Harvesting data from response: %{private}@", &v10, 0xCu);
+    v11 = 138477827;
+    v12 = responseCopy;
+    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Harvesting data from response: %{private}@", &v11, 0xCu);
   }
 
   allHeaderFields = [responseCopy allHeaderFields];
@@ -277,11 +276,11 @@
 
   if (bOOLValue)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Found password update singal in the HTTP response.", &v10, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Found password update singal in the HTTP response.", &v11, 2u);
     }
 
     [(AAUIAuthKitPasswordChangeHook *)self _updateiCloudAccountWithCompletion:0];
@@ -295,26 +294,26 @@
 
   if (appleAccount)
   {
-    v6 = [(NSString *)self->_newPassword length];
-    v7 = _AAUILogSystem();
-    v8 = v7;
-    if (v6)
+    v7 = [(NSString *)self->_newPassword length];
+    v8 = _AAUILogSystem(v7);
+    v9 = v8;
+    if (v7)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Committing new password locally.", buf, 2u);
+        _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Committing new password locally.", buf, 2u);
       }
 
       appleAccount2 = [(AAUIAuthKitPasswordChangeHook *)self appleAccount];
       [appleAccount2 _aa_setRawPassword:self->_newPassword];
 
-      v10 = [(NSString *)self->_oldPassword length];
-      appleAccount3 = _AAUILogSystem();
-      v12 = os_log_type_enabled(appleAccount3, OS_LOG_TYPE_DEFAULT);
-      if (v10)
+      v11 = [(NSString *)self->_oldPassword length];
+      appleAccount3 = _AAUILogSystem(v11);
+      v13 = os_log_type_enabled(appleAccount3, OS_LOG_TYPE_DEFAULT);
+      if (v11)
       {
-        if (v12)
+        if (v13)
         {
           *buf = 0;
           _os_log_impl(&dword_1C5355000, appleAccount3, OS_LOG_TYPE_DEFAULT, "Setting old password on account credentials.", buf, 2u);
@@ -325,7 +324,7 @@
         [credential setCredentialItem:self->_oldPassword forKey:*MEMORY[0x1E69599B8]];
       }
 
-      else if (v12)
+      else if (v13)
       {
         *buf = 0;
         _os_log_impl(&dword_1C5355000, appleAccount3, OS_LOG_TYPE_DEFAULT, "Server UI flow did not provide an old password.", buf, 2u);
@@ -333,19 +332,19 @@
 
       defaultStore = [MEMORY[0x1E6959A48] defaultStore];
       appleAccount4 = [(AAUIAuthKitPasswordChangeHook *)self appleAccount];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __68__AAUIAuthKitPasswordChangeHook__updateiCloudAccountWithCompletion___block_invoke;
-      v17[3] = &unk_1E820DFD8;
-      v18 = completionCopy;
-      [defaultStore renewCredentialsForAccount:appleAccount4 completion:v17];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __68__AAUIAuthKitPasswordChangeHook__updateiCloudAccountWithCompletion___block_invoke;
+      v18[3] = &unk_1E820DFD8;
+      v19 = completionCopy;
+      [defaultStore renewCredentialsForAccount:appleAccount4 completion:v18];
 
       goto LABEL_20;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [AAUIAuthKitPasswordChangeHook _updateiCloudAccountWithCompletion:v8];
+      [AAUIAuthKitPasswordChangeHook _updateiCloudAccountWithCompletion:v9];
     }
 
     if (completionCopy)
@@ -357,10 +356,10 @@ LABEL_16:
 
   else
   {
-    v14 = _AAUILogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [AAUIAccountMigrationHook _invokeShieldMigrationFlowWithPendingDOB:v14 completion:?];
+      [AAUIAccountMigrationHook _invokeShieldMigrationFlowWithPendingDOB:v15 completion:?];
     }
 
     if (completionCopy)
@@ -376,7 +375,7 @@ void __68__AAUIAuthKitPasswordChangeHook__updateiCloudAccountWithCompletion___bl
 {
   v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134218242;

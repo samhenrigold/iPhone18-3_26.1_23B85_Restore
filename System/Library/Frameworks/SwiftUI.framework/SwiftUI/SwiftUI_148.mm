@@ -1,3 +1,746 @@
+uint64_t PresentationDetent.Identifier.description.getter(uint64_t a1, unint64_t a2)
+{
+  v2 = a2 >> 62;
+  if ((a2 >> 62) > 1)
+  {
+    if (v2 == 2)
+    {
+      return 0xD000000000000026;
+    }
+
+    else
+    {
+      v6 = a2 == 0xC000000000000000 && a1 == 1;
+      v7 = 0x656772614CLL;
+      if (!v6)
+      {
+        v7 = 0x6E776F6E6B6E55;
+      }
+
+      if (a1 | a2 ^ 0xC000000000000000)
+      {
+        return v7;
+      }
+
+      else
+      {
+        return 0x6D756964654DLL;
+      }
+    }
+  }
+
+  else
+  {
+    if (v2)
+    {
+      v3 = 0x20746867696548;
+    }
+
+    else
+    {
+      v3 = 0x6E6F697463617246;
+    }
+
+    v8 = v3;
+    v5 = Double.description.getter();
+    MEMORY[0x18D00C9B0](v5);
+
+    return v8;
+  }
+}
+
+unint64_t closure #2 in PresentationOptionsPreference.differenceMessage(from:)(uint64_t a1)
+{
+  v1 = 0x6974616D6F747541;
+  v2 = *(a1 + 40);
+  if (v2 == 5)
+  {
+    v3 = 0xD000000000000010;
+  }
+
+  else
+  {
+    v3 = 0x6974616D6F747541;
+  }
+
+  v4 = 0xD000000000000011;
+  if (v2 == 3)
+  {
+    v4 = 0x7465656853;
+  }
+
+  if (*(a1 + 40) > 4u)
+  {
+    v4 = v3;
+  }
+
+  v5 = 1701736270;
+  if (v2 != 1)
+  {
+    v5 = 0x7265766F706F50;
+  }
+
+  if (*(a1 + 40))
+  {
+    v1 = v5;
+  }
+
+  if (*(a1 + 40) <= 2u)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return v4;
+  }
+}
+
+unint64_t closure #3 in PresentationOptionsPreference.differenceMessage(from:)(uint64_t a1)
+{
+  v1 = 0x6974616D6F747541;
+  v2 = *(a1 + 41);
+  if (v2 == 5)
+  {
+    v3 = 0xD000000000000010;
+  }
+
+  else
+  {
+    v3 = 0x6974616D6F747541;
+  }
+
+  v4 = 0xD000000000000011;
+  if (v2 == 3)
+  {
+    v4 = 0x7465656853;
+  }
+
+  if (*(a1 + 41) > 4u)
+  {
+    v4 = v3;
+  }
+
+  v5 = 1701736270;
+  if (v2 != 1)
+  {
+    v5 = 0x7265766F706F50;
+  }
+
+  if (*(a1 + 41))
+  {
+    v1 = v5;
+  }
+
+  if (*(a1 + 41) <= 2u)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return v4;
+  }
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PresentationAdaptation.Kind()
+{
+  v1 = *v0;
+  v2 = 0x6974616D6F747541;
+  v3 = 0x7465656853;
+  v4 = 0xD000000000000011;
+  if (v1 != 4)
+  {
+    v4 = 0xD000000000000010;
+  }
+
+  if (v1 != 3)
+  {
+    v3 = v4;
+  }
+
+  v5 = 1701736270;
+  if (v1 != 1)
+  {
+    v5 = 0x7265766F706F50;
+  }
+
+  if (*v0)
+  {
+    v2 = v5;
+  }
+
+  if (*v0 <= 2u)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+void EnvironmentValues.effectiveHardwareTextInputReturnBehavior.getter(char *a1@<X8>)
+{
+  if (*(v1 + 8))
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<SubmitsOnReturnKey>, &type metadata for SubmitsOnReturnKey, &protocol witness table for SubmitsOnReturnKey);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<SubmitsOnReturnKey> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<SubmitsOnReturnKey>, &type metadata for SubmitsOnReturnKey, &protocol witness table for SubmitsOnReturnKey);
+
+    PropertyList.Tracker.value<A>(_:for:)();
+
+    v3 = v7;
+    if (v7 == 2)
+    {
+      type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+      lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+
+      PropertyList.Tracker.value<A>(_:for:)();
+
+      if (v6)
+      {
+
+        PropertyList.Tracker.value<A>(_:for:)();
+
+LABEL_8:
+        v4 = v5;
+        goto LABEL_13;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<SubmitsOnReturnKey>, &type metadata for SubmitsOnReturnKey, &protocol witness table for SubmitsOnReturnKey);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<SubmitsOnReturnKey> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<SubmitsOnReturnKey>, &type metadata for SubmitsOnReturnKey, &protocol witness table for SubmitsOnReturnKey);
+    PropertyList.subscript.getter();
+    v3 = v7;
+    if (v7 == 2)
+    {
+      type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+      lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+      PropertyList.subscript.getter();
+      if (v6)
+      {
+        PropertyList.subscript.getter();
+        goto LABEL_8;
+      }
+
+LABEL_12:
+      v4 = 1;
+      goto LABEL_13;
+    }
+  }
+
+  if (v3)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+LABEL_13:
+  *a1 = v4;
+}
+
+double View.textInputReturnBehavior(_:)(char *a1, uint64_t a2, uint64_t a3)
+{
+  swift_getKeyPath();
+  View.environment<A>(_:_:)();
+
+  return result;
+}
+
+void EnvironmentValues.textInputReturnBehavior.getter()
+{
+  if (*(v1 + 8))
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+
+    PropertyList.Tracker.value<A>(_:for:)();
+  }
+
+  else
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+
+    PropertyList.subscript.getter();
+  }
+}
+
+void key path getter for EnvironmentValues.textInputReturnBehavior : EnvironmentValues(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+{
+  if (a1[1])
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+
+    PropertyList.Tracker.value<A>(_:for:)();
+  }
+
+  else
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+    PropertyList.subscript.getter();
+  }
+
+  *a2 = v3;
+}
+
+double key path setter for EnvironmentValues.textInputReturnBehavior : EnvironmentValues(char *a1, void *a2)
+{
+  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_textInputReturnBehavior>, &type metadata for EnvironmentValues.__Key_textInputReturnBehavior, &protocol witness table for EnvironmentValues.__Key_textInputReturnBehavior);
+
+  PropertyList.subscript.setter();
+  if (a2[1])
+  {
+    PropertyList.Tracker.invalidateValue<A>(for:from:to:)();
+  }
+
+  return result;
+}
+
+Swift::Int TextInputReturnBehavior.hashValue.getter()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x18D00F6F0](v1);
+  return Hasher._finalize()();
+}
+
+unint64_t lazy protocol witness table accessor for type TextInputReturnBehavior and conformance TextInputReturnBehavior()
+{
+  result = lazy protocol witness table cache variable for type TextInputReturnBehavior and conformance TextInputReturnBehavior;
+  if (!lazy protocol witness table cache variable for type TextInputReturnBehavior and conformance TextInputReturnBehavior)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for TextInputReturnBehavior, &type metadata for TextInputReturnBehavior, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type TextInputReturnBehavior and conformance TextInputReturnBehavior);
+  }
+
+  return result;
+}
+
+void type metadata accessor for _EnvironmentKeyWritingModifier<TextInputReturnBehavior>()
+{
+  if (!lazy cache variable for type metadata for _EnvironmentKeyWritingModifier<TextInputReturnBehavior>)
+  {
+    v0 = type metadata accessor for _EnvironmentKeyWritingModifier();
+    if (!v1)
+    {
+      atomic_store(v0, &lazy cache variable for type metadata for _EnvironmentKeyWritingModifier<TextInputReturnBehavior>);
+    }
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<TextInputReturnBehavior> and conformance _EnvironmentKeyWritingModifier<A>()
+{
+  result = lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<TextInputReturnBehavior> and conformance _EnvironmentKeyWritingModifier<A>;
+  if (!lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<TextInputReturnBehavior> and conformance _EnvironmentKeyWritingModifier<A>)
+  {
+    type metadata accessor for _EnvironmentKeyWritingModifier<TextInputReturnBehavior>();
+    result = swift_getWitnessTable(MEMORY[0x1E6980A18], v3, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<TextInputReturnBehavior> and conformance _EnvironmentKeyWritingModifier<A>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type TextInputReturnBehavior.Value and conformance TextInputReturnBehavior.Value()
+{
+  result = lazy protocol witness table cache variable for type TextInputReturnBehavior.Value and conformance TextInputReturnBehavior.Value;
+  if (!lazy protocol witness table cache variable for type TextInputReturnBehavior.Value and conformance TextInputReturnBehavior.Value)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for TextInputReturnBehavior.Value, &type metadata for TextInputReturnBehavior.Value, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type TextInputReturnBehavior.Value and conformance TextInputReturnBehavior.Value);
+  }
+
+  return result;
+}
+
+uint64_t ToolbarReader.init(edges:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  (*(*(a4 - 8) + 32))(a8, a1, a4);
+  v17[0] = a4;
+  v17[1] = a5;
+  v17[2] = a6;
+  v17[3] = a7;
+  result = type metadata accessor for ToolbarReader(0, v17);
+  v16 = (a8 + *(result + 52));
+  *v16 = a2;
+  v16[1] = a3;
+  return result;
+}
+
+uint64_t View.defaultToolbarUpdateContext()(uint64_t a1, uint64_t a2)
+{
+  swift_getKeyPath();
+  v3 = xmmword_18CD874C0;
+  v4 = 0;
+  v5 = 0;
+  swift_unknownObjectWeakInit();
+  swift_unknownObjectWeakInit();
+  v6 = 2;
+  swift_unknownObjectWeakInit();
+  swift_unknownObjectWeakInit();
+  swift_unknownObjectWeakInit();
+  v7 = 257;
+  v8 = MEMORY[0x1E69E7CC0];
+  View.environment<A>(_:_:)();
+
+  return outlined destroy of ToolbarStorage?(&v3, &lazy cache variable for type metadata for Toolbar.UpdateContext?, &type metadata for Toolbar.UpdateContext, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+}
+
+uint64_t specialized ToolbarBridge.preferencesDidChange(_:context:)(uint64_t a1, uint64_t a2)
+{
+  v3 = v2;
+  v110 = MEMORY[0x1E69E7CD0];
+  v111 = 0;
+  v6 = direct field offset for ToolbarBridge.toolbarTracker;
+  swift_beginAccess();
+  *v91 = a1;
+  PreferenceValues.subscript.getter();
+  v7 = *&v2[v6];
+  v8 = v7 == -1;
+  v9 = *&v109[24] != -1 && v7 == *&v109[24];
+  v10 = !v9;
+  v82 = v8 | v10;
+  if ((v8 | v10))
+  {
+    *&v2[v6] = *&v109[24];
+    v103 = v108;
+    v104 = *v109;
+    v105 = *&v109[16];
+    v101 = v106;
+    v102 = v107;
+    v114 = v108;
+    v115 = *v109;
+    v116 = *&v109[16];
+    v112 = v106;
+    v113 = v107;
+    v11 = &v2[direct field offset for ToolbarBridge.lastToolbarStorage];
+    v12 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage];
+    v13 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage + 16];
+    v14 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage + 32];
+    v15 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage + 48];
+    v90 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage + 64];
+    v88 = v14;
+    v89 = v15;
+    v86 = v12;
+    v87 = v13;
+    outlined init with copy of ToolbarStorage(&v101, v91);
+    v16 = v115;
+    *(v11 + 2) = v114;
+    *(v11 + 3) = v16;
+    *(v11 + 8) = v116;
+    v17 = v113;
+    *v11 = v112;
+    *(v11 + 1) = v17;
+    outlined destroy of ToolbarStorage?(&v86, &lazy cache variable for type metadata for ToolbarStorage?, &type metadata for ToolbarStorage, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+  }
+
+  *&v91[32] = v108;
+  *&v91[48] = *v109;
+  *&v91[60] = *&v109[12];
+  *v91 = v106;
+  *&v91[16] = v107;
+  outlined destroy of ToolbarStorage?(v91, &lazy cache variable for type metadata for PreferenceValues.Value<ToolbarStorage>, &type metadata for ToolbarStorage, MEMORY[0x1E697EA38], type metadata accessor for ToolbarStorage?);
+  swift_endAccess();
+  v18 = &v3[direct field offset for ToolbarBridge.lastToolbarStorage];
+  v19 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage + 48];
+  v98 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage + 32];
+  v99 = v19;
+  v100 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage + 64];
+  v20 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage + 16];
+  v96 = *&v3[direct field offset for ToolbarBridge.lastToolbarStorage];
+  v97 = v20;
+  v21 = &v3[direct field offset for ToolbarBridge.lastInputToolbarStorage];
+  v22 = *&v3[direct field offset for ToolbarBridge.lastInputToolbarStorage + 48];
+  v103 = *&v3[direct field offset for ToolbarBridge.lastInputToolbarStorage + 32];
+  v104 = v22;
+  v105 = *&v3[direct field offset for ToolbarBridge.lastInputToolbarStorage + 64];
+  v23 = *&v3[direct field offset for ToolbarBridge.lastInputToolbarStorage + 16];
+  v101 = *&v3[direct field offset for ToolbarBridge.lastInputToolbarStorage];
+  v102 = v23;
+  v24 = v99;
+  v83 = a2;
+  v84 = a1;
+  if (!v99)
+  {
+    v24 = v104;
+    if (v104)
+    {
+      v40 = *(v21 + 3);
+      *&v91[32] = *(v21 + 2);
+      *&v91[48] = v40;
+      *&v91[64] = *(v21 + 8);
+      v41 = *(v21 + 1);
+      *v91 = *v21;
+      *&v91[16] = v41;
+      outlined init with copy of ToolbarStorage(v91, &v86);
+      v39 = v101;
+      v38 = v102;
+      v27 = v103;
+      v30 = v105;
+      v28 = BYTE8(v103);
+      v29 = BYTE8(v104);
+      goto LABEL_23;
+    }
+
+    if (one-time initialization token for defaultValue != -1)
+    {
+      swift_once();
+    }
+
+    *&v91[32] = xmmword_1ED5A7500;
+    *&v91[48] = *&qword_1ED5A7510;
+    *v91 = static ToolbarKey.defaultValue;
+    *&v91[16] = *algn_1ED5A74F0;
+    v30 = qword_1ED5A7520;
+    *&v91[64] = qword_1ED5A7520;
+    v29 = byte_1ED5A7518;
+    v24 = qword_1ED5A7510;
+    v28 = BYTE8(xmmword_1ED5A7500);
+    v27 = xmmword_1ED5A7500;
+    v80 = static ToolbarKey.defaultValue;
+    v81 = *algn_1ED5A74F0;
+LABEL_22:
+    outlined init with copy of ToolbarStorage(v91, &v86);
+    v39 = v80;
+    v38 = v81;
+    goto LABEL_23;
+  }
+
+  v26 = v96;
+  v25 = v97;
+  v27 = v98;
+  v28 = BYTE8(v98);
+  v29 = BYTE8(v99);
+  v30 = v100;
+  if (!v104)
+  {
+    v80 = v96;
+    v81 = v97;
+    v42 = *(v18 + 3);
+    *&v91[32] = *(v18 + 2);
+    *&v91[48] = v42;
+    *&v91[64] = *(v18 + 8);
+    v43 = *(v18 + 1);
+    *v91 = *v18;
+    *&v91[16] = v43;
+    goto LABEL_22;
+  }
+
+  v31 = v102;
+  v78 = v103;
+  v32 = BYTE8(v103);
+  *&v80 = v105;
+  *&v91[41] = *(v18 + 41);
+  *&v91[44] = *(v18 + 11);
+  v91[56] = BYTE8(v99);
+  *&v91[57] = *(v18 + 57);
+  *&v91[60] = *(v18 + 15);
+  *&v91[64] = v100;
+  if (!*(&v96 + 1))
+  {
+    v81 = v97;
+    v33 = BYTE8(v103);
+    v79 = v102;
+    v77 = v101;
+
+    v31 = v79;
+    v32 = v33;
+    v25 = v81;
+    v26 = v77;
+  }
+
+  *v91 = v26;
+  if (!*(&v25 + 1))
+  {
+    v27 = v78;
+    v34 = v32;
+    v79 = v31;
+    outlined copy of Binding<Int>?(v31, *(&v31 + 1));
+    v32 = v34;
+    v25 = v79;
+  }
+
+  *&v91[16] = v25;
+  *&v91[32] = v27;
+  v91[40] = (v28 | v32) & 1;
+  *&v112 = v24;
+  v35 = MEMORY[0x1E69E6720];
+  outlined init with copy of ToolbarStorage?(&v101, &v86, &lazy cache variable for type metadata for ToolbarStorage?, &type metadata for ToolbarStorage, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+  outlined init with copy of ToolbarStorage?(&v96, &v86, &lazy cache variable for type metadata for ToolbarStorage?, &type metadata for ToolbarStorage, v35, type metadata accessor for ToolbarStorage?);
+
+  specialized Array.append<A>(contentsOf:)(v36);
+  *&v91[48] = v112;
+
+  specialized Set.formUnion<A>(_:)(v37);
+  outlined destroy of ToolbarStorage?(&v101, &lazy cache variable for type metadata for ToolbarStorage?, &type metadata for ToolbarStorage, v35, type metadata accessor for ToolbarStorage?);
+  v39 = *v91;
+  v38 = *&v91[16];
+  v27 = *&v91[32];
+  v24 = *&v91[48];
+  v30 = *&v91[64];
+  v28 = v91[40];
+  v29 = v91[56];
+LABEL_23:
+  v92[0] = v39;
+  v92[1] = v38;
+  *&v93 = v27;
+  BYTE8(v93) = v28 & 1;
+  *&v94 = v24;
+  BYTE8(v94) = v29 & 1;
+  v95 = v30;
+  v116 = v30;
+  v112 = v39;
+  v113 = v38;
+  v114 = v93;
+  v115 = v94;
+  swift_beginAccess();
+  v44 = MEMORY[0x1E69E7CC0];
+  specialized Set.formUnion<A>(_:)(MEMORY[0x1E69E7CC0]);
+  swift_endAccess();
+  v45 = v83;
+
+  *(v83 + 88) = v44;
+  swift_beginAccess();
+  EnvironmentValues.horizontalSizeClass.getter();
+  *(v45 + 80) = v86;
+  EnvironmentValues.verticalSizeClass.getter();
+  v46 = v86;
+  swift_endAccess();
+  *(v45 + 81) = v46;
+  memset(&v91[8], 0, 96);
+  *v91 = v3;
+  outlined init with copy of Toolbar.UpdateContext(v45, &v86);
+  v47 = v3;
+  outlined assign with take of Toolbar.UpdateContext?(&v86, &v91[8]);
+  v48 = direct field offset for ToolbarBridge.adaptorTracker;
+  swift_beginAccess();
+  v49 = v47;
+  specialized VersionSeedTracker.didChange(_:action:)(v84, &v47[v48], v49, &v110);
+  swift_endAccess();
+
+  v51 = *&v49[direct field offset for ToolbarBridge.navigationAdaptor];
+  v52 = *(v51 + 16);
+  if (!v52)
+  {
+    goto LABEL_27;
+  }
+
+  v53 = v51 + 32;
+
+  v54 = 0;
+  do
+  {
+    outlined init with copy of UINavigationItemAdaptorStorage.Adaptor(v53, &v86);
+    v55 = *(&v87 + 1);
+    v56 = v88;
+    __swift_project_boxed_opaque_existential_1(&v86, *(&v87 + 1));
+    (*(v56 + 8))(&v85, v55, v56);
+    __swift_destroy_boxed_opaque_existential_1(&v86);
+    v54 |= v85;
+    v53 += 48;
+    --v52;
+  }
+
+  while (v52);
+
+  v45 = v83;
+  if ((v54 & 2) != 0)
+  {
+    outlined destroy of ToolbarStorage(v92);
+  }
+
+  else
+  {
+LABEL_27:
+    MEMORY[0x1EEE9AC00](v50);
+    v74 = v49;
+    v75 = v91;
+    v76 = &v110;
+    swift_beginAccess();
+    v57 = v84;
+    specialized VersionSeedTracker.didChange(_:action:)(v84, partial apply for specialized closure #2 in closure #2 in ToolbarBridge.preferencesDidChange(_:context:), v73);
+    v58 = swift_endAccess();
+    if (v82)
+    {
+      specialized ToolbarStrategy.makeBarContext(storage:preferences:)(&v112, v57, &v86);
+      v59 = BYTE4(v86);
+      v60 = BYTE5(v86);
+      v61 = BYTE6(v86);
+      v62 = 256;
+      if (!BYTE1(v86))
+      {
+        v62 = 0;
+      }
+
+      v63 = v62 | v86;
+      v64 = 0x10000;
+      if (!BYTE2(v86))
+      {
+        v64 = 0;
+      }
+
+      v65 = 0x1000000;
+      if (!BYTE3(v86))
+      {
+        v65 = 0;
+      }
+
+      v66 = v63 | v64 | v65;
+      v67 = &v49[direct field offset for ToolbarBridge.lastBarContext];
+      *&v49[direct field offset for ToolbarBridge.lastBarContext] = v66;
+      v68 = v66 & 0xFFFF0000FFFFFFFFLL | (v59 << 32) & 0xFFFF00FFFFFFFFFFLL | (v60 << 40);
+      v9 = v61 == 0;
+      v69 = 0x1000000000000;
+      if (v9)
+      {
+        v69 = 0;
+      }
+
+      *(v67 + 2) = WORD2(v68);
+      v67[6] = (v68 | v69) >> 48;
+      specialized ToolbarBridge.updateStorage(newStorage:barContext:updateContext:strategy:)(&v112, v63 | v69 | (v60 << 40) | (v59 << 32) | v65 | v64, v45, v91);
+
+      v110 = MEMORY[0x1E69E7CD0];
+      BYTE1(v111) = 1;
+      v70 = *(v18 + 6);
+      if (v70)
+      {
+        LOBYTE(v70) = v18[40];
+      }
+
+      LOBYTE(v111) = v70;
+    }
+
+    MEMORY[0x1EEE9AC00](v58);
+    v74 = v49;
+    v75 = &v110;
+    v76 = v91;
+    swift_beginAccess();
+    specialized VersionSeedTracker.didChange(_:action:)(v57, partial apply for specialized closure #3 in closure #2 in ToolbarBridge.preferencesDidChange(_:context:), v73);
+    swift_endAccess();
+    outlined destroy of ToolbarStorage(v92);
+  }
+
+  outlined destroy of EmptyToolbarStrategy(v91);
+  v71 = v110;
+  outlined destroy of Toolbar.UpdateContext(v45);
+  return v71;
+}
+
 uint64_t specialized ToolbarStrategy.makeBarContext(storage:preferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *v3;
@@ -118,256 +861,256 @@ LABEL_20:
   return result;
 }
 
-uint64_t specialized ToolbarBridge.updateStorage(newStorage:barContext:updateContext:strategy:)(uint64_t a1, uint64_t a2)
+void specialized ToolbarBridge.updateStorage(newStorage:barContext:updateContext:strategy:)(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = v2;
-  v5 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI7ToolbarO11BarLocationO_AE0G7StorageVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v6 = *(a1 + 48);
-  v44 = *(a1 + 32);
-  v45 = v6;
-  v46 = *(a1 + 64);
-  v7 = *(a1 + 16);
-  v42 = *a1;
-  v43 = v7;
-  outlined init with copy of ToolbarStorage(a1, &v36);
+  v5 = v4;
+  v7 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI7ToolbarO11BarLocationO_AE0G7StorageVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  v8 = a1[3];
+  v45 = a1[2];
+  v46 = v8;
+  v47 = *(a1 + 8);
+  v9 = a1[1];
+  v43 = *a1;
+  v44 = v9;
+  outlined init with copy of ToolbarStorage(a1, &v37);
   ToolbarStorage.removeRequestedDefaultItems()();
-  *&v36 = specialized static Toolbar.BarLocation.allCases.getter();
+  *&v37 = specialized static Toolbar.BarLocation.allCases.getter();
 
-  specialized Array.append<A>(contentsOf:)(v8);
-  v9 = v36;
-  v10 = *(v36 + 16);
-  if (v10)
+  specialized Array.append<A>(contentsOf:)(v10);
+  v11 = v37;
+  v12 = *(v37 + 16);
+  if (v12)
   {
-    v30 = v5;
-    v31 = v36 + 32;
-    v32 = direct field offset for ToolbarBridge.allowedLocations;
-    result = swift_beginAccess();
-    v12 = 0;
-    v29 = v10;
-    while (v12 < *(v9 + 16))
+    v31 = v7;
+    v32 = v37 + 32;
+    v33 = direct field offset for ToolbarBridge.allowedLocations;
+    swift_beginAccess();
+    v13 = 0;
+    v30 = v12;
+    while (v13 < *(v11 + 16))
     {
-      outlined init with copy of Toolbar.BarLocation(v31 + 40 * v12, v41);
-      v13 = *(v3 + v32);
-      if (!*(v13 + 16))
+      outlined init with copy of Toolbar.BarLocation(v32 + 40 * v13, v42);
+      v14 = *(v5 + v33);
+      if (!*(v14 + 16))
       {
         goto LABEL_4;
       }
 
       Hasher.init(_seed:)();
 
-      Toolbar.BarLocation.hash(into:)();
-      v14 = Hasher._finalize()();
-      v15 = -1 << *(v13 + 32);
-      v16 = v14 & ~v15;
-      if (((*(v13 + 56 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16) & 1) == 0)
+      Toolbar.BarLocation.hash(into:)(&v37);
+      v15 = Hasher._finalize()();
+      v16 = -1 << *(v14 + 32);
+      v17 = v15 & ~v16;
+      if (((*(v14 + 56 + ((v17 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v17) & 1) == 0)
       {
 
         goto LABEL_4;
       }
 
-      v17 = ~v15;
+      v18 = ~v16;
       while (2)
       {
-        outlined init with copy of Toolbar.BarLocation(*(v13 + 48) + 40 * v16, v40);
-        outlined init with copy of Toolbar.BarLocation(v40, &v36);
-        outlined init with copy of Toolbar.BarLocation(v41, &v38[8]);
-        switch(*(&v37 + 1))
+        outlined init with copy of Toolbar.BarLocation(*(v14 + 48) + 40 * v17, v41);
+        outlined init with copy of Toolbar.BarLocation(v41, &v37);
+        outlined init with copy of Toolbar.BarLocation(v42, &v39[8]);
+        switch(*(&v38 + 1))
         {
           case 0:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32])
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32])
             {
               goto LABEL_53;
             }
 
             goto LABEL_58;
           case 1:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 1)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 1)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 2:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 2)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 2)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 3:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 3)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 3)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 4:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 4)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 4)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 5:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 5)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 5)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 6:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 6)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 6)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 7:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 7)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 7)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 8:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 8)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 8)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 9:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 9)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 9)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0xALL:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 10)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 10)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0xBLL:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 11)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 11)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0xCLL:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 12)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 12)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0xDLL:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 13)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 13)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0xELL:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 14)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 14)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0xFLL:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 15)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 15)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0x10:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 16)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 16)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0x11:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 17)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 17)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0x12:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 18)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 18)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           case 0x13:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] != 19)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] != 19)
             {
               goto LABEL_53;
             }
 
             goto LABEL_58;
           case 0x14:
-            outlined destroy of Toolbar.BarLocation(v40);
-            if (*&v38[32] == 20)
+            outlined destroy of Toolbar.BarLocation(v41);
+            if (*&v39[32] == 20)
             {
               goto LABEL_58;
             }
 
             goto LABEL_53;
           default:
-            outlined init with copy of Toolbar.BarLocation(&v36, v35);
-            if (*&v38[32] < 0x15uLL)
+            outlined init with copy of Toolbar.BarLocation(&v37, v36);
+            if (*&v39[32] < 0x15uLL)
             {
-              outlined destroy of Toolbar.BarLocation(v40);
-              outlined destroy of AnyHashable(v35);
+              outlined destroy of Toolbar.BarLocation(v41);
+              outlined destroy of AnyHashable(v36);
 LABEL_53:
-              outlined destroy of ToolbarStorage.GroupItem(&v36, type metadata accessor for (Toolbar.BarLocation, Toolbar.BarLocation));
+              outlined destroy of ToolbarStorage.GroupItem(&v37, type metadata accessor for (Toolbar.BarLocation, Toolbar.BarLocation));
               goto LABEL_54;
             }
 
-            v33[0] = *&v38[8];
-            v33[1] = *&v38[24];
-            v34 = v39;
-            v18 = MEMORY[0x18D00E7E0](v35, v33);
-            outlined destroy of AnyHashable(v33);
-            outlined destroy of Toolbar.BarLocation(v40);
-            outlined destroy of AnyHashable(v35);
-            if ((v18 & 1) == 0)
+            v34[0] = *&v39[8];
+            v34[1] = *&v39[24];
+            v35 = v40;
+            v19 = MEMORY[0x18D00E7E0](v36, v34);
+            outlined destroy of AnyHashable(v34);
+            outlined destroy of Toolbar.BarLocation(v41);
+            outlined destroy of AnyHashable(v36);
+            if ((v19 & 1) == 0)
             {
-              outlined destroy of Toolbar.BarLocation(&v36);
+              outlined destroy of Toolbar.BarLocation(&v37);
 LABEL_54:
-              v16 = (v16 + 1) & v17;
-              if (((*(v13 + 56 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16) & 1) == 0)
+              v17 = (v17 + 1) & v18;
+              if (((*(v14 + 56 + ((v17 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v17) & 1) == 0)
               {
 
-                v10 = v29;
+                v12 = v30;
                 goto LABEL_4;
               }
 
@@ -376,31 +1119,31 @@ LABEL_54:
 
 LABEL_58:
 
-            outlined destroy of Toolbar.BarLocation(&v36);
-            v47[2] = v44;
-            v47[3] = v45;
-            v48 = v46;
-            v47[0] = v42;
-            v47[1] = v43;
-            v19 = specialized ToolbarBridge.filterAndSortMatchingItems(in:newStorage:context:)(v41, v47, a2 & 0x1FFFF01010101);
-            v20 = specialized ToolbarStrategy.makeEntries(in:from:)(v41, v19);
+            outlined destroy of Toolbar.BarLocation(&v37);
+            v48[2] = v45;
+            v48[3] = v46;
+            v49 = v47;
+            v48[0] = v43;
+            v48[1] = v44;
+            v20 = specialized ToolbarBridge.filterAndSortMatchingItems(in:newStorage:context:)(v42, v48, a2 & 0x1FFFF01010101);
+            v21 = specialized ToolbarStrategy.makeEntries(in:from:)(v42, v20);
 
-            v21 = specialized ToolbarBridge.makeStorage(in:from:strategy:)(v41, v20);
-            v23 = v22;
-            v25 = v24;
+            v22 = specialized ToolbarBridge.makeStorage(in:from:strategy:)(v42, v21);
+            v24 = v23;
+            v26 = v25;
 
             isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            *&v36 = v30;
-            specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v21, v23, v25, v41, isUniquelyReferenced_nonNull_native);
-            v30 = v36;
-            v10 = v29;
+            *&v37 = v31;
+            specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v22, v24, v26, v42, isUniquelyReferenced_nonNull_native);
+            v31 = v37;
+            v12 = v30;
 LABEL_4:
-            ++v12;
-            result = outlined destroy of Toolbar.BarLocation(v41);
-            if (v12 == v10)
+            ++v13;
+            outlined destroy of Toolbar.BarLocation(v42);
+            if (v13 == v12)
             {
 
-              v5 = v30;
+              v7 = v31;
               goto LABEL_61;
             }
 
@@ -418,18 +1161,16 @@ LABEL_4:
   {
 
 LABEL_61:
-    *v38 = v44;
-    *&v38[16] = v45;
-    *&v38[32] = v46;
-    v36 = v42;
+    *v39 = v45;
+    *&v39[16] = v46;
+    *&v39[32] = v47;
     v37 = v43;
-    outlined destroy of ToolbarStorage(&v36);
-    v27 = direct field offset for ToolbarBridge.storageByLocation;
+    v38 = v44;
+    outlined destroy of ToolbarStorage(&v37);
+    v28 = direct field offset for ToolbarBridge.storageByLocation;
     swift_beginAccess();
-    *(v3 + v27) = v5;
+    *(v5 + v28) = v7;
   }
-
-  return result;
 }
 
 uint64_t specialized closure #2 in closure #2 in ToolbarBridge.preferencesDidChange(_:context:)(uint64_t a1, uint64_t a2)
@@ -450,7 +1191,7 @@ uint64_t specialized closure #3 in closure #2 in ToolbarBridge.preferencesDidCha
   return result;
 }
 
-uint64_t specialized ToolbarBridge.makeStorage(in:from:strategy:)(uint64_t a1, uint64_t a2)
+char *specialized ToolbarBridge.makeStorage(in:from:strategy:)(uint64_t a1, uint64_t a2)
 {
   v194 = a2;
   v179 = type metadata accessor for UUID();
@@ -1248,24 +1989,24 @@ LABEL_150:
   return result;
 }
 
-uint64_t specialized ToolbarBridge.hasItem(withPlacement:)(uint64_t a1)
+void specialized ToolbarBridge.hasItem(withPlacement:)(uint64_t a1)
 {
-  v53 = a1;
-  v52 = type metadata accessor for ToolbarStorage.Entry.Kind(0);
-  MEMORY[0x1EEE9AC00](v52);
-  v51 = &v44 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v52 = a1;
+  v51 = type metadata accessor for ToolbarStorage.Entry.Kind(0);
+  MEMORY[0x1EEE9AC00](v51);
+  v50 = &v43 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v3 = type metadata accessor for ToolbarStorage.Item(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v47 = &v44 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for (key: String, value: ToolbarStorage.Entry)();
-  v50 = v5;
+  v46 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (key: String, value: ToolbarStorage.Entry)(0);
+  v49 = v5;
   MEMORY[0x1EEE9AC00](v5);
-  v55 = (&v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v54 = (&v43 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   v7 = direct field offset for ToolbarBridge.storageByLocation;
   swift_beginAccess();
   v8 = *(v1 + v7);
   v9 = *(v8 + 64);
-  v46 = v8 + 64;
+  v45 = v8 + 64;
   v10 = 1 << *(v8 + 32);
   if (v10 < 64)
   {
@@ -1278,155 +2019,155 @@ uint64_t specialized ToolbarBridge.hasItem(withPlacement:)(uint64_t a1)
   }
 
   v12 = v11 & v9;
-  v45 = (v10 + 63) >> 6;
-  v48 = v8;
+  v44 = (v10 + 63) >> 6;
+  v47 = v8;
 
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
   do
   {
 LABEL_5:
-    v16 = v14;
+    v15 = v13;
     if (v12)
     {
-      v17 = v12;
+      v16 = v12;
     }
 
     else
     {
       do
       {
-        v18 = v15 + 1;
-        if (__OFADD__(v15, 1))
+        v17 = v14 + 1;
+        if (__OFADD__(v14, 1))
         {
           goto LABEL_37;
         }
 
-        if (v18 >= v45)
+        if (v17 >= v44)
         {
 
-          return v14 & 1;
+          return;
         }
 
-        v17 = *(v46 + 8 * v18);
-        ++v15;
+        v16 = *(v45 + 8 * v17);
+        ++v14;
       }
 
-      while (!v17);
-      v15 = v18;
+      while (!v16);
+      v14 = v17;
     }
 
-    v12 = (v17 - 1) & v17;
-    v14 = 1;
+    v12 = (v16 - 1) & v16;
+    v13 = 1;
   }
 
-  while ((v16 & 1) != 0);
-  v49 = (v17 - 1) & v17;
-  v19 = *(*(v48 + 56) + 24 * (__clz(__rbit64(v17)) | (v15 << 6)) + 8);
-  v20 = v19 + 64;
-  v21 = 1 << *(v19 + 32);
-  if (v21 < 64)
+  while ((v15 & 1) != 0);
+  v48 = (v16 - 1) & v16;
+  v18 = *(*(v47 + 56) + 24 * (__clz(__rbit64(v16)) | (v14 << 6)) + 8);
+  v19 = v18 + 64;
+  v20 = 1 << *(v18 + 32);
+  if (v20 < 64)
   {
-    v22 = ~(-1 << v21);
+    v21 = ~(-1 << v20);
   }
 
   else
   {
-    v22 = -1;
+    v21 = -1;
   }
 
-  v23 = v22 & *(v19 + 64);
-  v24 = (v21 + 63) >> 6;
-  v54 = v19;
-  result = swift_bridgeObjectRetain_n();
-  v25 = 0;
-  while (v23)
+  v22 = v21 & *(v18 + 64);
+  v23 = (v20 + 63) >> 6;
+  v53 = v18;
+  swift_bridgeObjectRetain_n();
+  v24 = 0;
+  while (v22)
   {
 LABEL_21:
-    v27 = __clz(__rbit64(v23)) | (v25 << 6);
-    v28 = *(v54 + 56);
-    v29 = (*(v54 + 48) + 16 * v27);
-    v31 = *v29;
-    v30 = v29[1];
-    v32 = v28 + *(*(type metadata accessor for ToolbarStorage.Entry(0) - 8) + 72) * v27;
-    v33 = *(v50 + 48);
-    v34 = v55;
-    _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v32, v55 + v33, type metadata accessor for ToolbarStorage.Entry);
-    *v34 = v31;
-    v34[1] = v30;
-    v35 = v34 + v33;
-    v36 = v51;
-    _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v35, v51, type metadata accessor for ToolbarStorage.Entry.Kind);
+    v26 = __clz(__rbit64(v22)) | (v24 << 6);
+    v27 = *(v53 + 56);
+    v28 = (*(v53 + 48) + 16 * v26);
+    v30 = *v28;
+    v29 = v28[1];
+    v31 = v27 + *(*(type metadata accessor for ToolbarStorage.Entry(0) - 8) + 72) * v26;
+    v32 = *(v49 + 48);
+    v33 = v54;
+    _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v31, v54 + v32, type metadata accessor for ToolbarStorage.Entry);
+    *v33 = v30;
+    v33[1] = v29;
+    v34 = v33 + v32;
+    v35 = v50;
+    _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v34, v50, type metadata accessor for ToolbarStorage.Entry.Kind);
     if (swift_getEnumCaseMultiPayload())
     {
 
-      outlined destroy of ToolbarStorage.GroupItem(v36, type metadata accessor for ToolbarStorage.Entry.Kind);
-      memset(v63, 0, sizeof(v63));
-      v64 = 0;
-      v65 = -1;
+      outlined destroy of ToolbarStorage.GroupItem(v35, type metadata accessor for ToolbarStorage.Entry.Kind);
+      memset(v62, 0, sizeof(v62));
+      v63 = 0;
+      v64 = -1;
     }
 
     else
     {
-      v37 = v36;
-      v38 = v47;
-      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v37, v47, type metadata accessor for ToolbarStorage.Item);
-      outlined init with copy of ToolbarItemPlacement.Role(v38 + 112, v63);
+      v36 = v35;
+      v37 = v46;
+      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v36, v46, type metadata accessor for ToolbarStorage.Item);
+      outlined init with copy of ToolbarItemPlacement.Role(v37 + 112, v62);
 
-      outlined destroy of ToolbarStorage.GroupItem(v38, type metadata accessor for ToolbarStorage.Item);
+      outlined destroy of ToolbarStorage.GroupItem(v37, type metadata accessor for ToolbarStorage.Item);
     }
 
-    v23 &= v23 - 1;
-    outlined init with copy of ToolbarItemPlacement.Role(v53, v62);
-    v39 = MEMORY[0x1E69E6720];
-    outlined init with copy of ToolbarStorage?(v63, v59, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-    outlined init with copy of ToolbarStorage?(v62, &v60, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v39, type metadata accessor for ToolbarStorage?);
-    if (v59[40] == 255)
+    v22 &= v22 - 1;
+    outlined init with copy of ToolbarItemPlacement.Role(v52, v61);
+    v38 = MEMORY[0x1E69E6720];
+    outlined init with copy of ToolbarStorage?(v62, v58, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+    outlined init with copy of ToolbarStorage?(v61, &v59, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v38, type metadata accessor for ToolbarStorage?);
+    if (v58[40] == 255)
     {
-      v42 = MEMORY[0x1E69E6720];
-      outlined destroy of ToolbarStorage?(v62, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-      outlined destroy of ToolbarStorage?(v63, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v42, type metadata accessor for ToolbarStorage?);
-      if (BYTE8(v61[1]) == 255)
+      v41 = MEMORY[0x1E69E6720];
+      outlined destroy of ToolbarStorage?(v61, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+      outlined destroy of ToolbarStorage?(v62, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v41, type metadata accessor for ToolbarStorage?);
+      if (BYTE8(v60[1]) == 255)
       {
-        outlined destroy of ToolbarStorage?(v59, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-        outlined destroy of ToolbarStorage.GroupItem(v55, type metadata accessor for (key: String, value: ToolbarStorage.Entry));
+        outlined destroy of ToolbarStorage?(v58, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+        outlined destroy of ToolbarStorage.GroupItem(v54, type metadata accessor for (key: String, value: ToolbarStorage.Entry));
 LABEL_34:
-        v14 = 1;
+        v13 = 1;
 LABEL_33:
 
-        v12 = v49;
+        v12 = v48;
         goto LABEL_5;
       }
 
 LABEL_31:
-      outlined destroy of (ToolbarStorage.Entry.ID?, ToolbarStorage.Entry.ID?)(v59, &lazy cache variable for type metadata for (ToolbarItemPlacement.Role?, ToolbarItemPlacement.Role?), &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
-      result = outlined destroy of ToolbarStorage.GroupItem(v55, type metadata accessor for (key: String, value: ToolbarStorage.Entry));
+      outlined destroy of (ToolbarStorage.Entry.ID?, ToolbarStorage.Entry.ID?)(v58, &lazy cache variable for type metadata for (ToolbarItemPlacement.Role?, ToolbarItemPlacement.Role?), &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+      outlined destroy of ToolbarStorage.GroupItem(v54, type metadata accessor for (key: String, value: ToolbarStorage.Entry));
     }
 
     else
     {
-      outlined init with copy of ToolbarStorage?(v59, v58, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-      if (BYTE8(v61[1]) == 255)
+      outlined init with copy of ToolbarStorage?(v58, v57, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+      if (BYTE8(v60[1]) == 255)
       {
-        v43 = MEMORY[0x1E69E6720];
-        outlined destroy of ToolbarStorage?(v62, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-        outlined destroy of ToolbarStorage?(v63, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v43, type metadata accessor for ToolbarStorage?);
-        outlined destroy of ToolbarItemPlacement.Role(v58);
+        v42 = MEMORY[0x1E69E6720];
+        outlined destroy of ToolbarStorage?(v61, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+        outlined destroy of ToolbarStorage?(v62, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v42, type metadata accessor for ToolbarStorage?);
+        outlined destroy of ToolbarItemPlacement.Role(v57);
         goto LABEL_31;
       }
 
-      v56 = v60;
-      v57[0] = v61[0];
-      *(v57 + 9) = *(v61 + 9);
-      v40 = specialized static ToolbarItemPlacement.Role.== infix(_:_:)(v58, &v56);
-      outlined destroy of ToolbarItemPlacement.Role(&v56);
-      v41 = MEMORY[0x1E69E6720];
-      outlined destroy of ToolbarStorage?(v62, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-      outlined destroy of ToolbarStorage?(v63, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v41, type metadata accessor for ToolbarStorage?);
-      outlined destroy of ToolbarItemPlacement.Role(v58);
-      outlined destroy of ToolbarStorage?(v59, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v41, type metadata accessor for ToolbarStorage?);
-      result = outlined destroy of ToolbarStorage.GroupItem(v55, type metadata accessor for (key: String, value: ToolbarStorage.Entry));
-      if (v40)
+      v55 = v59;
+      v56[0] = v60[0];
+      *(v56 + 9) = *(v60 + 9);
+      v39 = specialized static ToolbarItemPlacement.Role.== infix(_:_:)(v57, &v55);
+      outlined destroy of ToolbarItemPlacement.Role(&v55);
+      v40 = MEMORY[0x1E69E6720];
+      outlined destroy of ToolbarStorage?(v61, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+      outlined destroy of ToolbarStorage?(v62, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v40, type metadata accessor for ToolbarStorage?);
+      outlined destroy of ToolbarItemPlacement.Role(v57);
+      outlined destroy of ToolbarStorage?(v58, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v40, type metadata accessor for ToolbarStorage?);
+      outlined destroy of ToolbarStorage.GroupItem(v54, type metadata accessor for (key: String, value: ToolbarStorage.Entry));
+      if (v39)
       {
         goto LABEL_34;
       }
@@ -1435,23 +2176,23 @@ LABEL_31:
 
   while (1)
   {
-    v26 = v25 + 1;
-    if (__OFADD__(v25, 1))
+    v25 = v24 + 1;
+    if (__OFADD__(v24, 1))
     {
       break;
     }
 
-    if (v26 >= v24)
+    if (v25 >= v23)
     {
-      v14 = 0;
+      v13 = 0;
       goto LABEL_33;
     }
 
-    v23 = *(v20 + 8 * v26);
-    ++v25;
-    if (v23)
+    v22 = *(v19 + 8 * v25);
+    ++v24;
+    if (v22)
     {
-      v25 = v26;
+      v24 = v25;
       goto LABEL_21;
     }
   }
@@ -1459,7 +2200,6 @@ LABEL_31:
   __break(1u);
 LABEL_37:
   __break(1u);
-  return result;
 }
 
 double static ToolbarReader._makeView(view:inputs:)@<D0>(int *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, double a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>)
@@ -1472,7 +2212,7 @@ double static ToolbarReader._makeView(view:inputs:)@<D0>(int *a1@<X0>, __int128 
   *&v83 = a5;
   *(&v83 + 1) = a6;
   v49 = a6;
-  v11 = type metadata accessor for ToolbarReader.ToolbarConfiguration();
+  v11 = type metadata accessor for ToolbarReader.ToolbarConfiguration(0, &v82);
   v12 = *(v11 - 8);
   v45 = v11;
   v46 = v12;
@@ -1534,7 +2274,7 @@ double static ToolbarReader._makeView(view:inputs:)@<D0>(int *a1@<X0>, __int128 
   *&v70 = 0;
   BYTE8(v70) = 1;
   protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
-  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role);
+  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role, &type metadata for ToolbarPlacement.Role, &type metadata for ToolbarAppearanceConfiguration);
   _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(0, &lazy cache variable for type metadata for PreferenceValueAttribute<NavigationBarAppearanceKey>, &type metadata for NavigationBarAppearanceKey, &protocol witness table for NavigationBarAppearanceKey, v19);
   lazy protocol witness table accessor for type PreferenceValueAttribute<NavigationBarAppearanceKey> and conformance PreferenceValueAttribute<A>();
   v51 = Attribute.init<A>(body:value:flags:update:)();
@@ -1574,9 +2314,9 @@ double static ToolbarReader._makeView(view:inputs:)@<D0>(int *a1@<X0>, __int128 
   *(&v64 + 1) = v27;
   *&v65 = v20;
   *(&v65 + 1) = v21;
-  v31 = type metadata accessor for ToolbarReader.ApplyUpdatesToExternalTarget();
+  v31 = type metadata accessor for ToolbarReader.ApplyUpdatesToExternalTarget(0, &v64);
   *(&v44 - 2) = v31;
-  *(&v44 - 1) = swift_getWitnessTable();
+  *(&v44 - 1) = swift_getWitnessTable(protocol conformance descriptor for ToolbarReader<A, B>.ApplyUpdatesToExternalTarget, v31);
   type metadata accessor for ToolbarStorage?(0, &lazy cache variable for type metadata for Attribute<()>, MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E698D388]);
   _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v70, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_TA_7, (&v44 - 4), v31, MEMORY[0x1E69E73E0], v32, MEMORY[0x1E69E7410], v33);
   (*(*(v31 - 8) + 8))(&v70, v31);
@@ -1586,14 +2326,14 @@ double static ToolbarReader._makeView(view:inputs:)@<D0>(int *a1@<X0>, __int128 
   *(&v70 + 1) = v27;
   *&v71 = v20;
   *(&v71 + 1) = v21;
-  type metadata accessor for ToolbarReader();
+  type metadata accessor for ToolbarReader(255, &v70);
   type metadata accessor for _GraphValue();
   LODWORD(v31) = _GraphValue.value.getter();
   *&v70 = a3;
   *(&v70 + 1) = v27;
   *&v71 = v20;
   *(&v71 + 1) = v21;
-  v34 = type metadata accessor for ToolbarReader.PrimitiveReader();
+  v34 = type metadata accessor for ToolbarReader.PrimitiveReader(0, &v70);
   *&v64 = __PAIR64__(v31, v46);
   MEMORY[0x1EEE9AC00](v34);
   *(&v44 - 4) = v35;
@@ -1601,9 +2341,9 @@ double static ToolbarReader._makeView(view:inputs:)@<D0>(int *a1@<X0>, __int128 
   *(&v70 + 1) = v27;
   *&v71 = v20;
   *(&v71 + 1) = v21;
-  PrimitiveReader = type metadata accessor for ToolbarReader.MakePrimitiveReader();
+  PrimitiveReader = type metadata accessor for ToolbarReader.MakePrimitiveReader(0, &v70);
   *(&v44 - 3) = PrimitiveReader;
-  *(&v44 - 2) = swift_getWitnessTable();
+  *(&v44 - 2) = swift_getWitnessTable(protocol conformance descriptor for ToolbarReader<A, B>.MakePrimitiveReader, PrimitiveReader);
   v37 = type metadata accessor for Attribute();
   _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v64, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_TA_3, (&v44 - 6), PrimitiveReader, MEMORY[0x1E69E73E0], v37, MEMORY[0x1E69E7410], v38);
   _GraphValue.init(_:)();
@@ -1715,7 +2455,7 @@ void *ToolbarReader.ToolbarConfiguration.init()@<X0>(uint64_t a1@<X0>, uint64_t 
   v22[1] = a2;
   v22[2] = a3;
   v22[3] = a4;
-  v10 = type metadata accessor for ToolbarReader.ToolbarConfiguration();
+  v10 = type metadata accessor for ToolbarReader.ToolbarConfiguration(0, v22);
   v11 = v10[14];
   outlined init with copy of ToolbarStorage(v23, v22);
   if (one-time initialization token for defaultValue != -1)
@@ -1735,11 +2475,14 @@ void *ToolbarReader.ToolbarConfiguration.init()@<X0>(uint64_t a1@<X0>, uint64_t 
   return result;
 }
 
-uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.target.getter@<X0>(uint64_t a1@<X8>)
+uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.target.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v2 = type metadata accessor for ToolbarReader.ToolbarConfiguration();
+  v3 = *(a1 + 32);
+  v7[0] = *(a1 + 16);
+  v7[1] = v3;
+  v4 = type metadata accessor for ToolbarReader.ToolbarConfiguration(0, v7);
   Value = AGGraphGetValue();
-  return (*(*(v2 - 8) + 16))(a1, Value, v2);
+  return (*(*(v4 - 8) + 16))(a2, Value, v4);
 }
 
 uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.navigationTitle.getter@<X0>(__int128 *a1@<X8>)
@@ -1769,7 +2512,7 @@ uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.search.getter@<X0>(uint64_t 
   return _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(Value, a1, type metadata accessor for ToolbarStorage.SearchItem?);
 }
 
-uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()(void *a1)
+double ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()(void *a1)
 {
   v110 = *MEMORY[0x1E69E9840];
   type metadata accessor for ToolbarStorage.SearchItem?(0);
@@ -1789,7 +2532,7 @@ uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()(void *a1)
   v70 = v6;
   *&v95 = v7;
   *(&v95 + 1) = v8;
-  v9 = type metadata accessor for ToolbarReader.ToolbarConfiguration();
+  v9 = type metadata accessor for ToolbarReader.ToolbarConfiguration(0, &v94);
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v65 = v64 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1798,19 +2541,19 @@ uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()(void *a1)
   v64[2] = v14;
   MEMORY[0x1EEE9AC00](v15);
   v17 = v64 - v16;
-  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(v64 - v16);
+  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(a1, v64 - v16);
   v18 = *&v17[*(v9 + 60)];
   v66 = v10;
   v19 = *(v10 + 8);
 
   v19(v17, v9);
-  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role);
+  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role, &type metadata for ToolbarPlacement.Role, &type metadata for ToolbarAppearanceConfiguration);
   v21 = v20;
   v22 = *AGGraphGetValue();
 
   v74 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ7SwiftUI16ToolbarPlacementV4RoleO_AC0D23AppearanceConfigurationVTt1g5(v18, v22);
 
-  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(v17);
+  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(a1, v17);
   v23 = *&v17[*(v9 + 64)];
 
   v19(v17, v9);
@@ -1819,7 +2562,7 @@ uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()(void *a1)
 
   v73 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ7SwiftUI16ToolbarPlacementV4RoleO_AC0D23AppearanceConfigurationVTt1g5(v23, v24);
 
-  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(v17);
+  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(a1, v17);
   v25 = *(v17 + 3);
   v105[2] = *(v17 + 2);
   v105[3] = v25;
@@ -1845,7 +2588,7 @@ uint64_t ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()(void *a1)
   outlined destroy of ToolbarStorage(v103);
   outlined destroy of ToolbarStorage(v105);
   v32 = v80;
-  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(v80);
+  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(a1, v80);
   v33 = *(v32 + 88);
   v107 = *(v32 + 72);
   v108 = v33;
@@ -1941,7 +2684,7 @@ LABEL_6:
   *&v96[9] = *(v109 + 9);
   outlined destroy of ToolbarStorage?(&v94, &lazy cache variable for type metadata for NavigationTitleStorage?, &type metadata for NavigationTitleStorage, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
 LABEL_8:
-  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(v36);
+  ToolbarReader.ApplyUpdatesToExternalTarget.target.getter(a1, v36);
   v39 = v78;
   v40 = v79;
   _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v36 + *(v78 + 56), v79, type metadata accessor for ToolbarStorage.SearchItem?);
@@ -1950,80 +2693,76 @@ LABEL_8:
   ToolbarReader.ApplyUpdatesToExternalTarget.search.getter(v75);
   LODWORD(v39) = AGCompareValues();
   outlined destroy of ToolbarStorage.GroupItem(v41, type metadata accessor for ToolbarStorage.SearchItem?);
-  result = outlined destroy of ToolbarStorage.GroupItem(v40, type metadata accessor for ToolbarStorage.SearchItem?);
-  if ((v72 & v39 & v73 & v74 & 1) == 0 || !v37)
+  outlined destroy of ToolbarStorage.GroupItem(v40, type metadata accessor for ToolbarStorage.SearchItem?);
+  if ((v72 & v39 & v73 & v74 & 1) == 0 || !v37) && (UpdateCycleDetector.dispatch(label:isDebug:)())
   {
-    result = UpdateCycleDetector.dispatch(label:isDebug:)();
-    if (result)
-    {
-      v43 = AGGraphGetValue();
-      v94 = *v43;
-      v45 = *(v43 + 32);
-      v44 = *(v43 + 48);
-      v46 = *(v43 + 16);
-      *&v96[32] = *(v43 + 64);
-      *v96 = v45;
-      *&v96[16] = v44;
-      v95 = v46;
-      outlined init with copy of ToolbarStorage(&v94, &v91);
-      ToolbarReader.ApplyUpdatesToExternalTarget.navigationTitle.getter(&v91);
-      v47 = v79;
-      ToolbarReader.ApplyUpdatesToExternalTarget.search.getter(v79);
-      v48 = *AGGraphGetValue();
+    v43 = AGGraphGetValue();
+    v94 = *v43;
+    v45 = *(v43 + 32);
+    v44 = *(v43 + 48);
+    v46 = *(v43 + 16);
+    *&v96[32] = *(v43 + 64);
+    *v96 = v45;
+    *&v96[16] = v44;
+    v95 = v46;
+    outlined init with copy of ToolbarStorage(&v94, &v91);
+    ToolbarReader.ApplyUpdatesToExternalTarget.navigationTitle.getter(&v91);
+    v47 = v79;
+    ToolbarReader.ApplyUpdatesToExternalTarget.search.getter(v79);
+    v48 = *AGGraphGetValue();
 
-      v49 = *AGGraphGetValue();
-      *(v36 + 64) = *&v96[32];
-      v50 = *&v96[16];
-      *(v36 + 32) = *v96;
-      *(v36 + 48) = v50;
-      v51 = v95;
-      *v36 = v94;
-      *(v36 + 16) = v51;
-      *(v36 + 113) = *(v93 + 9);
-      *(v36 + 104) = v93[0];
-      *(v36 + 88) = v92;
-      *(v36 + 72) = v91;
-      v52 = v67;
-      *&v88 = v67;
-      *(&v88 + 1) = v70;
-      *&v89 = v69;
-      *(&v89 + 1) = v68;
-      v53 = type metadata accessor for ToolbarReader.ToolbarConfiguration();
-      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v47, v36 + v53[14], type metadata accessor for ToolbarStorage.SearchItem?);
-      *(v36 + v53[15]) = v48;
-      *(v36 + v53[16]) = v49;
+    v49 = *AGGraphGetValue();
+    *(v36 + 64) = *&v96[32];
+    v50 = *&v96[16];
+    *(v36 + 32) = *v96;
+    *(v36 + 48) = v50;
+    v51 = v95;
+    *v36 = v94;
+    *(v36 + 16) = v51;
+    *(v36 + 113) = *(v93 + 9);
+    *(v36 + 104) = v93[0];
+    *(v36 + 88) = v92;
+    *(v36 + 72) = v91;
+    v52 = v67;
+    *&v88 = v67;
+    *(&v88 + 1) = v70;
+    *&v89 = v69;
+    *(&v89 + 1) = v68;
+    v53 = type metadata accessor for ToolbarReader.ToolbarConfiguration(0, &v88);
+    _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v47, v36 + v53[14], type metadata accessor for ToolbarStorage.SearchItem?);
+    *(v36 + v53[15]) = v48;
+    *(v36 + v53[16]) = v49;
 
-      v54 = AGCreateWeakAttribute();
-      LODWORD(v49) = v54;
-      v79 = HIDWORD(v54);
-      LOBYTE(v91) = 17;
-      v55 = swift_allocObject();
-      swift_weakLoadStrong();
-      swift_weakInit();
+    v54 = AGCreateWeakAttribute();
+    LODWORD(v49) = v54;
+    v79 = HIDWORD(v54);
+    LOBYTE(v91) = 17;
+    v55 = swift_allocObject();
+    swift_weakLoadStrong();
+    swift_weakInit();
 
-      v57 = v65;
-      v56 = v66;
-      v58 = v78;
-      (*(v66 + 16))(v65, v36, v78);
-      v59 = (*(v56 + 80) + 64) & ~*(v56 + 80);
-      v60 = swift_allocObject();
-      v62 = v69;
-      v61 = v70;
-      *(v60 + 16) = v52;
-      *(v60 + 24) = v61;
-      v63 = v68;
-      *(v60 + 32) = v62;
-      *(v60 + 40) = v63;
-      *(v60 + 48) = v55;
-      LODWORD(v63) = v79;
-      *(v60 + 56) = v49;
-      *(v60 + 60) = v63;
-      (*(v56 + 32))(v60 + v59, v57, v58);
+    v57 = v65;
+    v56 = v66;
+    v58 = v78;
+    (*(v66 + 16))(v65, v36, v78);
+    v59 = (*(v56 + 80) + 64) & ~*(v56 + 80);
+    v60 = swift_allocObject();
+    v62 = v69;
+    v61 = v70;
+    *(v60 + 16) = v52;
+    *(v60 + 24) = v61;
+    v63 = v68;
+    *(v60 + 32) = v62;
+    *(v60 + 40) = v63;
+    *(v60 + 48) = v55;
+    LODWORD(v63) = v79;
+    *(v60 + 56) = v49;
+    *(v60 + 60) = v63;
+    (*(v56 + 32))(v60 + v59, v57, v58);
 
-      static Update.enqueueAction(reason:_:)();
+    static Update.enqueueAction(reason:_:)();
 
-      (v80)(v36, v58);
-    }
+    (v80)(v36, v58);
   }
 
   return result;
@@ -2032,40 +2771,40 @@ LABEL_8:
 void ToolbarStorage.identityEquals(_:)(void *a1)
 {
   v3 = type metadata accessor for ToolbarStorage.Entry(0);
-  v55 = *(v3 - 8);
+  v56 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v56 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = &v43 - v6;
-  type metadata accessor for (ToolbarStorage.Entry?, ToolbarStorage.Entry?)();
-  v54 = v8;
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57 = &v44 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = MEMORY[0x1EEE9AC00](v5);
+  v8 = &v44 - v7;
+  type metadata accessor for (ToolbarStorage.Entry?, ToolbarStorage.Entry?)(0, v6);
+  v55 = v9;
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v44 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for ToolbarStorage.Entry?(0);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v13 = &v43 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v43 - v15;
-  v17 = v1[1];
-  v18 = a1[1];
-  if (v17)
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = &v44 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v44 - v16;
+  v18 = v1[1];
+  v19 = a1[1];
+  if (v18)
   {
-    if (!v18 || (*v1 != *a1 || v17 != v18) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    if (!v19 || (*v1 != *a1 || v18 != v19) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       return;
     }
   }
 
-  else if (v18)
+  else if (v19)
   {
     return;
   }
 
-  v19 = v1;
-  v20 = v1[3];
+  v20 = v1;
+  v21 = v1[3];
   if (!a1[3])
   {
-    if (v20)
+    if (v21)
     {
       return;
     }
@@ -2073,43 +2812,43 @@ void ToolbarStorage.identityEquals(_:)(void *a1)
     goto LABEL_13;
   }
 
-  if (!v20)
+  if (!v21)
   {
 
     return;
   }
 
-  v21 = dispatch thunk of AnyLocation.isEqual(to:)();
+  v22 = dispatch thunk of AnyLocation.isEqual(to:)();
 
-  if (v21)
+  if (v22)
   {
 LABEL_13:
-    v22 = 0;
-    v23 = v19;
-    v24 = 0;
-    v43 = v23;
-    v44 = a1;
-    v25 = v23[6];
-    v45 = a1[6];
-    v46 = v25;
-    v26 = *(v25 + 16);
-    v50 = *(v45 + 16);
-    v51 = (v55 + 56);
-    v48 = v7;
-    v49 = (v55 + 48);
+    v23 = 0;
+    v24 = v20;
+    v25 = 0;
+    v44 = v24;
+    v45 = a1;
+    v26 = v24[6];
+    v46 = a1[6];
     v47 = v26;
+    v27 = *(v26 + 16);
+    v51 = *(v46 + 16);
+    v52 = (v56 + 56);
+    v49 = v8;
+    v50 = (v56 + 48);
+    v48 = v27;
     while (1)
     {
-      if (v24 == v26)
+      if (v25 == v27)
       {
-        v27 = 1;
-        v28 = v26;
-        v29 = v51;
+        v28 = 1;
+        v29 = v27;
+        v30 = v52;
       }
 
       else
       {
-        if (v24 >= v26)
+        if (v25 >= v27)
         {
           __break(1u);
 LABEL_44:
@@ -2121,151 +2860,154 @@ LABEL_46:
           return;
         }
 
-        _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v46 + ((*(v55 + 80) + 32) & ~*(v55 + 80)) + *(v55 + 72) * v24, v16, type metadata accessor for ToolbarStorage.Entry);
-        v30 = __OFADD__(v24, 1);
-        v28 = v24 + 1;
-        v29 = v51;
-        if (v30)
+        _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v47 + ((*(v56 + 80) + 32) & ~*(v56 + 80)) + *(v56 + 72) * v25, v17, type metadata accessor for ToolbarStorage.Entry);
+        v31 = __OFADD__(v25, 1);
+        v29 = v25 + 1;
+        v30 = v52;
+        if (v31)
         {
           goto LABEL_45;
         }
 
-        v27 = 0;
+        v28 = 0;
       }
 
-      v31 = *v29;
-      v32 = 1;
-      (*v29)(v16, v27, 1, v3);
-      v33 = v50;
-      if (v22 != v50)
+      v32 = *v30;
+      v33 = 1;
+      (*v30)(v17, v28, 1, v3);
+      v34 = v51;
+      if (v23 != v51)
       {
-        if (v22 >= v50)
+        if (v23 >= v51)
         {
           goto LABEL_44;
         }
 
-        _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v45 + ((*(v55 + 80) + 32) & ~*(v55 + 80)) + *(v55 + 72) * v22, v13, type metadata accessor for ToolbarStorage.Entry);
-        v33 = v22 + 1;
-        if (__OFADD__(v22, 1))
+        _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v46 + ((*(v56 + 80) + 32) & ~*(v56 + 80)) + *(v56 + 72) * v23, v14, type metadata accessor for ToolbarStorage.Entry);
+        v34 = v23 + 1;
+        if (__OFADD__(v23, 1))
         {
           goto LABEL_46;
         }
 
-        v32 = 0;
+        v33 = 0;
       }
 
-      v52 = v33;
-      v53 = v28;
-      v31(v13, v32, 1, v3);
-      v34 = *(v54 + 48);
-      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v16, v10, type metadata accessor for ToolbarStorage.Entry?);
-      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v13, &v10[v34], type metadata accessor for ToolbarStorage.Entry?);
-      v35 = *v49;
-      v36 = (*v49)(v10, 1, v3);
-      v37 = v35(&v10[v34], 1, v3);
-      if (v36 == 1)
+      v53 = v34;
+      v54 = v29;
+      v32(v14, v33, 1, v3);
+      v35 = *(v55 + 48);
+      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v17, v11, type metadata accessor for ToolbarStorage.Entry?);
+      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v14, &v11[v35], type metadata accessor for ToolbarStorage.Entry?);
+      v36 = *v50;
+      v37 = (*v50)(v11, 1, v3);
+      v38 = v36(&v11[v35], 1, v3);
+      if (v37 == 1)
       {
-        if (v37 == 1)
+        if (v38 == 1)
         {
-          _sSh2eeoiySbShyxG_ABtFZ7SwiftUI22ToolbarDefaultItemKindV0G0O_Tt1g5(v43[8], v44[8]);
+          _sSh2eeoiySbShyxG_ABtFZ7SwiftUI22ToolbarDefaultItemKindV0G0O_Tt1g5(v44[8], v45[8]);
           return;
         }
 
-        v41 = type metadata accessor for ToolbarStorage.Entry?;
-        v42 = &v10[v34];
+        v42 = type metadata accessor for ToolbarStorage.Entry?;
+        v43 = &v11[v35];
         goto LABEL_41;
       }
 
-      if (v37 == 1)
+      if (v38 == 1)
       {
-        v41 = type metadata accessor for ToolbarStorage.Entry;
-        v42 = v10;
+        v42 = type metadata accessor for ToolbarStorage.Entry;
+        v43 = v11;
 LABEL_41:
-        outlined destroy of ToolbarStorage.GroupItem(v42, v41);
+        outlined destroy of ToolbarStorage.GroupItem(v43, v42);
         return;
       }
 
-      v38 = v48;
-      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v10, v48, type metadata accessor for ToolbarStorage.Entry);
-      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(&v10[v34], v56, type metadata accessor for ToolbarStorage.Entry);
-      ToolbarStorage.Entry.id.getter(v65);
-      ToolbarStorage.Entry.id.getter(v63);
-      if ((MEMORY[0x18D00E7E0](v65, v63) & 1) == 0)
+      v39 = v49;
+      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v11, v49, type metadata accessor for ToolbarStorage.Entry);
+      _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(&v11[v35], v57, type metadata accessor for ToolbarStorage.Entry);
+      ToolbarStorage.Entry.id.getter(v66);
+      ToolbarStorage.Entry.id.getter(v64);
+      if ((MEMORY[0x18D00E7E0](v66, v64) & 1) == 0)
       {
-        outlined destroy of ToolbarStorage.Entry.ID(v63);
-        outlined destroy of ToolbarStorage.Entry.ID(v65);
-        outlined destroy of ToolbarStorage.GroupItem(v56, type metadata accessor for ToolbarStorage.Entry);
-        v42 = v38;
-        v41 = type metadata accessor for ToolbarStorage.Entry;
+        outlined destroy of ToolbarStorage.Entry.ID(v64);
+        outlined destroy of ToolbarStorage.Entry.ID(v66);
+        outlined destroy of ToolbarStorage.GroupItem(v57, type metadata accessor for ToolbarStorage.Entry);
+        v43 = v39;
+        v42 = type metadata accessor for ToolbarStorage.Entry;
         goto LABEL_41;
       }
 
-      v39 = MEMORY[0x1E69E6720];
-      outlined init with copy of ToolbarStorage?(&v66, v60, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-      outlined init with copy of ToolbarStorage?(&v64, &v61, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v39, type metadata accessor for ToolbarStorage?);
-      if (v60[40] == 255)
+      v40 = MEMORY[0x1E69E6720];
+      outlined init with copy of ToolbarStorage?(&v67, v61, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+      outlined init with copy of ToolbarStorage?(&v65, &v62, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, v40, type metadata accessor for ToolbarStorage?);
+      if (v61[40] == 255)
       {
-        outlined destroy of ToolbarStorage.Entry.ID(v63);
-        outlined destroy of ToolbarStorage.Entry.ID(v65);
-        outlined destroy of ToolbarStorage.GroupItem(v56, type metadata accessor for ToolbarStorage.Entry);
-        outlined destroy of ToolbarStorage.GroupItem(v38, type metadata accessor for ToolbarStorage.Entry);
-        if (BYTE8(v62[1]) != 255)
+        outlined destroy of ToolbarStorage.Entry.ID(v64);
+        outlined destroy of ToolbarStorage.Entry.ID(v66);
+        outlined destroy of ToolbarStorage.GroupItem(v57, type metadata accessor for ToolbarStorage.Entry);
+        outlined destroy of ToolbarStorage.GroupItem(v39, type metadata accessor for ToolbarStorage.Entry);
+        if (BYTE8(v63[1]) != 255)
         {
           goto LABEL_39;
         }
 
-        outlined destroy of ToolbarStorage?(v60, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+        outlined destroy of ToolbarStorage?(v61, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
       }
 
       else
       {
-        outlined init with copy of ToolbarStorage?(v60, v59, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-        if (BYTE8(v62[1]) == 255)
+        outlined init with copy of ToolbarStorage?(v61, v60, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+        if (BYTE8(v63[1]) == 255)
         {
-          outlined destroy of ToolbarStorage.Entry.ID(v63);
-          outlined destroy of ToolbarStorage.Entry.ID(v65);
-          outlined destroy of ToolbarStorage.GroupItem(v56, type metadata accessor for ToolbarStorage.Entry);
-          outlined destroy of ToolbarStorage.GroupItem(v38, type metadata accessor for ToolbarStorage.Entry);
-          outlined destroy of ToolbarItemPlacement.Role(v59);
+          outlined destroy of ToolbarStorage.Entry.ID(v64);
+          outlined destroy of ToolbarStorage.Entry.ID(v66);
+          outlined destroy of ToolbarStorage.GroupItem(v57, type metadata accessor for ToolbarStorage.Entry);
+          outlined destroy of ToolbarStorage.GroupItem(v39, type metadata accessor for ToolbarStorage.Entry);
+          outlined destroy of ToolbarItemPlacement.Role(v60);
 LABEL_39:
-          outlined destroy of (ToolbarStorage.Entry.ID?, ToolbarStorage.Entry.ID?)(v60, &lazy cache variable for type metadata for (ToolbarItemPlacement.Role?, ToolbarItemPlacement.Role?), &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+          outlined destroy of (ToolbarStorage.Entry.ID?, ToolbarStorage.Entry.ID?)(v61, &lazy cache variable for type metadata for (ToolbarItemPlacement.Role?, ToolbarItemPlacement.Role?), &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
           return;
         }
 
-        v57 = v61;
-        v58[0] = v62[0];
-        *(v58 + 9) = *(v62 + 9);
-        v40 = specialized static ToolbarItemPlacement.Role.== infix(_:_:)(v59, &v57);
-        outlined destroy of ToolbarItemPlacement.Role(&v57);
-        outlined destroy of ToolbarStorage.Entry.ID(v63);
-        outlined destroy of ToolbarStorage.Entry.ID(v65);
-        outlined destroy of ToolbarStorage.GroupItem(v56, type metadata accessor for ToolbarStorage.Entry);
-        outlined destroy of ToolbarStorage.GroupItem(v38, type metadata accessor for ToolbarStorage.Entry);
-        outlined destroy of ToolbarItemPlacement.Role(v59);
-        outlined destroy of ToolbarStorage?(v60, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-        if ((v40 & 1) == 0)
+        v58 = v62;
+        v59[0] = v63[0];
+        *(v59 + 9) = *(v63 + 9);
+        v41 = specialized static ToolbarItemPlacement.Role.== infix(_:_:)(v60, &v58);
+        outlined destroy of ToolbarItemPlacement.Role(&v58);
+        outlined destroy of ToolbarStorage.Entry.ID(v64);
+        outlined destroy of ToolbarStorage.Entry.ID(v66);
+        outlined destroy of ToolbarStorage.GroupItem(v57, type metadata accessor for ToolbarStorage.Entry);
+        outlined destroy of ToolbarStorage.GroupItem(v39, type metadata accessor for ToolbarStorage.Entry);
+        outlined destroy of ToolbarItemPlacement.Role(v60);
+        outlined destroy of ToolbarStorage?(v61, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+        if ((v41 & 1) == 0)
         {
           return;
         }
       }
 
-      v26 = v47;
-      v22 = v52;
-      v24 = v53;
+      v27 = v48;
+      v23 = v53;
+      v25 = v54;
     }
   }
 }
 
-uint64_t closure #1 in ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()()
+double closure #1 in ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  if (swift_weakLoadStrong())
   {
     if (AGWeakAttributeGetAttribute() != *MEMORY[0x1E698D3F8])
     {
       static Transaction.current.getter();
-      type metadata accessor for ToolbarReader.ToolbarConfiguration();
+      v12[0] = a4;
+      v12[1] = a5;
+      v12[2] = a6;
+      v12[3] = a7;
+      type metadata accessor for ToolbarReader.ToolbarConfiguration(0, v12);
       default argument 1 of GraphHost.asyncTransaction<A>(_:id:invalidating:style:mayDeferUpdate:)();
       GraphHost.asyncTransaction<A>(_:id:setting:to:style:mayDeferUpdate:)();
     }
@@ -2288,15 +3030,16 @@ uint64_t static ToolbarReader.PrimitiveReader._makeView(view:inputs:)@<X0>(int *
   v54 = *a2;
   v55 = v13;
   LODWORD(v49) = v11;
-  DWORD1(v43) = HIDWORD(a3);
+  *&v43 = a3;
   *(&v43 + 1) = a4;
   *&v44 = a5;
   *(&v44 + 1) = a6;
-  type metadata accessor for ToolbarReader.PrimitiveReader();
+  type metadata accessor for ToolbarReader.PrimitiveReader(255, &v43);
   type metadata accessor for _GraphValue();
   _GraphValue.value.getter();
   closure #1 in static ToolbarReader.PrimitiveReader._makeView(view:inputs:)(1, a3, a4, a5, a6);
   OffsetAttribute2 = AGGraphCreateOffsetAttribute2();
+  LODWORD(v43) = v11;
   _GraphValue.value.getter();
   closure #2 in static ToolbarReader.PrimitiveReader._makeView(view:inputs:)(1, a3, a4, a5, a6);
   v39 = AGGraphCreateOffsetAttribute2();
@@ -2309,6 +3052,7 @@ uint64_t static ToolbarReader.PrimitiveReader._makeView(view:inputs:)@<X0>(int *
   }
 
   v37 = AGGraphCreateOffsetAttribute2();
+  LODWORD(v43) = v11;
   _GraphValue.value.getter();
   closure #4 in static ToolbarReader.PrimitiveReader._makeView(view:inputs:)(1, a3, a4, a5, a6);
   v41 = AGGraphCreateOffsetAttribute2();
@@ -2340,9 +3084,9 @@ uint64_t static ToolbarReader.PrimitiveReader._makeView(view:inputs:)@<X0>(int *
   *(&v43 + 1) = a4;
   *&v44 = a5;
   *(&v44 + 1) = a6;
-  Appearances = type metadata accessor for ToolbarReader.MakeAppearances();
-  WitnessTable = swift_getWitnessTable();
-  type metadata accessor for Attribute<[ToolbarPlacement.Role : ToolbarAppearanceConfiguration]>();
+  Appearances = type metadata accessor for ToolbarReader.MakeAppearances(0, &v43);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for ToolbarReader<A, B>.MakeAppearances, Appearances);
+  type metadata accessor for Attribute<[ToolbarPlacement.Role : ToolbarAppearanceConfiguration]>(0);
   _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v49, closure #1 in Attribute.init<A>(_:)partial apply, v32, Appearances, MEMORY[0x1E69E73E0], v18, MEMORY[0x1E69E7410], v19);
   v41 = v43;
   v42 = v36;
@@ -2358,9 +3102,9 @@ uint64_t static ToolbarReader.PrimitiveReader._makeView(view:inputs:)@<X0>(int *
   *(&v43 + 1) = a4;
   *&v44 = a5;
   *(&v44 + 1) = a6;
-  updated = type metadata accessor for ToolbarReader.UpdateToolbarBridge();
+  updated = type metadata accessor for ToolbarReader.UpdateToolbarBridge(0, &v43);
   Appearances = updated;
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for ToolbarReader<A, B>.UpdateToolbarBridge, updated);
   type metadata accessor for ToolbarStorage?(0, &lazy cache variable for type metadata for Attribute<ToolbarProxy_V1.Value>, &type metadata for ToolbarProxy_V1.Value, MEMORY[0x1E698D388]);
   v23 = MEMORY[0x1E69E7410];
   v26 = _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v49, closure #1 in Attribute.init<A>(_:)partial apply, v32, updated, MEMORY[0x1E69E73E0], v24, MEMORY[0x1E69E7410], v25);
@@ -2373,9 +3117,9 @@ uint64_t static ToolbarReader.PrimitiveReader._makeView(view:inputs:)@<X0>(int *
   *(&v43 + 1) = a4;
   *&v44 = a5;
   *(&v44 + 1) = a6;
-  View = type metadata accessor for ToolbarReader.MakeView();
+  View = type metadata accessor for ToolbarReader.MakeView(0, &v43);
   v32[1] = View;
-  Appearances = swift_getWitnessTable();
+  Appearances = swift_getWitnessTable(protocol conformance descriptor for ToolbarReader<A, B>.MakeView, View);
   v28 = type metadata accessor for Attribute();
   _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v49, closure #1 in Attribute.init<A>(_:)partial apply, &v31, View, MEMORY[0x1E69E73E0], v28, v23, v29);
   _GraphValue.init(_:)();
@@ -2390,196 +3134,231 @@ uint64_t static ToolbarReader.PrimitiveReader._makeView(view:inputs:)@<X0>(int *
 
 uint64_t closure #1 in static ToolbarReader.PrimitiveReader._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = a2;
-  v11 = a3;
-  v12 = a4;
-  v13 = a5;
-  v9[2] = type metadata accessor for ToolbarReader.PrimitiveReader();
+  v10[0] = a2;
+  v10[1] = a3;
+  v10[2] = a4;
+  v10[3] = a5;
+  v9[2] = type metadata accessor for ToolbarReader.PrimitiveReader(0, v10);
   v6 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1, closure #1 in static PointerOffset.of(_:)partial apply, v9, &type metadata for ToolbarStorage, MEMORY[0x1E69E73E0], v6, MEMORY[0x1E69E7410], v7);
-  return v10;
+  return v10[0];
 }
 
 uint64_t closure #2 in static ToolbarReader.PrimitiveReader._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v12 = a2;
-  v13 = a3;
-  v14 = a4;
-  v15 = a5;
-  v11[2] = type metadata accessor for ToolbarReader.PrimitiveReader();
+  v12[0] = a2;
+  v12[1] = a3;
+  v12[2] = a4;
+  v12[3] = a5;
+  v11[2] = type metadata accessor for ToolbarReader.PrimitiveReader(0, v12);
   type metadata accessor for ToolbarStorage?(0, &lazy cache variable for type metadata for NavigationTitleStorage?, &type metadata for NavigationTitleStorage, MEMORY[0x1E69E6720]);
   v7 = v6;
   v8 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + 72, closure #1 in static PointerOffset.of(_:)partial apply, v11, v7, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v9);
-  return v12;
+  return v12[0];
 }
 
 uint64_t closure #3 in static ToolbarReader.PrimitiveReader._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = a2;
-  v15 = a3;
-  v16 = a4;
-  v17 = a5;
-  v6 = type metadata accessor for ToolbarReader.PrimitiveReader();
+  v14[0] = a2;
+  v14[1] = a3;
+  v14[2] = a4;
+  v14[3] = a5;
+  v6 = type metadata accessor for ToolbarReader.PrimitiveReader(0, v14);
   v7 = *(v6 + 56);
   v13[2] = v6;
   type metadata accessor for ToolbarStorage.SearchItem?(0);
   v9 = v8;
   v10 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v7, closure #1 in static PointerOffset.of(_:)partial apply, v13, v9, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v11);
-  return v14;
+  return v14[0];
 }
 
 uint64_t closure #4 in static ToolbarReader.PrimitiveReader._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = a2;
-  v15 = a3;
-  v16 = a4;
-  v17 = a5;
-  v6 = type metadata accessor for ToolbarReader.PrimitiveReader();
+  v14[0] = a2;
+  v14[1] = a3;
+  v14[2] = a4;
+  v14[3] = a5;
+  v6 = type metadata accessor for ToolbarReader.PrimitiveReader(0, v14);
   v7 = *(v6 + 60);
   v13[2] = v6;
-  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role);
+  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role, &type metadata for ToolbarPlacement.Role, &type metadata for ToolbarAppearanceConfiguration);
   v9 = v8;
   v10 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v7, closure #1 in static PointerOffset.of(_:)partial apply, v13, v9, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v11);
-  return v14;
+  return v14[0];
 }
 
 uint64_t closure #5 in static ToolbarReader.PrimitiveReader._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = a2;
-  v15 = a3;
-  v16 = a4;
-  v17 = a5;
-  v6 = type metadata accessor for ToolbarReader.PrimitiveReader();
+  v14[0] = a2;
+  v14[1] = a3;
+  v14[2] = a4;
+  v14[3] = a5;
+  v6 = type metadata accessor for ToolbarReader.PrimitiveReader(0, v14);
   v7 = *(v6 + 64);
   v13[2] = v6;
-  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role);
+  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role, &type metadata for ToolbarPlacement.Role, &type metadata for ToolbarAppearanceConfiguration);
   v9 = v8;
   v10 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v7, _s14AttributeGraph13PointerOffsetV2ofyACyxq_Gq_zFZAESPyq_GXEfU_TA_19, v13, v9, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v11);
-  return v14;
+  return v14[0];
 }
 
-uint64_t ToolbarReader.PrimitiveReader.init(toolbar:navigationTitle:search:navigationBar:bottomBar:reader:)@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t ToolbarReader.PrimitiveReader.init(toolbar:navigationTitle:search:navigationBar:bottomBar:reader:)@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11)
 {
-  v12 = *(a1 + 48);
-  *(a7 + 32) = *(a1 + 32);
-  *(a7 + 48) = v12;
-  v13 = *(a1 + 16);
-  *a7 = *a1;
-  *(a7 + 16) = v13;
-  v14 = a2[1];
-  *(a7 + 72) = *a2;
-  *(a7 + 64) = *(a1 + 64);
-  *(a7 + 88) = v14;
-  *(a7 + 104) = a2[2];
-  *(a7 + 113) = *(a2 + 41);
-  v15 = type metadata accessor for ToolbarReader.PrimitiveReader();
-  _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(a3, a7 + v15[14], type metadata accessor for ToolbarStorage.SearchItem?);
-  *(a7 + v15[15]) = a4;
-  *(a7 + v15[16]) = a5;
-  v16 = v15[17];
-  v17 = type metadata accessor for ToolbarReader();
-  return (*(*(v17 - 8) + 32))(a7 + v16, a6, v17);
+  v18 = *(a1 + 48);
+  *(a9 + 32) = *(a1 + 32);
+  *(a9 + 48) = v18;
+  v19 = *(a1 + 16);
+  *a9 = *a1;
+  *(a9 + 16) = v19;
+  v20 = a2[1];
+  *(a9 + 72) = *a2;
+  *(a9 + 64) = *(a1 + 64);
+  *(a9 + 88) = v20;
+  *(a9 + 104) = a2[2];
+  *(a9 + 113) = *(a2 + 41);
+  v25 = a7;
+  v26 = a8;
+  v27 = a10;
+  v28 = a11;
+  v21 = type metadata accessor for ToolbarReader.PrimitiveReader(0, &v25);
+  _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(a3, a9 + v21[14], type metadata accessor for ToolbarStorage.SearchItem?);
+  *(a9 + v21[15]) = a4;
+  *(a9 + v21[16]) = a5;
+  v22 = v21[17];
+  v25 = a7;
+  v26 = a8;
+  v27 = a10;
+  v28 = a11;
+  v23 = type metadata accessor for ToolbarReader(0, &v25);
+  return (*(*(v23 - 8) + 32))(a9 + v22, a6, v23);
 }
 
-uint64_t ToolbarReader.MakePrimitiveReader.configuration.getter@<X0>(uint64_t a1@<X8>)
+uint64_t ToolbarReader.MakePrimitiveReader.configuration.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v2 = type metadata accessor for ToolbarReader.ToolbarConfiguration();
+  v10[0] = a2;
+  v10[1] = a3;
+  v10[2] = a4;
+  v10[3] = a5;
+  v7 = type metadata accessor for ToolbarReader.ToolbarConfiguration(0, v10);
   Value = AGGraphGetValue();
-  return (*(*(v2 - 8) + 16))(a1, Value, v2);
+  return (*(*(v7 - 8) + 16))(a6, Value, v7);
 }
 
-uint64_t ToolbarReader.MakePrimitiveReader.reader.getter@<X0>(uint64_t a1@<X8>)
+uint64_t ToolbarReader.MakePrimitiveReader.reader.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v2 = type metadata accessor for ToolbarReader();
+  v10[0] = a2;
+  v10[1] = a3;
+  v10[2] = a4;
+  v10[3] = a5;
+  v7 = type metadata accessor for ToolbarReader(0, v10);
   Value = AGGraphGetValue();
-  return (*(*(v2 - 8) + 16))(a1, Value, v2);
+  return (*(*(v7 - 8) + 16))(a6, Value, v7);
 }
 
-uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance ToolbarReader<A, B>.PrimitiveReader()
+uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance ToolbarReader<A, B>.PrimitiveReader(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(protocol conformance descriptor for ToolbarReader<A, B>.PrimitiveReader, a3);
 
   return static UnaryView._makeViewList(view:inputs:)();
 }
 
-uint64_t ToolbarReader.MakePrimitiveReader.value.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+uint64_t ToolbarReader.MakePrimitiveReader.value.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v41 = a5;
-  *&v48 = a1;
-  *(&v48 + 1) = a2;
-  *&v49 = a3;
-  *(&v49 + 1) = a4;
-  v9 = type metadata accessor for ToolbarReader();
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v40 = v36 - v10;
+  v53 = a6;
+  *&v60 = a2;
+  *(&v60 + 1) = a3;
+  *&v61 = a4;
+  *(&v61 + 1) = a5;
+  v10 = type metadata accessor for ToolbarReader(0, &v60);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v52 = &v47 - v11;
   type metadata accessor for ToolbarStorage.SearchItem?(0);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v42 = v36 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v48 = a1;
-  *(&v48 + 1) = a2;
-  *&v49 = a3;
-  *(&v49 + 1) = a4;
-  v13 = type metadata accessor for ToolbarReader.ToolbarConfiguration();
-  v14 = *(v13 - 1);
-  MEMORY[0x1EEE9AC00](v13);
-  v39 = v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v38 = v36 - v17;
-  MEMORY[0x1EEE9AC00](v18);
-  v37 = v36 - v19;
-  MEMORY[0x1EEE9AC00](v20);
-  v22 = v36 - v21;
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = v36 - v24;
-  v36[1] = a3;
-  v36[0] = a4;
-  ToolbarReader.MakePrimitiveReader.configuration.getter(v36 - v24);
-  v26 = *(v25 + 3);
-  v50 = *(v25 + 2);
-  v51 = v26;
-  v52 = *(v25 + 8);
-  v27 = *(v25 + 1);
-  v48 = *v25;
-  v49 = v27;
-  outlined init with copy of ToolbarStorage(&v48, &v45);
-  v28 = *(v14 + 8);
-  v28(v25, v13);
-  ToolbarReader.MakePrimitiveReader.configuration.getter(v22);
-  v29 = *(v22 + 88);
-  v45 = *(v22 + 72);
-  v46 = v29;
-  v47[0] = *(v22 + 104);
-  *(v47 + 9) = *(v22 + 113);
-  outlined init with copy of ToolbarStorage?(&v45, v43, &lazy cache variable for type metadata for NavigationTitleStorage?, &type metadata for NavigationTitleStorage, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-  v28(v22, v13);
-  v43[0] = v45;
-  v43[1] = v46;
-  v44[0] = v47[0];
-  *(v44 + 9) = *(v47 + 9);
-  v30 = v37;
-  ToolbarReader.MakePrimitiveReader.configuration.getter(v37);
-  _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v30 + v13[14], v42, type metadata accessor for ToolbarStorage.SearchItem?);
-  v28(v30, v13);
-  v31 = v38;
-  ToolbarReader.MakePrimitiveReader.configuration.getter(v38);
-  v37 = *(v31 + v13[16]);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v54 = &v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v60 = a2;
+  *(&v60 + 1) = a3;
+  *&v61 = a4;
+  *(&v61 + 1) = a5;
+  v14 = type metadata accessor for ToolbarReader.ToolbarConfiguration(0, &v60);
+  v15 = *(v14 - 1);
+  MEMORY[0x1EEE9AC00](v14);
+  v51 = &v47 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v50 = &v47 - v18;
+  MEMORY[0x1EEE9AC00](v19);
+  v49 = &v47 - v20;
+  MEMORY[0x1EEE9AC00](v21);
+  v23 = &v47 - v22;
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = &v47 - v25;
+  v48 = a4;
+  v47 = a5;
+  ToolbarReader.MakePrimitiveReader.configuration.getter(a2, a3, a4, a5, &v47 - v25);
+  v27 = *(v26 + 3);
+  v62 = *(v26 + 2);
+  v63 = v27;
+  v64 = *(v26 + 8);
+  v28 = *(v26 + 1);
+  v60 = *v26;
+  v61 = v28;
+  outlined init with copy of ToolbarStorage(&v60, &v57);
+  v29 = *(v15 + 8);
+  v29(v26, v14);
+  v30 = a2;
+  v31 = a2;
+  v32 = a3;
+  ToolbarReader.MakePrimitiveReader.configuration.getter(v30, a3, a4, a5, v23);
+  v33 = *(v23 + 88);
+  v57 = *(v23 + 72);
+  v58 = v33;
+  v59[0] = *(v23 + 104);
+  *(v59 + 9) = *(v23 + 113);
+  outlined init with copy of ToolbarStorage?(&v57, v55, &lazy cache variable for type metadata for NavigationTitleStorage?, &type metadata for NavigationTitleStorage, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
+  v29(v23, v14);
+  v55[0] = v57;
+  v55[1] = v58;
+  v56[0] = v59[0];
+  *(v56 + 9) = *(v59 + 9);
+  v34 = v49;
+  v35 = v32;
+  v36 = v48;
+  v37 = v47;
+  ToolbarReader.MakePrimitiveReader.configuration.getter(v31, v32, v48, v47, v49);
+  _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v34 + v14[14], v54, type metadata accessor for ToolbarStorage.SearchItem?);
+  v29(v34, v14);
+  v38 = v50;
+  v39 = v36;
+  v40 = v36;
+  v41 = v37;
+  ToolbarReader.MakePrimitiveReader.configuration.getter(v31, v35, v39, v37, v50);
+  v49 = *(v38 + v14[16]);
 
-  v28(v31, v13);
-  v32 = v39;
-  ToolbarReader.MakePrimitiveReader.configuration.getter(v39);
-  v33 = *(v32 + v13[15]);
+  v29(v38, v14);
+  v42 = v51;
+  v43 = v31;
+  ToolbarReader.MakePrimitiveReader.configuration.getter(v31, v35, v40, v41, v51);
+  v44 = *(v42 + v14[15]);
 
-  v28(v32, v13);
-  v34 = v40;
-  ToolbarReader.MakePrimitiveReader.reader.getter(v40);
-  return ToolbarReader.PrimitiveReader.init(toolbar:navigationTitle:search:navigationBar:bottomBar:reader:)(&v48, v43, v42, v37, v33, v34, v41);
+  v29(v42, v14);
+  v45 = v52;
+  ToolbarReader.MakePrimitiveReader.reader.getter(v43, v35, v40, v41, v52);
+  return ToolbarReader.PrimitiveReader.init(toolbar:navigationTitle:search:navigationBar:bottomBar:reader:)(&v60, v55, v54, v49, v44, v45, v43, v35, v53, v40, v41);
 }
 
-id ToolbarReader.UpdateToolbarBridge.toolbarBridge.getter(uint64_t *a1)
+uint64_t protocol witness for static Rule.initialValue.getter in conformance ToolbarReader<A, B>.MakePrimitiveReader@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *(a1 + 32);
+  v6[0] = *(a1 + 16);
+  v6[1] = v3;
+  v4 = type metadata accessor for ToolbarReader.PrimitiveReader(0, v6);
+  return (*(*(v4 - 8) + 56))(a2, 1, 1, v4);
+}
+
+id ToolbarReader.UpdateToolbarBridge.toolbarBridge.getter(void *a1)
 {
   v2 = *(v1 + 16);
   if (v2)
@@ -2589,7 +3368,7 @@ id ToolbarReader.UpdateToolbarBridge.toolbarBridge.getter(uint64_t *a1)
 
   else
   {
-    updated = closure #1 in ToolbarReader.UpdateToolbarBridge.toolbarBridge.getter(v1, a1[2], a1[3], a1[4]);
+    updated = closure #1 in ToolbarReader.UpdateToolbarBridge.toolbarBridge.getter(v1, a1[2], a1[3], a1[4], a1[5]);
     *(v1 + 16) = updated;
     v3 = updated;
     v2 = 0;
@@ -2599,17 +3378,17 @@ id ToolbarReader.UpdateToolbarBridge.toolbarBridge.getter(uint64_t *a1)
   return v3;
 }
 
-id closure #1 in ToolbarReader.UpdateToolbarBridge.toolbarBridge.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+id closure #1 in ToolbarReader.UpdateToolbarBridge.toolbarBridge.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(0, &lazy cache variable for type metadata for ToolbarBridge<EmptyToolbarStrategy>, &type metadata for EmptyToolbarStrategy, &protocol witness table for EmptyToolbarStrategy, type metadata accessor for ToolbarBridge);
-  v9 = [objc_allocWithZone(v8) init];
-  v10 = *(a1 + 16);
-  specialized ToolbarReader.UpdateToolbarBridge.configure(bridge:)(v9, a2, a3, a4);
+  v10 = [objc_allocWithZone(v9) init];
+  v11 = *(a1 + 16);
+  specialized ToolbarReader.UpdateToolbarBridge.configure(bridge:)(v10, a2, a3, a4);
 
-  return v9;
+  return v10;
 }
 
-void ToolbarReader.UpdateToolbarBridge.updateValue()(uint64_t *a1)
+void ToolbarReader.UpdateToolbarBridge.updateValue()(void *a1)
 {
   updated = ToolbarReader.UpdateToolbarBridge.updateBridgeIfNeeded()(a1);
   if (!AGGraphGetOutputValue() || (updated & 1) != 0)
@@ -2619,7 +3398,7 @@ void ToolbarReader.UpdateToolbarBridge.updateValue()(uint64_t *a1)
   }
 }
 
-uint64_t ToolbarReader.UpdateToolbarBridge.updateBridgeIfNeeded()(uint64_t *a1)
+uint64_t ToolbarReader.UpdateToolbarBridge.updateBridgeIfNeeded()(void *a1)
 {
   v2 = v1;
   _sSay7SwiftUI14ToolbarStorageV5EntryVGMaTm_0(0, &lazy cache variable for type metadata for PreferenceValues.Value<ToolbarStorage.SearchItem?>, type metadata accessor for ToolbarStorage.SearchItem?, MEMORY[0x1E697EA38]);
@@ -2928,14 +3707,14 @@ LABEL_30:
   return v77;
 }
 
-void *ToolbarReader.MakeAppearances.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *ToolbarReader.MakeAppearances.value.getter(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI16ToolbarPlacementV4RoleO_AC0E23AppearanceConfigurationVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
   if (static ToolbarEdges.contains(_:)(0, a2, a4))
   {
     v51 = 0;
     memset(v50, 0, sizeof(v50));
-    type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role);
+    type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role, &type metadata for ToolbarPlacement.Role, &type metadata for ToolbarAppearanceConfiguration);
     memset(v62, 0, 40);
     Value = AGGraphGetValue();
     v8 = *Value;
@@ -3032,7 +3811,7 @@ LABEL_8:
     *(&v62[1] + 8) = xmmword_18CD7DD20;
     memset(v52, 0, sizeof(v52));
     v53 = xmmword_18CD7DD20;
-    type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role);
+    type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role, &type metadata for ToolbarPlacement.Role, &type metadata for ToolbarAppearanceConfiguration);
     v28 = AGGraphGetValue();
     v29 = *v28;
     if (*(*v28 + 16))
@@ -3130,12 +3909,30 @@ void *protocol witness for Rule.value.getter in conformance ToolbarReader<A, B>.
   return result;
 }
 
-uint64_t ToolbarReader.MakeView.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double ToolbarReader.MakeView.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
 {
-  View = type metadata accessor for ToolbarReader.MakeView();
-  WitnessTable = swift_getWitnessTable();
+  v11[4] = a1;
+  v11[5] = a2;
+  v11[0] = a3;
+  v11[1] = a4;
+  v11[2] = a5;
+  v11[3] = a6;
+  View = type metadata accessor for ToolbarReader.MakeView(0, v11);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for ToolbarReader<A, B>.MakeView, View);
   MEMORY[0x18D000B90](View, a4, WitnessTable);
   Rule.withObservation<A>(observationCenter:do:)();
+
+  return result;
+}
+
+uint64_t closure #1 in ToolbarReader.MakeView.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v7[0] = a3;
+  v7[1] = a4;
+  v7[2] = a5;
+  v7[3] = a6;
+  type metadata accessor for ToolbarReader.PrimitiveReader(0, v7);
+  return Attribute.syncMainIfReferences<A>(do:)();
 }
 
 uint64_t closure #1 in closure #1 in ToolbarReader.MakeView.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -3145,12 +3942,12 @@ uint64_t closure #1 in closure #1 in ToolbarReader.MakeView.value.getter(uint64_
   v19 = a5;
   v20 = a6;
   v21 = a7;
-  v14 = *(type metadata accessor for ToolbarReader.PrimitiveReader() + 68);
+  v14 = *(type metadata accessor for ToolbarReader.PrimitiveReader(0, &v18) + 68);
   v18 = a4;
   v19 = a5;
   v20 = a6;
   v21 = a7;
-  v15 = type metadata accessor for ToolbarReader();
+  v15 = type metadata accessor for ToolbarReader(0, &v18);
   result = AGGraphGetCurrentAttribute();
   if (result == *MEMORY[0x1E698D3F8])
   {
@@ -3168,16 +3965,16 @@ uint64_t closure #1 in closure #1 in ToolbarReader.MakeView.value.getter(uint64_
   return result;
 }
 
-uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance ToolbarReader<A, B>()
+uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance ToolbarReader<A, B>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(protocol conformance descriptor for ToolbarReader<A, B>, a3);
 
   return static UnaryView._makeViewList(view:inputs:)();
 }
 
-uint64_t ToolbarProxy_V1.appearance(in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t *ToolbarProxy_V1.appearance(in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role);
+  type metadata accessor for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration](0, &lazy cache variable for type metadata for [ToolbarPlacement.Role : ToolbarAppearanceConfiguration], lazy protocol witness table accessor for type ToolbarPlacement.Role and conformance ToolbarPlacement.Role, &type metadata for ToolbarPlacement.Role, &type metadata for ToolbarAppearanceConfiguration);
   result = AGGraphGetInputValue();
   v5 = *result;
   if (*(*result + 16))
@@ -3292,8 +4089,8 @@ uint64_t ToolbarProxy_V1.subscript.getter(uint64_t a1)
   v3 = v10;
   KeyPath = swift_getKeyPath();
   v9[0] = v3;
-  type metadata accessor for [ToolbarStorage.Entry]();
-  lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A](&lazy protocol witness table cache variable for type [ToolbarStorage.Entry] and conformance [A], type metadata accessor for [ToolbarStorage.Entry]);
+  type metadata accessor for [ToolbarStorage.Entry](0);
+  lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A](&lazy protocol witness table cache variable for type [ToolbarStorage.Entry] and conformance [A], type metadata accessor for [ToolbarStorage.Entry], MEMORY[0x1E69E6338]);
   lazy protocol witness table accessor for type ToolbarStorage.Entry.ID and conformance ToolbarStorage.Entry.ID();
   return ForEach.init(_:idGenerator:content:)();
 }
@@ -3388,7 +4185,7 @@ LABEL_11:
   v28 = v26[3];
   if (v29 >= v28 >> 1)
   {
-    *a4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v28 > 1, v29 + 1, 1, v26);
+    *a4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1, v26);
   }
 
   outlined destroy of ToolbarStorage.GroupItem(v19, type metadata accessor for ToolbarStorage.Item);
@@ -3524,7 +4321,7 @@ uint64_t closure #1 in ToolbarProxy_V1.subscript.getter(uint64_t a1, uint64_t a2
   v24 = v22[3];
   if (v25 >= v24 >> 1)
   {
-    *a4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v24 > 1, v25 + 1, 1, v22);
+    *a4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v24 > 1), v25 + 1, 1, v22);
   }
 
   outlined destroy of ToolbarStorage.GroupItem(v19, type metadata accessor for ToolbarStorage.Item);
@@ -3795,7 +4592,8 @@ LABEL_12:
 uint64_t ToolbarProxy_V1.hasItem(in:)(uint64_t a1)
 {
   v2 = *AGGraphGetInputValue();
-  LOBYTE(a1) = specialized ToolbarBridge.hasItem(withPlacement:)(a1);
+  specialized ToolbarBridge.hasItem(withPlacement:)(a1);
+  LOBYTE(a1) = v3;
 
   return a1 & 1;
 }
@@ -3841,7 +4639,7 @@ uint64_t outlined init with copy of ToolbarStorage?(uint64_t a1, uint64_t a2, ui
 
 uint64_t outlined destroy of ToolbarStorage?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v6 = a5(0);
+  v6 = (a5)(0, a2, a3, a4);
   (*(*(v6 - 8) + 8))(a1, v6);
   return a1;
 }
@@ -3901,26 +4699,29 @@ unint64_t lazy protocol witness table accessor for type ForEach<[ToolbarStorage.
   result = lazy protocol witness table cache variable for type ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView> and conformance <> ForEach<A, B, C>;
   if (!lazy protocol witness table cache variable for type ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView> and conformance <> ForEach<A, B, C>)
   {
-    type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>();
-    lazy protocol witness table accessor for type BarItemView and conformance BarItemView();
-    result = swift_getWitnessTable();
+    v5[3] = v0;
+    v5[4] = v1;
+    type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type BarItemView and conformance BarItemView();
+    result = swift_getWitnessTable(MEMORY[0x1E69819D0], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView> and conformance <> ForEach<A, B, C>);
   }
 
   return result;
 }
 
-void type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>()
+void type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)
   {
-    type metadata accessor for [ToolbarStorage.Entry]();
-    lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A](&lazy protocol witness table cache variable for type [ToolbarStorage.Entry] and conformance [A], type metadata accessor for [ToolbarStorage.Entry]);
+    type metadata accessor for [ToolbarStorage.Entry](255);
+    lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A](&lazy protocol witness table cache variable for type [ToolbarStorage.Entry] and conformance [A], type metadata accessor for [ToolbarStorage.Entry], MEMORY[0x1E69E6338]);
     lazy protocol witness table accessor for type ToolbarStorage.Entry.ID and conformance ToolbarStorage.Entry.ID();
-    v0 = type metadata accessor for ForEach();
-    if (!v1)
+    v1 = type metadata accessor for ForEach();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
+      atomic_store(v1, &lazy cache variable for type metadata for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
     }
   }
 }
@@ -3955,9 +4756,9 @@ uint64_t protocol witness for static ViewInputsModifier._makeViewInputs(modifier
   return PreferenceKeys.remove(_:)();
 }
 
-uint64_t key path getter for EnvironmentValues.toolbarUpdateContext : EnvironmentValues(uint64_t a1)
+void key path getter for EnvironmentValues.toolbarUpdateContext : EnvironmentValues(uint64_t *a1)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
     _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.ToolbarUpdateContextKey>, &type metadata for EnvironmentValues.ToolbarUpdateContextKey, &protocol witness table for EnvironmentValues.ToolbarUpdateContextKey, MEMORY[0x1E697FE38]);
     lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.ToolbarUpdateContextKey> and conformance EnvironmentPropertyKey<A>();
@@ -3970,7 +4771,7 @@ uint64_t key path getter for EnvironmentValues.toolbarUpdateContext : Environmen
     _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.ToolbarUpdateContextKey>, &type metadata for EnvironmentValues.ToolbarUpdateContextKey, &protocol witness table for EnvironmentValues.ToolbarUpdateContextKey, MEMORY[0x1E697FE38]);
     lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.ToolbarUpdateContextKey> and conformance EnvironmentPropertyKey<A>();
 
-    return PropertyList.subscript.getter();
+    PropertyList.subscript.getter();
   }
 }
 
@@ -4005,7 +4806,7 @@ void protocol witness for ViewModifier.body(content:) in conformance BarItemWidt
   *(a1 + 8) = v5;
 }
 
-uint64_t protocol witness for UnaryLayout.placement(of:in:) in conformance ToolbarItemMinimumWidthLayout()
+uint64_t protocol witness for UnaryLayout.placement(of:in:) in conformance ToolbarItemMinimumWidthLayout(uint64_t a1, __int128 *a2)
 {
   PlacementContext.proposedSize.getter();
   static UnitPoint.center.getter();
@@ -4013,20 +4814,20 @@ uint64_t protocol witness for UnaryLayout.placement(of:in:) in conformance Toolb
   return _Placement.init(proposedSize:aligning:in:)();
 }
 
-uint64_t protocol witness for static ViewModifier._makeView(modifier:inputs:body:) in conformance ToolbarItemMinimumWidthLayout(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t protocol witness for static ViewModifier._makeView(modifier:inputs:body:) in conformance ToolbarItemMinimumWidthLayout(int *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *a1;
-  v9 = *(a2 + 48);
-  v13[2] = *(a2 + 32);
-  v13[3] = v9;
-  v13[4] = *(a2 + 64);
-  v14 = *(a2 + 80);
-  v10 = *(a2 + 16);
-  v13[0] = *a2;
-  v13[1] = v10;
-  v15 = v8;
-  v11 = lazy protocol witness table accessor for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout();
-  return (*(v11 + 80))(&v15, v13, a3, a4, a5, v11);
+  v11 = *a1;
+  v12 = a2[3];
+  v16[2] = a2[2];
+  v16[3] = v12;
+  v16[4] = a2[4];
+  v17 = *(a2 + 20);
+  v13 = a2[1];
+  v16[0] = *a2;
+  v16[1] = v13;
+  v18 = v11;
+  v14 = lazy protocol witness table accessor for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout();
+  return (*(v14 + 80))(&v18, v16, a3, a4, a5, v14);
 }
 
 void type metadata accessor for (ToolbarStorage.Entry.ID?, ToolbarStorage.Entry.ID?)(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
@@ -4042,7 +4843,7 @@ void type metadata accessor for (ToolbarStorage.Entry.ID?, ToolbarStorage.Entry.
   }
 }
 
-uint64_t outlined copy of Environment<ToolbarItemMetrics?>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+double outlined copy of Environment<ToolbarItemMetrics?>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   if ((a6 & 1) == 0)
   {
@@ -4051,7 +4852,7 @@ uint64_t outlined copy of Environment<ToolbarItemMetrics?>.Content(uint64_t a1, 
   return result;
 }
 
-uint64_t outlined consume of Environment<ToolbarItemMetrics?>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+double outlined consume of Environment<ToolbarItemMetrics?>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   if ((a6 & 1) == 0)
   {
@@ -4245,10 +5046,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<HStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>>, BarItemWidthModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>>, BarItemWidthModifier> and conformance <> ModifiedContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>(255, &lazy cache variable for type metadata for ModifiedContent<HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>>, BarItemWidthModifier>, type metadata accessor for HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>>);
-    lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A](&lazy protocol witness table cache variable for type HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>> and conformance HStack<A>, type metadata accessor for HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>>);
-    lazy protocol witness table accessor for type BarItemWidthModifier and conformance BarItemWidthModifier();
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A](&lazy protocol witness table cache variable for type HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>> and conformance HStack<A>, type metadata accessor for HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>>, MEMORY[0x1E69817F8]);
+    v5[1] = lazy protocol witness table accessor for type BarItemWidthModifier and conformance BarItemWidthModifier();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>, ModifiedContent<Divider, _PaddingLayout>?)>>, BarItemWidthModifier> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -4260,7 +5064,7 @@ unint64_t lazy protocol witness table accessor for type ToolbarScopeModifier and
   result = lazy protocol witness table cache variable for type ToolbarScopeModifier and conformance ToolbarScopeModifier;
   if (!lazy protocol witness table cache variable for type ToolbarScopeModifier and conformance ToolbarScopeModifier)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ToolbarScopeModifier, &type metadata for ToolbarScopeModifier, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ToolbarScopeModifier and conformance ToolbarScopeModifier);
   }
 
@@ -4273,7 +5077,7 @@ unint64_t lazy protocol witness table accessor for type PreferenceValueAttribute
   if (!lazy protocol witness table cache variable for type PreferenceValueAttribute<ToolbarKey> and conformance PreferenceValueAttribute<A>)
   {
     _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(255, &lazy cache variable for type metadata for PreferenceValueAttribute<ToolbarKey>, &type metadata for ToolbarKey, &protocol witness table for ToolbarKey, MEMORY[0x1E69803F8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6980400], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type PreferenceValueAttribute<ToolbarKey> and conformance PreferenceValueAttribute<A>);
   }
 
@@ -4286,7 +5090,7 @@ unint64_t lazy protocol witness table accessor for type PreferenceValueAttribute
   if (!lazy protocol witness table cache variable for type PreferenceValueAttribute<NavigationTitleKey> and conformance PreferenceValueAttribute<A>)
   {
     _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(255, &lazy cache variable for type metadata for PreferenceValueAttribute<NavigationTitleKey>, &type metadata for NavigationTitleKey, &protocol witness table for NavigationTitleKey, MEMORY[0x1E69803F8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6980400], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type PreferenceValueAttribute<NavigationTitleKey> and conformance PreferenceValueAttribute<A>);
   }
 
@@ -4299,7 +5103,7 @@ unint64_t lazy protocol witness table accessor for type PreferenceValueAttribute
   if (!lazy protocol witness table cache variable for type PreferenceValueAttribute<SearchKey> and conformance PreferenceValueAttribute<A>)
   {
     _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(255, &lazy cache variable for type metadata for PreferenceValueAttribute<SearchKey>, &type metadata for SearchKey, &protocol witness table for SearchKey, MEMORY[0x1E69803F8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6980400], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type PreferenceValueAttribute<SearchKey> and conformance PreferenceValueAttribute<A>);
   }
 
@@ -4312,7 +5116,7 @@ unint64_t lazy protocol witness table accessor for type PreferenceValueAttribute
   if (!lazy protocol witness table cache variable for type PreferenceValueAttribute<NavigationBarAppearanceKey> and conformance PreferenceValueAttribute<A>)
   {
     _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(255, &lazy cache variable for type metadata for PreferenceValueAttribute<NavigationBarAppearanceKey>, &type metadata for NavigationBarAppearanceKey, &protocol witness table for NavigationBarAppearanceKey, MEMORY[0x1E69803F8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6980400], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type PreferenceValueAttribute<NavigationBarAppearanceKey> and conformance PreferenceValueAttribute<A>);
   }
 
@@ -4325,7 +5129,7 @@ unint64_t lazy protocol witness table accessor for type PreferenceValueAttribute
   if (!lazy protocol witness table cache variable for type PreferenceValueAttribute<BottomBarAppearanceKey> and conformance PreferenceValueAttribute<A>)
   {
     _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(255, &lazy cache variable for type metadata for PreferenceValueAttribute<BottomBarAppearanceKey>, &type metadata for BottomBarAppearanceKey, &protocol witness table for BottomBarAppearanceKey, MEMORY[0x1E69803F8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6980400], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type PreferenceValueAttribute<BottomBarAppearanceKey> and conformance PreferenceValueAttribute<A>);
   }
 
@@ -4339,14 +5143,23 @@ uint64_t outlined assign with take of Toolbar.UpdateContext?(uint64_t a1, uint64
   return a2;
 }
 
-void type metadata completion function for ToolbarReader.PrimitiveReader()
+void type metadata completion function for ToolbarReader.PrimitiveReader(uint64_t a1)
 {
+  v8 = "H";
+  v9 = &unk_18CDD83A8;
   type metadata accessor for ToolbarStorage.SearchItem?(319);
-  if (v0 <= 0x3F)
+  if (v3 <= 0x3F)
   {
-    type metadata accessor for ToolbarReader();
-    if (v1 <= 0x3F)
+    v10 = *(v2 - 8) + 64;
+    v11 = MEMORY[0x1E69E5CE8] + 64;
+    v12 = MEMORY[0x1E69E5CE8] + 64;
+    v4 = *(a1 + 32);
+    v7[0] = *(a1 + 16);
+    v7[1] = v4;
+    v5 = type metadata accessor for ToolbarReader(319, v7);
+    if (v6 <= 0x3F)
     {
+      v13 = *(v5 - 8) + 64;
       swift_initStructMetadata();
     }
   }
@@ -4708,7 +5521,7 @@ LABEL_44:
   return a1;
 }
 
-uint64_t destroy for ToolbarReader.PrimitiveReader(uint64_t a1, uint64_t a2)
+double destroy for ToolbarReader.PrimitiveReader(uint64_t a1, uint64_t a2)
 {
 
   if (*(a1 + 24))
@@ -4809,6 +5622,8 @@ LABEL_27:
   v26 = *(*(a2 + 16) - 8);
   v27 = *(v26 + 80) & 0xF8 | 7;
   (*(v26 + 8))((((v10 + (((((((((v17 & 0xFFFFFFFFFFFFFFF8) + 47) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 191) & 0xFFFFFFFFFFFFFFF8) + 111) & 0xFFFFFFFFFFFFFFF8) + v27 + 8) & ~v27);
+
+  return result;
 }
 
 uint64_t initializeWithCopy for ToolbarReader.PrimitiveReader(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7293,11 +8108,11 @@ uint64_t assignWithCopy for ToolbarReader.ApplyUpdatesToExternalTarget(uint64_t 
   return a1;
 }
 
-uint64_t initializeWithCopy for ToolbarReader.ApplyUpdatesToExternalTarget(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t))
+uint64_t initializeWithCopy for ToolbarReader.ApplyUpdatesToExternalTarget(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t))
 {
   *a1 = *a2;
   *(a1 + 16) = *(a2 + 16);
-  a4(a1 + 24, a2 + 24);
+  a4(a1 + 24, a2 + 24, a3);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 37) = *(a2 + 37);
   return a1;
@@ -7314,10 +8129,10 @@ uint64_t assignWithTake for ToolbarReader.ApplyUpdatesToExternalTarget(uint64_t 
   return a1;
 }
 
-void type metadata completion function for ToolbarReader.ToolbarConfiguration()
+void type metadata completion function for ToolbarReader.ToolbarConfiguration(uint64_t a1)
 {
   type metadata accessor for ToolbarStorage.SearchItem?(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_initStructMetadata();
   }
@@ -9297,580 +10112,4 @@ LABEL_27:
   *(a1 + a3[16]) = *(a2 + a3[16]);
 
   return a1;
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<BarItemWidthModifier>, ToolbarItemMinimumWidthLayout> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<BarItemWidthModifier>, ToolbarItemMinimumWidthLayout> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<BarItemWidthModifier>, ToolbarItemMinimumWidthLayout> and conformance <> ModifiedContent<A, B>)
-  {
-    type metadata accessor for ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>(255, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<BarItemWidthModifier>, ToolbarItemMinimumWidthLayout>, type metadata accessor for _ViewModifier_Content<BarItemWidthModifier>);
-    lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A](&lazy protocol witness table cache variable for type _ViewModifier_Content<BarItemWidthModifier> and conformance _ViewModifier_Content<A>, type metadata accessor for _ViewModifier_Content<BarItemWidthModifier>);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<BarItemWidthModifier>, ToolbarItemMinimumWidthLayout> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-void type metadata accessor for ModifiedContent<ModifiedContent<_ViewList_View, AccessibilityLargeContentViewBehaviorModifier<EnabledLargeContentView>>, BarItemModifier>(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
-{
-  if (!*a2)
-  {
-    a3(255);
-    v4 = type metadata accessor for ModifiedContent();
-    if (!v5)
-    {
-      atomic_store(v4, a2);
-    }
-  }
-}
-
-void type metadata accessor for _ViewModifier_Content<BarItemWidthModifier>()
-{
-  if (!lazy cache variable for type metadata for _ViewModifier_Content<BarItemWidthModifier>)
-  {
-    lazy protocol witness table accessor for type BarItemWidthModifier and conformance BarItemWidthModifier();
-    v0 = type metadata accessor for _ViewModifier_Content();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for _ViewModifier_Content<BarItemWidthModifier>);
-    }
-  }
-}
-
-unint64_t lazy protocol witness table accessor for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout()
-{
-  result = lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout;
-  if (!lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout;
-  if (!lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout;
-  if (!lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout;
-  if (!lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ToolbarItemMinimumWidthLayout and conformance ToolbarItemMinimumWidthLayout);
-  }
-
-  return result;
-}
-
-void *specialized ToolbarBridge.filterAndSortMatchingItems(in:newStorage:context:)(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  v80 = a1;
-  v4 = type metadata accessor for ToolbarStorage.GroupItem(0);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v65 = &v64 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for ToolbarStorage.Item(0);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v64 = &v64 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for ToolbarStorage.Entry.Kind(0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = (&v64 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = type metadata accessor for ToolbarStorage.Entry(0);
-  v12 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v70 = &v64 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v64 - v15;
-  v92 = MEMORY[0x1E69E7CC0];
-  v71 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI14ToolbarStorageV5EntryV2IDV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v17 = ToolbarStorage.toolbarEntries.getter();
-  v18 = v17;
-  v82 = *(v17 + 16);
-  if (!v82)
-  {
-LABEL_92:
-
-    specialized MutableCollection<>.sort(by:)(&v92, v71);
-
-    return v92;
-  }
-
-  v19 = 0;
-  v77 = BYTE4(a3);
-  v66 = (*(v12 + 80) + 32) & ~*(v12 + 80);
-  v81 = v17 + v66;
-  v76 = a3 & 1;
-  v75 = (a3 >> 8) & 1;
-  v74 = WORD1(a3) & 1;
-  v73 = BYTE3(a3) & 1;
-  v78 = MEMORY[0x1E69E7CC0];
-  v20 = MEMORY[0x1E69E7CD0];
-  v79 = a3;
-  v21 = HIWORD(a3) & 1;
-  v68 = v8;
-  v69 = v12;
-  v72 = v17;
-  v67 = v21;
-  while (v19 < *(v18 + 16))
-  {
-    v22 = *(v12 + 72);
-    _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v81 + v22 * v19, v16, type metadata accessor for ToolbarStorage.Entry);
-    _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v16, v10, type metadata accessor for ToolbarStorage.Entry.Kind);
-    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    if (EnumCaseMultiPayload <= 1)
-    {
-      if (EnumCaseMultiPayload)
-      {
-        v24 = v65;
-        _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v10, v65, type metadata accessor for ToolbarStorage.GroupItem);
-        outlined init with copy of ToolbarItemPlacement.Role(v24 + 80, v89);
-        v25 = type metadata accessor for ToolbarStorage.GroupItem;
-      }
-
-      else
-      {
-        v24 = v64;
-        _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v10, v64, type metadata accessor for ToolbarStorage.Item);
-        outlined init with copy of ToolbarItemPlacement.Role(v24 + 112, v89);
-        v25 = type metadata accessor for ToolbarStorage.Item;
-      }
-
-      outlined destroy of ToolbarStorage.GroupItem(v24, v25);
-LABEL_16:
-      if (v89[40] == 255)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_17;
-    }
-
-    if (EnumCaseMultiPayload == 2)
-    {
-      v26 = v10[3];
-      v86 = v10[2];
-      v27 = v10[4];
-      v87 = v26;
-      v88 = v27;
-      v28 = *v10;
-      v85 = v10[1];
-      v84 = v28;
-      outlined init with copy of ToolbarItemPlacement.Role(&v84 + 8, v89);
-      outlined destroy of ToolbarStorage.SpacerItem(&v84);
-      goto LABEL_16;
-    }
-
-    if (EnumCaseMultiPayload != 3)
-    {
-      memset(v89, 0, 40);
-      v89[40] = -1;
-LABEL_4:
-      outlined destroy of ToolbarStorage.GroupItem(v16, type metadata accessor for ToolbarStorage.Entry);
-      outlined destroy of ToolbarStorage?(v89, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-      goto LABEL_5;
-    }
-
-    *v89 = 29;
-    memset(&v89[8], 0, 32);
-    v89[40] = 2;
-LABEL_17:
-    v90 = *v89;
-    *v91 = *&v89[16];
-    *&v91[9] = *&v89[25];
-    LOBYTE(v84) = v76;
-    BYTE1(v84) = v75;
-    BYTE2(v84) = v74;
-    BYTE3(v84) = v73;
-    BYTE4(v84) = v77;
-    BYTE5(v84) = BYTE5(v79);
-    BYTE6(v84) = v21;
-    v29 = Toolbar.BarLocation.priority(for:context:)(&v90, &v84);
-    if ((v30 & 1) == 0)
-    {
-      v31 = v29;
-      if (*(v20 + 16))
-      {
-        Hasher.init(_seed:)();
-        ToolbarItemPlacement.Role.hash(into:)();
-        v32 = Hasher._finalize()();
-        v33 = -1 << *(v20 + 32);
-        v34 = v32 & ~v33;
-        if ((*(v20 + 56 + ((v34 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v34))
-        {
-          v35 = ~v33;
-          while (1)
-          {
-            outlined init with copy of ToolbarItemPlacement.Role(*(v20 + 48) + 48 * v34, &v84);
-            v36 = specialized static ToolbarItemPlacement.Role.== infix(_:_:)(&v84, &v90);
-            outlined destroy of ToolbarItemPlacement.Role(&v84);
-            if (v36)
-            {
-              break;
-            }
-
-            v34 = (v34 + 1) & v35;
-            if (((*(v20 + 56 + ((v34 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v34) & 1) == 0)
-            {
-              goto LABEL_24;
-            }
-          }
-
-          outlined destroy of ToolbarItemPlacement.Role(&v90);
-          outlined destroy of ToolbarStorage.GroupItem(v16, type metadata accessor for ToolbarStorage.Entry);
-          v12 = v69;
-LABEL_64:
-          v18 = v72;
-          LOBYTE(v21) = v67;
-          goto LABEL_5;
-        }
-      }
-
-LABEL_24:
-      outlined init with copy of ToolbarItemPlacement.Role(&v90, &v84);
-      if (BYTE8(v86))
-      {
-        if (BYTE8(v86) == 1)
-        {
-          outlined destroy of ToolbarItemPlacement.Role(&v84);
-LABEL_49:
-          ToolbarStorage.Entry.id.getter(&v84);
-          v40 = v71;
-          isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          *v89 = v40;
-          v43 = specialized __RawDictionaryStorage.find<A>(_:)(&v84);
-          v44 = *(v40 + 16);
-          v45 = (v42 & 1) == 0;
-          v46 = v44 + v45;
-          if (__OFADD__(v44, v45))
-          {
-            goto LABEL_94;
-          }
-
-          v47 = v42;
-          if (*(v40 + 24) >= v46)
-          {
-            if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-            {
-              specialized _NativeDictionary.copy()();
-            }
-          }
-
-          else
-          {
-            specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v46, isUniquelyReferenced_nonNull_native);
-            v48 = specialized __RawDictionaryStorage.find<A>(_:)(&v84);
-            if ((v47 & 1) != (v49 & 1))
-            {
-              goto LABEL_96;
-            }
-
-            v43 = v48;
-          }
-
-          v12 = v69;
-          v50 = *v89;
-          if (v47)
-          {
-            *(*(*v89 + 56) + 8 * v43) = v31;
-            outlined destroy of ToolbarStorage.Entry.ID(&v84);
-          }
-
-          else
-          {
-            *(*v89 + 8 * (v43 >> 6) + 64) |= 1 << v43;
-            outlined init with copy of ToolbarStorage.Entry.ID(&v84, v50[6] + 88 * v43);
-            *(v50[7] + 8 * v43) = v31;
-            outlined destroy of ToolbarStorage.Entry.ID(&v84);
-            v51 = v50[2];
-            v52 = __OFADD__(v51, 1);
-            v53 = v51 + 1;
-            if (v52)
-            {
-              goto LABEL_95;
-            }
-
-            v50[2] = v53;
-          }
-
-          _s7SwiftUI14ToolbarStorageV10SearchItemVSgWOcTm_0(v16, v70, type metadata accessor for ToolbarStorage.Entry);
-          v54 = swift_isUniquelyReferenced_nonNull_native();
-          v71 = v50;
-          if ((v54 & 1) == 0)
-          {
-            v78 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v78[2] + 1, 1, v78);
-          }
-
-          v56 = v78[2];
-          v55 = v78[3];
-          if (v56 >= v55 >> 1)
-          {
-            v78 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v55 > 1, v56 + 1, 1, v78);
-          }
-
-          outlined destroy of ToolbarItemPlacement.Role(&v90);
-          outlined destroy of ToolbarStorage.GroupItem(v16, type metadata accessor for ToolbarStorage.Entry);
-          v57 = v78;
-          v78[2] = v56 + 1;
-          _s7SwiftUI14ToolbarStorageV4ItemVWObTm_0(v70, v57 + v66 + v56 * v22, type metadata accessor for ToolbarStorage.Entry);
-          v92 = v57;
-          goto LABEL_64;
-        }
-
-        if (*(&v85 + 1) | v86 | v84 | v85 | *(&v84 + 1))
-        {
-          v37 = *(&v85 + 1) | v86 | v85 | *(&v84 + 1);
-          if ((v84 - 1) > 7 || v37)
-          {
-            if ((v84 - 9) <= 1 && !v37)
-            {
-              goto LABEL_49;
-            }
-
-            if (v84 != 11 || v37)
-            {
-              v58 = v84 & 0xFFFFFFFFFFFFFFFELL;
-              v59 = v84 & 0xFFFFFFFFFFFFFFFCLL;
-              v60 = (v84 & 0xFFFFFFFFFFFFFFFELL) == 0x14 || v59 == 16;
-              v61 = v60 || v59 == 12;
-              if (v61 && !v37)
-              {
-                goto LABEL_49;
-              }
-
-              v62 = v58 == 22 || v84 == 24;
-              if ((!v62 || v37) && ((v84 - 25) <= 3 && !v37 || (v84 != 29 || v37) && v58 == 30 && !v37))
-              {
-                goto LABEL_49;
-              }
-            }
-          }
-        }
-      }
-
-      outlined init with copy of Toolbar.BarLocation(v80, &v84);
-      if (*(&v85 + 1) > 5)
-      {
-        v38 = v79;
-        if (*(&v85 + 1) > 0x14uLL)
-        {
-          goto LABEL_35;
-        }
-
-        if (((1 << SBYTE8(v85)) & 0xFE600) != 0)
-        {
-          goto LABEL_49;
-        }
-
-        if (((1 << SBYTE8(v85)) & 0x1800) == 0)
-        {
-          if (*(&v85 + 1) == 20)
-          {
-            goto LABEL_49;
-          }
-
-LABEL_35:
-          if ((*(&v85 + 1) - 7) >= 2)
-          {
-            if (*(&v85 + 1) != 6)
-            {
-              goto LABEL_91;
-            }
-
-LABEL_45:
-            _s7SwiftUI16_SemanticFeatureVyAA12Semantics_v4VGMaTm_3(0, &lazy cache variable for type metadata for _SemanticFeature<Semantics_v4>, MEMORY[0x1E697DF40], MEMORY[0x1E697DF38], MEMORY[0x1E697EC20]);
-            lazy protocol witness table accessor for type _SemanticFeature<Semantics_v4> and conformance _SemanticFeature<A>();
-            if ((static SemanticFeature.isEnabled.getter() & 1) != 0 || v77 == 2 || (v38 & 0x100000000) != 0)
-            {
-              goto LABEL_49;
-            }
-          }
-        }
-
-LABEL_48:
-        outlined init with copy of ToolbarItemPlacement.Role(&v90, v89);
-        v39 = swift_isUniquelyReferenced_nonNull_native();
-        v83 = v20;
-        specialized _NativeSet.update(with:isUnique:)(v89, v39, &v84);
-        outlined destroy of ToolbarStorage?(&v84, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-        v20 = v83;
-        goto LABEL_49;
-      }
-
-      v38 = v79;
-      if (*(&v85 + 1) > 2)
-      {
-        if ((*(&v85 + 1) - 4) < 2)
-        {
-          goto LABEL_48;
-        }
-
-        if (*(&v85 + 1) == 3)
-        {
-          goto LABEL_45;
-        }
-      }
-
-      else
-      {
-        if (*(&v85 + 1) < 2uLL)
-        {
-          goto LABEL_48;
-        }
-
-        if (*(&v85 + 1) == 2)
-        {
-          goto LABEL_49;
-        }
-      }
-
-LABEL_91:
-      outlined destroy of Toolbar.BarLocation(&v84);
-      goto LABEL_49;
-    }
-
-    outlined destroy of ToolbarItemPlacement.Role(&v90);
-    outlined destroy of ToolbarStorage.GroupItem(v16, type metadata accessor for ToolbarStorage.Entry);
-    v18 = v72;
-LABEL_5:
-    if (++v19 == v82)
-    {
-      goto LABEL_92;
-    }
-  }
-
-  __break(1u);
-LABEL_94:
-  __break(1u);
-LABEL_95:
-  __break(1u);
-LABEL_96:
-  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t outlined destroy of (ToolbarStorage.Entry.ID?, ToolbarStorage.Entry.ID?)(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
-{
-  type metadata accessor for (ToolbarStorage.Entry.ID?, ToolbarStorage.Entry.ID?)(0, a2, a3, a4);
-  (*(*(v5 - 8) + 8))(a1, v5);
-  return a1;
-}
-
-uint64_t partial apply for closure #1 in ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()()
-{
-  type metadata accessor for ToolbarReader.ToolbarConfiguration();
-
-  return closure #1 in ToolbarReader.ApplyUpdatesToExternalTarget.updateValue()();
-}
-
-void type metadata accessor for (ToolbarStorage.Entry?, ToolbarStorage.Entry?)()
-{
-  if (!lazy cache variable for type metadata for (ToolbarStorage.Entry?, ToolbarStorage.Entry?))
-  {
-    type metadata accessor for ToolbarStorage.Entry?(255);
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (ToolbarStorage.Entry?, ToolbarStorage.Entry?));
-    }
-  }
-}
-
-uint64_t specialized ToolbarReader.UpdateToolbarBridge.configure(bridge:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5 = static ToolbarEdges.bars.getter(a2, a4);
-  v21 = MEMORY[0x1E69E7CD0];
-  memset(v20, 0, sizeof(v20));
-  v6 = specialized Set.contains(_:)(v20, v5);
-  outlined destroy of ToolbarPlacement.Role(v20);
-  if (v6)
-  {
-    type metadata accessor for ToolbarStorage?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Toolbar.BarLocation>, &type metadata for Toolbar.BarLocation, MEMORY[0x1E69E6F90]);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_18CDD3F30;
-    *(inited + 40) = 0;
-    *(inited + 48) = 0;
-    *(inited + 32) = 0;
-    *(inited + 56) = 6;
-    *(inited + 64) = 0u;
-    *(inited + 80) = 0u;
-    *(inited + 96) = 3;
-    *(inited + 104) = 0u;
-    *(inited + 120) = 0u;
-    *(inited + 136) = 0u;
-    specialized Set.formUnion<A>(_:)(inited);
-    swift_setDeallocating();
-    swift_arrayDestroy();
-  }
-
-  memset(v20, 0, 24);
-  *&v20[3] = xmmword_18CD79D60;
-  v8 = specialized Set.contains(_:)(v20, v5);
-  outlined destroy of ToolbarPlacement.Role(v20);
-  if (v8)
-  {
-    v9 = v21;
-  }
-
-  else
-  {
-    memset(v20, 0, 24);
-    *&v20[3] = xmmword_18CD6A6D0;
-    v10 = specialized Set.contains(_:)(v20, v5);
-    outlined destroy of ToolbarPlacement.Role(v20);
-    v9 = v21;
-    if ((v10 & 1) == 0)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v16 = 0;
-  v17 = 0;
-  v18 = 0;
-  v19 = xmmword_18CDD7FB0;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  specialized _NativeSet.update(with:isUnique:)(&v16, isUniquelyReferenced_nonNull_native, v20);
-  outlined destroy of ToolbarStorage?(v20, &lazy cache variable for type metadata for Toolbar.BarLocation?, &type metadata for Toolbar.BarLocation, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-LABEL_7:
-  memset(v20, 0, 24);
-  *&v20[3] = xmmword_18CD7DD20;
-  v12 = specialized Set.contains(_:)(v20, v5);
-
-  outlined destroy of ToolbarPlacement.Role(v20);
-  if (v12)
-  {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = xmmword_18CD90760;
-    v13 = swift_isUniquelyReferenced_nonNull_native();
-    specialized _NativeSet.update(with:isUnique:)(&v16, v13, v20);
-    outlined destroy of ToolbarStorage?(v20, &lazy cache variable for type metadata for Toolbar.BarLocation?, &type metadata for Toolbar.BarLocation, MEMORY[0x1E69E6720], type metadata accessor for ToolbarStorage?);
-  }
-
-  v14 = direct field offset for ToolbarBridge.allowedLocations;
-  swift_beginAccess();
-  *(a1 + v14) = v9;
 }

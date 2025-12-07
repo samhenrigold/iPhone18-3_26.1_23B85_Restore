@@ -1,8 +1,11 @@
 @interface BMPBScreenTimeRequestEvent
 - (BOOL)isEqual:(id)equal;
+- (id)approvalTimeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)kindAsString:(int)string;
+- (id)statusAsString:(int)string;
 - (int)StringAsApprovalTime:(id)time;
 - (int)StringAsKind:(id)kind;
 - (int)StringAsStatus:(id)status;
@@ -47,6 +50,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)kindAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E53238 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsKind:(id)kind
@@ -101,6 +119,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E53250 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatus:(id)status
@@ -160,6 +193,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)approvalTimeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E53270 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsApprovalTime:(id)time
@@ -337,38 +385,36 @@ LABEL_25:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_requestID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    eventTime = self->_eventTime;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_requesterDSID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_responderDSID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    kind = self->_kind;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -387,35 +433,32 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  status = self->_status;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_12:
-    approvalTime = self->_approvalTime;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_13:
   if (self->_websitePath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    isActionUserDevice = self->_isActionUserDevice;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -587,7 +630,6 @@ LABEL_7:
     }
   }
 
-  v6 = *(equalCopy + 84);
   if (*&self->_has)
   {
     if ((*(equalCopy + 84) & 1) == 0 || self->_eventTime != *(equalCopy + 1))
@@ -616,7 +658,6 @@ LABEL_7:
     }
   }
 
-  v9 = *(equalCopy + 84);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 84) & 4) == 0 || self->_kind != *(equalCopy + 8))
@@ -671,13 +712,13 @@ LABEL_7:
     }
   }
 
-  v12 = (*(equalCopy + 84) & 0x10) == 0;
+  v10 = (*(equalCopy + 84) & 0x10) == 0;
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 84) & 0x10) == 0)
     {
 LABEL_34:
-      v12 = 0;
+      v10 = 0;
       goto LABEL_35;
     }
 
@@ -694,12 +735,12 @@ LABEL_34:
       goto LABEL_34;
     }
 
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_35:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

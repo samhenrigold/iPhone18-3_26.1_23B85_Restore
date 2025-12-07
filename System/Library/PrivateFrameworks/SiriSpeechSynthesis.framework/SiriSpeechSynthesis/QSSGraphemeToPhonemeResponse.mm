@@ -47,7 +47,7 @@ flatbuffers::DetachedBuffer *__44__QSSGraphemeToPhonemeResponse_flatbuffData__bl
 
 - (Offset<siri::speech::schema_fb::GraphemeToPhonemeResponse>)addObjectToBuffer:(void *)buffer
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   session_id = [(QSSGraphemeToPhonemeResponse *)self session_id];
   v6 = session_id;
   if (!session_id)
@@ -69,54 +69,54 @@ flatbuffers::DetachedBuffer *__44__QSSGraphemeToPhonemeResponse_flatbuffData__bl
 
   uTF8String2 = [(__CFString *)return_str UTF8String];
   v12 = strlen(uTF8String2);
-  v61 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  v60 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
-  memset(&v79, 0, sizeof(v79));
+  memset(&v78, 0, sizeof(v78));
   phonemes = [(QSSGraphemeToPhonemeResponse *)self phonemes];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v79, [phonemes count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v78, [phonemes count]);
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   phonemes2 = [(QSSGraphemeToPhonemeResponse *)self phonemes];
-  v15 = [phonemes2 countByEnumeratingWithState:&v75 objects:v82 count:16];
+  v15 = [phonemes2 countByEnumeratingWithState:&v74 objects:v81 count:16];
   if (v15)
   {
-    v16 = *v76;
+    v16 = *v75;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v76 != v16)
+        if (*v75 != v16)
         {
           objc_enumerationMutation(phonemes2);
         }
 
-        uTF8String3 = [*(*(&v75 + 1) + 8 * i) UTF8String];
+        uTF8String3 = [*(*(&v74 + 1) + 8 * i) UTF8String];
         v19 = strlen(uTF8String3);
-        LODWORD(v74.__begin_) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v19);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v79, &v74);
+        LODWORD(v73.__begin_) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v19);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v78, &v73);
       }
 
-      v15 = [phonemes2 countByEnumeratingWithState:&v75 objects:v82 count:16];
+      v15 = [phonemes2 countByEnumeratingWithState:&v74 objects:v81 count:16];
     }
 
     while (v15);
   }
 
-  begin = v79.__begin_;
-  if (v79.__end_ == v79.__begin_)
+  begin = v78.__begin_;
+  if (v78.__end_ == v78.__begin_)
   {
     v21 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    v21 = v79.__begin_;
+    v21 = v78.__begin_;
   }
 
-  v60 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v21, v79.__end_ - v79.__begin_);
+  v59 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v21, v78.__end_ - v78.__begin_);
   is_pron_guessed = [(QSSGraphemeToPhonemeResponse *)self is_pron_guessed];
   g2p_version = [(QSSGraphemeToPhonemeResponse *)self g2p_version];
   v23 = g2p_version;
@@ -127,7 +127,7 @@ flatbuffers::DetachedBuffer *__44__QSSGraphemeToPhonemeResponse_flatbuffData__bl
 
   uTF8String4 = [(__CFString *)g2p_version UTF8String];
   v25 = strlen(uTF8String4);
-  v58 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v25);
+  v57 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v25);
 
   g2p_model_version = [(QSSGraphemeToPhonemeResponse *)self g2p_model_version];
   v27 = g2p_model_version;
@@ -138,7 +138,7 @@ flatbuffers::DetachedBuffer *__44__QSSGraphemeToPhonemeResponse_flatbuffData__bl
 
   uTF8String5 = [(__CFString *)g2p_model_version UTF8String];
   v29 = strlen(uTF8String5);
-  v57 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String5, v29);
+  v56 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String5, v29);
 
   phoneset_version = [(QSSGraphemeToPhonemeResponse *)self phoneset_version];
   v31 = phoneset_version;
@@ -149,96 +149,96 @@ flatbuffers::DetachedBuffer *__44__QSSGraphemeToPhonemeResponse_flatbuffData__bl
 
   uTF8String6 = [(__CFString *)phoneset_version UTF8String];
   v33 = strlen(uTF8String6);
-  v56 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String6, v33);
+  v55 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String6, v33);
 
-  memset(&v74, 0, sizeof(v74));
+  memset(&v73, 0, sizeof(v73));
   aot_token_prons = [(QSSGraphemeToPhonemeResponse *)self aot_token_prons];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v74, [aot_token_prons count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v73, [aot_token_prons count]);
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   aot_token_prons2 = [(QSSGraphemeToPhonemeResponse *)self aot_token_prons];
-  v36 = [aot_token_prons2 countByEnumeratingWithState:&v70 objects:v81 count:16];
+  v36 = [aot_token_prons2 countByEnumeratingWithState:&v69 objects:v80 count:16];
   if (v36)
   {
-    v37 = *v71;
+    v37 = *v70;
     do
     {
       for (j = 0; j != v36; ++j)
       {
-        if (*v71 != v37)
+        if (*v70 != v37)
         {
           objc_enumerationMutation(aot_token_prons2);
         }
 
-        LODWORD(v69.__begin_) = [*(*(&v70 + 1) + 8 * j) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v74, &v69);
+        LODWORD(v68.__begin_) = [*(*(&v69 + 1) + 8 * j) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v73, &v68);
       }
 
-      v36 = [aot_token_prons2 countByEnumeratingWithState:&v70 objects:v81 count:16];
+      v36 = [aot_token_prons2 countByEnumeratingWithState:&v69 objects:v80 count:16];
     }
 
     while (v36);
   }
 
-  v39 = v74.__begin_;
-  if (v74.__end_ == v74.__begin_)
+  v39 = v73.__begin_;
+  if (v73.__end_ == v73.__begin_)
   {
     v40 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::TokenProns>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::TokenProns>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::TokenProns>> const&)::t;
   }
 
   else
   {
-    v40 = v74.__begin_;
+    v40 = v73.__begin_;
   }
 
-  v41 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v40, v74.__end_ - v74.__begin_);
-  memset(&v69, 0, sizeof(v69));
+  v41 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v40, v73.__end_ - v73.__begin_);
+  memset(&v68, 0, sizeof(v68));
   jit_token_prons = [(QSSGraphemeToPhonemeResponse *)self jit_token_prons];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v69, [jit_token_prons count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v68, [jit_token_prons count]);
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   jit_token_prons2 = [(QSSGraphemeToPhonemeResponse *)self jit_token_prons];
-  v44 = [jit_token_prons2 countByEnumeratingWithState:&v65 objects:v80 count:16];
+  v44 = [jit_token_prons2 countByEnumeratingWithState:&v64 objects:v79 count:16];
   if (v44)
   {
-    v45 = *v66;
+    v45 = *v65;
     do
     {
       for (k = 0; k != v44; ++k)
       {
-        if (*v66 != v45)
+        if (*v65 != v45)
         {
           objc_enumerationMutation(jit_token_prons2);
         }
 
-        v64 = [*(*(&v65 + 1) + 8 * k) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v69, &v64);
+        v63 = [*(*(&v64 + 1) + 8 * k) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v68, &v63);
       }
 
-      v44 = [jit_token_prons2 countByEnumeratingWithState:&v65 objects:v80 count:16];
+      v44 = [jit_token_prons2 countByEnumeratingWithState:&v64 objects:v79 count:16];
     }
 
     while (v44);
   }
 
-  v47 = v69.__begin_;
-  if (v69.__end_ == v69.__begin_)
+  v47 = v68.__begin_;
+  if (v68.__end_ == v68.__begin_)
   {
     v48 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::TokenProns>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::TokenProns>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::TokenProns>> const&)::t;
   }
 
   else
   {
-    v48 = v69.__begin_;
+    v48 = v68.__begin_;
   }
 
-  v49 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v48, v69.__end_ - v69.__begin_);
+  v49 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v48, v68.__end_ - v68.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v50 = *(buffer + 8);
@@ -246,12 +246,12 @@ flatbuffers::DetachedBuffer *__44__QSSGraphemeToPhonemeResponse_flatbuffData__bl
   v52 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, return_code);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v61);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v60);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v60);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v59);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(buffer, 12, is_pron_guessed);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v58);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 16, v57);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 18, v56);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v57);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 16, v56);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 18, v55);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 20, v41);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 22, v49);
   v53.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v50 - v51 + v52);
@@ -270,7 +270,6 @@ flatbuffers::DetachedBuffer *__44__QSSGraphemeToPhonemeResponse_flatbuffData__bl
     operator delete(begin);
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v53;
 }
 

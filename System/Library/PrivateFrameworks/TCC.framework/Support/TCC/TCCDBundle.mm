@@ -102,43 +102,45 @@
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7 = [v4 objectForKeyedSubscript:v5];
+    v8 = [v4 objectForKeyedSubscript:v5];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v9 = objc_opt_isKindOfClass();
+    if (v9)
     {
-      v7 = v7;
-      v8 = v7;
+      v8 = v8;
+      v10 = v8;
       goto LABEL_13;
     }
 
-    v9 = tcc_access_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = tcc_access_log(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543874;
+      v13 = 138543874;
       selfCopy = self;
-      v13 = 2112;
-      v14 = v5;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: Info.plist is missing or has invalid value for %@ key: %{public}@", &v11, 0x20u);
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v8;
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@: Info.plist is missing or has invalid value for %@ key: %{public}@", &v13, 0x20u);
     }
   }
 
   else
   {
-    v7 = tcc_access_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = tcc_access_log(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100035514();
     }
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_13:
 
-  return v8;
+  return v10;
 }
 
 - (TCCDBundle)initWithURL:(id)l
@@ -149,7 +151,7 @@ LABEL_13:
   v5 = [(TCCDBundle *)&v10 init];
   if (v5 && (Unique = _CFBundleCreateUnique(), (v5->_cfBundle = Unique) == 0))
   {
-    v8 = tcc_access_log();
+    v8 = tcc_access_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100035430(lCopy, v8);
@@ -169,13 +171,14 @@ LABEL_13:
 - (TCCDBundle)initWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v10 = 0;
-  v5 = [LSBundleRecord bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [LSBundleRecord bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v11];
+  v6 = v11;
+  v7 = v6;
   if (v6)
   {
-    v7 = tcc_access_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = tcc_access_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000354A8();
     }
@@ -185,8 +188,8 @@ LABEL_13:
 
   else
   {
-    v7 = [v5 URL];
-    self = [(TCCDBundle *)self initWithURL:v7];
+    v8 = [v5 URL];
+    self = [(TCCDBundle *)self initWithURL:v8];
     selfCopy = self;
   }
 
@@ -344,54 +347,54 @@ LABEL_13:
 {
   executableCopy = executable;
   executablePath = [(TCCDBundle *)self executablePath];
-  v11 = 0;
-  v6 = [executablePath stringByResolvingRealPathWithError:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [executablePath stringByResolvingRealPathWithError:&v12];
+  v7 = v12;
 
   if (v6)
   {
-    v8 = [v6 isEqualToString:executableCopy];
+    v9 = [v6 isEqualToString:executableCopy];
   }
 
   else
   {
-    v9 = tcc_access_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = tcc_access_log(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100035580(self);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)isPathContainedWithin:(id)within
 {
   withinCopy = within;
   bundlePath = [(TCCDBundle *)self bundlePath];
-  v11 = 0;
-  v6 = [bundlePath stringByResolvingRealPathWithError:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [bundlePath stringByResolvingRealPathWithError:&v12];
+  v7 = v12;
 
   if (v6)
   {
-    v8 = [withinCopy hasPrefix:v6];
+    v9 = [withinCopy hasPrefix:v6];
   }
 
   else
   {
-    v9 = tcc_access_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = tcc_access_log(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100035614(self);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 @end

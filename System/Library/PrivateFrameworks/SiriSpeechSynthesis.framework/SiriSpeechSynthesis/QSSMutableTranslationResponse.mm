@@ -5,14 +5,22 @@
 - (int)return_code;
 - (void)setEngine_input:(id)engine_input;
 - (void)setEngine_output:(id)engine_output;
+- (void)setFinal_message:(BOOL)final_message;
 - (void)setN_best_translated_phrases:(id)n_best_translated_phrases;
 - (void)setRequest_id:(id)request_id;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_string:(id)return_string;
 - (void)setSequence_id:(id)sequence_id;
 - (void)setSpeech_id:(id)speech_id;
 @end
 
 @implementation QSSMutableTranslationResponse
+
+- (void)setFinal_message:(BOOL)final_message
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:final_message];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)final_message
 {
@@ -49,6 +57,12 @@
 - (void)setReturn_string:(id)return_string
 {
   v4 = [return_string copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

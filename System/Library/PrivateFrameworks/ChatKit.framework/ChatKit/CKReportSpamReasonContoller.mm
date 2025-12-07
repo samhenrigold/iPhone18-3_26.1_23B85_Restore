@@ -12,7 +12,7 @@
 - (CKReportSpamReasonContoller)initWithConversations:(id)conversations didReportBlock:(id)block
 {
   v5 = _Block_copy(block);
-  sub_1902188FC(0, &qword_1EAD466B0);
+  sub_1902188FC(0, &qword_1EAD466B0, off_1E72E4B40);
   v6 = sub_190D57180();
   v7 = swift_allocObject();
   *(v7 + 16) = v5;

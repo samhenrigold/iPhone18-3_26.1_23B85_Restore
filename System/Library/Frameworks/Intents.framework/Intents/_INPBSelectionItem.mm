@@ -183,7 +183,6 @@ LABEL_18:
 
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
   }
 
@@ -197,12 +196,11 @@ LABEL_18:
 
   vocabularyValue = [(_INPBSelectionItem *)self vocabularyValue];
 
-  v9 = toCopy;
+  v8 = toCopy;
   if (vocabularyValue)
   {
-    vocabularyValue = self->_vocabularyValue;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v8 = toCopy;
   }
 }
 

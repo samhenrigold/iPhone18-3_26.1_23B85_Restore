@@ -8,17 +8,16 @@
 
 - (CTXPCGetBandInfoRequest)initWithContext:(id)context type:(unint64_t)type
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v13 = @"type";
+  v12 = @"type";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
-  v14[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v12.receiver = self;
-  v12.super_class = CTXPCGetBandInfoRequest;
-  v9 = [(CTXPCSubscriptionContextRequest *)&v12 initWithContext:contextCopy namedArguments:v8];
+  v13[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = CTXPCGetBandInfoRequest;
+  v9 = [(CTXPCSubscriptionContextRequest *)&v11 initWithContext:contextCopy namedArguments:v8];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

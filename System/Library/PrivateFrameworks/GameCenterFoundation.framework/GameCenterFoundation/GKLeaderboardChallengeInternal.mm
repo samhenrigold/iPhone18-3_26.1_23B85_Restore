@@ -24,49 +24,47 @@
 
 void __57__GKLeaderboardChallengeInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1)
 {
-  v18[9] = *MEMORY[0x277D85DE8];
+  v17[9] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v14.receiver = *(a1 + 32);
-  v14.super_class = &OBJC_METACLASS___GKLeaderboardChallengeInternal;
-  v2 = objc_msgSendSuper2(&v14, sel_secureCodedPropertyKeys);
+  v13.receiver = *(a1 + 32);
+  v13.super_class = &OBJC_METACLASS___GKLeaderboardChallengeInternal;
+  v2 = objc_msgSendSuper2(&v13, sel_secureCodedPropertyKeys);
   v3 = [v1 dictionaryWithDictionary:v2];
 
-  v17[0] = @"leaderboardID";
-  v18[0] = objc_opt_class();
-  v17[1] = @"attemptLimit";
-  v18[1] = objc_opt_class();
-  v17[2] = @"state";
-  v18[2] = objc_opt_class();
-  v17[3] = @"creatorPlayerID";
-  v18[3] = objc_opt_class();
-  v17[4] = @"scheduledDuration";
-  v18[4] = objc_opt_class();
-  v17[5] = @"challengeDefinitionID";
-  v18[5] = objc_opt_class();
-  v17[6] = @"durationCode";
-  v18[6] = objc_opt_class();
-  v17[7] = @"participants";
+  v16[0] = @"leaderboardID";
+  v17[0] = objc_opt_class();
+  v16[1] = @"attemptLimit";
+  v17[1] = objc_opt_class();
+  v16[2] = @"state";
+  v17[2] = objc_opt_class();
+  v16[3] = @"creatorPlayerID";
+  v17[3] = objc_opt_class();
+  v16[4] = @"scheduledDuration";
+  v17[4] = objc_opt_class();
+  v16[5] = @"challengeDefinitionID";
+  v17[5] = objc_opt_class();
+  v16[6] = @"durationCode";
+  v17[6] = objc_opt_class();
+  v16[7] = @"participants";
   v4 = MEMORY[0x277CBEB98];
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-  v6 = [v4 setWithArray:v5];
-  v18[7] = v6;
-  v17[8] = @"invitees";
-  v7 = MEMORY[0x277CBEB98];
   v15[0] = objc_opt_class();
   v15[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v6 = [v4 setWithArray:v5];
+  v17[7] = v6;
+  v16[8] = @"invitees";
+  v7 = MEMORY[0x277CBEB98];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v9 = [v7 setWithArray:v8];
-  v18[8] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:9];
+  v17[8] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:9];
   [v3 addEntriesFromDictionary:v10];
 
   v11 = [v3 copy];
   v12 = secureCodedPropertyKeys_sSecureCodedKeys_193;
   secureCodedPropertyKeys_sSecureCodedKeys_193 = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (GKLeaderboardChallengeInternal)initWithServerRepresentation:(id)representation

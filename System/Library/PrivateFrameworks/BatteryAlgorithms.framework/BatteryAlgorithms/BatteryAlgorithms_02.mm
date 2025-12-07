@@ -1,53 +1,3 @@
-void (*ACAMCrossModelLibrary::getResistanceGetter(ACAMCrossModelLibrary *this))(int a1, uint64_t a2, void *a3, double a4, double a5, double a6, double a7, double a8, double a9)
-{
-  if (this == 2)
-  {
-    return ACAMCrossModelLibrary::getResistanceVersion2;
-  }
-
-  else
-  {
-    return ACAMCrossModelLibrary::getResistance;
-  }
-}
-
-double ACAMCrossModelLibrary::convertXToSOC(ACAMCrossModelLibrary *this, double a2, double a3, double a4)
-{
-  result = 0.0;
-  if (a4 > a2)
-  {
-    result = 1.0;
-    if (a4 < a3)
-    {
-      return a4 / (a3 - a2);
-    }
-  }
-
-  return result;
-}
-
-double *ACAMCrossModelLibrary::convertSocToX(double *this, double a2, double a3, double a4, double *a5)
-{
-  v5 = a3 + a2 * (a4 - a3);
-  if (v5 >= a3)
-  {
-    a3 = v5;
-  }
-
-  if (v5 <= a4)
-  {
-    v6 = a3;
-  }
-
-  else
-  {
-    v6 = a4;
-  }
-
-  *this = v6;
-  return this;
-}
-
 double *ACAMCrossModelLibrary::convertSocToY(double *this, double a2, double a3, double a4, double *a5)
 {
   v5 = a3 + a2 * (a4 - a3);
@@ -84,132 +34,129 @@ unint64_t ACAMCrossModelLibrary::convertYToOcpPos(uint64_t *a1, void *a2, double
   return result;
 }
 
-double ACAMCrossModelLibrary::getSOCDependentStates(double *a1, uint64_t a2, uint64_t *a3, double *a4, uint64_t a5, __int16 a6, double *a7, double *a8)
+double ACAMCrossModelLibrary::getSOCDependentStates(double *a1, uint64_t a2, uint64_t *a3, double *a4, uint64_t a5, __int16 a6, double *a7, double *a8, double a9, double a10, __n128 a11)
 {
-  v16 = a1[3];
-  v17 = *(a5 + 3353);
+  v19 = a1[3];
+  v20 = *(a5 + 3353);
   if (a1[1] > 0.0)
   {
-    v17 = 0;
+    v20 = 0;
   }
 
-  if (a6 & 1 | v17)
+  if (a6 & 1 | v20)
   {
-    v16 = ACAMCrossModelLibrary::calculateYShrinkAdjustedSOC((a3 + 43), a1[2], *(a2 + 88), v16);
+    v19 = ACAMCrossModelLibrary::calculateYShrinkAdjustedSOC((a3 + 43), a1[2], *(a2 + 88), v19);
   }
 
-  v18 = *a2;
-  v19 = *(a2 + 8);
-  v20 = *a2 + v16 * (v19 - *a2);
-  if (v20 >= *a2)
+  v21 = *a2;
+  v22 = *(a2 + 8);
+  v23 = *a2 + v19 * (v22 - *a2);
+  if (v23 >= *a2)
   {
-    v18 = *a2 + v16 * (v19 - *a2);
+    v21 = *a2 + v19 * (v22 - *a2);
   }
 
-  if (v20 <= v19)
+  if (v23 <= v22)
   {
-    v21 = v18;
+    v24 = v21;
   }
 
   else
   {
-    v21 = *(a2 + 8);
+    v24 = *(a2 + 8);
   }
 
-  v22 = *(a2 + 16);
-  v23 = *(a2 + 24);
-  v24 = v22 + v16 * (v23 - v22);
-  if (v24 >= v23)
+  v25 = *(a2 + 16);
+  v26 = *(a2 + 24);
+  v27 = v25 + v19 * (v26 - v25);
+  if (v27 >= v26)
   {
-    v23 = v24;
+    v26 = v27;
   }
 
-  if (v24 <= v22)
+  if (v27 <= v25)
   {
-    v25 = v23;
+    v28 = v26;
   }
 
   else
   {
-    v25 = *(a2 + 16);
+    v28 = *(a2 + 16);
   }
 
-  dataTable<double>::getValue(a3 + 14, 1, v21);
-  v27 = v26;
-  dataTable<double>::getValue(a3 + 18, 1, v25);
-  v29 = v28;
-  dataTable<double>::getValueArrhenius(a3 + 35, 1, a1[2], 273.15);
-  v54 = v30;
-  dataTable<double>::getValueArrhenius(a3 + 39, 1, a1[2], 273.15);
+  dataTable<double>::getValue(a3 + 14, 1, v24);
+  v30 = v29;
+  dataTable<double>::getValue(a3 + 18, 1, v28);
   v32 = v31;
-  v57 = 0.0;
-  v58 = 0.0;
-  v55 = 0.0;
+  dataTable<double>::getValueArrhenius(a3 + 35, 1, a1[2], 273.15);
+  v53 = v33;
+  dataTable<double>::getValueArrhenius(a3 + 39, 1, a1[2], 273.15);
+  v35 = v34;
   v56 = 0.0;
-  v33 = a1[1];
-  v34 = 0uLL;
+  v57 = 0.0;
+  v54 = 0.0;
+  v55 = 0.0;
+  v36 = a1[1];
+  v37 = 0uLL;
   if (*(a5 + 3352) == 1)
   {
-    if (v33 <= 0.0)
+    if (v36 <= 0.0)
     {
-      v34 = vmulq_n_f64(*(a2 + 72), v54);
+      v37 = vmulq_n_f64(*(a2 + 72), v53);
     }
 
     else
     {
-      v34 = vmulq_n_f64(*(a2 + 56), v32);
+      v37 = vmulq_n_f64(*(a2 + 56), v35);
     }
   }
 
-  v52 = v34;
-  v53 = v32;
-  v35 = v33 > 0.0;
+  v51 = v37;
+  v52 = v35;
+  v38 = v36 > 0.0;
   if (*(a5 + 3384) == 2)
   {
-    v36 = ACAMCrossModelLibrary::getResistanceVersion2;
+    v39 = ACAMCrossModelLibrary::getResistanceVersion2;
+    (ACAMCrossModelLibrary::getResistanceVersion2)(1, a3, &v57);
   }
 
   else
   {
-    v36 = ACAMCrossModelLibrary::getResistance;
+    v39 = ACAMCrossModelLibrary::getResistance;
+    (ACAMCrossModelLibrary::getResistance)(1, a3, &v57);
   }
 
-  v37 = *(a2 + 32);
-  v38 = *(a2 + 40) * a4[1];
-  v39 = *(a2 + 48) * a4[2];
-  v40 = *(a1 + 2);
-  v36(1, a3, &v58);
-  (v36)(0, a3, &v57, a1[1], *(a2 + 32), *(a2 + 40) * a4[1], *(a2 + 48) * a4[2], a1[2], v21);
-  v41 = *(&xmmword_241AB1050 + v35);
-  (v36)(1, a3, &v56, v41 * *a4, a4[4], a4[1], a4[2], a1[2], v25);
-  (v36)(0, a3, &v55, v41 * *a4, a4[4], a4[1], a4[2], a1[2], v21);
-  v42 = a1[1];
-  v43 = v58;
-  v44 = v52.f64[0] / v56;
-  v45 = v29 + v42 * v58 * (v52.f64[0] / v56 + 1.0);
-  v46 = v57;
-  v47 = v52.f64[1] / v55;
-  v48 = v27 + -(v42 * v57) * (v52.f64[1] / v55 + 1.0);
+  v39(0, a3, &v56, a1[1], *(a2 + 32), *(a2 + 40) * a4[1], *(a2 + 48) * a4[2], a1[2], v24);
+  v40 = *(&xmmword_241AB1050 + v38);
+  v39(1, a3, &v55, v40 * *a4, a4[4], a4[1], a4[2], a1[2], v28);
+  v39(0, a3, &v54, v40 * *a4, a4[4], a4[1], a4[2], a1[2], v24);
+  v41 = a1[1];
+  v42 = v57;
+  v43 = v51.f64[0] / v55;
+  v44 = v32 + v41 * v57 * (v51.f64[0] / v55 + 1.0);
+  v45 = v56;
+  v46 = v51.f64[1] / v54;
+  v47 = v30 + -(v41 * v56) * (v51.f64[1] / v54 + 1.0);
   if ((a6 & 0x100) != 0)
   {
-    v48 = fmin(fmax(v48, 0.0), *(a5 + 3376));
-    v45 = fmax(fmin(v45, *(a5 + 16) + *(a5 + 3360)), *(a5 + 3368));
+    v47 = fmin(fmax(v47, 0.0), *(a5 + 3376));
+    v44 = fmax(fmin(v44, *(a5 + 16) + *(a5 + 3360)), *(a5 + 3368));
   }
 
-  *a7 = v21;
-  a7[1] = v25;
-  a7[4] = v48;
-  a7[5] = v45;
-  a7[6] = v53;
-  a7[7] = v54;
-  v49 = v46 * v47;
-  v50 = v43 * v44;
-  a7[8] = v50;
-  a7[9] = v49;
-  a7[10] = v43 + v50;
-  a7[11] = v46 + v49;
-  result = v45 - v48;
-  *a8 = v45 - v48;
+  *a7 = v24;
+  a7[1] = v28;
+  a7[4] = v47;
+  a7[5] = v44;
+  a7[6] = v52;
+  a7[7] = v53;
+  v48 = v45 * v46;
+  v49 = v42 * v43;
+  a7[8] = v49;
+  a7[9] = v48;
+  a7[10] = v42 + v49;
+  a7[11] = v45 + v48;
+  result = v44 - v47;
+  *a8 = v44 - v47;
   return result;
 }
 
@@ -226,76 +173,61 @@ double ACAMCrossModelLibrary::calculateYShrinkAdjustedSOC(uint64_t a1, double a2
 unint64_t ACAMCrossModelLibrary::interpReciprical<3ul>(uint64_t a1, uint64_t a2, double a3)
 {
   v3 = 0;
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   do
   {
-    v9[v3] = 1.0 / (*(a1 + v3 * 8) + 273.15);
+    v8[v3] = 1.0 / (*(a1 + v3 * 8) + 273.15);
     ++v3;
   }
 
   while (v3 != 3);
-  v6[0] = v9;
-  v6[1] = 3;
-  v7 = v9[0] > v9[2];
-  v8 = a2;
-  result = dataTable<double>::getValue(v6, 1, a3);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = v8;
+  v5[1] = 3;
+  v6 = v8[0] > v8[2];
+  v7 = a2;
+  return dataTable<double>::getValue(v5, 1, a3);
 }
 
-unint64_t ACAMCrossModelLibrary::calculateApparentQmax(uint64_t a1, double *a2)
+unint64_t ACAMCrossModelLibrary::calculateApparentQmax(uint64_t a1, uint64_t a2)
 {
-  v9[0] = a1 + 808;
-  v9[1] = 101;
-  v10 = *(a1 + 808) > *(a1 + 1608);
-  v11 = a1;
-  dataTable<double>::getValue(v9, 0, a2[1]);
-  v4 = v3;
-  result = dataTable<double>::getValue(v9, 0, a2[2]);
-  v7 = v4 - v6;
-  if (v7 <= 0.0)
-  {
-    v8 = *a2;
-  }
-
-  else
-  {
-    v8 = *a2 / v7;
-  }
-
-  return result;
+  v4[0] = a1 + 808;
+  v4[1] = 101;
+  v5 = *(a1 + 808) > *(a1 + 1608);
+  v6 = a1;
+  dataTable<double>::getValue(v4, 0, *(a2 + 8));
+  return dataTable<double>::getValue(v4, 0, *(a2 + 16));
 }
 
-double ACAMCrossModelLibrary::calculateApparentRss(double *a1, double *a2, uint64_t *a3, uint64_t a4, double *a5, double a6, double a7)
+double ACAMCrossModelLibrary::calculateApparentRss(double *a1, double *a2, uint64_t *a3, uint64_t a4, uint64_t a5, double a6, double a7)
 {
-  v14 = (a1 + 47);
-  v30[0] = (a1 + 148);
-  v30[1] = 101;
-  v31 = a1[148] > a1[248];
-  v32 = a1 + 47;
-  v27[0] = (a1 + 47);
-  v27[1] = 101;
-  v28 = a1[47] > a1[147];
-  v29 = a1 + 148;
-  dataTable<double>::getValue(v30, 0, a5[1]);
+  v14 = a1 + 47;
+  v32[0] = (a1 + 148);
+  v32[1] = 101;
+  v33 = a1[148] > a1[248];
+  v34 = a1 + 47;
+  v29[0] = (a1 + 47);
+  v29[1] = 101;
+  v30 = a1[47] > a1[147];
+  v31 = a1 + 148;
+  dataTable<double>::getValue(v32, 0, *(a5 + 8));
   v16 = v15;
   ACAMCrossModelLibrary::calculateApparentQmax(v14, a5);
   v18 = v17;
-  dataTable<double>::getValue(v27, 0, a6);
+  dataTable<double>::getValue(v29, 0, a6);
   v20 = v19;
-  v25[4] = 0.0;
-  v26 = 0.0;
-  v21 = a5[3];
-  v22 = *(a4 + 32);
+  v27 = 0;
+  v28 = 0.0;
+  v21 = *(a5 + 24);
+  v22.n128_u64[0] = *(a4 + 32);
   v25[0] = 0.0;
   v25[1] = a7;
   v25[2] = 25.0;
-  v25[3] = v21 - (v16 - a6) * v18 / v22;
-  ACAMCrossModelLibrary::getSOCDependentStates(v25, a4, a3, a2, a1, 1, &v24, &v26);
-  return (v26 - v20) / a7;
+  v26 = v21 - (v16 - a6) * v18 / v22.n128_f64[0];
+  ACAMCrossModelLibrary::getSOCDependentStates(v25, a4, a3, a2, a1, 1, &v24, &v28, v26, v21, v22);
+  return (v28 - v20) / a7;
 }
 
-double ACAMCrossModelLibrary::calculateApparentWRa(double *a1, double *a2, uint64_t *a3, uint64_t a4, double *a5)
+double ACAMCrossModelLibrary::calculateApparentWRa(double *a1, double *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v10 = 0;
   v11 = *a2 * a1[383];
@@ -310,7 +242,7 @@ double ACAMCrossModelLibrary::calculateApparentWRa(double *a1, double *a2, uint6
   return v12;
 }
 
-void ACAMCrossModelLibrary::calculateRaTable(double *a1, double *a2, uint64_t *a3, uint64_t a4, double *a5, double *a6)
+void ACAMCrossModelLibrary::calculateRaTable(double *a1, double *a2, uint64_t *a3, uint64_t a4, uint64_t a5, double *a6)
 {
   v12 = *a2 * a1[383];
   for (i = 32; i != 47; ++i)
@@ -395,7 +327,7 @@ uint64_t ACAM::preInit(ACAM *this, const ACAMPersistentStates *a2, const ACAMSta
     *a4 = 1;
   }
 
-  ACAMStatus::setAlgoStatusBuffer(this + 37928, a3, &v13);
+  ACAMStatus::setAlgoStatusBuffer(this + 9482, a3, &v13);
   if (ACAMStatus::initializationRequired((this + 37928)))
   {
     *a4 = 1;
@@ -676,10 +608,12 @@ uint64_t *simpleList<ACAMHistory>::operator=(uint64_t *a1, __int128 **a2)
   v6 = *a2;
   if (v6)
   {
-    v9 = v6[1];
-    v10 = v6[2];
-    v8 = *v6;
-    simpleList<ACAMHistory>::append(a1);
+    v7 = *v6;
+    v8 = v6[2];
+    v10[1] = v6[1];
+    v10[2] = v8;
+    v10[0] = v7;
+    simpleList<ACAMHistory>::append(a1, v10);
   }
 
   return a1;
@@ -777,13 +711,13 @@ LABEL_7:
   *(this + 37736) = 0u;
   *(this + 37688) = 0u;
   *(this + 37704) = 0u;
-  ACAMAgingUpdator::updateStoichiometryLimits((this + 37088), *(v5 + 95) * *(*(v5 + 30) + 8), *(v5 + 90) * *(*(v5 + 30) + 16), *(v5 + 96) * *(*(v5 + 30) + 24), this + 4711, this + 4712, v5 + 105, v5 + 106);
+  ACAMAgingUpdator::updateStoichiometryLimits((this + 37088), COERCE_UNSIGNED_INT64(*(v5 + 95) * *(*(v5 + 30) + 8)), *(v5 + 90) * *(*(v5 + 30) + 16), *(v5 + 96) * *(*(v5 + 30) + 24), this + 4711, this + 4712, v5 + 105, v5 + 106);
 }
 
 unint64_t ACAM::init(double,double,double)::$_0::operator()(uint64_t a1, uint64_t a2)
 {
   v4 = 0;
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = **(a1 + 16);
   v7 = 21;
@@ -836,11 +770,11 @@ unint64_t ACAM::init(double,double,double)::$_0::operator()(uint64_t a1, uint64_
   v17 = v15[21];
   v16 = v15 + 21;
   v18 = v17;
-  v39[0] = v16;
-  v39[1] = v14;
+  v38[0] = v16;
+  v38[1] = v14;
   v19 = &v16[v14];
   v20 = *(v19 - 1);
-  v41 = a2 + 8 * v14 * v12;
+  v40 = a2 + 8 * v14 * v12;
   v21 = v5;
   if (v14 <= 1)
   {
@@ -851,17 +785,17 @@ unint64_t ACAM::init(double,double,double)::$_0::operator()(uint64_t a1, uint64_
     v21 = *(a1 + 32);
   }
 
-  v40 = v18 > v20;
+  v39 = v18 > v20;
   v22 = &v21[11 * v13];
   v24 = v22[21];
   v23 = v22 + 21;
   v25 = v24;
   v26 = a2 + 8 * v14 * v13;
-  v36[0] = v23;
-  v36[1] = v14;
+  v35[0] = v23;
+  v35[1] = v14;
   v27 = &v23[v14];
   v28 = *(v27 - 1);
-  v38 = v26;
+  v37 = v26;
   if (v14 <= 1)
   {
     puts("dataTable<T>::dataTable requires at least two elements[pointer constructor]");
@@ -869,38 +803,23 @@ unint64_t ACAM::init(double,double,double)::$_0::operator()(uint64_t a1, uint64_
     v28 = *(v27 - 1);
   }
 
-  v37 = v25 > v28;
+  v36 = v25 > v28;
   if (v12 == v13)
   {
-    result = dataTable<double>::getValue(v39, 1, **(a1 + 24));
+    return dataTable<double>::getValue(v38, 1, **(a1 + 24));
   }
 
-  else
-  {
-    dataTable<double>::getValue(v39, 1, **(a1 + 24));
-    v44[0] = v30;
-    dataTable<double>::getValue(v36, 1, **(a1 + 24));
-    v44[1] = v31;
-    v42 = v5[v12];
-    v43 = v5[v13];
-    v33[0] = &v42;
-    v33[1] = 2;
-    v34 = v42 > v43;
-    v35 = v44;
-    result = dataTable<double>::getValue(v33, 1, **(a1 + 16));
-  }
-
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void ACAM::init(ACAM *a1, double *a2)
-{
-  v3 = *a2;
-  v4 = *(a2 + 1);
-  v2 = *(a2 + 2);
-  v5 = *(a2 + 3);
-  ACAM::init(a1, a2[6], a2[5], a2[4]);
+  dataTable<double>::getValue(v38, 1, **(a1 + 24));
+  v43[0] = v30;
+  dataTable<double>::getValue(v35, 1, **(a1 + 24));
+  v43[1] = v31;
+  v41 = v5[v12];
+  v42 = v5[v13];
+  v32[0] = &v41;
+  v32[1] = 2;
+  v33 = v41 > v42;
+  v34 = v43;
+  return dataTable<double>::getValue(v32, 1, **(a1 + 16));
 }
 
 void sub_241AA964C(_Unwind_Exception *a1)
@@ -912,13 +831,6 @@ void sub_241AA964C(_Unwind_Exception *a1)
 
   ACAMPersistentStates::~ACAMPersistentStates(&STACK[0x780]);
   _Unwind_Resume(a1);
-}
-
-void simpleList<ACAMPersistentStates>::append(uint64_t *a1)
-{
-  ++a1[2];
-  v1 = *a1;
-  operator new();
 }
 
 uint64_t simpleList<ACAMHistory>::remove(uint64_t *a1, uint64_t a2)
@@ -955,38 +867,20 @@ uint64_t simpleList<ACAMHistory>::remove(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-void ACAM::updateDynamicConfiguration(double *a1, double a2, uint64_t a3, int a4, uint64_t a5)
+void ACAM::updateDynamicConfiguration(double *a1, uint64_t a2, int a3, double *a4, __n128 a5)
 {
-  v5 = 1293;
-  v6 = 1291;
-  v7 = 1289;
-  v8 = 1287;
-  if (a4)
+  v5 = a5.n128_f64[0];
+  v6 = 1287;
+  if (a3)
   {
-    v8 = 1288;
-    v7 = 1290;
-    v6 = 1292;
+    v6 = 1288;
   }
 
-  v9 = a1[v8];
-  v10 = a1[v7];
-  if (a4)
-  {
-    v5 = 1294;
-  }
-
-  v11 = a1[v5];
-  v12 = a1[v6];
-  *(a5 + 8) = a2;
-  v13 = 0.0;
-  ACAMAgingUpdator::getSOCTop((a1 + 4636), a1[929] * a1[4703], a1[930] * a1[4698], a1[931] * a1[4704], a2 - v9, &v13);
-}
-
-void simpleList<ACAMBatteryState>::append(uint64_t *a1)
-{
-  ++a1[2];
-  v1 = *a1;
-  operator new();
+  v7 = a1[v6];
+  a4[1] = a5.n128_f64[0];
+  v8 = 0.0;
+  a5.n128_f64[0] = a1[929] * a1[4703];
+  ACAMAgingUpdator::getSOCTop((a1 + 4636), a5, a1[930] * a1[4698], a1[931] * a1[4704], v5 - v7, &v8);
 }
 
 uint64_t simpleList<ACAMHistory>::get(uint64_t *a1, uint64_t a2)
@@ -1033,10 +927,10 @@ uint64_t simpleList<ACAMHistory>::get(uint64_t *a1, uint64_t a2)
 uint64_t ACAM::expandBatteryStates(uint64_t result, float64x2_t **a2, uint64_t *a3, double a4, double a5)
 {
   v5 = *a2;
-  v6 = *&(*a2)[2].f64[1];
-  v7 = v6[2].f64[0] - (*a2)[2].f64[0];
+  v6 = (*a2)[2].f64[1];
+  v7 = *(*&v6 + 32) - (*a2)[2].f64[0];
   v8 = (*a2)[1];
-  v9 = vsubq_f64(v6[1], v8);
+  v9 = vsubq_f64(*(*&v6 + 16), v8);
   if (v7 / 3600.0 >= *(result + 10376) / 3600.0)
   {
     v12 = fmin(*(result + 7488), v9.f64[1] / (v7 / 3600.0));
@@ -1064,7 +958,7 @@ LABEL_12:
 
     else
     {
-      v13 = v6->f64[1];
+      v13 = *(*&v6 + 8);
       v14 = v12 * a4;
       v15 = fmin(v13, v14);
       v10 = v13 >= 0.0;
@@ -1091,7 +985,7 @@ LABEL_12:
   {
     v17 = (v16 - 1);
     v18 = v7 / v17;
-    v19 = (v6->f64[0] - v5->f64[0]) / v17;
+    v19 = (**&v6 - v5->f64[0]) / v17;
     v22 = vdivq_f64(v9, vdupq_lane_s64(*&v17, 0));
     v20 = 0;
     if (v10)
@@ -1099,10 +993,16 @@ LABEL_12:
       v21 = v5->f64[1] + (v11 - v5->f64[1]) / v17 * 0;
     }
 
-    v23 = v5->f64[0] + v19 * v20;
+    else
+    {
+      v21 = v11;
+    }
+
+    v23[0] = v5->f64[0] + v19 * v20;
+    v23[1] = v21;
     v24 = vmlaq_n_f64(v5[1], v22, v20);
     v25 = v5[2].f64[0] + v18 * v20;
-    simpleList<ACAMBatteryState>::append(a3);
+    simpleList<ACAMBatteryState>::append(a3, v23);
   }
 
   return result;
@@ -1149,33 +1049,34 @@ uint64_t simpleList<ACAMBatteryState>::get(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-__n128 ACAM::runOneStep(uint64_t a1, uint64_t a2)
+__n128 ACAM::runOneStep(uint64_t a1, __n128 *a2)
 {
   if (!ACAMStatus::skipAlgoRunning((a1 + 37928)))
   {
-    v12 = *(a2 + 32);
-    v13 = *(a2 + 24) - *(a1 + 37912);
-    v14 = *(a2 + 16);
+    v12 = a2[2].n128_f64[0];
+    v13 = a2[1].n128_f64[1] - *(a1 + 37912);
+    v14 = a2[1].n128_u64[0];
+    v15 = *a2;
     *(a1 + 37120) = *a2;
     *(a1 + 37136) = v14;
     *(a1 + 37144) = v13;
     *(a1 + 37152) = v12;
-    ACAMPerformanceModel::runOneStep(a1 + 37064, (a1 + 37120), a1 + 37688, a1 + 37240);
-    v15 = (a1 + 37336);
-    if (*(a1 + 37344) == 0.0 && *v15 == 0.0)
+    ACAMPerformanceModel::runOneStep(a1 + 37064, (a1 + 37120), a1 + 37688, a1 + 37240, v13, v12, v15);
+    v16 = (a1 + 37336);
+    if (*(a1 + 37344) == 0.0 && *v16 == 0.0)
     {
-      v16 = *(a1 + 37288);
+      v17 = *(a1 + 37288);
       *(a1 + 37368) = *(a1 + 37272);
-      *(a1 + 37384) = v16;
-      v17 = *(a1 + 37320);
+      *(a1 + 37384) = v17;
+      v18 = *(a1 + 37320);
       *(a1 + 37400) = *(a1 + 37304);
-      *(a1 + 37416) = v17;
-      v18 = *(a1 + 37256);
-      *v15 = *(a1 + 37240);
-      *(a1 + 37352) = v18;
+      *(a1 + 37416) = v18;
+      v19 = *(a1 + 37256);
+      *v16 = *(a1 + 37240);
+      *(a1 + 37352) = v19;
     }
 
-    ACAMAgingModel::runOneStep((a1 + 37040));
+    ACAMAgingModel::runOneStep((a1 + 37040), a1 + 37120, (a1 + 37240), a1 + 37528, a1 + 37784);
   }
 
   v4 = *(a1 + 37176);
@@ -1238,25 +1139,23 @@ __n128 ACAM::updateStates(ACAM *this)
   return result;
 }
 
-_BYTE *ACAM::runOnce(_BYTE *result, __int128 *a2, uint64_t a3, uint64_t a4)
+void ACAM::runOnce(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  v4 = result;
-  if ((*result & 1) == 0)
+  if ((*a1 & 1) == 0)
   {
-    result = printf("Not yet initialized");
+    printf("Not yet initialized");
   }
 
   if (a3)
   {
-    v5 = fmax(*(v4 + 1292), *(v4 + 1290));
-    __src = *a2;
-    v10 = a2[1];
-    v11 = *(a2 + 4);
-    v12 = *(a4 + 32);
-    simpleList<ACAMHistory>::append(v4 + 4759);
+    v9 = *(a2 + 16);
+    v10 = *(a2 + 32);
+    __src[0] = *a2;
+    __src[1] = v9;
+    v12 = v10;
+    v13 = *(a4 + 32);
+    simpleList<ACAMHistory>::append((a1 + 38072), __src);
   }
-
-  return result;
 }
 
 void sub_241AAA5D8(_Unwind_Exception *a1)
@@ -1356,27 +1255,14 @@ void *ACAMAgingModel::ACAMAgingModel(void *result, uint64_t a2, uint64_t a3, uin
   return result;
 }
 
-void ACAMAgingModel::runOneStep(uint64_t *a1)
-{
-  v7 = 0u;
-  v8 = 0u;
-  v5 = 0u;
-  v6 = 0u;
-  v3 = 0u;
-  v4 = 0u;
-  v1 = 0u;
-  v2 = 0u;
-  ACAMAgingModel::calculateAgingRate(a1);
-}
-
-void ACAMAgingModel::calculateAgingRate(uint64_t *a1)
+void ACAMAgingModel::calculateAgingRate(void *a1, uint64_t a2, double *a3, uint64_t a4, uint64_t a5, __n128 a6)
 {
   if (*(a1[2] + 3184) != 2)
   {
-    ACAMAgingModel::calculateSEI(a1);
+    ACAMAgingModel::calculateSEI(a1, a2, a3, a4, a5, a6);
   }
 
-  ACAMAgingModel::calculateSEIVersion2(a1);
+  ACAMAgingModel::calculateSEIVersion2(a1, a2, a3, a4, a5, a6);
 }
 
 BOOL ACAMAgingModel::checkDerivative(uint64_t a1, double *a2)
@@ -1394,31 +1280,31 @@ BOOL ACAMAgingModel::checkDerivative(uint64_t a1, double *a2)
   return result;
 }
 
-__n128 ACAMAgingModel::updateAgingState(uint64_t *a1, uint64_t a2, double *a3, uint64_t a4, uint64_t a5, double *a6, double a7)
+__n128 ACAMAgingModel::updateAgingState(uint64_t *a1, uint64_t a2, double a3, double *a4, double *a5, uint64_t a6, double *a7)
 {
   v14 = a1[2];
-  ACAMAgingModel::updateCBPT(a7, a1, a2, a3, a4, a5, a6);
-  a6[12] = a6[12] + (*(a4 + 64) + *(a5 + 64)) * 0.5 * a7;
-  ACAMAgingModel::updateSEI(a1, a7, v15, a3, a4, a5, a6);
-  v20 = *a6;
-  v21 = a6[1] + (*a4 + *a5) * 0.5 * a7;
-  a6[1] = v21;
+  ACAMAgingModel::updateCBPT(a3, a1, a2, a4, a5, a6, a7);
+  a7[12] = a7[12] + (a5[8] + *(a6 + 64)) * 0.5 * a3;
+  ACAMAgingModel::updateSEI(a1, a3, v15, a4, a5, a6, a7);
+  v20 = *a7;
+  v21 = a7[1] + (*a5 + *a6) * 0.5 * a3;
+  a7[1] = v21;
   v22 = a1[2];
   v23 = fmax(v21, *(v22 + 3336));
-  v24 = v20 + (*(a4 + 8) + *(a5 + 8)) * 0.5 * a7;
-  *a6 = v24;
-  a6[1] = v23;
-  *a6 = fmax(fmin(v24, *(v22 + 3344)), 0.0);
+  v24 = v20 + (a5[1] + *(a6 + 8)) * 0.5 * a3;
+  *a7 = v24;
+  a7[1] = v23;
+  *a7 = fmax(fmin(v24, *(v22 + 3344)), 0.0);
   if (*(v14 + 3216) == 2)
   {
-    v25 = a6[3] + (*(a4 + 24) + *(a5 + 24)) * 0.5 * a7;
-    a6[3] = v25;
-    a6[3] = fmax(fmin(v25, *(v22 + 3344)), 0.0);
+    v25 = a7[3] + (a5[3] + *(a6 + 24)) * 0.5 * a3;
+    a7[3] = v25;
+    a7[3] = fmax(fmin(v25, *(v22 + 3344)), 0.0);
   }
 
   else
   {
-    ACAMAgingModel::updateHardSwell(a1, a2, a7, v18, a4, v19, a6);
+    ACAMAgingModel::updateHardSwell(a1, a2, a3, v18, a5, v19, a7);
   }
 
   v26 = a1[2];
@@ -1427,7 +1313,7 @@ __n128 ACAMAgingModel::updateAgingState(uint64_t *a1, uint64_t a2, double *a3, u
   {
     if (!v27)
     {
-      ACAMAgingModel::updateImpedanceGrowth(a7, v16, v17, v18, a4, a5, a6);
+      ACAMAgingModel::updateImpedanceGrowth(a3, v16, v17, v18, a5, a6, a7);
       v26 = a1[2];
       if (!v26[405])
       {
@@ -1443,85 +1329,35 @@ __n128 ACAMAgingModel::updateAgingState(uint64_t *a1, uint64_t a2, double *a3, u
       goto LABEL_12;
     }
 
-    v28 = a6[19];
-    a6[18] = a6[18] + (*(a4 + 112) + *(a5 + 112)) * 0.5 * a7;
-    a6[19] = v28 + (*(a4 + 120) + *(a5 + 120)) * 0.5 * a7;
+    v28 = a7[19];
+    a7[18] = a7[18] + (a5[14] + *(a6 + 112)) * 0.5 * a3;
+    a7[19] = v28 + (a5[15] + *(a6 + 120)) * 0.5 * a3;
   }
 
   if (v26[404])
   {
-    a6[17] = a6[17] + (*(a4 + 104) + *(a5 + 104)) * 0.5 * a7;
+    a7[17] = a7[17] + (a5[13] + *(a6 + 104)) * 0.5 * a3;
   }
 
 LABEL_12:
-  v29 = *a4;
-  v30 = *(a4 + 16);
-  v31 = *(a4 + 48);
-  *(a5 + 32) = *(a4 + 32);
-  *(a5 + 48) = v31;
-  *a5 = v29;
-  *(a5 + 16) = v30;
-  result = *(a4 + 64);
-  v33 = *(a4 + 80);
-  v34 = *(a4 + 112);
-  *(a5 + 96) = *(a4 + 96);
-  *(a5 + 112) = v34;
-  *(a5 + 64) = result;
-  *(a5 + 80) = v33;
+  v29 = *a5;
+  v30 = *(a5 + 1);
+  v31 = *(a5 + 3);
+  *(a6 + 32) = *(a5 + 2);
+  *(a6 + 48) = v31;
+  *a6 = v29;
+  *(a6 + 16) = v30;
+  result = *(a5 + 8);
+  v33 = *(a5 + 5);
+  v34 = *(a5 + 7);
+  *(a6 + 96) = *(a5 + 6);
+  *(a6 + 112) = v34;
+  *(a6 + 64) = result;
+  *(a6 + 80) = v33;
   return result;
 }
 
-void ACAMAgingModel::calculateCBPT(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *a1;
-  v4 = 0.0;
-  if (fabs(*(a2 + 8)) > *(a1[2] + 8))
-  {
-    v4 = 1.0;
-  }
-
-  v5 = vabdd_f64(*(a3 + 8), *(a3 + 24)) * v4;
-  operator new[]();
-}
-
-void ACAMAgingModel::calculateCBPTVersion2(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *a1;
-  v4 = 0.0;
-  if (fabs(*(a2 + 8)) > *(a1[2] + 8))
-  {
-    v4 = 1.0;
-  }
-
-  v5 = vabdd_f64(*(a3 + 8), *(a3 + 24)) * v4;
-  operator new[]();
-}
-
-void ACAMAgingModel::calculateHardSwell(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *a1;
-  v4 = *(a3 + 32);
-  v5 = *(a2 + 8);
-  operator new[]();
-}
-
-void ACAMAgingModel::calculateHardSwellVersion2(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4 = *a1;
-  v5 = *(a2 + 16);
-  v6 = 0.0;
-  if (fabs(*(a2 + 8)) > *(a1[2] + 8))
-  {
-    v6 = 1.0;
-  }
-
-  v7 = vabdd_f64(*a3, *(a3 + 16)) * v6;
-  v8 = *(a3 + 32);
-  v9 = *(a4 + 24);
-  operator new[]();
-}
-
-long double ACAMAgingModel::calculateGasSwell(uint64_t *a1, uint64_t a2, uint64_t a3, double *a4, double *a5)
+long double ACAMAgingModel::calculateGasSwell(uint64_t *a1, uint64_t a2, uint64_t a3, double *a4, long double *a5)
 {
   v6 = *a1;
   v7 = a4[1];
@@ -1547,55 +1383,46 @@ long double ACAMAgingModel::calculateGasSwell(uint64_t *a1, uint64_t a2, uint64_
   return result;
 }
 
-void ACAMAgingModel::calculateImpedanceGrowth(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5)
+void ACAMAgingModel::calculateImpedanceGrowth(uint64_t *a1, uint64_t a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
 {
-  v6 = *a1;
   if (a4 >= 2)
   {
     puts("Not yet implemented");
   }
 
-  v7 = *(a5 + 64);
   operator new[]();
 }
 
-void ACAMAgingModel::calculateImpedanceGrowthVersion2(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5)
+void ACAMAgingModel::calculateImpedanceGrowthVersion2(uint64_t *a1, uint64_t a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
 {
-  v6 = *a1;
   if (a4 >= 2)
   {
     puts("Not yet implemented");
   }
 
-  v8 = *(a5 + 56);
-  v7 = *(a5 + 64);
   operator new[]();
 }
 
-void ACAMAgingModel::calculateYShrink(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = *(a1[2] + 8);
-  operator new[]();
-}
-
-uint64_t *ACAMAgingModel::calculateAverageImpedance(uint64_t *result, uint64_t a2, uint64_t a3, int a4)
+void *ACAMAgingModel::calculateAverageImpedance(void *result, uint64_t a2, double *a3, int a4, uint64_t a5, uint64_t a6, __n128 a7)
 {
   if (a4 == 1)
   {
-    v8 = *result;
-    v7 = result[1];
-    v9 = *(result[2] + 8);
+    v9 = result[1];
+    a7.n128_u64[0] = *(result[2] + 8);
+    v10 = (*result + 568);
+    v11 = (a6 + 112);
+    v12 = a3;
 LABEL_4:
-    calculateKDAging<(ACAMCurrentDirection)0>();
+    calculateKDAging<(ACAMCurrentDirection)0>(v10, v9, a2, v12, a5, v11, a7);
   }
 
   if (!a4)
   {
-    v5 = *result;
-    v4 = result[1];
-    v6 = *(result[2] + 8);
+    v9 = result[1];
+    a7.n128_u64[0] = *(result[2] + 8);
+    v10 = (*result + 720);
+    v11 = (a6 + 120);
+    v12 = a3;
     goto LABEL_4;
   }
 
@@ -1759,13 +1586,14 @@ long double calculateCBPTAtGridTemperatureCommon(long double *a1, int a2, double
   return result;
 }
 
-void ACAMAgingModel::calculateAnodeCrackingAtGridTemperatureVersion2(ACAMAgingModel *this, double a2, double a3, double a4, double a5, int a6, double *a7)
+void ACAMAgingModel::calculateAnodeCrackingAtGridTemperatureVersion2(ACAMAgingModel *this, double a2, double a3, double a4, double a5, uint64_t a6, double *a7)
 {
+  v8 = a6;
   v13 = *this;
   v14 = 1.0 / (exp(-((a4 - *(*this + 128)) * *(*this + 136))) + 1.0);
   v15 = *(*(this + 2) + 8);
 
-  calculateAnodeCrackingAtGridTemperatureCommon((v13 + 416), a6, a7, a2, a3, v14, v15, a5);
+  calculateAnodeCrackingAtGridTemperatureCommon((v13 + 416), v8, a7, a2, a3, v14, v15, a5);
 }
 
 void calculateAnodeCrackingAtGridTemperatureCommon(long double *a1, int a2, double *a3, double a4, double a5, double a6, double a7, double a8)
@@ -1845,7 +1673,7 @@ double ACAMAgingModel::calculateHardSwellAtGridTemperatureVersion2(double **this
   return result;
 }
 
-double calculateImpedanceGrowthAtGridTemperatureCommon(uint64_t a1, uint64_t a2, unsigned int a3, int a4, double *a5, double a6, double a7, double a8, double a9, double a10)
+long double calculateImpedanceGrowthAtGridTemperatureCommon(uint64_t a1, uint64_t a2, unsigned int a3, int a4, long double *a5, double a6, double a7, double a8, double a9, double a10)
 {
   if (a4)
   {
@@ -1928,31 +1756,31 @@ void *ACAMAgingUpdator::ACAMAgingUpdator(void *result, uint64_t a2, uint64_t a3,
   return result;
 }
 
-void ACAMAgingUpdator::runOneStep(ACAMAgingUpdator *this, double *a2, double *a3)
+void ACAMAgingUpdator::runOneStep(ACAMAgingUpdator *this, double *a2, double *a3, __n128 a4)
 {
-  v3 = *(this + 3);
-  v4 = *(v3 + 3224);
-  v5 = *(v3 + 3240);
-  if (v4)
+  v4 = *(this + 3);
+  v5 = *(v4 + 3224);
+  v6 = *(v4 + 3240);
+  if (v5)
   {
-    v6 = 1.0;
+    a4.n128_u64[0] = 1.0;
     v7 = 1.0;
-    if (!v5)
+    if (!v6)
     {
-      v6 = a2[5];
+      a4.n128_f64[0] = a2[5];
       v7 = a2[6];
     }
   }
 
-  else if (v5)
+  else if (v6)
   {
-    v6 = a2[18];
+    a4.n128_f64[0] = a2[18];
     v7 = a2[19];
   }
 
   else
   {
-    v6 = 1.0;
+    a4.n128_u64[0] = 1.0;
     v7 = 1.0;
   }
 
@@ -1961,9 +1789,11 @@ void ACAMAgingUpdator::runOneStep(ACAMAgingUpdator *this, double *a2, double *a3
   v9 = *(*this + 8);
   a3[7] = v7 * (1.0 - v10);
   a3[8] = v7 * v10;
-  a3[9] = v6 * (1.0 - v10);
-  a3[10] = v6 * v10;
-  ACAMAgingUpdator::updateStoichiometryLimits(this, a2[12] * *(*(this + 2) + 8), a2[7] * *(*(this + 2) + 16), a2[13] * *(*(this + 2) + 24), v9, *(v8 + 16), 0, a3, a3 + 1, a3 + 2, a3 + 3);
+  a3[9] = a4.n128_f64[0] * (1.0 - v10);
+  a3[10] = a4.n128_f64[0] * v10;
+  v11 = *(this + 2);
+  a4.n128_f64[0] = a2[12] * v11[1];
+  ACAMAgingUpdator::updateStoichiometryLimits(this, a4, a2[7] * v11[2], a2[13] * v11[3], v9, *(v8 + 16), 0, a3, a3 + 1, a3 + 2, a3 + 3);
 }
 
 double ACAMAgingUpdator::updateQmax(ACAMAgingUpdator *this, double a2, double a3, double a4, double *a5)
@@ -1971,13 +1801,6 @@ double ACAMAgingUpdator::updateQmax(ACAMAgingUpdator *this, double a2, double a3
   result = vabdd_f64(a3, a2) * a4;
   *a5 = result;
   return result;
-}
-
-void ACAMAgingUpdator::updateStoichiometryLimits(ACAMAgingUpdator *this, double a2, double a3, double a4, double a5, double a6, BOOL a7, double *a8, double *a9, double *a10, double *a11)
-{
-  *(*(this + 1) + 152);
-  *(*(this + 1) + 120);
-  operator new[]();
 }
 
 uint64_t ACAMAgingUpdator::expandOCP(ACAMAgingUpdator *this, double a2, double a3, double a4, double *a5, double *a6, double *a7)
@@ -2126,19 +1949,7 @@ void ACAMAgingUpdator::mergeSort(ACAMAgingUpdator *this, const double *a2, const
   }
 }
 
-void ACAMAgingUpdator::getOCV(ACAMAgingUpdator *this, double a2, double a3, double a4, const double *a5, unint64_t a6, double *a7)
-{
-  v7 = *(this + 1);
-  v8 = v7[14];
-  v9 = v7[18];
-  __src = v7[17];
-  v11 = v7[21];
-  v7[19];
-  v7[15];
-  operator new[]();
-}
-
-void ACAMAgingUpdator::getSOCTop(ACAMAgingUpdator *this, double a2, double a3, double a4, double a5, double *a6)
+void ACAMAgingUpdator::getSOCTop(ACAMAgingUpdator *this, __n128 a2, double a3, double a4, double a5, double *a6)
 {
   v6 = 0;
   v11[101] = *MEMORY[0x277D85DE8];
@@ -2161,61 +1972,62 @@ void ACAMAgingUpdator::getSOCTop(ACAMAgingUpdator *this, double a2, double a3, d
     v7 = vaddq_s64(v7, v9);
     if (v6 == 102)
     {
-      ACAMAgingUpdator::getOCV(this, a2, a3, a4, v11, 0x65uLL, v10);
+      ACAMAgingUpdator::getOCV(this, a2, a3, a4, v11, 101, v10);
     }
   }
 }
 
 void ACAMAgingUpdator::getRawNCC(double **this, double a2, double a3, double a4, double a5, double a6, double a7, double *a8)
 {
-  v50[4] = *MEMORY[0x277D85DE8];
+  v51[4] = *MEMORY[0x277D85DE8];
   v10 = *this;
   v12 = this[2];
   v11 = this[3];
   v13 = (*this)[27];
   v14 = (*this)[20];
   v15 = (*this)[13];
-  v28 = (*this)[34];
+  v29 = (*this)[34];
   v16 = (*this)[21];
-  v47[0] = (*this + 21);
-  v47[1] = 3;
-  v48 = v16 > v10[23];
-  v49 = v10 + 24;
-  dataTable<double>::getValueArrhenius(v47, 1, 25.0, 273.15);
+  v48[0] = (*this + 21);
+  v48[1] = 3;
+  v49 = v16 > v10[23];
+  v50 = v10 + 24;
+  dataTable<double>::getValueArrhenius(v48, 1, 25.0, 273.15);
   v18 = v17;
   v19 = v10[14];
-  v44[0] = (v10 + 14);
-  v44[1] = 3;
-  v45 = v19 > v10[16];
-  v46 = v10 + 17;
-  dataTable<double>::getValueArrhenius(v44, 1, 25.0, 273.15);
+  v45[0] = (v10 + 14);
+  v45[1] = 3;
+  v46 = v19 > v10[16];
+  v47 = v10 + 17;
+  dataTable<double>::getValueArrhenius(v45, 1, 25.0, 273.15);
   v21 = v20;
-  v41[0] = (v10 + 7);
-  v41[1] = 3;
-  v42 = v10[7] > v10[9];
-  v43 = v10 + 10;
-  dataTable<double>::getValueArrhenius(v41, 1, 25.0, 273.15);
+  v42[0] = (v10 + 7);
+  v42[1] = 3;
+  v43 = v10[7] > v10[9];
+  v44 = v10 + 10;
+  dataTable<double>::getValueArrhenius(v42, 1, 25.0, 273.15);
   v23 = v22;
-  v38[0] = (v10 + 28);
-  v38[1] = 3;
-  v39 = v10[28] > v10[30];
-  v40 = v10 + 31;
-  dataTable<double>::getValueArrhenius(v38, 1, 25.0, 273.15);
-  v50[0] = (v13 * a2 + 1.0) * v18;
-  v50[1] = v50[0];
-  v50[2] = fmin((v14 * a2 + 1.0) * v21, 0.8);
-  v50[3] = (v15 * a2 + 1.0) * v23;
-  *&v35[1] = v10 + 3;
-  *&v35[2] = 4;
+  v39[0] = (v10 + 28);
+  v39[1] = 3;
+  v40 = v10[28] > v10[30];
+  v41 = v10 + 31;
+  dataTable<double>::getValueArrhenius(v39, 1, 25.0, 273.15);
+  v51[0] = (v13 * a2 + 1.0) * v18;
+  v51[1] = v51[0];
+  v51[2] = fmin((v14 * a2 + 1.0) * v21, 0.8);
+  v51[3] = (v15 * a2 + 1.0) * v23;
+  *&v36[1] = v10 + 3;
+  *&v36[2] = 4;
   v24 = v10[3];
   v25 = v10[6];
-  v37 = v50;
-  v36 = v24 > v25;
-  v27 = a7 + v26 * -(v11[390] * *v12) * (v28 * a2 + 1.0);
+  v38 = v51;
+  v37 = v24 > v25;
+  v27 = a7 + v26 * -(v11[390] * *v12) * (v29 * a2 + 1.0);
+  v35 = 0.0;
+  v36[0] = 0.0;
   v34 = 0.0;
-  v35[0] = 0.0;
-  v33 = 0.0;
-  ACAMAgingUpdator::updateStoichiometryLimits(this, a4, a3, a5, 0.0, v27, 1, v35, &v34, v35, &v33);
+  v28.n128_f64[0] = a4;
+  ACAMAgingUpdator::updateStoichiometryLimits(this, v28, a3, a5, 0.0, v27, 1, v36, &v35, v36, &v34);
 }
 
 double getValueNanIfOutOfRange(uint64_t a1, double a2)
@@ -2247,12 +2059,12 @@ void ACAMAgingUpdator::getRawNCCVersion2(ACAMAgingUpdator *this, double a2, doub
   v11 = MEMORY[0x28223BE20](this, a10, a11);
   v13 = v12;
   v15 = v14;
-  v57 = v16;
-  v58 = v17;
-  v56 = v18;
+  v59 = v16;
+  v60 = v17;
+  v58 = v18;
   v19 = v11;
   v20 = 0;
-  v78[305] = *MEMORY[0x277D85DE8];
+  v80[305] = *MEMORY[0x277D85DE8];
   v21 = *v11;
   v22 = *(v11 + 2);
   v23 = *(v11 + 3);
@@ -2273,12 +2085,12 @@ void ACAMAgingUpdator::getRawNCCVersion2(ACAMAgingUpdator *this, double a2, doub
     v38 = vmlaq_f64(_Q3, v27, v36);
     if (vmovn_s64(vcgtq_u64(v28, v29)).u8[0])
     {
-      v78[v20] = v38.f64[0];
+      v80[v20] = v38.f64[0];
     }
 
     if (vmovn_s64(vcgtq_u64(vdupq_n_s64(0x12DuLL), *&v29)).i32[1])
     {
-      v78[v20 + 1] = v38.f64[1];
+      v80[v20 + 1] = v38.f64[1];
     }
 
     v29 = vaddq_s64(v29, v35);
@@ -2288,17 +2100,17 @@ void ACAMAgingUpdator::getRawNCCVersion2(ACAMAgingUpdator *this, double a2, doub
   while (v37 != 301);
   v39 = v25 + v24 * (v13 + 1.0);
   v40 = (1.0 - v39) / 0.00333333333 + 1.0;
-  memcpy(v77, v21 + 54, sizeof(v77));
+  memcpy(v79, v21 + 54, sizeof(v79));
   for (i = 101; i != 202; ++i)
   {
-    v77[i] = v77[i] - v26;
+    v79[i] = v79[i] - v26;
   }
 
   v42 = v24 + v25;
-  v72[0] = v77;
-  v72[1] = 101;
-  v73 = v77[0] > v77[100];
-  v74 = &v77[101];
+  v74[0] = v79;
+  v74[1] = 101;
+  v75 = v79[0] > v79[100];
+  v76 = &v79[101];
   memcpy(__dst, v21 + 54, sizeof(__dst));
   for (j = 0; j != 101; ++j)
   {
@@ -2308,134 +2120,138 @@ void ACAMAgingUpdator::getRawNCCVersion2(ACAMAgingUpdator *this, double a2, doub
   }
 
   v45 = v40;
-  v69[0] = __dst;
-  v69[1] = 101;
-  v70 = __dst[0] > __dst[100];
-  v71 = &__dst[101];
+  v71[0] = __dst;
+  v71[1] = 101;
+  v72 = __dst[0] > __dst[100];
+  v73 = &__dst[101];
   if (v40)
   {
     v46 = 0;
     do
     {
-      dataTable<double>::getValue(v72, 1, v78[v46]);
-      v75[v46++] = v47 + (v13 + 1.0) * v26;
+      dataTable<double>::getValue(v74, 1, v80[v46]);
+      v77[v46++] = v47 + (v13 + 1.0) * v26;
     }
 
     while (v45 != v46);
-    dataTable<double>::getValue(v69, 1, v78[v45]);
+    dataTable<double>::getValue(v71, 1, v80[v45]);
     v49 = v48;
     if (v45 > 0x12C)
     {
 LABEL_19:
-      v65 = v78;
-      v66 = 301;
-      v67 = v78[0] > v78[300];
-      v68 = v75;
+      v67 = v80;
+      v68 = 301;
+      v69 = v80[0] > v80[300];
+      v70 = v77;
       v53 = v21[41];
-      v62[0] = (v21 + 35);
-      v62[1] = 3;
-      v63 = v21[35] > v21[37];
-      v64 = v21 + 38;
-      dataTable<double>::getValueArrhenius(v62, 1, 25.0, 273.15);
+      v64[0] = (v21 + 35);
+      v64[1] = 3;
+      v65 = v21[35] > v21[37];
+      v66 = v21 + 38;
+      dataTable<double>::getValueArrhenius(v64, 1, 25.0, 273.15);
       v55 = v54 * -(*(v23 + 3120) * *v22);
-      v60 = 0.0;
+      v62 = 0.0;
+      v63 = 0.0;
+      v56 = v15 + v55 * (v53 * v13 + 1.0);
       v61 = 0.0;
-      v59 = 0.0;
-      ACAMAgingUpdator::updateStoichiometryLimits(v19, v57, v56, v58, 0.0, v15 + v55 * (v53 * v13 + 1.0), 1, &v61, &v60, &v61, &v59);
+      v57.n128_u64[0] = v59;
+      ACAMAgingUpdator::updateStoichiometryLimits(v19, v57, v58, v60, 0.0, v56, 1, &v63, &v62, &v63, &v61);
     }
   }
 
   else
   {
-    dataTable<double>::getValue(v69, 1, v78[0]);
+    dataTable<double>::getValue(v71, 1, v80[0]);
     v49 = v50;
   }
 
   v51 = v45 - 1;
   do
   {
-    dataTable<double>::getValue(v69, 1, v78[v45]);
-    v75[v45++] = v75[v51] + v52 - v49;
+    dataTable<double>::getValue(v71, 1, v80[v45]);
+    v77[v45++] = v77[v51] + v52 - v49;
   }
 
   while (v45 != 301);
   goto LABEL_19;
 }
 
-double ACAMAgingUpdator::getNCCVersion3(uint64_t a1, double *a2, uint64_t a3, double a4)
+double ACAMAgingUpdator::getNCCVersion3(void *a1, double *a2, uint64_t a3, __n128 a4, double a5, __n128 a6)
 {
-  v7 = *(a1 + 24);
-  v8 = *(v7 + 3144);
-  v21 = 0;
+  v9 = a1[3];
+  v10 = *(v9 + 3144);
+  v25 = 0;
+  v26 = 0.0;
+  solveForSocAtVoltageAndCurrent(*(v9 + 3096), 0, a2, a1[1], a1[2], v9, &v26, &v25, a4.n128_f64[0], v10, a6);
+  v24 = 0.0;
+  v11 = a1[2];
+  v12.n128_f64[0] = *v11;
+  solveForSocAtVoltageAndCurrent(*(v9 + 3088), 1, a2, a1[1], v11, a1[3], &v24, &v23, *(v9 + 3056), *(v9 + 3064) * *v11, v12);
+  v13 = v26;
+  v14 = v24;
+  v15 = v25;
+  *a3 = a2[4] * (v26 - v24);
+  *(a3 + 8) = v15;
+  *(a3 + 24) = v13;
+  v21 = 0.0;
   v22 = 0.0;
-  solveForSocAtVoltageAndCurrent(*(v7 + 3096), 0, a2, *(a1 + 8), *(a1 + 16), v7, &v22, &v21, a4, v8);
+  v19 = 0.0;
   v20 = 0.0;
-  solveForSocAtVoltageAndCurrent(*(v7 + 3088), 1, a2, *(a1 + 8), *(a1 + 16), *(a1 + 24), &v20, &v19, *(v7 + 3056), *(v7 + 3064) * **(a1 + 16));
-  v9 = v22;
-  v10 = v20;
-  v11 = v21;
-  *a3 = a2[4] * (v22 - v20);
-  *(a3 + 8) = v11;
-  *(a3 + 24) = v9;
-  v17 = 0.0;
-  v18 = 0.0;
-  v15 = 0.0;
-  v16 = 0.0;
-  ACAMCrossModelLibrary::convertSocToX(&v18, v10, *a2, a2[1], v12);
-  ACAMCrossModelLibrary::convertSocToY(&v17, v10, a2[2], a2[3], v13);
-  ACAMCrossModelLibrary::convertYToOcpPos((*(a1 + 8) + 144), &v16, v17);
-  ACAMCrossModelLibrary::convertXToOcpNeg((*(a1 + 8) + 112), &v15, v18);
-  result = v16 - v15;
-  *(a3 + 16) = v16 - v15;
-  *(a3 + 32) = v10;
+  ACAMCrossModelLibrary::convertSocToX(&v22, v14, *a2, a2[1], v16);
+  ACAMCrossModelLibrary::convertSocToY(&v21, v14, a2[2], a2[3], v17);
+  ACAMCrossModelLibrary::convertYToOcpPos((a1[1] + 144), &v20, v21);
+  ACAMCrossModelLibrary::convertXToOcpNeg((a1[1] + 112), &v19, v22);
+  result = v20 - v19;
+  *(a3 + 16) = v20 - v19;
+  *(a3 + 32) = v14;
   return result;
 }
 
-double solveForSocAtVoltageAndCurrent(unint64_t a1, __int16 a2, uint64_t a3, uint64_t *a4, double *a5, uint64_t a6, double *a7, double *a8, double a9, double a10)
+double solveForSocAtVoltageAndCurrent(unint64_t a1, __int16 a2, uint64_t a3, uint64_t *a4, double *a5, uint64_t a6, double *a7, double *a8, double a9, double a10, __n128 a11)
 {
-  v20 = 1.0;
-  v21 = 0.0;
-  v22 = 1;
+  v21 = 1.0;
+  v22 = 0.0;
+  v23 = 1;
   do
   {
-    v25 = 0.0;
-    v26[0] = 0.0;
-    v23 = (v20 + v21) * 0.5;
-    v26[1] = a10;
-    v26[2] = 25.0;
-    v26[3] = v23;
-    v26[4] = 0.0;
-    ACAMCrossModelLibrary::getSOCDependentStates(v26, a3, a4, a5, a6, a2, v27, &v25);
-    if (v25 < a9)
+    v26 = 0.0;
+    v27[0] = 0.0;
+    v24 = (v21 + v22) * 0.5;
+    v27[1] = a10;
+    v27[2] = 25.0;
+    v27[3] = v24;
+    v27[4] = 0.0;
+    ACAMCrossModelLibrary::getSOCDependentStates(v27, a3, a4, a5, a6, a2, v28, &v26, v21 + v22, a10, a11);
+    if (v26 < a9)
     {
-      v21 = (v20 + v21) * 0.5;
+      v22 = (v21 + v22) * 0.5;
     }
 
     else
     {
-      v20 = (v20 + v21) * 0.5;
+      v21 = (v21 + v22) * 0.5;
     }
 
-    if (v22 >= a1)
+    if (v23 >= a1)
     {
       break;
     }
 
-    ++v22;
+    ++v23;
   }
 
-  while (v20 - v21 > 0.00001);
-  v25 = 0.0;
-  v26[0] = 0.0;
-  ACAMCrossModelLibrary::convertYToOcpPos(a4 + 18, v26, v27[1]);
-  ACAMCrossModelLibrary::convertXToOcpNeg(a4 + 14, &v25, v27[0]);
-  result = v26[0] - v25;
-  *a8 = v26[0] - v25;
-  *a7 = v23;
+  while (v21 - v22 > 0.00001);
+  v26 = 0.0;
+  v27[0] = 0.0;
+  ACAMCrossModelLibrary::convertYToOcpPos(a4 + 18, v27, v28[1]);
+  ACAMCrossModelLibrary::convertXToOcpNeg(a4 + 14, &v26, v28[0]);
+  result = v27[0] - v26;
+  *a8 = v27[0] - v26;
+  *a7 = v24;
   return result;
 }
 
-void ACAMAgingUpdator::getNCCAdjustment(ACAMAgingUpdator *this, double a2, double a3, double a4, double a5, double a6, double a7, double *a8)
+void ACAMAgingUpdator::getNCCAdjustment(ACAMAgingUpdator *this, __n128 a2, double a3, double a4, double a5, double a6, double a7, double *a8)
 {
   v8 = 0;
   v13[101] = *MEMORY[0x277D85DE8];
@@ -2458,111 +2274,110 @@ void ACAMAgingUpdator::getNCCAdjustment(ACAMAgingUpdator *this, double a2, doubl
     v9 = vaddq_s64(v9, v11);
     if (v8 == 102)
     {
-      ACAMAgingUpdator::getOCV(this, a2, a3, a4, v13, 0x65uLL, v12);
+      ACAMAgingUpdator::getOCV(this, a2, a3, a4, v13, 101, v12);
     }
   }
 }
 
-float ACAMLogger::extractSBC(ACAMLogger *this, const ACAM *a2)
+double ACAMLogger::Daily::getNCCp(ACAMLogger::Daily *this, const ACAM *a2, double *a3, double *a4, double a5, double a6, __n128 a7)
 {
-  result = *(this + 4659);
-  v3 = *(this + 4660);
-  return result;
-}
-
-double ACAMLogger::Daily::getNCCp(ACAMLogger::Daily *this, const ACAM *a2, double *a3, double *a4)
-{
-  v7 = *(this + 1330);
-  v8 = *(this + 4703) * *(this + 929);
-  v9 = *(this + 4698) * *(this + 930);
-  v10 = *(this + 4704) * *(this + 931);
-  v17[5] = 0;
-  if (v7 == 2)
+  v10 = *(this + 1330);
+  v11 = *(this + 4703) * *(this + 929);
+  v12 = *(this + 4698) * *(this + 930);
+  v13 = *(this + 4704) * *(this + 931);
+  v21[5] = 0.0;
+  if (v10 == 2)
   {
-    ACAMAgingUpdator::getRawNCCVersion2((this + 37088), v9, v8, v10, *(this + 4715), *(this + 1324), *(this + 4696), *(this + 4711), *(this + 4712), a2, a3);
+    ACAMAgingUpdator::getRawNCCVersion2((this + 37088), v12, v11, v13, *(this + 4715), *(this + 1324), *(this + 4696), *(this + 4711), *(this + 4712), a2, a3);
   }
 
-  if (v7 != 3)
+  if (v10 != 3)
   {
-    ACAMAgingUpdator::getRawNCC(this + 4636, *(this + 4696), v9, v8, v10, *(this + 4715), *(this + 1324), a2);
+    ACAMAgingUpdator::getRawNCC(this + 4636, *(this + 4696), v12, v11, v13, *(this + 4715), *(this + 1324), a2);
   }
 
-  v11 = *(this + 37736);
-  v16[2] = *(this + 37720);
-  v16[3] = v11;
-  v12 = *(this + 37768);
-  v16[4] = *(this + 37752);
-  v16[5] = v12;
-  v13 = *(this + 37704);
-  v16[0] = *(this + 37688);
-  v16[1] = v13;
-  ACAMAgingUpdator::getNCCVersion3(this + 37088, v16, v17, *(this + 4740));
-  v14 = *v17;
-  *a2 = v17[0];
-  result = v14 / *(this + 928);
+  v14 = *(this + 37736);
+  v20[2] = *(this + 37720);
+  v20[3] = v14;
+  v15 = *(this + 37768);
+  v20[4] = *(this + 37752);
+  v20[5] = v15;
+  v17 = *(this + 37704);
+  v20[0] = *(this + 37688);
+  v16.n128_u64[1] = *(&v20[0] + 1);
+  v20[1] = v17;
+  v16.n128_u64[0] = *(this + 4740);
+  ACAMAgingUpdator::getNCCVersion3(this + 4636, v20, v21, v16, *&v17, a7);
+  v18 = v21[0];
+  *a2 = v21[0];
+  result = v18 / *(this + 928);
   *a3 = result;
   return result;
 }
 
-void ACAMLogger::extractDaily(ACAMLogger *this@<X0>, double *a2@<X3>, uint64_t a3@<X8>)
+void ACAMLogger::extractDaily(uint64_t *__return_ptr a1@<X8>, ACAMLogger *this@<X0>, double *a3@<X3>, __n128 a4@<Q2>)
 {
   v6 = (this + 36864);
   v7 = *(this + 4703);
-  *a3 = v7;
+  *a1 = v7;
   v8.f64[0] = *(this + 4698);
   v9 = (this + 37688);
+  v10 = *(this + 37688);
   v8.f64[1] = *(this + 4704);
-  *(a3 + 4) = vcvt_hight_f32_f64(vcvt_f32_f64(v8), *(this + 37688));
-  v18 = *(this + 37704);
-  v21 = 0;
-  v22 = 0.0;
-  ACAMLogger::Daily::getNCCp(this, &v21, &v22, a2);
-  v10.f64[0] = v22;
-  v10.f64[1] = v6[88];
-  *(a3 + 20) = vcvt_hight_f32_f64(vcvt_f32_f64(v18), v10);
-  *v10.f64 = v6[89];
-  *(a3 + 36) = LODWORD(v10.f64[0]);
-  v10.f64[0] = v6[107];
-  v10.f64[1] = v6[86];
-  *(a3 + 40) = vcvt_hight_f32_f64(vcvt_f32_f64(v10), *(this + 37528));
-  *(a3 + 64) = *(v6 + 269);
-  v11 = *(this + 38040);
-  *(a3 + 72) = *(this + 38024);
-  *(a3 + 88) = v11;
-  *(a3 + 104) = *(this + 38056);
-  *v10.f64 = v6[131];
-  *(a3 + 56) = LODWORD(v10.f64[0]);
-  *(a3 + 120) = vcvt_f32_f64(*(this + 37672));
-  *v10.f64 = v6[100];
-  *(a3 + 128) = LODWORD(v10.f64[0]);
+  *(a1 + 4) = vcvt_hight_f32_f64(vcvt_f32_f64(v8), v10);
+  v11 = *(this + 37704);
+  v22 = v11;
+  v25 = 0;
+  v26 = 0.0;
+  ACAMLogger::Daily::getNCCp(this, &v25, &v26, a3, v11.f64[0], v10.f64[0], a4);
+  v13.f64[0] = v26;
+  v13.f64[1] = v6[88];
+  *(a1 + 20) = vcvt_hight_f32_f64(vcvt_f32_f64(v22), v13);
+  *v13.f64 = v6[89];
+  *(a1 + 9) = LODWORD(v13.f64[0]);
+  v13.f64[0] = v6[107];
+  v13.f64[1] = v6[86];
+  *(a1 + 5) = vcvt_hight_f32_f64(vcvt_f32_f64(v13), *(this + 37528));
+  a1[8] = *(v6 + 269);
+  v14 = *(this + 38040);
+  *(a1 + 9) = *(this + 38024);
+  *(a1 + 11) = v14;
+  *(a1 + 13) = *(this + 38056);
+  *v13.f64 = v6[131];
+  *(a1 + 14) = LODWORD(v13.f64[0]);
+  a1[15] = vcvt_f32_f64(*(this + 37672));
+  *v13.f64 = v6[100];
+  *(a1 + 32) = LODWORD(v13.f64[0]);
   if (*(this + 1330) == 3)
   {
-    v12 = v9[3];
-    v19[2] = v9[2];
-    v19[3] = v12;
-    v13 = v9[5];
-    v19[4] = v9[4];
-    v19[5] = v13;
-    v14 = v9[1];
-    v19[0] = *v9;
-    v19[1] = v14;
-    ACAMAgingUpdator::getNCCVersion3(this + 37088, v19, v20, v6[132]);
-    v15 = ACAMCrossModelLibrary::calculateApparentWRa(this + 933, this + 928, this + 216, v9, v20);
-    *(a3 + 136) = v15;
-    ACAMCrossModelLibrary::calculateApparentQmax(this + 7840, v20);
-    v17 = v16;
+    v15 = v9[3];
+    v23[2] = v9[2];
+    v23[3] = v15;
+    v16 = v9[5];
+    v23[4] = v9[4];
+    v23[5] = v16;
+    v18 = v9[1];
+    v23[0] = *v9;
+    v17.n128_u64[1] = *(&v23[0] + 1);
+    v23[1] = v18;
+    v17.n128_f64[0] = v6[132];
+    ACAMAgingUpdator::getNCCVersion3(this + 4636, v23, v24, v17, *&v18, v12);
+    v19 = ACAMCrossModelLibrary::calculateApparentWRa(this + 933, this + 928, this + 216, v9, v24);
+    *(a1 + 34) = v19;
+    ACAMCrossModelLibrary::calculateApparentQmax(this + 7840, v24);
+    v21 = v20;
   }
 
   else
   {
-    *(a3 + 136) = 0;
-    v17 = 0.0;
+    *(a1 + 34) = 0;
+    v21 = 0.0;
   }
 
-  *(a3 + 132) = v17;
+  *(a1 + 33) = v21;
 }
 
-void ACAMLogger::extractWeekly(ACAMLogger *this, const ACAM *a2)
+void ACAMLogger::extractWeekly(ACAMLogger *this)
 {
   v2 = 0;
   v7[101] = *MEMORY[0x277D85DE8];
@@ -2585,7 +2400,8 @@ void ACAMLogger::extractWeekly(ACAMLogger *this, const ACAM *a2)
     v3 = vaddq_s64(v3, v5);
     if (v2 == 102)
     {
-      ACAMAgingUpdator::getOCV((this + 37088), *(this + 4703) * *(this + 929), *(this + 4698) * *(this + 930), *(this + 4704) * *(this + 931), v7, 0x65uLL, v6);
+      v3.n128_f64[0] = *(this + 4703) * *(this + 929);
+      ACAMAgingUpdator::getOCV((this + 37088), v3, *(this + 4698) * *(this + 930), *(this + 4704) * *(this + 931), v7, 101, v6);
     }
   }
 }
@@ -2605,11 +2421,11 @@ void *ACAMPerformanceModel::ACAMPerformanceModel(void *result, uint64_t a2, uint
   return result;
 }
 
-__n128 ACAMPerformanceModel::runOneStep(uint64_t a1, double *a2, uint64_t a3, uint64_t a4)
+__n128 ACAMPerformanceModel::runOneStep(uint64_t a1, double *a2, uint64_t a3, uint64_t a4, double a5, double a6, __n128 a7)
 {
-  v9 = 0;
-  ACAMCrossModelLibrary::getSOCDependentStates(a2, a3, *a1, *(a1 + 8), *(a1 + 16), 256, a4, &v9);
-  if (*(a4 + 24) < 0.0 || (v8 = a2[1], v8 * a2[6] <= 0.0) || (result.n128_f64[0] = fabs(v8), result.n128_f64[0] < *(*(a1 + 16) + 8)))
+  v12 = 0;
+  ACAMCrossModelLibrary::getSOCDependentStates(a2, a3, *a1, *(a1 + 8), *(a1 + 16), 256, a4, &v12, a5, a6, a7);
+  if (*(a4 + 24) < 0.0 || (v11 = a2[1], v11 * a2[6] <= 0.0) || (result.n128_f64[0] = fabs(v11), result.n128_f64[0] < *(*(a1 + 16) + 8)))
   {
     result = *a4;
     *(a4 + 16) = *a4;
@@ -2647,67 +2463,69 @@ void *ACAMPerformanceModelParameter::_assignMemory(uint64_t *a1, uint64_t a2, in
   return result;
 }
 
-void ACAMPerformanceModelParameter::_assignAddress(ACAMPerformanceModelParameter *this)
+void ACAMPerformanceModelParameter::_assignAddress(ACAMPerformanceModelParameter *this, __n128 a2)
 {
-  v2 = *this;
-  v3 = *(this + 1);
-  v4 = (*this + 8 * v3);
-  v5 = *(this + 2);
-  v6 = *(this + 3);
-  v7 = (v5 - v3) >> 1;
-  v8 = &v4[v7];
-  v9 = *v4 > *(v8 - 1);
-  v10 = (*this + 8 * v5);
-  v11 = (v6 - v5) >> 1;
-  v12 = &v10[v11];
-  v13 = *v10 > *(v12 - 1);
-  v14 = (*this + 8 * v6);
-  v15 = *(this + 4);
-  v16 = *(this + 5);
-  v17 = (v2 + 8 * v15);
-  v18 = *v17;
-  v19 = *v14 > *(v17 - 1);
-  v20 = (v2 + 8 * v16);
-  v21 = *(v20 - 1);
-  v22 = *v20;
-  *(this + 14) = v4;
-  *(this + 15) = v7;
-  *(this + 128) = v9;
-  *(this + 17) = v8;
-  *(this + 18) = v10;
-  *(this + 19) = v11;
-  *(this + 160) = v13;
-  *(this + 21) = v12;
-  *(this + 22) = v14;
-  *(this + 23) = v15 - v6;
-  *(this + 192) = v19;
-  *(this + 25) = v17;
-  *(this + 26) = v16 - v15;
-  *(this + 216) = v18 > v21;
-  v23 = *(this + 6);
-  LOBYTE(v7) = v22 > *(v2 + 8 * v23 - 8);
-  *(this + 28) = v20;
-  *(this + 29) = v23 - v16;
-  *(this + 240) = v7;
-  v24 = *(this + 10);
-  v25 = *(this + 11);
-  v26 = (v2 + 8 * v24);
-  v27 = (v25 - v24) >> 1;
-  v28 = &v26[v27];
-  LOBYTE(v8) = *v26 > *(v28 - 1);
-  *(this + 35) = v26;
-  *(this + 36) = v27;
-  *(this + 296) = v8;
-  v29 = (v2 + 8 * v25);
-  v30 = (*(this + 12) - v25) >> 1;
-  v31 = &v29[v30];
-  LOBYTE(v26) = *v29 > *(v31 - 1);
-  *(this + 38) = v28;
-  *(this + 39) = v29;
-  *(this + 40) = v30;
-  *(this + 328) = v26;
-  *(this + 42) = v31;
-  ACAMPerformanceModelParameter::_assignMemory();
+  v3 = *this;
+  v4 = *(this + 1);
+  v5 = (*this + 8 * v4);
+  v6 = *(this + 2);
+  v7 = *(this + 3);
+  v8 = (v6 - v4) >> 1;
+  v9 = &v5[v8];
+  v10 = *v5 > *(v9 - 1);
+  v11 = (*this + 8 * v6);
+  v12 = (v7 - v6) >> 1;
+  v13 = &v11[v12];
+  v14 = *v11 > *(v13 - 1);
+  v15 = (*this + 8 * v7);
+  v16 = *(this + 4);
+  v17 = *(this + 5);
+  v18 = (v3 + 8 * v16);
+  v19 = *v18;
+  v20 = *v15 > *(v18 - 1);
+  v21 = (v3 + 8 * v17);
+  a2.n128_f64[0] = *(v21 - 1);
+  v22 = *v21;
+  *(this + 14) = v5;
+  *(this + 15) = v8;
+  *(this + 128) = v10;
+  *(this + 17) = v9;
+  *(this + 18) = v11;
+  *(this + 19) = v12;
+  *(this + 160) = v14;
+  v23 = v16 - v7;
+  *(this + 21) = v13;
+  *(this + 22) = v15;
+  *(this + 23) = v16 - v7;
+  *(this + 192) = v20;
+  *(this + 25) = v18;
+  *(this + 26) = v17 - v16;
+  *(this + 216) = v19 > a2.n128_f64[0];
+  v24 = *(this + 6);
+  LOBYTE(v8) = v22 > *(v3 + 8 * v24 - 8);
+  *(this + 28) = v21;
+  *(this + 29) = v24 - v17;
+  *(this + 240) = v8;
+  v25 = *(this + 10);
+  v26 = *(this + 11);
+  v27 = (v3 + 8 * v25);
+  v28 = (v26 - v25) >> 1;
+  v29 = &v27[v28];
+  LOBYTE(v9) = *v27 > *(v29 - 1);
+  *(this + 35) = v27;
+  *(this + 36) = v28;
+  *(this + 296) = v9;
+  v30 = (v3 + 8 * v26);
+  v31 = (*(this + 12) - v26) >> 1;
+  v32 = &v30[v31];
+  a2.n128_u64[0] = *v30;
+  LOBYTE(v27) = *v30 > *(v32 - 1);
+  *(this + 38) = v29;
+  *(this + 39) = v30;
+  *(this + 40) = v31;
+  *(this + 328) = v27;
+  *(this + 42) = v32;
+  ACAMPerformanceModelParameter::_assignMemory(this, this + 31, v17 - v16, v23, 5, a2);
 }
 
 __n128 ACAMPerformanceModelParameter::_deepCopyFrom(uint64_t a1, uint64_t a2)
@@ -3103,11 +2921,11 @@ uint64_t ACAMStatus::computeAlgoStatus(uint64_t a1, uint64_t a2, _BYTE *a3)
   return result;
 }
 
-std::string *ACAMStatus::setAlgoStatusBuffer(uint64_t a1, uint64_t a2, _BYTE *a3)
+std::string *ACAMStatus::setAlgoStatusBuffer(int *a1, uint64_t a2, _BYTE *a3)
 {
   v6 = ACAMStatus::computeAlgoStatus(a1, a2, a3);
   v7 = v6;
-  *(a1 + 4) = v6;
+  a1[1] = v6;
   v8 = *a1;
   if (!(*a1 | v6))
   {
@@ -3176,7 +2994,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v11 = *(a1 + 64);
+  v11 = *(a1 + 8);
   v12 = *(a2 + 40);
   if (!(v11 | v12) || v11 == v12)
   {
@@ -3188,7 +3006,7 @@ LABEL_20:
 
     else
     {
-      v14 = *(a1 + 80);
+      v14 = *(a1 + 10);
     }
 
     v15 = *(a2 + 71);
@@ -3198,7 +3016,7 @@ LABEL_20:
       v15 = *(a2 + 56);
     }
 
-    if (v14 == v15 && (v13 >= 0 ? (v17 = (a1 + 72)) : (v17 = *(a1 + 72)), v16 >= 0 ? (v18 = (a2 + 48)) : (v18 = *(a2 + 48)), !memcmp(v17, v18, v14)))
+    if (v14 == v15 && (v13 >= 0 ? (v17 = a1 + 18) : (v17 = *(a1 + 9)), v16 >= 0 ? (v18 = (a2 + 48)) : (v18 = *(a2 + 48)), !memcmp(v17, v18, v14)))
     {
       if (*a3)
       {
@@ -3228,17 +3046,17 @@ LABEL_20:
   }
 
 LABEL_22:
-  if ((*(a1 + 12) & 0xF00) != v9)
+  if ((a1[3] & 0xF00) != v9)
   {
-    *(a1 + 12) = (16 * *(a1 + 12)) & 0xFFFFF000 | *(a1 + 12) | v9;
+    a1[3] = (16 * a1[3]) & 0xFFFFF000 | a1[3] | v9;
   }
 
   *a1 = v7;
-  *(a1 + 24) = *a2;
-  std::string::operator=((a1 + 32), (a2 + 8));
-  *(a1 + 56) = *(a2 + 32);
+  *(a1 + 12) = *a2;
+  std::string::operator=((a1 + 8), (a2 + 8));
+  *(a1 + 14) = *(a2 + 32);
 
-  return std::string::operator=((a1 + 72), (a2 + 48));
+  return std::string::operator=(a1 + 3, (a2 + 48));
 }
 
 uint64_t ACAMStatus::setDataErrorStatus(uint64_t result, uint64_t a2, double *a3, double *a4, double *a5, double *a6)

@@ -58,7 +58,7 @@
 
 - (void)_setContinuousCornerRadius:(double)radius
 {
-  if ((_WGSupportsMetal() & 1) != 0 || ![(_WGCAPackageView *)self _supportsPushingBottomCornerRadiusToSubviews:radius])
+  if ((_WGSupportsMetal(self, a2) & 1) != 0 || ![(_WGCAPackageView *)self _supportsPushingBottomCornerRadiusToSubviews:radius])
   {
     v5.receiver = self;
     v5.super_class = _WGCAPackageView;

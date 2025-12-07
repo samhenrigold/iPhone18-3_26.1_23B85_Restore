@@ -2,6 +2,9 @@
 - (LEAudioXpcConnection)init;
 - (LEAudioXpcConnection)initWithConnection:(id)connection;
 - (id)_objectForKey:(const char *)key dict:(id)dict optional:(BOOL)optional converters:(id)converters;
+- (id)numberForKey:(const char *)key optional:(BOOL)optional dict:(id)dict;
+- (id)stringForKey:(const char *)key optional:(BOOL)optional dict:(id)dict;
+- (id)xpcDictForKey:(const char *)key optional:(BOOL)optional dict:(id)dict;
 - (void)_handleEvent:(id)event;
 - (void)_sendMsg:(id)msg isReply:(BOOL)reply;
 @end
@@ -58,6 +61,51 @@
   }
 
   return v7;
+}
+
+- (id)numberForKey:(const char *)key optional:(BOOL)optional dict:(id)dict
+{
+  optionalCopy = optional;
+  v8 = qword_1000AA068;
+  dictCopy = dict;
+  if (v8 != -1)
+  {
+    sub_10005ED94();
+  }
+
+  v10 = [(LEAudioXpcConnection *)self _objectForKey:key dict:dictCopy optional:optionalCopy converters:qword_1000AA060];
+
+  return v10;
+}
+
+- (id)stringForKey:(const char *)key optional:(BOOL)optional dict:(id)dict
+{
+  optionalCopy = optional;
+  v8 = qword_1000AA078;
+  dictCopy = dict;
+  if (v8 != -1)
+  {
+    sub_10005EDA8();
+  }
+
+  v10 = [(LEAudioXpcConnection *)self _objectForKey:key dict:dictCopy optional:optionalCopy converters:qword_1000AA070];
+
+  return v10;
+}
+
+- (id)xpcDictForKey:(const char *)key optional:(BOOL)optional dict:(id)dict
+{
+  optionalCopy = optional;
+  v8 = qword_1000AA088;
+  dictCopy = dict;
+  if (v8 != -1)
+  {
+    sub_10005EDBC();
+  }
+
+  v10 = [(LEAudioXpcConnection *)self _objectForKey:key dict:dictCopy optional:optionalCopy converters:qword_1000AA080];
+
+  return v10;
 }
 
 - (void)_sendMsg:(id)msg isReply:(BOOL)reply

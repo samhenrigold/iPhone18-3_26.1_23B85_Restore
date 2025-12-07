@@ -43,7 +43,7 @@
   v8 = presentationLayer;
   if (presentationLayer)
   {
-    [presentationLayer affineTransform];
+    objc_msgSend_affineTransform(presentationLayer);
   }
 
   else
@@ -53,7 +53,7 @@
     v11 = layer2;
     if (layer2)
     {
-      [layer2 affineTransform];
+      objc_msgSend_affineTransform(layer2);
     }
 
     else
@@ -354,7 +354,7 @@ LABEL_11:
   v6 = presentationLayer;
   if (presentationLayer)
   {
-    [presentationLayer affineTransform];
+    objc_msgSend_affineTransform(presentationLayer);
   }
 
   else
@@ -363,7 +363,7 @@ LABEL_11:
     v8 = layer2;
     if (layer2)
     {
-      [layer2 affineTransform];
+      objc_msgSend_affineTransform(layer2);
     }
 
     else

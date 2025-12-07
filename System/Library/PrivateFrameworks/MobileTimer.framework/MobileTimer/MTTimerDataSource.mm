@@ -116,19 +116,19 @@
 
 - (MTTimerDataSource)initWithTimerManager:(id)manager
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v14.receiver = self;
-  v14.super_class = MTTimerDataSource;
-  v6 = [(MTTimerDataSource *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = MTTimerDataSource;
+  v6 = [(MTTimerDataSource *)&v13 init];
   if (v6)
   {
     v7 = MTLogForCategory(4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = v6;
+      v15 = v6;
       _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ initializing", buf, 0xCu);
     }
 
@@ -145,7 +145,6 @@
     [(MTTimerDataSource *)v6 _registerForNotifications];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -185,26 +184,24 @@ void __46__MTTimerDataSource__registerForNotifications__block_invoke_3(uint64_t 
 
 void __46__MTTimerDataSource__registerForNotifications__block_invoke_4(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MTLogForCategory(4);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138543362;
-    v10 = v5;
+    v9 = v5;
     _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ MTTimerManagerTimersRemoved", buf, 0xCu);
   }
 
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __46__MTTimerDataSource__registerForNotifications__block_invoke_8;
-  v8[3] = &unk_1E7B0ECA0;
-  v8[4] = v6;
-  [v6 _handleTimerNotification:v3 block:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __46__MTTimerDataSource__registerForNotifications__block_invoke_8;
+  v7[3] = &unk_1E7B0ECA0;
+  v7[4] = v6;
+  [v6 _handleTimerNotification:v3 block:v7];
 }
 
 void __46__MTTimerDataSource__registerForNotifications__block_invoke_8(uint64_t a1, void *a2)
@@ -255,53 +252,49 @@ void __46__MTTimerDataSource__registerForNotifications__block_invoke_4_13(uint64
 
 void __46__MTTimerDataSource__registerForNotifications__block_invoke_5(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MTLogForCategory(4);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ MTTimerManagerFiringTimerChanged", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ MTTimerManagerFiringTimerChanged", &v6, 0xCu);
   }
 
   [*(a1 + 32) _handleTimerNotification:v3 block:*(a1 + 40)];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __46__MTTimerDataSource__registerForNotifications__block_invoke_16(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MTLogForCategory(4);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ MTTimerManagerTimersUpdated", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ MTTimerManagerTimersUpdated", &v6, 0xCu);
   }
 
   [*(a1 + 32) _handleTimerNotification:v3 block:*(a1 + 40)];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__MTTimerDataSource__registerForNotifications__block_invoke_17(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ MTTimerManagerStateReset", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ MTTimerManagerStateReset", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) _stateReset];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _stateReset];
 }
 
 uint64_t __46__MTTimerDataSource__registerForNotifications__block_invoke_25(uint64_t a1, uint64_t a2)
@@ -317,21 +310,20 @@ uint64_t __46__MTTimerDataSource__registerForNotifications__block_invoke_25(uint
 
 void __46__MTTimerDataSource__registerForNotifications__block_invoke_2_26(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MTLogForCategory(4);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ processing recents notification update with durations: %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ processing recents notification update with durations: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 32) processRecentDurationsUpdated:v3];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__MTTimerDataSource__registerForNotifications__block_invoke_27(uint64_t a1, uint64_t a2)
@@ -371,29 +363,27 @@ uint64_t __46__MTTimerDataSource__registerForNotifications__block_invoke_3_29(ui
 
 uint64_t __51__MTTimerDataSource_processRecentDurationsUpdated___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138543618;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v4;
     _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ updating recent durations to: %{public}@", buf, 0x16u);
   }
 
   objc_storeStrong((*(a1 + 32) + 56), *(a1 + 40));
   v5 = *(a1 + 32);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __51__MTTimerDataSource_processRecentDurationsUpdated___block_invoke_31;
-  v8[3] = &unk_1E7B0FCF0;
-  v8[4] = v5;
-  result = [v5 _iterateObserversWithBlock:v8];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __51__MTTimerDataSource_processRecentDurationsUpdated___block_invoke_31;
+  v7[3] = &unk_1E7B0FCF0;
+  v7[4] = v5;
+  return [v5 _iterateObserversWithBlock:v7];
 }
 
 void __51__MTTimerDataSource_processRecentDurationsUpdated___block_invoke_31(uint64_t a1, void *a2)
@@ -513,7 +503,7 @@ void __55__MTTimerDataSource_processLatestDurationsUpdatedWith___block_invoke_2(
 
 - (void)_handleTimerNotification:(id)notification block:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   blockCopy = block;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -524,24 +514,22 @@ void __55__MTTimerDataSource_processLatestDurationsUpdatedWith___block_invoke_2(
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
-    v14 = 138543874;
+    v13 = 138543874;
     selfCopy = self;
-    v16 = 2114;
-    v17 = name;
-    v18 = 1024;
-    v19 = [v9 count];
-    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received %{public}@ notification for %d timers.", &v14, 0x1Cu);
+    v15 = 2114;
+    v16 = name;
+    v17 = 1024;
+    v18 = [v9 count];
+    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received %{public}@ notification for %d timers.", &v13, 0x1Cu);
   }
 
   reloadTimers = [(MTTimerDataSource *)self reloadTimers];
   blockCopy[2](blockCopy, v9);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleTimerDurationNotification:(id)notification block:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   blockCopy = block;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -552,40 +540,37 @@ void __55__MTTimerDataSource_processLatestDurationsUpdatedWith___block_invoke_2(
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
-    v13 = 138543874;
+    v12 = 138543874;
     selfCopy = self;
-    v15 = 2114;
-    v16 = name;
-    v17 = 2114;
-    v18 = v9;
-    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received %{public}@ duration payload: %{public}@", &v13, 0x20u);
+    v14 = 2114;
+    v15 = name;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received %{public}@ duration payload: %{public}@", &v12, 0x20u);
   }
 
   [(MTTimerDataSource *)self reloadTimerDurations];
   blockCopy[2](blockCopy, v9);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stateReset
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ received MTTimerManagerStateReset notification.", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ received MTTimerManagerStateReset notification.", &v5, 0xCu);
   }
 
   reloadTimers = [(MTTimerDataSource *)self reloadTimers];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)reloadTimersNotifyingObservers:(BOOL)observers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -598,23 +583,21 @@ void __55__MTTimerDataSource_processLatestDurationsUpdatedWith___block_invoke_2(
   timers = [(MTTimerManager *)self->_timerManager timers];
   mtMainThreadScheduler = [MEMORY[0x1E69B3790] mtMainThreadScheduler];
   v8 = [timers reschedule:mtMainThreadScheduler];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke;
-  v13[3] = &unk_1E7B0F9E0;
-  v13[4] = self;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke;
+  v12[3] = &unk_1E7B0F9E0;
+  v12[4] = self;
   observersCopy = observers;
-  v9 = [v8 addCompletionBlock:v13];
+  v9 = [v8 addCompletionBlock:v12];
   v10 = [v9 flatMap:&__block_literal_global_50];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -622,20 +605,20 @@ void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke(uint6
     v7 = MTLogForCategory(4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_cold_1(a1);
+      __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_cold_1();
     }
   }
 
   else
   {
     v8 = *(a1 + 32);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_2;
-    v19[3] = &unk_1E7B0C928;
-    v19[4] = v8;
-    v20 = v5;
-    [v8 _withLock:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_2;
+    v18[3] = &unk_1E7B0C928;
+    v18[4] = v8;
+    v19 = v5;
+    [v8 _withLock:v18];
     v9 = *(a1 + 40);
     v10 = MTLogForCategory(4);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
@@ -645,17 +628,17 @@ void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke(uint6
       {
         v12 = *(a1 + 32);
         *buf = 138543362;
-        v22 = v12;
+        v21 = v12;
         _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ calling reload block", buf, 0xCu);
       }
 
       v13 = *(a1 + 32);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_42;
-      v18[3] = &unk_1E7B0FCF0;
-      v18[4] = v13;
-      [v13 _iterateObserversWithBlock:v18];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_42;
+      v17[3] = &unk_1E7B0FCF0;
+      v17[4] = v13;
+      [v13 _iterateObserversWithBlock:v17];
     }
 
     else
@@ -664,7 +647,7 @@ void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke(uint6
       {
         v14 = *(a1 + 32);
         *buf = 138543362;
-        v22 = v14;
+        v21 = v14;
         _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ reload without notifying observers", buf, 0xCu);
       }
     }
@@ -674,17 +657,15 @@ void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke(uint6
     {
       v16 = *(a1 + 32);
       *buf = 138543362;
-      v22 = v16;
+      v21 = v16;
       _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ finished reloading", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = *(a1 + 32);
   v4 = *(v3 + 32);
@@ -695,45 +676,43 @@ void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_2(uin
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = *(a1 + 40);
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        [*(*(a1 + 32) + 32) addObject:{v13, v15}];
+        v13 = *(*(&v14 + 1) + 8 * i);
+        [*(*(a1 + 32) + 32) addObject:{v13, v14}];
         if ([v13 state] == 3 || objc_msgSend(v13, "state") == 2)
         {
           [*(*(a1 + 32) + 40) addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reloadTimerDurations
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -743,18 +722,17 @@ void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_2(uin
   }
 
   timerManager = self->_timerManager;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __41__MTTimerDataSource_reloadTimerDurations__block_invoke;
-  v6[3] = &unk_1E7B0F208;
-  v6[4] = self;
-  [(MTTimerManager *)timerManager loadAllDurationsWithCompletion:v6];
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __41__MTTimerDataSource_reloadTimerDurations__block_invoke;
+  v5[3] = &unk_1E7B0F208;
+  v5[4] = self;
+  [(MTTimerManager *)timerManager loadAllDurationsWithCompletion:v5];
 }
 
 void __41__MTTimerDataSource_reloadTimerDurations__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -766,7 +744,7 @@ void __41__MTTimerDataSource_reloadTimerDurations__block_invoke(uint64_t a1, voi
   {
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __41__MTTimerDataSource_reloadTimerDurations__block_invoke_cold_1(a1);
+      __41__MTTimerDataSource_reloadTimerDurations__block_invoke_cold_1();
     }
   }
 
@@ -776,52 +754,50 @@ void __41__MTTimerDataSource_reloadTimerDurations__block_invoke(uint64_t a1, voi
     {
       v18 = *(a1 + 32);
       *buf = 138543362;
-      v35 = v18;
+      v34 = v18;
       _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ loading durations with completion finished successfully", buf, 0xCu);
     }
 
     v19 = *(a1 + 32);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __41__MTTimerDataSource_reloadTimerDurations__block_invoke_47;
-    v29[3] = &unk_1E7B0D0F8;
-    v29[4] = v19;
-    v30 = v11;
-    v31 = v12;
-    v32 = v13;
-    v33 = v14;
-    [v19 _withLock:v29];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __41__MTTimerDataSource_reloadTimerDurations__block_invoke_47;
+    v28[3] = &unk_1E7B0D0F8;
+    v28[4] = v19;
+    v29 = v11;
+    v30 = v12;
+    v31 = v13;
+    v32 = v14;
+    [v19 _withLock:v28];
     v20 = MTLogForCategory(4);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = *(a1 + 32);
       [v21 recentDurations];
-      v22 = v27 = v11;
+      v22 = v26 = v11;
       v23 = [*(a1 + 32) favoriteDurations];
       v24 = [*(a1 + 32) latestDuration];
       *buf = 138544130;
-      v35 = v21;
-      v36 = 2114;
-      v37 = v22;
-      v38 = 2114;
-      v39 = v23;
-      v40 = 2114;
-      v41 = v24;
+      v34 = v21;
+      v35 = 2114;
+      v36 = v22;
+      v37 = 2114;
+      v38 = v23;
+      v39 = 2114;
+      v40 = v24;
       _os_log_impl(&dword_1B1F9F000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ updated durations are recent: %{public}@, favorites: %{public}@, latest: %{public}@", buf, 0x2Au);
 
-      v11 = v27;
+      v11 = v26;
     }
 
     v25 = *(a1 + 32);
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __41__MTTimerDataSource_reloadTimerDurations__block_invoke_51;
-    v28[3] = &unk_1E7B0FCF0;
-    v28[4] = v25;
-    [v25 _iterateObserversWithBlock:v28];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __41__MTTimerDataSource_reloadTimerDurations__block_invoke_51;
+    v27[3] = &unk_1E7B0FCF0;
+    v27[4] = v25;
+    [v25 _iterateObserversWithBlock:v27];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__MTTimerDataSource_reloadTimerDurations__block_invoke_47(uint64_t a1)
@@ -875,7 +851,7 @@ void __41__MTTimerDataSource_reloadTimerDurations__block_invoke_51(uint64_t a1, 
   return v3;
 }
 
-uint64_t __35__MTTimerDataSource_numberOfTimers__block_invoke(uint64_t a1)
+void *__35__MTTimerDataSource_numberOfTimers__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -967,7 +943,7 @@ uint64_t __38__MTTimerDataSource_activeTimerAtRow___block_invoke(void *a1)
   return v3;
 }
 
-uint64_t __41__MTTimerDataSource_numberOfActiveTimers__block_invoke(uint64_t a1)
+void *__41__MTTimerDataSource_numberOfActiveTimers__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 40) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1244,24 +1220,6 @@ uint64_t __39__MTTimerDataSource_getRecentDurations__block_invoke(uint64_t a1)
   lockCopy[2](lockCopy);
 
   os_unfair_lock_unlock(&self->_timerLock);
-}
-
-void __52__MTTimerDataSource_reloadTimersNotifyingObservers___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v2, v3, "%{public}@ failed reloading: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __41__MTTimerDataSource_reloadTimerDurations__block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v2, v3, "%{public}@ reloadTimerDurations failed with error: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

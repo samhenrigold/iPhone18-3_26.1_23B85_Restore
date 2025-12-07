@@ -12,23 +12,22 @@
 - (CKDeviceCapabilityCheckOptions)initWithExcludeDevicesWithoutCapabilityCheckingSupport:(BOOL)support excludeZoneAccessBefore:(id)before
 {
   v5 = sub_18844E6FC(&unk_1EA90D7B0, &dword_1886F8780);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (before)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for Date();
-    v10 = 0;
+    v8 = type metadata accessor for Date();
+    v9 = 0;
   }
 
   else
   {
-    v9 = type metadata accessor for Date();
-    v10 = 1;
+    v8 = type metadata accessor for Date();
+    v9 = 1;
   }
 
-  sub_1883F90F4(v8, v10, 1, v9);
+  sub_1883F90F4(v7, v9, 1, v8);
   CKDeviceCapabilityCheckOptions.init(excludeDevicesWithoutCapabilityCheckingSupport:excludeZoneAccessBefore:)();
   return result;
 }
@@ -36,16 +35,15 @@
 - (NSDate)excludeZoneAccessBefore
 {
   v2 = sub_18844E6FC(&unk_1EA90D7B0, &dword_1886F8780);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v9 - v4;
+  v4 = &v8 - v3;
   CKDeviceCapabilityCheckOptions.excludeZoneAccessBefore.getter();
-  v6 = type metadata accessor for Date();
+  v5 = type metadata accessor for Date();
   isa = 0;
-  if (sub_1883F971C(v5, 1, v6) != 1)
+  if (sub_1883F971C(v4, 1, v5) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(*(v6 - 8) + 8))(v5, v6);
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
   return isa;
@@ -79,7 +77,7 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = CKDeviceCapabilityCheckOptions.hash.getter();
+  v3 = CKDeviceCapabilityCheckOptions.hash.getter(selfCopy);
 
   return v3;
 }

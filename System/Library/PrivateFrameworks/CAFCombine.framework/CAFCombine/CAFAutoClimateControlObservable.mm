@@ -24,36 +24,46 @@
 
 - (void)autoClimateControlService:(id)service didUpdateLevel:(unsigned __int8)level
 {
+  levelCopy = level;
   serviceCopy = service;
   selfCopy = self;
-  CAFAutoClimateControlObservable.autoClimateControlService(_:didUpdateLevel:)(selfCopy, level);
+  CAFAutoClimateControlObservable.autoClimateControlService(_:didUpdateLevel:)(selfCopy, levelCopy);
 }
 
 - (void)autoClimateControlService:(id)service didUpdateIntensity:(unsigned __int8)intensity
 {
+  intensityCopy = intensity;
   serviceCopy = service;
   selfCopy = self;
-  CAFAutoClimateControlObservable.autoClimateControlService(_:didUpdateIntensity:)(selfCopy, intensity);
+  CAFAutoClimateControlObservable.autoClimateControlService(_:didUpdateIntensity:)(selfCopy, intensityCopy);
 }
 
 - (void)autoClimateControlService:(id)service didUpdateVehicleLayoutKey:(id)key
 {
   if (key)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFAutoClimateControlObservable.autoClimateControlService(_:didUpdateVehicleLayoutKey:)();
+  CAFAutoClimateControlObservable.autoClimateControlService(_:didUpdateVehicleLayoutKey:)(selfCopy, v6, v8);
 }
 
 - (void)autoClimateControlService:(id)service didUpdateName:(id)name
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFAutoClimateControlObservable.autoClimateControlService(_:didUpdateName:)();
+  CAFAutoClimateControlObservable.autoClimateControlService(_:didUpdateName:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

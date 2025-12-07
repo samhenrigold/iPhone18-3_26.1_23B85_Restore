@@ -13,14 +13,14 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateCalled && gLogCategory_CUMobileDeviceDiscovery <= 50 && (gLogCategory_CUMobileDeviceDiscovery != -1 || _LogCategory_Initialize(&gLogCategory_CUMobileDeviceDiscovery, 0x32u)))
   {
-    LogPrintF(&gLogCategory_CUMobileDeviceDiscovery, "[CUMobileDeviceDiscovery _invalidated]", 0x32u, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v12);
+    LogPrintF(&gLogCategory_CUMobileDeviceDiscovery, "[CUMobileDeviceDiscovery _invalidated]", 50, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v12);
   }
 
   if (!self->_mdRunLoopThread)
   {
     if (gLogCategory_CUMobileDeviceDiscovery <= 30 && (gLogCategory_CUMobileDeviceDiscovery != -1 || _LogCategory_Initialize(&gLogCategory_CUMobileDeviceDiscovery, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUMobileDeviceDiscovery, "[CUMobileDeviceDiscovery _invalidated]", 0x1Eu, "Invalidated\n", v3, v4, v5, v6, v12);
+      LogPrintF(&gLogCategory_CUMobileDeviceDiscovery, "[CUMobileDeviceDiscovery _invalidated]", 30, "Invalidated\n", v3, v4, v5, v6, v12);
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -59,18 +59,18 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__CUMobileDeviceDiscovery_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__37__CUMobileDeviceDiscovery_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if ((*(*(result + 32) + 9) & 1) == 0)
+  if ((*(result[4] + 9) & 1) == 0)
   {
     v10 = result;
     if (gLogCategory_CUMobileDeviceDiscovery <= 30 && (gLogCategory_CUMobileDeviceDiscovery != -1 || _LogCategory_Initialize(&gLogCategory_CUMobileDeviceDiscovery, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUMobileDeviceDiscovery, "[CUMobileDeviceDiscovery invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v8);
+      LogPrintF(&gLogCategory_CUMobileDeviceDiscovery, "[CUMobileDeviceDiscovery invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v8);
     }
 
-    *(*(v10 + 32) + 9) = 1;
-    v11 = *(v10 + 32);
+    *(v10[4] + 9) = 1;
+    v11 = v10[4];
     if (v11[2])
     {
       v12 = v11[2];
@@ -103,7 +103,7 @@ uint64_t __35__CUMobileDeviceDiscovery_activate__block_invoke(uint64_t a1, uint6
 {
   if (gLogCategory_CUMobileDeviceDiscovery <= 30 && (gLogCategory_CUMobileDeviceDiscovery != -1 || _LogCategory_Initialize(&gLogCategory_CUMobileDeviceDiscovery, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUMobileDeviceDiscovery, "[CUMobileDeviceDiscovery activate]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v14);
+    LogPrintF(&gLogCategory_CUMobileDeviceDiscovery, "[CUMobileDeviceDiscovery activate]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v14);
   }
 
   *(*(a1 + 32) + 8) = 1;

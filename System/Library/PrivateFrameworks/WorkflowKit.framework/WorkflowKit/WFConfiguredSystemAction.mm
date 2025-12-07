@@ -9,20 +9,20 @@ uint64_t __59__WFConfiguredSystemAction_LNValue__systemActionWithValue___block_i
   v3 = v2;
   if (v2 == @"encodedSystemAction")
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else if (v2)
   {
-    v4 = [(__CFString *)v2 isEqualToString:@"encodedSystemAction"];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

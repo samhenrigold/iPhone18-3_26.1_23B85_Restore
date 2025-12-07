@@ -65,7 +65,7 @@ void __34__LSDPluginManager_sharedInstance__block_invoke()
 
         if (!v15)
         {
-          bundleIdentifier = 0;
+          v21 = 0;
           v17 = 0;
           goto LABEL_22;
         }
@@ -74,27 +74,28 @@ void __34__LSDPluginManager_sharedInstance__block_invoke()
         v17 = v16;
         if (!v16)
         {
-          bundleIdentifier = 0;
+          v21 = 0;
           goto LABEL_22;
         }
 
         v18 = dictionary;
         v19 = v11;
         bundleIdentifier = [v16 bundleIdentifier];
+        v21 = bundleIdentifier;
         if (!bundleIdentifier)
         {
-          v22 = 0;
+          v23 = 0;
 LABEL_16:
-          v25 = _LSDefaultLog();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v26 = _LSDefaultLog(bundleIdentifier);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
             v40 = v13;
             v41 = 2112;
-            v42 = bundleIdentifier;
+            v42 = v21;
             v43 = 2112;
-            v44 = v22;
-            _os_log_impl(&dword_18162D000, v25, OS_LOG_TYPE_DEFAULT, "Failed to load plugin with URL: %@ bundle identifier %@ error: %@", buf, 0x20u);
+            v44 = v23;
+            _os_log_impl(&dword_18162D000, v26, OS_LOG_TYPE_DEFAULT, "Failed to load plugin with URL: %@ bundle identifier %@ error: %@", buf, 0x20u);
           }
 
 LABEL_19:
@@ -104,9 +105,10 @@ LABEL_19:
         }
 
         v34 = 0;
-        v21 = [v17 loadAndReturnError:&v34];
-        v22 = v34;
-        if ((v21 & 1) == 0)
+        v22 = [v17 loadAndReturnError:&v34];
+        bundleIdentifier = v34;
+        v23 = bundleIdentifier;
+        if ((v22 & 1) == 0)
         {
           goto LABEL_16;
         }
@@ -117,106 +119,102 @@ LABEL_19:
           goto LABEL_19;
         }
 
-        v24 = objc_alloc_init(principalClass);
+        v25 = objc_alloc_init(principalClass);
 
         v11 = v19;
-        if (!v24)
+        if (!v25)
         {
           dictionary = v18;
           goto LABEL_21;
         }
 
         dictionary = v18;
-        [v18 setObject:v24 forKey:bundleIdentifier];
-        v22 = v24;
+        [v18 setObject:v25 forKey:v21];
+        v23 = v25;
 LABEL_20:
 
 LABEL_21:
         v10 = v32;
 LABEL_22:
-        v26 = [dictionary copy];
+        v27 = [dictionary copy];
         pluginsByBundleIentifier = self->_pluginsByBundleIentifier;
-        self->_pluginsByBundleIentifier = v26;
+        self->_pluginsByBundleIentifier = v27;
 
         ++v12;
       }
 
       while (v9 != v12);
-      v28 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
-      v9 = v28;
+      v29 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v9 = v29;
     }
 
-    while (v28);
+    while (v29);
   }
 
   objc_autoreleasePoolPop(context);
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __37__LSDPluginManager_loadPluginsAtURL___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
-  v6 = _LSDefaultLog();
+  v6 = _LSDefaultLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "Error enumerating URL: %@ error: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "Error enumerating URL: %@ error: %@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)startPlugins
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
+  v19 = *MEMORY[0x1E69E9840];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   v3 = self->_pluginsByBundleIentifier;
-  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSDictionary *)self->_pluginsByBundleIentifier objectForKey:*(*(&v13 + 1) + 8 * v7), v13];
+        v8 = [(NSDictionary *)self->_pluginsByBundleIentifier objectForKey:*(*(&v14 + 1) + 8 * v7), v14];
         [v8 start];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
-  v9 = [__LSDefaultsGetSharedInstance() serviceNameForConnectionType:4];
-  v10 = [objc_alloc(MEMORY[0x1E696B0D8]) initWithMachServiceName:v9];
+  v11 = [__LSDefaultsGetSharedInstance(v9 v10)];
+  v12 = [objc_alloc(MEMORY[0x1E696B0D8]) initWithMachServiceName:v11];
   listener = self->_listener;
-  self->_listener = v10;
+  self->_listener = v12;
 
   [(NSXPCListener *)self->_listener setDelegate:self];
   [(NSXPCListener *)self->_listener resume];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection

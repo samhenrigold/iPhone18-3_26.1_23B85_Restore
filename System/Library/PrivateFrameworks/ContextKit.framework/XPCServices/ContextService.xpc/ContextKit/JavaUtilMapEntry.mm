@@ -32,16 +32,16 @@
     return getValue;
   }
 
-  LODWORD(getValue) = [JavaUtilMap_Entry_class_() isInstance:equal];
+  getValue = [JavaUtilMap_Entry_class_(self a2)];
   if (getValue)
   {
-    v6 = JavaUtilMap_Entry_class_();
+    v7 = JavaUtilMap_Entry_class_(getValue, v6);
     if (!equal)
     {
       JreThrowNullPointerException();
     }
 
-    if (([v6 isInstance:equal] & 1) == 0)
+    if (([v7 isInstance:equal] & 1) == 0)
     {
       JreThrowClassCastException();
     }

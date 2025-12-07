@@ -16,7 +16,7 @@
 
 + (id)_loadSound:(id)sound
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA8D8];
   soundCopy = sound;
   v5 = [v3 bundleForClass:objc_opt_class()];
@@ -24,69 +24,68 @@
 
   if (v6)
   {
-    v19 = 0;
-    v7 = [objc_alloc(MEMORY[0x277CB8398]) initForReading:v6 error:&v19];
-    v8 = v19;
+    v20 = 0;
+    v7 = [objc_alloc(MEMORY[0x277CB8398]) initForReading:v6 error:&v20];
+    v8 = v20;
+    v9 = v8;
     if (v7)
     {
-      v9 = objc_alloc(MEMORY[0x277CB83C8]);
+      v10 = objc_alloc(MEMORY[0x277CB83C8]);
       processingFormat = [v7 processingFormat];
-      v11 = [v9 initWithPCMFormat:processingFormat frameCapacity:objc_msgSend(v7, "length")];
+      v12 = [v10 initWithPCMFormat:processingFormat frameCapacity:objc_msgSend(v7, "length")];
 
-      v18 = v8;
-      v12 = [v7 readIntoBuffer:v11 error:&v18];
-      v13 = v18;
+      v19 = v9;
+      v13 = [v7 readIntoBuffer:v12 error:&v19];
+      v14 = v19;
 
-      if (v12)
+      if (v13)
       {
-        v11 = v11;
-        v14 = v11;
+        v12 = v12;
+        v16 = v12;
       }
 
       else
       {
-        v15 = _BKUILoggingFacility();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v17 = _BKUILoggingFacility(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v21 = v13;
-          _os_log_impl(&dword_241B0A000, v15, OS_LOG_TYPE_DEFAULT, "Failed to read audio file into buffer: %@", buf, 0xCu);
+          v22 = v14;
+          _os_log_impl(&dword_241B0A000, v17, OS_LOG_TYPE_DEFAULT, "Failed to read audio file into buffer: %@", buf, 0xCu);
         }
 
-        v14 = 0;
+        v16 = 0;
       }
     }
 
     else
     {
-      v11 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _BKUILoggingFacility(v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v8;
-        _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "Failed to create audio file: %@", buf, 0xCu);
+        v22 = v9;
+        _os_log_impl(&dword_241B0A000, v12, OS_LOG_TYPE_DEFAULT, "Failed to create audio file: %@", buf, 0xCu);
       }
 
-      v14 = 0;
-      v13 = v8;
+      v16 = 0;
+      v14 = v9;
     }
   }
 
   else
   {
-    v14 = 0;
+    v16 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 - (BKUIPearlAudioSession)init
 {
-  v21.receiver = self;
-  v21.super_class = BKUIPearlAudioSession;
-  v2 = [(BKUIPearlAudioSession *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = BKUIPearlAudioSession;
+  v2 = [(BKUIPearlAudioSession *)&v22 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.biometrickitui.avPlayerNodeOperationQueue", 0);
@@ -114,23 +113,24 @@
     v2->_failSoundBuffer = v13;
 
     _setupMediaStack = [(BKUIPearlAudioSession *)v2 _setupMediaStack];
+    v16 = _setupMediaStack;
     if (_setupMediaStack)
     {
-      v16 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = _BKUILoggingFacility(_setupMediaStack);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(BKUIPearlAudioSession *)_setupMediaStack init];
+        [(BKUIPearlAudioSession *)v16 init];
       }
 
-      v17 = 0;
+      v18 = 0;
     }
 
     else
     {
-      v17 = 1;
+      v18 = 1;
     }
 
-    v2->_mediaServicesConnected = v17;
+    v2->_mediaServicesConnected = v18;
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v2 selector:sel__mediaServicesReconnect_ name:*MEMORY[0x277CB80A0] object:0];
 
@@ -212,21 +212,21 @@ void *__58__BKUIPearlAudioSession_scheduleBuffer_completionHandler___block_invok
   dispatch_async(avPlayerNodeOperationQueue, block);
 }
 
-uint64_t __29__BKUIPearlAudioSession_play__block_invoke(uint64_t result)
+void *__29__BKUIPearlAudioSession_play__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 72) == 1)
+  if (*(result[4] + 72) == 1)
   {
     v6 = v1;
     v7 = v2;
     v3 = result;
-    v4 = _BKUILoggingFacility();
+    v4 = _BKUILoggingFacility(result);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
       _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "Audio node play called.", v5, 2u);
     }
 
-    return [*(*(v3 + 32) + 16) play];
+    return [*(v3[4] + 16) play];
   }
 
   return result;
@@ -243,21 +243,21 @@ uint64_t __29__BKUIPearlAudioSession_play__block_invoke(uint64_t result)
   dispatch_async(avPlayerNodeOperationQueue, block);
 }
 
-uint64_t __29__BKUIPearlAudioSession_stop__block_invoke(uint64_t result)
+void *__29__BKUIPearlAudioSession_stop__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 72) == 1)
+  if (*(result[4] + 72) == 1)
   {
     v6 = v1;
     v7 = v2;
     v3 = result;
-    v4 = _BKUILoggingFacility();
+    v4 = _BKUILoggingFacility(result);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
       _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "Audio node stop called.", v5, 2u);
     }
 
-    return [*(*(v3 + 32) + 16) stop];
+    return [*(v3[4] + 16) stop];
   }
 
   return result;
@@ -278,20 +278,21 @@ void __49__BKUIPearlAudioSession__mediaServicesReconnect___block_invoke(uint64_t
 {
   if ((*(*(a1 + 32) + 72) & 1) == 0)
   {
-    v2 = _BKUILoggingFacility();
+    v2 = _BKUILoggingFacility(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_241B0A000, v2, OS_LOG_TYPE_DEFAULT, "_mediaServicesReconnect called", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_241B0A000, v2, OS_LOG_TYPE_DEFAULT, "_mediaServicesReconnect called", v6, 2u);
     }
 
     v3 = [*(a1 + 32) _setupMediaStack];
+    v4 = v3;
     if (v3)
     {
-      v4 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = _BKUILoggingFacility(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        __49__BKUIPearlAudioSession__mediaServicesReconnect___block_invoke_cold_1(v3, v4);
+        __49__BKUIPearlAudioSession__mediaServicesReconnect___block_invoke_cold_1(v4, v5);
       }
     }
 
@@ -304,7 +305,7 @@ void __49__BKUIPearlAudioSession__mediaServicesReconnect___block_invoke(uint64_t
 
 - (void)_mediaServicesConnectionWasLost:(id)lost
 {
-  v4 = _BKUILoggingFacility();
+  v4 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -361,7 +362,7 @@ void __57__BKUIPearlAudioSession__mediaServicesConnectionWasLost___block_invoke(
 
 - (void)dealloc
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -381,20 +382,18 @@ void __57__BKUIPearlAudioSession__mediaServicesConnectionWasLost___block_invoke(
 
 - (void)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "Failed to start audio engine: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "Failed to start audio engine: %@", &v2, 0xCu);
 }
 
 void __49__BKUIPearlAudioSession__mediaServicesReconnect___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "Failed to start audio engine for _mediaServicesReconnect: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "Failed to start audio engine for _mediaServicesReconnect: %@", &v2, 0xCu);
 }
 
 @end

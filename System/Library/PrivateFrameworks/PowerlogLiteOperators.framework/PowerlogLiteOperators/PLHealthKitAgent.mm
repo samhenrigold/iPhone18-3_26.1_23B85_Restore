@@ -16,106 +16,104 @@
 
 + (id)entryEventPointDefinitions
 {
-  v63[2] = *MEMORY[0x277D85DE8];
-  v62[0] = @"HealthKitQuery";
-  v59 = *MEMORY[0x277D3F4E8];
-  v2 = v59;
+  v62[2] = *MEMORY[0x277D85DE8];
+  v61[0] = @"HealthKitQuery";
+  v58 = *MEMORY[0x277D3F4E8];
+  v2 = v58;
   v4 = *MEMORY[0x277D3F4A0];
-  v57[0] = *MEMORY[0x277D3F568];
-  v3 = v57[0];
-  v57[1] = v4;
-  v58[0] = &unk_282C1C968;
-  v58[1] = MEMORY[0x277CBEC38];
-  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
-  v61[0] = v48;
-  v60 = *MEMORY[0x277D3F540];
-  v5 = v60;
-  v55[0] = @"clientID";
+  v56[0] = *MEMORY[0x277D3F568];
+  v3 = v56[0];
+  v56[1] = v4;
+  v57[0] = &unk_282C1C968;
+  v57[1] = MEMORY[0x277CBEC38];
+  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
+  v60[0] = v47;
+  v59 = *MEMORY[0x277D3F540];
+  v5 = v59;
+  v54[0] = @"clientID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v56[0] = commonTypeDict_IntegerFormat;
-  v55[1] = @"bundleID";
+  v55[0] = commonTypeDict_IntegerFormat;
+  v54[1] = @"bundleID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v56[1] = commonTypeDict_StringFormat_withBundleID;
-  v55[2] = @"queryID";
+  v55[1] = commonTypeDict_StringFormat_withBundleID;
+  v54[2] = @"queryID";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v56[2] = commonTypeDict_StringFormat;
-  v55[3] = @"queryType";
+  v55[2] = commonTypeDict_StringFormat;
+  v54[3] = @"queryType";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v56[3] = commonTypeDict_StringFormat2;
-  v55[4] = @"totalDuration";
+  v55[3] = commonTypeDict_StringFormat2;
+  v54[4] = @"totalDuration";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]5 commonTypeDict_RealFormat];
-  v56[4] = commonTypeDict_RealFormat;
-  v55[5] = @"isBackgroundQuery";
+  v55[4] = commonTypeDict_RealFormat;
+  v54[5] = @"isBackgroundQuery";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]6 commonTypeDict_BoolFormat];
-  v56[5] = commonTypeDict_BoolFormat;
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:6];
-  v61[1] = v35;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v59 count:2];
-  v62[1] = @"HealthKitCloudSync";
-  v63[0] = v34;
-  v51 = v3;
-  v52 = &unk_282C1C978;
-  v53[0] = v2;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-  v53[1] = v5;
-  v54[0] = v33;
-  v49[0] = @"options";
+  v55[5] = commonTypeDict_BoolFormat;
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:6];
+  v60[1] = v34;
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v58 count:2];
+  v61[1] = @"HealthKitCloudSync";
+  v62[0] = v33;
+  v50 = v3;
+  v51 = &unk_282C1C978;
+  v52[0] = v2;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+  v52[1] = v5;
+  v53[0] = v32;
+  v48[0] = @"options";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v50[0] = commonTypeDict_IntegerFormat2;
-  v49[1] = @"reason";
+  v49[0] = commonTypeDict_IntegerFormat2;
+  v48[1] = @"reason";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v50[1] = commonTypeDict_IntegerFormat3;
-  v49[2] = @"operation";
+  v49[1] = commonTypeDict_IntegerFormat3;
+  v48[2] = @"operation";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v50[2] = commonTypeDict_IntegerFormat4;
-  v49[3] = @"zone-count";
+  v49[2] = commonTypeDict_IntegerFormat4;
+  v48[3] = @"zone-count";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v50[3] = commonTypeDict_IntegerFormat5;
-  v49[4] = @"rebase-reason";
+  v49[3] = commonTypeDict_IntegerFormat5;
+  v48[4] = @"rebase-reason";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat];
-  v50[4] = commonTypeDict_IntegerFormat6;
-  v49[5] = @"deadline";
+  v49[4] = commonTypeDict_IntegerFormat6;
+  v48[5] = @"deadline";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat];
-  v50[5] = commonTypeDict_IntegerFormat7;
-  v49[6] = @"epoch-change";
+  v49[5] = commonTypeDict_IntegerFormat7;
+  v48[6] = @"epoch-change";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat];
-  v50[6] = commonTypeDict_IntegerFormat8;
-  v49[7] = @"status";
+  v49[6] = commonTypeDict_IntegerFormat8;
+  v48[7] = @"status";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat];
-  v50[7] = commonTypeDict_IntegerFormat9;
-  v49[8] = @"result";
+  v49[7] = commonTypeDict_IntegerFormat9;
+  v48[8] = @"result";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]15 commonTypeDict_BoolFormat];
-  v50[8] = commonTypeDict_BoolFormat2;
-  v49[9] = @"upload";
+  v49[8] = commonTypeDict_BoolFormat2;
+  v48[9] = @"upload";
   mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat3 = [mEMORY[0x277D3F198]16 commonTypeDict_BoolFormat];
-  v50[9] = commonTypeDict_BoolFormat3;
-  v49[10] = @"download";
+  v49[9] = commonTypeDict_BoolFormat3;
+  v48[10] = @"download";
   mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat4 = [mEMORY[0x277D3F198]17 commonTypeDict_BoolFormat];
-  v50[10] = commonTypeDict_BoolFormat4;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:11];
-  v54[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
-  v63[1] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v49[10] = commonTypeDict_BoolFormat4;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:11];
+  v53[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
+  v62[1] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:2];
 
   return v15;
 }
@@ -170,14 +168,14 @@
 
 void __44__PLHealthKitAgent_initOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogHealthKit();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 138412290;
-    v21 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HealthKitQuery payload: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HealthKitQuery payload: %@", &v19, 0xCu);
   }
 
   v8 = [(PLOperator *)PLHealthKitAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"HealthKitQuery"];
@@ -213,20 +211,18 @@ void __44__PLHealthKitAgent_initOperatorDependancies__block_invoke(uint64_t a1, 
 
   [v9 setObject:v18 forKeyedSubscript:@"isBackgroundQuery"];
   [*(a1 + 32) logEntry:v9];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PLHealthKitAgent_initOperatorDependancies__block_invoke_96(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogHealthKit();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v22 = 138412290;
-    v23 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HealthKitCloudSync Payload: %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HealthKitCloudSync Payload: %@", &v21, 0xCu);
   }
 
   v8 = [(PLOperator *)PLHealthKitAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"HealthKitCloudSync"];
@@ -265,7 +261,6 @@ void __44__PLHealthKitAgent_initOperatorDependancies__block_invoke_96(uint64_t a
   [v9 setObject:v20 forKeyedSubscript:@"download"];
 
   [*(a1 + 32) logEntry:v9];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

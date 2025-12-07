@@ -36,7 +36,7 @@
 
 uint64_t __48__PKSTSTapToProvisionReader_initWithReplyQueue___block_invoke(uint64_t a1)
 {
-  v2 = objc_alloc_init(getSTSTapToProvisionReaderClass[0]());
+  v2 = objc_alloc_init(getSTSTapToProvisionReaderClass());
   v3 = *(a1 + 32);
   v4 = *(v3 + 8);
   *(v3 + 8) = v2;
@@ -331,9 +331,9 @@ void __75__PKSTSTapToProvisionReader_tapToProvisionAvailableWithTimeout_completi
         goto LABEL_22;
       }
 
-      v14 = [v12 isEqualToString:v11];
+      isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-      if (!v14)
+      if (!isEqualToString)
       {
         goto LABEL_22;
       }

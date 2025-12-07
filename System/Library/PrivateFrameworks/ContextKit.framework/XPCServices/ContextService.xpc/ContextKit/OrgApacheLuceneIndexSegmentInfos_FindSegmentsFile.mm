@@ -17,9 +17,9 @@
       return [(OrgApacheLuceneIndexSegmentInfos_FindSegmentsFile *)self doBodyWithNSString:getSegmentsFileName];
     }
 
-    v26 = new_JavaIoIOException_initWithNSString_(@"the specified commit does not match the specified Directory");
+    v32 = new_JavaIoIOException_initWithNSString_(@"the specified commit does not match the specified Directory");
 LABEL_24:
-    objc_exception_throw(v26);
+    objc_exception_throw(v32);
   }
 
   if (!directory)
@@ -32,8 +32,8 @@ LABEL_21:
   {
     listAll = [(OrgApacheLuceneStoreDirectory *)directory listAll];
     listAll2 = [(OrgApacheLuceneStoreDirectory *)self->directory_ listAll];
-    JavaUtilArrays_sortWithNSObjectArray_(listAll);
-    JavaUtilArrays_sortWithNSObjectArray_(listAll2);
+    JavaUtilArrays_sortWithNSObjectArray_(listAll, v10);
+    JavaUtilArrays_sortWithNSObjectArray_(listAll2, v11);
     if (JavaUtilArrays_equalsWithNSObjectArray_withNSObjectArray_(listAll, listAll2))
     {
       break;
@@ -54,16 +54,15 @@ LABEL_21:
 
   if (qword_100553E40)
   {
-    JreStrcat("$J", v10, v11, v12, v13, v14, v15, v16, @"directory listing gen=");
-    sub_10001975C();
+    v20 = JreStrcat("$J", v12, v13, v14, v15, v16, v17, v18, @"directory listing gen=");
+    sub_10001975C(v20, v21);
   }
 
   if (LastCommitGenerationWithNSStringArray == -1)
   {
-    v27 = self->directory_;
     JavaUtilArrays_toStringWithNSObjectArray_(listAll);
-    v35 = JreStrcat("$@$$", v28, v29, v30, v31, v32, v33, v34, @"no segments* file found in ");
-    v26 = new_OrgApacheLuceneIndexIndexNotFoundException_initWithNSString_(v35);
+    v40 = JreStrcat("$@$$", v33, v34, v35, v36, v37, v38, v39, @"no segments* file found in ");
+    v32 = new_OrgApacheLuceneIndexIndexNotFoundException_initWithNSString_(v40);
     goto LABEL_24;
   }
 
@@ -72,7 +71,7 @@ LABEL_21:
     objc_exception_throw(0);
   }
 
-  v25 = [(OrgApacheLuceneIndexSegmentInfos_FindSegmentsFile *)self doBodyWithNSString:OrgApacheLuceneIndexIndexFileNames_fileNameFromGenerationWithNSString_withNSString_withLong_(OrgApacheLuceneIndexIndexFileNames_SEGMENTS_, &stru_100484358, LastCommitGenerationWithNSStringArray)];
+  v29 = [(OrgApacheLuceneIndexSegmentInfos_FindSegmentsFile *)self doBodyWithNSString:OrgApacheLuceneIndexIndexFileNames_fileNameFromGenerationWithNSString_withNSString_withLong_(OrgApacheLuceneIndexIndexFileNames_SEGMENTS_, &stru_100484358, LastCommitGenerationWithNSStringArray)];
   if ((atomic_load_explicit(&OrgApacheLuceneIndexSegmentInfos__initialized, memory_order_acquire) & 1) == 0)
   {
     objc_opt_class();
@@ -80,11 +79,11 @@ LABEL_21:
 
   if (qword_100553E40)
   {
-    JreStrcat("$$", v18, v19, v20, v21, v22, v23, v24, @"success on ");
-    sub_10001975C();
+    v30 = JreStrcat("$$", v22, v23, v24, v25, v26, v27, v28, @"success on ");
+    sub_10001975C(v30, v31);
   }
 
-  return v25;
+  return v29;
 }
 
 - (void)dealloc

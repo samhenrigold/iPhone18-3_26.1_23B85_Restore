@@ -8,7 +8,7 @@
 
 - (BOOL)_warmTermsIfNecessary
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_languageToExemptTerms)
   {
     isKindOfClass = 1;
@@ -27,9 +27,9 @@
     {
       if (v8)
       {
-        v12 = 138412290;
-        v13 = v5;
-        _os_log_impl(&dword_260CE3000, p_super, OS_LOG_TYPE_DEFAULT, "ProactiveResponsesExperiment Successfully loaded exempt terms list at path: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v5;
+        _os_log_impl(&dword_260CE3000, p_super, OS_LOG_TYPE_DEFAULT, "ProactiveResponsesExperiment Successfully loaded exempt terms list at path: %@", &v11, 0xCu);
       }
 
       v9 = [v6 copy];
@@ -39,19 +39,18 @@
 
     else if (v8)
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_260CE3000, p_super, OS_LOG_TYPE_DEFAULT, "ProactiveResponsesExperiment ExemptTermsDetection found unexpected plist contents at path: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_260CE3000, p_super, OS_LOG_TYPE_DEFAULT, "ProactiveResponsesExperiment ExemptTermsDetection found unexpected plist contents at path: %@", &v11, 0xCu);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return isKindOfClass & 1;
 }
 
 - (BOOL)checkForExemptContentInText:(id)text languageCode:(id)code
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   textCopy = text;
   codeCopy = code;
   if (self->_languageToExemptTerms && [textCopy length])
@@ -64,9 +63,9 @@
     v8 = pre_responses_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412290;
-      v24 = codeCopy;
-      _os_log_impl(&dword_260CE3000, v8, OS_LOG_TYPE_DEFAULT, "PREResponsesExperiment Checking for exempt content with language code: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = codeCopy;
+      _os_log_impl(&dword_260CE3000, v8, OS_LOG_TYPE_DEFAULT, "PREResponsesExperiment Checking for exempt content with language code: %@", &v22, 0xCu);
     }
 
     [(PREPredictionExemptTermsDetector *)self _warmTermsIfNecessary];
@@ -101,7 +100,6 @@
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

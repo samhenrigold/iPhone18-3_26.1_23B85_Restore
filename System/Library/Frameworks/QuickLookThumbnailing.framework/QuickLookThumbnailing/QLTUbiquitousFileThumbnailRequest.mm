@@ -1,11 +1,34 @@
 @interface QLTUbiquitousFileThumbnailRequest
 - (QLTUbiquitousFileThumbnailRequest)initWithCoder:(id)coder;
+- (QLTUbiquitousFileThumbnailRequest)initWithFPItem:(id)item size:(CGSize)size minimumDimension:(double)dimension scale:(double)scale iconMode:(BOOL)mode;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation QLTUbiquitousFileThumbnailRequest
+
+- (QLTUbiquitousFileThumbnailRequest)initWithFPItem:(id)item size:(CGSize)size minimumDimension:(double)dimension scale:(double)scale iconMode:(BOOL)mode
+{
+  modeCopy = mode;
+  height = size.height;
+  width = size.width;
+  itemCopy = item;
+  v15 = [QLCacheFileProviderFileIdentifier alloc];
+  itemID = [itemCopy itemID];
+  v17 = [(QLCacheFileProviderFileIdentifier *)v15 initWithItemID:itemID];
+
+  v18 = [[QLThumbnailVersion alloc] initWithFPItem:itemCopy automaticallyGenerated:1];
+  v19 = [[QLCacheFileProviderVersionedFileIdentifier alloc] initWithFileIdentifier:v17 version:v18];
+  dimension = [(QLTThumbnailRequest *)self initWithVersionedFileIdentifier:v19 size:modeCopy scale:0 iconMode:0 flavor:-1 wantsBaseline:width minimumDimension:height requestedTypes:scale, dimension];
+  v21 = dimension;
+  if (dimension)
+  {
+    objc_storeStrong(&dimension->_item, item);
+  }
+
+  return v21;
+}
 
 - (id)description
 {

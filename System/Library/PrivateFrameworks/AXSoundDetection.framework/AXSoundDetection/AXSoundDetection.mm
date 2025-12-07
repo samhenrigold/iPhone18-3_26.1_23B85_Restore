@@ -1,13 +1,13 @@
-id AXSDSoundDetectionBundle()
+id AXSDSoundDetectionBundle(uint64_t a1)
 {
   if (AXSDSoundDetectionBundle_onceToken != -1)
   {
     AXSDSoundDetectionBundle_cold_1();
   }
 
-  v1 = AXSDSoundDetectionBundle_AXBundle;
+  v2 = AXSDSoundDetectionBundle_AXBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AXSDSoundDetectionBundle_block_invoke()
@@ -366,70 +366,69 @@ LABEL_51:
 
 id AXSDSoundDetectionCategories()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = AXSDDetectorCategoryAlarm;
-  v3[1] = AXSDDetectorCategoryAnimal;
-  v3[2] = AXSDDetectorCategoryHousehold;
-  v3[3] = AXSDDetectorCategoryPeople;
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = AXSDDetectorCategoryAlarm;
+  v2[1] = AXSDDetectorCategoryAnimal;
+  v2[2] = AXSDDetectorCategoryHousehold;
+  v2[3] = AXSDDetectorCategoryPeople;
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
 
   return v0;
 }
 
 id AXSDSoundDetectionTypesForCategory(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (AXSDDetectorCategoryAlarm == v1)
   {
-    v24 = AXSDSoundDetectionTypeFireAlarms;
-    v25 = AXSDSoundDetectionTypeSirenAlarms;
-    v26 = AXSDSoundDetectionTypeSmokeAlarms;
+    v23 = AXSDSoundDetectionTypeFireAlarms;
+    v24 = AXSDSoundDetectionTypeSirenAlarms;
+    v25 = AXSDSoundDetectionTypeSmokeAlarms;
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v24;
+    v6 = &v23;
 LABEL_9:
     v7 = 3;
 LABEL_12:
-    v4 = [v5 arrayWithObjects:v6 count:{v7, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27}];
+    v4 = [v5 arrayWithObjects:v6 count:{v7, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26}];
     goto LABEL_13;
   }
 
   if (AXSDDetectorCategoryAnimal == v1)
   {
-    v22 = AXSDSoundDetectionTypeCatMeows;
-    v23 = AXSDSoundDetectionTypeDogBarks;
+    v21 = AXSDSoundDetectionTypeCatMeows;
+    v22 = AXSDSoundDetectionTypeDogBarks;
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v22;
+    v6 = &v21;
     v7 = 2;
     goto LABEL_12;
   }
 
   if (AXSDDetectorCategoryHousehold == v1)
   {
-    v13 = AXSDSoundDetectionTypeApplianceBeeps;
-    v14 = AXSDSoundDetectionTypeApplianceBuzzes;
-    v15 = AXSDSoundDetectionTypeApplianceBellDings;
-    v16 = AXSDSoundDetectionTypeCarHorns;
-    v17 = AXSDSoundDetectionTypeDoorbells;
-    v18 = AXSDSoundDetectionTypeDoorKnocks;
-    v19 = AXSDSoundDetectionTypeWaterRunning;
-    v20 = AXSDSoundDetectionTypeGlassBreaking;
-    v21 = AXSDSoundDetectionTypeKettle;
+    v12 = AXSDSoundDetectionTypeApplianceBeeps;
+    v13 = AXSDSoundDetectionTypeApplianceBuzzes;
+    v14 = AXSDSoundDetectionTypeApplianceBellDings;
+    v15 = AXSDSoundDetectionTypeCarHorns;
+    v16 = AXSDSoundDetectionTypeDoorbells;
+    v17 = AXSDSoundDetectionTypeDoorKnocks;
+    v18 = AXSDSoundDetectionTypeWaterRunning;
+    v19 = AXSDSoundDetectionTypeGlassBreaking;
+    v20 = AXSDSoundDetectionTypeKettle;
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v13;
+    v6 = &v12;
     v7 = 9;
     goto LABEL_12;
   }
 
   if (AXSDDetectorCategoryPeople == v1)
   {
-    v10 = AXSDSoundDetectionTypeDistressedBaby;
-    v11 = AXSDSoundDetectionTypePersonShouting;
-    v12 = AXSDSoundDetectionTypeCough;
+    v9 = AXSDSoundDetectionTypeDistressedBaby;
+    v10 = AXSDSoundDetectionTypePersonShouting;
+    v11 = AXSDSoundDetectionTypeCough;
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v10;
+    v6 = &v9;
     goto LABEL_9;
   }
 
@@ -441,8 +440,6 @@ LABEL_12:
 
   v4 = MEMORY[0x277CBEBF8];
 LABEL_13:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -491,33 +488,40 @@ LABEL_11:
       v6 = v7;
     }
 
-    v8 = v6;
+    IsAppliance = v6;
+    v9 = IsAppliance;
     goto LABEL_14;
   }
 
-  if (AXSDSoundDetectionTypeIsAppliance(v3))
+  IsAppliance = AXSDSoundDetectionTypeIsAppliance(v3);
+  if (IsAppliance)
   {
     if (a2)
     {
-      if ([v3 isEqualToString:AXSDSoundDetectionTypeApplianceBeeps])
+      IsAppliance = [v3 isEqualToString:AXSDSoundDetectionTypeApplianceBeeps];
+      if (IsAppliance)
       {
-        v8 = @"BodyApplianceBeep";
-      }
-
-      else if ([v3 isEqualToString:AXSDSoundDetectionTypeApplianceBellDings])
-      {
-        v8 = @"BodyApplianceBell";
+        v9 = @"BodyApplianceBeep";
       }
 
       else
       {
-        v8 = @"BodyApplianceBuzz";
+        IsAppliance = [v3 isEqualToString:AXSDSoundDetectionTypeApplianceBellDings];
+        if (IsAppliance)
+        {
+          v9 = @"BodyApplianceBell";
+        }
+
+        else
+        {
+          v9 = @"BodyApplianceBuzz";
+        }
       }
     }
 
     else
     {
-      v8 = @"TitleAppliance";
+      v9 = @"TitleAppliance";
     }
 
     goto LABEL_14;
@@ -614,36 +618,37 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v15 = AXLogUltron();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+  v18 = AXLogUltron();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
   {
     AXSDSoundDetectionLocalizedStringForType_cold_1();
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_14:
-  v9 = AXSDSoundDetectionBundle();
-  v4 = [v9 localizedStringForKey:v8 value:v8 table:@"SoundDetectionSupport"];
+  v10 = AXSDSoundDetectionBundle(IsAppliance);
+  v4 = [v10 localizedStringForKey:v9 value:v9 table:@"SoundDetectionSupport"];
 
   if (a2)
   {
-    v10 = AXSDSoundDetectionBundle();
-    v11 = v10;
-    v12 = @"DetectionBody";
+    v12 = AXSDSoundDetectionBundle(v11);
+    v13 = v12;
+    v14 = @"DetectionBody";
 LABEL_22:
-    v13 = [v10 localizedStringForKey:v12 value:v12 table:@"SoundDetectionSupport"];
+    v16 = [v12 localizedStringForKey:v14 value:v14 table:@"SoundDetectionSupport"];
 
-    v14 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v13, v4];
+    v17 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v16, v4];
 
-    v4 = v14;
+    v4 = v17;
     goto LABEL_23;
   }
 
-  if (AXSDIsConnectedToCarPlay())
+  v15 = AXSDIsConnectedToCarPlay();
+  if (v15)
   {
-    v10 = AXSDSoundDetectionBundle();
-    v11 = v10;
-    v12 = @"DetectionMaybe";
+    v12 = AXSDSoundDetectionBundle(v15);
+    v13 = v12;
+    v14 = @"DetectionMaybe";
     goto LABEL_22;
   }
 
@@ -657,40 +662,57 @@ LABEL_6:
 id AXSDSoundDetectionLocalizedStringForCategory(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:AXSDDetectorCategoryAlarm])
+  v2 = [v1 isEqualToString:AXSDDetectorCategoryAlarm];
+  if (v2)
   {
-    v2 = @"CATEGORY_ALARM";
-  }
-
-  else if ([v1 isEqualToString:AXSDDetectorCategoryAnimal])
-  {
-    v2 = @"CATEGORY_ANIMAL";
-  }
-
-  else if ([v1 isEqualToString:AXSDDetectorCategoryHousehold])
-  {
-    v2 = @"CATEGORY_HOUSEHOLD";
-  }
-
-  else if ([v1 isEqualToString:AXSDDetectorCategoryPeople])
-  {
-    v2 = @"CATEGORY_PEOPLE";
-  }
-
-  else if ([v1 isEqualToString:AXSDDetectorCategoryNone])
-  {
-    v2 = &stru_284FABDD0;
+    v3 = @"CATEGORY_ALARM";
   }
 
   else
   {
-    v2 = 0;
+    v2 = [v1 isEqualToString:AXSDDetectorCategoryAnimal];
+    if (v2)
+    {
+      v3 = @"CATEGORY_ANIMAL";
+    }
+
+    else
+    {
+      v2 = [v1 isEqualToString:AXSDDetectorCategoryHousehold];
+      if (v2)
+      {
+        v3 = @"CATEGORY_HOUSEHOLD";
+      }
+
+      else
+      {
+        v2 = [v1 isEqualToString:AXSDDetectorCategoryPeople];
+        if (v2)
+        {
+          v3 = @"CATEGORY_PEOPLE";
+        }
+
+        else
+        {
+          v2 = [v1 isEqualToString:AXSDDetectorCategoryNone];
+          if (v2)
+          {
+            v3 = &stru_284FABDD0;
+          }
+
+          else
+          {
+            v3 = 0;
+          }
+        }
+      }
+    }
   }
 
-  v3 = AXSDSoundDetectionBundle();
-  v4 = [v3 localizedStringForKey:v2 value:v2 table:@"SoundDetectionSupport"];
+  v4 = AXSDSoundDetectionBundle(v2);
+  v5 = [v4 localizedStringForKey:v3 value:v3 table:@"SoundDetectionSupport"];
 
-  return v4;
+  return v5;
 }
 
 id bmTypeForSoundDetectionType(void *a1)
@@ -819,48 +841,41 @@ uint64_t AXIsSoundDetectionMedinaSupportEnabled()
   return MEMORY[0x282138E00]();
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
 void AXSDSoundDetectionHandleNotificationsForResponse_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_23D624000, log, OS_LOG_TYPE_DEBUG, "Snoozing %@ for duration: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_23D624000, log, OS_LOG_TYPE_DEBUG, "Snoozing %@ for duration: %@", &v3, 0x16u);
 }
 
 void AXSDSoundDetectionTypeForIdentifier_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACC8] callStackSymbols];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_23D624000, v1, v2, "Attempted to get AXSDSoundDetectionType for invalid identifier: %@. Stacktrace: %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_23D624000, v1, v2, "Attempted to get AXSDSoundDetectionType for invalid identifier: %@. Stacktrace: %@", v3, v4, v5, v6);
 }
 
 void AXSDSoundDetectionTypesForCategory_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_23D624000, a2, OS_LOG_TYPE_DEBUG, "No AXSDSoundDetectionTypes found for detector category: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_23D624000, a2, OS_LOG_TYPE_DEBUG, "No AXSDSoundDetectionTypes found for detector category: %@", &v2, 0xCu);
 }
 
 void AXSDSoundDetectionLocalizedStringForType_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACC8] callStackSymbols];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_23D624000, v1, v2, "Notification requested for invalid detection type: %@. Stacktrace: %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_23D624000, v1, v2, "Notification requested for invalid detection type: %@. Stacktrace: %@", v3, v4, v5, v6);
 }

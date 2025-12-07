@@ -375,11 +375,10 @@ LABEL_9:
 
 void __68__TPSContextualBiomeDiscoverabilitySignalsEvent__filteringPredicate__block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_ERROR, "Failed to parse userInfoDictionary. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_ERROR, "Failed to parse userInfoDictionary. Error: %@", &v2, 0xCu);
 }
 
 @end

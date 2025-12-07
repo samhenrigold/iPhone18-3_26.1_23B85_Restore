@@ -1124,7 +1124,7 @@ LABEL_7:
 
   else
   {
-    v6 = +[UIColor blackColor];
+    v6 = objc_msgSend_blackColor(UIColor);
   }
 
   return v6;
@@ -2281,13 +2281,13 @@ uint64_t __48__UISearchDisplayController_setActive_animated___block_invoke(uint6
   return [v2 setAlpha:v3];
 }
 
-uint64_t __48__UISearchDisplayController_setActive_animated___block_invoke_2(uint64_t result)
+void *__48__UISearchDisplayController_setActive_animated___block_invoke_2(void *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
     v2 = result;
-    [*(*(result + 32) + 128) setHidden:1];
-    v3 = *(*(v2 + 32) + 128);
+    [*(result[4] + 128) setHidden:1];
+    v3 = *(v2[4] + 128);
 
     return [v3 removeFromSuperview];
   }
@@ -2393,9 +2393,9 @@ uint64_t __48__UISearchDisplayController_setActive_animated___block_invoke_9(uin
   return [v3 setAlpha:v2];
 }
 
-uint64_t __48__UISearchDisplayController_setActive_animated___block_invoke_10(uint64_t result)
+void *__48__UISearchDisplayController_setActive_animated___block_invoke_10(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 256) & 0x200) == 0)
   {
     return [*(v1 + 32) _setShowsCancelButton:*(result + 40)];
@@ -2404,11 +2404,11 @@ uint64_t __48__UISearchDisplayController_setActive_animated___block_invoke_10(ui
   return result;
 }
 
-uint64_t __48__UISearchDisplayController_setActive_animated___block_invoke_11(uint64_t result)
+void *__48__UISearchDisplayController_setActive_animated___block_invoke_11(void *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(*(result + 32) + 32) _allowCursorToAppear:1];
+    return [*(result[4] + 32) _allowCursorToAppear:1];
   }
 
   return result;
@@ -2670,11 +2670,11 @@ void __48__UISearchDisplayController_setActive_animated___block_invoke_21(uint64
   }
 }
 
-uint64_t __48__UISearchDisplayController_setActive_animated___block_invoke_25(uint64_t result)
+id *__48__UISearchDisplayController_setActive_animated___block_invoke_25(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) showHideAnimationDidFinish];
+    return [result[4] showHideAnimationDidFinish];
   }
 
   return result;
@@ -3887,7 +3887,7 @@ LABEL_9:
     v17 = view2;
     if (view2)
     {
-      [view2 transform];
+      objc_msgSend_transform(view2);
     }
 
     else
@@ -3982,7 +3982,7 @@ LABEL_9:
   if (v10)
   {
     v11 = v10;
-    v12 = 0;
+    isEqual = 0;
     v13 = *v58;
     do
     {
@@ -3993,15 +3993,15 @@ LABEL_9:
           objc_enumerationMutation(rightBarButtonItems);
         }
 
-        if (v12)
+        if (isEqual)
         {
           [array addObject:*(*(&v57 + 1) + 8 * i)];
-          v12 = 1;
+          isEqual = 1;
         }
 
         else
         {
-          v12 = [*(*(&v57 + 1) + 8 * i) isEqual:_animatedAppearanceBarButtonItem];
+          isEqual = objc_msgSend_isEqual_(*(*(&v57 + 1) + 8 * i));
         }
       }
 
@@ -4276,7 +4276,7 @@ void __70__UISearchDisplayController__animateNavigationBarSearchBarAppearance___
   dimmingOverlayColor = self->_dimmingOverlayColor;
   p_dimmingOverlayColor = &self->_dimmingOverlayColor;
   v8 = colorCopy;
-  if (![(UIColor *)dimmingOverlayColor isEqual:?])
+  if ((objc_msgSend_isEqual_(dimmingOverlayColor) & 1) == 0)
   {
     objc_storeStrong(p_dimmingOverlayColor, color);
   }

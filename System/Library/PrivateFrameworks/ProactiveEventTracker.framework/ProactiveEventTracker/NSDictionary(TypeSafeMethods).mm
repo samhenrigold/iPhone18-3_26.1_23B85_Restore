@@ -42,20 +42,20 @@
 
 - (void)pet_objectForKey:()TypeSafeMethods class:
 {
-  v1 = [self objectForKey:?];
+  v4 = [self objectForKey:a3];
   if (objc_opt_isKindOfClass())
   {
-    v2 = v1;
+    v5 = v4;
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  v3 = v2;
+  v6 = v5;
 
-  return v2;
+  return v5;
 }
 
 @end

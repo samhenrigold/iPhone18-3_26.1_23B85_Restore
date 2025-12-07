@@ -17,13 +17,13 @@
   }
 
   v6 = v5;
-  [(DIEncryptionFrontend *)self getSerializerWithAuthTable:v5];
+  objc_msgSend_getSerializerWithAuthTable_(self);
   if (v18)
   {
     createParams = [(DIEncryptionCreator *)self createParams];
     mutableSymmetricKey = [createParams mutableSymmetricKey];
     LODWORD(v22) = 8;
-    sub_100181A78(mutableSymmetricKey, v6, &v22, v17, &v26);
+    sub_100181A78(&v26, mutableSymmetricKey, v6, &v22, v17);
 
     if (v28)
     {
@@ -146,7 +146,7 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      [(DIEncryptionFrontend *)self getSerializerWithAuthTable:v13];
+      objc_msgSend_getSerializerWithAuthTable_(self);
       if (v25)
       {
         LODWORD(v29) = 8;

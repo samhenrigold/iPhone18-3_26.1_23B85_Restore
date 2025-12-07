@@ -258,12 +258,12 @@ LABEL_14:
     v27 = 0;
     if (([UIApp _isActivating] & 1) != 0 || objc_msgSend(UIApp, "_isResigningActive"))
     {
-      v7 = [namedCopy isEqualToString:@"com.apple.UIKit.pboard.general"];
+      isEqualToString = objc_msgSend_isEqualToString_(namedCopy);
     }
 
     else
     {
-      v7 = 0;
+      isEqualToString = 0;
     }
 
     v18 = 0;
@@ -276,7 +276,7 @@ LABEL_14:
     block[2] = __59___UIConcretePasteboard__pasteboardNamed_createIfNotFound___block_invoke;
     block[3] = &unk_1E711A3B8;
     v13 = &v22;
-    v16 = v7;
+    v16 = isEqualToString;
     foundCopy = found;
     v14 = &v18;
     selfCopy = self;
@@ -1482,7 +1482,7 @@ LABEL_15:
               }
 
               v16 = *(*(&v34 + 1) + 8 * i);
-              if (([v16 isEqualToString:@"com.apple.uikit.type-automatic"] & 1) == 0)
+              if ((objc_msgSend_isEqualToString_(v16) & 1) == 0)
               {
                 v17 = [v11 objectForKeyedSubscript:v16];
                 objc_opt_class();
@@ -1802,7 +1802,7 @@ LABEL_15:
               }
 
               v18 = *(*(&v35 + 1) + 8 * i);
-              if (([v18 isEqualToString:@"com.apple.uikit.type-automatic"] & 1) == 0)
+              if ((objc_msgSend_isEqualToString_(v18) & 1) == 0)
               {
                 v19 = [v13 objectForKeyedSubscript:v18];
                 objc_opt_class();
@@ -2069,7 +2069,7 @@ LABEL_11:
         goto LABEL_17;
       }
 
-      if ([typeCopy isEqual:0x1EFB86090])
+      if (objc_msgSend_isEqual_(typeCopy))
       {
 LABEL_16:
         v10 = [MEMORY[0x1E696ACC8] _ui_archivedInterprocessDataWithRootObject:valueCopy requiringSecureCoding:0 error:0];

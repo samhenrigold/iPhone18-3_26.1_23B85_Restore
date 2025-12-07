@@ -15,10 +15,10 @@
 
 - (void)prepareForReuse
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_402FF0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_402FF0, &unk_31EF40);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
-  v6 = type metadata accessor for EpisodeHeaderCollectionViewCell();
+  v6 = type metadata accessor for EpisodeHeaderCollectionViewCell(0);
   v11.receiver = self;
   v11.super_class = v6;
   selfCopy = self;
@@ -29,7 +29,7 @@
   (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
   v9 = OBJC_IVAR____TtC23ShelfKitCollectionViews31EpisodeHeaderCollectionViewCell_subscribedArtwork;
   swift_beginAccess();
-  sub_A32A0(v5, selfCopy + v9, &unk_402FF0);
+  sub_A32A0(v5, selfCopy + v9, &unk_402FF0, &unk_31EF40);
   swift_endAccess();
 }
 

@@ -82,22 +82,20 @@
 
 - (void)setProxyObjectClasses:(id)classes
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   classesCopy = classes;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = classesCopy;
-    _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConnectClientPolicy] Setting proxy object classes: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = classesCopy;
+    _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreConnectClientPolicy] Setting proxy object classes: %{public}@", &v8, 0xCu);
   }
 
   proxyObjectClasses = self->_proxyObjectClasses;
   self->_proxyObjectClasses = classesCopy;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SUCoreConnectClientPolicy__getSharedClientAccessQueue__block_invoke()
@@ -174,10 +172,7 @@ uint64_t __63__SUCoreConnectClientPolicy__getSharedClientAllowlistedClasses__blo
 
 uint64_t __57__SUCoreConnectClientPolicy_getAllowlistedClassesForKey___block_invoke(uint64_t a1)
 {
-  v2 = [SUCoreConnectClientPolicy _getAllowlistedClassesForKey:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [SUCoreConnectClientPolicy _getAllowlistedClassesForKey:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -239,28 +234,28 @@ LABEL_9:
 
 void __59__SUCoreConnectClientPolicy_setAllowlistedClasses_forKeys___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v2 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v18;
+    v4 = *v17;
     do
     {
       v5 = 0;
       do
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v17 + 1) + 8 * v5);
+        v6 = *(*(&v16 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v8 = MEMORY[0x277CBEB98];
         v9 = +[SUCoreConnectConstants defaultClasses];
@@ -284,13 +279,11 @@ void __59__SUCoreConnectClientPolicy_setAllowlistedClasses_forKeys___block_invok
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)clearAllowlistedClasses

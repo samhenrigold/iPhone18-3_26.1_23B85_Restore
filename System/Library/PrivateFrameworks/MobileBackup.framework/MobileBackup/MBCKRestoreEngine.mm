@@ -256,9 +256,9 @@
 
 - (BOOL)runWithError:(id *)error
 {
-  v25 = 0;
-  v5 = [(MBCKRestoreEngine *)self _runWithError:&v25];
-  v6 = v25;
+  v23 = 0;
+  v5 = [(MBCKRestoreEngine *)self _runWithError:&v23];
+  v6 = v23;
   if (v5)
   {
     goto LABEL_24;
@@ -272,13 +272,11 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v27 = serviceAccount;
-      v28 = 2112;
-      v29 = v6;
+      v25 = serviceAccount;
+      v26 = 2112;
+      v27 = v6;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Lightrail restore failed for account %@: %@", buf, 0x16u);
-      v22 = serviceAccount;
-      v23 = v6;
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Lightrail restore failed for account %@: %@", serviceAccount, v6);
     }
 
     persona = [(MBCKEngine *)self persona];
@@ -298,10 +296,9 @@
     if (os_log_type_enabled(persona, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = v12;
+      v25 = v12;
       _os_log_impl(&_mh_execute_header, persona, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Sanitized ATC restore error: %@", buf, 0xCu);
-      v22 = v12;
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Sanitized ATC restore error: %@", v12);
     }
 
     v6 = v12;
@@ -318,38 +315,38 @@ LABEL_14:
       bundleID = [restoreMode bundleID];
       accountIdentifier = [serviceAccount accountIdentifier];
       *buf = 138543874;
-      v27 = bundleID;
+      v25 = bundleID;
+      v26 = 2112;
+      v27 = accountIdentifier;
       v28 = 2112;
-      v29 = accountIdentifier;
-      v30 = 2112;
-      v31 = v6;
+      v29 = v6;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Restore failed for %{public}@ account %@: %@", buf, 0x20u);
 
       bundleID2 = [restoreMode bundleID];
       accountIdentifier2 = [serviceAccount accountIdentifier];
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Restore failed for %{public}@ account %@: %@", bundleID2, accountIdentifier2, v6);
     }
   }
 
   else if (v15)
   {
     *buf = 138412546;
-    v27 = serviceAccount;
-    v28 = 2112;
-    v29 = v6;
+    v25 = serviceAccount;
+    v26 = 2112;
+    v27 = v6;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Restore failed for account %@: %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"E ", "=ckrestore-engine= Restore failed for account %@: %@", serviceAccount, v6);
   }
 
   if ([MBError shouldReportLowDiskSpaceForError:v6])
   {
-    v19 = [NSNumber numberWithUnsignedLongLong:MBFreeDiskSpace()];
-    [(MBCKRestoreEngine *)self setFreeDiskSpace:v19];
+    v20 = [NSNumber numberWithUnsignedLongLong:MBFreeDiskSpace()];
+    [(MBCKRestoreEngine *)self setFreeDiskSpace:v20];
   }
 
   if (error)
   {
-    v20 = v6;
+    v21 = v6;
     *error = v6;
   }
 
@@ -360,9 +357,9 @@ LABEL_24:
 - (BOOL)_runWithError:(id *)error
 {
   [(MBCKRestoreEngine *)self setChargingType:MBGetChargingType()];
-  v49 = 0;
-  v5 = [(MBCKRestoreEngine *)self setUpWithError:&v49];
-  restoreMode = v49;
+  v48 = 0;
+  v5 = [(MBCKRestoreEngine *)self setUpWithError:&v48];
+  restoreMode = v48;
   if (v5)
   {
 LABEL_4:
@@ -391,9 +388,9 @@ LABEL_4:
       backupUDID = [context backupUDID];
       context2 = [(MBCKEngine *)self context];
       snapshotUUID = [context2 snapshotUUID];
-      v48 = 0;
-      v17 = [cache fetchRestoreStateForDeviceUUID:backupUDID snapshotUUID:snapshotUUID error:&v48];
-      v18 = v48;
+      v47 = 0;
+      v17 = [cache fetchRestoreStateForDeviceUUID:backupUDID snapshotUUID:snapshotUUID error:&v47];
+      v18 = v47;
       [(MBCKRestoreEngine *)self setRestoreState:v17];
 
       if (v18)
@@ -406,26 +403,24 @@ LABEL_4:
           context4 = [(MBCKEngine *)self context];
           snapshotUUID2 = [context4 snapshotUUID];
           *buf = 138412802;
-          *v51 = backupUDID2;
-          *&v51[8] = 2112;
-          *&v51[10] = snapshotUUID2;
-          *&v51[18] = 2112;
-          *&v51[20] = v18;
+          *v50 = backupUDID2;
+          *&v50[8] = 2112;
+          *&v50[10] = snapshotUUID2;
+          *&v50[18] = 2112;
+          *&v50[20] = v18;
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Error getting restore state for deviceUUID %@ and snapshotUUID %@: %@", buf, 0x20u);
 
           context5 = [(MBCKEngine *)self context];
           backupUDID3 = [context5 backupUDID];
           context6 = [(MBCKEngine *)self context];
           snapshotUUID3 = [context6 snapshotUUID];
-          v47 = v18;
-          v45 = backupUDID3;
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= Error getting restore state for deviceUUID %@ and snapshotUUID %@: %@", backupUDID3, snapshotUUID3, v18);
         }
 
         [(MBCKRestoreEngine *)self setRestoreState:1];
       }
 
-      if ([(MBCKRestoreEngine *)self restoreState:v45]>= 4)
+      if ([(MBCKRestoreEngine *)self restoreState]>= 4)
       {
         [(MBCKRestoreEngine *)self setRestoreState:3];
       }
@@ -439,22 +434,20 @@ LABEL_4:
     if ([restoreMode isBackgroundApp])
     {
       bundleID = [restoreMode bundleID];
-      accountIdentifier3 = MBGetDefaultLog();
-      if (os_log_type_enabled(accountIdentifier3, OS_LOG_TYPE_DEFAULT))
+      accountIdentifier4 = MBGetDefaultLog();
+      if (os_log_type_enabled(accountIdentifier4, OS_LOG_TYPE_DEFAULT))
       {
         accountIdentifier = [serviceAccount accountIdentifier];
         *buf = 138543874;
-        *v51 = bundleID;
-        *&v51[8] = 2112;
-        *&v51[10] = accountIdentifier;
-        *&v51[18] = 2112;
-        *&v51[20] = cellularAccess;
-        _os_log_impl(&_mh_execute_header, accountIdentifier3, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Starting restore for %{public}@ account %@ cellularAccess:%@", buf, 0x20u);
+        *v50 = bundleID;
+        *&v50[8] = 2112;
+        *&v50[10] = accountIdentifier;
+        *&v50[18] = 2112;
+        *&v50[20] = cellularAccess;
+        _os_log_impl(&_mh_execute_header, accountIdentifier4, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Starting restore for %{public}@ account %@ cellularAccess:%@", buf, 0x20u);
 
-        snapshotUUID3 = [serviceAccount accountIdentifier];
-        v47 = cellularAccess;
-        v45 = bundleID;
-        _MBLog();
+        accountIdentifier2 = [serviceAccount accountIdentifier];
+        _MBLog(@"Df", "=ckrestore-engine= Starting restore for %{public}@ account %@ cellularAccess:%@", bundleID, accountIdentifier2, cellularAccess);
       }
     }
 
@@ -471,7 +464,7 @@ LABEL_26:
           [restoreLogger logForegroundRestoreStart];
         }
 
-        [(MBCKRestoreEngine *)self makeStateTransition:v45];
+        [(MBCKRestoreEngine *)self makeStateTransition];
         if ([(MBEngine *)self isForegroundRestore])
         {
           restoreLogger2 = [(MBCKRestoreEngine *)self restoreLogger];
@@ -492,27 +485,24 @@ LABEL_26:
           }
         }
 
-        v29 = hasError ^ 1;
+        v30 = hasError ^ 1;
 
         goto LABEL_35;
       }
 
       restoreType = self->_restoreType;
-      accountIdentifier2 = [serviceAccount accountIdentifier];
+      accountIdentifier3 = [serviceAccount accountIdentifier];
       *buf = 67109634;
-      *v51 = restoreType;
-      *&v51[4] = 2112;
-      *&v51[6] = accountIdentifier2;
-      *&v51[14] = 2112;
-      *&v51[16] = cellularAccess;
+      *v50 = restoreType;
+      *&v50[4] = 2112;
+      *&v50[6] = accountIdentifier3;
+      *&v50[14] = 2112;
+      *&v50[16] = cellularAccess;
       _os_log_impl(&_mh_execute_header, bundleID, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Starting restore (%d) account %@ cellularAccess:%@", buf, 0x1Cu);
 
-      v38 = self->_restoreType;
-      accountIdentifier3 = [serviceAccount accountIdentifier];
-      snapshotUUID3 = accountIdentifier3;
-      v47 = cellularAccess;
-      v45 = v38;
-      _MBLog();
+      v40 = self->_restoreType;
+      accountIdentifier4 = [serviceAccount accountIdentifier];
+      _MBLog(@"Df", "=ckrestore-engine= Starting restore (%d) account %@ cellularAccess:%@", v40, accountIdentifier4, cellularAccess);
     }
 
     goto LABEL_26;
@@ -528,39 +518,39 @@ LABEL_26:
       break;
     }
 
-    v49 = 0;
-    v9 = [(MBCKRestoreEngine *)self setUpWithError:&v49];
-    restoreMode = v49;
+    v48 = 0;
+    v9 = [(MBCKRestoreEngine *)self setUpWithError:&v48];
+    restoreMode = v48;
     if (v9)
     {
       goto LABEL_4;
     }
   }
 
-  v27 = MBGetDefaultLog();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v28 = MBGetDefaultLog();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    *v51 = restoreMode;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Restore failed to setup: %@", buf, 0xCu);
-    _MBLog();
+    *v50 = restoreMode;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Restore failed to setup: %@", buf, 0xCu);
+    _MBLog(@"E ", "=ckrestore-engine= Restore failed to setup: %@", restoreMode);
   }
 
   if (error)
   {
-    v28 = restoreMode;
-    v29 = 0;
+    v29 = restoreMode;
+    v30 = 0;
     *error = restoreMode;
   }
 
   else
   {
-    v29 = 0;
+    v30 = 0;
   }
 
 LABEL_35:
 
-  return v29;
+  return v30;
 }
 
 - (void)_handleStateTransition
@@ -574,34 +564,34 @@ LABEL_35:
       if (restoreState == 3)
       {
         [(MBCKRestoreEngine *)self setRestoreState:4];
-        v33[0] = _NSConcreteStackBlock;
-        v33[1] = 3221225472;
-        v33[2] = sub_10005636C;
-        v33[3] = &unk_1003BC400;
-        v33[4] = self;
-        v5 = v33;
+        v30[0] = _NSConcreteStackBlock;
+        v30[1] = 3221225472;
+        v30[2] = sub_10005636C;
+        v30[3] = &unk_1003BC400;
+        v30[4] = self;
+        v5 = v30;
       }
 
       else if (restoreState == 4)
       {
         [(MBCKRestoreEngine *)self setRestoreState:5];
-        v32[0] = _NSConcreteStackBlock;
-        v32[1] = 3221225472;
-        v32[2] = sub_1000563D8;
-        v32[3] = &unk_1003BC400;
-        v32[4] = self;
-        v5 = v32;
+        v29[0] = _NSConcreteStackBlock;
+        v29[1] = 3221225472;
+        v29[2] = sub_1000563D8;
+        v29[3] = &unk_1003BC400;
+        v29[4] = self;
+        v5 = v29;
       }
 
       else
       {
         [(MBCKRestoreEngine *)self setRestoreState:6];
-        v31[0] = _NSConcreteStackBlock;
-        v31[1] = 3221225472;
-        v31[2] = sub_1000563E4;
-        v31[3] = &unk_1003BC400;
-        v31[4] = self;
-        v5 = v31;
+        v28[0] = _NSConcreteStackBlock;
+        v28[1] = 3221225472;
+        v28[2] = sub_1000563E4;
+        v28[3] = &unk_1003BC400;
+        v28[4] = self;
+        v5 = v28;
       }
 
       goto LABEL_23;
@@ -610,24 +600,24 @@ LABEL_35:
     if (restoreState == 1)
     {
       [(MBCKRestoreEngine *)self setRestoreState:2];
-      v36[0] = _NSConcreteStackBlock;
-      v36[1] = 3221225472;
-      v36[2] = sub_100056288;
-      v36[3] = &unk_1003BC400;
-      v36[4] = self;
-      v5 = v36;
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_100056288;
+      v33[3] = &unk_1003BC400;
+      v33[4] = self;
+      v5 = v33;
       goto LABEL_23;
     }
 
     if (restoreState == 2)
     {
       [(MBCKRestoreEngine *)self setRestoreState:9];
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_1000562F4;
-      v35[3] = &unk_1003BC400;
-      v35[4] = self;
-      v5 = v35;
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_1000562F4;
+      v32[3] = &unk_1003BC400;
+      v32[4] = self;
+      v5 = v32;
 LABEL_23:
       [(MBCKEngine *)self performRetryablePhase:v5];
 LABEL_24:
@@ -644,23 +634,23 @@ LABEL_52:
     if (restoreState == 6)
     {
       [(MBCKRestoreEngine *)self setRestoreState:7];
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = sub_1000563F0;
-      v30[3] = &unk_1003BC400;
-      v30[4] = self;
-      v5 = v30;
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_1000563F0;
+      v27[3] = &unk_1003BC400;
+      v27[4] = self;
+      v5 = v27;
     }
 
     else
     {
       [(MBCKRestoreEngine *)self setRestoreState:10];
-      v29[0] = _NSConcreteStackBlock;
-      v29[1] = 3221225472;
-      v29[2] = sub_1000563FC;
-      v29[3] = &unk_1003BC400;
-      v29[4] = self;
-      v5 = v29;
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_1000563FC;
+      v26[3] = &unk_1003BC400;
+      v26[4] = self;
+      v5 = v26;
     }
 
     goto LABEL_23;
@@ -676,12 +666,12 @@ LABEL_52:
   if (restoreState == 9)
   {
     [(MBCKRestoreEngine *)self setRestoreState:3];
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_100056360;
-    v34[3] = &unk_1003BC400;
-    v34[4] = self;
-    v5 = v34;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_100056360;
+    v31[3] = &unk_1003BC400;
+    v31[4] = self;
+    v5 = v31;
     goto LABEL_23;
   }
 
@@ -691,12 +681,12 @@ LABEL_52:
   }
 
   [(MBCKRestoreEngine *)self setRestoreState:8];
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100056408;
-  v28[3] = &unk_1003BC400;
-  v28[4] = self;
-  [(MBCKEngine *)self performRetryablePhase:v28];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100056408;
+  v25[3] = &unk_1003BC400;
+  v25[4] = self;
+  [(MBCKEngine *)self performRetryablePhase:v25];
   isFinished = [(MBCKEngine *)self isFinished];
   if (isFinished)
   {
@@ -722,7 +712,7 @@ LABEL_52:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, engineError, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Foreground restore finished successfully", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Foreground restore finished successfully");
     }
   }
 
@@ -744,18 +734,16 @@ LABEL_25:
     {
       [v10 timeIntervalSinceDate:v3];
       *buf = 138543618;
-      v38 = v8;
-      v39 = 2048;
-      v40 = v12;
+      v35 = v8;
+      v36 = 2048;
+      v37 = v12;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= %{public}@ done in %.3fs", buf, 0x16u);
       [v10 timeIntervalSinceDate:v3];
-      v27 = v13;
-      v25 = v8;
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= %{public}@ done in %.3fs", v8, v13);
     }
   }
 
-  [(MBCKRestoreEngine *)self reportRestoreStatusForState:[(MBCKRestoreEngine *)self restoreState:v25] start:v3 end:v10];
+  [(MBCKRestoreEngine *)self reportRestoreStatusForState:[(MBCKRestoreEngine *)self restoreState] start:v3 end:v10];
   if ([(MBCKEngine *)self isFinished])
   {
     [(MBCKRestoreEngine *)self _finishCollectingTelemetry];
@@ -781,10 +769,9 @@ LABEL_25:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v38 = v22;
+          v35 = v22;
           _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to set restore state in cache transaction: %@", buf, 0xCu);
-          v26 = v22;
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= Failed to set restore state in cache transaction: %@", v22);
         }
       }
     }
@@ -889,21 +876,21 @@ LABEL_25:
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Skipping refreshCacheWithError when restoring from snapshot format %@", buf, 0xCu);
 
       [v6 snapshotFormat];
-      v11 = MBStringForSnapshotFormat();
-      _MBLog();
+      v9 = MBStringForSnapshotFormat();
+      _MBLog(@"Df", "=ckrestore-engine= Skipping refreshCacheWithError when restoring from snapshot format %@", v9);
     }
 
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
     v12.receiver = self;
     v12.super_class = MBCKRestoreEngine;
-    v9 = [(MBCKEngine *)&v12 refreshCacheWithError:error];
+    v10 = [(MBCKEngine *)&v12 refreshCacheWithError:error];
   }
 
-  return v9;
+  return v10;
 }
 
 + (int64_t)_fetchBackupPolicyWithDevice:(id)device snapshotUUID:(id)d error:(id *)error
@@ -982,7 +969,7 @@ LABEL_6:
       v29 = 2048;
       v30 = backupPolicy;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=ckrestore-engine= Found target snapshot %{public}@, backupPolicy:%ld", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "=ckrestore-engine= Found target snapshot %{public}@, backupPolicy:%ld", v9, backupPolicy);
     }
   }
 
@@ -997,7 +984,7 @@ LABEL_17:
       *buf = 138543362;
       v28 = v9;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to find target snapshot %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Failed to find target snapshot %{public}@", v9);
     }
 
     [MBError errorWithCode:205 format:@"Failed to fetch the backup policy for target snapshot %@", v9];
@@ -1021,9 +1008,9 @@ LABEL_17:
     __assert_rtn("[MBCKRestoreEngine setUpWithError:]", "MBCKRestoreEngine.m", 511, "serviceManager");
   }
 
-  v177.receiver = self;
-  v177.super_class = MBCKRestoreEngine;
-  if (![(MBCKEngine *)&v177 setUpWithError:error])
+  v176.receiver = self;
+  v176.super_class = MBCKRestoreEngine;
+  if (![(MBCKEngine *)&v176 setUpWithError:error])
   {
     goto LABEL_46;
   }
@@ -1067,7 +1054,7 @@ LABEL_17:
     {
 LABEL_14:
       v20 = [(MBCKEngine *)self setUpOperationTrackerWithError:error];
-      v157 = v20;
+      v156 = v20;
       if (!v20)
       {
         v15 = 0;
@@ -1138,11 +1125,12 @@ LABEL_81:
               else
               {
                 LODWORD(buf) = 138412290;
+                v78 = @"(no error available)";
                 *(&buf + 4) = @"(no error available)";
                 _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Error creating restore directory: %@", &buf, 0xCu);
               }
 
-              _MBLog();
+              _MBLog(@"E ", "=ckrestore-engine= Error creating restore directory: %@", v78);
               v15 = 0;
               v29 = v76;
               goto LABEL_80;
@@ -1165,7 +1153,7 @@ LABEL_81:
             {
               LOWORD(buf) = 0;
               _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "=ckrestore-engine= FIXME: Removing existing placeholder directories to get data-separated restores working.", &buf, 2u);
-              _MBLog();
+              _MBLog(@"E ", "=ckrestore-engine= FIXME: Removing existing placeholder directories to get data-separated restores working.");
             }
 
             v33 = +[NSFileManager defaultManager];
@@ -1183,7 +1171,7 @@ LABEL_81:
             {
               LOWORD(buf) = 0;
               _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Error creating placeholder directory", &buf, 2u);
-              _MBLog();
+              _MBLog(@"E ", "=ckrestore-engine= Error creating placeholder directory");
             }
 
             goto LABEL_74;
@@ -1199,12 +1187,12 @@ LABEL_31:
           }
 
           cache = [(MBCKEngine *)self cache];
-          v153 = [serviceManager fetchDeviceForRestoreWithUUID:backupUDID tracker:v157 isForegroundRestore:isForegroundRestore cache:cache error:error];
+          v152 = [serviceManager fetchDeviceForRestoreWithUUID:backupUDID tracker:v156 isForegroundRestore:isForegroundRestore cache:cache error:error];
 
-          v29 = v153;
-          if (v153)
+          v29 = v152;
+          if (v152)
           {
-            [(MBCKEngine *)self setDevice:v153];
+            [(MBCKEngine *)self setDevice:v152];
             if (![(MBCKEngine *)self handleCancelation:error])
             {
               storedKeybagsByUUIDString = [(MBCKRestoreEngine *)self storedKeybagsByUUIDString];
@@ -1220,28 +1208,28 @@ LABEL_31:
                   {
                     LOWORD(buf) = 0;
                     _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "=ckrestore-engine= Using keybags serialized to disk for this restore session", &buf, 2u);
-                    _MBLog();
+                    _MBLog(@"I ", "=ckrestore-engine= Using keybags serialized to disk for this restore session");
                   }
 
-                  v175 = 0u;
-                  v176 = 0u;
-                  v173 = 0u;
                   v174 = 0u;
+                  v175 = 0u;
+                  v172 = 0u;
+                  v173 = 0u;
                   storedKeybagsByUUIDString3 = [(MBCKRestoreEngine *)self storedKeybagsByUUIDString];
-                  v44 = [storedKeybagsByUUIDString3 countByEnumeratingWithState:&v173 objects:v187 count:16];
+                  v44 = [storedKeybagsByUUIDString3 countByEnumeratingWithState:&v172 objects:v186 count:16];
                   if (v44)
                   {
-                    v45 = *v174;
+                    v45 = *v173;
                     do
                     {
                       for (i = 0; i != v44; i = i + 1)
                       {
-                        if (*v174 != v45)
+                        if (*v173 != v45)
                         {
                           objc_enumerationMutation(storedKeybagsByUUIDString3);
                         }
 
-                        v47 = *(*(&v173 + 1) + 8 * i);
+                        v47 = *(*(&v172 + 1) + 8 * i);
                         storedKeybagsByUUIDString4 = [(MBCKRestoreEngine *)self storedKeybagsByUUIDString];
                         v49 = [storedKeybagsByUUIDString4 objectForKeyedSubscript:v47];
 
@@ -1250,7 +1238,7 @@ LABEL_31:
                         [keybagManager addKeybag:v49];
                       }
 
-                      v44 = [storedKeybagsByUUIDString3 countByEnumeratingWithState:&v173 objects:v187 count:16];
+                      v44 = [storedKeybagsByUUIDString3 countByEnumeratingWithState:&v172 objects:v186 count:16];
                     }
 
                     while (v44);
@@ -1265,7 +1253,7 @@ LABEL_54:
 
                     if (v63)
                     {
-                      if (!-[MBCKEngine handleCancelation:](self, "handleCancelation:", error) && [v153 fetchSnapshotsWithOperationTracker:v157 retry:1 error:error])
+                      if (!-[MBCKEngine handleCancelation:](self, "handleCancelation:", error) && [v152 fetchSnapshotsWithOperationTracker:v156 retry:1 error:error])
                       {
                         context3 = [(MBCKEngine *)self context];
                         snapshotUUID = [context3 snapshotUUID];
@@ -1275,27 +1263,27 @@ LABEL_54:
                         snapshots = [device2 snapshots];
                         obj = [v65 initWithCapacity:{objc_msgSend(snapshots, "count")}];
 
-                        v171 = 0u;
-                        v172 = 0u;
-                        v169 = 0u;
                         v170 = 0u;
+                        v171 = 0u;
+                        v168 = 0u;
+                        v169 = 0u;
                         device3 = [(MBCKEngine *)self device];
                         snapshots2 = [device3 snapshots];
 
-                        v70 = [snapshots2 countByEnumeratingWithState:&v169 objects:v186 count:16];
+                        v70 = [snapshots2 countByEnumeratingWithState:&v168 objects:v185 count:16];
                         if (v70)
                         {
-                          v71 = *v170;
+                          v71 = *v169;
                           while (2)
                           {
                             for (j = 0; j != v70; j = j + 1)
                             {
-                              if (*v170 != v71)
+                              if (*v169 != v71)
                               {
                                 objc_enumerationMutation(snapshots2);
                               }
 
-                              v73 = *(*(&v169 + 1) + 8 * j);
+                              v73 = *(*(&v168 + 1) + 8 * j);
                               [obj addObject:v73];
                               snapshotID = [v73 snapshotID];
                               v75 = [snapshotID isEqualToString:snapshotUUID];
@@ -1308,7 +1296,7 @@ LABEL_54:
                               }
                             }
 
-                            v70 = [snapshots2 countByEnumeratingWithState:&v169 objects:v186 count:16];
+                            v70 = [snapshots2 countByEnumeratingWithState:&v168 objects:v185 count:16];
                             if (v70)
                             {
                               continue;
@@ -1327,10 +1315,10 @@ LABEL_93:
                             __assert_rtn("[MBCKRestoreEngine setUpWithError:]", "MBCKRestoreEngine.m", 649, "account");
                           }
 
-                          v168 = 0;
+                          v167 = 0;
                           if ([(MBEngine *)self isForegroundRestore])
                           {
-                            if ([MBRestoreCloudFormatPolicy shouldRestoreSnapshot:self->_targetSnapshot account:serviceAccount2 persona:persona2 useFileLists:&v168 error:error])
+                            if ([MBRestoreCloudFormatPolicy shouldRestoreSnapshot:self->_targetSnapshot account:serviceAccount2 persona:persona2 useFileLists:&v167 error:error])
                             {
                               v82 = [persona2 copyPreferencesValueForKey:@"RestoreCloudFormatInfo" class:objc_opt_class()];
                               if (!v82)
@@ -1341,11 +1329,11 @@ LABEL_93:
                               [(MBCKRestoreEngine *)self setCloudFormatInfo:v82];
 
 LABEL_102:
-                              [(MBCKRestoreEngine *)self setUseFileLists:v168];
+                              [(MBCKRestoreEngine *)self setUseFileLists:v167];
                               *&buf = 0;
                               *(&buf + 1) = &buf;
-                              v184 = 0x2020000000;
-                              v185 = 0;
+                              v183 = 0x2020000000;
+                              v184 = 0;
                               if ([(MBCKRestoreEngine *)self useFileLists])
                               {
                                 if ([(MBEngine *)self isForegroundRestore])
@@ -1356,23 +1344,23 @@ LABEL_102:
                                 else
                                 {
                                   snapshotID2 = [(MBCKSnapshot *)self->_targetSnapshot snapshotID];
-                                  v167 = 0;
-                                  v91 = [serviceManager restorePlanForAccount:serviceAccount2 snapshotUUID:snapshotID2 error:&v167];
-                                  v86 = v167;
+                                  v166 = 0;
+                                  v91 = [serviceManager restorePlanForAccount:serviceAccount2 snapshotUUID:snapshotID2 error:&v166];
+                                  v86 = v166;
                                   if (!v91)
                                   {
-                                    v110 = MBGetDefaultLog();
-                                    if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+                                    v111 = MBGetDefaultLog();
+                                    if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
                                     {
-                                      *v179 = 138412290;
-                                      v180 = v86;
-                                      _os_log_impl(&_mh_execute_header, v110, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to load restore plan for background restore: %@", v179, 0xCu);
-                                      _MBLog();
+                                      *v178 = 138412290;
+                                      v179 = v86;
+                                      _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to load restore plan for background restore: %@", v178, 0xCu);
+                                      _MBLog(@"E ", "=ckrestore-engine= Failed to load restore plan for background restore: %@", v86);
                                     }
 
                                     if (error)
                                     {
-                                      v111 = v86;
+                                      v112 = v86;
                                       *error = v86;
                                     }
 
@@ -1387,22 +1375,22 @@ LABEL_102:
                               else
                               {
                                 cache2 = [(MBCKEngine *)self cache];
-                                v166[0] = _NSConcreteStackBlock;
-                                v166[1] = 3221225472;
-                                v166[2] = sub_1000582FC;
-                                v166[3] = &unk_1003BC428;
-                                v166[4] = &buf;
-                                v86 = [cache2 hasRestoreFilesWithCallback:v166];
+                                v165[0] = _NSConcreteStackBlock;
+                                v165[1] = 3221225472;
+                                v165[2] = sub_1000582FC;
+                                v165[3] = &unk_1003BC428;
+                                v165[4] = &buf;
+                                v86 = [cache2 hasRestoreFilesWithCallback:v165];
 
                                 if (v86)
                                 {
                                   v88 = MBGetDefaultLog();
                                   if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
                                   {
-                                    *v179 = 138412290;
-                                    v180 = v86;
-                                    _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Cache error checking for restorable files: %@", v179, 0xCu);
-                                    _MBLog();
+                                    *v178 = 138412290;
+                                    v179 = v86;
+                                    _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Cache error checking for restorable files: %@", v178, 0xCu);
+                                    _MBLog(@"E ", "=ckrestore-engine= Cache error checking for restorable files: %@", v86);
                                   }
 
                                   if (error)
@@ -1429,51 +1417,50 @@ LABEL_102:
                                 {
                                   device4 = [(MBCKEngine *)self device];
                                   snapshots3 = [device4 snapshots];
-                                  *v179 = 138412290;
-                                  v180 = snapshots3;
-                                  _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "=ckrestore-engine= Device has snapshots: %@", v179, 0xCu);
+                                  *v178 = 138412290;
+                                  v179 = snapshots3;
+                                  _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "=ckrestore-engine= Device has snapshots: %@", v178, 0xCu);
                                 }
 
                                 device5 = [(MBCKEngine *)self device];
                                 snapshots4 = [device5 snapshots];
-                                _MBLog();
+                                _MBLog(@"I ", "=ckrestore-engine= Device has snapshots: %@", snapshots4);
                               }
 
-                              v98 = [MBCKProperties alloc];
+                              v99 = [MBCKProperties alloc];
                               backupProperties = [(MBCKSnapshot *)self->_targetSnapshot backupProperties];
-                              v100 = [(MBProperties *)v98 initWithData:backupProperties error:error];
-                              [(MBCKEngine *)self setProperties:v100];
+                              v101 = [(MBProperties *)v99 initWithData:backupProperties error:error];
+                              [(MBCKEngine *)self setProperties:v101];
 
                               properties = [(MBCKEngine *)self properties];
-                              v102 = properties == 0;
+                              v103 = properties == 0;
 
-                              if (!v102)
+                              if (!v103)
                               {
                                 objc_storeStrong(&self->_validSnapshots, obj);
-                                v103 = MBGetDefaultLog();
-                                if (os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
+                                v104 = MBGetDefaultLog();
+                                if (os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
                                 {
                                   validSnapshots = self->_validSnapshots;
-                                  *v179 = 138412290;
-                                  v180 = validSnapshots;
-                                  _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_INFO, "=ckrestore-engine= Restoring from snapshots: %@", v179, 0xCu);
-                                  snapshots4 = self->_validSnapshots;
-                                  _MBLog();
+                                  *v178 = 138412290;
+                                  v179 = validSnapshots;
+                                  _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_INFO, "=ckrestore-engine= Restoring from snapshots: %@", v178, 0xCu);
+                                  _MBLog(@"I ", "=ckrestore-engine= Restoring from snapshots: %@", self->_validSnapshots);
                                 }
 
 LABEL_125:
-                                v165 = v86;
-                                persona3 = [objc_opt_class() _fetchBackupPolicyWithDevice:v153 snapshotUUID:snapshotUUID error:&v165];
-                                v147 = v165;
+                                v164 = v86;
+                                persona3 = [objc_opt_class() _fetchBackupPolicyWithDevice:v152 snapshotUUID:snapshotUUID error:&v164];
+                                v146 = v164;
 
-                                if (!persona3 && v147)
+                                if (!persona3 && v146)
                                 {
                                   if (error)
                                   {
                                     [MBError errorWithCode:205 format:@"Failed to fetch the backup policy for snapshot %@", snapshotUUID];
                                     *error = v15 = 0;
 LABEL_175:
-                                    v86 = v147;
+                                    v86 = v146;
                                     goto LABEL_176;
                                   }
 
@@ -1515,77 +1502,76 @@ LABEL_174:
 
                                 if ((shouldRestoreSystemFiles & 1) == 0)
                                 {
-                                  v115 = MBGetDefaultLog();
-                                  if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+                                  v116 = MBGetDefaultLog();
+                                  if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v116 = v115;
-                                    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
+                                    v117 = v116;
+                                    if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
                                     {
                                       device7 = [(MBCKEngine *)self device];
                                       deviceClass = [device7 deviceClass];
-                                      v119 = MBDeviceClass();
-                                      *v179 = 138412546;
-                                      v180 = deviceClass;
-                                      v181 = 2112;
-                                      v182 = v119;
-                                      _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Not restoring system files from %@ backup to %@", v179, 0x16u);
+                                      v120 = MBDeviceClass();
+                                      *v178 = 138412546;
+                                      v179 = deviceClass;
+                                      v180 = 2112;
+                                      v181 = v120;
+                                      _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Not restoring system files from %@ backup to %@", v178, 0x16u);
                                     }
 
                                     device8 = [(MBCKEngine *)self device];
                                     deviceClass2 = [device8 deviceClass];
-                                    MBDeviceClass();
-                                    v146 = v145 = deviceClass2;
-                                    _MBLog();
+                                    v123 = MBDeviceClass();
+                                    _MBLog(@"Df", "=ckrestore-engine= Not restoring system files from %@ backup to %@", deviceClass2, v123);
                                   }
                                 }
 
-                                if (![(MBCKRestoreEngine *)self useFileLists:v145])
+                                if (![(MBCKRestoreEngine *)self useFileLists])
                                 {
-                                  v122 = +[NSMutableSet set];
+                                  v124 = +[NSMutableSet set];
                                   cache3 = [(MBCKEngine *)self cache];
-                                  v163[0] = _NSConcreteStackBlock;
-                                  v163[1] = 3221225472;
-                                  v163[2] = sub_10005830C;
-                                  v163[3] = &unk_1003BC450;
-                                  v124 = v122;
-                                  v164 = v124;
-                                  v125 = [cache3 enumeratePendingRestorableDomainsWithCallback:v163];
+                                  v162[0] = _NSConcreteStackBlock;
+                                  v162[1] = 3221225472;
+                                  v162[2] = sub_10005830C;
+                                  v162[3] = &unk_1003BC450;
+                                  v126 = v124;
+                                  v163 = v126;
+                                  v127 = [cache3 enumeratePendingRestorableDomainsWithCallback:v162];
 
-                                  v161 = 0u;
-                                  v162 = 0u;
-                                  v159 = 0u;
                                   v160 = 0u;
+                                  v161 = 0u;
+                                  v158 = 0u;
+                                  v159 = 0u;
                                   allContainers = [(MBAppManager *)self->super.super._appManager allContainers];
-                                  v126 = [allContainers countByEnumeratingWithState:&v159 objects:v178 count:16];
-                                  if (v126)
+                                  v128 = [allContainers countByEnumeratingWithState:&v158 objects:v177 count:16];
+                                  if (v128)
                                   {
-                                    v150 = *v160;
+                                    v149 = *v159;
                                     do
                                     {
-                                      for (k = 0; k != v126; k = k + 1)
+                                      for (k = 0; k != v128; k = k + 1)
                                       {
-                                        if (*v160 != v150)
+                                        if (*v159 != v149)
                                         {
                                           objc_enumerationMutation(allContainers);
                                         }
 
-                                        v128 = *(*(&v159 + 1) + 8 * k);
-                                        domain = [v128 domain];
+                                        v130 = *(*(&v158 + 1) + 8 * k);
+                                        domain = [v130 domain];
                                         name = [domain name];
-                                        v131 = [v124 containsObject:name];
+                                        v133 = [v126 containsObject:name];
 
-                                        if (v131)
+                                        if (v133)
                                         {
                                           domainManager2 = [(MBEngine *)self domainManager];
-                                          domain2 = [v128 domain];
+                                          domain2 = [v130 domain];
                                           [domainManager2 addDomain:domain2];
                                         }
                                       }
 
-                                      v126 = [allContainers countByEnumeratingWithState:&v159 objects:v178 count:16];
+                                      v128 = [allContainers countByEnumeratingWithState:&v158 objects:v177 count:16];
                                     }
 
-                                    while (v126);
+                                    while (v128);
                                   }
                                 }
 
@@ -1593,42 +1579,42 @@ LABEL_174:
                                 if ([(MBEngine *)self isForegroundRestore])
                                 {
                                   restorePolicy = [(MBCKRestoreEngine *)self restorePolicy];
-                                  v135 = [restorePolicy notifyPluginsStartingRestoreWithEngine:self];
+                                  v137 = [restorePolicy notifyPluginsStartingRestoreWithEngine:self];
 
-                                  if (v135)
+                                  if (v137)
                                   {
-                                    v136 = MBGetDefaultLog();
-                                    if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
+                                    v138 = MBGetDefaultLog();
+                                    if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
                                     {
-                                      *v179 = 138412290;
-                                      v180 = v135;
-                                      _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to notify plugins of startingRestoreWithEngine: %@", v179, 0xCu);
-                                      _MBLog();
+                                      *v178 = 138412290;
+                                      v179 = v137;
+                                      _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to notify plugins of startingRestoreWithEngine: %@", v178, 0xCu);
+                                      _MBLog(@"E ", "=ckrestore-engine= Failed to notify plugins of startingRestoreWithEngine: %@", v137);
                                     }
 
 LABEL_171:
 
                                     if (error)
                                     {
-                                      v143 = v135;
-                                      *error = v135;
+                                      v145 = v137;
+                                      *error = v137;
                                     }
 
                                     goto LABEL_174;
                                   }
 
                                   restorePolicy2 = [(MBCKRestoreEngine *)self restorePolicy];
-                                  v135 = [restorePolicy2 notifyPluginsPreparingRestoreWithEngine:self];
+                                  v137 = [restorePolicy2 notifyPluginsPreparingRestoreWithEngine:self];
 
-                                  if (v135)
+                                  if (v137)
                                   {
-                                    v136 = MBGetDefaultLog();
-                                    if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
+                                    v138 = MBGetDefaultLog();
+                                    if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
                                     {
-                                      *v179 = 138412290;
-                                      v180 = v135;
-                                      _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to notify plugins of preparingRestoreWithEngine: %@", v179, 0xCu);
-                                      _MBLog();
+                                      *v178 = 138412290;
+                                      v179 = v137;
+                                      _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to notify plugins of preparingRestoreWithEngine: %@", v178, 0xCu);
+                                      _MBLog(@"E ", "=ckrestore-engine= Failed to notify plugins of preparingRestoreWithEngine: %@", v137);
                                     }
 
                                     goto LABEL_171;
@@ -1638,11 +1624,11 @@ LABEL_171:
                                 else
                                 {
                                   context7 = [(MBCKEngine *)self context];
-                                  v138 = [context7 qos];
-                                  integerValue = [v138 integerValue];
+                                  v140 = [context7 qos];
+                                  integerValue = [v140 integerValue];
 
-                                  databaseManager = [v157 databaseManager];
-                                  account = [v157 account];
+                                  databaseManager = [v156 databaseManager];
+                                  account = [v156 account];
                                   [databaseManager setShouldSupportBudgeting:integerValue > 24 account:account];
                                 }
 
@@ -1665,7 +1651,7 @@ LABEL_140:
                             }
                           }
 
-                          else if ([MBRestoreCloudFormatPolicy isRestoringFromFileLists:&v168 persona:persona2 error:error])
+                          else if ([MBRestoreCloudFormatPolicy isRestoringFromFileLists:&v167 persona:persona2 error:error])
                           {
                             goto LABEL_102;
                           }
@@ -1704,7 +1690,7 @@ LABEL_177:
                       {
                         LOWORD(buf) = 0;
                         _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to acquire lock", &buf, 2u);
-                        _MBLog();
+                        _MBLog(@"E ", "=ckrestore-engine= Failed to acquire lock");
                       }
                     }
                   }
@@ -1726,7 +1712,7 @@ LABEL_177:
               {
                 device11 = [(MBCKEngine *)self device];
                 keybagManager3 = [device11 keybagManager];
-                v60 = [keybagManager3 fetchKeybagsWithOperationTracker:v157 error:error];
+                v60 = [keybagManager3 fetchKeybagsWithOperationTracker:v156 error:error];
 
                 if (v60)
                 {
@@ -1741,7 +1727,7 @@ LABEL_177:
                 {
                   LOWORD(buf) = 0;
                   _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Restore keybag not loaded yet", &buf, 2u);
-                  _MBLog();
+                  _MBLog(@"E ", "=ckrestore-engine= Restore keybag not loaded yet");
                 }
 
                 if (error)
@@ -1756,7 +1742,7 @@ LABEL_177:
 LABEL_78:
             v15 = 0;
 LABEL_79:
-            v29 = v153;
+            v29 = v152;
             goto LABEL_80;
           }
 
@@ -1772,7 +1758,7 @@ LABEL_80:
       v15 = 0;
 LABEL_82:
 
-      v20 = v157;
+      v20 = v156;
       goto LABEL_83;
     }
 
@@ -1784,7 +1770,7 @@ LABEL_82:
   {
     LOWORD(buf) = 0;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=ckrestore-engine= nil domain manager", &buf, 2u);
-    _MBLog();
+    _MBLog(@"E ", "=ckrestore-engine= nil domain manager");
   }
 
   if (!error)
@@ -1829,13 +1815,10 @@ LABEL_47:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= =sync= Skipping file list synchronization for background restore", buf, 2u);
-LABEL_15:
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= =sync= Skipping file list synchronization for background restore");
     }
 
-LABEL_16:
-    v12 = 1;
-    goto LABEL_73;
+    goto LABEL_15;
   }
 
   if (![(MBCKRestoreEngine *)self useFileLists])
@@ -1845,10 +1828,12 @@ LABEL_16:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= =sync= Skipping file list synchronization, restoring legacy snapshot data", buf, 2u);
-      goto LABEL_15;
+      _MBLog(@"Df", "=ckrestore-engine= =sync= Skipping file list synchronization, restoring legacy snapshot data");
     }
 
-    goto LABEL_16;
+LABEL_15:
+    v12 = 1;
+    goto LABEL_72;
   }
 
   serviceManager = [(MBCKEngine *)self serviceManager];
@@ -1868,7 +1853,7 @@ LABEL_16:
   snapshotID = [(MBCKSnapshot *)self->_targetSnapshot snapshotID];
   errorCopy = error;
   v10 = [v6 restorePlanForAccount:v8 snapshotUUID:snapshotID error:error];
-  v66 = v10;
+  v63 = v10;
   if (v10)
   {
     if ([v10 isPopulated])
@@ -1877,9 +1862,9 @@ LABEL_16:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v83 = v66;
+        v80 = v63;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= =sync= Restore plan already synchronized %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "=ckrestore-engine= =sync= Restore plan already synchronized %@", v63);
       }
 
       v12 = 1;
@@ -1902,23 +1887,23 @@ LABEL_16:
 
       v16 = ckOperationTracker;
       v17 = +[NSMutableArray array];
-      restoreSnapshotsDirectoryRoot = [v66 restoreSnapshotsDirectoryRoot];
-      v79[0] = _NSConcreteStackBlock;
-      v79[1] = 3221225472;
-      v79[2] = sub_100058D94;
-      v79[3] = &unk_1003BC478;
+      restoreSnapshotsDirectoryRoot = [v63 restoreSnapshotsDirectoryRoot];
+      v76[0] = _NSConcreteStackBlock;
+      v76[1] = 3221225472;
+      v76[2] = sub_100058D94;
+      v76[3] = &unk_1003BC478;
       v19 = v17;
-      v80 = v19;
-      LOBYTE(v17) = [v11 synchronizeFileListsWithOperationTracker:v16 snapshotDirectory:restoreSnapshotsDirectoryRoot snapshotUUID:snapshotID error:error fetchedFileListBlock:v79];
+      v77 = v19;
+      LOBYTE(v17) = [v11 synchronizeFileListsWithOperationTracker:v16 snapshotDirectory:restoreSnapshotsDirectoryRoot snapshotUUID:snapshotID error:error fetchedFileListBlock:v76];
 
-      v63 = v19;
+      v60 = v19;
       if (v17)
       {
-        v58 = v16;
-        v59 = v11;
-        v60 = snapshotID;
-        v61 = v8;
-        v62 = v6;
+        v55 = v16;
+        v56 = v11;
+        v57 = snapshotID;
+        v58 = v8;
+        v59 = v6;
 
         domainManager = [(MBEngine *)self domainManager];
         if (!domainManager)
@@ -1929,26 +1914,26 @@ LABEL_16:
         [v19 sortUsingSelector:"compare:"];
         v20 = +[NSMutableArray array];
         v21 = +[NSMutableArray array];
+        v72 = 0u;
+        v73 = 0u;
+        v74 = 0u;
         v75 = 0u;
-        v76 = 0u;
-        v77 = 0u;
-        v78 = 0u;
         v22 = v19;
-        v23 = [v22 countByEnumeratingWithState:&v75 objects:v89 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v72 objects:v86 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v76;
+          v25 = *v73;
           do
           {
             for (i = 0; i != v24; i = i + 1)
             {
-              if (*v76 != v25)
+              if (*v73 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v27 = *(*(&v75 + 1) + 8 * i);
+              v27 = *(*(&v72 + 1) + 8 * i);
               restorePolicy = [(MBCKRestoreEngine *)self restorePolicy];
               v29 = [restorePolicy shouldForegroundRestoreDomain:v27];
 
@@ -1965,153 +1950,151 @@ LABEL_16:
               [v30 addObject:v27];
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v75 objects:v89 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v72 objects:v86 count:16];
           }
 
           while (v24);
         }
 
-        v73 = 0u;
-        v74 = 0u;
+        v70 = 0u;
         v71 = 0u;
-        v72 = 0u;
+        v68 = 0u;
+        v69 = 0u;
         v31 = v20;
-        v32 = [v31 countByEnumeratingWithState:&v71 objects:v88 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v68 objects:v85 count:16];
         obj = v31;
         if (v32)
         {
           v33 = v32;
-          v34 = *v72;
-LABEL_36:
+          v34 = *v69;
+LABEL_35:
           v35 = 0;
           while (1)
           {
-            if (*v72 != v34)
+            if (*v69 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v36 = *(*(&v71 + 1) + 8 * v35);
+            v36 = *(*(&v68 + 1) + 8 * v35);
             v37 = MBGetDefaultLog();
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v83 = v36;
+              v80 = v36;
               _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= =sync= Ingesting foreground domain (%@) into restore plan", buf, 0xCu);
-              _MBLog();
+              _MBLog(@"Df", "=ckrestore-engine= =sync= Ingesting foreground domain (%@) into restore plan", v36);
             }
 
-            if (([v66 ingestFileListForDomainNamed:v36 error:errorCopy] & 1) == 0)
+            if (([v63 ingestFileListForDomainNamed:v36 error:errorCopy] & 1) == 0)
             {
               break;
             }
 
-            if (![(MBCKRestoreEngine *)self _markForegroundRestorablesForBackgroundRestoreInPlan:v66 domainName:v36 error:errorCopy])
+            if (![(MBCKRestoreEngine *)self _markForegroundRestorablesForBackgroundRestoreInPlan:v63 domainName:v36 error:errorCopy])
             {
               v12 = 0;
               v50 = obj;
               v38 = obj;
-              v8 = v61;
-              v6 = v62;
-              v11 = v59;
-              snapshotID = v60;
-LABEL_65:
+              v8 = v58;
+              v6 = v59;
+              v11 = v56;
+              snapshotID = v57;
+LABEL_64:
               v47 = domainManager;
-              goto LABEL_70;
+              goto LABEL_69;
             }
 
             if (v33 == ++v35)
             {
               v31 = obj;
-              v33 = [obj countByEnumeratingWithState:&v71 objects:v88 count:16];
+              v33 = [obj countByEnumeratingWithState:&v68 objects:v85 count:16];
               if (v33)
               {
-                goto LABEL_36;
+                goto LABEL_35;
               }
 
-              goto LABEL_45;
+              goto LABEL_44;
             }
           }
 
           v48 = MBGetDefaultLog();
-          v8 = v61;
-          v6 = v62;
-          v11 = v59;
-          snapshotID = v60;
+          v8 = v58;
+          v6 = v59;
+          v11 = v56;
+          snapshotID = v57;
           if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             v49 = *errorCopy;
             *buf = 138412802;
-            v83 = v36;
-            v84 = 2112;
-            v85 = v66;
-            v86 = 2112;
-            v87 = v49;
+            v80 = v36;
+            v81 = 2112;
+            v82 = v63;
+            v83 = 2112;
+            v84 = v49;
             _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "=ckrestore-engine= =sync= Error ingesting foreground domain (%@) into restore plan %@: %@", buf, 0x20u);
-            v55 = *errorCopy;
-            _MBLog();
+            _MBLog(@"E ", "=ckrestore-engine= =sync= Error ingesting foreground domain (%@) into restore plan %@: %@", v36, v63, *errorCopy);
           }
 
           v12 = 0;
           v50 = obj;
           v38 = obj;
-          goto LABEL_65;
+          goto LABEL_64;
         }
 
-LABEL_45:
+LABEL_44:
 
-        v69 = 0u;
-        v70 = 0u;
+        v66 = 0u;
         v67 = 0u;
-        v68 = 0u;
+        v64 = 0u;
+        v65 = 0u;
         v38 = v21;
-        v39 = [v38 countByEnumeratingWithState:&v67 objects:v81 count:16];
+        v39 = [v38 countByEnumeratingWithState:&v64 objects:v78 count:16];
         if (v39)
         {
           v40 = v39;
-          v41 = *v68;
+          v41 = *v65;
           while (2)
           {
             for (j = 0; j != v40; j = j + 1)
             {
-              if (*v68 != v41)
+              if (*v65 != v41)
               {
                 objc_enumerationMutation(v38);
               }
 
-              v43 = *(*(&v67 + 1) + 8 * j);
+              v43 = *(*(&v64 + 1) + 8 * j);
               v44 = MBGetDefaultLog();
               if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v83 = v43;
+                v80 = v43;
                 _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= =sync= Ingesting background domain (%@) into restore plan", buf, 0xCu);
-                _MBLog();
+                _MBLog(@"Df", "=ckrestore-engine= =sync= Ingesting background domain (%@) into restore plan", v43);
               }
 
-              if (([v66 ingestFileListForDomainNamed:v43 error:errorCopy] & 1) == 0)
+              if (([v63 ingestFileListForDomainNamed:v43 error:errorCopy] & 1) == 0)
               {
                 v51 = MBGetDefaultLog();
                 if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
                 {
                   v52 = *errorCopy;
                   *buf = 138412802;
-                  v83 = v43;
-                  v84 = 2112;
-                  v85 = v66;
-                  v86 = 2112;
-                  v87 = v52;
+                  v80 = v43;
+                  v81 = 2112;
+                  v82 = v63;
+                  v83 = 2112;
+                  v84 = v52;
                   _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "=ckrestore-engine= =sync= Error ingesting background domain (%@) into restore plan %@: %@", buf, 0x20u);
-                  v56 = *errorCopy;
-                  _MBLog();
+                  _MBLog(@"E ", "=ckrestore-engine= =sync= Error ingesting background domain (%@) into restore plan %@: %@", v43, v63, *errorCopy);
                 }
 
                 v12 = 0;
-                goto LABEL_69;
+                goto LABEL_68;
               }
             }
 
-            v40 = [v38 countByEnumeratingWithState:&v67 objects:v81 count:16];
+            v40 = [v38 countByEnumeratingWithState:&v64 objects:v78 count:16];
             if (v40)
             {
               continue;
@@ -2126,25 +2109,24 @@ LABEL_45:
         {
           v45 = [v22 count];
           *buf = 134218242;
-          v83 = v45;
-          v84 = 2112;
-          v85 = v66;
+          v80 = v45;
+          v81 = 2112;
+          v82 = v63;
           _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= =sync= Restore plan initialized, ingested %ld file lists: %@", buf, 0x16u);
-          [v22 count];
-          _MBLog();
+          _MBLog(@"Df", "=ckrestore-engine= =sync= Restore plan initialized, ingested %ld file lists: %@", [v22 count], v63);
         }
 
         v12 = 1;
-LABEL_69:
-        v8 = v61;
-        v6 = v62;
-        v11 = v59;
-        snapshotID = v60;
+LABEL_68:
+        v8 = v58;
+        v6 = v59;
+        v11 = v56;
+        snapshotID = v57;
         v47 = domainManager;
         v50 = obj;
-LABEL_70:
+LABEL_69:
 
-        v16 = v58;
+        v16 = v55;
       }
 
       else
@@ -2154,11 +2136,11 @@ LABEL_70:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "=ckrestore-engine= =sync= Error synchronizing file lists", buf, 2u);
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= =sync= Error synchronizing file lists");
         }
 
         v12 = 0;
-        v47 = v80;
+        v47 = v77;
       }
     }
   }
@@ -2170,16 +2152,15 @@ LABEL_70:
     {
       v13 = *error;
       *buf = 138412290;
-      v83 = v13;
+      v80 = v13;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "=ckrestore-engine= =sync= Failed to open a restore plan to synchronize into: %@", buf, 0xCu);
-      v54 = *error;
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= =sync= Failed to open a restore plan to synchronize into: %@", *error);
     }
 
     v12 = 0;
   }
 
-LABEL_73:
+LABEL_72:
   return v12;
 }
 
@@ -2201,14 +2182,14 @@ LABEL_73:
     __assert_rtn("[MBCKRestoreEngine _markForegroundRestorablesForBackgroundRestoreInPlan:domainName:error:]", "MBCKRestoreEngine.m", 860, "domain");
   }
 
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
   v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
   v13 = [planCopy planForDomain:v12 restoreType:1 error:error];
   v14 = v13;
   if (!v13)
@@ -2216,26 +2197,25 @@ LABEL_73:
     goto LABEL_11;
   }
 
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_1000591E0;
-  v25[3] = &unk_1003BC4A0;
-  v25[4] = self;
-  v25[5] = &v30;
-  v25[6] = &v26;
-  if (([v13 enumerateAndMarkATCRestorables:error enumerator:v25] & 1) == 0)
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1000591E0;
+  v22[3] = &unk_1003BC4A0;
+  v22[4] = self;
+  v22[5] = &v27;
+  v22[6] = &v23;
+  if (([v13 enumerateAndMarkATCRestorables:error enumerator:v22] & 1) == 0)
   {
     v19 = MBGetDefaultLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = *error;
       *buf = 138412546;
-      v35 = v10;
-      v36 = 2112;
-      v37 = v20;
+      v32 = v10;
+      v33 = 2112;
+      v34 = v20;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=ckrestore-engine= =sync= Error marking ATC files for (%@) in restore plan: %@", buf, 0x16u);
-      v24 = *error;
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= =sync= Error marking ATC files for (%@) in restore plan: %@", v10, *error);
     }
 
 LABEL_11:
@@ -2246,25 +2226,23 @@ LABEL_11:
   v15 = MBGetDefaultLog();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = v27[3];
-    v17 = v31[3];
+    v16 = v24[3];
+    v17 = v28[3];
     *buf = 134218498;
-    v35 = v16;
-    v36 = 2048;
-    v37 = v17;
-    v38 = 2112;
-    v39 = v10;
+    v32 = v16;
+    v33 = 2048;
+    v34 = v17;
+    v35 = 2112;
+    v36 = v10;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= =sync= Deferred %ld/%ld restorables from foreground to background in %@", buf, 0x20u);
-    v23 = v31[3];
-    v22 = v27[3];
-    _MBLog();
+    _MBLog(@"Df", "=ckrestore-engine= =sync= Deferred %ld/%ld restorables from foreground to background in %@", v24[3], v28[3], v10);
   }
 
   v18 = 1;
 LABEL_12:
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
 
   return v18;
 }
@@ -2279,7 +2257,7 @@ LABEL_12:
     {
       LOWORD(buf) = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Skipping findRestorables when restoring assets from file lists", &buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Skipping findRestorables when restoring assets from file lists");
       v6 = 1;
       v5 = v4;
     }
@@ -2293,7 +2271,7 @@ LABEL_12:
   else
   {
     cache = [(MBCKEngine *)self cache];
-    v44 = self->_validSnapshots;
+    v41 = self->_validSnapshots;
     domainManager = [(MBEngine *)self domainManager];
     serviceAccount = [(MBCKEngine *)self serviceAccount];
     Current = CFAbsoluteTimeGetCurrent();
@@ -2302,42 +2280,42 @@ LABEL_12:
     {
       LOWORD(buf) = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Finding restorable files", &buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Finding restorable files");
     }
 
     serviceManager = [(MBCKEngine *)self serviceManager];
-    v51 = [serviceManager openCacheWithAccount:serviceAccount accessType:2 cached:0 error:error];
+    v48 = [serviceManager openCacheWithAccount:serviceAccount accessType:2 cached:0 error:error];
 
-    if (v51)
+    if (v48)
     {
+      v73 = 0;
+      v74 = &v73;
+      v75 = 0x2020000000;
       v76 = 0;
-      v77 = &v76;
-      v78 = 0x2020000000;
-      v79 = 0;
+      v69 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       v72 = 0u;
-      v73 = 0u;
-      v74 = 0u;
-      v75 = 0u;
-      obj = v44;
+      obj = v41;
       v10 = 0;
-      v11 = [(NSArray *)obj countByEnumeratingWithState:&v72 objects:v89 count:16];
+      v11 = [(NSArray *)obj countByEnumeratingWithState:&v69 objects:v86 count:16];
       if (v11)
       {
-        v48 = *v73;
+        v45 = *v70;
         do
         {
           v12 = 0;
           do
           {
-            if (*v73 != v48)
+            if (*v70 != v45)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v72 + 1) + 8 * v12);
-            v71 = v10;
-            v14 = [(MBCKEngine *)self handleCancelation:&v71, v40, v43];
-            v15 = v71;
+            v13 = *(*(&v69 + 1) + 8 * v12);
+            v68 = v10;
+            v14 = [(MBCKEngine *)self handleCancelation:&v68];
+            v15 = v68;
 
             if (v14)
             {
@@ -2351,57 +2329,54 @@ LABEL_12:
               LODWORD(buf) = 138412290;
               *(&buf + 4) = v13;
               _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Adding restorables for snapshot %@", &buf, 0xCu);
-              v40 = v13;
-              _MBLog();
+              _MBLog(@"Df", "=ckrestore-engine= Adding restorables for snapshot %@", v13);
             }
 
+            v64 = 0;
+            v65 = &v64;
+            v66 = 0x2020000000;
             v67 = 0;
-            v68 = &v67;
-            v69 = 0x2020000000;
-            v70 = 0;
             *&buf = 0;
             *(&buf + 1) = &buf;
-            v85 = 0x3032000000;
-            v86 = sub_100059C00;
-            v87 = sub_100059C10;
-            v88 = 0;
-            v61 = 0;
-            v62 = &v61;
-            v63 = 0x3032000000;
-            v64 = sub_100059C00;
-            v65 = sub_100059C10;
-            v66 = 0;
+            v82 = 0x3032000000;
+            v83 = sub_100059C00;
+            v84 = sub_100059C10;
+            v85 = 0;
+            v58 = 0;
+            v59 = &v58;
+            v60 = 0x3032000000;
+            v61 = sub_100059C00;
+            v62 = sub_100059C10;
+            v63 = 0;
             snapshotID = [v13 snapshotID];
-            v53[0] = _NSConcreteStackBlock;
-            v53[1] = 3221225472;
-            v53[2] = sub_100059C18;
-            v53[3] = &unk_1003BC4C8;
-            v54 = domainManager;
+            v50[0] = _NSConcreteStackBlock;
+            v50[1] = 3221225472;
+            v50[2] = sub_100059C18;
+            v50[3] = &unk_1003BC4C8;
+            v51 = domainManager;
             selfCopy = self;
-            v57 = &v61;
-            v56 = cache;
+            v54 = &v58;
+            v53 = cache;
             p_buf = &buf;
-            v59 = &v67;
-            v60 = &v76;
-            v18 = [v51 enumerateFilesForSnapshotOrderedByDomain:snapshotID block:v53];
+            v56 = &v64;
+            v57 = &v73;
+            v18 = [v48 enumerateFilesForSnapshotOrderedByDomain:snapshotID block:v50];
 
             v19 = MBGetDefaultLog();
             if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
-              v20 = v68[3];
+              v20 = v65[3];
               v21 = *(*(&buf + 1) + 40);
-              *v80 = 134218242;
-              v81 = v20;
-              v82 = 2114;
-              v83 = v21;
-              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Found %llu restorables for %{public}@", v80, 0x16u);
-              v40 = v68[3];
-              v43 = *(*(&buf + 1) + 40);
-              _MBLog();
+              *v77 = 134218242;
+              v78 = v20;
+              v79 = 2114;
+              v80 = v21;
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Found %llu restorables for %{public}@", v77, 0x16u);
+              _MBLog(@"Df", "=ckrestore-engine= Found %llu restorables for %{public}@", v65[3], *(*(&buf + 1) + 40));
             }
 
             v22 = v18;
-            if (v18 || (v22 = v62[5]) != 0)
+            if (v18 || (v22 = v59[5]) != 0)
             {
               v10 = v22;
 
@@ -2414,10 +2389,10 @@ LABEL_12:
               v10 = v15;
             }
 
-            _Block_object_dispose(&v61, 8);
+            _Block_object_dispose(&v58, 8);
             _Block_object_dispose(&buf, 8);
 
-            _Block_object_dispose(&v67, 8);
+            _Block_object_dispose(&v64, 8);
             if (!v23)
             {
               goto LABEL_31;
@@ -2427,7 +2402,7 @@ LABEL_12:
           }
 
           while (v11 != v12);
-          v24 = [(NSArray *)obj countByEnumeratingWithState:&v72 objects:v89 count:16];
+          v24 = [(NSArray *)obj countByEnumeratingWithState:&v69 objects:v86 count:16];
           v11 = v24;
         }
 
@@ -2436,7 +2411,7 @@ LABEL_12:
 
 LABEL_31:
 
-      [v51 close];
+      [v48 close];
       if (v10)
       {
         if (error)
@@ -2457,17 +2432,16 @@ LABEL_31:
         v28 = MBGetDefaultLog();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = v77[3];
+          v29 = v74[3];
           LODWORD(buf) = 134217984;
           *(&buf + 4) = v29;
           _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Found %llu total restorables", &buf, 0xCu);
-          v42 = v77[3];
-          _MBLog();
+          _MBLog(@"Df", "=ckrestore-engine= Found %llu total restorables", v74[3]);
         }
 
-        v52 = 0;
-        v30 = [cache computeSignatureRetainCountsWithError:&v52];
-        v31 = v52;
+        v49 = 0;
+        v30 = [cache computeSignatureRetainCountsWithError:&v49];
+        v31 = v49;
         if (v30)
         {
           removeDeletedRestoreFiles = [cache removeDeletedRestoreFiles];
@@ -2480,7 +2454,7 @@ LABEL_31:
               LODWORD(buf) = 138412290;
               *(&buf + 4) = removeDeletedRestoreFiles;
               _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to remove deleted restore files prior to restore: %@", &buf, 0xCu);
-              _MBLog();
+              _MBLog(@"E ", "=ckrestore-engine= Failed to remove deleted restore files prior to restore: %@", removeDeletedRestoreFiles);
             }
 
             if (error)
@@ -2504,10 +2478,11 @@ LABEL_31:
             v38 = MBGetDefaultLog();
             if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
             {
+              v39 = v37 - Current;
               LODWORD(buf) = 134217984;
-              *(&buf + 4) = v37 - Current;
+              *(&buf + 4) = v39;
               _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Finished finding restorables in %.3fs", &buf, 0xCu);
-              _MBLog();
+              _MBLog(@"Df", "=ckrestore-engine= Finished finding restorables in %.3fs", v39);
             }
 
             v31 = 0;
@@ -2523,7 +2498,7 @@ LABEL_31:
             LODWORD(buf) = 138412290;
             *(&buf + 4) = v31;
             _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to compute signature retain counts: %@", &buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "=ckrestore-engine= Failed to compute signature retain counts: %@", v31);
           }
 
           if (error)
@@ -2540,7 +2515,7 @@ LABEL_31:
         }
       }
 
-      _Block_object_dispose(&v76, 8);
+      _Block_object_dispose(&v73, 8);
     }
 
     else
@@ -2552,8 +2527,7 @@ LABEL_31:
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v26;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to open readonly cache %@", &buf, 0xCu);
-        v41 = *error;
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to open readonly cache %@", *error);
       }
 
       v6 = 0;
@@ -2630,7 +2604,7 @@ LABEL_13:
           *buf = 138412290;
           v29 = dCopy;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Not uninstalling system app with bundleID %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "=ckrestore-engine= Not uninstalling system app with bundleID %@", dCopy);
         }
       }
 
@@ -2641,7 +2615,7 @@ LABEL_13:
           *buf = 138412290;
           v29 = dCopy;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Uninstalling 2nd party factory-installed app %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "=ckrestore-engine= Uninstalling 2nd party factory-installed app %@", dCopy);
         }
 
         v25 = v12;
@@ -2664,7 +2638,7 @@ LABEL_24:
           v30 = 2112;
           v31 = v24;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to uninstall %{public}@: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= Failed to uninstall %{public}@: %@", dCopy, v24);
         }
 
         v12 = v24;
@@ -2684,7 +2658,7 @@ LABEL_24:
     v30 = 2112;
     v31 = v12;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Failed to find user app %@: %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "=ckrestore-engine= Failed to find user app %@: %@", dCopy, v12);
   }
 
   v11 = 0;
@@ -2728,19 +2702,19 @@ LABEL_25:
   v12 = v11;
   v13 = objc_opt_new();
   v14 = objc_opt_new();
-  v138[0] = _NSConcreteStackBlock;
-  v138[1] = 3221225472;
-  v138[2] = sub_10005B144;
-  v138[3] = &unk_1003BC4F0;
-  v138[4] = self;
-  v96 = v13;
-  v139 = v96;
-  v95 = v10;
-  v140 = v95;
+  v137[0] = _NSConcreteStackBlock;
+  v137[1] = 3221225472;
+  v137[2] = sub_10005B144;
+  v137[3] = &unk_1003BC4F0;
+  v137[4] = self;
+  v95 = v13;
+  v138 = v95;
+  v94 = v10;
+  v139 = v94;
   v15 = v14;
-  v141 = v15;
-  v16 = objc_retainBlock(v138);
-  v110 = v15;
+  v140 = v15;
+  v16 = objc_retainBlock(v137);
+  v109 = v15;
   if ([(MBCKRestoreEngine *)self useFileLists])
   {
     selfCopy2 = self;
@@ -2751,9 +2725,9 @@ LABEL_25:
     }
 
     v19 = _populatedRestorePlan;
-    v137 = 0;
-    v20 = [_populatedRestorePlan enumerateDomainNamesPendingRestoreWithError:&v137 enumerator:v16];
-    v21 = v137;
+    v136 = 0;
+    v20 = [_populatedRestorePlan enumerateDomainNamesPendingRestoreWithError:&v136 enumerator:v16];
+    v21 = v136;
     v22 = v21;
     if ((v20 & 1) == 0)
     {
@@ -2764,61 +2738,61 @@ LABEL_25:
       }
 
       v30 = MBGetDefaultLog();
-      v15 = v110;
+      v15 = v109;
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v146 = v22;
+        v145 = v22;
         _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to enumerate restorable domains from plan: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to enumerate restorable domains from plan: %@", v22);
       }
 
       goto LABEL_23;
     }
 
-    v136 = v21;
-    v135[0] = _NSConcreteStackBlock;
-    v135[1] = 3221225472;
-    v135[2] = sub_10005B36C;
-    v135[3] = &unk_1003BC518;
-    v135[4] = self;
-    v23 = [v19 enumerateBundleIDsWithPlaceholderIPAsWithError:&v136 enumerator:v135];
-    v24 = v136;
+    v135 = v21;
+    v134[0] = _NSConcreteStackBlock;
+    v134[1] = 3221225472;
+    v134[2] = sub_10005B36C;
+    v134[3] = &unk_1003BC518;
+    v134[4] = self;
+    v23 = [v19 enumerateBundleIDsWithPlaceholderIPAsWithError:&v135 enumerator:v134];
+    v24 = v135;
 
     if ((v23 & 1) == 0)
     {
       if (error)
       {
-        v77 = v24;
+        v80 = v24;
         *error = v24;
       }
 
-      v78 = MBGetDefaultLog();
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+      v81 = MBGetDefaultLog();
+      if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v146 = v24;
-        _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to enumerate app bundleIDs from plan: %@", buf, 0xCu);
-        _MBLog();
+        v145 = v24;
+        _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to enumerate app bundleIDs from plan: %@", buf, 0xCu);
+        _MBLog(@"E ", "=ckrestore-engine= Failed to enumerate app bundleIDs from plan: %@", v24);
       }
 
       v31 = 0;
-      v15 = v110;
+      v15 = v109;
       goto LABEL_24;
     }
 
-    v15 = v110;
+    v15 = v109;
   }
 
   else
   {
     cache = [(MBCKEngine *)self cache];
-    v133[0] = _NSConcreteStackBlock;
-    v133[1] = 3221225472;
-    v133[2] = sub_10005B4D0;
-    v133[3] = &unk_1003BC540;
-    v134 = v16;
-    v26 = [cache enumeratePendingRestorableDomainsWithCallback:v133];
+    v132[0] = _NSConcreteStackBlock;
+    v132[1] = 3221225472;
+    v132[2] = sub_10005B4D0;
+    v132[3] = &unk_1003BC540;
+    v133 = v16;
+    v26 = [cache enumeratePendingRestorableDomainsWithCallback:v132];
 
     if (v26)
     {
@@ -2832,16 +2806,16 @@ LABEL_25:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v146 = v26;
+        v145 = v26;
         _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to enumerate restorable domains from cache: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to enumerate restorable domains from cache: %@", v26);
       }
 
       goto LABEL_23;
     }
 
     selfCopy2 = self;
-    v19 = v134;
+    v19 = v133;
   }
 
   if ([(MBCKEngine *)selfCopy2 handleCancelation:error])
@@ -2851,32 +2825,32 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v92 = v12;
-  v93 = v8;
-  v94 = v6;
-  v131 = 0u;
-  v132 = 0u;
-  v129 = 0u;
+  v91 = v12;
+  v92 = v8;
+  v93 = v6;
   v130 = 0u;
+  v131 = 0u;
+  v128 = 0u;
+  v129 = 0u;
   p_isa = &selfCopy2->super.super.super.isa;
   obj = [(MBAppManager *)selfCopy2->super.super._appManager allPlugins];
-  v100 = [obj countByEnumeratingWithState:&v129 objects:v154 count:16];
-  v101 = v16;
-  if (v100)
+  v99 = [obj countByEnumeratingWithState:&v128 objects:v153 count:16];
+  v100 = v16;
+  if (v99)
   {
-    v99 = *v130;
+    v98 = *v129;
     do
     {
       v33 = 0;
       do
       {
-        if (*v130 != v99)
+        if (*v129 != v98)
         {
           objc_enumerationMutation(obj);
         }
 
-        v106 = v33;
-        v34 = *(*(&v129 + 1) + 8 * v33);
+        v105 = v33;
+        v34 = *(*(&v128 + 1) + 8 * v33);
         context = objc_autoreleasePoolPush();
         identifier = [v34 identifier];
         domain = [v34 domain];
@@ -2887,253 +2861,246 @@ LABEL_23:
         {
           containerTypeString = [v34 containerTypeString];
           *buf = 138412802;
-          v146 = name;
-          v147 = 2112;
-          v148 = identifier;
-          v149 = 2112;
-          v150 = containerTypeString;
+          v145 = name;
+          v146 = 2112;
+          v147 = identifier;
+          v148 = 2112;
+          v149 = containerTypeString;
           _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Adding plugin %@/%@ (%@)", buf, 0x20u);
 
-          [v34 containerTypeString];
-          containerTypeString3 = v89 = identifier;
-          v88 = name;
-          _MBLog();
+          containerTypeString2 = [v34 containerTypeString];
+          _MBLog(@"Df", "=ckrestore-engine= Adding plugin %@/%@ (%@)", name, identifier, containerTypeString2);
         }
 
-        v102 = name;
+        v101 = name;
         [v15 addObject:name];
-        v127 = 0u;
-        v128 = 0u;
-        v125 = 0u;
         v126 = 0u;
+        v127 = 0u;
+        v124 = 0u;
+        v125 = 0u;
         allAppGroupContainers = [v34 allAppGroupContainers];
-        v40 = [allAppGroupContainers countByEnumeratingWithState:&v125 objects:v153 count:16];
-        if (v40)
+        v41 = [allAppGroupContainers countByEnumeratingWithState:&v124 objects:v152 count:16];
+        if (v41)
         {
-          v41 = v40;
-          v42 = *v126;
+          v42 = v41;
+          v43 = *v125;
           do
           {
-            for (i = 0; i != v41; i = i + 1)
+            for (i = 0; i != v42; i = i + 1)
             {
-              if (*v126 != v42)
+              if (*v125 != v43)
               {
                 objc_enumerationMutation(allAppGroupContainers);
               }
 
-              v44 = *(*(&v125 + 1) + 8 * i);
-              v45 = MBGetDefaultLog();
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+              v45 = *(*(&v124 + 1) + 8 * i);
+              v46 = MBGetDefaultLog();
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
               {
-                domain2 = [v44 domain];
+                domain2 = [v45 domain];
                 name2 = [domain2 name];
-                identifier2 = [v44 identifier];
-                containerTypeString2 = [v44 containerTypeString];
+                identifier2 = [v45 identifier];
+                containerTypeString3 = [v45 containerTypeString];
                 *buf = 138413058;
-                v146 = name2;
-                v147 = 2112;
-                v148 = identifier2;
-                v149 = 2112;
-                v150 = containerTypeString2;
-                v151 = 2112;
-                v152 = identifier;
-                _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Adding app group container %@/%@ (%@) for %@", buf, 0x2Au);
+                v145 = name2;
+                v146 = 2112;
+                v147 = identifier2;
+                v148 = 2112;
+                v149 = containerTypeString3;
+                v150 = 2112;
+                v151 = identifier;
+                _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Adding app group container %@/%@ (%@) for %@", buf, 0x2Au);
 
-                domain3 = [v44 domain];
+                domain3 = [v45 domain];
                 name3 = [domain3 name];
-                identifier3 = [v44 identifier];
-                containerTypeString3 = [v44 containerTypeString];
-                v91 = identifier;
-                v88 = name3;
-                v89 = identifier3;
-                _MBLog();
+                identifier3 = [v45 identifier];
+                containerTypeString4 = [v45 containerTypeString];
+                _MBLog(@"Df", "=ckrestore-engine= Adding app group container %@/%@ (%@) for %@", name3, identifier3, containerTypeString4, identifier);
 
-                v15 = v110;
+                v15 = v109;
               }
 
-              domain4 = [v44 domain];
+              domain4 = [v45 domain];
               name4 = [domain4 name];
               [v15 addObject:name4];
             }
 
-            v41 = [allAppGroupContainers countByEnumeratingWithState:&v125 objects:v153 count:16];
+            v42 = [allAppGroupContainers countByEnumeratingWithState:&v124 objects:v152 count:16];
           }
 
-          while (v41);
+          while (v42);
         }
 
         objc_autoreleasePoolPop(context);
-        v33 = v106 + 1;
-        v16 = v101;
+        v33 = v105 + 1;
+        v16 = v100;
       }
 
-      while (v106 + 1 != v100);
-      v100 = [obj countByEnumeratingWithState:&v129 objects:v154 count:16];
+      while (v105 + 1 != v99);
+      v99 = [obj countByEnumeratingWithState:&v128 objects:v153 count:16];
     }
 
-    while (v100);
+    while (v99);
   }
 
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
   v122 = 0u;
+  v123 = 0u;
+  v120 = 0u;
+  v121 = 0u;
   allApps = [p_isa[6] allApps];
-  v55 = [allApps countByEnumeratingWithState:&v121 objects:v144 count:16];
-  if (v55)
+  v57 = [allApps countByEnumeratingWithState:&v120 objects:v143 count:16];
+  if (v57)
   {
-    v56 = v55;
-    v57 = *v122;
-    v103 = *v122;
+    v58 = v57;
+    v59 = *v121;
+    v102 = *v121;
     do
     {
-      v58 = 0;
-      contexta = v56;
+      v60 = 0;
+      contexta = v58;
       do
       {
-        if (*v122 != v57)
+        if (*v121 != v59)
         {
           objc_enumerationMutation(allApps);
         }
 
-        v59 = *(*(&v121 + 1) + 8 * v58);
-        if ([v59 isSystemApp])
+        v61 = *(*(&v120 + 1) + 8 * v60);
+        if ([v61 isSystemApp])
         {
-          containerDir = [v59 containerDir];
+          containerDir = [v61 containerDir];
 
           if (containerDir)
           {
-            v108 = v58;
-            v119 = 0u;
-            v120 = 0u;
-            v117 = 0u;
+            v107 = v60;
             v118 = 0u;
-            containers = [v59 containers];
-            v62 = [containers countByEnumeratingWithState:&v117 objects:v143 count:16];
-            if (v62)
+            v119 = 0u;
+            v116 = 0u;
+            v117 = 0u;
+            containers = [v61 containers];
+            v64 = [containers countByEnumeratingWithState:&v116 objects:v142 count:16];
+            if (v64)
             {
-              v63 = v62;
-              v64 = *v118;
+              v65 = v64;
+              v66 = *v117;
               do
               {
-                for (j = 0; j != v63; j = j + 1)
+                for (j = 0; j != v65; j = j + 1)
                 {
-                  if (*v118 != v64)
+                  if (*v117 != v66)
                   {
                     objc_enumerationMutation(containers);
                   }
 
-                  v66 = *(*(&v117 + 1) + 8 * j);
-                  if ([v66 containerType] - 1 <= 2)
+                  v68 = *(*(&v116 + 1) + 8 * j);
+                  if ([v68 containerType] - 1 <= 2)
                   {
-                    v67 = MBGetDefaultLog();
-                    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+                    v69 = MBGetDefaultLog();
+                    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
                     {
-                      domain5 = [v66 domain];
+                      domain5 = [v68 domain];
                       name5 = [domain5 name];
-                      identifier4 = [v66 identifier];
-                      containerTypeString4 = [v66 containerTypeString];
+                      identifier4 = [v68 identifier];
+                      containerTypeString5 = [v68 containerTypeString];
                       *buf = 138412802;
-                      v146 = name5;
-                      v147 = 2112;
-                      v148 = identifier4;
-                      v149 = 2112;
-                      v150 = containerTypeString4;
-                      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Adding container %@/%@ (%@)", buf, 0x20u);
+                      v145 = name5;
+                      v146 = 2112;
+                      v147 = identifier4;
+                      v148 = 2112;
+                      v149 = containerTypeString5;
+                      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Adding container %@/%@ (%@)", buf, 0x20u);
 
-                      domain6 = [v66 domain];
+                      domain6 = [v68 domain];
                       name6 = [domain6 name];
-                      identifier5 = [v66 identifier];
-                      [v66 containerTypeString];
-                      containerTypeString3 = v89 = identifier5;
-                      v88 = name6;
-                      _MBLog();
+                      identifier5 = [v68 identifier];
+                      containerTypeString6 = [v68 containerTypeString];
+                      _MBLog(@"Df", "=ckrestore-engine= Adding container %@/%@ (%@)", name6, identifier5, containerTypeString6);
 
-                      v15 = v110;
+                      v15 = v109;
                     }
 
-                    domain7 = [v66 domain];
+                    domain7 = [v68 domain];
                     name7 = [domain7 name];
                     [v15 addObject:name7];
                   }
                 }
 
-                v63 = [containers countByEnumeratingWithState:&v117 objects:v143 count:16];
+                v65 = [containers countByEnumeratingWithState:&v116 objects:v142 count:16];
               }
 
-              while (v63);
+              while (v65);
             }
 
-            v16 = v101;
-            v57 = v103;
-            v56 = contexta;
-            v58 = v108;
+            v16 = v100;
+            v59 = v102;
+            v58 = contexta;
+            v60 = v107;
           }
         }
 
-        v58 = v58 + 1;
+        v60 = v60 + 1;
       }
 
-      while (v58 != v56);
-      v56 = [allApps countByEnumeratingWithState:&v121 objects:v144 count:16];
+      while (v60 != v58);
+      v58 = [allApps countByEnumeratingWithState:&v120 objects:v143 count:16];
     }
 
-    while (v56);
+    while (v58);
   }
 
   if ([p_isa useFileLists])
   {
-    [v15 intersectSet:v96];
+    [v15 intersectSet:v95];
   }
 
   else
   {
-    v79 = +[NSMutableSet set];
+    v82 = +[NSMutableSet set];
+    v112 = 0u;
     v113 = 0u;
     v114 = 0u;
     v115 = 0u;
-    v116 = 0u;
-    v80 = v15;
-    v81 = [v80 countByEnumeratingWithState:&v113 objects:v142 count:16];
-    if (v81)
+    v83 = v15;
+    v84 = [v83 countByEnumeratingWithState:&v112 objects:v141 count:16];
+    if (v84)
     {
-      v82 = v81;
-      v83 = *v114;
+      v85 = v84;
+      v86 = *v113;
       do
       {
-        for (k = 0; k != v82; k = k + 1)
+        for (k = 0; k != v85; k = k + 1)
         {
-          if (*v114 != v83)
+          if (*v113 != v86)
           {
-            objc_enumerationMutation(v80);
+            objc_enumerationMutation(v83);
           }
 
-          v85 = *(*(&v113 + 1) + 8 * k);
+          v88 = *(*(&v112 + 1) + 8 * k);
           cache2 = [p_isa cache];
-          v111[0] = _NSConcreteStackBlock;
-          v111[1] = 3221225472;
-          v111[2] = sub_10005B4E4;
-          v111[3] = &unk_1003BC568;
-          v111[4] = v85;
-          v112 = v79;
-          v87 = [cache2 fetchPendingRestoreSizeForDomain:v85 callback:v111];
+          v110[0] = _NSConcreteStackBlock;
+          v110[1] = 3221225472;
+          v110[2] = sub_10005B4E4;
+          v110[3] = &unk_1003BC568;
+          v110[4] = v88;
+          v111 = v82;
+          v90 = [cache2 fetchPendingRestoreSizeForDomain:v88 callback:v110];
         }
 
-        v82 = [v80 countByEnumeratingWithState:&v113 objects:v142 count:16];
+        v85 = [v83 countByEnumeratingWithState:&v112 objects:v141 count:16];
       }
 
-      while (v82);
+      while (v85);
     }
 
-    [v80 minusSet:v79];
-    v15 = v110;
-    v16 = v101;
+    [v83 minusSet:v82];
+    v15 = v109;
+    v16 = v100;
   }
 
   v31 = v15;
-  v8 = v93;
-  v6 = v94;
-  v12 = v92;
+  v8 = v92;
+  v6 = v93;
+  v12 = v91;
 LABEL_24:
 
   return v31;
@@ -3301,17 +3268,12 @@ LABEL_24:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v54) = [namesCopy count];
+    LODWORD(v50) = [namesCopy count];
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "=ckrestore-engine= Performing restore for %u foreground domains using plan", buf, 8u);
-    [namesCopy count];
-    _MBLog();
+    _MBLog(@"I ", "=ckrestore-engine= Performing restore for %u foreground domains using plan", [namesCopy count]);
   }
 
   v12 = [(MBCKRestoreEngine *)self _restoreDomains:namesCopy plan:_populatedRestorePlan withQueue:v10 concurrencyLimit:6 error:error];
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
   v45 = 0;
   v46 = &v45;
   v47 = 0x2020000000;
@@ -3324,54 +3286,54 @@ LABEL_24:
   v38 = &v37;
   v39 = 0x2020000000;
   v40 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
   v36 = 0;
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_10005BF88;
-  v30[3] = &unk_1003BC590;
+  v32 = 0;
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_10005BF88;
+  v26[3] = &unk_1003BC590;
   v13 = namesCopy;
-  v31 = v13;
-  v32 = &v49;
-  v33 = &v45;
-  v34 = &v37;
-  v35 = &v41;
-  v14 = [_populatedRestorePlan enumerateDomainsAndAttributes:&v36 enumerator:v30];
-  v15 = v36;
+  v27 = v13;
+  v28 = &v45;
+  v29 = &v41;
+  v30 = &v33;
+  v31 = &v37;
+  v14 = [_populatedRestorePlan enumerateDomainsAndAttributes:&v32 enumerator:v26];
+  v15 = v32;
   if (v14)
   {
-    v16 = [NSNumber numberWithUnsignedLongLong:v50[3]];
+    v16 = [NSNumber numberWithUnsignedLongLong:v46[3]];
     [(MBCKRestoreEngine *)self setForegroundRestorableFileCount:v16];
 
-    v17 = [NSNumber numberWithLongLong:v46[3]];
+    v17 = [NSNumber numberWithLongLong:v42[3]];
     [(MBCKRestoreEngine *)self setForegroundRestorableSize:v17];
 
-    v18 = [NSNumber numberWithLongLong:v38[3]];
+    v18 = [NSNumber numberWithLongLong:v34[3]];
     [(MBCKRestoreEngine *)self setBackgroundRestorableFileCount:v18];
 
-    v19 = [NSNumber numberWithUnsignedLongLong:v42[3]];
+    v19 = [NSNumber numberWithUnsignedLongLong:v38[3]];
     [(MBCKRestoreEngine *)self setBackgroundRestorableSize:v19];
 
     v20 = MBGetDefaultLog();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = v50[3];
-      v22 = v46[3];
-      v23 = v38[3];
-      v24 = v42[3];
+      v21 = v46[3];
+      v22 = v42[3];
+      v23 = v34[3];
+      v24 = v38[3];
       *buf = 134218752;
-      v54 = v21;
+      v50 = v21;
+      v51 = 2048;
+      v52 = v22;
+      v53 = 2048;
+      v54 = v23;
       v55 = 2048;
-      v56 = v22;
-      v57 = 2048;
-      v58 = v23;
-      v59 = 2048;
-      v60 = v24;
+      v56 = v24;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Foreground asset count:%llu size:%llu, background asset count:%llu size:%llu", buf, 0x2Au);
-      v28 = v38[3];
-      v29 = v42[3];
-      v26 = v50[3];
-      v27 = v46[3];
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Foreground asset count:%llu size:%llu, background asset count:%llu size:%llu", v46[3], v42[3], v34[3], v38[3]);
     }
   }
 
@@ -3381,16 +3343,16 @@ LABEL_24:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v54 = v15;
+      v50 = v15;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to collect FG/BG domain statistics from restore plan: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Failed to collect FG/BG domain statistics from restore plan: %@", v15);
     }
   }
 
+  _Block_object_dispose(&v33, 8);
   _Block_object_dispose(&v37, 8);
   _Block_object_dispose(&v41, 8);
   _Block_object_dispose(&v45, 8);
-  _Block_object_dispose(&v49, 8);
 
   return v12;
 }
@@ -3448,19 +3410,19 @@ LABEL_4:
           v23 = v22;
           if (!v21)
           {
-            v32 = MBGetDefaultLog();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v33 = MBGetDefaultLog();
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               v54 = v23;
-              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to create restore domain engine: %@", buf, 0xCu);
-              _MBLog();
+              _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to create restore domain engine: %@", buf, 0xCu);
+              _MBLog(@"E ", "=ckrestore-engine= Failed to create restore domain engine: %@", v23);
             }
 
-            v33 = v42;
-            objc_sync_enter(v33);
-            [v33 addObject:v23];
-            objc_sync_exit(v33);
+            v34 = v42;
+            objc_sync_enter(v34);
+            [v34 addObject:v23];
+            objc_sync_exit(v34);
 
             break;
           }
@@ -3493,14 +3455,14 @@ LABEL_4:
             _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Not restoring domain %@ with nil root path", buf, 0xCu);
 
             name2 = [v20 name];
-            _MBLog();
+            _MBLog(@"Df", "=ckrestore-engine= Not restoring domain %@ with nil root path", name2);
           }
 
           v52 = v18;
-          v29 = [NSArray arrayWithObjects:&v52 count:1];
-          v30 = [planCopy skipDomains:v29 error:error];
+          v30 = [NSArray arrayWithObjects:&v52 count:1];
+          v31 = [planCopy skipDomains:v30 error:error];
 
-          if ((v30 & 1) == 0)
+          if ((v31 & 1) == 0)
           {
 
             goto LABEL_27;
@@ -3526,28 +3488,28 @@ LABEL_4:
       if (error)
       {
         [MBError errorWithErrors:v42];
-        *error = v31 = 0;
+        *error = v32 = 0;
       }
 
       else
       {
 LABEL_27:
-        v31 = 0;
+        v32 = 0;
       }
     }
 
     else
     {
-      v31 = 1;
+      v32 = 1;
     }
   }
 
   else
   {
-    v31 = 0;
+    v32 = 0;
   }
 
-  return v31;
+  return v32;
 }
 
 - (BOOL)_restoreForegroundFilesUsingCKCacheForDomainNames:(id)names error:(id *)error
@@ -3561,30 +3523,30 @@ LABEL_27:
     __assert_rtn("[MBCKRestoreEngine _restoreForegroundFilesUsingCKCacheForDomainNames:error:]", "MBCKRestoreEngine.m", 1367, "cacheTracker");
   }
 
-  v143 = 0;
-  v87 = [tracker openCacheWithAccessType:2 cached:0 error:&v143];
-  v6 = COERCE_DOUBLE(v143);
-  if (!v87)
+  v138 = 0;
+  v82 = [tracker openCacheWithAccessType:2 cached:0 error:&v138];
+  v6 = COERCE_DOUBLE(v138);
+  if (!v82)
   {
     v67 = MBGetDefaultLog();
     if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v146 = v6;
+      v141 = v6;
       _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to re-open cache for restore enumeration: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Failed to re-open cache for restore enumeration: %@", *&v6);
     }
 
     if (error)
     {
       v68 = *&v6;
-      v84 = 0;
+      v79 = 0;
       *error = v6;
     }
 
     else
     {
-      v84 = 0;
+      v79 = 0;
     }
 
     goto LABEL_49;
@@ -3594,32 +3556,32 @@ LABEL_27:
   [v7 timeIntervalSinceReferenceDate];
   v9 = v8;
 
-  v139 = 0;
-  v140 = &v139;
-  v141 = 0x2020000000;
-  v142 = 0;
-  v135 = 0;
-  v136 = &v135;
-  v137 = 0x2020000000;
-  v138 = 0;
-  v131 = 0;
-  v132 = &v131;
-  v133 = 0x2020000000;
   v134 = 0;
-  v126[0] = _NSConcreteStackBlock;
-  v126[1] = 3221225472;
-  v126[2] = sub_10005D5BC;
-  v126[3] = &unk_1003BC5E0;
-  v128 = &v131;
-  v126[4] = self;
+  v135 = &v134;
+  v136 = 0x2020000000;
+  v137 = 0;
+  v130 = 0;
+  v131 = &v130;
+  v132 = 0x2020000000;
+  v133 = 0;
+  v126 = 0;
+  v127 = &v126;
+  v128 = 0x2020000000;
+  v129 = 0;
+  v121[0] = _NSConcreteStackBlock;
+  v121[1] = 3221225472;
+  v121[2] = sub_10005D5BC;
+  v121[3] = &unk_1003BC5E0;
+  v123 = &v126;
+  v121[4] = self;
   v10 = namesCopy;
-  v127 = v10;
-  v129 = &v139;
-  v130 = &v135;
-  v11 = [v87 enumeratePendingRestoreFilesForAnyDomainOrderAscendingWithBlock:v126];
+  v122 = v10;
+  v124 = &v134;
+  v125 = &v130;
+  v11 = [v82 enumeratePendingRestoreFilesForAnyDomainOrderAscendingWithBlock:v121];
 
   progressModel = [(MBCKEngine *)self progressModel];
-  [progressModel willTransferItemsWithSize:v140[3] count:*(v136 + 6)];
+  [progressModel willTransferItemsWithSize:v135[3] count:*(v131 + 6)];
 
   +[NSDate timeIntervalSinceReferenceDate];
   v14 = v13;
@@ -3627,136 +3589,128 @@ LABEL_27:
   v16 = v14 - v9;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = v140[3];
-    v18 = *(v136 + 6);
+    v17 = v135[3];
+    v18 = *(v131 + 6);
     *buf = 134218496;
-    v146 = v16;
-    v147 = 2048;
-    v148 = v17;
-    v149 = 2048;
-    v150 = v18;
+    v141 = v16;
+    v142 = 2048;
+    v143 = v17;
+    v144 = 2048;
+    v145 = v18;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Preflight: duration:%.3fs, fgTotalRestorableSize:%llu, fgTotalRestorableCount:%lu", buf, 0x20u);
-    v75 = v140[3];
-    v76 = *(v136 + 6);
-    v74 = v16;
-    _MBLog();
+    _MBLog(@"Df", "=ckrestore-engine= Preflight: duration:%.3fs, fgTotalRestorableSize:%llu, fgTotalRestorableCount:%lu", v16, v135[3], *(v131 + 6));
   }
 
-  [(MBCKRestoreEngine *)self _purgeBeforeRestoring:v132[3]];
+  [(MBCKRestoreEngine *)self _purgeBeforeRestoring:v127[3]];
   v19 = +[NSDate date];
   [v19 timeIntervalSinceReferenceDate];
   v21 = v20;
 
-  v80 = [[MBCKRestoreFilePrefetchEngine alloc] initWithRestoreEngine:self];
-  if (![(MBCKRestoreFilePrefetchEngine *)v80 setUpWithError:error])
+  v75 = [[MBCKRestoreFilePrefetchEngine alloc] initWithRestoreEngine:self];
+  if (![(MBCKRestoreFilePrefetchEngine *)v75 setUpWithError:error])
   {
-    [v87 close];
-    v84 = 0;
+    [v82 close];
+    v79 = 0;
     goto LABEL_48;
   }
 
-  v122 = 0;
-  v123 = &v122;
-  v124 = 0x2020000000;
-  v125 = 0;
-  v118 = 0;
-  v119 = &v118;
-  v120 = 0x2020000000;
-  v121 = 0;
-  v114 = 0;
-  v115 = &v114;
-  v116 = 0x2020000000;
   v117 = 0;
-  v110 = 0;
-  v111 = &v110;
-  v112 = 0x2020000000;
+  v118 = &v117;
+  v119 = 0x2020000000;
+  v120 = 0;
   v113 = 0;
-  v106 = 0;
-  v107 = &v106;
-  v108 = 0x2020000000;
+  v114 = &v113;
+  v115 = 0x2020000000;
+  v116 = 0;
   v109 = 0;
-  v102 = 0;
-  v103 = &v102;
-  v104 = 0x2020000000;
+  v110 = &v109;
+  v111 = 0x2020000000;
+  v112 = 0;
   v105 = 0;
-  v93[0] = _NSConcreteStackBlock;
-  v93[1] = 3221225472;
-  v93[2] = sub_10005D6D0;
-  v93[3] = &unk_1003BC608;
-  v93[4] = self;
+  v106 = &v105;
+  v107 = 0x2020000000;
+  v108 = 0;
+  v101 = 0;
+  v102 = &v101;
+  v103 = 0x2020000000;
+  v104 = 0;
+  v97 = 0;
+  v98 = &v97;
+  v99 = 0x2020000000;
+  v100 = 0;
+  v88[0] = _NSConcreteStackBlock;
+  v88[1] = 3221225472;
+  v88[2] = sub_10005D6D0;
+  v88[3] = &unk_1003BC608;
+  v88[4] = self;
   v22 = v10;
-  v94 = v22;
-  v96 = &v106;
-  v97 = &v118;
-  v98 = &v114;
-  v99 = &v102;
-  v23 = v80;
-  v95 = v23;
-  v100 = &v122;
-  v101 = &v110;
-  v79 = [v87 enumeratePendingRestoreRegularFilesForAnyDomainOrderAscendingWithBlock:v93];
+  v89 = v22;
+  v91 = &v101;
+  v92 = &v113;
+  v93 = &v109;
+  v94 = &v97;
+  v23 = v75;
+  v90 = v23;
+  v95 = &v117;
+  v96 = &v105;
+  v74 = [v82 enumeratePendingRestoreRegularFilesForAnyDomainOrderAscendingWithBlock:v88];
 
   v24 = MBGetDefaultLog();
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = v111[3];
-    v26 = v123[3];
-    v27 = v103[3];
-    v28 = v115[3];
-    v29 = v107[3];
+    v25 = v106[3];
+    v26 = v118[3];
+    v27 = v98[3];
+    v28 = v110[3];
+    v29 = v102[3];
     *buf = 134219008;
-    v146 = v25;
-    v147 = 2048;
-    v148 = v26;
-    v149 = 2048;
-    v150 = v27;
-    v151 = 2048;
-    v152 = v28;
-    v153 = 2048;
-    v154 = v29;
+    v141 = v25;
+    v142 = 2048;
+    v143 = v26;
+    v144 = 2048;
+    v145 = v27;
+    v146 = 2048;
+    v147 = v28;
+    v148 = 2048;
+    v149 = v29;
     _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Preflight: fgRestoreSize:%llu, fgRestoreCount:%llu, fgPrefetchRestoreSize:%llu, fgPrefetchRestoreCount:%llu, bgRestoreSize:%llu", buf, 0x34u);
-    v77 = v115[3];
-    v78 = v107[3];
-    v75 = v123[3];
-    v76 = v103[3];
-    v74 = v111[3];
-    _MBLog();
+    _MBLog(@"Df", "=ckrestore-engine= Preflight: fgRestoreSize:%llu, fgRestoreCount:%llu, fgPrefetchRestoreSize:%llu, fgPrefetchRestoreCount:%llu, bgRestoreSize:%llu", *(v106 + 3), v118[3], v98[3], v110[3], v102[3]);
   }
 
   v30 = [NSNumber numberWithDouble:v16];
   performanceStatistics = [(MBCKEngine *)self performanceStatistics];
   [performanceStatistics setObject:v30 forKeyedSubscript:@"PreflightTime"];
 
-  v32 = [NSNumber numberWithUnsignedLongLong:v123[3]];
+  v32 = [NSNumber numberWithUnsignedLongLong:v118[3]];
   performanceStatistics2 = [(MBCKEngine *)self performanceStatistics];
   [performanceStatistics2 setObject:v32 forKeyedSubscript:@"ForegroundRestoreItems"];
 
-  v34 = [NSNumber numberWithUnsignedLongLong:v115[3]];
+  v34 = [NSNumber numberWithUnsignedLongLong:v110[3]];
   performanceStatistics3 = [(MBCKEngine *)self performanceStatistics];
   [performanceStatistics3 setObject:v34 forKeyedSubscript:@"ForegroundPrefetchItems"];
 
-  v36 = [NSNumber numberWithUnsignedLongLong:v103[3]];
+  v36 = [NSNumber numberWithUnsignedLongLong:v98[3]];
   performanceStatistics4 = [(MBCKEngine *)self performanceStatistics];
   [performanceStatistics4 setObject:v36 forKeyedSubscript:@"ForegroundPrefetchSize"];
 
-  v38 = [NSNumber numberWithUnsignedLongLong:v107[3]];
+  v38 = [NSNumber numberWithUnsignedLongLong:v102[3]];
   performanceStatistics5 = [(MBCKEngine *)self performanceStatistics];
   [performanceStatistics5 setObject:v38 forKeyedSubscript:@"BackgroundRestoreSize"];
 
-  v40 = [NSNumber numberWithUnsignedLongLong:v119[3]];
+  v40 = [NSNumber numberWithUnsignedLongLong:v114[3]];
   performanceStatistics6 = [(MBCKEngine *)self performanceStatistics];
   [performanceStatistics6 setObject:v40 forKeyedSubscript:@"BackgroundRestoreItems"];
 
-  v42 = [NSNumber numberWithUnsignedLongLong:*(v111 + 3)];
+  v42 = [NSNumber numberWithUnsignedLongLong:*(v106 + 3)];
   [(MBCKRestoreEngine *)self setForegroundRestorableSize:v42];
 
-  v43 = [NSNumber numberWithUnsignedLongLong:v107[3]];
+  v43 = [NSNumber numberWithUnsignedLongLong:v102[3]];
   [(MBCKRestoreEngine *)self setBackgroundRestorableSize:v43];
 
-  v44 = [NSNumber numberWithUnsignedLongLong:v123[3]];
+  v44 = [NSNumber numberWithUnsignedLongLong:v118[3]];
   [(MBCKRestoreEngine *)self setForegroundRestorableFileCount:v44];
 
-  v45 = [NSNumber numberWithUnsignedLongLong:v119[3]];
+  v45 = [NSNumber numberWithUnsignedLongLong:v114[3]];
   [(MBCKRestoreEngine *)self setBackgroundRestorableFileCount:v45];
 
   [(MBCKRestoreFilePrefetchEngine *)v23 waitForPrefetchCompletion];
@@ -3770,49 +3724,48 @@ LABEL_27:
   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v146 = v47;
+    v141 = v47;
     _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Prefetch: duration:%.3fs", buf, 0xCu);
-    v74 = v47;
-    _MBLog();
+    _MBLog(@"Df", "=ckrestore-engine= Prefetch: duration:%.3fs", v47);
   }
 
   v51 = +[NSDate date];
   [v51 timeIntervalSinceReferenceDate];
   v53 = v52;
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
-  v90 = 0u;
+  v86 = 0u;
+  v87 = 0u;
+  v84 = 0u;
+  v85 = 0u;
   obj = v22;
   v54 = 0;
-  v55 = [obj countByEnumeratingWithState:&v89 objects:v144 count:16];
+  v55 = [obj countByEnumeratingWithState:&v84 objects:v139 count:16];
   if (!v55)
   {
-    v84 = 1;
+    v79 = 1;
 LABEL_43:
 
     goto LABEL_45;
   }
 
-  v84 = 1;
-  v85 = *v90;
+  v79 = 1;
+  v80 = *v85;
 LABEL_12:
   v56 = 0;
   while (1)
   {
-    if (*v90 != v85)
+    if (*v85 != v80)
     {
       objc_enumerationMutation(obj);
     }
 
-    v57 = *(*(&v89 + 1) + 8 * v56);
-    if ([(MBCKEngine *)self handleCancelation:error, *&v74, v75, v76, v77, v78])
+    v57 = *(*(&v84 + 1) + 8 * v56);
+    if ([(MBCKEngine *)self handleCancelation:error])
     {
-      [v87 close];
+      [v82 close];
 
 LABEL_41:
-      v84 = 0;
+      v79 = 0;
       goto LABEL_47;
     }
 
@@ -3821,19 +3774,18 @@ LABEL_41:
     if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v146 = v57;
+      v141 = v57;
       _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Restoring domain %{public}@", buf, 0xCu);
-      v74 = v57;
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Restoring domain %{public}@", *&v57);
     }
 
     domainManager = [(MBEngine *)self domainManager];
     v61 = [domainManager domainForName:*&v57];
 
-    v62 = [[MBCKRestoreDomainEngine alloc] initWithRestoreEngine:self enumeratorCache:v87 domain:v61];
-    v88 = v54;
-    LOBYTE(domainManager) = [(MBCKRestoreDomainEngine *)v62 runWithError:&v88];
-    v63 = v88;
+    v62 = [[MBCKRestoreDomainEngine alloc] initWithRestoreEngine:self enumeratorCache:v82 domain:v61];
+    v83 = v54;
+    LOBYTE(domainManager) = [(MBCKRestoreDomainEngine *)v62 runWithError:&v83];
+    v63 = v83;
 
     v54 = v63;
     if (domainManager)
@@ -3850,13 +3802,11 @@ LABEL_41:
         if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v146 = v57;
-          v147 = 2112;
-          v148 = v63;
+          v141 = v57;
+          v142 = 2112;
+          v143 = v63;
           _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Ignoring placeholder failure: to restore domain %@: %@", buf, 0x16u);
-          v74 = v57;
-          v75 = v63;
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= Ignoring placeholder failure: to restore domain %@: %@", *&v57, v63);
         }
 
         v64 = 0;
@@ -3869,16 +3819,14 @@ LABEL_41:
         if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v146 = v57;
-          v147 = 2112;
-          v148 = v63;
+          v141 = v57;
+          v142 = 2112;
+          v143 = v63;
           _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to restore domain %@: %@", buf, 0x16u);
-          v74 = v57;
-          v75 = v63;
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= Failed to restore domain %@: %@", *&v57, v63);
         }
 
-        v84 = 0;
+        v79 = 0;
         v65 = 18;
         v64 = 1;
       }
@@ -3895,7 +3843,7 @@ LABEL_41:
 
     if (v55 == ++v56)
     {
-      v55 = [obj countByEnumeratingWithState:&v89 objects:v144 count:16];
+      v55 = [obj countByEnumeratingWithState:&v84 objects:v139 count:16];
       if (v55)
       {
         goto LABEL_12;
@@ -3916,32 +3864,32 @@ LABEL_45:
   performanceStatistics8 = [(MBCKEngine *)self performanceStatistics];
   [performanceStatistics8 setObject:v70 forKeyedSubscript:@"RestoreTime"];
 
-  [v87 close];
-  if (!((error == 0) | v84 & 1))
+  [v82 close];
+  if (!((error == 0) | v79 & 1))
   {
     v72 = v54;
-    v84 = 0;
+    v79 = 0;
     *error = v54;
   }
 
 LABEL_47:
 
-  _Block_object_dispose(&v102, 8);
-  _Block_object_dispose(&v106, 8);
-  _Block_object_dispose(&v110, 8);
-  _Block_object_dispose(&v114, 8);
-  _Block_object_dispose(&v118, 8);
-  _Block_object_dispose(&v122, 8);
-  v11 = v79;
+  _Block_object_dispose(&v97, 8);
+  _Block_object_dispose(&v101, 8);
+  _Block_object_dispose(&v105, 8);
+  _Block_object_dispose(&v109, 8);
+  _Block_object_dispose(&v113, 8);
+  _Block_object_dispose(&v117, 8);
+  v11 = v74;
 LABEL_48:
 
-  _Block_object_dispose(&v131, 8);
-  _Block_object_dispose(&v135, 8);
-  _Block_object_dispose(&v139, 8);
+  _Block_object_dispose(&v126, 8);
+  _Block_object_dispose(&v130, 8);
+  _Block_object_dispose(&v134, 8);
   v6 = *&v11;
 LABEL_49:
 
-  return v84 & 1;
+  return v79 & 1;
 }
 
 - (void)_purgeBeforeRestoring:(unint64_t)restoring
@@ -3971,7 +3919,7 @@ LABEL_49:
       *buf = 134217984;
       v11 = purge;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= CacheDelete purged %llu bytes", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= CacheDelete purged %llu bytes", purge);
     }
   }
 }
@@ -4045,7 +3993,7 @@ LABEL_49:
       *buf = 138412290;
       v34 = v11;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to load app: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Failed to load app: %@", v11);
     }
 
     if (error)
@@ -4102,13 +4050,11 @@ LABEL_49:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v75 = personaIdentifier;
-      v76 = 2048;
-      v77 = v6;
+      v70 = personaIdentifier;
+      v71 = 2048;
+      v72 = v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Creating empty active set for personaID %@ (%p)", buf, 0x16u);
-      v44 = personaIdentifier;
-      v46 = v6;
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Creating empty active set for personaID %@ (%p)", personaIdentifier, v6);
     }
 
     [qword_1004215E8 setObject:v6 forKeyedSubscript:personaIdentifier];
@@ -4121,32 +4067,32 @@ LABEL_49:
     __assert_rtn("[MBCKRestoreEngine _restoreBackgroundContainersUsingPlanForApp:error:]", "MBCKRestoreEngine.m", 1576, "activeDomainRestoresForCurrentPersona");
   }
 
-  v56 = objc_opt_new();
+  v51 = objc_opt_new();
   v8 = v6;
   objc_sync_enter(v8);
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   containers = [appCopy containers];
-  v10 = [containers countByEnumeratingWithState:&v68 objects:v82 count:16];
+  v10 = [containers countByEnumeratingWithState:&v63 objects:v77 count:16];
   if (v10)
   {
-    v11 = *v69;
+    v11 = *v64;
 LABEL_13:
     v12 = 0;
     while (1)
     {
-      if (*v69 != v11)
+      if (*v64 != v11)
       {
         objc_enumerationMutation(containers);
       }
 
-      domain = [*(*(&v68 + 1) + 8 * v12) domain];
+      domain = [*(*(&v63 + 1) + 8 * v12) domain];
       name = [domain name];
-      v67 = 0;
-      v15 = [_populatedRestorePlan planForDomain:domain restoreType:2 error:&v67];
-      v16 = v67;
+      v62 = 0;
+      v15 = [_populatedRestorePlan planForDomain:domain restoreType:2 error:&v62];
+      v16 = v62;
       if (!v15)
       {
         break;
@@ -4164,18 +4110,17 @@ LABEL_13:
             {
               v42 = [v8 count];
               *buf = 138413058;
-              v75 = name;
-              v76 = 2112;
-              v77 = bundleID;
-              v78 = 2048;
-              v79 = v8;
-              v80 = 2048;
-              v81 = v42;
+              v70 = name;
+              v71 = 2112;
+              v72 = bundleID;
+              v73 = 2048;
+              v74 = v8;
+              v75 = 2048;
+              v76 = v42;
               _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Dependent domain %@ for %@ is actively being restored (%p: count %lu)", buf, 0x2Au);
             }
 
-            [v8 count];
-            _MBLog();
+            _MBLog(@"Df", "=ckrestore-engine= Dependent domain %@ for %@ is actively being restored (%p: count %lu)", name, bundleID, v8, [v8 count]);
           }
 
           if (error)
@@ -4188,7 +4133,7 @@ LABEL_60:
           goto LABEL_62;
         }
 
-        [v56 addObject:name];
+        [v51 addObject:name];
       }
 
       else
@@ -4197,19 +4142,17 @@ LABEL_60:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v75 = name;
-          v76 = 2112;
-          v77 = bundleID;
+          v70 = name;
+          v71 = 2112;
+          v72 = bundleID;
           _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "=ckrestore-engine= Not restoring dependent domain %@ for bundleID %@", buf, 0x16u);
-          v44 = name;
-          v46 = bundleID;
-          _MBLog();
+          _MBLog(@"I ", "=ckrestore-engine= Not restoring dependent domain %@ for bundleID %@", name, bundleID);
         }
       }
 
       if (v10 == ++v12)
       {
-        v10 = [containers countByEnumeratingWithState:&v68 objects:v82 count:16];
+        v10 = [containers countByEnumeratingWithState:&v63 objects:v77 count:16];
         if (v10)
         {
           goto LABEL_13;
@@ -4223,9 +4166,9 @@ LABEL_60:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v75 = name;
+      v70 = name;
       _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed look up domain plan for domain %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Failed look up domain plan for domain %@", name);
     }
 
     if (error)
@@ -4239,32 +4182,32 @@ LABEL_60:
 LABEL_62:
 
     objc_sync_exit(v8);
-    v54 = 0;
+    v49 = 0;
     v36 = v8;
     goto LABEL_63;
   }
 
 LABEL_25:
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v18 = v56;
-  v19 = [v18 countByEnumeratingWithState:&v63 objects:v73 count:16];
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v18 = v51;
+  v19 = [v18 countByEnumeratingWithState:&v58 objects:v68 count:16];
   if (v19)
   {
-    v20 = *v64;
+    v20 = *v59;
     do
     {
       for (i = 0; i != v19; i = i + 1)
       {
-        if (*v64 != v20)
+        if (*v59 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v63 + 1) + 8 * i);
+        v22 = *(*(&v58 + 1) + 8 * i);
         v23 = MBGetDefaultLog();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
@@ -4273,58 +4216,55 @@ LABEL_25:
           {
             v25 = [v8 count];
             *buf = 138413058;
-            v75 = v22;
-            v76 = 2112;
-            v77 = personaIdentifier;
-            v78 = 2048;
-            v79 = v8;
-            v80 = 2048;
-            v81 = v25;
+            v70 = v22;
+            v71 = 2112;
+            v72 = personaIdentifier;
+            v73 = 2048;
+            v74 = v8;
+            v75 = 2048;
+            v76 = v25;
             _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Adding domain %@ to active set for personaID %@ (%p: count %lu)", buf, 0x2Au);
           }
 
-          v47 = v8;
-          v48 = [v8 count];
-          v46 = personaIdentifier;
-          _MBLog();
+          _MBLog(@"Df", "=ckrestore-engine= Adding domain %@ to active set for personaID %@ (%p: count %lu)", v22, personaIdentifier, v8, [v8 count]);
         }
 
         [v8 addObject:v22];
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v63 objects:v73 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v58 objects:v68 count:16];
     }
 
     while (v19);
   }
 
   objc_sync_exit(v8);
-  v52 = [NSString stringWithFormat:@"com.apple.MobileBackup.Background.%@", bundleID];
-  v26 = v52;
-  v49 = dispatch_queue_create([v52 UTF8String], &_dispatch_queue_attr_concurrent);
-  v54 = [MBCKRestoreEngine _restoreDomains:"_restoreDomains:plan:withQueue:concurrencyLimit:error:" plan:v18 withQueue:_populatedRestorePlan concurrencyLimit:? error:?];
+  v47 = [NSString stringWithFormat:@"com.apple.MobileBackup.Background.%@", bundleID];
+  v26 = v47;
+  v44 = dispatch_queue_create([v47 UTF8String], &_dispatch_queue_attr_concurrent);
+  v49 = [MBCKRestoreEngine _restoreDomains:"_restoreDomains:plan:withQueue:concurrencyLimit:error:" plan:v18 withQueue:_populatedRestorePlan concurrencyLimit:? error:?];
   v27 = v8;
   objc_sync_enter(v27);
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v28 = v18;
-  v29 = [v28 countByEnumeratingWithState:&v59 objects:v72 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v54 objects:v67 count:16];
   if (v29)
   {
-    v30 = *v60;
+    v30 = *v55;
     do
     {
       for (j = 0; j != v29; j = j + 1)
       {
-        if (*v60 != v30)
+        if (*v55 != v30)
         {
           objc_enumerationMutation(v28);
         }
 
-        v32 = *(*(&v59 + 1) + 8 * j);
-        if ([v27 containsObject:{v32, v45, v46, v47, v48}])
+        v32 = *(*(&v54 + 1) + 8 * j);
+        if ([v27 containsObject:v32])
         {
           v33 = MBGetDefaultLog();
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
@@ -4334,38 +4274,34 @@ LABEL_25:
             {
               v35 = [v27 count];
               *buf = 138413058;
-              v75 = v32;
-              v76 = 2112;
-              v77 = personaIdentifier;
-              v78 = 2048;
-              v79 = v27;
-              v80 = 2048;
-              v81 = v35;
+              v70 = v32;
+              v71 = 2112;
+              v72 = personaIdentifier;
+              v73 = 2048;
+              v74 = v27;
+              v75 = 2048;
+              v76 = v35;
               _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Removing domain %@ from active set for personaID %@ (%p: count %lu)", buf, 0x2Au);
             }
 
-            v47 = v27;
-            v48 = [v27 count];
-            v45 = v32;
-            v46 = personaIdentifier;
-            _MBLog();
+            _MBLog(@"Df", "=ckrestore-engine= Removing domain %@ from active set for personaID %@ (%p: count %lu)", v32, personaIdentifier, v27, [v27 count]);
           }
 
           [v27 removeObject:v32];
         }
       }
 
-      v29 = [v28 countByEnumeratingWithState:&v59 objects:v72 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v54 objects:v67 count:16];
     }
 
     while (v29);
   }
 
   objc_sync_exit(v27);
-  v36 = v52;
+  v36 = v47;
 LABEL_63:
 
-  return v54;
+  return v49;
 }
 
 - (BOOL)_restoreBackgroundContainersUsingCKCacheForApp:(id)app error:(id *)error
@@ -4377,30 +4313,30 @@ LABEL_63:
     dispatch_once(&qword_100421600, &stru_1003BC648);
   }
 
-  v88 = objc_opt_new();
+  v87 = objc_opt_new();
   obj = objc_opt_class();
   objc_sync_enter(obj);
   [appCopy containers];
+  v106 = 0u;
   v107 = 0u;
-  v108 = 0u;
-  v105 = 0u;
-  v5 = v106 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v105 objects:v124 count:16];
+  v104 = 0u;
+  v5 = v105 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v104 objects:v123 count:16];
   if (v6)
   {
-    v91 = *v106;
+    v90 = *v105;
     while (2)
     {
-      v89 = v6;
-      for (i = 0; i != v89; i = i + 1)
+      v88 = v6;
+      for (i = 0; i != v88; i = i + 1)
       {
-        if (*v106 != v91)
+        if (*v105 != v90)
         {
           objc_enumerationMutation(v5);
         }
 
-        v8 = *(*(&v105 + 1) + 8 * i);
-        if ([(MBCKEngine *)self handleCancelation:error, name12])
+        v8 = *(*(&v104 + 1) + 8 * i);
+        if ([(MBCKEngine *)self handleCancelation:error])
         {
           goto LABEL_71;
         }
@@ -4418,201 +4354,195 @@ LABEL_63:
             *&buf[12] = 2112;
             *&buf[14] = containerTypeString;
             *&buf[22] = 2112;
-            v121 = bundleID;
+            v120 = bundleID;
             _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "=ckrestore-engine= Restoring container %@ (%@) as a dependent of %@", buf, 0x20u);
           }
 
           identifier2 = [v8 identifier];
           containerTypeString2 = [v8 containerTypeString];
-          v83 = bundleID;
-          name12 = identifier2;
-          _MBLog();
+          _MBLog(@"I ", "=ckrestore-engine= Restoring container %@ (%@) as a dependent of %@", identifier2, containerTypeString2, bundleID);
         }
 
-        v101 = 0;
-        v102 = &v101;
-        v103 = 0x2020000000;
-        v104 = 0;
+        v100 = 0;
+        v101 = &v100;
+        v102 = 0x2020000000;
+        v103 = 0;
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v121 = sub_100059C00;
-        v122 = sub_100059C10;
-        v123 = 0;
+        v120 = sub_100059C00;
+        v121 = sub_100059C10;
+        v122 = 0;
         cache = [(MBCKEngine *)self cache];
         domain = [v8 domain];
         name = [domain name];
-        v100[0] = _NSConcreteStackBlock;
-        v100[1] = 3221225472;
-        v100[2] = sub_10005F784;
-        v100[3] = &unk_1003BC670;
-        v100[4] = &v101;
-        v100[5] = buf;
-        v17 = [cache fetchDomainRestoreStateForDomain:name callback:v100];
+        v99[0] = _NSConcreteStackBlock;
+        v99[1] = 3221225472;
+        v99[2] = sub_10005F784;
+        v99[3] = &unk_1003BC670;
+        v99[4] = &v100;
+        v99[5] = buf;
+        v18 = [cache fetchDomainRestoreStateForDomain:name callback:v99];
 
-        if (v17)
+        if (v18)
         {
-          v53 = MBGetDefaultLog();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          v58 = MBGetDefaultLog();
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
-            v54 = v53;
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+            v59 = v58;
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
             {
               domain2 = [v8 domain];
               name2 = [domain2 name];
-              *v112 = 138412546;
-              v113 = name2;
-              v114 = 2112;
-              v115 = v17;
-              _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to fetch domain state for dependent container %@: %@", v112, 0x16u);
+              *v111 = 138412546;
+              v112 = name2;
+              v113 = 2112;
+              v114 = v18;
+              _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to fetch domain state for dependent container %@: %@", v111, 0x16u);
             }
 
             domain3 = [v8 domain];
             name3 = [domain3 name];
-            _MBLog();
+            _MBLog(@"E ", "=ckrestore-engine= Failed to fetch domain state for dependent container %@: %@", name3, v18);
           }
 
           if (error)
           {
 LABEL_69:
-            v63 = v17;
-            *error = v17;
+            v70 = v18;
+            *error = v18;
           }
 
 LABEL_70:
           _Block_object_dispose(buf, 8);
 
-          _Block_object_dispose(&v101, 8);
+          _Block_object_dispose(&v100, 8);
 LABEL_71:
 
-          v48 = obj;
+          v52 = obj;
           objc_sync_exit(obj);
-          v52 = 0;
+          v57 = 0;
           goto LABEL_72;
         }
 
-        if (v102[3] <= 3)
+        if (v101[3] <= 3)
         {
-          v18 = *&buf[8];
-          v19 = *(*&buf[8] + 40);
-          if (v19)
+          v19 = *&buf[8];
+          v20 = *(*&buf[8] + 40);
+          if (v20)
           {
-            v20 = [v19 isEqualToString:bundleID];
-            v18 = *&buf[8];
-            if ((v20 & 1) == 0)
+            v21 = [v20 isEqualToString:bundleID];
+            v19 = *&buf[8];
+            if ((v21 & 1) == 0)
             {
               if ([qword_1004215F8 containsObject:*(*&buf[8] + 40)])
               {
-                v65 = MBGetDefaultLog();
-                if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+                v72 = MBGetDefaultLog();
+                if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
                 {
-                  v66 = v65;
-                  if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+                  v73 = v72;
+                  if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
                   {
                     domain4 = [v8 domain];
                     name4 = [domain4 name];
-                    v69 = v102[3];
-                    v70 = *(*&buf[8] + 40);
-                    *v112 = 138413058;
-                    v113 = name4;
-                    v114 = 2048;
-                    v115 = v69;
-                    v116 = 2112;
-                    v117 = bundleID;
-                    v118 = 2112;
-                    v119 = v70;
-                    _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Dependent domain %@ (state:%ld) for %@ is being restored by agent %@", v112, 0x2Au);
+                    v76 = v101[3];
+                    v77 = *(*&buf[8] + 40);
+                    *v111 = 138413058;
+                    v112 = name4;
+                    v113 = 2048;
+                    v114 = v76;
+                    v115 = 2112;
+                    v116 = bundleID;
+                    v117 = 2112;
+                    v118 = v77;
+                    _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Dependent domain %@ (state:%ld) for %@ is being restored by agent %@", v111, 0x2Au);
                   }
 
                   domain5 = [v8 domain];
                   name5 = [domain5 name];
-                  v84 = *(*&buf[8] + 40);
-                  v82 = v102[3];
-                  _MBLog();
+                  _MBLog(@"E ", "=ckrestore-engine= Dependent domain %@ (state:%ld) for %@ is being restored by agent %@", name5, v101[3], bundleID, *(*&buf[8] + 40));
                 }
 
                 if (error)
                 {
                   domain6 = [v8 domain];
                   name6 = [domain6 name];
-                  v75 = [NSString stringWithFormat:@"Dependent domain %@ is being restored by agent %@", name6, *(*&buf[8] + 40)];
+                  v82 = [NSString stringWithFormat:@"Dependent domain %@ is being restored by agent %@", name6, *(*&buf[8] + 40)];
 
-                  v110[0] = NSLocalizedDescriptionKey;
-                  v110[1] = @"RetryAfter";
-                  v111[0] = v75;
-                  v111[1] = @"5";
-                  v76 = [NSDictionary dictionaryWithObjects:v111 forKeys:v110 count:2];
-                  *error = [NSError errorWithDomain:@"MBErrorDomain" code:17 userInfo:v76];
+                  v109[0] = NSLocalizedDescriptionKey;
+                  v109[1] = @"RetryAfter";
+                  v110[0] = v82;
+                  v110[1] = @"5";
+                  v83 = [NSDictionary dictionaryWithObjects:v110 forKeys:v109 count:2];
+                  *error = [NSError errorWithDomain:@"MBErrorDomain" code:17 userInfo:v83];
                 }
 
-                v17 = 0;
+                v18 = 0;
                 goto LABEL_70;
               }
 
-              v18 = *&buf[8];
+              v19 = *&buf[8];
             }
           }
 
-          v21 = *(v18 + 40);
-          if (v21 && ([v21 isEqualToString:bundleID] & 1) == 0)
+          v22 = *(v19 + 40);
+          if (v22 && ([v22 isEqualToString:bundleID] & 1) == 0)
           {
-            v22 = MBGetDefaultLog();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v23 = MBGetDefaultLog();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
-              v23 = v22;
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              v24 = v23;
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
-                v24 = v5;
-                v25 = *(*&buf[8] + 40);
+                v25 = v5;
+                v26 = *(*&buf[8] + 40);
                 domain7 = [v8 domain];
                 name7 = [domain7 name];
-                *v112 = 138412802;
-                v113 = v25;
-                v114 = 2112;
-                v115 = bundleID;
-                v116 = 2112;
-                v117 = name7;
-                _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Changing the dependent domain from %@ to %@ for dependent %@", v112, 0x20u);
+                *v111 = 138412802;
+                v112 = v26;
+                v113 = 2112;
+                v114 = bundleID;
+                v115 = 2112;
+                v116 = name7;
+                _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Changing the dependent domain from %@ to %@ for dependent %@", v111, 0x20u);
 
-                v5 = v24;
+                v5 = v25;
               }
 
-              v28 = *(*&buf[8] + 40);
+              v29 = *(*&buf[8] + 40);
               domain8 = [v8 domain];
-              [domain8 name];
-              v83 = containerTypeString2 = bundleID;
-              name12 = v28;
-              _MBLog();
+              name8 = [domain8 name];
+              _MBLog(@"Df", "=ckrestore-engine= Changing the dependent domain from %@ to %@ for dependent %@", v29, bundleID, name8);
             }
           }
 
-          v30 = [(MBCKEngine *)self cache:name12];
+          cache2 = [(MBCKEngine *)self cache];
           domain9 = [v8 domain];
-          name8 = [domain9 name];
-          v17 = [v30 setDomainRestoreAgent:bundleID forDomain:name8];
+          name9 = [domain9 name];
+          v18 = [cache2 setDomainRestoreAgent:bundleID forDomain:name9];
 
-          if (v17)
+          if (v18)
           {
-            v58 = MBGetDefaultLog();
-            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+            v64 = MBGetDefaultLog();
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
             {
-              v59 = v58;
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+              v65 = v64;
+              if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
               {
                 domain10 = [v8 domain];
-                name9 = [domain10 name];
-                *v112 = 138412802;
-                v113 = bundleID;
-                v114 = 2112;
-                v115 = name9;
-                v116 = 2112;
-                v117 = v17;
-                _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to set agent domain %@ for dependent %@: %@", v112, 0x20u);
+                name10 = [domain10 name];
+                *v111 = 138412802;
+                v112 = bundleID;
+                v113 = 2112;
+                v114 = name10;
+                v115 = 2112;
+                v116 = v18;
+                _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to set agent domain %@ for dependent %@: %@", v111, 0x20u);
               }
 
               domain11 = [v8 domain];
-              name10 = [domain11 name];
-              _MBLog();
+              name11 = [domain11 name];
+              _MBLog(@"E ", "=ckrestore-engine= Failed to set agent domain %@ for dependent %@: %@", bundleID, name11, v18);
             }
 
             if (error)
@@ -4623,15 +4553,15 @@ LABEL_71:
             goto LABEL_70;
           }
 
-          [v88 addObject:v8];
+          [v87 addObject:v8];
         }
 
         _Block_object_dispose(buf, 8);
 
-        _Block_object_dispose(&v101, 8);
+        _Block_object_dispose(&v100, 8);
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v105 objects:v124 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v104 objects:v123 count:16];
       if (v6)
       {
         continue;
@@ -4644,101 +4574,100 @@ LABEL_71:
   if ([v5 count] >= 2)
   {
     [qword_1004215F8 addObject:bundleID];
-    if ([v88 count])
+    if ([v87 count])
     {
-      cache2 = [(MBCKEngine *)self cache];
-      [cache2 flush];
+      cache3 = [(MBCKEngine *)self cache];
+      [cache3 flush];
     }
   }
 
   objc_sync_exit(obj);
-  [v88 sortUsingComparator:&stru_1003BC6B0];
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
+  [v87 sortUsingComparator:&stru_1003BC6B0];
   v97 = 0u;
-  obja = v88;
-  v92 = [obja countByEnumeratingWithState:&v96 objects:v109 count:16];
-  if (v92)
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
+  obja = v87;
+  v91 = [obja countByEnumeratingWithState:&v95 objects:v108 count:16];
+  if (v91)
   {
-    v90 = *v97;
+    v89 = *v96;
     while (2)
     {
-      for (j = 0; j != v92; j = j + 1)
+      for (j = 0; j != v91; j = j + 1)
       {
-        if (*v97 != v90)
+        if (*v96 != v89)
         {
           objc_enumerationMutation(obja);
         }
 
-        domain12 = [*(*(&v96 + 1) + 8 * j) domain];
+        domain12 = [*(*(&v95 + 1) + 8 * j) domain];
         if ([(MBCKEngine *)self handleCancelation:error])
         {
 
 LABEL_63:
-          v52 = 0;
-          v48 = obja;
+          v57 = 0;
+          v52 = obja;
           goto LABEL_72;
         }
 
-        v36 = objc_autoreleasePoolPush();
-        v37 = MBGetDefaultLog();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v38 = objc_autoreleasePoolPush();
+        v39 = MBGetDefaultLog();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = v37;
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v40 = v39;
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
-            name11 = [domain12 name];
+            name12 = [domain12 name];
             *buf = 138412290;
-            *&buf[4] = name11;
-            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Beginning restore for %@", buf, 0xCu);
+            *&buf[4] = name12;
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Beginning restore for %@", buf, 0xCu);
           }
 
-          name12 = [domain12 name];
-          _MBLog();
+          name13 = [domain12 name];
+          _MBLog(@"Df", "=ckrestore-engine= Beginning restore for %@", name13);
         }
 
-        v40 = [[MBCKRestoreDomainEngine alloc] initWithRestoreEngine:self enumeratorCache:0 domain:domain12];
-        v95 = 0;
-        v41 = [(MBCKRestoreDomainEngine *)v40 runWithError:&v95];
-        v42 = v95;
-        if ((v41 & 1) == 0)
+        v43 = [[MBCKRestoreDomainEngine alloc] initWithRestoreEngine:self enumeratorCache:0 domain:domain12];
+        v94 = 0;
+        v44 = [(MBCKRestoreDomainEngine *)v43 runWithError:&v94];
+        v45 = v94;
+        if ((v44 & 1) == 0)
         {
-          v43 = MBGetDefaultLog();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v46 = MBGetDefaultLog();
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
-            v44 = v43;
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+            v47 = v46;
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
-              name13 = [domain12 name];
+              name14 = [domain12 name];
               *buf = 138412546;
-              *&buf[4] = name13;
+              *&buf[4] = name14;
               *&buf[12] = 2112;
-              *&buf[14] = v42;
-              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to restore domain %@: %@", buf, 0x16u);
+              *&buf[14] = v45;
+              _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to restore domain %@: %@", buf, 0x16u);
             }
 
-            name12 = [domain12 name];
-            containerTypeString2 = v42;
-            _MBLog();
+            name15 = [domain12 name];
+            _MBLog(@"E ", "=ckrestore-engine= Failed to restore domain %@: %@", name15, v45);
           }
         }
 
-        objc_autoreleasePoolPop(v36);
+        objc_autoreleasePoolPop(v38);
         if (error)
         {
-          v46 = v42;
-          *error = v42;
+          v50 = v45;
+          *error = v45;
         }
 
-        if (!v41)
+        if (!v44)
         {
           goto LABEL_63;
         }
       }
 
-      v92 = [obja countByEnumeratingWithState:&v96 objects:v109 count:16];
-      if (v92)
+      v91 = [obja countByEnumeratingWithState:&v95 objects:v108 count:16];
+      if (v91)
       {
         continue;
       }
@@ -4747,32 +4676,32 @@ LABEL_63:
     }
   }
 
-  v47 = MBGetDefaultLog();
-  v48 = v47;
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+  v51 = MBGetDefaultLog();
+  v52 = v51;
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
   {
     domain13 = [appCopy domain];
-    name14 = [domain13 name];
+    name16 = [domain13 name];
     *buf = 138412290;
-    *&buf[4] = name14;
-    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Restored domain %@ successfully", buf, 0xCu);
+    *&buf[4] = name16;
+    _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Restored domain %@ successfully", buf, 0xCu);
 
     domain14 = [appCopy domain];
-    name15 = [domain14 name];
-    _MBLog();
+    name17 = [domain14 name];
+    _MBLog(@"Df", "=ckrestore-engine= Restored domain %@ successfully", name17);
 
-    v52 = 1;
-    v48 = v47;
+    v57 = 1;
+    v52 = v51;
   }
 
   else
   {
-    v52 = 1;
+    v57 = 1;
   }
 
 LABEL_72:
 
-  return v52;
+  return v57;
 }
 
 - (id)_populatedRestorePlan
@@ -4792,14 +4721,10 @@ LABEL_72:
       *buf = 138412290;
       v15 = v7;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to load restore plan: %@", buf, 0xCu);
-LABEL_10:
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Failed to load restore plan: %@", v7);
     }
 
-LABEL_11:
-
-    v11 = 0;
-    goto LABEL_12;
+    goto LABEL_10;
   }
 
   isPopulated = [v6 isPopulated];
@@ -4811,9 +4736,12 @@ LABEL_11:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "=ckrestore-engine= No plan", buf, 2u);
-      goto LABEL_10;
+      _MBLog(@"I ", "=ckrestore-engine= No plan");
     }
 
+LABEL_10:
+
+    v11 = 0;
     goto LABEL_11;
   }
 
@@ -4821,11 +4749,11 @@ LABEL_11:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "=ckrestore-engine= Plan populated", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "=ckrestore-engine= Plan populated");
   }
 
   v11 = v6;
-LABEL_12:
+LABEL_11:
 
   return v11;
 }
@@ -5045,27 +4973,27 @@ LABEL_17:
   {
     selfCopy = self;
     domainManager = [(MBEngine *)self domainManager];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v35 = v7;
+    v34 = v7;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v44 objects:v51 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v43 objects:v50 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v45;
+      v12 = *v44;
       do
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v45 != v12)
+          if (*v44 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v44 + 1) + 8 * i);
+          v14 = *(*(&v43 + 1) + 8 * i);
           v15 = objc_autoreleasePoolPush();
           v16 = [cache fetchRestorableFileForPath:v14 error:0];
           v17 = v16;
@@ -5079,15 +5007,14 @@ LABEL_17:
               [v17 setupWithDomain:v19];
             }
 
-            [(MBCKRestoreFilePrefetchEngine *)v8 prefetchRecord:v17, v34];
+            [(MBCKRestoreFilePrefetchEngine *)v8 prefetchRecord:v17];
             v20 = MBGetDefaultLog();
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v50 = v14;
+              v49 = v14;
               _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Found Legacy file by absolute path: %@", buf, 0xCu);
-              v34 = v14;
-              _MBLog();
+              _MBLog(@"Df", "=ckrestore-engine= Found Legacy file by absolute path: %@", v14);
             }
           }
 
@@ -5097,17 +5024,16 @@ LABEL_17:
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v50 = v14;
+              v49 = v14;
               _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to find file by absolute path: %@", buf, 0xCu);
-              v34 = v14;
-              _MBLog();
+              _MBLog(@"E ", "=ckrestore-engine= Failed to find file by absolute path: %@", v14);
             }
           }
 
           objc_autoreleasePoolPop(v15);
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v44 objects:v51 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v43 objects:v50 count:16];
       }
 
       while (v11);
@@ -5117,27 +5043,27 @@ LABEL_17:
     [(MBCKRestoreFilePrefetchEngine *)v8 waitForPrefetchCompletion];
 
     objc_autoreleasePoolPop(v21);
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v22 = v9;
-    v23 = [v22 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v41;
+      v25 = *v40;
       while (2)
       {
         for (j = 0; j != v24; j = j + 1)
         {
-          if (*v41 != v25)
+          if (*v40 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v40 + 1) + 8 * j);
-          if ([(MBCKEngine *)selfCopy handleCancelation:cacheCopy, v34])
+          v27 = *(*(&v39 + 1) + 8 * j);
+          if ([(MBCKEngine *)selfCopy handleCancelation:cacheCopy])
           {
             goto LABEL_34;
           }
@@ -5146,10 +5072,9 @@ LABEL_17:
           if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v50 = v27;
+            v49 = v27;
             _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "=ckrestore-engine= Starting restore for %@", buf, 0xCu);
-            v34 = v27;
-            _MBLog();
+            _MBLog(@"I ", "=ckrestore-engine= Starting restore for %@", v27);
           }
 
           v29 = objc_autoreleasePoolPush();
@@ -5166,7 +5091,7 @@ LABEL_34:
           }
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v39 objects:v47 count:16];
         v31 = 1;
         if (v24)
         {
@@ -5185,7 +5110,7 @@ LABEL_34:
 LABEL_35:
 
     v8 = 0;
-    v7 = v35;
+    v7 = v34;
   }
 
   else
@@ -5237,7 +5162,7 @@ LABEL_35:
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Restored file(%@) at %@", buf, 0x16u);
 
         fileID2 = [v9 fileID];
-        _MBLog();
+        _MBLog(@"Df", "=ckrestore-engine= Restored file(%@) at %@", fileID2, fileCopy);
       }
 
       v10 = 0;
@@ -5257,7 +5182,7 @@ LABEL_35:
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to restore file(%@) at %@: %@", buf, 0x20u);
 
         fileID4 = [v9 fileID];
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to restore file(%@) at %@: %@", fileID4, fileCopy, v17);
       }
 
       v10 = v17;
@@ -5267,28 +5192,28 @@ LABEL_35:
   else
   {
     v17 = MBGetDefaultLog();
-    v21 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    v22 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
     if (v10)
     {
-      if (v21)
+      if (v22)
       {
         *buf = 138412546;
         v29 = fileCopy;
         v30 = 2112;
         v31 = v10;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to fetch file %@ from RestoreFiles table: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to fetch file %@ from RestoreFiles table: %@", fileCopy, v10);
       }
     }
 
     else
     {
-      if (v21)
+      if (v22)
       {
         *buf = 138412290;
         v29 = fileCopy;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to find file %@ in the RestoreFiles table", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to find file %@ in the RestoreFiles table", fileCopy);
       }
 
       v10 = 0;
@@ -5390,18 +5315,18 @@ LABEL_35:
 
         else
         {
-          v35 = MBGetDefaultLog();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v37 = MBGetDefaultLog();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             bundleID3 = [entitlementsCopy bundleID];
             *buf = 138412546;
             v45 = bundleID3;
             v46 = 2112;
             v47 = v26;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to set placeholder entitlements file attributes for %@: %@", buf, 0x16u);
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to set placeholder entitlements file attributes for %@: %@", buf, 0x16u);
 
             bundleID4 = [entitlementsCopy bundleID];
-            _MBLog();
+            _MBLog(@"E ", "=ckrestore-engine= Failed to set placeholder entitlements file attributes for %@: %@", bundleID4, v26);
           }
 
           if (error)
@@ -5420,23 +5345,23 @@ LABEL_35:
         goto LABEL_28;
       }
 
-      v32 = MBGetDefaultLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = MBGetDefaultLog();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         bundleID5 = [entitlementsCopy bundleID];
         *buf = 138412546;
         v45 = bundleID5;
         v46 = 2112;
         v47 = v22;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to restore placeholder entitlement for %@: %@", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to restore placeholder entitlement for %@: %@", buf, 0x16u);
 
         bundleID6 = [entitlementsCopy bundleID];
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to restore placeholder entitlement for %@: %@", bundleID6, v22);
       }
 
       if (error)
       {
-        v34 = v22;
+        v36 = v22;
         v27 = 0;
         *error = v22;
         goto LABEL_28;
@@ -5454,7 +5379,7 @@ LABEL_35:
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to restore placeholder entitlements for %@: parent directory is a file", buf, 0xCu);
 
         bundleID8 = [entitlementsCopy bundleID];
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to restore placeholder entitlements for %@: parent directory is a file", bundleID8);
       }
 
       if (error)
@@ -5476,7 +5401,7 @@ LABEL_35:
     *buf = 138543362;
     v45 = stringByDeletingLastPathComponent;
     _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Application placeholder does not exist at %{public}@ - not setting entitlements", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "=ckrestore-engine= Application placeholder does not exist at %{public}@ - not setting entitlements", stringByDeletingLastPathComponent);
   }
 
   v22 = 0;
@@ -5503,12 +5428,12 @@ LABEL_28:
       [(MBCKSnapshot *)v6 snapshotFormat];
       v8 = MBStringForSnapshotFormat();
       *buf = 138412290;
-      v41 = v8;
+      v40 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Skipping restoreEntitlements for snapshot format %@", buf, 0xCu);
 
       [(MBCKSnapshot *)v6 snapshotFormat];
       v9 = MBStringForSnapshotFormat();
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Skipping restoreEntitlements for snapshot format %@", v9);
       LOBYTE(v10) = 1;
       goto LABEL_40;
     }
@@ -5523,9 +5448,9 @@ LABEL_28:
     goto LABEL_42;
   }
 
-  v39 = 0;
-  v9 = [(MBCKRestoreEngine *)self getEntitlementsForDomainsWithError:&v39];
-  v11 = v39;
+  v38 = 0;
+  v9 = [(MBCKRestoreEngine *)self getEntitlementsForDomainsWithError:&v38];
+  v11 = v38;
   if (v11)
   {
     v7 = v11;
@@ -5533,9 +5458,9 @@ LABEL_28:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v41 = v7;
+      v40 = v7;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to get entitlements for domains: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=ckrestore-engine= Failed to get entitlements for domains: %@", v7);
     }
 
     if (error)
@@ -5553,33 +5478,33 @@ LABEL_28:
     goto LABEL_40;
   }
 
-  v30 = v6;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v29 = v6;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v9 = v9;
-  v33 = [v9 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v32 = [v9 countByEnumeratingWithState:&v34 objects:v43 count:16];
   v7 = 0;
   v10 = 1;
-  if (!v33)
+  if (!v32)
   {
     goto LABEL_39;
   }
 
-  v32 = *v36;
+  v31 = *v35;
   while (2)
   {
-    v31 = v10;
-    for (i = 0; i != v33; i = i + 1)
+    v30 = v10;
+    for (i = 0; i != v32; i = i + 1)
     {
-      if (*v36 != v32)
+      if (*v35 != v31)
       {
         objc_enumerationMutation(v9);
       }
 
-      v15 = *(*(&v35 + 1) + 8 * i);
-      if ([(MBCKEngine *)self handleCancelation:error, bundleID3, v29])
+      v15 = *(*(&v34 + 1) + 8 * i);
+      if ([(MBCKEngine *)self handleCancelation:error])
       {
         LOBYTE(v10) = 0;
         goto LABEL_39;
@@ -5597,11 +5522,11 @@ LABEL_28:
         {
           bundleID2 = [v16 bundleID];
           *buf = 138412290;
-          v41 = bundleID2;
+          v40 = bundleID2;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=ckrestore-engine= Skipping restore of entitlements for system app %@", buf, 0xCu);
 
           bundleID3 = [v16 bundleID];
-          _MBLog();
+          _MBLog(@"I ", "=ckrestore-engine= Skipping restore of entitlements for system app %@", bundleID3);
         }
 
 LABEL_33:
@@ -5612,39 +5537,37 @@ LABEL_33:
       relativePath = [v16 relativePath];
 
       v20 = MBGetDefaultLog();
-      v23 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+      v24 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
       if (!relativePath)
       {
-        if (v23)
+        if (v24)
         {
           *buf = 138412290;
-          v41 = v15;
+          v40 = v15;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=ckrestore-engine= Not creating placeholder entitlement for %@", buf, 0xCu);
-          bundleID3 = v15;
-          _MBLog();
+          _MBLog(@"I ", "=ckrestore-engine= Not creating placeholder entitlement for %@", v15);
         }
 
         goto LABEL_33;
       }
 
-      if (v23)
+      if (v24)
       {
         *buf = 138412290;
-        v41 = v15;
+        v40 = v15;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=ckrestore-engine= Creating placeholder entitlement for %@", buf, 0xCu);
-        bundleID3 = v15;
-        _MBLog();
+        _MBLog(@"I ", "=ckrestore-engine= Creating placeholder entitlement for %@", v15);
       }
 
-      v34 = 0;
-      v24 = [(MBCKRestoreEngine *)self _restoreEntitlements:v16 withError:&v34];
-      v25 = v34;
-      v7 = v25;
-      if ((v24 & 1) == 0)
+      v33 = 0;
+      v25 = [(MBCKRestoreEngine *)self _restoreEntitlements:v16 withError:&v33];
+      v26 = v33;
+      v7 = v26;
+      if ((v25 & 1) == 0)
       {
         if (error)
         {
-          v26 = v25;
+          v27 = v26;
           *error = v7;
         }
 
@@ -5652,25 +5575,23 @@ LABEL_33:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v41 = v15;
-          v42 = 2112;
-          v43 = v7;
+          v40 = v15;
+          v41 = 2112;
+          v42 = v7;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Error writing placeholder entitlement for %@: %@", buf, 0x16u);
-          bundleID3 = v15;
-          v29 = v7;
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= Error writing placeholder entitlement for %@: %@", v15, v7);
         }
 
-        v31 = 0;
+        v30 = 0;
         goto LABEL_33;
       }
 
 LABEL_34:
     }
 
-    v10 = v31;
-    v33 = [v9 countByEnumeratingWithState:&v35 objects:v44 count:16];
-    if (v33)
+    v10 = v30;
+    v32 = [v9 countByEnumeratingWithState:&v34 objects:v43 count:16];
+    if (v32)
     {
       continue;
     }
@@ -5680,7 +5601,7 @@ LABEL_34:
 
 LABEL_39:
 
-  v6 = v30;
+  v6 = v29;
 LABEL_40:
 
 LABEL_41:
@@ -5696,7 +5617,7 @@ LABEL_42:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Getting entitlements for domains", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "=ckrestore-engine= Getting entitlements for domains");
   }
 
   v5 = objc_alloc_init(NSMutableDictionary);
@@ -5748,7 +5669,7 @@ LABEL_42:
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Error fetching manifests for snapshot %@: %@", buf, 0x16u);
 
             snapshotID2 = [v10 snapshotID];
-            _MBLog();
+            _MBLog(@"E ", "=ckrestore-engine= Error fetching manifests for snapshot %@: %@", snapshotID2, v13);
           }
 
           v14 = 0;
@@ -5787,7 +5708,7 @@ LABEL_17:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Not annotating the restored data", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Not annotating the restored data");
     }
 
     v8 = 1;
@@ -5803,7 +5724,7 @@ LABEL_18:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Annotating restored data", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Annotating restored data");
     }
 
     +[NSDate timeIntervalSinceReferenceDate];
@@ -5827,10 +5748,10 @@ LABEL_18:
       {
         +[NSDate timeIntervalSinceReferenceDate];
         *buf = 134217984;
-        v24 = v21 - v11;
+        v25 = v21 - v11;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "=ckrestore-engine= Finished annotating all restored domains in %0.3f s", buf, 0xCu);
         +[NSDate timeIntervalSinceReferenceDate];
-        _MBLog();
+        _MBLog(@"I ", "=ckrestore-engine= Finished annotating all restored domains in %0.3f s", v22 - v11);
       }
     }
 
@@ -5839,9 +5760,9 @@ LABEL_18:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = v17;
+        v25 = v17;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to annotate all restored domains: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Failed to annotate all restored domains: %@", *&v17);
       }
 
       if (error)
@@ -5892,7 +5813,7 @@ LABEL_17:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Successfully verified intermediate directories for foreground restore", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "=ckrestore-engine= Successfully verified intermediate directories for foreground restore");
       }
 
       v17 = @"PASS";
@@ -5910,7 +5831,7 @@ LABEL_17:
           *buf = 138412290;
           v28 = v15;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to verify intermediate directory for foreground restore %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= Failed to verify intermediate directory for foreground restore %@", v15);
         }
 
         [(MBCKRestoreEngine *)self setForegroundRestoreVerificationStatus:@"FAIL"];
@@ -5945,7 +5866,7 @@ LABEL_16:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Cancelled verifying intermediate directories for foreground restore", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "=ckrestore-engine= Cancelled verifying intermediate directories for foreground restore");
       }
 
       v17 = @"CANCELLED";
@@ -5981,7 +5902,7 @@ LABEL_16:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Finalizing foreground restore", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=ckrestore-engine= Finalizing foreground restore");
     }
 
     restorePolicy = [(MBCKRestoreEngine *)self restorePolicy];
@@ -5991,42 +5912,15 @@ LABEL_16:
     v13 = v12;
     if (v11)
     {
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_16;
+        *buf = 138412290;
+        v56 = v11;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to notify plugins of endingRestoreWithEngine: %@", buf, 0xCu);
+        _MBLog(@"E ", "=ckrestore-engine= Failed to notify plugins of endingRestoreWithEngine: %@", v11);
       }
 
-      *buf = 138412290;
-      v56 = v11;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to notify plugins of endingRestoreWithEngine: %@", buf, 0xCu);
-      goto LABEL_15;
-    }
-
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=ckrestore-engine= Notifying plugins of endedRestoreWithEngine:", buf, 2u);
-      _MBLog();
-    }
-
-    restorePolicy2 = [(MBCKRestoreEngine *)self restorePolicy];
-    engineError = [(MBCKEngine *)self engineError];
-    v11 = [restorePolicy2 notifyPluginsEndedRestoreWithEngine:self error:engineError];
-
-    if (v11)
-    {
-      v13 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_16;
-      }
-
-      *buf = 138412290;
-      v56 = v11;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to notify plugins of endedRestoreWithEngine:error: %@", buf, 0xCu);
 LABEL_15:
-      _MBLog();
-LABEL_16:
 
       if (error)
       {
@@ -6040,7 +5934,32 @@ LABEL_16:
         v16 = 0;
       }
 
-      goto LABEL_42;
+      goto LABEL_40;
+    }
+
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=ckrestore-engine= Notifying plugins of endedRestoreWithEngine:", buf, 2u);
+      _MBLog(@"I ", "=ckrestore-engine= Notifying plugins of endedRestoreWithEngine:");
+    }
+
+    restorePolicy2 = [(MBCKRestoreEngine *)self restorePolicy];
+    engineError = [(MBCKEngine *)self engineError];
+    v11 = [restorePolicy2 notifyPluginsEndedRestoreWithEngine:self error:engineError];
+
+    if (v11)
+    {
+      v13 = MBGetDefaultLog();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v56 = v11;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to notify plugins of endedRestoreWithEngine:error: %@", buf, 0xCu);
+        _MBLog(@"E ", "=ckrestore-engine= Failed to notify plugins of endedRestoreWithEngine:error: %@", v11);
+      }
+
+      goto LABEL_15;
     }
 
     device = [(MBCKEngine *)self device];
@@ -6056,7 +5975,7 @@ LABEL_16:
         *buf = 138412290;
         v56 = v22;
         _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Unable to save restore keybags for device: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=ckrestore-engine= Unable to save restore keybags for device: %@", v22);
       }
 
       if (error)
@@ -6071,7 +5990,7 @@ LABEL_16:
         v16 = 0;
       }
 
-      goto LABEL_41;
+      goto LABEL_39;
     }
 
     persona = [(MBCKEngine *)self persona];
@@ -6128,18 +6047,18 @@ LABEL_16:
           *buf = 138412290;
           v56 = v42;
           _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed closing restore plan: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "=ckrestore-engine= Failed closing restore plan: %@", v42);
         }
 
         if (!error)
         {
           v16 = 0;
           v39 = v42;
-          goto LABEL_40;
+          goto LABEL_38;
         }
 
         v39 = v42;
-        goto LABEL_39;
+        goto LABEL_37;
       }
 
       v51 = v42;
@@ -6149,55 +6068,50 @@ LABEL_16:
       if (v43)
       {
         v16 = 1;
-LABEL_40:
+LABEL_38:
 
         v22 = v39;
-LABEL_41:
+LABEL_39:
 
         v11 = 0;
-LABEL_42:
+LABEL_40:
 
-        goto LABEL_43;
+        goto LABEL_41;
       }
 
       v46 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-LABEL_32:
-
-        if (!error)
-        {
-          v16 = 0;
-          goto LABEL_40;
-        }
-
-LABEL_39:
-        v48 = v39;
-        v16 = 0;
-        *error = v39;
-        goto LABEL_40;
+        *buf = 138412290;
+        v56 = v39;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to move restore sandboxes into place: %@", buf, 0xCu);
+        _MBLog(@"E ", "=ckrestore-engine= Failed to move restore sandboxes into place: %@", v39);
       }
-
-      *buf = 138412290;
-      v56 = v39;
-      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to move restore sandboxes into place: %@", buf, 0xCu);
     }
 
     else
     {
       v46 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_32;
+        *buf = 138412290;
+        v56 = v39;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to set up MobileBackup preferences for background restore: %@", buf, 0xCu);
+        _MBLog(@"E ", "=ckrestore-engine= Failed to set up MobileBackup preferences for background restore: %@", v39);
       }
-
-      *buf = 138412290;
-      v56 = v39;
-      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to set up MobileBackup preferences for background restore: %@", buf, 0xCu);
     }
 
-    _MBLog();
-    goto LABEL_32;
+    if (!error)
+    {
+      v16 = 0;
+      goto LABEL_38;
+    }
+
+LABEL_37:
+    v48 = v39;
+    v16 = 0;
+    *error = v39;
+    goto LABEL_38;
   }
 
   databaseManager = [v6 databaseManager];
@@ -6205,7 +6119,7 @@ LABEL_39:
   [databaseManager setShouldSupportBudgeting:0 account:account];
 
   v16 = 1;
-LABEL_43:
+LABEL_41:
 
   return v16;
 }
@@ -6253,57 +6167,51 @@ LABEL_43:
       LOBYTE(v13) = 0;
     }
 
-    else
+    else if ([persona isDataSeparatedPersona])
     {
-      if ([persona isDataSeparatedPersona])
+      v10 = MBGetDefaultLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = MBGetDefaultLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Installing the app placeholders for the data-separated foreground restore", buf, 2u);
-          _MBLog();
-        }
-
-        v11 = objc_opt_new();
-        v12 = [[_TtC7backupd14MigratorConfig alloc] initWithDataSeparatedAccount:v6];
-        v13 = [v11 performMigrationWithConfig:v12 error:error];
-        v14 = MBGetDefaultLog();
-        v15 = v14;
-        if (v13)
-        {
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Finished installing the app placeholders for the data-separated foreground restore", buf, 2u);
-LABEL_17:
-            _MBLog();
-          }
-        }
-
-        else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-        {
-          v16 = *error;
-          *buf = 138543362;
-          v20 = v16;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to install the app placeholders for the data-separated foreground restore: %{public}@", buf, 0xCu);
-          v18 = *error;
-          goto LABEL_17;
-        }
-
-        goto LABEL_19;
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Installing the app placeholders for the data-separated foreground restore", buf, 2u);
+        _MBLog(@"Df", "=ckrestore-engine= Installing the app placeholders for the data-separated foreground restore");
       }
 
-      LOBYTE(v13) = 1;
+      v11 = objc_opt_new();
+      v12 = [[_TtC7backupd14MigratorConfig alloc] initWithDataSeparatedAccount:v6];
+      v13 = [v11 performMigrationWithConfig:v12 error:error];
+      v14 = MBGetDefaultLog();
+      v15 = v14;
+      if (v13)
+      {
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=ckrestore-engine= Finished installing the app placeholders for the data-separated foreground restore", buf, 2u);
+          _MBLog(@"Df", "=ckrestore-engine= Finished installing the app placeholders for the data-separated foreground restore");
+        }
+      }
+
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v16 = *error;
+        *buf = 138543362;
+        v19 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "=ckrestore-engine= Failed to install the app placeholders for the data-separated foreground restore: %{public}@", buf, 0xCu);
+        _MBLog(@"E ", "=ckrestore-engine= Failed to install the app placeholders for the data-separated foreground restore: %{public}@", *error);
+      }
     }
 
-LABEL_19:
-
-    goto LABEL_20;
+    else
+    {
+      LOBYTE(v13) = 1;
+    }
   }
 
-  LOBYTE(v13) = 1;
-LABEL_20:
+  else
+  {
+    LOBYTE(v13) = 1;
+  }
 
   return v13;
 }

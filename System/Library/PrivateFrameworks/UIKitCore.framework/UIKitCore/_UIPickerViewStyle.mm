@@ -71,7 +71,7 @@
 - (void)configureMaskGradientLayer:(id)layer
 {
   layerCopy = layer;
-  v5 = +[UIColor blackColor];
+  v5 = objc_msgSend_blackColor(UIColor);
   v4 = v5;
   [layerCopy setBackgroundColor:{objc_msgSend(v5, "CGColor")}];
 }

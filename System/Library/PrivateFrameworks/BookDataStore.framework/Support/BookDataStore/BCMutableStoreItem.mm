@@ -14,7 +14,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C33F8();
@@ -58,7 +58,7 @@ LABEL_7:
 
     else
     {
-      storeID = sub_100002660();
+      storeID = sub_100002660(0);
       if (os_log_type_enabled(storeID, OS_LOG_TYPE_ERROR))
       {
         sub_1001C327C();
@@ -77,7 +77,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C342C();

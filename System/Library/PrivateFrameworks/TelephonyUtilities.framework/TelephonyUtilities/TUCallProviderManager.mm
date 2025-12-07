@@ -122,14 +122,15 @@ LABEL_8:
 - (TUCallProvider)telephonyProvider
 {
   v10 = *MEMORY[0x1E69E9840];
-  if (TUShouldUseSuperboxTelephonyProvider())
+  v3 = TUShouldUseSuperboxTelephonyProvider();
+  if (v3)
   {
-    v3 = TUDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = TUDefaultLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = @"TUShouldUseSuperBoxTelephonyProvider";
-      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Because this is an internal install and the %@ default is set, com.apple.Superbox (aka Speakerbox)                     is acting as the telephony provider", &v8, 0xCu);
+      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Because this is an internal install and the %@ default is set, com.apple.Superbox (aka Speakerbox)                     is acting as the telephony provider", &v8, 0xCu);
     }
 
     superboxProvider = [(TUCallProviderManager *)self superboxProvider];
@@ -140,8 +141,6 @@ LABEL_8:
     providersByIdentifier = [(TUCallProviderManager *)self providersByIdentifier];
     superboxProvider = [providersByIdentifier objectForKeyedSubscript:@"com.apple.coretelephony"];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return superboxProvider;
 }
@@ -402,90 +401,88 @@ void __40__TUCallProviderManager_removeDelegate___block_invoke(uint64_t a1)
 
 - (id)providersPassingTest:(id)test
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   testCopy = test;
   v5 = objc_alloc(MEMORY[0x1E695DF70]);
   providers = [(TUCallProviderManager *)self providers];
   v7 = [v5 initWithCapacity:{objc_msgSend(providers, "count")}];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   providers2 = [(TUCallProviderManager *)self providers];
-  v9 = [providers2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [providers2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(providers2);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         if (testCopy[2](testCopy, v13))
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [providers2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [providers2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   v14 = [v7 copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (id)sortedProvidersPassingTest:(id)test
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   testCopy = test;
   sortedProviders = [(TUCallProviderManager *)self sortedProviders];
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(sortedProviders, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = sortedProviders;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if (testCopy[2](testCopy, v12))
         {
-          [v6 addObject:{v12, v16}];
+          [v6 addObject:{v12, v15}];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   v13 = [v6 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -545,7 +542,7 @@ LABEL_13:
 
 - (NSArray)sortedProviders
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   featureFlags = [(TUCallProviderManager *)self featureFlags];
   if (([featureFlags defaultAppsEnabled] & 1) == 0)
   {
@@ -560,8 +557,8 @@ LABEL_13:
   {
 LABEL_6:
     telephonyProvider = [(TUCallProviderManager *)self telephonyProvider];
-    v13 = telephonyProvider;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+    v12 = telephonyProvider;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
     goto LABEL_7;
   }
 
@@ -578,11 +575,10 @@ LABEL_7:
   }
 
   telephonyProvider2 = [(TUCallProviderManager *)self telephonyProvider];
-  v14[0] = telephonyProvider2;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = telephonyProvider2;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
 
 LABEL_8:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -717,7 +713,7 @@ uint64_t __73__TUCallProviderManager_providerForFavoritesEntryActionBundleIdenti
   v32 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  v8 = TUDefaultLog();
+  v8 = TUDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -740,21 +736,21 @@ uint64_t __73__TUCallProviderManager_providerForFavoritesEntryActionBundleIdenti
       v24 = completionCopy;
       [dataSource launchAppForDialRequest:requestCopy completion:v23];
 
-      v16 = v24;
+      v17 = v24;
       goto LABEL_16;
     }
 
-    v11 = TUDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = TUDefaultLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Opening URL because dial request is using a system provider", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "Opening URL because dial request is using a system provider", buf, 2u);
     }
 
     dialType = [requestCopy dialType];
     launchInBackground = [requestCopy launchInBackground];
     dataSource2 = [(TUCallProviderManager *)self dataSource];
-    v15 = [requestCopy URL];
+    v16 = [requestCopy URL];
     if (dialType != 1 && launchInBackground)
     {
       v25[0] = MEMORY[0x1E69E9820];
@@ -762,47 +758,45 @@ uint64_t __73__TUCallProviderManager_providerForFavoritesEntryActionBundleIdenti
       v25[2] = __60__TUCallProviderManager_launchAppForDialRequest_completion___block_invoke;
       v25[3] = &unk_1E7424A10;
       v26 = completionCopy;
-      [dataSource2 openURL:v15 shouldActivate:0 completionHandler:v25];
+      [dataSource2 openURL:v16 shouldActivate:0 completionHandler:v25];
 
-      v16 = v26;
+      v17 = v26;
 LABEL_16:
 
       completionCopy = 0;
-      v20 = 0;
+      v21 = 0;
       goto LABEL_17;
     }
 
     v27 = 0;
-    [dataSource2 openURL:v15 isSensitive:dialType == 1 error:&v27];
-    v19 = v27;
+    [dataSource2 openURL:v16 isSensitive:dialType == 1 error:&v27];
+    v20 = v27;
   }
 
   else
   {
     dataSource2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot launch app for invalid dial request: %@", requestCopy];
-    v17 = TUDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = TUDefaultLog(dataSource2);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [TUCallProviderManager launchAppForDialRequest:dataSource2 completion:v17];
+      [TUCallProviderManager launchAppForDialRequest:dataSource2 completion:v18];
     }
 
-    v18 = MEMORY[0x1E696ABC0];
+    v19 = MEMORY[0x1E696ABC0];
     v28 = *MEMORY[0x1E696A578];
     v29 = dataSource2;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v19 = [v18 errorWithDomain:@"com.apple.TelephonyUtilities" code:1 userInfo:v15];
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v20 = [v19 errorWithDomain:@"com.apple.TelephonyUtilities" code:1 userInfo:v16];
   }
 
-  v20 = v19;
+  v21 = v20;
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, v20);
+    completionCopy[2](completionCopy, v21);
   }
 
 LABEL_17:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __60__TUCallProviderManager_launchAppForDialRequest_completion___block_invoke(uint64_t a1, void *a2)
@@ -852,28 +846,28 @@ void __60__TUCallProviderManager_launchAppForDialRequest_completion___block_invo
 
 void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = [*(a1 + 32) delegateToQueue];
-  v2 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v15;
+    v4 = *v14;
     do
     {
       v5 = 0;
       do
       {
-        if (*v15 != v4)
+        if (*v14 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v14 + 1) + 8 * v5);
+        v6 = *(*(&v13 + 1) + 8 * v5);
         v7 = [*(a1 + 32) delegateToQueue];
         v8 = [v7 objectForKey:v6];
 
@@ -890,19 +884,18 @@ void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke(ui
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v3);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3;
-  v12[3] = &unk_1E7424950;
-  v12[4] = *(a1 + 32);
-  dispatch_async(MEMORY[0x1E69E96A0], v12);
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3;
+  v11[3] = &unk_1E7424950;
+  v11[4] = *(a1 + 32);
+  dispatch_async(MEMORY[0x1E69E96A0], v11);
 }
 
 void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3(uint64_t a1)
@@ -913,7 +906,7 @@ void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3(
 
 - (id)dialRequestForRecentCall:(id)call
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   callCopy = call;
   v5 = [(TUCallProviderManager *)self providerForRecentCall:callCopy];
   if (v5)
@@ -929,15 +922,15 @@ void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3(
 
       if ([anyObject type] == 2 && objc_msgSend(v5, "isTelephonyProvider"))
       {
-        v21 = 0;
+        v20 = 0;
         isoCountryCode = [callCopy isoCountryCode];
         value = [anyObject value];
-        v22 = TUNumberToDialOptionsSuppressLocalAssistKey;
-        v23[0] = MEMORY[0x1E695E118];
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-        v14 = TUNumberToDial(value, isoCountryCode, 0, v13, &v21);
+        v21 = TUNumberToDialOptionsSuppressLocalAssistKey;
+        v22[0] = MEMORY[0x1E695E118];
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        v14 = TUNumberToDial(value, isoCountryCode, 0, v13, &v20);
 
-        [(TUDialRequest *)v6 setDialAssisted:v21];
+        [(TUDialRequest *)v6 setDialAssisted:v20];
         v15 = [TUHandle normalizedPhoneNumberHandleForValue:v14 isoCountryCode:isoCountryCode];
         [(TUDialRequest *)v6 setHandle:v15];
       }
@@ -962,7 +955,7 @@ void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3(
 
   else
   {
-    v16 = TUDefaultLog();
+    v16 = TUDefaultLog(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [(TUCallProviderManager(CallHistoryAdditions) *)callCopy dialRequestForRecentCall:v16];
@@ -971,39 +964,37 @@ void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3(
     v6 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)joinConversationRequestForRecentCall:(id)call
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   callCopy = call;
   v4 = MEMORY[0x1E695DFA8];
   validRemoteParticipantHandles = [callCopy validRemoteParticipantHandles];
   v6 = [v4 setWithCapacity:{objc_msgSend(validRemoteParticipantHandles, "count")}];
 
   v7 = [TUHandle handlesForCHRecentCall:callCopy validHandlesOnly:1];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         if (v12)
         {
           v13 = [TUConversationMember alloc];
@@ -1014,7 +1005,7 @@ void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3(
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v9);
@@ -1041,34 +1032,31 @@ void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3(
 
   else
   {
-    v19 = TUDefaultLog();
+    v19 = TUDefaultLog(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = callCopy;
+      v29 = callCopy;
       _os_log_impl(&dword_1956FD000, v19, OS_LOG_TYPE_DEFAULT, "Could not create join request for recent call: %@", buf, 0xCu);
     }
 
     v16 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (NSSet)invitationPreferencesForRecentCall
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v8[3] = *MEMORY[0x1E69E9840];
   v2 = [[TUConversationInvitationPreference alloc] initWithHandleType:2 notificationStyles:6];
   v3 = [[TUConversationInvitationPreference alloc] initWithHandleType:3 notificationStyles:6, v2];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [[TUConversationInvitationPreference alloc] initWithHandleType:1 notificationStyles:6];
-  v9[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
+  v8[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
 
   v6 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v5];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1093,11 +1081,10 @@ void __55__TUCallProviderManager_providersChangedForDataSource___block_invoke_3(
 
 - (void)launchAppForDialRequest:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
 }
 
 @end

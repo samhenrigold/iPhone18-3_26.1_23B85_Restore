@@ -25,7 +25,7 @@
 {
   elementCopy = element;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for BaseTodayBrickCollectionViewCell();
+  v4.super_class = type metadata accessor for BaseTodayBrickCollectionViewCell(0);
   [(BaseTodayBrickCollectionViewCell *)&v4 setIsAccessibilityElement:elementCopy];
 }
 
@@ -64,14 +64,14 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for BaseTodayBrickCollectionViewCell();
+  v7.super_class = type metadata accessor for BaseTodayBrickCollectionViewCell(0);
   [(BaseTodayBrickCollectionViewCell *)&v7 setAccessibilityLabel:v5];
 }
 
 - (void)setAccessibilityTraits:(unint64_t)traits
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for BaseTodayBrickCollectionViewCell();
+  v4.super_class = type metadata accessor for BaseTodayBrickCollectionViewCell(0);
   [(BaseTodayBrickCollectionViewCell *)&v4 setAccessibilityTraits:traits];
 }
 

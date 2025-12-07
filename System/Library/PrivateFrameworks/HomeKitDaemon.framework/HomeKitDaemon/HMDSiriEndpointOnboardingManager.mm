@@ -22,7 +22,7 @@
 
 - (BOOL)readyToApplyOnboardingSelectionsWithHomeUUID:(id)d accessoryUUID:(id)iD
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   dataSource = [(HMDSiriEndpointOnboardingManager *)self dataSource];
@@ -53,11 +53,11 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         v24 = HMFGetLogIdentifier();
-        v31 = 138543618;
-        v32 = v24;
-        v33 = 2112;
-        v34 = iDCopy;
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@HAP accessory is not found. accessoryUUID: %@", &v31, 0x16u);
+        v30 = 138543618;
+        v31 = v24;
+        v32 = 2112;
+        v33 = iDCopy;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@HAP accessory is not found. accessoryUUID: %@", &v30, 0x16u);
       }
 
       goto LABEL_19;
@@ -81,10 +81,10 @@ LABEL_20:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         v26 = HMFGetLogIdentifier();
-        v31 = 138543618;
-        v32 = v26;
-        v33 = 2112;
-        v34 = v11;
+        v30 = 138543618;
+        v31 = v26;
+        v32 = 2112;
+        v33 = v11;
         v27 = "%{public}@Siri endpoint profile is not created. Accessory: %@";
         goto LABEL_18;
       }
@@ -98,13 +98,13 @@ LABEL_20:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         v26 = HMFGetLogIdentifier();
-        v31 = 138543618;
-        v32 = v26;
-        v33 = 2112;
-        v34 = v11;
+        v30 = 138543618;
+        v31 = v26;
+        v32 = 2112;
+        v33 = v11;
         v27 = "%{public}@Accessory is not configured. Accessory: %@";
 LABEL_18:
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, v27, &v31, 0x16u);
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, v27, &v30, 0x16u);
       }
     }
 
@@ -121,18 +121,17 @@ LABEL_19:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     v20 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v20;
-    v33 = 2112;
-    v34 = iDCopy;
-    _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Accessory is not found. accessoryUUID: %@", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v20;
+    v32 = 2112;
+    v33 = iDCopy;
+    _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Accessory is not found. accessoryUUID: %@", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v17);
   v16 = 0;
 LABEL_21:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -163,7 +162,7 @@ LABEL_21:
 
 void __100__HMDSiriEndpointOnboardingManager__setNeedsOnboardingCompleteWitHomeUUID_accessoryUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -173,11 +172,11 @@ void __100__HMDSiriEndpointOnboardingManager__setNeedsOnboardingCompleteWitHomeU
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Setting needsOnboarding complete failed with error: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Setting needsOnboarding complete failed with error: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -188,8 +187,6 @@ void __100__HMDSiriEndpointOnboardingManager__setNeedsOnboardingCompleteWitHomeU
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applyOnboardingSelections:(id)selections accessoryUUID:(id)d homeUUID:(id)iD userUUID:(id)uID cacheKey:(id)key completion:(id)completion
@@ -221,7 +218,7 @@ void __100__HMDSiriEndpointOnboardingManager__setNeedsOnboardingCompleteWitHomeU
 
 void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessoryUUID_homeUUID_userUUID_cacheKey_completion___block_invoke(id *a1, void *a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
   v7 = a1[4];
@@ -231,11 +228,11 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
     v9 = HMFGetLogIdentifier();
     v10 = HMSiriEndpointOnboardingResultAsString();
     *buf = 138543874;
-    v28 = v9;
-    v29 = 2114;
-    v30 = v10;
-    v31 = 2114;
-    v32 = v5;
+    v27 = v9;
+    v28 = 2114;
+    v29 = v10;
+    v30 = 2114;
+    v31 = v5;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Apply result received from controller: %{public}@ error:%{public}@", buf, 0x20u);
   }
 
@@ -255,11 +252,11 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
     v11 = a1[5];
     v12 = a1[4];
     v13 = a1[6];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessoryUUID_homeUUID_userUUID_cacheKey_completion___block_invoke_20;
-    v22[3] = &unk_27867FBD0;
-    objc_copyWeak(&v26, buf);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessoryUUID_homeUUID_userUUID_cacheKey_completion___block_invoke_20;
+    v21[3] = &unk_27867FBD0;
+    objc_copyWeak(&v25, buf);
     v14 = a1[7];
     v15 = a1[5];
     v16 = a1[6];
@@ -268,21 +265,19 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
     *(&v18 + 1) = v17;
     *&v19 = v14;
     *(&v19 + 1) = v15;
-    v23 = v19;
-    v24 = v18;
-    v25 = a1[9];
-    [v12 _setNeedsOnboardingCompleteWitHomeUUID:v11 accessoryUUID:v13 completion:v22];
+    v22 = v19;
+    v23 = v18;
+    v24 = a1[9];
+    [v12 _setNeedsOnboardingCompleteWitHomeUUID:v11 accessoryUUID:v13 completion:v21];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(buf);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessoryUUID_homeUUID_userUUID_cacheKey_completion___block_invoke_20(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (!v3)
@@ -295,11 +290,11 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing cached onboarding selections, key: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing cached onboarding selections, key: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -314,13 +309,11 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
 
     os_unfair_lock_unlock(WeakRetained + 6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyCachedOnboardingSelectionsWithAccessoryUUID:(id)d homeUUID:(id)iD
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v8 = objc_autoreleasePoolPush();
@@ -330,11 +323,11 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v40 = v11;
-    v41 = 2112;
-    v42 = iDCopy;
-    v43 = 2112;
-    v44 = dCopy;
+    v39 = v11;
+    v40 = 2112;
+    v41 = iDCopy;
+    v42 = 2112;
+    v43 = dCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Apply cached onboarding selections: homeUUID: %@ accessoryUUID: %@", buf, 0x20u);
   }
 
@@ -361,9 +354,9 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
         {
           v32 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v40 = v32;
-          v41 = 2112;
-          v42 = dCopy;
+          v39 = v32;
+          v40 = 2112;
+          v41 = dCopy;
           _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Onboarding selections matching key not found in the cache: %@", buf, 0x16u);
         }
 
@@ -398,9 +391,9 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
           {
             v35 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v40 = v35;
-            v41 = 2112;
-            v42 = dCopy;
+            v39 = v35;
+            v40 = 2112;
+            v41 = dCopy;
             _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@It's not ready to apply onboarding. accessoryUUID: %@", buf, 0x16u);
           }
 
@@ -418,9 +411,9 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v40 = v29;
-        v41 = 2112;
-        v42 = dCopy;
+        v39 = v29;
+        v40 = 2112;
+        v41 = dCopy;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Onboarding selections are already configured on the accessory: %@", buf, 0x16u);
       }
 
@@ -438,21 +431,19 @@ void __115__HMDSiriEndpointOnboardingManager__applyOnboardingSelections_accessor
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v25;
-      v41 = 2112;
-      v42 = dCopy;
+      v39 = v25;
+      v40 = 2112;
+      v41 = dCopy;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Could not determine needsOnboarding state. accessoryUUID: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyOnboardingSelections:(id)selections accessoryUUID:(id)d homeUUID:(id)iD userUUID:(id)uID completion:(id)completion
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   selectionsCopy = selections;
   dCopy = d;
   iDCopy = iD;
@@ -492,13 +483,13 @@ LABEL_32:
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v53 = v20;
-    v54 = 2112;
-    v55 = selectionsCopy;
-    v56 = 2112;
-    v57 = iDCopy;
-    v58 = 2112;
-    v59 = dCopy;
+    v52 = v20;
+    v53 = 2112;
+    v54 = selectionsCopy;
+    v55 = 2112;
+    v56 = iDCopy;
+    v57 = 2112;
+    v58 = dCopy;
     _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Apply onboarding selections: %@ homeUUID: %@ accessoryUUID: %@", buf, 0x2Au);
   }
 
@@ -523,9 +514,9 @@ LABEL_32:
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v53 = v27;
-          v54 = 2112;
-          v55 = dCopy;
+          v52 = v27;
+          v53 = 2112;
+          v54 = dCopy;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Onboarding selections are already cached, key: %@", buf, 0x16u);
         }
 
@@ -536,56 +527,56 @@ LABEL_32:
 
       else
       {
-        v37 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        v36 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
-          v38 = HMFGetLogIdentifier();
+          v37 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v53 = v38;
-          v54 = 2112;
-          v55 = dCopy;
-          _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Caching onboarding selections, key: %@", buf, 0x16u);
+          v52 = v37;
+          v53 = 2112;
+          v54 = dCopy;
+          _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Caching onboarding selections, key: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(context);
         [(NSMutableDictionary *)selfCopy->_onboardingSelections setObject:selectionsCopy forKey:dCopy];
         contexta = objc_autoreleasePoolPush();
-        v39 = v25;
-        v40 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v38 = v25;
+        v39 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
-          v41 = HMFGetLogIdentifier();
+          v40 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v53 = v41;
-          v54 = 2112;
-          v55 = uIDCopy;
-          _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_INFO, "%{public}@Caching onboarding user UUID %@", buf, 0x16u);
+          v52 = v40;
+          v53 = 2112;
+          v54 = uIDCopy;
+          _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Caching onboarding user UUID %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(contexta);
-        [v39[2] setObject:uIDCopy forKey:dCopy];
+        [v38[2] setObject:uIDCopy forKey:dCopy];
         os_unfair_lock_unlock(&selfCopy->_lock);
-        if ([v39 readyToApplyOnboardingSelectionsWithHomeUUID:iDCopy accessoryUUID:dCopy])
+        if ([v38 readyToApplyOnboardingSelectionsWithHomeUUID:iDCopy accessoryUUID:dCopy])
         {
-          [v39 _applyOnboardingSelections:selectionsCopy accessoryUUID:dCopy homeUUID:iDCopy userUUID:uIDCopy cacheKey:dCopy completion:v16];
+          [v38 _applyOnboardingSelections:selectionsCopy accessoryUUID:dCopy homeUUID:iDCopy userUUID:uIDCopy cacheKey:dCopy completion:v16];
         }
 
         else
         {
-          v42 = objc_autoreleasePoolPush();
-          v43 = v39;
-          v44 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+          v41 = objc_autoreleasePoolPush();
+          v42 = v38;
+          v43 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
           {
-            v45 = HMFGetLogIdentifier();
+            v44 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v53 = v45;
-            v54 = 2112;
-            v55 = dCopy;
-            _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@It's not ready to apply onboarding. accessoryUUID: %@", buf, 0x16u);
+            v52 = v44;
+            v53 = 2112;
+            v54 = dCopy;
+            _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@It's not ready to apply onboarding. accessoryUUID: %@", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v42);
+          objc_autoreleasePoolPop(v41);
           v16[2](v16, 0, 3);
         }
       }
@@ -600,20 +591,20 @@ LABEL_32:
       {
         v35 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v53 = v35;
-        v54 = 2112;
-        v55 = dCopy;
+        v52 = v35;
+        v53 = 2112;
+        v54 = dCopy;
         _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Onboarding selections are already configured on the accessory: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v32);
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __105__HMDSiriEndpointOnboardingManager_applyOnboardingSelections_accessoryUUID_homeUUID_userUUID_completion___block_invoke;
-      v50[3] = &unk_278688DD0;
-      v51 = v16;
-      [(HMDSiriEndpointOnboardingManager *)v33 _setNeedsOnboardingCompleteWitHomeUUID:iDCopy accessoryUUID:dCopy completion:v50];
-      dCopy = v51;
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __105__HMDSiriEndpointOnboardingManager_applyOnboardingSelections_accessoryUUID_homeUUID_userUUID_completion___block_invoke;
+      v49[3] = &unk_278688DD0;
+      v50 = v16;
+      [(HMDSiriEndpointOnboardingManager *)v33 _setNeedsOnboardingCompleteWitHomeUUID:iDCopy accessoryUUID:dCopy completion:v49];
+      dCopy = v50;
     }
   }
 
@@ -626,9 +617,9 @@ LABEL_32:
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v53 = v31;
-      v54 = 2112;
-      v55 = dCopy;
+      v52 = v31;
+      v53 = 2112;
+      v54 = dCopy;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Could not determine needsOnboarding state. accessoryUUID: %@", buf, 0x16u);
     }
 
@@ -636,13 +627,11 @@ LABEL_32:
     dCopy = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     (v16)[2](v16, dCopy, 1);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryConfigured:(id)configured
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   configuredCopy = configured;
   object = [configuredCopy object];
   objc_opt_class();
@@ -676,11 +665,11 @@ LABEL_32:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v18;
-        v22 = 2112;
-        v23 = v7;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Accessory is configured with invalid home: %@", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v18;
+        v21 = 2112;
+        v22 = v7;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Accessory is configured with invalid home: %@", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -695,20 +684,18 @@ LABEL_32:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalid HAP accessory is configured", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Invalid HAP accessory is configured", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCompositeSettingsControllerConfigured:(id)configured
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   configuredCopy = configured;
   userInfo = [configuredCopy userInfo];
   v6 = [userInfo objectForKey:@"HMDHomeUUIDOwnerUUIDKey"];
@@ -771,9 +758,9 @@ LABEL_32:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           v26 = HMFGetLogIdentifier();
-          v28 = 138543362;
-          v29 = v26;
-          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@CompositeSettingsController is congigured with invalid homeUUID", &v28, 0xCu);
+          v27 = 138543362;
+          v28 = v26;
+          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@CompositeSettingsController is congigured with invalid homeUUID", &v27, 0xCu);
         }
 
         objc_autoreleasePoolPop(v23);
@@ -788,9 +775,9 @@ LABEL_32:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         v22 = HMFGetLogIdentifier();
-        v28 = 138543362;
-        v29 = v22;
-        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@CompositeSettingsController is congigured with invalid accessoryUUID", &v28, 0xCu);
+        v27 = 138543362;
+        v28 = v22;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@CompositeSettingsController is congigured with invalid accessoryUUID", &v27, 0xCu);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -805,15 +792,13 @@ LABEL_32:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@CompositeSettingsController is congigured with invalid homeUUID and ownerUUID info", &v28, 0xCu);
+      v27 = 138543362;
+      v28 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@CompositeSettingsController is congigured with invalid homeUUID and ownerUUID info", &v27, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSiriEndpointOnboardingManager)initWithDataSource:(id)source

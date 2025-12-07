@@ -17,133 +17,23 @@
     thumbnailGenerator2 = [v5 thumbnailGenerator];
     v8 = __18__QLItem_isEqual___block_invoke(thumbnailGenerator2, thumbnailGenerator, thumbnailGenerator2);
 
-    if (!v8)
-    {
-      goto LABEL_21;
-    }
-
-    previewTitle = [(QLPreviewContext *)self previewTitle];
-    previewTitle2 = [v5 previewTitle];
-    v11 = __18__QLItem_isEqual___block_invoke(previewTitle2, previewTitle, previewTitle2);
-
-    if (!v11)
-    {
-      goto LABEL_21;
-    }
-
-    contentType = [(QLPreviewContext *)self contentType];
-    contentType2 = [v5 contentType];
-    v14 = __18__QLItem_isEqual___block_invoke(contentType2, contentType, contentType2);
-
-    if (!v14)
-    {
-      goto LABEL_21;
-    }
-
-    originalContentType = [(QLPreviewContext *)self originalContentType];
-    originalContentType2 = [v5 originalContentType];
-    v17 = __18__QLItem_isEqual___block_invoke(originalContentType2, originalContentType, originalContentType2);
-
-    if (!v17)
-    {
-      goto LABEL_21;
-    }
-
-    canBeEdited = [(QLPreviewContext *)self canBeEdited];
-    if (canBeEdited != [v5 canBeEdited])
-    {
-      goto LABEL_21;
-    }
-
-    canBeShared = [(QLPreviewContext *)self canBeShared];
-    if (canBeShared != [v5 canBeShared])
-    {
-      goto LABEL_21;
-    }
-
-    editedFileBehavior = [(QLPreviewContext *)self editedFileBehavior];
-    if (editedFileBehavior != [v5 editedFileBehavior])
-    {
-      goto LABEL_21;
-    }
-
-    previewItemType = [(QLPreviewContext *)self previewItemType];
-    if (previewItemType != [v5 previewItemType])
-    {
-      goto LABEL_21;
-    }
-
-    backgroundColor = [(QLPreviewContext *)self backgroundColor];
-    backgroundColor2 = [v5 backgroundColor];
-    v24 = __18__QLItem_isEqual___block_invoke(backgroundColor2, backgroundColor, backgroundColor2);
-
-    if (!v24)
-    {
-      goto LABEL_21;
-    }
-
-    password = [(QLPreviewContext *)self password];
-    password2 = [v5 password];
-    v27 = __18__QLItem_isEqual___block_invoke(password2, password, password2);
-
-    if (!v27)
-    {
-      goto LABEL_21;
-    }
-
-    itemSize = [(QLPreviewContext *)self itemSize];
-    itemSize2 = [v5 itemSize];
-    v30 = __18__QLItem_isEqual___block_invoke(itemSize2, itemSize, itemSize2);
-
-    if (!v30)
-    {
-      goto LABEL_21;
-    }
-
-    processIdentifier = [(QLPreviewContext *)self processIdentifier];
-    if (processIdentifier != [v5 processIdentifier])
-    {
-      goto LABEL_21;
-    }
-
-    clientPreviewOptions = [(QLPreviewContext *)self clientPreviewOptions];
-    clientPreviewOptions2 = [v5 clientPreviewOptions];
-    v34 = __18__QLItem_isEqual___block_invoke(clientPreviewOptions2, clientPreviewOptions, clientPreviewOptions2);
-
-    if (!v34)
-    {
-      goto LABEL_21;
-    }
-
-    clientPreviewItemDisplayState = [(QLPreviewContext *)self clientPreviewItemDisplayState];
-    clientPreviewItemDisplayState2 = [v5 clientPreviewItemDisplayState];
-    v37 = __18__QLItem_isEqual___block_invoke(clientPreviewItemDisplayState2, clientPreviewItemDisplayState, clientPreviewItemDisplayState2);
-
-    if (!v37)
-    {
-      goto LABEL_21;
-    }
-
-    stringEncoding = [(QLPreviewContext *)self stringEncoding];
-    if (stringEncoding != [v5 stringEncoding])
-    {
-      goto LABEL_21;
-    }
-
-    attachments = [(QLPreviewContext *)self attachments];
-    attachments2 = [v5 attachments];
-    v41 = __18__QLItem_isEqual___block_invoke(attachments2, attachments, attachments2);
-
-    if (!v41)
-    {
-      goto LABEL_21;
-    }
-
-    bitmapFormat = [(QLPreviewContext *)self bitmapFormat];
-    bitmapFormat2 = [v5 bitmapFormat];
-    v44 = __18__QLItem_isEqual___block_invoke(bitmapFormat2, bitmapFormat, bitmapFormat2);
-
-    if (v44)
+    if (v8
+      && (-[QLPreviewContext previewTitle](self, "previewTitle"), v9 = objc_claimAutoreleasedReturnValue(), [v5 previewTitle], v10 = objc_claimAutoreleasedReturnValue(), v11 = __18__QLItem_isEqual___block_invoke(v10, v9, v10), v10, v9, v11)
+      && (-[QLPreviewContext contentType](self, "contentType"), v12 = objc_claimAutoreleasedReturnValue(), [v5 contentType], v13 = objc_claimAutoreleasedReturnValue(), v14 = __18__QLItem_isEqual___block_invoke(v13, v12, v13), v13, v12, v14)
+      && (-[QLPreviewContext originalContentType](self, "originalContentType"), v15 = objc_claimAutoreleasedReturnValue(), [v5 originalContentType], v16 = objc_claimAutoreleasedReturnValue(), v17 = __18__QLItem_isEqual___block_invoke(v16, v15, v16), v16, v15, v17)
+      && (v18 = -[QLPreviewContext canBeEdited](self, "canBeEdited"), v18 == [v5 canBeEdited])
+      && (v19 = -[QLPreviewContext canBeShared](self, "canBeShared"), v19 == [v5 canBeShared])
+      && (v20 = -[QLPreviewContext editedFileBehavior](self, "editedFileBehavior"), v20 == [v5 editedFileBehavior])
+      && (v21 = -[QLPreviewContext previewItemType](self, "previewItemType"), v21 == [v5 previewItemType])
+      && (-[QLPreviewContext backgroundColor](self, "backgroundColor"), v22 = objc_claimAutoreleasedReturnValue(), [v5 backgroundColor], v23 = objc_claimAutoreleasedReturnValue(), v24 = __18__QLItem_isEqual___block_invoke(v23, v22, v23), v23, v22, v24)
+      && (-[QLPreviewContext password](self, "password"), v25 = objc_claimAutoreleasedReturnValue(), [v5 password], v26 = objc_claimAutoreleasedReturnValue(), v27 = __18__QLItem_isEqual___block_invoke(v26, v25, v26), v26, v25, v27)
+      && (-[QLPreviewContext itemSize](self, "itemSize"), v28 = objc_claimAutoreleasedReturnValue(), [v5 itemSize], v29 = objc_claimAutoreleasedReturnValue(), v30 = __18__QLItem_isEqual___block_invoke(v29, v28, v29), v29, v28, v30)
+      && (v31 = -[QLPreviewContext processIdentifier](self, "processIdentifier"), v31 == [v5 processIdentifier])
+      && (-[QLPreviewContext clientPreviewOptions](self, "clientPreviewOptions"), v32 = objc_claimAutoreleasedReturnValue(), [v5 clientPreviewOptions], v33 = objc_claimAutoreleasedReturnValue(), v34 = __18__QLItem_isEqual___block_invoke(v33, v32, v33), v33, v32, v34)
+      && (-[QLPreviewContext clientPreviewItemDisplayState](self, "clientPreviewItemDisplayState"), v35 = objc_claimAutoreleasedReturnValue(), [v5 clientPreviewItemDisplayState], v36 = objc_claimAutoreleasedReturnValue(), v37 = __18__QLItem_isEqual___block_invoke(v36, v35, v36), v36, v35, v37)
+      && (v38 = -[QLPreviewContext stringEncoding](self, "stringEncoding"), v38 == [v5 stringEncoding])
+      && (-[QLPreviewContext attachments](self, "attachments"), v39 = objc_claimAutoreleasedReturnValue(), [v5 attachments], v40 = objc_claimAutoreleasedReturnValue(), v41 = __18__QLItem_isEqual___block_invoke(v40, v39, v40), v40, v39, v41)
+      && (-[QLPreviewContext bitmapFormat](self, "bitmapFormat"), v42 = objc_claimAutoreleasedReturnValue(), [v5 bitmapFormat], v43 = objc_claimAutoreleasedReturnValue(), v44 = __18__QLItem_isEqual___block_invoke(v43, v42, v43), v43, v42, v44))
     {
       viewDynamicRange = [(QLPreviewContext *)self viewDynamicRange];
       v46 = viewDynamicRange == [v5 viewDynamicRange];
@@ -151,7 +41,6 @@
 
     else
     {
-LABEL_21:
       v46 = 0;
     }
   }

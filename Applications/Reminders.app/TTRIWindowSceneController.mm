@@ -87,8 +87,8 @@
 
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
-  sub_100003540(0, &qword_10078E0E8);
-  sub_10000CF18(&qword_100792FC0, &qword_10078E0E8);
+  sub_100003540(0, &qword_10078E0E8, UIOpenURLContext_ptr);
+  sub_10000CF18(&qword_100792FC0, &qword_10078E0E8, UIOpenURLContext_ptr);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;

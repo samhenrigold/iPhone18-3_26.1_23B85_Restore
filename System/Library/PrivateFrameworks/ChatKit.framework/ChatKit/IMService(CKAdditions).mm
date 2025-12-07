@@ -38,22 +38,24 @@
     goto LABEL_8;
   }
 
-  if (![self __ck_isSMS])
+  __ck_isSMS = [self __ck_isSMS];
+  if (!__ck_isSMS)
   {
     if ([self __ck_isRCS])
     {
-      if ((IMDeviceIsGreenTea() & 1) != 0 || [MEMORY[0x1E69A8020] IMDeviceIsChinaRegion])
+      IsGreenTea = IMDeviceIsGreenTea();
+      if ((IsGreenTea & 1) != 0 || (IsGreenTea = [MEMORY[0x1E69A8020] IMDeviceIsChinaRegion], IsGreenTea))
       {
-        v4 = CKFrameworkBundle();
-        v5 = v4;
-        v6 = @"5G_MESSAGING_WATCH";
+        v5 = CKFrameworkBundle(IsGreenTea);
+        v6 = v5;
+        v7 = @"5G_MESSAGING_WATCH";
       }
 
       else
       {
-        v4 = CKFrameworkBundle();
-        v5 = v4;
-        v6 = @"RCS_WATCH";
+        v5 = CKFrameworkBundle(IsGreenTea);
+        v6 = v5;
+        v7 = @"RCS_WATCH";
       }
 
       goto LABEL_10;
@@ -64,11 +66,11 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  v4 = CKFrameworkBundle();
-  v5 = v4;
-  v6 = @"TEXT_MESSAGE_WATCH";
+  v5 = CKFrameworkBundle(__ck_isSMS);
+  v6 = v5;
+  v7 = @"TEXT_MESSAGE_WATCH";
 LABEL_10:
-  __ck_displayName = [v4 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
+  __ck_displayName = [v5 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
 
 LABEL_11:
 
@@ -156,38 +158,40 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  if ([self __ck_isiMessageLite])
+  __ck_isiMessageLite = [self __ck_isiMessageLite];
+  if (__ck_isiMessageLite)
   {
-    v4 = @"MADRID";
+    v5 = @"MADRID";
   }
 
   else
   {
-    if (![self __ck_isSatelliteSMS])
+    __ck_isiMessageLite = [self __ck_isSatelliteSMS];
+    if (!__ck_isiMessageLite)
     {
       goto LABEL_8;
     }
 
-    v4 = @"TEXT_MESSAGE_WATCH";
+    v5 = @"TEXT_MESSAGE_WATCH";
   }
 
-  v5 = CKFrameworkBundle();
-  __ck_entryViewDisplayName = [v5 localizedStringForKey:v4 value:&stru_1F04268F8 table:@"ChatKit"];
+  v6 = CKFrameworkBundle(__ck_isiMessageLite);
+  __ck_entryViewDisplayName = [v6 localizedStringForKey:v5 value:&stru_1F04268F8 table:@"ChatKit"];
 
   if (__ck_entryViewDisplayName)
   {
-    v7 = [self ___ck_appendSatelliteGlyphToString:__ck_entryViewDisplayName];
+    v8 = [self ___ck_appendSatelliteGlyphToString:__ck_entryViewDisplayName];
     goto LABEL_9;
   }
 
 LABEL_8:
-  v8 = objc_alloc(MEMORY[0x1E696AAB0]);
+  v9 = objc_alloc(MEMORY[0x1E696AAB0]);
   __ck_entryViewDisplayName = [self __ck_entryViewDisplayName];
-  v7 = [v8 initWithString:__ck_entryViewDisplayName];
+  v8 = [v9 initWithString:__ck_entryViewDisplayName];
 LABEL_9:
-  v9 = v7;
+  v10 = v8;
 
-  return v9;
+  return v10;
 }
 
 - (id)__ck_attributedEntryViewDisplayNameForSOS
@@ -195,21 +199,21 @@ LABEL_9:
   v2 = +[CKUIBehavior sharedBehaviors];
   messageEntryViewUsesAbbreviatedServiceNames = [v2 messageEntryViewUsesAbbreviatedServiceNames];
 
-  if (messageEntryViewUsesAbbreviatedServiceNames && (CKFrameworkBundle(), v4 = objc_claimAutoreleasedReturnValue(), [v4 localizedStringForKey:@"TEXT_MESSAGE_SOS" value:&stru_1F04268F8 table:@"ChatKit"], __ck_entryViewDisplayName = objc_claimAutoreleasedReturnValue(), v4, __ck_entryViewDisplayName))
+  if (messageEntryViewUsesAbbreviatedServiceNames && (CKFrameworkBundle(v4), v5 = objc_claimAutoreleasedReturnValue(), [v5 localizedStringForKey:@"TEXT_MESSAGE_SOS" value:&stru_1F04268F8 table:@"ChatKit"], __ck_entryViewDisplayName = objc_claimAutoreleasedReturnValue(), v5, __ck_entryViewDisplayName))
   {
-    v6 = [self ___ck_appendSatelliteGlyphToString:__ck_entryViewDisplayName];
+    v7 = [self ___ck_appendSatelliteGlyphToString:__ck_entryViewDisplayName];
   }
 
   else
   {
-    v7 = objc_alloc(MEMORY[0x1E696AAB0]);
+    v8 = objc_alloc(MEMORY[0x1E696AAB0]);
     __ck_entryViewDisplayName = [self __ck_entryViewDisplayName];
-    v6 = [v7 initWithString:__ck_entryViewDisplayName];
+    v7 = [v8 initWithString:__ck_entryViewDisplayName];
   }
 
-  v8 = v6;
+  v9 = v7;
 
-  return v8;
+  return v9;
 }
 
 - (uint64_t)__ck_maxRecipientCountForHandle:()CKAdditions simID:

@@ -216,40 +216,7 @@ LABEL_37:
     v4 = v6;
   }
 
-  if ([v4 length] != 6)
-  {
-    goto LABEL_11;
-  }
-
-  v21 = 255;
-  v22 = 255;
-  v23 = 255;
-  v7 = MEMORY[0x277CCAC80];
-  v8 = [v4 substringWithRange:{0, 2}];
-  v9 = [v7 scannerWithString:v8];
-  v10 = [v9 scanHexInt:&v23];
-
-  if (!v10)
-  {
-    goto LABEL_11;
-  }
-
-  v11 = MEMORY[0x277CCAC80];
-  v12 = [v4 substringWithRange:{2, 2}];
-  v13 = [v11 scannerWithString:v12];
-  v14 = [v13 scanHexInt:&v22];
-
-  if (!v14)
-  {
-    goto LABEL_11;
-  }
-
-  v15 = MEMORY[0x277CCAC80];
-  v16 = [v4 substringWithRange:{4, 2}];
-  v17 = [v15 scannerWithString:v16];
-  v18 = [v17 scanHexInt:&v21];
-
-  if (v18)
+  if ([v4 length] == 6 && (v21 = 255, v22 = 255, v23 = 255, v7 = MEMORY[0x277CCAC80], objc_msgSend(v4, "substringWithRange:", 0, 2), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "scannerWithString:", v8), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "scanHexInt:", &v23), v9, v8, v10) && (v11 = MEMORY[0x277CCAC80], objc_msgSend(v4, "substringWithRange:", 2, 2), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "scannerWithString:", v12), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "scanHexInt:", &v22), v13, v12, v14) && (v15 = MEMORY[0x277CCAC80], objc_msgSend(v4, "substringWithRange:", 4, 2), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "scannerWithString:", v16), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "scanHexInt:", &v21), v17, v16, v18))
   {
     v19 = [MEMORY[0x277D75348] colorWithRed:v23 / 255.0 green:v22 / 255.0 blue:v21 / 255.0 alpha:1.0];
   }

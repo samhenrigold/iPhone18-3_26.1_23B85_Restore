@@ -1,5 +1,6 @@
 @interface CBHIDPerformanceMonitor
 - (BOOL)_findDevicesAndReturnError:(id *)error;
+- (BOOL)_hidSetFeatureWithReportID:(unsigned __int8)d value:(unsigned __int8)value error:(id *)error;
 - (BOOL)_hidStartAndReturnError:(id *)error;
 - (BOOL)_hidStartPERAndRetunError:(id *)error;
 - (BOOL)_hidStopPERAndRetunError:(id *)error;
@@ -76,97 +77,90 @@
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__7;
-  v27 = __Block_byref_object_dispose__7;
-  v28 = 0;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __51__CBHIDPerformanceMonitor__activateWithCompletion___block_invoke;
-  v20[3] = &unk_1E811D350;
-  v22 = &v23;
-  v20[4] = self;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__7;
+  v25 = __Block_byref_object_dispose__7;
+  v26 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __51__CBHIDPerformanceMonitor__activateWithCompletion___block_invoke;
+  v18[3] = &unk_1E811D350;
+  v20 = &v21;
+  v18[4] = self;
   v5 = completionCopy;
-  v21 = v5;
-  v6 = MEMORY[0x1C68DF720](v20);
-  if (self->_activateCalled || self->_invalidateCalled)
+  v19 = v5;
+  v6 = MEMORY[0x1C68DF720](v18);
+  if (self->_activateCalled)
   {
-    v12 = *MEMORY[0x1E696A768];
-    v13 = NSErrorF_safe();
-    v14 = v24[5];
-    v24[5] = v13;
+    v11 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960575, "Activate already called");
+LABEL_14:
+    v12 = v22[5];
+    v22[5] = v11;
+
+    goto LABEL_11;
   }
 
-  else
+  if (self->_invalidateCalled)
   {
-    self->_activateCalled = 1;
-    testSeconds = self->_testSeconds;
-    if (testSeconds <= 0.0)
-    {
-      testSeconds = 30.0;
-    }
-
-    self->_testSecondsActual = testSeconds;
-    if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
-    {
-      devices = self->_devices;
-      v9 = CUPrintNSObjectOneLine();
-      v16 = self->_testSeconds;
-      testSecondsActual = self->_testSecondsActual;
-      v15 = v9;
-      LogPrintF_safe();
-    }
-
-    v10 = v24;
-    obj = v24[5];
-    v11 = [(CBHIDPerformanceMonitor *)self _findDevicesAndReturnError:&obj, v15, *&v16, *&testSecondsActual];
-    objc_storeStrong(v10 + 5, obj);
-    if (v11)
-    {
-      (*(v5 + 2))(v5, 0);
-      [(CBHIDPerformanceMonitor *)self _packetLoggerStart];
-      [(CBHIDPerformanceMonitor *)self _activateWithCompletion:v18];
-    }
+    v11 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "Activate after invalidate");
+    goto LABEL_14;
   }
 
+  self->_activateCalled = 1;
+  testSeconds = self->_testSeconds;
+  if (testSeconds <= 0.0)
+  {
+    testSeconds = 30.0;
+  }
+
+  self->_testSecondsActual = testSeconds;
+  if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
+  {
+    v8 = CUPrintNSObjectOneLine();
+    v14 = self->_testSeconds;
+    testSecondsActual = self->_testSecondsActual;
+    v13 = v8;
+    LogPrintF_safe();
+  }
+
+  v9 = v22;
+  obj = v22[5];
+  v10 = [(CBHIDPerformanceMonitor *)self _findDevicesAndReturnError:&obj, v13, *&v14, *&testSecondsActual];
+  objc_storeStrong(v9 + 5, obj);
+  if (v10)
+  {
+    (*(v5 + 2))(v5, 0);
+    [(CBHIDPerformanceMonitor *)self _packetLoggerStart];
+    [(CBHIDPerformanceMonitor *)self _activateWithCompletion:v16];
+  }
+
+LABEL_11:
   v6[2](v6);
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v21, 8);
 }
 
 uint64_t __51__CBHIDPerformanceMonitor__activateWithCompletion___block_invoke(uint64_t a1)
 {
   result = *(*(*(a1 + 48) + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory_CBHIDPerf <= 90)
-  {
-    if (gLogCategory_CBHIDPerf == -1)
+    if (gLogCategory_CBHIDPerf <= 90 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_7;
-      }
-
-      v5 = *(*(*(a1 + 48) + 8) + 40);
+      v4 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    v6 = CUPrintNSError();
-    LogPrintF_safe();
+    [*(a1 + 32) _packetLoggerStop];
+    [*(a1 + 32) _hidStop];
+    v3 = *(*(a1 + 40) + 16);
+
+    return v3();
   }
 
-LABEL_7:
-  [*(a1 + 32) _packetLoggerStop];
-  [*(a1 + 32) _hidStop];
-  v3 = *(*(*(a1 + 48) + 8) + 40);
-  v4 = *(*(a1 + 40) + 16);
-
-  return v4();
+  return result;
 }
 
 - (void)invalidate
@@ -261,15 +255,12 @@ LABEL_7:
 
 - (void)_testStart
 {
-  v3 = *self;
-  v4 = CUDescriptionWithLevel();
-  v5 = *(a2 + 200) / 1000.0;
+  v1 = CUDescriptionWithLevel();
   LogPrintF_safe();
 }
 
 - (void)_testEnd
 {
-  v1 = *(self + 80);
   v2 = CUDescriptionWithLevel();
   v3 = CUPrintNSError();
   LogPrintF_safe();
@@ -318,7 +309,7 @@ LABEL_6:
 
 - (BOOL)_hidStartAndReturnError:(id *)error
 {
-  v153 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   self->_hidProductID = [(CBDevice *)self->_targetDevice productID];
   if ([(CBHIDPerformanceMonitor *)self _isMac]&& (!_os_feature_enabled_impl() || [(CBHIDPerformanceMonitor *)self _isAppleOldHIDs:[(CBDevice *)self->_targetDevice productID]]))
   {
@@ -328,38 +319,38 @@ LABEL_6:
     MatchingServices = IOServiceGetMatchingServices(v4, v5, &existing);
     if (existing)
     {
-      v143[0] = MEMORY[0x1E69E9820];
-      v143[1] = 3221225472;
-      v143[2] = __51__CBHIDPerformanceMonitor__hidStartAndReturnError___block_invoke;
-      v143[3] = &__block_descriptor_36_e5_v8__0l;
-      v144 = existing;
-      v133 = MEMORY[0x1C68DF720](v143);
+      v142[0] = MEMORY[0x1E69E9820];
+      v142[1] = 3221225472;
+      v142[2] = __51__CBHIDPerformanceMonitor__hidStartAndReturnError___block_invoke;
+      v142[3] = &__block_descriptor_36_e5_v8__0l;
+      v143 = existing;
+      v132 = MEMORY[0x1C68DF720](v142);
       entry = 0;
       while (1)
       {
         *theScore = 0;
-        v150 = theScore;
-        v151 = 0x2020000000;
-        v152 = IOIteratorNext(existing);
-        if (!v150[6])
+        v149 = theScore;
+        v150 = 0x2020000000;
+        v151 = IOIteratorNext(existing);
+        if (!v149[6])
         {
           break;
         }
 
-        v142[0] = MEMORY[0x1E69E9820];
-        v142[1] = 3221225472;
-        v142[2] = __51__CBHIDPerformanceMonitor__hidStartAndReturnError___block_invoke_2;
-        v142[3] = &unk_1E8122508;
-        v142[4] = theScore;
-        v12 = MEMORY[0x1C68DF720](v142);
-        CFProperty = IORegistryEntryCreateCFProperty(v150[6], @"BD_ADDR", 0, 0);
+        v141[0] = MEMORY[0x1E69E9820];
+        v141[1] = 3221225472;
+        v141[2] = __51__CBHIDPerformanceMonitor__hidStartAndReturnError___block_invoke_2;
+        v141[3] = &unk_1E8122508;
+        v141[4] = theScore;
+        v12 = MEMORY[0x1C68DF720](v141);
+        CFProperty = IORegistryEntryCreateCFProperty(v149[6], @"BD_ADDR", 0, 0);
         btAddressData = [(CBDevice *)self->_targetDevice btAddressData];
         v15 = [CFProperty isEqual:btAddressData];
 
         if (v15)
         {
-          entry = v150[6];
-          v150[6] = 0;
+          entry = v149[6];
+          v149[6] = 0;
         }
 
         v12[2](v12);
@@ -379,7 +370,7 @@ LABEL_29:
           *error = CBErrorF(-6727, "HID not found", v16, v17, v18, v19, v20, v21, byte7);
         }
 
-        goto LABEL_101;
+        goto LABEL_100;
       }
 
       self->_hidService = entry;
@@ -403,18 +394,18 @@ LABEL_29:
           v92 = ((*hidInterface)->open)(self->_hidInterface, 0);
           if (!v92)
           {
-            v133[2]();
+            v132[2]();
 
             goto LABEL_34;
           }
 
           if (!error)
           {
-            goto LABEL_101;
+            goto LABEL_100;
           }
 
-          v128 = CBErrorF(v92, "Open HID interface failed", v93, v94, v95, v96, v97, v98, byte7);
-          goto LABEL_100;
+          v127 = CBErrorF(v92, "Open HID interface failed", v93, v94, v95, v96, v97, v98, byte7);
+          goto LABEL_99;
         }
 
         if (error)
@@ -424,9 +415,9 @@ LABEL_29:
             v84 = -6700;
           }
 
-          v128 = CBErrorF(v84, "Get HID interface failed", v85, v86, v87, v88, v89, v90, byte7);
-LABEL_100:
-          *error = v128;
+          v127 = CBErrorF(v84, "Get HID interface failed", v85, v86, v87, v88, v89, v90, byte7);
+LABEL_99:
+          *error = v127;
         }
       }
 
@@ -437,20 +428,18 @@ LABEL_100:
           v73 = -6700;
         }
 
-        v128 = CBErrorF(v73, "Get HID plugin failed", v74, v75, v76, v77, v78, v79, byte7a);
-        goto LABEL_100;
+        v127 = CBErrorF(v73, "Get HID plugin failed", v74, v75, v76, v77, v78, v79, byte7a);
+        goto LABEL_99;
       }
 
-LABEL_101:
-      v133[2]();
+LABEL_100:
+      v132[2]();
 
-      goto LABEL_102;
+      return 0;
     }
 
     [(CBHIDPerformanceMonitor *)error _hidStartAndReturnError:MatchingServices, v7, v8, v9, v10, v11];
-LABEL_102:
-    result = 0;
-    goto LABEL_84;
+    return 0;
   }
 
   if (!self->_hidManager)
@@ -462,14 +451,14 @@ LABEL_102:
     {
       if (error)
       {
-        v129 = CBErrorF(v23, "Open HID Manager failed", v24, v25, v26, v27, v28, v29, byte7);
-        v130 = v129;
+        v128 = CBErrorF(v23, "Open HID Manager failed", v24, v25, v26, v27, v28, v29, byte7);
+        v129 = v128;
         result = 0;
-        *error = v129;
-        goto LABEL_84;
+        *error = v128;
+        return result;
       }
 
-      goto LABEL_102;
+      return 0;
     }
   }
 
@@ -494,8 +483,8 @@ LABEL_102:
   if (btAddressData2)
   {
     *theScore = 0;
-    v150 = 0;
-    LOWORD(v151) = 0;
+    v149 = 0;
+    LOWORD(v150) = 0;
     [btAddressData2 bytes];
     HardwareAddressToCString();
     v39 = [MEMORY[0x1E696AEC0] stringWithCString:theScore encoding:4];
@@ -510,8 +499,8 @@ LABEL_102:
   }
 
   hidManager = self->_hidManager;
-  v148 = entrya;
-  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v148 count:1];
+  v147 = entrya;
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v147 count:1];
   IOHIDManagerSetDeviceMatchingMultiple(hidManager, v44);
 
   v45 = IOHIDManagerCopyDevices(self->_hidManager);
@@ -537,37 +526,37 @@ LABEL_102:
 
     [entrya setObject:self->_targetBTAddrData forKey:self->_targetBTAddrKey];
     v54 = self->_hidManager;
-    v147 = entrya;
-    v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v147 count:1];
+    v146 = entrya;
+    v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v146 count:1];
     IOHIDManagerSetDeviceMatchingMultiple(v54, v55);
 
     v45 = IOHIDManagerCopyDevices(self->_hidManager);
     if (!v45)
     {
       [(CBHIDPerformanceMonitor *)error _hidStartAndReturnError:v56, v57, v58, v59, v60, v61];
-      goto LABEL_102;
+      return 0;
     }
   }
 
-  v140 = 0u;
-  v141 = 0u;
-  v138 = 0u;
   v139 = 0u;
+  v140 = 0u;
+  v137 = 0u;
+  v138 = 0u;
   v62 = v45;
-  v63 = [(__CFSet *)v62 countByEnumeratingWithState:&v138 objects:v146 count:16];
+  v63 = [(__CFSet *)v62 countByEnumeratingWithState:&v137 objects:v145 count:16];
   if (v63)
   {
-    v64 = *v139;
+    v64 = *v138;
     do
     {
       for (i = 0; i != v63; ++i)
       {
-        if (*v139 != v64)
+        if (*v138 != v64)
         {
           objc_enumerationMutation(v62);
         }
 
-        v66 = *(*(&v138 + 1) + 8 * i);
+        v66 = *(*(&v137 + 1) + 8 * i);
         v67 = IOHIDDeviceGetProperty(v66, self->_targetBTAddrKey);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && ![v67 caseInsensitiveCompare:self->_targetBTAddrData])
@@ -578,7 +567,7 @@ LABEL_102:
         }
       }
 
-      v63 = [(__CFSet *)v62 countByEnumeratingWithState:&v138 objects:v146 count:16];
+      v63 = [(__CFSet *)v62 countByEnumeratingWithState:&v137 objects:v145 count:16];
     }
 
     while (v63);
@@ -592,9 +581,9 @@ LABEL_34:
     v100 = objc_alloc_init(CBDeviceRequest);
     [(CBDeviceRequest *)v100 setRequestFlags:512];
     targetDevice = self->_targetDevice;
-    v137 = 0;
-    v102 = [CBController performDeviceRequest:v100 device:targetDevice error:&v137];
-    v103 = v137;
+    v136 = 0;
+    v102 = [CBController performDeviceRequest:v100 device:targetDevice error:&v136];
+    v103 = v136;
     sniffInterval = [v102 sniffInterval];
     if (sniffInterval)
     {
@@ -605,7 +594,7 @@ LABEL_34:
     {
       if (gLogCategory_CBHIDPerf <= 90 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
       {
-        [CBHIDPerformanceMonitor _hidStartAndReturnError:];
+        [CBHIDPerformanceMonitor _hidStartAndReturnError:v103];
       }
 
       [MEMORY[0x1E696AF00] sleepForTimeInterval:5.0];
@@ -616,9 +605,9 @@ LABEL_34:
       v105 = objc_alloc_init(CBDeviceRequest);
       [(CBDeviceRequest *)v105 setRequestFlags:512];
       v106 = self->_targetDevice;
-      v137 = 0;
-      v107 = [CBController performDeviceRequest:v105 device:v106 error:&v137];
-      v108 = v137;
+      v136 = 0;
+      v107 = [CBController performDeviceRequest:v105 device:v106 error:&v136];
+      v108 = v136;
       sniffInterval2 = [v107 sniffInterval];
       if (sniffInterval2)
       {
@@ -629,7 +618,7 @@ LABEL_34:
       {
         if (gLogCategory_CBHIDPerf <= 90 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
         {
-          [CBHIDPerformanceMonitor _hidStartAndReturnError:];
+          [CBHIDPerformanceMonitor _hidStartAndReturnError:v108];
         }
 
         [MEMORY[0x1E696AF00] sleepForTimeInterval:5.0];
@@ -640,9 +629,9 @@ LABEL_34:
         v110 = objc_alloc_init(CBDeviceRequest);
         [(CBDeviceRequest *)v110 setRequestFlags:512];
         v111 = self->_targetDevice;
-        v137 = 0;
-        v112 = [CBController performDeviceRequest:v110 device:v111 error:&v137];
-        v113 = v137;
+        v136 = 0;
+        v112 = [CBController performDeviceRequest:v110 device:v111 error:&v136];
+        v113 = v136;
         sniffInterval3 = [v112 sniffInterval];
         if (sniffInterval3)
         {
@@ -653,7 +642,7 @@ LABEL_34:
         {
           if (gLogCategory_CBHIDPerf <= 90 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
           {
-            [CBHIDPerformanceMonitor _hidStartAndReturnError:];
+            [CBHIDPerformanceMonitor _hidStartAndReturnError:v113];
           }
 
           [MEMORY[0x1E696AF00] sleepForTimeInterval:5.0];
@@ -664,9 +653,9 @@ LABEL_34:
           v115 = objc_alloc_init(CBDeviceRequest);
           [(CBDeviceRequest *)v115 setRequestFlags:512];
           v116 = self->_targetDevice;
-          v137 = 0;
-          v117 = [CBController performDeviceRequest:v115 device:v116 error:&v137];
-          v118 = v137;
+          v136 = 0;
+          v117 = [CBController performDeviceRequest:v115 device:v116 error:&v136];
+          v118 = v136;
           sniffInterval4 = [v117 sniffInterval];
           if (sniffInterval4)
           {
@@ -677,7 +666,7 @@ LABEL_34:
           {
             if (gLogCategory_CBHIDPerf <= 90 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
             {
-              [CBHIDPerformanceMonitor _hidStartAndReturnError:];
+              [CBHIDPerformanceMonitor _hidStartAndReturnError:v118];
             }
 
             [MEMORY[0x1E696AF00] sleepForTimeInterval:5.0];
@@ -686,8 +675,7 @@ LABEL_34:
           if (!self->_statsPacketIntervalMicsExpected)
           {
             [CBHIDPerformanceMonitor _hidStartAndReturnError:?];
-            result = theScore[0];
-            goto LABEL_84;
+            return theScore[0];
           }
         }
       }
@@ -701,7 +689,7 @@ LABEL_34:
 
   if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
   {
-    [CBHIDPerformanceMonitor _hidStartAndReturnError:?];
+    [CBHIDPerformanceMonitor _hidStartAndReturnError:];
   }
 
   excessiveMs = self->_excessiveMs;
@@ -754,18 +742,11 @@ LABEL_79:
   [(NSMutableArray *)self->_intrmPacketDeltaMics removeAllObjects];
   if ([(CBHIDPerformanceMonitor *)self _hidStartPERAndRetunError:error])
   {
-    result = 1;
+    return 1;
   }
 
-  else
-  {
-    [(CBHIDPerformanceMonitor *)self _hidStopPERAndRetunError:0];
-    result = [(CBHIDPerformanceMonitor *)self _hidStartPERAndRetunError:error];
-  }
-
-LABEL_84:
-  v127 = *MEMORY[0x1E69E9840];
-  return result;
+  [(CBHIDPerformanceMonitor *)self _hidStopPERAndRetunError:0];
+  return [(CBHIDPerformanceMonitor *)self _hidStartPERAndRetunError:error];
 }
 
 uint64_t __51__CBHIDPerformanceMonitor__hidStartAndReturnError___block_invoke_2(uint64_t a1)
@@ -868,6 +849,119 @@ LABEL_14:
   return [(CBHIDPerformanceMonitor *)self _hidSetFeatureWithReportID:v12 value:0 error:error];
 }
 
+- (BOOL)_hidSetFeatureWithReportID:(unsigned __int8)d value:(unsigned __int8)value error:(id *)error
+{
+  dCopy = d;
+  v51 = *MEMORY[0x1E69E9840];
+  if (![(CBHIDPerformanceMonitor *)self _isMac]|| _os_feature_enabled_impl() && ![(CBHIDPerformanceMonitor *)self _isAppleOldHIDs:[(CBDevice *)self->_targetDevice productID]])
+  {
+    hidManager = self->_hidManager;
+    if (hidManager)
+    {
+      report = dCopy;
+      valueCopy2 = value;
+      v25 = IOHIDManagerCopyDevices(hidManager);
+      if (!v25)
+      {
+        [(CBHIDPerformanceMonitor *)error _hidSetFeatureWithReportID:v26 value:v27 error:v28, v29, v30, v31];
+        return 0;
+      }
+
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v32 = v25;
+      v33 = [(__CFSet *)v32 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      if (v33)
+      {
+        v34 = v33;
+        v35 = *v45;
+        do
+        {
+          for (i = 0; i != v34; ++i)
+          {
+            if (*v45 != v35)
+            {
+              objc_enumerationMutation(v32);
+            }
+
+            v37 = *(*(&v44 + 1) + 8 * i);
+            v38 = IOHIDDeviceGetProperty(v37, self->_targetBTAddrKey);
+            objc_opt_class();
+            if ((objc_opt_isKindOfClass() & 1) != 0 && ![v38 caseInsensitiveCompare:self->_targetBTAddrData])
+            {
+              IOHIDDeviceSetReport(v37, kIOHIDReportTypeFeature, 0, &report, 2);
+            }
+          }
+
+          v34 = [(__CFSet *)v32 countByEnumeratingWithState:&v44 objects:v50 count:16];
+        }
+
+        while (v34);
+      }
+
+      v23 = gLogCategory_CBHIDPerf;
+      if (gLogCategory_CBHIDPerf > 30)
+      {
+        return 1;
+      }
+
+      goto LABEL_21;
+    }
+
+    if (error)
+    {
+      v40 = "No HID Manager";
+LABEL_31:
+      v41 = CBErrorF(-6762, v40, v9, v10, v11, v12, v13, v14, v43);
+      v42 = v41;
+      result = 0;
+      *error = v41;
+      return result;
+    }
+
+    return 0;
+  }
+
+  hidInterface = self->_hidInterface;
+  if (!hidInterface)
+  {
+    if (error)
+    {
+      v40 = "No HID interface";
+      goto LABEL_31;
+    }
+
+    return 0;
+  }
+
+  report = dCopy;
+  valueCopy2 = value;
+  v16 = ((*hidInterface)->setReport)(hidInterface, 2, dCopy, &report, 2, 1000, 0, 0);
+  if (v16)
+  {
+    if (error)
+    {
+      *error = CBErrorF(v16, "SetFeature failed", v17, v18, v19, v20, v21, v22, 0);
+    }
+
+    return 0;
+  }
+
+  v23 = gLogCategory_CBHIDPerf;
+  if (gLogCategory_CBHIDPerf <= 30)
+  {
+LABEL_21:
+    if (v23 != -1 || _LogCategory_Initialize())
+    {
+      LogPrintF_safe();
+    }
+  }
+
+  return 1;
+}
+
 - (void)_packetLoggerStart
 {
   v3 = self->_packetLoggerClient;
@@ -921,7 +1015,7 @@ void __45__CBHIDPerformanceMonitor__packetLoggerStart__block_invoke_2(uint64_t a
     v6 = v3;
     if (gLogCategory_CBHIDPerf <= 90 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
     {
-      __45__CBHIDPerformanceMonitor__packetLoggerStart__block_invoke_2_cold_1();
+      __45__CBHIDPerformanceMonitor__packetLoggerStart__block_invoke_2_cold_1(v6);
     }
 
     [*(a1 + 32) invalidate];
@@ -967,7 +1061,7 @@ void __45__CBHIDPerformanceMonitor__rssiAndHandleRead__block_invoke(uint64_t a1,
 
     if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
     {
-      __45__CBHIDPerformanceMonitor__rssiAndHandleRead__block_invoke_cold_1(v10, v12, (a1 + 40));
+      __45__CBHIDPerformanceMonitor__rssiAndHandleRead__block_invoke_cold_1(v10, v12, (a1 + 40), v5);
     }
 
     [*(a1 + 56) invalidate];
@@ -990,32 +1084,31 @@ void __45__CBHIDPerformanceMonitor__rssiAndHandleRead__block_invoke(uint64_t a1,
   self->_timeoutTimer = v6;
   v8 = v6;
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __38__CBHIDPerformanceMonitor__timerStart__block_invoke;
-  v10[3] = &unk_1E811CF50;
-  v10[4] = v8;
-  v10[5] = self;
-  dispatch_source_set_event_handler(v8, v10);
-  testSecondsActual = self->_testSecondsActual;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __38__CBHIDPerformanceMonitor__timerStart__block_invoke;
+  v9[3] = &unk_1E811CF50;
+  v9[4] = v8;
+  v9[5] = self;
+  dispatch_source_set_event_handler(v8, v9);
   CUDispatchTimerSet();
   dispatch_activate(v8);
 }
 
-uint64_t __38__CBHIDPerformanceMonitor__timerStart__block_invoke(uint64_t result)
+void *__38__CBHIDPerformanceMonitor__timerStart__block_invoke(void *result)
 {
-  if (*(result + 32) == *(*(result + 40) + 128))
+  if (result[4] == *(result[5] + 128))
   {
     if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || (v2 = result, v3 = _LogCategory_Initialize(), result = v2, v3)))
     {
       v5 = result;
       __38__CBHIDPerformanceMonitor__timerStart__block_invoke_cold_1();
-      v4 = *(v5 + 40);
+      v4 = v5[5];
     }
 
     else
     {
-      v4 = *(result + 40);
+      v4 = result[5];
     }
 
     return [v4 _testEnd];
@@ -1187,7 +1280,6 @@ LABEL_30:
         goto LABEL_35;
       }
 
-      v47 = self->_statsPacketCountExpected;
       [(CBHIDPerformanceSummary *)v16 errorRate];
       [(CBHIDPerformanceSummary *)v16 intervalSecondsExpected];
       [(CBHIDPerformanceSummary *)v16 intervalSecondsMax];
@@ -1257,7 +1349,6 @@ LABEL_33:
 
   if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
   {
-    v50 = self->_statsPacketCountExpected;
     [(CBHIDPerformanceSummary *)v16 errorRate];
     [(CBHIDPerformanceSummary *)v16 intervalSecondsExpected];
     [(CBHIDPerformanceSummary *)v16 intervalSecondsMax];
@@ -1271,20 +1362,20 @@ LABEL_33:
   }
 
 LABEL_35:
-  v48 = MEMORY[0x1C68DF720](self->_summaryHandler);
-  v49 = v48;
-  if (v48)
+  v47 = MEMORY[0x1C68DF720](self->_summaryHandler);
+  v48 = v47;
+  if (v47)
   {
-    (*(v48 + 16))(v48, v16);
+    (*(v47 + 16))(v47, v16);
   }
 }
 
 - (BOOL)_findDevicesAndReturnError:(id *)error
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v44 = [CBDiscovery devicesWithDiscoveryFlags:0x200000 error:error];
-  if (!v44)
+  v43 = [CBDiscovery devicesWithDiscoveryFlags:0x200000 error:error];
+  if (!v43)
   {
 LABEL_46:
     v35 = 0;
@@ -1292,33 +1383,33 @@ LABEL_46:
   }
 
   errorCopy = error;
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   obj = self->_devices;
-  v6 = [(NSArray *)obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+  v6 = [(NSArray *)obj countByEnumeratingWithState:&v52 objects:v58 count:16];
   if (v6)
   {
     v7 = v6;
-    v43 = *v54;
+    v42 = *v53;
     selfCopy = self;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v54 != v43)
+        if (*v53 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v53 + 1) + 8 * i);
+        v9 = *(*(&v52 + 1) + 8 * i);
+        v48 = 0u;
         v49 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v52 = 0u;
-        v10 = v44;
-        v11 = [v10 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v10 = v43;
+        v11 = [v10 countByEnumeratingWithState:&v48 objects:v57 count:16];
         if (!v11)
         {
 LABEL_42:
@@ -1333,17 +1424,17 @@ LABEL_43:
         }
 
         v12 = v11;
-        v13 = *v50;
+        v13 = *v49;
 LABEL_9:
         v14 = 0;
         while (1)
         {
-          if (*v50 != v13)
+          if (*v49 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v49 + 1) + 8 * v14);
+          v15 = *(*(&v48 + 1) + 8 * v14);
           if ([v15 connectedServices] & 0x20) != 0 && objc_msgSend(v15, "deviceType") != 26 && (objc_msgSend(v15, "isEquivalentToCBDevice:compareFlags:", v9, 8))
           {
             break;
@@ -1351,7 +1442,7 @@ LABEL_9:
 
           if (v12 == ++v14)
           {
-            v12 = [v10 countByEnumeratingWithState:&v49 objects:v58 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v48 objects:v57 count:16];
             if (v12)
             {
               goto LABEL_9;
@@ -1371,12 +1462,12 @@ LABEL_9:
         [v5 addObject:v16];
         if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
         {
-          v38 = CUDescriptionWithLevel();
+          v37 = CUDescriptionWithLevel();
           LogPrintF_safe();
         }
       }
 
-      v7 = [(NSArray *)obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v7 = [(NSArray *)obj countByEnumeratingWithState:&v52 objects:v58 count:16];
       self = selfCopy;
       if (v7)
       {
@@ -1389,38 +1480,38 @@ LABEL_9:
 
   if (![v5 count])
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v23 = v44;
-    v24 = [v23 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v23 = v43;
+    v24 = [v23 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v46;
+      v26 = *v45;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v46 != v26)
+          if (*v45 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v45 + 1) + 8 * j);
+          v28 = *(*(&v44 + 1) + 8 * j);
           if (([v28 connectedServices] & 0x20) != 0 && objc_msgSend(v28, "deviceType") != 26)
           {
             [v5 addObject:v28];
             if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
             {
-              v38 = CUDescriptionWithLevel();
+              v37 = CUDescriptionWithLevel();
               LogPrintF_safe();
             }
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v44 objects:v56 count:16];
       }
 
       while (v25);
@@ -1431,7 +1522,7 @@ LABEL_9:
   {
     if (errorCopy)
     {
-      CBErrorF(-6727, "No devices found", v29, v30, v31, v32, v33, v34, v39);
+      CBErrorF(-6727, "No devices found", v29, v30, v31, v32, v33, v34, v38);
       *errorCopy = v35 = 0;
       goto LABEL_47;
     }
@@ -1443,7 +1534,6 @@ LABEL_9:
   v35 = 1;
 LABEL_47:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v35;
 }
 
@@ -1590,9 +1680,7 @@ LABEL_18:
           goto LABEL_68;
         }
 
-LABEL_20:
-        LogPrintF_safe();
-        goto LABEL_68;
+        goto LABEL_20;
       }
     }
 
@@ -1627,22 +1715,14 @@ LABEL_20:
     {
       if (v8 < statsPacketMicsPrevious)
       {
-        if (gLogCategory_CBHIDPerf > 90)
+        if (gLogCategory_CBHIDPerf > 90 || gLogCategory_CBHIDPerf == -1 && !_LogCategory_Initialize())
         {
           goto LABEL_68;
         }
 
-        if (gLogCategory_CBHIDPerf == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_68;
-          }
-
-          v31 = self->_statsPacketMicsPrevious;
-        }
-
-        goto LABEL_20;
+LABEL_20:
+        LogPrintF_safe();
+        goto LABEL_68;
       }
 
       v14 = self->_statsPacketMicsPrevious;
@@ -1673,22 +1753,20 @@ LABEL_20:
     {
       if (gLogCategory_CBHIDPerf <= 30 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
       {
-        statsPacketCountActual = self->_statsPacketCountActual;
         OUTLINED_FUNCTION_1_11();
         LogPrintF_safe();
       }
 
-      v26 = MEMORY[0x1C68DF720](self->_excessiveIntervalHandler);
-      v27 = v26;
-      if (v26)
+      v24 = MEMORY[0x1C68DF720](self->_excessiveIntervalHandler);
+      v25 = v24;
+      if (v24)
       {
-        (*(v26 + 16))(v26, v4, v15 > statsPacketIntervalMicsMax, v19);
+        (*(v24 + 16))(v24, v4, v15 > statsPacketIntervalMicsMax, v19);
       }
     }
 
     else if (gLogCategory_CBHIDPerf <= 10 && (gLogCategory_CBHIDPerf != -1 || _LogCategory_Initialize()))
     {
-      v23 = self->_statsPacketCountActual;
       OUTLINED_FUNCTION_1_11();
       LogPrintF_safe();
     }
@@ -1704,9 +1782,9 @@ LABEL_20:
 
       self->_statsPacketMicsStartInterim = v8;
       self->_statsPacketCountInterim = 0;
-      v29 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:self->_slideWindowSec];
+      v27 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:self->_slideWindowSec];
       slidingWindowDate = self->_slidingWindowDate;
-      self->_slidingWindowDate = v29;
+      self->_slidingWindowDate = v27;
 
       [(NSMutableArray *)self->_intrmPacketDeltaMics removeAllObjects];
     }
@@ -1758,8 +1836,8 @@ LABEL_54:
     goto LABEL_68;
   }
 
-  v25 = bytes_ptr[23];
-  if (v25 <= 0x30 && ((1 << v25) & 0x1200000000400) != 0)
+  v23 = bytes_ptr[23];
+  if (v23 <= 0x30 && ((1 << v23) & 0x1200000000400) != 0)
   {
     goto LABEL_54;
   }
@@ -1814,7 +1892,7 @@ LABEL_68:
   }
 }
 
-- (void)_hidStartAndReturnError:.cold.2()
+- (void)_hidStartAndReturnError:(uint64_t)a1 .cold.2(uint64_t a1)
 {
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
@@ -1822,7 +1900,7 @@ LABEL_68:
   LogPrintF_safe();
 }
 
-- (uint64_t)_hidStartAndReturnError:(uint64_t)result .cold.6(uint64_t result)
+- (_BYTE)_hidStartAndReturnError:(_BYTE *)result .cold.6(_BYTE *result)
 {
   v1 = result;
   if (gLogCategory_CBHIDPerf <= 90)
@@ -1871,20 +1949,20 @@ LABEL_68:
   return result;
 }
 
-void __45__CBHIDPerformanceMonitor__packetLoggerStart__block_invoke_2_cold_1()
+void __45__CBHIDPerformanceMonitor__packetLoggerStart__block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
+  v1 = CUPrintNSError();
   LogPrintF_safe();
 }
 
-void __45__CBHIDPerformanceMonitor__rssiAndHandleRead__block_invoke_cold_1(uint64_t a1, uint64_t a2, id *a3)
+void __45__CBHIDPerformanceMonitor__rssiAndHandleRead__block_invoke_cold_1(uint64_t a1, uint64_t a2, id *a3, uint64_t a4)
 {
-  v4 = [*a3 name];
-  v3 = CUPrintNSError();
+  v5 = [*a3 name];
+  v4 = CUPrintNSError();
   LogPrintF_safe();
 }
 
-- (uint64_t)_calculatePercentile:(uint64_t)result percentile:.cold.1(uint64_t result)
+- (void)_calculatePercentile:(void *)result percentile:.cold.1(void *result)
 {
   v1 = result;
   if (gLogCategory_CBHIDPerf <= 30)

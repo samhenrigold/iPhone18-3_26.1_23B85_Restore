@@ -160,7 +160,7 @@
   if (asset)
   {
     v6 = asset;
-    if (([(PXDisplayAssetView *)self options]& 1) != 0)
+    if (objc_msgSend_options(self))
     {
       playbackStyle = 1;
     }
@@ -633,7 +633,7 @@ void __48__PXDisplayAssetView__updateViewModelProperties__block_invoke(uint64_t 
 
   [(PXDisplayAssetViewModel *)self->_viewModel registerChangeObserver:self context:ViewModelObservationContext_242866];
   [(PXDisplayAssetView *)self _invalidateViewModelProperties];
-  if (([(PXDisplayAssetView *)self options]& 1) == 0)
+  if ((objc_msgSend_options(self) & 1) == 0)
   {
     v7 = [[PXDisplayAssetCombinedOverlayView alloc] initWithViewModel:self->_viewModel];
     overlayView = self->_overlayView;

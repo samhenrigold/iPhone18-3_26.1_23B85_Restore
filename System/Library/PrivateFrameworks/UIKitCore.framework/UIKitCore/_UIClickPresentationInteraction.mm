@@ -94,32 +94,32 @@
 
 - (void)_refreshAllDrivers
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v42 = 0u;
+  v50 = *MEMORY[0x1E69E9840];
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
   allDrivers = [(_UIClickPresentationInteraction *)self allDrivers];
-  v4 = [allDrivers countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v4 = [allDrivers countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v43;
+    v6 = *v44;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v43 != v6)
+        if (*v44 != v6)
         {
           objc_enumerationMutation(allDrivers);
         }
 
-        v8 = *(*(&v42 + 1) + 8 * i);
+        v8 = *(*(&v43 + 1) + 8 * i);
         [v8 setView:0];
         [v8 setDelegate:0];
       }
 
-      v5 = [allDrivers countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v5 = [allDrivers countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v5);
@@ -152,84 +152,89 @@
         if (self->_delegateImplements.activationStyle)
         {
           delegate = [(_UIClickPresentationInteraction *)self delegate];
-          [delegate activationStyleForClickPresentationInteraction:self];
+          v19 = [delegate activationStyleForClickPresentationInteraction:self];
         }
 
-        v19 = _UIClickInteractionDefaultDrivers();
+        else
+        {
+          v19 = 0;
+        }
 
-        v17 = v19;
+        v20 = _UIClickInteractionDefaultDrivers(v19);
+
+        v17 = v20;
       }
 
-      v40 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v20 = v17;
-      v21 = [v20 countByEnumeratingWithState:&v38 objects:v47 count:16];
-      if (v21)
+      v40 = 0u;
+      v21 = v17;
+      v22 = [v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
+      if (v22)
       {
-        v22 = v21;
-        v23 = *v39;
+        v23 = v22;
+        v24 = *v40;
         do
         {
-          for (j = 0; j != v22; ++j)
+          for (j = 0; j != v23; ++j)
           {
-            if (*v39 != v23)
+            if (*v40 != v24)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v21);
             }
 
-            v25 = objc_opt_new();
-            [overrideDrivers2 addObject:v25];
+            v26 = objc_opt_new();
+            [overrideDrivers2 addObject:v26];
             if (objc_opt_respondsToSelector())
             {
-              [v25 setBehavior:1];
-              v26 = objc_opt_new();
-              [v26 setBehavior:2];
-              [overrideDrivers2 addObject:v26];
+              [v26 setBehavior:1];
+              v27 = objc_opt_new();
+              [v27 setBehavior:2];
+              [overrideDrivers2 addObject:v27];
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v38 objects:v47 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
         }
 
-        while (v22);
+        while (v23);
       }
 
       [(_UIClickPresentationInteraction *)self setAllDrivers:overrideDrivers2];
     }
 
-    v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
+    v36 = 0u;
     allDrivers2 = [(_UIClickPresentationInteraction *)self allDrivers];
-    v28 = [allDrivers2 countByEnumeratingWithState:&v34 objects:v46 count:16];
-    if (v28)
+    v29 = [allDrivers2 countByEnumeratingWithState:&v35 objects:v47 count:16];
+    if (v29)
     {
-      v29 = v28;
-      v30 = *v35;
+      v30 = v29;
+      v31 = *v36;
       do
       {
-        for (k = 0; k != v29; ++k)
+        for (k = 0; k != v30; ++k)
         {
-          if (*v35 != v30)
+          if (*v36 != v31)
           {
             objc_enumerationMutation(allDrivers2);
           }
 
-          v32 = *(*(&v34 + 1) + 8 * k);
+          v33 = *(*(&v35 + 1) + 8 * k);
           view3 = [(_UIClickPresentationInteraction *)self view];
-          [v32 setView:view3];
+          [v33 setView:view3];
 
-          [v32 setDelegate:self];
-          [v32 setAllowableMovement:{_UIClickPresentationAllowableMovementForDriver(v32, 0)}];
+          [v33 setDelegate:self];
+          [v33 setAllowableMovement:{_UIClickPresentationAllowableMovementForDriver(v33, 0)}];
         }
 
-        v29 = [allDrivers2 countByEnumeratingWithState:&v34 objects:v46 count:16];
+        v30 = [allDrivers2 countByEnumeratingWithState:&v35 objects:v47 count:16];
       }
 
-      while (v29);
+      while (v30);
     }
   }
 }
@@ -1186,9 +1191,9 @@ LABEL_13:
     goto LABEL_8;
   }
 
-  v8 = [(NSArray *)v9 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v9);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_overrideDrivers, drivers);
@@ -1946,9 +1951,9 @@ LABEL_6:
   }
 
   name = [gestureRecognizerCopy name];
-  v13 = [name isEqualToString:@"PKSelectionDragGesture"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if ((v13 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v10 = ![(_UIClickPresentationInteraction *)self allowSimultaneousRecognition];
     goto LABEL_8;

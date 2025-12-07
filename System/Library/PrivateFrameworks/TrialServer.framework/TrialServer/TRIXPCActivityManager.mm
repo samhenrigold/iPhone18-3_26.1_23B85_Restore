@@ -153,7 +153,7 @@ void __55__TRIXPCActivityManager__registerRetryFailuresActivity__block_invoke_2(
 
 void __87__TRIXPCActivityManager__setDelaySeconds_forXPCActivity_withLabel_replacementCriteria___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = xpc_activity_copy_criteria(*(a1 + 32));
   if (!v2)
   {
@@ -161,9 +161,9 @@ void __87__TRIXPCActivityManager__setDelaySeconds_forXPCActivity_withLabel_repla
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(a1 + 40);
-      v18 = 138543362;
-      v19 = v14;
-      _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: criteria not found, using replacement and updating delay.", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v14;
+      _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: criteria not found, using replacement and updating delay.", &v17, 0xCu);
     }
 
     v11 = *(a1 + 48);
@@ -193,9 +193,9 @@ void __87__TRIXPCActivityManager__setDelaySeconds_forXPCActivity_withLabel_repla
     if (v8)
     {
       v9 = *(a1 + 40);
-      v18 = 138543362;
-      v19 = v9;
-      _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: delay is different, criteria will be updated.", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v9;
+      _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: delay is different, criteria will be updated.", &v17, 0xCu);
     }
 
     v10 = *(a1 + 56);
@@ -211,17 +211,16 @@ LABEL_12:
   {
     v15 = *(a1 + 40);
     v16 = *(a1 + 56);
-    v18 = 138543874;
-    v19 = v15;
-    v20 = 2048;
-    v21 = int64;
-    v22 = 2048;
-    v23 = v16;
-    _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: existing delay is too close to requested delay (%lli ~ %lli), not updating the delay this time", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v15;
+    v19 = 2048;
+    v20 = int64;
+    v21 = 2048;
+    v22 = v16;
+    _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: existing delay is too close to requested delay (%lli ~ %lli), not updating the delay this time", &v17, 0x20u);
   }
 
 LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setJitterForXPCActivity:(id)activity withLabel:(id)label replacementCriteria:(id)criteria
@@ -245,7 +244,7 @@ LABEL_16:
 
 void __80__TRIXPCActivityManager__setJitterForXPCActivity_withLabel_replacementCriteria___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = xpc_activity_copy_criteria(*(a1 + 32));
   if (!v2)
   {
@@ -254,9 +253,9 @@ void __80__TRIXPCActivityManager__setJitterForXPCActivity_withLabel_replacementC
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 48);
-      v15 = 138543362;
-      v16 = v10;
-      _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: criteria not found, using replacement and updating jitter.", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v10;
+      _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: criteria not found, using replacement and updating jitter.", &v14, 0xCu);
     }
 
     v11 = *MEMORY[0x277D86358];
@@ -274,9 +273,9 @@ void __80__TRIXPCActivityManager__setJitterForXPCActivity_withLabel_replacementC
     if (v7)
     {
       v13 = *(a1 + 48);
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: jitter is unset, criteria will be updated.", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: jitter is unset, criteria will be updated.", &v14, 0xCu);
     }
 
     v12 = v3;
@@ -290,13 +289,12 @@ LABEL_12:
   if (v7)
   {
     v8 = *(a1 + 48);
-    v15 = 138543362;
-    v16 = v8;
-    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: jitter is already set, criteria unchanged.", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v8;
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ check-in: jitter is already set, criteria unchanged.", &v14, 0xCu);
   }
 
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleFetchTaskWithActivityDescriptor:(id)descriptor label:(id)label
@@ -330,22 +328,22 @@ LABEL_13:
 
 void __72__TRIXPCActivityManager__scheduleFetchTaskWithActivityDescriptor_label___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*(a1[4] + 24))
   {
     *(*(a1[7] + 8) + 24) = 1;
     v2 = *(a1[4] + 24);
     v3 = a1[6];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __72__TRIXPCActivityManager__scheduleFetchTaskWithActivityDescriptor_label___block_invoke_339;
-    v9[3] = &unk_279DDF7A0;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __72__TRIXPCActivityManager__scheduleFetchTaskWithActivityDescriptor_label___block_invoke_339;
+    v8[3] = &unk_279DDF7A0;
     v4 = v3;
     v5 = a1[4];
-    v10 = v4;
-    v11 = v5;
-    [v2 resumeWithXPCActivityDescriptor:v4 executeWhenSuspended:v9];
-    v6 = v10;
+    v9 = v4;
+    v10 = v5;
+    [v2 resumeWithXPCActivityDescriptor:v4 executeWhenSuspended:v8];
+    v6 = v9;
   }
 
   else
@@ -353,14 +351,12 @@ void __72__TRIXPCActivityManager__scheduleFetchTaskWithActivityDescriptor_label_
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[5];
+      v7 = a1[5];
       *buf = 138543362;
-      v13 = v8;
+      v12 = v7;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Can't carry out %{public}@ activity, task queue not initialized.", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __72__TRIXPCActivityManager__scheduleFetchTaskWithActivityDescriptor_label___block_invoke_339(uint64_t a1)
@@ -411,19 +407,19 @@ void __72__TRIXPCActivityManager__scheduleFetchTaskWithActivityDescriptor_label_
 
 void __78__TRIXPCActivityManager__scheduleMaintenanceTaskWithActivityDescriptor_label___block_invoke(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1[4] + 24))
   {
     *(*(a1[7] + 8) + 24) = 1;
     v2 = a1[4];
     v3 = *(v2 + 24);
     v4 = a1[6];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __78__TRIXPCActivityManager__scheduleMaintenanceTaskWithActivityDescriptor_label___block_invoke_345;
-    v8[3] = &unk_279DDEEE0;
-    v8[4] = v2;
-    [v3 resumeWithXPCActivityDescriptor:v4 executeWhenSuspended:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __78__TRIXPCActivityManager__scheduleMaintenanceTaskWithActivityDescriptor_label___block_invoke_345;
+    v7[3] = &unk_279DDEEE0;
+    v7[4] = v2;
+    [v3 resumeWithXPCActivityDescriptor:v4 executeWhenSuspended:v7];
   }
 
   else
@@ -431,14 +427,12 @@ void __78__TRIXPCActivityManager__scheduleMaintenanceTaskWithActivityDescriptor_
     v5 = TRILogCategory_Server();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = a1[5];
+      v6 = a1[5];
       *buf = 138543362;
-      v10 = v7;
+      v9 = v6;
       _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Can't carry out %{public}@ activity, task queue not initialized.", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __78__TRIXPCActivityManager__scheduleMaintenanceTaskWithActivityDescriptor_label___block_invoke_345(uint64_t a1)
@@ -578,7 +572,7 @@ void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke(uint
 
 void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_2(void *a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   if (*(v1 + 16))
   {
@@ -594,14 +588,14 @@ void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_2(vo
       }
 
       *buf = 0;
-      v37 = buf;
-      v38 = 0x3032000000;
-      v39 = __Block_byref_object_copy__6;
-      v40 = __Block_byref_object_dispose__6;
-      v41 = 0;
+      v36 = buf;
+      v37 = 0x3032000000;
+      v38 = __Block_byref_object_copy__6;
+      v39 = __Block_byref_object_dispose__6;
+      v40 = 0;
       v6 = [*(a1[4] + 16) keyValueStore];
-      v7 = (v37 + 40);
-      obj = *(v37 + 5);
+      v7 = (v36 + 40);
+      obj = *(v36 + 5);
       v8 = [TRISetupAssistantFetchUtils setValueInKeyValueStore:v6 key:@"post-upgrade-activity-in-progress" value:&unk_287FC4648 error:&obj];
       objc_storeStrong(v7, obj);
 
@@ -622,9 +616,9 @@ void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_2(vo
           v12 = TRILogCategory_Server();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            *v42 = 134217984;
-            v43 = v11;
-            _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", v42, 0xCu);
+            *v41 = 134217984;
+            v42 = v11;
+            _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", v41, 0xCu);
           }
         }
 
@@ -650,16 +644,16 @@ void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_2(vo
           v24 = a1[4];
           v25 = a1[5];
           v26 = *(v24 + 24);
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_367;
-          v30[3] = &unk_279DE0080;
-          v30[4] = v24;
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_367;
+          v29[3] = &unk_279DE0080;
+          v29[4] = v24;
           v27 = v23;
-          v31 = v27;
+          v30 = v27;
           v12 = v15;
-          v32 = v12;
-          [v26 resumeWithXPCActivityDescriptor:v25 executeWhenSuspended:v30];
+          v31 = v12;
+          [v26 resumeWithXPCActivityDescriptor:v25 executeWhenSuspended:v29];
         }
       }
 
@@ -668,12 +662,12 @@ void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_2(vo
         v14 = TRILogCategory_Server();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v29 = *(v37 + 5);
-          *v42 = 138412546;
-          v43 = @"post-upgrade-activity-in-progress";
-          v44 = 2114;
-          v45 = v29;
-          _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Error writing data for %@ key in TRIKVStore: %{public}@. Not proceeding further", v42, 0x16u);
+          v28 = *(v36 + 5);
+          *v41 = 138412546;
+          v42 = @"post-upgrade-activity-in-progress";
+          v43 = 2114;
+          v44 = v28;
+          _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Error writing data for %@ key in TRIKVStore: %{public}@. Not proceeding further", v41, 0x16u);
         }
       }
 
@@ -699,13 +693,11 @@ void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_2(vo
       _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Can't trigger post-upgrade actions, server context not available.", buf, 2u);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_361(uint64_t a1, int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -729,16 +721,14 @@ void __53__TRIXPCActivityManager__registerPostUpgradeActivity__block_invoke_361(
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(*(*(a1 + 40) + 8) + 40);
+      v9 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138412546;
-      v13 = @"post-upgrade-activity-in-progress";
-      v14 = 2114;
-      v15 = v10;
+      v12 = @"post-upgrade-activity-in-progress";
+      v13 = 2114;
+      v14 = v9;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Error writing data for %@ key in TRIKVStore: %{public}@. Not proceeding further", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerPostUpgradeActivityRequireInexpensiveNetworking
@@ -781,7 +771,7 @@ void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveN
 
 void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveNetworking__block_invoke_2(void *a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   if (*(v1 + 16))
   {
@@ -797,14 +787,14 @@ void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveN
       }
 
       *buf = 0;
-      v26 = buf;
-      v27 = 0x3032000000;
-      v28 = __Block_byref_object_copy__6;
-      v29 = __Block_byref_object_dispose__6;
-      v30 = 0;
+      v25 = buf;
+      v26 = 0x3032000000;
+      v27 = __Block_byref_object_copy__6;
+      v28 = __Block_byref_object_dispose__6;
+      v29 = 0;
       v6 = [*(a1[4] + 16) keyValueStore];
-      v7 = (v26 + 40);
-      obj = *(v26 + 5);
+      v7 = (v25 + 40);
+      obj = *(v25 + 5);
       v8 = [TRISetupAssistantFetchUtils setValueInKeyValueStore:v6 key:@"post-upgrade-require-inexpensive-networking-activity-in-progress" value:&unk_287FC4648 error:&obj];
       objc_storeStrong(v7, obj);
 
@@ -813,21 +803,21 @@ void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveN
         out_token = 0;
         v9 = a1[4];
         v10 = *(v9 + 8);
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveNetworking__block_invoke_368;
-        v22[3] = &unk_279DE0120;
-        v22[4] = v9;
-        v22[5] = buf;
-        v11 = notify_register_dispatch("com.apple.trial.TaskQueueComplete", &out_token, v10, v22);
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveNetworking__block_invoke_368;
+        v21[3] = &unk_279DE0120;
+        v21[4] = v9;
+        v21[5] = buf;
+        v11 = notify_register_dispatch("com.apple.trial.TaskQueueComplete", &out_token, v10, v21);
         if (v11)
         {
           v12 = TRILogCategory_Server();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            *v31 = 134217984;
-            v32 = v11;
-            _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", v31, 0xCu);
+            *v30 = 134217984;
+            v31 = v11;
+            _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", v30, 0xCu);
           }
         }
 
@@ -851,12 +841,12 @@ void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveN
         v14 = TRILogCategory_Server();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v21 = *(v26 + 5);
-          *v31 = 138412546;
-          v32 = @"post-upgrade-require-inexpensive-networking-activity-in-progress";
-          v33 = 2114;
-          v34 = v21;
-          _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Error writing data for %@ key in TRIKVStore: %{public}@. Not proceeding further", v31, 0x16u);
+          v20 = *(v25 + 5);
+          *v30 = 138412546;
+          v31 = @"post-upgrade-require-inexpensive-networking-activity-in-progress";
+          v32 = 2114;
+          v33 = v20;
+          _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Error writing data for %@ key in TRIKVStore: %{public}@. Not proceeding further", v30, 0x16u);
         }
       }
 
@@ -882,13 +872,11 @@ void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveN
       _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Can't trigger post-upgrade require inexpensive networking actions, server context not available.", buf, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveNetworking__block_invoke_368(uint64_t a1, int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -912,16 +900,14 @@ void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveN
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(*(*(a1 + 40) + 8) + 40);
+      v9 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138412546;
-      v13 = @"post-upgrade-require-inexpensive-networking-activity-in-progress";
-      v14 = 2114;
-      v15 = v10;
+      v12 = @"post-upgrade-require-inexpensive-networking-activity-in-progress";
+      v13 = 2114;
+      v14 = v9;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Error writing data for %@ key in TRIKVStore: %{public}@. Not proceeding further", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerSetupAssistantFetchActivity
@@ -942,7 +928,7 @@ void __81__TRIXPCActivityManager__registerPostUpgradeActivityRequireInexpensiveN
 
 void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -956,9 +942,9 @@ void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invo
   if (v6)
   {
     v7 = [v6 keyValueStore];
-    v31 = 0;
-    v8 = [TRISetupAssistantFetchUtils getValueInKeyValueStore:v7 key:@"setup-assistant-fetch-activity-deadline-date" error:&v31];
-    v9 = v31;
+    v30 = 0;
+    v8 = [TRISetupAssistantFetchUtils getValueInKeyValueStore:v7 key:@"setup-assistant-fetch-activity-deadline-date" error:&v30];
+    v9 = v30;
 
     if (v8)
     {
@@ -1003,17 +989,17 @@ void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invo
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v33 = v18;
-          v34 = 2048;
-          v35 = v21;
+          v32 = v18;
+          v33 = 2048;
+          v34 = v21;
           _os_log_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEFAULT, "The deadline to run setup-assistant-fetch activity is: %@. Setting grace period to: %lld", buf, 0x16u);
         }
 
         xpc_dictionary_set_int64(v5, *v14, v21);
         v23 = *(*(a1 + 32) + 16);
-        v30 = 0;
-        v24 = [TRISetupAssistantFetchUtils stopSetupAssistantFetchWithServerContext:v23 namespaceNames:0 error:&v30];
-        v25 = v30;
+        v29 = 0;
+        v24 = [TRISetupAssistantFetchUtils stopSetupAssistantFetchWithServerContext:v23 namespaceNames:0 error:&v29];
+        v25 = v29;
         v26 = v25;
         if (v24)
         {
@@ -1033,7 +1019,7 @@ void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invo
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v33 = v26;
+            v32 = v26;
             _os_log_error_impl(&dword_26F567000, v28, OS_LOG_TYPE_ERROR, "Error checking if the setup-assistant-fetch activity is needed to run in registerSetupAssistantFetchActivity: %{public}@", buf, 0xCu);
           }
         }
@@ -1069,9 +1055,9 @@ LABEL_36:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v33 = @"setup-assistant-fetch-activity-deadline-date";
-          v34 = 2114;
-          v35 = v9;
+          v32 = @"setup-assistant-fetch-activity-deadline-date";
+          v33 = 2114;
+          v34 = v9;
           _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Error reading data for %@ key in TRIKVStore: %{public}@. Not proceeding further", buf, 0x16u);
         }
       }
@@ -1098,8 +1084,6 @@ LABEL_36:
   }
 
 LABEL_37:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invoke_376(uint64_t a1, void *a2)
@@ -1131,7 +1115,7 @@ void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invo
 
 void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invoke_2(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   if (!*(v1 + 16))
   {
@@ -1179,7 +1163,7 @@ LABEL_12:
   handler[3] = &unk_279DE0170;
   handler[4] = v7;
   v5 = v6;
-  v17 = v5;
+  v16 = v5;
   v9 = notify_register_dispatch("com.apple.trial.TaskQueueComplete", &out_token, v8, handler);
   if (v9)
   {
@@ -1188,7 +1172,7 @@ LABEL_12:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v20 = v10;
+      v19 = v10;
       _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", buf, 0xCu);
     }
   }
@@ -1205,12 +1189,11 @@ LABEL_12:
   }
 
 LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invoke_377(uint64_t a1, int a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1219,35 +1202,35 @@ void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invo
   }
 
   v5 = [*(*(a1 + 32) + 16) keyValueStore];
-  v31 = 0;
-  v6 = [TRISetupAssistantFetchUtils getValueInKeyValueStore:v5 key:@"setup-assistant-fetch-activity-deadline-date" error:&v31];
-  v7 = v31;
+  v30 = 0;
+  v6 = [TRISetupAssistantFetchUtils getValueInKeyValueStore:v5 key:@"setup-assistant-fetch-activity-deadline-date" error:&v30];
+  v7 = v30;
 
   if (v6 && ([v6 isEqualToNumber:&unk_287FC4678] & 1) == 0)
   {
-    v23 = v7;
-    v24 = v6;
-    v25 = a2;
+    v22 = v7;
+    v23 = v6;
+    v24 = a2;
     v8 = [*(a1 + 40) builtTelemetry];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v27 objects:v36 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v26 objects:v35 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v28;
+      v11 = *v27;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v28 != v11)
+          if (*v27 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v26 + 1) + 8 * i);
           v14 = [*(*(a1 + 32) + 16) client];
           v15 = [v14 logger];
           v16 = [*(*(a1 + 32) + 16) client];
@@ -1255,21 +1238,21 @@ void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invo
           [v15 logWithTrackingId:v17 metrics:0 dimensions:0 trialSystemTelemetry:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v26 objects:v35 count:16];
       }
 
       while (v10);
     }
 
-    a2 = v25;
-    v6 = v24;
-    v7 = v23;
+    a2 = v24;
+    v6 = v23;
+    v7 = v22;
   }
 
   v18 = [*(*(a1 + 32) + 16) keyValueStore];
-  v26 = v7;
-  v19 = [TRISetupAssistantFetchUtils setValueInKeyValueStore:v18 key:@"setup-assistant-fetch-activity-deadline-date" value:&unk_287FC4678 error:&v26];
-  v20 = v26;
+  v25 = v7;
+  v19 = [TRISetupAssistantFetchUtils setValueInKeyValueStore:v18 key:@"setup-assistant-fetch-activity-deadline-date" value:&unk_287FC4678 error:&v25];
+  v20 = v25;
 
   if (v19)
   {
@@ -1282,14 +1265,12 @@ void __60__TRIXPCActivityManager_registerSetupAssistantFetchActivity__block_invo
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v33 = @"setup-assistant-fetch-activity-deadline-date";
-      v34 = 2114;
-      v35 = v20;
+      v32 = @"setup-assistant-fetch-activity-deadline-date";
+      v33 = 2114;
+      v34 = v20;
       _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "Error writing data for %@ key in TRIKVStore: %{public}@. Not proceeding further", buf, 0x16u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerHotfixTargetingActivity

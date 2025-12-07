@@ -10,13 +10,13 @@
   height = size.height;
   width = size.width;
   appCopy = app;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
   if (!appCopy)
   {
-    v9 = sub_100063A54();
+    v9 = sub_100063A54(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000C4E64(v9);
@@ -28,7 +28,7 @@
   v9 = [[ISIcon alloc] initWithBundleIdentifier:appCopy];
   if (!v9)
   {
-    v9 = sub_100063A54();
+    v9 = sub_100063A54(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000C4DEC();
@@ -40,27 +40,28 @@
   v10 = [[ISImageDescriptor alloc] initWithSize:width scale:{height, scale}];
   if (!v10)
   {
-    v17 = sub_100063A54();
-    sub_1000C4D3C(v17, appCopy);
+    v19 = sub_100063A54(0);
+    sub_1000C4D3C(v19, appCopy);
 LABEL_25:
-    v15 = 0;
+    v17 = 0;
     goto LABEL_10;
   }
 
-  v20 = _NSConcreteStackBlock;
-  v21 = 3221225472;
-  v22 = sub_100005368;
-  v23 = &unk_100169BC0;
-  v25 = &v26;
+  v22 = _NSConcreteStackBlock;
+  v23 = 3221225472;
+  v24 = sub_100005368;
+  v25 = &unk_100169BC0;
+  v27 = &v28;
   v11 = dispatch_semaphore_create(0);
-  v24 = v11;
-  [v9 getCGImageForImageDescriptor:v10 completion:&v20];
+  v26 = v11;
+  [v9 getCGImageForImageDescriptor:v10 completion:&v22];
 
   v12 = dispatch_time(0, 5000000000);
-  if (dispatch_semaphore_wait(v11, v12))
+  v13 = dispatch_semaphore_wait(v11, v12);
+  if (v13)
   {
-    v18 = sub_100063A54();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = sub_100063A54(v13);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1000C4B8C();
     }
@@ -68,18 +69,19 @@ LABEL_25:
     goto LABEL_24;
   }
 
-  if (!v27[3])
+  if (!v29[3])
   {
-    v19 = sub_100063A54();
-    sub_1000C4C7C(v19, v11, v10);
+    v21 = sub_100063A54(0);
+    sub_1000C4C7C(v21, v11, v10);
     goto LABEL_25;
   }
 
-  v13 = [UIImage imageWithCGImage:v20, v21, v22, v23];
-  if (!v13)
+  v14 = [UIImage imageWithCGImage:v22, v23, v24, v25];
+  v15 = v14;
+  if (!v14)
   {
-    v18 = sub_100063A54();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = sub_100063A54(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1000C4C04();
     }
@@ -89,22 +91,22 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v14 = sub_100063A54();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100063A54(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "+[MSDAppIcon getIconImageForApp:withSize:andScale:]";
-    v32 = 2114;
-    v33 = appCopy;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s - Found icon image for app:  %{public}@", buf, 0x16u);
+    v33 = "+[MSDAppIcon getIconImageForApp:withSize:andScale:]";
+    v34 = 2114;
+    v35 = appCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s - Found icon image for app:  %{public}@", buf, 0x16u);
   }
 
-  v15 = v13;
+  v17 = v15;
 LABEL_10:
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v28, 8);
 
-  return v15;
+  return v17;
 }
 
 + (id)getIconImagesOfVisibleAppsWithSize:(CGSize)size andScale:(float)scale
@@ -152,7 +154,7 @@ LABEL_10:
 
           else
           {
-            v21 = sub_100063A54();
+            v21 = sub_100063A54(0);
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               *buf = v25;

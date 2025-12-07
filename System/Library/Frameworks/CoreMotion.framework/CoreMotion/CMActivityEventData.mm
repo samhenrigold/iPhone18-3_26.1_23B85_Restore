@@ -196,39 +196,37 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v44[7] = *MEMORY[0x1E69E9840];
-  v43[0] = @"startTime";
+  v43[7] = *MEMORY[0x1E69E9840];
+  v42[0] = @"startTime";
   v4 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startDate(self, a2, v2);
   objc_msgSend_timeIntervalSinceReferenceDate(started, v6, v7);
-  v44[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
-  v43[1] = @"eventType";
+  v43[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
+  v42[1] = @"eventType";
   v10 = MEMORY[0x1E696AD98];
   v13 = objc_msgSend_eventType(self, v11, v12);
-  v44[1] = objc_msgSend_numberWithInteger_(v10, v14, v13);
-  v43[2] = @"action";
+  v43[1] = objc_msgSend_numberWithInteger_(v10, v14, v13);
+  v42[2] = @"action";
   v15 = MEMORY[0x1E696AD98];
   v18 = objc_msgSend_action(self, v16, v17);
-  v44[2] = objc_msgSend_numberWithInteger_(v15, v19, v18);
-  v43[3] = @"reason";
+  v43[2] = objc_msgSend_numberWithInteger_(v15, v19, v18);
+  v42[3] = @"reason";
   v20 = MEMORY[0x1E696AD98];
   v23 = objc_msgSend_reason(self, v21, v22);
-  v44[3] = objc_msgSend_numberWithInteger_(v20, v24, v23);
-  v43[4] = @"workoutType";
+  v43[3] = objc_msgSend_numberWithInteger_(v20, v24, v23);
+  v42[4] = @"workoutType";
   v25 = MEMORY[0x1E696AD98];
   v28 = objc_msgSend_workoutType(self, v26, v27);
-  v44[4] = objc_msgSend_numberWithInteger_(v25, v29, v28);
-  v43[5] = @"recoveryStart";
+  v43[4] = objc_msgSend_numberWithInteger_(v25, v29, v28);
+  v42[5] = @"recoveryStart";
   v30 = MEMORY[0x1E696AD98];
   objc_msgSend_heartRateRecoveryStartTime(self, v31, v32);
-  v44[5] = objc_msgSend_numberWithDouble_(v30, v33, v34);
-  v43[6] = @"recoveryEnd";
+  v43[5] = objc_msgSend_numberWithDouble_(v30, v33, v34);
+  v42[6] = @"recoveryEnd";
   v35 = MEMORY[0x1E696AD98];
   objc_msgSend_heartRateRecoveryEndTime(self, v36, v37);
-  v44[6] = objc_msgSend_numberWithDouble_(v35, v38, v39);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v40, v44, v43, 7);
-  v42 = *MEMORY[0x1E69E9840];
-  return result;
+  v43[6] = objc_msgSend_numberWithDouble_(v35, v38, v39);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v40, v43, v42, 7);
 }
 
 @end

@@ -163,37 +163,37 @@ LABEL_26:
 
 - (id)serializeWithError:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v45 = *MEMORY[0x277D85DE8];
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v24 = 0u;
   TLV8BufferInit();
   format = [(HAPSupportedDiagnosticsSnapshot *)self format];
 
   if (format)
   {
     format2 = [(HAPSupportedDiagnosticsSnapshot *)self format];
-    v24 = 0;
-    v7 = [format2 serializeWithError:&v24];
-    v8 = v24;
+    v23 = 0;
+    v7 = [format2 serializeWithError:&v23];
+    v8 = v23;
 
     if (v8)
     {
@@ -217,9 +217,9 @@ LABEL_26:
   }
 
   type2 = [(HAPSupportedDiagnosticsSnapshot *)self type];
-  v23 = 0;
-  v7 = [type2 serializeWithError:&v23];
-  v8 = v23;
+  v22 = 0;
+  v7 = [type2 serializeWithError:&v22];
+  v8 = v22;
 
   if (v8)
   {
@@ -255,9 +255,9 @@ LABEL_9:
   if (audioDiagnostics)
   {
     audioDiagnostics2 = [(HAPSupportedDiagnosticsSnapshot *)self audioDiagnostics];
-    v22 = 0;
-    v7 = [audioDiagnostics2 serializeWithError:&v22];
-    v8 = v22;
+    v21 = 0;
+    v7 = [audioDiagnostics2 serializeWithError:&v21];
+    v8 = v21;
 
     if (v8)
     {
@@ -278,9 +278,9 @@ LABEL_9:
   if (options)
   {
     options2 = [(HAPSupportedDiagnosticsSnapshot *)self options];
-    v21 = 0;
-    v7 = [options2 serializeWithError:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [options2 serializeWithError:&v20];
+    v8 = v20;
 
     if (v8)
     {
@@ -307,12 +307,10 @@ LABEL_19:
     }
   }
 
-  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:?];
+  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:?];
   v8 = 0;
 LABEL_22:
   TLV8BufferFree();
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

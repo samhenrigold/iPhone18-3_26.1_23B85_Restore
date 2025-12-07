@@ -33,15 +33,15 @@
 
 - (void)_initializeConnectionWithMachName:(id)name serviceName:(id)serviceName
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   serviceNameCopy = serviceName;
   v8 = RTILogFacility();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[RTIInputSystemUIClient _initializeConnectionWithMachName:serviceName:]";
-    _os_log_impl(&dword_19A2A6000, v8, OS_LOG_TYPE_INFO, "%s  Starting InputUI connection", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[RTIInputSystemUIClient _initializeConnectionWithMachName:serviceName:]";
+    _os_log_impl(&dword_19A2A6000, v8, OS_LOG_TYPE_INFO, "%s  Starting InputUI connection", &v11, 0xCu);
   }
 
   v9 = [MEMORY[0x1E698F498] endpointForMachName:nameCopy service:serviceNameCopy instance:0];
@@ -51,22 +51,19 @@
     v10 = [MEMORY[0x1E698F490] NSXPCConnectionWithEndpoint:v9 configurator:&__block_literal_global_1];
     [(RTIInputSystemClient *)self _didIntializeConnection:v10 withMachName:nameCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __72__RTIInputSystemUIClient__initializeConnectionWithMachName_serviceName___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69C7560];
   v3 = a2;
   v4 = [v2 attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v7[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   [v3 setPerMessageAssertionAttributes:v5];
 
   [v3 setActivateOnResume];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

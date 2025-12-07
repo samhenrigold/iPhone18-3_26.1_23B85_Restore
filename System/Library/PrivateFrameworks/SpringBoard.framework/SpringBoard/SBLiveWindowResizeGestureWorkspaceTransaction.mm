@@ -107,7 +107,7 @@ LABEL_35:
   }
 
 LABEL_17:
-  [v8 frame];
+  objc_msgSend_frame(v8);
   UIRectGetCenter();
   if (v17 < v23 && v19 < v24)
   {

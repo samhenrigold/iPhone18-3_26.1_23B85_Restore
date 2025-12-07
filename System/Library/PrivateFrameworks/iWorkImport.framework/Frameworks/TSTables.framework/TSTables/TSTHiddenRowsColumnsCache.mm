@@ -23,9 +23,9 @@
 
 - (TSTHiddenRowsColumnsCache)init
 {
-  v18.receiver = self;
-  v18.super_class = TSTHiddenRowsColumnsCache;
-  v2 = [(TSTHiddenRowsColumnsCache *)&v18 init];
+  v16.receiver = self;
+  v16.super_class = TSTHiddenRowsColumnsCache;
+  v2 = [(TSTHiddenRowsColumnsCache *)&v16 init];
   if (v2)
   {
     v3 = objc_alloc_init(TSTHiddenStateIndexSet);
@@ -36,17 +36,17 @@
     rowsUserVisible = v2->_rowsUserVisible;
     v2->_rowsUserVisible = v5;
 
-    v9 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAB58], v7, 0, 1000000, v8);
+    v8 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAB58], v7, 0, 1000000);
     rowsInvalid = v2->_rowsInvalid;
-    v2->_rowsInvalid = v9;
+    v2->_rowsInvalid = v8;
 
-    v11 = objc_alloc_init(TSTHiddenStateIndexSet);
+    v10 = objc_alloc_init(TSTHiddenStateIndexSet);
     columnsVisible = v2->_columnsVisible;
-    v2->_columnsVisible = v11;
+    v2->_columnsVisible = v10;
 
-    v15 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAB58], v13, 0, 1000, v14);
+    v13 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x277CCAB58], v12, 0, 1000);
     columnsInvalid = v2->_columnsInvalid;
-    v2->_columnsInvalid = v15;
+    v2->_columnsInvalid = v13;
   }
 
   return v2;
@@ -54,118 +54,118 @@
 
 - (unsigned)indexOfVisibleRowBeforeRowAtIndex:(unsigned int)index
 {
-  v5 = objc_msgSend_visibleIndexBeforeIndex_(self->_rowsVisible, a2, index, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexBeforeIndex_(self->_rowsVisible, a2, index, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    LODWORD(v5) = 0x7FFFFFFF;
+    LODWORD(v4) = 0x7FFFFFFF;
   }
 
-  return v5;
+  return v4;
 }
 
 - (unsigned)indexOfVisibleRowBeforeAndIncludingRowAtIndex:(unsigned int)index
 {
-  v5 = objc_msgSend_visibleIndexBeforeAndIncludingIndex_(self->_rowsVisible, a2, index, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexBeforeAndIncludingIndex_(self->_rowsVisible, a2, index, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    LODWORD(v5) = 0x7FFFFFFF;
+    LODWORD(v4) = 0x7FFFFFFF;
   }
 
-  return v5;
+  return v4;
 }
 
 - (unsigned)indexOfVisibleRowAfterRowAtIndex:(unsigned int)index
 {
-  v5 = objc_msgSend_visibleIndexAfterIndex_(self->_rowsVisible, a2, index, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexAfterIndex_(self->_rowsVisible, a2, index, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    LODWORD(v5) = 0x7FFFFFFF;
+    LODWORD(v4) = 0x7FFFFFFF;
   }
 
-  return v5;
+  return v4;
 }
 
 - (unsigned)indexOfVisibleRowAfterAndIncludingRowAtIndex:(unsigned int)index
 {
-  v5 = objc_msgSend_visibleIndexAfterAndIncludingIndex_(self->_rowsVisible, a2, index, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexAfterAndIncludingIndex_(self->_rowsVisible, a2, index, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    LODWORD(v5) = 0x7FFFFFFF;
+    LODWORD(v4) = 0x7FFFFFFF;
   }
 
-  return v5;
+  return v4;
 }
 
 - (unsigned)nonUserHiddenRowAfterAndIncludingRow:(unsigned int)row
 {
-  v5 = objc_msgSend_visibleIndexAfterAndIncludingIndex_(self->_rowsUserVisible, a2, row, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexAfterAndIncludingIndex_(self->_rowsUserVisible, a2, row, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    LODWORD(v5) = 0x7FFFFFFF;
+    LODWORD(v4) = 0x7FFFFFFF;
   }
 
-  return v5;
+  return v4;
 }
 
 - (unsigned)indexOfVisibleColumnBeforeColumnAtIndex:(unsigned __int16)index
 {
-  v5 = objc_msgSend_visibleIndexBeforeIndex_(self->_columnsVisible, a2, index, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexBeforeIndex_(self->_columnsVisible, a2, index, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
     return 0x7FFF;
   }
 
   else
   {
-    return v5;
+    return v4;
   }
 }
 
 - (unsigned)indexOfVisibleColumnBeforeAndIncludingColumnAtIndex:(unsigned __int16)index
 {
-  v5 = objc_msgSend_visibleIndexBeforeAndIncludingIndex_(self->_columnsVisible, a2, index, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexBeforeAndIncludingIndex_(self->_columnsVisible, a2, index, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
     return 0x7FFF;
   }
 
   else
   {
-    return v5;
+    return v4;
   }
 }
 
 - (unsigned)indexOfVisibleColumnAfterColumnAtIndex:(unsigned __int16)index
 {
-  v5 = objc_msgSend_visibleIndexAfterIndex_(self->_columnsVisible, a2, index, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexAfterIndex_(self->_columnsVisible, a2, index, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
     return 0x7FFF;
   }
 
   else
   {
-    return v5;
+    return v4;
   }
 }
 
 - (unsigned)indexOfVisibleColumnAfterAndIncludingColumnAtIndex:(unsigned __int16)index
 {
-  v5 = objc_msgSend_visibleIndexAfterAndIncludingIndex_(self->_columnsVisible, a2, index, v3, v4);
-  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  v4 = objc_msgSend_visibleIndexAfterAndIncludingIndex_(self->_columnsVisible, a2, index, v3);
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
     return 0x7FFF;
   }
 
   else
   {
-    return v5;
+    return v4;
   }
 }
 
 - (unsigned)previousNthVisibleRow:(unsigned int)row fromRowIndex:(unsigned int)index
 {
-  NthPreviousVisibleIndex_fromIndex = objc_msgSend_findNthPreviousVisibleIndex_fromIndex_(self->_rowsVisible, a2, row, index, v4);
+  NthPreviousVisibleIndex_fromIndex = objc_msgSend_findNthPreviousVisibleIndex_fromIndex_(self->_rowsVisible, a2, row, index);
   if (NthPreviousVisibleIndex_fromIndex == 0x7FFFFFFFFFFFFFFFLL)
   {
     LODWORD(NthPreviousVisibleIndex_fromIndex) = 0x7FFFFFFF;
@@ -176,7 +176,7 @@
 
 - (unsigned)previousNthVisibleColumn:(unsigned int)column fromColumnIndex:(unsigned __int16)index
 {
-  NthPreviousVisibleIndex_fromIndex = objc_msgSend_findNthPreviousVisibleIndex_fromIndex_(self->_columnsVisible, a2, column, index, v4);
+  NthPreviousVisibleIndex_fromIndex = objc_msgSend_findNthPreviousVisibleIndex_fromIndex_(self->_columnsVisible, a2, column, index);
   if (NthPreviousVisibleIndex_fromIndex == 0x7FFFFFFFFFFFFFFFLL)
   {
     return 0x7FFF;
@@ -191,12 +191,12 @@
 - (TSUCellCoord)visibleCellOffsetBy:(TSUColumnRowOffset)by fromCellID:(TSUCellCoord)d
 {
   column = d.column;
-  v6 = *&d & 0xFFFF000000000000;
+  v5 = *&d & 0xFFFF000000000000;
   row = d.row;
   if (d.row != 0x7FFFFFFFLL)
   {
-    v8 = d.column;
-    if (v8 != 0x7FFF)
+    v7 = d.column;
+    if (v7 != 0x7FFF)
     {
       var1 = by.var1;
       if (by.var0)
@@ -204,12 +204,12 @@
         columnsVisible = self->_columnsVisible;
         if (by.var0 < 1)
         {
-          NthPreviousVisibleIndex_fromIndex = objc_msgSend_findNthPreviousVisibleIndex_fromIndex_(columnsVisible, a2, -by.var0, v8, v4);
+          NthPreviousVisibleIndex_fromIndex = objc_msgSend_findNthPreviousVisibleIndex_fromIndex_(columnsVisible, a2, -by.var0, v7);
         }
 
         else
         {
-          NthPreviousVisibleIndex_fromIndex = objc_msgSend_findNthNextVisibleIndex_fromIndex_(columnsVisible, a2, by.var0 & 0x7FFFFFFF, v8, v4);
+          NthPreviousVisibleIndex_fromIndex = objc_msgSend_findNthNextVisibleIndex_fromIndex_(columnsVisible, a2, by.var0 & 0x7FFFFFFF, v7);
         }
 
         if (NthPreviousVisibleIndex_fromIndex == 0x7FFFFFFFFFFFFFFFLL)
@@ -228,15 +228,15 @@
         rowsVisible = self->_rowsVisible;
         if (var1 < 1)
         {
-          NthNextVisibleIndex_fromIndex = objc_msgSend_findNthPreviousVisibleIndex_fromIndex_(rowsVisible, a2, -var1, row, v4);
+          NthNextVisibleIndex_fromIndex = objc_msgSend_findNthPreviousVisibleIndex_fromIndex_(rowsVisible, a2, -var1, row);
         }
 
         else
         {
-          NthNextVisibleIndex_fromIndex = objc_msgSend_findNthNextVisibleIndex_fromIndex_(rowsVisible, a2, var1, row, v4);
+          NthNextVisibleIndex_fromIndex = objc_msgSend_findNthNextVisibleIndex_fromIndex_(rowsVisible, a2, var1, row);
         }
 
-        v6 = 0;
+        v5 = 0;
         if (NthNextVisibleIndex_fromIndex == 0x7FFFFFFFFFFFFFFFLL)
         {
           row = 0x7FFFFFFFLL;
@@ -250,27 +250,27 @@
 
       else
       {
-        v6 = 0;
+        v5 = 0;
       }
     }
   }
 
-  return (v6 | (column << 32) | row);
+  return (v5 | (column << 32) | row);
 }
 
 - (unsigned)numberOfVisibleRowsFromHeader:(unsigned int)header
 {
-  v5 = *&header;
-  v8 = objc_msgSend_rowMarkIndex(self, a2, *&header, v3, v4);
+  v4 = *&header;
+  v7 = objc_msgSend_rowMarkIndex(self, a2, *&header, v3);
 
-  return objc_msgSend_numberOfVisibleRowsFromStartRowIndex_toEndRowIndex_(self, v7, v8, v5, v9);
+  return objc_msgSend_numberOfVisibleRowsFromStartRowIndex_toEndRowIndex_(self, v6, v7, v4);
 }
 
 - (unsigned)numberOfVisibleRowsFromStartRowIndex:(unint64_t)index toEndRowIndex:(unsigned int)rowIndex
 {
   if (rowIndex >= index)
   {
-    return objc_msgSend_numberVisibleIndicesInRange_(self->_rowsVisible, a2, index, rowIndex - index + 1, v4);
+    return objc_msgSend_numberVisibleIndicesInRange_(self->_rowsVisible, a2, index, rowIndex - index + 1);
   }
 
   else
@@ -297,150 +297,150 @@
 - (void)validate:(id)validate
 {
   validateCopy = validate;
-  v9 = objc_msgSend_numberOfRows(validateCopy, v5, v6, v7, v8);
-  v14 = objc_msgSend_numberOfHeaderRows(validateCopy, v10, v11, v12, v13);
-  v19 = objc_msgSend_numberOfColumns(validateCopy, v15, v16, v17, v18);
-  objc_msgSend_setCount_(self->_rowsVisible, v20, v9, v21, v22);
-  objc_msgSend_setCount_(self->_rowsUserVisible, v23, v9, v24, v25);
-  objc_msgSend_setRowMarkIndex_(self, v26, v14, v27, v28);
-  objc_msgSend_removeIndexesInRange_(self->_rowsInvalid, v29, v9, ~v9, v30);
-  objc_msgSend_setCount_(self->_columnsVisible, v31, v19, v32, v33);
-  objc_msgSend_removeIndexesInRange_(self->_columnsInvalid, v34, v19, ~v19, v35);
-  if ((objc_msgSend_isDynamicallyHidingRowsCols(validateCopy, v36, v37, v38, v39) & 1) != 0 || (objc_msgSend_tableInfo(validateCopy, v40, v41, v42, v43), v44 = objc_claimAutoreleasedReturnValue(), v49 = objc_msgSend_numberOfHiddenColumns(v44, v45, v46, v47, v48), v44, v49))
+  v8 = objc_msgSend_numberOfRows(validateCopy, v5, v6, v7);
+  v12 = objc_msgSend_numberOfHeaderRows(validateCopy, v9, v10, v11);
+  v16 = objc_msgSend_numberOfColumns(validateCopy, v13, v14, v15);
+  objc_msgSend_setCount_(self->_rowsVisible, v17, v8, v18);
+  objc_msgSend_setCount_(self->_rowsUserVisible, v19, v8, v20);
+  objc_msgSend_setRowMarkIndex_(self, v21, v12, v22);
+  objc_msgSend_removeIndexesInRange_(self->_rowsInvalid, v23, v8, ~v8);
+  objc_msgSend_setCount_(self->_columnsVisible, v24, v16, v25);
+  objc_msgSend_removeIndexesInRange_(self->_columnsInvalid, v26, v16, ~v16);
+  if ((objc_msgSend_isDynamicallyHidingRowsCols(validateCopy, v27, v28, v29) & 1) != 0 || (objc_msgSend_tableInfo(validateCopy, v30, v31, v32), v33 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend_numberOfHiddenColumns(v33, v34, v35, v36), v33, v37))
   {
     columnsInvalid = self->_columnsInvalid;
-    v94[0] = MEMORY[0x277D85DD0];
-    v94[1] = 3221225472;
-    v94[2] = sub_2214C2DBC;
-    v94[3] = &unk_278466468;
-    v97 = v19;
-    v95 = validateCopy;
+    v73[0] = MEMORY[0x277D85DD0];
+    v73[1] = 3221225472;
+    v73[2] = sub_2214C2DBC;
+    v73[3] = &unk_278466468;
+    v76 = v16;
+    v74 = validateCopy;
     selfCopy = self;
-    objc_msgSend_enumerateIndexesUsingBlock_(columnsInvalid, v52, v94, v53, v54);
-    objc_msgSend_removeAllIndexes(self->_columnsInvalid, v55, v56, v57, v58);
+    objc_msgSend_enumerateIndexesUsingBlock_(columnsInvalid, v40, v73, v41);
+    objc_msgSend_removeAllIndexes(self->_columnsInvalid, v42, v43, v44);
   }
 
   else
   {
-    objc_msgSend_setHidden_inRange_(self->_columnsVisible, v50, 0, 0, v19);
-    objc_msgSend_removeAllIndexes(self->_columnsInvalid, v86, v87, v88, v89);
+    objc_msgSend_setHidden_inRange_(self->_columnsVisible, v38, 0, 0, v16);
+    objc_msgSend_removeAllIndexes(self->_columnsInvalid, v66, v67, v68);
   }
 
-  if ((objc_msgSend_isDynamicallyHidingRowsCols(validateCopy, v59, v60, v61, v62) & 1) == 0)
+  if ((objc_msgSend_isDynamicallyHidingRowsCols(validateCopy, v45, v46, v47) & 1) == 0)
   {
-    v67 = objc_msgSend_tableInfo(validateCopy, v63, v64, v65, v66);
-    v72 = objc_msgSend_numberOfHiddenRows(v67, v68, v69, v70, v71);
+    v51 = objc_msgSend_tableInfo(validateCopy, v48, v49, v50);
+    v55 = objc_msgSend_numberOfHiddenRows(v51, v52, v53, v54);
 
-    if (!v72)
+    if (!v55)
     {
-      objc_msgSend_setHidden_inRange_(self->_rowsVisible, v63, 0, 0, v9);
-      objc_msgSend_setHidden_inRange_(self->_rowsUserVisible, v90, 0, 0, v9);
+      objc_msgSend_setHidden_inRange_(self->_rowsVisible, v48, 0, 0, v8);
+      objc_msgSend_setHidden_inRange_(self->_rowsUserVisible, v69, 0, 0, v8);
       goto LABEL_11;
     }
   }
 
-  if (objc_msgSend_emptyFilteredTable(validateCopy, v63, v64, v65, v66))
+  if (objc_msgSend_emptyFilteredTable(validateCopy, v48, v49, v50))
   {
-    objc_msgSend_setHidden_inRange_(self->_rowsVisible, v73, 0, 0, 1);
-    objc_msgSend_setHidden_inRange_(self->_rowsUserVisible, v75, 0, 0, 1);
+    objc_msgSend_setHidden_inRange_(self->_rowsVisible, v56, 0, 0, 1);
+    objc_msgSend_setHidden_inRange_(self->_rowsUserVisible, v57, 0, 0, 1);
 LABEL_11:
-    objc_msgSend_removeAllIndexes(self->_rowsInvalid, v76, v77, v78, v79);
+    objc_msgSend_removeAllIndexes(self->_rowsInvalid, v58, v59, v60);
     goto LABEL_12;
   }
 
-  objc_msgSend_removeIndexesInRange_(self->_rowsInvalid, v73, v9, ~v9, v74);
+  objc_msgSend_removeIndexesInRange_(self->_rowsInvalid, v56, v8, ~v8);
   rowsInvalid = self->_rowsInvalid;
-  v92[0] = MEMORY[0x277D85DD0];
-  v92[1] = 3221225472;
-  v92[2] = sub_2214C2E4C;
-  v92[3] = &unk_2784664B0;
-  v93 = validateCopy;
-  v91[0] = MEMORY[0x277D85DD0];
-  v91[1] = 3221225472;
-  v91[2] = sub_2214C2F48;
-  v91[3] = &unk_2784664D8;
-  v91[4] = self;
-  objc_msgSend_tsu_enumerateRangesConcurrentlyUsingBeginBlock_concurrentBlock_finalBlock_(rowsInvalid, v81, &unk_2834A9698, v92, v91);
-  objc_msgSend_removeAllIndexes(self->_rowsInvalid, v82, v83, v84, v85);
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = sub_2214C2E4C;
+  v71[3] = &unk_2784664B0;
+  v72 = validateCopy;
+  v70[0] = MEMORY[0x277D85DD0];
+  v70[1] = 3221225472;
+  v70[2] = sub_2214C2F48;
+  v70[3] = &unk_2784664D8;
+  v70[4] = self;
+  objc_msgSend_tsu_enumerateRangesConcurrentlyUsingBeginBlock_concurrentBlock_finalBlock_(rowsInvalid, v62, &unk_2834A9698, v71, v70);
+  objc_msgSend_removeAllIndexes(self->_rowsInvalid, v63, v64, v65);
 
 LABEL_12:
 }
 
 - (void)validateChangeDescriptors:(id)descriptors
 {
-  v118 = *MEMORY[0x277D85DE8];
-  v113 = 0u;
-  v114 = 0u;
-  v115 = 0u;
-  v116 = 0u;
+  v99 = *MEMORY[0x277D85DE8];
+  v94 = 0u;
+  v95 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   descriptorsCopy = descriptors;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(descriptorsCopy, v5, &v113, v117, 16);
-  if (v10)
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(descriptorsCopy, v5, &v94, v98, 16);
+  if (v9)
   {
-    v98 = v104;
-    v11 = *v114;
-    v12 = MEMORY[0x277D85DD0];
+    v79 = v85;
+    v10 = *v95;
+    v11 = MEMORY[0x277D85DD0];
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v114 != v11)
+        if (*v95 != v10)
         {
           objc_enumerationMutation(descriptorsCopy);
         }
 
-        v14 = *(*(&v113 + 1) + 8 * i);
-        v15 = objc_msgSend_changeDescriptor(v14, v6, v7, v8, v9, v98);
-        v20 = v15;
-        if (v15 > 22)
+        v13 = *(*(&v94 + 1) + 8 * i);
+        v14 = objc_msgSend_changeDescriptor(v13, v6, v7, v8, v79);
+        v18 = v14;
+        if (v14 > 22)
         {
-          if (v15 > 27)
+          if (v14 > 27)
           {
-            switch(v15)
+            switch(v14)
             {
               case 28:
-                v109[0] = 0;
-                v109[1] = v109;
-                v109[2] = 0x2020000000;
-                v110 = 0x7FFFFFFF;
-                v107[0] = 0;
-                v107[1] = v107;
-                v107[2] = 0x2020000000;
-                v108 = 1;
-                v105[0] = 0;
-                v105[1] = v105;
-                v105[2] = 0x2020000000;
-                v106 = 1;
-                v74 = objc_msgSend_shuffleMapping(v14, v16, v17, v18, v19);
-                v103[0] = MEMORY[0x277D85DD0];
-                v103[1] = 3221225472;
-                v104[0] = sub_2214C3788;
-                v104[1] = &unk_278466528;
-                v104[2] = self;
-                v104[3] = v109;
-                v104[4] = v107;
-                v104[5] = v105;
-                objc_msgSend_enumerateMappingFollowingSwapsUsingBlock_(v74, v75, v103, v76, v77);
+                v90[0] = 0;
+                v90[1] = v90;
+                v90[2] = 0x2020000000;
+                v91 = 0x7FFFFFFF;
+                v88[0] = 0;
+                v88[1] = v88;
+                v88[2] = 0x2020000000;
+                v89 = 1;
+                v86[0] = 0;
+                v86[1] = v86;
+                v86[2] = 0x2020000000;
+                v87 = 1;
+                v61 = objc_msgSend_shuffleMapping(v13, v15, v16, v17);
+                v84[0] = MEMORY[0x277D85DD0];
+                v84[1] = 3221225472;
+                v85[0] = sub_2214C3788;
+                v85[1] = &unk_278466528;
+                v85[2] = self;
+                v85[3] = v90;
+                v85[4] = v88;
+                v85[5] = v86;
+                objc_msgSend_enumerateMappingFollowingSwapsUsingBlock_(v61, v62, v84, v63);
 
-                v82 = objc_msgSend_shuffleMapping(v14, v78, v79, v80, v81);
-                objc_msgSend_applyMappingToIndexSet_(v82, v83, self->_rowsInvalid, v84, v85);
+                v67 = objc_msgSend_shuffleMapping(v13, v64, v65, v66);
+                objc_msgSend_applyMappingToIndexSet_(v67, v68, self->_rowsInvalid, v69);
 
-                _Block_object_dispose(v105, 8);
-                _Block_object_dispose(v107, 8);
-                _Block_object_dispose(v109, 8);
+                _Block_object_dispose(v86, 8);
+                _Block_object_dispose(v88, 8);
+                _Block_object_dispose(v90, 8);
                 continue;
               case 29:
                 goto LABEL_27;
               case 51:
                 rowsInvalid = self->_rowsInvalid;
-                v31 = objc_msgSend_cellRegion(v14, v16, v17, v18, v19);
-                v36 = objc_msgSend_intersectingRowsIndexSet(v31, v32, v33, v34, v35);
-                objc_msgSend_addIndexes_(rowsInvalid, v37, v36, v38, v39);
+                v27 = objc_msgSend_cellRegion(v13, v15, v16, v17);
+                v31 = objc_msgSend_intersectingRowsIndexSet(v27, v28, v29, v30);
+                objc_msgSend_addIndexes_(rowsInvalid, v32, v31, v33);
 
                 columnsInvalid = self->_columnsInvalid;
-                v45 = objc_msgSend_cellRegion(v14, v41, v42, v43, v44);
-                v50 = objc_msgSend_intersectingColumnsIndexSet(v45, v46, v47, v48, v49);
-                objc_msgSend_addIndexes_(columnsInvalid, v51, v50, v52, v53);
+                v38 = objc_msgSend_cellRegion(v13, v35, v36, v37);
+                v42 = objc_msgSend_intersectingColumnsIndexSet(v38, v39, v40, v41);
+                objc_msgSend_addIndexes_(columnsInvalid, v43, v42, v44);
 
                 continue;
             }
@@ -448,54 +448,54 @@ LABEL_12:
 
           else
           {
-            switch(v15)
+            switch(v14)
             {
               case 23:
                 goto LABEL_27;
               case 24:
-                v90 = objc_msgSend_cellRegion(v14, v16, v17, v18, v19);
-                v112[0] = v12;
-                v112[1] = 3221225472;
-                v112[2] = sub_2214C3684;
-                v112[3] = &unk_278466500;
-                v112[4] = self;
-                objc_msgSend_enumerateRowRangesInReverseUsingBlock_(v90, v91, v112, v92, v93);
+                v73 = objc_msgSend_cellRegion(v13, v15, v16, v17);
+                v93[0] = v11;
+                v93[1] = 3221225472;
+                v93[2] = sub_2214C3684;
+                v93[3] = &unk_278466500;
+                v93[4] = self;
+                objc_msgSend_enumerateRowRangesInReverseUsingBlock_(v73, v74, v93, v75);
 
                 continue;
               case 25:
-                v25 = objc_msgSend_cellRegion(v14, v16, v17, v18, v19);
-                v111[0] = v12;
-                v111[1] = 3221225472;
-                v111[2] = sub_2214C36FC;
-                v111[3] = &unk_278466500;
-                v111[4] = self;
-                objc_msgSend_enumerateRowRangesUsingBlock_(v25, v26, v111, v27, v28);
+                v22 = objc_msgSend_cellRegion(v13, v15, v16, v17);
+                v92[0] = v11;
+                v92[1] = 3221225472;
+                v92[2] = sub_2214C36FC;
+                v92[3] = &unk_278466500;
+                v92[4] = self;
+                objc_msgSend_enumerateRowRangesUsingBlock_(v22, v23, v92, v24);
 
                 continue;
             }
           }
         }
 
-        else if (v15 > 6)
+        else if (v14 > 6)
         {
-          if (v15 == 7)
+          if (v14 == 7)
           {
 LABEL_28:
-            v64 = self->_columnsInvalid;
-            v65 = objc_msgSend_cellRegion(v14, v16, v17, v18, v19);
-            v70 = objc_msgSend_intersectingColumnsIndexSet(v65, v66, v67, v68, v69);
-            objc_msgSend_addIndexes_(v64, v71, v70, v72, v73);
+            v53 = self->_columnsInvalid;
+            v54 = objc_msgSend_cellRegion(v13, v15, v16, v17);
+            v58 = objc_msgSend_intersectingColumnsIndexSet(v54, v55, v56, v57);
+            objc_msgSend_addIndexes_(v53, v59, v58, v60);
 
             continue;
           }
 
-          if (v15 == 8 || v15 == 10)
+          if (v14 == 8 || v14 == 10)
           {
 LABEL_27:
-            v54 = self->_rowsInvalid;
-            v55 = objc_msgSend_cellRegion(v14, v16, v17, v18, v19);
-            v60 = objc_msgSend_intersectingRowsIndexSet(v55, v56, v57, v58, v59);
-            objc_msgSend_addIndexes_(v54, v61, v60, v62, v63);
+            v45 = self->_rowsInvalid;
+            v46 = objc_msgSend_cellRegion(v13, v15, v16, v17);
+            v50 = objc_msgSend_intersectingRowsIndexSet(v46, v47, v48, v49);
+            objc_msgSend_addIndexes_(v45, v51, v50, v52);
 
             continue;
           }
@@ -503,48 +503,48 @@ LABEL_27:
 
         else
         {
-          switch(v15)
+          switch(v14)
           {
             case 2:
               goto LABEL_28;
             case 3:
-              v86 = objc_msgSend_cellRegion(v14, v16, v17, v18, v19);
-              v102[0] = v12;
-              v102[1] = 3221225472;
-              v102[2] = sub_2214C38A4;
-              v102[3] = &unk_278466500;
-              v102[4] = self;
-              objc_msgSend_enumerateColumnRangesInReverseUsingBlock_(v86, v87, v102, v88, v89);
+              v70 = objc_msgSend_cellRegion(v13, v15, v16, v17);
+              v83[0] = v11;
+              v83[1] = 3221225472;
+              v83[2] = sub_2214C38A4;
+              v83[3] = &unk_278466500;
+              v83[4] = self;
+              objc_msgSend_enumerateColumnRangesInReverseUsingBlock_(v70, v71, v83, v72);
 
               continue;
             case 4:
-              v21 = objc_msgSend_cellRegion(v14, v16, v17, v18, v19);
-              v101[0] = v12;
-              v101[1] = 3221225472;
-              v101[2] = sub_2214C3908;
-              v101[3] = &unk_278466500;
-              v101[4] = self;
-              objc_msgSend_enumerateColumnRangesUsingBlock_(v21, v22, v101, v23, v24);
+              v19 = objc_msgSend_cellRegion(v13, v15, v16, v17);
+              v82[0] = v11;
+              v82[1] = 3221225472;
+              v82[2] = sub_2214C3908;
+              v82[3] = &unk_278466500;
+              v82[4] = self;
+              objc_msgSend_enumerateColumnRangesUsingBlock_(v19, v20, v82, v21);
 
               continue;
           }
         }
 
-        v94 = objc_msgSend_cellRegion(v14, v16, v17, v18, v19);
-        v99[0] = v12;
-        v99[1] = 3221225472;
-        v99[2] = sub_2214C3980;
-        v99[3] = &unk_278466550;
-        v100 = v20;
-        v99[4] = self;
-        v99[5] = v14;
-        objc_msgSend_enumerateCellRangesUsingBlock_(v94, v95, v99, v96, v97);
+        v76 = objc_msgSend_cellRegion(v13, v15, v16, v17);
+        v80[0] = v11;
+        v80[1] = 3221225472;
+        v80[2] = sub_2214C3980;
+        v80[3] = &unk_278466550;
+        v81 = v18;
+        v80[4] = self;
+        v80[5] = v13;
+        objc_msgSend_enumerateCellRangesUsingBlock_(v76, v77, v80, v78);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(descriptorsCopy, v6, &v113, v117, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(descriptorsCopy, v6, &v94, v98, 16);
     }
 
-    while (v10);
+    while (v9);
   }
 }
 

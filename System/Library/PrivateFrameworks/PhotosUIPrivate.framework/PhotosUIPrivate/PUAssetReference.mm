@@ -16,7 +16,7 @@
     dispatch_once(&pxAssetReference_onceToken, &__block_literal_global_10797);
   }
 
-  indexPath = [(PUAssetReference *)self indexPath];
+  v3 = objc_msgSend_indexPath(self);
   PXSimpleIndexPathFromIndexPath();
 
   v4 = objc_alloc(MEMORY[0x1E69C4498]);
@@ -37,7 +37,7 @@ uint64_t __36__PUAssetReference_pxAssetReference__block_invoke()
 
 - (PXSimpleIndexPath)simpleIndexPath
 {
-  indexPath = [(PUAssetReference *)self indexPath];
+  v5 = objc_msgSend_indexPath(self, a3);
   *&retstr->var0 = 0u;
   *&retstr->var2 = 0u;
   PXSimpleIndexPathFromIndexPath();
@@ -52,9 +52,9 @@ uint64_t __36__PUAssetReference_pxAssetReference__block_invoke()
   v3 = [(PUAssetReference *)&v10 description];
   asset = [(PUAssetReference *)self asset];
   assetCollection = [(PUAssetReference *)self assetCollection];
-  indexPath = [(PUAssetReference *)self indexPath];
+  v6 = objc_msgSend_indexPath(self);
   dataSourceIdentifier = [(PUAssetReference *)self dataSourceIdentifier];
-  v8 = [v3 stringByAppendingFormat:@" asset=%@ assetCollection=%@ indexPath=%@ dataSourceIdentifier=%@", asset, assetCollection, indexPath, dataSourceIdentifier];
+  v8 = [v3 stringByAppendingFormat:@" asset=%@ assetCollection=%@ indexPath=%@ dataSourceIdentifier=%@", asset, assetCollection, v6, dataSourceIdentifier];
 
   return v8;
 }

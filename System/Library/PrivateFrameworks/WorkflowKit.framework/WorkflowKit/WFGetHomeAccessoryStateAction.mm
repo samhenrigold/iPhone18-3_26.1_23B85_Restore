@@ -7,6 +7,7 @@
 - (id)localizedDefaultOutputNameWithContext:(id)context;
 - (id)outputContentClasses;
 - (id)outputMeasurementUnitType;
+- (id)parameterStateForKey:(id)key fallingBackToDefaultValue:(BOOL)value;
 - (void)dealloc;
 - (void)homeManagerDidUpdateHomes:(id)homes;
 - (void)initializeParameters;
@@ -135,52 +136,57 @@ uint64_t __59__WFGetHomeAccessoryStateAction_homeManagerDidUpdateHomes___block_i
 
 - (id)outputContentClasses
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   characteristic = [(WFGetHomeAccessoryStateAction *)self characteristic];
   metadata = [characteristic metadata];
   format = [metadata format];
 
   v6 = getHMCharacteristicMetadataFormatBool();
-  LODWORD(metadata) = [format isEqualToString:v6];
+  LODWORD(metadata) = objc_msgSend_isEqualToString_(format);
 
   if (metadata)
   {
-    v26[0] = objc_opt_class();
+    v23[0] = objc_opt_class();
     v7 = MEMORY[0x1E695DEC8];
-    v8 = v26;
+    v8 = v23;
 LABEL_5:
     v11 = [v7 arrayWithObjects:v8 count:1];
-    goto LABEL_19;
+    goto LABEL_17;
   }
 
   v9 = getHMCharacteristicMetadataFormatString();
-  v10 = [format isEqualToString:v9];
+  isEqualToString = objc_msgSend_isEqualToString_(format);
 
-  if (v10)
+  if (isEqualToString)
   {
-    v25 = objc_opt_class();
+    v22 = objc_opt_class();
     v7 = MEMORY[0x1E695DEC8];
-    v8 = &v25;
+    v8 = &v22;
     goto LABEL_5;
   }
 
   v12 = getHMCharacteristicMetadataFormatInt();
-  if ([format isEqualToString:v12])
+  if (objc_msgSend_isEqualToString_(format))
   {
     goto LABEL_15;
   }
 
   v13 = getHMCharacteristicMetadataFormatFloat();
-  if ([format isEqualToString:v13])
+  if (objc_msgSend_isEqualToString_(format))
   {
 LABEL_14:
 
 LABEL_15:
-    goto LABEL_16;
+LABEL_16:
+    outputMeasurementUnitType = [(WFGetHomeAccessoryStateAction *)self outputMeasurementUnitType];
+    v21 = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+
+    goto LABEL_17;
   }
 
   v14 = getHMCharacteristicMetadataFormatUInt8();
-  if ([format isEqualToString:v14])
+  if (objc_msgSend_isEqualToString_(format))
   {
 LABEL_13:
 
@@ -188,7 +194,7 @@ LABEL_13:
   }
 
   v15 = getHMCharacteristicMetadataFormatUInt16();
-  if ([format isEqualToString:v15])
+  if (objc_msgSend_isEqualToString_(format))
   {
 LABEL_12:
 
@@ -196,35 +202,22 @@ LABEL_12:
   }
 
   v16 = getHMCharacteristicMetadataFormatUInt32();
-  if ([format isEqualToString:v16])
+  if (objc_msgSend_isEqualToString_(format))
   {
 
     goto LABEL_12;
   }
 
-  v22 = getHMCharacteristicMetadataFormatUInt64();
-  v23 = [format isEqualToString:v22];
+  v19 = getHMCharacteristicMetadataFormatUInt64();
+  v20 = objc_msgSend_isEqualToString_(format);
 
-  if ((v23 & 1) == 0)
+  if (v20)
   {
-    v11 = MEMORY[0x1E695E0F0];
-    goto LABEL_19;
+    goto LABEL_16;
   }
 
-LABEL_16:
-  outputMeasurementUnitType = [(WFGetHomeAccessoryStateAction *)self outputMeasurementUnitType];
-  v18 = 0x1E6996EC0;
-  if (outputMeasurementUnitType)
-  {
-    v18 = 0x1E6996EA8;
-  }
-
-  v19 = *v18;
-  v24 = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
-
-LABEL_19:
-  v20 = *MEMORY[0x1E69E9840];
+  v11 = MEMORY[0x1E695E0F0];
+LABEL_17:
 
   return v11;
 }
@@ -299,7 +292,7 @@ void __60__WFGetHomeAccessoryStateAction_runAsynchronouslyWithInput___block_invo
 {
   stateCopy = state;
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"WFHome"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v8 = stateCopy;
     if (v8)
@@ -341,12 +334,12 @@ void __60__WFGetHomeAccessoryStateAction_runAsynchronouslyWithInput___block_invo
     v16.super_class = WFGetHomeAccessoryStateAction;
     if ([(WFAction *)&v16 setParameterState:stateCopy forKey:keyCopy])
     {
-      if ([keyCopy isEqualToString:@"WFHMCharacteristic"])
+      if (objc_msgSend_isEqualToString_(keyCopy))
       {
         [(WFAction *)self outputDetailsUpdated];
       }
 
-      if ([keyCopy isEqualToString:@"WFHMService"])
+      if (objc_msgSend_isEqualToString_(keyCopy))
       {
         [(WFGetHomeAccessoryStateAction *)self updateCharacteristicsEnumeration];
       }
@@ -361,6 +354,34 @@ void __60__WFGetHomeAccessoryStateAction_runAsynchronouslyWithInput___block_invo
   }
 
   return v10;
+}
+
+- (id)parameterStateForKey:(id)key fallingBackToDefaultValue:(BOOL)value
+{
+  valueCopy = value;
+  keyCopy = key;
+  if (objc_msgSend_isEqualToString_(keyCopy))
+  {
+    homeIdentifier = [(WFGetHomeAccessoryStateAction *)self homeIdentifier];
+    if (homeIdentifier)
+    {
+      v8 = [(WFVariableSubstitutableParameterState *)[WFStringSubstitutableState alloc] initWithValue:homeIdentifier];
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+  }
+
+  else
+  {
+    v10.receiver = self;
+    v10.super_class = WFGetHomeAccessoryStateAction;
+    v8 = [(WFAction *)&v10 parameterStateForKey:keyCopy fallingBackToDefaultValue:valueCopy];
+  }
+
+  return v8;
 }
 
 - (void)wasAddedToWorkflow:(id)workflow

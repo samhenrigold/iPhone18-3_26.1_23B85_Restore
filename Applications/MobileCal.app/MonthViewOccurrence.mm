@@ -65,6 +65,7 @@
 - (void)addSegmentWithFrame:(CGRect)frame splitLeftEdge:(BOOL)edge splitRightEdge:(BOOL)rightEdge fadeLeftEdge:(BOOL)leftEdge fadeRightEdge:(BOOL)fadeRightEdge;
 - (void)loadViewsIfNeeded;
 - (void)relayoutSubviews;
+- (void)resetSegments;
 - (void)setAlpha:(double)alpha;
 - (void)setDrawBackgroundWithLayer:(BOOL)layer;
 - (void)setDrawsTimeString:(BOOL)string;
@@ -2987,6 +2988,13 @@ LABEL_6:
 
     [(MonthViewOccurrence *)self setFadeRightEdge:fadeRightEdgeCopy];
   }
+}
+
+- (void)resetSegments
+{
+  subOccurrences = self->_subOccurrences;
+  self->_subOccurrences = 0;
+  _objc_release_x1(self, subOccurrences);
 }
 
 - (CGRect)intersectingRect:(CGRect)rect

@@ -415,7 +415,7 @@
   [v33 setPosition:?];
   if (targetLayer)
   {
-    [(CALayer *)targetLayer transform];
+    objc_msgSend_transform(targetLayer);
   }
 
   else
@@ -483,7 +483,7 @@
   CGAffineTransformMakeScale(&t1, self->mShadowScale, self->mShadowScale);
   if (v33)
   {
-    [v33 transform];
+    objc_msgSend_transform(v33);
   }
 
   else
@@ -953,7 +953,7 @@
   memset(&v88, 0, sizeof(v88));
   if (changed)
   {
-    [changed transform];
+    objc_msgSend_transform(changed);
   }
 
   [changed scale];
@@ -971,7 +971,7 @@
     [changed angle];
     if (changed)
     {
-      [changed transformWithScale:v20 angle:v21];
+      objc_msgSend_transformWithScale_angle_(changed, v20, v21);
     }
 
     else
@@ -1095,7 +1095,7 @@
       self->mCompletionTargetRect.origin.y = v53;
       self->mCompletionTargetRect.size.width = v54;
       self->mCompletionTargetRect.size.height = v55;
-      [(THWFreeTransformController *)self completionTargetRect];
+      objc_msgSend_completionTargetRect(self);
       if (!CGRectIsNull(v89))
       {
         [(CALayer *)[(THWFreeTransformController *)self freeTransformLayer] center];
@@ -1126,9 +1126,9 @@
       self->mCompletionTargetRect.size.height = v67;
       if (self->mTransformScale != 0.0)
       {
-        [(THWFreeTransformController *)self completionTargetRect];
+        objc_msgSend_completionTargetRect(self);
         TSDCenterOfRect();
-        [(THWFreeTransformController *)self completionTargetRect];
+        objc_msgSend_completionTargetRect(self);
         TSDMultiplySizeScalar();
         TSDRectWithCenterAndSize();
         self->mCompletionTargetRect.origin.x = v68;
@@ -1157,7 +1157,7 @@
 
     else
     {
-      [(THWFreeTransformController *)self completionTargetRect];
+      objc_msgSend_completionTargetRect(self);
       if (CGRectIsEmpty(v90) || [changed state] == &dword_4)
       {
         v79(v78);
@@ -1165,7 +1165,7 @@
 
       else
       {
-        [(THWFreeTransformController *)self completionTargetRect];
+        objc_msgSend_completionTargetRect(self);
         v73 = v72;
         v87 = v88;
         v74 = *&CGAffineTransformIdentity.c;

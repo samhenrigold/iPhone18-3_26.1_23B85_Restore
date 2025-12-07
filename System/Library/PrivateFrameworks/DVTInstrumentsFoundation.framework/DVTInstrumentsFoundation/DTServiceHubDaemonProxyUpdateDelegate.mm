@@ -6,7 +6,7 @@
 
 - (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = infoCopy;
   if (self->_channel)
@@ -30,18 +30,18 @@
 
     if (v9)
     {
-      v18[0] = @"messageType";
-      v18[1] = @"type";
-      v19[0] = @"refreshContents";
-      v19[1] = v8;
-      v18[2] = @"ids";
+      v17[0] = @"messageType";
+      v17[1] = @"type";
+      v18[0] = @"refreshContents";
+      v18[1] = v8;
+      v17[2] = @"ids";
       v10 = [v7 objectForKeyedSubscript:@"ids"];
-      v19[2] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+      v18[2] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
-      v17 = 0;
-      v12 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v11 options:1 error:&v17];
-      v13 = v17;
+      v16 = 0;
+      v12 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v11 options:1 error:&v16];
+      v13 = v16;
       v14 = v13;
       if (v13)
       {
@@ -57,8 +57,6 @@
   }
 
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

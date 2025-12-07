@@ -3,7 +3,7 @@
 
 @implementation UIHomeAffordanceObserverProxyInteraction
 
-uint64_t __71___UIHomeAffordanceObserverProxyInteraction_appendDescriptionToStream___block_invoke(uint64_t a1)
+id __71___UIHomeAffordanceObserverProxyInteraction_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = objc_loadWeakRetained((*(a1 + 40) + 32));

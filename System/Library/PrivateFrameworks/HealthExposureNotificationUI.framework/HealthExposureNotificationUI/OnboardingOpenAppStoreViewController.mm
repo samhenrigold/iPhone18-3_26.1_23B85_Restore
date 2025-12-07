@@ -25,12 +25,11 @@
 
 - (void)didTapPrimaryButton
 {
-  v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI36OnboardingOpenAppStoreViewController_flow);
-  v4 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI36OnboardingOpenAppStoreViewController_flow);
+  v3 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI36OnboardingOpenAppStoreViewController_flow);
   swift_getObjectType();
-  v5 = *(v4 + 120);
+  v4 = *(v3 + 120);
   selfCopy = self;
-  v5();
+  v4();
 }
 
 - (_TtC28HealthExposureNotificationUI36OnboardingOpenAppStoreViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

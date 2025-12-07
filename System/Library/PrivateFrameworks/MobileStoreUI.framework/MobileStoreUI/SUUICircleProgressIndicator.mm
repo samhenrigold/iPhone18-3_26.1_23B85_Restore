@@ -470,7 +470,7 @@ uint64_t __46__SUUICircleProgressIndicator_didMoveToWindow__block_invoke(uint64_
   [MEMORY[0x277D75D18] animateKeyframesWithDuration:196616 delay:v4 options:0 animations:1.0 completion:0.0];
 }
 
-uint64_t __59__SUUICircleProgressIndicator__startIndeterminateAnimation__block_invoke(uint64_t a1)
+void *__59__SUUICircleProgressIndicator__startIndeterminateAnimation__block_invoke(uint64_t a1)
 {
   v2 = 0;
   v3 = MEMORY[0x277D85DD0];

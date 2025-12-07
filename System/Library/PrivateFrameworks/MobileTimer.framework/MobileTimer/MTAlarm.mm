@@ -51,7 +51,9 @@
 - (id)initFromDeserializer:(id)deserializer;
 - (id)intentLabel;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
+- (id)nextFireDateAfterDate:(id)date includeBedtimeNotification:(BOOL)notification;
 - (id)nextTrigger;
+- (id)nextTriggerAfterDate:(id)date includeSnooze:(BOOL)snooze includeBedtimeNotification:(BOOL)notification;
 - (id)nextTriggerAfterDate:(id)date ofType:(unint64_t)type;
 - (id)nextTriggersAfterDate:(id)date inclusionOptions:(unint64_t)options;
 - (id)singleTimeOverrideDateInCalendar:(id)calendar;
@@ -73,39 +75,34 @@
 
 - (BOOL)shouldBeScheduled
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ([(MTAlarm *)self isSleepAlarm])
   {
     if ([(MTAlarm *)self sleepSchedule])
     {
-      result = 1;
+      return 1;
     }
 
     else
     {
-      v5 = MTLogForCategory(3);
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v4 = MTLogForCategory(3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         alarmID = [(MTAlarm *)self alarmID];
-        v8 = 138543362;
-        v9 = alarmID;
-        _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "Not scheduling %{public}@ because sleep schedule is disabled", &v8, 0xCu);
+        v6 = 138543362;
+        v7 = alarmID;
+        _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Not scheduling %{public}@ because sleep schedule is disabled", &v6, 0xCu);
       }
 
-      result = 0;
+      return 0;
     }
-
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     return [(MTAlarm *)self isEnabled];
   }
-
-  return result;
 }
 
 - (id)upcomingTriggersAfterDate:(id)date
@@ -123,7 +120,7 @@
 
 uint64_t __51__MTAlarm_MTScheduling__upcomingTriggersAfterDate___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) isSleepAlarm] && objc_msgSend(v3, "isForAlert") && (objc_msgSend(*(a1 + 32), "isSingleTimeAlarm") & 1) == 0 && (objc_msgSend(*(a1 + 32), "isEnabled") & 1) == 0)
   {
@@ -131,9 +128,9 @@ uint64_t __51__MTAlarm_MTScheduling__upcomingTriggersAfterDate___block_invoke(ui
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [*(a1 + 32) alarmID];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "Not scheduling alarm %{public}@ because it's disabled", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "Not scheduling alarm %{public}@ because it's disabled", &v8, 0xCu);
     }
 
     goto LABEL_12;
@@ -144,8 +141,8 @@ uint64_t __51__MTAlarm_MTScheduling__upcomingTriggersAfterDate___block_invoke(ui
     v5 = MTLogForCategory(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "Not scheduling bedtime triggers", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "Not scheduling bedtime triggers", &v8, 2u);
     }
 
 LABEL_12:
@@ -157,7 +154,6 @@ LABEL_12:
   v4 = 1;
 LABEL_13:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -809,12 +805,28 @@ LABEL_5:
   return triggerDate;
 }
 
+- (id)nextFireDateAfterDate:(id)date includeBedtimeNotification:(BOOL)notification
+{
+  v4 = [(MTAlarm *)self nextTriggerAfterDate:date includeBedtimeNotification:notification];
+  triggerDate = [v4 triggerDate];
+
+  return triggerDate;
+}
+
 - (id)nextTrigger
 {
   v3 = (*(self->_currentDateProvider + 2))();
   v4 = [(MTAlarm *)self nextTriggerAfterDate:v3];
 
   return v4;
+}
+
+- (id)nextTriggerAfterDate:(id)date includeSnooze:(BOOL)snooze includeBedtimeNotification:(BOOL)notification
+{
+  v5 = [(MTAlarm *)self nextTriggersAfterDate:date includeSnooze:snooze includeBedtimeNotification:notification];
+  firstObject = [v5 firstObject];
+
+  return firstObject;
 }
 
 - (id)nextTriggerAfterDate:(id)date ofType:(unint64_t)type
@@ -833,17 +845,17 @@ LABEL_5:
 - (id)nextTriggersAfterDate:(id)date inclusionOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v7 = MTLogForCategory(3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     alarmID = [(MTAlarm *)self alarmID];
-    v49 = 138543618;
-    v50 = alarmID;
-    v51 = 2114;
-    *v52 = dateCopy;
-    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "Date before computing earlierst trigger date for %{public}@: %{public}@", &v49, 0x16u);
+    v48 = 138543618;
+    v49 = alarmID;
+    v50 = 2114;
+    *v51 = dateCopy;
+    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "Date before computing earlierst trigger date for %{public}@: %{public}@", &v48, 0x16u);
   }
 
   v9 = [(MTAlarm *)self _earliestTriggerDateForDate:dateCopy];
@@ -852,11 +864,11 @@ LABEL_5:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     alarmID2 = [(MTAlarm *)self alarmID];
-    v49 = 138543618;
-    v50 = alarmID2;
-    v51 = 2114;
-    *v52 = v9;
-    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "Computing next fire date for %{public}@ after %{public}@", &v49, 0x16u);
+    v48 = 138543618;
+    v49 = alarmID2;
+    v50 = 2114;
+    *v51 = v9;
+    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "Computing next fire date for %{public}@ after %{public}@", &v48, 0x16u);
   }
 
   array = [MEMORY[0x1E695DF70] array];
@@ -867,13 +879,13 @@ LABEL_5:
     alarmID3 = [(MTAlarm *)self alarmID];
     isSnoozed = [(MTAlarm *)self isSnoozed];
     repeats = [(MTAlarm *)self repeats];
-    v49 = 138543874;
-    v50 = alarmID3;
-    v51 = 1024;
-    *v52 = isSnoozed;
-    *&v52[4] = 1024;
-    *&v52[6] = repeats;
-    _os_log_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ is snoozed:%d, repeats: %d", &v49, 0x18u);
+    v48 = 138543874;
+    v49 = alarmID3;
+    v50 = 1024;
+    *v51 = isSnoozed;
+    *&v51[4] = 1024;
+    *&v51[6] = repeats;
+    _os_log_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ is snoozed:%d, repeats: %d", &v48, 0x18u);
   }
 
   if ([(MTAlarm *)self isSnoozed]&& ![(MTAlarm *)self repeats])
@@ -890,11 +902,11 @@ LABEL_5:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         alarmID4 = [(MTAlarm *)self alarmID];
-        v49 = 138543618;
-        v50 = alarmID4;
-        v51 = 2114;
-        *v52 = v18;
-        _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ override alarm date: %{public}@", &v49, 0x16u);
+        v48 = 138543618;
+        v49 = alarmID4;
+        v50 = 2114;
+        *v51 = v18;
+        _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ override alarm date: %{public}@", &v48, 0x16u);
       }
 
       v21 = +[MTTrigger triggerWithDate:triggerType:isPastOverrideEvent:](MTTrigger, "triggerWithDate:triggerType:isPastOverrideEvent:", v18, 4, [v9 mtIsAfterOrSameAsDate:v18]);
@@ -907,11 +919,11 @@ LABEL_5:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         alarmID5 = [(MTAlarm *)self alarmID];
-        v49 = 138543618;
-        v50 = alarmID5;
-        v51 = 2114;
-        *v52 = v18;
-        _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ next alarm date: %{public}@", &v49, 0x16u);
+        v48 = 138543618;
+        v49 = alarmID5;
+        v50 = 2114;
+        *v51 = v18;
+        _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ next alarm date: %{public}@", &v48, 0x16u);
       }
 
       if ([(MTAlarm *)self isSleepAlarm])
@@ -932,11 +944,11 @@ LABEL_5:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       alarmID6 = [(MTAlarm *)self alarmID];
-      v49 = 138543618;
-      v50 = alarmID6;
-      v51 = 2114;
-      *v52 = v25;
-      _os_log_impl(&dword_1B1F9F000, v26, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ alarm trigger: %{public}@", &v49, 0x16u);
+      v48 = 138543618;
+      v49 = alarmID6;
+      v50 = 2114;
+      *v51 = v25;
+      _os_log_impl(&dword_1B1F9F000, v26, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ alarm trigger: %{public}@", &v48, 0x16u);
     }
 
     [array addObject:v25];
@@ -944,13 +956,13 @@ LABEL_5:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       alarmID7 = [(MTAlarm *)self alarmID];
-      v49 = 138543874;
-      v50 = alarmID7;
-      v51 = 2114;
-      *v52 = v18;
-      *&v52[8] = 2114;
-      v53 = v9;
-      _os_log_impl(&dword_1B1F9F000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ has next fire date %{public}@ after %{public}@", &v49, 0x20u);
+      v48 = 138543874;
+      v49 = alarmID7;
+      v50 = 2114;
+      *v51 = v18;
+      *&v51[8] = 2114;
+      v52 = v9;
+      _os_log_impl(&dword_1B1F9F000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ has next fire date %{public}@ after %{public}@", &v48, 0x20u);
     }
   }
 
@@ -959,11 +971,11 @@ LABEL_5:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     alarmID8 = [(MTAlarm *)self alarmID];
-    v49 = 138543618;
-    v50 = alarmID8;
-    v51 = 1024;
-    *v52 = v30;
-    _os_log_impl(&dword_1B1F9F000, v31, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ include snooze: %d", &v49, 0x12u);
+    v48 = 138543618;
+    v49 = alarmID8;
+    v50 = 1024;
+    *v51 = v30;
+    _os_log_impl(&dword_1B1F9F000, v31, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ include snooze: %d", &v48, 0x12u);
   }
 
   if (v30 && [(MTAlarm *)self isSnoozed])
@@ -984,11 +996,11 @@ LABEL_39:
 
       snoozeFireDate2 = [(MTAlarm *)self snoozeFireDate];
       alarmID9 = [(MTAlarm *)self alarmID];
-      v49 = 138543618;
-      v50 = snoozeFireDate2;
-      v51 = 2114;
-      *v52 = alarmID9;
-      _os_log_impl(&dword_1B1F9F000, snoozeFireDate4, OS_LOG_TYPE_DEFAULT, "Snooze has already fired (%{public}@) for alert %{public}@", &v49, 0x16u);
+      v48 = 138543618;
+      v49 = snoozeFireDate2;
+      v50 = 2114;
+      *v51 = alarmID9;
+      _os_log_impl(&dword_1B1F9F000, snoozeFireDate4, OS_LOG_TYPE_DEFAULT, "Snooze has already fired (%{public}@) for alert %{public}@", &v48, 0x16u);
     }
 
     else
@@ -997,11 +1009,11 @@ LABEL_39:
       {
         snoozeFireDate3 = [(MTAlarm *)self snoozeFireDate];
         alarmID10 = [(MTAlarm *)self alarmID];
-        v49 = 138543618;
-        v50 = snoozeFireDate3;
-        v51 = 2114;
-        *v52 = alarmID10;
-        _os_log_impl(&dword_1B1F9F000, snoozeFireDate4, OS_LOG_TYPE_DEFAULT, "Snooze hasn't fired yet (%{public}@) for alert %{public}@", &v49, 0x16u);
+        v48 = 138543618;
+        v49 = snoozeFireDate3;
+        v50 = 2114;
+        *v51 = alarmID10;
+        _os_log_impl(&dword_1B1F9F000, snoozeFireDate4, OS_LOG_TYPE_DEFAULT, "Snooze hasn't fired yet (%{public}@) for alert %{public}@", &v48, 0x16u);
       }
 
       snoozeFireDate4 = [(MTAlarm *)self snoozeFireDate];
@@ -1028,11 +1040,11 @@ LABEL_40:
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     alarmID11 = [(MTAlarm *)self alarmID];
-    v49 = 138543618;
-    v50 = alarmID11;
-    v51 = 2114;
-    *v52 = array;
-    _os_log_impl(&dword_1B1F9F000, v42, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ candidate triggers after sorting: %{public}@", &v49, 0x16u);
+    v48 = 138543618;
+    v49 = alarmID11;
+    v50 = 2114;
+    *v51 = array;
+    _os_log_impl(&dword_1B1F9F000, v42, OS_LOG_TYPE_DEFAULT, "Alarm %{public}@ candidate triggers after sorting: %{public}@", &v48, 0x16u);
   }
 
   firstObject = [array firstObject];
@@ -1040,14 +1052,12 @@ LABEL_40:
   if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
     alarmID12 = [(MTAlarm *)self alarmID];
-    v49 = 138543618;
-    v50 = alarmID12;
-    v51 = 2114;
-    *v52 = firstObject;
-    _os_log_impl(&dword_1B1F9F000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@ has next trigger %{public}@", &v49, 0x16u);
+    v48 = 138543618;
+    v49 = alarmID12;
+    v50 = 2114;
+    *v51 = firstObject;
+    _os_log_impl(&dword_1B1F9F000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@ has next trigger %{public}@", &v48, 0x16u);
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -1064,7 +1074,7 @@ uint64_t __50__MTAlarm_nextTriggersAfterDate_inclusionOptions___block_invoke(uin
 
 - (id)_earliestTriggerDateForDate:(id)date
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v5 = objc_opt_new();
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1072,10 +1082,10 @@ uint64_t __50__MTAlarm_nextTriggersAfterDate_inclusionOptions___block_invoke(uin
   aBlock[2] = __39__MTAlarm__earliestTriggerDateForDate___block_invoke;
   aBlock[3] = &unk_1E7B0E518;
   v6 = dateCopy;
-  v25 = v6;
+  v24 = v6;
   selfCopy = self;
   v7 = v5;
-  v27 = v7;
+  v26 = v7;
   v8 = _Block_copy(aBlock);
   dismissedDate = [(MTAlarm *)self dismissedDate];
   v8[2](v8, @"dismissed", dismissedDate);
@@ -1117,20 +1127,18 @@ uint64_t __50__MTAlarm_nextTriggersAfterDate_inclusionOptions___block_invoke(uin
   {
     alarmID = [(MTAlarm *)self alarmID];
     *buf = 138543618;
-    v29 = alarmID;
-    v30 = 2114;
-    v31 = v19;
+    v28 = alarmID;
+    v29 = 2114;
+    v30 = v19;
     _os_log_impl(&dword_1B1F9F000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ earliest trigger date: %{public}@", buf, 0x16u);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 void __39__MTAlarm__earliestTriggerDateForDate___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1140,15 +1148,15 @@ void __39__MTAlarm__earliestTriggerDateForDate___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [*(a1 + 40) alarmID];
-      v16 = 138543874;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v5;
-      v20 = 2114;
-      v21 = 0;
+      v15 = 138543874;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v5;
+      v19 = 2114;
+      v20 = 0;
       v14 = "%{public}@ %{public}@ %{public}@ is nil";
 LABEL_10:
-      _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, v14, &v16, 0x20u);
+      _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, v14, &v15, 0x20u);
     }
 
 LABEL_11:
@@ -1164,12 +1172,12 @@ LABEL_11:
     if (v10)
     {
       v13 = [*(a1 + 40) alarmID];
-      v16 = 138543874;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v7;
+      v15 = 138543874;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v5;
+      v19 = 2114;
+      v20 = v7;
       v14 = "%{public}@ %{public}@ %{public}@";
       goto LABEL_10;
     }
@@ -1181,21 +1189,19 @@ LABEL_11:
   {
     v11 = [*(a1 + 40) alarmID];
     v12 = *(a1 + 32);
-    v16 = 138544130;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v5;
-    v20 = 2114;
-    v21 = v12;
-    v22 = 2114;
-    v23 = v7;
-    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ after %{public}@ (%{public}@)", &v16, 0x2Au);
+    v15 = 138544130;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v12;
+    v21 = 2114;
+    v22 = v7;
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ after %{public}@ (%{public}@)", &v15, 0x2Au);
   }
 
   [*(a1 + 48) addObject:v7];
 LABEL_12:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_nextDateHelperWithDate:(id)date calendar:(id)calendar
@@ -1245,46 +1251,45 @@ LABEL_12:
 
 void __44__MTAlarm__nextDateHelperWithDate_calendar___block_invoke(uint64_t a1, unint64_t a2)
 {
-  v4 = *(a1 + 32);
   if (![objc_opt_class() _date:*(a1 + 40) isOnDay:a2 calendar:*(a1 + 48)])
   {
 LABEL_5:
     if (a2 < 7)
     {
-      v7 = a2 + 1;
+      v6 = a2 + 1;
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
 
-    v6 = [*(a1 + 48) mtNextDateAfterDate:*(a1 + 40) matchingUnit:512 value:v7];
+    v5 = [*(a1 + 48) mtNextDateAfterDate:*(a1 + 40) matchingUnit:512 value:v6];
     goto LABEL_9;
   }
 
-  v5 = [*(a1 + 48) components:30 fromDate:*(a1 + 40)];
-  [v5 setHour:{objc_msgSend(*(a1 + 32), "hour")}];
-  [v5 setMinute:{objc_msgSend(*(a1 + 32), "minute")}];
-  v11 = [*(a1 + 48) dateFromComponents:v5];
-  if ([v11 mtIsBeforeOrSameAsDate:*(a1 + 40)])
+  v4 = [*(a1 + 48) components:30 fromDate:*(a1 + 40)];
+  [v4 setHour:{objc_msgSend(*(a1 + 32), "hour")}];
+  [v4 setMinute:{objc_msgSend(*(a1 + 32), "minute")}];
+  v10 = [*(a1 + 48) dateFromComponents:v4];
+  if ([v10 mtIsBeforeOrSameAsDate:*(a1 + 40)])
   {
 
     goto LABEL_5;
   }
 
-  v6 = v11;
-  if (!v11)
+  v5 = v10;
+  if (!v10)
   {
     goto LABEL_5;
   }
 
 LABEL_9:
-  v12 = v6;
-  v8 = [v6 earlierDate:*(*(*(a1 + 56) + 8) + 40)];
-  v9 = *(*(a1 + 56) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v11 = v5;
+  v7 = [v5 earlierDate:*(*(*(a1 + 56) + 8) + 40)];
+  v8 = *(*(a1 + 56) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 }
 
 - (id)singleTimeOverrideDateInCalendar:(id)calendar
@@ -1350,13 +1355,13 @@ LABEL_9:
 
 + (id)mostRecentlyUpdatedAlarmForAlarms:(id)alarms
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = alarms;
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v4)
   {
     v6 = 0;
@@ -1365,17 +1370,17 @@ LABEL_9:
 
   v5 = v4;
   v6 = 0;
-  v7 = *v20;
+  v7 = *v19;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v20 != v7)
+      if (*v19 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v19 + 1) + 8 * i);
+      v9 = *(*(&v18 + 1) + 8 * i);
       if (!v6)
       {
         goto LABEL_14;
@@ -1418,13 +1423,11 @@ LABEL_14:
       }
     }
 
-    v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   }
 
   while (v5);
 LABEL_19:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1473,21 +1476,8 @@ LABEL_19:
   alarmCopy = alarm;
   alarmID = [alarmCopy alarmID];
   alarmID2 = [(MTAlarm *)self alarmID];
-  if (alarmID != alarmID2)
+  if (alarmID != alarmID2 && ([alarmCopy alarmID], v11 = objc_claimAutoreleasedReturnValue(), -[MTAlarm alarmID](self, "alarmID"), v127 = objc_claimAutoreleasedReturnValue(), v128 = v11, !objc_msgSend(v11, "isEqual:")) || (v12 = objc_msgSend(alarmCopy, "hour"), v12 != -[MTAlarm hour](self, "hour")) || (v13 = objc_msgSend(alarmCopy, "minute"), v13 != -[MTAlarm minute](self, "minute")) || (v14 = objc_msgSend(alarmCopy, "bedtimeHour"), v14 != -[MTAlarm bedtimeHour](self, "bedtimeHour")) || (v15 = objc_msgSend(alarmCopy, "bedtimeMinute"), v15 != -[MTAlarm bedtimeMinute](self, "bedtimeMinute")))
   {
-    alarmID3 = [alarmCopy alarmID];
-    alarmID4 = [(MTAlarm *)self alarmID];
-    v128 = alarmID3;
-    if (![alarmID3 isEqual:?])
-    {
-      goto LABEL_10;
-    }
-  }
-
-  hour = [alarmCopy hour];
-  if (hour != -[MTAlarm hour](self, "hour") || (v13 = [alarmCopy minute], v13 != -[MTAlarm minute](self, "minute")) || (v14 = objc_msgSend(alarmCopy, "bedtimeHour"), v14 != -[MTAlarm bedtimeHour](self, "bedtimeHour")) || (v15 = objc_msgSend(alarmCopy, "bedtimeMinute"), v15 != -[MTAlarm bedtimeMinute](self, "bedtimeMinute")))
-  {
-LABEL_10:
     v19 = 0;
     v20 = 0;
     memset(v133, 0, sizeof(v133));
@@ -1599,28 +1589,8 @@ LABEL_82:
   }
 
   timeInBedTracking = [alarmCopy timeInBedTracking];
-  if (timeInBedTracking != [(MTAlarm *)self timeInBedTracking])
+  if (timeInBedTracking != -[MTAlarm timeInBedTracking](self, "timeInBedTracking") || (v40 = [alarmCopy sleepSchedule], v40 != -[MTAlarm sleepSchedule](self, "sleepSchedule")) || (v21 = modifiedCopy, v41 = objc_msgSend(alarmCopy, "repeatSchedule"), v41 != -[MTAlarm repeatSchedule](self, "repeatSchedule")) || (v42 = objc_msgSend(alarmCopy, "isEnabled"), v42 != -[MTAlarm isEnabled](self, "isEnabled")) || (v43 = objc_msgSend(alarmCopy, "silentModeOptions"), v43 != -[MTAlarm silentModeOptions](self, "silentModeOptions")) || (v44 = objc_msgSend(alarmCopy, "isSleepAlarm"), v44 != -[MTAlarm isSleepAlarm](self, "isSleepAlarm")) || (v45 = objc_msgSend(alarmCopy, "allowsSnooze"), v45 != -[MTAlarm allowsSnooze](self, "allowsSnooze")) || (v46 = objc_msgSend(alarmCopy, "snoozeDuration"), v46 != -[MTAlarm snoozeDuration](self, "snoozeDuration")) || (v47 = objc_msgSend(alarmCopy, "onboardingVersion"), v47 != -[MTAlarm onboardingVersion](self, "onboardingVersion")) || (v48 = objc_msgSend(alarmCopy, "dismissedAction"), v48 != -[MTAlarm dismissedAction](self, "dismissedAction")) || (v49 = objc_msgSend(alarmCopy, "bedtimeDismissedAction"), v49 != -[MTAlarm bedtimeDismissedAction](self, "bedtimeDismissedAction")))
   {
-    goto LABEL_99;
-  }
-
-  sleepSchedule = [alarmCopy sleepSchedule];
-  if (sleepSchedule != [(MTAlarm *)self sleepSchedule])
-  {
-    goto LABEL_99;
-  }
-
-  v21 = modifiedCopy;
-  repeatSchedule = [alarmCopy repeatSchedule];
-  if (repeatSchedule != [(MTAlarm *)self repeatSchedule])
-  {
-    goto LABEL_99;
-  }
-
-  isEnabled = [alarmCopy isEnabled];
-  if (isEnabled != -[MTAlarm isEnabled](self, "isEnabled") || (v43 = [alarmCopy silentModeOptions], v43 != -[MTAlarm silentModeOptions](self, "silentModeOptions")) || (v44 = objc_msgSend(alarmCopy, "isSleepAlarm"), v44 != -[MTAlarm isSleepAlarm](self, "isSleepAlarm")) || (v45 = objc_msgSend(alarmCopy, "allowsSnooze"), v45 != -[MTAlarm allowsSnooze](self, "allowsSnooze")) || (v46 = objc_msgSend(alarmCopy, "snoozeDuration"), v46 != -[MTAlarm snoozeDuration](self, "snoozeDuration")) || (v47 = objc_msgSend(alarmCopy, "onboardingVersion"), v47 != -[MTAlarm onboardingVersion](self, "onboardingVersion")) || (v48 = objc_msgSend(alarmCopy, "dismissedAction"), v48 != -[MTAlarm dismissedAction](self, "dismissedAction")) || (v49 = objc_msgSend(alarmCopy, "bedtimeDismissedAction"), v49 != -[MTAlarm bedtimeDismissedAction](self, "bedtimeDismissedAction")))
-  {
-LABEL_99:
     memset(v133, 0, 32);
     *&v131[20] = 0;
     *&v131[12] = 0;
@@ -1707,9 +1677,10 @@ LABEL_99:
     if (![firedDate3 isEqual:?])
     {
       *&v131[12] = 0;
+      *(&v133[1] + 4) = 0;
       v21 = 0;
       *v131 = 0;
-      *(v133 + 4) = 0uLL;
+      *(v133 + 4) = 0;
       memset(v129, 0, sizeof(v129));
       v130 = 0;
       v22 = 0;
@@ -2252,19 +2223,19 @@ LABEL_68:
 
 - (void)_updatePropertiesFromDeserializer:(id)deserializer
 {
-  v125 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   deserializerCopy = deserializer;
   mtCoder = [deserializerCopy mtCoder];
   if ([mtCoder mtType] != 3)
   {
-    v118 = 0;
+    v117 = 0;
     LOBYTE(v15) = 0;
     v16 = 0;
     v17 = 0;
-    v120 = 0;
+    v119 = 0;
     v18 = 0;
     v19 = 0;
-    v117 = 0;
+    v116 = 0;
     v20 = 0;
     v21 = 0;
     v22 = 0;
@@ -2377,7 +2348,7 @@ LABEL_23:
 
   if (v6 >= 2.2)
   {
-    LOBYTE(v120) = 0;
+    LOBYTE(v119) = 0;
     v33 = 0;
     goto LABEL_44;
   }
@@ -2392,7 +2363,7 @@ LABEL_23:
     }
 
 LABEL_38:
-    LOBYTE(v120) = 0;
+    LOBYTE(v119) = 0;
     v33 = 0;
     goto LABEL_43;
   }
@@ -2414,7 +2385,7 @@ LABEL_40:
 
     LOBYTE(v7) = 1;
     self->_timeInBedTracking = 1;
-    LOBYTE(v120) = 1;
+    LOBYTE(v119) = 1;
     v33 = 1;
     goto LABEL_43;
   }
@@ -2430,11 +2401,11 @@ LABEL_40:
 
   v33 = 0;
   LOBYTE(v7) = 1;
-  LOBYTE(v120) = 1;
+  LOBYTE(v119) = 1;
 LABEL_43:
   v15 = 1;
 LABEL_44:
-  BYTE4(v118) = v14;
+  BYTE4(v117) = v14;
   if (v6 < 2.3)
   {
     if (v15)
@@ -2456,8 +2427,8 @@ LABEL_44:
     self->_dismissedAction = 0;
     if (!self->_sleepAlarm)
     {
-      v117 = 0;
-      LOBYTE(v118) = 0;
+      v116 = 0;
+      LOBYTE(v117) = 0;
 LABEL_69:
       v15 = 1;
       goto LABEL_70;
@@ -2500,7 +2471,7 @@ LABEL_69:
 
     if ((v47 & 1) != 0 || (v50 = self->_firedDate) == 0)
     {
-      LOBYTE(v118) = 0;
+      LOBYTE(v117) = 0;
       v33 = v41;
     }
 
@@ -2511,7 +2482,7 @@ LABEL_69:
         v33 = v41;
         if (![(NSDate *)self->_firedDate mtIsAfterDate:?])
         {
-          LOBYTE(v118) = 0;
+          LOBYTE(v117) = 0;
           goto LABEL_68;
         }
 
@@ -2527,19 +2498,19 @@ LABEL_69:
       v51 = self->_firedDate;
       self->_firedDate = 0;
 
-      LOBYTE(v118) = 1;
+      LOBYTE(v117) = 1;
     }
 
 LABEL_68:
 
-    v117 = 1;
+    v116 = 1;
     goto LABEL_69;
   }
 
-  v117 = 0;
-  LOBYTE(v118) = 0;
+  v116 = 0;
+  LOBYTE(v117) = 0;
 LABEL_70:
-  BYTE4(v120) = v6 < 2.4;
+  BYTE4(v119) = v6 < 2.4;
   v18 = v33;
   if (v6 < 2.4)
   {
@@ -2554,7 +2525,7 @@ LABEL_70:
   }
 
   v16 = v33;
-  if (v6 < 2.5 && (v53 = [mtCoder decodeIntegerForKey:@"MTAlarmOnboardingVersion"], self->_onboardingVersion = v53, BYTE4(v120) = 1, v53))
+  if (v6 < 2.5 && (v53 = [mtCoder decodeIntegerForKey:@"MTAlarmOnboardingVersion"], self->_onboardingVersion = v53, BYTE4(v119) = 1, v53))
   {
     self->_sleepMode = 1;
     self->_sleepModeOptions = [objc_opt_class() defaultSleepModeOptions];
@@ -2581,8 +2552,8 @@ LABEL_80:
         {
           *buf = 67109376;
           pushAlertsEnabled = v54;
-          v123 = 1024;
-          v124 = v55;
+          v122 = 1024;
+          v123 = v55;
           _os_log_impl(&dword_1B1F9F000, v56, OS_LOG_TYPE_DEFAULT, "[Migration] (2.6) old enabled: %d, sleepSchedule: %d", buf, 0xEu);
         }
 
@@ -2596,12 +2567,12 @@ LABEL_80:
           sleepSchedule = self->_sleepSchedule;
           *buf = 67109376;
           pushAlertsEnabled = enabled;
-          v123 = 1024;
-          v124 = sleepSchedule;
+          v122 = 1024;
+          v123 = sleepSchedule;
           _os_log_impl(&dword_1B1F9F000, v58, OS_LOG_TYPE_DEFAULT, "[Migration] (2.6) new enabled: %d, sleepSchedule: %d", buf, 0xEu);
         }
 
-        LOBYTE(v120) = 1;
+        LOBYTE(v119) = 1;
         v15 = 1;
         LOBYTE(v7) = 1;
         goto LABEL_87;
@@ -2703,7 +2674,7 @@ LABEL_106:
   }
 
 LABEL_107:
-  if ((v118 & 0x100000000) == 0)
+  if ((v117 & 0x100000000) == 0)
   {
     v67 = [mtCoder decodeObjectOfClass:objc_opt_class() forKey:@"MTAlarmSound"];
     v68 = self->_sound;
@@ -2721,7 +2692,7 @@ LABEL_107:
     self->_sleepMode = [mtCoder decodeBoolForKey:@"MTAlarmBedtimeDoNotDisturb"];
   }
 
-  if (v120)
+  if (v119)
   {
     if (v18)
     {
@@ -2777,19 +2748,19 @@ LABEL_117:
   }
 
 LABEL_118:
-  if ((v120 & 0x100000000) == 0)
+  if ((v119 & 0x100000000) == 0)
   {
     self->_onboardingVersion = [mtCoder decodeIntegerForKey:@"MTAlarmOnboardingVersion"];
   }
 
-  if ((v117 & 1) == 0)
+  if ((v116 & 1) == 0)
   {
     v75 = [mtCoder decodeObjectOfClass:objc_opt_class() forKey:@"MTAlarmFireDate"];
     v76 = self->_firedDate;
     self->_firedDate = v75;
   }
 
-  if ((v118 & 1) == 0)
+  if ((v117 & 1) == 0)
   {
     v77 = [mtCoder decodeObjectOfClass:objc_opt_class() forKey:@"MTAlarmBedtimeFireDate"];
     bedtimeFiredDate = self->_bedtimeFiredDate;
@@ -2899,8 +2870,6 @@ LABEL_118:
   v114 = [mtCoder decodeObjectOfClass:objc_opt_class() forKey:@"MTAlarmBypassReloadDate"];
   bypassReloadDate = self->_bypassReloadDate;
   self->_bypassReloadDate = v114;
-
-  v116 = *MEMORY[0x1E69E9840];
 }
 
 - (void)serializeWithSerializer:(id)serializer
@@ -3123,16 +3092,14 @@ LABEL_118:
 
 void __50__MTAlarm_Properties__propertiesAffectingWaketime__block_invoke()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"MTAlarmHour";
-  v5[1] = @"MTAlarmMinute";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[0] = @"MTAlarmHour";
+  v4[1] = @"MTAlarmMinute";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = propertiesAffectingWaketime_propertiesAffectingWaketime;
   propertiesAffectingWaketime_propertiesAffectingWaketime = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)propertiesAffectingBedtime
@@ -3149,16 +3116,14 @@ void __50__MTAlarm_Properties__propertiesAffectingWaketime__block_invoke()
 
 void __49__MTAlarm_Properties__propertiesAffectingBedtime__block_invoke()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"MTAlarmBedtimeHour";
-  v5[1] = @"MTAlarmBedtimeMinute";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[0] = @"MTAlarmBedtimeHour";
+  v4[1] = @"MTAlarmBedtimeMinute";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = propertiesAffectingBedtime_propertiesAffectingBedtime;
   propertiesAffectingBedtime_propertiesAffectingBedtime = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)propertiesAffectingSnooze
@@ -3175,19 +3140,17 @@ void __49__MTAlarm_Properties__propertiesAffectingBedtime__block_invoke()
 
 void __48__MTAlarm_Properties__propertiesAffectingSnooze__block_invoke()
 {
-  v5[5] = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"MTAlarmHour";
-  v5[1] = @"MTAlarmMinute";
-  v5[2] = @"MTAlarmAllowsSnooze";
-  v5[3] = @"MTAlarmSnoozeDuration";
-  v5[4] = @"MTAlarmDismissDate";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
+  v4[0] = @"MTAlarmHour";
+  v4[1] = @"MTAlarmMinute";
+  v4[2] = @"MTAlarmAllowsSnooze";
+  v4[3] = @"MTAlarmSnoozeDuration";
+  v4[4] = @"MTAlarmDismissDate";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
   v2 = [v0 setWithArray:v1];
   v3 = propertiesAffectingSnooze_propertiesAffectingSnooze;
   propertiesAffectingSnooze_propertiesAffectingSnooze = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)propertiesAffectingNotification
@@ -3204,37 +3167,35 @@ void __48__MTAlarm_Properties__propertiesAffectingSnooze__block_invoke()
 
 void __54__MTAlarm_Properties__propertiesAffectingNotification__block_invoke()
 {
-  v5[23] = *MEMORY[0x1E69E9840];
+  v4[23] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"MTAlarmHour";
-  v5[1] = @"MTAlarmMinute";
-  v5[2] = @"MTAlarmBedtimeHour";
-  v5[3] = @"MTAlarmBedtimeMinute";
-  v5[4] = @"MTAlarmRepeatSchedule";
-  v5[5] = @"MTAlarmEnabled";
-  v5[6] = @"MTAlarmBedtimeReminderMinutes";
-  v5[7] = @"MTAlarmBedtimeDoNotDisturb";
-  v5[8] = @"MTAlarmBedtimeDoNotDisturbOptions";
-  v5[9] = @"MTAlarmSilentModeOptions";
-  v5[10] = @"MTAlarmSleepScheduleKey";
-  v5[11] = @"MTAlarmTimeInBedTrackingKey";
-  v5[12] = @"MTAlarmSleepTrackingKey";
-  v5[13] = @"MTAlarmBedtimeForSleepTracking";
-  v5[14] = @"MTAlarmWakeupForSleepTracking";
-  v5[15] = @"MTAlarmIsSleep";
-  v5[16] = @"MTAlarmAllowsSnooze";
-  v5[17] = @"MTAlarmSnoozeDuration";
-  v5[18] = @"MTAlarmSnoozeFireDate";
-  v5[19] = @"MTAlarmBedtimeSnoozeFireDate";
-  v5[20] = @"MTAlarmTitle";
-  v5[21] = @"MTAlarmSound";
-  v5[22] = @"MTAlarmOnboardingVersion";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:23];
+  v4[0] = @"MTAlarmHour";
+  v4[1] = @"MTAlarmMinute";
+  v4[2] = @"MTAlarmBedtimeHour";
+  v4[3] = @"MTAlarmBedtimeMinute";
+  v4[4] = @"MTAlarmRepeatSchedule";
+  v4[5] = @"MTAlarmEnabled";
+  v4[6] = @"MTAlarmBedtimeReminderMinutes";
+  v4[7] = @"MTAlarmBedtimeDoNotDisturb";
+  v4[8] = @"MTAlarmBedtimeDoNotDisturbOptions";
+  v4[9] = @"MTAlarmSilentModeOptions";
+  v4[10] = @"MTAlarmSleepScheduleKey";
+  v4[11] = @"MTAlarmTimeInBedTrackingKey";
+  v4[12] = @"MTAlarmSleepTrackingKey";
+  v4[13] = @"MTAlarmBedtimeForSleepTracking";
+  v4[14] = @"MTAlarmWakeupForSleepTracking";
+  v4[15] = @"MTAlarmIsSleep";
+  v4[16] = @"MTAlarmAllowsSnooze";
+  v4[17] = @"MTAlarmSnoozeDuration";
+  v4[18] = @"MTAlarmSnoozeFireDate";
+  v4[19] = @"MTAlarmBedtimeSnoozeFireDate";
+  v4[20] = @"MTAlarmTitle";
+  v4[21] = @"MTAlarmSound";
+  v4[22] = @"MTAlarmOnboardingVersion";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:23];
   v2 = [v0 setWithArray:v1];
   v3 = propertiesAffectingNotification_propertiesAffectingNotification;
   propertiesAffectingNotification_propertiesAffectingNotification = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)propertiesAffectingSync
@@ -3277,27 +3238,25 @@ void __46__MTAlarm_Properties__propertiesAffectingSync__block_invoke(uint64_t a1
 
 void __50__MTAlarm_Properties__propertiesAffectingSessions__block_invoke()
 {
-  v5[13] = *MEMORY[0x1E69E9840];
+  v4[13] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"MTAlarmHour";
-  v5[1] = @"MTAlarmMinute";
-  v5[2] = @"MTAlarmRepeatSchedule";
-  v5[3] = @"MTAlarmEnabled";
-  v5[4] = @"MTAlarmAllowsSnooze";
-  v5[5] = @"MTAlarmSnoozeDuration";
-  v5[6] = @"MTAlarmSnoozeFireDate";
-  v5[7] = @"MTAlarmBedtimeSnoozeFireDate";
-  v5[8] = @"MTAlarmTitle";
-  v5[9] = @"MTAlarmSound";
-  v5[10] = @"MTAlarmOnboardingVersion";
-  v5[11] = @"MTAlarmFiring";
-  v5[12] = @"MTAlarmDismissDate";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:13];
+  v4[0] = @"MTAlarmHour";
+  v4[1] = @"MTAlarmMinute";
+  v4[2] = @"MTAlarmRepeatSchedule";
+  v4[3] = @"MTAlarmEnabled";
+  v4[4] = @"MTAlarmAllowsSnooze";
+  v4[5] = @"MTAlarmSnoozeDuration";
+  v4[6] = @"MTAlarmSnoozeFireDate";
+  v4[7] = @"MTAlarmBedtimeSnoozeFireDate";
+  v4[8] = @"MTAlarmTitle";
+  v4[9] = @"MTAlarmSound";
+  v4[10] = @"MTAlarmOnboardingVersion";
+  v4[11] = @"MTAlarmFiring";
+  v4[12] = @"MTAlarmDismissDate";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:13];
   v2 = [v0 setWithArray:v1];
   v3 = propertiesAffectingSessions_propertiesAffectingSnooze;
   propertiesAffectingSessions_propertiesAffectingSnooze = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)singleTimeOverrideDateInCalendar:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

@@ -48,7 +48,7 @@
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __65__WBDatabaseLockAcquisitor_acquireLockWithTimeout_retryInterval___block_invoke(uint64_t a1)
+void *__65__WBDatabaseLockAcquisitor_acquireLockWithTimeout_retryInterval___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   v3 = *(a1 + 48);
@@ -92,7 +92,7 @@ uint64_t __65__WBDatabaseLockAcquisitor_acquireLockWithTimeout_retryInterval___b
 - (BOOL)_attemptToLockSyncAndNotifyDelegateOnFailure:(BOOL)failure
 {
   failureCopy = failure;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v6 = objc_opt_respondsToSelector();
   isLockedSync = [(objc_class *)self->_webBookmarkCollectionClass isLockedSync];
@@ -108,12 +108,12 @@ uint64_t __65__WBDatabaseLockAcquisitor_acquireLockWithTimeout_retryInterval___b
         goto LABEL_7;
       }
 
-      v14 = WBS_LOG_CHANNEL_PREFIXBookmarks();
+      v13 = WBS_LOG_CHANNEL_PREFIXBookmarks();
       v11 = 0;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15[0]) = 0;
-        _os_log_impl(&dword_272C20000, v14, OS_LOG_TYPE_DEFAULT, "WBDatabaseLockAcquisitor: failed to acquire database lock", v15, 2u);
+        LOWORD(v14[0]) = 0;
+        _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_DEFAULT, "WBDatabaseLockAcquisitor: failed to acquire database lock", v14, 2u);
         v11 = 0;
       }
 
@@ -125,13 +125,13 @@ uint64_t __65__WBDatabaseLockAcquisitor_acquireLockWithTimeout_retryInterval___b
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     lockAcquired = self->_lockAcquired;
-    v15[0] = 67109632;
-    v15[1] = isLockedSync;
-    v16 = 1024;
-    v17 = lockAcquired;
-    v18 = 1024;
-    v19 = v6 & 1;
-    _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_DEFAULT, "WBDatabaseLockAcquisitor: successfully acquired database lock (was locked: %d, lock acquired: %d, should notify: %d)", v15, 0x14u);
+    v14[0] = 67109632;
+    v14[1] = isLockedSync;
+    v15 = 1024;
+    v16 = lockAcquired;
+    v17 = 1024;
+    v18 = v6 & 1;
+    _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_DEFAULT, "WBDatabaseLockAcquisitor: successfully acquired database lock (was locked: %d, lock acquired: %d, should notify: %d)", v14, 0x14u);
   }
 
   [(WBDatabaseLockAcquisitor *)self _stopTimer];
@@ -144,7 +144,6 @@ LABEL_6:
 
 LABEL_7:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

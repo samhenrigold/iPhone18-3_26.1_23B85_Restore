@@ -71,7 +71,7 @@
   sub_27237727C();
   *(&self->super.isa + OBJC_IVAR___G2PFactoredObjc_g2p) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for G2P();
+  v4.super_class = type metadata accessor for G2P(0);
   return [(G2PFactoredObjc *)&v4 init];
 }
 

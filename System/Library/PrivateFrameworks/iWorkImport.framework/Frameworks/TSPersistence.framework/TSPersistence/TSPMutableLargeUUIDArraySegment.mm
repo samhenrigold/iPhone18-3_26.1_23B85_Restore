@@ -71,7 +71,7 @@
           if (v20 == *(message + 9))
           {
 LABEL_9:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(message + 6, v20 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((message + 24), v20 + 1);
             v18 = *(message + 5);
             v20 = *v18;
           }

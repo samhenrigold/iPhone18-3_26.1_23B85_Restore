@@ -48,7 +48,7 @@
       v6->_pid = [connectionCopy processIdentifier];
       v6->_euid = [connectionCopy effectiveUserIdentifier];
       v6->_asid = [connectionCopy auditSessionIdentifier];
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
       *v6->_auditToken.val = v8;
       *&v6->_auditToken.val[4] = v9;
     }
@@ -90,7 +90,7 @@
     {
       if (equalCopy)
       {
-        [(Caller *)equalCopy auditToken];
+        objc_msgSend_auditToken(equalCopy);
       }
 
       else
@@ -116,7 +116,7 @@
 
 - (BOOL)isEqualToAuditToken:(id *)token
 {
-  [(Caller *)self auditToken];
+  objc_msgSend_auditToken(self, a2);
   v4 = audit_token_to_pid(&v7);
   v5 = *&token->var0[4];
   *v7.val = *token->var0;
@@ -171,7 +171,7 @@
 - (NSData)auditTokenData
 {
   v3 = objc_alloc(MEMORY[0x277D23FF8]);
-  [(Caller *)self auditToken];
+  objc_msgSend_auditToken(self);
   v4 = [v3 initWithRawValue:&v7];
   data = [v4 data];
 
@@ -214,7 +214,7 @@
 
 + (id)pathFromPid:(int)pid
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = proc_pidpath(pid, buffer, 0x1000u);
   if (v3 < 1)
   {
@@ -225,8 +225,6 @@
   {
     v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:buffer length:v3 encoding:4];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -67,7 +67,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_190B8E9A0();
+  sub_190B8E9A0(selfCopy, v2);
 }
 
 - (void)configureForMessagePart:(id)part

@@ -9,7 +9,7 @@
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDHomeManagerXPCMessageSendPolicy *)self options];
   v4 = HMHomeManagerOptionsToString();
@@ -18,15 +18,13 @@
   [(HMDHomeManagerXPCMessageSendPolicy *)self entitlements];
   v7 = HMXPCClientEntitlementsShortDescription();
   v8 = [v6 initWithName:@"Entitlements" value:v7];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDHomeManagerXPCMessageSendPolicy *)self isActive];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"Active" value:v10];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }
@@ -82,7 +80,7 @@
 
 - (BOOL)canSendWithPolicyParameters:(id)parameters
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -105,17 +103,17 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       v14 = HMFGetLogIdentifier();
-      v26 = 138543874;
-      v27 = v14;
-      v28 = 2112;
-      v29 = objc_opt_class();
-      v30 = 2112;
-      v31 = parametersCopy;
+      v25 = 138543874;
+      v26 = v14;
+      v27 = 2112;
+      v28 = objc_opt_class();
+      v29 = 2112;
+      v30 = parametersCopy;
       v15 = "%{public}@Cannot send message with policy parameters because they are of unexpected class %@: %@";
       v16 = v13;
       v17 = 32;
 LABEL_13:
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, v15, &v26, v17);
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, v15, &v25, v17);
 LABEL_17:
 
       goto LABEL_18;
@@ -138,15 +136,15 @@ LABEL_17:
       v19 = HMXPCClientEntitlementsShortDescription();
       [(HMDHomeManagerXPCMessageSendPolicy *)selfCopy2 entitlements];
       v20 = HMXPCClientEntitlementsShortDescription();
-      v26 = 138543874;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v19;
-      v30 = 2112;
-      v31 = v20;
+      v25 = 138543874;
+      v26 = v14;
+      v27 = 2112;
+      v28 = v19;
+      v29 = 2112;
+      v30 = v20;
       v21 = "%{public}@Cannot send message with policy parameters because entitlements %@ do not contain all of the required entitlements: %@";
 LABEL_16:
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, v21, &v26, 0x20u);
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, v21, &v25, 0x20u);
 
       goto LABEL_17;
     }
@@ -176,12 +174,12 @@ LABEL_18:
       v19 = HMHomeManagerOptionsToString();
       [(HMDHomeManagerXPCMessageSendPolicy *)selfCopy3 options];
       v20 = HMHomeManagerOptionsToString();
-      v26 = 138543874;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v19;
-      v30 = 2112;
-      v31 = v20;
+      v25 = 138543874;
+      v26 = v14;
+      v27 = 2112;
+      v28 = v19;
+      v29 = 2112;
+      v30 = v20;
       v21 = "%{public}@Cannot send message with policy parameters because options %@ do not contain one of the required options: %@";
       goto LABEL_16;
     }
@@ -198,8 +196,8 @@ LABEL_18:
     }
 
     v14 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v14;
+    v25 = 138543362;
+    v26 = v14;
     v15 = "%{public}@Cannot send message with policy parameters because active is NO";
     v16 = v13;
     v17 = 12;
@@ -209,7 +207,6 @@ LABEL_18:
   v10 = 1;
 LABEL_19:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

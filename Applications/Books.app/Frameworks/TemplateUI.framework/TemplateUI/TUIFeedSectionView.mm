@@ -40,7 +40,7 @@
       v16 = 0;
       if (modelCopy)
       {
-        [(TUIRenderModelSection *)modelCopy config];
+        objc_msgSend_config(modelCopy);
       }
 
       hoverController = [(TUIFeedSectionView *)self hoverController];

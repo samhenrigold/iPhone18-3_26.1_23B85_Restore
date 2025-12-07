@@ -17,39 +17,39 @@
 
 - (SLRequestBodyInputStream)initWithMultiParts:(id)parts multiPartBoundary:(id)boundary
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   partsCopy = parts;
   boundaryCopy = boundary;
-  v38.receiver = self;
-  v38.super_class = SLRequestBodyInputStream;
-  v9 = [(SLRequestBodyInputStream *)&v38 init];
+  v43.receiver = self;
+  v43.super_class = SLRequestBodyInputStream;
+  v9 = [(SLRequestBodyInputStream *)&v43 init];
   if (v9)
   {
     v10 = objc_opt_new();
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v11 = partsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v35;
+      v14 = *v40;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v35 != v14)
+          if (*v40 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [[SLRequestMultiPartInputStream alloc] initWithMultiPart:*(*(&v34 + 1) + 8 * i)];
+          v16 = [[SLRequestMultiPartInputStream alloc] initWithMultiPart:*(*(&v39 + 1) + 8 * i)];
           [v10 addObject:v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v13);
@@ -58,29 +58,29 @@
     boundaryCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"--%@--\r\n", boundaryCopy];
     v18 = [boundaryCopy dataUsingEncoding:4];
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v19 = v10;
-    v20 = [v19 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v35 objects:v44 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v31;
+      v22 = *v36;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v31 != v22)
+          if (*v36 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v9->_dataLength += [*(*(&v30 + 1) + 8 * j) length];
+          v9->_dataLength += [*(*(&v35 + 1) + 8 * j) length];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v35 objects:v44 count:16];
       }
 
       while (v21);
@@ -98,8 +98,8 @@
     }
 
     v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](v9->_inputStreams, "count")}];
-    v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v9->_dataLength];
-    _SLLog(v4, 7, @"SLRequestBodyInputStream %@ initWithMultiParts:multiPartBoundary: _inputStreams.count %@ _dataLength %@");
+    v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v9->_dataLength];
+    _SLLog(v4, 7, @"SLRequestBodyInputStream %@ initWithMultiParts:multiPartBoundary: _inputStreams.count %@ _dataLength %@", v28, v29, v30, v31, v32, v9);
   }
 
   return v9;
@@ -217,14 +217,14 @@
 
 - (void)open
 {
-  _SLLog(v2, 7, @"SLRequestBodyInputStream %@ open");
+  _SLLog(v7, 7, @"SLRequestBodyInputStream %@ open", v2, v3, v4, v5, v6, self);
   [(SLRequestBodyInputStream *)self _scheduleCallback];
   self->_streamStatus = 2;
 }
 
 - (void)close
 {
-  _SLLog(v2, 7, @"SLRequestBodyInputStream %@ close");
+  _SLLog(v7, 7, @"SLRequestBodyInputStream %@ close", v2, v3, v4, v5, v6, self);
   rls = self->_rls;
   if (rls)
   {
@@ -236,58 +236,54 @@
 
 - (int64_t)read:(char *)read maxLength:(unint64_t)length
 {
-  [MEMORY[0x1E696AD98] numberWithUnsignedInteger:length];
-  v18 = v16 = read;
-  selfCopy2 = self;
-  _SLLog(v4, 7, @"SLRequestBodyInputStream %@ read: %p maxLength: %@");
+  v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:length];
+  _SLLog(v4, 7, @"SLRequestBodyInputStream %@ read: %p maxLength: %@", v8, v9, v10, v11, v12, self);
 
-  v8 = 0;
+  v13 = 0;
   if (length)
   {
-    while (self->_dataOffset + v8 < self->_dataLength)
+    while (self->_dataOffset + v13 < self->_dataLength)
     {
-      if (![(SLRequestMultiPartInputStream *)self->_currentStream hasBytesAvailable:selfCopy2])
+      if (![(SLRequestMultiPartInputStream *)self->_currentStream hasBytesAvailable])
       {
-        _SLLog(v4, 6, @"SLRequestBodyInputStream %@ Current stream has no bytes, switching");
+        _SLLog(v4, 6, @"SLRequestBodyInputStream %@ Current stream has no bytes, switching", v14, v15, v16, v17, v18, self);
         [(SLRequestMultiPartInputStream *)self->_currentStream close];
         nextStream = [(SLRequestBodyInputStream *)self nextStream];
         currentStream = self->_currentStream;
         self->_currentStream = nextStream;
 
-        v11 = self->_currentStream;
-        if (!v11)
+        v26 = self->_currentStream;
+        if (!v26)
         {
-          _SLLog(v4, 3, @"Bad state, current stream is nil");
+          _SLLog(v4, 3, @"Bad state, current stream is nil", v21, v22, v23, v24, v25, v46);
           break;
         }
 
-        [(SLRequestMultiPartInputStream *)v11 open];
+        [(SLRequestMultiPartInputStream *)v26 open];
       }
 
-      v17 = [MEMORY[0x1E696AD98] numberWithInteger:v8];
-      _SLLog(v4, 6, @"SLRequestBodyInputStream %@ read:maxLength: Will source bytes at offset %@");
+      v27 = [MEMORY[0x1E696AD98] numberWithInteger:v13];
+      _SLLog(v4, 6, @"SLRequestBodyInputStream %@ read:maxLength: Will source bytes at offset %@", v28, v29, v30, v31, v32, self);
 
-      v8 += [(SLRequestMultiPartInputStream *)self->_currentStream read:&read[v8] maxLength:length - v8, self, v17];
-      v12 = [MEMORY[0x1E696AD98] numberWithInteger:v8];
-      [MEMORY[0x1E696AD98] numberWithUnsignedInteger:length];
-      v18 = v16 = v12;
-      selfCopy2 = self;
-      _SLLog(v4, 6, @"SLRequestBodyInputStream %@ read:maxLength: Total %@ bytes written to buffer, maxLen %@");
+      v13 += [(SLRequestMultiPartInputStream *)self->_currentStream read:&read[v13] maxLength:length - v13];
+      v33 = [MEMORY[0x1E696AD98] numberWithInteger:v13];
+      v48 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:length];
+      _SLLog(v4, 6, @"SLRequestBodyInputStream %@ read:maxLength: Total %@ bytes written to buffer, maxLen %@", v34, v35, v36, v37, v38, self);
 
-      if (v8 >= length)
+      if (v13 >= length)
       {
         break;
       }
     }
   }
 
-  self->_dataOffset += v8;
-  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:selfCopy2];
-  v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_dataLength];
-  _SLLog(v4, 6, @"SLRequestBodyInputStream %@ read:maxLength: Total %@ bytes streamed, total length is %@");
+  self->_dataOffset += v13;
+  v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+  v49 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_dataLength];
+  _SLLog(v4, 6, @"SLRequestBodyInputStream %@ read:maxLength: Total %@ bytes streamed, total length is %@", v40, v41, v42, v43, v44, self);
 
-  [(SLRequestBodyInputStream *)self _scheduleCallback:self];
-  return v8;
+  [(SLRequestBodyInputStream *)self _scheduleCallback];
+  return v13;
 }
 
 - (NSStreamDelegate)delegate

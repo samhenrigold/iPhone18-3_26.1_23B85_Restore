@@ -1,4 +1,4 @@
-uint64_t TPSCellularNetworkLog()
+uint64_t TPSCellularNetworkLog(uint64_t a1, uint64_t a2)
 {
   if (qword_CF40 != -1)
   {

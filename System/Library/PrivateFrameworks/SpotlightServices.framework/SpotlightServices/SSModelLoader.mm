@@ -92,7 +92,7 @@ LABEL_9:
 
 - (BOOL)hasPendingUpdates
 {
-  if ([(NSMutableSet *)self->_pendingUpdates count])
+  if (objc_msgSend_count(self->_pendingUpdates, a2))
   {
     return 1;
   }
@@ -103,7 +103,7 @@ LABEL_9:
   {
     v6 = [objc_opt_class() assetDirectoryPathForType:v5 forUpdate:1];
     v7 = [defaultManager contentsOfDirectoryAtPath:v6 error:0];
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
       pendingUpdates = self->_pendingUpdates;
       v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v5];
@@ -114,14 +114,14 @@ LABEL_9:
   }
 
   while (v5);
-  v3 = [(NSMutableSet *)self->_pendingUpdates count]!= 0;
+  v3 = objc_msgSend_count(self->_pendingUpdates) != 0;
 
   return v3;
 }
 
 - (void)removeAssetsWithName:(id)name
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (assetIsValid(nameCopy))
   {
@@ -129,15 +129,13 @@ LABEL_9:
     v6 = PRSLogCategoryDefault();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134217984;
-      v9 = AssetTypeForName;
-      _os_log_impl(&dword_1D9F69000, v6, OS_LOG_TYPE_DEFAULT, "[Model loading] removing resource for type %lu", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = AssetTypeForName;
+      _os_log_impl(&dword_1D9F69000, v6, OS_LOG_TYPE_DEFAULT, "[Model loading] removing resource for type %lu", &v7, 0xCu);
     }
 
     [(SSModelLoader *)self removeAssetsForType:AssetTypeForName group:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAssetsForType:(unint64_t)type group:(id)group
@@ -155,9 +153,8 @@ LABEL_9:
   dispatch_async(queue, block);
 }
 
-void __43__SSModelLoader_removeAssetsForType_group___block_invoke(void *a1)
+void __43__SSModelLoader_removeAssetsForType_group___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   v3 = [objc_opt_class() assetDirectoryPathForType:a1[6] forUpdate:0];
   v4 = [MEMORY[0x1E696AC08] defaultManager];
   v7 = 0;
@@ -175,7 +172,7 @@ void __43__SSModelLoader_removeAssetsForType_group___block_invoke(void *a1)
 
 - (void)unpackageModelAssets:(id)assets assetName:(id)name completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   nameCopy = name;
   completionCopy = completion;
@@ -187,15 +184,13 @@ void __43__SSModelLoader_removeAssetsForType_group___block_invoke(void *a1)
     v14 = PRSLogCategoryDefault();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = 134217984;
-      v17 = AssetTypeForName;
-      _os_log_impl(&dword_1D9F69000, v14, OS_LOG_TYPE_INFO, "[Model loading] unpackaging %lu", &v16, 0xCu);
+      v15 = 134217984;
+      v16 = AssetTypeForName;
+      _os_log_impl(&dword_1D9F69000, v14, OS_LOG_TYPE_INFO, "[Model loading] unpackaging %lu", &v15, 0xCu);
     }
 
     [(SSModelLoader *)self unpackageModelAssets:v12 type:AssetTypeForName intoDirectory:v13 group:0 completion:completionCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unpackageModelAssets:(id)assets type:(unint64_t)type group:(id)group completion:(id)completion
@@ -302,7 +297,7 @@ LABEL_11:
 
 void __41__SSModelLoader_moveNewlyPackagedAssets___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v2 = WeakRetained;
   if (!WeakRetained)
@@ -310,92 +305,90 @@ void __41__SSModelLoader_moveNewlyPackagedAssets___block_invoke(uint64_t a1)
     goto LABEL_21;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v3 = [WeakRetained pendingUpdates];
   v4 = [v3 copy];
 
   obj = v4;
-  v29 = [v4 countByEnumeratingWithState:&v33 objects:v39 count:16];
-  if (!v29)
+  v26 = [v4 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (!v26)
   {
     goto LABEL_20;
   }
 
-  v27 = *v34;
+  v24 = *v30;
   *&v5 = 138412290;
-  v25 = v5;
-  v28 = v2;
+  v22 = v5;
+  v25 = v2;
   while (2)
   {
-    for (i = 0; i != v29; ++i)
+    for (i = 0; i != v26; ++i)
     {
-      if (*v34 != v27)
+      if (*v30 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v33 + 1) + 8 * i);
+      v7 = *(*(&v29 + 1) + 8 * i);
       v8 = [v7 unsignedIntegerValue];
-      v9 = *(a1 + 32);
-      v10 = [objc_opt_class() assetDirectoryPathForType:v8 forUpdate:1];
-      v11 = *(a1 + 32);
-      v12 = [objc_opt_class() assetDirectoryPathForType:v8 forUpdate:0];
-      v13 = [MEMORY[0x1E696AC08] defaultManager];
-      v32 = 0;
-      v14 = [v13 removeItemAtPath:v12 error:&v32];
-      v15 = v32;
-      v16 = v15;
-      if ((v14 & 1) == 0)
+      v9 = [objc_opt_class() assetDirectoryPathForType:v8 forUpdate:1];
+      v10 = [objc_opt_class() assetDirectoryPathForType:v8 forUpdate:0];
+      v11 = [MEMORY[0x1E696AC08] defaultManager];
+      v28 = 0;
+      v12 = [v11 removeItemAtPath:v10 error:&v28];
+      v13 = v28;
+      v14 = v13;
+      if ((v12 & 1) == 0)
       {
-        v20 = PRSLogCategoryDefault();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v18 = PRSLogCategoryDefault();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          __41__SSModelLoader_moveNewlyPackagedAssets___block_invoke_cold_1(v16, v20);
+          __41__SSModelLoader_moveNewlyPackagedAssets___block_invoke_cold_1(v14, v18);
         }
 
         goto LABEL_19;
       }
 
-      v31 = v15;
-      v17 = [v13 moveItemAtPath:v10 toPath:v12 error:&v31];
-      v18 = v31;
+      v27 = v13;
+      v15 = [v11 moveItemAtPath:v9 toPath:v10 error:&v27];
+      v16 = v27;
 
-      v19 = PRSLogCategoryDefault();
-      v20 = v19;
-      if ((v17 & 1) == 0)
+      v17 = PRSLogCategoryDefault();
+      v18 = v17;
+      if ((v15 & 1) == 0)
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          __41__SSModelLoader_moveNewlyPackagedAssets___block_invoke_cold_2(v18, v20);
+          __41__SSModelLoader_moveNewlyPackagedAssets___block_invoke_cold_2(v16, v18);
         }
 
-        v16 = v18;
+        v14 = v16;
 LABEL_19:
-        v2 = v28;
+        v2 = v25;
 
         goto LABEL_20;
       }
 
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
-        *buf = v25;
-        v38 = v21;
-        _os_log_impl(&dword_1D9F69000, v20, OS_LOG_TYPE_INFO, "[Model loading] moved resources for type %@", buf, 0xCu);
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
+        *buf = v22;
+        v34 = v19;
+        _os_log_impl(&dword_1D9F69000, v18, OS_LOG_TYPE_INFO, "[Model loading] moved resources for type %@", buf, 0xCu);
       }
 
       +[SSADEventReporter reportModelUnpackageEventWithType:](SSADEventReporter, "reportModelUnpackageEventWithType:", [v7 unsignedIntegerValue]);
-      v2 = v28;
-      v22 = [v28 pendingUpdates];
-      v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
-      [v22 removeObject:v23];
+      v2 = v25;
+      v20 = [v25 pendingUpdates];
+      v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
+      [v20 removeObject:v21];
     }
 
-    v29 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-    if (v29)
+    v26 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+    if (v26)
     {
       continue;
     }
@@ -406,7 +399,6 @@ LABEL_19:
 LABEL_20:
 
 LABEL_21:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

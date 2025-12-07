@@ -1,5 +1,6 @@
 @interface DeepFusionPreEspressoStage
 - (DFSynthLongHighlightParameters)_createHighlightParameters:(SEL)parameters highlightTuning:(const DeepFusionFrameMeta *)tuning totalGain:(id)gain;
+- (DeepFusionPreEspressoStage)initWithContext:(id)context networkVersion:(int)version;
 - (DeepFusionRawNoiseModelParameters)_createRawNoiseModelParameters:(SEL)parameters;
 - (int)estimateNoiseRefNoise:(DeepFusionPreEspressoStage *)self synthLongNoise:(SEL)noise synthRefNoisePretuning:(id)pretuning synthLongNoisePretuning:(id)noisePretuning synthRefLuma:(id)luma synthRefChroma:(id)chroma synthLongLuma:(id)longLuma synthLongChroma:(id)longChroma lscGains:(id)gains slFusionMap:(id)self0 longFusionMap:(id)self1 outRefNoisePyramid:(id)self2 outSLNoisePyramid:(id)self3 noiseEstimationParams:(id)self4 offset:(id)self5 tileDimension:(NoiseEstimationParameters *)self6;
 - (int)filterChroma:(id)chroma outChroma:(id)outChroma alpha:(float)alpha;
@@ -12,6 +13,32 @@
 @end
 
 @implementation DeepFusionPreEspressoStage
+
+- (DeepFusionPreEspressoStage)initWithContext:(id)context networkVersion:(int)version
+{
+  v4 = *&version;
+  contextCopy = context;
+  v22.receiver = self;
+  v22.super_class = DeepFusionPreEspressoStage;
+  v8 = [(DeepFusionPreEspressoStage *)&v22 init];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_networkVersion = v4;
+    objc_storeStrong(&v8->_metalContext, context);
+    v10 = [DeepFusionPreEspressoKernels alloc];
+    v12 = objc_msgSend_initWithMetal_networkVersion_(v10, v11, contextCopy, v4);
+    kernels = v9->_kernels;
+    v9->_kernels = v12;
+
+    v17 = objc_msgSend_device(contextCopy, v14, v15, v16);
+    v19 = objc_msgSend_newBufferWithLength_options_(v17, v18, 224, 0);
+    noiseParamBuffer = v9->_noiseParamBuffer;
+    v9->_noiseParamBuffer = v19;
+  }
+
+  return v9;
+}
 
 - (DFSynthLongHighlightParameters)_createHighlightParameters:(SEL)parameters highlightTuning:(const DeepFusionFrameMeta *)tuning totalGain:(id)gain
 {
@@ -114,24 +141,22 @@
   *v9 = params->var0;
   *(v9 + 4) = params->var6;
   objc_msgSend__createRawNoiseModelParameters_(self, v10, &params->var3->syntheticLongExposure, v11);
-  *(v9 + 16) = v20;
-  *(v9 + 32) = v21;
-  *(v9 + 48) = v22;
+  *(v9 + 16) = v18;
+  *(v9 + 32) = v19;
+  *(v9 + 48) = v20;
   objc_msgSend__createRawNoiseModelParameters_(self, v12, &params->var3->longExposure, v13);
-  *(v9 + 64) = v20;
-  *(v9 + 80) = v21;
-  HIDWORD(v14) = DWORD1(v22);
-  *(v9 + 96) = v22;
+  *(v9 + 64) = v18;
+  *(v9 + 80) = v19;
+  HIDWORD(v14) = DWORD1(v20);
+  *(v9 + 96) = v20;
   *(v9 + 112) = params->var7;
   *&v14 = params->var1;
   objc_msgSend__createHighlightParameters_highlightTuning_totalGain_(self, v15, params->var3, params->var5, v14);
-  *(v9 + 128) = v20;
-  *(v9 + 144) = v21;
-  *(v9 + 160) = v22;
+  *(v9 + 128) = v18;
+  *(v9 + 144) = v19;
+  *(v9 + 160) = v20;
   *(v9 + 8) = *v5;
   objc_msgSend_getNoiseTuningParams_fullDimension_outTuning_(self, v16, params, dimension, v9 + 176);
-  v17 = *(v9 + 204);
-  v18 = *(v9 + 208);
   return 0;
 }
 

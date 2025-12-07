@@ -84,29 +84,27 @@
 
 - (void)migrateDataAtPath:(id)path toPath:(id)toPath
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   toPathCopy = toPath;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v11 = 0;
-  [defaultManager moveItemAtPath:pathCopy toPath:toPathCopy error:&v11];
-  v8 = v11;
+  v10 = 0;
+  [defaultManager moveItemAtPath:pathCopy toPath:toPathCopy error:&v10];
+  v8 = v10;
   if (v8)
   {
     v9 = *MEMORY[0x1E6983380];
     if (os_log_type_enabled(*MEMORY[0x1E6983380], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v13 = pathCopy;
-      v14 = 2114;
-      v15 = toPathCopy;
-      v16 = 2114;
-      v17 = v8;
+      v12 = pathCopy;
+      v13 = 2114;
+      v14 = toPathCopy;
+      v15 = 2114;
+      v16 = v8;
       _os_log_error_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_ERROR, "Migrating repository from: %{public}@ to: %{public}@ failed %{public}@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_dataWritingOptionForFileProtectionType:(id)type
@@ -137,22 +135,20 @@
 
 - (void)writeData:(uint64_t)a1 atPath:(uint64_t)a2 error:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, a2, a3, "Could not set 'exclude from backup' key on %{public}@; error: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, a2, a3, "Could not set 'exclude from backup' key on %{public}@; error: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)removeItemAtPath:(NSObject *)a3 error:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = *a2;
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, a2, a3, "Could not delete %{public}@: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = *a2;
+  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, a2, a3, "Could not delete %{public}@: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

@@ -392,9 +392,9 @@ void __73__SKUIModalDocumentController_navigationDocumentForNavigationController
             objc_copyWeak(&v40, &v42);
             [(SKUIDocumentStackItem *)v15 setCompletionWithItemsHandler:v37];
             presentationType = [(SKUIDocumentStackItem *)reviewMetadataURLString presentationType];
-            v22 = [presentationType isEqualToString:0x28280B068];
+            isEqualToString = objc_msgSend_isEqualToString_(presentationType);
 
-            if (v22)
+            if (isEqualToString)
             {
               [(SKUIModalDocumentController *)self _pushPopoverStackItem:reviewMetadataURLString];
             }
@@ -502,12 +502,12 @@ LABEL_50:
 
         [(SKUIDocumentStackItem *)v15 setViewController:v24];
         presentationType2 = [(SKUIDocumentStackItem *)v15 presentationType];
-        if ([presentationType2 isEqualToString:0x2828080A8])
+        if (objc_msgSend_isEqualToString_(presentationType2))
         {
           [(SKUIModalDocumentController *)self _pushOverlayStackItem:v15];
         }
 
-        else if ([presentationType2 isEqualToString:0x28280B068])
+        else if (objc_msgSend_isEqualToString_(presentationType2))
         {
           [(SKUIModalDocumentController *)self _pushPopoverStackItem:v15];
         }
@@ -646,9 +646,9 @@ void __52__SKUIModalDocumentController_pushDocument_options___block_invoke_3(uin
 LABEL_11:
 
   presentationType = [v12 presentationType];
-  v18 = [presentationType isEqualToString:0x2828080A8];
+  isEqualToString = objc_msgSend_isEqualToString_(presentationType);
 
-  if (v18)
+  if (isEqualToString)
   {
     v19 = [SKUIDocumentContainerViewController alloc];
     clientContext = [(SKUIModalDocumentController *)self clientContext];
@@ -774,7 +774,7 @@ void __104__SKUIModalDocumentController_ensureOverlayNavigationControllerStackCo
 {
   v10 = a2;
   v3 = [v10 presentationType];
-  [v3 isEqualToString:0x2828080A8];
+  objc_msgSend_isEqualToString_(v3);
 
   v4 = [*(a1 + 32) viewControllers];
   v5 = [v10 viewController];
@@ -1260,9 +1260,9 @@ uint64_t __79__SKUIModalDocumentController__dismissOverlayControllerWithStackIte
 
         v9 = *(*(&v14 + 1) + 8 * i);
         presentationType = [v9 presentationType];
-        v11 = [presentationType isEqualToString:0x2828080A8];
+        isEqualToString = objc_msgSend_isEqualToString_(presentationType);
 
-        if (v11)
+        if (isEqualToString)
         {
           [v3 addObject:v9];
         }
@@ -1288,12 +1288,12 @@ uint64_t __79__SKUIModalDocumentController__dismissOverlayControllerWithStackIte
   if (lastObject)
   {
     presentationType = [lastObject presentationType];
-    if ([presentationType isEqualToString:0x2828080A8])
+    if (objc_msgSend_isEqualToString_(presentationType))
     {
       [(SKUIModalDocumentController *)self _popOverlayStackItem:v7 animated:documentCopy completion:completionCopy];
     }
 
-    else if ([presentationType isEqualToString:0x28280B068])
+    else if (objc_msgSend_isEqualToString_(presentationType))
     {
       [(SKUIModalDocumentController *)self _popPopoverStackItem:v7 animated:documentCopy completion:completionCopy];
     }
@@ -1579,10 +1579,10 @@ void __52__SKUIModalDocumentController__promptForStarRating___block_invoke(uint6
 
 - (void)_pushDialogDocument:(id)document options:(id)options
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   documentCopy = document;
   optionsCopy = options;
-  v40 = documentCopy;
+  v41 = documentCopy;
   templateElement = [documentCopy templateElement];
   message = [templateElement message];
   text = [message text];
@@ -1598,40 +1598,40 @@ void __52__SKUIModalDocumentController__promptForStarRating___block_invoke(uint6
   {
     if (dialogType)
     {
-      v47 = 0;
+      v48 = 0;
       if (dialogType != 1)
       {
         goto LABEL_53;
       }
 
-      v47 = [MEMORY[0x277D75110] alertControllerWithTitle:string2 message:string preferredStyle:0];
-      popoverPresentationController = [v47 popoverPresentationController];
+      v48 = [MEMORY[0x277D75110] alertControllerWithTitle:string2 message:string preferredStyle:0];
+      popoverPresentationController = [v48 popoverPresentationController];
       [popoverPresentationController setDelegate:self];
 LABEL_11:
-      if (v47)
+      if (v48)
       {
         objc_initWeak(&location, self);
-        objc_initWeak(&from, v47);
+        objc_initWeak(&from, v48);
         [templateElement buttons];
-        v54 = 0u;
         v55 = 0u;
-        v52 = 0u;
-        obj = v53 = 0u;
-        v14 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+        v56 = 0u;
+        v53 = 0u;
+        obj = v54 = 0u;
+        v14 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
         if (v14)
         {
-          v46 = *v53;
+          v47 = *v54;
           do
           {
-            v48 = v14;
-            for (i = 0; i != v48; ++i)
+            v49 = v14;
+            for (i = 0; i != v49; ++i)
             {
-              if (*v53 != v46)
+              if (*v54 != v47)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v16 = *(*(&v52 + 1) + 8 * i);
+              v16 = *(*(&v53 + 1) + 8 * i);
               buttonViewType = [v16 buttonViewType];
               v18 = 2;
               if (buttonViewType != 11)
@@ -1664,14 +1664,14 @@ LABEL_11:
               v23 = MEMORY[0x277D750F8];
               buttonText = [v16 buttonText];
               string3 = [buttonText string];
-              v49[0] = MEMORY[0x277D85DD0];
-              v49[1] = 3221225472;
-              v49[2] = __59__SKUIModalDocumentController__pushDialogDocument_options___block_invoke_2;
-              v49[3] = &unk_2781FF8A0;
-              objc_copyWeak(&v50, &location);
-              objc_copyWeak(&v51, &from);
-              v49[4] = v16;
-              v26 = [v23 _actionWithTitle:string3 image:v22 style:v20 handler:v49 shouldDismissHandler:&__block_literal_global_49];
+              v50[0] = MEMORY[0x277D85DD0];
+              v50[1] = 3221225472;
+              v50[2] = __59__SKUIModalDocumentController__pushDialogDocument_options___block_invoke_2;
+              v50[3] = &unk_2781FF8A0;
+              objc_copyWeak(&v51, &location);
+              objc_copyWeak(&v52, &from);
+              v50[4] = v16;
+              v26 = [v23 _actionWithTitle:string3 image:v22 style:v20 handler:v50 shouldDismissHandler:&__block_literal_global_49];
 
               if (v19)
               {
@@ -1679,54 +1679,54 @@ LABEL_11:
                 v28 = SKUIViewElementAlignmentForStyle(buttonTitleStyle);
                 if (v28)
                 {
-                  [v26 _setTitleTextAlignment:SKUIViewElementNSTextAlignmentForIKElementAlignment(v28)];
+                  [v26 _setTitleTextAlignment:{SKUIViewElementNSTextAlignmentForIKElementAlignment(v28, v29)}];
                 }
 
                 style = buttonTitleStyle;
                 if (!buttonTitleStyle)
                 {
                   style = [v16 style];
-                  v44 = style;
+                  v45 = style;
                 }
 
-                v30 = SKUIViewElementPlainColorWithStyle(style, 0);
+                v31 = SKUIViewElementPlainColorWithStyle(style, 0);
                 if (!buttonTitleStyle)
                 {
                 }
 
-                if (v30)
+                if (v31)
                 {
-                  [v26 _setTitleTextColor:v30];
+                  [v26 _setTitleTextColor:v31];
                 }
 
                 style2 = [buttonImage style];
-                v32 = style2;
+                v33 = style2;
                 if (!style2)
                 {
                   style2 = [v16 style];
-                  v43 = style2;
+                  v44 = style2;
                 }
 
-                v33 = SKUIViewElementPlainColorWithStyle(style2, 0);
-                if (!v32)
+                v34 = SKUIViewElementPlainColorWithStyle(style2, 0);
+                if (!v33)
                 {
                 }
 
-                if (v33)
+                if (v34)
                 {
-                  [v26 _setImageTintColor:v33];
+                  [v26 _setImageTintColor:v34];
                 }
 
                 [v26 _setChecked:{objc_msgSend(v16, "isSelected")}];
               }
 
-              [v47 addAction:v26];
+              [v48 addAction:v26];
 
+              objc_destroyWeak(&v52);
               objc_destroyWeak(&v51);
-              objc_destroyWeak(&v50);
             }
 
-            v14 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+            v14 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
           }
 
           while (v14);
@@ -1738,9 +1738,9 @@ LABEL_11:
       }
 
 LABEL_47:
-      if (!v47)
+      if (!v48)
       {
-        v47 = 0;
+        v48 = 0;
 LABEL_52:
         v11 = popoverPresentationController;
         goto LABEL_53;
@@ -1752,19 +1752,19 @@ LABEL_48:
 
       if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
       {
-        [(SKUIModalDocumentController *)self _pushPopoverSheetDocument:v40 viewController:v47 popoverPresentationController:popoverPresentationController options:optionsCopy];
+        [(SKUIModalDocumentController *)self _pushPopoverSheetDocument:v41 viewController:v48 popoverPresentationController:popoverPresentationController options:optionsCopy];
       }
 
       else
       {
-        [(SKUIModalDocumentController *)self _pushSheetDocument:v40 viewController:v47];
+        [(SKUIModalDocumentController *)self _pushSheetDocument:v41 viewController:v48];
       }
 
       goto LABEL_52;
     }
 
 LABEL_9:
-    v47 = [MEMORY[0x277D75110] alertControllerWithTitle:string2 message:string preferredStyle:1];
+    v48 = [MEMORY[0x277D75110] alertControllerWithTitle:string2 message:string preferredStyle:1];
     popoverPresentationController = 0;
     goto LABEL_11;
   }
@@ -1773,17 +1773,17 @@ LABEL_9:
   {
     objc_initWeak(&location, self);
     dataSource = [(SKUIModalDocumentController *)self dataSource];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __59__SKUIModalDocumentController__pushDialogDocument_options___block_invoke;
-    v57[3] = &unk_2781FF878;
-    objc_copyWeak(&v58, &location);
-    v47 = [dataSource modalDocumentController:self alertControllerForDocument:v40 withDismissObserverBlock:v57 options:optionsCopy];
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __59__SKUIModalDocumentController__pushDialogDocument_options___block_invoke;
+    v58[3] = &unk_2781FF878;
+    objc_copyWeak(&v59, &location);
+    v48 = [dataSource modalDocumentController:self alertControllerForDocument:v41 withDismissObserverBlock:v58 options:optionsCopy];
 
-    objc_destroyWeak(&v58);
+    objc_destroyWeak(&v59);
     objc_destroyWeak(&location);
     popoverPresentationController = 0;
-    if (v47)
+    if (v48)
     {
       goto LABEL_47;
     }
@@ -1796,14 +1796,14 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v47 = 0;
+  v48 = 0;
   if (dialogType == 4)
   {
     v12 = [[SKUIToastViewController alloc] initWithDialogTemplate:templateElement];
     [(SKUIToastViewController *)v12 present];
 
     v11 = 0;
-    v47 = 0;
+    v48 = 0;
   }
 
 LABEL_53:
@@ -1830,15 +1830,15 @@ uint64_t __59__SKUIModalDocumentController__pushDialogDocument_options___block_i
 - (void)_pushFamilySetupDocument:(id)document options:(id)options
 {
   documentCopy = document;
-  v6 = SKUIAccountsFramework();
-  v11 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Acaccountstore.isa, v6));
-  v7 = SKUIAppleAccountUIFramework();
-  v8 = objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Aauifamilysetu.isa, v7));
-  aa_primaryAppleAccount = [v11 aa_primaryAppleAccount];
-  v10 = [v8 initWithAccount:aa_primaryAppleAccount store:v11];
+  v7 = SKUIAccountsFramework(documentCopy, v6);
+  v13 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Acaccountstore.isa, v7));
+  v9 = SKUIAppleAccountUIFramework(v13, v8);
+  v10 = objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Aauifamilysetu.isa, v9));
+  aa_primaryAppleAccount = [v13 aa_primaryAppleAccount];
+  v12 = [v10 initWithAccount:aa_primaryAppleAccount store:v13];
 
-  [v10 setDelegate:self];
-  [(SKUIModalDocumentController *)self _pushSheetDocument:documentCopy viewController:v10];
+  [v12 setDelegate:self];
+  [(SKUIModalDocumentController *)self _pushSheetDocument:documentCopy viewController:v12];
 }
 
 - (void)_pushGiftDocument:(id)document options:(id)options
@@ -1894,7 +1894,7 @@ uint64_t __59__SKUIModalDocumentController__pushDialogDocument_options___block_i
   {
     overlayType = [itemCopy overlayType];
     viewController2 = [v5 viewController];
-    if ([overlayType isEqualToString:0x282808268] && objc_msgSend(v5, "usesNavigationControllerForModalPresentation"))
+    if (objc_msgSend_isEqualToString_(overlayType) && [v5 usesNavigationControllerForModalPresentation])
     {
       v10 = objc_alloc_init(_SKUIModalSheetNavigationController);
       WeakRetained = objc_loadWeakRetained(&self->_navigationControllerDelegate);
@@ -2364,7 +2364,7 @@ void __110__SKUIModalDocumentController__pushPopoverSheetDocument_viewController
   }
 
   sheetType = [itemCopy sheetType];
-  if ([sheetType isEqualToString:0x28280B0C8])
+  if (objc_msgSend_isEqualToString_(sheetType))
   {
     [(_SKUIModalSheetNavigationController *)v17 setModalPresentationStyle:2];
   }

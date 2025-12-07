@@ -10,7 +10,7 @@
 
 - (id)handleTrigger:(id)trigger localeIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier recipients:(id)recipients recipientNames:(id)names availableApps:(id)apps timeoutSeconds:(double)seconds fetchLimit:(unint64_t)self0 maxSuggestions:(unint64_t)self1 explanationSet:(id)self2 error:(id *)self3
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
@@ -24,8 +24,8 @@
   triggerAttributes2 = [triggerCopy triggerAttributes];
   v27 = [triggerAttributes2 objectForKeyedSubscript:*MEMORY[0x277D23028]];
 
-  v53 = v25;
-  v54 = v27;
+  v52 = v25;
+  v53 = v27;
   if (([v25 isEqualToString:@"triggerTypeConnections"] & 1) == 0 && (objc_msgSend(v27, "isEqualToString:", *MEMORY[0x277D23008]) & 1) == 0 && !objc_msgSend(v27, "isEqualToString:", *MEMORY[0x277D23000]))
   {
     triggerCategory = [(PSGStructuredInfoSuggestionCache *)self->_cache searchWithTrigger:triggerCopy localeIdentifier:identifierCopy maxSuggestions:suggestions];
@@ -36,7 +36,7 @@
       if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v60 = [triggerCategory count];
+        v59 = [triggerCategory count];
         _os_log_impl(&dword_260D18000, v41, OS_LOG_TYPE_INFO, "Returning %tu item(s) from structured info cache.", buf, 0xCu);
       }
 
@@ -47,24 +47,24 @@
 
     else
     {
-      v49 = +[PSGStructuredInfoSuggestionCache emptySuggestionsPlaceholder];
+      v48 = +[PSGStructuredInfoSuggestionCache emptySuggestionsPlaceholder];
 
       loga = psg_default_log_handle();
-      v50 = os_log_type_enabled(loga, OS_LOG_TYPE_INFO);
+      v49 = os_log_type_enabled(loga, OS_LOG_TYPE_INFO);
       v29 = recipientsCopy;
-      if (triggerCategory != v49)
+      if (triggerCategory != v48)
       {
-        if (v50)
+        if (v49)
         {
           *buf = 138412290;
-          v60 = triggerCopy;
+          v59 = triggerCopy;
           _os_log_impl(&dword_260D18000, loga, OS_LOG_TYPE_INFO, "Cache lookup returns nothing for %@", buf, 0xCu);
         }
 
         goto LABEL_7;
       }
 
-      if (v50)
+      if (v49)
       {
         *buf = 0;
         _os_log_impl(&dword_260D18000, loga, OS_LOG_TYPE_INFO, "Returning nil since we get empty placeholder from structured info cache.", buf, 2u);
@@ -82,7 +82,7 @@
   if (os_log_type_enabled(triggerCategory, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v60 = triggerCopy;
+    v59 = triggerCopy;
     _os_log_impl(&dword_260D18000, triggerCategory, OS_LOG_TYPE_INFO, "Skip structured info cache lookup for %@", buf, 0xCu);
   }
 
@@ -175,13 +175,13 @@ LABEL_35:
 
   if (-[NSObject length](triggerCategory, "length") < 3 || ![v37 length] || !-[NSObject hasPrefix:](triggerCategory, "hasPrefix:", v37))
   {
-    v47 = psg_default_log_handle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v46 = psg_default_log_handle();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = [triggerCategory length];
+      v47 = [triggerCategory length];
       *buf = 134217984;
-      v60 = v48;
-      _os_log_impl(&dword_260D18000, v47, OS_LOG_TYPE_DEFAULT, "Contacts Autocomplete query name length: %tu", buf, 0xCu);
+      v59 = v47;
+      _os_log_impl(&dword_260D18000, v46, OS_LOG_TYPE_DEFAULT, "Contacts Autocomplete query name length: %tu", buf, 0xCu);
     }
 
     bundleIdentifierCopy = log;
@@ -204,17 +204,15 @@ LABEL_35:
   v40 = 0;
   bundleIdentifierCopy = log;
   v32 = namesCopy;
-  v25 = v53;
+  v25 = v52;
 LABEL_39:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
 
 - (id)_handlePortraitTrigger:(id)trigger localeIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier recipients:(id)recipients limit:(unint64_t)limit timeoutSeconds:(double)seconds explanationSet:(id)set results:(id)self0
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
@@ -236,12 +234,12 @@ LABEL_39:
     }
 
 LABEL_7:
-    *v63 = 0;
-    v64 = v63;
-    v65 = 0x3032000000;
-    v66 = __Block_byref_object_copy__330;
-    v67 = __Block_byref_object_dispose__331;
-    v68 = 0;
+    *v62 = 0;
+    v63 = v62;
+    v64 = 0x3032000000;
+    v65 = __Block_byref_object_copy__330;
+    v66 = __Block_byref_object_dispose__331;
+    v67 = 0;
     v30 = dispatch_semaphore_create(0);
     v31 = psg_default_log_handle();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
@@ -251,16 +249,16 @@ LABEL_7:
     }
 
     broker = self->_broker;
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifier_bundleIdentifier_recipients_limit_timeoutSeconds_explanationSet_results___block_invoke;
-    v59[3] = &unk_279ABCF50;
-    v62 = v63;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifier_bundleIdentifier_recipients_limit_timeoutSeconds_explanationSet_results___block_invoke;
+    v58[3] = &unk_279ABCF50;
+    v61 = v62;
     v33 = setCopy;
-    v60 = v33;
+    v59 = v33;
     v34 = v30;
-    v61 = v34;
-    [(PPQuickTypeBroker *)broker quickTypeItemsWithQuery:v27 limit:limit completion:v59];
+    v60 = v34;
+    [(PPQuickTypeBroker *)broker quickTypeItemsWithQuery:v27 limit:limit completion:v58];
     null = [MEMORY[0x277CBEB68] null];
     triggerAttributes2 = [triggerCopy triggerAttributes];
     v37 = [triggerAttributes2 objectForKeyedSubscript:*MEMORY[0x277D22F30]];
@@ -286,54 +284,54 @@ LABEL_7:
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v73 = v41;
+        v72 = v41;
         _os_log_error_impl(&dword_260D18000, v42, OS_LOG_TYPE_ERROR, "Portrait timeout (threshold: %@ s)", buf, 0xCu);
       }
 
       [v33 pushInternalExplanationCode:1];
       v43 = MEMORY[0x277CCA9B8];
-      v70 = @"thresholdSecs";
-      v71 = v41;
-      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v69 = @"thresholdSecs";
+      v70 = v41;
+      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
       v40 = [v43 errorWithDomain:@"PSGErrorDomain" code:1 userInfo:v44];
     }
 
     else
     {
-      if (![*(v64 + 5) count])
+      if (![*(v63 + 5) count])
       {
 LABEL_13:
         v40 = 0;
 LABEL_27:
 
-        _Block_object_dispose(v63, 8);
+        _Block_object_dispose(v62, 8);
         v21 = v27;
         goto LABEL_28;
       }
 
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
-      v41 = *(v64 + 5);
-      v40 = [v41 countByEnumeratingWithState:&v55 objects:v69 count:16];
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v41 = *(v63 + 5);
+      v40 = [v41 countByEnumeratingWithState:&v54 objects:v68 count:16];
       if (v40)
       {
-        v45 = *v56;
+        v45 = *v55;
         do
         {
           for (i = 0; i != v40; i = i + 1)
           {
-            if (*v56 != v45)
+            if (*v55 != v45)
             {
               objc_enumerationMutation(v41);
             }
 
-            v47 = [[PSGStructuredInfoSuggestion alloc] initWithProactiveTrigger:triggerCopy portraitItem:*(*(&v55 + 1) + 8 * i) operationalItem:0];
+            v47 = [[PSGStructuredInfoSuggestion alloc] initWithProactiveTrigger:triggerCopy portraitItem:*(*(&v54 + 1) + 8 * i) operationalItem:0];
             [resultsCopy addObject:v47];
           }
 
-          v40 = [v41 countByEnumeratingWithState:&v55 objects:v69 count:16];
+          v40 = [v41 countByEnumeratingWithState:&v54 objects:v68 count:16];
         }
 
         while (v40);
@@ -353,41 +351,40 @@ LABEL_27:
   if ([v24 length])
   {
     v25 = MEMORY[0x277D3A480];
-    v74[0] = v24;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:1];
+    v73[0] = v24;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
     v27 = [v25 quickTypeQueryWithType:1 subtype:12 semanticTag:0 fields:unsignedIntegerValue time:0 subFields:0 label:0 people:v26 localeIdentifier:identifierCopy bundleIdentifier:bundleIdentifierCopy recipients:recipientsCopy];
 
     [v27 setTimeoutSeconds:&unk_287345550];
     goto LABEL_7;
   }
 
-  v50 = psg_default_log_handle();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+  v49 = psg_default_log_handle();
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
   {
-    *v63 = 0;
-    _os_log_fault_impl(&dword_260D18000, v50, OS_LOG_TYPE_FAULT, "Search term not specified for Contacts Autocomplete trigger.", v63, 2u);
+    *v62 = 0;
+    _os_log_fault_impl(&dword_260D18000, v49, OS_LOG_TYPE_FAULT, "Search term not specified for Contacts Autocomplete trigger.", v62, 2u);
   }
 
   v40 = [MEMORY[0x277CCA9B8] errorWithDomain:@"PSGErrorDomain" code:2 userInfo:0];
 
 LABEL_28:
-  v48 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
 
 void __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifier_bundleIdentifier_recipients_limit_timeoutSeconds_explanationSet_results___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = psg_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v15 = [v5 count];
-    v16 = 2048;
-    v17 = [v6 count];
+    v14 = [v5 count];
+    v15 = 2048;
+    v16 = [v6 count];
     _os_log_impl(&dword_260D18000, v7, OS_LOG_TYPE_DEFAULT, "Portrait XPC returns %tu item(s) and %tu explanation(s)", buf, 0x16u);
   }
 
@@ -396,37 +393,33 @@ void __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifier_b
   *(v8 + 40) = v5;
   v10 = v5;
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifier_bundleIdentifier_recipients_limit_timeoutSeconds_explanationSet_results___block_invoke_91;
-  v12[3] = &unk_279ABCF28;
-  v13 = *(a1 + 32);
-  [v6 enumerateWithBlock:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifier_bundleIdentifier_recipients_limit_timeoutSeconds_explanationSet_results___block_invoke_91;
+  v11[3] = &unk_279ABCF28;
+  v12 = *(a1 + 32);
+  [v6 enumerateWithBlock:v11];
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifier_bundleIdentifier_recipients_limit_timeoutSeconds_explanationSet_results___block_invoke_91(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = psg_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277D3A470] stringFromExplanation:a2];
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_260D18000, v4, OS_LOG_TYPE_DEFAULT, "Portrait Exp Code: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_260D18000, v4, OS_LOG_TYPE_DEFAULT, "Portrait Exp Code: %@", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) pushPortraitExplanationCode:a2];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) pushPortraitExplanationCode:a2];
 }
 
 - (BOOL)_handleOperationalTrigger:(id)trigger localeIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier recipientNames:(id)names availableApps:(id)apps limit:(unint64_t)limit explanationSet:(id)set results:(id)self0
 {
-  v132[1] = *MEMORY[0x277D85DE8];
+  v131[1] = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
@@ -441,27 +434,27 @@ uint64_t __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifi
   v22 = [triggerAttributes2 valueForKey:*MEMORY[0x277D23028]];
 
   triggerAttributes3 = [triggerCopy triggerAttributes];
-  v117 = [triggerAttributes3 objectForKeyedSubscript:@"pov"];
+  v116 = [triggerAttributes3 objectForKeyedSubscript:@"pov"];
 
   triggerAttributes4 = [triggerCopy triggerAttributes];
-  v119 = [triggerAttributes4 valueForKey:*MEMORY[0x277D22FF8]];
+  v118 = [triggerAttributes4 valueForKey:*MEMORY[0x277D22FF8]];
 
   v25 = [namesCopy count];
   if ([v20 isEqualToString:*MEMORY[0x277D22FB8]] && objc_msgSend(v22, "isEqualToString:", *MEMORY[0x277D22F28]) && objc_msgSend(objc_opt_class(), "_isCurrentLocationSupportedPlatform"))
   {
     if ([appsCopy containsObject:@"com.apple.messages.currentLocation"])
     {
-      v112 = objc_opt_new();
-      [v112 setObject:@"com.apple.messages.currentLocation" forKey:@"bundleID"];
-      v26 = [v117 containsString:@"mirrored"];
+      v111 = objc_opt_new();
+      [v111 setObject:@"com.apple.messages.currentLocation" forKey:@"bundleID"];
+      v26 = [v116 containsString:@"mirrored"];
       v27 = @"currentLocation";
       if (v26)
       {
         v27 = @"requestLocation";
       }
 
-      v115 = v27;
-      v28 = [v117 containsString:@"mirrored"];
+      v114 = v27;
+      v28 = [v116 containsString:@"mirrored"];
       v29 = psg_default_log_handle();
       v30 = os_log_type_enabled(v29, OS_LOG_TYPE_INFO);
       if (v28)
@@ -482,20 +475,20 @@ uint64_t __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifi
           }
 
           v32 = 0;
-          v33 = v112;
+          v33 = v111;
           v34 = v31;
           goto LABEL_39;
         }
 
         v88 = +[PSGUtilities sharedInstance];
         v89 = [v88 localizedStringForKey:@"REQUEST_LOCATION_BUTTON_CAPTION" withLocale:identifierCopy];
-        v110 = _PASValidatedFormat(v89, v90, v91, v92, v93, v94, v95, v96, @"");
+        v109 = _PASValidatedFormat(v89, v90, v91, v92, v93, v94, v95, v96, @"");
 
-        v33 = v112;
-        v85 = [[PSGOperationalPredictedItem alloc] initWithItemIdentifier:v115 value:v110 bundleIdentifier:bundleIdentifierCopy operationData:v112];
-        v132[0] = v85;
+        v33 = v111;
+        v85 = [[PSGOperationalPredictedItem alloc] initWithItemIdentifier:v114 value:v109 bundleIdentifier:bundleIdentifierCopy operationData:v111];
+        v131[0] = v85;
         v86 = MEMORY[0x277CBEA60];
-        v87 = v132;
+        v87 = v131;
       }
 
       else
@@ -508,22 +501,22 @@ uint64_t __142__PSGProactiveTriggerHandler__handlePortraitTrigger_localeIdentifi
 
         v76 = +[PSGUtilities sharedInstance];
         v77 = [v76 localizedStringForKey:@"SEND_CURRENT_LOCATION_BUTTON_CAPTION" withLocale:identifierCopy];
-        v110 = _PASValidatedFormat(v77, v78, v79, v80, v81, v82, v83, v84, @"");
+        v109 = _PASValidatedFormat(v77, v78, v79, v80, v81, v82, v83, v84, @"");
 
-        v33 = v112;
-        v85 = [[PSGOperationalPredictedItem alloc] initWithItemIdentifier:v115 value:v110 bundleIdentifier:bundleIdentifierCopy operationData:v112];
-        v131 = v85;
+        v33 = v111;
+        v85 = [[PSGOperationalPredictedItem alloc] initWithItemIdentifier:v114 value:v109 bundleIdentifier:bundleIdentifierCopy operationData:v111];
+        v130 = v85;
         v86 = MEMORY[0x277CBEA60];
-        v87 = &v131;
+        v87 = &v130;
       }
 
       v32 = [v86 arrayWithObjects:v87 count:1];
 
-      v34 = v110;
+      v34 = v109;
 LABEL_39:
 
 LABEL_44:
-      v116 = 1;
+      v115 = 1;
       goto LABEL_45;
     }
 
@@ -537,19 +530,19 @@ LABEL_43:
   {
     if ([appsCopy containsObject:@"com.apple.messages.surf"])
     {
-      v113 = v22;
+      v112 = v22;
       v35 = v20;
       v36 = setCopy;
       v37 = appsCopy;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
       [dictionary setObject:@"com.apple.messages.surf" forKey:@"bundleID"];
-      v39 = [v119 objectForKey:@"Currency"];
+      v39 = [v118 objectForKey:@"Currency"];
       if (v39)
       {
         [dictionary setObject:v39 forKey:@"Currency"];
         v40 = [[PSGOperationalPredictedItem alloc] initWithItemIdentifier:@"surf" value:@"Pay" bundleIdentifier:bundleIdentifierCopy operationData:dictionary];
-        v130 = v40;
-        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v130 count:1];
+        v129 = v40;
+        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
       }
 
       else
@@ -557,11 +550,11 @@ LABEL_43:
         v32 = 0;
       }
 
-      v116 = 1;
+      v115 = 1;
       appsCopy = v37;
       setCopy = v36;
       v20 = v35;
-      v22 = v113;
+      v22 = v112;
       goto LABEL_45;
     }
 
@@ -575,7 +568,7 @@ LABEL_43:
       v41 = MEMORY[0x277CBEB38];
       triggerAttributes5 = [triggerCopy triggerAttributes];
       [v41 dictionaryWithDictionary:triggerAttributes5];
-      v43 = v107 = appsCopy;
+      v43 = v106 = appsCopy;
 
       [v43 setObject:@"com.apple.messages.photos" forKey:@"bundleID"];
       v44 = +[PSGUtilities sharedInstance];
@@ -584,15 +577,15 @@ LABEL_43:
       v54 = v53 = v22;
 
       v55 = [[PSGOperationalPredictedItem alloc] initWithItemIdentifier:@"choosePhotos" value:v54 bundleIdentifier:bundleIdentifierCopy operationData:v43];
-      v129 = v55;
-      v116 = 1;
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
+      v128 = v55;
+      v115 = 1;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
 
       v22 = v53;
       v56 = bundleIdentifierCopy;
       v57 = identifierCopy;
 
-      appsCopy = v107;
+      appsCopy = v106;
       goto LABEL_46;
     }
 
@@ -606,7 +599,7 @@ LABEL_43:
     if (![v22 isEqualToString:@"traveling home"] || !objc_msgSend(objc_opt_class(), "_isCheckInSupportedPlatform"))
     {
       v32 = 0;
-      v116 = 0;
+      v115 = 0;
       goto LABEL_46;
     }
 
@@ -619,7 +612,7 @@ LABEL_43:
 
     if ([appsCopy containsObject:@"com.apple.SafetyMonitorApp.SafetyMonitorMessages"])
     {
-      v109 = setCopy;
+      v108 = setCopy;
       v59 = appsCopy;
       v60 = MEMORY[0x277CBEB38];
       triggerAttributes6 = [triggerCopy triggerAttributes];
@@ -633,8 +626,8 @@ LABEL_43:
       v73 = _PASValidatedFormat(v65, v66, v67, v68, v69, v70, v71, v72, @"");
 
       v74 = [[PSGOperationalPredictedItem alloc] initWithItemIdentifier:@"start check-in" value:v73 bundleIdentifier:bundleIdentifierCopy operationData:v62];
-      v128 = v74;
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
+      v127 = v74;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
 
       v75 = psg_default_log_handle();
       if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
@@ -643,9 +636,9 @@ LABEL_43:
         _os_log_impl(&dword_260D18000, v75, OS_LOG_TYPE_DEFAULT, "SafetyMonitor: predicted item formed", buf, 2u);
       }
 
-      v116 = 1;
+      v115 = 1;
       appsCopy = v59;
-      setCopy = v109;
+      setCopy = v108;
       goto LABEL_45;
     }
 
@@ -653,7 +646,7 @@ LABEL_43:
     if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v127 = @"com.apple.SafetyMonitorApp.SafetyMonitorMessages";
+      v126 = @"com.apple.SafetyMonitorApp.SafetyMonitorMessages";
       _os_log_impl(&dword_260D18000, v97, OS_LOG_TYPE_DEFAULT, "SafetyMonitor: ignoring the trigger -- %@ not supported", buf, 0xCu);
     }
 
@@ -661,55 +654,54 @@ LABEL_43:
   }
 
   v32 = 0;
-  v116 = 0;
+  v115 = 0;
 LABEL_45:
   v56 = bundleIdentifierCopy;
   v57 = identifierCopy;
 LABEL_46:
   if ([v32 count])
   {
-    v111 = setCopy;
-    v114 = v22;
-    v106 = v20;
-    v108 = appsCopy;
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
+    v110 = setCopy;
+    v113 = v22;
+    v105 = v20;
+    v107 = appsCopy;
     v122 = 0u;
+    v123 = 0u;
+    v120 = 0u;
+    v121 = 0u;
     v98 = v32;
-    v99 = [v98 countByEnumeratingWithState:&v121 objects:v125 count:16];
+    v99 = [v98 countByEnumeratingWithState:&v120 objects:v124 count:16];
     if (v99)
     {
       v100 = v99;
-      v101 = *v122;
+      v101 = *v121;
       do
       {
         for (i = 0; i != v100; ++i)
         {
-          if (*v122 != v101)
+          if (*v121 != v101)
           {
             objc_enumerationMutation(v98);
           }
 
-          v103 = [[PSGStructuredInfoSuggestion alloc] initWithProactiveTrigger:triggerCopy portraitItem:0 operationalItem:*(*(&v121 + 1) + 8 * i)];
+          v103 = [[PSGStructuredInfoSuggestion alloc] initWithProactiveTrigger:triggerCopy portraitItem:0 operationalItem:*(*(&v120 + 1) + 8 * i)];
           [resultsCopy addObject:v103];
         }
 
-        v100 = [v98 countByEnumeratingWithState:&v121 objects:v125 count:16];
+        v100 = [v98 countByEnumeratingWithState:&v120 objects:v124 count:16];
       }
 
       while (v100);
     }
 
     v56 = bundleIdentifierCopy;
-    appsCopy = v108;
-    setCopy = v111;
-    v20 = v106;
-    v22 = v114;
+    appsCopy = v107;
+    setCopy = v110;
+    v20 = v105;
+    v22 = v113;
   }
 
-  v104 = *MEMORY[0x277D85DE8];
-  return v116;
+  return v115;
 }
 
 - (PSGProactiveTriggerHandler)initWithBroker:(id)broker cache:(id)cache

@@ -26,45 +26,47 @@
 
 - (BDSDaemon)init
 {
-  v14.receiver = self;
-  v14.super_class = BDSDaemon;
-  v2 = [(BDSDaemon *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = BDSDaemon;
+  v2 = [(BDSDaemon *)&v16 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_1000023E8();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_1000023E8(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_1001BD2A0();
     }
 
-    v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v5 = dispatch_queue_attr_make_with_qos_class(v4, QOS_CLASS_UNSPECIFIED, 0);
-    v6 = dispatch_queue_create("com.apple.bookdatastored.xpc-listener-ready", v5);
-    listenersReadyQueue = v2->_listenersReadyQueue;
-    v2->_listenersReadyQueue = v6;
+    v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v6 = dispatch_queue_attr_make_with_qos_class(v5, QOS_CLASS_UNSPECIFIED, 0);
+    v7 = dispatch_queue_create("com.apple.bookdatastored.xpc-listener-ready", v6);
+    listenersReadyQueue = v3->_listenersReadyQueue;
+    v3->_listenersReadyQueue = v7;
 
-    v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v9 = dispatch_queue_attr_make_with_qos_class(v8, QOS_CLASS_UTILITY, 0);
-    v10 = dispatch_queue_create("com.apple.bookdatastored.startup-queue", v9);
-    startupQueue = v2->_startupQueue;
-    v2->_startupQueue = v10;
+    v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v10 = dispatch_queue_attr_make_with_qos_class(v9, QOS_CLASS_UTILITY, 0);
+    v11 = dispatch_queue_create("com.apple.bookdatastored.startup-queue", v10);
+    startupQueue = v3->_startupQueue;
+    v3->_startupQueue = v11;
 
-    if ((_set_user_dir_suffix() & 1) == 0)
+    v13 = _set_user_dir_suffix();
+    if ((v13 & 1) == 0)
     {
-      v12 = sub_1000023E8();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_1000023E8(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_1001BD2E0(v12);
+        sub_1001BD2E0(v14);
       }
     }
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_1000023E8();
+  v3 = sub_1000023E8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -78,7 +80,7 @@
 
 - (void)start
 {
-  v3 = sub_1000023E8();
+  v3 = sub_1000023E8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -116,7 +118,7 @@
   {
     if (v9)
     {
-      v10 = sub_1000023E8();
+      v10 = sub_1000023E8(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1001BD49C();
@@ -131,7 +133,7 @@
         goto LABEL_8;
       }
 
-      v10 = sub_1000023E8();
+      v10 = sub_1000023E8(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1001BD460();
@@ -141,7 +143,7 @@
 
   else
   {
-    v10 = sub_1000023E8();
+    v10 = sub_1000023E8(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD424();
@@ -177,15 +179,15 @@ LABEL_8:
   listenersReadyQueue = [(BDSDaemon *)self listenersReadyQueue];
   dispatch_assert_queue_V2(listenersReadyQueue);
 
-  v4 = sub_1000023E8();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = sub_1000023E8(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Setting up listeners.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Setting up listeners.", buf, 2u);
   }
 
-  v5 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.iBooks.BookDataStoreService"];
-  [(BDSDaemon *)self setServiceListener:v5];
+  v6 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.iBooks.BookDataStoreService"];
+  [(BDSDaemon *)self setServiceListener:v6];
 
   serviceDelegate = [(BDSDaemon *)self serviceDelegate];
   serviceListener = [(BDSDaemon *)self serviceListener];
@@ -194,25 +196,26 @@ LABEL_8:
   serviceListener2 = [(BDSDaemon *)self serviceListener];
   [serviceListener2 resume];
 
-  LODWORD(serviceListener) = notify_post("com.apple.iBooks.BookDataStoreService.Started");
-  v9 = sub_1000023E8();
-  v10 = v9;
+  v10 = notify_post("com.apple.iBooks.BookDataStoreService.Started");
+  LODWORD(serviceListener) = v10;
+  v11 = sub_1000023E8(v10);
+  v12 = v11;
   if (serviceListener)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD4D8();
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Posted Service Started notification", v13, 2u);
+    *v15 = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Posted Service Started notification", v15, 2u);
   }
 
-  v11 = objc_alloc_init(BDSNotificationConnection);
-  [(BDSDaemon *)self setNotificationConnection:v11];
+  v13 = objc_alloc_init(BDSNotificationConnection);
+  [(BDSDaemon *)self setNotificationConnection:v13];
 
   notificationConnection = [(BDSDaemon *)self notificationConnection];
   [notificationConnection startListeningForNotifications];

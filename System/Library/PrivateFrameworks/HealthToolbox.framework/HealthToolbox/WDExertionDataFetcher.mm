@@ -98,7 +98,7 @@ void __30__WDExertionDataFetcher_start__block_invoke(uint64_t a1, void *a2, void
 
 void __30__WDExertionDataFetcher_start__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -117,29 +117,29 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v27 = v11;
-  v28 = v9;
+  v26 = v11;
+  v27 = v9;
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v14 = v10;
-  v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v30;
+    v17 = *v29;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v30 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v29 + 1) + 8 * i);
+        v19 = *(*(&v28 + 1) + 8 * i);
         v20 = [v19 samples];
 
         if (v20)
@@ -149,23 +149,21 @@ LABEL_15:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v16);
   }
 
-  v9 = v28;
-  [*(*(a1 + 32) + 8) stopQuery:v28];
+  v9 = v27;
+  [*(*(a1 + 32) + 8) stopQuery:v27];
   v22 = *(a1 + 32);
   v23 = *(v22 + 48);
   v24 = [MEMORY[0x277D12890] filterSamplesOfExertionTypeCode:*(v22 + 24) fromExertionSamples:v13];
   (*(v23 + 16))(v23, v24, 0);
 
-  v11 = v27;
+  v11 = v26;
 LABEL_16:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 @end

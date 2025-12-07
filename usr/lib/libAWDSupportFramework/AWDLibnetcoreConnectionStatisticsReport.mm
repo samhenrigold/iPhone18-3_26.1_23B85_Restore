@@ -1,8 +1,10 @@
 @interface AWDLibnetcoreConnectionStatisticsReport
 - (BOOL)isEqual:(id)equal;
+- (id)connectedInterfaceTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)interfaceTypeAsString:(int)string;
 - (int)StringAsConnectedInterfaceType:(id)type;
 - (int)StringAsInterfaceType:(id)type;
 - (int)connectedInterfaceType;
@@ -138,6 +140,19 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFF7FFFFFFFFLL | v3);
+}
+
+- (id)connectedInterfaceTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32740[string];
+  }
 }
 
 - (int)StringAsConnectedInterfaceType:(id)type
@@ -473,6 +488,19 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFEFFFFFFFFFLL | v3);
+}
+
+- (id)interfaceTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32740[string];
+  }
 }
 
 - (int)StringAsInterfaceType:(id)type
@@ -1328,7 +1356,6 @@ LABEL_48:
   has = self->_has;
   if ((*&has & 0x100000000) != 0)
   {
-    timeToDNSResolvedMsecs = self->_timeToDNSResolvedMsecs;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x10000000000) == 0)
@@ -1348,7 +1375,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dNSAnswersCached = self->_dNSAnswersCached;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1363,7 +1389,6 @@ LABEL_4:
   }
 
 LABEL_51:
-  timeToConnectionEstablishmentMsecs = self->_timeToConnectionEstablishmentMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1378,7 +1403,6 @@ LABEL_5:
   }
 
 LABEL_52:
-  iPAddressAttemptCount = self->_iPAddressAttemptCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1393,7 +1417,6 @@ LABEL_6:
   }
 
 LABEL_53:
-  flowDurationMsecs = self->_flowDurationMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -1408,7 +1431,6 @@ LABEL_7:
   }
 
 LABEL_54:
-  connectedInterfaceType = self->_connectedInterfaceType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40000000000) == 0)
@@ -1423,7 +1445,6 @@ LABEL_8:
   }
 
 LABEL_55:
-  kernelReportedStalls = self->_kernelReportedStalls;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80000000000) == 0)
@@ -1438,7 +1459,6 @@ LABEL_9:
   }
 
 LABEL_56:
-  kernelReportingConnectionStalled = self->_kernelReportingConnectionStalled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100000000000) == 0)
@@ -1453,7 +1473,6 @@ LABEL_10:
   }
 
 LABEL_57:
-  kernelReportingReadStalled = self->_kernelReportingReadStalled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x200000000000) == 0)
@@ -1468,7 +1487,6 @@ LABEL_11:
   }
 
 LABEL_58:
-  kernelReportingWriteStalled = self->_kernelReportingWriteStalled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1483,7 +1501,6 @@ LABEL_12:
   }
 
 LABEL_59:
-  bytesIn = self->_bytesIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1498,7 +1515,6 @@ LABEL_13:
   }
 
 LABEL_60:
-  bytesOut = self->_bytesOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1513,7 +1529,6 @@ LABEL_14:
   }
 
 LABEL_61:
-  bytesDuplicate = self->_bytesDuplicate;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1528,7 +1543,6 @@ LABEL_15:
   }
 
 LABEL_62:
-  bytesOutOfOrder = self->_bytesOutOfOrder;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1543,7 +1557,6 @@ LABEL_16:
   }
 
 LABEL_63:
-  bytesRetransmitted = self->_bytesRetransmitted;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1558,7 +1571,6 @@ LABEL_17:
   }
 
 LABEL_64:
-  packetsIn = self->_packetsIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1573,7 +1585,6 @@ LABEL_18:
   }
 
 LABEL_65:
-  packetsOut = self->_packetsOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1588,7 +1599,6 @@ LABEL_19:
   }
 
 LABEL_66:
-  packetsDuplicate = self->_packetsDuplicate;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1603,7 +1613,6 @@ LABEL_20:
   }
 
 LABEL_67:
-  packetsOutOfOrder = self->_packetsOutOfOrder;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1618,7 +1627,6 @@ LABEL_21:
   }
 
 LABEL_68:
-  packetsRetransmitted = self->_packetsRetransmitted;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1633,7 +1641,6 @@ LABEL_22:
   }
 
 LABEL_69:
-  currentRTTMsecs = self->_currentRTTMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1648,7 +1655,6 @@ LABEL_23:
   }
 
 LABEL_70:
-  smoothedRTTMsecs = self->_smoothedRTTMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1663,7 +1669,6 @@ LABEL_24:
   }
 
 LABEL_71:
-  bestRTTMsecs = self->_bestRTTMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1678,7 +1683,6 @@ LABEL_25:
   }
 
 LABEL_72:
-  rTTvariance = self->_rTTvariance;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1693,7 +1697,6 @@ LABEL_26:
   }
 
 LABEL_73:
-  synRetransmissionCount = self->_synRetransmissionCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1708,7 +1711,6 @@ LABEL_27:
   }
 
 LABEL_74:
-  connectionReuseCount = self->_connectionReuseCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1723,7 +1725,6 @@ LABEL_28:
   }
 
 LABEL_75:
-  appReportingDataStallCount = self->_appReportingDataStallCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1738,7 +1739,6 @@ LABEL_29:
   }
 
 LABEL_76:
-  appDataStallTimerMsecs = self->_appDataStallTimerMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1753,7 +1753,6 @@ LABEL_30:
   }
 
 LABEL_77:
-  trafficClass = self->_trafficClass;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000000000) == 0)
@@ -1768,7 +1767,6 @@ LABEL_31:
   }
 
 LABEL_78:
-  tcpFastOpen = self->_tcpFastOpen;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x2000000000) == 0)
@@ -1783,7 +1781,6 @@ LABEL_32:
   }
 
 LABEL_79:
-  cellularFallback = self->_cellularFallback;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
@@ -1798,7 +1795,6 @@ LABEL_33:
   }
 
 LABEL_80:
-  cellularRRCConnected = self->_cellularRRCConnected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000000000) == 0)
@@ -1813,7 +1809,6 @@ LABEL_34:
   }
 
 LABEL_81:
-  connected = self->_connected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x1000000000) == 0)
@@ -1828,7 +1823,6 @@ LABEL_35:
   }
 
 LABEL_82:
-  interfaceType = self->_interfaceType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1843,7 +1837,6 @@ LABEL_36:
   }
 
 LABEL_83:
-  timeToDNSStartMsecs = self->_timeToDNSStartMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1858,7 +1851,6 @@ LABEL_37:
   }
 
 LABEL_84:
-  dNSResolvedTimeMsecs = self->_dNSResolvedTimeMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1873,7 +1865,6 @@ LABEL_38:
   }
 
 LABEL_85:
-  timeToConnectionStartMsecs = self->_timeToConnectionStartMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1888,7 +1879,6 @@ LABEL_39:
   }
 
 LABEL_86:
-  connectionEstablishmentTimeMsecs = self->_connectionEstablishmentTimeMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1903,7 +1893,6 @@ LABEL_40:
   }
 
 LABEL_87:
-  betterRouteEventCount = self->_betterRouteEventCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1918,7 +1907,6 @@ LABEL_41:
   }
 
 LABEL_88:
-  multipathServiceType = self->_multipathServiceType;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000000) == 0)
@@ -1933,7 +1921,6 @@ LABEL_42:
   }
 
 LABEL_89:
-  firstParty = self->_firstParty;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1948,7 +1935,6 @@ LABEL_43:
   }
 
 LABEL_90:
-  multipathBytesInCell = self->_multipathBytesInCell;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1963,7 +1949,6 @@ LABEL_44:
   }
 
 LABEL_91:
-  multipathBytesOutCell = self->_multipathBytesOutCell;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1978,7 +1963,6 @@ LABEL_45:
   }
 
 LABEL_92:
-  multipathBytesInWiFi = self->_multipathBytesInWiFi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1990,7 +1974,6 @@ LABEL_46:
     }
 
 LABEL_94:
-    multipathBytesInInitial = self->_multipathBytesInInitial;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x80000) == 0)
     {
@@ -2001,7 +1984,6 @@ LABEL_94:
   }
 
 LABEL_93:
-  multipathBytesOutWiFi = self->_multipathBytesOutWiFi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) != 0)
@@ -2016,7 +1998,6 @@ LABEL_47:
   }
 
 LABEL_95:
-  multipathBytesOutInitial = self->_multipathBytesOutInitial;
 
   PBDataWriterWriteUint64Field();
 }
@@ -3446,7 +3427,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v8 = *(equal + 299);
     if (self->_dNSAnswersCached)
     {
       if ((*(equal + 299) & 1) == 0)
@@ -3525,7 +3505,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v9 = *(equal + 301);
     if (self->_kernelReportedStalls)
     {
       if ((*(equal + 301) & 1) == 0)
@@ -3552,7 +3531,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v10 = *(equal + 302);
     if (self->_kernelReportingConnectionStalled)
     {
       if ((*(equal + 302) & 1) == 0)
@@ -3579,7 +3557,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v11 = *(equal + 303);
     if (self->_kernelReportingReadStalled)
     {
       if ((*(equal + 303) & 1) == 0)
@@ -3606,7 +3583,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v12 = *(equal + 304);
     if (self->_kernelReportingWriteStalled)
     {
       if ((*(equal + 304) & 1) == 0)
@@ -3880,7 +3856,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v13 = *(equal + 305);
     if (self->_tcpFastOpen)
     {
       if ((*(equal + 305) & 1) == 0)
@@ -3907,7 +3882,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v14 = *(equal + 296);
     if (self->_cellularFallback)
     {
       if ((*(equal + 296) & 1) == 0)
@@ -3934,7 +3908,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v15 = *(equal + 297);
     if (self->_cellularRRCConnected)
     {
       if ((*(equal + 297) & 1) == 0)
@@ -3961,7 +3934,6 @@ LABEL_48:
       goto LABEL_266;
     }
 
-    v16 = *(equal + 298);
     if (self->_connected)
     {
       if ((*(equal + 298) & 1) == 0)
@@ -4087,7 +4059,6 @@ LABEL_48:
     goto LABEL_266;
   }
 
-  v17 = *(equal + 300);
   if (self->_firstParty)
   {
     if ((*(equal + 300) & 1) == 0)
@@ -4171,11 +4142,11 @@ LABEL_237:
     goto LABEL_266;
   }
 
-  v18 = *(equal + 308);
-  LOBYTE(v5) = (v18 & 0x80000) == 0;
+  v8 = *(equal + 308);
+  LOBYTE(v5) = (v8 & 0x80000) == 0;
   if ((*&has & 0x80000) != 0)
   {
-    if ((v18 & 0x80000) == 0 || self->_multipathBytesOutInitial != *(equal + 20))
+    if ((v8 & 0x80000) == 0 || self->_multipathBytesOutInitial != *(equal + 20))
     {
       goto LABEL_266;
     }

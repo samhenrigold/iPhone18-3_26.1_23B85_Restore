@@ -84,7 +84,7 @@ LABEL_9:
 
 + (id)valueFromSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v6 = objc_opt_class();
   v7 = representationCopy;
@@ -102,23 +102,21 @@ LABEL_9:
     v11 = getWFGeneralLogObject();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v15 = 136315906;
-      v16 = "WFEnforceClass";
-      v17 = 2114;
-      v18 = v7;
-      v19 = 2114;
-      v20 = objc_opt_class();
-      v21 = 2114;
-      v22 = v6;
-      v12 = v20;
-      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_FAULT, "%s No serialized representation to make an app descriptor", &v15, 0x2Au);
+      v14 = 136315906;
+      v15 = "WFEnforceClass";
+      v16 = 2114;
+      v17 = v7;
+      v18 = 2114;
+      v19 = objc_opt_class();
+      v20 = 2114;
+      v21 = v6;
+      v12 = v19;
+      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_FAULT, "%s No serialized representation to make an app descriptor", &v14, 0x2Au);
     }
   }
 
   v10 = 0;
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

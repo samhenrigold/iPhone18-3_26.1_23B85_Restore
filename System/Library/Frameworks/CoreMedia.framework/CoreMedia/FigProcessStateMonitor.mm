@@ -13,11 +13,11 @@ void __FigProcessStateMonitor_handleMessage_block_invoke(uint64_t a1)
     uint64 = xpc_dictionary_get_uint64(*(a1 + 40), ".objectID");
     if (uint64)
     {
-      v13 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, uint64);
+      v13 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, uint64, v7, v8, v9, v10, v11, v12);
       if (v13)
       {
         v21 = v13;
-        xpc_dictionary_set_int64(v4, "ProcessStateMonitorLastPurgeEvent", v13[9]);
+        xpc_dictionary_set_int64(v4, "ProcessStateMonitorLastPurgeEvent", *(v13 + 72));
         CFRelease(v21);
         v3 = 0;
         goto LABEL_23;
@@ -44,7 +44,7 @@ void __FigProcessStateMonitor_handleMessage_block_invoke(uint64_t a1)
       v52 = xpc_dictionary_get_uint64(v51, ".objectID");
       if (v52)
       {
-        v60 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, v52);
+        v60 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, v52, v54, v55, v56, v57, v58, v59);
         if (v60)
         {
           __FigProcessStateMonitor_handleMessage_block_invoke_cold_3(v51, v75, v60, v70);
@@ -78,11 +78,11 @@ void __FigProcessStateMonitor_handleMessage_block_invoke(uint64_t a1)
   if (v24)
   {
     v32 = v24;
-    v33 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, v24);
+    v33 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, v24, v26, v27, v28, v29, v30, v31);
     v41 = v33;
     if (v33)
     {
-      v42 = FigXPCServerCopyMemoryRecipient(v22, v33 + 4);
+      v42 = FigXPCServerCopyMemoryRecipient(v22, (v33 + 32));
       if (v42)
       {
         v3 = v42;
@@ -91,10 +91,10 @@ void __FigProcessStateMonitor_handleMessage_block_invoke(uint64_t a1)
       else
       {
         v43 = *MEMORY[0x1E695E480];
-        v3 = FigMemoryRecipientCopyBlockBufferFromXPCMessage(*MEMORY[0x1E695E480], v41[4], v23, "ProcessStateMonitorShmem", v41 + 5);
+        v3 = FigMemoryRecipientCopyBlockBufferFromXPCMessage(*MEMORY[0x1E695E480], *(v41 + 32), v23, "ProcessStateMonitorShmem", (v41 + 40));
         if (!v3)
         {
-          v44 = *(v41 + 4);
+          v44 = *(v41 + 16);
           v70[0] = MEMORY[0x1E69E9820];
           v70[1] = 3221225472;
           v70[2] = __figProcessStateMonitorHandleEnrollInPurge_block_invoke;
@@ -103,7 +103,7 @@ void __FigProcessStateMonitor_handleMessage_block_invoke(uint64_t a1)
           FigPurgeAndRenewProcessStateTrackerStartTrackingPIDWithBlock(v44, v70);
           *(v41 + 80) = 1;
           Current = CFAbsoluteTimeGetCurrent();
-          v41[11] = CFDateCreate(v43, Current);
+          *(v41 + 88) = CFDateCreate(v43, Current);
         }
       }
 
@@ -127,6 +127,7 @@ LABEL_13:
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v69, &type);
     v47 = v69;
+    v48 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v49 = v47;
@@ -143,7 +144,7 @@ LABEL_13:
       v72 = "figProcessStateMonitorHandleEnrollInPurge";
       v73 = 2114;
       v74 = v41;
-      v50 = _os_log_send_and_compose_impl();
+      v50 = _os_log_send_and_compose_impl(v49, 0, v75, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v48, "<<<< FigProcessStateMonitorServer >>>> %s: %{public}@ is now enrolled in purge", &v71, 22);
       LOBYTE(v47) = v69;
     }
 
@@ -152,7 +153,7 @@ LABEL_13:
       v50 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v50, v50 != v75, v47, 0, v48);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v50, v50 != v75, v47);
   }
 
   if (v41)
@@ -164,21 +165,22 @@ LABEL_23:
   *(*(*(a1 + 56) + 8) + 24) = v3;
 }
 
-void __FigProcessStateMonitor_noReplyHandleMessage_block_invoke(uint64_t a1)
+void __FigProcessStateMonitor_noReplyHandleMessage_block_invoke(uint64_t result)
 {
-  v34[16] = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 56);
+  v37[16] = *MEMORY[0x1E69E9840];
+  v1 = *(result + 56);
   if (v1 == 1684632432)
   {
-    v2 = *(a1 + 32);
-    uint64 = xpc_dictionary_get_uint64(*(a1 + 40), ".objectID");
+    v2 = *(result + 32);
+    uint64 = xpc_dictionary_get_uint64(*(result + 40), ".objectID");
     FigXPCServerDisassociateObjectWithConnection(v2, uint64);
     if (dword_1EAF1CC88)
     {
-      v28[0] = 0;
+      v30 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, v28, &type);
-      v5 = v28[0];
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v30, &type);
+      v5 = v30;
+      v6 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v7 = v5;
@@ -192,14 +194,14 @@ void __FigProcessStateMonitor_noReplyHandleMessage_block_invoke(uint64_t a1)
       if (v7)
       {
         pid = xpc_connection_get_pid(v2);
-        v28[1] = 136315650;
-        v29 = "figProcessStateMonitorHandleDispose";
-        v30 = 1024;
-        v31 = pid;
-        v32 = 2048;
-        v33 = uint64;
-        v9 = _os_log_send_and_compose_impl();
-        LOBYTE(v5) = v28[0];
+        v31 = 136315650;
+        v32 = "figProcessStateMonitorHandleDispose";
+        v33 = 1024;
+        v34 = pid;
+        v35 = 2048;
+        v36 = uint64;
+        v9 = _os_log_send_and_compose_impl(v7, 0, v37, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v6, "<<<< FigProcessStateMonitorServer >>>> %s: client:%d dispose:%lld", &v31, 28, v28);
+        LOBYTE(v5) = v30;
       }
 
       else
@@ -207,51 +209,51 @@ void __FigProcessStateMonitor_noReplyHandleMessage_block_invoke(uint64_t a1)
         v9 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v9, v9 != v34, v5, 0, v6);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v9, v9 != v37, v5);
     }
   }
 
   else if (v1 == 1836082031)
   {
-    v10 = *(a1 + 40);
-    v34[0] = 0;
+    v10 = *(result + 40);
+    v37[0] = 0;
     v11 = xpc_dictionary_get_uint64(v10, ".objectID");
     if (v11)
     {
-      v19 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, v11);
+      v19 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, v11, v13, v14, v15, v16, v17, v18);
       if (v19)
       {
-        __FigProcessStateMonitor_noReplyHandleMessage_block_invoke_cold_1(v10, v34, v19);
+        __FigProcessStateMonitor_noReplyHandleMessage_block_invoke_cold_1(v10, v37, v19);
       }
 
       else
       {
-        __FigProcessStateMonitor_noReplyHandleMessage_block_invoke_cold_2(0, v20, v21, v22, v23, v24, v25, v26);
+        __FigProcessStateMonitor_noReplyHandleMessage_block_invoke_cold_2(0, v20, v21, v22, v23, v24, v25, v26, v27);
       }
     }
 
     else
     {
-      __FigProcessStateMonitor_noReplyHandleMessage_block_invoke_cold_3(0, v12, v13, v14, v15, v16, v17, v18);
+      __FigProcessStateMonitor_noReplyHandleMessage_block_invoke_cold_3(0, v12, v13, v14, v15, v16, v17, v18, v27);
     }
   }
 
   else
   {
-    *(*(*(a1 + 48) + 8) + 24) = -16158;
+    *(*(*(result + 48) + 8) + 24) = -16158;
   }
 }
 
-size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x261, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x261, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB41AuLL, "<<<< FigProcessStateMonitorServer >>>>", 0x251, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB41AuLL, "<<<< FigProcessStateMonitorServer >>>>", 0x251, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -275,30 +277,30 @@ void __FigProcessStateMonitor_handleMessage_block_invoke_cold_3(void *a1, const 
   CFRelease(a3);
 }
 
-size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_4(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_4(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x23C, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x23C, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_5(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_5(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB41AuLL, "<<<< FigProcessStateMonitorServer >>>>", 0x239, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB41AuLL, "<<<< FigProcessStateMonitorServer >>>>", 0x239, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_6(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_6(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x1BC, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x1BC, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_7(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t __FigProcessStateMonitor_handleMessage_block_invoke_cold_7(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB41AuLL, "<<<< FigProcessStateMonitorServer >>>>", 0x1B9, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB41AuLL, "<<<< FigProcessStateMonitorServer >>>>", 0x1B9, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }

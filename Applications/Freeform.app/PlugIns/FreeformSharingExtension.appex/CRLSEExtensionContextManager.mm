@@ -24,12 +24,12 @@
 
 - (NSURL)presentedItemURL
 {
-  v3 = sub_10001FF68(&qword_1000B2980);
+  v3 = sub_10001FF68(&qword_1000B2980, &unk_100086240);
   __chkstk_darwin(v3 - 8);
   v5 = &v14 - v4;
   v6 = OBJC_IVAR____TtC24FreeformSharingExtension28CRLSEExtensionContextManager_presentedItemURL;
   swift_beginAccess();
-  sub_100023A78(self + v6, v5, &qword_1000B2980);
+  sub_100023A78(self + v6, v5, &qword_1000B2980, &unk_100086240);
   v7 = sub_10007DD94();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -47,7 +47,7 @@
 
 - (void)setPresentedItemURL:(id)l
 {
-  v5 = sub_10001FF68(&qword_1000B2980);
+  v5 = sub_10001FF68(&qword_1000B2980, &unk_100086240);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (l)
@@ -66,7 +66,7 @@
   v10 = OBJC_IVAR____TtC24FreeformSharingExtension28CRLSEExtensionContextManager_presentedItemURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_100023A10(v7, self + v10, &qword_1000B2980);
+  sub_100023A10(v7, self + v10, &qword_1000B2980, &unk_100086240);
   swift_endAccess();
 }
 
@@ -95,7 +95,7 @@
   v5(self + OBJC_IVAR____TtC24FreeformSharingExtension28CRLSEExtensionContextManager_presentedItemURL, 1, 1, v4);
   *(self + OBJC_IVAR____TtC24FreeformSharingExtension28CRLSEExtensionContextManager____lazy_storage___presentedItemOperationQueue) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CRLSEExtensionContextManager();
+  v7.super_class = type metadata accessor for CRLSEExtensionContextManager(0);
   return [(CRLSEExtensionContextManager *)&v7 init];
 }
 

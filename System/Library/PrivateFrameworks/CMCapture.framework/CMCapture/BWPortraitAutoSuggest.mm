@@ -1,15 +1,15 @@
 @interface BWPortraitAutoSuggest
-- (BOOL)perFrameObjectValidity:(unint64_t)validity originalFrameWidth:(unint64_t)width originalFrameHeight:(unint64_t)height frameWidth:(unint64_t)frameWidth frameHeight:(double)frameHeight finalCropRect:(double)rect;
 - (BOOL)runAutoSuggestionWithSampleBuffer:(opaqueCMSampleBuffer *)buffer portraitSceneMonitorStatus:(int *)status;
 - (BOOL)temporalObjectValidity:(uint64_t)validity;
 - (BWPortraitAutoSuggest)initWithTuningParameters:(id)parameters;
+- (float32x2_t)_updateFrameRateDependantParams:(float32x2_t *)result;
 - (id)getFilteredDetectedObjects:(void *)objects detectedFacesArray:;
-- (uint64_t)_adjustMetadataOfSampleBuffer:(uint64_t)result;
-- (uint64_t)_updateFrameRateDependantParams:(uint64_t)result;
-- (uint64_t)processSbuf:(unint64_t)sbuf;
+- (uint64_t)perFrameObjectValidity:(unint64_t)validity originalFrameWidth:(unint64_t)width originalFrameHeight:(unint64_t)height frameWidth:(unint64_t)frameWidth frameHeight:(double)frameHeight finalCropRect:(double)rect;
+- (uint64_t)processSbuf:(uint64_t)sbuf;
 - (uint64_t)updateAbsentTrackers:(uint64_t)trackers;
 - (uint64_t)updateTrackers:(void *)trackers currentTracker:;
-- (unint64_t)_pruneTrackerArrays:(unint64_t)result;
+- (unsigned)_pruneTrackerArrays:(unsigned int *)result;
+- (void)_adjustMetadataOfSampleBuffer:(void *)result;
 - (void)dealloc;
 @end
 
@@ -279,7 +279,7 @@
   return 1;
 }
 
-- (uint64_t)_updateFrameRateDependantParams:(uint64_t)result
+- (float32x2_t)_updateFrameRateDependantParams:(float32x2_t *)result
 {
   if (result)
   {
@@ -294,30 +294,30 @@
       *&v5 = result;
     }
 
-    v6 = vcvtps_u32_f32(*&v5 * *(v2 + 24));
-    *(v2 + 28) = v6;
-    if (!*(v2 + 84))
+    v6 = vcvtps_u32_f32(*&v5 * v2[3].f32[0]);
+    v2[3].i32[1] = v6;
+    if (!v2[10].i32[1])
     {
       v6 = 0;
     }
 
-    *(v2 + 84) = v6;
-    *(v2 + 36) = vcvtps_u32_f32(*&v5 * *(v2 + 32));
-    *(v2 + 44) = vcvtps_u32_f32(*&v5 * *(v2 + 40));
-    *(v2 + 88) = vrev64_s32(vcvt_u32_f32(vrndp_f32(vmul_n_f32(*(v2 + 48), *&v5))));
-    v7 = vcvtps_u32_f32(*&v5 * *(v2 + 96));
+    v2[10].i32[1] = v6;
+    v2[4].i32[1] = vcvtps_u32_f32(*&v5 * v2[4].f32[0]);
+    v2[5].i32[1] = vcvtps_u32_f32(*&v5 * v2[5].f32[0]);
+    v2[11] = vrev64_s32(vcvt_u32_f32(vrndp_f32(vmul_n_f32(v2[6], *&v5))));
+    v7 = vcvtps_u32_f32(*&v5 * v2[12].f32[0]);
     if (v7 <= 2)
     {
       v7 = 2;
     }
 
-    *(v2 + 100) = v7;
+    v2[12].i32[1] = v7;
   }
 
   return result;
 }
 
-- (uint64_t)processSbuf:(unint64_t)sbuf
+- (uint64_t)processSbuf:(uint64_t)sbuf
 {
   if (sbuf)
   {
@@ -334,19 +334,19 @@
     array = [MEMORY[0x1E695DF70] array];
     if (v5)
     {
+      v135 = 0u;
       v136 = 0u;
       v137 = 0u;
       v138 = 0u;
-      v139 = 0u;
       obj = [(BWPortraitAutoSuggest *)sbuf getFilteredDetectedObjects:v5 detectedFacesArray:v6];
-      v93 = [obj countByEnumeratingWithState:&v136 objects:v135 count:16];
+      v93 = [obj countByEnumeratingWithState:&v135 objects:v134 count:16];
       if (v93)
       {
         v13 = Width;
         v14 = Height;
         v89 = (size.height * Height);
         v91 = (size.width * Width);
-        v87 = *v137;
+        v87 = *v136;
         v15 = 0x1E696A000uLL;
         v81 = Height;
         v83 = Width;
@@ -356,19 +356,19 @@
           v16 = 0;
           do
           {
-            if (*v137 != v87)
+            if (*v136 != v87)
             {
               objc_enumerationMutation(obj);
             }
 
             v95 = v16;
-            v17 = *(*(&v136 + 1) + 8 * v16);
+            v17 = *(*(&v135 + 1) + 8 * v16);
             combinedTrackerID = [v17 combinedTrackerID];
             [array addObject:{objc_msgSend(*(v15 + 3480), "numberWithUnsignedLongLong:", combinedTrackerID)}];
-            v133 = 0u;
-            v134 = 0u;
-            v131 = 0u;
             v132 = 0u;
+            v133 = 0u;
+            v130 = 0u;
+            v131 = 0u;
             v19 = *(sbuf + 120);
             OUTLINED_FUNCTION_6_41();
             v20 = [v19 countByEnumeratingWithState:? objects:? count:?];
@@ -379,18 +379,18 @@
 
             v21 = v20;
             v22 = 0;
-            v23 = *v132;
+            v23 = *v131;
             v24 = -1;
             do
             {
               for (i = 0; i != v21; ++i)
               {
-                if (*v132 != v23)
+                if (*v131 != v23)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                v26 = *(*(&v131 + 1) + 8 * i);
+                v26 = *(*(&v130 + 1) + 8 * i);
                 if ([v26 combinedTrackerID] == combinedTrackerID)
                 {
                   v24 = [*(sbuf + 120) indexOfObject:v26];
@@ -453,10 +453,10 @@ LABEL_27:
             v41 = v32 * v13;
             v42 = v34 * v14;
             [v22 setValidObjectCounter:v38];
-            v130[0] = ((v41 * 0.5) + v39);
-            v130[1] = ((v42 * 0.5) + v40);
+            v129[0] = ((v41 * 0.5) + v39);
+            v129[1] = ((v42 * 0.5) + v40);
             centersIn = [v22 centersIn];
-            [centersIn addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithBytes:objCType:", v130, "{CGPoint=dd}")}];
+            [centersIn addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithBytes:objCType:", v129, "{CGPoint=dd}")}];
             objectAreaIn = [v22 objectAreaIn];
             *&v45 = v41 * v42;
             [objectAreaIn addObject:{objc_msgSend(*(v15 + 3480), "numberWithFloat:", v45)}];
@@ -467,7 +467,7 @@ LABEL_27:
           }
 
           while (v95 + 1 != v93);
-          v46 = [obj countByEnumeratingWithState:&v136 objects:v135 count:16];
+          v46 = [obj countByEnumeratingWithState:&v135 objects:v134 count:16];
           v93 = v46;
         }
 
@@ -477,7 +477,7 @@ LABEL_27:
 
     v47 = [BWPortraitAutoSuggest updateAbsentTrackers:sbuf];
     v48 = *(sbuf + 120);
-    v56 = OUTLINED_FUNCTION_60_1(v47, v49, v50, v51, v52, v53, v54, v55, v77, v79, v81, v83, obj, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119, v121, v123, v125, v127, 0);
+    v56 = OUTLINED_FUNCTION_60_1(v47, v49, v50, v51, v52, v53, v54, v55, v77, v79, v81, v83, obj, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119, v121, v123, v125, v127);
     if (v56)
     {
       v57 = v56;
@@ -501,7 +501,7 @@ LABEL_27:
           }
         }
 
-        v57 = OUTLINED_FUNCTION_60_1(validObjectCounter2, v63, v64, v65, v66, v67, v68, v69, v78, v80, v82, v84, obja, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, v129);
+        v57 = OUTLINED_FUNCTION_60_1(validObjectCounter2, v63, v64, v65, v66, v67, v68, v69, v78, v80, v82, v84, obja, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128);
       }
 
       while (v57);
@@ -581,7 +581,7 @@ LABEL_55:
   return 0;
 }
 
-- (uint64_t)_adjustMetadataOfSampleBuffer:(uint64_t)result
+- (void)_adjustMetadataOfSampleBuffer:(void *)result
 {
   if (result)
   {
@@ -609,14 +609,14 @@ LABEL_55:
 
   memset(&rect, 0, sizeof(rect));
   array = [MEMORY[0x1E695DF70] array];
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   v52 = OUTLINED_FUNCTION_9_30();
   if (v52)
   {
-    v50 = *v84;
+    v50 = *v83;
     v49 = *off_1E798ACE8;
     v4 = *off_1E798B5C0;
     v5 = *off_1E798ACB8;
@@ -631,33 +631,33 @@ LABEL_55:
       v6 = 0;
       do
       {
-        if (*v84 != v50)
+        if (*v83 != v50)
         {
           objc_enumerationMutation(a2);
         }
 
         v53 = v6;
-        v7 = *(*(&v83 + 1) + 8 * v6);
+        v7 = *(*(&v82 + 1) + 8 * v6);
         v8 = [objc_msgSend(a2 objectForKeyedSubscript:{v7, obj), "objectForKeyedSubscript:", v49}];
+        v78 = 0u;
         v79 = 0u;
         v80 = 0u;
         v81 = 0u;
-        v82 = 0u;
-        v9 = [v8 countByEnumeratingWithState:&v79 objects:v78 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v78 objects:v77 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v80;
+          v11 = *v79;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v80 != v11)
+              if (*v79 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v79 + 1) + 8 * i);
+              v13 = *(*(&v78 + 1) + 8 * i);
               if ([v13 objectForKeyedSubscript:v4])
               {
                 v14 = objc_opt_new();
@@ -697,7 +697,7 @@ LABEL_55:
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v79 objects:v78 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v78 objects:v77 count:16];
           }
 
           while (v10);
@@ -735,7 +735,7 @@ LABEL_55:
         v23 = *(8 * j);
         v24 = [objc_msgSend(v23 objectForKeyedSubscript:{v20, obj), "intValue"}];
         v25 = v24;
-        v33 = OUTLINED_FUNCTION_8_31(v24, v26, v27, v28, v29, v30, v31, v32, obja, v49, v50, v51, v52, v53, v54, v55, v56, v57, v59, array, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, 0);
+        v33 = OUTLINED_FUNCTION_8_31(v24, v26, v27, v28, v29, v30, v31, v32, obja, v49, v50, v51, v52, v53, v54, v55, v56, v57, v59, array, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76);
         if (v33)
         {
           v34 = v33;
@@ -757,7 +757,7 @@ LABEL_32:
 
             if (v34 == ++v36)
             {
-              v34 = OUTLINED_FUNCTION_8_31(trackerID, v38, v39, v40, v41, v42, v43, v44, obj, v49, v50, v51, v52, v53, v54, v55, v56, v57, v59, array, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77);
+              v34 = OUTLINED_FUNCTION_8_31(trackerID, v38, v39, v40, v41, v42, v43, v44, obj, v49, v50, v51, v52, v53, v54, v55, v56, v57, v59, array, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76);
               if (v34)
               {
                 goto LABEL_32;
@@ -792,7 +792,7 @@ LABEL_38:
   return array;
 }
 
-- (BOOL)perFrameObjectValidity:(unint64_t)validity originalFrameWidth:(unint64_t)width originalFrameHeight:(unint64_t)height frameWidth:(unint64_t)frameWidth frameHeight:(double)frameHeight finalCropRect:(double)rect
+- (uint64_t)perFrameObjectValidity:(unint64_t)validity originalFrameWidth:(unint64_t)width originalFrameHeight:(unint64_t)height frameWidth:(unint64_t)frameWidth frameHeight:(double)frameHeight finalCropRect:(double)rect
 {
   if (result)
   {
@@ -1105,12 +1105,12 @@ LABEL_17:
   return 0;
 }
 
-- (unint64_t)_pruneTrackerArrays:(unint64_t)result
+- (unsigned)_pruneTrackerArrays:(unsigned int *)result
 {
   if (result)
   {
     v3 = result;
-    if ([objc_msgSend(a2 "objectAreaIn")] > *(result + 100))
+    if ([objc_msgSend(a2 "objectAreaIn")] > result[25])
     {
       [OUTLINED_FUNCTION_5_47() objectAreaIn];
       v4 = [objc_msgSend(OUTLINED_FUNCTION_4_47() "objectAreaIn")];
@@ -1119,7 +1119,7 @@ LABEL_17:
       [OUTLINED_FUNCTION_17() setObjectAreaIn:?];
     }
 
-    if ([objc_msgSend(a2 "centersIn")] > *(v3 + 100))
+    if ([objc_msgSend(a2 "centersIn")] > v3[25])
     {
       [OUTLINED_FUNCTION_5_47() centersIn];
       v5 = [objc_msgSend(OUTLINED_FUNCTION_4_47() "centersIn")];
@@ -1129,7 +1129,7 @@ LABEL_17:
     }
 
     result = [objc_msgSend(a2 "centerVx")];
-    if (result > *(v3 + 100))
+    if (result > v3[25])
     {
       [OUTLINED_FUNCTION_5_47() centerVx];
       v6 = [objc_msgSend(OUTLINED_FUNCTION_4_47() "centerVx")];

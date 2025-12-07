@@ -13,52 +13,44 @@
 
 - (KGNode)targetNode
 {
-  v2 = *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_targetNode);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (KGNode)sourceNode
 {
-  v2 = *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_sourceNode);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NSSet)labels
 {
-  v2 = *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_labels);
 
-  v3 = sub_22F741410();
+  v2 = sub_22F741410();
 
-  return v3;
+  return v2;
 }
 
 - (void)setLabels:(id)labels
 {
-  v4 = sub_22F741420();
-  v5 = *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_labels);
-  *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_labels) = v4;
+  *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_labels) = sub_22F741420();
 }
 
 - (NSDictionary)properties
 {
-  v2 = *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_properties);
   sub_22F20B0E0();
 
-  v3 = sub_22F740C80();
+  v2 = sub_22F740C80();
 
-  return v3;
+  return v2;
 }
 
 - (void)setProperties:(id)properties
 {
   sub_22F20B0E0();
-  v4 = sub_22F740CA0();
-  v5 = *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_properties);
-  *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_properties) = v4;
+  *(self + OBJC_IVAR____TtC11PhotosGraph4Edge_properties) = sub_22F740CA0();
 }
 
 - (_TtC11PhotosGraph4Edge)initWithIdentifier:(unint64_t)identifier labels:(id)labels properties:(id)properties sourceNode:(id)node targetNode:(id)targetNode

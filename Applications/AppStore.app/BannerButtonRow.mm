@@ -14,10 +14,10 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v9 = sub_10002849C(&qword_100975C10);
+  v9 = sub_10002849C(&qword_100975C10, &qword_1007CB840);
   __chkstk_darwin(v9);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore15BannerButtonRow_buttonViews) = _swiftEmptyArrayStorage;
-  sub_100005744(0, &qword_1009811E0);
+  sub_100005744(0, &qword_1009811E0, UIButton_ptr);
   ViewRecycler.init()();
   sub_100143EA0();
   ReusePool.init(recycler:limit:)();
@@ -30,10 +30,10 @@
 
 - (_TtC8AppStore15BannerButtonRow)initWithCoder:(id)coder
 {
-  v4 = sub_10002849C(&qword_100975C10);
+  v4 = sub_10002849C(&qword_100975C10, &qword_1007CB840);
   __chkstk_darwin(v4);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore15BannerButtonRow_buttonViews) = _swiftEmptyArrayStorage;
-  sub_100005744(0, &qword_1009811E0);
+  sub_100005744(0, &qword_1009811E0, UIButton_ptr);
   ViewRecycler.init()();
   sub_100143EA0();
   ReusePool.init(recycler:limit:)();
@@ -45,7 +45,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100143414();
+  sub_100143414(selfCopy, v2);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

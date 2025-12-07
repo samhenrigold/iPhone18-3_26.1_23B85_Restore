@@ -1,5 +1,6 @@
 @interface MNLPRRuleHelper
 - (id)workQueue;
+- (void)_findResourceNamesForRegions:(id)regions forceUpdate:(BOOL)update asyncCompletion:(id)completion;
 - (void)_loadRules:(id)rules asyncCompletion:(id)completion;
 - (void)fetchRulesForWaypoints:(id)waypoints forceUpdateManifest:(BOOL)manifest forceUpdateRules:(BOOL)rules completionQueue:(id)queue completion:(id)completion;
 - (void)prefetchRulesForWaypoints:(id)waypoints;
@@ -9,39 +10,39 @@
 
 - (void)_loadRules:(id)rules asyncCompletion:(id)completion
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   rulesCopy = rules;
   completionCopy = completion;
   v8 = completionCopy;
   if (completionCopy)
   {
     selfCopy = self;
-    v24 = completionCopy;
-    v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(rulesCopy, "count")}];
+    v23 = completionCopy;
+    v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(rulesCopy, "count")}];
     array = [MEMORY[0x1E695DF70] array];
     v9 = dispatch_group_create();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v25 = rulesCopy;
+    v24 = rulesCopy;
     v10 = rulesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v37;
+      v13 = *v36;
       do
       {
         v14 = 0;
         do
         {
-          if (*v37 != v13)
+          if (*v36 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v36 + 1) + 8 * v14);
+          v15 = *(*(&v35 + 1) + 8 * v14);
           dispatch_group_enter(v9);
           pathExtension = [v15 pathExtension];
           lowercaseString = [pathExtension lowercaseString];
@@ -49,14 +50,14 @@
           if ([lowercaseString isEqualToString:@"cms-lpr"])
           {
             mEMORY[0x1E69A2468] = [MEMORY[0x1E69A2468] sharedManager];
-            v32[0] = MEMORY[0x1E69E9820];
-            v32[1] = 3221225472;
-            v32[2] = __46__MNLPRRuleHelper__loadRules_asyncCompletion___block_invoke;
-            v32[3] = &unk_1E842F420;
-            v33 = v27;
-            v34 = array;
-            v35 = v9;
-            [mEMORY[0x1E69A2468] dataForSignedResourceWithName:v15 fallbackBundle:0 fallbackNameHandler:0 resultHandler:v32];
+            v31[0] = MEMORY[0x1E69E9820];
+            v31[1] = 3221225472;
+            v31[2] = __46__MNLPRRuleHelper__loadRules_asyncCompletion___block_invoke;
+            v31[3] = &unk_1E842F420;
+            v32 = v26;
+            v33 = array;
+            v34 = v9;
+            [mEMORY[0x1E69A2468] dataForSignedResourceWithName:v15 fallbackBundle:0 fallbackNameHandler:0 resultHandler:v31];
           }
 
           else
@@ -68,7 +69,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v12);
@@ -79,18 +80,16 @@
     block[1] = 3221225472;
     block[2] = __46__MNLPRRuleHelper__loadRules_asyncCompletion___block_invoke_2;
     block[3] = &unk_1E842F448;
-    v29 = array;
-    v8 = v24;
-    v30 = v27;
-    v31 = v24;
-    v20 = v27;
+    v28 = array;
+    v8 = v23;
+    v29 = v26;
+    v30 = v23;
+    v20 = v26;
     v21 = array;
     dispatch_group_notify(v9, workQueue, block);
 
-    rulesCopy = v25;
+    rulesCopy = v24;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __46__MNLPRRuleHelper__loadRules_asyncCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -134,6 +133,28 @@ void __46__MNLPRRuleHelper__loadRules_asyncCompletion___block_invoke_2(uint64_t 
   }
 }
 
+- (void)_findResourceNamesForRegions:(id)regions forceUpdate:(BOOL)update asyncCompletion:(id)completion
+{
+  updateCopy = update;
+  completionCopy = completion;
+  v9 = MEMORY[0x1E69A2478];
+  regionsCopy = regions;
+  modernManager = [v9 modernManager];
+  activeTileGroup = [modernManager activeTileGroup];
+
+  v13 = [activeTileGroup regionalResourcesForMapRegions:regionsCopy resourceFilter:&__block_literal_global_11991 attributionFilter:0];
+
+  mEMORY[0x1E69A2488] = [MEMORY[0x1E69A2488] sharedRequester];
+  workQueue = [(MNLPRRuleHelper *)self workQueue];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __76__MNLPRRuleHelper__findResourceNamesForRegions_forceUpdate_asyncCompletion___block_invoke_2;
+  v17[3] = &unk_1E842F3F8;
+  v18 = completionCopy;
+  v16 = completionCopy;
+  [mEMORY[0x1E69A2488] fetchResources:v13 force:updateCopy manifestConfiguration:0 auditToken:0 queue:workQueue handler:v17];
+}
+
 uint64_t __76__MNLPRRuleHelper__findResourceNamesForRegions_forceUpdate_asyncCompletion___block_invoke_2(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -147,28 +168,28 @@ uint64_t __76__MNLPRRuleHelper__findResourceNamesForRegions_forceUpdate_asyncCom
 
 uint64_t __76__MNLPRRuleHelper__findResourceNamesForRegions_forceUpdate_asyncCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = [v2 filters];
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         if ([v8 scenariosCount])
         {
           v9 = 0;
@@ -188,7 +209,7 @@ LABEL_10:
         ;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -204,7 +225,6 @@ LABEL_10:
   v11 = [v3 isEqualToString:@"cms-lpr"];
 LABEL_14:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -309,25 +329,24 @@ void __106__MNLPRRuleHelper_fetchRulesForWaypoints_forceUpdateManifest_forceUpda
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) workQueue];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __106__MNLPRRuleHelper_fetchRulesForWaypoints_forceUpdateManifest_forceUpdateRules_completionQueue_completion___block_invoke_5;
-    v7[3] = &unk_1E842F360;
-    v6 = *(a1 + 40);
-    v7[4] = *(a1 + 32);
-    v8 = v6;
-    v10 = *(a1 + 56);
-    v9 = *(a1 + 48);
-    dispatch_async(v5, v7);
+    v4 = [*(a1 + 32) workQueue];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __106__MNLPRRuleHelper_fetchRulesForWaypoints_forceUpdateManifest_forceUpdateRules_completionQueue_completion___block_invoke_5;
+    v6[3] = &unk_1E842F360;
+    v5 = *(a1 + 40);
+    v6[4] = *(a1 + 32);
+    v7 = v5;
+    v9 = *(a1 + 56);
+    v8 = *(a1 + 48);
+    dispatch_async(v4, v6);
   }
 }
 

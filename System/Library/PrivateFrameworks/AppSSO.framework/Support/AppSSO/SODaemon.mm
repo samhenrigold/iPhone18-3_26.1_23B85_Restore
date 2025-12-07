@@ -29,7 +29,7 @@
 - (SODaemon)initWithXPCConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = sub_100001020();
+  v5 = sub_100001020(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -59,7 +59,7 @@
 {
   lCopy = l;
   completionCopy = completion;
-  v10 = sub_100001020();
+  v10 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136316163;
@@ -168,14 +168,14 @@ LABEL_18:
 {
   parametersCopy = parameters;
   completionCopy = completion;
-  v8 = sub_100001020();
+  v8 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v50 = "[SODaemon performAuthorizationWithRequestParameters:completion:]";
-    v51 = 2114;
-    v52 = parametersCopy;
-    v53 = 2112;
+    v51 = "[SODaemon performAuthorizationWithRequestParameters:completion:]";
+    v52 = 2114;
+    v53 = parametersCopy;
+    v54 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", buf, 0x20u);
   }
@@ -200,9 +200,9 @@ LABEL_18:
 
   else
   {
-    v32 = +[SOConfigurationHost defaultManager];
-    v33 = [v9 url];
-    callerBundleIdentifier2 = [v32 profileForURL:v33 responseCode:{objc_msgSend(v9, "responseCode")}];
+    v33 = +[SOConfigurationHost defaultManager];
+    v34 = [v9 url];
+    callerBundleIdentifier2 = [v33 profileForURL:v34 responseCode:{objc_msgSend(v9, "responseCode")}];
 
     if (!callerBundleIdentifier2)
     {
@@ -211,16 +211,16 @@ LABEL_18:
         goto LABEL_43;
       }
 
-      v43 = sub_100004B1C();
-      v29 = [v9 url];
-      v44 = [v43 invalidURLError:v29];
-      completionCopy[2](completionCopy, 0, v44);
+      v44 = sub_100004B1C();
+      v30 = [v9 url];
+      v45 = [v44 invalidURLError:v30];
+      completionCopy[2](completionCopy, 0, v45);
 
       goto LABEL_42;
     }
 
     extensionBundleIdentifier = [callerBundleIdentifier2 extensionBundleIdentifier];
-    v35 = self->_requestQueueIdentifier;
+    v36 = self->_requestQueueIdentifier;
     self->_requestQueueIdentifier = extensionBundleIdentifier;
 
     if (![(NSString *)self->_requestQueueIdentifier length])
@@ -230,7 +230,7 @@ LABEL_18:
         goto LABEL_43;
       }
 
-      v42 = [sub_100004B1C() parameterErrorWithMessage:@"profile has no extension bundle identifier"];
+      v43 = [sub_100004B1C() parameterErrorWithMessage:@"profile has no extension bundle identifier"];
       goto LABEL_41;
     }
   }
@@ -250,37 +250,37 @@ LABEL_11:
         v23 = [v22 loadedExtensionWithBundleIdentifier:self->_requestQueueIdentifier];
         extensionRequestsMode = [v23 extensionRequestsMode];
 
-        v25 = sub_100001020();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v26 = sub_100001020(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           sub_100008A40(&self->_requestQueueIdentifier, extensionRequestsMode);
         }
 
         if (extensionRequestsMode == 2)
         {
-          v47[0] = _NSConcreteStackBlock;
-          v47[1] = 3221225472;
-          v47[2] = sub_1000052FC;
-          v47[3] = &unk_100010638;
-          v48 = completionCopy;
-          [(SODaemon *)self _performAuthorizationWithRequestParameters:v9 completion:v47];
-          callerBundleIdentifier2 = v48;
+          v48[0] = _NSConcreteStackBlock;
+          v48[1] = 3221225472;
+          v48[2] = sub_1000052FC;
+          v48[3] = &unk_100010638;
+          v49 = completionCopy;
+          [(SODaemon *)self _performAuthorizationWithRequestParameters:v9 completion:v48];
+          callerBundleIdentifier2 = v49;
 LABEL_43:
 
           goto LABEL_44;
         }
 
         callerBundleIdentifier2 = [[SORequestQueueItem alloc] initWithService:self requestParameters:v9 completionBlock:completionCopy];
-        v29 = [SORequestQueue requestQueueWithIdentifier:self->_requestQueueIdentifier];
-        processItemBlock = [v29 processItemBlock];
+        v30 = [SORequestQueue requestQueueWithIdentifier:self->_requestQueueIdentifier];
+        processItemBlock = [v30 processItemBlock];
 
         if (!processItemBlock)
         {
-          v31 = +[SODaemon _processRequestBlock];
-          [v29 setProcessItemBlock:v31];
+          v32 = +[SODaemon _processRequestBlock];
+          [v30 setProcessItemBlock:v32];
         }
 
-        [v29 enqueueRequest:callerBundleIdentifier2];
+        [v30 enqueueRequest:callerBundleIdentifier2];
 LABEL_42:
 
         goto LABEL_43;
@@ -288,21 +288,33 @@ LABEL_42:
 
       if (completionCopy)
       {
-        v27 = sub_100004B1C();
-        v28 = @"com.apple.private.network.socket-delegate";
+        v28 = sub_100004B1C();
+        v29 = @"com.apple.private.network.socket-delegate";
         goto LABEL_27;
       }
 
       goto LABEL_44;
     }
 
-    v36 = +[SOConfigurationHost defaultManager];
-    v37 = [v9 url];
+    v37 = +[SOConfigurationHost defaultManager];
+    v38 = [v9 url];
     responseCode = [v9 responseCode];
     callerBundleIdentifier = [v9 callerBundleIdentifier];
-    v40 = [v36 willHandleURL:v37 responseCode:responseCode callerBundleIdentifier:callerBundleIdentifier];
+    v41 = [v37 willHandleURL:v38 responseCode:responseCode callerBundleIdentifier:callerBundleIdentifier];
 
-    if (v40 == 3)
+    if (v41 == 3)
+    {
+      if (!completionCopy)
+      {
+        goto LABEL_44;
+      }
+
+      v47 = sub_100004B1C();
+      callerBundleIdentifier2 = [v9 callerBundleIdentifier];
+      v43 = [v47 deniedBundleIdentifier:callerBundleIdentifier2];
+    }
+
+    else if (v41 == 2)
     {
       if (!completionCopy)
       {
@@ -311,24 +323,12 @@ LABEL_42:
 
       v46 = sub_100004B1C();
       callerBundleIdentifier2 = [v9 callerBundleIdentifier];
-      v42 = [v46 deniedBundleIdentifier:callerBundleIdentifier2];
-    }
-
-    else if (v40 == 2)
-    {
-      if (!completionCopy)
-      {
-        goto LABEL_44;
-      }
-
-      v45 = sub_100004B1C();
-      callerBundleIdentifier2 = [v9 callerBundleIdentifier];
-      v42 = [v45 doNotHandleBreakingRecursionWithCallerBundleIdentifier:callerBundleIdentifier2];
+      v43 = [v46 doNotHandleBreakingRecursionWithCallerBundleIdentifier:callerBundleIdentifier2];
     }
 
     else
     {
-      if (v40 != 1)
+      if (v41 != 1)
       {
         goto LABEL_11;
       }
@@ -338,23 +338,23 @@ LABEL_42:
         goto LABEL_44;
       }
 
-      v41 = sub_100004B1C();
+      v42 = sub_100004B1C();
       callerBundleIdentifier2 = [v9 url];
-      v42 = [v41 invalidURLError:callerBundleIdentifier2];
+      v43 = [v42 invalidURLError:callerBundleIdentifier2];
     }
 
 LABEL_41:
-    v29 = v42;
-    completionCopy[2](completionCopy, 0, v42);
+    v30 = v43;
+    completionCopy[2](completionCopy, 0, v43);
     goto LABEL_42;
   }
 
   if (completionCopy)
   {
-    v27 = sub_100004B1C();
-    v28 = @"com.apple.private.AppSSO.FetchNetworkCredentials";
+    v28 = sub_100004B1C();
+    v29 = @"com.apple.private.AppSSO.FetchNetworkCredentials";
 LABEL_27:
-    callerBundleIdentifier2 = [v27 missingEntitlementError:v28];
+    callerBundleIdentifier2 = [v28 missingEntitlementError:v29];
     completionCopy[2](completionCopy, 0, callerBundleIdentifier2);
     goto LABEL_43;
   }
@@ -366,7 +366,7 @@ LABEL_44:
 {
   parametersCopy = parameters;
   completionCopy = completion;
-  v8 = sub_100001020();
+  v8 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v24 = 136315394;
@@ -438,16 +438,16 @@ LABEL_13:
 {
   parametersCopy = parameters;
   completionCopy = completion;
-  v8 = sub_100001020();
+  v8 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v44 = 136315650;
-    v45 = "[SODaemon beginAuthorizationWithRequestParameters:completion:]";
-    v46 = 2112;
-    v47 = parametersCopy;
-    v48 = 2112;
+    v45 = 136315650;
+    v46 = "[SODaemon beginAuthorizationWithRequestParameters:completion:]";
+    v47 = 2112;
+    v48 = parametersCopy;
+    v49 = 2112;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s %@ on %@", &v44, 0x20u);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s %@ on %@", &v45, 0x20u);
   }
 
   v9 = [[SOAuthorizationRequestParameters alloc] initWithAuthorizationRequestParametersCore:parametersCopy];
@@ -490,9 +490,9 @@ LABEL_34:
     {
       if (completionCopy)
       {
-        v42 = sub_100004B1C();
+        v43 = sub_100004B1C();
         callerBundleIdentifier2 = [v9 callerBundleIdentifier];
-        v40 = [v42 deniedBundleIdentifier:callerBundleIdentifier2];
+        v41 = [v43 deniedBundleIdentifier:callerBundleIdentifier2];
         goto LABEL_33;
       }
 
@@ -503,9 +503,9 @@ LABEL_34:
     {
       if (completionCopy)
       {
-        v41 = sub_100004B1C();
+        v42 = sub_100004B1C();
         callerBundleIdentifier2 = [v9 callerBundleIdentifier];
-        v40 = [v41 doNotHandleBreakingRecursionWithCallerBundleIdentifier:callerBundleIdentifier2];
+        v41 = [v42 doNotHandleBreakingRecursionWithCallerBundleIdentifier:callerBundleIdentifier2];
         goto LABEL_33;
       }
 
@@ -538,12 +538,12 @@ LABEL_36:
 LABEL_25:
     if (completionCopy)
     {
-      v39 = sub_100004B1C();
+      v40 = sub_100004B1C();
       callerBundleIdentifier2 = [v9 url];
-      v40 = [v39 invalidURLError:callerBundleIdentifier2];
+      v41 = [v40 invalidURLError:callerBundleIdentifier2];
 LABEL_33:
-      v43 = v40;
-      (*(completionCopy + 2))(completionCopy, 0, 0, v40);
+      v44 = v41;
+      (*(completionCopy + 2))(completionCopy, 0, 0, v41);
 
       goto LABEL_34;
     }
@@ -556,13 +556,13 @@ LABEL_33:
   loadedInternalExtension = [v14 loadedExtensionWithBundleIdentifier:extensionBundleIdentifier];
 
 LABEL_16:
-  v26 = sub_100001020();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v27 = sub_100001020(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     localizedExtensionDisplayName = [loadedInternalExtension localizedExtensionDisplayName];
-    v44 = 138543362;
-    v45 = localizedExtensionDisplayName;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "loadedExtensionWithBundleIdentifier: extension = %{public}@", &v44, 0xCu);
+    v45 = 138543362;
+    v46 = localizedExtensionDisplayName;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "loadedExtensionWithBundleIdentifier: extension = %{public}@", &v45, 0xCu);
   }
 
   if (!loadedInternalExtension)
@@ -582,12 +582,12 @@ LABEL_16:
   impersonationBundleIdentifier = [v9 impersonationBundleIdentifier];
   if (impersonationBundleIdentifier)
   {
-    v29 = impersonationBundleIdentifier;
-    v30 = sub_10000521C();
-    v31 = objc_loadWeakRetained(&self->_xpcConnection);
-    LOBYTE(v30) = [v30 checkEntitlementFromXPC:v31 entitlement:@"com.apple.private.network.socket-delegate"];
+    v30 = impersonationBundleIdentifier;
+    v31 = sub_10000521C();
+    v32 = objc_loadWeakRetained(&self->_xpcConnection);
+    LOBYTE(v31) = [v31 checkEntitlementFromXPC:v32 entitlement:@"com.apple.private.network.socket-delegate"];
 
-    if ((v30 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
       if (!completionCopy)
       {
@@ -607,15 +607,14 @@ LABEL_16:
   realm = [v16 realm];
   [(SOAuthorizationRequestParameters *)self->_requestParameters setRealm:realm];
 
-  v34 = +[NSXPCListener anonymousListener];
+  v35 = +[NSXPCListener anonymousListener];
   p_extensionXpcListener = &self->_extensionXpcListener;
   extensionXpcListener = self->_extensionXpcListener;
-  self->_extensionXpcListener = v34;
+  self->_extensionXpcListener = v35;
 
   [(NSXPCListener *)self->_extensionXpcListener setDelegate:self];
-  [(NSXPCListener *)self->_extensionXpcListener resume];
-  v37 = sub_100001020();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+  v38 = sub_100001020([(NSXPCListener *)self->_extensionXpcListener resume]);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
     sub_100008AEC(loadedInternalExtension, p_extensionXpcListener);
   }
@@ -649,9 +648,9 @@ LABEL_37:
 
     [(SODaemonUIManager *)self->_daemonUIManager setDelegate:self];
     v15 = self->_daemonUIManager;
-    v31 = 0;
-    v16 = [(SODaemonUIManager *)v15 beginAuthorizationWithRequestParameters:parametersCopy profile:profileCopy error:&v31];
-    identifier = v31;
+    v32 = 0;
+    v16 = [(SODaemonUIManager *)v15 beginAuthorizationWithRequestParameters:parametersCopy profile:profileCopy error:&v32];
+    identifier = v32;
     if ((v16 & 1) == 0)
     {
       v18 = self->_authenticateCompletion;
@@ -684,36 +683,36 @@ LABEL_37:
     self->_extension = v24;
   }
 
-  v26 = sub_100001020();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v27 = sub_100001020(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     localizedExtensionDisplayName = [(SOExtension *)self->_extension localizedExtensionDisplayName];
     *buf = 138543362;
-    v35 = localizedExtensionDisplayName;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "loadedExtensionWithBundleIdentifier: extension = %{public}@", buf, 0xCu);
+    v36 = localizedExtensionDisplayName;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "loadedExtensionWithBundleIdentifier: extension = %{public}@", buf, 0xCu);
   }
 
-  v28 = self->_extension;
+  v29 = self->_extension;
   identifier = [parametersCopy identifier];
-  if (!v28)
+  if (!v29)
   {
-    v30 = [sub_100004B1C() internalErrorWithMessage:@"No active AppSSO IdP extension"];
-    [(SODaemon *)self authorization:identifier didCompleteWithCredential:0 error:v30];
+    v31 = [sub_100004B1C() internalErrorWithMessage:@"No active AppSSO IdP extension"];
+    [(SODaemon *)self authorization:identifier didCompleteWithCredential:0 error:v31];
 
 LABEL_13:
     goto LABEL_14;
   }
 
-  [(SOExtension *)v28 saveDelegate:self forRequestIdentifier:identifier];
+  [(SOExtension *)v29 saveDelegate:self forRequestIdentifier:identifier];
 
-  v29 = self->_extension;
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_100005E90;
-  v32[3] = &unk_100010660;
-  v32[4] = self;
-  v33 = parametersCopy;
-  [(SOExtension *)v29 setupNonUISessionWithCompletion:v32];
+  v30 = self->_extension;
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_100005E90;
+  v33[3] = &unk_100010660;
+  v33[4] = self;
+  v34 = parametersCopy;
+  [(SOExtension *)v30 setupNonUISessionWithCompletion:v33];
 
 LABEL_14:
 }
@@ -721,46 +720,48 @@ LABEL_14:
 - (BOOL)_doAKshouldProcessURL:(id)l
 {
   lCopy = l;
+  v5 = lCopy;
   if (lCopy)
   {
-    v5 = [AKAuthorizationController shouldProcessURL:lCopy];
+    lCopy = [AKAuthorizationController shouldProcessURL:lCopy];
+    v6 = lCopy;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = sub_100001020();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_100001020(lCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = "[SODaemon _doAKshouldProcessURL:]";
-    v11 = 2160;
-    v8 = @"NO";
-    v12 = 1752392040;
-    v13 = 2117;
-    v9 = 136316163;
-    if (v5)
+    v11 = "[SODaemon _doAKshouldProcessURL:]";
+    v12 = 2160;
+    v9 = @"NO";
+    v13 = 1752392040;
+    v14 = 2117;
+    v10 = 136316163;
+    if (v6)
     {
-      v8 = @"YES";
+      v9 = @"YES";
     }
 
-    v14 = lCopy;
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
     selfCopy = self;
-    _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%s URL = %{sensitive, mask.hash}@, result = %@ on %@", &v9, 0x34u);
+    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%s URL = %{sensitive, mask.hash}@, result = %@ on %@", &v10, 0x34u);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)cancelAuthorization:(id)authorization completion:(id)completion
 {
   authorizationCopy = authorization;
   completionCopy = completion;
-  v8 = sub_100001020();
+  v8 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -810,7 +811,7 @@ LABEL_14:
 - (void)configurationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100001020();
+  v5 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -834,7 +835,7 @@ LABEL_14:
 - (void)realmsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100001020();
+  v5 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -856,7 +857,7 @@ LABEL_14:
 - (void)debugHintsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100001020();
+  v5 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
@@ -874,7 +875,7 @@ LABEL_14:
 {
   authorizationCopy = authorization;
   completionCopy = completion;
-  v8 = sub_100001020();
+  v8 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     requestQueueIdentifier = self->_requestQueueIdentifier;
@@ -941,59 +942,60 @@ LABEL_14:
 - (void)isExtensionProcessWithAuditToken:(id *)token completion:(id)completion
 {
   completionCopy = completion;
-  v7 = sub_100001020();
+  v7 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v19 = 136315394;
-    *&v19[4] = "[SODaemon isExtensionProcessWithAuditToken:completion:]";
-    *&v19[12] = 2112;
-    *&v19[14] = self;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s  on %@", v19, 0x16u);
+    *v20 = 136315394;
+    *&v20[4] = "[SODaemon isExtensionProcessWithAuditToken:completion:]";
+    *&v20[12] = 2112;
+    *&v20[14] = self;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s  on %@", v20, 0x16u);
   }
 
   v8 = sub_10000521C();
   v9 = *&token->var0[4];
-  *v19 = *token->var0;
-  *&v19[16] = v9;
-  v10 = [v8 pidFromAuditToken:v19];
+  *v20 = *token->var0;
+  *&v20[16] = v9;
+  v10 = [v8 pidFromAuditToken:v20];
   v11 = sub_10000521C();
   v12 = *&token->var0[4];
-  *v19 = *token->var0;
-  *&v19[16] = v12;
-  v13 = [v11 bundleIdentifierFromAuditToken:v19];
+  *v20 = *token->var0;
+  *&v20[16] = v12;
+  v13 = [v11 bundleIdentifierFromAuditToken:v20];
+  v14 = v13;
   if (v13)
   {
-    v14 = +[SOExtensionManager sharedInstance];
-    v15 = [v14 loadedExtensionWithBundleIdentifier:v13];
-    v16 = v15 != 0;
+    v15 = +[SOExtensionManager sharedInstance];
+    v16 = [v15 loadedExtensionWithBundleIdentifier:v14];
+    v17 = v16 != 0;
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  v17 = sub_100001020();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100001020(v13);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = @"NO";
-    *v19 = 138478339;
-    *&v19[4] = v13;
-    if (v16)
+    v19 = @"NO";
+    *v20 = 138478339;
+    *&v20[4] = v14;
+    if (v17)
     {
-      v18 = @"YES";
+      v19 = @"YES";
     }
 
-    *&v19[12] = 1024;
-    *&v19[14] = v10;
-    *&v19[18] = 2114;
-    *&v19[20] = v18;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{private}@(%u) isExtensionProcess = %{public}@", v19, 0x1Cu);
+    *&v20[12] = 1024;
+    *&v20[14] = v10;
+    *&v20[18] = 2114;
+    *&v20[20] = v19;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{private}@(%u) isExtensionProcess = %{public}@", v20, 0x1Cu);
   }
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, v16, 0);
+    completionCopy[2](completionCopy, v17, 0);
   }
 }
 
@@ -1001,7 +1003,7 @@ LABEL_14:
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v8 = sub_100001020();
+  v8 = sub_100001020(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1026,7 +1028,7 @@ LABEL_14:
   credentialCopy = credential;
   errorCopy = error;
   completionCopy = completion;
-  v11 = sub_100001020();
+  v11 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = objc_retainBlock(self->_authenticateCompletion);
@@ -1084,7 +1086,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v18 = sub_100001020();
+  v18 = sub_100001020(0);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1103,7 +1105,7 @@ LABEL_15:
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = sub_100001020();
+  v8 = sub_100001020(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1113,40 +1115,40 @@ LABEL_15:
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2050000000;
-  v16 = qword_100015E70;
-  v27 = qword_100015E70;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2050000000;
+  v9 = qword_100015E70;
+  v19 = qword_100015E70;
   if (!qword_100015E70)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_100008190;
-    v29 = &unk_100010390;
-    v30 = &v24;
-    sub_100008190(buf, v9, v10, v11, v12, v13, v14, v15, v21);
-    v16 = v25[3];
+    v21 = &unk_100010390;
+    v22 = &v16;
+    sub_100008190(buf);
+    v9 = v17[3];
   }
 
-  v17 = v16;
-  _Block_object_dispose(&v24, 8);
-  v18 = [v16 interfaceWithInternalProtocol:&OBJC_PROTOCOL___SORemoteExtensionServiceProtocol];
-  [connectionCopy setExportedInterface:v18];
+  v10 = v9;
+  _Block_object_dispose(&v16, 8);
+  v11 = [v9 interfaceWithInternalProtocol:&OBJC_PROTOCOL___SORemoteExtensionServiceProtocol];
+  [connectionCopy setExportedInterface:v11];
 
   [connectionCopy setExportedObject:self];
   [connectionCopy resume];
   objc_initWeak(buf, self);
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_100007518;
-  v22[3] = &unk_100010328;
-  objc_copyWeak(&v23, buf);
-  [(SODaemon *)self setInvalidationHandler:v22];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100007518;
+  v14[3] = &unk_100010328;
+  objc_copyWeak(&v15, buf);
+  [(SODaemon *)self setInvalidationHandler:v14];
   invalidationHandler = [(SODaemon *)self invalidationHandler];
   [connectionCopy setInvalidationHandler:invalidationHandler];
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 
   return 1;
@@ -1154,7 +1156,7 @@ LABEL_15:
 
 - (void)connectionInvalidated
 {
-  v3 = sub_100001020();
+  v3 = sub_100001020(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315394;
@@ -1168,7 +1170,7 @@ LABEL_15:
 - (void)beginAuthorizationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100001020();
+  v5 = sub_100001020(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;
@@ -1197,17 +1199,17 @@ LABEL_15:
 - (void)_updateCallerPropertiesFromAuditTokenInParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
   auditTokenData = [parametersCopy auditTokenData];
 
-  if (!auditTokenData || (v6 = sub_10000521C(), [parametersCopy auditTokenData], v7 = objc_claimAutoreleasedReturnValue(), LOBYTE(v6) = objc_msgSend(v6, "auditTokenFromData:auditToken:", v7, &v27), v7, (v6 & 1) == 0))
+  if (!auditTokenData || (v6 = sub_10000521C(), [parametersCopy auditTokenData], v7 = objc_claimAutoreleasedReturnValue(), LOBYTE(v6) = objc_msgSend(v6, "auditTokenFromData:auditToken:", v7, &v28), v7, (v6 & 1) == 0))
   {
     WeakRetained = objc_loadWeakRetained(&self->_xpcConnection);
     v9 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained auditToken];
+      objc_msgSend_auditToken(WeakRetained);
     }
 
     else
@@ -1215,29 +1217,29 @@ LABEL_15:
       memset(buf, 0, 32);
     }
 
-    v27 = *buf;
-    v28 = *&buf[16];
+    v28 = *buf;
+    v29 = *&buf[16];
 
-    v10 = [NSData dataWithBytes:&v27 length:32];
+    v10 = [NSData dataWithBytes:&v28 length:32];
     [parametersCopy setAuditTokenData:v10];
   }
 
   v11 = sub_10000521C();
-  *buf = v27;
-  *&buf[16] = v28;
+  *buf = v28;
+  *&buf[16] = v29;
   v12 = [v11 bundleIdentifierFromAuditToken:buf];
   [parametersCopy setCallerBundleIdentifier:v12];
 
   v13 = sub_10000521C();
-  *buf = v27;
-  *&buf[16] = v28;
+  *buf = v28;
+  *&buf[16] = v29;
   v14 = [v13 pidFromAuditToken:buf];
   callerBundleIdentifier = [parametersCopy callerBundleIdentifier];
   [parametersCopy setCallerManaged:{+[SODaemonUtils isAppManagedWithBundleIdentifier:](SODaemonUtils, "isAppManagedWithBundleIdentifier:", callerBundleIdentifier)}];
 
   v16 = sub_10000521C();
-  *buf = v27;
-  *&buf[16] = v28;
+  *buf = v28;
+  *&buf[16] = v29;
   v17 = [v16 teamIdentifierFromAuditToken:buf];
   [parametersCopy setCallerTeamIdentifier:v17];
 
@@ -1245,29 +1247,29 @@ LABEL_15:
   v19 = [SODaemonUtils localizedAppNameWithBundleIdentifier:callerBundleIdentifier2 pid:v14];
   [parametersCopy setLocalizedCallerDisplayName:v19];
 
-  v20 = sub_100001020();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v21 = sub_100001020(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     auditTokenData2 = [parametersCopy auditTokenData];
     if (auditTokenData2)
     {
-      v22 = @"YES";
+      v23 = @"YES";
     }
 
     else
     {
-      v22 = @"NO";
+      v23 = @"NO";
     }
 
     callerBundleIdentifier3 = [parametersCopy callerBundleIdentifier];
     if ([parametersCopy isCallerManaged])
     {
-      v24 = @"YES";
+      v25 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v25 = @"NO";
     }
 
     callerTeamIdentifier = [parametersCopy callerTeamIdentifier];
@@ -1275,22 +1277,22 @@ LABEL_15:
     *buf = 67110402;
     *&buf[4] = v14;
     *&buf[8] = 2112;
-    *&buf[10] = v22;
+    *&buf[10] = v23;
     *&buf[18] = 2112;
     *&buf[20] = callerBundleIdentifier3;
     *&buf[28] = 2112;
-    *&buf[30] = v24;
-    v30 = 2112;
-    v31 = callerTeamIdentifier;
-    v32 = 2112;
-    v33 = localizedCallerDisplayName;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "PID: %u has auditToken: %@, callerBundleIdentifier: %@, callerManaged: %@, callerTeamIdentifier: %@, localizedCallerDisplayName: %@", buf, 0x3Au);
+    *&buf[30] = v25;
+    v31 = 2112;
+    v32 = callerTeamIdentifier;
+    v33 = 2112;
+    v34 = localizedCallerDisplayName;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "PID: %u has auditToken: %@, callerBundleIdentifier: %@, callerManaged: %@, callerTeamIdentifier: %@, localizedCallerDisplayName: %@", buf, 0x3Au);
   }
 }
 
 - (void)_extensionCleanup
 {
-  v3 = sub_100001020();
+  v3 = sub_100001020(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     extension = self->_extension;
@@ -1316,7 +1318,7 @@ LABEL_15:
 {
   credentialCopy = credential;
   errorCopy = error;
-  v9 = sub_100001020();
+  v9 = sub_100001020(errorCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;

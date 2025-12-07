@@ -64,7 +64,7 @@
   return v5;
 }
 
-uint64_t __50__SUScriptSplitViewController_firstViewController__block_invoke(uint64_t a1)
+void *__50__SUScriptSplitViewController_firstViewController__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "_splitViewController")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -97,7 +97,7 @@ uint64_t __50__SUScriptSplitViewController_firstViewController__block_invoke(uin
   return v4;
 }
 
-uint64_t __46__SUScriptSplitViewController_minimumPaneSize__block_invoke(uint64_t a1)
+void *__46__SUScriptSplitViewController_minimumPaneSize__block_invoke(uint64_t a1)
 {
   [objc_msgSend(*(a1 + 32) "_splitViewController")];
   v3 = v2;
@@ -146,7 +146,7 @@ uint64_t __46__SUScriptSplitViewController_minimumPaneSize__block_invoke(uint64_
   return v5;
 }
 
-uint64_t __51__SUScriptSplitViewController_secondViewController__block_invoke(uint64_t a1)
+void *__51__SUScriptSplitViewController_secondViewController__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "_splitViewController")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -191,7 +191,7 @@ uint64_t __54__SUScriptSplitViewController_setFirstViewController___block_invoke
   }
 }
 
-uint64_t __50__SUScriptSplitViewController_setMinimumPaneSize___block_invoke(uint64_t a1)
+void *__50__SUScriptSplitViewController_setMinimumPaneSize___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _splitViewController];
   objc_opt_class();
@@ -477,7 +477,7 @@ id __44__SUScriptSplitViewController_splitPosition__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __47__SUScriptSplitViewController_splitShadowColor__block_invoke(uint64_t a1)
+void *__47__SUScriptSplitViewController_splitShadowColor__block_invoke(uint64_t a1)
 {
   v2 = [objc_msgSend(objc_msgSend(*(a1 + 32) "_splitViewController")];
   if (!v2)
@@ -517,7 +517,7 @@ uint64_t __47__SUScriptSplitViewController_splitShadowColor__block_invoke(uint64
   return v4;
 }
 
-uint64_t __49__SUScriptSplitViewController_splitShadowOpacity__block_invoke(uint64_t a1)
+void *__49__SUScriptSplitViewController_splitShadowOpacity__block_invoke(uint64_t a1)
 {
   v2 = [objc_msgSend(*(a1 + 32) "_splitViewController")];
   v3 = objc_alloc(MEMORY[0x1E696AD98]);
@@ -563,7 +563,7 @@ uint64_t __49__SUScriptSplitViewController_splitShadowOpacity__block_invoke(uint
   return v4;
 }
 
-uint64_t __48__SUScriptSplitViewController_splitShadowRadius__block_invoke(uint64_t a1)
+void *__48__SUScriptSplitViewController_splitShadowRadius__block_invoke(uint64_t a1)
 {
   v2 = [objc_msgSend(*(a1 + 32) "_splitViewController")];
   v3 = objc_alloc(MEMORY[0x1E696AD98]);
@@ -661,7 +661,7 @@ id __36__SUScriptSplitViewController_title__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __52__SUScriptSplitViewController_usesSharedPlaceholder__block_invoke(uint64_t a1)
+void *__52__SUScriptSplitViewController_usesSharedPlaceholder__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_splitViewController")];
   *(*(*(a1 + 40) + 8) + 24) = result;

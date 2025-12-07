@@ -295,7 +295,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    numSessionsWithEngagedSuggestions = self->_numSessionsWithEngagedSuggestions;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -315,7 +314,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numSessionsWithRejectedSuggestions = self->_numSessionsWithRejectedSuggestions;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -330,7 +328,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  numSessionsWithAbandonedSuggestions = self->_numSessionsWithAbandonedSuggestions;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -345,7 +342,6 @@ LABEL_5:
   }
 
 LABEL_17:
-  numEngagedSuggestions = self->_numEngagedSuggestions;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -360,7 +356,6 @@ LABEL_6:
   }
 
 LABEL_18:
-  numRejectedSuggestions = self->_numRejectedSuggestions;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -375,7 +370,6 @@ LABEL_7:
   }
 
 LABEL_19:
-  numAbandonedSuggestions = self->_numAbandonedSuggestions;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -390,7 +384,6 @@ LABEL_8:
   }
 
 LABEL_20:
-  isComplete = self->_isComplete;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -405,12 +398,10 @@ LABEL_9:
   }
 
 LABEL_21:
-  startDateOfFirstSessionInSeconds = self->_startDateOfFirstSessionInSeconds;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_10:
-    endDateOfLastSessionInSeconds = self->_endDateOfLastSessionInSeconds;
     PBDataWriterWriteDoubleField();
   }
 
@@ -770,7 +761,7 @@ LABEL_10:
     }
 
 LABEL_48:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_49;
   }
 
@@ -779,7 +770,6 @@ LABEL_48:
     goto LABEL_48;
   }
 
-  v7 = *(equalCopy + 72);
   if (self->_isComplete)
   {
     if ((*(equalCopy + 72) & 1) == 0)
@@ -807,7 +797,7 @@ LABEL_34:
     goto LABEL_48;
   }
 
-  v8 = (v6 & 1) == 0;
+  v7 = (v6 & 1) == 0;
   if (has)
   {
     if ((v6 & 1) == 0 || self->_endDateOfLastSessionInSeconds != *(equalCopy + 1))
@@ -815,12 +805,12 @@ LABEL_34:
       goto LABEL_48;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_49:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

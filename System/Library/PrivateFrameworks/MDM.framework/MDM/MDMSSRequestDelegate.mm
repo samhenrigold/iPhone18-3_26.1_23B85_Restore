@@ -63,20 +63,19 @@
   _performBlockOnMainThread(v8);
 }
 
-void __54__MDMSSRequestDelegate__startTimeout_completionBlock___block_invoke(uint64_t a1)
+void __54__MDMSSRequestDelegate__startTimeout_completionBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = *DMCLogObjects();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = *DMCLogObjects();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
+    v4 = v3;
     v5 = objc_opt_class();
     v6 = *(a1 + 48);
     *buf = 138543618;
-    v17 = v5;
-    v18 = 2048;
-    v19 = v6;
+    v16 = v5;
+    v17 = 2048;
+    v18 = v6;
     v7 = v5;
     _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Request starting. Timeout: %.1f seconds", buf, 0x16u);
   }
@@ -90,7 +89,7 @@ void __54__MDMSSRequestDelegate__startTimeout_completionBlock___block_invoke(uin
   aBlock[1] = 3221225472;
   aBlock[2] = __54__MDMSSRequestDelegate__startTimeout_completionBlock___block_invoke_2;
   aBlock[3] = &unk_27982BD00;
-  v15 = *(a1 + 40);
+  v14 = *(a1 + 40);
   v8 = _Block_copy(aBlock);
   v9 = *(a1 + 32);
   v10 = *(v9 + 16);
@@ -101,7 +100,6 @@ void __54__MDMSSRequestDelegate__startTimeout_completionBlock___block_invoke(uin
   [v11 setFireDate:v12];
 
   [*(*(a1 + 32) + 8) start];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__MDMSSRequestDelegate__startTimeout_completionBlock___block_invoke_2(uint64_t a1)
@@ -125,18 +123,17 @@ uint64_t __54__MDMSSRequestDelegate__startTimeout_completionBlock___block_invoke
   _performBlockOnMainThread(v2);
 }
 
-uint64_t __30__MDMSSRequestDelegate_cancel__block_invoke(uint64_t a1)
+uint64_t __30__MDMSSRequestDelegate_cancel__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = *DMCLogObjects();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = *DMCLogObjects();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v11 = 138543362;
-    v12 = objc_opt_class();
-    v5 = v12;
-    _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Canceling request...", &v11, 0xCu);
+    v4 = v3;
+    v10 = 138543362;
+    v11 = objc_opt_class();
+    v5 = v11;
+    _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Canceling request...", &v10, 0xCu);
   }
 
   v6 = *(a1 + 32);
@@ -149,24 +146,22 @@ uint64_t __30__MDMSSRequestDelegate_cancel__block_invoke(uint64_t a1)
   v8 = [MEMORY[0x277CBEAA8] distantFuture];
   [v7 setFireDate:v8];
 
-  result = [*(*(a1 + 32) + 8) cancel];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 8) cancel];
 }
 
 - (void)request:(id)request didFailWithError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = *DMCLogObjects();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     *buf = 138543618;
-    v19 = objc_opt_class();
-    v20 = 2114;
-    v21 = errorCopy;
-    v8 = v19;
+    v18 = objc_opt_class();
+    v19 = 2114;
+    v20 = errorCopy;
+    v8 = v18;
     _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Request failed. Error: %{public}@", buf, 0x16u);
   }
 
@@ -181,28 +176,26 @@ uint64_t __30__MDMSSRequestDelegate_cancel__block_invoke(uint64_t a1)
   if (v11)
   {
     v13 = dispatch_get_global_queue(0, 0);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __49__MDMSSRequestDelegate_request_didFailWithError___block_invoke;
-    v15[3] = &unk_27982B898;
-    v17 = v11;
-    v16 = errorCopy;
-    dispatch_async(v13, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __49__MDMSSRequestDelegate_request_didFailWithError___block_invoke;
+    v14[3] = &unk_27982B898;
+    v16 = v11;
+    v15 = errorCopy;
+    dispatch_async(v13, v14);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestDidFinish:(id)finish
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *DMCLogObjects();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
     *buf = 138543362;
-    v16 = objc_opt_class();
-    v6 = v16;
+    v15 = objc_opt_class();
+    v6 = v15;
     _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Request completed.", buf, 0xCu);
   }
 
@@ -221,23 +214,21 @@ uint64_t __30__MDMSSRequestDelegate_cancel__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __41__MDMSSRequestDelegate_requestDidFinish___block_invoke;
     block[3] = &unk_27982CC88;
-    v14 = v9;
+    v13 = v9;
     dispatch_async(v11, block);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_timerDidFire:(id)fire
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *DMCLogObjects();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = v4;
     *buf = 138543362;
-    v19 = objc_opt_class();
-    v6 = v19;
+    v18 = objc_opt_class();
+    v6 = v18;
     _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Request timed out. Canceling.", buf, 0xCu);
   }
 
@@ -258,12 +249,10 @@ uint64_t __30__MDMSSRequestDelegate_cancel__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __38__MDMSSRequestDelegate__timerDidFire___block_invoke;
     block[3] = &unk_27982B898;
-    v17 = v7;
-    v16 = v12;
+    v16 = v7;
+    v15 = v12;
     dispatch_async(v13, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

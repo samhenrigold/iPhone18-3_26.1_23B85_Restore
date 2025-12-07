@@ -26,19 +26,19 @@
 
 - (NSString)path
 {
-  v15 = 0;
-  v3 = [(OBPrivacyBundleProvider *)self _bundleRecordWithError:&v15];
-  v4 = v15;
+  v16 = 0;
+  v3 = [(OBPrivacyBundleProvider *)self _bundleRecordWithError:&v16];
+  v4 = v16;
   v5 = v4;
   if (!v3 || v4)
   {
-    v8 = _OBLoggingFacility();
+    v8 = _OBLoggingFacility(v4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(OBPrivacyBundleProvider *)self path];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   else
@@ -53,22 +53,22 @@
       stringByDeletingPathExtension = [privacyBundleName stringByDeletingPathExtension];
       privacyBundleName2 = [(OBPrivacyBundleProvider *)self privacyBundleName];
       pathExtension = [privacyBundleName2 pathExtension];
-      v13 = [v8 pathForResource:stringByDeletingPathExtension ofType:pathExtension inDirectory:0 forLocalization:0];
+      v14 = [v8 pathForResource:stringByDeletingPathExtension ofType:pathExtension inDirectory:0 forLocalization:0];
     }
 
     else
     {
-      privacyBundleName = _OBLoggingFacility();
+      privacyBundleName = _OBLoggingFacility(v9);
       if (os_log_type_enabled(privacyBundleName, OS_LOG_TYPE_ERROR))
       {
         [(OBPrivacyBundleProvider *)self path];
       }
 
-      v13 = 0;
+      v14 = 0;
     }
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)_bundleRecordWithError:(id *)error
@@ -82,7 +82,7 @@
 
 - (void)path
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   enclosingBundleIdentifier = [self enclosingBundleIdentifier];
   has_internal_ui = os_variant_has_internal_ui();
   if ((has_internal_ui & 1) == 0)
@@ -93,15 +93,13 @@
   }
 
   *buf = 138543618;
-  v11 = enclosingBundleIdentifier;
-  v12 = 2114;
-  v13 = a2;
+  v10 = enclosingBundleIdentifier;
+  v11 = 2114;
+  v12 = a2;
   _os_log_error_impl(&dword_1B4FB6000, a3, OS_LOG_TYPE_ERROR, "Failed to create bundle record for %{public}@ error %{public}@", buf, 0x16u);
   if (!has_internal_ui)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -89,19 +89,20 @@ void __35__SUAnalyticsManager_sharedManager__block_invoke()
 
   else
   {
-    v11 = 0;
-    [v0 createDirectoryAtPath:@"/var/MobileSoftwareUpdate/Controller/SUCoreAnalytics/" withIntermediateDirectories:1 attributes:0 error:&v11];
-    v1 = v11;
-    if (v1)
+    v12 = 0;
+    [v0 createDirectoryAtPath:@"/var/MobileSoftwareUpdate/Controller/SUCoreAnalytics/" withIntermediateDirectories:1 attributes:0 error:&v12];
+    v2 = v12;
+    v1 = v2;
+    if (v2)
     {
-      v2 = SULogAnalytics();
-      SULogErrorForSubsystem(v2, @"Failed to create directory %@ for SUCoreAnalytics: %@", v3, v4, v5, v6, v7, v8, @"/var/MobileSoftwareUpdate/Controller/SUCoreAnalytics/");
+      v3 = SULogAnalytics(v2);
+      SULogErrorForSubsystem(v3, @"Failed to create directory %@ for SUCoreAnalytics: %@", v4, v5, v6, v7, v8, v9, @"/var/MobileSoftwareUpdate/Controller/SUCoreAnalytics/");
     }
   }
 
-  v9 = objc_alloc_init(SUAnalyticsManager);
-  v10 = sharedManager___manager;
-  sharedManager___manager = v9;
+  v10 = objc_alloc_init(SUAnalyticsManager);
+  v11 = sharedManager___manager;
+  sharedManager___manager = v10;
 }
 
 + (id)sharedManagerWithPath:(id)path
@@ -142,19 +143,20 @@ void __44__SUAnalyticsManager_sharedManagerWithPath___block_invoke(uint64_t a1)
 
   else
   {
-    v15 = 0;
-    [v4 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v15];
-    v5 = v15;
-    if (v5)
+    v16 = 0;
+    [v4 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v16];
+    v6 = v16;
+    v5 = v6;
+    if (v6)
     {
-      v6 = SULogAnalytics();
-      SULogErrorForSubsystem(v6, @"Failed to create directory %@ for SUCoreAnalytics: %@", v7, v8, v9, v10, v11, v12, v3);
+      v7 = SULogAnalytics(v6);
+      SULogErrorForSubsystem(v7, @"Failed to create directory %@ for SUCoreAnalytics: %@", v8, v9, v10, v11, v12, v13, v3);
     }
   }
 
-  v13 = [[SUAnalyticsManager alloc] initWithPath:*(a1 + 32)];
-  v14 = sharedManagerWithPath____manager;
-  sharedManagerWithPath____manager = v13;
+  v14 = [[SUAnalyticsManager alloc] initWithPath:*(a1 + 32)];
+  v15 = sharedManagerWithPath____manager;
+  sharedManagerWithPath____manager = v14;
 }
 
 - (id)copyEventFromPath:(id)path
@@ -175,14 +177,7 @@ void __44__SUAnalyticsManager_sharedManagerWithPath___block_invoke(uint64_t a1)
     v8 = 0;
   }
 
-  if (!v8)
-  {
-    goto LABEL_13;
-  }
-
-  v9 = *MEMORY[0x277CCA1E0];
-  v10 = [v5 objectForKeyedSubscript:*MEMORY[0x277CCA1E0]];
-  if (!v10 || (v11 = v10, [v5 objectForKeyedSubscript:v9], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", *MEMORY[0x277CCA1F0]), v12, v11, (v13 & 1) != 0))
+  if (v8 && ((v9 = *MEMORY[0x277CCA1E0], [v5 objectForKeyedSubscript:*MEMORY[0x277CCA1E0]], (v10 = objc_claimAutoreleasedReturnValue()) == 0) || (v11 = v10, objc_msgSend(v5, "objectForKeyedSubscript:", v9), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", *MEMORY[0x277CCA1F0]), v12, v11, (v13 & 1) != 0)))
   {
     v41 = 0;
     v14 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:0 error:&v41];
@@ -190,7 +185,7 @@ void __44__SUAnalyticsManager_sharedManagerWithPath___block_invoke(uint64_t a1)
     v7 = v15;
     if (!v14 || v15)
     {
-      v18 = SULogAnalytics();
+      v18 = SULogAnalytics(v15);
       SULogErrorForSubsystem(v18, @"Failed to read contents of event file: %@ (%@)", v26, v27, v28, v29, v30, v31, pathCopy);
       v19 = 0;
     }
@@ -203,7 +198,7 @@ void __44__SUAnalyticsManager_sharedManagerWithPath___block_invoke(uint64_t a1)
       v18 = v17;
       if (!v16 || v17)
       {
-        v32 = SULogAnalytics();
+        v32 = SULogAnalytics(v17);
         SULogErrorForSubsystem(v32, @"Invalid event data for :%@ (%@)", v33, v34, v35, v36, v37, v38, pathCopy);
 
         v19 = 0;
@@ -218,8 +213,7 @@ void __44__SUAnalyticsManager_sharedManagerWithPath___block_invoke(uint64_t a1)
 
   else
   {
-LABEL_13:
-    v14 = SULogAnalytics();
+    v14 = SULogAnalytics(v6);
     SULogErrorForSubsystem(v14, @"Invalid file type found for even at path: %@ [%@] (skipping)", v20, v21, v22, v23, v24, v25, pathCopy);
     v19 = 0;
   }
@@ -255,20 +249,20 @@ void __38__SUAnalyticsManager_saveEventToDisk___block_invoke(uint64_t a1)
 {
   if (!*(*(a1 + 32) + 24))
   {
-    v31 = SULogAnalytics();
-    v38 = v31;
-    v39 = @"Save called on object with no path specified";
+    v32 = SULogAnalytics(a1);
+    v39 = v32;
+    v40 = @"Save called on object with no path specified";
     goto LABEL_9;
   }
 
   v2 = [*(a1 + 40) eventUUID];
   if (!v2 || (v3 = v2, [*(a1 + 40) eventName], v4 = objc_claimAutoreleasedReturnValue(), v4, v3, !v4))
   {
-    v31 = SULogAnalytics();
-    v38 = v31;
-    v39 = @"Invalid event passed to saveEvent.Skipping";
+    v32 = SULogAnalytics(v2);
+    v39 = v32;
+    v40 = @"Invalid event passed to saveEvent.Skipping";
 LABEL_9:
-    SULogErrorForSubsystem(v31, v39, v32, v33, v34, v35, v36, v37, v49);
+    SULogErrorForSubsystem(v32, v40, v33, v34, v35, v36, v37, v38, v50);
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
     return;
@@ -285,34 +279,35 @@ LABEL_9:
   v11 = [v8 stringWithFormat:@"%@_%@_%@%s", v7, v9, v10, ".suanalytics"];
 
   v12 = [*(*(a1 + 32) + 24) stringByAppendingPathComponent:v11];
-  v13 = SULogAnalytics();
+  v13 = SULogAnalytics(v12);
   v14 = [*(a1 + 40) eventName];
-  v51 = [*(a1 + 40) eventUUID];
+  v52 = [*(a1 + 40) eventUUID];
   SULogInfoForSubsystem(v13, @"Saving event %@:%@ to %@", v15, v16, v17, v18, v19, v20, v14);
 
   v21 = *(a1 + 40);
-  v52 = 0;
-  v22 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v21 requiringSecureCoding:1 error:&v52];
-  v23 = v52;
-  if (v22 && ([v22 writeToFile:v12 atomically:1] & 1) != 0)
+  v53 = 0;
+  v22 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v21 requiringSecureCoding:1 error:&v53];
+  v23 = v53;
+  v24 = v23;
+  if (v22 && (v23 = [v22 writeToFile:v12 atomically:1], (v23 & 1) != 0))
   {
-    v24 = SULogAnalytics();
-    SULogInfoForSubsystem(v24, @"Successfully saved event", v25, v26, v27, v28, v29, v30, v50);
+    v25 = SULogAnalytics(v23);
+    SULogInfoForSubsystem(v25, @"Successfully saved event", v26, v27, v28, v29, v30, v31, v51);
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
   else
   {
-    v40 = SULogAnalytics();
-    v47 = v40;
-    v48 = @"Unknown Archiver Error";
-    if (v23)
+    v41 = SULogAnalytics(v23);
+    v48 = v41;
+    v49 = @"Unknown Archiver Error";
+    if (v24)
     {
-      v48 = v23;
+      v49 = v24;
     }
 
-    SULogErrorForSubsystem(v40, @"Unable to save SU coreanalytics event(%@)", v41, v42, v43, v44, v45, v46, v48);
+    SULogErrorForSubsystem(v41, @"Unable to save SU coreanalytics event(%@)", v42, v43, v44, v45, v46, v47, v49);
   }
 }
 
@@ -416,21 +411,20 @@ void __34__SUAnalyticsManager_removeEvent___block_invoke(uint64_t a1)
     v34 = 0;
     v20 = [v2 removeItemAtPath:v6 error:&v34];
     v21 = v34;
+    v22 = v21;
     if ((v20 & 1) == 0)
     {
-      v22 = SULogAnalytics();
-      v23 = [*(a1 + 40) eventName];
-      v24 = [*(a1 + 40) eventUUID];
-      SULogErrorForSubsystem(v22, @"Unable to remove event %@ : %@ : %@", v25, v26, v27, v28, v29, v30, v23);
+      v23 = SULogAnalytics(v21);
+      v24 = [*(a1 + 40) eventName];
+      v25 = [*(a1 + 40) eventUUID];
+      SULogErrorForSubsystem(v23, @"Unable to remove event %@ : %@ : %@", v26, v27, v28, v29, v30, v31, v24);
     }
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeEventsWithName:(id)name
@@ -450,32 +444,32 @@ void __34__SUAnalyticsManager_removeEvent___block_invoke(uint64_t a1)
 
 void __43__SUAnalyticsManager_removeEventsWithName___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 32) savePath];
-  v27 = v2;
+  v26 = v2;
   v4 = [v2 enumeratorAtPath:v3];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         if ([v10 hasSuffix:@".suanalytics"])
         {
           v11 = [*(a1 + 32) savePath];
@@ -490,10 +484,10 @@ void __43__SUAnalyticsManager_removeEventsWithName___block_invoke(uint64_t a1)
 
             if (v16)
             {
-              v28 = 0;
-              [v27 removeItemAtPath:v12 error:&v28];
-              v17 = v28;
-              v18 = SULogAnalytics();
+              v27 = 0;
+              [v26 removeItemAtPath:v12 error:&v27];
+              v17 = v27;
+              v18 = SULogAnalytics(v17);
               v25 = v18;
               if (v17)
               {
@@ -511,13 +505,11 @@ void __43__SUAnalyticsManager_removeEventsWithName___block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v7);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllEvents
@@ -534,42 +526,42 @@ void __43__SUAnalyticsManager_removeEventsWithName___block_invoke(uint64_t a1)
 
 void __37__SUAnalyticsManager_removeAllEvents__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = a1;
   v4 = [*(a1 + 32) savePath];
-  v25 = v2;
+  v24 = v2;
   v5 = [v2 enumeratorAtPath:v4];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         if ([v11 hasSuffix:@".suanalytics"])
         {
           v12 = [*(v3 + 32) savePath];
           v13 = [v12 stringByAppendingPathComponent:v11];
 
-          v26 = 0;
-          v14 = [v25 removeItemAtPath:v13 error:&v26];
-          v15 = v26;
-          v16 = SULogAnalytics();
+          v25 = 0;
+          v14 = [v24 removeItemAtPath:v13 error:&v25];
+          v15 = v25;
+          v16 = SULogAnalytics(v15);
           v23 = v16;
           if (v14)
           {
@@ -583,13 +575,11 @@ void __37__SUAnalyticsManager_removeAllEvents__block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)submitEvent:(id)event
@@ -618,33 +608,33 @@ void __37__SUAnalyticsManager_removeAllEvents__block_invoke(uint64_t a1)
 
 void __34__SUAnalyticsManager_submitEvent___block_invoke(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = objc_alloc_init(MEMORY[0x277CCACA8]);
   v4 = [*(a1 + 32) savePath];
-  v53 = v2;
+  v55 = v2;
   v5 = [v2 enumeratorAtPath:v4];
 
+  v60 = 0u;
+  v61 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v6 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v57;
+    v8 = *v59;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v57 != v8)
+        if (*v59 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v56 + 1) + 8 * i);
+        v10 = *(*(&v58 + 1) + 8 * i);
         v11 = MEMORY[0x277CCACA8];
         v12 = [*(a1 + 40) eventName];
         v13 = [*(a1 + 40) eventUUID];
@@ -659,67 +649,68 @@ void __34__SUAnalyticsManager_submitEvent___block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v7 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
     }
 
     while (v7);
   }
 
   v17 = v3;
-  if (![v53 fileExistsAtPath:v3])
+  v18 = [v55 fileExistsAtPath:v3];
+  if (!v18)
   {
-    v18 = SULogAnalytics();
-    v28 = [*(a1 + 40) eventName];
-    v51 = [*(a1 + 40) eventUUID];
-    SULogErrorForSubsystem(v18, @"Event %@ with uuid %@ does not exist", v29, v30, v31, v32, v33, v34, v28);
+    v19 = SULogAnalytics(v18);
+    v30 = [*(a1 + 40) eventName];
+    v53 = [*(a1 + 40) eventUUID];
+    SULogErrorForSubsystem(v19, @"Event %@ with uuid %@ does not exist", v31, v32, v33, v34, v35, v36, v30);
 
-    v35 = 0;
+    v37 = 0;
 LABEL_19:
 
     goto LABEL_20;
   }
 
-  v18 = [*(a1 + 32) copyEventFromPath:v3];
-  if (v18)
+  v19 = [*(a1 + 32) copyEventFromPath:v3];
+  if (v19)
   {
-    [*(a1 + 32) _queue_setEvent:v18];
-    v19 = [*(a1 + 32) _queue_submitEvent:v18];
-    v20 = SULogAnalytics();
-    v27 = v20;
-    if (v19)
+    [*(a1 + 32) _queue_setEvent:v19];
+    v20 = [*(a1 + 32) _queue_submitEvent:v19];
+    v21 = v20;
+    v22 = SULogAnalytics(v20);
+    v29 = v22;
+    if (v21)
     {
-      SULogInfoForSubsystem(v20, @"Submitted event %@\n", v21, v22, v23, v24, v25, v26, v18);
+      SULogInfoForSubsystem(v22, @"Submitted event %@\n", v23, v24, v25, v26, v27, v28, v19);
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
     }
 
     else
     {
-      SULogErrorForSubsystem(v20, @"Failed to submit event %@\n", v21, v22, v23, v24, v25, v26, v18);
+      SULogErrorForSubsystem(v22, @"Failed to submit event %@\n", v23, v24, v25, v26, v27, v28, v19);
     }
   }
 
   else
   {
-    v36 = SULogAnalytics();
-    v37 = [*(a1 + 40) eventName];
-    v52 = [*(a1 + 40) eventUUID];
-    SULogErrorForSubsystem(v36, @"Unable to find/reconstruct stashed event for event %@ with uuid %@", v38, v39, v40, v41, v42, v43, v37);
+    v38 = SULogAnalytics(0);
+    v39 = [*(a1 + 40) eventName];
+    v54 = [*(a1 + 40) eventUUID];
+    SULogErrorForSubsystem(v38, @"Unable to find/reconstruct stashed event for event %@ with uuid %@", v40, v41, v42, v43, v44, v45, v39);
   }
 
-  v55 = 0;
-  [v53 removeItemAtPath:v17 error:&v55];
-  v35 = v55;
-  if (v35)
+  v57 = 0;
+  [v55 removeItemAtPath:v17 error:&v57];
+  v46 = v57;
+  v37 = v46;
+  if (v46)
   {
-    v28 = SULogAnalytics();
-    SULogErrorForSubsystem(v28, @"Failed to remove event file after event submission %@: %@", v44, v45, v46, v47, v48, v49, v17);
+    v30 = SULogAnalytics(v46);
+    SULogErrorForSubsystem(v30, @"Failed to remove event file after event submission %@: %@", v47, v48, v49, v50, v51, v52, v17);
     goto LABEL_19;
   }
 
 LABEL_20:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)submitEventsWithName:(id)name
@@ -748,108 +739,105 @@ LABEL_20:
 
 void __43__SUAnalyticsManager_submitEventsWithName___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 32))
+  v49 = *MEMORY[0x277D85DE8];
+  if (!*(a1 + 32))
   {
-    v2 = [MEMORY[0x277CCAA00] defaultManager];
-    v3 = [*(a1 + 40) savePath];
-    v40 = v2;
-    v4 = [v2 enumeratorAtPath:v3];
+    v33 = SULogAnalytics(a1);
+    SULogErrorForSubsystem(v33, @"Invalid event name passed to submitEventWithName", v34, v35, v36, v37, v38, v39, v40);
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (!v6)
-    {
-      v41 = 0;
-      goto LABEL_22;
-    }
+    *(*(*(a1 + 48) + 8) + 24) = 0;
+    return;
+  }
 
-    v7 = v6;
-    v41 = 0;
-    v8 = *v44;
-    while (1)
+  v2 = [MEMORY[0x277CCAA00] defaultManager];
+  v3 = [*(a1 + 40) savePath];
+  v41 = v2;
+  v4 = [v2 enumeratorAtPath:v3];
+
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v5 = v4;
+  v6 = [v5 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (!v6)
+  {
+    v42 = 0;
+    goto LABEL_22;
+  }
+
+  v7 = v6;
+  v42 = 0;
+  v8 = *v45;
+  do
+  {
+    v9 = 0;
+    do
     {
-      v9 = 0;
-      do
+      if (*v45 != v8)
       {
-        if (*v44 != v8)
+        objc_enumerationMutation(v5);
+      }
+
+      v10 = *(*(&v44 + 1) + 8 * v9);
+      v11 = [*(*(a1 + 40) + 24) stringByAppendingPathComponent:v10];
+      if ([v10 hasSuffix:@".suanalytics"])
+      {
+        v12 = [*(a1 + 40) copyEventFromPath:v11];
+        v13 = v12;
+        if (!v12)
         {
-          objc_enumerationMutation(v5);
+          goto LABEL_14;
         }
 
-        v10 = *(*(&v43 + 1) + 8 * v9);
-        v11 = [*(*(a1 + 40) + 24) stringByAppendingPathComponent:v10];
-        if ([v10 hasSuffix:@".suanalytics"])
+        v14 = [v12 eventName];
+        v15 = [v14 isEqualToString:*(a1 + 32)];
+
+        if (!v15)
         {
-          v12 = [*(a1 + 40) copyEventFromPath:v11];
-          v13 = v12;
-          if (!v12)
-          {
-            goto LABEL_14;
-          }
+          goto LABEL_14;
+        }
 
-          v14 = [v12 eventName];
-          v15 = [v14 isEqualToString:*(a1 + 32)];
+        [*(a1 + 40) _queue_setEvent:v13];
+        v16 = [*(a1 + 40) _queue_submitEvent:v13];
+        if ((v16 & 1) == 0)
+        {
+          v25 = SULogAnalytics(v16);
+          SULogErrorForSubsystem(v25, @"Failed to submit event %@\n", v26, v27, v28, v29, v30, v31, v13);
 
-          if (!v15)
-          {
-            goto LABEL_14;
-          }
+          *(*(*(a1 + 48) + 8) + 24) = 0;
+          goto LABEL_14;
+        }
 
-          [*(a1 + 40) _queue_setEvent:v13];
-          if (([*(a1 + 40) _queue_submitEvent:v13] & 1) == 0)
-          {
-            v23 = SULogAnalytics();
-            SULogErrorForSubsystem(v23, @"Failed to submit event %@\n", v24, v25, v26, v27, v28, v29, v13);
+        v43 = v42;
+        [v41 removeItemAtPath:v11 error:&v43];
+        v17 = v43;
 
-            *(*(*(a1 + 48) + 8) + 24) = 0;
-            goto LABEL_14;
-          }
-
-          v42 = v41;
-          [v40 removeItemAtPath:v11 error:&v42];
-          v16 = v42;
-
-          if (v16)
-          {
-            v13 = SULogAnalytics();
-            SULogErrorForSubsystem(v13, @"Failed to remove event file %@: %@", v17, v18, v19, v20, v21, v22, v11);
-            v41 = v16;
+        if (v17)
+        {
+          v13 = SULogAnalytics(v18);
+          SULogErrorForSubsystem(v13, @"Failed to remove event file %@: %@", v19, v20, v21, v22, v23, v24, v11);
+          v42 = v17;
 LABEL_14:
 
-            goto LABEL_15;
-          }
-
-          v41 = 0;
+          goto LABEL_15;
         }
+
+        v42 = 0;
+      }
 
 LABEL_15:
 
-        ++v9;
-      }
-
-      while (v7 != v9);
-      v30 = [v5 countByEnumeratingWithState:&v43 objects:v47 count:16];
-      v7 = v30;
-      if (!v30)
-      {
-LABEL_22:
-
-        goto LABEL_23;
-      }
+      ++v9;
     }
+
+    while (v7 != v9);
+    v32 = [v5 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v7 = v32;
   }
 
-  v31 = SULogAnalytics();
-  SULogErrorForSubsystem(v31, @"Invalid event name passed to submitEventWithName", v32, v33, v34, v35, v36, v37, v39);
-
-  *(*(*(a1 + 48) + 8) + 24) = 0;
-LABEL_23:
-  v38 = *MEMORY[0x277D85DE8];
+  while (v32);
+LABEL_22:
 }
 
 - (BOOL)submitAllEvents
@@ -875,32 +863,32 @@ LABEL_23:
 
 void __37__SUAnalyticsManager_submitAllEvents__block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 32) savePath];
-  v38 = v2;
+  v37 = v2;
   v4 = [v2 enumeratorAtPath:v3];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v42;
+    v8 = *v41;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v42 != v8)
+        if (*v41 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * i);
+        v10 = *(*(&v40 + 1) + 8 * i);
         if ([v10 hasSuffix:@".suanalytics"])
         {
           v11 = [*(a1 + 32) savePath];
@@ -910,13 +898,13 @@ void __37__SUAnalyticsManager_submitAllEvents__block_invoke(uint64_t a1)
           if (v13)
           {
             [*(a1 + 32) _queue_setEvent:v13];
-            v39 = 0;
-            [v38 removeItemAtPath:v12 error:&v39];
-            v14 = v39;
+            v38 = 0;
+            [v37 removeItemAtPath:v12 error:&v38];
+            v14 = v38;
             if (v14)
             {
               v15 = v14;
-              v16 = SULogAnalytics();
+              v16 = SULogAnalytics(v14);
               SULogErrorForSubsystem(v16, @"Failed to remove event file after event submission %@: %@", v17, v18, v19, v20, v21, v22, v12);
               goto LABEL_12;
             }
@@ -924,16 +912,16 @@ void __37__SUAnalyticsManager_submitAllEvents__block_invoke(uint64_t a1)
 
           else
           {
-            v23 = SULogAnalytics();
+            v23 = SULogAnalytics(0);
             SULogErrorForSubsystem(v23, @"Unable to read event at %@ for submission..Removing and moving on", v24, v25, v26, v27, v28, v29, v12);
 
-            v40 = 0;
-            [v38 removeItemAtPath:v12 error:&v40];
-            v30 = v40;
+            v39 = 0;
+            [v37 removeItemAtPath:v12 error:&v39];
+            v30 = v39;
             if (v30)
             {
               v15 = v30;
-              v16 = SULogAnalytics();
+              v16 = SULogAnalytics(v30);
               SULogErrorForSubsystem(v16, @"Failed to remove event file %@: %@", v31, v32, v33, v34, v35, v36, v12);
 LABEL_12:
             }
@@ -943,14 +931,13 @@ LABEL_12:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v7);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = [*(a1 + 32) _queue_submitAllEvents];
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)events
@@ -983,7 +970,7 @@ uint64_t __28__SUAnalyticsManager_events__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)_queue_setEvent:(id)event
@@ -1019,7 +1006,7 @@ uint64_t __28__SUAnalyticsManager_events__block_invoke(uint64_t a1)
 
 - (id)coreAnalyticEventforSUAnalyticEvent:(id)event
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = objc_alloc(MEMORY[0x277D64158]);
   eventName = [eventCopy eventName];
@@ -1028,38 +1015,36 @@ uint64_t __28__SUAnalyticsManager_events__block_invoke(uint64_t a1)
   eventUUID = [eventCopy eventUUID];
   [v6 setEventUUID:eventUUID];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   eventPayload = [eventCopy eventPayload];
-  v9 = [eventPayload countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [eventPayload countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(eventPayload);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         eventPayload2 = [eventCopy eventPayload];
         v15 = [eventPayload2 objectForKey:v13];
         [v6 setEventPayloadEntry:v13 value:v15];
       }
 
-      v10 = [eventPayload countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [eventPayload countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -85,7 +85,7 @@
       v20 = parent2;
       if (parent2)
       {
-        [parent2 transformInRoot];
+        objc_msgSend_transformInRoot(parent2);
       }
 
       else
@@ -286,7 +286,7 @@ LABEL_25:
     v15 = parent2;
     if (parent2)
     {
-      [parent2 transformInRoot];
+      objc_msgSend_transformInRoot(parent2);
     }
 
     else
@@ -512,7 +512,7 @@ LABEL_25:
     {
       v12 = v8;
       v13 = v7;
-      [originalGeometry transform];
+      objc_msgSend_transform(originalGeometry);
       v8 = v12;
       v7 = v13;
       v10 = v14;
@@ -559,7 +559,7 @@ LABEL_25:
     v10 = geometry;
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else
@@ -577,7 +577,7 @@ LABEL_25:
     v16 = layout3;
     if (layout3)
     {
-      [layout3 transformInRoot];
+      objc_msgSend_transformInRoot(layout3);
       goto LABEL_12;
     }
 
@@ -597,7 +597,7 @@ LABEL_13:
   v7 = originalGeometry2;
   if (originalGeometry2)
   {
-    [originalGeometry2 transform];
+    objc_msgSend_transform(originalGeometry2);
   }
 
   else
@@ -618,7 +618,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  [layout5 originalTransformInRoot];
+  objc_msgSend_originalTransformInRoot(layout5);
 LABEL_12:
   b = v30.b;
   a = v30.a;
@@ -651,7 +651,7 @@ LABEL_14:
     v9 = layout2;
     if (layout2)
     {
-      [layout2 originalTransformInRoot];
+      objc_msgSend_originalTransformInRoot(layout2);
     }
 
     else
@@ -674,7 +674,7 @@ LABEL_14:
     v11 = layout4;
     if (layout4)
     {
-      [layout4 transformInRoot];
+      objc_msgSend_transformInRoot(layout4);
     }
 
     else
@@ -693,7 +693,7 @@ LABEL_14:
   v14 = originalGeometry2;
   if (originalGeometry2)
   {
-    [originalGeometry2 transform];
+    objc_msgSend_transform(originalGeometry2);
     v15 = *&v20.a;
     v16 = *&v20.c;
     v17 = *&v20.tx;
@@ -741,15 +741,15 @@ LABEL_14:
       v17 = v16;
       [(CRLCanvasRep *)self->mRep unscaledGuidePosition];
       [interactiveCanvasController convertUnscaledToBoundsPoint:?];
-      v26 = 0.0;
       v27 = 0.0;
+      v28 = 0.0;
       v20 = sub_100120090(v18, v19, v15, v17);
-      sub_100120F28(&v26, v20 + 25.0, (angle + 90.0) * -0.0174532925);
-      v21 = sub_10011F334(v26, v27, v15);
-      v23 = sub_100122154(v21, v22);
-      v25 = v24;
+      sub_100120F28(&v27, v20 + 25.0, (angle + 90.0) * -0.0174532925);
+      v21 = sub_10011F334(v27, v28, v15);
+      v24 = sub_100122154(v22, v21, v23);
+      v26 = v25;
       canvasView = [interactiveCanvasController canvasView];
-      [v6 showHUDForKey:self forTouchPoint:canvasView inCanvasView:v23 withUpwardsNudge:{v25, 0.0}];
+      [v6 showHUDForKey:self forTouchPoint:canvasView inCanvasView:v24 withUpwardsNudge:{v26, 0.0}];
     }
   }
 }
@@ -838,9 +838,9 @@ LABEL_14:
     v13 = self->mGuideRenderable;
     self->mGuideRenderable = v12;
 
-    v14 = sub_1000CCEA0(0.933000028, 0.791999996, 0.0, 1.0);
-    [(CRLCanvasShapeRenderable *)self->mGuideRenderable setStrokeColor:v14];
-    CGColorRelease(v14);
+    v16 = sub_1000CCEA0(v14, v15, 0.933000028, 0.791999996, 0.0, 1.0);
+    [(CRLCanvasShapeRenderable *)self->mGuideRenderable setStrokeColor:v16];
+    CGColorRelease(v16);
     [(CRLCanvasShapeRenderable *)self->mGuideRenderable setFillColor:0];
     [(CRLCanvasShapeRenderable *)self->mGuideRenderable setLineWidth:1.0 / v11];
     [(CRLCanvasRenderable *)self->mGuideRenderable setZPosition:-1.0];
@@ -849,40 +849,40 @@ LABEL_14:
     [(CRLCanvasRenderable *)self->mGuideRenderable setEdgeAntialiasingMask:0];
     Mutable = CGPathCreateMutable();
     [(CRLCanvasRepRotateTracker *)self p_scaledCenterForRotation];
-    v17 = floor(v16);
     v19 = floor(v18);
+    v21 = floor(v20);
     [(CRLCanvasRep *)self->mRep unscaledGuidePosition];
     [interactiveCanvasController convertUnscaledToBoundsPoint:?];
-    v21 = v20;
     v23 = v22;
+    v25 = v24;
     CGPathMoveToPoint(Mutable, 0, 0.0, -10.0);
-    v24 = sub_100120090(v21, v23, v17, v19);
-    CGPathAddLineToPoint(Mutable, 0, 0.0, v24 + 10.0);
-    v28.origin.x = -5.5;
-    v28.origin.y = -5.5;
-    v28.size.width = 11.0;
-    v28.size.height = 11.0;
-    CGPathAddEllipseInRect(Mutable, 0, v28);
+    v26 = sub_100120090(v23, v25, v19, v21);
+    CGPathAddLineToPoint(Mutable, 0, 0.0, v26 + 10.0);
+    v30.origin.x = -5.5;
+    v30.origin.y = -5.5;
+    v30.size.width = 11.0;
+    v30.size.height = 11.0;
+    CGPathAddEllipseInRect(Mutable, 0, v30);
     CGPathMoveToPoint(Mutable, 0, -10.0, 0.0);
     CGPathAddLineToPoint(Mutable, 0, 10.0, 0.0);
     [(CRLCanvasShapeRenderable *)self->mGuideRenderable setPath:Mutable];
     CGPathRelease(Mutable);
-    [(CRLCanvasRenderable *)self->mGuideRenderable setPosition:v17, v19];
+    [(CRLCanvasRenderable *)self->mGuideRenderable setPosition:v19, v21];
     [interactiveCanvasController addDecorator:self];
 
     mGuideRenderable = self->mGuideRenderable;
   }
 
-  CGAffineTransformMakeRotation(&v27, (angle + 180.0) * -0.0174532925);
-  v26 = v27;
-  [(CRLCanvasRenderable *)mGuideRenderable setAffineTransform:&v26];
-  LODWORD(v25) = 1050253722;
+  CGAffineTransformMakeRotation(&v29, (angle + 180.0) * -0.0174532925);
+  v28 = v29;
+  [(CRLCanvasRenderable *)mGuideRenderable setAffineTransform:&v28];
+  LODWORD(v27) = 1050253722;
   if (snapCopy)
   {
-    *&v25 = 1.0;
+    *&v27 = 1.0;
   }
 
-  [(CRLCanvasRenderable *)self->mGuideRenderable setOpacity:v25];
+  [(CRLCanvasRenderable *)self->mGuideRenderable setOpacity:v27];
 }
 
 - (void)p_hideGuideRenderable

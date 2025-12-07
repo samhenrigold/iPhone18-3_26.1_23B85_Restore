@@ -1,197 +1,3 @@
-swift *swift_weakCopyInit(swift *result, void *a2)
-{
-  v2 = *a2 & 0x7FFFFFFFFFFFFFFELL;
-  if (v2)
-  {
-    _X2 = 0;
-    v4 = v2 + 16;
-    _X3 = 0;
-    __asm { CASP            X2, X3, X2, X3, [X9] }
-
-    if ((_X2 & 0x100000000) != 0)
-    {
-      v2 = 0;
-    }
-
-    else
-    {
-      _X2 = 0;
-      _X3 = 0;
-      __asm { CASP            X2, X3, X2, X3, [X9] }
-
-      _X4 = _X2;
-      while (1)
-      {
-        v15 = _X3 | (v4 << 32);
-        _X3 = v15;
-        __asm { CASP            X2, X3, X4, X5, [X9] }
-
-        if (_X2 == _X4)
-        {
-          break;
-        }
-
-        v4 = HIDWORD(v15);
-        _X4 = _X2;
-        if (v15 == -1)
-        {
-          swift::swift_abortWeakRetainOverflow(result, a2, _X2, v15);
-        }
-      }
-    }
-  }
-
-  if (v2)
-  {
-    v17 = v2 | 1;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *result = v17;
-  return result;
-}
-
-void *swift_weakTakeInit(void *result, uint64_t *a2)
-{
-  v2 = *a2;
-  *a2 = 0;
-  *result = v2;
-  return result;
-}
-
-swift *swift::WeakReference::nativeCopyAssign(swift *this, swift::WeakReference *a2)
-{
-  if (this != a2)
-  {
-    v2 = *this;
-    *this = 0;
-    if ((v2 & 0x7FFFFFFFFFFFFFFELL) != 0)
-    {
-      _X10 = 0;
-      _X11 = 0;
-      __asm { CASP            X10, X11, X10, X11, [X9] }
-
-      _X6 = _X10;
-      _X5 = 0;
-      __asm { CASP            X4, X5, X6, X7, [X9] }
-
-      if (_X4 != _X10)
-      {
-        _X2 = _X4;
-        do
-        {
-          _X7 = 0;
-          __asm { CASP            X6, X7, X2, X3, [X9] }
-
-          v16 = _X6 ^ _X2;
-          _X2 = _X6;
-        }
-
-        while (v16);
-      }
-    }
-
-    v17 = *a2 & 0x7FFFFFFFFFFFFFFELL;
-    if (v17)
-    {
-      _X2 = 0;
-      v19 = v17 + 16;
-      _X3 = 0;
-      __asm { CASP            X2, X3, X2, X3, [X9] }
-
-      if ((_X2 & 0x100000000) != 0)
-      {
-        v17 = 0;
-      }
-
-      else
-      {
-        _X2 = 0;
-        _X3 = 0;
-        __asm { CASP            X2, X3, X2, X3, [X9] }
-
-        _X4 = _X2;
-        while (1)
-        {
-          v26 = _X3 | (v19 << 32);
-          _X3 = v26;
-          __asm { CASP            X2, X3, X4, X5, [X9] }
-
-          if (_X2 == _X4)
-          {
-            break;
-          }
-
-          v19 = HIDWORD(v26);
-          _X4 = _X2;
-          if (v26 == -1)
-          {
-            swift::swift_abortWeakRetainOverflow(this, a2, _X2, v26);
-          }
-        }
-      }
-    }
-
-    if (v17)
-    {
-      v28 = v17 | 1;
-    }
-
-    else
-    {
-      v28 = 0;
-    }
-
-    *this = v28;
-  }
-
-  return this;
-}
-
-uint64_t *swift_weakTakeAssign(uint64_t *result, uint64_t *a2)
-{
-  if (result != a2)
-  {
-    v2 = *result;
-    *result = 0;
-    if ((v2 & 0x7FFFFFFFFFFFFFFELL) != 0)
-    {
-      _X10 = 0;
-      _X11 = 0;
-      __asm { CASP            X10, X11, X10, X11, [X9] }
-
-      _X6 = _X10;
-      _X5 = 0;
-      __asm { CASP            X4, X5, X6, X7, [X9] }
-
-      if (_X4 != _X10)
-      {
-        _X2 = _X4;
-        do
-        {
-          _X7 = 0;
-          __asm { CASP            X6, X7, X2, X3, [X9] }
-
-          v16 = _X6 ^ _X2;
-          _X2 = _X6;
-        }
-
-        while (v16);
-      }
-    }
-
-    v17 = *a2;
-    *a2 = 0;
-    *result = v17;
-  }
-
-  return result;
-}
-
 uint64_t swift_initStaticObject::$_0::__invoke(uint64_t this, void *a2)
 {
   v2 = *this;
@@ -805,129 +611,129 @@ LABEL_36:
   return 0;
 }
 
-void anonymous namespace::addImageCallback<&anonymous namespace::TextSegment,&anonymous namespace::ProtocolsSection,0,&(swift::addImageProtocolsBlockCallbackUnsafe(void const*,void const*,unsigned long))>(swift *a1)
+void anonymous namespace::addImageCallback<&anonymous namespace::TextSegment,&anonymous namespace::ProtocolsSection,0,&(swift::addImageProtocolsBlockCallbackUnsafe(void const*,void const*,unsigned long))>(swift *a1, uint64_t a2)
 {
-  v2 = _dyld_lookup_section_info();
-  if (v2)
+  v3 = _dyld_lookup_section_info();
+  if (v3)
   {
 
-    swift::addImageProtocolsBlockCallbackUnsafe(a1, v2, v3);
+    swift::addImageProtocolsBlockCallbackUnsafe(a1, v3, v4);
   }
 }
 
-void anonymous namespace::addImageCallback<&anonymous namespace::TextSegment,&anonymous namespace::ProtocolConformancesSection,1,&(swift::addImageProtocolConformanceBlockCallbackUnsafe(void const*,void const*,unsigned long))>(swift *a1)
+void anonymous namespace::addImageCallback<&anonymous namespace::TextSegment,&anonymous namespace::ProtocolConformancesSection,1,&(swift::addImageProtocolConformanceBlockCallbackUnsafe(void const*,void const*,unsigned long))>(swift *a1, uint64_t a2)
 {
-  v2 = _dyld_lookup_section_info();
-  if (v2)
+  v3 = _dyld_lookup_section_info();
+  if (v3)
   {
 
-    swift::addImageProtocolConformanceBlockCallbackUnsafe(a1, v2, v3);
+    swift::addImageProtocolConformanceBlockCallbackUnsafe(a1, v3, v4);
   }
 }
 
-void anonymous namespace::addImageCallback<&anonymous namespace::TextSegment,&anonymous namespace::TypeMetadataRecordSection,2,&(swift::addImageTypeMetadataRecordBlockCallbackUnsafe(void const*,void const*,unsigned long))>(swift *a1)
+void anonymous namespace::addImageCallback<&anonymous namespace::TextSegment,&anonymous namespace::TypeMetadataRecordSection,2,&(swift::addImageTypeMetadataRecordBlockCallbackUnsafe(void const*,void const*,unsigned long))>(swift *a1, uint64_t a2)
 {
-  v2 = _dyld_lookup_section_info();
-  if (v2)
+  v3 = _dyld_lookup_section_info();
+  if (v3)
   {
 
-    swift::addImageTypeMetadataRecordBlockCallbackUnsafe(a1, v2, v3);
+    swift::addImageTypeMetadataRecordBlockCallbackUnsafe(a1, v3, v4);
   }
 }
 
-void anonymous namespace::addImageCallback2Sections<&anonymous namespace::TextSegment,&anonymous namespace::DynamicReplacementSection,&anonymous namespace::TextSegment,&anonymous namespace::DynamicReplacementSomeSection,3,4,&(swift::addImageDynamicReplacementBlockCallback(void const*,void const*,unsigned long,void const*,unsigned long))>(swift *a1)
+void anonymous namespace::addImageCallback2Sections<&anonymous namespace::TextSegment,&anonymous namespace::DynamicReplacementSection,&anonymous namespace::TextSegment,&anonymous namespace::DynamicReplacementSomeSection,3,4,&(swift::addImageDynamicReplacementBlockCallback(void const*,void const*,unsigned long,void const*,unsigned long))>(swift *a1, uint64_t a2)
 {
-  v2 = _dyld_lookup_section_info();
-  if (v2)
+  v3 = _dyld_lookup_section_info();
+  if (v3)
   {
-    v4 = v2;
     v5 = v3;
-    v7 = _dyld_lookup_section_info();
+    v6 = v4;
+    v8 = _dyld_lookup_section_info();
 
-    swift::addImageDynamicReplacementBlockCallback(a1, v4, v5, v7, v6);
+    swift::addImageDynamicReplacementBlockCallback(a1, v5, v6, v8, v7);
   }
 }
 
-void anonymous namespace::addImageCallback<&anonymous namespace::TextSegment,&anonymous namespace::AccessibleFunctionsSection,5,&(swift::addImageAccessibleFunctionsBlockCallbackUnsafe(void const*,void const*,unsigned long))>(swift *a1)
+void anonymous namespace::addImageCallback<&anonymous namespace::TextSegment,&anonymous namespace::AccessibleFunctionsSection,5,&(swift::addImageAccessibleFunctionsBlockCallbackUnsafe(void const*,void const*,unsigned long))>(swift *a1, uint64_t a2)
 {
-  v2 = _dyld_lookup_section_info();
-  if (v2)
+  v3 = _dyld_lookup_section_info();
+  if (v3)
   {
 
-    swift::addImageAccessibleFunctionsBlockCallbackUnsafe(a1, v2, v3);
+    swift::addImageAccessibleFunctionsBlockCallbackUnsafe(a1, v3, v4);
   }
 }
 
-uint64_t swift::SymbolInfo::lookup@<X0>(swift::SymbolInfo *this@<X0>, uint64_t a2@<X8>)
+uint64_t *swift::SymbolInfo::lookup@<X0>(uint64_t *__return_ptr a1@<X8>, swift::SymbolInfo *this@<X0>)
 {
-  result = dladdr(this, &v7);
+  result = dladdr(this, &v6);
   if (result)
   {
-    v5 = *&v7.dli_sname;
-    *a2 = *&v7.dli_fname;
-    *(a2 + 16) = v5;
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = 0;
-    *a2 = 0;
-  }
-
-  *(a2 + 32) = v6;
-  return result;
-}
-
-void (*swift_readAtKeyPath(uint64_t *a1, char *a2, unint64_t **a3))(uint64_t a1)
-{
-  if (*a3)
-  {
-    v5 = *a3;
+    v4 = *&v6.dli_sname;
+    *a1 = *&v6.dli_fname;
+    *(a1 + 1) = v4;
+    v5 = 1;
   }
 
   else
   {
     v5 = 0;
+    *a1 = 0;
   }
 
-  TypeContextDescriptor = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v5);
+  *(a1 + 32) = v5;
+  return result;
+}
+
+uint64_t (*swift_readAtKeyPath(unint64_t *a1, char *a2, unint64_t **a3))()
+{
+  if (*a3)
+  {
+    v6 = *a3;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  TypeContextDescriptor = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v6);
   result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(TypeContextDescriptor);
-  v8 = *TypeContextDescriptor;
-  v9 = *TypeContextDescriptor & 0x1F;
-  if ((v9 - 17) < 2)
+  v9 = *TypeContextDescriptor;
+  v10 = *TypeContextDescriptor & 0x1F;
+  if ((v10 - 17) < 2)
   {
     ResilientImmediateMembersOffset = 2;
 LABEL_6:
-    v11 = v5[ResilientImmediateMembersOffset + 1];
-    *a1 = v11;
-    BufferIn = swift::TargetMetadata<swift::InProcess>::allocateBufferIn(v11, a1 + 1);
-    swift_getAtKeyPath(a2, BufferIn);
+    v12 = v6[ResilientImmediateMembersOffset + 1];
+    *a1 = v12;
+    BufferIn = swift::TargetMetadata<swift::InProcess>::allocateBufferIn(v12, a1 + 1);
+    swift_getAtKeyPath(a2, a3, BufferIn);
     return _destroy_temporary_continuation;
   }
 
-  if (v9 == 16)
+  if (v10 == 16)
   {
-    if ((v8 & 0x20000000) != 0)
+    if ((v9 & 0x20000000) != 0)
     {
       ResilientImmediateMembersOffset = swift::getResilientImmediateMembersOffset(TypeContextDescriptor);
     }
 
     else
     {
-      if ((v8 & 0x10000000) != 0)
+      if ((v9 & 0x10000000) != 0)
       {
-        v13 = 0;
-        v14 = 6;
+        v14 = 0;
+        v15 = 6;
       }
 
       else
       {
-        v13 = TypeContextDescriptor[7];
-        v14 = 8;
+        v14 = TypeContextDescriptor[7];
+        v15 = 8;
       }
 
-      ResilientImmediateMembersOffset = v13 - TypeContextDescriptor[v14];
+      ResilientImmediateMembersOffset = v14 - TypeContextDescriptor[v15];
     }
 
     goto LABEL_6;
@@ -937,14 +743,14 @@ LABEL_6:
   return result;
 }
 
-void _destroy_temporary_continuation(uint64_t a1)
+void _destroy_temporary_continuation(void *a1)
 {
   v2 = *a1;
-  v3 = swift::TargetMetadata<swift::InProcess>::projectBufferFrom(*a1, a1 + 8);
+  v3 = swift::TargetMetadata<swift::InProcess>::projectBufferFrom(*a1, (a1 + 1));
   (*(*(v2 - 8) + 8))(v3, v2);
   v4 = *a1;
 
-  swift::TargetMetadata<swift::InProcess>::deallocateBufferIn(v4, (a1 + 8));
+  swift::TargetMetadata<swift::InProcess>::deallocateBufferIn(v4, a1 + 1);
 }
 
 void (*swift_modifyAtWritableKeyPath(void *a1, void **a2, uint64_t *a3))(id *a1)
@@ -1297,7 +1103,7 @@ uint64_t swift::metadataimpl::FixedSizeBufferValueWitnesses<swift::metadataimpl:
   return result;
 }
 
-char *swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<anonymous namespace::int128_like,16ul,16ul,16ul>>,true,16ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<anonymous namespace::int128_like,16ul,16ul,16ul>>,true,16ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -1384,7 +1190,7 @@ uint64_t swift::metadataimpl::FixedSizeBufferValueWitnesses<swift::metadataimpl:
   return result;
 }
 
-char *swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<anonymous namespace::int256_like,16ul,32ul,32ul>>,true,32ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<anonymous namespace::int256_like,16ul,32ul,32ul>>,true,32ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -1483,7 +1289,7 @@ uint64_t swift::metadataimpl::FixedSizeBufferValueWitnesses<swift::metadataimpl:
   return result;
 }
 
-char *swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<anonymous namespace::int512_like,16ul,64ul,64ul>>,true,64ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<anonymous namespace::int512_like,16ul,64ul,64ul>>,true,64ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -1777,7 +1583,7 @@ uint64_t swift::metadataimpl::FixedSizeBufferValueWitnesses<swift::metadataimpl:
   return result;
 }
 
-char *swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<anonymous namespace::float80_like,16ul,16ul,16ul>>,true,16ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<anonymous namespace::float80_like,16ul,16ul,16ul>>,true,16ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -1864,7 +1670,7 @@ uint64_t swift::metadataimpl::FixedSizeBufferValueWitnesses<swift::metadataimpl:
   return result;
 }
 
-atomic_ullong **swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::SwiftRetainableBox>,true,8ul,8ul,(swift::metadataimpl::FixedPacking)1>::initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2)
+uint64_t *swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::SwiftRetainableBox>,true,8ul,8ul,(swift::metadataimpl::FixedPacking)1>::initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
   *a2;
@@ -1872,7 +1678,7 @@ atomic_ullong **swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::V
   return a1;
 }
 
-atomic_ullong **swift::metadataimpl::ValueWitnesses<swift::metadataimpl::SwiftRetainableBox>::initializeWithCopy(atomic_ullong **a1, atomic_ullong **a2)
+uint64_t *swift::metadataimpl::ValueWitnesses<swift::metadataimpl::SwiftRetainableBox>::initializeWithCopy(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
   *a2;
@@ -1880,7 +1686,7 @@ atomic_ullong **swift::metadataimpl::ValueWitnesses<swift::metadataimpl::SwiftRe
   return a1;
 }
 
-uint64_t *swift::metadataimpl::ValueWitnesses<swift::metadataimpl::SwiftRetainableBox>::assignWithCopy(uint64_t *a1, atomic_ullong **a2)
+uint64_t *swift::metadataimpl::ValueWitnesses<swift::metadataimpl::SwiftRetainableBox>::assignWithCopy(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
@@ -2215,7 +2021,7 @@ LABEL_7:
   return result;
 }
 
-char *swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<ctypes::anonymous namespace::BD,16ul,96ul,96ul>>,true,96ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<ctypes::anonymous namespace::BD,16ul,96ul,96ul>>,true,96ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -2342,7 +2148,7 @@ uint64_t swift::metadataimpl::FixedSizeBufferValueWitnesses<swift::metadataimpl:
   return result;
 }
 
-char *swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<ctypes::anonymous namespace::Bd,16ul,96ul,96ul>>,true,96ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<swift::metadataimpl::NativeBox<ctypes::anonymous namespace::Bd,16ul,96ul,96ul>>,true,96ul,16ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -2823,7 +2629,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_hLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_hLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -2910,7 +2716,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_hLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_hLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -3009,7 +2815,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_hLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_hLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -3303,7 +3109,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_tLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_tLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -3390,7 +3196,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_tLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_tLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -3489,7 +3295,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_tLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_tLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -3600,7 +3406,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_tLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_tLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -3824,7 +3630,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv3_jLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv3_jLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -3911,7 +3717,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv4_jLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv4_jLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -3998,7 +3804,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_jLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_jLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -4097,7 +3903,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_jLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_jLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -4208,7 +4014,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_jLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_jLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -4359,7 +4165,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_jLm16ELm256ELm256EEEEELb1ELm256ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_jLm16ELm256ELm256EEEEELb1ELm256ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -4590,7 +4396,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv2_yLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv2_yLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -4677,7 +4483,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv3_yLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv3_yLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -4776,7 +4582,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv4_yLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv4_yLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -4875,7 +4681,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_yLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_yLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -4986,7 +4792,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_yLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_yLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -5137,7 +4943,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_yLm16ELm256ELm256EEEEELb1ELm256ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_yLm16ELm256ELm256EEEEELb1ELm256ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -5368,7 +5174,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_yLm16ELm512ELm512EEEEELb1ELm512ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_yLm16ELm512ELm512EEEEELb1ELm512ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -5833,7 +5639,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv4_fLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv4_fLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -5920,7 +5726,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_fLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_fLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -6019,7 +5825,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_fLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_fLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -6130,7 +5936,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_fLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_fLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -6281,7 +6087,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_fLm16ELm256ELm256EEEEELb1ELm256ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_fLm16ELm256ELm256EEEEELb1ELm256ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -6512,7 +6318,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv2_dLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv2_dLm16ELm16ELm16EEEEELb1ELm16ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -6599,7 +6405,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv4_dLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv4_dLm16ELm32ELm32EEEEELb1ELm32ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -6698,7 +6504,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_dLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv8_dLm16ELm64ELm64EEEEELb1ELm64ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -6809,7 +6615,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_dLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv16_dLm16ELm128ELm128EEEEELb1ELm128ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -6960,7 +6766,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_dLm16ELm256ELm256EEEEELb1ELm256ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv32_dLm16ELm256ELm256EEEEELb1ELm256ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -7191,7 +6997,7 @@ uint64_t _ZN5swift12metadataimpl29FixedSizeBufferValueWitnessesINS0_14ValueWitne
   return result;
 }
 
-char *_ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_dLm16ELm512ELm512EEEEELb1ELm512ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t _ZN5swift12metadataimpl20BufferValueWitnessesINS0_14ValueWitnessesINS0_9NativeBoxIDv64_dLm16ELm512ELm512EEEEELb1ELm512ELm16ELNS0_12FixedPackingE0EE32initializeBufferWithCopyOfBufferEPNS_17TargetValueBufferINS_9InProcessEEESC_PKNS_14TargetMetadataISA_EE(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -7735,7 +7541,7 @@ LABEL_7:
   return result;
 }
 
-char *swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<anonymous namespace::DiffFunctionBox>,true,48ul,8ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+unint64_t swift::metadataimpl::BufferValueWitnesses<swift::metadataimpl::ValueWitnesses<anonymous namespace::DiffFunctionBox>,true,48ul,8ul,(swift::metadataimpl::FixedPacking)0>::initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*(a3 - 8))
   {
@@ -8165,30 +7971,30 @@ void swift::libPrespecializedImageLoaded(swift *this)
   }
 }
 
-unsigned __int16 *swift::getLibPrespecializedMetadata(uint64_t a1)
+unsigned __int16 *swift::getLibPrespecializedMetadata(uint64_t a1, uint64_t a2)
 {
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v3 = v2;
-  v4 = v1;
-  v93 = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1EEE9AC00](a1, a2);
+  v4 = v3;
+  v5 = v2;
+  v94 = *MEMORY[0x1E69E9840];
   if (qword_1ED415F98 != -1)
   {
-    swift::libPrespecializedImageLoaded(v1);
+    swift::libPrespecializedImageLoaded(v2);
   }
 
-  v5 = atomic_load(&unk_1ED415F68);
-  switch(v5)
+  v6 = atomic_load(&unk_1ED415F68);
+  switch(v6)
   {
     case 3u:
-      result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v4);
+      result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v5);
       if (!result)
       {
         return result;
       }
 
-      v10 = *(LibPrespecialized + 24);
-      v11 = *v10;
-      if (!*v10)
+      v11 = *(LibPrespecialized + 24);
+      v12 = *v11;
+      if (!*v11)
       {
 LABEL_28:
         if (prespecializedLoggingEnabled == 1)
@@ -8199,79 +8005,79 @@ LABEL_28:
         return 0;
       }
 
-      v12 = 0;
-      v13 = v10 + 1;
+      v13 = 0;
+      v14 = v11 + 1;
       while (1)
       {
-        v14 = v13[2 * v12];
-        if (*v14 == result[4] + 1)
+        v15 = v14[2 * v13];
+        if (*v15 == result[4] + 1)
         {
-          v15 = v4 ? v4 : 0;
-          if (v15 == v14[1])
+          v16 = v5 ? v5 : 0;
+          if (v16 == v15[1])
           {
             break;
           }
         }
 
 LABEL_18:
-        if (++v12 == v11)
+        if (++v13 == v12)
         {
           goto LABEL_28;
         }
       }
 
-      v16 = v14 + 2;
-      v17 = result[4];
-      v18 = v3;
-      while (v17)
+      v17 = v15 + 2;
+      v18 = result[4];
+      v19 = v4;
+      while (v18)
       {
-        v20 = *v16++;
-        v19 = v20;
-        v21 = *v18++;
-        --v17;
-        if (v19 != v21)
+        v21 = *v17++;
+        v20 = v21;
+        v22 = *v19++;
+        --v18;
+        if (v20 != v22)
         {
           goto LABEL_18;
         }
       }
 
-      v23 = &v13[2 * v12];
+      v24 = &v14[2 * v13];
       if (prespecializedLoggingEnabled == 1)
       {
-        fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Looking up description %p in debug table, found %p.\n", v4, v23[1]);
+        fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Looking up description %p in debug table, found %p.\n", v5, v24[1]);
       }
 
-      return v23[1];
+      return v24[1];
     case 2u:
-      result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v4);
+      result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v5);
       if (result)
       {
         result = _dyld_find_pointer_hash_table_entry();
         if (prespecializedLoggingEnabled == 1)
         {
-          v49 = v4;
-          v22 = result;
-          fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Looking up description %p in dyld table, found %p.\n", v49, result);
-          return v22;
+          v50 = v5;
+          v23 = result;
+          fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Looking up description %p in dyld table, found %p.\n", v50, result);
+          return v23;
         }
       }
 
       break;
     case 1u:
-      result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v4);
+      result = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v5);
       if (!result)
       {
         return result;
       }
 
-      v7 = result[2];
+      v8 = result[2];
       if (result[2])
       {
-        v8 = result + 6;
-        while ((*v8 & 0x3F) == 0)
+        v9 = result + 6;
+        while ((*v9 & 0x3F) == 0)
         {
-          ++v8;
-          if (!--v7)
+          v9 = (v9 + 1);
+          if (!--v8)
           {
             goto LABEL_11;
           }
@@ -8281,21 +8087,21 @@ LABEL_18:
       }
 
 LABEL_11:
-      if (v4)
+      if (v5)
       {
-        v9 = v4;
+        v10 = v5;
       }
 
       else
       {
-        v9 = 0;
+        v10 = 0;
       }
 
-      v25 = qword_1ED415F70 <= LibPrespecialized && unk_1ED415F78 > LibPrespecialized;
-      if (v25)
+      v26 = qword_1ED415F70 <= LibPrespecialized && unk_1ED415F78 > LibPrespecialized;
+      if (v26)
       {
-        v26 = qword_1ED415F70 <= v9 && unk_1ED415F78 > v9;
-        if (!v26 || qword_1ED415F80 <= v9 && qword_1ED415F88 > v9)
+        v27 = qword_1ED415F70 <= v10 && unk_1ED415F78 > v10;
+        if (!v27 || qword_1ED415F80 <= v10 && qword_1ED415F88 > v10)
         {
           if (prespecializedLoggingEnabled == 1)
           {
@@ -8308,24 +8114,24 @@ LABEL_11:
 
       if (result[4])
       {
-        v27 = 0;
+        v28 = 0;
         while (1)
         {
-          if (v25)
+          if (v26)
           {
-            v28 = *(v3 + 8 * v27);
-            if (qword_1ED415F70 > v28 || unk_1ED415F78 <= v28)
+            v29 = *(v4 + 8 * v28);
+            if (qword_1ED415F70 > v29 || unk_1ED415F78 <= v29)
             {
               break;
             }
 
-            if (qword_1ED415F80 <= v28 && qword_1ED415F88 > v28)
+            if (qword_1ED415F80 <= v29 && qword_1ED415F88 > v29)
             {
               break;
             }
           }
 
-          if (result[4] == ++v27)
+          if (result[4] == ++v28)
           {
             goto LABEL_70;
           }
@@ -8340,15 +8146,14 @@ LABEL_11:
       }
 
 LABEL_70:
-      v54 = xmmword_1806726B0;
-      v55 = 0;
+      v55 = xmmword_1806726B0;
       v56 = 0;
-      v91 = 0;
-      v58 = 0;
-      v59 = 0;
       v57 = 0;
+      v92 = 0;
+      v59 = 0;
       v60 = 0;
-      v72 = 0u;
+      v58 = 0;
+      v61 = 0;
       v73 = 0u;
       v74 = 0u;
       v75 = 0u;
@@ -8365,7 +8170,7 @@ LABEL_70:
       v86 = 0u;
       v87 = 0u;
       v88 = 0u;
-      v61 = 0u;
+      v89 = 0u;
       v62 = 0u;
       v63 = 0u;
       v64 = 0u;
@@ -8376,72 +8181,73 @@ LABEL_70:
       v69 = 0u;
       v70 = 0u;
       v71 = 0u;
-      v89 = 0;
-      v53[0] = &unk_1EEEAC680;
-      v53[1] = &v92;
-      v53[2] = &v93;
-      v31 = swift::_buildDemanglingForGenericType(v4, v3, v53);
-      if (v31)
+      v72 = 0u;
+      v90 = 0;
+      v54[0] = &unk_1EEEAC680;
+      v54[1] = &v93;
+      v54[2] = &v94;
+      v32 = swift::_buildDemanglingForGenericType(v5, v4, v54);
+      if (v32)
       {
-        if (*(v31 + 8) != 101)
+        if (*(v32 + 8) != 101)
         {
-          v32 = v31;
-          Node = swift::Demangle::__runtime::NodeFactory::createNode(v53, 101);
-          swift::Demangle::__runtime::Node::addChild(Node, v32, v53, v34, v35);
-          v31 = Node;
+          v33 = v32;
+          Node = swift::Demangle::__runtime::NodeFactory::createNode(v54, 101);
+          swift::Demangle::__runtime::Node::addChild(Node, v33, v54, v35, v36);
+          v32 = Node;
         }
 
-        swift::Demangle::__runtime::mangleNode(v31);
-        if (v50)
+        swift::Demangle::__runtime::mangleNode(v32, __swift::__runtime::llvm::function_ref<swift::Demangle::__runtime::Node * ()(swift::Demangle::__runtime::SymbolicReferenceKind,void const*)>::callback_fn<getMetadataFromNameKeyedMap(LibPrespecializedState const&,swift::TargetTypeContextDescriptor<swift::InProcess> const*,void const* const*)::$_0>);
+        if (v51)
         {
-          swift::warning(0, "Mangling for prespecialized metadata failed with code %d", v36, v37, v50);
-          v38 = 0;
+          swift::warning(0, "Mangling for prespecialized metadata failed with code %d", v37, v38, v51);
+          v39 = 0;
         }
 
         else
         {
-          v39 = *(LibPrespecialized + 8);
-          v40 = swift::PrebuiltStringMapBase::hash(v39, v51, v52);
-          v41 = 0;
-          v44 = *v39;
-          v42 = v39 + 8;
-          v43 = v44;
-          v45 = v40 % v44;
+          v40 = *(LibPrespecialized + 8);
+          v41 = swift::PrebuiltStringMapBase::hash(v40, v52, v53);
+          v42 = 0;
+          v45 = *v40;
+          v43 = v40 + 8;
+          v44 = v45;
+          v46 = v41 % v45;
           do
           {
-            v46 = *&v42[16 * v45];
-            if (!v46)
+            v47 = *&v43[16 * v46];
+            if (!v47)
             {
               break;
             }
 
-            if (!strncmp(*&v42[16 * v45], v51, v52) && !*(v46 + v52))
+            if (!strncmp(*&v43[16 * v46], v52, v53) && !*(v47 + v53))
             {
-              v38 = *&v42[16 * v45 + 8];
+              v39 = *&v43[16 * v46 + 8];
               goto LABEL_88;
             }
 
-            if (v45 + 1 < v43)
+            if (v46 + 1 < v44)
             {
-              ++v45;
+              ++v46;
             }
 
             else
             {
-              v45 = 0;
+              v46 = 0;
             }
 
-            ++v41;
+            ++v42;
           }
 
-          while (v41 <= v43);
-          v38 = 0;
+          while (v42 <= v44);
+          v39 = 0;
 LABEL_88:
           if (prespecializedLoggingEnabled == 1)
           {
-            v48 = v38;
-            fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: found %p for key '%.*s'.\n", v38, v52, v51);
-            v38 = v48;
+            v49 = v39;
+            fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: found %p for key '%.*s'.\n", v39, v53, v52);
+            v39 = v49;
           }
         }
       }
@@ -8450,32 +8256,32 @@ LABEL_88:
       {
         if (prespecializedLoggingEnabled == 1)
         {
-          fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: failed to build demangling with descriptor %p.\n", v4);
+          fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: failed to build demangling with descriptor %p.\n", v5);
         }
 
-        v38 = 0;
+        v39 = 0;
       }
 
-      v47 = v38;
-      v53[0] = &unk_1EEEADB90;
-      if (v91 == &v90)
+      v48 = v39;
+      v54[0] = &unk_1EEEADB90;
+      if (v92 == &v91)
       {
-        (*(*v91 + 32))(v91);
+        (*(*v92 + 32))(v92);
       }
 
-      else if (v91)
+      else if (v92)
       {
-        (*(*v91 + 40))();
+        (*(*v92 + 40))();
       }
 
-      v53[0] = &unk_1EEEADB68;
-      swift::Demangle::__runtime::NodeFactory::freeSlabs(v54);
-      if (v55)
+      v54[0] = &unk_1EEEADB68;
+      swift::Demangle::__runtime::NodeFactory::freeSlabs(v55);
+      if (v56)
       {
-        *(v55 + 48) = 0;
+        *(v56 + 48) = 0;
       }
 
-      return v47;
+      return v48;
     default:
       return 0;
   }
@@ -8485,7 +8291,7 @@ LABEL_88:
 
 uint64_t swift::getLibPrespecializedTypeDescriptor(swift *this, swift::Demangle::__runtime::Node *a2)
 {
-  v2 = MEMORY[0x1EEE9AC00](this);
+  v2 = MEMORY[0x1EEE9AC00](this, a2);
   v5 = v2;
   v93 = *MEMORY[0x1E69E9840];
   if (qword_1ED415F98 != -1)
@@ -8846,7 +8652,7 @@ LABEL_85:
   }
 
 LABEL_86:
-  swift::Demangle::__runtime::mangleNode(v9);
+  swift::Demangle::__runtime::mangleNode(v9, __swift::__runtime::llvm::function_ref<swift::Demangle::__runtime::Node * ()(swift::Demangle::__runtime::SymbolicReferenceKind,void const*)>::callback_fn<swift::ExpandResolvedSymbolicReferences>);
   if (v48)
   {
     if (prespecializedLoggingEnabled == 1)
@@ -8864,7 +8670,7 @@ LABEL_86:
   do
   {
     v44 = *&v42[8 * v43];
-    if (!v44 || (++v41, _dyld_is_preoptimized_objc_image_loaded()) && (++v40, (swift::_contextDescriptorMatchesMangling(v44, v5) & 1) != 0))
+    if (!v44 || (++v41, _dyld_is_preoptimized_objc_image_loaded()) && (++v40, swift::_contextDescriptorMatchesMangling(v44, v5)))
     {
       v45 = &v42[8 * v43];
       goto LABEL_110;
@@ -8958,11 +8764,11 @@ LABEL_91:
   return v39;
 }
 
-uint64_t swift::Demangle::__runtime::StackAllocatedDemangler<4096ul>::~StackAllocatedDemangler(uint64_t a1)
+void *swift::Demangle::__runtime::StackAllocatedDemangler<4096ul>::~StackAllocatedDemangler(void *a1)
 {
   *a1 = &unk_1EEEADB90;
-  v2 = a1 + 544;
-  v3 = *(a1 + 568);
+  v2 = a1 + 68;
+  v3 = a1[71];
   if (v3 == v2)
   {
     (*(*v3 + 32))(v3);
@@ -8974,8 +8780,8 @@ uint64_t swift::Demangle::__runtime::StackAllocatedDemangler<4096ul>::~StackAllo
   }
 
   *a1 = &unk_1EEEADB68;
-  swift::Demangle::__runtime::NodeFactory::freeSlabs(*(a1 + 24));
-  v4 = *(a1 + 40);
+  swift::Demangle::__runtime::NodeFactory::freeSlabs(a1[3]);
+  v4 = a1[5];
   if (v4)
   {
     *(v4 + 48) = 0;
@@ -9107,7 +8913,7 @@ unint64_t swift::PrebuiltStringMapBase::hash(swift::PrebuiltStringMapBase *this,
   v4 = a3 & 0xFFFFFFFFFFFFFFF8;
   if ((a3 & 0xFFFFFFFFFFFFFFF8) != 0)
   {
-    v5 = a2 + v4;
+    v5 = (a2 + v4);
     do
     {
       v6 = *a2++;
@@ -9243,8 +9049,8 @@ _DWORD *LibPrespecializedState::findLibPrespecialized(LibPrespecializedState *th
     v3 = dlopen(swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_PATH_variable, 17);
     if (!v3)
     {
-      v11 = dlerror();
-      swift::warning(0, "Failed to load prespecializations library: %s\n", v12, v13, v11);
+      v12 = dlerror();
+      swift::warning(0, "Failed to load prespecializations library: %s\n", v13, v14, v12);
       return 0;
     }
 
@@ -9261,21 +9067,26 @@ _DWORD *LibPrespecializedState::findLibPrespecialized(LibPrespecializedState *th
     if (prespecializedLoggingEnabled == 1)
     {
       fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Got dataPtr %p from _dyld_get_swift_prespecialized_data\n", swift_prespecialized_data);
-      if (!dyld_shared_cache_some_image_overridden())
+      v5 = dyld_shared_cache_some_image_overridden();
+      if (!v5)
       {
         goto LABEL_12;
       }
     }
 
-    else if (!dyld_shared_cache_some_image_overridden())
+    else
     {
-      goto LABEL_12;
+      v5 = dyld_shared_cache_some_image_overridden();
+      if (!v5)
+      {
+        goto LABEL_12;
+      }
     }
 
     atomic_store(4u, this + 2);
     if (prespecializedLoggingEnabled == 1)
     {
-      LibPrespecializedState::findLibPrespecialized();
+      LibPrespecializedState::findLibPrespecialized(v5);
     }
   }
 
@@ -9304,7 +9115,7 @@ LABEL_12:
     return 0;
   }
 
-  v5 = MEMORY[0x1E69E97E0];
+  v6 = MEMORY[0x1E69E97E0];
   if (*MEMORY[0x1E69E97E0])
   {
     if (swift::runtime::environment::initializeToken != -1)
@@ -9312,20 +9123,20 @@ LABEL_12:
       LibPrespecializedState::LibPrespecializedState();
     }
 
-    v6 = swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_ENABLED_PROCESSES_variable;
+    v7 = swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_ENABLED_PROCESSES_variable;
     if (swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_ENABLED_PROCESSES_variable && *swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_ENABLED_PROCESSES_variable)
     {
-      v7 = *v5;
-      v8 = strlen(*v5);
-      v9 = strchr(swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_ENABLED_PROCESSES_variable, 58);
-      if (v9)
+      v8 = *v6;
+      v9 = strlen(*v6);
+      v10 = strchr(swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_ENABLED_PROCESSES_variable, 58);
+      if (v10)
       {
-        v10 = v9;
-        while (v10 - v6 != v8 || strncmp(v6, v7, v8))
+        v11 = v10;
+        while (v11 - v7 != v9 || strncmp(v7, v8, v9))
         {
-          v6 = v10 + 1;
-          v10 = strchr(v10 + 1, 58);
-          if (!v10)
+          v7 = v11 + 1;
+          v11 = strchr(v11 + 1, 58);
+          if (!v11)
           {
             goto LABEL_30;
           }
@@ -9335,32 +9146,32 @@ LABEL_12:
       }
 
 LABEL_30:
-      if (!strcmp(v7, v6))
+      if (!strcmp(v8, v7))
       {
 LABEL_47:
         if (prespecializedLoggingEnabled == 1)
         {
-          fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Found %s in SWIFT_DEBUG_LIB_PRESPECIALIZED_ENABLED_PROCESSES, enabling\n", v7);
+          fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Found %s in SWIFT_DEBUG_LIB_PRESPECIALIZED_ENABLED_PROCESSES, enabling\n", v8);
         }
 
         goto LABEL_49;
       }
     }
 
-    v14 = swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_DISABLED_PROCESSES_variable;
+    v15 = swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_DISABLED_PROCESSES_variable;
     if (swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_DISABLED_PROCESSES_variable && *swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_DISABLED_PROCESSES_variable)
     {
-      v15 = *v5;
-      v16 = strlen(*v5);
-      v17 = strchr(swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_DISABLED_PROCESSES_variable, 58);
-      if (v17)
+      v16 = *v6;
+      v17 = strlen(*v6);
+      v18 = strchr(swift::runtime::environment::SWIFT_DEBUG_LIB_PRESPECIALIZED_DISABLED_PROCESSES_variable, 58);
+      if (v18)
       {
-        v18 = v17;
-        while (v18 - v14 != v16 || strncmp(v14, v15, v16))
+        v19 = v18;
+        while (v19 - v15 != v17 || strncmp(v15, v16, v17))
         {
-          v14 = v18 + 1;
-          v18 = strchr(v18 + 1, 58);
-          if (!v18)
+          v15 = v19 + 1;
+          v19 = strchr(v19 + 1, 58);
+          if (!v19)
           {
             goto LABEL_39;
           }
@@ -9370,12 +9181,12 @@ LABEL_47:
       }
 
 LABEL_39:
-      if (!strcmp(v15, v14))
+      if (!strcmp(v16, v15))
       {
 LABEL_52:
         if (prespecializedLoggingEnabled == 1)
         {
-          fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Found %s in SWIFT_DEBUG_LIB_PRESPECIALIZED_DISABLED_PROCESSES, disabling\n", v15);
+          fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Found %s in SWIFT_DEBUG_LIB_PRESPECIALIZED_DISABLED_PROCESSES, disabling\n", v16);
         }
 
         return 0;
@@ -9384,19 +9195,19 @@ LABEL_52:
 
     if (swift_prespecialized_data[1] >= 2u)
     {
-      v19 = *(swift_prespecialized_data + 2);
-      if (v19)
+      v20 = *(swift_prespecialized_data + 2);
+      if (v20)
       {
-        v20 = *v19;
-        if (*v19)
+        v21 = *v20;
+        if (*v20)
         {
-          v21 = *v5;
-          v22 = v19 + 1;
-          while (strcmp(v20, v21))
+          v22 = *v6;
+          v23 = v20 + 1;
+          while (strcmp(v21, v22))
           {
-            v23 = *v22++;
-            v20 = v23;
-            if (!v23)
+            v24 = *v23++;
+            v21 = v24;
+            if (!v24)
             {
               goto LABEL_49;
             }
@@ -9404,7 +9215,7 @@ LABEL_52:
 
           if (prespecializedLoggingEnabled == 1)
           {
-            fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Found %s in disabled processes list, disabling\n", v20);
+            fprintf(*MEMORY[0x1E69E9848], "Prespecializations library: Found %s in disabled processes list, disabling\n", v21);
           }
 
           return 0;
@@ -9416,8 +9227,8 @@ LABEL_52:
 LABEL_49:
   if (prespecializedLoggingEnabled == 1)
   {
-    LibPrespecializedState::findLibPrespecialized(swift_prespecialized_data, &v25);
-    return v25;
+    LibPrespecializedState::findLibPrespecialized(swift_prespecialized_data, &v26);
+    return v26;
   }
 
   return swift_prespecialized_data;
@@ -9545,11 +9356,11 @@ LABEL_26:
   return 2;
 }
 
-void swift::Demangle::__runtime::StackAllocatedDemangler<4096ul>::~StackAllocatedDemangler(uint64_t a1)
+void swift::Demangle::__runtime::StackAllocatedDemangler<4096ul>::~StackAllocatedDemangler(void *a1)
 {
   *a1 = &unk_1EEEADB90;
-  v2 = a1 + 544;
-  v3 = *(a1 + 568);
+  v2 = a1 + 68;
+  v3 = a1[71];
   if (v3 == v2)
   {
     (*(*v3 + 32))(v3);
@@ -9561,8 +9372,8 @@ void swift::Demangle::__runtime::StackAllocatedDemangler<4096ul>::~StackAllocate
   }
 
   *a1 = &unk_1EEEADB68;
-  swift::Demangle::__runtime::NodeFactory::freeSlabs(*(a1 + 24));
-  v4 = *(a1 + 40);
+  swift::Demangle::__runtime::NodeFactory::freeSlabs(a1[3]);
+  v4 = a1[5];
   if (v4)
   {
     *(v4 + 48) = 0;
@@ -9625,12 +9436,12 @@ char *swift::TargetSingletonMetadataInitialization<swift::InProcess>::allocate(u
 
     if ((*v11 - 2048) <= 0xFFFFFFFFFFFFF800)
     {
-      if ((*(v11 + 4) & 3) == 1)
+      if ((*(v11 + 32) & 3) == 1)
       {
-        *(v11 + 4) ^= 3uLL;
+        *(v11 + 32) ^= 3uLL;
       }
 
-      if ((v11[40] & 2) != 0)
+      if ((*(v11 + 40) & 2) != 0)
       {
         v12 = value witness table for Builtin.NativeObject;
       }
@@ -9640,21 +9451,21 @@ char *swift::TargetSingletonMetadataInitialization<swift::InProcess>::allocate(u
         v12 = &value witness table for Builtin.UnknownObject;
       }
 
-      *(v11 - 1) = v12;
+      *(v11 - 8) = v12;
     }
   }
 
   return result;
 }
 
-char *_swift_relocateClassMetadata(uint64_t a1, int *a2)
+char *_swift_relocateClassMetadata(_DWORD *a1, int *a2)
 {
   if ((*a1 & 0x20000000) != 0)
   {
-    v7 = *(a1 + 24);
+    v7 = a1[6];
     if (v7)
     {
-      v8 = (v7 + a1 + 24);
+      v8 = (a1 + v7 + 24);
     }
 
     else
@@ -9680,23 +9491,23 @@ char *_swift_relocateClassMetadata(uint64_t a1, int *a2)
     if ((*a1 & 0x10000000) != 0)
     {
       v5 = 0;
-      v6 = 24;
+      v6 = 6;
     }
 
     else
     {
-      v5 = *(a1 + 28);
-      v6 = 32;
+      v5 = a1[7];
+      v6 = 8;
     }
 
-    explicit = 8 * (v5 - *(a1 + v6));
-    v10 = *(a1 + 24);
+    explicit = 8 * (v5 - a1[v6]);
+    v10 = *(a1 + 3);
   }
 
   v12 = 8 * (v10 + HIDWORD(v10));
   v13 = 8 * v10;
   v14 = &swift::MetadataAllocator::Allocate(&getResilientMetadataAllocator(void)::allocator, v12, 8uLL)[8 * v10];
-  bzero(&v14[explicit], 8 * *(a1 + 32));
+  bzero(&v14[explicit], 8 * a1[8]);
   v15 = 0;
   v16 = a2[1];
   if (v16 && (a2 + v16 + 4))
@@ -9777,7 +9588,7 @@ char *_swift_relocateClassMetadata(uint64_t a1, int *a2)
   return v14;
 }
 
-uint64_t swift::MetadataCacheKey::installGenericArguments(unsigned int a1, int a2, uint64_t a3, void *__dst, void *__src)
+void *swift::MetadataCacheKey::installGenericArguments(unsigned int a1, int a2, uint64_t a3, void *__dst, void *__src)
 {
   LODWORD(v7) = a2;
   result = memcpy(__dst, __src, 8 * a1);
@@ -9811,6 +9622,498 @@ LABEL_5:
     }
 
     while (v7);
+  }
+
+  return result;
+}
+
+uint64_t swift_allocateMetadataPack(uint64_t result, unint64_t a2)
+{
+  if ((result & 1) == 0)
+  {
+    v78 = result;
+    v79 = a2;
+    explicit = atomic_load_explicit(&qword_1ED4260F0, memory_order_acquire);
+    if (explicit && v79 == *explicit)
+    {
+      if (!v79)
+      {
+        return (explicit + 1) | 1;
+      }
+
+      v3 = 0;
+      v4 = 1;
+      while (*(v78 + 8 * v3) == explicit[v3 + 1])
+      {
+        v3 = v4++;
+        if (v79 == v3)
+        {
+          return (explicit + 1) | 1;
+        }
+      }
+    }
+
+    atomic_fetch_add_explicit(&MetadataPacks, 1u, memory_order_acquire);
+    do
+    {
+      v5 = atomic_load_explicit(&qword_1ED4260D0, memory_order_acquire);
+      v6 = atomic_load_explicit(&qword_1ED4260D8, memory_order_acquire);
+      v7 = atomic_load_explicit(&dword_1ED4260CC, memory_order_acquire);
+    }
+
+    while (v5 != atomic_load_explicit(&qword_1ED4260D0, memory_order_acquire));
+    if (v5)
+    {
+      v8 = v6 == 0;
+    }
+
+    else
+    {
+      v8 = 1;
+    }
+
+    if (!v8 && v7 != 0)
+    {
+      if (v10)
+      {
+        qword_1ED4260F0 = *v10;
+        explicit = *v10;
+        atomic_fetch_add_explicit(&MetadataPacks, 0xFFFFFFFF, memory_order_release);
+        return (explicit + 1) | 1;
+      }
+    }
+
+    atomic_fetch_add_explicit(&MetadataPacks, 0xFFFFFFFF, memory_order_release);
+    v12 = v78;
+    v11 = v79;
+    v80[0] = v78;
+    v80[1] = v79;
+    os_unfair_lock_lock(&unk_1ED4260E0);
+    v13 = qword_1ED4260D8;
+    v14 = qword_1ED4260D8 & 3;
+    v15 = v14 == 0;
+    if ((qword_1ED4260D8 & 0xFFFFFFFFFFFFFFFCLL) == 0)
+    {
+      v15 = 1;
+    }
+
+    v72 = qword_1ED4260D8 & 0xFFFFFFFFFFFFFFFCLL;
+    v71 = v15;
+    if (v15)
+    {
+      v16 = 4;
+    }
+
+    else
+    {
+      v16 = *(qword_1ED4260D8 & 0xFFFFFFFFFFFFFFFCLL);
+    }
+
+    v17 = dword_1ED4260CC;
+    v18 = qword_1ED4260D0;
+    if (qword_1ED4260D0)
+    {
+      v19 = qword_1ED4260D0 + 8;
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    if (v20)
+    {
+      explicit = *v20;
+      __dmb(0xBu);
+      if (MetadataPacks)
+      {
+LABEL_122:
+        os_unfair_lock_unlock(&unk_1ED4260E0);
+        qword_1ED4260F0 = explicit;
+        return (explicit + 1) | 1;
+      }
+
+      v22 = qword_1ED4260E8;
+      if (qword_1ED4260E8)
+      {
+        do
+        {
+          v23 = *v22;
+          free(v22[1]);
+          free(v22);
+          v22 = v23;
+        }
+
+        while (v23);
+      }
+
+LABEL_121:
+      qword_1ED4260E8 = 0;
+      goto LABEL_122;
+    }
+
+    v76 = v19;
+    v69 = v11;
+    v70 = v18;
+    __src = (v18 + 8);
+    v68 = (v17 + 1);
+    if ((1 << v16) / ((1 << v16) - v68) < 4)
+    {
+      v30 = v13;
+    }
+
+    else
+    {
+      v24 = (v16 + 1);
+      v75 = v16;
+      if (v24 >= 0x11)
+      {
+        v25 = 4;
+      }
+
+      else
+      {
+        v25 = 2;
+      }
+
+      if (v24 < 9)
+      {
+        v26 = 1;
+      }
+
+      else
+      {
+        v26 = v25;
+      }
+
+      v27 = malloc_type_calloc(2 << v16, v26, 0x48DDA4AEuLL);
+      if (!v27)
+      {
+        swift::hashable_support::findHashableBaseTypeOfHashableType();
+      }
+
+      v28 = v16;
+      v29 = v19;
+      v65 = v17;
+      v66 = v12;
+      if (v26 != 1)
+      {
+        if (v26 == 4)
+        {
+          v26 = 3;
+        }
+
+        else
+        {
+          v26 = 2;
+        }
+      }
+
+      v30 = v26 | v27;
+      *v27 = v16 + 1;
+      if (v16)
+      {
+        v31 = ~(-2 << v16);
+        v32 = v13 & 3;
+        v33 = v72;
+        if (!v14)
+        {
+          v33 = 0;
+        }
+
+        v77 = v33;
+        v34 = v30 & 3;
+        if ((v30 & 3) != 0)
+        {
+          v35 = v27 & 0xFFFFFFFFFFFFFFFCLL;
+        }
+
+        else
+        {
+          v35 = 0;
+        }
+
+        v36 = 1;
+        v74 = v30;
+        v73 = v13 & 3;
+        do
+        {
+          if (v32 > 1)
+          {
+            if (v32 == 2)
+            {
+              LODWORD(v37) = *(v77 + 2 * v36);
+              if (*(v77 + 2 * v36))
+              {
+                goto LABEL_65;
+              }
+            }
+
+            else
+            {
+              LODWORD(v37) = *(v77 + 4 * v36);
+              if (v37)
+              {
+LABEL_65:
+                v38 = *(v29 + 8 * (v37 - 1));
+                v81 = 0;
+                if (*v38)
+                {
+                  v39 = v13;
+                  v40 = 0;
+                  v41 = v38 + 1;
+                  do
+                  {
+                    v42 = __swift::__runtime::llvm::hash_combine<__swift::__runtime::llvm::hash_code,swift::TargetMetadata<swift::InProcess> const*>(&v81, v41);
+                    v81 = v42;
+                    ++v40;
+                    ++v41;
+                  }
+
+                  while (v40 != *v38);
+                  v13 = v39;
+                  v30 = v74;
+                  v28 = v75;
+                  v29 = v76;
+                  v32 = v73;
+                }
+
+                else
+                {
+                  v42 = 0;
+                }
+
+                while (1)
+                {
+                  v44 = v42 & v31;
+                  if ((v42 & v31) != 0)
+                  {
+                    if (v34 > 1)
+                    {
+                      LODWORD(v43) = v34 == 2 ? *(v35 + 2 * v44) : *(v35 + 4 * v44);
+                    }
+
+                    else if (v34)
+                    {
+                      LODWORD(v43) = *(v35 + v44);
+                    }
+
+                    else
+                    {
+                      v43 = (v30 >> (4 * v44)) & 0xF;
+                    }
+
+                    if (!v43)
+                    {
+                      break;
+                    }
+                  }
+
+                  v42 = v44 + 1;
+                }
+
+                if (v34 == 3)
+                {
+                  *(v35 + 4 * v44) = v37;
+                }
+
+                else if (v34 == 2)
+                {
+                  *(v35 + 2 * v44) = v37;
+                }
+
+                else
+                {
+                  *(v35 + v44) = v37;
+                }
+              }
+            }
+          }
+
+          else if (v32)
+          {
+            LODWORD(v37) = *(v77 + v36);
+            if (*(v77 + v36))
+            {
+              goto LABEL_65;
+            }
+          }
+
+          else
+          {
+            v37 = (v13 >> (4 * v36)) & 0xF;
+            if (v37)
+            {
+              goto LABEL_65;
+            }
+          }
+
+          ++v36;
+        }
+
+        while (!(v36 >> v28));
+      }
+
+      atomic_store(v30, &qword_1ED4260D8);
+      if (!v71)
+      {
+        v45 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
+        *v45 = qword_1ED4260E8;
+        v45[1] = v72;
+        qword_1ED4260E8 = v45;
+      }
+
+      v17 = v65;
+      v12 = v66;
+    }
+
+    v46 = v21;
+    if (!v70 || (v47 = v70, v17 >= *v70))
+    {
+      v48 = v17 + (v17 >> 2);
+      v49 = v17;
+      if (v48 <= v17 + 1)
+      {
+        v48 = v17 + 1;
+      }
+
+      v50 = malloc_good_size(8 * v48 + 8);
+      v51 = malloc_type_malloc(v50, 0x1020040D5A9D86FuLL);
+      if (!v51)
+      {
+        swift::hashable_support::findHashableBaseTypeOfHashableType();
+      }
+
+      v47 = v51;
+      *v51 = (v50 + 0x7FFFFFFF8) >> 3;
+      v17 = v49;
+      if (v70)
+      {
+        memcpy(v51 + 2, __src, 8 * v49);
+        v52 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
+        *v52 = qword_1ED4260E8;
+        v52[1] = v70;
+        qword_1ED4260E8 = v52;
+      }
+
+      atomic_store(v47, &qword_1ED4260D0);
+    }
+
+    LOWORD(v81) = 24;
+    v53 = swift::MetadataAllocator::Allocate(&v81, 8 * v69 + 8, 8uLL);
+    explicit = v53;
+    *v53 = v69;
+    if (!v69)
+    {
+LABEL_100:
+      *(v47 + 8 + 8 * v17) = v53;
+      atomic_store(v68, &dword_1ED4260CC);
+      if ((v30 & 3) > 1)
+      {
+        if ((v30 & 3) == 2)
+        {
+          v57 = v30 & 0xFFFFFFFFFFFFFFFCLL;
+          if ((v30 & 3) == 0)
+          {
+            v57 = 0;
+          }
+
+          atomic_store(v68, (v57 + 2 * v46));
+        }
+
+        else
+        {
+          v62 = v30 & 0xFFFFFFFFFFFFFFFCLL;
+          if ((v30 & 3) == 0)
+          {
+            v62 = 0;
+          }
+
+          atomic_store(v68, (v62 + 4 * v46));
+        }
+      }
+
+      else if ((v30 & 3) != 0)
+      {
+        atomic_store(v68, ((v30 & 0xFFFFFFFFFFFFFFFCLL) + v46));
+      }
+
+      else
+      {
+        atomic_store((v68 << (4 * v46)) | v30, &qword_1ED4260D8);
+      }
+
+      __dmb(0xBu);
+      if (MetadataPacks)
+      {
+        goto LABEL_122;
+      }
+
+      v63 = qword_1ED4260E8;
+      if (qword_1ED4260E8)
+      {
+        do
+        {
+          v64 = *v63;
+          free(v63[1]);
+          free(v63);
+          v63 = v64;
+        }
+
+        while (v64);
+      }
+
+      goto LABEL_121;
+    }
+
+    if (v69 >= 0xE)
+    {
+      v55 = 0;
+      v54 = 0;
+      if (!v69 || (v69 - 1) >> 32)
+      {
+        goto LABEL_98;
+      }
+
+      if (&v53[-v12 + 8] >= 0x20)
+      {
+        v54 = v69 & 0x1FFFFFFFCLL;
+        v55 = v69 & 0xFFFFFFFC;
+        v58 = (v12 + 16);
+        v59 = v53 + 24;
+        v60 = v69 & 0x1FFFFFFFCLL;
+        do
+        {
+          v61 = *v58;
+          *(v59 - 1) = *(v58 - 1);
+          *v59 = v61;
+          v58 += 2;
+          v59 += 2;
+          v60 -= 4;
+        }
+
+        while (v60);
+        if (v69 == v54)
+        {
+          goto LABEL_100;
+        }
+
+        goto LABEL_98;
+      }
+    }
+
+    v54 = 0;
+    v55 = 0;
+LABEL_98:
+    v56 = v55 + 1;
+    do
+    {
+      *&v53[8 * v54 + 8] = *(v12 + 8 * v54);
+      v54 = v56++;
+    }
+
+    while (v69 > v54);
+    goto LABEL_100;
   }
 
   return result;

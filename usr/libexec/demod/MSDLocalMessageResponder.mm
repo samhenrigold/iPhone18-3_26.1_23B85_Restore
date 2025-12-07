@@ -1,6 +1,7 @@
 @interface MSDLocalMessageResponder
 + (id)sharedInstance;
 - (BOOL)checkEntitlementsWithRequest:(id)request from:(id)from;
+- (BOOL)saveOperationRequestIfNeeded:(id)needed completeBy:(int)by;
 - (OS_xpc_object)connectionForPricing;
 - (id)getEntitlementsFrom:(id)from;
 - (void)_handleCloseRunningAppsRequest:(id)request from:(id)from;
@@ -71,7 +72,7 @@
 
     else
     {
-      sub_1000CDD40();
+      sub_1000CDD40(0);
     }
 
     v10 = +[MSDPlatform sharedInstance];
@@ -100,7 +101,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  sub_1000CDDDC();
+  sub_1000CDDDC(0);
   v5 = 0;
   v7 = 0;
 LABEL_15:
@@ -114,7 +115,7 @@ LABEL_15:
   v7 = [(MSDLocalMessageResponder *)self getEntitlementsFrom:from];
   if (!v7)
   {
-    sub_1000CDE78();
+    sub_1000CDE78(0);
     goto LABEL_37;
   }
 
@@ -246,19 +247,19 @@ LABEL_25:
 
     if (!xpcListener2)
     {
-      v11 = sub_100063B64();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100063B64(v6);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Could not create XPC listener.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Could not create XPC listener.", buf, 2u);
       }
 
       exit(1);
     }
 
     xpcListener3 = [(MSDLocalMessageResponder *)self xpcListener];
-    v7 = +[MSDWorkQueueSet sharedInstance];
-    messageQueue = [v7 messageQueue];
+    v8 = +[MSDWorkQueueSet sharedInstance];
+    messageQueue = [v8 messageQueue];
     xpc_connection_set_target_queue(xpcListener3, messageQueue);
 
     xpcListener4 = [(MSDLocalMessageResponder *)self xpcListener];
@@ -278,199 +279,201 @@ LABEL_25:
 {
   messageCopy = message;
   connection = from;
-  v294 = 0;
-  v295 = &v294;
-  v296 = 0x3032000000;
-  v297 = sub_100039200;
-  v298 = sub_100039210;
-  v299 = 0;
-  v290 = 0;
-  v291 = &v290;
-  v292 = 0x2020000000;
-  v293 = 0;
-  v242 = +[MSDPricingUpdateController sharedInstance];
-  v6 = sub_100063B64();
+  v333 = 0;
+  v334 = &v333;
+  v335 = 0x3032000000;
+  v336 = sub_100039200;
+  v337 = sub_100039210;
+  v338 = 0;
+  v329 = 0;
+  v330 = &v329;
+  v331 = 0x2020000000;
+  v332 = 0;
+  v281 = +[MSDPricingUpdateController sharedInstance];
+  v6 = sub_100063B64(v281);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_1000CDF88();
   }
 
   v7 = [(MSDLocalMessageResponder *)self checkEntitlementsWithRequest:messageCopy from:connection];
-  *(v291 + 24) = v7;
+  *(v330 + 24) = v7;
   if ((v7 & 1) == 0)
   {
-    reply = sub_100063B64();
+    reply = sub_100063B64(v7);
     if (os_log_type_enabled(reply, OS_LOG_TYPE_ERROR))
     {
       sub_1000CDFC4();
     }
 
-    v245 = 0;
-    v246 = 0;
-    v250 = 0;
-    v240 = 0;
-    v241 = 0;
-    v243 = 0;
-    v244 = 0;
-    v247 = 0;
-    v248 = 0;
+    v284 = 0;
+    v285 = 0;
+    v289 = 0;
+    v279 = 0;
+    v280 = 0;
+    v282 = 0;
+    v283 = 0;
+    v286 = 0;
+    v287 = 0;
     v9 = 0;
     goto LABEL_123;
   }
 
-  v250 = +[MSDTargetDevice sharedInstance];
-  v246 = +[MSDDemoUpdateController sharedInstance];
-  v245 = +[MSDPairedWatchProxy sharedInstance];
+  v289 = +[MSDTargetDevice sharedInstance];
+  v285 = +[MSDDemoUpdateController sharedInstance];
+  v284 = +[MSDPairedWatchProxy sharedInstance];
   v8 = [NSDictionary dictionaryWithXPCDictionary:messageCopy];
   v9 = v8;
   if (!v8)
   {
-    v240 = 0;
-    v241 = 0;
-    v243 = 0;
-    v244 = 0;
-    v247 = 0;
-    v248 = 0;
+    v279 = 0;
+    v280 = 0;
+    v282 = 0;
+    v283 = 0;
+    v286 = 0;
+    v287 = 0;
     goto LABEL_122;
   }
 
-  v248 = [v8 objectForKey:@"ContentServer"];
-  v247 = [v9 objectForKey:@"Port"];
-  v244 = [v9 objectForKey:@"PairingCredential"];
-  v243 = [v9 objectForKey:@"DeviceName"];
-  v241 = [v9 objectForKey:@"ContainerUniqueIdentifier"];
-  v240 = [v9 objectForKey:@"PersistentDataBlob"];
+  v287 = [v8 objectForKey:@"ContentServer"];
+  v286 = [v9 objectForKey:@"Port"];
+  v283 = [v9 objectForKey:@"PairingCredential"];
+  v282 = [v9 objectForKey:@"DeviceName"];
+  v280 = [v9 objectForKey:@"ContainerUniqueIdentifier"];
+  v279 = [v9 objectForKey:@"PersistentDataBlob"];
   string = xpc_dictionary_get_string(messageCopy, "RequestOperation");
+  v11 = string;
   if (!string)
   {
     goto LABEL_81;
   }
 
-  v11 = sub_100063B64();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100063B64(string);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    *&buf[4] = string;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received an operation request: %{public}s", buf, 0xCu);
+    *&buf[4] = v11;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received an operation request: %{public}s", buf, 0xCu);
   }
 
   int64 = xpc_dictionary_get_int64(messageCopy, "Duration");
   if (int64)
   {
-    v13 = [NSDate dateWithTimeIntervalSinceNow:int64];
-    [v13 timeIntervalSinceReferenceDate];
-    v15 = v14;
-
+    v14 = [NSDate dateWithTimeIntervalSinceNow:int64];
+    [v14 timeIntervalSinceReferenceDate];
     v16 = v15;
+
+    v17 = v16;
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  v17 = xpc_dictionary_get_BOOL(messageCopy, "IgnorePairedDevice");
-  if ([v250 isBetterTogetherDemo])
+  v18 = xpc_dictionary_get_BOOL(messageCopy, "IgnorePairedDevice");
+  if ([v289 isBetterTogetherDemo])
   {
-    v18 = [v245 paired] & !v17;
+    v19 = [v284 paired] & !v18;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v19 = [NSString stringWithCString:string encoding:4];
-  v20 = [(MSDLocalMessageResponder *)self saveOperationRequestIfNeeded:v19 completeBy:v16];
-  *(v291 + 24) = v20;
+  v20 = [NSString stringWithCString:v11 encoding:4];
+  v21 = [(MSDLocalMessageResponder *)self saveOperationRequestIfNeeded:v20 completeBy:v17];
+  *(v330 + 24) = v21;
 
-  v21 = v291;
-  if ((v291[3] & 1) == 0)
+  v22 = v330;
+  if ((v330[3] & 1) == 0)
   {
     goto LABEL_122;
   }
 
-  if (!strncmp(string, "DemoEnroll", 0xBuLL))
+  isKindOfClass = strncmp(v11, "DemoEnroll", 0xBuLL);
+  if (!isKindOfClass)
   {
-    if (!v248 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || !v247 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    if (!v287 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0) || !v286 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
     {
-      sub_100063B64();
+      sub_100063B64(isKindOfClass);
       objc_claimAutoreleasedReturnValue();
       sub_1000CEA90();
       reply = *buf;
       goto LABEL_259;
     }
 
-    if (!v244)
+    if (!v283)
     {
-      v23 = sub_100063B64();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v32 = sub_100063B64(isKindOfClass);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
         *&buf[4] = "[MSDLocalMessageResponder handleMessage:from:]";
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s: warning: no credential from app", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%s: warning: no credential from app", buf, 0xCu);
       }
     }
 
-    if (!v243)
+    if (!v282)
     {
-      v24 = sub_100063B64();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v33 = sub_100063B64(isKindOfClass);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
         *&buf[4] = "[MSDLocalMessageResponder handleMessage:from:]";
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s: warning: no device name from app", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%s: warning: no device name from app", buf, 0xCu);
       }
     }
 
-    [v250 setupDemoDeviceMetadataFolder];
-    [v250 setDemoEnrollmentFlag:@"enrollmentStarted"];
-    v25 = os_transaction_create();
-    [(MSDLocalMessageResponder *)self setTransaction:v25];
+    [v289 setupDemoDeviceMetadataFolder];
+    [v289 setDemoEnrollmentFlag:@"enrollmentStarted"];
+    v34 = os_transaction_create();
+    [(MSDLocalMessageResponder *)self setTransaction:v34];
 
-    v26 = +[MSDWorkQueueSet sharedInstance];
-    demoUpdateQueue = [v26 demoUpdateQueue];
-    v28 = block;
+    v35 = +[MSDWorkQueueSet sharedInstance];
+    demoUpdateQueue = [v35 demoUpdateQueue];
+    v37 = block;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100039218;
     block[3] = &unk_10016A810;
-    block[4] = v250;
-    v288 = &v290;
-    v283 = v246;
-    v284 = v243;
-    v285 = v244;
-    v286 = v248;
-    v287 = v247;
-    v289 = &v294;
+    block[4] = v289;
+    v327 = &v329;
+    v322 = v285;
+    v323 = v282;
+    v324 = v283;
+    v325 = v287;
+    v326 = v286;
+    v328 = &v333;
     dispatch_async(demoUpdateQueue, block);
 
     goto LABEL_79;
   }
 
-  if (!strncmp(string, "DemoUpdate", 0xBuLL))
+  if (!strncmp(v11, "DemoUpdate", 0xBuLL))
   {
-    v29 = +[MSDWorkQueueSet sharedInstance];
-    demoUpdateQueue2 = [v29 demoUpdateQueue];
-    v28 = v280;
-    v280[0] = _NSConcreteStackBlock;
-    v280[1] = 3221225472;
-    v280[2] = sub_100039390;
-    v280[3] = &unk_10016A838;
-    v281 = v16;
-    v280[5] = &v290;
-    v280[4] = v246;
-    dispatch_async(demoUpdateQueue2, v280);
+    v38 = +[MSDWorkQueueSet sharedInstance];
+    demoUpdateQueue2 = [v38 demoUpdateQueue];
+    v37 = v319;
+    v319[0] = _NSConcreteStackBlock;
+    v319[1] = 3221225472;
+    v319[2] = sub_100039390;
+    v319[3] = &unk_10016A838;
+    v320 = v17;
+    v319[5] = &v329;
+    v319[4] = v285;
+    dispatch_async(demoUpdateQueue2, v319);
 
 LABEL_79:
-    reply = v28[4];
+    reply = v37[4];
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "DemoMaualUpdate", 0x10uLL))
+  if (!strncmp(v11, "DemoMaualUpdate", 0x10uLL))
   {
-    v35 = os_transaction_create();
-    [(MSDLocalMessageResponder *)self setTransaction:v35];
+    v46 = os_transaction_create();
+    [(MSDLocalMessageResponder *)self setTransaction:v46];
 
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -478,37 +481,37 @@ LABEL_79:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    canUnlockSnapshot = [v250 canUnlockSnapshot];
-    *(v291 + 24) = canUnlockSnapshot;
-    if (v18)
+    canUnlockSnapshot = [v289 canUnlockSnapshot];
+    *(v330 + 24) = canUnlockSnapshot;
+    if (v19)
     {
-      canUnlockSnapshot2 = [v245 canUnlockSnapshot];
-      LOBYTE(canUnlockSnapshot) = canUnlockSnapshot2 & v291[3];
-      *(v291 + 24) = canUnlockSnapshot;
+      canUnlockSnapshot2 = [v284 canUnlockSnapshot];
+      LOBYTE(canUnlockSnapshot) = canUnlockSnapshot2 & v330[3];
+      *(v330 + 24) = canUnlockSnapshot;
     }
 
     xpc_dictionary_set_BOOL(reply, "Acknowledged", canUnlockSnapshot);
     xpc_connection_send_message(connection, reply);
-    if (v291[3])
+    if (v330[3])
     {
-      if (v18)
+      if (v19)
       {
-        unlockSnapshot = [v245 unlockSnapshot];
-        *(v291 + 24) = unlockSnapshot;
+        unlockSnapshot = [v284 unlockSnapshot];
+        *(v330 + 24) = unlockSnapshot;
         if (!unlockSnapshot)
         {
           goto LABEL_259;
         }
       }
 
-      unlockSnapshot2 = [v250 unlockSnapshot];
-      *(v291 + 24) = unlockSnapshot2;
+      unlockSnapshot2 = [v289 unlockSnapshot];
+      *(v330 + 24) = unlockSnapshot2;
 
       goto LABEL_121;
     }
 
-    v140 = sub_100063B64();
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
+    v169 = sub_100063B64(v49);
+    if (os_log_type_enabled(v169, OS_LOG_TYPE_ERROR))
     {
       sub_1000CEA54();
     }
@@ -518,7 +521,7 @@ LABEL_286:
     goto LABEL_123;
   }
 
-  if (!strncmp(string, "DemoSnapshotRevert", 0x13uLL))
+  if (!strncmp(v11, "DemoSnapshotRevert", 0x13uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -526,37 +529,37 @@ LABEL_286:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    canRevertSnapshot = [v250 canRevertSnapshot];
-    *(v291 + 24) = canRevertSnapshot;
-    if (v18)
+    canRevertSnapshot = [v289 canRevertSnapshot];
+    *(v330 + 24) = canRevertSnapshot;
+    if (v19)
     {
-      canRevertSnapshot2 = [v245 canRevertSnapshot];
-      LOBYTE(canRevertSnapshot) = canRevertSnapshot2 & v291[3];
-      *(v291 + 24) = canRevertSnapshot;
+      canRevertSnapshot2 = [v284 canRevertSnapshot];
+      LOBYTE(canRevertSnapshot) = canRevertSnapshot2 & v330[3];
+      *(v330 + 24) = canRevertSnapshot;
     }
 
     xpc_dictionary_set_BOOL(reply, "Acknowledged", canRevertSnapshot);
     xpc_connection_send_message(connection, reply);
-    if (v291[3])
+    if (v330[3])
     {
-      if (v18)
+      if (v19)
       {
-        revertSnapshot = [v245 revertSnapshot];
-        *(v291 + 24) = revertSnapshot;
+        revertSnapshot = [v284 revertSnapshot];
+        *(v330 + 24) = revertSnapshot;
         if (!revertSnapshot)
         {
           goto LABEL_259;
         }
       }
 
-      unlockSnapshot2 = [v250 revertSnapshot];
-      *(v291 + 24) = unlockSnapshot2;
+      unlockSnapshot2 = [v289 revertSnapshot];
+      *(v330 + 24) = unlockSnapshot2;
 
       goto LABEL_121;
     }
 
-    v140 = sub_100063B64();
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
+    v169 = sub_100063B64(v56);
+    if (os_log_type_enabled(v169, OS_LOG_TYPE_ERROR))
     {
       sub_1000CEA18();
     }
@@ -564,7 +567,7 @@ LABEL_286:
     goto LABEL_286;
   }
 
-  if (!strncmp(string, "SetLastShallowRefreshTime", 0x1AuLL))
+  if (!strncmp(v11, "SetLastShallowRefreshTime", 0x1AuLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -572,16 +575,16 @@ LABEL_286:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    v47 = objc_alloc_init(NSDateFormatter);
-    [v47 setDateFormat:@"dd-MM-yyyy_HH:mm:ss:SSS"];
-    v48 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "LastShallowRefreshTime")];
-    v49 = [v47 dateFromString:v48];
+    v60 = objc_alloc_init(NSDateFormatter);
+    [v60 setDateFormat:@"dd-MM-yyyy_HH:mm:ss:SSS"];
+    v61 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "LastShallowRefreshTime")];
+    v62 = [v60 dateFromString:v61];
 
-    v50 = +[MSDTargetDevice sharedInstance];
-    [v50 saveLastShallowRefreshTime:v49];
+    v63 = +[MSDTargetDevice sharedInstance];
+    [v63 saveLastShallowRefreshTime:v62];
 
-    v51 = +[MSDAnalyticsEventHandler sharedInstance];
-    [v51 sendLastShallowRefreshTime:v49];
+    v64 = +[MSDAnalyticsEventHandler sharedInstance];
+    [v64 sendLastShallowRefreshTime:v62];
 
     xpc_dictionary_set_BOOL(reply, "Result", 1);
     xpc_connection_send_message(connection, reply);
@@ -589,23 +592,23 @@ LABEL_286:
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "DemoSnapshotCommit", 0x13uLL))
+  if (!strncmp(v11, "DemoSnapshotCommit", 0x13uLL))
   {
-    v61 = dispatch_get_global_queue(21, 0);
-    v28 = v277;
-    v277[0] = _NSConcreteStackBlock;
-    v277[1] = 3221225472;
-    v277[2] = sub_100039474;
-    v277[3] = &unk_10016A690;
-    v277[4] = messageCopy;
-    v278 = v250;
-    v279 = connection;
-    dispatch_async(v61, v277);
+    v77 = dispatch_get_global_queue(21, 0);
+    v37 = v316;
+    v316[0] = _NSConcreteStackBlock;
+    v316[1] = 3221225472;
+    v316[2] = sub_100039474;
+    v316[3] = &unk_10016A690;
+    v316[4] = messageCopy;
+    v317 = v289;
+    v318 = connection;
+    dispatch_async(v77, v316);
 
     goto LABEL_79;
   }
 
-  if (!strncmp(string, "SetSEPDemoMode", 0xFuLL))
+  if (!strncmp(v11, "SetSEPDemoMode", 0xFuLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -613,17 +616,17 @@ LABEL_286:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    v62 = [v250 setSEPDemoMode:{xpc_dictionary_get_BOOL(messageCopy, "SEPDemoMode")}];
-    *(v291 + 24) = v62;
-    xpc_dictionary_set_BOOL(reply, "Result", v62);
+    v78 = [v289 setSEPDemoMode:{xpc_dictionary_get_BOOL(messageCopy, "SEPDemoMode")}];
+    *(v330 + 24) = v78;
+    xpc_dictionary_set_BOOL(reply, "Result", v78);
     xpc_connection_send_message(connection, reply);
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "DemoPrepare", 0xCuLL))
+  if (!strncmp(v11, "DemoPrepare", 0xCuLL))
   {
-    v63 = os_transaction_create();
-    [(MSDLocalMessageResponder *)self setTransaction:v63];
+    v79 = os_transaction_create();
+    [(MSDLocalMessageResponder *)self setTransaction:v79];
 
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -632,13 +635,14 @@ LABEL_286:
     }
 
     xpc_dictionary_set_BOOL(reply, "DemoPrepareAcknowledged", 1);
-    if ([(MSDLocalMessageResponder *)self demoPrepareInProgress])
+    demoPrepareInProgress = [(MSDLocalMessageResponder *)self demoPrepareInProgress];
+    if (demoPrepareInProgress)
     {
-      v64 = sub_100063A54();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+      v81 = sub_100063A54(demoPrepareInProgress);
+      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "Ignore second demo prepare request as it's already started.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "Ignore second demo prepare request as it's already started.", buf, 2u);
       }
 
       xpc_connection_send_message(connection, reply);
@@ -646,29 +650,29 @@ LABEL_286:
     }
 
     [(MSDLocalMessageResponder *)self setDemoPrepareInProgress:1];
-    v72 = +[MSDWorkQueueSet sharedInstance];
-    demoUpdateQueue3 = [v72 demoUpdateQueue];
-    v269[0] = _NSConcreteStackBlock;
-    v269[1] = 3221225472;
-    v269[2] = sub_10003954C;
-    v269[3] = &unk_10016A860;
-    v270 = v250;
-    v271 = connection;
-    v272 = reply;
-    v275 = &v290;
-    v276 = &v294;
-    v273 = messageCopy;
+    v90 = +[MSDWorkQueueSet sharedInstance];
+    demoUpdateQueue3 = [v90 demoUpdateQueue];
+    v308[0] = _NSConcreteStackBlock;
+    v308[1] = 3221225472;
+    v308[2] = sub_10003954C;
+    v308[3] = &unk_10016A860;
+    v309 = v289;
+    v310 = connection;
+    v311 = reply;
+    v314 = &v329;
+    v315 = &v333;
+    v312 = messageCopy;
     selfCopy = self;
     reply = reply;
-    dispatch_async(demoUpdateQueue3, v269);
+    dispatch_async(demoUpdateQueue3, v308);
 
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "Demo", 5uLL))
+  if (!strncmp(v11, "Demo", 5uLL))
   {
-    v68 = os_transaction_create();
-    [(MSDLocalMessageResponder *)self setTransaction:v68];
+    v85 = os_transaction_create();
+    [(MSDLocalMessageResponder *)self setTransaction:v85];
 
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -676,37 +680,37 @@ LABEL_286:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    canLockSnapshot = [v250 canLockSnapshot];
-    *(v291 + 24) = canLockSnapshot;
-    if (v18)
+    canLockSnapshot = [v289 canLockSnapshot];
+    *(v330 + 24) = canLockSnapshot;
+    if (v19)
     {
-      canLockSnapshot2 = [v245 canLockSnapshot];
-      LOBYTE(canLockSnapshot) = canLockSnapshot2 & v291[3];
-      *(v291 + 24) = canLockSnapshot;
+      canLockSnapshot2 = [v284 canLockSnapshot];
+      LOBYTE(canLockSnapshot) = canLockSnapshot2 & v330[3];
+      *(v330 + 24) = canLockSnapshot;
     }
 
     xpc_dictionary_set_BOOL(reply, "Acknowledged", canLockSnapshot);
     xpc_connection_send_message(connection, reply);
-    if (v291[3])
+    if (v330[3])
     {
-      if (v18)
+      if (v19)
       {
-        lockSnapshot = [v245 lockSnapshot];
-        *(v291 + 24) = lockSnapshot;
+        lockSnapshot = [v284 lockSnapshot];
+        *(v330 + 24) = lockSnapshot;
         if (!lockSnapshot)
         {
           goto LABEL_259;
         }
       }
 
-      unlockSnapshot2 = [v250 lockSnapshot];
-      *(v291 + 24) = unlockSnapshot2;
+      unlockSnapshot2 = [v289 lockSnapshot];
+      *(v330 + 24) = unlockSnapshot2;
 
       goto LABEL_121;
     }
 
-    v140 = sub_100063B64();
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
+    v169 = sub_100063B64(v88);
+    if (os_log_type_enabled(v169, OS_LOG_TYPE_ERROR))
     {
       sub_1000CE9DC();
     }
@@ -714,64 +718,64 @@ LABEL_286:
     goto LABEL_286;
   }
 
-  if (!strncmp(string, "Virgin", 7uLL))
+  if (!strncmp(v11, "Virgin", 7uLL))
   {
-    v74 = os_transaction_create();
-    [(MSDLocalMessageResponder *)self setTransaction:v74];
+    v92 = os_transaction_create();
+    [(MSDLocalMessageResponder *)self setTransaction:v92];
 
-    v75 = xpc_dictionary_get_BOOL(messageCopy, "ObliterateDevice");
-    v76 = xpc_dictionary_get_BOOL(messageCopy, "PreserveESim");
-    v77 = xpc_dictionary_get_BOOL(messageCopy, "CleanUpForBetterTogether");
+    v93 = xpc_dictionary_get_BOOL(messageCopy, "ObliterateDevice");
+    v94 = xpc_dictionary_get_BOOL(messageCopy, "PreserveESim");
+    v95 = xpc_dictionary_get_BOOL(messageCopy, "CleanUpForBetterTogether");
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
     {
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    if (v77)
+    if (v95)
     {
-      canRunCleanUpForBetterTogetherDevice = [v250 canRunCleanUpForBetterTogetherDevice];
-      *(v291 + 24) = canRunCleanUpForBetterTogetherDevice;
+      canRunCleanUpForBetterTogetherDevice = [v289 canRunCleanUpForBetterTogetherDevice];
+      *(v330 + 24) = canRunCleanUpForBetterTogetherDevice;
       if (!canRunCleanUpForBetterTogetherDevice)
       {
-        v84 = 0;
+        v102 = 0;
         goto LABEL_196;
       }
 
-      runCleanUpForBetterTogetherDevice = [v250 runCleanUpForBetterTogetherDevice];
+      runCleanUpForBetterTogetherDevice = [v289 runCleanUpForBetterTogetherDevice];
     }
 
     else
     {
-      runCleanUpForBetterTogetherDevice = [v250 canUnenrollWithObliteration:v75 consultDeviceOptions:1];
+      runCleanUpForBetterTogetherDevice = [v289 canUnenrollWithObliteration:v93 consultDeviceOptions:1];
     }
 
-    v84 = runCleanUpForBetterTogetherDevice;
-    *(v291 + 24) = runCleanUpForBetterTogetherDevice;
+    v102 = runCleanUpForBetterTogetherDevice;
+    *(v330 + 24) = runCleanUpForBetterTogetherDevice;
 LABEL_196:
-    xpc_dictionary_set_BOOL(reply, "Acknowledged", v84);
+    xpc_dictionary_set_BOOL(reply, "Acknowledged", v102);
     xpc_connection_send_message(connection, reply);
-    if ((v291[3] & 1) == 0)
+    if ((v330[3] & 1) == 0)
     {
-      v157 = sub_100063B64();
-      sub_1000CE988(v157);
+      v190 = sub_100063B64(v107);
+      sub_1000CE988(v190);
       goto LABEL_123;
     }
 
-    if (v77)
+    if (v95)
     {
 LABEL_123:
 
       goto LABEL_153;
     }
 
-    if (v18)
+    if (v19)
     {
-      [v245 unenrollWithObliteration:v75 callUnregister:1];
+      [v284 unenrollWithObliteration:v93 callUnregister:1];
     }
 
-    unlockSnapshot2 = [v250 unenrollWithObliteration:v75 preserveESim:v76 callUnregister:1 preserveDDLFlag:1];
-    *(v291 + 24) = unlockSnapshot2;
+    unlockSnapshot2 = [v289 unenrollWithObliteration:v93 preserveESim:v94 callUnregister:1 preserveDDLFlag:1];
+    *(v330 + 24) = unlockSnapshot2;
 
 LABEL_121:
     if (unlockSnapshot2)
@@ -780,48 +784,48 @@ LABEL_121:
     }
 
 LABEL_122:
-    v45 = v295;
-    obj = v295[5];
+    v58 = v334;
+    obj = v334[5];
     sub_1000C1424(&obj, 3727744768, @"An error has occurred.");
-    objc_storeStrong(v45 + 5, obj);
+    objc_storeStrong(v58 + 5, obj);
     reply = +[MSDDemoUpdateStatusHub sharedInstance];
-    [reply demoUpdateFailed:v295[5]];
+    [reply demoUpdateFailed:v334[5]];
     goto LABEL_123;
   }
 
-  if (!strncmp(string, "GetDeviceOptions", 0x11uLL))
+  if (!strncmp(v11, "GetDeviceOptions", 0x11uLL))
   {
-    getDeviceOptions = [v250 getDeviceOptions];
-    v81 = xpc_dictionary_create_reply(messageCopy);
-    if (!v81)
+    getDeviceOptions = [v289 getDeviceOptions];
+    v99 = xpc_dictionary_create_reply(messageCopy);
+    if (!v99)
     {
-      v81 = xpc_dictionary_create(0, 0, 0);
+      v99 = xpc_dictionary_create(0, 0, 0);
     }
 
-    v82 = xpc_dictionary_get_string(messageCopy, "SubKey");
-    if (v82)
+    v100 = xpc_dictionary_get_string(messageCopy, "SubKey");
+    if (v100)
     {
-      v83 = [NSString stringWithUTF8String:v82];
-      reply = [getDeviceOptions objectForKey:v83];
+      v101 = [NSString stringWithUTF8String:v100];
+      reply = [getDeviceOptions objectForKey:v101];
     }
 
     else
     {
       reply = getDeviceOptions;
-      v82 = "device_options";
+      v100 = "device_options";
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v91 = v295;
-      v268 = v295[5];
-      v92 = [NSJSONSerialization dataWithJSONObject:reply options:0 error:&v268];
-      objc_storeStrong(v91 + 5, v268);
-      if (v295[5])
+      v110 = v334;
+      v307 = v334[5];
+      v111 = [NSJSONSerialization dataWithJSONObject:reply options:0 error:&v307];
+      objc_storeStrong(v110 + 5, v307);
+      if (v334[5])
       {
-        v171 = sub_100063B64();
-        if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
+        v206 = sub_100063B64(v112);
+        if (os_log_type_enabled(v206, OS_LOG_TYPE_ERROR))
         {
           sub_1000CE8C8();
         }
@@ -829,9 +833,9 @@ LABEL_122:
         goto LABEL_123;
       }
 
-      v93 = [[NSString alloc] initWithData:v92 encoding:4];
+      v113 = [[NSString alloc] initWithData:v111 encoding:4];
 
-      reply = v93;
+      reply = v113;
     }
 
     if (reply)
@@ -840,10 +844,11 @@ LABEL_122:
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v114 = objc_opt_isKindOfClass();
+        if ((v114 & 1) == 0)
         {
-          v180 = sub_100063B64();
-          if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
+          v215 = sub_100063B64(v114);
+          if (os_log_type_enabled(v215, OS_LOG_TYPE_ERROR))
           {
             sub_1000CE904();
           }
@@ -855,36 +860,38 @@ LABEL_122:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v94 = reply;
-        xpc_dictionary_set_string(v81, v82, [reply UTF8String]);
+        v115 = reply;
+        xpc_dictionary_set_string(v99, v100, [reply UTF8String]);
       }
 
       else
       {
-        xpc_dictionary_set_BOOL(v81, v82, [reply BOOLValue]);
+        xpc_dictionary_set_BOOL(v99, v100, [reply BOOLValue]);
       }
     }
 
-    xpc_connection_send_message(connection, v81);
+    xpc_connection_send_message(connection, v99);
 
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "ConfigureWiFi", 0xEuLL))
+  v24 = strncmp(v11, "ConfigureWiFi", 0xEuLL);
+  if (!v24)
   {
-    v85 = sub_100063B64();
-    if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+    v103 = sub_100063B64(v24);
+    if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "Configuring WiFi...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "Configuring WiFi...", buf, 2u);
     }
 
-    v86 = xpc_dictionary_create_reply(messageCopy);
-    v87 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "SSID")];
-    v88 = xpc_dictionary_get_string(messageCopy, "Password");
-    if (v88)
+    v104 = xpc_dictionary_create_reply(messageCopy);
+    v105 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "SSID")];
+    v106 = xpc_dictionary_get_string(messageCopy, "Password");
+    if (v106)
     {
-      reply = [NSString stringWithUTF8String:v88];
+      v106 = [NSString stringWithUTF8String:v106];
+      reply = v106;
     }
 
     else
@@ -892,45 +899,46 @@ LABEL_122:
       reply = 0;
     }
 
-    v109 = sub_100063B64();
-    if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+    v132 = sub_100063B64(v106);
+    if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *&buf[4] = v87;
-      _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "Setting up WiFi: ssid = %{public}@", buf, 0xCu);
+      *&buf[4] = v105;
+      _os_log_impl(&_mh_execute_header, v132, OS_LOG_TYPE_DEFAULT, "Setting up WiFi: ssid = %{public}@", buf, 0xCu);
     }
 
-    v110 = +[MSDWiFiHelper sharedInstance];
-    v111 = [v110 configureWiFi:v87 password:reply];
+    v133 = +[MSDWiFiHelper sharedInstance];
+    v134 = [v133 configureWiFi:v105 password:reply];
 
-    if ([v250 dcotaOfflineModeDevice])
+    if ([v289 dcotaOfflineModeDevice])
     {
-      v112 = +[MSDFindMyHub sharedInstance];
-      [v112 handleEnrollmentRetryUponFirstLaunch];
+      v135 = +[MSDFindMyHub sharedInstance];
+      [v135 handleEnrollmentRetryUponFirstLaunch];
     }
 
-    xpc_dictionary_set_BOOL(v86, "Result", v111);
-    xpc_connection_send_message(connection, v86);
+    xpc_dictionary_set_BOOL(v104, "Result", v134);
+    xpc_connection_send_message(connection, v104);
 
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "DisconnectAndForgetWiFi", 0x18uLL))
+  v25 = strncmp(v11, "DisconnectAndForgetWiFi", 0x18uLL);
+  if (!v25)
   {
-    v89 = sub_100063B64();
-    if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+    v108 = sub_100063B64(v25);
+    if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "Disconnecting from current WiFi and forgetting all known WiFi...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_DEFAULT, "Disconnecting from current WiFi and forgetting all known WiFi...", buf, 2u);
     }
 
     reply = xpc_dictionary_create_reply(messageCopy);
-    v90 = +[MSDWiFiHelper sharedInstance];
-    [v90 disassociateAndForgetWiFi];
+    v109 = +[MSDWiFiHelper sharedInstance];
+    [v109 disassociateAndForgetWiFi];
 
-    if ([v250 isContentFrozen])
+    if ([v289 isContentFrozen])
     {
-      [v250 setShouldForgetKnownNetworkUponUnlock:1];
+      [v289 setShouldForgetKnownNetworkUponUnlock:1];
     }
 
     xpc_dictionary_set_BOOL(reply, "Result", 1);
@@ -938,101 +946,105 @@ LABEL_122:
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "SetLanguageAndRegion", 0x15uLL))
+  v26 = strncmp(v11, "SetLanguageAndRegion", 0x15uLL);
+  if (!v26)
   {
-    v95 = sub_100063B64();
-    if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+    v116 = sub_100063B64(v26);
+    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "Setting Device Language and Region...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_DEFAULT, "Setting Device Language and Region...", buf, 2u);
     }
 
-    v96 = os_transaction_create();
-    [(MSDLocalMessageResponder *)self setTransaction:v96];
+    v117 = os_transaction_create();
+    [(MSDLocalMessageResponder *)self setTransaction:v117];
 
     reply = xpc_dictionary_create_reply(messageCopy);
-    v97 = dispatch_semaphore_create(0);
-    v98 = +[MSDUIHelper sharedInstance];
-    [v98 startFullScreenUIWith:@"LANGUAGE_UPDATE" allowCancel:0];
+    v118 = dispatch_semaphore_create(0);
+    v119 = +[MSDUIHelper sharedInstance];
+    [v119 startFullScreenUIWith:@"LANGUAGE_UPDATE" allowCancel:0];
 
     value = 0;
-    v99 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "languageIdentifier")];
-    v100 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "regionCode")];
-    v101 = +[MSDLanguageAndRegionManager sharedInstance];
-    v265[0] = _NSConcreteStackBlock;
-    v265[1] = 3221225472;
-    v265[2] = sub_100039A3C;
-    v265[3] = &unk_100169B48;
-    v102 = v97;
-    v266 = v102;
-    LODWORD(v97) = [v101 setDeviceLanguage:v99 andRegion:v100 matchToSystemLanguage:1 sbRestartNeeded:&value sbRestartHandler:v265];
+    v120 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "languageIdentifier")];
+    v121 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "regionCode")];
+    v122 = +[MSDLanguageAndRegionManager sharedInstance];
+    v304[0] = _NSConcreteStackBlock;
+    v304[1] = 3221225472;
+    v304[2] = sub_100039A3C;
+    v304[3] = &unk_100169B48;
+    v123 = v118;
+    v305 = v123;
+    LODWORD(v118) = [v122 setDeviceLanguage:v120 andRegion:v121 matchToSystemLanguage:1 sbRestartNeeded:&value sbRestartHandler:v304];
 
-    xpc_dictionary_set_BOOL(reply, "Result", v97);
+    xpc_dictionary_set_BOOL(reply, "Result", v118);
     xpc_connection_send_message(connection, reply);
-    if (!v97)
+    if (!v118)
     {
       goto LABEL_239;
     }
 
     if (value)
     {
-      v103 = sub_100063A54();
-      if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+      v125 = sub_100063A54(v124);
+      if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "Waiting for Springboard restart", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v125, OS_LOG_TYPE_DEFAULT, "Waiting for Springboard restart", buf, 2u);
       }
 
-      v104 = dispatch_time(0, 70000000000);
-      if (dispatch_semaphore_wait(v102, v104))
+      v126 = dispatch_time(0, 70000000000);
+      v127 = dispatch_semaphore_wait(v123, v126);
+      if (v127)
       {
-        v105 = sub_100063A54();
-        if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+        v128 = sub_100063A54(v127);
+        if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
         {
           sub_1000CE84C();
         }
       }
     }
 
-    if ([v250 isOfflineMode])
+    if ([v289 isOfflineMode])
     {
-      v106 = +[MSDWorkQueueSet sharedInstance];
-      demoUpdateQueue4 = [v106 demoUpdateQueue];
-      v263[0] = _NSConcreteStackBlock;
-      v263[1] = 3221225472;
-      v263[2] = sub_100039A44;
-      v263[3] = &unk_100169B70;
-      v264 = v250;
-      dispatch_async(demoUpdateQueue4, v263);
+      v129 = +[MSDWorkQueueSet sharedInstance];
+      demoUpdateQueue4 = [v129 demoUpdateQueue];
+      v302[0] = _NSConcreteStackBlock;
+      v302[1] = 3221225472;
+      v302[2] = sub_100039A44;
+      v302[3] = &unk_100169B70;
+      v303 = v289;
+      dispatch_async(demoUpdateQueue4, v302);
 
-      v108 = v264;
+      v131 = v303;
     }
 
     else
     {
 LABEL_239:
-      v108 = +[MSDUIHelper sharedInstance];
-      [v108 stopFullScreenUI:0];
+      v131 = +[MSDUIHelper sharedInstance];
+      [v131 stopFullScreenUI:0];
     }
 
     [(MSDLocalMessageResponder *)self setTransaction:0];
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "SetLanguageAndRegionWithoutSystemLanguageMatching", 0x32uLL))
+  v27 = strncmp(v11, "SetLanguageAndRegionWithoutSystemLanguageMatching", 0x32uLL);
+  if (!v27)
   {
-    v113 = sub_100063B64();
-    if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+    v136 = sub_100063B64(v27);
+    if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "Setting Device Language and Region without matching to the closest system language...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_DEFAULT, "Setting Device Language and Region without matching to the closest system language...", buf, 2u);
     }
 
     reply = xpc_dictionary_create_reply(messageCopy);
-    if ((os_variant_has_internal_content() & 1) == 0)
+    has_internal_content = os_variant_has_internal_content();
+    if ((has_internal_content & 1) == 0)
     {
-      v114 = sub_100063A54();
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+      v138 = sub_100063A54(has_internal_content);
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
       {
         sub_1000CE7CC();
       }
@@ -1041,28 +1053,29 @@ LABEL_239:
       xpc_connection_send_message(connection, reply);
     }
 
-    v115 = os_transaction_create();
-    [(MSDLocalMessageResponder *)self setTransaction:v115];
+    v139 = os_transaction_create();
+    [(MSDLocalMessageResponder *)self setTransaction:v139];
 
-    v116 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "languageIdentifier")];
-    v117 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "regionCode")];
-    v118 = +[MSDLanguageAndRegionManager sharedInstance];
-    v119 = [v118 setDeviceLanguage:v116 andRegion:v117 matchToSystemLanguage:0 sbRestartNeeded:0 sbRestartHandler:0];
+    v140 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "languageIdentifier")];
+    v141 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "regionCode")];
+    v142 = +[MSDLanguageAndRegionManager sharedInstance];
+    v143 = [v142 setDeviceLanguage:v140 andRegion:v141 matchToSystemLanguage:0 sbRestartNeeded:0 sbRestartHandler:0];
 
-    xpc_dictionary_set_BOOL(reply, "Result", v119);
+    xpc_dictionary_set_BOOL(reply, "Result", v143);
     xpc_connection_send_message(connection, reply);
     [(MSDLocalMessageResponder *)self setTransaction:0];
 
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "GetLanguageAndRegion", 0x15uLL))
+  v28 = strncmp(v11, "GetLanguageAndRegion", 0x15uLL);
+  if (!v28)
   {
-    v120 = sub_100063B64();
-    if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
+    v144 = sub_100063B64(v28);
+    if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "Getting Device Language and Region...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_DEFAULT, "Getting Device Language and Region...", buf, 2u);
     }
 
     reply = xpc_dictionary_create_reply(messageCopy);
@@ -1071,45 +1084,45 @@ LABEL_239:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    v121 = +[MSDLanguageAndRegionManager sharedInstance];
-    getCurrentDeviceLanguage = [v121 getCurrentDeviceLanguage];
+    v145 = +[MSDLanguageAndRegionManager sharedInstance];
+    getCurrentDeviceLanguage = [v145 getCurrentDeviceLanguage];
 
     if (!getCurrentDeviceLanguage)
     {
-      v184 = sub_100063A54();
-      sub_1000CE778(v184);
+      v219 = sub_100063A54(v147);
+      sub_1000CE778(v219);
       goto LABEL_259;
     }
 
-    v123 = +[MSDLanguageAndRegionManager sharedInstance];
-    getCurrentDeviceRegion = [v123 getCurrentDeviceRegion];
+    v148 = +[MSDLanguageAndRegionManager sharedInstance];
+    getCurrentDeviceRegion = [v148 getCurrentDeviceRegion];
 
     if (!getCurrentDeviceRegion)
     {
-      v185 = sub_100063A54();
-      sub_1000CE6FC(v185, 0, getCurrentDeviceLanguage);
+      v220 = sub_100063A54(v150);
+      sub_1000CE6FC(v220, 0, getCurrentDeviceLanguage);
       goto LABEL_259;
     }
 
-    v125 = getCurrentDeviceLanguage;
+    v151 = getCurrentDeviceLanguage;
     xpc_dictionary_set_string(reply, "languageIdentifier", [getCurrentDeviceLanguage UTF8String]);
-    v126 = getCurrentDeviceRegion;
+    v152 = getCurrentDeviceRegion;
     xpc_dictionary_set_string(reply, "regionCode", [getCurrentDeviceRegion UTF8String]);
     xpc_connection_send_message(connection, reply);
 
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "GetAppUsageSessionUUID", 0x17uLL))
+  if (!strncmp(v11, "GetAppUsageSessionUUID", 0x17uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
-    v127 = +[MSDDeviceDataCollector sharedInstance];
-    getCurrentAppUsageSessionUUID = [v127 getCurrentAppUsageSessionUUID];
+    v153 = +[MSDDeviceDataCollector sharedInstance];
+    getCurrentAppUsageSessionUUID = [v153 getCurrentAppUsageSessionUUID];
 
     if (getCurrentAppUsageSessionUUID)
     {
       xpc_dictionary_set_BOOL(reply, "Result", 1);
-      v129 = getCurrentAppUsageSessionUUID;
+      v155 = getCurrentAppUsageSessionUUID;
       xpc_dictionary_set_string(reply, "SessionUUID", [getCurrentAppUsageSessionUUID UTF8String]);
     }
 
@@ -1123,30 +1136,32 @@ LABEL_239:
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "CollectAppUsageData", 0x14uLL))
+  if (!strncmp(v11, "CollectAppUsageData", 0x14uLL))
   {
-    v130 = xpc_dictionary_create_reply(messageCopy);
-    v131 = xpc_dictionary_get_value(messageCopy, "StartTime");
-    if (xpc_get_type(v131) == &_xpc_type_double)
+    v156 = xpc_dictionary_create_reply(messageCopy);
+    v157 = xpc_dictionary_get_value(messageCopy, "StartTime");
+    type = xpc_get_type(v157);
+    if (type == &_xpc_type_double)
     {
-      v132 = xpc_dictionary_get_value(messageCopy, "EndTime");
-      if (xpc_get_type(v132) == &_xpc_type_double)
+      v159 = xpc_dictionary_get_value(messageCopy, "EndTime");
+      v160 = xpc_get_type(v159);
+      if (v160 == &_xpc_type_double)
       {
-        reply = [NSDate dateWithTimeIntervalSince1970:xpc_double_get_value(v131)];
-        v133 = [NSDate dateWithTimeIntervalSince1970:xpc_double_get_value(v132)];
-        v134 = +[MSDDeviceDataCollector sharedInstance];
-        [v134 collectAppUsageWithSessionStart:reply andEnd:v133];
-        v135 = 1;
+        reply = [NSDate dateWithTimeIntervalSince1970:xpc_double_get_value(v157)];
+        v161 = [NSDate dateWithTimeIntervalSince1970:xpc_double_get_value(v159)];
+        v162 = +[MSDDeviceDataCollector sharedInstance];
+        [v162 collectAppUsageWithSessionStart:reply andEnd:v161];
+        v163 = 1;
 LABEL_263:
 
-        xpc_dictionary_set_BOOL(v130, "Result", v135);
-        xpc_connection_send_message(connection, v130);
+        xpc_dictionary_set_BOOL(v156, "Result", v163);
+        xpc_connection_send_message(connection, v156);
 
         goto LABEL_80;
       }
 
-      v134 = sub_100063A54();
-      if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
+      v162 = sub_100063A54(v160);
+      if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
       {
         sub_1000CE6C0();
       }
@@ -1154,42 +1169,43 @@ LABEL_263:
 
     else
     {
-      v134 = sub_100063A54();
-      if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
+      v162 = sub_100063A54(type);
+      if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
       {
         sub_1000CE684();
       }
 
-      v132 = 0;
+      v159 = 0;
     }
 
-    v133 = 0;
+    v161 = 0;
     reply = 0;
-    v135 = 0;
+    v163 = 0;
     goto LABEL_263;
   }
 
-  if (!strncmp(string, "SaveBTPairingInfo", 0x12uLL))
+  v29 = strncmp(v11, "SaveBTPairingInfo", 0x12uLL);
+  if (!v29)
   {
-    v136 = sub_100063B64();
-    if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
+    v164 = sub_100063B64(v29);
+    if (os_log_type_enabled(v164, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_DEFAULT, "Saving Bluetooth Pairing Info...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v164, OS_LOG_TYPE_DEFAULT, "Saving Bluetooth Pairing Info...", buf, 2u);
     }
 
     reply = xpc_dictionary_create_reply(messageCopy);
-    if ([v250 isContentFrozen])
+    if ([v289 isContentFrozen])
     {
-      v137 = +[MSDBluetoothHelper sharedInstance];
-      preserveBTPairingRecord = [v137 preserveBTPairingRecord];
+      v165 = +[MSDBluetoothHelper sharedInstance];
+      preserveBTPairingRecord = [v165 preserveBTPairingRecord];
 
-      v139 = sub_100063A54();
-      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
+      v168 = sub_100063A54(v167);
+      if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67240192;
         *&buf[4] = preserveBTPairingRecord;
-        _os_log_impl(&_mh_execute_header, v139, OS_LOG_TYPE_DEFAULT, "Bluetooth pairing info result: %{public, BOOL}d", buf, 8u);
+        _os_log_impl(&_mh_execute_header, v168, OS_LOG_TYPE_DEFAULT, "Bluetooth pairing info result: %{public, BOOL}d", buf, 8u);
       }
     }
 
@@ -1203,119 +1219,123 @@ LABEL_263:
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "StartOSUpdate", 0xEuLL))
+  if (!strncmp(v11, "StartOSUpdate", 0xEuLL))
   {
     reply = objc_opt_new();
-    isVerifiedDemoDevice = [v250 isVerifiedDemoDevice];
-    v142 = xpc_dictionary_create_reply(messageCopy);
-    if (!v142)
+    isVerifiedDemoDevice = [v289 isVerifiedDemoDevice];
+    v171 = xpc_dictionary_create_reply(messageCopy);
+    v172 = v171;
+    if (!v171)
     {
-      v142 = xpc_dictionary_create(0, 0, 0);
+      v171 = xpc_dictionary_create(0, 0, 0);
+      v172 = v171;
     }
 
     if (isVerifiedDemoDevice)
     {
-      if (os_variant_has_internal_content())
+      v173 = os_variant_has_internal_content();
+      if (v173)
       {
-        v143 = xpc_dictionary_get_string(messageCopy, "OSVersion");
-        if (v143)
+        v174 = xpc_dictionary_get_string(messageCopy, "OSVersion");
+        if (v174)
         {
-          v144 = [NSString stringWithUTF8String:v143];
-          [reply setObject:v144 forKey:@"OSVersion"];
+          v175 = [NSString stringWithUTF8String:v174];
+          [reply setObject:v175 forKey:@"OSVersion"];
         }
 
-        v145 = xpc_dictionary_get_string(messageCopy, "DemodVersion");
-        if (v145)
+        v176 = xpc_dictionary_get_string(messageCopy, "DemodVersion");
+        if (v176)
         {
-          v146 = [NSString stringWithUTF8String:v145];
-          [reply setObject:v146 forKey:@"demodVersion"];
+          v177 = [NSString stringWithUTF8String:v176];
+          [reply setObject:v177 forKey:@"demodVersion"];
         }
 
-        [v250 saveOSUpdateRequest:reply];
-        v147 = +[MSDWorkQueueSet sharedInstance];
-        demoUpdateQueue5 = [v147 demoUpdateQueue];
-        v261[0] = _NSConcreteStackBlock;
-        v261[1] = 3221225472;
-        v261[2] = sub_100039A4C;
-        v261[3] = &unk_100169B70;
-        v262 = v250;
-        dispatch_async(demoUpdateQueue5, v261);
+        [v289 saveOSUpdateRequest:reply];
+        v178 = +[MSDWorkQueueSet sharedInstance];
+        demoUpdateQueue5 = [v178 demoUpdateQueue];
+        v300[0] = _NSConcreteStackBlock;
+        v300[1] = 3221225472;
+        v300[2] = sub_100039A4C;
+        v300[3] = &unk_100169B70;
+        v301 = v289;
+        dispatch_async(demoUpdateQueue5, v300);
 
-        v149 = v262;
+        v180 = v301;
         goto LABEL_283;
       }
 
-      sub_100063B64();
+      sub_100063B64(v173);
       objc_claimAutoreleasedReturnValue();
       sub_1000CE5F4();
     }
 
     else
     {
-      sub_100063B64();
+      sub_100063B64(v171);
       objc_claimAutoreleasedReturnValue();
       sub_1000CE598();
     }
 
-    v149 = *buf;
+    v180 = *buf;
 LABEL_283:
 
-    xpc_dictionary_set_BOOL(v142, "Result", 1);
-    xpc_connection_send_message(connection, v142);
+    xpc_dictionary_set_BOOL(v172, "Result", 1);
+    xpc_connection_send_message(connection, v172);
 
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "LaunchApp", 0xAuLL))
+  if (!strncmp(v11, "LaunchApp", 0xAuLL))
   {
-    v300 = SBSOpenApplicationOptionKeyPreventDismissalOfTransientOverlays;
-    v301 = &__kCFBooleanTrue;
-    reply = [NSDictionary dictionaryWithObjects:&v301 forKeys:&v300 count:1];
-    if (os_variant_has_internal_content())
+    v339 = SBSOpenApplicationOptionKeyPreventDismissalOfTransientOverlays;
+    v340 = &__kCFBooleanTrue;
+    reply = [NSDictionary dictionaryWithObjects:&v340 forKeys:&v339 count:1];
+    v181 = os_variant_has_internal_content();
+    if (v181)
     {
-      v150 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "BundleID")];
-      [MSDAppLauncherTerminator launchApp:v150 withOptions:reply outError:0];
+      v182 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "BundleID")];
+      [MSDAppLauncherTerminator launchApp:v182 withOptions:reply outError:0];
     }
 
     else
     {
-      v150 = sub_100063A54();
-      if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+      v182 = sub_100063A54(v181);
+      if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
       {
         sub_1000CE518();
       }
     }
 
-    v151 = xpc_dictionary_create_reply(messageCopy);
-    v152 = v151;
-    if (v151)
+    v183 = xpc_dictionary_create_reply(messageCopy);
+    v184 = v183;
+    if (v183)
     {
-      xpc_dictionary_set_BOOL(v151, "Result", 0);
-      xpc_connection_send_message(connection, v152);
+      xpc_dictionary_set_BOOL(v183, "Result", 0);
+      xpc_connection_send_message(connection, v184);
     }
 
     goto LABEL_387;
   }
 
-  if (!strncmp(string, "DeviceCheckIn", 0xEuLL))
+  if (!strncmp(v11, "DeviceCheckIn", 0xEuLL))
   {
     [(MSDLocalMessageResponder *)self _handleDeviceCheckInOp:messageCopy from:connection];
     goto LABEL_81;
   }
 
-  if (!strncmp(string, "MarkAsNotDemo", 0xEuLL))
+  if (!strncmp(v11, "MarkAsNotDemo", 0xEuLL))
   {
     [(MSDLocalMessageResponder *)self _handleMarkAsNotDemo:messageCopy from:connection];
     goto LABEL_81;
   }
 
-  if (!strncmp(string, "StoreSearch", 0xCuLL))
+  if (!strncmp(v11, "StoreSearch", 0xCuLL))
   {
     [(MSDLocalMessageResponder *)self _handleStoreSearchOp:messageCopy from:connection];
     goto LABEL_81;
   }
 
-  if (!strncmp(string, "ClearSafariHistory", 0x13uLL))
+  if (!strncmp(v11, "ClearSafariHistory", 0x13uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -1323,15 +1343,15 @@ LABEL_283:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    v153 = +[MSDTargetDevice sharedInstance];
-    [v153 clearSafariHistory];
+    v185 = +[MSDTargetDevice sharedInstance];
+    [v185 clearSafariHistory];
 
     xpc_dictionary_set_BOOL(reply, "Result", 1);
     xpc_connection_send_message(connection, reply);
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "ManageWallpaperSettings", 0x18uLL))
+  if (!strncmp(v11, "ManageWallpaperSettings", 0x18uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -1339,40 +1359,41 @@ LABEL_283:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    v154 = xpc_dictionary_get_string(messageCopy, "Action");
-    if (!strncmp(v154, "Stash", 6uLL))
+    v186 = xpc_dictionary_get_string(messageCopy, "Action");
+    if (!strncmp(v186, "Stash", 6uLL))
     {
-      v155 = +[MSDWallpaperManager sharedInstance];
-      [v155 stashWallpaperSettingsIfNeeded];
+      v188 = +[MSDWallpaperManager sharedInstance];
+      [v188 stashWallpaperSettingsIfNeeded];
     }
 
     else
     {
-      if (strncmp(v154, "Restore", 8uLL))
+      v187 = strncmp(v186, "Restore", 8uLL);
+      if (v187)
       {
-        v155 = sub_100063B64();
-        if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
+        v188 = sub_100063B64(v187);
+        if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
         {
           sub_1000CE4A8();
         }
 
-        v156 = 0;
+        v189 = 0;
         goto LABEL_329;
       }
 
-      v155 = +[MSDWallpaperManager sharedInstance];
-      [v155 restoreWallpaperSettingsIfNeeded];
+      v188 = +[MSDWallpaperManager sharedInstance];
+      [v188 restoreWallpaperSettingsIfNeeded];
     }
 
-    v156 = 1;
+    v189 = 1;
 LABEL_329:
 
-    xpc_dictionary_set_BOOL(reply, "Result", v156);
+    xpc_dictionary_set_BOOL(reply, "Result", v189);
     xpc_connection_send_message(connection, reply);
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "EnterOfflineMode", 0x11uLL))
+  if (!strncmp(v11, "EnterOfflineMode", 0x11uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -1380,21 +1401,23 @@ LABEL_329:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    isOfflineMode = [v250 isOfflineMode];
+    isOfflineMode = [v289 isOfflineMode];
+    v192 = isOfflineMode;
     if (isOfflineMode)
     {
-      if (![(MSDLocalMessageResponder *)self demoPrepareInProgress])
+      demoPrepareInProgress2 = [(MSDLocalMessageResponder *)self demoPrepareInProgress];
+      if (!demoPrepareInProgress2)
       {
         [(MSDLocalMessageResponder *)self setDemoPrepareInProgress:1];
-        v159 = +[MSDWorkQueueSet sharedInstance];
-        demoUpdateQueue6 = [v159 demoUpdateQueue];
-        v258[0] = _NSConcreteStackBlock;
-        v258[1] = 3221225472;
-        v258[2] = sub_100039AA0;
-        v258[3] = &unk_10016A258;
-        v259 = v250;
+        v194 = +[MSDWorkQueueSet sharedInstance];
+        demoUpdateQueue6 = [v194 demoUpdateQueue];
+        v297[0] = _NSConcreteStackBlock;
+        v297[1] = 3221225472;
+        v297[2] = sub_100039AA0;
+        v297[3] = &unk_10016A258;
+        v298 = v289;
         selfCopy2 = self;
-        dispatch_async(demoUpdateQueue6, v258);
+        dispatch_async(demoUpdateQueue6, v297);
 
         xpc_dictionary_set_BOOL(reply, "Acknowledged", 1);
         xpc_connection_send_message(connection, reply);
@@ -1402,24 +1425,24 @@ LABEL_329:
         goto LABEL_80;
       }
 
-      sub_100063B64();
+      sub_100063B64(demoPrepareInProgress2);
       objc_claimAutoreleasedReturnValue();
       sub_1000CE448();
     }
 
     else
     {
-      sub_100063B64();
+      sub_100063B64(isOfflineMode);
       objc_claimAutoreleasedReturnValue();
       sub_1000CE3EC();
     }
 
-    xpc_dictionary_set_BOOL(reply, "Acknowledged", isOfflineMode);
+    xpc_dictionary_set_BOOL(reply, "Acknowledged", v192);
     xpc_connection_send_message(connection, reply);
     goto LABEL_123;
   }
 
-  if (!strncmp(string, "AutoEnrollmentResults", 0x16uLL))
+  if (!strncmp(v11, "AutoEnrollmentResults", 0x16uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -1427,20 +1450,20 @@ LABEL_329:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    v161 = xpc_dictionary_get_double(messageCopy, "AutoEnrollmentTimeStamp");
-    v162 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "AutoEnrollmentSelectedStoreID")];
+    v196 = xpc_dictionary_get_double(messageCopy, "AutoEnrollmentTimeStamp");
+    v197 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "AutoEnrollmentSelectedStoreID")];
     *buf = 0;
     data = xpc_dictionary_get_data(messageCopy, "AutoEnrollmentHelpMenuUserTapped", buf);
-    v164 = [NSData alloc];
-    v165 = [v164 initWithBytesNoCopy:data length:*buf freeWhenDone:0];
-    v166 = objc_opt_class();
-    v167 = [NSSet setWithObjects:v166, objc_opt_class(), 0];
-    v257 = 0;
-    v168 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v167 fromData:v165 error:&v257];
-    v169 = v257;
+    v199 = [NSData alloc];
+    v200 = [v199 initWithBytesNoCopy:data length:*buf freeWhenDone:0];
+    v201 = objc_opt_class();
+    v202 = [NSSet setWithObjects:v201, objc_opt_class(), 0];
+    v296 = 0;
+    v203 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v202 fromData:v200 error:&v296];
+    v204 = v296;
 
-    v170 = +[MSDFindMyHub sharedInstance];
-    [v170 setAutoEnrollmentInfo:v162 withStoreId:v168 withHelpMenuRowSelection:v161];
+    v205 = +[MSDFindMyHub sharedInstance];
+    [v205 setAutoEnrollmentInfo:v197 withStoreId:v203 withHelpMenuRowSelection:v196];
 
     xpc_dictionary_set_BOOL(reply, "Result", 1);
     xpc_connection_send_message(connection, reply);
@@ -1448,7 +1471,7 @@ LABEL_329:
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "AutoEnrollmentAbortEvent", 0x19uLL))
+  if (!strncmp(v11, "AutoEnrollmentAbortEvent", 0x19uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -1456,17 +1479,17 @@ LABEL_329:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    v172 = [NSError errorDomainMSDWithCode:3727744772 message:@"Auto Enrollment Abort by user choosing not a demo device"];
-    v173 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "AutoEnrollmentAbortLanguageCodeInfo")];
-    v174 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "AutoEnrollmentAbortCountryCodeInfo")];
-    v175 = +[MSDCellularHelper sharedInstance];
-    getCellularSimInfo = [v175 getCellularSimInfo];
+    v207 = [NSError errorDomainMSDWithCode:3727744772 message:@"Auto Enrollment Abort by user choosing not a demo device"];
+    v208 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "AutoEnrollmentAbortLanguageCodeInfo")];
+    v209 = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "AutoEnrollmentAbortCountryCodeInfo")];
+    v210 = +[MSDCellularHelper sharedInstance];
+    getCellularSimInfo = [v210 getCellularSimInfo];
 
-    v177 = +[MSDWiFiHelper sharedInstance];
-    getCurrentWiFiSsid = [v177 getCurrentWiFiSsid];
+    v212 = +[MSDWiFiHelper sharedInstance];
+    getCurrentWiFiSsid = [v212 getCurrentWiFiSsid];
 
-    v179 = +[MSDAnalyticsEventHandler sharedInstance];
-    [v179 sendAutoEnrollmentAbortEvent:v172 languageCode:v173 countryCode:v174 networkInformation:getCellularSimInfo wifiSSID:getCurrentWiFiSsid];
+    v214 = +[MSDAnalyticsEventHandler sharedInstance];
+    [v214 sendAutoEnrollmentAbortEvent:v207 languageCode:v208 countryCode:v209 networkInformation:getCellularSimInfo wifiSSID:getCurrentWiFiSsid];
 
     xpc_dictionary_set_BOOL(reply, "Result", 1);
     xpc_connection_send_message(connection, reply);
@@ -1474,69 +1497,69 @@ LABEL_329:
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "SetUpPeerService", 0x11uLL))
+  if (!strncmp(v11, "SetUpPeerService", 0x11uLL))
   {
-    v181 = +[MSDDemoPeerCommander sharedInstance];
-    reply = [v181 createXPCEndpoint];
+    v216 = +[MSDDemoPeerCommander sharedInstance];
+    reply = [v216 createXPCEndpoint];
 
-    v182 = xpc_dictionary_create_reply(messageCopy);
-    v152 = v182;
-    if (v182)
+    v217 = xpc_dictionary_create_reply(messageCopy);
+    v184 = v217;
+    if (v217)
     {
       if (reply)
       {
-        xpc_dictionary_set_BOOL(v182, "Result", 1);
+        xpc_dictionary_set_BOOL(v217, "Result", 1);
         _endpoint = [reply _endpoint];
-        xpc_dictionary_set_value(v152, "PeerServiceXPCEndpoint", _endpoint);
+        xpc_dictionary_set_value(v184, "PeerServiceXPCEndpoint", _endpoint);
       }
 
       else
       {
-        xpc_dictionary_set_BOOL(v182, "Result", 0);
+        xpc_dictionary_set_BOOL(v217, "Result", 0);
       }
 
-      xpc_connection_send_message(connection, v152);
+      xpc_connection_send_message(connection, v184);
     }
 
     goto LABEL_387;
   }
 
-  if (!strncmp(string, "CloseRunningApps", 0x11uLL))
+  if (!strncmp(v11, "CloseRunningApps", 0x11uLL))
   {
     [(MSDLocalMessageResponder *)self _handleCloseRunningAppsRequest:messageCopy from:connection];
     goto LABEL_81;
   }
 
-  if (!strncmp(string, "InitializeAppSwitcherContent", 0x1DuLL))
+  if (!strncmp(v11, "InitializeAppSwitcherContent", 0x1DuLL))
   {
     reply = +[MSDAppSwitcherManager sharedInstance];
     [reply initializeClearAppSwitcherStateForDemoMode];
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "RefreshDeviceSettings", 0x16uLL))
+  if (!strncmp(v11, "RefreshDeviceSettings", 0x16uLL))
   {
     [(MSDLocalMessageResponder *)self _handleRefreshDeviceSettingsOp:messageCopy from:connection];
     goto LABEL_81;
   }
 
-  if (!strncmp(string, "InitializeDeviceSettings", 0x19uLL))
+  if (!strncmp(v11, "InitializeDeviceSettings", 0x19uLL))
   {
     [(MSDLocalMessageResponder *)self _handleInitializeDeviceSettingsOp:messageCopy from:connection];
     goto LABEL_81;
   }
 
-  if (!strncmp(string, "UICheckIn", 0xAuLL))
+  if (!strncmp(v11, "UICheckIn", 0xAuLL))
   {
-    v186 = +[MSDUIHelper sharedInstance];
-    [v186 setConnection:connection];
+    v221 = +[MSDUIHelper sharedInstance];
+    [v221 setConnection:connection];
 
-    v187 = xpc_dictionary_create_reply(messageCopy);
-    reply = v187;
-    if (v187)
+    v222 = xpc_dictionary_create_reply(messageCopy);
+    reply = v222;
+    if (v222)
     {
 LABEL_352:
-      xpc_dictionary_set_BOOL(v187, "Acknowledged", 1);
+      xpc_dictionary_set_BOOL(v222, "Acknowledged", 1);
       xpc_connection_send_message(connection, reply);
     }
 
@@ -1545,14 +1568,14 @@ LABEL_80:
     goto LABEL_81;
   }
 
-  if (!strncmp(string, "Cancel", 7uLL))
+  if (!strncmp(v11, "Cancel", 7uLL))
   {
-    v188 = +[MSDDemoUpdateController sharedInstance];
-    [v188 cancelDemoContentUpdate];
+    v223 = +[MSDDemoUpdateController sharedInstance];
+    [v223 cancelDemoContentUpdate];
 
-    v187 = xpc_dictionary_create_reply(messageCopy);
-    reply = v187;
-    if (!v187)
+    v222 = xpc_dictionary_create_reply(messageCopy);
+    reply = v222;
+    if (!v222)
     {
       goto LABEL_80;
     }
@@ -1560,35 +1583,35 @@ LABEL_80:
     goto LABEL_352;
   }
 
-  if (!strncmp(string, "StoreDataBlob", 0xEuLL))
+  if (!strncmp(v11, "StoreDataBlob", 0xEuLL))
   {
-    *(v21 + 24) = 0;
-    if (v240 && v241)
+    *(v22 + 24) = 0;
+    if (v279 && v280)
     {
-      v189 = +[MSDCache sharedInstance];
-      v190 = [v189 storeDataBlob:v240 withContainerIdentifier:v241];
-      *(v291 + 24) = v190;
+      v224 = +[MSDCache sharedInstance];
+      v225 = [v224 storeDataBlob:v279 withContainerIdentifier:v280];
+      *(v330 + 24) = v225;
     }
 
-    v191 = xpc_dictionary_create_reply(messageCopy);
-    reply = v191;
-    if (!v191)
+    v226 = xpc_dictionary_create_reply(messageCopy);
+    reply = v226;
+    if (!v226)
     {
       goto LABEL_80;
     }
 
 LABEL_362:
-    xpc_dictionary_set_BOOL(v191, "Acknowledged", *(v291 + 24));
+    xpc_dictionary_set_BOOL(v226, "Acknowledged", *(v330 + 24));
     xpc_connection_send_message(connection, reply);
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "RetrieveSavedDataBlob", 0x16uLL))
+  if (!strncmp(v11, "RetrieveSavedDataBlob", 0x16uLL))
   {
-    if (v241)
+    if (v280)
     {
-      v192 = +[MSDCache sharedInstance];
-      reply = [v192 retrieveDataBlob:v241];
+      v227 = +[MSDCache sharedInstance];
+      reply = [v227 retrieveDataBlob:v280];
     }
 
     else
@@ -1596,30 +1619,30 @@ LABEL_362:
       reply = 0;
     }
 
-    v152 = xpc_dictionary_create_reply(messageCopy);
-    if (v152)
+    v184 = xpc_dictionary_create_reply(messageCopy);
+    if (v184)
     {
-      v198 = reply;
-      xpc_dictionary_set_data(v152, "SavedDataBlob", [reply bytes], [reply length]);
-      xpc_connection_send_message(connection, v152);
+      v233 = reply;
+      xpc_dictionary_set_data(v184, "SavedDataBlob", [reply bytes], [reply length]);
+      xpc_connection_send_message(connection, v184);
     }
 
     goto LABEL_387;
   }
 
-  if (!strncmp(string, "DeleteDataBlob", 0xFuLL))
+  if (!strncmp(v11, "DeleteDataBlob", 0xFuLL))
   {
-    *(v21 + 24) = 0;
-    if (v241)
+    *(v22 + 24) = 0;
+    if (v280)
     {
-      v193 = +[MSDCache sharedInstance];
-      v194 = [v193 deleteDataBlob:v241];
-      *(v291 + 24) = v194;
+      v228 = +[MSDCache sharedInstance];
+      v229 = [v228 deleteDataBlob:v280];
+      *(v330 + 24) = v229;
     }
 
-    v191 = xpc_dictionary_create_reply(messageCopy);
-    reply = v191;
-    if (!v191)
+    v226 = xpc_dictionary_create_reply(messageCopy);
+    reply = v226;
+    if (!v226)
     {
       goto LABEL_80;
     }
@@ -1627,7 +1650,7 @@ LABEL_362:
     goto LABEL_362;
   }
 
-  if (!strncmp(string, "GetCurrentNetworkInfo", 0x16uLL))
+  if (!strncmp(v11, "GetCurrentNetworkInfo", 0x16uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
     if (!reply)
@@ -1635,23 +1658,23 @@ LABEL_362:
       reply = xpc_dictionary_create(0, 0, 0);
     }
 
-    v195 = xpc_dictionary_create(0, 0, 0);
-    v196 = xpc_dictionary_get_array(messageCopy, "NetworkInfoKeys");
+    v230 = xpc_dictionary_create(0, 0, 0);
+    v231 = xpc_dictionary_get_array(messageCopy, "NetworkInfoKeys");
     applier[0] = _NSConcreteStackBlock;
     applier[1] = 3221225472;
     applier[2] = sub_100039AE0;
     applier[3] = &unk_10016A888;
-    v197 = v195;
-    v255 = v197;
-    v256 = v250;
-    xpc_array_apply(v196, applier);
-    xpc_dictionary_set_value(reply, "Result", v197);
+    v232 = v230;
+    v294 = v232;
+    v295 = v289;
+    xpc_array_apply(v231, applier);
+    xpc_dictionary_set_value(reply, "Result", v232);
     xpc_connection_send_message(connection, reply);
 
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "IsStoreOpen", 0xCuLL))
+  if (!strncmp(v11, "IsStoreOpen", 0xCuLL))
   {
     date = xpc_dictionary_get_date(messageCopy, "EvaluateAgainstDate");
     if (date)
@@ -1664,24 +1687,24 @@ LABEL_362:
       reply = 0;
     }
 
-    v202 = +[MSDTargetDevice sharedInstance];
-    [v202 refreshStoreHoursManagerUsingSettingsAndTime:reply];
+    v237 = +[MSDTargetDevice sharedInstance];
+    [v237 refreshStoreHoursManagerUsingSettingsAndTime:reply];
 
-    v203 = +[MSDStoreHoursManager sharedInstance];
-    isStoreOpenNow = [v203 isStoreOpenNow];
+    v238 = +[MSDStoreHoursManager sharedInstance];
+    isStoreOpenNow = [v238 isStoreOpenNow];
 
-    v152 = xpc_dictionary_create_reply(messageCopy);
-    v205 = sub_100063A54();
-    if (os_log_type_enabled(v205, OS_LOG_TYPE_DEBUG))
+    v184 = xpc_dictionary_create_reply(messageCopy);
+    v240 = sub_100063A54(v184);
+    if (os_log_type_enabled(v240, OS_LOG_TYPE_DEBUG))
     {
       sub_1000CE360();
     }
 
-    if (v152)
+    if (v184)
     {
-      xpc_dictionary_set_BOOL(v152, "Result", 1);
-      xpc_dictionary_set_BOOL(v152, "ResultData", isStoreOpenNow);
-      xpc_connection_send_message(connection, v152);
+      xpc_dictionary_set_BOOL(v184, "Result", 1);
+      xpc_dictionary_set_BOOL(v184, "ResultData", isStoreOpenNow);
+      xpc_connection_send_message(connection, v184);
     }
 
 LABEL_387:
@@ -1689,12 +1712,12 @@ LABEL_387:
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "NextStoreOpenDate", 0x12uLL))
+  if (!strncmp(v11, "NextStoreOpenDate", 0x12uLL))
   {
-    v200 = xpc_dictionary_get_date(messageCopy, "EvaluateAgainstDate");
-    if (v200)
+    v235 = xpc_dictionary_get_date(messageCopy, "EvaluateAgainstDate");
+    if (v235)
     {
-      reply = [NSDate dateWithTimeIntervalSince1970:v200];
+      reply = [NSDate dateWithTimeIntervalSince1970:v235];
     }
 
     else
@@ -1702,46 +1725,46 @@ LABEL_387:
       reply = 0;
     }
 
-    v215 = xpc_dictionary_create_reply(messageCopy);
-    v216 = +[MSDTargetDevice sharedInstance];
-    [v216 refreshStoreHoursManagerUsingSettingsAndTime:reply];
+    v251 = xpc_dictionary_create_reply(messageCopy);
+    v252 = +[MSDTargetDevice sharedInstance];
+    [v252 refreshStoreHoursManagerUsingSettingsAndTime:reply];
 
-    v217 = +[MSDStoreHoursManager sharedInstance];
-    nextStoreOpenDate = [v217 nextStoreOpenDate];
+    v253 = +[MSDStoreHoursManager sharedInstance];
+    nextStoreOpenDate = [v253 nextStoreOpenDate];
 
-    if (v215)
+    if (v251)
     {
       if (nextStoreOpenDate)
       {
-        v219 = sub_100063A54();
-        if (os_log_type_enabled(v219, OS_LOG_TYPE_DEBUG))
+        v256 = sub_100063A54(v255);
+        if (os_log_type_enabled(v256, OS_LOG_TYPE_DEBUG))
         {
           sub_1000CE2E4();
         }
 
-        xpc_dictionary_set_BOOL(v215, "Result", 1);
+        xpc_dictionary_set_BOOL(v251, "Result", 1);
         [nextStoreOpenDate timeIntervalSince1970];
-        xpc_dictionary_set_date(v215, "NextStoreHour", v220);
+        xpc_dictionary_set_date(v251, "NextStoreHour", v257);
       }
 
       else
       {
-        xpc_dictionary_set_BOOL(v215, "Result", 0);
-        xpc_dictionary_set_string(v215, "ErrorMessage", "MSDStoreHoursManager returned nil value for nextStoreOpenDate");
+        xpc_dictionary_set_BOOL(v251, "Result", 0);
+        xpc_dictionary_set_string(v251, "ErrorMessage", "MSDStoreHoursManager returned nil value for nextStoreOpenDate");
       }
 
-      xpc_connection_send_message(connection, v215);
+      xpc_connection_send_message(connection, v251);
     }
 
     goto LABEL_419;
   }
 
-  if (!strncmp(string, "NextStoreCloseDate", 0x13uLL))
+  if (!strncmp(v11, "NextStoreCloseDate", 0x13uLL))
   {
-    v201 = xpc_dictionary_get_date(messageCopy, "EvaluateAgainstDate");
-    if (v201)
+    v236 = xpc_dictionary_get_date(messageCopy, "EvaluateAgainstDate");
+    if (v236)
     {
-      reply = [NSDate dateWithTimeIntervalSince1970:v201];
+      reply = [NSDate dateWithTimeIntervalSince1970:v236];
     }
 
     else
@@ -1749,35 +1772,35 @@ LABEL_387:
       reply = 0;
     }
 
-    v215 = xpc_dictionary_create_reply(messageCopy);
-    v229 = +[MSDTargetDevice sharedInstance];
-    [v229 refreshStoreHoursManagerUsingSettingsAndTime:reply];
+    v251 = xpc_dictionary_create_reply(messageCopy);
+    v266 = +[MSDTargetDevice sharedInstance];
+    [v266 refreshStoreHoursManagerUsingSettingsAndTime:reply];
 
-    v230 = +[MSDStoreHoursManager sharedInstance];
-    nextStoreOpenDate = [v230 nextStoreClosedDate];
+    v267 = +[MSDStoreHoursManager sharedInstance];
+    nextStoreOpenDate = [v267 nextStoreClosedDate];
 
-    if (v215)
+    if (v251)
     {
       if (nextStoreOpenDate)
       {
-        v231 = sub_100063A54();
-        if (os_log_type_enabled(v231, OS_LOG_TYPE_DEBUG))
+        v269 = sub_100063A54(v268);
+        if (os_log_type_enabled(v269, OS_LOG_TYPE_DEBUG))
         {
           sub_1000CE268();
         }
 
-        xpc_dictionary_set_BOOL(v215, "Result", 1);
+        xpc_dictionary_set_BOOL(v251, "Result", 1);
         [nextStoreOpenDate timeIntervalSince1970];
-        xpc_dictionary_set_date(v215, "NextStoreHour", v232);
+        xpc_dictionary_set_date(v251, "NextStoreHour", v270);
       }
 
       else
       {
-        xpc_dictionary_set_BOOL(v215, "Result", 0);
-        xpc_dictionary_set_string(v215, "ErrorMessage", "MSDStoreHoursManager returned nil value for nextStoreCloseDate");
+        xpc_dictionary_set_BOOL(v251, "Result", 0);
+        xpc_dictionary_set_string(v251, "ErrorMessage", "MSDStoreHoursManager returned nil value for nextStoreCloseDate");
       }
 
-      xpc_connection_send_message(connection, v215);
+      xpc_connection_send_message(connection, v251);
     }
 
 LABEL_419:
@@ -1785,15 +1808,15 @@ LABEL_419:
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "UpdateStoreHours", 0x11uLL))
+  if (!strncmp(v11, "UpdateStoreHours", 0x11uLL))
   {
     reply = xpc_dictionary_create_reply(messageCopy);
-    has_internal_content = os_variant_has_internal_content();
-    v207 = has_internal_content;
-    if (!has_internal_content)
+    v241 = os_variant_has_internal_content();
+    v242 = v241;
+    if (!v241)
     {
-      v209 = sub_100063A54();
-      if (os_log_type_enabled(v209, OS_LOG_TYPE_ERROR))
+      v244 = sub_100063A54(v241);
+      if (os_log_type_enabled(v244, OS_LOG_TYPE_ERROR))
       {
         sub_1000CE0F0();
       }
@@ -1801,43 +1824,43 @@ LABEL_419:
       goto LABEL_422;
     }
 
-    v208 = xpc_dictionary_get_array(messageCopy, "RawStoreHours");
-    v209 = [NSArray arrayWithXPCArray:v208];
+    v243 = xpc_dictionary_get_array(messageCopy, "RawStoreHours");
+    v244 = [NSArray arrayWithXPCArray:v243];
 
-    if (v209)
+    if (v244)
     {
-      v210 = [NSDate dateWithTimeIntervalSince1970:xpc_dictionary_get_date(messageCopy, "EvaluateAgainstDate")];
-      if (v210)
+      v246 = [NSDate dateWithTimeIntervalSince1970:xpc_dictionary_get_date(messageCopy, "EvaluateAgainstDate")];
+      if (v246)
       {
-        v211 = +[MSDTargetDevice sharedInstance];
-        hubSuppliedSettings = [v211 hubSuppliedSettings];
-        v213 = [hubSuppliedSettings mutableCopy];
+        v247 = +[MSDTargetDevice sharedInstance];
+        hubSuppliedSettings = [v247 hubSuppliedSettings];
+        v249 = [hubSuppliedSettings mutableCopy];
 
-        [v213 setObject:v209 forKey:@"StoreHours"];
-        [v211 saveHubSuppliedSettings:v213];
-        [v211 refreshStoreHoursManagerUsingSettingsAndTime:0];
-        v214 = +[MSDStoreHoursManager sharedInstance];
-        [v214 evaluateStoreStatusAgainstPointInTime:v210];
+        [v249 setObject:v244 forKey:@"StoreHours"];
+        [v247 saveHubSuppliedSettings:v249];
+        [v247 refreshStoreHoursManagerUsingSettingsAndTime:0];
+        v250 = +[MSDStoreHoursManager sharedInstance];
+        [v250 evaluateStoreStatusAgainstPointInTime:v246];
 
 LABEL_422:
         if (reply)
         {
-          xpc_dictionary_set_BOOL(reply, "Result", v207);
+          xpc_dictionary_set_BOOL(reply, "Result", v242);
           xpc_connection_send_message(connection, reply);
         }
 
         goto LABEL_80;
       }
 
-      sub_100063A54();
+      sub_100063A54(0);
       objc_claimAutoreleasedReturnValue();
       sub_1000CE170();
     }
 
     else
     {
-      v239 = sub_100063A54();
-      sub_1000CE1D0(v239);
+      v278 = sub_100063A54(v245);
+      sub_1000CE1D0(v278);
     }
 
 LABEL_259:
@@ -1845,118 +1868,120 @@ LABEL_259:
     goto LABEL_122;
   }
 
-  if (!strncmp(string, "preserveSecondPartyAppDataToShelter", 0x24uLL))
+  if (!strncmp(v11, "preserveSecondPartyAppDataToShelter", 0x24uLL))
   {
-    v221 = [v9 objectForKey:@"SourcePath"];
-    v222 = sub_100063B64();
-    if (os_log_type_enabled(v222, OS_LOG_TYPE_DEFAULT))
+    v258 = [v9 objectForKey:@"SourcePath"];
+    v259 = sub_100063B64(v258);
+    if (os_log_type_enabled(v259, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *&buf[4] = v221;
-      _os_log_impl(&_mh_execute_header, v222, OS_LOG_TYPE_DEFAULT, "Preserving second-party app data from %{public}@", buf, 0xCu);
+      *&buf[4] = v258;
+      _os_log_impl(&_mh_execute_header, v259, OS_LOG_TYPE_DEFAULT, "Preserving second-party app data from %{public}@", buf, 0xCu);
     }
 
-    v223 = +[MSDHelperAgent sharedInstance];
-    v253 = 0;
-    v224 = [v223 preserveSecondPartyAppDataToShelter:v221 withReturnErrorMsg:&v253];
-    reply = v253;
+    v260 = +[MSDHelperAgent sharedInstance];
+    v292 = 0;
+    v261 = [v260 preserveSecondPartyAppDataToShelter:v258 withReturnErrorMsg:&v292];
+    reply = v292;
 
-    v225 = xpc_dictionary_create_reply(messageCopy);
-    v226 = v225;
-    if (v225)
+    v262 = xpc_dictionary_create_reply(messageCopy);
+    v263 = v262;
+    if (v262)
     {
-      xpc_dictionary_set_BOOL(v225, "Result", v224);
+      xpc_dictionary_set_BOOL(v262, "Result", v261);
       if (reply)
       {
-        v227 = v224;
+        v264 = v261;
       }
 
       else
       {
-        v227 = 1;
+        v264 = 1;
       }
 
-      if ((v227 & 1) == 0)
+      if ((v264 & 1) == 0)
       {
-        v228 = reply;
-        xpc_dictionary_set_string(v226, "ErrorMsg", [reply UTF8String]);
+        v265 = reply;
+        xpc_dictionary_set_string(v263, "ErrorMsg", [reply UTF8String]);
       }
 
-      xpc_connection_send_message(connection, v226);
+      xpc_connection_send_message(connection, v263);
     }
 
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "ReloadDemodsPreferencesFile", 0x1CuLL))
+  if (!strncmp(v11, "ReloadDemodsPreferencesFile", 0x1CuLL))
   {
-    v233 = os_variant_has_internal_content();
-    v234 = v233;
-    if (v233)
+    v271 = os_variant_has_internal_content();
+    v272 = v271;
+    if (v271)
     {
-      v235 = +[MSDPreferencesFile sharedInstance];
-      [v235 reload];
+      v273 = +[MSDPreferencesFile sharedInstance];
+      [v273 reload];
     }
 
     else
     {
-      v235 = sub_100063A54();
-      if (os_log_type_enabled(v235, OS_LOG_TYPE_ERROR))
+      v273 = sub_100063A54(v271);
+      if (os_log_type_enabled(v273, OS_LOG_TYPE_ERROR))
       {
         sub_1000CE070();
       }
     }
 
     reply = xpc_dictionary_create_reply(messageCopy);
-    xpc_dictionary_set_BOOL(reply, "Result", v234);
+    xpc_dictionary_set_BOOL(reply, "Result", v272);
     xpc_connection_send_message(connection, reply);
     goto LABEL_80;
   }
 
-  if (!strncmp(string, "queryFeatureFlag", 0x11uLL))
+  v30 = strncmp(v11, "queryFeatureFlag", 0x11uLL);
+  if (!v30)
   {
     reply = [NSString stringWithUTF8String:xpc_dictionary_get_string(messageCopy, "FeatureFlag")];
-    if ([MSDHubFeatureFlags isSupportedFeatureFlag:reply])
+    v274 = [MSDHubFeatureFlags isSupportedFeatureFlag:reply];
+    if (v274)
     {
-      v236 = [MSDHubFeatureFlags readBoolValueForFeatureFlag:reply];
+      v275 = [MSDHubFeatureFlags readBoolValueForFeatureFlag:reply];
     }
 
     else
     {
-      v237 = sub_100063B64();
-      if (os_log_type_enabled(v237, OS_LOG_TYPE_DEBUG))
+      v276 = sub_100063B64(v274);
+      if (os_log_type_enabled(v276, OS_LOG_TYPE_DEBUG))
       {
         sub_1000CE000();
       }
 
-      v236 = 0;
+      v275 = 0;
     }
 
-    v238 = xpc_dictionary_create_reply(messageCopy);
-    xpc_dictionary_set_BOOL(v238, "Result", v236);
-    xpc_connection_send_message(connection, v238);
+    v277 = xpc_dictionary_create_reply(messageCopy);
+    xpc_dictionary_set_BOOL(v277, "Result", v275);
+    xpc_connection_send_message(connection, v277);
 
     goto LABEL_80;
   }
 
-  v22 = sub_100063B64();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v31 = sub_100063B64(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    *&buf[4] = string;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Unknown request: %{public}s", buf, 0xCu);
+    *&buf[4] = v11;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Unknown request: %{public}s", buf, 0xCu);
   }
 
-  [v250 deleteOperationRequest];
+  [v289 deleteOperationRequest];
 LABEL_81:
-  v32 = xpc_dictionary_get_string(messageCopy, "QueryDeviceInfo");
-  v33 = sub_100063B64();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+  v41 = xpc_dictionary_get_string(messageCopy, "QueryDeviceInfo");
+  v42 = sub_100063B64(v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
     sub_1000CEB28();
   }
 
-  if (!v32)
+  if (!v41)
   {
     goto LABEL_132;
   }
@@ -1967,11 +1992,11 @@ LABEL_81:
     reply = xpc_dictionary_create(0, 0, 0);
   }
 
-  if (!strncmp(v32, "MSDDemoManualUpdateState", 0x19uLL))
+  if (!strncmp(v41, "MSDDemoManualUpdateState", 0x19uLL))
   {
     buf[0] = 0;
     value = 0;
-    [v250 manualUpdateMode:buf allowChange:&value];
+    [v289 manualUpdateMode:buf allowChange:&value];
     xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
     xpc_dictionary_set_BOOL(reply, "MSDDemoManualUpdateCurrentMode", buf[0]);
     xpc_dictionary_set_BOOL(reply, "MSDDemoManualUpdateAllowChange", value);
@@ -1979,84 +2004,87 @@ LABEL_81:
     goto LABEL_131;
   }
 
-  if (!strncmp(v32, "MSDDemoUpdateState", 0x13uLL))
+  if (!strncmp(v41, "MSDDemoUpdateState", 0x13uLL))
   {
     buf[0] = 0;
     value = 0;
-    [v246 getDemoUpdateInProgress:buf operationAllowed:&value];
+    [v285 getDemoUpdateInProgress:buf operationAllowed:&value];
     xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
     xpc_dictionary_set_BOOL(reply, "MSDDemoUpdateInProgress", buf[0]);
     xpc_dictionary_set_BOOL(reply, "MSDDemoUpdateAllowed", value);
-    xpc_dictionary_set_BOOL(reply, "MSDDemoAlreadySetup", [v250 demoSetup]);
+    xpc_dictionary_set_BOOL(reply, "MSDDemoAlreadySetup", [v289 demoSetup]);
     xpc_connection_send_message(connection, reply);
     goto LABEL_131;
   }
 
-  if (!strncmp(v32, "MSDDemoUpdateEnrolled", 0x16uLL))
+  v43 = strncmp(v41, "MSDDemoUpdateEnrolled", 0x16uLL);
+  if (!v43)
   {
-    if (v248)
+    if (v287)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v43 = objc_opt_isKindOfClass();
+      if (v43)
       {
-        if (v247)
+        if (v286)
         {
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v43 = objc_opt_isKindOfClass();
+          if (v43)
           {
-            [v250 setHubHostName:v248];
-            [v250 setHubPort:v247];
+            [v289 setHubHostName:v287];
+            [v289 setHubPort:v286];
             xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
-            enrolled = [v246 enrolled];
-            v41 = "MSDDemoUpdateEnrolled";
+            enrolled = [v285 enrolled];
+            v53 = "MSDDemoUpdateEnrolled";
             goto LABEL_129;
           }
         }
       }
     }
 
-    sub_100063B64();
+    sub_100063B64(v43);
     objc_claimAutoreleasedReturnValue();
     sub_1000CEA90();
 
     goto LABEL_259;
   }
 
-  if (strncmp(v32, "MSDDemoDeviceManaged", 0x15uLL))
+  if (strncmp(v41, "MSDDemoDeviceManaged", 0x15uLL))
   {
-    if (!strncmp(v32, "MSDDemoDeviceFrozen", 0x14uLL))
+    if (!strncmp(v41, "MSDDemoDeviceFrozen", 0x14uLL))
     {
       xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
-      enrolled = [v250 isContentFrozen];
-      v41 = "MSDDemoDeviceFrozen";
+      enrolled = [v289 isContentFrozen];
+      v53 = "MSDDemoDeviceFrozen";
     }
 
     else
     {
-      if (!strncmp(v32, "MSDDemoDeviceInstallState", 0x1AuLL))
+      if (!strncmp(v41, "MSDDemoDeviceInstallState", 0x1AuLL))
       {
         xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
-        xpc_dictionary_set_int64(reply, "MSDDemoDeviceInstallState", [v250 mode]);
+        xpc_dictionary_set_int64(reply, "MSDDemoDeviceInstallState", [v289 mode]);
         goto LABEL_130;
       }
 
-      if (!strncmp(v32, "MSDTypeOfDemoDevice", 0x14uLL))
+      if (!strncmp(v41, "MSDTypeOfDemoDevice", 0x14uLL))
       {
         xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
-        xpc_dictionary_set_uint64(reply, "MSDTypeOfDemoDevice", [v250 typeOfDemoDevice]);
+        xpc_dictionary_set_uint64(reply, "MSDTypeOfDemoDevice", [v289 typeOfDemoDevice]);
         goto LABEL_130;
       }
 
-      if (!strncmp(v32, "MSDFriendlyDeviceName", 0x16uLL))
+      if (!strncmp(v41, "MSDFriendlyDeviceName", 0x16uLL))
       {
-        hubSuppliedSettings2 = [v250 hubSuppliedSettings];
-        v66 = [hubSuppliedSettings2 objectForKey:@"DeviceName"];
+        hubSuppliedSettings2 = [v289 hubSuppliedSettings];
+        v83 = [hubSuppliedSettings2 objectForKey:@"DeviceName"];
 
-        if (v66)
+        if (v83)
         {
           xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
-          v67 = v66;
-          xpc_dictionary_set_string(reply, "MSDFriendlyDeviceName", [v66 UTF8String]);
+          v84 = v83;
+          xpc_dictionary_set_string(reply, "MSDFriendlyDeviceName", [v83 UTF8String]);
         }
 
         else
@@ -2069,116 +2097,126 @@ LABEL_81:
         goto LABEL_131;
       }
 
-      if (strncmp(v32, "MSDDeviceInOfflineMode", 0x17uLL))
+      v44 = strncmp(v41, "MSDDeviceInOfflineMode", 0x17uLL);
+      if (v44)
       {
-        v34 = sub_100063B64();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v45 = sub_100063B64(v44);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Unknown query", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Unknown query", buf, 2u);
         }
 
         goto LABEL_131;
       }
 
       xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
-      enrolled = [v250 isOfflineMode];
-      v41 = "MSDDeviceInOfflineMode";
+      enrolled = [v289 isOfflineMode];
+      v53 = "MSDDeviceInOfflineMode";
     }
 
 LABEL_129:
-    xpc_dictionary_set_BOOL(reply, v41, enrolled);
+    xpc_dictionary_set_BOOL(reply, v53, enrolled);
 LABEL_130:
     xpc_connection_send_message(connection, reply);
     goto LABEL_131;
   }
 
-  typeOfDemoDevice = [v250 typeOfDemoDevice];
+  typeOfDemoDevice = [v289 typeOfDemoDevice];
   xpc_dictionary_set_BOOL(reply, "QueryDeviceInfoResult", 1);
   xpc_dictionary_set_BOOL(reply, "MSDDemoDeviceManaged", typeOfDemoDevice == 6);
   xpc_connection_send_message(connection, reply);
 LABEL_131:
 
 LABEL_132:
-  v52 = +[MSDPlatform sharedInstance];
-  if ([v52 macOS])
+  v65 = +[MSDPlatform sharedInstance];
+  if ([v65 macOS])
   {
   }
 
   else
   {
-    v53 = +[MSDPlatform sharedInstance];
-    v54 = [v53 iOS];
+    v66 = +[MSDPlatform sharedInstance];
+    v67 = [v66 iOS];
 
-    if (!v54)
+    if (!v67)
     {
       goto LABEL_153;
     }
   }
 
-  v55 = xpc_dictionary_get_string(messageCopy, "PricingMessage");
-  v56 = sub_100063B64();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+  v68 = xpc_dictionary_get_string(messageCopy, "PricingMessage");
+  v69 = sub_100063B64(v68);
+  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
   {
     sub_1000CEB98();
   }
 
-  if (v55)
+  if (v68)
   {
     [(MSDLocalMessageResponder *)self setConnectionForPricing:connection];
-    if (!strcmp(v55, "PricingMessageRequestUpdate"))
+    v70 = strcmp(v68, "PricingMessageRequestUpdate");
+    if (v70)
     {
-      v58 = sub_100063B64();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      v71 = strcmp(v68, "PricingMessageUpdateComplete");
+      if (v71)
       {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "XPC - PricingRequestUpdate", buf, 2u);
+        v72 = strcmp(v68, "PricingMessageHeartBeat");
+        if (v72)
+        {
+          v73 = sub_100063B64(v72);
+          if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "Unknow message from Pricing.", buf, 2u);
+          }
+
+          [v281 receivedOtherMessages:connection fromRequest:messageCopy];
+        }
+
+        else
+        {
+          v76 = sub_100063B64(v72);
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "XPC - PricingMessageHeartBeat", buf, 2u);
+          }
+
+          [v281 receivedHeartBeat:connection fromRequest:messageCopy];
+        }
       }
 
-      [v242 receivedUpdateRequest:connection fromRequest:messageCopy];
-    }
-
-    else if (!strcmp(v55, "PricingMessageUpdateComplete"))
-    {
-      v59 = sub_100063B64();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+      else
       {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "XPC - PricingUpdateComplete", buf, 2u);
+        v75 = sub_100063B64(v71);
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "XPC - PricingUpdateComplete", buf, 2u);
+        }
+
+        [v281 receivedCompletionNotice:connection fromRequest:messageCopy];
       }
-
-      [v242 receivedCompletionNotice:connection fromRequest:messageCopy];
-    }
-
-    else if (!strcmp(v55, "PricingMessageHeartBeat"))
-    {
-      v60 = sub_100063B64();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "XPC - PricingMessageHeartBeat", buf, 2u);
-      }
-
-      [v242 receivedHeartBeat:connection fromRequest:messageCopy];
     }
 
     else
     {
-      v57 = sub_100063B64();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      v74 = sub_100063B64(v70);
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Unknow message from Pricing.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "XPC - PricingRequestUpdate", buf, 2u);
       }
 
-      [v242 receivedOtherMessages:connection fromRequest:messageCopy];
+      [v281 receivedUpdateRequest:connection fromRequest:messageCopy];
     }
   }
 
 LABEL_153:
 
-  _Block_object_dispose(&v290, 8);
-  _Block_object_dispose(&v294, 8);
+  _Block_object_dispose(&v329, 8);
+  _Block_object_dispose(&v333, 8);
 }
 
 - (void)sendRebootTimeoutMessageToPricing:(int)pricing
@@ -2188,17 +2226,18 @@ LABEL_153:
   if (connectionForPricing)
   {
     v6 = xpc_dictionary_create(0, 0, 0);
+    v7 = v6;
     if (v6)
     {
-      v7 = sub_100063B64();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = sub_100063B64(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         sub_1000CED60();
       }
 
-      xpc_dictionary_set_int64(v6, "MSDRebootTimeout", pricing);
+      xpc_dictionary_set_int64(v7, "MSDRebootTimeout", pricing);
       connectionForPricing2 = [(MSDLocalMessageResponder *)self connectionForPricing];
-      xpc_connection_send_message(connectionForPricing2, v6);
+      xpc_connection_send_message(connectionForPricing2, v7);
     }
   }
 }
@@ -2224,6 +2263,59 @@ LABEL_153:
 
     v7 = connectionCopy;
   }
+}
+
+- (BOOL)saveOperationRequestIfNeeded:(id)needed completeBy:(int)by
+{
+  v4 = *&by;
+  neededCopy = needed;
+  if ([neededCopy isEqualToString:@"DemoUpdate"])
+  {
+    v6 = 1;
+    v7 = @"UpdateContent";
+  }
+
+  else if ([neededCopy isEqualToString:@"Demo"])
+  {
+    v6 = 0;
+    v7 = @"TurnSnapshotON";
+  }
+
+  else if ([neededCopy isEqualToString:@"DemoMaualUpdate"])
+  {
+    v6 = 0;
+    v7 = @"TurnSnapshotOFF";
+  }
+
+  else if ([neededCopy isEqualToString:@"DemoSnapshotRevert"])
+  {
+    v6 = 8;
+    v7 = @"RevertSnapshot";
+  }
+
+  else if ([neededCopy isEqualToString:@"OSUpdate"])
+  {
+    v6 = 0;
+    v7 = @"UpdateOS";
+  }
+
+  else
+  {
+    if (![neededCopy isEqualToString:@"Reboot"])
+    {
+      v9 = 1;
+      goto LABEL_14;
+    }
+
+    v6 = 0;
+    v7 = @"Restart";
+  }
+
+  v8 = +[MSDTargetDevice sharedInstance];
+  v9 = [v8 saveOperationRequest:v7 requestFlag:v6 completeBy:v4];
+
+LABEL_14:
+  return v9;
 }
 
 - (void)_handleDeviceCheckInOp:(id)op from:(id)from
@@ -2295,7 +2387,7 @@ LABEL_153:
 
   else
   {
-    v10 = sub_100063A54();
+    v10 = sub_100063A54(0);
     sub_1000CED9C(v10);
 
     xpc_dictionary_set_BOOL(v15[5], "Result", *(v21 + 24));
@@ -2355,81 +2447,83 @@ LABEL_153:
     reply = xpc_dictionary_create(0, 0, 0);
   }
 
-  if (MGGetSInt32Answer() == 3)
+  v9 = MGGetSInt32Answer();
+  if (v9 == 3)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Resetting iPad layout", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Resetting iPad layout", buf, 2u);
     }
 
-    v28 = _NSConcreteStackBlock;
-    v29 = 3221225472;
-    v30 = sub_10003AA78;
-    v31 = &unk_100169B70;
-    v10 = dispatch_semaphore_create(0);
-    v32 = v10;
+    v31 = _NSConcreteStackBlock;
+    v32 = 3221225472;
+    v33 = sub_10003AA78;
+    v34 = &unk_100169B70;
+    v11 = dispatch_semaphore_create(0);
+    v35 = v11;
     SBSRequestResetLayoutAttributes();
-    v11 = dispatch_time(0, 1000000000);
-    if (dispatch_semaphore_wait(v10, v11))
+    v12 = dispatch_time(0, 1000000000);
+    v13 = dispatch_semaphore_wait(v11, v12);
+    if (v13)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_100063A54(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_1000CEDEC();
       }
     }
   }
 
-  v13 = xpc_dictionary_get_array(requestCopy, "ScreenSaverAppIDs");
-  v14 = [NSArray arrayWithXPCArray:v13];
+  v15 = xpc_dictionary_get_array(requestCopy, "ScreenSaverAppIDs");
+  v16 = [NSArray arrayWithXPCArray:v15];
 
-  v15 = sub_100063A54();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100063A54(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v35 = v14;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Leaving %{public}@ running", buf, 0xCu);
+    v38 = v16;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Leaving %{public}@ running", buf, 0xCu);
   }
 
-  v16 = [v7 runningApps:0];
-  v17 = [v16 mutableCopy];
+  v19 = [v7 runningApps:0];
+  v20 = [v19 mutableCopy];
 
-  [v17 removeObjectsInArray:v14];
-  v26 = 0u;
+  [v20 removeObjectsInArray:v16];
+  v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v24 objects:v33 count:16];
-  if (v19)
+  v28 = 0u;
+  v21 = v20;
+  v22 = [v21 countByEnumeratingWithState:&v27 objects:v36 count:16];
+  if (v22)
   {
-    v20 = v19;
-    v21 = *v25;
+    v23 = v22;
+    v24 = *v28;
     do
     {
-      v22 = 0;
+      v25 = 0;
       do
       {
-        if (*v25 != v21)
+        if (*v28 != v24)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v21);
         }
 
-        [MSDAppLauncherTerminator terminateApp:*(*(&v24 + 1) + 8 * v22) outError:0, v24];
-        v22 = v22 + 1;
+        [MSDAppLauncherTerminator terminateApp:*(*(&v27 + 1) + 8 * v25) outError:0, v27];
+        v25 = v25 + 1;
       }
 
-      while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      while (v23 != v25);
+      v23 = [v21 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
-    while (v20);
+    while (v23);
   }
 
-  v23 = +[MSDAppSwitcherManager sharedInstance];
-  [v23 clearAppSwitcherForDemoMode];
+  v26 = +[MSDAppSwitcherManager sharedInstance];
+  [v26 clearAppSwitcherForDemoMode];
 
   xpc_dictionary_set_BOOL(reply, "Result", 1);
   xpc_connection_send_message(fromCopy, reply);

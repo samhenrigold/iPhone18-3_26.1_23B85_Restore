@@ -69,8 +69,8 @@
 
   if (v6 <= state)
   {
-    v8 = ContinuitySingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ContinuitySingLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [CSToggleButtonIconView _imageForState:];
     }
@@ -79,27 +79,28 @@
   else
   {
     iconImages2 = [(CSToggleButtonConfiguration *)self->_configuration iconImages];
-    v8 = [iconImages2 objectAtIndexedSubscript:state];
+    v9 = [iconImages2 objectAtIndexedSubscript:state];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v8 = v8;
-      v9 = v8;
+      v9 = v9;
+      v11 = v9;
       goto LABEL_10;
     }
 
-    v10 = ContinuitySingLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = ContinuitySingLog(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CSToggleButtonIconView _imageForState:];
     }
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_10:
 
-  return v9;
+  return v11;
 }
 
 - (void)_imageForState:.cold.1()

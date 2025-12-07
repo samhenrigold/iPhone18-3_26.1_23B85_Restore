@@ -563,7 +563,7 @@ uint64_t __84__CKMediaObjectAssetActionManager_executeActionForActionType_withCo
     v11 = objectReference;
     if (objectReference)
     {
-      [objectReference indexPath];
+      objc_msgSend_indexPath(objectReference);
       v12 = v27;
     }
 
@@ -588,7 +588,7 @@ uint64_t __84__CKMediaObjectAssetActionManager_executeActionForActionType_withCo
     v23 = objectReference3;
     if (objectReference3)
     {
-      [objectReference3 indexPath];
+      objc_msgSend_indexPath(objectReference3);
     }
 
     else
@@ -650,7 +650,7 @@ uint64_t __84__CKMediaObjectAssetActionManager_executeActionForActionType_withCo
     v24 = 0u;
     if (selectionSnapshot)
     {
-      [selectionSnapshot cursorIndexPath];
+      objc_msgSend_cursorIndexPath(selectionSnapshot);
       v16 = v23;
     }
 

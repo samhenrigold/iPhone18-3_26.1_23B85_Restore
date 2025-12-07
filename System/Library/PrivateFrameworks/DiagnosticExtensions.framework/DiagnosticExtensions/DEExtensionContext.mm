@@ -77,7 +77,7 @@ uint64_t __53__DEExtensionContext__extensionAuxiliaryHostProtocol__block_invoke(
 
 - (void)attachmentsForParameters:(id)parameters withHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   handlerCopy = handler;
   if ([(DEExtensionContext *)self hasEntitlement])
@@ -87,44 +87,44 @@ uint64_t __53__DEExtensionContext__extensionAuxiliaryHostProtocol__block_invoke(
 
     objc_initWeak(&location, self);
     _principalObject = [(DEExtensionContext *)self _principalObject];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __59__DEExtensionContext_attachmentsForParameters_withHandler___block_invoke;
-    v21[3] = &unk_278F63B88;
-    objc_copyWeak(&v22, &location);
-    v11 = [_principalObject attachmentsForParameters:parametersCopy withProgressHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __59__DEExtensionContext_attachmentsForParameters_withHandler___block_invoke;
+    v20[3] = &unk_278F63B88;
+    objc_copyWeak(&v21, &location);
+    v11 = [_principalObject attachmentsForParameters:parametersCopy withProgressHandler:v20];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v17 objects:v24 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v16 objects:v23 count:16];
     if (v13)
     {
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          [*(*(&v17 + 1) + 8 * v15++) _generateSandboxExtensionTokenForPID:{processIdentifier, v17}];
+          [*(*(&v16 + 1) + 8 * v15++) _generateSandboxExtensionTokenForPID:{processIdentifier, v16}];
         }
 
         while (v13 != v15);
-        v13 = [v12 countByEnumeratingWithState:&v17 objects:v24 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v16 objects:v23 count:16];
       }
 
       while (v13);
     }
 
     handlerCopy[2](handlerCopy, v12);
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
@@ -132,8 +132,6 @@ uint64_t __53__DEExtensionContext__extensionAuxiliaryHostProtocol__block_invoke(
   {
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __59__DEExtensionContext_attachmentsForParameters_withHandler___block_invoke(uint64_t a1, void *a2)
@@ -158,7 +156,7 @@ void __59__DEExtensionContext_attachmentsForParameters_withHandler___block_invok
 
 - (void)annotatedAttachmentsForParameters:(id)parameters withHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   handlerCopy = handler;
   if ([(DEExtensionContext *)self hasEntitlement])
@@ -169,31 +167,31 @@ void __59__DEExtensionContext_attachmentsForParameters_withHandler___block_invok
     _principalObject = [(DEExtensionContext *)self _principalObject];
     v11 = [_principalObject annotatedAttachmentsForParameters:parametersCopy];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     items = [v11 items];
-    v13 = [items countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v13 = [items countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v19;
+      v15 = *v18;
       do
       {
         v16 = 0;
         do
         {
-          if (*v19 != v15)
+          if (*v18 != v15)
           {
             objc_enumerationMutation(items);
           }
 
-          [*(*(&v18 + 1) + 8 * v16++) _generateSandboxExtensionTokenForPID:processIdentifier];
+          [*(*(&v17 + 1) + 8 * v16++) _generateSandboxExtensionTokenForPID:processIdentifier];
         }
 
         while (v14 != v16);
-        v14 = [items countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v14 = [items countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v14);
@@ -206,8 +204,6 @@ void __59__DEExtensionContext_attachmentsForParameters_withHandler___block_invok
   {
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupWithParameters:(id)parameters withHandler:(id)handler
@@ -248,13 +244,11 @@ void __59__DEExtensionContext_attachmentsForParameters_withHandler___block_invok
 
 void __59__DEExtensionContext_attachmentsForParameters_withHandler___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_248AB3000, a2, OS_LOG_TYPE_ERROR, "error calling collectionDidUpdateWithProgress - %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_248AB3000, a2, OS_LOG_TYPE_ERROR, "error calling collectionDidUpdateWithProgress - %{public}@", &v4, 0xCu);
 }
 
 @end

@@ -62,30 +62,31 @@ void __47__SCArchivingService_getValueAtKey_completion___block_invoke(uint64_t a
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (!v5 || v6)
     {
-      v8 = SCLogger();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = SCLogger(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v9 = *(a1 + 32);
+        v10 = *(a1 + 32);
         *buf = 138412290;
-        v19 = v9;
-        _os_log_impl(&dword_262556000, v8, OS_LOG_TYPE_INFO, "Couldn't find value for %@, using and setting default instead", buf, 0xCu);
+        v19 = v10;
+        _os_log_impl(&dword_262556000, v9, OS_LOG_TYPE_INFO, "Couldn't find value for %@, using and setting default instead", buf, 0xCu);
       }
 
-      v10 = [SCSharingReminderKVStoreValue defaultForKey:*(a1 + 56)];
-      v11 = *(a1 + 56);
+      v11 = [SCSharingReminderKVStoreValue defaultForKey:*(a1 + 56)];
+      v12 = *(a1 + 56);
       v14[0] = MEMORY[0x277D85DD0];
       v14[1] = 3221225472;
       v14[2] = __47__SCArchivingService_getValueAtKey_completion___block_invoke_2;
       v14[3] = &unk_279B398C8;
       v17 = *(a1 + 40);
-      v15 = v10;
+      v15 = v11;
       v16 = v6;
-      v12 = v10;
-      [WeakRetained setValue:v12 atKey:v11 completion:v14];
+      v13 = v11;
+      [v8 setValue:v13 atKey:v12 completion:v14];
     }
 
     else
@@ -93,39 +94,34 @@ void __47__SCArchivingService_getValueAtKey_completion___block_invoke(uint64_t a
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SCArchivingService_getValueAtKey_completion___block_invoke_2(void *a1, char a2, void *a3)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (v5 || (a2 & 1) == 0)
   {
-    v8 = SCLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = SCLogger(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __47__SCArchivingService_getValueAtKey_completion___block_invoke_2_cold_1(v8);
+      __47__SCArchivingService_getValueAtKey_completion___block_invoke_2_cold_1(v7);
     }
 
-    v9 = a1[6];
-    v10 = a1[4];
-    v11 = [v5 code];
-    v15[0] = a1[5];
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-    v13 = [SCDaemonError errorWithCode:v11 underlyingErrors:v12];
-    (*(v9 + 16))(v9, v10, v13);
+    v8 = a1[6];
+    v9 = a1[4];
+    v10 = [v6 code];
+    v13[0] = a1[5];
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12 = [SCDaemonError errorWithCode:v10 underlyingErrors:v11];
+    (*(v8 + 16))(v8, v9, v12);
   }
 
   else
   {
-    v6 = a1[5];
-    v7 = a1[4];
     (*(a1[6] + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIntAtKey:(int64_t)key completion:(id)completion

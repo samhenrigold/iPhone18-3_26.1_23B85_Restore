@@ -74,7 +74,7 @@
 
 - (id)fetchUserActivityReportsOnManagedObjectContext
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   context = [(HMDHomeActivityStateAggregatorStorage *)self context];
   [context assertIsExecuting];
 
@@ -82,38 +82,38 @@
   context2 = [(HMDHomeActivityStateAggregatorStorage *)self context];
   managedObjectContext = [context2 managedObjectContext];
   v7 = +[_MKFUserActivityStatus fetchRequest];
-  v54 = 0;
-  v8 = [managedObjectContext executeFetchRequest:v7 error:&v54];
-  v9 = v54;
+  v53 = 0;
+  v8 = [managedObjectContext executeFetchRequest:v7 error:&v53];
+  v9 = v53;
 
   if (v8)
   {
-    v44 = v9;
-    v45 = v8;
+    v43 = v9;
+    v44 = v8;
     v10 = [v8 na_map:&__block_literal_global_207695];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v12)
     {
       v13 = v12;
-      v49 = *v51;
-      v47 = v11;
-      v46 = v4;
+      v48 = *v50;
+      v46 = v11;
+      v45 = v4;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v51 != v49)
+          if (*v50 != v48)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v50 + 1) + 8 * i);
+          v15 = *(*(&v49 + 1) + 8 * i);
           v16 = v15;
           if (self && ([v15 type], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "unsignedIntValue"), v19 = objc_msgSend(objc_opt_class(), "activityType"), v17, v19 == v18))
           {
@@ -138,16 +138,16 @@
                 {
                   v32 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v57 = v32;
-                  v58 = 2112;
-                  v59 = v16;
+                  v56 = v32;
+                  v57 = 2112;
+                  v58 = v16;
                   _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Could not create report from object: %@", buf, 0x16u);
 
-                  v4 = v46;
+                  v4 = v45;
                 }
 
                 objc_autoreleasePoolPop(v29);
-                v11 = v47;
+                v11 = v46;
               }
             }
 
@@ -160,12 +160,12 @@
               {
                 v28 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v57 = v28;
-                v58 = 2112;
-                v59 = v16;
+                v56 = v28;
+                v57 = 2112;
+                v58 = v16;
                 _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@HMDUser not found for: %@", buf, 0x16u);
 
-                v11 = v47;
+                v11 = v46;
               }
 
               objc_autoreleasePoolPop(v25);
@@ -190,7 +190,7 @@
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v50 objects:v55 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
       while (v13);
@@ -203,8 +203,8 @@
     os_unfair_lock_unlock(&self->_lock);
     v37 = v4;
 
-    v9 = v44;
-    v8 = v45;
+    v9 = v43;
+    v8 = v44;
   }
 
   else
@@ -216,17 +216,15 @@
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v57 = v41;
-      v58 = 2112;
-      v59 = v9;
+      v56 = v41;
+      v57 = 2112;
+      v58 = v9;
       _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch activity status with error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v38);
     v37 = [MEMORY[0x277CBEB98] set];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -308,7 +306,7 @@ void __93__HMDHomeActivityStateAggregatorStorage_fetchUserActivityReportsWithQue
 
 void __77__HMDHomeActivityStateAggregatorStorage_removeUserActivityStatusForUserUUID___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) context];
   v4 = [v3 managedObjectContext];
@@ -316,33 +314,32 @@ void __77__HMDHomeActivityStateAggregatorStorage_removeUserActivityStatusForUser
 
   if (v5)
   {
-    v6 = *(a1 + 40);
-    v7 = [v5 findUserActivityStatusForType:{objc_msgSend(objc_opt_class(), "activityType")}];
-    if (v7)
+    v6 = [v5 findUserActivityStatusForType:{objc_msgSend(objc_opt_class(), "activityType")}];
+    if (v6)
     {
+      v7 = [*(a1 + 40) context];
+      [v7 deleteObject:v6];
+
       v8 = [*(a1 + 40) context];
-      [v8 deleteObject:v7];
+      v25 = 0;
+      v9 = [v8 save:&v25];
+      v10 = v25;
 
-      v9 = [*(a1 + 40) context];
-      v27 = 0;
-      v10 = [v9 save:&v27];
-      v11 = v27;
-
-      v12 = objc_autoreleasePoolPush();
-      v13 = *(a1 + 40);
-      v14 = HMFGetOSLogHandle();
-      v15 = v14;
-      if (v10)
+      v11 = objc_autoreleasePoolPush();
+      v12 = *(a1 + 40);
+      v13 = HMFGetOSLogHandle();
+      v14 = v13;
+      if (v9)
       {
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v16 = HMFGetLogIdentifier();
+          v15 = HMFGetLogIdentifier();
           *buf = 0;
           *&buf[8] = 0;
-          v17 = *(a1 + 32);
-          if (v17)
+          v16 = *(a1 + 32);
+          if (v16)
           {
-            [v17 getUUIDBytes:buf];
+            [v16 getUUIDBytes:buf];
           }
 
           else
@@ -350,30 +347,30 @@ void __77__HMDHomeActivityStateAggregatorStorage_removeUserActivityStatusForUser
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v28 = *buf;
+          v26 = *buf;
           *buf = 138543874;
-          *&buf[4] = v16;
+          *&buf[4] = v15;
           *&buf[12] = 1042;
           *&buf[14] = 16;
           *&buf[18] = 2098;
-          *&buf[20] = &v28;
-          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Removed activity status for user: %{public,uuid_t}.16P", buf, 0x1Cu);
+          *&buf[20] = &v26;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Removed activity status for user: %{public,uuid_t}.16P", buf, 0x1Cu);
         }
 
-        objc_autoreleasePoolPop(v12);
+        objc_autoreleasePoolPop(v11);
       }
 
       else
       {
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v23 = HMFGetLogIdentifier();
+          v22 = HMFGetLogIdentifier();
           *buf = 0;
           *&buf[8] = 0;
-          v24 = *(a1 + 32);
-          if (v24)
+          v23 = *(a1 + 32);
+          if (v23)
           {
-            [v24 getUUIDBytes:buf];
+            [v23 getUUIDBytes:buf];
           }
 
           else
@@ -381,50 +378,48 @@ void __77__HMDHomeActivityStateAggregatorStorage_removeUserActivityStatusForUser
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v29 = *buf;
+          v27 = *buf;
           *buf = 138544130;
-          *&buf[4] = v23;
+          *&buf[4] = v22;
           *&buf[12] = 1042;
           *&buf[14] = 16;
           *&buf[18] = 2098;
-          *&buf[20] = &v29;
-          v31 = 2112;
-          v32 = v11;
-          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove activity status for user: %{public,uuid_t}.16P, with error: %@", buf, 0x26u);
+          *&buf[20] = &v27;
+          v29 = 2112;
+          v30 = v10;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove activity status for user: %{public,uuid_t}.16P, with error: %@", buf, 0x26u);
         }
 
-        objc_autoreleasePoolPop(v12);
-        v25 = [*(a1 + 40) context];
-        [v25 rollback];
+        objc_autoreleasePoolPop(v11);
+        v24 = [*(a1 + 40) context];
+        [v24 rollback];
       }
     }
   }
 
   else
   {
-    v18 = objc_autoreleasePoolPush();
-    v19 = *(a1 + 40);
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v17 = objc_autoreleasePoolPush();
+    v18 = *(a1 + 40);
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v21 = HMFGetLogIdentifier();
-      v22 = *(a1 + 32);
+      v20 = HMFGetLogIdentifier();
+      v21 = *(a1 + 32);
       *buf = 138543618;
-      *&buf[4] = v21;
+      *&buf[4] = v20;
       *&buf[12] = 2112;
-      *&buf[14] = v22;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Not removing activity because we could not find the home member with UUID: %@", buf, 0x16u);
+      *&buf[14] = v21;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Not removing activity because we could not find the home member with UUID: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
+    objc_autoreleasePoolPop(v17);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeUserActivityReport:(id)report
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   context = [(HMDHomeActivityStateAggregatorStorage *)self context];
 
@@ -437,14 +432,14 @@ void __77__HMDHomeActivityStateAggregatorStorage_removeUserActivityStatusForUser
   if (user)
   {
     context2 = [(HMDHomeActivityStateAggregatorStorage *)self context];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __65__HMDHomeActivityStateAggregatorStorage_storeUserActivityReport___block_invoke;
-    v13[3] = &unk_27868A010;
-    v14 = user;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __65__HMDHomeActivityStateAggregatorStorage_storeUserActivityReport___block_invoke;
+    v12[3] = &unk_27868A010;
+    v13 = user;
     selfCopy = self;
-    v16 = reportCopy;
-    [context2 performBlock:v13];
+    v15 = reportCopy;
+    [context2 performBlock:v12];
   }
 
   else
@@ -456,21 +451,19 @@ void __77__HMDHomeActivityStateAggregatorStorage_removeUserActivityStatusForUser
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = reportCopy;
+      v17 = v11;
+      v18 = 2112;
+      v19 = reportCopy;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@User is unexpectedly nil in the user activity report: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDHomeActivityStateAggregatorStorage_storeUserActivityReport___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) uuid];
   v3 = [*(a1 + 40) context];
   v4 = [v3 managedObjectContext];
@@ -478,64 +471,62 @@ void __65__HMDHomeActivityStateAggregatorStorage_storeUserActivityReport___block
 
   if (v5)
   {
-    v6 = *(a1 + 40);
-    v7 = [v5 findUserActivityStatusForType:{objc_msgSend(objc_opt_class(), "activityType")}];
-    if (!v7)
+    v6 = [v5 findUserActivityStatusForType:{objc_msgSend(objc_opt_class(), "activityType")}];
+    if (!v6)
     {
-      v8 = [MEMORY[0x277CCAD78] UUID];
-      v7 = [v5 materializeOrCreateUserActivityStatusesRelationWithModelID:v8 createdNew:0];
+      v7 = [MEMORY[0x277CCAD78] UUID];
+      v6 = [v5 materializeOrCreateUserActivityStatusesRelationWithModelID:v7 createdNew:0];
 
-      v9 = *(a1 + 40);
-      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objc_opt_class(), "activityType")}];
-      [v7 setType:v10];
+      v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objc_opt_class(), "activityType")}];
+      [v6 setType:v8];
     }
 
-    [*(a1 + 40) updateMKFUserActivityStatus:v7 withReport:*(a1 + 48)];
-    v11 = [*(a1 + 40) context];
-    v12 = [v11 managedObjectContext];
-    v13 = [v12 hasChanges];
+    [*(a1 + 40) updateMKFUserActivityStatus:v6 withReport:*(a1 + 48)];
+    v9 = [*(a1 + 40) context];
+    v10 = [v9 managedObjectContext];
+    v11 = [v10 hasChanges];
 
-    if (v13)
+    if (v11)
     {
-      v14 = [*(a1 + 40) context];
-      v39 = 0;
-      v15 = [v14 save:&v39];
-      v16 = v39;
+      v12 = [*(a1 + 40) context];
+      v36 = 0;
+      v13 = [v12 save:&v36];
+      v14 = v36;
 
-      v17 = objc_autoreleasePoolPush();
-      v18 = *(a1 + 40);
-      v19 = HMFGetOSLogHandle();
-      v20 = v19;
-      if (v15)
+      v15 = objc_autoreleasePoolPush();
+      v16 = *(a1 + 40);
+      v17 = HMFGetOSLogHandle();
+      v18 = v17;
+      if (v13)
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v21 = HMFGetLogIdentifier();
-          v22 = *(a1 + 48);
+          v19 = HMFGetLogIdentifier();
+          v20 = *(a1 + 48);
           *buf = 138543618;
-          *&buf[4] = v21;
+          *&buf[4] = v19;
           *&buf[12] = 2112;
-          *&buf[14] = v22;
-          _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Stored report: %@", buf, 0x16u);
+          *&buf[14] = v20;
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Stored report: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v17);
+        objc_autoreleasePoolPop(v15);
       }
 
       else
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v33 = HMFGetLogIdentifier();
-          v34 = *(a1 + 48);
+          v31 = HMFGetLogIdentifier();
+          v32 = *(a1 + 48);
           *buf = 0;
           *&buf[8] = 0;
-          v35 = [*(a1 + 32) uuid];
+          v33 = [*(a1 + 32) uuid];
 
-          if (v35)
+          if (v33)
           {
-            v36 = [*(a1 + 32) uuid];
-            [v36 getUUIDBytes:buf];
+            v34 = [*(a1 + 32) uuid];
+            [v34 getUUIDBytes:buf];
           }
 
           else
@@ -543,66 +534,64 @@ void __65__HMDHomeActivityStateAggregatorStorage_storeUserActivityReport___block
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v40 = *buf;
+          v37 = *buf;
           *buf = 138544386;
-          *&buf[4] = v33;
+          *&buf[4] = v31;
           *&buf[12] = 2112;
-          *&buf[14] = v34;
-          v42 = 1040;
-          v43 = 16;
-          v44 = 2096;
-          v45 = &v40;
-          v46 = 2112;
-          v47 = v16;
-          _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to store report: %@, for user: %{uuid_t}.16P, with error: %@", buf, 0x30u);
+          *&buf[14] = v32;
+          v39 = 1040;
+          v40 = 16;
+          v41 = 2096;
+          v42 = &v37;
+          v43 = 2112;
+          v44 = v14;
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to store report: %@, for user: %{uuid_t}.16P, with error: %@", buf, 0x30u);
         }
 
-        objc_autoreleasePoolPop(v17);
-        v37 = [*(a1 + 40) context];
-        [v37 rollback];
+        objc_autoreleasePoolPop(v15);
+        v35 = [*(a1 + 40) context];
+        [v35 rollback];
       }
     }
 
     else
     {
-      v28 = objc_autoreleasePoolPush();
-      v29 = *(a1 + 40);
-      v30 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v26 = objc_autoreleasePoolPush();
+      v27 = *(a1 + 40);
+      v28 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        v31 = HMFGetLogIdentifier();
-        v32 = *(a1 + 48);
+        v29 = HMFGetLogIdentifier();
+        v30 = *(a1 + 48);
         *buf = 138543618;
-        *&buf[4] = v31;
+        *&buf[4] = v29;
         *&buf[12] = 2112;
-        *&buf[14] = v32;
-        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@No changes were made to the user model for report: %@", buf, 0x16u);
+        *&buf[14] = v30;
+        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@No changes were made to the user model for report: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v28);
+      objc_autoreleasePoolPop(v26);
     }
   }
 
   else
   {
-    v23 = objc_autoreleasePoolPush();
-    v24 = *(a1 + 40);
-    v25 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v21 = objc_autoreleasePoolPush();
+    v22 = *(a1 + 40);
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v26 = HMFGetLogIdentifier();
-      v27 = [*(a1 + 32) uuid];
+      v24 = HMFGetLogIdentifier();
+      v25 = [*(a1 + 32) uuid];
       *buf = 138543618;
-      *&buf[4] = v26;
+      *&buf[4] = v24;
       *&buf[12] = 2112;
-      *&buf[14] = v27;
-      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Not storing activity because we could not find the home member with UUID: %@", buf, 0x16u);
+      *&buf[14] = v25;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Not storing activity because we could not find the home member with UUID: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v23);
+    objc_autoreleasePoolPop(v21);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeActivityStateAggregatorStorage)initWithDataSource:(id)source
@@ -653,10 +642,9 @@ void __65__HMDHomeActivityStateAggregatorStorage_storeUserActivityReport___block
 
 void __52__HMDHomeActivityStateAggregatorStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_207730;
-  logCategory__hmf_once_v14_207730 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_207730;
+  logCategory__hmf_once_v14_207730 = v0;
 }
 
 + (unint64_t)activityType

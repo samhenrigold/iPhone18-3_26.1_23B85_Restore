@@ -5,9 +5,10 @@
 
 uint64_t ___MFCreateStringFromHeaderBytes_block_invoke()
 {
-  _MFCreateStringFromHeaderBytes_mimeRegex = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"\\=\\?([^?]*)\\?(q|b)\\?([^?]*)\\?\\=" options:1 error:0];
+  v0 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"\\=\\?([^?]*)\\?(q|b)\\?([^?]*)\\?\\=" options:1 error:0];
+  _MFCreateStringFromHeaderBytes_mimeRegex = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 @end

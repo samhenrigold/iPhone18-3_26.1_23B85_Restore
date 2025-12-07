@@ -120,7 +120,7 @@
   if (v8)
   {
     v9 = 0;
-    v32 = GTTelemetryErrorDomain;
+    v31 = GTTelemetryErrorDomain;
     do
     {
       requests3 = [queryCopy requests];
@@ -130,12 +130,12 @@
       if (objc_opt_isKindOfClass())
       {
         requestID2 = [v11 requestID];
-        v14 = GTMTLGuestAppClient_getTelemetry(requestID2, v13);
-        v15 = objc_alloc_init(GTTelemetryResponse);
-        [v15 setRequestID:requestID2];
-        v35 = 0;
-        v16 = [NSKeyedArchiver archivedDataWithRootObject:v14 requiringSecureCoding:1 error:&v35];
-        v17 = v35;
+        v13 = GTMTLGuestAppClient_getTelemetry(requestID2);
+        v14 = objc_alloc_init(GTTelemetryResponse);
+        [v14 setRequestID:requestID2];
+        v34 = 0;
+        v15 = [NSKeyedArchiver archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v34];
+        v16 = v34;
       }
 
       else
@@ -143,55 +143,55 @@
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v14 = objc_alloc_init(GTTelemetryResponse);
-          [v14 setRequestID:{objc_msgSend(v11, "requestID")}];
-          v36 = NSLocalizedDescriptionKey;
-          v37 = @"unknown request";
-          v21 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-          v22 = [NSError errorWithDomain:v32 code:1 userInfo:v21];
-          [v14 setError:v22];
+          v13 = objc_alloc_init(GTTelemetryResponse);
+          [v13 setRequestID:{objc_msgSend(v11, "requestID")}];
+          v35 = NSLocalizedDescriptionKey;
+          v36 = @"unknown request";
+          v20 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+          v21 = [NSError errorWithDomain:v31 code:1 userInfo:v20];
+          [v13 setError:v21];
 
-          [v6 setObject:v14 atIndexedSubscript:v9];
+          [v6 setObject:v13 atIndexedSubscript:v9];
           goto LABEL_9;
         }
 
         requestID3 = [v11 requestID];
-        v14 = objc_opt_new();
-        LODWORD(v19) = GT_TELEMETRY_ENV;
-        [v14 setReportFrequencyInSeconds:v19];
-        v15 = objc_alloc_init(GTTelemetryResponse);
-        [v15 setRequestID:requestID3];
-        v34 = 0;
-        v16 = [NSKeyedArchiver archivedDataWithRootObject:v14 requiringSecureCoding:1 error:&v34];
-        v17 = v34;
+        v13 = objc_opt_new();
+        LODWORD(v18) = GT_TELEMETRY_ENV;
+        [v13 setReportFrequencyInSeconds:v18];
+        v14 = objc_alloc_init(GTTelemetryResponse);
+        [v14 setRequestID:requestID3];
+        v33 = 0;
+        v15 = [NSKeyedArchiver archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v33];
+        v16 = v33;
       }
 
-      v20 = v17;
-      [v15 setData:v16];
+      v19 = v16;
+      [v14 setData:v15];
 
-      [v15 setError:v20];
-      [v6 setObject:v15 atIndexedSubscript:v9];
+      [v14 setError:v19];
+      [v6 setObject:v14 atIndexedSubscript:v9];
 
 LABEL_9:
       ++v9;
       requests4 = [queryCopy requests];
-      v24 = [requests4 count];
+      v23 = [requests4 count];
     }
 
-    while (v24 > v9);
+    while (v23 > v9);
   }
 
-  v25 = objc_opt_new();
-  v26 = [v6 copy];
-  v33 = 0;
-  v27 = [NSKeyedArchiver archivedDataWithRootObject:v26 requiringSecureCoding:1 error:&v33];
-  v28 = v33;
-  [v25 setData:v27];
+  v24 = objc_opt_new();
+  v25 = [v6 copy];
+  v32 = 0;
+  v26 = [NSKeyedArchiver archivedDataWithRootObject:v25 requiringSecureCoding:1 error:&v32];
+  v27 = v32;
+  [v24 setData:v26];
 
-  [v25 setError:v28];
-  [v25 setRequestID:requestID];
+  [v24 setError:v27];
+  [v24 setRequestID:requestID];
   completionHandler = [queryCopy completionHandler];
-  (completionHandler)[2](completionHandler, v25);
+  (completionHandler)[2](completionHandler, v24);
 
   return 0;
 }

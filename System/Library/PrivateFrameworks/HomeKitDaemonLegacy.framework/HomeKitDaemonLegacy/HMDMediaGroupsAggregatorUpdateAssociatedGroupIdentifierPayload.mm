@@ -67,12 +67,12 @@
 
 - (id)payloadCopy
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"groupIdentifier";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"groupIdentifier";
   groupIdentifier = [(HMDMediaGroupsAggregatorUpdateAssociatedGroupIdentifierPayload *)self groupIdentifier];
   uUIDString = [groupIdentifier UUIDString];
-  v12[1] = @"associatedGroupIdentifier";
-  v13[0] = uUIDString;
+  v11[1] = @"associatedGroupIdentifier";
+  v12[0] = uUIDString;
   associatedGroupIdentifier = [(HMDMediaGroupsAggregatorUpdateAssociatedGroupIdentifierPayload *)self associatedGroupIdentifier];
   uUIDString2 = [associatedGroupIdentifier UUIDString];
   v7 = uUIDString2;
@@ -82,17 +82,15 @@
     v8 = uUIDString2;
   }
 
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }
 
 - (HMDMediaGroupsAggregatorUpdateAssociatedGroupIdentifierPayload)initWithPayload:(id)payload
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_UUIDForKey:@"groupIdentifier"];
   v6 = [payloadCopy hmf_UUIDForKey:@"associatedGroupIdentifier"];
@@ -110,30 +108,29 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543874;
-      v15 = v11;
-      v16 = 2112;
-      v17 = 0;
-      v18 = 2112;
-      v19 = payloadCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to get decode dependencies group identifier: %@ payload: %@ due", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2112;
+      v16 = 0;
+      v17 = 2112;
+      v18 = payloadCopy;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to get decode dependencies group identifier: %@ payload: %@ due", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)attributeDescriptions
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   groupIdentifier = [(HMDMediaGroupsAggregatorUpdateAssociatedGroupIdentifierPayload *)self groupIdentifier];
   v5 = [v3 initWithName:@"groupIdentifier" value:groupIdentifier];
-  v14[0] = v5;
+  v13[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   associatedGroupIdentifier = [(HMDMediaGroupsAggregatorUpdateAssociatedGroupIdentifierPayload *)self associatedGroupIdentifier];
   v8 = associatedGroupIdentifier;
@@ -148,10 +145,8 @@
   }
 
   v10 = [v6 initWithName:@"associatedGroupIdentifier" value:v9];
-  v14[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   return v11;
 }

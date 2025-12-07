@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventTypeAsString:(int)string;
 - (int)StringAsEventType:(id)type;
 - (int)eventType;
 - (unint64_t)hash;
@@ -49,6 +50,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)eventTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE33280[string];
+  }
 }
 
 - (int)StringAsEventType:(id)type
@@ -130,7 +144,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -141,7 +154,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    eventType = self->_eventType;
 
     PBDataWriterWriteInt32Field();
   }
@@ -193,7 +205,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 28);
     if (has)
     {
       if ((*(equal + 28) & 1) == 0 || self->_timestamp != *(equal + 1))

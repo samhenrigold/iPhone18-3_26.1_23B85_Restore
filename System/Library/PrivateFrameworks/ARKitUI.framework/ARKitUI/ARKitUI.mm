@@ -34,7 +34,7 @@ LABEL_6:
   return v8;
 }
 
-uint64_t isSessionValidForCoaching(uint64_t result)
+void *isSessionValidForCoaching(void *result)
 {
   if (result)
   {
@@ -63,9 +63,9 @@ LABEL_22:
       goto LABEL_28;
     }
 
-    v20 = [v3 configuration];
+    v19 = [v3 configuration];
 
-    if (!v20)
+    if (!v19)
     {
       goto LABEL_22;
     }
@@ -75,100 +75,94 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v5 = 0x277CE53B0;
-  v6 = [v4 isKindOfConfiguration:objc_opt_class()];
+  v5 = [v4 isKindOfConfiguration:objc_opt_class()];
 
-  v7 = [v3 configuration];
-  if (v6)
+  v6 = [v3 configuration];
+  if (v5)
   {
     goto LABEL_12;
   }
 
-  v5 = 0x277CE5310;
-  v8 = [v7 isKindOfConfiguration:objc_opt_class()];
+  v7 = [v6 isKindOfConfiguration:objc_opt_class()];
 
-  v7 = [v3 configuration];
+  v6 = [v3 configuration];
+  if (v7)
+  {
+    goto LABEL_12;
+  }
+
+  v8 = [v6 isKindOfConfiguration:objc_opt_class()];
+
+  v6 = [v3 configuration];
   if (v8)
   {
     goto LABEL_12;
   }
 
-  v5 = 0x277CE5230;
-  v9 = [v7 isKindOfConfiguration:objc_opt_class()];
+  v9 = [v6 isKindOfConfiguration:objc_opt_class()];
 
-  v7 = [v3 configuration];
+  v6 = [v3 configuration];
   if (v9)
   {
     goto LABEL_12;
   }
 
-  v5 = 0x277CE5328;
-  v10 = [v7 isKindOfConfiguration:objc_opt_class()];
+  v10 = [v6 isKindOfConfiguration:objc_opt_class()];
 
-  v7 = [v3 configuration];
   if (v10)
   {
-    goto LABEL_12;
-  }
-
-  v11 = [v7 isKindOfConfiguration:objc_opt_class()];
-
-  if (v11)
-  {
-    v7 = [v3 configuration];
-    v5 = 0x277CE5298;
+    v6 = [v3 configuration];
 LABEL_12:
-    v12 = *v5;
-    v13 = [v7 getAsKindOfConfiguration:objc_opt_class()];
+    v12 = [v6 getAsKindOfConfiguration:objc_opt_class()];
 
-    v14 = [v13 planeDetection];
-    v15 = [v13 planeDetection];
+    v13 = [v12 planeDetection];
+    v14 = [v12 planeDetection];
 
-    v16 = (v15 >> 1) & 1;
+    v15 = (v14 >> 1) & 1;
     goto LABEL_13;
   }
 
-  LOBYTE(v16) = 0;
-  v14 = 0;
+  LOBYTE(v15) = 0;
+  v13 = 0;
 LABEL_13:
-  if (a1 == 1 && (v14 & 1) == 0)
+  if (a1 == 1 && (v13 & 1) == 0)
   {
-    v17 = _ARLogCoaching();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = _ARLogCoaching(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 0;
-      v18 = "Coaching requires a horizontal plane, but session does not support horizontal plane detection. Turning off horizontal plane requirement for coaching.";
-      v19 = &v24;
+      v23 = 0;
+      v17 = "Coaching requires a horizontal plane, but session does not support horizontal plane detection. Turning off horizontal plane requirement for coaching.";
+      v18 = &v23;
 LABEL_25:
-      _os_log_impl(&dword_23D3AE000, v17, OS_LOG_TYPE_DEFAULT, v18, v19, 2u);
+      _os_log_impl(&dword_23D3AE000, v16, OS_LOG_TYPE_DEFAULT, v17, v18, 2u);
       goto LABEL_26;
     }
 
     goto LABEL_26;
   }
 
-  if (!((a1 != 2) | v16 & 1))
+  if (!((a1 != 2) | v15 & 1))
   {
-    v17 = _ARLogCoaching();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = _ARLogCoaching(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v18 = "Coaching requires a vertical plane, but session does not support vertical plane detection. Turning off vertical plane requirement for coaching.";
-      v19 = buf;
+      v17 = "Coaching requires a vertical plane, but session does not support vertical plane detection. Turning off vertical plane requirement for coaching.";
+      v18 = buf;
       goto LABEL_25;
     }
 
     goto LABEL_26;
   }
 
-  if (!((a1 != 3) | v14 & 1 | v16 & 1))
+  if (!((a1 != 3) | v13 & 1 | v15 & 1))
   {
-    v17 = _ARLogCoaching();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = _ARLogCoaching(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 0;
-      v18 = "Coaching requires plane detection, but session does not support plane detection. Turning off plane requirement for coaching.";
-      v19 = &v22;
+      v21 = 0;
+      v17 = "Coaching requires plane detection, but session does not support plane detection. Turning off plane requirement for coaching.";
+      v18 = &v21;
       goto LABEL_25;
     }
 
@@ -182,43 +176,43 @@ LABEL_28:
   return a1;
 }
 
-id _ARLogCoaching()
+id _ARLogCoaching(uint64_t a1)
 {
   if (_ARLogCoaching_onceToken != -1)
   {
     _ARLogCoaching_cold_1();
   }
 
-  v1 = _ARLogCoaching_logObj;
+  v2 = _ARLogCoaching_logObj;
 
-  return v1;
+  return v2;
 }
 
 void ARCoachingEnumeratePlaneAnchors(void *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -229,13 +223,11 @@ void ARCoachingEnumeratePlaneAnchors(void *a1, void *a2)
       }
 
       while (v6 != v8);
-      v6 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23D3B048C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, void *a20, uint64_t a21)
@@ -253,36 +245,30 @@ void sub_23D3B048C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      _ZNSt3__19allocatorIDv3_fE17allocate_at_leastB8ne200100Em(result, a2);
+      _ZNSt3__19allocatorIDv3_fE17allocate_at_leastB8ne200100Em(a1, a2);
     }
 
     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(result, a2);
+      _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(a1, a2);
     }
 
     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
 void ___ZL13_ARLogGeneralv_block_invoke()
@@ -363,28 +349,50 @@ double ARFLInverseRubberbandValue(double a1, double a2, double a3, double a4)
   return a2 + (-1.0 / ((a1 - a2) / a3 + -1.0) + -1.0) / a4 * a3;
 }
 
-id _ARLogCoaching_0()
+id _ARLogCoaching_0(uint64_t a1)
 {
   if (_ARLogCoaching_onceToken_0 != -1)
   {
     _ARLogCoaching_cold_1_0();
   }
 
-  v1 = _ARLogCoaching_logObj_0;
+  v2 = _ARLogCoaching_logObj_0;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral()
+id _ARLogGeneral(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken != -1)
   {
     _ARLogGeneral_cold_1();
   }
 
-  v1 = _ARLogGeneral_logObj;
+  v2 = _ARLogGeneral_logObj;
 
-  return v1;
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
 }
 
 double simd_matrix4x4(float32x4_t a1)
@@ -508,29 +516,6 @@ uint64_t operator==(uint64_t a1, uint64_t a2)
 
   v5 = vceq_f32(*(a1 + 32), *(a2 + 32));
   return vpmin_u32(v5, v5).u32[0] >> 31;
-}
-
-id _ARLogGeneral(void)
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
 }
 
 void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(uint64_t a1, _OWORD *a2)
@@ -712,41 +697,41 @@ float32x4_t *std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>
   return result;
 }
 
-float32x4_t *std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__unordered_map_hasher<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::hash<GTVertexData>,std::equal_to<GTVertexData>,true>,std::__unordered_map_equal<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::equal_to<GTVertexData>,std::hash<GTVertexData>,true>,std::allocator<std::__hash_value_type<GTVertexData,unsigned int>>>::__emplace_unique_key_args<GTVertexData,std::pair<GTVertexData,unsigned int>>(void *a1, uint64_t a2)
+float32x4_t *std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__unordered_map_hasher<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::hash<GTVertexData>,std::equal_to<GTVertexData>,true>,std::__unordered_map_equal<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::equal_to<GTVertexData>,std::hash<GTVertexData>,true>,std::allocator<std::__hash_value_type<GTVertexData,unsigned int>>>::__emplace_unique_key_args<GTVertexData,std::pair<GTVertexData,unsigned int>>(float *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = 0;
   v3 = 0;
+  v4 = 0;
   do
   {
-    v3 ^= (v3 << 8) ^ (v3 >> 8) ^ *(a2 + v2);
-    v2 += 8;
+    v4 ^= (v4 << 8) ^ (v4 >> 8) ^ *(a2 + v3);
+    v3 += 8;
   }
 
-  while (v2 != 48);
-  v4 = a1[1];
-  if (!*&v4)
+  while (v3 != 48);
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v6 = v3;
-    if (v3 >= *&v4)
+    v7 = v4;
+    if (v4 >= *&v5)
     {
-      v6 = v3 % *&v4;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v6 = (*&v4 - 1) & v3;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v7 = *(*a1 + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -754,62 +739,62 @@ LABEL_22:
 
   while (1)
   {
-    v9 = v8->u64[1];
-    if (v9 == v3)
+    v10 = v9->u64[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v9 >= *&v4)
+      if (v10 >= *&v5)
       {
-        v9 %= *&v4;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v9 &= *&v4 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v9 != v6)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v8 = v8->i64[0];
-    if (!v8)
+    v9 = v9->i64[0];
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  v10 = vceqq_f32(v8[1], *a2);
-  v10.i32[3] = v10.i32[2];
-  if ((vminvq_u32(v10) & 0x80000000) == 0)
-  {
-    goto LABEL_21;
-  }
-
-  v11 = vceqq_f32(v8[2], *(a2 + 16));
+  v11 = vceqq_f32(v9[1], *a2);
   v11.i32[3] = v11.i32[2];
   if ((vminvq_u32(v11) & 0x80000000) == 0)
   {
     goto LABEL_21;
   }
 
-  v12 = vceq_f32(*v8[3].f32, *(a2 + 32));
-  if ((vpmin_u32(v12, v12).u32[0] & 0x80000000) == 0)
+  v12 = vceqq_f32(v9[2], *(a2 + 16));
+  v12.i32[3] = v12.i32[2];
+  if ((vminvq_u32(v12) & 0x80000000) == 0)
   {
     goto LABEL_21;
   }
 
-  return v8;
+  v13 = vceq_f32(*v9[3].f32, *(a2 + 32));
+  if ((vpmin_u32(v13, v13).u32[0] & 0x80000000) == 0)
+  {
+    goto LABEL_21;
+  }
+
+  return v9;
 }
 
-void std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__unordered_map_hasher<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::hash<GTVertexData>,std::equal_to<GTVertexData>,true>,std::__unordered_map_equal<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::equal_to<GTVertexData>,std::hash<GTVertexData>,true>,std::allocator<std::__hash_value_type<GTVertexData,unsigned int>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__unordered_map_hasher<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::hash<GTVertexData>,std::equal_to<GTVertexData>,true>,std::__unordered_map_equal<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::equal_to<GTVertexData>,std::hash<GTVertexData>,true>,std::allocator<std::__hash_value_type<GTVertexData,unsigned int>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -825,7 +810,7 @@ void std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -833,7 +818,7 @@ void std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -857,7 +842,7 @@ void std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__unordered_map_hasher<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::hash<GTVertexData>,std::equal_to<GTVertexData>,true>,std::__unordered_map_equal<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::equal_to<GTVertexData>,std::hash<GTVertexData>,true>,std::allocator<std::__hash_value_type<GTVertexData,unsigned int>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<GTVertexData,unsigned int>,std::__unordered_map_hasher<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::hash<GTVertexData>,std::equal_to<GTVertexData>,true>,std::__unordered_map_equal<GTVertexData,std::__hash_value_type<GTVertexData,unsigned int>,std::equal_to<GTVertexData>,std::hash<GTVertexData>,true>,std::allocator<std::__hash_value_type<GTVertexData,unsigned int>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -978,7 +963,7 @@ __CFString *ARCoachingDeviceGlyphName()
   v2 = HasHomeButton;
   if (v0)
   {
-    v3 = _ARLogCoaching_1();
+    v3 = _ARLogCoaching_1(HasHomeButton);
     v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
     if (v2)
     {
@@ -995,8 +980,8 @@ __CFString *ARCoachingDeviceGlyphName()
     {
       if (v4)
       {
-        *v12 = 0;
-        _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "Loading glyph for iPad without home button", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "Loading glyph for iPad without home button", v13, 2u);
       }
 
       v5 = @"DeviceD";
@@ -1005,11 +990,11 @@ __CFString *ARCoachingDeviceGlyphName()
 
   else if (HasHomeButton)
   {
-    v3 = _ARLogCoaching_1();
+    v3 = _ARLogCoaching_1(HasHomeButton);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "Loading glyph for iPhone device with home button", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "Loading glyph for iPhone device with home button", v12, 2u);
     }
 
     v5 = @"DeviceA";
@@ -1018,14 +1003,15 @@ __CFString *ARCoachingDeviceGlyphName()
   else
   {
     HasIsland = ARDeviceHasIsland();
-    v3 = _ARLogCoaching_1();
-    v7 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
-    if (HasIsland)
+    v7 = HasIsland;
+    v3 = _ARLogCoaching_1(HasIsland);
+    v8 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
+    if (v7)
     {
-      if (v7)
+      if (v8)
       {
-        *v10 = 0;
-        _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "Loading glyph for iPhone with island", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "Loading glyph for iPhone with island", v11, 2u);
       }
 
       v5 = @"DeviceE";
@@ -1033,10 +1019,10 @@ __CFString *ARCoachingDeviceGlyphName()
 
     else
     {
-      if (v7)
+      if (v8)
       {
-        *v9 = 0;
-        _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "Loading glyph for iPhone device with notch", v9, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_23D3AE000, v3, OS_LOG_TYPE_INFO, "Loading glyph for iPhone device with notch", v10, 2u);
       }
 
       v5 = @"DeviceB";
@@ -1046,16 +1032,16 @@ __CFString *ARCoachingDeviceGlyphName()
   return v5;
 }
 
-id _ARLogCoaching_1()
+id _ARLogCoaching_1(uint64_t a1)
 {
   if (_ARLogCoaching_onceToken_1 != -1)
   {
     _ARLogCoaching_cold_1_1();
   }
 
-  v1 = _ARLogCoaching_logObj_1;
+  v2 = _ARLogCoaching_logObj_1;
 
-  return v1;
+  return v2;
 }
 
 id ARCoachingLoadDeviceGlyph()
@@ -1114,16 +1100,16 @@ double ARCoachingAdditionalActivationDelay(uint64_t a1, char a2)
   return result;
 }
 
-id _ARLogCoaching_2()
+id _ARLogCoaching_2(uint64_t a1)
 {
   if (_ARLogCoaching_onceToken_2 != -1)
   {
     _ARLogCoaching_cold_1_2();
   }
 
-  v1 = _ARLogCoaching_logObj_2;
+  v2 = _ARLogCoaching_logObj_2;
 
-  return v1;
+  return v2;
 }
 
 __CFString *getCoachingText(uint64_t a1)
@@ -1348,16 +1334,16 @@ void __getGeoTrackingLookUpCoachingText_block_invoke()
   getGeoTrackingLookUpCoachingText_lookUpCoachingText = v4;
 }
 
-id _ARLogGeneral_0()
+id _ARLogGeneral_0(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_1 != -1)
   {
     _ARLogGeneral_cold_1_0();
   }
 
-  v1 = _ARLogGeneral_logObj_1;
+  v2 = _ARLogGeneral_logObj_1;
 
-  return v1;
+  return v2;
 }
 
 void sub_23D3CC384(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18)
@@ -1532,13 +1518,13 @@ char *std::vector<ARCoachingControlPoint>::insert(void *a1, char *__src, char *a
   if (v6 >= v7)
   {
     v11 = *a1;
-    v12 = (&v6[-*a1] >> 5) + 1;
+    v12 = ((v6 - *a1) >> 5) + 1;
     if (v12 >> 59)
     {
       _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
     }
 
-    v13 = __src - v11;
+    v13 = &__src[-v11];
     v14 = v7 - v11;
     if (v14 >> 4 > v12)
     {
@@ -1595,7 +1581,7 @@ char *std::vector<ARCoachingControlPoint>::insert(void *a1, char *__src, char *a
   {
     v17 = *(a3 + 1);
     *v6 = *a3;
-    *(v6 + 1) = v17;
+    *(v6 + 16) = v17;
     a1[1] = v6 + 32;
   }
 
@@ -1610,9 +1596,9 @@ char *std::vector<ARCoachingControlPoint>::insert(void *a1, char *__src, char *a
     else
     {
       v9 = v6 + 32;
-      v10 = *(v6 - 1);
-      *v6 = *(v6 - 2);
-      *(v6 + 1) = v10;
+      v10 = *(v6 - 16);
+      *v6 = *(v6 - 32);
+      *(v6 + 16) = v10;
     }
 
     a1[1] = v9;
@@ -1662,7 +1648,7 @@ char *std::vector<unsigned short>::insert(void *a1, char *__src, char *a3)
       _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 <= v11 + 1)
     {
@@ -1737,7 +1723,7 @@ char *std::vector<unsigned short>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 2;
+      v9 = (v6 + 2);
     }
 
     a1[1] = v9;
@@ -1784,7 +1770,7 @@ char *std::vector<ARCoachingPatchData>::insert(void *a1, char *__src, char *a3)
       _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -1854,7 +1840,7 @@ char *std::vector<ARCoachingPatchData>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -1950,7 +1936,7 @@ void std::vector<ARCoachingControlPoint>::push_back[abi:ne200100](uint64_t a1, _
   *(a1 + 8) = v7;
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2071,7 +2057,7 @@ void std::vector<ARCoachingPatchData>::push_back[abi:ne200100](uint64_t a1, void
   *(a1 + 8) = v6;
 }
 
-void *std::vector<ARCoachingControlPoint>::__assign_with_size[abi:ne200100]<ARCoachingControlPoint*,ARCoachingControlPoint*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<ARCoachingControlPoint>::__assign_with_size[abi:ne200100]<ARCoachingControlPoint*,ARCoachingControlPoint*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -2147,7 +2133,7 @@ void *std::vector<ARCoachingControlPoint>::__assign_with_size[abi:ne200100]<ARCo
   return result;
 }
 
-void std::vector<ARCoachingControlPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ARCoachingControlPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -2157,7 +2143,7 @@ void std::vector<ARCoachingControlPoint>::__vallocate[abi:ne200100](uint64_t a1,
   _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
 }
 
-__n128 std::__split_buffer<ARCoachingControlPoint>::emplace_back<ARCoachingControlPoint const&>(void *a1, uint64_t a2)
+__n128 std::__split_buffer<ARCoachingControlPoint>::emplace_back<ARCoachingControlPoint const&>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -2202,27 +2188,26 @@ __n128 std::__split_buffer<ARCoachingControlPoint>::emplace_back<ARCoachingContr
   return result;
 }
 
-void *std::__split_buffer<unsigned short>::emplace_back<unsigned short const&>(void *result, _WORD *a2)
+void std::__split_buffer<unsigned short>::emplace_back<unsigned short const&>(unint64_t *a1, _WORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result];
+        v11 = &v4[-*a1];
       }
 
-      std::allocator<unsigned short>::allocate_at_least[abi:ne200100](result[4], v11);
+      std::allocator<unsigned short>::allocate_at_least[abi:ne200100](a1[4], v11);
     }
 
     v7 = ((v6 >> 1) + 1) / -2;
@@ -2231,17 +2216,16 @@ void *std::__split_buffer<unsigned short>::emplace_back<unsigned short const&>(v
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[2 * v7];
+    a1[1] = &v5[2 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 2;
-  return result;
+  a1[2] = (v4 + 2);
 }
 
 void std::allocator<unsigned short>::allocate_at_least[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -2254,27 +2238,26 @@ void std::allocator<unsigned short>::allocate_at_least[abi:ne200100](uint64_t a1
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__split_buffer<ARCoachingPatchData>::emplace_back<ARCoachingPatchData const&>(void *result, void *a2)
+void std::__split_buffer<ARCoachingPatchData>::emplace_back<ARCoachingPatchData const&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(result[4], v11);
+      _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -2283,18 +2266,17 @@ void *std::__split_buffer<ARCoachingPatchData>::emplace_back<ARCoachingPatchData
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 double ARFLCompoundSpringMake@<D0>(uint64_t a1@<X8>, double a2@<D0>, double a3@<D1>, double a4@<D3>, double a5@<D4>)
@@ -2537,10 +2519,10 @@ void ARFLCompoundSpringSetResponseSmoothly(uint64_t a1, double a2, double a3)
   *(a1 + 248) = a2;
 }
 
-double ARFLCompoundSpringStep@<D0>(void *__src@<X0>, _OWORD *a2@<X8>, double a3@<D0>)
+double ARFLCompoundSpringStep@<D0>(uint64_t *__return_ptr a1@<X8>, void *__src@<X0>, double a3@<D0>)
 {
-  memcpy(a2, __src, 0x158uLL);
-  if (*(a2 + 336) == 1)
+  memcpy(a1, __src, 0x158uLL);
+  if (*(a1 + 336) == 1)
   {
     v6 = *(__src + 10);
     __dst[0] = *(__src + 9);
@@ -2548,20 +2530,20 @@ double ARFLCompoundSpringStep@<D0>(void *__src@<X0>, _OWORD *a2@<X8>, double a3@
     v7 = *(__src + 12);
     __dst[2] = *(__src + 11);
     __dst[3] = v7;
-    ARFLSimpleSpringStep(__dst, (a2 + 9), a3);
-    v8 = a2[14];
-    v25 = a2[13];
+    ARFLSimpleSpringStep(__dst, (a1 + 18), a3);
+    v8 = *(a1 + 14);
+    v25 = *(a1 + 13);
     v26 = v8;
-    v9 = a2[16];
-    v27 = a2[15];
+    v9 = *(a1 + 16);
+    v27 = *(a1 + 15);
     v28 = v9;
     ARFLSimpleSpringStep(&v25, __dst, a3);
     v10 = __dst[1];
-    a2[13] = __dst[0];
-    a2[14] = v10;
+    *(a1 + 13) = __dst[0];
+    *(a1 + 14) = v10;
     v11 = __dst[3];
-    a2[15] = __dst[2];
-    a2[16] = v11;
+    *(a1 + 15) = __dst[2];
+    *(a1 + 16) = v11;
   }
 
   else
@@ -2572,40 +2554,40 @@ double ARFLCompoundSpringStep@<D0>(void *__src@<X0>, _OWORD *a2@<X8>, double a3@
     v13 = *(__src + 4);
     __dst[2] = *(__src + 3);
     __dst[3] = v13;
-    ARFLSimpleSpringStep(__dst, (a2 + 1), a3);
-    v14 = a2[6];
-    v25 = a2[5];
+    ARFLSimpleSpringStep(__dst, (a1 + 2), a3);
+    v14 = *(a1 + 6);
+    v25 = *(a1 + 5);
     v26 = v14;
-    v15 = a2[8];
-    v27 = a2[7];
+    v15 = *(a1 + 8);
+    v27 = *(a1 + 7);
     v28 = v15;
     ARFLSimpleSpringStep(&v25, __dst, a3);
     v16 = __dst[1];
-    a2[5] = __dst[0];
-    a2[6] = v16;
+    *(a1 + 5) = __dst[0];
+    *(a1 + 6) = v16;
     v17 = __dst[3];
-    a2[7] = __dst[2];
-    a2[8] = v17;
+    *(a1 + 7) = __dst[2];
+    *(a1 + 8) = v17;
   }
 
-  v18 = a2[18];
-  v25 = a2[17];
+  v18 = *(a1 + 18);
+  v25 = *(a1 + 17);
   v26 = v18;
-  v19 = a2[20];
-  v27 = a2[19];
+  v19 = *(a1 + 20);
+  v27 = *(a1 + 19);
   v28 = v19;
   ARFLSimpleSpringStep(&v25, __dst, a3);
   v20 = __dst[1];
-  a2[17] = __dst[0];
-  a2[18] = v20;
+  *(a1 + 17) = __dst[0];
+  *(a1 + 18) = v20;
   v21 = __dst[3];
-  a2[19] = __dst[2];
-  a2[20] = v21;
+  *(a1 + 19) = __dst[2];
+  *(a1 + 20) = v21;
   v27 = 0u;
   v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  memcpy(__dst, a2, 0x158uLL);
+  memcpy(__dst, a1, 0x158uLL);
   _ARFLSimpleSpringFromCompoundSpring(__dst, &v25);
   v23[0] = v25;
   v23[1] = v26;
@@ -2613,24 +2595,22 @@ double ARFLCompoundSpringStep@<D0>(void *__src@<X0>, _OWORD *a2@<X8>, double a3@
   v23[3] = v28;
   ARFLSimpleSpringStep(v23, __dst, a3);
   result = *__dst;
-  *a2 = __dst[0];
+  *a1 = __dst[0];
   return result;
 }
 
-void _ARFLSimpleSpringFromCompoundSpring(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double _ARFLSimpleSpringFromCompoundSpring@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *a1;
   v3 = *(a1 + 8);
   v4 = *(a1 + 272);
   if (*(a1 + 336) == 1)
   {
-    ARFLSimpleSpringMakeWithDampingRatioResponse(a2, v2, v3, v4, *(a1 + 144), *(a1 + 208));
+    return ARFLSimpleSpringMakeWithDampingRatioResponse(a2, v2, v3, v4, *(a1 + 144), *(a1 + 208));
   }
 
-  else
-  {
-    ARFLSimpleSpringMake(a2, v2, v3, v4, *(a1 + 16), *(a1 + 80));
-  }
+  ARFLSimpleSpringMake(a2, v2, v3, v4, *(a1 + 16), *(a1 + 80));
+  return result;
 }
 
 BOOL ARFLCompoundSpringIsStable(void *__src)
@@ -2723,16 +2703,16 @@ LABEL_10:
   return result;
 }
 
-id _ARLogCoaching_3()
+id _ARLogCoaching_3(uint64_t a1)
 {
   if (_ARLogCoaching_onceToken_3 != -1)
   {
     _ARLogCoaching_cold_1_3();
   }
 
-  v1 = _ARLogCoaching_logObj_3;
+  v2 = _ARLogCoaching_logObj_3;
 
-  return v1;
+  return v2;
 }
 
 float ARCoachingDotsRenderParamsLerp@<S0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
@@ -2743,16 +2723,16 @@ float ARCoachingDotsRenderParamsLerp@<S0>(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
   return *&a4;
 }
 
-id _ARLogCoaching_4()
+id _ARLogCoaching_4(uint64_t a1)
 {
   if (_ARLogCoaching_onceToken_4 != -1)
   {
     _ARLogCoaching_cold_1_4();
   }
 
-  v1 = _ARLogCoaching_logObj_4;
+  v2 = _ARLogCoaching_logObj_4;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_1()
@@ -2866,16 +2846,16 @@ LABEL_10:
   *(a2 + 8) = v27;
 }
 
-id _ARLogCoaching_5()
+id _ARLogCoaching_5(uint64_t a1)
 {
   if (_ARLogCoaching_onceToken_5 != -1)
   {
     _ARLogCoaching_cold_1_5();
   }
 
-  v1 = _ARLogCoaching_logObj_5;
+  v2 = _ARLogCoaching_logObj_5;
 
-  return v1;
+  return v2;
 }
 
 float ARCoachingDeviceRenderParamsLerp@<S0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
@@ -2890,16 +2870,16 @@ float ARCoachingDeviceRenderParamsLerp@<S0>(uint64_t a1@<X0>, uint64_t a2@<X1>, 
   return result;
 }
 
-id _ARLogCoaching_6()
+id _ARLogCoaching_6(uint64_t a1)
 {
   if (_ARLogCoaching_onceToken_6 != -1)
   {
     _ARLogCoaching_cold_1_6();
   }
 
-  v1 = _ARLogCoaching_logObj_6;
+  v2 = _ARLogCoaching_logObj_6;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_2()

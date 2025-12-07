@@ -18,7 +18,7 @@
 
 + (BOOL)isSupportedKeyPath:(id)path
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy isEqualToString:@"activityDuration"] & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"activityType") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"activityStartDate") & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"activityEndDate"))
   {
@@ -27,41 +27,41 @@
 
   else
   {
-    v20[0] = @"activitySumQuantity.";
-    v20[1] = @"activityMinimumQuantity.";
-    v20[2] = @"activityMaximumQuantity.";
-    v20[3] = @"activityAverageQuantity.";
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+    v19[0] = @"activitySumQuantity.";
+    v19[1] = @"activityMinimumQuantity.";
+    v19[2] = @"activityMaximumQuantity.";
+    v19[3] = @"activityAverageQuantity.";
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v8 = v18 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v9)
+    v7 = v17 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v11 = *v16;
+      v9 = v8;
+      v10 = *v15;
       while (2)
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v10)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * i);
-          if ([pathCopy hasPrefix:{v13, v15}])
+          v12 = *(*(&v14 + 1) + 8 * i);
+          if ([pathCopy hasPrefix:{v12, v14}])
           {
-            v14 = [self _quantityTypeFromKeyPath:pathCopy prefix:v13];
-            v5 = v14 != 0;
+            v13 = [self _quantityTypeFromKeyPath:pathCopy prefix:v12];
+            v5 = v13 != 0;
 
             goto LABEL_17;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v10)
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        if (v9)
         {
           continue;
         }
@@ -74,7 +74,6 @@
 LABEL_17:
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -89,24 +88,14 @@ LABEL_17:
 + (id)allowedValueClassesForKeyPath:(id)path
 {
   pathCopy = path;
-  if ([pathCopy isEqualToString:@"activityDuration"] & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"activityType"))
+  if (([pathCopy isEqualToString:@"activityDuration"] & 1) == 0 && (objc_msgSend(pathCopy, "isEqualToString:", @"activityType") & 1) == 0 && (objc_msgSend(pathCopy, "isEqualToString:", @"activityStartDate") & 1) == 0)
   {
-    v4 = 0x1E696AD98;
+    [pathCopy isEqualToString:@"activityEndDate"];
   }
 
-  else
-  {
-    v4 = 0x1E695DF00;
-    if (([pathCopy isEqualToString:@"activityStartDate"] & 1) == 0 && !objc_msgSend(pathCopy, "isEqualToString:", @"activityEndDate"))
-    {
-      v4 = off_1E7375378;
-    }
-  }
+  v4 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
 
-  v5 = *v4;
-  v6 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-
-  return v6;
+  return v4;
 }
 
 + (BOOL)isAllowedPredicateOperatorType:(unint64_t)type forKeyPath:(id)path
@@ -219,30 +208,11 @@ LABEL_17:
   v4 = @"activitySumQuantity.";
   v5 = [keyPath hasPrefix:@"activitySumQuantity."];
 
-  if (v5)
+  if (v5 & 1) != 0 || (-[_HKComparisonFilter keyPath](self, "keyPath"), v6 = objc_claimAutoreleasedReturnValue(), v4 = @"activityMinimumQuantity.", v7 = [v6 hasPrefix:@"activityMinimumQuantity."], v6, (v7) || (-[_HKComparisonFilter keyPath](self, "keyPath"), v8 = objc_claimAutoreleasedReturnValue(), v4 = @"activityMaximumQuantity.", v9 = objc_msgSend(v8, "hasPrefix:", @"activityMaximumQuantity."), v8, (v9) || (-[_HKComparisonFilter keyPath](self, "keyPath"), v10 = objc_claimAutoreleasedReturnValue(), v4 = @"activityAverageQuantity.", v11 = objc_msgSend(v10, "hasPrefix:", @"activityAverageQuantity."), v10, v11))
   {
-    goto LABEL_5;
-  }
-
-  keyPath2 = [(_HKComparisonFilter *)self keyPath];
-  v4 = @"activityMinimumQuantity.";
-  v7 = [keyPath2 hasPrefix:@"activityMinimumQuantity."];
-
-  if (v7)
-  {
-    goto LABEL_5;
-  }
-
-  keyPath3 = [(_HKComparisonFilter *)self keyPath];
-  v4 = @"activityMaximumQuantity.";
-  v9 = [keyPath3 hasPrefix:@"activityMaximumQuantity."];
-
-  if ((v9 & 1) != 0 || (-[_HKComparisonFilter keyPath](self, "keyPath"), v10 = objc_claimAutoreleasedReturnValue(), v4 = @"activityAverageQuantity.", v11 = [v10 hasPrefix:@"activityAverageQuantity."], v10, v11))
-  {
-LABEL_5:
     v12 = objc_opt_class();
-    keyPath4 = [(_HKComparisonFilter *)self keyPath];
-    v14 = [v12 _quantityTypeFromKeyPath:keyPath4 prefix:v4];
+    keyPath2 = [(_HKComparisonFilter *)self keyPath];
+    v14 = [v12 _quantityTypeFromKeyPath:keyPath2 prefix:v4];
     v15 = [v14 copy];
     quantityType = self->_quantityType;
     self->_quantityType = v15;

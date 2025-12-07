@@ -1,8 +1,10 @@
 @interface JavaNioFileChannelImpl
 + (int64_t)translateLockLengthWithLong:(int64_t)long;
 + (void)initialize;
+- (id)lockWithLong:(int64_t)long withLong:(int64_t)withLong withBoolean:(BOOL)boolean;
 - (id)positionWithLong:(int64_t)long;
 - (id)truncateWithLong:(int64_t)long;
+- (id)tryLockWithLong:(int64_t)long withLong:(int64_t)withLong withBoolean:(BOOL)boolean;
 - (int)readWithJavaNioByteBuffer:(id)buffer withLong:(int64_t)long;
 - (int)writeWithJavaNioByteBuffer:(id)buffer withLong:(int64_t)long;
 - (int64_t)position;
@@ -22,17 +24,17 @@
 
 - (void)implCloseChannel
 {
-  v3 = JavaIoCloseable_class_();
+  v3 = JavaIoCloseable_class_(self, a2);
   if ([v3 isInstance:objc_loadWeak(&self->stream_)])
   {
     Weak = objc_loadWeak(&self->stream_);
-    v5 = JavaIoCloseable_class_();
+    v6 = JavaIoCloseable_class_(Weak, v5);
     if (!Weak)
     {
       JreThrowNullPointerException();
     }
 
-    if (([v5 isInstance:Weak] & 1) == 0)
+    if (([v6 isInstance:Weak] & 1) == 0)
     {
       JreThrowClassCastException();
     }
@@ -57,6 +59,24 @@
   {
     return long;
   }
+}
+
+- (id)lockWithLong:(int64_t)long withLong:(int64_t)withLong withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  [JavaNioDatagramChannelImpl checkOpen]_0(self);
+  [(JavaNioChannelsSpiAbstractInterruptibleChannel *)self begin];
+  v12 = sub_100228098(self, long, withLong, booleanCopy, 1, v9, v10, v11);
+  [(JavaNioChannelsSpiAbstractInterruptibleChannel *)self endWithBoolean:1];
+  return v12;
+}
+
+- (id)tryLockWithLong:(int64_t)long withLong:(int64_t)withLong withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  [JavaNioDatagramChannelImpl checkOpen]_0(self);
+
+  return sub_100228098(self, long, withLong, booleanCopy, 0, v9, v10, v11);
 }
 
 - (void)release__WithJavaNioChannelsFileLock:(id)lock
@@ -201,7 +221,7 @@ LABEL_12:
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   [JavaNioDatagramChannelImpl checkOpen]_0(self);
   sub_100227F80(self);
   if ((atomic_load_explicit(JavaNioIoVec_DirectionEnum__initialized, memory_order_acquire) & 1) == 0)
@@ -239,17 +259,17 @@ LABEL_12:
 
   if (([channel isOpen] & 1) == 0)
   {
-    v30 = new_JavaNioChannelsClosedChannelException_init();
+    v31 = new_JavaNioChannelsClosedChannelException_init();
     goto LABEL_19;
   }
 
-  sub_100227FB8(self);
+  sub_100227FB8(self, v9);
   if (withLong > 0x7FFFFFFF || (withLong | long) < 0)
   {
-    v31 = JreStrcat("$J$J", v9, v10, v11, v12, v13, v14, v15, @"position=");
-    v30 = new_JavaLangIllegalArgumentException_initWithNSString_(v31);
+    v32 = JreStrcat("$J$J", v10, v11, v12, v13, v14, v15, v16, @"position=");
+    v31 = new_JavaLangIllegalArgumentException_initWithNSString_(v32);
 LABEL_19:
-    objc_exception_throw(v30);
+    objc_exception_throw(v31);
   }
 
   if ([(JavaNioFileChannelImpl *)self size]< long)
@@ -260,12 +280,12 @@ LABEL_19:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v28 = JavaNioByteBuffer_allocateWithInt_(withLong, v17, v18, v19, v20, v21, v22, v23);
-    [channel readWithJavaNioByteBuffer:v28];
-    if (v28)
+    v29 = JavaNioByteBuffer_allocateWithInt_(withLong, v18, v19, v20, v21, v22, v23, v24);
+    [channel readWithJavaNioByteBuffer:v29];
+    if (v29)
     {
-      [(JavaNioBuffer *)v28 flip];
-      return [(JavaNioFileChannelImpl *)self writeWithJavaNioByteBuffer:v28 withLong:long];
+      [(JavaNioBuffer *)v29 flip];
+      return [(JavaNioFileChannelImpl *)self writeWithJavaNioByteBuffer:v29 withLong:long];
     }
 
 LABEL_15:
@@ -278,19 +298,19 @@ LABEL_15:
     JreThrowClassCastException();
   }
 
-  v24 = [channel size];
+  v25 = [channel size];
   position = [channel position];
-  v26 = JavaLangMath_minWithLong_withLong_(withLong, v24 - position);
+  v27 = JavaLangMath_minWithLong_withLong_(withLong, v25 - position);
   if ((atomic_load_explicit(JavaNioChannelsFileChannel_MapMode__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_1001BCFFC();
   }
 
-  v27 = [channel mapWithJavaNioChannelsFileChannel_MapMode:JavaNioChannelsFileChannel_MapMode_READ_ONLY_ withLong:position withLong:v26];
-  [channel positionWithLong:&position[v26]];
-  v16 = [(JavaNioFileChannelImpl *)self writeWithJavaNioByteBuffer:v27 withLong:long];
-  JavaNioNioUtils_freeDirectBufferWithJavaNioByteBuffer_(v27);
-  return v16;
+  v28 = [channel mapWithJavaNioChannelsFileChannel_MapMode:JavaNioChannelsFileChannel_MapMode_READ_ONLY_ withLong:position withLong:v27];
+  [channel positionWithLong:&position[v27]];
+  v17 = [(JavaNioFileChannelImpl *)self writeWithJavaNioByteBuffer:v28 withLong:long];
+  JavaNioNioUtils_freeDirectBufferWithJavaNioByteBuffer_(v28);
+  return v17;
 }
 
 - (int64_t)transferToWithLong:(int64_t)long withLong:(int64_t)withLong withJavaNioChannelsWritableByteChannel:(id)channel
@@ -303,7 +323,7 @@ LABEL_15:
 
   if (([channel isOpen] & 1) == 0)
   {
-    v23 = new_JavaNioChannelsClosedChannelException_init();
+    v24 = new_JavaNioChannelsClosedChannelException_init();
     goto LABEL_25;
   }
 
@@ -317,15 +337,15 @@ LABEL_15:
       goto LABEL_21;
     }
 
-    sub_100227FB8(channel);
+    sub_100227FB8(channel, v16);
   }
 
   if ((withLong | long) < 0)
   {
-    v24 = JreStrcat("$J$J", v9, v10, v11, v12, v13, v14, v15, @"position=");
-    v23 = new_JavaLangIllegalArgumentException_initWithNSString_(v24);
+    v25 = JreStrcat("$J$J", v9, v10, v11, v12, v13, v14, v15, @"position=");
+    v24 = new_JavaLangIllegalArgumentException_initWithNSString_(v25);
 LABEL_25:
-    objc_exception_throw(v23);
+    objc_exception_throw(v24);
   }
 
   if (!withLong || [(JavaNioFileChannelImpl *)self size]<= long)
@@ -333,7 +353,7 @@ LABEL_25:
     return 0;
   }
 
-  v16 = JavaLangMath_minWithLong_withLong_(withLong, [(JavaNioFileChannelImpl *)self size]- long);
+  v17 = JavaLangMath_minWithLong_withLong_(withLong, [(JavaNioFileChannelImpl *)self size]- long);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -342,12 +362,12 @@ LABEL_25:
     {
       getFD = [channel getFD];
       [(JavaNioChannelsSpiAbstractInterruptibleChannel *)self begin];
-      v18 = new_LibcoreUtilMutableLong_initWithLong_(long);
+      v19 = new_LibcoreUtilMutableLong_initWithLong_(long);
       if ((atomic_load_explicit(LibcoreIoLibcore__initialized, memory_order_acquire) & 1) == 0)
       {
-        v22 = v18;
+        v23 = v19;
         objc_opt_class();
-        v18 = v22;
+        v19 = v23;
       }
 
       if (!LibcoreIoLibcore_os_)
@@ -355,9 +375,9 @@ LABEL_25:
         JreThrowNullPointerException();
       }
 
-      v19 = [LibcoreIoLibcore_os_ sendfileWithJavaIoFileDescriptor:getFD withJavaIoFileDescriptor:self->fd_ withLibcoreUtilMutableLong:v18 withLong:v16];
+      v20 = [LibcoreIoLibcore_os_ sendfileWithJavaIoFileDescriptor:getFD withJavaIoFileDescriptor:self->fd_ withLibcoreUtilMutableLong:v19 withLong:v17];
       [(JavaNioChannelsSpiAbstractInterruptibleChannel *)self endWithBoolean:1];
-      return v19;
+      return v20;
     }
 
 LABEL_21:
@@ -369,10 +389,10 @@ LABEL_21:
     objc_opt_class();
   }
 
-  v20 = sub_100228740(self, JavaNioChannelsFileChannel_MapMode_READ_ONLY_, long, v16);
-  v19 = [channel writeWithJavaNioByteBuffer:v20];
-  JavaNioNioUtils_freeDirectBufferWithJavaNioByteBuffer_(v20);
-  return v19;
+  v21 = sub_100228740(self, JavaNioChannelsFileChannel_MapMode_READ_ONLY_, long, v17);
+  v20 = [channel writeWithJavaNioByteBuffer:v21];
+  JavaNioNioUtils_freeDirectBufferWithJavaNioByteBuffer_(v21);
+  return v20;
 }
 
 - (id)truncateWithLong:(int64_t)long
@@ -385,7 +405,7 @@ LABEL_21:
     objc_exception_throw(v14);
   }
 
-  sub_100227FB8(self);
+  sub_100227FB8(self, v5);
   if ([(JavaNioFileChannelImpl *)self size]> long)
   {
     if ((atomic_load_explicit(LibcoreIoLibcore__initialized, memory_order_acquire) & 1) == 0)
@@ -428,16 +448,16 @@ LABEL_21:
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   [JavaNioDatagramChannelImpl checkOpen]_0(self);
-  sub_100227FB8(self);
+  sub_100227FB8(self, v9);
   if ((atomic_load_explicit(JavaNioIoVec_DirectionEnum__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_1001D2BCC();
   }
 
-  v9 = new_JavaNioIoVec_initWithJavaNioByteBufferArray_withInt_withInt_withJavaNioIoVec_DirectionEnum_(array, int, withInt, qword_100558040);
-  return sub_100228E08(self, v9);
+  v10 = new_JavaNioIoVec_initWithJavaNioByteBufferArray_withInt_withInt_withJavaNioIoVec_DirectionEnum_(array, int, withInt, qword_100558040);
+  return sub_100228E08(self, v10);
 }
 
 - (void)dealloc

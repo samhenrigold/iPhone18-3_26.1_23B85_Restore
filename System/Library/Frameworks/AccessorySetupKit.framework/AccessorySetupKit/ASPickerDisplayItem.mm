@@ -150,8 +150,8 @@
   v7 = [(ASPickerDisplayItem *)self init];
   if (!v7)
   {
-    [ASPickerDisplayItem initWithXPCObject:error error:&v20];
-    v17 = v20;
+    [ASPickerDisplayItem initWithXPCObject:error error:&v13];
+    v11 = v13;
     goto LABEL_19;
   }
 
@@ -171,120 +171,119 @@
     if (!CUXPCDecodeObject() || !CUXPCDecodeNSString())
     {
 LABEL_20:
-      v17 = 0;
+      v11 = 0;
       goto LABEL_18;
     }
 
     CUXPCDecodeNSData();
-    v14 = [MEMORY[0x277D755B8] imageWithData:0];
-    if (!v14)
+    v8 = [MEMORY[0x277D755B8] imageWithData:0];
+    if (!v8)
     {
-      [(ASPickerDisplayItem *)error initWithXPCObject:v7 error:&v20];
-      v17 = v20;
+      [(ASPickerDisplayItem *)error initWithXPCObject:v7 error:&v13];
+      v11 = v13;
       goto LABEL_17;
     }
 
-    objc_storeStrong(&v7->_productImage, v14);
+    objc_storeStrong(&v7->_productImage, v8);
     if (!CUXPCDecodeNSString())
     {
       goto LABEL_21;
     }
 
-    v20 = 0;
-    v15 = CUXPCDecodeUInt64RangedEx();
-    if (v15 == 6)
+    v13 = 0;
+    v9 = CUXPCDecodeUInt64RangedEx();
+    if (v9 == 6)
     {
-      v7->_renameOptions = v20;
+      v7->_renameOptions = v13;
     }
 
-    else if (v15 == 5)
+    else if (v9 == 5)
     {
       goto LABEL_21;
     }
 
-    v20 = 0;
-    v16 = CUXPCDecodeUInt64RangedEx();
-    if (v16 == 6)
+    v13 = 0;
+    v10 = CUXPCDecodeUInt64RangedEx();
+    if (v10 == 6)
     {
-      v7->_setupOptions = v20;
+      v7->_setupOptions = v13;
 LABEL_16:
-      v17 = v7;
+      v11 = v7;
 LABEL_17:
 
 LABEL_18:
       goto LABEL_19;
     }
 
-    if (v16 != 5)
+    if (v10 != 5)
     {
       goto LABEL_16;
     }
 
 LABEL_21:
-    v17 = 0;
+    v11 = 0;
     goto LABEL_17;
   }
 
   if (error)
   {
-    ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v19);
-    *error = v17 = 0;
+    ASErrorF(-6756, "XPC non-dict");
+    *error = v11 = 0;
   }
 
   else
   {
-    v17 = 0;
+    v11 = 0;
   }
 
 LABEL_19:
 
-  return v17;
+  return v11;
 }
 
 - (void)encodeWithXPCObject:(id)object
 {
   objectCopy = object;
-  descriptor = self->_descriptor;
   CUXPCEncodeObject();
   name = self->_name;
-  v7 = objectCopy;
+  v6 = objectCopy;
   uTF8String = [(NSString *)name UTF8String];
   if (uTF8String)
   {
-    xpc_dictionary_set_string(v7, "dNm", uTF8String);
+    xpc_dictionary_set_string(v6, "dNm", uTF8String);
   }
 
   identifier = [(UTType *)self->_accessoryType identifier];
-  v10 = v7;
+  v9 = v6;
   uTF8String2 = [identifier UTF8String];
   if (uTF8String2)
   {
-    xpc_dictionary_set_string(v10, "aTe", uTF8String2);
+    xpc_dictionary_set_string(v9, "aTe", uTF8String2);
   }
 
   resizedImage = [(ASPickerDisplayItem *)self resizedImage];
-  v13 = UIImagePNGRepresentation(resizedImage);
-  v14 = v13;
-  if (v13)
+  v12 = UIImagePNGRepresentation(resizedImage);
+  v13 = v12;
+  if (v12)
   {
-    v15 = v13;
-    v16 = v10;
-    bytes = [v14 bytes];
+    v14 = v12;
+    v15 = v9;
+    bytes = [v13 bytes];
     if (bytes)
     {
-      v18 = bytes;
+      v17 = bytes;
     }
 
     else
     {
-      v18 = "";
+      v17 = "";
     }
 
-    xpc_dictionary_set_data(v16, "pImg", v18, [v14 length]);
+    xpc_dictionary_set_data(v15, "pImg", v17, [v13 length]);
   }
 
   identifier = self->_identifier;
-  xdict = v10;
+  xdict = v9;
   uTF8String3 = [(NSString *)identifier UTF8String];
   if (uTF8String3)
   {
@@ -498,84 +497,102 @@ LABEL_30:
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v34 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v33 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v33, &v34, "%@", v5);
+    v6 = v33;
   }
 
   identifier = self->_identifier;
   if (identifier)
   {
-    v19 = identifier;
-    CUAppendF();
-    v6 = v4;
+    v32 = v6;
+    v8 = identifier;
+    CUAppendF(&v32, &v34, "ID %@", v8);
+    v9 = v32;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   accessoryType = self->_accessoryType;
   if (accessoryType)
   {
-    v8 = accessoryType;
-    identifier = [(UTType *)v8 identifier];
-    CUAppendF();
-    v9 = v4;
+    v31 = v6;
+    v11 = accessoryType;
+    identifier = [(UTType *)v11 identifier];
+    CUAppendF(&v31, &v34, "type %@", identifier);
+    v13 = v31;
 
-    v4 = v9;
+    v6 = v13;
   }
 
   name = self->_name;
   if (name)
   {
-    v21 = name;
-    CUAppendF();
-    v11 = v4;
+    v30 = v6;
+    v15 = name;
+    CUAppendF(&v30, &v34, "name '%@'", v15);
+    v16 = v30;
 
-    v4 = v11;
+    v6 = v16;
   }
 
   descriptor = self->_descriptor;
   if (descriptor)
   {
-    v22 = descriptor;
-    CUAppendF();
-    v13 = v4;
+    v29 = v6;
+    v18 = descriptor;
+    CUAppendF(&v29, &v34, "descriptor %@", v18);
+    v19 = v29;
 
-    v4 = v13;
+    v6 = v19;
   }
 
   if (self->_setupOptions)
   {
-    v23 = CUPrintFlags64();
-    CUAppendF();
-    v14 = v4;
+    v28 = v6;
+    v20 = CUPrintFlags64();
+    CUAppendF(&v28, &v34, "setup %@", v20);
+    v21 = v28;
 
-    v4 = v14;
+    v6 = v21;
   }
 
   if (self->_renameOptions)
   {
-    v24 = CUPrintFlags64();
-    CUAppendF();
-    v15 = v4;
+    v27 = v6;
+    v22 = CUPrintFlags64();
+    CUAppendF(&v27, &v34, "rename %@", v22);
+    v23 = v27;
 
-    v4 = v15;
+    v6 = v23;
   }
 
-  v16 = &stru_28499D698;
-  if (v4)
+  v24 = &stru_28499D698;
+  if (v6)
   {
-    v16 = v4;
+    v24 = v6;
   }
 
-  v17 = v16;
+  v25 = v24;
 
-  return v17;
+  return v25;
 }
 
 - (void)initWithXPCObject:(void *)a3 error:.cold.1(void *a1, uint64_t a2, void *a3)
@@ -585,7 +602,7 @@ LABEL_30:
     [objc_opt_class() description];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_0_0();
-    *a1 = ASErrorF(-6756, "%@ bad image data init failed", v6, v7, v8, v9, v10, v11, v12);
+    *a1 = ASErrorF(-6756, "%@ bad image data init failed");
   }
 
   *a3 = 0;
@@ -598,7 +615,7 @@ LABEL_30:
     [objc_opt_class() description];
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_0_0();
-    *a1 = ASErrorF(-6756, "%@ init failed", v5, v6, v7, v8, v9, v10, v11);
+    *a1 = ASErrorF(-6756, "%@ init failed");
   }
 
   *a2 = 0;

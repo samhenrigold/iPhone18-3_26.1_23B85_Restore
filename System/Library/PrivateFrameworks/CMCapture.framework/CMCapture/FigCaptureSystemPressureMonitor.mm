@@ -43,14 +43,14 @@
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      result = FigDebugAssert3();
+      result = FigDebugAssert3(v23);
     }
 
     if (*(v1 + 8))
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       v3 = *(v1 + 192);
-      v11 = OUTLINED_FUNCTION_17_0(dictionary, v4, v5, v6, v7, v8, v9, v10, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, 0);
+      v11 = OUTLINED_FUNCTION_17_0(dictionary, v4, v5, v6, v7, v8, v9, v10, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
       if (v11)
       {
         v12 = v11;
@@ -67,7 +67,7 @@
             v15 = [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", objc_msgSend(objc_msgSend(*(v1 + 192), "objectForKeyedSubscript:", *(8 * i)), "systemPressureLevelFromImageSensorTemperature")), *(8 * i)}];
           }
 
-          v12 = OUTLINED_FUNCTION_17_0(v15, v16, v17, v18, v19, v20, v21, v22, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v59);
+          v12 = OUTLINED_FUNCTION_17_0(v15, v16, v17, v18, v19, v20, v21, v22, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
         }
 
         while (v12);
@@ -450,7 +450,7 @@ void __87__FigCaptureSystemPressureMonitor_startMonitoringPearlProjectorTemperat
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v3);
     }
 
     v2 = *(self + 160);
@@ -466,12 +466,12 @@ void __87__FigCaptureSystemPressureMonitor_startMonitoringPearlProjectorTemperat
 {
   if (result)
   {
-    if (!OUTLINED_FUNCTION_3_101())
+    if (!OUTLINED_FUNCTION_3_101(result))
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v4);
     }
 
     result = *(v1 + 84);
@@ -505,12 +505,12 @@ void __87__FigCaptureSystemPressureMonitor_startMonitoringPearlProjectorTemperat
 {
   if (result)
   {
-    if (!OUTLINED_FUNCTION_3_101())
+    if (!OUTLINED_FUNCTION_3_101(result))
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v5);
     }
 
     result = *(v1 + 56);
@@ -545,12 +545,12 @@ void __87__FigCaptureSystemPressureMonitor_startMonitoringPearlProjectorTemperat
 {
   if (result)
   {
-    if (!OUTLINED_FUNCTION_3_101())
+    if (!OUTLINED_FUNCTION_3_101(result))
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v4);
     }
 
     result = *(v1 + 24);
@@ -600,7 +600,7 @@ uint64_t __71__FigCaptureSystemPressureMonitor_updateWithPearlProjectorTemperatu
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      result = FigDebugAssert3();
+      result = FigDebugAssert3(v10);
     }
 
     v4 = *(v3 + 152);

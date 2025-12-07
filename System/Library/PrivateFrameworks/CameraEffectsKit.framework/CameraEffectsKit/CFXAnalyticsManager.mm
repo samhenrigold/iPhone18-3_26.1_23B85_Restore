@@ -52,9 +52,11 @@
 
 uint64_t __37__CFXAnalyticsManager_sharedInstance__block_invoke()
 {
-  sharedInstance_analyticsManager = objc_alloc_init(CFXAnalyticsManager);
+  v0 = objc_alloc_init(CFXAnalyticsManager);
+  v1 = sharedInstance_analyticsManager;
+  sharedInstance_analyticsManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (CFXAnalyticsManager)init

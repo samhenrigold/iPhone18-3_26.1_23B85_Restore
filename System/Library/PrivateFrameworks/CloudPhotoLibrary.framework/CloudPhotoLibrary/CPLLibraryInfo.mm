@@ -38,19 +38,17 @@
   return v8;
 }
 
-void __69__CPLLibraryInfo_CPLNSCoding__cplAdditionalSecureClassesForProperty___block_invoke()
+void __69__CPLLibraryInfo_CPLNSCoding__cplAdditionalSecureClassesForProperty___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"assetCounts";
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = objc_opt_class();
-  v2 = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = cplAdditionalSecureClassesForProperty__additionalClasses_156;
-  cplAdditionalSecureClassesForProperty__additionalClasses_156 = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"assetCounts";
+  v2 = MEMORY[0x1E695DFD8];
+  v3 = objc_opt_class();
+  v4 = [v2 setWithObjects:{v3, objc_opt_class(), 0}];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = cplAdditionalSecureClassesForProperty__additionalClasses_156;
+  cplAdditionalSecureClassesForProperty__additionalClasses_156 = v5;
 }
 
 - (unint64_t)hash
@@ -290,41 +288,38 @@ void __61__CPLLibraryInfo_prettyDescriptionWithAnchorDesciptionBlock___block_inv
   v5 = *(*(a1[6] + 8) + 24);
   if (v4)
   {
-    v6 = a1[4];
-    v7 = *(*(a1[7] + 8) + 40);
-    v8 = (*(a1[4] + 16))();
-    v17 = v8;
+    v6 = (*(a1[4] + 16))();
+    v14 = v6;
     if (v5 == a2)
     {
-      [v4 appendFormat:@"\n  %ld: %@", a2, v8, v16];
+      [v4 appendFormat:@"\n  %ld: %@", a2, v6, v13];
     }
 
     else
     {
-      [v4 appendFormat:@"\n  %ld-%ld: %@", v5, a2, v8];
+      [v4 appendFormat:@"\n  %ld-%ld: %@", v5, a2, v6];
     }
   }
 
   else
   {
-    v9 = objc_alloc(MEMORY[0x1E696AD60]);
-    v10 = *(*(a1[6] + 8) + 24);
-    v11 = *(*(a1[7] + 8) + 40);
-    v12 = (*(a1[4] + 16))();
-    v17 = v12;
+    v7 = objc_alloc(MEMORY[0x1E696AD60]);
+    v8 = *(*(a1[6] + 8) + 24);
+    v9 = (*(a1[4] + 16))();
+    v14 = v9;
     if (v5 == a2)
     {
-      v13 = [v9 initWithFormat:@"History:\n  %ld: %@", v10, v12, v16];
+      v10 = [v7 initWithFormat:@"History:\n  %ld: %@", v8, v9, v13];
     }
 
     else
     {
-      v13 = [v9 initWithFormat:@"History:\n  %ld-%ld: %@", v10, a2, v12];
+      v10 = [v7 initWithFormat:@"History:\n  %ld-%ld: %@", v8, a2, v9];
     }
 
-    v14 = *(a1[5] + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v11 = *(a1[5] + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 }
 
@@ -470,40 +465,37 @@ void __32__CPLLibraryInfo_initWithCoder___block_invoke_2(uint64_t a1, void *a2, 
 
 void __32__CPLLibraryInfo_initWithCoder___block_invoke_3(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v3 = a1[4];
-      v4 = objc_opt_class();
-      v5 = a1[5];
-      v6 = a1[6];
-      v9 = 138412802;
+      v3 = objc_opt_class();
+      v4 = a1[5];
+      v5 = a1[6];
+      v7 = 138412802;
+      v8 = v3;
+      v9 = 2112;
       v10 = v4;
       v11 = 2112;
       v12 = v5;
-      v13 = 2112;
-      v14 = v6;
-      v7 = v4;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Failed to deserialize %@ - invalid assetCounts dictionary %@: %@", &v9, 0x20u);
+      v6 = v3;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Failed to deserialize %@ - invalid assetCounts dictionary %@: %@", &v7, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __32__CPLLibraryInfo_initWithCoder___block_invoke()
+uint64_t __32__CPLLibraryInfo_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
-  v4 = initWithCoder__countsClasses;
-  initWithCoder__countsClasses = v3;
+  v2 = MEMORY[0x1E695DFD8];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0}];
+  v6 = initWithCoder__countsClasses;
+  initWithCoder__countsClasses = v5;
 
-  return MEMORY[0x1EEE66BB8](v3, v4);
+  return MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 @end

@@ -19,11 +19,11 @@
 
 - (AMSUIWebJSTelephony)initWithDelegate:(id)delegate
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
-  v28.receiver = self;
-  v28.super_class = AMSUIWebJSTelephony;
-  v5 = [(AMSUIWebJSTelephony *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = AMSUIWebJSTelephony;
+  v5 = [(AMSUIWebJSTelephony *)&v27 init];
   if (!v5)
   {
     goto LABEL_9;
@@ -45,7 +45,7 @@
 
     v18 = objc_opt_class();
     *buf = 138543362;
-    v30 = v18;
+    v29 = v18;
     v19 = "%{public}@ Not capable for telephony";
 LABEL_22:
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, v19, buf, 0xCu);
@@ -71,7 +71,7 @@ LABEL_23:
 
     v20 = objc_opt_class();
     *buf = 138543362;
-    v30 = v20;
+    v29 = v20;
     v19 = "%{public}@ Not entitled for telephony";
     goto LABEL_22;
   }
@@ -103,14 +103,14 @@ LABEL_23:
 
     v21 = objc_opt_class();
     *buf = 138543362;
-    v30 = v21;
+    v29 = v21;
     v19 = "%{public}@ Failed to initialize telephony client.";
     goto LABEL_22;
   }
 
-  v27 = 0;
-  oSLogObject = [(CoreTelephonyClient *)v10 getActiveContexts:&v27];
-  mEMORY[0x1E698C968] = v27;
+  v26 = 0;
+  oSLogObject = [(CoreTelephonyClient *)v10 getActiveContexts:&v26];
+  mEMORY[0x1E698C968] = v26;
   voicePreferred = [oSLogObject voicePreferred];
   if (voicePreferred)
   {
@@ -131,15 +131,15 @@ LABEL_23:
     oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v26 = objc_opt_class();
+      v25 = objc_opt_class();
       *buf = 138544130;
-      v30 = v26;
-      v31 = 1024;
-      v32 = voicePreferred != 0;
-      v33 = 1024;
-      v34 = oSLogObject != 0;
-      v35 = 2114;
-      v36 = mEMORY[0x1E698C968];
+      v29 = v25;
+      v30 = 1024;
+      v31 = voicePreferred != 0;
+      v32 = 1024;
+      v33 = oSLogObject != 0;
+      v34 = 2114;
+      v35 = mEMORY[0x1E698C968];
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@ Failed to initialize telephony context. (hasUUID: %d hasContexts: %d) %{public}@", buf, 0x22u);
     }
 
@@ -150,7 +150,6 @@ LABEL_9:
   v17 = v5;
 LABEL_24:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -226,12 +225,12 @@ void __55__AMSUIWebJSTelephony__hasRequiredTelephonyEntitlement__block_invoke()
 
 void __34__AMSUIWebJSTelephony_countryCode__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) telephonyClient];
   v3 = [*(a1 + 32) telephonyContext];
-  v14 = 0;
-  v4 = [v2 copyMobileSubscriberCountryCode:v3 error:&v14];
-  v5 = v14;
+  v12 = 0;
+  v4 = [v2 copyMobileSubscriberCountryCode:v3 error:&v12];
+  v5 = v12;
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v4;
@@ -247,18 +246,15 @@ void __34__AMSUIWebJSTelephony_countryCode__block_invoke(uint64_t a1)
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = AMSLogableError();
+      v10 = objc_opt_class();
+      v11 = AMSLogableError();
       *buf = 138543618;
+      v14 = v10;
+      v15 = 2114;
       v16 = v11;
-      v17 = 2114;
-      v18 = v12;
       _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch country code. %{public}@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)networkCode
@@ -286,12 +282,12 @@ void __34__AMSUIWebJSTelephony_countryCode__block_invoke(uint64_t a1)
 
 void __34__AMSUIWebJSTelephony_networkCode__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) telephonyClient];
   v3 = [*(a1 + 32) telephonyContext];
-  v14 = 0;
-  v4 = [v2 copyMobileSubscriberNetworkCode:v3 error:&v14];
-  v5 = v14;
+  v12 = 0;
+  v4 = [v2 copyMobileSubscriberNetworkCode:v3 error:&v12];
+  v5 = v12;
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v4;
@@ -307,18 +303,15 @@ void __34__AMSUIWebJSTelephony_networkCode__block_invoke(uint64_t a1)
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = AMSLogableError();
+      v10 = objc_opt_class();
+      v11 = AMSLogableError();
       *buf = 138543618;
+      v14 = v10;
+      v15 = 2114;
       v16 = v11;
-      v17 = 2114;
-      v18 = v12;
       _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch network code. %{public}@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)phoneNumber
@@ -346,12 +339,12 @@ void __34__AMSUIWebJSTelephony_networkCode__block_invoke(uint64_t a1)
 
 void __34__AMSUIWebJSTelephony_phoneNumber__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) telephonyClient];
   v3 = [*(a1 + 32) telephonyContext];
-  v16 = 0;
-  v4 = [v2 getPhoneNumber:v3 error:&v16];
-  v5 = v16;
+  v14 = 0;
+  v4 = [v2 getPhoneNumber:v3 error:&v14];
+  v5 = v14;
 
   if (v4)
   {
@@ -374,23 +367,20 @@ void __34__AMSUIWebJSTelephony_phoneNumber__block_invoke(uint64_t a1)
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = AMSLogableError();
+      v9 = objc_opt_class();
+      v10 = AMSLogableError();
       *buf = 138543618;
+      v16 = v9;
+      v17 = 2114;
       v18 = v10;
-      v19 = 2114;
-      v20 = v11;
       _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch phone number. %{public}@", buf, 0x16u);
     }
   }
 
-  v12 = [v4 number];
-  v13 = *(*(a1 + 40) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
-
-  v15 = *MEMORY[0x1E69E9840];
+  v11 = [v4 number];
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 }
 
 - (NSString)providerName
@@ -418,13 +408,13 @@ void __34__AMSUIWebJSTelephony_phoneNumber__block_invoke(uint64_t a1)
 
 void __35__AMSUIWebJSTelephony_providerName__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E6964F68]) initWithBundleType:1];
   v3 = [*(a1 + 32) telephonyClient];
   v4 = [*(a1 + 32) telephonyContext];
-  v17 = 0;
-  v5 = [v3 copyCarrierBundleValue:v4 key:@"CarrierName" bundleType:v2 error:&v17];
-  v6 = v17;
+  v15 = 0;
+  v5 = [v3 copyCarrierBundleValue:v4 key:@"CarrierName" bundleType:v2 error:&v15];
+  v6 = v15;
 
   v7 = v5;
   objc_opt_class();
@@ -449,18 +439,15 @@ void __35__AMSUIWebJSTelephony_providerName__block_invoke(uint64_t a1)
     v12 = [v11 OSLogObject];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = objc_opt_class();
-      v15 = AMSLogableError();
+      v13 = objc_opt_class();
+      v14 = AMSLogableError();
       *buf = 138543618;
+      v17 = v13;
+      v18 = 2114;
       v19 = v14;
-      v20 = 2114;
-      v21 = v15;
       _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_ERROR, "%{public}@ Failed to fetch provider name. %{public}@", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)radioTechnology

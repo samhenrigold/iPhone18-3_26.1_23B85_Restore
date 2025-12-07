@@ -5,6 +5,7 @@
 - (id)_axParticipantShutters;
 - (void)_accessibilityExpandControls;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setControlsState:(int64_t)state animated:(BOOL)animated;
 - (void)setDeviceOrientation:(int64_t)orientation;
 @end
 
@@ -102,6 +103,38 @@ LABEL_12:
   AXPerformBlockOnMainThreadAfterDelay();
 }
 
+- (void)setControlsState:(int64_t)state animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if ([(MultiwayViewControllerAccessibility *)self _axGetDidExpandControls]&& [(MultiwayViewControllerAccessibility *)self _axGetExpectedExpandedState]!= state)
+  {
+
+    [(MultiwayViewControllerAccessibility *)self _axSetDidExpandControls:0];
+  }
+
+  else
+  {
+    v7 = [(MultiwayViewControllerAccessibility *)self safeValueForKey:@"accessibilityConstraintController"];
+    v8 = [v7 safeIntegerForKey:@"inCallControlsState"];
+
+    v12.receiver = self;
+    v12.super_class = MultiwayViewControllerAccessibility;
+    [(MultiwayViewControllerAccessibility *)&v12 setControlsState:state animated:animatedCopy];
+    v10 = state != 4 && v8 != 4;
+    if (v8 == state || v10)
+    {
+      v11 = MEMORY[0x29EDC7ED8];
+    }
+
+    else
+    {
+      v11 = MEMORY[0x29EDC7F10];
+    }
+
+    UIAccessibilityPostNotification(*v11, 0);
+  }
+}
+
 - (BOOL)axShouldDisableAutoHidingControls
 {
   if (UIAccessibilityIsVoiceOverRunning() || UIAccessibilityIsSwitchControlRunning())
@@ -114,30 +147,30 @@ LABEL_12:
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v18.receiver = self;
-  v18.super_class = MultiwayViewControllerAccessibility;
-  [(MultiwayViewControllerAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
+  v19 = *MEMORY[0x29EDCA608];
+  v17.receiver = self;
+  v17.super_class = MultiwayViewControllerAccessibility;
+  [(MultiwayViewControllerAccessibility *)&v17 _accessibilityLoadAccessibilityInformation];
   [(MultiwayViewControllerAccessibility *)self _axParticipantShutters];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v3 = v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v13 = 0u;
+  v3 = v14 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = accessibilityLocalizedString(@"take.live.photo");
         [v7 setAccessibilityLabel:v8];
 
@@ -145,7 +178,7 @@ LABEL_12:
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v4);
@@ -153,16 +186,14 @@ LABEL_12:
 
   v9 = [(MultiwayViewControllerAccessibility *)self safeUIViewForKey:@"view"];
   objc_initWeak(&location, self);
-  v11[0] = MEMORY[0x29EDCA5F8];
-  v11[1] = 3221225472;
-  v11[2] = __81__MultiwayViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
-  v11[3] = &unk_29F2B7D20;
-  objc_copyWeak(&v12, &location);
-  [v9 _setAccessibilityElementsHiddenBlock:v11];
-  objc_destroyWeak(&v12);
+  v10[0] = MEMORY[0x29EDCA5F8];
+  v10[1] = 3221225472;
+  v10[2] = __81__MultiwayViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
+  v10[3] = &unk_29F2B7D20;
+  objc_copyWeak(&v11, &location);
+  [v9 _setAccessibilityElementsHiddenBlock:v10];
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __81__MultiwayViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)

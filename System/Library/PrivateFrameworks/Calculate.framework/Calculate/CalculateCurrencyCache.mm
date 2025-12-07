@@ -21,7 +21,7 @@
 
 - (BOOL)updateCurrencyCacheWithData:(id)data
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v4 = [dataCopy objectForKey:@"query"];
   v5 = [v4 objectForKey:@"created"];
@@ -35,7 +35,7 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v53 = v5;
+    v52 = v5;
     _os_log_impl(&dword_1C1E73000, v6, OS_LOG_TYPE_DEFAULT, "Calculate: currency last updated: %@", buf, 0xCu);
   }
 
@@ -81,7 +81,7 @@ LABEL_10:
   {
     v18 = self->_lastRefreshDate;
     *buf = 138543362;
-    v53 = v18;
+    v52 = v18;
     _os_log_impl(&dword_1C1E73000, v17, OS_LOG_TYPE_DEFAULT, "Calculate: currency refresh date: %{public}@", buf, 0xCu);
   }
 
@@ -97,31 +97,31 @@ LABEL_15:
   v26 = [v25 count];
   if (v26)
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v27 = v25;
-    v28 = [v27 countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (v28)
     {
       v29 = v28;
-      v42 = v26;
-      v43 = v25;
-      v44 = v5;
-      v45 = dataCopy;
-      v30 = *v48;
+      v41 = v26;
+      v42 = v25;
+      v43 = v5;
+      v44 = dataCopy;
+      v30 = *v47;
       do
       {
         v31 = v27;
         for (i = 0; i != v29; ++i)
         {
-          if (*v48 != v30)
+          if (*v47 != v30)
           {
             objc_enumerationMutation(v31);
           }
 
-          v33 = *(*(&v47 + 1) + 8 * i);
+          v33 = *(*(&v46 + 1) + 8 * i);
           v34 = [v33 objectForKey:@"currency_to"];
           v35 = MEMORY[0x1E696AD98];
           v36 = [v33 objectForKey:@"price"];
@@ -145,14 +145,14 @@ LABEL_15:
         }
 
         v27 = v31;
-        v29 = [v31 countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v29 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
       }
 
       while (v29);
-      v5 = v44;
-      dataCopy = v45;
-      v26 = v42;
-      v25 = v43;
+      v5 = v43;
+      dataCopy = v44;
+      v26 = v41;
+      v25 = v42;
     }
   }
 
@@ -163,12 +163,11 @@ LABEL_15:
     {
       v39 = [v25 count];
       *buf = 134217984;
-      v53 = v39;
+      v52 = v39;
       _os_log_impl(&dword_1C1E73000, v27, OS_LOG_TYPE_DEFAULT, "Calculate: Received response data but the currency data is empty(currency count): %lu", buf, 0xCu);
     }
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v26 != 0;
 }
 
@@ -356,7 +355,7 @@ uint64_t __53__CalculateCurrencyCache__queue_persistCurrencyCache__block_invoke(
 
 void __41__CalculateCurrencyCache__queue_refresh___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   v8 = v7;
@@ -366,7 +365,7 @@ void __41__CalculateCurrencyCache__queue_refresh___block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v25 = v8;
+      v24 = v8;
       _os_log_error_impl(&dword_1C1E73000, v14, OS_LOG_TYPE_ERROR, "Calculate: currency refresh failed, error: %{public}@", buf, 0xCu);
     }
   }
@@ -386,16 +385,16 @@ void __41__CalculateCurrencyCache__queue_refresh___block_invoke(uint64_t a1, voi
     v12 = *(v11 + 72);
     *(v11 + 72) = v10;
 
-    v23 = 0;
-    v13 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v6 options:4 error:&v23];
-    v14 = v23;
+    v22 = 0;
+    v13 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v6 options:4 error:&v22];
+    v14 = v22;
     if (v14 || ![*(a1 + 32) updateCurrencyCacheWithData:v13])
     {
       v21 = CalculateLogForCategory();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v25 = v14;
+        v24 = v14;
         _os_log_error_impl(&dword_1C1E73000, v21, OS_LOG_TYPE_ERROR, "Calculate: JSON parsing error:%{public}@ or currency data update error", buf, 0xCu);
       }
     }
@@ -427,7 +426,6 @@ void __41__CalculateCurrencyCache__queue_refresh___block_invoke(uint64_t a1, voi
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createCredential

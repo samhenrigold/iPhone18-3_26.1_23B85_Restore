@@ -22,7 +22,7 @@
 
 - (BOOL)deviceIsSupported
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   device = self->_device;
   if (device)
   {
@@ -40,14 +40,14 @@
         v8 = @"true";
       }
 
-      v18 = 138543618;
-      v19 = v7;
-      v20 = 2114;
-      v21 = v8;
+      v17 = 138543618;
+      v18 = v7;
+      v19 = 2114;
+      v20 = v8;
       v9 = v7;
       v10 = "[%{public}@] Paired device supports Scandium: %{public}@";
 LABEL_11:
-      _os_log_impl(&dword_262078000, v6, OS_LOG_TYPE_DEFAULT, v10, &v18, 0x16u);
+      _os_log_impl(&dword_262078000, v6, OS_LOG_TYPE_DEFAULT, v10, &v17, 0x16u);
     }
   }
 
@@ -70,10 +70,10 @@ LABEL_11:
           v15 = @"true";
         }
 
-        v18 = 138543618;
-        v19 = v14;
-        v20 = 2114;
-        v21 = v15;
+        v17 = 138543618;
+        v18 = v14;
+        v19 = 2114;
+        v20 = v15;
         v9 = v14;
         v10 = "[%{public}@] Device supports Scandium: %{public}@";
         goto LABEL_11;
@@ -93,7 +93,6 @@ LABEL_11:
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

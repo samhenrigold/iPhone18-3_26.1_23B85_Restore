@@ -165,20 +165,20 @@ void __50__MOConfiguration_isAllowedToPromptEventCategory___block_invoke(uint64_
 
 void __50__MOConfiguration_isAllowedToPromptEventCategory___block_invoke_2(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _mo_log_facility_get_os_log(MOLogFacilityPermissions);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
-    v9 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v10 = 138412802;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_debug_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_DEBUG, "isAllowedToPrompt event category: %@ %@, %@", &v10, 0x20u);
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:a2];
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_debug_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_DEBUG, "isAllowedToPrompt event category: %@ %@, %@", &v9, 0x20u);
   }
 
   if (!v5)
@@ -187,8 +187,6 @@ void __50__MOConfiguration_isAllowedToPromptEventCategory___block_invoke_2(void 
   }
 
   (*(a1[4] + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __50__MOConfiguration_isAllowedToPromptEventCategory___block_invoke_110(uint64_t a1, void *a2)
@@ -261,20 +259,20 @@ void __49__MOConfiguration_isAllowedToPromptResourceType___block_invoke(uint64_t
 
 void __49__MOConfiguration_isAllowedToPromptResourceType___block_invoke_2(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _mo_log_facility_get_os_log(MOLogFacilityPermissions);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
-    v9 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v10 = 138412802;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_debug_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_DEBUG, "isAllowedToPrompt resource type: %@ %@, %@", &v10, 0x20u);
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:a2];
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_debug_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_DEBUG, "isAllowedToPrompt resource type: %@ %@, %@", &v9, 0x20u);
   }
 
   if (!v5)
@@ -283,8 +281,6 @@ void __49__MOConfiguration_isAllowedToPromptResourceType___block_invoke_2(void *
   }
 
   (*(a1[4] + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MOConfiguration_isAllowedToPromptResourceType___block_invoke_113(uint64_t a1, void *a2)
@@ -332,22 +328,16 @@ void __49__MOConfiguration_isAllowedToPromptResourceType___block_invoke_113(uint
 
 void __50__MOConfiguration_isAllowedToPromptEventCategory___block_invoke_110_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32)];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_8(&dword_22D8C5000, v2, v3, "isAllowedToPrompt event category: %@, %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_8(&dword_22D8C5000, v2, v3, "isAllowedToPrompt event category: %@, %@", v4, v5, v6, v7);
 }
 
 void __49__MOConfiguration_isAllowedToPromptResourceType___block_invoke_113_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32)];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_8(&dword_22D8C5000, v2, v3, "isAllowedToPrompt resource type: %@, %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_8(&dword_22D8C5000, v2, v3, "isAllowedToPrompt resource type: %@, %@", v4, v5, v6, v7);
 }
 
 @end

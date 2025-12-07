@@ -32,7 +32,7 @@
 + (id)predictedActionSearchResultsWithLimit:(int64_t)limit forBundleIdentifiers:(id)identifiers
 {
   v46 = *MEMORY[0x1E69E9840];
-  v6 = __atxlog_handle_blending();
+  v6 = __atxlog_handle_blending(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -230,7 +230,8 @@ LABEL_41:
 
   else
   {
-    if (![predictedItem2 isTVAction])
+    isTVAction = [predictedItem2 isTVAction];
+    if (!isTVAction)
     {
       v18 = predictedItem2;
 LABEL_15:
@@ -239,10 +240,10 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v24 = __atxlog_handle_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = __atxlog_handle_default(isTVAction);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [ATXActionSearchResult actionSearchResultFromScoredAction:v24 actionResponse:? avRoutingSessionHelper:? nowPlayingDataProvider:?];
+      [ATXActionSearchResult actionSearchResultFromScoredAction:v25 actionResponse:? avRoutingSessionHelper:? nowPlayingDataProvider:?];
     }
   }
 
@@ -337,28 +338,28 @@ LABEL_10:
   v8 = NSClassFromString(executableClassString);
   executableSpecification2 = [suggestionCopy executableSpecification];
   executable = [executableSpecification2 executable];
-  v16 = 0;
-  v11 = [v5 unarchivedObjectOfClass:v8 fromData:executable error:&v16];
-  v12 = v16;
+  v17 = 0;
+  v11 = [v5 unarchivedObjectOfClass:v8 fromData:executable error:&v17];
+  v12 = v17;
 
   objc_autoreleasePoolPop(v4);
   if (v11 || !v12)
   {
-    v14 = v11;
+    v15 = v11;
   }
 
   else
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_default(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(ATXActionSearchResult *)v12 _unarchiveObjectFromSuggestion:v13];
+      [(ATXActionSearchResult *)v12 _unarchiveObjectFromSuggestion:v14];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 + (id)_unarchiveATXHeroDataFromSuggestion:(id)suggestion
@@ -445,7 +446,8 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    if ([(ATXAction *)v13 actionType]== 5)
+    actionType2 = [(ATXAction *)v13 actionType];
+    if (actionType2 == 5)
     {
       punchout2 = [(ATXActionSearchResult *)self punchout];
       [punchout2 setIsRunnableInBackground:1];
@@ -453,7 +455,7 @@ LABEL_6:
 
     else
     {
-      punchout2 = __atxlog_handle_default();
+      punchout2 = __atxlog_handle_default(actionType2);
       if (os_log_type_enabled(punchout2, OS_LOG_TYPE_FAULT))
       {
         [ATXActionSearchResult setAtxAction:punchout2];
@@ -761,7 +763,7 @@ intptr_t __54__ATXActionSearchResult__updateInlineCardWithContent___block_invoke
   combinationsCopy = combinations;
   donationsCopy = donations;
   idCopy = id;
-  v11 = __atxlog_handle_default();
+  v11 = __atxlog_handle_default(idCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

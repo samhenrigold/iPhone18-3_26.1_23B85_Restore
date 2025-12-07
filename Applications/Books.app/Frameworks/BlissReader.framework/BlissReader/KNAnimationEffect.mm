@@ -54,7 +54,7 @@
 {
   if (![a4 isTransition])
   {
-    v8 = [objc_msgSend(a4 "textures")];
+    [objc_msgSend(a4 "textures")];
     if ([a4 isMetalRenderer])
     {
       [(KNAnimationContext *)self->mAnimationContext slideRect];
@@ -69,7 +69,7 @@
       }
     }
 
-    result = [(KNAnimationEffect *)self mvpMatrixWithTexture:v8 andFrame:?];
+    result = objc_msgSend_mvpMatrixWithTexture_andFrame_(self);
     goto LABEL_9;
   }
 
@@ -77,27 +77,27 @@
   if (!result)
   {
 LABEL_8:
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
-    v9 = 0u;
+    v13 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     goto LABEL_9;
   }
 
-  result = [(CATransform3D *)result slideProjectionMatrix];
+  result = objc_msgSend_slideProjectionMatrix(result);
 LABEL_9:
-  *&retstr->m31 = v13;
-  *&retstr->m33 = v14;
-  *&retstr->m41 = v15;
-  *&retstr->m43 = v16;
-  *&retstr->m11 = v9;
-  *&retstr->m13 = v10;
-  *&retstr->m21 = v11;
-  *&retstr->m23 = v12;
+  *&retstr->m31 = v12;
+  *&retstr->m33 = v13;
+  *&retstr->m41 = v14;
+  *&retstr->m43 = v15;
+  *&retstr->m11 = v8;
+  *&retstr->m13 = v9;
+  *&retstr->m21 = v10;
+  *&retstr->m23 = v11;
   return result;
 }
 
@@ -203,7 +203,7 @@ LABEL_9:
 {
   if (![a4 isTransition])
   {
-    v8 = [objc_msgSend(a4 "textures")];
+    [objc_msgSend(a4 "textures")];
     if ([a4 isMetalRenderer])
     {
       [(KNAnimationContext *)self->mAnimationContext slideRect];
@@ -218,7 +218,7 @@ LABEL_9:
       }
     }
 
-    result = [(KNAnimationEffect *)self perspectiveMVPMatrixWithTexture:v8 andFrame:?];
+    result = objc_msgSend_perspectiveMVPMatrixWithTexture_andFrame_(self);
     goto LABEL_9;
   }
 
@@ -226,27 +226,27 @@ LABEL_9:
   if (!result)
   {
 LABEL_8:
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
-    v9 = 0u;
+    v13 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     goto LABEL_9;
   }
 
-  result = [(CATransform3D *)result slideProjectionMatrix];
+  result = objc_msgSend_slideProjectionMatrix(result);
 LABEL_9:
-  *&retstr->m31 = v13;
-  *&retstr->m33 = v14;
-  *&retstr->m41 = v15;
-  *&retstr->m43 = v16;
-  *&retstr->m11 = v9;
-  *&retstr->m13 = v10;
-  *&retstr->m21 = v11;
-  *&retstr->m23 = v12;
+  *&retstr->m31 = v12;
+  *&retstr->m33 = v13;
+  *&retstr->m41 = v14;
+  *&retstr->m43 = v15;
+  *&retstr->m11 = v8;
+  *&retstr->m13 = v9;
+  *&retstr->m21 = v10;
+  *&retstr->m23 = v11;
   return result;
 }
 

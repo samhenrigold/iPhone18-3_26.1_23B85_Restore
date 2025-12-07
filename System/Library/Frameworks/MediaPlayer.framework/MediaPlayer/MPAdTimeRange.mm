@@ -33,7 +33,7 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = *MEMORY[0x1E695E480];
-  [(MPAdTimeRange *)self timeRange];
+  objc_msgSend_timeRange(self);
   v7 = CMTimeRangeCopyDescription(v6, &range);
   v8 = [v3 stringWithFormat:@"<%@ %p: %@=%@>", v5, self, @"timeRange", v7];
 
@@ -43,7 +43,7 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(MPAdTimeRange);
-  [(MPAdTimeRange *)self timeRange];
+  objc_msgSend_timeRange(self);
   v5 = v8;
   v6 = v9;
   *&v4->_timeRange.duration.timescale = v10;
@@ -55,10 +55,10 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  [(MPAdTimeRange *)self timeRange];
+  objc_msgSend_timeRange(self);
   if (equalCopy)
   {
-    [equalCopy timeRange];
+    objc_msgSend_timeRange(equalCopy);
   }
 
   else

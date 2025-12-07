@@ -44,16 +44,14 @@
 
 void __94__ATXHomeScreenLogWidgetEventDictionaries_widgetEventDictionaryAccumulatorSplitByLocationKeys__block_invoke()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"NumberOfPinnedWidgetViewsOn";
-  v3[1] = @"NumberOfPinnedWidgetPseudoTapsOn";
-  v3[2] = @"NumberOfPinnedWidgetTapsOn";
-  v3[3] = @"NumberOfLockUnlockSessionsWithWidgetDwellOn";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"NumberOfPinnedWidgetViewsOn";
+  v2[1] = @"NumberOfPinnedWidgetPseudoTapsOn";
+  v2[2] = @"NumberOfPinnedWidgetTapsOn";
+  v2[3] = @"NumberOfLockUnlockSessionsWithWidgetDwellOn";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v1 = widgetEventDictionaryAccumulatorSplitByLocationKeys_array;
   widgetEventDictionaryAccumulatorSplitByLocationKeys_array = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_widgetEventDictionaryKeyWithWidgetId:(id)id widgetKind:(id)kind widgetSize:(unint64_t)size
@@ -255,41 +253,42 @@ LABEL_47:
 {
   idCopy = id;
   kindCopy = kind;
-  if ([idCopy length] && objc_msgSend(kindCopy, "length"))
+  v10 = [idCopy length];
+  if (v10 && (v10 = [kindCopy length]) != 0)
   {
-    v10 = [(ATXHomeScreenLogWidgetEventDictionaries *)self _widgetEventDictionaryKeyWithWidgetId:idCopy widgetKind:kindCopy widgetSize:size];
-    v11 = [(NSMutableDictionary *)self->_widgetEventDictionaries objectForKeyedSubscript:v10];
+    v11 = [(ATXHomeScreenLogWidgetEventDictionaries *)self _widgetEventDictionaryKeyWithWidgetId:idCopy widgetKind:kindCopy widgetSize:size];
+    v12 = [(NSMutableDictionary *)self->_widgetEventDictionaries objectForKeyedSubscript:v11];
 
-    if (!v11)
+    if (!v12)
     {
-      v12 = [(ATXHomeScreenLogWidgetEventDictionaries *)self _createNewWidgetEventDictionaryForBundleId:idCopy kind:kindCopy size:size];
-      [(NSMutableDictionary *)self->_widgetEventDictionaries setObject:v12 forKeyedSubscript:v10];
+      v13 = [(ATXHomeScreenLogWidgetEventDictionaries *)self _createNewWidgetEventDictionaryForBundleId:idCopy kind:kindCopy size:size];
+      [(NSMutableDictionary *)self->_widgetEventDictionaries setObject:v13 forKeyedSubscript:v11];
     }
 
-    v13 = [(NSMutableDictionary *)self->_widgetEventDictionaries objectForKeyedSubscript:v10];
+    v14 = [(NSMutableDictionary *)self->_widgetEventDictionaries objectForKeyedSubscript:v11];
   }
 
   else
   {
-    v14 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_home_screen(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [ATXHomeScreenLogWidgetEventDictionaries _widgetEventDictionaryForWidgetId:idCopy widgetKind:kindCopy widgetSize:v14];
+      [ATXHomeScreenLogWidgetEventDictionaries _widgetEventDictionaryForWidgetId:idCopy widgetKind:kindCopy widgetSize:v15];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)_createNewWidgetEventDictionaryForBundleId:(id)id kind:(id)kind size:(unint64_t)size
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   idCopy = id;
   kindCopy = kind;
   v8 = objc_opt_new();
-  v21 = kindCopy;
+  v20 = kindCopy;
   v9 = [MEMORY[0x277CEB9B0] stringRepresentationForExtensionBundleId:idCopy kind:kindCopy];
   [v8 setObject:v9 forKeyedSubscript:@"WidgetBundleIdAndKind"];
 
@@ -297,27 +296,27 @@ LABEL_47:
   [v8 setObject:v10 forKeyedSubscript:@"widgetSize"];
 
   [v8 setObject:&unk_283A577D0 forKeyedSubscript:@"NumberOfInstancesRemovedFromStack"];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   widgetEventDictionaryAccumulatorSplitByLocationKeys = [objc_opt_class() widgetEventDictionaryAccumulatorSplitByLocationKeys];
-  v12 = [widgetEventDictionaryAccumulatorSplitByLocationKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [widgetEventDictionaryAccumulatorSplitByLocationKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(widgetEventDictionaryAccumulatorSplitByLocationKeys);
         }
 
         v16 = 0;
-        v17 = *(*(&v22 + 1) + 8 * i);
+        v17 = *(*(&v21 + 1) + 8 * i);
         do
         {
           v18 = [ATXHomeScreenLogUploaderUtilities keyByConcatenatingAccumulatorKey:v17 withLocation:v16];
@@ -329,13 +328,11 @@ LABEL_47:
         while (v16 != 6);
       }
 
-      v13 = [widgetEventDictionaryAccumulatorSplitByLocationKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [widgetEventDictionaryAccumulatorSplitByLocationKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -356,13 +353,98 @@ LABEL_47:
 
 - (void)updateUnlockSessionsWithWidgetDwell:(id)dwell
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dwellCopy = dwell;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = [dwellCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(dwellCopy);
+        }
+
+        v9 = *(*(&v12 + 1) + 8 * i);
+        v10 = [(ATXHomeScreenLogWidgetEventDictionaries *)self _widgetEventDictionaryForHomeScreenEvent:v9];
+        if (v10)
+        {
+          v11 = +[ATXHomeScreenLogUploaderUtilities keyByConcatenatingAccumulatorKey:withLocation:](ATXHomeScreenLogUploaderUtilities, "keyByConcatenatingAccumulatorKey:withLocation:", @"NumberOfLockUnlockSessionsWithWidgetDwellOn", [v9 stackLocation]);
+          [ATXHomeScreenLogUploaderUtilities incrementDictionary:v10 forKey:v11];
+        }
+      }
+
+      v6 = [dwellCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v6);
+  }
+}
+
+- (void)sendToCoreAnalytics
+{
+  v22 = *MEMORY[0x277D85DE8];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v5 = [dwellCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = self->_widgetEventDictionaries;
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  if (v4)
+  {
+    v6 = v4;
+    v7 = *v14;
+    *&v5 = 138412546;
+    v12 = v5;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v14 != v7)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_widgetEventDictionaries objectForKeyedSubscript:v9, v12, v13];
+        v11 = __atxlog_handle_home_screen(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        {
+          *buf = v12;
+          v18 = v9;
+          v19 = 2112;
+          v20 = v10;
+          _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "ATXHomeScreenLogUploader: Widget level dictionary for %@: %@", buf, 0x16u);
+        }
+
+        AnalyticsSendEvent();
+      }
+
+      v6 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+    }
+
+    while (v6);
+  }
+}
+
+- (id)dryRunResult
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_new();
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v4 = self->_widgetEventDictionaries;
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
@@ -373,124 +455,32 @@ LABEL_47:
       {
         if (*v14 != v7)
         {
-          objc_enumerationMutation(dwellCopy);
-        }
-
-        v9 = *(*(&v13 + 1) + 8 * i);
-        v10 = [(ATXHomeScreenLogWidgetEventDictionaries *)self _widgetEventDictionaryForHomeScreenEvent:v9];
-        if (v10)
-        {
-          v11 = +[ATXHomeScreenLogUploaderUtilities keyByConcatenatingAccumulatorKey:withLocation:](ATXHomeScreenLogUploaderUtilities, "keyByConcatenatingAccumulatorKey:withLocation:", @"NumberOfLockUnlockSessionsWithWidgetDwellOn", [v9 stackLocation]);
-          [ATXHomeScreenLogUploaderUtilities incrementDictionary:v10 forKey:v11];
-        }
-      }
-
-      v6 = [dwellCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v6);
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendToCoreAnalytics
-{
-  v23 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v3 = self->_widgetEventDictionaries;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
-  if (v4)
-  {
-    v6 = v4;
-    v7 = *v15;
-    *&v5 = 138412546;
-    v13 = v5;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v15 != v7)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_widgetEventDictionaries objectForKeyedSubscript:v9, v13, v14];
-        v11 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-        {
-          *buf = v13;
-          v19 = v9;
-          v20 = 2112;
-          v21 = v10;
-          _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "ATXHomeScreenLogUploader: Widget level dictionary for %@: %@", buf, 0x16u);
-        }
-
-        AnalyticsSendEvent();
-      }
-
-      v6 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
-    }
-
-    while (v6);
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-- (id)dryRunResult
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = objc_opt_new();
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v4 = self->_widgetEventDictionaries;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v15;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v15 != v7)
-        {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_widgetEventDictionaries objectForKeyedSubscript:v9];
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Widget Level Dictionary For %@", v9];
         [v3 setObject:v10 forKeyedSubscript:v11];
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)_widgetEventDictionaryForWidgetId:(uint64_t)a1 widgetKind:(uint64_t)a2 widgetSize:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXHomeScreenLogUploader: unable to get widget event dictionary because missing widgetId (%@) or kind (%@)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXHomeScreenLogUploader: unable to get widget event dictionary because missing widgetId (%@) or kind (%@)", &v3, 0x16u);
 }
 
 @end

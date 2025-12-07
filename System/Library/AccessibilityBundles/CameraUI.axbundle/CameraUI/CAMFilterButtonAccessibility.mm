@@ -59,7 +59,7 @@
   return v8;
 }
 
-uint64_t __50__CAMFilterButtonAccessibility_accessibilityValue__block_invoke(uint64_t a1)
+void *__50__CAMFilterButtonAccessibility_accessibilityValue__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _effectFilterTypeForMode:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

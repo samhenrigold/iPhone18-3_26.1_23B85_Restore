@@ -11,9 +11,9 @@ int main(int argc, const char **argv, const char **envp)
   return argv;
 }
 
-void sub_100001874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100001874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -63,11 +63,11 @@ void sub_100001894(uint64_t a1)
   _Block_object_dispose(v13, 8);
 }
 
-void sub_100001A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100001A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 112), 8);
+  _Block_object_dispose((v24 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2893,7 +2893,6 @@ void *sub_10000AE1C(void *result, char a2, uint64_t a3)
   {
     if ((a2 & 1) == 0)
     {
-      v3 = result[5];
       return [*(result[4] + 128) presentPassDetailsWithUniqueID:? animated:? action:? completionHandler:?];
     }
   }
@@ -3021,7 +3020,6 @@ void *sub_10000B0B4(void *result, char a2, uint64_t a3)
   {
     if ((a2 & 1) == 0)
     {
-      v3 = result[5];
       return [*(result[4] + 128) presentAccountPromotionForPassUniqueIdentifier:? programIdentifier:? animated:? completion:?];
     }
   }
@@ -3035,7 +3033,6 @@ void *sub_10000B0DC(void *result, char a2, uint64_t a3)
   {
     if ((a2 & 1) == 0)
     {
-      v3 = result[5];
       return [*(result[4] + 128) presentRewardsHubMerchantsForPassUniqueIdentifier:? privateIdentifier:? animated:? completion:?];
     }
   }

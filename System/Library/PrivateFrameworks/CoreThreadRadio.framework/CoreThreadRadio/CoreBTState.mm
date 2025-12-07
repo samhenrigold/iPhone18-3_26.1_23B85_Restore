@@ -24,9 +24,9 @@ void __CoreBTState_block_invoke(id a1)
           v4 = off_1004C1B98[v3];
         }
 
-        v5 = 136315138;
-        v6 = v4;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "[CoreBT]Bluetooth state changed: %s", &v5, 0xCu);
+        v6 = 136315138;
+        v7 = v4;
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "[CoreBT]Bluetooth state changed: %s", &v6, 0xCu);
       }
     }
   }
@@ -36,9 +36,18 @@ void __CoreBTState_block_invoke(id a1)
     [PowerEventHandler_Rcp init:];
   }
 
-  if ([CoreBT::cbController bluetoothState] == 5 || objc_msgSend(CoreBT::cbController, "bluetoothState") == 10 || objc_msgSend(CoreBT::cbController, "bluetoothState") == 4)
+  if ([CoreBT::cbController bluetoothState] == 5 || objc_msgSend(CoreBT::cbController, "bluetoothState") == 10)
   {
-    sendUserBTNotification();
+    v5 = 1;
+LABEL_14:
+    sendUserBTNotification(v5);
+    return;
+  }
+
+  if ([CoreBT::cbController bluetoothState] == 4)
+  {
+    v5 = 0;
+    goto LABEL_14;
   }
 }
 

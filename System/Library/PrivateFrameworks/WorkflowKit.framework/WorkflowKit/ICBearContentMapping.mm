@@ -22,7 +22,7 @@
 
 void __67__ICBearContentMapping_getFileURLQueryString_withInput_parameters___block_invoke(uint64_t a1, void *a2)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -31,12 +31,12 @@ void __67__ICBearContentMapping_getFileURLQueryString_withInput_parameters___blo
     v6 = [v5 base64EncodedStringWithOptions:0];
 
     v7 = MEMORY[0x1E695DFF8];
-    v12[0] = @"file";
-    v12[1] = @"filename";
-    v13[0] = v6;
+    v11[0] = @"file";
+    v11[1] = @"filename";
+    v12[0] = v6;
     v8 = [v4 filename];
-    v13[1] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     v10 = [v7 dc_queryStringWithQueryDictionary:v9];
 
     (*(*(a1 + 32) + 16))();
@@ -46,8 +46,6 @@ void __67__ICBearContentMapping_getFileURLQueryString_withInput_parameters___blo
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getTextRepresentation:(id)representation withInput:(id)input parameters:(id)parameters
@@ -117,15 +115,15 @@ void __67__ICBearContentMapping_getTextRepresentation_withInput_parameters___blo
 
 void __67__ICBearContentMapping_getTextURLQueryString_withInput_parameters___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v4 = MEMORY[0x1E695DFF8];
-    v10 = @"text";
-    v11[0] = a2;
+    v9 = @"text";
+    v10[0] = a2;
     v5 = MEMORY[0x1E695DF20];
     v6 = a2;
-    v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v8 = [v4 dc_queryStringWithQueryDictionary:v7];
 
     (*(*(a1 + 32) + 16))();
@@ -136,8 +134,6 @@ void __67__ICBearContentMapping_getTextURLQueryString_withInput_parameters___blo
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0, a3);
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStringRepresentation:(id)representation withInput:(id)input parameters:(id)parameters
@@ -149,7 +145,7 @@ void __67__ICBearContentMapping_getTextURLQueryString_withInput_parameters___blo
   v12 = v11;
   if (v11)
   {
-    if ([v11 isEqualToString:@"File"])
+    if (objc_msgSend_isEqualToString_(v11))
     {
       [(ICBearContentMapping *)self getFileURLQueryString:representationCopy withInput:inputCopy parameters:parametersCopy];
     }

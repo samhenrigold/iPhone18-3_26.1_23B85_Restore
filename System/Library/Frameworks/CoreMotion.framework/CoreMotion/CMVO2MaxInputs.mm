@@ -104,40 +104,38 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x1E69E9840];
-  *&v20 = 0;
+  v24 = *MEMORY[0x1E69E9840];
+  *&v19 = 0;
   fRecordId = self->fRecordId;
   fStartDate = self->fStartDate;
-  v19 = fRecordId;
+  v18 = fRecordId;
   fMets = self->fMets;
-  *(&v20 + 2) = fMets;
+  *(&v19 + 2) = fMets;
   objc_msgSend_timeIntervalSinceReferenceDate(fStartDate, a2, zone);
   v8 = vcvt_f32_f64(*&self->fHeartRate);
-  *&v21 = v9;
-  *(&v21 + 1) = v8;
-  *&v22 = 0xFFEFFFFFFFFFFFFFLL;
-  DWORD2(v22) = self->fGradeType;
-  *&v23 = self->fGrade;
-  WORD4(v23) = *&self->fHasGPS;
+  *&v20 = v9;
+  *(&v20 + 1) = v8;
+  *&v21 = 0xFFEFFFFFFFFFFFFFLL;
+  DWORD2(v21) = self->fGradeType;
+  *&v22 = self->fGrade;
+  WORD4(v22) = *&self->fHasGPS;
   fWorkoutType = self->fWorkoutType;
-  HIDWORD(v23) = self->fMetSource;
-  *v24 = fWorkoutType;
-  *&v24[8] = *&self->fCadence;
-  v24[24] = 0;
-  *&v24[28] = 0;
-  objc_msgSend_getUUIDBytes_(self->fWorkoutSessionId, v11, &v19 + 8);
+  HIDWORD(v22) = self->fMetSource;
+  *v23 = fWorkoutType;
+  *&v23[8] = *&self->fCadence;
+  v23[24] = 0;
+  *&v23[28] = 0;
+  objc_msgSend_getUUIDBytes_(self->fWorkoutSessionId, v11, &v18 + 8);
   v12 = objc_opt_class();
   v14 = objc_msgSend_allocWithZone_(v12, v13, zone);
-  v18[4] = v23;
-  v18[5] = *v24;
-  v18[6] = *&v24[16];
-  v18[0] = v19;
-  v18[1] = v20;
-  v18[2] = v21;
-  v18[3] = v22;
-  result = objc_msgSend_initWithSample_(v14, v15, v18);
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  v17[4] = v22;
+  v17[5] = *v23;
+  v17[6] = *&v23[16];
+  v17[0] = v18;
+  v17[1] = v19;
+  v17[2] = v20;
+  v17[3] = v21;
+  return objc_msgSend_initWithSample_(v14, v15, v17);
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -223,51 +221,7 @@
       objc_msgSend_mets(self, v20, v21);
       v28 = v27;
       objc_msgSend_mets(equal, v29, v30);
-      if (v28 != v33)
-      {
-        goto LABEL_19;
-      }
-
-      v34 = objc_msgSend_metSource(self, v31, v32);
-      if (v34 != objc_msgSend_metSource(equal, v35, v36))
-      {
-        goto LABEL_19;
-      }
-
-      objc_msgSend_heartRate(self, v37, v38);
-      v40 = v39;
-      objc_msgSend_heartRate(equal, v41, v42);
-      if (v40 != v45)
-      {
-        goto LABEL_19;
-      }
-
-      objc_msgSend_heartRateConfidence(self, v43, v44);
-      v47 = v46;
-      objc_msgSend_heartRateConfidence(equal, v48, v49);
-      if (v47 != v52)
-      {
-        goto LABEL_19;
-      }
-
-      v53 = objc_msgSend_gradeType(self, v50, v51);
-      if (v53 != objc_msgSend_gradeType(equal, v54, v55))
-      {
-        goto LABEL_19;
-      }
-
-      objc_msgSend_grade(self, v56, v57);
-      v59 = v58;
-      objc_msgSend_grade(equal, v60, v61);
-      if (v59 != v64)
-      {
-        goto LABEL_19;
-      }
-
-      objc_msgSend_cadence(self, v62, v63);
-      v66 = v65;
-      objc_msgSend_cadence(equal, v67, v68);
-      if (v66 != v71 || (objc_msgSend_pace(self, v69, v70), v73 = v72, objc_msgSend_pace(equal, v74, v75), v73 != v78) || (hasGPS = objc_msgSend_hasGPS(self, v76, v77), hasGPS != objc_msgSend_hasGPS(equal, v80, v81)) || (hasStrideCal = objc_msgSend_hasStrideCal(self, v82, v83), hasStrideCal != objc_msgSend_hasStrideCal(equal, v85, v86)))
+      if (v28 != v33 || (v34 = objc_msgSend_metSource(self, v31, v32), v34 != objc_msgSend_metSource(equal, v35, v36)) || (objc_msgSend_heartRate(self, v37, v38), v40 = v39, objc_msgSend_heartRate(equal, v41, v42), v40 != v45) || (objc_msgSend_heartRateConfidence(self, v43, v44), v47 = v46, objc_msgSend_heartRateConfidence(equal, v48, v49), v47 != v52) || (v53 = objc_msgSend_gradeType(self, v50, v51), v53 != objc_msgSend_gradeType(equal, v54, v55)) || (objc_msgSend_grade(self, v56, v57), v59 = v58, objc_msgSend_grade(equal, v60, v61), v59 != v64) || (objc_msgSend_cadence(self, v62, v63), v66 = v65, objc_msgSend_cadence(equal, v67, v68), v66 != v71) || (objc_msgSend_pace(self, v69, v70), v73 = v72, objc_msgSend_pace(equal, v74, v75), v73 != v78) || (hasGPS = objc_msgSend_hasGPS(self, v76, v77), hasGPS != objc_msgSend_hasGPS(equal, v80, v81)) || (hasStrideCal = objc_msgSend_hasStrideCal(self, v82, v83), hasStrideCal != objc_msgSend_hasStrideCal(equal, v85, v86)))
       {
 LABEL_19:
         LOBYTE(isEqual) = 0;
@@ -379,7 +333,7 @@ LABEL_19:
 
 - (id)sr_dictionaryRepresentation
 {
-  v53[8] = *MEMORY[0x1E69E9840];
+  v52[8] = *MEMORY[0x1E69E9840];
   objc_msgSend_heartRateConfidence(self, a2, v2);
   if (v6 >= 0.6)
   {
@@ -409,12 +363,12 @@ LABEL_19:
     v7 = 0;
   }
 
-  v52[0] = @"startTime";
+  v51[0] = @"startTime";
   v10 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startDate(self, v4, v5);
   objc_msgSend_timeIntervalSinceReferenceDate(started, v12, v13);
-  v53[0] = objc_msgSend_numberWithDouble_(v10, v14, v15);
-  v52[1] = @"workoutSessionId";
+  v52[0] = objc_msgSend_numberWithDouble_(v10, v14, v15);
+  v51[1] = @"workoutSessionId";
   v18 = objc_msgSend_workoutSessionId(self, v16, v17);
   v21 = objc_msgSend_UUIDString(v18, v19, v20);
   v24 = &stru_1F0E3D7A0;
@@ -423,32 +377,30 @@ LABEL_19:
     v24 = v21;
   }
 
-  v53[1] = v24;
-  v52[2] = @"mets";
+  v52[1] = v24;
+  v51[2] = @"mets";
   v25 = MEMORY[0x1E696AD98];
   objc_msgSend_mets(self, v22, v23);
-  v53[2] = objc_msgSend_numberWithDouble_(v25, v26, v27);
-  v52[3] = @"heartRate";
+  v52[2] = objc_msgSend_numberWithDouble_(v25, v26, v27);
+  v51[3] = @"heartRate";
   v28 = MEMORY[0x1E696AD98];
   objc_msgSend_heartRate(self, v29, v30);
-  v53[3] = objc_msgSend_numberWithDouble_(v28, v31, v32);
-  v52[4] = @"heartRateConfidence";
-  v53[4] = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v33, v7);
-  v52[5] = @"grade";
+  v52[3] = objc_msgSend_numberWithDouble_(v28, v31, v32);
+  v51[4] = @"heartRateConfidence";
+  v52[4] = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v33, v7);
+  v51[5] = @"grade";
   v34 = MEMORY[0x1E696AD98];
   objc_msgSend_grade(self, v35, v36);
-  v53[5] = objc_msgSend_numberWithDouble_(v34, v37, v38);
-  v52[6] = @"cadence";
+  v52[5] = objc_msgSend_numberWithDouble_(v34, v37, v38);
+  v51[6] = @"cadence";
   v39 = MEMORY[0x1E696AD98];
   objc_msgSend_cadence(self, v40, v41);
-  v53[6] = objc_msgSend_numberWithDouble_(v39, v42, v43);
-  v52[7] = @"pace";
+  v52[6] = objc_msgSend_numberWithDouble_(v39, v42, v43);
+  v51[7] = @"pace";
   v44 = MEMORY[0x1E696AD98];
   objc_msgSend_pace(self, v45, v46);
-  v53[7] = objc_msgSend_numberWithDouble_(v44, v47, v48);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v49, v53, v52, 8);
-  v51 = *MEMORY[0x1E69E9840];
-  return result;
+  v52[7] = objc_msgSend_numberWithDouble_(v44, v47, v48);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v49, v52, v51, 8);
 }
 
 @end

@@ -1,28 +1,28 @@
 void sub_100001CA4(uint64_t a1)
 {
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v2 = [*(a1 + 32) stackView];
   v3 = [v2 arrangedSubviews];
 
-  v4 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       v7 = 0;
       do
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * v7);
+        v8 = *(*(&v24 + 1) + 8 * v7);
         v9 = [*(a1 + 32) stackView];
         [v9 removeArrangedSubview:v8];
 
@@ -31,49 +31,48 @@ void sub_100001CA4(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v5);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v10 = *(a1 + 32);
-  v11 = objc_opt_class();
-  v12 = [*(a1 + 40) userInfo];
-  v13 = [v12 objectForKeyedSubscript:@"HIDRMUINotificationPairingCodeDigits"];
-  v14 = [v11 createDigitViewArrayFromPairingCodeDigitArray:v13];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v10 = objc_opt_class();
+  v11 = [*(a1 + 40) userInfo];
+  v12 = [v11 objectForKeyedSubscript:@"HIDRMUINotificationPairingCodeDigits"];
+  v13 = [v10 createDigitViewArrayFromPairingCodeDigitArray:v12];
 
-  v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v15)
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  if (v14)
   {
-    v16 = v15;
-    v17 = *v22;
+    v15 = v14;
+    v16 = *v21;
     do
     {
-      v18 = 0;
+      v17 = 0;
       do
       {
-        if (*v22 != v17)
+        if (*v21 != v16)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v21 + 1) + 8 * v18);
-        v20 = [*(a1 + 32) stackView];
-        [v20 addArrangedSubview:v19];
+        v18 = *(*(&v20 + 1) + 8 * v17);
+        v19 = [*(a1 + 32) stackView];
+        [v19 addArrangedSubview:v18];
 
-        v18 = v18 + 1;
+        v17 = v17 + 1;
       }
 
-      while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      while (v15 != v17);
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
-    while (v16);
+    while (v15);
   }
 }
 

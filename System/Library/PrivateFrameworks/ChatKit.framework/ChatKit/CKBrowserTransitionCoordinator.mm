@@ -108,7 +108,7 @@ LABEL_11:
   result = 0;
   if (!v5 && userInterfaceIdiom != 6)
   {
-    return !IMIsRunningIniMessageAppsViewService() && !IMIsRunningIniMessageAppExtension() && CKIsRunningInInCallService() == 0;
+    result = !IMIsRunningIniMessageAppsViewService() && (v7 = IMIsRunningIniMessageAppExtension(), !v7) && CKIsRunningInInCallService(v7, v8) == 0;
   }
 
   return result;
@@ -1010,7 +1010,7 @@ uint64_t __83__CKBrowserTransitionCoordinator_dismissCurrentFullScreenModalAnima
       }
     }
 
-    [(CKBrowserTransitionCoordinator *)self setLastTransitionReason:reason, *v13];
+    [(CKBrowserTransitionCoordinator *)self setLastTransitionReason:reason, *v13, *&v13[8]];
     self->_expanded = expandedCopy;
     delegate = [(CKBrowserTransitionCoordinator *)self delegate];
     v11 = objc_opt_respondsToSelector();

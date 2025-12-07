@@ -9,7 +9,7 @@
 - (BOOL)isExecuting
 {
   selfCopy = self;
-  v3 = sub_1000660F0();
+  v3 = sub_1000660F0(selfCopy);
 
   return v3 & 1;
 }

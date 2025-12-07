@@ -142,11 +142,9 @@ LABEL_6:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  applicationIdentifier = self->_applicationIdentifier;
-  v5 = [v3 initWithFormat:@"{ s = %@, a = %@, d = %@ }", self->_serviceType, applicationIdentifier, self->_domain];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"{ s = %@, a = %@, d = %@ }", self->_serviceType, self->_applicationIdentifier, self->_domain];
 
-  return v5;
+  return v2;
 }
 
 - (id)debugDescription
@@ -257,23 +255,23 @@ LABEL_6:
 
 + (id)_serviceSpecifiersWithEntitlementValue:(id)value serviceType:(id)type error:(id *)error
 {
-  v54[3] = *MEMORY[0x277D85DE8];
+  v53[3] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   typeCopy = type;
   context = objc_autoreleasePoolPush();
-  v43 = typeCopy;
+  v42 = typeCopy;
   if (typeCopy && (_SWCServiceTypeIsWhitelisted(typeCopy) & 1) == 0)
   {
     v30 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v54[0] = &unk_2877A7378;
-    v53[0] = @"Line";
-    v53[1] = @"Function";
+    v53[0] = &unk_2877A7378;
+    v52[0] = @"Line";
+    v52[1] = @"Function";
     obj = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[_SWCServiceSpecifier(Private) _serviceSpecifiersWithEntitlementValue:serviceType:error:]"];
-    v54[1] = obj;
-    v53[2] = *MEMORY[0x277CCA068];
+    v53[1] = obj;
+    v52[2] = *MEMORY[0x277CCA068];
     typeCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Service %@ is not supported.", typeCopy];
-    v54[2] = typeCopy;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:3];
+    v53[2] = typeCopy;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:3];
     v29 = [v30 initWithDomain:@"SWCErrorDomain" code:2 userInfo:v28];
     goto LABEL_28;
   }
@@ -281,67 +279,67 @@ LABEL_6:
   if (!valueCopy || (v9 = 0, !_NSIsNSArray()))
   {
     v27 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v49[0] = &unk_2877A73A8;
-    v48[0] = @"Line";
-    v48[1] = @"Function";
+    v48[0] = &unk_2877A73A8;
+    v47[0] = @"Line";
+    v47[1] = @"Function";
     obj = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[_SWCServiceSpecifier(Private) _serviceSpecifiersWithEntitlementValue:serviceType:error:]"];
-    v49[1] = obj;
-    v48[2] = *MEMORY[0x277CCA068];
+    v48[1] = obj;
+    v47[2] = *MEMORY[0x277CCA068];
     typeCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid entitlement value of class %@", objc_opt_class()];
-    v49[2] = typeCopy;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
+    v48[2] = typeCopy;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:3];
     v29 = [v27 initWithDomain:@"SWCErrorDomain" code:2 userInfo:v28];
 LABEL_28:
     v26 = v29;
 LABEL_29:
 
     v25 = 0;
-    v40 = obj;
+    v39 = obj;
 LABEL_30:
 
     goto LABEL_31;
   }
 
   v10 = [typeCopy length];
-  v40 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v39 = objc_alloc_init(MEMORY[0x277CBEB40]);
   selfCopy = self;
-  v37 = v10;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v36 = v10;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = valueCopy;
-  v11 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v11 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (!v11)
   {
     goto LABEL_24;
   }
 
-  v12 = *v45;
+  v12 = *v44;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v45 != v12)
+      if (*v44 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v44 + 1) + 8 * i);
+      v14 = *(*(&v43 + 1) + 8 * i);
       if (!_NSIsNSString())
       {
 
-        v34 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v51[0] = &unk_2877A7390;
-        v50[0] = @"Line";
-        v50[1] = @"Function";
+        v33 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v50[0] = &unk_2877A7390;
+        v49[0] = @"Line";
+        v49[1] = @"Function";
         typeCopy = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[_SWCServiceSpecifier(Private) _serviceSpecifiersWithEntitlementValue:serviceType:error:]"];
-        v51[1] = typeCopy;
-        v50[2] = *MEMORY[0x277CCA068];
+        v50[1] = typeCopy;
+        v49[2] = *MEMORY[0x277CCA068];
         v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid entitlement value (in array) of class %@", objc_opt_class()];
-        v51[2] = v28;
-        v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
-        v26 = [v34 initWithDomain:@"SWCErrorDomain" code:2 userInfo:v35];
+        v50[2] = v28;
+        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
+        v26 = [v33 initWithDomain:@"SWCErrorDomain" code:2 userInfo:v34];
 
         goto LABEL_29;
       }
@@ -351,15 +349,15 @@ LABEL_30:
       if (v15 != 0x7FFFFFFFFFFFFFFFLL)
       {
         v18 = v16;
-        if (v43)
+        if (v42)
         {
-          if (v37 != v15)
+          if (v36 != v15)
           {
             continue;
           }
 
-          v19 = [v14 compare:v43 options:1 range:0];
-          lowercaseString = v43;
+          v19 = [v14 compare:v42 options:1 range:0];
+          lowercaseString = v42;
           if (v19)
           {
             continue;
@@ -374,7 +372,7 @@ LABEL_30:
         }
 
         v21 = _SWCServiceTypeCanonicalize(lowercaseString);
-        if (!v43)
+        if (!v42)
         {
         }
 
@@ -382,12 +380,12 @@ LABEL_30:
         if (_SWCServiceTypeIsWhitelisted(v21))
         {
           v23 = [[selfCopy alloc] initWithServiceType:v21 applicationIdentifier:0 domain:v22];
-          [v40 addObject:v23];
+          [v39 addObject:v23];
         }
       }
     }
 
-    v11 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v11 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     if (v11)
     {
       continue;
@@ -398,9 +396,9 @@ LABEL_30:
 
 LABEL_24:
 
-  if (v40)
+  if (v39)
   {
-    typeCopy = [v40 array];
+    typeCopy = [v39 array];
     v25 = [typeCopy copy];
     v26 = 0;
     goto LABEL_30;
@@ -415,8 +413,6 @@ LABEL_31:
     v31 = v26;
     *error = v26;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

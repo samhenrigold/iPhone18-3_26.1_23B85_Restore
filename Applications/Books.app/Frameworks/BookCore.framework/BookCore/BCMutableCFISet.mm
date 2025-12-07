@@ -28,30 +28,31 @@
 - (BOOL)addCFIString:(id)string error:(id *)error
 {
   stringCopy = string;
-  v12 = 0;
-  v7 = [BCCFI cfiWithString:stringCopy error:&v12];
-  v8 = v12;
+  v13 = 0;
+  v7 = [BCCFI cfiWithString:stringCopy error:&v13];
+  v8 = v13;
+  v9 = v8;
   if (v7)
   {
     [(BCMutableCFISet *)self addCFI:v7];
     if (error)
     {
 LABEL_3:
-      v9 = v8;
-      *error = v8;
+      v10 = v9;
+      *error = v9;
     }
   }
 
   else
   {
-    v11 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = BCReadingStatisticsLog(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v14 = stringCopy;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Cannot initialize BCCFI with string %@.  addCFIString: will return nil. error=%@", buf, 0x16u);
+      v15 = stringCopy;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Cannot initialize BCCFI with string %@.  addCFIString: will return nil. error=%@", buf, 0x16u);
     }
 
     if (error)
@@ -60,7 +61,7 @@ LABEL_3:
     }
   }
 
-  return v8 == 0;
+  return v9 == 0;
 }
 
 - (void)unionCFISet:(id)set
@@ -98,26 +99,27 @@ LABEL_3:
 - (BOOL)removeCFIString:(id)string error:(id *)error
 {
   stringCopy = string;
-  v12 = 0;
-  v7 = [BCCFI cfiWithString:stringCopy error:&v12];
-  v8 = v12;
+  v13 = 0;
+  v7 = [BCCFI cfiWithString:stringCopy error:&v13];
+  v8 = v13;
+  v9 = v8;
   if (v7)
   {
     [(BCMutableCFISet *)self removeCFI:v7];
     if (error)
     {
 LABEL_3:
-      v9 = v8;
-      *error = v8;
+      v10 = v9;
+      *error = v9;
     }
   }
 
   else
   {
-    v11 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = BCReadingStatisticsLog(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1E9A14(stringCopy, v8, v11);
+      sub_1E9A14(stringCopy, v9, v12);
     }
 
     if (error)
@@ -126,7 +128,7 @@ LABEL_3:
     }
   }
 
-  return v8 == 0;
+  return v9 == 0;
 }
 
 - (void)subtractCFISet:(id)set

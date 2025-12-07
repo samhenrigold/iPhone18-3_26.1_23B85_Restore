@@ -152,7 +152,7 @@
       imageByUnpremultiplyingAlpha = [(CIImage *)self->inputImage imageByUnpremultiplyingAlpha];
       v6 = [MEMORY[0x1E695F688] vectorWithX:0.997222245 Y:0.00138888892 Z:*(&v30 + 3) W:v31[0]];
       smartBlackWhiteKernel = [(PISmartBlackAndWhiteHDR *)self smartBlackWhiteKernel];
-      [(CIImage *)self->inputImage extent];
+      objc_msgSend_extent(self->inputImage);
       v9 = v8;
       v11 = v10;
       v13 = v12;

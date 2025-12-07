@@ -735,77 +735,58 @@ LABEL_15:
 
 - (void)initWithFeatureChannelCount:(const char *)a1 mean:variance:beta:gamma:varianceEpsilon:momentum:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithFeatureChannelCount:(const char *)a1 mean:variance:beta:gamma:varianceEpsilon:momentum:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithFeatureChannelCount:(const char *)a1 mean:variance:beta:gamma:varianceEpsilon:momentum:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithFeatureChannelCount:(const char *)a1 mean:variance:beta:gamma:varianceEpsilon:momentum:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithFeatureChannelCount:(const char *)a1 mean:variance:beta:gamma:varianceEpsilon:momentum:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_9() mean];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.2()
 {
   OUTLINED_FUNCTION_8_0();
-  v13 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_6_0() mean];
@@ -814,29 +795,23 @@ LABEL_15:
   v4 = [v3 descriptor];
   [v4 dataType];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v5, v6, "%@: mean tensor (%@) in BatchNormalization uses an unsupported data type=%d", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v5, v6, "%@: mean tensor (%@) in BatchNormalization uses an unsupported data type=%d", v7, v8, v9, v10);
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.3()
 {
   OUTLINED_FUNCTION_5_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_9() variance];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.4()
 {
   OUTLINED_FUNCTION_8_0();
-  v13 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_6_0() variance];
@@ -845,15 +820,12 @@ LABEL_15:
   v4 = [v3 descriptor];
   [v4 dataType];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v5, v6, "%@: variance tensor (%@) in BatchNormalization uses an unsupported data type=%d", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v5, v6, "%@: variance tensor (%@) in BatchNormalization uses an unsupported data type=%d", v7, v8, v9, v10);
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.5()
 {
   OUTLINED_FUNCTION_8_0();
-  v13 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_6_0() beta];
@@ -862,29 +834,23 @@ LABEL_15:
   v4 = [v3 descriptor];
   [v4 dataType];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v5, v6, "%@: beta tensor (%@) in BatchNormalization uses an unsupported data type=%d", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v5, v6, "%@: beta tensor (%@) in BatchNormalization uses an unsupported data type=%d", v7, v8, v9, v10);
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.6()
 {
   OUTLINED_FUNCTION_5_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_9() beta];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.7()
 {
   OUTLINED_FUNCTION_8_0();
-  v13 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_6_0() gamma];
@@ -893,35 +859,27 @@ LABEL_15:
   v4 = [v3 descriptor];
   [v4 dataType];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v5, v6, "%@: gamma tensor (%@) in BatchNormalization uses an unsupported data type=%d", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v5, v6, "%@: gamma tensor (%@) in BatchNormalization uses an unsupported data type=%d", v7, v8, v9, v10);
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.8()
 {
   OUTLINED_FUNCTION_5_0();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_9() gamma];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.9()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

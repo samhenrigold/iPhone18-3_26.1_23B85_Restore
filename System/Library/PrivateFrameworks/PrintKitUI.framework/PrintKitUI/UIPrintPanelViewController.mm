@@ -1377,7 +1377,7 @@ LABEL_8:
   [pdfCreationProgressController dismissViewControllerAnimated:1 completion:v7];
 }
 
-uint64_t __56__UIPrintPanelViewController_hideGeneratingPDFProgress___block_invoke(uint64_t a1)
+void *__56__UIPrintPanelViewController_hideGeneratingPDFProgress___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setPdfCreationProgressController:0];
   if (*(a1 + 40))
@@ -2479,47 +2479,47 @@ LABEL_9:
 
 - (id)shareableURLForPreviewing
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   printInfo = [(UIPrintPanelViewController *)self printInfo];
   jobName = [printInfo jobName];
   stringByStandardizingPath = [jobName stringByStandardizingPath];
 
-  if (!stringByStandardizingPath || ![stringByStandardizingPath length])
+  if (!stringByStandardizingPath || (v6 = [stringByStandardizingPath length]) == 0)
   {
-    v6 = GetDefaultJobName();
+    v8 = GetDefaultJobName(v6, v7);
 
-    stringByStandardizingPath = v6;
+    stringByStandardizingPath = v8;
   }
 
-  v7 = [stringByStandardizingPath stringByReplacingOccurrencesOfString:@":" withString:@"-"];
-  v8 = [v7 stringByReplacingOccurrencesOfString:@"/" withString:@":"];
+  v9 = [stringByStandardizingPath stringByReplacingOccurrencesOfString:@":" withString:@"-"];
+  v10 = [v9 stringByReplacingOccurrencesOfString:@"/" withString:@":"];
 
-  if ([v8 length] >= 0x51)
+  if ([v10 length] >= 0x51)
   {
-    v9 = [v8 substringToIndex:80];
+    v11 = [v10 substringToIndex:80];
 
-    v8 = v9;
+    v10 = v11;
   }
 
   shareablePDFDirectoryPath = [(UIPrintPanelViewController *)self shareablePDFDirectoryPath];
 
-  if ((shareablePDFDirectoryPath || (memset(out, 0, sizeof(out)), uuid_generate_random(out), uuid_unparse(out, v24), v16 = MEMORY[0x277CCACA8], NSTemporaryDirectory(), v17 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CCACA8] stringWithUTF8String:v24], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "stringWithFormat:", @"%@/PrintPreviewPDF/%@", v17, v18), v19 = objc_claimAutoreleasedReturnValue(), -[UIPrintPanelViewController setShareablePDFDirectoryPath:](self, "setShareablePDFDirectoryPath:", v19), v19, v18, v17, objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v20 = objc_claimAutoreleasedReturnValue(), -[UIPrintPanelViewController shareablePDFDirectoryPath](self, "shareablePDFDirectoryPath"), v21 = objc_claimAutoreleasedReturnValue(), v23 = 0, objc_msgSend(v20, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v21, 1, 0, &v23), v11 = v23, v21, v20, !v11)) && (-[UIPrintPanelViewController shareablePDFDirectoryPath](self, "shareablePDFDirectoryPath"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
+  if ((shareablePDFDirectoryPath || (memset(out, 0, sizeof(out)), uuid_generate_random(out), uuid_unparse(out, v26), v18 = MEMORY[0x277CCACA8], NSTemporaryDirectory(), v19 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CCACA8] stringWithUTF8String:v26], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "stringWithFormat:", @"%@/PrintPreviewPDF/%@", v19, v20), v21 = objc_claimAutoreleasedReturnValue(), -[UIPrintPanelViewController setShareablePDFDirectoryPath:](self, "setShareablePDFDirectoryPath:", v21), v21, v20, v19, objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v22 = objc_claimAutoreleasedReturnValue(), -[UIPrintPanelViewController shareablePDFDirectoryPath](self, "shareablePDFDirectoryPath"), v23 = objc_claimAutoreleasedReturnValue(), v25 = 0, objc_msgSend(v22, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v23, 1, 0, &v25), v13 = v25, v23, v22, !v13)) && (-[UIPrintPanelViewController shareablePDFDirectoryPath](self, "shareablePDFDirectoryPath"), v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
   {
-    v12 = MEMORY[0x277CCACA8];
+    v14 = MEMORY[0x277CCACA8];
     shareablePDFDirectoryPath2 = [(UIPrintPanelViewController *)self shareablePDFDirectoryPath];
-    v14 = [v12 stringWithFormat:@"%@/%@.pdf", shareablePDFDirectoryPath2, v8];
+    v16 = [v14 stringWithFormat:@"%@/%@.pdf", shareablePDFDirectoryPath2, v10];
 
-    v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14 isDirectory:0];
+    v17 = [MEMORY[0x277CBEBC0] fileURLWithPath:v16 isDirectory:0];
 
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
-  return v15;
+  return v17;
 }
 
 - (id)createShareablePDFFileURL:(id)l

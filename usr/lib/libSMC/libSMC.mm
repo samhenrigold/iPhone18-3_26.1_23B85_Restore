@@ -1,9 +1,10 @@
 uint64_t SMCGetKeyInfo(mach_port_t *a1, int a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v3 = -1;
   if (a1 && a2 && a3)
   {
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
@@ -13,8 +14,8 @@ uint64_t SMCGetKeyInfo(mach_port_t *a1, int a2, uint64_t a3)
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v32 = 0;
+    v31 = 0;
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
@@ -24,24 +25,23 @@ uint64_t SMCGetKeyInfo(mach_port_t *a1, int a2, uint64_t a3)
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v20 = 0;
+    v19 = 0;
     inputStruct = a2;
-    BYTE6(v24) = 9;
-    if (SMCKextCall(*a1, &inputStruct, &v10))
+    BYTE6(v23) = 9;
+    if (SMCKextCall(*a1, &inputStruct, &v9))
     {
-      v3 = -2;
+      return -2;
     }
 
-    else if (BYTE8(v12))
+    else if (BYTE8(v11))
     {
-      v3 = -3;
+      return -3;
     }
 
     else
     {
-      v5 = v12;
-      *(a3 + 20) = HIDWORD(v11);
+      v5 = v11;
+      *(a3 + 20) = HIDWORD(v10);
       if (SMCGetTypeDescriptionForNumericType(v5, a3 + 8) == -1)
       {
         *(a3 + 8) = HIBYTE(v5);
@@ -58,20 +58,19 @@ uint64_t SMCGetKeyInfo(mach_port_t *a1, int a2, uint64_t a3)
       }
 
       v3 = 0;
-      v7 = BYTE4(v12);
+      v7 = BYTE4(v11);
       *a3 = v6;
       *(a3 + 4) = v7;
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
-uint64_t SMCKextCall(mach_port_t a1, void *inputStruct, void *outputStruct)
+uint64_t SMCKextCall(mach_port_t a1, unsigned int *inputStruct, void *outputStruct)
 {
   outputStructCnt = 168;
-  if (*(inputStruct + 7) < 0x79u)
+  if (inputStruct[7] < 0x79)
   {
     return IOConnectCallStructMethod(a1, 2u, inputStruct, 0xA8uLL, outputStruct, &outputStructCnt);
   }
@@ -255,12 +254,13 @@ LABEL_22:
   return -1;
 }
 
-uint64_t SMCReadKeyWithKnownSize(mach_port_t *a1, int a2, unsigned int a3, void *a4)
+uint64_t SMCReadKeyWithKnownSize(mach_port_t *a1, unsigned int a2, unsigned int a3, void *a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v4 = -1;
   if (a1 && a2 && a4)
   {
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
@@ -270,40 +270,38 @@ uint64_t SMCReadKeyWithKnownSize(mach_port_t *a1, int a2, unsigned int a3, void 
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v24 = 0;
-    memset(v9, 0, sizeof(v9));
-    v10 = 0u;
-    memset(v11, 0, sizeof(v11));
-    v12 = 0;
+    v23 = 0;
+    memset(v8, 0, sizeof(v8));
+    v9 = 0u;
+    memset(v10, 0, sizeof(v10));
+    v11 = 0;
     inputStruct = a2;
-    DWORD2(v15) = a3;
-    BYTE6(v16) = 5;
-    if (SMCKextCall(*a1, &inputStruct, v9))
+    DWORD2(v14) = a3;
+    BYTE6(v15) = 5;
+    if (SMCKextCall(*a1, &inputStruct, v8))
     {
-      v4 = -2;
+      return -2;
     }
 
-    else if (BYTE8(v10))
+    else if (BYTE8(v9))
     {
-      v4 = -3;
+      return -3;
     }
 
     else
     {
-      memcpy(a4, v11, a3);
-      v4 = 0;
+      memcpy(a4, v10, a3);
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t SMCReadKeyAsNumericWithKnownKeyInfo(uint64_t a1, uint64_t a2, uint64_t a3, double *a4)
 {
   v4 = a1;
-  v14[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   LOBYTE(a1) = -1;
   if (v4)
   {
@@ -311,23 +309,21 @@ uint64_t SMCReadKeyAsNumericWithKnownKeyInfo(uint64_t a1, uint64_t a2, uint64_t 
     {
       if (a4)
       {
-        v7 = *(a3 + 20);
         MEMORY[0x2A1C7C4A8](255);
-        v9 = v14 - ((v8 + 15) & 0x1FFFFFFF0);
-        LODWORD(a1) = SMCReadKeyWithKnownSize(v11, v10, *(a3 + 20), v9);
+        v8 = v12 - ((v7 + 15) & 0x1FFFFFFF0);
+        LODWORD(a1) = SMCReadKeyWithKnownSize(v10, v9, *(a3 + 20), v8);
         if (!a1)
         {
-          LOBYTE(a1) = SMCParseBytesForNumeric(v9, *(a3 + 20), a4, a3);
+          LOBYTE(a1) = SMCParseBytesForNumeric(v8, *(a3 + 20), a4, a3);
         }
       }
     }
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-uint64_t SMCWriteKey(mach_port_t *a1, int a2, uint64_t a3)
+uint64_t SMCWriteKey(mach_port_t *a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   LOBYTE(a1) = -1;
@@ -335,13 +331,14 @@ uint64_t SMCWriteKey(mach_port_t *a1, int a2, uint64_t a3)
   {
     if (a3)
     {
+      v5 = a2;
       v7[0] = 0;
       v7[1] = 0;
       v8 = 0;
       LODWORD(a1) = SMCGetKeyInfo(v3, a2, v7);
       if (!a1)
       {
-        LOBYTE(a1) = SMCWriteKeyWithKnownSize(v3, a2, HIDWORD(v8), a3);
+        LOBYTE(a1) = SMCWriteKeyWithKnownSize(v3, v5, HIDWORD(v8), a3);
       }
     }
   }
@@ -363,7 +360,7 @@ uint64_t SMCOSAccumSampleChannel(mach_port_t *a1, uint64_t a2, uint64_t a3)
       {
         v10 = 0;
         v11 = 0.0;
-        LODWORD(a1) = SMCReadKey(v3, 1297315955, &v10, 0x10u);
+        LODWORD(a1) = SMCReadKey(v3, 0x4D537873u, &v10, 0x10u);
         if (!a1)
         {
           if (__PAIR64__(BYTE1(v10), v10) == __PAIR64__(*(a2 + 269), *(a2 + 268)))
@@ -575,22 +572,23 @@ uint64_t SMCOSAccumIsSupported(uint64_t a1)
   return v2 & 1;
 }
 
-uint64_t SMCWriteKeyWithKnownSize(mach_port_t *a1, int a2, unsigned int a3, uint64_t a4)
+uint64_t SMCWriteKeyWithKnownSize(mach_port_t *a1, unsigned int a2, unsigned int a3, uint64_t a4)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v4 = -1;
   if (a1 && a4)
   {
-    v18 = 0;
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
+    v17 = 0;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
-    memset(v9, 0, sizeof(v9));
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    memset(v8, 0, sizeof(v8));
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
@@ -600,48 +598,46 @@ uint64_t SMCWriteKeyWithKnownSize(mach_port_t *a1, int a2, unsigned int a3, uint
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v30 = 0;
+    v29 = 0;
     inputStruct = a2;
-    DWORD2(v21) = a3;
-    BYTE6(v22) = 6;
+    DWORD2(v20) = a3;
+    BYTE6(v21) = 6;
     if (a3 <= 0x78)
     {
       __memcpy_chk();
-      v6 = SMCKextCall(*a1, &inputStruct, v9);
+      v6 = SMCKextCall(*a1, &inputStruct, v8);
       kdebug_trace();
       if (v6 == -536870207)
       {
-        v4 = -7;
+        return -7;
       }
 
       else if (v6)
       {
-        v4 = -2;
+        return -2;
       }
 
-      else if (BYTE8(v10))
+      else if (BYTE8(v9))
       {
-        v4 = -3;
+        return -3;
       }
 
       else
       {
-        v4 = 0;
+        return 0;
       }
     }
 
     else
     {
-      v4 = -1;
+      return -1;
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
-uint64_t SMCReadKey(mach_port_t *a1, int a2, void *a3, unsigned int a4)
+uint64_t SMCReadKey(mach_port_t *a1, unsigned int a2, void *a3, unsigned int a4)
 {
   v5 = -1;
   if (a1 && a2 && a3)
@@ -670,8 +666,8 @@ uint64_t SMCReadKey(mach_port_t *a1, int a2, void *a3, unsigned int a4)
 
 uint64_t SMCAEPopulatePlatform(uint64_t a1)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  v2 = SMCReadKey(a1, 1381002356, v20, 0x20u);
+  v21 = *MEMORY[0x29EDCA608];
+  v2 = SMCReadKey(a1, 0x52506C74u, v19, 0x20u);
   if (v2)
   {
     v3 = v2;
@@ -680,11 +676,11 @@ uint64_t SMCAEPopulatePlatform(uint64_t a1)
       SMCAEPopulatePlatform_cold_1();
     }
 
-    goto LABEL_30;
+    return v3;
   }
 
   __strlcpy_chk();
-  if (SMCReadKey(a1, 1297307713, v20, 0x20u))
+  if (SMCReadKey(a1, 0x4D535841u, v19, 0x20u))
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
@@ -693,7 +689,7 @@ uint64_t SMCAEPopulatePlatform(uint64_t a1)
 
     v4 = &AccumulatorPlatformStructLookupArray;
     v5 = 56;
-    while (strcasecmp(v21, v4))
+    while (strcasecmp(v20, v4))
     {
       v4 += 48;
       if (!--v5)
@@ -718,16 +714,16 @@ LABEL_29:
     v3 = 0;
     *(a1 + 509) = 1;
     *(a1 + 4) = 0;
-    goto LABEL_30;
+    return v3;
   }
 
   v7 = v6;
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v16 = 0;
+  v15 = 0;
   __strlcpy_chk();
-  if (SMCReadKeyAsNumeric(a1, 1297307758, &v17, &v16))
+  if (SMCReadKeyAsNumeric(a1, 1297307758, &v16, &v15))
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
@@ -737,7 +733,7 @@ LABEL_29:
     goto LABEL_28;
   }
 
-  if (v17 || v18 || BYTE4(v18) || (v17 & 0x8000000000) == 0)
+  if (v16 || v17 || BYTE4(v17) || (v16 & 0x8000000000) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
@@ -747,8 +743,8 @@ LABEL_29:
     goto LABEL_28;
   }
 
-  v7[8] = v16;
-  if (SMCReadKeyAsNumeric(a1, 1297307726, &v17, &v16))
+  v7[8] = v15;
+  if (SMCReadKeyAsNumeric(a1, 1297307726, &v16, &v15))
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
@@ -758,7 +754,7 @@ LABEL_29:
     goto LABEL_28;
   }
 
-  if (v17 || v18 || BYTE4(v18) || (v17 & 0x8000000000) == 0)
+  if (v16 || v17 || BYTE4(v17) || (v16 & 0x8000000000) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
@@ -768,17 +764,17 @@ LABEL_29:
     goto LABEL_28;
   }
 
-  v7[9] = v16;
-  v12 = malloc_type_calloc(0x110uLL, v7[8], 0xE0BEEA91uLL);
-  if (!v12)
+  v7[9] = v15;
+  v11 = malloc_type_calloc(0x110uLL, v7[8], 0xE0BEEA91uLL);
+  if (!v11)
   {
 LABEL_28:
     free(v7);
     goto LABEL_29;
   }
 
-  v13 = v12;
-  if (SMCAEPopulateChannelInfo(a1, v12, v7[8], 1u, 2u, 3u, 4u, 2))
+  v12 = v11;
+  if (SMCAEPopulateChannelInfo(a1, v11, v7[8], 1, 2, 3, 4, 2))
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
@@ -788,48 +784,46 @@ LABEL_28:
     goto LABEL_44;
   }
 
-  v14 = malloc_type_calloc(0x110uLL, v7[9], 0x900D1C9FuLL);
-  if (!v14)
+  v13 = malloc_type_calloc(0x110uLL, v7[9], 0x900D1C9FuLL);
+  if (!v13)
   {
 LABEL_44:
-    free(v13);
+    free(v12);
     goto LABEL_28;
   }
 
-  v15 = v14;
-  if (SMCAEPopulateChannelInfo(a1, v14, v7[9], 0xBu, 0xCu, 0xDu, 0xEu, 3))
+  v14 = v13;
+  if (SMCAEPopulateChannelInfo(a1, v13, v7[9], 11, 12, 13, 14, 3))
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       SMCAEPopulatePlatform_cold_7();
     }
 
-    free(v15);
+    free(v14);
     goto LABEL_44;
   }
 
-  *(v7 + 2) = v13;
-  *(v7 + 3) = v15;
+  *(v7 + 2) = v12;
+  *(v7 + 3) = v14;
   v7[10] = 0;
   *(a1 + 8) = v7;
 LABEL_17:
   *(a1 + 509) = 1;
   *(a1 + 4) = 1;
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v8 = !SMCGetKeyInfo(a1, 1297315938, &v17) && (v17 & 0x5000000000) != 0 && HIDWORD(v19) == 2;
+  v8 = !SMCGetKeyInfo(a1, 1297315938, &v16) && (v16 & 0x5000000000) != 0 && HIDWORD(v18) == 2;
   *(a1 + 508) = v8;
-  v9 = SMCReadKey(a1, 1297307720, v20, 0x20u);
-  v3 = SMCReadKey(a1, 1297307724, v20, 0x20u);
+  v9 = SMCReadKey(a1, 0x4D535848u, v19, 0x20u);
+  v3 = SMCReadKey(a1, 0x4D53584Cu, v19, 0x20u);
   *(a1 + 466) = (v3 | v9) == 0;
   *(a1 + 464) = 0;
   *(a1 + 467) = 0;
   *(a1 + 472) = 0u;
   *(a1 + 488) = 0u;
   *(a1 + 504) = 0;
-LABEL_30:
-  v10 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -910,25 +904,29 @@ LABEL_7:
   return result;
 }
 
-uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, char a8)
+uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8)
 {
   if (a3 < 1)
   {
     return 0;
   }
 
+  v9 = a7;
+  v10 = a6;
+  v11 = a5;
+  v12 = a4;
   v15 = 0;
   v29 = a3;
   while (1)
   {
-    ChannelAttribute = SMCAEPrepareToFetchChannelAttribute(a1, v15, a4, 16);
+    ChannelAttribute = SMCAEPrepareToFetchChannelAttribute(a1, v15, v12, 16);
     if (ChannelAttribute)
     {
       break;
     }
 
     v32 = 0;
-    v17 = SMCReadKey(a1, 1297307713, &v32, 4u);
+    v17 = SMCReadKey(a1, 0x4D535841u, &v32, 4u);
     if (v17)
     {
       v27 = v17;
@@ -940,7 +938,7 @@ uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, int a3, unsigned
       return v27;
     }
 
-    v18 = SMCAEPrepareToFetchChannelAttribute(a1, v15, a7, 16);
+    v18 = SMCAEPrepareToFetchChannelAttribute(a1, v15, v9, 16);
     if (v18)
     {
       v27 = v18;
@@ -953,7 +951,7 @@ uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, int a3, unsigned
     }
 
     v31 = 0;
-    v19 = SMCReadKey(a1, 1297307713, &v31, 4u);
+    v19 = SMCReadKey(a1, 0x4D535841u, &v31, 4u);
     if (v19)
     {
       v27 = v19;
@@ -965,7 +963,7 @@ uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, int a3, unsigned
       return v27;
     }
 
-    v20 = SMCAEPrepareToFetchChannelAttribute(a1, v15, a6, 49);
+    v20 = SMCAEPrepareToFetchChannelAttribute(a1, v15, v10, 49);
     if (v20)
     {
       v27 = v20;
@@ -977,7 +975,7 @@ uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, int a3, unsigned
       return v27;
     }
 
-    v21 = SMCReadKey(a1, 1297307713, v30, 4u);
+    v21 = SMCReadKey(a1, 0x4D535841u, v30, 4u);
     if (v21)
     {
       v27 = v21;
@@ -990,7 +988,7 @@ uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, int a3, unsigned
     }
 
     v22 = SMCMakeUInt32Key(v30);
-    v23 = SMCAEPrepareToFetchChannelAttribute(a1, v15, a5, 48);
+    v23 = SMCAEPrepareToFetchChannelAttribute(a1, v15, v11, 48);
     if (v23)
     {
       v27 = v23;
@@ -1002,7 +1000,7 @@ uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, int a3, unsigned
       return v27;
     }
 
-    v24 = SMCReadKey(a1, 1297307713, v30, 4u);
+    v24 = SMCReadKey(a1, 0x4D535841u, v30, 4u);
     if (v24)
     {
       v27 = v24;
@@ -1041,10 +1039,10 @@ uint64_t SMCAEPopulateChannelInfo(mach_port_t *a1, uint64_t a2, int a3, unsigned
 
 uint64_t SMCAEPrepareToFetchChannelAttribute(mach_port_t *a1, uint64_t a2, unsigned int a3, int a4)
 {
-  v7 = SMCWriteKeyAsNumeric(a1, 1297307696, a2);
+  v7 = SMCWriteKeyAsNumeric(a1, 0x4D535830u, a2);
   if (!v7)
   {
-    v7 = SMCWriteKeyAsNumeric(a1, 1297307698, a3);
+    v7 = SMCWriteKeyAsNumeric(a1, 0x4D535832u, a3);
     if (!v7)
     {
       v11 = 0;
@@ -1126,17 +1124,17 @@ uint64_t SMCOpenAppleSMC(uint64_t result)
 
 void findMaxClientCreatorAndReport(uint64_t a1)
 {
-  v38 = *MEMORY[0x29EDCA608];
-  memset(v37, 0, sizeof(v37));
-  v36 = 0;
-  v34 = 0u;
-  v35 = 0u;
+  v36 = *MEMORY[0x29EDCA608];
+  memset(v35, 0, sizeof(v35));
+  v34 = 0;
   v32 = 0u;
   v33 = 0u;
   v30 = 0u;
   v31 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   findUserClients(a1, Mutable);
   Count = CFDictionaryGetCount(Mutable);
@@ -1146,7 +1144,7 @@ void findMaxClientCreatorAndReport(uint64_t a1)
     v5 = 8 * Count;
     MEMORY[0x2A1C7C4A8](Count);
     v6 = (v5 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v7 = (&v28 - v6);
+    v7 = (&v26 - v6);
     if (v5 >= 0x200)
     {
       v8 = 512;
@@ -1157,11 +1155,11 @@ void findMaxClientCreatorAndReport(uint64_t a1)
       v8 = v5;
     }
 
-    bzero(&v28 - v6, v8);
+    bzero(&v26 - v6, v8);
     MEMORY[0x2A1C7C4A8](v9);
-    v10 = (&v28 - v6);
-    bzero(&v28 - v6, v8);
-    CFDictionaryGetKeysAndValues(Mutable, (&v28 - v6), (&v28 - v6));
+    v10 = (&v26 - v6);
+    bzero(&v26 - v6, v8);
+    CFDictionaryGetKeysAndValues(Mutable, (&v26 - v6), (&v26 - v6));
     if (v4 < 1)
     {
       v25 = 0;
@@ -1178,21 +1176,21 @@ void findMaxClientCreatorAndReport(uint64_t a1)
         if (v14 > v11)
         {
           v15 = MutableBytePtr;
-          v28 = *MutableBytePtr;
+          v26 = *MutableBytePtr;
           v16 = *(MutableBytePtr + 1);
           v17 = *(MutableBytePtr + 2);
           v18 = *(MutableBytePtr + 4);
-          v31 = *(MutableBytePtr + 3);
-          v32 = v18;
-          v29 = v16;
-          v30 = v17;
+          v29 = *(MutableBytePtr + 3);
+          v30 = v18;
+          v27 = v16;
+          v28 = v17;
           v19 = *(MutableBytePtr + 5);
           v20 = *(MutableBytePtr + 6);
           v21 = *(MutableBytePtr + 7);
-          v36 = *(MutableBytePtr + 16);
-          v34 = v20;
-          v35 = v21;
-          v33 = v19;
+          v34 = *(MutableBytePtr + 16);
+          v32 = v20;
+          v33 = v21;
+          v31 = v19;
           v22 = *v7;
           if ((CFStringGetLength(*v7) + 1) > 0x7F)
           {
@@ -1204,9 +1202,9 @@ void findMaxClientCreatorAndReport(uint64_t a1)
             v23 = CFStringGetLength(*v7) + 1;
           }
 
-          if (!CFStringGetCString(v22, v37, v23, 0x8000100u))
+          if (!CFStringGetCString(v22, v35, v23, 0x8000100u))
           {
-            LOBYTE(v37[0]) = 0;
+            LOBYTE(v35[0]) = 0;
           }
 
           v11 = *(v15 + 66);
@@ -1214,9 +1212,9 @@ void findMaxClientCreatorAndReport(uint64_t a1)
 
         v12 += v14;
         v24 = *v10++;
-        v40.location = 0;
-        v40.length = 136;
-        CFDataDeleteBytes(v24, v40);
+        v38.location = 0;
+        v38.length = 136;
+        CFDataDeleteBytes(v24, v38);
         ++v7;
         --v4;
       }
@@ -1229,21 +1227,18 @@ void findMaxClientCreatorAndReport(uint64_t a1)
     CFRelease(Mutable);
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT))
     {
-      findMaxClientCreatorAndReport_cold_1(&v28, v37, v25);
+      findMaxClientCreatorAndReport_cold_1(&v26, v35, v25);
     }
-
-    v27 = *MEMORY[0x29EDCA608];
   }
 
   else
   {
-    v26 = *MEMORY[0x29EDCA608];
 
     CFRelease(Mutable);
   }
 }
 
-uint64_t SMCCloseAppleSMC(io_connect_t a1)
+uint64_t SMCCloseAppleSMC(mach_port_t a1)
 {
   if (IOConnectCallScalarMethod(a1, 1u, 0, 0, 0, 0))
   {
@@ -1264,7 +1259,7 @@ uint64_t SMCCloseAppleSMC(io_connect_t a1)
 
 uint64_t findUserClients(uint64_t a1, const __CFDictionary *a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   iterator = 0;
   v4 = IOObjectConformsTo(a1, "IOUserClient");
   if (a2)
@@ -1272,15 +1267,15 @@ uint64_t findUserClients(uint64_t a1, const __CFDictionary *a2)
     if (v4)
     {
       memset(cStr, 0, sizeof(cStr));
-      v31 = 0;
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
+      v30 = 0;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
-      *bytes = 0u;
+      v27 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      *bytes = 0u;
+      v23 = 0u;
       if (!MEMORY[0x29C282090](a1, cStr))
       {
         v5 = *MEMORY[0x29EDB8ED8];
@@ -1303,9 +1298,9 @@ uint64_t findUserClients(uint64_t a1, const __CFDictionary *a2)
             if (v13)
             {
               v14 = v13;
-              if (CFStringGetCString(v10, v13, Length + 1, 0x8000100u) && sscanf(v14, "pid %d, %128s", &v31, bytes) != 2)
+              if (CFStringGetCString(v10, v13, Length + 1, 0x8000100u) && sscanf(v14, "pid %d, %128s", &v30, bytes) != 2)
               {
-                LODWORD(v31) = 0;
+                LODWORD(v30) = 0;
               }
 
               CFRelease(v10);
@@ -1317,12 +1312,12 @@ uint64_t findUserClients(uint64_t a1, const __CFDictionary *a2)
               CFRelease(v10);
             }
 
-            if (!v31)
+            if (!v30)
             {
               goto LABEL_20;
             }
 
-            WORD2(v31) = 1;
+            WORD2(v30) = 1;
             Mutable = CFDataCreateMutable(v5, 0);
             v17 = Mutable;
             if (Mutable)
@@ -1368,10 +1363,9 @@ LABEL_20:
   result = iterator;
   if (iterator)
   {
-    result = IOObjectRelease(iterator);
+    return IOObjectRelease(iterator);
   }
 
-  v21 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1432,7 +1426,7 @@ _DWORD *SMCOpenConnectionWithDefaultService()
   return v0;
 }
 
-uint64_t SMCCloseConnection(io_connect_t *a1)
+uint64_t SMCCloseConnection(mach_port_t *a1)
 {
   if (a1)
   {
@@ -1464,21 +1458,22 @@ uint64_t SMCUInt32ToString(uint64_t result, _BYTE *a2)
 
 uint64_t SMCGetKeyFromIndex(mach_port_t *a1, int a2, _DWORD *a3)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v3 = -1;
   if (a1 && a3)
   {
-    v16 = 0;
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
+    v15 = 0;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
-    v8 = 0u;
+    v12 = 0u;
     v9 = 0u;
-    memset(v7, 0, sizeof(v7));
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    memset(v6, 0, sizeof(v6));
     memset(inputStruct, 0, sizeof(inputStruct));
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
@@ -1486,54 +1481,52 @@ uint64_t SMCGetKeyFromIndex(mach_port_t *a1, int a2, _DWORD *a3)
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v26 = 0;
-    HIDWORD(v18) = a2;
-    BYTE10(v18) = 8;
-    if (SMCKextCall(*a1, inputStruct, v7))
+    v25 = 0;
+    HIDWORD(v17) = a2;
+    BYTE10(v17) = 8;
+    if (SMCKextCall(*a1, inputStruct, v6))
     {
-      v3 = -2;
+      return -2;
     }
 
     else
     {
-      v3 = BYTE8(v8);
-      if (BYTE8(v8))
+      v3 = BYTE8(v7);
+      if (BYTE8(v7))
       {
-        if (BYTE8(v8) == 184)
+        if (BYTE8(v7) == 184)
         {
-          v3 = -4;
+          return -4;
         }
 
         else
         {
-          v3 = -3;
+          return -3;
         }
       }
 
       else
       {
-        *a3 = v7[0];
+        *a3 = v6[0];
       }
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
 uint64_t SMCReadPKey(mach_port_t *a1, int a2, uint64_t a3, void *a4, unsigned int a5, unsigned int a6)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v6 = -1;
   if (a1 && a2 && a3 && a4)
   {
-    v14[0] = 0;
-    v14[1] = 0;
+    v13[0] = 0;
+    v13[1] = 0;
     __n = 0;
-    if (SMCGetKeyInfo(a1, a2, v14))
+    if (SMCGetKeyInfo(a1, a2, v13))
     {
-      v6 = -1;
+      return -1;
     }
 
     else
@@ -1541,8 +1534,7 @@ uint64_t SMCReadPKey(mach_port_t *a1, int a2, uint64_t a3, void *a4, unsigned in
       v6 = -5;
       if (HIDWORD(__n) <= a6 && HIDWORD(__n) <= a5)
       {
-        v31 = 0;
-        v30 = 0u;
+        v30 = 0;
         v29 = 0u;
         v28 = 0u;
         v27 = 0u;
@@ -1552,34 +1544,34 @@ uint64_t SMCReadPKey(mach_port_t *a1, int a2, uint64_t a3, void *a4, unsigned in
         v23 = 0u;
         v22 = 0u;
         v21 = 0u;
-        v19 = 0;
-        memset(v18, 0, sizeof(v18));
-        v17 = 0u;
+        v20 = 0u;
+        v18 = 0;
+        memset(v17, 0, sizeof(v17));
+        v16 = 0u;
         memset(outputStruct, 0, sizeof(outputStruct));
         inputStruct = a2;
-        DWORD2(v22) = HIDWORD(__n);
-        BYTE6(v23) = 17;
+        DWORD2(v21) = HIDWORD(__n);
+        BYTE6(v22) = 17;
         __memcpy_chk();
         if (SMCKextCall(*a1, &inputStruct, outputStruct))
         {
-          v6 = -2;
+          return -2;
         }
 
-        else if (BYTE8(v17))
+        else if (BYTE8(v16))
         {
-          v6 = -3;
+          return -3;
         }
 
         else
         {
-          memcpy(a4, v18, HIDWORD(__n));
-          v6 = 0;
+          memcpy(a4, v17, HIDWORD(__n));
+          return 0;
         }
       }
     }
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1664,125 +1656,125 @@ uint64_t SMCReadKeyAsNumeric(mach_port_t *a1, uint64_t a2, uint64_t a3, double *
 
 uint64_t SMCConvertNumericToBytes(double *a1, uint64_t a2, unint64_t *a3, unsigned __int16 a4)
 {
-  v5 = *(a2 + 14);
-  if (8 * a4 < v5)
+  v4 = *(a2 + 14);
+  if (8 * a4 < v4)
   {
     goto LABEL_2;
   }
 
-  v7 = *(a2 + 8);
-  switch(v7)
+  v6 = *(a2 + 8);
+  switch(v6)
   {
     case 2:
-      v12 = *a1;
+      v11 = *a1;
       if (*a1 < 0.0)
       {
-        v12 = -*a1;
+        v11 = -*a1;
       }
 
-      v13 = (v12 * (1 << *(a2 + 16)));
+      v12 = (v11 * (1 << *(a2 + 16)));
       if (*a1 < 0.0)
       {
-        v13 = -v13;
+        v12 = -v12;
       }
 
-      v20 = v13;
+      v19 = v12;
       if ((*(a2 + 4) & 4) != 0)
       {
-        if (v5 >= 8)
+        if (v4 >= 8)
         {
-          v8 = 0;
-          v18 = v5 >> 3;
+          v7 = 0;
+          v17 = v4 >> 3;
           do
           {
-            v8 = *(&v19 + v18--) | (v8 << 8);
+            v7 = *(&v18 + v17--) | (v7 << 8);
           }
 
-          while (v18);
+          while (v17);
           goto LABEL_24;
         }
       }
 
-      else if (v5 >= 8)
+      else if (v4 >= 8)
       {
-        v8 = 0;
-        v14 = v5 >> 3;
-        v15 = &v20;
+        v7 = 0;
+        v13 = v4 >> 3;
+        v14 = &v19;
         do
         {
-          v16 = *v15;
-          v15 = (v15 + 1);
-          v8 = v16 | (v8 << 8);
-          --v14;
+          v15 = *v14;
+          v14 = (v14 + 1);
+          v7 = v15 | (v7 << 8);
+          --v13;
         }
 
-        while (v14);
+        while (v13);
         goto LABEL_24;
       }
 
       goto LABEL_23;
     case 1:
-      v6 = 0;
-      *&v11 = *a1;
-      v8 = v11;
+      v5 = 0;
+      *&v10 = *a1;
+      v7 = v10;
 LABEL_25:
-      *a3 = v8;
-      return v6;
+      *a3 = v7;
+      return v5;
     case 0:
-      if (v5 >= 8)
+      if (v4 >= 8)
       {
-        v8 = 0;
-        v9 = v5 >> 3;
+        v7 = 0;
+        v8 = v4 >> 3;
         do
         {
-          v10 = *a1;
+          v9 = *a1;
           a1 = (a1 + 1);
-          v8 = v10 | (v8 << 8);
-          --v9;
+          v7 = v9 | (v7 << 8);
+          --v8;
         }
 
-        while (v9);
+        while (v8);
         goto LABEL_24;
       }
 
 LABEL_23:
-      v8 = 0;
+      v7 = 0;
 LABEL_24:
-      v6 = 0;
+      v5 = 0;
       goto LABEL_25;
   }
 
 LABEL_2:
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
-    SMCConvertNumericToBytes_cold_1((a2 + 8));
+    SMCConvertNumericToBytes_cold_1();
   }
 
   return -1;
 }
 
-uint64_t SMCWriteKeyAsNumeric(mach_port_t *a1, int a2, uint64_t a3)
+uint64_t SMCWriteKeyAsNumeric(mach_port_t *a1, unsigned int a2, uint64_t a3)
 {
-  v13[1] = *MEMORY[0x29EDCA608];
-  *&v13[0] = a3;
+  v12[1] = *MEMORY[0x29EDCA608];
+  *&v12[0] = a3;
   if (a1)
   {
-    v11[0] = 0;
-    v11[1] = 0;
-    v12 = 0;
-    v5 = SMCGetKeyInfo(a1, a2, v11);
+    v10[0] = 0;
+    v10[1] = 0;
+    v11 = 0;
+    v5 = SMCGetKeyInfo(a1, a2, v10);
     if (!v5)
     {
       MEMORY[0x2A1C7C4A8](v5);
-      v7 = (&v11[-1] - ((v6 + 15) & 0x1FFFFFFF0));
-      if (SMCConvertNumericToBytes(v13, v11, v7, WORD2(v12)))
+      v7 = (&v10[-1] - ((v6 + 15) & 0x1FFFFFFF0));
+      if (SMCConvertNumericToBytes(v12, v10, v7, WORD2(v11)))
       {
         LOBYTE(v5) = -1;
       }
 
       else
       {
-        LOBYTE(v5) = SMCWriteKeyWithKnownSize(a1, a2, HIDWORD(v12), v7);
+        LOBYTE(v5) = SMCWriteKeyWithKnownSize(a1, a2, HIDWORD(v11), v7);
       }
     }
   }
@@ -1792,7 +1784,6 @@ uint64_t SMCWriteKeyAsNumeric(mach_port_t *a1, int a2, uint64_t a3)
     LOBYTE(v5) = -1;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -1945,29 +1936,29 @@ uint64_t SMCSetAccumBitShift(uint64_t a1, unsigned int a2)
 
 uint64_t SMCProgramAccum(uint64_t a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     if (SMCAccumIsSupported(a1))
     {
-      v2 = populateChannels(a1, v6, v5, v9, v8);
+      v2 = populateChannels(a1, v5, v4, v8, v7);
       if (!v2)
       {
-        v2 = SMCWriteKeyWithKnownSize(a1, 1297307763, 4u, v6);
+        v2 = SMCWriteKeyWithKnownSize(a1, 0x4D535873u, 4u, v5);
         if (!v2)
         {
-          v2 = SMCWriteKeyWithKnownSize(a1, 1297307731, 4u, v5);
+          v2 = SMCWriteKeyWithKnownSize(a1, 0x4D535853u, 4u, v4);
           if (!v2)
           {
             v2 = programAccumModes(a1);
             if (!v2)
             {
-              v7 = 3;
-              v2 = SMCWriteKeyWithKnownSize(a1, 1297307746, 1u, &v7);
+              v6 = 3;
+              v2 = SMCWriteKeyWithKnownSize(a1, 0x4D535862u, 1u, &v6);
               if (!v2)
               {
                 *(a1 + 467) = 1;
-                copyKeyInfo(a1, v9, v8);
+                copyKeyInfo(a1, v8, v7);
                 LOBYTE(v2) = 0;
               }
             }
@@ -1987,7 +1978,6 @@ uint64_t SMCProgramAccum(uint64_t a1)
     LOBYTE(v2) = -1;
   }
 
-  v3 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -2036,11 +2026,11 @@ uint64_t populateChannels(uint64_t a1, _BYTE *a2, uint64_t a3, _DWORD *a4, _DWOR
 uint64_t programAccumModes(uint64_t a1)
 {
   v3 = 0;
-  result = SMCReadKeyWithKnownSize(a1, 1297307757, 2u, &v3);
+  result = SMCReadKeyWithKnownSize(a1, 0x4D53586Du, 2u, &v3);
   if (!result)
   {
     v3 = v3 & 0xFF2 | (*(a1 + 505) << 12) | (4 * (*(a1 + 504) & 3)) | 1;
-    result = SMCWriteKeyWithKnownSize(a1, 1297307757, 2u, &v3);
+    result = SMCWriteKeyWithKnownSize(a1, 0x4D53586Du, 2u, &v3);
     if (!result)
     {
       *(a1 + 464) = *(a1 + 504);
@@ -2099,32 +2089,32 @@ uint64_t copyKeyInfo(uint64_t result, __int128 *a2, __int128 *a3)
 
 uint64_t SMCProgramAccumWithoutReset(uint64_t a1)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     if (SMCAccumIsSupported(a1))
     {
-      v2 = populateChannels(a1, v18, v17, v20, v19);
+      v2 = populateChannels(a1, v17, v16, v19, v18);
       if (!v2)
       {
-        v2 = SMCReadKeyWithKnownSize(a1, 1297307763, 4u, v16);
+        v2 = SMCReadKeyWithKnownSize(a1, 0x4D535873u, 4u, v15);
         if (!v2)
         {
-          v2 = SMCReadKeyWithKnownSize(a1, 1297307731, 4u, v15);
+          v2 = SMCReadKeyWithKnownSize(a1, 0x4D535853u, 4u, v14);
           if (!v2)
           {
             v3 = 0;
             v4 = 0;
             v5 = (a1 + 488);
-            v6 = v19;
-            v7 = v20;
+            v6 = v18;
+            v7 = v19;
             v8 = 244;
             v9 = 472;
             do
             {
               if (*v7 == 1 && *(a1 + v3 + 20) != 1)
               {
-                v18[v4] = v16[v4];
+                v17[v4] = v15[v4];
                 *v7 = *(a1 + v3 + 20);
                 *(v7 + 2) = *(a1 + v3 + 36);
                 *(a1 + v9) = *(a1 + v3 + 16);
@@ -2132,7 +2122,7 @@ uint64_t SMCProgramAccumWithoutReset(uint64_t a1)
 
               if (v6[5] == 1 && *(a1 + v3 + 264) != 1)
               {
-                v17[v4] = v15[v4];
+                v16[v4] = v14[v4];
                 *v6 = *(a1 + v8);
                 *(v6 + 2) = *(a1 + v8 + 16);
                 *(a1 + v9 + 16) = *(a1 + v3 + 240);
@@ -2147,10 +2137,10 @@ uint64_t SMCProgramAccumWithoutReset(uint64_t a1)
             }
 
             while (v4 != 4);
-            v2 = SMCWriteKeyWithKnownSize(a1, 1297307763, 4u, v18);
+            v2 = SMCWriteKeyWithKnownSize(a1, 0x4D535873u, 4u, v17);
             if (!v2)
             {
-              v2 = SMCWriteKeyWithKnownSize(a1, 1297307731, 4u, v17);
+              v2 = SMCWriteKeyWithKnownSize(a1, 0x4D535853u, 4u, v16);
               if (!v2)
               {
                 v2 = programAccumModes(a1);
@@ -2165,15 +2155,15 @@ uint64_t SMCProgramAccumWithoutReset(uint64_t a1)
                     if (v12)
                     {
                       *(v11 - 228) = v12;
-                      *(v11 - 224) = *&v20[v10];
-                      *(v11 - 208) = *&v20[v10 + 4];
+                      *(v11 - 224) = *&v19[v10];
+                      *(v11 - 208) = *&v19[v10 + 4];
                     }
 
                     if (*v5)
                     {
                       *(v11 - 4) = *v5;
-                      *v11 = *&v19[v10];
-                      *(v11 + 16) = *&v19[v10 + 4];
+                      *v11 = *&v18[v10];
+                      *(v11 + 16) = *&v18[v10 + 4];
                     }
 
                     LOBYTE(v2) = 0;
@@ -2202,105 +2192,108 @@ uint64_t SMCProgramAccumWithoutReset(uint64_t a1)
     LOBYTE(v2) = -1;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-uint64_t SMCProgramAccum1Channel(mach_port_t *a1, int a2)
+uint64_t SMCProgramAccum1Channel(mach_port_t *a1, uint64_t a2)
 {
   v2 = a1;
   LOBYTE(a1) = -1;
-  if (v2 && a2)
+  if (v2)
   {
-    if (!SMCAccumIsSupported(v2))
+    v3 = a2;
+    if (a2)
     {
-      LOBYTE(a1) = -6;
-      return a1;
-    }
-
-    v19 = 0;
-    v17 = 0uLL;
-    v18 = 0;
-    v4 = lookup1msChannel(v2, a2, &v17, &v19);
-    if (v4)
-    {
-      if (lookup1secChannel(v2, a2, &v17, &v19))
+      if (!SMCAccumIsSupported(v2))
       {
-        LOBYTE(a1) = -1;
+        LOBYTE(a1) = -6;
         return a1;
       }
 
-      v10 = 0;
-      v7 = 0;
-      v11 = (v2 + 61);
-      do
+      v19 = 0;
+      v17 = 0uLL;
+      v18 = 0;
+      v4 = lookup1msChannel(v2, v3, &v17, &v19);
+      if (v4)
       {
-        v12 = *v11;
-        v11 += 14;
-        if (v12 == 1)
+        if (lookup1secChannel(v2, v3, &v17, &v19))
         {
-          v7 = v10;
+          LOBYTE(a1) = -1;
+          return a1;
         }
 
-        ++v10;
-      }
-
-      while (v10 != 4);
-    }
-
-    else
-    {
-      v6 = 0;
-      v7 = 0;
-      v8 = (v2 + 5);
-      do
-      {
-        v9 = *v8;
-        v8 += 14;
-        if (v9 == 1)
+        v10 = 0;
+        v7 = 0;
+        v11 = (v2 + 61);
+        do
         {
-          v7 = v6;
+          v12 = *v11;
+          v11 += 14;
+          if (v12 == 1)
+          {
+            v7 = v10;
+          }
+
+          ++v10;
         }
 
-        ++v6;
+        while (v10 != 4);
       }
 
-      while (v6 != 4);
-    }
-
-    if (v4)
-    {
-      LODWORD(a1) = SMCReadKeyWithKnownSize(v2, 1297307731, 4u, v16);
-      if (!a1)
+      else
       {
-        v16[v7] = v19;
-        LODWORD(a1) = SMCWriteKeyWithKnownSize(v2, 1297307731, 4u, v16);
+        v6 = 0;
+        v7 = 0;
+        v8 = (v2 + 5);
+        do
+        {
+          v9 = *v8;
+          v8 += 14;
+          if (v9 == 1)
+          {
+            v7 = v6;
+          }
+
+          ++v6;
+        }
+
+        while (v6 != 4);
+      }
+
+      if (v4)
+      {
+        LODWORD(a1) = SMCReadKeyWithKnownSize(v2, 0x4D535853u, 4u, v16);
         if (!a1)
         {
-          v13 = v7;
-          v14 = 60;
+          v16[v7] = v19;
+          LODWORD(a1) = SMCWriteKeyWithKnownSize(v2, 0x4D535853u, 4u, v16);
+          if (!a1)
+          {
+            v13 = v7;
+            v14 = 60;
 LABEL_25:
-          LOBYTE(a1) = 0;
-          v15 = &v2[14 * v13 + v14];
-          *(v15 + 4) = v17;
-          *(v15 + 20) = v18;
-          *v15 = a2;
+            LOBYTE(a1) = 0;
+            v15 = &v2[14 * v13 + v14];
+            *(v15 + 4) = v17;
+            *(v15 + 20) = v18;
+            *v15 = v3;
+          }
         }
       }
-    }
 
-    else
-    {
-      LODWORD(a1) = SMCReadKeyWithKnownSize(v2, 1297307763, 4u, v16);
-      if (!a1)
+      else
       {
-        v16[v7] = v19;
-        LODWORD(a1) = SMCWriteKeyWithKnownSize(v2, 1297307763, 4u, v16);
+        LODWORD(a1) = SMCReadKeyWithKnownSize(v2, 0x4D535873u, 4u, v16);
         if (!a1)
         {
-          v13 = v7;
-          v14 = 4;
-          goto LABEL_25;
+          v16[v7] = v19;
+          LODWORD(a1) = SMCWriteKeyWithKnownSize(v2, 0x4D535873u, 4u, v16);
+          if (!a1)
+          {
+            v13 = v7;
+            v14 = 4;
+            goto LABEL_25;
+          }
         }
       }
     }
@@ -2407,13 +2400,13 @@ uint64_t lookup1secChannel(uint64_t a1, int a2, _DWORD *a3, _BYTE *a4)
 
 uint64_t SMCProgramAccumDefaults(uint64_t a1)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     if (!SMCAccumIsSupported(a1))
     {
       LOBYTE(v10) = -6;
-      goto LABEL_16;
+      return v10;
     }
 
     v2 = 0;
@@ -2423,23 +2416,23 @@ uint64_t SMCProgramAccumDefaults(uint64_t a1)
     v6 = *(v4 + 16);
     while (1)
     {
-      v24[v3] = *(v6 + v5 + 1088);
-      v21[v3] = *(v6 + v5 + 1092);
-      v7 = &v22[v2 + 97];
+      v23[v3] = *(v6 + v5 + 1088);
+      v20[v3] = *(v6 + v5 + 1092);
+      v7 = &v21[v2 + 97];
       *v7 = 0;
       v7[5] = *(v6 + v5 + 1349);
-      if (SMCGetTypeDescriptionForNumericType(*(v6 + v5 + 1352), &v22[v2 + 105]))
+      if (SMCGetTypeDescriptionForNumericType(*(v6 + v5 + 1352), &v21[v2 + 105]))
       {
         break;
       }
 
       v8 = *(v4 + 24) + v5;
-      v23[v3] = *(v8 + 1088);
-      v20[v3] = *(v8 + 1092);
-      v9 = &v22[v2 + 1];
+      v22[v3] = *(v8 + 1088);
+      v19[v3] = *(v8 + 1092);
+      v9 = &v21[v2 + 1];
       *v9 = 0;
       v9[5] = *(v8 + 1349);
-      if (SMCGetTypeDescriptionForNumericType(*(v8 + 1352), &v22[v2 + 9]))
+      if (SMCGetTypeDescriptionForNumericType(*(v8 + 1352), &v21[v2 + 9]))
       {
         break;
       }
@@ -2449,36 +2442,36 @@ uint64_t SMCProgramAccumDefaults(uint64_t a1)
       v5 += 272;
       if (!v5)
       {
-        v10 = SMCWriteKeyWithKnownSize(a1, 1297307763, 4u, v21);
+        v10 = SMCWriteKeyWithKnownSize(a1, 0x4D535873u, 4u, v20);
         if (!v10)
         {
-          v10 = SMCWriteKeyWithKnownSize(a1, 1297307731, 4u, v20);
+          v10 = SMCWriteKeyWithKnownSize(a1, 0x4D535853u, 4u, v19);
           if (!v10)
           {
             *(a1 + 504) = 0;
             v10 = programAccumModes(a1);
             if (!v10)
             {
-              v22[0] = 3;
-              v10 = SMCWriteKeyWithKnownSize(a1, 1297307746, 1u, v22);
+              v21[0] = 3;
+              v10 = SMCWriteKeyWithKnownSize(a1, 0x4D535862u, 1u, v21);
               if (!v10)
               {
                 v11 = 0;
                 v12 = a1 + 244;
                 *(a1 + 467) = 1;
-                v13 = v23;
-                v14 = v24;
+                v13 = v22;
+                v14 = v23;
                 do
                 {
                   LOBYTE(v10) = 0;
                   v15 = *v14++;
                   *(v12 - 228) = v15;
-                  *(v12 - 224) = *&v22[v11 + 97];
-                  *(v12 - 208) = *&v22[v11 + 113];
+                  *(v12 - 224) = *&v21[v11 + 97];
+                  *(v12 - 208) = *&v21[v11 + 113];
                   v16 = *v13++;
                   *(v12 - 4) = v16;
-                  v17 = *&v22[v11 + 1];
-                  *(v12 + 16) = *&v22[v11 + 17];
+                  v17 = *&v21[v11 + 1];
+                  *(v12 + 16) = *&v21[v11 + 17];
                   *v12 = v17;
                   v12 += 56;
                   v11 += 24;
@@ -2490,14 +2483,12 @@ uint64_t SMCProgramAccumDefaults(uint64_t a1)
           }
         }
 
-        goto LABEL_16;
+        return v10;
       }
     }
   }
 
   LOBYTE(v10) = -1;
-LABEL_16:
-  v18 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -2510,7 +2501,7 @@ uint64_t SMCStartAccum(uint64_t a1)
       if (*(a1 + 467) == 1)
       {
         v4 = 1;
-        v2 = SMCWriteKeyWithKnownSize(a1, 1297307746, 1u, &v4);
+        v2 = SMCWriteKeyWithKnownSize(a1, 0x4D535862u, 1u, &v4);
         if (!v2)
         {
           *(a1 + 468) = 1;
@@ -2546,7 +2537,7 @@ uint64_t SMCStopAccum(uint64_t a1, uint64_t a2)
     if (SMCAccumIsSupported(v2))
     {
       v5 = 0;
-      LODWORD(a1) = SMCWriteKeyWithKnownSize(v2, 1297307746, 1u, &v5);
+      LODWORD(a1) = SMCWriteKeyWithKnownSize(v2, 0x4D535862u, 1u, &v5);
       if (!a1)
       {
         *(v2 + 468) = 0;
@@ -2566,49 +2557,49 @@ uint64_t SMCStopAccum(uint64_t a1, uint64_t a2)
 uint64_t SMCGetAccumStatus(uint64_t a1, uint64_t a2)
 {
   v2 = a1;
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   LOBYTE(a1) = -1;
   if (v2 && a2)
   {
     if (!SMCAccumIsSupported(v2))
     {
       LOBYTE(a1) = -6;
-      goto LABEL_33;
+      return a1;
     }
 
     v4 = *(v2 + 468);
     if (v4 == 1)
     {
-      LOBYTE(v23) = 0;
-      LODWORD(a1) = SMCWriteKeyWithKnownSize(v2, 1297307746, 1u, &v23);
+      LOBYTE(v22) = 0;
+      LODWORD(a1) = SMCWriteKeyWithKnownSize(v2, 0x4D535862u, 1u, &v22);
       if (a1)
       {
-        goto LABEL_33;
+        return a1;
       }
 
       *(v2 + 468) = 0;
     }
 
-    LODWORD(a1) = SMCReadKey(v2, 1297307747, v22, 4u);
+    LODWORD(a1) = SMCReadKey(v2, 0x4D535863u, v21, 4u);
     if (!a1)
     {
       v5 = 0;
       v6 = 0;
       do
       {
-        v6 = v22[v5++] | (v6 << 8);
+        v6 = v21[v5++] | (v6 << 8);
       }
 
       while (v5 != 4);
       *(a2 + 448) = v6;
-      LODWORD(a1) = SMCReadKey(v2, 1297307715, v22, 4u);
+      LODWORD(a1) = SMCReadKey(v2, 0x4D535843u, v21, 4u);
       if (!a1)
       {
         v7 = 0;
         v8 = 0;
         do
         {
-          v8 = v22[v7++] | (v8 << 8);
+          v8 = v21[v7++] | (v8 << 8);
         }
 
         while (v7 != 4);
@@ -2658,54 +2649,54 @@ uint64_t SMCGetAccumStatus(uint64_t a1, uint64_t a2)
         }
 
         while (v9);
-        LODWORD(a1) = SMCReadKey(v2, 1297307748, &v23, 0x20u);
+        LODWORD(a1) = SMCReadKey(v2, 0x4D535864u, &v22, 0x20u);
         if (!a1)
         {
-          parseAccumOutput(a2, &v23, 0, 1);
+          parseAccumOutput(a2, &v22, 0, 1);
+          v22 = 0u;
           v23 = 0u;
-          v24 = 0u;
-          LODWORD(a1) = SMCReadKey(v2, 1297307716, &v23, 0x20u);
+          LODWORD(a1) = SMCReadKey(v2, 0x4D535844u, &v22, 0x20u);
           if (!a1)
           {
-            parseAccumOutput(a2, &v23, 0, 2);
+            parseAccumOutput(a2, &v22, 0, 2);
             if (*(v2 + 466) == 1)
             {
+              v22 = 0u;
               v23 = 0u;
-              v24 = 0u;
-              LODWORD(a1) = SMCReadKey(v2, 1297307752, &v23, 0x20u);
+              LODWORD(a1) = SMCReadKey(v2, 0x4D535868u, &v22, 0x20u);
               if (a1)
               {
-                goto LABEL_33;
+                return a1;
               }
 
-              parseAccumOutput(a2, &v23, 2, 1);
+              parseAccumOutput(a2, &v22, 2, 1);
+              v22 = 0u;
               v23 = 0u;
-              v24 = 0u;
-              LODWORD(a1) = SMCReadKey(v2, 1297307720, &v23, 0x20u);
+              LODWORD(a1) = SMCReadKey(v2, 0x4D535848u, &v22, 0x20u);
               if (a1)
               {
-                goto LABEL_33;
+                return a1;
               }
 
-              parseAccumOutput(a2, &v23, 2, 2);
+              parseAccumOutput(a2, &v22, 2, 2);
+              v22 = 0u;
               v23 = 0u;
-              v24 = 0u;
-              LODWORD(a1) = SMCReadKey(v2, 1297307756, &v23, 0x20u);
+              LODWORD(a1) = SMCReadKey(v2, 0x4D53586Cu, &v22, 0x20u);
               if (a1)
               {
-                goto LABEL_33;
+                return a1;
               }
 
-              parseAccumOutput(a2, &v23, 1, 1);
+              parseAccumOutput(a2, &v22, 1, 1);
+              v22 = 0u;
               v23 = 0u;
-              v24 = 0u;
-              LODWORD(a1) = SMCReadKey(v2, 1297307724, &v23, 0x20u);
+              LODWORD(a1) = SMCReadKey(v2, 0x4D53584Cu, &v22, 0x20u);
               if (a1)
               {
-                goto LABEL_33;
+                return a1;
               }
 
-              parseAccumOutput(a2, &v23, 1, 2);
+              parseAccumOutput(a2, &v22, 1, 2);
             }
 
             if (!v4 || (LODWORD(a1) = SMCStartAccum(v2), !a1))
@@ -2718,8 +2709,6 @@ uint64_t SMCGetAccumStatus(uint64_t a1, uint64_t a2)
     }
   }
 
-LABEL_33:
-  v20 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -2802,43 +2791,41 @@ LABEL_13:
 uint64_t SMCGetAccumStatusFor(uint64_t a1, int a2, double *a3, void *a4)
 {
   v4 = a1;
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   LOBYTE(a1) = -1;
   if (v4 && a2 && a3 && a4)
   {
     if (!SMCAccumIsSupported(v4))
     {
       LOBYTE(a1) = -6;
-      goto LABEL_12;
+      return a1;
     }
 
     v8 = 0;
-    v9 = (v4 + 240);
-    while (1)
+    for (i = (v4 + 240); ; i += 14)
     {
-      v10 = *(v9 - 56);
-      if (v10 == a2 || *v9 == a2)
+      v10 = *(i - 56);
+      if (v10 == a2 || *i == a2)
       {
         break;
       }
 
-      v9 += 14;
       v8 -= 4;
       if (v8 == -16)
       {
         LOBYTE(a1) = -1;
-        goto LABEL_12;
+        return a1;
       }
     }
 
-    v13 = *(v4 + 468);
-    if (v13 == 1)
+    v12 = *(v4 + 468);
+    if (v12 == 1)
     {
-      v15[0] = 0;
-      LODWORD(a1) = SMCWriteKeyWithKnownSize(v4, 1297307746, 1u, v15);
+      v14[0] = 0;
+      LODWORD(a1) = SMCWriteKeyWithKnownSize(v4, 0x4D535862u, 1u, v14);
       if (a1)
       {
-        goto LABEL_12;
+        return a1;
       }
 
       *(v4 + 468) = 0;
@@ -2846,47 +2833,45 @@ uint64_t SMCGetAccumStatusFor(uint64_t a1, int a2, double *a3, void *a4)
 
     if (v10 == a2)
     {
-      LODWORD(a1) = SMCReadKey(v4, 1297307747, a4, 4u);
+      LODWORD(a1) = SMCReadKey(v4, 0x4D535863u, a4, 4u);
       if (a1)
       {
-        goto LABEL_12;
+        return a1;
       }
 
-      LODWORD(a1) = SMCReadKey(v4, 1297307748, v15, 0x20u);
+      LODWORD(a1) = SMCReadKey(v4, 0x4D535864u, v14, 0x20u);
       if (a1)
       {
-        goto LABEL_12;
+        return a1;
       }
 
-      v14 = 4;
+      v13 = 4;
     }
 
     else
     {
-      LODWORD(a1) = SMCReadKey(v4, 1297307715, a4, 4u);
+      LODWORD(a1) = SMCReadKey(v4, 0x4D535843u, a4, 4u);
       if (a1)
       {
-        goto LABEL_12;
+        return a1;
       }
 
-      LODWORD(a1) = SMCReadKey(v4, 1297307716, v15, 0x20u);
+      LODWORD(a1) = SMCReadKey(v4, 0x4D535844u, v14, 0x20u);
       if (a1)
       {
-        goto LABEL_12;
+        return a1;
       }
 
-      v14 = 60;
+      v13 = 60;
     }
 
-    LODWORD(a1) = SMCParseBytesForNumeric(&v15[-v8], 4u, a3, &v9[v14 - 59]);
-    if (!a1 && v13)
+    LODWORD(a1) = SMCParseBytesForNumeric(&v14[-v8], 4u, a3, &i[v13 - 59]);
+    if (!a1 && v12)
     {
       LOBYTE(a1) = SMCStartAccum(v4);
     }
   }
 
-LABEL_12:
-  v11 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -2956,7 +2941,7 @@ __CFDictionary *SMCCreateAccumProgrammableChannelsDict1sec(uint64_t a1)
   return Mutable;
 }
 
-uint64_t getSMCQueue()
+uint64_t getSMCQueue(uint64_t a1, uint64_t a2)
 {
   if (getSMCQueue_SMCQueue_pred != -1)
   {
@@ -2974,8 +2959,9 @@ dispatch_queue_t __getSMCQueue_block_invoke()
   return result;
 }
 
-void _smcNotificationCallback(uint64_t a1, uint64_t a2, int a3, int a4)
+void _smcNotificationCallback(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
+  v4 = a4;
   if (getSMCQueue_SMCQueue_pred != -1)
   {
     getSMCQueue_cold_1();
@@ -2987,7 +2973,7 @@ void _smcNotificationCallback(uint64_t a1, uint64_t a2, int a3, int a4)
     if (*(i + 16) == a3)
     {
       v7 = *(i + 17);
-      if (v7 == BYTE2(a4) || v7 == 255)
+      if (v7 == BYTE2(v4) || v7 == 255)
       {
         v8 = _Block_copy(*(i + 24));
         v9 = *(i + 32);
@@ -2996,9 +2982,9 @@ void _smcNotificationCallback(uint64_t a1, uint64_t a2, int a3, int a4)
         v10[2] = ___smcNotificationCallback_block_invoke;
         v10[3] = &unk_29EE8A7D8;
         v10[4] = v8;
-        v11 = BYTE2(a4);
-        v12 = BYTE1(a4);
-        v13 = a4;
+        v11 = BYTE2(v4);
+        v12 = BYTE1(v4);
+        v13 = v4;
         dispatch_async(v9, v10);
       }
     }
@@ -3007,13 +2993,10 @@ void _smcNotificationCallback(uint64_t a1, uint64_t a2, int a3, int a4)
 
 void ___smcNotificationCallback_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 41);
-  v4 = *(a1 + 42);
   (*(*(a1 + 32) + 16))();
-  v5 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  _Block_release(v5);
+  _Block_release(v2);
 }
 
 uint64_t SMCRegisterForSubTypeNotification(const char *a1, char a2, NSObject *a3, const void *a4)
@@ -3150,13 +3133,13 @@ void __SMCRegisterForSubTypeNotification_block_invoke(uint64_t a1)
       }
 
 LABEL_15:
-      _unregisterForNotification(*(*(*(a1 + 32) + 8) + 24));
+      _unregisterForNotification(*(*(*(a1 + 32) + 8) + 24), v9);
       *(*(*(a1 + 32) + 8) + 24) = 0;
     }
   }
 }
 
-void _unregisterForNotification(void *a1)
+void _unregisterForNotification(void *a1, uint64_t a2)
 {
   if (getSMCQueue_SMCQueue_pred != -1)
   {
@@ -3166,33 +3149,33 @@ void _unregisterForNotification(void *a1)
   dispatch_assert_queue_V2(getSMCQueue_SMCQueue);
   if (a1)
   {
-    v2 = gSMCClientList;
+    v3 = gSMCClientList;
     if (gSMCClientList)
     {
       do
       {
-        if (v2 == a1)
+        if (v3 == a1)
         {
-          v3 = *v2;
-          v4 = v2[1];
-          if (*v2)
+          v4 = *v3;
+          v5 = v3[1];
+          if (*v3)
           {
-            v3[1] = v4;
+            v4[1] = v5;
           }
 
-          *v4 = v3;
+          *v5 = v4;
         }
 
-        v2 = *v2;
+        v3 = *v3;
       }
 
-      while (v2);
+      while (v3);
     }
 
-    v5 = a1[3];
-    if (v5)
+    v6 = a1[3];
+    if (v6)
     {
-      _Block_release(v5);
+      _Block_release(v6);
     }
 
     if (!gSMCClientList)
@@ -3210,10 +3193,10 @@ void _unregisterForNotification(void *a1)
       }
     }
 
-    v6 = a1[4];
-    if (v6)
+    v7 = a1[4];
+    if (v7)
     {
-      dispatch_release(v6);
+      dispatch_release(v7);
     }
 
     a1[4] = 0;
@@ -3229,7 +3212,7 @@ void _unregisterForNotification(void *a1)
   }
 }
 
-void SMCUnregisterForNotification(uint64_t a1)
+void SMCUnregisterForNotification(uint64_t a1, uint64_t a2)
 {
   if (getSMCQueue_SMCQueue_pred != -1)
   {
@@ -3250,7 +3233,7 @@ uint64_t SMCRequestMacOSWakeFromAP(mach_port_t *a1, __int16 a2)
   {
     v4[0] = -32656;
     v4[1] = a2;
-    return SMCWriteKeyWithKnownSize(a1, 1313166158, 4u, v4);
+    return SMCWriteKeyWithKnownSize(a1, 0x4E45534Eu, 4u, v4);
   }
 
   else
@@ -3372,401 +3355,313 @@ uint64_t SMCParseAccumOutputToNumeric(uint64_t result, unint64_t a2, char a3, in
 
 void SMCAEPopulatePlatform_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulatePlatform_cold_2()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulatePlatform_cold_3()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulatePlatform_cold_4()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulatePlatform_cold_5()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulatePlatform_cold_6()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulatePlatform_cold_7()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulatePlatform_cold_8()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulatePlatform_cold_9()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAccumGetChannelInfoForKey_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAccumGetChannelInfoForKey_cold_2()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAccumGetChannelInfoForKey_cold_3()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAccumGetChannelInfoForKey_cold_4()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCOSAccumIsSupported_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulateChannelInfo_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulateChannelInfo_cold_2()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulateChannelInfo_cold_3()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulateChannelInfo_cold_4()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulateChannelInfo_cold_5()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulateChannelInfo_cold_6()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulateChannelInfo_cold_7()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAEPopulateChannelInfo_cold_8()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCOpenAppleSMC_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCOpenAppleSMC_cold_2()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCOpenAppleSMC_cold_3()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void findMaxClientCreatorAndReport_cold_1(uint64_t a1, uint64_t a2, int a3)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 128);
   v4 = *(a1 + 132);
-  v6 = 136316162;
-  v7 = a1;
-  v8 = 1024;
-  v9 = v3;
-  v10 = 1024;
-  v11 = v4;
-  v12 = 2080;
-  v13 = a2;
-  v14 = 1024;
-  v15 = a3;
-  _os_log_fault_impl(&dword_29810C000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "'%s' (pid %d) opened %d '%s' user clients (%d total)\n", &v6, 0x28u);
-  v5 = *MEMORY[0x29EDCA608];
+  v5 = 136316162;
+  v6 = a1;
+  v7 = 1024;
+  v8 = v3;
+  v9 = 1024;
+  v10 = v4;
+  v11 = 2080;
+  v12 = a2;
+  v13 = 1024;
+  v14 = a3;
+  _os_log_fault_impl(&dword_29810C000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "'%s' (pid %d) opened %d '%s' user clients (%d total)\n", &v5, 0x28u);
 }
 
 void SMCCloseAppleSMC_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCKextCall_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCOpenConnection_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCOpenConnection_cold_2()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCOpenConnectionWithDefaultService_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCCloseConnection_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void SMCConvertNumericToBytes_cold_1(int *a1)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Eu);
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void SMCAccumIsSupported_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCRegisterForSubTypeNotification_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCRegisterForSubTypeNotification_cold_2()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void SMCRegisterForSubTypeNotification_cold_4()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void __SMCRegisterForSubTypeNotification_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void __SMCRegisterForSubTypeNotification_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void __SMCRegisterForSubTypeNotification_block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void _unregisterForNotification_cold_2()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }

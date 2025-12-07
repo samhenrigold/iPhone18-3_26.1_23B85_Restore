@@ -25,7 +25,7 @@
 
 - (id)nextObject
 {
-  *&v25[5] = *MEMORY[0x1E69E9840];
+  *&v24[5] = *MEMORY[0x1E69E9840];
   nextObject = [(NSEnumerator *)self->_personalitiesPaths nextObject];
   if (nextObject)
   {
@@ -37,9 +37,9 @@
       {
         v6 = v5;
         v7 = [_GCDeviceDBPersonality alloc];
-        v19 = 0;
-        v8 = [(_GCDeviceDBPersonality *)v7 initWithURL:v6 error:&v19];
-        v9 = v19;
+        v18 = 0;
+        v8 = [(_GCDeviceDBPersonality *)v7 initWithURL:v6 error:&v18];
+        v9 = v18;
         v10 = v9;
         if (v8)
         {
@@ -48,7 +48,7 @@
         }
 
         code = [v9 code];
-        v12 = _gc_log_devicedb();
+        v12 = _gc_log_devicedb(code);
         if (code == 5)
         {
           v13 = v12;
@@ -57,9 +57,9 @@
             path = [v6 path];
             localizedFailureReason = [v10 localizedFailureReason];
             *buf = 138412546;
-            v21 = path;
-            v22 = 2114;
-            v23 = localizedFailureReason;
+            v20 = path;
+            v21 = 2114;
+            v22 = localizedFailureReason;
             _os_log_debug_impl(&dword_1D2C3B000, v13, OS_LOG_TYPE_DEBUG, "📦 Skipping loading device personality at '%@': %{public}@.", buf, 0x16u);
           }
         }
@@ -70,7 +70,7 @@
           if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v21 = v10;
+            v20 = v10;
             _os_log_fault_impl(&dword_1D2C3B000, v13, OS_LOG_TYPE_FAULT, "📦 Error loading device personality: %@", buf, 0xCu);
           }
         }
@@ -78,7 +78,7 @@
 
       else
       {
-        [(_GCDeviceDBBundleDevicePersonalitiesEnumerator *)v24 nextObject];
+        [(_GCDeviceDBBundleDevicePersonalitiesEnumerator *)v23 nextObject];
       }
 
       nextObject2 = [(NSEnumerator *)self->_personalitiesPaths nextObject];
@@ -94,14 +94,13 @@
 
   v8 = 0;
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)nextObject
 {
-  v6 = _gc_log_devicedb();
+  v6 = _gc_log_devicedb(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     *self = 138412290;

@@ -10,8 +10,8 @@ uint64_t __114__LNValue_Serialization__valueFromSerializedRepresentation_valueTy
   v4 = [v2 identifier];
   v5 = [v3 identifier];
 
-  v6 = [v4 isEqualToString:v5];
-  return v6;
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
+  return isEqualToString;
 }
 
 @end

@@ -153,42 +153,40 @@ LABEL_11:
 
 - (id)bedtimeDateIntervalForWakeTime:(id)time calendar:(id)calendar
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   timeCopy = time;
   calendarCopy = calendar;
   bedTimeComponents = [(HKSleepSchedule *)self bedTimeComponents];
   v9 = [calendarCopy nextDateAfterDate:timeCopy matchingComponents:bedTimeComponents options:516];
 
-  if (v9 && [timeCopy hk_isAfterOrEqualToDate:v9])
+  if (v9 && (v10 = [timeCopy hk_isAfterOrEqualToDate:v9], v10))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v9 endDate:timeCopy];
+    v12 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v9 endDate:timeCopy];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v11 = HKLogSleep;
+    _HKInitializeLogging(v10, v11);
+    v13 = HKLogSleep;
     if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_ERROR))
     {
-      v14 = v11;
-      v16 = 138544130;
-      v17 = objc_opt_class();
-      v18 = 2112;
-      v19 = timeCopy;
-      v20 = 2112;
-      v21 = v9;
-      v22 = 2112;
+      v15 = v13;
+      v17 = 138544130;
+      v18 = objc_opt_class();
+      v19 = 2112;
+      v20 = timeCopy;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
       selfCopy = self;
-      v15 = v17;
-      _os_log_error_impl(&dword_19197B000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] Found invalid bedtime interval (%@ - %@) for schedule: %@", &v16, 0x2Au);
+      v16 = v18;
+      _os_log_error_impl(&dword_19197B000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Found invalid bedtime interval (%@ - %@) for schedule: %@", &v17, 0x2Au);
     }
 
-    v10 = 0;
+    v12 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v12;
 }
 
 - (id)bedtimeDateIntervalForMorningIndex:(int64_t)index calendar:(id)calendar

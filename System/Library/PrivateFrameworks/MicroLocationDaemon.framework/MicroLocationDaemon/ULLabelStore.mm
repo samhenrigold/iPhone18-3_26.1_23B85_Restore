@@ -12,6 +12,7 @@
 - (uint64_t)insertDataObjects:forScanningEventUUID:andServiceUUID:;
 - (vector<ULLabelDO,)fetchAllRecordsWithLimit:(ULLabelStore *)self;
 - (vector<ULLabelDOAndObjectID,)fetchAllLabelsAndObjectIDsASCWithLOIGroupUUID:(ULLabelStore *)self;
+- (vector<ULLabelDOAndObjectID,)fetchLabelsWithLOIGroupUUID:(ULLabelStore *)self andContextLayers:(SEL)layers limit:(const uuid *)limit ascending:(const void *)ascending;
 @end
 
 @implementation ULLabelStore
@@ -40,107 +41,102 @@
 
 - (BOOL)insertDataObjects:(const void *)objects forScanningEventUUID:(const uuid *)d andServiceUUID:(const uuid *)iD
 {
-  v23 = *MEMORY[0x277D85DE8];
   if (*objects == *(objects + 1))
   {
-    v14 = 1;
+    return 1;
+  }
+
+  dbStore = [(ULStore *)self dbStore];
+  v9 = (*(dbStore->var0 + 18))(dbStore);
+  managedObjectContext = [(ULStore *)self managedObjectContext];
+  v21 = [v9 fetchScanningEventManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+
+  if (v21)
+  {
+    dbStore2 = [(ULStore *)self dbStore];
+    v12 = (*(dbStore2->var0 + 13))(dbStore2);
+    managedObjectContext2 = [(ULStore *)self managedObjectContext];
+    v20 = [v12 fetchServiceManagedObjectWithUUID:iD withManagedObjectContext:managedObjectContext2];
+
+    if (v20)
+    {
+      operator new();
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      [ULLabelStore insertDataObjects:forScanningEventUUID:andServiceUUID:];
+    }
+
+    v17 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      operator new();
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      [ULLabelStore insertDataObjects:forScanningEventUUID:andServiceUUID:];
+    }
+
+    v18 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v18))
+    {
+      operator new();
+    }
+
+    [(ULStore *)self resetMOC];
+    v14 = 0;
   }
 
   else
   {
-    dbStore = [(ULStore *)self dbStore];
-    v9 = (*(dbStore->var0 + 18))(dbStore);
-    managedObjectContext = [(ULStore *)self managedObjectContext];
-    v22 = [v9 fetchScanningEventManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
-
-    if (v22)
+    if (onceToken_MicroLocation_Default != -1)
     {
-      dbStore2 = [(ULStore *)self dbStore];
-      v12 = (*(dbStore2->var0 + 13))(dbStore2);
-      managedObjectContext2 = [(ULStore *)self managedObjectContext];
-      v21 = [v12 fetchServiceManagedObjectWithUUID:iD withManagedObjectContext:managedObjectContext2];
-
-      if (v21)
-      {
-        operator new();
-      }
-
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULLabelStore insertDataObjects:forScanningEventUUID:andServiceUUID:];
-      }
-
-      v17 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        operator new();
-      }
-
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULLabelStore insertDataObjects:forScanningEventUUID:andServiceUUID:];
-      }
-
-      v18 = logObject_MicroLocation_Default;
-      if (os_signpost_enabled(v18))
-      {
-        operator new();
-      }
-
-      [(ULStore *)self resetMOC];
-      v14 = 0;
+      [ULLabelStore insertDataObjects:forScanningEventUUID:andServiceUUID:];
     }
 
-    else
+    v15 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULLabelStore insertDataObjects:forScanningEventUUID:andServiceUUID:];
-      }
-
-      v15 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        operator new();
-      }
-
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULLabelStore insertDataObjects:forScanningEventUUID:andServiceUUID:];
-      }
-
-      v16 = logObject_MicroLocation_Default;
-      if (os_signpost_enabled(v16))
-      {
-        operator new();
-      }
-
-      [(ULStore *)self resetMOC];
-      v14 = 0;
+      operator new();
     }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      [ULLabelStore insertDataObjects:forScanningEventUUID:andServiceUUID:];
+    }
+
+    v16 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v16))
+    {
+      operator new();
+    }
+
+    [(ULStore *)self resetMOC];
+    return 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)insertDataObjects:(const void *)objects atLoiUUID:(const uuid *)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   dbStore = [(ULStore *)self dbStore];
   v8 = (*(dbStore->var0 + 8))(dbStore);
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v15 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+  v14 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
 
-  if (v15)
+  if (v14)
   {
-    v17[0] = &unk_286A56450;
-    v17[1] = &v15;
-    v17[2] = &selfCopy;
-    v17[3] = v17;
-    inserted = ULDBUtils::insertDataObjects<ULLabelDO,ULLabelMO>(self, objects, v17);
-    std::__function::__value_func<ULLabelMO * ()(ULLabelDO const&)>::~__value_func[abi:ne200100](v17);
+    v16[0] = &unk_286A56450;
+    v16[1] = &v14;
+    v16[2] = &selfCopy;
+    v16[3] = v16;
+    inserted = ULDBUtils::insertDataObjects<ULLabelDO,ULLabelMO>(self, objects, v16);
+    std::__function::__value_func<ULLabelMO * ()(ULLabelDO const&)>::~__value_func[abi:ne200100](v16);
   }
 
   else
@@ -168,10 +164,9 @@
     }
 
     [(ULStore *)self resetMOC];
-    inserted = 0;
+    return 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return inserted;
 }
 
@@ -226,8 +221,55 @@
 {
   memset(v5, 0, sizeof(v5));
   v6 = 1065353216;
-  [(ULLabelStore *)self fetchLabelsWithLOIGroupUUID:a4 andContextLayers:v5 limit:0 ascending:1];
+  objc_msgSend_fetchLabelsWithLOIGroupUUID_andContextLayers_limit_ascending_(self, a3, a4, v5, 0, 1);
   return std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(v5);
+}
+
+- (vector<ULLabelDOAndObjectID,)fetchLabelsWithLOIGroupUUID:(ULLabelStore *)self andContextLayers:(SEL)layers limit:(const uuid *)limit ascending:(const void *)ascending
+{
+  v7 = a7;
+  v28[1] = *MEMORY[0x277D85DE8];
+  retstr->var0 = 0;
+  retstr->var1 = 0;
+  retstr->var2 = 0;
+  v13 = objc_autoreleasePoolPush();
+  v14 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:limit];
+  uUIDString = [v14 UUIDString];
+
+  array = [MEMORY[0x277CBEB18] array];
+  array2 = [MEMORY[0x277CBEB18] array];
+  for (i = *(ascending + 2); i; i = *i)
+  {
+    if (i[2])
+    {
+      v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+      [array2 addObject:v19];
+    }
+  }
+
+  v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K = %@", @"loi", @"loiGroupId", uUIDString];
+  [array addObject:v20];
+
+  if ([array2 count])
+  {
+    v21 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"contextLayerType", array2];
+    [array addObject:v21];
+  }
+
+  v22 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"receivedTimestamp" ascending:v7];
+  v28[0] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  ULDBUtils::fetchDataObjects<ULLabelDOAndObjectID,ULLabelMO>(self, array, v23, a6, &v25);
+  std::vector<ULLabelDOAndObjectID>::__vdeallocate(retstr);
+  *&retstr->var0 = v25;
+  retstr->var2 = v26;
+  v26 = 0;
+  v25 = 0uLL;
+  v27 = &v25;
+  std::vector<ULLabelDOAndObjectID>::__destroy_vector::operator()[abi:ne200100](&v27);
+
+  objc_autoreleasePoolPop(v13);
+  return result;
 }
 
 - (__n128)insertDataObjects:forScanningEventUUID:andServiceUUID:

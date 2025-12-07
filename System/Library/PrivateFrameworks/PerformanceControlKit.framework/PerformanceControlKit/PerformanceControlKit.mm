@@ -112,33 +112,33 @@ uint64_t std::__function::__value_func<void ()(clpc::user::ioreport::Sample)>::~
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -146,44 +146,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void clpc::user::iokit::Object::~Object(clpc::user::iokit::Object *this)
@@ -277,145 +277,140 @@ void clpc::user::ioreport::Subscription::~Subscription(clpc::user::ioreport::Sub
   JUMPOUT(0x25F8B1040);
 }
 
-void clpc::user::ioreport::ChannelList::withAllChannels(uint64_t a1@<X8>)
+void clpc::user::ioreport::ChannelList::withAllChannels(uint64_t a3@<X8>)
 {
-  v2 = IOReportCopyAllChannels();
-  if (v2)
-  {
-    *a1 = v2;
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 0;
-    *a1 = 0;
-  }
-
-  *(a1 + 8) = v3;
-}
-
-void clpc::user::ioreport::ChannelList::fromCategories(uint64_t a1@<X8>)
-{
-  v2 = IOReportCopyChannelsInCategories();
-  if (v2)
-  {
-    *a1 = v2;
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 0;
-    *a1 = 0;
-  }
-
-  *(a1 + 8) = v3;
-}
-
-void clpc::user::ioreport::ChannelList::fromFormat(uint64_t a1@<X8>)
-{
-  v2 = IOReportCopyChannelsOfFormat();
-  if (v2)
-  {
-    *a1 = v2;
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 0;
-    *a1 = 0;
-  }
-
-  *(a1 + 8) = v3;
-}
-
-void clpc::user::ioreport::ChannelList::fromGroup(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  v4 = a1;
-  if (*(a1 + 23) < 0)
-  {
-    v4 = *a1;
-  }
-
-  v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v4];
-  if (*(a2 + 23) < 0)
-  {
-    a2 = *a2;
-  }
-
-  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
-  clpc::user::ioreport::ChannelList::fromGroup(v7, v6, a3);
-}
-
-void clpc::user::ioreport::ChannelList::fromGroup(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
-{
-  v5 = a1;
-  v6 = a2;
-  v7 = IOReportCopyChannelsInGroup();
-  if (v7)
-  {
-    *a3 = v7;
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = 0;
-    *a3 = 0;
-  }
-
-  *(a3 + 8) = v8;
-}
-
-void clpc::user::ioreport::ChannelList::fromProvider(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *(a1 + 8);
-  v4 = IOReportCopyChannelsForDriver();
+  v4 = IOReportCopyAllChannels();
   if (v4)
   {
-    *a2 = v4;
+    *a3 = v4;
     v5 = 1;
   }
 
   else
   {
     v5 = 0;
-    *a2 = 0;
+    *a3 = 0;
   }
 
-  *(a2 + 8) = v5;
+  *(a3 + 8) = v5;
+}
+
+void clpc::user::ioreport::ChannelList::fromCategories(uint64_t a4@<X8>)
+{
+  v5 = IOReportCopyChannelsInCategories();
+  if (v5)
+  {
+    *a4 = v5;
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 0;
+    *a4 = 0;
+  }
+
+  *(a4 + 8) = v6;
+}
+
+void clpc::user::ioreport::ChannelList::fromFormat(uint64_t a4@<X8>)
+{
+  v5 = IOReportCopyChannelsOfFormat();
+  if (v5)
+  {
+    *a4 = v5;
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 0;
+    *a4 = 0;
+  }
+
+  *(a4 + 8) = v6;
+}
+
+void clpc::user::ioreport::ChannelList::fromGroup(uint64_t *a1@<X0>, uint64_t **a2@<X1>, uint64_t a4@<X3>, uint64_t x8_0@<X8>)
+{
+  v6 = a1;
+  if (*(a1 + 23) < 0)
+  {
+    v6 = *a1;
+  }
+
+  v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v6, a4}];
+  if (*(a2 + 23) < 0)
+  {
+    a2 = *a2;
+  }
+
+  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
+  clpc::user::ioreport::ChannelList::fromGroup(v9, v8, x8_0);
+}
+
+void clpc::user::ioreport::ChannelList::fromGroup(void *a1@<X0>, void *a2@<X1>, uint64_t a5@<X8>)
+{
+  v7 = a1;
+  v8 = a2;
+  v9 = IOReportCopyChannelsInGroup();
+  if (v9)
+  {
+    *a5 = v9;
+    v10 = 1;
+  }
+
+  else
+  {
+    v10 = 0;
+    *a5 = 0;
+  }
+
+  *(a5 + 8) = v10;
+}
+
+void clpc::user::ioreport::ChannelList::fromProvider(uint64_t a4@<X8>)
+{
+  v5 = IOReportCopyChannelsForDriver();
+  if (v5)
+  {
+    *a4 = v5;
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 0;
+    *a4 = 0;
+  }
+
+  *(a4 + 8) = v6;
 }
 
 void anonymous namespace::populate_error_unsupported_stat(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unsupported stat ID %llu.", a1];
-    v6 = *MEMORY[0x277CCA068];
-    v7[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = *MEMORY[0x277CCA068];
+    v6[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
     *a2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"CLPCErrorDomain" code:-536870206 userInfo:v4];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void anonymous namespace::populate_error_unsupported_schema(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unsupported schema ID %lu.", a1];
-    v6 = *MEMORY[0x277CCA068];
-    v7[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = *MEMORY[0x277CCA068];
+    v6[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
     *a2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"CLPCErrorDomain" code:-536870206 userInfo:v4];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25E3B94AC(_Unwind_Exception *a1)
@@ -425,33 +420,33 @@ void sub_25E3B94AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25E3BA5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, char a30, int a31, int a32, std::random_device a33, void *__p, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61)
+void sub_25E3BA5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, char a30, int a31, int a32, std::random_device argB4, void *a33, void *__p, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, void *a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61)
 {
   std::__function::__value_func<void ()(clpc::user::ioreport::Channel)>::~__value_func[abi:ne200100](&STACK[0x2D0]);
   if (a30)
   {
   }
 
-  if (*(v62 - 168) == 1)
+  if (*(v63 - 168) == 1)
   {
   }
 
-  std::random_device::~random_device(&a33);
-  if (__p)
+  std::random_device::~random_device(&argB4);
+  if (a33)
   {
-    a35 = __p;
-    operator delete(__p);
+    __p = a33;
+    operator delete(a33);
   }
 
-  std::__hash_table<CLPCReportingStatID,std::hash<CLPCReportingStatID>,std::equal_to<CLPCReportingStatID>,std::allocator<CLPCReportingStatID>>::~__hash_table(&a37);
-  if (a43)
+  std::__hash_table<CLPCReportingStatID,std::hash<CLPCReportingStatID>,std::equal_to<CLPCReportingStatID>,std::allocator<CLPCReportingStatID>>::~__hash_table(&a36);
+  if (a42)
   {
-    a44 = a43;
-    operator delete(a43);
+    a43 = a42;
+    operator delete(a42);
   }
 
-  std::__hash_table<CLPCReportingStatID,std::hash<CLPCReportingStatID>,std::equal_to<CLPCReportingStatID>,std::allocator<CLPCReportingStatID>>::~__hash_table(&a47);
-  std::__hash_table<CLPCReportingStatID,std::hash<CLPCReportingStatID>,std::equal_to<CLPCReportingStatID>,std::allocator<CLPCReportingStatID>>::~__hash_table(&a53);
+  std::__hash_table<CLPCReportingStatID,std::hash<CLPCReportingStatID>,std::equal_to<CLPCReportingStatID>,std::allocator<CLPCReportingStatID>>::~__hash_table(&a46);
+  std::__hash_table<CLPCReportingStatID,std::hash<CLPCReportingStatID>,std::equal_to<CLPCReportingStatID>,std::allocator<CLPCReportingStatID>>::~__hash_table(&a52);
 
   _Unwind_Resume(a1);
 }
@@ -465,30 +460,26 @@ id clpc::user::iokit::RegistryEntry::createProperty(clpc::user::iokit::RegistryE
 
 void anonymous namespace::populate_error_property_read(void *a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v4 = *MEMORY[0x277CCA068];
-    v5[0] = @"Failed to read AppleCLPC property.";
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+    v3 = *MEMORY[0x277CCA068];
+    v4[0] = @"Failed to read AppleCLPC property.";
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
     *a1 = [MEMORY[0x277CCA9B8] errorWithDomain:@"CLPCErrorDomain" code:-536870199 userInfo:v2];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void anonymous namespace::populate_error_internal(void *a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v4 = *MEMORY[0x277CCA068];
-    v5[0] = @"An internal error occurred.";
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+    v3 = *MEMORY[0x277CCA068];
+    v4[0] = @"An internal error occurred.";
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
     *a1 = [MEMORY[0x277CCA9B8] errorWithDomain:@"CLPCErrorDomain" code:-536870199 userInfo:v2];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void std::vector<std::pair<unsigned long,int>>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
@@ -574,13 +565,10 @@ void sub_25E3BAB2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t clpc::user::ioreport::ChannelList::iterate(uint64_t *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  std::__function::__value_func<void ()(clpc::user::ioreport::Channel)>::__value_func[abi:ne200100](v5, a2);
+  v3[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(clpc::user::ioreport::Channel)>::__value_func[abi:ne200100](v3, a2);
   IOReportIterate();
-  result = std::__function::__value_func<void ()(clpc::user::ioreport::Channel)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(clpc::user::ioreport::Channel)>::~__value_func[abi:ne200100](v3);
 }
 
 uint64_t clpc::user::iokit::Service::firstMatching@<X0>(const char *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
@@ -615,7 +603,7 @@ LABEL_7:
   return result;
 }
 
-void sub_25E3BB510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, char a18, int a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25E3BB510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, char a18, int a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   if (*(v33 - 152) == 1)
   {
@@ -633,59 +621,55 @@ void sub_25E3BB510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void clpc::user::ioreport::ChannelList::subscribe(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void clpc::user::ioreport::ChannelList::subscribe(uint64_t a3@<X8>)
 {
-  v11 = 0;
-  v12 = 0;
-  CFAllocatorGetDefault();
-  v4 = *a1;
-  Subscription = IOReportCreateSubscription();
-  v8 = &unk_2870185D8;
-  v9 = Subscription;
   v10 = 0;
+  v11 = 0;
+  CFAllocatorGetDefault();
+  Subscription = IOReportCreateSubscription();
+  v7 = &unk_2870185D8;
+  v8 = Subscription;
+  v9 = 0;
   if (Subscription)
   {
-    v6 = v12 == 0;
+    v5 = v11 == 0;
   }
 
   else
   {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = 0;
+    *a3 = 0;
+  }
+
+  else
+  {
+    *a3 = &unk_2870185D8;
+    *(a3 + 8) = Subscription;
+    *(a3 + 16) = 0;
+    v8 = 0;
     v6 = 1;
   }
 
-  if (v6)
-  {
-    v7 = 0;
-    *a2 = 0;
-  }
-
-  else
-  {
-    *a2 = &unk_2870185D8;
-    *(a2 + 8) = Subscription;
-    *(a2 + 16) = 0;
-    v9 = 0;
-    v7 = 1;
-  }
-
-  *(a2 + 24) = v7;
-  clpc::user::ioreport::Subscription::~Subscription(&v8);
+  *(a3 + 24) = v6;
+  clpc::user::ioreport::Subscription::~Subscription(&v7);
 }
 
-void *std::vector<CLPCReportingStatID>::reserve(void *result, unint64_t a2)
+void std::vector<CLPCReportingStatID>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::allocator<CLPCReportingStatID>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<CLPCReportingStatID>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<std::pair<unsigned long,int>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_25E3BCCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
@@ -697,23 +681,23 @@ void sub_25E3BCCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void clpc::user::iokit::CLPC::performRPC(clpc::user::iokit::CLPC *this@<X0>, NSObject *a2@<X1>, NSObject *a3@<X2>, uint64_t a4@<X8>)
+void clpc::user::iokit::CLPC::performRPC(uint64_t *__return_ptr a1@<X8>, clpc::user::iokit::CLPC *this@<X0>, NSObject *a3@<X1>, NSObject *a4@<X2>)
 {
-  clpc::user::iokit::CLPC::serializeRPC(a2, a3, &v14);
+  clpc::user::iokit::CLPC::serializeRPC(&v14, a3, a4);
   if (v15)
   {
-    clpc::user::iokit::CLPC::performRPCWithXML(this, v14, &v11);
+    clpc::user::iokit::CLPC::performRPCWithXML(&v11, this, v14);
     v6 = v12;
     if (v12 || !v11)
     {
-      *a4 = 0;
+      *a1 = 0;
     }
 
     else
     {
       if (v13 != 1)
       {
-        clpc::user::iokit::CLPC::unserializeRPCReply(v11, &v9);
+        clpc::user::iokit::CLPC::unserializeRPCReply(&v9, v11);
         if (v10)
         {
           v7 = v9;
@@ -726,28 +710,28 @@ void clpc::user::iokit::CLPC::performRPC(clpc::user::iokit::CLPC *this@<X0>, NSO
           v8 = -536870199;
         }
 
-        *a4 = v7;
-        *(a4 + 8) = v8;
+        *a1 = v7;
+        *(a1 + 2) = v8;
 
         goto LABEL_13;
       }
 
-      *a4 = v11;
+      *a1 = v11;
       v6 = v12;
     }
 
-    *(a4 + 8) = v6;
+    *(a1 + 2) = v6;
 LABEL_13:
 
     goto LABEL_14;
   }
 
-  *a4 = 0;
-  *(a4 + 8) = -536870206;
+  *a1 = 0;
+  *(a1 + 2) = -536870206;
 LABEL_14:
 }
 
-void sub_25E3BDD94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p, uint64_t a46, uint64_t a47, char a48, void *a49)
+void sub_25E3BDD94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p, uint64_t a46, uint64_t a47, uint64_t a48, void *a49)
 {
   if (__p)
   {
@@ -759,7 +743,7 @@ void sub_25E3BDD94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -845,7 +829,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -859,17 +843,17 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -885,7 +869,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -893,7 +877,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -917,7 +901,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -1052,9 +1036,9 @@ void std::allocator<CLPCReportingStatID>::allocate_at_least[abi:ne200100](uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void sub_25E3BF22C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E3BF22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   clpc::user::ioreport::Sample::~Sample(va);
   _Unwind_Resume(a1);
 }
@@ -1090,45 +1074,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,CLPCReportingS
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -1151,48 +1127,48 @@ BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void clpc::user::iokit::CLPC::serializeRPC(clpc::user::iokit::CLPC *this@<X0>, NSObject *a2@<X1>, uint64_t a3@<X8>)
+void clpc::user::iokit::CLPC::serializeRPC(uint64_t *__return_ptr a1@<X8>, clpc::user::iokit::CLPC *this@<X0>, NSObject *a3@<X1>)
 {
-  v6 = this;
-  v7 = a2;
-  v24 = objc_opt_class();
+  v5 = this;
+  v6 = a3;
   v23 = objc_opt_class();
   v22 = objc_opt_class();
   v21 = objc_opt_class();
   v20 = objc_opt_class();
+  v19 = objc_opt_class();
   objc_opt_class();
-  v13 = &v23;
-  v14 = &v20;
-  v15 = &v19;
-  v16 = &v22;
-  v17 = &v21;
-  v19 = v18 = &v24;
-  v8 = xmlNewNode(0, "dict");
-  if (xmlNewChild(v8, 0, "key", "method") && _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(&v13, &v13, v8, v6) && xmlNewChild(v8, 0, "key", "params") && _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(&v13, &v13, v8, v7))
+  v12 = &v22;
+  v13 = &v19;
+  v14 = &v18;
+  v15 = &v21;
+  v16 = &v20;
+  v18 = v17 = &v23;
+  v7 = xmlNewNode(0, "dict");
+  if (xmlNewChild(v7, 0, "key", "method") && _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(&v12, &v12, v7, v5) && xmlNewChild(v7, 0, "key", "params") && _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(&v12, &v12, v7, v6))
   {
-    v9 = [MEMORY[0x277CBEB28] data];
-    IO = xmlOutputBufferCreateIO(clpc::user::iokit::CLPC::serializeRPC(NSObject *,NSObject *)::{lambda(void *,char const*,int)#1}::__invoke, 0, v9, 0);
-    xmlNodeDumpOutput(IO, v8->doc, v8, 0, 0, "UTF-8");
+    v8 = [MEMORY[0x277CBEB28] data];
+    IO = xmlOutputBufferCreateIO(clpc::user::iokit::CLPC::serializeRPC(NSObject *,NSObject *)::{lambda(void *,char const*,int)#1}::__invoke, 0, v8, 0);
+    xmlNodeDumpOutput(IO, v7->doc, v7, 0, 0, "UTF-8");
     xmlOutputBufferClose(IO);
-    v11 = 1;
-    [v9 appendBytes:&unk_25E3CC2C9 length:1];
-    v12 = v9;
+    v10 = 1;
+    [v8 appendBytes:&unk_25E3CC2C9 length:1];
+    v11 = v8;
   }
 
   else
   {
-    v12 = 0;
     v11 = 0;
+    v10 = 0;
   }
 
-  xmlFreeNode(v8);
-  *a3 = v12;
-  *(a3 + 8) = v11;
+  xmlFreeNode(v7);
+  *a1 = v11;
+  *(a1 + 8) = v10;
 }
 
-void clpc::user::iokit::CLPC::performRPCWithXML(clpc::user::iokit::CLPC *this@<X0>, NSData *a2@<X1>, uint64_t a3@<X8>)
+void clpc::user::iokit::CLPC::performRPCWithXML(uint64_t *__return_ptr a1@<X8>, clpc::user::iokit::CLPC *this@<X0>, NSData *a3@<X1>)
 {
-  v10 = a2;
+  v10 = a3;
   v6 = clpc::user::iokit::CLPC::performRPCWithXMLInternal(this, [(NSData *)v10 bytes], [(NSData *)v10 length]);
   v7 = 0;
   v8 = 0;
@@ -1212,193 +1188,183 @@ void clpc::user::iokit::CLPC::performRPCWithXML(clpc::user::iokit::CLPC *this@<X
     }
   }
 
-  *a3 = v8;
-  *(a3 + 8) = v6;
-  *(a3 + 12) = v7;
+  *a1 = v8;
+  *(a1 + 2) = v6;
+  *(a1 + 12) = v7;
 }
 
-void clpc::user::iokit::CLPC::unserializeRPCReply(clpc::user::iokit::CLPC *this@<X0>, uint64_t a2@<X8>)
+void clpc::user::iokit::CLPC::unserializeRPCReply(uint64_t *__return_ptr a1@<X8>, clpc::user::iokit::CLPC *this@<X0>)
 {
-  v4 = this;
-  v5 = xmlParseDoc([(clpc::user::iokit::CLPC *)v4 UTF8String]);
-  v6 = xmlXPathNewContext(v5);
-  children = v5->children;
-  v6->node = children;
-  _ZZN4clpc4user5iokit4CLPC19unserializeRPCReplyEP8NSStringENKUlRT_P8_xmlNodeP16_xmlXPathContextE_clIKNS1_6detail16recursive_lambdaISB_EEEENSt3__14pairIU8__strongP8NSObjectbEES6_S8_SA_(&v11, children, v6, &v9);
-  xmlXPathFreeContext(v6);
-  xmlFreeDoc(v5);
-  v8 = v9;
-  *a2 = v8;
-  *(a2 + 8) = v10;
+  v3 = this;
+  v4 = xmlParseDoc([(clpc::user::iokit::CLPC *)v3 UTF8String]);
+  v5 = xmlXPathNewContext(v4);
+  children = v4->children;
+  v5->node = children;
+  _ZZN4clpc4user5iokit4CLPC19unserializeRPCReplyEP8NSStringENKUlRT_P8_xmlNodeP16_xmlXPathContextE_clIKNS1_6detail16recursive_lambdaISB_EEEENSt3__14pairIU8__strongP8NSObjectbEES6_S8_SA_(&v10, children, v5, &v8);
+  xmlXPathFreeContext(v5);
+  xmlFreeDoc(v4);
+  v7 = v8;
+  *a1 = v7;
+  *(a1 + 8) = v9;
 }
 
-uint64_t _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(uint64_t **a1, uint64_t a2, xmlNode *a3, void *a4)
+uint64_t _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(void **a1, void **a2, xmlNode *a3, void *a4)
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v7 = a4;
-  if (v7)
+  v44 = *MEMORY[0x277D85DE8];
+  v6 = a4;
+  if (v6)
   {
-    v8 = **a1;
     if (objc_opt_isKindOfClass())
     {
-      if ([v7 BOOLValue])
+      if ([v6 BOOLValue])
       {
-        v9 = "true";
+        v7 = "true";
       }
 
       else
       {
-        v9 = "false";
+        v7 = "false";
       }
 
-      xmlNewChild(a3, 0, v9, 0);
+      xmlNewChild(a3, 0, v7, 0);
       goto LABEL_8;
     }
 
-    v13 = *a1[1];
     if (objc_opt_isKindOfClass())
     {
-      v14 = v7;
-      if (CFNumberIsFloatType(v14))
+      v10 = v6;
+      if (CFNumberIsFloatType(v10))
       {
 
         goto LABEL_13;
       }
 
-      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%llx", objc_msgSend(v14, "unsignedLongLongValue")];
-      v20 = [v19 UTF8String];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%llx", objc_msgSend(v10, "unsignedLongLongValue")];
+      v14 = [v13 UTF8String];
 
-      v21 = xmlNewChild(a3, 0, "integer", v20);
-      xmlNewProp(v21, "size", "64");
+      v15 = xmlNewChild(a3, 0, "integer", v14);
+      xmlNewProp(v15, "size", "64");
+    }
+
+    else if (objc_opt_isKindOfClass())
+    {
+      xmlNewChild(a3, 0, "string", [v6 UTF8String]);
     }
 
     else
     {
-      v15 = *a1[2];
-      if (objc_opt_isKindOfClass())
+      if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        xmlNewChild(a3, 0, "string", [v7 UTF8String]);
-      }
-
-      else
-      {
-        v16 = *a1[3];
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        if (objc_opt_isKindOfClass())
         {
-          v22 = *a1[4];
-          if (objc_opt_isKindOfClass())
+          v32 = v6;
+          v16 = xmlNewNode(0, "dict");
+          xmlAddChild(a3, v16);
+          v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          v17 = v32;
+          v18 = [v17 countByEnumeratingWithState:&v38 objects:v43 count:16];
+          if (v18)
           {
-            v41 = v7;
-            v23 = xmlNewNode(0, "dict");
-            xmlAddChild(a3, v23);
-            v49 = 0u;
-            v50 = 0u;
-            v47 = 0u;
-            v48 = 0u;
-            v24 = v41;
-            v25 = [v24 countByEnumeratingWithState:&v47 objects:v52 count:16];
-            if (v25)
+            v33 = *v39;
+            while (2)
             {
-              v42 = *v48;
-              while (2)
+              for (i = 0; i != v18; ++i)
               {
-                for (i = 0; i != v25; ++i)
+                if (*v39 != v33)
                 {
-                  if (*v48 != v42)
-                  {
-                    objc_enumerationMutation(v24);
-                  }
+                  objc_enumerationMutation(v17);
+                }
 
-                  v27 = *(*(&v47 + 1) + 8 * i);
-                  v28 = *a1[2];
-                  if ((objc_opt_isKindOfClass() & 1) == 0)
-                  {
+                v20 = *(*(&v38 + 1) + 8 * i);
+                if ((objc_opt_isKindOfClass() & 1) == 0)
+                {
 
 LABEL_41:
-                    goto LABEL_13;
-                  }
-
-                  v29 = v27;
-                  xmlNewChild(v23, 0, "key", [v27 UTF8String]);
-                  v30 = [v24 objectForKeyedSubscript:v27];
-                  v31 = _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(a2, a2, v23, v30);
-
-                  if ((v31 & 1) == 0)
-                  {
-                    goto LABEL_41;
-                  }
+                  goto LABEL_13;
                 }
 
-                v25 = [v24 countByEnumeratingWithState:&v47 objects:v52 count:16];
-                if (v25)
+                v21 = v20;
+                xmlNewChild(v16, 0, "key", [v20 UTF8String]);
+                v22 = [v17 objectForKeyedSubscript:v20];
+                v23 = _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(a2, a2, v16, v22);
+
+                if ((v23 & 1) == 0)
                 {
-                  continue;
+                  goto LABEL_41;
                 }
-
-                break;
               }
-            }
 
-            goto LABEL_8;
-          }
-
-          v32 = *a1[5];
-          if (objc_opt_isKindOfClass())
-          {
-            v33 = v7;
-            v34 = xmlNewNode(0, "array");
-            xmlAddChild(a3, v34);
-            v45 = 0u;
-            v46 = 0u;
-            v43 = 0u;
-            v44 = 0u;
-            v35 = v33;
-            v36 = [v35 countByEnumeratingWithState:&v43 objects:v51 count:16];
-            if (v36)
-            {
-              v37 = *v44;
-              while (2)
+              v18 = [v17 countByEnumeratingWithState:&v38 objects:v43 count:16];
+              if (v18)
               {
-                for (j = 0; j != v36; ++j)
-                {
-                  if (*v44 != v37)
-                  {
-                    objc_enumerationMutation(v35);
-                  }
-
-                  v39 = *(*(&v43 + 1) + 8 * j);
-                  v40 = _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(a2, a2, v34, v39);
-
-                  if (!v40)
-                  {
-
-                    goto LABEL_13;
-                  }
-                }
-
-                v36 = [v35 countByEnumeratingWithState:&v43 objects:v51 count:16];
-                if (v36)
-                {
-                  continue;
-                }
-
-                break;
+                continue;
               }
-            }
 
-            goto LABEL_8;
+              break;
+            }
           }
 
-LABEL_13:
-          v10 = 0;
-          goto LABEL_9;
+          goto LABEL_8;
         }
 
-        v17 = [v7 base64EncodedStringWithOptions:0];
-        v18 = [v17 UTF8String];
+        if (objc_opt_isKindOfClass())
+        {
+          v24 = v6;
+          v25 = xmlNewNode(0, "array");
+          xmlAddChild(a3, v25);
+          v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
+          v26 = v24;
+          v27 = [v26 countByEnumeratingWithState:&v34 objects:v42 count:16];
+          if (v27)
+          {
+            v28 = *v35;
+            while (2)
+            {
+              for (j = 0; j != v27; ++j)
+              {
+                if (*v35 != v28)
+                {
+                  objc_enumerationMutation(v26);
+                }
 
-        xmlNewChild(a3, 0, "data", v18);
+                v30 = *(*(&v34 + 1) + 8 * j);
+                v31 = _ZZN4clpc4user5iokit4CLPC12serializeRPCEP8NSObjectS4_ENKUlRT_P8_xmlNodeS4_E_clIKNS1_6detail16recursive_lambdaIS9_EEEEbS6_S8_S4_(a2, a2, v25, v30);
+
+                if (!v31)
+                {
+
+                  goto LABEL_13;
+                }
+              }
+
+              v27 = [v26 countByEnumeratingWithState:&v34 objects:v42 count:16];
+              if (v27)
+              {
+                continue;
+              }
+
+              break;
+            }
+          }
+
+          goto LABEL_8;
+        }
+
+LABEL_13:
+        v8 = 0;
+        goto LABEL_9;
       }
+
+      v11 = [v6 base64EncodedStringWithOptions:0];
+      v12 = [v11 UTF8String];
+
+      xmlNewChild(a3, 0, "data", v12);
     }
   }
 
@@ -1408,11 +1374,10 @@ LABEL_13:
   }
 
 LABEL_8:
-  v10 = 1;
+  v8 = 1;
 LABEL_9:
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v8;
 }
 
 uint64_t clpc::user::iokit::CLPC::performRPCWithXMLInternal(clpc::user::iokit::CLPC *this, const void *a2, size_t a3)
@@ -1420,43 +1385,19 @@ uint64_t clpc::user::iokit::CLPC::performRPCWithXMLInternal(clpc::user::iokit::C
   v6 = *(this + 2);
   if (!v6)
   {
-    v7 = *(this + 3);
     operator new[]();
   }
 
   memset_s(v6, *(this + 3), 0, *(this + 3));
   outputStruct = *(this + 2);
-  v15 = *(this + 3);
-  LODWORD(result) = IOConnectCallMethod(*(this + 3), 0, 0, 0, a2, a3, 0, 0, outputStruct, &v15);
-  v10 = *(this + 3);
-  if (v15 >= v10)
+  v11 = *(this + 3);
+  LODWORD(result) = IOConnectCallMethod(*(this + 3), 0, 0, 0, a2, a3, 0, 0, outputStruct, &v11);
+  if (v11 >= *(this + 3) && *(this + 3) >> 25 == 0 && result == 0)
   {
-    v11 = *(this + 3) >> 25 == 0;
-    *(this + 3);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  if (v11 && result == 0)
-  {
-    *(this + 3) = 2 * v10;
+    *(this + 3) *= 2;
     operator new[]();
   }
 
-  if (v10 >= v15)
-  {
-    v13 = &v15;
-  }
-
-  else
-  {
-    v13 = (this + 24);
-  }
-
-  v14 = *v13;
   return result;
 }
 

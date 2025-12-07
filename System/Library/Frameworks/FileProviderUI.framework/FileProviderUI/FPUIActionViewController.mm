@@ -162,33 +162,33 @@
 
 - (void)viewDidLoad
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v31.receiver = self;
-  v31.super_class = FPUIActionViewController;
-  [(FPUIActionViewController *)&v31 viewDidLoad];
-  v30 = 0;
-  v3 = [(FPUIActionViewController *)self _getExtensionWithError:&v30];
-  v4 = v30;
+  v32 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = FPUIActionViewController;
+  [(FPUIActionViewController *)&v30 viewDidLoad];
+  v29 = 0;
+  v3 = [(FPUIActionViewController *)self _getExtensionWithError:&v29];
+  v4 = v29;
   v5 = v4;
   if (v3)
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __39__FPUIActionViewController_viewDidLoad__block_invoke;
-    v28[3] = &unk_278A51320;
-    v28[4] = self;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __39__FPUIActionViewController_viewDidLoad__block_invoke;
+    v27[3] = &unk_278A51320;
+    v27[4] = self;
     v6 = v3;
-    v29 = v6;
-    v7 = MEMORY[0x2383F1490](v28);
+    v28 = v6;
+    v7 = MEMORY[0x2383F1490](v27);
     v8 = MEMORY[0x277D761B8];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __39__FPUIActionViewController_viewDidLoad__block_invoke_4;
-    v26[3] = &unk_278A51348;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __39__FPUIActionViewController_viewDidLoad__block_invoke_4;
+    v25[3] = &unk_278A51348;
     v9 = v7;
-    v26[4] = self;
-    v27 = v9;
-    v10 = [v8 instantiateWithExtension:v6 completion:v26];
+    v25[4] = self;
+    v26 = v9;
+    v10 = [v8 instantiateWithExtension:v6 completion:v25];
     placeholderVC = self->_placeholderVC;
     self->_placeholderVC = v10;
 
@@ -200,31 +200,31 @@
 
     if ([(FPUIActionViewController *)self displayInline])
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       view2 = [(_UIResilientRemoteViewContainerViewController *)self->_placeholderVC view];
       subviews = [view2 subviews];
 
-      v16 = [subviews countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v16 = [subviews countByEnumeratingWithState:&v21 objects:v31 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v23;
+        v18 = *v22;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v23 != v18)
+            if (*v22 != v18)
             {
               objc_enumerationMutation(subviews);
             }
 
-            [*(*(&v22 + 1) + 8 * i) setBackgroundColor:0];
+            [*(*(&v21 + 1) + 8 * i) setBackgroundColor:0];
           }
 
-          v17 = [subviews countByEnumeratingWithState:&v22 objects:v32 count:16];
+          v17 = [subviews countByEnumeratingWithState:&v21 objects:v31 count:16];
         }
 
         while (v17);
@@ -242,8 +242,6 @@
     v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"FPUIActionViewControllerErrorDomain" code:1000 userInfo:0];
     [(FPUIActionViewController *)self _delegateError:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __39__FPUIActionViewController_viewDidLoad__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -415,20 +413,20 @@ void __39__FPUIActionViewController_viewDidLoad__block_invoke_4(uint64_t a1, uin
 {
   v5 = MEMORY[0x277CCA9C8];
   providerIdentifier = [(FPUIActionViewController *)self providerIdentifier];
-  v12 = 0;
-  v7 = [v5 extensionWithIdentifier:providerIdentifier error:&v12];
-  v8 = v12;
+  v14 = 0;
+  v7 = [v5 extensionWithIdentifier:providerIdentifier error:&v14];
+  v8 = v14;
 
   if (!v7)
   {
-    v9 = fpuiLogHandle;
+    v11 = fpuiLogHandle;
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v9 = fpuiLogHandle;
+      FPUIInitLogging(v9, v10);
+      v11 = fpuiLogHandle;
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       if (!error)
       {
@@ -438,11 +436,11 @@ void __39__FPUIActionViewController_viewDidLoad__block_invoke_4(uint64_t a1, uin
       goto LABEL_6;
     }
 
-    [(FPUIActionViewController *)v9 _getExtensionWithError:?];
+    [(FPUIActionViewController *)v11 _getExtensionWithError:?];
     if (error)
     {
 LABEL_6:
-      v10 = v8;
+      v12 = v8;
       *error = v8;
     }
   }
@@ -473,21 +471,22 @@ LABEL_7:
 
 - (void)_delegateDidFinishWithUserInfo:(id)info error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   errorCopy = error;
-  v8 = fpuiLogHandle;
+  v9 = errorCopy;
+  v10 = fpuiLogHandle;
   if (errorCopy)
   {
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v8 = fpuiLogHandle;
+      FPUIInitLogging(errorCopy, v8);
+      v10 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [FPUIActionViewController _delegateDidFinishWithUserInfo:v8 error:self];
+      [FPUIActionViewController _delegateDidFinishWithUserInfo:v10 error:self];
     }
   }
 
@@ -495,42 +494,41 @@ LABEL_7:
   {
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v8 = fpuiLogHandle;
+      FPUIInitLogging(0, v8);
+      v10 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = v8;
+      v11 = v10;
       actionIdentifier = [(FPUIActionViewController *)self actionIdentifier];
-      v16 = 138412290;
-      v17 = actionIdentifier;
-      _os_log_impl(&dword_238356000, v9, OS_LOG_TYPE_INFO, "Action with identifier (%@) did finish.", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = actionIdentifier;
+      _os_log_impl(&dword_238356000, v11, OS_LOG_TYPE_INFO, "Action with identifier (%@) did finish.", &v17, 0xCu);
     }
   }
 
   delegate = [(FPUIActionViewController *)self delegate];
-  v12 = objc_opt_respondsToSelector();
+  v14 = objc_opt_respondsToSelector();
 
   delegate2 = [(FPUIActionViewController *)self delegate];
-  v14 = delegate2;
-  if (v12)
+  v16 = delegate2;
+  if (v14)
   {
-    [delegate2 actionControllerDidFinishAction:self userInfo:infoCopy error:errorCopy];
+    [delegate2 actionControllerDidFinishAction:self userInfo:infoCopy error:v9];
   }
 
   else
   {
-    [delegate2 actionControllerDidFinishAction:self error:errorCopy];
+    [delegate2 actionControllerDidFinishAction:self error:v9];
   }
 
   [(FPUIActionViewController *)self _dismissViewController];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteActionContext:(id)context didEncounterError:(id)error completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   handlerCopy = handler;
   delegate = [(FPUIActionViewController *)self delegate];
@@ -543,31 +541,29 @@ LABEL_7:
     block[2] = __84__FPUIActionViewController_remoteActionContext_didEncounterError_completionHandler___block_invoke;
     block[3] = &unk_278A51398;
     block[4] = self;
-    v14 = errorCopy;
-    v15 = handlerCopy;
+    v15 = errorCopy;
+    v16 = handlerCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
   else
   {
-    v11 = fpuiLogHandle;
+    v13 = fpuiLogHandle;
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v11 = fpuiLogHandle;
+      FPUIInitLogging(v11, v12);
+      v13 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = errorCopy;
-      _os_log_impl(&dword_238356000, v11, OS_LOG_TYPE_INFO, "An error occurred on the service side, but the client won't present it: %@", buf, 0xCu);
+      v18 = errorCopy;
+      _os_log_impl(&dword_238356000, v13, OS_LOG_TYPE_INFO, "An error occurred on the service side, but the client won't present it: %@", buf, 0xCu);
     }
 
     handlerCopy[2](handlerCopy);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __84__FPUIActionViewController_remoteActionContext_didEncounterError_completionHandler___block_invoke(uint64_t a1)
@@ -585,24 +581,18 @@ void __84__FPUIActionViewController_remoteActionContext_didEncounterError_comple
 
 - (void)_getExtensionWithError:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 providerIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_238356000, v5, v6, "nil extension for provider ID (%@), error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_238356000, v5, v6, "nil extension for provider ID (%@), error: %@", v7, v8, v9, v10);
 }
 
 - (void)_delegateDidFinishWithUserInfo:(void *)a1 error:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 actionIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_238356000, v5, v6, "Action with identifier (%@) did finish with error (%@).", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_238356000, v5, v6, "Action with identifier (%@) did finish with error (%@).", v7, v8, v9, v10);
 }
 
 @end

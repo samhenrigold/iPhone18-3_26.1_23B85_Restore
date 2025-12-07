@@ -1,6 +1,6 @@
-void sub_2479F1ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2479F1ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -119,9 +119,9 @@ uint64_t __nodesAreInterpolationCompatible(uint64_t a1, uint64_t a2, uint64_t a3
         }
 
         v14 = a3;
-        ClassSet = __createClassSet();
-        v16 = __createClassSet();
-        v17 = __createClassSet();
+        ClassSet = __createClassSet(ChildAtIndex);
+        v16 = __createClassSet(v9);
+        v17 = __createClassSet(v10);
         if (![v16 isEqualToSet:ClassSet] || (objc_msgSend(v16, "isEqualToSet:", v17) & 1) == 0)
         {
 
@@ -168,12 +168,7 @@ uint64_t __nodesAreInterpolationCompatible(uint64_t a1, uint64_t a2, uint64_t a3
           v42[4] = &v45;
           CGPathApplyWithBlock(v20, v42);
           v21 = v50[3];
-          if (!v21)
-          {
-            goto LABEL_21;
-          }
-
-          if (v54[3] == v21 && v46[3] == v21)
+          if (v21 && v54[3] == v21 && v46[3] == v21)
           {
             v38 = 0;
             v39 = &v38;
@@ -216,22 +211,7 @@ uint64_t __nodesAreInterpolationCompatible(uint64_t a1, uint64_t a2, uint64_t a3
             v23[5] = &v34;
             v23[6] = &v24;
             CGPathApplyWithBlock(v20, v23);
-            if (*(v30 + 24) != 1)
-            {
-              goto LABEL_25;
-            }
-
-            if (v25[3])
-            {
-              v22 = 1;
-            }
-
-            else
-            {
-LABEL_25:
-              v22 = 0;
-            }
-
+            v22 = *(v30 + 24) == 1 && (v25[3] & 1) != 0;
             free(v39[3]);
             _Block_object_dispose(&v24, 8);
             _Block_object_dispose(&v29, 8);
@@ -241,7 +221,6 @@ LABEL_25:
 
           else
           {
-LABEL_21:
             v22 = 0;
           }
 
@@ -252,7 +231,7 @@ LABEL_21:
           _Block_object_dispose(&v49, 8);
           _Block_object_dispose(&v53, 8);
           a3 = v14;
-          if ((v22 & 1) == 0)
+          if (!v22)
           {
             return 0;
           }
@@ -278,23 +257,24 @@ LABEL_21:
   return result;
 }
 
-void sub_2479F527C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_2479F527C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a24, 8);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a45, 8);
-  _Block_object_dispose(&a49, 8);
-  _Block_object_dispose((v49 - 200), 8);
-  _Block_object_dispose((v49 - 168), 8);
-  _Block_object_dispose((v49 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v48 - 200), 8);
+  _Block_object_dispose((v48 - 168), 8);
+  _Block_object_dispose((v48 - 136), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __interpolateChildShapes(double a1, double a2, double a3, double a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t __interpolateChildShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7, double a8, double a9)
 {
   ChildCount = CGSVGNodeGetChildCount();
   result = CGSVGNodeGetChildCount();
-  v38 = ChildCount;
+  v35 = ChildCount;
   if (result == ChildCount)
   {
     result = CGSVGNodeGetChildCount();
@@ -305,7 +285,7 @@ uint64_t __interpolateChildShapes(double a1, double a2, double a3, double a4, do
       {
         if (ChildCount)
         {
-          for (i = 0; v38 != i; ++i)
+          for (i = 0; v35 != i; ++i)
           {
             ChildAtIndex = CGSVGNodeGetChildAtIndex();
             v20 = CGSVGNodeGetChildAtIndex();
@@ -315,7 +295,7 @@ uint64_t __interpolateChildShapes(double a1, double a2, double a3, double a4, do
             result = CGSVGNodeGetChildCount();
             if (result)
             {
-              result = __interpolateChildShapes(ChildAtIndex, v20, v21, v22, a1, a2, a3, a4, a5);
+              result = __interpolateChildShapes(ChildAtIndex, v20, v21, v22, a5, a6, a7, a8, a9);
             }
 
             if (Type != 2)
@@ -360,22 +340,19 @@ uint64_t __interpolateChildShapes(double a1, double a2, double a3, double a4, do
               if (Primitive != 16)
               {
 LABEL_16:
-                v36 = *MEMORY[0x277CBF2C0];
-                v37 = *(MEMORY[0x277CBF2C0] + 16);
-                v35 = *(MEMORY[0x277CBF2C0] + 32);
                 v25 = CUICreatePathFromSVGShapeNode();
                 v34 = CUICreatePathFromSVGShapeNode();
                 v26 = CUICreatePathFromSVGShapeNode();
                 v27 = v25;
-                v28 = [objc_alloc(MEMORY[0x277D02718]) initWithPointSize:v34 regular:v25 ultralight:v26 black:a5];
-                v29 = a8;
-                v30 = a9;
+                v28 = [objc_alloc(MEMORY[0x277D02718]) initWithPointSize:v34 regular:v25 ultralight:v26 black:a9];
+                v29 = a3;
+                v30 = a4;
                 v31 = v28;
-                [v28 pathForScalars:a1 andTransform:{a2, a3, a4}];
+                [v28 pathForScalars:a5 andTransform:{a6, a7, a8}];
                 CUIAddPathToSVGShapeNode();
 
-                a9 = v30;
-                a8 = v29;
+                a4 = v30;
+                a3 = v29;
 
                 goto LABEL_19;
               }
@@ -428,7 +405,7 @@ LABEL_19:
 
 id __CUIVectorGlyphGuideIDs_block_invoke()
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (__CUIVectorGlyphNodeIDs_onceToken != -1)
   {
     [TDVectorGlyphReader _readSVGNodesError:];
@@ -436,95 +413,92 @@ id __CUIVectorGlyphGuideIDs_block_invoke()
 
   v0 = __CUIVectorGlyphNodeIDs__CUIVectorGlyphNodeIDs;
   v1 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(__CUIVectorGlyphNodeIDs__CUIVectorGlyphNodeIDs, "count")}];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = [v0 countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v2 = [v0 countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v0);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         [v1 addObject:{objc_msgSend(@"left-margin", "stringByAppendingFormat:", @"-%@", v6)}];
         [v1 addObject:{objc_msgSend(@"right-margin", "stringByAppendingFormat:", @"-%@", v6)}];
       }
 
-      v3 = [v0 countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v3 = [v0 countByEnumeratingWithState:&v8 objects:v13 count:16];
     }
 
     while (v3);
   }
 
-  v13[0] = @"Baseline-S";
-  v13[1] = @"Capline-S";
-  v13[2] = @"Baseline-M";
-  v13[3] = @"Capline-M";
-  v13[4] = @"Baseline-L";
-  v13[5] = @"Capline-L";
-  v13[6] = @"left-margin";
-  v13[7] = @"right-margin";
-  result = [v1 arrayByAddingObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v13, 8)}];
+  v12[0] = @"Baseline-S";
+  v12[1] = @"Capline-S";
+  v12[2] = @"Baseline-M";
+  v12[3] = @"Capline-M";
+  v12[4] = @"Baseline-L";
+  v12[5] = @"Capline-L";
+  v12[6] = @"left-margin";
+  v12[7] = @"right-margin";
+  result = [v1 arrayByAddingObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v12, 8)}];
   CUIVectorGlyphGuideIDs__CUIVectorGlyphGuideIDs = result;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __createClassSet()
+void *__createClassSet(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (CGSVGNodeGetAttributeMap() && CGSVGAttributeMapGetAttribute())
   {
-    v0 = CGSVGAttributeCopyString();
-    v1 = [v0 componentsSeparatedByString:@" "];
-    v2 = objc_opt_new();
+    v1 = CGSVGAttributeCopyString();
+    v2 = [v1 componentsSeparatedByString:@" "];
+    v3 = objc_opt_new();
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v3)
+    v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v4)
     {
-      v4 = v3;
-      v5 = *v12;
+      v5 = v4;
+      v6 = *v11;
       do
       {
-        for (i = 0; i != v4; ++i)
+        for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v5)
+          if (*v11 != v6)
           {
-            objc_enumerationMutation(v1);
+            objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * i);
-          if (([v7 hasPrefix:@"monochrome-"] & 1) != 0 || (objc_msgSend(v7, "hasPrefix:", @"multicolor-") & 1) != 0 || objc_msgSend(v7, "hasPrefix:", @"hierarchical-"))
+          v8 = *(*(&v10 + 1) + 8 * i);
+          if (([v8 hasPrefix:@"monochrome-"] & 1) != 0 || (objc_msgSend(v8, "hasPrefix:", @"multicolor-") & 1) != 0 || objc_msgSend(v8, "hasPrefix:", @"hierarchical-"))
           {
-            [v2 addObject:v7];
+            [v3 addObject:v8];
           }
         }
 
-        v4 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
-      while (v4);
+      while (v5);
     }
 
-    v8 = *MEMORY[0x277D85DE8];
-    return v2;
+    return v3;
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     return objc_opt_new();
   }
@@ -592,16 +566,16 @@ uint64_t indexOfFirstUncommonItemInArrays(void *a1, void *a2)
   return v6;
 }
 
-void sub_247A099C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_247A099C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_247A152A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247A152A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -707,7 +681,6 @@ void sub_247A1CD58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     objc_begin_catch(exception_object);
     if (*(v13 + 160))
     {
-      v14 = *MEMORY[0x277CCA450];
       [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.CoreThemeDefinition" code:2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjectsAndKeys:", @"Exception Raised during asset import"}];
       NSLog(&cfstr_AssetImportDid.isa);
       (*(*(v13 + 160) + 16))();
@@ -727,7 +700,6 @@ void sub_247A1D29C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     objc_begin_catch(exception_object);
     if (*(v13 + 152))
     {
-      v14 = *MEMORY[0x277CCA450];
       [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.CoreThemeDefinition" code:2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjectsAndKeys:", @"Exception Raised during asset import (2)"}];
       NSLog(&cfstr_AssetImportDid.isa);
       (*(*(v13 + 152) + 16))();
@@ -753,12 +725,26 @@ void sub_247A208A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t __indexOfFirstUncommonItemInArrays_block_invoke(uint64_t result, void *a2, unint64_t a3, _BYTE *a4)
+void sub_247A26900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_247A27224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id *__indexOfFirstUncommonItemInArrays_block_invoke(id *result, void *a2, unint64_t a3, _BYTE *a4)
 {
   v6 = result;
-  if (*(result + 48) <= a3 || (result = [a2 isEqual:{objc_msgSend(*(result + 32), "objectAtIndex:", a3)}], (result & 1) == 0))
+  if (result[6] <= a3 || (result = [a2 isEqual:{objc_msgSend(result[4], "objectAtIndex:", a3)}], (result & 1) == 0))
   {
-    *(*(*(v6 + 40) + 8) + 24) = a3;
+    *(*(v6[5] + 1) + 24) = a3;
     *a4 = 1;
   }
 
@@ -772,7 +758,7 @@ double ____indexAreaOverMax_block_invoke(uint64_t a1, void *a2)
   return v3;
 }
 
-uint64_t TDColorSpaceGetExtendedRangeSRGB()
+uint64_t TDColorSpaceGetExtendedRangeSRGB(uint64_t a1, uint64_t a2)
 {
   if (TDColorSpaceGetExtendedRangeSRGB___once != -1)
   {
@@ -789,14 +775,15 @@ CGColorSpaceRef __TDColorSpaceGetExtendedRangeSRGB_block_invoke()
   return result;
 }
 
-void TDSchemaLog(NSString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void TDSchemaLog(NSString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = getenv("CoreThemeLoggingEnabled");
-  if (v10)
+  va_start(va, a8);
+  v9 = getenv("CoreThemeLoggingEnabled");
+  if (v9)
   {
-    if (*v10 == 49)
+    if (*v9 == 49)
     {
-      NSLogv(a1, &a9);
+      NSLogv(a1, va);
     }
   }
 }
@@ -971,21 +958,22 @@ LABEL_37:
   return v3;
 }
 
-void sub_247A3ACF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_247A3ACF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
 {
+  va_start(va, a43);
   _Block_object_dispose(&a28, 8);
   _Block_object_dispose(&a32, 8);
   _Block_object_dispose(&a36, 8);
   _Block_object_dispose(&a40, 8);
-  _Block_object_dispose(&a44, 8);
-  _Block_object_dispose((v44 - 248), 8);
-  _Block_object_dispose((v44 - 200), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v43 - 248), 8);
+  _Block_object_dispose((v43 - 200), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_247A3F434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_247A3F434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1076,6 +1064,36 @@ void __midpointQuickPermuteInRange(void *a1, uint64_t a2, unint64_t a3, void *a4
   }
 }
 
+CGRect CGPDFPageGetBoxRect(CGPDFPageRef page, CGPDFBox box)
+{
+  MEMORY[0x282111360](page, *&box);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform *t)
+{
+  MEMORY[0x282111558](t, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x282111618](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
 NSRect NSRectFromString(NSString *aString)
 {
   MEMORY[0x28211F868](aString);
@@ -1091,6 +1109,16 @@ NSSize NSSizeFromString(NSString *aString)
   MEMORY[0x28211F8B0](aString);
   result.height = v2;
   result.width = v1;
+  return result;
+}
+
+NSRect NSUnionRect(NSRect aRect, NSRect bRect)
+{
+  MEMORY[0x28211F920](aRect.origin, *&aRect.origin.y, aRect.size, *&aRect.size.height, bRect.origin, *&bRect.origin.y, bRect.size, *&bRect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
   return result;
 }
 

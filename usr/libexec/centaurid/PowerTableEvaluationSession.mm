@@ -56,7 +56,7 @@ LABEL_5:
     sub_100028A14(v15);
   }
 
-  v20 = sub_100028ABC(v15);
+  sub_100028ABC(v15);
   [(PowerTableEvaluationSession *)v20 activate];
   return result;
 }
@@ -82,66 +82,67 @@ LABEL_5:
   sessionCopy = session;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v10 = 1 << client;
-  v11 = sub_100025204();
-  v12 = v11;
+  v12 = sub_100025204(v11);
+  v13 = v12;
   if (((1 << client) & 3) == 0)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v28 = [objc_opt_class() description];
-      v29 = NSStringFromSelector(a2);
+      v30 = [objc_opt_class() description];
+      v31 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v36 = v28;
-      v37 = 2114;
-      v38 = v29;
-      v39 = 2048;
+      v38 = v30;
+      v39 = 2114;
+      v40 = v31;
+      v41 = 2048;
       clientCopy = client;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: invalid client %ld", buf, 0x20u);
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: invalid client %ld", buf, 0x20u);
     }
 
     goto LABEL_23;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [objc_opt_class() description];
-    v14 = NSStringFromSelector(a2);
-    v15 = sub_1000107CC(client);
-    v16 = v15;
-    v17 = "not ready";
+    v14 = [objc_opt_class() description];
+    v15 = NSStringFromSelector(a2);
+    v16 = sub_1000107CC(client);
+    v17 = v16;
+    v18 = "not ready";
     *buf = 138544130;
-    v37 = 2114;
-    v36 = v13;
+    v39 = 2114;
+    v38 = v14;
     if (readinessCopy)
     {
-      v17 = "ready";
+      v18 = "ready";
     }
 
-    v38 = v14;
-    v39 = 2112;
-    clientCopy = v15;
-    v41 = 2080;
-    v42 = v17;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %@ %s", buf, 0x2Au);
+    v40 = v15;
+    v41 = 2112;
+    clientCopy = v16;
+    v43 = 2080;
+    v44 = v18;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %@ %s", buf, 0x2Au);
   }
 
-  if (([sessionCopy isEqual:self->_identifier] & 1) == 0)
+  v19 = [sessionCopy isEqual:self->_identifier];
+  if ((v19 & 1) == 0)
   {
-    v27 = sub_100025204();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = sub_100025204(v19);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v30 = [objc_opt_class() description];
-      v31 = NSStringFromSelector(a2);
+      v32 = [objc_opt_class() description];
+      v33 = NSStringFromSelector(a2);
       identifier = self->_identifier;
       *buf = 138544130;
-      v36 = v30;
-      v37 = 2114;
-      v38 = v31;
+      v38 = v32;
       v39 = 2114;
-      clientCopy = sessionCopy;
+      v40 = v33;
       v41 = 2114;
-      v42 = identifier;
-      _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: session mismatch: received %{public}@, active %{public}@", buf, 0x2Au);
+      clientCopy = sessionCopy;
+      v43 = 2114;
+      v44 = identifier;
+      _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: session mismatch: received %{public}@, active %{public}@", buf, 0x2Au);
     }
 
     goto LABEL_23;
@@ -152,7 +153,7 @@ LABEL_5:
   {
     sub_100028B64(self, a2);
 LABEL_23:
-    v25 = 0;
+    v27 = 0;
     goto LABEL_15;
   }
 
@@ -165,10 +166,10 @@ LABEL_23:
   self->_clientReadinessReceived = clientReadinessReceived | v10;
   if (!readinessCopy)
   {
-    v22 = sub_1000107CC(client);
-    v23 = [NSString stringWithFormat:@"client%@NotReady", v22];
+    v24 = sub_1000107CC(client);
+    v25 = [NSString stringWithFormat:@"client%@NotReady", v24];
     sessionEndReason = self->_sessionEndReason;
-    self->_sessionEndReason = v23;
+    self->_sessionEndReason = v25;
 
     self->_acceptingClientReadiness = 0;
     dispatchQueue = self->_dispatchQueue;
@@ -177,31 +178,31 @@ LABEL_23:
     block[2] = sub_100002E98;
     block[3] = &unk_10005C700;
     block[4] = self;
-    v21 = block;
+    v23 = block;
     goto LABEL_13;
   }
 
-  v19 = self->_clientReadiness | v10;
-  self->_clientReadiness = v19;
-  if (v19 == 3)
+  v21 = self->_clientReadiness | v10;
+  self->_clientReadiness = v21;
+  if (v21 == 3)
   {
     self->_acceptingClientReadiness = 0;
     dispatchQueue = self->_dispatchQueue;
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_100002E8C;
-    v34[3] = &unk_10005C700;
-    v34[4] = self;
-    v21 = v34;
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_100002E8C;
+    v36[3] = &unk_10005C700;
+    v36[4] = self;
+    v23 = v36;
 LABEL_13:
-    dispatch_async(dispatchQueue, v21);
+    dispatch_async(dispatchQueue, v23);
   }
 
 LABEL_14:
-  v25 = 1;
+  v27 = 1;
 LABEL_15:
 
-  return v25;
+  return v27;
 }
 
 - (BOOL)setVote:(BOOL)vote forClient:(int64_t)client session:(id)session
@@ -210,66 +211,67 @@ LABEL_15:
   sessionCopy = session;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v10 = 1 << client;
-  v11 = sub_100025204();
-  v12 = v11;
+  v12 = sub_100025204(v11);
+  v13 = v12;
   if (((1 << client) & 3) == 0)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v28 = [objc_opt_class() description];
-      v29 = NSStringFromSelector(a2);
+      v30 = [objc_opt_class() description];
+      v31 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v36 = v28;
-      v37 = 2114;
-      v38 = v29;
-      v39 = 2048;
+      v38 = v30;
+      v39 = 2114;
+      v40 = v31;
+      v41 = 2048;
       clientCopy = client;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: invalid client %ld", buf, 0x20u);
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: invalid client %ld", buf, 0x20u);
     }
 
     goto LABEL_23;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [objc_opt_class() description];
-    v14 = NSStringFromSelector(a2);
-    v15 = sub_1000107CC(client);
-    v16 = v15;
-    v17 = "reject";
+    v14 = [objc_opt_class() description];
+    v15 = NSStringFromSelector(a2);
+    v16 = sub_1000107CC(client);
+    v17 = v16;
+    v18 = "reject";
     *buf = 138544130;
-    v37 = 2114;
-    v36 = v13;
+    v39 = 2114;
+    v38 = v14;
     if (voteCopy)
     {
-      v17 = "accept";
+      v18 = "accept";
     }
 
-    v38 = v14;
-    v39 = 2112;
-    clientCopy = v15;
-    v41 = 2080;
-    v42 = v17;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %@ votes to %s", buf, 0x2Au);
+    v40 = v15;
+    v41 = 2112;
+    clientCopy = v16;
+    v43 = 2080;
+    v44 = v18;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %@ votes to %s", buf, 0x2Au);
   }
 
-  if (([sessionCopy isEqual:self->_identifier] & 1) == 0)
+  v19 = [sessionCopy isEqual:self->_identifier];
+  if ((v19 & 1) == 0)
   {
-    v27 = sub_100025204();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = sub_100025204(v19);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v30 = [objc_opt_class() description];
-      v31 = NSStringFromSelector(a2);
+      v32 = [objc_opt_class() description];
+      v33 = NSStringFromSelector(a2);
       identifier = self->_identifier;
       *buf = 138544130;
-      v36 = v30;
-      v37 = 2114;
-      v38 = v31;
+      v38 = v32;
       v39 = 2114;
-      clientCopy = sessionCopy;
+      v40 = v33;
       v41 = 2114;
-      v42 = identifier;
-      _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: session mismatch: received %{public}@, active %{public}@", buf, 0x2Au);
+      clientCopy = sessionCopy;
+      v43 = 2114;
+      v44 = identifier;
+      _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: session mismatch: received %{public}@, active %{public}@", buf, 0x2Au);
     }
 
     goto LABEL_23;
@@ -280,7 +282,7 @@ LABEL_15:
   {
     sub_100028D28(self, a2);
 LABEL_23:
-    v25 = 0;
+    v27 = 0;
     goto LABEL_15;
   }
 
@@ -293,10 +295,10 @@ LABEL_23:
   self->_clientVotesReceived = clientVotesReceived | v10;
   if (!voteCopy)
   {
-    v22 = sub_1000107CC(client);
-    v23 = [NSString stringWithFormat:@"client%@VotedToReject", v22];
+    v24 = sub_1000107CC(client);
+    v25 = [NSString stringWithFormat:@"client%@VotedToReject", v24];
     sessionEndReason = self->_sessionEndReason;
-    self->_sessionEndReason = v23;
+    self->_sessionEndReason = v25;
 
     self->_acceptingClientVotes = 0;
     dispatchQueue = self->_dispatchQueue;
@@ -305,107 +307,107 @@ LABEL_23:
     block[2] = sub_1000032BC;
     block[3] = &unk_10005C700;
     block[4] = self;
-    v21 = block;
+    v23 = block;
     goto LABEL_13;
   }
 
-  v19 = self->_clientVotes | v10;
-  self->_clientVotes = v19;
-  if (v19 == 3)
+  v21 = self->_clientVotes | v10;
+  self->_clientVotes = v21;
+  if (v21 == 3)
   {
     self->_acceptingClientVotes = 0;
     dispatchQueue = self->_dispatchQueue;
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_1000032B0;
-    v34[3] = &unk_10005C700;
-    v34[4] = self;
-    v21 = v34;
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_1000032B0;
+    v36[3] = &unk_10005C700;
+    v36[4] = self;
+    v23 = v36;
 LABEL_13:
-    dispatch_async(dispatchQueue, v21);
+    dispatch_async(dispatchQueue, v23);
   }
 
 LABEL_14:
-  v25 = 1;
+  v27 = 1;
 LABEL_15:
 
-  return v25;
+  return v27;
 }
 
 - (void)log
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v4 = sub_100025204();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100025204(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [objc_opt_class() description];
-    v6 = NSStringFromSelector(a2);
+    v6 = [objc_opt_class() description];
+    v7 = NSStringFromSelector(a2);
     identifier = self->_identifier;
-    v7 = sub_1000107A4(self->_state);
+    v8 = sub_1000107A4(self->_state);
     acceptingClientReadiness = self->_acceptingClientReadiness;
-    v8 = [objc_opt_class() voteSetAsString:self->_clientReadinessReceived];
-    v9 = [objc_opt_class() voteSetAsString:self->_clientReadiness];
+    v9 = [objc_opt_class() voteSetAsString:self->_clientReadinessReceived];
+    v10 = [objc_opt_class() voteSetAsString:self->_clientReadiness];
     acceptingClientVotes = self->_acceptingClientVotes;
-    v11 = [objc_opt_class() voteSetAsString:self->_clientVotesReceived];
-    v12 = [objc_opt_class() voteSetAsString:self->_clientVotes];
-    v13 = self->_transaction != 0;
-    v14 = self->_timer != 0;
+    v12 = [objc_opt_class() voteSetAsString:self->_clientVotesReceived];
+    v13 = [objc_opt_class() voteSetAsString:self->_clientVotes];
+    v14 = self->_transaction != 0;
+    v15 = self->_timer != 0;
     assetVersionsUnderEvaluation = self->_assetVersionsUnderEvaluation;
     previousKnownGoodAssetVersions = self->_previousKnownGoodAssetVersions;
     *buf = 138546690;
-    v20 = v5;
-    v21 = 2114;
-    v22 = v6;
-    v23 = 2114;
-    v24 = identifier;
-    v25 = 2112;
-    v26 = v7;
-    v27 = 1024;
-    v28 = acceptingClientReadiness;
-    v29 = 2114;
-    v30 = v8;
-    v31 = 2114;
-    v32 = v9;
-    v33 = 1024;
-    v34 = acceptingClientVotes;
-    v35 = 2114;
-    v36 = v11;
-    v37 = 2114;
-    v38 = v12;
-    v39 = 1024;
-    v40 = v13;
-    v41 = 1024;
-    v42 = v14;
-    v43 = 2114;
-    v44 = assetVersionsUnderEvaluation;
-    v45 = 2114;
-    v46 = previousKnownGoodAssetVersions;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: id %{public}@, state %@, accepting readiness %u, readiness received %{public}@, readiness %{public}@, accepting votes %u, votes received %{public}@, votes %{public}@, transaction %u, timer %u, new %{public}@, previous %{public}@", buf, 0x7Eu);
+    v21 = v6;
+    v22 = 2114;
+    v23 = v7;
+    v24 = 2114;
+    v25 = identifier;
+    v26 = 2112;
+    v27 = v8;
+    v28 = 1024;
+    v29 = acceptingClientReadiness;
+    v30 = 2114;
+    v31 = v9;
+    v32 = 2114;
+    v33 = v10;
+    v34 = 1024;
+    v35 = acceptingClientVotes;
+    v36 = 2114;
+    v37 = v12;
+    v38 = 2114;
+    v39 = v13;
+    v40 = 1024;
+    v41 = v14;
+    v42 = 1024;
+    v43 = v15;
+    v44 = 2114;
+    v45 = assetVersionsUnderEvaluation;
+    v46 = 2114;
+    v47 = previousKnownGoodAssetVersions;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: id %{public}@, state %@, accepting readiness %u, readiness received %{public}@, readiness %{public}@, accepting votes %u, votes received %{public}@, votes %{public}@, transaction %u, timer %u, new %{public}@, previous %{public}@", buf, 0x7Eu);
   }
 }
 
 - (void)setState:(int64_t)state
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v6 = sub_100025204();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100025204(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [objc_opt_class() description];
-    v8 = NSStringFromSelector(a2);
+    v8 = [objc_opt_class() description];
+    v9 = NSStringFromSelector(a2);
     identifier = self->_identifier;
-    v10 = sub_1000107A4(self->_state);
-    v11 = sub_1000107A4(state);
-    v16 = 138544386;
-    v17 = v7;
-    v18 = 2114;
+    v11 = sub_1000107A4(self->_state);
+    v12 = sub_1000107A4(state);
+    v18 = 138544386;
     v19 = v8;
     v20 = 2114;
-    v21 = identifier;
-    v22 = 2112;
-    v23 = v10;
+    v21 = v9;
+    v22 = 2114;
+    v23 = identifier;
     v24 = 2112;
     v25 = v11;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %{public}@: %@ -> %@", &v16, 0x34u);
+    v26 = 2112;
+    v27 = v12;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %{public}@: %@ -> %@", &v18, 0x34u);
   }
 
   [(PowerTableEvaluationSession *)self cancelTimer];
@@ -415,7 +417,7 @@ LABEL_15:
     [(PowerTableEvaluationSession *)self sessionWillEnd];
   }
 
-  [(PowerTableEvaluationSession *)self notifyClients];
+  notifyClients = [(PowerTableEvaluationSession *)self notifyClients];
   state = self->_state;
   if (state <= 2)
   {
@@ -428,14 +430,14 @@ LABEL_15:
 
       else if (!state)
       {
-        v13 = sub_100025204();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = sub_100025204(notifyClients);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           sub_100028EEC();
         }
 
-        v14 = abort_report_np();
-        [(PowerTableEvaluationSession *)v14 notifyClients];
+        v16 = abort_report_np("assertion failure: NO -- invalid state");
+        [(PowerTableEvaluationSession *)v16 notifyClients];
       }
 
       return;
@@ -496,13 +498,13 @@ LABEL_12:
   {
     if (state != 3)
     {
-      v21 = sub_100025204();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = sub_100025204(self);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        sub_100029000(self, a2, v21);
+        sub_100029000(self, a2, v23);
       }
 
-      abort_report_np();
+      abort_report_np("assertion failure: NO -- invalid state");
       goto LABEL_20;
     }
 
@@ -510,73 +512,73 @@ LABEL_12:
   }
 
   v6 = *v5;
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   if (self->_timer)
   {
-    v7 = sub_100025204();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100025204(inited);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [objc_opt_class() description];
-      v9 = NSStringFromSelector(a2);
+      v9 = [objc_opt_class() description];
+      v10 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v26 = v8;
-      v27 = 2114;
       v28 = v9;
-      v29 = 2048;
-      v30 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: resheduling: %f seconds", buf, 0x20u);
+      v29 = 2114;
+      v30 = v10;
+      v31 = 2048;
+      v32 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: resheduling: %f seconds", buf, 0x20u);
     }
 
     dispatch_suspend(self->_timer);
     goto LABEL_13;
   }
 
-  v10 = sub_100025204();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100025204(inited);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [objc_opt_class() description];
-    v12 = NSStringFromSelector(a2);
+    v12 = [objc_opt_class() description];
+    v13 = NSStringFromSelector(a2);
     *buf = 138543874;
-    v26 = v11;
-    v27 = 2114;
     v28 = v12;
-    v29 = 2048;
-    v30 = v6;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: creating: %f seconds", buf, 0x20u);
+    v29 = 2114;
+    v30 = v13;
+    v31 = 2048;
+    v32 = v6;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: creating: %f seconds", buf, 0x20u);
   }
 
-  v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v14 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
   timer = self->_timer;
-  self->_timer = v13;
+  self->_timer = v14;
 
-  v15 = self->_timer;
-  if (v15)
+  v17 = self->_timer;
+  if (v17)
   {
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100003BF0;
-    v22[3] = &unk_10005C750;
-    objc_copyWeak(&v23, &location);
-    dispatch_source_set_event_handler(v15, v22);
-    objc_destroyWeak(&v23);
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100003BF0;
+    v24[3] = &unk_10005C750;
+    objc_copyWeak(&v25, &location);
+    dispatch_source_set_event_handler(v17, v24);
+    objc_destroyWeak(&v25);
 LABEL_13:
-    v16 = self->_timer;
-    v17 = dispatch_time(0, (v6 * 1000000000.0));
-    dispatch_source_set_timer(v16, v17, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+    v18 = self->_timer;
+    v19 = dispatch_time(0, (v6 * 1000000000.0));
+    dispatch_source_set_timer(v18, v19, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
     dispatch_resume(self->_timer);
     objc_destroyWeak(&location);
     return;
   }
 
-  v18 = sub_100025204();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v20 = sub_100025204(v16);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_opt_class() description];
-    v20 = NSStringFromSelector(a2);
-    sub_100028F8C(v19, v20, buf, v18);
+    v21 = [objc_opt_class() description];
+    v22 = NSStringFromSelector(a2);
+    sub_100028F8C(v21, v22, buf, v20);
   }
 
-  abort_report_np();
+  abort_report_np("assertion failure: _timer -- failed to create timer");
 LABEL_20:
   __break(1u);
 }
@@ -585,7 +587,7 @@ LABEL_20:
 {
   if (self->_timer)
   {
-    v4 = sub_100025204();
+    v4 = sub_100025204(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [objc_opt_class() description];
@@ -609,7 +611,7 @@ LABEL_20:
   if (state == 3)
   {
     v5 = [objc_opt_class() voteSetAsString:3 - self->_clientVotes];
-    v11 = sub_100025204();
+    v11 = sub_100025204(v5);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v20 = [objc_opt_class() description];
@@ -639,7 +641,7 @@ LABEL_20:
   if (state == 1)
   {
     v5 = [objc_opt_class() voteSetAsString:3 - self->_clientReadiness];
-    v6 = sub_100025204();
+    v6 = sub_100025204(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v17 = [objc_opt_class() description];
@@ -668,7 +670,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v5 = sub_100025204();
+  v5 = sub_100025204(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v14 = [objc_opt_class() description];
@@ -692,7 +694,7 @@ LABEL_10:
   v4 = WeakRetained;
   if (!WeakRetained)
   {
-    v9 = sub_100025204();
+    v9 = sub_100025204(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000290CC();
@@ -752,7 +754,7 @@ LABEL_15:
 
 - (void)sessionWillEnd
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
@@ -774,7 +776,7 @@ LABEL_15:
 
   else
   {
-    v9 = sub_100025204();
+    v9 = sub_100025204(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000290CC();
@@ -784,7 +786,7 @@ LABEL_15:
 
 - (void)sessionDidEnd
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
@@ -806,7 +808,7 @@ LABEL_15:
 
   else
   {
-    v9 = sub_100025204();
+    v9 = sub_100025204(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000290CC();

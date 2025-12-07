@@ -1,8 +1,19 @@
 @interface BRCPQLInjectionAllocateRankWhenCaughtUp
 + (id)_createInjectionWithCaughtUp:(BOOL)up fullSync:(BOOL)sync;
+- (BRCPQLInjectionAllocateRankWhenCaughtUp)initWithCaughtUp:(BOOL)up fullSync:(BOOL)sync;
 @end
 
 @implementation BRCPQLInjectionAllocateRankWhenCaughtUp
+
+- (BRCPQLInjectionAllocateRankWhenCaughtUp)initWithCaughtUp:(BOOL)up fullSync:(BOOL)sync
+{
+  v5 = [objc_opt_class() _createInjectionWithCaughtUp:up fullSync:sync];
+  v8.receiver = self;
+  v8.super_class = BRCPQLInjectionAllocateRankWhenCaughtUp;
+  v6 = [(BRCPQLInjectionBase *)&v8 initWithActualInjection:v5];
+
+  return v6;
+}
 
 + (id)_createInjectionWithCaughtUp:(BOOL)up fullSync:(BOOL)sync
 {

@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 }

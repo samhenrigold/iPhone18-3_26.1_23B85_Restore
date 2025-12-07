@@ -36,7 +36,7 @@
 
   else
   {
-    v11 = __atxlog_handle_metrics();
+    v11 = __atxlog_handle_metrics(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *v13 = 0;

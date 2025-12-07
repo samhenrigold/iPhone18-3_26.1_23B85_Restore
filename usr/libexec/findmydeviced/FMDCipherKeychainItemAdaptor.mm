@@ -8,9 +8,9 @@
 - (FMDCipherKeychainItemAdaptor)initWithKeychainItem:(id)item
 {
   itemCopy = item;
-  v16.receiver = self;
-  v16.super_class = FMDCipherKeychainItemAdaptor;
-  v5 = [(FMDCipherKeychainItemAdaptor *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = FMDCipherKeychainItemAdaptor;
+  v5 = [(FMDCipherKeychainItemAdaptor *)&v17 init];
   if (v5)
   {
     creationDate = [itemCopy creationDate];
@@ -23,22 +23,23 @@
     [(FMDCipherKeychainItemAdaptor *)v5 setRawData:rawData];
     v9 = objc_opt_class();
     v10 = [NSSet setWithObjects:v9, objc_opt_class(), 0];
-    v15 = 0;
-    v11 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v10 fromData:rawData error:&v15];
-    v12 = v15;
+    v16 = 0;
+    v11 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v10 fromData:rawData error:&v16];
+    v12 = v16;
+    v13 = v12;
     if (v12)
     {
-      v13 = sub_100002880();
-      if (os_log_type_enabled(&v13->super, OS_LOG_TYPE_ERROR))
+      v14 = sub_100002880(v12);
+      if (os_log_type_enabled(&v14->super, OS_LOG_TYPE_ERROR))
       {
-        sub_10022E96C(v12, &v13->super);
+        sub_10022E96C(v13, &v14->super);
       }
     }
 
     else
     {
-      v13 = [[FMDOneShotCipher alloc] initWithDictionary:v11];
-      [(FMDCipherKeychainItemAdaptor *)v5 setCipher:v13];
+      v14 = [[FMDOneShotCipher alloc] initWithDictionary:v11];
+      [(FMDCipherKeychainItemAdaptor *)v5 setCipher:v14];
     }
   }
 
@@ -48,9 +49,9 @@
 - (FMDCipherKeychainItemAdaptor)initWithCipher:(id)cipher
 {
   cipherCopy = cipher;
-  v15.receiver = self;
-  v15.super_class = FMDCipherKeychainItemAdaptor;
-  v5 = [(FMDCipherKeychainItemAdaptor *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = FMDCipherKeychainItemAdaptor;
+  v5 = [(FMDCipherKeychainItemAdaptor *)&v16 init];
   v6 = v5;
   if (v5)
   {
@@ -62,15 +63,16 @@
     [(FMDCipherKeychainItemAdaptor *)v6 setLastModifyDate:creationDate];
 
     dictionaryValue = [cipherCopy dictionaryValue];
-    v14 = 0;
-    v10 = [NSKeyedArchiver archivedDataWithRootObject:dictionaryValue requiringSecureCoding:1 error:&v14];
-    v11 = v14;
+    v15 = 0;
+    v10 = [NSKeyedArchiver archivedDataWithRootObject:dictionaryValue requiringSecureCoding:1 error:&v15];
+    v11 = v15;
+    v12 = v11;
     if (v11)
     {
-      v12 = sub_100002880();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100002880(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_10022E9E4(v11, v12);
+        sub_10022E9E4(v12, v13);
       }
     }
 

@@ -23,7 +23,7 @@
   ObjectType = swift_getObjectType();
   swift_unknownObjectWeakInit();
   v5 = OBJC_IVAR____TtC4Maps34CarSearchResultsCardViewController_viewModel;
-  v6 = objc_allocWithZone(type metadata accessor for CarSearchResultsViewModel());
+  v6 = objc_allocWithZone(type metadata accessor for CarSearchResultsViewModel(0));
   swift_unknownObjectRetain();
   *(self + v5) = [v6 init];
   swift_unknownObjectWeakAssign();
@@ -38,7 +38,7 @@
 {
   swift_unknownObjectWeakInit();
   v4 = OBJC_IVAR____TtC4Maps34CarSearchResultsCardViewController_viewModel;
-  *(self + v4) = [objc_allocWithZone(type metadata accessor for CarSearchResultsViewModel()) init];
+  *(self + v4) = [objc_allocWithZone(type metadata accessor for CarSearchResultsViewModel(0)) init];
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;

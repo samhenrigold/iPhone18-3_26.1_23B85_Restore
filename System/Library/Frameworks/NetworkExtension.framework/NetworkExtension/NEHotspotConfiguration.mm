@@ -18,7 +18,7 @@
 
 - (int64_t)validate
 {
-  v104 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   useSSIDPrefix = [(NEHotspotConfiguration *)self useSSIDPrefix];
   if (useSSIDPrefix || (-[NEHotspotConfiguration SSID](self, "SSID"), v2 = objc_claimAutoreleasedReturnValue(), ![v2 length]))
   {
@@ -96,25 +96,18 @@ LABEL_37:
         {
           if (securityType == 3)
           {
-            result = 101;
+            return 101;
           }
 
-          else if ([(NEHotspotConfiguration *)self useSSIDPrefix])
+          if ([(NEHotspotConfiguration *)self useSSIDPrefix])
           {
-            result = 110;
+            return 110;
           }
 
-          else
-          {
-            result = 101;
-          }
-
-          goto LABEL_84;
+          return 101;
         }
 
-LABEL_76:
-        result = 106;
-        goto LABEL_84;
+        return 106;
       }
 
       if ([(NEHotspotConfiguration *)self joinOnce])
@@ -123,16 +116,15 @@ LABEL_76:
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v103 = objc_opt_class();
-          v22 = v103;
+          v101 = objc_opt_class();
+          v22 = v101;
           v23 = "%@ JoinOnce is not supported for Hotspot 2.0 Wi-Fi networks.";
-          goto LABEL_86;
+          goto LABEL_85;
         }
 
 LABEL_40:
 
-        result = 109;
-        goto LABEL_84;
+        return 109;
       }
 
       hs20Settings = [(NEHotspotConfiguration *)self hs20Settings];
@@ -180,156 +172,153 @@ LABEL_40:
                       {
                         hs20Settings7 = [(NEHotspotConfiguration *)self hs20Settings];
                         naiRealmNames = [hs20Settings7 naiRealmNames];
-                        v66 = [naiRealmNames count];
+                        v65 = [naiRealmNames count];
 
-                        if (!v66)
+                        if (!v65)
                         {
-                          v89 = ne_log_obj();
-                          if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+                          v87 = ne_log_obj();
+                          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
                           {
                             *buf = 138412290;
-                            v103 = objc_opt_class();
-                            v94 = v103;
-                            _os_log_error_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_ERROR, "%@ invalid HS2.0 configuration(roaming consortium OIs/NAI realms not provided).", buf, 0xCu);
+                            v101 = objc_opt_class();
+                            v92 = v101;
+                            _os_log_error_impl(&dword_1BA83C000, v87, OS_LOG_TYPE_ERROR, "%@ invalid HS2.0 configuration(roaming consortium OIs/NAI realms not provided).", buf, 0xCu);
                           }
 
-                          goto LABEL_121;
+                          return 105;
                         }
                       }
                     }
 
                     hs20Settings8 = [(NEHotspotConfiguration *)self hs20Settings];
                     mCCAndMNCs = [hs20Settings8 MCCAndMNCs];
-                    v69 = [mCCAndMNCs count];
+                    v68 = [mCCAndMNCs count];
 
-                    if (!v69)
+                    if (!v68)
                     {
                       goto LABEL_78;
                     }
 
-                    v99 = 0u;
-                    v100 = 0u;
                     v97 = 0u;
                     v98 = 0u;
+                    v95 = 0u;
+                    v96 = 0u;
                     hs20Settings9 = [(NEHotspotConfiguration *)self hs20Settings];
                     mCCAndMNCs2 = [hs20Settings9 MCCAndMNCs];
 
-                    v72 = [mCCAndMNCs2 countByEnumeratingWithState:&v97 objects:v101 count:16];
-                    if (!v72)
+                    v71 = [mCCAndMNCs2 countByEnumeratingWithState:&v95 objects:v99 count:16];
+                    if (!v71)
                     {
-LABEL_115:
+LABEL_114:
 
                       goto LABEL_78;
                     }
 
-                    v73 = v72;
-                    v74 = *v98;
+                    v72 = v71;
+                    v73 = *v96;
+                    v74 = 0x1E696A000uLL;
                     v75 = 0x1E696A000uLL;
-                    v76 = 0x1E696A000uLL;
-                    v95 = *v98;
-                    v96 = mCCAndMNCs2;
+                    v93 = *v96;
+                    v94 = mCCAndMNCs2;
                     while (1)
                     {
-                      v77 = 0;
-LABEL_100:
-                      if (*v98 != v74)
+                      v76 = 0;
+LABEL_99:
+                      if (*v96 != v73)
                       {
                         objc_enumerationMutation(mCCAndMNCs2);
                       }
 
-                      v78 = *(*(&v97 + 1) + 8 * v77);
-                      v79 = v75;
-                      v80 = *(v75 + 3776);
+                      v77 = *(*(&v95 + 1) + 8 * v76);
+                      v78 = v74;
                       objc_opt_class();
-                      if ((objc_opt_isKindOfClass() & 1) == 0 || [v78 length] != 6)
+                      if ((objc_opt_isKindOfClass() & 1) == 0 || [v77 length] != 6)
                       {
                         break;
                       }
 
-                      v81 = v76;
-                      v82 = [*(v76 + 2824) characterSetWithCharactersInString:@"0123456789"];
+                      v79 = v75;
+                      v80 = [*(v75 + 2824) characterSetWithCharactersInString:@"0123456789"];
                       for (i = 0; i != 6; ++i)
                       {
-                        v84 = [v78 characterAtIndex:{i, v95}];
-                        v85 = [v82 characterIsMember:v84];
+                        v82 = [v77 characterAtIndex:{i, v93}];
+                        v83 = [v80 characterIsMember:v82];
                         if (i == 3)
                         {
-                          if (v84 == 70)
+                          if (v82 == 70)
                           {
-                            v86 = 1;
+                            v84 = 1;
                           }
 
                           else
                           {
-                            v86 = v85;
+                            v84 = v83;
                           }
 
-                          if ((v86 & 1) == 0)
+                          if ((v84 & 1) == 0)
                           {
-                            v87 = ne_log_obj();
-                            if (!os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+                            v85 = ne_log_obj();
+                            if (!os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
                             {
-                              goto LABEL_119;
+                              goto LABEL_118;
                             }
 
-LABEL_127:
-                            v92 = objc_opt_class();
+LABEL_126:
+                            v90 = objc_opt_class();
                             *buf = 138412290;
-                            v103 = v92;
-                            v93 = v92;
-                            _os_log_error_impl(&dword_1BA83C000, v87, OS_LOG_TYPE_ERROR, "%@ invalid HS2.0 configuration.", buf, 0xCu);
+                            v101 = v90;
+                            v91 = v90;
+                            _os_log_error_impl(&dword_1BA83C000, v85, OS_LOG_TYPE_ERROR, "%@ invalid HS2.0 configuration.", buf, 0xCu);
+
+LABEL_118:
+                            mCCAndMNCs2 = v94;
+
+                            goto LABEL_119;
+                          }
+                        }
+
+                        else if ((v83 & 1) == 0)
+                        {
+                          v85 = ne_log_obj();
+                          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+                          {
+                            goto LABEL_126;
+                          }
+
+                          goto LABEL_118;
+                        }
+                      }
+
+                      ++v76;
+                      v74 = v78;
+                      v73 = v93;
+                      mCCAndMNCs2 = v94;
+                      v75 = v79;
+                      if (v76 != v72)
+                      {
+                        goto LABEL_99;
+                      }
+
+                      v72 = [v94 countByEnumeratingWithState:&v95 objects:v99 count:16];
+                      if (!v72)
+                      {
+                        goto LABEL_114;
+                      }
+                    }
+
+                    v80 = ne_log_obj();
+                    if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+                    {
+                      v88 = objc_opt_class();
+                      *buf = 138412290;
+                      v101 = v88;
+                      v89 = v88;
+                      _os_log_error_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_ERROR, "%@ invalid HS2.0 configuration.", buf, 0xCu);
+                    }
 
 LABEL_119:
-                            mCCAndMNCs2 = v96;
 
-                            goto LABEL_120;
-                          }
-                        }
-
-                        else if ((v85 & 1) == 0)
-                        {
-                          v87 = ne_log_obj();
-                          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
-                          {
-                            goto LABEL_127;
-                          }
-
-                          goto LABEL_119;
-                        }
-                      }
-
-                      ++v77;
-                      v75 = v79;
-                      v74 = v95;
-                      mCCAndMNCs2 = v96;
-                      v76 = v81;
-                      if (v77 != v73)
-                      {
-                        goto LABEL_100;
-                      }
-
-                      v73 = [v96 countByEnumeratingWithState:&v97 objects:v101 count:16];
-                      if (!v73)
-                      {
-                        goto LABEL_115;
-                      }
-                    }
-
-                    v82 = ne_log_obj();
-                    if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
-                    {
-                      v90 = objc_opt_class();
-                      *buf = 138412290;
-                      v103 = v90;
-                      v91 = v90;
-                      _os_log_error_impl(&dword_1BA83C000, v82, OS_LOG_TYPE_ERROR, "%@ invalid HS2.0 configuration.", buf, 0xCu);
-                    }
-
-LABEL_120:
-
-LABEL_121:
-                    result = 105;
-                    goto LABEL_84;
+                    return 105;
                   }
                 }
 
@@ -338,20 +327,19 @@ LABEL_121:
                 }
               }
 
-              v59 = ne_log_obj();
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+              v58 = ne_log_obj();
+              if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v103 = objc_opt_class();
-                v60 = v103;
-                v61 = "%@ invalid HS2.0 EAP settings.";
-                goto LABEL_94;
+                v101 = objc_opt_class();
+                v59 = v101;
+                v60 = "%@ invalid HS2.0 EAP settings.";
+                goto LABEL_93;
               }
 
-LABEL_92:
+LABEL_91:
 
-              result = 104;
-              goto LABEL_84;
+              return 104;
             }
 
             goto LABEL_73;
@@ -364,12 +352,12 @@ LABEL_73:
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v103 = objc_opt_class();
-        v62 = v103;
+        v101 = objc_opt_class();
+        v61 = v101;
         _os_log_error_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_ERROR, "%@ invalid HS2.0 domain name.", buf, 0xCu);
       }
 
-      goto LABEL_76;
+      return 106;
     }
   }
 
@@ -413,13 +401,12 @@ LABEL_59:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v103 = objc_opt_class();
-      v58 = v103;
+      v101 = objc_opt_class();
+      v57 = v101;
       _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, "%@ invalid WPA/WPA2 passphrase length.", buf, 0xCu);
     }
 
-    result = 102;
-    goto LABEL_84;
+    return 102;
   }
 
   if ([(NEHotspotConfiguration *)self securityType]!= 1)
@@ -435,10 +422,10 @@ LABEL_59:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v103 = objc_opt_class();
-        v22 = v103;
+        v101 = objc_opt_class();
+        v22 = v101;
         v23 = "%@ JoinOnce is not supported for Enterprise Wi-Fi networks.";
-LABEL_86:
+LABEL_85:
         _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, v23, buf, 0xCu);
 
         goto LABEL_40;
@@ -468,20 +455,20 @@ LABEL_86:
       }
     }
 
-    v59 = ne_log_obj();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+    v58 = ne_log_obj();
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v103 = objc_opt_class();
-      v60 = v103;
-      v61 = "%@ invalid EAP settings.";
-LABEL_94:
-      _os_log_error_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_ERROR, v61, buf, 0xCu);
+      v101 = objc_opt_class();
+      v59 = v101;
+      v60 = "%@ invalid EAP settings.";
+LABEL_93:
+      _os_log_error_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_ERROR, v60, buf, 0xCu);
 
-      goto LABEL_92;
+      goto LABEL_91;
     }
 
-    goto LABEL_92;
+    goto LABEL_91;
   }
 
   passphrase4 = [(NEHotspotConfiguration *)self passphrase];
@@ -520,7 +507,7 @@ LABEL_82:
             lifeTimeInDays = self->_lifeTimeInDays;
             self->_lifeTimeInDays = 0;
 
-            goto LABEL_83;
+            return 100;
           }
 
           lifeTimeInDays3 = [(NEHotspotConfiguration *)self lifeTimeInDays];
@@ -532,9 +519,7 @@ LABEL_82:
           }
         }
 
-LABEL_83:
-        result = 100;
-        goto LABEL_84;
+        return 100;
       }
 
       goto LABEL_68;
@@ -546,61 +531,58 @@ LABEL_68:
   if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v103 = objc_opt_class();
-    v63 = v103;
+    v101 = objc_opt_class();
+    v62 = v101;
     _os_log_error_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_ERROR, "%@ invalid WEP passphrase length.", buf, 0xCu);
   }
 
-  result = 103;
-LABEL_84:
-  v57 = *MEMORY[0x1E69E9840];
-  return result;
+  return 103;
 }
 
 - (uint64_t)validateEAPSettings
 {
   selfCopy = self;
-  v176 = *MEMORY[0x1E69E9840];
+  v173 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_55;
+    return selfCopy;
   }
 
   v2 = 0x1E695D000uLL;
   v3 = [MEMORY[0x1E695DFD8] setWithObjects:{&unk_1F38BA478, &unk_1F38BA490, &unk_1F38BA4A8, &unk_1F38BA4C0, 0}];
+  v156 = 0u;
+  v157 = 0u;
+  v158 = 0u;
   v159 = 0u;
-  v160 = 0u;
-  v161 = 0u;
-  v162 = 0u;
   eapSettings = [selfCopy eapSettings];
   supportedEAPTypes = [eapSettings supportedEAPTypes];
 
-  v6 = [supportedEAPTypes countByEnumeratingWithState:&v159 objects:v170 count:16];
+  v6 = [supportedEAPTypes countByEnumeratingWithState:&v156 objects:v167 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v160;
+    v8 = *v157;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v160 != v8)
+        if (*v157 != v8)
         {
           objc_enumerationMutation(supportedEAPTypes);
         }
 
-        v10 = *(*(&v159 + 1) + 8 * i);
+        v10 = *(*(&v156 + 1) + 8 * i);
         if (([v3 containsObject:v10] & 1) == 0)
         {
           v13 = ne_log_obj();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            v65 = objc_opt_class();
+            v64 = objc_opt_class();
             *buf = 138412546;
-            v173 = v65;
-            v174 = 2112;
-            v175 = v10;
-            v66 = v65;
+            v170 = v64;
+            v171 = 2112;
+            v172 = v10;
+            v65 = v64;
             _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@ invalid EAP type %@", buf, 0x16u);
           }
 
@@ -608,7 +590,7 @@ LABEL_84:
         }
       }
 
-      v7 = [supportedEAPTypes countByEnumeratingWithState:&v159 objects:v170 count:16];
+      v7 = [supportedEAPTypes countByEnumeratingWithState:&v156 objects:v167 count:16];
     }
 
     while (v7);
@@ -644,7 +626,7 @@ LABEL_84:
 
     v58 = objc_opt_class();
     *buf = 138412290;
-    v173 = v58;
+    v170 = v58;
     v56 = v58;
     v57 = "%@ identity not provided";
     goto LABEL_89;
@@ -673,10 +655,10 @@ LABEL_49:
     v59 = ne_log_obj();
     if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      v109 = objc_opt_class();
+      v107 = objc_opt_class();
       *buf = 138412290;
-      v173 = v109;
-      v110 = v109;
+      v170 = v107;
+      v108 = v107;
       _os_log_error_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_ERROR, "%@ configuration with EAP-TLS type must have identity reference.", buf, 0xCu);
     }
 
@@ -689,7 +671,7 @@ LABEL_49:
   identityReference4 = [eapSettings8 identityReference];
   v28 = *MEMORY[0x1E695E4D0];
   v29 = *MEMORY[0x1E697AFF8];
-  v157 = *MEMORY[0x1E697B328];
+  v154 = *MEMORY[0x1E697B328];
   obj = *MEMORY[0x1E697B3C8];
   v30 = [v25 dictionaryWithObjectsAndKeys:{identityReference4, *MEMORY[0x1E697B3C8], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B328], *MEMORY[0x1E697B010], *MEMORY[0x1E697AFF8], 0}];
 
@@ -698,13 +680,13 @@ LABEL_49:
     v59 = ne_log_obj();
     if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      v87 = objc_opt_class();
+      v85 = objc_opt_class();
       *buf = 138412290;
-      v173 = v87;
-      v88 = v87;
-      v89 = "%@ failed to find the identity item in the keychain.";
+      v170 = v85;
+      v86 = v85;
+      v87 = "%@ failed to find the identity item in the keychain.";
 LABEL_87:
-      _os_log_error_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_ERROR, v89, buf, 0xCu);
+      _os_log_error_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_ERROR, v87, buf, 0xCu);
     }
 
 LABEL_52:
@@ -715,10 +697,10 @@ LABEL_52:
       goto LABEL_53;
     }
 
-    v108 = objc_opt_class();
+    v106 = objc_opt_class();
     *buf = 138412290;
-    v173 = v108;
-    v56 = v108;
+    v170 = v106;
+    v56 = v106;
     v57 = "%@ invalid identity reference";
     goto LABEL_89;
   }
@@ -729,11 +711,11 @@ LABEL_52:
     v59 = ne_log_obj();
     if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      v107 = objc_opt_class();
+      v105 = objc_opt_class();
       *buf = 138412290;
-      v173 = v107;
-      v88 = v107;
-      v89 = "%@ failed to find valid identity item in the keychain.";
+      v170 = v105;
+      v86 = v105;
+      v87 = "%@ failed to find valid identity item in the keychain.";
       goto LABEL_87;
     }
 
@@ -745,67 +727,67 @@ LABEL_52:
     goto LABEL_23;
   }
 
-  v112 = result;
+  v110 = result;
   certificateRef[0] = 0;
   *trust = 0;
-  v164 = 0;
+  v161 = 0;
   BasicX509 = SecPolicyCreateBasicX509();
   if (BasicX509)
   {
-    v114 = BasicX509;
-    if (SecIdentityCopyCertificate(v112, certificateRef) || !certificateRef[0])
+    v112 = BasicX509;
+    if (SecIdentityCopyCertificate(v110, certificateRef) || !certificateRef[0])
     {
-      v117 = ne_log_obj();
-      if (!os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+      v115 = ne_log_obj();
+      if (!os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_149;
       }
 
-      v131 = objc_opt_class();
+      v129 = objc_opt_class();
       *buf = 138412290;
-      v173 = v131;
-      v119 = v131;
-      v120 = "%@ SecIdentityCopyCertificate() failed";
+      v170 = v129;
+      v117 = v129;
+      v118 = "%@ SecIdentityCopyCertificate() failed";
     }
 
     else
     {
-      v115 = CFArrayCreate(0, certificateRef, 1, MEMORY[0x1E695E9C0]);
+      v113 = CFArrayCreate(0, certificateRef, 1, MEMORY[0x1E695E9C0]);
       CFRelease(certificateRef[0]);
-      if (v115)
+      if (v113)
       {
-        v116 = SecTrustCreateWithCertificates(v115, v114, trust);
-        CFRelease(v115);
-        if (v116)
+        v114 = SecTrustCreateWithCertificates(v113, v112, trust);
+        CFRelease(v113);
+        if (v114)
         {
-          v117 = ne_log_obj();
+          v115 = ne_log_obj();
           v2 = 0x1E695D000;
-          if (!os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+          if (!os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_149;
           }
 
-          v118 = objc_opt_class();
+          v116 = objc_opt_class();
           *buf = 138412290;
-          v173 = v118;
-          v119 = v118;
-          v120 = "%@ SecTrustCreateWithCertificates() failed";
+          v170 = v116;
+          v117 = v116;
+          v118 = "%@ SecTrustCreateWithCertificates() failed";
         }
 
-        else if (MEMORY[0x1BFAFA1B0](*trust, &v164))
+        else if (MEMORY[0x1BFAFA1B0](*trust, &v161))
         {
-          v117 = ne_log_obj();
+          v115 = ne_log_obj();
           v2 = 0x1E695D000;
-          if (!os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+          if (!os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_149;
           }
 
-          v137 = objc_opt_class();
+          v135 = objc_opt_class();
           *buf = 138412290;
-          v173 = v137;
-          v119 = v137;
-          v120 = "%@ SecTrustEvaluate() failed";
+          v170 = v135;
+          v117 = v135;
+          v118 = "%@ SecTrustEvaluate() failed";
         }
 
         else
@@ -813,26 +795,25 @@ LABEL_52:
           CertificateCount = SecTrustGetCertificateCount(*trust);
           if (CertificateCount > 1)
           {
-            v148 = *MEMORY[0x1E697B320];
-            v117 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{v28, *MEMORY[0x1E697B320], *MEMORY[0x1E697B000], v29, 0}];
-            v156 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            v154 = *MEMORY[0x1E697B3D0];
-            v149 = 1;
+            v115 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{v28, *MEMORY[0x1E697B320], *MEMORY[0x1E697B000], v29, 0}];
+            v153 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            v151 = *MEMORY[0x1E697B3D0];
+            v146 = 1;
             while (1)
             {
               cf = 0;
-              [v117 setObject:SecTrustGetCertificateAtIndex(*trust forKeyedSubscript:v149), v154];
-              if (SecItemCopyMatching(v117, &cf))
+              [v115 setObject:SecTrustGetCertificateAtIndex(*trust forKeyedSubscript:v146), v151];
+              if (SecItemCopyMatching(v115, &cf))
               {
                 break;
               }
 
-              [v156 addObject:cf];
+              [v153 addObject:cf];
               CFRelease(cf);
-              if (CertificateCount == ++v149)
+              if (CertificateCount == ++v146)
               {
                 eapSettings9 = [selfCopy eapSettings];
-                [eapSettings9 setClientTrustChainReference:v156];
+                [eapSettings9 setClientTrustChainReference:v153];
                 goto LABEL_147;
               }
             }
@@ -840,10 +821,10 @@ LABEL_52:
             eapSettings9 = ne_log_obj();
             if (os_log_type_enabled(eapSettings9, OS_LOG_TYPE_ERROR))
             {
-              v152 = objc_opt_class();
+              v149 = objc_opt_class();
               *buf = 138412290;
-              v173 = v152;
-              v153 = v152;
+              v170 = v149;
+              v150 = v149;
               _os_log_error_impl(&dword_1BA83C000, eapSettings9, OS_LOG_TYPE_ERROR, "%@ SecItemCopyMatching() failed", buf, 0xCu);
             }
 
@@ -852,14 +833,14 @@ LABEL_147:
             goto LABEL_148;
           }
 
-          v117 = ne_log_obj();
-          if (!os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+          v115 = ne_log_obj();
+          if (!os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
           {
 LABEL_148:
             v2 = 0x1E695D000;
 LABEL_149:
 
-            CFRelease(v114);
+            CFRelease(v112);
             if (*trust)
             {
               CFRelease(*trust);
@@ -868,43 +849,43 @@ LABEL_149:
             goto LABEL_23;
           }
 
-          v145 = objc_opt_class();
+          v143 = objc_opt_class();
           *buf = 138412290;
-          v173 = v145;
-          v119 = v145;
-          v120 = "%@ failed to find the trust chain for the client certificate";
+          v170 = v143;
+          v117 = v143;
+          v118 = "%@ failed to find the trust chain for the client certificate";
         }
       }
 
       else
       {
-        v117 = ne_log_obj();
-        if (!os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+        v115 = ne_log_obj();
+        if (!os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_149;
         }
 
-        v132 = objc_opt_class();
+        v130 = objc_opt_class();
         *buf = 138412290;
-        v173 = v132;
-        v119 = v132;
-        v120 = "%@ failed to allocate certificate array";
+        v170 = v130;
+        v117 = v130;
+        v118 = "%@ failed to allocate certificate array";
       }
     }
 
-    _os_log_error_impl(&dword_1BA83C000, v117, OS_LOG_TYPE_ERROR, v120, buf, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v115, OS_LOG_TYPE_ERROR, v118, buf, 0xCu);
 
     goto LABEL_148;
   }
 
-  v130 = ne_log_obj();
-  if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+  v128 = ne_log_obj();
+  if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
   {
-    v146 = objc_opt_class();
+    v144 = objc_opt_class();
     *buf = 138412290;
-    v173 = v146;
-    v147 = v146;
-    _os_log_error_impl(&dword_1BA83C000, v130, OS_LOG_TYPE_ERROR, "%@ SecPolicyCreateBasicX509 failed", buf, 0xCu);
+    v170 = v144;
+    v145 = v144;
+    _os_log_error_impl(&dword_1BA83C000, v128, OS_LOG_TYPE_ERROR, "%@ SecPolicyCreateBasicX509 failed", buf, 0xCu);
   }
 
 LABEL_23:
@@ -937,10 +918,10 @@ LABEL_101:
     v37 = ne_log_obj();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v121 = objc_opt_class();
+      v119 = objc_opt_class();
       *trust = 138412290;
-      *&trust[4] = v121;
-      v122 = v121;
+      *&trust[4] = v119;
+      v120 = v119;
       _os_log_error_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_ERROR, "%@ invalid client trust chain", trust, 0xCu);
     }
 
@@ -952,19 +933,19 @@ LABEL_133:
       goto LABEL_53;
     }
 
-    v143 = objc_opt_class();
+    v141 = objc_opt_class();
     *buf = 138412290;
-    v173 = v143;
-    v56 = v143;
+    v170 = v141;
+    v56 = v141;
     v57 = "%@ invalid client trust chain";
     goto LABEL_89;
   }
 
-  v37 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{v28, v157, *MEMORY[0x1E697B000], v29, 0}];
+  v37 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{v28, v154, *MEMORY[0x1E697B000], v29, 0}];
   *certificateRef = 0u;
-  v167 = 0u;
-  v168 = 0u;
-  v169 = 0u;
+  v164 = 0u;
+  v165 = 0u;
+  v166 = 0u;
   eapSettings12 = [selfCopy eapSettings];
   clientTrustChainReference4 = [eapSettings12 clientTrustChainReference];
 
@@ -975,12 +956,12 @@ LABEL_133:
   }
 
   v41 = v40;
-  v42 = *v167;
+  v42 = *v164;
   while (2)
   {
     for (j = 0; j != v41; ++j)
     {
-      if (*v167 != v42)
+      if (*v164 != v42)
       {
         objc_enumerationMutation(clientTrustChainReference4);
       }
@@ -996,14 +977,14 @@ LABEL_133:
       [v37 setObject:v44 forKeyedSubscript:obj];
       if (SecItemCopyMatching(v37, &cf))
       {
-        v138 = ne_log_obj();
-        if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
+        v136 = ne_log_obj();
+        if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
         {
-          v139 = objc_opt_class();
+          v137 = objc_opt_class();
           *trust = 138412290;
-          *&trust[4] = v139;
-          v140 = v139;
-          v141 = "%@ failed to find the certificate item in the keychain.";
+          *&trust[4] = v137;
+          v138 = v137;
+          v139 = "%@ failed to find the certificate item in the keychain.";
           goto LABEL_152;
         }
 
@@ -1015,14 +996,14 @@ LABEL_132:
 
       if (!cf)
       {
-        v138 = ne_log_obj();
-        if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
+        v136 = ne_log_obj();
+        if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
         {
-          v142 = objc_opt_class();
+          v140 = objc_opt_class();
           *trust = 138412290;
-          *&trust[4] = v142;
-          v140 = v142;
-          v141 = "%@ found nil certificate item in the keychain.";
+          *&trust[4] = v140;
+          v138 = v140;
+          v139 = "%@ found nil certificate item in the keychain.";
           goto LABEL_152;
         }
 
@@ -1034,19 +1015,19 @@ LABEL_132:
       CFRelease(cf);
       if (v45 != TypeID)
       {
-        v138 = ne_log_obj();
-        if (!os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
+        v136 = ne_log_obj();
+        if (!os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_131;
         }
 
-        v151 = objc_opt_class();
+        v148 = objc_opt_class();
         *trust = 138412290;
-        *&trust[4] = v151;
-        v140 = v151;
-        v141 = "%@ failed to find valid certificate item in the keychain.";
+        *&trust[4] = v148;
+        v138 = v148;
+        v139 = "%@ failed to find valid certificate item in the keychain.";
 LABEL_152:
-        _os_log_error_impl(&dword_1BA83C000, v138, OS_LOG_TYPE_ERROR, v141, trust, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v136, OS_LOG_TYPE_ERROR, v139, trust, 0xCu);
 
         goto LABEL_131;
       }
@@ -1078,9 +1059,9 @@ LABEL_42:
   if (!v50)
   {
     trustedServerNames = [eapSettings15 trustedServerNames];
-    v63 = [trustedServerNames count];
+    v62 = [trustedServerNames count];
 
-    if (!v63)
+    if (!v62)
     {
       supportedEAPTypes = ne_log_obj();
       if (!os_log_type_enabled(supportedEAPTypes, OS_LOG_TYPE_ERROR))
@@ -1088,10 +1069,10 @@ LABEL_42:
         goto LABEL_53;
       }
 
-      v64 = objc_opt_class();
+      v63 = objc_opt_class();
       *buf = 138412290;
-      v173 = v64;
-      v56 = v64;
+      v170 = v63;
+      v56 = v63;
       v57 = "%@ EAP settings must have either trusted server certificates or trusted server names configured.";
       goto LABEL_89;
     }
@@ -1104,49 +1085,48 @@ LABEL_42:
 
   if (v54 < 0xB)
   {
-    v67 = *MEMORY[0x1E697B328];
-    v68 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{*MEMORY[0x1E695E4D0], *MEMORY[0x1E697B328], *MEMORY[0x1E697B000], *MEMORY[0x1E697AFF8], 0}];
+    v66 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{*MEMORY[0x1E695E4D0], *MEMORY[0x1E697B328], *MEMORY[0x1E697B000], *MEMORY[0x1E697AFF8], 0}];
     *certificateRef = 0u;
-    v167 = 0u;
-    v168 = 0u;
-    v169 = 0u;
+    v164 = 0u;
+    v165 = 0u;
+    v166 = 0u;
     eapSettings16 = [selfCopy eapSettings];
     trustedServerCertificateReferences3 = [eapSettings16 trustedServerCertificateReferences];
 
-    v71 = [trustedServerCertificateReferences3 countByEnumeratingWithState:certificateRef objects:buf count:16];
-    if (v71)
+    v69 = [trustedServerCertificateReferences3 countByEnumeratingWithState:certificateRef objects:buf count:16];
+    if (v69)
     {
-      v72 = v71;
-      v73 = *v167;
-      v74 = *MEMORY[0x1E697B3C8];
+      v70 = v69;
+      v71 = *v164;
+      v72 = *MEMORY[0x1E697B3C8];
 LABEL_61:
-      v75 = 0;
+      v73 = 0;
       while (1)
       {
-        if (*v167 != v73)
+        if (*v164 != v71)
         {
           objc_enumerationMutation(trustedServerCertificateReferences3);
         }
 
-        v76 = *(certificateRef[1] + v75);
+        v74 = *(certificateRef[1] + v73);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || ![v76 length])
+        if ((objc_opt_isKindOfClass() & 1) == 0 || ![v74 length])
         {
           break;
         }
 
         cf = 0;
-        [v68 setObject:v76 forKeyedSubscript:v74];
-        if (SecItemCopyMatching(v68, &cf))
+        [v66 setObject:v74 forKeyedSubscript:v72];
+        if (SecItemCopyMatching(v66, &cf))
         {
-          v123 = ne_log_obj();
-          if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v121 = ne_log_obj();
+          if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
           {
-            v124 = objc_opt_class();
+            v122 = objc_opt_class();
             *trust = 138412290;
-            *&trust[4] = v124;
-            v125 = v124;
-            v126 = "%@ failed to find the certificate item in the keychain.";
+            *&trust[4] = v122;
+            v123 = v122;
+            v124 = "%@ failed to find the certificate item in the keychain.";
             goto LABEL_136;
           }
 
@@ -1157,46 +1137,46 @@ LABEL_108:
 
         if (!cf)
         {
-          v123 = ne_log_obj();
-          if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v121 = ne_log_obj();
+          if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
           {
-            v127 = objc_opt_class();
+            v125 = objc_opt_class();
             *trust = 138412290;
-            *&trust[4] = v127;
-            v125 = v127;
-            v126 = "%@ found nil certificate item in the keychain.";
+            *&trust[4] = v125;
+            v123 = v125;
+            v124 = "%@ found nil certificate item in the keychain.";
             goto LABEL_136;
           }
 
           goto LABEL_108;
         }
 
-        v77 = CFGetTypeID(cf);
-        v78 = SecCertificateGetTypeID();
+        v75 = CFGetTypeID(cf);
+        v76 = SecCertificateGetTypeID();
         CFRelease(cf);
-        if (v77 != v78)
+        if (v75 != v76)
         {
-          v123 = ne_log_obj();
-          if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          v121 = ne_log_obj();
+          if (!os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_108;
           }
 
-          v144 = objc_opt_class();
+          v142 = objc_opt_class();
           *trust = 138412290;
-          *&trust[4] = v144;
-          v125 = v144;
-          v126 = "%@ failed to find valid certificate item in the keychain.";
+          *&trust[4] = v142;
+          v123 = v142;
+          v124 = "%@ failed to find valid certificate item in the keychain.";
 LABEL_136:
-          _os_log_error_impl(&dword_1BA83C000, v123, OS_LOG_TYPE_ERROR, v126, trust, 0xCu);
+          _os_log_error_impl(&dword_1BA83C000, v121, OS_LOG_TYPE_ERROR, v124, trust, 0xCu);
 
           goto LABEL_108;
         }
 
-        if (v72 == ++v75)
+        if (v70 == ++v73)
         {
-          v72 = [trustedServerCertificateReferences3 countByEnumeratingWithState:certificateRef objects:buf count:16];
-          if (v72)
+          v70 = [trustedServerCertificateReferences3 countByEnumeratingWithState:certificateRef objects:buf count:16];
+          if (v70)
           {
             goto LABEL_61;
           }
@@ -1211,10 +1191,10 @@ LABEL_136:
         goto LABEL_53;
       }
 
-      v128 = objc_opt_class();
+      v126 = objc_opt_class();
       *buf = 138412290;
-      v173 = v128;
-      v56 = v128;
+      v170 = v126;
+      v56 = v126;
       v57 = "%@ invalid trusted server certificate references";
       goto LABEL_89;
     }
@@ -1225,9 +1205,9 @@ LABEL_71:
 LABEL_72:
     eapSettings17 = [selfCopy eapSettings];
     supportedEAPTypes3 = [eapSettings17 supportedEAPTypes];
-    v81 = [supportedEAPTypes3 containsObject:&unk_1F38BA478];
+    v79 = [supportedEAPTypes3 containsObject:&unk_1F38BA478];
 
-    if (v81)
+    if (v79)
     {
       goto LABEL_73;
     }
@@ -1238,9 +1218,9 @@ LABEL_72:
     {
       eapSettings19 = [selfCopy eapSettings];
       username2 = [eapSettings19 username];
-      v94 = [username2 length];
+      v92 = [username2 length];
 
-      if (v94 < 0xFE)
+      if (v92 < 0xFE)
       {
         eapSettings20 = [selfCopy eapSettings];
         password = [eapSettings20 password];
@@ -1248,35 +1228,35 @@ LABEL_72:
         {
           eapSettings21 = [selfCopy eapSettings];
           password2 = [eapSettings21 password];
-          v99 = [password2 length];
+          v97 = [password2 length];
 
-          if (v99 < 0x41)
+          if (v97 < 0x41)
           {
             eapSettings22 = [selfCopy eapSettings];
             supportedEAPTypes4 = [eapSettings22 supportedEAPTypes];
-            v102 = [supportedEAPTypes4 containsObject:&unk_1F38BA490];
+            v100 = [supportedEAPTypes4 containsObject:&unk_1F38BA490];
 
-            if (v102)
+            if (v100)
             {
               supportedEAPTypes = [*(v2 + 4056) setWithObjects:{&unk_1F38BA4D8, &unk_1F38BA4F0, &unk_1F38BA508, &unk_1F38BA520, &unk_1F38BA538, 0}];
-              v103 = MEMORY[0x1E696AD98];
+              v101 = MEMORY[0x1E696AD98];
               eapSettings23 = [selfCopy eapSettings];
-              v105 = [v103 numberWithInteger:{objc_msgSend(eapSettings23, "ttlsInnerAuthenticationType")}];
-              v106 = [supportedEAPTypes containsObject:v105];
+              v103 = [v101 numberWithInteger:{objc_msgSend(eapSettings23, "ttlsInnerAuthenticationType")}];
+              v104 = [supportedEAPTypes containsObject:v103];
 
-              if (!v106)
+              if (!v104)
               {
                 v13 = ne_log_obj();
                 if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
                 {
-                  v133 = objc_opt_class();
-                  v134 = v133;
+                  v131 = objc_opt_class();
+                  v132 = v131;
                   eapSettings24 = [selfCopy eapSettings];
                   ttlsInnerAuthenticationType = [eapSettings24 ttlsInnerAuthenticationType];
                   *buf = 138412546;
-                  v173 = v133;
-                  v174 = 2048;
-                  v175 = ttlsInnerAuthenticationType;
+                  v170 = v131;
+                  v171 = 2048;
+                  v172 = ttlsInnerAuthenticationType;
                   _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@ invalid EAP type %ld", buf, 0x16u);
                 }
 
@@ -1288,12 +1268,12 @@ LABEL_14:
 
 LABEL_73:
             supportedEAPTypes = [*(v2 + 4056) setWithObjects:{&unk_1F38BA4D8, &unk_1F38BA4F0, &unk_1F38BA508, 0}];
-            v82 = MEMORY[0x1E696AD98];
+            v80 = MEMORY[0x1E696AD98];
             eapSettings25 = [selfCopy eapSettings];
-            v84 = [v82 numberWithInteger:{objc_msgSend(eapSettings25, "preferredTLSVersion")}];
-            v85 = [supportedEAPTypes containsObject:v84];
+            v82 = [v80 numberWithInteger:{objc_msgSend(eapSettings25, "preferredTLSVersion")}];
+            v83 = [supportedEAPTypes containsObject:v82];
 
-            if ((v85 & 1) == 0)
+            if ((v83 & 1) == 0)
             {
               eapSettings26 = [selfCopy eapSettings];
               [eapSettings26 setPreferredTLSVersion:2];
@@ -1314,10 +1294,10 @@ LABEL_73:
           goto LABEL_53;
         }
 
-        v129 = objc_opt_class();
+        v127 = objc_opt_class();
         *buf = 138412290;
-        v173 = v129;
-        v56 = v129;
+        v170 = v127;
+        v56 = v127;
         v57 = "%@ invalid password in EAP settings";
 LABEL_89:
         _os_log_error_impl(&dword_1BA83C000, supportedEAPTypes, OS_LOG_TYPE_ERROR, v57, buf, 0xCu);
@@ -1336,10 +1316,10 @@ LABEL_89:
       goto LABEL_53;
     }
 
-    v111 = objc_opt_class();
+    v109 = objc_opt_class();
     *buf = 138412290;
-    v173 = v111;
-    v56 = v111;
+    v170 = v109;
+    v56 = v109;
     v57 = "%@ invalid username in EAP settings";
     goto LABEL_89;
   }
@@ -1349,7 +1329,7 @@ LABEL_89:
   {
     v55 = objc_opt_class();
     *buf = 138412290;
-    v173 = v55;
+    v170 = v55;
     v56 = v55;
     v57 = "%@ too many trusted server certificates";
     goto LABEL_89;
@@ -1359,8 +1339,6 @@ LABEL_53:
   selfCopy = 0;
 LABEL_54:
 
-LABEL_55:
-  v60 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -2,6 +2,7 @@
 + (BOOL)runtimeIsSupported:(id *)supported;
 - (BOOL)isEqual:(id)equal;
 - (DNDSystemAction)initWithAction:(id)action enabled:(BOOL)enabled;
+- (DNDSystemAction)initWithAction:(id)action reverseAction:(id)reverseAction enabled:(BOOL)enabled;
 - (DNDSystemAction)initWithCoder:(id)coder;
 - (NSString)identifier;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -15,39 +16,35 @@
 
 + (BOOL)runtimeIsSupported:(id *)supported
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  if (!NSClassFromString(&cfstr_Wftogglesettin.isa) || !NSClassFromString(&cfstr_Wfreverseconte.isa))
+  v9[1] = *MEMORY[0x277D85DE8];
+  if (NSClassFromString(&cfstr_Wftogglesettin.isa) && NSClassFromString(&cfstr_Wfreverseconte.isa))
   {
-    v5 = DNDLogAppConfiguration;
-    if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_ERROR))
-    {
-      [DNDSystemAction runtimeIsSupported:v5];
-      if (!supported)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    else if (!supported)
-    {
-LABEL_7:
-      result = 0;
-      goto LABEL_8;
-    }
-
-    v6 = MEMORY[0x277CCA9B8];
-    v9 = *MEMORY[0x277CCA450];
-    v10[0] = @"Failed to store system action: VoiceShortcutClient framework is not loaded.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-    *supported = [v6 errorWithDomain:@"DNDErrorDomain" code:1006 userInfo:v7];
-
-    goto LABEL_7;
+    return 1;
   }
 
-  result = 1;
-LABEL_8:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = DNDLogAppConfiguration;
+  if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_ERROR))
+  {
+    [DNDSystemAction runtimeIsSupported:v5];
+    if (!supported)
+    {
+      return 0;
+    }
+
+    goto LABEL_6;
+  }
+
+  if (supported)
+  {
+LABEL_6:
+    v6 = MEMORY[0x277CCA9B8];
+    v8 = *MEMORY[0x277CCA450];
+    v9[0] = @"Failed to store system action: VoiceShortcutClient framework is not loaded.";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    *supported = [v6 errorWithDomain:@"DNDErrorDomain" code:1006 userInfo:v7];
+  }
+
+  return 0;
 }
 
 - (DNDSystemAction)initWithAction:(id)action enabled:(BOOL)enabled
@@ -75,6 +72,20 @@ LABEL_8:
   }
 
   return selfCopy;
+}
+
+- (DNDSystemAction)initWithAction:(id)action reverseAction:(id)reverseAction enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  reverseActionCopy = reverseAction;
+  v10 = [(DNDSystemAction *)self initWithAction:action enabled:enabledCopy];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(&v10->_reverseAction, reverseAction);
+  }
+
+  return v11;
 }
 
 - (NSString)identifier

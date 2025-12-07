@@ -56,7 +56,7 @@
 
 - (void)respondWithError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   completionHandler = self->_completionHandler;
   if (completionHandler)
@@ -76,19 +76,17 @@
     {
       v10 = objc_opt_class();
       identifier = [(LNActionConfirmationRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithUpdates:(id)updates
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   if (self->_completionHandler)
   {
@@ -109,19 +107,17 @@
     {
       v10 = objc_opt_class();
       identifier2 = [(LNActionConfirmationRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier2;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier2;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithValue:(id)value
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (self->_completionHandler)
   {
@@ -142,22 +138,20 @@
     {
       v10 = objc_opt_class();
       identifier2 = [(LNActionConfirmationRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier2;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier2;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithConfirmation:(BOOL)confirmation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!confirmation)
   {
-    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3072 userInfo:0];
+    v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3072 userInfo:0];
     [(LNActionConfirmationRequest *)self respondWithError:?];
     goto LABEL_5;
   }
@@ -167,30 +161,27 @@
     v4 = [LNActionConfirmationResponse alloc];
     identifier = [(LNActionConfirmationRequest *)self identifier];
     responseContext = [(LNRequest *)self responseContext];
-    v13 = [(LNActionConfirmationResponse *)v4 initWithIdentifier:identifier context:responseContext value:0 updates:0];
+    v11 = [(LNActionConfirmationResponse *)v4 initWithIdentifier:identifier context:responseContext value:0 updates:0];
 
     (*(self->_completionHandler + 2))();
     completionHandler = self->_completionHandler;
     self->_completionHandler = 0;
 
 LABEL_5:
-    v8 = *MEMORY[0x1E69E9840];
 
     return;
   }
 
-  v9 = getLNLogCategoryExecution();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v8 = getLNLogCategoryExecution();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v10 = objc_opt_class();
+    v9 = objc_opt_class();
     identifier2 = [(LNActionConfirmationRequest *)self identifier];
     *buf = 138543618;
-    v15 = v10;
-    v16 = 2114;
-    v17 = identifier2;
+    v13 = v9;
+    v14 = 2114;
+    v15 = identifier2;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (LNActionConfirmationRequest)initWithIdentifier:(id)identifier systemStyle:(id)style result:(id)result

@@ -42,38 +42,36 @@ uint64_t __84__HDQuantitySeriesHFDMigrationEntity__enumerateAllSeriesWithDatabas
 
 uint64_t __90__HDQuantitySeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke(void *a1, double a2, double a3, double a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a1[4];
   v8 = *(a1[5] + 8);
   obj = *(v8 + 40);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __90__HDQuantitySeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke_2;
-  v15[3] = &__block_descriptor_64_e23_v16__0__sqlite3_stmt__8l;
-  v15[4] = a1[7];
-  *&v15[5] = a2;
-  *&v15[6] = a3;
-  *&v15[7] = a4;
-  v9 = [v7 executeSQL:@"INSERT OR REPLACE INTO quantity_series_data (series_identifier error:timestamp bindingHandler:value enumerationHandler:{duration) VALUES (?, ?, ?, ?)", &obj, v15, 0}];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __90__HDQuantitySeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke_2;
+  v14[3] = &__block_descriptor_64_e23_v16__0__sqlite3_stmt__8l;
+  v14[4] = a1[7];
+  *&v14[5] = a2;
+  *&v14[6] = a3;
+  *&v14[7] = a4;
+  v9 = [v7 executeSQL:@"INSERT OR REPLACE INTO quantity_series_data (series_identifier error:timestamp bindingHandler:value enumerationHandler:{duration) VALUES (?, ?, ?, ?)", &obj, v14, 0}];
   objc_storeStrong((v8 + 40), obj);
-  if (v9)
+  if ((v9 & 1) == 0)
   {
-LABEL_6:
-    result = 1;
-    goto LABEL_7;
-  }
+    result = [*(*(a1[5] + 8) + 40) hd_isConstraintViolation];
+    if (!result)
+    {
+      return result;
+    }
 
-  result = [*(*(a1[5] + 8) + 40) hd_isConstraintViolation];
-  if (result)
-  {
     _HKInitializeLogging();
     v11 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v18 = a3;
-      v19 = 2048;
-      v20 = a4;
+      v17 = a3;
+      v18 = 2048;
+      v19 = a4;
       _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "[HFDToSQLite] Failed to insert quantity series datum (%f, %f); skipping", buf, 0x16u);
     }
 
@@ -81,13 +79,9 @@ LABEL_6:
     v12 = *(a1[5] + 8);
     v13 = *(v12 + 40);
     *(v12 + 40) = 0;
-
-    goto LABEL_6;
   }
 
-LABEL_7:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t __90__HDQuantitySeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFromStore_database_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -105,21 +99,7 @@ uint64_t __90__HDQuantitySeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFro
   selfCopy = self;
   databaseCopy = database;
   v13 = databaseCopy;
-  if (([databaseCopy executeUncachedSQL:@"DELETE FROM quantity_series_data" error:error] & 1) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3321888768;
-  v12[2] = __79__HDQuantitySeriesHFDMigrationEntity_migrateDataToSQLFromStore_database_error___block_invoke;
-  v12[3] = &__block_descriptor_56_ea8_32c92_ZTSKZ79__HDQuantitySeriesHFDMigrationEntity_migrateDataToSQLFromStore_database_error__E3__1_e21_B48__0q8d16d24q32__40l;
-  v12[4] = store;
-  v12[5] = &selfCopy;
-  v12[6] = &v13;
-  v9 = [(HDQuantitySeriesHFDMigrationEntity *)self _enumerateAllSeriesWithDatabase:databaseCopy error:error handler:v12];
-  databaseCopy = v13;
-  if (v9)
+  if ([databaseCopy executeUncachedSQL:@"DELETE FROM quantity_series_data" error:error] & 1) != 0 && (v12[0] = MEMORY[0x277D85DD0], v12[1] = 3321888768, v12[2] = __79__HDQuantitySeriesHFDMigrationEntity_migrateDataToSQLFromStore_database_error___block_invoke, v12[3] = &__block_descriptor_56_ea8_32c92_ZTSKZ79__HDQuantitySeriesHFDMigrationEntity_migrateDataToSQLFromStore_database_error__E3__1_e21_B48__0q8d16d24q32__40l, v12[4] = store, v12[5] = &selfCopy, v12[6] = &v13, v9 = +[HDQuantitySeriesHFDMigrationEntity _enumerateAllSeriesWithDatabase:error:handler:](self, databaseCopy, error, v12), databaseCopy = v13, (v9))
   {
     v10 = [v13 executeUncachedSQL:@"UPDATE quantity_sample_series SET series_location = 2" error:error];
     databaseCopy = v13;
@@ -127,18 +107,15 @@ uint64_t __90__HDQuantitySeriesHFDMigrationEntity__migrateSeriesWithKey_toSQLFro
 
   else
   {
-LABEL_4:
     v10 = 0;
   }
 
   return v10;
 }
 
-void __79__HDQuantitySeriesHFDMigrationEntity_migrateDataToSQLFromStore_database_error___block_invoke(uint64_t a1, uint64_t a2)
+void __79__HDQuantitySeriesHFDMigrationEntity_migrateDataToSQLFromStore_database_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v30 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = **(a1 + 40);
   v5 = **(a1 + 48);
   objc_opt_self();
   v9[0] = 0;
@@ -258,21 +235,17 @@ void __79__HDQuantitySeriesHFDMigrationEntity_migrateDataToSQLFromStore_database
   return v13;
 }
 
-void __99__HDQuantitySeriesHFDMigrationEntity_migrateDataFromDataStore_to_database_recoveryAnalytics_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
+void __99__HDQuantitySeriesHFDMigrationEntity_migrateDataFromDataStore_to_database_recoveryAnalytics_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, double a5, double a6)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14 = a3;
-  v15 = a2;
+  v13 = *MEMORY[0x277D85DE8];
+  v11 = a3;
+  v12 = a2;
   ++**(a1 + 32);
-  v13 = 0;
-  v12 = 0;
-  v6 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v10 = a5 + 86400.0;
-  v11 = a4 + -86400.0;
+  v10 = 0;
   v9 = 0;
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 64);
+  v7 = a6 + 86400.0;
+  v8 = a5 + -86400.0;
+  v6 = 0;
   operator new();
 }
 
@@ -301,7 +274,7 @@ void __99__HDQuantitySeriesHFDMigrationEntity_migrateDataFromDataStore_to_databa
 
 + (BOOL)migrateDataFromDataStore:to:database:recoveryAnalytics:error:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = self + 8;
   if (**(self + 8) == **(self + 16) && **(self + 24) != 1)
   {
@@ -335,17 +308,17 @@ void __99__HDQuantitySeriesHFDMigrationEntity_migrateDataFromDataStore_to_databa
         v9 = "no";
       }
 
-      v12 = 136316162;
-      v13 = v5;
-      v14 = 2048;
-      v15 = v6;
-      v16 = 2048;
-      v17 = v7;
-      v18 = 2048;
-      v19 = v8;
-      v20 = 2080;
-      v21 = v9;
-      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "Discarding %s quantity series with hfd key %ld (count = %ld/%ld, isOutOfRange=%s", &v12, 0x34u);
+      v11 = 136316162;
+      v12 = v5;
+      v13 = 2048;
+      v14 = v6;
+      v15 = 2048;
+      v16 = v7;
+      v17 = 2048;
+      v18 = v8;
+      v19 = 2080;
+      v20 = v9;
+      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "Discarding %s quantity series with hfd key %ld (count = %ld/%ld, isOutOfRange=%s", &v11, 0x34u);
       result = 0;
     }
 
@@ -353,7 +326,6 @@ void __99__HDQuantitySeriesHFDMigrationEntity_migrateDataFromDataStore_to_databa
   }
 
   ++**(v2 + v10);
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 

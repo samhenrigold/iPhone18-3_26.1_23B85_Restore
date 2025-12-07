@@ -189,8 +189,8 @@ LABEL_6:
 
   if (userInterfaceStyle != userInterfaceStyle2)
   {
-    contacts = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts firstObject];
+    v9 = objc_msgSend_contacts(self);
+    firstObject = [v9 firstObject];
     hasBeenPersisted = [firstObject hasBeenPersisted];
 
     if ((hasBeenPersisted & 1) == 0)
@@ -213,7 +213,7 @@ LABEL_6:
   featureFlags = [currentEnvironment featureFlags];
   v5 = [featureFlags isFeatureEnabled:14];
 
-  if (!v5 || (-[CNContactHeaderView contacts](self, "contacts"), v6 = objc_claimAutoreleasedReturnValue(), [v6 firstObject], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "hasBeenPersisted"), v7, v6, v8))
+  if (!v5 || (objc_msgSend_contacts(self), v6 = objc_claimAutoreleasedReturnValue(), [v6 firstObject], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "hasBeenPersisted"), v7, v6, v8))
   {
     v9 = [CNGeminiPickerController alloc];
     geminiResult = [(CNContactHeaderDisplayView *)self geminiResult];
@@ -574,8 +574,8 @@ void __64__CNContactHeaderDisplayView__unknownContactActionForGeminiView__block_
 
 - (void)_assignActionToGeminiView
 {
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject = [contacts firstObject];
+  v3 = objc_msgSend_contacts(self, a2);
+  firstObject = [v3 firstObject];
   hasBeenPersisted = [firstObject hasBeenPersisted];
 
   if (hasBeenPersisted)
@@ -954,11 +954,11 @@ LABEL_12:
   v25.super_class = CNContactHeaderDisplayView;
   [(CNContactHeaderView *)&v25 reloadDataPreservingChanges:changes];
   [(CNContactHeaderDisplayView *)self _assignActionToGeminiView];
-  contacts = [(CNContactHeaderView *)self contacts];
-  v5 = [(CNContactHeaderDisplayView *)self _headerStringForContacts:contacts];
+  v4 = objc_msgSend_contacts(self);
+  v5 = [(CNContactHeaderDisplayView *)self _headerStringForContacts:v4];
 
-  contacts2 = [(CNContactHeaderView *)self contacts];
-  v7 = [(CNContactHeaderDisplayView *)self _taglinesForContacts:contacts2];
+  v6 = objc_msgSend_contacts(self);
+  v7 = [(CNContactHeaderDisplayView *)self _taglinesForContacts:v6];
 
   v8 = [v7 componentsJoinedByString:@"\n"];
   _importantString = [(CNContactHeaderDisplayView *)self _importantString];
@@ -1119,7 +1119,7 @@ LABEL_8:
 
   if (allowsPickerActions)
   {
-    featureFlags = [(CNContactHeaderView *)self contacts];
+    featureFlags = objc_msgSend_contacts(self);
     firstObject = [featureFlags firstObject];
     hasBeenPersisted = [firstObject hasBeenPersisted];
   }
@@ -1144,8 +1144,8 @@ LABEL_9:
   [geminiView2 setGeminiResult:resultCopy];
 
   [(CNContactHeaderView *)self setNeedsLabelSizeCalculation:1];
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject2 = [contacts firstObject];
+  v12 = objc_msgSend_contacts(self);
+  firstObject2 = [v12 firstObject];
   hasBeenPersisted2 = [firstObject2 hasBeenPersisted];
 
   if (hasBeenPersisted2)
@@ -1332,16 +1332,16 @@ LABEL_13:
 {
   photoView = [(CNContactHeaderView *)self photoView];
   isHidden = [photoView isHidden];
-  contacts = [(CNContactHeaderView *)self contacts];
-  if ([contacts count] > 1)
+  v4 = objc_msgSend_contacts(self);
+  if ([v4 count] > 1)
   {
     [photoView setHidden:0];
   }
 
   else
   {
-    contacts2 = [(CNContactHeaderView *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v5 = objc_msgSend_contacts(self);
+    firstObject = [v5 firstObject];
     if ([firstObject imageDataAvailable])
     {
       v7 = 0;
@@ -2058,10 +2058,11 @@ id __47__CNContactHeaderDisplayView_updateConstraints__block_invoke_2(uint64_t a
 
 - (void)didFinishUsing
 {
+  v2 = sDisplayContactHeaderView;
   if (sDisplayContactHeaderView == self)
   {
     sDisplayContactHeaderView = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, v2);
   }
 }
 

@@ -161,7 +161,7 @@ LABEL_28:
             v28 = delegate2;
             if (delegate2)
             {
-              [delegate2 unadjustedStillImageTime];
+              objc_msgSend_unadjustedStillImageTime(delegate2);
             }
 
             else
@@ -169,9 +169,9 @@ LABEL_28:
               memset(&v40, 0, sizeof(v40));
             }
 
-            [trimAdjustmentController startTime];
+            objc_msgSend_startTime(trimAdjustmentController);
             time1 = v40;
-            if (CMTimeCompare(&time1, &time2) < 0 || ([trimAdjustmentController endTime], time1 = v40, CMTimeCompare(&time1, &time2) >= 1))
+            if (CMTimeCompare(&time1, &time2) < 0 || (objc_msgSend_endTime(trimAdjustmentController), time1 = v40, CMTimeCompare(&time1, &time2) >= 1))
             {
               [controllerCopy removeAdjustmentWithKey:*MEMORY[0x277D3ABD0]];
             }

@@ -213,9 +213,9 @@ LABEL_12:
   timeList = [(MOVStreamTimestamps *)self timeList];
   if (timeList)
   {
-    v8 = timeList;
-    [timeList timeAtIndex:a4];
-    timeList = v8;
+    v7 = timeList;
+    objc_msgSend_timeAtIndex_(timeList);
+    timeList = v7;
   }
 
   else
@@ -235,7 +235,7 @@ LABEL_12:
   if ([(MOVStreamTimestamps *)self shouldAppendEndOfStreamTimestamp])
   {
     memset(&v10, 0, sizeof(v10));
-    [(MOVStreamTimestamps *)self endTimeForAssetTrack:trackCopy];
+    objc_msgSend_endTimeForAssetTrack_(self);
     if (0 >> 96)
     {
       time1 = v10;
@@ -256,58 +256,58 @@ LABEL_12:
 - (id)sampleTimelineForAssetTrack:(id)track shouldStartTimestampsAtZero:(BOOL)zero
 {
   zeroCopy = zero;
-  v60 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   trackCopy = track;
   v6 = objc_opt_new();
   if (trackCopy)
   {
     segments = [trackCopy segments];
-    v33 = segments;
-    v34 = trackCopy;
+    v29 = segments;
+    v30 = trackCopy;
     if ([segments count])
     {
       v8 = -[MOVStreamSampleTimeRangeBuffer initWithCapacity:]([MOVStreamSampleTimeRangeBuffer alloc], "initWithCapacity:", [segments count]);
       v9 = -[MOVStreamSampleTimeRangeBuffer initWithCapacity:]([MOVStreamSampleTimeRangeBuffer alloc], "initWithCapacity:", [segments count]);
-      v55 = 0u;
-      v56 = 0u;
-      v57 = 0u;
-      v58 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       v10 = segments;
-      v11 = [v10 countByEnumeratingWithState:&v55 objects:v59 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v51 objects:v55 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v56;
+        v13 = *v52;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v56 != v13)
+            if (*v52 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v55 + 1) + 8 * i);
+            v15 = *(*(&v51 + 1) + 8 * i);
             if (([v15 isEmpty] & 1) == 0)
             {
               if (v15)
               {
-                [v15 timeMapping];
-                if (BYTE12(v52))
+                objc_msgSend_timeMapping(v15);
+                if (BYTE12(v48))
                 {
-                  [v15 timeMapping];
-                  if (v48)
+                  objc_msgSend_timeMapping(v15);
+                  if (v44)
                   {
-                    [v15 timeMapping];
-                    if (!v47)
+                    objc_msgSend_timeMapping(v15);
+                    if (!v43)
                     {
-                      [v15 timeMapping];
-                      if ((v46 & 0x8000000000000000) == 0)
+                      objc_msgSend_timeMapping(v15);
+                      if ((v42 & 0x8000000000000000) == 0)
                       {
-                        [v15 timeMapping];
+                        objc_msgSend_timeMapping(v15);
                         lhs = *&rhs[3].duration.timescale;
                         [(MOVStreamSampleTimeRangeBuffer *)v8 appendTimeRange:&lhs];
-                        [v15 timeMapping];
+                        objc_msgSend_timeMapping(v15);
                         lhs = *&rhs[2].duration.timescale;
                         [(MOVStreamSampleTimeRangeBuffer *)v9 appendTimeRange:&lhs];
                       }
@@ -318,17 +318,17 @@ LABEL_12:
 
               else
               {
-                v53 = 0u;
-                v54 = 0u;
-                v51 = 0u;
-                v52 = 0u;
                 v49 = 0u;
                 v50 = 0u;
+                v47 = 0u;
+                v48 = 0u;
+                v45 = 0u;
+                v46 = 0u;
               }
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v55 objects:v59 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v51 objects:v55 count:16];
         }
 
         while (v12);
@@ -337,7 +337,7 @@ LABEL_12:
       timeRangeList = [(MOVStreamSampleTimeRangeBuffer *)v8 timeRangeList];
       timeRangeList2 = [(MOVStreamSampleTimeRangeBuffer *)v9 timeRangeList];
 
-      trackCopy = v34;
+      trackCopy = v30;
     }
 
     else
@@ -364,22 +364,20 @@ LABEL_12:
       do
       {
         memset(&rhs[1], 0, 24);
-        [makeSampleCursorAtFirstSampleInDecodeOrder presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(makeSampleCursorAtFirstSampleInDecodeOrder);
         if (v20)
         {
           lhs.start = rhs[1].start;
-          v22 = [timeRangeList indexOfTimeRangeAtTime:&lhs];
-          if (v22 < 0)
+          if ([timeRangeList indexOfTimeRangeAtTime:&lhs] < 0)
           {
-            memset(&v43, 0, sizeof(v43));
-            [makeSampleCursorAtFirstSampleInDecodeOrder currentSampleDuration];
-            memset(&v42, 0, sizeof(v42));
+            memset(&v39, 0, sizeof(v39));
+            objc_msgSend_currentSampleDuration(makeSampleCursorAtFirstSampleInDecodeOrder);
+            memset(&v38, 0, sizeof(v38));
             lhs.start = rhs[1].start;
-            rhs[0].start = v43;
-            CMTimeAdd(&v42, &lhs.start, &rhs[0].start);
-            lhs.start = v42;
-            v25 = [timeRangeList indexOfTimeRangeAtTime:&lhs];
-            if (v25 == -1)
+            rhs[0].start = v39;
+            CMTimeAdd(&v38, &lhs.start, &rhs[0].start);
+            lhs.start = v38;
+            if ([timeRangeList indexOfTimeRangeAtTime:&lhs] == -1)
             {
               *&rhs[1].start.value = *MEMORY[0x277CC0890];
               epoch = *(MEMORY[0x277CC0890] + 16);
@@ -387,33 +385,31 @@ LABEL_12:
 
             else
             {
-              v26 = v25;
               memset(&lhs, 0, sizeof(lhs));
-              [timeRangeList timeRangeAtIndex:v25];
+              objc_msgSend_timeRangeAtIndex_(timeRangeList);
               memset(rhs, 0, 48);
-              [timeRangeList2 timeRangeAtIndex:v26];
+              objc_msgSend_timeRangeAtIndex_(timeRangeList2);
               start = rhs[1].start;
               fromRange = lhs;
               toRange = rhs[0];
-              CMTimeMapTimeFromRangeToRange(&v39, &start, &fromRange, &toRange);
-              *&rhs[1].start.value = *&v39.value;
-              epoch = v39.epoch;
+              CMTimeMapTimeFromRangeToRange(&v35, &start, &fromRange, &toRange);
+              *&rhs[1].start.value = *&v35.value;
+              epoch = v35.epoch;
             }
           }
 
           else
           {
-            v23 = v22;
             memset(&lhs, 0, sizeof(lhs));
-            [timeRangeList timeRangeAtIndex:v22];
+            objc_msgSend_timeRangeAtIndex_(timeRangeList);
             memset(rhs, 0, 48);
-            [timeRangeList2 timeRangeAtIndex:v23];
-            v42 = rhs[1].start;
+            objc_msgSend_timeRangeAtIndex_(timeRangeList2);
+            v38 = rhs[1].start;
             fromRange = lhs;
             toRange = rhs[0];
-            CMTimeMapTimeFromRangeToRange(&v43, &v42, &fromRange, &toRange);
-            *&rhs[1].start.value = *&v43.value;
-            epoch = v43.epoch;
+            CMTimeMapTimeFromRangeToRange(&v39, &v38, &fromRange, &toRange);
+            *&rhs[1].start.value = *&v39.value;
+            epoch = v39.epoch;
           }
 
           rhs[1].start.epoch = epoch;
@@ -421,9 +417,9 @@ LABEL_12:
 
         if (rhs[1].start.flags)
         {
-          v27 = *&self->_restrictedTimeRange.start.epoch;
+          v23 = *&self->_restrictedTimeRange.start.epoch;
           *&lhs.start.value = *&self->_restrictedTimeRange.start.value;
-          *&lhs.start.epoch = v27;
+          *&lhs.start.epoch = v23;
           *&lhs.duration.timescale = *&self->_restrictedTimeRange.duration.timescale;
           rhs[0].start = rhs[1].start;
           if (CMTimeRangeContainsTime(&lhs, &rhs[0].start))
@@ -431,38 +427,38 @@ LABEL_12:
             if ([v6 isEmpty])
             {
               lhs.start = rhs[1].start;
-              v36 = *v21;
+              v32 = *v21;
               *&rhs[0].start.value = *v21;
-              v28 = *(v21 + 2);
-              rhs[0].start.epoch = v28;
-              v29 = CMTimeCompare(&lhs.start, &rhs[0].start);
-              v30 = zeroCopy;
+              v24 = *(v21 + 2);
+              rhs[0].start.epoch = v24;
+              v25 = CMTimeCompare(&lhs.start, &rhs[0].start);
+              v26 = zeroCopy;
               if (zeroCopy)
               {
                 lhs.start = rhs[1].start;
-                *&rhs[0].start.value = v36;
-                rhs[0].start.epoch = v28;
-                v30 = CMTimeCompare(&lhs.start, &rhs[0].start) != 0;
+                *&rhs[0].start.value = v32;
+                rhs[0].start.epoch = v24;
+                v26 = CMTimeCompare(&lhs.start, &rhs[0].start) != 0;
               }
 
-              if (v29 < 0 || v30)
+              if (v25 < 0 || v26)
               {
-                *&lhs.start.value = v36;
-                lhs.start.epoch = v28;
+                *&lhs.start.value = v32;
+                lhs.start.epoch = v24;
                 [v6 appendTime:&lhs];
               }
             }
 
             lhs.start = rhs[1].start;
-            v37 = *v21;
+            v33 = *v21;
             *&rhs[0].start.value = *v21;
-            v31 = *(v21 + 2);
-            rhs[0].start.epoch = v31;
+            v27 = *(v21 + 2);
+            rhs[0].start.epoch = v27;
             if ((CMTimeCompare(&lhs.start, &rhs[0].start) & 0x80000000) == 0)
             {
               lhs.start = rhs[1].start;
-              *&rhs[0].start.value = v37;
-              rhs[0].start.epoch = v31;
+              *&rhs[0].start.value = v33;
+              rhs[0].start.epoch = v27;
               if (CMTimeCompare(&lhs.start, &rhs[0].start) || [v6 isEmpty])
               {
                 lhs.start = rhs[1].start;
@@ -476,7 +472,7 @@ LABEL_12:
       while ([makeSampleCursorAtFirstSampleInDecodeOrder stepInPresentationOrderByCount:1]);
     }
 
-    trackCopy = v34;
+    trackCopy = v30;
   }
 
   return v6;
@@ -487,7 +483,7 @@ LABEL_12:
   *retstr = **&MEMORY[0x277CC0890];
   if (a4)
   {
-    [a4 timeRange];
+    objc_msgSend_timeRange(a4, track);
     return CMTimeRangeGetEnd(retstr, &v5);
   }
 

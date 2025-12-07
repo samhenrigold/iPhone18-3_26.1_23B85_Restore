@@ -8,10 +8,15 @@
 - (void)languageCodeDidChange:(id)change;
 - (void)listItemSelected:(id)selected;
 - (void)reloadSpecifier:(id)specifier;
+- (void)setMultilingualEnabled:(BOOL)enabled forLanguageCode:(id)code;
 - (void)setParentController:(id)controller;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateDetailedTextLabelForSpecifier:(id)specifier;
 - (void)updateSelectionToCurrentAssistantLanguageAndScrollToVisible:(BOOL)visible;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation AssistantLanguageController
@@ -46,6 +51,135 @@
   return v2;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  date = [MEMORY[0x277CBEAA8] date];
+  startDate = self->_startDate;
+  self->_startDate = date;
+
+  v8.receiver = self;
+  v8.super_class = AssistantLanguageController;
+  [(AssistantDetailListController *)&v8 viewDidAppear:appearCopy];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_languageCodeDidChange_ name:*MEMORY[0x277CEF018] object:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AssistantLanguageController;
+  [(AssistantDetailListController *)&v4 viewWillAppear:appear];
+  if (*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]))
+  {
+    [(AssistantLanguageController *)self updateSelectionToCurrentAssistantLanguageAndScrollToVisible:1];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (!self->_punchingOutToDetail)
+  {
+    checkedSpecifier = self->super._checkedSpecifier;
+    if (checkedSpecifier)
+    {
+      values = [(PSSpecifier *)checkedSpecifier values];
+      firstObject = [values firstObject];
+
+      parentController = [(AssistantLanguageController *)self parentController];
+      v9 = [(NSMutableDictionary *)self->_multilingualLanguageSettings objectForKey:firstObject];
+      [parentController setSelectedLanguageWantsMultilingualEnabled:{objc_msgSend(v9, "BOOLValue")}];
+
+      specifier = [(AssistantLanguageController *)self specifier];
+      [specifier performSetterWithValue:firstObject];
+    }
+  }
+
+  v11.receiver = self;
+  v11.super_class = AssistantLanguageController;
+  [(AssistantLanguageController *)&v11 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  date = [MEMORY[0x277CBEAA8] date];
+  v6 = date;
+  startDate = self->_startDate;
+  if (!startDate)
+  {
+    startDate = date;
+  }
+
+  v8 = startDate;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2050000000;
+  v9 = getCKKnowledgeStoreClass_softClass;
+  v28 = getCKKnowledgeStoreClass_softClass;
+  if (!getCKKnowledgeStoreClass_softClass)
+  {
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __getCKKnowledgeStoreClass_block_invoke;
+    v23 = &unk_278CD1658;
+    v24 = &v25;
+    __getCKKnowledgeStoreClass_block_invoke(&v20);
+    v9 = v26[3];
+  }
+
+  v10 = v9;
+  _Block_object_dispose(&v25, 8);
+  defaultSynchedKnowledgeStore = [v9 defaultSynchedKnowledgeStore];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2050000000;
+  v12 = getCKPermanentEventStoreClass_softClass;
+  v28 = getCKPermanentEventStoreClass_softClass;
+  if (!getCKPermanentEventStoreClass_softClass)
+  {
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __getCKPermanentEventStoreClass_block_invoke;
+    v23 = &unk_278CD1658;
+    v24 = &v25;
+    __getCKPermanentEventStoreClass_block_invoke(&v20);
+    v12 = v26[3];
+  }
+
+  v13 = v12;
+  _Block_object_dispose(&v25, 8);
+  v14 = [[v12 alloc] initWithKnowledgeStore:defaultSynchedKnowledgeStore];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2050000000;
+  v15 = getCKEventClass_softClass;
+  v28 = getCKEventClass_softClass;
+  if (!getCKEventClass_softClass)
+  {
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __getCKEventClass_block_invoke;
+    v23 = &unk_278CD1658;
+    v24 = &v25;
+    __getCKEventClass_block_invoke(&v20);
+    v15 = v26[3];
+  }
+
+  v16 = v15;
+  _Block_object_dispose(&v25, 8);
+  v17 = [[v15 alloc] initWithIdentifier:@"SiriLanguageSettingsShown" startDate:v8 endDate:v6 metadata:0];
+  [v14 recordEvent:v17 completionHandler:&__block_literal_global_4];
+  v19.receiver = self;
+  v19.super_class = AssistantLanguageController;
+  [(AssistantLanguageController *)&v19 viewDidDisappear:disappearCopy];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277CEF018] object:0];
+
+  self->_punchingOutToDetail = 0;
+}
+
 void __48__AssistantLanguageController_viewDidDisappear___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
@@ -71,7 +205,7 @@ void __48__AssistantLanguageController_viewDidDisappear___block_invoke(uint64_t 
 
 - (id)specifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   if (!*(&self->super.super.super.super.super.super.isa + v3))
   {
@@ -82,16 +216,16 @@ void __48__AssistantLanguageController_viewDidDisappear___block_invoke(uint64_t 
 
   if (self->super._supportsMultilingualResponses && [(NSArray *)self->_multilingualResponseLanguageVariants count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = self->_multilingualResponseLanguageVariants;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       v10 = *MEMORY[0x277D3FF08];
       v11 = *MEMORY[0x277D3FF38];
       do
@@ -99,12 +233,12 @@ void __48__AssistantLanguageController_viewDidDisappear___block_invoke(uint64_t 
         v12 = 0;
         do
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = [*(&self->super.super.super.super.super.super.isa + v3) specifierForID:{*(*(&v18 + 1) + 8 * v12), v18}];
+          v13 = [*(&self->super.super.super.super.super.super.isa + v3) specifierForID:{*(*(&v17 + 1) + 8 * v12), v17}];
           v14 = v13;
           if (v13)
           {
@@ -119,16 +253,15 @@ void __48__AssistantLanguageController_viewDidDisappear___block_invoke(uint64_t 
         }
 
         while (v8 != v12);
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v8);
     }
   }
 
-  [(AssistantLanguageController *)self updateSelectionToCurrentAssistantLanguageAndScrollToVisible:0, v18];
+  [(AssistantLanguageController *)self updateSelectionToCurrentAssistantLanguageAndScrollToVisible:0, v17];
   v15 = *(&self->super.super.super.super.super.super.isa + v3);
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -207,47 +340,46 @@ void __52__AssistantLanguageController__signalDidSelectVoice__block_invoke(uint6
   groupSpecifier = self->super._groupSpecifier;
   self->super._groupSpecifier = v6;
 
-  v23 = v5;
+  v22 = v5;
   [v5 addObject:self->super._groupSpecifier];
   [(PSSpecifier *)self->super._groupSpecifier setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
-  v22 = v4;
+  v21 = v4;
   if (v4)
   {
     v8 = 0;
-    v9 = *MEMORY[0x277D3FE58];
-    v20 = *MEMORY[0x277D3FE58];
-    v21 = *MEMORY[0x277D3FFC0];
+    v19 = *MEMORY[0x277D3FE58];
+    v20 = *MEMORY[0x277D3FFC0];
     do
     {
-      v10 = [values objectAtIndex:v8];
+      v9 = [values objectAtIndex:v8];
       titleDictionary = [*(&self->super.super.super.super.super.super.isa + v3) titleDictionary];
-      v12 = [titleDictionary objectForKey:v10];
+      v11 = [titleDictionary objectForKey:v9];
 
-      v13 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v10, 0}];
-      v14 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v12, 0}];
-      v15 = MEMORY[0x277D3FAD8];
+      v12 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v9, 0}];
+      v13 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v11, 0}];
+      v14 = MEMORY[0x277D3FAD8];
       target = [*(&self->super.super.super.super.super.super.isa + v3) target];
-      v17 = [v15 preferenceSpecifierNamed:v12 target:target set:sel_setAssistantLanguage_forSpecifier_ get:0 detail:0 cell:3 edit:0];
+      v16 = [v14 preferenceSpecifierNamed:v11 target:target set:sel_setAssistantLanguage_forSpecifier_ get:0 detail:0 cell:3 edit:0];
 
-      [v17 setIdentifier:v10];
-      [v17 setValues:v13 titles:v14];
+      [v16 setIdentifier:v9];
+      [v16 setValues:v12 titles:v13];
       if (self->super._supportsMultilingualResponses)
       {
         transparentImage = [(AssistantDetailListController *)self transparentImage];
-        [v17 setProperty:transparentImage forKey:v21];
+        [v16 setProperty:transparentImage forKey:v20];
 
-        [v17 setProperty:objc_opt_class() forKey:v20];
+        [v16 setProperty:objc_opt_class() forKey:v19];
       }
 
-      [v23 addObject:v17];
+      [v22 addObject:v16];
 
       ++v8;
     }
 
-    while (v22 != v8);
+    while (v21 != v8);
   }
 
-  return v23;
+  return v22;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -422,6 +554,24 @@ LABEL_13:
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setMultilingualEnabled:(BOOL)enabled forLanguageCode:(id)code
+{
+  enabledCopy = enabled;
+  codeCopy = code;
+  if (codeCopy)
+  {
+    v9 = codeCopy;
+    if ([codeCopy length])
+    {
+      multilingualLanguageSettings = self->_multilingualLanguageSettings;
+      v8 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+      [(NSMutableDictionary *)multilingualLanguageSettings setValue:v8 forKey:v9];
+    }
+  }
+
+  MEMORY[0x2821F96F8]();
 }
 
 @end

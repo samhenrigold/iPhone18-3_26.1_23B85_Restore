@@ -1,6 +1,7 @@
 @interface TSPLazyReference
 + (id)referenceForObject:(id)object;
 + (id)weakReferenceForObject:(id)object;
++ (id)weakReferenceForObject:(id)object retainedUntilArchived:(BOOL)archived;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)validateObject:(id)object expectedObjectClass:(Class)class expectedObjectProtocol:(id)protocol delegate:(id)delegate shouldIgnoreFailure:(BOOL *)failure shouldUpdateObjectClass:(BOOL *)objectClass error:(id *)error;
 - (NSString)description;
@@ -38,6 +39,16 @@
   v3 = objc_msgSend_weakReferenceForObject_retainedUntilArchived_(self, a2, object, 0);
 
   return v3;
+}
+
++ (id)weakReferenceForObject:(id)object retainedUntilArchived:(BOOL)archived
+{
+  archivedCopy = archived;
+  objectCopy = object;
+  v7 = [self alloc];
+  inited = objc_msgSend_initWeakReferenceWithObject_retainedUntilArchived_(v7, v8, objectCopy, archivedCopy);
+
+  return inited;
 }
 
 - (TSPLazyReference)initWithDelegate:(id)delegate identifier:(int64_t)identifier ownershipMode:(int64_t)mode allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol
@@ -806,19 +817,18 @@ LABEL_13:
     v8 = @"?";
   }
 
-  v16 = self->_identifier;
-  v17 = atomic_load(&self->_flags);
-  if ((v17 & 0x10) != 0)
+  v16 = atomic_load(&self->_flags);
+  if ((v16 & 0x10) != 0)
   {
-    v18 = objc_msgSend_initWithFormat_(v14, v13, @"unloaded_object=[%@-%llu] keep_in_memory=%@", v8, self->_identifier, @"YES");
+    v17 = objc_msgSend_initWithFormat_(v14, v13, @"unloaded_object=[%@-%llu] keep_in_memory=%@", v8, self->_identifier, @"YES");
   }
 
   else
   {
-    v18 = objc_msgSend_initWithFormat_(v14, v13, @"unloaded_object=[%@-%llu] keep_in_memory=%@", v8, self->_identifier, @"NO");
+    v17 = objc_msgSend_initWithFormat_(v14, v13, @"unloaded_object=[%@-%llu] keep_in_memory=%@", v8, self->_identifier, @"NO");
   }
 
-  v12 = v18;
+  v12 = v17;
   if (objectClass)
   {
     goto LABEL_13;
@@ -826,18 +836,18 @@ LABEL_13:
 
 LABEL_14:
   os_unfair_lock_unlock(&self->_objectLock);
-  v21 = objc_msgSend_ownershipMode(self, v19, v20);
-  if (v21 <= 2)
+  v20 = objc_msgSend_ownershipMode(self, v18, v19);
+  if (v20 <= 2)
   {
-    objc_msgSend_appendString_(v12, v22, off_27A6E4750[v21]);
+    objc_msgSend_appendString_(v12, v21, off_27A6E4750[v20]);
   }
 
-  v23 = objc_loadWeakRetained(&self->_component);
+  v22 = objc_loadWeakRetained(&self->_component);
 
-  if (v23)
+  if (v22)
   {
-    v24 = objc_loadWeakRetained(&self->_component);
-    objc_msgSend_appendFormat_(v12, v25, @" component=%@", v24);
+    v23 = objc_loadWeakRetained(&self->_component);
+    objc_msgSend_appendFormat_(v12, v24, @" component=%@", v23);
   }
 
   return v12;

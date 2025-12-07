@@ -45,31 +45,31 @@
 {
   contextCopy = context;
   v4 = objc_alloc(objc_opt_class());
-  v5 = sub_275DC204C();
-  v7 = objc_msgSend_localizedStringForKey_value_table_(v5, v6, @"None", &stru_2884D8E20, @"Keynote");
-  isVariation = objc_msgSend_initWithContext_name_overridePropertyMap_isVariation_(v4, v8, contextCopy, v7, 0, 0);
+  v5 = sub_275DC204C(v4);
+  v6 = [v5 localizedStringForKey:@"None" value:&stru_2884D8E20 table:@"Keynote"];
+  v7 = [v4 initWithContext:contextCopy name:v6 overridePropertyMap:0 isVariation:0];
 
-  return isVariation;
+  return v7;
 }
 
 + (id)defaultValueForProperty:(int)property
 {
   if (property == 4096)
   {
-    v3 = objc_msgSend_defaultAttributesForEffect_(KNTransitionAttributes, a2, *MEMORY[0x277D80160]);
+    blackColor = [KNTransitionAttributes defaultAttributesForEffect:*MEMORY[0x277D80160]];
   }
 
   else if (property == 516)
   {
-    v3 = objc_msgSend_blackColor(MEMORY[0x277D801F8], a2, *&property);
+    blackColor = [MEMORY[0x277D801F8] blackColor];
   }
 
   else
   {
-    v3 = 0;
+    blackColor = 0;
   }
 
-  return v3;
+  return blackColor;
 }
 
 - (KNSlideStyle)initWithContext:(id)context name:(id)name overridePropertyMap:(id)map isVariation:(BOOL)variation
@@ -82,37 +82,37 @@
 - (KNMotionBackgroundStyle)motionBackgroundStyle
 {
   objc_opt_class();
-  v4 = objc_msgSend_objectForProperty_(self, v3, 516);
-  v5 = TSUDynamicCast();
+  v3 = [(KNSlideStyle *)self objectForProperty:516];
+  v4 = TSUDynamicCast();
 
-  if (v5)
+  if (v4)
   {
-    v8 = objc_msgSend_motionBackgroundStyle(v5, v6, v7);
+    motionBackgroundStyle = [v4 motionBackgroundStyle];
   }
 
   else
   {
-    v8 = 0;
+    motionBackgroundStyle = 0;
   }
 
-  return v8;
+  return motionBackgroundStyle;
 }
 
 - (void)referencedStyleWasUpdated:(id)updated
 {
   updatedCopy = updated;
-  v6 = objc_msgSend_motionBackgroundStyle(self, v4, v5);
+  motionBackgroundStyle = [(KNSlideStyle *)self motionBackgroundStyle];
 
-  if (v6 == updatedCopy)
+  if (motionBackgroundStyle == updatedCopy)
   {
-    objc_msgSend_willModify(self, v7, v8);
+    [(KNSlideStyle *)self willModify];
     objc_opt_class();
-    v10 = objc_msgSend_objectForProperty_(self, v9, 516);
-    v11 = TSUDynamicCast();
+    v5 = [(KNSlideStyle *)self objectForProperty:516];
+    v6 = TSUDynamicCast();
 
-    if (v11)
+    if (v6)
     {
-      objc_msgSend_updateAlternateFillForDowngrading(v11, v12, v13);
+      [v6 updateAlternateFillForDowngrading];
     }
   }
 }
@@ -120,20 +120,20 @@
 - (CGSize)targetSizeForImageData:(id)data associatedHint:(id)hint
 {
   objc_opt_class();
-  v6 = objc_msgSend_valueForProperty_(self, v5, 516);
-  v7 = TSUCheckedDynamicCast();
+  v5 = [(KNSlideStyle *)self valueForProperty:516];
+  v6 = TSUCheckedDynamicCast();
 
-  v10 = objc_msgSend_owningDocument(self, v8, v9);
-  v13 = objc_msgSend_show(v10, v11, v12);
-  objc_msgSend_size(v13, v14, v15);
-  objc_msgSend_renderedImageSizeForObjectSize_(v7, v16, v17);
-  v19 = v18;
-  v21 = v20;
+  owningDocument = [(TSPObject *)self owningDocument];
+  show = [owningDocument show];
+  [show size];
+  [v6 renderedImageSizeForObjectSize:?];
+  v10 = v9;
+  v12 = v11;
 
-  v22 = v19;
-  v23 = v21;
-  result.height = v23;
-  result.width = v22;
+  v13 = v10;
+  v14 = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -141,52 +141,51 @@
 {
   mapCopy = map;
   unarchiverCopy = unarchiver;
-  v10 = objc_opt_class();
-  v11 = *(archive + 4);
-  if (v11)
+  v9 = objc_opt_class();
+  v10 = *(archive + 4);
+  if (v10)
   {
-    v12 = objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80248], v9, *(archive + 3), unarchiverCopy);
-    v20 = v12;
-    v13 = objc_opt_class();
-    v15 = objc_msgSend_validateObjectValue_withClass_forProperty_(v10, v14, &v20, v13, 516);
-    v16 = v20;
+    v11 = [MEMORY[0x277D80248] instanceWithArchive:*(archive + 3) unarchiver:unarchiverCopy];
+    v15 = v11;
+    v12 = [v9 validateObjectValue:&v15 withClass:objc_opt_class() forProperty:516];
+    v13 = v15;
 
-    if (v15)
+    if (v12)
     {
-      objc_msgSend_setObject_forProperty_(mapCopy, v17, v16, 516);
+      [mapCopy setObject:v13 forProperty:516];
     }
 
-    v11 = *(archive + 4);
+    v10 = *(archive + 4);
   }
 
-  if ((v11 & 8) != 0)
+  if ((v10 & 8) != 0)
   {
-    v19 = *(archive + 41);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v19, 4097))
+    v14 = *(archive + 41);
+    if ([v9 validateIntValueAsBool:&v14 forProperty:4097])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, v19 != 0, 4097);
+      [mapCopy setIntValue:v14 != 0 forProperty:4097];
     }
 
-    v11 = *(archive + 4);
+    v10 = *(archive + 4);
   }
 
-  if ((v11 & 0x10) != 0)
+  if ((v10 & 0x10) != 0)
   {
-    v19 = *(archive + 42);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v19, 4098))
+    v14 = *(archive + 42);
+    if ([v9 validateIntValueAsBool:&v14 forProperty:4098])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v9, v19 != 0, 4098);
+      [mapCopy setIntValue:v14 != 0 forProperty:4098];
     }
 
-    v11 = *(archive + 4);
+    v10 = *(archive + 4);
   }
 
-  if ((v11 & 0x40) != 0)
+  if ((v10 & 0x40) != 0)
   {
-    v19 = *(archive + 44);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v10, v9, &v19, 4100))
+    v14 = *(archive + 44);
+    if ([v9 validateIntValueAsBool:&v14 forProperty:4100])
     {
-      objc_msgSend_setIntValue_forProperty_(mapCopy, v18, v19 != 0, 4100);
+      [mapCopy setIntValue:v14 != 0 forProperty:4100];
     }
   }
 }
@@ -196,47 +195,47 @@
   mapCopy = map;
   archiverCopy = archiver;
   v9 = objc_opt_class();
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_275D7DE70;
-  v24[3] = &unk_27A698540;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = sub_275D7DE70;
+  v16[3] = &unk_27A698540;
   v10 = mapCopy;
-  v25 = v10;
-  v27 = v9;
+  v17 = v10;
+  v19 = v9;
   archiveCopy = archive;
   v11 = archiverCopy;
-  v26 = v11;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v11, v12, 1, archive, v24);
-  if (objc_msgSend_containsProperty_(v10, v13, 4097))
+  v18 = v11;
+  [v11 pushScopeForField:1 message:archive usingBlock:v16];
+  if ([v10 containsProperty:4097])
   {
-    v23 = objc_msgSend_intValueForProperty_(v10, v14, 4097);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v15, &v23, 4097))
+    v15 = [v10 intValueForProperty:4097];
+    if ([v9 validateIntValueAsBool:&v15 forProperty:4097])
     {
-      v16 = v23 != 0;
+      v12 = v15 != 0;
       *(archive + 4) |= 8u;
-      *(archive + 41) = v16;
+      *(archive + 41) = v12;
     }
   }
 
-  if (objc_msgSend_containsProperty_(v10, v14, 4098))
+  if ([v10 containsProperty:4098])
   {
-    v23 = objc_msgSend_intValueForProperty_(v10, v17, 4098);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v18, &v23, 4098))
+    v15 = [v10 intValueForProperty:4098];
+    if ([v9 validateIntValueAsBool:&v15 forProperty:4098])
     {
-      v19 = v23 != 0;
+      v13 = v15 != 0;
       *(archive + 4) |= 0x10u;
-      *(archive + 42) = v19;
+      *(archive + 42) = v13;
     }
   }
 
-  if (objc_msgSend_containsProperty_(v10, v17, 4100))
+  if ([v10 containsProperty:4100])
   {
-    v23 = objc_msgSend_intValueForProperty_(v10, v20, 4100);
-    if (objc_msgSend_validateIntValueAsBool_forProperty_(v9, v21, &v23, 4100))
+    v15 = [v10 intValueForProperty:4100];
+    if ([v9 validateIntValueAsBool:&v15 forProperty:4100])
     {
-      v22 = v23 != 0;
+      v14 = v15 != 0;
       *(archive + 4) |= 0x40u;
-      *(archive + 44) = v22;
+      *(archive + 44) = v14;
     }
   }
 }
@@ -245,9 +244,9 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[62]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[62]];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v6, v5, unarchiverCopy);
+  [(KNSlideStyle *)self loadFromArchive:v4 unarchiver:unarchiverCopy];
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -263,27 +262,27 @@
     v7 = MEMORY[0x277D80BD0];
   }
 
-  v15.receiver = self;
-  v15.super_class = KNSlideStyle;
-  [(KNSlideStyle *)&v15 loadFromArchive:v7 unarchiver:unarchiverCopy];
+  v13.receiver = self;
+  v13.super_class = KNSlideStyle;
+  [(KNSlideStyle *)&v13 loadFromArchive:v7 unarchiver:unarchiverCopy];
   v8 = *(archive + 10);
   if (v8)
   {
-    v9 = objc_alloc(MEMORY[0x277D80AB8]);
-    v12 = objc_msgSend_initWithCapacity_(v9, v10, v8);
+    v9 = [objc_alloc(MEMORY[0x277D80AB8]) initWithCapacity:v8];
     if (*(archive + 4))
     {
-      objc_msgSend_loadSlideStylePropertiesIntoPropertyMap_fromArchive_unarchiver_(self, v11, v12, *(archive + 4), unarchiverCopy);
+      v10 = *(archive + 4);
     }
 
     else
     {
-      objc_msgSend_loadSlideStylePropertiesIntoPropertyMap_fromArchive_unarchiver_(self, v11, v12, &qword_2812EB638, unarchiverCopy);
+      v10 = &qword_2812EB638;
     }
 
-    v13 = *MEMORY[0x277D80AF0];
-    v14 = *(&self->super.super.super.isa + v13);
-    *(&self->super.super.super.isa + v13) = v12;
+    [(KNSlideStyle *)self loadSlideStylePropertiesIntoPropertyMap:v9 fromArchive:v10 unarchiver:unarchiverCopy];
+    v11 = *MEMORY[0x277D80AF0];
+    v12 = *(&self->super.super.super.isa + v11);
+    *(&self->super.super.super.isa + v11) = v9;
   }
 }
 
@@ -291,9 +290,9 @@
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275D7E3F8, off_2812EA908[62]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275D7E3F8 descriptor:off_2812EA908[62]];
 
-  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
+  [(KNSlideStyle *)self saveToArchive:v4 archiver:archiverCopy];
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
@@ -313,47 +312,47 @@
     *(archive + 3) = v7;
   }
 
-  v27.receiver = self;
-  v27.super_class = KNSlideStyle;
-  [(KNSlideStyle *)&v27 saveToArchive:v7 archiver:archiverCopy];
-  v11 = objc_msgSend_overrideCount(self, v9, v10);
-  if (v11)
+  v19.receiver = self;
+  v19.super_class = KNSlideStyle;
+  [(KNSlideStyle *)&v19 saveToArchive:v7 archiver:archiverCopy];
+  overrideCount = [(KNSlideStyle *)self overrideCount];
+  if (overrideCount)
   {
-    if (v11 >> 31)
+    if (overrideCount >> 31)
     {
-      v17 = MEMORY[0x277D81150];
-      v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[KNSlideStyle(PersistenceAdditions) saveToArchive:archiver:]");
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideStyle.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v21, v18, v20, 192, 0, "Out-of-bounds type assignment was clamped to max");
+      v13 = MEMORY[0x277D81150];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideStyle(PersistenceAdditions) saveToArchive:archiver:]"];
+      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideStyle.mm"];
+      [v13 handleFailureInFunction:v14 file:v15 lineNumber:192 isFatal:0 description:"Out-of-bounds type assignment was clamped to max"];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23);
-      LODWORD(v11) = 0x7FFFFFFF;
+      [MEMORY[0x277D81150] logBacktraceThrottled];
+      LODWORD(overrideCount) = 0x7FFFFFFF;
     }
 
-    v13 = *(archive + 4);
-    *(archive + 10) = v11;
-    *(archive + 4) = v13 | 6;
-    v14 = *(archive + 4);
-    if (!v14)
+    v10 = *(archive + 4);
+    *(archive + 10) = overrideCount;
+    *(archive + 4) = v10 | 6;
+    v11 = *(archive + 4);
+    if (!v11)
     {
-      v15 = *(archive + 1);
-      if (v15)
+      v12 = *(archive + 1);
+      if (v12)
       {
-        v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+        v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v14 = sub_275E207F4(v15);
-      *(archive + 4) = v14;
+      v11 = sub_275E207F4(v12);
+      *(archive + 4) = v11;
     }
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_275D7E3D8;
-    v24[3] = &unk_27A697C88;
-    v24[4] = self;
-    v26 = v14;
-    v25 = archiverCopy;
-    objc_msgSend_pushScopeForField_message_usingBlock_(v25, v16, 11, archive, v24);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_275D7E3D8;
+    v16[3] = &unk_27A697C88;
+    v16[4] = self;
+    v18 = v11;
+    v17 = archiverCopy;
+    [v17 pushScopeForField:11 message:archive usingBlock:v16];
   }
 }
 

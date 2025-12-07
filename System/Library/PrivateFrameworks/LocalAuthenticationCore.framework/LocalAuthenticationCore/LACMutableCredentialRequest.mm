@@ -93,27 +93,25 @@ LABEL_10:
 
 - (NSString)description
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  v15[0] = @"identifier";
+  v14[0] = @"identifier";
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", -[LACMutableCredentialRequest identifier](self, "identifier")];
-  v16[0] = v5;
-  v15[1] = @"credential";
+  v15[0] = v5;
+  v14[1] = @"credential";
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", -[LACMutableCredentialRequest credential](self, "credential")];
-  v16[1] = v6;
-  v15[2] = @"userID";
+  v15[1] = v6;
+  v14[2] = @"userID";
   v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", -[LACMutableCredentialRequest userID](self, "userID")];
-  v16[2] = v7;
-  v15[3] = @"contextID";
+  v15[2] = v7;
+  v14[3] = @"contextID";
   v8 = MEMORY[0x1E696AEC0];
   contextID = [(LACMutableCredentialRequest *)self contextID];
   v10 = [v8 stringWithFormat:@"%@", contextID];
-  v16[3] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
   v12 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v11];;
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

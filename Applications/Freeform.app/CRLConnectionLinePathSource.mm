@@ -181,7 +181,7 @@
   v25 = pureGeometry;
   if (pureGeometry)
   {
-    [pureGeometry fullTransform];
+    objc_msgSend_fullTransform(pureGeometry);
     a = v43.a;
     b = v43.b;
     c = v43.c;
@@ -202,7 +202,7 @@
 
   if (newLayoutCopy)
   {
-    [newLayoutCopy pureTransformInRoot];
+    objc_msgSend_pureTransformInRoot(newLayoutCopy);
   }
 
   else

@@ -329,10 +329,10 @@
   if (os_log_type_enabled(qword_100BCE9E0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v25 = bundleCopy;
-    v26 = 2112;
-    v27 = optionsCopy;
-    v28 = 1024;
+    v27 = bundleCopy;
+    v28 = 2112;
+    v29 = optionsCopy;
+    v30 = 1024;
     attemptCopy = attempt;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attempting To Launch Bundle: %{public}@ Options: %@ Attempt: %d", buf, 0x1Cu);
   }
@@ -340,38 +340,39 @@
   v11 = dispatch_time(0, 3000000000);
   if (attempt < 3)
   {
-    v14 = v11;
-    v15 = +[FBSOpenApplicationService serviceWithDefaultShellEndpoint];
-    v16 = [FBSOpenApplicationOptions optionsWithDictionary:optionsCopy];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_1007DBA34;
-    v17[3] = &unk_100B0E240;
-    v20 = v14;
-    v18[0] = bundleCopy;
-    v18[1] = self;
-    v19 = optionsCopy;
+    v16 = v11;
+    v17 = +[FBSOpenApplicationService serviceWithDefaultShellEndpoint];
+    v18 = [FBSOpenApplicationOptions optionsWithDictionary:optionsCopy];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_1007DBA34;
+    v19[3] = &unk_100B0E240;
+    v22 = v16;
+    v20[0] = bundleCopy;
+    v20[1] = self;
+    v21 = optionsCopy;
     attemptCopy2 = attempt;
-    [v15 openApplication:v18[0] withOptions:v16 completion:v17];
+    [v17 openApplication:v20[0] withOptions:v18 completion:v19];
 
-    v13 = v18;
+    v15 = v20;
   }
 
   else
   {
-    if (os_log_type_enabled(qword_100BCE9E0, OS_LOG_TYPE_ERROR))
+    v12 = os_log_type_enabled(qword_100BCE9E0, OS_LOG_TYPE_ERROR);
+    if (v12)
     {
       sub_10087A600();
     }
 
-    v12 = sub_100007EE8();
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_1007DB9E0;
-    v22[3] = &unk_100ADF820;
-    v23 = bundleCopy;
-    sub_10000CA94(v12, v22);
-    v13 = &v23;
+    v14 = sub_100007EE8(v12, v13);
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_1007DB9E0;
+    v24[3] = &unk_100ADF820;
+    v25 = bundleCopy;
+    sub_10000CA94(v14, v24);
+    v15 = &v25;
   }
 }
 
@@ -639,76 +640,78 @@ LABEL_12:
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
   v11 = [(NSMutableDictionary *)self->_applicationMap objectForKeyedSubscript:dCopy];
-  if (([v11 isExtension] & 1) == 0)
+  isExtension = [v11 isExtension];
+  if ((isExtension & 1) == 0)
   {
     if (urgentCopy)
     {
-      v12 = qword_100BCE8D8;
-      if (os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_INFO))
+      v14 = qword_100BCE8D8;
+      isExtension = os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_INFO);
+      if (isExtension)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "(EE) Creating URGENT Process Assertion", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "(EE) Creating URGENT Process Assertion", buf, 2u);
       }
 
-      v13 = 3;
+      v15 = 3;
     }
 
     else
     {
-      v13 = 1;
+      v15 = 1;
     }
 
-    v14 = sub_10000C798();
-    if ((*(*v14 + 368))(v14))
+    v16 = sub_10000C798(isExtension, v13);
+    if ((*(*v16 + 368))(v16))
     {
-      v15 = [[ProcessAssertion alloc] initWithPID:v6 flags:v13 reason:5 name:dCopy];
+      v17 = [[ProcessAssertion alloc] initWithPID:v6 flags:v15 reason:5 name:dCopy];
     }
 
     else
     {
-      v15 = [[ProcessAssertion alloc] initWithBundleIdentifier:dCopy flags:v13 reason:5 name:dCopy];
+      v17 = [[ProcessAssertion alloc] initWithBundleIdentifier:dCopy flags:v15 reason:5 name:dCopy];
     }
 
-    v16 = v15;
-    if (v15 && [(ProcessAssertion *)v15 acquire])
+    v18 = v17;
+    if (v17 && [(ProcessAssertion *)v17 acquire])
     {
-      v17 = qword_100BCE8D8;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = qword_100BCE8D8;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v18 = dCopy;
+        v20 = dCopy;
         uTF8String = [dCopy UTF8String];
         *buf = 136446210;
-        v31 = uTF8String;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Acquired process assertion for application %{public}s", buf, 0xCu);
+        v33 = uTF8String;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Acquired process assertion for application %{public}s", buf, 0xCu);
       }
 
-      [(ProcessAssertion *)v16 setSecondsLeft:duration];
-      objc_initWeak(buf, v16);
+      [(ProcessAssertion *)v18 setSecondsLeft:duration];
+      objc_initWeak(buf, v18);
       if (urgentCopy)
       {
-        v28[0] = _NSConcreteStackBlock;
-        v28[1] = 3221225472;
-        v28[2] = sub_1007DF758;
-        v28[3] = &unk_100AEB0C0;
-        v20 = &v29;
-        objc_copyWeak(&v29, buf);
-        [(ProcessAssertion *)v16 setInvalidationHandler:v28];
-        [(NSMutableDictionary *)self->_urgentAssertions setObject:v16 forKeyedSubscript:dCopy];
+        v30[0] = _NSConcreteStackBlock;
+        v30[1] = 3221225472;
+        v30[2] = sub_1007DF758;
+        v30[3] = &unk_100AEB0C0;
+        v22 = &v31;
+        objc_copyWeak(&v31, buf);
+        [(ProcessAssertion *)v18 setInvalidationHandler:v30];
+        [(NSMutableDictionary *)self->_urgentAssertions setObject:v18 forKeyedSubscript:dCopy];
       }
 
       else
       {
-        v23 = _NSConcreteStackBlock;
-        v24 = 3221225472;
-        v25 = sub_1007DF7DC;
-        v26 = &unk_100AEB0C0;
-        v20 = &v27;
-        objc_copyWeak(&v27, buf);
-        [(ProcessAssertion *)v16 setInvalidationHandler:&v23];
-        [(NSMutableDictionary *)self->_processAssertions setObject:v16 forKeyedSubscript:dCopy, v23, v24, v25, v26];
+        v25 = _NSConcreteStackBlock;
+        v26 = 3221225472;
+        v27 = sub_1007DF7DC;
+        v28 = &unk_100AEB0C0;
+        v22 = &v29;
+        objc_copyWeak(&v29, buf);
+        [(ProcessAssertion *)v18 setInvalidationHandler:&v25];
+        [(NSMutableDictionary *)self->_processAssertions setObject:v18 forKeyedSubscript:dCopy, v25, v26, v27, v28];
       }
 
-      objc_destroyWeak(v20);
+      objc_destroyWeak(v22);
       if (([(NSMutableDictionary *)self->_processAssertions count]|| [(NSMutableDictionary *)self->_urgentAssertions count]) && !self->_assertionTimer)
       {
         [(BTAppInteraction *)self startAssertionTimer];
@@ -719,14 +722,14 @@ LABEL_12:
 
     else
     {
-      v21 = qword_100BCE8D8;
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = qword_100BCE8D8;
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v22 = dCopy;
+        v24 = dCopy;
         sub_10087AA88([dCopy UTF8String], buf);
       }
 
-      [(ProcessAssertion *)v16 invalidate];
+      [(ProcessAssertion *)v18 invalidate];
     }
   }
 }
@@ -979,33 +982,33 @@ LABEL_12:
 {
   reasonCopy = reason;
   numberCopy = number;
-  v33 = 0;
-  v10 = sub_10000C798();
-  if ((*(*v10 + 456))(v10))
+  v34 = 0;
+  v11 = sub_10000C798(numberCopy, v10);
+  if ((*(*v11 + 456))(v11))
   {
-    v11 = qword_100BCE8D8;
+    v12 = qword_100BCE8D8;
     if (os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v12 = "displayAirWaveLaunchNotification: Unsupported source platform. Ignoring new request";
+      v13 = "displayAirWaveLaunchNotification: Unsupported source platform. Ignoring new request";
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 2u);
       goto LABEL_11;
     }
 
     goto LABEL_11;
   }
 
-  v13 = +[LSApplicationWorkspace defaultWorkspace];
-  v14 = [v13 applicationIsInstalled:@"com.apple.internal.WayFinder"];
+  v14 = +[LSApplicationWorkspace defaultWorkspace];
+  v15 = [v14 applicationIsInstalled:@"com.apple.internal.WayFinder"];
 
-  if ((v14 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v11 = qword_100BCE8D8;
+    v12 = qword_100BCE8D8;
     if (os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v12 = "displayAirWaveLaunchNotification: AirWave isn't installed on this device. Ignoring new request.";
+      v13 = "displayAirWaveLaunchNotification: AirWave isn't installed on this device. Ignoring new request.";
       goto LABEL_10;
     }
 
@@ -1014,48 +1017,48 @@ LABEL_10:
 
   if (self->_isPopupInQueue)
   {
-    v11 = qword_100BCE8D8;
+    v12 = qword_100BCE8D8;
     if (os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v12 = "displayAirWaveLaunchNotification: Popup already in queue. Ignoring new request.";
+      v13 = "displayAirWaveLaunchNotification: Popup already in queue. Ignoring new request.";
       goto LABEL_10;
     }
 
     goto LABEL_11;
   }
 
-  v15 = sub_10000E92C();
+  v16 = sub_10000E92C();
   sub_100007E30(buf, "AccessoryLogging");
   sub_100007E30(__p, "SuppressAllPopups");
-  v16 = (*(*v15 + 72))(v15, buf, __p, &v33);
-  v17 = v33;
-  if (v32 < 0)
+  v17 = (*(*v16 + 72))(v16, buf, __p, &v34);
+  v18 = v34;
+  if (v33 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v18 = v16 & v17;
-  if (SHIBYTE(v38) < 0)
+  v19 = v17 & v18;
+  if (SHIBYTE(v39) < 0)
   {
     operator delete(*buf);
-    if (v18)
+    if (v19)
     {
       goto LABEL_16;
     }
   }
 
-  else if (v18)
+  else if (v19)
   {
 LABEL_16:
-    v11 = qword_100BCE8D8;
+    v12 = qword_100BCE8D8;
     if (!os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_11;
     }
 
     *buf = 0;
-    v12 = "displayAirWaveLaunchNotification: Suppress all popups defaults write is set to true. Ignoring new request.";
+    v13 = "displayAirWaveLaunchNotification: Suppress all popups defaults write is set to true. Ignoring new request.";
     goto LABEL_10;
   }
 
@@ -1063,11 +1066,11 @@ LABEL_16:
   {
     if (self->_lastAirWaveNotificationDate)
     {
-      v19 = +[NSDate now];
-      v20 = +[NSCalendar currentCalendar];
-      v21 = [v20 components:16 fromDate:self->_lastAirWaveNotificationDate toDate:v19 options:0];
+      v20 = +[NSDate now];
+      v21 = +[NSCalendar currentCalendar];
+      v22 = [v21 components:16 fromDate:self->_lastAirWaveNotificationDate toDate:v20 options:0];
 
-      if ([v21 day] <= 0)
+      if ([v22 day] <= 0)
       {
         if (os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_ERROR))
         {
@@ -1078,27 +1081,27 @@ LABEL_16:
       }
     }
 
-    v22 = qword_100BCE8D8;
+    v23 = qword_100BCE8D8;
     if (os_log_type_enabled(qword_100BCE8D8, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = "Invalid";
+      v24 = "Invalid";
       if (reasonCopy == 1)
       {
-        v23 = "Case Issue";
+        v24 = "Case Issue";
       }
 
       *buf = 67109634;
       *&buf[4] = product;
       if (!reasonCopy)
       {
-        v23 = "Unknown";
+        v24 = "Unknown";
       }
 
-      v35 = 1024;
-      v36 = reasonCopy;
-      v37 = 2080;
-      v38 = v23;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "displayAirWaveLaunchNotification: productID: 0x%04X, reason: %u (%s)", buf, 0x18u);
+      v36 = 1024;
+      v37 = reasonCopy;
+      v38 = 2080;
+      v39 = v24;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "displayAirWaveLaunchNotification: productID: 0x%04X, reason: %u (%s)", buf, 0x18u);
     }
 
     loggingQueue = self->_loggingQueue;
@@ -1108,12 +1111,12 @@ LABEL_16:
     block[3] = &unk_100B0E1F0;
     block[4] = self;
     productCopy = product;
-    v30 = reasonCopy;
-    v28 = numberCopy;
+    v31 = reasonCopy;
+    v29 = numberCopy;
     dispatch_async(loggingQueue, block);
-    v25 = +[NSDate now];
+    v26 = +[NSDate now];
     lastAirWaveNotificationDate = self->_lastAirWaveNotificationDate;
-    self->_lastAirWaveNotificationDate = v25;
+    self->_lastAirWaveNotificationDate = v26;
 
     goto LABEL_11;
   }
@@ -1465,7 +1468,7 @@ LABEL_25:
   v9 = objc_opt_new();
   [v8 setScheme:@"tap-to-radar"];
   [v8 setHost:@"new"];
-  v48 = [CBAccessoryLogging getProductNameFromProductID:pid];
+  v50 = [CBAccessoryLogging getProductNameFromProductID:pid];
   if ((reason - 2) < 4)
   {
     if ([logsCopy count])
@@ -1490,11 +1493,11 @@ LABEL_25:
         v20 = [NSURLQueryItem queryItemWithName:@"Classification" value:@"Serious Bug"];
         [v9 addObject:v20];
 
-        v21 = [NSString stringWithFormat:@"[%@] A2DP Stream Start Failure: ", v48];
+        v21 = [NSString stringWithFormat:@"[%@] A2DP Stream Start Failure: ", v50];
         v22 = [NSURLQueryItem queryItemWithName:@"Title" value:v21];
         [v9 addObject:v22];
 
-        v23 = [NSString stringWithFormat:@"Please describe what you were doing with your %@ here", v48];
+        v23 = [NSString stringWithFormat:@"Please describe what you were doing with your %@ here", v50];
         v24 = [NSURLQueryItem queryItemWithName:@"Description" value:v23];
         [v9 addObject:v24];
 
@@ -1505,11 +1508,11 @@ LABEL_25:
         v15 = [NSURLQueryItem queryItemWithName:@"Classification" value:@"Serious Bug"];
         [v9 addObject:v15];
 
-        v16 = [NSString stringWithFormat:@"[%@] IED anomaly: ", v48];
+        v16 = [NSString stringWithFormat:@"[%@] IED anomaly: ", v50];
         v17 = [NSURLQueryItem queryItemWithName:@"Title" value:v16];
         [v9 addObject:v17];
 
-        v18 = [NSString stringWithFormat:@"Please describe the current bud state of your %@ (Are the buds in-ear, in-case, in hand, in pocket, sitting on a table, something else):\n\nPlease describe what you are doing with the buds (including body movement like exercising, or mouth movement like talking):", v48];
+        v18 = [NSString stringWithFormat:@"Please describe the current bud state of your %@ (Are the buds in-ear, in-case, in hand, in pocket, sitting on a table, something else):\n\nPlease describe what you are doing with the buds (including body movement like exercising, or mouth movement like talking):", v50];
         v19 = [NSURLQueryItem queryItemWithName:@"Description" value:v18];
         [v9 addObject:v19];
 
@@ -1531,104 +1534,104 @@ LABEL_25:
     v12 = [NSURLQueryItem queryItemWithName:@"Classification" value:@"Crash/Hang/Data Loss"];
     [v9 addObject:v12];
 
-    v13 = [NSString stringWithFormat:@"%@ Crash: ", v48];
+    v13 = [NSString stringWithFormat:@"%@ Crash: ", v50];
     v14 = [NSURLQueryItem queryItemWithName:@"Title" value:v13];
     [v9 addObject:v14];
 
 LABEL_15:
-    v25 = sub_10000C798();
-    if ((*(*v25 + 456))(v25))
+    v27 = sub_10000C798(v25, v26);
+    if ((*(*v27 + 456))(v27))
     {
-      v26 = [NSURLQueryItem queryItemWithName:@"ComponentID" value:@"1336450"];
-      [v9 addObject:v26];
-
-      v27 = [NSURLQueryItem queryItemWithName:@"ComponentName" value:@"ULLA (New Bugs)"];
-      [v9 addObject:v27];
-
-      v28 = [NSURLQueryItem queryItemWithName:@"ComponentVersion" value:@"N301 Non-UI"];
+      v28 = [NSURLQueryItem queryItemWithName:@"ComponentID" value:@"1336450"];
       [v9 addObject:v28];
+
+      v29 = [NSURLQueryItem queryItemWithName:@"ComponentName" value:@"ULLA (New Bugs)"];
+      [v9 addObject:v29];
+
+      v30 = [NSURLQueryItem queryItemWithName:@"ComponentVersion" value:@"N301 Non-UI"];
+      [v9 addObject:v30];
     }
 
     else
     {
       if (reason == 5)
       {
-        v29 = [NSString stringWithFormat:@"%lu", [CBAccessoryLogging getComponentIDFromRadarReason:5]];
-        v30 = [NSURLQueryItem queryItemWithName:@"ComponentID" value:v29];
-        [v9 addObject:v30];
-
-        v31 = [CBAccessoryLogging getComponentNameFromRadarReason:5];
-        v32 = [NSURLQueryItem queryItemWithName:@"ComponentName" value:v31];
+        v31 = [NSString stringWithFormat:@"%lu", [CBAccessoryLogging getComponentIDFromRadarReason:5]];
+        v32 = [NSURLQueryItem queryItemWithName:@"ComponentID" value:v31];
         [v9 addObject:v32];
+
+        v33 = [CBAccessoryLogging getComponentNameFromRadarReason:5];
+        v34 = [NSURLQueryItem queryItemWithName:@"ComponentName" value:v33];
+        [v9 addObject:v34];
 
         [CBAccessoryLogging getComponentVersionFromRadarReason:5];
       }
 
       else
       {
-        v34 = [NSString stringWithFormat:@"%lu", [CBAccessoryLogging getComponentIDFromProductID:pid]];
-        v35 = [NSURLQueryItem queryItemWithName:@"ComponentID" value:v34];
-        [v9 addObject:v35];
-
-        v36 = [CBAccessoryLogging getComponentNameFromProductID:pid];
-        v37 = [NSURLQueryItem queryItemWithName:@"ComponentName" value:v36];
+        v36 = [NSString stringWithFormat:@"%lu", [CBAccessoryLogging getComponentIDFromProductID:pid]];
+        v37 = [NSURLQueryItem queryItemWithName:@"ComponentID" value:v36];
         [v9 addObject:v37];
+
+        v38 = [CBAccessoryLogging getComponentNameFromProductID:pid];
+        v39 = [NSURLQueryItem queryItemWithName:@"ComponentName" value:v38];
+        [v9 addObject:v39];
 
         [CBAccessoryLogging getComponentVersionFromProductID:pid];
       }
-      v28 = ;
-      v33 = [NSURLQueryItem queryItemWithName:@"ComponentVersion" value:v28];
-      [v9 addObject:v33];
+      v30 = ;
+      v35 = [NSURLQueryItem queryItemWithName:@"ComponentVersion" value:v30];
+      [v9 addObject:v35];
     }
 
     if ([logsCopy count])
     {
-      v38 = objc_opt_new();
+      v40 = objc_opt_new();
+      v53 = 0u;
+      v54 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v39 = logsCopy;
-      v40 = [v39 countByEnumeratingWithState:&v49 objects:v55 count:16];
-      if (v40)
+      v41 = logsCopy;
+      v42 = [v41 countByEnumeratingWithState:&v51 objects:v57 count:16];
+      if (v42)
       {
-        v41 = *v50;
+        v43 = *v52;
         do
         {
-          for (i = 0; i != v40; i = i + 1)
+          for (i = 0; i != v42; i = i + 1)
           {
-            if (*v50 != v41)
+            if (*v52 != v43)
             {
-              objc_enumerationMutation(v39);
+              objc_enumerationMutation(v41);
             }
 
-            [v38 appendString:*(*(&v49 + 1) + 8 * i)];
-            [v38 appendString:{@", "}];
+            [v40 appendString:*(*(&v51 + 1) + 8 * i)];
+            [v40 appendString:{@", "}];
           }
 
-          v40 = [v39 countByEnumeratingWithState:&v49 objects:v55 count:16];
+          v42 = [v41 countByEnumeratingWithState:&v51 objects:v57 count:16];
         }
 
-        while (v40);
+        while (v42);
       }
 
-      v43 = [NSURLQueryItem queryItemWithName:@"Attachments" value:v38];
-      [v9 addObject:v43];
+      v45 = [NSURLQueryItem queryItemWithName:@"Attachments" value:v40];
+      [v9 addObject:v45];
     }
 
     [v8 setQueryItems:v9];
-    v44 = qword_100BCE8D8;
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v46 = qword_100BCE8D8;
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       string = [v8 string];
       *buf = 138543362;
-      v54 = string;
-      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "openTapToRadarWithAccessoryLogs: Launch Tap-to-Radar, URL = %{public}@", buf, 0xCu);
+      v56 = string;
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "openTapToRadarWithAccessoryLogs: Launch Tap-to-Radar, URL = %{public}@", buf, 0xCu);
     }
 
-    v46 = +[LSApplicationWorkspace defaultWorkspace];
-    v47 = [v8 URL];
-    [v46 openURL:v47 configuration:0 completionHandler:&stru_100B0E548];
+    v48 = +[LSApplicationWorkspace defaultWorkspace];
+    v49 = [v8 URL];
+    [v48 openURL:v49 configuration:0 completionHandler:&stru_100B0E548];
 
     goto LABEL_33;
   }

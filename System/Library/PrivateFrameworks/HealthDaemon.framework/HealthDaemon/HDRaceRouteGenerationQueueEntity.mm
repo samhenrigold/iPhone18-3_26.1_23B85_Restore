@@ -45,7 +45,7 @@
   return v13;
 }
 
-unint64_t __82__HDRaceRouteGenerationQueueEntity_populateWithWorkoutClusters_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+void *__82__HDRaceRouteGenerationQueueEntity_populateWithWorkoutClusters_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   result = [*(a1 + 32) count];
   if (result)
@@ -100,12 +100,12 @@ unint64_t __82__HDRaceRouteGenerationQueueEntity_populateWithWorkoutClusters_tra
   return v9;
 }
 
-uint64_t __76__HDRaceRouteGenerationQueueEntity_nextWorkoutClusterWithTransaction_error___block_invoke(uint64_t a1)
+uint64_t __76__HDRaceRouteGenerationQueueEntity_nextWorkoutClusterWithTransaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [(HDSQLiteEntity *)[HDWorkoutClusterEntity alloc] initWithPersistentID:HDSQLiteColumnAsInt64()];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = [(HDSQLiteEntity *)[HDWorkoutClusterEntity alloc] initWithPersistentID:HDSQLiteColumnAsInt64()];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
   return 0;
 }
@@ -148,7 +148,7 @@ uint64_t __91__HDRaceRouteGenerationQueueEntity_finishWorkoutCluster_concreteClu
   v13 = v7;
   if ([v5 executeSQL:@"SELECT concrete_cluster_id FROM RacePreviousRoute_generation_queue WHERE concrete_cluster_id IS NOT NULL" error:error bindingHandler:0 enumerationHandler:v12] && (v8 = v5, objc_opt_self(), v9 = objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"DELETE FROM RacePreviousRoute_generation_queue", error, 0, 0), v8, v9))
   {
-    v10 = [v7 copy];
+    v10 = objc_msgSend_copy(v7);
   }
 
   else
@@ -159,34 +159,31 @@ uint64_t __91__HDRaceRouteGenerationQueueEntity_finishWorkoutCluster_concreteClu
   return v10;
 }
 
-uint64_t __68__HDRaceRouteGenerationQueueEntity_clearQueueWithTransaction_error___block_invoke(uint64_t a1)
+uint64_t __68__HDRaceRouteGenerationQueueEntity_clearQueueWithTransaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = [(HDSQLiteEntity *)[HDRaceRouteClusterEntity alloc] initWithPersistentID:HDSQLiteColumnAsInt64()];
-  [v1 addObject:v2];
+  v2 = *(a1 + 32);
+  v3 = [(HDSQLiteEntity *)[HDRaceRouteClusterEntity alloc] initWithPersistentID:HDSQLiteColumnAsInt64()];
+  [v2 addObject:v3];
 
   return 1;
 }
 
 + (id)uniquedColumns
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"workout_cluster_id";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"workout_cluster_id";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"workout_cluster_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"workout_cluster_id";
   v2 = +[(HDHealthEntity *)HDWorkoutClusterEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

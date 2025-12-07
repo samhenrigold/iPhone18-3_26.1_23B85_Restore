@@ -109,7 +109,7 @@ LABEL_16:
 
 - (id)jsonDictionary
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   if (![(BMSiriTaskAggregation *)self hasAbsoluteTimestamp]|| ([(BMSiriTaskAggregation *)self absoluteTimestamp], fabs(v3) == INFINITY))
   {
     v5 = 0;
@@ -132,39 +132,39 @@ LABEL_16:
   dimensions = [(BMSiriTaskAggregation *)self dimensions];
   jsonDictionary3 = [dimensions jsonDictionary];
 
-  v19[0] = @"absoluteTimestamp";
+  v18[0] = @"absoluteTimestamp";
   null = v5;
   if (!v5)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[0] = null;
-  v19[1] = @"metadata";
+  v19[0] = null;
+  v18[1] = @"metadata";
   null2 = jsonDictionary;
   if (!jsonDictionary)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[1] = null2;
-  v19[2] = @"statistics";
+  v19[1] = null2;
+  v18[2] = @"statistics";
   null3 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[2] = null3;
-  v19[3] = @"dimensions";
+  v19[2] = null3;
+  v18[3] = @"dimensions";
   null4 = jsonDictionary3;
   if (!jsonDictionary3)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[3] = null4;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v19[3] = null4;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
   if (jsonDictionary3)
   {
     if (jsonDictionary2)
@@ -209,14 +209,13 @@ LABEL_16:
 LABEL_23:
 
 LABEL_17:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BMSiriTaskAggregation)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"absoluteTimestamp"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -234,10 +233,10 @@ LABEL_17:
 
       v19 = objc_alloc(MEMORY[0x1E696ABC0]);
       v20 = *MEMORY[0x1E698F240];
-      v43 = *MEMORY[0x1E696A578];
+      v42 = *MEMORY[0x1E696A578];
       v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"absoluteTimestamp"];
-      v44[0] = v16;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v43[0] = v16;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
       v7 = 0;
       v15 = 0;
       *error = [v19 initWithDomain:v20 code:2 userInfo:v9];
@@ -258,7 +257,7 @@ LABEL_17:
     v9 = 0;
 LABEL_7:
     v10 = [dictionaryCopy objectForKeyedSubscript:@"statistics"];
-    v32 = v7;
+    v31 = v7;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -271,21 +270,21 @@ LABEL_7:
           goto LABEL_45;
         }
 
-        v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v28 = objc_alloc(MEMORY[0x1E696ABC0]);
         v26 = *MEMORY[0x1E698F240];
-        v39 = *MEMORY[0x1E696A578];
+        v38 = *MEMORY[0x1E696A578];
         v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"statistics"];
-        v40 = v11;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v39 = v11;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
         v15 = 0;
-        *error = [v29 initWithDomain:v26 code:2 userInfo:v12];
+        *error = [v28 initWithDomain:v26 code:2 userInfo:v12];
         goto LABEL_43;
       }
 
       v12 = v10;
-      v35 = 0;
-      v11 = [[BMSiriTaskAggregationStatistics alloc] initWithJSONDictionary:v12 error:&v35];
-      v18 = v35;
+      v34 = 0;
+      v11 = [[BMSiriTaskAggregationStatistics alloc] initWithJSONDictionary:v12 error:&v34];
+      v18 = v34;
       if (v18)
       {
         if (error)
@@ -312,7 +311,7 @@ LABEL_43:
     {
       v13 = 0;
 LABEL_13:
-      selfCopy6 = [(BMSiriTaskAggregation *)self initWithAbsoluteTimestamp:v32 metadata:v9 statistics:v11 dimensions:v13];
+      selfCopy6 = [(BMSiriTaskAggregation *)self initWithAbsoluteTimestamp:v31 metadata:v9 statistics:v11 dimensions:v13];
       v15 = selfCopy6;
 LABEL_41:
 
@@ -320,7 +319,7 @@ LABEL_44:
 LABEL_45:
 
       v16 = v8;
-      v7 = v32;
+      v7 = v31;
       goto LABEL_46;
     }
 
@@ -328,9 +327,9 @@ LABEL_45:
     if (objc_opt_isKindOfClass())
     {
       v21 = v12;
-      v34 = 0;
-      v13 = [[BMSiriTaskAggregationDimensions alloc] initWithJSONDictionary:v21 error:&v34];
-      v22 = v34;
+      v33 = 0;
+      v13 = [[BMSiriTaskAggregationDimensions alloc] initWithJSONDictionary:v21 error:&v33];
+      v22 = v33;
       if (!v22)
       {
 
@@ -351,13 +350,13 @@ LABEL_40:
 
     if (error)
     {
-      v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v30 = *MEMORY[0x1E698F240];
-      v37 = *MEMORY[0x1E696A578];
+      v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v29 = *MEMORY[0x1E698F240];
+      v36 = *MEMORY[0x1E696A578];
       v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"dimensions"];
-      v38 = v13;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-      *error = [v31 initWithDomain:v30 code:2 userInfo:v21];
+      v37 = v13;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      *error = [v30 initWithDomain:v29 code:2 userInfo:v21];
       goto LABEL_40;
     }
 
@@ -368,9 +367,9 @@ LABEL_40:
   if (objc_opt_isKindOfClass())
   {
     v16 = v8;
-    v36 = 0;
-    v9 = [[BMSiriTaskAggregationMetadata alloc] initWithJSONDictionary:v16 error:&v36];
-    v17 = v36;
+    v35 = 0;
+    v9 = [[BMSiriTaskAggregationMetadata alloc] initWithJSONDictionary:v16 error:&v35];
+    v17 = v35;
     if (!v17)
     {
 
@@ -397,10 +396,10 @@ LABEL_40:
 
     v23 = objc_alloc(MEMORY[0x1E696ABC0]);
     v24 = *MEMORY[0x1E698F240];
-    v41 = *MEMORY[0x1E696A578];
+    v40 = *MEMORY[0x1E696A578];
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"metadata"];
-    v42 = v9;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v41 = v9;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
     *error = [v23 initWithDomain:v24 code:2 userInfo:v25];
 
     v15 = 0;
@@ -415,7 +414,6 @@ LABEL_46:
 LABEL_47:
 
 LABEL_48:
-  v27 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -433,7 +431,6 @@ LABEL_48:
   toCopy = to;
   if (self->_hasAbsoluteTimestamp)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -692,68 +689,64 @@ LABEL_43:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"absoluteTimestamp" number:1 type:0 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"metadata" number:2 type:14 subMessageClass:objc_opt_class()];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"statistics" number:3 type:14 subMessageClass:objc_opt_class()];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"dimensions" number:4 type:14 subMessageClass:objc_opt_class()];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"absoluteTimestamp" dataType:1 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"metadata_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_318_74146];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"statistics_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_320];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"dimensions_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_322];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
-id __32__BMSiriTaskAggregation_columns__block_invoke_3(uint64_t a1, void *a2)
+id __32__BMSiriTaskAggregation_columns__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 dimensions];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 dimensions];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __32__BMSiriTaskAggregation_columns__block_invoke_2(uint64_t a1, void *a2)
+id __32__BMSiriTaskAggregation_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 statistics];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 statistics];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __32__BMSiriTaskAggregation_columns__block_invoke(uint64_t a1, void *a2)
+id __32__BMSiriTaskAggregation_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 metadata];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 metadata];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

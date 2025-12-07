@@ -74,7 +74,7 @@
 
 - (BOOL)save
 {
-  v141 = *MEMORY[0x1E69E9840];
+  v140 = *MEMORY[0x1E69E9840];
   v8 = objc_msgSend_manager(self, a2, v2, v3);
   if (v8)
   {
@@ -87,31 +87,31 @@
     v19 = v18;
     if (v9)
     {
-      v126 = v18;
-      v127 = v17;
-      v124 = v8;
+      v125 = v18;
+      v126 = v17;
+      v123 = v8;
       v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v128 = 0u;
       v129 = 0u;
       v130 = 0u;
       v131 = 0u;
-      v132 = 0u;
-      v122 = v13;
+      v121 = v13;
       v21 = v13;
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v129, v137, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v128, v136, 16);
       if (v23)
       {
         v27 = v23;
-        v28 = *v130;
+        v28 = *v129;
         do
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v130 != v28)
+            if (*v129 != v28)
             {
               objc_enumerationMutation(v21);
             }
 
-            v30 = *(*(&v129 + 1) + 8 * i);
+            v30 = *(*(&v128 + 1) + 8 * i);
             v31 = objc_msgSend_readOnlyColumns(self, v24, v25, v26);
             v35 = objc_msgSend_name(v30, v32, v33, v34);
             v38 = objc_msgSend_containsObject_(v31, v36, v35, v37);
@@ -119,14 +119,14 @@
             if ((v38 & 1) == 0)
             {
               v39 = objc_msgSend_name(v30, v24, v25, v26);
-              objc_msgSend_addObject_(v127, v40, v39, v41);
+              objc_msgSend_addObject_(v126, v40, v39, v41);
 
-              objc_msgSend_addObject_(v126, v42, @"?", v43);
+              objc_msgSend_addObject_(v125, v42, @"?", v43);
               objc_msgSend_addObject_(v20, v44, v30, v45);
             }
           }
 
-          v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v129, v137, 16);
+          v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v128, v136, 16);
         }
 
         while (v27);
@@ -134,49 +134,49 @@
 
       v46 = MEMORY[0x1E696AEC0];
       v50 = objc_msgSend_tableName(self, v47, v48, v49);
-      v53 = objc_msgSend_componentsJoinedByString_(v127, v51, @", ", v52);
-      v19 = v126;
-      v56 = objc_msgSend_componentsJoinedByString_(v126, v54, @", ", v55);
+      v53 = objc_msgSend_componentsJoinedByString_(v126, v51, @", ", v52);
+      v19 = v125;
+      v56 = objc_msgSend_componentsJoinedByString_(v125, v54, @", ", v55);
       v59 = objc_msgSend_stringWithFormat_(v46, v57, @"INSERT INTO %@ (%@) VALUES (%@)", v58, v50, v53, v56);
 
-      v60 = v127;
-      v8 = v124;
-      inserted = objc_msgSend_executeInsertQuery_withParameters_(v124, v61, v59, v20);
+      v60 = v126;
+      v8 = v123;
+      inserted = objc_msgSend_executeInsertQuery_withParameters_(v123, v61, v59, v20);
       v65 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v63, inserted, v64);
       objc_msgSend_setValue_forColumnName_(self, v66, v65, @"rowid");
 
       objc_msgSend_setIsNewObject_(self, v67, 0, v68);
       v69 = inserted != -1;
-      v13 = v122;
+      v13 = v121;
       goto LABEL_34;
     }
 
     v72 = v17;
-    v135 = 0u;
-    v136 = 0u;
-    v133 = 0u;
     v134 = 0u;
+    v135 = 0u;
+    v132 = 0u;
+    v133 = 0u;
     v73 = v13;
-    v75 = objc_msgSend_countByEnumeratingWithState_objects_count_(v73, v74, &v133, v138, 16);
+    v75 = objc_msgSend_countByEnumeratingWithState_objects_count_(v73, v74, &v132, v137, 16);
     if (v75)
     {
       v79 = v75;
-      v128 = v17;
+      v127 = v17;
       v80 = v19;
-      v123 = v13;
-      v125 = v8;
+      v122 = v13;
+      v124 = v8;
       v20 = 0;
-      v81 = *v134;
+      v81 = *v133;
       do
       {
         for (j = 0; j != v79; ++j)
         {
-          if (*v134 != v81)
+          if (*v133 != v81)
           {
             objc_enumerationMutation(v73);
           }
 
-          v83 = *(*(&v133 + 1) + 8 * j);
+          v83 = *(*(&v132 + 1) + 8 * j);
           v84 = objc_msgSend_name(v83, v76, v77, v78);
           isEqualToString = objc_msgSend_isEqualToString_(v84, v85, @"rowid", v86);
 
@@ -192,13 +192,13 @@
             v92 = MEMORY[0x1E696AEC0];
             v93 = objc_msgSend_name(v83, v88, v89, v90);
             v96 = objc_msgSend_stringWithFormat_(v92, v94, @"%@=?", v95, v93);
-            objc_msgSend_addObject_(v128, v97, v96, v98);
+            objc_msgSend_addObject_(v127, v97, v96, v98);
 
             objc_msgSend_addObject_(v80, v99, v83, v100);
           }
         }
 
-        v79 = objc_msgSend_countByEnumeratingWithState_objects_count_(v73, v76, &v133, v138, 16);
+        v79 = objc_msgSend_countByEnumeratingWithState_objects_count_(v73, v76, &v132, v137, 16);
       }
 
       while (v79);
@@ -208,18 +208,18 @@
       {
         v104 = objc_msgSend_value(v20, v101, v102, v103);
 
-        v13 = v123;
-        v8 = v125;
-        v60 = v128;
+        v13 = v122;
+        v8 = v124;
+        v60 = v127;
         if (v104)
         {
           objc_msgSend_addObject_(v80, v105, v20, v106);
           v107 = MEMORY[0x1E696AEC0];
           v111 = objc_msgSend_tableName(self, v108, v109, v110);
-          v114 = objc_msgSend_componentsJoinedByString_(v128, v112, @", ", v113);
+          v114 = objc_msgSend_componentsJoinedByString_(v127, v112, @", ", v113);
           v59 = objc_msgSend_stringWithFormat_(v107, v115, @"UPDATE %@ SET %@ WHERE rowId=?", v116, v111, v114);
 
-          v69 = objc_msgSend_executeQuery_withParameters_(v125, v117, v59, v19);
+          v69 = objc_msgSend_executeQuery_withParameters_(v124, v117, v59, v19);
 LABEL_34:
 
           goto LABEL_35;
@@ -228,9 +228,9 @@ LABEL_34:
 
       else
       {
-        v13 = v123;
-        v8 = v125;
-        v60 = v128;
+        v13 = v122;
+        v8 = v124;
+        v60 = v127;
       }
     }
 
@@ -246,7 +246,7 @@ LABEL_34:
     {
       v118 = objc_opt_class();
       *buf = 138477827;
-      v140 = v118;
+      v139 = v118;
       v119 = v118;
       _os_log_impl(&dword_1BADC1000, v59, OS_LOG_TYPE_ERROR, "[%{private}@]: RowId is nil when trying to update row.", buf, 0xCu);
     }
@@ -260,7 +260,7 @@ LABEL_34:
   {
     v70 = objc_opt_class();
     *buf = 138477827;
-    v140 = v70;
+    v139 = v70;
     v71 = v70;
     _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "[%{private}@]: Database manager is nil when trying to save row.", buf, 0xCu);
   }
@@ -268,13 +268,12 @@ LABEL_34:
   v69 = 0;
 LABEL_35:
 
-  v120 = *MEMORY[0x1E69E9840];
   return v69;
 }
 
 - (BOOL)deleteFromDB
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v8 = objc_msgSend_manager(self, a2, v2, v3);
   if (!v8)
   {
@@ -282,8 +281,8 @@ LABEL_35:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      v40 = objc_opt_class();
-      v14 = v40;
+      v39 = objc_opt_class();
+      v14 = v39;
       _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "[%{private}@]: Database manager is nil when trying to delete row.", buf, 0xCu);
     }
 
@@ -304,8 +303,8 @@ LABEL_35:
       v26 = objc_msgSend_tableName(self, v22, v23, v24);
       v29 = objc_msgSend_stringWithFormat_(v25, v27, @"DELETE FROM %@ WHERE rowid = ?", v28, v26);
 
-      v38 = v13;
-      v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, &v38, 1);
+      v37 = v13;
+      v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, &v37, 1);
       v12 = objc_msgSend_executeQuery_withParameters_(v8, v32, v29, v31);
 
       objc_msgSend_setIsNewObject_(self, v33, 1, v34);
@@ -317,8 +316,8 @@ LABEL_35:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 138477827;
-        v40 = objc_opt_class();
-        v35 = v40;
+        v39 = objc_opt_class();
+        v35 = v39;
         _os_log_impl(&dword_1BADC1000, v29, OS_LOG_TYPE_ERROR, "[%{private}@]: Error - Can't delete from DB rowId is nill.", buf, 0xCu);
       }
 
@@ -332,52 +331,50 @@ LABEL_13:
   v12 = 0;
 LABEL_14:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)isDataObjectEqual:(id)equal
 {
-  v139 = *MEMORY[0x1E69E9840];
+  v135 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
-  v130 = objc_msgSend_columns(self, v4, v5, v6);
-  objc_msgSend_allKeys(v130, v7, v8, v9);
-  v132 = 0u;
-  v133 = 0u;
-  v134 = 0u;
-  v10 = v135 = 0u;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v132, v138, 16);
+  v126 = objc_msgSend_columns(self, v4, v5, v6);
+  objc_msgSend_allKeys(v126, v7, v8, v9);
+  v128 = 0u;
+  v129 = 0u;
+  v130 = 0u;
+  v10 = v131 = 0u;
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v128, v134, 16);
   if (!v12)
   {
     goto LABEL_41;
   }
 
   v15 = v12;
-  v16 = *v133;
-  v17 = 0x1E696A000uLL;
+  v16 = *v129;
   do
   {
-    v18 = 0;
+    v17 = 0;
     do
     {
-      if (*v133 != v16)
+      if (*v129 != v16)
       {
         objc_enumerationMutation(v10);
       }
 
-      v19 = *(*(&v132 + 1) + 8 * v18);
-      if ((objc_msgSend_isEqualToString_(v19, v13, @"rowid", v14) & 1) == 0)
+      v18 = *(*(&v128 + 1) + 8 * v17);
+      if ((objc_msgSend_isEqualToString_(v18, v13, @"rowid", v14) & 1) == 0)
       {
-        v20 = objc_msgSend_objectForKey_(v130, v13, v19, v14);
-        v24 = objc_msgSend_columns(equalCopy, v21, v22, v23);
-        v27 = objc_msgSend_objectForKey_(v24, v25, v19, v26);
+        v19 = objc_msgSend_objectForKey_(v126, v13, v18, v14);
+        v23 = objc_msgSend_columns(equalCopy, v20, v21, v22);
+        v26 = objc_msgSend_objectForKey_(v23, v24, v18, v25);
 
-        v31 = objc_msgSend_value(v20, v28, v29, v30);
-        if (!v31)
+        v30 = objc_msgSend_value(v19, v27, v28, v29);
+        if (!v30)
         {
-          v38 = objc_msgSend_value(v27, v32, v33, v34);
+          v37 = objc_msgSend_value(v26, v31, v32, v33);
 
-          if (v38)
+          if (v37)
           {
             goto LABEL_10;
           }
@@ -386,48 +383,48 @@ LABEL_14:
         }
 
 LABEL_10:
-        v39 = objc_msgSend_value(v20, v35, v36, v37);
-        if (v39)
+        v38 = objc_msgSend_value(v19, v34, v35, v36);
+        if (v38)
         {
-          v43 = v39;
-          v44 = objc_msgSend_value(v27, v40, v41, v42);
+          v42 = v38;
+          v43 = objc_msgSend_value(v26, v39, v40, v41);
 
-          if (!v44)
+          if (!v43)
           {
             goto LABEL_46;
           }
         }
 
-        v45 = objc_msgSend_value(v20, v40, v41, v42);
-        if (v45)
+        v44 = objc_msgSend_value(v19, v39, v40, v41);
+        if (v44)
         {
         }
 
         else
         {
-          v52 = objc_msgSend_value(v27, v46, v47, v48);
+          v51 = objc_msgSend_value(v26, v45, v46, v47);
 
-          if (v52)
+          if (v51)
           {
             goto LABEL_46;
           }
         }
 
-        v53 = objc_msgSend_type(v20, v49, v50, v51);
-        if (v53 > 3)
+        v52 = objc_msgSend_type(v19, v48, v49, v50);
+        if (v52 > 3)
         {
-          if (v53 <= 5)
+          if (v52 <= 5)
           {
-            if (v53 == 4)
+            if (v52 == 4)
             {
-              v91 = objc_msgSend_value(v20, v54, v55, v56);
+              v88 = objc_msgSend_value(v19, v53, v54, v55);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
 
 LABEL_55:
-                v125 = APLogForCategory(0xCuLL);
-                if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+                v122 = APLogForCategory(0xCuLL);
+                if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_44;
                 }
@@ -435,7 +432,7 @@ LABEL_55:
                 goto LABEL_45;
               }
 
-              v95 = objc_msgSend_value(v27, v92, v93, v94);
+              v92 = objc_msgSend_value(v26, v89, v90, v91);
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
 
@@ -444,13 +441,12 @@ LABEL_55:
                 goto LABEL_55;
               }
 
-              v100 = objc_msgSend_value(v20, v97, v98, v99);
-              v104 = objc_msgSend_value(v27, v101, v102, v103);
-              objc_msgSend_timeIntervalSinceDate_(v100, v105, v104, v106);
-              v108 = fabs(v107);
+              v97 = objc_msgSend_value(v19, v94, v95, v96);
+              v101 = objc_msgSend_value(v26, v98, v99, v100);
+              objc_msgSend_timeIntervalSinceDate_(v97, v102, v101, v103);
+              v105 = fabs(v104);
 
-              v17 = 0x1E696A000;
-              if (v108 > 0.001)
+              if (v105 > 0.001)
               {
                 goto LABEL_46;
               }
@@ -461,9 +457,9 @@ LABEL_55:
             goto LABEL_26;
           }
 
-          if (v53 != 6)
+          if (v52 != 6)
           {
-            if (v53 != 7)
+            if (v52 != 7)
             {
               goto LABEL_30;
             }
@@ -471,58 +467,58 @@ LABEL_55:
             goto LABEL_26;
           }
 
-          v109 = objc_msgSend_value(v20, v54, v55, v56);
+          v106 = objc_msgSend_value(v19, v53, v54, v55);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
 LABEL_49:
-            v125 = APLogForCategory(0xCuLL);
-            if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+            v122 = APLogForCategory(0xCuLL);
+            if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
             {
 LABEL_44:
-              v126 = objc_opt_class();
+              v123 = objc_opt_class();
               *buf = 138477827;
-              v137 = v126;
-              v127 = v126;
-              _os_log_impl(&dword_1BADC1000, v125, OS_LOG_TYPE_ERROR, "[%{private}@]: Error - Column type class type missmatch.", buf, 0xCu);
+              v133 = v123;
+              v124 = v123;
+              _os_log_impl(&dword_1BADC1000, v122, OS_LOG_TYPE_ERROR, "[%{private}@]: Error - Column type class type missmatch.", buf, 0xCu);
             }
 
 LABEL_45:
 
 LABEL_46:
-            v124 = 0;
+            v121 = 0;
             goto LABEL_47;
           }
 
-          v113 = objc_msgSend_value(v27, v110, v111, v112);
+          v110 = objc_msgSend_value(v26, v107, v108, v109);
           objc_opt_class();
-          v114 = objc_opt_isKindOfClass();
+          v111 = objc_opt_isKindOfClass();
 
-          if ((v114 & 1) == 0)
+          if ((v111 & 1) == 0)
           {
             goto LABEL_49;
           }
 
-          v66 = objc_msgSend_value(v20, v115, v116, v117);
-          v70 = objc_msgSend_value(v27, v118, v119, v120);
-          isEqualToData = objc_msgSend_isEqualToData_(v66, v121, v70, v122);
+          v65 = objc_msgSend_value(v19, v112, v113, v114);
+          v69 = objc_msgSend_value(v26, v115, v116, v117);
+          isEqualToData = objc_msgSend_isEqualToData_(v65, v118, v69, v119);
         }
 
         else
         {
-          if (v53 >= 3)
+          if (v52 >= 3)
           {
-            if (v53 == 3)
+            if (v52 == 3)
             {
-              v57 = objc_msgSend_value(v20, v54, v55, v56);
+              v56 = objc_msgSend_value(v19, v53, v54, v55);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
 
 LABEL_52:
-                v125 = APLogForCategory(0xCuLL);
-                if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+                v122 = APLogForCategory(0xCuLL);
+                if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_44;
                 }
@@ -530,18 +526,18 @@ LABEL_52:
                 goto LABEL_45;
               }
 
-              v61 = objc_msgSend_value(v27, v58, v59, v60);
+              v60 = objc_msgSend_value(v26, v57, v58, v59);
               objc_opt_class();
-              v62 = objc_opt_isKindOfClass();
+              v61 = objc_opt_isKindOfClass();
 
-              if ((v62 & 1) == 0)
+              if ((v61 & 1) == 0)
               {
                 goto LABEL_52;
               }
 
-              v66 = objc_msgSend_value(v20, v63, v64, v65);
-              v70 = objc_msgSend_value(v27, v67, v68, v69);
-              isEqualToData = objc_msgSend_isEqualToString_(v66, v71, v70, v72);
+              v65 = objc_msgSend_value(v19, v62, v63, v64);
+              v69 = objc_msgSend_value(v26, v66, v67, v68);
+              isEqualToData = objc_msgSend_isEqualToString_(v65, v70, v69, v71);
               goto LABEL_29;
             }
 
@@ -551,15 +547,14 @@ LABEL_30:
           }
 
 LABEL_26:
-          v74 = objc_msgSend_value(v20, v54, v55, v56);
-          v75 = *(v17 + 3480);
+          v73 = objc_msgSend_value(v19, v53, v54, v55);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
 LABEL_43:
-            v125 = APLogForCategory(0xCuLL);
-            if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+            v122 = APLogForCategory(0xCuLL);
+            if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_44;
             }
@@ -567,26 +562,24 @@ LABEL_43:
             goto LABEL_45;
           }
 
-          v79 = objc_msgSend_value(v27, v76, v77, v78);
-          v80 = *(v17 + 3480);
+          v77 = objc_msgSend_value(v26, v74, v75, v76);
           objc_opt_class();
-          v81 = objc_opt_isKindOfClass();
+          v78 = objc_opt_isKindOfClass();
 
-          if ((v81 & 1) == 0)
+          if ((v78 & 1) == 0)
           {
             goto LABEL_43;
           }
 
-          v66 = objc_msgSend_value(v20, v82, v83, v84);
-          v70 = objc_msgSend_value(v27, v85, v86, v87);
-          isEqualToData = objc_msgSend_isEqualToNumber_(v66, v88, v70, v89);
+          v65 = objc_msgSend_value(v19, v79, v80, v81);
+          v69 = objc_msgSend_value(v26, v82, v83, v84);
+          isEqualToData = objc_msgSend_isEqualToNumber_(v65, v85, v69, v86);
         }
 
 LABEL_29:
-        v90 = isEqualToData;
+        v87 = isEqualToData;
 
-        v17 = 0x1E696A000;
-        if ((v90 & 1) == 0)
+        if ((v87 & 1) == 0)
         {
           goto LABEL_46;
         }
@@ -595,35 +588,34 @@ LABEL_29:
       }
 
 LABEL_31:
-      ++v18;
+      ++v17;
     }
 
-    while (v15 != v18);
-    v123 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v132, v138, 16);
-    v15 = v123;
+    while (v15 != v17);
+    v120 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v128, v134, 16);
+    v15 = v120;
   }
 
-  while (v123);
+  while (v120);
 LABEL_41:
-  v124 = 1;
+  v121 = 1;
 LABEL_47:
 
-  v128 = *MEMORY[0x1E69E9840];
-  return v124;
+  return v121;
 }
 
 - (id)dictionaryFromBlobForColumnName:(id)name
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v10 = objc_msgSend_valueForColumnName_(self, v5, nameCopy, v6);
   if (v10)
   {
     v11 = MEMORY[0x1E696ACD0];
     v12 = objc_msgSend__allowedCodingClasses(self, v7, v8, v9);
-    v26 = 0;
-    v14 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(v11, v13, v12, v10, &v26);
-    v15 = v26;
+    v25 = 0;
+    v14 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(v11, v13, v12, v10, &v25);
+    v15 = v25;
 
     if (v15)
     {
@@ -634,11 +626,11 @@ LABEL_47:
         v18 = v17;
         v22 = objc_msgSend_localizedDescription(v15, v19, v20, v21);
         *buf = 138478339;
-        v28 = v17;
-        v29 = 2113;
-        v30 = nameCopy;
-        v31 = 2114;
-        v32 = v22;
+        v27 = v17;
+        v28 = 2113;
+        v29 = nameCopy;
+        v30 = 2114;
+        v31 = v22;
         _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "[%{private}@] Could not unarchive data for %{private}@ column, error: %{public}@", buf, 0x20u);
       }
 
@@ -656,20 +648,18 @@ LABEL_47:
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v23;
 }
 
 - (void)setDictionary:(id)dictionary forBlobColumnName:(id)name
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (dictionary)
   {
-    v19 = 0;
-    v8 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v6, dictionary, 1, &v19);
-    v10 = v19;
+    v18 = 0;
+    v8 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v6, dictionary, 1, &v18);
+    v10 = v18;
     if (v10)
     {
       v11 = APLogForCategory(0xCuLL);
@@ -679,11 +669,11 @@ LABEL_47:
         v13 = v12;
         v17 = objc_msgSend_localizedDescription(v10, v14, v15, v16);
         *buf = 138478339;
-        v21 = v12;
-        v22 = 2113;
-        v23 = nameCopy;
-        v24 = 2114;
-        v25 = v17;
+        v20 = v12;
+        v21 = 2113;
+        v22 = nameCopy;
+        v23 = 2114;
+        v24 = v17;
         _os_log_impl(&dword_1BADC1000, v11, OS_LOG_TYPE_ERROR, "[%{private}@] Could not archive data for %{private}@ column, error: %{public}@", buf, 0x20u);
       }
     }
@@ -698,13 +688,11 @@ LABEL_47:
   {
     objc_msgSend_setValue_forColumnName_(self, v6, 0, nameCopy);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   if (!objc_msgSend_isAppleInternalInstall(APSystemInternal, a2, v2, v3))
   {
     v63 = &stru_1F38FD5F0;
@@ -714,28 +702,28 @@ LABEL_29:
   }
 
   v8 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v5, v6, v7);
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   v12 = objc_msgSend_columns(self, v9, v10, v11);
   v16 = objc_msgSend_allValues(v12, v13, v14, v15);
 
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v73, v82, 16);
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v72, v81, 16);
   if (v18)
   {
     v22 = v18;
-    v23 = *v74;
+    v23 = *v73;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v74 != v23)
+        if (*v73 != v23)
         {
           objc_enumerationMutation(v16);
         }
 
-        v25 = *(*(&v73 + 1) + 8 * i);
+        v25 = *(*(&v72 + 1) + 8 * i);
         v26 = objc_msgSend_name(v25, v19, v20, v21);
         v30 = objc_msgSend_value(v25, v27, v28, v29);
         if ((objc_msgSend_isEqualToString_(v26, v31, @"rowid", v32) & 1) == 0 && v30)
@@ -744,32 +732,32 @@ LABEL_29:
         }
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v73, v82, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v72, v81, 16);
     }
 
     while (v22);
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   v37 = objc_msgSend_readOnlyColumns(self, v34, v35, v36);
-  v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v38, &v69, v81, 16);
+  v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v38, &v68, v80, 16);
   if (v39)
   {
     v42 = v39;
-    v43 = *v70;
+    v43 = *v69;
     do
     {
       for (j = 0; j != v42; ++j)
       {
-        if (*v70 != v43)
+        if (*v69 != v43)
         {
           objc_enumerationMutation(v37);
         }
 
-        v45 = *(*(&v69 + 1) + 8 * j);
+        v45 = *(*(&v68 + 1) + 8 * j);
         if ((objc_msgSend_isEqualToString_(v45, v40, @"rowid", v41) & 1) == 0)
         {
           v47 = objc_msgSend_valueForKey_(self, v40, v45, v41);
@@ -780,7 +768,7 @@ LABEL_29:
         }
       }
 
-      v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v40, &v69, v81, 16);
+      v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v40, &v68, v80, 16);
     }
 
     while (v42);
@@ -788,9 +776,9 @@ LABEL_29:
 
   v50 = objc_msgSend_JSONObjectWithObject_(APJSONArchiver, v48, v8, v49);
 
-  v68 = 0;
-  v52 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v51, v50, 0, &v68);
-  v53 = v68;
+  v67 = 0;
+  v52 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v51, v50, 0, &v67);
+  v53 = v67;
   if (!v53)
   {
     v64 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -807,32 +795,30 @@ LABEL_29:
     v57 = v56;
     v61 = objc_msgSend_description(v54, v58, v59, v60);
     *buf = 138478083;
-    v78 = v56;
-    v79 = 2113;
-    v80 = v61;
+    v77 = v56;
+    v78 = 2113;
+    v79 = v61;
     _os_log_impl(&dword_1BADC1000, v55, OS_LOG_TYPE_ERROR, "[%{private}@]: Error generating JSON description %{private}@.", buf, 0x16u);
   }
 
   v62 = &stru_1F38FD5F0;
 LABEL_30:
 
-  v66 = *MEMORY[0x1E69E9840];
-
   return v62;
 }
 
 - (void)_createColumns
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   outCount = 0;
   v4 = [APDatabaseColumn alloc];
   v6 = objc_msgSend_initWithName_forColumnType_withValue_(v4, v5, @"rowid", 0, 0);
   v10 = objc_msgSend_name(v6, v7, v8, v9);
-  v106 = v3;
+  v104 = v3;
   v11 = v3;
   selfCopy = self;
-  v103 = v6;
+  v101 = v6;
   objc_msgSend_setObject_forKey_(v11, v13, v6, v10);
 
   v14 = objc_opt_class();
@@ -842,8 +828,8 @@ LABEL_30:
   {
     v17 = 0;
     v18 = 0x1E696A000uLL;
-    v104 = selfCopy;
-    v105 = v15;
+    v102 = selfCopy;
+    v103 = v15;
     while (1)
     {
       v19 = v16[v17];
@@ -882,131 +868,130 @@ LABEL_29:
     {
       v54 = objc_msgSend_length(v40, v51, v52, v53);
       v56 = objc_msgSend_substringWithRange_(v40, v55, 3, v54 - 4);
-      v57 = *(v18 + 3776);
-      v58 = objc_opt_class();
-      v59 = NSStringFromClass(v58);
-      isEqualToString = objc_msgSend_isEqualToString_(v56, v60, v59, v61);
+      v57 = objc_opt_class();
+      v58 = NSStringFromClass(v57);
+      isEqualToString = objc_msgSend_isEqualToString_(v56, v59, v58, v60);
 
       if (isEqualToString)
       {
-        v63 = 3;
+        v62 = 3;
 LABEL_25:
-        selfCopy = v104;
+        selfCopy = v102;
         goto LABEL_26;
       }
 
-      v65 = objc_opt_class();
-      v66 = NSStringFromClass(v65);
-      v69 = objc_msgSend_isEqualToString_(v56, v67, v66, v68);
+      v64 = objc_opt_class();
+      v65 = NSStringFromClass(v64);
+      v68 = objc_msgSend_isEqualToString_(v56, v66, v65, v67);
 
-      if (v69)
+      if (v68)
       {
-        v63 = 2;
+        v62 = 2;
         goto LABEL_25;
       }
 
-      v72 = objc_opt_class();
-      v73 = NSStringFromClass(v72);
-      v76 = objc_msgSend_isEqualToString_(v56, v74, v73, v75);
+      v71 = objc_opt_class();
+      v72 = NSStringFromClass(v71);
+      v75 = objc_msgSend_isEqualToString_(v56, v73, v72, v74);
 
-      if (v76)
+      if (v75)
       {
-        v63 = 4;
+        v62 = 4;
         goto LABEL_25;
       }
 
-      v77 = objc_opt_class();
-      v78 = NSStringFromClass(v77);
-      v81 = objc_msgSend_isEqualToString_(v56, v79, v78, v80);
+      v76 = objc_opt_class();
+      v77 = NSStringFromClass(v76);
+      v80 = objc_msgSend_isEqualToString_(v56, v78, v77, v79);
 
-      if (v81)
+      if (v80)
       {
-        v63 = 6;
+        v62 = 6;
         goto LABEL_25;
       }
 
-      v85 = objc_opt_class();
-      v86 = NSStringFromClass(v85);
-      if (objc_msgSend_isEqualToString_(v56, v87, v86, v88))
+      v84 = objc_opt_class();
+      v85 = NSStringFromClass(v84);
+      if (objc_msgSend_isEqualToString_(v56, v86, v85, v87))
       {
 
 LABEL_36:
-        selfCopy = v104;
+        selfCopy = v102;
         goto LABEL_28;
       }
 
-      v89 = objc_opt_class();
-      v90 = NSStringFromClass(v89);
-      v93 = objc_msgSend_isEqualToString_(v56, v91, v90, v92);
+      v88 = objc_opt_class();
+      v89 = NSStringFromClass(v88);
+      v92 = objc_msgSend_isEqualToString_(v56, v90, v89, v91);
 
-      if (v93)
+      if (v92)
       {
         goto LABEL_36;
       }
 
-      v94 = APLogForCategory(0xCuLL);
-      selfCopy = v104;
-      if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+      v93 = APLogForCategory(0xCuLL);
+      selfCopy = v102;
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
       {
-        v95 = objc_opt_class();
+        v94 = objc_opt_class();
         *buf = 138477827;
-        v109 = v95;
-        v96 = v95;
-        _os_log_impl(&dword_1BADC1000, v94, OS_LOG_TYPE_ERROR, "[%{private}@]: Unable to match property type to DB Column type.", buf, 0xCu);
+        v107 = v94;
+        v95 = v94;
+        _os_log_impl(&dword_1BADC1000, v93, OS_LOG_TYPE_ERROR, "[%{private}@]: Unable to match property type to DB Column type.", buf, 0xCu);
 
-        selfCopy = v104;
+        selfCopy = v102;
       }
 
 LABEL_20:
-      v63 = 0;
+      v62 = 0;
 LABEL_26:
 
       goto LABEL_27;
     }
 
-    v64 = *v48;
-    if (v64 == 66)
+    v63 = *v48;
+    if (v63 == 66)
     {
       if (!v48[1])
       {
-        v63 = 5;
+        v62 = 5;
         goto LABEL_27;
       }
     }
 
-    else if (v64 == 81)
+    else if (v63 == 81)
     {
       if (!v48[1])
       {
-        v63 = 3;
+        v62 = 3;
         goto LABEL_27;
       }
     }
 
-    else if (v64 == 113 && !v48[1])
+    else if (v63 == 113 && !v48[1])
     {
-      v63 = 0;
+      v62 = 0;
 LABEL_27:
-      v82 = [APDatabaseColumn alloc];
-      v56 = objc_msgSend_initWithName_forColumnType_withValue_(v82, v83, v23, v63, 0);
-      objc_msgSend_setObject_forKey_(v106, v84, v56, v23);
+      v81 = [APDatabaseColumn alloc];
+      v56 = objc_msgSend_initWithName_forColumnType_withValue_(v81, v82, v23, v62, 0);
+      objc_msgSend_setObject_forKey_(v104, v83, v56, v23);
 LABEL_28:
 
       v18 = 0x1E696A000;
-      v16 = v105;
+      v16 = v103;
       goto LABEL_29;
     }
 
     v56 = APLogForCategory(0xCuLL);
     if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
-      v70 = objc_opt_class();
+      v69 = objc_opt_class();
       *buf = 138477827;
-      v109 = v70;
-      v71 = v70;
+      v107 = v69;
+      v70 = v69;
       _os_log_impl(&dword_1BADC1000, v56, OS_LOG_TYPE_ERROR, "[%{private}@]: Unable to match property type to DB Column type.", buf, 0xCu);
 
-      selfCopy = v104;
+      selfCopy = v102;
     }
 
     goto LABEL_20;
@@ -1014,10 +999,8 @@ LABEL_28:
 
 LABEL_40:
   free(v16);
-  v99 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x1E695DF20], v97, v106, v98);
-  objc_msgSend_setColumns_(selfCopy, v100, v99, v101);
-
-  v102 = *MEMORY[0x1E69E9840];
+  v98 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x1E695DF20], v96, v104, v97);
+  objc_msgSend_setColumns_(selfCopy, v99, v98, v100);
 }
 
 - (id)_allowedCodingClasses
@@ -1033,7 +1016,7 @@ LABEL_40:
 
 - (void)setValue:(id)value forColumnName:(id)name
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   nameCopy = name;
   v11 = objc_msgSend_columns(self, v8, v9, v10);
@@ -1049,21 +1032,19 @@ LABEL_40:
     v17 = APLogForCategory(0xCuLL);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138478083;
-      v21 = objc_opt_class();
-      v22 = 2113;
-      v23 = nameCopy;
-      v18 = v21;
-      _os_log_impl(&dword_1BADC1000, v17, OS_LOG_TYPE_ERROR, "[%{private}@]: Column not avaliable for column name %{private}@.", &v20, 0x16u);
+      v19 = 138478083;
+      v20 = objc_opt_class();
+      v21 = 2113;
+      v22 = nameCopy;
+      v18 = v20;
+      _os_log_impl(&dword_1BADC1000, v17, OS_LOG_TYPE_ERROR, "[%{private}@]: Column not avaliable for column name %{private}@.", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForColumnName:(id)name
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v8 = objc_msgSend_columns(self, v5, v6, v7);
   v11 = objc_msgSend_objectForKey_(v8, v9, nameCopy, v10);
@@ -1078,25 +1059,23 @@ LABEL_40:
     v16 = APLogForCategory(0xCuLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138478083;
-      v21 = objc_opt_class();
-      v22 = 2113;
-      v23 = nameCopy;
-      v17 = v21;
-      _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "[%{private}@]: Column not avaliable for column name %{private}@.", &v20, 0x16u);
+      v19 = 138478083;
+      v20 = objc_opt_class();
+      v21 = 2113;
+      v22 = nameCopy;
+      v17 = v20;
+      _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "[%{private}@]: Column not avaliable for column name %{private}@.", &v19, 0x16u);
     }
 
     v15 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (int64_t)typeForColumnName:(id)name
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v8 = objc_msgSend_columns(self, v5, v6, v7);
   v11 = objc_msgSend_objectForKey_(v8, v9, nameCopy, v10);
@@ -1111,18 +1090,17 @@ LABEL_40:
     v16 = APLogForCategory(0xCuLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138478083;
-      v21 = objc_opt_class();
-      v22 = 2113;
-      v23 = nameCopy;
-      v17 = v21;
-      _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "[%{private}@]: Column not avaliable for column name %{private}@.", &v20, 0x16u);
+      v19 = 138478083;
+      v20 = objc_opt_class();
+      v21 = 2113;
+      v22 = nameCopy;
+      v17 = v20;
+      _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "[%{private}@]: Column not avaliable for column name %{private}@.", &v19, 0x16u);
     }
 
     v15 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

@@ -1,6 +1,7 @@
 @interface _DKEvent
 + (BOOL)copyMetadata:(id)metadata toManagedObject:(id)object;
 + (BOOL)isValidURL:(id)l;
++ (_DKEvent)eventWithInteraction:(id)interaction bundleIdentifier:(id)identifier storeKeyImage:(BOOL)image;
 + (_DKEvent)eventWithRelevantShortcut:(id)shortcut bundleID:(id)d;
 + (_DKEvent)eventWithSearchableItem:(id)item bundleIdentifier:(id)identifier;
 + (_DKEvent)eventWithStream:(id)stream source:(id)source startDate:(id)date endDate:(id)endDate categoryIntegerValue:(int64_t)value confidence:(double)confidence metadata:(id)metadata;
@@ -13,12 +14,15 @@
 + (id)allowedWebpageURLSchemes;
 + (id)eventRepresentingUserActivityWithSearchableItem:(id)item bundleIdentifier:(id)identifier;
 + (id)eventStreamFromManagedObject:(id)object forValue:(id)value cache:(id)cache;
++ (id)eventValueFromManagedObject:(id)object streamName:(id)name readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache;
 + (id)fetchCustomMetadataWithName:(id)name valueHash:(id)hash context:(id)context;
 + (id)fromPBCodable:(id)codable skipMetadata:(BOOL)metadata;
 + (id)keyPathForMOKeyPath:(uint64_t)path;
 + (id)metadataForInteraction:(id)interaction storeKeyImage:(BOOL)image;
 + (id)moKeyPathForKeyPath:(uint64_t)path;
++ (id)objectFromManagedObject:(id)object readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache;
 + (id)relatedContactIdentifiersFromIntent:(id)intent;
++ (id)uncachedEventValueFromManagedObject:(id)object readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache;
 - (BOOL)BOOLValue;
 - (BOOL)copyToManagedObject:(id)object;
 - (BOOL)isEqual:(id)equal;
@@ -74,7 +78,7 @@
 
 + (_DKEvent)eventWithSearchableItem:(id)item bundleIdentifier:(id)identifier
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   identifierCopy = identifier;
   if ([identifierCopy isEqualToString:@"com.apple.mobilesafari"])
@@ -92,9 +96,9 @@
       if (title)
       {
         v13 = +[_DKSafariHistoryMetadataKey title];
-        v21 = v13;
-        v22[0] = title;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        v20 = v13;
+        v21[0] = title;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       }
 
       else
@@ -118,8 +122,6 @@
   {
     v15 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -158,7 +160,7 @@
 
 + (id)eventRepresentingUserActivityWithSearchableItem:(id)item bundleIdentifier:(id)identifier
 {
-  v53[3] = *MEMORY[0x1E69E9840];
+  v52[3] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   identifierCopy = identifier;
   if ([identifierCopy isEqualToString:@"com.apple.mobilesafari"])
@@ -194,24 +196,24 @@ LABEL_22:
     v13 = [v12 initWithActivityType:*MEMORY[0x1E696AA68]];
     [v13 setWebpageURL:contentURL];
     [v13 setTitle:title];
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x3032000000;
-    v49 = __Block_byref_object_copy__9;
-    v50 = __Block_byref_object_dispose__9;
-    v51 = 0;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__9;
+    v49 = __Block_byref_object_dispose__9;
+    v50 = 0;
     v14 = dispatch_semaphore_create(0);
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __95___DKEvent_CSSearchableItem__eventRepresentingUserActivityWithSearchableItem_bundleIdentifier___block_invoke;
-    v43[3] = &unk_1E7368790;
-    v45 = &v46;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __95___DKEvent_CSSearchableItem__eventRepresentingUserActivityWithSearchableItem_bundleIdentifier___block_invoke;
+    v42[3] = &unk_1E7368790;
+    v44 = &v45;
     v15 = v14;
-    v44 = v15;
-    [v13 _createUserActivityStringsWithOptions:0 completionHandler:v43];
+    v43 = v15;
+    [v13 _createUserActivityStringsWithOptions:0 completionHandler:v42];
     v16 = dispatch_time(0, 1000000000);
-    v41 = dispatch_semaphore_wait(v15, v16);
-    if (v41)
+    v40 = dispatch_semaphore_wait(v15, v16);
+    if (v40)
     {
       v17 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
@@ -224,13 +226,13 @@ LABEL_22:
 
     else
     {
-      if (!v47[5] || ([itemCopy uniqueIdentifier], v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 == 0, v20, v21))
+      if (!v46[5] || ([itemCopy uniqueIdentifier], v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 == 0, v20, v21))
       {
         v18 = 0;
 LABEL_20:
 
-        _Block_object_dispose(&v46, 8);
-        if (v41)
+        _Block_object_dispose(&v45, 8);
+        if (v40)
         {
 LABEL_21:
 
@@ -241,17 +243,17 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      v39 = +[_DKApplicationActivityMetadataKey itemIdentifier];
-      v52[0] = v39;
+      v38 = +[_DKApplicationActivityMetadataKey itemIdentifier];
+      v51[0] = v38;
       uniqueIdentifier = [itemCopy uniqueIdentifier];
-      v53[0] = uniqueIdentifier;
+      v52[0] = uniqueIdentifier;
       v22 = +[_DKApplicationActivityMetadataKey userActivityRequiredString];
-      v52[1] = v22;
-      v53[1] = v47[5];
+      v51[1] = v22;
+      v52[1] = v46[5];
       v23 = +[_DKApplicationActivityMetadataKey isEligibleForPrediction];
-      v52[2] = v23;
-      v53[2] = MEMORY[0x1E695E118];
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:3];
+      v51[2] = v23;
+      v52[2] = MEMORY[0x1E695E118];
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:3];
       v17 = [v24 mutableCopy];
 
       _uniqueIdentifier = [v13 _uniqueIdentifier];
@@ -270,10 +272,10 @@ LABEL_21:
         [v17 setObject:contentDescription2 forKeyedSubscript:v32];
       }
 
-      v40 = +[_DKSystemEventStreams appActivityStream];
+      v39 = +[_DKSystemEventStreams appActivityStream];
       date = [MEMORY[0x1E695DF00] date];
       date2 = [MEMORY[0x1E695DF00] date];
-      v18 = [_DKEvent eventWithStream:v40 source:v8 startDate:date endDate:date2 identifierStringValue:identifierCopy metadata:v17];
+      v18 = [_DKEvent eventWithStream:v39 source:v8 startDate:date endDate:date2 identifierStringValue:identifierCopy metadata:v17];
     }
 
     goto LABEL_20;
@@ -285,14 +287,12 @@ LABEL_23:
   v35 = v18;
 LABEL_24:
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
 + (_DKEvent)eventWithRelevantShortcut:(id)shortcut bundleID:(id)d
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   shortcutCopy = shortcut;
   dCopy = d;
   if (!shortcutCopy)
@@ -302,12 +302,12 @@ LABEL_24:
   }
 
   v7 = INTrimToKeyImage();
-  v48[1] = 0;
+  v47[1] = 0;
   v8 = INExtractKeyImage();
   v9 = 0;
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
   watchTemplate = [v8 watchTemplate];
-  v43 = v10;
+  v42 = v10;
   if (watchTemplate)
   {
     cd_encodedDataImage = watchTemplate;
@@ -326,45 +326,45 @@ LABEL_10:
     if (!keyImage)
     {
 LABEL_11:
-      v42 = v7;
-      v48[0] = 0;
-      v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:v48];
-      v23 = v48[0];
+      v41 = v7;
+      v47[0] = 0;
+      v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:v47];
+      v23 = v47[0];
       v24 = v23;
       if (v22)
       {
-        v39 = v23;
+        v38 = v23;
         v25 = +[_DKRelevantShortcutMetadataKey serializedRelevantShortcut];
-        v40 = v22;
+        v39 = v22;
         [v10 setObject:v22 forKeyedSubscript:v25];
 
         date = [MEMORY[0x1E695DF00] date];
         v27 = +[_DKSystemEventStreams appRelevantShortcutsStream];
-        v41 = dCopy;
+        v40 = dCopy;
         v28 = [_DKBundleIdentifier withBundle:dCopy];
         v29 = [v10 copy];
         v19 = [_DKEvent eventWithStream:v27 startDate:date endDate:date value:v28 metadata:v29];
 
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
         v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         relevanceProviders = [shortcutCopy relevanceProviders];
-        v31 = [relevanceProviders countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v31 = [relevanceProviders countByEnumeratingWithState:&v43 objects:v48 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v45;
+          v33 = *v44;
           while (2)
           {
             for (i = 0; i != v32; ++i)
             {
-              if (*v45 != v33)
+              if (*v44 != v33)
               {
                 objc_enumerationMutation(relevanceProviders);
               }
 
-              v35 = *(*(&v44 + 1) + 8 * i);
+              v35 = *(*(&v43 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -378,7 +378,7 @@ LABEL_11:
               }
             }
 
-            v32 = [relevanceProviders countByEnumeratingWithState:&v44 objects:v49 count:16];
+            v32 = [relevanceProviders countByEnumeratingWithState:&v43 objects:v48 count:16];
             if (v32)
             {
               continue;
@@ -390,9 +390,9 @@ LABEL_11:
 
 LABEL_27:
 
-        dCopy = v41;
-        v24 = v39;
-        v22 = v40;
+        dCopy = v40;
+        v24 = v38;
+        v22 = v39;
       }
 
       else
@@ -406,7 +406,7 @@ LABEL_27:
         v19 = 0;
       }
 
-      v7 = v42;
+      v7 = v41;
       goto LABEL_29;
     }
   }
@@ -431,7 +431,6 @@ LABEL_27:
 LABEL_29:
 
 LABEL_30:
-  v37 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -540,7 +539,7 @@ LABEL_24:
 - (id)toPBCodableUseStructuredMetadata:(BOOL)metadata
 {
   metadataCopy = metadata;
-  v58 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(_DKPREvent);
   startDate = [(_DKEvent *)self startDate];
   [startDate timeIntervalSinceReferenceDate];
@@ -599,54 +598,34 @@ LABEL_24:
 
     if (v26)
     {
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
       v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       obj = [(_DKEvent *)self metadata];
-      v27 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+      v27 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
       if (v27)
       {
         v28 = v27;
         selfCopy = self;
-        v30 = *v52;
+        v30 = *v51;
         v31 = 0x1E7366000uLL;
         do
         {
           v32 = 0;
           do
           {
-            if (*v52 != v30)
+            if (*v51 != v30)
             {
               objc_enumerationMutation(obj);
             }
 
-            v33 = *(*(&v51 + 1) + 8 * v32);
+            v33 = *(*(&v50 + 1) + 8 * v32);
             metadata3 = [(_DKEvent *)selfCopy metadata];
             v35 = [metadata3 objectForKeyedSubscript:v33];
 
             v36 = objc_alloc_init(*(v31 + 1984));
-            if (!metadataCopy)
-            {
-              goto LABEL_17;
-            }
-
-            +[_DKMetadataPersistenceLookupTable keyToIndex];
-            v49 = v35;
-            v37 = v28;
-            v38 = v30;
-            v39 = v31;
-            v40 = selfCopy;
-            v42 = v41 = v4;
-            v43 = [v42 objectForKeyedSubscript:v33];
-
-            v4 = v41;
-            selfCopy = v40;
-            v31 = v39;
-            v30 = v38;
-            v28 = v37;
-            v35 = v49;
-            if (v43)
+            if (metadataCopy && (+[_DKMetadataPersistenceLookupTable keyToIndex](), v48 = v35, v37 = v28, v38 = v30, v39 = v31, v40 = selfCopy, v41 = v4, v42 = objc_claimAutoreleasedReturnValue(), [v42 objectForKeyedSubscript:v33], v43 = objc_claimAutoreleasedReturnValue(), v42, v4 = v41, selfCopy = v40, v31 = v39, v30 = v38, v28 = v37, v35 = v48, v43))
             {
               -[_DKPRMetadataEntry setIndex:](v36, [v43 unsignedIntValue]);
               [(_DKPRMetadataEntry *)v36 setKey:?];
@@ -654,7 +633,6 @@ LABEL_24:
 
             else
             {
-LABEL_17:
               [(_DKPRMetadataEntry *)v36 setKey:v33];
             }
 
@@ -670,14 +648,14 @@ LABEL_17:
 
             else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
             {
-              [(_DKEvent(Protobuf) *)buf toPBCodableUseStructuredMetadata:v33, &v56];
+              [(_DKEvent(Protobuf) *)buf toPBCodableUseStructuredMetadata:v33, &buf[4]];
             }
 
             ++v32;
           }
 
           while (v28 != v32);
-          v28 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+          v28 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
         }
 
         while (v28);
@@ -685,48 +663,46 @@ LABEL_17:
     }
   }
 
-  v46 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)fromPBCodable:(id)codable skipMetadata:(BOOL)metadata
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   codableCopy = codable;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v41 = codableCopy;
-    v43 = codableCopy;
-    value = [(_DKPREvent *)v43 value];
-    v42 = [_DKObject fromPBCodable:value];
+    v40 = codableCopy;
+    v42 = codableCopy;
+    value = [(_DKPREvent *)v42 value];
+    v41 = [_DKObject fromPBCodable:value];
 
-    if (!metadata && (-[_DKPREvent metadatas](v43), (v7 = objc_claimAutoreleasedReturnValue()) != 0) && (-[_DKPREvent metadatas](v43), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 count], v8, v7, v9))
+    if (!metadata && (-[_DKPREvent metadatas](v42), (v7 = objc_claimAutoreleasedReturnValue()) != 0) && (-[_DKPREvent metadatas](v42), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 count], v8, v7, v9))
     {
       v10 = MEMORY[0x1E695DF90];
-      metadatas = [(_DKPREvent *)v43 metadatas];
-      v44 = [v10 dictionaryWithCapacity:{objc_msgSend(metadatas, "count")}];
+      metadatas = [(_DKPREvent *)v42 metadatas];
+      v43 = [v10 dictionaryWithCapacity:{objc_msgSend(metadatas, "count")}];
 
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
-      metadatas2 = [(_DKPREvent *)v43 metadatas];
-      v13 = [metadatas2 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      metadatas2 = [(_DKPREvent *)v42 metadatas];
+      v13 = [metadatas2 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v13)
       {
-        v14 = *v46;
+        v14 = *v45;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v46 != v14)
+            if (*v45 != v14)
             {
               objc_enumerationMutation(metadatas2);
             }
 
-            v16 = *(*(&v45 + 1) + 8 * i);
+            v16 = *(*(&v44 + 1) + 8 * i);
             v17 = [(_DKPRMetadataEntry *)v16 key];
             if ([(_DKPRMetadataEntry *)v16 hasIndex])
             {
@@ -742,11 +718,11 @@ LABEL_17:
               v21 = MEMORY[0x1E69E58C0];
               value2 = [(_DKPRMetadataEntry *)v16 value];
               v23 = [v21 fromPBCodable:value2];
-              [v44 setObject:v23 forKeyedSubscript:v17];
+              [v43 setObject:v23 forKeyedSubscript:v17];
             }
           }
 
-          v13 = [metadatas2 countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v13 = [metadatas2 countByEnumeratingWithState:&v44 objects:v48 count:16];
         }
 
         while (v13);
@@ -755,61 +731,59 @@ LABEL_17:
 
     else
     {
-      v44 = 0;
+      v43 = 0;
     }
 
-    stream = [(_DKPREvent *)v43 stream];
+    stream = [(_DKPREvent *)v42 stream];
     v26 = [_DKEventStream fromPBCodable:stream];
 
-    source = [(_DKPREvent *)v43 source];
+    source = [(_DKPREvent *)v42 source];
     v28 = [_DKSource fromPBCodable:source];
 
     v29 = objc_alloc(MEMORY[0x1E696AFB0]);
-    identifier = [(_DKPREvent *)v43 identifier];
+    identifier = [(_DKPREvent *)v42 identifier];
     v31 = [v29 initWithUUIDString:identifier];
 
     confidence = 1.0;
-    if ([(_DKPREvent *)v43 hasConfidence])
+    if ([(_DKPREvent *)v42 hasConfidence])
     {
-      confidence = [(_DKPREvent *)v43 confidence];
+      confidence = [(_DKPREvent *)v42 confidence];
     }
 
-    v33 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:-[_DKPREvent startDate](v43)];
-    v34 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:-[_DKPREvent endDate](v43)];
-    v24 = [[_DKEvent alloc] _initWithStream:v26 source:v28 startDate:v33 endDate:v34 value:v42 confidence:v44 metadata:confidence];
+    v33 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:-[_DKPREvent startDate](v42)];
+    v34 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:-[_DKPREvent endDate](v42)];
+    v24 = [[_DKEvent alloc] _initWithStream:v26 source:v28 startDate:v33 endDate:v34 value:v41 confidence:v43 metadata:confidence];
     [v24 setUUID:v31];
-    v35 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:-[_DKPREvent creationDate](v43)];
+    v35 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:-[_DKPREvent creationDate](v42)];
     [v24 setCreationDate:v35];
 
-    if ([(_DKPREvent *)v43 hasTimeZone])
+    if ([(_DKPREvent *)v42 hasTimeZone])
     {
       os_unfair_lock_lock(&fromPBCodable_skipMetadata___cacheLock);
-      if (!fromPBCodable_skipMetadata___cachedTimeZone || (v36 = fromPBCodable_skipMetadata___cachedSecondsSinceGMT, v36 != [(_DKPREvent *)v43 timeZone]))
+      if (!fromPBCodable_skipMetadata___cachedTimeZone || (v36 = fromPBCodable_skipMetadata___cachedSecondsSinceGMT, v36 != [(_DKPREvent *)v42 timeZone]))
       {
-        fromPBCodable_skipMetadata___cachedSecondsSinceGMT = [(_DKPREvent *)v43 timeZone];
-        v37 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:-[_DKPREvent timeZone](v43)];
+        fromPBCodable_skipMetadata___cachedSecondsSinceGMT = [(_DKPREvent *)v42 timeZone];
+        v37 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:-[_DKPREvent timeZone](v42)];
         v38 = fromPBCodable_skipMetadata___cachedTimeZone;
         fromPBCodable_skipMetadata___cachedTimeZone = v37;
       }
 
-      [v24 setTimeZone:{fromPBCodable_skipMetadata___cachedTimeZone, v41}];
+      [v24 setTimeZone:{fromPBCodable_skipMetadata___cachedTimeZone, v40}];
       os_unfair_lock_unlock(&fromPBCodable_skipMetadata___cacheLock);
     }
 
-    if ([(_DKPREvent *)v43 hasCompatibilityVersion])
+    if ([(_DKPREvent *)v42 hasCompatibilityVersion])
     {
-      [v24 setCompatibilityVersion:-[_DKPREvent compatibilityVersion](v43)];
+      [v24 setCompatibilityVersion:-[_DKPREvent compatibilityVersion](v42)];
     }
 
-    codableCopy = v41;
+    codableCopy = v40;
   }
 
   else
   {
     v24 = 0;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -875,75 +849,120 @@ LABEL_17:
   return v7;
 }
 
++ (_DKEvent)eventWithInteraction:(id)interaction bundleIdentifier:(id)identifier storeKeyImage:(BOOL)image
+{
+  imageCopy = image;
+  interactionCopy = interaction;
+  identifierCopy = identifier;
+  intent = [interactionCopy intent];
+  v11 = [self metadataForInteraction:interactionCopy storeKeyImage:imageCopy];
+  dateInterval = [interactionCopy dateInterval];
+  startDate = [dateInterval startDate];
+  v14 = startDate;
+  if (startDate)
+  {
+    date = startDate;
+  }
+
+  else
+  {
+    date = [MEMORY[0x1E695DF00] date];
+  }
+
+  v16 = date;
+
+  dateInterval2 = [interactionCopy dateInterval];
+  endDate = [dateInterval2 endDate];
+  v19 = endDate;
+  if (endDate)
+  {
+    v20 = endDate;
+  }
+
+  else
+  {
+    v20 = v16;
+  }
+
+  v21 = v20;
+
+  v22 = [_DKSource sourceForInteraction:interactionCopy bundleID:identifierCopy];
+
+  domain = [intent domain];
+  v24 = +[_DKSystemEventStreams appIntentsStream];
+  v25 = [_DKEvent eventWithStream:v24 source:v22 startDate:v16 endDate:v21 identifierStringValue:domain metadata:v11];
+
+  return v25;
+}
+
 + (id)relatedContactIdentifiersFromIntent:(id)intent
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   v4 = objc_opt_new();
   [intentCopy _nonNilParameters];
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  obj = v34 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  obj = v32 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
+    v7 = *v30;
     v8 = 0x1E695D000uLL;
     do
     {
       v9 = 0;
-      v25 = v6;
+      v23 = v6;
       do
       {
-        if (*v32 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [intentCopy valueForKey:{*(*(&v31 + 1) + 8 * v9), v25}];
-        v11 = *(v8 + 3784);
+        v10 = [intentCopy valueForKey:{*(*(&v29 + 1) + 8 * v9), v23}];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         if (isKindOfClass)
         {
-          v13 = v7;
-          v14 = v8;
-          v29 = 0u;
-          v30 = 0u;
+          v12 = v7;
+          v13 = v8;
           v27 = 0u;
           v28 = 0u;
-          v15 = v10;
-          v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
-          if (v16)
+          v25 = 0u;
+          v26 = 0u;
+          v14 = v10;
+          v15 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          if (v15)
           {
-            v17 = v16;
-            v18 = *v28;
+            v16 = v15;
+            v17 = *v26;
             do
             {
-              v19 = 0;
+              v18 = 0;
               do
               {
-                if (*v28 != v18)
+                if (*v26 != v17)
                 {
-                  objc_enumerationMutation(v15);
+                  objc_enumerationMutation(v14);
                 }
 
-                __63___DKEvent_INInteraction__relatedContactIdentifiersFromIntent___block_invoke(v16, v4, *(*(&v27 + 1) + 8 * v19++));
+                __63___DKEvent_INInteraction__relatedContactIdentifiersFromIntent___block_invoke(v15, v4, *(*(&v25 + 1) + 8 * v18++));
               }
 
-              while (v17 != v19);
-              v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
-              v17 = v16;
+              while (v16 != v18);
+              v15 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v16 = v15;
             }
 
-            while (v16);
+            while (v15);
           }
 
-          v8 = v14;
-          v7 = v13;
-          v6 = v25;
+          v8 = v13;
+          v7 = v12;
+          v6 = v23;
         }
 
         else
@@ -955,14 +974,14 @@ LABEL_17:
       }
 
       while (v9 != v6);
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v6);
   }
 
-  v20 = +[_CDLogging knowledgeChannel];
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v19 = +[_CDLogging knowledgeChannel];
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     +[_DKEvent(INInteraction) relatedContactIdentifiersFromIntent:];
   }
@@ -970,17 +989,15 @@ LABEL_17:
   if ([v4 count])
   {
     allObjects = [v4 allObjects];
-    v22 = [allObjects componentsJoinedByString:{@", "}];
+    v21 = [allObjects componentsJoinedByString:{@", "}];
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v21;
 }
 
 - (id)interaction
@@ -1130,38 +1147,38 @@ LABEL_18:
 
 - (id)metadataFromStructuredMetadata:(id)metadata excludedMetadataKeys:(id)keys
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   keysCopy = keys;
   v7 = +[_DKMetadataPersistenceLookupTable attributeToKey];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v44;
-    v34 = keysCopy;
-    v35 = metadataCopy;
-    v32 = *v44;
-    v33 = dictionary;
-    v40 = v9;
+    v12 = *v43;
+    v33 = keysCopy;
+    v34 = metadataCopy;
+    v31 = *v43;
+    v32 = dictionary;
+    v39 = v9;
     do
     {
       v13 = 0;
-      v41 = v11;
+      v40 = v11;
       do
       {
-        if (*v44 != v12)
+        if (*v43 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v43 + 1) + 8 * v13);
+        v14 = *(*(&v42 + 1) + 8 * v13);
         v15 = [v9 objectForKeyedSubscript:v14];
         v16 = v15;
         if (!keysCopy || !v15 || ([keysCopy containsObject:v15] & 1) == 0)
@@ -1177,48 +1194,48 @@ LABEL_18:
               if (objc_opt_isKindOfClass())
               {
                 v19 = MEMORY[0x1E695DFD8];
-                v39 = objc_opt_class();
                 v38 = objc_opt_class();
                 v37 = objc_opt_class();
                 v36 = objc_opt_class();
+                v35 = objc_opt_class();
                 v20 = objc_opt_class();
                 v21 = objc_opt_class();
                 v22 = objc_opt_class();
                 v23 = objc_opt_class();
                 v24 = objc_opt_class();
-                v25 = [v19 setWithObjects:{v39, v38, v37, v36, v20, v21, v22, v23, v24, objc_opt_class(), 0}];
-                v42 = 0;
-                v26 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v25 fromData:v18 error:&v42];
-                v27 = v42;
+                v25 = [v19 setWithObjects:{v38, v37, v36, v35, v20, v21, v22, v23, v24, objc_opt_class(), 0}];
+                v41 = 0;
+                v26 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v25 fromData:v18 error:&v41];
+                v27 = v41;
 
-                v9 = v40;
+                v9 = v39;
                 if (v27)
                 {
                   v28 = +[_CDLogging knowledgeChannel];
                   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v48 = v27;
+                    v47 = v27;
                     _os_log_error_impl(&dword_191750000, v28, OS_LOG_TYPE_ERROR, "Error unarchiving object %@", buf, 0xCu);
                   }
                 }
 
                 v18 = v26;
-                keysCopy = v34;
-                metadataCopy = v35;
-                v12 = v32;
-                dictionary = v33;
+                keysCopy = v33;
+                metadataCopy = v34;
+                v12 = v31;
+                dictionary = v32;
               }
 
               else
               {
-                v9 = v40;
+                v9 = v39;
               }
 
               v29 = [v9 objectForKeyedSubscript:v14];
               [dictionary setObject:v18 forKeyedSubscript:v29];
 
-              v11 = v41;
+              v11 = v40;
             }
           }
         }
@@ -1227,13 +1244,11 @@ LABEL_18:
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v11);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1266,34 +1281,34 @@ LABEL_18:
 
 - (id)metadataFromCustomMetadata:(id)metadata
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(metadataCopy, "count")}];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v5 = metadataCopy;
-  v6 = [v5 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v41;
+    v8 = *v40;
     do
     {
       v9 = 0;
       do
       {
-        if (*v41 != v8)
+        if (*v40 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v40 + 1) + 8 * v9);
+        v10 = *(*(&v39 + 1) + 8 * v9);
         name = [v10 name];
         if (!name)
         {
-          [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing attribute for CustomMetadata: %@", v10, v31];
+          [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing attribute for CustomMetadata: %@", v10, v30];
           binaryValue2 = LABEL_10:;
           [_CDErrorUtilities simulateCrashWithDescription:binaryValue2];
           goto LABEL_18;
@@ -1353,28 +1368,28 @@ LABEL_17:
 
         else
         {
-          v38 = MEMORY[0x1E695DFD8];
-          v37 = objc_opt_class();
+          v37 = MEMORY[0x1E695DFD8];
           v36 = objc_opt_class();
           v35 = objc_opt_class();
           v34 = objc_opt_class();
           v33 = objc_opt_class();
           v32 = objc_opt_class();
+          v31 = objc_opt_class();
           v21 = objc_opt_class();
           v22 = objc_opt_class();
           v23 = objc_opt_class();
-          binaryValue2 = [v38 setWithObjects:{v37, v36, v35, v34, v33, v32, v21, v22, v23, objc_opt_class(), 0}];
+          binaryValue2 = [v37 setWithObjects:{v36, v35, v34, v33, v32, v31, v21, v22, v23, objc_opt_class(), 0}];
           v24 = MEMORY[0x1E696ACD0];
           binaryValue3 = [v10 binaryValue];
-          v39 = 0;
-          v26 = [v24 unarchivedObjectOfClasses:binaryValue2 fromData:binaryValue3 error:&v39];
-          v27 = v39;
+          v38 = 0;
+          v26 = [v24 unarchivedObjectOfClasses:binaryValue2 fromData:binaryValue3 error:&v38];
+          v27 = v38;
 
           if (v27)
           {
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              [(_DKEvent(MOConversion) *)buf metadataFromCustomMetadata:v27, &v45];
+              [(_DKEvent(MOConversion) *)buf metadataFromCustomMetadata:v27, &buf[4]];
             }
           }
 
@@ -1390,66 +1405,64 @@ LABEL_18:
       }
 
       while (v7 != v9);
-      v28 = [v5 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v28 = [v5 countByEnumeratingWithState:&v39 objects:v44 count:16];
       v7 = v28;
     }
 
     while (v28);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)metadataFromCustomMetadata:(id)metadata cache:(id)cache
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   cacheCopy = cache;
   if (cacheCopy)
   {
-    v11 = objc_opt_new();
+    v10 = objc_opt_new();
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v12 = metadataCopy;
-    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v13)
+    v11 = metadataCopy;
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v23;
+      v13 = v12;
+      v14 = *v22;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v15)
+          if (*v22 != v14)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          objectID = [*(*(&v22 + 1) + 8 * i) objectID];
+          objectID = [*(*(&v21 + 1) + 8 * i) objectID];
           uRIRepresentation = [objectID URIRepresentation];
 
           absoluteString = [uRIRepresentation absoluteString];
-          [v11 addObject:absoluteString];
+          [v10 addObject:absoluteString];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
-    [v11 sortUsingSelector:sel_compare_];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __59___DKEvent_MOConversion__metadataFromCustomMetadata_cache___block_invoke;
-    v20[3] = &unk_1E736A3A0;
-    v20[4] = self;
-    v21 = v12;
-    v8 = [(_DKObjectFromMOCache *)cacheCopy objectForKey:v11 type:@"attributeValue" setIfMissingWithBlock:v20];
+    [v10 sortUsingSelector:sel_compare_];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __59___DKEvent_MOConversion__metadataFromCustomMetadata_cache___block_invoke;
+    v19[3] = &unk_1E736A3A0;
+    v19[4] = self;
+    v20 = v11;
+    v8 = [(_DKObjectFromMOCache *)cacheCopy objectForKey:v10 type:@"attributeValue" setIfMissingWithBlock:v19];
   }
 
   else
@@ -1457,9 +1470,192 @@ LABEL_18:
     v8 = [(_DKEvent *)self metadataFromCustomMetadata:metadataCopy];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
+}
+
++ (id)objectFromManagedObject:(id)object readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache
+{
+  metadataCopy = metadata;
+  objectCopy = object;
+  keysCopy = keys;
+  cacheCopy = cache;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v13 = objectCopy;
+    streamName = [v13 streamName];
+
+    if (streamName)
+    {
+      streamName2 = [v13 streamName];
+      v16 = [self eventValueFromManagedObject:v13 streamName:streamName2 readMetadata:metadataCopy excludedMetadataKeys:keysCopy cache:cacheCopy];
+
+      if (v16)
+      {
+        v17 = [self eventStreamFromManagedObject:v13 forValue:v16 cache:cacheCopy];
+        if (v17)
+        {
+          if (cacheCopy)
+          {
+            v33 = MEMORY[0x1E696AD98];
+            [v13 startDate];
+            v34 = [v33 numberWithDouble:?];
+            v56[0] = MEMORY[0x1E69E9820];
+            v56[1] = 3221225472;
+            v56[2] = __90___DKEvent_MOConversion__objectFromManagedObject_readMetadata_excludedMetadataKeys_cache___block_invoke;
+            v56[3] = &unk_1E736A328;
+            v35 = v13;
+            v57 = v35;
+            v19 = [(_DKObjectFromMOCache *)cacheCopy objectForKey:v34 type:@"date" setIfMissingWithBlock:v56];
+
+            v36 = MEMORY[0x1E696AD98];
+            [v35 endDate];
+            v37 = [v36 numberWithDouble:?];
+            v54[0] = MEMORY[0x1E69E9820];
+            v54[1] = 3221225472;
+            v54[2] = __90___DKEvent_MOConversion__objectFromManagedObject_readMetadata_excludedMetadataKeys_cache___block_invoke_2;
+            v54[3] = &unk_1E736A328;
+            v55 = v35;
+            v21 = [(_DKObjectFromMOCache *)cacheCopy objectForKey:v37 type:@"date" setIfMissingWithBlock:v54];
+          }
+
+          else
+          {
+            v18 = MEMORY[0x1E695DF00];
+            [v13 startDate];
+            v19 = [v18 dateWithTimeIntervalSinceReferenceDate:?];
+            v20 = MEMORY[0x1E695DF00];
+            [v13 endDate];
+            v21 = [v20 dateWithTimeIntervalSinceReferenceDate:?];
+          }
+
+          v50 = v19;
+          v22 = [_DKEvent eventWithStream:v17 startDate:v19 endDate:v21 value:v16];
+          [v13 confidence];
+          [v22 setConfidence:?];
+          if (cacheCopy)
+          {
+            v49 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v13, "secondsFromGMT")}];
+            v52[0] = MEMORY[0x1E69E9820];
+            v52[1] = 3221225472;
+            v52[2] = __90___DKEvent_MOConversion__objectFromManagedObject_readMetadata_excludedMetadataKeys_cache___block_invoke_3;
+            v52[3] = &unk_1E736A328;
+            v53 = v13;
+            v38 = [(_DKObjectFromMOCache *)cacheCopy objectForKey:v49 type:@"timeZone" setIfMissingWithBlock:v52];
+            [v22 setTimeZone:v38];
+
+            v23 = v53;
+          }
+
+          else
+          {
+            v23 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:{objc_msgSend(v13, "secondsFromGMT")}];
+            [v22 setTimeZone:v23];
+          }
+
+          if ([v22 copyBaseObjectInfoFromManagedObject:v13 cache:cacheCopy])
+          {
+            if (metadataCopy)
+            {
+              dictionary = [MEMORY[0x1E695DF90] dictionary];
+              if ([v13 hasCustomMetadata])
+              {
+                if ([keysCopy count])
+                {
+                  v24 = +[_DKCustomMetadataMO fetchRequest];
+                  v25 = MEMORY[0x1E696AE18];
+                  objectID = [v13 objectID];
+                  keysCopy = [v25 predicateWithFormat:@"ANY event == %@ && NOT name IN %@", objectID, keysCopy];
+                  [v24 setPredicate:keysCopy];
+
+                  managedObjectContext = [v13 managedObjectContext];
+                  v51 = 0;
+                  v47 = v24;
+                  v45 = [managedObjectContext executeFetchRequest:v24 error:&v51];
+                  v28 = v51;
+
+                  if (v28)
+                  {
+                    v29 = +[_CDLogging knowledgeChannel];
+                    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                    {
+                      [_DKEvent(MOConversion) objectFromManagedObject:v17 readMetadata:v29 excludedMetadataKeys:? cache:?];
+                    }
+                  }
+
+                  allObjects = v45;
+                  customMetadata = v47;
+                }
+
+                else
+                {
+                  customMetadata = [v13 customMetadata];
+                  allObjects = [customMetadata allObjects];
+                }
+
+                v39 = [v22 metadataFromCustomMetadata:allObjects cache:cacheCopy];
+                [dictionary addEntriesFromDictionary:v39];
+              }
+
+              if ([v13 hasStructuredMetadata])
+              {
+                structuredMetadata = [v13 structuredMetadata];
+
+                if (structuredMetadata)
+                {
+                  structuredMetadata2 = [v13 structuredMetadata];
+                  v42 = [v22 metadataFromStructuredMetadata:structuredMetadata2 excludedMetadataKeys:keysCopy cache:cacheCopy];
+                  [dictionary addEntriesFromDictionary:v42];
+                }
+              }
+
+              if ([dictionary count])
+              {
+                if (keysCopy && [keysCopy count])
+                {
+                  [dictionary removeObjectsForKeys:keysCopy];
+                }
+
+                v43 = [dictionary copy];
+                [v22 setMetadata:v43];
+              }
+            }
+
+            [v22 setShouldSync:{objc_msgSend(v13, "shouldSync")}];
+            [v22 setCompatibilityVersion:{objc_msgSend(v13, "compatibilityVersion")}];
+            v32 = v22;
+          }
+
+          else
+          {
+            v32 = 0;
+          }
+        }
+
+        else
+        {
+          v32 = 0;
+        }
+      }
+
+      else
+      {
+        v32 = 0;
+      }
+    }
+
+    else
+    {
+      v32 = 0;
+    }
+  }
+
+  else
+  {
+    v32 = 0;
+  }
+
+  return v32;
 }
 
 + (id)eventStreamFromManagedObject:(id)object forValue:(id)value cache:(id)cache
@@ -1480,6 +1676,105 @@ LABEL_18:
   v10 = [_DKEventStream eventStreamWithName:streamName valueType:objectType];
 
   return v10;
+}
+
++ (id)uncachedEventValueFromManagedObject:(id)object readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache
+{
+  metadataCopy = metadata;
+  objectCopy = object;
+  keysCopy = keys;
+  cacheCopy = cache;
+  v12 = 0;
+  valueClass = [objectCopy valueClass];
+  if (valueClass > 1)
+  {
+    if (valueClass == 2)
+    {
+      valueString = +[_DKObjectType objectTypeWithTypeCode:](_DKCategoryType, "objectTypeWithTypeCode:", [objectCopy valueTypeCode]);
+      v16 = +[_DKCategory categoryWithInteger:type:](_DKCategory, "categoryWithInteger:type:", [objectCopy valueInteger], valueString);
+    }
+
+    else
+    {
+      if (valueClass != 3)
+      {
+        goto LABEL_13;
+      }
+
+      valueString = +[_DKObjectType objectTypeWithTypeCode:](_DKQuantityType, "objectTypeWithTypeCode:", [objectCopy valueTypeCode]);
+      [objectCopy valueDouble];
+      v16 = [_DKQuantity quantityWithDouble:valueString type:?];
+    }
+  }
+
+  else
+  {
+    if (valueClass)
+    {
+      valueString = [objectCopy valueString];
+      if (cacheCopy)
+      {
+        v18 = [(_DKObjectFromMOCache *)cacheCopy deduplicateString:valueString];
+
+        valueString = v18;
+      }
+
+      v15 = +[_DKObjectType objectTypeWithTypeCode:](_DKIdentifierType, "objectTypeWithTypeCode:", [objectCopy valueTypeCode]);
+      v12 = [_DKIdentifier identifierWithString:valueString type:v15];
+
+      goto LABEL_12;
+    }
+
+    valueString = [objectCopy value];
+    v16 = [_DKObject objectFromManagedObject:valueString readMetadata:metadataCopy excludedMetadataKeys:keysCopy cache:cacheCopy];
+  }
+
+  v12 = v16;
+LABEL_12:
+
+LABEL_13:
+
+  return v12;
+}
+
++ (id)eventValueFromManagedObject:(id)object streamName:(id)name readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache
+{
+  metadataCopy = metadata;
+  objectCopy = object;
+  nameCopy = name;
+  keysCopy = keys;
+  cacheCopy = cache;
+  if (cacheCopy && [objectCopy valueClass] != 3)
+  {
+    if ([objectCopy valueClass] == 1)
+    {
+      [objectCopy valueString];
+    }
+
+    else
+    {
+      [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(objectCopy, "valueInteger")}];
+    }
+    v18 = ;
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", nameCopy, v18];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __105___DKEvent_MOConversion__eventValueFromManagedObject_streamName_readMetadata_excludedMetadataKeys_cache___block_invoke;
+    v20[3] = &unk_1E736A3C8;
+    selfCopy = self;
+    v21 = objectCopy;
+    v25 = metadataCopy;
+    v22 = keysCopy;
+    v23 = cacheCopy;
+    v16 = [(_DKObjectFromMOCache *)v23 objectForKey:v19 type:@"eventValue" setIfMissingWithBlock:v20];
+  }
+
+  else
+  {
+    v16 = [self uncachedEventValueFromManagedObject:objectCopy readMetadata:metadataCopy excludedMetadataKeys:keysCopy cache:cacheCopy];
+  }
+
+  return v16;
 }
 
 - (unint64_t)eventValueClassOf:(id)of
@@ -1667,7 +1962,7 @@ LABEL_18:
 
 + (BOOL)copyMetadata:(id)metadata toManagedObject:(id)object
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   objectCopy = object;
   objc_opt_class();
@@ -1677,39 +1972,39 @@ LABEL_18:
     goto LABEL_46;
   }
 
-  v47 = objectCopy;
+  v46 = objectCopy;
   v6 = objectCopy;
-  v52 = +[_DKMetadataPersistenceLookupTable keyToAttribute];
+  v51 = +[_DKMetadataPersistenceLookupTable keyToAttribute];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   allKeys = [metadataCopy allKeys];
   obj = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v54 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
-  if (!v54)
+  v53 = [obj countByEnumeratingWithState:&v57 objects:v67 count:16];
+  if (!v53)
   {
     v8 = 0;
     goto LABEL_44;
   }
 
   v8 = 0;
-  v51 = *v59;
+  v50 = *v58;
   do
   {
     v9 = 0;
     do
     {
-      if (*v59 != v51)
+      if (*v58 != v50)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v58 + 1) + 8 * v9);
+      v10 = *(*(&v57 + 1) + 8 * v9);
       v11 = [metadataCopy objectForKeyedSubscript:v10];
-      v12 = [v52 objectForKeyedSubscript:v10];
+      v12 = [v51 objectForKeyedSubscript:v10];
       if (!v12)
       {
         objc_opt_class();
@@ -1737,11 +2032,11 @@ LABEL_25:
               v40 = objc_opt_class();
               v41 = NSStringFromClass(v40);
               *buf = 138412802;
-              v63 = streamName;
-              v64 = 2112;
-              v65 = v10;
-              v66 = 2112;
-              v67 = v41;
+              v62 = streamName;
+              v63 = 2112;
+              v64 = v10;
+              v65 = 2112;
+              v66 = v41;
               _os_log_impl(&dword_191750000, v38, OS_LOG_TYPE_DEFAULT, "Using custom metadata path in stream %@ for key '%@'. Value class: %@", buf, 0x20u);
             }
           }
@@ -1820,7 +2115,7 @@ LABEL_25:
           v26 = +[_CDLogging knowledgeChannel];
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            [(_DKEvent(MOConversion) *)&v56 copyMetadata:v57 toManagedObject:v26];
+            [(_DKEvent(MOConversion) *)&v55 copyMetadata:v56 toManagedObject:v26];
           }
         }
 
@@ -1854,18 +2149,18 @@ LABEL_30:
       ++v9;
     }
 
-    while (v54 != v9);
-    v42 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
-    v54 = v42;
+    while (v53 != v9);
+    v42 = [obj countByEnumeratingWithState:&v57 objects:v67 count:16];
+    v53 = v42;
   }
 
   while (v42);
 
   if (v8)
   {
-    v55 = 0;
-    v43 = [_CDHashUtilities md5forDictionary:dictionary error:&v55];
-    obj = v55;
+    v54 = 0;
+    v43 = [_CDHashUtilities md5forDictionary:dictionary error:&v54];
+    obj = v54;
     if (v43)
     {
       [(_DKStructuredMetadataMO *)v8 setMetadataHash:v43];
@@ -1885,10 +2180,9 @@ LABEL_30:
 LABEL_44:
   }
 
-  objectCopy = v47;
+  objectCopy = v46;
 LABEL_46:
 
-  v45 = *MEMORY[0x1E69E9840];
   return isKindOfClass & 1;
 }
 
@@ -2196,7 +2490,7 @@ LABEL_8:
       v26 = +[_CDLogging knowledgeChannel];
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [_DKEvent initWithStream:streamCopy source:? startDate:? endDate:? value:? confidence:? metadata:?];
+        [_DKEvent initWithStream:streamCopy source:valueCopy startDate:? endDate:? value:? confidence:? metadata:?];
       }
 
       goto LABEL_9;
@@ -2259,11 +2553,11 @@ LABEL_10:
 
 - (_DKEvent)initWithCoder:(id)coder
 {
-  v26[10] = *MEMORY[0x1E69E9840];
+  v25[10] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = _DKEvent;
-  v5 = [(_DKObject *)&v25 initWithCoder:coderCopy];
+  v24.receiver = self;
+  v24.super_class = _DKEvent;
+  v5 = [(_DKObject *)&v24 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"stream"];
@@ -2293,17 +2587,17 @@ LABEL_10:
     if ((objc_opt_respondsToSelector() & 1) == 0 || ([coderCopy dk_shouldSkipDecodingMetadata] & 1) == 0)
     {
       v17 = MEMORY[0x1E695DFD8];
-      v26[0] = objc_opt_class();
-      v26[1] = objc_opt_class();
-      v26[2] = objc_opt_class();
-      v26[3] = objc_opt_class();
-      v26[4] = objc_opt_class();
-      v26[5] = objc_opt_class();
-      v26[6] = objc_opt_class();
-      v26[7] = objc_opt_class();
-      v26[8] = objc_opt_class();
-      v26[9] = objc_opt_class();
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:10];
+      v25[0] = objc_opt_class();
+      v25[1] = objc_opt_class();
+      v25[2] = objc_opt_class();
+      v25[3] = objc_opt_class();
+      v25[4] = objc_opt_class();
+      v25[5] = objc_opt_class();
+      v25[6] = objc_opt_class();
+      v25[7] = objc_opt_class();
+      v25[8] = objc_opt_class();
+      v25[9] = objc_opt_class();
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:10];
       v19 = [v17 setWithArray:v18];
 
       v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"metadata"];
@@ -2314,7 +2608,6 @@ LABEL_10:
     v22 = v5;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -2650,61 +2943,48 @@ LABEL_43:
 
 + (void)eventWithStream:(void *)a1 source:startDate:endDate:categoryIntegerValue:confidence:metadata:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 eventValueType];
   v2 = NSStringFromClass([v1 objectClass]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)eventWithStream:(void *)a1 source:startDate:endDate:quantityDoubleValue:confidence:metadata:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 eventValueType];
   v2 = NSStringFromClass([v1 objectClass]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)eventWithStream:(void *)a1 source:startDate:endDate:identifierStringValue:confidence:metadata:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 eventValueType];
   v2 = NSStringFromClass([v1 objectClass]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-- (void)initWithStream:(void *)a1 source:startDate:endDate:value:confidence:metadata:.cold.1(void *a1)
+- (void)initWithStream:(void *)a1 source:(uint64_t)a2 startDate:endDate:value:confidence:metadata:.cold.1(void *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = [a1 eventValueType];
-  v2 = NSStringFromClass([v1 objectClass]);
-  v3 = objc_opt_class();
-  v10 = NSStringFromClass(v3);
+  v2 = [a1 eventValueType];
+  v3 = NSStringFromClass([v2 objectClass]);
+  v4 = objc_opt_class();
+  v10 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 - (void)initWithStream:source:startDate:endDate:value:confidence:metadata:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_191750000, v1, OS_LOG_TYPE_ERROR, "_DKEvent endDate (%@) must be at or later than startDate (%@).", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_191750000, v1, OS_LOG_TYPE_ERROR, "_DKEvent endDate (%@) must be at or later than startDate (%@).", v2, 0x16u);
 }
 
 @end

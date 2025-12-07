@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for MapView();
+  v3.super_class = type metadata accessor for MapView(0);
   v2 = v3.receiver;
   [(MapView *)&v3 layoutSubviews];
   MapView.handleGradientUpdate()();

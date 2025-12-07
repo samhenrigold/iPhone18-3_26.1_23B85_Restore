@@ -129,7 +129,7 @@
 {
   v29 = *MEMORY[0x1E69E9840];
   fetchDeferredFacesToRebuild = [(PLCPLFaceRebuildSupport *)self fetchDeferredFacesToRebuild];
-  if ([fetchDeferredFacesToRebuild count])
+  if (objc_msgSend_count(fetchDeferredFacesToRebuild))
   {
     v18 = 0u;
     v19 = 0u;

@@ -72,7 +72,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10022A180();
+  sub_10022A180(selfCopy, v2);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

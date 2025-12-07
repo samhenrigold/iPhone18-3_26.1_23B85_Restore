@@ -3,10 +3,12 @@
 - (JavaIoFilterInputStream)initWithJavaIoInputStream:(id)stream;
 - (int)available;
 - (int)read;
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (int64_t)skipWithLong:(int64_t)long;
 - (void)__javaClone;
 - (void)close;
 - (void)dealloc;
+- (void)markWithInt:(int)int;
 - (void)reset;
 @end
 
@@ -14,7 +16,7 @@
 
 - (JavaIoFilterInputStream)initWithJavaIoInputStream:(id)stream
 {
-  JavaIoInputStream_init(self, a2);
+  JavaIoInputStream_init();
   JreVolatileStrongAssign(&self->in_, stream);
   return self;
 }
@@ -41,6 +43,21 @@
   [v3 close];
 }
 
+- (void)markWithInt:(int)int
+{
+  v3 = *&int;
+  objc_sync_enter(self);
+  v5 = atomic_load(&self->in_);
+  if (!v5)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v5 markWithInt:v3];
+
+  objc_sync_exit(self);
+}
+
 - (BOOL)markSupported
 {
   v3 = atomic_load(&self->in_);
@@ -61,6 +78,17 @@
   }
 
   return [v3 read];
+}
+
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v6 = atomic_load(&self->in_);
+  if (!v6)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [v6 readWithByteArray:array withInt:*&int withInt:*&withInt];
 }
 
 - (void)reset

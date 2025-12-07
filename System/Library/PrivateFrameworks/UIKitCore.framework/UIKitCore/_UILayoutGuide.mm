@@ -129,7 +129,7 @@
     [coder encodeBool:1 forKey:@"_UILayoutGuideIsHorizontal"];
   }
 
-  [coder encodeObject:-[_UILayoutGuide _archivedIdentifier](self forKey:{"_archivedIdentifier"), @"_UILayoutGuideIdentifier"}];
+  [coder encodeObject:objc_msgSend__archivedIdentifier(self) forKey:@"_UILayoutGuideIdentifier"];
   [coder encodeObject:-[_UILayoutGuide _constraintsToRemoveAtRuntime](self forKey:{"_constraintsToRemoveAtRuntime"), @"_UILayoutGuideConstraintsToRemove"}];
 }
 

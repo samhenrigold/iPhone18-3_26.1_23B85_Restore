@@ -497,16 +497,16 @@ LABEL_29:
   return v14;
 }
 
-void __69__PIPortraitAutoCalculator_portraitInfoDictionaryFromCameraMetadata___block_invoke()
+void __69__PIPortraitAutoCalculator_portraitInfoDictionaryFromCameraMetadata___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = portraitInfoDictionaryFromCameraMetadata__s_expectedClasses;
-  portraitInfoDictionaryFromCameraMetadata__s_expectedClasses = v2;
+  v6[2] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = portraitInfoDictionaryFromCameraMetadata__s_expectedClasses;
+  portraitInfoDictionaryFromCameraMetadata__s_expectedClasses = v4;
 }
 
 + (id)portraitEffectInfoDictionaryFromFaceObservations:(id)observations orientation:(int64_t)orientation valuesAtCapture:(id)capture

@@ -256,18 +256,14 @@ LABEL_13:
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSearchString:(id)string
 {
-  v4 = [string copy];
-  searchString = self->_searchString;
-  self->_searchString = v4;
+  self->_searchString = [string copy];
 
   MEMORY[0x1EEE66BB8]();
 }

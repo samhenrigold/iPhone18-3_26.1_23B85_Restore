@@ -3429,7 +3429,7 @@ char *FileFullPath(char *a1, char *__s1, char *a3)
       goto LABEL_19;
     }
 
-    if (cstdlib_strncmp(__s1, "\\\", 2uLL))
+    if (cstdlib_strncmp(__s1, "\\\"", 2uLL))
     {
       v5 = 0;
       v8 = 0;
@@ -3462,7 +3462,7 @@ char *FileFullPath(char *a1, char *__s1, char *a3)
         }
 
 LABEL_19:
-        if (cstdlib_strncmp(v3, "\\\", 2uLL))
+        if (cstdlib_strncmp(v3, "\\\"", 2uLL))
         {
           v13 = 0;
         }
@@ -3581,7 +3581,7 @@ LABEL_51:
   return 0;
 }
 
-const char *UriCompleteUrl(const char *__s, char *a2, char *__dst)
+char *UriCompleteUrl(char *__s, char *a2, char *__dst)
 {
   v4 = __s;
   v26 = *MEMORY[0x277D85DE8];
@@ -3663,12 +3663,12 @@ LABEL_19:
       __s = cstdlib_strchr(v19 + 2, 47);
       if (__s)
       {
-        v23 = __s - v20 - 2;
+        v23 = (__s - v20 - 2);
       }
 
       else
       {
-        v23 = v13 - v21;
+        v23 = (v13 - v21);
       }
 
       if (v23 > 0x4E)
@@ -4556,28 +4556,32 @@ void *ttsJSON_Delete(void *result)
       v2 = v1;
       v1 = *v1;
       v3 = *(v2 + 24);
-      if ((v3 & 0x100) == 0 && *(v2 + 16))
+      if ((v3 & 0x100) == 0)
       {
-        ttsJSON_Delete();
-        v3 = *(v2 + 24);
+        v4 = *(v2 + 16);
+        if (v4)
+        {
+          ttsJSON_Delete(v4);
+          v3 = *(v2 + 24);
+        }
       }
 
       if ((v3 & 0x100) == 0)
       {
-        v4 = *(v2 + 32);
-        if (v4)
+        v5 = *(v2 + 32);
+        if (v5)
         {
-          heap_Free(*(v2 + 64), v4);
+          heap_Free(*(v2 + 64), v5);
           v3 = *(v2 + 24);
         }
       }
 
       if ((v3 & 0x200) == 0)
       {
-        v5 = *(v2 + 56);
-        if (v5)
+        v6 = *(v2 + 56);
+        if (v6)
         {
-          heap_Free(*(v2 + 64), v5);
+          heap_Free(*(v2 + 64), v6);
         }
       }
 
@@ -4662,16 +4666,17 @@ void *ttsJSON_strdup(uint64_t a1, char *__s)
   return v6;
 }
 
-void *ttsJSON_ParseWithOpts(uint64_t a1, char *__s, void *a3, int a4)
+void *ttsJSON_ParseWithOpts(uint64_t a1, char *__s, void *a3, uint64_t a4)
 {
   if (!__s)
   {
     return 0;
   }
 
+  v4 = a4;
   v8 = cstdlib_strlen(__s) + 1;
 
-  return ttsJSON_ParseWithLengthOpts(a1, __s, v8, a3, a4);
+  return ttsJSON_ParseWithLengthOpts(a1, __s, v8, a3, v4);
 }
 
 void *ttsJSON_ParseWithLengthOpts(uint64_t a1, const char *a2, unint64_t a3, void *a4, int a5)
@@ -6829,7 +6834,7 @@ LABEL_8:
         if (v12)
         {
           *v12 = v13;
-          *(v13 + 8) = v12;
+          v13[1] = v12;
         }
 
         else
@@ -7059,7 +7064,7 @@ BOOL ttsJSON_IsRaw(_BOOL8 result)
   return result;
 }
 
-uint64_t ttsJSON_Compare(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL ttsJSON_Compare(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = 0;
   if (!a1 || !a2)
@@ -7759,12 +7764,12 @@ LABEL_6:
         {
           if (v9 >= 0x20u && v9 != 34 && v9 != 92)
           {
-            v12 = v11 + 1;
+            v12 = (v11 + 1);
             goto LABEL_37;
           }
 
-          v12 = v11 + 2;
-          v11[1] = 92;
+          v12 = (v11 + 2);
+          *(v11 + 1) = 92;
           v13 = *(v10 - 1);
           if (v13 <= 0xB)
           {
@@ -7830,7 +7835,7 @@ LABEL_37:
 
 LABEL_33:
         sprintf(v12, "u%04x", *(v10 - 1));
-        v12 = v11 + 6;
+        v12 = (v11 + 6);
         goto LABEL_38;
       }
 
@@ -7925,7 +7930,7 @@ uint64_t lookup_0(void *a1, const char *a2)
     if (*a2)
     {
       v8 = 0;
-      v9 = (a2 + 1);
+      v9 = a2 + 1;
       do
       {
         v8 = 31 * v8 + v7;
@@ -7996,7 +8001,7 @@ void *add(void *a1, char *a2, uint64_t a3)
       if (*a2)
       {
         v12 = 0;
-        v13 = (a2 + 1);
+        v13 = a2 + 1;
         do
         {
           v12 = 31 * v12 + v11;
@@ -8119,20 +8124,20 @@ void *hashtable_ObjClose(void *result)
           v4 = v3 - 1;
           do
           {
-            FreeDupla(*(*(v1 + 96) + 8), *(*(v1 + 88) + 8 * v4), *(v1 + 32), *(v1 + 8) != 1);
-            *(*(v1 + 88) + 8 * v4--) = 0;
+            FreeDupla(*(v1[12] + 8), *(v1[11] + 8 * v4), v1[4], *(v1 + 2) != 1);
+            *(v1[11] + 8 * v4--) = 0;
           }
 
           while (v4 != -1);
-          v2 = *(v1 + 88);
+          v2 = v1[11];
         }
 
-        heap_Free(*(*(v1 + 96) + 8), v2);
-        *(v1 + 88) = 0;
+        heap_Free(*(v1[12] + 8), v2);
+        v1[11] = 0;
       }
 
       *v1 = 0;
-      v5 = *(*(v1 + 96) + 8);
+      v5 = *(v1[12] + 8);
 
       return heap_Free(v5, v1);
     }
@@ -8203,7 +8208,7 @@ void *hashtable_RemoveAll(void *result)
   return result;
 }
 
-uint64_t hashtable_Set(uint64_t result, uint64_t a2)
+BOOL hashtable_Set(_BOOL8 result, uint64_t a2)
 {
   if (result)
   {
@@ -8259,7 +8264,7 @@ uint64_t (*hashtable_GetKeyPointer(uint64_t (*result)(void *a1, uint64_t a2, uin
 
 _DWORD *hashtable_Dump(_DWORD *result, const char *a2, void (*a3)(void, char *, uint64_t), uint64_t a4, uint64_t a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v5 = result;
@@ -8282,61 +8287,61 @@ _DWORD *hashtable_Dump(_DWORD *result, const char *a2, void (*a3)(void, char *, 
         v10 = v9;
       }
 
-      __sprintf_chk(v30, 0, 0x1000uLL, "<HASH address=%p title=%s type=%s>", result, a2, v10);
-      log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v11, v12, v13, v30);
-      v14 = *(v5 + 2);
-      if (v14)
+      __sprintf_chk(v15, 0, 0x1000uLL, "<HASH address=%p title=%s type=%s>", result, a2, v10);
+      log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v15);
+      v11 = *(v5 + 2);
+      if (v11)
       {
-        for (i = 0; i < v14; ++i)
+        for (i = 0; i < v11; ++i)
         {
-          v16 = *(*(v5 + 11) + 8 * i);
-          if (v16)
+          v13 = *(*(v5 + 11) + 8 * i);
+          if (v13)
           {
-            __sprintf_chk(v30, 0, 0x1000uLL, "<ELEM value=%lu>", i);
-            log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v17, v18, v19, v30);
+            __sprintf_chk(v15, 0, 0x1000uLL, "<ELEM value=%lu>", i);
+            log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v15);
             do
             {
               if (a3)
               {
-                a3(*(v16 + 8), v29, a5);
+                a3(*(v13 + 8), v14, a5);
               }
 
               else
               {
-                __sprintf_chk(v29, 0, 0x50uLL, "%s", *(v16 + 8));
+                __sprintf_chk(v14, 0, 0x50uLL, "%s", *(v13 + 8));
               }
 
               if (v5[2] == 1)
               {
-                __sprintf_chk(v30, 0, 0x1000uLL, "<DUPLA key =%lu value = %s/>");
+                __sprintf_chk(v15, 0, 0x1000uLL, "<DUPLA key =%lu value = %s/>");
               }
 
               else
               {
-                __sprintf_chk(v30, 0, 0x1000uLL, "<DUPLA key =%s value = %s/>");
+                __sprintf_chk(v15, 0, 0x1000uLL, "<DUPLA key =%s value = %s/>");
               }
 
-              log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v20, v21, v22, v30);
-              v16 = *(v16 + 16);
+              log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v15);
+              v13 = *(v13 + 16);
             }
 
-            while (v16);
-            __sprintf_chk(v30, 0, 0x1000uLL, "</ELEM>");
-            log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v23, v24, v25, v30);
-            v14 = *(v5 + 2);
+            while (v13);
+            __sprintf_chk(v15, 0, 0x1000uLL, "</ELEM>");
+            log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v15);
+            v11 = *(v5 + 2);
           }
         }
       }
 
-      __sprintf_chk(v30, 0, 0x1000uLL, "</HASH>");
-      return log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v26, v27, v28, v30);
+      __sprintf_chk(v15, 0, 0x1000uLL, "</HASH>");
+      return log_OutText(*(*(v5 + 12) + 32), "HASHTABLE", 4, 0, "%s", v15);
     }
   }
 
   return result;
 }
 
-uint64_t hashtable_Remove(uint64_t result, unsigned __int8 *a2)
+uint64_t hashtable_Remove(uint64_t result, const char *a2)
 {
   if (!result)
   {
@@ -8456,7 +8461,7 @@ LABEL_17:
   return heap_Free(v17, v8);
 }
 
-uint64_t Num2Hashval(void *a1, const void *a2)
+unint64_t Num2Hashval(void *a1, const void *a2)
 {
   *&v10[19] = *MEMORY[0x277D85DE8];
   __sprintf_chk(&v9, 0, 0x14uLL, "%p", a2);
@@ -8643,57 +8648,58 @@ void *hashtable_bCheckIsHashTable(void *result)
   return result;
 }
 
-uint64_t log_OutText(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t log_OutText(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, ...)
 {
+  va_start(va, a5);
   if (!a1 || log_GetLogLevel(a1) < a3)
   {
     return 0;
   }
 
-  v14 = 0;
-  v17 = a3 > 4 && *(a1 + 100) != 0;
-  if (a5 && !v17)
+  v10 = 0;
+  v13 = a3 > 4 && *(a1 + 100) != 0;
+  if (a5 && !v13)
   {
     if (a2)
     {
-      v14 = 0;
-      v18 = a1 + 24;
+      v10 = 0;
+      v14 = a1 + 24;
       for (i = -1; i != 4; ++i)
       {
-        if (*v18)
+        if (*v14)
         {
-          v20 = a3 >= 2 && i == 0;
-          v21 = !v20;
-          if (*(*v18 + 48) && v21)
+          v16 = a3 >= 2 && i == 0;
+          v17 = !v16;
+          if (*(*v14 + 48) && v17)
           {
-            v23 = (*(*v18 + 48))(*(v18 - 8), a2, a3, a4, a5, &a9);
-            if (v23 >= 0)
+            v19 = (*(*v14 + 48))(*(v14 - 8), a2, a3, a4, a5, va);
+            if (v19 >= 0)
             {
-              v14 = v14;
+              v10 = v10;
             }
 
             else
             {
-              v14 = v23;
+              v10 = v19;
             }
           }
         }
 
-        v18 += 16;
+        v14 += 16;
       }
 
-      v24 = *(a1 + 112);
-      if (v24 && *(v24 + 48))
+      v20 = *(a1 + 112);
+      if (v20 && *(v20 + 48))
       {
-        v25 = (*(*(a1 + 112) + 48))(*(a1 + 104), a2, a3, a4, a5, &a9);
-        if (v25 >= 0)
+        v21 = (*(*(a1 + 112) + 48))(*(a1 + 104), a2, a3, a4, a5, va);
+        if (v21 >= 0)
         {
-          return v14;
+          return v10;
         }
 
         else
         {
-          return v25;
+          return v21;
         }
       }
     }
@@ -8704,7 +8710,7 @@ uint64_t log_OutText(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
     }
   }
 
-  return v14;
+  return v10;
 }
 
 uint64_t log_GetLogLevel(uint64_t result)
@@ -8939,13 +8945,14 @@ uint64_t log_OutBinary(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, u
   return v13;
 }
 
-uint64_t log_OutPublic(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t log_OutPublic(uint64_t result, uint64_t a2, uint64_t a3, const char *a4, ...)
 {
+  va_start(va, a4);
   if (result)
   {
     if (a2)
     {
-      return log_VOutPublic(result, a2, a3, a4, &a9);
+      return log_VOutPublic(result, a2, a3, a4, va);
     }
 
     else
@@ -8957,7 +8964,7 @@ uint64_t log_OutPublic(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-uint64_t log_VOutPublic(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5)
+uint64_t log_VOutPublic(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5)
 {
   v19 = a5;
   if (!a1)
@@ -8980,7 +8987,7 @@ uint64_t log_VOutPublic(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, un
       v10 = a1[i + 3];
       if (v10)
       {
-        v11 = v10[8];
+        v11 = *(v10 + 64);
         if (v11)
         {
           v12 = v11(a1[i + 2], a2, a3, HIDWORD(__b), v18, *(&v18 + 1));
@@ -9000,7 +9007,7 @@ uint64_t log_VOutPublic(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, un
     v13 = a1[14];
     if (v13)
     {
-      v14 = v13[8];
+      v14 = *(v13 + 64);
       if (v14)
       {
         v15 = v14(a1[13], a2, a3, HIDWORD(__b), v18, *(&v18 + 1));
@@ -9022,7 +9029,7 @@ uint64_t log_VOutPublic(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, un
   return a4;
 }
 
-uint64_t log_ParseKeyValuePairs_Restricted(uint64_t *a1, char *__s, unsigned int *a3, uint64_t a4)
+uint64_t log_ParseKeyValuePairs_Restricted(uint64_t *a1, char *__s, unsigned int *a3, uint64_t *a4)
 {
   v79 = *MEMORY[0x277D85DE8];
   v7 = 2226135047;
@@ -9142,7 +9149,7 @@ LABEL_20:
     v19 = 0;
   }
 
-  *(a4 + 8) = 0;
+  *(a4 + 2) = 0;
   v20 = heap_Alloc(a1, 4096);
   *a4 = v20;
   if (!v20)
@@ -9153,14 +9160,14 @@ LABEL_99:
   }
 
   v21 = v13 & 0xFFFFFFFE;
-  *(a4 + 8) = 4096;
+  *(a4 + 2) = 4096;
   *v20 = 0;
-  *(a4 + 12) = 0;
+  *(a4 + 3) = 0;
   if ((v13 & 0xFFFFFFFE) >= 2)
   {
     v22 = heap_Calloc(a1, v21 >> 1, 8);
-    *(a4 + 16) = v22;
-    if (!v22 || (v23 = heap_Calloc(a1, v21 >> 1, 8), (*(a4 + 24) = v23) == 0))
+    a4[2] = v22;
+    if (!v22 || (v23 = heap_Calloc(a1, v21 >> 1, 8), (a4[3] = v23) == 0))
     {
       v7 = 2226135050;
       goto LABEL_120;
@@ -9296,7 +9303,7 @@ LABEL_119:
         }
 
         v38 = *a4;
-        v39 = &v38[cstdlib_strlen(*a4)];
+        v39 = v38 + cstdlib_strlen(*a4);
         cstdlib_strncat(*a4, v36, v30);
         v40 = *a4;
       }
@@ -9369,23 +9376,23 @@ LABEL_119:
           }
 
           v61 = *a4;
-          v39 = &v61[cstdlib_strlen(*a4)];
+          v39 = v61 + cstdlib_strlen(*a4);
           v62 = *a4;
           v63 = cstdlib_strlen(*a4);
-          utf8_16bitToUtf8(v55, &v62[v63]);
+          utf8_16bitToUtf8(v55, v62 + v63);
           cstdlib_strcat(*a4, " ");
           heap_Free(a1, v55);
 LABEL_84:
           v52 = v24 >> 1;
           if (v24)
           {
-            *(*(a4 + 24) + 8 * v52) = v39;
-            ++*(a4 + 12);
+            *(a4[3] + 8 * v52) = v39;
+            ++*(a4 + 3);
           }
 
           else
           {
-            *(*(a4 + 16) + 8 * v52) = v39;
+            *(a4[2] + 8 * v52) = v39;
           }
 
           v19 = 0;
@@ -9427,7 +9434,7 @@ LABEL_81:
         }
 
         v51 = *a4;
-        v39 = &v51[cstdlib_strlen(*a4)];
+        v39 = v51 + cstdlib_strlen(*a4);
         cstdlib_strcat(*a4, __sa);
         v40 = *a4;
       }
@@ -9445,14 +9452,14 @@ LABEL_81:
   }
 
 LABEL_102:
-  if (*(a4 + 12))
+  if (*(a4 + 3))
   {
     v64 = 0;
     do
     {
       if (v64)
       {
-        v65 = *(*(a4 + 16) + 8 * v64);
+        v65 = *(a4[2] + 8 * v64);
         if (v65)
         {
           v66 = (v65 - 1);
@@ -9463,7 +9470,7 @@ LABEL_102:
         }
       }
 
-      v67 = *(*(a4 + 24) + 8 * v64);
+      v67 = *(a4[3] + 8 * v64);
       if (v67)
       {
         v68 = (v67 - 1);
@@ -9474,16 +9481,16 @@ LABEL_102:
       }
 
       ++v64;
-      v69 = *(a4 + 12);
+      v69 = *(a4 + 3);
     }
 
     while (v64 < v69);
-    v70 = *(a4 + 24);
+    v70 = a4[3];
     v71 = v69 - 1;
     v72 = *(v70 + 8 * v71);
     if (v72 && *(v72 + cstdlib_strlen(*(v70 + 8 * v71)) - 1) == 32)
     {
-      v73 = *(*(a4 + 24) + 8 * (*(a4 + 12) - 1));
+      v73 = *(a4[3] + 8 * (*(a4 + 3) - 1));
       v73[cstdlib_strlen(v73) - 1] = 0;
     }
   }
@@ -9526,7 +9533,7 @@ void *log_FreeKeyValuePairs(void *result, uint64_t *a2)
   return result;
 }
 
-uint64_t **log_OutEvent(uint64_t **result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t **log_OutEvent(uint64_t **result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (result)
   {

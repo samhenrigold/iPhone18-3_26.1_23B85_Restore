@@ -42,32 +42,32 @@
 - (void)flagMeasurementDidChange:(BOOL)change forMeasurement:(id)measurement
 {
   changeCopy = change;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   measurementCopy = measurement;
   if (self)
   {
     signposterType = self->_signposterType;
     if (signposterType == 2)
     {
-      v39 = measurementCopy;
+      v38 = measurementCopy;
       v18 = ABSLogSignpost();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         if (changeCopy)
         {
-          v35 = "_ItemCacheHit";
+          v34 = "_ItemCacheHit";
         }
 
         else
         {
-          v35 = "_ItemCacheMiss";
+          v34 = "_ItemCacheMiss";
         }
 
-        v36 = NSStringFromBCSType([(BCSRealTimeSignposter *)self type]);
+        v35 = NSStringFromBCSType([(BCSRealTimeSignposter *)self type]);
         *buf = 136315394;
-        v41 = v35;
-        v42 = 2112;
-        v43 = v36;
+        v40 = v34;
+        v41 = 2112;
+        v42 = v35;
         _os_log_debug_impl(&dword_242072000, v18, OS_LOG_TYPE_DEBUG, "Signposting %s for type: %@", buf, 0x16u);
       }
 
@@ -132,25 +132,25 @@
         goto LABEL_95;
       }
 
-      v39 = measurementCopy;
+      v38 = measurementCopy;
       v8 = ABSLogSignpost();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         if (changeCopy)
         {
-          v37 = "_ConfigCacheHit";
+          v36 = "_ConfigCacheHit";
         }
 
         else
         {
-          v37 = "_ConfigCacheMiss";
+          v36 = "_ConfigCacheMiss";
         }
 
-        v38 = NSStringFromBCSType([(BCSRealTimeSignposter *)self type]);
+        v37 = NSStringFromBCSType([(BCSRealTimeSignposter *)self type]);
         *buf = 136315394;
-        v41 = v37;
-        v42 = 2112;
-        v43 = v38;
+        v40 = v36;
+        v41 = 2112;
+        v42 = v37;
         _os_log_debug_impl(&dword_242072000, v8, OS_LOG_TYPE_DEBUG, "Signposting %s for type: %@", buf, 0x16u);
       }
 
@@ -209,29 +209,29 @@ LABEL_93:
       _os_signpost_emit_with_name_impl(&dword_242072000, v10, OS_SIGNPOST_EVENT, signpostIdentifier, v13, "", buf, 2u);
 LABEL_94:
 
-      measurementCopy = v39;
+      measurementCopy = v38;
       goto LABEL_95;
     }
 
-    v39 = measurementCopy;
+    v38 = measurementCopy;
     v14 = ABSLogSignpost();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       if (changeCopy)
       {
-        v33 = "_ShardCacheHit";
+        v32 = "_ShardCacheHit";
       }
 
       else
       {
-        v33 = "_ShardCacheMiss";
+        v32 = "_ShardCacheMiss";
       }
 
-      v34 = NSStringFromBCSShardType([(BCSRealTimeShardSignposter *)self shardType]);
+      v33 = NSStringFromBCSShardType([(BCSRealTimeShardSignposter *)self shardType]);
       *buf = 136315394;
-      v41 = v33;
-      v42 = 2112;
-      v43 = v34;
+      v40 = v32;
+      v41 = 2112;
+      v42 = v33;
       _os_log_debug_impl(&dword_242072000, v14, OS_LOG_TYPE_DEBUG, "Signposting %s for shard type: %@", buf, 0x16u);
     }
 
@@ -281,7 +281,7 @@ LABEL_94:
         }
 
         v16 = shardType == 6;
-        measurementCopy = v39;
+        measurementCopy = v38;
         if (v16)
         {
           v10 = ABSLogCommon();
@@ -346,7 +346,7 @@ LABEL_94:
         }
 
         v16 = shardType == 3;
-        measurementCopy = v39;
+        measurementCopy = v38;
         if (v16)
         {
           v10 = ABSLogCommon();
@@ -412,7 +412,7 @@ LABEL_94:
       }
 
       v16 = shardType == 6;
-      measurementCopy = v39;
+      measurementCopy = v38;
       if (v16)
       {
         v10 = ABSLogCommon();
@@ -477,7 +477,7 @@ LABEL_94:
       }
 
       v16 = shardType == 3;
-      measurementCopy = v39;
+      measurementCopy = v38;
       if (v16)
       {
         v10 = ABSLogCommon();
@@ -501,7 +501,6 @@ LABEL_94:
   }
 
 LABEL_95:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 @end

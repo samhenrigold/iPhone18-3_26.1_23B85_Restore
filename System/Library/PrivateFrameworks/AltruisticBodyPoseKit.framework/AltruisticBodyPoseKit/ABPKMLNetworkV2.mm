@@ -17,15 +17,16 @@
   v55.receiver = self;
   v55.super_class = ABPKMLNetworkV2;
   v16 = [(ABPKMLNetworkV2 *)&v55 init];
+  v17 = v16;
   if (v16)
   {
     v46 = outputNamesCopy;
-    v17 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = __ABPKLogSharedInstance(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
       v59 = configCopy;
-      _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_DEBUG, " network  config %@. ", buf, 0xCu);
+      _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_DEBUG, " network  config %@. ", buf, 0xCu);
     }
 
     [pathCopy UTF8String];
@@ -36,56 +37,56 @@
       goto LABEL_31;
     }
 
-    v18 = [pathCopy copy];
-    networkPath = v16->_networkPath;
-    v16->_networkPath = v18;
+    v19 = [pathCopy copy];
+    networkPath = v17->_networkPath;
+    v17->_networkPath = v19;
 
-    v16->_useSurface = surface;
-    v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v17->_useSurface = surface;
+    v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v45 = namesCopy;
-    v21 = namesCopy;
-    v22 = [v21 countByEnumeratingWithState:&v51 objects:v57 count:16];
-    if (v22)
+    v22 = namesCopy;
+    v23 = [v22 countByEnumeratingWithState:&v51 objects:v57 count:16];
+    if (v23)
     {
-      v23 = v22;
-      v24 = *v52;
+      v24 = v23;
+      v25 = *v52;
       while (2)
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v52 != v24)
+          if (*v52 != v25)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v51 + 1) + 8 * i);
-          v27 = [[ABPKMLNetworkBufferV2 alloc] initWithName:v26 operation:v16->_operation bindMode:0 useSurface:v16->_useSurface];
-          if (!v27)
+          v27 = *(*(&v51 + 1) + 8 * i);
+          v28 = [[ABPKMLNetworkBufferV2 alloc] initWithName:v27 operation:v17->_operation bindMode:0 useSurface:v17->_useSurface];
+          if (!v28)
           {
-            v39 = __ABPKLogSharedInstance();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v40 = __ABPKLogSharedInstance(0);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v59 = v26;
-              _os_log_impl(&dword_23EDDC000, v39, OS_LOG_TYPE_ERROR, " Could not create network buffer %@. ", buf, 0xCu);
+              v59 = v27;
+              _os_log_impl(&dword_23EDDC000, v40, OS_LOG_TYPE_ERROR, " Could not create network buffer %@. ", buf, 0xCu);
             }
 
-            v38 = 0;
+            v39 = 0;
             namesCopy = v45;
             outputNamesCopy = v46;
             goto LABEL_30;
           }
 
-          v28 = v27;
-          [v20 setObject:v27 forKeyedSubscript:v26];
+          v29 = v28;
+          [v21 setObject:v28 forKeyedSubscript:v27];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v51 objects:v57 count:16];
-        if (v23)
+        v24 = [v22 countByEnumeratingWithState:&v51 objects:v57 count:16];
+        if (v24)
         {
           continue;
         }
@@ -94,50 +95,50 @@
       }
     }
 
-    objc_storeStrong(&v16->_inputBuffers, v20);
-    v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    objc_storeStrong(&v17->_inputBuffers, v21);
+    v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v30 = v46;
-    v31 = [v30 countByEnumeratingWithState:&v47 objects:v56 count:16];
-    if (!v31)
+    v31 = v46;
+    v32 = [v31 countByEnumeratingWithState:&v47 objects:v56 count:16];
+    if (!v32)
     {
       goto LABEL_21;
     }
 
-    v32 = v31;
-    v33 = *v48;
+    v33 = v32;
+    v34 = *v48;
     v44 = pathCopy;
 LABEL_15:
-    v34 = 0;
+    v35 = 0;
     while (1)
     {
-      if (*v48 != v33)
+      if (*v48 != v34)
       {
-        objc_enumerationMutation(v30);
+        objc_enumerationMutation(v31);
       }
 
-      v35 = *(*(&v47 + 1) + 8 * v34);
-      v36 = [[ABPKMLNetworkBufferV2 alloc] initWithName:v35 operation:v16->_operation bindMode:1 useSurface:0];
-      if (!v36)
+      v36 = *(*(&v47 + 1) + 8 * v35);
+      v37 = [[ABPKMLNetworkBufferV2 alloc] initWithName:v36 operation:v17->_operation bindMode:1 useSurface:0];
+      if (!v37)
       {
         break;
       }
 
-      v37 = v36;
-      [v29 setObject:v36 forKeyedSubscript:v35];
+      v38 = v37;
+      [v30 setObject:v37 forKeyedSubscript:v36];
 
-      if (v32 == ++v34)
+      if (v33 == ++v35)
       {
-        v32 = [v30 countByEnumeratingWithState:&v47 objects:v56 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v47 objects:v56 count:16];
         pathCopy = v44;
-        if (!v32)
+        if (!v33)
         {
 LABEL_21:
 
-          objc_storeStrong(&v16->_outputBuffers, v29);
+          objc_storeStrong(&v17->_outputBuffers, v30);
           if (!e5rt_execution_stream_create())
           {
 
@@ -156,16 +157,16 @@ LABEL_31:
       }
     }
 
-    v40 = __ABPKLogSharedInstance();
+    v41 = __ABPKLogSharedInstance(0);
     outputNamesCopy = v46;
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v59 = v35;
-      _os_log_impl(&dword_23EDDC000, v40, OS_LOG_TYPE_ERROR, " Could not create network buffer %@. ", buf, 0xCu);
+      v59 = v36;
+      _os_log_impl(&dword_23EDDC000, v41, OS_LOG_TYPE_ERROR, " Could not create network buffer %@. ", buf, 0xCu);
     }
 
-    v38 = 0;
+    v39 = 0;
     pathCopy = v44;
     namesCopy = v45;
   }
@@ -173,21 +174,17 @@ LABEL_31:
   else
   {
 LABEL_23:
-    v38 = v16;
+    v39 = v17;
   }
 
 LABEL_30:
 
-  v41 = *MEMORY[0x277D85DE8];
-  return v38;
+  return v39;
 }
 
 - (BOOL)execute
 {
-  stream = self->_stream;
-  operation = self->_operation;
   e5rt_execution_stream_encode_operation();
-  v5 = self->_stream;
   if (e5rt_execution_stream_execute_sync())
   {
     last_error_message = e5rt_get_last_error_message();
@@ -195,14 +192,13 @@ LABEL_30:
     exit(1);
   }
 
-  v6 = self->_stream;
   e5rt_execution_stream_reset();
   return 1;
 }
 
 - (BOOL)changeNetWorkConfig:(id)config
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   configCopy = config;
   if (e5rt_execution_stream_operation_release())
   {
@@ -217,13 +213,13 @@ LABEL_30:
     goto LABEL_10;
   }
 
-  operation = self->_operation;
-  if (e5rt_execution_stream_operation_get_num_inputs())
+  num_inputs = e5rt_execution_stream_operation_get_num_inputs();
+  if (num_inputs)
   {
     goto LABEL_10;
   }
 
-  v6 = __ABPKLogSharedInstance();
+  v6 = __ABPKLogSharedInstance(num_inputs);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -231,8 +227,7 @@ LABEL_30:
   }
 
   v7 = malloc_type_malloc(0, 0x10040436913F5uLL);
-  v8 = self->_operation;
-  if (e5rt_execution_stream_operation_get_input_names() || (free(v7), v9 = self->_operation, e5rt_execution_stream_operation_get_num_outputs()) || (v10 = malloc_type_malloc(0, 0x10040436913F5uLL), v11 = self->_operation, e5rt_execution_stream_operation_get_output_names()))
+  if (e5rt_execution_stream_operation_get_input_names() || (free(v7), e5rt_execution_stream_operation_get_num_outputs()) || (v8 = malloc_type_malloc(0, 0x10040436913F5uLL), e5rt_execution_stream_operation_get_output_names()))
   {
 LABEL_10:
     last_error_message = e5rt_get_last_error_message();
@@ -240,9 +235,8 @@ LABEL_10:
     exit(1);
   }
 
-  free(v10);
+  free(v8);
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

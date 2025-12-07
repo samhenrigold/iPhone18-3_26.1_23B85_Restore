@@ -167,7 +167,7 @@
 
 - (void)_invalidateAfterContextualTimeoutWithResult:(uint64_t)result
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (result && [result isValid] && !*(result + 40))
   {
     [*(result + 24) minimumPreviewInterval];
@@ -201,22 +201,23 @@
       }
     }
 
-    if (BSFloatGreaterThanFloat())
+    v9 = BSFloatGreaterThanFloat();
+    if (v9)
     {
-      v9 = SBLogSystemActionPreviewing();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogSystemActionPreviewing(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
         resultCopy = result;
-        v17 = 2048;
-        v18 = v6;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ creating %fs invalidation timer", buf, 0x16u);
+        v18 = 2048;
+        v19 = v6;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ creating %fs invalidation timer", buf, 0x16u);
       }
 
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Preview-minimum-interval-timer:%@", *(result + 80)];
-      v11 = [objc_alloc(MEMORY[0x277CF0BD8]) initWithIdentifier:v10];
-      v12 = *(result + 40);
-      *(result + 40) = v11;
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Preview-minimum-interval-timer:%@", *(result + 80)];
+      v12 = [objc_alloc(MEMORY[0x277CF0BD8]) initWithIdentifier:v11];
+      v13 = *(result + 40);
+      *(result + 40) = v12;
 
       if (a2 == 1)
       {
@@ -224,14 +225,14 @@
         [(SBSystemActionPreviewAssertion *)result _invalidateUrgency];
       }
 
-      v13 = *(result + 40);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __78__SBSystemActionPreviewAssertion__invalidateAfterContextualTimeoutWithResult___block_invoke;
-      v14[3] = &unk_2783A8AC0;
-      v14[4] = result;
-      v14[5] = a2;
-      [v13 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v14 queue:v6 handler:0.05];
+      v14 = *(result + 40);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __78__SBSystemActionPreviewAssertion__invalidateAfterContextualTimeoutWithResult___block_invoke;
+      v15[3] = &unk_2783A8AC0;
+      v15[4] = result;
+      v15[5] = a2;
+      [v14 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v15 queue:v6 handler:0.05];
     }
 
     else
@@ -272,37 +273,37 @@
 
 - (void)_invalidateUrgencyAfterDefaultTimeoutForActionPerformed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self && [self isValid] && !*(self + 32))
   {
-    [*(self + 24) additionalUrgencyInterval];
-    v3 = v2;
-    v4 = SBLogSystemActionPreviewing();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    additionalUrgencyInterval = [*(self + 24) additionalUrgencyInterval];
+    v4 = v3;
+    v5 = SBLogSystemActionPreviewing(additionalUrgencyInterval);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy = self;
-      v14 = 2048;
-      v15 = v3;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ creating %fs urgency invalidation timer", buf, 0x16u);
+      v15 = 2048;
+      v16 = v4;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ creating %fs urgency invalidation timer", buf, 0x16u);
     }
 
-    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Urgency-interval-timer:%@", *(self + 80)];
-    v6 = [objc_alloc(MEMORY[0x277CF0BD8]) initWithIdentifier:v5];
-    v7 = *(self + 32);
-    *(self + 32) = v6;
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Urgency-interval-timer:%@", *(self + 80)];
+    v7 = [objc_alloc(MEMORY[0x277CF0BD8]) initWithIdentifier:v6];
+    v8 = *(self + 32);
+    *(self + 32) = v7;
 
     objc_initWeak(buf, self);
-    v8 = *(self + 32);
-    v9 = MEMORY[0x277D85CD0];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutForActionPerformed__block_invoke;
-    v10[3] = &unk_2783A8AE8;
-    objc_copyWeak(&v11, buf);
-    [v8 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v10 queue:v3 handler:0.05];
+    v9 = *(self + 32);
+    v10 = MEMORY[0x277D85CD0];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutForActionPerformed__block_invoke;
+    v11[3] = &unk_2783A8AE8;
+    objc_copyWeak(&v12, buf);
+    [v9 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v11 queue:v4 handler:0.05];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 }
@@ -449,7 +450,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
 
 - (void)initWithIdentifier:(char *)a1 forReason:expansionInvalidationBlock:urgencyInvalidationBlock:finalInvalidationBlock:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"finalInvalidationBlock != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -457,7 +458,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"finalInvalidationBlock != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -467,7 +468,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
 
 - (void)initWithIdentifier:(char *)a1 forReason:expansionInvalidationBlock:urgencyInvalidationBlock:finalInvalidationBlock:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"urgencyInvalidationBlock != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -475,7 +476,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"urgencyInvalidationBlock != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -485,7 +486,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
 
 - (void)initWithIdentifier:(char *)a1 forReason:expansionInvalidationBlock:urgencyInvalidationBlock:finalInvalidationBlock:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"expansionInvalidationBlock != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -493,7 +494,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"expansionInvalidationBlock != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -503,7 +504,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
 
 - (void)initWithIdentifier:(char *)a1 forReason:expansionInvalidationBlock:urgencyInvalidationBlock:finalInvalidationBlock:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -511,7 +512,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"reason != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -521,7 +522,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
 
 - (void)initWithIdentifier:(char *)a1 forReason:expansionInvalidationBlock:urgencyInvalidationBlock:finalInvalidationBlock:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -529,7 +530,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identifier != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -547,7 +548,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -565,7 +566,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -583,7 +584,7 @@ void __89__SBSystemActionPreviewAssertion__invalidateUrgencyAfterDefaultTimeoutF
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];

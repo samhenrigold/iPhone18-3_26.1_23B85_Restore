@@ -103,25 +103,25 @@ void __123__ACHEarnedInstanceAwardingEngine_initWithClient_assertionClient_dataS
   dispatch_sync(internalQueue, block);
 }
 
-void __43__ACHEarnedInstanceAwardingEngine_activate__block_invoke(uint64_t a1)
+void __43__ACHEarnedInstanceAwardingEngine_activate__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 97);
-  v3 = ACHLogAwardEngine();
-  v4 = v3;
-  if (v2 == 1)
+  v3 = *(*(a1 + 32) + 97);
+  v4 = ACHLogAwardEngine();
+  v5 = v4;
+  if (v3 == 1)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __43__ACHEarnedInstanceAwardingEngine_activate__block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      __43__ACHEarnedInstanceAwardingEngine_activate__block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "Activating Awarding Engine", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Activating Awarding Engine", v13, 2u);
     }
 
     *(*(a1 + 32) + 97) = 1;
@@ -147,7 +147,7 @@ void __43__ACHEarnedInstanceAwardingEngine_activate__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __46__ACHEarnedInstanceAwardingEngine_sourceCount__block_invoke(uint64_t a1)
+void *__46__ACHEarnedInstanceAwardingEngine_sourceCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -217,7 +217,7 @@ uint64_t __57__ACHEarnedInstanceAwardingEngine_sourceRecordForSource___block_inv
 
 void __50__ACHEarnedInstanceAwardingEngine_registerSource___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = *(*(a1 + 32) + 64);
   v4 = [*(a1 + 40) uniqueName];
@@ -250,13 +250,11 @@ void __50__ACHEarnedInstanceAwardingEngine_registerSource___block_invoke(uint64_
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = [*v2 uniqueName];
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_221DDC000, v15, OS_LOG_TYPE_DEFAULT, "Awarding engine registered source with name [%{public}@]", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_221DDC000, v15, OS_LOG_TYPE_DEFAULT, "Awarding engine registered source with name [%{public}@]", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterSource:(id)source
@@ -286,7 +284,7 @@ void __50__ACHEarnedInstanceAwardingEngine_registerSource___block_invoke(uint64_
 
 void __52__ACHEarnedInstanceAwardingEngine_deregisterSource___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = *(*(a1 + 32) + 64);
   v4 = [*(a1 + 40) uniqueName];
@@ -303,9 +301,9 @@ void __52__ACHEarnedInstanceAwardingEngine_deregisterSource___block_invoke(uint6
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [*v2 uniqueName];
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_221DDC000, v9, OS_LOG_TYPE_DEFAULT, "Awarding engine deregistered source with name [%{public}@]", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_221DDC000, v9, OS_LOG_TYPE_DEFAULT, "Awarding engine deregistered source with name [%{public}@]", &v11, 0xCu);
     }
   }
 
@@ -317,20 +315,18 @@ void __52__ACHEarnedInstanceAwardingEngine_deregisterSource___block_invoke(uint6
       __52__ACHEarnedInstanceAwardingEngine_deregisterSource___block_invoke_cold_1(v2);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestIncrementalEvaluationForSource:(id)source evaluationBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   blockCopy = block;
   v8 = ACHLogAwardEngine();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = sourceCopy;
+    v16 = sourceCopy;
     _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Incremental evaluation requested for source with name: %{public}@", buf, 0xCu);
   }
 
@@ -340,211 +336,206 @@ void __52__ACHEarnedInstanceAwardingEngine_deregisterSource___block_invoke(uint6
   block[2] = __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke;
   block[3] = &unk_278491428;
   block[4] = self;
-  v14 = sourceCopy;
-  v15 = blockCopy;
+  v13 = sourceCopy;
+  v14 = blockCopy;
   v10 = blockCopy;
   v11 = sourceCopy;
   dispatch_async(internalQueue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke(uint64_t a1)
+void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke(id *a1, uint64_t a2)
 {
   v38 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if (*(v2 + 97))
+  v3 = a1[4];
+  if (*(v3 + 97))
   {
-    v3 = (a1 + 40);
-    v4 = [*(v2 + 64) objectForKeyedSubscript:*(a1 + 40)];
-    v5 = v4;
-    if (v4)
+    v4 = a1 + 5;
+    v5 = [v3[8] objectForKeyedSubscript:a1[5]];
+    v6 = v5;
+    if (v5)
     {
-      v6 = [v4 lastCompletedEvaluationInterval];
+      v7 = [v5 lastCompletedEvaluationInterval];
 
-      if (v6)
+      if (v7)
       {
-        if (*(*(a1 + 32) + 96) == 1)
+        if (*(a1[4] + 96) == 1)
         {
-          v7 = ACHLogAwardEngine();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v8 = ACHLogAwardEngine();
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
-            v8 = *v3;
+            v9 = *v4;
             *buf = 138543362;
-            v37 = v8;
-            _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "Queuing incremental request for %{public}@ because historical run in progress", buf, 0xCu);
+            v37 = v9;
+            _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Queuing incremental request for %{public}@ because historical run in progress", buf, 0xCu);
           }
 
-          v9 = [*(a1 + 48) copy];
-          v10 = _Block_copy(v9);
-          [*(*(a1 + 32) + 104) setObject:v10 forKeyedSubscript:*(a1 + 40)];
+          v10 = [a1[6] copy];
+          v11 = _Block_copy(v10);
+          [*(a1[4] + 13) setObject:v11 forKeyedSubscript:a1[5]];
         }
 
         else
         {
-          v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Achievements Incremental Evaluation - %@", *(a1 + 40)];
-          WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
+          v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Achievements Incremental Evaluation - %@", a1[5]];
+          WeakRetained = objc_loadWeakRetained(a1[4] + 2);
           v35 = 0;
-          v12 = [WeakRetained acquireDatabaseAssertionWithIdentifier:v9 error:&v35];
-          v13 = v35;
+          v13 = [WeakRetained acquireDatabaseAssertionWithIdentifier:v10 error:&v35];
+          v14 = v35;
 
-          v14 = ACHLogAwardEngine();
-          v15 = v14;
-          if (v12)
+          v15 = ACHLogAwardEngine();
+          v16 = v15;
+          if (v13)
           {
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
-              v16 = *v3;
+              v17 = *v4;
               *buf = 138543362;
-              v37 = v16;
-              _os_log_impl(&dword_221DDC000, v15, OS_LOG_TYPE_DEFAULT, "Acquired assertion, proceeding with evaluation and removing queued evaluation if necessary for %{public}@", buf, 0xCu);
+              v37 = v17;
+              _os_log_impl(&dword_221DDC000, v16, OS_LOG_TYPE_DEFAULT, "Acquired assertion, proceeding with evaluation and removing queued evaluation if necessary for %{public}@", buf, 0xCu);
             }
 
-            [*(*(a1 + 32) + 104) removeObjectForKey:*(a1 + 40)];
-            v17 = [v5 lastScheduledEvaluationInterval];
-            v18 = [v17 endDate];
-            v19 = v18;
-            if (v18)
+            [*(a1[4] + 13) removeObjectForKey:a1[5]];
+            v18 = [v6 lastScheduledEvaluationInterval];
+            v19 = [v18 endDate];
+            v20 = v19;
+            if (v19)
             {
-              v20 = v18;
+              v21 = v19;
             }
 
             else
             {
-              v24 = [v5 lastCompletedEvaluationInterval];
-              v20 = [v24 endDate];
+              v25 = [v6 lastCompletedEvaluationInterval];
+              v21 = [v25 endDate];
             }
 
-            v23 = [*(a1 + 32) currentDate];
-            if ([v20 compare:v23] == 1)
+            v24 = [a1[4] currentDate];
+            if ([v21 compare:v24] == 1)
             {
-              v25 = ACHLogAwardEngine();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+              v26 = ACHLogAwardEngine();
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
-                __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_2(v3);
+                __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_2();
               }
             }
 
             else
             {
-              v26 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v20 endDate:v23];
-              v27 = ACHLogAwardEngine();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+              v27 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v21 endDate:v24];
+              v28 = ACHLogAwardEngine();
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v37 = v26;
-                _os_log_impl(&dword_221DDC000, v27, OS_LOG_TYPE_DEFAULT, "Incremental evaluation date interval is %{public}@", buf, 0xCu);
+                v37 = v27;
+                _os_log_impl(&dword_221DDC000, v28, OS_LOG_TYPE_DEFAULT, "Incremental evaluation date interval is %{public}@", buf, 0xCu);
               }
 
               v32[0] = MEMORY[0x277D85DD0];
               v32[1] = 3221225472;
               v32[2] = __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_359;
               v32[3] = &unk_278492BB8;
-              v28 = *(a1 + 48);
-              v33 = v26;
-              v34 = v28;
+              v29 = a1[6];
+              v33 = v27;
+              v34 = v29;
               v30[0] = MEMORY[0x277D85DD0];
               v30[1] = 3221225472;
               v30[2] = __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_2;
               v30[3] = &unk_278492BE0;
-              v30[4] = *(a1 + 32);
-              v31 = v12;
-              v25 = v26;
-              [v5 addEvaluationOperationWithDateInterval:v25 evaluationBlock:v32 completion:v30];
+              v30[4] = a1[4];
+              v31 = v13;
+              v26 = v27;
+              [v6 addEvaluationOperationWithDateInterval:v26 evaluationBlock:v32 completion:v30];
             }
           }
 
           else
           {
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_3((a1 + 40));
+              __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_3();
             }
 
-            v21 = ACHLogAwardEngine();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v22 = ACHLogAwardEngine();
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
-              v22 = *v3;
+              v23 = *v4;
               *buf = 138543362;
-              v37 = v22;
-              _os_log_impl(&dword_221DDC000, v21, OS_LOG_TYPE_DEFAULT, "Queuing incremental request for %{public}@ until protected data becomes available", buf, 0xCu);
+              v37 = v23;
+              _os_log_impl(&dword_221DDC000, v22, OS_LOG_TYPE_DEFAULT, "Queuing incremental request for %{public}@ until protected data becomes available", buf, 0xCu);
             }
 
-            v20 = [*(a1 + 48) copy];
-            v23 = _Block_copy(v20);
-            [*(*(a1 + 32) + 104) setObject:v23 forKeyedSubscript:*(a1 + 40)];
+            v21 = [a1[6] copy];
+            v24 = _Block_copy(v21);
+            [*(a1[4] + 13) setObject:v24 forKeyedSubscript:a1[5]];
           }
         }
       }
 
       else
       {
-        v9 = ACHLogAwardEngine();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = ACHLogAwardEngine();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_4((a1 + 40));
+          __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_4();
         }
       }
     }
 
     else
     {
-      v9 = ACHLogAwardEngine();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = ACHLogAwardEngine();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_5((a1 + 40));
+        __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_5();
       }
     }
   }
 
   else
   {
-    v5 = ACHLogAwardEngine();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ACHLogAwardEngine();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_1(a1);
+      __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_1();
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-  v4 = *(a1 + 40);
-  v3 = (a1 + 40);
-  v7 = 0;
-  [WeakRetained invalidateAssertionWithToken:v4 error:&v7];
-  v5 = v7;
+  v3 = *(a1 + 40);
+  v6 = 0;
+  [WeakRetained invalidateAssertionWithToken:v3 error:&v6];
+  v4 = v6;
 
-  if (v5)
+  if (v4)
   {
-    v6 = ACHLogAwardEngine();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = ACHLogAwardEngine();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_2_cold_1(v3);
+      __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_2_cold_1();
     }
   }
 }
 
 - (void)requestHistoricalEvaluationForAllSourcesWithCompletion:(id)completion
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke;
   block[3] = &unk_278490FE8;
   block[4] = self;
-  block[5] = &v32;
+  block[5] = &v31;
   dispatch_sync(internalQueue, block);
-  if (v33[3])
+  if (v32[3])
   {
     v6 = ACHLogAwardEngine();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -554,26 +545,26 @@ void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_assertionClient);
-    v30 = 0;
-    v8 = [WeakRetained acquireDatabaseAssertionWithIdentifier:@"Achievements Historical Evaluation" duration:&v30 error:600.0];
-    v9 = v30;
+    v29 = 0;
+    v8 = [WeakRetained acquireDatabaseAssertionWithIdentifier:@"Achievements Historical Evaluation" duration:&v29 error:600.0];
+    v9 = v29;
 
     if (v8)
     {
       objc_initWeak(buf, self);
       date = [MEMORY[0x277CBEAA8] date];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_374;
-      v24[3] = &unk_278492C08;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_374;
+      v23[3] = &unk_278492C08;
       v11 = date;
-      v25 = v11;
-      objc_copyWeak(&v28, buf);
-      v26 = v8;
-      v27 = completionCopy;
-      [(ACHEarnedInstanceAwardingEngine *)self _requestHistoricalEvaluationForAllSourcesWithCompletion:v24];
+      v24 = v11;
+      objc_copyWeak(&v27, buf);
+      v25 = v8;
+      v26 = completionCopy;
+      [(ACHEarnedInstanceAwardingEngine *)self _requestHistoricalEvaluationForAllSourcesWithCompletion:v23];
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
       objc_destroyWeak(buf);
     }
 
@@ -598,21 +589,20 @@ void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource
     }
 
     v20 = MEMORY[0x277CCA9B8];
-    v36 = *MEMORY[0x277CCA450];
-    v37[0] = @"Awarding Engine not activated";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v35 = *MEMORY[0x277CCA450];
+    v36[0] = @"Awarding Engine not activated";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     v9 = [v20 errorWithDomain:@"com.apple.ActivityAchievements" code:11 userInfo:v21];
 
     (*(completionCopy + 2))(completionCopy, 0, v9);
   }
 
-  _Block_object_dispose(&v32, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
 }
 
 void __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_374(uint64_t a1, int a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277CBEAA8] date];
   [v6 timeIntervalSinceDate:*(a1 + 32)];
@@ -628,9 +618,9 @@ void __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSour
     }
 
     *buf = 134218242;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v10;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v10;
     _os_log_impl(&dword_221DDC000, v9, OS_LOG_TYPE_DEFAULT, "Completed historical evaluation in %lf seconds with success: %@", buf, 0x16u);
   }
 
@@ -649,9 +639,9 @@ void __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSour
   {
     v14 = objc_loadWeakRetained(WeakRetained + 2);
     v15 = *(a1 + 40);
-    v20 = 0;
-    v16 = [v14 invalidateAssertionWithToken:v15 error:&v20];
-    v17 = v20;
+    v19 = 0;
+    v16 = [v14 invalidateAssertionWithToken:v15 error:&v19];
+    v17 = v19;
 
     if ((v16 & 1) == 0)
     {
@@ -664,8 +654,6 @@ void __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSour
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestHistoricalEvaluationForAllSourcesWithCompletion:(id)completion
@@ -692,61 +680,61 @@ void __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSour
 
 void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 96) = 1;
   v2 = *(a1 + 32);
   if (*(v2 + 56) != 1)
   {
 LABEL_6:
     v5 = dispatch_group_create();
-    v38[0] = 0;
-    v38[1] = v38;
-    v38[2] = 0x2020000000;
-    v39 = 1;
+    v37[0] = 0;
+    v37[1] = v37;
+    v37[2] = 0x2020000000;
+    v38 = 1;
     *buf = 0;
-    v33 = buf;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__29;
-    v36 = __Block_byref_object_dispose__29;
-    v37 = 0;
+    v32 = buf;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy__29;
+    v35 = __Block_byref_object_dispose__29;
+    v36 = 0;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v8 = [*(*(a1 + 32) + 64) allValues];
-    v9 = [v8 countByEnumeratingWithState:&v28 objects:v44 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v27 objects:v43 count:16];
     if (v9)
     {
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         v11 = 0;
         do
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v28 + 1) + 8 * v11);
+          v12 = *(*(&v27 + 1) + 8 * v11);
           dispatch_group_enter(v5);
           v13 = *(a1 + 32);
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_382;
-          v24[3] = &unk_278492C58;
-          v26 = v38;
-          v27 = buf;
-          v24[4] = v13;
-          v24[5] = v12;
-          v25 = v5;
-          [v13 _queue_evaluateHistoryForSource:v12 completion:v24];
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_382;
+          v23[3] = &unk_278492C58;
+          v25 = v37;
+          v26 = buf;
+          v23[4] = v13;
+          v23[5] = v12;
+          v24 = v5;
+          [v13 _queue_evaluateHistoryForSource:v12 completion:v23];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v28 objects:v44 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v27 objects:v43 count:16];
       }
 
       while (v9);
@@ -759,21 +747,21 @@ LABEL_6:
     block[1] = 3221225472;
     block[2] = __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_402;
     block[3] = &unk_278492CA8;
-    v22 = v38;
-    v23 = buf;
+    v21 = v37;
+    v22 = buf;
     block[4] = v15;
-    v21 = v14;
+    v20 = v14;
     dispatch_group_notify(v5, v16, block);
 
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(v38, 8);
+    _Block_object_dispose(v37, 8);
     goto LABEL_14;
   }
 
   WeakRetained = objc_loadWeakRetained((v2 + 24));
-  v43 = 0;
-  v4 = [WeakRetained clearAllInMemoryPropertiesWithError:&v43];
-  v5 = v43;
+  v42 = 0;
+  v4 = [WeakRetained clearAllInMemoryPropertiesWithError:&v42];
+  v5 = v42;
 
   v6 = ACHLogAwardEngine();
   v7 = v6;
@@ -793,23 +781,21 @@ LABEL_6:
     __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_cold_1();
   }
 
-  v18 = *(a1 + 40);
-  if (v18)
+  v17 = *(a1 + 40);
+  if (v17)
   {
-    v19 = dispatch_get_global_queue(21, 0);
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_381;
-    v40[3] = &unk_278491258;
-    v42 = v18;
+    v18 = dispatch_get_global_queue(21, 0);
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_381;
+    v39[3] = &unk_278491258;
+    v41 = v17;
     v5 = v5;
-    v41 = v5;
-    dispatch_async(v19, v40);
+    v40 = v5;
+    dispatch_async(v18, v39);
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_382(uint64_t a1, char a2, void *a3)
@@ -833,7 +819,7 @@ void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSou
 
 void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 64) + 8) + 24) &= *(a1 + 80);
   v2 = *(*(a1 + 72) + 8);
   v5 = *(v2 + 40);
@@ -856,50 +842,50 @@ void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSou
     goto LABEL_7;
   }
 
-  v8 = *(*(a1 + 48) + 57);
+  v7 = *(*(a1 + 48) + 57);
   v6 = ACHLogAwardEngine();
-  v9 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v8 == 1)
+  v8 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v7 == 1)
   {
-    if (v9)
+    if (v8)
     {
-      v10 = [*(a1 + 40) uniqueName];
+      v9 = [*(a1 + 40) uniqueName];
       *buf = 138543362;
-      v37 = v10;
+      v36 = v9;
       _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] succeeded historical evaluation, committing data to dataStore", buf, 0xCu);
     }
 
-    v11 = (a1 + 40);
-    v12 = [*(a1 + 40) source];
-    v13 = [v12 conformsToProtocol:&unk_2835607F0];
+    v10 = (a1 + 40);
+    v11 = [*(a1 + 40) source];
+    v12 = [v11 conformsToProtocol:&unk_2835607F0];
 
-    if (v13)
+    if (v12)
     {
-      v6 = [*v11 source];
+      v6 = [*v10 source];
       if (v6)
       {
-        v14 = ACHLogAwardEngine();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v13 = ACHLogAwardEngine();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = [*v11 uniqueName];
-          v16 = [*v11 source];
-          v17 = [v16 uniqueName];
+          v14 = [*v10 uniqueName];
+          v15 = [*v10 source];
+          v16 = [v15 uniqueName];
           *buf = 138543618;
-          v37 = v15;
-          v38 = 2114;
-          v39 = v17;
-          _os_log_impl(&dword_221DDC000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Committing data store properties for sourceRecord.source %{public}@ to dataStore", buf, 0x16u);
+          v36 = v14;
+          v37 = 2114;
+          v38 = v16;
+          _os_log_impl(&dword_221DDC000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Committing data store properties for sourceRecord.source %{public}@ to dataStore", buf, 0x16u);
         }
 
         WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 24));
-        v35 = 0;
-        v19 = [WeakRetained commitPropertiesForProvider:v6 withError:&v35];
-        v20 = v35;
+        v34 = 0;
+        v18 = [WeakRetained commitPropertiesForProvider:v6 withError:&v34];
+        v19 = v34;
 
-        if ((v19 & 1) == 0)
+        if ((v18 & 1) == 0)
         {
-          v28 = ACHLogAwardEngine();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v27 = ACHLogAwardEngine();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_2_cold_2((a1 + 40));
           }
@@ -914,70 +900,69 @@ void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSou
       v6 = 0;
     }
 
-    v22 = ACHLogAwardEngine();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = ACHLogAwardEngine();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = [*v11 uniqueName];
-      v24 = [*v11 uniqueName];
+      v22 = [*v10 uniqueName];
+      v23 = [*v10 uniqueName];
       *buf = 138543618;
-      v37 = v23;
-      v38 = 2114;
-      v39 = v24;
-      _os_log_impl(&dword_221DDC000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Now committing source record %{public}@ to data store", buf, 0x16u);
+      v36 = v22;
+      v37 = 2114;
+      v38 = v23;
+      _os_log_impl(&dword_221DDC000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Now committing source record %{public}@ to data store", buf, 0x16u);
     }
 
-    v25 = objc_loadWeakRetained((*(a1 + 48) + 24));
-    v26 = *(a1 + 40);
-    v34 = 0;
-    v27 = [v25 commitPropertiesForProvider:v26 withError:&v34];
-    v20 = v34;
+    v24 = objc_loadWeakRetained((*(a1 + 48) + 24));
+    v25 = *(a1 + 40);
+    v33 = 0;
+    v26 = [v24 commitPropertiesForProvider:v25 withError:&v33];
+    v19 = v33;
 
-    if (v27)
+    if (v26)
     {
       goto LABEL_31;
     }
 
-    v28 = ACHLogAwardEngine();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = ACHLogAwardEngine();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_2_cold_3((a1 + 40));
     }
 
 LABEL_27:
 
-    v29 = *(*(a1 + 72) + 8);
-    v32 = *(v29 + 40);
-    v30 = (v29 + 40);
-    v31 = v32;
-    if (v32)
+    v28 = *(*(a1 + 72) + 8);
+    v31 = *(v28 + 40);
+    v29 = (v28 + 40);
+    v30 = v31;
+    if (v31)
     {
-      v33 = v31;
+      v32 = v30;
     }
 
     else
     {
-      v33 = v20;
+      v32 = v19;
     }
 
-    objc_storeStrong(v30, v33);
+    objc_storeStrong(v29, v32);
     *(*(*(a1 + 64) + 8) + 24) = 0;
 LABEL_31:
 
     goto LABEL_7;
   }
 
-  if (v9)
+  if (v8)
   {
-    v21 = [*(a1 + 40) uniqueName];
+    v20 = [*(a1 + 40) uniqueName];
     *buf = 138543362;
-    v37 = v21;
+    v36 = v20;
     _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] succeeded historical evaluation", buf, 0xCu);
   }
 
 LABEL_7:
 
   dispatch_group_leave(*(a1 + 56));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_402(uint64_t a1)
@@ -1027,24 +1012,23 @@ void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSou
 
 void __66__ACHEarnedInstanceAwardingEngine__queue_performQueuedEvaluations__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = ACHLogAwardEngine();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "Attempting queued evaluation for %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "Attempting queued evaluation for %{public}@", &v8, 0xCu);
   }
 
   [*(a1 + 32) requestIncrementalEvaluationForSource:v5 evaluationBlock:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_evaluateHistoryForSource:(id)source completion:(id)completion
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_internalQueue);
@@ -1060,12 +1044,12 @@ void __66__ACHEarnedInstanceAwardingEngine__queue_performQueuedEvaluations__bloc
   }
 
   p_historicalEvaluationPolicy = &self->_historicalEvaluationPolicy;
-  v40 = self->_historicalEvaluationPolicy.startDate == 2;
+  v39 = self->_historicalEvaluationPolicy.startDate == 2;
   if (self->_historicalEvaluationPolicy.startDate != 2 || ([sourceCopy source], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "conformsToProtocol:", &unk_2835607F0), v10, !v11))
   {
     v14 = 0;
     source2 = 0;
-    v39 = 0;
+    v38 = 0;
     goto LABEL_14;
   }
 
@@ -1079,19 +1063,19 @@ void __66__ACHEarnedInstanceAwardingEngine__queue_performQueuedEvaluations__bloc
 
   source2 = [sourceCopy source];
   WeakRetained = objc_loadWeakRetained(&self->_dataStore);
-  v63 = 0;
-  v14 = [WeakRetained snapshotForProvider:source2 withError:&v63];
-  v15 = v63;
+  v62 = 0;
+  v14 = [WeakRetained snapshotForProvider:source2 withError:&v62];
+  v15 = v62;
 
   if (v14 || !v15)
   {
 
-    v39 = 1;
+    v38 = 1;
 LABEL_14:
     lastCompletedEvaluationInterval = [sourceCopy lastCompletedEvaluationInterval];
     endDate = [lastCompletedEvaluationInterval endDate];
     buf = *&p_historicalEvaluationPolicy->startDate;
-    v65 = *&self->_historicalEvaluationPolicy.clearDataStoreBeforeHistoricalRun;
+    v64 = *&self->_historicalEvaluationPolicy.clearDataStoreBeforeHistoricalRun;
     v18 = ACHHistoricalEvaluationStartDateForPolicy(&buf, endDate, v14);
 
     if (v18)
@@ -1099,7 +1083,7 @@ LABEL_14:
       calendar = self->_calendar;
       currentDate = [(ACHEarnedInstanceAwardingEngine *)self currentDate];
       buf = *&p_historicalEvaluationPolicy->startDate;
-      v65 = *&self->_historicalEvaluationPolicy.clearDataStoreBeforeHistoricalRun;
+      v64 = *&self->_historicalEvaluationPolicy.clearDataStoreBeforeHistoricalRun;
       v23 = ACHHistoricalEvaluationEndDateForPolicy(&buf, calendar, currentDate);
 
       [v23 timeIntervalSinceReferenceDate];
@@ -1136,35 +1120,35 @@ LABEL_14:
         [sourceCopy cancelAllEvaluationOperations];
         source3 = [sourceCopy source];
         objc_initWeak(&buf, self);
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_406;
-        v52[3] = &unk_278492D20;
-        v58 = v40;
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_406;
+        v51[3] = &unk_278492D20;
+        v57 = v39;
         v30 = v14;
-        v53 = v30;
+        v52 = v30;
         v31 = uniqueName;
-        v54 = v31;
+        v53 = v31;
         v32 = source2;
-        v55 = v32;
+        v54 = v32;
         v33 = source3;
-        v56 = v33;
+        v55 = v33;
         v34 = v27;
-        v57 = v34;
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_407;
-        v44[3] = &unk_278492D48;
-        objc_copyWeak(&v49, &buf);
-        v50 = v40;
-        v45 = v30;
-        v51 = v39;
-        v46 = v31;
-        v47 = v32;
-        v48 = completionCopy;
-        [sourceCopy addEvaluationOperationWithDateInterval:v34 evaluationBlock:v52 completion:v44];
+        v56 = v34;
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_407;
+        v43[3] = &unk_278492D48;
+        objc_copyWeak(&v48, &buf);
+        v49 = v39;
+        v44 = v30;
+        v50 = v38;
+        v45 = v31;
+        v46 = v32;
+        v47 = completionCopy;
+        [sourceCopy addEvaluationOperationWithDateInterval:v34 evaluationBlock:v51 completion:v43];
 
-        objc_destroyWeak(&v49);
+        objc_destroyWeak(&v48);
         objc_destroyWeak(&buf);
       }
     }
@@ -1184,14 +1168,14 @@ LABEL_14:
       }
 
       v36 = dispatch_get_global_queue(21, 0);
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_405;
-      v59[3] = &unk_278492CF8;
-      v60 = completionCopy;
-      dispatch_async(v36, v59);
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_405;
+      v58[3] = &unk_278492CF8;
+      v59 = completionCopy;
+      dispatch_async(v36, v58);
 
-      v23 = v60;
+      v23 = v59;
     }
 
 LABEL_28:
@@ -1214,14 +1198,12 @@ LABEL_29:
     block[1] = 3221225472;
     block[2] = __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke;
     block[3] = &unk_278492CF8;
-    v62 = completionCopy;
+    v61 = completionCopy;
     dispatch_async(v17, block);
 
-    v18 = v62;
+    v18 = v61;
 LABEL_30:
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke(uint64_t a1)
@@ -1240,16 +1222,16 @@ void __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_compl
 
 id __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_406(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a1 + 72) == 1 && *(a1 + 32))
   {
     v4 = ACHLogAwardEngine();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "Applying snapshot to source: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "Applying snapshot to source: %@", &v10, 0xCu);
     }
 
     v6 = *(a1 + 48);
@@ -1258,14 +1240,13 @@ id __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_complet
   }
 
   v8 = [*(a1 + 56) earnedInstancesForHistoricalInterval:*(a1 + 64) error:a2];
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_407(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained && *(a1 + 72) == 1 && !*(a1 + 32) && *(a1 + 73) == 1)
@@ -1276,24 +1257,24 @@ void __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_compl
       v8 = *(a1 + 40);
       v9 = [*(a1 + 32) validThroughDate];
       *buf = 138543618;
-      v19 = v8;
-      v20 = 2114;
-      v21 = v9;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v9;
       _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "Saving new snapshot for source: %{public}@ with value through date: %{public}@", buf, 0x16u);
     }
 
     v10 = objc_loadWeakRetained(WeakRetained + 3);
     v11 = *(a1 + 48);
-    v17 = 0;
-    v12 = [v10 commitSnapshotForProvider:v11 withError:&v17];
-    v13 = v17;
+    v16 = 0;
+    v12 = [v10 commitSnapshotForProvider:v11 withError:&v16];
+    v13 = v16;
 
     if ((v12 & 1) == 0)
     {
       v14 = ACHLogAwardEngine();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_407_cold_1(a1);
+        __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_407_cold_1();
       }
     }
   }
@@ -1303,8 +1284,6 @@ void __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_compl
   {
     (*(v15 + 16))(v15, a2, v5);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentDate
@@ -1323,191 +1302,106 @@ void __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_compl
   return date;
 }
 
-- (void)registerSource:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Not registering source %{public}@ because it does not conform to awarding protocol", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __50__ACHEarnedInstanceAwardingEngine_registerSource___block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 uniqueName];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deregisterSource:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Not deregistering source %{public}@ because it does not conform to awarding protocol", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ACHEarnedInstanceAwardingEngine_deregisterSource___block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 uniqueName];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_1(uint64_t a1)
+void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v2, v3, "[%{public}@] requested an incremental evaluation but engine is not activated yet. Skipping!", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v1, v2, "Error requesting incremental evaluation for source with name [%{public}@]: the evaluation start date is greater than the end date. - sourceRecord: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Error requesting incremental evaluation for source with name [%{public}@]: the evaluation start date is greater than the end date. - sourceRecord: %{public}@");
 }
 
-void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_3(uint64_t *a1)
+void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v1, v2, "Failed to get accessibility assertion for %{public}@ with error %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Failed to get accessibility assertion for %{public}@ with error %{public}@");
 }
 
-void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_4(uint64_t *a1)
+void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v1, v2, "Error requesting incremental evaluation for source with name [%{public}@]: this source has never completed a historical run", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error requesting incremental evaluation for source with name [%{public}@]: this source has never completed a historical run", v2, v3, v4, v5);
 }
 
-void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_5(uint64_t *a1)
+void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_cold_5()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v1, v2, "Error requesting incremental evaluation for source with name [%{public}@]: no such source exists", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error requesting incremental evaluation for source with name [%{public}@]: no such source exists", v2, v3, v4, v5);
 }
 
-void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_2_cold_1(uint64_t *a1)
+void __89__ACHEarnedInstanceAwardingEngine_requestIncrementalEvaluationForSource_evaluationBlock___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v1, v2, "Error invalidating assertion with token %@: %@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)requestHistoricalEvaluationForAllSourcesWithCompletion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Failed to get accessibility assertion with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_374_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __90__ACHEarnedInstanceAwardingEngine_requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_374_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error invalidating accessibility assertion: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Failed to clear data store with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Error invalidating assertion with token %@: %@");
 }
 
 void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 40) uniqueName];
-  v3 = *(a1 + 32);
+  v1 = [*(a1 + 40) uniqueName];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_4();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_2_cold_2(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [*a1 uniqueName];
   v3 = [*a1 source];
   v4 = [v3 uniqueName];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_4();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __91__ACHEarnedInstanceAwardingEngine__requestHistoricalEvaluationForAllSourcesWithCompletion___block_invoke_2_cold_3(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [*a1 uniqueName];
   v3 = [*a1 uniqueName];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_4();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_evaluateHistoryForSource:completion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Snapshot lookup error for source %@, not evaluating history: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_evaluateHistoryForSource:completion:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Historical evaluation not possible, interval start date comes after end date: %{public}@ -> %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-void __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_407_cold_1(uint64_t a1)
+void __78__ACHEarnedInstanceAwardingEngine__queue_evaluateHistoryForSource_completion___block_invoke_407_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v2, v3, "Error committing snapshot for source %@: %@");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Error committing snapshot for source %@: %@");
 }
 
 @end

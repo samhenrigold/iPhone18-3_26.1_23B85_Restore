@@ -17,35 +17,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_audioSearchResults count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v5 = self->_audioSearchResults;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -71,8 +71,6 @@
   privateMediaIntentData = [(_INPBPrivateAddMediaIntentData *)self privateMediaIntentData];
   dictionaryRepresentation2 = [privateMediaIntentData dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation2 forKeyedSubscript:@"privateMediaIntentData"];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -248,77 +246,74 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v5 = self->_audioSearchResults;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v23;
     do
     {
       v9 = 0;
       do
       {
-        if (*v27 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v11 = self->_internalSignals;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v12)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v10 = self->_internalSignals;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v23;
+    v12 = v11;
+    v13 = *v19;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v23 != v14)
+        if (*v19 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   pegasusMetaData = [(_INPBPrivateAddMediaIntentData *)self pegasusMetaData];
 
   if (pegasusMetaData)
   {
-    pegasusMetaData = self->_pegasusMetaData;
     PBDataWriterWriteDataField();
   }
 
@@ -329,8 +324,6 @@ LABEL_23:
     privateMediaIntentData2 = [(_INPBPrivateAddMediaIntentData *)self privateMediaIntentData];
     PBDataWriterWriteSubmessage();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPegasusMetaData:(id)data

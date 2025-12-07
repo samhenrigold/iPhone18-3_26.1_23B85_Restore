@@ -1,4 +1,4 @@
-uint64_t start(int a1, uint64_t a2)
+uint64_t start(unsigned int a1, uint64_t a2)
 {
   v4 = objc_autoreleasePoolPush();
   openlog("MIDIServer", 9, 8);

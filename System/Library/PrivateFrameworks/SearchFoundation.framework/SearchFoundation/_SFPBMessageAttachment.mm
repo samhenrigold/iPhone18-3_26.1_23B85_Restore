@@ -343,9 +343,7 @@ LABEL_19:
 
 - (void)setLinkMetadata:(id)metadata
 {
-  v4 = [metadata copy];
-  linkMetadata = self->_linkMetadata;
-  self->_linkMetadata = v4;
+  self->_linkMetadata = [metadata copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -6,6 +6,9 @@
 + (id)userSetupPictureData;
 + (id)userSetupPictureFilePath;
 + (id)userSetupPicturePath;
++ (void)clearUserSetupPictureData;
++ (void)userSetupPictureData;
++ (void)userSetupPictureDataIsFresh;
 @end
 
 @implementation CNUserSetupPictureManager
@@ -195,6 +198,27 @@ LABEL_7:
   }
 
   return v5;
+}
+
++ (void)userSetupPictureData
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Will remove setup user picture data that cannot be read from disk: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)userSetupPictureDataIsFresh
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Could not read attributes from setup user picture data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)clearUserSetupPictureData
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Could not remove setup user picture data from disk: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

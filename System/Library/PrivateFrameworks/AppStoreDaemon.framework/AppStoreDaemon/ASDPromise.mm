@@ -177,28 +177,38 @@ uint64_t __51__ASDPromise_thenPerform_orCatchError_onScheduler___block_invoke(vo
   v2 = [[ASDPromiseObserver alloc] initWithValueBlock:a1[6] errorBlock:a1[7] scheduler:a1[4]];
   v3 = a1[5];
   v4 = *(v3 + 16);
-  switch(v4)
+  if (v4 == 2)
   {
-    case 2:
-      v9 = v2;
-      v5 = [v3 result];
-      v6 = [v5 error];
-      [(ASDPromiseObserver *)v9 notifyRejectedWithError:v6];
-      goto LABEL_7;
-    case 1:
-      v8 = v2;
-      v5 = [v3 result];
-      v6 = [v5 value];
-      [(ASDPromiseObserver *)v8 notifyResolvedWithValue:v6];
-LABEL_7:
-
-      break;
-    case 0:
-      [*(v3 + 8) addObject:v2];
-      break;
+    v8 = v2;
+    v5 = [v3 result];
+    v6 = [v5 error];
+    [(ASDPromiseObserver *)v8 notifyRejectedWithError:v6];
+    goto LABEL_7;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  if (v4 == 1)
+  {
+    v8 = v2;
+    v5 = [v3 result];
+    v6 = [v5 value];
+    [(ASDPromiseObserver *)v8 notifyResolvedWithValue:v6];
+LABEL_7:
+
+    goto LABEL_8;
+  }
+
+  if (v4)
+  {
+    goto LABEL_9;
+  }
+
+  v8 = v2;
+  v3 = [*(v3 + 8) addObject:v2];
+LABEL_8:
+  v2 = v8;
+LABEL_9:
+
+  return MEMORY[0x1EEE66BB8](v3, v2);
 }
 
 - (id)mapUsingTransformer:(id)transformer onScheduler:(id)scheduler
@@ -333,16 +343,14 @@ void __30__ASDPromise_joinWithPromise___block_invoke(uint64_t a1, void *a2)
 
 void __30__ASDPromise_joinWithPromise___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v7[0] = *(a1 + 40);
-  v7[1] = a2;
+  v6[0] = *(a1 + 40);
+  v6[1] = a2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v7 count:2];
+  v5 = [v3 arrayWithObjects:v6 count:2];
   [v2 resolveWithValue:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)completionHandlerAdapter
@@ -387,7 +395,7 @@ uint64_t __38__ASDPromise_completionHandlerAdapter__block_invoke(uint64_t a1, ui
 
 uint64_t __31__ASDPromise_resolveWithValue___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 16))
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:@"Promises may only be resolved once!"];
@@ -399,39 +407,37 @@ uint64_t __31__ASDPromise_resolveWithValue___block_invoke(uint64_t a1)
   *(v3 + 32) = v2;
 
   *(*(a1 + 32) + 16) = 1;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(*(a1 + 32) + 8);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) notifyResolvedWithValue:{*(a1 + 40), v12}];
+        [*(*(&v11 + 1) + 8 * v9++) notifyResolvedWithValue:{*(a1 + 40), v11}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  result = [*(*(a1 + 32) + 8) removeAllObjects];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 8) removeAllObjects];
 }
 
 - (void)rejectWithError:(id)error
@@ -450,7 +456,7 @@ uint64_t __31__ASDPromise_resolveWithValue___block_invoke(uint64_t a1)
 
 uint64_t __30__ASDPromise_rejectWithError___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 16))
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:@"Promises may only be resolved once!"];
@@ -462,39 +468,37 @@ uint64_t __30__ASDPromise_rejectWithError___block_invoke(uint64_t a1)
   *(v3 + 32) = v2;
 
   *(*(a1 + 32) + 16) = 2;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(*(a1 + 32) + 8);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) notifyRejectedWithError:{*(a1 + 40), v12}];
+        [*(*(&v11 + 1) + 8 * v9++) notifyRejectedWithError:{*(a1 + 40), v11}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  result = [*(*(a1 + 32) + 8) removeAllObjects];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 8) removeAllObjects];
 }
 
 uint64_t __42__ASDPromise__invokeExecutor_onScheduler___block_invoke(uint64_t a1)

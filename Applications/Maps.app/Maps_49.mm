@@ -1,7 +1,333 @@
-uint64_t sub_10056B204(uint64_t a1)
+void sub_100569934(uint64_t a1)
+{
+  if (!qword_101927700)
+  {
+    type metadata accessor for GEOAPHistoricalModelItem();
+    sub_1005699E8();
+    sub_10056DA5C(&unk_101927710, type metadata accessor for GEOAPHistoricalModelItem, &unk_1012113E0);
+    v1 = type metadata accessor for NSDiffableDataSourceSnapshot();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_101927700);
+    }
+  }
+}
+
+unint64_t sub_1005699E8()
+{
+  result = qword_101927708;
+  if (!qword_101927708)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_101927708);
+  }
+
+  return result;
+}
+
+id sub_100569CC0(uint64_t a1, uint64_t (*a2)(uint64_t))
+{
+  v4.receiver = v2;
+  v4.super_class = a2(a1);
+  return objc_msgSendSuper2(&v4, "dealloc");
+}
+
+unint64_t sub_100569D2C(unsigned int a1, uint64_t a2)
+{
+  v3 = v2;
+  v5 = [objc_allocWithZone(v3) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  v6 = [objc_allocWithZone(UIView) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v7 = objc_opt_self();
+  v8 = [v7 systemLightGrayColor];
+  [v6 setBackgroundColor:v8];
+
+  v133 = v5;
+  [v133 addSubview:v6];
+  v128 = [objc_allocWithZone(UIView) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  [v128 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v9 = [v7 systemBlackColor];
+  [v128 setBackgroundColor:v9];
+
+  [v6 addSubview:v128];
+  v127 = [objc_allocWithZone(UIView) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  [v127 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v10 = [v7 systemBlackColor];
+  [v127 setBackgroundColor:v10];
+
+  [v6 addSubview:v127];
+  v11 = [objc_allocWithZone(UILabel) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  [v11 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v130 = objc_opt_self();
+  v12 = [v130 systemFontOfSize:11.0];
+  [v11 setFont:v12];
+
+  v13 = String._bridgeToObjectiveC()();
+  [v11 setText:v13];
+
+  v126 = v11;
+  [v11 setTextAlignment:1];
+  CGAffineTransformMakeRotation(&v137, -1.57079633);
+  [v11 setTransform:&v137];
+  [v6 addSubview:v11];
+  v132 = objc_opt_self();
+  sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
+  v14 = swift_allocObject();
+  *(v14 + 16) = xmmword_101210FA0;
+  v15 = [v6 leadingAnchor];
+  v16 = [v133 layoutMarginsGuide];
+
+  v17 = [v16 leadingAnchor];
+  v18 = [v15 constraintEqualToAnchor:v17 constant:10.0];
+
+  *(v14 + 32) = v18;
+  v19 = [v6 trailingAnchor];
+  v20 = [v133 layoutMarginsGuide];
+
+  v21 = [v20 trailingAnchor];
+  v22 = [v19 constraintEqualToAnchor:v21];
+
+  *(v14 + 40) = v22;
+  v23 = [v6 topAnchor];
+  v24 = [v133 layoutMarginsGuide];
+
+  v25 = [v24 topAnchor];
+  v26 = [v23 constraintEqualToAnchor:v25];
+
+  *(v14 + 48) = v26;
+  v27 = [v6 bottomAnchor];
+  v28 = [v133 layoutMarginsGuide];
+
+  v29 = [v28 bottomAnchor];
+  v30 = [v27 constraintEqualToAnchor:v29 constant:-10.0];
+
+  *(v14 + 56) = v30;
+  v31 = [v128 topAnchor];
+  v32 = [v6 topAnchor];
+  v33 = [v31 constraintEqualToAnchor:v32];
+
+  *(v14 + 64) = v33;
+  v34 = [v128 leadingAnchor];
+  v136 = v6;
+  v35 = [v6 leadingAnchor];
+  v36 = [v34 constraintEqualToAnchor:v35 constant:-1.0];
+
+  *(v14 + 72) = v36;
+  v37 = [v128 trailingAnchor];
+  v38 = [v6 leadingAnchor];
+  v39 = [v37 constraintEqualToAnchor:v38];
+
+  *(v14 + 80) = v39;
+  v40 = [v128 bottomAnchor];
+  v41 = [v133 layoutMarginsGuide];
+
+  v42 = [v41 bottomAnchor];
+  v43 = [v40 constraintEqualToAnchor:v42];
+
+  *(v14 + 88) = v43;
+  v44 = [v11 centerXAnchor];
+  v45 = [v133 layoutMarginsGuide];
+
+  v46 = [v45 leadingAnchor];
+  v47 = [v44 constraintEqualToAnchor:v46 constant:3.0];
+
+  *(v14 + 96) = v47;
+  v48 = [v11 centerYAnchor];
+  v49 = [v6 centerYAnchor];
+  v50 = [v48 constraintEqualToAnchor:v49];
+
+  *(v14 + 104) = v50;
+  v51 = [v11 widthAnchor];
+
+  v52 = [v6 heightAnchor];
+  v53 = [v51 constraintEqualToAnchor:v52];
+
+  *(v14 + 112) = v53;
+  v54 = [v127 leadingAnchor];
+  v55 = [v133 layoutMarginsGuide];
+
+  v56 = [v55 leadingAnchor];
+  v57 = [v54 constraintEqualToAnchor:v56];
+
+  *(v14 + 120) = v57;
+  v58 = [v127 trailingAnchor];
+  v59 = [v133 layoutMarginsGuide];
+
+  v60 = [v59 trailingAnchor];
+  v61 = [v58 constraintEqualToAnchor:v60];
+
+  *(v14 + 128) = v61;
+  v62 = [v127 topAnchor];
+  v63 = [v6 bottomAnchor];
+  v64 = [v62 constraintEqualToAnchor:v63];
+
+  *(v14 + 136) = v64;
+  v65 = [v127 bottomAnchor];
+  v66 = [v6 bottomAnchor];
+  v67 = [v65 constraintEqualToAnchor:v66 constant:1.0];
+
+  *(v14 + 144) = v67;
+  sub_100014C84(0, &qword_10190B720, NSLayoutConstraint_ptr);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  [v132 activateConstraints:isa];
+
+  v69 = [v6 leftAnchor];
+  v129 = 0;
+  v70 = 0;
+  v71 = a1;
+  v72 = a1;
+  v131 = a2;
+  while (1)
+  {
+    v120 = *(&off_101601268 + v70 + 32);
+    v135 = v69;
+    if (*(a2 + 16))
+    {
+      break;
+    }
+
+    v73 = 0.0;
+    v74 = &selRef_setStringValue_;
+LABEL_3:
+    v75 = [objc_allocWithZone(UIView) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+    v76 = sub_100567BE0(v120).super.isa;
+    [v75 setBackgroundColor:v76];
+
+    [v75 v74[436]];
+    [v136 addSubview:v75];
+    v77 = [objc_allocWithZone(UILabel) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+    [v77 v74[436]];
+    v78 = v74;
+    v79 = String._bridgeToObjectiveC()();
+
+    [v77 setText:v79];
+
+    [v77 setTextAlignment:1];
+    v80 = [v130 systemFontOfSize:9.0];
+    [v77 setFont:v80];
+
+    [v136 addSubview:v77];
+    v81 = [objc_allocWithZone(UILabel) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+    [v81 v78[436]];
+    v82 = String._bridgeToObjectiveC()();
+
+    [v81 setText:v82];
+
+    [v81 setTextAlignment:1];
+    v83 = [v130 systemFontOfSize:10.0];
+    [v81 setFont:v83];
+
+    [v136 addSubview:v81];
+    v84 = swift_allocObject();
+    *(v84 + 16) = xmmword_1011FF0C0;
+    v85 = [v75 widthAnchor];
+    v86 = [v136 widthAnchor];
+    v87 = [v85 constraintEqualToAnchor:v86 multiplier:0.166666667];
+
+    *(v84 + 32) = v87;
+    v88 = [v75 heightAnchor];
+    v89 = [v136 heightAnchor];
+    v90 = [v88 constraintEqualToAnchor:v89 multiplier:v73];
+
+    *(v84 + 40) = v90;
+    v91 = [v75 bottomAnchor];
+    v92 = [v136 bottomAnchor];
+    v93 = [v91 constraintEqualToAnchor:v92];
+
+    *(v84 + 48) = v93;
+    v94 = [v75 leftAnchor];
+    v95 = [v94 constraintEqualToAnchor:v135];
+
+    *(v84 + 56) = v95;
+    v96 = [v77 topAnchor];
+    v97 = [v75 bottomAnchor];
+    v98 = [v96 constraintEqualToAnchor:v97 constant:2.0];
+
+    *(v84 + 64) = v98;
+    v99 = [v77 bottomAnchor];
+    v100 = [v133 layoutMarginsGuide];
+    v101 = [v100 bottomAnchor];
+
+    v102 = [v99 constraintEqualToAnchor:v101];
+    *(v84 + 72) = v102;
+    v103 = [v77 leftAnchor];
+    v104 = [v103 constraintEqualToAnchor:v135];
+
+    *(v84 + 80) = v104;
+    v105 = [v77 widthAnchor];
+
+    v106 = [v75 widthAnchor];
+    v107 = [v105 constraintEqualToAnchor:v106];
+
+    *(v84 + 88) = v107;
+    v108 = [v81 topAnchor];
+    v109 = [v136 topAnchor];
+    v110 = [v108 constraintEqualToAnchor:v109 constant:2.0];
+
+    *(v84 + 96) = v110;
+    v111 = [v81 heightAnchor];
+    v112 = [v111 constraintEqualToConstant:10.0];
+
+    *(v84 + 104) = v112;
+    v113 = [v81 leftAnchor];
+    v114 = [v113 constraintEqualToAnchor:v135];
+
+    *(v84 + 112) = v114;
+    v115 = [v81 widthAnchor];
+
+    v116 = [v75 widthAnchor];
+    v117 = [v115 constraintEqualToAnchor:v116];
+
+    *(v84 + 120) = v117;
+    v118 = Array._bridgeToObjectiveC()().super.isa;
+
+    [v132 activateConstraints:v118];
+
+    v119 = [v75 rightAnchor];
+    v69 = v119;
+    a2 = v131;
+    if (++v70 == 6)
+    {
+
+      return v133;
+    }
+  }
+
+  result = sub_100296FD4(v120);
+  v74 = &selRef_setStringValue_;
+  if ((v122 & 1) == 0)
+  {
+    v73 = 0.0;
+    goto LABEL_3;
+  }
+
+  v123 = *(*(*(a2 + 56) + 8 * result) + 16);
+  v124 = v129 + v123;
+  if (!__CFADD__(v129, v123))
+  {
+    v73 = v123 / v71;
+    sub_1000CE6B8(&unk_10190D5C0, &unk_1011EA240);
+    v125 = swift_allocObject();
+    *(v125 + 16) = xmmword_1011E1D30;
+    v129 = v124;
+    *(v125 + 56) = &type metadata for Float;
+    *(v125 + 64) = &protocol witness table for Float;
+    *(v125 + 32) = (v124 * 100.0) / v72;
+
+    String.init(format:_:)();
+
+    goto LABEL_3;
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_10056B204(void *a1)
 {
   sub_10005EB40(a1, v5);
-  sub_1000CE6B8(&qword_101914930);
+  sub_1000CE6B8(&qword_101914930, &qword_1011F36E0);
   type metadata accessor for GEOAPHistoricalUploadTableViewCellConfiguration();
   if (swift_dynamicCast())
   {
@@ -35,7 +361,7 @@ void (*sub_10056B2B8(uint64_t *a1))(uint64_t *a1, char a2)
   v7 = type metadata accessor for GEOAPHistoricalUploadTableViewCellConfiguration();
   v4[13] = v7;
   v4[3] = v7;
-  v4[4] = sub_10056DA5C(&qword_1019279F8, type metadata accessor for GEOAPHistoricalUploadTableViewCellConfiguration);
+  v4[4] = sub_10056DA5C(&qword_1019279F8, type metadata accessor for GEOAPHistoricalUploadTableViewCellConfiguration, &unk_101211308);
   *v4 = v6;
 
   return sub_10056B388;
@@ -47,13 +373,13 @@ void sub_10056B388(uint64_t *a1, char a2)
   if (a2)
   {
     sub_10005EB40(*a1, (v2 + 5));
-    sub_10056B204((v2 + 5));
+    sub_10056B204(v2 + 5);
   }
 
   else
   {
     sub_10005EB40(*a1, (v2 + 5));
-    sub_1000CE6B8(&qword_101914930);
+    sub_1000CE6B8(&qword_101914930, &qword_1011F36E0);
     if (swift_dynamicCast())
     {
       v3 = v2[10];
@@ -140,7 +466,7 @@ void sub_10056B5EC()
   [v0 addSubview:v4];
 
   v65 = objc_opt_self();
-  sub_1000CE6B8(&qword_101908400);
+  sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_101210FA0;
   v6 = OBJC_IVAR____TtC4Maps38GEOAPHistoricalUploadTableViewCellView____lazy_storage___topLabel;
@@ -232,13 +558,13 @@ void sub_10056B5EC()
   v64 = [v62 constraintEqualToAnchor:v63];
 
   *(v5 + 144) = v64;
-  sub_100014C84(0, &qword_10190B720);
+  sub_100014C84(0, &qword_10190B720, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v65 activateConstraints:isa];
 }
 
-uint64_t sub_10056BEA0(uint64_t a1)
+double sub_10056BEA0(uint64_t a1)
 {
   v1 = *(a1 + 16);
   v2 = *(v1 + 56);
@@ -252,7 +578,7 @@ uint64_t sub_10056BEA0(uint64_t a1)
 
   else
   {
-    sub_1000CE6B8(&unk_10190D5C0);
+    sub_1000CE6B8(&unk_10190D5C0, &unk_1011EA240);
     v5 = swift_allocObject();
     *(v5 + 16) = xmmword_1011E1D30;
     v6 = *(v1 + 40);
@@ -288,14 +614,18 @@ uint64_t sub_10056BEA0(uint64_t a1)
 
     [v3 setText:{v4, 1, 2}];
   }
+
+  return result;
 }
 
-uint64_t sub_10056C1A8@<X0>(void *a1@<X8>)
+double sub_10056C1A8@<D0>(void *a2@<X8>)
 {
-  v3 = *(v1 + OBJC_IVAR____TtC4Maps38GEOAPHistoricalUploadTableViewCellView_currentConfig);
-  a1[3] = type metadata accessor for GEOAPHistoricalUploadTableViewCellConfiguration();
-  a1[4] = sub_10056DA5C(&qword_1019279F8, type metadata accessor for GEOAPHistoricalUploadTableViewCellConfiguration);
-  *a1 = v3;
+  v4 = *(v2 + OBJC_IVAR____TtC4Maps38GEOAPHistoricalUploadTableViewCellView_currentConfig);
+  a2[3] = type metadata accessor for GEOAPHistoricalUploadTableViewCellConfiguration();
+  a2[4] = sub_10056DA5C(&qword_1019279F8, type metadata accessor for GEOAPHistoricalUploadTableViewCellConfiguration, &unk_101211308);
+  *a2 = v4;
+
+  return result;
 }
 
 void (*sub_10056C230(uint64_t **a1))(void *a1)
@@ -319,30 +649,30 @@ id sub_10056C2C4()
 {
 
   v1 = sub_10056D994(v0);
-  sub_10056DA5C(&qword_101927A00, type metadata accessor for GEOAPHistoricalUploadTableViewCellView);
+  sub_10056DA5C(&qword_101927A00, type metadata accessor for GEOAPHistoricalUploadTableViewCellView, &unk_101211338);
   return v1;
 }
 
-void sub_10056C548()
+void sub_10056C548(uint64_t a1)
 {
-  v1 = v0;
-  v8.receiver = v0;
-  v8.super_class = type metadata accessor for GEOAPHistoricalUploadDebugController();
-  objc_msgSendSuper2(&v8, "viewDidLoad");
-  v2 = [v0 tableView];
-  if (v2)
+  v2 = v1;
+  v9.receiver = v1;
+  v9.super_class = type metadata accessor for GEOAPHistoricalUploadDebugController();
+  objc_msgSendSuper2(&v9, "viewDidLoad");
+  v3 = [v1 tableView];
+  if (v3)
   {
-    v3 = v2;
+    v4 = v3;
     type metadata accessor for GEOAPHistoricalUploadTableViewCell();
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-    v5 = String._bridgeToObjectiveC()();
-    [v3 registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v5];
+    v6 = String._bridgeToObjectiveC()();
+    [v4 registerClass:ObjCClassFromMetadata forCellReuseIdentifier:v6];
 
-    v6 = [v1 tableView];
-    if (v6)
+    v7 = [v2 tableView];
+    if (v7)
     {
-      v7 = v6;
-      sub_100569274(v6);
+      v8 = v7;
+      sub_100569274(v7);
 
       return;
     }
@@ -523,7 +853,7 @@ unint64_t sub_10056C954()
   result = qword_1019279C8;
   if (!qword_1019279C8)
   {
-    sub_1000D6664(&qword_1019279D0);
+    sub_1000D6664(&qword_1019279D0, qword_101211228);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1019279C8);
   }
@@ -1127,7 +1457,7 @@ LABEL_3:
 
   else
   {
-    v5 = (v9 + a4);
+    v5 = v9 + a4;
   }
 
   if (v5 < v9)
@@ -1402,7 +1732,7 @@ unint64_t sub_10056D76C(unint64_t result)
 
 uint64_t sub_10056D77C(unint64_t a1)
 {
-  v2 = sub_1000CE6B8(&qword_101927A08);
+  v2 = sub_1000CE6B8(&qword_101927A08, &qword_101211488);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = v17 - v4;
@@ -1504,7 +1834,7 @@ id sub_10056D994(uint64_t a1)
   return v4;
 }
 
-uint64_t sub_10056DA5C(unint64_t *a1, void (*a2)(void))
+uint64_t sub_10056DA5C(unint64_t *a1, uint64_t (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1520,7 +1850,7 @@ uint64_t sub_10056DA5C(unint64_t *a1, void (*a2)(void))
 void sub_10056DAA0()
 {
   v1 = v0;
-  v2 = sub_1000CE6B8(&qword_101927A08);
+  v2 = sub_1000CE6B8(&qword_101927A08, &qword_101211488);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v22 - v4;
@@ -1660,7 +1990,7 @@ void sub_10056E0E8()
 
   v9 = [objc_allocWithZone(MUEdgeLayout) initWithItem:v5 container:v0];
   v10 = objc_opt_self();
-  sub_1000CE6B8(&qword_101908400);
+  sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_1011E47C0;
   *(v11 + 32) = v4;
@@ -1695,32 +2025,32 @@ unint64_t sub_10056E528()
   return result;
 }
 
-uint64_t sub_10056E5A0(uint64_t a1)
+uint64_t sub_10056E5A0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = type metadata accessor for MapsDesignAccessibilityString();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = (v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v6 = type metadata accessor for PlaceCell();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(a1 + OBJC_IVAR____TtC4Maps21PlaceItemRowViewModel_viewModel);
-  v12[4] = type metadata accessor for ListCellViewModel();
-  v12[5] = sub_10056E82C(&qword_10190B068, &type metadata accessor for ListCellViewModel);
-  v12[1] = v10;
+  v4 = type metadata accessor for MapsDesignAccessibilityString();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = (v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = type metadata accessor for PlaceCell();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *(a1 + OBJC_IVAR____TtC4Maps21PlaceItemRowViewModel_viewModel);
+  v14[4] = type metadata accessor for ListCellViewModel();
+  v14[5] = sub_10056E82C(&qword_10190B068, &type metadata accessor for ListCellViewModel, &protocol conformance descriptor for ListCellViewModel);
+  v14[1] = v12;
 
   PlaceCell.init(model:tapHandler:)();
-  *v5 = 0x6574496563616C50;
-  v5[1] = 0xE90000000000006DLL;
-  (*(v3 + 104))(v5, enum case for MapsDesignAccessibilityString.cell(_:), v2);
-  sub_10056E82C(&qword_10190D640, &type metadata accessor for PlaceCell);
+  *v7 = 0x6574496563616C50;
+  v7[1] = 0xE90000000000006DLL;
+  (*(v5 + 104))(v7, enum case for MapsDesignAccessibilityString.cell(_:), v4);
+  sub_10056E82C(&qword_10190D640, &type metadata accessor for PlaceCell, &protocol conformance descriptor for PlaceCell);
   View.mapsDesignAXCombinedContainer(withID:)();
-  (*(v3 + 8))(v5, v2);
-  return (*(v7 + 8))(v9, v6);
+  (*(v5 + 8))(v7, v4);
+  return (*(v9 + 8))(v11, v8);
 }
 
-uint64_t sub_10056E82C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10056E82C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1733,7 +2063,7 @@ uint64_t sub_10056E82C(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_10056E8A0(uint64_t a1, int a2, int a3, int a4)
+uint64_t sub_10056E8A0(int a1, int a2, int a3, int a4)
 {
   if (qword_10195CA38 == -1)
   {
@@ -2018,11 +2348,11 @@ void sub_100570268(id a1)
   qword_10195CA48 = &off_1016EC620;
 }
 
-void sub_100570C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100570C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2174,9 +2504,9 @@ void sub_100573460(uint64_t a1, void *a2)
   dispatch_group_leave(v5);
 }
 
-void sub_100573FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100573FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2462,7 +2792,7 @@ _TtC4Maps28PlaceSummaryOutlineCellModel *sub_10057ACCC(uint64_t a1, void *a2)
       [v12 setObject:v8 forKey:v14];
     }
 
-    v15 = [*(a1 + 32) configuration];
+    v15 = objc_msgSend_configuration(*(a1 + 32));
     v16 = [v15 collectionView];
     [v16 frame];
     [v8 setContainerWidth:v17];
@@ -3763,11 +4093,12 @@ void sub_100590E94(uint64_t a1)
   [v4 setZoomLevel:v3];
 }
 
-void sub_100591570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, char a23)
+void sub_100591570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, ...)
 {
-  objc_destroyWeak((v23 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v22 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3801,7 +4132,7 @@ id sub_1005915A0(uint64_t a1)
     v6 = *(a1 + 40);
     if (v6)
     {
-      [v6 mapControlsConfiguration];
+      objc_msgSend_mapControlsConfiguration(v6);
       v8 = v23;
       v7 = v24;
       v9 = v25;
@@ -5210,7 +5541,7 @@ double sub_1005B1E78(uint64_t a1, void *a2)
 {
   if ([a2 row] == (*(a1 + 32) - 1))
   {
-    return _UICollectionViewListSectionSeparatorInsetHidden;
+    return _UICollectionViewListSectionSeparatorInsetHidden[0];
   }
 
   else
@@ -5540,6 +5871,13 @@ void sub_1005BA5B8(uint64_t a1)
   }
 }
 
+void sub_1005BAAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1005BAB00(uint64_t a1)
 {
   v2 = objc_alloc_init(NSMutableDictionary);
@@ -5757,9 +6095,9 @@ void sub_1005BD000(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1005BD2CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1005BD2CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5895,9 +6233,9 @@ void sub_1005C366C(id a1)
   qword_10195CB58 = v1;
 }
 
-void sub_1005C3768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1005C3768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6072,13 +6410,13 @@ void sub_1005C5374(uint64_t a1, void *a2, uint64_t a3)
   [v7 addAction:v8];
 }
 
-void sub_1005C602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1005C602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak((v16 + 48));
+  va_start(va, a23);
+  objc_destroyWeak((v24 + 48));
+  objc_destroyWeak((v23 + 48));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v18 - 88));
+  objc_destroyWeak((v25 - 88));
   _Unwind_Resume(a1);
 }
 
@@ -6331,10 +6669,10 @@ void sub_1005CB2A4(uint64_t a1, void *a2)
   _Block_object_dispose(buf, 8);
 }
 
-void sub_1005CB4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1005CB4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  objc_destroyWeak((v11 + 64));
+  va_start(va, a18);
+  objc_destroyWeak((v18 + 64));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6581,10 +6919,11 @@ void sub_1005CBC58(uint64_t a1)
   dispatch_group_leave(v12);
 }
 
-void sub_1005CC6F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, char a25)
+void sub_1005CC6F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6854,9 +7193,9 @@ void sub_1005D20EC(uint64_t a1, void *a2, void *a3, uint64_t a4)
   }
 }
 
-void sub_1005D28C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1005D28C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6878,9 +7217,9 @@ void sub_1005D28F4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_1005D2A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1005D2A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8638,9 +8977,9 @@ void sub_1005E9FE4(uint64_t a1)
   }
 }
 
-void sub_1005EADCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1005EADCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8679,9 +9018,9 @@ void sub_1005EB900(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_1005EC4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1005EC4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8721,288 +9060,5 @@ void sub_1005EC4E8(uint64_t a1, int a2)
     }
 
     *(v3 + 40) = 0;
-  }
-}
-
-void sub_1005EC584(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  if (v9)
-  {
-    v22 = *(a1 + 32);
-    v10 = [NSArray arrayWithObjects:&v22 count:1];
-    v11 = [SearchInfo searchInfoWithResults:v10];
-  }
-
-  else
-  {
-    v11 = +[SearchInfo searchInfoWithTicket:addressBookAddress:searchType:forRefinementSearchForBookmark:](SearchInfo, "searchInfoWithTicket:addressBookAddress:searchType:forRefinementSearchForBookmark:", *(a1 + 40), 0, [*(a1 + 32) type], *(a1 + 32));
-  }
-
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v12 = [v11 results];
-  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v13)
-  {
-    v14 = v13;
-    v15 = *v18;
-    do
-    {
-      for (i = 0; i != v14; i = i + 1)
-      {
-        if (*v18 != v15)
-        {
-          objc_enumerationMutation(v12);
-        }
-
-        [*(*(&v17 + 1) + 8 * i) markAsOriginatingFromBookmarks];
-      }
-
-      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    }
-
-    while (v14);
-  }
-
-  [*(a1 + 48) _searchReceivedResults:v11];
-}
-
-void sub_1005ECB68(uint64_t a1, void *a2)
-{
-  *(*(*(a1 + 48) + 8) + 24) = 1;
-  v3 = a2;
-  v4 = +[MKMapService sharedService];
-  v5 = [v4 _maps_ticketForSearchHistoryEntry:v3 source:*(a1 + 56) traits:*(a1 + 32) isRedoOrAutoRedoSearch:*(a1 + 60)];
-
-  [*(a1 + 40) _submitSearchTicket:v5 defaultSearchResultType:0 saveToHistory:0 origin:((*(a1 + 56) - 6) & 0xFFFFFFF9) == 0];
-}
-
-void sub_1005ECC24(uint64_t a1, void *a2)
-{
-  *(*(*(a1 + 56) + 8) + 24) = 1;
-  v3 = [a2 geoMapItem];
-  v4 = [MKMapItem _itemWithGeoMapItem:v3];
-
-  if ([v4 _hasMUID])
-  {
-    v5 = [*(a1 + 32) delegate];
-    v6 = *(a1 + 32);
-    v7 = [v6 searchFieldItem];
-    [v5 searchManager:v6 willProcessSearchFieldItem:v7];
-
-    v8 = +[MKMapService sharedService];
-    v9 = [v4 _identifier];
-    v15 = v9;
-    v10 = [NSArray arrayWithObjects:&v15 count:1];
-    v11 = [v8 ticketForIdentifiers:v10 resultProviderID:objc_msgSend(v4 contentProvider:"_resultProviderID") traits:{0, *(a1 + 40)}];
-
-    [*(a1 + 32) _submitTicket:v11 defaultSearchResultType:0 origin:((*(a1 + 64) - 6) & 0xFFFFFFF9) == 0];
-  }
-
-  else
-  {
-    v11 = [[SearchResult alloc] initWithMapItem:v4];
-    v12 = *(a1 + 32);
-    v14 = v11;
-    v13 = [NSArray arrayWithObjects:&v14 count:1];
-    [v12 _searchForSearchResults:v13 completedQuery:*(a1 + 48)];
-  }
-}
-
-void sub_1005ED02C(uint64_t a1)
-{
-  v5 = [*(a1 + 32) delegate];
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = [v2 searchSessionData];
-  [v5 searchManager:v3 didReceiveSearchInfo:v2 searchSessionData:v4 error:0];
-}
-
-void sub_1005ED694(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v22 = a4;
-  if (v22)
-  {
-    v5 = NSStringFromSelector(*(a1 + 64));
-    sub_1005ED9D8(v22, v6, v7, v8, v9, v10, v11, v12, v5);
-
-    [*(a1 + 32) _handleGeocoderError:v22];
-  }
-
-  else
-  {
-    v13 = [*(a1 + 40) isValid];
-    v14 = *(*(*(a1 + 56) + 8) + 40);
-    if (v13)
-    {
-      v15 = [SearchInfo searchInfoWithTicket:v14 addressBookAddress:*(a1 + 40) searchType:*(a1 + 72)];
-    }
-
-    else
-    {
-      v15 = [SearchInfo searchInfoWithTicket:v14 searchType:*(a1 + 72)];
-      if ([*(a1 + 48) length])
-      {
-        v16 = [v15 results];
-        v17 = [v16 count];
-
-        if (v17 == 1)
-        {
-          v18 = [v15 results];
-          v19 = [v18 firstObject];
-
-          v20 = *(a1 + 48);
-          v21 = [v19 mapItem];
-          [v21 setName:v20];
-        }
-      }
-    }
-
-    [*(a1 + 32) _searchReceivedResults:v15];
-  }
-}
-
-void sub_1005ED7FC(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  if (v6)
-  {
-    v7 = NSStringFromSelector(*(a1 + 56));
-    sub_1005ED9D8(v7, v8, v9, v10, v11, v12, v13, v14, v7);
-
-    [*(a1 + 32) _handleGeocoderError:v6];
-  }
-
-  else if (v5)
-  {
-    v15 = [[SearchResult alloc] initWithMapItem:v5 searchResultType:*(a1 + 64) addressBookAddress:*(a1 + 40) retainedSearchMetadata:0 resultIndex:0];
-    v18 = v15;
-    v16 = [NSArray arrayWithObjects:&v18 count:1];
-    v17 = [SearchInfo searchInfoWithResults:v16];
-
-    [*(a1 + 32) _searchReceivedResults:v17];
-  }
-}
-
-void sub_1005ED93C(uint64_t a1, int a2)
-{
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  if (a2)
-  {
-    if (v4)
-    {
-      return;
-    }
-
-    v8 = +[LoadingIndicatorController sharedController];
-    v5 = [v8 beginShowingLoadingIndicator];
-    v6 = *(*(a1 + 32) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
-
-    v4 = v8;
-  }
-
-  else
-  {
-    if (!v4)
-    {
-      return;
-    }
-
-    *(v3 + 40) = 0;
-  }
-}
-
-void sub_1005ED9D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  if (CFPreferencesGetAppBooleanValue(@"LogSearch", @"com.apple.Maps", 0) || CFPreferencesGetAppBooleanValue(@"ComprehensiveLogging", @"com.apple.Maps", 0))
-  {
-    v9 = [[NSString alloc] initWithFormat:@"[SearchManager %@] Failed to geocode %@ (%@)" arguments:&a9];
-    NSLog(@"%@", v9);
-  }
-}
-
-void sub_1005EDB1C(uint64_t a1, void *a2, void *a3)
-{
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_1005EDBE4;
-  block[3] = &unk_101661A40;
-  v8 = a2;
-  v9 = a3;
-  v10 = *(a1 + 32);
-  v5 = v9;
-  v6 = v8;
-  dispatch_async(&_dispatch_main_q, block);
-}
-
-void sub_1005EDBE4(uint64_t a1)
-{
-  if (*(a1 + 32))
-  {
-    v2 = *(a1 + 40) == 0;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  if (v2)
-  {
-    v4 = [[SearchResult alloc] initWithMapItem:*(a1 + 32)];
-    v7 = v4;
-    v5 = [NSArray arrayWithObjects:&v7 count:1];
-    v6 = [SearchInfo searchInfoWithResults:v5];
-
-    [*(a1 + 48) _searchReceivedResults:v6];
-  }
-
-  else
-  {
-    v3 = *(a1 + 48);
-
-    [v3 _searchFailedWithError:?];
-  }
-}
-
-void sub_1005EEA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1005EEA6C(uint64_t a1, void *a2)
-{
-  v11 = a2;
-  v4 = [v11 mapItem];
-  v5 = [v4 _geoMapItem];
-  [v5 coordinate];
-  v6 = [*(a1 + 32) mapItem];
-  v7 = [v6 _geoMapItem];
-  [v7 coordinate];
-  GEOCalculateDistance();
-  v9 = v8;
-
-  v10 = *(*(a1 + 40) + 8);
-  if (v9 < *(v10 + 24))
-  {
-    *(v10 + 24) = v9;
-    objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   }
 }

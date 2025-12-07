@@ -75,7 +75,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_29E1C9A70();
+  sub_29E1C9A70(selfCopy);
 }
 
 - (void)viewModelProviderDidUpdate:(id)update
@@ -91,7 +91,7 @@
   MEMORY[0x2A1C7C4A8](v7);
   v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29E2BCF44();
-  type metadata accessor for CycleHistoryCycleDayCell();
+  type metadata accessor for CycleHistoryCycleDayCell(0);
   v11 = swift_dynamicCastClass();
   if (v11)
   {

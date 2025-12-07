@@ -8,6 +8,7 @@
 - (void)activate;
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
+- (void)shareAudioProgressEvent:(int)event info:(id)info;
 - (void)userConfirmed:(BOOL)confirmed;
 @end
 
@@ -65,13 +66,13 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__BTShareAudioSessionClient_activate__block_invoke(uint64_t result)
+void *__37__BTShareAudioSessionClient_activate__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 8) & 1) == 0)
   {
     *(v1 + 8) = 1;
-    return [*(result + 32) _activate:0];
+    return [*(result + 4) _activate:0];
   }
 
   return result;
@@ -161,27 +162,26 @@ uint64_t __39__BTShareAudioSessionClient__activate___block_invoke_2(uint64_t a1,
 {
   v3 = a2;
   v4 = v3;
-  v5 = *(a1 + 32);
   if (v3)
   {
     if (*(a1 + 32))
     {
       if (gLogCategory_BTShareAudioSessionClient <= 90)
       {
-        v7 = v3;
-        if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v4 = v7, v3))
+        v6 = v3;
+        if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v4 = v6, v3))
         {
           v3 = __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_2();
 LABEL_20:
-          v4 = v7;
+          v4 = v6;
         }
       }
     }
 
     else if (gLogCategory_BTShareAudioSessionClient <= 90)
     {
-      v7 = v3;
-      if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v4 = v7, v3))
+      v6 = v3;
+      if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v4 = v6, v3))
       {
         v3 = __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_1();
         goto LABEL_20;
@@ -193,7 +193,7 @@ LABEL_20:
   {
     if (gLogCategory_BTShareAudioSessionClient <= 30)
     {
-      v7 = 0;
+      v6 = 0;
       if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v4 = 0, v3))
       {
         v3 = __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_4();
@@ -204,7 +204,7 @@ LABEL_20:
 
   else if (gLogCategory_BTShareAudioSessionClient <= 30)
   {
-    v7 = 0;
+    v6 = 0;
     if (gLogCategory_BTShareAudioSessionClient != -1 || (v3 = _LogCategory_Initialize(), v4 = 0, v3))
     {
       v3 = __39__BTShareAudioSessionClient__activate___block_invoke_2_cold_3();
@@ -318,9 +318,9 @@ uint64_t __46__BTShareAudioSessionClient__ensureXPCStarted__block_invoke_2(uint6
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __39__BTShareAudioSessionClient_invalidate__block_invoke(uint64_t result)
+void *__39__BTShareAudioSessionClient_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 9) & 1) == 0)
   {
     v3 = result;
@@ -330,11 +330,11 @@ uint64_t __39__BTShareAudioSessionClient_invalidate__block_invoke(uint64_t resul
       __39__BTShareAudioSessionClient_invalidate__block_invoke_cold_1();
     }
 
-    v4 = *(v3 + 32);
+    v4 = v3[4];
     if (v4[2])
     {
       [v4[2] invalidate];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     return [v4 _invalidated];
@@ -392,7 +392,7 @@ void __43__BTShareAudioSessionClient_userConfirmed___block_invoke(uint64_t a1)
   {
     if (gLogCategory_BTShareAudioSessionClient <= 30 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
     {
-      __43__BTShareAudioSessionClient_userConfirmed___block_invoke_cold_1(a1);
+      __43__BTShareAudioSessionClient_userConfirmed___block_invoke_cold_1();
     }
 
     v2 = [*(*(a1 + 32) + 16) remoteObjectProxy];
@@ -402,6 +402,24 @@ void __43__BTShareAudioSessionClient_userConfirmed___block_invoke(uint64_t a1)
   else
   {
     __43__BTShareAudioSessionClient_userConfirmed___block_invoke_cold_2(gLogCategory_BTShareAudioSessionClient);
+  }
+}
+
+- (void)shareAudioProgressEvent:(int)event info:(id)info
+{
+  v4 = *&event;
+  infoCopy = info;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (gLogCategory_BTShareAudioSessionClient <= 30 && (gLogCategory_BTShareAudioSessionClient != -1 || _LogCategory_Initialize()))
+  {
+    [BTShareAudioSessionClient shareAudioProgressEvent:info:];
+  }
+
+  v6 = MEMORY[0x245CE9060](self->_progressHandler);
+  v7 = v6;
+  if (v6)
+  {
+    (*(v6 + 16))(v6, v4, infoCopy);
   }
 }
 

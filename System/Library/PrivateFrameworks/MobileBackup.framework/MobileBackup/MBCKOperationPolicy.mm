@@ -103,7 +103,7 @@
   else
   {
     [v8 setAllowsCellularAccess:0];
-    LODWORD(allowsExpensiveNetworkAccess) = 0;
+    allowsExpensiveNetworkAccess = 0;
   }
 
   [v8 setQualityOfService:{-[MBCKOperationPolicy qualityOfService](self, "qualityOfService")}];
@@ -137,31 +137,33 @@
       goto LABEL_15;
     }
 
-    v29 = processNameCopy;
+    v33 = processNameCopy;
     v18 = v10 != 0;
+    v31 = v10 != 0;
     name2 = [v12 name];
     [v12 operationGroupID];
-    v20 = v28 = v10;
+    v20 = v32 = v10;
     [(MBCKOperationPolicy *)self qualityOfService];
     v21 = MBLogStringForNSQualityOfService();
     *buf = 138544386;
-    v31 = name2;
-    v32 = 2114;
-    v33 = v20;
-    v34 = 2112;
-    *v35 = v21;
-    *&v35[8] = 1024;
-    v36 = v18;
-    v37 = 1024;
-    v38 = allowsExpensiveNetworkAccess;
+    v35 = name2;
+    v36 = 2114;
+    v37 = v20;
+    v38 = 2112;
+    *v39 = v21;
+    *&v39[8] = 1024;
+    v40 = v18;
+    v41 = 1024;
+    v42 = allowsExpensiveNetworkAccess;
+    v22 = allowsExpensiveNetworkAccess;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "=ck-op= Created operation group, gn:%{public}@, gid:%{public}@, qos:%@, ac:%d(%d)", buf, 0x2Cu);
 
-    v10 = v28;
+    v10 = v32;
     name3 = [v12 name];
     operationGroupID = [v12 operationGroupID];
     [(MBCKOperationPolicy *)self qualityOfService];
-    v27 = MBLogStringForNSQualityOfService();
-    _MBLog();
+    v25 = MBLogStringForNSQualityOfService();
+    _MBLog(@"Db", "=ck-op= Created operation group, gn:%{public}@, gid:%{public}@, qos:%@, ac:%d(%d)", name3, operationGroupID, v25, v31, v22);
   }
 
   else
@@ -171,27 +173,29 @@
       goto LABEL_15;
     }
 
-    v29 = processNameCopy;
+    v33 = processNameCopy;
     operationGroupID2 = [v12 operationGroupID];
     [(MBCKOperationPolicy *)self qualityOfService];
-    v25 = MBLogStringForNSQualityOfService();
+    v27 = MBLogStringForNSQualityOfService();
     *buf = 138544130;
-    v31 = operationGroupID2;
-    v32 = 2114;
-    v33 = v25;
-    v34 = 1024;
-    *v35 = v10 != 0;
-    *&v35[4] = 1024;
-    *&v35[6] = allowsExpensiveNetworkAccess;
+    v35 = operationGroupID2;
+    v36 = 2114;
+    v37 = v27;
+    v38 = 1024;
+    *v39 = v10 != 0;
+    *&v39[4] = 1024;
+    *&v39[6] = allowsExpensiveNetworkAccess;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "=ck-op= Created operation group, gid:%{public}@, qos:%{public}@, ac:%d(%d)", buf, 0x22u);
 
     name3 = [v12 operationGroupID];
     [(MBCKOperationPolicy *)self qualityOfService];
-    operationGroupID = MBLogStringForNSQualityOfService();
-    _MBLog();
+    v28 = MBLogStringForNSQualityOfService();
+    v29 = allowsExpensiveNetworkAccess;
+    operationGroupID = v28;
+    _MBLog(@"Db", "=ck-op= Created operation group, gid:%{public}@, qos:%{public}@, ac:%d(%d)", name3, v28, v10 != 0, v29);
   }
 
-  processNameCopy = v29;
+  processNameCopy = v33;
 LABEL_15:
 
   if (!v12)

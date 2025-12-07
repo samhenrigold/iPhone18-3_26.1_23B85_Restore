@@ -61,43 +61,43 @@
 
 - (int)delete_storage_settings:(__CFString *)delete_storage_settings
 {
-  v20 = *MEMORY[0x1E69E9840];
-  [(Remote_Driver_Host_Delegate *)self remote_plugin];
-  if (v15)
+  v19 = *MEMORY[0x1E69E9840];
+  objc_msgSend_remote_plugin(self, a2);
+  if (v14)
   {
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x2020000000;
-    v14 = 0;
-    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(queue, (v15 + 392));
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
+    v13 = 0;
+    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(queue, (v14 + 392));
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3321888768;
     block[2] = __55__Remote_Driver_Host_Delegate_delete_storage_settings___block_invoke;
     block[3] = &unk_1F5960880;
-    block[5] = v15;
-    v9 = v16;
-    if (v16)
+    block[5] = v14;
+    v8 = v15;
+    if (v15)
     {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    block[4] = &v11;
+    block[4] = &v10;
     delete_storage_settingsCopy = delete_storage_settings;
-    v4 = atomic_load(&v18);
+    v4 = atomic_load(&v17);
     if (v4)
     {
-      atomic_store(1u, v19);
+      atomic_store(1u, v18);
     }
 
     dispatch_sync(queue[0], block);
-    v5 = *(v12 + 6);
-    if (v9)
+    v5 = *(v11 + 6);
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
     AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(queue);
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v10, 8);
   }
 
   else
@@ -105,60 +105,59 @@
     v5 = 560947818;
   }
 
-  if (v16)
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (pair<int,)copy_storage_settings:(__CFString *)copy_storage_settings
 {
-  v26 = *MEMORY[0x1E69E9840];
-  [(Remote_Driver_Host_Delegate *)self remote_plugin];
-  if (v21)
+  v25 = *MEMORY[0x1E69E9840];
+  objc_msgSend_remote_plugin(self, a2);
+  if (v20)
   {
-    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(queue, (v21 + 392));
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(queue, (v20 + 392));
     v16 = 0;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3321888768;
-    v10[2] = __53__Remote_Driver_Host_Delegate_copy_storage_settings___block_invoke;
-    v10[3] = &unk_1F5960848;
-    v10[6] = v21;
-    v11 = v22;
-    if (v22)
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
+    v15 = 0;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3321888768;
+    v9[2] = __53__Remote_Driver_Host_Delegate_copy_storage_settings___block_invoke;
+    v9[3] = &unk_1F5960848;
+    v9[6] = v20;
+    v10 = v21;
+    if (v21)
     {
-      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     copy_storage_settingsCopy = copy_storage_settings;
-    v10[4] = &v17;
-    v10[5] = &v13;
-    v4 = atomic_load(&v24);
+    v9[4] = &v16;
+    v9[5] = &v12;
+    v4 = atomic_load(&v23);
     if (v4)
     {
-      atomic_store(1u, v25);
+      atomic_store(1u, v24);
     }
 
-    dispatch_sync(queue[0], v10);
-    v5 = *(v18 + 6);
-    v6 = v14[3];
-    if (v11)
+    dispatch_sync(queue[0], v9);
+    v5 = *(v17 + 6);
+    v6 = v13[3];
+    if (v10)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
     }
 
-    _Block_object_dispose(&v13, 8);
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v16, 8);
     AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(queue);
   }
 
@@ -168,114 +167,112 @@
     v5 = 560947818;
   }
 
-  if (v22)
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  v8 = v5;
-  v9 = v6;
-  result.var1 = v9;
-  result.var0 = v8;
+  v7 = v5;
+  v8 = v6;
+  result.var1 = v8;
+  result.var0 = v7;
   return result;
 }
 
 - (int)write_storage_settings:(__CFString *)write_storage_settings storage_data:(void *)storage_data
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = 560947818;
   if (storage_data)
   {
-    [(Remote_Driver_Host_Delegate *)self remote_plugin];
-    if (v18)
+    objc_msgSend_remote_plugin(self, a2);
+    if (v17)
     {
-      AMCP::Utility::Dispatch_Queue::Dispatch_Queue(queue, (v18 + 392));
-      v14 = 0;
-      v15 = &v14;
-      v16 = 0x2020000000;
-      v17 = 0;
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3321888768;
-      v10[2] = __67__Remote_Driver_Host_Delegate_write_storage_settings_storage_data___block_invoke;
-      v10[3] = &unk_1F5960810;
-      v10[5] = v18;
-      v11 = v19;
-      if (v19)
+      AMCP::Utility::Dispatch_Queue::Dispatch_Queue(queue, (v17 + 392));
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x2020000000;
+      v16 = 0;
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3321888768;
+      v9[2] = __67__Remote_Driver_Host_Delegate_write_storage_settings_storage_data___block_invoke;
+      v9[3] = &unk_1F5960810;
+      v9[5] = v17;
+      v10 = v18;
+      if (v18)
       {
-        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v10[4] = &v14;
+      v9[4] = &v13;
       storage_dataCopy = storage_data;
       write_storage_settingsCopy = write_storage_settings;
-      v7 = atomic_load(&v21);
+      v7 = atomic_load(&v20);
       if (v7)
       {
-        atomic_store(1u, v22);
+        atomic_store(1u, v21);
       }
 
-      dispatch_sync(queue[0], v10);
-      v4 = *(v15 + 6);
-      if (v11)
+      dispatch_sync(queue[0], v9);
+      v4 = *(v14 + 6);
+      if (v10)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v10);
       }
 
-      _Block_object_dispose(&v14, 8);
+      _Block_object_dispose(&v13, 8);
       AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(queue);
     }
 
-    if (v19)
+    if (v18)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)request_config_change:(unsigned int)request_config_change change_action:(unint64_t)change_action change_token:(unint64_t)change_token
 {
-  v26 = *MEMORY[0x1E69E9840];
-  [(Remote_Driver_Host_Delegate *)self remote_plugin];
-  if (v14)
+  v25 = *MEMORY[0x1E69E9840];
+  objc_msgSend_remote_plugin(self, a2);
+  if (v13)
   {
-    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(v21, (v14 + 392));
-    if (v15)
+    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(v20, (v13 + 392));
+    if (v14)
     {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v8 = atomic_load(&v22);
+    v8 = atomic_load(&v21);
     if (v8)
     {
-      atomic_store(1u, v23);
+      atomic_store(1u, v22);
     }
 
-    if (v25 != 1)
+    if (v24 != 1)
     {
-      v12 = v21[0];
+      v12 = v20[0];
       operator new();
     }
 
-    if (v15)
+    if (v14)
     {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v9 = v24;
-    v10 = v21[0];
+    v9 = v23;
+    v10 = v20[0];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3321888768;
     block[2] = ___ZNK4AMCP7Utility14Dispatch_Queue5asyncIZ80__Remote_Driver_Host_Delegate_request_config_change_change_action_change_token__E3__8EEvOT__block_invoke;
     block[3] = &__block_descriptor_72_ea8_32c92_ZTSZ80__Remote_Driver_Host_Delegate_request_config_change_change_action_change_token__E3__8_e5_v8__0l;
-    block[4] = v14;
-    v17 = v15;
-    if (v15)
+    block[4] = v13;
+    v16 = v14;
+    if (v14)
     {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     request_config_changeCopy = request_config_change;
@@ -284,26 +281,24 @@
     v11 = v9;
     dispatch_group_async(v11, v10, block);
 
-    if (v17)
+    if (v16)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
 
-    if (v15)
+    if (v14)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
     }
 
-    AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(v21);
+    AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(v20);
   }
 
-  if (v15)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)request_config_change:(uint64_t *)request_config_change change_action:change_token:
@@ -333,8 +328,8 @@
 
 - (void)request_config_change:change_action:change_token:
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (*(*self + 752))
+  v13 = *MEMORY[0x1E69E9840];
+  if ((*self)[18].__on_zero_shared_weak)
   {
     operator new();
   }
@@ -365,95 +360,91 @@
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(self + 4);
-    v8 = 136315650;
-    v9 = "HALS_UCRemotePlugIn.mm";
-    v10 = 1024;
-    v11 = 123;
-    v12 = 1024;
-    v13 = v7;
-    _os_log_error_impl(&dword_1DE1F9000, v5, OS_LOG_TYPE_ERROR, "%32s:%-5d The host ref is null, cannot request config change for object id %u", &v8, 0x18u);
+    v6 = *(self + 4);
+    v7 = 136315650;
+    v8 = "HALS_UCRemotePlugIn.mm";
+    v9 = 1024;
+    v10 = 123;
+    v11 = 1024;
+    v12 = v6;
+    _os_log_error_impl(&dword_1DE1F9000, v5, OS_LOG_TYPE_ERROR, "%32s:%-5d The host ref is null, cannot request config change for object id %u", &v7, 0x18u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)object_properties_changed:(unsigned int)object_properties_changed data:(id)data
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  [(Remote_Driver_Host_Delegate *)self remote_plugin];
-  if (v16)
+  objc_msgSend_remote_plugin(self);
+  if (v15)
   {
-    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(v22, (v16 + 392));
-    if (v17)
+    AMCP::Utility::Dispatch_Queue::Dispatch_Queue(v21, (v15 + 392));
+    if (v16)
     {
-      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v7 = dataCopy;
-    v8 = atomic_load(&v23);
+    v8 = atomic_load(&v22);
     if (v8)
     {
-      atomic_store(1u, v24);
+      atomic_store(1u, v23);
     }
 
-    if (v26 != 1)
+    if (v25 != 1)
     {
-      v14 = v22[0];
+      v14 = v21[0];
       operator new();
     }
 
-    if (v17)
+    if (v16)
     {
-      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v9 = v7;
     v10 = v9;
-    v11 = v25;
-    v12 = v22[0];
+    v11 = v24;
+    v12 = v21[0];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3321888768;
     block[2] = ___ZNK4AMCP7Utility14Dispatch_Queue5asyncIZ62__Remote_Driver_Host_Delegate_object_properties_changed_data__E3__7EEvOT__block_invoke;
     block[3] = &__block_descriptor_64_ea8_32c74_ZTSZ62__Remote_Driver_Host_Delegate_object_properties_changed_data__E3__7_e5_v8__0l;
-    block[4] = v16;
-    v19 = v17;
-    if (v17)
+    block[4] = v15;
+    v18 = v16;
+    if (v16)
     {
-      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     object_properties_changedCopy = object_properties_changed;
-    v21 = v9;
+    v20 = v9;
     v13 = v11;
     dispatch_group_async(v13, v12, block);
 
-    if (v19)
+    if (v18)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
 
-    if (v17)
+    if (v16)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
 
     else
     {
     }
 
-    AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(v22);
+    AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(v21);
   }
 
-  if (v17)
+  if (v16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)object_properties_changed:(uint64_t *)object_properties_changed data:
@@ -484,58 +475,54 @@
 
 - (void)object_properties_changed:data:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [*(self + 24) bytes];
   [*(self + 24) length];
   v2 = *(*self + 752);
   if (v2)
   {
     v3 = *v2;
-    v4 = *(self + 16);
-    v5 = *MEMORY[0x1E69E9840];
 
     v3();
   }
 
   else
   {
-    v6 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v6 & 1) == 0)
+    v4 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v4 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v7 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v8 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v8)
+    v5 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v6 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v6)
     {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v9 = *v7;
-      AMCP::Log::Scope::get_os_log_t(*v7);
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+      v7 = *v5;
+      AMCP::Log::Scope::get_os_log_t(*v5);
       objc_claimAutoreleasedReturnValue();
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
 
     else
     {
-      v9 = *v7;
-      AMCP::Log::Scope::get_os_log_t(*v7);
+      v7 = *v5;
+      AMCP::Log::Scope::get_os_log_t(*v5);
       objc_claimAutoreleasedReturnValue();
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(self + 16);
-      v12 = 136315650;
-      v13 = "HALS_UCRemotePlugIn.mm";
-      v14 = 1024;
-      v15 = 97;
-      v16 = 1024;
-      v17 = v11;
-      _os_log_error_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_ERROR, "%32s:%-5d The host ref is null, cannot issue properties changed for object id %u", &v12, 0x18u);
+      v8 = *(self + 16);
+      v9 = 136315650;
+      v10 = "HALS_UCRemotePlugIn.mm";
+      v11 = 1024;
+      v12 = 97;
+      v13 = 1024;
+      v14 = v8;
+      _os_log_error_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_ERROR, "%32s:%-5d The host ref is null, cannot issue properties changed for object id %u", &v9, 0x18u);
     }
-
-    v10 = *MEMORY[0x1E69E9840];
   }
 }
 

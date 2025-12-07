@@ -1,7 +1,6 @@
 @interface MRExternalDevicePairingSession
 - (BOOL)_useSystemPairing;
 - (BOOL)isPaired;
-- (BOOL)isUsingSystemPairing;
 - (MRExternalDevicePairingSession)initWithDevice:(id)device;
 - (id)pairedDevices;
 - (id)removePeer;
@@ -19,13 +18,6 @@
   v4.receiver = self;
   v4.super_class = MRExternalDevicePairingSession;
   return [(MRCryptoPairingSession *)&v4 initWithRole:0 device:device];
-}
-
-- (BOOL)isUsingSystemPairing
-{
-  pairingSession = self->_pairingSession;
-  v3 = objc_opt_class();
-  return v3 == objc_opt_class();
 }
 
 - (BOOL)isPaired
@@ -405,28 +397,26 @@ void __90__MRExternalDevicePairingSession__openSecuritySessionInState_useSystemP
 
 - (void)removePeer
 {
-  v9 = *MEMORY[0x1E69E9840];
   device = [self device];
-  OUTLINED_FUNCTION_0_19(&dword_1A2860000, v2, v3, "[CryptoPairingSession(MRExternalDevicePairingSession)] Unpairing Device %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = device;
+  OUTLINED_FUNCTION_0_19(&dword_1A2860000, v2, v3, "[CryptoPairingSession(MRExternalDevicePairingSession)] Unpairing Device %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_openSecuritySessionInState:(char)a1 useSystemPairing:(uint64_t)a2 completion:(os_log_t)log .cold.1(char a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = "true";
   if ((a1 & 1) == 0)
   {
     v3 = "false";
   }
 
-  v5 = 134218242;
-  v6 = a2;
-  v7 = 2080;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1A2860000, log, OS_LOG_TYPE_DEBUG, "[CryptoPairingSession(MRExternalDevicePairingSession)] Opening Security Session in State = %ld usingSystemPairing = %s", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218242;
+  v5 = a2;
+  v6 = 2080;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1A2860000, log, OS_LOG_TYPE_DEBUG, "[CryptoPairingSession(MRExternalDevicePairingSession)] Opening Security Session in State = %ld usingSystemPairing = %s", &v4, 0x16u);
 }
 
 @end

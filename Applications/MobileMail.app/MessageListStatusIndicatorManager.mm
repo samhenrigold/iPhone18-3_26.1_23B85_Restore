@@ -86,8 +86,8 @@
 - (unint64_t)tierForIndicator:(unint64_t)indicator
 {
   result = 0;
-  v4 = &qword_1004FC280;
-  for (i = &qword_1004FC280; ; ++i)
+  v4 = qword_1004FC280;
+  for (i = qword_1004FC280; ; ++i)
   {
     v6 = result >= 3 ? v4 : i;
     if ((*v6 & indicator) != 0)
@@ -450,64 +450,64 @@ LABEL_15:
 
   v26 = v25;
   v49 = v9;
-  if (!v9)
-  {
-    [pointCopy count];
-  }
-
-  v27 = 0;
+  v27 = v9 || [pointCopy count] != 0;
   v28 = 0;
   v29 = 0;
+  v30 = 0;
   while (1)
   {
-    if (v28 >= [verticalStatusIndicatorViews count])
+    if (v29 >= [verticalStatusIndicatorViews count])
     {
-      retstr->var1 = v27;
-      goto LABEL_19;
+      retstr->var1 = v28;
+      goto LABEL_22;
     }
 
-    v30 = [verticalStatusIndicatorViews objectAtIndex:v28];
-    image = [v30 image];
+    v31 = [verticalStatusIndicatorViews objectAtIndex:v29];
+    image = [v31 image];
     [image size];
-    v33 = v32;
-    v35 = v34;
+    v34 = v33;
+    v36 = v35;
 
-    UIRoundToViewScale();
-    v37 = v36;
-    if (v29 >= [v26 count] || (objc_msgSend(v26, "objectAtIndex:", v29), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v38, "floatValue"), v40 = v39, ++v29, v38, v40 == 0.0))
+    v37 = UIRoundToViewScale((width - v34) * 0.5);
+    if (v30 >= [v26 count] || (objc_msgSend(v26, "objectAtIndex:", v30), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v38, "floatValue"), v40 = v39, ++v30, v38, v40 == 0.0))
     {
-      [v30 setAlpha:0.0];
+      [v31 setAlpha:0.0];
     }
 
     else
     {
-      UIRoundToViewScale();
-      MinY = v40 - v42;
-      ++v27;
+      v42 = v36 * 0.5;
+      if (!v27)
+      {
+        v42 = v36;
+      }
+
+      MinY = v40 - UIRoundToViewScale(v42);
+      ++v28;
     }
 
-    [v30 setFrame:{x + v37, MinY, v33, v35}];
-    [v30 frame];
+    [v31 setFrame:{x + v37, MinY, v34, v36}];
+    [v31 frame];
     if (CGRectGetMaxY(v58) > MaxY)
     {
       break;
     }
 
-    superview = [v30 superview];
+    superview = [v31 superview];
 
     if (!superview)
     {
-      [positionsCopy addSubview:v30];
+      [positionsCopy addSubview:v31];
     }
 
-    ++v28;
+    ++v29;
   }
 
-  retstr->var1 = v27;
-  [v30 setAlpha:0.0];
-  retstr->var1 = v27 - 1;
+  retstr->var1 = v28;
+  [v31 setAlpha:0.0];
+  retstr->var1 = v28 - 1;
 
-LABEL_19:
+LABEL_22:
   [(MessageListStatusIndicatorManager *)self _layoutHorizontalStatusIndicatorViewsInRect:positionsCopy contentView:v49 midX:x pointY:y shouldAlignWithCenter:width, height, center.x, center.y];
   retstr->var0.origin.x = v43;
   retstr->var0.origin.y = v44;

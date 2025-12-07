@@ -1,6 +1,6 @@
 __CFString *_stringValueForPropertyDictionary(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 objectForKey:*MEMORY[0x277CDC508]];
   v3 = [v1 objectForKey:*MEMORY[0x277CDC510]];
@@ -34,7 +34,7 @@ LABEL_3:
   v10 = (3 * v8);
   if (v10 < 0x801)
   {
-    v11 = v17;
+    v11 = v16;
     goto LABEL_11;
   }
 
@@ -59,7 +59,7 @@ LABEL_11:
     }
 
     v5 = CFStringCreateWithBytes(0, v11, v10, 0x600u, 0);
-    if (v11 != v17)
+    if (v11 != v16)
     {
       free(v11);
     }
@@ -71,7 +71,16 @@ LABEL_11:
 LABEL_16:
 
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
+}
+
+CGRect CGRectIntegral(CGRect rect)
+{
+  MEMORY[0x2821115D0](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v4;
+  result.size.width = v3;
+  result.origin.y = v2;
+  result.origin.x = v1;
+  return result;
 }

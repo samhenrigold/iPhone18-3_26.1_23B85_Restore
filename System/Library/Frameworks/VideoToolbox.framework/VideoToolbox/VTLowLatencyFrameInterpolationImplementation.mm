@@ -17,7 +17,7 @@
 
 - (BOOL)startSessionWithConfiguration:(id)configuration error:(id *)error
 {
-  VCPFrameworkOnce = loadVCPFrameworkOnce();
+  VCPFrameworkOnce = loadVCPFrameworkOnce(self, a2);
   if (VCPFrameworkOnce)
   {
     self->_vcpFrameInterpolationProcessor = [objc_alloc(NSClassFromString(&cfstr_Vcpvideointerp_0.isa)) initWithConfiguration:objc_msgSend(configuration error:{"vcpConfiguration"), error}];
@@ -159,7 +159,7 @@ LABEL_22:
   return v23;
 }
 
-void __72__VTLowLatencyFrameInterpolationImplementation_processWithParams_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+void __72__VTLowLatencyFrameInterpolationImplementation_processWithParams_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (a5 || a4)
   {
@@ -266,7 +266,7 @@ uint64_t __89__VTLowLatencyFrameInterpolationImplementation_processWithParameter
   v7 = [*(a1 + 32) objectAtIndex:a2];
   if (v7)
   {
-    [v7 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v7);
   }
 
   else

@@ -15,7 +15,7 @@
 - (void)prepareForReuse
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for GenericProductReviewActionCollectionViewCell();
+  v3.super_class = type metadata accessor for GenericProductReviewActionCollectionViewCell(0);
   v2 = v3.receiver;
   [(GenericProductReviewActionCollectionViewCell *)&v3 prepareForReuse];
   sub_1002DC534(0);
@@ -34,7 +34,7 @@
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore44GenericProductReviewActionCollectionViewCell_productTapToRateView) = 0;
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore44GenericProductReviewActionCollectionViewCell_productReviewActionsView) = 0;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for GenericProductReviewActionCollectionViewCell();
+  v11.super_class = type metadata accessor for GenericProductReviewActionCollectionViewCell(0);
   return [(GenericProductReviewActionCollectionViewCell *)&v11 initWithFrame:x, y, width, height];
 }
 

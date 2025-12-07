@@ -111,76 +111,69 @@
 
 - (BOOL)getAveragePower:(float *)power andPeakPower:(float *)peakPower
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   ioDataSize = 8;
   isAudioQueueRunning = [(VSAudioPlaybackServiceAT *)self isAudioQueueRunning];
   if (isAudioQueueRunning)
   {
-    Property = AudioQueueGetProperty(self->_audioQueue, 0x61716D64u, outData, &ioDataSize);
-    if (Property)
+    if (AudioQueueGetProperty(self->_audioQueue, 0x61716D64u, outData, &ioDataSize))
     {
-      v9 = Property;
-      v10 = VSGetLogDefault();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = VSGetLogDefault();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v18 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v9];
+        v14 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
         *buf = 136315394;
-        v24 = "[VSAudioPlaybackServiceAT getAveragePower:andPeakPower:]";
-        v25 = 2112;
-        v26 = v18;
-        _os_log_error_impl(&dword_2727E4000, v10, OS_LOG_TYPE_ERROR, "Error: %s, errno: %@", buf, 0x16u);
+        v20 = "[VSAudioPlaybackServiceAT getAveragePower:andPeakPower:]";
+        v21 = 2112;
+        v22 = v14;
+        _os_log_error_impl(&dword_2727E4000, v8, OS_LOG_TYPE_ERROR, "Error: %s, errno: %@", buf, 0x16u);
       }
 
-      v11 = MEMORY[0x277CCA9B8];
-      v12 = *MEMORY[0x277CCA590];
-      v21 = *MEMORY[0x277CCA450];
-      v22 = @"Unable to get kAudioQueueProperty_CurrentLevelMeterDB";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-      v14 = [v11 errorWithDomain:v12 code:v9 userInfo:v13];
+      v9 = MEMORY[0x277CCA9B8];
+      v17 = *MEMORY[0x277CCA450];
+      v18 = @"Unable to get kAudioQueueProperty_CurrentLevelMeterDB";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      v11 = [v9 errorWithDomain:? code:? userInfo:?];
       error = self->_error;
-      self->_error = v14;
+      self->_error = v11;
 
       LOBYTE(isAudioQueueRunning) = 0;
     }
 
     else
     {
-      v16 = outData[1];
+      v13 = outData[1];
       *power = *outData;
-      *peakPower = v16;
+      *peakPower = v13;
       LOBYTE(isAudioQueueRunning) = 1;
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return isAudioQueueRunning;
 }
 
 - (void)didEndAccessPower
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   inData = 0;
-  v3 = AudioQueueSetProperty(self->_audioQueue, 0x61716D65u, &inData, 4u);
-  if (v3)
+  if (AudioQueueSetProperty(self->_audioQueue, 0x61716D65u, &inData, 4u))
   {
-    v4 = v3;
-    v5 = VSGetLogDefault();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = VSGetLogDefault();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v13 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v4];
+      v9 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      v18 = v13;
-      _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Unable to disable kAudioQueueProperty_EnableLevelMetering, err: %@", buf, 0xCu);
+      v14 = v9;
+      _os_log_error_impl(&dword_2727E4000, v3, OS_LOG_TYPE_ERROR, "Unable to disable kAudioQueueProperty_EnableLevelMetering, err: %@", buf, 0xCu);
     }
 
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = *MEMORY[0x277CCA590];
-    v15 = *MEMORY[0x277CCA450];
-    v16 = @"Unable to disable kAudioQueueProperty_EnableLevelMetering";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v9 = [v6 errorWithDomain:v7 code:v4 userInfo:v8];
+    v4 = MEMORY[0x277CCA9B8];
+    v11 = *MEMORY[0x277CCA450];
+    v12 = @"Unable to disable kAudioQueueProperty_EnableLevelMetering";
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v6 = [v4 errorWithDomain:? code:? userInfo:?];
     error = self->_error;
-    self->_error = v9;
+    self->_error = v6;
   }
 
   timebase = self->_timebase;
@@ -188,38 +181,31 @@
   {
     CMTimebaseSetRate(timebase, 0.0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willBeginAccessPower
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   inData = 1;
-  v3 = AudioQueueSetProperty(self->_audioQueue, 0x61716D65u, &inData, 4u);
-  if (v3)
+  if (AudioQueueSetProperty(self->_audioQueue, 0x61716D65u, &inData, 4u))
   {
-    v4 = v3;
-    v5 = VSGetLogDefault();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = VSGetLogDefault();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v12 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v4];
+      v8 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      v17 = v12;
-      _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Unable to enable kAudioQueueProperty_EnableLevelMetering, err: %@", buf, 0xCu);
+      v13 = v8;
+      _os_log_error_impl(&dword_2727E4000, v3, OS_LOG_TYPE_ERROR, "Unable to enable kAudioQueueProperty_EnableLevelMetering, err: %@", buf, 0xCu);
     }
 
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = *MEMORY[0x277CCA590];
-    v14 = *MEMORY[0x277CCA450];
-    v15 = @"Unable to enable kAudioQueueProperty_EnableLevelMetering";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v9 = [v6 errorWithDomain:v7 code:v4 userInfo:v8];
+    v4 = MEMORY[0x277CCA9B8];
+    v10 = *MEMORY[0x277CCA450];
+    v11 = @"Unable to enable kAudioQueueProperty_EnableLevelMetering";
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v6 = [v4 errorWithDomain:? code:? userInfo:?];
     error = self->_error;
-    self->_error = v9;
+    self->_error = v6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addBoundaryTimeObserverForTimes:(id)times usingBlock:(id)block
@@ -228,173 +214,150 @@
   {
     blockCopy = block;
     timesCopy = times;
-    v8 = [[VSOccasionalTimesObserver alloc] initWithTimebase:self->_timebase times:timesCopy queue:0 block:blockCopy];
+    v7 = [VSOccasionalTimesObserver initWithTimebase:"initWithTimebase:times:queue:block:" times:? queue:? block:?];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isAudioQueueRunning
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   ioDataSize = 4;
   outData = 0;
-  Property = AudioQueueGetProperty(self->_audioQueue, 0x6171726Eu, &outData, &ioDataSize);
-  if (Property)
+  if (AudioQueueGetProperty(self->_audioQueue, 0x6171726Eu, &outData, &ioDataSize))
   {
-    v4 = Property;
-    v5 = VSGetLogDefault();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = VSGetLogDefault();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v13 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v4];
+      v9 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      v19 = v13;
-      _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueGetProperty isRunning %@", buf, 0xCu);
+      v15 = v9;
+      _os_log_error_impl(&dword_2727E4000, v3, OS_LOG_TYPE_ERROR, "Error AudioQueueGetProperty isRunning %@", buf, 0xCu);
     }
 
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = *MEMORY[0x277CCA590];
-    v16 = *MEMORY[0x277CCA450];
-    v17 = @"Error AudioQueueGetProperty isRunning";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v9 = [v6 errorWithDomain:v7 code:v4 userInfo:v8];
+    v4 = MEMORY[0x277CCA9B8];
+    v12 = *MEMORY[0x277CCA450];
+    v13 = @"Error AudioQueueGetProperty isRunning";
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v6 = [v4 errorWithDomain:? code:? userInfo:?];
     error = self->_error;
-    self->_error = v9;
+    self->_error = v6;
   }
 
-  result = outData != 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return outData != 0;
 }
 
 - (BOOL)isAudioQueueStalled
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (self->_state == 3)
+  v16 = *MEMORY[0x277D85DE8];
+  if (self->_state != 3)
   {
-    date = [MEMORY[0x277CBEAA8] date];
-    [date timeIntervalSinceDate:self->_audioQueueFutureEndDate];
-    v5 = v4 > 5.0;
-    if (v4 > 5.0)
+    return 0;
+  }
+
+  date = [MEMORY[0x277CBEAA8] date];
+  [date timeIntervalSinceDate:?];
+  v4 = v3 > 5.0;
+  if (v3 > 5.0)
+  {
+    v5 = objc_alloc_init(MEMORY[0x277CCA968]);
+    [v5 setDateFormat:?];
+    v6 = VSGetLogDefault();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = objc_alloc_init(MEMORY[0x277CCA968]);
-      [v6 setDateFormat:@"YYYY-MM-dd hh:mm:ss:SSS"];
-      v7 = VSGetLogDefault();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        v10 = [v6 stringFromDate:date];
-        v11 = [v6 stringFromDate:self->_audioQueueFutureEndDate];
-        v12 = 138412802;
-        v13 = v10;
-        v14 = 2112;
-        v15 = v11;
-        v16 = 2048;
-        v17 = 0x4014000000000000;
-        _os_log_error_impl(&dword_2727E4000, v7, OS_LOG_TYPE_ERROR, "Detected stall of audio queue, based on NSDate. Now: %@, supposed end time: %@, Tolerance: %.2f", &v12, 0x20u);
-      }
+      v8 = [v5 stringFromDate:?];
+      v9 = [v5 stringFromDate:?];
+      v10 = 138412802;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2048;
+      v15 = 0x4014000000000000;
+      _os_log_error_impl(&dword_2727E4000, v6, OS_LOG_TYPE_ERROR, "Detected stall of audio queue, based on NSDate. Now: %@, supposed end time: %@, Tolerance: %.2f", &v10, 0x20u);
     }
   }
 
-  else
-  {
-    v5 = 0;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v4;
 }
 
 - (void)waitForAudioQueueStop
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   state = self->_state;
   if (state != 1 && state != 4)
   {
     pthread_mutex_lock(&self->_waitForStateChangeMutex);
-    v5 = AudioQueueAddPropertyListener(self->_audioQueue, 0x6171726Eu, _VSAudioPlaybackServiceRunningStateChanged, self);
-    if (v5)
+    if (AudioQueueAddPropertyListener(self->_audioQueue, 0x6171726Eu, _VSAudioPlaybackServiceRunningStateChanged, self))
     {
-      v6 = v5;
-      v7 = VSGetLogDefault();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v5 = VSGetLogDefault();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v22 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v6];
-        LODWORD(v27.tv_sec) = 138412290;
-        *(&v27.tv_sec + 4) = v22;
-        _os_log_error_impl(&dword_2727E4000, v7, OS_LOG_TYPE_ERROR, "Error AudioQueueAddPropertyListener %@", &v27, 0xCu);
+        v13 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
+        LODWORD(v18.tv_sec) = 138412290;
+        *(&v18.tv_sec + 4) = v13;
+        _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueAddPropertyListener %@", &v18, 0xCu);
       }
 
-      v8 = MEMORY[0x277CCA9B8];
-      v9 = *MEMORY[0x277CCA590];
-      v10 = v6;
-      v28 = *MEMORY[0x277CCA450];
-      v29[0] = @"Error AudioQueueAddPropertyListener";
-      v11 = MEMORY[0x277CBEAC0];
-      v12 = v29;
-      v13 = &v28;
+      v6 = MEMORY[0x277CCA9B8];
+      v19 = *MEMORY[0x277CCA450];
+      v20 = @"Error AudioQueueAddPropertyListener";
+      v7 = MEMORY[0x277CBEAC0];
     }
 
     else
     {
       do
       {
-        v27.tv_sec = 0;
-        *&v27.tv_usec = 0;
-        v24.tv_sec = 0;
-        v24.tv_nsec = 0;
-        gettimeofday(&v27, 0);
-        v24.tv_sec = v27.tv_sec + 1;
-        v24.tv_nsec = 1000 * v27.tv_usec;
-        v14 = pthread_cond_timedwait(&self->_stateChangeCondition, &self->_waitForStateChangeMutex, &v24);
+        v18.tv_sec = 0;
+        *&v18.tv_usec = 0;
+        v15.tv_sec = 0;
+        v15.tv_nsec = 0;
+        gettimeofday(&v18, 0);
+        v15.tv_sec = v18.tv_sec + 1;
+        v15.tv_nsec = 1000 * v18.tv_usec;
+        v8 = pthread_cond_timedwait(&self->_stateChangeCondition, &self->_waitForStateChangeMutex, &v15);
       }
 
-      while ([(VSAudioPlaybackServiceAT *)self isAudioQueueRunning]&& (v14 != 60 || ![(VSAudioPlaybackServiceAT *)self isAudioQueueStalled]));
-      v15 = AudioQueueRemovePropertyListener(self->_audioQueue, 0x6171726Eu, _VSAudioPlaybackServiceRunningStateChanged, self);
-      if (!v15)
+      while ([(VSAudioPlaybackServiceAT *)self isAudioQueueRunning]&& (v8 != 60 || ![(VSAudioPlaybackServiceAT *)self isAudioQueueStalled]));
+      if (!AudioQueueRemovePropertyListener(self->_audioQueue, 0x6171726Eu, _VSAudioPlaybackServiceRunningStateChanged, self))
       {
         goto LABEL_17;
       }
 
-      v16 = v15;
-      v17 = VSGetLogDefault();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v9 = VSGetLogDefault();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v23 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v16];
-        LODWORD(v27.tv_sec) = 138412290;
-        *(&v27.tv_sec + 4) = v23;
-        _os_log_error_impl(&dword_2727E4000, v17, OS_LOG_TYPE_ERROR, "Error AudioQueueRemovePropertyListener %@", &v27, 0xCu);
+        v14 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
+        LODWORD(v18.tv_sec) = 138412290;
+        *(&v18.tv_sec + 4) = v14;
+        _os_log_error_impl(&dword_2727E4000, v9, OS_LOG_TYPE_ERROR, "Error AudioQueueRemovePropertyListener %@", &v18, 0xCu);
       }
 
-      v8 = MEMORY[0x277CCA9B8];
-      v9 = *MEMORY[0x277CCA590];
-      v10 = v16;
-      v25 = *MEMORY[0x277CCA450];
-      v26 = @"Error AudioQueueRemovePropertyListener";
-      v11 = MEMORY[0x277CBEAC0];
-      v12 = &v26;
-      v13 = &v25;
+      v6 = MEMORY[0x277CCA9B8];
+      v16 = *MEMORY[0x277CCA450];
+      v17 = @"Error AudioQueueRemovePropertyListener";
+      v7 = MEMORY[0x277CBEAC0];
     }
 
-    v18 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
-    v19 = [v8 errorWithDomain:v9 code:v10 userInfo:v18];
+    v10 = [v7 dictionaryWithObjects:? forKeys:? count:?];
+    v11 = [v6 errorWithDomain:? code:? userInfo:?];
     error = self->_error;
-    self->_error = v19;
+    self->_error = v11;
 
 LABEL_17:
     pthread_mutex_unlock(&self->_waitForStateChangeMutex);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pause
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = AudioQueuePause(self->_audioQueue);
   v4 = VSGetLogDefault();
   v5 = v4;
@@ -402,20 +365,17 @@ LABEL_17:
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v3];
+      v10 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      selfCopy = v12;
+      selfCopy = v10;
       _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueuePause %@", buf, 0xCu);
     }
 
     v6 = MEMORY[0x277CCA9B8];
-    v7 = *MEMORY[0x277CCA590];
-    v13 = *MEMORY[0x277CCA450];
-    v14 = @"Error AudioQueuePause";
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-    v8 = [v6 errorWithDomain:v7 code:v3 userInfo:v5];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:*MEMORY[0x277CCA450] forKeys:@"Error AudioQueuePause" count:?];
+    v7 = [v6 errorWithDomain:? code:? userInfo:?];
     error = self->_error;
-    self->_error = v8;
+    self->_error = v7;
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -430,13 +390,11 @@ LABEL_17:
   {
     CMTimebaseSetRate(timebase, 0.0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -451,38 +409,32 @@ LABEL_17:
   [(NSCondition *)self->_dequeueCondition signal];
   [(NSCondition *)self->_dequeueCondition unlock];
   pthread_mutex_unlock(&__VSAudioQueueBufferLock);
-  v4 = AudioQueueStop(self->_audioQueue, 1u);
-  if (v4)
+  if (AudioQueueStop(self->_audioQueue, 1u))
   {
-    v5 = v4;
-    v6 = VSGetLogDefault();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = VSGetLogDefault();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v13 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v5];
+      v9 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      v17 = v13;
-      _os_log_error_impl(&dword_2727E4000, v6, OS_LOG_TYPE_ERROR, "Error AudioQueueStop %@", buf, 0xCu);
+      v11 = v9;
+      _os_log_error_impl(&dword_2727E4000, v4, OS_LOG_TYPE_ERROR, "Error AudioQueueStop %@", buf, 0xCu);
     }
 
-    v7 = MEMORY[0x277CCA9B8];
-    v8 = *MEMORY[0x277CCA590];
-    v14 = *MEMORY[0x277CCA450];
-    v15 = @"Error AudioQueueStop";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v10 = [v7 errorWithDomain:v8 code:v5 userInfo:v9];
+    v5 = MEMORY[0x277CCA9B8];
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:*MEMORY[0x277CCA450] forKeys:@"Error AudioQueueStop" count:?];
+    v7 = [v5 errorWithDomain:? code:? userInfo:?];
     error = self->_error;
-    self->_error = v10;
+    self->_error = v7;
   }
 
   [(VSAudioPlaybackServiceAT *)self signalQueueRunningStateChange];
   [(VSAudioPlaybackServiceAT *)self didEndAccessPower];
   self->_enqueuedSampleCount = 0.0;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flushAndStop
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = VSGetLogDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -494,7 +446,7 @@ LABEL_17:
   [(NSCondition *)self->_dequeueCondition lock];
   while ([(NSMutableArray *)self->_enqueuedMappedAudioInfo count])
   {
-    if (![(NSCondition *)self->_dequeueCondition waitUntilDate:self->_audioQueueFutureEndDate])
+    if (![(NSCondition *)self->_dequeueCondition waitUntilDate:?])
     {
       v4 = VSGetLogDefault();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -508,116 +460,87 @@ LABEL_17:
   }
 
   [(NSCondition *)self->_dequeueCondition unlock];
-  v5 = AudioQueueFlush(self->_audioQueue);
-  if (v5)
+  if (AudioQueueFlush(self->_audioQueue))
   {
-    v6 = v5;
-    v7 = VSGetLogDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = VSGetLogDefault();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v27 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v6];
+      v15 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      v37 = v27;
-      _os_log_error_impl(&dword_2727E4000, v7, OS_LOG_TYPE_ERROR, "Error AudioQueueFlush %@", buf, 0xCu);
+      v19 = v15;
+      _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueFlush %@", buf, 0xCu);
     }
 
-    v8 = MEMORY[0x277CCA9B8];
-    v9 = *MEMORY[0x277CCA590];
-    v6 = v6;
-    v34 = *MEMORY[0x277CCA450];
-    v35 = @"Error AudioQueueFlush";
-    v10 = MEMORY[0x277CBEAC0];
-    v11 = &v35;
-    v12 = &v34;
-LABEL_17:
-    v15 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
-    v16 = [v8 errorWithDomain:v9 code:v6 userInfo:v15];
-    error = self->_error;
-    self->_error = v16;
+LABEL_16:
 
-    goto LABEL_18;
+    v6 = MEMORY[0x277CCA9B8];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v8 = [v6 errorWithDomain:? code:? userInfo:?];
+    error = self->_error;
+    self->_error = v8;
+
+    return;
   }
 
-  v13 = AudioQueueStop(self->_audioQueue, 0);
-  if (v13)
+  if (AudioQueueStop(self->_audioQueue, 0))
   {
-    v6 = v13;
-    v14 = VSGetLogDefault();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v5 = VSGetLogDefault();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v28 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v6];
+      v16 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      v37 = v28;
-      _os_log_error_impl(&dword_2727E4000, v14, OS_LOG_TYPE_ERROR, "Error AudioQueueStop %@", buf, 0xCu);
+      v19 = v16;
+      _os_log_error_impl(&dword_2727E4000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueStop %@", buf, 0xCu);
     }
 
-    v8 = MEMORY[0x277CCA9B8];
-    v9 = *MEMORY[0x277CCA590];
-    v6 = v6;
-    v32 = *MEMORY[0x277CCA450];
-    v33 = @"Error AudioQueueStop";
-    v10 = MEMORY[0x277CBEAC0];
-    v11 = &v33;
-    v12 = &v32;
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   [(VSAudioPlaybackServiceAT *)self waitForAudioQueueStop];
-  v19 = AudioQueueStop(self->_audioQueue, 1u);
-  if (v19)
+  if (AudioQueueStop(self->_audioQueue, 1u))
   {
-    v20 = v19;
-    v21 = VSGetLogDefault();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v10 = VSGetLogDefault();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v29 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v20];
+      v17 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      v37 = v29;
-      _os_log_error_impl(&dword_2727E4000, v21, OS_LOG_TYPE_ERROR, "Error AudioQueueStop %@", buf, 0xCu);
+      v19 = v17;
+      _os_log_error_impl(&dword_2727E4000, v10, OS_LOG_TYPE_ERROR, "Error AudioQueueStop %@", buf, 0xCu);
     }
 
-    v22 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA590];
-    v30 = *MEMORY[0x277CCA450];
-    v31 = @"Error AudioQueueStop";
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-    v25 = [v22 errorWithDomain:v23 code:v20 userInfo:v24];
-    v26 = self->_error;
-    self->_error = v25;
+    v11 = MEMORY[0x277CCA9B8];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:*MEMORY[0x277CCA450] forKeys:@"Error AudioQueueStop" count:?];
+    v13 = [v11 errorWithDomain:? code:? userInfo:?];
+    v14 = self->_error;
+    self->_error = v13;
   }
 
   [(VSAudioPlaybackServiceAT *)self didEndAccessPower];
   self->_state = 4;
   self->_enqueuedSampleCount = 0.0;
-LABEL_18:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_enqueueAudioBytesLength:(unsigned int)length audioBytes:(const void *)bytes packetCount:(int64_t)count packetDescriptions:(const void *)descriptions
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (length)
   {
     outBuffer = 0;
-    v11 = AudioQueueAllocateBuffer(self->_audioQueue, length, &outBuffer);
-    if (v11)
+    if (AudioQueueAllocateBuffer(self->_audioQueue, length, &outBuffer))
     {
-      v12 = v11;
-      v13 = VSGetLogDefault();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v11 = VSGetLogDefault();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v44 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v12];
+        v33 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
         LODWORD(outTimeStamp.mSampleTime) = 138412290;
-        *(&outTimeStamp.mSampleTime + 4) = v44;
-        _os_log_error_impl(&dword_2727E4000, v13, OS_LOG_TYPE_ERROR, "Error AudioQueueAllocateBuffer %@", &outTimeStamp, 0xCu);
+        *(&outTimeStamp.mSampleTime + 4) = v33;
+        _os_log_error_impl(&dword_2727E4000, v11, OS_LOG_TYPE_ERROR, "Error AudioQueueAllocateBuffer %@", &outTimeStamp, 0xCu);
       }
 
-      v14 = MEMORY[0x277CCA9B8];
-      v15 = *MEMORY[0x277CCA590];
-      v16 = v12;
-LABEL_21:
-      v34 = [v14 errorWithDomain:v15 code:v16 userInfo:0];
-      goto LABEL_30;
+LABEL_20:
+
+      v25 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+      goto LABEL_29;
     }
 
     memcpy(outBuffer->mAudioData, bytes, length);
@@ -636,131 +559,130 @@ LABEL_21:
       mSampleTime = self->_audioStartTimeStamp.mSampleTime;
       if (mSampleTime == 3.40282347e38)
       {
-        v21 = *&outTimeStamp.mRateScalar;
+        v16 = *&outTimeStamp.mRateScalar;
         *&self->_audioStartTimeStamp.mSampleTime = *&outTimeStamp.mSampleTime;
-        *&self->_audioStartTimeStamp.mRateScalar = v21;
-        v22 = *&outTimeStamp.mSMPTETime.mHours;
+        *&self->_audioStartTimeStamp.mRateScalar = v16;
+        v17 = *&outTimeStamp.mSMPTETime.mHours;
         *&self->_audioStartTimeStamp.mSMPTETime.mSubframes = *&outTimeStamp.mSMPTETime.mSubframes;
-        *&self->_audioStartTimeStamp.mSMPTETime.mHours = v22;
-        v23 = VSGetLogDefault();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        *&self->_audioStartTimeStamp.mSMPTETime.mHours = v17;
+        v18 = VSGetLogDefault();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v24 = self->_audioStartTimeStamp.mSampleTime;
+          v19 = self->_audioStartTimeStamp.mSampleTime;
           *buf = 134217984;
-          selfCopy = *&v24;
-          _os_log_impl(&dword_2727E4000, v23, OS_LOG_TYPE_INFO, "Audio queue start sample time: %.0f", buf, 0xCu);
+          selfCopy = *&v19;
+          _os_log_impl(&dword_2727E4000, v18, OS_LOG_TYPE_INFO, "Audio queue start sample time: %.0f", buf, 0xCu);
         }
 
         mSampleTime = self->_audioStartTimeStamp.mSampleTime;
       }
 
-      v25 = outTimeStamp.mSampleTime;
+      v20 = outTimeStamp.mSampleTime;
       enqueuedSampleCount = self->_enqueuedSampleCount;
-      v27 = outTimeStamp.mSampleTime <= enqueuedSampleCount + mSampleTime;
+      v22 = outTimeStamp.mSampleTime <= enqueuedSampleCount + mSampleTime;
       self->_discontinuedDuringPlayback |= outTimeStamp.mSampleTime > enqueuedSampleCount + mSampleTime;
-      if (!v27)
+      if (!v22)
       {
-        v28 = v25 - enqueuedSampleCount - mSampleTime;
-        v29 = VSGetLogDefault();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v23 = v20 - enqueuedSampleCount - mSampleTime;
+        v24 = VSGetLogDefault();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(selfCopy) = v28;
-          _os_log_error_impl(&dword_2727E4000, v29, OS_LOG_TYPE_ERROR, "Detected stalled audio generation, will enqueue %d silence frame to compensate.", buf, 8u);
+          LODWORD(selfCopy) = v23;
+          _os_log_error_impl(&dword_2727E4000, v24, OS_LOG_TYPE_ERROR, "Detected stalled audio generation, will enqueue %d silence frame to compensate.", buf, 8u);
         }
 
-        audioQueue = self->_audioQueue;
         AudioQueueEnqueueSilence();
-        self->_enqueuedSampleCount = v28 + self->_enqueuedSampleCount;
+        self->_enqueuedSampleCount = v23 + self->_enqueuedSampleCount;
       }
     }
 
-    v31 = AudioQueueEnqueueBuffer(self->_audioQueue, outBuffer, count, descriptions);
-    if (v31)
+    if (AudioQueueEnqueueBuffer(self->_audioQueue, outBuffer, count, descriptions))
     {
-      v32 = v31;
-      v33 = VSGetLogDefault();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v11 = VSGetLogDefault();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v45 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v32];
+        v34 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
         *buf = 138412290;
-        selfCopy = v45;
-        _os_log_error_impl(&dword_2727E4000, v33, OS_LOG_TYPE_ERROR, "Error AudioQueueEnqueueBuffer %@", buf, 0xCu);
+        selfCopy = v34;
+        _os_log_error_impl(&dword_2727E4000, v11, OS_LOG_TYPE_ERROR, "Error AudioQueueEnqueueBuffer %@", buf, 0xCu);
       }
 
-      v14 = MEMORY[0x277CCA9B8];
-      v15 = *MEMORY[0x277CCA590];
-      v16 = v32;
-      goto LABEL_21;
+      goto LABEL_20;
     }
 
     kdebug_trace();
     if (count && descriptions)
     {
-      v35 = (self->_asbd.mFramesPerPacket * count);
+      v26 = (self->_asbd.mFramesPerPacket * count);
     }
 
     else
     {
-      v35 = (length / self->_asbd.mBytesPerFrame);
+      v26 = (length / self->_asbd.mBytesPerFrame);
     }
 
-    v36 = v35 + self->_enqueuedSampleCount;
-    self->_enqueuedSampleCount = v36;
-    v37 = [(NSDate *)self->_audioQueueStartDate dateByAddingTimeInterval:v36 / self->_asbd.mSampleRate];
+    self->_enqueuedSampleCount = v26 + self->_enqueuedSampleCount;
+    v27 = [(NSDate *)self->_audioQueueStartDate dateByAddingTimeInterval:?];
     audioQueueFutureEndDate = self->_audioQueueFutureEndDate;
-    self->_audioQueueFutureEndDate = v37;
+    self->_audioQueueFutureEndDate = v27;
 
-    v39 = VSGetLogDefault();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    v29 = VSGetLogDefault();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      v40 = self->_enqueuedSampleCount;
+      v30 = self->_enqueuedSampleCount;
       discontinuedDuringPlayback = self->_discontinuedDuringPlayback;
       *buf = 134219008;
       selfCopy = self;
-      v49 = 2048;
-      v50 = outTimeStamp.mSampleTime;
-      v51 = 2048;
+      v38 = 2048;
+      v39 = outTimeStamp.mSampleTime;
+      v40 = 2048;
       lengthCopy = length;
-      v53 = 2048;
-      v54 = v40;
-      v55 = 1024;
-      v56 = discontinuedDuringPlayback;
-      _os_log_impl(&dword_2727E4000, v39, OS_LOG_TYPE_INFO, "VSAudioPlaybackService %p enqueued audio buffer at sample time: %.2f, size: %ld, total enqueued samples: %.0f, discontinuity: %{BOOL}d", buf, 0x30u);
+      v42 = 2048;
+      v43 = v30;
+      v44 = 1024;
+      v45 = discontinuedDuringPlayback;
+      _os_log_impl(&dword_2727E4000, v29, OS_LOG_TYPE_INFO, "VSAudioPlaybackService %p enqueued audio buffer at sample time: %.2f, size: %ld, total enqueued samples: %.0f, discontinuity: %{BOOL}d", buf, 0x30u);
     }
   }
 
-  v34 = 0;
-LABEL_30:
-  v42 = *MEMORY[0x277D85DE8];
+  v25 = 0;
+LABEL_29:
 
-  return v34;
+  return v25;
 }
 
 - (void)dequeueAvailableMappedAudio
 {
   if (self->_playingBufferCount <= 2)
   {
-    v14 = v7;
-    v15 = v6;
-    v16 = v5;
-    v17 = v4;
-    v18 = v3;
-    v19 = v2;
-    v20 = v8;
-    v21 = v9;
+    v15 = v7;
+    v16 = v6;
+    v17 = v5;
+    v18 = v4;
+    v19 = v3;
+    v20 = v2;
+    v21 = v8;
+    v22 = v9;
     do
     {
-      if (![(NSMutableArray *)self->_enqueuedMappedAudioInfo count:v14]|| self->_state == 4)
+      if (![(NSMutableArray *)self->_enqueuedMappedAudioInfo count:v15]|| self->_state == 4)
       {
         break;
       }
 
       firstObject = [(NSMutableArray *)self->_enqueuedMappedAudioInfo firstObject];
-      [(NSMutableArray *)self->_enqueuedMappedAudioInfo removeObjectAtIndex:0];
+      [(NSMutableArray *)self->_enqueuedMappedAudioInfo removeObjectAtIndex:?];
       [firstObject audioBytesRange];
-      v13 = -[VSAudioPlaybackServiceAT _enqueueAudioBytesLength:audioBytes:packetCount:packetDescriptions:](self, "_enqueueAudioBytesLength:audioBytes:packetCount:packetDescriptions:", v12, -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", [firstObject audioBytesRange]), objc_msgSend(firstObject, "packetCount"), -[VSMappedData bytesAtOffset:](self->_mappedData, "bytesAtOffset:", objc_msgSend(firstObject, "packetDescriptionsRange")));
-      if (!v13)
+      mappedData = self->_mappedData;
+      [firstObject audioBytesRange];
+      [(VSMappedData *)mappedData bytesAtOffset:?];
+      [firstObject packetCount];
+      v13 = self->_mappedData;
+      [firstObject packetDescriptionsRange];
+      [(VSMappedData *)v13 bytesAtOffset:?];
+      v14 = [VSAudioPlaybackServiceAT _enqueueAudioBytesLength:"_enqueueAudioBytesLength:audioBytes:packetCount:packetDescriptions:" audioBytes:? packetCount:? packetDescriptions:?];
+      if (!v14)
       {
         ++self->_playingBufferCount;
       }
@@ -779,46 +701,41 @@ LABEL_30:
   descriptionsCopy = descriptions;
   enqueueCopy = enqueue;
   pthread_mutex_lock(&__VSAudioQueueBufferLock);
-  v16 = objc_alloc_init(VSAudioMappedInfoAT);
-  v10 = [(VSMappedData *)self->_mappedData appendData:enqueueCopy];
-  v12 = v11;
+  v9 = objc_alloc_init(VSAudioMappedInfoAT);
+  [(VSMappedData *)self->_mappedData appendData:?];
 
-  [(VSAudioMappedInfoAT *)v16 setAudioBytesRange:v10, v12];
-  [(VSAudioMappedInfoAT *)v16 setPacketCount:count];
-  v13 = [(VSMappedData *)self->_mappedData appendData:descriptionsCopy];
-  v15 = v14;
+  [(VSAudioMappedInfoAT *)v9 setAudioBytesRange:?];
+  [(VSAudioMappedInfoAT *)v9 setPacketCount:?];
+  [(VSMappedData *)self->_mappedData appendData:?];
 
-  [(VSAudioMappedInfoAT *)v16 setPacketDescriptionsRange:v13, v15];
-  [(NSMutableArray *)self->_enqueuedMappedAudioInfo addObject:v16];
+  [(VSAudioMappedInfoAT *)v9 setPacketDescriptionsRange:?];
+  [(NSMutableArray *)self->_enqueuedMappedAudioInfo addObject:?];
   [(VSAudioPlaybackServiceAT *)self dequeueAvailableMappedAudio];
   pthread_mutex_unlock(&__VSAudioQueueBufferLock);
 }
 
 - (id)start
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   error = self->_error;
   self->_error = 0;
 
-  v4 = AudioQueueStart(self->_audioQueue, 0);
-  if (v4)
+  if (AudioQueueStart(self->_audioQueue, 0))
   {
-    v5 = v4;
-    v6 = VSGetLogDefault();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = VSGetLogDefault();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v20 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v5];
-      LODWORD(v21.value) = 138412290;
-      *(&v21.value + 4) = v20;
-      _os_log_error_impl(&dword_2727E4000, v6, OS_LOG_TYPE_ERROR, "Error AudioQueueStart %@", &v21, 0xCu);
+      v16 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
+      LODWORD(v17.value) = 138412290;
+      *(&v17.value + 4) = v16;
+      _os_log_error_impl(&dword_2727E4000, v4, OS_LOG_TYPE_ERROR, "Error AudioQueueStart %@", &v17, 0xCu);
     }
 
-    v7 = MEMORY[0x277CCA9B8];
-    v8 = *MEMORY[0x277CCA590];
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = @"Error AudioQueueStart";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    v10 = [v7 errorWithDomain:v8 code:v5 userInfo:v9];
+    v5 = MEMORY[0x277CCA9B8];
+    v18 = *MEMORY[0x277CCA450];
+    v19 = @"Error AudioQueueStart";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v7 = [v5 errorWithDomain:? code:? userInfo:?];
   }
 
   else
@@ -828,33 +745,31 @@ LABEL_30:
     audioQueueStartDate = self->_audioQueueStartDate;
     self->_audioQueueStartDate = date;
 
-    v13 = [(NSDate *)self->_audioQueueStartDate dateByAddingTimeInterval:self->_enqueuedSampleCount / self->_asbd.mSampleRate];
+    v10 = [(NSDate *)self->_audioQueueStartDate dateByAddingTimeInterval:?];
     audioQueueFutureEndDate = self->_audioQueueFutureEndDate;
-    self->_audioQueueFutureEndDate = v13;
+    self->_audioQueueFutureEndDate = v10;
 
-    v15 = VSGetLogDefault();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v12 = VSGetLogDefault();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v21.value) = 134217984;
-      *(&v21.value + 4) = self;
-      _os_log_impl(&dword_2727E4000, v15, OS_LOG_TYPE_DEFAULT, "VSAudioPlaybackService %p success AudioQueueStart", &v21, 0xCu);
+      LODWORD(v17.value) = 134217984;
+      *(&v17.value + 4) = self;
+      _os_log_impl(&dword_2727E4000, v12, OS_LOG_TYPE_DEFAULT, "VSAudioPlaybackService %p success AudioQueueStart", &v17, 0xCu);
     }
 
     timebase = self->_timebase;
     if (timebase)
     {
       CMTimebaseSetRate(timebase, 1.0);
-      v17 = self->_timebase;
-      v21 = **&MEMORY[0x277CC08F0];
-      CMTimebaseSetTime(v17, &v21);
+      v14 = self->_timebase;
+      v17 = **&MEMORY[0x277CC08F0];
+      CMTimebaseSetTime(v14, &v17);
     }
 
-    v10 = 0;
+    v7 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v7;
 }
 
 - (void)signalQueueRunningStateChange
@@ -885,21 +800,19 @@ LABEL_30:
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter removeObserver:self];
+  [defaultCenter removeObserver:?];
 
-  v4 = AudioQueueDispose(self->_audioQueue, 1u);
-  if (v4)
+  if (AudioQueueDispose(self->_audioQueue, 1u))
   {
-    v5 = v4;
-    v6 = VSGetLogDefault();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = VSGetLogDefault();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v5];
+      v6 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
       *buf = 138412290;
-      v12 = v9;
-      _os_log_error_impl(&dword_2727E4000, v6, OS_LOG_TYPE_ERROR, "Error AudioQueueDispose %@", buf, 0xCu);
+      v9 = v6;
+      _os_log_error_impl(&dword_2727E4000, v4, OS_LOG_TYPE_ERROR, "Error AudioQueueDispose %@", buf, 0xCu);
     }
   }
 
@@ -909,19 +822,18 @@ LABEL_30:
     CFRelease(timebase);
   }
 
-  v10.receiver = self;
-  v10.super_class = VSAudioPlaybackServiceAT;
-  [(VSAudioPlaybackServiceAT *)&v10 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = VSAudioPlaybackServiceAT;
+  [(VSAudioPlaybackServiceAT *)&v7 dealloc];
 }
 
 - (VSAudioPlaybackServiceAT)initWithAudioSessionID:(unsigned int)d asbd:(AudioStreamBasicDescription *)asbd
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   mach_absolute_time();
-  v41.receiver = self;
-  v41.super_class = VSAudioPlaybackServiceAT;
-  v7 = [(VSAudioPlaybackServiceAT *)&v41 init];
+  v32.receiver = self;
+  v32.super_class = VSAudioPlaybackServiceAT;
+  v7 = [(VSAudioPlaybackServiceAT *)&v32 init];
   v8 = v7;
   if (v7)
   {
@@ -964,84 +876,75 @@ LABEL_30:
     v17 = *(v8 + 12);
     *(v8 + 12) = v16;
 
-    v18 = *MEMORY[0x277CBF048];
-    v19 = *(v8 + 3);
-    v20 = AudioQueueNewOutputWithAudioSession();
-    if (v20)
+    if (AudioQueueNewOutputWithAudioSession())
     {
-      v21 = v20;
-      v22 = VSGetLogDefault();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v18 = VSGetLogDefault();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v38 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v21];
+        v29 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
         *buf = 138412290;
-        v43 = v38;
-        _os_log_error_impl(&dword_2727E4000, v22, OS_LOG_TYPE_ERROR, "Error AudioQueueNewOutputWithAudioSession %@", buf, 0xCu);
+        v34 = v29;
+        _os_log_error_impl(&dword_2727E4000, v18, OS_LOG_TYPE_ERROR, "Error AudioQueueNewOutputWithAudioSession %@", buf, 0xCu);
       }
 
-      v23 = 0;
+      v19 = 0;
       goto LABEL_23;
     }
 
-    v24 = AudioQueueSetProperty(*(v8 + 2), 0x63756964u, &VSAudioPlaybackAudioQueueUID, 8u);
-    if (v24)
+    if (AudioQueueSetProperty(*(v8 + 2), 0x63756964u, &VSAudioPlaybackAudioQueueUID, 8u))
     {
-      v25 = v24;
-      v26 = VSGetLogDefault();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v20 = VSGetLogDefault();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v39 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v25];
+        v30 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
         *buf = 138412290;
-        v43 = v39;
-        _os_log_error_impl(&dword_2727E4000, v26, OS_LOG_TYPE_ERROR, "Unable to set kAudioQueueProperty_ClientUID, errno: %@", buf, 0xCu);
+        v34 = v30;
+        _os_log_error_impl(&dword_2727E4000, v20, OS_LOG_TYPE_ERROR, "Unable to set kAudioQueueProperty_ClientUID, errno: %@", buf, 0xCu);
       }
     }
 
-    v27 = *MEMORY[0x277CBECE8];
+    v21 = *MEMORY[0x277CBECE8];
     HostTimeClock = CMClockGetHostTimeClock();
-    v29 = CMTimebaseCreateWithSourceClock(v27, HostTimeClock, v8 + 4);
-    if (v29)
+    if (CMTimebaseCreateWithSourceClock(v21, HostTimeClock, v8 + 4))
     {
-      v30 = v29;
-      v31 = VSGetLogDefault();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v23 = VSGetLogDefault();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v40 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:v30];
+        v31 = [MEMORY[0x277CCACA8] vs_stringFrom4CC:?];
         *buf = 138412290;
-        v43 = v40;
-        _os_log_error_impl(&dword_2727E4000, v31, OS_LOG_TYPE_ERROR, "Error CMTimebaseCreateWithSourceClock: %@", buf, 0xCu);
+        v34 = v31;
+        _os_log_error_impl(&dword_2727E4000, v23, OS_LOG_TYPE_ERROR, "Error CMTimebaseCreateWithSourceClock: %@", buf, 0xCu);
       }
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v8 selector:sel_handleMediaServerReset name:*MEMORY[0x277CB80A0] object:0];
+    [defaultCenter addObserver:? selector:? name:? object:?];
 
-    v33 = VSGetLogDefault();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v25 = VSGetLogDefault();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v43) = d;
-      _os_log_impl(&dword_2727E4000, v33, OS_LOG_TYPE_DEFAULT, "AudioQueue initialized with session ID: %d", buf, 8u);
+      LODWORD(v34) = d;
+      _os_log_impl(&dword_2727E4000, v25, OS_LOG_TYPE_DEFAULT, "AudioQueue initialized with session ID: %d", buf, 8u);
     }
   }
 
   mach_absolute_time();
-  v34 = VSGetLogDefault();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+  v26 = VSGetLogDefault();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     VSAbsoluteTimeToSecond();
     *buf = 134218240;
-    v43 = v8;
-    v44 = 2048;
-    v45 = v35;
-    _os_log_impl(&dword_2727E4000, v34, OS_LOG_TYPE_INFO, "VSAudioPlaybackService %p init latency: %.3f", buf, 0x16u);
+    v34 = v8;
+    v35 = 2048;
+    v36 = v27;
+    _os_log_impl(&dword_2727E4000, v26, OS_LOG_TYPE_INFO, "VSAudioPlaybackService %p init latency: %.3f", buf, 0x16u);
   }
 
-  v23 = v8;
+  v19 = v8;
 LABEL_23:
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v19;
 }
 
 @end

@@ -35,7 +35,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -48,13 +48,13 @@
     yoloLossDescriptor4 = +[MLCLog framework];
     if (os_log_type_enabled(yoloLossDescriptor4, OS_LOG_TYPE_ERROR))
     {
-      v38 = NSStringFromSelector(a2);
+      v37 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v41 = v38;
-      v42 = 1024;
-      v43 = dataType;
-      v44 = 2112;
-      v45 = deviceCopy;
+      v40 = v37;
+      v41 = 1024;
+      v42 = dataType;
+      v43 = 2112;
+      v44 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, yoloLossDescriptor4, OS_LOG_TYPE_ERROR, "%@: YOLOLoss layer with data type = %d is not supported on a device = %@", buf, 0x1Cu);
     }
 
@@ -99,9 +99,9 @@ LABEL_11:
   computeEngine2 = [deviceCopy computeEngine];
   v31 = [computeEngine2 compileLayerDeviceOps:v29 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-  v39.receiver = self;
-  v39.super_class = MLCYOLOLossLayer;
-  [(MLCLayer *)&v39 bindDevice:deviceCopy deviceOps:v29];
+  v38.receiver = self;
+  v38.super_class = MLCYOLOLossLayer;
+  [(MLCLayer *)&v38 bindDevice:deviceCopy deviceOps:v29];
   engine = [deviceCopy engine];
   deviceList = [engine deviceList];
   v34 = [deviceList count];
@@ -113,7 +113,6 @@ LABEL_11:
 LABEL_12:
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v31;
 }
 

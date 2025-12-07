@@ -159,7 +159,7 @@
   if (WeakRetained)
   {
     v4 = WeakRetained;
-    [WeakRetained positionInformationForActionSheetAssistant:self];
+    objc_msgSend_positionInformationForActionSheetAssistant_(WeakRetained);
     if (self->_anon_1a8[136] == v10)
     {
       if (self->_anon_1a8[136])
@@ -255,90 +255,91 @@
 
     if (*(m_ptr + 17))
     {
-      WebCore::FloatPoint::FloatPoint(v37, &self->_positionInformation);
+      WebCore::FloatPoint::FloatPoint(v38, &self->_positionInformation);
       v10 = *(m_ptr + 3);
-      v35 = 0;
       v36 = 0;
+      v37 = 0;
       v11 = *(m_ptr + 17);
       if (v11)
       {
-        v32 = v10;
-        if (v11 >> 28)
+        v33 = v10;
+        v12 = (v11 >> 28);
+        if (v12)
         {
           __break(0xC471u);
           goto LABEL_31;
         }
 
-        v12 = WTF::fastMalloc((16 * v11));
-        LODWORD(v36) = v11;
-        v35 = v12;
-        v13 = *(m_ptr + 17);
-        *v14.i64 = v32;
-        if (v13)
+        v13 = WTF::fastMalloc(v12, (16 * v11));
+        LODWORD(v37) = v11;
+        v36 = v13;
+        v14 = *(m_ptr + 17);
+        *v15.i64 = v33;
+        if (v14)
         {
-          v15 = *(m_ptr + 7);
-          v14.i64[1] = 0x4000000040000000;
-          v16 = *(m_ptr + 17);
+          v16 = *(m_ptr + 7);
+          v15.i64[1] = 0x4000000040000000;
+          v17 = *(m_ptr + 17);
           do
           {
-            v17 = *v15++;
-            *v12 = vaddq_f32(v14, vaddq_f32(v17, xmmword_19E703D50));
-            v12 = (v12 + 16);
-            --v16;
+            v18 = *v16++;
+            *v13 = vaddq_f32(v15, vaddq_f32(v18, xmmword_19E703D50));
+            v13 += 2;
+            --v17;
           }
 
-          while (v16);
-          HIDWORD(v36) = v13;
+          while (v17);
+          HIDWORD(v37) = v14;
         }
       }
 
       WebCore::PathUtilities::pathsWithShrinkWrappedRects();
-      if (v34)
+      if (v35)
       {
-        v19 = v33;
-        v20 = v34 << 6;
+        v20 = v34;
+        v21 = v35 << 6;
         while (1)
         {
-          WebCore::Path::fastBoundingRect(v19);
+          WebCore::Path::fastBoundingRect(v20);
           if (WebCore::FloatRect::contains())
           {
             break;
           }
 
-          v19 = (v19 + 64);
-          v20 -= 64;
-          if (!v20)
+          v20 = (v20 + 64);
+          v21 -= 64;
+          if (!v21)
           {
             goto LABEL_17;
           }
         }
 
         WebCore::FloatRect::operator CGRect();
-        [superviewForSheet convertRect:objc_loadWeak(&self->_view.m_weakReference) fromView:{v26, v27, v28, v29}];
-        v39 = CGRectInset(v38, -15.0, -15.0);
-        x = v39.origin.x;
-        y = v39.origin.y;
-        width = v39.size.width;
-        height = v39.size.height;
-        WTF::Vector<WebCore::Path,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v33, v30);
+        [superviewForSheet convertRect:objc_loadWeak(&self->_view.m_weakReference) fromView:{v27, v28, v29, v30}];
+        v40 = CGRectInset(v39, -15.0, -15.0);
+        x = v40.origin.x;
+        y = v40.origin.y;
+        width = v40.size.width;
+        height = v40.size.height;
+        WTF::Vector<WebCore::Path,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v34, v31);
       }
 
       else
       {
 LABEL_17:
-        WTF::Vector<WebCore::Path,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v33, v18);
+        WTF::Vector<WebCore::Path,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v34, v19);
         x = *MEMORY[0x1E695F058];
         y = *(MEMORY[0x1E695F058] + 8);
         width = *(MEMORY[0x1E695F058] + 16);
         height = *(MEMORY[0x1E695F058] + 24);
       }
 
-      v31 = v35;
-      if (v35)
+      v32 = v36;
+      if (v36)
       {
-        v35 = 0;
-        LODWORD(v36) = 0;
-        WTF::fastFree(v31, v21);
+        v36 = 0;
+        LODWORD(v37) = 0;
+        WTF::fastFree(v32, v22);
         if (!m_ptr)
         {
           goto LABEL_19;
@@ -997,30 +998,30 @@ void __40__WKActionSheetAssistant_showImageSheet__block_invoke(uint64_t a1, void
   v6 = *(a1 + 32);
   if ((*(v6 + 560) & 1) == 0)
   {
-    goto LABEL_39;
+    goto LABEL_37;
   }
 
   v4 = a3;
   v5 = a2;
   v3 = a1;
-  WTF::URL::createCFURL(&v31, (v6 + 104));
+  WTF::URL::createCFURL(&v28, (v6 + 104));
   v7 = *(v3 + 32);
   if ((*(v7 + 560) & 1) == 0)
   {
-    goto LABEL_39;
+    goto LABEL_37;
   }
 
-  WTF::URL::createCFURL(&v30, (v7 + 144));
-  if (!v31)
+  WTF::URL::createCFURL(&v27, (v7 + 144));
+  if (!v28)
   {
     if (!v5)
     {
-      goto LABEL_40;
+      goto LABEL_38;
     }
 
     v8 = v5;
-    v9 = v31;
-    v31 = v5;
+    v9 = v28;
+    v28 = v5;
     if (v9)
     {
     }
@@ -1035,83 +1036,79 @@ void __40__WKActionSheetAssistant_showImageSheet__block_invoke(uint64_t a1, void
       break;
     }
 
-LABEL_39:
+LABEL_37:
     __break(1u);
-LABEL_40:
-    v31 = 0;
+LABEL_38:
+    v28 = 0;
   }
 
-  v12 = [(_WKActivatedElementInfo *)v10 _initWithType:1 URL:v31 imageURL:v30 userInfo:v4 information:v11 + 32];
+  v12 = [(_WKActivatedElementInfo *)v10 _initWithType:1 URL:v28 imageURL:v27 userInfo:v4 information:v11 + 32];
   if ((objc_opt_respondsToSelector() & 1) == 0 || ([*(v3 + 40) actionSheetAssistant:*(v3 + 32) showCustomSheetForElement:v12] & 1) == 0)
   {
     v13 = *(v3 + 32);
     if (v13)
     {
-      [v13 defaultActionsForImageSheet:v12];
-      v14 = *(v3 + 32);
-      v15 = v29;
+      objc_msgSend_defaultActionsForImageSheet_(v13);
+      v14 = v26;
     }
 
     else
     {
-      v15 = 0;
       v14 = 0;
     }
 
-    v16 = *(v3 + 40);
-    v29 = 0;
-    v27 = v15;
-    if (v16)
+    v15 = *(v3 + 40);
+    v24 = v14;
+    if (v15)
     {
-      [v16 actionSheetAssistant:v14 decideActionsForElement:v12 defaultActions:&v27];
-      v15 = v27;
+      objc_msgSend_actionSheetAssistant_decideActionsForElement_defaultActions_(v15);
+      v14 = v24;
     }
 
     else
     {
-      v28 = 0;
+      v25 = 0;
     }
 
-    v27 = 0;
-    if (v15)
+    if (v14)
     {
     }
 
-    if ([v28 count])
+    if ([v25 count])
     {
       if (v5 || !v4)
       {
-        [*(v3 + 32) _createSheetWithElementActions:v28 defaultTitle:0 showLinkTitle:1];
-        v17 = *(v3 + 32);
-        if (*(v17 + 16))
+        [*(v3 + 32) _createSheetWithElementActions:v25 defaultTitle:0 showLinkTitle:1];
+        v16 = *(v3 + 32);
+        if (*(v16 + 16))
         {
-          v18 = *(v17 + 24);
-          *(v17 + 24) = v12;
-          if (v18)
+          v17 = *(v16 + 24);
+          *(v16 + 24) = v12;
+          if (v17)
           {
           }
 
-          v19 = *(v3 + 32);
-          if ((*(v19 + 560) & 1) == 0)
+          v18 = *(v3 + 32);
+          if ((*(v18 + 560) & 1) == 0)
           {
-            v24 = std::__throw_bad_optional_access[abi:sn200100]();
-            v25 = v30;
-            v30 = 0;
-            if (v25)
+            v21 = std::__throw_bad_optional_access[abi:sn200100]();
+            v22 = v27;
+            v27 = 0;
+            if (v22)
             {
             }
 
-            v26 = v31;
-            v31 = 0;
-            if (v26)
+            v23 = v28;
+            v28 = 0;
+            if (v23)
             {
             }
 
-            _Unwind_Resume(v24);
+            _Unwind_Resume(v21);
           }
 
           v12 = 0;
-          if (([*(v19 + 16) presentSheet:{objc_msgSend(v19, "_presentationStyleForPositionInfo:elementInfo:", v19 + 32, *(v19 + 24))}] & 1) == 0)
+          if (([*(v18 + 16) presentSheet:{objc_msgSend(v18, "_presentationStyleForPositionInfo:elementInfo:", v18 + 32, *(v18 + 24))}] & 1) == 0)
           {
             [*(v3 + 32) cleanupSheet];
           }
@@ -1124,15 +1121,7 @@ LABEL_40:
       }
     }
 
-    v20 = v28;
-    v28 = 0;
-    if (v20)
-    {
-    }
-
-    v21 = v29;
-    v29 = 0;
-    if (v21)
+    if (v25)
     {
     }
   }
@@ -1141,15 +1130,15 @@ LABEL_40:
   {
   }
 
-  v22 = v30;
-  v30 = 0;
-  if (v22)
+  v19 = v27;
+  v27 = 0;
+  if (v19)
   {
   }
 
-  v23 = v31;
-  v31 = 0;
-  if (v23)
+  v20 = v28;
+  v28 = 0;
+  if (v20)
   {
   }
 }
@@ -1505,7 +1494,7 @@ LABEL_15:
     var0 = v7.var0;
     v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
     [(WKActionSheetAssistant *)self _appendOpenActionsForURL:var0 actions:v9 elementInfo:sheet];
-    if ([getSSReadingListClass() supportsURL:var0])
+    if ([(objc_class *)getSSReadingListClass() supportsURL:var0])
     {
       [v9 addObject:{+[_WKElementAction _elementActionWithType:info:assistant:](_WKElementAction, "_elementActionWithType:info:assistant:", 4, sheet, self)}];
     }
@@ -1577,7 +1566,7 @@ LABEL_15:
 
   [v8 addObject:{+[_WKElementAction _elementActionWithType:info:assistant:](_WKElementAction, "_elementActionWithType:info:assistant:", 7, sheet, self)}];
 LABEL_5:
-  v9 = [getSSReadingListClass() supportsURL:v7];
+  v9 = [(objc_class *)getSSReadingListClass() supportsURL:v7];
   if (v9)
   {
     v9 = [v8 addObject:{+[_WKElementAction _elementActionWithType:info:assistant:](_WKElementAction, "_elementActionWithType:info:assistant:", 4, sheet, self)}];
@@ -1641,11 +1630,11 @@ LABEL_5:
 
   if ((self->_anon_1a8[136] & 1) == 0)
   {
-    goto LABEL_33;
+    goto LABEL_31;
   }
 
-  WTF::URL::createCFURL(&v20, (&self->_positionInformation.var0.__engaged_ + 72));
-  if (!v20)
+  WTF::URL::createCFURL(&v17, (&self->_positionInformation.var0.__engaged_ + 72));
+  if (!v17)
   {
     self->_needsLinkIndicator = 0;
     return;
@@ -1654,53 +1643,44 @@ LABEL_5:
   v5 = [_WKActivatedElementInfo alloc];
   if ((self->_anon_1a8[136] & 1) == 0)
   {
-LABEL_33:
+LABEL_31:
     __break(1u);
-    goto LABEL_34;
+    goto LABEL_32;
   }
 
-  v2 = [(_WKActivatedElementInfo *)v5 _initWithType:0 URL:v20 information:&self->_positionInformation];
+  v2 = [(_WKActivatedElementInfo *)v5 _initWithType:0 URL:v17 information:&self->_positionInformation];
   objc_loadWeak(&self->_delegate.m_weakReference);
   if ((objc_opt_respondsToSelector() & 1) == 0 || ![objc_loadWeak(&self->_delegate.m_weakReference) actionSheetAssistant:self showCustomSheetForElement:v2])
   {
-    [(WKActionSheetAssistant *)self defaultActionsForLinkSheet:v2];
+    objc_msgSend_defaultActionsForLinkSheet_(self);
     Weak = objc_loadWeak(&self->_delegate.m_weakReference);
-    v7 = v19;
-    v19 = 0;
-    v17 = v7;
+    v7 = v16;
+    v16 = 0;
+    v14 = v7;
     if (Weak)
     {
-      [Weak actionSheetAssistant:self decideActionsForElement:v2 defaultActions:&v17];
-      v7 = v17;
+      objc_msgSend_actionSheetAssistant_decideActionsForElement_defaultActions_(Weak);
+      v7 = v14;
     }
 
     else
     {
-      v18 = 0;
+      v15 = 0;
     }
 
-    v17 = 0;
     if (v7)
     {
     }
 
-    if (![v18 count] || (-[WKActionSheetAssistant _createSheetWithElementActions:defaultTitle:showLinkTitle:](self, "_createSheetWithElementActions:defaultTitle:showLinkTitle:", v18, 0, 1), (m_ptr = self->_interactionSheet.m_ptr) == 0))
+    if (![v15 count] || (-[WKActionSheetAssistant _createSheetWithElementActions:defaultTitle:showLinkTitle:](self, "_createSheetWithElementActions:defaultTitle:showLinkTitle:", v15, 0, 1), (m_ptr = self->_interactionSheet.m_ptr) == 0))
     {
       self->_needsLinkIndicator = 0;
 LABEL_24:
-      v10 = v18;
-      v18 = 0;
-      if (v10)
+      if (v15)
       {
       }
 
-      v11 = v19;
-      v19 = 0;
-      if (v11)
-      {
-      }
-
-      goto LABEL_28;
+      goto LABEL_26;
     }
 
     v9 = self->_elementInfo.m_ptr;
@@ -1722,17 +1702,13 @@ LABEL_24:
       goto LABEL_24;
     }
 
-LABEL_34:
-    v13 = std::__throw_bad_optional_access[abi:sn200100]();
-    v14 = v17;
-    v17 = 0;
-    if (v14)
+LABEL_32:
+    v11 = std::__throw_bad_optional_access[abi:sn200100]();
+    if (v13)
     {
     }
 
-    v15 = v19;
-    v19 = 0;
-    if (v15)
+    if (v16)
     {
     }
 
@@ -1740,24 +1716,24 @@ LABEL_34:
     {
     }
 
-    v16 = v20;
-    v20 = 0;
-    if (v16)
+    v12 = v17;
+    v17 = 0;
+    if (v12)
     {
     }
 
-    _Unwind_Resume(v13);
+    _Unwind_Resume(v11);
   }
 
   self->_needsLinkIndicator = 0;
-LABEL_28:
+LABEL_26:
   if (v2)
   {
   }
 
-  v12 = v20;
-  v20 = 0;
-  if (v12)
+  v10 = v17;
+  v17 = 0;
+  if (v10)
   {
   }
 }
@@ -2266,7 +2242,7 @@ LABEL_37:
   {
     if (self)
     {
-      [(WKActionSheetAssistant *)self defaultActionsForLinkSheet:v5];
+      objc_msgSend_defaultActionsForLinkSheet_(self);
       goto LABEL_6;
     }
 
@@ -2287,7 +2263,7 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  [(WKActionSheetAssistant *)self defaultActionsForImageSheet:v5];
+  objc_msgSend_defaultActionsForImageSheet_(self);
 LABEL_6:
   self = v14;
   if (!v14)
@@ -2703,7 +2679,7 @@ void __82__WKActionSheetAssistant_contextMenuInteraction_willEndForConfiguration
       {
         _animationsUnderElement = [element _animationsUnderElement];
         _interactionLocation = 0;
-        v38 = 0;
+        v39 = 0;
         v16 = *(_animationsUnderElement + 12);
         if (v16)
         {
@@ -2713,34 +2689,35 @@ void __82__WKActionSheetAssistant_contextMenuInteraction_willEndForConfiguration
             return;
           }
 
-          v17 = 80 * v16;
-          v18 = WTF::fastMalloc((80 * v16));
-          LODWORD(v38) = v17 / 0x50;
-          _interactionLocation = v18;
+          v17 = (5 * v16);
+          v18 = 16 * v17;
+          v19 = WTF::fastMalloc(v17, (16 * v17));
+          LODWORD(v39) = v18 / 0x50;
+          _interactionLocation = v19;
           if (*(_animationsUnderElement + 12))
           {
-            v19 = 0;
             v20 = 0;
+            v21 = 0;
             do
             {
-              memmove(v18, (*_animationsUnderElement + v19), 0x50uLL);
-              ++v20;
-              v18 = (v18 + 80);
-              v19 += 96;
+              memmove(v19, (*_animationsUnderElement + v20), 0x50uLL);
+              ++v21;
+              v19 += 10;
+              v20 += 96;
             }
 
-            while (v20 < *(_animationsUnderElement + 12));
-            HIDWORD(v38) = v20;
+            while (v21 < *(_animationsUnderElement + 12));
+            HIDWORD(v39) = v21;
           }
         }
 
         [WeakRetained _actionSheetAssistant:self performAction:v14 onElements:&_interactionLocation];
-        v22 = _interactionLocation;
+        v23 = _interactionLocation;
         if (_interactionLocation)
         {
           _interactionLocation = 0;
-          LODWORD(v38) = 0;
-          WTF::fastFree(v22, v21);
+          LODWORD(v39) = 0;
+          WTF::fastFree(v23, v22);
         }
       }
     }
@@ -2783,15 +2760,15 @@ void __82__WKActionSheetAssistant_contextMenuInteraction_willEndForConfiguration
         MEMORY[0x19EB01DE0](&_interactionLocation, [element imageURL]);
         if (WTF::URL::protocolIs() && [element image])
         {
-          v30 = objc_opt_respondsToSelector();
-          v31 = _interactionLocation;
+          v31 = objc_opt_respondsToSelector();
+          v32 = _interactionLocation;
           _interactionLocation = 0;
-          if (v31 && atomic_fetch_add_explicit(v31, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          if (v32 && atomic_fetch_add_explicit(v32, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v31, v29);
+            WTF::StringImpl::destroy(v32, v30);
           }
 
-          if (v30)
+          if (v31)
           {
             image3 = [element image];
             [element boundingRect];
@@ -2802,15 +2779,15 @@ void __82__WKActionSheetAssistant_contextMenuInteraction_willEndForConfiguration
 
         else
         {
-          v33 = _interactionLocation;
+          v34 = _interactionLocation;
           _interactionLocation = 0;
-          if (v33 && atomic_fetch_add_explicit(v33, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          if (v34 && atomic_fetch_add_explicit(v34, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v33, v28);
+            WTF::StringImpl::destroy(v34, v29);
           }
         }
 
-        if ([element URL] && ((v34 = objc_msgSend(objc_msgSend(element, "URL"), "scheme")) == 0 || objc_msgSend(v34, "caseInsensitiveCompare:", @"javascript")))
+        if ([element URL] && ((v35 = objc_msgSend(objc_msgSend(element, "URL"), "scheme")) == 0 || objc_msgSend(v35, "caseInsensitiveCompare:", @"javascript")))
         {
           imageURL3 = [element URL];
         }
@@ -2820,9 +2797,9 @@ void __82__WKActionSheetAssistant_contextMenuInteraction_willEndForConfiguration
           imageURL3 = [element imageURL];
         }
 
-        v36 = imageURL3;
+        v37 = imageURL3;
         [element boundingRect];
-        [WeakRetained actionSheetAssistant:self shareElementWithURL:v36 rect:?];
+        [WeakRetained actionSheetAssistant:self shareElementWithURL:v37 rect:?];
         goto LABEL_52;
       }
 
@@ -2837,8 +2814,8 @@ LABEL_32:
       if ([element _isUsingAlternateURLForImage])
       {
         mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-        v27 = [element URL];
-        [mEMORY[0x1E69DC668] openURL:v27 options:MEMORY[0x1E695E0F8] completionHandler:0];
+        v28 = [element URL];
+        [mEMORY[0x1E69DC668] openURL:v28 options:MEMORY[0x1E695E0F8] completionHandler:0];
       }
 
       else

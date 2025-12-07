@@ -181,7 +181,7 @@
   v7 = 0;
   if (descriptor)
   {
-    [descriptor screenSize];
+    objc_msgSend_screenSize(descriptor, 0, 0, 0);
   }
 
   [descriptor skipSampleValidationAndApplySampleAtTileGranularity];
@@ -201,7 +201,7 @@
     [descriptor layerPointer:&v25];
     if (descriptor)
     {
-      [descriptor screenSize];
+      objc_msgSend_screenSize(descriptor);
     }
 
     [descriptor skipSampleValidationAndApplySampleAtTileGranularity];

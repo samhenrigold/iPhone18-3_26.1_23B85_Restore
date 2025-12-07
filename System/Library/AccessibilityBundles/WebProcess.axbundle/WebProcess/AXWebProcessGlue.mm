@@ -109,20 +109,20 @@ uint64_t __40__AXWebProcessGlue__initializeAXRuntime__block_invoke_4(uint64_t a1
   return v10;
 }
 
-id __40__AXWebProcessGlue__initializeAXRuntime__block_invoke_5(double a1, double a2)
+id __40__AXWebProcessGlue__initializeAXRuntime__block_invoke_5(double a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = _AXElementForAXUIElementUniqueId();
-  v5 = AXLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = _AXElementForAXUIElementUniqueId();
+  v8 = AXLogCommon();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __40__AXWebProcessGlue__initializeAXRuntime__block_invoke_5_cold_1(v4, v5, a1, a2);
+    __40__AXWebProcessGlue__initializeAXRuntime__block_invoke_5_cold_1(v7, v8, a1, a2);
   }
 
   AXServerCacheSetEnabled();
-  v6 = [v4 accessibilityHitTest:{a1, a2}];
+  v9 = [v7 accessibilityHitTest:{a1, a2}];
   AXServerCacheSetEnabled();
 
-  return v6;
+  return v9;
 }
 
 BOOL __40__AXWebProcessGlue__initializeAXRuntime__block_invoke_2_340(uint64_t a1, void *a2)

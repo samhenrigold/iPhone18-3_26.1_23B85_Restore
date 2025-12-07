@@ -48,12 +48,13 @@
 
 - (void)startBroadcasting
 {
-  if ([(DMTSharingBackedRemoteSetupBroadcaster *)self isBroadcasting])
+  isBroadcasting = [(DMTSharingBackedRemoteSetupBroadcaster *)self isBroadcasting];
+  if (isBroadcasting)
   {
-    v3 = _DMTLogGeneral_3();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = _DMTLogGeneral_3(isBroadcasting);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(DMTSharingBackedRemoteSetupBroadcaster *)v3 startBroadcasting:v4];
+      [(DMTSharingBackedRemoteSetupBroadcaster *)v4 startBroadcasting:v5];
     }
   }
 
@@ -69,7 +70,7 @@
 {
   terminalCopy = terminal;
   errorCopy = error;
-  v8 = _DMTLogGeneral_3();
+  v8 = _DMTLogGeneral_3(errorCopy);
   v9 = v8;
   if (errorCopy)
   {
@@ -130,7 +131,7 @@ void __69__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_hasError___b
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-uint64_t __77__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_stoppedWithError___block_invoke(uint64_t a1)
+void *__77__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_stoppedWithError___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isInvalidated];
   if ((result & 1) == 0)
@@ -147,7 +148,7 @@ uint64_t __77__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_stoppedW
 - (void)broadcastTerminal:(id)terminal hasPairedDeviceConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = _DMTLogGeneral_3();
+  v6 = _DMTLogGeneral_3(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [DMTSharingBackedRemoteSetupBroadcaster broadcastTerminal:connectionCopy hasPairedDeviceConnection:v6];
@@ -165,32 +166,33 @@ uint64_t __77__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_stoppedW
 
 void __86__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_hasPairedDeviceConnection___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) isInvalidated])
+  v2 = [*(a1 + 32) isInvalidated];
+  if (v2)
   {
-    v2 = _DMTLogGeneral_3();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = _DMTLogGeneral_3(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __86__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_hasPairedDeviceConnection___block_invoke_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      __86__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_hasPairedDeviceConnection___block_invoke_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   else
   {
-    v2 = [objc_alloc(MEMORY[0x277CF9580]) initWithConnection:*(a1 + 40)];
-    v10 = [*(a1 + 32) pairedTransportHandler];
+    v3 = [objc_alloc(MEMORY[0x277CF9580]) initWithConnection:*(a1 + 40)];
+    v11 = [*(a1 + 32) pairedTransportHandler];
 
-    if (v10)
+    if (v11)
     {
-      v11 = [*(a1 + 32) pairedTransportHandler];
-      (*(v11 + 16))(v11, v2);
+      v13 = [*(a1 + 32) pairedTransportHandler];
+      (*(v13 + 16))(v13, v3);
     }
 
     else
     {
-      v11 = _DMTLogGeneral_3();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = _DMTLogGeneral_3(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        __86__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_hasPairedDeviceConnection___block_invoke_cold_1(v11, v12, v13, v14, v15, v16, v17, v18);
+        __86__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminal_hasPairedDeviceConnection___block_invoke_cold_1(v13, v14, v15, v16, v17, v18, v19, v20);
       }
     }
   }
@@ -263,8 +265,8 @@ void __77__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminalNeedsToDismis
     terminal = [(DMTSharingBackedRemoteSetupBroadcaster *)self terminal];
     [terminal invalidate];
 
-    v6 = _DMTLogGeneral_3();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _DMTLogGeneral_3(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [DMTSharingBackedRemoteSetupBroadcaster invalidateWithError:];
     }
@@ -278,14 +280,12 @@ void __77__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminalNeedsToDismis
         showErrorHandler2 = [(DMTSharingBackedRemoteSetupBroadcaster *)self showErrorHandler];
         v12 = *MEMORY[0x277CCA7E8];
         v13[0] = errorCopy;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-        v10 = DMTErrorWithCodeAndUserInfo(40, v9);
-        (showErrorHandler2)[2](showErrorHandler2, v10);
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+        v11 = DMTErrorWithCodeAndUserInfo(40, v10);
+        (showErrorHandler2)[2](showErrorHandler2, v11);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginObservingTerminal
@@ -328,37 +328,32 @@ void __77__DMTSharingBackedRemoteSetupBroadcaster_broadcastTerminalNeedsToDismis
 
 - (void)broadcastTerminal:didActivateWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Activation of terminal failed, invalidating: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Activation of terminal failed, invalidating: %{public}@", v1, 0xCu);
 }
 
 - (void)broadcastTerminal:didActivateWithError:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ didActivate", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ didActivate", v1, 0xCu);
 }
 
 - (void)broadcastTerminal:(void *)a1 hasPairedDeviceConnection:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 remoteDevice];
   v4 = [v3 identifier];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "Paired connection vended for: %{public}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "Paired connection vended for: %{public}@", v5, 0xCu);
 }
 
 - (void)invalidateWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Broadcaster invalidated due to: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Broadcaster invalidated due to: %{public}@", v1, 0xCu);
 }
 
 @end

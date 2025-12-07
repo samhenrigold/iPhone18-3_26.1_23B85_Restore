@@ -47,9 +47,9 @@ void *__WirelessCoexManagerLibrary_block_invoke()
   return result;
 }
 
-void sub_2669D5000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2669D5000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -61,9 +61,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2669D57E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2669D57E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -193,18 +193,18 @@ LABEL_12:
   return a1;
 }
 
-void sub_2669E423C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2669E423C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 128), 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 128), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -494,7 +494,7 @@ uint64_t __SiriCoreGetConnectionReadyReport_block_invoke_2(uint64_t a1, uint64_t
 
 id SiriCoreSQLiteQueryCreateColumnDefinition(void *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = [v1 name];
@@ -511,27 +511,27 @@ id SiriCoreSQLiteQueryCreateColumnDefinition(void *a1)
     [v2 addObject:v6];
   }
 
-  v23 = v6;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v22 = v6;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v7 = [v1 constraints];
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         v13 = [v12 name];
         if (v13)
         {
@@ -589,7 +589,7 @@ LABEL_22:
 LABEL_23:
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
@@ -605,14 +605,12 @@ LABEL_23:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 __CFString *SiriCoreSQLiteQueryCreateEscapedAndCommaSeparatedString(void *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 count];
   if (v4)
@@ -626,30 +624,30 @@ __CFString *SiriCoreSQLiteQueryCreateEscapedAndCommaSeparatedString(void *a1, ui
     else
     {
       v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v4];
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
       v8 = v3;
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = *v16;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v17 != v11)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [*(*(&v16 + 1) + 8 * i) siriCoreSQLiteValue_escapedString:{a2, v16}];
+            v13 = [*(*(&v15 + 1) + 8 * i) siriCoreSQLiteValue_escapedString:{a2, v15}];
             [v5 addObject:v13];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v10);
@@ -665,8 +663,6 @@ __CFString *SiriCoreSQLiteQueryCreateEscapedAndCommaSeparatedString(void *a1, ui
   {
     v7 = &stru_28782DDB0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -702,7 +698,7 @@ __CFString *SiriCoreSQLiteQueryCreateParametrizedAndCommaSeparatedString(unint64
 
 id SiriCoreSQLiteQueryCreateCriterionExpression(void *a1)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 columnName];
   v3 = [v1 value];
@@ -750,45 +746,45 @@ id SiriCoreSQLiteQueryCreateCriterionExpression(void *a1)
         v15 = [v2 siriCoreSQLiteValue_escapedString:1];
         v16 = [v11 firstObject];
         [v16 siriCoreSQLiteValue_escapedString:0];
-        v43 = v56 = v12;
+        v43 = v55 = v12;
         v44 = [v11 lastObject];
         v45 = [v44 siriCoreSQLiteValue_escapedString:0];
         v46 = [v42 initWithFormat:@"%@ BETWEEN %@ AND %@", v15, v43, v45];
 LABEL_48:
         v10 = v46;
 
-        v12 = v56;
+        v12 = v55;
 LABEL_51:
 
         goto LABEL_52;
       }
 
-      v52 = v11;
-      v53 = v3;
-      v54 = v2;
+      v51 = v11;
+      v52 = v3;
+      v53 = v2;
       v31 = [v12 count];
       v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v31];
+      v60 = 0u;
       v61 = 0u;
       v62 = 0u;
       v63 = 0u;
-      v64 = 0u;
-      v55 = v12;
+      v54 = v12;
       v32 = v12;
-      v33 = [v32 countByEnumeratingWithState:&v61 objects:v66 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v60 objects:v65 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v62;
+        v35 = *v61;
         do
         {
           for (i = 0; i != v34; ++i)
           {
-            if (*v62 != v35)
+            if (*v61 != v35)
             {
               objc_enumerationMutation(v32);
             }
 
-            v37 = SiriCoreSQLiteQueryCreateCriterionExpression(*(*(&v61 + 1) + 8 * i));
+            v37 = SiriCoreSQLiteQueryCreateCriterionExpression(*(*(&v60 + 1) + 8 * i));
             if (v37)
             {
               v38 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"(%@)", v37];
@@ -796,7 +792,7 @@ LABEL_51:
             }
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v61 objects:v66 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v60 objects:v65 count:16];
         }
 
         while (v34);
@@ -858,7 +854,7 @@ LABEL_50:
         v15 = [v2 siriCoreSQLiteValue_escapedString:1];
         v16 = [v11 firstObject];
         [v16 siriCoreSQLiteValue_escapedString:0];
-        v43 = v56 = v12;
+        v43 = v55 = v12;
         v44 = [v11 lastObject];
         v45 = [v44 siriCoreSQLiteValue_escapedString:0];
         v46 = [v47 initWithFormat:@"%@ NOT BETWEEN %@ AND %@", v15, v43, v45];
@@ -890,32 +886,32 @@ LABEL_50:
       goto LABEL_54;
     }
 
-    v52 = v11;
-    v53 = v3;
-    v54 = v2;
+    v51 = v11;
+    v52 = v3;
+    v53 = v2;
     v21 = [v12 count];
     v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v21];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v55 = v12;
+    v54 = v12;
     v23 = v12;
-    v24 = [v23 countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v58;
+      v26 = *v57;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v58 != v26)
+          if (*v57 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = SiriCoreSQLiteQueryCreateCriterionExpression(*(*(&v57 + 1) + 8 * j));
+          v28 = SiriCoreSQLiteQueryCreateCriterionExpression(*(*(&v56 + 1) + 8 * j));
           if (v28)
           {
             v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"(%@)", v28];
@@ -923,7 +919,7 @@ LABEL_50:
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v57 objects:v65 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v56 objects:v64 count:16];
       }
 
       while (v25);
@@ -940,11 +936,11 @@ LABEL_42:
 LABEL_60:
     v10 = 0;
 LABEL_61:
-    v3 = v53;
-    v2 = v54;
-    v11 = v52;
+    v3 = v52;
+    v2 = v53;
+    v11 = v51;
 
-    v12 = v55;
+    v12 = v54;
     if (!v10)
     {
       goto LABEL_54;
@@ -953,9 +949,9 @@ LABEL_61:
     goto LABEL_53;
   }
 
-  v51 = objc_alloc(MEMORY[0x277CCACA8]);
+  v50 = objc_alloc(MEMORY[0x277CCACA8]);
   v15 = [v2 siriCoreSQLiteValue_escapedString:1];
-  v20 = [v51 initWithFormat:@"%@ NOTNULL", v15];
+  v20 = [v50 initWithFormat:@"%@ NOTNULL", v15];
 LABEL_59:
   v10 = v20;
 LABEL_52:
@@ -969,7 +965,6 @@ LABEL_53:
 LABEL_54:
 
 LABEL_55:
-  v49 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1096,13 +1091,14 @@ void *__WirelessCoexManagerLibrary_block_invoke_2587()
   return result;
 }
 
-void sub_2669F6278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_2669F6278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a45, 8);
-  _Block_object_dispose((v45 - 160), 8);
-  _Block_object_dispose((v45 - 240), 8);
-  _Block_object_dispose((v45 - 208), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v44 - 160), 8);
+  _Block_object_dispose((v44 - 240), 8);
+  _Block_object_dispose((v44 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1339,14 +1335,14 @@ LABEL_13:
   return v9;
 }
 
-void sub_2669FB808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2669FB808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1359,14 +1355,14 @@ uint64_t __Block_byref_object_copy__2930(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2669FBDB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2669FBDB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1386,16 +1382,16 @@ id _SiriCoreSQLiteApplyIndexToQuery(void *a1, void *a2)
   return v4;
 }
 
-void sub_2669FE604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2669FE604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2669FFB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2669FFB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1484,11 +1480,11 @@ id buildVersionFromUserAgentString(void *a1)
   return v5;
 }
 
-void sub_266A05534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_266A05534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 

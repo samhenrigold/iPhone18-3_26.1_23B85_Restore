@@ -23,7 +23,7 @@
 
 - (float)_getVoicingWeightedPitchForResultMatrix:(id)matrix
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   matrixCopy = matrix;
   audioResultMat = [matrixCopy audioResultMat];
   bytes = [audioResultMat bytes];
@@ -76,62 +76,61 @@
     v18 = -10000.0;
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315138;
-      v22 = "[SSRPitchExtractor _getVoicingWeightedPitchForResultMatrix:]";
-      _os_log_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEFAULT, "%s Got unexpected empty result matrix!!", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "[SSRPitchExtractor _getVoicingWeightedPitchForResultMatrix:]";
+      _os_log_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEFAULT, "%s Got unexpected empty result matrix!!", &v20, 0xCu);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (float)getPitchForUtteranceAudioFiles:(id)files
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   filesCopy = files;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v5 = [filesCopy countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v5 = [filesCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v22;
+    v8 = *v21;
     v9 = MEMORY[0x277D01970];
     v10 = 0.0;
     *&v6 = 136315394;
-    v20 = v6;
+    v19 = v6;
     v11 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(filesCopy);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         v14 = *v9;
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v20;
-          v26 = "[SSRPitchExtractor getPitchForUtteranceAudioFiles:]";
-          v27 = 2112;
-          v28 = v13;
+          *buf = v19;
+          v25 = "[SSRPitchExtractor getPitchForUtteranceAudioFiles:]";
+          v26 = 2112;
+          v27 = v13;
           _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s Starting to extract pitch from URL: %@", buf, 0x16u);
         }
 
-        [(SSRPitchExtractor *)self _processAudioFileURL:v13, v20];
+        [(SSRPitchExtractor *)self _processAudioFileURL:v13, v19];
         audioResultMatrix = [(EARAudioResultsGenerator *)self->_resultsGenerator audioResultMatrix];
         [(SSRPitchExtractor *)self _getVoicingWeightedPitchForResultMatrix:audioResultMatrix];
         v11 = v11 + v16;
         v10 = v10 + 1.0;
       }
 
-      v7 = [filesCopy countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v7 = [filesCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v7);
@@ -153,7 +152,6 @@
     v17 = v11 / v10;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -162,7 +160,7 @@
   resultsGenerator = self->_resultsGenerator;
   lCopy = l;
   [(EARAudioResultsGenerator *)resultsGenerator resetForNewRequest];
-  [MEMORY[0x277D01748] lpcmInt16ASBD];
+  objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __42__SSRPitchExtractor__processAudioFileURL___block_invoke;
@@ -193,11 +191,11 @@ void __42__SSRPitchExtractor__processAudioFileURL___block_invoke(uint64_t a1, ui
 
 - (id)_initWithConfigPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v18.receiver = self;
-  v18.super_class = SSRPitchExtractor;
-  v5 = [(SSRPitchExtractor *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = SSRPitchExtractor;
+  v5 = [(SSRPitchExtractor *)&v17 init];
   if (!v5)
   {
     goto LABEL_6;
@@ -207,9 +205,9 @@ void __42__SSRPitchExtractor__processAudioFileURL___block_invoke(uint64_t a1, ui
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v20 = "[SSRPitchExtractor _initWithConfigPath:]";
-    v21 = 2114;
-    v22 = pathCopy;
+    v19 = "[SSRPitchExtractor _initWithConfigPath:]";
+    v20 = 2114;
+    v21 = pathCopy;
     _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Using pitch config path: %{public}@", buf, 0x16u);
   }
 
@@ -233,7 +231,6 @@ LABEL_6:
     v11 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

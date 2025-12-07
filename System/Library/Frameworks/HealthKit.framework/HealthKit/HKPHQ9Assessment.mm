@@ -36,14 +36,15 @@
 uint64_t __56__HKPHQ9Assessment_assessmentWithDate_answers_metadata___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v7 = a2;
+  v8 = a2;
   v4 = [v3 copy];
-  v5 = v7[13];
-  v7[13] = v4;
+  v5 = v8[13];
+  v8[13] = v4;
 
-  v7[14] = [HKPHQ9Assessment _riskForAnswers:*(a1 + 32)];
+  v6 = [HKPHQ9Assessment _riskForAnswers:*(a1 + 32)];
+  v8[14] = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v8);
 }
 
 - (HKPHQ9Assessment)initWithDate:(id)date answers:(id)answers metadata:(id)metadata
@@ -55,31 +56,31 @@ uint64_t __56__HKPHQ9Assessment_assessmentWithDate_answers_metadata___block_invo
 
 + (int64_t)_scoreForAnswers:(id)answers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   answersCopy = answers;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [answersCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [answersCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(answersCopy);
         }
 
-        v6 += [*(*(&v13 + 1) + 8 * i) integerValue];
+        v6 += [*(*(&v12 + 1) + 8 * i) integerValue];
       }
 
-      v5 = [answersCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [answersCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -101,7 +102,6 @@ uint64_t __56__HKPHQ9Assessment_assessmentWithDate_answers_metadata___block_invo
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -156,41 +156,41 @@ uint64_t __56__HKPHQ9Assessment_assessmentWithDate_answers_metadata___block_invo
 
 - (void)_validateAnswers:(id)answers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   answersCopy = answers;
   if ([answersCopy count] != 9)
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@ requires 9 answers.", objc_opt_class()}];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = [answersCopy subarrayWithRange:{0, 8}];
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     v8 = *MEMORY[0x1E695D940];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if ([v10 integerValue] > 3 || objc_msgSend(v10, "integerValue") < 0)
         {
           [MEMORY[0x1E695DF30] raise:v8 format:{@"%@ answer for questions #1-8 must be on a scale of 0 to 3.", objc_opt_class()}];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -214,8 +214,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEquivalent:(id)equivalent

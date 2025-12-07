@@ -21,6 +21,7 @@
 - (void)_convertAsset:(id)asset toVariationType:(int64_t)type completionHandler:(id)handler;
 - (void)_curatedLibraryVC:(id)c transitionToZoomLevel:(int64_t)level animationSubTestName:(id)name task:(id)task then:(id)then;
 - (void)_dismissStoryFeed:(id)feed completion:(id)completion;
+- (void)_dismissStoryPlayer:(id)player animated:(BOOL)animated completion:(id)completion;
 - (void)_endedTest:(id)test;
 - (void)_gridView:(id)view performBlockAfterAnimationsCompleted:(id)completed;
 - (void)_installWillFinishTestHandler:(id)handler;
@@ -1234,6 +1235,18 @@ LABEL_40:
   v9 = v7;
   v10 = completionCopy;
   [rootViewController presentViewController:v9 animated:0 completion:v11];
+}
+
+- (void)_dismissStoryPlayer:(id)player animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100026C38;
+  v8[3] = &unk_10005C078;
+  completionCopy = completion;
+  v7 = completionCopy;
+  [player dismissViewControllerAnimated:animatedCopy completion:v8];
 }
 
 - (void)_navigateToStoryPlayerWithConfiguration:(id)configuration completion:(id)completion

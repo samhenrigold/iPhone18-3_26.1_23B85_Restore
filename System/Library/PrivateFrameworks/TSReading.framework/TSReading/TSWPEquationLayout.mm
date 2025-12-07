@@ -89,7 +89,7 @@
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(TSDAbstractLayout *)self transform];
+  objc_msgSend_transform(self);
   v23.origin.x = v4;
   v23.origin.y = v6;
   v23.size.width = v8;

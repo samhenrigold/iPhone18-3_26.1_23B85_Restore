@@ -16,61 +16,55 @@
 - (id)sourceRecordType
 {
   v3 = type metadata accessor for ChatRecord(0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8, v5);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_22B974E6C(self + OBJC_IVAR____TtC17MessagesCloudSync25ChatRecordKeyedDataSource_chatRecord, v7);
-  v9 = *(v7 + 8);
-  v8 = *(v7 + 9);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_22B974E6C(self + OBJC_IVAR____TtC17MessagesCloudSync25ChatRecordKeyedDataSource_chatRecord, v5);
+  v6 = *(v5 + 9);
 
-  sub_22B974ED0(v7);
-  if (v8)
+  sub_22B974ED0(v5);
+  if (v6)
   {
-    v10 = sub_22BA0FFCC();
+    v7 = sub_22BA0FFCC();
   }
 
   else
   {
-    v10 = 0;
+    v7 = 0;
   }
 
-  return v10;
+  return v7;
 }
 
 - (id)sourceRecordName
 {
   if (*&self->chatRecord[OBJC_IVAR____TtC17MessagesCloudSync25ChatRecordKeyedDataSource_chatRecord + 48])
   {
-    v2 = *&self->chatRecord[OBJC_IVAR____TtC17MessagesCloudSync25ChatRecordKeyedDataSource_chatRecord + 40];
-    v3 = *&self->chatRecord[OBJC_IVAR____TtC17MessagesCloudSync25ChatRecordKeyedDataSource_chatRecord + 48];
 
-    v4 = sub_22BA0FFCC();
+    v2 = sub_22BA0FFCC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (id)sourceRecordChangeTag
 {
   if (*&self->chatRecord[OBJC_IVAR____TtC17MessagesCloudSync25ChatRecordKeyedDataSource_chatRecord + 32])
   {
-    v2 = *&self->chatRecord[OBJC_IVAR____TtC17MessagesCloudSync25ChatRecordKeyedDataSource_chatRecord + 24];
-    v3 = *&self->chatRecord[OBJC_IVAR____TtC17MessagesCloudSync25ChatRecordKeyedDataSource_chatRecord + 32];
 
-    v4 = sub_22BA0FFCC();
+    v2 = sub_22BA0FFCC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (id)stringForKey:(id)key
@@ -220,35 +214,34 @@
 - (id)assetURLForKey:(id)key
 {
   v5 = sub_22B9349C8(&qword_27D8D5210, qword_22BA16040);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8, v7);
-  v9 = &v19 - v8;
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v17 - v6;
   if (key)
   {
-    v10 = sub_22BA0FFFC();
-    key = v11;
+    v8 = sub_22BA0FFFC();
+    key = v9;
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
   selfCopy = self;
-  sub_22B98F0F8(v10, key, v9);
+  sub_22B98F0F8(v8, key, v7);
 
-  v13 = sub_22BA0FC4C();
-  v14 = *(v13 - 8);
-  v15 = (*(v14 + 48))(v9, 1, v13);
-  v16 = 0;
-  if (v15 != 1)
+  v11 = sub_22BA0FC4C();
+  v12 = *(v11 - 8);
+  v13 = (*(v12 + 48))(v7, 1, v11);
+  v14 = 0;
+  if (v13 != 1)
   {
-    v17 = sub_22BA0FBBC();
-    (*(v14 + 8))(v9, v13);
-    v16 = v17;
+    v15 = sub_22BA0FBBC();
+    (*(v12 + 8))(v7, v11);
+    v14 = v15;
   }
 
-  return v16;
+  return v14;
 }
 
 - (_TtC17MessagesCloudSync25ChatRecordKeyedDataSource)init

@@ -10,119 +10,122 @@
 
 + (id)setTransactionDefaultsRequest
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277D38078]);
   v3 = objc_alloc_init(NPKProtoSetTransactionDefaultsRequest);
   defaultShippingAddress = [v2 defaultShippingAddress];
+  v5 = defaultShippingAddress;
   if (defaultShippingAddress)
   {
-    v5 = pk_Payment_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = pk_Payment_log(defaultShippingAddress);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v7)
     {
-      v7 = pk_Payment_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = pk_Payment_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v32[0]) = 0;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Sending default shipping address", v32, 2u);
+        LOWORD(v41[0]) = 0;
+        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Sending default shipping address", v41, 2u);
       }
     }
 
-    v8 = NPKSecureArchiveObject(defaultShippingAddress);
-    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultShippingAddress:v8];
+    v10 = NPKSecureArchiveObject(v5);
+    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultShippingAddress:v10];
   }
 
   defaultContactEmail = [v2 defaultContactEmail];
+  v12 = defaultContactEmail;
   if (defaultContactEmail)
   {
-    v10 = pk_Payment_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v13 = pk_Payment_log(defaultContactEmail);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v14)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v16 = pk_Payment_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v32[0]) = 0;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Sending default contact email", v32, 2u);
+        LOWORD(v41[0]) = 0;
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Sending default contact email", v41, 2u);
       }
     }
 
-    v13 = NPKSecureArchiveObject(defaultContactEmail);
-    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultContactEmail:v13];
+    v17 = NPKSecureArchiveObject(v12);
+    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultContactEmail:v17];
   }
 
   defaultContactPhone = [v2 defaultContactPhone];
+  v19 = defaultContactPhone;
   if (defaultContactPhone)
   {
-    v15 = pk_Payment_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-
-    if (v16)
-    {
-      v17 = pk_Payment_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v32[0]) = 0;
-        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Sending default contact phone", v32, 2u);
-      }
-    }
-
-    v18 = NPKSecureArchiveObject(defaultContactPhone);
-    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultContactPhone:v18];
-  }
-
-  defaultContactName = [v2 defaultContactName];
-  if (defaultContactName)
-  {
-    v20 = pk_Payment_log();
+    v20 = pk_Payment_log(defaultContactPhone);
     v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
     if (v21)
     {
-      v22 = pk_Payment_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = pk_Payment_log(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v32[0]) = 0;
-        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: Sending default contact name", v32, 2u);
+        LOWORD(v41[0]) = 0;
+        _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: Sending default contact phone", v41, 2u);
       }
     }
 
-    v23 = NPKSecureArchiveObject(defaultContactName);
-    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultContactName:v23];
+    v24 = NPKSecureArchiveObject(v19);
+    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultContactPhone:v24];
+  }
+
+  defaultContactName = [v2 defaultContactName];
+  v26 = defaultContactName;
+  if (defaultContactName)
+  {
+    v27 = pk_Payment_log(defaultContactName);
+    v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+
+    if (v28)
+    {
+      v30 = pk_Payment_log(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v41[0]) = 0;
+        _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_DEFAULT, "Notice: Sending default contact name", v41, 2u);
+      }
+    }
+
+    v31 = NPKSecureArchiveObject(v26);
+    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultContactName:v31];
   }
 
   _rawDefaultBillingAddresses = [v2 _rawDefaultBillingAddresses];
+  v33 = _rawDefaultBillingAddresses;
   if (_rawDefaultBillingAddresses)
   {
-    v25 = pk_Payment_log();
-    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+    v34 = pk_Payment_log(_rawDefaultBillingAddresses);
+    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
 
-    if (v26)
+    if (v35)
     {
-      v27 = pk_Payment_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v37 = pk_Payment_log(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = [_rawDefaultBillingAddresses count];
-        v32[0] = 67109120;
-        v32[1] = v28;
-        _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: Sending %d default billing addresses", v32, 8u);
+        v38 = [v33 count];
+        v41[0] = 67109120;
+        v41[1] = v38;
+        _os_log_impl(&dword_25B300000, v37, OS_LOG_TYPE_DEFAULT, "Notice: Sending %d default billing addresses", v41, 8u);
       }
     }
 
-    v29 = NPKSecureArchiveObject(_rawDefaultBillingAddresses);
-    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultBillingAddresses:v29];
+    v39 = NPKSecureArchiveObject(v33);
+    [(NPKProtoSetTransactionDefaultsRequest *)v3 setDefaultBillingAddresses:v39];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (void)handleSetTransactionDefaultsRequest:(id)request
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = objc_alloc_init(MEMORY[0x277D38078]);
   if ([requestCopy hasDefaultShippingAddress])
@@ -132,16 +135,16 @@
 
     if (v7)
     {
-      v8 = pk_Payment_log();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      v9 = pk_Payment_log(v8);
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-      if (v9)
+      if (v10)
       {
-        v10 = pk_Payment_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = pk_Payment_log(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v33[0]) = 0;
-          _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Decoded default shipping address", v33, 2u);
+          LOWORD(v42[0]) = 0;
+          _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Decoded default shipping address", v42, 2u);
         }
       }
 
@@ -157,24 +160,24 @@
   if ([requestCopy hasDefaultContactEmail])
   {
     defaultContactEmail = [requestCopy defaultContactEmail];
-    v12 = [self _contactFromEncodedData:defaultContactEmail];
+    v14 = [self _contactFromEncodedData:defaultContactEmail];
 
-    if (v12)
+    if (v14)
     {
-      v13 = pk_Payment_log();
-      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      v16 = pk_Payment_log(v15);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-      if (v14)
+      if (v17)
       {
-        v15 = pk_Payment_log();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v19 = pk_Payment_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v33[0]) = 0;
-          _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Decoded default contact email", v33, 2u);
+          LOWORD(v42[0]) = 0;
+          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Decoded default contact email", v42, 2u);
         }
       }
 
-      [v5 setDefaultContactEmail:v12];
+      [v5 setDefaultContactEmail:v14];
     }
   }
 
@@ -186,24 +189,24 @@
   if ([requestCopy hasDefaultContactPhone])
   {
     defaultContactPhone = [requestCopy defaultContactPhone];
-    v17 = [self _contactFromEncodedData:defaultContactPhone];
+    v21 = [self _contactFromEncodedData:defaultContactPhone];
 
-    if (v17)
+    if (v21)
     {
-      v18 = pk_Payment_log();
-      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+      v23 = pk_Payment_log(v22);
+      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-      if (v19)
+      if (v24)
       {
-        v20 = pk_Payment_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v26 = pk_Payment_log(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v33[0]) = 0;
-          _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Decoded default contact phone", v33, 2u);
+          LOWORD(v42[0]) = 0;
+          _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: Decoded default contact phone", v42, 2u);
         }
       }
 
-      [v5 setDefaultContactPhone:v17];
+      [v5 setDefaultContactPhone:v21];
     }
   }
 
@@ -215,24 +218,24 @@
   if ([requestCopy hasDefaultContactName])
   {
     defaultContactName = [requestCopy defaultContactName];
-    v22 = [self _contactFromEncodedData:defaultContactName];
+    v28 = [self _contactFromEncodedData:defaultContactName];
 
-    if (v22)
+    if (v28)
     {
-      v23 = pk_Payment_log();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+      v30 = pk_Payment_log(v29);
+      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-      if (v24)
+      if (v31)
       {
-        v25 = pk_Payment_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v33 = pk_Payment_log(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v33[0]) = 0;
-          _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: Decoded default contact name", v33, 2u);
+          LOWORD(v42[0]) = 0;
+          _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Notice: Decoded default contact name", v42, 2u);
         }
       }
 
-      [v5 setDefaultContactName:v22];
+      [v5 setDefaultContactName:v28];
     }
   }
 
@@ -244,26 +247,26 @@
   if ([requestCopy hasDefaultBillingAddresses])
   {
     defaultBillingAddresses = [requestCopy defaultBillingAddresses];
-    v27 = [self _billingAddressDictionaryFromEncodedData:defaultBillingAddresses];
+    v35 = [self _billingAddressDictionaryFromEncodedData:defaultBillingAddresses];
 
-    if (v27)
+    if (v35)
     {
-      v28 = pk_Payment_log();
-      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+      v37 = pk_Payment_log(v36);
+      v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
 
-      if (v29)
+      if (v38)
       {
-        v30 = pk_Payment_log();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v40 = pk_Payment_log(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = [v27 count];
-          v33[0] = 67109120;
-          v33[1] = v31;
-          _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_DEFAULT, "Notice: Decoded %d default billing addresses", v33, 8u);
+          v41 = [v35 count];
+          v42[0] = 67109120;
+          v42[1] = v41;
+          _os_log_impl(&dword_25B300000, v40, OS_LOG_TYPE_DEFAULT, "Notice: Decoded %d default billing addresses", v42, 8u);
         }
       }
 
-      [v5 _setRawDefaultBillingAddresses:v27];
+      [v5 _setRawDefaultBillingAddresses:v35];
     }
   }
 
@@ -271,8 +274,6 @@
   {
     [self _deleteAllDefaultBillingAddresses:v5];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_deleteAllDefaultBillingAddresses:(id)addresses
@@ -294,7 +295,7 @@
 
 + (id)_billingAddressDictionaryFromEncodedData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:0];
   v5 = MEMORY[0x277CBEB98];
@@ -306,25 +307,24 @@
   v11 = [v4 decodeObjectOfClasses:v10 forKey:*MEMORY[0x277CCA308]];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v12 = pk_General_log();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    v13 = pk_General_log(isKindOfClass);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
 
-    if (v13)
+    if (v14)
     {
-      v14 = pk_General_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = pk_General_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_ERROR, "Error: Billing address is not a dictionary", buf, 2u);
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_ERROR, "Error: Billing address is not a dictionary", buf, 2u);
       }
     }
 
     v11 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

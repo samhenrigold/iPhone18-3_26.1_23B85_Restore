@@ -14,6 +14,7 @@
 - (id)printableState;
 - (id)processAdvertisement:(id)advertisement receivedOOBFromPeer:(id)peer;
 - (id)processLostEventReceivedOOBFromPeer:(id)peer;
+- (id)setPeersEligibleForDiscovery:(id)discovery requestScan:(BOOL)scan;
 - (id)startAdvertisingToPeer:(id)peer advertisement:(id)advertisement timeout:(double)timeout;
 - (id)stopAdvertisingToPeer:(id)peer;
 - (void)_cbAdvertisingAddressChangedHandler;
@@ -346,6 +347,104 @@ LABEL_24:
   [(NIServerFindingDiscoveryProvider *)self _resetAdvertisingStateForAllPeers];
   [(NSMutableSet *)self->_eligibleDiscoveryPeers removeAllObjects];
   [(NIServerFindingDiscoveryProvider *)self _updateLaunchOnDemandScannerAndRequestScan:0];
+}
+
+- (id)setPeersEligibleForDiscovery:(id)discovery requestScan:(BOOL)scan
+{
+  scanCopy = scan;
+  discoveryCopy = discovery;
+  v7 = qword_1009F9820;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = sub_100009210(self->_isFinder);
+    v9 = [discoveryCopy count];
+    allObjects = [discoveryCopy allObjects];
+    v11 = sub_100346A18(allObjects, 10, 0);
+    *buf = 136315907;
+    v36 = v8;
+    v37 = 1024;
+    v38 = scanCopy;
+    v39 = 1024;
+    v40 = v9;
+    v41 = 2113;
+    v42 = v11;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#find-disc,[%s] setPeersEligibleForDiscovery. requestScan: %d. Peers (%d): %{private}@", buf, 0x22u);
+  }
+
+  dispatch_assert_queue_V2(self->_consumerQueue);
+  if (!discoveryCopy)
+  {
+    discoveryCopy = objc_opt_new();
+  }
+
+  v12 = objc_opt_new();
+  discoveredPeers = self->_discoveredPeers;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_100377794;
+  v32[3] = &unk_1009A8408;
+  v14 = discoveryCopy;
+  v33 = v14;
+  v15 = v12;
+  v34 = v15;
+  [(NSMutableDictionary *)discoveredPeers enumerateKeysAndObjectsUsingBlock:v32];
+  [(NSMutableDictionary *)self->_discoveredPeers removeObjectsForKeys:v15];
+  [(NSMutableDictionary *)self->_didDiscoverPeerTimestamps removeObjectsForKeys:v15];
+  [v15 removeAllObjects];
+  discoveryTimeoutTimers = self->_discoveryTimeoutTimers;
+  v26 = _NSConcreteStackBlock;
+  v27 = 3221225472;
+  v28 = sub_100377808;
+  v29 = &unk_1009A8430;
+  v17 = v14;
+  v30 = v17;
+  v18 = v15;
+  v31 = v18;
+  [(NSMutableDictionary *)discoveryTimeoutTimers enumerateKeysAndObjectsUsingBlock:&v26];
+  [(NSMutableDictionary *)self->_discoveryTimeoutTimers removeObjectsForKeys:v18, v26, v27, v28, v29];
+  v19 = [v17 mutableCopy];
+  eligibleDiscoveryPeers = self->_eligibleDiscoveryPeers;
+  self->_eligibleDiscoveryPeers = v19;
+
+  if (!self->_enableBluetooth)
+  {
+    v23 = qword_1009F9820;
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "#find-disc,BT not enabled. Skipping configuring scanner.", buf, 2u);
+    }
+
+    goto LABEL_14;
+  }
+
+  v21 = sub_1000086B0(!self->_isFinder);
+  if (v21 == 19)
+  {
+    v22 = [(NIServerFindingDiscoveryProvider *)self _configureSpatialInteractionScannerAndRequestScan:scanCopy];
+LABEL_12:
+    v24 = v22;
+    if (v22)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (v21 == 26)
+  {
+    v22 = [(NIServerFindingDiscoveryProvider *)self _configureNearbyActionNoWakeScannerAndRequestScan:scanCopy];
+    goto LABEL_12;
+  }
+
+LABEL_13:
+  [(NIServerFindingDiscoveryProvider *)self _updateLaunchOnDemandScannerAndRequestScan:scanCopy];
+LABEL_14:
+  v24 = 0;
+LABEL_15:
+
+  return v24;
 }
 
 - (id)startAdvertisingToPeer:(id)peer advertisement:(id)advertisement timeout:(double)timeout

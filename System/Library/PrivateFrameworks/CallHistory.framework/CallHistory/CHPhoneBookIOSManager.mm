@@ -27,7 +27,7 @@
 - (id)fetchCNContact:(id)contact countryCode:(id)code isEmail:(BOOL)email
 {
   emailCopy = email;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   codeCopy = code;
   v10 = +[CHLogServer sharedInstance];
@@ -36,9 +36,9 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = contactCopy;
-    v32 = 1024;
-    LODWORD(v33) = emailCopy;
+    v30 = contactCopy;
+    v31 = 1024;
+    LODWORD(v32) = emailCopy;
     _os_log_impl(&dword_1C3E90000, v11, OS_LOG_TYPE_DEFAULT, "fetchCNContact! Trying to find contact info for %@, isEmail? %d", buf, 0x12u);
   }
 
@@ -59,13 +59,13 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138739971;
-    v31 = v13;
+    v30 = v13;
     _os_log_impl(&dword_1C3E90000, v15, OS_LOG_TYPE_DEFAULT, "The predicate used to find contact: %{sensitive}@", buf, 0xCu);
   }
 
-  v29 = 0;
-  v16 = [(CHPhoneBookIOSManager *)self fetchCNContactsMatchingPredicate:v13 keysToKetch:MEMORY[0x1E695E0F0] error:&v29];
-  v17 = v29;
+  v28 = 0;
+  v16 = [(CHPhoneBookIOSManager *)self fetchCNContactsMatchingPredicate:v13 keysToKetch:MEMORY[0x1E695E0F0] error:&v28];
+  v17 = v28;
   v18 = +[CHLogServer sharedInstance];
   v19 = [v18 logHandleForDomain:"ch.pbm"];
 
@@ -74,9 +74,9 @@
   {
     v21 = [v16 count];
     *buf = 134218243;
-    v31 = v21;
-    v32 = 2117;
-    v33 = contactCopy;
+    v30 = v21;
+    v31 = 2117;
+    v32 = contactCopy;
     _os_log_impl(&dword_1C3E90000, v20, OS_LOG_TYPE_DEFAULT, "Num of contacts found: %lu for %{sensitive}@", buf, 0x16u);
   }
 
@@ -107,15 +107,13 @@
 LABEL_18:
   [v12 setValue:identifier forKey:@"kCHABCacheCNContactIdKey"];
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)fetchFullCNContactForContactIdentifier:(id)identifier isEmail:(BOOL)email
 {
   emailCopy = email;
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
   v8 = v7;
@@ -126,17 +124,17 @@ LABEL_18:
   }
 
   v10 = *v9;
-  v24[0] = v7;
-  v24[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v23[0] = v7;
+  v23[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
 
   v12 = MEMORY[0x1E695CD58];
-  v23 = identifierCopy;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v22 = identifierCopy;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
   v14 = [v12 predicateForContactsWithIdentifiers:v13];
-  v22 = 0;
-  v15 = [(CHPhoneBookIOSManager *)self fetchCNContactsMatchingPredicate:v14 keysToKetch:v11 error:&v22];
-  v16 = v22;
+  v21 = 0;
+  v15 = [(CHPhoneBookIOSManager *)self fetchCNContactsMatchingPredicate:v14 keysToKetch:v11 error:&v21];
+  v16 = v21;
   firstObject = [v15 firstObject];
 
   if (!firstObject)
@@ -149,8 +147,6 @@ LABEL_18:
       [CHPhoneBookIOSManager fetchFullCNContactForContactIdentifier:isEmail:];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -224,34 +220,34 @@ LABEL_18:
 - (id)getLocalizedCallerIdLabelForContact:(id)contact forCallerId:(id)id withCallerIdIsEmail:(BOOL)email
 {
   emailCopy = email;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   idCopy = id;
   if (contactCopy)
   {
-    v36 = contactCopy;
+    v35 = contactCopy;
     if (emailCopy)
     {
       emailAddresses = [contactCopy emailAddresses];
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
-      v10 = [emailAddresses countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v10 = [emailAddresses countByEnumeratingWithState:&v40 objects:v45 count:16];
       v11 = 0;
       if (v10)
       {
-        v12 = *v42;
+        v12 = *v41;
         do
         {
           for (i = 0; i != v10; i = i + 1)
           {
-            if (*v42 != v12)
+            if (*v41 != v12)
             {
               objc_enumerationMutation(emailAddresses);
             }
 
-            v14 = *(*(&v41 + 1) + 8 * i);
+            v14 = *(*(&v40 + 1) + 8 * i);
             value = [v14 value];
             v16 = [value isEqualToString:idCopy];
 
@@ -263,7 +259,7 @@ LABEL_18:
             }
           }
 
-          v10 = [emailAddresses countByEnumeratingWithState:&v41 objects:v46 count:16];
+          v10 = [emailAddresses countByEnumeratingWithState:&v40 objects:v45 count:16];
         }
 
         while (v10);
@@ -282,28 +278,28 @@ LABEL_18:
       v20 = [MEMORY[0x1E695CF50] phoneNumberWithStringValue:idCopy];
       if (v20)
       {
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
-        v35 = emailAddresses;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v34 = emailAddresses;
         v21 = emailAddresses;
-        v22 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (v22)
         {
           v23 = v22;
           v11 = 0;
-          v24 = *v38;
+          v24 = *v37;
           do
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v38 != v24)
+              if (*v37 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v37 + 1) + 8 * j);
+              v26 = *(*(&v36 + 1) + 8 * j);
               value2 = [v26 value];
               v28 = [value2 isLikePhoneNumber:v20];
 
@@ -315,7 +311,7 @@ LABEL_18:
               }
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
           }
 
           while (v23);
@@ -326,7 +322,7 @@ LABEL_18:
           v11 = 0;
         }
 
-        emailAddresses = v35;
+        emailAddresses = v34;
       }
 
       else
@@ -343,7 +339,7 @@ LABEL_18:
     v32 = [v30 localizedStringForLabel:label];
 
     v19 = v32;
-    contactCopy = v36;
+    contactCopy = v35;
   }
 
   else
@@ -351,47 +347,25 @@ LABEL_18:
     v19 = 0;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return v19;
-}
-
-- (void)fetchCNContact:countryCode:isEmail:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Error looking for contacts matching caller ID %{sensitive}@, error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchFullCNContactForContactIdentifier:isEmail:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_1C3E90000, v0, v1, "Can't find contact for identifier %{sensitive}@, error: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPersonsNameForContact:(const char *)a1 .cold.1(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1C3E90000, a2, OS_LOG_TYPE_DEBUG, "==> %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1C3E90000, a2, OS_LOG_TYPE_DEBUG, "==> %@", &v4, 0xCu);
 }
 
 - (void)getPersonsNameForContact:(NSObject *)a3 .cold.2(const char *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_0_3();
-  v8 = a2;
-  _os_log_debug_impl(&dword_1C3E90000, a3, OS_LOG_TYPE_DEBUG, "%@ <== %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  _os_log_debug_impl(&dword_1C3E90000, a3, OS_LOG_TYPE_DEBUG, "%@ <== %@", v6, 0x16u);
 }
 
 @end

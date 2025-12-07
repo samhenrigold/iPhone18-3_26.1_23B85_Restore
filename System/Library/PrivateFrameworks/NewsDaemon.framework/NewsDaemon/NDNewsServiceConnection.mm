@@ -74,25 +74,24 @@
 
 void __64__NDNewsServiceConnection_fetchModuleDescriptorsWithCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = NDSharedClientLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = NDSharedClientLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v9 = "[NDNewsServiceConnection fetchModuleDescriptorsWithCompletion:]_block_invoke";
+    v8 = "[NDNewsServiceConnection fetchModuleDescriptorsWithCompletion:]_block_invoke";
     _os_log_impl(&dword_25BE24000, v2, OS_LOG_TYPE_INFO, "Calling %s on daemon", buf, 0xCu);
   }
 
   v3 = [*(a1 + 32) connection];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __64__NDNewsServiceConnection_fetchModuleDescriptorsWithCompletion___block_invoke_61;
-  v6[3] = &unk_27997C160;
-  v7 = *(a1 + 40);
-  v4 = [v3 remoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __64__NDNewsServiceConnection_fetchModuleDescriptorsWithCompletion___block_invoke_61;
+  v5[3] = &unk_27997C160;
+  v6 = *(a1 + 40);
+  v4 = [v3 remoteObjectProxyWithErrorHandler:v5];
 
   [v4 fetchModuleDescriptorsWithCompletion:*(a1 + 40)];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchLatestResultsWithParameters:(id)parameters completion:(id)completion
@@ -133,25 +132,24 @@ LABEL_6:
 
 void __71__NDNewsServiceConnection_fetchLatestResultsWithParameters_completion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = NDSharedClientLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = NDSharedClientLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v9 = "[NDNewsServiceConnection fetchLatestResultsWithParameters:completion:]_block_invoke";
+    v8 = "[NDNewsServiceConnection fetchLatestResultsWithParameters:completion:]_block_invoke";
     _os_log_impl(&dword_25BE24000, v2, OS_LOG_TYPE_INFO, "Calling %s on daemon", buf, 0xCu);
   }
 
   v3 = [*(a1 + 32) connection];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __71__NDNewsServiceConnection_fetchLatestResultsWithParameters_completion___block_invoke_65;
-  v6[3] = &unk_27997C160;
-  v7 = *(a1 + 48);
-  v4 = [v3 remoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __71__NDNewsServiceConnection_fetchLatestResultsWithParameters_completion___block_invoke_65;
+  v5[3] = &unk_27997C160;
+  v6 = *(a1 + 48);
+  v4 = [v3 remoteObjectProxyWithErrorHandler:v5];
 
   [v4 fetchLatestResultsWithParameters:*(a1 + 40) completion:*(a1 + 48)];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAnalyticsElements:(id)elements asSeenAtDate:(id)date withCompletion:(id)completion
@@ -200,13 +198,13 @@ LABEL_6:
 
 void __77__NDNewsServiceConnection_markAnalyticsElements_asSeenAtDate_withCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = NDSharedClientLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = NDSharedClientLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315138;
-    v9 = "[NDNewsServiceConnection markAnalyticsElements:asSeenAtDate:withCompletion:]_block_invoke";
-    _os_log_impl(&dword_25BE24000, v2, OS_LOG_TYPE_INFO, "Calling %s on daemon", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[NDNewsServiceConnection markAnalyticsElements:asSeenAtDate:withCompletion:]_block_invoke";
+    _os_log_impl(&dword_25BE24000, v2, OS_LOG_TYPE_INFO, "Calling %s on daemon", &v7, 0xCu);
   }
 
   v3 = [*(a1 + 32) connection];
@@ -224,8 +222,6 @@ void __77__NDNewsServiceConnection_markAnalyticsElements_asSeenAtDate_withComple
 
   v6 = _Block_copy(v5);
   [v4 markAnalyticsElements:*(a1 + 40) asSeenAtDate:*(a1 + 48) withCompletion:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAnalyticsElement:(id)element asReadAtDate:(id)date withCompletion:(id)completion
@@ -365,117 +361,118 @@ void __83__NDNewsServiceConnection_fetchPlaceholderResultsWithOperationInfo_sync
 
 - (void)_unsafeEstablishConnectionIfNeededWithCompletion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  if (!completionCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  v5 = completionCopy;
+  if (!completionCopy)
   {
-    [NDNewsServiceConnection _unsafeEstablishConnectionIfNeededWithCompletion:];
+    completionCopy = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (completionCopy)
+    {
+      [NDNewsServiceConnection _unsafeEstablishConnectionIfNeededWithCompletion:];
+    }
   }
 
-  v5 = NDSharedClientLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = NDSharedClientLog(completionCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v31 = "[NDNewsServiceConnection _unsafeEstablishConnectionIfNeededWithCompletion:]";
-    _os_log_impl(&dword_25BE24000, v5, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
+    v32 = "[NDNewsServiceConnection _unsafeEstablishConnectionIfNeededWithCompletion:]";
+    _os_log_impl(&dword_25BE24000, v6, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
   connection = [(NDNewsServiceConnection *)self connection];
-  v7 = connection == 0;
+  v8 = connection == 0;
 
-  if (v7)
+  if (v8)
   {
     ++_unsafeEstablishConnectionIfNeededWithCompletion__connectionIdentifier;
-    v8 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.newsd.today" options:0];
-    v9 = NDSharedClientLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.newsd.today" options:0];
+    v11 = NDSharedClientLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v31 = _unsafeEstablishConnectionIfNeededWithCompletion__connectionIdentifier;
-      _os_log_impl(&dword_25BE24000, v9, OS_LOG_TYPE_INFO, "Created connection %ld to newsd for NewsToday mach service", buf, 0xCu);
+      v32 = _unsafeEstablishConnectionIfNeededWithCompletion__connectionIdentifier;
+      _os_log_impl(&dword_25BE24000, v11, OS_LOG_TYPE_INFO, "Created connection %ld to newsd for NewsToday mach service", buf, 0xCu);
     }
 
-    [v8 setInterruptionHandler:&__block_literal_global_76];
+    [v10 setInterruptionHandler:&__block_literal_global_76];
     objc_initWeak(buf, self);
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithCompletion___block_invoke_77;
-    v27 = &unk_27997C228;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithCompletion___block_invoke_77;
+    v28 = &unk_27997C228;
     selfCopy = self;
-    objc_copyWeak(&v29, buf);
-    [v8 setInvalidationHandler:&v24];
-    v10 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286D7EAA0];
-    [v8 setRemoteObjectInterface:v10];
-    v11 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286D7E910];
-    [v8 setExportedInterface:v11];
+    objc_copyWeak(&v30, buf);
+    [v10 setInvalidationHandler:&v25];
+    v12 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286D7EAA0];
+    [v10 setRemoteObjectInterface:v12];
+    v13 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286D7E910];
+    [v10 setExportedInterface:v13];
 
-    remoteObjectInterface = [v8 remoteObjectInterface];
-    v13 = MEMORY[0x277CBEB98];
-    v14 = objc_opt_class();
-    v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0, v24, v25, v26, v27, selfCopy}];
-    [remoteObjectInterface setClasses:v15 forSelector:sel_fetchLatestResultsWithParameters_completion_ argumentIndex:1 ofReply:1];
+    remoteObjectInterface = [v10 remoteObjectInterface];
+    v15 = MEMORY[0x277CBEB98];
+    v16 = objc_opt_class();
+    v17 = [v15 setWithObjects:{v16, objc_opt_class(), 0, v25, v26, v27, v28, selfCopy}];
+    [remoteObjectInterface setClasses:v17 forSelector:sel_fetchLatestResultsWithParameters_completion_ argumentIndex:1 ofReply:1];
 
-    remoteObjectInterface2 = [v8 remoteObjectInterface];
-    v17 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-    [remoteObjectInterface2 setClasses:v17 forSelector:sel_fetchLatestResultsWithParameters_completion_ argumentIndex:2 ofReply:1];
+    remoteObjectInterface2 = [v10 remoteObjectInterface];
+    v19 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+    [remoteObjectInterface2 setClasses:v19 forSelector:sel_fetchLatestResultsWithParameters_completion_ argumentIndex:2 ofReply:1];
 
-    remoteObjectInterface3 = [v8 remoteObjectInterface];
-    v19 = MEMORY[0x277CBEB98];
-    v20 = objc_opt_class();
-    v21 = [v19 setWithObjects:{v20, objc_opt_class(), 0}];
-    [remoteObjectInterface3 setClasses:v21 forSelector:sel_fetchModuleDescriptorsWithCompletion_ argumentIndex:0 ofReply:1];
+    remoteObjectInterface3 = [v10 remoteObjectInterface];
+    v21 = MEMORY[0x277CBEB98];
+    v22 = objc_opt_class();
+    v23 = [v21 setWithObjects:{v22, objc_opt_class(), 0}];
+    [remoteObjectInterface3 setClasses:v23 forSelector:sel_fetchModuleDescriptorsWithCompletion_ argumentIndex:0 ofReply:1];
 
-    v22 = objc_alloc_init(NDNewsServiceConnectionClientProxy);
-    [(NDNewsServiceConnectionClientProxy *)v22 setClient:self];
-    [v8 setExportedObject:v22];
-    [v8 resume];
-    [(NDNewsServiceConnection *)self setConnection:v8];
+    v24 = objc_alloc_init(NDNewsServiceConnectionClientProxy);
+    [(NDNewsServiceConnectionClientProxy *)v24 setClient:self];
+    [v10 setExportedObject:v24];
+    [v10 resume];
+    [(NDNewsServiceConnection *)self setConnection:v10];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v8 = NDSharedClientLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = NDSharedClientLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v31 = _unsafeEstablishConnectionIfNeededWithCompletion__connectionIdentifier;
-      _os_log_impl(&dword_25BE24000, v8, OS_LOG_TYPE_INFO, "Reusing connection %ld", buf, 0xCu);
+      v32 = _unsafeEstablishConnectionIfNeededWithCompletion__connectionIdentifier;
+      _os_log_impl(&dword_25BE24000, v10, OS_LOG_TYPE_INFO, "Reusing connection %ld", buf, 0xCu);
     }
   }
 
-  if (completionCopy)
+  if (v5)
   {
-    completionCopy[2](completionCopy);
+    v5[2](v5);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithCompletion___block_invoke()
+void __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithCompletion___block_invoke(uint64_t a1)
 {
   v4 = *MEMORY[0x277D85DE8];
-  v0 = NDSharedClientLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = NDSharedClientLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     v2 = 134217984;
     v3 = _unsafeEstablishConnectionIfNeededWithCompletion__connectionIdentifier;
-    _os_log_impl(&dword_25BE24000, v0, OS_LOG_TYPE_INFO, "Connection %ld was interrupted", &v2, 0xCu);
+    _os_log_impl(&dword_25BE24000, v1, OS_LOG_TYPE_INFO, "Connection %ld was interrupted", &v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithCompletion___block_invoke_77(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = NDSharedClientLog();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = NDSharedClientLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v8 = _unsafeEstablishConnectionIfNeededWithCompletion__connectionIdentifier;
+    v7 = _unsafeEstablishConnectionIfNeededWithCompletion__connectionIdentifier;
     _os_log_impl(&dword_25BE24000, v2, OS_LOG_TYPE_INFO, "Connection %ld was invalidated", buf, 0xCu);
   }
 
@@ -484,11 +481,10 @@ void __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithComplet
   block[1] = 3221225472;
   block[2] = __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithCompletion___block_invoke_78;
   block[3] = &unk_27997C200;
-  objc_copyWeak(&v6, (a1 + 40));
+  objc_copyWeak(&v5, (a1 + 40));
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v6);
-  v4 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v5);
 }
 
 void __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithCompletion___block_invoke_78(uint64_t a1)
@@ -506,134 +502,101 @@ void __76__NDNewsServiceConnection__unsafeEstablishConnectionIfNeededWithComplet
 
 - (void)initWithClient:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "client"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "client", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)fetchModuleDescriptorsWithCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)fetchLatestResultsWithParameters:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "parameters"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "parameters", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)fetchLatestResultsWithParameters:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)markAnalyticsElements:asSeenAtDate:withCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "headlineAnalyticsElements"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headlineAnalyticsElements", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)markAnalyticsElements:asSeenAtDate:withCompletion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "date", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)markAnalyticsElement:asReadAtDate:withCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "analyticsElement"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "analyticsElement", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)markAnalyticsElement:asReadAtDate:withCompletion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "date", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)fetchPlaceholderResultsWithOperationInfo:syncCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "operationInfo"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "operationInfo", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)fetchPlaceholderResultsWithOperationInfo:syncCompletion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "syncCompletion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "syncCompletion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_unsafeEstablishConnectionIfNeededWithCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BE24000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

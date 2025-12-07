@@ -92,30 +92,30 @@ LABEL_11:
 - (id)pathRuleCreate:(BOOL)create
 {
   createCopy = create;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   pathControllerConfiguration = [(PUINetworkController *)self pathControllerConfiguration];
   pathController = [pathControllerConfiguration pathController];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   pathRules = [pathController pathRules];
-  v7 = [pathRules countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v7 = [pathRules countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(pathRules);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         matchSigningIdentifier = [v11 matchSigningIdentifier];
         bundleIdentifier = [(PUINetworkApplicationController *)self bundleIdentifier];
         v14 = [matchSigningIdentifier isEqualToString:bundleIdentifier];
@@ -127,7 +127,7 @@ LABEL_11:
         }
       }
 
-      v8 = [pathRules countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v8 = [pathRules countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v8)
       {
         continue;
@@ -154,8 +154,8 @@ LABEL_11:
 
     else
     {
-      v27 = v17;
-      pathRules = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+      v26 = v17;
+      pathRules = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
       [pathController setPathRules:pathRules];
     }
 
@@ -166,8 +166,6 @@ LABEL_13:
   {
     v17 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

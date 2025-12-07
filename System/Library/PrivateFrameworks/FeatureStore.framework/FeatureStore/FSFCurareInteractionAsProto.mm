@@ -1,4 +1,5 @@
 @interface FSFCurareInteractionAsProto
++ (id)deserialize:(id)deserialize dataVersion:(unsigned int)version interactionId:(id)id;
 - (FSFCurareInteractionAsProto)initWithProto:(id)proto interactionId:(id)id dataVersion:(unsigned int)version;
 - (FSFCurareInteractionAsProto)initWithProto:(id)proto interactionId:(id)id dataVersion:(unsigned int)version jsonStr:(id)str;
 @end
@@ -65,6 +66,16 @@
   }
 
   return selfCopy;
+}
+
++ (id)deserialize:(id)deserialize dataVersion:(unsigned int)version interactionId:(id)id
+{
+  v5 = *&version;
+  idCopy = id;
+  deserializeCopy = deserialize;
+  v9 = [[FSFCurareInteractionAsProto alloc] initWithProto:deserializeCopy interactionId:idCopy dataVersion:v5];
+
+  return v9;
 }
 
 @end

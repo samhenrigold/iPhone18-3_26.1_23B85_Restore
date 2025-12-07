@@ -34,7 +34,7 @@
 
 - (void)startTrackingItemWithIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = self->_itemsToSignpostTracker;
   objc_sync_enter(v5);
@@ -45,7 +45,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v7;
+      v14 = v7;
       v9 = "[WARNING] UploadV1 tracker has no available spots, rejecting request%@";
       v10 = v8;
       v11 = 12;
@@ -64,9 +64,9 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v15 = identifierCopy;
-        v16 = 2112;
-        v17 = v7;
+        v14 = identifierCopy;
+        v15 = 2112;
+        v16 = v7;
         v9 = "[WARNING] Item with identifier %@ is already tracked%@";
         v10 = v8;
         v11 = 22;
@@ -85,18 +85,16 @@ LABEL_7:
       }
 
       v8 = brc_bread_crumbs();
-      v13 = brc_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v12 = brc_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        [(BRCUploadV1PerformanceTracker *)v8 startTrackingItemWithIdentifier:v13];
+        [(BRCUploadV1PerformanceTracker *)v8 startTrackingItemWithIdentifier:v12];
       }
     }
   }
 
 LABEL_9:
   objc_sync_exit(v5);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopTrackingItemWithIdentifier:(id)identifier endEvent:(BOOL)event
@@ -127,7 +125,7 @@ LABEL_9:
 
 - (void)close
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = self->_itemsToSignpostTracker;
   objc_sync_enter(v3);
   if ([(NSMutableDictionary *)self->_itemsToSignpostTracker count])
@@ -138,37 +136,37 @@ LABEL_9:
     {
       v6 = [(NSMutableDictionary *)self->_itemsToSignpostTracker count];
       *buf = 134218242;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v4;
+      v17 = v6;
+      v18 = 2112;
+      v19 = v4;
       _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] UploadV1PerformanceTracker deallocating with %lu active trackers%@", buf, 0x16u);
     }
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allValues = [(NSMutableDictionary *)self->_itemsToSignpostTracker allValues];
-  v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) dropSignpostEvent];
+        [*(*(&v11 + 1) + 8 * v10++) dropSignpostEvent];
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -176,8 +174,6 @@ LABEL_9:
 
   [(NSMutableDictionary *)self->_itemsToSignpostTracker removeAllObjects];
   objc_sync_exit(v3);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -190,11 +186,10 @@ LABEL_9:
 
 - (void)startTrackingItemWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: signpostTracker%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: signpostTracker%@", &v2, 0xCu);
 }
 
 @end

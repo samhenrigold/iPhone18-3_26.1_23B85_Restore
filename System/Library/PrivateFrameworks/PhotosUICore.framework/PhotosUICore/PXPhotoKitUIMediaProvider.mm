@@ -1384,7 +1384,7 @@ void __77__PXPhotoKitUIMediaProvider_requestPlayerItemForVideo_options_resultHan
 LABEL_10:
 }
 
-uint64_t __77__PXPhotoKitUIMediaProvider_requestPlayerItemForVideo_options_resultHandler___block_invoke_274(void *a1)
+void *__77__PXPhotoKitUIMediaProvider_requestPlayerItemForVideo_options_resultHandler___block_invoke_274(void *a1)
 {
   result = [PXPhotoKitUIMediaProvider configureLoadingStatusManager:a1[4] andVideoProgressHandler:a1[6] withVideoSensitivityProcessingProgress:a1[5] imageManagerRequestProgress:*(*(a1[8] + 8) + 40) loadOperationTrackingID:0 stop:0 info:*(*(a1[7] + 8) + 24) error:0];
   if (*(*(a1[7] + 8) + 24) >= 1.0)
@@ -1653,17 +1653,15 @@ void __76__PXPhotoKitUIMediaProvider_requestImageDataForAsset_options_resultHand
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __76__PXPhotoKitUIMediaProvider_requestImageDataForAsset_options_resultHandler___block_invoke_6(uint64_t result, void *a2, void *a3, uint64_t a4, void *a5)
+void __76__PXPhotoKitUIMediaProvider_requestImageDataForAsset_options_resultHandler___block_invoke_6(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  if (*(result + 32))
+  if (*(a1 + 32))
   {
     v7 = a5;
     v8 = a3;
     a2;
     PXImageOrientationFromCGImagePropertyOrientation();
   }
-
-  return result;
 }
 
 void __76__PXPhotoKitUIMediaProvider_requestImageDataForAsset_options_resultHandler___block_invoke_5(uint64_t a1)

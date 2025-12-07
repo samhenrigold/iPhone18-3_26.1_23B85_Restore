@@ -236,31 +236,28 @@ void __57__EDConversationRemoteKVSStorage_removeDictionaryForKey___block_invoke(
 
 void __45__EDConversationRemoteKVSStorage_synchronize__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) kvStore];
   *(*(*(a1 + 40) + 8) + 24) = [v2 synchronize];
 
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() log];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = [objc_opt_class() log];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(*(*(a1 + 40) + 8) + 24);
-    v6 = [*(a1 + 32) kvStore];
-    v7 = v6;
-    v8 = @"failed";
-    if (v5)
+    v4 = *(*(*(a1 + 40) + 8) + 24);
+    v5 = [*(a1 + 32) kvStore];
+    v6 = v5;
+    v7 = @"failed";
+    if (v4)
     {
-      v8 = @"succeeded";
+      v7 = @"succeeded";
     }
 
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Synchronizing with KVS store %@: %@", &v10, 0x16u);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Synchronizing with KVS store %@: %@", &v8, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)storageName
@@ -287,7 +284,7 @@ void __45__EDConversationRemoteKVSStorage_synchronize__block_invoke(uint64_t a1)
   return v7;
 }
 
-uint64_t __78__EDConversationRemoteKVSStorage_subsetOfMessageIDsToSyncFromMessageIDString___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, _BYTE *a4)
+void *__78__EDConversationRemoteKVSStorage_subsetOfMessageIDsToSyncFromMessageIDString___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) addObject:a2];
   if (a3 >= 5)
@@ -314,164 +311,155 @@ uint64_t __78__EDConversationRemoteKVSStorage_subsetOfMessageIDsToSyncFromMessag
 
 void __58__EDConversationRemoteKVSStorage__storeChangedExternally___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
-  v35 = [*(a1 + 32) object];
-  v31 = [*v2 userInfo];
-  v3 = [v31 objectForKeyedSubscript:*MEMORY[0x1E696A9D8]];
+  v28 = [*(a1 + 32) object];
+  v24 = [*v2 userInfo];
+  v3 = [v24 objectForKeyedSubscript:*MEMORY[0x1E696A9D8]];
   v4 = [v3 unsignedIntegerValue];
 
-  v34 = [v31 objectForKeyedSubscript:*MEMORY[0x1E696A9E0]];
-  v5 = *(a1 + 40);
-  v6 = [objc_opt_class() log];
-  v32 = v4;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v27 = [v24 objectForKeyedSubscript:*MEMORY[0x1E696A9E0]];
+  v5 = [objc_opt_class() log];
+  v25 = v4;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (v4 >= 3)
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown change reason (%lu)", v4];
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown change reason (%lu)", v4];
     }
 
     else
     {
-      v7 = off_1E8251FA8[v4];
+      v6 = off_1E8251FA8[v4];
     }
 
     *buf = 138412546;
-    v44 = v7;
-    v45 = 2112;
-    v46 = v34;
-    _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Received external KVS change event: %@, changed keys=%@", buf, 0x16u);
+    v37 = v6;
+    v38 = 2112;
+    v39 = v27;
+    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Received external KVS change event: %@, changed keys=%@", buf, 0x16u);
   }
 
   if (v4 != 2)
   {
-    v10 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSObject count](v34, "count")}];
+    v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSObject count](v27, "count")}];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __58__EDConversationRemoteKVSStorage__storeChangedExternally___block_invoke_30;
     aBlock[3] = &unk_1E8251F88;
-    v30 = v10;
-    v41 = v30;
-    v11 = _Block_copy(aBlock);
-    if ([v34 count])
+    v23 = v8;
+    v34 = v23;
+    v9 = _Block_copy(aBlock);
+    if ([v27 count])
     {
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v12 = v34;
-      v13 = [v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
-      if (v13)
+      v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v10 = v27;
+      v11 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      if (v11)
       {
-        v14 = *v37;
+        v12 = *v30;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v37 != v14)
+            if (*v30 != v12)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v10);
             }
 
-            v16 = *(*(&v36 + 1) + 8 * i);
-            v17 = [v35 dictionaryForKey:v16];
-            v18 = v17;
-            if (!v17)
+            v14 = *(*(&v29 + 1) + 8 * i);
+            v15 = [v28 dictionaryForKey:v14];
+            v16 = v15;
+            if (!v15)
             {
               v1 = [MEMORY[0x1E695DFB0] null];
-              v18 = v1;
+              v16 = v1;
             }
 
-            v11[2](v11, v16, v18, 0);
-            if (!v17)
+            v9[2](v9, v14, v16, 0);
+            if (!v15)
             {
             }
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
         }
 
-        while (v13);
+        while (v11);
       }
     }
 
     else
     {
-      v12 = [v35 dictionaryRepresentation];
-      [v12 enumerateKeysAndObjectsUsingBlock:v11];
+      v10 = [v28 dictionaryRepresentation];
+      [v10 enumerateKeysAndObjectsUsingBlock:v9];
     }
 
-    if (v32 >= 3)
+    if (v25 >= 3)
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown change reason (%lu)", v32];
-      v20 = a1;
-      v19 = v21;
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown change reason (%lu)", v25];
     }
 
     else
     {
-      v19 = off_1E8251FA8[v32];
-      v20 = a1;
+      v17 = off_1E8251FA8[v25];
     }
 
-    v22 = *(v20 + 40);
-    v23 = [objc_opt_class() log];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v18 = [objc_opt_class() log];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v44 = v19;
-      v45 = 2112;
-      v46 = v30;
-      _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
+      v37 = v17;
+      v38 = 2112;
+      v39 = v23;
+      _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
     }
 
-    if (v32)
+    if (v25)
     {
-      v24 = a1;
-      if (v32 == 1)
+      v19 = a1;
+      if (v25 == 1)
       {
-        v25 = 1;
+        v20 = 1;
 LABEL_36:
-        v28 = [*(v24 + 40) delegate];
-        [v28 conversationRemoteStorage:*(v24 + 40) didChangeEntries:v30 reason:v25];
+        v22 = [*(v19 + 40) delegate];
+        [v22 conversationRemoteStorage:*(v19 + 40) didChangeEntries:v23 reason:v20];
 
-        v9 = v30;
+        v7 = v23;
         goto LABEL_37;
       }
 
-      v26 = *(a1 + 40);
-      v27 = [objc_opt_class() log];
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v21 = [objc_opt_class() log];
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v44 = v19;
-        _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "Unknown change reason: %@", buf, 0xCu);
+        v37 = v17;
+        _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Unknown change reason: %@", buf, 0xCu);
       }
 
-      v25 = 0;
+      v20 = 0;
     }
 
     else
     {
-      v25 = 2;
+      v20 = 2;
     }
 
-    v24 = a1;
+    v19 = a1;
     goto LABEL_36;
   }
 
-  v8 = *(a1 + 40);
-  v9 = [objc_opt_class() log];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = [objc_opt_class() log];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "iCloud Key Value Store Over-Quota…", buf, 2u);
+    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "iCloud Key Value Store Over-Quota…", buf, 2u);
   }
 
 LABEL_37:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __58__EDConversationRemoteKVSStorage__storeChangedExternally___block_invoke_30(uint64_t a1, void *a2, void *a3)

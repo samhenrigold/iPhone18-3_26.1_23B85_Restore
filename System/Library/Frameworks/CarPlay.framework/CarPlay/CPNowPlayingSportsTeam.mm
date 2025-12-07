@@ -109,39 +109,10 @@ LABEL_13:
   isFavorite = [(CPNowPlayingSportsTeam *)self isFavorite];
   isFavorite2 = [teamCopy isFavorite];
 
-  if (isFavorite != isFavorite2)
+  if (isFavorite != isFavorite2 || (-[CPNowPlayingSportsTeam teamStandings](self, "teamStandings"), v13 = objc_claimAutoreleasedReturnValue(), v13, v13) && (-[CPNowPlayingSportsTeam teamStandings](self, "teamStandings"), v14 = objc_claimAutoreleasedReturnValue(), [teamCopy teamStandings], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToString:", v15), v15, v14, !v16) || (-[CPNowPlayingSportsTeam possessionIndicator](self, "possessionIndicator"), v17 = objc_claimAutoreleasedReturnValue(), v17, v17) && (-[CPNowPlayingSportsTeam possessionIndicator](self, "possessionIndicator"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(teamCopy, "possessionIndicator"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v18, "isEqual:", v19), v19, v18, !v20))
   {
-    goto LABEL_16;
-  }
-
-  teamStandings = [(CPNowPlayingSportsTeam *)self teamStandings];
-
-  if (teamStandings)
-  {
-    teamStandings2 = [(CPNowPlayingSportsTeam *)self teamStandings];
-    teamStandings3 = [teamCopy teamStandings];
-    v16 = [teamStandings2 isEqualToString:teamStandings3];
-
-    if (!v16)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  possessionIndicator = [(CPNowPlayingSportsTeam *)self possessionIndicator];
-
-  if (possessionIndicator)
-  {
-    possessionIndicator2 = [(CPNowPlayingSportsTeam *)self possessionIndicator];
-    possessionIndicator3 = [teamCopy possessionIndicator];
-    v20 = [possessionIndicator2 isEqual:possessionIndicator3];
-
-    if (!v20)
-    {
-LABEL_16:
-      v22 = 0;
-      goto LABEL_15;
-    }
+    v22 = 0;
+    goto LABEL_15;
   }
 
   eventScore = [(CPNowPlayingSportsTeam *)self eventScore];

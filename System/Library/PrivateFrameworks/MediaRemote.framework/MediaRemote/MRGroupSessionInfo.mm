@@ -3,6 +3,7 @@
 - (MRGroupSessionInfo)initWithCoder:(id)coder;
 - (MRGroupSessionInfo)initWithIdentifier:(id)identifier hostInfo:(id)info isHosted:(BOOL)hosted equivalentMediaIdentifier:(id)mediaIdentifier isPlaceholder:(BOOL)placeholder;
 - (MRGroupSessionInfo)initWithProtobuf:(id)protobuf;
+- (MRGroupSessionInfo)initWithToken:(id)token isHosted:(BOOL)hosted isPlaceholder:(BOOL)placeholder;
 - (NSString)effectiveIdentifier;
 - (_MRGroupSessionInfoProtobuf)protobuf;
 - (id)description;
@@ -32,6 +33,29 @@
   }
 
   return v15;
+}
+
+- (MRGroupSessionInfo)initWithToken:(id)token isHosted:(BOOL)hosted isPlaceholder:(BOOL)placeholder
+{
+  if (token)
+  {
+    placeholderCopy = placeholder;
+    hostedCopy = hosted;
+    tokenCopy = token;
+    sessionIdentifier = [tokenCopy sessionIdentifier];
+    hostInfo = [tokenCopy hostInfo];
+    equivalentMediaIdentifier = [tokenCopy equivalentMediaIdentifier];
+
+    self = [(MRGroupSessionInfo *)self initWithIdentifier:sessionIdentifier hostInfo:hostInfo isHosted:hostedCopy equivalentMediaIdentifier:equivalentMediaIdentifier isPlaceholder:placeholderCopy];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (MRGroupSessionInfo)initWithProtobuf:(id)protobuf

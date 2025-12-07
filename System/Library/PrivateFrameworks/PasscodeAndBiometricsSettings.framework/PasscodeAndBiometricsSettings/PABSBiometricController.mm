@@ -44,6 +44,7 @@
 - (void)setupBiometricLogoHeader;
 - (void)updateStoreBiometricsStateAndForceRefresh:(BOOL)refresh;
 - (void)updateTouchIDUnlockSpecifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PABSBiometricController
@@ -126,7 +127,7 @@ void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___b
 
 void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
 
   if (WeakRetained)
@@ -147,9 +148,9 @@ void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___b
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 40);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "Fetched biometric template UUIDs: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "Fetched biometric template UUIDs: %@", &v9, 0xCu);
     }
 
     v7 = 2;
@@ -165,8 +166,6 @@ void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___b
       (*(v8 + 16))();
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (CIDVUIBiometricBindingFlowManager)_biometricBindingFlowManager
@@ -203,6 +202,20 @@ void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___b
     [(PABSBiometricController *)self popRecursivelyToRootController];
     navigationController = [(PABSBiometricController *)self navigationController];
     [navigationController setViewControllers:MEMORY[0x277CBEBF8]];
+  }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = PABSBiometricController;
+  [(PABSBiometricController *)&v6 viewWillAppear:appear];
+  currentDevice = [MEMORY[0x277D75418] currentDevice];
+  userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+
+  if (userInterfaceIdiom == 6)
+  {
+    [(PABSBiometricController *)self setupBiometricLogoHeader];
   }
 }
 
@@ -255,7 +268,7 @@ void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___b
 
 - (void)setBiometricUnlockEnabled:(id)enabled specifier:(id)specifier
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v8 = [(PABSBiometricController *)self isTouchIDUnlockEnabled:specifierCopy];
@@ -264,11 +277,11 @@ void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___b
   {
     identifier = [specifierCopy identifier];
     *buf = 138412802;
-    v25 = identifier;
-    v26 = 2112;
-    v27 = enabledCopy;
-    v28 = 2112;
-    v29 = v8;
+    v24 = identifier;
+    v25 = 2112;
+    v26 = enabledCopy;
+    v27 = 2112;
+    v28 = v8;
     _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ , current is %@", buf, 0x20u);
   }
 
@@ -280,7 +293,7 @@ void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___b
     {
       identifier2 = [specifierCopy identifier];
       *buf = 138412290;
-      v25 = identifier2;
+      v24 = identifier2;
       _os_log_impl(&dword_25E0E9000, v14, OS_LOG_TYPE_DEFAULT, "%@: Set: ignoring", buf, 0xCu);
     }
 
@@ -293,20 +306,18 @@ void __69__PABSBiometricController_fetchBiometricTemplateUUIDsWithCompletion___b
   {
     weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
     [weakObjectsHashTable addObject:self];
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __63__PABSBiometricController_setBiometricUnlockEnabled_specifier___block_invoke;
-    v21 = &unk_279A030D0;
-    v22 = weakObjectsHashTable;
-    v23 = enabledCopy;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __63__PABSBiometricController_setBiometricUnlockEnabled_specifier___block_invoke;
+    v20 = &unk_279A030D0;
+    v21 = weakObjectsHashTable;
+    v22 = enabledCopy;
     v14 = weakObjectsHashTable;
-    v15 = _Block_copy(&v18);
-    [(PABSBiometricController *)self addEnrollmentOrCreatePasscodeIfNecessaryWithCompletion:v15, v18, v19, v20, v21];
+    v15 = _Block_copy(&v17);
+    [(PABSBiometricController *)self addEnrollmentOrCreatePasscodeIfNecessaryWithCompletion:v15, v17, v18, v19, v20];
 
 LABEL_8:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __63__PABSBiometricController_setBiometricUnlockEnabled_specifier___block_invoke(uint64_t a1)
@@ -351,7 +362,7 @@ void __63__PABSBiometricController_setBiometricUnlockEnabled_specifier___block_i
 
 - (void)updateTouchIDUnlockSpecifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [(PABSBiometricController *)self specifierForID:@"TOUCHID_UNLOCK"];
   v4 = MEMORY[0x277CCABB0];
   v5 = +[PABSBiometrics sharedInstance];
@@ -362,27 +373,26 @@ void __63__PABSBiometricController_setBiometricUnlockEnabled_specifier___block_i
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [v3 identifier];
-    v10 = 138412290;
-    v11 = identifier;
-    _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "%@: - Reloading -", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = identifier;
+    _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "%@: - Reloading -", &v9, 0xCu);
   }
 
   [(PABSBiometricController *)self reloadSpecifier:v3 animated:1];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStoreState:(int64_t)state forceRefresh:(BOOL)refresh
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_storeState != state || refresh)
   {
     v7 = PABSLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [MEMORY[0x277CCABB0] numberWithInteger:state];
-      v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "TOUCHID_PURCHASES_ID: Setting storeState to %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "TOUCHID_PURCHASES_ID: Setting storeState to %@", &v12, 0xCu);
     }
 
     self->_storeState = state;
@@ -393,14 +403,12 @@ void __63__PABSBiometricController_setBiometricUnlockEnabled_specifier___block_i
     v11 = PABSLogForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "TOUCHID_PURCHASES_ID: - Reloading -", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "TOUCHID_PURCHASES_ID: - Reloading -", &v12, 2u);
     }
 
     [(PABSBiometricController *)self reloadSpecifierID:@"TOUCHID_PURCHASES"];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStoreBiometricsStateAndForceRefresh:(BOOL)refresh
@@ -459,7 +467,7 @@ void __69__PABSBiometricController_updateStoreBiometricsStateAndForceRefresh___b
 
 - (id)isTouchIDForPurchasesEnabled:(id)enabled
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   if ([(PABSBiometricController *)self currentlyEnablingTouchIDForPurchases])
   {
@@ -493,24 +501,22 @@ void __69__PABSBiometricController_updateStoreBiometricsStateAndForceRefresh___b
     {
       identifier = [enabledCopy identifier];
       v11 = [MEMORY[0x277CCABB0] numberWithBool:v8];
-      v14 = 138412546;
-      v15 = identifier;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Get: %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = identifier;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Get: %@", &v13, 0x16u);
     }
 
     v5 = [MEMORY[0x277CCABB0] numberWithBool:v8];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)setTouchIDForPurchasesEnabled:(id)enabled specifier:(id)specifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   bOOLValue = [enabledCopy BOOLValue];
@@ -525,9 +531,9 @@ void __69__PABSBiometricController_updateStoreBiometricsStateAndForceRefresh___b
     {
       identifier = [specifierCopy identifier];
       *buf = 138412546;
-      v22 = identifier;
-      v23 = 2112;
-      v24 = enabledCopy;
+      v21 = identifier;
+      v22 = 2112;
+      v23 = enabledCopy;
       _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ == current", buf, 0x16u);
     }
 
@@ -537,13 +543,13 @@ void __69__PABSBiometricController_updateStoreBiometricsStateAndForceRefresh___b
     aBlock[1] = 3221225472;
     aBlock[2] = __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___block_invoke;
     aBlock[3] = &unk_279A03448;
-    objc_copyWeak(&v20, buf);
-    v18 = enabledCopy;
-    v19 = specifierCopy;
+    objc_copyWeak(&v19, buf);
+    v17 = enabledCopy;
+    v18 = specifierCopy;
     v14 = _Block_copy(aBlock);
     [(PABSBiometricController *)self addEnrollmentOrCreatePasscodeIfNecessaryWithCompletion:v14];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
 
@@ -553,14 +559,12 @@ void __69__PABSBiometricController_updateStoreBiometricsStateAndForceRefresh___b
     {
       identifier2 = [specifierCopy identifier];
       *buf = 138412546;
-      v22 = identifier2;
-      v23 = 2112;
-      v24 = enabledCopy;
+      v21 = identifier2;
+      v22 = 2112;
+      v23 = enabledCopy;
       _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ == current, ignoring", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___block_invoke(id *a1)
@@ -582,7 +586,7 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
 
 void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___block_invoke_2(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] authorizationToken];
   v3 = [a1[5] BOOLValue];
   v4 = objc_alloc_init(MEMORY[0x277D69A70]);
@@ -592,22 +596,21 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
     v6 = [a1[6] identifier];
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:v3];
     *buf = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
     _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@: Set: Requesting StoreBiometrics to %@", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___block_invoke_87;
-  v9[3] = &unk_279A03608;
-  objc_copyWeak(&v11, a1 + 7);
-  v10 = a1[6];
-  [v4 setEnabled:v3 withAuthToken:v2 completionBlock:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___block_invoke_87;
+  v8[3] = &unk_279A03608;
+  objc_copyWeak(&v10, a1 + 7);
+  v9 = a1[6];
+  [v4 setEnabled:v3 withAuthToken:v2 completionBlock:v8];
 
-  objc_destroyWeak(&v11);
-  v8 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v10);
 }
 
 void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___block_invoke_87(uint64_t a1, char a2, void *a3)
@@ -630,7 +633,7 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
 
 void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___block_invoke_2_88(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = PABSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -638,19 +641,17 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
     v4 = [*(a1 + 32) identifier];
     v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 56)];
     v6 = *(a1 + 40);
-    v8 = 138412802;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_25E0E9000, v3, OS_LOG_TYPE_DEFAULT, "%@: Set: StoreBiometrics set [%@] error %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_25E0E9000, v3, OS_LOG_TYPE_DEFAULT, "%@: Set: StoreBiometrics set [%@] error %@", &v7, 0x20u);
   }
 
   [WeakRetained setCurrentlyEnablingTouchIDForPurchases:0];
   [WeakRetained updateStoreBiometricsStateAndForceRefresh:1];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isTouchIDForPurchasesRestricted
@@ -709,14 +710,14 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
 
 - (void)setTouchIDForStockholmEnabled:(id)enabled specifier:(id)specifier
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v8 = PABSLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = enabledCopy;
+    v23 = enabledCopy;
     _os_log_impl(&dword_25E0E9000, v8, OS_LOG_TYPE_DEFAULT, "Using biometric for Wallet & Apple Pay: User toggled to %@", buf, 0xCu);
   }
 
@@ -726,11 +727,11 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
   {
     identifier = [specifierCopy identifier];
     *buf = 138412802;
-    v24 = identifier;
-    v25 = 2112;
-    v26 = enabledCopy;
-    v27 = 2112;
-    v28 = v9;
+    v23 = identifier;
+    v24 = 2112;
+    v25 = enabledCopy;
+    v26 = 2112;
+    v27 = v9;
     _os_log_impl(&dword_25E0E9000, v10, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ , current is %@", buf, 0x20u);
   }
 
@@ -742,7 +743,7 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
     {
       identifier2 = [specifierCopy identifier];
       *buf = 138412290;
-      v24 = identifier2;
+      v23 = identifier2;
       _os_log_impl(&dword_25E0E9000, v13, OS_LOG_TYPE_DEFAULT, "%@: Set: ignoring", buf, 0xCu);
     }
   }
@@ -761,16 +762,16 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
     {
       objc_initWeak(buf, self);
       dtoController2 = [(PABSBiometricController *)self dtoController];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __67__PABSBiometricController_setTouchIDForStockholmEnabled_specifier___block_invoke;
-      v19[3] = &unk_279A03680;
-      objc_copyWeak(&v22, buf);
-      v20 = specifierCopy;
-      v21 = enabledCopy;
-      [dtoController2 gateWithRatchetForOperation:8 forPresentingVC:self completion:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __67__PABSBiometricController_setTouchIDForStockholmEnabled_specifier___block_invoke;
+      v18[3] = &unk_279A03680;
+      objc_copyWeak(&v21, buf);
+      v19 = specifierCopy;
+      v20 = enabledCopy;
+      [dtoController2 gateWithRatchetForOperation:8 forPresentingVC:self completion:v18];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(buf);
     }
 
@@ -779,8 +780,6 @@ void __67__PABSBiometricController_setTouchIDForPurchasesEnabled_specifier___blo
       [(PABSBiometricController *)self presentConfirmationAndProceedTouchIDForStockholmEnabled:enabledCopy specifier:specifierCopy];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __67__PABSBiometricController_setTouchIDForStockholmEnabled_specifier___block_invoke(id *a1, void *a2)
@@ -1054,7 +1053,7 @@ LABEL_7:
 
 - (id)useBiometricForSpecifiers
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
   [emptyGroupSpecifier setIdentifier:@"TOUCHID_SETTINGS"];
@@ -1065,23 +1064,23 @@ LABEL_7:
   if (PSIsPearlInterlocked())
   {
     v5 = +[PABSBiometrics identities];
-    v50 = [v5 count] == 0;
+    v49 = [v5 count] == 0;
   }
 
   else
   {
-    v50 = 0;
+    v49 = 0;
   }
 
   v6 = MEMORY[0x277D3FAD8];
   v7 = PABS_LocalizedStringForPasscodeLock(@"TOUCHID_UNLOCK");
   v8 = [v6 preferenceSpecifierNamed:v7 target:self set:sel_setBiometricUnlockEnabled_specifier_ get:sel_isTouchIDUnlockEnabled_ detail:0 cell:6 edit:0];
 
-  v48 = *MEMORY[0x277D3FFB8];
+  v47 = *MEMORY[0x277D3FFB8];
   [v8 setProperty:@"TOUCHID_UNLOCK" forKey:?];
   v9 = MEMORY[0x277CCABB0];
   v10 = +[PABSBiometrics sharedInstance];
-  v11 = [v9 numberWithInt:{((objc_msgSend(v10, "isTouchIDUnlockRestricted") | v50) & 1) == 0}];
+  v11 = [v9 numberWithInt:{((objc_msgSend(v10, "isTouchIDUnlockRestricted") | v49) & 1) == 0}];
   v12 = *MEMORY[0x277D3FF38];
   [v8 setProperty:v11 forKey:*MEMORY[0x277D3FF38]];
 
@@ -1091,8 +1090,8 @@ LABEL_7:
   v14 = PABS_LocalizedStringForPasscodeLock(@"TOUCHID_PURCHASES");
   v15 = [v13 preferenceSpecifierNamed:v14 target:self set:sel_setTouchIDForPurchasesEnabled_specifier_ get:sel_isTouchIDForPurchasesEnabled_ detail:0 cell:6 edit:0];
 
-  [v15 setProperty:@"TOUCHID_PURCHASES" forKey:v48];
-  v16 = [MEMORY[0x277CCABB0] numberWithInt:{!-[PABSBiometricController isTouchIDForPurchasesRestricted](self, "isTouchIDForPurchasesRestricted") && !v50}];
+  [v15 setProperty:@"TOUCHID_PURCHASES" forKey:v47];
+  v16 = [MEMORY[0x277CCABB0] numberWithInt:{!-[PABSBiometricController isTouchIDForPurchasesRestricted](self, "isTouchIDForPurchasesRestricted") && !v49}];
   [v15 setProperty:v16 forKey:v12];
 
   [array addObject:v15];
@@ -1101,33 +1100,33 @@ LABEL_7:
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
     v18 = [standardUserDefaults BOOLForKey:@"showPassbookRow"];
 
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x2050000000;
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x2050000000;
     v19 = getPKWalletVisibilityClass_softClass;
-    v59 = getPKWalletVisibilityClass_softClass;
+    v58 = getPKWalletVisibilityClass_softClass;
     if (!getPKWalletVisibilityClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getPKWalletVisibilityClass_block_invoke;
-      v61 = &unk_279A03148;
-      v62 = &v56;
+      v60 = &unk_279A03148;
+      v61 = &v55;
       __getPKWalletVisibilityClass_block_invoke(buf);
-      v19 = v57[3];
+      v19 = v56[3];
     }
 
-    v45 = v18;
+    v44 = v18;
     v20 = v19;
-    _Block_object_dispose(&v56, 8);
+    _Block_object_dispose(&v55, 8);
     isWalletVisible = [v19 isWalletVisible];
     v21 = MEMORY[0x277D3FAD8];
     v22 = PSLocalizableStockholmStringForKey();
     v23 = [v21 preferenceSpecifierNamed:v22 target:self set:sel_setTouchIDForStockholmEnabled_specifier_ get:sel_isTouchIDForStockholmEnabled_ detail:0 cell:6 edit:0];
 
-    [v23 setProperty:@"TOUCHID_STOCKHOLM" forKey:v48];
+    [v23 setProperty:@"TOUCHID_STOCKHOLM" forKey:v47];
     isTouchIDForStockholmRestricted = [(PABSBiometricController *)self isTouchIDForStockholmRestricted];
-    v25 = [MEMORY[0x277CCABB0] numberWithInt:!isTouchIDForStockholmRestricted && !v50];
+    v25 = [MEMORY[0x277CCABB0] numberWithInt:!isTouchIDForStockholmRestricted && !v49];
     [v23 setProperty:v25 forKey:v12];
 
     v26 = PABSLogForCategory(0);
@@ -1135,17 +1134,17 @@ LABEL_7:
     {
       identifier = [v23 identifier];
       v28 = [MEMORY[0x277CCABB0] numberWithBool:isTouchIDForStockholmRestricted];
-      v29 = [MEMORY[0x277CCABB0] numberWithBool:v50];
+      v29 = [MEMORY[0x277CCABB0] numberWithBool:v49];
       *buf = 138412802;
       *&buf[4] = identifier;
       *&buf[12] = 2112;
       *&buf[14] = v28;
       *&buf[22] = 2112;
-      v61 = v29;
+      v60 = v29;
       _os_log_impl(&dword_25E0E9000, v26, OS_LOG_TYPE_DEFAULT, "%@: Setup: restricted [%@] shouldDisableForInterlock [%@]", buf, 0x20u);
     }
 
-    if ((v45 & isWalletVisible) == 1)
+    if ((v44 & isWalletVisible) == 1)
     {
       [array addObject:v23];
       v30 = PABSLogForCategory(0);
@@ -1160,7 +1159,7 @@ LABEL_7:
 
     else
     {
-      v46 = PSHasStockholmPass();
+      v45 = PSHasStockholmPass();
       v32 = PABSLogForCategory(0);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
@@ -1170,54 +1169,54 @@ LABEL_7:
         _os_log_impl(&dword_25E0E9000, v32, OS_LOG_TYPE_DEFAULT, "%@: Check for can add specifier [start]", buf, 0xCu);
       }
 
-      v56 = 0;
-      v57 = &v56;
-      v58 = 0x2050000000;
+      v55 = 0;
+      v56 = &v55;
+      v57 = 0x2050000000;
       v34 = getPKPaymentRegistrationUtilitiesClass_softClass;
-      v59 = getPKPaymentRegistrationUtilitiesClass_softClass;
+      v58 = getPKPaymentRegistrationUtilitiesClass_softClass;
       if (!getPKPaymentRegistrationUtilitiesClass_softClass)
       {
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __getPKPaymentRegistrationUtilitiesClass_block_invoke;
-        v61 = &unk_279A03148;
-        v62 = &v56;
+        v60 = &unk_279A03148;
+        v61 = &v55;
         __getPKPaymentRegistrationUtilitiesClass_block_invoke(buf);
-        v34 = v57[3];
+        v34 = v56[3];
       }
 
       v35 = v34;
-      _Block_object_dispose(&v56, 8);
-      v56 = 0;
-      v57 = &v56;
-      v58 = 0x2050000000;
+      _Block_object_dispose(&v55, 8);
+      v55 = 0;
+      v56 = &v55;
+      v57 = 0x2050000000;
       v36 = getPKPaymentWebServiceClass_softClass;
-      v59 = getPKPaymentWebServiceClass_softClass;
+      v58 = getPKPaymentWebServiceClass_softClass;
       if (!getPKPaymentWebServiceClass_softClass)
       {
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __getPKPaymentWebServiceClass_block_invoke;
-        v61 = &unk_279A03148;
-        v62 = &v56;
+        v60 = &unk_279A03148;
+        v61 = &v55;
         __getPKPaymentWebServiceClass_block_invoke(buf);
-        v36 = v57[3];
+        v36 = v56[3];
       }
 
       v37 = v36;
-      _Block_object_dispose(&v56, 8);
+      _Block_object_dispose(&v55, 8);
       sharedService = [v36 sharedService];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __52__PABSBiometricController_useBiometricForSpecifiers__block_invoke;
-      v51[3] = &unk_279A036F8;
-      v54 = v46;
-      v55 = isWalletVisible;
-      v52 = v23;
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __52__PABSBiometricController_useBiometricForSpecifiers__block_invoke;
+      v50[3] = &unk_279A036F8;
+      v53 = v45;
+      v54 = isWalletVisible;
+      v51 = v23;
       selfCopy = self;
-      [v34 shouldShowWalletInSettingsWithApplePaySupportInformation:sharedService completion:v51];
+      [v34 shouldShowWalletInSettingsWithApplePaySupportInformation:sharedService completion:v50];
 
-      v30 = v52;
+      v30 = v51;
     }
   }
 
@@ -1235,19 +1234,18 @@ LABEL_7:
   v40 = PABS_LocalizedStringForPasscodeLock(@"SAFARI_AUTOFILL");
   v41 = [v39 preferenceSpecifierNamed:v40 target:self set:sel_setSafariAutoFillEnabled_specifier_ get:sel_safariAutoFillEnabled_ detail:0 cell:6 edit:0];
 
-  [v41 setProperty:@"TOUCHID_SAFARI_AUTOFILL" forKey:v48];
-  v42 = [MEMORY[0x277CCABB0] numberWithInt:{!-[PABSBiometricController isSafariAutofillRestricted](self, "isSafariAutofillRestricted") && !v50}];
+  [v41 setProperty:@"TOUCHID_SAFARI_AUTOFILL" forKey:v47];
+  v42 = [MEMORY[0x277CCABB0] numberWithInt:{!-[PABSBiometricController isSafariAutofillRestricted](self, "isSafariAutofillRestricted") && !v49}];
   [v41 setProperty:v42 forKey:v12];
 
   [array addObject:v41];
-  v43 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 void __52__PABSBiometricController_useBiometricForSpecifiers__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = PABSLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -1258,15 +1256,15 @@ void __52__PABSBiometricController_useBiometricForSpecifiers__block_invoke(uint6
     v12 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 48)];
     v13 = [v7 description];
     *buf = 138413314;
-    v23 = v9;
-    v24 = 2112;
-    v25 = v10;
-    v26 = 2112;
-    v27 = v11;
-    v28 = 2112;
-    v29 = v12;
-    v30 = 2112;
-    v31 = v13;
+    v22 = v9;
+    v23 = 2112;
+    v24 = v10;
+    v25 = 2112;
+    v26 = v11;
+    v27 = 2112;
+    v28 = v12;
+    v29 = 2112;
+    v30 = v13;
     _os_log_impl(&dword_25E0E9000, v8, OS_LOG_TYPE_DEFAULT, "%@: Check for can add specifier [end]: shouldShow [%@] supportsApplePay [%@] hasExistingPasses [%@] error [%@]", buf, 0x34u);
   }
 
@@ -1287,27 +1285,25 @@ void __52__PABSBiometricController_useBiometricForSpecifiers__block_invoke(uint6
   block[1] = 3221225472;
   block[2] = __52__PABSBiometricController_useBiometricForSpecifiers__block_invoke_174;
   block[3] = &unk_279A036D0;
-  v21 = a2;
-  v18 = *(a1 + 32);
-  v16 = v18.i64[0];
-  v20 = vextq_s8(v18, v18, 8uLL);
+  v20 = a2;
+  v17 = *(a1 + 32);
+  v16 = v17.i64[0];
+  v19 = vextq_s8(v17, v17, 8uLL);
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PABSBiometricController_useBiometricForSpecifiers__block_invoke_174(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1 && ([*(a1 + 32) specifierForID:@"TOUCHID_STOCKHOLM"], v2 = objc_claimAutoreleasedReturnValue(), v2, !v2))
   {
-    v6 = PABSLogForCategory(0);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = PABSLogForCategory(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 40) identifier];
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_impl(&dword_25E0E9000, v6, OS_LOG_TYPE_DEFAULT, "%@: Inserting after TOUCHID_UNLOCK", &v8, 0xCu);
+      v6 = [*(a1 + 40) identifier];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@: Inserting after TOUCHID_UNLOCK", &v7, 0xCu);
     }
 
     [*(a1 + 32) insertSpecifier:*(a1 + 40) afterSpecifierID:@"TOUCHID_UNLOCK" animated:1];
@@ -1319,13 +1315,11 @@ void __52__PABSBiometricController_useBiometricForSpecifiers__block_invoke_174(u
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [*(a1 + 40) identifier];
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_25E0E9000, v3, OS_LOG_TYPE_DEFAULT, "%@: Skipping inserting", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_25E0E9000, v3, OS_LOG_TYPE_DEFAULT, "%@: Skipping inserting", &v7, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)shouldPresentInModalSheet
@@ -1636,14 +1630,14 @@ uint64_t __66__PABSBiometricController__popEnrollmentControllerWithCompletion___
 
 - (void)setSafariAutoFillEnabled:(id)enabled specifier:(id)specifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   v8 = PABSLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = enabledCopy;
+    v27 = enabledCopy;
     _os_log_impl(&dword_25E0E9000, v8, OS_LOG_TYPE_DEFAULT, "Using biometric for Password AutoFill: User toggled to %@", buf, 0xCu);
   }
 
@@ -1653,11 +1647,11 @@ uint64_t __66__PABSBiometricController__popEnrollmentControllerWithCompletion___
   {
     identifier = [specifierCopy identifier];
     *buf = 138412802;
-    v28 = identifier;
-    v29 = 2112;
-    v30 = enabledCopy;
-    v31 = 2112;
-    v32 = v9;
+    v27 = identifier;
+    v28 = 2112;
+    v29 = enabledCopy;
+    v30 = 2112;
+    v31 = v9;
     _os_log_impl(&dword_25E0E9000, v10, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ , current is %@", buf, 0x20u);
   }
 
@@ -1669,19 +1663,19 @@ uint64_t __66__PABSBiometricController__popEnrollmentControllerWithCompletion___
     {
       identifier2 = [specifierCopy identifier];
       *buf = 138412290;
-      v28 = identifier2;
+      v27 = identifier2;
       _os_log_impl(&dword_25E0E9000, v13, OS_LOG_TYPE_DEFAULT, "%@: Set: ignoring", buf, 0xCu);
     }
   }
 
   else if ([enabledCopy BOOLValue])
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __62__PABSBiometricController_setSafariAutoFillEnabled_specifier___block_invoke_2_203;
-    v19[3] = &unk_279A03008;
-    v20 = enabledCopy;
-    [(PABSBiometricController *)self addEnrollmentOrCreatePasscodeIfNecessaryWithCompletion:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __62__PABSBiometricController_setSafariAutoFillEnabled_specifier___block_invoke_2_203;
+    v18[3] = &unk_279A03008;
+    v19 = enabledCopy;
+    [(PABSBiometricController *)self addEnrollmentOrCreatePasscodeIfNecessaryWithCompletion:v18];
   }
 
   else
@@ -1693,31 +1687,29 @@ uint64_t __66__PABSBiometricController__popEnrollmentControllerWithCompletion___
     {
       objc_initWeak(buf, self);
       dtoController2 = [(PABSBiometricController *)self dtoController];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __62__PABSBiometricController_setSafariAutoFillEnabled_specifier___block_invoke;
-      v23[3] = &unk_279A03680;
-      objc_copyWeak(&v26, buf);
-      v24 = specifierCopy;
-      v25 = enabledCopy;
-      [dtoController2 gateWithRatchetForOperation:9 forPresentingVC:self completion:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __62__PABSBiometricController_setSafariAutoFillEnabled_specifier___block_invoke;
+      v22[3] = &unk_279A03680;
+      objc_copyWeak(&v25, buf);
+      v23 = specifierCopy;
+      v24 = enabledCopy;
+      [dtoController2 gateWithRatchetForOperation:9 forPresentingVC:self completion:v22];
 
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v25);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __62__PABSBiometricController_setSafariAutoFillEnabled_specifier___block_invoke_202;
-      v21[3] = &unk_279A03008;
-      v22 = enabledCopy;
-      [(PABSBiometricController *)self addEnrollmentOrCreatePasscodeIfNecessaryWithCompletion:v21];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __62__PABSBiometricController_setSafariAutoFillEnabled_specifier___block_invoke_202;
+      v20[3] = &unk_279A03008;
+      v21 = enabledCopy;
+      [(PABSBiometricController *)self addEnrollmentOrCreatePasscodeIfNecessaryWithCompletion:v20];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __62__PABSBiometricController_setSafariAutoFillEnabled_specifier___block_invoke(id *a1, void *a2)

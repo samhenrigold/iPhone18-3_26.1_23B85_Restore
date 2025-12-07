@@ -5,6 +5,8 @@
 - (int64_t)numberOfSplits;
 - (void)description;
 - (void)enumerateSplitsUsingBlock:(id)block;
+- (void)firstSplit;
+- (void)numberOfSplits;
 - (void)sizeSplitsToFitWidth:(double)width usingBlock:(id)block;
 @end
 
@@ -237,6 +239,36 @@ LABEL_9:
   v5 = [v3 stringWithFormat:@"%@: Splits: [T: %@, L: %@, R: %@, B: %@]", v4, self->_topSplit, self->_leftSplit, self->_rightSplit, self->_bottomSplit];
 
   return v5;
+}
+
+- (void)enumerateSplitsUsingBlock:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageSplitsDescription enumerateSplitsUsingBlock:]";
+}
+
+- (void)firstSplit
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageSplitsDescription firstSplit]";
+}
+
+- (void)numberOfSplits
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageSplitsDescription numberOfSplits]";
+}
+
+- (void)sizeSplitsToFitWidth:(uint64_t)a3 usingBlock:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageSplitsDescription sizeSplitsToFitWidth:usingBlock:]";
+}
+
+- (void)copyWithZone:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageSplitsDescription copyWithZone:]";
 }
 
 - (void)description

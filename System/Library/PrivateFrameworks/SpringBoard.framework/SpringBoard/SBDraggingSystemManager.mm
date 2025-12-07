@@ -278,7 +278,7 @@
   v69 = 0u;
   if (infoCopy)
   {
-    [infoCopy auditToken];
+    objc_msgSend_auditToken(infoCopy);
   }
 
   v67[0] = v68;

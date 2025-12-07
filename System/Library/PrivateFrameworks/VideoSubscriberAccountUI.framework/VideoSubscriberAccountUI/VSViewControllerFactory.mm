@@ -28,9 +28,11 @@
 
 uint64_t __40__VSViewControllerFactory_sharedFactory__block_invoke()
 {
-  sharedFactory___vs_lazy_init_variable = objc_alloc_init(VSViewControllerFactory);
+  v0 = objc_alloc_init(VSViewControllerFactory);
+  v1 = sharedFactory___vs_lazy_init_variable;
+  sharedFactory___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (VSViewControllerFactory)init
@@ -69,33 +71,33 @@ uint64_t __40__VSViewControllerFactory_sharedFactory__block_invoke()
   v6 = [v4 requestViewController:@"VSViewServiceViewController" fromServiceWithBundleIdentifier:@"com.apple.VSViewService" connectionHandler:v7];
 }
 
-void __73__VSViewControllerFactory_viewServiceRemoteViewControllerWithCompletion___block_invoke(uint64_t a1, void *a2)
+void __73__VSViewControllerFactory_viewServiceRemoteViewControllerWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v10 = v3;
-  if (v3)
+  v4 = a2;
+  v11 = v4;
+  if (v4)
   {
-    v4 = v3;
+    v5 = v4;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v5 = MEMORY[0x277CBEAD8];
-      v6 = *MEMORY[0x277CBE660];
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      [v5 raise:v6 format:{@"Unexpectedly, readyViewController was %@, instead of VSViewServiceRemoteViewController.", v8}];
+      v6 = MEMORY[0x277CBEAD8];
+      v7 = *MEMORY[0x277CBE660];
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      [v6 raise:v7 format:{@"Unexpectedly, readyViewController was %@, instead of VSViewServiceRemoteViewController.", v9}];
     }
 
-    v9 = *(*(a1 + 32) + 16);
+    v10 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v4 = VSPublicError();
-    v9 = *(*(a1 + 32) + 16);
+    v5 = VSPublicError();
+    v10 = *(*(a1 + 32) + 16);
   }
 
-  v9();
+  v10();
 }
 
 - (id)identityProviderPickerViewControllerWithIdentityProviders:(id)providers
@@ -379,7 +381,7 @@ LABEL_14:
 
 void __124__VSViewControllerFactory_viewControllerForUnsupportedProvider_withRequestingAppDisplayName_storage_acknowledgementHandler___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CE21B8]);
   if (([*(a1 + 32) isDeveloper] & 1) == 0)
   {
@@ -402,21 +404,19 @@ void __124__VSViewControllerFactory_viewControllerForUnsupportedProvider_withReq
 
   v10 = objc_alloc_init(MEMORY[0x277CE21C0]);
   v11 = objc_alloc(MEMORY[0x277CE21E8]);
-  v21[0] = v2;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v2;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v13 = [v11 initWithUnsavedAccounts:v12 channels:v10 storage:*(a1 + 40)];
 
-  v18 = MEMORY[0x277D85DD0];
-  v19 = v13;
-  v20 = *(a1 + 56);
+  v17 = MEMORY[0x277D85DD0];
+  v18 = v13;
+  v19 = *(a1 + 56);
   v14 = v13;
   v15 = VSMainThreadOperationWithBlock();
-  [v15 addDependency:{v14, v18, 3221225472, __124__VSViewControllerFactory_viewControllerForUnsupportedProvider_withRequestingAppDisplayName_storage_acknowledgementHandler___block_invoke_2, &unk_279E1A000}];
+  [v15 addDependency:{v14, v17, 3221225472, __124__VSViewControllerFactory_viewControllerForUnsupportedProvider_withRequestingAppDisplayName_storage_acknowledgementHandler___block_invoke_2, &unk_279E1A000}];
   VSEnqueueCompletionOperation();
   v16 = [*(a1 + 48) privateQueue];
   [v16 addOperation:v14];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __124__VSViewControllerFactory_viewControllerForUnsupportedProvider_withRequestingAppDisplayName_storage_acknowledgementHandler___block_invoke_2(uint64_t a1)
@@ -438,7 +438,7 @@ void __124__VSViewControllerFactory_viewControllerForUnsupportedProvider_withReq
 
 - (id)viewControllerForAppsSupportedByIdentityProvider:(id)provider supportedApps:(id)apps delegate:(id)delegate
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   delegateCopy = delegate;
   providerCopy = provider;
@@ -459,14 +459,12 @@ void __124__VSViewControllerFactory_viewControllerForUnsupportedProvider_withReq
   [(VSSupportedAppsViewController *)v10 setTitle:v13];
 
   v14 = objc_alloc_init(MEMORY[0x277D757A0]);
-  v19[0] = v10;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v10;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   [v14 setViewControllers:v15];
 
   [v14 setModalPresentationStyle:2];
   v16 = [MEMORY[0x277CE2298] optionalWithObject:v14];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -550,20 +548,18 @@ void __124__VSViewControllerFactory_viewControllerForUnsupportedProvider_withReq
 
 void __160__VSViewControllerFactory_viewControllerForPlaybackActivityReportingFromAppsWithBundleIDs_grantingVouchers_appleAccountName_identityProvider_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
     *buf = 138412290;
-    v9 = v5;
+    v8 = v5;
     _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Received access result: %@.", buf, 0xCu);
   }
 
-  v7 = *(a1 + 32);
+  v6 = *(a1 + 32);
   VSPerformBlockOnMainThread();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

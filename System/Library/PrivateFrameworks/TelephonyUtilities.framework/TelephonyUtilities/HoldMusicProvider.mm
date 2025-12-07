@@ -19,7 +19,7 @@
   synthesizerCopy = synthesizer;
   utteranceCopy = utterance;
   selfCopy = self;
-  sub_1003A10F0();
+  sub_1003A10F0(selfCopy);
 }
 
 - (void)speechSynthesizer:(id)synthesizer didCancelSpeechUtterance:(id)utterance

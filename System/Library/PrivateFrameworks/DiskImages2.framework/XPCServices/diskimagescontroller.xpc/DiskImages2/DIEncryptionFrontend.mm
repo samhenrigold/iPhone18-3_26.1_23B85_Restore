@@ -174,33 +174,45 @@
 {
   stdinCopy = stdin;
   v9 = *__error();
-  if (sub_1000E044C())
+  v10 = sub_1000E044C();
+  if (v10)
   {
-    v10 = sub_1000E03D8();
-    os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v33 = 72;
-    v34 = 2080;
-    v35 = "[DIEncryptionFrontend consoleAskForPassphraseWithUseStdin:usage:error:]";
-    v11 = _os_log_send_and_compose_impl();
-
-    if (v11)
+    v39 = 0;
+    v12 = sub_1000E03D8(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v11);
-      free(v11);
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    *buf = 68157954;
+    v41 = 72;
+    v42 = 2080;
+    v43 = "[DIEncryptionFrontend consoleAskForPassphraseWithUseStdin:usage:error:]";
+    LODWORD(v38) = 18;
+    v14 = _os_log_send_and_compose_impl(v13, &v39, 0, 0, &_mh_execute_header, v12, 0, "%.*s: Asking for passphrase using readpassphrase", buf, v38);
+
+    if (v14)
+    {
+      fprintf(__stderrp, "%s\n", v14);
+      free(v14);
     }
   }
 
   else
   {
-    v12 = sub_1000E03D8();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_1000E03D8(v10, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v33 = 72;
-      v34 = 2080;
-      v35 = "[DIEncryptionFrontend consoleAskForPassphraseWithUseStdin:usage:error:]";
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Asking for passphrase using readpassphrase", buf, 0x12u);
+      v41 = 72;
+      v42 = 2080;
+      v43 = "[DIEncryptionFrontend consoleAskForPassphraseWithUseStdin:usage:error:]";
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%.*s: Asking for passphrase using readpassphrase", buf, 0x12u);
     }
   }
 
@@ -208,69 +220,69 @@
   if (usage)
   {
     cLIPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIPassphrasePromptCreate];
-    v14 = cLIPassphrasePromptCreate;
+    v17 = cLIPassphrasePromptCreate;
     uTF8String = [cLIPassphrasePromptCreate UTF8String];
     if (stdinCopy)
     {
-      v16 = 32;
+      v19 = 32;
     }
 
     else
     {
-      v16 = 2;
+      v19 = 2;
     }
   }
 
   else
   {
     cLIPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIPassphrasePromptUnlock];
-    v17 = cLIPassphrasePromptCreate;
+    v20 = cLIPassphrasePromptCreate;
     uTF8String = [cLIPassphrasePromptCreate UTF8String];
     if (stdinCopy)
     {
-      v16 = 32;
+      v19 = 32;
     }
 
     else
     {
-      v16 = 2;
+      v19 = 2;
     }
   }
 
-  v18 = readpassphrase(uTF8String, __s1, 0x102uLL, v16);
+  v21 = readpassphrase(uTF8String, __s1, 0x102uLL, v19);
 
-  if (v18)
+  if (v21)
   {
     if (!usage)
     {
-      goto LABEL_21;
+      goto LABEL_24;
     }
 
     if (stdinCopy)
     {
-      goto LABEL_21;
+      goto LABEL_24;
     }
 
     cLIVerifyPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIVerifyPassphrasePromptCreate];
-    v20 = cLIVerifyPassphrasePromptCreate == 0;
+    v23 = cLIVerifyPassphrasePromptCreate == 0;
 
-    if (v20)
+    if (v23)
     {
-      goto LABEL_21;
+      goto LABEL_24;
     }
 
     cLIVerifyPassphrasePromptCreate2 = [(DIEncryptionFrontend *)self CLIVerifyPassphrasePromptCreate];
-    v22 = cLIVerifyPassphrasePromptCreate2;
-    v23 = readpassphrase([cLIVerifyPassphrasePromptCreate2 UTF8String], buf, 0x102uLL, 2);
+    v25 = cLIVerifyPassphrasePromptCreate2;
+    v26 = readpassphrase([cLIVerifyPassphrasePromptCreate2 UTF8String], buf, 0x102uLL, 2);
 
-    if (!v23)
+    if (!v26)
     {
       return [DIError failWithPOSIXCode:5 verboseInfo:@"Failed to read passphrase" error:error];
     }
 
     if (!strncmp(__s1, buf, 0x101uLL))
     {
-LABEL_21:
+LABEL_24:
       if (usage == 1)
       {
         return [(DIEncryptionFrontend *)self setPassphrase:__s1 error:error];
@@ -292,42 +304,54 @@ LABEL_21:
     return [DIError failWithPOSIXCode:25 verboseInfo:@"Failed to read passphrase from stdin" error:error];
   }
 
-  v25 = *__error();
-  if (sub_1000E044C())
+  v28 = *__error();
+  v29 = sub_1000E044C();
+  if (v29)
   {
-    v26 = sub_1000E03D8();
-    os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v33 = 72;
-    v34 = 2080;
-    v35 = "[DIEncryptionFrontend consoleAskForPassphraseWithUseStdin:usage:error:]";
-    v27 = _os_log_send_and_compose_impl();
-
-    if (v27)
+    v39 = 0;
+    v31 = sub_1000E03D8(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v27);
-      free(v27);
+      v32 = 3;
+    }
+
+    else
+    {
+      v32 = 2;
+    }
+
+    *buf = 68157954;
+    v41 = 72;
+    v42 = 2080;
+    v43 = "[DIEncryptionFrontend consoleAskForPassphraseWithUseStdin:usage:error:]";
+    LODWORD(v38) = 18;
+    v33 = _os_log_send_and_compose_impl(v32, &v39, 0, 0, &_mh_execute_header, v31, 0, "%.*s: Failed to read passphrase from TTY", buf, v38);
+
+    if (v33)
+    {
+      fprintf(__stderrp, "%s\n", v33);
+      free(v33);
     }
   }
 
   else
   {
-    v28 = sub_1000E03D8();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_1000E03D8(v29, v30);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v33 = 72;
-      v34 = 2080;
-      v35 = "[DIEncryptionFrontend consoleAskForPassphraseWithUseStdin:usage:error:]";
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%.*s: Failed to read passphrase from TTY", buf, 0x12u);
+      v41 = 72;
+      v42 = 2080;
+      v43 = "[DIEncryptionFrontend consoleAskForPassphraseWithUseStdin:usage:error:]";
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%.*s: Failed to read passphrase from TTY", buf, 0x12u);
     }
   }
 
-  *__error() = v25;
-  v29 = [NSError errorWithDomain:NSPOSIXErrorDomain code:25 userInfo:0];
-  v30 = [DIError failWithInError:v29 outError:error];
+  *__error() = v28;
+  v35 = [NSError errorWithDomain:NSPOSIXErrorDomain code:25 userInfo:0];
+  v36 = [DIError failWithInError:v35 outError:error];
 
-  return v30;
+  return v36;
 }
 
 - (BOOL)storeInKeychainWithPassphrase:(id)passphrase forceSystemKeychain:(BOOL)keychain error:(id *)error
@@ -342,105 +366,117 @@ LABEL_21:
   if (uTF8String && *uTF8String)
   {
     v14 = [[NSData alloc] initWithBytes:uTF8String length:strlen(uTF8String)];
-    v36[0] = kSecClassGenericPassword;
-    v35[0] = kSecClass;
-    v35[1] = kSecAttrAccount;
+    v41[0] = kSecClassGenericPassword;
+    v40[0] = kSecClass;
+    v40[1] = kSecAttrAccount;
     encryptionUUID = [(DIEncryptionFrontend *)self encryptionUUID];
     uUIDString = [encryptionUUID UUIDString];
-    v36[1] = uUIDString;
-    v36[2] = @"disk image password";
-    v35[2] = kSecAttrDescription;
-    v35[3] = kSecAttrLabel;
-    v36[3] = lastPathComponent;
-    v36[4] = lastPathComponent;
-    v35[4] = kSecAttrService;
-    v35[5] = kSecAttrSynchronizable;
-    v35[6] = kSecValueData;
-    v36[5] = &__kCFBooleanTrue;
-    v36[6] = v14;
-    v17 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:7];
+    v41[1] = uUIDString;
+    v41[2] = @"disk image password";
+    v40[2] = kSecAttrDescription;
+    v40[3] = kSecAttrLabel;
+    v41[3] = lastPathComponent;
+    v41[4] = lastPathComponent;
+    v40[4] = kSecAttrService;
+    v40[5] = kSecAttrSynchronizable;
+    v40[6] = kSecValueData;
+    v41[5] = &__kCFBooleanTrue;
+    v41[6] = v14;
+    v17 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:7];
     v18 = [NSMutableDictionary dictionaryWithDictionary:v17];
 
-    v28 = 0;
+    v33 = 0;
     if (keychain)
     {
+      goto LABEL_31;
+    }
+
+    if (![(DIEncryptionFrontend *)self checkWithHasIcloudKeychain:&v33 error:error])
+    {
+LABEL_17:
+      v19 = 0;
+LABEL_27:
+
       goto LABEL_28;
     }
 
-    if (![(DIEncryptionFrontend *)self checkWithHasIcloudKeychain:&v28 error:error])
+    if ((v33 & 1) == 0)
     {
-LABEL_14:
-      v19 = 0;
-LABEL_24:
-
-      goto LABEL_25;
-    }
-
-    if ((v28 & 1) == 0)
-    {
-LABEL_28:
+LABEL_31:
       if (![DIEncryptionFrontend updateSystemKeychainAttrWithDict:v18 isStoring:1 error:error])
       {
-        goto LABEL_14;
+        goto LABEL_17;
       }
     }
 
     v20 = *__error();
-    if (sub_1000E044C())
+    v21 = sub_1000E044C();
+    if (v21)
     {
-      v21 = sub_1000E03D8();
-      os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-      v22 = "system";
-      *buf = 68158210;
-      v30 = 80;
-      v32 = "[DIEncryptionFrontend storeInKeychainWithPassphrase:forceSystemKeychain:error:]";
-      v31 = 2080;
-      if (v28)
+      v32 = 0;
+      v23 = sub_1000E03D8(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = "iCloud";
+        v24 = 3;
       }
 
-      v33 = 2080;
-      v34 = v22;
-      v23 = _os_log_send_and_compose_impl();
-
-      if (v23)
+      else
       {
-        fprintf(__stderrp, "%s\n", v23);
-        free(v23);
+        v24 = 2;
+      }
+
+      v25 = "system";
+      *buf = 68158210;
+      v35 = 80;
+      v37 = "[DIEncryptionFrontend storeInKeychainWithPassphrase:forceSystemKeychain:error:]";
+      v36 = 2080;
+      if (v33)
+      {
+        v25 = "iCloud";
+      }
+
+      v38 = 2080;
+      v39 = v25;
+      LODWORD(v31) = 28;
+      v26 = _os_log_send_and_compose_impl(v24, &v32, 0, 0, &_mh_execute_header, v23, 0, "%.*s: Storing passphrase in the %s keychain", buf, v31);
+
+      if (v26)
+      {
+        fprintf(__stderrp, "%s\n", v26);
+        free(v26);
       }
     }
 
     else
     {
-      v24 = sub_1000E03D8();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_1000E03D8(v21, v22);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        if (v28)
+        if (v33)
         {
-          v25 = "iCloud";
+          v28 = "iCloud";
         }
 
         else
         {
-          v25 = "system";
+          v28 = "system";
         }
 
         *buf = 68158210;
-        v30 = 80;
-        v31 = 2080;
-        v32 = "[DIEncryptionFrontend storeInKeychainWithPassphrase:forceSystemKeychain:error:]";
-        v33 = 2080;
-        v34 = v25;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%.*s: Storing passphrase in the %s keychain", buf, 0x1Cu);
+        v35 = 80;
+        v36 = 2080;
+        v37 = "[DIEncryptionFrontend storeInKeychainWithPassphrase:forceSystemKeychain:error:]";
+        v38 = 2080;
+        v39 = v28;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%.*s: Storing passphrase in the %s keychain", buf, 0x1Cu);
       }
     }
 
     *__error() = v20;
-    v26 = SecItemAdd(v18, 0);
-    if (v26)
+    v29 = SecItemAdd(v18, 0);
+    if (v29)
     {
-      v19 = [DIError failWithOSStatus:v26 description:@"Failed to store the passphrase in the keychain" error:error];
+      v19 = [DIError failWithOSStatus:v29 description:@"Failed to store the passphrase in the keychain" error:error];
     }
 
     else
@@ -448,11 +484,11 @@ LABEL_28:
       v19 = 1;
     }
 
-    goto LABEL_24;
+    goto LABEL_27;
   }
 
   v19 = [DIError failWithEnumValue:154 verboseInfo:@"Cannot store an empty passphrase" error:error];
-LABEL_25:
+LABEL_28:
 
   return v19;
 }
@@ -465,67 +501,78 @@ LABEL_25:
   }
 
   v6 = *__error();
-  if (sub_1000E044C())
+  v7 = sub_1000E044C();
+  if (v7)
   {
     *error = 0;
-    v7 = sub_1000E03D8();
-    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_1000E03D8(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
     *buf = 68157954;
     *&buf[4] = 64;
-    v21 = 2080;
-    v22 = "[DIEncryptionFrontend askPermissionWithRememberPassword:error:]";
-    v8 = _os_log_send_and_compose_impl();
+    v25 = 2080;
+    v26 = "[DIEncryptionFrontend askPermissionWithRememberPassword:error:]";
+    LODWORD(v20) = 18;
+    v11 = _os_log_send_and_compose_impl(v10, error, 0, 0, &_mh_execute_header, v9, 0, "%.*s: Asking user permission to store the passphrase in the keychain", buf, v20);
 
-    if (v8)
+    if (v11)
     {
-      fprintf(__stderrp, "%s\n", v8);
-      free(v8);
+      fprintf(__stderrp, "%s\n", v11);
+      free(v11);
     }
   }
 
   else
   {
-    v9 = sub_1000E03D8();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1000E03D8(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
       *&buf[4] = 64;
-      v21 = 2080;
-      v22 = "[DIEncryptionFrontend askPermissionWithRememberPassword:error:]";
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%.*s: Asking user permission to store the passphrase in the keychain", buf, 0x12u);
+      v25 = 2080;
+      v26 = "[DIEncryptionFrontend askPermissionWithRememberPassword:error:]";
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Asking user permission to store the passphrase in the keychain", buf, 0x12u);
     }
   }
 
   *__error() = v6;
   error[0] = 0;
-  v18[0] = kCFUserNotificationAlertHeaderKey;
-  v18[1] = kCFUserNotificationDefaultButtonTitleKey;
-  v19[0] = @"Remember password in my keychain?";
-  v19[1] = @"Yes";
-  v18[2] = kCFUserNotificationOtherButtonTitleKey;
-  v18[3] = kCFUserNotificationAlternateButtonTitleKey;
-  v19[2] = @"No";
-  v19[3] = @"Cancel";
-  v10 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:4];
-  v11 = CFUserNotificationCreate(0, 0.0, 3uLL, error, v10);
-  v12 = v11;
-  if (!v11)
+  v22[0] = kCFUserNotificationAlertHeaderKey;
+  v22[1] = kCFUserNotificationDefaultButtonTitleKey;
+  v23[0] = @"Remember password in my keychain?";
+  v23[1] = @"Yes";
+  v22[2] = kCFUserNotificationOtherButtonTitleKey;
+  v22[3] = kCFUserNotificationAlternateButtonTitleKey;
+  v23[2] = @"No";
+  v23[3] = @"Cancel";
+  v13 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:4];
+  v14 = CFUserNotificationCreate(0, 0.0, 3uLL, error, v13);
+  v15 = v14;
+  if (!v14)
   {
-    v15 = [NSString stringWithFormat:@"CFUserNotificationCreate failed, error code %d", error[0]];
-    v14 = [DIError failWithEnumValue:154 verboseInfo:v15 error:error];
+    v18 = [NSString stringWithFormat:@"CFUserNotificationCreate failed, error code %d", error[0]];
+    v17 = [DIError failWithEnumValue:154 verboseInfo:v18 error:error];
 
-    return v14;
+    return v17;
   }
 
   *buf = 0;
-  if (!CFUserNotificationReceiveResponse(v11, 0.0, buf))
+  if (!CFUserNotificationReceiveResponse(v14, 0.0, buf))
   {
     if (*buf != 2)
     {
       if (*buf)
       {
-        v13 = [DIError failWithPOSIXCode:89 description:@"The operation was cancelled by the user" error:error];
-        goto LABEL_11;
+        v16 = [DIError failWithPOSIXCode:89 description:@"The operation was cancelled by the user" error:error];
+        goto LABEL_14;
       }
 
       *password = 1;
@@ -534,11 +581,11 @@ LABEL_25:
     return 1;
   }
 
-  v13 = [DIError failWithEnumValue:154 verboseInfo:@"CFUserNotificationReceiveResponse failed" error:error];
-LABEL_11:
-  v14 = v13;
+  v16 = [DIError failWithEnumValue:154 verboseInfo:@"CFUserNotificationReceiveResponse failed" error:error];
+LABEL_14:
+  v17 = v16;
 
-  return v14;
+  return v17;
 }
 
 - (BOOL)GUIAskForPassphraseWithPassphraseUsage:(int64_t)usage error:(id *)error
@@ -724,7 +771,7 @@ LABEL_14:
 
     if (backendXPC)
     {
-      [backendXPC getCryptoHeaderBackend];
+      objc_msgSend_getCryptoHeaderBackend(backendXPC);
       if (v12)
       {
         [backendXPC cryptoHeader];
@@ -758,7 +805,7 @@ LABEL_14:
   v10 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC getCryptoHeaderBackend];
+    objc_msgSend_getCryptoHeaderBackend(backendXPC);
   }
 
   else
@@ -773,7 +820,7 @@ LABEL_14:
     v13 = diParams2;
     if (diParams2)
     {
-      [diParams2 backend];
+      objc_msgSend_backend(diParams2);
     }
 
     else
@@ -866,8 +913,8 @@ LABEL_20:
 
           v16 = std::generic_category();
           *buf = 35;
-          v27 = v16;
-          if (*(*v22 + 32))(v22, v21, buf) || ((v27->equivalent_0)(v27, &v21, *buf))
+          v27[0] = v16;
+          if (*(*v22 + 32))(v22, v21, buf) || ((*(*v27[0] + 40))(v27[0], &v21, *buf))
           {
             v17 = 1;
           }
@@ -890,7 +937,7 @@ LABEL_20:
           }
         }
 
-        sub_1000312E4(&v28, v24);
+        sub_1000312E4(&v28, &v24);
         if (v25[640] == 1)
         {
           sub_100035E5C(v25);
@@ -933,7 +980,7 @@ LABEL_20:
   }
 
   v8 = v7;
-  [(DIEncryptionFrontend *)self getSerializerWithAuthTable:v7];
+  objc_msgSend_getSerializerWithAuthTable_(self);
   if (v18)
   {
     LODWORD(v22) = 8;
@@ -1277,240 +1324,291 @@ LABEL_26:
 {
   keychainCopy = keychain;
   result = 0;
-  v48[0] = kSecClassGenericPassword;
-  v47[0] = kSecClass;
-  v47[1] = kSecAttrAccount;
+  v62[0] = kSecClassGenericPassword;
+  v61[0] = kSecClass;
+  v61[1] = kSecAttrAccount;
   encryptionUUID = [(DIEncryptionFrontend *)self encryptionUUID];
   uUIDString = [encryptionUUID UUIDString];
-  v48[1] = uUIDString;
-  v48[2] = kSecAttrSynchronizableAny;
-  v47[2] = kSecAttrSynchronizable;
-  v47[3] = kSecReturnData;
-  v47[4] = kSecUseDataProtectionKeychain;
-  v48[3] = &__kCFBooleanTrue;
-  v48[4] = &__kCFBooleanTrue;
-  v9 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:5];
+  v62[1] = uUIDString;
+  v62[2] = kSecAttrSynchronizableAny;
+  v61[2] = kSecAttrSynchronizable;
+  v61[3] = kSecReturnData;
+  v61[4] = kSecUseDataProtectionKeychain;
+  v62[3] = &__kCFBooleanTrue;
+  v62[4] = &__kCFBooleanTrue;
+  v9 = [NSDictionary dictionaryWithObjects:v62 forKeys:v61 count:5];
   v10 = [NSMutableDictionary dictionaryWithDictionary:v9];
 
   if (keychainCopy && ![DIEncryptionFrontend updateSystemKeychainAttrWithDict:v10 isStoring:0 error:0])
   {
-    goto LABEL_44;
+    goto LABEL_59;
   }
 
   v11 = *__error();
-  if (sub_1000E044C())
+  v12 = sub_1000E044C();
+  if (v12)
   {
-    v39 = 0;
-    v12 = sub_1000E03D8();
-    os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    v13 = "iCloud";
-    *buf = 68158210;
-    v42 = 65;
-    v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-    v43 = 2080;
-    if (keychainCopy)
+    v53 = 0;
+    v14 = sub_1000E03D8(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = "system";
+      v15 = 3;
     }
 
-    v45 = 2080;
-    v46 = v13;
-    LODWORD(v38) = 28;
-    v37 = buf;
-    v14 = _os_log_send_and_compose_impl();
-
-    if (v14)
+    else
     {
-      fprintf(__stderrp, "%s\n", v14);
-      free(v14);
+      v15 = 2;
+    }
+
+    v16 = "iCloud";
+    *buf = 68158210;
+    v56 = 65;
+    v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+    v57 = 2080;
+    if (keychainCopy)
+    {
+      v16 = "system";
+    }
+
+    v59 = 2080;
+    v60 = v16;
+    LODWORD(v52) = 28;
+    v17 = _os_log_send_and_compose_impl(v15, &v53, 0, 0, &_mh_execute_header, v14, 0, "%.*s: Looking for encrypted image passphrase in the %s keychain", buf, v52);
+
+    if (v17)
+    {
+      fprintf(__stderrp, "%s\n", v17);
+      free(v17);
     }
   }
 
   else
   {
-    v15 = sub_1000E03D8();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_1000E03D8(v12, v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = "iCloud";
+      v19 = "iCloud";
       *buf = 68158210;
-      v42 = 65;
-      v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-      v43 = 2080;
+      v56 = 65;
+      v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+      v57 = 2080;
       if (keychainCopy)
       {
-        v16 = "system";
+        v19 = "system";
       }
 
-      v45 = 2080;
-      v46 = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%.*s: Looking for encrypted image passphrase in the %s keychain", buf, 0x1Cu);
+      v59 = 2080;
+      v60 = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%.*s: Looking for encrypted image passphrase in the %s keychain", buf, 0x1Cu);
     }
   }
 
   *__error() = v11;
-  v17 = SecItemCopyMatching(v10, &result);
-  v18 = v17;
-  if (v17 == -25308)
+  v20 = SecItemCopyMatching(v10, &result);
+  v21 = v20;
+  if (v20 == -25308)
   {
-    v19 = *__error();
-    if (!sub_1000E044C())
+    v22 = *__error();
+    v34 = sub_1000E044C();
+    if (!v34)
     {
-      v33 = sub_1000E03D8();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v48 = sub_1000E03D8(v34, v35);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v42 = 65;
-        v43 = 2080;
-        v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%.*s: Keychain item requires ACL upgrade", buf, 0x12u);
+        v56 = 65;
+        v57 = 2080;
+        v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "%.*s: Keychain item requires ACL upgrade", buf, 0x12u);
       }
 
-      goto LABEL_39;
+      goto LABEL_54;
     }
 
-    v39 = 0;
-    v25 = sub_1000E03D8();
-    os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v42 = 65;
-    v43 = 2080;
-    v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-    LODWORD(v38) = 18;
-    v37 = buf;
-    v21 = _os_log_send_and_compose_impl();
-
-    if (v21)
+    v53 = 0;
+    v36 = sub_1000E03D8(v34, v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_18:
-      fprintf(__stderrp, "%s\n", v21);
-      free(v21);
+      v37 = 3;
     }
 
-LABEL_39:
-    *__error() = v19;
-    v32 = 1;
-    [(DIEncryptionFrontend *)self setAllowStoringInKeychain:1, v37, v38, v39];
-    goto LABEL_45;
+    else
+    {
+      v37 = 2;
+    }
+
+    *buf = 68157954;
+    v56 = 65;
+    v57 = 2080;
+    v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+    LODWORD(v52) = 18;
+    v27 = _os_log_send_and_compose_impl(v37, &v53, 0, 0, &_mh_execute_header, v36, 0, "%.*s: Keychain item requires ACL upgrade", buf, v52);
+
+    if (v27)
+    {
+LABEL_24:
+      fprintf(__stderrp, "%s\n", v27);
+      free(v27);
+    }
+
+LABEL_54:
+    *__error() = v22;
+    v47 = 1;
+    [(DIEncryptionFrontend *)self setAllowStoringInKeychain:1];
+    goto LABEL_60;
   }
 
-  if (v17)
+  if (v20)
   {
-    if (v17 == -25300)
+    if (v20 == -25300)
     {
-      v19 = *__error();
-      if (!sub_1000E044C())
+      v22 = *__error();
+      v23 = sub_1000E044C();
+      if (!v23)
       {
-        v34 = sub_1000E03D8();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v49 = sub_1000E03D8(v23, v24);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68157954;
-          v42 = 65;
-          v43 = 2080;
-          v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%.*s: No matching item found in keychain", buf, 0x12u);
+          v56 = 65;
+          v57 = 2080;
+          v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%.*s: No matching item found in keychain", buf, 0x12u);
         }
 
-        goto LABEL_39;
+        goto LABEL_54;
       }
 
-      v39 = 0;
-      v20 = sub_1000E03D8();
-      os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v42 = 65;
-      v43 = 2080;
-      v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-      LODWORD(v38) = 18;
-      v37 = buf;
-      v21 = _os_log_send_and_compose_impl();
-
-      if (v21)
+      v53 = 0;
+      v25 = sub_1000E03D8(v23, v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_18;
+        v26 = 3;
       }
 
-      goto LABEL_39;
+      else
+      {
+        v26 = 2;
+      }
+
+      *buf = 68157954;
+      v56 = 65;
+      v57 = 2080;
+      v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+      LODWORD(v52) = 18;
+      v27 = _os_log_send_and_compose_impl(v26, &v53, 0, 0, &_mh_execute_header, v25, 0, "%.*s: No matching item found in keychain", buf, v52);
+
+      if (v27)
+      {
+        goto LABEL_24;
+      }
+
+      goto LABEL_54;
     }
 
-    v26 = *__error();
-    if (sub_1000E044C())
+    v38 = *__error();
+    v39 = sub_1000E044C();
+    if (v39)
     {
-      v27 = sub_1000E03D8();
-      os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-      *buf = 68158210;
-      v42 = 65;
-      v43 = 2080;
-      v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-      v45 = 1024;
-      LODWORD(v46) = v18;
-      v28 = _os_log_send_and_compose_impl();
-
-      if (v28)
+      v53 = 0;
+      v41 = sub_1000E03D8(v39, v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v28);
-        free(v28);
+        v42 = 3;
+      }
+
+      else
+      {
+        v42 = 2;
+      }
+
+      *buf = 68158210;
+      v56 = 65;
+      v57 = 2080;
+      v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+      v59 = 1024;
+      LODWORD(v60) = v21;
+      LODWORD(v52) = 24;
+      v43 = _os_log_send_and_compose_impl(v42, &v53, 0, 0, &_mh_execute_header, v41, 0, "%.*s: Keychain lookup returned %d", buf, v52);
+
+      if (v43)
+      {
+        fprintf(__stderrp, "%s\n", v43);
+        free(v43);
       }
     }
 
     else
     {
-      v35 = sub_1000E03D8();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v50 = sub_1000E03D8(v39, v40);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68158210;
-        v42 = 65;
-        v43 = 2080;
-        v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-        v45 = 1024;
-        LODWORD(v46) = v18;
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%.*s: Keychain lookup returned %d", buf, 0x18u);
+        v56 = 65;
+        v57 = 2080;
+        v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+        v59 = 1024;
+        LODWORD(v60) = v21;
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%.*s: Keychain lookup returned %d", buf, 0x18u);
       }
     }
 
-    *__error() = v26;
-LABEL_44:
-    v32 = 1;
-    goto LABEL_45;
+    *__error() = v38;
+LABEL_59:
+    v47 = 1;
+    goto LABEL_60;
   }
 
-  v22 = *__error();
-  if (sub_1000E044C())
+  v28 = *__error();
+  v29 = sub_1000E044C();
+  if (v29)
   {
-    v23 = sub_1000E03D8();
-    os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v42 = 65;
-    v43 = 2080;
-    v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-    v24 = _os_log_send_and_compose_impl();
-
-    if (v24)
+    v53 = 0;
+    v31 = sub_1000E03D8(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v24);
-      free(v24);
+      v32 = 3;
+    }
+
+    else
+    {
+      v32 = 2;
+    }
+
+    *buf = 68157954;
+    v56 = 65;
+    v57 = 2080;
+    v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+    LODWORD(v52) = 18;
+    v33 = _os_log_send_and_compose_impl(v32, &v53, 0, 0, &_mh_execute_header, v31, 0, "%.*s: Passphrase found in keychain, unlocking the image", buf, v52);
+
+    if (v33)
+    {
+      fprintf(__stderrp, "%s\n", v33);
+      free(v33);
     }
   }
 
   else
   {
-    v29 = sub_1000E03D8();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v44 = sub_1000E03D8(v29, v30);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v42 = 65;
-      v43 = 2080;
-      v44 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%.*s: Passphrase found in keychain, unlocking the image", buf, 0x12u);
+      v56 = 65;
+      v57 = 2080;
+      v58 = "[DIEncryptionFrontend keychainUnlockWithIsSystemKeychain:error:]";
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%.*s: Passphrase found in keychain, unlocking the image", buf, 0x12u);
     }
   }
 
-  *__error() = v22;
-  v30 = result;
-  v31 = result;
-  v32 = -[DIEncryptionFrontend unlockWithPassphrase:error:](self, "unlockWithPassphrase:error:", [v30 bytes], error);
+  *__error() = v28;
+  v45 = result;
+  v46 = result;
+  v47 = -[DIEncryptionFrontend unlockWithPassphrase:error:](self, "unlockWithPassphrase:error:", [v45 bytes], error);
 
-LABEL_45:
-  return v32;
+LABEL_60:
+  return v47;
 }
 
 - (BOOL)keychainUnlockWithError:(id *)error
@@ -1586,7 +1684,7 @@ LABEL_45:
           }
         }
 
-        sub_1000312E4(&v23, v21);
+        sub_1000312E4(&v23, &v21);
         if (v22[640] == 1)
         {
           sub_100035E5C(v22);
@@ -1641,7 +1739,7 @@ LABEL_45:
 
         v13 = v12;
         (off_100205A48[v10])(&v13);
-        sub_1000312E4(&v16, v14);
+        sub_1000312E4(&v16, &v14);
         if (v15[640] == 1)
         {
           sub_100035E5C(v15);
@@ -1696,8 +1794,8 @@ LABEL_45:
 
           v14 = std::generic_category();
           *buf = 35;
-          v24 = v14;
-          if (*(*v19 + 32))(v19, v18, buf) || ((v24->equivalent_0)(v24, &v18, *buf))
+          v24[0] = v14;
+          if (*(*v19 + 32))(v19, v18, buf) || ((*(*v24[0] + 40))(v24[0], &v18, *buf))
           {
             v15 = 1;
           }
@@ -1720,7 +1818,7 @@ LABEL_45:
           }
         }
 
-        sub_1000312E4(&v25, v21);
+        sub_1000312E4(&v25, &v21);
         if (v22[640] == 1)
         {
           sub_100035E5C(v22);
@@ -1779,7 +1877,7 @@ LABEL_19:
         {
           diParams2 = [(DIEncryptionFrontend *)self diParams];
           mutableSymmetricKey = [diParams2 mutableSymmetricKey];
-          sub_100181EE0(mutableSymmetricKey, v12, &v19);
+          sub_100181EE0(&v19, mutableSymmetricKey, v12);
 
           if (v21 == 1)
           {
@@ -1789,8 +1887,8 @@ LABEL_19:
 
           v15 = std::generic_category();
           *buf = 35;
-          v25 = v15;
-          if (*(*v20 + 32))(v20, v19, buf) || ((v25->equivalent_0)(v25, &v19, *buf))
+          v25[0] = v15;
+          if (*(*v20 + 32))(v20, v19, buf) || ((*(*v25[0] + 40))(v25[0], &v19, *buf))
           {
             v16 = 1;
           }
@@ -1813,7 +1911,7 @@ LABEL_19:
           }
         }
 
-        sub_1000312E4(&v26, v22);
+        sub_1000312E4(&v26, &v22);
         if (v23[640] == 1)
         {
           sub_100035E5C(v23);

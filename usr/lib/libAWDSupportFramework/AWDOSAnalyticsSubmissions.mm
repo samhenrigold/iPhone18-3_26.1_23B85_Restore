@@ -159,14 +159,12 @@ LABEL_12:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    response = self->_response;
     PBDataWriterWriteInt32Field();
   }
 
@@ -180,8 +178,8 @@ LABEL_12:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 4) == 0)
+  v5 = self->_has;
+  if ((v5 & 4) == 0)
   {
     if ((*&self->_has & 1) == 0)
     {
@@ -189,7 +187,6 @@ LABEL_12:
     }
 
 LABEL_14:
-    logs = self->_logs;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -199,22 +196,20 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  sizeBytes = self->_sizeBytes;
   PBDataWriterWriteUint64Field();
-  v7 = self->_has;
-  if (v7)
+  v5 = self->_has;
+  if (v5)
   {
     goto LABEL_14;
   }
 
 LABEL_11:
-  if ((v7 & 2) == 0)
+  if ((v5 & 2) == 0)
   {
     return;
   }
 
 LABEL_15:
-  seconds = self->_seconds;
 
   PBDataWriterWriteUint64Field();
 }
@@ -343,7 +338,6 @@ LABEL_8:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 64);
     if ((*&self->_has & 8) != 0)
     {
       if ((*(equal + 64) & 8) == 0 || self->_timestamp != *(equal + 4))

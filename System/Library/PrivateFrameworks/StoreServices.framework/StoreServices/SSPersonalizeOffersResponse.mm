@@ -144,22 +144,22 @@ LABEL_3:
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v10.receiver = self;
-    v10.super_class = SSPersonalizeOffersResponse;
-    v5 = [(SSPersonalizeOffersResponse *)&v10 init];
+    v13.receiver = self;
+    v13.super_class = SSPersonalizeOffersResponse;
+    v5 = [(SSPersonalizeOffersResponse *)&v13 init];
     if (v5)
     {
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
-      v5->_actionDisplayNames = [(__CFArray *)v7 mutableCopy];
+      v7 = objc_opt_class();
+      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
+      v5->_actionDisplayNames = [(__CFDate *)v8 mutableCopy];
 
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1");
-      v5->_actionParameters = [(__CFArray *)v8 mutableCopy];
+      v9 = objc_opt_class();
+      v10 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1", v9);
+      v5->_actionParameters = [(__CFDate *)v10 mutableCopy];
 
-      objc_opt_class();
-      v9 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2");
-      v5->_priceDisplayNames = [(__CFArray *)v9 mutableCopy];
+      v11 = objc_opt_class();
+      v12 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2", v11);
+      v5->_priceDisplayNames = [(__CFDate *)v12 mutableCopy];
     }
   }
 

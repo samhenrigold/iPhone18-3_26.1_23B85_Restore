@@ -106,7 +106,7 @@
       while (([_navigation_rootBoundingSection isLeaf] & 1) == 0)
       {
         left = [_navigation_rootBoundingSection left];
-        if (left && ([_navigation_rootBoundingSection left], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "range"), v4 = GEOPolylineCoordinateInRange(), v3, left, v4))
+        if (left && ([_navigation_rootBoundingSection left], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "range"), v6 = GEOPolylineCoordinateInRange(), v5, left, v6))
         {
           left2 = [_navigation_rootBoundingSection left];
         }
@@ -114,7 +114,7 @@
         else
         {
           right = [_navigation_rootBoundingSection right];
-          if (!right || ([_navigation_rootBoundingSection right], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "range"), v8 = GEOPolylineCoordinateInRange(), v7, right, !v8))
+          if (!right || ([_navigation_rootBoundingSection right], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "range"), v10 = GEOPolylineCoordinateInRange(), v9, right, !v10))
           {
 
             _navigation_rootBoundingSection = 0;
@@ -124,10 +124,10 @@
           left2 = [_navigation_rootBoundingSection right];
         }
 
-        v9 = left2;
+        v11 = left2;
 
-        _navigation_rootBoundingSection = v9;
-        if (!v9)
+        _navigation_rootBoundingSection = v11;
+        if (!v11)
         {
           break;
         }
@@ -135,20 +135,20 @@
     }
 
     _navigation_rootBoundingSection = _navigation_rootBoundingSection;
-    v10 = _navigation_rootBoundingSection;
+    v12 = _navigation_rootBoundingSection;
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 - (MNRouteDivergenceFinderBoundingSection)_navigation_boundingSectionForRange:()MNRouteDivergenceFinder leafIndex:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (GEOPolylineCoordinateRangeIsInvalid())
   {
     v9 = 0;
@@ -202,25 +202,25 @@
 
     else
     {
-      v27 = [self _navigation_boundingSectionForRange:a3 leafIndex:{v17, a5}];
-      v28 = [self _navigation_boundingSectionForRange:v17 leafIndex:{a4, a5}];
-      v29 = v28;
-      if (!v27 || !v28)
+      v26 = [self _navigation_boundingSectionForRange:a3 leafIndex:{v17, a5}];
+      v27 = [self _navigation_boundingSectionForRange:v17 leafIndex:{a4, a5}];
+      v28 = v27;
+      if (!v26 || !v27)
       {
-        v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error creating child bounding sections"];
-        v33 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error creating child bounding sections"];
+        v32 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          v34 = 136315394;
-          v35 = "left != nil && right != nil";
-          v36 = 2112;
-          v37 = v32;
-          _os_log_impl(&dword_1D311E000, v33, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v34, 0x16u);
+          v33 = 136315394;
+          v34 = "left != nil && right != nil";
+          v35 = 2112;
+          v36 = v31;
+          _os_log_impl(&dword_1D311E000, v32, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", &v33, 0x16u);
         }
       }
 
-      [(MNRouteDivergenceFinderBoundingSection *)v9 setLeft:v27];
-      [(MNRouteDivergenceFinderBoundingSection *)v9 setRight:v29];
+      [(MNRouteDivergenceFinderBoundingSection *)v9 setLeft:v26];
+      [(MNRouteDivergenceFinderBoundingSection *)v9 setRight:v28];
       left = [(MNRouteDivergenceFinderBoundingSection *)v9 left];
       [left boundingRect];
       right = [(MNRouteDivergenceFinderBoundingSection *)v9 right];
@@ -231,8 +231,6 @@
       [(MNRouteDivergenceFinderBoundingSection *)v9 setLeafIndex:0x7FFFFFFFFFFFFFFFLL];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

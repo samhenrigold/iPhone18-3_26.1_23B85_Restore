@@ -175,7 +175,7 @@ uint64_t __94__HMDMediaSystemsAggregateDataGenerator_destinationWithRoleType_med
 
 - (id)roomForAllDestinationParentIdentifiers:(id)identifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   dataSource = [(HMDMediaSystemsAggregateDataGenerator *)self dataSource];
   v6 = dataSource;
@@ -196,13 +196,13 @@ uint64_t __94__HMDMediaSystemsAggregateDataGenerator_destinationWithRoleType_med
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v20 = 138543874;
-        v21 = v17;
-        v22 = 2112;
-        v23 = identifiersCopy;
-        v24 = 2112;
-        v25 = v6;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to get room for all destination parent identifiers: %@ data source: %@", &v20, 0x20u);
+        v19 = 138543874;
+        v20 = v17;
+        v21 = 2112;
+        v22 = identifiersCopy;
+        v23 = 2112;
+        v24 = v6;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to get room for all destination parent identifiers: %@ data source: %@", &v19, 0x20u);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -217,25 +217,23 @@ uint64_t __94__HMDMediaSystemsAggregateDataGenerator_destinationWithRoleType_med
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v13;
-      v22 = 2112;
-      v23 = identifiersCopy;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to get room for all destination parent identifiers: %@ to no data source", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v13;
+      v21 = 2112;
+      v22 = identifiersCopy;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to get room for all destination parent identifiers: %@ to no data source", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v8 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)nameForMediaSystemData:(id)data room:(id)room
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   roomCopy = room;
   isDefaultName = [dataCopy isDefaultName];
@@ -254,9 +252,9 @@ uint64_t __94__HMDMediaSystemsAggregateDataGenerator_destinationWithRoleType_med
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v16;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine default group name", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v16;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine default group name", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -266,41 +264,39 @@ uint64_t __94__HMDMediaSystemsAggregateDataGenerator_destinationWithRoleType_med
     name = [v12 name];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return name;
 }
 
 - (id)aggregateDataWithDestinations:(id)destinations controllers:(id)controllers groups:(id)groups
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   controllersCopy = controllers;
   groupsCopy = groups;
-  v38 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(groupsCopy, "count")}];
-  v34 = [destinationsCopy mutableCopy];
+  v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(groupsCopy, "count")}];
+  v33 = [destinationsCopy mutableCopy];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = groupsCopy;
-  v10 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v10 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v40;
-    v35 = *v40;
-    v36 = destinationsCopy;
+    v12 = *v39;
+    v34 = *v39;
+    v35 = destinationsCopy;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v40 != v12)
+        if (*v39 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v39 + 1) + 8 * i);
+        v14 = *(*(&v38 + 1) + 8 * i);
         mediaSystemData = [v14 mediaSystemData];
         if (mediaSystemData)
         {
@@ -309,10 +305,10 @@ uint64_t __94__HMDMediaSystemsAggregateDataGenerator_destinationWithRoleType_med
           if ([objc_opt_class() isValidLeftDestination:v16 rightDestination:v17])
           {
             parentIdentifier = [v16 parentIdentifier];
-            v43[0] = parentIdentifier;
+            v42[0] = parentIdentifier;
             parentIdentifier2 = [v17 parentIdentifier];
-            v43[1] = parentIdentifier2;
-            v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+            v42[1] = parentIdentifier2;
+            v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
             v21 = [(HMDMediaSystemsAggregateDataGenerator *)self roomForAllDestinationParentIdentifiers:v20];
 
             if (v21)
@@ -338,30 +334,29 @@ uint64_t __94__HMDMediaSystemsAggregateDataGenerator_destinationWithRoleType_med
               [v25 setRightDestinationIdentifier:uniqueIdentifier2];
 
               [v25 setAssociatedGroupIdentifier:associatedGroupIdentifier];
-              [v38 addObject:v25];
+              [v37 addObject:v25];
               v29 = [objc_opt_class() derivedDestinationForGroup:v25 leftDestination:v16 rightDestination:v17];
-              [v34 addObject:v29];
+              [v33 addObject:v29];
             }
 
-            v12 = v35;
-            destinationsCopy = v36;
+            v12 = v34;
+            destinationsCopy = v35;
           }
         }
 
         else
         {
-          [v38 addObject:v14];
+          [v37 addObject:v14];
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v11 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v11);
   }
 
-  v30 = [[HMDMediaGroupsAggregateData alloc] initWithDestinations:v34 destinationControllersData:controllersCopy groups:v38];
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = [[HMDMediaGroupsAggregateData alloc] initWithDestinations:v33 destinationControllersData:controllersCopy groups:v37];
 
   return v30;
 }

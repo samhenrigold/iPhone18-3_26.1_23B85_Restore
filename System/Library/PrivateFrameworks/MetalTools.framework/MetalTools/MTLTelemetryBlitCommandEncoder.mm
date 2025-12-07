@@ -10,6 +10,8 @@
 - (void)copyFromTexture:(id)texture sourceSlice:(unint64_t)slice sourceLevel:(unint64_t)level toTexture:(id)toTexture destinationSlice:(unint64_t)destinationSlice destinationLevel:(unint64_t)destinationLevel sliceCount:(unint64_t)count levelCount:(unint64_t)self0;
 - (void)copyFromTexture:(id)texture toTexture:(id)toTexture;
 - (void)endEncoding;
+- (void)fillBuffer:(id)buffer range:(_NSRange)range pattern4:(unsigned int)pattern4;
+- (void)fillBuffer:(id)buffer range:(_NSRange)range value:(unsigned __int8)value;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region bytes:(const void *)bytes length:(unint64_t)length;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color pixelFormat:(unint64_t)format;
@@ -23,12 +25,12 @@
   imageCopy = image;
   rowCopy = row;
   samplesCopy = samples;
-  v39[0] = distribution;
+  distributionCopy = distribution;
   if ([(MTLTelemetryDevice *)self->_telemetryDevice enableTelemetry])
   {
     telemetryCommandBuffer = self->_telemetryCommandBuffer;
-    v39[2] = v39;
-    v17 = std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>(&telemetryCommandBuffer->blitMap.__table_.__bucket_list_.__ptr_, v39);
+    v40 = &distributionCopy;
+    v17 = std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryBlitDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>(&telemetryCommandBuffer->blitMap.__table_.__bucket_list_.__ptr_, &distributionCopy, &std::piecewise_construct, &v40);
     v18 = v17 + 3;
     ++self->_beBlits;
     ++self->_telemetryCommandBuffer->cbBlits;
@@ -413,6 +415,30 @@ LABEL_80:
   baseObject3 = [toBuffer baseObject];
 
   [baseObject copyFromBuffer:baseObject2 sourceOffset:offset toBuffer:baseObject3 destinationOffset:destinationOffset size:size];
+}
+
+- (void)fillBuffer:(id)buffer range:(_NSRange)range value:(unsigned __int8)value
+{
+  valueCopy = value;
+  length = range.length;
+  location = range.location;
+  [(MTLTelemetryBlitCommandEncoder *)self accumulateBlitDistribution:0 samples:1 bytesPerRow:0 bytesPerImage:0 bufferSize:range.length type:4 option:0 src:2];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject fillBuffer:baseObject2 range:location value:{length, valueCopy}];
+}
+
+- (void)fillBuffer:(id)buffer range:(_NSRange)range pattern4:(unsigned int)pattern4
+{
+  v5 = *&pattern4;
+  length = range.length;
+  location = range.location;
+  [(MTLTelemetryBlitCommandEncoder *)self accumulateBlitDistribution:0 samples:1 bytesPerRow:0 bytesPerImage:0 bufferSize:range.length type:4 option:0 src:2];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject fillBuffer:baseObject2 range:location pattern4:{length, v5}];
 }
 
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region bytes:(const void *)bytes length:(unint64_t)length

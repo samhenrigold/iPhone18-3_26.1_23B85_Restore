@@ -51,7 +51,7 @@
 
   if (nameCopy)
   {
-    [nameCopy cxxString];
+    objc_msgSend_cxxString(nameCopy);
   }
 
   else
@@ -103,102 +103,93 @@
 
 - (unique_ptr<const)milValueForString:(id)string
 {
-  v5 = v3;
+  v4 = v3;
   stringCopy = string;
-  ptr = self->_context.__ptr_;
   MIL::IRTensorValueType::MakeScalar();
   if (stringCopy)
   {
-    [stringCopy cxxString];
+    objc_msgSend_cxxString(stringCopy);
   }
 
   else
   {
     __p = 0;
-    v10 = 0;
+    v8 = 0;
   }
 
   MIL::IRTensorValueType::MakeStringValue();
-  if (v10 < 0)
+  if (v8 < 0)
   {
     operator delete(__p);
   }
 
-  *v5 = v11;
+  *v4 = v9;
 
-  return v8;
+  return v6;
 }
 
 - (unique_ptr<const)milValueForTensorWithBytes:(void *)bytes shape:(id)shape dataType:(unint64_t)type
 {
-  v9 = v5;
-  v43 = *MEMORY[0x277D85DE8];
+  v8 = v5;
+  v38 = *MEMORY[0x277D85DE8];
   shapeCopy = shape;
-  v11 = shapeCopy;
+  v10 = shapeCopy;
   __p = 0;
-  v40 = 0;
-  v41 = 0;
-  v12 = shapeCopy;
+  v35 = 0;
+  v36 = 0;
+  v11 = shapeCopy;
   if (shapeCopy)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v13 = shapeCopy;
-    v14 = [v13 countByEnumeratingWithState:&v35 objects:v42 count:16];
-    if (v14)
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v12 = shapeCopy;
+    v13 = [v12 countByEnumeratingWithState:&v30 objects:v37 count:16];
+    if (v13)
     {
-      typeCopy = type;
       bytesCopy = bytes;
-      v30 = v9;
-      v15 = *v36;
-      v16 = 1;
+      v25 = v8;
+      v14 = *v31;
+      v15 = 1;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v36 != v15)
+          if (*v31 != v14)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v35 + 1) + 8 * i);
-          unsignedIntegerValue = [v18 unsignedIntegerValue];
-          v32 = MIL::IRConstantDimension::Make(self->_context.__ptr_, [v18 unsignedIntegerValue]);
-          v11 = v12;
-          std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&__p, &v32);
-          v16 *= unsignedIntegerValue;
+          v17 = *(*(&v30 + 1) + 8 * i);
+          unsignedIntegerValue = [v17 unsignedIntegerValue];
+          v27 = MIL::IRConstantDimension::Make(self->_context.__ptr_, [v17 unsignedIntegerValue]);
+          v10 = v11;
+          std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&__p, &v27);
+          v15 *= unsignedIntegerValue;
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v35 objects:v42 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v30 objects:v37 count:16];
       }
 
-      while (v14);
-      v20 = v16;
+      while (v13);
+      v19 = v15;
       bytes = bytesCopy;
-      v9 = v30;
-      type = typeCopy;
+      v8 = v25;
     }
 
     else
     {
-      v20 = 1;
+      v19 = 1;
     }
   }
 
   else
   {
-    v20 = 1;
+    v19 = 1;
   }
 
-  if (type - 1 <= 0xB)
-  {
-    v21 = dword_25BCBA98C[type - 1];
-  }
-
-  ptr = self->_context.__ptr_;
-  if (v11)
+  if (v10)
   {
     Scalar = MIL::IRTensorValueType::MakeWithShape();
   }
@@ -208,299 +199,287 @@
     Scalar = MIL::IRTensorValueType::MakeScalar();
   }
 
-  v24 = (*(*Scalar + 88))(Scalar);
-  if (v24 > 10)
+  v21 = (*(*Scalar + 88))(Scalar);
+  if (v21 > 10)
   {
-    if (v24 > 14)
+    if (v21 > 14)
     {
-      switch(v24)
+      switch(v21)
       {
         case 15:
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&v32, bytes, bytes + 2 * v20, v20);
+          v27 = 0;
+          v28 = 0;
+          v29 = 0;
+          std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&v27, bytes, bytes + 2 * v19, v19);
           MIL::IRTensorValueType::MakeUInt16Value();
-          goto LABEL_46;
+          goto LABEL_44;
         case 16:
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v32, bytes, bytes + 4 * v20, v20);
+          v27 = 0;
+          v28 = 0;
+          v29 = 0;
+          std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v27, bytes, bytes + 4 * v19, v19);
           MIL::IRTensorValueType::MakeUInt32Value();
-          goto LABEL_46;
+          goto LABEL_44;
         case 17:
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v32, bytes, bytes + 8 * v20, v20);
+          v27 = 0;
+          v28 = 0;
+          v29 = 0;
+          std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v27, bytes, bytes + 8 * v19, v19);
           MIL::IRTensorValueType::MakeUInt64Value();
-          goto LABEL_46;
+          goto LABEL_44;
       }
     }
 
     else
     {
-      switch(v24)
+      switch(v21)
       {
         case 11:
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v32, bytes, bytes + 4 * v20, v20);
+          v27 = 0;
+          v28 = 0;
+          v29 = 0;
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v27, bytes, bytes + 4 * v19, v19);
           MIL::IRTensorValueType::MakeInt32Value();
-          goto LABEL_46;
+          goto LABEL_44;
         case 12:
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v32, bytes, bytes + 8 * v20, v20);
+          v27 = 0;
+          v28 = 0;
+          v29 = 0;
+          std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v27, bytes, bytes + 8 * v19, v19);
           MIL::IRTensorValueType::MakeInt64Value();
-          goto LABEL_46;
+          goto LABEL_44;
         case 14:
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v32, bytes, bytes + v20, v20);
+          v27 = 0;
+          v28 = 0;
+          v29 = 0;
+          std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v27, bytes, bytes + v19, v19);
           MIL::IRTensorValueType::MakeUInt8Value();
-          goto LABEL_46;
+          goto LABEL_44;
       }
     }
 
-    goto LABEL_52;
+    goto LABEL_50;
   }
 
-  if (v24 > 5)
+  if (v21 > 5)
   {
-    switch(v24)
+    switch(v21)
     {
       case 6:
-        v32 = 0;
-        v33 = 0;
-        v34 = 0;
-        std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v32, bytes, bytes + 8 * v20, v20);
+        v27 = 0;
+        v28 = 0;
+        v29 = 0;
+        std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v27, bytes, bytes + 8 * v19, v19);
         MIL::IRTensorValueType::MakeFloat64Value();
-        goto LABEL_46;
+        goto LABEL_44;
       case 9:
-        v32 = 0;
-        v33 = 0;
-        v34 = 0;
-        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(&v32, bytes, bytes + v20, v20);
+        v27 = 0;
+        v28 = 0;
+        v29 = 0;
+        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(&v27, bytes, bytes + v19, v19);
         MIL::IRTensorValueType::MakeInt8Value();
-        goto LABEL_46;
+        goto LABEL_44;
       case 10:
-        v32 = 0;
-        v33 = 0;
-        v34 = 0;
-        std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(&v32, bytes, bytes + 2 * v20, v20);
+        v27 = 0;
+        v28 = 0;
+        v29 = 0;
+        std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(&v27, bytes, bytes + 2 * v19, v19);
         MIL::IRTensorValueType::MakeInt16Value();
-        goto LABEL_46;
+        goto LABEL_44;
     }
 
-LABEL_52:
-    *v9 = 0;
-    goto LABEL_49;
+LABEL_50:
+    *v8 = 0;
+    goto LABEL_47;
   }
 
-  if (v24 != 2)
+  if (v21 != 2)
   {
-    if (v24 == 4)
+    if (v21 == 4)
     {
-      v32 = 0;
-      v33 = 0;
-      v34 = 0;
-      std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16*,MIL::Fp16*>(&v32, bytes, bytes + 2 * v20, v20);
+      v27 = 0;
+      v28 = 0;
+      v29 = 0;
+      std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16*,MIL::Fp16*>(&v27, bytes, bytes + 2 * v19, v19);
       MIL::IRTensorValueType::MakeFloat16Value();
+      goto LABEL_44;
+    }
+
+    if (v21 == 5)
+    {
+      v27 = 0;
+      v28 = 0;
+      v29 = 0;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v27, bytes, bytes + 4 * v19, v19);
+      MIL::IRTensorValueType::MakeFloat32Value();
+LABEL_44:
+      v22 = v27;
+      *v8 = v26;
+      if (!v22)
+      {
+        goto LABEL_47;
+      }
+
+      v28 = v22;
       goto LABEL_46;
     }
 
-    if (v24 == 5)
-    {
-      v32 = 0;
-      v33 = 0;
-      v34 = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v32, bytes, bytes + 4 * v20, v20);
-      MIL::IRTensorValueType::MakeFloat32Value();
-LABEL_46:
-      v25 = v32;
-      *v9 = v31;
-      if (!v25)
-      {
-        goto LABEL_49;
-      }
-
-      v33 = v25;
-      goto LABEL_48;
-    }
-
-    goto LABEL_52;
+    goto LABEL_50;
   }
 
-  v32 = 0;
-  v33 = 0;
-  v34 = 0;
-  std::vector<BOOL>::__init_with_size[abi:ne200100]<BOOL *,BOOL *>(&v32, bytes, bytes + v20, v20);
+  v27 = 0;
+  v28 = 0;
+  v29 = 0;
+  std::vector<BOOL>::__init_with_size[abi:ne200100]<BOOL *,BOOL *>(&v27, bytes, bytes + v19, v19);
   MIL::IRTensorValueType::MakeBoolValue();
-  v25 = v32;
-  *v9 = v31;
-  if (v25)
+  v22 = v27;
+  *v8 = v26;
+  if (v22)
   {
-LABEL_48:
-    operator delete(v25);
+LABEL_46:
+    operator delete(v22);
   }
 
-LABEL_49:
+LABEL_47:
   if (__p)
   {
-    v40 = __p;
+    v35 = __p;
     operator delete(__p);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v23;
 }
 
 - (unique_ptr<const)milValueForTensorBlobWithFilename:(id)filename shape:(id)shape dataType:(unint64_t)type offset:(id)offset
 {
-  v34 = v6;
-  v53 = *MEMORY[0x277D85DE8];
+  v26 = v6;
+  v45 = *MEMORY[0x277D85DE8];
   filenameCopy = filename;
   shapeCopy = shape;
   offsetCopy = offset;
-  v48 = 0;
-  v49 = 0;
-  v50 = 0;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v14 = shapeCopy;
-  v15 = [v14 countByEnumeratingWithState:&v44 objects:v52 count:16];
-  if (v15)
+  v40 = 0;
+  v41 = 0;
+  v42 = 0;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v13 = shapeCopy;
+  v14 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  if (v14)
   {
-    v16 = *v45;
+    v15 = *v37;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v45 != v16)
+        if (*v37 != v15)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v44 + 1) + 8 * i);
-        [v18 unsignedIntegerValue];
-        *&v42[0] = MIL::IRConstantDimension::Make(self->_context.__ptr_, [v18 unsignedIntegerValue]);
-        std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&v48, v42);
+        v17 = *(*(&v36 + 1) + 8 * i);
+        [v17 unsignedIntegerValue];
+        *&v34[0] = MIL::IRConstantDimension::Make(self->_context.__ptr_, [v17 unsignedIntegerValue]);
+        std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&v40, v34);
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
-    while (v15);
+    while (v14);
   }
 
-  if (type - 1 <= 0xB)
-  {
-    v19 = dword_25BCBA98C[type - 1];
-  }
-
-  ptr = self->_context.__ptr_;
   MIL::IRTensorValueType::MakeWithShape();
-  memset(v42, 0, sizeof(v42));
-  v43 = 1065353216;
-  v21 = self->_context.__ptr_;
+  memset(v34, 0, sizeof(v34));
+  v35 = 1065353216;
   MIL::IRTensorValueType::MakeScalar();
-  std::string::basic_string[abi:ne200100]<0>(&v39, "BLOBFILE");
+  std::string::basic_string[abi:ne200100]<0>(&v31, "BLOBFILE");
   MIL::IRTensorValueType::MakeStringValue();
   std::string::basic_string[abi:ne200100]<0>(__p, "type");
-  v51 = __p;
-  v22 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42, __p);
-  std::shared_ptr<MIL::IRValue const>::operator=[abi:ne200100]<MIL::IRTensorValue const,std::default_delete<MIL::IRTensorValue const>,0>(v22 + 5, &v41);
-  if (v38 < 0)
+  v43 = __p;
+  v18 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34, __p, &std::piecewise_construct, &v43);
+  std::shared_ptr<MIL::IRValue const>::operator=[abi:ne200100]<MIL::IRTensorValue const,std::default_delete<MIL::IRTensorValue const>,0>(v18 + 5, &v33);
+  if (v30 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v23 = v41;
-  v41 = 0;
-  if (v23)
+  v19 = v33;
+  v33 = 0;
+  if (v19)
   {
-    (*(*v23 + 8))(v23);
+    (*(*v19 + 8))(v19);
   }
 
-  if (v40 < 0)
+  if (v32 < 0)
   {
-    operator delete(v39);
+    operator delete(v31);
   }
 
-  v24 = self->_context.__ptr_;
   MIL::IRTensorValueType::MakeScalar();
   if (filenameCopy)
   {
-    [filenameCopy cxxString];
+    objc_msgSend_cxxString(filenameCopy);
   }
 
   else
   {
-    v35 = 0;
-    v36 = 0;
+    v27 = 0;
+    v28 = 0;
   }
 
   MIL::IRTensorValueType::MakeStringValue();
   std::string::basic_string[abi:ne200100]<0>(__p, "path");
-  v51 = __p;
-  v25 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42, __p);
-  std::shared_ptr<MIL::IRValue const>::operator=[abi:ne200100]<MIL::IRTensorValue const,std::default_delete<MIL::IRTensorValue const>,0>(v25 + 5, &v41);
-  if (v38 < 0)
+  v43 = __p;
+  v20 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34, __p, &std::piecewise_construct, &v43);
+  std::shared_ptr<MIL::IRValue const>::operator=[abi:ne200100]<MIL::IRTensorValue const,std::default_delete<MIL::IRTensorValue const>,0>(v20 + 5, &v33);
+  if (v30 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v26 = v41;
-  v41 = 0;
-  if (v26)
+  v21 = v33;
+  v33 = 0;
+  if (v21)
   {
-    (*(*v26 + 8))(v26);
+    (*(*v21 + 8))(v21);
   }
 
-  if (v36 < 0)
+  if (v28 < 0)
   {
-    operator delete(v35);
+    operator delete(v27);
   }
 
-  v27 = self->_context.__ptr_;
   Scalar = MIL::IRTensorValueType::MakeScalar();
   [offsetCopy unsignedLongValue];
-  MIL::IRTensorValueType::MakeUInt64Value(Scalar);
+  MIL::IRTensorValueType::MakeUInt64Value(&v33, Scalar);
   std::string::basic_string[abi:ne200100]<0>(__p, "offset");
-  v51 = __p;
-  v29 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42, __p);
-  std::shared_ptr<MIL::IRValue const>::operator=[abi:ne200100]<MIL::IRTensorValue const,std::default_delete<MIL::IRTensorValue const>,0>(v29 + 5, &v41);
-  if (v38 < 0)
+  v43 = __p;
+  v23 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34, __p, &std::piecewise_construct, &v43);
+  std::shared_ptr<MIL::IRValue const>::operator=[abi:ne200100]<MIL::IRTensorValue const,std::default_delete<MIL::IRTensorValue const>,0>(v23 + 5, &v33);
+  if (v30 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v30 = v41;
-  v41 = 0;
-  if (v30)
+  v24 = v33;
+  v33 = 0;
+  if (v24)
   {
-    (*(*v30 + 8))(v30);
+    (*(*v24 + 8))(v24);
   }
 
-  v31 = self->_context.__ptr_;
   MIL::IRTensorValueType::MakeValueFromFileProperties();
-  *v34 = __p[0];
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v42);
-  if (v48)
+  *v26 = __p[0];
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v34);
+  if (v40)
   {
-    v49 = v48;
-    operator delete(v48);
+    v41 = v40;
+    operator delete(v40);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v32;
+  return v25;
 }
 
 + (id)valueForIRTensorValueType:(const IRTensorValueType *)type name:()basic_string<char
@@ -626,7 +605,7 @@ LABEL_15:
   v5 = (*(*v4 + 88))(v4) - 2;
   if (v5 < 0x10 && ((0xF79Fu >> v5) & 1) != 0)
   {
-    v56 = qword_25BCBA9C0[v5];
+    v53 = qword_25BCBA9C0[v5];
   }
 
   else
@@ -634,7 +613,7 @@ LABEL_15:
     v6 = MEMORY[0x277CBEAD8];
     v7 = *MEMORY[0x277CBE660];
     MIL::IRDataTypeToString();
-    if (v64 >= 0)
+    if (v61 >= 0)
     {
       v8 = __p;
     }
@@ -645,12 +624,12 @@ LABEL_15:
     }
 
     [v6 raise:v7 format:{@"Unsupported data type %s", v8}];
-    if (v64 < 0)
+    if (v61 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v56 = 0;
+    v53 = 0;
   }
 
   v9 = [MEMORY[0x277CBEBF8] mutableCopy];
@@ -674,307 +653,307 @@ LABEL_15:
   {
     v18 = (*(value->var0 + 11))(value);
     std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(__p, v18);
-    std::string::basic_string[abi:ne200100]<0>(v59, "type");
-    v57[0] = v59;
-    v19 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v59)[5];
+    std::string::basic_string[abi:ne200100]<0>(v56, "type");
+    v54[0] = v56;
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v56, &std::piecewise_construct, v54);
     MIL::IRValue::GetScalar<std::string>();
-    if (v60 < 0)
+    if (v57 < 0)
     {
-      operator delete(v59[0]);
+      operator delete(v56[0]);
     }
 
-    if (v62 < 0)
+    if (v59 < 0)
     {
-      if (v61[1] != 14)
+      if (v58[1] != 14)
       {
         goto LABEL_29;
       }
 
-      v20 = v61[0];
+      v19 = v58[0];
     }
 
     else
     {
-      if (v62 != 14)
+      if (v59 != 14)
       {
         goto LABEL_29;
       }
 
-      v20 = v61;
+      v19 = v58;
     }
 
-    v25 = *v20;
-    v26 = *(v20 + 6);
-    if (v25 == 0x4C4259434147454CLL && v26 == 0x454C4946424F4C42)
+    v24 = *v19;
+    v25 = *(v19 + 6);
+    if (v24 == 0x4C4259434147454CLL && v25 == 0x454C4946424F4C42)
     {
-      v34 = +[SNNLogging framework];
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v31 = +[SNNLogging framework];
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        [SNNMILContext valueForIRTensorValue:v34];
+        [SNNMILContext valueForIRTensorValue:v31];
       }
 
-      v22 = 0;
+      v21 = 0;
       goto LABEL_38;
     }
 
 LABEL_29:
-    std::string::basic_string[abi:ne200100]<0>(v57, "path");
-    v65 = v57;
-    v28 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v57)[5];
+    std::string::basic_string[abi:ne200100]<0>(v54, "path");
+    v62 = v54;
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v54, &std::piecewise_construct, &v62);
     MIL::IRValue::GetScalar<std::string>();
-    if (v58 < 0)
+    if (v55 < 0)
     {
-      operator delete(v57[0]);
+      operator delete(v54[0]);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v57, "offset");
-    v65 = v57;
-    v29 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v57)[5];
-    v30 = MIL::IRValue::GetScalar<unsigned long long>();
-    if (v58 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v54, "offset");
+    v62 = v54;
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v54, &std::piecewise_construct, &v62);
+    v27 = MIL::IRValue::GetScalar<unsigned long long>();
+    if (v55 < 0)
     {
-      operator delete(v57[0]);
+      operator delete(v54[0]);
     }
 
-    v31 = [SNNMILBlobValue alloc];
-    v32 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCXXString:v59];
-    v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v30];
-    v22 = [(SNNMILBlobValue *)v31 initWithFilename:v32 shape:v9 dataType:v56 offset:v33];
+    v28 = [SNNMILBlobValue alloc];
+    v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCXXString:v56];
+    v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v27];
+    v21 = [(SNNMILBlobValue *)v28 initWithFilename:v29 shape:v9 dataType:v53 offset:v30];
 
-    if (v60 < 0)
+    if (v57 < 0)
     {
-      operator delete(v59[0]);
+      operator delete(v56[0]);
     }
 
 LABEL_38:
-    if (v62 < 0)
+    if (v59 < 0)
     {
-      operator delete(v61[0]);
+      operator delete(v58[0]);
     }
 
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(__p);
     goto LABEL_96;
   }
 
-  v21 = [v9 count];
-  v22 = 0;
+  v20 = [v9 count];
+  v21 = 0;
   switch(v5)
   {
     case 0u:
-      if (!v21)
+      if (!v20)
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithBool:MIL::IRValue::GetScalar<BOOL>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:0];
+        v46 = [MEMORY[0x277CCABB0] numberWithBool:MIL::IRValue::GetScalar<BOOL>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:0];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<BOOL>();
-      if (v14 != v24)
+      if (v14 != v23)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 314, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 1u:
-      if (!v21)
+      if (!v20)
       {
-        v54 = objc_alloc(MEMORY[0x277CCACA8]);
+        v51 = objc_alloc(MEMORY[0x277CCACA8]);
         MIL::IRValue::GetScalar<std::string>();
-        v49 = [v54 initWithCXXString:__p];
-        if (v64 < 0)
+        v46 = [v51 initWithCXXString:__p];
+        if (v61 < 0)
         {
           operator delete(__p[0]);
         }
 
-        v50 = [[SNNMILDataValue alloc] initWithStringScalar:v49];
+        v47 = [[SNNMILDataValue alloc] initWithStringScalar:v46];
         goto LABEL_95;
       }
 
-      v44 = +[SNNLogging framework];
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v41 = +[SNNLogging framework];
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        [SNNMILContext valueForIRTensorValue:v44];
+        [SNNMILContext valueForIRTensorValue:v41];
       }
 
 LABEL_68:
-      v22 = 0;
+      v21 = 0;
       break;
     case 2u:
       break;
     case 3u:
-      if (!v21)
+      if (!v20)
       {
-        v52 = MEMORY[0x277CCABB0];
+        v49 = MEMORY[0x277CCABB0];
         MIL::IRValue::GetScalar<float>();
-        v49 = [v52 numberWithDouble:v53];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:3];
+        v46 = [v49 numberWithDouble:v50];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:3];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<float>();
-      if (v14 != v40)
+      if (v14 != v37)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 338, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 4u:
-      if (!v21)
+      if (!v20)
       {
-        v51 = MEMORY[0x277CCABB0];
+        v48 = MEMORY[0x277CCABB0];
         MIL::IRValue::GetScalar<double>();
-        v49 = [v51 numberWithDouble:?];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:4];
+        v46 = [v48 numberWithDouble:?];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:4];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<double>();
-      if (v14 != v36)
+      if (v14 != v33)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 326, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 7u:
-      if (!v21)
+      if (!v20)
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithChar:MIL::IRValue::GetScalar<signed char>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:5];
+        v46 = [MEMORY[0x277CCABB0] numberWithChar:MIL::IRValue::GetScalar<signed char>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:5];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<signed char>();
-      if (v14 != v38)
+      if (v14 != v35)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 402, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 8u:
-      if (!v21)
+      if (!v20)
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithShort:MIL::IRValue::GetScalar<short>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:6];
+        v46 = [MEMORY[0x277CCABB0] numberWithShort:MIL::IRValue::GetScalar<short>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:6];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<short>();
-      if (v14 != v45)
+      if (v14 != v42)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 414, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 9u:
-      if (!v21)
+      if (!v20)
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithInteger:MIL::IRValue::GetScalar<int>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:7];
+        v46 = [MEMORY[0x277CCABB0] numberWithInteger:MIL::IRValue::GetScalar<int>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:7];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<int>();
-      if (v14 != v46)
+      if (v14 != v43)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 426, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 0xAu:
-      if (!v21)
+      if (!v20)
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithLong:MIL::IRValue::GetScalar<long long>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:8];
+        v46 = [MEMORY[0x277CCABB0] numberWithLong:MIL::IRValue::GetScalar<long long>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:8];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<long long>();
-      if (v14 != v48)
+      if (v14 != v45)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 438, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 0xCu:
-      if (!v21)
+      if (!v20)
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:MIL::IRValue::GetScalar<unsigned char>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:9];
+        v46 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:MIL::IRValue::GetScalar<unsigned char>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:9];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<unsigned char>();
-      if (v14 != v47)
+      if (v14 != v44)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 354, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 0xDu:
-      if (!v21)
+      if (!v20)
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:MIL::IRValue::GetScalar<unsigned short>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:10];
+        v46 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:MIL::IRValue::GetScalar<unsigned short>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:10];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<unsigned short>();
-      if (v14 != v35)
+      if (v14 != v32)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 366, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 0xEu:
-      if (!v21)
+      if (!v20)
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:MIL::IRValue::GetScalar<unsigned int>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:11];
+        v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:MIL::IRValue::GetScalar<unsigned int>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:11];
         goto LABEL_95;
       }
 
       Data = MIL::IRTensorValue::GetDataView<unsigned int>();
-      if (v14 != v39)
+      if (v14 != v36)
       {
         __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 378, "contiguousCount == dataView.Size()");
       }
 
       goto LABEL_80;
     case 0xFu:
-      if (v21)
+      if (v20)
       {
         Data = MIL::IRTensorValue::GetDataView<unsigned long long>();
-        if (v14 != v37)
+        if (v14 != v34)
         {
           __assert_rtn("+[SNNMILContext valueForIRTensorValue:]", "SNNTypes.mm", 390, "contiguousCount == dataView.Size()");
         }
 
 LABEL_80:
-        v22 = [[SNNMILDataValue alloc] initWithShape:v9 bytes:Data dataType:v56];
+        v21 = [[SNNMILDataValue alloc] initWithShape:v9 bytes:Data dataType:v53];
       }
 
       else
       {
-        v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:MIL::IRValue::GetScalar<unsigned long long>()];
-        v50 = [[SNNMILDataValue alloc] initWithScalar:v49 dataType:12];
+        v46 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:MIL::IRValue::GetScalar<unsigned long long>()];
+        v47 = [[SNNMILDataValue alloc] initWithScalar:v46 dataType:12];
 LABEL_95:
-        v22 = v50;
+        v21 = v47;
       }
 
       break;
     default:
-      v41 = objc_alloc(MEMORY[0x277CCACA8]);
+      v38 = objc_alloc(MEMORY[0x277CCACA8]);
       MIL::IRDataTypeToString();
-      v42 = [v41 initWithCXXString:__p];
-      if (v64 < 0)
+      v39 = [v38 initWithCXXString:__p];
+      if (v61 < 0)
       {
         operator delete(__p[0]);
       }
 
-      v43 = +[SNNLogging framework];
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v40 = +[SNNLogging framework];
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        [(SNNMILContext *)v42 valueForIRTensorValue:v43];
+        [(SNNMILContext *)v39 valueForIRTensorValue:v40];
       }
 
       goto LABEL_68;
@@ -982,7 +961,7 @@ LABEL_95:
 
 LABEL_96:
 
-  return v22;
+  return v21;
 }
 
 + (id)valueForIRValue:(const IRValue *)value
@@ -1057,10 +1036,9 @@ LABEL_96:
 
 + (void)valueForIRTensorValue:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
 }
 
 @end

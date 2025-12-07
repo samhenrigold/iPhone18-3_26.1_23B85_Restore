@@ -166,29 +166,29 @@ LABEL_8:
 
 + (id)_allowedWebSitesHTML:(id)l
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   lCopy = l;
   string = [MEMORY[0x277CCAB68] string];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = lCopy;
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         v10 = [v9 objectForKey:@"address"];
         v11 = [v9 objectForKey:@"pageTitle"];
         v12 = v11;
@@ -231,13 +231,11 @@ LABEL_11:
         [string appendFormat:@"<a href=%@>%@</a><br>", v10, v13];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return string;
 }

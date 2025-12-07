@@ -74,7 +74,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -107,7 +107,7 @@
 
   if (v18 == 4)
   {
-    v68 = a2;
+    v67 = a2;
     v31 = [tensorsCopy objectAtIndexedSubscript:0];
     descriptor3 = [v31 descriptor];
     shape2 = [descriptor3 shape];
@@ -146,7 +146,7 @@
       goto LABEL_28;
     }
 
-    v68 = a2;
+    v67 = a2;
     v19 = [tensorsCopy objectAtIndexedSubscript:0];
     descriptor7 = [v19 descriptor];
     shape6 = [descriptor7 shape];
@@ -231,7 +231,7 @@
     v65 = +[MLCLog framework];
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
-      [MLCPoolingLayer compileForDevice:v68 sourceTensors:v29 resultTensor:v65];
+      [MLCPoolingLayer compileForDevice:v67 sourceTensors:v29 resultTensor:v65];
     }
 
 LABEL_28:
@@ -242,12 +242,11 @@ LABEL_28:
   computeEngine2 = [deviceCopy computeEngine];
   v64 = [computeEngine2 compileLayerDeviceOps:v29 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-  v70.receiver = self;
-  v70.super_class = MLCPoolingLayer;
-  [(MLCLayer *)&v70 bindDevice:deviceCopy deviceOps:v29];
+  v69.receiver = self;
+  v69.super_class = MLCPoolingLayer;
+  [(MLCLayer *)&v69 bindDevice:deviceCopy deviceOps:v29];
 LABEL_29:
 
-  v66 = *MEMORY[0x277D85DE8];
   return v64;
 }
 
@@ -337,26 +336,22 @@ LABEL_7:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(uint64_t)a2 resultTensor:(NSObject *)a3 .cold.1(const char *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: failure to create deviceOps=%@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: failure to create deviceOps=%@", &v6, 0x16u);
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(NSObject *)a2 resultTensor:.cold.2(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: source tensor shape is not supported.  must be a tensor of shape 3 or higher", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: source tensor shape is not supported.  must be a tensor of shape 3 or higher", &v4, 0xCu);
 }
 
 @end

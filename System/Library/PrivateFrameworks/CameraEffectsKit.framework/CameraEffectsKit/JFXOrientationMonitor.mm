@@ -214,7 +214,7 @@ void __54__JFXOrientationMonitor_initializeWithViewController___block_invoke(uin
   return v11;
 }
 
-uint64_t __43__JFXOrientationMonitor_initWithKeyWindow___block_invoke(uint64_t a1)
+void *__43__JFXOrientationMonitor_initWithKeyWindow___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) JFX_deviceOrientation_darwinNotificationQ];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -359,7 +359,7 @@ void __49__JFXOrientationMonitor_setInterfaceOrientation___block_invoke()
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __74__JFXOrientationMonitor_JFX_UIApplicationWillEnterForegroundNotification___block_invoke(uint64_t a1)
+void *__74__JFXOrientationMonitor_JFX_UIApplicationWillEnterForegroundNotification___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) JFX_deviceOrientation_darwinNotificationQ];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -376,9 +376,11 @@ uint64_t __74__JFXOrientationMonitor_JFX_UIApplicationWillEnterForegroundNotific
 
 uint64_t __37__JFXOrientationMonitor_JFX_initLock__block_invoke()
 {
-  s_instance_lock = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = s_instance_lock;
+  s_instance_lock = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)JFX_initDarwinNotification

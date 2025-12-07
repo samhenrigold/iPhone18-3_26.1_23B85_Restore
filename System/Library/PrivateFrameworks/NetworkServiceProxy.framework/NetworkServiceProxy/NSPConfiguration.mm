@@ -1182,7 +1182,7 @@ void __40__NSPConfiguration_defaultConfiguration__block_invoke()
 
 - (void)merge:(id)merge
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   mergeCopy = merge;
   version = [mergeCopy version];
 
@@ -1247,9 +1247,9 @@ void __40__NSPConfiguration_defaultConfiguration__block_invoke()
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       configServerHost4 = [mergeCopy configServerHost];
-      v88 = 138412290;
-      v89 = configServerHost4;
-      _os_log_impl(&dword_1AE7E2000, v22, OS_LOG_TYPE_INFO, "Set configServerHost to %@", &v88, 0xCu);
+      v87 = 138412290;
+      v88 = configServerHost4;
+      _os_log_impl(&dword_1AE7E2000, v22, OS_LOG_TYPE_INFO, "Set configServerHost to %@", &v87, 0xCu);
     }
   }
 
@@ -1283,9 +1283,9 @@ void __40__NSPConfiguration_defaultConfiguration__block_invoke()
     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       overrideConfigServerPath4 = [mergeCopy overrideConfigServerPath];
-      v88 = 138412290;
-      v89 = overrideConfigServerPath4;
-      _os_log_impl(&dword_1AE7E2000, v30, OS_LOG_TYPE_INFO, "Set overrideConfigServerPath to %@", &v88, 0xCu);
+      v87 = 138412290;
+      v88 = overrideConfigServerPath4;
+      _os_log_impl(&dword_1AE7E2000, v30, OS_LOG_TYPE_INFO, "Set overrideConfigServerPath to %@", &v87, 0xCu);
     }
   }
 
@@ -1316,9 +1316,9 @@ void __40__NSPConfiguration_defaultConfiguration__block_invoke()
     if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       configServerHeaders4 = [mergeCopy configServerHeaders];
-      v88 = 138412290;
-      v89 = configServerHeaders4;
-      _os_log_impl(&dword_1AE7E2000, v36, OS_LOG_TYPE_INFO, "Set configServerPath to %@", &v88, 0xCu);
+      v87 = 138412290;
+      v88 = configServerHeaders4;
+      _os_log_impl(&dword_1AE7E2000, v36, OS_LOG_TYPE_INFO, "Set configServerPath to %@", &v87, 0xCu);
     }
   }
 
@@ -1514,8 +1514,6 @@ void __40__NSPConfiguration_defaultConfiguration__block_invoke()
 
   lastPrivateCloudComputeEnvironment = [mergeCopy lastPrivateCloudComputeEnvironment];
   [(NSPConfiguration *)self setLastPrivateCloudComputeEnvironment:lastPrivateCloudComputeEnvironment];
-
-  v87 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveInternalOptions:(id)options
@@ -2012,7 +2010,7 @@ uint64_t __33__NSPConfiguration_initFromTLVs___block_invoke(uint64_t a1, int a2,
 
 + (BOOL)validatePrivacyProxyConfiguration:(id)configuration
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v4 = configurationCopy;
   if (!configurationCopy)
@@ -2021,7 +2019,7 @@ uint64_t __33__NSPConfiguration_initFromTLVs___block_invoke(uint64_t a1, int a2,
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      *v111 = "+[NSPConfiguration validatePrivacyProxyConfiguration:]";
+      *v110 = "+[NSPConfiguration validatePrivacyProxyConfiguration:]";
       _os_log_fault_impl(&dword_1AE7E2000, v11, OS_LOG_TYPE_FAULT, "%s called with null configuration", buf, 0xCu);
     }
 
@@ -2034,7 +2032,7 @@ uint64_t __33__NSPConfiguration_initFromTLVs___block_invoke(uint64_t a1, int a2,
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *v111 = [v4 version];
+      *v110 = [v4 version];
       _os_log_error_impl(&dword_1AE7E2000, v11, OS_LOG_TYPE_ERROR, "Configuration version %u not supported", buf, 8u);
     }
 
@@ -2068,7 +2066,7 @@ LABEL_14:
       }
 
       *buf = 138412290;
-      *v111 = v18;
+      *v110 = v18;
       _os_log_error_impl(&dword_1AE7E2000, v11, OS_LOG_TYPE_ERROR, "Configuration has bad authentication type: %@", buf, 0xCu);
     }
 
@@ -2120,10 +2118,10 @@ LABEL_32:
     }
 
     *buf = 138412290;
-    *v111 = v11;
+    *v110 = v11;
     v34 = "Bad authentication url format %@";
-    v38 = policyTierMaps3;
-    v39 = 12;
+    v37 = policyTierMaps3;
+    v38 = 12;
     goto LABEL_48;
   }
 
@@ -2141,17 +2139,17 @@ LABEL_18:
 
     policyTierMaps2 = [v4 policyTierMaps];
     *buf = 134217984;
-    *v111 = [policyTierMaps2 count];
+    *v110 = [policyTierMaps2 count];
     _os_log_error_impl(&dword_1AE7E2000, policyTierMaps3, OS_LOG_TYPE_ERROR, "Invalid policy tier count %lu", buf, 0xCu);
     goto LABEL_40;
   }
 
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
   v107 = 0u;
+  v108 = 0u;
+  v105 = 0u;
+  v106 = 0u;
   policyTierMaps3 = [v4 policyTierMaps];
-  v24 = [policyTierMaps3 countByEnumeratingWithState:&v106 objects:v112 count:16];
+  v24 = [policyTierMaps3 countByEnumeratingWithState:&v105 objects:v111 count:16];
   if (!v24)
   {
 
@@ -2165,27 +2163,27 @@ LABEL_44:
     *buf = 0;
     v34 = "configuration should contain policies for both tiers";
 LABEL_46:
-    v38 = policyTierMaps3;
-    v39 = 2;
+    v37 = policyTierMaps3;
+    v38 = 2;
 LABEL_48:
-    _os_log_error_impl(&dword_1AE7E2000, v38, OS_LOG_TYPE_ERROR, v34, buf, v39);
+    _os_log_error_impl(&dword_1AE7E2000, v37, OS_LOG_TYPE_ERROR, v34, buf, v38);
     goto LABEL_33;
   }
 
   v25 = v24;
   v26 = 0;
   v27 = 0;
-  v28 = *v107;
+  v28 = *v106;
   do
   {
     for (i = 0; i != v25; ++i)
     {
-      if (*v107 != v28)
+      if (*v106 != v28)
       {
         objc_enumerationMutation(policyTierMaps3);
       }
 
-      v30 = *(*(&v106 + 1) + 8 * i);
+      v30 = *(*(&v105 + 1) + 8 * i);
       if (![v30 tier] || objc_msgSend(v30, "tier") >= 3)
       {
         policyTierMaps2 = nplog_obj();
@@ -2197,20 +2195,20 @@ LABEL_48:
         tier = [v30 tier];
         if (tier >= 3)
         {
-          v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", tier];
+          v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", tier];
         }
 
         else
         {
-          v41 = off_1E7A31240[tier];
+          v40 = off_1E7A31240[tier];
         }
 
         *buf = 138412290;
-        *v111 = v41;
-        v42 = "bad policy tier type %@";
-        v43 = policyTierMaps2;
+        *v110 = v40;
+        v41 = "bad policy tier type %@";
+        v42 = policyTierMaps2;
 LABEL_55:
-        v44 = 12;
+        v43 = 12;
         goto LABEL_56;
       }
 
@@ -2219,7 +2217,7 @@ LABEL_55:
       v27 |= tier2 == 1;
     }
 
-    v25 = [policyTierMaps3 countByEnumeratingWithState:&v106 objects:v112 count:16];
+    v25 = [policyTierMaps3 countByEnumeratingWithState:&v105 objects:v111 count:16];
   }
 
   while (v25);
@@ -2259,11 +2257,11 @@ LABEL_105:
     goto LABEL_46;
   }
 
+  v103 = 0;
   v104 = 0;
-  v105 = 0;
   while (2)
   {
-    policyTierMaps3 = [v4 proxiesAtIndex:v105];
+    policyTierMaps3 = [v4 proxiesAtIndex:v104];
     if (![policyTierMaps3 proxyHop]&& [policyTierMaps3 proxyHop]>= 3)
     {
       policyTierMaps2 = nplog_obj();
@@ -2272,18 +2270,18 @@ LABEL_105:
         proxyHop = [policyTierMaps3 proxyHop];
         if (proxyHop >= 4)
         {
-          v90 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", proxyHop];
+          v89 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", proxyHop];
         }
 
         else
         {
-          v90 = off_1E7A31220[proxyHop];
+          v89 = off_1E7A31220[proxyHop];
         }
 
         *buf = 134218242;
-        *v111 = v105;
-        *&v111[8] = 2112;
-        *&v111[10] = v90;
+        *v110 = v104;
+        *&v110[8] = 2112;
+        *&v110[10] = v89;
         _os_log_error_impl(&dword_1AE7E2000, policyTierMaps2, OS_LOG_TYPE_ERROR, "proxy hop at %lu has invalid hop type %@", buf, 0x16u);
       }
 
@@ -2291,27 +2289,20 @@ LABEL_105:
     }
 
     proxyHop2 = [policyTierMaps3 proxyHop];
-    v46 = proxyHop2 == 1;
-    v47 = proxyHop2 != 1;
-    v48 = MEMORY[0x1E695DFF8];
+    v45 = proxyHop2 == 1;
+    v46 = proxyHop2 != 1;
+    v47 = MEMORY[0x1E695DFF8];
     proxyURL = [policyTierMaps3 proxyURL];
-    policyTierMaps2 = [v48 URLWithString:proxyURL];
+    policyTierMaps2 = [v47 URLWithString:proxyURL];
 
-    if (!policyTierMaps2)
+    if (!policyTierMaps2 || (-[NSObject host](policyTierMaps2, "host"), (v49 = objc_claimAutoreleasedReturnValue()) == 0) || (v50 = v49, -[NSObject scheme](policyTierMaps2, "scheme"), v51 = objc_claimAutoreleasedReturnValue(), v52 = [v51 isEqualToString:@"https"], v51, v50, (v52 & 1) == 0))
     {
-      goto LABEL_107;
-    }
-
-    host2 = [policyTierMaps2 host];
-    if (!host2 || (v51 = host2, -[NSObject scheme](policyTierMaps2, "scheme"), v52 = objc_claimAutoreleasedReturnValue(), v53 = [v52 isEqualToString:@"https"], v52, v51, (v53 & 1) == 0))
-    {
-LABEL_107:
-      v41 = nplog_obj();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = nplog_obj();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v111 = policyTierMaps2;
-        v42 = "Bad proxy url format %@";
+        *v110 = policyTierMaps2;
+        v41 = "Bad proxy url format %@";
         goto LABEL_113;
       }
 
@@ -2322,64 +2313,64 @@ LABEL_40:
     }
 
     proxyKeyInfos = [policyTierMaps3 proxyKeyInfos];
-    v55 = [proxyKeyInfos count];
+    v54 = [proxyKeyInfos count];
 
-    if (!v55)
+    if (!v54)
     {
-      v41 = nplog_obj();
-      if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = nplog_obj();
+      if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_57;
       }
 
       *buf = 138412290;
-      *v111 = policyTierMaps2;
-      v42 = "Proxy %@ needs proxy keys";
+      *v110 = policyTierMaps2;
+      v41 = "Proxy %@ needs proxy keys";
 LABEL_113:
-      v43 = v41;
+      v42 = v40;
       goto LABEL_55;
     }
 
     proxyKeyInfos2 = [policyTierMaps3 proxyKeyInfos];
-    v57 = [proxyKeyInfos2 count];
+    v56 = [proxyKeyInfos2 count];
 
-    if (v57)
+    if (v56)
     {
-      v58 = 0;
+      v57 = 0;
       while (1)
       {
-        v59 = [policyTierMaps3 proxyKeyInfoAtIndex:v58];
+        v58 = [policyTierMaps3 proxyKeyInfoAtIndex:v57];
 
-        if (!v59)
+        if (!v58)
         {
           break;
         }
 
-        ++v58;
+        ++v57;
         proxyKeyInfos3 = [policyTierMaps3 proxyKeyInfos];
-        v61 = [proxyKeyInfos3 count];
+        v60 = [proxyKeyInfos3 count];
 
-        if (v58 >= v61)
+        if (v57 >= v60)
         {
           goto LABEL_70;
         }
       }
 
-      v41 = nplog_obj();
-      if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = nplog_obj();
+      if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_57;
       }
 
       *buf = 134218242;
-      *v111 = v58;
-      *&v111[8] = 2112;
-      *&v111[10] = policyTierMaps2;
-      v42 = "proxy key info for index %lu is nil for proxy %@";
-      v43 = v41;
-      v44 = 22;
+      *v110 = v57;
+      *&v110[8] = 2112;
+      *&v110[10] = policyTierMaps2;
+      v41 = "proxy key info for index %lu is nil for proxy %@";
+      v42 = v40;
+      v43 = 22;
 LABEL_56:
-      _os_log_error_impl(&dword_1AE7E2000, v43, OS_LOG_TYPE_ERROR, v42, buf, v44);
+      _os_log_error_impl(&dword_1AE7E2000, v42, OS_LOG_TYPE_ERROR, v41, buf, v43);
       goto LABEL_57;
     }
 
@@ -2388,22 +2379,22 @@ LABEL_70:
 
     if (!tokenKeyInfo)
     {
-      v41 = nplog_obj();
-      if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = nplog_obj();
+      if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_57;
       }
 
       *buf = 138412290;
-      *v111 = policyTierMaps2;
-      v42 = "token issuance key is nil for proxy %@";
+      *v110 = policyTierMaps2;
+      v41 = "token issuance key is nil for proxy %@";
       goto LABEL_113;
     }
 
-    LODWORD(v104) = v47 | v104;
-    HIDWORD(v104) |= v46;
+    LODWORD(v103) = v46 | v103;
+    HIDWORD(v103) |= v45;
 
-    if (++v105 < [v4 proxiesCount])
+    if (++v104 < [v4 proxiesCount])
     {
       continue;
     }
@@ -2411,15 +2402,15 @@ LABEL_70:
     break;
   }
 
-  if ((HIDWORD(v104) & v104 & 1) == 0)
+  if ((HIDWORD(v103) & v103 & 1) == 0)
   {
     goto LABEL_105;
   }
 
   pathWeights = [v4 pathWeights];
-  v64 = [pathWeights count];
+  v63 = [pathWeights count];
 
-  if (!v64)
+  if (!v63)
   {
     policyTierMaps3 = nplog_obj();
     if (!os_log_type_enabled(policyTierMaps3, OS_LOG_TYPE_ERROR))
@@ -2433,14 +2424,14 @@ LABEL_70:
   }
 
   pathWeights2 = [v4 pathWeights];
-  v66 = [pathWeights2 count];
+  v65 = [pathWeights2 count];
 
-  if (v66)
+  if (v65)
   {
-    v67 = 0;
+    v66 = 0;
     while (1)
     {
-      policyTierMaps3 = [v4 pathWeightsAtIndex:v67];
+      policyTierMaps3 = [v4 pathWeightsAtIndex:v66];
       if ([policyTierMaps3 weight]>= 0x65)
       {
         break;
@@ -2448,113 +2439,113 @@ LABEL_70:
 
       if ([policyTierMaps3 proxiesCount]!= 2)
       {
-        v70 = nplog_obj();
-        if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v69 = nplog_obj();
+        if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_158;
         }
 
         *buf = 134217984;
-        *v111 = v67;
-        v91 = "Bad proxy count for path weight at index %lu";
+        *v110 = v66;
+        v90 = "Bad proxy count for path weight at index %lu";
         goto LABEL_142;
       }
 
-      v68 = [policyTierMaps3 proxiesAtIndex:0];
-      v69 = [policyTierMaps3 proxiesAtIndex:1];
-      if ([v4 proxiesCount] < v68)
+      v67 = [policyTierMaps3 proxiesAtIndex:0];
+      v68 = [policyTierMaps3 proxiesAtIndex:1];
+      if ([v4 proxiesCount] < v67)
       {
-        v70 = nplog_obj();
-        if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v69 = nplog_obj();
+        if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_158;
         }
 
         *buf = 67109376;
-        *v111 = v68;
-        *&v111[4] = 2048;
-        *&v111[6] = v67;
-        v91 = "Bad proxy index %u at path weight index %lu";
+        *v110 = v67;
+        *&v110[4] = 2048;
+        *&v110[6] = v66;
+        v90 = "Bad proxy index %u at path weight index %lu";
         goto LABEL_147;
       }
 
-      if ([v4 proxiesCount] < v69)
+      if ([v4 proxiesCount] < v68)
       {
-        v70 = nplog_obj();
-        if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v69 = nplog_obj();
+        if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_158;
         }
 
         *buf = 67109376;
-        *v111 = v69;
-        *&v111[4] = 2048;
-        *&v111[6] = v67;
-        v91 = "Bad proxy index %u at path weight index %lu";
+        *v110 = v68;
+        *&v110[4] = 2048;
+        *&v110[6] = v66;
+        v90 = "Bad proxy index %u at path weight index %lu";
 LABEL_147:
-        v94 = v70;
-        v95 = 18;
+        v93 = v69;
+        v94 = 18;
 LABEL_148:
-        _os_log_error_impl(&dword_1AE7E2000, v94, OS_LOG_TYPE_ERROR, v91, buf, v95);
+        _os_log_error_impl(&dword_1AE7E2000, v93, OS_LOG_TYPE_ERROR, v90, buf, v94);
+        goto LABEL_158;
+      }
+
+      v69 = [v4 proxiesAtIndex:v67];
+      if ([v69 proxyHop]!= 1)
+      {
+        v91 = nplog_obj();
+        if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_error_impl(&dword_1AE7E2000, v91, OS_LOG_TYPE_ERROR, "first proxy index in path weight should be ingress only", buf, 2u);
+        }
+
         goto LABEL_158;
       }
 
       v70 = [v4 proxiesAtIndex:v68];
-      if ([v70 proxyHop]!= 1)
+      if ([v70 proxyHop] != 2)
       {
         v92 = nplog_obj();
         if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_1AE7E2000, v92, OS_LOG_TYPE_ERROR, "first proxy index in path weight should be ingress only", buf, 2u);
-        }
-
-        goto LABEL_158;
-      }
-
-      v71 = [v4 proxiesAtIndex:v69];
-      if ([v71 proxyHop] != 2)
-      {
-        v93 = nplog_obj();
-        if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 0;
-          _os_log_error_impl(&dword_1AE7E2000, v93, OS_LOG_TYPE_ERROR, "second proxy index in path weight should be egress only", buf, 2u);
+          _os_log_error_impl(&dword_1AE7E2000, v92, OS_LOG_TYPE_ERROR, "second proxy index in path weight should be egress only", buf, 2u);
         }
 
         goto LABEL_157;
       }
 
-      ++v67;
+      ++v66;
       pathWeights3 = [v4 pathWeights];
-      v73 = [pathWeights3 count];
+      v72 = [pathWeights3 count];
 
-      if (v67 >= v73)
+      if (v66 >= v72)
       {
         goto LABEL_83;
       }
     }
 
-    v70 = nplog_obj();
-    if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+    v69 = nplog_obj();
+    if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_158;
     }
 
     *buf = 134217984;
-    *v111 = v67;
-    v91 = "Bad path weight at index %lu";
+    *v110 = v66;
+    v90 = "Bad path weight at index %lu";
 LABEL_142:
-    v94 = v70;
-    v95 = 12;
+    v93 = v69;
+    v94 = 12;
     goto LABEL_148;
   }
 
 LABEL_83:
   fallbackPathWeights = [v4 fallbackPathWeights];
-  v75 = [fallbackPathWeights count];
+  v74 = [fallbackPathWeights count];
 
-  if (!v75)
+  if (!v74)
   {
 LABEL_94:
     if (![v4 resolversCount])
@@ -2563,26 +2554,26 @@ LABEL_94:
       goto LABEL_35;
     }
 
-    v81 = 0;
+    v80 = 0;
     while (1)
     {
-      policyTierMaps3 = [v4 resolversAtIndex:v81];
-      v82 = MEMORY[0x1E695DFF8];
+      policyTierMaps3 = [v4 resolversAtIndex:v80];
+      v81 = MEMORY[0x1E695DFF8];
       dohURL = [policyTierMaps3 dohURL];
-      policyTierMaps2 = [v82 URLWithString:dohURL];
+      policyTierMaps2 = [v81 URLWithString:dohURL];
 
       if (!policyTierMaps2)
       {
         break;
       }
 
-      host3 = [policyTierMaps2 host];
-      if (!host3)
+      host2 = [policyTierMaps2 host];
+      if (!host2)
       {
         break;
       }
 
-      v85 = host3;
+      v84 = host2;
       scheme3 = [policyTierMaps2 scheme];
       if ([scheme3 isEqualToString:@"https"])
       {
@@ -2591,110 +2582,110 @@ LABEL_94:
       else
       {
         scheme4 = [policyTierMaps2 scheme];
-        v88 = [scheme4 isEqualToString:@"http"];
+        v87 = [scheme4 isEqualToString:@"http"];
 
-        if ((v88 & 1) == 0)
+        if ((v87 & 1) == 0)
         {
           break;
         }
       }
 
-      ++v81;
+      ++v80;
       v15 = 1;
-      if (v81 >= [v4 resolversCount])
+      if (v80 >= [v4 resolversCount])
       {
         goto LABEL_35;
       }
     }
 
-    v41 = nplog_obj();
-    if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v40 = nplog_obj();
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_57;
     }
 
     *buf = 138412290;
-    *v111 = policyTierMaps2;
-    v42 = "Bad resolver url format %@";
+    *v110 = policyTierMaps2;
+    v41 = "Bad resolver url format %@";
     goto LABEL_113;
   }
 
-  v76 = 0;
+  v75 = 0;
   while (1)
   {
-    policyTierMaps3 = [v4 fallbackPathWeightsAtIndex:v76];
+    policyTierMaps3 = [v4 fallbackPathWeightsAtIndex:v75];
     if ([policyTierMaps3 weight]>= 0x65)
     {
-      v70 = nplog_obj();
-      if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+      v69 = nplog_obj();
+      if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_158;
       }
 
       *buf = 134217984;
-      *v111 = v76;
-      v91 = "Bad path weight at index %lu";
+      *v110 = v75;
+      v90 = "Bad path weight at index %lu";
       goto LABEL_142;
     }
 
     if ([policyTierMaps3 proxiesCount]!= 2)
     {
-      v70 = nplog_obj();
-      if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+      v69 = nplog_obj();
+      if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_158;
       }
 
       *buf = 134217984;
-      *v111 = v76;
-      v91 = "Bad fallback proxy count for path weight at index %lu";
+      *v110 = v75;
+      v90 = "Bad fallback proxy count for path weight at index %lu";
       goto LABEL_142;
     }
 
-    v77 = [policyTierMaps3 proxiesAtIndex:0];
-    v78 = [policyTierMaps3 proxiesAtIndex:1];
+    v76 = [policyTierMaps3 proxiesAtIndex:0];
+    v77 = [policyTierMaps3 proxiesAtIndex:1];
+    if ([v4 proxiesCount] < v76)
+    {
+      v69 = nplog_obj();
+      if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_158;
+      }
+
+      *buf = 67109376;
+      *v110 = v76;
+      *&v110[4] = 2048;
+      *&v110[6] = v75;
+      v90 = "Bad fallback proxy index %u at path weight index %lu";
+      goto LABEL_147;
+    }
+
     if ([v4 proxiesCount] < v77)
     {
-      v70 = nplog_obj();
-      if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+      v69 = nplog_obj();
+      if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_158;
       }
 
       *buf = 67109376;
-      *v111 = v77;
-      *&v111[4] = 2048;
-      *&v111[6] = v76;
-      v91 = "Bad fallback proxy index %u at path weight index %lu";
+      *v110 = v77;
+      *&v110[4] = 2048;
+      *&v110[6] = v75;
+      v90 = "Bad fallback proxy index %u at path weight index %lu";
       goto LABEL_147;
     }
 
-    if ([v4 proxiesCount] < v78)
+    v69 = [v4 proxiesAtIndex:v76];
+    if ([v69 proxyHop]!= 1)
     {
-      v70 = nplog_obj();
-      if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_158;
-      }
-
-      *buf = 67109376;
-      *v111 = v78;
-      *&v111[4] = 2048;
-      *&v111[6] = v76;
-      v91 = "Bad fallback proxy index %u at path weight index %lu";
-      goto LABEL_147;
-    }
-
-    v70 = [v4 proxiesAtIndex:v77];
-    if ([v70 proxyHop]!= 1)
-    {
-      v96 = nplog_obj();
-      if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+      v95 = nplog_obj();
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v97 = "first fallback proxy index in path weight should be ingress only";
-        v98 = v96;
-        v99 = 2;
+        v96 = "first fallback proxy index in path weight should be ingress only";
+        v97 = v95;
+        v98 = 2;
         goto LABEL_160;
       }
 
@@ -2703,71 +2694,71 @@ LABEL_152:
       goto LABEL_158;
     }
 
-    if (([v70 supportsFallback]& 1) == 0)
+    if (([v69 supportsFallback]& 1) == 0)
     {
-      v96 = nplog_obj();
-      if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+      v95 = nplog_obj();
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        *v111 = v77;
-        *&v111[4] = 2048;
-        *&v111[6] = v76;
-        v97 = "ingress fallback proxy does not have fallback capability for index %u at path weight index %lu";
-        v98 = v96;
-        v99 = 18;
+        *v110 = v76;
+        *&v110[4] = 2048;
+        *&v110[6] = v75;
+        v96 = "ingress fallback proxy does not have fallback capability for index %u at path weight index %lu";
+        v97 = v95;
+        v98 = 18;
 LABEL_160:
-        _os_log_error_impl(&dword_1AE7E2000, v98, OS_LOG_TYPE_ERROR, v97, buf, v99);
+        _os_log_error_impl(&dword_1AE7E2000, v97, OS_LOG_TYPE_ERROR, v96, buf, v98);
       }
 
       goto LABEL_152;
     }
 
-    v71 = [v4 proxiesAtIndex:v78];
-    if ([v71 proxyHop] != 2)
+    v70 = [v4 proxiesAtIndex:v77];
+    if ([v70 proxyHop] != 2)
     {
-      v100 = nplog_obj();
-      if (!os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+      v99 = nplog_obj();
+      if (!os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_156;
       }
 
       *buf = 0;
-      v101 = "second fallback proxy index in path weight should be egress only";
-      v102 = v100;
-      v103 = 2;
+      v100 = "second fallback proxy index in path weight should be egress only";
+      v101 = v99;
+      v102 = 2;
       goto LABEL_162;
     }
 
-    if (([v71 supportsFallback] & 1) == 0)
+    if (([v70 supportsFallback] & 1) == 0)
     {
       break;
     }
 
-    ++v76;
+    ++v75;
     fallbackPathWeights2 = [v4 fallbackPathWeights];
-    v80 = [fallbackPathWeights2 count];
+    v79 = [fallbackPathWeights2 count];
 
-    if (v76 >= v80)
+    if (v75 >= v79)
     {
       goto LABEL_94;
     }
   }
 
-  v100 = nplog_obj();
-  if (!os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+  v99 = nplog_obj();
+  if (!os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
   {
     goto LABEL_156;
   }
 
   *buf = 67109376;
-  *v111 = v78;
-  *&v111[4] = 2048;
-  *&v111[6] = v76;
-  v101 = "egress fallback proxy does not have fallback capability for index %u at path weight index %lu";
-  v102 = v100;
-  v103 = 18;
+  *v110 = v77;
+  *&v110[4] = 2048;
+  *&v110[6] = v75;
+  v100 = "egress fallback proxy does not have fallback capability for index %u at path weight index %lu";
+  v101 = v99;
+  v102 = 18;
 LABEL_162:
-  _os_log_error_impl(&dword_1AE7E2000, v102, OS_LOG_TYPE_ERROR, v101, buf, v103);
+  _os_log_error_impl(&dword_1AE7E2000, v101, OS_LOG_TYPE_ERROR, v100, buf, v102);
 LABEL_156:
 
 LABEL_157:
@@ -2779,57 +2770,56 @@ LABEL_34:
 LABEL_35:
 
 LABEL_36:
-  v35 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (void)verifyConfigurationSignature:(id)signature configuration:(id)configuration host:(id)host validateCert:(BOOL)cert completionHandler:(id)handler
 {
   certCopy = cert;
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   signatureCopy = signature;
   configurationCopy = configuration;
   hostCopy = host;
   handlerCopy = handler;
   v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   certificates = [signatureCopy certificates];
-  v15 = [certificates countByEnumeratingWithState:&v57 objects:v64 count:16];
+  v15 = [certificates countByEnumeratingWithState:&v56 objects:v63 count:16];
   if (v15)
   {
     v17 = v15;
-    v18 = *v58;
+    v18 = *v57;
     v19 = *MEMORY[0x1E695E480];
     *&v16 = 138412290;
-    v45 = v16;
-    v48 = hostCopy;
-    v49 = configurationCopy;
+    v44 = v16;
+    v47 = hostCopy;
+    v48 = configurationCopy;
     while (2)
     {
       v20 = 0;
       do
       {
-        if (*v58 != v18)
+        if (*v57 != v18)
         {
           objc_enumerationMutation(certificates);
         }
 
-        v21 = SecCertificateCreateWithData(v19, *(*(&v57 + 1) + 8 * v20));
+        v21 = SecCertificateCreateWithData(v19, *(*(&v56 + 1) + 8 * v20));
         v22 = nplog_obj();
         v23 = v22;
         if (!v21)
         {
-          hostCopy = v48;
+          hostCopy = v47;
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
             _os_log_error_impl(&dword_1AE7E2000, v23, OS_LOG_TYPE_ERROR, "SecCertificateCreateWithData failed", buf, 2u);
           }
 
-          configurationCopy = v49;
+          configurationCopy = v48;
           goto LABEL_32;
         }
 
@@ -2842,7 +2832,7 @@ LABEL_36:
           v26 = nplog_obj();
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v45;
+            *buf = v44;
             *&buf[4] = v25;
             _os_log_debug_impl(&dword_1AE7E2000, v26, OS_LOG_TYPE_DEBUG, "Certificate Properties:\n%@", buf, 0xCu);
           }
@@ -2853,7 +2843,7 @@ LABEL_36:
           }
         }
 
-        if ([NPUtilities certificateDateIsValid:v21, v45]!= 1)
+        if ([NPUtilities certificateDateIsValid:v21, v44]!= 1)
         {
           v37 = nplog_obj();
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
@@ -2863,8 +2853,8 @@ LABEL_36:
           }
 
           CFRelease(v21);
-          hostCopy = v48;
-          configurationCopy = v49;
+          hostCopy = v47;
+          configurationCopy = v48;
 LABEL_32:
           v28 = handlerCopy;
           (*(handlerCopy + 2))(handlerCopy, 0);
@@ -2878,9 +2868,9 @@ LABEL_32:
       }
 
       while (v17 != v20);
-      v17 = [certificates countByEnumeratingWithState:&v57 objects:v64 count:16];
-      hostCopy = v48;
-      configurationCopy = v49;
+      v17 = [certificates countByEnumeratingWithState:&v56 objects:v63 count:16];
+      hostCopy = v47;
+      configurationCopy = v48;
       if (v17)
       {
         continue;
@@ -2946,9 +2936,9 @@ LABEL_35:
       goto LABEL_35;
     }
 
-    *v61 = 0;
+    *v60 = 0;
     v39 = "SecTrustCreateWithCertificates failed";
-    v40 = v61;
+    v40 = v60;
     v41 = v38;
     v42 = 2;
     goto LABEL_50;
@@ -2959,8 +2949,8 @@ LABEL_35:
     v43 = nplog_obj();
     if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
-      *v61 = 0;
-      _os_log_impl(&dword_1AE7E2000, v43, OS_LOG_TYPE_INFO, "Ignoring validation for Signed configuration", v61, 2u);
+      *v60 = 0;
+      _os_log_impl(&dword_1AE7E2000, v43, OS_LOG_TYPE_INFO, "Ignoring validation for Signed configuration", v60, 2u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 1);
@@ -2979,12 +2969,12 @@ LABEL_35:
   result[1] = 3221225472;
   result[2] = __99__NSPConfiguration_verifyConfigurationSignature_configuration_host_validateCert_completionHandler___block_invoke;
   result[3] = &unk_1E7A311D8;
-  v55 = *buf;
+  v54 = *buf;
   selfCopy = self;
-  v52 = signatureCopy;
-  v53 = configurationCopy;
+  v51 = signatureCopy;
+  v52 = configurationCopy;
   v34 = handlerCopy;
-  v54 = v34;
+  v53 = v34;
   v35 = SecTrustEvaluateAsyncWithError(v31, v33, result);
 
   if (!v35)
@@ -2999,9 +2989,9 @@ LABEL_47:
   v36 = nplog_obj();
   if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
-    *v61 = 67109120;
-    v62 = v35;
-    _os_log_error_impl(&dword_1AE7E2000, v36, OS_LOG_TYPE_ERROR, "SecTrustEvaluateAsync returned an error: %d", v61, 8u);
+    *v60 = 67109120;
+    v61 = v35;
+    _os_log_error_impl(&dword_1AE7E2000, v36, OS_LOG_TYPE_ERROR, "SecTrustEvaluateAsync returned an error: %d", v60, 8u);
   }
 
   if (*buf)
@@ -3014,13 +3004,11 @@ LABEL_47:
 
   hostCopy = v32;
 LABEL_48:
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __99__NSPConfiguration_verifyConfigurationSignature_configuration_host_validateCert_completionHandler___block_invoke(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = nplog_obj();
   v8 = v7;
   if (!a3)
@@ -3045,43 +3033,42 @@ void __99__NSPConfiguration_verifyConfigurationSignature_configuration_host_vali
   v9 = SecTrustCopyKey(*(a1 + 56));
   if (v9)
   {
-    v10 = *(a1 + 64);
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 32);
-    v13 = v11;
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 32);
+    v12 = v10;
     objc_opt_self();
-    if (v12)
+    if (v11)
     {
-      if (v13)
+      if (v12)
       {
-        if ([v12 signatureAlgorithm] == 1)
+        if ([v11 signatureAlgorithm] == 1)
         {
           *cf = 0;
-          v14 = *MEMORY[0x1E697B128];
-          v15 = [v12 signature];
-          v16 = SecKeyVerifySignature(v9, v14, v13, v15, cf);
+          v13 = *MEMORY[0x1E697B128];
+          v14 = [v11 signature];
+          v15 = SecKeyVerifySignature(v9, v13, v12, v14, cf);
 
           if (*cf)
           {
             CFRelease(*cf);
           }
 
-          if (v16 == 1)
+          if (v15 == 1)
           {
-            v17 = nplog_obj();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+            v16 = nplog_obj();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
               *cf = 0;
-              _os_log_impl(&dword_1AE7E2000, v17, OS_LOG_TYPE_INFO, "Configuration Signature validated", cf, 2u);
+              _os_log_impl(&dword_1AE7E2000, v16, OS_LOG_TYPE_INFO, "Configuration Signature validated", cf, 2u);
             }
 
-            v18 = nplog_large_obj();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+            v17 = nplog_large_obj();
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
-              v19 = *(a1 + 40);
+              v18 = *(a1 + 40);
               *cf = 138412290;
-              *&cf[4] = v19;
-              _os_log_impl(&dword_1AE7E2000, v18, OS_LOG_TYPE_INFO, "Validated configuration %@", cf, 0xCu);
+              *&cf[4] = v18;
+              _os_log_impl(&dword_1AE7E2000, v17, OS_LOG_TYPE_INFO, "Validated configuration %@", cf, 0xCu);
             }
 
             (*(*(a1 + 48) + 16))();
@@ -3093,38 +3080,38 @@ LABEL_25:
           goto LABEL_22;
         }
 
-        v20 = nplog_obj();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v19 = nplog_obj();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v24 = [v12 signatureAlgorithm];
+          v22 = [v11 signatureAlgorithm];
           *cf = 134217984;
-          *&cf[4] = v24;
-          _os_log_error_impl(&dword_1AE7E2000, v20, OS_LOG_TYPE_ERROR, "validate signature, bad signature algorithm: %lu", cf, 0xCu);
+          *&cf[4] = v22;
+          _os_log_error_impl(&dword_1AE7E2000, v19, OS_LOG_TYPE_ERROR, "validate signature, bad signature algorithm: %lu", cf, 0xCu);
         }
 
         goto LABEL_21;
       }
 
-      v20 = nplog_obj();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v19 = nplog_obj();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         *cf = 136315138;
         *&cf[4] = "+[NSPConfiguration validateSignature:publicKey:signedData:]";
-        v25 = "%s called with null signedData";
+        v23 = "%s called with null signedData";
         goto LABEL_33;
       }
     }
 
     else
     {
-      v20 = nplog_obj();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v19 = nplog_obj();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         *cf = 136315138;
         *&cf[4] = "+[NSPConfiguration validateSignature:publicKey:signedData:]";
-        v25 = "%s called with null signatureInfo";
+        v23 = "%s called with null signatureInfo";
 LABEL_33:
-        _os_log_fault_impl(&dword_1AE7E2000, v20, OS_LOG_TYPE_FAULT, v25, cf, 0xCu);
+        _os_log_fault_impl(&dword_1AE7E2000, v19, OS_LOG_TYPE_FAULT, v23, cf, 0xCu);
       }
     }
 
@@ -3132,11 +3119,11 @@ LABEL_21:
   }
 
 LABEL_22:
-  v21 = nplog_obj();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v20 = nplog_obj();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     *cf = 0;
-    _os_log_error_impl(&dword_1AE7E2000, v21, OS_LOG_TYPE_ERROR, "Configuration Signature failed validation", cf, 2u);
+    _os_log_error_impl(&dword_1AE7E2000, v20, OS_LOG_TYPE_ERROR, "Configuration Signature failed validation", cf, 2u);
   }
 
   (*(*(a1 + 48) + 16))();
@@ -3146,14 +3133,12 @@ LABEL_22:
   }
 
 LABEL_26:
-  v22 = *(a1 + 56);
-  if (v22)
+  v21 = *(a1 + 56);
+  if (v21)
   {
-    CFRelease(v22);
+    CFRelease(v21);
     *(a1 + 56) = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)saveToPreferences
@@ -3161,19 +3146,19 @@ LABEL_26:
   v3 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
   if (!v3)
   {
-    v12 = nplog_obj();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = nplog_obj();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
 LABEL_8:
-      v13 = 0;
+      v11 = 0;
       goto LABEL_9;
     }
 
-    v19 = 0;
-    v14 = "NSKeyedArchiver initialize failed";
-    v15 = &v19;
+    v17 = 0;
+    v12 = "NSKeyedArchiver initialize failed";
+    v13 = &v17;
 LABEL_11:
-    _os_log_error_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_ERROR, v14, v15, 2u);
+    _os_log_error_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_ERROR, v12, v13, 2u);
     goto LABEL_8;
   }
 
@@ -3186,50 +3171,48 @@ LABEL_11:
   self->_proxyConfiguration = v4;
 
   v7 = *MEMORY[0x1E695E8A8];
-  v8 = *MEMORY[0x1E695E8B8];
-  v9 = *MEMORY[0x1E695E8B0];
   _CFPreferencesSetFileProtectionClass();
   encodedData = [v3 encodedData];
   CFPreferencesSetAppValue(@"NSPConfiguration", encodedData, v7);
 
   LODWORD(encodedData) = CFPreferencesAppSynchronize(v7);
-  v11 = nplog_obj();
-  v12 = v11;
+  v9 = nplog_obj();
+  v10 = v9;
   if (!encodedData)
   {
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
 
     *buf = 0;
-    v14 = "Failed to write nsp configuration to preference file";
-    v15 = buf;
+    v12 = "Failed to write nsp configuration to preference file";
+    v13 = buf;
     goto LABEL_11;
   }
 
-  v13 = 1;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v11 = 1;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    *v17 = 0;
-    _os_log_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_INFO, "Saved configuration to preference file", v17, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_INFO, "Saved configuration to preference file", v15, 2u);
   }
 
 LABEL_9:
 
-  return v13;
+  return v11;
 }
 
 - (id)initFromPreferences
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = CFPreferencesCopyAppValue(@"NSPConfiguration", *MEMORY[0x1E695E8A8]);
   if (v3)
   {
     v4 = v3;
-    v35 = 0;
-    v5 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v3 error:&v35];
-    v6 = v35;
+    v34 = 0;
+    v5 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v3 error:&v34];
+    v6 = v34;
     v7 = v6;
     if (v5)
     {
@@ -3247,7 +3230,7 @@ LABEL_9:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v37 = v7;
+        v36 = v7;
         _os_log_error_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_ERROR, "Failed to create a decoder for the NSP configuration: %@", buf, 0xCu);
       }
 
@@ -3260,9 +3243,9 @@ LABEL_48:
     }
 
     CFRelease(v4);
-    v34.receiver = self;
-    v34.super_class = NSPConfiguration;
-    v11 = [(NSPConfiguration *)&v34 init];
+    v33.receiver = self;
+    v33.super_class = NSPConfiguration;
+    v11 = [(NSPConfiguration *)&v33 init];
     if (v11)
     {
       v12 = [(NSPConfiguration *)v11 initWithCoder:v5];
@@ -3286,11 +3269,11 @@ LABEL_48:
         v14 = nplog_obj();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v33 = self->_diskVersion;
+          v32 = self->_diskVersion;
           *buf = 134218240;
-          v37 = v33;
-          v38 = 2048;
-          v39 = 23;
+          v36 = v32;
+          v37 = 2048;
+          v38 = 23;
           _os_log_error_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_ERROR, "Saved disk version of configuration (%ld) does not match latest supported version (%ld)", buf, 0x16u);
         }
 
@@ -3394,7 +3377,6 @@ LABEL_48:
   selfCopy = 0;
 LABEL_49:
 
-  v31 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -3417,7 +3399,7 @@ LABEL_49:
 
 + (BOOL)fetchDate:(id)date isWithinStart:(id)start end:(id)end etag:(id)etag
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   startCopy = start;
   endCopy = end;
@@ -3427,11 +3409,11 @@ LABEL_49:
     v18 = nplog_obj();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v26 = 138412290;
-      v27 = etagCopy;
-      v23 = "Configuration (etag %@) has no fetch time, so cannot check validity";
-      v24 = v18;
-      v25 = 12;
+      v25 = 138412290;
+      v26 = etagCopy;
+      v22 = "Configuration (etag %@) has no fetch time, so cannot check validity";
+      v23 = v18;
+      v24 = 12;
       goto LABEL_22;
     }
 
@@ -3453,10 +3435,10 @@ LABEL_17:
       v18 = nplog_obj();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v26) = 0;
+        LOWORD(v25) = 0;
         v19 = "Configuration fetch date before start, but within 10 minute grace period";
 LABEL_15:
-        _os_log_impl(&dword_1AE7E2000, v18, OS_LOG_TYPE_DEFAULT, v19, &v26, 2u);
+        _os_log_impl(&dword_1AE7E2000, v18, OS_LOG_TYPE_DEFAULT, v19, &v25, 2u);
         goto LABEL_16;
       }
 
@@ -3469,7 +3451,7 @@ LABEL_15:
     {
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v26) = 0;
+        LOWORD(v25) = 0;
         v19 = "Configuration fetch date after end, but within 10 minute grace period";
         goto LABEL_15;
       }
@@ -3481,19 +3463,19 @@ LABEL_16:
 
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v26 = 138413058;
-      v27 = dateCopy;
-      v28 = 2112;
-      v29 = etagCopy;
-      v30 = 2112;
-      v31 = startCopy;
-      v32 = 2112;
-      v33 = endCopy;
-      v23 = "Configuration fetch time %@ (etag %@) is not within start time (%@) and end time (%@)";
-      v24 = v18;
-      v25 = 42;
+      v25 = 138413058;
+      v26 = dateCopy;
+      v27 = 2112;
+      v28 = etagCopy;
+      v29 = 2112;
+      v30 = startCopy;
+      v31 = 2112;
+      v32 = endCopy;
+      v22 = "Configuration fetch time %@ (etag %@) is not within start time (%@) and end time (%@)";
+      v23 = v18;
+      v24 = 42;
 LABEL_22:
-      _os_log_error_impl(&dword_1AE7E2000, v24, OS_LOG_TYPE_ERROR, v23, &v26, v25);
+      _os_log_error_impl(&dword_1AE7E2000, v23, OS_LOG_TYPE_ERROR, v22, &v25, v24);
       goto LABEL_6;
     }
 
@@ -3503,7 +3485,6 @@ LABEL_22:
   v17 = 1;
 LABEL_18:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

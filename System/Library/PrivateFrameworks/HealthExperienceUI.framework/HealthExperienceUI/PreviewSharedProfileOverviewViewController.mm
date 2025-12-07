@@ -13,18 +13,18 @@
 {
   appearingCopy = appearing;
   v5 = sub_1BA4A4018();
-  MEMORY[0x1EEE9AC00](v5);
-  v6 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI42PreviewSharedProfileOverviewViewController_providedPresentation);
+  MEMORY[0x1EEE9AC00](v5, v6);
+  v7 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI42PreviewSharedProfileOverviewViewController_providedPresentation);
   selfCopy = self;
   sub_1BA4A71E8();
-  v10 = v6;
+  v11 = v7;
   sub_1B9F3AEE8();
   sub_1BA4A4008();
   sub_1BA4A71F8();
-  v8 = type metadata accessor for PreviewSharedProfileOverviewViewController();
-  v9.receiver = selfCopy;
-  v9.super_class = v8;
-  [(CompoundDataSourceCollectionViewController *)&v9 viewIsAppearing:appearingCopy];
+  v9 = type metadata accessor for PreviewSharedProfileOverviewViewController();
+  v10.receiver = selfCopy;
+  v10.super_class = v9;
+  [(CompoundDataSourceCollectionViewController *)&v10 viewIsAppearing:appearingCopy];
 }
 
 - (void)viewDidLoad
@@ -52,7 +52,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1BA0259AC();
+  sub_1BA0259AC(selfCopy);
 }
 
 - (void)closeButtonTapped:(id)tapped
@@ -63,7 +63,7 @@
   swift_unknownObjectRelease();
   [(PreviewSharedProfileOverviewViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI42PreviewSharedProfileOverviewViewController)initWithCollectionViewLayout:(id)layout

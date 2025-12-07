@@ -4,6 +4,7 @@
 - (BOOL)isEqual:(id)equal;
 - (SLCollaborationHighlight)initWithAttribution:(id)attribution;
 - (SLCollaborationHighlight)initWithCSSearchableItem:(id)item error:(id *)error;
+- (SLCollaborationHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier forContentType:(unsigned __int8)type error:(id *)error;
 - (SLCollaborationHighlight)initWithCoder:(id)coder;
 - (SLCollaborationHighlight)initWithDictionary:(id)dictionary;
 - (SLCollaborationHighlight)initWithPortraitCollaborationHighlight:(id)highlight error:(id *)error;
@@ -19,9 +20,9 @@
 - (SLCollaborationHighlight)initWithPortraitCollaborationHighlight:(id)highlight error:(id *)error
 {
   highlightCopy = highlight;
-  v65.receiver = self;
-  v65.super_class = SLCollaborationHighlight;
-  v7 = [(SLHighlight *)&v65 initWithPortraitHighlight:highlightCopy error:error];
+  v68.receiver = self;
+  v68.super_class = SLCollaborationHighlight;
+  v7 = [(SLHighlight *)&v68 initWithPortraitHighlight:highlightCopy error:error];
   if (!v7)
   {
 LABEL_64:
@@ -115,21 +116,21 @@ LABEL_64:
           v30 = MEMORY[0x277CCAAC8];
           v31 = objc_opt_class();
           localIdentity = [highlightCopy localIdentity];
-          v64 = 0;
-          v33 = [v30 unarchivedObjectOfClass:v31 fromData:localIdentity error:&v64];
-          localIdentity = v64;
+          v67 = 0;
+          v33 = [v30 unarchivedObjectOfClass:v31 fromData:localIdentity error:&v67];
+          localIdentity = v67;
 
           if (localIdentity || !v33)
           {
-            v35 = SLFrameworkLogHandle();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            v36 = SLFrameworkLogHandle(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               [SLCollaborationHighlight initWithPortraitCollaborationHighlight:error:];
             }
 
             if (error)
             {
-              v36 = localIdentity;
+              v37 = localIdentity;
               *error = localIdentity;
             }
           }
@@ -151,25 +152,25 @@ LABEL_64:
           v7->_localIdentity = 0;
         }
 
-        if ((objc_opt_respondsToSelector() & 1) != 0 && ([highlightCopy localIdentityProof], v37 = objc_claimAutoreleasedReturnValue(), v37, v37))
+        if ((objc_opt_respondsToSelector() & 1) != 0 && ([highlightCopy localIdentityProof], v38 = objc_claimAutoreleasedReturnValue(), v38, v38))
         {
-          v38 = MEMORY[0x277CCAAC8];
-          v39 = objc_opt_class();
+          v39 = MEMORY[0x277CCAAC8];
+          v40 = objc_opt_class();
           localIdentityProof = [highlightCopy localIdentityProof];
-          v63 = 0;
-          v41 = [v38 unarchivedObjectOfClass:v39 fromData:localIdentityProof error:&v63];
-          v42 = v63;
+          v66 = 0;
+          v42 = [v39 unarchivedObjectOfClass:v40 fromData:localIdentityProof error:&v66];
+          v43 = v66;
 
-          if (v42 || !v41)
+          if (v43 || !v42)
           {
             if (error)
             {
-              v45 = v42;
-              *error = v42;
+              v44 = v43;
+              *error = v43;
             }
 
-            v46 = SLFrameworkLogHandle();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v47 = SLFrameworkLogHandle(v44);
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
               [SLCollaborationHighlight initWithPortraitCollaborationHighlight:error:];
             }
@@ -180,9 +181,9 @@ LABEL_64:
 
           else
           {
-            v43 = v41;
+            v45 = v42;
             localProofOfInclusion = v7->_localProofOfInclusion;
-            v7->_localProofOfInclusion = v43;
+            v7->_localProofOfInclusion = v45;
           }
         }
 
@@ -193,34 +194,35 @@ LABEL_64:
             *error = [objc_opt_class() errorForCollaborationHighlightDomain:@"com.apple.SocialLayer.SLCollaborationHighlightErrorDomain" andCode:6 andUnderlyingError:0];
           }
 
-          v42 = v7->_localProofOfInclusion;
+          v43 = v7->_localProofOfInclusion;
           v7->_localProofOfInclusion = 0;
         }
 
-        if ((objc_opt_respondsToSelector() & 1) != 0 && ([highlightCopy handleToIdentityMap], v47 = objc_claimAutoreleasedReturnValue(), v47, v47))
+        v48 = objc_opt_respondsToSelector();
+        if ((v48 & 1) != 0 && ([highlightCopy handleToIdentityMap], v49 = objc_claimAutoreleasedReturnValue(), v49, v49))
         {
-          v48 = MEMORY[0x277CCAAC8];
-          v49 = MEMORY[0x277CBEB98];
-          v50 = objc_opt_class();
-          v51 = objc_opt_class();
-          v52 = [v49 setWithObjects:{v50, v51, objc_opt_class(), 0}];
+          v50 = MEMORY[0x277CCAAC8];
+          v51 = MEMORY[0x277CBEB98];
+          v52 = objc_opt_class();
+          v53 = objc_opt_class();
+          v54 = [v51 setWithObjects:{v52, v53, objc_opt_class(), 0}];
           handleToIdentityMap = [highlightCopy handleToIdentityMap];
-          v62 = 0;
-          v54 = [v48 unarchivedObjectOfClasses:v52 fromData:handleToIdentityMap error:&v62];
-          v55 = v62;
+          v65 = 0;
+          v56 = [v50 unarchivedObjectOfClasses:v54 fromData:handleToIdentityMap error:&v65];
+          v57 = v65;
 
-          if (v55 || !v54)
+          if (v57 || !v56)
           {
-            v59 = SLFrameworkLogHandle();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+            v62 = SLFrameworkLogHandle(v58);
+            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
             {
               [SLCollaborationHighlight initWithPortraitCollaborationHighlight:error:];
             }
 
             if (error)
             {
-              v60 = v55;
-              *error = v55;
+              v63 = v57;
+              *error = v57;
             }
 
             handleToIdentityMap = v7->_handleToIdentityMap;
@@ -229,21 +231,21 @@ LABEL_64:
 
           else
           {
-            v56 = v54;
+            v59 = v56;
             handleToIdentityMap = v7->_handleToIdentityMap;
-            v7->_handleToIdentityMap = v56;
+            v7->_handleToIdentityMap = v59;
           }
         }
 
         else
         {
-          v58 = SLFrameworkLogHandle();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+          v61 = SLFrameworkLogHandle(v48);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
           {
             [SLCollaborationHighlight initWithPortraitCollaborationHighlight:error:];
           }
 
-          v55 = v7->_handleToIdentityMap;
+          v57 = v7->_handleToIdentityMap;
           v7->_handleToIdentityMap = 0;
         }
 
@@ -295,12 +297,71 @@ LABEL_65:
   return v4;
 }
 
+- (SLCollaborationHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier forContentType:(unsigned __int8)type error:(id *)error
+{
+  typeCopy = type;
+  identifierCopy = identifier;
+  if (identifierCopy)
+  {
+    if (typeCopy > 1)
+    {
+      v9 = 0;
+    }
+
+    else
+    {
+      v9 = [SLCollaborationHighlight requiredSpotlightAttributeKeysforHighlightType:typeCopy];
+    }
+
+    allObjects = [v9 allObjects];
+    v19 = 0;
+    v12 = [SLCoreSpotlightUtilities fetchCSSearchableItemForUniqueIdentifier:identifierCopy forContentType:typeCopy withRequiredAttributes:allObjects error:&v19];
+    v13 = v19;
+
+    if (v12)
+    {
+      self = [(SLCollaborationHighlight *)self initWithCSSearchableItem:v12 error:error];
+      selfCopy = self;
+    }
+
+    else if (error)
+    {
+      v18 = v13;
+      v14 = [SLHighlight errorForHighlightDomain:@"com.apple.SocialLayer.SLHighlightErrorDomain" andCode:7 andUnderlyingError:&v18];
+      v15 = v18;
+
+      v16 = v14;
+      selfCopy = 0;
+      *error = v14;
+      v13 = v15;
+    }
+
+    else
+    {
+      selfCopy = 0;
+    }
+  }
+
+  else if (error)
+  {
+    [SLHighlight errorForHighlightDomain:@"com.apple.SocialLayer.SLHighlightErrorDomain" andCode:8 andUnderlyingError:0];
+    *error = selfCopy = 0;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
 - (SLCollaborationHighlight)initWithCSSearchableItem:(id)item error:(id *)error
 {
   itemCopy = item;
-  v35.receiver = self;
-  v35.super_class = SLCollaborationHighlight;
-  v7 = [(SLHighlight *)&v35 initWithCSSearchableItem:itemCopy error:error];
+  v37.receiver = self;
+  v37.super_class = SLCollaborationHighlight;
+  v7 = [(SLHighlight *)&v37 initWithCSSearchableItem:itemCopy error:error];
   if (v7)
   {
     attributeSet = [itemCopy attributeSet];
@@ -312,10 +373,10 @@ LABEL_65:
 
     if ((v12 & 1) == 0 && (v10 & 1) == 0)
     {
-      v13 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = SLFrameworkLogHandle(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [SLCollaborationHighlight initWithCSSearchableItem:itemCopy error:v13];
+        [SLCollaborationHighlight initWithCSSearchableItem:itemCopy error:v14];
       }
 
       if (error)
@@ -328,12 +389,12 @@ LABEL_65:
 
     attributeSet2 = [itemCopy attributeSet];
     filename = [attributeSet2 filename];
-    v16 = filename;
+    v17 = filename;
     if (filename)
     {
-      v17 = filename;
+      v18 = filename;
       fileName = v7->_fileName;
-      v7->_fileName = v17;
+      v7->_fileName = v18;
     }
 
     else
@@ -350,36 +411,36 @@ LABEL_13:
         contentCreationDate = [attributeSet2 contentCreationDate];
         if (contentCreationDate)
         {
-          v20 = contentCreationDate;
+          v21 = contentCreationDate;
           objc_storeStrong(&v7->_creationDate, contentCreationDate);
           contentType = [attributeSet2 contentType];
-          v22 = contentType;
+          v23 = contentType;
           if (contentType)
           {
-            v23 = contentType;
+            v24 = contentType;
             contentType = v7->_contentType;
-            v7->_contentType = v23;
+            v7->_contentType = v24;
 LABEL_20:
 
 LABEL_21:
-            v25 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"com_apple_mobilesms_collaborationIdentifier"];
+            v26 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"com_apple_mobilesms_collaborationIdentifier"];
             attributeSet3 = [itemCopy attributeSet];
-            v27 = [attributeSet3 valueForCustomKey:v25];
+            v28 = [attributeSet3 valueForCustomKey:v26];
 
-            if (v27)
+            if (v28)
             {
-              v28 = v27;
+              v30 = v28;
               collaborationIdentifier = v7->_collaborationIdentifier;
-              v7->_collaborationIdentifier = v28;
+              v7->_collaborationIdentifier = v30;
             }
 
             else
             {
-              v30 = SLFrameworkLogHandle();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+              v32 = SLFrameworkLogHandle(v29);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
               {
-                *v34 = 0;
-                _os_log_impl(&dword_231772000, v30, OS_LOG_TYPE_INFO, "SLCH collaborationIdentifier was nil defaulting to identifier.", v34, 2u);
+                *v36 = 0;
+                _os_log_impl(&dword_231772000, v32, OS_LOG_TYPE_INFO, "SLCH collaborationIdentifier was nil defaulting to identifier.", v36, 2u);
               }
 
               identifier = [(SLHighlight *)v7 identifier];
@@ -413,7 +474,7 @@ LABEL_21:
 LABEL_33:
 LABEL_34:
 
-        v32 = 0;
+        v34 = 0;
         goto LABEL_35;
       }
 
@@ -425,10 +486,10 @@ LABEL_34:
   }
 
 LABEL_29:
-  v32 = v7;
+  v34 = v7;
 LABEL_35:
 
-  return v32;
+  return v34;
 }
 
 + (id)requiredSpotlightAttributeKeysforHighlightType:(unsigned __int8)type
@@ -457,9 +518,9 @@ LABEL_35:
 - (SLCollaborationHighlight)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v18.receiver = self;
-  v18.super_class = SLCollaborationHighlight;
-  v5 = [(SLHighlight *)&v18 initWithDictionary:dictionaryCopy];
+  v19.receiver = self;
+  v19.super_class = SLCollaborationHighlight;
+  v5 = [(SLHighlight *)&v19 initWithDictionary:dictionaryCopy];
   if (!v5)
   {
 LABEL_18:
@@ -494,7 +555,7 @@ LABEL_18:
           v16 = v5->_collaborationIdentifier;
           v5->_collaborationIdentifier = identifier;
 
-          collaborationIdentifier = SLFrameworkLogHandle();
+          collaborationIdentifier = SLFrameworkLogHandle(v17);
           if (os_log_type_enabled(collaborationIdentifier, OS_LOG_TYPE_ERROR))
           {
             [SLCollaborationHighlight initWithDictionary:];
@@ -504,7 +565,7 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      v13 = SLFrameworkLogHandle();
+      v13 = SLFrameworkLogHandle(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SLCollaborationHighlight initWithDictionary:];
@@ -513,7 +574,7 @@ LABEL_18:
 
     else
     {
-      v8 = SLFrameworkLogHandle();
+      v8 = SLFrameworkLogHandle(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [SLCollaborationHighlight initWithDictionary:];
@@ -523,7 +584,7 @@ LABEL_18:
 
   else
   {
-    v8 = SLFrameworkLogHandle();
+    v8 = SLFrameworkLogHandle(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SLCollaborationHighlight initWithDictionary:];
@@ -538,17 +599,17 @@ LABEL_19:
 
 - (id)dictionaryRepresentation
 {
-  v17.receiver = self;
-  v17.super_class = SLCollaborationHighlight;
-  dictionaryRepresentation = [(SLHighlight *)&v17 dictionaryRepresentation];
+  v21.receiver = self;
+  v21.super_class = SLCollaborationHighlight;
+  dictionaryRepresentation = [(SLHighlight *)&v21 dictionaryRepresentation];
   v4 = [dictionaryRepresentation mutableCopy];
 
   fileName = [(SLCollaborationHighlight *)self fileName];
 
   if (!fileName)
   {
-    v13 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = SLFrameworkLogHandle(v6);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SLCollaborationHighlight dictionaryRepresentation];
     }
@@ -563,8 +624,8 @@ LABEL_19:
 
   if (!creationDate)
   {
-    v13 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = SLFrameworkLogHandle(v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SLCollaborationHighlight dictionaryRepresentation];
     }
@@ -579,15 +640,15 @@ LABEL_19:
 
   if (!contentType)
   {
-    v13 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = SLFrameworkLogHandle(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SLCollaborationHighlight dictionaryRepresentation];
     }
 
 LABEL_12:
 
-    v14 = 0;
+    v17 = 0;
     goto LABEL_16;
   }
 
@@ -607,17 +668,17 @@ LABEL_12:
     identifier = [(SLHighlight *)self identifier];
     [v4 setObject:identifier forKey:@"ci"];
 
-    collaborationIdentifier2 = SLFrameworkLogHandle();
+    collaborationIdentifier2 = SLFrameworkLogHandle(v19);
     if (os_log_type_enabled(collaborationIdentifier2, OS_LOG_TYPE_ERROR))
     {
       [SLCollaborationHighlight dictionaryRepresentation];
     }
   }
 
-  v14 = v4;
+  v17 = v4;
 LABEL_16:
 
-  return v14;
+  return v17;
 }
 
 - (SLCollaborationHighlight)initWithCoder:(id)coder
@@ -831,7 +892,7 @@ LABEL_27:
 
 + (id)errorForCollaborationHighlightDomain:(id)domain andCode:(int64_t)code andUnderlyingError:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   v8 = 0;
   if (code <= 3)
@@ -839,25 +900,25 @@ LABEL_27:
     switch(code)
     {
       case 1:
-        v28 = *MEMORY[0x277CCA068];
-        v29[0] = @"SLCollaborationHighlight Init failed. Invalid or nil File Name.";
+        v27 = *MEMORY[0x277CCA068];
+        v28[0] = @"SLCollaborationHighlight Init failed. Invalid or nil File Name.";
         v9 = MEMORY[0x277CBEAC0];
-        v10 = v29;
-        v11 = &v28;
+        v10 = v28;
+        v11 = &v27;
         break;
       case 2:
-        v26 = *MEMORY[0x277CCA068];
-        v27 = @"SLCollaborationHighlight Init failed. Invalid or nil content creation date.";
+        v25 = *MEMORY[0x277CCA068];
+        v26 = @"SLCollaborationHighlight Init failed. Invalid or nil content creation date.";
         v9 = MEMORY[0x277CBEAC0];
-        v10 = &v27;
-        v11 = &v26;
+        v10 = &v26;
+        v11 = &v25;
         break;
       case 3:
-        v24 = *MEMORY[0x277CCA068];
-        v25 = @"SLCollaborationHighlight Init failed. Invalid or nil content type.";
+        v23 = *MEMORY[0x277CCA068];
+        v24 = @"SLCollaborationHighlight Init failed. Invalid or nil content type.";
         v9 = MEMORY[0x277CBEAC0];
-        v10 = &v25;
-        v11 = &v24;
+        v10 = &v24;
+        v11 = &v23;
         break;
       default:
         goto LABEL_17;
@@ -868,11 +929,11 @@ LABEL_27:
   {
     if (code == 6)
     {
-      v16 = *MEMORY[0x277CCA068];
-      v17 = @"SLCollaborationHighlight Init failed. Invalid or nil localIdentityProof defaulting to nil.";
+      v15 = *MEMORY[0x277CCA068];
+      v16 = @"SLCollaborationHighlight Init failed. Invalid or nil localIdentityProof defaulting to nil.";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = &v17;
-      v11 = &v16;
+      v10 = &v16;
+      v11 = &v15;
     }
 
     else
@@ -882,30 +943,30 @@ LABEL_27:
         goto LABEL_17;
       }
 
-      v18 = *MEMORY[0x277CCA068];
-      v19 = @"SLCollaborationHighlight Init error. Invalid or nil localIdentity defaulting to nil.";
+      v17 = *MEMORY[0x277CCA068];
+      v18 = @"SLCollaborationHighlight Init error. Invalid or nil localIdentity defaulting to nil.";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = &v19;
-      v11 = &v18;
+      v10 = &v18;
+      v11 = &v17;
     }
   }
 
   else if (code == 4)
   {
-    v22 = *MEMORY[0x277CCA068];
-    v23 = @"SLCollaborationHighlight Init. Invalid or nil earliest attributions Identifiers.";
+    v21 = *MEMORY[0x277CCA068];
+    v22 = @"SLCollaborationHighlight Init. Invalid or nil earliest attributions Identifiers.";
     v9 = MEMORY[0x277CBEAC0];
-    v10 = &v23;
-    v11 = &v22;
+    v10 = &v22;
+    v11 = &v21;
   }
 
   else
   {
-    v20 = *MEMORY[0x277CCA068];
-    v21 = @"SLCollaborationHighlight Init error. Invalid or nil fileProviderID defaulting to nil.";
+    v19 = *MEMORY[0x277CCA068];
+    v20 = @"SLCollaborationHighlight Init error. Invalid or nil fileProviderID defaulting to nil.";
     v9 = MEMORY[0x277CBEAC0];
-    v10 = &v21;
-    v11 = &v20;
+    v10 = &v20;
+    v11 = &v19;
   }
 
   v8 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
@@ -920,43 +981,15 @@ LABEL_17:
 
   v13 = [MEMORY[0x277CCA9B8] errorWithDomain:domainCopy code:code userInfo:v8];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
-}
-
-- (void)initWithPortraitCollaborationHighlight:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "Could not unarchive SWPersonIdentity from [PPSocialCollaboration localIdentity]: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPortraitCollaborationHighlight:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "Could not unarchive SWPersonIdentityProof from [PPSocialCollaboration localIdentityProof]: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPortraitCollaborationHighlight:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "Could not unarchive handleToIdentityMap from [PPSocialCollaboration handleToIdentityMap]: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithCSSearchableItem:(void *)a1 error:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 domainIdentifier];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Attempted to initialize SLCH using a CSSearchableItem outside the attachment/links domain. Failing initialization from CSSearchableItem. domain: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Attempted to initialize SLCH using a CSSearchableItem outside the attachment/links domain. Failing initialization from CSSearchableItem. domain: %@", v4, 0xCu);
 }
 
 @end

@@ -7,7 +7,7 @@
 
 - (id)changeFromData:(id)data ofType:(int64_t)type
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   v6 = [[VCPBChange alloc] initWithData:dataCopy];
@@ -48,9 +48,9 @@
     message2 = [(VCPBChange *)v6 message];
     v19 = [v17 initWithData:message2];
 
-    v28 = 0;
-    v20 = [v14 readFrom:v19 error:&v28];
-    v21 = v28;
+    v27 = 0;
+    v20 = [v14 readFrom:v19 error:&v27];
+    v21 = v27;
     v22 = v21;
     if (v20)
     {
@@ -66,11 +66,11 @@ LABEL_10:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315650;
-      v30 = "[VCCompanionSyncSerializer changeFromData:ofType:]";
-      v31 = 2114;
-      v32 = v8;
-      v33 = 2114;
-      v34 = v22;
+      v29 = "[VCCompanionSyncSerializer changeFromData:ofType:]";
+      v30 = 2114;
+      v31 = v8;
+      v32 = 2114;
+      v33 = v22;
       _os_log_impl(&dword_23103C000, v25, OS_LOG_TYPE_FAULT, "%s Failed to deserialize %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -83,9 +83,9 @@ LABEL_10:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v30 = "[VCCompanionSyncSerializer changeFromData:ofType:]";
-      v31 = 1024;
-      LODWORD(v32) = [(VCPBChange *)v6 messageType];
+      v29 = "[VCCompanionSyncSerializer changeFromData:ofType:]";
+      v30 = 1024;
+      LODWORD(v31) = [(VCPBChange *)v6 messageType];
       _os_log_impl(&dword_23103C000, v24, OS_LOG_TYPE_FAULT, "%s Unknown message type (%i) when deserializing, dropping change", buf, 0x12u);
     }
 
@@ -96,14 +96,12 @@ LABEL_10:
   objc_autoreleasePoolPop(v5);
 LABEL_18:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return degenerateChange;
 }
 
 - (id)dataFromChange:(id)change
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v4 = changeCopy;
   if (changeCopy && ([changeCopy conformsToProtocol:&unk_2845FED18]& 1) != 0)
@@ -137,9 +135,9 @@ LABEL_18:
     [(VCPBChange *)v5 setChangeType:v10];
     -[VCPBChange setMessageType:](v5, "setMessageType:", [objc_opt_class() messageType]);
     v11 = objc_opt_new();
-    v20 = 0;
-    v12 = [v4 writeTo:v11 error:&v20];
-    v13 = v20;
+    v19 = 0;
+    v12 = [v4 writeTo:v11 error:&v19];
+    v13 = v19;
     if (v12)
     {
       immutableData = [v11 immutableData];
@@ -155,11 +153,11 @@ LABEL_18:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315650;
-        v22 = "[VCCompanionSyncSerializer dataFromChange:]";
-        v23 = 2114;
-        v24 = v4;
-        v25 = 2114;
-        v26 = v13;
+        v21 = "[VCCompanionSyncSerializer dataFromChange:]";
+        v22 = 2114;
+        v23 = v4;
+        v24 = 2114;
+        v25 = v13;
         _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_FAULT, "%s Failed to serialize %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -177,16 +175,14 @@ LABEL_18:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v22 = "[VCCompanionSyncSerializer dataFromChange:]";
-      v23 = 2114;
-      v24 = v4;
+      v21 = "[VCCompanionSyncSerializer dataFromChange:]";
+      v22 = 2114;
+      v23 = v4;
       _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_FAULT, "%s Cannot serialize %{public}@, it does not conform to VCSYChange", buf, 0x16u);
     }
 
     data = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return data;
 }

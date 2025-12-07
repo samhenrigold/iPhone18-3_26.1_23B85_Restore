@@ -19,10 +19,10 @@
 
 - (MRNotificationClient)init
 {
-  v43[58] = *MEMORY[0x1E69E9840];
-  v35.receiver = self;
-  v35.super_class = MRNotificationClient;
-  v2 = [(MRNotificationClient *)&v35 init];
+  v42[58] = *MEMORY[0x1E69E9840];
+  v34.receiver = self;
+  v34.super_class = MRNotificationClient;
+  v2 = [(MRNotificationClient *)&v34 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -35,121 +35,120 @@
     notificationQueue = v2->_notificationQueue;
     v2->_notificationQueue = v7;
 
-    v43[0] = @"kMRMediaRemoteNowPlayingInfoDidChangeNotification";
-    v43[1] = @"kMRMediaRemoteOriginNowPlayingInfoDidChangeNotification";
-    v43[2] = @"kMRMediaRemotePlayerNowPlayingInfoDidChangeNotification";
-    v43[3] = @"kMRMediaRemoteNowPlayingApplicationDidChangeNotification";
-    v43[4] = @"kMRMediaRemoteOriginNowPlayingApplicationDidChangeNotification";
-    v43[5] = @"kMRMediaRemoteNowPlayingApplicationIsPlayingDidChangeNotification";
-    v43[6] = @"kMRMediaRemoteOriginNowPlayingApplicationIsPlayingDidChangeNotification";
-    v43[7] = @"kMRMediaRemotePlayerIsPlayingDidChangeNotification";
-    v43[8] = @"kMRMediaRemoteNowPlayingApplicationPlaybackStateDidChangeNotification";
-    v43[9] = @"kMRMediaRemoteOriginNowPlayingApplicationPlaybackStateDidChangeNotification";
-    v43[10] = @"_kMRMediaRemotePlayerPlaybackStateDidChangeNotification";
-    v43[11] = @"kMRMediaRemoteNowPlayingApplicationDisplayNameDidChangeNotification";
-    v43[12] = @"kMRMediaRemoteOriginNowPlayingApplicationDisplayNameDidChangeNotification";
-    v43[13] = @"kMRMediaRemoteApplicationDisplayNameDidChangeNotification";
-    v43[14] = @"kMRMediaRemoteNowPlayingPlayerDidChange";
-    v43[15] = @"kMRMediaRemoteOriginNowPlayingPlayerDidChange";
-    v43[16] = @"kMRMediaRemoteActivePlayerDidChange";
-    v43[17] = @"kMRMediaRemotePlayerPictureInPictureDidChange";
-    v43[18] = @"kMRMediaRemoteActivePlayerPathsDidChange";
-    v43[19] = @"kMRMediaRemoteAudioFormatContentInfoDidChange";
-    v43[20] = @"kMRMediaRemoteNowPlayingApplicationDidRegister";
-    v43[21] = @"kMRMediaRemoteNowPlayingApplicationDidUnregister";
-    v43[22] = @"kMRMediaRemoteNowPlayingApplicationClientStateDidChange";
-    v43[23] = @"kMRMediaRemoteOriginNowPlayingApplicationClientStateDidChange";
-    v43[24] = @"kMRMediaRemoteApplicationClientStateDidChange";
-    v43[25] = @"kMRMediaRemoteNowPlayingPlayerStateDidChange";
-    v43[26] = @"kMRMediaRemoteOriginNowPlayingPlayerStateDidChange";
-    v43[27] = @"kMRMediaRemotePlayerStateDidChange";
-    v43[28] = @"kMRMediaRemoteNowPlayingPlayerDidRegister";
-    v43[29] = @"kMRMediaRemoteNowPlayingPlayerDidUnregister";
-    v43[30] = @"kMRMediaRemoteNowPlayingApplicationDidRegisterCanBeNowPlaying";
-    v43[31] = @"kMRMediaRemoteNowPlayingApplicationDidUnregisterCanBeNowPlaying";
-    v43[32] = @"kMRMediaRemoteNowPlayingExternalTouchBarInvocationNotification";
-    v43[33] = @"com.apple.MediaRemote.nowPlayingApplicationIsPlayingDidChange";
-    v43[34] = @"com.apple.MediaRemote.nowPlayingActivePlayersIsPlayingDidChange";
-    v43[35] = @"kMRNowPlayingPlaybackQueueChangedNotification";
-    v43[36] = @"kMROriginNowPlayingPlaybackQueueChangedNotification";
-    v43[37] = @"kMRPlayerPlaybackQueueChangedNotification";
-    v43[38] = @"kMRPlaybackQueueContentItemsChangedNotification";
-    v43[39] = @"kMROriginPlaybackQueueContentItemsChangedNotification";
-    v43[40] = @"kMRPlayerPlaybackQueueContentItemsChangedNotification";
-    v43[41] = @"kMRPlaybackQueueContentItemArtworkChangedNotification";
-    v43[42] = @"kMROriginPlaybackQueueContentItemArtworkChangedNotification";
-    v43[43] = @"kMRPlayerPlaybackQueueContentItemArtworkChangedNotification";
-    v43[44] = @"kMRMediaRemoteApplicationDidForeground";
-    v43[45] = @"kMRMediaRemoteOriginNowPlayingApplicationDidForegroundNotification";
-    v43[46] = @"kMRMediaRemoteNowPlayingApplicationDidForegroundNotification";
-    v43[47] = @"kMRMediaRemoteElectedPlayerDidChangeNotification";
-    v43[48] = @"kMRMediaRemoteLockScreenControlsPlayerPathDidChangeNotification";
-    v43[49] = @"kMRMediaRemoteLockScreenControlsDidActivateNotification";
-    v43[50] = @"kMRMediaRemoteLockScreenControlsDidDeactivateNotification";
-    v43[51] = @"kMRMediaRemoteLockScreenControlsDidAppearNotification";
-    v43[52] = @"kMRMediaRemoteLockScreenControlsDidDisappearNotification";
-    v43[53] = @"kMRMediaRemoteNowPlayingPlayerDidRegisterCanBeNowPlaying";
-    v43[54] = @"kMRMediaRemoteNowPlayingPlayerDidUnregisterCanBeNowPlaying";
-    v43[55] = @"MRNowPlayingPlaybackQueueNowPlayingItemChangedNotification";
-    v43[56] = @"MROriginNowPlayingPlaybackQueueNowPlayingItemChangedNotification";
-    v43[57] = @"MRPlayerPlaybackQueueNowPlayingItemChangedNotification";
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:58];
+    v42[0] = @"kMRMediaRemoteNowPlayingInfoDidChangeNotification";
+    v42[1] = @"kMRMediaRemoteOriginNowPlayingInfoDidChangeNotification";
+    v42[2] = @"kMRMediaRemotePlayerNowPlayingInfoDidChangeNotification";
+    v42[3] = @"kMRMediaRemoteNowPlayingApplicationDidChangeNotification";
+    v42[4] = @"kMRMediaRemoteOriginNowPlayingApplicationDidChangeNotification";
+    v42[5] = @"kMRMediaRemoteNowPlayingApplicationIsPlayingDidChangeNotification";
+    v42[6] = @"kMRMediaRemoteOriginNowPlayingApplicationIsPlayingDidChangeNotification";
+    v42[7] = @"kMRMediaRemotePlayerIsPlayingDidChangeNotification";
+    v42[8] = @"kMRMediaRemoteNowPlayingApplicationPlaybackStateDidChangeNotification";
+    v42[9] = @"kMRMediaRemoteOriginNowPlayingApplicationPlaybackStateDidChangeNotification";
+    v42[10] = @"_kMRMediaRemotePlayerPlaybackStateDidChangeNotification";
+    v42[11] = @"kMRMediaRemoteNowPlayingApplicationDisplayNameDidChangeNotification";
+    v42[12] = @"kMRMediaRemoteOriginNowPlayingApplicationDisplayNameDidChangeNotification";
+    v42[13] = @"kMRMediaRemoteApplicationDisplayNameDidChangeNotification";
+    v42[14] = @"kMRMediaRemoteNowPlayingPlayerDidChange";
+    v42[15] = @"kMRMediaRemoteOriginNowPlayingPlayerDidChange";
+    v42[16] = @"kMRMediaRemoteActivePlayerDidChange";
+    v42[17] = @"kMRMediaRemotePlayerPictureInPictureDidChange";
+    v42[18] = @"kMRMediaRemoteActivePlayerPathsDidChange";
+    v42[19] = @"kMRMediaRemoteAudioFormatContentInfoDidChange";
+    v42[20] = @"kMRMediaRemoteNowPlayingApplicationDidRegister";
+    v42[21] = @"kMRMediaRemoteNowPlayingApplicationDidUnregister";
+    v42[22] = @"kMRMediaRemoteNowPlayingApplicationClientStateDidChange";
+    v42[23] = @"kMRMediaRemoteOriginNowPlayingApplicationClientStateDidChange";
+    v42[24] = @"kMRMediaRemoteApplicationClientStateDidChange";
+    v42[25] = @"kMRMediaRemoteNowPlayingPlayerStateDidChange";
+    v42[26] = @"kMRMediaRemoteOriginNowPlayingPlayerStateDidChange";
+    v42[27] = @"kMRMediaRemotePlayerStateDidChange";
+    v42[28] = @"kMRMediaRemoteNowPlayingPlayerDidRegister";
+    v42[29] = @"kMRMediaRemoteNowPlayingPlayerDidUnregister";
+    v42[30] = @"kMRMediaRemoteNowPlayingApplicationDidRegisterCanBeNowPlaying";
+    v42[31] = @"kMRMediaRemoteNowPlayingApplicationDidUnregisterCanBeNowPlaying";
+    v42[32] = @"kMRMediaRemoteNowPlayingExternalTouchBarInvocationNotification";
+    v42[33] = @"com.apple.MediaRemote.nowPlayingApplicationIsPlayingDidChange";
+    v42[34] = @"com.apple.MediaRemote.nowPlayingActivePlayersIsPlayingDidChange";
+    v42[35] = @"kMRNowPlayingPlaybackQueueChangedNotification";
+    v42[36] = @"kMROriginNowPlayingPlaybackQueueChangedNotification";
+    v42[37] = @"kMRPlayerPlaybackQueueChangedNotification";
+    v42[38] = @"kMRPlaybackQueueContentItemsChangedNotification";
+    v42[39] = @"kMROriginPlaybackQueueContentItemsChangedNotification";
+    v42[40] = @"kMRPlayerPlaybackQueueContentItemsChangedNotification";
+    v42[41] = @"kMRPlaybackQueueContentItemArtworkChangedNotification";
+    v42[42] = @"kMROriginPlaybackQueueContentItemArtworkChangedNotification";
+    v42[43] = @"kMRPlayerPlaybackQueueContentItemArtworkChangedNotification";
+    v42[44] = @"kMRMediaRemoteApplicationDidForeground";
+    v42[45] = @"kMRMediaRemoteOriginNowPlayingApplicationDidForegroundNotification";
+    v42[46] = @"kMRMediaRemoteNowPlayingApplicationDidForegroundNotification";
+    v42[47] = @"kMRMediaRemoteElectedPlayerDidChangeNotification";
+    v42[48] = @"kMRMediaRemoteLockScreenControlsPlayerPathDidChangeNotification";
+    v42[49] = @"kMRMediaRemoteLockScreenControlsDidActivateNotification";
+    v42[50] = @"kMRMediaRemoteLockScreenControlsDidDeactivateNotification";
+    v42[51] = @"kMRMediaRemoteLockScreenControlsDidAppearNotification";
+    v42[52] = @"kMRMediaRemoteLockScreenControlsDidDisappearNotification";
+    v42[53] = @"kMRMediaRemoteNowPlayingPlayerDidRegisterCanBeNowPlaying";
+    v42[54] = @"kMRMediaRemoteNowPlayingPlayerDidUnregisterCanBeNowPlaying";
+    v42[55] = @"MRNowPlayingPlaybackQueueNowPlayingItemChangedNotification";
+    v42[56] = @"MROriginNowPlayingPlaybackQueueNowPlayingItemChangedNotification";
+    v42[57] = @"MRPlayerPlaybackQueueNowPlayingItemChangedNotification";
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:58];
     v10 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v9];
     nowPlayingNotifications = v2->_nowPlayingNotifications;
     v2->_nowPlayingNotifications = v10;
 
-    v42[0] = @"kMRMediaRemoteWillPresentRouteAuthenticationPromptNotification";
-    v42[1] = @"kMRMediaRemotePickableRoutesDidChangeNotification";
-    v42[2] = @"kMRMediaRemotePairingHandlerNotification";
-    v42[3] = @"_MRMediaRemoteDeviceAvailableForMediaSuggestionsNotification";
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:4];
+    v41[0] = @"kMRMediaRemoteWillPresentRouteAuthenticationPromptNotification";
+    v41[1] = @"kMRMediaRemotePickableRoutesDidChangeNotification";
+    v41[2] = @"kMRMediaRemotePairingHandlerNotification";
+    v41[3] = @"_MRMediaRemoteDeviceAvailableForMediaSuggestionsNotification";
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:4];
     v13 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v12];
     routesChangedNotifications = v2->_routesChangedNotifications;
     v2->_routesChangedNotifications = v13;
 
-    v41 = @"kMRMediaRemotePickedRouteVolumeControlAvailabilityDidChangeNotification";
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v40 = @"kMRMediaRemotePickedRouteVolumeControlAvailabilityDidChangeNotification";
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
     v16 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v15];
     volumeControlNotifications = v2->_volumeControlNotifications;
     v2->_volumeControlNotifications = v16;
 
-    v40 = @"kMRMediaRemoteExternalScreenTypeDidChangeNotification";
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+    v39 = @"kMRMediaRemoteExternalScreenTypeDidChangeNotification";
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
     v19 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v18];
     externalScreenNotifications = v2->_externalScreenNotifications;
     v2->_externalScreenNotifications = v19;
 
-    v39[0] = @"kMRMediaRemoteActiveOriginDidChangeNotification";
-    v39[1] = @"kMRMediaRemoteAvailableOriginsDidChangeNotification";
-    v39[2] = @"kMRMediaRemoteOriginDidRegisterNotification";
-    v39[3] = @"kMRMediaRemoteOriginDidUnregisterNotification";
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:4];
+    v38[0] = @"kMRMediaRemoteActiveOriginDidChangeNotification";
+    v38[1] = @"kMRMediaRemoteAvailableOriginsDidChangeNotification";
+    v38[2] = @"kMRMediaRemoteOriginDidRegisterNotification";
+    v38[3] = @"kMRMediaRemoteOriginDidUnregisterNotification";
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:4];
     v22 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v21];
     originNotifications = v2->_originNotifications;
     v2->_originNotifications = v22;
 
-    v38[0] = @"kMRMediaRemoteSupportedCommandsDidChangeNotification";
-    v38[1] = @"kMRMediaRemoteOriginSupportedCommandsDidChangeNotification";
-    v38[2] = @"kMRMediaRemotePlayerSupportedCommandsDidChangeNotification";
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:3];
+    v37[0] = @"kMRMediaRemoteSupportedCommandsDidChangeNotification";
+    v37[1] = @"kMRMediaRemoteOriginSupportedCommandsDidChangeNotification";
+    v37[2] = @"kMRMediaRemotePlayerSupportedCommandsDidChangeNotification";
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:3];
     v25 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v24];
     supportedCommandsNotifications = v2->_supportedCommandsNotifications;
     v2->_supportedCommandsNotifications = v25;
 
-    v37 = @"kMRVirtualVoiceInputRecordingStateDidChangeNotification";
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+    v36 = @"kMRVirtualVoiceInputRecordingStateDidChangeNotification";
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
     v28 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v27];
     voiceInputNotifications = v2->_voiceInputNotifications;
     v2->_voiceInputNotifications = v28;
 
-    v36 = @"kMRMediaRemoteApplicationDidReportPlaybackErrorNotification";
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+    v35 = @"kMRMediaRemoteApplicationDidReportPlaybackErrorNotification";
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
     v31 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v30];
     errorNotifications = v2->_errorNotifications;
     v2->_errorNotifications = v31;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -263,7 +262,7 @@ uint64_t __40__MRNotificationClient_debugDescription__block_invoke(uint64_t a1)
 
 void __74__MRNotificationClient_registerForNowPlayingNotificationsWithQueue_force___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 48) & 1) != 0 || !*(*(a1 + 32) + 16))
   {
     v2 = *(a1 + 40);
@@ -287,12 +286,10 @@ void __74__MRNotificationClient_registerForNowPlayingNotificationsWithQueue_forc
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(*(a1 + 32) + 8);
-    v9 = 134217984;
-    v10 = v7;
-    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "%lu clients have now registered for Now Playing Notifications", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = v7;
+    _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "%lu clients have now registered for Now Playing Notifications", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterForNowPlayingNotifications
@@ -315,7 +312,7 @@ void __74__MRNotificationClient_registerForNowPlayingNotificationsWithQueue_forc
 
 void __60__MRNotificationClient_unregisterForNowPlayingNotifications__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 8);
   v4 = v3 != 0;
@@ -339,12 +336,10 @@ void __60__MRNotificationClient_unregisterForNowPlayingNotifications__block_invo
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(*(a1 + 32) + 8);
-    v11 = 134217984;
-    v12 = v9;
-    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "%lu clients have now registered for Now Playing Notifications", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v9;
+    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "%lu clients have now registered for Now Playing Notifications", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isRegisteredForNowPlayingNotifications
@@ -404,7 +399,7 @@ void __66__MRNotificationClient__processAlwaysNeedsNowPlayingNotifications__bloc
 
 - (void)registerForWakingNowPlayingNotificationsForPlayerPath:(id)path replyQueue:(id)queue completion:(id)completion
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   queueCopy = queue;
   completionCopy = completion;
@@ -423,46 +418,44 @@ void __66__MRNotificationClient__processAlwaysNeedsNowPlayingNotifications__bloc
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v40 = v15;
+    v39 = v15;
     _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __100__MRNotificationClient_registerForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke;
-  v32[3] = &unk_1E769FBE0;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __100__MRNotificationClient_registerForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke;
+  v31[3] = &unk_1E769FBE0;
   v17 = pathCopy;
-  v33 = v17;
-  v34 = @"registerForWakingNowPlayingNotificationsForPlayerPath";
-  v35 = uUIDString;
-  v36 = v13;
-  v38 = completionCopy;
+  v32 = v17;
+  v33 = @"registerForWakingNowPlayingNotificationsForPlayerPath";
+  v34 = uUIDString;
+  v35 = v13;
+  v37 = completionCopy;
   v18 = queueCopy;
-  v37 = v18;
+  v36 = v18;
   v19 = completionCopy;
   v20 = v13;
   v21 = uUIDString;
-  v22 = MEMORY[0x1A58E3570](v32);
+  v22 = MEMORY[0x1A58E3570](v31);
   serialQueue = self->_serialQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __100__MRNotificationClient_registerForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke_2;
   block[3] = &unk_1E769D118;
   block[4] = self;
-  v29 = v17;
-  v30 = v18;
-  v31 = v22;
+  v28 = v17;
+  v29 = v18;
+  v30 = v22;
   v24 = v22;
   v25 = v18;
   v26 = v17;
   dispatch_sync(serialQueue, block);
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __100__MRNotificationClient_registerForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke(void *a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[4];
   v5 = _MRLogForCategory(0xAuLL);
@@ -483,13 +476,13 @@ void __100__MRNotificationClient_registerForWakingNowPlayingNotificationsForPlay
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:a1[7]];
       *buf = 138544130;
-      v30 = v15;
+      v28 = v15;
+      v29 = 2114;
+      v30 = v14;
       v31 = 2114;
-      v32 = v14;
-      v33 = 2114;
-      v34 = v16;
-      v35 = 2048;
-      v36 = v17;
+      v32 = v16;
+      v33 = 2048;
+      v34 = v17;
       v18 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v19 = v6;
       v20 = 42;
@@ -507,11 +500,11 @@ void __100__MRNotificationClient_registerForWakingNowPlayingNotificationsForPlay
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:a1[7]];
       *buf = 138543874;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2048;
-      v34 = v23;
+      v28 = v21;
+      v29 = 2114;
+      v30 = v22;
+      v31 = 2048;
+      v32 = v23;
       v18 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v19 = v6;
       v20 = 32;
@@ -535,15 +528,15 @@ void __100__MRNotificationClient_registerForWakingNowPlayingNotificationsForPlay
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:a1[7]];
     *buf = 138544386;
-    v30 = v9;
+    v28 = v9;
+    v29 = 2114;
+    v30 = v8;
     v31 = 2114;
-    v32 = v8;
+    v32 = v3;
     v33 = 2114;
-    v34 = v3;
-    v35 = 2114;
-    v36 = v10;
-    v37 = 2048;
-    v38 = v12;
+    v34 = v10;
+    v35 = 2048;
+    v36 = v12;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -560,13 +553,10 @@ LABEL_14:
   v24 = a1[9];
   if (v24)
   {
-    v25 = a1[8];
-    v28 = v24;
-    v27 = v3;
+    v26 = v24;
+    v25 = v3;
     msv_dispatch_async_on_queue();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __100__MRNotificationClient_registerForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke_2(void *a1)
@@ -603,7 +593,7 @@ uint64_t __100__MRNotificationClient_registerForWakingNowPlayingNotificationsFor
 
 - (void)unregisterForWakingNowPlayingNotificationsForPlayerPath:(id)path replyQueue:(id)queue completion:(id)completion
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   queueCopy = queue;
   completionCopy = completion;
@@ -622,46 +612,44 @@ uint64_t __100__MRNotificationClient_registerForWakingNowPlayingNotificationsFor
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v40 = v15;
+    v39 = v15;
     _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke;
-  v32[3] = &unk_1E769FBE0;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke;
+  v31[3] = &unk_1E769FBE0;
   v17 = pathCopy;
-  v33 = v17;
-  v34 = @"unregisterForWakingNowPlayingNotificationsForPlayerPath";
-  v35 = uUIDString;
-  v36 = v13;
-  v38 = completionCopy;
+  v32 = v17;
+  v33 = @"unregisterForWakingNowPlayingNotificationsForPlayerPath";
+  v34 = uUIDString;
+  v35 = v13;
+  v37 = completionCopy;
   v18 = queueCopy;
-  v37 = v18;
+  v36 = v18;
   v19 = completionCopy;
   v20 = v13;
   v21 = uUIDString;
-  v22 = MEMORY[0x1A58E3570](v32);
+  v22 = MEMORY[0x1A58E3570](v31);
   serialQueue = self->_serialQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke_2;
   block[3] = &unk_1E769D118;
   block[4] = self;
-  v29 = v17;
-  v30 = v18;
-  v31 = v22;
+  v28 = v17;
+  v29 = v18;
+  v30 = v22;
   v24 = v22;
   v25 = v18;
   v26 = v17;
   dispatch_sync(serialQueue, block);
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke(void *a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[4];
   v5 = _MRLogForCategory(0xAuLL);
@@ -682,13 +670,13 @@ void __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPl
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:a1[7]];
       *buf = 138544130;
-      v30 = v15;
+      v28 = v15;
+      v29 = 2114;
+      v30 = v14;
       v31 = 2114;
-      v32 = v14;
-      v33 = 2114;
-      v34 = v16;
-      v35 = 2048;
-      v36 = v17;
+      v32 = v16;
+      v33 = 2048;
+      v34 = v17;
       v18 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v19 = v6;
       v20 = 42;
@@ -706,11 +694,11 @@ void __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPl
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:a1[7]];
       *buf = 138543874;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2048;
-      v34 = v23;
+      v28 = v21;
+      v29 = 2114;
+      v30 = v22;
+      v31 = 2048;
+      v32 = v23;
       v18 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v19 = v6;
       v20 = 32;
@@ -734,15 +722,15 @@ void __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPl
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:a1[7]];
     *buf = 138544386;
-    v30 = v9;
+    v28 = v9;
+    v29 = 2114;
+    v30 = v8;
     v31 = 2114;
-    v32 = v8;
+    v32 = v3;
     v33 = 2114;
-    v34 = v3;
-    v35 = 2114;
-    v36 = v10;
-    v37 = 2048;
-    v38 = v12;
+    v34 = v10;
+    v35 = 2048;
+    v36 = v12;
     _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_13:
 
@@ -759,13 +747,10 @@ LABEL_14:
   v24 = a1[9];
   if (v24)
   {
-    v25 = a1[8];
-    v28 = v24;
-    v27 = v3;
+    v26 = v24;
+    v25 = v3;
     msv_dispatch_async_on_queue();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPlayerPath_replyQueue_completion___block_invoke_2(void *a1)
@@ -808,7 +793,7 @@ void __102__MRNotificationClient_unregisterForWakingNowPlayingNotificationsForPl
   dispatch_sync(serialQueue, block);
 }
 
-uint64_t __52__MRNotificationClient_restoreNowPlayingClientState__block_invoke(uint64_t a1)
+void *__52__MRNotificationClient_restoreNowPlayingClientState__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 104) count];
   if (result)
@@ -933,74 +918,74 @@ uint64_t __70__MRNotificationClient__postNotification_userInfo_object_withHandle
     __70__MRNotificationClient__postNotification_userInfo_object_withHandler___block_invoke_2_cold_2(a1, v9, v10, v11, v12, v13, v14, v15);
   }
 
-  result = MRProcessIsMediaRemoteDaemon();
+  result = MRProcessIsMediaRemoteDaemon(v16, v17);
   if ((result & 1) == 0)
   {
     result = [*(a1[6] + 40) containsObject:a1[4]];
-    v17 = a1[6];
-    if (result)
-    {
-      v18 = *(v17 + 8) != 0;
-LABEL_20:
-      v25 = a1[7];
-LABEL_21:
-      *(*(v25 + 8) + 24) = v18;
-      return result;
-    }
-
-    result = [*(v17 + 48) containsObject:a1[4]];
     v19 = a1[6];
     if (result)
     {
-      v18 = *(v19 + 114);
-      goto LABEL_20;
+      v20 = *(v19 + 8) != 0;
+LABEL_20:
+      v27 = a1[7];
+LABEL_21:
+      *(*(v27 + 8) + 24) = v20;
+      return result;
     }
 
-    result = [*(v19 + 56) containsObject:a1[4]];
-    v20 = a1[6];
-    if (result)
-    {
-      v18 = *(v20 + 115);
-      goto LABEL_20;
-    }
-
-    result = [*(v20 + 64) containsObject:a1[4]];
+    result = [*(v19 + 48) containsObject:a1[4]];
     v21 = a1[6];
     if (result)
     {
-      v18 = *(v21 + 112);
+      v20 = *(v21 + 114);
       goto LABEL_20;
     }
 
-    result = [*(v21 + 72) containsObject:a1[4]];
+    result = [*(v21 + 56) containsObject:a1[4]];
     v22 = a1[6];
     if (result)
     {
-      v18 = *(v22 + 116);
+      v20 = *(v22 + 115);
       goto LABEL_20;
     }
 
-    result = [*(v22 + 80) containsObject:a1[4]];
+    result = [*(v22 + 64) containsObject:a1[4]];
     v23 = a1[6];
     if (result)
     {
-      v18 = *(v23 + 113);
+      v20 = *(v23 + 112);
       goto LABEL_20;
     }
 
-    result = [*(v23 + 96) containsObject:a1[4]];
+    result = [*(v23 + 72) containsObject:a1[4]];
     v24 = a1[6];
     if (result)
     {
-      v18 = *(v24 + 117);
+      v20 = *(v24 + 116);
       goto LABEL_20;
     }
 
-    result = [*(v24 + 88) containsObject:a1[4]];
+    result = [*(v24 + 80) containsObject:a1[4]];
+    v25 = a1[6];
     if (result)
     {
-      v25 = a1[7];
-      v18 = *(a1[6] + 118);
+      v20 = *(v25 + 113);
+      goto LABEL_20;
+    }
+
+    result = [*(v25 + 96) containsObject:a1[4]];
+    v26 = a1[6];
+    if (result)
+    {
+      v20 = *(v26 + 117);
+      goto LABEL_20;
+    }
+
+    result = [*(v26 + 88) containsObject:a1[4]];
+    if (result)
+    {
+      v27 = a1[7];
+      v20 = *(a1[6] + 118);
       goto LABEL_21;
     }
   }
@@ -1042,25 +1027,23 @@ void __47__MRNotificationClient_nowPlayingNotifications__block_invoke()
 
 void __57__MRNotificationClient_postNotification_userInfo_object___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_9(&dword_1A2860000, a2, a3, "Posting Notification %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_9(&dword_1A2860000, a2, a3, "Posting Notification %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __70__MRNotificationClient__postNotification_userInfo_object_withHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_9(&dword_1A2860000, a2, a3, "Receieved Notification %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_9(&dword_1A2860000, a2, a3, "Receieved Notification %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __70__MRNotificationClient__postNotification_userInfo_object_withHandler___block_invoke_2_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 40));
-  OUTLINED_FUNCTION_9(&dword_1A2860000, a2, a3, "UserInfo %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_9(&dword_1A2860000, a2, a3, "UserInfo %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

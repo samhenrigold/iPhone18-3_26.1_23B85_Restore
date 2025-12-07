@@ -4,6 +4,7 @@
 + (void)recordBannerConfirmedWithEvent:(id)event proposedEKEvent:(id)kEvent confirmedEKEvent:(id)eKEvent inApp:(SGMBannerDisplayApp_)app;
 + (void)recordBannerRejectedWithEvent:(id)event inApp:(SGMBannerDisplayApp_)app;
 + (void)recordBannerShownWithContacts:(id)contacts events:(id)events inApp:(SGMBannerDisplayApp_)app;
++ (void)recordContactDetailEngagementWithResolution:(int64_t)resolution detailType:(SGMContactDetailType_)type extractionType:(unint64_t)extractionType modelVersion:(id)version confirmRejectUI:(int)i pet2Tracker:(id)tracker;
 + (void)recordContactDetailUsage:(id)usage withApp:(id)app;
 + (void)recordConversationTurnWithContact:(id)contact received:(BOOL)received curated:(BOOL)curated throughApp:(id)app withDetailName:(id)name withDetailExtraction:(id)extraction;
 + (void)recordMaybeContactFrom:(unint64_t)from withVersion:(id)version;
@@ -111,6 +112,42 @@
   v14 = [v12 initWithFormat:@"%@.%@", @"com.apple.Proactive.CoreSuggestions", v13];
 
   dictionaryRepresentation = [v16 dictionaryRepresentation];
+  AnalyticsSendEvent();
+}
+
++ (void)recordContactDetailEngagementWithResolution:(int64_t)resolution detailType:(SGMContactDetailType_)type extractionType:(unint64_t)extractionType modelVersion:(id)version confirmRejectUI:(int)i pet2Tracker:(id)tracker
+{
+  v8 = *&i;
+  trackerCopy = tracker;
+  versionCopy = version;
+  instance = [self instance];
+  v17 = instance;
+  if (resolution)
+  {
+    [instance contactDetailRejected];
+  }
+
+  else
+  {
+    [instance contactDetailConfirmed];
+  }
+  v18 = ;
+  [v18 trackEventWithScalar:1 type:type.var0 extracted:mapDetailExtractionType(extractionType) extractionModelVersion:{objc_msgSend(versionCopy, "unsignedIntegerValue")}];
+
+  v24 = objc_opt_new();
+  [v24 setType:type.var0];
+  [v24 setExtracted:mapDetailExtractionType(extractionType)];
+  unsignedIntValue = [versionCopy unsignedIntValue];
+
+  [v24 setExtractionModelVersion:unsignedIntValue];
+  [v24 setUiType:v8];
+  [trackerCopy trackScalarForMessage:v24];
+
+  v20 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v21 = [v24 key];
+  v22 = [v20 initWithFormat:@"%@.%@", @"com.apple.Proactive.CoreSuggestions", v21];
+
+  dictionaryRepresentation = [v24 dictionaryRepresentation];
   AnalyticsSendEvent();
 }
 
@@ -398,27 +435,27 @@ uint64_t __131__SGSuggestedActionMetrics_recordBannerConfirmedWithContact_propos
 
 + (void)recordBannerShownWithContacts:(id)contacts events:(id)events inApp:(SGMBannerDisplayApp_)app
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   obj = contacts;
   eventsCopy = events;
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  v59 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
-  if (v59)
+  v58 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
+  if (v58)
   {
-    v57 = *v68;
+    v56 = *v67;
     do
     {
-      for (i = 0; i != v59; ++i)
+      for (i = 0; i != v58; ++i)
       {
-        if (*v68 != v57)
+        if (*v67 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v67 + 1) + 8 * i);
+        v7 = *(*(&v66 + 1) + 8 * i);
         extractionInfo = [v7 extractionInfo];
         extractionType = [extractionInfo extractionType];
         v10 = &SGMBannerExtractionTypeOther;
@@ -456,32 +493,32 @@ uint64_t __131__SGSuggestedActionMetrics_recordBannerConfirmedWithContact_propos
         AnalyticsSendEvent();
       }
 
-      v59 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v58 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
     }
 
-    while (v59);
+    while (v58);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
-  v53 = eventsCopy;
-  v25 = [v53 countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v52 = eventsCopy;
+  v25 = [v52 countByEnumeratingWithState:&v62 objects:v70 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v64;
+    v27 = *v63;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v64 != v27)
+        if (*v63 != v27)
         {
-          objc_enumerationMutation(v53);
+          objc_enumerationMutation(v52);
         }
 
-        v29 = *(*(&v63 + 1) + 8 * j);
+        v29 = *(*(&v62 + 1) + 8 * j);
         event = [v29 event];
         isNaturalLanguageEvent = [event isNaturalLanguageEvent];
 
@@ -491,7 +528,7 @@ uint64_t __131__SGSuggestedActionMetrics_recordBannerConfirmedWithContact_propos
           eventInBanner = [instance2 eventInBanner];
           event2 = [v29 event];
           tags = [event2 tags];
-          v56 = tagsToEventCategory(tags);
+          v55 = tagsToEventCategory(tags);
           event3 = [v29 event];
           [event3 tags];
           v36 = v35 = v27;
@@ -507,7 +544,7 @@ uint64_t __131__SGSuggestedActionMetrics_recordBannerConfirmedWithContact_propos
             v39 = 2 * (state != 2);
           }
 
-          [eventInBanner trackEventWithScalar:1 app:app.var0 category:v56 extracted:v37 state:v39];
+          [eventInBanner trackEventWithScalar:1 app:app.var0 category:v55 extracted:v37 state:v39];
 
           v27 = v35;
           v40 = objc_opt_new();
@@ -544,13 +581,11 @@ uint64_t __131__SGSuggestedActionMetrics_recordBannerConfirmedWithContact_propos
         }
       }
 
-      v26 = [v53 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v26 = [v52 countByEnumeratingWithState:&v62 objects:v70 count:16];
     }
 
     while (v26);
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 + (void)recordMaybeContactFrom:(unint64_t)from withVersion:(id)version

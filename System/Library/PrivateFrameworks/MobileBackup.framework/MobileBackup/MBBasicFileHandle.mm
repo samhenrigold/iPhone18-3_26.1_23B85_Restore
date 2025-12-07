@@ -1,4 +1,5 @@
 @interface MBBasicFileHandle
++ (id)basicFileHandleWithPath:(id)path flags:(int)flags mode:(unsigned __int16)mode error:(id *)error;
 - (BOOL)closeWithError:(id *)error;
 - (BOOL)statWithBuffer:(stat *)buffer error:(id *)error;
 - (MBBasicFileHandle)initWithPath:(id)path fd:(int)fd;
@@ -9,6 +10,51 @@
 
 @implementation MBBasicFileHandle
 
++ (id)basicFileHandleWithPath:(id)path flags:(int)flags mode:(unsigned __int16)mode error:(id *)error
+{
+  modeCopy = mode;
+  v8 = *&flags;
+  pathCopy = path;
+  v10 = open([pathCopy fileSystemRepresentation], v8, modeCopy);
+  if ((v10 & 0x80000000) != 0)
+  {
+    v12 = *__error();
+    if (error)
+    {
+      *error = [MBError posixErrorWithPath:pathCopy format:@"open error"];
+    }
+
+    v13 = MBGetDefaultLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138413058;
+      v16 = pathCopy;
+      v17 = 1024;
+      v18 = v8;
+      v19 = 1024;
+      v20 = modeCopy;
+      v21 = 1024;
+      v22 = v12;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "open failed at %@, flags:0x%x, mode:0%o: %{errno}d", buf, 0x1Eu);
+      _MBLog(@"E ", "open failed at %@, flags:0x%x, mode:0%o: %{errno}d", pathCopy, v8, modeCopy, v12);
+    }
+
+    if (v12 == 1)
+    {
+      MBDiagnoseFile(pathCopy, 1, "open");
+    }
+
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = [[MBBasicFileHandle alloc] initWithPath:pathCopy fd:v10];
+  }
+
+  return v11;
+}
+
 - (MBBasicFileHandle)initWithPath:(id)path fd:(int)fd
 {
   pathCopy = path;
@@ -18,7 +64,7 @@
     *buf = 138412290;
     v14 = pathCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Opened file at %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Db", "Opened file at %@", pathCopy);
   }
 
   v12.receiver = self;
@@ -111,10 +157,9 @@
     {
       path = self->_path;
       *buf = 138412290;
-      v11 = path;
+      v10 = path;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Closed file at %@", buf, 0xCu);
-      v9 = self->_path;
-      _MBLog();
+      _MBLog(@"Db", "Closed file at %@", self->_path);
     }
   }
 

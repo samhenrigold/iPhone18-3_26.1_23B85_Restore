@@ -141,7 +141,7 @@ LABEL_13:
 
 + (id)bulletsForScreenOneUnder13:(int64_t)under13
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = under13 == 1;
   if (under13 == 1)
   {
@@ -177,20 +177,18 @@ LABEL_13:
   v8 = [USUIInterventionScreenBullet bullet:v7 imageName:@"bullet-bathing-suit" emoji:0];
   v9 = [MEMORY[0x277D4D390] localizedStringForKey:{v5, v8}];
   v10 = [USUIInterventionScreenBullet bullet:v9 imageName:@"bullet-sad" emoji:@"😔"];
-  v16[1] = v10;
+  v15[1] = v10;
   v11 = [MEMORY[0x277D4D390] localizedStringForKey:v6];
   v12 = [USUIInterventionScreenBullet bullet:v11 imageName:@"bullet-window-shocked" emoji:0];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }
 
 + (id)bulletsForScreenOneOver13:(int64_t)over13
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = over13 == 1;
   if (over13 == 1)
   {
@@ -214,20 +212,18 @@ LABEL_13:
 
   v6 = [MEMORY[0x277D4D390] localizedStringForKey:v4];
   v7 = [USUIInterventionScreenBullet bullet:v6 imageName:@"bullet-monkey-hiding" emoji:@"🙈"];
-  v13[0] = v7;
+  v12[0] = v7;
   v8 = [MEMORY[0x277D4D390] localizedStringForKey:v5];
   v9 = [USUIInterventionScreenBullet bullet:v8 imageName:@"bullet-window-shocked" emoji:0];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }
 
 + (id)bulletsForScreenTwoUnder13:(int64_t)under13
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = under13 == 1;
   if (under13 == 1)
   {
@@ -251,20 +247,18 @@ LABEL_13:
 
   v6 = [MEMORY[0x277D4D390] localizedStringForKey:v4];
   v7 = [USUIInterventionScreenBullet bullet:v6 imageName:@"bullet-family" emoji:@"👨‍👩‍👧‍👦"];
-  v13[0] = v7;
+  v12[0] = v7;
   v8 = [MEMORY[0x277D4D390] localizedStringForKey:v5];
   v9 = [USUIInterventionScreenBullet bullet:v8 imageName:@"bullet-teacher" emoji:0];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }
 
 + (id)bulletsForScreenTwoOver13:(int64_t)over13
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = over13 == 1;
   if (over13 == 1)
   {
@@ -288,13 +282,11 @@ LABEL_13:
 
   v6 = [MEMORY[0x277D4D390] localizedStringForKey:v4];
   v7 = [USUIInterventionScreenBullet bullet:v6 imageName:@"bullet-dancers" emoji:@"👯"];
-  v13[0] = v7;
+  v12[0] = v7;
   v8 = [MEMORY[0x277D4D390] localizedStringForKey:v5];
   v9 = [USUIInterventionScreenBullet bullet:v8 imageName:@"bullet-monkey-covering-mouth" emoji:@"🙊"];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }
@@ -325,7 +317,7 @@ LABEL_6:
 + (id)actionsForScreenOne:(int64_t)one type:(int64_t)type options:(int64_t)options
 {
   optionsCopy = options;
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277D4D390] localizedStringForKey:{@"NOT_NOW", type}];
   v7 = [USUIInterventionScreenAction action:v6 primary:1 actionID:1];
 
@@ -337,27 +329,25 @@ LABEL_6:
     v11 = [MEMORY[0x277D4D390] localizedStringForKey:@"MORE_HELP"];
     v12 = [USUIInterventionScreenAction action:v11 primary:0 actionID:2];
 
-    v16[0] = v7;
-    v16[1] = v12;
-    v16[2] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+    v15[0] = v7;
+    v15[1] = v12;
+    v15[2] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   }
 
   else
   {
-    v15[0] = v7;
-    v15[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = v7;
+    v14[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)actionsForScreenTwo:(int64_t)two type:(int64_t)type
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v5 = two == 1;
   if (two == 1)
   {
@@ -398,12 +388,10 @@ LABEL_6:
   v13 = [MEMORY[0x277D4D390] localizedStringForKey:v7];
   v14 = [USUIInterventionScreenAction action:v13 primary:0 actionID:6];
 
-  v18[0] = v9;
-  v18[1] = v12;
-  v18[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[0] = v9;
+  v17[1] = v12;
+  v17[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
 
   return v15;
 }

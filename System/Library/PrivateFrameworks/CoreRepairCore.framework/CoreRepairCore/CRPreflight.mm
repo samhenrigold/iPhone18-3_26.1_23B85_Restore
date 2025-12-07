@@ -15,18 +15,18 @@
 
 - (id)componentsWithPrimaryKeys:(id)keys
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   v4 = +[CRFDRDeviceController sharedSingleton];
   getHandlerForDevice = [v4 getHandlerForDevice];
 
   v5 = [keysCopy mutableCopy];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   v6 = keysCopy;
-  v7 = [v6 countByEnumeratingWithState:&v47 objects:v56 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v46 objects:v55 count:16];
   v8 = v6;
   if (!v7)
   {
@@ -36,67 +36,67 @@ LABEL_33:
   }
 
   v9 = v7;
-  v34 = 0;
-  v10 = *v48;
-  v29 = *v48;
-  v30 = v6;
+  v33 = 0;
+  v10 = *v47;
+  v28 = *v47;
+  v29 = v6;
   do
   {
     v11 = 0;
-    v31 = v9;
+    v30 = v9;
     do
     {
-      if (*v48 != v10)
+      if (*v47 != v10)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = *(*(&v47 + 1) + 8 * v11);
-      if (([v12 isEqualToString:{@"SrvP", v29, v30}] & 1) == 0)
+      v12 = *(*(&v46 + 1) + 8 * v11);
+      if (([v12 isEqualToString:{@"SrvP", v28, v29}] & 1) == 0)
       {
-        v32 = v11;
+        v31 = v11;
         v13 = [v6 objectForKeyedSubscript:v12];
+        v42 = 0u;
         v43 = 0u;
         v44 = 0u;
         v45 = 0u;
-        v46 = 0u;
         obj = v13;
-        v38 = [v13 countByEnumeratingWithState:&v43 objects:v55 count:16];
-        if (v38)
+        v37 = [v13 countByEnumeratingWithState:&v42 objects:v54 count:16];
+        if (v37)
         {
-          v37 = *v44;
-          v35 = v12;
+          v36 = *v43;
+          v34 = v12;
           do
           {
-            for (i = 0; i != v38; ++i)
+            for (i = 0; i != v37; ++i)
             {
-              if (*v44 != v37)
+              if (*v43 != v36)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v15 = [getHandlerForDevice spcWithComponent:v12 withIdentifier:*(*(&v43 + 1) + 8 * i)];
+              v15 = [getHandlerForDevice spcWithComponent:v12 withIdentifier:*(*(&v42 + 1) + 8 * i)];
               v16 = [CRDeviceMap getKeysWithSPC:v15];
+              v38 = 0u;
               v39 = 0u;
               v40 = 0u;
               v41 = 0u;
-              v42 = 0u;
               v17 = v16;
-              v18 = [v17 countByEnumeratingWithState:&v39 objects:v54 count:16];
+              v18 = [v17 countByEnumeratingWithState:&v38 objects:v53 count:16];
               if (v18)
               {
                 v19 = v18;
-                v20 = *v40;
+                v20 = *v39;
                 while (2)
                 {
                   for (j = 0; j != v19; ++j)
                   {
-                    if (*v40 != v20)
+                    if (*v39 != v20)
                     {
                       objc_enumerationMutation(v17);
                     }
 
-                    v22 = *(*(&v39 + 1) + 8 * j);
+                    v22 = *(*(&v38 + 1) + 8 * j);
                     if ([CRFDRUtils isPrimaryDataClassSupported:v22])
                     {
                       v23 = [v5 objectForKeyedSubscript:v22];
@@ -107,10 +107,10 @@ LABEL_33:
                         if (v24)
                         {
                           v25 = v24;
-                          v53 = v24;
-                          v34 = 1;
-                          v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
-                          [v5 setObject:v26 forKeyedSubscript:v22];
+                          v52 = v24;
+                          v33 = 1;
+                          v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+                          objc_msgSend_setObject_forKeyedSubscript_(v5);
 
                           goto LABEL_24;
                         }
@@ -118,7 +118,7 @@ LABEL_33:
                     }
                   }
 
-                  v19 = [v17 countByEnumeratingWithState:&v39 objects:v54 count:16];
+                  v19 = [v17 countByEnumeratingWithState:&v38 objects:v53 count:16];
                   if (v19)
                   {
                     continue;
@@ -128,38 +128,38 @@ LABEL_33:
                 }
 
 LABEL_24:
-                v12 = v35;
+                v12 = v34;
               }
             }
 
-            v38 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
+            v37 = [obj countByEnumeratingWithState:&v42 objects:v54 count:16];
           }
 
-          while (v38);
+          while (v37);
         }
 
-        v10 = v29;
-        v6 = v30;
-        v9 = v31;
-        v11 = v32;
+        v10 = v28;
+        v6 = v29;
+        v9 = v30;
+        v11 = v31;
       }
 
       ++v11;
     }
 
     while (v11 != v9);
-    v9 = [v6 countByEnumeratingWithState:&v47 objects:v56 count:16];
+    v9 = [v6 countByEnumeratingWithState:&v46 objects:v55 count:16];
   }
 
   while (v9);
 
-  if (v34)
+  if (v33)
   {
     v8 = handleForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v52 = v5;
+      v51 = v5;
       _os_log_impl(&dword_1CEDC5000, v8, OS_LOG_TYPE_DEFAULT, "Updated unsealed: %@", buf, 0xCu);
     }
 
@@ -168,19 +168,17 @@ LABEL_24:
 
 LABEL_34:
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)queryRepairDeltaWithReply:(id)reply
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v5 = objc_opt_new();
-  v54 = 0;
-  v6 = [CRFDRUtils findUnsealedDataWithError:&v54];
-  v7 = v54;
+  v53 = 0;
+  v6 = [CRFDRUtils findUnsealedDataWithError:&v53];
+  v7 = v53;
   v8 = v7;
   if (v6)
   {
@@ -213,74 +211,74 @@ LABEL_34:
       v6 = v18;
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v10 = v6;
-    v41 = [v10 countByEnumeratingWithState:&v50 objects:v66 count:16];
-    if (!v41)
+    v40 = [v10 countByEnumeratingWithState:&v49 objects:v65 count:16];
+    if (!v40)
     {
       v17 = 1;
       goto LABEL_45;
     }
 
-    v20 = *v51;
+    v20 = *v50;
     *&v19 = 136315650;
-    v39 = v19;
-    v44 = v8;
-    v45 = replyCopy;
-    v43 = v10;
-    v40 = *v51;
+    v38 = v19;
+    v43 = v8;
+    v44 = replyCopy;
+    v42 = v10;
+    v39 = *v50;
     while (1)
     {
       v21 = 0;
       do
       {
-        if (*v51 != v20)
+        if (*v50 != v20)
         {
           objc_enumerationMutation(v10);
         }
 
-        v42 = v21;
-        v22 = *(*(&v50 + 1) + 8 * v21);
-        v23 = [v10 objectForKeyedSubscript:v22, v39];
+        v41 = v21;
+        v22 = *(*(&v49 + 1) + 8 * v21);
+        v23 = [v10 objectForKeyedSubscript:v22, v38];
         v24 = AMFDRSealingMapCopyAssemblyIdentifierForClass();
         v25 = handleForCategory(0);
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v39;
-          v61 = "[CRPreflight queryRepairDeltaWithReply:]";
-          v62 = 2112;
-          v63 = v22;
-          v64 = 2112;
-          v65 = v24;
+          *buf = v38;
+          v60 = "[CRPreflight queryRepairDeltaWithReply:]";
+          v61 = 2112;
+          v62 = v22;
+          v63 = 2112;
+          v64 = v24;
           _os_log_debug_impl(&dword_1CEDC5000, v25, OS_LOG_TYPE_DEBUG, "%s: key: %@, asid: %@", buf, 0x20u);
         }
 
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
         v26 = v23;
-        v27 = [v26 countByEnumeratingWithState:&v46 objects:v59 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v45 objects:v58 count:16];
         if (!v27)
         {
           goto LABEL_35;
         }
 
         v28 = v27;
-        v29 = *v47;
+        v29 = *v46;
         while (2)
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v47 != v29)
+            if (*v46 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v46 + 1) + 8 * i);
+            v31 = *(*(&v45 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -301,14 +299,14 @@ LABEL_34:
                 v37 = handleForCategory(0);
                 if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
                 {
-                  [(CRPreflight *)buf queryRepairDeltaWithReply:v31, &v61, v37];
+                  [(CRPreflight *)buf queryRepairDeltaWithReply:v31, &v60, v37];
                 }
 
                 v17 = 0;
-                v10 = v43;
-                v8 = v44;
-                v6 = v43;
-                replyCopy = v45;
+                v10 = v42;
+                v8 = v43;
+                v6 = v42;
+                replyCopy = v44;
                 goto LABEL_46;
               }
 
@@ -316,11 +314,11 @@ LABEL_34:
               if (!v24)
               {
 LABEL_29:
-                v55[0] = @"key";
-                v55[1] = @"identifier";
-                v56[0] = v22;
-                v56[1] = v33;
-                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:2];
+                v54[0] = @"key";
+                v54[1] = @"identifier";
+                v55[0] = v22;
+                v55[1] = v33;
+                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
                 [v5 addObject:v35];
                 goto LABEL_33;
               }
@@ -330,13 +328,13 @@ LABEL_29:
             v35 = v34;
             if (v34)
             {
-              v57[0] = @"key";
-              v57[1] = @"identifier";
-              v58[0] = v22;
-              v58[1] = v33;
-              v57[2] = @"asid";
-              v58[2] = v34;
-              v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:3];
+              v56[0] = @"key";
+              v56[1] = @"identifier";
+              v57[0] = v22;
+              v57[1] = v33;
+              v56[2] = @"asid";
+              v57[2] = v34;
+              v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:3];
               [v5 addObject:v36];
             }
 
@@ -346,7 +344,7 @@ LABEL_29:
               if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v61 = v24;
+                v60 = v24;
                 _os_log_error_impl(&dword_1CEDC5000, v36, OS_LOG_TYPE_ERROR, "Failed to change asid format: %@", buf, 0xCu);
               }
             }
@@ -354,7 +352,7 @@ LABEL_29:
 LABEL_33:
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v46 objects:v59 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v45 objects:v58 count:16];
           if (v28)
           {
             continue;
@@ -365,17 +363,17 @@ LABEL_33:
 
 LABEL_35:
 
-        v21 = v42 + 1;
-        v8 = v44;
-        replyCopy = v45;
-        v10 = v43;
-        v20 = v40;
+        v21 = v41 + 1;
+        v8 = v43;
+        replyCopy = v44;
+        v10 = v42;
+        v20 = v39;
       }
 
-      while (v42 + 1 != v41);
+      while (v41 + 1 != v40);
       v17 = 1;
-      v41 = [v43 countByEnumeratingWithState:&v50 objects:v66 count:16];
-      if (!v41)
+      v40 = [v42 countByEnumeratingWithState:&v49 objects:v65 count:16];
+      if (!v40)
       {
 LABEL_45:
         v6 = v10;
@@ -398,23 +396,21 @@ LABEL_46:
   {
     replyCopy[2](replyCopy, v17, v5, v8);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)issueRepairCert:(id)cert withReply:(id)reply
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   certCopy = cert;
   replyCopy = reply;
-  v63 = 0;
+  v62 = 0;
   v8 = handleForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v79 = "[CRPreflight issueRepairCert:withReply:]";
-    v80 = 2112;
-    v81 = certCopy;
+    v78 = "[CRPreflight issueRepairCert:withReply:]";
+    v79 = 2112;
+    v80 = certCopy;
     _os_log_impl(&dword_1CEDC5000, v8, OS_LOG_TYPE_DEFAULT, "%s parameters: %@", buf, 0x16u);
   }
 
@@ -460,20 +456,20 @@ LABEL_18:
 
 LABEL_19:
     v24 = +[CRPersonalizationManager getDefaultAMAuthInstallRef];
-    v60 = v20;
+    v59 = v20;
     if (v24)
     {
       v25 = v24;
       if (v19 && v20 && (v26 = AMAuthInstallSetSOCKSProxyInformation(), v26))
       {
-        v59 = v19;
+        v58 = v19;
         v27 = MEMORY[0x1E696ABC0];
-        v74 = *MEMORY[0x1E696A578];
+        v73 = *MEMORY[0x1E696A578];
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to enable SOCKS proxy: %d", v26];
-        v75 = v28;
+        v74 = v28;
         v29 = MEMORY[0x1E695DF20];
-        v30 = &v75;
-        v31 = &v74;
+        v30 = &v74;
+        v31 = &v73;
       }
 
       else
@@ -482,19 +478,19 @@ LABEL_19:
         {
           v40 = +[CRFDRUtils hasUnsealedComponentRequireOSUpdate];
           v41 = [CRPersonalizationManager initWithAuthInstallObj:v25];
-          v62 = 0;
-          v42 = [v41 getRepairTicket:&v63 useRepairAudience:!v40 error:&v62];
-          v43 = v62;
+          v61 = 0;
+          v42 = [v41 getRepairTicket:&v62 useRepairAudience:!v40 error:&v61];
+          v43 = v61;
 
           if (!v42 || v43)
           {
-            v59 = v19;
-            v53 = MEMORY[0x1E696ABC0];
-            v70 = *MEMORY[0x1E696A578];
-            v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get repair ticket: %@", v43];
-            v71 = v54;
-            v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-            v34 = [v53 errorWithDomain:@"com.apple.corerepair" code:-85 userInfo:v55];
+            v58 = v19;
+            v52 = MEMORY[0x1E696ABC0];
+            v69 = *MEMORY[0x1E696A578];
+            v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get repair ticket: %@", v43];
+            v70 = v53;
+            v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+            v34 = [v52 errorWithDomain:@"com.apple.corerepair" code:-85 userInfo:v54];
 
             v38 = 0;
             v39 = 0;
@@ -502,18 +498,18 @@ LABEL_19:
             goto LABEL_43;
           }
 
-          v20 = v60;
+          v20 = v59;
           goto LABEL_33;
         }
 
-        v59 = v19;
+        v58 = v19;
         v27 = MEMORY[0x1E696ABC0];
-        v72 = *MEMORY[0x1E696A578];
+        v71 = *MEMORY[0x1E696A578];
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to enable SSO: %d", v32];
-        v73 = v28;
+        v72 = v28;
         v29 = MEMORY[0x1E695DF20];
-        v30 = &v73;
-        v31 = &v72;
+        v30 = &v72;
+        v31 = &v71;
       }
 
       v33 = [v29 dictionaryWithObjects:v30 forKeys:v31 count:1];
@@ -522,12 +518,12 @@ LABEL_19:
 
     else
     {
-      v59 = v19;
+      v58 = v19;
       v35 = MEMORY[0x1E696ABC0];
-      v76 = *MEMORY[0x1E696A578];
+      v75 = *MEMORY[0x1E696A578];
       v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get auth ref"];
-      v77 = v36;
-      v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+      v76 = v36;
+      v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
       v34 = [v35 errorWithDomain:@"com.apple.corerepair" code:-85 userInfo:v37];
     }
 
@@ -559,23 +555,23 @@ LABEL_33:
   v23 = 0;
   if (v19 && v20)
   {
-    v68[0] = @"socksHost";
-    v68[1] = @"socksPort";
-    v69[0] = v19;
-    v69[1] = v20;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:v68 count:2];
+    v67[0] = @"socksHost";
+    v67[1] = @"socksPort";
+    v68[0] = v19;
+    v68[1] = v20;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:2];
   }
 
 LABEL_36:
   v44 = objc_alloc_init(CRRIK);
-  v59 = v19;
-  v60 = v20;
+  v58 = v19;
+  v59 = v20;
   if (!v44)
   {
     v47 = MEMORY[0x1E696ABC0];
-    v66 = *MEMORY[0x1E696A578];
-    v67 = @"Create RIK failed";
-    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+    v65 = *MEMORY[0x1E696A578];
+    v66 = @"Create RIK failed";
+    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
     v34 = [v47 errorWithDomain:@"com.apple.corerepair" code:-75 userInfo:v48];
 
     v38 = 0;
@@ -584,9 +580,9 @@ LABEL_36:
   }
 
   v38 = v44;
-  v61 = 0;
-  v39 = [(CRPreflight *)self requestBAACertificates:v44 apticket:v63 proxySettings:v23 withError:&v61];
-  v45 = v61;
+  v60 = 0;
+  v39 = [(CRPreflight *)self requestBAACertificates:v44 apticket:v62 proxySettings:v23 withError:&v60];
+  v45 = v60;
   v43 = v45;
   if (v39 && !v45)
   {
@@ -603,9 +599,9 @@ LABEL_36:
   if (v45)
   {
     domain = [v45 domain];
-    v52 = [domain isEqual:@"com.apple.corerepair"];
+    v51 = [domain isEqual:@"com.apple.corerepair"];
 
-    if (v52)
+    if (v51)
     {
       v34 = v43;
       v46 = 0;
@@ -619,12 +615,12 @@ LABEL_36:
     }
   }
 
-  v56 = MEMORY[0x1E696ABC0];
-  v64 = *MEMORY[0x1E696A578];
-  v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to request BAA: %@", v43, v59, v20];
-  v65 = v57;
-  v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-  v34 = [v56 errorWithDomain:@"com.apple.corerepair" code:-76 userInfo:v58];
+  v55 = MEMORY[0x1E696ABC0];
+  v63 = *MEMORY[0x1E696A578];
+  v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to request BAA: %@", v43, v58, v20];
+  v64 = v56;
+  v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+  v34 = [v55 errorWithDomain:@"com.apple.corerepair" code:-76 userInfo:v57];
 
 LABEL_43:
   v46 = 0;
@@ -637,17 +633,15 @@ LABEL_44:
 
 LABEL_45:
   AMSupportSafeRelease();
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)challengeStrongComponents:(id)components withReply:(id)reply
 {
-  v74[2] = *MEMORY[0x1E69E9840];
+  v73[2] = *MEMORY[0x1E69E9840];
   componentsCopy = components;
   replyCopy = reply;
   v7 = objc_opt_new();
-  v53 = +[CRComponentSigning sharedInstance];
+  v52 = +[CRComponentSigning sharedInstance];
   if (componentsCopy)
   {
     v8 = [componentsCopy objectForKeyedSubscript:@"challenges"];
@@ -680,7 +674,7 @@ LABEL_45:
     }
 
     v11 = [componentsCopy objectForKeyedSubscript:@"socksPort"];
-    v51 = v16;
+    v50 = v16;
     if (v11)
     {
       v17 = [componentsCopy objectForKeyedSubscript:@"socksPort"];
@@ -694,11 +688,11 @@ LABEL_45:
         if (v16 && v19)
         {
           v20 = v19;
-          v73[0] = @"SOCKSHost";
-          v73[1] = @"SOCKSPort";
-          v74[0] = v16;
-          v74[1] = v19;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v73 count:2];
+          v72[0] = @"SOCKSHost";
+          v72[1] = @"SOCKSPort";
+          v73[0] = v16;
+          v73[1] = v19;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:2];
           v11 = v20;
           [CRPersonalizationManager setSOCKSInfo:v21];
         }
@@ -714,42 +708,42 @@ LABEL_45:
   else
   {
     v11 = 0;
-    v51 = 0;
+    v50 = 0;
     v8 = 0;
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = v8;
-  v22 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
+  v22 = [obj countByEnumeratingWithState:&v59 objects:v71 count:16];
   if (!v22)
   {
     v41 = 0;
     v42 = 1;
-    v43 = v51;
+    v43 = v50;
     goto LABEL_69;
   }
 
   v23 = v22;
-  v48 = v11;
-  v49 = replyCopy;
-  v50 = componentsCopy;
-  v24 = *v61;
+  v47 = v11;
+  v48 = replyCopy;
+  v49 = componentsCopy;
+  v24 = *v60;
 LABEL_19:
   v25 = 0;
   while (1)
   {
-    if (*v61 != v24)
+    if (*v60 != v24)
     {
       objc_enumerationMutation(obj);
     }
 
-    v26 = *(*(&v60 + 1) + 8 * v25);
-    v58 = 0;
-    cf = 0;
+    v26 = *(*(&v59 + 1) + 8 * v25);
     v57 = 0;
+    cf = 0;
+    v56 = 0;
     v27 = [v26 objectForKeyedSubscript:@"key"];
     v28 = [v26 objectForKeyedSubscript:@"nonce"];
     v29 = v28;
@@ -771,7 +765,7 @@ LABEL_19:
     if ([v27 isEqual:@"vcrt"])
     {
       v31 = [(CRPreflight *)self sha256Data:v29];
-      [v53 vcrtSign:v31 outSignature:&cf outDeviceNonce:&v58 outError:&v57];
+      [v52 vcrtSign:v31 outSignature:&cf outDeviceNonce:&v57 outError:&v56];
 
 LABEL_28:
       v32 = 1;
@@ -780,7 +774,7 @@ LABEL_28:
 
     if ([v27 isEqual:@"bcrt"])
     {
-      [v53 bcrtSign:v29 outSignature:&cf outDeviceNonce:0 outError:&v57];
+      [v52 bcrtSign:v29 outSignature:&cf outDeviceNonce:0 outError:&v56];
     }
 
     else
@@ -792,17 +786,17 @@ LABEL_28:
           v39 = handleForCategory(0);
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            [(CRPreflight *)&buf challengeStrongComponents:v56 withReply:v39];
+            [(CRPreflight *)&buf challengeStrongComponents:v55 withReply:v39];
           }
 
           goto LABEL_54;
         }
 
-        [v53 prpcSign:v29 outSignature:&cf outDeviceNonce:&v58 outError:&v57];
+        [v52 prpcSign:v29 outSignature:&cf outDeviceNonce:&v57 outError:&v56];
         goto LABEL_28;
       }
 
-      [v53 tcrtSign:v29 outSignature:&cf outDeviceNonce:0 outError:&v57];
+      [v52 tcrtSign:v29 outSignature:&cf outDeviceNonce:0 outError:&v56];
     }
 
     v32 = 0;
@@ -819,13 +813,13 @@ LABEL_34:
       }
 
       bytes = 0uLL;
-      v71 = 0;
+      v70 = 0;
       v33 = CFDataCreate(0, &bytes, 20);
       cf = v33;
     }
 
-    v35 = v58;
-    if (v58)
+    v35 = v57;
+    if (v57)
     {
       v36 = 0;
     }
@@ -846,9 +840,9 @@ LABEL_34:
       }
 
       bytes = 0uLL;
-      v71 = 0;
+      v70 = 0;
       v35 = CFDataCreate(0, &bytes, 20);
-      v58 = v35;
+      v57 = v35;
       v33 = cf;
     }
 
@@ -865,22 +859,22 @@ LABEL_34:
 
     if (v32)
     {
-      v66[0] = @"key";
-      v66[1] = @"signature";
-      v67[0] = v27;
-      v67[1] = v33;
-      v66[2] = @"deviceNonce";
-      v67[2] = v35;
-      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:3];
+      v65[0] = @"key";
+      v65[1] = @"signature";
+      v66[0] = v27;
+      v66[1] = v33;
+      v65[2] = @"deviceNonce";
+      v66[2] = v35;
+      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:3];
     }
 
     else
     {
-      v64[0] = @"key";
-      v64[1] = @"signature";
-      v65[0] = v27;
-      v65[1] = v33;
-      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
+      v63[0] = @"key";
+      v63[1] = @"signature";
+      v64[0] = v27;
+      v64[1] = v33;
+      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
     }
 
     [v7 addObject:v39];
@@ -889,15 +883,15 @@ LABEL_54:
 LABEL_55:
     if (v23 == ++v25)
     {
-      v40 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
+      v40 = [obj countByEnumeratingWithState:&v59 objects:v71 count:16];
       v23 = v40;
       if (!v40)
       {
         v41 = 0;
         v42 = 1;
-        replyCopy = v49;
-        componentsCopy = v50;
-        v43 = v51;
+        replyCopy = v48;
+        componentsCopy = v49;
+        v43 = v50;
         goto LABEL_68;
       }
 
@@ -906,34 +900,32 @@ LABEL_55:
   }
 
   CFRelease(v33);
-  v35 = v58;
+  v35 = v57;
 LABEL_65:
-  componentsCopy = v50;
-  v43 = v51;
+  componentsCopy = v49;
+  v43 = v50;
   if (v35)
   {
     CFRelease(v35);
   }
 
   v44 = MEMORY[0x1E696ABC0];
-  v68 = *MEMORY[0x1E696A578];
+  v67 = *MEMORY[0x1E696A578];
   v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to challenge strong component: %@", v27];
-  v69 = v45;
-  v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+  v68 = v45;
+  v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
   v41 = [v44 errorWithDomain:@"com.apple.corerepair" code:-42 userInfo:v46];
 
   v42 = 0;
-  replyCopy = v49;
+  replyCopy = v48;
 LABEL_68:
-  v11 = v48;
+  v11 = v47;
 LABEL_69:
 
   if (replyCopy)
   {
     replyCopy[2](replyCopy, v42, v7, v41);
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (id)sign:(id)sign keyBlob:(id)blob
@@ -1051,7 +1043,7 @@ LABEL_13:
 
 - (id)sha256Data:(id)data
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v4 = [dataCopy length];
   if ((v4 - 1) > 0xFFFFFFFD)
@@ -1061,23 +1053,21 @@ LABEL_13:
 
   else
   {
-    CC_SHA256([dataCopy bytes], v4, &v8);
-    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v8 length:32];
+    CC_SHA256([dataCopy bytes], v4, &v7);
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v7 length:32];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)requestBAACertificates:(id)certificates apticket:(id)apticket proxySettings:(id)settings withError:(id *)error
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   certificatesCopy = certificates;
   apticketCopy = apticket;
   settingsCopy = settings;
   v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v53 = apticketCopy;
+  v52 = apticketCopy;
   if (!certificatesCopy)
   {
     v31 = handleForCategory(0);
@@ -1115,8 +1105,8 @@ LABEL_19:
   pubKeyBlob = [certificatesCopy pubKeyBlob];
   if (!pubKeyBlob)
   {
-    v36 = handleForCategory(0);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v35 = handleForCategory(0);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       [CRPreflight requestBAACertificates:apticket:proxySettings:withError:];
     }
@@ -1137,36 +1127,36 @@ LABEL_19:
     {
       v18 = [apticketCopy base64EncodedStringWithOptions:0];
       *buf = 138477827;
-      v58 = v18;
+      v57 = v18;
       _os_log_impl(&dword_1CEDC5000, v17, OS_LOG_TYPE_DEFAULT, "repairticket: %{private}@", buf, 0xCu);
     }
 
-    [v12 setObject:apticketCopy forKeyedSubscript:*MEMORY[0x1E6999EC0]];
+    objc_msgSend_setObject_forKeyedSubscript_(v12);
   }
 
-  [v12 setObject:v14 forKeyedSubscript:*MEMORY[0x1E6999E88]];
-  [v12 setObject:v16 forKeyedSubscript:*MEMORY[0x1E6999E90]];
-  [v12 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E6999F18]];
+  objc_msgSend_setObject_forKeyedSubscript_(v12);
+  objc_msgSend_setObject_forKeyedSubscript_(v12);
+  objc_msgSend_setObject_forKeyedSubscript_(v12);
   v19 = *MEMORY[0x1E6999EE0];
-  v56[0] = *MEMORY[0x1E6999F08];
-  v56[1] = v19;
+  v55[0] = *MEMORY[0x1E6999F08];
+  v55[1] = v19;
   v20 = *MEMORY[0x1E6999EF8];
-  v56[2] = *MEMORY[0x1E6999EF0];
-  v56[3] = v20;
-  v56[4] = *MEMORY[0x1E6999EE8];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:5];
-  [v12 setObject:v21 forKeyedSubscript:*MEMORY[0x1E6999F00]];
+  v55[2] = *MEMORY[0x1E6999EF0];
+  v55[3] = v20;
+  v55[4] = *MEMORY[0x1E6999EE8];
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:5];
+  objc_msgSend_setObject_forKeyedSubscript_(v12);
 
-  v55[1] = 0;
+  v54[1] = 0;
   v22 = DeviceIdentityCreateClientCertificateRequest();
   v23 = 0;
   v24 = v23;
   if (!v22 || v23)
   {
-    v37 = handleForCategory(0);
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = handleForCategory(0);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      [(CRPreflight *)v24 requestBAACertificates:v37 apticket:v38 proxySettings:v39 withError:v40, v41, v42, v43];
+      [(CRPreflight *)v24 requestBAACertificates:v36 apticket:v37 proxySettings:v38 withError:v39, v40, v41, v42];
     }
 
     v29 = 0;
@@ -1199,23 +1189,23 @@ LABEL_19:
 
   if (os_variant_has_internal_content())
   {
-    v44 = [[CRUserDefaults alloc] initWithSuiteName:@"com.apple.corerepaird.test"];
-    v45 = [(CRUserDefaults *)v44 stringForKey:@"HumbugURL"];
-    if (v45)
+    v43 = [[CRUserDefaults alloc] initWithSuiteName:@"com.apple.corerepaird.test"];
+    v44 = [(CRUserDefaults *)v43 stringForKey:@"HumbugURL"];
+    if (v44)
     {
-      v46 = handleForCategory(0);
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v45 = handleForCategory(0);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v58 = v45;
-        _os_log_impl(&dword_1CEDC5000, v46, OS_LOG_TYPE_DEFAULT, "Overriding serverUrlString: %@", buf, 0xCu);
+        v57 = v44;
+        _os_log_impl(&dword_1CEDC5000, v45, OS_LOG_TYPE_DEFAULT, "Overriding serverUrlString: %@", buf, 0xCu);
       }
 
-      v47 = [MEMORY[0x1E695DFF8] URLWithString:v45];
-      [v22 setURL:v47];
+      v46 = [MEMORY[0x1E695DFF8] URLWithString:v44];
+      [v22 setURL:v46];
     }
 
-    if ([(CRUserDefaults *)v44 BOOLForKey:@"DumpAttestationPayload"])
+    if ([(CRUserDefaults *)v43 BOOLForKey:@"DumpAttestationPayload"])
     {
       hTTPBody = [v22 HTTPBody];
       [hTTPBody writeToFile:@"/tmp/baa_request" atomically:1];
@@ -1224,11 +1214,11 @@ LABEL_19:
     v28 = selfCopy;
   }
 
-  v55[0] = 0;
-  v32 = [(CRPreflight *)v28 _sendBAARequest:v22 proxySettings:settingsCopy withError:v55];
-  v49 = v55[0];
-  v24 = v49;
-  if (v32 && !v49)
+  v54[0] = 0;
+  v32 = [(CRPreflight *)v28 _sendBAARequest:v22 proxySettings:settingsCopy withError:v54];
+  v48 = v54[0];
+  v24 = v48;
+  if (v32 && !v48)
   {
     v32 = v32;
     v33 = v32;
@@ -1242,37 +1232,35 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v50 = v49;
+  v49 = v48;
   v33 = 0;
   *errorCopy = v24;
 LABEL_21:
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v33;
 }
 
 - (id)_sendBAARequest:(id)request proxySettings:(id)settings withError:(id *)error
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   settingsCopy = settings;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy_;
-  v56 = __Block_byref_object_dispose_;
-  v57 = 0;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy_;
-  v50 = __Block_byref_object_dispose_;
-  v51 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy_;
+  v54 = __Block_byref_object_dispose_;
+  v55 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy_;
+  v48 = __Block_byref_object_dispose_;
+  v49 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
   v9 = objc_opt_new();
   if (requestCopy)
   {
@@ -1284,7 +1272,7 @@ LABEL_21:
       if (!v11)
       {
         v12 = [settingsCopy objectForKeyedSubscript:@"socksHost"];
-        [v9 setObject:v12 forKeyedSubscript:@"SOCKSProxy"];
+        objc_msgSend_setObject_forKeyedSubscript_(v9);
       }
 
       v13 = [settingsCopy objectForKeyedSubscript:@"socksPort"];
@@ -1293,7 +1281,7 @@ LABEL_21:
       if (!v14)
       {
         v15 = [settingsCopy objectForKeyedSubscript:@"socksPort"];
-        [v9 setObject:v15 forKeyedSubscript:@"SOCKSPort"];
+        objc_msgSend_setObject_forKeyedSubscript_(v9);
       }
     }
 
@@ -1304,58 +1292,57 @@ LABEL_21:
     [v16 resume];
     v18 = dispatch_semaphore_create(0);
     v19 = objc_autoreleasePoolPush();
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __55__CRPreflight__sendBAARequest_proxySettings_withError___block_invoke;
-    v39[3] = &unk_1E83B3E78;
-    v41 = &v46;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __55__CRPreflight__sendBAARequest_proxySettings_withError___block_invoke;
+    v37[3] = &unk_1E83B3E78;
+    v39 = &v44;
     v20 = v18;
-    v40 = v20;
-    v21 = [v16 remoteObjectProxyWithErrorHandler:v39];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __55__CRPreflight__sendBAARequest_proxySettings_withError___block_invoke_2;
-    v33[3] = &unk_1E83B3EA0;
-    v36 = &v52;
-    v37 = &v46;
-    v38 = &v42;
+    v38 = v20;
+    v21 = [v16 remoteObjectProxyWithErrorHandler:v37];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __55__CRPreflight__sendBAARequest_proxySettings_withError___block_invoke_2;
+    v31[3] = &unk_1E83B3EA0;
+    v34 = &v50;
+    v35 = &v44;
+    v36 = &v40;
     v22 = v20;
-    v34 = v22;
+    v32 = v22;
     v23 = v16;
-    v35 = v23;
-    [v21 sendBAARequest:requestCopy options:v9 withReply:v33];
+    v33 = v23;
+    [v21 sendBAARequest:requestCopy options:v9 withReply:v31];
 
     objc_autoreleasePoolPop(v19);
     dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
     if (error)
     {
-      v24 = v47[5];
-      if (v24 || *(v43 + 6) != 200)
+      v24 = v45[5];
+      if (v24 || *(v41 + 6) != 200)
       {
-        v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request BAA failed with status: %d error: %@", *(v43 + 6), v24];
+        v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request BAA failed with status: %d error: %@", *(v41 + 6), v24];
         v26 = v25;
         v27 = MEMORY[0x1E696ABC0];
-        v28 = *MEMORY[0x1E696A578];
-        if (*(v43 + 6) == 429)
+        if (*(v41 + 6) == 429)
         {
-          v60 = *MEMORY[0x1E696A578];
-          v61[0] = v25;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
-          [v27 errorWithDomain:@"com.apple.corerepair" code:-94 userInfo:v29];
+          v58 = *MEMORY[0x1E696A578];
+          v59[0] = v25;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+          [v27 errorWithDomain:@"com.apple.corerepair" code:-94 userInfo:v28];
         }
 
         else
         {
-          v58 = *MEMORY[0x1E696A578];
-          v59 = v25;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-          [v27 errorWithDomain:@"com.apple.corerepair" code:-76 userInfo:v29];
+          v56 = *MEMORY[0x1E696A578];
+          v57 = v25;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+          [v27 errorWithDomain:@"com.apple.corerepair" code:-76 userInfo:v28];
         }
         *error = ;
       }
     }
 
-    v30 = v53[5];
+    v29 = v51[5];
   }
 
   else
@@ -1366,33 +1353,30 @@ LABEL_21:
       [CRPreflight _sendBAARequest:proxySettings:withError:];
     }
 
-    v30 = 0;
+    v29 = 0;
   }
 
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v44, 8);
 
-  _Block_object_dispose(&v52, 8);
-  v31 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v50, 8);
 
-  return v30;
+  return v29;
 }
 
 intptr_t __55__CRPreflight__sendBAARequest_proxySettings_withError___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A578];
-  v10[0] = @"Network XPC call failed";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A578];
+  v9[0] = @"Network XPC call failed";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.corerepair" code:-76 userInfo:v3];
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 void __55__CRPreflight__sendBAARequest_proxySettings_withError___block_invoke_2(uint64_t a1, void *a2, int a3, void *a4)
@@ -1416,22 +1400,22 @@ void __55__CRPreflight__sendBAARequest_proxySettings_withError___block_invoke_2(
 
 - (id)_getVersionInfo:(id)info
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   allHTTPHeaderFields = [info allHTTPHeaderFields];
   v4 = handleForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = allHTTPHeaderFields;
+    v24 = allHTTPHeaderFields;
     _os_log_impl(&dword_1CEDC5000, v4, OS_LOG_TYPE_DEFAULT, "Original Headers: %@", buf, 0xCu);
   }
 
   v5 = [allHTTPHeaderFields objectForKeyedSubscript:@"User-Agent"];
   if (v5)
   {
-    v23 = 0;
-    v6 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"^.*\\(MobileActivation-.*?\\)" options:0 error:&v23];
-    v7 = v23;
+    v22 = 0;
+    v6 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"^.*\\(MobileActivation-.*?\\)" options:0 error:&v22];
+    v7 = v22;
     v8 = v7;
     if (!v6 || v7)
     {
@@ -1474,8 +1458,6 @@ LABEL_17:
 
   v13 = 0;
 LABEL_18:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -1,5 +1,6 @@
 @interface AABRear
 - (AABRear)initWithQueue:(id)queue andGrimaldiFactory:(id)factory;
+- (BOOL)checkSensorEnablementConditions:(float)conditions;
 - (BOOL)shouldUseRLux:(float)lux rLux:(float)rLux;
 - (BOOL)shouldUseRearLuxFrontLux:(float)lux rearLux:(float)rearLux andCap:(float)cap;
 - (void)dealloc;
@@ -90,8 +91,7 @@
 LABEL_54:
         MEMORY[0x1E69E5920](selfCopy);
         selfCopy = 0;
-        v51 = 0;
-        goto LABEL_55;
+        return 0;
       }
     }
 
@@ -216,19 +216,16 @@ LABEL_54:
     _Block_object_dispose(v29, 8);
   }
 
-  v51 = selfCopy;
-LABEL_55:
-  *MEMORY[0x1E69E9840];
-  return v51;
+  return selfCopy;
 }
 
-uint64_t __44__AABRear_initWithQueue_andGrimaldiFactory___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__44__AABRear_initWithQueue_andGrimaldiFactory___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     if (a3)
     {
-      return [*(*(*(result + 32) + 8) + 40) sendNotificationForKey:a2 withValue:a3];
+      return [*(*(result[4] + 8) + 40) sendNotificationForKey:a2 withValue:a3];
     }
   }
 
@@ -251,6 +248,29 @@ uint64_t __44__AABRear_initWithQueue_andGrimaldiFactory___block_invoke(uint64_t 
   v4.receiver = selfCopy;
   v4.super_class = AABRear;
   [(CBModule *)&v4 dealloc:*&v2];
+}
+
+- (BOOL)checkSensorEnablementConditions:(float)conditions
+{
+  if (self->_sensorEnabled)
+  {
+    if (conditions < self->_frontALSThreshold && self->_activationFLux < 0.0)
+    {
+      [(CBRearALSModule *)self->_rearALSModule stopSampling];
+      self->_sensorEnabled = 0;
+      self->_lastFrequency = 0.0;
+    }
+  }
+
+  else if (conditions > self->_frontALSThreshold)
+  {
+    self->_lastFrequency = 1.0;
+    *&v3 = self->_lastFrequency;
+    [(CBRearALSModule *)self->_rearALSModule startSamplingWithFrequency:v3];
+    self->_sensorEnabled = 1;
+  }
+
+  return self->_sensorEnabled;
 }
 
 - (BOOL)shouldUseRLux:(float)lux rLux:(float)rLux
@@ -415,7 +435,6 @@ uint64_t __44__AABRear_initWithQueue_andGrimaldiFactory___block_invoke(uint64_t 
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v17;
 }
 

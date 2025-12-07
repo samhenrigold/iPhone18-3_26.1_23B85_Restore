@@ -23,13 +23,11 @@
 
 - (NSDictionary)_authResults
 {
-  v3 = OBJC_IVAR____TtC14FamilyCircleUI19FAFamilyImageLoader__authResults;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5 = sub_21BE288EC();
+  v2 = sub_21BE288EC();
 
-  return v5;
+  return v2;
 }
 
 - (void)set_authResults:(id)results
@@ -37,7 +35,6 @@
   v4 = sub_21BE2890C();
   v5 = OBJC_IVAR____TtC14FamilyCircleUI19FAFamilyImageLoader__authResults;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -48,13 +45,11 @@
   selfCopy = self;
   sub_21BE25F1C();
 
-  v4 = OBJC_IVAR____TtC14FamilyCircleUI19FAFamilyImageLoader__authResults;
   swift_beginAccess();
-  v5 = *(selfCopy + v4);
 
-  v6 = sub_21BE288EC();
+  v4 = sub_21BE288EC();
 
-  return v6;
+  return v4;
 }
 
 - (void)setAuthResults:(id)results

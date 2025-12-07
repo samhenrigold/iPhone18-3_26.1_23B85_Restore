@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20B9EB928();
+  sub_20B9EB928(selfCopy);
 }
 
 - (_TtC9SeymourUI28PhoneSessionInstructionsView)initWithFrame:(CGRect)frame

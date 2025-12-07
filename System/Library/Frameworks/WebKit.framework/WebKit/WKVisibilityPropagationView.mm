@@ -82,7 +82,7 @@
               v16 = v14;
             }
 
-            v17 = WTF::fastMalloc((16 * v16));
+            v17 = WTF::fastMalloc(v14, (16 * v16));
             p_processesAndInteractions->m_capacity = v16;
             p_processesAndInteractions->m_buffer = v17;
             WTF::VectorMover<false,std::pair<WTF::WeakPtr<WebKit::AuxiliaryProcessProxy,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>,WTF::RetainPtr<objc_object  {objcproto13UIInteraction}*>>>::move(m_buffer, &m_buffer[4 * m_size], v17);

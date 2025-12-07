@@ -12,10 +12,27 @@
 - (int)putCount;
 - (int)size;
 - (void)dealloc;
+- (void)resizeWithInt:(int)int;
 - (void)trimToSizeWithInt:(int)int;
 @end
 
 @implementation AndroidUtilLruCache
+
+- (void)resizeWithInt:(int)int
+{
+  if (int <= 0)
+  {
+    v5 = new_JavaLangIllegalArgumentException_initWithNSString_(@"maxSize <= 0");
+    objc_exception_throw(v5);
+  }
+
+  v3 = *&int;
+  objc_sync_enter(self);
+  self->maxSize_ = v3;
+  objc_sync_exit(self);
+
+  [(AndroidUtilLruCache *)self trimToSizeWithInt:v3];
+}
 
 - (id)getWithId:(id)id
 {
@@ -266,14 +283,14 @@ LABEL_17:
 {
   objc_sync_enter(self);
   v3 = 100 * self->hitCount_ / (self->missCount_ + self->hitCount_);
-  v7[0] = JavaLangInteger_valueOfWithInt_(self->maxSize_);
-  v7[1] = JavaLangInteger_valueOfWithInt_(self->hitCount_);
-  v7[2] = JavaLangInteger_valueOfWithInt_(self->missCount_);
-  v7[3] = JavaLangInteger_valueOfWithInt_(v3);
-  v4 = [IOSObjectArray arrayWithObjects:v7 count:4 type:NSObject_class_()];
-  v5 = NSString_formatWithNSString_withNSObjectArray_(@"LruCache[maxSize=%d,hits=%d,misses=%d,hitRate=%d%%]", v4);
+  v8[0] = JavaLangInteger_valueOfWithInt_(self->maxSize_);
+  v8[1] = JavaLangInteger_valueOfWithInt_(self->hitCount_);
+  v8[2] = JavaLangInteger_valueOfWithInt_(self->missCount_);
+  v9 = JavaLangInteger_valueOfWithInt_(v3);
+  v5 = [IOSObjectArray arrayWithObjects:v8 count:4 type:NSObject_class_(v9, v4)];
+  v6 = NSString_formatWithNSString_withNSObjectArray_(@"LruCache[maxSize=%d,hits=%d,misses=%d,hitRate=%d%%]", v5);
   objc_sync_exit(self);
-  return v5;
+  return v6;
 }
 
 - (void)dealloc

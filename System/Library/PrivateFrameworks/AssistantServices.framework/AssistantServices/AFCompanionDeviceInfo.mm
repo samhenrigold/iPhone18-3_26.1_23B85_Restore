@@ -16,7 +16,7 @@
 
 - (id)buildDictionaryRepresentation
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = v3;
   assistantID = self->_assistantID;
@@ -52,31 +52,31 @@
   if (self->_syncMetadata)
   {
     v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSDictionary count](self->_syncMetadata, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v11 = self->_syncMetadata;
-    v12 = [(NSDictionary *)v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v12 = [(NSDictionary *)v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = *v28;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v28 + 1) + 8 * i);
-          v17 = [(NSDictionary *)self->_syncMetadata objectForKey:v16, v28];
+          v16 = *(*(&v27 + 1) + 8 * i);
+          v17 = [(NSDictionary *)self->_syncMetadata objectForKey:v16, v27];
           [v10 setObject:v17 forKey:v16];
         }
 
-        v13 = [(NSDictionary *)v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v13 = [(NSDictionary *)v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v13);
@@ -86,7 +86,7 @@
     [v4 setObject:v18 forKey:@"syncMetadata"];
   }
 
-  v19 = [MEMORY[0x1E696AD98] numberWithBool:{self->_syncMetadataCapability, v28}];
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:{self->_syncMetadataCapability, v27}];
   [v4 setObject:v19 forKey:@"syncMetadataCapability"];
 
   v20 = [MEMORY[0x1E696AD98] numberWithBool:self->_peerToPeerHandoffCapability];
@@ -112,14 +112,12 @@
 
   v25 = [v4 copy];
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (AFCompanionDeviceInfo)initWithDictionaryRepresentation:(id)representation
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = representationCopy;
   if (representationCopy)
@@ -128,19 +126,7 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v48 = v6;
-    }
-
-    else
-    {
-      v48 = 0;
-    }
-
-    v8 = [v5 objectForKey:@"speechID"];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v47 = v8;
+      v47 = v6;
     }
 
     else
@@ -148,11 +134,11 @@
       v47 = 0;
     }
 
-    v9 = [v5 objectForKey:@"idsIdentifier"];
+    v8 = [v5 objectForKey:@"speechID"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v46 = v9;
+      v46 = v8;
     }
 
     else
@@ -160,11 +146,11 @@
       v46 = 0;
     }
 
-    v10 = [v5 objectForKey:@"productPrefix"];
+    v9 = [v5 objectForKey:@"idsIdentifier"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v45 = v10;
+      v45 = v9;
     }
 
     else
@@ -172,11 +158,11 @@
       v45 = 0;
     }
 
-    v11 = [v5 objectForKey:@"aceHost"];
+    v10 = [v5 objectForKey:@"productPrefix"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v44 = v11;
+      v44 = v10;
     }
 
     else
@@ -184,33 +170,45 @@
       v44 = 0;
     }
 
+    v11 = [v5 objectForKey:@"aceHost"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v43 = v11;
+    }
+
+    else
+    {
+      v43 = 0;
+    }
+
     v12 = [v5 objectForKey:@"syncMetadata"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v43 = v5;
+      v42 = v5;
       v13 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v12, "count")}];
+      v48 = 0u;
       v49 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v52 = 0u;
-      v42 = v12;
+      v41 = v12;
       v14 = v12;
-      v15 = [v14 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v48 objects:v52 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v50;
+        v17 = *v49;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v50 != v17)
+            if (*v49 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v49 + 1) + 8 * i);
+            v19 = *(*(&v48 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -234,15 +232,15 @@
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v49 objects:v53 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v48 objects:v52 count:16];
         }
 
         while (v16);
       }
 
       v22 = [v13 copy];
-      v12 = v42;
-      v5 = v43;
+      v12 = v41;
+      v5 = v42;
     }
 
     else
@@ -326,11 +324,11 @@
       v38 = 0;
     }
 
-    BYTE3(v41) = bOOLValue4;
-    BYTE2(v41) = bOOLValue3;
-    BYTE1(v41) = bOOLValue2;
-    LOBYTE(v41) = bOOLValue;
-    self = [AFCompanionDeviceInfo initWithAssistantID:"initWithAssistantID:speechID:idsIdentifier:productPrefix:aceHost:syncMetadata:syncMetadataCapability:peerToPeerHandoffCapability:muxSupportCapability:meDevice:siriLanguage:companionName:" speechID:v48 idsIdentifier:v47 productPrefix:v46 aceHost:v45 syncMetadata:v44 syncMetadataCapability:v22 peerToPeerHandoffCapability:v41 muxSupportCapability:v36 meDevice:v38 siriLanguage:? companionName:?];
+    BYTE3(v40) = bOOLValue4;
+    BYTE2(v40) = bOOLValue3;
+    BYTE1(v40) = bOOLValue2;
+    LOBYTE(v40) = bOOLValue;
+    self = [AFCompanionDeviceInfo initWithAssistantID:"initWithAssistantID:speechID:idsIdentifier:productPrefix:aceHost:syncMetadata:syncMetadataCapability:peerToPeerHandoffCapability:muxSupportCapability:meDevice:siriLanguage:companionName:" speechID:v47 idsIdentifier:v46 productPrefix:v45 aceHost:v44 syncMetadata:v43 syncMetadataCapability:v22 peerToPeerHandoffCapability:v40 muxSupportCapability:v36 meDevice:v38 siriLanguage:? companionName:?];
 
     selfCopy = self;
   }
@@ -340,7 +338,6 @@
     selfCopy = 0;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

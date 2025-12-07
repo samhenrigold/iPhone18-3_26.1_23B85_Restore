@@ -92,7 +92,7 @@
   v10 = 0u;
   if (cmmDataSource)
   {
-    [cmmDataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(cmmDataSource);
     v4 = v9;
   }
 

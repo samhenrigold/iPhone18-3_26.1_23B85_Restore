@@ -2640,7 +2640,7 @@ LABEL_43:
     {
       v5 = numberOfLines;
       v6 = 0;
-      v15 = v22;
+      v15 = &settings[1];
       do
       {
         v7 = [(NSAttributedString *)v3 attribute:kCTParagraphStyleAttributeName atIndex:[(MRTextRenderer *)self rangeOfGlyphsOnLine:v6 effectiveRange:v15], &v19];

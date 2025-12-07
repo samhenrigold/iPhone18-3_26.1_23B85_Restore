@@ -7,131 +7,127 @@
 
 - (id)modelObjectsAsSAMPCollections:(id)collections
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   v8 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5, v6, v7);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = collectionsCopy;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v25, v29, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v24, v28, 16);
   if (v11)
   {
     v16 = v11;
-    v17 = *v26;
+    v17 = *v25;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v9);
         }
 
-        v19 = objc_msgSend_SAMPCollection(*(*(&v25 + 1) + 8 * i), v12, v13, v14, v15, v25);
+        v19 = objc_msgSend_SAMPCollection(*(*(&v24 + 1) + 8 * i), v12, v13, v14, v15, v24);
         objc_msgSend_addObject_(v8, v20, v19, v21, v22);
       }
 
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v25, v29, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v24, v28, 16);
     }
 
     while (v16);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)performWithCompletion:(id)completion
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  POLogInitIfNeeded();
-  v5 = MEMORY[0x277D86220];
+  POLogInitIfNeeded(completionCopy, v5);
+  v6 = MEMORY[0x277D86220];
   if (POLogContextCommand)
   {
-    v6 = POLogContextCommand;
+    v7 = POLogContextCommand;
   }
 
   else
   {
-    v6 = MEMORY[0x277D86220];
+    v7 = MEMORY[0x277D86220];
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
-    v12 = objc_msgSend_query(self, v8, v9, v10, v11);
-    v72 = 138412290;
-    v73 = v12;
-    _os_log_impl(&dword_23352D000, v7, OS_LOG_TYPE_INFO, "Going to do a basic search for %@", &v72, 0xCu);
+    v8 = v7;
+    v13 = objc_msgSend_query(self, v9, v10, v11, v12);
+    v76 = 138412290;
+    v77 = v13;
+    _os_log_impl(&dword_23352D000, v8, OS_LOG_TYPE_INFO, "Going to do a basic search for %@", &v76, 0xCu);
   }
 
-  v13 = objc_alloc_init(POBasicPodcastAppSearchCompleted);
-  if (objc_msgSend_acceptPodcastCollections(self, v14, v15, v16, v17))
+  v14 = objc_alloc_init(POBasicPodcastAppSearchCompleted);
+  if (objc_msgSend_acceptPodcastCollections(self, v15, v16, v17, v18))
   {
-    v22 = objc_msgSend_sharedInstance(PODataSource, v18, v19, v20, v21);
-    v27 = objc_msgSend_query(self, v23, v24, v25, v26);
-    v32 = objc_msgSend_maxResults(self, v28, v29, v30, v31);
-    v35 = objc_msgSend_podcastCollectionsMatchingString_maxResults_(v22, v33, v27, v32, v34);
+    v23 = objc_msgSend_sharedInstance(PODataSource, v19, v20, v21, v22);
+    v28 = objc_msgSend_query(self, v24, v25, v26, v27);
+    v33 = objc_msgSend_maxResults(self, v29, v30, v31, v32);
+    v36 = objc_msgSend_podcastCollectionsMatchingString_maxResults_(v23, v34, v28, v33, v35);
 
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(v37, v38);
     if (POLogContextCommand)
     {
-      v36 = POLogContextCommand;
+      v39 = POLogContextCommand;
     }
 
     else
     {
-      v36 = v5;
+      v39 = v6;
     }
 
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
-      v72 = 138412290;
-      v73 = v35;
-      _os_log_impl(&dword_23352D000, v36, OS_LOG_TYPE_INFO, "Data source podcasts are %@", &v72, 0xCu);
+      v76 = 138412290;
+      v77 = v36;
+      _os_log_impl(&dword_23352D000, v39, OS_LOG_TYPE_INFO, "Data source podcasts are %@", &v76, 0xCu);
     }
 
-    v40 = objc_msgSend_modelObjectsAsSAMPCollections_(self, v37, v35, v38, v39);
-    objc_msgSend_setPodcastCollections_(v13, v41, v40, v42, v43);
+    v43 = objc_msgSend_modelObjectsAsSAMPCollections_(self, v40, v36, v41, v42);
+    objc_msgSend_setPodcastCollections_(v14, v44, v43, v45, v46);
   }
 
-  if (objc_msgSend_acceptPodcastStations(self, v18, v19, v20, v21))
+  if (objc_msgSend_acceptPodcastStations(self, v19, v20, v21, v22))
   {
-    v48 = objc_msgSend_sharedInstance(PODataSource, v44, v45, v46, v47);
-    v53 = objc_msgSend_query(self, v49, v50, v51, v52);
-    v58 = objc_msgSend_maxResults(self, v54, v55, v56, v57);
-    v61 = objc_msgSend_podcastStationsMatchingString_maxResults_(v48, v59, v53, v58, v60);
+    v51 = objc_msgSend_sharedInstance(PODataSource, v47, v48, v49, v50);
+    v56 = objc_msgSend_query(self, v52, v53, v54, v55);
+    v61 = objc_msgSend_maxResults(self, v57, v58, v59, v60);
+    v64 = objc_msgSend_podcastStationsMatchingString_maxResults_(v51, v62, v56, v61, v63);
 
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(v65, v66);
     if (POLogContextCommand)
     {
-      v62 = POLogContextCommand;
+      v67 = POLogContextCommand;
     }
 
     else
     {
-      v62 = v5;
+      v67 = v6;
     }
 
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
     {
-      v72 = 138412290;
-      v73 = v61;
-      _os_log_impl(&dword_23352D000, v62, OS_LOG_TYPE_INFO, "Data source stations are %@", &v72, 0xCu);
+      v76 = 138412290;
+      v77 = v64;
+      _os_log_impl(&dword_23352D000, v67, OS_LOG_TYPE_INFO, "Data source stations are %@", &v76, 0xCu);
     }
 
-    v66 = objc_msgSend_modelObjectsAsSAMPCollections_(self, v63, v61, v64, v65);
-    objc_msgSend_setPodcastStations_(v13, v67, v66, v68, v69);
+    v71 = objc_msgSend_modelObjectsAsSAMPCollections_(self, v68, v64, v69, v70);
+    objc_msgSend_setPodcastStations_(v14, v72, v71, v73, v74);
   }
 
-  v70 = objc_msgSend_dictionary(v13, v44, v45, v46, v47);
-  completionCopy[2](completionCopy, v70);
-
-  v71 = *MEMORY[0x277D85DE8];
+  v75 = objc_msgSend_dictionary(v14, v47, v48, v49, v50);
+  completionCopy[2](completionCopy, v75);
 }
 
 @end

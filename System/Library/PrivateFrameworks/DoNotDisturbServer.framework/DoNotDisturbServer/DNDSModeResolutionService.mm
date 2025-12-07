@@ -8,34 +8,34 @@
 
 - (id)recalculateModeForSnapshot:(id)snapshot
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   assertions = [snapshotCopy assertions];
   v5 = [assertions count];
 
   if (v5)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     assertions2 = [snapshotCopy assertions];
-    v7 = [assertions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v7 = [assertions2 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(assertions2);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           activeAssertionUUIDs = [snapshotCopy activeAssertionUUIDs];
           uUID = [v12 UUID];
           v15 = [activeAssertionUUIDs containsObject:uUID];
@@ -48,7 +48,7 @@
           }
         }
 
-        v8 = [assertions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v8 = [assertions2 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v8);
@@ -67,8 +67,6 @@
 
   details = [v9 details];
   modeIdentifier = [details modeIdentifier];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return modeIdentifier;
 }

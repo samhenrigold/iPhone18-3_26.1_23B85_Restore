@@ -8,15 +8,15 @@
 
 - (BOOL)uninstallPolicies
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!self || !objc_getProperty(self, a2, 8, 1))
   {
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v9 = 136315138;
-      v10 = "[NEAppSidecarPolicySession uninstallPolicies]";
-      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null self.policySession", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[NEAppSidecarPolicySession uninstallPolicies]";
+      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null self.policySession", &v8, 0xCu);
     }
 
     goto LABEL_8;
@@ -29,22 +29,21 @@
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v9) = 0;
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to uninstall Sidecar policies", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to uninstall Sidecar policies", &v8, 2u);
     }
 
 LABEL_8:
 
-    v4 = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (BOOL)installPolicies
 {
-  v153 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   if (self && objc_getProperty(self, a2, 8, 1))
   {
     v3 = [NEProcessInfo copyUUIDsForExecutable:@"/usr/libexec/rapportd"];
@@ -54,7 +53,7 @@ LABEL_8:
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v152 = @"/usr/libexec/rapportd";
+        v151 = @"/usr/libexec/rapportd";
         _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "failed to get rapportd UUID %@", buf, 0xCu);
       }
 
@@ -70,7 +69,7 @@ LABEL_8:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v152 = @"/usr/libexec/SidecarRelay";
+        v151 = @"/usr/libexec/SidecarRelay";
         _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "failed to get sidecarrelay UUID %@", buf, 0xCu);
       }
 
@@ -82,34 +81,34 @@ LABEL_8:
     v6 = v5;
     if (v5)
     {
-      v127 = v5;
-      v124 = v3;
-      v125 = v4;
-      v146 = 0u;
-      v147 = 0u;
-      v144 = 0u;
+      v126 = v5;
+      v123 = v3;
+      v124 = v4;
       v145 = 0u;
+      v146 = 0u;
+      v143 = 0u;
+      v144 = 0u;
       obj = v3;
-      v7 = [obj countByEnumeratingWithState:&v144 objects:v150 count:16];
+      v7 = [obj countByEnumeratingWithState:&v143 objects:v149 count:16];
       if (v7)
       {
         v8 = v7;
         v9 = 0;
         v10 = 0;
         v11 = 0;
-        v132 = *v145;
+        v131 = *v144;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
             v13 = v11;
             v14 = v10;
-            if (*v145 != v132)
+            if (*v144 != v131)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v144 + 1) + 8 * i);
+            v15 = *(*(&v143 + 1) + 8 * i);
             v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
             v17 = [NEPolicyCondition effectiveApplication:v15];
             [v16 addObject:v17];
@@ -129,25 +128,25 @@ LABEL_8:
               v31 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
               if (is_debug_logging_enabled)
               {
-                v3 = v124;
-                v6 = v127;
+                v3 = v123;
+                v6 = v126;
                 if (v31)
                 {
                   *buf = 138412290;
-                  v152 = v10;
+                  v151 = v10;
                   _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
                 }
               }
 
               else
               {
-                v3 = v124;
-                v6 = v127;
+                v3 = v123;
+                v6 = v126;
                 if (v31)
                 {
-                  v119 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
+                  v118 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
                   *buf = 138412290;
-                  v152 = v119;
+                  v151 = v118;
                   _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
                 }
               }
@@ -163,7 +162,7 @@ LABEL_80:
               if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v152 = v10;
+                v151 = v10;
                 _os_log_debug_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEBUG, "Added policy: %@", buf, 0xCu);
               }
             }
@@ -172,7 +171,7 @@ LABEL_80:
             {
               v24 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
               *buf = 138412290;
-              v152 = v24;
+              v151 = v24;
               _os_log_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_INFO, "Added policy: %@", buf, 0xCu);
             }
 
@@ -185,7 +184,7 @@ LABEL_80:
             v9 = (v9 + 1);
           }
 
-          v8 = [obj countByEnumeratingWithState:&v144 objects:v150 count:16];
+          v8 = [obj countByEnumeratingWithState:&v143 objects:v149 count:16];
           if (v8)
           {
             continue;
@@ -202,27 +201,27 @@ LABEL_80:
         v11 = 0;
       }
 
-      v142 = 0u;
-      v143 = 0u;
-      v140 = 0u;
       v141 = 0u;
-      v126 = v127;
-      v129 = [v126 countByEnumeratingWithState:&v140 objects:v149 count:16];
-      if (v129)
+      v142 = 0u;
+      v139 = 0u;
+      v140 = 0u;
+      v125 = v126;
+      v128 = [v125 countByEnumeratingWithState:&v139 objects:v148 count:16];
+      if (v128)
       {
-        obja = *v141;
+        obja = *v140;
         while (2)
         {
           v32 = 0;
           do
           {
             v33 = v9;
-            if (*v141 != obja)
+            if (*v140 != obja)
             {
-              objc_enumerationMutation(v126);
+              objc_enumerationMutation(v125);
             }
 
-            v34 = *(*(&v140 + 1) + 8 * v32);
+            v34 = *(*(&v139 + 1) + 8 * v32);
             v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
             v36 = [NEPolicyCondition effectiveApplication:v34];
             [v35 addObject:v36];
@@ -242,23 +241,23 @@ LABEL_80:
             v45 = v44;
             if (!v42)
             {
-              v116 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
-              v3 = v124;
+              v115 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
+              v3 = v123;
               if (v43)
               {
-                if (v116)
+                if (v115)
                 {
                   *buf = 138412290;
-                  v152 = v40;
+                  v151 = v40;
                   _os_log_error_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
                 }
               }
 
-              else if (v116)
+              else if (v115)
               {
-                v121 = [(NEPolicy *)v40 descriptionWithIndent:0 options:2];
+                v120 = [(NEPolicy *)v40 descriptionWithIndent:0 options:2];
                 *buf = 138412290;
-                v152 = v121;
+                v151 = v120;
                 _os_log_error_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
               }
 
@@ -267,13 +266,13 @@ LABEL_80:
               goto LABEL_111;
             }
 
-            v133 = v32;
+            v132 = v32;
             if (v43)
             {
               if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v152 = v40;
+                v151 = v40;
                 _os_log_debug_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_DEBUG, "Added policy: %@", buf, 0xCu);
               }
             }
@@ -282,7 +281,7 @@ LABEL_80:
             {
               v46 = [(NEPolicy *)v40 descriptionWithIndent:0 options:2];
               *buf = 138412290;
-              v152 = v46;
+              v151 = v46;
               _os_log_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_INFO, "Added policy: %@", buf, 0xCu);
             }
 
@@ -305,7 +304,7 @@ LABEL_80:
 
             v56 = [NEPolicyResult passWithFlags:2];
 
-            v128 = v33;
+            v127 = v33;
             v57 = v33 + 1;
             v58 = [[NEPolicy alloc] initWithOrder:(v33 + 1) result:v56 conditions:v45];
 
@@ -315,26 +314,26 @@ LABEL_80:
             v63 = v62;
             if (!v60)
             {
-              v117 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
+              v116 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
               if (v61)
               {
-                v3 = v124;
-                if (v117)
+                v3 = v123;
+                if (v116)
                 {
                   *buf = 138412290;
-                  v152 = v58;
+                  v151 = v58;
                   _os_log_error_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
                 }
               }
 
               else
               {
-                v3 = v124;
-                if (v117)
+                v3 = v123;
+                if (v116)
                 {
-                  v122 = [(NEPolicy *)v58 descriptionWithIndent:0 options:2];
+                  v121 = [(NEPolicy *)v58 descriptionWithIndent:0 options:2];
                   *buf = 138412290;
-                  v152 = v122;
+                  v151 = v121;
                   _os_log_error_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
                 }
               }
@@ -347,7 +346,7 @@ LABEL_80:
               if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v152 = v58;
+                v151 = v58;
                 _os_log_debug_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_DEBUG, "Added policy: %@", buf, 0xCu);
               }
             }
@@ -356,7 +355,7 @@ LABEL_80:
             {
               v64 = [(NEPolicy *)v58 descriptionWithIndent:0 options:2];
               *buf = 138412290;
-              v152 = v64;
+              v151 = v64;
               _os_log_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_INFO, "Added policy: %@", buf, 0xCu);
             }
 
@@ -388,33 +387,33 @@ LABEL_80:
             v80 = v79;
             if (!v77)
             {
-              v118 = os_log_type_enabled(v79, OS_LOG_TYPE_ERROR);
+              v117 = os_log_type_enabled(v79, OS_LOG_TYPE_ERROR);
               if (v78)
               {
-                if (v118)
+                if (v117)
                 {
                   *buf = 138412290;
-                  v152 = v10;
+                  v151 = v10;
                   _os_log_error_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
                 }
               }
 
-              else if (v118)
+              else if (v117)
               {
-                v123 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
+                v122 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
                 *buf = 138412290;
-                v152 = v123;
+                v151 = v122;
                 _os_log_error_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
               }
 
               v58 = v10;
               v56 = v11;
-              v3 = v124;
+              v3 = v123;
 LABEL_111:
 
               v30 = 0;
               v11 = v56;
-              v6 = v127;
+              v6 = v126;
               goto LABEL_83;
             }
 
@@ -423,7 +422,7 @@ LABEL_111:
               if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v152 = v10;
+                v151 = v10;
                 _os_log_debug_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_DEBUG, "Added policy: %@", buf, 0xCu);
               }
             }
@@ -432,7 +431,7 @@ LABEL_111:
             {
               v81 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
               *buf = 138412290;
-              v152 = v81;
+              v151 = v81;
               _os_log_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_INFO, "Added policy: %@", buf, 0xCu);
             }
 
@@ -442,14 +441,14 @@ LABEL_111:
             v86 = [v84 numberWithUnsignedInteger:v77];
             [v85 addObject:v86];
 
-            v32 = v133 + 1;
+            v32 = v132 + 1;
             v9 = (v75 + 1);
           }
 
-          while (v129 != v133 + 1);
-          v9 = (v128 + 3);
-          v129 = [v126 countByEnumeratingWithState:&v140 objects:v149 count:16];
-          if (v129)
+          while (v128 != v132 + 1);
+          v9 = (v127 + 3);
+          v128 = [v125 countByEnumeratingWithState:&v139 objects:v148 count:16];
+          if (v128)
           {
             continue;
           }
@@ -458,28 +457,28 @@ LABEL_111:
         }
       }
 
-      v138 = 0u;
-      v139 = 0u;
-      v136 = 0u;
       v137 = 0u;
-      v134 = v4;
-      v87 = [v134 countByEnumeratingWithState:&v136 objects:v148 count:16];
+      v138 = 0u;
+      v135 = 0u;
+      v136 = 0u;
+      v133 = v4;
+      v87 = [v133 countByEnumeratingWithState:&v135 objects:v147 count:16];
       if (v87)
       {
         v88 = v87;
-        v89 = *v137;
+        v89 = *v136;
         while (2)
         {
           for (j = 0; j != v88; ++j)
           {
             v91 = v11;
             v92 = v10;
-            if (*v137 != v89)
+            if (*v136 != v89)
             {
-              objc_enumerationMutation(v134);
+              objc_enumerationMutation(v133);
             }
 
-            v93 = *(*(&v136 + 1) + 8 * j);
+            v93 = *(*(&v135 + 1) + 8 * j);
             v94 = objc_alloc_init(MEMORY[0x1E695DF70]);
             v95 = [NEPolicyCondition effectiveApplication:v93];
             [v94 addObject:v95];
@@ -496,35 +495,35 @@ LABEL_111:
             v101 = v100;
             if (!v98)
             {
-              v115 = os_log_type_enabled(v100, OS_LOG_TYPE_ERROR);
+              v114 = os_log_type_enabled(v100, OS_LOG_TYPE_ERROR);
               if (v99)
               {
-                v3 = v124;
-                v4 = v125;
-                v6 = v127;
-                if (v115)
+                v3 = v123;
+                v4 = v124;
+                v6 = v126;
+                if (v114)
                 {
                   *buf = 138412290;
-                  v152 = v10;
+                  v151 = v10;
                   _os_log_error_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
                 }
               }
 
               else
               {
-                v3 = v124;
-                v4 = v125;
-                v6 = v127;
-                if (v115)
+                v3 = v123;
+                v4 = v124;
+                v6 = v126;
+                if (v114)
                 {
-                  v120 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
+                  v119 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
                   *buf = 138412290;
-                  v152 = v120;
+                  v151 = v119;
                   _os_log_error_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_ERROR, "Failed to add policy: %@", buf, 0xCu);
                 }
               }
 
-              v112 = v134;
+              v112 = v133;
               goto LABEL_80;
             }
 
@@ -533,7 +532,7 @@ LABEL_111:
               if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v152 = v10;
+                v151 = v10;
                 _os_log_debug_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_DEBUG, "Added policy: %@", buf, 0xCu);
               }
             }
@@ -542,7 +541,7 @@ LABEL_111:
             {
               v102 = [(NEPolicy *)v10 descriptionWithIndent:0 options:2];
               *buf = 138412290;
-              v152 = v102;
+              v151 = v102;
               _os_log_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_INFO, "Added policy: %@", buf, 0xCu);
             }
 
@@ -555,7 +554,7 @@ LABEL_111:
             v9 = (v9 + 1);
           }
 
-          v88 = [v134 countByEnumeratingWithState:&v136 objects:v148 count:16];
+          v88 = [v133 countByEnumeratingWithState:&v135 objects:v147 count:16];
           if (v88)
           {
             continue;
@@ -568,11 +567,11 @@ LABEL_111:
       v108 = [objc_getProperty(selfa v108];
       v110 = ne_log_obj();
       v111 = v110;
-      v3 = v124;
+      v3 = v123;
       if (v108)
       {
-        v4 = v125;
-        v6 = v127;
+        v4 = v124;
+        v6 = v126;
         if (os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -583,8 +582,8 @@ LABEL_111:
         goto LABEL_83;
       }
 
-      v4 = v125;
-      v6 = v127;
+      v4 = v124;
+      v6 = v126;
       if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -617,14 +616,13 @@ LABEL_85:
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v152 = "[NEAppSidecarPolicySession installPolicies]";
+    v151 = "[NEAppSidecarPolicySession installPolicies]";
     _os_log_fault_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_FAULT, "%s called with null self.policySession", buf, 0xCu);
   }
 
   v30 = 0;
 LABEL_86:
 
-  v113 = *MEMORY[0x1E69E9840];
   return v30;
 }
 

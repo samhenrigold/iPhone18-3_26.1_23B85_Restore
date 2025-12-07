@@ -66,7 +66,7 @@
 
 - (id)requestedAdDataParameter
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2, v3, v4);
   v6 = MEMORY[0x277CCABB0];
   v11 = objc_msgSend_sharedInstance(ADSearchAdsSettings, v7, v8, v9, v10);
@@ -88,9 +88,9 @@
   v61 = objc_msgSend_requestedIcon(v56, v57, v58, v59, v60);
   objc_msgSend_setObject_forKey_(v5, v62, v61, @"icon", v63);
 
-  v81 = 0;
-  v65 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v64, v5, 0, &v81);
-  v66 = v81;
+  v80 = 0;
+  v65 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v64, v5, 0, &v80);
+  v66 = v80;
   v67 = 0;
   if (!v66)
   {
@@ -100,7 +100,7 @@
     if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v83 = v71;
+      v82 = v71;
       _os_log_impl(&dword_264E42000, v72, OS_LOG_TYPE_DEFAULT, "JSON String for requested Ad Data: %@", buf, 0xCu);
     }
 
@@ -108,8 +108,6 @@
     objc_msgSend_setKey_(v67, v73, @"requestedTemplate", v74, v75);
     objc_msgSend_setValue_(v67, v76, v71, v77, v78);
   }
-
-  v79 = *MEMORY[0x277D85DE8];
 
   return v67;
 }

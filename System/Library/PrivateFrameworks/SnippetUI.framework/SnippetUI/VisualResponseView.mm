@@ -89,8 +89,9 @@
 
 - (void)setIsInAmbient:(BOOL)ambient withScaleFactor:(double)factor
 {
+  ambientCopy = ambient;
   selfCopy = self;
-  VisualResponseView.setIsInAmbient(_:withScaleFactor:)(factor);
+  VisualResponseView.setIsInAmbient(_:withScaleFactor:)(ambientCopy, factor);
 }
 
 - (void)setPlayerState:(int64_t)state aceId:(id)id
@@ -104,7 +105,7 @@
 - (void)postSiriEvent:(int64_t)event
 {
   selfCopy = self;
-  VisualResponseView.postSiriEvent(_:)();
+  VisualResponseView.postSiriEvent(_:)(event);
 }
 
 - (void)setCurrentIdiom:(int64_t)idiom
@@ -116,7 +117,7 @@
 - (double)snippetWidth
 {
   selfCopy = self;
-  v3 = VisualResponseView.snippetWidth.getter();
+  v3 = VisualResponseView.snippetWidth.getter(selfCopy);
 
   return v3;
 }
@@ -130,7 +131,7 @@
 
 - (VRXInteractionDelegate)interactionDelegate
 {
-  v2 = VisualResponseView.interactionDelegate.getter();
+  v2 = VisualResponseView.interactionDelegate.getter(self);
 
   return v2;
 }
@@ -139,22 +140,21 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  VisualResponseView.interactionDelegate.setter();
+  VisualResponseView.interactionDelegate.setter(delegate);
 }
 
 - (int64_t)backgroundMaterial
 {
   selfCopy = self;
-  v3 = VisualResponseView.backgroundMaterial.getter();
+  v3 = VisualResponseView.backgroundMaterial.getter(selfCopy);
 
   return v3;
 }
 
 - (void)setBackgroundMaterial:(int64_t)material
 {
-  materialCopy = material;
   selfCopy = self;
-  VisualResponseView.backgroundMaterial.setter(materialCopy);
+  VisualResponseView.backgroundMaterial.setter(material);
 }
 
 - (BOOL)containsComponentsWithAction
@@ -168,7 +168,7 @@
 - (BOOL)requestsKeyWindow
 {
   selfCopy = self;
-  VisualResponseView.requestsKeyWindow.getter();
+  VisualResponseView.requestsKeyWindow.getter(selfCopy);
 
   return 0;
 }
@@ -176,15 +176,16 @@
 - (BOOL)isPresentedWithSmartDialogText
 {
   selfCopy = self;
-  v3 = VisualResponseView.isPresentedWithSmartDialogText.getter();
+  v3 = VisualResponseView.isPresentedWithSmartDialogText.getter(selfCopy);
 
   return v3 & 1;
 }
 
 - (void)setIsPresentedWithSmartDialogText:(BOOL)text
 {
+  textCopy = text;
   selfCopy = self;
-  VisualResponseView.isPresentedWithSmartDialogText.setter();
+  VisualResponseView.isPresentedWithSmartDialogText.setter(textCopy);
 }
 
 - (NSString)description

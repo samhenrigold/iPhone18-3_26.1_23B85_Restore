@@ -4,6 +4,7 @@
 + (id)sharedInstance;
 + (int64_t)getBoolForKey:(id)key defaultValue:(BOOL)value;
 + (int64_t)getIntegerForKey:(id)key defaultValue:(int64_t)value;
++ (void)setBoolForKey:(id)key newValue:(BOOL)value;
 - (TRDefaults)init;
 @end
 
@@ -93,6 +94,14 @@ uint64_t __28__TRDefaults_sharedInstance__block_invoke()
   }
 
   return valueCopy;
+}
+
++ (void)setBoolForKey:(id)key newValue:(BOOL)value
+{
+  valueCopy = value;
+  keyCopy = key;
+  sharedDefaults = [self sharedDefaults];
+  [sharedDefaults setBool:valueCopy forKey:keyCopy];
 }
 
 @end

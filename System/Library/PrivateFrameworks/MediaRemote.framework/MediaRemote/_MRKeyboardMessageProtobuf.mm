@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)state;
 - (unint64_t)hash;
@@ -26,40 +27,55 @@
   }
 }
 
+- (id)stateAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A4008[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsState:(id)state
 {
   stateCopy = state;
-  if ([stateCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 0;
   }
 
-  else if ([stateCopy isEqualToString:@"NotEditing"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 1;
   }
 
-  else if ([stateCopy isEqualToString:@"DidBeginEditing"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 2;
   }
 
-  else if ([stateCopy isEqualToString:@"Editing"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 3;
   }
 
-  else if ([stateCopy isEqualToString:@"TextDidChange"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 4;
   }
 
-  else if ([stateCopy isEqualToString:@"DidEndEditing"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 5;
   }
 
-  else if ([stateCopy isEqualToString:@"Response"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 6;
   }
@@ -122,24 +138,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_attributes)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_encryptedTextCyphertext)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -195,7 +210,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_state != *(equalCopy + 6))
@@ -207,7 +221,7 @@
   else if (*(equalCopy + 28))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -220,17 +234,17 @@ LABEL_11:
   encryptedTextCyphertext = self->_encryptedTextCyphertext;
   if (encryptedTextCyphertext | *(equalCopy + 2))
   {
-    v8 = [(NSData *)encryptedTextCyphertext isEqual:?];
+    v7 = [(NSData *)encryptedTextCyphertext isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

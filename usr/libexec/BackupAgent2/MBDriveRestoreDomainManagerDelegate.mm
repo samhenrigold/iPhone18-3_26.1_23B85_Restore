@@ -32,7 +32,7 @@
       v33 = 2112;
       v34 = v12;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=drive-domain-delegate= Creating system container domain for %@ at %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "=drive-domain-delegate= Creating system container domain for %@ at %@", nameCopy, v12);
     }
 
     systemContainersVolumeMountPoint = [v11 systemContainersVolumeMountPoint];
@@ -63,7 +63,7 @@ LABEL_12:
       v33 = 2112;
       v34 = v12;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "=drive-domain-delegate= Creating system shared container domain for %@ at %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "=drive-domain-delegate= Creating system shared container domain for %@ at %@", nameCopy, v12);
     }
 
     systemContainersVolumeMountPoint = [v11 systemContainersVolumeMountPoint];
@@ -115,7 +115,7 @@ LABEL_12:
         *buf = 138412290;
         v32 = dCopy;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "=drive-domain-delegate= Container domain %@ without an entry in manifest properties", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=drive-domain-delegate= Container domain %@ without an entry in manifest properties", dCopy);
       }
 
       domain = 0;

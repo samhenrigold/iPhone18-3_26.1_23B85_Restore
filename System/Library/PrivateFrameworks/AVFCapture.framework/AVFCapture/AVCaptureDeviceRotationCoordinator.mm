@@ -296,6 +296,8 @@ LABEL_12:
           {
             if (dword_1EB3859B8)
             {
+              v15 = 0;
+              v14 = 0;
               os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
               os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
               fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -340,27 +342,26 @@ LABEL_12:
   {
     v6 = [objc_msgSend(referencedObject "context")];
     userInfo = [notification userInfo];
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v8 = getUISSystemReferenceAngleAffectedContextIDsKeySymbolLoc_ptr;
-    v14 = getUISSystemReferenceAngleAffectedContextIDsKeySymbolLoc_ptr;
+    v13 = getUISSystemReferenceAngleAffectedContextIDsKeySymbolLoc_ptr;
     if (!getUISSystemReferenceAngleAffectedContextIDsKeySymbolLoc_ptr)
     {
       v9 = UIKitServicesLibrary();
-      v12[3] = dlsym(v9, "UISSystemReferenceAngleAffectedContextIDsKey");
-      getUISSystemReferenceAngleAffectedContextIDsKeySymbolLoc_ptr = v12[3];
-      v8 = v12[3];
+      v11[3] = dlsym(v9, "UISSystemReferenceAngleAffectedContextIDsKey");
+      getUISSystemReferenceAngleAffectedContextIDsKeySymbolLoc_ptr = v11[3];
+      v8 = v11[3];
     }
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v10, 8);
     if (!v8)
     {
       [AVCaptureDeviceRotationCoordinator _handleSystemReferenceAngleDidChangeNotification:];
     }
 
-    v10 = [userInfo objectForKeyedSubscript:*v8];
-    if ([v10 containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v6)}])
+    if ([objc_msgSend_objectForKeyedSubscript_(userInfo) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v6)}])
     {
       [(AVCaptureDeviceRotationCoordinator *)self _updateVideoRotationAngleForHorizonLevelPreview];
     }
@@ -408,8 +409,8 @@ LABEL_12:
     orientation = [v6 activeInterfaceOrientation];
     if (dword_1EB3859B8)
     {
-      v29 = 0;
-      v28 = OS_LOG_TYPE_DEFAULT;
+      v31 = 0;
+      v30 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -443,29 +444,30 @@ LABEL_15:
 
       else
       {
-        v29 = 0;
-        v28 = OS_LOG_TYPE_DEFAULT;
-        v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v18 = v29;
-        if (os_log_type_enabled(v17, v28))
+        v31 = 0;
+        v30 = OS_LOG_TYPE_DEFAULT;
+        v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v19 = v31;
+        v20 = v30;
+        if (os_log_type_enabled(v18, v30))
         {
-          v19 = v18;
+          v21 = v19;
         }
 
         else
         {
-          v19 = v18 & 0xFFFFFFFE;
+          v21 = v19 & 0xFFFFFFFE;
         }
 
-        if (v19)
+        if (v21)
         {
-          v22 = 136315650;
-          v23 = "[AVCaptureDeviceRotationCoordinator _calculateVideoRotationAngleForHorizonLevelCaptureWithDeviceOrientation:]";
-          v24 = 2114;
+          v23 = 136315650;
+          v24 = "[AVCaptureDeviceRotationCoordinator _calculateVideoRotationAngleForHorizonLevelCaptureWithDeviceOrientation:]";
+          v25 = 2114;
           selfCopy2 = self;
-          v26 = 1024;
-          LODWORD(v27) = orientation;
-          _os_log_send_and_compose_impl();
+          v27 = 1024;
+          LODWORD(v28) = orientation;
+          _os_log_send_and_compose_impl(v21, 0, v29, 128, &dword_1A917C000, v18, v20, "<<<< AVCaptureDeviceRotationCoordinator >>>> %s: %{public}@ Unexpected initial device orientation: %d!", &v23, 28);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -528,29 +530,31 @@ LABEL_28:
   {
     if (dword_1EB3859B8)
     {
-      v29 = 0;
-      v28 = OS_LOG_TYPE_DEFAULT;
+      v31 = 0;
+      v30 = OS_LOG_TYPE_DEFAULT;
       v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v15 = v29;
-      if (os_log_type_enabled(v14, v28))
+      v15 = v31;
+      v16 = v30;
+      if (os_log_type_enabled(v14, v30))
       {
-        v16 = v15;
+        v17 = v15;
       }
 
       else
       {
-        v16 = v15 & 0xFFFFFFFE;
+        v17 = v15 & 0xFFFFFFFE;
       }
 
-      if (v16)
+      if (v17)
       {
-        v22 = 136315650;
-        v23 = "[AVCaptureDeviceRotationCoordinator _calculateVideoRotationAngleForHorizonLevelCaptureWithDeviceOrientation:]";
-        v24 = 2114;
+        v23 = 136315650;
+        v24 = "[AVCaptureDeviceRotationCoordinator _calculateVideoRotationAngleForHorizonLevelCaptureWithDeviceOrientation:]";
+        v25 = 2114;
         selfCopy2 = self;
-        v26 = 2048;
-        v27 = videoRotationAngleForHorizonLevelCapture;
-        _os_log_send_and_compose_impl();
+        v27 = 2048;
+        v28 = videoRotationAngleForHorizonLevelCapture;
+        LODWORD(v22) = 32;
+        _os_log_send_and_compose_impl(v17, 0, v29, 128, &dword_1A917C000, v14, v16, "<<<< AVCaptureDeviceRotationCoordinator >>>> %s: %{public}@ videoRotationAngleForHorizonLevelCapture changing to %.1f", &v23, v22);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();

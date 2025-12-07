@@ -67,9 +67,9 @@
   listenerCopy = listener;
   sessionCopy = session;
   queueCopy = queue;
-  v24.receiver = self;
-  v24.super_class = REPHASESoundEvent;
-  v17 = [(REPHASESoundEvent *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = REPHASESoundEvent;
+  v17 = [(REPHASESoundEvent *)&v23 init];
   v18 = v17;
   if (v17)
   {
@@ -88,7 +88,7 @@
     *&v18->_cachedPlaybackSpeed = vneg_f32(0x3F0000003FLL);
     v18->_cachedDirectSendLevel = NAN;
     v18->_soundEventPlayed = 0;
-    re::audio::REPHASESoundPrepareState::create(v21);
+    re::audio::REPHASESoundPrepareState::create();
   }
 
   return 0;
@@ -98,11 +98,11 @@
 {
   engineCopy = engine;
   listenerCopy = listener;
-  v42 = a6;
+  v41 = a6;
   sessionCopy = session;
-  v43.receiver = self;
-  v43.super_class = REPHASESoundEvent;
-  v15 = [(REPHASESoundEvent *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = REPHASESoundEvent;
+  v15 = [(REPHASESoundEvent *)&v42 init];
   v16 = v15;
   if (v15)
   {
@@ -212,7 +212,7 @@
     *&v16->_cachedPlaybackSpeed = vneg_f32(0x3F0000003FLL);
     v16->_cachedDirectSendLevel = NAN;
     v16->_soundEventPlayed = 0;
-    re::audio::REPHASESoundPrepareState::create(v39);
+    re::audio::REPHASESoundPrepareState::create();
   }
 
   return 0;
@@ -727,7 +727,7 @@ LABEL_12:
   {
     if (self->_isGroupPlaybackEvent)
     {
-      sourcePoses = [(REPHASESoundEvent *)self sourcePoses];
+      v3 = objc_msgSend_sourcePoses(self, a2);
       v5 = *location;
       v6 = *&location[8];
       if (*location == *&location[8])
@@ -739,11 +739,11 @@ LABEL_12:
       v47 = v4;
       do
       {
-        v7 = *re::audioLogObjects(sourcePoses);
+        v7 = *re::audioLogObjects(v3);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           v8 = *(self->_prepareState.__ptr_ + 3);
-          re::audio::stringFromPose(v5, &__p);
+          re::audio::stringFromPose(&__p, v5);
           v9 = v53 >= 0 ? &__p : __p;
           buf = v47;
           *buf_4 = v8;
@@ -772,7 +772,7 @@ LABEL_12:
       *&location[16] = v19;
       v55 = v20;
       v56 = v21;
-      re::audio::stringFromPose(location, &__p);
+      re::audio::stringFromPose(&__p, location);
       v22 = v53 >= 0 ? &__p : __p;
       buf = 134218243;
       *buf_4 = v17;
@@ -801,7 +801,7 @@ LABEL_39:
       *&location[16] = v25;
       v55 = v26;
       v56 = v27;
-      re::audio::stringFromPose(location, &__p);
+      re::audio::stringFromPose(&__p, location);
       v28 = v53 >= 0 ? &__p : __p;
       buf = 134218242;
       *buf_4 = v23;
@@ -817,7 +817,7 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  sourcePoses2 = [(REPHASESoundEvent *)self sourcePoses];
+  v10 = objc_msgSend_sourcePoses(self, a2);
   v5 = *location;
   v12 = *&location[8];
   if (*location == *&location[8])
@@ -829,11 +829,11 @@ LABEL_39:
   v47 = v11;
   do
   {
-    v13 = *re::audioLogObjects(sourcePoses2);
+    v13 = *re::audioLogObjects(v10);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(self->_prepareState.__ptr_ + 3);
-      re::audio::stringFromPose(v5, &__p);
+      re::audio::stringFromPose(&__p, v5);
       v15 = v53 >= 0 ? &__p : __p;
       buf = v47;
       *buf_4 = v14;
@@ -867,9 +867,9 @@ LABEL_40:
   {
     if (re::internal::enableSignposts(0, 0))
     {
-      [(REPHASESoundEvent *)self prepareState];
-      [(REPHASESoundEvent *)self prepareState];
-      [(REPHASESoundEvent *)self prepareState];
+      objc_msgSend_prepareState(self);
+      objc_msgSend_prepareState(self);
+      objc_msgSend_prepareState(self);
       kdebug_trace();
       if (*&buf_4[4])
       {
@@ -948,7 +948,7 @@ LABEL_58:
 
       [(REPHASESoundEvent *)self changeToState:1];
       observer = [(REPHASESoundEvent *)self observer];
-      [(REPHASESoundEvent *)self prepareState];
+      objc_msgSend_prepareState(self);
       LODWORD(v43) = *(*location + 192);
       [observer soundDidStartOrResume:self withGain:v43];
       if (*&location[8])
@@ -1103,12 +1103,12 @@ LABEL_15:
 LABEL_18:
   if (re::internal::enableSignposts(0, 0))
   {
-    [*(a1 + 32) prepareState];
+    objc_msgSend_prepareState(*(a1 + 32));
     v17 = [*(a1 + 32) soundEvent];
     [v17 ioStartHostTime];
     v18 = [*(a1 + 32) soundEvent];
     [v18 preparedHostTime];
-    [*(a1 + 32) prepareState];
+    objc_msgSend_prepareState(*(a1 + 32));
     kdebug_trace();
     if (v34)
     {
@@ -1123,8 +1123,8 @@ LABEL_18:
 
   if (re::internal::enableSignposts(0, 0))
   {
-    [*(a1 + 32) prepareState];
-    [*(a1 + 32) prepareState];
+    objc_msgSend_prepareState(*(a1 + 32));
+    objc_msgSend_prepareState(*(a1 + 32));
     kdebug_trace();
     if (v34)
     {
@@ -1252,7 +1252,7 @@ LABEL_20:
     v13 = *re::audioLogObjects(self);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(REPHASESoundEvent *)selfCopy prepareState];
+      objc_msgSend_prepareState(selfCopy);
       v16 = *(v20 + 24);
       *buf = 134218240;
       *&buf[4] = v16;
@@ -1278,7 +1278,7 @@ LABEL_20:
         v14 = *re::audioLogObjects(self);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          [(REPHASESoundEvent *)selfCopy prepareState];
+          objc_msgSend_prepareState(selfCopy);
           v18 = *(v20 + 24);
           *buf = 134218240;
           *&buf[4] = v18;
@@ -1304,7 +1304,7 @@ LABEL_22:
       observer = *re::audioLogObjects(self);
       if (os_log_type_enabled(observer, OS_LOG_TYPE_DEBUG))
       {
-        [(REPHASESoundEvent *)selfCopy prepareState];
+        objc_msgSend_prepareState(selfCopy);
         v17 = *(v20 + 24);
         *buf = 134218240;
         *&buf[4] = v17;
@@ -1329,7 +1329,7 @@ LABEL_6:
     v4 = *re::audioLogObjects(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(REPHASESoundEvent *)selfCopy prepareState];
+      objc_msgSend_prepareState(selfCopy);
       v19 = *(v20 + 24);
       *buf = 134218240;
       *&buf[4] = v19;
@@ -1367,7 +1367,7 @@ LABEL_6:
 
     [(REPHASESoundEvent *)selfCopy changeToState:1];
     observer = [(REPHASESoundEvent *)selfCopy observer];
-    [(REPHASESoundEvent *)selfCopy prepareState];
+    objc_msgSend_prepareState(selfCopy);
     LODWORD(v12) = *(*buf + 192);
     [observer soundDidStartOrResume:selfCopy withGain:v12];
     if (*&buf[8])
@@ -1746,7 +1746,7 @@ LABEL_23:
 LABEL_15:
   std::recursive_mutex::unlock((v5 + 136));
 LABEL_16:
-  v21 = [v5 changeToState:{*(a1 + 48), *v25, *&v25[16], *&v25[24], v26}];
+  v21 = [v5 changeToState:{*(a1 + 48), *v25, *&v25[8], *&v25[24], v26}];
   v22 = v21;
   if (v21 != 12)
   {
@@ -1874,7 +1874,7 @@ LABEL_21:
 
   if (!playbackStateChangeHandler)
   {
-    [(REPHASESoundEvent *)selfCopy prepareState];
+    objc_msgSend_prepareState(selfCopy);
     [(REPHASESoundEvent *)selfCopy2 setPlaybackStateChangeHandler:*(buf.value + 320)];
     if (*&buf.timescale)
     {
@@ -1894,8 +1894,8 @@ LABEL_21:
       goto LABEL_15;
     }
 
-    [(REPHASESoundEvent *)selfCopy2 prepareState];
-    [(REPHASESoundEvent *)selfCopy2 prepareState];
+    objc_msgSend_prepareState(selfCopy2);
+    objc_msgSend_prepareState(selfCopy2);
     [(NSString *)selfCopy2->_assetIdentifier longLongValue];
     kdebug_trace();
   }
@@ -1907,9 +1907,9 @@ LABEL_21:
       goto LABEL_15;
     }
 
-    [(REPHASESoundEvent *)selfCopy2 prepareState];
-    [(REPHASESoundEvent *)selfCopy2 prepareState];
-    [(REPHASESoundEvent *)selfCopy2 prepareState];
+    objc_msgSend_prepareState(selfCopy2);
+    objc_msgSend_prepareState(selfCopy2);
+    objc_msgSend_prepareState(selfCopy2);
     kdebug_trace();
     if (v57)
     {
@@ -1940,7 +1940,7 @@ LABEL_15:
   v47 = &selfCopy2;
   if ([(REPHASESoundEvent *)selfCopy2 isGroupPlaybackEvent])
   {
-    [(REPHASESoundEvent *)selfCopy2 prepareStates];
+    objc_msgSend_prepareStates(selfCopy2);
     epoch = buf.epoch;
     if (buf.epoch)
     {
@@ -1971,7 +1971,7 @@ LABEL_15:
 
   else
   {
-    [(REPHASESoundEvent *)selfCopy2 prepareState];
+    objc_msgSend_prepareState(selfCopy2);
     [REPHASESoundEvent prepareWithCompletion:]::$_0::operator()(&v47, v45);
     if (v46)
     {
@@ -1979,7 +1979,7 @@ LABEL_15:
     }
   }
 
-  [(REPHASESoundEvent *)selfCopy2 prepareState];
+  objc_msgSend_prepareState(selfCopy2);
   v12 = *(buf.value + 102);
   if (*&buf.timescale)
   {
@@ -1995,7 +1995,7 @@ LABEL_15:
     soundEvent2 = [(REPHASESoundEvent *)selfCopy2 soundEvent];
     [soundEvent2 prepareWithCompletion:v9];
 
-    [(REPHASESoundEvent *)selfCopy2 prepareState];
+    objc_msgSend_prepareState(selfCopy2);
     v56 = *(buf.value + 216);
     v16 = *(buf.value + 228);
     LODWORD(v57) = *(buf.value + 224);
@@ -2067,7 +2067,7 @@ LABEL_42:
 
     if (v12)
     {
-      [(REPHASESoundEvent *)selfCopy2 prepareState];
+      objc_msgSend_prepareState(selfCopy2);
       v32 = *&buf.timescale;
       *(buf.value + 102) = 0;
       if (v32)
@@ -2104,7 +2104,7 @@ LABEL_42:
       v36 = *re::audioLogObjects(v23);
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        [(REPHASESoundEvent *)selfCopy2 prepareState];
+        objc_msgSend_prepareState(selfCopy2);
         v39 = *(time2.value + 24);
         LODWORD(buf.value) = 134218242;
         *(&buf.value + 4) = v39;
@@ -2123,7 +2123,7 @@ LABEL_42:
 
     if (v12)
     {
-      [(REPHASESoundEvent *)selfCopy2 prepareState];
+      objc_msgSend_prepareState(selfCopy2);
       v24 = *&buf.timescale;
       *(buf.value + 102) = 0;
       if (v24)
@@ -2220,10 +2220,10 @@ void __43__REPHASESoundEvent_prepareWithCompletion___block_invoke(uint64_t a1, u
     {
       if (v9)
       {
-        [*(a1 + 32) prepareState];
+        objc_msgSend_prepareState(*(a1 + 32));
         v10 = [WeakRetained soundEvent];
         [v10 preparedHostTime];
-        [*(a1 + 32) prepareState];
+        objc_msgSend_prepareState(*(a1 + 32));
         [WeakRetained[36] longLongValue];
         kdebug_trace();
         if (v17)
@@ -2243,11 +2243,11 @@ LABEL_19:
 
     else if (v9)
     {
-      [*(a1 + 32) prepareState];
+      objc_msgSend_prepareState(*(a1 + 32));
       v10 = [WeakRetained soundEvent];
       [v10 preparedHostTime];
-      [*(a1 + 32) prepareState];
-      [*(a1 + 32) prepareState];
+      objc_msgSend_prepareState(*(a1 + 32));
+      objc_msgSend_prepareState(*(a1 + 32));
       kdebug_trace();
       if (v16)
       {
@@ -2301,14 +2301,14 @@ LABEL_28:
 - (void)prepareWithCompletion:
 {
   v30 = *MEMORY[0x1E69E9840];
-  [**self prepareState];
+  objc_msgSend_prepareState(**self);
   v4 = __exp10f(*(*v21 + 180) / 20.0);
   if (*&v21[8])
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](*&v21[8]);
   }
 
-  [**self prepareState];
+  objc_msgSend_prepareState(**self);
   v5 = __exp10f(*(*v21 + 184) / 20.0);
   v6 = *&v21[8];
   if (*&v21[8])
@@ -2403,7 +2403,7 @@ void __43__REPHASESoundEvent_prepareWithCompletion___block_invoke_44(uint64_t a1
 {
   std::recursive_mutex::lock(&self->_commandQueueMutex);
   v3 = 1;
-  std::deque<REPHASESoundEventCommandState>::emplace_back<REPHASESoundEventCommand>(&self->_commandQueue.c.__map_.__first_, &v3);
+  std::deque<REPHASESoundEventCommandState>::emplace_back<REPHASESoundEventCommand>(&self->_commandQueue, &v3);
   [(REPHASESoundEvent *)self _updateCommandQueue];
 
   std::recursive_mutex::unlock(&self->_commandQueueMutex);
@@ -2413,7 +2413,7 @@ void __43__REPHASESoundEvent_prepareWithCompletion___block_invoke_44(uint64_t a1
 {
   std::recursive_mutex::lock(&self->_commandQueueMutex);
   v3 = 0;
-  std::deque<REPHASESoundEventCommandState>::emplace_back<REPHASESoundEventCommand>(&self->_commandQueue.c.__map_.__first_, &v3);
+  std::deque<REPHASESoundEventCommandState>::emplace_back<REPHASESoundEventCommand>(&self->_commandQueue, &v3);
   [(REPHASESoundEvent *)self _updateCommandQueue];
 
   std::recursive_mutex::unlock(&self->_commandQueueMutex);
@@ -2423,7 +2423,7 @@ void __43__REPHASESoundEvent_prepareWithCompletion___block_invoke_44(uint64_t a1
 {
   std::recursive_mutex::lock(&self->_commandQueueMutex);
   v3 = 3;
-  std::deque<REPHASESoundEventCommandState>::emplace_back<REPHASESoundEventCommand>(&self->_commandQueue.c.__map_.__first_, &v3);
+  std::deque<REPHASESoundEventCommandState>::emplace_back<REPHASESoundEventCommand>(&self->_commandQueue, &v3);
   [(REPHASESoundEvent *)self _updateCommandQueue];
 
   std::recursive_mutex::unlock(&self->_commandQueueMutex);
@@ -2454,7 +2454,7 @@ void __43__REPHASESoundEvent_prepareWithCompletion___block_invoke_44(uint64_t a1
   if ([(REPHASESoundEvent *)self isGroupPlaybackEvent])
   {
     v13 = 3;
-    std::deque<REPHASESoundEventCommandState>::emplace_back<REPHASESoundEventCommand>(&self->_commandQueue.c.__map_.__first_, &v13);
+    std::deque<REPHASESoundEventCommandState>::emplace_back<REPHASESoundEventCommand>(&self->_commandQueue, &v13);
   }
 
   std::recursive_mutex::lock(&self->_commandQueueMutex);
@@ -2474,7 +2474,7 @@ void __43__REPHASESoundEvent_prepareWithCompletion___block_invoke_44(uint64_t a1
   v10 = size + self->_commandQueue.c.__start_;
   if (v8 == v10)
   {
-    std::deque<REPHASESoundEventCommandState>::__add_back_capacity(&self->_commandQueue.c.__map_.__first_);
+    std::deque<REPHASESoundEventCommandState>::__add_back_capacity(&self->_commandQueue);
     size = self->_commandQueue.c.__size_;
     begin = self->_commandQueue.c.__map_.__begin_;
     v10 = self->_commandQueue.c.__start_ + size;
@@ -2523,9 +2523,9 @@ void __43__REPHASESoundEvent_prepareWithCompletion___block_invoke_44(uint64_t a1
       v6 = MEMORY[0x1E696AEC0];
       externalStream2 = [(REPHASESoundEvent *)self externalStream];
       externalStreamController2 = [(REPHASESoundEvent *)self externalStreamController];
-      [(REPHASESoundEvent *)self prepareState];
+      objc_msgSend_prepareState(self);
       v9 = *(v19 + 24);
-      [(REPHASESoundEvent *)self prepareState];
+      objc_msgSend_prepareState(self);
       v10 = [v6 stringWithFormat:@"<REPHASESoundEvent: %p, stream=%@, controller=%@, token=%llu, assetID=%llu>", self, externalStream2, externalStreamController2, v9, *(v17 + 64)];
       if (v18)
       {
@@ -2569,9 +2569,9 @@ LABEL_14:
 
 LABEL_15:
   v14 = MEMORY[0x1E696AEC0];
-  [(REPHASESoundEvent *)self prepareState];
+  objc_msgSend_prepareState(self);
   v15 = *(v19 + 24);
-  [(REPHASESoundEvent *)self prepareState];
+  objc_msgSend_prepareState(self);
   v10 = [v14 stringWithFormat:@"<REPHASESoundEvent: %p, object=%@, token=%llu, assetID=%llu>", self, externalStream2, v15, *(v17 + 64)];
   if (v18)
   {

@@ -425,50 +425,8 @@ LABEL_10:
   if (record)
   {
     v7 = ABRecordCopyValue(record, kABPersonExternalIdentifierProperty);
-    if ([v7 length])
+    if ([v7 length] || (-[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 1 || -[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 2 || -[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 3) && (v8 = ABRecordCopyValue(-[_CardDAVActionsABLegacyHandler testRecord](self, "testRecord"), kABPersonFirstNameProperty), v9 = ABRecordCopyValue(record, kABPersonFirstNameProperty), v10 = v9 != 0, v9, v8, (v8 == 0) == v10) || (-[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 1 || -[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 2 || -[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 3) && (v11 = ABRecordCopyValue(-[_CardDAVActionsABLegacyHandler testRecord](self, "testRecord"), kABPersonLastNameProperty), v12 = ABRecordCopyValue(record, kABPersonLastNameProperty), v13 = v12 != 0, v12, v11, (v11 == 0) == v13) || (-[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 1 || self->_matchMode == 2) && (v14 = ABRecordCopyValue(-[_CardDAVActionsABLegacyHandler testRecord](self, "testRecord"), kABPersonMiddleNameProperty), v15 = ABRecordCopyValue(record, kABPersonMiddleNameProperty), v16 = v15 != 0, v15, v14, (v14 == 0) == v16) || (-[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 1 || -[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 2 || -[_CardDAVActionsABLegacyHandler matchMode](self, "matchMode") == 3) && (v17 = ABRecordCopyValue(-[_CardDAVActionsABLegacyHandler testRecord](self, "testRecord"), kABPersonSuffixProperty), v18 = ABRecordCopyValue(record, kABPersonSuffixProperty), v19 = v18 != 0, v18, v17, (v17 == 0) == v19))
     {
-      goto LABEL_19;
-    }
-
-    if ([(_CardDAVActionsABLegacyHandler *)self matchMode]== 1 || [(_CardDAVActionsABLegacyHandler *)self matchMode]== 2 || [(_CardDAVActionsABLegacyHandler *)self matchMode]== 3)
-    {
-      v8 = ABRecordCopyValue([(_CardDAVActionsABLegacyHandler *)self testRecord], kABPersonFirstNameProperty);
-      v9 = ABRecordCopyValue(record, kABPersonFirstNameProperty);
-      v10 = v9 != 0;
-
-      if ((v8 == 0) == v10)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    if ([(_CardDAVActionsABLegacyHandler *)self matchMode]== 1 || [(_CardDAVActionsABLegacyHandler *)self matchMode]== 2 || [(_CardDAVActionsABLegacyHandler *)self matchMode]== 3)
-    {
-      v11 = ABRecordCopyValue([(_CardDAVActionsABLegacyHandler *)self testRecord], kABPersonLastNameProperty);
-      v12 = ABRecordCopyValue(record, kABPersonLastNameProperty);
-      v13 = v12 != 0;
-
-      if ((v11 == 0) == v13)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    if ([(_CardDAVActionsABLegacyHandler *)self matchMode]== 1 || self->_matchMode == 2)
-    {
-      v14 = ABRecordCopyValue([(_CardDAVActionsABLegacyHandler *)self testRecord], kABPersonMiddleNameProperty);
-      v15 = ABRecordCopyValue(record, kABPersonMiddleNameProperty);
-      v16 = v15 != 0;
-
-      if ((v14 == 0) == v16)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    if (([(_CardDAVActionsABLegacyHandler *)self matchMode]== 1 || [(_CardDAVActionsABLegacyHandler *)self matchMode]== 2 || [(_CardDAVActionsABLegacyHandler *)self matchMode]== 3) && (v17 = ABRecordCopyValue([(_CardDAVActionsABLegacyHandler *)self testRecord], kABPersonSuffixProperty), v18 = ABRecordCopyValue(record, kABPersonSuffixProperty), v19 = v18 != 0, v18, v17, (v17 == 0) == v19))
-    {
-LABEL_19:
       v20 = 1;
     }
 

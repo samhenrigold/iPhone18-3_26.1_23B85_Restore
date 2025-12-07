@@ -49,7 +49,7 @@ LABEL_8:
 
 - (BOOL)prepareRecoveryMoverWithError:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = [SKLastPartitions alloc];
   disk = [(SKDiskResizerBase *)self disk];
   v7 = [(SKLastPartitions *)v5 initWithDisk:disk];
@@ -73,9 +73,9 @@ LABEL_8:
     v31 = SKGetOSLog();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v42 = 136315138;
-      v43 = "[SKDiskImageResizerBase prepareRecoveryMoverWithError:]";
-      _os_log_impl(&dword_26BBB8000, v31, OS_LOG_TYPE_ERROR, "%s: The requested size to resize is smaller than the recovery partition", &v42, 0xCu);
+      v41 = 136315138;
+      v42 = "[SKDiskImageResizerBase prepareRecoveryMoverWithError:]";
+      _os_log_impl(&dword_26BBB8000, v31, OS_LOG_TYPE_ERROR, "%s: The requested size to resize is smaller than the recovery partition", &v41, 0xCu);
     }
 
     v30 = [SKError failWithSKErrorCode:257 error:error];
@@ -114,15 +114,15 @@ LABEL_12:
       recoveryPart5 = [(SKLastPartitions *)v7 recoveryPart];
       startLocation2 = [recoveryPart5 startLocation];
       recoveryPart6 = [(SKLastPartitions *)v7 recoveryPart];
-      v42 = 136315906;
-      v43 = "[SKDiskImageResizerBase prepareRecoveryMoverWithError:]";
-      v44 = 2048;
-      v45 = startLocation2;
-      v46 = 2048;
-      v47 = v14;
-      v48 = 2048;
+      v41 = 136315906;
+      v42 = "[SKDiskImageResizerBase prepareRecoveryMoverWithError:]";
+      v43 = 2048;
+      v44 = startLocation2;
+      v45 = 2048;
+      v46 = v14;
+      v47 = 2048;
       unformattedSize2 = [recoveryPart6 unformattedSize];
-      _os_log_impl(&dword_26BBB8000, v21, OS_LOG_TYPE_DEFAULT, "%s: Recovery partition current offset %lld, new offset %lld, size %lld, need to perform a 2-step move", &v42, 0x2Au);
+      _os_log_impl(&dword_26BBB8000, v21, OS_LOG_TYPE_DEFAULT, "%s: Recovery partition current offset %lld, new offset %lld, size %lld, need to perform a 2-step move", &v41, 0x2Au);
     }
 
     recoveryPart7 = [(SKLastPartitions *)v7 recoveryPart];
@@ -142,17 +142,17 @@ LABEL_12:
   }
 
   recoveryPart10 = [(SKLastPartitions *)v7 recoveryPart];
-  v35 = [SKPartitionTable partitionIDFromDisk:recoveryPart10];
+  v34 = [SKPartitionTable partitionIDFromDisk:recoveryPart10];
 
-  if (v35)
+  if (v34)
   {
-    v36 = [SKRecoveryMoverInfo alloc];
+    v35 = [SKRecoveryMoverInfo alloc];
     recoveryPart11 = [(SKLastPartitions *)v7 recoveryPart];
     startLocation4 = [recoveryPart11 startLocation];
     recoveryPart12 = [(SKLastPartitions *)v7 recoveryPart];
-    v40 = -[SKRecoveryMoverInfo initWithSrcOffset:dstOffset:length:partitionID:](v36, "initWithSrcOffset:dstOffset:length:partitionID:", startLocation4, v14, [recoveryPart12 unformattedSize], v35);
+    v39 = -[SKRecoveryMoverInfo initWithSrcOffset:dstOffset:length:partitionID:](v35, "initWithSrcOffset:dstOffset:length:partitionID:", startLocation4, v14, [recoveryPart12 unformattedSize], v34);
     recoveryMoverInfo = self->_recoveryMoverInfo;
-    self->_recoveryMoverInfo = v40;
+    self->_recoveryMoverInfo = v39;
 
     v30 = 1;
   }
@@ -163,7 +163,6 @@ LABEL_12:
   }
 
 LABEL_16:
-  v32 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -225,26 +224,26 @@ LABEL_16:
 
 - (id)volumeResize:(id *)resize
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = dispatch_semaphore_create(0);
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__2;
-  v30 = __Block_byref_object_dispose__2;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__2;
+  v29 = __Block_byref_object_dispose__2;
+  v30 = 0;
   disk = [(SKDiskResizerBase *)self disk];
   requestedSize = [(SKDiskResizerBase *)self requestedSize];
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __39__SKDiskImageResizerBase_volumeResize___block_invoke;
-  v23 = &unk_279D1F8B8;
-  v25 = &v26;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __39__SKDiskImageResizerBase_volumeResize___block_invoke;
+  v22 = &unk_279D1F8B8;
+  v24 = &v25;
   v8 = v5;
-  v24 = v8;
-  v9 = [disk resizeToSize:requestedSize completionBlock:&v20];
+  v23 = v8;
+  v9 = [disk resizeToSize:requestedSize completionBlock:&v19];
 
-  v10 = [(SKDiskResizerBase *)self resizeError:v20];
+  v10 = [(SKDiskResizerBase *)self resizeError:v19];
   LODWORD(disk) = v10 == 0;
 
   if (disk)
@@ -254,22 +253,22 @@ LABEL_16:
   }
 
   dispatch_semaphore_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
-  if (v27[5])
+  if (v26[5])
   {
     v12 = SKGetOSLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v27[5];
+      v13 = v26[5];
       *buf = 136315394;
-      v33 = "[SKDiskImageResizerBase volumeResize:]";
-      v34 = 2112;
-      v35 = v13;
+      v32 = "[SKDiskImageResizerBase volumeResize:]";
+      v33 = 2112;
+      v34 = v13;
       _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_DEFAULT, "%s: Resize failed: %@", buf, 0x16u);
     }
 
     if (resize)
     {
-      *resize = v27[5];
+      *resize = v26[5];
     }
 
     eventFromSize = [(SKDiskResizerBase *)self rollbackResize:resize];
@@ -282,9 +281,9 @@ LABEL_16:
     {
       disk2 = [(SKDiskResizerBase *)self disk];
       *buf = 136315394;
-      v33 = "[SKDiskImageResizerBase volumeResize:]";
-      v34 = 2112;
-      v35 = disk2;
+      v32 = "[SKDiskImageResizerBase volumeResize:]";
+      v33 = 2112;
+      v34 = disk2;
       _os_log_impl(&dword_26BBB8000, v15, OS_LOG_TYPE_DEFAULT, "%s: %@ resized successfully", buf, 0x16u);
     }
 
@@ -293,8 +292,7 @@ LABEL_16:
 
   v17 = eventFromSize;
 
-  _Block_object_dispose(&v26, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
 
   return v17;
 }
@@ -308,16 +306,16 @@ void __39__SKDiskImageResizerBase_volumeResize___block_invoke(uint64_t a1, void 
 
 - (id)imageResize:(id *)resize
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = SKGetOSLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     image = [(SKDiskImageResizerBase *)self image];
-    v23 = 136315394;
-    v24 = "[SKDiskImageResizerBase imageResize:]";
-    v25 = 2112;
-    v26 = image;
-    _os_log_impl(&dword_26BBB8000, v5, OS_LOG_TYPE_DEFAULT, "%s: Resizing disk image %@", &v23, 0x16u);
+    v22 = 136315394;
+    v23 = "[SKDiskImageResizerBase imageResize:]";
+    v24 = 2112;
+    v25 = image;
+    _os_log_impl(&dword_26BBB8000, v5, OS_LOG_TYPE_DEFAULT, "%s: Resizing disk image %@", &v22, 0x16u);
   }
 
   disk = [(SKDiskResizerBase *)self disk];
@@ -341,11 +339,11 @@ void __39__SKDiskImageResizerBase_volumeResize___block_invoke(uint64_t a1, void 
   v15 = SKGetOSLog();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 136315394;
-    v24 = "[SKDiskImageResizerBase imageResize:]";
-    v25 = 2048;
-    v26 = v14;
-    _os_log_impl(&dword_26BBB8000, v15, OS_LOG_TYPE_DEFAULT, "%s: Resized disk image to new size %lld", &v23, 0x16u);
+    v22 = 136315394;
+    v23 = "[SKDiskImageResizerBase imageResize:]";
+    v24 = 2048;
+    v25 = v14;
+    _os_log_impl(&dword_26BBB8000, v15, OS_LOG_TYPE_DEFAULT, "%s: Resized disk image to new size %lld", &v22, 0x16u);
   }
 
   if (v14)
@@ -377,14 +375,12 @@ LABEL_9:
     eventFromSize = [(SKDiskResizerBase *)self rollbackResize:resize];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return eventFromSize;
 }
 
 - (id)moveRecovery:(id *)recovery
 {
-  v84[2] = *MEMORY[0x277D85DE8];
+  v83[2] = *MEMORY[0x277D85DE8];
   recoveryMoverInfo = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
 
   if (!recoveryMoverInfo)
@@ -414,7 +410,7 @@ LABEL_22:
     if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v76 = "[SKDiskImageResizerBase moveRecovery:]";
+      v75 = "[SKDiskImageResizerBase moveRecovery:]";
       _os_log_impl(&dword_26BBB8000, v46, OS_LOG_TYPE_ERROR, "%s: Failed creating MediaKit reference for reading", buf, 0xCu);
     }
 
@@ -422,11 +418,11 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v83[0] = @"Shared Writer";
-  v83[1] = @"Writable";
-  v84[0] = MEMORY[0x277CBEC38];
-  v84[1] = MEMORY[0x277CBEC38];
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:2];
+  v82[0] = @"Shared Writer";
+  v82[1] = @"Writable";
+  v83[0] = MEMORY[0x277CBEC38];
+  v83[1] = MEMORY[0x277CBEC38];
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:2];
   disk3 = [(SKDiskResizerBase *)self disk];
   v15 = [SKMediaKit newMediaRefForDisk:disk3 options:v13 error:recovery];
 
@@ -434,7 +430,7 @@ LABEL_22:
   v17 = v16;
   if (v15)
   {
-    v67 = v13;
+    v66 = v13;
     recoveryCopy = recovery;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
@@ -445,58 +441,58 @@ LABEL_22:
       srcOffset = [v21 srcOffset];
       recoveryMoverInfo3 = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
       *buf = 136315906;
-      v76 = "[SKDiskImageResizerBase moveRecovery:]";
-      v77 = 2048;
-      v78 = v19;
-      v79 = 2048;
-      v80 = srcOffset;
-      v81 = 2048;
+      v75 = "[SKDiskImageResizerBase moveRecovery:]";
+      v76 = 2048;
+      v77 = v19;
+      v78 = 2048;
+      v79 = srcOffset;
+      v80 = 2048;
       dstOffset = [recoveryMoverInfo3 dstOffset];
       _os_log_impl(&dword_26BBB8000, v17, OS_LOG_TYPE_DEFAULT, "%s: Moving recovery partition of size %lld from offset %lld to %lld...", buf, 0x2Au);
 
       v15 = v20;
     }
 
-    v73[0] = @"Instruction Code";
+    v72[0] = @"Instruction Code";
     v24 = [MEMORY[0x277CCABB0] numberWithInt:1];
-    v74[0] = v24;
-    v74[1] = v12;
-    v68 = v12;
-    v73[1] = @"Source Device";
-    v73[2] = @"Target Device";
-    v66 = v15;
-    v74[2] = v15;
-    v73[3] = @"Source Offset";
+    v73[0] = v24;
+    v73[1] = v12;
+    v67 = v12;
+    v72[1] = @"Source Device";
+    v72[2] = @"Target Device";
+    v65 = v15;
+    v73[2] = v15;
+    v72[3] = @"Source Offset";
     v25 = MEMORY[0x277CCABB0];
     recoveryMoverInfo4 = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
     v27 = getSectorSize;
     v28 = [v25 numberWithUnsignedLongLong:{objc_msgSend(recoveryMoverInfo4, "srcOffset") / getSectorSize}];
-    v74[3] = v28;
-    v73[4] = @"Target Offset";
+    v73[3] = v28;
+    v72[4] = @"Target Offset";
     v29 = MEMORY[0x277CCABB0];
     recoveryMoverInfo5 = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
     v31 = [v29 numberWithUnsignedLongLong:{objc_msgSend(recoveryMoverInfo5, "dstOffset") / getSectorSize}];
-    v74[4] = v31;
-    v73[5] = @"Block Count";
+    v73[4] = v31;
+    v72[5] = @"Block Count";
     v32 = MEMORY[0x277CCABB0];
     recoveryMoverInfo6 = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
     v34 = [v32 numberWithUnsignedLongLong:{objc_msgSend(recoveryMoverInfo6, "length") / v27}];
-    v74[5] = v34;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:6];
+    v73[5] = v34;
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:6];
 
     v36 = v35;
-    v71[0] = @"Block Size";
+    v70[0] = @"Block Size";
     v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v27];
-    v72[0] = v37;
-    v72[1] = &unk_287C9A640;
-    v71[1] = @"Buffer Size";
-    v71[2] = @"Buffer Count";
-    v72[2] = &unk_287C9A658;
-    v71[3] = @"Instructions";
-    v70 = v35;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
-    v72[3] = v38;
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:4];
+    v71[0] = v37;
+    v71[1] = &unk_287C9A640;
+    v70[1] = @"Buffer Size";
+    v70[2] = @"Buffer Count";
+    v71[2] = &unk_287C9A658;
+    v70[3] = @"Instructions";
+    v69 = v35;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+    v71[3] = v38;
+    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:4];
 
     v40 = IOJobSetup();
     if (v40)
@@ -504,13 +500,13 @@ LABEL_22:
       v41 = v40;
       v42 = SKGetOSLog();
       v43 = recoveryCopy;
-      v44 = v67;
+      v44 = v66;
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v76 = "[SKDiskImageResizerBase moveRecovery:]";
-        v77 = 1024;
-        LODWORD(v78) = v41;
+        v75 = "[SKDiskImageResizerBase moveRecovery:]";
+        v76 = 1024;
+        LODWORD(v77) = v41;
         v45 = "%s: IOJobSetup failed, err=%d";
 LABEL_18:
         _os_log_impl(&dword_26BBB8000, v42, OS_LOG_TYPE_ERROR, v45, buf, 0x12u);
@@ -524,7 +520,7 @@ LABEL_18:
       v43 = recoveryCopy;
       if (!v41)
       {
-        v65 = v36;
+        v64 = v36;
         recoveryMoverInfo7 = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
         dstOffset2 = [recoveryMoverInfo7 dstOffset];
 
@@ -536,34 +532,23 @@ LABEL_18:
         recoveryMoverInfo10 = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
         [recoveryMoverInfo10 setSrcOffset:dstOffset2];
 
-        v58 = [SKPartitionTable alloc];
+        v57 = [SKPartitionTable alloc];
         disk4 = [(SKDiskResizerBase *)self disk];
-        v60 = [(SKPartitionTable *)v58 initWithDisk:disk4 error:recoveryCopy];
+        v59 = [(SKPartitionTable *)v57 initWithDisk:disk4 error:recoveryCopy];
 
-        v44 = v67;
-        if (!v60)
-        {
-          goto LABEL_29;
-        }
-
-        recoveryMoverInfo11 = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
-        partitionID = [recoveryMoverInfo11 partitionID];
-        recoveryMoverInfo12 = [(SKDiskImageResizerBase *)self recoveryMoverInfo];
-        v64 = -[SKPartitionTable resizePartitionID:size:offset:error:](v60, "resizePartitionID:size:offset:error:", partitionID, [recoveryMoverInfo12 length], dstOffset2, recoveryCopy);
-
-        if (v64)
+        v44 = v66;
+        if (v59 && (-[SKDiskImageResizerBase recoveryMoverInfo](self, "recoveryMoverInfo"), v60 = objc_claimAutoreleasedReturnValue(), [v60 partitionID], v61 = objc_claimAutoreleasedReturnValue(), -[SKDiskImageResizerBase recoveryMoverInfo](self, "recoveryMoverInfo"), v62 = objc_claimAutoreleasedReturnValue(), v63 = -[SKPartitionTable resizePartitionID:size:offset:error:](v59, "resizePartitionID:size:offset:error:", v61, objc_msgSend(v62, "length"), dstOffset2, recoveryCopy), v62, v61, v60, v63))
         {
           v49 = 1;
         }
 
         else
         {
-LABEL_29:
           v43 = [(SKDiskResizerBase *)self rollbackResize:recoveryCopy];
           v49 = 0;
         }
 
-        v36 = v65;
+        v36 = v64;
 
 LABEL_20:
         if (!v49)
@@ -575,13 +560,13 @@ LABEL_20:
       }
 
       v42 = SKGetOSLog();
-      v44 = v67;
+      v44 = v66;
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v76 = "[SKDiskImageResizerBase moveRecovery:]";
-        v77 = 1024;
-        LODWORD(v78) = v41;
+        v75 = "[SKDiskImageResizerBase moveRecovery:]";
+        v76 = 1024;
+        LODWORD(v77) = v41;
         v45 = "%s: Recovery partition blocks copy failed, err=%d";
         goto LABEL_18;
       }
@@ -596,21 +581,20 @@ LABEL_20:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v76 = "[SKDiskImageResizerBase moveRecovery:]";
+    v75 = "[SKDiskImageResizerBase moveRecovery:]";
     _os_log_impl(&dword_26BBB8000, v17, OS_LOG_TYPE_ERROR, "%s: Failed creating MediaKit reference for writing", buf, 0xCu);
   }
 
   v43 = [(SKDiskResizerBase *)self rollbackResize:recovery];
 
 LABEL_23:
-  v50 = *MEMORY[0x277D85DE8];
 
   return v43;
 }
 
 - (id)fitToSize:(id *)size
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   disk = [(SKDiskResizerBase *)self disk];
   type = [disk type];
   v7 = [type isEqualToString:kSKDiskTypeUninitalized[0]];
@@ -626,13 +610,13 @@ LABEL_23:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       disk2 = [(SKDiskResizerBase *)self disk];
-      v20 = 136315650;
-      v21 = "[SKDiskImageResizerBase fitToSize:]";
-      v22 = 2112;
-      v23 = disk2;
-      v24 = 2048;
+      v19 = 136315650;
+      v20 = "[SKDiskImageResizerBase fitToSize:]";
+      v21 = 2112;
+      v22 = disk2;
+      v23 = 2048;
       requestedSize = [(SKDiskResizerBase *)self requestedSize];
-      _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_DEFAULT, "%s: Fitting media of %@ to %llu", &v20, 0x20u);
+      _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_DEFAULT, "%s: Fitting media of %@ to %llu", &v19, 0x20u);
     }
 
     v11 = +[SKError frameworkBundle];
@@ -657,8 +641,6 @@ LABEL_23:
 
     eventFromSize = eventFromSize2;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return eventFromSize;
 }

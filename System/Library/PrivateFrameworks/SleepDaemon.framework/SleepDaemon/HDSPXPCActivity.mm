@@ -30,7 +30,7 @@
 
 - (BOOL)deferIfNecessary
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   activity = [(HDSPXPCActivity *)self activity];
 
   if (activity)
@@ -51,13 +51,13 @@
         {
 LABEL_9:
 
-          goto LABEL_10;
+          return activity;
         }
 
         name = [(HDSPXPCActivity *)self name];
-        v12 = 138543362;
-        v13 = name;
-        _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "XPC activity was deferred (%{public}@)", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = name;
+        _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "XPC activity was deferred (%{public}@)", &v11, 0xCu);
       }
 
       else
@@ -68,9 +68,9 @@ LABEL_9:
         }
 
         name = [(HDSPXPCActivity *)self name];
-        v12 = 138543362;
-        v13 = name;
-        _os_log_error_impl(&dword_269B11000, v8, OS_LOG_TYPE_ERROR, "Failed to defer XPC activity (%{public}@)", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = name;
+        _os_log_error_impl(&dword_269B11000, v8, OS_LOG_TYPE_ERROR, "Failed to defer XPC activity (%{public}@)", &v11, 0xCu);
       }
 
       goto LABEL_9;
@@ -79,8 +79,6 @@ LABEL_9:
     LOBYTE(activity) = 0;
   }
 
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
   return activity;
 }
 

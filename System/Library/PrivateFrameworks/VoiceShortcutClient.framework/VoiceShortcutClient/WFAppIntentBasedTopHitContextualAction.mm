@@ -249,7 +249,7 @@ LABEL_38:
 
 - (WFAppIntentBasedTopHitContextualAction)initWithAction:(id)action appBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier authenticationPolicy:(int64_t)policy associatedAppBundleIdentifier:(id)appBundleIdentifier parameterValue:(id)value displayString:(id)string title:(id)self0 subtitle:(id)self1 primaryColor:(unint64_t)self2 icon:(id)self3 accessoryIcon:(id)self4 namedQueryInfo:(id)self5
 {
-  v57[2] = *MEMORY[0x1E69E9840];
+  v56[2] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
@@ -270,22 +270,22 @@ LABEL_38:
     [currentHandler handleFailureInMethod:a2 object:self file:@"WFAppIntentBasedTopHitContextualAction.m" lineNumber:46 description:{@"Invalid parameter not satisfying: %@", @"action"}];
   }
 
-  v57[0] = identifierCopy;
+  v56[0] = identifierCopy;
   identifier = [actionCopy identifier];
-  v57[1] = identifier;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
+  v56[1] = identifier;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
   v26 = [v25 componentsJoinedByString:@"."];
 
   if (v23)
   {
-    v56[0] = v26;
+    v55[0] = v26;
     identifier2 = [v23 identifier];
-    v56[1] = identifier2;
+    v55[1] = identifier2;
     value = [v23 value];
     [value value];
     v30 = v29 = identifierCopy;
-    v56[2] = v30;
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:3];
+    v55[2] = v30;
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:3];
     v32 = [v31 componentsJoinedByString:@":"];
 
     identifierCopy = v29;
@@ -314,13 +314,12 @@ LABEL_38:
     v39 = v34;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v34;
 }
 
 - (id)uniqueIdentifier
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   parameterValue = [(WFAppIntentBasedTopHitContextualAction *)self parameterValue];
 
   identifier = [(WFContextualAction *)self identifier];
@@ -329,18 +328,16 @@ LABEL_38:
   {
     parameterValue2 = [(WFAppIntentBasedTopHitContextualAction *)self parameterValue];
     identifier2 = [parameterValue2 identifier];
-    v15[1] = identifier2;
+    v14[1] = identifier2;
     parameterValue3 = [(WFAppIntentBasedTopHitContextualAction *)self parameterValue];
     value = [parameterValue3 value];
     v9Value = [value value];
-    v15[2] = v9Value;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
+    v14[2] = v9Value;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
     v12 = [v11 componentsJoinedByString:@":"];
 
     v5 = v12;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

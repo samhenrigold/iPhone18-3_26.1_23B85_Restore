@@ -7,7 +7,7 @@
 
 - (id)generateOutputUUIDForAction:(id)action
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   action = [(WFInputMigrationUUIDProvider *)self action];
 
@@ -30,9 +30,9 @@
   v12 = [v10 combineContentsOfPropertyListObject:identifier];
 
   v13 = [v10 combineInteger:position];
-  v23 = 0;
-  v14 = WFKernelBootTime(&v23);
-  v15 = v23;
+  v22 = 0;
+  v14 = WFKernelBootTime(&v22);
+  v15 = v22;
   v16 = [v10 combineInteger:v14];
   [v10 finalize];
   if (v15)
@@ -41,17 +41,15 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v25 = "WFActionBootDeterministicID";
-      v26 = 2112;
-      v27 = v15;
+      v24 = "WFActionBootDeterministicID";
+      v25 = 2112;
+      v26 = v15;
       _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_FAULT, "%s Failed to get kernel boot time for deterministic output ID generation: %@", buf, 0x16u);
     }
   }
 
   v18 = WFUUIDv4FromInteger();
   uUIDString = [v18 UUIDString];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return uUIDString;
 }

@@ -126,7 +126,7 @@ LABEL_8:
 
 - (id)tokenWaitingActivationWithContent:(id)content error:(id *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   contentCopy = content;
   v7 = contentCopy;
   if (contentCopy)
@@ -137,7 +137,6 @@ LABEL_8:
     errorCopy = error;
     v11 = [MEMORY[0x1E695DF88] dataWithLength:self->_ciphersuiteModulusByteCount];
     v12 = [MEMORY[0x1E695DF88] dataWithLength:self->_ciphersuiteModulusByteCount];
-    ciphersuite = self->_ciphersuite;
     [v8 bytes];
     [v8 length];
     [v11 mutableBytes];
@@ -150,10 +149,10 @@ LABEL_8:
       if (errorCopy)
       {
         v14 = MEMORY[0x1E696ABC0];
-        v21 = @"corecrypto_error";
+        v19 = @"corecrypto_error";
         v15 = [MEMORY[0x1E696AD98] numberWithInteger:{v13, v10}];
-        v22[0] = v15;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        v20[0] = v15;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
         *errorCopy = [v14 errorWithDomain:@"com.apple.cryptokit.rsabssa" code:3 userInfo:v16];
       }
 
@@ -182,8 +181,6 @@ LABEL_8:
   v8 = 0;
   v9 = 0;
 LABEL_14:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

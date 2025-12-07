@@ -99,15 +99,15 @@ void __74__MPNowPlayingSession_playerPictureInPictureEnabledDidChangeNotificatio
   }
 }
 
-uint64_t __74__MPNowPlayingSession_playerPictureInPictureEnabledDidChangeNotification___block_invoke_2(uint64_t result, char a2)
+void *__74__MPNowPlayingSession_playerPictureInPictureEnabledDidChangeNotification___block_invoke_2(void *result, char a2)
 {
-  v3 = *(result + 32);
+  v3 = result[4];
   if ((*(v3 + 8) & 1) == 0)
   {
     v4 = result;
     *(v3 + 27) = a2;
     CanBecomeActivePlayer = MRMediaRemoteCanBecomeActivePlayer();
-    v6 = *(v4 + 32);
+    v6 = v4[4];
 
     return [v6 setCanBecomeActive:CanBecomeActivePlayer];
   }
@@ -296,13 +296,11 @@ void __57__MPNowPlayingSession_activePlayerDidChangeNotification___block_invoke(
   v9 = [v8 numberWithFloat:?];
   [v7 setObject:v9 forKeyedSubscript:@"MPNowPlayingInfoPropertyPlaybackRate"];
 
-  v23 = 0uLL;
-  v24 = 0;
-  if (!firstObject || ([firstObject currentTime], (~HIDWORD(v23) & 0x11) != 0))
+  v21 = 0uLL;
+  v22 = 0;
+  if (!firstObject || (objc_msgSend_currentTime(firstObject), (~HIDWORD(v21) & 0x11) != 0))
   {
-    v20 = v23;
-    v21 = v24;
-    [(MPNowPlayingSession *)self netTimeForGrossTime:&v20];
+    objc_msgSend_netTimeForGrossTime_(self, v21, v22);
     Seconds = CMTimeGetSeconds(&time);
     [(MPNowPlayingSession *)self currentAssetNetDuration];
     v14 = v13;
@@ -401,7 +399,7 @@ void __43__MPNowPlayingSession_netTimeForGrossTime___block_invoke(uint64_t a1, v
   v7 = v6;
   if (v6)
   {
-    [v6 timeRange];
+    objc_msgSend_timeRange(v6);
   }
 
   else
@@ -415,7 +413,7 @@ void __43__MPNowPlayingSession_netTimeForGrossTime___block_invoke(uint64_t a1, v
     memset(&range, 0, 24);
     if (v7)
     {
-      [v7 timeRange];
+      objc_msgSend_timeRange(v7);
     }
 
     else
@@ -440,7 +438,7 @@ LABEL_13:
 
   if (v7)
   {
-    [v7 timeRange];
+    objc_msgSend_timeRange(v7);
   }
 
   else
@@ -461,7 +459,7 @@ LABEL_13:
   v8 = *(*(a1 + 32) + 8);
   if (v7)
   {
-    [v7 timeRange];
+    objc_msgSend_timeRange(v7);
   }
 
   else
@@ -486,7 +484,7 @@ LABEL_14:
     memset(&v28, 0, sizeof(v28));
     if (playerCopy)
     {
-      [playerCopy currentTime];
+      objc_msgSend_currentTime(playerCopy);
     }
 
     currentAdTimeRanges = [(MPNowPlayingSession *)self currentAdTimeRanges];
@@ -517,7 +515,7 @@ LABEL_14:
             memset(&buf, 0, sizeof(buf));
             if (v12)
             {
-              [v12 timeRange];
+              objc_msgSend_timeRange(v12);
             }
 
             *&time1.start.value = v21;
@@ -629,7 +627,7 @@ LABEL_26:
         v12 = MEMORY[0x1E696B098];
         if (v11)
         {
-          [*(*(&v40 + 1) + 8 * i) timeRange];
+          objc_msgSend_timeRange(*(*(&v40 + 1) + 8 * i), rangesCopy);
         }
 
         else
@@ -647,10 +645,10 @@ LABEL_26:
         v14 = MEMORY[0x1E696B098];
         if (v11)
         {
-          [v11 timeRange];
+          objc_msgSend_timeRange(v11);
           *&lhs.value = v32;
           lhs.epoch = v33;
-          [v11 timeRange];
+          objc_msgSend_timeRange(v11);
         }
 
         else
@@ -792,7 +790,7 @@ void __46__MPNowPlayingSession_setCurrentAdTimeRanges___block_invoke_74(uint64_t
         memset(v24, 0, sizeof(v24));
         if (v10)
         {
-          [v10 timeRange];
+          objc_msgSend_timeRange(v10);
         }
 
         time = v24[0];
@@ -919,13 +917,13 @@ void __58__MPNowPlayingSession_setCurrentAssetNetCreditsStartTime___block_invoke
   return v12;
 }
 
-void __59__MPNowPlayingSession_hasInvalidAdTimeRange_totalDuration___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
+void __59__MPNowPlayingSession_hasInvalidAdTimeRange_totalDuration___block_invoke(uint64_t a1, void *a2, _BYTE *a3, _BYTE *a4)
 {
   v7 = a2;
   v8 = v7;
   if (v7)
   {
-    [v7 timeRange];
+    objc_msgSend_timeRange(v7);
     if (a3)
     {
       goto LABEL_6;
@@ -959,10 +957,10 @@ LABEL_6:
   memset(&v25, 0, sizeof(v25));
   if (v8)
   {
-    [v8 timeRange];
+    objc_msgSend_timeRange(v8);
     *&time1.start.value = v22;
     time1.start.epoch = v23;
-    [v8 timeRange];
+    objc_msgSend_timeRange(v8);
   }
 
   else
@@ -983,7 +981,7 @@ LABEL_6:
   CMTimeMake(&v19, v9, v25.timescale);
   if (*(a1 + 32))
   {
-    if ([*(a1 + 40) count] - 1 == a3)
+    if (([*(a1 + 40) count] - 1) == a3)
     {
       time1.start = v25;
       time2.start = v19;
@@ -1001,7 +999,7 @@ LABEL_6:
     v11 = v10;
     if (v10)
     {
-      [v10 timeRange];
+      objc_msgSend_timeRange(v10);
     }
 
     else
@@ -1012,7 +1010,7 @@ LABEL_6:
     memset(&time2, 0, sizeof(time2));
     if (v8)
     {
-      [v8 timeRange];
+      objc_msgSend_timeRange(v8);
     }
 
     else
@@ -1034,7 +1032,7 @@ LABEL_6:
   v12 = *(*(a1 + 56) + 8);
   if (v8)
   {
-    [v8 timeRange];
+    objc_msgSend_timeRange(v8);
   }
 
   else
@@ -1260,7 +1258,7 @@ uint64_t __72__MPNowPlayingSession_extractNowPlayingInfoFromPlayersAndUpdateAdRa
   v5 = a3;
   if (v4)
   {
-    [v4 timeRange];
+    objc_msgSend_timeRange(v4);
   }
 
   else
@@ -1274,7 +1272,7 @@ uint64_t __72__MPNowPlayingSession_extractNowPlayingInfoFromPlayersAndUpdateAdRa
   time1.epoch = v11;
   if (v5)
   {
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
   }
 
   else
@@ -1297,13 +1295,13 @@ uint64_t __72__MPNowPlayingSession_extractNowPlayingInfoFromPlayersAndUpdateAdRa
   }
 }
 
-uint64_t __50__MPNowPlayingSession_setPictureInPictureEnabled___block_invoke(uint64_t result)
+void *__50__MPNowPlayingSession_setPictureInPictureEnabled___block_invoke(void *result)
 {
-  if ((*(*(result + 32) + 8) & 1) == 0)
+  if ((*(result[4] + 8) & 1) == 0)
   {
     v2 = result;
     CanBecomeActivePlayer = MRMediaRemoteCanBecomeActivePlayer();
-    v4 = *(v2 + 32);
+    v4 = v2[4];
 
     return [v4 setCanBecomeActive:CanBecomeActivePlayer];
   }
@@ -1471,12 +1469,12 @@ uint64_t __60__MPNowPlayingSession_becomeActiveIfPossibleWithCompletion___block_
   {
     v20 = [changeCopy objectForKey:*MEMORY[0x1E696A4F0]];
     v14 = v20;
-    memset(&v21[56], 0, 24);
-    if (!v20 || ([v20 CMTimeValue], (~*&v21[68] & 0x11) != 0))
+    v22 = 0uLL;
+    v23 = 0;
+    if (!v20 || (objc_msgSend_CMTimeValue(v20), (~HIDWORD(v22) & 0x11) != 0))
     {
       memset(&v21[32], 0, 24);
-      *v21 = *&v21[56];
-      [(MPNowPlayingSession *)self netTimeForGrossTime:v21];
+      objc_msgSend_netTimeForGrossTime_(self, v22, v23);
       *v21 = *&v21[32];
       [(MPNowPlayingSession *)self setCurrentAssetNetDuration:CMTimeGetSeconds(v21)];
     }

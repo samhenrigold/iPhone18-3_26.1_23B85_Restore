@@ -41,16 +41,16 @@
 
 - (_LTLanguageAssetRequest)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = _LTLanguageAssetRequest;
-  v5 = [(_LTLanguageAssetRequest *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = _LTLanguageAssetRequest;
+  v5 = [(_LTLanguageAssetRequest *)&v12 init];
   if (v5)
   {
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v7 = [MEMORY[0x277CBEB98] setWithArray:v6];
     v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"assets"];
     assets = v5->_assets;
@@ -60,7 +60,6 @@
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

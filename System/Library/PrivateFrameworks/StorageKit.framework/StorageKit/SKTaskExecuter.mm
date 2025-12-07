@@ -22,7 +22,7 @@
 
 - (BOOL)waitWithError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   tasks = [(SKTaskExecuter *)self tasks];
   [tasks enumerateObjectsUsingBlock:&__block_literal_global_166];
 
@@ -69,13 +69,13 @@
       v19 = [v16 count];
       v20 = [v16 objectAtIndexedSubscript:0];
       task = [v20 task];
-      v24 = 136315650;
-      v25 = "[SKTaskExecuter waitWithError:]";
-      v26 = 2048;
-      v27 = v19;
-      v28 = 1024;
+      v23 = 136315650;
+      v24 = "[SKTaskExecuter waitWithError:]";
+      v25 = 2048;
+      v26 = v19;
+      v27 = 1024;
       terminationStatus = [task terminationStatus];
-      _os_log_impl(&dword_26BBB8000, v18, OS_LOG_TYPE_ERROR, "%s: %lu tasks failed, first exit status %d", &v24, 0x1Cu);
+      _os_log_impl(&dword_26BBB8000, v18, OS_LOG_TYPE_ERROR, "%s: %lu tasks failed, first exit status %d", &v23, 0x1Cu);
     }
 
     if (error)
@@ -84,7 +84,6 @@
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17 == 0;
 }
 

@@ -17,53 +17,53 @@
 
 - (int64_t)sampleCount
 {
-  v5 = objc_msgSend_descriptor(self, a2, v2, v3);
-  v9 = objc_msgSend_colorAttachments(v5, v6, v7, v8);
-  v12 = objc_msgSend_objectAtIndexedSubscript_(v9, v10, 0, v11);
-  v16 = objc_msgSend_texture(v12, v13, v14, v15);
-  v20 = objc_msgSend_descriptor(self, v17, v18, v19);
-  if (v16)
+  v4 = objc_msgSend_descriptor(self, a2, v2);
+  v7 = objc_msgSend_colorAttachments(v4, v5, v6);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(v7, v8, 0);
+  v12 = objc_msgSend_texture(v9, v10, v11);
+  v15 = objc_msgSend_descriptor(self, v13, v14);
+  if (v12)
   {
-    v24 = objc_msgSend_colorAttachments(v20, v21, v22, v23);
-    v27 = objc_msgSend_objectAtIndexedSubscript_(v24, v25, 0, v26);
+    v18 = objc_msgSend_colorAttachments(v15, v16, v17);
+    v20 = objc_msgSend_objectAtIndexedSubscript_(v18, v19, 0);
   }
 
   else
   {
-    v27 = objc_msgSend_depthAttachment(v20, v21, v22, v23);
+    v20 = objc_msgSend_depthAttachment(v15, v16, v17);
   }
 
-  v31 = objc_msgSend_texture(v27, v28, v29, v30);
+  v23 = objc_msgSend_texture(v20, v21, v22);
 
-  return objc_msgSend_sampleCount(v31, v32, v33, v34);
+  return objc_msgSend_sampleCount(v23, v24, v25);
 }
 
 - (unint64_t)depthPixelFormat
 {
-  v4 = objc_msgSend_descriptor(self, a2, v2, v3);
-  v8 = objc_msgSend_depthAttachment(v4, v5, v6, v7);
-  v12 = objc_msgSend_texture(v8, v9, v10, v11);
+  v3 = objc_msgSend_descriptor(self, a2, v2);
+  v6 = objc_msgSend_depthAttachment(v3, v4, v5);
+  v9 = objc_msgSend_texture(v6, v7, v8);
 
-  return objc_msgSend_pixelFormat(v12, v13, v14, v15);
+  return objc_msgSend_pixelFormat(v9, v10, v11);
 }
 
 - (unint64_t)stencilPixelFormat
 {
-  v4 = objc_msgSend_descriptor(self, a2, v2, v3);
-  v8 = objc_msgSend_stencilAttachment(v4, v5, v6, v7);
-  v12 = objc_msgSend_texture(v8, v9, v10, v11);
+  v3 = objc_msgSend_descriptor(self, a2, v2);
+  v6 = objc_msgSend_stencilAttachment(v3, v4, v5);
+  v9 = objc_msgSend_texture(v6, v7, v8);
 
-  return objc_msgSend_pixelFormat(v12, v13, v14, v15);
+  return objc_msgSend_pixelFormat(v9, v10, v11);
 }
 
 - (unint64_t)colorPixelFormatAtIndex:(int64_t)index
 {
-  v5 = objc_msgSend_descriptor(self, a2, index, v3);
-  v9 = objc_msgSend_colorAttachments(v5, v6, v7, v8);
-  v12 = objc_msgSend_objectAtIndexedSubscript_(v9, v10, index, v11);
-  v16 = objc_msgSend_texture(v12, v13, v14, v15);
+  v4 = objc_msgSend_descriptor(self, a2, index);
+  v7 = objc_msgSend_colorAttachments(v4, v5, v6);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(v7, v8, index);
+  v12 = objc_msgSend_texture(v9, v10, v11);
 
-  return objc_msgSend_pixelFormat(v16, v17, v18, v19);
+  return objc_msgSend_pixelFormat(v12, v13, v14);
 }
 
 @end

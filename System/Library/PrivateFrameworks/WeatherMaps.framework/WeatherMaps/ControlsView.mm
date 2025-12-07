@@ -46,11 +46,16 @@
 {
   if (elements)
   {
-    sub_220FC2970();
+    v4 = sub_220FC2970();
+  }
+
+  else
+  {
+    v4 = 0;
   }
 
   selfCopy = self;
-  j__swift_bridgeObjectRelease();
+  j__swift_bridgeObjectRelease(v4);
 }
 
 @end

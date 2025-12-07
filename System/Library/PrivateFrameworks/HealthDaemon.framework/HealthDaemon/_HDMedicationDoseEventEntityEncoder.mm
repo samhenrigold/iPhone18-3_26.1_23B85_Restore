@@ -25,21 +25,21 @@
 
 - (id)orderedProperties
 {
-  v12[9] = *MEMORY[0x277D85DE8];
-  v12[0] = @"log_origin";
-  v12[1] = @"medication_uuid";
-  v12[2] = @"scheduled_dose_quantity";
-  v12[3] = @"dose_quantity";
-  v12[4] = @"scheduled_date";
-  v12[5] = @"status";
-  v12[6] = @"hashed_medication_identifier";
-  v12[7] = @"medication_identifier";
-  v12[8] = @"unit_string";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:9];
+  v11[9] = *MEMORY[0x277D85DE8];
+  v11[0] = @"log_origin";
+  v11[1] = @"medication_uuid";
+  v11[2] = @"scheduled_dose_quantity";
+  v11[3] = @"dose_quantity";
+  v11[4] = @"scheduled_date";
+  v11[5] = @"status";
+  v11[6] = @"hashed_medication_identifier";
+  v11[7] = @"medication_identifier";
+  v11[8] = @"unit_string";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:9];
   if (self->_includeMedicationAndScheduledItemDetails)
   {
-    v11 = @"schedule_item_identifier";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v10 = @"schedule_item_identifier";
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
     v5 = [v3 arrayByAddingObjectsFromArray:v4];
 
     v3 = v5;
@@ -48,8 +48,6 @@
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v8 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -120,7 +118,7 @@
 
 - (BOOL)applyPropertiesToObject:(id)object persistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   LODWORD(error) = [superclassEncoder applyPropertiesToObject:objectCopy persistentID:d row:row error:error];
@@ -178,13 +176,13 @@
 
     else
     {
-      v23 = [objectCopy copy];
+      v23 = objc_msgSend_copy(objectCopy);
       v25 = HDSQLiteColumnWithNameAsString();
       [v23 _setMedicationIdentifier:v25];
     }
 
-    v32[0] = v23;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v31[0] = v23;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
     authorizationFilter = [(HDEntityEncoder *)self authorizationFilter];
     v28 = authorizationFilter;
     if (authorizationFilter)
@@ -202,7 +200,6 @@
     v24 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

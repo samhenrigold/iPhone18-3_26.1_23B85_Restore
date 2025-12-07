@@ -12,18 +12,16 @@
 {
   if (*(self + OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_associatedScenePersistenceIdentifier + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_associatedScenePersistenceIdentifier);
-    v3 = *(self + OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_associatedScenePersistenceIdentifier + 8);
 
-    v4 = String._bridgeToObjectiveC()();
+    v2 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setAssociatedScenePersistenceIdentifier:(id)identifier
@@ -40,7 +38,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_associatedScenePersistenceIdentifier);
-  v7 = *(self + OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_associatedScenePersistenceIdentifier + 8);
   *v6 = v4;
   v6[1] = v5;
 }

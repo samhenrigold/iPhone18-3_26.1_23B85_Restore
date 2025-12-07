@@ -128,26 +128,27 @@ LABEL_22:
   if (v6)
   {
     bOOLValue = [valueCopy BOOLValue];
+    v8 = bOOLValue;
     shouldMigrateExistingBookmarks = bOOLValue;
-    v8 = WBS_LOG_CHANNEL_PREFIXCycler();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-    if (bOOLValue)
+    v10 = WBS_LOG_CHANNEL_PREFIXCycler(bOOLValue, v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    if (v8)
     {
-      if (v9)
+      if (v11)
       {
-        v14 = 0;
-        v10 = "Migration test will migrate existing bookmarks at ~/Library/Safari/Bookmarks.plist";
-        v11 = &v14;
+        v16 = 0;
+        v12 = "Migration test will migrate existing bookmarks at ~/Library/Safari/Bookmarks.plist";
+        v13 = &v16;
 LABEL_7:
-        _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, v10, v11, 2u);
+        _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, v12, v13, 2u);
       }
     }
 
-    else if (v9)
+    else if (v11)
     {
-      v13 = 0;
-      v10 = "Migration test will wipe all existing bookmarks and generate random ones prior to migration";
-      v11 = &v13;
+      v15 = 0;
+      v12 = "Migration test will wipe all existing bookmarks and generate random ones prior to migration";
+      v13 = &v15;
       goto LABEL_7;
     }
   }
@@ -219,40 +220,40 @@ uint64_t __89__WBSCyclerCloudKitMigrationTestSuite__createRandomBookmarkWithTarg
 {
   handlerCopy = handler;
   targetCopy = target;
-  v8 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXCycler(targetCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Generating DAV server IDs for new bookmarks", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Generating DAV server IDs for new bookmarks", buf, 2u);
   }
 
   bookmarkAuxiliary = self->_bookmarkAuxiliary;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __109__WBSCyclerCloudKitMigrationTestSuite__generateDAVServerIDsForExistingBookmarksWithTarget_completionHandler___block_invoke;
-  v11[3] = &unk_1E7FB8300;
-  v12 = handlerCopy;
-  v10 = handlerCopy;
-  [(WBSCyclerTestSuiteBookmarkAuxiliary *)bookmarkAuxiliary performOperation:2 withTarget:targetCopy completionHandler:v11];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __109__WBSCyclerCloudKitMigrationTestSuite__generateDAVServerIDsForExistingBookmarksWithTarget_completionHandler___block_invoke;
+  v12[3] = &unk_1E7FB8300;
+  v13 = handlerCopy;
+  v11 = handlerCopy;
+  [(WBSCyclerTestSuiteBookmarkAuxiliary *)bookmarkAuxiliary performOperation:2 withTarget:targetCopy completionHandler:v12];
 }
 
 void __109__WBSCyclerCloudKitMigrationTestSuite__generateDAVServerIDsForExistingBookmarksWithTarget_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v5 = v4;
+  v5 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __109__WBSCyclerCloudKitMigrationTestSuite__generateDAVServerIDsForExistingBookmarksWithTarget_completionHandler___block_invoke_cold_1(v3, v5);
+      __109__WBSCyclerCloudKitMigrationTestSuite__generateDAVServerIDsForExistingBookmarksWithTarget_completionHandler___block_invoke_cold_1(v3, v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_DEFAULT, "Generated DAV server IDs for new bookmarks", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEFAULT, "Generated DAV server IDs for new bookmarks", v7, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -262,21 +263,21 @@ void __109__WBSCyclerCloudKitMigrationTestSuite__generateDAVServerIDsForExisting
 {
   handlerCopy = handler;
   targetCopy = target;
-  v8 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXCycler(targetCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Fetching bookmarks prior to CloudKit migration", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Fetching bookmarks prior to CloudKit migration", buf, 2u);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __99__WBSCyclerCloudKitMigrationTestSuite__fetchBookmarksPriorToMigrationWithTarget_completionHandler___block_invoke;
-  v10[3] = &unk_1E7FC4F98;
-  v10[4] = self;
-  v11 = handlerCopy;
-  v9 = handlerCopy;
-  [targetCopy fetchTopLevelBookmarkList:v10];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __99__WBSCyclerCloudKitMigrationTestSuite__fetchBookmarksPriorToMigrationWithTarget_completionHandler___block_invoke;
+  v11[3] = &unk_1E7FC4F98;
+  v11[4] = self;
+  v12 = handlerCopy;
+  v10 = handlerCopy;
+  [targetCopy fetchTopLevelBookmarkList:v11];
 }
 
 void __99__WBSCyclerCloudKitMigrationTestSuite__fetchBookmarksPriorToMigrationWithTarget_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -339,7 +340,7 @@ uint64_t __99__WBSCyclerCloudKitMigrationTestSuite__fetchBookmarksPriorToMigrati
 
 void __95__WBSCyclerCloudKitMigrationTestSuite__validateResultsOfMigrationWithTarget_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(*(a1 + 32) + 32))
   {
@@ -352,21 +353,21 @@ void __95__WBSCyclerCloudKitMigrationTestSuite__validateResultsOfMigrationWithTa
   }
 
   v5 = v4;
-  v6 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v7 = v6;
+  v7 = WBS_LOG_CHANNEL_PREFIXCycler(v5, v6);
+  v8 = v7;
   if (v3)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __95__WBSCyclerCloudKitMigrationTestSuite__validateResultsOfMigrationWithTarget_completionHandler___block_invoke_cold_1(v5, v3, v7);
+      __95__WBSCyclerCloudKitMigrationTestSuite__validateResultsOfMigrationWithTarget_completionHandler___block_invoke_cold_1(v5, v3, v8);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_DEFAULT, "Validated results of %{public}@ migration successfully", &v8, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_DEFAULT, "Validated results of %{public}@ migration successfully", &v9, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();

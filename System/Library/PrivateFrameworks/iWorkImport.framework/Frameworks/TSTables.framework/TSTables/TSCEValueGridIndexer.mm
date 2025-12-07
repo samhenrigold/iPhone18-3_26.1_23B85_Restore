@@ -24,7 +24,7 @@
   v4 = [TSCEValueGridIndexer alloc];
   dimensions = self->_dimensions;
 
-  return objc_msgSend_initWithTopLeft_dimensions_(v4, v5, &self->_topLeft, dimensions, v6);
+  return objc_msgSend_initWithTopLeft_dimensions_(v4, v5, &self->_topLeft, dimensions);
 }
 
 @end

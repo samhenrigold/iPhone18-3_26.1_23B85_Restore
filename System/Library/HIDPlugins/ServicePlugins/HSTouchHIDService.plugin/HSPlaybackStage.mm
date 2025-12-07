@@ -353,7 +353,7 @@ LABEL_24:
 
 - (id)data
 {
-  HSUtil::ObjectLock::ObjectLock(v8, self);
+  HSUtil::ObjectLock::ObjectLock(v9, self);
   ptr = self->_state.play.playback._source.__ptr_;
   cntrl = self->_state.play.playback._source.__cntrl_;
   if (cntrl)
@@ -363,24 +363,24 @@ LABEL_24:
 
   if (ptr)
   {
-    HSUtil::IOUtil::ReadAll(ptr, 0, v7);
-    if (v7[5])
+    HSUtil::IOUtil::ReadAll(v8, ptr, 0);
+    if (v8[5])
     {
-      v5 = HSUtil::Buffer::getNSData(v7);
+      v6 = HSUtil::Buffer::getNSData(v8, v5);
     }
 
     else
     {
-      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSPlaybackStage.mm", v9);
+      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSPlaybackStage.mm", v10);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         [HSPlaybackStage data];
       }
 
-      v5 = 0;
+      v6 = 0;
     }
 
-    HSUtil::Buffer::~Buffer(v7);
+    HSUtil::Buffer::~Buffer(v8);
     if (cntrl)
     {
       goto LABEL_12;
@@ -389,7 +389,7 @@ LABEL_24:
 
   else
   {
-    v5 = 0;
+    v6 = 0;
     if (cntrl)
     {
 LABEL_12:
@@ -397,9 +397,9 @@ LABEL_12:
     }
   }
 
-  HSUtil::ObjectLock::~ObjectLock(v8);
+  HSUtil::ObjectLock::~ObjectLock(v9);
 
-  return v5;
+  return v6;
 }
 
 - (void)_setPlaying:(BOOL)playing
@@ -440,15 +440,15 @@ LABEL_12:
 {
   ptr = _load.__ptr_;
   [(HSPlaybackStage *)self _setPlaying:0, _load.__cntrl_];
-  v26 = 0;
-  Playback::Playback(&v27);
-  v28 = 0u;
-  v29 = 0u;
+  v32[0] = 0;
+  Playback::Playback(&v33);
+  v34 = 0u;
+  v35 = 0u;
   self->_state.play.playing = 0;
-  HSUtil::Decoder::operator=(&self->_state.play.playback, &v27);
-  source = v27._source;
-  v27._source.__ptr_ = 0;
-  v27._source.__cntrl_ = 0;
+  HSUtil::Decoder::operator=(&self->_state.play.playback, &v33, v5, v6);
+  source = v33._source;
+  v33._source.__ptr_ = 0;
+  v33._source.__cntrl_ = 0;
   cntrl = self->_state.play.playback._source.__cntrl_;
   self->_state.play.playback._source = source;
   if (cntrl)
@@ -467,94 +467,94 @@ LABEL_12:
     self->_state.play.playback._frames.__cap_ = 0;
   }
 
-  self->_state.play.playback._frames = v27._frames;
-  memset(&v27._frames, 0, sizeof(v27._frames));
-  *&self->_state.play.playback._nextFrame.__i_ = *&v27._nextFrame.__i_;
-  v9 = v29;
-  *&self->_state.play.startTime = v28;
-  *&self->_state.play.dispatchStartTime = v9;
-  if (v27._source.__cntrl_)
+  self->_state.play.playback._frames = v33._frames;
+  memset(&v33._frames, 0, sizeof(v33._frames));
+  *&self->_state.play.playback._nextFrame.__i_ = *&v33._nextFrame.__i_;
+  v13 = v35;
+  *&self->_state.play.startTime = v34;
+  *&self->_state.play.dispatchStartTime = v13;
+  if (v33._source.__cntrl_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27._source.__cntrl_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33._source.__cntrl_);
   }
 
-  if (v27._keys.__cntrl_)
+  if (v33._keys.__cntrl_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27._keys.__cntrl_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33._keys.__cntrl_);
   }
 
-  v10 = v27._callbacks.__ptr_;
-  v27._callbacks.__ptr_ = 0;
-  if (v10)
+  v14 = v33._callbacks.__ptr_;
+  v33._callbacks.__ptr_ = 0;
+  if (v14)
   {
-    std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v10);
+    std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v14);
     operator delete();
   }
 
   if (*ptr)
   {
-    v11 = *(ptr + 1);
-    v24 = *ptr;
-    v25 = v11;
-    if (v11)
+    v15 = *(ptr + 1);
+    v30 = *ptr;
+    v31 = v15;
+    if (v15)
     {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    Playback::Playback(&v26, &v24);
-    HSUtil::Decoder::operator=(&self->_state.play.playback, &v26);
-    v12 = *&v27._off;
-    *&v27._off = 0uLL;
-    v13 = self->_state.play.playback._source.__cntrl_;
-    self->_state.play.playback._source = v12;
-    if (v13)
+    Playback::Playback(v32, &v30, v7, v8);
+    HSUtil::Decoder::operator=(&self->_state.play.playback, v32, v16, v17);
+    v18 = *&v33._off;
+    *&v33._off = 0uLL;
+    v19 = self->_state.play.playback._source.__cntrl_;
+    self->_state.play.playback._source = v18;
+    if (v19)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
     }
 
-    v14 = p_frames->__begin_;
+    v20 = p_frames->__begin_;
     if (p_frames->__begin_)
     {
-      self->_state.play.playback._frames.__end_ = v14;
-      operator delete(v14);
+      self->_state.play.playback._frames.__end_ = v20;
+      operator delete(v20);
       p_frames->__begin_ = 0;
       self->_state.play.playback._frames.__end_ = 0;
       self->_state.play.playback._frames.__cap_ = 0;
     }
 
-    *&self->_state.play.playback._frames.__begin_ = *&v27._source.__cntrl_;
-    self->_state.play.playback._frames.__cap_ = v27._frames.__end_;
-    memset(&v27._source.__cntrl_, 0, 24);
-    *&self->_state.play.playback._nextFrame.__i_ = *&v27._frames.__cap_;
-    if (v27._source.__ptr_)
+    *&self->_state.play.playback._frames.__begin_ = *&v33._source.__cntrl_;
+    self->_state.play.playback._frames.__cap_ = v33._frames.__end_;
+    memset(&v33._source.__cntrl_, 0, 24);
+    *&self->_state.play.playback._nextFrame.__i_ = *&v33._frames.__cap_;
+    if (v33._source.__ptr_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27._source.__ptr_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v33._source.__ptr_);
     }
 
-    if (v27._keys.__ptr_)
+    if (v33._keys.__ptr_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27._keys.__ptr_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v33._keys.__ptr_);
     }
 
-    master = v27._master;
-    v27._master = 0;
+    master = v33._master;
+    v33._master = 0;
     if (master)
     {
       std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](master);
       operator delete();
     }
 
-    if (v25)
+    if (v31)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
     }
 
     if (self->_state.play.playback.status)
     {
-      v16 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      if (v16)
+      v22 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      if (v22)
       {
-        [(HSPlaybackStage *)v16 _load:v17, v18, v19, v20, v21, v22, v23];
+        [(HSPlaybackStage *)v22 _load:v23, v24, v25, v26, v27, v28, v29];
       }
     }
   }
@@ -725,44 +725,50 @@ LABEL_6:
 
 - (void)initWithQueue:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)setProgress:dispatchEvent:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)setProgress:dispatchEvent:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)data
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_playStateFrame:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_playConsumeFrame:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

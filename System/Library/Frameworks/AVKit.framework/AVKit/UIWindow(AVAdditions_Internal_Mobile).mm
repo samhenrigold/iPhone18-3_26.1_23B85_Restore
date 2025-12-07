@@ -1,9 +1,9 @@
 @interface UIWindow(AVAdditions_Internal_Mobile)
-- (uint64_t)avkit_canAttemptRotation;
 - (uint64_t)avkit_canAttemptSecondWindowForRotability;
 - (uint64_t)avkit_isHostedInAnotherProcess;
 - (uint64_t)avkit_preferredInterfaceOrientationFromDeviceOrientation;
 - (uint64_t)avkit_supportsAutorotationForInterfaceOrientationMask:()AVAdditions_Internal_Mobile;
+- (void)avkit_canAttemptRotation;
 @end
 
 @implementation UIWindow(AVAdditions_Internal_Mobile)
@@ -72,7 +72,7 @@ LABEL_10:
   return result;
 }
 
-- (uint64_t)avkit_canAttemptRotation
+- (void)avkit_canAttemptRotation
 {
   result = [self autorotates];
   if (result)

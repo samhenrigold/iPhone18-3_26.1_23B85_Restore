@@ -8,11 +8,11 @@
 {
   y = test.y;
   x = test.x;
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   eventCopy = event;
-  v29.receiver = self;
-  v29.super_class = SUTouchCaptureViewAccessibility;
-  v8 = [(SUTouchCaptureViewAccessibility *)&v29 _accessibilityHitTest:eventCopy withEvent:x, y];
+  v28.receiver = self;
+  v28.super_class = SUTouchCaptureViewAccessibility;
+  v8 = [(SUTouchCaptureViewAccessibility *)&v28 _accessibilityHitTest:eventCopy withEvent:x, y];
   selfCopy = v8;
   if (v8)
   {
@@ -26,26 +26,26 @@
 
   if (v10)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     currentDevice = [(SUTouchCaptureViewAccessibility *)self safeValueForKey:@"passThroughViews", 0];
-    v12 = [currentDevice countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v12 = [currentDevice countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(currentDevice);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * i);
+          v16 = *(*(&v24 + 1) + 8 * i);
           [v16 convertPoint:self fromView:{x, y}];
           v17 = [v16 _accessibilityHitTest:eventCopy withEvent:?];
 
@@ -57,7 +57,7 @@
           }
         }
 
-        v13 = [currentDevice countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v13 = [currentDevice countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v13)
         {
           continue;
@@ -116,8 +116,6 @@ LABEL_22:
 
   v22 = 0;
 LABEL_24:
-
-  v23 = *MEMORY[0x29EDCA608];
 
   return v22;
 }

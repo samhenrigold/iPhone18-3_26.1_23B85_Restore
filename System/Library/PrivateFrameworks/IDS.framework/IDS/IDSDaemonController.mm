@@ -5,6 +5,8 @@
 - (BOOL)_setCommands:(id)commands;
 - (BOOL)_setServices:(id)services;
 - (BOOL)addListenerID:(id)d services:(id)services commands:(id)commands;
+- (BOOL)connectToDaemonWithLaunch:(BOOL)launch;
+- (BOOL)connectToDaemonWithLaunch:(BOOL)launch services:(id)services commands:(id)commands capabilities:(unsigned int)capabilities;
 - (BOOL)consumeQueryContext:(id)context;
 - (BOOL)hasListenerForID:(id)d;
 - (BOOL)isConnected;
@@ -37,6 +39,7 @@
 - (void)_noteSetupComplete;
 - (void)_performBlock:(id)block wait:(BOOL)wait;
 - (void)_remoteObjectCleanup;
+- (void)_setServices:(id)services commands:(id)commands capabilities:(unsigned int)capabilities;
 - (void)addedDelegateForService:(id)service withCompletion:(id)completion;
 - (void)blockUntilConnected;
 - (void)dealloc;
@@ -143,7 +146,7 @@
     v3 = +[IDSLogging DaemonController];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v3);
     }
 
     selfCopy = 0;
@@ -431,6 +434,7 @@
 {
   waitCopy = wait;
   blockCopy = block;
+  blockCopy2 = blockCopy;
   if (blockCopy)
   {
     block = blockCopy;
@@ -438,7 +442,7 @@
     {
       if (dispatch_get_specific("IDSDaemonControllerContext"))
       {
-        block[2]();
+        blockCopy = block[2]();
       }
 
       else
@@ -451,9 +455,11 @@
     {
       dispatch_async(self->_ivarQueue, blockCopy);
     }
+
+    blockCopy2 = block;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](blockCopy, blockCopy2);
 }
 
 - (void)dealloc
@@ -549,7 +555,7 @@ LABEL_6:
 
 - (void)_connectToDaemonWithLaunch:(BOOL)launch services:(id)services commands:(id)commands capabilities:(unsigned int)capabilities
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   commandsCopy = commands;
   mEMORY[0x1E69A60F0] = [MEMORY[0x1E69A60F0] sharedInstance];
@@ -563,13 +569,13 @@ LABEL_6:
 
     if (systemIsShuttingDown)
     {
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = sub_195A113E0;
-      v26[3] = &unk_1E743E8C8;
-      v27 = v14;
-      v26[4] = self;
-      v17 = v26;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = sub_195A113E0;
+      v25[3] = &unk_1E743E8C8;
+      v26 = v14;
+      v25[4] = self;
+      v17 = v25;
 LABEL_6:
       [(IDSDaemonController *)self _performBlock:v17 wait:1];
       goto LABEL_12;
@@ -592,22 +598,123 @@ LABEL_6:
       }
     }
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = sub_195A11560;
-    v20[3] = &unk_1E743E8F0;
-    v24 = v14;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_195A11560;
+    v19[3] = &unk_1E743E8F0;
+    v23 = v14;
     capabilitiesCopy2 = capabilities;
-    v20[4] = self;
-    v21 = servicesCopy;
-    v22 = commandsCopy;
+    v19[4] = self;
+    v20 = servicesCopy;
+    v21 = commandsCopy;
     launchCopy = launch;
-    [(IDSDaemonController *)self _performBlock:v20 wait:1];
+    [(IDSDaemonController *)self _performBlock:v19 wait:1];
   }
 
 LABEL_12:
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (BOOL)connectToDaemonWithLaunch:(BOOL)launch
+{
+  launchCopy = launch;
+  services = [(IDSDaemonController *)self services];
+  commands = [(IDSDaemonController *)self commands];
+  [(IDSDaemonController *)self _connectToDaemonWithLaunch:launchCopy services:services commands:commands capabilities:[(IDSDaemonController *)self capabilities]];
+
+  return 1;
+}
+
+- (BOOL)connectToDaemonWithLaunch:(BOOL)launch services:(id)services commands:(id)commands capabilities:(unsigned int)capabilities
+{
+  v6 = *&capabilities;
+  launchCopy = launch;
+  servicesCopy = services;
+  commandsCopy = commands;
+  mEMORY[0x1E69A60F0] = [MEMORY[0x1E69A60F0] sharedInstance];
+  isNonUIInstall = [mEMORY[0x1E69A60F0] isNonUIInstall];
+
+  if ((isNonUIInstall & 1) == 0)
+  {
+    [(IDSDaemonController *)self _connectToDaemonWithLaunch:launchCopy services:servicesCopy commands:commandsCopy capabilities:v6];
+  }
+
+  return 1;
+}
+
+- (void)_setServices:(id)services commands:(id)commands capabilities:(unsigned int)capabilities
+{
+  v5 = *&capabilities;
+  v28 = *MEMORY[0x1E69E9840];
+  servicesCopy = services;
+  commandsCopy = commands;
+  v10 = [(IDSDaemonController *)self _setServices:servicesCopy];
+  v11 = [(IDSDaemonController *)self _setCommands:commandsCopy];
+  v12 = [(IDSDaemonController *)self _setCapabilities:v5];
+  v13 = v12;
+  if (v10 || v11 || v12)
+  {
+    if (([servicesCopy containsObject:@"com.apple.private.alloy.pbbridge"] & 1) != 0 || objc_msgSend(servicesCopy, "containsObject:", @"com.apple.private.alloy.accountssync"))
+    {
+      registration = [MEMORY[0x1E69A6138] registration];
+      if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = @"NO";
+        *v20 = 138413570;
+        *&v20[4] = servicesCopy;
+        *&v20[22] = 1024;
+        if (v10)
+        {
+          v16 = @"YES";
+        }
+
+        else
+        {
+          v16 = @"NO";
+        }
+
+        if (v11)
+        {
+          v17 = @"YES";
+        }
+
+        else
+        {
+          v17 = @"NO";
+        }
+
+        *&v20[12] = 2112;
+        *&v20[14] = commandsCopy;
+        if (v13)
+        {
+          v15 = @"YES";
+        }
+
+        v21 = v5;
+        v22 = 2112;
+        v23 = v16;
+        v24 = 2112;
+        v25 = v17;
+        v26 = 2112;
+        v27 = v15;
+        _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Sending down new services %@ commands %@ capabilities %d. sendServices %@ sendCommands %@ sendCaps %@", v20, 0x3Au);
+      }
+    }
+
+    v18 = [IDSLogging DaemonController:*v20];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      *v20 = 138412802;
+      *&v20[4] = servicesCopy;
+      *&v20[12] = 2112;
+      *&v20[14] = commandsCopy;
+      *&v20[22] = 1024;
+      v21 = v5;
+      _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_INFO, "Sending down new services %@ commands %@ capabilities %d", v20, 0x1Cu);
+    }
+
+    v19 = +[IDSDaemonController sharedInstance];
+    [v19 setListenerServices:servicesCopy commands:commandsCopy capabilities:v5];
+  }
 }
 
 - (BOOL)_setServices:(id)services

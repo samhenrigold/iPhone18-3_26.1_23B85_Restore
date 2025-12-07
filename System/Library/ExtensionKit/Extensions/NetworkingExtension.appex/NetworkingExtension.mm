@@ -1,12 +1,12 @@
 int main(int argc, const char **argv, const char **envp)
 {
   type metadata accessor for NetworkingProcessExtension();
-  sub_100007330(&qword_10000C118, v3, type metadata accessor for NetworkingProcessExtension);
+  sub_100007330(&qword_10000C118, v3, type metadata accessor for NetworkingProcessExtension, &unk_1000079C0);
   sub_1000077B4();
   return 0;
 }
 
-uint64_t sub_100007330(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t sub_100007330(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -29,7 +29,7 @@ id sub_100007378@<X0>(void *a1@<X8>)
 uint64_t sub_100007408()
 {
   v0 = type metadata accessor for NetworkingProcessExtension();
-  v2 = sub_100007330(&qword_10000C158, v1, type metadata accessor for NetworkingProcessExtension);
+  v2 = sub_100007330(&qword_10000C158, v1, type metadata accessor for NetworkingProcessExtension, "I\a");
 
   return NetworkingExtension.configuration.getter(v0, v2);
 }

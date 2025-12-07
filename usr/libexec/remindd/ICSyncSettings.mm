@@ -11,7 +11,7 @@
 {
   if (qword_100952AD8)
   {
-    sub_10076A754();
+    sub_10076A754(self, a2);
   }
 
   v4 = [[ICSyncSettings alloc] initWithOptions:options];

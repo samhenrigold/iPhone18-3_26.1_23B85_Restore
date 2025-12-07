@@ -20,7 +20,7 @@
 
 - (id)dataForMessage:(id)message
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if ([(MRProtocolClientConnection *)self disconnected])
   {
@@ -28,10 +28,10 @@
     goto LABEL_25;
   }
 
-  v37[0] = messageCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+  v36[0] = messageCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
   objc_opt_class();
-  v27 = messageCopy;
+  v26 = messageCopy;
   if (objc_opt_isKindOfClass())
   {
     messages = [messageCopy messages];
@@ -40,27 +40,27 @@
   }
 
   v5 = objc_alloc_init(MEMORY[0x1E695DF88]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = v6;
-  v8 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v8 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v31;
+    v10 = *v30;
     do
     {
       v11 = 0;
       do
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * v11);
+        v12 = *(*(&v29 + 1) + 8 * v11);
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         type = [v12 type];
         switch(type)
@@ -91,7 +91,7 @@ LABEL_15:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v35 = v12;
+          v34 = v12;
           _os_log_error_impl(&dword_1A2860000, v15, OS_LOG_TYPE_ERROR, "[ExternalJSONClientConnection] Unsupported message: %{public}@", buf, 0xCu);
         }
 
@@ -100,9 +100,9 @@ LABEL_18:
         replyIdentifier = [v12 replyIdentifier];
         [dictionary setObject:replyIdentifier forKeyedSubscript:@"identifier"];
 
-        v29 = 0;
-        v21 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v29];
-        v22 = v29;
+        v28 = 0;
+        v21 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v28];
+        v22 = v28;
         if (v21)
         {
           v23 = objc_alloc_init(MEMORY[0x1E695DF88]);
@@ -118,7 +118,7 @@ LABEL_18:
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v35 = v22;
+            v34 = v22;
             _os_log_error_impl(&dword_1A2860000, v23, OS_LOG_TYPE_ERROR, "[ExternalJSONClientConnection] Failed to encode message: %{public}@", buf, 0xCu);
           }
         }
@@ -127,28 +127,26 @@ LABEL_18:
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v9 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v9);
   }
 
-  messageCopy = v27;
+  messageCopy = v26;
 LABEL_25:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_protocolMessageFromData:(id)data
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   array = [MEMORY[0x1E695DF70] array];
-  v60 = 0;
-  v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v60];
-  v7 = v60;
+  v59 = 0;
+  v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:&v59];
+  v7 = v59;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -191,19 +189,19 @@ LABEL_25:
       goto LABEL_28;
     }
 
-    v55 = [(MRExternalJSONClientConnection *)self _processSetState:v21];
-    if (v55)
+    v54 = [(MRExternalJSONClientConnection *)self _processSetState:v21];
+    if (v54)
     {
-      [array addObjectsFromArray:v55];
+      [array addObjectsFromArray:v54];
     }
 
-    v54 = v7;
+    v53 = v7;
     if (self->_volume)
     {
       v24 = [(NSDictionary *)self->_deviceInfo objectForKeyedSubscript:@"deviceUID"];
       if ([v24 length])
       {
-        v52 = v24;
+        v51 = v24;
         v25 = [(NSDictionary *)self->_volume objectForKeyedSubscript:@"volumeCapabilities"];
 
         if (v25)
@@ -213,17 +211,17 @@ LABEL_25:
 
           v28 = objc_alloc_init(_MRVolumeControlAvailabilityProtobuf);
           [(_MRVolumeControlAvailabilityProtobuf *)v28 setVolumeControlAvailable:unsignedLongValue != 0];
-          v51 = v28;
+          v50 = v28;
           [(_MRVolumeControlAvailabilityProtobuf *)v28 setVolumeCapabilities:unsignedLongValue];
           v29 = objc_alloc_init(_MRVolumeControlCapabilitiesDidChangeMessageProtobuf);
           [(_MRVolumeControlCapabilitiesDidChangeMessageProtobuf *)v29 setCapabilities:v28];
-          [(_MRVolumeControlCapabilitiesDidChangeMessageProtobuf *)v29 setEndpointUID:v52];
-          v50 = v29;
-          [(_MRVolumeControlCapabilitiesDidChangeMessageProtobuf *)v29 setOutputDeviceUID:v52];
-          v49 = [(MRExternalJSONClientConnection *)self _createProtocolMessage:objc_opt_class() underlyingCodableMessage:v29];
-          [array addObject:v49];
+          [(_MRVolumeControlCapabilitiesDidChangeMessageProtobuf *)v29 setEndpointUID:v51];
+          v49 = v29;
+          [(_MRVolumeControlCapabilitiesDidChangeMessageProtobuf *)v29 setOutputDeviceUID:v51];
+          v48 = [(MRExternalJSONClientConnection *)self _createProtocolMessage:objc_opt_class() underlyingCodableMessage:v29];
+          [array addObject:v48];
           v30 = objc_alloc_init(_MRGetVolumeControlCapabilitiesResultMessageProtobuf);
-          [(_MRGetVolumeControlCapabilitiesResultMessageProtobuf *)v30 setCapabilities:v51];
+          [(_MRGetVolumeControlCapabilitiesResultMessageProtobuf *)v30 setCapabilities:v50];
           v31 = [(MRExternalJSONClientConnection *)self _createProtocolMessage:objc_opt_class() underlyingCodableMessage:v30];
 
           [array addObject:v31];
@@ -240,8 +238,8 @@ LABEL_25:
           v36 = objc_alloc_init(_MRVolumeDidChangeMessageProtobuf);
           LODWORD(v37) = v35;
           [(_MRVolumeDidChangeMessageProtobuf *)v36 setVolume:v37];
-          [(_MRVolumeDidChangeMessageProtobuf *)v36 setEndpointUID:v52];
-          [(_MRVolumeDidChangeMessageProtobuf *)v36 setOutputDeviceUID:v52];
+          [(_MRVolumeDidChangeMessageProtobuf *)v36 setEndpointUID:v51];
+          [(_MRVolumeDidChangeMessageProtobuf *)v36 setOutputDeviceUID:v51];
           v38 = [(MRExternalJSONClientConnection *)self _createProtocolMessage:objc_opt_class() underlyingCodableMessage:v36];
 
           [array addObject:v38];
@@ -250,61 +248,59 @@ LABEL_25:
           [(_MRGetVolumeResultMessageProtobuf *)v39 setVolume:v40];
           v22 = [(MRExternalJSONClientConnection *)self _createProtocolMessage:objc_opt_class() underlyingCodableMessage:v39];
 
-          v24 = v52;
+          v24 = v51;
           [array addObject:v22];
         }
 
         else
         {
-          v24 = v52;
+          v24 = v51;
         }
 
-        v7 = v54;
+        v7 = v53;
       }
     }
 
     if ([v21 length])
     {
-      v53 = dataCopy;
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
+      v52 = dataCopy;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       v41 = array;
-      v42 = [v41 countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v55 objects:v60 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v57;
+        v44 = *v56;
         do
         {
           for (i = 0; i != v43; ++i)
           {
-            if (*v57 != v44)
+            if (*v56 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v46 = *(*(&v56 + 1) + 8 * i);
+            v46 = *(*(&v55 + 1) + 8 * i);
             [v46 setReplyIdentifier:v21];
             [v46 setIsIncomingReply:1];
           }
 
-          v43 = [v41 countByEnumeratingWithState:&v56 objects:v61 count:16];
+          v43 = [v41 countByEnumeratingWithState:&v55 objects:v60 count:16];
         }
 
         while (v43);
       }
 
-      dataCopy = v53;
-      v7 = v54;
+      dataCopy = v52;
+      v7 = v53;
     }
   }
 
   v23 = array;
 LABEL_28:
-
-  v47 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -381,7 +377,7 @@ LABEL_28:
 
 - (id)_processSetState:(id)state
 {
-  v449 = *MEMORY[0x1E69E9840];
+  v448 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (self->_playerPath)
   {
@@ -419,14 +415,14 @@ LABEL_28:
     v20 = [(NSDictionary *)self->_playerPath objectForKeyedSubscript:@"displayName"];
     [(_MRNowPlayingClientProtobuf *)v18 setDisplayName:v20];
 
-    v419 = v18;
+    v418 = v18;
     [(_MRNowPlayingClientProtobuf *)v18 setProcessIdentifier:1];
   }
 
   else
   {
     v6 = 0;
-    v419 = 0;
+    v418 = 0;
   }
 
   playbackQueue = self->_playbackQueue;
@@ -1211,34 +1207,34 @@ LABEL_28:
 
   if (self->_supportedCommands)
   {
-    v415 = v346;
-    v416 = v345;
-    v417 = v6;
-    v418 = stateCopy;
-    v422 = objc_alloc_init(_MRSupportedCommandsProtobuf);
+    v414 = v346;
+    v415 = v345;
+    v416 = v6;
+    v417 = stateCopy;
+    v421 = objc_alloc_init(_MRSupportedCommandsProtobuf);
+    v439 = 0u;
     v440 = 0u;
     v441 = 0u;
     v442 = 0u;
-    v443 = 0u;
     obj = self->_supportedCommands;
-    v423 = [(NSDictionary *)obj countByEnumeratingWithState:&v440 objects:v448 count:16];
-    if (v423)
+    v422 = [(NSDictionary *)obj countByEnumeratingWithState:&v439 objects:v447 count:16];
+    if (v422)
     {
-      v421 = *v441;
+      v420 = *v440;
       v351 = @"command";
       v352 = @"maximumRating";
       do
       {
-        for (i = 0; i != v423; ++i)
+        for (i = 0; i != v422; ++i)
         {
           v354 = v352;
           v355 = v351;
-          if (*v441 != v421)
+          if (*v440 != v420)
           {
             objc_enumerationMutation(obj);
           }
 
-          v356 = *(*(&v440 + 1) + 8 * i);
+          v356 = *(*(&v439 + 1) + 8 * i);
           v357 = objc_alloc_init(_MRCommandInfoProtobuf);
           v358 = [v356 objectForKeyedSubscript:@"localizedShortTitle"];
           [(_MRCommandInfoProtobuf *)v357 setLocalizedShortTitle:v358];
@@ -1246,116 +1242,116 @@ LABEL_28:
           v359 = [v356 objectForKeyedSubscript:@"localizedTitle"];
           [(_MRCommandInfoProtobuf *)v357 setLocalizedTitle:v359];
 
-          v438 = 0u;
-          v439 = 0u;
-          v436 = 0u;
           v437 = 0u;
+          v438 = 0u;
+          v435 = 0u;
+          v436 = 0u;
           v360 = [v356 objectForKeyedSubscript:@"preferredIntervals"];
-          v361 = [v360 countByEnumeratingWithState:&v436 objects:v447 count:16];
+          v361 = [v360 countByEnumeratingWithState:&v435 objects:v446 count:16];
           if (v361)
           {
             v362 = v361;
-            v363 = *v437;
+            v363 = *v436;
             do
             {
               for (j = 0; j != v362; ++j)
               {
-                if (*v437 != v363)
+                if (*v436 != v363)
                 {
                   objc_enumerationMutation(v360);
                 }
 
-                [*(*(&v436 + 1) + 8 * j) doubleValue];
+                [*(*(&v435 + 1) + 8 * j) doubleValue];
                 [(_MRCommandInfoProtobuf *)v357 addPreferredInterval:?];
               }
 
-              v362 = [v360 countByEnumeratingWithState:&v436 objects:v447 count:16];
+              v362 = [v360 countByEnumeratingWithState:&v435 objects:v446 count:16];
             }
 
             while (v362);
           }
 
-          v434 = 0u;
-          v435 = 0u;
-          v432 = 0u;
           v433 = 0u;
+          v434 = 0u;
+          v431 = 0u;
+          v432 = 0u;
           v365 = [v356 objectForKeyedSubscript:@"supportedInterstionPositions"];
-          v366 = [v365 countByEnumeratingWithState:&v432 objects:v446 count:16];
+          v366 = [v365 countByEnumeratingWithState:&v431 objects:v445 count:16];
           if (v366)
           {
             v367 = v366;
-            v368 = *v433;
+            v368 = *v432;
             do
             {
               for (k = 0; k != v367; ++k)
               {
-                if (*v433 != v368)
+                if (*v432 != v368)
                 {
                   objc_enumerationMutation(v365);
                 }
 
-                -[_MRCommandInfoProtobuf addSupportedInsertionPositions:](v357, "addSupportedInsertionPositions:", [*(*(&v432 + 1) + 8 * k) intValue]);
+                -[_MRCommandInfoProtobuf addSupportedInsertionPositions:](v357, "addSupportedInsertionPositions:", [*(*(&v431 + 1) + 8 * k) intValue]);
               }
 
-              v367 = [v365 countByEnumeratingWithState:&v432 objects:v446 count:16];
+              v367 = [v365 countByEnumeratingWithState:&v431 objects:v445 count:16];
             }
 
             while (v367);
           }
 
-          v430 = 0u;
-          v431 = 0u;
-          v428 = 0u;
           v429 = 0u;
+          v430 = 0u;
+          v427 = 0u;
+          v428 = 0u;
           v370 = [v356 objectForKeyedSubscript:@"supportedPlaybackQueueTypes"];
-          v371 = [v370 countByEnumeratingWithState:&v428 objects:v445 count:16];
+          v371 = [v370 countByEnumeratingWithState:&v427 objects:v444 count:16];
           if (v371)
           {
             v372 = v371;
-            v373 = *v429;
+            v373 = *v428;
             do
             {
               for (m = 0; m != v372; ++m)
               {
-                if (*v429 != v373)
+                if (*v428 != v373)
                 {
                   objc_enumerationMutation(v370);
                 }
 
-                -[_MRCommandInfoProtobuf addSupportedPlaybackQueueTypes:](v357, "addSupportedPlaybackQueueTypes:", [*(*(&v428 + 1) + 8 * m) intValue]);
+                -[_MRCommandInfoProtobuf addSupportedPlaybackQueueTypes:](v357, "addSupportedPlaybackQueueTypes:", [*(*(&v427 + 1) + 8 * m) intValue]);
               }
 
-              v372 = [v370 countByEnumeratingWithState:&v428 objects:v445 count:16];
+              v372 = [v370 countByEnumeratingWithState:&v427 objects:v444 count:16];
             }
 
             while (v372);
           }
 
-          v426 = 0u;
-          v427 = 0u;
-          v424 = 0u;
           v425 = 0u;
+          v426 = 0u;
+          v423 = 0u;
+          v424 = 0u;
           v375 = [v356 objectForKeyedSubscript:@"supportedRates"];
-          v376 = [v375 countByEnumeratingWithState:&v424 objects:v444 count:16];
+          v376 = [v375 countByEnumeratingWithState:&v423 objects:v443 count:16];
           if (v376)
           {
             v377 = v376;
-            v378 = *v425;
+            v378 = *v424;
             do
             {
               for (n = 0; n != v377; ++n)
               {
-                if (*v425 != v378)
+                if (*v424 != v378)
                 {
                   objc_enumerationMutation(v375);
                 }
 
-                [*(*(&v424 + 1) + 8 * n) doubleValue];
+                [*(*(&v423 + 1) + 8 * n) doubleValue];
                 *&v380 = v380;
                 [(_MRCommandInfoProtobuf *)v357 addSupportedRate:v380];
               }
 
-              v377 = [v375 countByEnumeratingWithState:&v424 objects:v444 count:16];
+              v377 = [v375 countByEnumeratingWithState:&v423 objects:v443 count:16];
             }
 
             while (v377);
@@ -1371,7 +1367,7 @@ LABEL_28:
           }
 
           v352 = v354;
-          v383 = [v356 objectForKeyedSubscript:{v354, v415, v416}];
+          v383 = [v356 objectForKeyedSubscript:{v354, v414, v415}];
 
           if (v383)
           {
@@ -1462,26 +1458,26 @@ LABEL_28:
             -[_MRCommandInfoProtobuf setEnabled:](v357, "setEnabled:", [v404 BOOLValue]);
           }
 
-          [(_MRSupportedCommandsProtobuf *)v422 addSupportedCommand:v357];
+          [(_MRSupportedCommandsProtobuf *)v421 addSupportedCommand:v357];
         }
 
-        v423 = [(NSDictionary *)obj countByEnumeratingWithState:&v440 objects:v448 count:16];
+        v422 = [(NSDictionary *)obj countByEnumeratingWithState:&v439 objects:v447 count:16];
       }
 
-      while (v423);
+      while (v422);
     }
 
     v22 = 1;
-    v6 = v417;
-    stateCopy = v418;
-    v345 = v416;
+    v6 = v416;
+    stateCopy = v417;
+    v345 = v415;
     v23 = 0x1E695D000;
-    v346 = v415;
+    v346 = v414;
   }
 
   else
   {
-    v422 = 0;
+    v421 = 0;
   }
 
   array3 = [*(v23 + 3952) array];
@@ -1490,14 +1486,14 @@ LABEL_28:
     if (!v6)
     {
       v412 = 0;
-      v409 = v419;
+      v409 = v418;
       goto LABEL_202;
     }
 
     v406 = objc_alloc_init(_MRSetStateMessageProtobuf);
     [(_MRSetStateMessageProtobuf *)v406 setPlayerPath:v6];
     [(_MRSetStateMessageProtobuf *)v406 setPlaybackQueue:v346];
-    [(_MRSetStateMessageProtobuf *)v406 setSupportedCommands:v422];
+    [(_MRSetStateMessageProtobuf *)v406 setSupportedCommands:v421];
     v407 = [(MRExternalJSONClientConnection *)self _createProtocolMessage:objc_opt_class() underlyingCodableMessage:v406];
     if (v345)
     {
@@ -1508,19 +1504,17 @@ LABEL_28:
     [array3 addObject:v407];
   }
 
-  v409 = v419;
-  if (v419)
+  v409 = v418;
+  if (v418)
   {
     v410 = objc_alloc_init(_MRSetNowPlayingClientMessageProtobuf);
-    [(_MRSetNowPlayingClientMessageProtobuf *)v410 setClient:v419];
+    [(_MRSetNowPlayingClientMessageProtobuf *)v410 setClient:v418];
     v411 = [(MRExternalJSONClientConnection *)self _createProtocolMessage:objc_opt_class() underlyingCodableMessage:v410];
     [array3 addObject:v411];
   }
 
   v412 = array3;
 LABEL_202:
-
-  v413 = *MEMORY[0x1E69E9840];
 
   return v412;
 }
@@ -1542,7 +1536,7 @@ LABEL_202:
   v11 = v10;
   if (v10)
   {
-    [v10 decimalValue];
+    objc_msgSend_decimalValue(v10);
   }
 
   else

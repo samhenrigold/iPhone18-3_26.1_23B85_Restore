@@ -9,6 +9,7 @@
 - (BOOL)isLastRoamCacheValid;
 - (BOOL)isLastRoamDueToBeaconLost;
 - (BOOL)isLastRoamDueToLowRssi;
+- (BOOL)roamWithReason:(signed __int16)reason bandPreference:(int)preference;
 - (WiFiRoamManager)init;
 - (id)copyRoamStatus;
 - (unint64_t)detectPingPong;
@@ -17,6 +18,7 @@
 - (void)setBTState:(int64_t)state type:(int64_t)type;
 - (void)setDeviceMotionState:(unsigned __int16)state;
 - (void)setLinkDown;
+- (void)setLinkUpWithBSSEnvironment:(int64_t)environment band:(int64_t)band roam:(BOOL)roam inCharging:(BOOL)charging motionState:(unsigned __int16)state;
 - (void)setRealtimeSessionNotification:(id)notification forInterface:(id)interface;
 - (void)setRoamEndState:(id)state forInterface:(id)interface;
 - (void)setRoamPrep:(id)prep forInterface:(id)interface;
@@ -417,6 +419,23 @@
   {
     sub_10013BA50(notification);
   }
+}
+
+- (void)setLinkUpWithBSSEnvironment:(int64_t)environment band:(int64_t)band roam:(BOOL)roam inCharging:(BOOL)charging motionState:(unsigned __int16)state
+{
+  stateCopy = state;
+  v12 = objc_autoreleasePoolPush();
+  +[NSDate timeIntervalSinceReferenceDate];
+  [(WiFiRoamManager *)self setLinkUpTimestamp:?];
+  [(WiFiRoamManager *)self setBssEnvironment:environment];
+  [(WiFiRoamManager *)self setCurrentBand:band];
+  if (!roam)
+  {
+    [(WiFiRoamManager *)self reset];
+    [(WiFiRoamManager *)self setDeviceMotionState:stateCopy];
+  }
+
+  objc_autoreleasePoolPop(v12);
 }
 
 - (void)setLinkDown
@@ -826,6 +845,51 @@ LABEL_29:
   return roamScanStart;
 }
 
+- (BOOL)roamWithReason:(signed __int16)reason bandPreference:(int)preference
+{
+  v4 = *&preference;
+  reasonCopy = reason;
+  v7 = objc_autoreleasePoolPush();
+  if (v4 >= 3)
+  {
+    v13 = objc_autoreleasePoolPush();
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:4 message:{"%s: Invalid band preference: %d. Exiting", "-[WiFiRoamManager roamWithReason:bandPreference:]", 0}];
+    }
+
+    objc_autoreleasePoolPop(v13);
+    goto LABEL_10;
+  }
+
+  if (![(WiFiRoamManager *)self allowRoam:reasonCopy])
+  {
+LABEL_10:
+    v11 = 0;
+    goto LABEL_6;
+  }
+
+  v8 = objc_autoreleasePoolPush();
+  if (off_100298C40)
+  {
+    [off_100298C40 WFLog:3 message:{"%s: Host triggered roam allowed for reason: %lu with bandPref: %d ", "-[WiFiRoamManager roamWithReason:bandPreference:]", reasonCopy, v4}];
+  }
+
+  objc_autoreleasePoolPop(v8);
+  [(WiFiRoamManager *)self setLastHostTriggeredRoamReason:reasonCopy];
+  v14[0] = @"com.apple.wifid.wifiroammangerroamtype";
+  v14[1] = @"com.apple.wifid.wifiroammangerroamreason";
+  v15[0] = [NSNumber numberWithChar:v4];
+  v15[1] = [NSNumber numberWithInteger:reasonCopy];
+  v9 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
+  LocalCenter = CFNotificationCenterGetLocalCenter();
+  v11 = 1;
+  CFNotificationCenterPostNotification(LocalCenter, @"com.apple.wifid.wifiroammanagerroamnotification", 0, v9, 1u);
+LABEL_6:
+  objc_autoreleasePoolPop(v7);
+  return v11;
+}
+
 - (BOOL)detectLateRoam
 {
   v3 = objc_autoreleasePoolPush();
@@ -852,7 +916,7 @@ LABEL_29:
     goto LABEL_41;
   }
 
-  v44 = [-[NSDictionary objectForKey:](self->_roamState objectForKey:{@"RSSI", "unsignedIntValue"}];
+  HIDWORD(v55) = [-[NSDictionary objectForKey:](self->_roamState objectForKey:{@"RSSI", "unsignedIntValue"}];
   v7 = [(NSDictionary *)self->_roamState objectForKey:@"ROAM_CACHE"];
   if (!v7)
   {
@@ -875,17 +939,16 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  context = v3;
-  v17 = sub_1000082C8(v9, v10, v11, v12, v13, v14, v15, v16);
+  v17 = sub_1000082C8(v9, v10, v11, v12, v13, v14, v15, v16, v42, v44, v46, v48, v50, v3, v53, v55);
   if (!v17)
   {
-    v43 = 0;
+    LOBYTE(v54) = 0;
     goto LABEL_35;
   }
 
   v18 = v17;
   v19 = 0;
-  v43 = 0;
+  v54 = 0;
   v20 = MEMORY[0];
   do
   {
@@ -924,7 +987,7 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v34 = v23 - v44;
+      v34 = (v23 - HIDWORD(v56));
       v35 = [v22 objectForKey:@"BSSID"];
       v36 = objc_autoreleasePoolPush();
       if (off_100298C40)
@@ -946,7 +1009,7 @@ LABEL_19:
           v26 = [(WiFiRoamManager *)self setMaxRssiDeltaInRoamCache:v34];
         }
 
-        v43 = 1;
+        v54 = 1;
       }
 
 LABEL_20:
@@ -955,17 +1018,17 @@ LABEL_20:
     }
 
     while (v18 != v21);
-    v37 = sub_1000082C8(v26, v27, v28, v29, v30, v31, v32, v33);
+    v37 = sub_1000082C8(v26, v27, v28, v29, v30, v31, v32, v33, v43, v45, v47, v49, v51, context, v54, v56);
     v18 = v37;
   }
 
   while (v37);
 LABEL_35:
   v38 = objc_autoreleasePoolPush();
-  v39 = v43;
+  v39 = v54;
   if (off_100298C40)
   {
-    [off_100298C40 WFLog:3 message:{"%s: isLateRoam: %d", "-[WiFiRoamManager detectLateRoam]", v43 & 1}];
+    [off_100298C40 WFLog:3 message:{"%s: isLateRoam: %d", "-[WiFiRoamManager detectLateRoam]", v54 & 1}];
   }
 
   objc_autoreleasePoolPop(v38);

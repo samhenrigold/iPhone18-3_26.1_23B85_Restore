@@ -31,7 +31,7 @@
   v5->_signatureSchemeVersion = PKSignatureSchemeVersionFromString(v7);
 
   v8 = [dictionaryCopy PKStringForKey:@"source"];
-  if (v8 == @"applePayTrust" || (v9 = v8) != 0 && (v10 = [(__CFString *)v8 isEqualToString:@"applePayTrust"], v9, v9, v10))
+  if (v8 == @"applePayTrust" || (v9 = v8) != 0 && (isEqualToString = objc_msgSend_isEqualToString_(v8), v9, v9, isEqualToString))
   {
     v5->_type = 4;
     goto LABEL_7;

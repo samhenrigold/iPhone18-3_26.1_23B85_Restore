@@ -10,39 +10,39 @@
 
 - (id)convertSuggestions:(id)suggestions
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
-  v5 = __atxlog_handle_blending();
+  v5 = __atxlog_handle_blending(suggestionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v40 = [suggestionsCopy count];
+    v39 = [suggestionsCopy count];
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Starting ATXAction to PSSuggestion conversion with %lu suggestions", buf, 0xCu);
   }
 
-  v31 = objc_opt_new();
+  v30 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = suggestionsCopy;
-  v6 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v35;
+    v8 = *v34;
     selfCopy = self;
     do
     {
       v9 = 0;
       do
       {
-        if (*v35 != v8)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * v9);
+        v10 = *(*(&v33 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         executableSpecification = [v10 executableSpecification];
         executableClassString = [executableSpecification executableClassString];
@@ -52,7 +52,7 @@
 
         if ((v16 & 1) == 0)
         {
-          [v31 addObject:v10];
+          [v30 addObject:v10];
           goto LABEL_25;
         }
 
@@ -73,13 +73,13 @@
           {
             v21 = v20;
             v22 = [(ATXActionToPSSuggestionConverter *)self proactiveSuggestionForPeopleSuggestion:v20 originalSuggestion:v10];
-            v23 = __atxlog_handle_blending();
+            v23 = __atxlog_handle_blending(v22);
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               [(ATXActionToPSSuggestionConverter *)buf convertSuggestions:v23];
             }
 
-            [v31 addObject:v22];
+            [v30 addObject:v22];
             self = selfCopy;
 LABEL_15:
             objc_opt_class();
@@ -89,18 +89,18 @@ LABEL_15:
               if (v24)
               {
                 v25 = [(ATXActionToPSSuggestionConverter *)self proactiveSuggestionForPeopleSuggestion:v24 originalSuggestion:v10];
-                v26 = __atxlog_handle_blending();
+                v26 = __atxlog_handle_blending(v25);
                 if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
                 {
-                  [(ATXActionToPSSuggestionConverter *)&v32 convertSuggestions:v33, v26];
+                  [(ATXActionToPSSuggestionConverter *)&v31 convertSuggestions:v32, v26];
                 }
 
-                [v31 addObject:v25];
+                [v30 addObject:v25];
               }
 
               else
               {
-                [v31 addObject:v10];
+                [v30 addObject:v10];
               }
             }
 
@@ -108,7 +108,7 @@ LABEL_15:
           }
         }
 
-        [v31 addObject:v10];
+        [v30 addObject:v10];
 LABEL_24:
 
 LABEL_25:
@@ -117,15 +117,13 @@ LABEL_25:
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v7);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 - (id)proactiveSuggestionForPeopleSuggestion:(id)suggestion originalSuggestion:(id)originalSuggestion

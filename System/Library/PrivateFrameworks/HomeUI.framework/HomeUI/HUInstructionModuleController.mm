@@ -8,14 +8,14 @@
 
 - (Class)collectionCellClassForItem:(id)item
 {
-  sub_20CECF940(0, &qword_27C820E40);
+  sub_20CECF940(0, &qword_27C820E40, 0x277D14B38);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   itemCopy = item;
   selfCopy = self;
   if ([itemCopy isKindOfClass_])
   {
 
-    sub_20CECF940(0, &qword_27C81E2B8);
+    sub_20CECF940(0, &qword_27C81E2B8, 0x277D75318);
   }
 
   else

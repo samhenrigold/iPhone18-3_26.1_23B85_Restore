@@ -372,7 +372,7 @@ LABEL_34:
       objc_opt_class();
       [v18 typingAttributes];
       v27 = v77 = v23;
-      [v27 objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+      objc_msgSend_objectForKeyedSubscript_(v27);
       v28 = v76 = v22;
       v29 = ICDynamicCast();
       v30 = v19;

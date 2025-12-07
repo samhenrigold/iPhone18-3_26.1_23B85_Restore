@@ -49,39 +49,38 @@ id sub_100001BB0(uint64_t a1, void *a2)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = AMSLogKey();
-    v9 = *(a1 + 40);
-    v10 = objc_opt_class();
+    v9 = objc_opt_class();
     if (v8)
     {
-      v11 = AMSLogKey();
+      v10 = AMSLogKey();
       a1 = NSStringFromSelector(*(a1 + 48));
-      [NSString stringWithFormat:@"%@: [%@] %@ ", v10, v11, a1];
+      [NSString stringWithFormat:@"%@: [%@] %@ ", v9, v10, a1];
     }
 
     else
     {
-      v11 = NSStringFromSelector(*(a1 + 48));
-      [NSString stringWithFormat:@"%@: %@ ", v10, v11];
+      v10 = NSStringFromSelector(*(a1 + 48));
+      [NSString stringWithFormat:@"%@: %@ ", v9, v10];
     }
-    v12 = ;
-    v13 = [v3 dictionaryForPosting];
-    v14 = AMSHashIfNeeded();
+    v11 = ;
+    v12 = [v3 dictionaryForPosting];
+    v13 = AMSHashIfNeeded();
     *buf = 138543618;
-    v18 = v12;
-    v19 = 2114;
-    v20 = v14;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v13;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Created metrics event: %{public}@", buf, 0x16u);
 
     if (v8)
     {
 
-      v12 = a1;
+      v11 = a1;
     }
   }
 
-  v15 = [AMSPromise promiseWithResult:v3];
+  v14 = [AMSPromise promiseWithResult:v3];
 
-  return v15;
+  return v14;
 }
 
 void sub_100002404(uint64_t a1, uint64_t a2, void *a3)
@@ -258,37 +257,36 @@ void sub_100003500(uint64_t a1, void *a2, void *a3)
     v10 = [v9 OSLogObject];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = v7;
+      v27 = v7;
       v11 = AMSLogKey();
-      v12 = *(a1 + 32);
-      v13 = objc_opt_class();
+      v12 = objc_opt_class();
       if (v11)
       {
-        v14 = AMSLogKey();
+        v13 = AMSLogKey();
         v3 = NSStringFromSelector(*(a1 + 40));
-        [NSString stringWithFormat:@"%@: [%@] %@ ", v13, v14, v3];
+        [NSString stringWithFormat:@"%@: [%@] %@ ", v12, v13, v3];
       }
 
       else
       {
-        v14 = NSStringFromSelector(*(a1 + 40));
-        [NSString stringWithFormat:@"%@: %@ ", v13, v14];
+        v13 = NSStringFromSelector(*(a1 + 40));
+        [NSString stringWithFormat:@"%@: %@ ", v12, v13];
       }
-      v15 = ;
+      v14 = ;
       *buf = 138543362;
-      v32 = v15;
+      v29 = v14;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Created metrics event, enqueueing…", buf, 0xCu);
-      v7 = v30;
+      v7 = v27;
       if (v11)
       {
 
-        v15 = v3;
+        v14 = v3;
       }
     }
 
-    v22 = [*(a1 + 32) bag];
-    v23 = [AMSMetrics internalInstanceUsingBag:v22];
-    [v23 enqueueEvent:v6];
+    v20 = [*(a1 + 32) bag];
+    v21 = [AMSMetrics internalInstanceUsingBag:v20];
+    [v21 enqueueEvent:v6];
 
     v9 = +[APLogConfig sharedUIServiceConfig];
     if (!v9)
@@ -296,32 +294,31 @@ void sub_100003500(uint64_t a1, void *a2, void *a3)
       v9 = +[APLogConfig sharedConfig];
     }
 
-    v16 = [v9 OSLogObject];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = [v9 OSLogObject];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = AMSLogKey();
-      v25 = *(a1 + 32);
-      v26 = objc_opt_class();
-      if (v24)
+      v22 = AMSLogKey();
+      v23 = objc_opt_class();
+      if (v22)
       {
-        v27 = AMSLogKey();
+        v24 = AMSLogKey();
         a1 = NSStringFromSelector(*(a1 + 40));
-        [NSString stringWithFormat:@"%@: [%@] %@ ", v26, v27, a1];
+        [NSString stringWithFormat:@"%@: [%@] %@ ", v23, v24, a1];
       }
 
       else
       {
-        v27 = NSStringFromSelector(*(a1 + 40));
-        [NSString stringWithFormat:@"%@: %@ ", v26, v27];
+        v24 = NSStringFromSelector(*(a1 + 40));
+        [NSString stringWithFormat:@"%@: %@ ", v23, v24];
       }
-      v28 = ;
+      v25 = ;
       *buf = 138543362;
-      v32 = v28;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Enqueued metrics event.", buf, 0xCu);
-      if (v24)
+      v29 = v25;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Enqueued metrics event.", buf, 0xCu);
+      if (v22)
       {
 
-        v28 = a1;
+        v25 = a1;
       }
     }
   }
@@ -333,35 +330,34 @@ void sub_100003500(uint64_t a1, void *a2, void *a3)
       v9 = +[APLogConfig sharedConfig];
     }
 
-    v16 = [v9 OSLogObject];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = [v9 OSLogObject];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = AMSLogKey();
-      v18 = *(a1 + 32);
-      v19 = objc_opt_class();
-      if (v17)
+      v16 = AMSLogKey();
+      v17 = objc_opt_class();
+      if (v16)
       {
-        v20 = AMSLogKey();
+        v18 = AMSLogKey();
         a1 = NSStringFromSelector(*(a1 + 40));
-        [NSString stringWithFormat:@"%@: [%@] %@ ", v19, v20, a1];
+        [NSString stringWithFormat:@"%@: [%@] %@ ", v17, v18, a1];
       }
 
       else
       {
-        v20 = NSStringFromSelector(*(a1 + 40));
-        [NSString stringWithFormat:@"%@: %@ ", v19, v20];
+        v18 = NSStringFromSelector(*(a1 + 40));
+        [NSString stringWithFormat:@"%@: %@ ", v17, v18];
       }
-      v21 = ;
-      v29 = AMSLogableError();
+      v19 = ;
+      v26 = AMSLogableError();
       *buf = 138543618;
-      v32 = v21;
-      v33 = 2114;
-      v34 = v29;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@Error creating metrics event: %{public}@", buf, 0x16u);
-      if (v17)
+      v29 = v19;
+      v30 = 2114;
+      v31 = v26;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@Error creating metrics event: %{public}@", buf, 0x16u);
+      if (v16)
       {
 
-        v21 = a1;
+        v19 = a1;
       }
     }
   }
@@ -412,7 +408,7 @@ uint64_t sub_100003B78()
   v1 = v3[0];
   if (!qword_10001F4C0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -427,7 +423,6 @@ LABEL_7:
 
 uint64_t sub_100003C78(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10001F4C0 = result;
   return result;
@@ -506,23 +501,22 @@ void sub_10000CFD8(uint64_t a1, void *a2, void *a3)
     v13 = [v12 OSLogObject];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 40);
-      v30 = 138543618;
-      v31 = objc_opt_class();
-      v32 = 2114;
-      v33 = v6;
-      v15 = v31;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@: Failed to authenticate user. Error: %{public}@", &v30, 0x16u);
+      v25 = 138543618;
+      v26 = objc_opt_class();
+      v27 = 2114;
+      v28 = v6;
+      v14 = v26;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@: Failed to authenticate user. Error: %{public}@", &v25, 0x16u);
     }
 
 LABEL_26:
 
-    v23 = APError();
-    v22 = 0;
+    v21 = APError();
+    v20 = 0;
     goto LABEL_27;
   }
 
-  if ((objc_opt_respondsToSelector() & 1) == 0 || ([v7 stringValue], v16 = objc_claimAutoreleasedReturnValue(), v16, !v16))
+  if ((objc_opt_respondsToSelector() & 1) == 0 || ([v7 stringValue], v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
   {
     v12 = +[APLogConfig sharedDaemonConfig];
     if (!v12)
@@ -533,11 +527,10 @@ LABEL_26:
     v13 = [v12 OSLogObject];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 40);
-      v30 = 138543362;
-      v31 = objc_opt_class();
-      v25 = v31;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@: Authenticated user but no DSID", &v30, 0xCu);
+      v25 = 138543362;
+      v26 = objc_opt_class();
+      v22 = v26;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@: Authenticated user but no DSID", &v25, 0xCu);
     }
 
     goto LABEL_26;
@@ -554,21 +547,20 @@ LABEL_26:
     v13 = [v12 OSLogObject];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(a1 + 40);
-      v30 = 138543362;
-      v31 = objc_opt_class();
-      v27 = v31;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@: Authenticated user but no password", &v30, 0xCu);
+      v25 = 138543362;
+      v26 = objc_opt_class();
+      v23 = v26;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@: Authenticated user but no password", &v25, 0xCu);
     }
 
     goto LABEL_26;
   }
 
-  v17 = +[APLogConfig sharedDaemonConfig];
-  v12 = v17;
+  v16 = +[APLogConfig sharedDaemonConfig];
+  v12 = v16;
   if (!v11)
   {
-    if (!v17)
+    if (!v16)
     {
       v12 = +[APLogConfig sharedConfig];
     }
@@ -576,42 +568,40 @@ LABEL_26:
     v13 = [v12 OSLogObject];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v28 = *(a1 + 40);
-      v30 = 138543362;
-      v31 = objc_opt_class();
-      v29 = v31;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@: Authenticated user but no username", &v30, 0xCu);
+      v25 = 138543362;
+      v26 = objc_opt_class();
+      v24 = v26;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@: Authenticated user but no username", &v25, 0xCu);
     }
 
     goto LABEL_26;
   }
 
-  if (!v17)
+  if (!v16)
   {
     v12 = +[APLogConfig sharedConfig];
   }
 
-  v18 = [v12 OSLogObject];
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v17 = [v12 OSLogObject];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = *(a1 + 40);
-    v30 = 138543362;
-    v31 = objc_opt_class();
-    v20 = v31;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Authenticated user succesfully", &v30, 0xCu);
+    v25 = 138543362;
+    v26 = objc_opt_class();
+    v18 = v26;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Authenticated user succesfully", &v25, 0xCu);
   }
 
-  v21 = [v7 stringValue];
-  v22 = [[User alloc] initWithDSID:v21 username:v11 password:v9 biometricsToken:0];
+  v19 = [v7 stringValue];
+  v20 = [[User alloc] initWithDSID:v19 username:v11 password:v9 biometricsToken:0];
 
-  v23 = 0;
+  v21 = 0;
 LABEL_27:
-  (*(*(a1 + 32) + 16))(*(a1 + 32), v22, v23);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), v20, v21);
 }
 
 void sub_10000D500()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   sub_10000D524();
 }

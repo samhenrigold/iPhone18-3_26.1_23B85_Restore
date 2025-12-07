@@ -9,7 +9,7 @@
 
 + (Class)layerClass
 {
-  sub_257BD2C2C(0, &qword_27F8F6B78);
+  sub_257BD2C2C(0, &qword_27F8F6B78, 0x277CE5B68);
 
   return swift_getObjCClassFromMetadata();
 }

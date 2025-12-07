@@ -12,7 +12,7 @@
   selfCopy = self;
   [v2 invalidate];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for RemoteInstalledDepthAppsDataSource();
+  v4.super_class = type metadata accessor for RemoteInstalledDepthAppsDataSource(0);
   [(RemoteInstalledDepthAppsDataSource *)&v4 dealloc];
 }
 

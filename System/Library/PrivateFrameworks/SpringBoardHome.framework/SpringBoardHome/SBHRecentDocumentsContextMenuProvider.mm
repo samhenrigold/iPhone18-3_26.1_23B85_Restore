@@ -92,38 +92,38 @@
       v7 = 10;
     }
 
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 0;
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x3032000000;
-    v21 = __Block_byref_object_copy__4;
-    v22 = __Block_byref_object_dispose__4;
-    v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__4;
+    v23 = __Block_byref_object_dispose__4;
+    v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
     sharedRecentItemsList = [(SBHRecentDocumentsContextMenuProvider *)self sharedRecentItemsList];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __80__SBHRecentDocumentsContextMenuProvider_contextMenuSectionsForBundleIdentifier___block_invoke;
-    v14[3] = &unk_1E808AB40;
-    v16 = &v24;
-    v15 = identifierCopy;
-    v17 = &v18;
-    [sharedRecentItemsList recentsForBundleIdentifier:v15 maxCount:v7 completion:v14];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __80__SBHRecentDocumentsContextMenuProvider_contextMenuSectionsForBundleIdentifier___block_invoke;
+    v15[3] = &unk_1E808AB40;
+    v17 = &v25;
+    v16 = identifierCopy;
+    v18 = &v19;
+    [sharedRecentItemsList recentsForBundleIdentifier:v16 maxCount:v7 completion:v15];
 
-    if (v25[3])
+    if (v26[3])
     {
-      v9 = MEMORY[0x1E69DCC60];
-      v10 = SBHBundle();
-      v11 = [v10 localizedStringForKey:@"RECENT_DOCUMENT_CONTEXT_MENU_SECTION_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-      v12 = [v9 menuWithTitle:v11 image:0 identifier:0 options:1 children:v19[5]];
+      v10 = MEMORY[0x1E69DCC60];
+      v11 = SBHBundle(v9);
+      v12 = [v11 localizedStringForKey:@"RECENT_DOCUMENT_CONTEXT_MENU_SECTION_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v13 = [v10 menuWithTitle:v12 image:0 identifier:0 options:1 children:v20[5]];
 
-      [v5 addObject:v12];
+      [v5 addObject:v13];
     }
 
-    _Block_object_dispose(&v18, 8);
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v25, 8);
   }
 
   else
@@ -206,7 +206,7 @@ void __80__SBHRecentDocumentsContextMenuProvider_contextMenuSectionsForBundleIde
   v16[2] = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v5 = SBLogIcon();
+    v5 = SBLogIcon(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __80__SBHRecentDocumentsContextMenuProvider_contextMenuSectionsForBundleIdentifier___block_invoke_4_cold_1(a1, a3, v5);
@@ -237,11 +237,11 @@ void __80__SBHRecentDocumentsContextMenuProvider_contextMenuSectionsForBundleIde
   }
 }
 
-uint64_t __80__SBHRecentDocumentsContextMenuProvider_contextMenuSectionsForBundleIdentifier___block_invoke_11(uint64_t result)
+id *__80__SBHRecentDocumentsContextMenuProvider_contextMenuSectionsForBundleIdentifier___block_invoke_11(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) stopAccessingSecurityScopedResource];
+    return [result[4] stopAccessingSecurityScopedResource];
   }
 
   return result;

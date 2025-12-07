@@ -313,7 +313,7 @@ LABEL_8:
   [v144 setObject:v114 forKeyedSubscript:@"countDeletedSamplesThirtySixToSixtyMonthsOld"];
 
   v115 = MEMORY[0x277D10B20];
-  v116 = HDDataEntityPredicateForCreationDate(3);
+  v116 = HDDataEntityPredicateForCreationDate(3, v141);
   v117 = [v115 compoundPredicateWithPredicate:v116 otherPredicate:v70];
 
   v118 = MEMORY[0x277CCABB0];
@@ -342,12 +342,12 @@ LABEL_8:
 - (id)_predicateForDeletedObjectsBetweenDate:(id)date andOlderDate:(id)olderDate
 {
   olderDateCopy = olderDate;
-  v5 = HDDataEntityPredicateForCreationDate(3);
-  v6 = HDDataEntityPredicateForCreationDate(5);
+  v6 = HDDataEntityPredicateForCreationDate(3, date);
+  v7 = HDDataEntityPredicateForCreationDate(5, olderDateCopy);
 
-  v7 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v5 otherPredicate:v6];
+  v8 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v6 otherPredicate:v7];
 
-  return v7;
+  return v8;
 }
 
 - (id)_binnedAnalyticsValue:(int64_t)value error:(id)error

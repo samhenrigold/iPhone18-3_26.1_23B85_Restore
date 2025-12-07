@@ -1,5 +1,6 @@
 @interface NCSetCaptureDeviceRequest
 - (BOOL)isEqual:(id)equal;
+- (id)captureDeviceAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -24,6 +25,29 @@
   {
     return 0;
   }
+}
+
+- (id)captureDeviceAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Front";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Back";
+  }
+
+  return v4;
 }
 
 - (int)StringAsCaptureDevice:(id)device
@@ -87,7 +111,6 @@
 {
   if (*&self->_has)
   {
-    captureDevice = self->_captureDevice;
     PBDataWriterWriteInt32Field();
   }
 }

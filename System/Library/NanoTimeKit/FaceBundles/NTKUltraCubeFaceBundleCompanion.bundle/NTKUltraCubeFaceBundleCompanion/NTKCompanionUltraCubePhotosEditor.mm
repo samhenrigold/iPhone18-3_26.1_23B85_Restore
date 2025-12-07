@@ -391,7 +391,7 @@ LABEL_10:
     self->_galleryPreviewIsValid = index != 0;
   }
 
-  [(NTKCompanionUltraCubePhotosEditor *)self setState:2, *v15, *&v15[16]];
+  [(NTKCompanionUltraCubePhotosEditor *)self setState:2, *v15, *&v15[8]];
 }
 
 - (void)movePhotoAtIndex:(int64_t)index toIndex:(int64_t)toIndex

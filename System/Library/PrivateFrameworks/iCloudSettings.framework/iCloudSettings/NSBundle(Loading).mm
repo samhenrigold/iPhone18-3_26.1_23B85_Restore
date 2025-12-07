@@ -15,20 +15,19 @@
 
   v9 = [v8 stringByAppendingPathComponent:v5];
   v10 = [MEMORY[0x277CCA8D8] bundleWithPath:v9];
-  if (([v10 isLoaded] & 1) == 0)
+  isLoaded = [v10 isLoaded];
+  if ((isLoaded & 1) == 0)
   {
-    v11 = LogSubsystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = LogSubsystem(isLoaded);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
       v15 = v5;
-      _os_log_impl(&dword_275819000, v11, OS_LOG_TYPE_DEFAULT, "%@ not loaded. Loading...", &v14, 0xCu);
+      _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "%@ not loaded. Loading...", &v14, 0xCu);
     }
 
     [v10 load];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

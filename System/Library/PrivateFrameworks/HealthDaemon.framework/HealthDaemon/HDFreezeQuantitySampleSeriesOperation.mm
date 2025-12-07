@@ -17,15 +17,15 @@
   v11 = [(HDFreezeQuantitySampleSeriesOperation *)&v19 init];
   if (v11)
   {
-    v12 = [identifierCopy copy];
+    v12 = objc_msgSend_copy(identifierCopy);
     identifier = v11->_identifier;
     v11->_identifier = v12;
 
-    v14 = [metadataCopy copy];
+    v14 = objc_msgSend_copy(metadataCopy);
     metadata = v11->_metadata;
     v11->_metadata = v14;
 
-    v16 = [dateCopy copy];
+    v16 = objc_msgSend_copy(dateCopy);
     endDate = v11->_endDate;
     v11->_endDate = v16;
 
@@ -37,54 +37,53 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   transactionCopy = transaction;
   objc_storeStrong(&self->_frozenIdentifier, self->_identifier);
   self->_freezeResult = 1;
   protectedDatabase = [transactionCopy protectedDatabase];
-  identifier = self->_identifier;
-  v12 = HDDataEntityPredicateForDataUUID();
-  v88 = 0;
-  v81 = protectedDatabase;
-  v13 = [(HDDataEntity *)HDQuantitySampleSeriesEntity anyInDatabase:protectedDatabase predicate:v12 error:&v88];
-  v14 = v88;
+  v11 = HDDataEntityPredicateForDataUUID();
+  v86 = 0;
+  v79 = protectedDatabase;
+  v12 = [(HDDataEntity *)HDQuantitySampleSeriesEntity anyInDatabase:protectedDatabase predicate:v11 error:&v86];
+  v13 = v86;
 
-  v80 = transactionCopy;
-  if (v13)
+  v78 = transactionCopy;
+  if (v12)
   {
-    v15 = [v13 hasSeriesDataWithTransaction:transactionCopy error:error];
-    v16 = v15;
-    if (!v15)
+    v14 = [v12 hasSeriesDataWithTransaction:transactionCopy error:error];
+    v15 = v14;
+    if (!v14)
     {
+      v21 = 0;
       v22 = 0;
-      v23 = 0;
-      v20 = profileCopy;
+      v19 = profileCopy;
 LABEL_71:
 
 LABEL_72:
       goto LABEL_73;
     }
 
-    v17 = transactionCopy;
-    if ([v15 BOOLValue])
+    v16 = transactionCopy;
+    if ([v14 BOOLValue])
     {
 
       errorCopy = error;
-      v18 = [v13 countForSeriesWithTransaction:transactionCopy error:error];
-      v19 = v18;
-      if (v18)
+      v17 = [v12 countForSeriesWithTransaction:transactionCopy error:error];
+      v18 = v17;
+      if (v17)
       {
-        v20 = profileCopy;
-        if ([v18 integerValue] == 1)
+        v19 = profileCopy;
+        if ([v17 integerValue] == 1)
         {
-          v21 = [v13 HFDKeyWithDatabase:v81 error:error];
-          if (!v21)
+          v20 = [v12 HFDKeyWithDatabase:v79 error:error];
+          if (!v20)
           {
-            v14 = 0;
+            v13 = 0;
 LABEL_28:
+            v21 = 0;
             v22 = 0;
-            v23 = 0;
 LABEL_69:
 
             goto LABEL_70;
@@ -93,155 +92,155 @@ LABEL_69:
 
         else
         {
-          v21 = 0;
+          v20 = 0;
         }
 
-        v14 = [v13 freezeWithEndDate:self->_endDate transaction:v17 profile:profileCopy error:error];
+        v13 = [v12 freezeWithEndDate:self->_endDate transaction:v16 profile:profileCopy error:error];
 
-        if (!v14)
+        if (!v13)
         {
-          v13 = 0;
+          v12 = 0;
           goto LABEL_28;
         }
 
-        v74 = v14;
-        v26 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v14, "persistentID")}];
+        v72 = v13;
+        v25 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v13, "persistentID")}];
         if (!self->_metadata)
         {
-          v22 = 0;
-          v36 = off_27860F000;
-          if (!v21)
+          v21 = 0;
+          v35 = off_27860F000;
+          if (!v20)
           {
 LABEL_51:
-            v49 = v36[59];
-            v50 = self->_identifier;
-            v84 = 0;
-            v51 = [(__objc2_class *)v49 objectWithUUID:v50 encodingOptions:0 profile:v20 error:&v84];
-            v14 = v84;
-            if (v51)
+            v48 = v35[59];
+            identifier = self->_identifier;
+            v82 = 0;
+            v50 = [(__objc2_class *)v48 objectWithUUID:identifier encodingOptions:0 profile:v19 error:&v82];
+            v13 = v82;
+            if (v50)
             {
-              [(HDSQLiteEntity *)HDDataEntity entityWithPersistentID:v26];
-              v77 = v83 = v14;
-              v52 = [v77 numberForProperty:@"provenance" transaction:v80 error:&v83];
-              v71 = v83;
+              [(HDSQLiteEntity *)HDDataEntity entityWithPersistentID:v25];
+              v75 = v81 = v13;
+              v51 = [v75 numberForProperty:@"provenance" transaction:v78 error:&v81];
+              v69 = v81;
 
-              v73 = v21;
-              v79 = v51;
-              v76 = v52;
-              if (v52)
+              v71 = v20;
+              v77 = v50;
+              v74 = v51;
+              if (v51)
               {
-                v53 = v52;
-                dataProvenanceManager = [v20 dataProvenanceManager];
-                v82 = v71;
-                v55 = [dataProvenanceManager originProvenanceForPersistentID:v53 transaction:v80 error:&v82];
-                v14 = v82;
+                v52 = v51;
+                dataProvenanceManager = [v19 dataProvenanceManager];
+                v80 = v69;
+                v54 = [dataProvenanceManager originProvenanceForPersistentID:v52 transaction:v78 error:&v80];
+                v13 = v80;
 
-                v56 = v26;
-                if (!v55)
+                v55 = v25;
+                if (!v54)
                 {
                   _HKInitializeLogging();
-                  v57 = *MEMORY[0x277CCC2A0];
+                  v56 = *MEMORY[0x277CCC2A0];
                   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
-                    v91 = v14;
-                    _os_log_error_impl(&dword_228986000, v57, OS_LOG_TYPE_ERROR, "Failed to look up provenance for series after freezing: %{public}@", buf, 0xCu);
+                    v89 = v13;
+                    _os_log_error_impl(&dword_228986000, v56, OS_LOG_TYPE_ERROR, "Failed to look up provenance for series after freezing: %{public}@", buf, 0xCu);
                   }
 
-                  v55 = 0;
+                  v54 = 0;
                 }
               }
 
               else
               {
-                v56 = v26;
+                v55 = v25;
                 _HKInitializeLogging();
-                v60 = *MEMORY[0x277CCC2A0];
+                v59 = *MEMORY[0x277CCC2A0];
                 if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
-                  v91 = v71;
-                  _os_log_error_impl(&dword_228986000, v60, OS_LOG_TYPE_ERROR, "Failed to look up provenance ID for series after freezing: %{public}@", buf, 0xCu);
+                  v89 = v69;
+                  _os_log_error_impl(&dword_228986000, v59, OS_LOG_TYPE_ERROR, "Failed to look up provenance ID for series after freezing: %{public}@", buf, 0xCu);
                 }
 
-                v55 = 0;
-                v14 = v71;
+                v54 = 0;
+                v13 = v69;
               }
 
-              dataManager = [v20 dataManager];
-              v89 = v79;
-              v23 = 1;
-              v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
-              [dataManager shouldNotifyForDataObjects:v62 provenance:v55 database:v81 anchor:v56];
+              dataManager = [v19 dataManager];
+              v87 = v77;
+              v22 = 1;
+              v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+              [dataManager shouldNotifyForDataObjects:v61 provenance:v54 database:v79 anchor:v55];
 
-              v26 = v56;
-              v40 = v79;
+              v25 = v55;
+              v39 = v77;
 
-              v21 = v73;
+              v20 = v71;
             }
 
             else
             {
-              v58 = v26;
+              v57 = v25;
               _HKInitializeLogging();
-              v59 = *MEMORY[0x277CCC2A0];
+              v58 = *MEMORY[0x277CCC2A0];
               if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v91 = v14;
-                _os_log_error_impl(&dword_228986000, v59, OS_LOG_TYPE_ERROR, "Failed to look up series after freezing: %{public}@", buf, 0xCu);
+                v89 = v13;
+                _os_log_error_impl(&dword_228986000, v58, OS_LOG_TYPE_ERROR, "Failed to look up series after freezing: %{public}@", buf, 0xCu);
               }
 
-              v40 = 0;
-              v23 = 1;
-              v26 = v58;
+              v39 = 0;
+              v22 = 1;
+              v25 = v57;
             }
 
             goto LABEL_67;
           }
 
 LABEL_50:
-          v45 = v26;
-          v46 = v36[59];
-          longLongValue = [v21 longLongValue];
-          v48 = v46;
-          v26 = v45;
-          if ([(__objc2_class *)v48 deleteSeriesDataWithKey:longLongValue database:v81 error:errorCopy])
+          v44 = v25;
+          v45 = v35[59];
+          longLongValue = [v20 longLongValue];
+          v47 = v45;
+          v25 = v44;
+          if ([(__objc2_class *)v47 deleteSeriesDataWithKey:longLongValue database:v79 error:errorCopy])
           {
             goto LABEL_51;
           }
 
-          v14 = 0;
+          v13 = 0;
           goto LABEL_59;
         }
 
-        v87 = 0;
-        v27 = [(HDDataEntity *)HDQuantitySampleSeriesEntity objectWithID:v26 encodingOptions:0 profile:profileCopy error:&v87];
-        v28 = v87;
-        if (!v27)
+        v85 = 0;
+        v26 = [(HDDataEntity *)HDQuantitySampleSeriesEntity objectWithID:v25 encodingOptions:0 profile:profileCopy error:&v85];
+        v27 = v85;
+        if (!v26)
         {
-          if (v28)
+          if (v27)
           {
-            v40 = v28;
+            v39 = v27;
           }
 
           else
           {
-            v40 = [MEMORY[0x277CCA9B8] hk_error:100 format:{@"Could not find sample with ID %@", v26}];
-            if (!v40)
+            v39 = [MEMORY[0x277CCA9B8] hk_error:100 format:{@"Could not find sample with ID %@", v25}];
+            if (!v39)
             {
-              v14 = 0;
-              v22 = 0;
+              v13 = 0;
+              v21 = 0;
 LABEL_59:
-              v23 = 0;
+              v22 = 0;
               goto LABEL_68;
             }
           }
 
           if (errorCopy)
           {
-            v44 = v40;
-            *errorCopy = v40;
+            v43 = v39;
+            *errorCopy = v39;
           }
 
           else
@@ -249,79 +248,79 @@ LABEL_59:
             _HKLogDroppedError();
           }
 
-          v14 = 0;
+          v13 = 0;
+          v21 = 0;
           v22 = 0;
-          v23 = 0;
 LABEL_67:
 
           goto LABEL_68;
         }
 
-        v68 = v28;
-        v69 = v26;
-        v72 = v21;
-        [v27 _setMetadata:self->_metadata];
-        [v27 sourceRevision];
-        v30 = v29 = v17;
-        source = [v30 source];
+        v66 = v27;
+        v67 = v25;
+        v70 = v20;
+        [v26 _setMetadata:self->_metadata];
+        [v26 sourceRevision];
+        v29 = v28 = v16;
+        source = [v29 source];
         _sourceID = [source _sourceID];
 
-        v86 = 0;
-        v85 = 0;
-        v67 = v27;
-        v70 = _sourceID;
-        v33 = [(HDDataEntity *)HDQuantitySampleSeriesEntity shouldInsertObject:v27 sourceID:_sourceID profile:profileCopy transaction:v29 objectToReplace:&v86 objectID:&v85 error:errorCopy];
-        v34 = v86;
-        v35 = v85;
-        v65 = v35;
-        v66 = v34;
-        if (v33 == 2)
+        v84 = 0;
+        v83 = 0;
+        v65 = v26;
+        v68 = _sourceID;
+        v32 = [(HDDataEntity *)HDQuantitySampleSeriesEntity shouldInsertObject:v26 sourceID:_sourceID profile:profileCopy transaction:v28 objectToReplace:&v84 objectID:&v83 error:errorCopy];
+        v33 = v84;
+        v34 = v83;
+        v63 = v34;
+        v64 = v33;
+        if (v32 == 2)
         {
-          v41 = 0;
-          v22 = 0;
-          v21 = v72;
-          v26 = v69;
-          v39 = v27;
+          v40 = 0;
+          v21 = 0;
+          v20 = v70;
+          v25 = v67;
+          v38 = v26;
         }
 
         else
         {
-          if (v33 == 1)
+          if (v32 == 1)
           {
-            v36 = off_27860F000;
-            v26 = v69;
-            v21 = v72;
-            if (![HDQuantitySampleSeriesEntity deleteSeriesWithID:v69 deleteSeriesData:1 profile:profileCopy transaction:v80 error:errorCopy])
+            v35 = off_27860F000;
+            v25 = v67;
+            v20 = v70;
+            if (![HDQuantitySampleSeriesEntity deleteSeriesWithID:v67 deleteSeriesData:1 profile:profileCopy transaction:v78 error:errorCopy])
             {
-              v41 = 0;
-              v22 = 0;
-              v39 = v67;
+              v40 = 0;
+              v21 = 0;
+              v38 = v65;
               goto LABEL_48;
             }
 
-            uUID = [v34 UUID];
+            uUID = [v33 UUID];
             frozenIdentifier = self->_frozenIdentifier;
             self->_frozenIdentifier = uUID;
 
-            v22 = 0;
-            v39 = v67;
+            v21 = 0;
+            v38 = v65;
 LABEL_37:
-            v41 = 1;
+            v40 = 1;
 LABEL_48:
 
-            if (!v41)
+            if (!v40)
             {
-              v14 = 0;
-              v23 = 0;
-              v20 = profileCopy;
+              v13 = 0;
+              v22 = 0;
+              v19 = profileCopy;
 LABEL_68:
 
-              v13 = v74;
+              v12 = v72;
               goto LABEL_69;
             }
 
-            v20 = profileCopy;
-            if (!v21)
+            v19 = profileCopy;
+            if (!v20)
             {
               goto LABEL_51;
             }
@@ -329,51 +328,51 @@ LABEL_68:
             goto LABEL_50;
           }
 
-          v22 = v35;
+          v21 = v34;
           metadataManager = [profileCopy metadataManager];
-          v39 = v27;
-          v43 = [metadataManager insertMetadata:self->_metadata forObjectID:v69 sourceID:v70 externalSyncObjectCode:objc_msgSend(v27 objectDeleted:"_externalSyncObjectCode") error:{0, errorCopy}];
+          v38 = v26;
+          v42 = [metadataManager insertMetadata:self->_metadata forObjectID:v67 sourceID:v68 externalSyncObjectCode:objc_msgSend(v26 objectDeleted:"_externalSyncObjectCode") error:{0, errorCopy}];
 
-          v21 = v72;
-          if (v43)
+          v20 = v70;
+          if (v42)
           {
-            v26 = v69;
-            if ([HDQuantitySampleSeriesEntity replaceObjectID:v22 replacementObjectID:v69 deleteOriginalSeriesData:1 profile:profileCopy transaction:v80 error:errorCopy])
+            v25 = v67;
+            if ([HDQuantitySampleSeriesEntity replaceObjectID:v21 replacementObjectID:v67 deleteOriginalSeriesData:1 profile:profileCopy transaction:v78 error:errorCopy])
             {
-              v36 = off_27860F000;
+              v35 = off_27860F000;
               goto LABEL_37;
             }
 
-            v41 = 0;
+            v40 = 0;
           }
 
           else
           {
-            v41 = 0;
-            v26 = v69;
+            v40 = 0;
+            v25 = v67;
           }
         }
 
-        v36 = off_27860F000;
+        v35 = off_27860F000;
         goto LABEL_48;
       }
 
-      v14 = 0;
+      v13 = 0;
+      v21 = 0;
       v22 = 0;
-      v23 = 0;
-      v20 = profileCopy;
+      v19 = profileCopy;
     }
 
     else
     {
-      v24 = self->_frozenIdentifier;
+      v23 = self->_frozenIdentifier;
       self->_frozenIdentifier = 0;
 
       self->_freezeResult = 2;
-      v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v13, "persistentID")}];
-      v20 = profileCopy;
-      v23 = [HDQuantitySampleSeriesEntity deleteSeriesWithID:v19 deleteSeriesData:1 profile:profileCopy transaction:transactionCopy error:error];
-      v22 = 0;
+      v18 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v12, "persistentID")}];
+      v19 = profileCopy;
+      v22 = [HDQuantitySampleSeriesEntity deleteSeriesWithID:v18 deleteSeriesData:1 profile:profileCopy transaction:transactionCopy error:error];
+      v21 = 0;
     }
 
 LABEL_70:
@@ -381,44 +380,43 @@ LABEL_70:
     goto LABEL_71;
   }
 
-  if (v14)
+  if (v13)
   {
-    v13 = v14;
-    v20 = profileCopy;
+    v12 = v13;
+    v19 = profileCopy;
 LABEL_13:
     if (error)
     {
-      v25 = v13;
+      v24 = v12;
+      v21 = 0;
       v22 = 0;
-      v23 = 0;
-      *error = v13;
+      *error = v12;
     }
 
     else
     {
       _HKLogDroppedError();
+      v21 = 0;
       v22 = 0;
-      v23 = 0;
     }
 
-    v14 = v13;
+    v13 = v12;
     goto LABEL_72;
   }
 
-  v13 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:{@"Unable to find quantity series '%@' when freezing.", self->_identifier}];
-  v20 = profileCopy;
-  if (v13)
+  v12 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:{@"Unable to find quantity series '%@' when freezing.", self->_identifier}];
+  v19 = profileCopy;
+  if (v12)
   {
     goto LABEL_13;
   }
 
-  v14 = 0;
+  v13 = 0;
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
 LABEL_73:
 
-  v63 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v22;
 }
 
 - (HDFreezeQuantitySampleSeriesOperation)initWithCoder:(id)coder

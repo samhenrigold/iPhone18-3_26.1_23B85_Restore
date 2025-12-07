@@ -82,33 +82,33 @@ LABEL_7:
 
 - (id)computeNewStateFromUnconfirmedDeviations:(id)deviations dismissalDayIndex:(id)index scheduledFireDayIndex:(int64_t)dayIndex
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   deviationsCopy = deviations;
   indexCopy = index;
   if ([deviationsCopy count])
   {
     dayIndexCopy = dayIndex;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v10 = deviationsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
-      v14 = *v28;
+      v14 = *v27;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
+          v16 = *(*(&v26 + 1) + 8 * i);
           days = [v16 days];
           v19 = v18 + days - 1;
           if (v18 <= 0)
@@ -131,7 +131,7 @@ LABEL_7:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v12);
@@ -151,8 +151,6 @@ LABEL_7:
   }
 
   v23 = computeStateFromNoUnconfirmedDeviations;
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

@@ -215,7 +215,7 @@ LABEL_29:
     if (self->_toAppLayout)
     {
       appLayouts = [(SBContinuousExposeAppToAppModifier *)self appLayouts];
-      v37 = [appLayouts containsObject:self->_toAppLayout];
+      v37 = objc_msgSend_containsObject_(appLayouts);
 
       if (v37)
       {
@@ -291,7 +291,7 @@ LABEL_38:
   v20.super_class = SBContinuousExposeAppToAppModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v20 transitionWillBegin];
   v3 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-  v4 = SBAppendSwitcherModifierResponse(v3, v22[5]);
+  v4 = SBAppendSwitcherModifierResponse();
   v5 = v22[5];
   v22[5] = v4;
 
@@ -321,7 +321,7 @@ LABEL_38:
     _ignoreTapsDuringMorphTransitionReason = [(SBContinuousExposeAppToAppModifier *)self _ignoreTapsDuringMorphTransitionReason];
     v10 = [(SBTimerEventSwitcherEventResponse *)v7 initWithDelay:v15 validator:_ignoreTapsDuringMorphTransitionReason reason:v8];
 
-    v11 = SBAppendSwitcherModifierResponse(v10, v22[5]);
+    v11 = SBAppendSwitcherModifierResponse();
     v12 = v22[5];
     v22[5] = v11;
 
@@ -352,7 +352,7 @@ void __57__SBContinuousExposeAppToAppModifier_transitionWillBegin__block_invoke(
       if (v14 == 3)
       {
         v9 = [[SBSetInterfaceOrientationFromUserResizingEventResponse alloc] initWithDisplayItem:v5 desiredContentOrientation:*(*(a1 + 32) + 256)];
-        v10 = SBAppendSwitcherModifierResponse(v9, *(*(*(a1 + 40) + 8) + 40));
+        v10 = SBAppendSwitcherModifierResponse();
         v11 = *(*(a1 + 40) + 8);
         v12 = *(v11 + 40);
         *(v11 + 40) = v10;
@@ -378,7 +378,7 @@ BOOL __57__SBContinuousExposeAppToAppModifier_transitionWillBegin__block_invoke_
   if ([(SBTransitionSwitcherModifier *)self isInterrupted])
   {
     v4 = objc_alloc_init(SBCancelWindowMorphingSwitcherEventResponse);
-    v5 = SBAppendSwitcherModifierResponse(v4, transitionDidEnd);
+    v5 = SBAppendSwitcherModifierResponse();
 
     transitionDidEnd = v5;
   }
@@ -395,7 +395,7 @@ BOOL __57__SBContinuousExposeAppToAppModifier_transitionWillBegin__block_invoke_
   appLayout = [eventCopy appLayout];
 
   v7 = [appLayout itemForLayoutRole:1];
-  if ([(NSMutableSet *)self->_pendingDisplayItemSceneUpdates containsObject:v7])
+  if (objc_msgSend_containsObject_(self->_pendingDisplayItemSceneUpdates))
   {
     v11.receiver = self;
     v11.super_class = SBContinuousExposeAppToAppModifier;
@@ -405,10 +405,10 @@ BOOL __57__SBContinuousExposeAppToAppModifier_transitionWillBegin__block_invoke_
     }
   }
 
-  if ([(NSSet *)self->_displayItemsChangingSize containsObject:v7])
+  if (objc_msgSend_containsObject_(self->_displayItemsChangingSize))
   {
     v8 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:0];
-    v9 = SBAppendSwitcherModifierResponse(v8, v5);
+    v9 = SBAppendSwitcherModifierResponse();
 
     v5 = v9;
   }
@@ -418,27 +418,28 @@ BOOL __57__SBContinuousExposeAppToAppModifier_transitionWillBegin__block_invoke_
 
 - (id)handleTapAppLayoutEvent:(id)event
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  if (![(SBContinuousExposeAppToAppModifier *)self isMorphFromInAppViewTransition])
+  isMorphFromInAppViewTransition = [(SBContinuousExposeAppToAppModifier *)self isMorphFromInAppViewTransition];
+  if (!isMorphFromInAppViewTransition)
   {
 LABEL_10:
-    v21.receiver = self;
-    v21.super_class = SBContinuousExposeAppToAppModifier;
-    v13 = [(SBSwitcherModifier *)&v21 handleTapAppLayoutEvent:eventCopy];
+    v23.receiver = self;
+    v23.super_class = SBContinuousExposeAppToAppModifier;
+    v15 = [(SBSwitcherModifier *)&v23 handleTapAppLayoutEvent:eventCopy];
     goto LABEL_11;
   }
 
   if (self->_ignoreTapsDuringMorphTransition)
   {
-    v5 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogAppSwitcher(isMorphFromInAppViewTransition);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138543362;
-      v24 = v7;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignored tap event because of ignore tap assertion", buf, 0xCu);
+      v26 = v8;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignored tap event because of ignore tap assertion", buf, 0xCu);
     }
 
     [eventCopy handleWithReason:@"Continuous Exposé App to App"];
@@ -446,53 +447,54 @@ LABEL_10:
   }
 
   isHandled = [eventCopy isHandled];
-  v9 = SBLogAppSwitcher();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (isHandled)
+  v10 = isHandled;
+  v11 = SBLogAppSwitcher(isHandled);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v10)
   {
-    if (v10)
+    if (v12)
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138543362;
-      v24 = v12;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] tap detected but it has been handled already", buf, 0xCu);
+      v26 = v14;
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] tap detected but it has been handled already", buf, 0xCu);
     }
 
     goto LABEL_10;
   }
 
-  if (v10)
+  if (v12)
   {
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
     appLayout = [eventCopy appLayout];
     succinctDescription = [appLayout succinctDescription];
     *buf = 138543618;
-    v24 = v16;
-    v25 = 2114;
-    v26 = succinctDescription;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] tap detected, cancelling any window morphing before transition completes: %{public}@", buf, 0x16u);
+    v26 = v18;
+    v27 = 2114;
+    v28 = succinctDescription;
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] tap detected, cancelling any window morphing before transition completes: %{public}@", buf, 0x16u);
   }
 
-  v19 = objc_alloc_init(SBCancelWindowMorphingSwitcherEventResponse);
-  v22.receiver = self;
-  v22.super_class = SBContinuousExposeAppToAppModifier;
-  v20 = [(SBSwitcherModifier *)&v22 handleTapAppLayoutEvent:eventCopy];
-  v13 = SBAppendSwitcherModifierResponse(v19, v20);
+  v21 = objc_alloc_init(SBCancelWindowMorphingSwitcherEventResponse);
+  v24.receiver = self;
+  v24.super_class = SBContinuousExposeAppToAppModifier;
+  v22 = [(SBSwitcherModifier *)&v24 handleTapAppLayoutEvent:eventCopy];
+  v15 = SBAppendSwitcherModifierResponse();
 
 LABEL_11:
 
-  return v13;
+  return v15;
 }
 
 - (id)handleTimerEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = SBContinuousExposeAppToAppModifier;
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = SBContinuousExposeAppToAppModifier;
   eventCopy = event;
-  v5 = [(SBTransitionSwitcherModifier *)&v13 handleTimerEvent:eventCopy];
+  v5 = [(SBTransitionSwitcherModifier *)&v14 handleTimerEvent:eventCopy];
   reason = [eventCopy reason];
 
   _ignoreTapsDuringMorphTransitionReason = [(SBContinuousExposeAppToAppModifier *)self _ignoreTapsDuringMorphTransitionReason];
@@ -500,14 +502,14 @@ LABEL_11:
 
   if (v8)
   {
-    v9 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = SBLogAppSwitcher(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "[%{public}@] handling ignore tap assertion event", buf, 0xCu);
+      v16 = v12;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "[%{public}@] handling ignore tap assertion event", buf, 0xCu);
     }
 
     self->_ignoreTapsDuringMorphTransition = 0;
@@ -702,7 +704,7 @@ LABEL_2:
   else
   {
     v8 = [layoutCopy itemForLayoutRole:scene];
-    v7 = [(NSSet *)self->_displayItemsChangingSize containsObject:v8];
+    v7 = objc_msgSend_containsObject_(self->_displayItemsChangingSize);
   }
 
 LABEL_7:
@@ -714,7 +716,7 @@ LABEL_7:
 {
   layoutCopy = layout;
   v7 = [layoutCopy itemForLayoutRole:blurred];
-  if ([(NSSet *)self->_displayItemsChangingSize containsObject:v7]&& [(NSMutableSet *)self->_pendingDisplayItemSceneUpdates containsObject:v7])
+  if (objc_msgSend_containsObject_(self->_displayItemsChangingSize) && objc_msgSend_containsObject_(self->_pendingDisplayItemSceneUpdates))
   {
     LODWORD(blurred) = ![(SBContinuousExposeAppToAppModifier *)self isMorphFromInAppViewTransition];
   }
@@ -738,7 +740,7 @@ LABEL_7:
   [(SBContinuousExposeAppToAppModifier *)&v14 blurDelayForLayoutRole:role inAppLayout:layoutCopy];
   v9 = v8;
 
-  if ([(NSSet *)self->_displayItemsChangingSize containsObject:v7]&& ![(SBContinuousExposeAppToAppModifier *)self isMorphFromInAppViewTransition])
+  if (objc_msgSend_containsObject_(self->_displayItemsChangingSize) && ![(SBContinuousExposeAppToAppModifier *)self isMorphFromInAppViewTransition])
   {
     switcherSettings = [(SBContinuousExposeAppToAppModifier *)self switcherSettings];
     animationSettings = [switcherSettings animationSettings];
@@ -787,7 +789,7 @@ LABEL_5:
   v9 = [(SBTransitionSwitcherModifier *)&v16 maskedCornersForLayoutRole:role inAppLayout:layoutCopy withMaskedCorners:corners];
   v10 = [layoutCopy itemForLayoutRole:{role, v16.receiver, v16.super_class}];
 
-  if (v10 && [(SBAppLayout *)self->_toAppLayout containsItem:v10]&& [(SBAppLayout *)self->_fromAppLayout containsItem:v10]&& ![(NSSet *)self->_displayItemsChangingPosition containsObject:v10])
+  if (v10 && [(SBAppLayout *)self->_toAppLayout containsItem:v10]&& [(SBAppLayout *)self->_fromAppLayout containsItem:v10]&& (objc_msgSend_containsObject_(self->_displayItemsChangingPosition) & 1) == 0)
   {
     v11 = [(SBSwitcherModifier *)self flexibleAutoLayoutSpaceForAppLayout:self->_toAppLayout];
     v12 = [v11 flexibleAutoLayoutItemForDisplayItem:v10];

@@ -6,13 +6,12 @@
 - (double)minZoomFactor;
 - (double)videoRotationAngle;
 - (double)zoomFactor;
+- (id)hasTorch;
+- (id)isTorchOn;
 - (id)videoSettings;
 - (uint64_t)connection;
 - (uint64_t)delegate;
 - (uint64_t)device;
-- (uint64_t)hasTorch;
-- (uint64_t)isRunning;
-- (uint64_t)isTorchOn;
 - (uint64_t)photoOutput;
 - (uint64_t)preparationState;
 - (uint64_t)processHasPerfPowerServicesEntitlement;
@@ -24,6 +23,7 @@
 - (uint64_t)videoDataOutput;
 - (void)_sessionRuntimeError:(id)error;
 - (void)dealloc;
+- (void)isRunning;
 - (void)prepareWithConfiguration:(void *)configuration completion:;
 - (void)sendPowerLogs;
 - (void)setConnection:(uint64_t)connection;
@@ -605,21 +605,21 @@ void __48__VKAVCapture_setVideoRotationAngle_completion___block_invoke(uint64_t 
   }
 }
 
-uint64_t __28__VKAVCapture_minZoomFactor__block_invoke(uint64_t a1)
+void *__28__VKAVCapture_minZoomFactor__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) minAvailableVideoZoomFactor];
   *(*(*(a1 + 40) + 8) + 24) = v3;
   return result;
 }
 
-uint64_t __28__VKAVCapture_maxZoomFactor__block_invoke(uint64_t a1)
+void *__28__VKAVCapture_maxZoomFactor__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) maxAvailableVideoZoomFactor];
   *(*(*(a1 + 40) + 8) + 24) = v3;
   return result;
 }
 
-uint64_t __25__VKAVCapture_zoomFactor__block_invoke(uint64_t a1)
+void *__25__VKAVCapture_zoomFactor__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) videoZoomFactor];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -704,7 +704,7 @@ void __51__VKAVCapture_prepareWithConfiguration_completion___block_invoke_2_171(
   v4 = v6;
   if (v6)
   {
-    *(v6 + 9) = 2;
+    v6[9] = 2;
   }
 
   v5 = *(a1 + 72);
@@ -760,13 +760,13 @@ void __51__VKAVCapture_prepareWithConfiguration_completion___block_invoke_2_171(
   return result;
 }
 
-- (uint64_t)isRunning
+- (void)isRunning
 {
   if (result)
   {
     v1 = result;
     dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-    v2 = *(v1 + 32);
+    v2 = v1[4];
 
     return [v2 isRunning];
   }
@@ -827,7 +827,7 @@ void __51__VKAVCapture_prepareWithConfiguration_completion___block_invoke_2_171(
       v4 = v3;
       if (v3)
       {
-        [v3 activeVideoMinFrameDuration];
+        objc_msgSend_activeVideoMinFrameDuration(v3);
       }
 
       else
@@ -1025,15 +1025,15 @@ void __32__VKAVCapture_setInterestPoint___block_invoke(uint64_t a1)
   }
 }
 
-- (uint64_t)hasTorch
+- (id)hasTorch
 {
   selfCopy = self;
   if (self)
   {
-    v2 = *(self + 48);
+    v2 = self[6];
     if ([v2 hasTorch])
     {
-      selfCopy = [*(selfCopy + 48) isTorchAvailable];
+      selfCopy = [selfCopy[6] isTorchAvailable];
     }
 
     else
@@ -1045,11 +1045,11 @@ void __32__VKAVCapture_setInterestPoint___block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-- (uint64_t)isTorchOn
+- (id)isTorchOn
 {
   if (result)
   {
-    return [*(result + 48) isTorchActive];
+    return [result[6] isTorchActive];
   }
 
   return result;

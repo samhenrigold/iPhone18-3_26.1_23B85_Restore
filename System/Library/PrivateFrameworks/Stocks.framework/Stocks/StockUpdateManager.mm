@@ -39,9 +39,11 @@
 
 uint64_t __35__StockUpdateManager_sharedManager__block_invoke()
 {
-  sharedManager___stockUpdaterInstance = objc_alloc_init(StockUpdateManager);
+  v0 = objc_alloc_init(StockUpdateManager);
+  v1 = sharedManager___stockUpdaterInstance;
+  sharedManager___stockUpdaterInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (StockUpdateManager)init

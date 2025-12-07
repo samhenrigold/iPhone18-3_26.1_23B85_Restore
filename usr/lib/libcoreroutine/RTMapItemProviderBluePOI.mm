@@ -4883,7 +4883,7 @@ LABEL_31:
   }
 
   v77 = selfCopy;
-  if (!v148[5] || [v154[5] mostConfidentPOI] || objc_msgSend(v154[5], "mostConfidentAOI"))
+  if (!v148[5] || objc_msgSend_mostConfidentPOI(v154[5]) || [v154[5] mostConfidentAOI])
   {
     mapItemManager = [(RTMapItemProviderBluePOI *)selfCopy mapItemManager];
     v79 = v154[5];
@@ -4951,11 +4951,11 @@ LABEL_31:
   v89 = [(RTMapItemProviderBluePOI *)v77 _shouldPerformServerBluePOIForLocalBluePOIError:v148[5]];
   if (v120)
   {
-    mostConfidentPOI = [v154[5] mostConfidentPOI];
-    if (mostConfidentPOI)
+    v90 = objc_msgSend_mostConfidentPOI(v154[5]);
+    if (v90)
     {
       poiConfidences = [v154[5] poiConfidences];
-      v92 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v154[5], "mostConfidentPOI")}];
+      v92 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:objc_msgSend_mostConfidentPOI(v154[5])];
       v93 = [poiConfidences objectForKeyedSubscript:v92];
       [v93 doubleValue];
       v95 = v94;
@@ -4970,7 +4970,7 @@ LABEL_31:
     }
 
     bluePOIMetricManager6 = [(RTMapItemProviderBluePOI *)v77 bluePOIMetricManager];
-    v98 = [MEMORY[0x277CCABB0] numberWithBool:mostConfidentPOI != 0];
+    v98 = [MEMORY[0x277CCABB0] numberWithBool:v90 != 0];
     [bluePOIMetricManager6 setEventMetricsValue:v98 forKey:@"preAggregatedInferenceAvailablePOI"];
 
     bluePOIMetricManager7 = [(RTMapItemProviderBluePOI *)selfCopy bluePOIMetricManager];

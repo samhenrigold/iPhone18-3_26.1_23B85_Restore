@@ -12,11 +12,11 @@
 - (id)safari_dateForKey:()SafariCoreExtras;
 - (id)safari_numberForKey:()SafariCoreExtras;
 - (uint64_t)safari_BOOLForKey:()SafariCoreExtras defaultValue:;
-- (uint64_t)safari_enableAdvancedPrivacyProtections:()SafariCoreExtras;
 - (uint64_t)safari_integerForKey:()SafariCoreExtras defaultValue:;
 - (uint64_t)safari_toggleBoolAndNotifyForKey:()SafariCoreExtras;
 - (uint64_t)safari_toggleBoolForKey:()SafariCoreExtras;
 - (void)safari_addStringValue:()SafariCoreExtras toArrayWithKey:;
+- (void)safari_enableAdvancedPrivacyProtections:()SafariCoreExtras;
 - (void)safari_incrementNumberForKey:()SafariCoreExtras;
 - (void)safari_modifyDictionaryForKey:()SafariCoreExtras block:;
 - (void)safari_removeObjectsForKeysWithPrefix:()SafariCoreExtras;
@@ -49,7 +49,6 @@
 
 + (id)_safari_browserDefaults
 {
-  v10 = *MEMORY[0x1E69E9840];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
   v2 = [bundleIdentifier isEqualToString:@"com.apple.mobilesafari"];
@@ -77,8 +76,6 @@ LABEL_6:
   v5 = [objc_alloc(MEMORY[0x1E695E000]) _initWithSuiteName:@"com.apple.mobilesafari" container:safari_mobileSafariContainerDirectoryURL];
 LABEL_8:
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
@@ -89,9 +86,9 @@ LABEL_8:
     +[NSUserDefaults(SafariCoreExtras) safari_browserSharedDefaults];
   }
 
-  v1 = safari_browserSharedDefaults_safariSharedDefaults;
+  v2 = safari_browserSharedDefaults_safariSharedDefaults;
 
-  return v1;
+  return v2;
 }
 
 + (id)pm_defaults
@@ -101,9 +98,9 @@ LABEL_8:
     +[NSUserDefaults(SafariCoreExtras) pm_defaults];
   }
 
-  v1 = pm_defaults_userDefaults;
+  v2 = pm_defaults_userDefaults;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_standardUserDefaultsWithOptimizedKeyValueObserving
@@ -113,9 +110,9 @@ LABEL_8:
     +[NSUserDefaults(SafariCoreExtras) safari_standardUserDefaultsWithOptimizedKeyValueObserving];
   }
 
-  v1 = safari_standardUserDefaultsWithOptimizedKeyValueObserving_userDefaults;
+  v2 = safari_standardUserDefaultsWithOptimizedKeyValueObserving_userDefaults;
 
-  return v1;
+  return v2;
 }
 
 - (id)safari_numberForKey:()SafariCoreExtras
@@ -200,9 +197,9 @@ LABEL_8:
     +[NSUserDefaults(SafariCoreExtras) as_developerDefaults];
   }
 
-  v1 = as_developerDefaults_userDefaults;
+  v2 = as_developerDefaults_userDefaults;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_cloudBookmarksDefaults
@@ -224,34 +221,32 @@ LABEL_8:
 
 - (void)safari_setInteger:()SafariCoreExtras andNotifyForKey:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v6 = a4;
   [self setInteger:a3 forKey:v6];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   v8 = [objc_opt_class() safari_notificationNameForUserDefaultsKey:v6];
-  v12 = v6;
+  v11 = v6;
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:a3];
-  v13[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   [defaultCenter postNotificationName:v8 object:self userInfo:v10];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)safari_setBool:()SafariCoreExtras andNotifyForKey:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v6 = a4;
   [self setBool:a3 forKey:v6];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   v8 = [objc_opt_class() safari_notificationNameForUserDefaultsKey:v6];
-  v12 = v6;
+  v11 = v6;
   v9 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-  v13[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   [defaultCenter postNotificationName:v8 object:self userInfo:v10];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)safari_setBool:()SafariCoreExtras forKey:andNotifyWithUserInfo:
@@ -272,18 +267,17 @@ LABEL_8:
 
 - (void)safari_setObject:()SafariCoreExtras andNotifyForKey:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = a3;
   [self setObject:v7 forKey:v6];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   v9 = [objc_opt_class() safari_notificationNameForUserDefaultsKey:v6];
-  v12 = v6;
-  v13[0] = v7;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = v6;
+  v12[0] = v7;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   [defaultCenter postNotificationName:v9 object:self userInfo:v10];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)safari_modifyDictionaryForKey:()SafariCoreExtras block:
@@ -312,18 +306,17 @@ LABEL_8:
 
 - (uint64_t)safari_toggleBoolAndNotifyForKey:()SafariCoreExtras
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self safari_toggleBoolForKey:v4];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   v7 = [objc_opt_class() safari_notificationNameForUserDefaultsKey:v4];
-  v12 = v4;
+  v11 = v4;
   v8 = [MEMORY[0x1E696AD98] numberWithBool:v5];
-  v13[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   [defaultCenter postNotificationName:v7 object:self userInfo:v9];
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -361,16 +354,15 @@ LABEL_8:
 
 - (WBSUserDefaultObservation)safari_observeValueForKey:()SafariCoreExtras onQueue:notifyForInitialValue:handler:
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v10 = a6;
   v11 = a4;
   v12 = a3;
   v13 = [WBSUserDefaultObservation alloc];
-  v18[0] = v12;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
 
   v15 = [(WBSUserDefaultObservation *)v13 initWithUserDefaults:self keys:v14 queue:v11 notifyForInitialValue:a5 handler:v10];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -385,7 +377,7 @@ LABEL_8:
   return v13;
 }
 
-- (uint64_t)safari_enableAdvancedPrivacyProtections:()SafariCoreExtras
+- (void)safari_enableAdvancedPrivacyProtections:()SafariCoreExtras
 {
   result = [self BOOLForKey:@"EnableEnhancedPrivacyInPrivateBrowsing"];
   if (result && (a3 & 1) == 0)
@@ -459,41 +451,39 @@ LABEL_8:
 
 - (void)safari_removeObjectsForKeysWithPrefix:()SafariCoreExtras
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   dictionaryRepresentation = [self dictionaryRepresentation];
-  v6 = [dictionaryRepresentation countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [dictionaryRepresentation countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(dictionaryRepresentation);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if ([v10 hasPrefix:v4])
         {
           [self removeObjectForKey:v10];
         }
       }
 
-      v7 = [dictionaryRepresentation countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [dictionaryRepresentation countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

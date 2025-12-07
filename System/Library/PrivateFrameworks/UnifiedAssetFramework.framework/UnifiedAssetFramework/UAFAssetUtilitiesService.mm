@@ -5,6 +5,7 @@
 - (UAFAssetUtilitiesService)init;
 - (id)_getDiskSpaceNeededInBytesForLanguage:(id)language isDictation:(BOOL)dictation error:(id *)error;
 - (id)getLanguage;
+- (unint64_t)_checkFreeSpaceNeededForLanguage:(id)language isDictation:(BOOL)dictation;
 - (void)_downloadDictationAssetsForLanguage:(id)language useCellular:(BOOL)cellular;
 - (void)_downloadSiriAssetsWithCellular:(BOOL)cellular;
 - (void)_downloadUnderstandingAssetsForLanguage:(id)language useCellular:(BOOL)cellular;
@@ -86,7 +87,7 @@
 
 - (void)suspend
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (!self->_queuesArePaused)
   {
     dispatch_suspend(self->_downloadQueue);
@@ -94,20 +95,18 @@
     v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[UAFAssetUtilitiesService suspend]";
-      _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings service suspended", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[UAFAssetUtilitiesService suspend]";
+      _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings service suspended", &v4, 0xCu);
     }
 
     self->_queuesArePaused = 1;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resume
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (self->_queuesArePaused)
   {
     dispatch_resume(self->_downloadQueue);
@@ -115,15 +114,13 @@
     v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[UAFAssetUtilitiesService resume]";
-      _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings service resumed", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[UAFAssetUtilitiesService resume]";
+      _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings service resumed", &v4, 0xCu);
     }
 
     self->_queuesArePaused = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -159,32 +156,30 @@
 
 - (void)downloadSiriAssets
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[UAFAssetUtilitiesService downloadSiriAssets]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings download XPC", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFAssetUtilitiesService downloadSiriAssets]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings download XPC", &v4, 0xCu);
   }
 
   [(UAFAssetUtilitiesService *)self _downloadSiriAssetsWithCellular:0];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadSiriAssetsOverCellular
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[UAFAssetUtilitiesService downloadSiriAssetsOverCellular]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings download cellular XPC", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFAssetUtilitiesService downloadSiriAssetsOverCellular]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings download cellular XPC", &v4, 0xCu);
   }
 
   [(UAFAssetUtilitiesService *)self _downloadSiriAssetsWithCellular:1];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_downloadSiriAssetsWithCellular:(BOOL)cellular
@@ -208,7 +203,7 @@
 
 void __60__UAFAssetUtilitiesService__downloadSiriAssetsWithCellular___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -224,22 +219,20 @@ void __60__UAFAssetUtilitiesService__downloadSiriAssetsWithCellular___block_invo
       v5 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315138;
-        v8 = "[UAFAssetUtilitiesService _downloadSiriAssetsWithCellular:]_block_invoke";
-        _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s #settings nil language, skipping download...", &v7, 0xCu);
+        v6 = 136315138;
+        v7 = "[UAFAssetUtilitiesService _downloadSiriAssetsWithCellular:]_block_invoke";
+        _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s #settings nil language, skipping download...", &v6, 0xCu);
       }
 
       [v3 updateAssetState:2 value:0 forLanguage:0];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_downloadUnderstandingAssetsForLanguage:(id)language useCellular:(BOOL)cellular
 {
   cellularCopy = cellular;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   downloadQueue = [(UAFAssetUtilitiesService *)self downloadQueue];
   dispatch_assert_queue_V2(downloadQueue);
@@ -256,7 +249,7 @@ void __60__UAFAssetUtilitiesService__downloadSiriAssetsWithCellular___block_invo
       *&buf[12] = 2114;
       *&buf[14] = languageCopy;
       *&buf[22] = 2048;
-      v47 = v9;
+      v46 = v9;
       _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s #settings Download requested for Siri assets (%{public}@) but hit out of space... %llu bytes needed", buf, 0x20u);
     }
 
@@ -289,7 +282,7 @@ LABEL_9:
         *&buf[12] = 2114;
         *&buf[14] = languageCopy;
         *&buf[22] = 1024;
-        LODWORD(v47) = cellularCopy;
+        LODWORD(v46) = cellularCopy;
         _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s #settings Download legacy Siri assets for language:%{public}@ cellular:%d", buf, 0x1Cu);
       }
 
@@ -307,14 +300,14 @@ LABEL_9:
       *&buf[12] = 2114;
       *&buf[14] = languageCopy;
       *&buf[22] = 1024;
-      LODWORD(v47) = cellularCopy;
+      LODWORD(v46) = cellularCopy;
       _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s #settings Download Siri assets for language:%{public}@ cellular:%d", buf, 0x1Cu);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v47 = 2;
+    v46 = 2;
     statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -332,11 +325,11 @@ LABEL_9:
         v19 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          *v42 = 136315394;
-          v43 = "[UAFAssetUtilitiesService _downloadUnderstandingAssetsForLanguage:useCellular:]";
-          v44 = 2114;
-          v45 = languageCopy;
-          _os_log_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_DEFAULT, "%s #settings Download requested for Siri assets skipped due to existing download in progress (%{public}@)...", v42, 0x16u);
+          *v41 = 136315394;
+          v42 = "[UAFAssetUtilitiesService _downloadUnderstandingAssetsForLanguage:useCellular:]";
+          v43 = 2114;
+          v44 = languageCopy;
+          _os_log_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_DEFAULT, "%s #settings Download requested for Siri assets skipped due to existing download in progress (%{public}@)...", v41, 0x16u);
         }
 
         goto LABEL_25;
@@ -345,41 +338,41 @@ LABEL_9:
       [(UAFAssetUtilitiesService *)self updateAssetState:3 value:&unk_1F3B73140 forLanguage:languageCopy];
     }
 
-    objc_initWeak(v42, self);
+    objc_initWeak(v41, self);
     statusQueue2 = [(UAFAssetUtilitiesService *)self statusQueue];
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useCellular___block_invoke_300;
-    v38[3] = &unk_1E7FFD160;
-    objc_copyWeak(&v40, v42);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useCellular___block_invoke_300;
+    v37[3] = &unk_1E7FFD160;
+    objc_copyWeak(&v39, v41);
     v22 = languageCopy;
-    v39 = v22;
-    dispatch_async(statusQueue2, v38);
+    v38 = v22;
+    dispatch_async(statusQueue2, v37);
 
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useCellular___block_invoke_2;
-    v35[3] = &unk_1E7FFD828;
-    objc_copyWeak(&v37, v42);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useCellular___block_invoke_2;
+    v34[3] = &unk_1E7FFD828;
+    objc_copyWeak(&v36, v41);
     v23 = v22;
-    v36 = v23;
-    v24 = MEMORY[0x1BFB33950](v35);
-    v29 = MEMORY[0x1E69E9820];
-    v30 = 3221225472;
-    v31 = __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useCellular___block_invoke_3;
-    v32 = &unk_1E7FFD160;
-    objc_copyWeak(&v34, v42);
-    v33 = v23;
-    v25 = MEMORY[0x1BFB33950](&v29);
-    v26 = [UAFAssetSetManager sharedManager:v29];
+    v35 = v23;
+    v24 = MEMORY[0x1BFB33950](v34);
+    v28 = MEMORY[0x1E69E9820];
+    v29 = 3221225472;
+    v30 = __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useCellular___block_invoke_3;
+    v31 = &unk_1E7FFD160;
+    objc_copyWeak(&v33, v41);
+    v32 = v23;
+    v25 = MEMORY[0x1BFB33950](&v28);
+    v26 = [UAFAssetSetManager sharedManager:v28];
     statusQueue3 = [(UAFAssetUtilitiesService *)self statusQueue];
     [v26 updateAssetsForSubscriber:@"com.apple.siri.assistant" subscriptionName:0 policies:v12 queue:statusQueue3 progress:v24 completion:v25];
 
-    objc_destroyWeak(&v34);
-    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v36);
 
-    objc_destroyWeak(&v40);
-    objc_destroyWeak(v42);
+    objc_destroyWeak(&v39);
+    objc_destroyWeak(v41);
 LABEL_25:
     _Block_object_dispose(buf, 8);
 LABEL_26:
@@ -399,8 +392,6 @@ LABEL_26:
 
   [(UAFAssetUtilitiesService *)self updateAssetState:2 value:0 forLanguage:languageCopy];
 LABEL_27:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useCellular___block_invoke(uint64_t a1)
@@ -446,7 +437,7 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
 
 - (void)_handleUpdateProgress:(unint64_t)progress status:(unint64_t)status language:(id)language
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
   dispatch_assert_queue_V2(statusQueue);
@@ -454,12 +445,12 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
   v10 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v13 = UAFSubscriptionDownloadStatusDescription(status);
-    v14 = 136315394;
-    v15 = "[UAFAssetUtilitiesService _handleUpdateProgress:status:language:]";
-    v16 = 2112;
-    v17 = v13;
-    _os_log_debug_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEBUG, "%s #settings progress status %@", &v14, 0x16u);
+    v12 = UAFSubscriptionDownloadStatusDescription(status);
+    v13 = 136315394;
+    v14 = "[UAFAssetUtilitiesService _handleUpdateProgress:status:language:]";
+    v15 = 2112;
+    v16 = v12;
+    _os_log_debug_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEBUG, "%s #settings progress status %@", &v13, 0x16u);
   }
 
   if (status - 1 >= 3)
@@ -483,13 +474,11 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
   {
     [(UAFAssetUtilitiesService *)self _updateProgress:progress forLanguage:languageCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateProgress:(unint64_t)progress forLanguage:(id)language
 {
-  *&v17[13] = *MEMORY[0x1E69E9840];
+  *&v16[13] = *MEMORY[0x1E69E9840];
   languageCopy = language;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
   dispatch_assert_queue_V2(statusQueue);
@@ -497,13 +486,13 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
   v8 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315650;
-    v15 = "[UAFAssetUtilitiesService _updateProgress:forLanguage:]";
-    v16 = 1024;
-    *v17 = progress;
-    v17[2] = 2114;
-    *&v17[3] = languageCopy;
-    _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s #settings Download progress %d%% for language %{public}@", &v14, 0x1Cu);
+    v13 = 136315650;
+    v14 = "[UAFAssetUtilitiesService _updateProgress:forLanguage:]";
+    v15 = 1024;
+    *v16 = progress;
+    v16[2] = 2114;
+    *&v16[3] = languageCopy;
+    _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s #settings Download progress %d%% for language %{public}@", &v13, 0x1Cu);
   }
 
   if (languageCopy)
@@ -516,11 +505,11 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
       v11 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315394;
-        v15 = "[UAFAssetUtilitiesService _updateProgress:forLanguage:]";
-        v16 = 2114;
-        *v17 = languageCopy;
-        _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s #settings UOD available already for %{public}@. Skip updating download progress...", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "[UAFAssetUtilitiesService _updateProgress:forLanguage:]";
+        v15 = 2114;
+        *v16 = languageCopy;
+        _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s #settings UOD available already for %{public}@. Skip updating download progress...", &v13, 0x16u);
       }
     }
 
@@ -531,13 +520,13 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
         v12 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 136315650;
-          v15 = "[UAFAssetUtilitiesService _updateProgress:forLanguage:]";
-          v16 = 1024;
-          *v17 = 98;
-          v17[2] = 2114;
-          *&v17[3] = languageCopy;
-          _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s #settings Download progress clamped to %d%% for language %{public}@", &v14, 0x1Cu);
+          v13 = 136315650;
+          v14 = "[UAFAssetUtilitiesService _updateProgress:forLanguage:]";
+          v15 = 1024;
+          *v16 = 98;
+          v16[2] = 2114;
+          *&v16[3] = languageCopy;
+          _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s #settings Download progress clamped to %d%% for language %{public}@", &v13, 0x1Cu);
         }
 
         progress = 98;
@@ -553,18 +542,16 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
     v11 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315138;
-      v15 = "[UAFAssetUtilitiesService _updateProgress:forLanguage:]";
-      _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s #settings nil language", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "[UAFAssetUtilitiesService _updateProgress:forLanguage:]";
+      _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s #settings nil language", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_siriDownloadCompleteForLanguage:(id)language
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
   dispatch_assert_queue_V2(statusQueue);
@@ -572,11 +559,11 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
   v6 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "[UAFAssetUtilitiesService _siriDownloadCompleteForLanguage:]";
-    v13 = 2114;
-    v14 = languageCopy;
-    _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s #settings Download complete for language %{public}@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[UAFAssetUtilitiesService _siriDownloadCompleteForLanguage:]";
+    v12 = 2114;
+    v13 = languageCopy;
+    _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s #settings Download complete for language %{public}@", &v10, 0x16u);
   }
 
   if (languageCopy)
@@ -594,11 +581,11 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
     v9 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "[UAFAssetUtilitiesService _siriDownloadCompleteForLanguage:]";
-      v13 = 2114;
-      v14 = languageCopy;
-      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings UOD available already for %{public}@. Skip updating download progress...", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[UAFAssetUtilitiesService _siriDownloadCompleteForLanguage:]";
+      v12 = 2114;
+      v13 = languageCopy;
+      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings UOD available already for %{public}@. Skip updating download progress...", &v10, 0x16u);
     }
   }
 
@@ -607,19 +594,18 @@ void __80__UAFAssetUtilitiesService__downloadUnderstandingAssetsForLanguage_useC
     v9 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[UAFAssetUtilitiesService _siriDownloadCompleteForLanguage:]";
-      _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s #settings nil language", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[UAFAssetUtilitiesService _siriDownloadCompleteForLanguage:]";
+      _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s #settings nil language", &v10, 0xCu);
     }
   }
 
 LABEL_11:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_triggerCompletionTimerForLanguage:(id)language
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
   dispatch_assert_queue_V2(statusQueue);
@@ -630,7 +616,7 @@ LABEL_11:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[UAFAssetUtilitiesService _triggerCompletionTimerForLanguage:]";
+      v13 = "[UAFAssetUtilitiesService _triggerCompletionTimerForLanguage:]";
       _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s #settings Skipping due to one attempt already in progress", buf, 0xCu);
     }
   }
@@ -641,24 +627,22 @@ LABEL_11:
     objc_initWeak(buf, self);
     v7 = dispatch_time(0, 20000000000);
     statusQueue2 = [(UAFAssetUtilitiesService *)self statusQueue];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_invoke;
-    v10[3] = &unk_1E7FFD160;
-    objc_copyWeak(&v12, buf);
-    v11 = languageCopy;
-    dispatch_after(v7, statusQueue2, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_invoke;
+    v9[3] = &unk_1E7FFD160;
+    objc_copyWeak(&v11, buf);
+    v10 = languageCopy;
+    dispatch_after(v7, statusQueue2, v9);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -673,35 +657,33 @@ void __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_i
       v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v8 = *(a1 + 32);
+        v7 = *(a1 + 32);
         *buf = 136315394;
-        v13 = "[UAFAssetUtilitiesService _triggerCompletionTimerForLanguage:]_block_invoke";
-        v14 = 2114;
-        v15 = v8;
+        v12 = "[UAFAssetUtilitiesService _triggerCompletionTimerForLanguage:]_block_invoke";
+        v13 = 2114;
+        v14 = v7;
         _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s #settings UOD status watchdog hit. Fetching status again. Language = %{public}@", buf, 0x16u);
       }
 
       [v3 updateSiriAssetAvailabilityForLanguageSync:*(a1 + 32)];
       v5 = dispatch_time(0, 20000000000);
       v6 = [v3 statusQueue];
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_invoke_313;
-      v9[3] = &unk_1E7FFD160;
-      objc_copyWeak(&v11, (a1 + 40));
-      v10 = *(a1 + 32);
-      dispatch_after(v5, v6, v9);
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_invoke_313;
+      v8[3] = &unk_1E7FFD160;
+      objc_copyWeak(&v10, (a1 + 40));
+      v9 = *(a1 + 32);
+      dispatch_after(v5, v6, v8);
 
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(&v10);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_invoke_313(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -711,12 +693,12 @@ void __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_i
       v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v8 = *(a1 + 32);
-        v9 = 136315394;
-        v10 = "[UAFAssetUtilitiesService _triggerCompletionTimerForLanguage:]_block_invoke";
-        v11 = 2114;
-        v12 = v8;
-        _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s #settings UOD status watchdog hit. Download failed. Language = %{public}@", &v9, 0x16u);
+        v7 = *(a1 + 32);
+        v8 = 136315394;
+        v9 = "[UAFAssetUtilitiesService _triggerCompletionTimerForLanguage:]_block_invoke";
+        v10 = 2114;
+        v11 = v7;
+        _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s #settings UOD status watchdog hit. Download failed. Language = %{public}@", &v8, 0x16u);
       }
 
       v5 = [v3 assetStatus];
@@ -730,8 +712,6 @@ void __63__UAFAssetUtilitiesService__triggerCompletionTimerForLanguage___block_i
 
     v3[21] = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getLanguage
@@ -800,16 +780,14 @@ void __43__UAFAssetUtilitiesService_switchLanguage___block_invoke(uint64_t a1)
 
 - (void)postAssetNotificationIfNeeded
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[UAFAssetUtilitiesService postAssetNotificationIfNeeded]";
-    _os_log_error_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_ERROR, "%s #settings posting Siri notification not supported.", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[UAFAssetUtilitiesService postAssetNotificationIfNeeded]";
+    _os_log_error_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_ERROR, "%s #settings posting Siri notification not supported.", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSiriAssetAvailabilityForObserver
@@ -841,7 +819,7 @@ void __43__UAFAssetUtilitiesService_switchLanguage___block_invoke(uint64_t a1)
 
 - (void)updateSiriAssetAvailabilityForLanguageSync:(id)sync
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   v5 = syncCopy;
   if (syncCopy)
@@ -849,16 +827,16 @@ void __43__UAFAssetUtilitiesService_switchLanguage___block_invoke(uint64_t a1)
     v6 = [syncCopy stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
     location = 0;
     p_location = &location;
-    v25 = 0x2050000000;
+    v24 = 0x2050000000;
     v7 = getAFSettingsConnectionClass_softClass_0;
-    v26 = getAFSettingsConnectionClass_softClass_0;
+    v25 = getAFSettingsConnectionClass_softClass_0;
     if (!getAFSettingsConnectionClass_softClass_0)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getAFSettingsConnectionClass_block_invoke_0;
-      v28 = &unk_1E7FFD1D8;
-      v29 = &location;
+      v27 = &unk_1E7FFD1D8;
+      v28 = &location;
       __getAFSettingsConnectionClass_block_invoke_0(buf);
       v7 = p_location[3];
     }
@@ -878,18 +856,18 @@ void __43__UAFAssetUtilitiesService_switchLanguage___block_invoke(uint64_t a1)
 
     v11 = dispatch_semaphore_create(0);
     objc_initWeak(&location, self);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __71__UAFAssetUtilitiesService_updateSiriAssetAvailabilityForLanguageSync___block_invoke;
-    v18[3] = &unk_1E7FFD8A0;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __71__UAFAssetUtilitiesService_updateSiriAssetAvailabilityForLanguageSync___block_invoke;
+    v17[3] = &unk_1E7FFD8A0;
     v12 = v9;
-    v19 = v12;
-    objc_copyWeak(&v22, &location);
+    v18 = v12;
+    objc_copyWeak(&v21, &location);
     v13 = v5;
-    v20 = v13;
+    v19 = v13;
     v14 = v11;
-    v21 = v14;
-    [v12 getAssetStatusForLanguage:v6 completionHandler:v18];
+    v20 = v14;
+    [v12 getAssetStatusForLanguage:v6 completionHandler:v17];
     v15 = dispatch_time(0, 3000000000);
     if (dispatch_semaphore_wait(v14, v15))
     {
@@ -904,11 +882,9 @@ void __43__UAFAssetUtilitiesService_switchLanguage___block_invoke(uint64_t a1)
       }
     }
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __71__UAFAssetUtilitiesService_updateSiriAssetAvailabilityForLanguageSync___block_invoke(uint64_t a1, void *a2)
@@ -948,7 +924,7 @@ void __71__UAFAssetUtilitiesService_updateSiriAssetAvailabilityForLanguageSync__
 
 - (void)_updateSiriAssetAvailability:(id)availability forLanguage:(id)language
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   availabilityCopy = availability;
   languageCopy = language;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
@@ -959,13 +935,13 @@ void __71__UAFAssetUtilitiesService_updateSiriAssetAvailabilityForLanguageSync__
     v9 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315650;
-      v19 = "[UAFAssetUtilitiesService _updateSiriAssetAvailability:forLanguage:]";
-      v20 = 2112;
-      v21 = availabilityCopy;
-      v22 = 2114;
-      v23 = languageCopy;
-      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings update asset status %@ for language %{public}@", &v18, 0x20u);
+      v17 = 136315650;
+      v18 = "[UAFAssetUtilitiesService _updateSiriAssetAvailability:forLanguage:]";
+      v19 = 2112;
+      v20 = availabilityCopy;
+      v21 = 2114;
+      v22 = languageCopy;
+      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings update asset status %@ for language %{public}@", &v17, 0x20u);
     }
 
     if (+[UAFCommonUtilities deviceSupportFullUOD])
@@ -982,11 +958,11 @@ LABEL_6:
           v12 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = 136315394;
-            v19 = "[UAFAssetUtilitiesService _updateSiriAssetAvailability:forLanguage:]";
-            v20 = 2114;
-            v21 = languageCopy;
-            _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s #settings forcing state to UAFAssetStateFinished due to sudden UOD available for %{public}@...", &v18, 0x16u);
+            v17 = 136315394;
+            v18 = "[UAFAssetUtilitiesService _updateSiriAssetAvailability:forLanguage:]";
+            v19 = 2114;
+            v20 = languageCopy;
+            _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s #settings forcing state to UAFAssetStateFinished due to sudden UOD available for %{public}@...", &v17, 0x16u);
           }
 
           [(UAFAssetUtilitiesService *)self _updateAssetState:5 value:0 forLanguage:languageCopy];
@@ -1021,11 +997,11 @@ LABEL_18:
       v16 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 136315394;
-        v19 = "[UAFAssetUtilitiesService _updateSiriAssetAvailability:forLanguage:]";
-        v20 = 2114;
-        v21 = languageCopy;
-        _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s #settings forcing state to UAFAssetStateNotStarted due to sudden UOD unavailable for %{public}@...", &v18, 0x16u);
+        v17 = 136315394;
+        v18 = "[UAFAssetUtilitiesService _updateSiriAssetAvailability:forLanguage:]";
+        v19 = 2114;
+        v20 = languageCopy;
+        _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s #settings forcing state to UAFAssetStateNotStarted due to sudden UOD unavailable for %{public}@...", &v17, 0x16u);
       }
 
       [(UAFAssetUtilitiesService *)self _updateAssetState:2 value:&unk_1F3B73170 forLanguage:languageCopy];
@@ -1036,39 +1012,35 @@ LABEL_18:
   }
 
 LABEL_20:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadDictationAssetsForLanguage:(id)language
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   v5 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[UAFAssetUtilitiesService downloadDictationAssetsForLanguage:]";
+    v11 = "[UAFAssetUtilitiesService downloadDictationAssetsForLanguage:]";
     _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings download dictation XPC", buf, 0xCu);
   }
 
   downloadQueue = [(UAFAssetUtilitiesService *)self downloadQueue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __63__UAFAssetUtilitiesService_downloadDictationAssetsForLanguage___block_invoke;
-  v9[3] = &unk_1E7FFD098;
-  v9[4] = self;
-  v10 = languageCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __63__UAFAssetUtilitiesService_downloadDictationAssetsForLanguage___block_invoke;
+  v8[3] = &unk_1E7FFD098;
+  v8[4] = self;
+  v9 = languageCopy;
   v7 = languageCopy;
-  dispatch_async(downloadQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(downloadQueue, v8);
 }
 
 - (void)_downloadDictationAssetsForLanguage:(id)language useCellular:(BOOL)cellular
 {
   cellularCopy = cellular;
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   downloadQueue = [(UAFAssetUtilitiesService *)self downloadQueue];
   dispatch_assert_queue_V2(downloadQueue);
@@ -1084,13 +1056,13 @@ LABEL_20:
         v10 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          *v67 = 136315650;
-          *&v67[4] = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
-          *&v67[12] = 2114;
-          *&v67[14] = languageCopy;
-          *&v67[22] = 2048;
-          v68 = v9;
-          _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s #settings Download requested for Dictation assets (%{public}@) but hit out of space... %llu bytes needed", v67, 0x20u);
+          *v66 = 136315650;
+          *&v66[4] = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
+          *&v66[12] = 2114;
+          *&v66[14] = languageCopy;
+          *&v66[22] = 2048;
+          v67 = v9;
+          _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s #settings Download requested for Dictation assets (%{public}@) but hit out of space... %llu bytes needed", v66, 0x20u);
         }
 
         statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
@@ -1099,37 +1071,37 @@ LABEL_20:
         block[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_317;
         block[3] = &unk_1E7FFD8C8;
         block[4] = self;
-        v55 = v9;
-        v54 = languageCopy;
+        v54 = v9;
+        v53 = languageCopy;
         dispatch_async(statusQueue, block);
       }
 
       else
       {
-        *v67 = 0;
-        *&v67[8] = v67;
-        *&v67[16] = 0x2020000000;
-        v68 = 2;
+        *v66 = 0;
+        *&v66[8] = v66;
+        *&v66[16] = 0x2020000000;
+        v67 = 2;
         statusQueue2 = [(UAFAssetUtilitiesService *)self statusQueue];
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_2;
-        v50[3] = &unk_1E7FFD8F0;
-        v52 = v67;
-        v50[4] = self;
+        v49[0] = MEMORY[0x1E69E9820];
+        v49[1] = 3221225472;
+        v49[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_2;
+        v49[3] = &unk_1E7FFD8F0;
+        v51 = v66;
+        v49[4] = self;
         v14 = languageCopy;
-        v51 = v14;
-        dispatch_sync(statusQueue2, v50);
+        v50 = v14;
+        dispatch_sync(statusQueue2, v49);
 
-        if (*(*&v67[8] + 24) == 3)
+        if (*(*&v66[8] + 24) == 3)
         {
           v15 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v64 = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
-            v65 = 2114;
-            v66 = v14;
+            v63 = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
+            v64 = 2114;
+            v65 = v14;
             _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s #settings Already in progress download for dictation assets language %{public}@... Skipping...", buf, 0x16u);
           }
         }
@@ -1141,37 +1113,37 @@ LABEL_20:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v64 = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
-            v65 = 2114;
-            v66 = v15;
+            v63 = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
+            v64 = 2114;
+            v65 = v15;
             _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s #settings Downloading dictation assets for language %{public}@...", buf, 0x16u);
           }
 
-          v60 = v15;
-          v61 = @"com.apple.siri.understanding";
-          v59 = @"asr.language";
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-          v62 = v19;
-          v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+          v59 = v15;
+          v60 = @"com.apple.siri.understanding";
+          v58 = @"asr.language";
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+          v61 = v19;
+          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
 
-          v38 = [@"dictation." stringByAppendingString:v15];
-          v36 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:2592000.0];
-          v35 = [[UAFAssetSetSubscription alloc] initWithName:v38 assetSets:v37 usageAliases:0 expires:v36];
+          v37 = [@"dictation." stringByAppendingString:v15];
+          v35 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:2592000.0];
+          v34 = [[UAFAssetSetSubscription alloc] initWithName:v37 assetSets:v36 usageAliases:0 expires:v35];
           v20 = dispatch_semaphore_create(0);
           objc_initWeak(&location, self);
           v21 = +[UAFAssetSetManager sharedManager];
-          v58 = v35;
-          v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
-          v45[0] = MEMORY[0x1E69E9820];
-          v45[1] = 3221225472;
-          v45[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_328;
-          v45[3] = &unk_1E7FFD918;
-          objc_copyWeak(&v48, &location);
+          v57 = v34;
+          v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
+          v44[0] = MEMORY[0x1E69E9820];
+          v44[1] = 3221225472;
+          v44[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_328;
+          v44[3] = &unk_1E7FFD918;
+          objc_copyWeak(&v47, &location);
           v23 = v14;
-          v46 = v23;
+          v45 = v23;
           v24 = v20;
-          v47 = v24;
-          [v21 subscribe:@"com.apple.uaf.assetutil" subscriptions:v22 queue:0 completion:v45];
+          v46 = v24;
+          [v21 subscribe:@"com.apple.uaf.assetutil" subscriptions:v22 queue:0 completion:v44];
 
           v25 = dispatch_time(0, 3000000000);
           if (dispatch_semaphore_wait(v24, v25))
@@ -1180,30 +1152,30 @@ LABEL_20:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v64 = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
-              v65 = 2114;
-              v66 = v23;
+              v63 = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
+              v64 = 2114;
+              v65 = v23;
               _os_log_error_impl(&dword_1BCF2C000, v26, OS_LOG_TYPE_ERROR, "%s #settings Failed to subscribe to dictation language %{public}@ due to timeout", buf, 0x16u);
             }
           }
 
           else
           {
-            v42[0] = MEMORY[0x1E69E9820];
-            v42[1] = 3221225472;
-            v42[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_330;
-            v42[3] = &unk_1E7FFD828;
-            objc_copyWeak(&v44, &location);
+            v41[0] = MEMORY[0x1E69E9820];
+            v41[1] = 3221225472;
+            v41[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_330;
+            v41[3] = &unk_1E7FFD828;
+            objc_copyWeak(&v43, &location);
             v27 = v23;
-            v43 = v27;
-            v28 = MEMORY[0x1BFB33950](v42);
-            v39[0] = MEMORY[0x1E69E9820];
-            v39[1] = 3221225472;
-            v39[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_2_331;
-            v39[3] = &unk_1E7FFD160;
-            objc_copyWeak(&v41, &location);
-            v40 = v27;
-            v29 = MEMORY[0x1BFB33950](v39);
+            v42 = v27;
+            v28 = MEMORY[0x1BFB33950](v41);
+            v38[0] = MEMORY[0x1E69E9820];
+            v38[1] = 3221225472;
+            v38[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_2_331;
+            v38[3] = &unk_1E7FFD160;
+            objc_copyWeak(&v40, &location);
+            v39 = v27;
+            v29 = MEMORY[0x1BFB33950](v38);
             v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
             v31 = v30;
             if (cellularCopy)
@@ -1213,17 +1185,17 @@ LABEL_20:
 
             v32 = +[UAFAssetSetManager sharedManager];
             statusQueue3 = [(UAFAssetUtilitiesService *)self statusQueue];
-            [v32 updateAssetsForSubscriber:@"com.apple.uaf.assetutil" subscriptionName:v38 policies:v31 queue:statusQueue3 progress:v28 completion:v29];
+            [v32 updateAssetsForSubscriber:@"com.apple.uaf.assetutil" subscriptionName:v37 policies:v31 queue:statusQueue3 progress:v28 completion:v29];
 
-            objc_destroyWeak(&v41);
-            objc_destroyWeak(&v44);
+            objc_destroyWeak(&v40);
+            objc_destroyWeak(&v43);
           }
 
-          objc_destroyWeak(&v48);
+          objc_destroyWeak(&v47);
           objc_destroyWeak(&location);
         }
 
-        _Block_object_dispose(v67, 8);
+        _Block_object_dispose(v66, 8);
       }
     }
 
@@ -1232,21 +1204,21 @@ LABEL_20:
       v16 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        *v67 = 136315394;
-        *&v67[4] = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
-        *&v67[12] = 2114;
-        *&v67[14] = languageCopy;
-        _os_log_error_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_ERROR, "%s #settings Cannot download Dictation assets for %{public}@ due to network connectivity...", v67, 0x16u);
+        *v66 = 136315394;
+        *&v66[4] = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
+        *&v66[12] = 2114;
+        *&v66[14] = languageCopy;
+        _os_log_error_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_ERROR, "%s #settings Cannot download Dictation assets for %{public}@ due to network connectivity...", v66, 0x16u);
       }
 
       statusQueue4 = [(UAFAssetUtilitiesService *)self statusQueue];
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke;
-      v56[3] = &unk_1E7FFD098;
-      v56[4] = self;
-      v57 = languageCopy;
-      dispatch_async(statusQueue4, v56);
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke;
+      v55[3] = &unk_1E7FFD098;
+      v55[4] = self;
+      v56 = languageCopy;
+      dispatch_async(statusQueue4, v55);
     }
   }
 
@@ -1255,13 +1227,11 @@ LABEL_20:
     v12 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      *v67 = 136315138;
-      *&v67[4] = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
-      _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s #settings Cannot download Dictation assets due to nil language", v67, 0xCu);
+      *v66 = 136315138;
+      *&v66[4] = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]";
+      _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s #settings Cannot download Dictation assets due to nil language", v66, 0xCu);
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_317(void *a1)
@@ -1280,7 +1250,7 @@ void __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellu
 
 void __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_328(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -1290,14 +1260,14 @@ void __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellu
       v5 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = *(a1 + 32);
-        v8 = 136315650;
-        v9 = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]_block_invoke";
-        v10 = 2114;
-        v11 = v7;
-        v12 = 2112;
-        v13 = v3;
-        _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s #settings Failed to subscribe to dictation language %{public}@ due to error %@", &v8, 0x20u);
+        v6 = *(a1 + 32);
+        v7 = 136315650;
+        v8 = "[UAFAssetUtilitiesService _downloadDictationAssetsForLanguage:useCellular:]_block_invoke";
+        v9 = 2114;
+        v10 = v6;
+        v11 = 2112;
+        v12 = v3;
+        _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s #settings Failed to subscribe to dictation language %{public}@ due to error %@", &v7, 0x20u);
       }
     }
 
@@ -1306,8 +1276,6 @@ void __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellu
       dispatch_semaphore_signal(*(a1 + 40));
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __76__UAFAssetUtilitiesService__downloadDictationAssetsForLanguage_useCellular___block_invoke_330(uint64_t a1, uint64_t a2, double a3)
@@ -1358,7 +1326,7 @@ LABEL_8:
 
 - (void)_updateDictationProgress:(unint64_t)progress language:(id)language
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
   dispatch_assert_queue_V2(statusQueue);
@@ -1366,13 +1334,13 @@ LABEL_8:
   v8 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315650;
-    v13 = "[UAFAssetUtilitiesService _updateDictationProgress:language:]";
-    v14 = 1024;
+    v11 = 136315650;
+    v12 = "[UAFAssetUtilitiesService _updateDictationProgress:language:]";
+    v13 = 1024;
     progressCopy = progress;
-    v16 = 2114;
-    v17 = languageCopy;
-    _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s #settings Dictation download percent %d for language %{public}@", &v12, 0x1Cu);
+    v15 = 2114;
+    v16 = languageCopy;
+    _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s #settings Dictation download percent %d for language %{public}@", &v11, 0x1Cu);
   }
 
   if (progress >= 0x63)
@@ -1380,13 +1348,13 @@ LABEL_8:
     v9 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315650;
-      v13 = "[UAFAssetUtilitiesService _updateDictationProgress:language:]";
-      v14 = 1024;
+      v11 = 136315650;
+      v12 = "[UAFAssetUtilitiesService _updateDictationProgress:language:]";
+      v13 = 1024;
       progressCopy = 98;
-      v16 = 2114;
-      v17 = languageCopy;
-      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings Download progress clamped to %d%% for language %{public}@", &v12, 0x1Cu);
+      v15 = 2114;
+      v16 = languageCopy;
+      _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings Download progress clamped to %d%% for language %{public}@", &v11, 0x1Cu);
     }
 
     progress = 98;
@@ -1394,13 +1362,11 @@ LABEL_8:
 
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:progress];
   [(UAFAssetUtilitiesService *)self _updateDictationState:3 value:v10 forLanguage:languageCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleDictationCompletionForLanguage:(id)language
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
   dispatch_assert_queue_V2(statusQueue);
@@ -1409,9 +1375,9 @@ LABEL_8:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = "[UAFAssetUtilitiesService _handleDictationCompletionForLanguage:]";
-    v16 = 2114;
-    v17 = languageCopy;
+    v14 = "[UAFAssetUtilitiesService _handleDictationCompletionForLanguage:]";
+    v15 = 2114;
+    v16 = languageCopy;
     _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s #settings Dictation download complete for %{public}@", buf, 0x16u);
   }
 
@@ -1419,23 +1385,22 @@ LABEL_8:
   objc_initWeak(buf, self);
   v7 = dispatch_time(0, 3000000000);
   statusQueue2 = [(UAFAssetUtilitiesService *)self statusQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___block_invoke;
-  v11[3] = &unk_1E7FFD160;
-  objc_copyWeak(&v13, buf);
-  v12 = languageCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___block_invoke;
+  v10[3] = &unk_1E7FFD160;
+  objc_copyWeak(&v12, buf);
+  v11 = languageCopy;
   v9 = languageCopy;
-  dispatch_after(v7, statusQueue2, v11);
+  dispatch_after(v7, statusQueue2, v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained && ([WeakRetained _updateDictationAvailabilityForLanguage:*(a1 + 32)] & 1) == 0)
@@ -1443,33 +1408,31 @@ void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___bloc
     v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
+      v7 = *(a1 + 32);
       *buf = 136315394;
-      v13 = "[UAFAssetUtilitiesService _handleDictationCompletionForLanguage:]_block_invoke";
-      v14 = 2114;
-      v15 = v8;
+      v12 = "[UAFAssetUtilitiesService _handleDictationCompletionForLanguage:]_block_invoke";
+      v13 = 2114;
+      v14 = v7;
       _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s #settings Dictation still not available after download completed for language %{public}@", buf, 0x16u);
     }
 
     v5 = dispatch_time(0, 3000000000);
     v6 = [v3 statusQueue];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___block_invoke_332;
-    v9[3] = &unk_1E7FFD160;
-    objc_copyWeak(&v11, (a1 + 40));
-    v10 = *(a1 + 32);
-    dispatch_after(v5, v6, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___block_invoke_332;
+    v8[3] = &unk_1E7FFD160;
+    objc_copyWeak(&v10, (a1 + 40));
+    v9 = *(a1 + 32);
+    dispatch_after(v5, v6, v8);
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v10);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___block_invoke_332(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained && ([WeakRetained _updateDictationAvailabilityForLanguage:*(a1 + 32)] & 1) == 0)
@@ -1477,23 +1440,21 @@ void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___bloc
     v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 136315394;
-      v8 = "[UAFAssetUtilitiesService _handleDictationCompletionForLanguage:]_block_invoke";
-      v9 = 2114;
-      v10 = v6;
-      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s #settings Dictation still not available after retrying availability check for language %{public}@", &v7, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = 136315394;
+      v7 = "[UAFAssetUtilitiesService _handleDictationCompletionForLanguage:]_block_invoke";
+      v8 = 2114;
+      v9 = v5;
+      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s #settings Dictation still not available after retrying availability check for language %{public}@", &v6, 0x16u);
     }
 
     [v3 _updateDictationState:4 value:0 forLanguage:*(a1 + 32)];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_updateDictationAvailabilityForLanguage:(id)language
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   v5 = [UAFAssetStatus dictationAvailableForLanguage:languageCopy];
   v6 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
@@ -1502,11 +1463,11 @@ void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___bloc
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "[UAFAssetUtilitiesService _updateDictationAvailabilityForLanguage:]";
-      v12 = 2114;
-      v13 = languageCopy;
-      _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s #settings Dictation available for %{public}@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[UAFAssetUtilitiesService _updateDictationAvailabilityForLanguage:]";
+      v11 = 2114;
+      v12 = languageCopy;
+      _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s #settings Dictation available for %{public}@", &v9, 0x16u);
     }
 
     [(UAFAssetUtilitiesService *)self _updateDictationState:5 value:0 forLanguage:languageCopy];
@@ -1516,30 +1477,27 @@ void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___bloc
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[UAFAssetUtilitiesService _updateDictationAvailabilityForLanguage:]";
-      v12 = 2114;
-      v13 = languageCopy;
-      _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s #settings Dictation still not available after successful download for language %{public}@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[UAFAssetUtilitiesService _updateDictationAvailabilityForLanguage:]";
+      v11 = 2114;
+      v12 = languageCopy;
+      _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s #settings Dictation still not available after successful download for language %{public}@", &v9, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)postDictationAssetNotificationForLanguage:(id)language
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[UAFAssetUtilitiesService postDictationAssetNotificationForLanguage:]";
-    _os_log_error_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_ERROR, "%s #settings posting Dictation notification not supported.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFAssetUtilitiesService postDictationAssetNotificationForLanguage:]";
+    _os_log_error_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_ERROR, "%s #settings posting Dictation notification not supported.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (NSMutableDictionary)dictationStatus
@@ -1585,7 +1543,7 @@ void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___bloc
 
 - (void)checkAssetStatus:(id)status
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
   dispatch_assert_queue_not_V2(statusQueue);
@@ -1593,15 +1551,15 @@ void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___bloc
   if (statusCopy)
   {
     statusQueue2 = [(UAFAssetUtilitiesService *)self statusQueue];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __45__UAFAssetUtilitiesService_checkAssetStatus___block_invoke;
-    v9[3] = &unk_1E7FFD940;
-    v9[4] = self;
-    v10 = statusCopy;
-    dispatch_async(statusQueue2, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __45__UAFAssetUtilitiesService_checkAssetStatus___block_invoke;
+    v8[3] = &unk_1E7FFD940;
+    v8[4] = self;
+    v9 = statusCopy;
+    dispatch_async(statusQueue2, v8);
 
-    v7 = v10;
+    v7 = v9;
   }
 
   else
@@ -1610,12 +1568,10 @@ void __66__UAFAssetUtilitiesService__handleDictationCompletionForLanguage___bloc
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v12 = "[UAFAssetUtilitiesService checkAssetStatus:]";
+      v11 = "[UAFAssetUtilitiesService checkAssetStatus:]";
       _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s #settings nil completion", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __45__UAFAssetUtilitiesService_checkAssetStatus___block_invoke(uint64_t a1)
@@ -1648,7 +1604,7 @@ void __45__UAFAssetUtilitiesService_checkAssetStatus___block_invoke(uint64_t a1)
 
 - (void)_updateAssetState:(unint64_t)state value:(id)value forLanguage:(id)language
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   languageCopy = language;
   statusQueue = [(UAFAssetUtilitiesService *)self statusQueue];
@@ -1678,15 +1634,15 @@ LABEL_4:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [UAFAssetStatus stringFromUAFAssetState:state];
-      v19 = 136315906;
-      v20 = "[UAFAssetUtilitiesService _updateAssetState:value:forLanguage:]";
-      v21 = 2114;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v17;
-      v25 = 2112;
-      v26 = valueCopy;
-      _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s #settings Updated Siri asset status for %{public}@ with state %@ and value %@", &v19, 0x2Au);
+      v18 = 136315906;
+      v19 = "[UAFAssetUtilitiesService _updateAssetState:value:forLanguage:]";
+      v20 = 2114;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v17;
+      v24 = 2112;
+      v25 = valueCopy;
+      _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s #settings Updated Siri asset status for %{public}@ with state %@ and value %@", &v18, 0x2Au);
     }
 
     [(UAFAssetUtilitiesService *)self _postAssetStateChangedNotification];
@@ -1696,14 +1652,12 @@ LABEL_4:
   languageCopy = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(languageCopy, OS_LOG_TYPE_ERROR))
   {
-    v19 = 136315138;
-    v20 = "[UAFAssetUtilitiesService _updateAssetState:value:forLanguage:]";
-    _os_log_error_impl(&dword_1BCF2C000, languageCopy, OS_LOG_TYPE_ERROR, "%s #settings nil language", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[UAFAssetUtilitiesService _updateAssetState:value:forLanguage:]";
+    _os_log_error_impl(&dword_1BCF2C000, languageCopy, OS_LOG_TYPE_ERROR, "%s #settings nil language", &v18, 0xCu);
   }
 
 LABEL_7:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postAssetStateChangedNotification
@@ -1715,14 +1669,14 @@ LABEL_7:
 
 - (void)diskSpaceNeededInBytesForLanguage:(id)language forClient:(unint64_t)client completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   completionCopy = completion;
   if (completionCopy)
   {
-    v13 = 0;
-    v10 = [(UAFAssetUtilitiesService *)self _getDiskSpaceNeededInBytesForLanguage:languageCopy isDictation:client == 1 error:&v13];
-    v11 = v13;
+    v12 = 0;
+    v10 = [(UAFAssetUtilitiesService *)self _getDiskSpaceNeededInBytesForLanguage:languageCopy isDictation:client == 1 error:&v12];
+    v11 = v12;
     completionCopy[2](completionCopy, v10, v11);
   }
 
@@ -1732,20 +1686,18 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "[UAFAssetUtilitiesService diskSpaceNeededInBytesForLanguage:forClient:completion:]";
-      v16 = 2114;
-      v17 = languageCopy;
+      v14 = "[UAFAssetUtilitiesService diskSpaceNeededInBytesForLanguage:forClient:completion:]";
+      v15 = 2114;
+      v16 = languageCopy;
       _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s #settings diskSpaceNeededInBytesForLanguage with nil completion, language = %{public}@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_getDiskSpaceNeededInBytesForLanguage:(id)language isDictation:(BOOL)dictation error:(id *)error
 {
   dictationCopy = dictation;
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   languageCopy = language;
   if (languageCopy)
   {
@@ -1778,11 +1730,11 @@ LABEL_7:
       v20 = v16;
       if (v19)
       {
-        v23 = 136315394;
-        v24 = "[UAFAssetUtilitiesService _getDiskSpaceNeededInBytesForLanguage:isDictation:error:]";
-        v25 = 2048;
+        v22 = 136315394;
+        v23 = "[UAFAssetUtilitiesService _getDiskSpaceNeededInBytesForLanguage:isDictation:error:]";
+        v24 = 2048;
         unsignedLongLongValue2 = [v16 unsignedLongLongValue];
-        _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s #settings return size %llu", &v23, 0x16u);
+        _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s #settings return size %llu", &v22, 0x16u);
         v20 = v16;
       }
     }
@@ -1792,11 +1744,11 @@ LABEL_7:
       v20 = &unk_1F3B731D0;
       if (v19)
       {
-        v23 = 136315394;
-        v24 = "[UAFAssetUtilitiesService _getDiskSpaceNeededInBytesForLanguage:isDictation:error:]";
-        v25 = 2048;
+        v22 = 136315394;
+        v23 = "[UAFAssetUtilitiesService _getDiskSpaceNeededInBytesForLanguage:isDictation:error:]";
+        v24 = 2048;
         unsignedLongLongValue2 = [&unk_1F3B731D0 unsignedLongLongValue];
-        _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s #settings return default size %llu", &v23, 0x16u);
+        _os_log_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_DEFAULT, "%s #settings return default size %llu", &v22, 0x16u);
       }
     }
 
@@ -1807,17 +1759,17 @@ LABEL_7:
   v12 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v23 = 136315138;
-    v24 = "[UAFAssetUtilitiesService _getDiskSpaceNeededInBytesForLanguage:isDictation:error:]";
-    _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s #settings nil language", &v23, 0xCu);
+    v22 = 136315138;
+    v23 = "[UAFAssetUtilitiesService _getDiskSpaceNeededInBytesForLanguage:isDictation:error:]";
+    _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s #settings nil language", &v22, 0xCu);
   }
 
   if (error)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A588];
-    v28[0] = @"nil language";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E696A588];
+    v27[0] = @"nil language";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     *error = [v13 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v9];
     v14 = &unk_1F3B73140;
 LABEL_17:
@@ -1828,9 +1780,54 @@ LABEL_17:
   v14 = &unk_1F3B73140;
 LABEL_18:
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v14;
+}
+
+- (unint64_t)_checkFreeSpaceNeededForLanguage:(id)language isDictation:(BOOL)dictation
+{
+  dictationCopy = dictation;
+  v21 = *MEMORY[0x1E69E9840];
+  languageCopy = language;
+  v14 = 0;
+  v7 = [(UAFAssetUtilitiesService *)self _getDiskSpaceNeededInBytesForLanguage:languageCopy isDictation:dictationCopy error:&v14];
+  v8 = v14;
+  if (v8)
+  {
+    v9 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v16 = "[UAFAssetUtilitiesService _checkFreeSpaceNeededForLanguage:isDictation:]";
+      v17 = 2112;
+      v18 = v8;
+      v19 = 2114;
+      v20 = languageCopy;
+      _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s #settings Failed to check assets download size due to error %@, language = %{public}@", buf, 0x20u);
+    }
+  }
+
+  unsignedLongLongValue = [v7 unsignedLongLongValue];
+  if (unsignedLongLongValue)
+  {
+    v11 = [UAFCommonUtilities getFreeDiskSpaceNeededInBytes:unsignedLongLongValue];
+  }
+
+  else
+  {
+    v12 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v16 = "[UAFAssetUtilitiesService _checkFreeSpaceNeededForLanguage:isDictation:]";
+      v17 = 2114;
+      v18 = languageCopy;
+      _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s #settings Returning enough space for assets even with an unknown size requested, language = %{public}@", buf, 0x16u);
+    }
+
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 @end

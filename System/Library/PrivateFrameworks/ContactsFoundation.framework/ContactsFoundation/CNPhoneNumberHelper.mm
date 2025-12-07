@@ -202,16 +202,18 @@
 
 uint64_t __43__CNPhoneNumberHelper_isStringPhoneNumber___block_invoke(uint64_t a1)
 {
-  isStringPhoneNumber__cn_once_object_1 = [*(a1 + 32) makePhoneNumberRegex];
+  v1 = [*(a1 + 32) makePhoneNumberRegex];
+  v2 = isStringPhoneNumber__cn_once_object_1;
+  isStringPhoneNumber__cn_once_object_1 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (void)makePhoneNumberRegex
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "Error creating phone number regex: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "Error creating phone number regex: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

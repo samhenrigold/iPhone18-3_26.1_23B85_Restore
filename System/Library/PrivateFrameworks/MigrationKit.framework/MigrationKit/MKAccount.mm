@@ -6,16 +6,16 @@
 
 - (MKAccount)initWithData:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v18.receiver = self;
-  v18.super_class = MKAccount;
-  v5 = [(MKAccount *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = MKAccount;
+  v5 = [(MKAccount *)&v17 init];
   if (v5)
   {
-    v17 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v17];
-    v7 = v17;
+    v16 = 0;
+    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v16];
+    v7 = v16;
     if (v7)
     {
       v8 = +[MKLog log];
@@ -54,9 +54,9 @@ LABEL_12:
     {
       type = v5->_type;
       *buf = 138412546;
-      v20 = v5;
-      v21 = 2112;
-      v22 = type;
+      v19 = v5;
+      v20 = 2112;
+      v21 = type;
       _os_log_impl(&dword_2592D2000, v12, OS_LOG_TYPE_INFO, "%@ did receive an account. type=%@", buf, 0x16u);
     }
   }
@@ -64,7 +64,6 @@ LABEL_12:
   v14 = v5;
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

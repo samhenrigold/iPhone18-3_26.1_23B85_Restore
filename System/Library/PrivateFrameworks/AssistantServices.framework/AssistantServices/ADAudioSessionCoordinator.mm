@@ -1645,7 +1645,7 @@ LABEL_36:
 
   context = [(__CFString *)assertionCopy context];
   userInfo = [context userInfo];
-  v17 = [userInfo objectForKey:AFAudioSessionAssertionUserInfoKey[3]];
+  v17 = objc_msgSend_objectForKey_(userInfo);
   bOOLValue = [v17 BOOLValue];
 
   v19 = AFSiriLogContextDaemon;
@@ -1941,7 +1941,7 @@ LABEL_36:
 
   context = [(__CFString *)assertionCopy context];
   userInfo = [context userInfo];
-  v17 = [userInfo objectForKey:AFAudioSessionAssertionUserInfoKey[3]];
+  v17 = objc_msgSend_objectForKey_(userInfo);
   bOOLValue = [v17 BOOLValue];
 
   v19 = AFSiriLogContextDaemon;
@@ -4338,7 +4338,7 @@ LABEL_7:
   }
 
   userInfo = [contextCopy userInfo];
-  v10 = [userInfo objectForKey:AFAudioSessionAssertionUserInfoKey[4]];
+  v10 = objc_msgSend_objectForKey_(userInfo);
   bOOLValue = [v10 BOOLValue];
 
   if (!bOOLValue)

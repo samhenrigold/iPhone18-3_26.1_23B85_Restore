@@ -77,7 +77,7 @@ void __88__PLCloudSharingInvitationChangeJob_executeSendServerPendingInvitations
     *buf = 138412546;
     v45 = v4;
     v46 = 2048;
-    v47 = [v6 count];
+    v47 = objc_msgSend_count(v6);
     _os_log_impl(&dword_19BF1F000, v5, OS_LOG_TYPE_DEFAULT, "found sharedstream collection share %@ with shareParticipants %lu", buf, 0x16u);
   }
 
@@ -120,9 +120,9 @@ void __88__PLCloudSharingInvitationChangeJob_executeSendServerPendingInvitations
 LABEL_14:
           v14 = [v12 participantID];
           v15 = [*(a1 + 32) resendInvitationGUID];
-          v16 = [v14 isEqualToString:v15];
+          isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-          if (!v16)
+          if (!isEqualToString)
           {
             continue;
           }
@@ -203,73 +203,73 @@ LABEL_15:
   }
 }
 
-void __88__PLCloudSharingInvitationChangeJob_executeSendServerPendingInvitationsForAlbumWithGUID__block_invoke_56(uint64_t a1)
+void __88__PLCloudSharingInvitationChangeJob_executeSendServerPendingInvitationsForAlbumWithGUID__block_invoke_56(uint64_t a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v2 = *(*(*(a1 + 48) + 8) + 40);
-  v3 = PLPhotoSharingGetLog();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v30 = *MEMORY[0x1E69E9840];
+  v3 = *(*(*(a1 + 48) + 8) + 40);
+  v4 = PLPhotoSharingGetLog();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = objc_opt_class();
-      v6 = *(*(*(a1 + 48) + 8) + 40);
-      v7 = *(a1 + 32);
-      v8 = v5;
-      v9 = [v7 albumGUID];
-      v10 = *(a1 + 40);
+      v6 = objc_opt_class();
+      v7 = *(*(*(a1 + 48) + 8) + 40);
+      v8 = *(a1 + 32);
+      v9 = v6;
+      v10 = [v8 albumGUID];
+      v11 = *(a1 + 40);
       *buf = 138413058;
-      v22 = v5;
-      v23 = 2112;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v10;
-      _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "%@: about to call connection addAccessControlEntries: %@ toAlbumWithGUID: %@ forPersonID %@", buf, 0x2Au);
+      v23 = v6;
+      v24 = 2112;
+      v25 = v7;
+      v26 = 2112;
+      v27 = v10;
+      v28 = 2112;
+      v29 = v11;
+      _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "%@: about to call connection addAccessControlEntries: %@ toAlbumWithGUID: %@ forPersonID %@", buf, 0x2Au);
     }
 
-    v11 = [MEMORY[0x1E69B14F8] sharedConnection];
-    v12 = *(*(*(a1 + 48) + 8) + 40);
-    v13 = [*(a1 + 32) albumGUID];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __88__PLCloudSharingInvitationChangeJob_executeSendServerPendingInvitationsForAlbumWithGUID__block_invoke_58;
-    v20[3] = &unk_1E7571BF8;
-    v14 = *(a1 + 40);
-    v15 = *(a1 + 48);
-    v20[4] = *(a1 + 32);
-    v20[5] = v15;
-    [v11 addAccessControlEntries:v12 toAlbumWithGUID:v13 personID:v14 completionBlock:v20];
+    v12 = [MEMORY[0x1E69B14F8] sharedConnection];
+    v13 = *(*(*(a1 + 48) + 8) + 40);
+    v14 = [*(a1 + 32) albumGUID];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __88__PLCloudSharingInvitationChangeJob_executeSendServerPendingInvitationsForAlbumWithGUID__block_invoke_58;
+    v21[3] = &unk_1E7571BF8;
+    v15 = *(a1 + 40);
+    v16 = *(a1 + 48);
+    v21[4] = *(a1 + 32);
+    v21[5] = v16;
+    [v12 addAccessControlEntries:v13 toAlbumWithGUID:v14 personID:v15 completionBlock:v21];
     goto LABEL_5;
   }
 
-  if (v4)
+  if (v5)
   {
     *buf = 138412290;
-    v22 = objc_opt_class();
-    v16 = v22;
-    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "%@: no sharing invitations to send", buf, 0xCu);
+    v23 = objc_opt_class();
+    v17 = v23;
+    _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "%@: no sharing invitations to send", buf, 0xCu);
   }
 
   if (*(a1 + 56) == 1)
   {
-    v11 = PLPhotoSharingGetLog();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PLPhotoSharingGetLog();
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_6;
     }
 
-    v17 = objc_opt_class();
-    v18 = *(a1 + 32);
-    v13 = v17;
-    v19 = [v18 resendInvitationGUID];
+    v18 = objc_opt_class();
+    v19 = *(a1 + 32);
+    v14 = v18;
+    v20 = [v19 resendInvitationGUID];
     *buf = 138412546;
-    v22 = v17;
-    v23 = 2112;
-    v24 = v19;
-    _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_ERROR, "%@: failed to find invitation GUID %@ to resend", buf, 0x16u);
+    v23 = v18;
+    v24 = 2112;
+    v25 = v20;
+    _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_ERROR, "%@: failed to find invitation GUID %@ to resend", buf, 0x16u);
 
 LABEL_5:
 LABEL_6:

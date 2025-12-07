@@ -25,15 +25,15 @@
   v5 = self->_encodedAttributeSet;
   self->_encodedAttributeSet = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 + (id)createAttributeArrayFromAttributeSetRaw:(heim_base_data *)raw error:(id *)error
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v5 = [[MSCMSMutableAttributeArray alloc] initWithCapacity:0];
   data = [MEMORY[0x277CBEB28] data];
-  v31 = 0;
+  v30 = 0;
   rawCopy = 0;
   var0 = raw->var0;
   if (raw->var0)
@@ -42,26 +42,26 @@
     var1 = raw->var1;
     while (1)
     {
-      memset(v30, 0, sizeof(v30));
-      v29 = 0;
-      v10 = decode_Attribute();
+      memset(v29, 0, sizeof(v29));
+      v28 = 0;
+      v10 = decode_Attribute(var1, var0, v29, &v28);
       if (v10)
       {
         break;
       }
 
-      v28 = v8;
-      v11 = [MSCMSAttribute decodeAttribute:v30 error:&v28];
-      v12 = v28;
+      v27 = v8;
+      v11 = [MSCMSAttribute decodeAttribute:v29 error:&v27];
+      v12 = v27;
 
       if (v11)
       {
         [(MSCMSMutableAttributeArray *)v5 addObject:v11];
       }
 
-      var0 -= v29;
-      var1 += v29;
-      free_Attribute();
+      var0 -= v28;
+      var1 += v28;
+      free_Attribute(v29);
 
       v8 = v12;
       if (!var0)
@@ -78,9 +78,9 @@
   v12 = 0;
 LABEL_9:
   rawCopy = raw;
-  LODWORD(v31) = 1;
-  *&v30[0] = 0;
-  v13 = length_CMSOrderedAttributes(&v31);
+  LODWORD(v30) = 1;
+  *&v29[0] = 0;
+  v13 = length_CMSOrderedAttributes(&v30);
   v14 = [MEMORY[0x277CBEB28] dataWithLength:v13];
 
   if (!v14)
@@ -90,7 +90,7 @@ LABEL_9:
   }
 
   data = v14;
-  v15 = encode_CMSOrderedAttributes([v14 mutableBytes] + v13 - 1, v13, &v31, v30);
+  v15 = encode_CMSOrderedAttributes([v14 mutableBytes] + v13 - 1, v13, &v30, v29);
   if (v15)
   {
     v16 = v15;
@@ -98,9 +98,9 @@ LABEL_9:
     v17 = v16;
 LABEL_15:
     v18 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA450];
-    v34[0] = @"Failed encoding type CMSOrderedAttributes";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x277CCA450];
+    v33[0] = @"Failed encoding type CMSOrderedAttributes";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v20 = [v18 errorWithDomain:@"com.apple.HeimASN1" code:v17 userInfo:v19];
 
     data = 0;
@@ -108,10 +108,10 @@ LABEL_15:
     goto LABEL_17;
   }
 
-  if (v13 != *&v30[0])
+  if (v13 != *&v29[0])
   {
-    v24 = asn1_abort();
-    return [(MSCMSMutableAttributeArray *)v24 initWithCapacity:v25, v26];
+    v23 = asn1_abort();
+    return [(MSCMSMutableAttributeArray *)v23 initWithCapacity:v24, v25];
   }
 
 LABEL_17:
@@ -130,8 +130,6 @@ LABEL_19:
     v21 = v12;
     *error = v12;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -231,7 +229,7 @@ void __47__MSCMSMutableAttributeArray_removeAttributes___block_invoke(uint64_t a
 
 - (id)encodeAttributesWithError:(id *)error
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   encodedAttributeSet = self->_encodedAttributeSet;
   if (!encodedAttributeSet)
   {
@@ -241,11 +239,11 @@ void __47__MSCMSMutableAttributeArray_removeAttributes___block_invoke(uint64_t a
       goto LABEL_28;
     }
 
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy__1;
-    v38 = __Block_byref_object_dispose__1;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__1;
+    v37 = __Block_byref_object_dispose__1;
     if (error)
     {
       v7 = *error;
@@ -260,20 +258,20 @@ void __47__MSCMSMutableAttributeArray_removeAttributes___block_invoke(uint64_t a
       v7 = 0;
     }
 
-    v39 = v7;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
-    v33 = 0;
+    v38 = v7;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
+    v32 = 0;
     data = [MEMORY[0x277CBEB28] data];
     v9 = malloc_type_malloc(32 * [(MSCMSMutableAttributeArray *)self count], 0x10300406495394CuLL);
     if (!v9)
     {
       if (error)
       {
-        v16 = [MSError MSErrorWithDomain:MSErrorAllocationDomain[0] code:-67672 underlyingError:v35[5] description:@"Unable to allocate attribute array"];
-        v17 = v35[5];
-        v35[5] = v16;
+        v16 = [MSError MSErrorWithDomain:MSErrorAllocationDomain[0] code:-67672 underlyingError:v34[5] description:@"Unable to allocate attribute array"];
+        v17 = v34[5];
+        v34[5] = v16;
 
         v18 = v16;
         v4 = 0;
@@ -287,8 +285,8 @@ void __47__MSCMSMutableAttributeArray_removeAttributes___block_invoke(uint64_t a
 
 LABEL_27:
 
-      _Block_object_dispose(&v30, 8);
-      _Block_object_dispose(&v34, 8);
+      _Block_object_dispose(&v29, 8);
+      _Block_object_dispose(&v33, 8);
 
       goto LABEL_28;
     }
@@ -297,22 +295,22 @@ LABEL_27:
     genericAttributes = self->_genericAttributes;
     self->_genericAttributes = v10;
 
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __56__MSCMSMutableAttributeArray_encodeAttributesWithError___block_invoke;
-    v29[3] = &unk_2798BE3C8;
-    v29[4] = self;
-    v29[5] = &v34;
-    v29[6] = &v30;
-    v29[7] = v9;
-    [(MSCMSMutableAttributeArray *)self enumerateObjectsUsingBlock:v29];
-    if (v31[3])
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __56__MSCMSMutableAttributeArray_encodeAttributesWithError___block_invoke;
+    v28[3] = &unk_2798BE3C8;
+    v28[4] = self;
+    v28[5] = &v33;
+    v28[6] = &v29;
+    v28[7] = v9;
+    [(MSCMSMutableAttributeArray *)self enumerateObjectsUsingBlock:v28];
+    if (v30[3])
     {
 LABEL_20:
       free(v9);
       if (error)
       {
-        v23 = v35[5];
+        v23 = v34[5];
         if (v23)
         {
           *error = v23;
@@ -333,19 +331,19 @@ LABEL_20:
       goto LABEL_27;
     }
 
-    v28[0] = [(MSCMSMutableAttributeArray *)self count];
-    v28[1] = v9;
-    v27 = 0;
-    v12 = length_CMSAttributes(v28);
+    v27[0] = [(MSCMSMutableAttributeArray *)self count];
+    v27[1] = v9;
+    v26 = 0;
+    v12 = length_CMSAttributes(v27);
     v13 = [MEMORY[0x277CBEB28] dataWithLength:v12];
 
     if (v13)
     {
       v14 = v13;
-      LODWORD(v15) = encode_CMSAttributes([v13 mutableBytes] + v12 - 1, v12, v28, &v27);
+      LODWORD(v15) = encode_CMSAttributes([v13 mutableBytes] + v12 - 1, v12, v27, &v26);
       if (!v15)
       {
-        if (v12 != v27)
+        if (v12 != v26)
         {
           result = asn1_abort();
           __break(1u);
@@ -364,12 +362,12 @@ LABEL_20:
     }
 
     v19 = MEMORY[0x277CCA9B8];
-    v40 = *MEMORY[0x277CCA450];
-    v41[0] = @"Failed encoding type CMSAttributes";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:{1, v27}];
+    v39 = *MEMORY[0x277CCA450];
+    v40[0] = @"Failed encoding type CMSAttributes";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:{1, v26}];
     v21 = [v19 errorWithDomain:@"com.apple.HeimASN1" code:v15 userInfo:v20];
-    v22 = v35[5];
-    v35[5] = v21;
+    v22 = v34[5];
+    v34[5] = v21;
 
     v13 = 0;
 LABEL_19:
@@ -380,7 +378,6 @@ LABEL_19:
 
   v4 = encodedAttributeSet;
 LABEL_28:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -419,10 +416,12 @@ LABEL_6:
     goto LABEL_8;
   }
 
-  v6 = nsheim_decode_CMSOrderedAttributes(v4);
+  v10 = 0;
+  v11 = 0;
+  v6 = nsheim_decode_CMSOrderedAttributes(v4, &v10);
   if (v6)
   {
-    v7 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:v6 underlyingError:0 description:@"unable to decode CMSAttributes", 0];
+    v7 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:v6 underlyingError:0 description:@"unable to decode CMSAttributes"];
     if (error)
     {
       v7 = v7;
@@ -432,8 +431,8 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v8 = [MEMORY[0x277CBEA90] dataWithBytes:MEMORY[8] length:{MEMORY[0], 0}];
-  free_CMSOrderedAttributes();
+  v8 = [MEMORY[0x277CBEA90] dataWithBytes:v11[1] length:*v11];
+  free_CMSOrderedAttributes(&v10);
 LABEL_8:
 
   return v8;

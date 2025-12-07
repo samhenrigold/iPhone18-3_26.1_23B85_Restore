@@ -16,7 +16,7 @@
 
 - (id)initWithRecordZoneID:(void *)d desiredKeys:(char)keys requiresBatchedFirstSync:(void *)sync currentState:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v9 = a2;
   dCopy = d;
   syncCopy = sync;
@@ -27,15 +27,15 @@
 
   if (!v9 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordZoneID != nil"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordZoneID != nil"];
     *buf = 136315906;
-    v27 = "[FCPrivateZoneSyncManager initWithRecordZoneID:desiredKeys:requiresBatchedFirstSync:currentState:]";
-    v28 = 2080;
-    v29 = "FCPrivateZoneSyncManager.m";
-    v30 = 1024;
-    v31 = 41;
-    v32 = 2114;
-    v33 = v23;
+    v26 = "[FCPrivateZoneSyncManager initWithRecordZoneID:desiredKeys:requiresBatchedFirstSync:currentState:]";
+    v27 = 2080;
+    v28 = "FCPrivateZoneSyncManager.m";
+    v29 = 1024;
+    v30 = 41;
+    v31 = 2114;
+    v32 = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!dCopy)
@@ -43,15 +43,15 @@
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "desiredKeys != nil"];
+        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "desiredKeys != nil"];
         *buf = 136315906;
-        v27 = "[FCPrivateZoneSyncManager initWithRecordZoneID:desiredKeys:requiresBatchedFirstSync:currentState:]";
-        v28 = 2080;
-        v29 = "FCPrivateZoneSyncManager.m";
-        v30 = 1024;
-        v31 = 42;
-        v32 = 2114;
-        v33 = v24;
+        v26 = "[FCPrivateZoneSyncManager initWithRecordZoneID:desiredKeys:requiresBatchedFirstSync:currentState:]";
+        v27 = 2080;
+        v28 = "FCPrivateZoneSyncManager.m";
+        v29 = 1024;
+        v30 = 42;
+        v31 = 2114;
+        v32 = v23;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -62,9 +62,9 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v25.receiver = self;
-  v25.super_class = FCPrivateZoneSyncManager;
-  self = objc_msgSendSuper2(&v25, sel_init);
+  v24.receiver = self;
+  v24.super_class = FCPrivateZoneSyncManager;
+  self = objc_msgSendSuper2(&v24, sel_init);
   if (self)
   {
     v12 = [v9 copy];
@@ -93,7 +93,6 @@ LABEL_5:
 
 LABEL_10:
 
-  v21 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -254,7 +253,7 @@ LABEL_10:
 
 - (void)_stateDidChange
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = [self[5] copy];
@@ -266,20 +265,18 @@ LABEL_10:
       v6 = NSStringFromClass(v5);
       v7 = self[2];
       zoneName = [v7 zoneName];
-      v11 = 138543874;
-      v12 = v6;
-      v13 = 2114;
-      v14 = zoneName;
-      v15 = 2114;
-      v16 = v2;
-      _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ for zone %{public}@ did change his state to %{public}@", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v6;
+      v12 = 2114;
+      v13 = zoneName;
+      v14 = 2114;
+      v15 = v2;
+      _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ for zone %{public}@ did change his state to %{public}@", &v10, 0x20u);
     }
 
     WeakRetained = objc_loadWeakRetained(self + 3);
     [WeakRetained zoneSyncManager:self stateDidChange:v2];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObservers
@@ -309,7 +306,7 @@ LABEL_10:
 
 - (void)fetchChangesWithContext:(id)context qualityOfService:(int64_t)service completionHandler:(id)handler
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (self)
   {
@@ -329,17 +326,17 @@ LABEL_10:
 
   if (!v13)
   {
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke;
-    v38[3] = &unk_1E7C37778;
-    v39 = zoneName;
-    v40 = handlerCopy;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke;
+    v37[3] = &unk_1E7C37778;
+    v38 = zoneName;
+    v39 = handlerCopy;
     v18 = handlerCopy;
     changeToken = zoneName;
-    __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke(v38);
+    __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke(v37);
 
-    v19 = v40;
+    v19 = v39;
     goto LABEL_21;
   }
 
@@ -384,16 +381,16 @@ LABEL_13:
 
   v20 = ![(FCPrivateZoneSyncManager *)self isAwaitingFirstSync];
 LABEL_14:
-  v33 = v20;
+  v32 = v20;
   v21 = FCPrivateDataLog;
   if (os_log_type_enabled(FCPrivateDataLog, OS_LOG_TYPE_DEFAULT))
   {
     v22 = v21;
     v23 = objc_opt_class();
     NSStringFromClass(v23);
-    v24 = v32 = handlerCopy;
+    v24 = v31 = handlerCopy;
     v25 = @"NO";
-    if (v33)
+    if (v32)
     {
       v25 = @"YES";
     }
@@ -401,17 +398,17 @@ LABEL_14:
     serviceCopy = service;
     v27 = v25;
     *buf = 138544130;
-    v42 = v24;
-    v43 = 2114;
-    v44 = zoneName;
-    v45 = 2114;
-    v46 = v27;
-    v47 = 2114;
-    v48 = changeToken;
+    v41 = v24;
+    v42 = 2114;
+    v43 = zoneName;
+    v44 = 2114;
+    v45 = v27;
+    v46 = 2114;
+    v47 = changeToken;
     _os_log_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ for zone %{public}@ will fetch changes, all=%{public}@, token=%{public}@", buf, 0x2Au);
 
     service = serviceCopy;
-    handlerCopy = v32;
+    handlerCopy = v31;
   }
 
   if (self)
@@ -424,21 +421,20 @@ LABEL_14:
     desiredKeys = 0;
   }
 
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke_17;
-  v34[3] = &unk_1E7C424C0;
-  v34[4] = self;
-  v35 = zoneName;
-  v36 = pbDate;
-  v37 = handlerCopy;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke_17;
+  v33[3] = &unk_1E7C424C0;
+  v33[4] = self;
+  v34 = zoneName;
+  v35 = pbDate;
+  v36 = handlerCopy;
   v29 = handlerCopy;
   v30 = pbDate;
   v19 = zoneName;
-  [(FCCKRecordZone *)v13 fetchChangesWithChangeToken:v18 desiredKeys:desiredKeys fetchAllChanges:v33 qualityOfService:service completion:v34];
+  [(FCCKRecordZone *)v13 fetchChangesWithChangeToken:v18 desiredKeys:desiredKeys fetchAllChanges:v32 qualityOfService:service completion:v33];
 
 LABEL_21:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke(uint64_t a1)
@@ -450,7 +446,7 @@ void __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_com
 
 void __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke_17(uint64_t a1, int a2, void *a3, void *a4, uint64_t a5, void *a6, int a7)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v13 = a3;
   v14 = a4;
   v15 = a6;
@@ -467,62 +463,59 @@ void __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_com
   v17 = FCPrivateDataLog;
   if (os_log_type_enabled(FCPrivateDataLog, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = *(a1 + 32);
-    v19 = v17;
-    v20 = objc_opt_class();
-    v21 = NSStringFromClass(v20);
-    v22 = *(a1 + 40);
-    v23 = "un";
+    v18 = v17;
+    v19 = objc_opt_class();
+    v20 = NSStringFromClass(v19);
+    v21 = *(a1 + 40);
+    v22 = "un";
     *buf = 138544386;
-    v24 = "";
-    v39 = v21;
-    v40 = 2112;
+    v23 = "";
+    v37 = v20;
+    v38 = 2112;
     if (a2)
     {
-      v23 = "";
+      v22 = "";
+    }
+
+    v39 = v21;
+    v40 = 2080;
+    if (!a7)
+    {
+      v23 = " no";
     }
 
     v41 = v22;
     v42 = 2080;
-    if (!a7)
-    {
-      v24 = " no";
-    }
-
     v43 = v23;
-    v44 = 2080;
-    v45 = v24;
-    v46 = 2114;
-    v47 = v16;
-    _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ for zone %@ fetched changes %ssuccessfully with%s more changes to fetch and token %{public}@", buf, 0x34u);
+    v44 = 2114;
+    v45 = v16;
+    _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ for zone %@ fetched changes %ssuccessfully with%s more changes to fetch and token %{public}@", buf, 0x34u);
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke_22;
   aBlock[3] = &unk_1E7C42498;
-  v25 = v15;
-  v26 = *(a1 + 32);
-  v33 = v25;
-  v34 = v26;
-  v27 = v16;
-  v35 = v27;
-  v37 = a7;
-  v36 = *(a1 + 48);
-  v28 = _Block_copy(aBlock);
-  v29 = *(a1 + 56);
+  v24 = v15;
+  v25 = *(a1 + 32);
+  v31 = v24;
+  v32 = v25;
+  v26 = v16;
+  v33 = v26;
+  v35 = a7;
+  v34 = *(a1 + 48);
+  v27 = _Block_copy(aBlock);
+  v28 = *(a1 + 56);
   if (a2)
   {
-    (*(v29 + 16))(v29, v13, v14, a5, v28, 0);
+    (*(v28 + 16))(v28, v13, v14, a5, v27, 0);
   }
 
   else
   {
-    v30 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FCErrorDomain" code:16 userInfo:0];
-    (*(v29 + 16))(v29, v13, v14, a5, v28, v30);
+    v29 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FCErrorDomain" code:16 userInfo:0];
+    (*(v28 + 16))(v28, v13, v14, a5, v27, v29);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __87__FCPrivateZoneSyncManager_fetchChangesWithContext_qualityOfService_completionHandler___block_invoke_22(uint64_t a1)

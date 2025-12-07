@@ -11,10 +11,10 @@
 - (BOOL)supported
 {
   selfCopy = self;
-  sub_2261AA444();
-  v3 = sub_22619DFA0();
+  v3 = sub_2261AA444();
+  v5 = sub_22619DFA0(v3, v4);
 
-  return v3 & 1;
+  return v5 & 1;
 }
 
 - (void)createKeyWith:(id)with completion:(id)completion

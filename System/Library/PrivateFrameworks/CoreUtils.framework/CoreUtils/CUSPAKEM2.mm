@@ -52,61 +52,61 @@ LABEL_7:
 - (CUSPAKEM2)initWithDictionary:(id)dictionary error:(id *)error
 {
   dictionaryCopy = dictionary;
-  v31.receiver = self;
-  v31.super_class = CUSPAKEM2;
-  v12 = [(CUSPAKEM2 *)&v31 init];
-  if (v12)
+  v15.receiver = self;
+  v15.super_class = CUSPAKEM2;
+  v7 = [(CUSPAKEM2 *)&v15 init];
+  if (v7)
   {
-    v30 = -6700;
+    v14 = -6700;
     TypeID = CFDataGetTypeID();
-    v19 = CFDictionaryGetTypedValue(dictionaryCopy, @"confirmV", TypeID, &v30);
-    if (v19)
+    v9 = CFDictionaryGetTypedValue(dictionaryCopy, @"confirmV", TypeID, &v14);
+    if (v9)
     {
-      objc_storeStrong(&v12->_confirmVData, v19);
-      v20 = CFDataGetTypeID();
-      v26 = CFDictionaryGetTypedValue(dictionaryCopy, @"shareV", v20, &v30);
-      if (v26)
+      objc_storeStrong(&v7->_confirmVData, v9);
+      v10 = CFDataGetTypeID();
+      v11 = CFDictionaryGetTypedValue(dictionaryCopy, @"shareV", v10, &v14);
+      if (v11)
       {
-        objc_storeStrong(&v12->_shareVData, v26);
-        v27 = v12;
+        objc_storeStrong(&v7->_shareVData, v11);
+        v12 = v7;
       }
 
       else if (error)
       {
-        NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "get shareV failed: %d", v21, v22, v23, v24, v25, v30);
-        *error = v27 = 0;
+        NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "get shareV failed: %d", v14);
+        *error = v12 = 0;
       }
 
       else
       {
-        v27 = 0;
+        v12 = 0;
       }
     }
 
     else if (error)
     {
-      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "get confirmV failed: %d", v14, v15, v16, v17, v18, v30);
-      *error = v27 = 0;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "get confirmV failed: %d", v14);
+      *error = v12 = 0;
     }
 
     else
     {
-      v27 = 0;
+      v12 = 0;
     }
   }
 
   else if (error)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "super init failed", v7, v8, v9, v10, v11, v29);
-    *error = v27 = 0;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "super init failed");
+    *error = v12 = 0;
   }
 
   else
   {
-    v27 = 0;
+    v12 = 0;
   }
 
-  return v27;
+  return v12;
 }
 
 @end

@@ -18,7 +18,7 @@
 
 + (id)suggestedMemojiMetadataWithCount:(unint64_t)count
 {
-  v4 = objc_alloc_init(getAVTPAvatarStoreClass());
+  v4 = objc_alloc_init(getAVTPAvatarStoreClass(self, a2));
   requestForStorePrimaryAvatar = [getAVTAvatarFetchRequestClass() requestForStorePrimaryAvatar];
   v24 = 0;
   v6 = [v4 avatarsForFetchRequest:requestForStorePrimaryAvatar error:&v24];
@@ -98,7 +98,7 @@ LABEL_15:
 
 + (id)suggestedAnimojiMetadataWithCount:(unint64_t)count
 {
-  v4 = objc_alloc_init(getAVTPAvatarStoreClass());
+  v4 = objc_alloc_init(getAVTPAvatarStoreClass(self, a2));
   requestForPredefinedAvatars = [getAVTAvatarFetchRequestClass() requestForPredefinedAvatars];
   v21 = 0;
   v6 = [v4 avatarsForFetchRequest:requestForPredefinedAvatars error:&v21];
@@ -314,9 +314,9 @@ LABEL_15:
   accessibilityDescription = self->_accessibilityDescription;
   if (!accessibilityDescription)
   {
-    AXUIAvatarUtilitiesClass = getAXUIAvatarUtilitiesClass();
+    AXUIAvatarUtilitiesClass = getAXUIAvatarUtilitiesClass(0, a2);
     avatarRecord = [(CNUIMemojiMetadata *)self avatarRecord];
-    v6 = [(objc_class *)AXUIAvatarUtilitiesClass descriptionForAvatarWithRecord:avatarRecord includeVideoPrefix:0];
+    v6 = [AXUIAvatarUtilitiesClass descriptionForAvatarWithRecord:avatarRecord includeVideoPrefix:0];
 
     poseConfiguration = [(CNUIMemojiMetadata *)self poseConfiguration];
     localizedName = [poseConfiguration localizedName];
@@ -384,21 +384,21 @@ LABEL_15:
 {
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "Error loading configurations for avatar: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "Error loading configurations for avatar: %@", v4, v5, v6, v7);
 }
 
 + (void)suggestedMemojiMetadataWithCount:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "Error loading store primary avatar: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "Error loading store primary avatar: %{public}@", v4, v5, v6, v7);
 }
 
 + (void)suggestedAnimojiMetadataWithCount:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "Could not load avatar; %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "Could not load avatar; %{public}@", v4, v5, v6, v7);
 }
 
 @end

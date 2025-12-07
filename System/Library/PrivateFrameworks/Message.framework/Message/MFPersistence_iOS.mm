@@ -395,7 +395,7 @@
 
 - (id)searchableIndexStatistics
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   searchableIndexManager = [(MFPersistence_iOS *)self searchableIndexManager];
   persistence = [searchableIndexManager persistence];
   statistics = [persistence statistics];
@@ -407,9 +407,9 @@
   [serverMessagesIndexer getIndexingStatisticsWithCompletion:completionHandlerAdapter];
 
   future = [v7 future];
-  v17 = 0;
-  v11 = [future resultWithTimeout:&v17 error:60.0];
-  v12 = v17;
+  v16 = 0;
+  v11 = [future resultWithTimeout:&v16 error:60.0];
+  v12 = v16;
 
   if (v11)
   {
@@ -422,14 +422,12 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Error getting remote indexing statistics: %@", buf, 0xCu);
     }
   }
 
   v14 = [v6 copy];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

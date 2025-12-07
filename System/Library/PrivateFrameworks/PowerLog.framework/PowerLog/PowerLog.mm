@@ -23,16 +23,16 @@ void PLLogRegisteredEvent(uint64_t a1, void *a2, void *a3)
   }
 }
 
-id PLLogClientLogging()
+id PLLogClientLogging(uint64_t a1)
 {
   if (PLLogClientLogging_onceToken != -1)
   {
     PLLogClientLogging_cold_1();
   }
 
-  v1 = PLLogClientLogging___logObj;
+  v2 = PLLogClientLogging___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t PLShouldLogRegisteredEvent(uint64_t a1, void *a2)
@@ -56,8 +56,8 @@ uint64_t PLShouldLogRegisteredEvent(uint64_t a1, void *a2)
       return 1;
     }
 
-    v10 = PLLogClientLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = PLLogClientLogging(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       PLShouldLogRegisteredEvent_cold_1();
     }
@@ -68,8 +68,8 @@ uint64_t PLShouldLogRegisteredEvent(uint64_t a1, void *a2)
 
   if (v9)
   {
-    v10 = PLLogClientLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = PLLogClientLogging(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       PLShouldLogRegisteredEvent_cold_2();
     }
@@ -100,40 +100,40 @@ uint64_t __PLLogClientLogging_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id logHandle()
+id logHandle(uint64_t a1)
 {
   if (logHandle_onceToken != -1)
   {
     logHandle_cold_1();
   }
 
-  v1 = logHandle__logHandle;
+  v2 = logHandle__logHandle;
 
-  return v1;
+  return v2;
 }
 
-id logHandle_0()
+id logHandle_0(uint64_t a1)
 {
   if (logHandle_onceToken_0 != -1)
   {
     logHandle_cold_1_0();
   }
 
-  v1 = logHandle__logHandle_0;
+  v2 = logHandle__logHandle_0;
 
-  return v1;
+  return v2;
 }
 
-id logHandle_1()
+id logHandle_1(uint64_t a1)
 {
   if (logHandle_onceToken_1 != -1)
   {
     logHandle_cold_1_1();
   }
 
-  v1 = logHandle__logHandle_1;
+  v2 = logHandle__logHandle_1;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __logHandle_block_invoke()
@@ -157,10 +157,11 @@ uint64_t __logHandle_block_invoke_1()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t PLQueryRegistered(int a1, __CFString *a2, void *a3)
@@ -188,16 +189,16 @@ uint64_t PLQueryRegistered(int a1, __CFString *a2, void *a3)
   return 0;
 }
 
-id PLLogDiscretionaryEnergyMonitor()
+id PLLogDiscretionaryEnergyMonitor(uint64_t a1)
 {
   if (PLLogDiscretionaryEnergyMonitor_onceToken != -1)
   {
     PLLogDiscretionaryEnergyMonitor_cold_1();
   }
 
-  v1 = PLLogDiscretionaryEnergyMonitor___logObj;
+  v2 = PLLogDiscretionaryEnergyMonitor___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PLLogDiscretionaryEnergyMonitor_block_invoke()
@@ -207,16 +208,16 @@ uint64_t __PLLogDiscretionaryEnergyMonitor_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id discretionaryEnergyMonitorQueue()
+id discretionaryEnergyMonitorQueue(uint64_t a1)
 {
   if (discretionaryEnergyMonitorQueue_queueCreationGuard != -1)
   {
     discretionaryEnergyMonitorQueue_cold_1();
   }
 
-  v1 = discretionaryEnergyMonitorQueue_queue;
+  v2 = discretionaryEnergyMonitorQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 void __discretionaryEnergyMonitorQueue_block_invoke()
@@ -228,9 +229,9 @@ void __discretionaryEnergyMonitorQueue_block_invoke()
   discretionaryEnergyMonitorQueue_queue = v1;
 }
 
-void sub_1BACBB0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BACBB0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -244,34 +245,33 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 void PLBatteryLifeMonitorLogCoreDuetEventsAggregate(void *a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"events";
-  v6[0] = a1;
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"events";
+  v5[0] = a1;
   v1 = MEMORY[0x1E695DF20];
   v2 = a1;
-  v3 = [v1 dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v3 = [v1 dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   PLLogRegisteredEvent(24, @"BLMNotifyDuetEvent", v3);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1BACBF8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BACBF8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC05C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BACC05C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void didReceiveNotification(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = discretionaryEnergyMonitorQueue();
+  v5 = discretionaryEnergyMonitorQueue(a1);
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __didReceiveNotification_block_invoke;
@@ -283,157 +283,152 @@ void didReceiveNotification(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void PLBatteryLifeMonitorLogDuetEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v19[6] = *MEMORY[0x1E69E9840];
+  v18[6] = *MEMORY[0x1E69E9840];
   v8 = [MEMORY[0x1E695DF00] date];
   [v8 timeIntervalSince1970];
   v10 = v9;
 
-  v18[0] = @"time";
+  v17[0] = @"time";
   v11 = [MEMORY[0x1E696AD98] numberWithDouble:v10];
-  v19[0] = v11;
-  v18[1] = @"bundleID";
+  v18[0] = v11;
+  v17[1] = @"bundleID";
   v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a1];
-  v19[1] = v12;
-  v18[2] = @"updateType";
+  v18[1] = v12;
+  v17[2] = @"updateType";
   v13 = [MEMORY[0x1E696AD98] numberWithShort:a2];
-  v19[2] = v13;
-  v18[3] = @"sequenceNumber";
+  v18[2] = v13;
+  v17[3] = @"sequenceNumber";
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a3];
-  v19[3] = v14;
-  v18[4] = @"eventType";
+  v18[3] = v14;
+  v17[4] = @"eventType";
   v15 = [MEMORY[0x1E696AD98] numberWithShort:a4];
-  v18[5] = @"BLMLogType";
-  v19[4] = v15;
-  v19[5] = &unk_1F38E30C8;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v17[5] = @"BLMLogType";
+  v18[4] = v15;
+  v18[5] = &unk_1F38E30C8;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
 
   PLLogRegisteredEvent(24, @"BLMNotifyDuetEvent", v16);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void PLBatteryLifeMonitorStopAllDuetEvents()
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DF00] date];
   [v0 timeIntervalSince1970];
   v2 = v1;
 
-  v6[0] = @"time";
+  v5[0] = @"time";
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:v2];
-  v7[0] = v3;
-  v7[1] = MEMORY[0x1E695E118];
-  v6[1] = @"BLMStopAllDuetEvents";
-  v6[2] = @"BLMLogType";
-  v7[2] = &unk_1F38E30C8;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[0] = v3;
+  v6[1] = MEMORY[0x1E695E118];
+  v5[1] = @"BLMStopAllDuetEvents";
+  v5[2] = @"BLMLogType";
+  v6[2] = &unk_1F38E30C8;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   PLLogRegisteredEvent(24, @"BLMNotifyDuetEvent", v4);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void PLBatteryLifeMonitorLogCoreDuetAdmissionEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, double a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v35[11] = *MEMORY[0x1E69E9840];
-  if (+[PLModelingUtilities internalBuild])
+  v34[11] = *MEMORY[0x1E69E9840];
+  if ([PLModelingUtilities internalBuild:a3])
   {
     v19 = [MEMORY[0x1E695DF00] date];
     [v19 timeIntervalSince1970];
     v21 = v20;
 
-    v34[0] = @"time";
-    v33 = [MEMORY[0x1E696AD98] numberWithDouble:v21];
-    v35[0] = v33;
-    v34[1] = @"clientID";
-    v32 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1];
-    v35[1] = v32;
-    v34[2] = @"attributeID";
+    v33[0] = @"time";
+    v32 = [MEMORY[0x1E696AD98] numberWithDouble:v21];
+    v34[0] = v32;
+    v33[1] = @"clientID";
+    v31 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1];
+    v34[1] = v31;
+    v33[2] = @"attributeID";
     v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a2];
-    v35[2] = v22;
-    v34[3] = @"attributeName";
+    v34[2] = v22;
+    v33[3] = @"attributeName";
     v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a10];
-    v35[3] = v23;
-    v34[4] = @"value";
+    v34[3] = v23;
+    v33[4] = @"value";
     v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a3];
-    v35[4] = v24;
-    v34[5] = @"Probability";
+    v34[4] = v24;
+    v33[5] = @"Probability";
     v25 = [MEMORY[0x1E696AD98] numberWithDouble:a6];
-    v35[5] = v25;
-    v34[6] = @"PT";
+    v34[5] = v25;
+    v33[6] = @"PT";
     v26 = [MEMORY[0x1E696AD98] numberWithDouble:a7];
-    v35[6] = v26;
-    v34[7] = @"BON";
+    v34[6] = v26;
+    v33[7] = @"BON";
     v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a4];
-    v35[7] = v27;
-    v34[8] = @"reason";
+    v34[7] = v27;
+    v33[8] = @"reason";
     v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a5];
-    v35[8] = v28;
-    v34[9] = @"ableID";
+    v34[8] = v28;
+    v33[9] = @"ableID";
     v29 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a9];
-    v34[10] = @"BLMLogType";
-    v35[9] = v29;
-    v35[10] = &unk_1F38E30E0;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:11];
+    v33[10] = @"BLMLogType";
+    v34[9] = v29;
+    v34[10] = &unk_1F38E30E0;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:11];
 
     PLLogRegisteredEvent(24, @"BLMNotifyDuetEvent", v30);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void PLBatteryLifeMonitorLogCoreDuetEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v37[13] = *MEMORY[0x1E69E9840];
+  v36[13] = *MEMORY[0x1E69E9840];
   v18 = [MEMORY[0x1E695DF00] date];
   [v18 timeIntervalSince1970];
   v20 = v19;
 
-  v36[0] = @"time";
-  v35 = [MEMORY[0x1E696AD98] numberWithDouble:v20];
-  v37[0] = v35;
-  v36[1] = @"clientID";
-  v34 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1];
-  v37[1] = v34;
-  v36[2] = @"attributeID";
-  v33 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a2];
-  v37[2] = v33;
-  v36[3] = @"attributeName";
+  v35[0] = @"time";
+  v34 = [MEMORY[0x1E696AD98] numberWithDouble:v20];
+  v36[0] = v34;
+  v35[1] = @"clientID";
+  v33 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1];
+  v36[1] = v33;
+  v35[2] = @"attributeID";
+  v32 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a2];
+  v36[2] = v32;
+  v35[3] = @"attributeName";
   v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a11];
-  v37[3] = v21;
-  v36[4] = @"updateType";
+  v36[3] = v21;
+  v35[4] = @"updateType";
   v22 = [MEMORY[0x1E696AD98] numberWithShort:a3];
-  v37[4] = v22;
-  v36[5] = @"sequenceNumber";
+  v36[4] = v22;
+  v35[5] = @"sequenceNumber";
   v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a4];
-  v37[5] = v23;
-  v36[6] = @"eventType";
+  v36[5] = v23;
+  v35[6] = @"eventType";
   v24 = [MEMORY[0x1E696AD98] numberWithShort:a5];
-  v37[6] = v24;
-  v36[7] = @"value";
+  v36[6] = v24;
+  v35[7] = @"value";
   v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a6];
-  v37[7] = v25;
-  v36[8] = @"cellin";
+  v36[7] = v25;
+  v35[8] = @"cellin";
   v26 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a7];
-  v37[8] = v26;
-  v36[9] = @"cellout";
+  v36[8] = v26;
+  v35[9] = @"cellout";
   v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a8];
-  v37[9] = v27;
-  v36[10] = @"wifiin";
+  v36[9] = v27;
+  v35[10] = @"wifiin";
   v28 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a9];
-  v37[10] = v28;
-  v36[11] = @"wifiout";
+  v36[10] = v28;
+  v35[11] = @"wifiout";
   v29 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a10];
-  v36[12] = @"BLMLogType";
-  v37[11] = v29;
-  v37[12] = &unk_1F38E30F8;
-  v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:13];
+  v35[12] = @"BLMLogType";
+  v36[11] = v29;
+  v36[12] = &unk_1F38E30F8;
+  v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:13];
 
   PLLogRegisteredEvent(24, @"BLMNotifyDuetEvent", v30);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void PLBatteryLifeMonitorLogCoreDuetPredictionEvents(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, float a8)
 {
-  v32[10] = *MEMORY[0x1E69E9840];
+  v31[10] = *MEMORY[0x1E69E9840];
   if (+[PLModelingUtilities internalBuild])
   {
     v16 = [MEMORY[0x1E695DF00] date];
@@ -441,40 +436,38 @@ void PLBatteryLifeMonitorLogCoreDuetPredictionEvents(uint64_t a1, uint64_t a2, u
     v18 = v17;
 
     v19 = [MEMORY[0x1E696AD98] numberWithDouble:{v18, @"time"}];
-    v32[0] = v19;
-    v31[1] = @"prediction_c_a";
+    v31[0] = v19;
+    v30[1] = @"prediction_c_a";
     v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1];
-    v32[1] = v20;
-    v31[2] = @"prediction_c_b";
+    v31[1] = v20;
+    v30[2] = @"prediction_c_b";
     v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a2];
-    v32[2] = v21;
-    v31[3] = @"prediction_c_c";
+    v31[2] = v21;
+    v30[3] = @"prediction_c_c";
     v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a3];
-    v32[3] = v22;
-    v31[4] = @"prediction_b1";
+    v31[3] = v22;
+    v30[4] = @"prediction_b1";
     v23 = [MEMORY[0x1E696AD98] numberWithBool:a4];
-    v32[4] = v23;
-    v31[5] = @"prediction_b2";
+    v31[4] = v23;
+    v30[5] = @"prediction_b2";
     v24 = [MEMORY[0x1E696AD98] numberWithBool:a5];
-    v32[5] = v24;
-    v31[6] = @"prediction_r2";
+    v31[5] = v24;
+    v30[6] = @"prediction_r2";
     *&v25 = a8;
     v26 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
-    v32[6] = v26;
-    v31[7] = @"ableID";
+    v31[6] = v26;
+    v30[7] = @"ableID";
     v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a6];
-    v32[7] = v27;
-    v31[8] = @"selectedModel";
+    v31[7] = v27;
+    v30[8] = @"selectedModel";
     v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a7];
-    v31[9] = @"BLMLogType";
-    v32[8] = v28;
-    v32[9] = &unk_1F38E3110;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:10];
+    v30[9] = @"BLMLogType";
+    v31[8] = v28;
+    v31[9] = &unk_1F38E3110;
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:10];
 
     PLLogRegisteredEvent(24, @"BLMNotifyDuetEvent", v29);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 id PLBatteryLifeMonitorGenericDuetQuery(void *a1)
@@ -485,11 +478,11 @@ id PLBatteryLifeMonitorGenericDuetQuery(void *a1)
     goto LABEL_11;
   }
 
-  v2 = PLFDefaultsValueForKey();
+  v2 = PLFDefaultsValueForKey(@"DuetRetryCount");
 
   if (v2)
   {
-    v3 = PLFDefaultsValueForKey();
+    v3 = PLFDefaultsValueForKey(@"DuetRetryCount");
     v4 = [v3 integerValue];
   }
 
@@ -498,11 +491,11 @@ id PLBatteryLifeMonitorGenericDuetQuery(void *a1)
     v4 = 30;
   }
 
-  v5 = PLFDefaultsValueForKey();
+  v5 = PLFDefaultsValueForKey(@"DuetRetrySleep");
 
   if (v5)
   {
-    v6 = PLFDefaultsValueForKey();
+    v6 = PLFDefaultsValueForKey(@"DuetRetrySleep");
     v7 = [v6 unsignedIntValue];
   }
 
@@ -542,88 +535,86 @@ LABEL_11:
 
 id PLBatteryLifeMonitorReportEnergyDuet(void *a1)
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = PLFDefaultsValueForKey();
+  v2 = PLFDefaultsValueForKey(@"DuetDisabled");
   v3 = [v2 BOOLValue];
 
   if (v3)
   {
     NSLog(&cfstr_DuetToPowerlog.isa);
-    v14[0] = MEMORY[0x1E695E0F0];
-    v13[0] = @"BLMEnergyForDuet";
-    v13[1] = @"BLMEnergyReferenceDate";
+    v13[0] = MEMORY[0x1E695E0F0];
+    v12[0] = @"BLMEnergyForDuet";
+    v12[1] = @"BLMEnergyReferenceDate";
     v4 = [MEMORY[0x1E695DF00] date];
-    v14[1] = v4;
-    v13[2] = @"BLMBatteryCapacity";
+    v13[1] = v4;
+    v12[2] = @"BLMBatteryCapacity";
     v5 = MEMORY[0x1E696AD98];
     +[PLModelingUtilities defaultBatteryEnergyCapacity];
     v6 = [v5 numberWithDouble:?];
-    v14[2] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+    v13[2] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   }
 
   else
   {
-    v11[0] = @"BLMEnergyForDuet";
+    v10[0] = @"BLMEnergyForDuet";
     v8 = v1;
     if (!v1)
     {
       v8 = [MEMORY[0x1E695DFB0] null];
     }
 
-    v11[1] = @"BLMLogType";
-    v12[0] = v8;
-    v12[1] = &unk_1F38E30C8;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v10[1] = @"BLMLogType";
+    v11[0] = v8;
+    v11[1] = &unk_1F38E30C8;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
     if (!v1)
     {
     }
 
     v7 = PLBatteryLifeMonitorGenericDuetQuery(v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 id PLBatteryLifeMonitorReportEnergyCoreDuet(void *a1)
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = PLFDefaultsValueForKey();
+  v2 = PLFDefaultsValueForKey(@"DuetDisabled");
   v3 = [v2 BOOLValue];
 
   if (v3)
   {
     NSLog(&cfstr_DuetToPowerlog.isa);
-    v14[0] = MEMORY[0x1E695E0F0];
-    v13[0] = @"BLMEnergyForDuet";
-    v13[1] = @"BLMEnergyReferenceDate";
+    v13[0] = MEMORY[0x1E695E0F0];
+    v12[0] = @"BLMEnergyForDuet";
+    v12[1] = @"BLMEnergyReferenceDate";
     v4 = [MEMORY[0x1E695DF00] date];
-    v14[1] = v4;
-    v13[2] = @"BLMBatteryCapacity";
+    v13[1] = v4;
+    v12[2] = @"BLMBatteryCapacity";
     v5 = MEMORY[0x1E696AD98];
     +[PLModelingUtilities defaultBatteryEnergyCapacity];
     v6 = [v5 numberWithDouble:?];
-    v14[2] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+    v13[2] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   }
 
   else
   {
-    v11[0] = @"BLMEnergyForDuet";
+    v10[0] = @"BLMEnergyForDuet";
     v8 = v1;
     if (!v1)
     {
       v8 = [MEMORY[0x1E695DFB0] null];
     }
 
-    v11[1] = @"BLMLogType";
-    v12[0] = v8;
-    v12[1] = &unk_1F38E30F8;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v10[1] = @"BLMLogType";
+    v11[0] = v8;
+    v11[1] = &unk_1F38E30F8;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
     if (!v1)
     {
     }
@@ -631,54 +622,50 @@ id PLBatteryLifeMonitorReportEnergyCoreDuet(void *a1)
     v7 = PLBatteryLifeMonitorGenericDuetQuery(v4);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 id PLBatteryLifeMonitorReportBatteryCapacityForCoreDuet()
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v0 = PLFDefaultsValueForKey();
+  v11[2] = *MEMORY[0x1E69E9840];
+  v0 = PLFDefaultsValueForKey(@"DuetDisabled");
   v1 = [v0 BOOLValue];
 
   if (v1)
   {
     NSLog(&cfstr_DuetToPowerlog.isa);
-    v11[0] = @"BLMEnergyReferenceDate";
+    v10[0] = @"BLMEnergyReferenceDate";
     v2 = [MEMORY[0x1E695DF00] date];
-    v11[1] = @"BLMBatteryCapacity";
-    v12[0] = v2;
+    v10[1] = @"BLMBatteryCapacity";
+    v11[0] = v2;
     v3 = MEMORY[0x1E696AD98];
     +[PLModelingUtilities defaultBatteryEnergyCapacity];
     v4 = [v3 numberWithDouble:?];
-    v12[1] = v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v11[1] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   }
 
   else
   {
-    v9 = @"BLMBatteryCapacity";
+    v8 = @"BLMBatteryCapacity";
     v6 = MEMORY[0x1E696AD98];
     +[PLModelingUtilities defaultBatteryEnergyCapacity];
     v2 = [v6 numberWithDouble:?];
-    v10 = v2;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+    v9 = v2;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
-id PLBuildUsageSnapshot()
+PLUsageSnapshot *PLBuildUsageSnapshot()
 {
   v0 = objc_opt_new();
 
   return v0;
 }
 
-id PLBuildEnergyBucket()
+PLEnergyBucket *PLBuildEnergyBucket()
 {
   v0 = objc_opt_new();
   [v0 setLevel:1];
@@ -686,7 +673,7 @@ id PLBuildEnergyBucket()
   return v0;
 }
 
-id PLBuildEnergyBucketTillNow()
+PLEnergyBucket *PLBuildEnergyBucketTillNow()
 {
   v0 = objc_opt_new();
   v1 = objc_opt_new();
@@ -706,37 +693,37 @@ void __didReceiveNotification_block_invoke(uint64_t a1)
       {
         if (![*(a1 + 40) caseInsensitiveCompare:@"com.apple.energybudgetingdebug.discretionaryIntervals"])
         {
-          v7 = PLLogDiscretionaryEnergyMonitor();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+          v8 = PLLogDiscretionaryEnergyMonitor(0);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
           {
-            *v23 = 0;
-            _os_log_impl(&dword_1BACB7000, v7, OS_LOG_TYPE_INFO, "DEBUG OUTPUT: Discretionary Intervals: ", v23, 2u);
+            *v24 = 0;
+            _os_log_impl(&dword_1BACB7000, v8, OS_LOG_TYPE_INFO, "DEBUG OUTPUT: Discretionary Intervals: ", v24, 2u);
           }
 
-          v3 = [v2 intervalManager];
-          [v3 logDiscretionaryIntervals];
+          v4 = [v2 intervalManager];
+          [v4 logDiscretionaryIntervals];
           goto LABEL_36;
         }
 
         if (![*(a1 + 40) caseInsensitiveCompare:@"com.apple.energybudgetingdebug.lastPowerlogEnergy"])
         {
-          v8 = [v2 lastPowerlogResponse];
-          [v2 getPowerlogEnergySum:v8];
-          v10 = v9 * 1000.0;
+          v9 = [v2 lastPowerlogResponse];
+          [v2 getPowerlogEnergySum:v9];
+          v11 = v10 * 1000.0;
 
-          v3 = [MEMORY[0x1E696AD98] numberWithDouble:v10];
-          v11 = @"com.apple.energybudgetingdebug.lastPowerlogEnergy";
+          v4 = [MEMORY[0x1E696AD98] numberWithDouble:v11];
+          v12 = @"com.apple.energybudgetingdebug.lastPowerlogEnergy";
           goto LABEL_35;
         }
 
         if (![*(a1 + 40) caseInsensitiveCompare:@"com.apple.energybudgetingdebug.lastPowerlogTimestamp"])
         {
-          v12 = [v2 powerlogTimestampLast];
-          [v12 timeIntervalSince1970];
-          v14 = v13;
+          v13 = [v2 powerlogTimestampLast];
+          [v13 timeIntervalSince1970];
+          v15 = v14;
 
-          v3 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
-          v11 = @"com.apple.energybudgetingdebug.lastPowerlogTimestamp";
+          v4 = [MEMORY[0x1E696AD98] numberWithDouble:v15];
+          v12 = @"com.apple.energybudgetingdebug.lastPowerlogTimestamp";
           goto LABEL_35;
         }
 
@@ -750,10 +737,11 @@ void __didReceiveNotification_block_invoke(uint64_t a1)
               {
                 if ([*(a1 + 40) caseInsensitiveCompare:@"com.apple.energybudgetingdebug.accumulatedCPUEnergy"])
                 {
-                  if ([*(a1 + 40) caseInsensitiveCompare:@"com.apple.energybudgetingdebug.accumulatedNetworkEnergy"])
+                  v3 = [*(a1 + 40) caseInsensitiveCompare:@"com.apple.energybudgetingdebug.accumulatedNetworkEnergy"];
+                  if (v3)
                   {
-                    v3 = PLLogDiscretionaryEnergyMonitor();
-                    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+                    v4 = PLLogDiscretionaryEnergyMonitor(v3);
+                    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
                     {
                       __didReceiveNotification_block_invoke_cold_1();
                     }
@@ -762,61 +750,61 @@ void __didReceiveNotification_block_invoke(uint64_t a1)
                   }
 
                   [v2 accumulatedNetworkEnergy];
-                  v3 = [MEMORY[0x1E696AD98] numberWithDouble:v22 * 1000.0];
-                  v11 = @"com.apple.energybudgetingdebug.accumulatedNetworkEnergy";
+                  v4 = [MEMORY[0x1E696AD98] numberWithDouble:v23 * 1000.0];
+                  v12 = @"com.apple.energybudgetingdebug.accumulatedNetworkEnergy";
                 }
 
                 else
                 {
                   [v2 accumulatedCPUEnergy];
-                  v3 = [MEMORY[0x1E696AD98] numberWithDouble:v21 * 1000.0];
-                  v11 = @"com.apple.energybudgetingdebug.accumulatedCPUEnergy";
+                  v4 = [MEMORY[0x1E696AD98] numberWithDouble:v22 * 1000.0];
+                  v12 = @"com.apple.energybudgetingdebug.accumulatedCPUEnergy";
                 }
               }
 
               else
               {
                 [v2 lastReportedNetworkEnergy];
-                v3 = [MEMORY[0x1E696AD98] numberWithDouble:v20 * 1000.0];
-                v11 = @"com.apple.energybudgetingdebug.lastReportedNetworkEnergy";
+                v4 = [MEMORY[0x1E696AD98] numberWithDouble:v21 * 1000.0];
+                v12 = @"com.apple.energybudgetingdebug.lastReportedNetworkEnergy";
               }
             }
 
             else
             {
               [v2 lastReportedCPUEnergy];
-              v3 = [MEMORY[0x1E696AD98] numberWithDouble:v19 * 1000.0];
-              v11 = @"com.apple.energybudgetingdebug.lastReportedCPUEnergy";
+              v4 = [MEMORY[0x1E696AD98] numberWithDouble:v20 * 1000.0];
+              v12 = @"com.apple.energybudgetingdebug.lastReportedCPUEnergy";
             }
           }
 
           else
           {
             [v2 lastReportedTotalEnergy];
-            v3 = [MEMORY[0x1E696AD98] numberWithDouble:v18 * 1000.0];
-            v11 = @"com.apple.energybudgetingdebug.lastReportedTotalEnergy";
+            v4 = [MEMORY[0x1E696AD98] numberWithDouble:v19 * 1000.0];
+            v12 = @"com.apple.energybudgetingdebug.lastReportedTotalEnergy";
           }
 
 LABEL_35:
-          [v2 setStateForNotification:v11 withState:v3];
+          [v2 setStateForNotification:v12 withState:v4];
 LABEL_36:
 
           goto LABEL_37;
         }
 
-        v15 = MEMORY[0x1E696AD98];
-        v16 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v2, "isCharging")}];
-        v17 = [v15 numberWithInt:{objc_msgSend(v16, "intValue")}];
-        [v2 setStateForNotification:@"com.apple.energybudgetingdebug.chargingStatus" withState:v17];
+        v16 = MEMORY[0x1E696AD98];
+        v17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v2, "isCharging")}];
+        v18 = [v16 numberWithInt:{objc_msgSend(v17, "intValue")}];
+        [v2 setStateForNotification:@"com.apple.energybudgetingdebug.chargingStatus" withState:v18];
       }
 
       else
       {
-        v6 = PLLogDiscretionaryEnergyMonitor();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        v7 = PLLogDiscretionaryEnergyMonitor(0);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          *v24 = 0;
-          _os_log_impl(&dword_1BACB7000, v6, OS_LOG_TYPE_INFO, "DEBUG OUTPUT: Generating energyReport ...: ", v24, 2u);
+          *v25 = 0;
+          _os_log_impl(&dword_1BACB7000, v7, OS_LOG_TYPE_INFO, "DEBUG OUTPUT: Generating energyReport ...: ", v25, 2u);
         }
 
         [v2 generateEnergyReport];
@@ -825,11 +813,11 @@ LABEL_36:
 
     else
     {
-      v5 = PLLogDiscretionaryEnergyMonitor();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = PLLogDiscretionaryEnergyMonitor(0);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v25 = 0;
-        _os_log_impl(&dword_1BACB7000, v5, OS_LOG_TYPE_INFO, "DEBUG OUTPUT: Querying powerlog for discretionary energy ...: ", v25, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_1BACB7000, v6, OS_LOG_TYPE_INFO, "DEBUG OUTPUT: Querying powerlog for discretionary energy ...: ", v26, 2u);
       }
 
       [v2 queryPowerlogForDiscretionaryEnergy];
@@ -838,11 +826,11 @@ LABEL_36:
 
   else
   {
-    v4 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = PLLogDiscretionaryEnergyMonitor(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BACB7000, v4, OS_LOG_TYPE_INFO, "DEBUG OUTPUT: Quick energy snapshots: ", buf, 2u);
+      _os_log_impl(&dword_1BACB7000, v5, OS_LOG_TYPE_INFO, "DEBUG OUTPUT: Quick energy snapshots: ", buf, 2u);
     }
 
     [v2 logQuickEnergySnapshots];
@@ -881,11 +869,11 @@ void sub_1BACC4304(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC47C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC47C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -896,262 +884,269 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BACC4A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC4A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC4CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC4CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC4F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC4F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC51B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC51B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC5420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC5420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC5690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC5690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC5900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC5900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC5B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC5B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC5DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC5DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC6050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC6050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC62E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC62E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC65E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC65E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC68E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC68E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC6BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC6BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC70D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC70D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC7374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC7374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC7540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC76FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC78B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC7A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC7C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC7E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC7FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC824C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC7540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC842C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC88FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC76FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC8B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC78B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC8D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
-{
-  va_start(va, a14);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC8FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC7A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC92D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
-{
-  va_start(va, a14);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BACC9540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC7C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC9754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC7E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC99D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC7FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC9C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC824C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC842C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACC9EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACC86E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a13);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC88FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC8B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC8D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+{
+  va_start(va, a21);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC8FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC92D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+{
+  va_start(va, a21);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC9540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC9754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC99D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC9C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BACC9EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1170,15 +1165,16 @@ uint64_t __managingClientInterface_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void sub_1BACCA24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BACCA24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1193,9 +1189,9 @@ PPSTelemetryIdentifier *PerfPowerTelemetryCreateIdentifier(void *a1, void *a2)
   return [PPSClientDonation createIdentifierForSubsystem:v6 category:v7];
 }
 
-void sub_1BACCCCEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BACCCCEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1320,16 +1316,16 @@ id __aggregationBlockForType_block_invoke_4(uint64_t a1, void *a2, void *a3)
   return v12;
 }
 
-id logHandleBatteryUIExternalData()
+id logHandleBatteryUIExternalData(uint64_t a1)
 {
   if (logHandleBatteryUIExternalData_onceToken != -1)
   {
     logHandleBatteryUIExternalData_cold_1();
   }
 
-  v1 = logHandleBatteryUIExternalData__logHandle;
+  v2 = logHandleBatteryUIExternalData__logHandle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __logHandleBatteryUIExternalData_block_invoke()
@@ -1344,7 +1340,7 @@ uint64_t batteryUIHasNoteworthyInformation()
   v12 = *MEMORY[0x1E69E9840];
   v0 = PLConfigureBUIQueryNoteworthyInformation();
   v1 = PLRunBUIQuery(v0);
-  v2 = logHandleBatteryUIExternalData();
+  v2 = logHandleBatteryUIExternalData(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -1354,192 +1350,189 @@ uint64_t batteryUIHasNoteworthyInformation()
     _os_log_impl(&dword_1BACB7000, v2, OS_LOG_TYPE_DEFAULT, "config: %@, queryResult: %@", &v8, 0x16u);
   }
 
-  v3 = logHandleBatteryUIExternalData();
-  v4 = v3;
+  v4 = logHandleBatteryUIExternalData(v3);
+  v5 = v4;
   if (v1)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = v1;
-      _os_log_impl(&dword_1BACB7000, v4, OS_LOG_TYPE_DEFAULT, "valid queryResult=%@", &v8, 0xCu);
+      _os_log_impl(&dword_1BACB7000, v5, OS_LOG_TYPE_DEFAULT, "valid queryResult=%@", &v8, 0xCu);
     }
 
-    v4 = [v1 objectForKeyedSubscript:@"hasNoteworthyInformation"];
-    v5 = [v4 BOOLValue];
+    v5 = [v1 objectForKeyedSubscript:@"hasNoteworthyInformation"];
+    v6 = [v5 BOOLValue];
   }
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      batteryUIHasNoteworthyInformation_cold_1(v4);
+      batteryUIHasNoteworthyInformation_cold_1(v5);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 id queryResultWith(void *a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = PLConfigureBUIQueryInsightsAndSuggestionsSummary();
   v3 = PLRunBUIQuery(v2);
-  v4 = logHandleBatteryUIExternalData();
+  v4 = logHandleBatteryUIExternalData(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v37 = v2;
-    v38 = 2112;
-    v39 = v3;
+    v39 = v2;
+    v40 = 2112;
+    v41 = v3;
     _os_log_impl(&dword_1BACB7000, v4, OS_LOG_TYPE_DEFAULT, "config: %@, queryResult: %@", buf, 0x16u);
   }
 
-  v5 = logHandleBatteryUIExternalData();
-  v6 = v5;
+  v6 = logHandleBatteryUIExternalData(v5);
+  v7 = v6;
   if (v3)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = v3;
-      _os_log_impl(&dword_1BACB7000, v6, OS_LOG_TYPE_DEFAULT, "valid queryResult=%@", buf, 0xCu);
+      v39 = v3;
+      _os_log_impl(&dword_1BACB7000, v7, OS_LOG_TYPE_DEFAULT, "valid queryResult=%@", buf, 0xCu);
     }
 
-    v7 = logHandleBatteryUIExternalData();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = logHandleBatteryUIExternalData(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = v1;
-      _os_log_impl(&dword_1BACB7000, v7, OS_LOG_TYPE_DEFAULT, "using key=%@", buf, 0xCu);
+      v39 = v1;
+      _os_log_impl(&dword_1BACB7000, v9, OS_LOG_TYPE_DEFAULT, "using key=%@", buf, 0xCu);
     }
 
-    v8 = [v3 objectForKeyedSubscript:@"insightsAndSuggestionsSummaryKey"];
-    v9 = [v8 objectForKeyedSubscript:v1];
-    v6 = [v9 mutableCopy];
+    v10 = [v3 objectForKeyedSubscript:@"insightsAndSuggestionsSummaryKey"];
+    v11 = [v10 objectForKeyedSubscript:v1];
+    v7 = [v11 mutableCopy];
 
-    v10 = objc_opt_new();
-    v11 = v10;
-    if (v6)
+    v12 = objc_opt_new();
+    v13 = v12;
+    if (v7)
     {
-      v30 = v10;
-      v27 = v3;
-      v28 = v2;
-      v29 = v1;
+      v32 = v12;
+      v29 = v3;
+      v30 = v2;
+      v31 = v1;
+      v35 = 0u;
+      v36 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v31 = 0u;
-      v32 = 0u;
-      v26 = v6;
-      v12 = v6;
-      v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
-      if (v13)
+      v28 = v7;
+      v14 = v7;
+      v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      if (v15)
       {
-        v14 = v13;
-        v15 = *v32;
+        v16 = v15;
+        v17 = *v34;
         do
         {
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v32 != v15)
+            if (*v34 != v17)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v14);
             }
 
-            v17 = *(*(&v31 + 1) + 8 * i);
-            v18 = [v17 objectForKeyedSubscript:{@"Type", v26, v27, v28, v29}];
-            v19 = v18;
-            if (v18)
+            v19 = *(*(&v33 + 1) + 8 * i);
+            v20 = [v19 objectForKeyedSubscript:{@"Type", v28, v29, v30, v31}];
+            v21 = v20;
+            if (v20)
             {
-              v20 = +[PLBatteryUIExternalData getTitleAndTextForType:](PLBatteryUIExternalData, "getTitleAndTextForType:", [v18 intValue]);
-              if (v20)
+              v22 = +[PLBatteryUIExternalData getTitleAndTextForType:](PLBatteryUIExternalData, "getTitleAndTextForType:", [v20 intValue]);
+              if (v22)
               {
-                v21 = [v17 mutableCopy];
-                [v21 addEntriesFromDictionary:v20];
-                [v30 addObject:v21];
+                v23 = [v19 mutableCopy];
+                [v23 addEntriesFromDictionary:v22];
+                [v32 addObject:v23];
               }
 
               else
               {
-                v21 = logHandleBatteryUIExternalData();
-                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+                v23 = logHandleBatteryUIExternalData(0);
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v37 = v17;
-                  _os_log_error_impl(&dword_1BACB7000, v21, OS_LOG_TYPE_ERROR, "Could not find title and text for entry %@", buf, 0xCu);
+                  v39 = v19;
+                  _os_log_error_impl(&dword_1BACB7000, v23, OS_LOG_TYPE_ERROR, "Could not find title and text for entry %@", buf, 0xCu);
                 }
               }
             }
 
             else
             {
-              v20 = logHandleBatteryUIExternalData();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v22 = logHandleBatteryUIExternalData(0);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v37 = v17;
-                _os_log_error_impl(&dword_1BACB7000, v20, OS_LOG_TYPE_ERROR, "Could not find type for entry %@", buf, 0xCu);
+                v39 = v19;
+                _os_log_error_impl(&dword_1BACB7000, v22, OS_LOG_TYPE_ERROR, "Could not find type for entry %@", buf, 0xCu);
               }
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
         }
 
-        while (v14);
+        while (v16);
       }
 
-      v22 = logHandleBatteryUIExternalData();
-      v11 = v30;
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v25 = logHandleBatteryUIExternalData(v24);
+      v13 = v32;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = v30;
-        _os_log_impl(&dword_1BACB7000, v22, OS_LOG_TYPE_DEFAULT, "returning finalizedEntries=%@", buf, 0xCu);
+        v39 = v32;
+        _os_log_impl(&dword_1BACB7000, v25, OS_LOG_TYPE_DEFAULT, "returning finalizedEntries=%@", buf, 0xCu);
       }
 
-      v23 = v30;
-      v2 = v28;
-      v1 = v29;
-      v6 = v26;
-      v3 = v27;
+      v26 = v32;
+      v2 = v30;
+      v1 = v31;
+      v7 = v28;
+      v3 = v29;
     }
 
     else
     {
-      v23 = 0;
+      v26 = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      batteryUIHasNoteworthyInformation_cold_1(v6);
+      batteryUIHasNoteworthyInformation_cold_1(v7);
     }
 
-    v23 = MEMORY[0x1E695E0F0];
+    v26 = MEMORY[0x1E695E0F0];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v26;
 }
 
-void sub_1BACD1B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BACD1B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BACD3328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BACD3328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1571,8 +1564,8 @@ uint64_t PLShouldLogEvent(void *a1)
       return 1;
     }
 
-    v7 = PLLogClientLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = PLLogClientLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       PLShouldLogEvent_cold_2();
     }
@@ -1583,8 +1576,8 @@ uint64_t PLShouldLogEvent(void *a1)
 
   if (v6)
   {
-    v7 = PLLogClientLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = PLLogClientLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       PLShouldLogEvent_cold_1();
     }
@@ -1654,13 +1647,14 @@ void PLBatchDropMessages(int a1)
 
 void PLMovePowerlogsToCR()
 {
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  v0 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+  if (v0)
   {
-    *v0 = 0;
-    _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Starting powerlog copy to Crash Reporter", v0, 2u);
+    *v1 = 0;
+    _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Starting powerlog copy to Crash Reporter", v1, 2u);
   }
 
-  PLCrashMoverCopyPowerlog();
+  PLCrashMoverCopyPowerlog(v0);
 }
 
 void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -1669,10 +1663,11 @@ void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0xCu);
 }
 
-void OUTLINED_FUNCTION_8_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_8_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x2Au);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x2Au);
 }
 
 uint64_t PLBatteryGaugeStartMetricMonitor(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1763,8 +1758,8 @@ LABEL_15:
 
 id PLBatteryGaugeGetMetricMonitorSnapshot()
 {
-  v100 = *MEMORY[0x1E69E9840];
-  v69 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v99 = *MEMORY[0x1E69E9840];
+  v68 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v0 = [monitor collectMetricsOnDemand];
   v1 = [v0 processMetrics];
   v2 = [MEMORY[0x1E696AD98] numberWithInt:pid2monitor];
@@ -1773,19 +1768,19 @@ id PLBatteryGaugeGetMetricMonitorSnapshot()
   [v4 doubleValue];
   v6 = v5;
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v7 = [v0 processMetrics];
   v8 = [v7 allKeys];
 
-  v9 = [v8 countByEnumeratingWithState:&v73 objects:v99 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v72 objects:v98 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0.0;
-    v12 = *v74;
+    v12 = *v73;
     v13 = 0.0;
     v14 = 0.0;
     v15 = 0.0;
@@ -1795,15 +1790,15 @@ id PLBatteryGaugeGetMetricMonitorSnapshot()
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v74 != v12)
+        if (*v73 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v19 = *(*(&v73 + 1) + 8 * i);
+        v19 = *(*(&v72 + 1) + 8 * i);
         if (v6 != 8.0)
         {
-          v20 = [*(*(&v73 + 1) + 8 * i) intValue];
+          v20 = [*(*(&v72 + 1) + 8 * i) intValue];
           if (v20 != pid2monitor)
           {
             continue;
@@ -1847,7 +1842,7 @@ id PLBatteryGaugeGetMetricMonitorSnapshot()
         v11 = v11 + v44;
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v73 objects:v99 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v72 objects:v98 count:16];
     }
 
     while (v10);
@@ -1863,59 +1858,59 @@ id PLBatteryGaugeGetMetricMonitorSnapshot()
     v17 = 0.0;
   }
 
-  v97[0] = @"cost";
+  v96[0] = @"cost";
   v45 = [MEMORY[0x1E696AD98] numberWithDouble:v13];
-  v98[0] = v45;
-  v97[1] = @"overhead";
+  v97[0] = v45;
+  v96[1] = @"overhead";
   v46 = [MEMORY[0x1E696AD98] numberWithDouble:v11];
-  v98[1] = v46;
-  v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:v97 count:2];
+  v97[1] = v46;
+  v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:v96 count:2];
 
-  v95[0] = @"cost";
+  v94[0] = @"cost";
   v47 = [MEMORY[0x1E696AD98] numberWithDouble:v17];
-  v95[1] = @"overhead";
-  v96[0] = v47;
-  v96[1] = &unk_1F38E33B0;
-  v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:v95 count:2];
+  v94[1] = @"overhead";
+  v95[0] = v47;
+  v95[1] = &unk_1F38E33B0;
+  v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v95 forKeys:v94 count:2];
 
-  v93[0] = @"cost";
+  v92[0] = @"cost";
   v48 = [MEMORY[0x1E696AD98] numberWithDouble:v16];
-  v93[1] = @"overhead";
-  v94[0] = v48;
-  v94[1] = &unk_1F38E33B0;
-  v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:v93 count:2];
+  v92[1] = @"overhead";
+  v93[0] = v48;
+  v93[1] = &unk_1F38E33B0;
+  v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v93 forKeys:v92 count:2];
 
-  v91[0] = @"cost";
+  v90[0] = @"cost";
   v49 = [MEMORY[0x1E696AD98] numberWithDouble:v15];
-  v91[1] = @"overhead";
-  v92[0] = v49;
+  v90[1] = @"overhead";
+  v91[0] = v49;
   v50 = [MEMORY[0x1E696AD98] numberWithDouble:v11];
-  v92[1] = v50;
-  v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:2];
+  v91[1] = v50;
+  v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:v90 count:2];
 
-  v89[0] = @"cost";
+  v88[0] = @"cost";
   v51 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
-  v89[1] = @"overhead";
-  v90[0] = v51;
-  v90[1] = &unk_1F38E33B0;
-  v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:v89 count:2];
+  v88[1] = @"overhead";
+  v89[0] = v51;
+  v89[1] = &unk_1F38E33B0;
+  v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:v88 count:2];
 
-  v87[0] = @"cost";
+  v86[0] = @"cost";
   v52 = [MEMORY[0x1E696AD98] numberWithDouble:v6];
-  v87[1] = @"overhead";
-  v88[0] = v52;
-  v88[1] = &unk_1F38E33B0;
-  v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:v87 count:2];
+  v86[1] = @"overhead";
+  v87[0] = v52;
+  v87[1] = &unk_1F38E33B0;
+  v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:v86 count:2];
 
-  v85[0] = @"cost";
+  v84[0] = @"cost";
   v53 = MEMORY[0x1E696AD98];
   v54 = [v0 displayCost];
   [v54 doubleValue];
   v55 = [v53 numberWithDouble:?];
-  v85[1] = @"overhead";
-  v86[0] = v55;
-  v86[1] = &unk_1F38E33B0;
-  v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:2];
+  v84[1] = @"overhead";
+  v85[0] = v55;
+  v85[1] = &unk_1F38E33B0;
+  v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:2];
 
   if (v6 != 8.0)
   {
@@ -1923,60 +1918,58 @@ id PLBatteryGaugeGetMetricMonitorSnapshot()
     v56 = &unk_1F38E3718;
   }
 
-  v83[0] = @"cost";
+  v82[0] = @"cost";
   v57 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v0, "thermalPressure")}];
-  v83[1] = @"overhead";
-  v84[0] = v57;
-  v84[1] = &unk_1F38E33B0;
-  v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:2];
+  v82[1] = @"overhead";
+  v83[0] = v57;
+  v83[1] = &unk_1F38E33B0;
+  v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:2];
 
-  v81[0] = @"cost";
+  v80[0] = @"cost";
   v58 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v0, "inducedThermalPressure")}];
-  v81[1] = @"overhead";
-  v82[0] = v58;
-  v82[1] = &unk_1F38E33B0;
-  v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
+  v80[1] = @"overhead";
+  v81[0] = v58;
+  v81[1] = &unk_1F38E33B0;
+  v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:2];
 
-  v79[0] = &unk_1F38E33C8;
-  v79[1] = &unk_1F38E33E0;
-  v80[0] = v72;
-  v80[1] = v71;
-  v79[2] = &unk_1F38E33F8;
-  v79[3] = &unk_1F38E3410;
-  v80[2] = v70;
-  v80[3] = v56;
-  v79[4] = &unk_1F38E3428;
-  v79[5] = &unk_1F38E3440;
-  v80[4] = v68;
-  v80[5] = v67;
-  v79[6] = &unk_1F38E3458;
-  v79[7] = &unk_1F38E3470;
-  v80[6] = v66;
-  v80[7] = v65;
-  v79[8] = &unk_1F38E3488;
-  v80[8] = v59;
-  v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:9];
-  v77 = @"usage_data";
-  v78 = v60;
-  v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+  v78[0] = &unk_1F38E33C8;
+  v78[1] = &unk_1F38E33E0;
+  v79[0] = v71;
+  v79[1] = v70;
+  v78[2] = &unk_1F38E33F8;
+  v78[3] = &unk_1F38E3410;
+  v79[2] = v69;
+  v79[3] = v56;
+  v78[4] = &unk_1F38E3428;
+  v78[5] = &unk_1F38E3440;
+  v79[4] = v67;
+  v79[5] = v66;
+  v78[6] = &unk_1F38E3458;
+  v78[7] = &unk_1F38E3470;
+  v79[6] = v65;
+  v79[7] = v64;
+  v78[8] = &unk_1F38E3488;
+  v79[8] = v59;
+  v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:9];
+  v76 = @"usage_data";
+  v77 = v60;
+  v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
   v62 = [MEMORY[0x1E696AD98] numberWithInt:pid2monitor];
-  [v69 setObject:v61 forKeyedSubscript:v62];
+  [v68 setObject:v61 forKeyedSubscript:v62];
 
-  v63 = *MEMORY[0x1E69E9840];
-
-  return v69;
+  return v68;
 }
 
-id getContainerPath()
+id getContainerPath(uint64_t a1)
 {
   if (getContainerPath_onceToken != -1)
   {
     getContainerPath_cold_1();
   }
 
-  v1 = getContainerPath_containerPath;
+  v2 = getContainerPath_containerPath;
 
-  return v1;
+  return v2;
 }
 
 void __getContainerPath_block_invoke()
@@ -2027,9 +2020,9 @@ id dateFormatter()
 
 uint64_t PLMarkFileAsPurgeable(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v10 = a2 | 0x10005;
+  v9 = a2 | 0x10005;
   v4 = open([v3 UTF8String], 0);
   if (v4 < 0)
   {
@@ -2042,13 +2035,13 @@ uint64_t PLMarkFileAsPurgeable(void *a1, uint64_t a2)
   }
 
   v5 = v4;
-  v6 = ffsctl(v4, 0xC0084A44uLL, &v10, 0);
+  v6 = ffsctl(v4, 0xC0084A44uLL, &v9, 0);
   close(v5);
   if (v6)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      PLMarkFileAsPurgeable_cold_1(v3, &v10);
+      PLMarkFileAsPurgeable_cold_1();
     }
 
 LABEL_7:
@@ -2059,35 +2052,34 @@ LABEL_7:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v12 = v3;
-    v13 = 2048;
-    v14 = a2;
+    v11 = v3;
+    v12 = 2048;
+    v13 = a2;
     _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Client Framework -- Marked %@ purgeable with urgency: %llu", buf, 0x16u);
   }
 
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 id PLCopyDB(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v4;
+    v17 = v3;
+    v18 = 2112;
+    v19 = v4;
     _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Starting copy of dB: %@ to dst: %@\n", buf, 0x16u);
   }
 
   v5 = objc_opt_new();
-  v15 = 0;
+  v14 = 0;
   ppDb = 0;
   v6 = sqlite3_open([v4 UTF8String], &ppDb);
   if (v6)
@@ -2106,7 +2098,7 @@ id PLCopyDB(void *a1, void *a2)
     v7 = 0;
   }
 
-  if (sqlite3_open_v2([v3 UTF8String], &v15, 1, 0))
+  if (sqlite3_open_v2([v3 UTF8String], &v14, 1, 0))
   {
     v7 = 1;
     PLADClientAddValueForScalarKey();
@@ -2119,7 +2111,7 @@ id PLCopyDB(void *a1, void *a2)
 
   else if (!v6)
   {
-    if (sqlite3_file_control(ppDb, 0, 102, v15))
+    if (sqlite3_file_control(ppDb, 0, 102, v14))
     {
       PLADClientAddValueForScalarKey();
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2137,9 +2129,9 @@ id PLCopyDB(void *a1, void *a2)
   }
 
   sqlite3_exec(ppDb, "pragma journal_mode=delete", 0, 0, 0);
-  if (v15)
+  if (v14)
   {
-    sqlite3_close(v15);
+    sqlite3_close(v14);
   }
 
   if (ppDb)
@@ -2159,7 +2151,7 @@ id PLCopyDB(void *a1, void *a2)
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v18) = v11;
+      LODWORD(v17) = v11;
       _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PLCopyPowerlog file chown success = %d", buf, 8u);
     }
 
@@ -2181,11 +2173,9 @@ id PLCopyDB(void *a1, void *a2)
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PLCopyPowerlog output: %@", buf, 0xCu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -2216,9 +2206,9 @@ double PLGetPowerlogDuration(void *a1)
   return v3;
 }
 
-void sub_1BACD52E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BACD52E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2227,7 +2217,7 @@ id PLCopyQuarantineDB(void *a1)
 {
   v51 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = getContainerPath();
+  v2 = getContainerPath(v1);
   v3 = [v2 stringByAppendingString:@"/Library/BatteryLife/CurrentPowerlog.PLSQL"];
 
   v4 = PLGetPowerlogDuration(v3);
@@ -2240,111 +2230,112 @@ id PLCopyQuarantineDB(void *a1)
 
   if (v4 >= 21600.0)
   {
-    v34 = 0;
+    v35 = 0;
     goto LABEL_31;
   }
 
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  v5 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
     *buf = 0;
     _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PLCopyPowerlog: Powerlog is short! Looking in quarantine...", buf, 2u);
   }
 
-  v5 = getContainerPath();
-  v6 = [v5 stringByAppendingString:@"/Library/BatteryLife/Quarantine/"];
+  v6 = getContainerPath(v5);
+  v7 = [v6 stringByAppendingString:@"/Library/BatteryLife/Quarantine/"];
 
-  v7 = [MEMORY[0x1E695DF00] distantPast];
+  v8 = [MEMORY[0x1E695DF00] distantPast];
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v8 = [MEMORY[0x1E696AC08] defaultManager];
-  v41 = v6;
-  v9 = [v8 contentsOfDirectoryAtPath:v6 error:0];
+  v9 = [MEMORY[0x1E696AC08] defaultManager];
+  v41 = v7;
+  v10 = [v9 contentsOfDirectoryAtPath:v7 error:0];
 
-  obj = v9;
-  v10 = [v9 countByEnumeratingWithState:&v44 objects:v48 count:16];
-  if (!v10)
+  obj = v10;
+  v11 = [v10 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (!v11)
   {
-    v28 = v7;
-    v29 = 0;
+    v29 = v8;
     v30 = 0;
-    v34 = 0;
+    v31 = 0;
+    v35 = 0;
 LABEL_29:
 
     goto LABEL_30;
   }
 
-  v11 = v10;
+  v12 = v11;
   v37 = v3;
   v38 = v1;
   v39 = 0;
   v40 = 0;
-  v12 = *v45;
-  v13 = @"PLSQL";
+  v13 = *v45;
+  v14 = @"PLSQL";
   do
   {
-    v14 = 0;
-    v42 = v11;
+    v15 = 0;
+    v42 = v12;
     do
     {
-      if (*v45 != v12)
+      if (*v45 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v44 + 1) + 8 * v14);
-      v16 = [v15 pathExtension];
-      v17 = [v16 isEqualToString:v13];
+      v16 = *(*(&v44 + 1) + 8 * v15);
+      v17 = [v16 pathExtension];
+      v18 = [v17 isEqualToString:v14];
 
-      if (v17)
+      if (v18)
       {
-        v18 = v13;
-        v19 = [v41 stringByAppendingString:v15];
-        v20 = [MEMORY[0x1E696AC08] defaultManager];
-        v21 = [v20 attributesOfItemAtPath:v19 error:0];
+        v19 = v14;
+        v20 = [v41 stringByAppendingString:v16];
+        v21 = [MEMORY[0x1E696AC08] defaultManager];
+        v22 = [v21 attributesOfItemAtPath:v20 error:0];
 
-        v22 = [v21 fileModificationDate];
-        v23 = [v22 laterDate:v7];
-        v24 = v7;
-        v25 = [v23 isEqualToDate:v22];
+        v23 = [v22 fileModificationDate];
+        v24 = [v23 laterDate:v8];
+        v25 = v8;
+        v26 = [v24 isEqualToDate:v23];
 
-        if (v25)
+        if (v26)
         {
-          v26 = v19;
+          v27 = v20;
 
-          v27 = v15;
-          v7 = v22;
+          v28 = v16;
+          v8 = v23;
 
-          v39 = v26;
-          v40 = v27;
+          v39 = v27;
+          v40 = v28;
         }
 
         else
         {
-          v7 = v24;
+          v8 = v25;
         }
 
-        v13 = v18;
-        v11 = v42;
+        v14 = v19;
+        v12 = v42;
       }
 
-      ++v14;
+      ++v15;
     }
 
-    while (v11 != v14);
-    v11 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+    while (v12 != v15);
+    v12 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
   }
 
-  while (v11);
-  v28 = v7;
+  while (v12);
+  v29 = v8;
 
-  v29 = v39;
+  v30 = v39;
   if (v39)
   {
     v3 = v37;
     v1 = v38;
-    v30 = v40;
+    v31 = v40;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -2353,39 +2344,38 @@ LABEL_29:
     }
 
     obj = [v38 stringByAppendingPathComponent:v40];
-    v31 = PLCopyDB(v39, obj);
-    v32 = [v31 mutableCopy];
+    v32 = PLCopyDB(v39, obj);
+    v33 = [v32 mutableCopy];
 
-    v33 = [v32 objectForKeyedSubscript:@"status"];
-    if (v33)
+    v34 = [v33 objectForKeyedSubscript:@"status"];
+    if (v34)
     {
 
-      v34 = 0;
+      v35 = 0;
     }
 
     else
     {
-      v34 = [v32 objectForKeyedSubscript:@"path"];
+      v35 = [v33 objectForKeyedSubscript:@"path"];
 
-      if (v34)
+      if (v35)
       {
-        v34 = [v32 objectForKeyedSubscript:@"path"];
+        v35 = [v33 objectForKeyedSubscript:@"path"];
       }
     }
 
     goto LABEL_29;
   }
 
-  v34 = 0;
+  v35 = 0;
   v3 = v37;
   v1 = v38;
-  v30 = v40;
+  v31 = v40;
 LABEL_30:
 
 LABEL_31:
-  v35 = *MEMORY[0x1E69E9840];
 
-  return v34;
+  return v35;
 }
 
 void *PLCopyPowerlog(void *a1)
@@ -2406,63 +2396,63 @@ void *PLCopyPowerlog(void *a1)
   v7 = shortUUIDString();
   v8 = [v6 stringWithFormat:@"powerlog_%@_%@.PLSQL", v5, v7];
 
-  v9 = getContainerPath();
-  v10 = [v9 stringByAppendingString:@"/Library/BatteryLife/CurrentPowerlog.PLSQL"];
+  v10 = getContainerPath(v9);
+  v11 = [v10 stringByAppendingString:@"/Library/BatteryLife/CurrentPowerlog.PLSQL"];
 
   if ([(__CFString *)v2 hasSuffix:@".PLSQL"])
   {
-    v11 = v2;
+    v12 = v2;
   }
 
   else
   {
-    v11 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
+    v12 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
   }
 
-  v12 = v11;
-  v13 = PLCopyDB(v10, v11);
-  v14 = [v13 mutableCopy];
+  v13 = v12;
+  v14 = PLCopyDB(v11, v12);
+  v15 = [v14 mutableCopy];
 
-  v15 = [(__CFString *)v12 stringByDeletingLastPathComponent];
-  v16 = PLCopyQuarantineDB(v15);
+  v16 = [(__CFString *)v13 stringByDeletingLastPathComponent];
+  v17 = PLCopyQuarantineDB(v16);
 
-  if (v16)
+  if (v17)
   {
-    [v14 setObject:v16 forKeyedSubscript:@"quarantine_path"];
+    [v15 setObject:v17 forKeyedSubscript:@"quarantine_path"];
   }
 
-  return v14;
+  return v15;
 }
 
-uint64_t PLResetPowerlog()
+uint64_t PLResetPowerlog(uint64_t a1)
 {
-  v0 = MEMORY[0x1E695DFF8];
-  v1 = getContainerPath();
-  v2 = [v0 fileURLWithPath:v1];
+  v1 = MEMORY[0x1E695DFF8];
+  v2 = getContainerPath(a1);
+  v3 = [v1 fileURLWithPath:v2];
 
-  if (v2)
+  if (v3)
   {
-    v3 = [MEMORY[0x1E696AC08] defaultManager];
-    v9 = 0;
-    v4 = [v3 removeItemAtURL:v2 error:&v9];
-    v5 = v9;
+    v4 = [MEMORY[0x1E696AC08] defaultManager];
+    v10 = 0;
+    v5 = [v4 removeItemAtURL:v3 error:&v10];
+    v6 = v10;
 
-    if (v5)
+    if (v6)
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = v4;
+      v7 = v5;
     }
 
-    if (v6)
+    if (v7)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Performed powerlog reset as requested", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Performed powerlog reset as requested", v9, 2u);
       }
     }
 
@@ -2479,10 +2469,10 @@ uint64_t PLResetPowerlog()
       PLResetPowerlog_cold_2();
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t PLCopyExtendedPersistenceLog(void *a1)
@@ -2503,23 +2493,23 @@ uint64_t PLCopyExtendedPersistenceLog(void *a1)
   v7 = shortUUIDString();
   v8 = [v6 stringWithFormat:@"log_%@_%@.EPSQL", v5, v7];
 
-  v9 = getContainerPath();
-  v10 = [v9 stringByAppendingString:@"/Library/PerfPowerTelemetry/ExtendedPersistence/CurrentLog.EPSQL"];
+  v10 = getContainerPath(v9);
+  v11 = [v10 stringByAppendingString:@"/Library/PerfPowerTelemetry/ExtendedPersistence/CurrentLog.EPSQL"];
 
   if ([(__CFString *)v2 hasSuffix:@".EPSQL"])
   {
-    v11 = v2;
+    v12 = v2;
   }
 
   else
   {
-    v11 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
+    v12 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
   }
 
-  v12 = v11;
-  v13 = PLCopyDB(v10, v11);
+  v13 = v12;
+  v14 = PLCopyDB(v11, v12);
 
-  return v13;
+  return v14;
 }
 
 uint64_t PLCopyCleanEnergyLog(void *a1)
@@ -2540,23 +2530,23 @@ uint64_t PLCopyCleanEnergyLog(void *a1)
   v7 = shortUUIDString();
   v8 = [v6 stringWithFormat:@"log_%@_%@.CESQL", v5, v7];
 
-  v9 = getContainerPath();
-  v10 = [v9 stringByAppendingString:@"/Library/PerfPowerTelemetry/CleanEnergy/CurrentCleanEnergyDB.CESQL"];
+  v10 = getContainerPath(v9);
+  v11 = [v10 stringByAppendingString:@"/Library/PerfPowerTelemetry/CleanEnergy/CurrentCleanEnergyDB.CESQL"];
 
   if ([(__CFString *)v2 hasSuffix:@".CESQL"])
   {
-    v11 = v2;
+    v12 = v2;
   }
 
   else
   {
-    v11 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
+    v12 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
   }
 
-  v12 = v11;
-  v13 = PLCopyDB(v10, v11);
+  v13 = v12;
+  v14 = PLCopyDB(v11, v12);
 
-  return v13;
+  return v14;
 }
 
 uint64_t PLCopyXcodeOrganizerLog(void *a1)
@@ -2577,28 +2567,28 @@ uint64_t PLCopyXcodeOrganizerLog(void *a1)
   v7 = shortUUIDString();
   v8 = [v6 stringWithFormat:@"log_%@_%@.XCSQL", v5, v7];
 
-  v9 = getContainerPath();
-  v10 = [v9 stringByAppendingString:@"/Library/PerfPowerTelemetry/XcodeOrganizer/CurrentXcodeOrganizerDB.XCSQL"];
+  v10 = getContainerPath(v9);
+  v11 = [v10 stringByAppendingString:@"/Library/PerfPowerTelemetry/XcodeOrganizer/CurrentXcodeOrganizerDB.XCSQL"];
 
   if ([(__CFString *)v2 hasSuffix:@".XCSQL"])
   {
-    v11 = v2;
+    v12 = v2;
   }
 
   else
   {
-    v11 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
+    v12 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
   }
 
-  v12 = v11;
-  v13 = PLCopyDB(v10, v11);
+  v13 = v12;
+  v14 = PLCopyDB(v11, v12);
 
-  return v13;
+  return v14;
 }
 
 uint64_t dropTable(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   errmsg = 0;
@@ -2631,7 +2621,7 @@ uint64_t dropTable(void *a1, void *a2)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        dropTable_cold_3(&errmsg);
+        dropTable_cold_3();
       }
 
       goto LABEL_14;
@@ -2640,16 +2630,16 @@ uint64_t dropTable(void *a1, void *a2)
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v4;
+      v11 = v4;
       _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Drop %@", buf, 0xCu);
     }
 
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"DROP TABLE '%@'", v4];;
-    if (sqlite3_exec(ppDb, [v8 UTF8String], 0, 0, &errmsg))
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"DROP TABLE '%@'", v4];;
+    if (sqlite3_exec(ppDb, [v7 UTF8String], 0, 0, &errmsg))
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        dropTable_cold_4(v4, &errmsg);
+        dropTable_cold_4();
       }
     }
 
@@ -2669,7 +2659,7 @@ uint64_t dropTable(void *a1, void *a2)
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        dropTable_cold_5(&errmsg);
+        dropTable_cold_5();
       }
     }
 
@@ -2683,7 +2673,7 @@ LABEL_28:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    dropTable_cold_2(&errmsg);
+    dropTable_cold_2();
   }
 
 LABEL_14:
@@ -2693,13 +2683,12 @@ LABEL_15:
   v5 = 0;
 LABEL_16:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 void *PLSysdiagnoseCopyBackgroundProcessingLog(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = PLCopyBackgroundProcessingLog(a1);
   v2 = [v1 mutableCopy];
   v3 = [v2 objectForKeyedSubscript:@"status"];
@@ -2722,11 +2711,11 @@ void *PLSysdiagnoseCopyBackgroundProcessingLog(void *a1)
     v8 = CFAbsoluteTimeGetCurrent();
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 67109376;
-      v11[1] = v7;
-      v12 = 2048;
-      v13 = v8 - Current;
-      _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "BGSQL DROP Success: %d Execution Time: %f", v11, 0x12u);
+      v10[0] = 67109376;
+      v10[1] = v7;
+      v11 = 2048;
+      v12 = v8 - Current;
+      _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "BGSQL DROP Success: %d Execution Time: %f", v10, 0x12u);
     }
 
     if ((v7 & 1) == 0)
@@ -2735,7 +2724,6 @@ void *PLSysdiagnoseCopyBackgroundProcessingLog(void *a1)
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -2759,55 +2747,55 @@ uint64_t PLCopyBackgroundProcessingLog(void *a1)
   v7 = shortUUIDString();
   v8 = [v6 stringWithFormat:@"log_%@_%@.BGSQL", v5, v7];
 
-  v9 = getContainerPath();
-  v10 = [v9 stringByAppendingString:@"/Library/PerfPowerTelemetry/BackgroundProcessing/CurrentBackgroundProcessingDB.BGSQL"];
+  v10 = getContainerPath(v9);
+  v11 = [v10 stringByAppendingString:@"/Library/PerfPowerTelemetry/BackgroundProcessing/CurrentBackgroundProcessingDB.BGSQL"];
 
   if ([(__CFString *)v2 hasSuffix:@".BGSQL"])
   {
-    v11 = v2;
+    v12 = v2;
   }
 
   else
   {
-    v11 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
+    v12 = [(__CFString *)v2 stringByAppendingPathComponent:v8];
   }
 
-  v12 = v11;
-  v24 = PLCopyDB(v10, v11);
-  v13 = [MEMORY[0x1E695DF00] date];
-  [v13 timeIntervalSince1970];
-  v15 = v14;
+  v13 = v12;
+  v24 = PLCopyDB(v11, v12);
+  v14 = [MEMORY[0x1E695DF00] date];
+  [v14 timeIntervalSince1970];
+  v16 = v15;
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v31 = v15;
+    v31 = v16;
     _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "The epoch time for BGSQL copy log is %f", buf, 0xCu);
   }
 
   v28[0] = @"TaskEndTime";
-  v16 = [MEMORY[0x1E696AD98] numberWithDouble:v15];
+  v17 = [MEMORY[0x1E696AD98] numberWithDouble:v16];
   v28[1] = @"Reason";
-  v29[0] = v16;
+  v29[0] = v17;
   v29[1] = &unk_1F38E34B8;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v31 = *&v17;
+    v31 = *&v18;
     _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "The payload for BGSQL copy log is %@", buf, 0xCu);
   }
 
   errmsg = 0;
   ppDb = 0;
-  v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@_%@_%@", @"BackgroundProcessing", @"TimeOfCaptureEvent", @"1", @"5"];
+  v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@_%@_%@", @"BackgroundProcessing", @"TimeOfCaptureEvent", @"1", @"5"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     PLCopyBackgroundProcessingLog_cold_1();
   }
 
-  if (sqlite3_open_v2([(__CFString *)v12 UTF8String], &ppDb, 2, 0))
+  if (sqlite3_open_v2([(__CFString *)v13 UTF8String], &ppDb, 2, 0))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -2817,18 +2805,18 @@ uint64_t PLCopyBackgroundProcessingLog(void *a1)
 
   else
   {
-    v19 = MEMORY[0x1E696AEC0];
-    v20 = [MEMORY[0x1E696AD98] numberWithDouble:v15];
-    v21 = [v19 stringWithFormat:@"INSERT INTO %@ (TaskEndTime, Reason) VALUES ('%@', '%@')", v18, v20, &unk_1F38E34B8];
+    v20 = MEMORY[0x1E696AEC0];
+    v21 = [MEMORY[0x1E696AD98] numberWithDouble:v16];
+    v22 = [v20 stringWithFormat:@"INSERT INTO %@ (TaskEndTime, Reason) VALUES ('%@', '%@')", v19, v21, &unk_1F38E34B8];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v31 = *&v21;
+      v31 = *&v22;
       _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "For BGSQL copy log, the insert Query is %@", buf, 0xCu);
     }
 
-    if (sqlite3_exec(ppDb, [v21 UTF8String], 0, 0, &errmsg) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    if (sqlite3_exec(ppDb, [v22 UTF8String], 0, 0, &errmsg) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       PLCopyBackgroundProcessingLog_cold_3();
     }
@@ -2844,13 +2832,12 @@ uint64_t PLCopyBackgroundProcessingLog(void *a1)
     sqlite3_close(ppDb);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 void handleXPCEvent(void *a1, uint64_t a2, char a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a1;
   if (([v5 isEqualToString:@"ThermalMonitor"] & 1) != 0 || (Current = 0.0, objc_msgSend(v5, "isEqualToString:", @"XPCCacheFlush")))
   {
@@ -2865,10 +2852,10 @@ void handleXPCEvent(void *a1, uint64_t a2, char a3)
   block[2] = __handleXPCEvent_block_invoke;
   block[3] = &unk_1E7F18D80;
   v10 = v5;
-  v24 = v10;
-  v26 = a3;
+  v23 = v10;
+  v25 = a3;
   v11 = v8;
-  v25 = v11;
+  v24 = v11;
   dispatch_after(v9, v7, block);
   v12 = dispatch_time(0, 1000000000 * a2);
   v13 = dispatch_semaphore_wait(v11, v12);
@@ -2878,9 +2865,9 @@ void handleXPCEvent(void *a1, uint64_t a2, char a3)
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v28 = v10;
-      v29 = 2048;
-      v30 = v14;
+      v27 = v10;
+      v28 = 2048;
+      v29 = v14;
       _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ semaphore timeout %lu", buf, 0x16u);
     }
   }
@@ -2912,33 +2899,29 @@ LABEL_14:
 LABEL_15:
   if (([v10 isEqualToString:@"ThermalMonitor"] & 1) != 0 || objc_msgSend(v10, "isEqualToString:", @"XPCCacheFlush"))
   {
-    v22 = v16;
+    v21 = v16;
     AnalyticsSendEventLazy();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __handleXPCEvent_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = PLQueryRegistered(1, *(a1 + 32), MEMORY[0x1E695E0F8]);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412546;
-    v6 = v3;
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ result: %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = v3;
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ result: %@", &v4, 0x16u);
   }
 
   if (*(a1 + 48) == 1)
   {
     dispatch_semaphore_signal(*(a1 + 40));
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void *PLSysdiagnoseCopyPowerlog(void *a1, unint64_t a2)
@@ -2962,18 +2945,18 @@ void *PLSysdiagnoseCopyPowerlog(void *a1, unint64_t a2)
 
 uint64_t PLSysdiagnoseCopyLogs(void *a1, unint64_t a2, const __CFArray *a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v5 = a2 >> 2;
   handleXPCEvent(@"ThermalMonitor", a2 >> 2, 0);
   handleXPCEvent(@"XPCCacheFlush", v5, 1);
   if (a3 && CFArrayGetCount(a3) && CFArrayGetCount(a3))
   {
     v7 = 0;
-    v39 = 0;
-    v38 = *MEMORY[0x1E696A3B8];
+    v38 = 0;
+    v37 = *MEMORY[0x1E696A3B8];
     v8 = MEMORY[0x1E69E9C10];
     *&v6 = 138412546;
-    v37 = v6;
+    v36 = v6;
     while (1)
     {
       valuePtr = 0;
@@ -2983,7 +2966,7 @@ uint64_t PLSysdiagnoseCopyLogs(void *a1, unint64_t a2, const __CFArray *a3)
       {
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          PLSysdiagnoseCopyLogs_cold_1(&v49, v7, &v50);
+          PLSysdiagnoseCopyLogs_cold_1(v48, v7, &v49);
         }
 
         goto LABEL_29;
@@ -3030,16 +3013,16 @@ LABEL_19:
             v19 = -1.0;
             if (v32)
             {
-              v33 = [v32 objectForKeyedSubscript:v38];
+              v33 = [v32 objectForKeyedSubscript:v37];
 
               if (v33)
               {
-                v34 = [v32 objectForKeyedSubscript:v38];
+                v34 = [v32 objectForKeyedSubscript:v37];
                 v19 = vcvts_n_f32_s64([v34 longLongValue], 0x14uLL);
               }
             }
 
-            v39 = 1;
+            v38 = 1;
             v20 = 1;
           }
 
@@ -3048,10 +3031,10 @@ LABEL_19:
             v19 = 0.0;
             if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
             {
-              *buf = v37;
-              v52 = v14;
-              v53 = 1024;
-              v54 = v3;
+              *buf = v36;
+              v51 = v14;
+              v52 = 1024;
+              v53 = v3;
               _os_log_error_impl(&dword_1BACB7000, v8, OS_LOG_TYPE_ERROR, "Copying %@ data failed, time taken = %d", buf, 0x12u);
             }
 
@@ -3073,18 +3056,18 @@ LABEL_19:
           if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v52 = v21;
+            v51 = v21;
             _os_log_impl(&dword_1BACB7000, v8, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
           }
 
           v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v11];
           [(__CFString *)v21 setObject:v26 forKeyedSubscript:@"name"];
 
-          v42 = MEMORY[0x1E69E9820];
-          v43 = 3221225472;
-          v44 = __copyLogAndUpdateSuccess_block_invoke;
-          v45 = &unk_1E7F18DA8;
-          v46 = v21;
+          v41 = MEMORY[0x1E69E9820];
+          v42 = 3221225472;
+          v43 = __copyLogAndUpdateSuccess_block_invoke;
+          v44 = &unk_1E7F18DA8;
+          v45 = v21;
           v27 = v21;
           AnalyticsSendEventLazy();
           CFRelease(v13);
@@ -3102,21 +3085,18 @@ LABEL_19:
 
       else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        PLSysdiagnoseCopyLogs_cold_1(&v47, v7, &v48);
+        PLSysdiagnoseCopyLogs_cold_1(v46, v7, &v47);
       }
 
 LABEL_29:
       if (++v7 >= CFArrayGetCount(a3))
       {
-        goto LABEL_36;
+        return v38;
       }
     }
   }
 
-  v39 = 0;
-LABEL_36:
-  v35 = *MEMORY[0x1E69E9840];
-  return v39;
+  return 0;
 }
 
 void PLSysdiagnoseTimeSensitivePhase()
@@ -3147,56 +3127,56 @@ void __PLSysdiagnoseTimeSensitivePhase_block_invoke()
 
 uint64_t copyFiles(void *a1, void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   [MEMORY[0x1E696AC08] defaultManager];
-  v24 = v31 = 0;
-  v25 = v3;
-  v5 = [v24 contentsOfDirectoryAtPath:v3 error:&v31];
-  v6 = v31;
+  v23 = v30 = 0;
+  v24 = v3;
+  v5 = [v23 contentsOfDirectoryAtPath:v3 error:&v30];
+  v6 = v30;
   v7 = v4;
   v8 = [v4 hasPrefix:@"/var/mobile/Library/Logs/CrashReporter/"];
   if (v5)
   {
     v9 = v8;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = v5;
-    v10 = [obj countByEnumeratingWithState:&v27 objects:v36 count:16];
+    v10 = [obj countByEnumeratingWithState:&v26 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
-      v22 = v5;
-      v12 = *v28;
+      v21 = v5;
+      v12 = *v27;
       while (2)
       {
         v13 = 0;
         v14 = v6;
         do
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * v13);
-          v16 = [v25 stringByAppendingPathComponent:v15];
+          v15 = *(*(&v26 + 1) + 8 * v13);
+          v16 = [v24 stringByAppendingPathComponent:v15];
           v17 = [v7 stringByAppendingPathComponent:v15];
-          v26 = v14;
-          v18 = [v24 copyItemAtPath:v16 toPath:v17 error:&v26];
-          v6 = v26;
+          v25 = v14;
+          v18 = [v23 copyItemAtPath:v16 toPath:v17 error:&v25];
+          v6 = v25;
 
           if ((v18 & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v33 = v25;
-              v34 = 2112;
-              v35 = v6;
+              v32 = v24;
+              v33 = 2112;
+              v34 = v6;
               _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Error copying for srcDir %@ : %@", buf, 0x16u);
             }
 
@@ -3214,7 +3194,7 @@ uint64_t copyFiles(void *a1, void *a2)
         }
 
         while (v11 != v13);
-        v11 = [obj countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v11 = [obj countByEnumeratingWithState:&v26 objects:v35 count:16];
         if (v11)
         {
           continue;
@@ -3225,7 +3205,7 @@ uint64_t copyFiles(void *a1, void *a2)
 
       v19 = 1;
 LABEL_16:
-      v5 = v22;
+      v5 = v21;
     }
 
     else
@@ -3239,214 +3219,207 @@ LABEL_16:
     v19 = 1;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
-void copyArchivesToCrashMover()
+void copyArchivesToCrashMover(uint64_t a1)
 {
-  v0 = getContainerPath();
-  v1 = [v0 stringByAppendingString:@"/Library/BatteryLife/Archives/"];
+  v1 = getContainerPath(a1);
+  v2 = [v1 stringByAppendingString:@"/Library/BatteryLife/Archives/"];
 
-  if ((copyFiles(v1, @"/var/mobile/Library/Logs/CrashReporter/") & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  if ((copyFiles(v2, @"/var/mobile/Library/Logs/CrashReporter/") & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Archive copying failed", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Archive copying failed", v3, 2u);
   }
 }
 
-void copyQuarantinesToCrashMover()
+void copyQuarantinesToCrashMover(uint64_t a1)
 {
-  v0 = getContainerPath();
-  v1 = [v0 stringByAppendingString:@"/Library/BatteryLife/Quarantine/"];
+  v1 = getContainerPath(a1);
+  v2 = [v1 stringByAppendingString:@"/Library/BatteryLife/Quarantine/"];
 
-  if ((copyFiles(v1, @"/var/mobile/Library/Logs/CrashReporter/") & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  if ((copyFiles(v2, @"/var/mobile/Library/Logs/CrashReporter/") & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Quarantine copying failed", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Quarantine copying failed", v3, 2u);
   }
 }
 
-void copyUpgradeLogsToCrashMover()
+void copyUpgradeLogsToCrashMover(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v0 = getContainerPath();
-  v1 = [v0 stringByAppendingString:@"/Library/BatteryLife/UpgradeLogs/MajorVersion"];
+  v44 = *MEMORY[0x1E69E9840];
+  v1 = getContainerPath(a1);
+  v2 = [v1 stringByAppendingString:@"/Library/BatteryLife/UpgradeLogs/MajorVersion"];
 
-  v2 = getContainerPath();
-  v3 = [v2 stringByAppendingString:@"/Library/BatteryLife/UpgradeLogs/MinorVersion"];
+  v4 = getContainerPath(v3);
+  v5 = [v4 stringByAppendingString:@"/Library/BatteryLife/UpgradeLogs/MinorVersion"];
 
-  v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v4 = [MEMORY[0x1E696AC08] defaultManager];
-  v28 = 0;
-  v5 = [v4 contentsOfDirectoryAtPath:v1 error:&v28];
-  v22 = v28;
+  v31 = 0u;
+  v6 = [MEMORY[0x1E696AC08] defaultManager];
+  v29 = 0;
+  v7 = [v6 contentsOfDirectoryAtPath:v2 error:&v29];
+  v23 = v29;
 
-  v6 = [v5 countByEnumeratingWithState:&v29 objects:v42 count:16];
-  if (v6)
+  v8 = [v7 countByEnumeratingWithState:&v30 objects:v43 count:16];
+  if (v8)
   {
-    v7 = v6;
-    v8 = *v30;
-    v9 = MEMORY[0x1E69E9C10];
+    v9 = v8;
+    v10 = *v31;
+    v11 = MEMORY[0x1E69E9C10];
     do
     {
-      v10 = 0;
+      v12 = 0;
       do
       {
-        if (*v30 != v8)
+        if (*v31 != v10)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = [v1 stringByAppendingPathComponent:*(*(&v29 + 1) + 8 * v10)];
-        if (copyFiles(v11, @"/var/mobile/Library/Logs/CrashReporter/"))
+        v13 = [v2 stringByAppendingPathComponent:*(*(&v30 + 1) + 8 * v12)];
+        if (copyFiles(v13, @"/var/mobile/Library/Logs/CrashReporter/"))
         {
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
-            copyUpgradeLogsToCrashMover_cold_2(&v40, v11, &v41);
+            copyUpgradeLogsToCrashMover_cold_2(&v41, v13, &v42);
           }
         }
 
-        else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          copyUpgradeLogsToCrashMover_cold_1(&v38, v11, &v39);
+          copyUpgradeLogsToCrashMover_cold_1(&v39, v13, &v40);
         }
 
-        ++v10;
+        ++v12;
       }
 
-      while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v29 objects:v42 count:16];
+      while (v9 != v12);
+      v9 = [v7 countByEnumeratingWithState:&v30 objects:v43 count:16];
     }
 
-    while (v7);
+    while (v9);
   }
 
-  if (v22 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  if (v23 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     copyUpgradeLogsToCrashMover_cold_3();
   }
 
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v12 = [MEMORY[0x1E696AC08] defaultManager];
-  v23 = v22;
-  v13 = [v12 contentsOfDirectoryAtPath:v3 error:&v23];
-  v21 = v23;
+  v26 = 0u;
+  v14 = [MEMORY[0x1E696AC08] defaultManager];
+  v24 = v23;
+  v15 = [v14 contentsOfDirectoryAtPath:v5 error:&v24];
+  v22 = v24;
 
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v37 count:16];
-  if (v14)
+  v16 = [v15 countByEnumeratingWithState:&v25 objects:v38 count:16];
+  if (v16)
   {
-    v15 = v14;
-    v16 = *v25;
-    v17 = MEMORY[0x1E69E9C10];
+    v17 = v16;
+    v18 = *v26;
+    v19 = MEMORY[0x1E69E9C10];
     do
     {
-      v18 = 0;
+      v20 = 0;
       do
       {
-        if (*v25 != v16)
+        if (*v26 != v18)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v15);
         }
 
-        v19 = [v3 stringByAppendingPathComponent:*(*(&v24 + 1) + 8 * v18)];
-        if (copyFiles(v19, @"/var/mobile/Library/Logs/CrashReporter/"))
+        v21 = [v5 stringByAppendingPathComponent:*(*(&v25 + 1) + 8 * v20)];
+        if (copyFiles(v21, @"/var/mobile/Library/Logs/CrashReporter/"))
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
-            copyUpgradeLogsToCrashMover_cold_5(&v35, v19, &v36);
+            copyUpgradeLogsToCrashMover_cold_5(&v36, v21, &v37);
           }
         }
 
-        else if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          copyUpgradeLogsToCrashMover_cold_4(&v33, v19, &v34);
+          copyUpgradeLogsToCrashMover_cold_4(&v34, v21, &v35);
         }
 
-        ++v18;
+        ++v20;
       }
 
-      while (v15 != v18);
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v37 count:16];
+      while (v17 != v20);
+      v17 = [v15 countByEnumeratingWithState:&v25 objects:v38 count:16];
     }
 
-    while (v15);
+    while (v17);
   }
 
-  if (v21 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  if (v22 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     copyUpgradeLogsToCrashMover_cold_6();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void PLCrashMoverCopyPowerlog()
+void PLCrashMoverCopyPowerlog(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *MEMORY[0x1E695E8A0];
-  v1 = *MEMORY[0x1E695E8B0];
-  getContainerPath();
-  v2 = _CFPreferencesCopyValueWithContainer();
-  if ([v2 intValue] == 1)
+  v8 = *MEMORY[0x1E69E9840];
+  getContainerPath(a1);
+  v1 = _CFPreferencesCopyValueWithContainer();
+  if ([v1 intValue] == 1)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v5) = 0;
-      _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PLCrashMoverCopyPowerlog starts cache flush", &v5, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PLCrashMoverCopyPowerlog starts cache flush", &v6, 2u);
     }
 
     handleXPCEvent(@"XPCCacheFlush", 1000000000, 1);
-    v3 = PLCopyPowerlog(@"/var/mobile/Library/Logs/CrashReporter/");
+    v2 = PLCopyPowerlog(@"/var/mobile/Library/Logs/CrashReporter/");
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PLCrashMoverCopyPowerlog done copying powerlog : %@", &v5, 0xCu);
+      v6 = 138412290;
+      v7 = v2;
+      _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PLCrashMoverCopyPowerlog done copying powerlog : %@", &v6, 0xCu);
     }
 
-    CFRelease(v3);
-    copyArchivesToCrashMover();
-    copyQuarantinesToCrashMover();
-    if (_os_feature_enabled_impl())
+    CFRelease(v2);
+    copyArchivesToCrashMover(v3);
+    copyQuarantinesToCrashMover(v4);
+    v5 = _os_feature_enabled_impl();
+    if (v5)
     {
-      copyUpgradeLogsToCrashMover();
+      copyUpgradeLogsToCrashMover(v5);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 BOOL PLSysdiagnoseCopyBatteryUILogs(void *a1, CFErrorRef *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = PLCopyBatteryUIPlists(@"Sysdiagnose", v3);
   if (!v4)
   {
     v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to copy files to %@", v3];
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x1E696A578];
+    v9[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     if (a2)
     {
       *a2 = CFErrorCreate(0, @"com.apple.powerlog", 1, v6);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 void *PLSysdiagnoseCopyExtendedPersistenceLog(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = PLCopyExtendedPersistenceLog(a1);
   v2 = [v1 mutableCopy];
   v3 = [v2 objectForKeyedSubscript:@"status"];
@@ -3460,11 +3433,11 @@ void *PLSysdiagnoseCopyExtendedPersistenceLog(void *a1)
     v8 = CFAbsoluteTimeGetCurrent();
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 67109376;
-      v11[1] = v7;
-      v12 = 2048;
-      v13 = v8 - Current;
-      _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "EPSQL DROP Success: %d Execution Time: %f", v11, 0x12u);
+      v10[0] = 67109376;
+      v10[1] = v7;
+      v11 = 2048;
+      v12 = v8 - Current;
+      _os_log_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "EPSQL DROP Success: %d Execution Time: %f", v10, 0x12u);
     }
 
     if ((v7 & 1) == 0)
@@ -3473,7 +3446,6 @@ void *PLSysdiagnoseCopyExtendedPersistenceLog(void *a1)
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -3631,31 +3603,29 @@ id PLCalculateEndOfDay()
 
 id PLBatteryUsageUIConfiguration(uint64_t a1, void *a2, double a3, double a4)
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   v6 = -a3;
   v7 = a2;
   v8 = [v7 dateByAddingTimeInterval:v6];
-  v20[0] = @"start";
+  v19[0] = @"start";
   v9 = MEMORY[0x1E696AD98];
   [v8 timeIntervalSince1970];
   v10 = [v9 numberWithDouble:?];
-  v21[0] = v10;
-  v20[1] = @"end";
+  v20[0] = v10;
+  v19[1] = @"end";
   v11 = MEMORY[0x1E696AD98];
   [v7 timeIntervalSince1970];
   v13 = v12;
 
   v14 = [v11 numberWithDouble:v13];
-  v21[1] = v14;
-  v20[2] = @"bucket";
+  v20[1] = v14;
+  v19[2] = @"bucket";
   v15 = [MEMORY[0x1E696AD98] numberWithDouble:a4];
-  v21[2] = v15;
-  v20[3] = @"enum";
+  v20[2] = v15;
+  v19[3] = @"enum";
   v16 = [MEMORY[0x1E696AD98] numberWithInteger:a1];
-  v21[3] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v20[3] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
 
   return v17;
 }
@@ -3840,46 +3810,47 @@ id PLRunBUIQueryWithRangeType(int a1)
 id PLRunBUIQuery(void *a1)
 {
   v1 = a1;
-  if (_os_feature_enabled_impl())
+  v2 = _os_feature_enabled_impl();
+  if (v2)
   {
-    v2 = logHandle_1();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = logHandle_1(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      PLRunBUIQuery_cold_1(v2);
+      PLRunBUIQuery_cold_1(v3);
     }
 
-    v3 = @"BatteryQueryForResponderService";
+    v4 = @"BatteryQueryForResponderService";
   }
 
   else
   {
-    v3 = @"PLBatteryUIQueryFunctionKey";
+    v4 = @"PLBatteryUIQueryFunctionKey";
   }
 
-  v4 = PLQueryRegistered(50, v3, v1);
+  v5 = PLQueryRegistered(50, v4, v1);
 
-  return v4;
+  return v5;
 }
 
 BOOL PLGenerateBatteryUIPlist(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = PLConfigureBUIQueryiOS();
   [v2 setObject:v1 forKeyedSubscript:@"requestingService"];
 
   v3 = PLRunBUIQuery(v2);
-  v4 = logHandle_1();
+  v4 = logHandle_1(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412546;
-      v9 = v2;
-      v10 = 2112;
-      v11 = v3;
-      _os_log_impl(&dword_1BACB7000, v5, OS_LOG_TYPE_DEFAULT, "Successfully generated plist with configuration %@ and result %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v2;
+      v9 = 2112;
+      v10 = v3;
+      _os_log_impl(&dword_1BACB7000, v5, OS_LOG_TYPE_DEFAULT, "Successfully generated plist with configuration %@ and result %@", &v7, 0x16u);
     }
   }
 
@@ -3888,13 +3859,12 @@ BOOL PLGenerateBatteryUIPlist(void *a1)
     PLGenerateBatteryUIPlist_cold_1(v5);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3 != 0;
 }
 
 BOOL PLCopyBatteryUIPlists(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1;
   v5 = PLConfigureBUIQueryiOS();
@@ -3902,17 +3872,17 @@ BOOL PLCopyBatteryUIPlists(void *a1, void *a2)
 
   [v5 setObject:v3 forKeyedSubscript:@"plistCopyDestination"];
   v6 = PLRunBUIQuery(v5);
-  v7 = logHandle_1();
+  v7 = logHandle_1(v6);
   v8 = v7;
   if (v6)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_1BACB7000, v8, OS_LOG_TYPE_DEFAULT, "Performed successful query and copy with configuration %@ and result %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_1BACB7000, v8, OS_LOG_TYPE_DEFAULT, "Performed successful query and copy with configuration %@ and result %@", &v10, 0x16u);
     }
   }
 
@@ -3921,20 +3891,19 @@ BOOL PLCopyBatteryUIPlists(void *a1, void *a2)
     PLCopyBatteryUIPlists_cold_1();
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
-id PLBatteryBreakdownResponseTypes()
+id PLBatteryBreakdownResponseTypes(uint64_t a1)
 {
   if (PLBatteryBreakdownResponseTypes_onceToken != -1)
   {
     PLBatteryBreakdownResponseTypes_cold_1();
   }
 
-  v1 = PLBatteryBreakdownResponseTypes_breakdownTypes;
+  v2 = PLBatteryBreakdownResponseTypes_breakdownTypes;
 
-  return v1;
+  return v2;
 }
 
 void __PLBatteryBreakdownResponseTypes_block_invoke()
@@ -4065,9 +4034,9 @@ __CFString *PLBatteryUsageUIStringForQueryRange(double a1)
 
 id PLCalculateEndOfHourWithDate(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = logHandle_1();
+  v2 = logHandle_1(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     PLCalculateEndOfHourWithDate_cold_1();
@@ -4076,50 +4045,48 @@ id PLCalculateEndOfHourWithDate(void *a1)
   v3 = [MEMORY[0x1E695DEE8] currentCalendar];
   v4 = [v3 components:60 fromDate:v1];
   v5 = [v4 valueForComponent:32];
-  v6 = logHandle_1();
+  v6 = logHandle_1(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v14 = [v3 dateFromComponents:v4];
-    v15 = 138412802;
-    v16 = v1;
-    v17 = 2112;
-    v18 = v14;
-    v19 = 2048;
-    v20 = v5;
-    _os_log_debug_impl(&dword_1BACB7000, v6, OS_LOG_TYPE_DEBUG, "Date: %@ -> %@ -> %ld", &v15, 0x20u);
+    v16 = [v3 dateFromComponents:v4];
+    v17 = 138412802;
+    v18 = v1;
+    v19 = 2112;
+    v20 = v16;
+    v21 = 2048;
+    v22 = v5;
+    _os_log_debug_impl(&dword_1BACB7000, v6, OS_LOG_TYPE_DEBUG, "Date: %@ -> %@ -> %ld", &v17, 0x20u);
   }
 
-  v7 = logHandle_1();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-  {
-    PLCalculateEndOfHourWithDate_cold_2();
-  }
-
-  v8 = logHandle_1();
+  v8 = logHandle_1(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     PLCalculateEndOfHourWithDate_cold_2();
   }
 
-  [v4 setValue:((v5 % 3) ^ 3) + v5 forComponent:32];
-  v9 = [v3 dateFromComponents:v4];
-  v10 = logHandle_1();
+  v10 = logHandle_1(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    PLCalculateEndOfHourWithDate_cold_2();
+  }
+
+  [v4 setValue:((v5 % 3) ^ 3) + v5 forComponent:32];
+  v11 = [v3 dateFromComponents:v4];
+  v12 = logHandle_1(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     PLCalculateEndOfHourWithDate_cold_4();
   }
 
-  v11 = logHandle_1();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v14 = logHandle_1(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = v9;
-    _os_log_impl(&dword_1BACB7000, v11, OS_LOG_TYPE_DEFAULT, "end of hour: %@", &v15, 0xCu);
+    v17 = 138412290;
+    v18 = v11;
+    _os_log_impl(&dword_1BACB7000, v14, OS_LOG_TYPE_DEFAULT, "end of hour: %@", &v17, 0xCu);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v11;
 }
 
 id PLCalculateEndOfDayWithDate(void *a1)
@@ -4255,10 +4222,11 @@ __CFString *PLBatteryUsageUIKeyFromConfiguration(void *a1)
   return v17;
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_1BACD9DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -4268,16 +4236,16 @@ void sub_1BACD9DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id containerPath()
+id containerPath(uint64_t a1)
 {
   if (containerPath_onceToken != -1)
   {
     containerPath_cold_1();
   }
 
-  v1 = containerPath_containerPath;
+  v2 = containerPath_containerPath;
 
-  return v1;
+  return v2;
 }
 
 void __containerPath_block_invoke()
@@ -4297,14 +4265,12 @@ void __containerPath_block_invoke()
   }
 }
 
-id PLFDefaultsValueForKey()
+id PLFDefaultsValueForKey(uint64_t a1)
 {
-  v0 = *MEMORY[0x1E695E8B8];
-  v1 = *MEMORY[0x1E695E8B0];
-  containerPath();
-  v2 = _CFPreferencesCopyValueWithContainer();
+  containerPath(a1);
+  v1 = _CFPreferencesCopyValueWithContainer();
 
-  return v2;
+  return v1;
 }
 
 void __didReceiveNotification_block_invoke_cold_1()
@@ -4342,142 +4308,80 @@ void PLShouldLogEvent_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void PLMarkFileAsPurgeable_cold_1(uint64_t a1, uint64_t *a2)
+void PLMarkFileAsPurgeable_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  v3 = __error();
-  strerror(*v3);
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x26u);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
 }
 
 void PLMarkFileAsPurgeable_cold_2()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void PLResetPowerlog_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void dropTable_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void dropTable_cold_2(uint64_t *a1)
+void dropTable_cold_4()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void dropTable_cold_3(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void dropTable_cold_4(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void dropTable_cold_5(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void PLCopyBackgroundProcessingLog_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  v6 = 2112;
-  v7 = v1;
-  _os_log_debug_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "For BGSQL copy, the table of interest is %@, the original Path is %@ and the copy dest is %@", v3, 0x20u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  v5 = 2112;
+  v6 = v1;
+  _os_log_debug_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "For BGSQL copy, the table of interest is %@, the original Path is %@ and the copy dest is %@", v2, 0x20u);
 }
 
 void copyUpgradeLogsToCrashMover_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void copyUpgradeLogsToCrashMover_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void PLCopyBatteryUIPlists_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_1BACB7000, v0, OS_LOG_TYPE_ERROR, "Failed to copy files to %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void PLCalculateEndOfHourWithDate_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_1(&dword_1BACB7000, v0, v1, "calculating end of hour from %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void PLCalculateEndOfHourWithDate_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_1(&dword_1BACB7000, v0, v1, "hourNum: %lu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1BACB7000, v0, OS_LOG_TYPE_ERROR, "Failed to copy files to %@", v1, 0xCu);
 }
 
 void PLCalculateEndOfHourWithDate_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1BACB7000, v1, OS_LOG_TYPE_DEBUG, "System hour bucket: %@ -> %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1BACB7000, v1, OS_LOG_TYPE_DEBUG, "System hour bucket: %@ -> %@", v2, 0x16u);
 }

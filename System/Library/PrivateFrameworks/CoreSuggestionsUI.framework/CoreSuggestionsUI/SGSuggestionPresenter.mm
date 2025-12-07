@@ -1447,9 +1447,9 @@ LABEL_23:
   }
 }
 
-uint64_t __46__SGSuggestionPresenter_setWantsToShowBanner___block_invoke(uint64_t result)
+void *__46__SGSuggestionPresenter_setWantsToShowBanner___block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 88) & 1) == 0)
   {
     v3 = result;
@@ -1458,11 +1458,11 @@ uint64_t __46__SGSuggestionPresenter_setWantsToShowBanner___block_invoke(uint64_
 
     if (v5)
     {
-      v6 = objc_loadWeakRetained((*(v3 + 32) + 96));
-      [v6 suggestionPresenterWantsToHideBanner:*(v3 + 32)];
+      v6 = objc_loadWeakRetained((v3[4] + 96));
+      [v6 suggestionPresenterWantsToHideBanner:v3[4]];
     }
 
-    v7 = *(v3 + 32);
+    v7 = v3[4];
 
     return [v7 _dismissViewControllerAnimated:1];
   }

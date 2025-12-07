@@ -207,7 +207,7 @@ id __32__WFNumberContentItem_coercions__block_invoke(uint64_t a1, void *a2)
   v5 = v4;
   if (v4)
   {
-    [v4 decimalValue];
+    objc_msgSend_decimalValue(v4);
   }
 
   else

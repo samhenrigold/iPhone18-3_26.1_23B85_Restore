@@ -133,7 +133,7 @@
 
   sub_24E2DCCB4();
 
-  sub_24DF8C95C(v6, &qword_27F1E0370);
+  sub_24DF8C95C(v6, &qword_27F1E0370, &unk_24E369A10);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

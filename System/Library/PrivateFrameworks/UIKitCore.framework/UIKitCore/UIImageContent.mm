@@ -184,7 +184,7 @@ LABEL_6:
   }
 }
 
-id __60___UIImageContent_renditionWithSize_scale_renditionContext___block_invoke_10(uint64_t a1)
+_UIImageContentRBSymbolConfiguration *__60___UIImageContent_renditionWithSize_scale_renditionContext___block_invoke_10(uint64_t a1)
 {
   v2 = objc_opt_new();
   if ([(_UIImageContentRenditionContext *)*(a1 + 32) _shouldResolveNamedColorStyles])
@@ -413,7 +413,7 @@ float __60___UIImageContent_renditionWithSize_scale_renditionContext___block_inv
 
   else
   {
-    v3 = +[UIColor blackColor];
+    v3 = objc_msgSend_blackColor(UIColor);
   }
 
   v4 = v3;

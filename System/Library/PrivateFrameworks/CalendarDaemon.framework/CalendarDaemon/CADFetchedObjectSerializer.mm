@@ -50,7 +50,7 @@
 
 - (id)addEntity:(void *)entity
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = CFGetTypeID(entity);
   TypeID = CalEventOccurrenceGetTypeID();
   if (v5 == TypeID)
@@ -60,11 +60,11 @@ LABEL_5:
     Event = CalEventOccurrenceGetEvent();
     CalEventOccurrenceGetDate();
     v10 = v9;
-    LOBYTE(v26) = 0;
+    LOBYTE(v25) = 0;
     defaultPropertiesToLoad = [(CADFetchedObjectSerializer *)self defaultPropertiesToLoad];
-    v12 = [(CADFetchedObjectSerializer *)self _properties:defaultPropertiesToLoad forEntityIfNotSeen:Event objectExists:&v26];
+    v12 = [(CADFetchedObjectSerializer *)self _properties:defaultPropertiesToLoad forEntityIfNotSeen:Event objectExists:&v25];
 
-    if (v26 == 1)
+    if (v25 == 1)
     {
       v13 = [[CADEventEntityWrapper alloc] initWithCalEntity:Event loadedValues:v12 occurrenceDate:v10];
     }
@@ -96,11 +96,11 @@ LABEL_5:
     }
   }
 
-  LOBYTE(v26) = 0;
+  LOBYTE(v25) = 0;
   defaultPropertiesToLoad2 = [(CADFetchedObjectSerializer *)self defaultPropertiesToLoad];
-  v15 = [(CADFetchedObjectSerializer *)self _properties:defaultPropertiesToLoad2 forEntityIfNotSeen:entity objectExists:&v26];
+  v15 = [(CADFetchedObjectSerializer *)self _properties:defaultPropertiesToLoad2 forEntityIfNotSeen:entity objectExists:&v25];
 
-  if (v26 == 1)
+  if (v25 == 1)
   {
     v13 = [[CADEntityWrapper alloc] initWithCalEntity:entity loadedValues:v15];
   }
@@ -128,17 +128,17 @@ LABEL_17:
 
   if ((entityType + 1) <= 1)
   {
-    v21 = CADLogHandle;
+    v20 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v22 = v21;
+      v21 = v20;
       objectID2 = [(CADEntityWrapper *)v13 objectID];
       entityID = [objectID2 entityID];
-      LODWORD(v26) = 67109376;
-      HIDWORD(v26) = entityID;
-      v27 = 1024;
-      v28 = entityType;
-      _os_log_impl(&dword_22430B000, v22, OS_LOG_TYPE_ERROR, "Entity with rowID = %d has unexpected entity type = %d. Filtering out of search results.", &v26, 0xEu);
+      LODWORD(v25) = 67109376;
+      HIDWORD(v25) = entityID;
+      v26 = 1024;
+      v27 = entityType;
+      _os_log_impl(&dword_22430B000, v21, OS_LOG_TYPE_ERROR, "Entity with rowID = %d has unexpected entity type = %d. Filtering out of search results.", &v25, 0xEu);
     }
 
     goto LABEL_17;
@@ -150,14 +150,12 @@ LABEL_17:
   v16 = v13;
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)_properties:(id)_properties forEntityIfNotSeen:(void *)seen objectExists:(BOOL *)exists
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   _propertiesCopy = _properties;
   v9 = _propertiesCopy;
   if (exists)
@@ -179,9 +177,9 @@ LABEL_18:
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 67109376;
-      *v60 = ID;
-      *&v60[4] = 1024;
-      *&v60[6] = Type;
+      *v59 = ID;
+      *&v59[4] = 1024;
+      *&v59[6] = Type;
       _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_INFO, "Can't fetch properties for entity with rowID = %d and unexpected entity type = %d.", buf, 0xEu);
     }
 
@@ -202,33 +200,33 @@ LABEL_9:
   else
   {
     seenObjectIDs2 = [(CADFetchedObjectSerializer *)self seenObjectIDs];
-    v42 = v13;
+    v41 = v13;
     [seenObjectIDs2 addObject:v13];
 
     v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v9, "count")}];
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    v43 = v9;
+    v42 = v9;
     obj = v9;
-    v49 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
-    if (v49)
+    v48 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+    if (v48)
     {
-      v48 = *v56;
+      v47 = *v55;
       seenCopy = seen;
       existsCopy = exists;
-      v46 = v19;
+      v45 = v19;
       while (2)
       {
-        for (i = 0; i != v49; ++i)
+        for (i = 0; i != v48; ++i)
         {
-          if (*v56 != v48)
+          if (*v55 != v47)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v55 + 1) + 8 * i);
+          v21 = *(*(&v54 + 1) + 8 * i);
           cf = 0;
           v22 = CalEntityCopyProperty(self->_connection, seen, v21, &cf);
           if (v22)
@@ -249,9 +247,9 @@ LABEL_9:
             if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              *v60 = v21;
-              *&v60[8] = 1024;
-              v61 = v23;
+              *v59 = v21;
+              *&v59[8] = 1024;
+              v60 = v23;
               _os_log_impl(&dword_22430B000, v24, OS_LOG_TYPE_ERROR, "Unable to fetch property with name %{public}@, %d", buf, 0x12u);
             }
 
@@ -281,26 +279,26 @@ LABEL_9:
               {
                 v29 = objc_alloc(MEMORY[0x277CBEB18]);
                 v30 = [v29 initWithCapacity:CFSetGetCount(cf)];
+                v49 = 0u;
                 v50 = 0u;
                 v51 = 0u;
                 v52 = 0u;
-                v53 = 0u;
                 v31 = cf;
-                v32 = [v31 countByEnumeratingWithState:&v50 objects:v62 count:16];
+                v32 = [v31 countByEnumeratingWithState:&v49 objects:v61 count:16];
                 if (v32)
                 {
                   v33 = v32;
-                  v34 = *v51;
+                  v34 = *v50;
                   do
                   {
                     for (j = 0; j != v33; ++j)
                     {
-                      if (*v51 != v34)
+                      if (*v50 != v34)
                       {
                         objc_enumerationMutation(v31);
                       }
 
-                      v36 = CADCopyEntityInDatabase(DatabaseForRecord, *(*(&v50 + 1) + 8 * j));
+                      v36 = CADCopyEntityInDatabase(DatabaseForRecord, *(*(&v49 + 1) + 8 * j));
                       if (v36)
                       {
                         v37 = v36;
@@ -313,7 +311,7 @@ LABEL_9:
                       }
                     }
 
-                    v33 = [v31 countByEnumeratingWithState:&v50 objects:v62 count:16];
+                    v33 = [v31 countByEnumeratingWithState:&v49 objects:v61 count:16];
                   }
 
                   while (v33);
@@ -326,7 +324,7 @@ LABEL_9:
               }
             }
 
-            v19 = v46;
+            v19 = v45;
             if (cf)
             {
               null2 = cf;
@@ -347,8 +345,8 @@ LABEL_38:
           }
         }
 
-        v49 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
-        if (v49)
+        v48 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+        if (v48)
         {
           continue;
         }
@@ -359,20 +357,19 @@ LABEL_38:
 
     v16 = v19;
 LABEL_47:
-    v9 = v43;
+    v9 = v42;
 
-    v13 = v42;
+    v13 = v41;
   }
 
 LABEL_49:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)_fetchedObjectDictionaryForEntity:(void *)entity
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   Type = CalEntityGetType();
   ID = CalEntityGetID();
   if (Type <= 0)
@@ -381,9 +378,9 @@ LABEL_49:
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 67109376;
-      v22 = ID;
-      v23 = 1024;
-      v24 = Type;
+      v21 = ID;
+      v22 = 1024;
+      v23 = Type;
       _os_log_impl(&dword_22430B000, v13, OS_LOG_TYPE_INFO, "Can't fetch object dictionary for related entity with rowID = %d and unexpected entity type = %d.", buf, 0xEu);
     }
 
@@ -396,10 +393,10 @@ LABEL_49:
     v8 = [MEMORY[0x277CCABB0] numberWithInt:Type];
     v9 = [relatedObjectPropertiesToLoad objectForKeyedSubscript:v8];
 
-    v20 = 0;
-    v10 = [(CADFetchedObjectSerializer *)self _properties:v9 forEntityIfNotSeen:entity objectExists:&v20];
+    v19 = 0;
+    v10 = [(CADFetchedObjectSerializer *)self _properties:v9 forEntityIfNotSeen:entity objectExists:&v19];
     v11 = v10;
-    if (v20)
+    if (v19)
     {
       if (v10)
       {
@@ -411,7 +408,7 @@ LABEL_49:
         v12 = 0;
       }
 
-      v16 = CADEntityCopyObjectID();
+      v16 = CADEntityCopyObjectID(entity);
       if ([v16 isVirtual])
       {
         AuxilliaryDatabaseID = 0;
@@ -432,15 +429,13 @@ LABEL_49:
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        v22 = ID;
+        v21 = ID;
         _os_log_impl(&dword_22430B000, v15, OS_LOG_TYPE_INFO, "Can't fetch object dictionary for related entity with rowID = %d because it appears to be deleted", buf, 8u);
       }
 
       v14 = 0;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

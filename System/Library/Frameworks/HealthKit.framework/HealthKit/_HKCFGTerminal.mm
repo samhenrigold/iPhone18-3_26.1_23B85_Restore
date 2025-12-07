@@ -4,6 +4,7 @@
 + (id)terminalMatchingCharacterInSet:(id)set;
 + (id)terminalMatchingCharacterInString:(id)string;
 + (id)terminalMatchingSequenceOfCharactersInSet:(id)set;
++ (id)terminalMatchingString:(id)string caseSensitive:(BOOL)sensitive;
 - (BOOL)_scanValue:(id *)value withScanner:(id)scanner;
 - (id)_label;
 - (id)characterSet;
@@ -12,6 +13,23 @@
 @end
 
 @implementation _HKCFGTerminal
+
++ (id)terminalMatchingString:(id)string caseSensitive:(BOOL)sensitive
+{
+  sensitiveCopy = sensitive;
+  stringCopy = string;
+  if (![stringCopy length])
+  {
+    +[_HKCFGTerminal terminalMatchingString:caseSensitive:];
+  }
+
+  v6 = objc_alloc_init(_HKCFGStringTerminal);
+  [(_HKCFGStringTerminal *)v6 setString:stringCopy];
+
+  [(_HKCFGStringTerminal *)v6 setCaseSensitive:sensitiveCopy];
+
+  return v6;
+}
 
 + (id)terminalMatchingCharacterInSet:(id)set
 {

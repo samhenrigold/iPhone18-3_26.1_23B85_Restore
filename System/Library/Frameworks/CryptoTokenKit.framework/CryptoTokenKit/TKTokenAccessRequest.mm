@@ -41,7 +41,7 @@
   extensionCopy = extension;
   if (callerCopy)
   {
-    [callerCopy auditToken];
+    objc_msgSend_auditToken(callerCopy);
   }
 
   else
@@ -110,77 +110,8 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (!v5)
+    if (v5 && (-[TKTokenAccessRequest correlationID](self, "correlationID"), v6 = objc_claimAutoreleasedReturnValue(), [v5 correlationID], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqual:", v7), v7, v6, v8) && ((-[TKTokenAccessRequest clientBundleID](self, "clientBundleID"), (v9 = objc_claimAutoreleasedReturnValue()) == 0) || (v10 = v9, -[TKTokenAccessRequest clientBundleID](self, "clientBundleID"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "clientBundleID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqualToString:", v12), v12, v11, v10, v13)) && ((-[TKTokenAccessRequest clientName](self, "clientName"), (v14 = objc_claimAutoreleasedReturnValue()) == 0) || (v15 = v14, -[TKTokenAccessRequest clientName](self, "clientName"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "clientName"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isEqualToString:", v17), v17, v16, v15, v18)) && (v19 = -[TKTokenAccessRequest clientHasAccessTokenEntitlement](self, "clientHasAccessTokenEntitlement"), v19 == objc_msgSend(v5, "clientHasAccessTokenEntitlement")) && (-[TKTokenAccessRequest tokenID](self, "tokenID"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "tokenID"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqual:", v21), v21, v20, v22) && ((-[TKTokenAccessRequest providerBundleID](self, "providerBundleID"), (v23 = objc_claimAutoreleasedReturnValue()) == 0) || (v24 = v23, -[TKTokenAccessRequest providerBundleID](self, "providerBundleID"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "providerBundleID"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v25, "isEqual:", v26), v26, v25, v24, v27)))
     {
-      goto LABEL_15;
-    }
-
-    correlationID = [(TKTokenAccessRequest *)self correlationID];
-    correlationID2 = [v5 correlationID];
-    v8 = [correlationID isEqual:correlationID2];
-
-    if (!v8)
-    {
-      goto LABEL_15;
-    }
-
-    clientBundleID = [(TKTokenAccessRequest *)self clientBundleID];
-    if (clientBundleID)
-    {
-      v10 = clientBundleID;
-      clientBundleID2 = [(TKTokenAccessRequest *)self clientBundleID];
-      clientBundleID3 = [v5 clientBundleID];
-      v13 = [clientBundleID2 isEqualToString:clientBundleID3];
-
-      if (!v13)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    clientName = [(TKTokenAccessRequest *)self clientName];
-    if (clientName)
-    {
-      v15 = clientName;
-      clientName2 = [(TKTokenAccessRequest *)self clientName];
-      clientName3 = [v5 clientName];
-      v18 = [clientName2 isEqualToString:clientName3];
-
-      if (!v18)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    clientHasAccessTokenEntitlement = [(TKTokenAccessRequest *)self clientHasAccessTokenEntitlement];
-    if (clientHasAccessTokenEntitlement != [v5 clientHasAccessTokenEntitlement])
-    {
-      goto LABEL_15;
-    }
-
-    tokenID = [(TKTokenAccessRequest *)self tokenID];
-    tokenID2 = [v5 tokenID];
-    v22 = [tokenID isEqual:tokenID2];
-
-    if (!v22)
-    {
-      goto LABEL_15;
-    }
-
-    providerBundleID = [(TKTokenAccessRequest *)self providerBundleID];
-    if (!providerBundleID)
-    {
-      goto LABEL_12;
-    }
-
-    v24 = providerBundleID;
-    providerBundleID2 = [(TKTokenAccessRequest *)self providerBundleID];
-    providerBundleID3 = [v5 providerBundleID];
-    v27 = [providerBundleID2 isEqual:providerBundleID3];
-
-    if (v27)
-    {
-LABEL_12:
       providerName = [(TKTokenAccessRequest *)self providerName];
       if (providerName)
       {
@@ -198,7 +129,6 @@ LABEL_12:
 
     else
     {
-LABEL_15:
       v32 = 0;
     }
   }

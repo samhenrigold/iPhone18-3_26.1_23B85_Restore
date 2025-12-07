@@ -31,81 +31,69 @@
 
 - (void)cardEventDidOccur:(unint64_t)occur withIdentifier:(id)identifier userInfo:(id)info
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = [(INUICKPSynchronousRemoteViewController *)self remoteViewController:occur];
 
-  if (!v7)
+  if (v7)
   {
-    goto LABEL_18;
-  }
-
-  if (occur > 4)
-  {
-    if (occur == 5)
+    if (occur > 4)
     {
-      remoteViewController = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
-      _cancelTouchesForCurrentEventInHostedContent = [remoteViewController _cancelTouchesForCurrentEventInHostedContent];
-      touchDeliveryPolicyAssertion = self->_touchDeliveryPolicyAssertion;
-      self->_touchDeliveryPolicyAssertion = _cancelTouchesForCurrentEventInHostedContent;
-
-      v20 = *MEMORY[0x277CF93F0];
-      if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
+      if (occur == 5)
       {
-        v21 = v20;
-        remoteViewController2 = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
-        v23 = self->_touchDeliveryPolicyAssertion;
-        *buf = 138412546;
-        v27 = remoteViewController2;
-        v28 = 2112;
-        v29 = v23;
-        _os_log_impl(&dword_255550000, v21, OS_LOG_TYPE_INFO, "CRKEventScrollingStarted, cancelling touches for %@ with assertion %@", buf, 0x16u);
+        remoteViewController = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
+        _cancelTouchesForCurrentEventInHostedContent = [remoteViewController _cancelTouchesForCurrentEventInHostedContent];
+        touchDeliveryPolicyAssertion = self->_touchDeliveryPolicyAssertion;
+        self->_touchDeliveryPolicyAssertion = _cancelTouchesForCurrentEventInHostedContent;
+
+        v18 = *MEMORY[0x277CF93F0];
+        if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
+        {
+          v19 = v18;
+          remoteViewController2 = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
+          v21 = self->_touchDeliveryPolicyAssertion;
+          *buf = 138412546;
+          v24 = remoteViewController2;
+          v25 = 2112;
+          v26 = v21;
+          _os_log_impl(&dword_255550000, v19, OS_LOG_TYPE_INFO, "CRKEventScrollingStarted, cancelling touches for %@ with assertion %@", buf, 0x16u);
+        }
       }
-    }
 
-    else if (occur == 6)
-    {
-      v11 = *MEMORY[0x277CF93F0];
-      if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
+      else if (occur == 6)
       {
-        v12 = v11;
-        remoteViewController3 = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
+        v10 = *MEMORY[0x277CF93F0];
+        if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
+        {
+          v11 = v10;
+          remoteViewController3 = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
+          v13 = self->_touchDeliveryPolicyAssertion;
+          *buf = 138412546;
+          v24 = remoteViewController3;
+          v25 = 2112;
+          v26 = v13;
+          _os_log_impl(&dword_255550000, v11, OS_LOG_TYPE_INFO, "CRKEventScrollingEnded, resuming touches for %@ by invalidating assertion %@", buf, 0x16u);
+        }
+
+        [self->_touchDeliveryPolicyAssertion invalidate];
         v14 = self->_touchDeliveryPolicyAssertion;
-        *buf = 138412546;
-        v27 = remoteViewController3;
-        v28 = 2112;
-        v29 = v14;
-        _os_log_impl(&dword_255550000, v12, OS_LOG_TYPE_INFO, "CRKEventScrollingEnded, resuming touches for %@ by invalidating assertion %@", buf, 0x16u);
+        self->_touchDeliveryPolicyAssertion = 0;
       }
-
-      [self->_touchDeliveryPolicyAssertion invalidate];
-      v15 = self->_touchDeliveryPolicyAssertion;
-      self->_touchDeliveryPolicyAssertion = 0;
     }
 
-    goto LABEL_18;
-  }
-
-  if (occur != 3)
-  {
-    if (occur == 4)
+    else if (occur == 3)
     {
       remoteViewController4 = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
-      disconnect = [remoteViewController4 disconnect];
-
-      v10 = *MEMORY[0x277D85DE8];
-
-      [(INUICKPSynchronousRemoteViewController *)self setRemoteViewController:0];
-      return;
+      [remoteViewController4 requestCancellation];
     }
 
-LABEL_18:
-    v24 = *MEMORY[0x277D85DE8];
-    return;
-  }
+    else if (occur == 4)
+    {
+      remoteViewController5 = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
+      disconnect = [remoteViewController5 disconnect];
 
-  remoteViewController5 = [(INUICKPSynchronousRemoteViewController *)self remoteViewController];
-  [remoteViewController5 requestCancellation];
-  v16 = *MEMORY[0x277D85DE8];
+      [(INUICKPSynchronousRemoteViewController *)self setRemoteViewController:0];
+    }
+  }
 }
 
 - (CRKCardSectionViewControllingDelegate)cardSectionViewControllingDelegate

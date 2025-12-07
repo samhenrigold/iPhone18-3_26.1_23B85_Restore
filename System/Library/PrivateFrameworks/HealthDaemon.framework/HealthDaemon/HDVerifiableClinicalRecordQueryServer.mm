@@ -123,20 +123,20 @@ uint64_t __78__HDVerifiableClinicalRecordQueryServer__samplesBeforeAuthorization
 
 - (void)_queue_start
 {
-  v40[1] = *MEMORY[0x277D85DE8];
-  v32.receiver = self;
-  v32.super_class = HDVerifiableClinicalRecordQueryServer;
-  [(HDQueryServer *)&v32 _queue_start];
+  v39[1] = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = HDVerifiableClinicalRecordQueryServer;
+  [(HDQueryServer *)&v31 _queue_start];
   clientProxy = [(HDQueryServer *)self clientProxy];
-  v31 = 0;
+  v30 = 0;
   if (self)
   {
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy__133;
-    v38 = __Block_byref_object_dispose__133;
-    v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__133;
+    v37 = __Block_byref_object_dispose__133;
+    v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
     verifiableClinicalRecordType = [MEMORY[0x277CCDBC0] verifiableClinicalRecordType];
     profile = [(HDQueryServer *)self profile];
     v6 = [HDSampleEntity entityEnumeratorWithType:verifiableClinicalRecordType profile:profile];
@@ -147,19 +147,19 @@ uint64_t __78__HDVerifiableClinicalRecordQueryServer__samplesBeforeAuthorization
     [v6 setPredicate:v9];
 
     v10 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"relevant_date" entityClass:objc_opt_class() ascending:0];
-    v40[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+    v39[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
     [v6 setOrderingTerms:v11];
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __78__HDVerifiableClinicalRecordQueryServer__samplesBeforeAuthorizationWithError___block_invoke;
-    v33[3] = &unk_2786136F0;
-    v33[4] = self;
-    v33[5] = &v34;
-    if ([v6 enumerateWithError:&v31 handler:v33])
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __78__HDVerifiableClinicalRecordQueryServer__samplesBeforeAuthorizationWithError___block_invoke;
+    v32[3] = &unk_2786136F0;
+    v32[4] = self;
+    v32[5] = &v33;
+    if ([v6 enumerateWithError:&v30 handler:v32])
     {
-      v12 = v35[5];
+      v12 = v34[5];
     }
 
     else
@@ -169,8 +169,8 @@ uint64_t __78__HDVerifiableClinicalRecordQueryServer__samplesBeforeAuthorization
 
     v13 = v12;
 
-    _Block_object_dispose(&v34, 8);
-    v14 = v31;
+    _Block_object_dispose(&v33, 8);
+    v14 = v30;
   }
 
   else
@@ -196,16 +196,16 @@ uint64_t __78__HDVerifiableClinicalRecordQueryServer__samplesBeforeAuthorization
 
   else
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __53__HDVerifiableClinicalRecordQueryServer__queue_start__block_invoke;
-    v28[3] = &unk_278625AC8;
-    v29 = clientProxy;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __53__HDVerifiableClinicalRecordQueryServer__queue_start__block_invoke;
+    v27[3] = &unk_278625AC8;
+    v28 = clientProxy;
     selfCopy = self;
     if (self)
     {
       v19 = MEMORY[0x277CCD708];
-      v20 = v28;
+      v20 = v27;
       v21 = v17;
       v22 = [v19 alloc];
       verifiableClinicalRecordType2 = [MEMORY[0x277CCDBC0] verifiableClinicalRecordType];
@@ -221,10 +221,8 @@ uint64_t __78__HDVerifiableClinicalRecordQueryServer__samplesBeforeAuthorization
     }
 
     queryUUID = 0;
-    v15 = v29;
+    v15 = v28;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HDVerifiableClinicalRecordQueryServer__queue_start__block_invoke(uint64_t a1, void *a2, void *a3)

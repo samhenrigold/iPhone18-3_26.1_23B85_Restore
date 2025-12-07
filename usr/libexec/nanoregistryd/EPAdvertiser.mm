@@ -21,25 +21,26 @@
 {
   appearCopy = appear;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
-    v7 = sub_1000A98C0();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = sub_1000A98C0(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v9)
     {
-      v9 = sub_1000A98C0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_1000A98C0(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        v12 = 138412802;
-        v13 = appearCopy;
-        v14 = 2112;
-        v15 = v11;
-        v16 = 2048;
-        v17 = ownerDelegate;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling advertiser:deviceDidAppear: with device %@ on %@[%p]", &v12, 0x20u);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v14 = 138412802;
+        v15 = appearCopy;
+        v16 = 2112;
+        v17 = v13;
+        v18 = 2048;
+        v19 = ownerDelegate;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling advertiser:deviceDidAppear: with device %@ on %@[%p]", &v14, 0x20u);
       }
     }
 
@@ -51,25 +52,26 @@
 {
   disappearCopy = disappear;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
-    v7 = sub_1000A98C0();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = sub_1000A98C0(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v9)
     {
-      v9 = sub_1000A98C0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_1000A98C0(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        v12 = 138412802;
-        v13 = disappearCopy;
-        v14 = 2112;
-        v15 = v11;
-        v16 = 2048;
-        v17 = ownerDelegate;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling advertiser:deviceDidDisappear: with device %@ on %@[%p]", &v12, 0x20u);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v14 = 138412802;
+        v15 = disappearCopy;
+        v16 = 2112;
+        v17 = v13;
+        v18 = 2048;
+        v19 = ownerDelegate;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling advertiser:deviceDidDisappear: with device %@ on %@[%p]", &v14, 0x20u);
       }
     }
 
@@ -82,25 +84,26 @@
   advertiserCopy = advertiser;
   deviceCopy = device;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
-    v9 = sub_1000A98C0();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = sub_1000A98C0(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = sub_1000A98C0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000A98C0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = 138412802;
-        v15 = deviceCopy;
-        v16 = 2112;
-        v17 = v13;
-        v18 = 2048;
-        v19 = ownerDelegate;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling advertiser:receivedPairingRequestForDevice: with device %@ on %@[%p]", &v14, 0x20u);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = 138412802;
+        v17 = deviceCopy;
+        v18 = 2112;
+        v19 = v15;
+        v20 = 2048;
+        v21 = ownerDelegate;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling advertiser:receivedPairingRequestForDevice: with device %@ on %@[%p]", &v16, 0x20u);
       }
     }
 
@@ -113,23 +116,24 @@
   advertiserCopy = advertiser;
   dataCopy = data;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
-    v9 = sub_1000A98C0();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = sub_1000A98C0(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = sub_1000A98C0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000A98C0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = 138412546;
-        v15 = v13;
-        v16 = 2048;
-        v17 = ownerDelegate;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling advertiser:receivedData: on %@[%p]", &v14, 0x16u);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = 138412546;
+        v17 = v15;
+        v18 = 2048;
+        v19 = ownerDelegate;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling advertiser:receivedData: on %@[%p]", &v16, 0x16u);
       }
     }
 

@@ -3,6 +3,7 @@
 - (UIPencilInteraction)init;
 - (UIPencilInteraction)initWithDelegate:(id)delegate;
 - (UIView)view;
+- (char)_updateLastKnownHoverStateFromGesture:(char *)result;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)delegate;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
@@ -10,11 +11,10 @@
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
 - (uint64_t)_internalShouldReceiveEvent:(unsigned __int8 *)event;
-- (uint64_t)_updateLastKnownHoverStateFromGesture:(uint64_t)result;
 - (void)_didMoveFromWindow:(id)window toWindow:(id)toWindow;
 - (void)_handleHoverGestureRecognizer:(id)recognizer;
 - (void)_installHoverGestureIfNeeded;
-- (void)_performCallbacksWithEvent:(_BYTE *)event;
+- (void)_performCallbacksWithEvent:(char *)event;
 - (void)_registerWithEventIfAble;
 - (void)_sendSqueezeFromEvent:(_BYTE *)event;
 - (void)_sendTapFromEvent:(_BYTE *)event;
@@ -460,7 +460,7 @@ LABEL_6:
         v12 = v11;
         if (v11)
         {
-          objc_storeStrong((v11 + 40), v6);
+          objc_storeStrong(v11 + 5, v6);
         }
 
         goto LABEL_8;
@@ -515,7 +515,7 @@ LABEL_14:
   }
 }
 
-- (void)_performCallbacksWithEvent:(_BYTE *)event
+- (void)_performCallbacksWithEvent:(char *)event
 {
   if (event)
   {
@@ -538,42 +538,42 @@ LABEL_14:
   }
 }
 
-- (uint64_t)_updateLastKnownHoverStateFromGesture:(uint64_t)result
+- (char)_updateLastKnownHoverStateFromGesture:(char *)result
 {
   if (result)
   {
     v3 = result;
     if (a2)
     {
-      WeakRetained = objc_loadWeakRetained((result + 16));
+      WeakRetained = objc_loadWeakRetained(result + 2);
       [a2 _location3DInView:WeakRetained];
-      *(v3 + 104) = v5;
-      *(v3 + 112) = v6;
-      *(v3 + 120) = v7;
+      *(v3 + 13) = v5;
+      *(v3 + 14) = v6;
+      *(v3 + 15) = v7;
     }
 
     else
     {
       v8 = MEMORY[0x1E69792C8];
       *(result + 104) = *MEMORY[0x1E69792C8];
-      *(result + 120) = *(v8 + 16);
+      *(result + 15) = *(v8 + 16);
     }
 
     [a2 zOffset];
-    *(v3 + 48) = v9;
-    v10 = objc_loadWeakRetained((v3 + 16));
+    *(v3 + 6) = v9;
+    v10 = objc_loadWeakRetained(v3 + 2);
     [a2 azimuthAngleInView:v10];
-    *(v3 + 56) = v11;
+    *(v3 + 7) = v11;
 
-    v12 = objc_loadWeakRetained((v3 + 16));
+    v12 = objc_loadWeakRetained(v3 + 2);
     [a2 azimuthUnitVectorInView:v12];
-    *(v3 + 88) = v13;
-    *(v3 + 96) = v14;
+    *(v3 + 11) = v13;
+    *(v3 + 12) = v14;
 
     [a2 altitudeAngle];
-    *(v3 + 64) = v15;
+    *(v3 + 8) = v15;
     result = [a2 _rollAngle];
-    *(v3 + 72) = v16;
+    *(v3 + 9) = v16;
   }
 
   return result;

@@ -31,7 +31,7 @@
 
 - (void)textViewDidBeginEditing:(id)editing
 {
-  sub_10000905C(0, &qword_1006B4980);
+  sub_10000905C(0, &qword_1006B4980, NSObject_ptr);
   editingCopy = editing;
   selfCopy = self;
   if (static NSObject.== infix(_:_:)())

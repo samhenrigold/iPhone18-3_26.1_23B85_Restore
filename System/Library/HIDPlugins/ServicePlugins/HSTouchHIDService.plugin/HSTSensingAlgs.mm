@@ -21,9 +21,9 @@
 
 - (HSTSensingAlgs)initWithConfig:(const HSTSensingAlgsConfig *)config
 {
-  v39.receiver = self;
-  v39.super_class = HSTSensingAlgs;
-  v4 = [(HSStage *)&v39 init];
+  v44.receiver = self;
+  v44.super_class = HSTSensingAlgs;
+  v4 = [(HSStage *)&v44 init];
   v5 = v4;
   if (v4)
   {
@@ -44,58 +44,60 @@
 
     v10 = [NSString stringWithFormat:@"%@%@", @"/System/Library/PrivateFrameworks/", v8];
     v11 = [[NSBundle alloc] initWithPath:v10];
-    if ([v11 load])
+    load = [v11 load];
+    if (load)
     {
       principalClass = [v11 principalClass];
-      if (([(objc_class *)principalClass conformsToProtocol:&OBJC_PROTOCOL___SASInterfaceProtocol]& 1) != 0)
+      v15 = [principalClass conformsToProtocol:&OBJC_PROTOCOL___SASInterfaceProtocol];
+      if (v15)
       {
-        v13 = MTLoggingPlugin();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v17 = MTLoggingPlugin(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v41 = v10;
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "HSTSensingAlgs: Correctly loaded %{public}@", buf, 0xCu);
+          v46 = v10;
+          _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "HSTSensingAlgs: Correctly loaded %{public}@", buf, 0xCu);
         }
 
         objc_initWeak(buf, v5);
-        v14 = [principalClass alloc];
+        v18 = [principalClass alloc];
         maxPacketSize = p_config->maxPacketSize;
         familyID = v5->_config.familyID;
-        v37[0] = _NSConcreteStackBlock;
-        v37[1] = 3221225472;
-        v37[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke;
-        v37[3] = &unk_10A9D0;
-        objc_copyWeak(&v38, buf);
-        v17 = [v14 initWithStreamSize:maxPacketSize platformId:familyID streamCallback:v37];
+        v42[0] = _NSConcreteStackBlock;
+        v42[1] = 3221225472;
+        v42[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke;
+        v42[3] = &unk_10A9D0;
+        objc_copyWeak(&v43, buf);
+        v21 = [v18 initWithStreamSize:maxPacketSize platformId:familyID streamCallback:v42];
         planInterface = v5->_planInterface;
-        v5->_planInterface = v17;
+        v5->_planInterface = v21;
 
-        v35[0] = _NSConcreteStackBlock;
-        v35[1] = 3221225472;
-        v35[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke_2;
-        v35[3] = &unk_10A9F8;
-        objc_copyWeak(&v36, buf);
-        [(SASInterfaceProtocol *)v5->_planInterface setEventCallback:v35];
-        v33[0] = _NSConcreteStackBlock;
-        v33[1] = 3221225472;
-        v33[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke_3;
-        v33[3] = &unk_10AA20;
-        objc_copyWeak(&v34, buf);
-        [(SASInterfaceProtocol *)v5->_planInterface setResetRequestCallback:v33];
-        v31[0] = _NSConcreteStackBlock;
-        v31[1] = 3221225472;
-        v31[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke_4;
-        v31[3] = &unk_10AA48;
-        objc_copyWeak(&v32, buf);
-        [(SASInterfaceProtocol *)v5->_planInterface setCoreAnalyticsCallback:v31];
-        v19 = [NSString stringWithUTF8String:"@(#)PROGRAM:HSTPipeline  PROJECT:MultitouchSoftware-9110.1\n"];
-        v20 = [v19 componentsSeparatedByString:@"PROJECT:"];
+        v40[0] = _NSConcreteStackBlock;
+        v40[1] = 3221225472;
+        v40[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke_2;
+        v40[3] = &unk_10A9F8;
+        objc_copyWeak(&v41, buf);
+        [(SASInterfaceProtocol *)v5->_planInterface setEventCallback:v40];
+        v38[0] = _NSConcreteStackBlock;
+        v38[1] = 3221225472;
+        v38[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke_3;
+        v38[3] = &unk_10AA20;
+        objc_copyWeak(&v39, buf);
+        [(SASInterfaceProtocol *)v5->_planInterface setResetRequestCallback:v38];
+        v36[0] = _NSConcreteStackBlock;
+        v36[1] = 3221225472;
+        v36[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke_4;
+        v36[3] = &unk_10AA48;
+        objc_copyWeak(&v37, buf);
+        [(SASInterfaceProtocol *)v5->_planInterface setCoreAnalyticsCallback:v36];
+        v23 = [NSString stringWithUTF8String:"@(#)PROGRAM:HSTPipeline  PROJECT:MultitouchSoftware-9110.1\n"];
+        v24 = [v23 componentsSeparatedByString:@"PROJECT:"];
 
-        if ([v20 count] >= 2)
+        if ([v24 count] >= 2)
         {
-          v21 = v5->_planInterface;
-          v22 = [v20 objectAtIndexedSubscript:1];
-          [(SASInterfaceProtocol *)v21 addVersion:v22];
+          v25 = v5->_planInterface;
+          v26 = [v24 objectAtIndexedSubscript:1];
+          [(SASInterfaceProtocol *)v25 addVersion:v26];
         }
 
         if ((objc_opt_respondsToSelector() & 1) == 0)
@@ -103,30 +105,30 @@
           goto LABEL_29;
         }
 
-        v29[0] = _NSConcreteStackBlock;
-        v29[1] = 3221225472;
-        v29[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke_5;
-        v29[3] = &unk_10A9F8;
-        objc_copyWeak(&v30, buf);
-        [(SASInterfaceProtocol *)v5->_planInterface setPencilEventCallback:v29];
-        v23 = MTDeviceEnableWorkIntervalNotification();
-        if (v23 == -536870201)
+        v34[0] = _NSConcreteStackBlock;
+        v34[1] = 3221225472;
+        v34[2] = __33__HSTSensingAlgs_initWithConfig___block_invoke_5;
+        v34[3] = &unk_10A9F8;
+        objc_copyWeak(&v35, buf);
+        [(SASInterfaceProtocol *)v5->_planInterface setPencilEventCallback:v34];
+        v27 = MTDeviceEnableWorkIntervalNotification();
+        if (v27 == -536870201)
         {
-          v24 = MTLoggingPlugin();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v29 = MTLoggingPlugin(v27, v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            *v28 = 0;
-            v25 = "Work interval notification unsupported";
+            *v33 = 0;
+            v30 = "Work interval notification unsupported";
             goto LABEL_25;
           }
         }
 
         else
         {
-          if (v23)
+          if (v27)
           {
-            v24 = MTLoggingPlugin();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+            v29 = MTLoggingPlugin(v27, v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               [HSTSensingAlgs initWithConfig:];
             }
@@ -134,32 +136,32 @@
             goto LABEL_28;
           }
 
-          v24 = MTLoggingPlugin();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v29 = MTLoggingPlugin(v27, v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            *v28 = 0;
-            v25 = "Work interval notification enabled";
+            *v33 = 0;
+            v30 = "Work interval notification enabled";
 LABEL_25:
-            _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, v25, v28, 2u);
+            _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, v30, v33, 2u);
           }
         }
 
 LABEL_28:
 
-        objc_destroyWeak(&v30);
+        objc_destroyWeak(&v35);
 LABEL_29:
         v9 = v5;
 
-        objc_destroyWeak(&v32);
-        objc_destroyWeak(&v34);
-        objc_destroyWeak(&v36);
-        objc_destroyWeak(&v38);
+        objc_destroyWeak(&v37);
+        objc_destroyWeak(&v39);
+        objc_destroyWeak(&v41);
+        objc_destroyWeak(&v43);
         objc_destroyWeak(buf);
         goto LABEL_30;
       }
 
-      v26 = MTLoggingPlugin();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v31 = MTLoggingPlugin(v15, v16);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [HSTSensingAlgs initWithConfig:];
       }
@@ -167,8 +169,8 @@ LABEL_29:
 
     else
     {
-      v26 = MTLoggingPlugin();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v31 = MTLoggingPlugin(load, v13);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [HSTSensingAlgs initWithConfig:];
       }
@@ -340,31 +342,32 @@ void __33__HSTSensingAlgs_initWithConfig___block_invoke_5(uint64_t a1, void *a2)
 - (void)_handleResetRequest:(unsigned __int8)request
 {
   __src = request;
-  memset(v16, 170, sizeof(v16));
-  v15 = 90;
-  v10 = v16;
-  v11 = xmmword_D8C70;
-  v12 = 0xAAAAAAAAAA00AA00;
-  v13 = 0;
-  inited = SABinaryWriter::initHostRequest(&v10, 1, 1uLL, &__src);
-  v5 = MTLoggingPlugin();
-  v6 = v5;
-  if (inited)
+  memset(v18, 170, sizeof(v18));
+  v17 = 90;
+  v12 = v18;
+  v13 = xmmword_D8C70;
+  v14 = 0xAAAAAAAAAA00AA00;
+  v15 = 0;
+  inited = SABinaryWriter::initHostRequest(&v12, 1, 1uLL, &__src);
+  v5 = inited;
+  v7 = MTLoggingPlugin(inited, v6);
+  v8 = v7;
+  if (v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "FW SA Reset Request", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "FW SA Reset Request", buf, 2u);
     }
 
-    v7 = [HSTSetReportEvent alloc];
-    v6 = [(HSTSetReportEvent *)v7 initWithBuffer:&v15 length:*(&v11 + 1) + 1];
-    v8.receiver = self;
-    v8.super_class = HSTSensingAlgs;
-    [(HSStage *)&v8 handleConsume:v6];
+    v9 = [HSTSetReportEvent alloc];
+    v8 = [(HSTSetReportEvent *)v9 initWithBuffer:&v17 length:*(&v13 + 1) + 1];
+    v10.receiver = self;
+    v10.super_class = HSTSensingAlgs;
+    [(HSStage *)&v10 handleConsume:v8];
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [HSTSensingAlgs _handleResetRequest:];
   }
@@ -375,22 +378,24 @@ void __33__HSTSensingAlgs_initWithConfig___block_invoke_5(uint64_t a1, void *a2)
   frameCopy = frame;
   if (!frameCopy)
   {
-    v10 = +[NSAssertionHandler currentHandler];
-    [v10 handleFailureInMethod:a2 object:self file:@"HSTSensingAlgs.mm" lineNumber:198 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
+    v14 = +[NSAssertionHandler currentHandler];
+    [v14 handleFailureInMethod:a2 object:self file:@"HSTSensingAlgs.mm" lineNumber:198 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
   }
 
-  if (HSTFrameParserTypes::ReportCast<HSTPipeline::FirmwareInterface::InputReport::SABinaryFrame>(frameCopy[1]))
+  v6 = HSTFrameParserTypes::ReportCast<HSTPipeline::FirmwareInterface::InputReport::SABinaryFrame>(frameCopy[1]);
+  if (v6)
   {
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = MTLoggingPlugin(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [HSTSensingAlgs _handleSAFrame:];
     }
 
-    if (([(SASInterfaceProtocol *)self->_planInterface handleInputStream:frameCopy[1]]& 1) == 0)
+    v9 = [(SASInterfaceProtocol *)self->_planInterface handleInputStream:frameCopy[1]];
+    if ((v9 & 1) == 0)
     {
-      v7 = MTLoggingPlugin();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v11 = MTLoggingPlugin(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [HSTSensingAlgs _handleSAFrame:];
       }
@@ -403,9 +408,9 @@ void __33__HSTSensingAlgs_initWithConfig___block_invoke_5(uint64_t a1, void *a2)
     }
   }
 
-  v8 = frameCopy;
+  v12 = frameCopy;
 
-  return v8;
+  return v12;
 }
 
 - (void)_handleDriverEvent:(id)event
@@ -500,10 +505,11 @@ LABEL_27:
   }
 
   v17 = [NSString stringWithUTF8String:v16];
-  if (([(SASInterfaceProtocol *)self->_planInterface injectProperty:v17 value:*(v5 + 5)]& 1) == 0)
+  v18 = [(SASInterfaceProtocol *)self->_planInterface injectProperty:v17 value:*(v5 + 5)];
+  if ((v18 & 1) == 0)
   {
-    v18 = MTLoggingPlugin();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = MTLoggingPlugin(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [HSTSensingAlgs _handleSetPropertyEvent:];
     }
@@ -558,8 +564,8 @@ LABEL_13:
 
   if (planInterface)
   {
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = MTLoggingPlugin(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [HSTSensingAlgs _handleTimestampSyncEvent:];
     }
@@ -567,8 +573,8 @@ LABEL_13:
 
   else
   {
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = MTLoggingPlugin(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [HSTSensingAlgs _handleTimestampSyncEvent:];
     }

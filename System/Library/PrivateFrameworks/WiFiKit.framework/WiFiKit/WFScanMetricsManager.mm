@@ -23,14 +23,15 @@
 
 - (void)reset
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 4 && v3 && os_log_type_enabled(v3, v5))
   {
-    v15 = 136315138;
-    v16 = "[WFScanMetricsManager reset]";
-    _os_log_impl(&dword_273ECD000, v3, v4, "%s", &v15, 0xCu);
+    v16 = 136315138;
+    v17 = "[WFScanMetricsManager reset]";
+    _os_log_impl(&dword_273ECD000, v3, v5, "%s", &v16, 0xCu);
   }
 
   [(WFScanMetricsManager *)self setSubmited:0];
@@ -58,13 +59,11 @@
   date = [MEMORY[0x277CBEAA8] date];
   timestamp = self->_timestamp;
   self->_timestamp = date;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submit
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (![(WFScanMetricsManager *)self submited])
   {
     timestamp = [(WFScanMetricsManager *)self timestamp];
@@ -73,45 +72,45 @@
 
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v6)
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) >= 3 && v6)
     {
-      v8 = v6;
-      if (os_log_type_enabled(v8, v7))
+      v10 = v6;
+      if (os_log_type_enabled(v10, v8))
       {
         timestamp2 = [(WFScanMetricsManager *)self timestamp];
         [timestamp2 timeIntervalSinceNow];
-        v20 = 134217984;
-        v21 = -v10;
-        _os_log_impl(&dword_273ECD000, v8, v7, "scan metrics session duration %f", &v20, 0xCu);
+        v23 = 134217984;
+        v24 = -v12;
+        _os_log_impl(&dword_273ECD000, v10, v8, "scan metrics session duration %f", &v23, 0xCu);
       }
     }
 
-    v11 = -v5;
+    v13 = -v5;
 
-    v12 = WFLogForCategory(0);
-    v13 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v12)
+    v14 = WFLogForCategory(0);
+    v15 = OSLogForWFLogLevel(3uLL);
+    v16 = v15;
+    if (WFCurrentLogLevel(v15, v17) >= 3 && v14)
     {
-      v14 = v12;
-      if (os_log_type_enabled(v14, v13))
+      v18 = v14;
+      if (os_log_type_enabled(v18, v16))
       {
         [(WFScanMetricsManager *)self sectionCounts];
-        v15 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        v20 = 138412290;
-        v21 = v15;
-        _os_log_impl(&dword_273ECD000, v14, v13, "scan metrics section counts %@", &v20, 0xCu);
+        v19 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        v23 = 138412290;
+        v24 = v19;
+        _os_log_impl(&dword_273ECD000, v18, v16, "scan metrics section counts %@", &v23, 0xCu);
       }
     }
 
-    v16 = +[WFMetricsManager sharedManager];
+    v20 = +[WFMetricsManager sharedManager];
     sectionCounts = [(WFScanMetricsManager *)self sectionCounts];
-    v18 = [WFScanSessionEvent scanSessionEventWithSectionCounts:sectionCounts duration:v11];
-    [v16 processEvent:v18];
+    v22 = [WFScanSessionEvent scanSessionEventWithSectionCounts:sectionCounts duration:v13];
+    [v20 processEvent:v22];
 
     [(WFScanMetricsManager *)self setSubmited:1];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ingestScanResults:(id)results

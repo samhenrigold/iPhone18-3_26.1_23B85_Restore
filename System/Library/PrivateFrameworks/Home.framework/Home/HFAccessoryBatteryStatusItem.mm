@@ -6,7 +6,7 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = [optionsCopy objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
   bOOLValue = [v5 BOOLValue];
@@ -14,50 +14,48 @@
   if (bOOLValue)
   {
     v7 = MEMORY[0x277D2C900];
-    v28 = @"hidden";
-    v29[0] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = @"hidden";
+    v28[0] = MEMORY[0x277CBEC38];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v9 = [HFItemUpdateOutcome outcomeWithResults:v8];
     v10 = [v7 futureWithResult:v9];
   }
 
   else
   {
-    home = [(HFStatusItem *)self home];
-    accessories = [home accessories];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke;
-    v27[3] = &unk_277DF3888;
-    v27[4] = self;
-    v13 = [accessories na_filter:v27];
+    v11 = objc_msgSend_home(self);
+    accessories = [v11 accessories];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke;
+    v26[3] = &unk_277DF3888;
+    v26[4] = self;
+    v13 = [accessories na_filter:v26];
 
     objc_initWeak(&location, self);
     v14 = MEMORY[0x277D2C900];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke_3;
-    v23[3] = &unk_277E00648;
-    objc_copyWeak(&v25, &location);
-    v24 = optionsCopy;
-    v15 = [v13 na_map:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke_3;
+    v22[3] = &unk_277E00648;
+    objc_copyWeak(&v24, &location);
+    v23 = optionsCopy;
+    v15 = [v13 na_map:v22];
     v16 = [v14 combineAllFutures:v15];
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke_4;
-    v20[3] = &unk_277DFED88;
-    objc_copyWeak(&v22, &location);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke_4;
+    v19[3] = &unk_277DFED88;
+    objc_copyWeak(&v21, &location);
     v17 = v13;
-    v21 = v17;
-    v10 = [v16 flatMap:v20];
+    v20 = v17;
+    v10 = [v16 flatMap:v19];
 
-    objc_destroyWeak(&v22);
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -140,7 +138,7 @@ id __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke
 
 id __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke_4(uint64_t a1, void *a2)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -148,16 +146,16 @@ id __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke
     v5 = [MEMORY[0x277CBEB58] set];
     v6 = [MEMORY[0x277CBEB58] set];
     v7 = *(a1 + 32);
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke_5;
-    v25 = &unk_277E00670;
-    v26 = v3;
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke_5;
+    v24 = &unk_277E00670;
+    v25 = v3;
     v8 = v5;
-    v27 = v8;
+    v26 = v8;
     v9 = v6;
-    v28 = v9;
-    [v7 enumerateObjectsUsingBlock:&v22];
+    v27 = v9;
+    [v7 enumerateObjectsUsingBlock:&v21];
     v10 = objc_opt_new();
     if ([v8 count])
     {
@@ -193,14 +191,12 @@ id __60__HFAccessoryBatteryStatusItem__subclass_updateWithOptions___block_invoke
   else
   {
     v14 = MEMORY[0x277D2C900];
-    v29 = @"hidden";
-    v30[0] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = @"hidden";
+    v29[0] = MEMORY[0x277CBEC38];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v9 = [HFItemUpdateOutcome outcomeWithResults:v8];
     v15 = [v14 futureWithResult:v9];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

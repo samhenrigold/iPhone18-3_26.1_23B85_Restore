@@ -1,5 +1,5 @@
 @interface RBStateCaptureInvalidator
-- (id)initWithHandle:(id)result;
+- (void)initWithHandle:(void *)result;
 - (void)invalidate;
 @end
 
@@ -23,7 +23,7 @@
   }
 }
 
-- (id)initWithHandle:(id)result
+- (void)initWithHandle:(void *)result
 {
   if (result)
   {
@@ -39,7 +39,7 @@
     result = objc_msgSendSuper2(&v5, sel_init);
     if (result)
     {
-      *(result + 1) = a2;
+      result[1] = a2;
     }
   }
 

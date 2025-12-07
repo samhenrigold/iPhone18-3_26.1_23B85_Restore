@@ -106,7 +106,6 @@
 
 - (void)initWithBytes:length:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
     VRTraceErrorLogLevelToCSTR();
@@ -114,16 +113,13 @@
     {
       OUTLINED_FUNCTION_22_1();
       OUTLINED_FUNCTION_10();
-      OUTLINED_FUNCTION_1_4(&dword_24E50C000, v1, v2, " [%s] %s:%d Failed to allocate data buffer", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_4(&dword_24E50C000, v0, v1, " [%s] %s:%d Failed to allocate data buffer", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithBytes:length:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
     VRTraceErrorLogLevelToCSTR();
@@ -131,16 +127,13 @@
     {
       OUTLINED_FUNCTION_22_1();
       OUTLINED_FUNCTION_10();
-      OUTLINED_FUNCTION_1_4(&dword_24E50C000, v1, v2, " [%s] %s:%d Size is too small", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_4(&dword_24E50C000, v0, v1, " [%s] %s:%d Size is too small", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithBytes:length:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
     VRTraceErrorLogLevelToCSTR();
@@ -148,11 +141,9 @@
     {
       OUTLINED_FUNCTION_22_1();
       OUTLINED_FUNCTION_10();
-      OUTLINED_FUNCTION_1_4(&dword_24E50C000, v1, v2, " [%s] %s:%d Buffer is NULL", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_4(&dword_24E50C000, v0, v1, " [%s] %s:%d Buffer is NULL", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

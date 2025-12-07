@@ -1,13 +1,13 @@
-id WRBundle()
+id WRBundle(uint64_t a1)
 {
   if (WRBundle_onceToken != -1)
   {
     WRBundle_cold_1();
   }
 
-  v1 = WRBundle_sWRBundle;
+  v2 = WRBundle_sWRBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WRBundle_block_invoke()
@@ -17,9 +17,9 @@ uint64_t __WRBundle_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_272AC35A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272AC35A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -57,7 +57,7 @@ id WRDeviceLanguage()
 
 id WRLocalizedStringForLanguage(void *a1, void *a2, void *a3, void *a4)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -92,18 +92,18 @@ id WRLocalizedStringForLanguage(void *a1, void *a2, void *a3, void *a4)
 LABEL_5:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v32 = [v8 UTF8String];
-    v33 = [(__CFString *)v7 UTF8String];
-    v34 = [(__CFString *)v9 UTF8String];
-    v35 = [v10 bundleIdentifier];
+    v31 = [v8 UTF8String];
+    v32 = [(__CFString *)v7 UTF8String];
+    v33 = [(__CFString *)v9 UTF8String];
+    v34 = [v10 bundleIdentifier];
     *buf = 136315906;
-    v38 = v32;
-    v39 = 2080;
-    v40 = v33;
-    v41 = 2080;
-    v42 = v34;
-    v43 = 2080;
-    v44 = [v35 UTF8String];
+    v37 = v31;
+    v38 = 2080;
+    v39 = v32;
+    v40 = 2080;
+    v41 = v33;
+    v42 = 2080;
+    v43 = [v34 UTF8String];
     _os_log_debug_impl(&dword_272AC2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "#quickboard Lookup '%s' in %s, table: %s bundle: %s", buf, 0x2Au);
   }
 
@@ -132,8 +132,8 @@ LABEL_5:
     }
 
     v17 = [v10 localizations];
-    v36 = v16;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+    v35 = v16;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
     v19 = [MEMORY[0x277CCA8D8] preferredLocalizationsFromArray:v17 forPreferences:0];
     v20 = [v18 arrayByAddingObjectsFromArray:v19];
 
@@ -191,8 +191,6 @@ LABEL_33:
     v29 = [v10 localizedStringForKey:v8 value:0 table:v9];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
@@ -225,9 +223,9 @@ void sub_272AC53F0(_Unwind_Exception *exc_buf, int a2)
   _Unwind_Resume(exc_buf);
 }
 
-void sub_272AC5CF0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_272AC5CF0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   objc_begin_catch(a1);
   JUMPOUT(0x272AC5C20);
@@ -246,40 +244,32 @@ void sub_272AC603C(_Unwind_Exception *exc_buf, int a2)
 
 void WRLocalizedStringForLanguage_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void WRLocalizedStringForLanguage_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void WRLocalizedStringForLanguage_cold_4(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   [a2 UTF8String];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void WRLocalizedStringForLanguage_cold_5(int a1, id a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [a2 UTF8String];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-  v9 = *MEMORY[0x277D85DE8];
 }

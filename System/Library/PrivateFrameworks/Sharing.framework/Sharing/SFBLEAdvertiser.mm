@@ -6,6 +6,7 @@
 - (int)_preparePayload:(BOOL)payload;
 - (void)_activateWithCompletion:(id)completion;
 - (void)_invalidate;
+- (void)_restartIfNeeded:(BOOL)needed;
 - (void)activateWithCompletion:(id)completion;
 - (void)dealloc;
 - (void)invalidate;
@@ -35,7 +36,7 @@
   if (self->_wpNearby)
   {
 LABEL_10:
-    v13 = [SFBLEAdvertiser dealloc];
+    [SFBLEAdvertiser dealloc];
     [(SFBLEAdvertiser *)v13 description];
     return;
   }
@@ -87,6 +88,7 @@ LABEL_10:
 
 - (NSString)description
 {
+  v21 = 0;
   v3 = self->_payloadType + 1;
   if (v3 > 0x12)
   {
@@ -98,28 +100,34 @@ LABEL_10:
     v4 = off_1E788DB38[v3];
   }
 
-  v17 = v4;
-  NSAppendPrintF();
-  v5 = 0;
+  NSAppendPrintF(&v21, "SFBLEAdvertiser %{ptr}, Type %s", self, v4);
+  v5 = v21;
   v6 = v5;
   if (self->_invalidateCalled)
   {
-    v18 = v5;
-    NSAppendPrintF();
-    v7 = v18;
+    v20 = v5;
+    NSAppendPrintF(&v20, ", Invalidated");
+    v7 = v20;
 
     v6 = v7;
   }
 
+  v19 = v6;
   advertiseState = self->_advertiseState;
-  if (advertiseState <= 3)
+  if (advertiseState > 3)
+  {
+    v9 = "?";
+  }
+
+  else
   {
     v9 = off_1E788DB18[advertiseState];
   }
 
-  NSAppendPrintF();
-  v10 = v6;
+  NSAppendPrintF(&v19, ", State %s", v9);
+  v10 = v19;
 
+  v18 = v10;
   advertiseRate = self->_advertiseRate;
   if (advertiseRate > 39)
   {
@@ -128,13 +136,13 @@ LABEL_10:
       if (advertiseRate == 60)
       {
         v12 = "Aggressive";
-        goto LABEL_28;
+        goto LABEL_29;
       }
 
       if (advertiseRate == 70)
       {
         v12 = "Max";
-        goto LABEL_28;
+        goto LABEL_29;
       }
     }
 
@@ -143,19 +151,19 @@ LABEL_10:
       if (advertiseRate == 40)
       {
         v12 = "Normal";
-        goto LABEL_28;
+        goto LABEL_29;
       }
 
       if (advertiseRate == 50)
       {
         v12 = "High";
-        goto LABEL_28;
+        goto LABEL_29;
       }
     }
 
-LABEL_27:
+LABEL_28:
     v12 = "?";
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
   if (advertiseRate > 19)
@@ -163,42 +171,40 @@ LABEL_27:
     if (advertiseRate == 20)
     {
       v12 = "LowBackground";
-      goto LABEL_28;
+      goto LABEL_29;
     }
 
     if (advertiseRate == 30)
     {
       v12 = "Background";
-      goto LABEL_28;
+      goto LABEL_29;
     }
 
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   if (!advertiseRate)
   {
     v12 = "Invalid";
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
   if (advertiseRate != 10)
   {
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   v12 = "Infrequent";
-LABEL_28:
-  v16 = v12;
-  NSAppendPrintF();
-  v13 = v10;
+LABEL_29:
+  NSAppendPrintF(&v18, ", Rate %s", v12);
+  v13 = v18;
 
-  [(NSData *)self->_payloadDataCurrent bytes:v16];
-  [(NSData *)self->_payloadDataCurrent length];
-  [(NSData *)self->_payloadDataCurrent length];
-  NSAppendPrintF();
-  v14 = v13;
+  v17 = v13;
+  NSAppendPrintF(&v17, ", Data '%.3H'", [(NSData *)self->_payloadDataCurrent bytes], [(NSData *)self->_payloadDataCurrent length], [(NSData *)self->_payloadDataCurrent length]);
+  v14 = v17;
+  v15 = v17;
 
-  return v13;
+  return v14;
 }
 
 - (void)setAdvertiseRate:(int64_t)rate
@@ -225,14 +231,14 @@ LABEL_28:
   objc_sync_exit(selfCopy);
 }
 
-uint64_t __36__SFBLEAdvertiser_setAdvertiseRate___block_invoke(uint64_t result)
+void *__36__SFBLEAdvertiser_setAdvertiseRate___block_invoke(void *result)
 {
-  v2 = *(result + 32);
-  v1 = *(result + 40);
+  v2 = *(result + 4);
+  v1 = *(result + 5);
   if (v1 != *(v2 + 104))
   {
     *(v2 + 104) = v1;
-    return [*(result + 32) _restartIfNeeded:1];
+    return [*(result + 4) _restartIfNeeded:1];
   }
 
   return result;
@@ -245,7 +251,7 @@ uint64_t __36__SFBLEAdvertiser_setAdvertiseRate___block_invoke(uint64_t result)
   objc_sync_enter(obj);
   if (obj->_activateCalled)
   {
-    FatalErrorF();
+    FatalErrorF("Attempt to set dispatch queue after activate has been called");
     __break(1u);
   }
 
@@ -422,37 +428,42 @@ uint64_t __36__SFBLEAdvertiser_setPayloadFields___block_invoke_2(uint64_t a1)
 
 - (void)_activateWithCompletion:(id)completion
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_invalidateCalled)
   {
-    v16 = 4294960572;
-    goto LABEL_18;
+    v14 = 4294960572;
+    goto LABEL_19;
   }
 
   if (self->_startRetrier)
   {
-    v16 = 4294960575;
-    goto LABEL_18;
+    v14 = 4294960575;
+    goto LABEL_19;
   }
 
   payloadType = self->_payloadType;
   if ((payloadType - 15) > 1)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 90)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 90)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_14:
-        if ((payloadType + 1) <= 0x12)
+        if ((payloadType + 1) > 0x12)
         {
-          v15 = off_1E788DB38[payloadType + 1];
+          v13 = "?";
         }
 
-        LogPrintF();
-        goto LABEL_17;
+        else
+        {
+          v13 = off_1E788DB38[payloadType + 1];
+        }
+
+        LogPrintF(ucat, "[SFBLEAdvertiser _activateWithCompletion:]", 90, "### Activate with unsupported type: %ld (%s)\n", payloadType, v13);
+        goto LABEL_18;
       }
 
       if (_LogCategory_Initialize())
@@ -463,46 +474,27 @@ LABEL_14:
       }
     }
 
-LABEL_17:
-    v16 = 4294960561;
 LABEL_18:
-    [(SFBLEAdvertiser *)completionCopy _activateWithCompletion:v16, &v18, v19, self];
+    v14 = 4294960561;
+LABEL_19:
+    [(SFBLEAdvertiser *)completionCopy _activateWithCompletion:v14, &v16, v17, self];
     goto LABEL_9;
   }
 
   self->_wpNearbyType = payloadType != 15;
-  if (!self->_wpNearby)
+  if (!self->_wpNearby && (+[SFBLEClient sharedClient](SFBLEClient, "sharedClient"), v6 = objc_claimAutoreleasedReturnValue(), [v6 addNearbyDelegate:self], v7 = objc_claimAutoreleasedReturnValue(), wpNearby = self->_wpNearby, self->_wpNearby = v7, wpNearby, v6, !self->_wpNearby) || (v9 = objc_alloc_init(MEMORY[0x1E6999520]), startRetrier = self->_startRetrier, self->_startRetrier = v9, startRetrier, (v11 = self->_startRetrier) == 0))
   {
-    v6 = +[SFBLEClient sharedClient];
-    v7 = [v6 addNearbyDelegate:self];
-    wpNearby = self->_wpNearby;
-    self->_wpNearby = v7;
-
-    if (!self->_wpNearby)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  v9 = objc_alloc_init(MEMORY[0x1E6999520]);
-  startRetrier = self->_startRetrier;
-  self->_startRetrier = v9;
-
-  v11 = self->_startRetrier;
-  if (!v11)
-  {
-LABEL_19:
-    v16 = 4294960567;
-    goto LABEL_18;
+    v14 = 4294960567;
+    goto LABEL_19;
   }
 
   [(CURetrier *)v11 setDispatchQueue:self->_dispatchQueue];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __43__SFBLEAdvertiser__activateWithCompletion___block_invoke;
-  v17[3] = &unk_1E788B198;
-  v17[4] = self;
-  [(CURetrier *)self->_startRetrier setActionHandler:v17];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __43__SFBLEAdvertiser__activateWithCompletion___block_invoke;
+  v15[3] = &unk_1E788B198;
+  v15[4] = self;
+  [(CURetrier *)self->_startRetrier setActionHandler:v15];
   [(CURetrier *)self->_startRetrier startDirect];
   if (completionCopy)
   {
@@ -510,8 +502,6 @@ LABEL_19:
   }
 
 LABEL_9:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -533,13 +523,13 @@ LABEL_9:
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_4:
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEAdvertiser _invalidate]", 30, "Invalidating\n");
       goto LABEL_6;
     }
 
@@ -560,23 +550,23 @@ LABEL_6:
   if (payloadType == 16)
   {
     wpNearby = self->_wpNearby;
-    v8 = 1;
+    v7 = 1;
     goto LABEL_10;
   }
 
   if (payloadType == 15)
   {
     wpNearby = self->_wpNearby;
-    v8 = 0;
+    v7 = 0;
 LABEL_10:
-    [(WPNearby *)wpNearby stopAdvertisingOfType:v8];
-    v9 = self->_wpNearby;
-    if (v9)
+    [(WPNearby *)wpNearby stopAdvertisingOfType:v7];
+    v8 = self->_wpNearby;
+    if (v8)
     {
-      v10 = +[SFBLEClient sharedClient];
-      [v10 removeNearbyDelegate:self];
+      v9 = +[SFBLEClient sharedClient];
+      [v9 removeNearbyDelegate:self];
 
-      v9 = self->_wpNearby;
+      v8 = self->_wpNearby;
     }
 
     self->_wpNearby = 0;
@@ -584,51 +574,56 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  v12 = self->_ucat->var0;
-  if (v12 > 90)
+  v11 = self->_ucat;
+  if (v11->var0 > 90)
   {
     goto LABEL_13;
   }
 
-  if (v12 == -1)
+  if (v11->var0 == -1)
   {
     if (!_LogCategory_Initialize())
     {
       goto LABEL_13;
     }
 
-    v19 = self->_ucat;
+    v11 = self->_ucat;
     payloadType = self->_payloadType;
   }
 
-  if ((payloadType + 1) <= 0x12)
+  if ((payloadType + 1) > 0x12)
   {
-    v13 = off_1E788DB38[payloadType + 1];
+    v12 = "?";
   }
 
-  LogPrintF();
-LABEL_13:
-  v11 = self->_ucat->var0;
-  if (v11 <= 30)
+  else
   {
-    if (v11 == -1)
+    v12 = off_1E788DB38[payloadType + 1];
+  }
+
+  LogPrintF(v11, "[SFBLEAdvertiser _invalidate]", 90, "### Invalidate unsupported type: %ld (%s)\n", payloadType, v12);
+LABEL_13:
+  v10 = self->_ucat;
+  if (v10->var0 <= 30)
+  {
+    if (v10->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_21;
       }
 
-      v21 = self->_ucat;
+      v10 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v10, "[SFBLEAdvertiser _invalidate]", 30, "Invalidated\n");
   }
 
 LABEL_21:
   invalidationHandler = self->_invalidationHandler;
   if (invalidationHandler)
   {
-    invalidationHandler[2](invalidationHandler, v5);
+    invalidationHandler[2]();
   }
 
   advertiseStateChangedHandler = self->_advertiseStateChangedHandler;
@@ -640,13 +635,13 @@ LABEL_21:
   connectionHandler = self->_connectionHandler;
   self->_connectionHandler = 0;
 
-  v18 = self->_invalidationHandler;
+  v17 = self->_invalidationHandler;
   self->_invalidationHandler = 0;
 }
 
 - (int)_preparePayload:(BOOL)payload
 {
-  v13 = 0;
+  v11 = 0;
   if (self->_payloadDataCurrent)
   {
     goto LABEL_2;
@@ -655,13 +650,13 @@ LABEL_21:
   payloadType = self->_payloadType;
   if (payloadType == 16)
   {
-    v8 = [(SFBLEAdvertiser *)self _preparePayloadNearbyInfo:&v13];
+    v8 = [(SFBLEAdvertiser *)self _preparePayloadNearbyInfo:&v11];
 LABEL_14:
     payloadDataCurrent = self->_payloadDataCurrent;
     self->_payloadDataCurrent = v8;
 
-    result = v13;
-    if (v13)
+    result = v11;
+    if (v11)
     {
       return result;
     }
@@ -671,14 +666,14 @@ LABEL_14:
 
   if (payloadType == 15)
   {
-    v8 = [(SFBLEAdvertiser *)self _preparePayloadNearbyAction:&v13];
+    v8 = [(SFBLEAdvertiser *)self _preparePayloadNearbyAction:&v11];
     goto LABEL_14;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 60)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 60)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -688,28 +683,28 @@ LABEL_14:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEAdvertiser _preparePayload:]", 60, "### Skipping unsupported payload type\n");
   }
 
 LABEL_22:
-  v13 = -6757;
+  v11 = -6757;
 LABEL_2:
   if (!payload && self->_payloadDataPrevious && ([(NSData *)self->_payloadDataCurrent isEqual:?]& 1) != 0)
   {
-    v5 = self->_ucat->var0;
-    if (v5 <= 9)
+    v5 = self->_ucat;
+    if (v5->var0 <= 9)
     {
-      if (v5 == -1)
+      if (v5->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           return -6757;
         }
 
-        v11 = self->_ucat;
+        v5 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v5, "[SFBLEAdvertiser _preparePayload:]", 9, "Skipping redundant advertiser update\n");
     }
 
     return -6757;
@@ -721,154 +716,140 @@ LABEL_2:
 
 - (id)_preparePayloadNearbyAction:(int *)action
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF88]);
-  payloadFields = self->_payloadFields;
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v42 = Int64Ranged;
-  v8 = self->_payloadFields;
+  v25 = Int64Ranged;
   if (CFDictionaryGetInt64())
   {
     Int64Ranged |= 0x20u;
-    v42 = Int64Ranged;
+    v25 = Int64Ranged;
   }
 
-  v9 = self->_payloadFields;
   if (CFDictionaryGetInt64())
   {
     Int64Ranged |= 0x40u;
-    v42 = Int64Ranged;
+    v25 = Int64Ranged;
   }
 
-  v10 = self->_payloadFields;
   CFDataGetTypeID();
-  v11 = CFDictionaryGetTypedValue();
-  if ([v11 length] == 3)
+  v7 = CFDictionaryGetTypedValue();
+  if ([v7 length] == 3)
   {
-    v42 = Int64Ranged | 0x80;
+    v25 = Int64Ranged | 0x80;
   }
 
-  v43 = 0;
-  [v5 appendBytes:&v42 length:1];
-  v12 = self->_payloadFields;
-  v41 = CFDictionaryGetInt64Ranged();
-  [v5 appendBytes:&v41 length:1];
-  if (v42 < 0)
+  v26 = 0;
+  [v5 appendBytes:&v25 length:1];
+  v24 = CFDictionaryGetInt64Ranged();
+  [v5 appendBytes:&v24 length:1];
+  if (v25 < 0)
   {
-    [v5 appendData:v11];
+    [v5 appendData:v7];
   }
 
-  v13 = v41;
-  if (v41 <= 0x24u && ((1 << v41) & 0x1200480A00) != 0 || v41 == 90 || v41 == 84)
+  v8 = v24;
+  if (v24 <= 0x24u && ((1 << v24) & 0x1200480A00) != 0 || v24 == 90 || v24 == 84)
   {
-    v14 = self->_payloadFields;
-    v15 = CFDictionaryGetInt64Ranged();
-    v16 = self->_payloadFields;
-    v43 = CFDictionaryGetInt64Ranged() & 0x1F | (32 * v15);
-    [v5 appendBytes:&v43 length:1];
-    v13 = v41;
+    v9 = CFDictionaryGetInt64Ranged();
+    v26 = CFDictionaryGetInt64Ranged() & 0x1F | (32 * v9);
+    [v5 appendBytes:&v26 length:1];
+    v8 = v24;
   }
 
-  if (v13 - 33 <= 0x39 && ((1 << (v13 - 33)) & 0x208000000000009) != 0 || v13 - 9 < 3)
+  if (v8 - 33 <= 0x39 && ((1 << (v8 - 33)) & 0x208000000000009) != 0 || v8 - 9 < 3)
   {
-    v17 = self->_payloadFields;
-    LOBYTE(v44) = CFDictionaryGetInt64Ranged();
-    [v5 appendBytes:&v44 length:1];
-    v13 = v41;
+    LOBYTE(v27) = CFDictionaryGetInt64Ranged();
+    [v5 appendBytes:&v27 length:1];
+    v8 = v24;
   }
 
-  if (v13 <= 0x2B && (((1 << v13) & 0x81100000242) != 0 || ((1 << v13) & 0x200000800) != 0) || v13 == 84 || v13 == 90)
+  if (v8 <= 0x2B && (((1 << v8) & 0x81100000242) != 0 || ((1 << v8) & 0x200000800) != 0) || v8 == 84 || v8 == 90)
   {
-    LOBYTE(v44) = 13;
-    [v5 appendBytes:&v44 length:1];
-    v13 = v41;
+    LOBYTE(v27) = 13;
+    [v5 appendBytes:&v27 length:1];
+    v8 = v24;
   }
 
-  if (v13 == 8)
+  if (v8 == 8)
   {
-    v18 = self->_payloadFields;
     CFDataGetTypeID();
-    v19 = CFDictionaryGetTypedValue();
-    v20 = [v19 length];
-    if (v20)
+    v10 = CFDictionaryGetTypedValue();
+    v11 = [v10 length];
+    if (v11)
     {
-      v21 = v20;
-      v45 = 0;
-      v44 = 0;
-      [v19 bytes];
+      v12 = v11;
+      v28 = 0;
+      v27 = 0;
+      [v10 bytes];
       __memcpy_chk();
-      if (v21 <= 8)
+      if (v12 <= 8)
       {
-        bzero(&v44 + v21, 9 - v21);
+        bzero(&v27 + v12, 9 - v12);
       }
 
-      [v5 appendBytes:&v44 length:9];
+      [v5 appendBytes:&v27 length:9];
     }
 
-    v13 = v41;
-    if (v41 == 8)
+    v8 = v24;
+    if (v24 == 8)
     {
-      v22 = self->_payloadFields;
       CFDataGetTypeID();
-      v23 = CFDictionaryGetTypedValue();
-      if ([v23 length] == 3)
+      v13 = CFDictionaryGetTypedValue();
+      if ([v13 length] == 3)
       {
-        [v5 appendData:v23];
+        [v5 appendData:v13];
       }
 
-      v13 = v41;
+      v8 = v24;
     }
   }
 
-  if (v13 == 10)
+  if (v8 == 10)
   {
-    v24 = self->_payloadFields;
     Int64 = CFDictionaryGetInt64();
-    v43 = (Int64 >> 11) & 0x40 | ((Int64 & 0xFE) >> 1) & 7 | (Int64 >> 14) & 0x10 | (Int64 >> 11) & 0x20 | (Int64 >> 1) & 8 | (Int64 >> 14) & 0x80;
-    [v5 appendBytes:&v43 length:1];
-    v13 = v41;
-    if (v41 == 10)
+    v26 = (Int64 >> 11) & 0x40 | ((Int64 & 0xFE) >> 1) & 7 | (Int64 >> 14) & 0x10 | (Int64 >> 11) & 0x20 | (Int64 >> 1) & 8 | (Int64 >> 14) & 0x80;
+    [v5 appendBytes:&v26 length:1];
+    v8 = v24;
+    if (v24 == 10)
     {
-      LOBYTE(v44) = 13;
-      [v5 appendBytes:&v44 length:1];
-      v13 = v41;
+      LOBYTE(v27) = 13;
+      [v5 appendBytes:&v27 length:1];
+      v8 = v24;
     }
   }
 
-  LOBYTE(v44) = 0;
-  if (v13 - 36 <= 0x36 && ((1 << (v13 - 36)) & 0x40000000008001) != 0 || v13 == 9)
+  LOBYTE(v27) = 0;
+  if (v8 - 36 <= 0x36 && ((1 << (v8 - 36)) & 0x40000000008001) != 0 || v8 == 9)
   {
-    v26 = self->_payloadFields;
-    LOBYTE(v44) = CFDictionaryGetInt64Ranged();
-    [v5 appendBytes:&v44 length:1];
-    if ((v44 & 4) != 0)
+    LOBYTE(v27) = CFDictionaryGetInt64Ranged();
+    [v5 appendBytes:&v27 length:1];
+    if ((v27 & 4) != 0)
     {
-      v27 = self->_payloadFields;
       CFDataGetTypeID();
-      v28 = CFDictionaryGetTypedValue();
-      if (v28)
+      v15 = CFDictionaryGetTypedValue();
+      if (v15)
       {
-        [v5 appendData:v28];
+        [v5 appendData:v15];
       }
     }
   }
 
-  v29 = v41;
-  if (v41 == 1)
+  v16 = v24;
+  if (v24 == 1)
   {
-    v30 = self->_payloadFields;
-    v40 = CFDictionaryGetInt64Ranged();
-    [v5 appendBytes:&v40 length:1];
-    v29 = v41;
+    v23 = CFDictionaryGetInt64Ranged();
+    [v5 appendBytes:&v23 length:1];
+    v16 = v24;
   }
 
-  if (v29 == 90)
+  if (v16 == 90)
   {
-    v31 = [(NSDictionary *)self->_payloadFields objectForKeyedSubscript:@"dpp"];
-    v32 = v31;
-    if (v31)
+    v17 = [(NSDictionary *)self->_payloadFields objectForKeyedSubscript:@"dpp"];
+    v18 = v17;
+    if (v17)
     {
-      unsignedCharValue = [v31 unsignedCharValue];
+      unsignedCharValue = [v17 unsignedCharValue];
     }
 
     else
@@ -876,14 +857,14 @@ LABEL_2:
       unsignedCharValue = 0;
     }
 
-    v40 = unsignedCharValue;
-    var0 = self->_ucat->var0;
-    if (var0 > 40)
+    v23 = unsignedCharValue;
+    ucat = self->_ucat;
+    if (ucat->var0 > 40)
     {
       goto LABEL_54;
     }
 
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -893,10 +874,9 @@ LABEL_2:
       ucat = self->_ucat;
     }
 
-    v39 = unsignedCharValue;
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEAdvertiser _preparePayloadNearbyAction:]", 40, "Advertising DovePeacePayload 0x%x\n", unsignedCharValue);
 LABEL_54:
-    [v5 appendBytes:&v40 length:{1, v39}];
+    [v5 appendBytes:&v23 length:1];
   }
 
   if (action)
@@ -904,158 +884,140 @@ LABEL_54:
     *action = 0;
   }
 
-  v35 = v5;
+  v21 = v5;
 
-  v36 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v21;
 }
 
 - (id)_preparePayloadNearbyInfo:(int *)info
 {
-  v5 = objc_alloc_init(MEMORY[0x1E695DF88]);
-  payloadFields = self->_payloadFields;
+  v4 = objc_alloc_init(MEMORY[0x1E695DF88]);
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v32 = Int64Ranged;
-  v8 = self->_payloadFields;
+  v15 = Int64Ranged;
   if (CFDictionaryGetInt64())
   {
     Int64Ranged |= 0x10u;
-    v32 = Int64Ranged;
+    v15 = Int64Ranged;
   }
 
-  v9 = self->_payloadFields;
   if (CFDictionaryGetInt64())
   {
     Int64Ranged |= 0x20u;
-    v32 = Int64Ranged;
+    v15 = Int64Ranged;
   }
 
-  v10 = self->_payloadFields;
   if (CFDictionaryGetInt64())
   {
-    v32 = Int64Ranged | 0x40;
+    v15 = Int64Ranged | 0x40;
   }
 
-  [v5 appendBytes:&v32 length:1];
-  v31 = 0;
-  v11 = self->_payloadFields;
+  [v4 appendBytes:&v15 length:1];
+  v14 = 0;
   if (CFDictionaryGetInt64())
   {
-    v12 = 0x80;
-    v31 = 0x80;
+    v6 = 0x80;
+    v14 = 0x80;
   }
 
   else
   {
-    v12 = 0;
+    v6 = 0;
   }
 
-  v13 = self->_payloadFields;
   if (CFDictionaryGetInt64())
   {
-    v12 |= 0x40u;
-    v31 = v12;
+    v6 |= 0x40u;
+    v14 = v6;
   }
 
-  v14 = self->_payloadFields;
   if (CFDictionaryGetInt64())
   {
-    v12 |= 8u;
-    v31 = v12;
+    v6 |= 8u;
+    v14 = v6;
   }
 
-  v15 = self->_payloadFields;
   if (CFDictionaryGetInt64())
   {
-    v12 |= 0x20u;
-    v31 = v12;
+    v6 |= 0x20u;
+    v14 = v6;
   }
 
-  v16 = self->_payloadFields;
   if (CFDictionaryGetInt64())
   {
-    v12 |= 4u;
-    v31 = v12;
+    v6 |= 4u;
+    v14 = v6;
   }
 
-  v17 = self->_payloadFields;
   CFDataGetTypeID();
-  v18 = CFDictionaryGetTypedValue();
-  if ([v18 length] == 3)
+  v7 = CFDictionaryGetTypedValue();
+  if ([v7 length] == 3)
   {
-    v12 |= 0x10u;
-    v31 = v12;
+    v6 |= 0x10u;
+    v14 = v6;
   }
 
-  v19 = self->_payloadFields;
   CFDataGetTypeID();
-  v20 = CFDictionaryGetTypedValue();
-  if ([v20 length])
+  v8 = CFDictionaryGetTypedValue();
+  if ([v8 length])
   {
-    v12 |= 2u;
-    v31 = v12;
+    v6 |= 2u;
+    v14 = v6;
   }
 
-  v30 = 0;
-  v21 = self->_payloadFields;
+  v13 = 0;
   if (CFDictionaryGetInt64())
   {
-    v22 = 2;
-    v30 = 2;
+    v9 = 2;
+    v13 = 2;
   }
 
   else
   {
-    v22 = 0;
+    v9 = 0;
   }
 
-  v23 = self->_payloadFields;
   if (CFDictionaryGetInt64())
   {
-    v22 |= 4u;
-    v30 = v22;
+    v9 |= 4u;
+    v13 = v9;
   }
 
-  v24 = self->_payloadFields;
   if ((CFDictionaryGetInt64Ranged() & 0x800) != 0)
   {
-    v22 |= 0xFFFFFF80;
-    v30 = v22;
+    v9 |= 0xFFFFFF80;
+    v13 = v9;
   }
 
-  v25 = self->_payloadFields;
   if (CFDictionaryGetInt64Ranged() == 1)
   {
-    v22 |= 1u;
-    v30 = v22;
+    v9 |= 1u;
+    v13 = v9;
   }
 
-  v26 = self->_payloadFields;
   CFDataGetTypeID();
-  v27 = CFDictionaryGetTypedValue();
-  if ([v27 length])
+  v10 = CFDictionaryGetTypedValue();
+  if ([v10 length])
   {
-    v30 = v22 | (16 * (*[v27 bytes] & 7)) | 8;
+    v13 = v9 | (16 * (*[v10 bytes] & 7)) | 8;
   }
 
-  else if (!v22)
+  else if (!v9)
   {
     goto LABEL_35;
   }
 
-  v31 = v12 | 1;
+  v14 = v6 | 1;
 LABEL_35:
-  [v5 appendBytes:&v31 length:1];
-  v28 = v31;
-  if ((v31 & 0x10) != 0)
+  [v4 appendBytes:&v14 length:1];
+  v11 = v14;
+  if ((v14 & 0x10) != 0)
   {
-    [v5 appendData:v18];
-    v28 = v31;
-    if ((v31 & 2) == 0)
+    [v4 appendData:v7];
+    v11 = v14;
+    if ((v14 & 2) == 0)
     {
 LABEL_37:
-      if ((v28 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         goto LABEL_38;
       }
@@ -1064,13 +1026,13 @@ LABEL_37:
     }
   }
 
-  else if ((v31 & 2) == 0)
+  else if ((v14 & 2) == 0)
   {
     goto LABEL_37;
   }
 
-  [v5 appendBytes:objc_msgSend(v20 length:{"bytes"), 1}];
-  if ((v31 & 1) == 0)
+  [v4 appendBytes:objc_msgSend(v8 length:{"bytes"), 1}];
+  if ((v14 & 1) == 0)
   {
 LABEL_38:
     if (!info)
@@ -1082,7 +1044,7 @@ LABEL_38:
   }
 
 LABEL_45:
-  [v5 appendBytes:&v30 length:1];
+  [v4 appendBytes:&v13 length:1];
   if (info)
   {
 LABEL_39:
@@ -1091,7 +1053,7 @@ LABEL_39:
 
 LABEL_40:
 
-  return v5;
+  return v4;
 }
 
 _BYTE *__59__SFBLEAdvertiser_nearby_didStopAdvertisingType_withError___block_invoke(uint64_t a1)
@@ -1113,35 +1075,207 @@ _BYTE *__59__SFBLEAdvertiser_nearby_didStopAdvertisingType_withError___block_inv
   v11.super_class = SFBLEAdvertiser;
   v4 = [(SFBLEAdvertiser *)&v11 init];
   v5 = v4;
-  if (!v4)
-  {
-    goto LABEL_6;
-  }
-
-  v4->_advertiseRate = 40;
-  v6 = SFMainQueue(v4);
-  dispatchQueue = v5->_dispatchQueue;
-  v5->_dispatchQueue = v6;
-
-  v5->_payloadType = type;
-  if ((type + 1) <= 0x12)
-  {
-    v8 = off_1E788DB38[type + 1];
-  }
-
-  ASPrintF();
-  if (v13 && (v5->_ucat = LogCategoryCreateEx(), free(v13), !v12))
+  if (v4 && ((v4->_advertiseRate = 40, SFMainQueue(), v6 = objc_claimAutoreleasedReturnValue(), dispatchQueue = v5->_dispatchQueue, v5->_dispatchQueue = v6, dispatchQueue, v5->_payloadType = type, (type + 1) > 0x12) ? (v8 = "?") : (v8 = off_1E788DB38[type + 1]), (ASPrintF(&v13, "SFBLEAdvertiser-%s", v8), v13) && (v5->_ucat = LogCategoryCreateEx(), free(v13), !v12)))
   {
     v9 = v5;
   }
 
   else
   {
-LABEL_6:
     v9 = 0;
   }
 
   return v9;
+}
+
+- (void)_restartIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  ucat = OUTLINED_FUNCTION_0_11();
+  if (v6 <= 9)
+  {
+    if (v6 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_7;
+      }
+
+      ucat = self->_ucat;
+    }
+
+    v7 = "";
+    if (neededCopy)
+    {
+      v7 = "(force)";
+    }
+
+    LogPrintF(ucat, "[SFBLEAdvertiser _restartIfNeeded:]", 9, "RestartIfNeeded %s\n", v7);
+  }
+
+LABEL_7:
+  payloadType = self->_payloadType;
+  if ((payloadType - 15) > 1)
+  {
+    v15 = self->_ucat;
+    if (v15->var0 <= 90)
+    {
+      if (v15->var0 != -1)
+      {
+LABEL_17:
+        if ((payloadType + 1) > 0x12)
+        {
+          v16 = "?";
+        }
+
+        else
+        {
+          v16 = off_1E788DB38[payloadType + 1];
+        }
+
+        LogPrintF(v15, "[SFBLEAdvertiser _restartIfNeeded:]", 90, "### Restart unsupported type: %ld (%s)\n", payloadType, v16);
+        goto LABEL_25;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        v15 = self->_ucat;
+        payloadType = self->_payloadType;
+        goto LABEL_17;
+      }
+    }
+
+LABEL_25:
+    v11 = 4294960561;
+    goto LABEL_26;
+  }
+
+  wpNearby = self->_wpNearby;
+  if (!wpNearby || [(WPNearby *)wpNearby state]!= 3)
+  {
+    return;
+  }
+
+  v10 = [(SFBLEAdvertiser *)self _preparePayload:neededCopy];
+  if (v10 != -6757)
+  {
+    v11 = v10;
+    if (!v10)
+    {
+      payloadDataCurrent = self->_payloadDataCurrent;
+      if (payloadDataCurrent)
+      {
+        advertiseRate = self->_advertiseRate;
+        if (advertiseRate <= 69)
+        {
+          if (advertiseRate <= 49)
+          {
+            if (advertiseRate <= 39)
+            {
+              if (advertiseRate <= 29)
+              {
+                if (advertiseRate <= 19)
+                {
+                  if (advertiseRate <= 14)
+                  {
+                    v14 = 0x4000;
+                  }
+
+                  else
+                  {
+                    v14 = 1636;
+                  }
+                }
+
+                else
+                {
+                  v14 = 560;
+                }
+              }
+
+              else
+              {
+                v14 = 432;
+              }
+            }
+
+            else
+            {
+              v14 = 290;
+            }
+          }
+
+          else
+          {
+            v14 = 48;
+          }
+        }
+
+        else
+        {
+          v14 = 32;
+        }
+
+        v19 = advertiseRate > 40;
+        v20 = self->_ucat;
+        if (v20->var0 <= 20)
+        {
+          if (v20->var0 != -1)
+          {
+LABEL_42:
+            v21 = "no";
+            if (neededCopy)
+            {
+              v21 = "yes";
+            }
+
+            LogPrintF(v20, "[SFBLEAdvertiser _restartIfNeeded:]", 20, "Advertise update: data '%@', rate %.2f ms, force %s\n", payloadDataCurrent, (625 * v14) / 1000.0, v21);
+            goto LABEL_46;
+          }
+
+          if (_LogCategory_Initialize())
+          {
+            v20 = self->_ucat;
+            payloadDataCurrent = self->_payloadDataCurrent;
+            goto LABEL_42;
+          }
+        }
+
+LABEL_46:
+        [(WPNearby *)self->_wpNearby stopAdvertisingOfType:self->_wpNearbyType];
+        [(WPNearby *)self->_wpNearby startAdvertisingOfType:self->_wpNearbyType data:self->_payloadDataCurrent priority:v19 mode:v14];
+        goto LABEL_47;
+      }
+
+      v11 = 4294960551;
+    }
+
+LABEL_26:
+    v17 = OUTLINED_FUNCTION_0_11();
+    if (v18 > 60)
+    {
+      return;
+    }
+
+    if (v18 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        return;
+      }
+
+      v17 = self->_ucat;
+    }
+
+    LogPrintF(v17, "[SFBLEAdvertiser _restartIfNeeded:]", 60, "### RestartIfNeeded failed: %#m\n", v11);
+    return;
+  }
+
+LABEL_47:
+  startRetrier = self->_startRetrier;
+
+  [(CURetrier *)startRetrier succeededDirect];
 }
 
 - (void)nearbyDidUpdateState:(id)state
@@ -1161,23 +1295,28 @@ LABEL_6:
 
   if (!v5)
   {
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   state = [(WPNearby *)stateCopy state];
-  OUTLINED_FUNCTION_0_11();
-  if (v7 <= 40)
+  ucat = OUTLINED_FUNCTION_0_11();
+  if (v8 <= 40)
   {
-    if (v7 != -1)
+    if (v8 != -1)
     {
 LABEL_8:
-      if (state <= 5)
+      if (state > 5)
       {
-        v8 = off_1E788DBD0[state];
+        v9 = "?";
       }
 
-      LogPrintF();
-      goto LABEL_13;
+      else
+      {
+        v9 = off_1E788DBD0[state];
+      }
+
+      LogPrintF(ucat, "[SFBLEAdvertiser nearbyDidUpdateState:]", 40, "Bluetooth state updated: %s\n", v9);
+      goto LABEL_14;
     }
 
     if (_LogCategory_Initialize())
@@ -1187,20 +1326,19 @@ LABEL_8:
     }
   }
 
-LABEL_13:
+LABEL_14:
   if (state == 3)
   {
     [(SFBLEAdvertiser *)self _restartIfNeeded:1];
   }
 
-  bluetoothStateChangedHandler = self->_bluetoothStateChangedHandler;
-  if (bluetoothStateChangedHandler)
+  if (self->_bluetoothStateChangedHandler)
   {
-    v11 = OUTLINED_FUNCTION_2_2(bluetoothStateChangedHandler);
-    v12(v11, state);
+    OUTLINED_FUNCTION_2_2();
+    v10();
   }
 
-LABEL_17:
+LABEL_18:
 }
 
 - (void)nearby:(id)nearby didStartAdvertisingType:(int64_t)type
@@ -1225,8 +1363,7 @@ LABEL_17:
     return;
   }
 
-  advertiseState = self->_advertiseState;
-  OUTLINED_FUNCTION_0_11();
+  ucat = OUTLINED_FUNCTION_0_11();
   if (v12 == 2)
   {
     if (v11 <= 50)
@@ -1241,7 +1378,7 @@ LABEL_17:
         ucat = self->_ucat;
       }
 
-      goto LABEL_13;
+      LogPrintF(ucat, "[SFBLEAdvertiser nearby:didStartAdvertisingType:]", 50, "Bluetooth advertising started after being deferred\n");
     }
   }
 
@@ -1254,11 +1391,10 @@ LABEL_17:
         goto LABEL_17;
       }
 
-      v16 = self->_ucat;
+      ucat = self->_ucat;
     }
 
-LABEL_13:
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEAdvertiser nearby:didStartAdvertisingType:]", 20, "Bluetooth advertising started\n");
   }
 
 LABEL_17:
@@ -1268,9 +1404,9 @@ LABEL_17:
     advertiseStateChangedHandler = self->_advertiseStateChangedHandler;
     if (advertiseStateChangedHandler)
     {
-      v15 = *(advertiseStateChangedHandler + 2);
+      v14 = *(advertiseStateChangedHandler + 2);
 
-      v15();
+      v14();
     }
   }
 }
@@ -1298,10 +1434,10 @@ LABEL_17:
     goto LABEL_22;
   }
 
-  OUTLINED_FUNCTION_1_8();
-  if (v14 ^ v15 | v12)
+  ucat = OUTLINED_FUNCTION_1_8();
+  if (v15 ^ v16 | v12)
   {
-    if (v13 == -1)
+    if (v14 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1311,27 +1447,25 @@ LABEL_17:
       ucat = self->_ucat;
     }
 
-    v25 = errorCopy;
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEAdvertiser nearby:didStopAdvertisingType:withError:]", 50, "Bluetooth advertising stopped: %{error}\n", errorCopy);
   }
 
 LABEL_12:
   if (self->_advertiseState)
   {
     self->_advertiseState = 0;
-    advertiseStateChangedHandler = self->_advertiseStateChangedHandler;
-    if (advertiseStateChangedHandler)
+    if (self->_advertiseStateChangedHandler)
     {
-      v17 = OUTLINED_FUNCTION_2_2(advertiseStateChangedHandler);
-      v18(v17, 0);
+      OUTLINED_FUNCTION_2_2();
+      v17();
     }
   }
 
   if ([errorCopy code] == 28)
   {
-    v19 = arc4random() % 0x123 + 10;
-    OUTLINED_FUNCTION_1_8();
-    if (!(v14 ^ v15 | v12))
+    v18 = arc4random() % 0x123 + 10;
+    v19 = OUTLINED_FUNCTION_1_8();
+    if (!(v15 ^ v16 | v12))
     {
       goto LABEL_21;
     }
@@ -1343,12 +1477,12 @@ LABEL_12:
         goto LABEL_21;
       }
 
-      v24 = self->_ucat;
+      v19 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v19, "[SFBLEAdvertiser nearby:didStopAdvertisingType:withError:]", 50, "Bluetooth advertising restart after address change: %u ms\n", v18);
 LABEL_21:
-    v21 = dispatch_time(0, 1000000 * v19);
+    v21 = dispatch_time(0, 1000000 * v18);
     v22 = self->_dispatchQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -1383,13 +1517,13 @@ LABEL_22:
     return;
   }
 
-  OUTLINED_FUNCTION_0_11();
-  if (v10 <= 50)
+  ucat = OUTLINED_FUNCTION_0_11();
+  if (v11 <= 50)
   {
-    if (v10 != -1)
+    if (v11 != -1)
     {
 LABEL_10:
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEAdvertiser nearby:didDeferAdvertisingType:]", 50, "Bluetooth advertising deferred\n");
       goto LABEL_12;
     }
 
@@ -1405,9 +1539,9 @@ LABEL_12:
   advertiseStateChangedHandler = self->_advertiseStateChangedHandler;
   if (advertiseStateChangedHandler)
   {
-    v12 = *(advertiseStateChangedHandler + 2);
+    v13 = *(advertiseStateChangedHandler + 2);
 
-    v12();
+    v13();
   }
 }
 
@@ -1434,10 +1568,10 @@ LABEL_12:
     goto LABEL_14;
   }
 
-  OUTLINED_FUNCTION_0_11();
-  if (v12 <= 50)
+  ucat = OUTLINED_FUNCTION_0_11();
+  if (v13 <= 50)
   {
-    if (v12 == -1)
+    if (v13 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1447,8 +1581,7 @@ LABEL_12:
       ucat = self->_ucat;
     }
 
-    v17 = errorCopy;
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEAdvertiser nearby:didFailToStartAdvertisingOfType:withError:]", 50, "### Bluetooth advertise failed: %@\n", errorCopy);
   }
 
 LABEL_11:
@@ -1456,11 +1589,10 @@ LABEL_11:
   if (self->_advertiseState != 3)
   {
     self->_advertiseState = 3;
-    advertiseStateChangedHandler = self->_advertiseStateChangedHandler;
-    if (advertiseStateChangedHandler)
+    if (self->_advertiseStateChangedHandler)
     {
-      v14 = OUTLINED_FUNCTION_2_2(advertiseStateChangedHandler);
-      v15(v14, 3);
+      OUTLINED_FUNCTION_2_2();
+      v14();
     }
   }
 
@@ -1481,13 +1613,13 @@ LABEL_14:
     goto LABEL_10;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 20)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 20)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_6:
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEAdvertiser nearby:didConnectToPeer:transport:error:]", 20, "DidConnectToPeer: %@, %{error}\n", peerCopy, errorCopy);
       goto LABEL_8;
     }
 
@@ -1503,13 +1635,13 @@ LABEL_8:
   {
     v14 = objc_alloc_init(SFBLEDevice);
     [(SFBLEDevice *)v14 setIdentifier:peerCopy];
-    v15 = OUTLINED_FUNCTION_2_2(self->_connectionHandler);
-    v16(v15, v14);
+    OUTLINED_FUNCTION_2_2();
+    v15();
 
     goto LABEL_10;
   }
 
-  OUTLINED_FUNCTION_1_8();
+  v16 = OUTLINED_FUNCTION_1_8();
   if (v19 ^ v20 | v18)
   {
     if (v17 == -1)
@@ -1519,10 +1651,10 @@ LABEL_8:
         goto LABEL_10;
       }
 
-      v22 = self->_ucat;
+      v16 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v16, "[SFBLEAdvertiser nearby:didConnectToPeer:transport:error:]", 50, "### Accept connection from peer %@ failed: %@\n", peerCopy, errorCopy);
   }
 
 LABEL_10:
@@ -1530,20 +1662,19 @@ LABEL_10:
 
 - (void)_activateWithCompletion:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3, __CFString **a4, uint64_t a5)
 {
-  v9 = **(a5 + 96);
-  if (v9 <= 60)
+  v9 = *(a5 + 96);
+  if (*v9 <= 60)
   {
-    if (v9 != -1)
+    if (*v9 != -1)
     {
 LABEL_3:
-      v20 = a2;
-      LogPrintF();
+      LogPrintF(v9, "[SFBLEAdvertiser _activateWithCompletion:]", 60, "### Activate failed: %#m\n", a2);
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
-      v19 = *(a5 + 96);
+      v9 = *(a5 + 96);
       goto LABEL_3;
     }
   }
@@ -1564,7 +1695,7 @@ LABEL_5:
     }
 
     *a4 = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:a4 forKeys:a3 count:{1, v20}];
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:a4 forKeys:a3 count:1];
     v18 = [v11 errorWithDomain:v12 code:v13 userInfo:v17];
     (*(a1 + 16))(a1, v18);
   }

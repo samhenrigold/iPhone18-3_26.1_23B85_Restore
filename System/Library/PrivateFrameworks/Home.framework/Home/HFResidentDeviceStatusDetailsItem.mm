@@ -78,8 +78,8 @@ LABEL_6:
     }
   }
 
-  home = [(HFResidentDeviceStatusDetailsItem *)self home];
-  hf_shouldHideResidentDeviceReachabilityIssues = [home hf_shouldHideResidentDeviceReachabilityIssues];
+  v19 = objc_msgSend_home(self);
+  hf_shouldHideResidentDeviceReachabilityIssues = [v19 hf_shouldHideResidentDeviceReachabilityIssues];
 
 LABEL_9:
   residentDevice4 = [(HFResidentDeviceStatusDetailsItem *)self residentDevice];

@@ -1,6 +1,7 @@
 @interface SCLPBScheduleRecurrence
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dayAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsDay:(id)day;
@@ -24,6 +25,21 @@
   {
     return 1;
   }
+}
+
+- (id)dayAsString:(int)string
+{
+  if ((string - 1) >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279B6C780[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDay:(id)day
@@ -116,18 +132,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_timeInterval)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    day = self->_day;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

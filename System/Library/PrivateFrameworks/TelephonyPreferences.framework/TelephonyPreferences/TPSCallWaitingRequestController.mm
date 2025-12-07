@@ -2,6 +2,7 @@
 - (void)executeFetchForRequest:(id)request;
 - (void)executeRequest:(id)request;
 - (void)executeSetForRequest:(id)request;
+- (void)respondWithSubscriptionContext:(id)context enabled:(BOOL)enabled error:(id)error;
 - (void)suppServicesEvent:(id)event event:(int)a4 settingsType:(int)type data:(id)data;
 @end
 
@@ -83,68 +84,80 @@ void __56__TPSCallWaitingRequestController_executeSetForRequest___block_invoke(u
   }
 }
 
+- (void)respondWithSubscriptionContext:(id)context enabled:(BOOL)enabled error:(id)error
+{
+  enabledCopy = enabled;
+  errorCopy = error;
+  contextCopy = context;
+  v10 = [[TPSCallWaitingResponse alloc] initWithsubscriptionContext:contextCopy error:errorCopy enabled:enabledCopy];
+
+  [(TPSRequestController *)self postResponse:v10];
+}
+
 - (void)suppServicesEvent:(id)event event:(int)a4 settingsType:(int)type data:(id)data
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dataCopy = data;
+  v13 = dataCopy;
   if (type == 3)
   {
-    v12 = TPSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = TPSLog(dataCopy, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = TPSStringForCTSuppServicesEventType(a4);
-      v14 = TPSStringForCTSuppServicesSettingsType(3u);
+      v15 = TPSStringForCTSuppServicesEventType(a4);
+      v16 = TPSStringForCTSuppServicesSettingsType(3u);
       *buf = 138413058;
-      v37 = v13;
-      v38 = 2112;
-      v39 = v14;
-      v40 = 2112;
-      v41 = dataCopy;
-      v42 = 2112;
-      v43 = eventCopy;
-      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "Received event %@, settings type %@, data %@ for context %@.", buf, 0x2Au);
+      v43 = v15;
+      v44 = 2112;
+      v45 = v16;
+      v46 = 2112;
+      v47 = v13;
+      v48 = 2112;
+      v49 = eventCopy;
+      _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Received event %@, settings type %@, data %@ for context %@.", buf, 0x2Au);
     }
 
     pendingRequest = [(TPSRequestController *)self pendingRequest];
+    v19 = pendingRequest;
     if (a4 > 2)
     {
       if (a4 == 3)
       {
-        v32 = TPSLog();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v39 = TPSLog(pendingRequest, v18);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v37 = pendingRequest;
-          _os_log_impl(&dword_21B8E9000, v32, OS_LOG_TYPE_DEFAULT, "Call waiting save request succeeded for %@.", buf, 0xCu);
+          v43 = v19;
+          _os_log_impl(&dword_21B8E9000, v39, OS_LOG_TYPE_DEFAULT, "Call waiting save request succeeded for %@.", buf, 0xCu);
         }
 
-        -[TPSCallWaitingRequestController respondWithSubscriptionContext:enabled:error:](self, "respondWithSubscriptionContext:enabled:error:", eventCopy, [pendingRequest enabled], 0);
+        -[TPSCallWaitingRequestController respondWithSubscriptionContext:enabled:error:](self, "respondWithSubscriptionContext:enabled:error:", eventCopy, [v19 enabled], 0);
         goto LABEL_25;
       }
 
       if (a4 == 4)
       {
-        v34[0] = *MEMORY[0x277CCA460];
-        v22 = [TPSLocalizedString localizedStringForKey:@"CALL_WAITING_SAVE_REQUEST_ERROR_LOCALIZED_DESCRIPTION"];
-        v23 = *MEMORY[0x277CCA470];
-        v35[0] = v22;
-        v35[1] = @"Call waiting save request failed with error kCTSuppServicesEventTypeSaveError";
-        v24 = *MEMORY[0x277CCA068];
-        v34[1] = v23;
-        v34[2] = v24;
-        v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ for %@", @"Call waiting save request failed with error kCTSuppServicesEventTypeSaveError", pendingRequest];
-        v35[2] = v25;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
-        v27 = [TPSResponseError errorWithCode:4 userInfo:v26];
+        v40[0] = *MEMORY[0x277CCA460];
+        v27 = [TPSLocalizedString localizedStringForKey:@"CALL_WAITING_SAVE_REQUEST_ERROR_LOCALIZED_DESCRIPTION"];
+        v28 = *MEMORY[0x277CCA470];
+        v41[0] = v27;
+        v41[1] = @"Call waiting save request failed with error kCTSuppServicesEventTypeSaveError";
+        v29 = *MEMORY[0x277CCA068];
+        v40[1] = v28;
+        v40[2] = v29;
+        v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ for %@", @"Call waiting save request failed with error kCTSuppServicesEventTypeSaveError", v19];
+        v41[2] = v30;
+        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
+        v32 = [TPSResponseError errorWithCode:4 userInfo:v31];
 
-        v28 = TPSLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v35 = TPSLog(v33, v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          [TPSCallWaitingRequestController suppServicesEvent:v27 event:v28 settingsType:? data:?];
+          [TPSCallWaitingRequestController suppServicesEvent:v32 event:v35 settingsType:? data:?];
         }
 
-        [(TPSCallWaitingRequestController *)self respondWithSubscriptionContext:eventCopy enabled:0 error:v27];
+        [(TPSCallWaitingRequestController *)self respondWithSubscriptionContext:eventCopy enabled:0 error:v32];
         goto LABEL_25;
       }
     }
@@ -153,80 +166,75 @@ void __56__TPSCallWaitingRequestController_executeSetForRequest___block_invoke(u
     {
       if (a4 == 1)
       {
-        v30 = TPSLog();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v37 = TPSLog(pendingRequest, v18);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          enabled = [dataCopy enabled];
+          enabled = [v13 enabled];
           *buf = 138412546;
-          v37 = pendingRequest;
-          v38 = 2112;
-          v39 = enabled;
-          _os_log_impl(&dword_21B8E9000, v30, OS_LOG_TYPE_DEFAULT, "Call waiting fetch request succeeded for %@; enabled value is %@.", buf, 0x16u);
+          v43 = v19;
+          v44 = 2112;
+          v45 = enabled;
+          _os_log_impl(&dword_21B8E9000, v37, OS_LOG_TYPE_DEFAULT, "Call waiting fetch request succeeded for %@; enabled value is %@.", buf, 0x16u);
         }
 
-        enabled2 = [dataCopy enabled];
+        enabled2 = [v13 enabled];
         bOOLValue = [enabled2 BOOLValue];
         selfCopy2 = self;
-        v19 = eventCopy;
-        v21 = 0;
+        v24 = eventCopy;
+        v26 = 0;
         goto LABEL_21;
       }
 
       if (a4 == 2)
       {
         enabled2 = [TPSResponseError errorWithCode:2 userInfo:0];
-        v17 = TPSLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v22 = TPSLog(enabled2, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          [TPSCallWaitingRequestController suppServicesEvent:enabled2 event:pendingRequest settingsType:v17 data:?];
+          [TPSCallWaitingRequestController suppServicesEvent:enabled2 event:v19 settingsType:v22 data:?];
         }
 
         selfCopy2 = self;
-        v19 = eventCopy;
+        v24 = eventCopy;
         bOOLValue = 0;
-        v21 = enabled2;
+        v26 = enabled2;
 LABEL_21:
-        [(TPSCallWaitingRequestController *)selfCopy2 respondWithSubscriptionContext:v19 enabled:bOOLValue error:v21];
+        [(TPSCallWaitingRequestController *)selfCopy2 respondWithSubscriptionContext:v24 enabled:bOOLValue error:v26];
 
 LABEL_25:
         goto LABEL_26;
       }
     }
 
-    v29 = TPSLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v36 = TPSLog(pendingRequest, v18);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      [TPSCallingLineIdRestrictionRequestController suppServicesEvent:a4 event:v29 settingsType:? data:?];
+      [TPSCallingLineIdRestrictionRequestController suppServicesEvent:a4 event:v36 settingsType:? data:?];
     }
 
     goto LABEL_25;
   }
 
 LABEL_26:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suppServicesEvent:(void *)a1 event:(NSObject *)a2 settingsType:data:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "%@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "%@", &v4, 0xCu);
 }
 
 - (void)suppServicesEvent:(os_log_t)log event:settingsType:data:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_21B8E9000, log, OS_LOG_TYPE_ERROR, "Call waiting fetch request failed with error %@ for %@.", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_21B8E9000, log, OS_LOG_TYPE_ERROR, "Call waiting fetch request failed with error %@ for %@.", &v3, 0x16u);
 }
 
 @end

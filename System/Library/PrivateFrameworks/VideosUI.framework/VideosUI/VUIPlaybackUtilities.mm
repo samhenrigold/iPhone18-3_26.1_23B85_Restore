@@ -176,7 +176,7 @@
 
 + (id)updatedHLSURL:(id)l forPlaybackContext:(unint64_t)context
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v6 = lCopy;
   if (!lCopy)
@@ -276,12 +276,12 @@ LABEL_22:
 
     if (v9 != v6)
     {
-      v23 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = VUIDefaultLogObject(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = v9;
-        _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_DEFAULT, "HLS URL after adding post play param(s): %@", &v25, 0xCu);
+        v26 = 138412290;
+        v27 = v9;
+        _os_log_impl(&dword_1E323F000, v24, OS_LOG_TYPE_DEFAULT, "HLS URL after adding post play param(s): %@", &v26, 0xCu);
       }
     }
 

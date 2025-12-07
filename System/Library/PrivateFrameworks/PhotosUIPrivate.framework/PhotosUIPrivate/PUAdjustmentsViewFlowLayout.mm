@@ -17,7 +17,7 @@
 
   v13 = [(UICollectionViewFlowLayout *)self layoutAttributesForElementsInRect:v6, v8, v10, v12];
   firstObject = [v13 firstObject];
-  indexPath = [firstObject indexPath];
+  v15 = objc_msgSend_indexPath(firstObject);
   scrollDirection = [(UICollectionViewFlowLayout *)self scrollDirection];
   v34 = 0u;
   v35 = 0u;
@@ -64,10 +64,10 @@
         v30 = fabs(MidX - MidY);
         if (v30 < v21)
         {
-          indexPath2 = [v23 indexPath];
+          v31 = objc_msgSend_indexPath(v23);
 
           v21 = v30;
-          indexPath = indexPath2;
+          v15 = v31;
         }
       }
 
@@ -77,8 +77,8 @@
     while (v19);
   }
 
-  v32 = indexPath;
-  return indexPath;
+  v32 = v15;
+  return v15;
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)offset

@@ -78,7 +78,7 @@ uint64_t __55__CACVoiceOverShortDescriptionGenerator_sharedInstance__block_invok
 
 - (void)_addToItemShortDescriptionPairs:(id)pairs foritems:(id)foritems keyGenerationBlocks:(id)blocks shortDescriptionGenerationBlocks:(id)generationBlocks lastResortShortDescriptionGenerationBlock:(id)block
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   pairsCopy = pairs;
   foritemsCopy = foritems;
   blocksCopy = blocks;
@@ -86,32 +86,32 @@ uint64_t __55__CACVoiceOverShortDescriptionGenerator_sharedInstance__block_invok
   blockCopy = block;
   firstObject = [blocksCopy firstObject];
   selfCopy = self;
-  v37 = foritemsCopy;
+  v38 = foritemsCopy;
   v17 = [(CACVoiceOverShortDescriptionGenerator *)self _items:foritemsCopy byKeyGeneratedUsingBlock:firstObject];
 
   v18 = blocksCopy;
-  v53 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
+  v53 = 0u;
   v19 = v17;
-  v44 = [v19 countByEnumeratingWithState:&v51 objects:v58 count:16];
-  if (v44)
+  v45 = [v19 countByEnumeratingWithState:&v52 objects:v59 count:16];
+  if (v45)
   {
-    v43 = *v52;
-    v41 = v19;
-    v38 = blocksCopy;
+    v44 = *v53;
+    v42 = v19;
+    v39 = blocksCopy;
     do
     {
       v20 = 0;
       do
       {
-        if (*v52 != v43)
+        if (*v53 != v44)
         {
           objc_enumerationMutation(v19);
         }
 
-        v21 = [v19 objectForKeyedSubscript:*(*(&v51 + 1) + 8 * v20)];
+        v21 = [v19 objectForKeyedSubscript:*(*(&v52 + 1) + 8 * v20)];
         if ([v21 count] == 1)
         {
           v22 = objc_alloc_init(CACVoiceOverItemShortDescriptionPair);
@@ -119,70 +119,71 @@ uint64_t __55__CACVoiceOverShortDescriptionGenerator_sharedInstance__block_invok
           [(CACVoiceOverItemShortDescriptionPair *)v22 setItem:firstObject2];
           firstObject3 = [generationBlocksCopy firstObject];
           (firstObject3)[2](firstObject3, firstObject2);
-          v45 = v21;
+          v46 = v21;
           v25 = v18;
           v27 = v26 = v20;
           [(CACVoiceOverItemShortDescriptionPair *)v22 setShortDescription:v27];
 
           v20 = v26;
           v18 = v25;
-          v21 = v45;
+          v21 = v46;
           [pairsCopy addObject:v22];
 
-          v19 = v41;
+          v19 = v42;
           goto LABEL_8;
         }
 
         if ([v21 count] >= 2)
         {
-          if ([v18 count] < 2)
+          v28 = [v18 count];
+          if (v28 < 2)
           {
-            v28 = CACLogAccessibility();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            v29 = CACLogAccessibility(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138477827;
-              v57 = v21;
-              _os_log_impl(&dword_26B354000, v28, OS_LOG_TYPE_DEFAULT, "Unable to provide unique short descriptions for elements: %{private}@", buf, 0xCu);
+              v58 = v21;
+              _os_log_impl(&dword_26B354000, v29, OS_LOG_TYPE_DEFAULT, "Unable to provide unique short descriptions for elements: %{private}@", buf, 0xCu);
             }
 
-            v49 = 0u;
             v50 = 0u;
-            v47 = 0u;
+            v51 = 0u;
             v48 = 0u;
+            v49 = 0u;
             v22 = v21;
-            v29 = [(CACVoiceOverItemShortDescriptionPair *)v22 countByEnumeratingWithState:&v47 objects:v55 count:16];
-            if (v29)
+            v30 = [(CACVoiceOverItemShortDescriptionPair *)v22 countByEnumeratingWithState:&v48 objects:v56 count:16];
+            if (v30)
             {
-              v30 = v29;
-              v46 = v21;
-              v40 = v20;
-              v31 = *v48;
+              v31 = v30;
+              v47 = v21;
+              v41 = v20;
+              v32 = *v49;
               do
               {
-                for (i = 0; i != v30; ++i)
+                for (i = 0; i != v31; ++i)
                 {
-                  if (*v48 != v31)
+                  if (*v49 != v32)
                   {
                     objc_enumerationMutation(v22);
                   }
 
-                  v33 = *(*(&v47 + 1) + 8 * i);
-                  v34 = objc_alloc_init(CACVoiceOverItemShortDescriptionPair);
-                  [(CACVoiceOverItemShortDescriptionPair *)v34 setItem:v33];
-                  v35 = blockCopy[2](blockCopy, v33);
-                  [(CACVoiceOverItemShortDescriptionPair *)v34 setShortDescription:v35];
+                  v34 = *(*(&v48 + 1) + 8 * i);
+                  v35 = objc_alloc_init(CACVoiceOverItemShortDescriptionPair);
+                  [(CACVoiceOverItemShortDescriptionPair *)v35 setItem:v34];
+                  v36 = blockCopy[2](blockCopy, v34);
+                  [(CACVoiceOverItemShortDescriptionPair *)v35 setShortDescription:v36];
 
-                  [pairsCopy addObject:v34];
+                  [pairsCopy addObject:v35];
                 }
 
-                v30 = [(CACVoiceOverItemShortDescriptionPair *)v22 countByEnumeratingWithState:&v47 objects:v55 count:16];
+                v31 = [(CACVoiceOverItemShortDescriptionPair *)v22 countByEnumeratingWithState:&v48 objects:v56 count:16];
               }
 
-              while (v30);
-              v18 = v38;
-              v20 = v40;
-              v19 = v41;
-              v21 = v46;
+              while (v31);
+              v18 = v39;
+              v20 = v41;
+              v19 = v42;
+              v21 = v47;
             }
           }
 
@@ -198,12 +199,12 @@ LABEL_8:
         ++v20;
       }
 
-      while (v20 != v44);
-      v36 = [v19 countByEnumeratingWithState:&v51 objects:v58 count:16];
-      v44 = v36;
+      while (v20 != v45);
+      v37 = [v19 countByEnumeratingWithState:&v52 objects:v59 count:16];
+      v45 = v37;
     }
 
-    while (v36);
+    while (v37);
   }
 }
 
@@ -775,29 +776,29 @@ LABEL_11:
 
 id __73__CACVoiceOverShortDescriptionGenerator_shortDescriptionsForItems_style___block_invoke_12(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 32) == 1 && ([v3 item], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "recognitionLabel"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "length"), v6, v5, !v7))
   {
-    v10 = CACLogGeneral();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = CACLogGeneral(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = [v4 item];
-      v12 = 138477827;
-      v13 = v11;
-      _os_log_impl(&dword_26B354000, v10, OS_LOG_TYPE_INFO, "No name found for %{private}@, so not describing it", &v12, 0xCu);
+      v12 = [v4 item];
+      v13 = 138477827;
+      v14 = v12;
+      _os_log_impl(&dword_26B354000, v11, OS_LOG_TYPE_INFO, "No name found for %{private}@, so not describing it", &v13, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = [v4 shortDescription];
+    v9 = [v4 shortDescription];
   }
 
-  return v8;
+  return v9;
 }
 
 @end

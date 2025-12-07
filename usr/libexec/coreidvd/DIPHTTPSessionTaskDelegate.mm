@@ -11,32 +11,30 @@
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
   v8 = sub_100007224(&qword_100849428, &qword_1006E9430);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = __chkstk_darwin(v8 - 8);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = &v22 - v13;
-  v15 = type metadata accessor for URLRequest();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  __chkstk_darwin(v15);
-  v19 = &v22 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = _Block_copy(handler);
+  v9 = __chkstk_darwin(v8 - 8);
+  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v13 = &v20 - v12;
+  v14 = type metadata accessor for URLRequest();
+  v15 = *(v14 - 8);
+  __chkstk_darwin(v14);
+  v17 = &v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = _Block_copy(handler);
   static URLRequest._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v16 + 56))(v14, 1, 1, v15);
-  sub_1005C5C10(v14, v12);
+  (*(v15 + 56))(v13, 1, 1, v14);
+  sub_1005C5C10(v13, v11);
   isa = 0;
-  if ((*(v16 + 48))(v12, 1, v15) != 1)
+  if ((*(v15 + 48))(v11, 1, v14) != 1)
   {
     isa = URLRequest._bridgeToObjectiveC()().super.isa;
-    (*(v16 + 8))(v12, v15);
+    (*(v15 + 8))(v11, v14);
   }
 
-  v20[2](v20, isa);
+  v18[2](v18, isa);
 
-  _Block_release(v20);
-  sub_10000BE18(v14, &qword_100849428, &qword_1006E9430);
-  (*(v16 + 8))(v19, v15);
+  _Block_release(v18);
+  sub_10000BE18(v13, &qword_100849428, &qword_1006E9430);
+  (*(v15 + 8))(v17, v14);
 }
 
 - (void)URLSession:(id)session taskIsWaitingForConnectivity:(id)connectivity

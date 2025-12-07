@@ -18,30 +18,30 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v16[4] = *MEMORY[0x29EDCA608];
-  v12.receiver = self;
-  v12.super_class = InputUIWindowAccessibility;
-  [(InputUIWindowAccessibility *)&v12 _accessibilityLoadAccessibilityInformation];
-  v11[0] = MEMORY[0x29EDCA5F8];
-  v11[1] = 3221225472;
-  v11[2] = __72__InputUIWindowAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3;
-  v11[3] = &unk_29F2C9430;
-  v11[4] = self;
-  v3 = MEMORY[0x29C2DB2F0](v11);
+  v15[4] = *MEMORY[0x29EDCA608];
+  v11.receiver = self;
+  v11.super_class = InputUIWindowAccessibility;
+  [(InputUIWindowAccessibility *)&v11 _accessibilityLoadAccessibilityInformation];
+  v10[0] = MEMORY[0x29EDCA5F8];
+  v10[1] = 3221225472;
+  v10[2] = __72__InputUIWindowAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3;
+  v10[3] = &unk_29F2C9430;
+  v10[4] = self;
+  v3 = MEMORY[0x29C2DB2F0](v10);
   if (([(InputUIWindowAccessibility *)self _accessibilityBoolValueForKey:@"RegisteredKeyboardWindow"]& 1) == 0)
   {
     v4 = MEMORY[0x29EDBD800];
-    v15[0] = @"ax-pidretrieval";
+    v14[0] = @"ax-pidretrieval";
     v5 = MEMORY[0x29C2DB2F0](v3);
-    v16[0] = v5;
-    v16[1] = &__block_literal_global_0;
-    v15[1] = @"ax-contextretrieval";
-    v15[2] = @"ax-uuid";
+    v15[0] = v5;
+    v15[1] = &__block_literal_global_0;
+    v14[1] = @"ax-contextretrieval";
+    v14[2] = @"ax-uuid";
     v6 = *MEMORY[0x29EDBDDE8];
-    v15[3] = @"ax-register";
-    v16[2] = v6;
-    v16[3] = MEMORY[0x29EDB8EB0];
-    v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+    v14[3] = @"ax-register";
+    v15[2] = v6;
+    v15[3] = MEMORY[0x29EDB8EB0];
+    v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
     [v4 registerRemoteElement:v7 remotePort:0];
 
     [(InputUIWindowAccessibility *)self _accessibilitySetBoolValue:1 forKey:@"RegisteredKeyboardWindow"];
@@ -52,11 +52,9 @@
   {
     v9 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{-[InputUIWindowAccessibility _accessibilityContextId](self, "_accessibilityContextId")}];
     *buf = 138412290;
-    v14 = v9;
+    v13 = v9;
     _os_log_impl(&dword_29BEBE000, v8, OS_LOG_TYPE_INFO, "Register input window %@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __72__InputUIWindowAccessibility__accessibilityLoadAccessibilityInformation__block_invoke()

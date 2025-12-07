@@ -11,11 +11,11 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v83[4] = *MEMORY[0x1E69E9840];
+  v85[4] = *MEMORY[0x1E69E9840];
   ownerCopy = owner;
-  v80.receiver = self;
-  v80.super_class = SBModalWidgetIntroductionBackgroundDescriptionView;
-  height = [(SBModalWidgetIntroductionBackgroundDescriptionView *)&v80 initWithFrame:x, y, width, height];
+  v82.receiver = self;
+  v82.super_class = SBModalWidgetIntroductionBackgroundDescriptionView;
+  height = [(SBModalWidgetIntroductionBackgroundDescriptionView *)&v82 initWithFrame:x, y, width, height];
   v11 = height;
   if (height)
   {
@@ -28,7 +28,7 @@
     [(UIView *)v11->_backgroundView setClipsToBounds:1];
     v14 = v11->_backgroundView;
     [MEMORY[0x1E69DC888] systemBackgroundColor];
-    v15 = v79 = ownerCopy;
+    v15 = v81 = ownerCopy;
     [(UIView *)v14 setBackgroundColor:v15];
 
     [(UIView *)v11->_backgroundView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -44,42 +44,42 @@
 
     [(UIView *)v11->_labelContainerView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(SBModalWidgetIntroductionBackgroundDescriptionView *)v11 addSubview:v11->_labelContainerView];
-    v64 = MEMORY[0x1E696ACD8];
+    v66 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UIView *)v11->_labelContainerView leadingAnchor];
     leadingAnchor2 = [(SBModalWidgetIntroductionBackgroundDescriptionView *)v11 leadingAnchor];
-    v70 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v83[0] = v70;
+    v72 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v85[0] = v72;
     trailingAnchor = [(UIView *)v11->_labelContainerView trailingAnchor];
     trailingAnchor2 = [(SBModalWidgetIntroductionBackgroundDescriptionView *)v11 trailingAnchor];
     v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v83[1] = v21;
+    v85[1] = v21;
     topAnchor = [(UIView *)v11->_labelContainerView topAnchor];
     topAnchor2 = [(SBModalWidgetIntroductionBackgroundDescriptionView *)v11 topAnchor];
     v24 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:10.0];
-    v83[2] = v24;
+    v85[2] = v24;
     bottomAnchor = [(UIView *)v11->_labelContainerView bottomAnchor];
     bottomAnchor2 = [(SBModalWidgetIntroductionBackgroundDescriptionView *)v11 bottomAnchor];
     v27 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v83[3] = v27;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:4];
-    [v64 activateConstraints:v28];
+    v85[3] = v27;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:4];
+    [v66 activateConstraints:v28];
 
     v29 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     titleLabel = v11->_titleLabel;
     v11->_titleLabel = v29;
 
     v31 = v11->_titleLabel;
-    v32 = SBHBundle();
-    v33 = [v32 localizedStringForKey:@"MODAL_WIDGET_DISCOVERABILITY_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    [(UILabel *)v31 setText:v33];
+    v33 = SBHBundle(v32);
+    v34 = [v33 localizedStringForKey:@"MODAL_WIDGET_DISCOVERABILITY_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    [(UILabel *)v31 setText:v34];
 
-    v34 = v11->_titleLabel;
-    v35 = [MEMORY[0x1E69DB878] systemFontOfSize:30.0 weight:*MEMORY[0x1E69DB968]];
-    [(UILabel *)v34 setFont:v35];
+    v35 = v11->_titleLabel;
+    v36 = [MEMORY[0x1E69DB878] systemFontOfSize:30.0 weight:*MEMORY[0x1E69DB968]];
+    [(UILabel *)v35 setFont:v36];
 
-    v36 = v11->_titleLabel;
+    v37 = v11->_titleLabel;
     labelColor = [MEMORY[0x1E69DC888] labelColor];
-    [(UILabel *)v36 setTextColor:labelColor];
+    [(UILabel *)v37 setTextColor:labelColor];
 
     [(UILabel *)v11->_titleLabel setAdjustsFontSizeToFitWidth:1];
     [(UILabel *)v11->_titleLabel setMinimumScaleFactor:0.6];
@@ -87,40 +87,40 @@
     [(UILabel *)v11->_titleLabel setTextAlignment:1];
     [(UILabel *)v11->_titleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIView *)v11->_labelContainerView addSubview:v11->_titleLabel];
-    v68 = MEMORY[0x1E696ACD8];
+    v70 = MEMORY[0x1E696ACD8];
     centerXAnchor = [(UILabel *)v11->_titleLabel centerXAnchor];
     centerXAnchor2 = [(UIView *)v11->_labelContainerView centerXAnchor];
-    v71 = [centerXAnchor constraintGreaterThanOrEqualToAnchor:centerXAnchor2];
-    v82[0] = v71;
+    v73 = [centerXAnchor constraintGreaterThanOrEqualToAnchor:centerXAnchor2];
+    v84[0] = v73;
     topAnchor3 = [(UILabel *)v11->_titleLabel topAnchor];
     topAnchor4 = [(UIView *)v11->_labelContainerView topAnchor];
-    v39 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:100.0];
-    v82[1] = v39;
+    v40 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:100.0];
+    v84[1] = v40;
     widthAnchor = [(UILabel *)v11->_titleLabel widthAnchor];
-    v41 = [widthAnchor constraintEqualToConstant:200.0];
-    v82[2] = v41;
+    v42 = [widthAnchor constraintEqualToConstant:200.0];
+    v84[2] = v42;
     heightAnchor = [(UILabel *)v11->_titleLabel heightAnchor];
-    v43 = [heightAnchor constraintEqualToConstant:50.0];
-    v82[3] = v43;
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:4];
-    [v68 activateConstraints:v44];
+    v44 = [heightAnchor constraintEqualToConstant:50.0];
+    v84[3] = v44;
+    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:4];
+    [v70 activateConstraints:v45];
 
-    v45 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+    v46 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     introductionTextLabel = v11->_introductionTextLabel;
-    v11->_introductionTextLabel = v45;
+    v11->_introductionTextLabel = v46;
 
-    v47 = v11->_introductionTextLabel;
-    v48 = SBHBundle();
-    v49 = [v48 localizedStringForKey:@"MODAL_WIDGET_DISCOVERABILITY_DESCRIPTION" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    [(UILabel *)v47 setText:v49];
-
-    v50 = v11->_introductionTextLabel;
-    v51 = [MEMORY[0x1E69DB878] systemFontOfSize:15.0 weight:*MEMORY[0x1E69DB978]];
-    [(UILabel *)v50 setFont:v51];
+    v48 = v11->_introductionTextLabel;
+    v50 = SBHBundle(v49);
+    v51 = [v50 localizedStringForKey:@"MODAL_WIDGET_DISCOVERABILITY_DESCRIPTION" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    [(UILabel *)v48 setText:v51];
 
     v52 = v11->_introductionTextLabel;
+    v53 = [MEMORY[0x1E69DB878] systemFontOfSize:15.0 weight:*MEMORY[0x1E69DB978]];
+    [(UILabel *)v52 setFont:v53];
+
+    v54 = v11->_introductionTextLabel;
     labelColor2 = [MEMORY[0x1E69DC888] labelColor];
-    [(UILabel *)v52 setTextColor:labelColor2];
+    [(UILabel *)v54 setTextColor:labelColor2];
 
     [(UILabel *)v11->_introductionTextLabel setAdjustsFontSizeToFitWidth:1];
     [(UILabel *)v11->_introductionTextLabel setMinimumScaleFactor:0.6];
@@ -128,26 +128,26 @@
     [(UILabel *)v11->_introductionTextLabel setTextAlignment:1];
     [(UILabel *)v11->_introductionTextLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIView *)v11->_labelContainerView addSubview:v11->_introductionTextLabel];
-    v69 = MEMORY[0x1E696ACD8];
+    v71 = MEMORY[0x1E696ACD8];
     leadingAnchor3 = [(UILabel *)v11->_introductionTextLabel leadingAnchor];
     leadingAnchor4 = [(UIView *)v11->_labelContainerView leadingAnchor];
-    v72 = [leadingAnchor3 constraintGreaterThanOrEqualToAnchor:leadingAnchor4 constant:30.0];
-    v81[0] = v72;
+    v74 = [leadingAnchor3 constraintGreaterThanOrEqualToAnchor:leadingAnchor4 constant:30.0];
+    v83[0] = v74;
     trailingAnchor3 = [(UILabel *)v11->_introductionTextLabel trailingAnchor];
     trailingAnchor4 = [(UIView *)v11->_labelContainerView trailingAnchor];
-    v56 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:trailingAnchor4 constant:-30.0];
-    v81[1] = v56;
+    v58 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:trailingAnchor4 constant:-30.0];
+    v83[1] = v58;
     topAnchor5 = [(UILabel *)v11->_introductionTextLabel topAnchor];
     bottomAnchor3 = [(UILabel *)v11->_titleLabel bottomAnchor];
-    v59 = [topAnchor5 constraintEqualToAnchor:bottomAnchor3 constant:15.0];
-    v81[2] = v59;
+    v61 = [topAnchor5 constraintEqualToAnchor:bottomAnchor3 constant:15.0];
+    v83[2] = v61;
     heightAnchor2 = [(UILabel *)v11->_introductionTextLabel heightAnchor];
-    v61 = [heightAnchor2 constraintEqualToConstant:60.0];
-    v81[3] = v61;
-    v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:4];
-    [v69 activateConstraints:v62];
+    v63 = [heightAnchor2 constraintEqualToConstant:60.0];
+    v83[3] = v63;
+    v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:4];
+    [v71 activateConstraints:v64];
 
-    ownerCopy = v79;
+    ownerCopy = v81;
   }
 
   return v11;

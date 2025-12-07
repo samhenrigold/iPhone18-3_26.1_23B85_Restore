@@ -772,16 +772,16 @@ LABEL_11:
   return v2;
 }
 
-void __40__TIKeyboardCandidateResultSet_dummySet__block_invoke()
+void __40__TIKeyboardCandidateResultSet_dummySet__block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DFB0] null];
-  v5[0] = v1;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = [v0 setWithCandidates:v2 proactiveTriggers:0];
-  v4 = dummySet___dummySet;
-  dummySet___dummySet = v3;
+  v6[1] = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = [MEMORY[0x1E695DFB0] null];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
+  v4 = [v1 setWithCandidates:v3 proactiveTriggers:0];
+  v5 = dummySet___dummySet;
+  dummySet___dummySet = v4;
 }
 
 + (TIKeyboardCandidateResultSet)setWithCandidates:(id)candidates initialSelectedIndex:(unint64_t)index defaultCandidate:(id)candidate sortMethods:(id)methods sortMethodGroups:(id)groups indexTitles:(id)titles showExtensionCandidates:(id)extensionCandidates disambiguationCandidates:(id)self0 selectedDisambiguationCandidateIndex:(unint64_t)self1 proactiveTriggers:(id)self2

@@ -228,15 +228,15 @@ LABEL_11:
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [self path];
-  v9 = 0;
-  v4 = [defaultManager attributesOfItemAtPath:path error:&v9];
-  v5 = v9;
+  v11 = 0;
+  v4 = [defaultManager attributesOfItemAtPath:path error:&v11];
+  v5 = v11;
   fileSize = [v4 fileSize];
 
   if (v5)
   {
-    v7 = LPLogChannelFilesystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = LPLogChannelFilesystem(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(NSURL(LPInternal) *)v5 _lp_fileSize];
     }

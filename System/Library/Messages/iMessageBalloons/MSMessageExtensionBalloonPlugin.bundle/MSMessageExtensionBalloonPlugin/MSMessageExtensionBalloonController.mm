@@ -17,6 +17,7 @@
 - (void)performHostAppResume;
 - (void)performHostAppSuspend;
 - (void)pluginContentViewDidAppear;
+- (void)pluginContentViewDidDissapear;
 - (void)pluginContentViewWillDisappear;
 @end
 
@@ -371,6 +372,13 @@ LABEL_7:
 
   extensionLiveViewControllerIfExists2 = [(MSMessageExtensionBalloonController *)self extensionLiveViewControllerIfExists];
   [extensionLiveViewControllerIfExists2 tearDownRemoteView];
+}
+
+- (void)pluginContentViewDidDissapear
+{
+  balloonView = self->_balloonView;
+  self->_balloonView = 0;
+  _objc_release_x1(self, balloonView);
 }
 
 - (void)didFinishAnimatedBoundsChange

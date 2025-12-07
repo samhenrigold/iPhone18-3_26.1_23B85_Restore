@@ -10,9 +10,8 @@
 {
   v4 = sub_2759BA298();
   v5 = (self + OBJC_IVAR____TtC14iCloudSettings19ManageStorageAction_actionURL);
-  v6 = *(self + OBJC_IVAR____TtC14iCloudSettings19ManageStorageAction_actionURL + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (_TtC14iCloudSettings6Action)homeAction

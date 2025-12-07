@@ -9,6 +9,7 @@
 - (void)localAdServicesEnabled:(id)enabled;
 - (void)reconcileDataForRecord:(id)record;
 - (void)sendPersonalizedAdsAndReconcileDataForRecord:(id)record;
+- (void)setPersonalizedAds:(BOOL)ads withCompletionHandler:(id)handler;
 - (void)shouldAppStoreDisplayAdvertisingScreen:(id)screen;
 - (void)shouldDisplayPersonalizedAdsUI:(id)i;
 @end
@@ -34,7 +35,6 @@
 
 uint64_t __38__ADAppTrackingService_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_2 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -151,6 +151,64 @@ void __47__ADAppTrackingService_reconcileDataForRecord___block_invoke_3(uint64_t
   if (a2)
   {
     v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"There was an error reconciling. Error: %@. Please file a radar.", a2];
+    _ADLog();
+  }
+}
+
+- (void)setPersonalizedAds:(BOOL)ads withCompletionHandler:(id)handler
+{
+  adsCopy = ads;
+  handlerCopy = handler;
+  if (handlerCopy)
+  {
+    mEMORY[0x277CE9638] = [MEMORY[0x277CE9638] sharedInstance];
+    isPersonalizedAdsEnabled = [mEMORY[0x277CE9638] isPersonalizedAdsEnabled];
+    [mEMORY[0x277CE9638] setIsPersonalizedAdsEnabled:adsCopy];
+    mEMORY[0x277CE9658] = [MEMORY[0x277CE9658] sharedInstance];
+    activeDSIDRecord = [mEMORY[0x277CE9658] activeDSIDRecord];
+    if (![activeDSIDRecord personalizedAdsTimestamp])
+    {
+      date = [MEMORY[0x277CBEAA8] date];
+      [activeDSIDRecord setPersonalizedAdsTimestamp:{objc_msgSend(date, "AD_toServerTime")}];
+    }
+
+    if (isPersonalizedAdsEnabled != adsCopy)
+    {
+      [mEMORY[0x277CE9658] incrementMonthlyResetCount];
+      if (isPersonalizedAdsEnabled)
+      {
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Personalized Ads has been toggled. Device is going from OPTED IN to OPTED OUT."];
+        _ADLog();
+
+        [(ADAppTrackingService *)self sendPersonalizedAdsAndReconcileDataForRecord:activeDSIDRecord];
+        [MEMORY[0x277D42CE0] removeAll];
+      }
+
+      else
+      {
+        v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Personalized Ads has been toggled. Device is going from OPTED OUT to OPTED IN."];
+        _ADLog();
+
+        [(ADAppTrackingService *)self reconcileDataForRecord:activeDSIDRecord];
+      }
+
+      v13 = objc_alloc(MEMORY[0x277CBEBD0]);
+      v14 = [v13 initWithSuiteName:*MEMORY[0x277CE95C8]];
+      uUID = [MEMORY[0x277CCAD78] UUID];
+      uUIDString = [uUID UUIDString];
+
+      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Setting UUID - %@ for session management state", objc_opt_class(), uUIDString];
+      _ADLog();
+
+      [v14 setObject:uUIDString forKey:@"PersonalizedAdsStateUUID"];
+    }
+
+    handlerCopy[2](handlerCopy, 1);
+  }
+
+  else
+  {
+    mEMORY[0x277CE9638] = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] ERROR: completion block not passed in", objc_opt_class()];
     _ADLog();
   }
 }

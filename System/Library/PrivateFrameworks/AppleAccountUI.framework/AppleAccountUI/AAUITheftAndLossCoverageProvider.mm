@@ -27,30 +27,31 @@ void __125__AAUITheftAndLossCoverageProvider_createTnLDisclaimerViewControllerWi
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __125__AAUITheftAndLossCoverageProvider_createTnLDisclaimerViewControllerWithConfirmActionHandler_cancelActionHandler_completion___block_invoke_cold_1(v6, v7);
+      __125__AAUITheftAndLossCoverageProvider_createTnLDisclaimerViewControllerWithConfirmActionHandler_cancelActionHandler_completion___block_invoke_cold_1(v7, v8);
     }
   }
 
   else
   {
-    v8 = _AAUILogSystem();
-    v7 = v8;
+    v9 = _AAUILogSystem(0);
+    v8 = v9;
     if (v5)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        __125__AAUITheftAndLossCoverageProvider_createTnLDisclaimerViewControllerWithConfirmActionHandler_cancelActionHandler_completion___block_invoke_cold_2(v7);
+        __125__AAUITheftAndLossCoverageProvider_createTnLDisclaimerViewControllerWithConfirmActionHandler_cancelActionHandler_completion___block_invoke_cold_2(v8);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __125__AAUITheftAndLossCoverageProvider_createTnLDisclaimerViewControllerWithConfirmActionHandler_cancelActionHandler_completion___block_invoke_cold_3(v7);
+      __125__AAUITheftAndLossCoverageProvider_createTnLDisclaimerViewControllerWithConfirmActionHandler_cancelActionHandler_completion___block_invoke_cold_3(v8);
     }
   }
 

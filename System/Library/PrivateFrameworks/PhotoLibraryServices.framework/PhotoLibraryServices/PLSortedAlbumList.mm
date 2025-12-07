@@ -374,7 +374,7 @@ uint64_t __72__PLSortedAlbumList_preheatAlbumsAtIndexes_forProperties_relationsh
 {
   backingAlbumList = [(PLSortedAlbumList *)self backingAlbumList];
   albums = [backingAlbumList albums];
-  v4 = [albums count];
+  v4 = objc_msgSend_count(albums);
 
   return v4;
 }

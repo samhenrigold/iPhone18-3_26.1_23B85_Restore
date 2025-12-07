@@ -55,7 +55,7 @@ LABEL_9:
 
 - (BOOL)handleItems:(id)items
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v5 = objc_alloc_init(MEMORY[0x277D070E8]);
   persistence = [(MFMailMessageLibrary *)self->_library persistence];
@@ -75,33 +75,33 @@ LABEL_9:
   currentMonitor = [MEMORY[0x277D281F0] currentMonitor];
   if ([currentMonitor gotNewMessagesState])
   {
-    v27 = hookRegistry;
+    v26 = hookRegistry;
     v12 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-259200.0];
     [v12 timeIntervalSince1970];
     v14 = v13;
 
     gotNewMessagesState = [currentMonitor gotNewMessagesState];
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v16 = v8;
-    v28 = v5;
-    v29 = itemsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v27 = v5;
+    v28 = itemsCopy;
+    v17 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v17)
     {
-      v18 = *v31;
+      v18 = *v30;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v31 != v18)
+          if (*v30 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v30 + 1) + 8 * i);
+          v20 = *(*(&v29 + 1) + 8 * i);
           messageFlags = [v20 messageFlags];
           if ((messageFlags & 1) == 0)
           {
@@ -132,7 +132,7 @@ LABEL_9:
           }
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v17)
         {
           continue;
@@ -144,16 +144,15 @@ LABEL_9:
 
 LABEL_21:
 
-    v5 = v28;
-    itemsCopy = v29;
-    hookRegistry = v27;
+    v5 = v27;
+    itemsCopy = v28;
+    hookRegistry = v26;
     [currentMonitor setGotNewMessagesState:gotNewMessagesState];
   }
 
   v24 = [itemsCopy count];
   LOBYTE(v24) = v24 == [v8 count];
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

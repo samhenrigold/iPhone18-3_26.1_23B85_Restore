@@ -78,35 +78,36 @@
   v3 = [NSURL fileURLWithPath:@"/private/var/mobile/Library/Caches/com.apple.Maps/"];
   if (([v2 fileExistsAtPath:@"/private/var/mobile/Library/Caches/com.apple.Maps/"] & 1) == 0)
   {
-    v12 = 0;
-    v4 = [v2 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v12];
-    v5 = v12;
+    v14 = 0;
+    v4 = [v2 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v14];
+    v5 = v14;
+    v6 = v5;
     if (v4)
     {
       byte_10004AC48 = 0;
-      v6 = sub_10000D398();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = sub_10000D398(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v14 = @"/private/var/mobile/Library/Caches/com.apple.Maps/";
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Created global caches directory at path %{public}@", buf, 0xCu);
+        v16 = @"/private/var/mobile/Library/Caches/com.apple.Maps/";
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Created global caches directory at path %{public}@", buf, 0xCu);
       }
 
-      v11 = v5;
-      v7 = [v3 setResourceValue:&__kCFBooleanTrue forKey:NSURLIsPurgeableKey error:&v11];
-      v8 = v11;
+      v13 = v6;
+      v8 = [v3 setResourceValue:&__kCFBooleanTrue forKey:NSURLIsPurgeableKey error:&v13];
+      v9 = v13;
 
-      if (v7)
+      if (v8)
       {
         goto LABEL_13;
       }
 
-      v9 = sub_10000D398();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = sub_10000D398(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v14 = v8;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "Failed to set Purgeable resource value on caches directory: %{public}@", buf, 0xCu);
+        v16 = v9;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "Failed to set Purgeable resource value on caches directory: %{public}@", buf, 0xCu);
       }
     }
 
@@ -120,21 +121,21 @@ LABEL_14:
       }
 
       byte_10004AC48 = 1;
-      v9 = sub_10000D398();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = sub_10000D398(v5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543618;
-        v14 = @"/private/var/mobile/Library/Caches/com.apple.Maps/";
-        v15 = 2114;
-        v16 = v5;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "Failed to create global caches directory at path '%{public}@': %{public}@", buf, 0x16u);
+        v16 = @"/private/var/mobile/Library/Caches/com.apple.Maps/";
+        v17 = 2114;
+        v18 = v6;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "Failed to create global caches directory at path '%{public}@': %{public}@", buf, 0x16u);
       }
 
-      v8 = v5;
+      v9 = v6;
     }
 
 LABEL_13:
-    v5 = v8;
+    v6 = v9;
     goto LABEL_14;
   }
 

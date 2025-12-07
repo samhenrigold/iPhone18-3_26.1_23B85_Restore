@@ -95,26 +95,24 @@ void __65__CSSystemDaemonStateMonitor__notifyObserversSystemDaemonCrashed__block
 
 - (void)_stopMonitoring
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSSystemDaemonStateMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s stop monitoring : corespeechd_system crash / recover event", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSSystemDaemonStateMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s stop monitoring : corespeechd_system crash / recover event", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[CSSystemDaemonStateMonitor _startMonitoringWithQueue:]";
+    v8 = "[CSSystemDaemonStateMonitor _startMonitoringWithQueue:]";
     _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : corespeechd_system crash / recover event", buf, 0xCu);
   }
 
@@ -125,7 +123,6 @@ void __65__CSSystemDaemonStateMonitor__notifyObserversSystemDaemonCrashed__block
   handler[3] = &unk_1E865C9F0;
   handler[4] = self;
   notify_register_dispatch("com.apple.corespeech.corespeechd_system.launch", &self->_notifyToken, queue, handler);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (CSSystemDaemonStateMonitor)init
@@ -148,17 +145,16 @@ void __65__CSSystemDaemonStateMonitor__notifyObserversSystemDaemonCrashed__block
 
 + (void)systemDaemonNotifyDidLaunch
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "+[CSSystemDaemonStateMonitor systemDaemonNotifyDidLaunch]";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Notifying SystemDaemon launched", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "+[CSSystemDaemonStateMonitor systemDaemonNotifyDidLaunch]";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Notifying SystemDaemon launched", &v3, 0xCu);
   }
 
   notify_post("com.apple.corespeech.corespeechd_system.launch");
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedInstance
@@ -175,9 +171,11 @@ void __65__CSSystemDaemonStateMonitor__notifyObserversSystemDaemonCrashed__block
 
 uint64_t __44__CSSystemDaemonStateMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_6572 = objc_alloc_init(CSSystemDaemonStateMonitor);
+  v0 = objc_alloc_init(CSSystemDaemonStateMonitor);
+  v1 = sharedInstance_sharedInstance_6572;
+  sharedInstance_sharedInstance_6572 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

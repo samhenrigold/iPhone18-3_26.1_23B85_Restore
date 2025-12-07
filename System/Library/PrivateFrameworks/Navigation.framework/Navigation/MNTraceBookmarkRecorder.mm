@@ -121,17 +121,16 @@ LABEL_22:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __85__MNTraceBookmarkRecorder_recordBookmarkAtTime_withScreenshotData_completionHandler___block_invoke_10(void *a1)
+uint64_t __85__MNTraceBookmarkRecorder_recordBookmarkAtTime_withScreenshotData_completionHandler___block_invoke_10(uint64_t a1)
 {
-  [*(a1[4] + 8) setBookmarks:0];
-  [*(a1[4] + 8) setBookmarkImages:0];
-  result = a1[5];
+  [*(*(a1 + 32) + 8) setBookmarks:0];
+  [*(*(a1 + 32) + 8) setBookmarkImages:0];
+  result = *(a1 + 40);
   if (result)
   {
-    v3 = a1[6];
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;

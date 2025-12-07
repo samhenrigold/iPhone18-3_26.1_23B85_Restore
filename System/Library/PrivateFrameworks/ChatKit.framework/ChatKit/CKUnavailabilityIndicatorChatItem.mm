@@ -103,35 +103,35 @@
   _displayNameWithAbbreviation = [handle _displayNameWithAbbreviation];
 
   v13 = MEMORY[0x1E696AEC0];
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"UNAVAILABILITY_INDICATOR_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
-  v16 = [v13 stringWithFormat:v15, _displayNameWithAbbreviation];
+  v15 = CKFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:@"UNAVAILABILITY_INDICATOR_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
+  v17 = [v13 stringWithFormat:v16, _displayNameWithAbbreviation];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v19 = @"\u200F";
+    v20 = @"\u200F";
   }
 
   else
   {
-    v19 = @"\u200E";
+    v20 = @"\u200E";
   }
 
-  v20 = [(__CFString *)v19 stringByAppendingString:v16];
+  v21 = [(__CFString *)v20 stringByAppendingString:v17];
 
-  v21 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v20 attributes:0];
-  [v21 replaceCharactersInRange:0 withString:{0, @" "}];
-  v22 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-  [v22 setImage:v9];
-  v23 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v22];
-  [v21 insertAttributedString:v23 atIndex:0];
+  v22 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v21 attributes:0];
+  [v22 replaceCharactersInRange:0 withString:{0, @" "}];
+  v23 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+  [v23 setImage:v9];
+  v24 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v23];
+  [v22 insertAttributedString:v24 atIndex:0];
 
-  [v21 addAttributes:transcriptAvailabilityDeemphasizedFontAttributes range:{0, objc_msgSend(v21, "length")}];
+  [v22 addAttributes:transcriptAvailabilityDeemphasizedFontAttributes range:{0, objc_msgSend(v22, "length")}];
 
-  return v21;
+  return v22;
 }
 
 - (UIEdgeInsets)contentInsets

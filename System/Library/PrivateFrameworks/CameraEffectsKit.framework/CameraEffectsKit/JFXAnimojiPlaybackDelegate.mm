@@ -169,7 +169,7 @@ uint64_t __50__JFXAnimojiPlaybackDelegate_loadWithUserContext___block_invoke(uin
   memset(&v38, 0, sizeof(v38));
   *&v39.start.value = *&time->var0;
   v39.start.epoch = time->var3;
-  [(JFXAnimojiPlaybackDelegate *)self jfx_mediaTimeFromPlaybackTime:&v39];
+  objc_msgSend_jfx_mediaTimeFromPlaybackTime_(self);
   v10 = contextCopy;
   memset(&v39, 0, 24);
   v11 = [(JFXAnimojiPlaybackDelegate *)self JFX_cachedAnimojiImageForMediaTime:&v39 forAnimojiRenderingAttributes:v10];
@@ -217,7 +217,7 @@ uint64_t __50__JFXAnimojiPlaybackDelegate_loadWithUserContext___block_invoke(uin
   arFrame = [arMetadata arFrame];
   if (!arFrame || (v19 = arFrame, v20 = [v17 hasTrackedFace], v19, (v20 & 1) == 0))
   {
-    [v15 timeRange];
+    objc_msgSend_timeRange(v15);
 LABEL_13:
     v25 = [JFXAnimojiPlaybackPreprocessedData alloc];
     start = *time;
@@ -231,7 +231,7 @@ LABEL_13:
   arFrame2 = [v17 arFrame];
   animojiPhysicsBlendShapes = [v17 animojiPhysicsBlendShapes];
   v24 = [JFXAnimojiPlaybackPreprocessedData alloc];
-  [v15 timeRange];
+  objc_msgSend_timeRange(v15);
   *&v35.start.value = *&time->var0;
   v35.start.epoch = time->var3;
   v13 = [(JFXAnimojiPlaybackPreprocessedData *)v24 initForRenderTime:&v35 usingDataFromMediaTimeRange:&v39 arFrame:arFrame2 avDepthData:v21 animojiBlendShapes:animojiPhysicsBlendShapes];
@@ -250,7 +250,7 @@ LABEL_15:
   v69 = 0;
   *time = *time;
   compositeContextCopy = compositeContext;
-  [(JFXAnimojiPlaybackDelegate *)self jfx_mediaTimeFromPlaybackTime:time];
+  objc_msgSend_jfx_mediaTimeFromPlaybackTime_(self);
   preprocessData = [compositeContextCopy preprocessData];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -343,7 +343,7 @@ LABEL_15:
         v36 = [JFXCachedAnimojiImage alloc];
         if (preprocessData2)
         {
-          [preprocessData2 mediaTimeRangeForData];
+          objc_msgSend_mediaTimeRangeForData(preprocessData2);
         }
 
         else
@@ -448,7 +448,7 @@ LABEL_15:
       v38 = [JFXCachedAnimojiImage alloc];
       if (preprocessData2)
       {
-        [preprocessData2 mediaTimeRangeForData];
+        objc_msgSend_mediaTimeRangeForData(preprocessData2);
       }
 
       else
@@ -827,7 +827,7 @@ void __95__JFXAnimojiPlaybackDelegate_JFX_cachedAnimojiImageForMediaTime_forAnim
   v3 = v2;
   if (v2)
   {
-    [v2 mediaTimeRange];
+    objc_msgSend_mediaTimeRange(v2);
   }
 
   else
@@ -884,8 +884,8 @@ void __95__JFXAnimojiPlaybackDelegate_JFX_cachedAnimojiImageForMediaTime_forAnim
   self->_isScrubbing = 1;
   v3 = +[JFXMediaSettings timeScale];
   playableElement = [(JFXAnimojiPlaybackDelegate *)self playableElement];
-  CMTimeFromFrameTime([playableElement presentationTime], v3, &v19.start);
-  self->_playbackElementPlaybackPresentationOffset = v19.start;
+  CMTimeFromFrameTime([playableElement presentationTime], v3, &v20.start);
+  self->_playbackElementPlaybackPresentationOffset = v20.start;
 
   playableElement2 = [(JFXAnimojiPlaybackDelegate *)self playableElement];
   isStill = [playableElement2 isStill];
@@ -894,11 +894,11 @@ void __95__JFXAnimojiPlaybackDelegate_JFX_cachedAnimojiImageForMediaTime_forAnim
   {
     CMTimeMake(&duration, 1, +[JFXMediaSettings frameRate]);
     start = **&MEMORY[0x277CC08F0];
-    CMTimeRangeMake(&v19, &start, &duration);
-    v7 = *&v19.start.epoch;
-    *&self->_playbackElementPlaybackMediaRange.start.value = *&v19.start.value;
+    CMTimeRangeMake(&v20, &start, &duration);
+    v7 = *&v20.start.epoch;
+    *&self->_playbackElementPlaybackMediaRange.start.value = *&v20.start.value;
     *&self->_playbackElementPlaybackMediaRange.start.epoch = v7;
-    *&self->_playbackElementPlaybackMediaRange.duration.timescale = *&v19.duration.timescale;
+    *&self->_playbackElementPlaybackMediaRange.duration.timescale = *&v20.duration.timescale;
   }
 
   else
@@ -906,22 +906,23 @@ void __95__JFXAnimojiPlaybackDelegate_JFX_cachedAnimojiImageForMediaTime_forAnim
     playableElement3 = [(JFXAnimojiPlaybackDelegate *)self playableElement];
     CMTimeFromFrameTime([playableElement3 mediaStartOffset], v3, &duration);
     playableElement4 = [(JFXAnimojiPlaybackDelegate *)self playableElement];
-    CMTimeFromFrameTime([playableElement4 duration], v3, &start);
-    CMTimeRangeMake(&v19, &duration, &start);
-    v10 = *&v19.start.epoch;
-    *&self->_playbackElementPlaybackMediaRange.start.value = *&v19.start.value;
-    *&self->_playbackElementPlaybackMediaRange.start.epoch = v10;
-    *&self->_playbackElementPlaybackMediaRange.duration.timescale = *&v19.duration.timescale;
+    v10 = objc_msgSend_duration(playableElement4);
+    CMTimeFromFrameTime(v10, v3, &start);
+    CMTimeRangeMake(&v20, &duration, &start);
+    v11 = *&v20.start.epoch;
+    *&self->_playbackElementPlaybackMediaRange.start.value = *&v20.start.value;
+    *&self->_playbackElementPlaybackMediaRange.start.epoch = v11;
+    *&self->_playbackElementPlaybackMediaRange.duration.timescale = *&v20.duration.timescale;
   }
 
-  v11 = MEMORY[0x277CCACA8];
-  v12 = objc_opt_class();
-  v13 = NSStringFromClass(v12);
-  v14 = [v11 stringWithFormat:@"com.apple.%@.mediaDataReaderQueue", v13];
+  v12 = MEMORY[0x277CCACA8];
+  v13 = objc_opt_class();
+  v14 = NSStringFromClass(v13);
+  v15 = [v12 stringWithFormat:@"com.apple.%@.mediaDataReaderQueue", v14];
 
-  v15 = dispatch_queue_create([v14 UTF8String], 0);
+  v16 = dispatch_queue_create([v15 UTF8String], 0);
   mediaDataReaderUpdateQueue = self->_mediaDataReaderUpdateQueue;
-  self->_mediaDataReaderUpdateQueue = v15;
+  self->_mediaDataReaderUpdateQueue = v16;
 }
 
 - (void)JFX_loadMediaDataReaders
@@ -955,7 +956,7 @@ void __95__JFXAnimojiPlaybackDelegate_JFX_cachedAnimojiImageForMediaTime_forAnim
     if (v11)
     {
       [v11 setIsScrubbing:{-[JFXAnimojiPlaybackDelegate isScrubbing](self, "isScrubbing")}];
-      [(JFXAnimojiPlaybackDelegate *)self playbackElementPlaybackMediaRange];
+      objc_msgSend_playbackElementPlaybackMediaRange(self);
       [v11 beginReadingAtTimeRange:v13];
       objc_storeStrong(&self->_depthReader, v11);
     }
@@ -989,7 +990,7 @@ void __95__JFXAnimojiPlaybackDelegate_JFX_cachedAnimojiImageForMediaTime_forAnim
     if (sharedARMetadataReader)
     {
       [sharedARMetadataReader setIsScrubbing:{-[JFXAnimojiPlaybackDelegate isScrubbing](self, "isScrubbing")}];
-      [(JFXAnimojiPlaybackDelegate *)self playbackElementPlaybackMediaRange];
+      objc_msgSend_playbackElementPlaybackMediaRange(self);
       [sharedARMetadataReader beginReadingAtTimeRange:&v8];
       objc_storeStrong(&self->_arMetadataReader, sharedARMetadataReader);
     }
@@ -1138,10 +1139,10 @@ uint64_t __56__JFXAnimojiPlaybackDelegate_JFX_unloadMediaDataReaders__block_invo
   else
   {
     memset(&v14, 0, sizeof(v14));
-    [(JFXAnimojiPlaybackDelegate *)self playbackElementPlaybackPresentationOffset];
+    objc_msgSend_playbackElementPlaybackPresentationOffset(self);
     lhs = *a4;
     CMTimeSubtract(&v14, &lhs, &rhs);
-    [(JFXAnimojiPlaybackDelegate *)self playbackElementPlaybackMediaRange];
+    objc_msgSend_playbackElementPlaybackMediaRange(self);
     rhs = v11;
     lhs = v14;
     return CMTimeAdd(retstr, &lhs, &rhs);

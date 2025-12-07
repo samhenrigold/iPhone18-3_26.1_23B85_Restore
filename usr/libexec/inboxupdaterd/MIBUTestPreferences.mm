@@ -690,16 +690,16 @@
       sub_100058650();
     }
 
-    v4 = qword_1000B84A0;
+    v5 = qword_1000B84A0;
     if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
     {
-      sub_100058664(v4);
+      sub_100058664(v5, self);
     }
   }
 
-  v5 = CFPreferencesCopyValue(keyCopy, @"com.apple.MobileInBoxUpdater.test", kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
+  v6 = CFPreferencesCopyValue(keyCopy, @"com.apple.MobileInBoxUpdater.test", kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
 
-  return v5;
+  return v6;
 }
 
 @end

@@ -110,7 +110,6 @@
 {
   numberCopy = number;
   os_unfair_lock_lock_with_options();
-  v6 = *(&self->_connectionIdleTime + 1);
   if (HMFEqualObjects())
   {
     os_unfair_lock_unlock(&self->super._lock);
@@ -124,19 +123,19 @@
     delegateQueue = [(HAPAccessoryServer *)self delegateQueue];
     if (delegateQueue)
     {
-      v9 = delegateQueue;
-      v10 = objc_opt_respondsToSelector();
+      v8 = delegateQueue;
+      v9 = objc_opt_respondsToSelector();
 
-      if (v10)
+      if (v9)
       {
         delegateQueue2 = [(HAPAccessoryServer *)self delegateQueue];
-        v12[0] = _NSConcreteStackBlock;
-        v12[1] = 3221225472;
-        v12[2] = sub_10007D4F0;
-        v12[3] = &unk_100273370;
-        v13 = delegate;
+        v11[0] = _NSConcreteStackBlock;
+        v11[1] = 3221225472;
+        v11[2] = sub_10007D4F0;
+        v11[3] = &unk_100273370;
+        v12 = delegate;
         selfCopy = self;
-        dispatch_async(delegateQueue2, v12);
+        dispatch_async(delegateQueue2, v11);
       }
     }
   }
@@ -200,7 +199,7 @@
 
   *(&self->_hapBLEProtocolVersion + 4) = d;
   selfCopy = self;
-  v9 = sub_10007FAA0();
+  v9 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = sub_10007FAFC(selfCopy);
@@ -222,7 +221,7 @@
   if ((v15 & 1) == 0)
   {
     v17 = selfCopy;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(v17);
@@ -256,7 +255,7 @@
     if (v32)
     {
       selfCopy = self;
-      v16 = sub_10007FAA0();
+      v16 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         v17 = sub_10007FAFC(selfCopy);
@@ -283,7 +282,7 @@
       if (v33 == 1 && [(HAPAccessoryServerBTLE *)self hapBLEProtocolVersion]!= 1)
       {
         selfCopy2 = self;
-        v24 = sub_10007FAA0();
+        v24 = sub_10007FAA0(selfCopy2);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           v25 = sub_10007FAFC(selfCopy2);
@@ -299,7 +298,7 @@
     else
     {
       selfCopy3 = self;
-      v27 = sub_10007FAA0();
+      v27 = sub_10007FAA0(selfCopy3);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = sub_10007FAFC(selfCopy3);

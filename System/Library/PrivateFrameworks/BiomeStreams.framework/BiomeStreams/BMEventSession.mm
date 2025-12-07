@@ -37,38 +37,36 @@ BOOL __24__BMEventSession_events__block_invoke(uint64_t a1, void *a2)
 
 + (id)sessionPublisherWithStreamPublisher:(id)publisher startingBlock:(id)block endingBlock:(id)endingBlock sessionKeyBlock:(id)keyBlock options:(unint64_t)options
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   endingBlockCopy = endingBlock;
   keyBlockCopy = keyBlock;
   publisherCopy = publisher;
   v15 = objc_opt_new();
-  v29[0] = v15;
-  v29[1] = MEMORY[0x1E695E0F0];
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __104__BMEventSession_sessionPublisherWithStreamPublisher_startingBlock_endingBlock_sessionKeyBlock_options___block_invoke;
-  v24[3] = &unk_1E6E54230;
-  v25 = keyBlockCopy;
-  v26 = blockCopy;
-  v27 = endingBlockCopy;
+  v28[0] = v15;
+  v28[1] = MEMORY[0x1E695E0F0];
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __104__BMEventSession_sessionPublisherWithStreamPublisher_startingBlock_endingBlock_sessionKeyBlock_options___block_invoke;
+  v23[3] = &unk_1E6E54230;
+  v24 = keyBlockCopy;
+  v25 = blockCopy;
+  v26 = endingBlockCopy;
   optionsCopy = options;
   v17 = endingBlockCopy;
   v18 = blockCopy;
   v19 = keyBlockCopy;
-  v20 = [publisherCopy scanWithInitial:v16 nextPartialResult:v24];
+  v20 = [publisherCopy scanWithInitial:v16 nextPartialResult:v23];
 
   v21 = [v20 flatMapWithTransform:&__block_literal_global_11];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 id __104__BMEventSession_sessionPublisherWithStreamPublisher_startingBlock_endingBlock_sessionKeyBlock_options___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [a2 objectAtIndexedSubscript:0];
   v7 = [MEMORY[0x1E695DFB0] null];
@@ -102,11 +100,11 @@ id __104__BMEventSession_sessionPublisherWithStreamPublisher_startingBlock_endin
           goto LABEL_17;
         }
 
-        v26 = [BMEventSession alloc];
-        v37 = v5;
-        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
-        v28 = [v27 mutableCopy];
-        v18 = [(BMEventSession *)v26 initWithKey:v7 events:v28];
+        v25 = [BMEventSession alloc];
+        v36 = v5;
+        v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+        v27 = [v26 mutableCopy];
+        v18 = [(BMEventSession *)v25 initWithKey:v7 events:v27];
 
         if (!v18)
         {
@@ -125,9 +123,9 @@ id __104__BMEventSession_sessionPublisherWithStreamPublisher_startingBlock_endin
       }
 
       v15 = [BMEventSession alloc];
-      v36 = v5;
+      v35 = v5;
       v16 = MEMORY[0x1E695DEC8];
-      v17 = &v36;
+      v17 = &v35;
       goto LABEL_16;
     }
 
@@ -137,9 +135,9 @@ id __104__BMEventSession_sessionPublisherWithStreamPublisher_startingBlock_endin
   if (!v12)
   {
     v15 = [BMEventSession alloc];
-    v38 = v5;
+    v37 = v5;
     v16 = MEMORY[0x1E695DEC8];
-    v17 = &v38;
+    v17 = &v37;
     goto LABEL_16;
   }
 
@@ -151,9 +149,9 @@ id __104__BMEventSession_sessionPublisherWithStreamPublisher_startingBlock_endin
       if ((v14 & 4) == 0)
       {
         v15 = [BMEventSession alloc];
-        v39 = v5;
+        v38 = v5;
         v16 = MEMORY[0x1E695DEC8];
-        v17 = &v39;
+        v17 = &v38;
 LABEL_16:
         v21 = [v16 arrayWithObjects:v17 count:1];
         v22 = [v21 mutableCopy];
@@ -164,19 +162,19 @@ LABEL_16:
       }
 
       v18 = v12;
-      v29 = [BMEventSession alloc];
-      v40[0] = v5;
-      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
-      v31 = [v30 mutableCopy];
-      v32 = [(BMEventSession *)v29 initWithKey:v7 events:v31];
-      [v6 setObject:v32 forKeyedSubscript:v7];
+      v28 = [BMEventSession alloc];
+      v39[0] = v5;
+      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+      v30 = [v29 mutableCopy];
+      v31 = [(BMEventSession *)v28 initWithKey:v7 events:v30];
+      [v6 setObject:v31 forKeyedSubscript:v7];
 
 LABEL_12:
-      v34 = v18;
-      v35[0] = v6;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
-      v35[1] = v19;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+      v33 = v18;
+      v34[0] = v6;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+      v34[1] = v19;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
 
       goto LABEL_18;
     }
@@ -186,13 +184,11 @@ LABEL_14:
   }
 
 LABEL_17:
-  v33[0] = v6;
-  v33[1] = MEMORY[0x1E695E0F0];
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+  v32[0] = v6;
+  v32[1] = MEMORY[0x1E695E0F0];
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
   v18 = 0;
 LABEL_18:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

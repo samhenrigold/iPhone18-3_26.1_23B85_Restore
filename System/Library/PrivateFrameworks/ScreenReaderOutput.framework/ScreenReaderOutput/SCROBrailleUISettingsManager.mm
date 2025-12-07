@@ -47,8 +47,8 @@ uint64_t __46__SCROBrailleUISettingsManager_sharedInstance__block_invoke()
 - (BOOL)isSpringBoardLocked
 {
   v5 = 0;
-  server = [(objc_class *)getAXSpringBoardServerClass() server];
-  v3 = [server isScreenLockedWithPasscode:&v5];
+  v2 = [getAXSpringBoardServerClass(self a2)];
+  v3 = [v2 isScreenLockedWithPasscode:&v5];
 
   return v3 & v5;
 }
@@ -57,121 +57,119 @@ uint64_t __46__SCROBrailleUISettingsManager_sharedInstance__block_invoke()
 {
   v22 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIMainMenuItems = [sharedInstance voiceOverTouchBrailleUIMainMenuItems];
+  v16 = [getAXSettingsClass(v2 v3)];
+  voiceOverTouchBrailleUIMainMenuItems = [v16 voiceOverTouchBrailleUIMainMenuItems];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v4 = [voiceOverTouchBrailleUIMainMenuItems countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v4)
+  v5 = [voiceOverTouchBrailleUIMainMenuItems countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v18;
+    v6 = v5;
+    v7 = *v18;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v6)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(voiceOverTouchBrailleUIMainMenuItems);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
-        v9 = [v8 objectForKeyedSubscript:@"enabled"];
-        bOOLValue = [v9 BOOLValue];
+        v9 = *(*(&v17 + 1) + 8 * i);
+        v10 = [v9 objectForKeyedSubscript:@"enabled"];
+        bOOLValue = [v10 BOOLValue];
 
         if (bOOLValue)
         {
-          v11 = [v8 objectForKeyedSubscript:@"ID"];
-          v12 = v11;
-          if (v11 && ([v11 integerValue] - 1) <= 6)
+          v12 = [v9 objectForKeyedSubscript:@"ID"];
+          v13 = v12;
+          if (v12 && ([v12 integerValue] - 1) <= 6)
           {
-            v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
-            [v2 addObject:v13];
+            v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+            [v2 addObject:v14];
           }
         }
       }
 
-      v5 = [voiceOverTouchBrailleUIMainMenuItems countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [voiceOverTouchBrailleUIMainMenuItems countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (BOOL)shouldReopenViewsWhenRestart
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIShouldReopenViewsWhenRestart = [sharedInstance voiceOverTouchBrailleUIShouldReopenViewsWhenRestart];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUIShouldReopenViewsWhenRestart = [v2 voiceOverTouchBrailleUIShouldReopenViewsWhenRestart];
 
   return voiceOverTouchBrailleUIShouldReopenViewsWhenRestart;
 }
 
 - (BOOL)isReadListItemsEnabled
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIReadListItemsEnabled = [sharedInstance voiceOverTouchBrailleUIReadListItemsEnabled];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUIReadListItemsEnabled = [v2 voiceOverTouchBrailleUIReadListItemsEnabled];
 
   return voiceOverTouchBrailleUIReadListItemsEnabled;
 }
 
 - (BOOL)showsBackButton
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIShowsBackButton = [sharedInstance voiceOverTouchBrailleUIShowsBackButton];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUIShowsBackButton = [v2 voiceOverTouchBrailleUIShowsBackButton];
 
   return voiceOverTouchBrailleUIShowsBackButton;
 }
 
 - (BOOL)isTypingSpeechFeedbackEnabled
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUITypingSpeechFeedbackEnabled = [sharedInstance voiceOverTouchBrailleUITypingSpeechFeedbackEnabled];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUITypingSpeechFeedbackEnabled = [v2 voiceOverTouchBrailleUITypingSpeechFeedbackEnabled];
 
   return voiceOverTouchBrailleUITypingSpeechFeedbackEnabled;
 }
 
 - (BOOL)isVisualsEnabled
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIVisualsEnabled = [sharedInstance voiceOverTouchBrailleUIVisualsEnabled];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUIVisualsEnabled = [v2 voiceOverTouchBrailleUIVisualsEnabled];
 
   return voiceOverTouchBrailleUIVisualsEnabled;
 }
 
 - (unint64_t)brailleNotesSortType
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIBrailleNotesSortType = [sharedInstance voiceOverTouchBrailleUIBrailleNotesSortType];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUIBrailleNotesSortType = [v2 voiceOverTouchBrailleUIBrailleNotesSortType];
 
   return voiceOverTouchBrailleUIBrailleNotesSortType != 0;
 }
 
 - (unint64_t)brailleNotesSortDirection
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIBrailleNotesSortDirection = [sharedInstance voiceOverTouchBrailleUIBrailleNotesSortDirection];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUIBrailleNotesSortDirection = [v2 voiceOverTouchBrailleUIBrailleNotesSortDirection];
 
   return voiceOverTouchBrailleUIBrailleNotesSortDirection != 0;
 }
 
 - (BOOL)calculatorUsesUEBMath
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUICalculatorUsesUEBMath = [sharedInstance voiceOverTouchBrailleUICalculatorUsesUEBMath];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUICalculatorUsesUEBMath = [v2 voiceOverTouchBrailleUICalculatorUsesUEBMath];
 
   return voiceOverTouchBrailleUICalculatorUsesUEBMath;
 }
 
 - (unint64_t)liveCaptionsSource
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUILiveCaptionsSource = [sharedInstance voiceOverTouchBrailleUILiveCaptionsSource];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUILiveCaptionsSource = [v2 voiceOverTouchBrailleUILiveCaptionsSource];
 
   return voiceOverTouchBrailleUILiveCaptionsSource != 0;
 }
@@ -179,8 +177,8 @@ uint64_t __46__SCROBrailleUISettingsManager_sharedInstance__block_invoke()
 - (void)setLiveCaptionsSource:(unint64_t)source
 {
   v3 = source != 0;
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  [sharedInstance setVoiceOverTouchBrailleUILiveCaptionsSource:v3];
+  v4 = [getAXSettingsClass(self a2)];
+  [v4 setVoiceOverTouchBrailleUILiveCaptionsSource:v3];
 }
 
 - (id)liveSpeechVoiceIDForKeyboardID:(id)d
@@ -217,40 +215,40 @@ uint64_t __46__SCROBrailleUISettingsManager_sharedInstance__block_invoke()
 
 - (BOOL)isBRFReflowEnabled
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIIsBRFReflowEnabled = [sharedInstance voiceOverTouchBrailleUIIsBRFReflowEnabled];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUIIsBRFReflowEnabled = [v2 voiceOverTouchBrailleUIIsBRFReflowEnabled];
 
   return voiceOverTouchBrailleUIIsBRFReflowEnabled;
 }
 
 - (BOOL)isBRFStripPageIndicatorsEnabled
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUIIsBRFStripPageIndicatorsEnabled = [sharedInstance voiceOverTouchBrailleUIIsBRFStripPageIndicatorsEnabled];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUIIsBRFStripPageIndicatorsEnabled = [v2 voiceOverTouchBrailleUIIsBRFStripPageIndicatorsEnabled];
 
   return voiceOverTouchBrailleUIIsBRFStripPageIndicatorsEnabled;
 }
 
 - (int64_t)zoomOutNumCellsPerElement
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleZoomOutNumCellsPerElement = [sharedInstance voiceOverTouchBrailleZoomOutNumCellsPerElement];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleZoomOutNumCellsPerElement = [v2 voiceOverTouchBrailleZoomOutNumCellsPerElement];
 
   return voiceOverTouchBrailleZoomOutNumCellsPerElement;
 }
 
 - (BOOL)himsUsesDot7ForCommands
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleHIMSUsesDot7ForCommand = [sharedInstance voiceOverTouchBrailleHIMSUsesDot7ForCommand];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleHIMSUsesDot7ForCommand = [v2 voiceOverTouchBrailleHIMSUsesDot7ForCommand];
 
   return voiceOverTouchBrailleHIMSUsesDot7ForCommand;
 }
 
 - (BOOL)usesUnderlineCursor
 {
-  sharedInstance = [(objc_class *)getAXSettingsClass() sharedInstance];
-  voiceOverTouchBrailleUsesUnderlineCursor = [sharedInstance voiceOverTouchBrailleUsesUnderlineCursor];
+  v2 = [getAXSettingsClass(self a2)];
+  voiceOverTouchBrailleUsesUnderlineCursor = [v2 voiceOverTouchBrailleUsesUnderlineCursor];
 
   return voiceOverTouchBrailleUsesUnderlineCursor;
 }

@@ -88,11 +88,11 @@
 
 - (id)referentForEntry:(id)entry error:(id *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
-  v21 = @"COLLECTION_ID";
+  v21[1] = *MEMORY[0x1E69E9840];
+  v20 = @"COLLECTION_ID";
   v6 = objc_msgSend_collectionID(entry, a2, entry);
-  v22[0] = v6;
-  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v22, &v21, 1);
+  v21[0] = v6;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v21, &v20, 1);
 
   v10 = objc_msgSend_entriesWithValues_label_setupBlock_(self, v9, v8, off_1EA910E48, &unk_1EFA30090);
   objc_msgSend_setValueTransformBlock_(v10, v11, &unk_1EFA300B0);
@@ -109,8 +109,6 @@
 
     v13 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -182,25 +180,23 @@
 
 - (id)referenceWasDeleted:(id)deleted
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v4 = objc_msgSend_entryWithPrimaryKey_fetchProperties_label_error_(self, a2, deleted, &unk_1EFA85D70, off_1ED4B5EE8, &v16);
-  v7 = v16;
+  v17[1] = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v4 = objc_msgSend_entryWithPrimaryKey_fetchProperties_label_error_(self, a2, deleted, &unk_1EFA85D70, off_1ED4B5EE8, &v15);
+  v7 = v15;
   if (v4)
   {
-    v17 = @"COLLECTIONID";
+    v16 = @"COLLECTIONID";
     v8 = objc_msgSend_collectionID(v4, v5, v6);
-    v18[0] = v8;
-    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v9, v18, &v17, 1);
+    v17[0] = v8;
+    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v9, v17, &v16, 1);
 
-    v15 = v7;
-    objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v11, v10, off_1ED4B5F00, &v15, &unk_1EFA300F0);
-    v12 = v15;
+    v14 = v7;
+    objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v11, v10, off_1ED4B5F00, &v14, &unk_1EFA300F0);
+    v12 = v14;
 
     v7 = v12;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

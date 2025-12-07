@@ -17,7 +17,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000AA3F8();
+  sub_1000AA3F8(selfCopy);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event

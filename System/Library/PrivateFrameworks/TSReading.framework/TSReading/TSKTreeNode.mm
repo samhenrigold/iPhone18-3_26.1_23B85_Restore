@@ -435,7 +435,7 @@ LABEL_3:
   [(NSMutableArray *)mChildren enumerateObjectsUsingBlock:v4];
 }
 
-uint64_t __45__TSKTreeNode_enumerateAllChildrenWithBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__45__TSKTreeNode_enumerateAllChildrenWithBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   if ((*(*(a1 + 32) + 16))(*(a1 + 32), [a2 dataObject]))
   {

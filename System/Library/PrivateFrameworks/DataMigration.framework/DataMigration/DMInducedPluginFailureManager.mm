@@ -69,7 +69,7 @@
     v12 = v11 != 0;
     if (v11)
     {
-      v19 = [v10 objectAtIndexedSubscript:0];
+      v24 = [v10 objectAtIndexedSubscript:0];
       v13 = [v10 mutableCopy];
       [v13 removeObjectAtIndex:0];
       v14 = [inducedPluginFailures mutableCopy];
@@ -92,31 +92,31 @@
 
     else
     {
-      v19 = 0;
+      v24 = 0;
     }
 
     objc_sync_exit(v7);
     if (v11)
     {
-      unsignedIntegerValue = [v19 unsignedIntegerValue];
+      unsignedIntegerValue = [v24 unsignedIntegerValue];
       if (unsignedIntegerValue)
       {
         if (unsignedIntegerValue == 1)
         {
-          _DMLogFunc(v4, 6, @"Inducing failure (hang) for plugin %@");
+          _DMLogFunc(v4, 6, @"Inducing failure (hang) for plugin %@", v18, v19, v20, v21, v22, identifierCopy);
           [(DMInducedPluginFailureManager *)self _hang];
         }
 
         else if (unsignedIntegerValue == 2)
         {
-          _DMLogFunc(v4, 6, @"Inducing failure (crash) for plugin %@");
+          _DMLogFunc(v4, 6, @"Inducing failure (crash) for plugin %@", v18, v19, v20, v21, v22, identifierCopy);
           [(DMInducedPluginFailureManager *)self _crash];
         }
       }
 
       else
       {
-        _DMLogFunc(v4, 6, @"Inducing failure for plugin %@");
+        _DMLogFunc(v4, 6, @"Inducing failure for plugin %@", v18, v19, v20, v21, v22, identifierCopy);
       }
     }
   }

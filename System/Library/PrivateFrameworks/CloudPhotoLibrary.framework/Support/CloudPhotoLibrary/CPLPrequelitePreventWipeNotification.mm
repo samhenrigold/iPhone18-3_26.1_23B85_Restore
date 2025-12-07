@@ -1,6 +1,7 @@
 @interface CPLPrequelitePreventWipeNotification
 + (void)resetNotificationForLibraryIdentifier:(id)identifier;
 - (BOOL)_warnUserAndReturnIfShouldPreventWipeOnUpgradeCreateRadar:(BOOL)radar;
+- (BOOL)shouldPreventWipeOnUpgradeCreateRadar:(BOOL)radar;
 - (CPLPrequelitePreventWipeNotification)initWithLibraryIdentifier:(id)identifier reason:(id)reason;
 - (id)createRadarURL;
 - (void)_save;
@@ -24,9 +25,9 @@
 {
   identifierCopy = identifier;
   reasonCopy = reason;
-  v22.receiver = self;
-  v22.super_class = CPLPrequelitePreventWipeNotification;
-  v8 = [(CPLPrequelitePreventWipeNotification *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = CPLPrequelitePreventWipeNotification;
+  v8 = [(CPLPrequelitePreventWipeNotification *)&v21 init];
   if (v8)
   {
     v9 = [identifierCopy copy];
@@ -49,11 +50,10 @@
       ignoreBeforeDate = v8->_ignoreBeforeDate;
       v8->_ignoreBeforeDate = v17;
 
-      v19 = v8->_ignoreBeforeDate;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v20 = v8->_ignoreBeforeDate;
+        v19 = v8->_ignoreBeforeDate;
         v8->_ignoreBeforeDate = 0;
       }
     }
@@ -82,14 +82,37 @@
   }
 }
 
+- (BOOL)shouldPreventWipeOnUpgradeCreateRadar:(BOOL)radar
+{
+  if (!self->_libraryIdentifier)
+  {
+    return 0;
+  }
+
+  radarCopy = radar;
+  ignoreBeforeDate = [(CPLPrequelitePreventWipeNotification *)self ignoreBeforeDate];
+  if (ignoreBeforeDate)
+  {
+    v6 = ignoreBeforeDate;
+    ignoreBeforeDate2 = [(CPLPrequelitePreventWipeNotification *)self ignoreBeforeDate];
+    [ignoreBeforeDate2 timeIntervalSinceNow];
+    v9 = v8;
+
+    if (v9 >= 0.0)
+    {
+      return 1;
+    }
+  }
+
+  return [(CPLPrequelitePreventWipeNotification *)self _warnUserAndReturnIfShouldPreventWipeOnUpgradeCreateRadar:radarCopy];
+}
+
 - (BOOL)_warnUserAndReturnIfShouldPreventWipeOnUpgradeCreateRadar:(BOOL)radar
 {
   radarCopy = radar;
   if (self->_reason)
   {
-    v5 = [NSString alloc];
-    reason = self->_reason;
-    v6 = [v5 initWithFormat:@"%@."];
+    v5 = [[NSString alloc] initWithFormat:@"%@.", self->_reason];
     if (radarCopy)
     {
       goto LABEL_4;
@@ -98,79 +121,81 @@
     goto LABEL_3;
   }
 
-  v6 = @"iCloud Photo Library is about to wipe its whole sync state.";
+  v5 = @"iCloud Photo Library is about to wipe its whole sync state.";
   if (!radar)
   {
 LABEL_3:
-    v7 = [(__CFString *)v6 stringByAppendingString:@"\nThis will trigger a potential lengthy reset sync but should not lose any data."];
+    v6 = [(__CFString *)v5 stringByAppendingString:@"\nThis will trigger a potential lengthy reset sync but should not lose any data."];
 
-    v6 = v7;
+    v5 = v6;
   }
 
 LABEL_4:
-  v50[0] = kCFUserNotificationAlertHeaderKey;
-  v50[1] = kCFUserNotificationAlertMessageKey;
-  v51[0] = @"iCloud Photo Library";
-  v51[1] = v6;
-  v50[2] = kCFUserNotificationAlertTopMostKey;
-  v51[2] = &__kCFBooleanTrue;
-  v8 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:3];
-  v9 = [v8 mutableCopy];
+  v48[0] = kCFUserNotificationAlertHeaderKey;
+  v48[1] = kCFUserNotificationAlertMessageKey;
+  v49[0] = @"iCloud Photo Library";
+  v49[1] = v5;
+  v48[2] = kCFUserNotificationAlertTopMostKey;
+  v49[2] = &__kCFBooleanTrue;
+  v7 = [NSDictionary dictionaryWithObjects:v49 forKeys:v48 count:3];
+  v8 = [v7 mutableCopy];
 
   if (radarCopy)
   {
-    v48[0] = kCFUserNotificationDefaultButtonTitleKey;
-    v48[1] = kCFUserNotificationAlternateButtonTitleKey;
-    v49[0] = @"Create Radar";
-    v49[1] = @"OK";
-    v48[2] = kCFUserNotificationOtherButtonTitleKey;
-    v49[2] = @"Not Now";
-    v10 = v49;
-    v11 = v48;
+    v46[0] = kCFUserNotificationDefaultButtonTitleKey;
+    v46[1] = kCFUserNotificationAlternateButtonTitleKey;
+    v47[0] = @"Create Radar";
+    v47[1] = @"OK";
+    v46[2] = kCFUserNotificationOtherButtonTitleKey;
+    v47[2] = @"Not Now";
+    v9 = v47;
+    v10 = v46;
   }
 
   else
   {
-    v46[0] = kCFUserNotificationDefaultButtonTitleKey;
-    v46[1] = kCFUserNotificationAlternateButtonTitleKey;
-    v47[0] = @"Not now";
-    v47[1] = @"Wipe Local Sync State";
-    v46[2] = kCFUserNotificationOtherButtonTitleKey;
-    v47[2] = @"Ignore for 1 hour";
-    v10 = v47;
-    v11 = v46;
+    v44[0] = kCFUserNotificationDefaultButtonTitleKey;
+    v44[1] = kCFUserNotificationAlternateButtonTitleKey;
+    v45[0] = @"Not now";
+    v45[1] = @"Wipe Local Sync State";
+    v44[2] = kCFUserNotificationOtherButtonTitleKey;
+    v45[2] = @"Ignore for 1 hour";
+    v9 = v45;
+    v10 = v44;
   }
 
-  v12 = [NSDictionary dictionaryWithObjects:v10 forKeys:v11 count:3];
-  [v9 addEntriesFromDictionary:v12];
+  v11 = [NSDictionary dictionaryWithObjects:v9 forKeys:v10 count:3];
+  [v8 addEntriesFromDictionary:v11];
 
-  HIDWORD(v42) = 0;
-  v13 = CFUserNotificationCreate(0, 60.0, 3uLL, &v42 + 1, v9);
-  if (v13)
+  HIDWORD(v41) = 0;
+  v12 = CFUserNotificationCreate(0, 60.0, 3uLL, &v41 + 1, v8);
+  if (v12)
   {
-    v14 = v13;
+    v13 = v12;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v45 = HIDWORD(v6);
-        sub_100169D5C(&_mh_execute_header, v16, v17, "Waiting for response to message: %@", v18, v19, v20, v21, reason, v40, responseFlags, v42, 2u);
+        *buf = 138412290;
+        v43[0] = v5;
+        sub_100169D5C(&_mh_execute_header, v15, v16, "Waiting for response to message: %@", v17, v18, v19, v20, v38, v39, responseFlags, v41);
       }
     }
 
     responseFlags = 0;
-    CFUserNotificationReceiveResponse(v14, 60.0, &responseFlags);
-    CFRelease(v14);
-    v22 = responseFlags & 3;
+    CFUserNotificationReceiveResponse(v13, 60.0, &responseFlags);
+    CFRelease(v13);
+    v21 = responseFlags & 3;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v23 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v22 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = [NSNumber numberWithUnsignedLong:v22];
-        v45 = HIDWORD(v24);
-        sub_100169D5C(&_mh_execute_header, v25, v26, "Button pressed is %@", v27, v28, v29, v30, reason, v40, responseFlags, v42, 2u);
+        v23 = [NSNumber numberWithUnsignedLong:v21];
+        *buf = 138412290;
+        v43[0] = v23;
+        sub_100169D5C(&_mh_execute_header, v24, v25, "Button pressed is %@", v26, v27, v28, v29, v38, v39, responseFlags, v41);
       }
     }
 
@@ -179,54 +204,54 @@ LABEL_4:
 
     if (radarCopy)
     {
-      if (v22 != 2)
+      if (v21 != 2)
       {
-        if (v22 != 1)
+        if (v21 != 1)
         {
           createRadarURL = [(CPLPrequelitePreventWipeNotification *)self createRadarURL];
-          v33 = +[LSApplicationWorkspace defaultWorkspace];
-          [v33 openURL:createRadarURL configuration:0 completionHandler:0];
+          v32 = +[LSApplicationWorkspace defaultWorkspace];
+          [v32 openURL:createRadarURL configuration:0 completionHandler:0];
         }
 
         goto LABEL_29;
       }
     }
 
-    else if (v22 == 2)
+    else if (v21 == 2)
     {
-      v36 = [NSDate dateWithTimeIntervalSinceNow:3600.0];
-      v37 = self->_ignoreBeforeDate;
-      self->_ignoreBeforeDate = v36;
+      v35 = [NSDate dateWithTimeIntervalSinceNow:3600.0];
+      v36 = self->_ignoreBeforeDate;
+      self->_ignoreBeforeDate = v35;
     }
 
-    else if (v22 == 1)
+    else if (v21 == 1)
     {
 LABEL_29:
-      v35 = 0;
+      v34 = 0;
 LABEL_32:
       [(CPLPrequelitePreventWipeNotification *)self _save];
       goto LABEL_33;
     }
 
-    v35 = 1;
+    v34 = 1;
     goto LABEL_32;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v34 = __CPLGenericOSLogDomain();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v33 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v44 = HIDWORD(v42);
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Could not create user notification to prevent wiping database: %d", buf, 8u);
+      LODWORD(v43[0]) = HIDWORD(v41);
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Could not create user notification to prevent wiping database: %d", buf, 8u);
     }
   }
 
-  v35 = 0;
+  v34 = 0;
 LABEL_33:
 
-  return v35;
+  return v34;
 }
 
 - (id)createRadarURL

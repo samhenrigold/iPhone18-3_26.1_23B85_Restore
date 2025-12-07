@@ -119,163 +119,39 @@ LABEL_10:
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_34;
-  }
-
-  supportsSubtasks = [(REMAccountCapabilities *)self supportsSubtasks];
-  if (supportsSubtasks != [equalCopy supportsSubtasks])
-  {
-    goto LABEL_34;
-  }
-
-  supportsAttachments = [(REMAccountCapabilities *)self supportsAttachments];
-  if (supportsAttachments != [equalCopy supportsAttachments])
-  {
-    goto LABEL_34;
-  }
-
-  supportsListAppearance = [(REMAccountCapabilities *)self supportsListAppearance];
-  if (supportsListAppearance != [equalCopy supportsListAppearance])
-  {
-    goto LABEL_34;
-  }
-
-  supportsCloudKitSync = [(REMAccountCapabilities *)self supportsCloudKitSync];
-  if (supportsCloudKitSync != [equalCopy supportsCloudKitSync])
-  {
-    goto LABEL_34;
-  }
-
-  supportsEventKitSync = [(REMAccountCapabilities *)self supportsEventKitSync];
-  if (supportsEventKitSync != [equalCopy supportsEventKitSync])
-  {
-    goto LABEL_34;
-  }
-
-  supportsGroups = [(REMAccountCapabilities *)self supportsGroups];
-  if (supportsGroups != [equalCopy supportsGroups])
-  {
-    goto LABEL_34;
-  }
-
-  supportsFlagged = [(REMAccountCapabilities *)self supportsFlagged];
-  if (supportsFlagged != [equalCopy supportsFlagged])
-  {
-    goto LABEL_34;
-  }
-
-  supportsLocation = [(REMAccountCapabilities *)self supportsLocation];
-  if (supportsLocation != [equalCopy supportsLocation])
-  {
-    goto LABEL_34;
-  }
-
-  supportsPersonTrigger = [(REMAccountCapabilities *)self supportsPersonTrigger];
-  if (supportsPersonTrigger != [equalCopy supportsPersonTrigger])
-  {
-    goto LABEL_34;
-  }
-
-  supportsCalDAVNotifications = [(REMAccountCapabilities *)self supportsCalDAVNotifications];
-  if (supportsCalDAVNotifications != [equalCopy supportsCalDAVNotifications])
-  {
-    goto LABEL_34;
-  }
-
-  supportsListSharees = [(REMAccountCapabilities *)self supportsListSharees];
-  if (supportsListSharees != [equalCopy supportsListSharees])
-  {
-    goto LABEL_34;
-  }
-
-  supportsListShareesMutation = [(REMAccountCapabilities *)self supportsListShareesMutation];
-  if (supportsListShareesMutation != [equalCopy supportsListShareesMutation])
-  {
-    goto LABEL_34;
-  }
-
-  supportsMoveAcrossLists = [(REMAccountCapabilities *)self supportsMoveAcrossLists];
-  if (supportsMoveAcrossLists != [equalCopy supportsMoveAcrossLists])
-  {
-    goto LABEL_34;
-  }
-
-  supportsMoveAcrossSharedLists = [(REMAccountCapabilities *)self supportsMoveAcrossSharedLists];
-  if (supportsMoveAcrossSharedLists != [equalCopy supportsMoveAcrossSharedLists])
-  {
-    goto LABEL_34;
-  }
-
-  supportsCRDTs = [(REMAccountCapabilities *)self supportsCRDTs];
-  if (supportsCRDTs != [equalCopy supportsCRDTs])
-  {
-    goto LABEL_34;
-  }
-
-  defaultReminderPriorityLevel = [(REMAccountCapabilities *)self defaultReminderPriorityLevel];
-  if (defaultReminderPriorityLevel != [equalCopy defaultReminderPriorityLevel])
-  {
-    goto LABEL_34;
-  }
-
-  supportsHandoff = [(REMAccountCapabilities *)self supportsHandoff];
-  if (supportsHandoff != [equalCopy supportsHandoff])
-  {
-    goto LABEL_34;
-  }
-
-  supportsReminderActions = [(REMAccountCapabilities *)self supportsReminderActions];
-  if (supportsReminderActions != [equalCopy supportsReminderActions])
-  {
-    goto LABEL_34;
-  }
-
-  supportsHourlyRecurrence = [(REMAccountCapabilities *)self supportsHourlyRecurrence];
-  if (supportsHourlyRecurrence != [equalCopy supportsHourlyRecurrence])
-  {
-    goto LABEL_34;
-  }
-
-  supportsMultipleDateAlarmsOnRecurrence = [(REMAccountCapabilities *)self supportsMultipleDateAlarmsOnRecurrence];
-  if (supportsMultipleDateAlarmsOnRecurrence != [equalCopy supportsMultipleDateAlarmsOnRecurrence])
-  {
-    goto LABEL_34;
-  }
-
-  supportsAssignments = [(REMAccountCapabilities *)self supportsAssignments];
-  if (supportsAssignments != [equalCopy supportsAssignments])
-  {
-    goto LABEL_34;
-  }
-
-  supportsHashtags = [(REMAccountCapabilities *)self supportsHashtags];
-  if (supportsHashtags != [equalCopy supportsHashtags])
-  {
-    goto LABEL_34;
-  }
-
-  insertsCompletedRecurrentCloneAtTail = [(REMAccountCapabilities *)self insertsCompletedRecurrentCloneAtTail];
-  if (insertsCompletedRecurrentCloneAtTail != [equalCopy insertsCompletedRecurrentCloneAtTail])
-  {
-    goto LABEL_34;
-  }
-
-  supportsCustomSmartLists = [(REMAccountCapabilities *)self supportsCustomSmartLists];
-  if (supportsCustomSmartLists != [equalCopy supportsCustomSmartLists])
-  {
-    goto LABEL_34;
-  }
-
-  supportsGroceriesList = [(REMAccountCapabilities *)self supportsGroceriesList];
-  if (supportsGroceriesList != [equalCopy supportsGroceriesList])
-  {
-    goto LABEL_34;
-  }
-
-  supportsTemplates = [(REMAccountCapabilities *)self supportsTemplates];
-  if (supportsTemplates == [equalCopy supportsTemplates] && (v31 = -[REMAccountCapabilities supportsPinnedLists](self, "supportsPinnedLists"), v31 == objc_msgSend(equalCopy, "supportsPinnedLists")) && (v32 = -[REMAccountCapabilities supportsTextStyling](self, "supportsTextStyling"), v32 == objc_msgSend(equalCopy, "supportsTextStyling")) && (v33 = -[REMAccountCapabilities supportsDeletionByTTL](self, "supportsDeletionByTTL"), v33 == objc_msgSend(equalCopy, "supportsDeletionByTTL")) && (v34 = -[REMAccountCapabilities supportsSections](self, "supportsSections"), v34 == objc_msgSend(equalCopy, "supportsSections")) && (v35 = -[REMAccountCapabilities supportsDueDateDeltaAlerts](self, "supportsDueDateDeltaAlerts"), v35 == objc_msgSend(equalCopy, "supportsDueDateDeltaAlerts")) && (v36 = -[REMAccountCapabilities supportsRecentlyDeletedList](self, "supportsRecentlyDeletedList"), v36 == objc_msgSend(equalCopy, "supportsRecentlyDeletedList")))
+  if ((objc_opt_isKindOfClass() & 1) != 0
+    && (v5 = -[REMAccountCapabilities supportsSubtasks](self, "supportsSubtasks"), v5 == [equalCopy supportsSubtasks])
+    && (v6 = -[REMAccountCapabilities supportsAttachments](self, "supportsAttachments"), v6 == [equalCopy supportsAttachments])
+    && (v7 = -[REMAccountCapabilities supportsListAppearance](self, "supportsListAppearance"), v7 == [equalCopy supportsListAppearance])
+    && (v8 = -[REMAccountCapabilities supportsCloudKitSync](self, "supportsCloudKitSync"), v8 == [equalCopy supportsCloudKitSync])
+    && (v9 = -[REMAccountCapabilities supportsEventKitSync](self, "supportsEventKitSync"), v9 == [equalCopy supportsEventKitSync])
+    && (v10 = -[REMAccountCapabilities supportsGroups](self, "supportsGroups"), v10 == [equalCopy supportsGroups])
+    && (v11 = -[REMAccountCapabilities supportsFlagged](self, "supportsFlagged"), v11 == [equalCopy supportsFlagged])
+    && (v12 = -[REMAccountCapabilities supportsLocation](self, "supportsLocation"), v12 == [equalCopy supportsLocation])
+    && (v13 = -[REMAccountCapabilities supportsPersonTrigger](self, "supportsPersonTrigger"), v13 == [equalCopy supportsPersonTrigger])
+    && (v14 = -[REMAccountCapabilities supportsCalDAVNotifications](self, "supportsCalDAVNotifications"), v14 == [equalCopy supportsCalDAVNotifications])
+    && (v15 = -[REMAccountCapabilities supportsListSharees](self, "supportsListSharees"), v15 == [equalCopy supportsListSharees])
+    && (v16 = -[REMAccountCapabilities supportsListShareesMutation](self, "supportsListShareesMutation"), v16 == [equalCopy supportsListShareesMutation])
+    && (v17 = -[REMAccountCapabilities supportsMoveAcrossLists](self, "supportsMoveAcrossLists"), v17 == [equalCopy supportsMoveAcrossLists])
+    && (v18 = -[REMAccountCapabilities supportsMoveAcrossSharedLists](self, "supportsMoveAcrossSharedLists"), v18 == [equalCopy supportsMoveAcrossSharedLists])
+    && (v19 = -[REMAccountCapabilities supportsCRDTs](self, "supportsCRDTs"), v19 == [equalCopy supportsCRDTs])
+    && (v20 = -[REMAccountCapabilities defaultReminderPriorityLevel](self, "defaultReminderPriorityLevel"), v20 == [equalCopy defaultReminderPriorityLevel])
+    && (v21 = -[REMAccountCapabilities supportsHandoff](self, "supportsHandoff"), v21 == [equalCopy supportsHandoff])
+    && (v22 = -[REMAccountCapabilities supportsReminderActions](self, "supportsReminderActions"), v22 == [equalCopy supportsReminderActions])
+    && (v23 = -[REMAccountCapabilities supportsHourlyRecurrence](self, "supportsHourlyRecurrence"), v23 == [equalCopy supportsHourlyRecurrence])
+    && (v24 = -[REMAccountCapabilities supportsMultipleDateAlarmsOnRecurrence](self, "supportsMultipleDateAlarmsOnRecurrence"), v24 == [equalCopy supportsMultipleDateAlarmsOnRecurrence])
+    && (v25 = -[REMAccountCapabilities supportsAssignments](self, "supportsAssignments"), v25 == [equalCopy supportsAssignments])
+    && (v26 = -[REMAccountCapabilities supportsHashtags](self, "supportsHashtags"), v26 == [equalCopy supportsHashtags])
+    && (v27 = -[REMAccountCapabilities insertsCompletedRecurrentCloneAtTail](self, "insertsCompletedRecurrentCloneAtTail"), v27 == [equalCopy insertsCompletedRecurrentCloneAtTail])
+    && (v28 = -[REMAccountCapabilities supportsCustomSmartLists](self, "supportsCustomSmartLists"), v28 == [equalCopy supportsCustomSmartLists])
+    && (v29 = -[REMAccountCapabilities supportsGroceriesList](self, "supportsGroceriesList"), v29 == [equalCopy supportsGroceriesList])
+    && (v30 = -[REMAccountCapabilities supportsTemplates](self, "supportsTemplates"), v30 == [equalCopy supportsTemplates])
+    && (v31 = -[REMAccountCapabilities supportsPinnedLists](self, "supportsPinnedLists"), v31 == [equalCopy supportsPinnedLists])
+    && (v32 = -[REMAccountCapabilities supportsTextStyling](self, "supportsTextStyling"), v32 == [equalCopy supportsTextStyling])
+    && (v33 = -[REMAccountCapabilities supportsDeletionByTTL](self, "supportsDeletionByTTL"), v33 == [equalCopy supportsDeletionByTTL])
+    && (v34 = -[REMAccountCapabilities supportsSections](self, "supportsSections"), v34 == [equalCopy supportsSections])
+    && (v35 = -[REMAccountCapabilities supportsDueDateDeltaAlerts](self, "supportsDueDateDeltaAlerts"), v35 == [equalCopy supportsDueDateDeltaAlerts])
+    && (v36 = -[REMAccountCapabilities supportsRecentlyDeletedList](self, "supportsRecentlyDeletedList"), v36 == [equalCopy supportsRecentlyDeletedList]))
   {
     supportsUrgentAlert = [(REMAccountCapabilities *)self supportsUrgentAlert];
     v37 = supportsUrgentAlert ^ [equalCopy supportsUrgentAlert] ^ 1;
@@ -283,7 +159,6 @@ LABEL_10:
 
   else
   {
-LABEL_34:
     LOBYTE(v37) = 0;
   }
 

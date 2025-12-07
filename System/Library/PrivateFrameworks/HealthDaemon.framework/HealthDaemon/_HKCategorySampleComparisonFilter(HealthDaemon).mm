@@ -9,7 +9,7 @@
   [self operatorType];
   v2 = HDSQLiteComparisonTypeForPredicateOperator();
   value = [self value];
-  v4 = HDCategorySampleEntityPredicateForValue(v2);
+  v4 = HDCategorySampleEntityPredicateForValue(v2, value);
 
   return v4;
 }

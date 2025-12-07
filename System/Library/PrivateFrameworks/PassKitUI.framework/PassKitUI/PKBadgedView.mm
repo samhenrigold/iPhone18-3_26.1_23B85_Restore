@@ -3,7 +3,7 @@
 - (NSString)text;
 - (PKBadgedView)initWithView:(id)view text:(id)text;
 - (UIEdgeInsets)alignmentRectInsets;
-- (uint64_t)_updateBadgeSize;
+- (id)_updateBadgeSize;
 - (void)layoutSubviews;
 - (void)setText:(id)text;
 - (void)sizeToFit;
@@ -83,7 +83,7 @@
     v15->_badge = v18;
 
     [(PKBadgedView *)v15 addSubview:v15->_badge];
-    [(PKBadgedView *)v15 _updateBadgeSize];
+    [(PKBadgedView *)&v15->super.super.super.isa _updateBadgeSize];
     v36[0] = objc_opt_class();
     v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
     v32 = [(PKBadgedView *)v15 registerForTraitChanges:v31 withHandler:&__block_literal_global_65];
@@ -92,41 +92,45 @@
   return v15;
 }
 
-- (uint64_t)_updateBadgeSize
+- (id)_updateBadgeSize
 {
   if (result)
   {
     v1 = result;
-    [*(result + 408) sizeToFit];
-    [*(v1 + 408) frame];
+    [result[51] sizeToFit];
+    [v1[51] frame];
+    v3 = v2;
+    v5 = v4;
     effectiveUserInterfaceLayoutDirection = [v1 effectiveUserInterfaceLayoutDirection];
-    PKFloatRoundToPixel();
-    v4 = v3;
-    PKFloatRoundToPixel();
+    v7.n128_f64[0] = v3 * 0.5;
+    PKFloatRoundToPixel(v7, v8);
+    v10 = v9;
+    v11.n128_f64[0] = v5 * 0.5;
+    PKFloatRoundToPixel(v11, v12);
     if (effectiveUserInterfaceLayoutDirection == 1)
     {
-      v6 = v4;
+      v14 = v10;
     }
 
     else
     {
-      v6 = 0.0;
+      v14 = 0.0;
     }
 
-    *(v1 + 416) = v5;
-    *(v1 + 424) = v6;
+    v1[52] = v13;
+    *(v1 + 53) = v14;
     if (effectiveUserInterfaceLayoutDirection == 1)
     {
-      v7 = 0.0;
+      v15 = 0.0;
     }
 
     else
     {
-      v7 = v4;
+      v15 = v10;
     }
 
-    *(v1 + 432) = 0;
-    *(v1 + 440) = v7;
+    v1[54] = 0;
+    *(v1 + 55) = v15;
 
     return [v1 setNeedsLayout];
   }
@@ -149,20 +153,42 @@
 
 - (void)layoutSubviews
 {
-  v5.receiver = self;
-  v5.super_class = PKBadgedView;
-  [(PKBadgedView *)&v5 layoutSubviews];
-  [(PKBadgedView *)self effectiveUserInterfaceLayoutDirection];
+  v38.receiver = self;
+  v38.super_class = PKBadgedView;
+  [(PKBadgedView *)&v38 layoutSubviews];
+  v3 = [(PKBadgedView *)self effectiveUserInterfaceLayoutDirection]!= 1;
   [(PKBadgedView *)self bounds];
+  v5 = v4;
+  v7 = v6;
+  v9 = *&v8;
+  v11 = *&v10;
+  top = self->_alignmentInsets.top;
+  left = self->_alignmentInsets.left;
+  v14 = v5 + left;
+  v15 = v7 + top;
+  v16 = v8 - (left + self->_alignmentInsets.right);
+  v17 = v10 - (top + self->_alignmentInsets.bottom);
   view = self->_view;
   [(UIView *)view frame];
   [(UIView *)view alignmentRectForFrame:?];
-  PKSizeAlignedInRect();
+  v20.n128_u64[0] = v19;
+  v22.n128_u64[0] = v21;
+  v23.n128_f64[0] = v14;
+  v24.n128_f64[0] = v15;
+  v25.n128_f64[0] = v16;
+  v26.n128_f64[0] = v17;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v20, v22, v23, v24, v25, v26, v27);
   [(UIView *)view frameForAlignmentRect:?];
   [(UIView *)view setFrame:?];
   badge = self->_badge;
   [(PKButtonBadgeView *)badge frame];
-  PKSizeAlignedInRect();
+  v30.n128_u64[0] = v29;
+  v32.n128_u64[0] = v31;
+  v33.n128_f64[0] = v5;
+  v34.n128_f64[0] = v7;
+  v35.n128_u64[0] = v9;
+  v36.n128_u64[0] = v11;
+  PKSizeAlignedInRect(2 * v3, v30, v32, v33, v34, v35, v36, v37);
   [(PKButtonBadgeView *)badge setFrame:?];
 }
 
@@ -192,7 +218,7 @@
     [(UILabel *)badge->_label setText:badge->_text];
   }
 
-  [(PKBadgedView *)self _updateBadgeSize];
+  [(PKBadgedView *)&self->super.super.super.isa _updateBadgeSize];
 }
 
 - (void)sizeToFit

@@ -5,6 +5,7 @@
 - (void)_updateCountDown:(id)down;
 - (void)didReceiveNotification:(id)notification;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation MTNotificationViewController
@@ -41,6 +42,14 @@
   [v12 bounds];
   [noteView3 systemLayoutSizeFittingSize:{v13, v14}];
   [(MTNotificationViewController *)self setPreferredContentSize:?];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = MTNotificationViewController;
+  [(MTNotificationViewController *)&v4 viewWillDisappear:disappear];
+  [(MTNotificationViewController *)self _teardownDisplayLink];
 }
 
 - (void)didReceiveNotification:(id)notification

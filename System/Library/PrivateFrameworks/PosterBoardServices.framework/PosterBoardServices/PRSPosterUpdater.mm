@@ -10,27 +10,27 @@
 
 + (BOOL)canUpdatesBeAppliedLocally:(id)locally
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   locallyCopy = locally;
-  v4 = [locallyCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [locallyCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(locallyCopy);
         }
 
-        type = [*(*(&v13 + 1) + 8 * i) type];
+        type = [*(*(&v12 + 1) + 8 * i) type];
         if (type > 0x15 || ((1 << type) & 0x3BE001) == 0)
         {
           v10 = 0;
@@ -38,7 +38,7 @@
         }
       }
 
-      v5 = [locallyCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [locallyCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -51,7 +51,6 @@
   v10 = 1;
 LABEL_14:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -97,29 +96,24 @@ LABEL_14:
 
 - (BOOL)applyUpdateLocally:(id)locally error:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (locally)
+  v12 = *MEMORY[0x1E69E9840];
+  if (!locally)
   {
-    locallyCopy = locally;
-    v6 = MEMORY[0x1E695DEC8];
-    locallyCopy2 = locally;
-    v8 = [v6 arrayWithObjects:&locallyCopy count:1];
-
-    v9 = [(PRSPosterUpdater *)self applyUpdatesLocally:v8 error:error, locallyCopy, v13];
+    return 1;
   }
 
-  else
-  {
-    v9 = 1;
-  }
+  locallyCopy = locally;
+  v6 = MEMORY[0x1E695DEC8];
+  locallyCopy2 = locally;
+  v8 = [v6 arrayWithObjects:&locallyCopy count:1];
 
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [(PRSPosterUpdater *)self applyUpdatesLocally:v8 error:error, locallyCopy, v12];
   return v9;
 }
 
 - (BOOL)applyUpdatesLocally:(id)locally error:(id *)error
 {
-  v68[1] = *MEMORY[0x1E69E9840];
+  v67[1] = *MEMORY[0x1E69E9840];
   locallyCopy = locally;
   if ([locallyCopy count])
   {
@@ -135,9 +129,9 @@ LABEL_56:
       }
 
       v25 = MEMORY[0x1E696ABC0];
-      v67 = *MEMORY[0x1E696A588];
-      v68[0] = @"path is no longer valid.";
-      selfCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+      v66 = *MEMORY[0x1E696A588];
+      v67[0] = @"path is no longer valid.";
+      selfCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:&v66 count:1];
       [v25 errorWithDomain:@"com.apple.PosterBoardServices" code:-1 userInfo:selfCopy];
       *error = LOBYTE(v24) = 0;
 LABEL_55:
@@ -159,17 +153,17 @@ LABEL_54:
 
     role = [WeakRetained role];
     errorCopy = error;
-    v45 = instanceURL;
-    v46 = WeakRetained;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
+    v44 = instanceURL;
+    v45 = WeakRetained;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v11 = locallyCopy;
-    v12 = [v11 countByEnumeratingWithState:&v51 objects:v66 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v50 objects:v65 count:16];
     if (v12)
     {
-      v13 = *v52;
+      v13 = *v51;
       v14 = *MEMORY[0x1E69C5220];
       v15 = *MEMORY[0x1E69C5208];
       do
@@ -177,12 +171,12 @@ LABEL_54:
         v16 = 0;
         do
         {
-          if (*v52 != v13)
+          if (*v51 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          type = [*(*(&v51 + 1) + 8 * v16) type];
+          type = [*(*(&v50 + 1) + 8 * v16) type];
           if (type <= 0x15)
           {
             if (((1 << type) & 0x3BE1C6) != 0)
@@ -193,11 +187,11 @@ LABEL_54:
                 if (errorCopy)
                 {
                   v27 = MEMORY[0x1E696ABC0];
-                  v62 = *MEMORY[0x1E696A588];
-                  v63 = @"Lockscreen role is inconsistent with provided updates.";
-                  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-                  instanceURL = v45;
-                  v28 = WeakRetained = v46;
+                  v61 = *MEMORY[0x1E696A588];
+                  v62 = @"Lockscreen role is inconsistent with provided updates.";
+                  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+                  instanceURL = v44;
+                  v28 = WeakRetained = v45;
                   v29 = [v27 errorWithDomain:@"com.apple.PosterBoardServices" code:-1 userInfo:v28];
 LABEL_43:
                   LOBYTE(v24) = 0;
@@ -217,19 +211,19 @@ LABEL_43:
                 if (errorCopy)
                 {
                   v38 = MEMORY[0x1E696ABC0];
-                  v60 = *MEMORY[0x1E696A588];
-                  v61 = @"Ambient role is inconsistent with provided updates.";
-                  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-                  instanceURL = v45;
-                  v28 = WeakRetained = v46;
+                  v59 = *MEMORY[0x1E696A588];
+                  v60 = @"Ambient role is inconsistent with provided updates.";
+                  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+                  instanceURL = v44;
+                  v28 = WeakRetained = v45;
                   v29 = [v38 errorWithDomain:@"com.apple.PosterBoardServices" code:-1 userInfo:v28];
                   goto LABEL_43;
                 }
 
 LABEL_44:
                 LOBYTE(v24) = 0;
-                WeakRetained = v46;
-                instanceURL = v45;
+                WeakRetained = v45;
+                instanceURL = v44;
                 goto LABEL_53;
               }
             }
@@ -240,11 +234,11 @@ LABEL_44:
               if (errorCopy)
               {
                 v30 = MEMORY[0x1E696ABC0];
-                v64 = *MEMORY[0x1E696A588];
-                v65 = @"update type is not valid for PRSPosterUpdater.";
-                [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-                instanceURL = v45;
-                v28 = WeakRetained = v46;
+                v63 = *MEMORY[0x1E696A588];
+                v64 = @"update type is not valid for PRSPosterUpdater.";
+                [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+                instanceURL = v44;
+                v28 = WeakRetained = v45;
                 v29 = [v30 errorWithDomain:@"com.apple.PosterBoardServices" code:-1 userInfo:v28];
                 goto LABEL_43;
               }
@@ -257,18 +251,18 @@ LABEL_44:
         }
 
         while (v12 != v16);
-        v18 = [v11 countByEnumeratingWithState:&v51 objects:v66 count:16];
+        v18 = [v11 countByEnumeratingWithState:&v50 objects:v65 count:16];
         v12 = v18;
       }
 
       while (v18);
     }
 
-    WeakRetained = v46;
-    instanceURL = v45;
-    v50 = 0;
-    v19 = [getPRPosterPathUtilitiesClass() loadConfiguredPropertiesForPath:v46 error:&v50];
-    v20 = v50;
+    WeakRetained = v45;
+    instanceURL = v44;
+    v49 = 0;
+    v19 = [getPRPosterPathUtilitiesClass() loadConfiguredPropertiesForPath:v45 error:&v49];
+    v20 = v49;
     v21 = [v19 mutableCopy];
     v22 = v21;
     if (v21)
@@ -278,24 +272,24 @@ LABEL_44:
 
     else
     {
-      v56 = 0;
-      v57 = &v56;
-      v58 = 0x2050000000;
+      v55 = 0;
+      v56 = &v55;
+      v57 = 0x2050000000;
       v31 = getPRPosterMutableConfiguredPropertiesClass_softClass;
-      v59 = getPRPosterMutableConfiguredPropertiesClass_softClass;
+      v58 = getPRPosterMutableConfiguredPropertiesClass_softClass;
       if (!getPRPosterMutableConfiguredPropertiesClass_softClass)
       {
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = __getPRPosterMutableConfiguredPropertiesClass_block_invoke;
-        v55[3] = &unk_1E818CC28;
-        v55[4] = &v56;
-        __getPRPosterMutableConfiguredPropertiesClass_block_invoke(v55);
-        v31 = v57[3];
+        v54[0] = MEMORY[0x1E69E9820];
+        v54[1] = 3221225472;
+        v54[2] = __getPRPosterMutableConfiguredPropertiesClass_block_invoke;
+        v54[3] = &unk_1E818CC28;
+        v54[4] = &v55;
+        __getPRPosterMutableConfiguredPropertiesClass_block_invoke(v54);
+        v31 = v56[3];
       }
 
       v32 = v31;
-      _Block_object_dispose(&v56, 8);
+      _Block_object_dispose(&v55, 8);
       v23 = [v31 defaultConfiguredPropertiesForRole:role];
     }
 
@@ -318,9 +312,9 @@ LABEL_44:
       goto LABEL_51;
     }
 
-    v49 = 0;
-    v34 = [v28 applyUpdates:v11 error:&v49];
-    v35 = v49;
+    v48 = 0;
+    v34 = [v28 applyUpdates:v11 error:&v48];
+    v35 = v48;
     v36 = v35;
     if (v35)
     {
@@ -343,7 +337,7 @@ LABEL_44:
     {
       PRPosterPathUtilitiesClass = getPRPosterPathUtilitiesClass();
       v40 = [v28 copy];
-      v24 = [PRPosterPathUtilitiesClass storeConfiguredPropertiesForPath:v46 configuredProperties:v40 error:errorCopy];
+      v24 = [PRPosterPathUtilitiesClass storeConfiguredPropertiesForPath:v45 configuredProperties:v40 error:errorCopy];
 
       if (!v24)
       {
@@ -357,10 +351,10 @@ LABEL_53:
         goto LABEL_54;
       }
 
-      v48 = objc_alloc_init(PRSService);
-      identity = [v46 identity];
+      v47 = objc_alloc_init(PRSService);
+      identity = [v45 identity];
       posterUUID = [identity posterUUID];
-      [(PRSService *)v48 notePosterConfigurationUnderlyingModelDidChange:posterUUID];
+      [(PRSService *)v47 notePosterConfigurationUnderlyingModelDidChange:posterUUID];
     }
 
     LOBYTE(v24) = 1;
@@ -370,7 +364,6 @@ LABEL_53:
   LOBYTE(v24) = 1;
 LABEL_57:
 
-  v43 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

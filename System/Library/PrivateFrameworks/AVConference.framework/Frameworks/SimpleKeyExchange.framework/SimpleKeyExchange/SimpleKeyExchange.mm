@@ -88,7 +88,7 @@ void *F(uint64_t (*a1)(uint64_t, uint64_t, char *, uint64_t, char *), uint64_t a
   return result;
 }
 
-void SecKeyExchangeNodeCreateAsInitiator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void SecKeyExchangeNodeCreateAsInitiator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, SKE_Node **a8)
 {
   if (a4 && a5 && a7)
   {
@@ -111,7 +111,7 @@ void sub_23D4D8AD8(void *a1)
   JUMPOUT(0x23D4D8A6CLL);
 }
 
-void SecKeyExchangeNodeCreateAsResponder(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void SecKeyExchangeNodeCreateAsResponder(const __CFData *a1, __SecIdentity *a2, unsigned int a3, const void *a4, const __CFString *a5, uint64_t *a6, _DWORD *a7, SKE_Node **a8)
 {
   if (a1 && a5 && a6 && a7)
   {
@@ -478,7 +478,7 @@ uint64_t SKE_Node::getResponderIdentity(SKE_Node *this, const cssm_data *a2, con
         v18.Length = CFDataGetLength(v8);
       }
 
-      if (skeCompareItemData(&v18, a3))
+      if (skeCompareItemData(&v18.Length, a3))
       {
         v9 = SecCertificateCopyIssuerSummary();
         v18.Length = 0;
@@ -559,13 +559,11 @@ void sub_23D4D95D4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 void SKE_Node::evaluatePeerCert(SKE_Node *this, const cssm_data *a2, CFTypeRef cf)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    Length = a2->Length;
-    Data = a2->Data;
-    v6 = SecCertificateCreateWithBytes();
-    if (!v6)
+    v4 = SecCertificateCreateWithBytes();
+    if (!v4)
     {
       SKE_Node::abortEmbeddedOS(this, -26275, 5, 4);
     }
@@ -573,29 +571,29 @@ void SKE_Node::evaluatePeerCert(SKE_Node *this, const cssm_data *a2, CFTypeRef c
 
   else
   {
-    v6 = cf;
+    v4 = cf;
     CFRetain(cf);
   }
 
   memcpy(__dst, &unk_23D4DD908, sizeof(__dst));
-  memcpy(v24, &unk_23D4DDDC7, sizeof(v24));
-  memcpy(v23, &unk_23D4DE1BE, sizeof(v23));
+  memcpy(v21, &unk_23D4DDDC7, sizeof(v21));
+  memcpy(v20, &unk_23D4DE1BE, sizeof(v20));
+  v5 = SecCertificateCreateWithBytes();
+  v6 = SecCertificateCreateWithBytes();
   v7 = SecCertificateCreateWithBytes();
-  v8 = SecCertificateCreateWithBytes();
-  v9 = SecCertificateCreateWithBytes();
-  v10 = SecPolicyCreateiPhoneDeviceCertificate();
-  values[0] = v6;
-  values[1] = v9;
-  values[2] = v8;
-  v11 = *MEMORY[0x277CBECE8];
-  v12 = CFArrayCreate(*MEMORY[0x277CBECE8], values, 3, 0);
-  v21 = v7;
-  v13 = CFArrayCreate(v11, &v21, 1, 0);
+  v8 = SecPolicyCreateiPhoneDeviceCertificate();
+  values[0] = v4;
+  values[1] = v7;
+  values[2] = v6;
+  v9 = *MEMORY[0x277CBECE8];
+  v10 = CFArrayCreate(*MEMORY[0x277CBECE8], values, 3, 0);
+  v18 = v5;
+  v11 = CFArrayCreate(v9, &v18, 1, 0);
   trust = 0xAAAAAAAAAAAAAAAALL;
-  v14 = SecTrustCreateWithCertificates(v12, v10, &trust);
-  if (v14)
+  v12 = SecTrustCreateWithCertificates(v10, v8, &trust);
+  if (v12)
   {
-    TrustResult = v14;
+    TrustResult = v12;
     goto LABEL_23;
   }
 
@@ -615,19 +613,19 @@ void SKE_Node::evaluatePeerCert(SKE_Node *this, const cssm_data *a2, CFTypeRef c
 
 LABEL_15:
         *(this + 13) = 0;
-        v16 = *(this + 5);
-        if (v16)
+        v14 = *(this + 5);
+        if (v14)
         {
-          CFRelease(v16);
+          CFRelease(v14);
         }
 
-        *(this + 5) = v6;
+        *(this + 5) = v4;
         *(this + 12) = 0;
         *(this + 14) = 0;
-        v17 = *(this + 9);
-        if (v17)
+        v15 = *(this + 9);
+        if (v15)
         {
-          CFRelease(v17);
+          CFRelease(v15);
         }
 
         TrustResult = 0;
@@ -662,24 +660,14 @@ LABEL_22:
   }
 
 LABEL_23:
-  if (v12)
-  {
-    CFRelease(v12);
-  }
-
-  if (v13)
-  {
-    CFRelease(v13);
-  }
-
   if (v10)
   {
     CFRelease(v10);
   }
 
-  if (v9)
+  if (v11)
   {
-    CFRelease(v9);
+    CFRelease(v11);
   }
 
   if (v8)
@@ -692,12 +680,20 @@ LABEL_23:
     CFRelease(v7);
   }
 
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+
+  if (v5)
+  {
+    CFRelease(v5);
+  }
+
   if (TrustResult)
   {
     SKE_Node::abortEmbeddedOS(this, TrustResult, 5, 4);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SKE_Node::digestMessage(uint64_t this, CFDataRef theData)
@@ -720,7 +716,7 @@ uint64_t SKE_Node::digestMessage(uint64_t this, CFDataRef theData)
   return this;
 }
 
-uint64_t SKE_Node::calculateMasterSecret(uint64_t this)
+BOOL SKE_Node::calculateMasterSecret(_BOOL8 this)
 {
   if (!*(this + 320))
   {
@@ -731,13 +727,13 @@ uint64_t SKE_Node::calculateMasterSecret(uint64_t this)
       SKE_Node::abortEmbeddedOS(v1, 1, 5, 4);
     }
 
-    if (*(v1 + 216) && *(v1 + 248))
+    if (v1[27] && v1[31])
     {
       memset(v4, 170, sizeof(v4));
       v3.tv_sec = 0xAAAAAAAAAAAAAAAALL;
       *&v3.tv_usec = 0xAAAAAAAAAAAAAAAALL;
       gettimeofday(&v4[1], 0);
-      v2 = skePbkdf2(v1 + 208, (v1 + 240), 1u, 0x50u, 0, *(v1 + 344), (v1 + 312));
+      v2 = skePbkdf2((v1 + 26), v1 + 30, 1u, 0x50u, 0, v1[43], (v1 + 39));
       gettimeofday(v4, 0);
       this = timeval_subtract(&v3, v4, &v4[1]);
       if (!v2)
@@ -1106,17 +1102,17 @@ LABEL_14:
   return v7;
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23D4DA170(_Unwind_Exception *exception_object)
@@ -1131,7 +1127,7 @@ void sub_23D4DA170(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1517,15 +1513,15 @@ CFDataRef SKE_Node::encodeInitHello(SKE_Node *this)
     SKE_Node::abortEmbeddedOS(this, -50, 4, 4);
   }
 
-  v22 = 0;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0;
+  v21 = 0;
   v19 = 0u;
-  skeCFStringToCFData(*this, &v18, *(this + 43));
-  skeCFStringToCFData(*(this + 3), &v19, *(this + 43));
-  memset(v17, 170, sizeof(v17));
+  v20 = 0u;
+  v17 = 0;
+  v18 = 0u;
+  skeCFStringToCFData(*this, &v17, *(this + 43));
+  skeCFStringToCFData(*(this + 3), &v18, *(this + 43));
   memset(v16, 170, sizeof(v16));
+  memset(v15, 170, sizeof(v15));
   v2 = *(this + 1);
   if (v2)
   {
@@ -1547,8 +1543,8 @@ CFDataRef SKE_Node::encodeInitHello(SKE_Node *this)
     v5 = v4;
     src.Data = CFDataGetBytePtr(v4);
     src.Length = CFDataGetLength(v5);
-    SecAsn1AllocCopyItem(*(this + 43), &src, &v17[1]);
-    *&v20 = &v17[1];
+    SecAsn1AllocCopyItem(*(this + 43), &src, &v16[1]);
+    *&v19 = &v16[1];
     CFRelease(v5);
     CFRelease(certificateRef);
   }
@@ -1569,44 +1565,43 @@ CFDataRef SKE_Node::encodeInitHello(SKE_Node *this)
     src.Length = CFDataGetLength(v8);
   }
 
-  SecAsn1AllocCopyItem(*(this + 43), &src, &v16[1]);
-  *&v21 = &v16[1];
-  v9 = *(this + 5);
-  v10 = SecCertificateCopyIssuerSummary();
+  SecAsn1AllocCopyItem(*(this + 43), &src, &v15[1]);
+  *&v20 = &v15[1];
+  v9 = SecCertificateCopyIssuerSummary();
   src.Length = 0;
   src.Data = 0;
-  if (v10)
+  if (v9)
   {
-    Length = CFStringGetLength(v10);
+    Length = CFStringGetLength(v9);
     CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
     operator new[]();
   }
 
-  SecAsn1AllocCopyItem(*(this + 43), &src, v17);
-  *(&v20 + 1) = v17;
+  SecAsn1AllocCopyItem(*(this + 43), &src, v16);
+  *(&v19 + 1) = v16;
   if (v8)
   {
     CFRelease(v8);
   }
 
-  v12 = *(this + 27);
-  if (!v12)
+  v11 = *(this + 27);
+  if (!v11)
   {
     SecAsn1AllocItem(*(this + 43), this + 13, 0x20uLL);
-    v12 = *(this + 27);
+    v11 = *(this + 27);
   }
 
-  if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x20uLL, v12))
+  if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x20uLL, v11))
   {
     SKE_Node::abortEmbeddedOS(this, -2070, 5, 4);
   }
 
-  if (skeEncryptWithSecCert(*(this + 5), this + 26, *(this + 43), v16))
+  if (skeEncryptWithSecCert(*(this + 5), this + 26, *(this + 43), v15))
   {
     SKE_Node::abortEmbeddedOS(this, -50, 5, 4);
   }
 
-  *(&v21 + 1) = v16;
+  *(&v20 + 1) = v15;
   if (!*(this + 5))
   {
 LABEL_31:
@@ -1618,7 +1613,7 @@ LABEL_31:
 
   src.Length = 0;
   src.Data = 0;
-  if (SecAsn1EncodeItem(*(this + 43), &v18, &SKE_InitHelloTemplate, &src))
+  if (SecAsn1EncodeItem(*(this + 43), &v17, &SKE_InitHelloTemplate, &src))
   {
     SKE_Node::abortEmbeddedOS(this, -2070, 5, 4);
   }
@@ -2274,59 +2269,50 @@ uint64_t SKE_Node::processAbort(SecAsn1CoderRef *this, cssm_data *a2)
 
 uint64_t SKEState_Create(void *a1, const void *a2, const void *a3, const void *a4, uint64_t a5)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v17 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v10 = malloc_type_calloc(1uLL, 0xB8uLL, 0x10E004098E5A42CuLL);
-    if (v10)
-    {
-      v11 = v10;
-      *v10 = dispatch_queue_create("com.apple.SimpleKeyExchange.SKEState", 0);
-      v11[1] = dispatch_group_create();
-      v11[2] = _Block_copy(a4);
-      v11[8] = a5;
-      if (a3)
-      {
-        v11[12] = CFRetain(a3);
-      }
-
-      v17.__sig = 0xAAAAAAAAAAAAAAAALL;
-      *v17.__opaque = 0xAAAAAAAAAAAAAAAALL;
-      pthread_mutexattr_init(&v17);
-      pthread_mutexattr_settype(&v17, 2);
-      pthread_mutex_init((v11 + 15), &v17);
-      pthread_mutexattr_destroy(&v17);
-      *a1 = v11;
-      if (a2)
-      {
-        CFRetain(a2);
-      }
-
-      v13 = *v11;
-      v12 = v11[1];
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 0x40000000;
-      block[2] = __SKEState_Create_block_invoke;
-      block[3] = &__block_descriptor_tmp;
-      block[4] = a2;
-      block[5] = v11;
-      dispatch_group_async(v12, v13, block);
-      result = 0;
-    }
-
-    else
-    {
-      result = 2;
-    }
+    return 10;
   }
 
-  else
+  v10 = malloc_type_calloc(1uLL, 0xB8uLL, 0x10E004098E5A42CuLL);
+  if (!v10)
   {
-    result = 10;
+    return 2;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  v11 = v10;
+  *v10 = dispatch_queue_create("com.apple.SimpleKeyExchange.SKEState", 0);
+  v11[1] = dispatch_group_create();
+  v11[2] = _Block_copy(a4);
+  v11[8] = a5;
+  if (a3)
+  {
+    v11[12] = CFRetain(a3);
+  }
+
+  v16.__sig = 0xAAAAAAAAAAAAAAAALL;
+  *v16.__opaque = 0xAAAAAAAAAAAAAAAALL;
+  pthread_mutexattr_init(&v16);
+  pthread_mutexattr_settype(&v16, 2);
+  pthread_mutex_init((v11 + 15), &v16);
+  pthread_mutexattr_destroy(&v16);
+  *a1 = v11;
+  if (a2)
+  {
+    CFRetain(a2);
+  }
+
+  v13 = *v11;
+  v12 = v11[1];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 0x40000000;
+  block[2] = __SKEState_Create_block_invoke;
+  block[3] = &__block_descriptor_tmp;
+  block[4] = a2;
+  block[5] = v11;
+  dispatch_group_async(v12, v13, block);
+  return 0;
 }
 
 void SKEState_SKEComplete(uint64_t a1, int a2)
@@ -2676,12 +2662,13 @@ uint64_t SKEState_CopyBlobSync(NSObject **a1, uint64_t a2, void *a3, _DWORD *a4,
   return v10;
 }
 
-void sub_23D4DCAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_23D4DCAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2743,17 +2730,17 @@ uint64_t SKEState_CopySecretKeySync(uint64_t a1, void *a2, dispatch_time_t a3)
   return v7;
 }
 
-void sub_23D4DCF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23D4DCF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2899,7 +2886,7 @@ void skeCFStringToCFData(CFStringRef theString, cssm_data *a2, SecAsn1Coder *a3)
   CFRelease(v6);
 }
 
-BOOL skeCompareItemData(_BOOL8 result, const cssm_data *a2)
+size_t *skeCompareItemData(size_t *result, const cssm_data *a2)
 {
   if (result)
   {
@@ -2911,7 +2898,15 @@ BOOL skeCompareItemData(_BOOL8 result, const cssm_data *a2)
       if (v3)
       {
         Data = a2->Data;
-        return Data && *v2 == a2->Length && memcmp(v3, Data, *v2) == 0;
+        if (Data && *v2 == a2->Length)
+        {
+          return (memcmp(v3, Data, *v2) == 0);
+        }
+
+        else
+        {
+          return 0;
+        }
       }
     }
   }

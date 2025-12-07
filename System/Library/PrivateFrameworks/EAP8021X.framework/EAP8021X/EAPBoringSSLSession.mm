@@ -20,6 +20,7 @@
 - (void)setState:(int)state;
 - (void)start;
 - (void)stop;
+- (void)updateHandshakeStatus:(int)status;
 @end
 
 @implementation EAPBoringSSLSession
@@ -132,9 +133,9 @@ uint64_t __47__EAPBoringSSLSession_customProtocolDefinition__block_invoke(uint64
 
 void __47__EAPBoringSSLSession_customProtocolDefinition__block_invoke_2(uint64_t a1, void *a2, void *a3, size_t a4, int a5)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v21 = a2;
-  v22 = a3;
+  v38 = *MEMORY[0x277D85DE8];
+  v20 = a2;
+  v21 = a3;
   v9 = EAPLogGetLogHandle();
   v10 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v9, v10))
@@ -158,23 +159,23 @@ void __47__EAPBoringSSLSession_customProtocolDefinition__block_invoke_2(uint64_t
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v38 = 0;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = -9803;
+    v37 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2020000000;
+    v31 = -9803;
     while (*(*&buf[8] + 24) < a4)
     {
       parse[0] = MEMORY[0x277D85DD0];
       parse[1] = 3221225472;
       parse[2] = __47__EAPBoringSSLSession_customProtocolDefinition__block_invoke_7;
       parse[3] = &unk_278FBDDF8;
-      v28 = v12 == 1;
-      v26 = &v29;
-      v23 = *(a1 + 32);
-      v13 = v23.i64[0];
-      v25 = vextq_s8(v23, v23, 8uLL);
-      v27 = buf;
+      v27 = v12 == 1;
+      v25 = &v28;
+      v22 = *(a1 + 32);
+      v13 = v22.i64[0];
+      v24 = vextq_s8(v22, v22, 8uLL);
+      v26 = buf;
       nw_framer_parse_output(v13, a4, a4, 0, parse);
 
       if (v12 != 1)
@@ -185,9 +186,9 @@ void __47__EAPBoringSSLSession_customProtocolDefinition__block_invoke_2(uint64_t
 
     if (v12 == 1)
     {
-      if (*(v30 + 6))
+      if (*(v29 + 6))
       {
-        v14 = *(v30 + 6);
+        v14 = *(v29 + 6);
       }
 
       else
@@ -195,25 +196,25 @@ void __47__EAPBoringSSLSession_customProtocolDefinition__block_invoke_2(uint64_t
         v14 = -9803;
       }
 
-      *(v30 + 6) = v14;
+      *(v29 + 6) = v14;
       [*(a1 + 40) updateHandshakeStatus:?];
       v15 = EAPLogGetLogHandle();
       v16 = _SC_syslog_os_log_mapping();
       v17 = v15;
       if (os_log_type_enabled(v17, v16))
       {
-        v18 = EAPSecurityErrorString(*(v30 + 6));
-        v19 = *(v30 + 6);
-        *v33 = 136315394;
-        v34 = v18;
-        v35 = 1024;
-        v36 = v19;
-        _os_log_impl(&dword_249EFB000, v17, v16, "[output_handler]: updated handshake status to [%s]:[%d]", v33, 0x12u);
+        v18 = EAPSecurityErrorString(*(v29 + 6));
+        v19 = *(v29 + 6);
+        *v32 = 136315394;
+        v33 = v18;
+        v34 = 1024;
+        v35 = v19;
+        _os_log_impl(&dword_249EFB000, v17, v16, "[output_handler]: updated handshake status to [%s]:[%d]", v32, 0x12u);
       }
     }
 
 LABEL_18:
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -221,66 +222,60 @@ LABEL_18:
   {
     nw_framer_mark_failed_with_error(*(a1 + 32), 5);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__EAPBoringSSLSession_customProtocolDefinition__block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = a3;
-  if (*(a1 + 64))
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = a3;
+  if (!*(a1 + 64))
   {
-    result = 0;
-    if (a2 && a3)
+    return a3;
+  }
+
+  result = 0;
+  if (a2 && a3)
+  {
+    v7 = EAPLogGetLogHandle();
+    v8 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v7, v8))
     {
-      v7 = EAPLogGetLogHandle();
-      v8 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v7, v8))
+      *buf = 134217984;
+      v15 = a3;
+      _os_log_impl(&dword_249EFB000, v7, v8, "writing %zu bytes to MemIO Write Buffer", buf, 0xCu);
+    }
+
+    *(*(*(a1 + 48) + 8) + 24) = ([*(a1 + 32) write])(objc_msgSend(*(a1 + 32), "memIO"), a2, &v13);
+    v9 = *(*(*(a1 + 48) + 8) + 24);
+    v10 = EAPLogGetLogHandle();
+    if (v9)
+    {
+      v11 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v10, v11))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_249EFB000, v10, v11, "failed to write to MemIO write buffer, reporting EPROTO", buf, 2u);
+      }
+
+      nw_framer_mark_failed_with_error(*(a1 + 40), 100);
+      return 0;
+    }
+
+    else
+    {
+      v12 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v10, v12))
       {
         *buf = 134217984;
-        v16 = a3;
-        _os_log_impl(&dword_249EFB000, v7, v8, "writing %zu bytes to MemIO Write Buffer", buf, 0xCu);
+        v15 = v13;
+        _os_log_impl(&dword_249EFB000, v10, v12, "completed writing %zu bytes to MemIO Buffer", buf, 0xCu);
       }
 
-      *(*(*(a1 + 48) + 8) + 24) = ([*(a1 + 32) write])(objc_msgSend(*(a1 + 32), "memIO"), a2, &v14);
-      v9 = *(*(*(a1 + 48) + 8) + 24);
-      v10 = EAPLogGetLogHandle();
-      if (v9)
-      {
-        v11 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v10, v11))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_249EFB000, v10, v11, "failed to write to MemIO write buffer, reporting EPROTO", buf, 2u);
-        }
-
-        nw_framer_mark_failed_with_error(*(a1 + 40), 100);
-        result = 0;
-      }
-
-      else
-      {
-        v12 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v10, v12))
-        {
-          *buf = 134217984;
-          v16 = v14;
-          _os_log_impl(&dword_249EFB000, v10, v12, "completed writing %zu bytes to MemIO Buffer", buf, 0xCu);
-        }
-
-        result = v14;
-        *(*(*(a1 + 56) + 8) + 24) += v14;
-      }
+      result = v13;
+      *(*(*(a1 + 56) + 8) + 24) += v13;
     }
   }
 
-  else
-  {
-    result = a3;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -439,15 +434,15 @@ LABEL_11:
 
 void __44__EAPBoringSSLSession_configureSecProtocol___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = EAPLogGetLogHandle();
   v9 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(v8, v9))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_249EFB000, v8, v9, "verify_block called", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_249EFB000, v8, v9, "verify_block called", &v15, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -462,11 +457,11 @@ void __44__EAPBoringSSLSession_configureSecProtocol___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v13, v12))
     {
       v14 = EAPSecurityErrorString(-9841);
-      v16 = 136315394;
-      v17 = v14;
-      v18 = 1024;
-      v19 = -9841;
-      _os_log_impl(&dword_249EFB000, v13, v12, "[verify_block]: updated handshake status to [%s]:[%d]", &v16, 0x12u);
+      v15 = 136315394;
+      v16 = v14;
+      v17 = 1024;
+      v18 = -9841;
+      _os_log_impl(&dword_249EFB000, v13, v12, "[verify_block]: updated handshake status to [%s]:[%d]", &v15, 0x12u);
     }
   }
 
@@ -474,8 +469,6 @@ void __44__EAPBoringSSLSession_configureSecProtocol___block_invoke(uint64_t a1, 
   {
     v7[2](v7, 0);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setup:(EAPBoringSSLSessionParameters_s *)setup clientContext:(void *)context
@@ -676,137 +669,133 @@ LABEL_20:
 - (int)deliverInput
 {
   location[3] = *MEMORY[0x277D85DE8];
-  if ([(EAPBoringSSLSession *)self state]== 1)
+  if ([(EAPBoringSSLSession *)self state]!= 1)
   {
-    customProtocol = [(EAPBoringSSLSession *)self customProtocol];
-    v4 = nw_protocol_options_copy_definition(customProtocol);
+    return 0;
+  }
 
-    v27 = v4;
-    if (v4 && (v5 = MEMORY[0x24C2077B0](v4)) != 0)
+  customProtocol = [(EAPBoringSSLSession *)self customProtocol];
+  v4 = nw_protocol_options_copy_definition(customProtocol);
+
+  v26 = v4;
+  if (v4 && (v5 = MEMORY[0x24C2077B0](v4)) != 0)
+  {
+    v6 = v5;
+    v7 = malloc_type_calloc(1uLL, 0x4800uLL, 0xD647059uLL);
+    if (v7)
     {
-      v6 = v5;
-      v7 = malloc_type_calloc(1uLL, 0x4800uLL, 0xD647059uLL);
-      if (v7)
+      v8 = v7;
+      v9 = 0;
+      v34 = 18432;
+      v27 = v29;
+      while (1)
       {
-        v8 = v7;
-        v9 = 0;
-        v35 = 18432;
-        v28 = v30;
-        while (1)
+        v10 = ([(EAPBoringSSLSession *)self read:v26])([(EAPBoringSSLSession *)self memIO], v8, &v34);
+        if (v10)
         {
-          v10 = ([(EAPBoringSSLSession *)self read:v27])([(EAPBoringSSLSession *)self memIO], v8, &v35);
-          if (v10)
-          {
-            break;
-          }
-
-          v11 = v35;
-          if (!(v35 | v9))
-          {
-            v10 = 0;
-            goto LABEL_26;
-          }
-
-          v12 = v35 == 0;
-          if (v35)
-          {
-            v13 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:v35];
-          }
-
-          else
-          {
-            v13 = 0;
-          }
-
-          objc_initWeak(location, self);
-          customFramer = [(EAPBoringSSLSession *)self customFramer];
-          async_block[0] = MEMORY[0x277D85DD0];
-          async_block[1] = 3221225472;
-          v30[0] = __35__EAPBoringSSLSession_deliverInput__block_invoke;
-          v30[1] = &unk_278FBDE98;
-          objc_copyWeak(v33, location);
-          v34 = v12;
-          v31 = v6;
-          v15 = v13;
-          v32 = v15;
-          v33[1] = v35;
-          nw_framer_async(customFramer, async_block);
-          v16 = v11 == 0;
-
-          v17 = v35;
-          v35 = 18432;
-
-          objc_destroyWeak(v33);
-          objc_destroyWeak(location);
-
-          v9 += v17;
-          if (v16)
-          {
-            goto LABEL_21;
-          }
+          break;
         }
 
-        v20 = EAPLogGetLogHandle();
-        v21 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v20, v21))
+        v11 = v34;
+        if (!(v34 | v9))
         {
-          LOWORD(location[0]) = 0;
-          _os_log_impl(&dword_249EFB000, v20, v21, "failed to read from the MemIO read buffer", location, 2u);
+          v10 = 0;
+          goto LABEL_26;
         }
 
-        customFramer2 = [(EAPBoringSSLSession *)self customFramer];
-        nw_framer_mark_failed_with_error(customFramer2, 100);
+        v12 = v34 == 0;
+        if (v34)
+        {
+          v13 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:v34];
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        objc_initWeak(location, self);
+        customFramer = [(EAPBoringSSLSession *)self customFramer];
+        async_block[0] = MEMORY[0x277D85DD0];
+        async_block[1] = 3221225472;
+        v29[0] = __35__EAPBoringSSLSession_deliverInput__block_invoke;
+        v29[1] = &unk_278FBDE98;
+        objc_copyWeak(v32, location);
+        v33 = v12;
+        v30 = v6;
+        v15 = v13;
+        v31 = v15;
+        v32[1] = v34;
+        nw_framer_async(customFramer, async_block);
+        v16 = v11 == 0;
+
+        v17 = v34;
+        v34 = 18432;
+
+        objc_destroyWeak(v32);
+        objc_destroyWeak(location);
+
+        v9 += v17;
+        if (v16)
+        {
+          goto LABEL_21;
+        }
+      }
+
+      v20 = EAPLogGetLogHandle();
+      v21 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v20, v21))
+      {
+        LOWORD(location[0]) = 0;
+        _os_log_impl(&dword_249EFB000, v20, v21, "failed to read from the MemIO read buffer", location, 2u);
+      }
+
+      customFramer2 = [(EAPBoringSSLSession *)self customFramer];
+      nw_framer_mark_failed_with_error(customFramer2, 100);
 
 LABEL_21:
-        if (v9)
+      if (v9)
+      {
+        v23 = EAPLogGetLogHandle();
+        v24 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v23, v24))
         {
-          v23 = EAPLogGetLogHandle();
-          v24 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(v23, v24))
-          {
-            LODWORD(location[0]) = 134217984;
-            *(location + 4) = v9;
-            _os_log_impl(&dword_249EFB000, v23, v24, "delivered total %zu bytes to TLS protocol", location, 0xCu);
-          }
+          LODWORD(location[0]) = 134217984;
+          *(location + 4) = v9;
+          _os_log_impl(&dword_249EFB000, v23, v24, "delivered total %zu bytes to TLS protocol", location, 0xCu);
         }
+      }
 
 LABEL_26:
-        free(v8);
-      }
-
-      else
-      {
-        v10 = -108;
-      }
+      free(v8);
     }
 
     else
     {
-      v18 = EAPLogGetLogHandle();
-      v19 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v18, v19))
-      {
-        LOWORD(location[0]) = 0;
-        _os_log_impl(&dword_249EFB000, v18, v19, "nw_protocol_metadata_create_singleton() returned nil metadata", location, 2u);
-      }
-
-      v6 = 0;
-      v10 = -50;
+      v10 = -108;
     }
   }
 
   else
   {
-    v10 = 0;
+    v18 = EAPLogGetLogHandle();
+    v19 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v18, v19))
+    {
+      LOWORD(location[0]) = 0;
+      _os_log_impl(&dword_249EFB000, v18, v19, "nw_protocol_metadata_create_singleton() returned nil metadata", location, 2u);
+    }
+
+    v6 = 0;
+    v10 = -50;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __35__EAPBoringSSLSession_deliverInput__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -822,13 +811,13 @@ void __35__EAPBoringSSLSession_deliverInput__block_invoke(uint64_t a1)
       v8 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(v7, v8))
       {
-        LOWORD(v16) = 0;
+        LOWORD(v15) = 0;
         v9 = "nw_framer_deliver_input_no_copy() delivered EOD";
         v10 = v7;
         v11 = v8;
         v12 = 2;
 LABEL_7:
-        _os_log_impl(&dword_249EFB000, v10, v11, v9, &v16, v12);
+        _os_log_impl(&dword_249EFB000, v10, v11, v9, &v15, v12);
       }
     }
 
@@ -841,8 +830,8 @@ LABEL_7:
       if (os_log_type_enabled(v7, v13))
       {
         v14 = *(a1 + 56);
-        v16 = 134217984;
-        v17 = v14;
+        v15 = 134217984;
+        v16 = v14;
         v9 = "nw_framer_deliver_input() delivered %zu bytes";
         v10 = v7;
         v11 = v13;
@@ -851,8 +840,6 @@ LABEL_7:
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)getEAPMethodInUse
@@ -901,35 +888,16 @@ LABEL_7:
 
 - (id)getEAPKeyMaterial
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if ([(EAPBoringSSLSession *)self getEAPMethodInUse]!= 1)
+  v9 = *MEMORY[0x277D85DE8];
+  if ([(EAPBoringSSLSession *)self getEAPMethodInUse]== 1 && ([(EAPBoringSSLSession *)self setSecProtocolMetadata], [(EAPBoringSSLSession *)self secProtocolMetadata], v3 = objc_claimAutoreleasedReturnValue(), v3, v3) && ([(EAPBoringSSLSession *)self secProtocolMetadata], v4 = objc_claimAutoreleasedReturnValue(), eap_key_material = sec_protocol_metadata_get_eap_key_material(), v4, eap_key_material))
   {
-    goto LABEL_5;
-  }
-
-  [(EAPBoringSSLSession *)self setSecProtocolMetadata];
-  secProtocolMetadata = [(EAPBoringSSLSession *)self secProtocolMetadata];
-
-  if (!secProtocolMetadata)
-  {
-    goto LABEL_5;
-  }
-
-  secProtocolMetadata2 = [(EAPBoringSSLSession *)self secProtocolMetadata];
-  eap_key_material = sec_protocol_metadata_get_eap_key_material();
-
-  if (eap_key_material)
-  {
-    v6 = [MEMORY[0x277CBEA90] dataWithBytes:v9 length:128];
+    v6 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:128];
   }
 
   else
   {
-LABEL_5:
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1064,7 +1032,7 @@ void __47__EAPBoringSSLSession_copyPeerCertificateChain__block_invoke(uint64_t a
 
 void __42__EAPBoringSSLSession_readApplicationData__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1075,9 +1043,9 @@ void __42__EAPBoringSSLSession_readApplicationData__block_invoke(uint64_t a1, vo
     v12 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v11, v12))
     {
-      v22 = 138412290;
-      v23 = v10;
-      _os_log_impl(&dword_249EFB000, v11, v12, "application data receive completion handler gor error : %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v10;
+      _os_log_impl(&dword_249EFB000, v11, v12, "application data receive completion handler gor error : %@", &v21, 0xCu);
     }
 
     v13 = 4294899625;
@@ -1092,12 +1060,12 @@ LABEL_9:
     v14 = [(__CFError *)v10 bytes];
     if ([(__CFError *)v10 length]== 1 && !*v14)
     {
-      v20 = EAPLogGetLogHandle();
-      v21 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v20, v21))
+      v19 = EAPLogGetLogHandle();
+      v20 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v19, v20))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_249EFB000, v20, v21, "Received expected application data from the EAP-TLS 1.3 server", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_249EFB000, v19, v20, "Received expected application data from the EAP-TLS 1.3 server", &v21, 2u);
       }
 
       [WeakRetained setState:2];
@@ -1121,14 +1089,12 @@ LABEL_10:
   if (os_log_type_enabled(v17, v16))
   {
     v18 = EAPSecurityErrorString(v13);
-    v22 = 136315394;
-    v23 = v18;
-    v24 = 1024;
-    v25 = v13;
-    _os_log_impl(&dword_249EFB000, v17, v16, "[Application Data Reader]: updated handshake status to [%s]:[%d]", &v22, 0x12u);
+    v21 = 136315394;
+    v22 = v18;
+    v23 = 1024;
+    v24 = v13;
+    _os_log_impl(&dword_249EFB000, v17, v16, "[Application Data Reader]: updated handshake status to [%s]:[%d]", &v21, 0x12u);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -1154,9 +1120,9 @@ LABEL_10:
   objc_destroyWeak(&location);
 }
 
-void __28__EAPBoringSSLSession_start__block_invoke(uint64_t a1, int a2)
+void __28__EAPBoringSSLSession_start__block_invoke(uint64_t a1, unsigned int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = EAPLogGetLogHandle();
   v5 = _SC_syslog_os_log_mapping();
@@ -1172,9 +1138,9 @@ void __28__EAPBoringSSLSession_start__block_invoke(uint64_t a1, int a2)
       v6 = off_278FBDF30[a2];
     }
 
-    v17 = 136315138;
-    v18 = v6;
-    _os_log_impl(&dword_249EFB000, v4, v5, "connection state changed to %s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = v6;
+    _os_log_impl(&dword_249EFB000, v4, v5, "connection state changed to %s", &v16, 0xCu);
   }
 
   if (a2 <= 3)
@@ -1216,11 +1182,11 @@ LABEL_20:
     if (os_log_type_enabled(v14, v13))
     {
       v15 = EAPSecurityErrorString(v10);
-      v17 = 136315394;
-      v18 = v15;
-      v19 = 1024;
-      v20 = v10;
-      _os_log_impl(&dword_249EFB000, v14, v13, "[State Change Handler]: updated handshake status to [%s]:[%d]", &v17, 0x12u);
+      v16 = 136315394;
+      v17 = v15;
+      v18 = 1024;
+      v19 = v10;
+      _os_log_impl(&dword_249EFB000, v14, v13, "[State Change Handler]: updated handshake status to [%s]:[%d]", &v16, 0x12u);
     }
 
     goto LABEL_23;
@@ -1239,13 +1205,11 @@ LABEL_20:
   }
 
 LABEL_23:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ([(EAPBoringSSLSession *)self handshakeStatus]== -9841 && ([(EAPBoringSSLSession *)self secTrustCompletionHandler], v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
   {
     secTrustCompletionHandler = [(EAPBoringSSLSession *)self secTrustCompletionHandler];
@@ -1255,8 +1219,8 @@ LABEL_23:
     v6 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v5, v6))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_249EFB000, v5, v6, "delivered trust evaluation result=failure to TLS protocol", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_249EFB000, v5, v6, "delivered trust evaluation result=failure to TLS protocol", &v24, 2u);
     }
 
     connection = [(EAPBoringSSLSession *)self connection];
@@ -1266,8 +1230,8 @@ LABEL_23:
     v9 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(v8, v9))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_249EFB000, v8, v9, "removed network connection state change handler", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_249EFB000, v8, v9, "removed network connection state change handler", &v24, 2u);
     }
 
     statusUpdateLock = [(EAPBoringSSLSession *)self statusUpdateLock];
@@ -1283,11 +1247,11 @@ LABEL_23:
     if (os_log_type_enabled(v15, v14))
     {
       v16 = EAPSecurityErrorString(handshakeStatus);
-      v25 = 136315394;
-      v26 = v16;
-      v27 = 1024;
-      v28 = handshakeStatus;
-      _os_log_impl(&dword_249EFB000, v15, v14, "[session stopper]: handshake status updated to [%s]:[%d]", &v25, 0x12u);
+      v24 = 136315394;
+      v25 = v16;
+      v26 = 1024;
+      v27 = handshakeStatus;
+      _os_log_impl(&dword_249EFB000, v15, v14, "[session stopper]: handshake status updated to [%s]:[%d]", &v24, 0x12u);
     }
   }
 
@@ -1305,8 +1269,8 @@ LABEL_23:
       v20 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(v19, v20))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&dword_249EFB000, v19, v20, "removed network connection state change handler", &v25, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_249EFB000, v19, v20, "removed network connection state change handler", &v24, 2u);
       }
 
       connection4 = [(EAPBoringSSLSession *)self connection];
@@ -1316,15 +1280,24 @@ LABEL_23:
       v23 = _SC_syslog_os_log_mapping();
       if (os_log_type_enabled(v22, v23))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&dword_249EFB000, v22, v23, "cancelled network connection", &v25, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_249EFB000, v22, v23, "cancelled network connection", &v24, 2u);
       }
 
       [(EAPBoringSSLSession *)self setConnection:0];
     }
   }
+}
 
-  v24 = *MEMORY[0x277D85DE8];
+- (void)updateHandshakeStatus:(int)status
+{
+  v3 = *&status;
+  statusUpdateLock = [(EAPBoringSSLSession *)self statusUpdateLock];
+  [statusUpdateLock lockWhenCondition:1];
+
+  [(EAPBoringSSLSession *)self setHandshakeStatus:v3];
+  statusUpdateLock2 = [(EAPBoringSSLSession *)self statusUpdateLock];
+  [statusUpdateLock2 unlockWithCondition:0];
 }
 
 @end

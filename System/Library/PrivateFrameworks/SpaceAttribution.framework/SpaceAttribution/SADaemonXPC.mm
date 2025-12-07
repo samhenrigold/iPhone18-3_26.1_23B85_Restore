@@ -86,7 +86,7 @@
 
 void __38__SADaemonXPC_setInvalidationHandler___block_invoke(uint64_t a1)
 {
-  v2 = SALog();
+  v2 = SALog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __38__SADaemonXPC_setInvalidationHandler___block_invoke_cold_1();
@@ -98,7 +98,7 @@ void __38__SADaemonXPC_setInvalidationHandler___block_invoke(uint64_t a1)
 
 void __38__SADaemonXPC_setInvalidationHandler___block_invoke_112(uint64_t a1)
 {
-  v2 = SALog();
+  v2 = SALog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __38__SADaemonXPC_setInvalidationHandler___block_invoke_112_cold_1();
@@ -110,11 +110,10 @@ void __38__SADaemonXPC_setInvalidationHandler___block_invoke_112(uint64_t a1)
 
 - (void)invalidate
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SADaemonXPC invalidate]";
-  _os_log_debug_impl(&dword_26B26B000, log, OS_LOG_TYPE_DEBUG, "%s: end", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SADaemonXPC invalidate]";
+  _os_log_debug_impl(&dword_26B26B000, log, OS_LOG_TYPE_DEBUG, "%s: end", &v1, 0xCu);
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
@@ -135,7 +134,7 @@ void __38__SADaemonXPC_setInvalidationHandler___block_invoke_112(uint64_t a1)
 void __49__SADaemonXPC_remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SALog();
+  v4 = SALog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __49__SADaemonXPC_remoteObjectProxyWithErrorHandler___block_invoke_cold_1();
@@ -162,29 +161,13 @@ void __49__SADaemonXPC_remoteObjectProxyWithErrorHandler___block_invoke(uint64_t
 void __60__SADaemonXPC_synchronousRemoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SALog();
+  v4 = SALog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__SADaemonXPC_synchronousRemoteObjectProxyWithErrorHandler___block_invoke_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
-}
-
-void __49__SADaemonXPC_remoteObjectProxyWithErrorHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __60__SADaemonXPC_synchronousRemoteObjectProxyWithErrorHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

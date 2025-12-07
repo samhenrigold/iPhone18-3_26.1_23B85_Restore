@@ -54,7 +54,7 @@
 
 void __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 48);
   v4 = MEMORY[0x1E696AEC0];
@@ -91,7 +91,7 @@ void __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDe
     if (v16)
     {
       *buf = 138412290;
-      v37 = v13;
+      v36 = v13;
       _os_log_debug_impl(&dword_1B8220000, v15, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Joining request: %@", buf, 0xCu);
     }
   }
@@ -101,21 +101,21 @@ void __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDe
     if (v16)
     {
       *buf = 138412290;
-      v37 = v13;
+      v36 = v13;
       _os_log_debug_impl(&dword_1B8220000, v15, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Starting request: %@", buf, 0xCu);
     }
 
     v14 = objc_alloc_init(ASDPromise);
     [*(*(a1 + 56) + 16) setObject:v14 forKeyedSubscript:v13];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_3;
-    v33[3] = &unk_1E7CDBA48;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_3;
+    v32[3] = &unk_1E7CDBA48;
     v17 = v13;
     v18 = *(a1 + 56);
-    v34 = v17;
-    v35 = v18;
-    [(ASDPromise *)v14 alwaysPerform:v33 onScheduler:*(v18 + 8)];
+    v33 = v17;
+    v34 = v18;
+    [(ASDPromise *)v14 alwaysPerform:v32 onScheduler:*(v18 + 8)];
     v19 = *(a1 + 32);
     v20 = *(a1 + 40);
     v21 = *(a1 + 48);
@@ -123,43 +123,39 @@ void __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDe
     v23 = [(ASDPromise *)v14 completionHandlerAdapter];
     [ASDAppQueryExecutor _executeQueryWithPredicate:v19 isForUpdates:0 reloadingFromServer:0 onPairedDevice:v20 remoteDeviceID:v21 usingServiceBroker:v22 withResultHandler:v23];
 
-    v15 = v34;
+    v15 = v33;
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_6;
-  v30[3] = &unk_1E7CDCA68;
-  v31 = v13;
-  v32 = *(a1 + 64);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_8;
-  v27[3] = &unk_1E7CDBAB8;
-  v28 = v31;
-  v29 = *(a1 + 64);
-  v24 = v31;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_6;
+  v29[3] = &unk_1E7CDCA68;
+  v30 = v13;
+  v31 = *(a1 + 64);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_8;
+  v26[3] = &unk_1E7CDBAB8;
+  v27 = v30;
+  v28 = *(a1 + 64);
+  v24 = v30;
   v25 = +[ASDDispatchQueue defaultQueue];
-  [(ASDPromise *)v14 thenPerform:v30 orCatchError:v27 onScheduler:v25];
-
-  v26 = *MEMORY[0x1E69E9840];
+  [(ASDPromise *)v14 thenPerform:v29 orCatchError:v26 onScheduler:v25];
 }
 
 uint64_t __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_debug_impl(&dword_1B8220000, v2, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Completing request: %@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_debug_impl(&dword_1B8220000, v2, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Completing request: %@", &v5, 0xCu);
   }
 
-  result = [*(*(a1 + 40) + 16) setObject:0 forKeyedSubscript:*(a1 + 32)];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 40) + 16) setObject:0 forKeyedSubscript:*(a1 + 32)];
 }
 
 + (void)_executeQueryWithPredicate:(char)predicate isForUpdates:(char)updates reloadingFromServer:(void *)server onPairedDevice:(void *)device remoteDeviceID:(void *)d usingServiceBroker:(void *)broker withResultHandler:
@@ -204,39 +200,37 @@ uint64_t __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remo
 
 void __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_6(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = [v3 count];
-    v7 = *(a1 + 32);
-    v8 = 134218242;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    _os_log_debug_impl(&dword_1B8220000, v4, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Dispatching %lu results: %@", &v8, 0x16u);
+    v5 = [v3 count];
+    v6 = *(a1 + 32);
+    v7 = 134218242;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_debug_impl(&dword_1B8220000, v4, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Dispatching %lu results: %@", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __97__ASDAppQueryExecutor_executeQueryWithPredicate_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_8(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_debug_impl(&dword_1B8220000, v4, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Dispatching error: %@", &v7, 0xCu);
+    v5 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_debug_impl(&dword_1B8220000, v4, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Dispatching error: %@", &v6, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)executeUpdatesQueryWithPredicateReloadingFromServer:(BOOL)server onPairedDevice:(id)device remoteDeviceID:(id)d withResultHandler:(id)handler
@@ -327,18 +321,17 @@ uint64_t __123__ASDAppQueryExecutor_executeUpdatesQueryWithPredicateReloadingFro
 
 void __123__ASDAppQueryExecutor_executeUpdatesQueryWithPredicateReloadingFromServer_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_15(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 134217984;
-    v7 = [v3 count];
-    _os_log_debug_impl(&dword_1B8220000, v4, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Dispatching %lu results for updates", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = [v3 count];
+    _os_log_debug_impl(&dword_1B8220000, v4, OS_LOG_TYPE_DEBUG, "(AppQueryExecutor) Dispatching %lu results for updates", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __123__ASDAppQueryExecutor_executeUpdatesQueryWithPredicateReloadingFromServer_onPairedDevice_remoteDeviceID_withResultHandler___block_invoke_16(uint64_t a1, void *a2)
@@ -360,13 +353,13 @@ void __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadin
   v6 = v5;
   if (a2)
   {
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_2;
-    v49[3] = &unk_1E7CDCB30;
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_2;
+    v48[3] = &unk_1E7CDCB30;
     v7 = *(a1 + 32);
-    v53 = *(a1 + 72);
-    v54 = *(a1 + 88);
+    v52 = *(a1 + 72);
+    v53 = *(a1 + 88);
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
     v10 = *(a1 + 56);
@@ -374,90 +367,89 @@ void __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadin
     *(&v11 + 1) = v10;
     *&v12 = v7;
     *(&v12 + 1) = v8;
-    v50 = v12;
-    v51 = v11;
-    v52 = *(a1 + 64);
-    v13 = [a2 remoteObjectProxyWithErrorHandler:v49];
+    v49 = v12;
+    v50 = v11;
+    v51 = *(a1 + 64);
+    v13 = [a2 remoteObjectProxyWithErrorHandler:v48];
     v14 = *(a1 + 48);
     if (v14)
     {
       v15 = *(a1 + 32);
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v47[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_17;
-      v47[3] = &unk_1E7CDB7A8;
-      v16 = &v48;
-      v48 = *(a1 + 64);
-      [v13 executeQueryWithPredicate:v15 onRemoteDevice:v14 withReplyHandler:v47];
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 3221225472;
+      v46[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_17;
+      v46[3] = &unk_1E7CDB7A8;
+      v16 = &v47;
+      v47 = *(a1 + 64);
+      [v13 executeQueryWithPredicate:v15 onRemoteDevice:v14 withReplyHandler:v46];
     }
 
     else
     {
       v25 = *(a1 + 40);
-      v26 = *(a1 + 88);
       if (v25)
       {
         if (!*(a1 + 88))
         {
-          v29 = *(a1 + 32);
-          v30 = [v25 pairingID];
-          v39[0] = MEMORY[0x1E69E9820];
-          v39[1] = 3221225472;
-          v39[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_5;
-          v39[3] = &unk_1E7CDB7A8;
-          v16 = &v40;
-          v40 = *(a1 + 64);
-          [v13 executeQueryWithPredicate:v29 onPairedDevice:v30 withReplyHandler:v39];
+          v28 = *(a1 + 32);
+          v29 = [v25 pairingID];
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_5;
+          v38[3] = &unk_1E7CDB7A8;
+          v16 = &v39;
+          v39 = *(a1 + 64);
+          [v13 executeQueryWithPredicate:v28 onPairedDevice:v29 withReplyHandler:v38];
 
           goto LABEL_16;
         }
 
-        v27 = *(a1 + 89);
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_4;
-        v41[3] = &unk_1E7CDB7A8;
-        v16 = &v42;
-        v42 = *(a1 + 64);
-        v28 = v41;
+        v26 = *(a1 + 89);
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_4;
+        v40[3] = &unk_1E7CDB7A8;
+        v16 = &v41;
+        v41 = *(a1 + 64);
+        v27 = v40;
       }
 
       else
       {
         if (!*(a1 + 88))
         {
-          v31 = *(a1 + 32);
-          v43[0] = MEMORY[0x1E69E9820];
-          v43[1] = 3221225472;
-          v43[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_3_19;
-          v43[3] = &unk_1E7CDB7A8;
-          v16 = &v44;
-          v44 = *(a1 + 64);
-          [v13 executeQueryWithPredicate:v31 withReplyHandler:v43];
+          v30 = *(a1 + 32);
+          v42[0] = MEMORY[0x1E69E9820];
+          v42[1] = 3221225472;
+          v42[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_3_19;
+          v42[3] = &unk_1E7CDB7A8;
+          v16 = &v43;
+          v43 = *(a1 + 64);
+          [v13 executeQueryWithPredicate:v30 withReplyHandler:v42];
           goto LABEL_16;
         }
 
-        v27 = *(a1 + 89);
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_2_18;
-        v45[3] = &unk_1E7CDB7A8;
-        v16 = &v46;
-        v46 = *(a1 + 64);
-        v28 = v45;
+        v26 = *(a1 + 89);
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_2_18;
+        v44[3] = &unk_1E7CDB7A8;
+        v16 = &v45;
+        v45 = *(a1 + 64);
+        v27 = v44;
       }
 
-      [v13 executeQueryForUpdatesReloadingFromServer:v27 withReplyHandler:v28];
+      [v13 executeQueryForUpdatesReloadingFromServer:v26 withReplyHandler:v27];
     }
 
 LABEL_16:
 
-    v17 = v50;
+    v17 = v49;
     goto LABEL_17;
   }
 
   v17 = __ErrorWithUnderlyingErrorAndPredicate(v5, *(a1 + 32));
-  if (*(*(*(a1 + 72) + 8) + 24) == 1 && ASDErrorIsEqual(v6, *MEMORY[0x1E696A250], 4097))
+  if (*(*(*(a1 + 72) + 8) + 24) == 1 && ASDErrorIsEqual(v6, *MEMORY[0x1E696A250], 0x1001))
   {
     *(*(*(a1 + 72) + 8) + 24) = 0;
     v18 = dispatch_get_global_queue(21, 0);
@@ -465,11 +457,11 @@ LABEL_16:
     block[1] = 3221225472;
     block[2] = __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_6;
     block[3] = &unk_1E7CDCB08;
-    v37 = *(a1 + 80);
+    v36 = *(a1 + 80);
     v17 = v17;
-    v33 = v17;
+    v32 = v17;
     v19 = *(a1 + 32);
-    v38 = *(a1 + 88);
+    v37 = *(a1 + 88);
     v20 = *(a1 + 40);
     v21 = *(a1 + 48);
     v22 = *(a1 + 56);
@@ -477,9 +469,9 @@ LABEL_16:
     *(&v23 + 1) = v22;
     *&v24 = v19;
     *(&v24 + 1) = v20;
-    v34 = v24;
-    v35 = v23;
-    v36 = *(a1 + 64);
+    v33 = v24;
+    v34 = v23;
+    v35 = *(a1 + 64);
     dispatch_async(v18, block);
   }
 
@@ -495,7 +487,7 @@ void __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadin
 {
   v3 = a2;
   v4 = __ErrorWithUnderlyingErrorAndPredicate(v3, *(a1 + 32));
-  if (*(*(*(a1 + 72) + 8) + 24) == 1 && ASDErrorIsEqual(v3, *MEMORY[0x1E696A250], 4097))
+  if (*(*(*(a1 + 72) + 8) + 24) == 1 && ASDErrorIsEqual(v3, *MEMORY[0x1E696A250], 0x1001))
   {
     *(*(*(a1 + 72) + 8) + 24) = 0;
     v5 = dispatch_get_global_queue(21, 0);
@@ -526,48 +518,42 @@ void __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadin
   }
 }
 
-uint64_t __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_3(uint64_t a1)
+void __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_3(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   v2 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 80);
-    v6 = objc_opt_class();
-    v7 = *(a1 + 32);
-    *v9 = 138543618;
-    *&v9[4] = v6;
-    *&v9[12] = 2114;
-    *&v9[14] = v7;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B8220000, v2, OS_LOG_TYPE_ERROR, "[%{public}@]: Making second attempt to execute query after error: %{public}@", v9, 0x16u);
+    v3 = objc_opt_class();
+    v4 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    v5 = v3;
+    _os_log_error_impl(&dword_1B8220000, v2, OS_LOG_TYPE_ERROR, "[%{public}@]: Making second attempt to execute query after error: %{public}@", &v6, 0x16u);
   }
 
-  result = [(ASDAppQueryExecutor *)*(a1 + 80) _executeQueryWithPredicate:*(a1 + 88) isForUpdates:*(a1 + 89) reloadingFromServer:*(a1 + 48) onPairedDevice:*(a1 + 56) remoteDeviceID:*(a1 + 64) usingServiceBroker:*(a1 + 72) withResultHandler:*v9, *&v9[8], *&v9[16], v10];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  [(ASDAppQueryExecutor *)*(a1 + 80) _executeQueryWithPredicate:*(a1 + 88) isForUpdates:*(a1 + 89) reloadingFromServer:*(a1 + 48) onPairedDevice:*(a1 + 56) remoteDeviceID:*(a1 + 64) usingServiceBroker:*(a1 + 72) withResultHandler:?];
 }
 
-uint64_t __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_6(uint64_t a1)
+void __150__ASDAppQueryExecutor__executeQueryWithPredicate_isForUpdates_reloadingFromServer_onPairedDevice_remoteDeviceID_usingServiceBroker_withResultHandler___block_invoke_6(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   v2 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 80);
-    v6 = objc_opt_class();
-    v7 = *(a1 + 32);
-    *v9 = 138543618;
-    *&v9[4] = v6;
-    *&v9[12] = 2114;
-    *&v9[14] = v7;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B8220000, v2, OS_LOG_TYPE_ERROR, "[%{public}@]: Making second attempt to request service after error: %{public}@", v9, 0x16u);
+    v3 = objc_opt_class();
+    v4 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    v5 = v3;
+    _os_log_error_impl(&dword_1B8220000, v2, OS_LOG_TYPE_ERROR, "[%{public}@]: Making second attempt to request service after error: %{public}@", &v6, 0x16u);
   }
 
-  result = [(ASDAppQueryExecutor *)*(a1 + 80) _executeQueryWithPredicate:*(a1 + 88) isForUpdates:*(a1 + 89) reloadingFromServer:*(a1 + 48) onPairedDevice:*(a1 + 56) remoteDeviceID:*(a1 + 64) usingServiceBroker:*(a1 + 72) withResultHandler:*v9, *&v9[8], *&v9[16], v10];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  [(ASDAppQueryExecutor *)*(a1 + 80) _executeQueryWithPredicate:*(a1 + 88) isForUpdates:*(a1 + 89) reloadingFromServer:*(a1 + 48) onPairedDevice:*(a1 + 56) remoteDeviceID:*(a1 + 64) usingServiceBroker:*(a1 + 72) withResultHandler:?];
 }
 
 @end

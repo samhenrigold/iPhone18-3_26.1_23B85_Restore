@@ -25,29 +25,27 @@
 void __46__RCBuiltinRecordingsFolder_allBuiltInFolders__block_invoke()
 {
   v0 = 0;
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
-  v9 = 0u;
   do
   {
     v1 = [RCBuiltinRecordingsFolder alloc];
-    v2 = [(RCBuiltinRecordingsFolder *)v1 initWithType:v0, v8, v9];
-    v3 = *(&v8 + v0);
-    *(&v8 + v0) = v2;
+    v2 = [(RCBuiltinRecordingsFolder *)v1 initWithType:v0, v7, v8];
+    v3 = *(&v7 + v0);
+    *(&v7 + v0) = v2;
 
     ++v0;
   }
 
   while (v0 != 4);
-  v4 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:&v8 count:4];
+  v4 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:&v7 count:4];
   v5 = allBuiltInFolders_allBuiltInFolders;
   allBuiltInFolders_allBuiltInFolders = v4;
 
   for (i = 24; i != -8; i -= 8)
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)uuid

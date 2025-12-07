@@ -59,31 +59,30 @@
   {
     v5 = +[NSMutableArray array];
     bundle = [(DeveloperModeViewController *)self bundle];
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
     v7 = [NSMutableDictionary alloc];
     v8 = [bundle pathForResource:@"DeveloperMode" ofType:@"plist"];
     v9 = [v7 initWithContentsOfFile:v8];
 
     v10 = [NSMutableArray alloc];
     v11 = [v10 initWithArray:*&self->PSListController_opaque[OBJC_IVAR___PSListController__bundleControllers]];
-    v12 = *&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier];
-    v19 = v11;
-    v13 = SpecifiersFromPlist();
-    v14 = v19;
+    v18 = v11;
+    v12 = SpecifiersFromPlist();
+    v13 = v18;
 
-    [v5 addObjectsFromArray:{v13, &v19}];
-    [(DeveloperModeViewController *)self setTitle:v20];
-    [(DeveloperModeViewController *)self setSpecifierID:v21];
+    [v5 addObjectsFromArray:{v12, &v18}];
+    [(DeveloperModeViewController *)self setTitle:v19];
+    [(DeveloperModeViewController *)self setSpecifierID:v20];
     if (_os_feature_enabled_impl() && self->settings == 1)
     {
       specifiersForPairing = [(DeveloperModeViewController *)self specifiersForPairing];
       [v5 addObjectsFromArray:specifiersForPairing];
     }
 
-    v16 = *&self->PSListController_opaque[v3];
+    v15 = *&self->PSListController_opaque[v3];
     *&self->PSListController_opaque[v3] = v5;
-    v17 = v5;
+    v16 = v5;
 
     v4 = *&self->PSListController_opaque[v3];
   }
@@ -420,15 +419,14 @@
     if (v5 <= 255 && v6 <= 255)
     {
       v7 = [*&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers] objectAtIndex:v5];
-      v8 = *&v7[OBJC_IVAR___PSSpecifier_detailControllerClass];
-      v9 = objc_opt_new();
+      v8 = objc_opt_new();
       [(DeveloperModeViewController *)self setShowingSetupController:0];
       WeakRetained = objc_loadWeakRetained(&self->PSListController_opaque[OBJC_IVAR___PSViewController__rootController]);
-      [v9 setRootController:WeakRetained];
+      [v8 setRootController:WeakRetained];
 
-      [v9 setParentController:self];
-      [v9 setSpecifier:v7];
-      [(DeveloperModeViewController *)self showController:v9];
+      [v8 setParentController:self];
+      [v8 setSpecifier:v7];
+      [(DeveloperModeViewController *)self showController:v8];
     }
   }
 }

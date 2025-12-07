@@ -772,7 +772,7 @@ LABEL_8:
   asset = [itemCopy asset];
   if (itemCopy)
   {
-    [itemCopy duration];
+    objc_msgSend_duration(itemCopy);
   }
 
   else
@@ -928,7 +928,7 @@ LABEL_20:
         {
           memset(v18, 0, sizeof(v18));
           v17 = 0u;
-          [v10 timeRange];
+          objc_msgSend_timeRange(v10);
           v11 = MEMORY[0x1E696AEC0];
           *&time.value = v17;
           time.epoch = *&v18[0];
@@ -1286,7 +1286,7 @@ LABEL_11:
   v28 = v27;
   [v5 naturalSize];
   v30 = v29;
-  [v5 preferredTransform];
+  objc_msgSend_preferredTransform(v5);
   v45.origin.x = 0.0;
   v45.origin.y = 0.0;
   v45.size.width = v28;
@@ -1585,7 +1585,7 @@ LABEL_11:
 
 + (id)dictionaryRepresentationForAuxiliaryImagePixelBuffer:(__CVBuffer *)buffer metadata:(CGImageMetadata *)metadata colorSpace:(CGColorSpace *)space compatibilityMetadata:(CGImageMetadata *)compatibilityMetadata
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
   Width = CVPixelBufferGetWidth(buffer);
   Height = CVPixelBufferGetHeight(buffer);
@@ -1601,13 +1601,13 @@ LABEL_11:
         if (BytesPerRow)
         {
           v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          if (ImageIOLibraryCore() && getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc())
+          if (ImageIOLibraryCore(0) && getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc())
           {
             v17 = getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc();
             if (!v17)
             {
-              dlerror();
-              abort_report_np();
+              v27 = dlerror();
+              abort_report_np("%s", v27);
             }
 
             [v16 setObject:buffer forKeyedSubscript:*v17];
@@ -1632,7 +1632,7 @@ LABEL_18:
               if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109120;
-                v32 = v19;
+                v33 = v19;
                 _os_log_error_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "CVPixelBufferLockBaseAddress failed (%d)", buf, 8u);
               }
 
@@ -1643,19 +1643,19 @@ LABEL_18:
             BaseAddress = CVPixelBufferGetBaseAddress(buffer);
             memcpy([height mutableBytes], BaseAddress, v15 * Height);
             CVPixelBufferUnlockBaseAddress(buffer, 1uLL);
-            v29[0] = *MEMORY[0x1E696DEC0];
+            v30[0] = *MEMORY[0x1E696DEC0];
             v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:PixelFormatType];
-            v30[0] = v21;
-            v29[1] = *MEMORY[0x1E696DFB8];
+            v31[0] = v21;
+            v30[1] = *MEMORY[0x1E696DFB8];
             v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:Width];
-            v30[1] = v22;
-            v29[2] = *MEMORY[0x1E696DD58];
+            v31[1] = v22;
+            v30[2] = *MEMORY[0x1E696DD58];
             v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:Height];
-            v30[2] = v23;
-            v29[3] = *MEMORY[0x1E696D430];
+            v31[2] = v23;
+            v30[3] = *MEMORY[0x1E696D430];
             v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v15];
-            v30[3] = v24;
-            v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:4];
+            v31[3] = v24;
+            v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:4];
 
             [v16 setObject:v25 forKeyedSubscript:*MEMORY[0x1E696D220]];
             [v16 setObject:height forKeyedSubscript:*MEMORY[0x1E696D218]];
@@ -2000,7 +2000,7 @@ uint64_t __59__PFMediaUtilities_imagePropertiesFromImageSource_atIndex___block_i
   v3 = imagePropertiesFromImageSource_atIndex__options;
   imagePropertiesFromImageSource_atIndex__options = v2;
 
-  v4 = [imagePropertiesFromImageSource_atIndex__options mutableCopy];
+  v4 = objc_msgSend_mutableCopy(imagePropertiesFromImageSource_atIndex__options);
   v5 = imagePropertiesFromImageSource_atIndex__optionsFallback;
   imagePropertiesFromImageSource_atIndex__optionsFallback = v4;
 

@@ -67,10 +67,10 @@
   [trainerCopy configuration];
   objc_claimAutoreleasedReturnValue();
   dataSet = [trainerCopy dataSet];
-  v9[0] = xmmword_19D4E9090;
-  v9[1] = vdupq_n_s64(0x400uLL);
-  v9[2] = xmmword_19D4E90A0;
-  v6 = [NLDataSet dataSetWithDataSet:dataSet constraintParameters:v9 modelTrainer:trainerCopy];
+  v10[0] = xmmword_19D4E9090;
+  v10[1] = vdupq_n_s64(0x400uLL);
+  v10[2] = xmmword_19D4E90A0;
+  v6 = [NLDataSet dataSetWithDataSet:dataSet constraintParameters:v10 modelTrainer:trainerCopy];
   [v6 inverseLabelMap];
   objc_claimAutoreleasedReturnValue();
   [v6 vocabularyMap];
@@ -79,9 +79,9 @@
   objc_claimAutoreleasedReturnValue();
   [dataSet numberOfTrainingInstances];
   options = [trainerCopy options];
-  unsignedIntegerForKey(options, @"MaximumIterations", 150);
+  v8 = unsignedIntegerForKey(options, @"MaximumIterations", 150);
 
-  createMaxEntModelFromTrainingDataSet(v6, trainerCopy);
+  createMaxEntModelFromTrainingDataSet(v6, trainerCopy, v8);
 }
 
 - (void)dealloc

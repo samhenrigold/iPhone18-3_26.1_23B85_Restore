@@ -25,10 +25,10 @@
 + (id)archiveSubpathByStandardizingArchiveSubpath:(id)subpath
 {
   stringByStandardizingPath = [subpath stringByStandardizingPath];
-  if ([stringByStandardizingPath length] && (objc_msgSend(stringByStandardizingPath, "isEqualToString:", @"/") & 1) == 0)
+  if ([stringByStandardizingPath length] && (objc_msgSend_isEqualToString_(stringByStandardizingPath) & 1) == 0)
   {
     v4 = @".";
-    if (([stringByStandardizingPath isEqualToString:@"."] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(stringByStandardizingPath) & 1) == 0)
     {
       if ([stringByStandardizingPath hasPrefix:@"/"])
       {
@@ -54,7 +54,7 @@
 {
   archiveCopy = archive;
   inArchiveCopy = inArchive;
-  if ([inArchiveCopy isEqualToString:@"."])
+  if (objc_msgSend_isEqualToString_(inArchiveCopy))
   {
     v7 = 1;
   }

@@ -36,7 +36,7 @@
 
   else
   {
-    v10 = wk_default_log();
+    v10 = wk_default_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10002A8EC(v10);

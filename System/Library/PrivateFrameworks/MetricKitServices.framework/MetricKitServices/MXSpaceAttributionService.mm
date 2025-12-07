@@ -120,7 +120,7 @@ uint64_t __58__MXSpaceAttributionService_sharedSpaceAttributionService__block_in
 
 - (BOOL)_updateService
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(NSMutableArray *)self->_spaceAttributionDataPaths removeAllObjects];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = +[MXUtilities containerPath];
@@ -128,9 +128,9 @@ uint64_t __58__MXSpaceAttributionService_sharedSpaceAttributionService__block_in
   v6 = [v4 stringByAppendingPathComponent:v5];
   currentClient = [(MXService *)self currentClient];
   v8 = [v6 stringByAppendingPathComponent:currentClient];
-  v20 = 0;
-  v9 = [defaultManager contentsOfDirectoryAtPath:v8 error:&v20];
-  v10 = v20;
+  v19 = 0;
+  v9 = [defaultManager contentsOfDirectoryAtPath:v8 error:&v19];
+  v10 = v19;
 
   if (v10)
   {
@@ -154,12 +154,11 @@ uint64_t __58__MXSpaceAttributionService_sharedSpaceAttributionService__block_in
     {
       v17 = self->_spaceAttributionDataPaths;
       *buf = 138412290;
-      v22 = v17;
+      v21 = v17;
       _os_log_impl(&dword_258D95000, v16, OS_LOG_TYPE_DEFAULT, "Found log files: %@", buf, 0xCu);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10 == 0;
 }
 
@@ -172,7 +171,7 @@ uint64_t __58__MXSpaceAttributionService_sharedSpaceAttributionService__block_in
 
 - (id)getMetricsForClient:(id)client
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   selfCopy = self;
@@ -190,26 +189,26 @@ uint64_t __58__MXSpaceAttributionService_sharedSpaceAttributionService__block_in
     unarchivedSpaceAttributionData = selfCopy->_unarchivedSpaceAttributionData;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v8 = unarchivedSpaceAttributionData;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * i);
+        v13 = *(*(&v27 + 1) + 8 * i);
         metrics = [v13 metrics];
         v15 = [metrics objectForKey:clientCopy];
 
@@ -226,7 +225,7 @@ uint64_t __58__MXSpaceAttributionService_sharedSpaceAttributionService__block_in
         }
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v10);
@@ -244,25 +243,22 @@ uint64_t __58__MXSpaceAttributionService_sharedSpaceAttributionService__block_in
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = clientCopy;
+      v32 = clientCopy;
       _os_log_impl(&dword_258D95000, v24, OS_LOG_TYPE_DEFAULT, "No data for client: %@", buf, 0xCu);
     }
 
     v23 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (void)_updateService
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_258D95000, a2, OS_LOG_TYPE_ERROR, "Failed to obtain log paths with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_258D95000, a2, OS_LOG_TYPE_ERROR, "Failed to obtain log paths with error: %@", &v2, 0xCu);
 }
 
 @end

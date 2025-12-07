@@ -5,6 +5,7 @@
 - (BOOL)checkAccessForService:(id)service auditToken:(id *)token;
 - (BOOL)sensorHasReaderAuthorization:(id)authorization;
 - (BOOL)sensorHasReaderAuthorization:(id)authorization forBundleId:(id)id;
+- (BOOL)setAuthorizationForBundleId:(id)id service:(id)service value:(BOOL)value setOverride:(BOOL)override;
 - (SRAuthorizationStore)initWithSensors:(id)sensors withAuthorizationTimes:(BOOL)times;
 - (id)readerAuthorizationBundleIdValues;
 - (void)addReaderAuthorizationDelegate:(id)delegate;
@@ -160,7 +161,7 @@
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v4 = sub_100019058();
+  v4 = sub_100019058(SRSensorsCache);
   v5 = sub_1000193F0(v4);
   v6 = [(SRSensorDescriptionEnumerator *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
@@ -720,6 +721,44 @@ LABEL_5:
 
   [(SRTCCStore *)self->_tccStore resetService:service forBundleId:id];
   sub_1000175E4(self, service, 0, id);
+}
+
+- (BOOL)setAuthorizationForBundleId:(id)id service:(id)service value:(BOOL)value setOverride:(BOOL)override
+{
+  valueCopy = value;
+  v11 = [id length];
+  if (v11)
+  {
+    v11 = [service length];
+    if (v11)
+    {
+      if ([id isEqualToString:@"com.apple.private.SensorKit._compositeBundle"])
+      {
+        v12 = qword_1000719E8;
+        LODWORD(v11) = os_log_type_enabled(qword_1000719E8, OS_LOG_TYPE_FAULT);
+        if (v11)
+        {
+          v15 = 138543362;
+          v16 = @"com.apple.private.SensorKit._compositeBundle";
+          _os_log_fault_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "Setting authorization for %{public}@ is not allowed", &v15, 0xCu);
+          LOBYTE(v11) = 0;
+        }
+      }
+
+      else
+      {
+        v13 = [(SRTCCStore *)self->_tccStore setValue:valueCopy forService:service bundleId:id];
+        LOBYTE(v11) = !override & v13;
+        if (override && (v13 & 1) != 0)
+        {
+
+          LOBYTE(v11) = sub_1000175E4(self, service, valueCopy, id);
+        }
+      }
+    }
+  }
+
+  return v11;
 }
 
 - (id)readerAuthorizationBundleIdValues

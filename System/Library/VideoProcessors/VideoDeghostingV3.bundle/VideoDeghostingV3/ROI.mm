@@ -43,68 +43,17 @@
 {
   sCopy = s;
   [(ROI *)self area];
-  if (v5 > 18000.0)
+  if ((v5 <= 18000.0 || ([sCopy area], v6 > 17820.0)) && ((-[ROI area](self, "area"), v7 <= 17820.0) && (objc_msgSend(sCopy, "area"), v8 > 18000.0) || (objc_msgSend(sCopy, "dist2ghost"), v10 = v9, -[ROI dist2ghost](self, "dist2ghost"), v10 > (v11 + 32.0)) || ((objc_msgSend(sCopy, "dist2ghost"), v12 == INFINITY) || (objc_msgSend(sCopy, "dist2ghost"), v14 = v13, -[ROI dist2ghost](self, "dist2ghost"), vabds_f32(v14, v15) <= 32.0)) && ((objc_msgSend(sCopy, "area"), v17 = v16, -[ROI area](self, "area"), v17 < (v18 + -256.0)) || (objc_msgSend(sCopy, "area"), v21 = v20, -[ROI area](self, "area"), vabds_f32(v21, v22) <= 256.0) && (objc_msgSend(sCopy, "dist2opticalCenter"), v24 = v23, -[ROI dist2opticalCenter](self, "dist2opticalCenter"), v24 > v25))))
   {
-    [sCopy area];
-    if (v6 <= 17820.0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  [(ROI *)self area];
-  if (v7 <= 17820.0)
-  {
-    [sCopy area];
-    if (v8 > 18000.0)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  [sCopy dist2ghost];
-  v10 = v9;
-  [(ROI *)self dist2ghost];
-  if (v10 > (v11 + 32.0))
-  {
-    goto LABEL_9;
-  }
-
-  [sCopy dist2ghost];
-  if (v12 != INFINITY)
-  {
-    [sCopy dist2ghost];
-    v14 = v13;
-    [(ROI *)self dist2ghost];
-    if (vabds_f32(v14, v15) > 32.0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  [sCopy area];
-  v17 = v16;
-  [(ROI *)self area];
-  if (v17 < (v18 + -256.0) || ([sCopy area], v21 = v20, -[ROI area](self, "area"), vabds_f32(v21, v22) <= 256.0) && (objc_msgSend(sCopy, "dist2opticalCenter"), v24 = v23, -[ROI dist2opticalCenter](self, "dist2opticalCenter"), v24 > v25))
-  {
-LABEL_9:
     v19 = -1;
   }
 
   else
   {
-LABEL_12:
     v19 = 1;
   }
 
   return v19;
-}
-
-- (uint64_t)initWithBbox:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

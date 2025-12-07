@@ -49,7 +49,7 @@
       CGAffineTransformMakeScale(&v15, v8 / v9, v8 / v9);
       if (geometryCopy)
       {
-        [geometryCopy transform];
+        objc_msgSend_transform(geometryCopy);
       }
 
       else

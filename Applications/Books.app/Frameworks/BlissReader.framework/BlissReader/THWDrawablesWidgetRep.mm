@@ -448,7 +448,7 @@ LABEL_4:
     result = [(THWFreeTransformableRepGestureTargetHandler *)[(THWDrawablesWidgetRep *)self freeTransformableHandler] ftc];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else
@@ -481,7 +481,7 @@ LABEL_4:
 {
   if ([(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWDrawablesWidgetRep *)self freeTransformableHandler] ftc] isFreeTransformInProgress])
   {
-    [(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWDrawablesWidgetRep *)self freeTransformableHandler] ftc] completionTargetRect];
+    objc_msgSend_completionTargetRect([(THWFreeTransformableRepGestureTargetHandler *)[(THWDrawablesWidgetRep *)self freeTransformableHandler] ftc]);
   }
 
   else

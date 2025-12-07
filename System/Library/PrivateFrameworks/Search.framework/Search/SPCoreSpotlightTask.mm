@@ -5,6 +5,7 @@
 - (void)_filterDuplicateiCloudDriveResultsForSection:(id)section iCloudDriveSection:(id)driveSection iCloudDriveResultsDictionary:(id)dictionary;
 - (void)enumerateTopHitResultsByBundle:(id)bundle addingToItems:(id)items withHandler:(id)handler;
 - (void)filterItemsForL2:(id)l2 rankCount:(int64_t)count rankingConfiguration:(id)configuration;
+- (void)filterRankedItems:(id)items maxCount:(int64_t)count bundle:(id)bundle userQuery:(id)query queryID:(int64_t)d privateQuery:(BOOL)privateQuery rankingConfiguration:(id)configuration currentTime:(double)self0 clientBundle:(id)self1 ranker:(id)self2;
 @end
 
 @implementation SPCoreSpotlightTask
@@ -296,6 +297,296 @@
   }
 }
 
+- (void)filterRankedItems:(id)items maxCount:(int64_t)count bundle:(id)bundle userQuery:(id)query queryID:(int64_t)d privateQuery:(BOOL)privateQuery rankingConfiguration:(id)configuration currentTime:(double)self0 clientBundle:(id)self1 ranker:(id)self2
+{
+  privateQueryCopy = privateQuery;
+  itemsCopy = items;
+  bundleCopy = bundle;
+  queryCopy = query;
+  configurationCopy = configuration;
+  rankerCopy = ranker;
+  if (([(SPCoreSpotlightTask *)self canceled]& 1) != 0)
+  {
+    goto LABEL_68;
+  }
+
+  if (SSPommesRankingForSectionBundle())
+  {
+    v23 = +[SSPommesRanker sharedPommesRanker];
+    [v23 sortAndFilterRankedItems:itemsCopy maxCount:count bundleID:bundleCopy userQuery:queryCopy queryID:d privateQuery:privateQueryCopy currentTime:time];
+
+    goto LABEL_68;
+  }
+
+  v76 = rankerCopy;
+  v77 = configurationCopy;
+  v96[0] = _NSConcreteStackBlock;
+  v96[1] = 3221225472;
+  v96[2] = sub_1000319D8;
+  v96[3] = &unk_1000931F8;
+  *&v96[4] = time;
+  *&v96[5] = time;
+  v24 = 1;
+  [itemsCopy sortWithOptions:1 usingComparator:v96];
+  queryContext = [(SPCoreSpotlightTask *)self queryContext];
+  if ([queryContext filterTopHits])
+  {
+    v69 = itemsCopy;
+    v71 = queryCopy;
+    queryContext2 = [(SPCoreSpotlightTask *)self queryContext];
+    generateSuggestions = [queryContext2 generateSuggestions];
+    v28 = generateSuggestions;
+    if (generateSuggestions && (-[SPCoreSpotlightTask queryContext](self, "queryContext"), v24 = objc_claimAutoreleasedReturnValue(), [v24 additionalBundleIDs], configurationCopy = objc_claimAutoreleasedReturnValue(), (objc_msgSend(configurationCopy, "containsObject:", bundleCopy) & 1) != 0))
+    {
+
+      LOBYTE(v24) = 1;
+    }
+
+    else
+    {
+      queryContext3 = [(SPCoreSpotlightTask *)self queryContext];
+      if ([queryContext3 enableInstantAnswers])
+      {
+        queryContext4 = [(SPCoreSpotlightTask *)self queryContext];
+        instantAnswersBundleIDs = [queryContext4 instantAnswersBundleIDs];
+        v73 = [instantAnswersBundleIDs containsObject:bundleCopy];
+
+        if (v28)
+        {
+        }
+
+        if (v73)
+        {
+          LOBYTE(v24) = 1;
+          itemsCopy = v69;
+          queryCopy = v71;
+          goto LABEL_33;
+        }
+      }
+
+      else
+      {
+
+        if (v28)
+        {
+        }
+      }
+
+      v74 = bundleCopy;
+      queryContext = objc_alloc_init(NSMutableSet);
+      queryContext2 = objc_alloc_init(NSMutableIndexSet);
+      v92 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v95 = 0u;
+      v32 = v69;
+      v33 = [v32 countByEnumeratingWithState:&v92 objects:v100 count:16];
+      if (v33)
+      {
+        v34 = v33;
+        v35 = 0;
+        v36 = *v93;
+        do
+        {
+          for (i = 0; i != v34; i = i + 1)
+          {
+            if (*v93 != v36)
+            {
+              objc_enumerationMutation(v32);
+            }
+
+            v38 = *(*(&v92 + 1) + 8 * i);
+            rankingItem = [v38 rankingItem];
+            [rankingItem withinBundleScore];
+            v41 = v40;
+
+            if (v41 >= -9500.0)
+            {
+              threadId = [v38 threadId];
+              if (threadId)
+              {
+                if ([queryContext containsObject:threadId])
+                {
+                  [queryContext2 addIndex:v35];
+                }
+
+                else
+                {
+                  [queryContext addObject:threadId];
+                }
+              }
+            }
+
+            else
+            {
+              [queryContext2 addIndex:v35];
+            }
+
+            ++v35;
+          }
+
+          v34 = [v32 countByEnumeratingWithState:&v92 objects:v100 count:16];
+        }
+
+        while (v34);
+      }
+
+      [v32 removeObjectsAtIndexes:queryContext2];
+      LOBYTE(v24) = 0;
+      bundleCopy = v74;
+    }
+
+    itemsCopy = v69;
+    queryCopy = v71;
+  }
+
+LABEL_33:
+  rankerCopy = v76;
+  configurationCopy = v77;
+  if (([(SPCoreSpotlightTask *)self canceled]& 1) == 0)
+  {
+    v75 = bundleCopy;
+    v43 = objc_opt_new();
+    v88 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v44 = itemsCopy;
+    v45 = [v44 countByEnumeratingWithState:&v88 objects:v99 count:16];
+    if (v45)
+    {
+      v46 = v45;
+      v47 = *v89;
+      do
+      {
+        for (j = 0; j != v46; j = j + 1)
+        {
+          if (*v89 != v47)
+          {
+            objc_enumerationMutation(v44);
+          }
+
+          rankingItem2 = [*(*(&v88 + 1) + 8 * j) rankingItem];
+          [v43 addObject:rankingItem2];
+        }
+
+        v46 = [v44 countByEnumeratingWithState:&v88 objects:v99 count:16];
+      }
+
+      while (v46);
+    }
+
+    v50 = +[PRSAnonymousPipelineManager sharedManager];
+    bundleCopy = v75;
+    [v50 queryWillFinishWithItems:v43 forClient:v75 forQuery:queryCopy anonymousDataCollectionAllowed:{objc_msgSend(v77, "allowAnonymousDataCollection")}];
+
+    if ([v44 count] <= count)
+    {
+      v51 = 1;
+    }
+
+    else
+    {
+      v51 = v24;
+    }
+
+    if ((v51 & 1) == 0)
+    {
+      [v44 removeObjectsInRange:{count, objc_msgSend(v44, "count") - count}];
+    }
+
+    if (([v75 isEqualToString:PRSRankingMessagesBundleString] & 1) != 0 || objc_msgSend(v75, "isEqualToString:", PRSRankingMailBundleString))
+    {
+      v72 = queryCopy;
+      v52 = [[NSMutableArray alloc] initWithCapacity:count];
+      v84 = 0u;
+      v85 = 0u;
+      v86 = 0u;
+      v87 = 0u;
+      v53 = v44;
+      v54 = [v53 countByEnumeratingWithState:&v84 objects:v98 count:16];
+      if (v54)
+      {
+        v55 = v54;
+        v56 = *v85;
+        do
+        {
+          for (k = 0; k != v55; k = k + 1)
+          {
+            if (*v85 != v56)
+            {
+              objc_enumerationMutation(v53);
+            }
+
+            rankingItem3 = [*(*(&v84 + 1) + 8 * k) rankingItem];
+            [v52 addObject:rankingItem3];
+          }
+
+          v55 = [v53 countByEnumeratingWithState:&v84 objects:v98 count:16];
+        }
+
+        while (v55);
+      }
+
+      bundleCopy = v75;
+      v59 = [v76 filterRankedItems:v52 bundle:v75 userQuery:v72];
+      v60 = [v59 count];
+      if (v60 < [v52 count])
+      {
+        v70 = itemsCopy;
+        v79 = objc_alloc_init(NSMutableIndexSet);
+        v80 = 0u;
+        v81 = 0u;
+        v82 = 0u;
+        v83 = 0u;
+        v61 = v53;
+        v62 = [v61 countByEnumeratingWithState:&v80 objects:v97 count:16];
+        if (v62)
+        {
+          v63 = v62;
+          v64 = 0;
+          v65 = *v81;
+          do
+          {
+            for (m = 0; m != v63; m = m + 1)
+            {
+              if (*v81 != v65)
+              {
+                objc_enumerationMutation(v61);
+              }
+
+              rankingItem4 = [*(*(&v80 + 1) + 8 * m) rankingItem];
+              v68 = [v59 containsObject:rankingItem4];
+
+              if ((v68 & 1) == 0)
+              {
+                [v79 addIndex:v64];
+              }
+
+              ++v64;
+            }
+
+            v63 = [v61 countByEnumeratingWithState:&v80 objects:v97 count:16];
+          }
+
+          while (v63);
+        }
+
+        [v61 removeObjectsAtIndexes:v79];
+        itemsCopy = v70;
+        bundleCopy = v75;
+      }
+
+      queryCopy = v72;
+    }
+
+    rankerCopy = v76;
+    configurationCopy = v77;
+  }
+
+LABEL_68:
+}
+
 - (id)selectFromBatch:(id)batch withBundle:(id)bundle rankCount:(unint64_t)count maxCount:(unint64_t)maxCount userQuery:(id)query queryID:(int64_t)d isCJK:(BOOL)k clientBundle:(id)self0 isKeyboardCJK:(BOOL)self1 currentTime:(double)self2
 {
   batchCopy = batch;
@@ -450,25 +741,14 @@ LABEL_8:
           rankingItem = [v42 rankingItem];
           [rankingItem setSectionBundleIdentifier:v36];
 
-          if (!v33)
+          if (!v33 || ([v42 rankingItem], v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v44, "attributes"), SSCompactRankingAttrsGetValue(), v45 = objc_claimAutoreleasedReturnValue(), v44, LODWORD(v44) = objc_msgSend(v45, "isEqualToString:", PhotosResultContentTypeAsset), v45, v44))
           {
-            goto LABEL_18;
-          }
-
-          rankingItem2 = [v42 rankingItem];
-          [rankingItem2 attributes];
-          v45 = SSCompactRankingAttrsGetValue();
-
-          LODWORD(rankingItem2) = [v45 isEqualToString:PhotosResultContentTypeAsset];
-          if (rankingItem2)
-          {
-LABEL_18:
-            rankingItem3 = [v42 rankingItem];
-            retrievalType = [rankingItem3 retrievalType];
+            rankingItem2 = [v42 rankingItem];
+            retrievalType = [rankingItem2 retrievalType];
             if ([retrievalType intValue])
             {
-              rankingItem4 = [v42 rankingItem];
-              retrievalType2 = [rankingItem4 retrievalType];
+              rankingItem3 = [v42 rankingItem];
+              retrievalType2 = [rankingItem3 retrievalType];
               intValue = [retrievalType2 intValue];
 
               v36 = v82;
@@ -478,8 +758,8 @@ LABEL_18:
               }
 
               v116[0] = @"item";
-              rankingItem5 = [v42 rankingItem];
-              v117[0] = rankingItem5;
+              rankingItem4 = [v42 rankingItem];
+              v117[0] = rankingItem4;
               v116[1] = @"index";
               v55 = [NSNumber numberWithUnsignedInteger:v39];
               v117[1] = v55;
@@ -491,15 +771,15 @@ LABEL_18:
             {
 
 LABEL_21:
-              rankingItem6 = [v42 rankingItem];
-              retrievalType3 = [rankingItem6 retrievalType];
+              rankingItem5 = [v42 rankingItem];
+              retrievalType3 = [rankingItem5 retrievalType];
               intValue2 = [retrievalType3 intValue];
 
               if ((intValue2 & 2) != 0)
               {
                 v114[0] = @"item";
-                rankingItem5 = [v42 rankingItem];
-                v115[0] = rankingItem5;
+                rankingItem4 = [v42 rankingItem];
+                v115[0] = rankingItem4;
                 v114[1] = @"index";
                 v55 = [NSNumber numberWithUnsignedInteger:v39];
                 v115[1] = v55;
@@ -510,8 +790,8 @@ LABEL_21:
               else
               {
                 v112[0] = @"item";
-                rankingItem5 = [v42 rankingItem];
-                v113[0] = rankingItem5;
+                rankingItem4 = [v42 rankingItem];
+                v113[0] = rankingItem4;
                 v112[1] = @"index";
                 v55 = [NSNumber numberWithUnsignedInteger:v39];
                 v113[1] = v55;

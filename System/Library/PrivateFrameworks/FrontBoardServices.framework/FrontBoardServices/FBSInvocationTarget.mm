@@ -1,12 +1,12 @@
 @interface FBSInvocationTarget
-+ (void)targetWithInterface:(void *)interface handler:;
++ (FBSInvocationTarget)targetWithInterface:(void *)interface handler:;
 - (id)methodSignatureForSelector:(SEL)selector;
 - (void)forwardInvocation:(id)invocation;
 @end
 
 @implementation FBSInvocationTarget
 
-+ (void)targetWithInterface:(void *)interface handler:
++ (FBSInvocationTarget)targetWithInterface:(void *)interface handler:
 {
   v4 = a2;
   interfaceCopy = interface;
@@ -44,10 +44,10 @@
 
   if ((handler & 1) == 0)
   {
-    v9 = FBLogSceneInvocation();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = FBLogSceneInvocation(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(FBSInvocationTarget *)invocationCopy forwardInvocation:v9];
+      [(FBSInvocationTarget *)invocationCopy forwardInvocation:v10];
     }
   }
 }
@@ -66,7 +66,7 @@
 
   else
   {
-    v11 = FBLogSceneInvocation();
+    v11 = FBLogSceneInvocation(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(FBSInvocationTarget *)selector methodSignatureForSelector:v11];
@@ -82,15 +82,14 @@
 
 + (void)targetWithInterface:(char *)a1 handler:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -99,15 +98,14 @@
 
 + (void)targetWithInterface:(char *)a1 handler:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"protocol"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"protocol", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

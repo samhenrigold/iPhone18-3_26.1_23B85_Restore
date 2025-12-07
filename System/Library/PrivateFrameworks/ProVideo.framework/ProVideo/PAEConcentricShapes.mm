@@ -244,92 +244,92 @@ LABEL_27:
   v11 = v8;
   imageType = [output imageType];
   v13 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
-  v83[0] = 0;
-  v82 = 0uLL;
-  v80 = 0.0;
-  v81 = 0.0;
-  v78 = 0.0;
+  v82[0] = 0;
+  v81 = 0uLL;
   v79 = 0.0;
-  v76 = 0.0;
+  v80 = 0.0;
   v77 = 0.0;
-  v74 = 0.0;
+  v78 = 0.0;
   v75 = 0.0;
-  v72 = 0.0;
+  v76 = 0.0;
   v73 = 0.0;
-  v71 = 0;
+  v74 = 0.0;
+  v71 = 0.0;
+  v72 = 0.0;
+  v70 = 0;
+  v68 = 0.0;
   v69 = 0.0;
-  v70 = 0.0;
-  v67 = 2048.0;
-  v68 = 0;
-  v66 = 0.0;
-  [v7 getIntValue:v83 fromParm:2 atFxTime:info->var0.var1];
-  [v7 getIntValue:&v71 fromParm:3 atFxTime:info->var0.var1];
-  [v7 getFloatValue:&v70 fromParm:4 atFxTime:info->var0.var1];
-  [v7 getXValue:&v82 YValue:&v82 + 8 fromParm:5 atFxTime:info->var0.var1];
-  [(PAESharedDefaultBase *)self convertRelativeToPixelCoordinates:&v82 withImage:output];
-  v82 = v63;
-  [v7 getRedValue:&v81 greenValue:&v80 blueValue:&v79 alphaValue:&v78 fromParm:9 atFxTime:info->var0.var1];
-  v80 = v78 * v80;
-  v81 = v78 * v81;
-  v79 = v78 * v79;
-  [v7 getRedValue:&v77 greenValue:&v76 blueValue:&v75 alphaValue:&v74 fromParm:10 atFxTime:info->var0.var1];
-  v76 = v74 * v76;
-  v77 = v74 * v77;
-  v75 = v74 * v75;
-  [v7 getFloatValue:&v73 fromParm:13 atFxTime:info->var0.var1];
-  v14 = v73;
-  [v7 getFloatValue:&v72 fromParm:14 atFxTime:info->var0.var1];
-  v72 = 1.0 / (1.0 - fmin(log10(v72 * 10.0), 0.999999999));
-  [v7 getIntValue:&v68 + 4 fromParm:8 atFxTime:info->var0.var1];
-  [v7 getFloatValue:&v69 fromParm:15 atFxTime:info->var0.var1];
-  v15 = v69;
-  v16 = -v69;
-  v69 = -v69;
-  v17 = HIDWORD(v68);
-  if (v83[0] == 1)
+  v66 = 2048.0;
+  v67 = 0;
+  v65 = 0.0;
+  [v7 getIntValue:v82 fromParm:2 atFxTime:info->var0.var1];
+  [v7 getIntValue:&v70 fromParm:3 atFxTime:info->var0.var1];
+  [v7 getFloatValue:&v69 fromParm:4 atFxTime:info->var0.var1];
+  [v7 getXValue:&v81 YValue:&v81 + 8 fromParm:5 atFxTime:info->var0.var1];
+  objc_msgSend_convertRelativeToPixelCoordinates_withImage_(self);
+  v81 = v62;
+  [v7 getRedValue:&v80 greenValue:&v79 blueValue:&v78 alphaValue:&v77 fromParm:9 atFxTime:info->var0.var1];
+  v79 = v77 * v79;
+  v80 = v77 * v80;
+  v78 = v77 * v78;
+  [v7 getRedValue:&v76 greenValue:&v75 blueValue:&v74 alphaValue:&v73 fromParm:10 atFxTime:info->var0.var1];
+  v75 = v73 * v75;
+  v76 = v73 * v76;
+  v74 = v73 * v74;
+  [v7 getFloatValue:&v72 fromParm:13 atFxTime:info->var0.var1];
+  v14 = v72;
+  [v7 getFloatValue:&v71 fromParm:14 atFxTime:info->var0.var1];
+  v71 = 1.0 / (1.0 - fmin(log10(v71 * 10.0), 0.999999999));
+  [v7 getIntValue:&v67 + 4 fromParm:8 atFxTime:info->var0.var1];
+  [v7 getFloatValue:&v68 fromParm:15 atFxTime:info->var0.var1];
+  v15 = v68;
+  v16 = -v68;
+  v68 = -v68;
+  v17 = HIDWORD(v67);
+  if (v82[0] == 1)
   {
-    v18 = v73;
-    if (!HIDWORD(v68))
+    v18 = v72;
+    if (!HIDWORD(v67))
     {
       v24 = 0;
-      v69 = fmod(v16, v73) / v18;
+      v68 = fmod(v16, v72) / v18;
       goto LABEL_18;
     }
 
-    v19 = fmod(v16, v73) / v18;
+    v19 = fmod(v16, v72) / v18;
     v20 = floor(fabs(v15) / v18);
     if (v15 > 0.0)
     {
       v20 = -v20;
     }
 
-    v69 = v19 + v20;
+    v68 = v19 + v20;
   }
 
   if (v17 == 1)
   {
-    v21 = HGRectMake4i(0, 0, 0x100u, 1u);
+    v21 = HGRectMake4i(0, 0, 256, 1);
     v23 = v22;
     v24 = HGObject::operator new(0x80uLL);
-    *&v25 = HGBitmap::HGBitmap(v24, v21, v23, 29).n128_u64[0];
-    v26 = *(v24 + 10);
-    [v11 getGradientSamples:v26 numSamples:256 depth:4 fromParm:11 atFxTime:{info->var0.var1, v25}];
-    v27 = (v26 + 8);
-    v28 = 256;
+    HGBitmap::HGBitmap(v24, v21, v23, 29);
+    v25 = *(v24 + 10);
+    [v11 getGradientSamples:v25 numSamples:256 depth:4 fromParm:11 atFxTime:info->var0.var1];
+    v26 = (v25 + 8);
+    v27 = 256;
     do
     {
-      v29 = *(v27 - 2);
-      v30 = v29 * *(v27 - 1);
-      v31 = v29 * *v27;
-      v32 = v29 * v27[1];
-      *(v27 - 1) = v30;
-      *v27 = v31;
-      v27[1] = v32;
-      v27 += 4;
-      --v28;
+      v28 = *(v26 - 2);
+      v29 = v28 * *(v26 - 1);
+      v30 = v28 * *v26;
+      v31 = v28 * v26[1];
+      *(v26 - 1) = v29;
+      *v26 = v30;
+      v26[1] = v31;
+      v26 += 4;
+      --v27;
     }
 
-    while (v28);
+    while (v27);
   }
 
   else
@@ -338,110 +338,110 @@ LABEL_27:
   }
 
 LABEL_18:
-  [v7 getIntValue:&v68 fromParm:12 atFxTime:info->var0.var1];
-  [v7 getFloatValue:&v67 fromParm:16 atFxTime:info->var0.var1];
-  [v7 getFloatValue:&v66 fromParm:17 atFxTime:info->var0.var1];
+  [v7 getIntValue:&v67 fromParm:12 atFxTime:info->var0.var1];
+  [v7 getFloatValue:&v66 fromParm:16 atFxTime:info->var0.var1];
+  [v7 getFloatValue:&v65 fromParm:17 atFxTime:info->var0.var1];
   if (v13)
   {
-    v33 = imageType == 3;
+    v32 = imageType == 3;
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  v10 = v33;
-  if (v33)
+  v10 = v32;
+  if (v32)
   {
-    v65 = 0;
-    if (v83[0])
+    v64 = 0;
+    if (v82[0])
     {
-      if (HIDWORD(v68))
+      if (HIDWORD(v67))
       {
-        v34 = HGObject::operator new(0x1A0uLL);
-        HgcConcentricPolygonsGradient::HgcConcentricPolygonsGradient(v34);
+        v33 = HGObject::operator new(0x1A0uLL);
+        HgcConcentricPolygonsGradient::HgcConcentricPolygonsGradient(v33);
       }
 
-      v36 = HGObject::operator new(0x1A0uLL);
-      HgcConcentricPolygons::HgcConcentricPolygons(v36);
-      if (v36)
+      v35 = HGObject::operator new(0x1A0uLL);
+      HgcConcentricPolygons::HgcConcentricPolygons(v35);
+      if (v35)
       {
-        v65 = v36;
+        v64 = v35;
       }
 
-      v62 = 0x800000009;
+      v61 = 0x800000009;
     }
 
     else
     {
-      if (HIDWORD(v68))
+      if (HIDWORD(v67))
       {
-        v35 = HGObject::operator new(0x1A0uLL);
-        HgcConcentricCirclesGradient::HgcConcentricCirclesGradient(v35);
+        v34 = HGObject::operator new(0x1A0uLL);
+        HgcConcentricCirclesGradient::HgcConcentricCirclesGradient(v34);
       }
 
-      v36 = HGObject::operator new(0x1A0uLL);
-      HgcConcentricCircles::HgcConcentricCircles(v36);
+      v35 = HGObject::operator new(0x1A0uLL);
+      HgcConcentricCircles::HgcConcentricCircles(v35);
+      if (v35)
+      {
+        v64 = v35;
+      }
+
+      v61 = 0x600000007;
+    }
+
+    if (HIDWORD(v67) == 1)
+    {
+      v36 = HGObject::operator new(0x1F0uLL);
+      HGBitmapLoader::HGBitmapLoader(v36, v24);
+      (*(*v35 + 120))(v35, 0, v36);
       if (v36)
       {
-        v65 = v36;
-      }
-
-      v62 = 0x600000007;
-    }
-
-    if (HIDWORD(v68) == 1)
-    {
-      v37 = HGObject::operator new(0x1F0uLL);
-      HGBitmapLoader::HGBitmapLoader(v37, v24);
-      (*(*v36 + 120))(v36, 0, v37);
-      if (v37)
-      {
-        (*(*v37 + 24))(v37);
+        (*(*v36 + 24))(v36);
       }
     }
 
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-    v38 = *&v82;
-    v39 = *(&v82 + 1);
-    (*(*v36 + 96))(v36, 0, v38, v39, 0.0, 0.0);
-    v40 = v81;
-    v41 = v80;
-    v42 = v79;
-    v43 = v78;
-    (*(*v36 + 96))(v36, 1, v40, v41, v42, v43);
-    v44 = v77;
-    v45 = v76;
-    v46 = v75;
-    v47 = v74;
-    (*(*v36 + 96))(v36, 2, v44, v45, v46, v47);
-    v48 = v73;
-    v49 = v69;
-    (*(*v36 + 96))(v36, 3, v48, v49, 0.0, 0.0);
-    v50 = v72;
-    (*(*v36 + 96))(v36, 4, v50, 0.0, 0.0, 0.0);
-    v51 = *&v63;
-    v52 = v64;
-    (*(*v36 + 96))(v36, 5, v51, fabsf(v52), 1.0, 0.0);
-    v53 = 6.28318531 / v71;
-    v54 = v71 / 6.28318531;
-    (*(*v36 + 96))(v36, 6, v53, v54, 0.0, 0.0);
-    v55 = __sincos_stret(v70);
-    cosval = v55.__cosval;
-    sinval = v55.__sinval;
-    (*(*v36 + 96))(v36, 7, cosval, sinval, -sinval);
-    v58 = 1.0 / v14;
-    (*(*v36 + 96))(v36, 8, v58, 0.0, 0.0, 0.0);
-    (*(*v36 + 96))(v36, 9, (v68 - 1), 0.0, 0.0, 0.0);
-    v59 = v67;
-    (*(*v36 + 96))(v36, HIDWORD(v62), v59, 0.0, 0.0, 0.0);
-    v60 = v66;
-    (*(*v36 + 96))(v36, v62, v60, 0.0, 0.0, 0.0);
-    [output setHeliumRef:&v65];
-    if (v65)
+    objc_msgSend_getInversePixelTransformForImage_(self);
+    v37 = *&v81;
+    v38 = *(&v81 + 1);
+    (*(*v35 + 96))(v35, 0, v37, v38, 0.0, 0.0);
+    v39 = v80;
+    v40 = v79;
+    v41 = v78;
+    v42 = v77;
+    (*(*v35 + 96))(v35, 1, v39, v40, v41, v42);
+    v43 = v76;
+    v44 = v75;
+    v45 = v74;
+    v46 = v73;
+    (*(*v35 + 96))(v35, 2, v43, v44, v45, v46);
+    v47 = v72;
+    v48 = v68;
+    (*(*v35 + 96))(v35, 3, v47, v48, 0.0, 0.0);
+    v49 = v71;
+    (*(*v35 + 96))(v35, 4, v49, 0.0, 0.0, 0.0);
+    v50 = *&v62;
+    v51 = v63;
+    (*(*v35 + 96))(v35, 5, v50, fabsf(v51), 1.0, 0.0);
+    v52 = 6.28318531 / v70;
+    v53 = v70 / 6.28318531;
+    (*(*v35 + 96))(v35, 6, v52, v53, 0.0, 0.0);
+    v54 = __sincos_stret(v69);
+    cosval = v54.__cosval;
+    sinval = v54.__sinval;
+    (*(*v35 + 96))(v35, 7, cosval, sinval, -sinval);
+    v57 = 1.0 / v14;
+    (*(*v35 + 96))(v35, 8, v57, 0.0, 0.0, 0.0);
+    (*(*v35 + 96))(v35, 9, (v67 - 1), 0.0, 0.0, 0.0);
+    v58 = v66;
+    (*(*v35 + 96))(v35, HIDWORD(v61), v58, 0.0, 0.0, 0.0);
+    v59 = v65;
+    (*(*v35 + 96))(v35, v61, v59, 0.0, 0.0, 0.0);
+    [output setHeliumRef:&v64];
+    if (v64)
     {
-      (*(*v65 + 24))(v65);
+      (*(*v64 + 24))(v64);
     }
   }
 

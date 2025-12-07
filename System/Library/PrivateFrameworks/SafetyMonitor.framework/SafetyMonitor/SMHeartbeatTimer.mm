@@ -61,7 +61,7 @@
 
 - (void)_startHeartbeatForSessionID:(id)d handler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -71,11 +71,11 @@
     {
       heartbeatTimer = [(SMHeartbeatTimer *)self heartbeatTimer];
       *buf = 136315650;
-      v25 = "[SMHeartbeatTimer _startHeartbeatForSessionID:handler:]";
-      v26 = 2112;
-      v27 = dCopy;
-      v28 = 2112;
-      v29 = heartbeatTimer;
+      v24 = "[SMHeartbeatTimer _startHeartbeatForSessionID:handler:]";
+      v25 = 2112;
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = heartbeatTimer;
       _os_log_impl(&dword_26455D000, v8, OS_LOG_TYPE_INFO, "%s, sessionID, %@, heartbeatTimer, %@", buf, 0x20u);
     }
   }
@@ -88,45 +88,41 @@
   }
 
   v11 = MEMORY[0x277CBEBB8];
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __56__SMHeartbeatTimer__startHeartbeatForSessionID_handler___block_invoke;
-  v21 = &unk_279B65090;
-  v22 = dCopy;
-  v23 = handlerCopy;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __56__SMHeartbeatTimer__startHeartbeatForSessionID_handler___block_invoke;
+  v20 = &unk_279B65090;
+  v21 = dCopy;
+  v22 = handlerCopy;
   v12 = handlerCopy;
   v13 = dCopy;
-  v14 = [v11 timerWithTimeInterval:1 repeats:&v18 block:60.0];
-  [(SMHeartbeatTimer *)self setHeartbeatTimer:v14, v18, v19, v20, v21];
+  v14 = [v11 timerWithTimeInterval:1 repeats:&v17 block:60.0];
+  [(SMHeartbeatTimer *)self setHeartbeatTimer:v14, v17, v18, v19, v20];
 
   mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
   heartbeatTimer3 = [(SMHeartbeatTimer *)self heartbeatTimer];
   [mainRunLoop addTimer:heartbeatTimer3 forMode:*MEMORY[0x277CBE738]];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SMHeartbeatTimer__startHeartbeatForSessionID_handler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = *(a1 + 32);
-      v6 = 136315394;
-      v7 = "[SMHeartbeatTimer _startHeartbeatForSessionID:handler:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_26455D000, v2, OS_LOG_TYPE_INFO, "Heartbeat timer fired %s, sessionID, %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[SMHeartbeatTimer _startHeartbeatForSessionID:handler:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_26455D000, v2, OS_LOG_TYPE_INFO, "Heartbeat timer fired %s, sessionID, %@", &v5, 0x16u);
     }
   }
 
   v4 = +[SMSafetyMonitorManager defaultManager];
   [v4 sendHeartbeatForSessionID:*(a1 + 32) handler:*(a1 + 40)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopHeartbeatWithHandler:(id)handler
@@ -145,16 +141,16 @@ void __56__SMHeartbeatTimer__startHeartbeatForSessionID_handler___block_invoke(u
 
 - (void)_stopHeartbeatWithHandler:(id)handler
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "[SMHeartbeatTimer _stopHeartbeatWithHandler:]";
-      _os_log_impl(&dword_26455D000, v5, OS_LOG_TYPE_INFO, "%s", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[SMHeartbeatTimer _stopHeartbeatWithHandler:]";
+      _os_log_impl(&dword_26455D000, v5, OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
     }
   }
 
@@ -166,8 +162,6 @@ void __56__SMHeartbeatTimer__startHeartbeatForSessionID_handler___block_invoke(u
   {
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

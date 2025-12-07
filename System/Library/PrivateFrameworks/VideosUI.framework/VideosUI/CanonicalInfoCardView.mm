@@ -33,35 +33,35 @@
 
 - (VUILabel)accessibilityTitleLabel
 {
-  v2 = sub_1E3B1C38C();
+  v2 = sub_1E3B1C38C(self);
 
   return v2;
 }
 
 - (VUILabel)accessibilitySubtitleLabel
 {
-  v2 = sub_1E3B1C3D4();
+  v2 = sub_1E3B1C3D4(self);
 
   return v2;
 }
 
 - (FocusableTextView)accessibilityDescriptionLabel
 {
-  v2 = sub_1E3B1C41C();
+  v2 = sub_1E3B1C41C(self);
 
   return v2;
 }
 
 - (VUIImageView)accessibilityImageView
 {
-  v2 = sub_1E3B1D94C();
+  v2 = sub_1E3B1D94C(self);
 
   return v2;
 }
 
 - (_TtC8VideosUI20TomatometerTableView)accessibilityTableView
 {
-  v2 = sub_1E3B1D9BC();
+  v2 = sub_1E3B1D9BC(self);
 
   return v2;
 }

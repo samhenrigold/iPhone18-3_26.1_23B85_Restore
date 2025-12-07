@@ -40,7 +40,7 @@
 {
   swift_beginAccess();
 
-  sub_100706B30(&qword_100CB62A0);
+  sub_100706B30(&qword_100CB62A0, &unk_1009BDE60);
   v2.super.isa = sub_100936A58().super.isa;
 
   return v2.super.isa;
@@ -48,7 +48,7 @@
 
 - (void)setPluginOptionsByPluginName:(id)name
 {
-  sub_100706B30(&qword_100CB62A0);
+  sub_100706B30(&qword_100CB62A0, &unk_1009BDE60);
   v4 = sub_100936A78();
   v5 = OBJC_IVAR____TtC17identityservicesd26IDSGlobalLinkConfiguration_pluginOptionsByPluginName;
   swift_beginAccess();
@@ -167,7 +167,7 @@
 
 - (NSDate)timeBase
 {
-  v3 = sub_100706B30(&qword_100CB4AC0);
+  v3 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC17identityservicesd26IDSGlobalLinkConfiguration_timeBase;
@@ -189,7 +189,7 @@
 
 - (void)setTimeBase:(id)base
 {
-  v5 = sub_100706B30(&qword_100CB4AC0);
+  v5 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (base)

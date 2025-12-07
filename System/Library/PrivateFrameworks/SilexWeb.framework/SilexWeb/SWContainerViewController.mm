@@ -25,8 +25,10 @@
 - (void)removeMenusForIdentifiers:(id)identifiers;
 - (void)setConfiguration:(id)configuration;
 - (void)setDeveloperSettings:(id)settings;
+- (void)setFocusShouldStartInputSession:(BOOL)session;
 - (void)setHiddenPocketEdges:(unint64_t)edges;
 - (void)setInputAccessoryView:(id)view;
+- (void)setPocketsEnabled:(BOOL)enabled;
 - (void)setShortcutsBarWithLeadingGroups:(id)groups trailingGroups:(id)trailingGroups;
 - (void)setTextInputTraits:(id)traits;
 - (void)updateConfiguration;
@@ -342,6 +344,13 @@ void __80__SWContainerViewController_viewWillTransitionToSize_withTransitionCoor
   }
 }
 
+- (void)setFocusShouldStartInputSession:(BOOL)session
+{
+  sessionCopy = session;
+  webContentViewController = [(SWContainerViewController *)self webContentViewController];
+  [webContentViewController setFocusShouldStartInputSession:sessionCopy];
+}
+
 - (BOOL)focusShouldStartInputSession
 {
   webContentViewController = [(SWContainerViewController *)self webContentViewController];
@@ -510,6 +519,13 @@ void __80__SWContainerViewController_viewWillTransitionToSize_withTransitionCoor
 {
   webContentViewController = [(SWContainerViewController *)self webContentViewController];
   [webContentViewController setHiddenPocketEdges:edges];
+}
+
+- (void)setPocketsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  webContentViewController = [(SWContainerViewController *)self webContentViewController];
+  [webContentViewController setPocketsEnabled:enabledCopy];
 }
 
 - (void)updateReachability

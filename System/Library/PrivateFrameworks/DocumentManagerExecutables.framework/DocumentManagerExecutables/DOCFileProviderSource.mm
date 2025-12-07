@@ -210,9 +210,10 @@ LABEL_6:
   v11 = (v9 + OBJC_IVAR____TtC26DocumentManagerExecutables21DOCFileProviderSource_dropAction);
   swift_beginAccess();
   v12 = *v11;
+  v13 = v11[1];
   *v11 = closure #1 in static DOCFileProviderSource.createSource(from:with:)partial apply;
   v11[1] = v10;
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v12);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v12, v13);
 
   return v9;
 }

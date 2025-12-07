@@ -8,14 +8,14 @@
 
 - (void)cancelTaskWithReason:(int)reason underlyingError:(id)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = errorCopy;
   if (errorCopy)
   {
-    v10 = *MEMORY[0x277CCA7E8];
-    v11[0] = errorCopy;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x277CCA7E8];
+    v10[0] = errorCopy;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   }
 
   else
@@ -25,8 +25,6 @@
 
   v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:-1 userInfo:v7];
   [(SubCalDATask *)self finishWithError:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithError:(id)error

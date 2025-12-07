@@ -1,9 +1,34 @@
 @interface OrgApacheLuceneIndexMergeState_DocMap_$1
 - (OrgApacheLuceneIndexMergeState_DocMap_$1)initWithOrgApacheLuceneUtilBits:(id)bits withOrgApacheLuceneUtilPackedPackedLongValues:(id)values withInt:(int)int withInt:(int)withInt;
+- (int)getWithInt:(int)int;
 - (void)dealloc;
 @end
 
 @implementation OrgApacheLuceneIndexMergeState_DocMap_$1
+
+- (int)getWithInt:(int)int
+{
+  v4 = self->val$liveDocs_;
+  if (!v4)
+  {
+    goto LABEL_6;
+  }
+
+  v5 = *&int;
+  if ([(OrgApacheLuceneUtilBits *)v4 getWithInt:?])
+  {
+    v6 = self->val$docMap_;
+    if (v6)
+    {
+      return [(OrgApacheLuceneUtilLongValues *)v6 getWithInt:v5];
+    }
+
+LABEL_6:
+    JreThrowNullPointerException();
+  }
+
+  return -1;
+}
 
 - (OrgApacheLuceneIndexMergeState_DocMap_$1)initWithOrgApacheLuceneUtilBits:(id)bits withOrgApacheLuceneUtilPackedPackedLongValues:(id)values withInt:(int)int withInt:(int)withInt
 {

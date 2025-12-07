@@ -9,6 +9,7 @@
 + (id)messageWithPrimitive:(void *)primitive;
 + (id)messageWithSelector:(SEL)selector arguments:(id)arguments;
 + (id)messageWithSelector:(SEL)selector objectArguments:(id)arguments;
++ (id)messageWithSelector:(SEL)selector typesAndArguments:(unsigned int)arguments;
 + (void)initialize;
 + (void)setReportCompressionBlock:(id)block;
 - (BOOL)isBarrier;
@@ -24,6 +25,7 @@
 - (NSSecureCoding)object;
 - (NSSecureCoding)payloadObject;
 - (const)getBufferWithReturnedLength:(unint64_t *)length;
+- (id)_decompressedData:(id)data compressor:(id)compressor compressionType:(int)type;
 - (id)_faultAuxiliaryValueOfType:(Class)type forKey:(id)key;
 - (id)_initWithReferencedSerializedForm:(id)form compressor:(id)compressor payloadSet:(id)set;
 - (id)_mutableAuxiliaryDictionary;
@@ -37,10 +39,12 @@
 - (id)stringForMessageKey:(id)key;
 - (int64_t)integerForMessageKey:(id)key;
 - (unint64_t)serializedLength;
+- (void)_appendTypesAndValues:(unsigned int)values withKey:(id)key list:(char *)list;
 - (void)_makeBarrier;
 - (void)_makeImmutable;
 - (void)_setPayloadBuffer:(const char *)buffer length:(unint64_t)length shouldCopy:(BOOL)copy destructor:(id)destructor;
 - (void)_willModifyAuxiliary;
+- (void)compressWithCompressor:(id)compressor usingType:(int)type forCompatibilityWithVersion:(int64_t)version;
 - (void)dealloc;
 - (void)invokeWithTarget:(id)target replyChannel:(id)channel validator:(id)validator;
 - (void)serializedFormApply:(id)apply;
@@ -128,6 +132,108 @@
   sub_247F51498(v5);
 }
 
+- (void)compressWithCompressor:(id)compressor usingType:(int)type forCompatibilityWithVersion:(int64_t)version
+{
+  v6 = *&type;
+  v64 = *MEMORY[0x277D85DE8];
+  compressorCopy = compressor;
+  messageType = self->_messageType;
+  if (messageType == 1)
+  {
+    p_payloadData = &self->_payloadData;
+    if (!objc_msgSend_length(self->_payloadData, v8, v9) || objc_msgSend_length(*p_payloadData, v13, v14) >> 32)
+    {
+      goto LABEL_18;
+    }
+
+    if (!compressorCopy)
+    {
+      sub_247F5A528();
+    }
+
+    v17 = objc_msgSend_length(*p_payloadData, v15, v16);
+    v18 = objc_alloc(MEMORY[0x277CBEB28]);
+    v22 = objc_msgSend_initWithLength_(v18, v19, v17 + 4);
+    v61 = 0;
+    if (qword_27EE80D50)
+    {
+      v23 = mach_absolute_time();
+      v26 = objc_msgSend_bytes(self->_payloadData, v24, v25);
+      v29 = objc_msgSend_length(self->_payloadData, v27, v28);
+      v30 = v22;
+      v33 = objc_msgSend_mutableBytes(v30, v31, v32);
+      v35 = objc_msgSend_compressBuffer_ofLength_toBuffer_ofLength_usingCompressionType_withFinalCompressionType_(compressorCopy, v34, v26, v29, v33 + 4, v17, v6, &v61);
+      v36 = mach_absolute_time();
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = sub_247F51858;
+      v59[3] = &unk_278EEF068;
+      v59[4] = self;
+      v59[5] = v35;
+      v59[6] = v36 - v23;
+      v60 = v61;
+      sub_247F51498(v59);
+      if (v35)
+      {
+LABEL_9:
+        v37 = v61;
+        self->_compressionType = v61;
+        p_compressionType = &self->_compressionType;
+        *(p_compressionType - 1) = 7;
+        if (version <= 1)
+        {
+          v39 = v37 - 3;
+          if (v39 >= 8 || ((0xF3u >> v39) & 1) == 0)
+          {
+            sub_247F5A480(p_compressionType, version);
+          }
+
+          *p_compressionType = dword_247F5C9E0[v39];
+        }
+
+        v40 = v22;
+        v43 = objc_msgSend_mutableBytes(v40, v41, v42);
+        *v43 = objc_msgSend_length(*p_payloadData, v44, v45);
+        objc_msgSend_setLength_(v22, v46, v35 + 4);
+        objc_storeStrong(p_payloadData, v22);
+LABEL_17:
+
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v47 = objc_msgSend_bytes(*p_payloadData, v20, v21);
+      v50 = objc_msgSend_length(*p_payloadData, v48, v49);
+      v51 = v22;
+      v54 = objc_msgSend_mutableBytes(v51, v52, v53);
+      v35 = objc_msgSend_compressBuffer_ofLength_toBuffer_ofLength_usingCompressionType_withFinalCompressionType_(compressorCopy, v55, v47, v50, v54 + 4, v17, v6, &v61);
+      if (v35)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v58 = objc_msgSend_length(*p_payloadData, v56, v57);
+      *buf = 134217984;
+      v63 = v58;
+      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "DTXMessage failed to compress buffer of length %llu", buf, 0xCu);
+    }
+
+    goto LABEL_17;
+  }
+
+  if (messageType == 8)
+  {
+    objc_msgSend_compressWithCompressor_usingType_forCompatibilityWithVersion_(self->_payloadObject, v8, compressorCopy, v6, version);
+  }
+
+LABEL_18:
+}
+
 + (id)messageWithObject:(id)object
 {
   objectCopy = object;
@@ -191,6 +297,25 @@
     *(v6 + 8) = 1;
     v9 = v6;
   }
+
+  return v6;
+}
+
++ (id)messageWithSelector:(SEL)selector typesAndArguments:(unsigned int)arguments
+{
+  v4 = *&arguments;
+  if (!selector)
+  {
+    sub_247F5A554(a2, self, 0);
+  }
+
+  v6 = objc_opt_new();
+  v7 = NSStringFromSelector(selector);
+  objc_msgSend_setPayloadObject_(v6, v8, v7);
+
+  objc_msgSend_setMessageType_(v6, v9, 2);
+  objc_msgSend__appendTypesAndValues_withKey_list_(v6, v10, v4, 0, &v15);
+  objc_msgSend__makeImmutable(v6, v11, v12);
 
   return v6;
 }
@@ -363,11 +488,11 @@ LABEL_7:
 
 - (DTXMessage)initWithSelector:(SEL)selector objects:(id)objects
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
-  v30.receiver = self;
-  v30.super_class = DTXMessage;
-  v7 = [(DTXMessage *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = DTXMessage;
+  v7 = [(DTXMessage *)&v29 init];
   if (v7)
   {
     v8 = NSStringFromSelector(selector);
@@ -377,39 +502,39 @@ LABEL_7:
     if (objc_msgSend_count(objectsCopy, v10, v11))
     {
       objc_msgSend__willModifyAuxiliary(v7, v12, v13);
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v14 = objectsCopy;
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v26, v31, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v25, v30, 16);
       if (v16)
       {
         v17 = v16;
-        v18 = *v27;
+        v18 = *v26;
         do
         {
           v19 = 0;
           do
           {
-            if (*v27 != v18)
+            if (*v26 != v18)
             {
               objc_enumerationMutation(v14);
             }
 
-            v20 = *(*(&v26 + 1) + 8 * v19);
-            v24[0] = MEMORY[0x277D85DD0];
-            v24[1] = 3221225472;
-            v24[2] = sub_247F525D4;
-            v24[3] = &unk_278EEF090;
-            v25 = v7;
-            sub_247F522C0(v20, v24);
+            v20 = *(*(&v25 + 1) + 8 * v19);
+            v23[0] = MEMORY[0x277D85DD0];
+            v23[1] = 3221225472;
+            v23[2] = sub_247F525D4;
+            v23[3] = &unk_278EEF090;
+            v24 = v7;
+            sub_247F522C0(v20, v23);
 
             ++v19;
           }
 
           while (v17 != v19);
-          v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v21, &v26, v31, 16);
+          v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v21, &v25, v30, 16);
         }
 
         while (v17);
@@ -417,7 +542,6 @@ LABEL_7:
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -739,6 +863,88 @@ LABEL_9:
   }
 }
 
+- (void)_appendTypesAndValues:(unsigned int)values withKey:(id)key list:(char *)list
+{
+  v6 = *&values;
+  keyCopy = key;
+  listCopy = list;
+  objc_msgSend__willModifyAuxiliary(self, v10, v11);
+  while (v6 > 5)
+  {
+    if (v6 == 6)
+    {
+      v21 = listCopy;
+      listCopy += 8;
+      v22 = *v21;
+      v23 = keyCopy;
+      v26 = objc_msgSend_UTF8String(v23, v24, v25);
+      DTXPrimitiveDictionaryAddPrimitivePair(&self->_auxiliary, v26, 6, v22);
+LABEL_10:
+      if (keyCopy)
+      {
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+
+    if (v6 != 11)
+    {
+      goto LABEL_13;
+    }
+
+    v12 = listCopy;
+    listCopy += 8;
+    v13 = *v12;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = sub_247F535EC;
+    v30[3] = &unk_278EEF168;
+    v30[4] = self;
+    v31 = keyCopy;
+    v14 = v13;
+    sub_247F522C0(v14, v30);
+
+    if (keyCopy)
+    {
+      goto LABEL_15;
+    }
+
+LABEL_14:
+    v29 = listCopy;
+    listCopy += 8;
+    v6 = *v29;
+  }
+
+  if (v6 == 3)
+  {
+    v15 = listCopy;
+    listCopy += 8;
+    v16 = *v15;
+    v17 = keyCopy;
+    v20 = objc_msgSend_UTF8String(v17, v18, v19);
+    DTXPrimitiveDictionaryAddPrimitivePair(&self->_auxiliary, v20, 3, v16);
+    goto LABEL_10;
+  }
+
+  if (!v6)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_13:
+  v27 = objc_opt_class();
+  v28 = NSStringFromSelector(a2);
+  NSLog(&cfstr_UnknownParamet.isa, v27, v28, v6);
+
+  if (!keyCopy)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_15:
+}
+
 - (id)_mutableAuxiliaryDictionary
 {
   v3 = atomic_load(&self->_immutable);
@@ -887,7 +1093,7 @@ LABEL_9:
 
 - (NSError)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   messageType = self->_messageType;
   if (messageType == 4)
   {
@@ -903,9 +1109,9 @@ LABEL_9:
       else
       {
         v7 = MEMORY[0x277CCA9B8];
-        v12 = *MEMORY[0x277CCA450];
-        v13[0] = v5;
-        v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v13, &v12, 1);
+        v11 = *MEMORY[0x277CCA450];
+        v12[0] = v5;
+        v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v12, &v11, 1);
         v4 = objc_msgSend_errorWithDomain_code_userInfo_(v7, v9, @"DTXConnection", 1, v8);
       }
     }
@@ -925,8 +1131,6 @@ LABEL_9:
   {
     v4 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -993,7 +1197,7 @@ LABEL_9:
 
 - (void)invokeWithTarget:(id)target replyChannel:(id)channel validator:(id)validator
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   channelCopy = channel;
   validatorCopy = validator;
@@ -1037,114 +1241,112 @@ LABEL_8:
     v34 = v35;
   }
 
-  v81 = 0;
-  v82 = &v81;
-  v83 = 0x2020000000;
-  v84 = 0;
-  v77 = 0;
-  v78 = &v77;
-  v79 = 0x2020000000;
-  v80 = objc_msgSend_numberOfArguments(v20, v32, v33) - 2;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x2020000000;
+  v82 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2020000000;
+  v78 = objc_msgSend_numberOfArguments(v20, v32, v33) - 2;
   v36 = objc_opt_new();
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x2020000000;
-  v76 = 0;
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x2020000000;
+  v74 = 0;
   auxiliary = self->_auxiliary;
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = sub_247F54558;
-  v67[3] = &unk_278EEF190;
-  v70 = &v81;
-  v71 = &v77;
-  v72 = &v73;
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = sub_247F54558;
+  v65[3] = &unk_278EEF190;
+  v68 = &v79;
+  v69 = &v75;
+  v70 = &v71;
   v38 = v27;
-  v68 = v38;
+  v66 = v38;
   v39 = v36;
-  v69 = v39;
-  sub_247F5449C(auxiliary, v34, v67);
-  if (v82[3] < v78[3])
+  v67 = v39;
+  sub_247F5449C(auxiliary, v34, v65);
+  if (v80[3] < v76[3])
   {
     v42 = MEMORY[0x277CBEAD8];
     v43 = objc_msgSend_payloadObject(self, v40, v41);
-    v44 = v82[3];
-    objc_msgSend_raise_format_(v42, v45, @"DTXMessageInvocationException", @"Unable to invoke [%@ %@] - too few arguments (%lu provided, %lu expected)", targetCopy, v43, v44, v78[3]);
+    objc_msgSend_raise_format_(v42, v44, @"DTXMessageInvocationException", @"Unable to invoke [%@ %@] - too few arguments (%lu provided, %lu expected)", targetCopy, v43, v80[3], v76[3]);
   }
 
   objc_msgSend_invoke(v38, v40, v41);
-  v48 = v74[3];
-  if (v48)
+  v47 = v72[3];
+  if (v47)
   {
-    v86.length = CFArrayGetCount(v74[3]);
-    v86.location = 0;
-    CFArrayApplyFunction(v48, v86, j__free, 0);
-    CFRelease(v74[3]);
+    v84.length = CFArrayGetCount(v72[3]);
+    v84.location = 0;
+    CFArrayApplyFunction(v47, v84, j__free, 0);
+    CFRelease(v72[3]);
   }
 
-  v66 = 0;
-  if (objc_msgSend_methodReturnLength(v20, v46, v47) < 8)
+  v64 = 0;
+  if (objc_msgSend_methodReturnLength(v20, v45, v46) < 8)
   {
-    v52 = 0;
+    v51 = 0;
   }
 
   else
   {
-    objc_msgSend_getReturnValue_(v38, v49, &v66);
-    v51 = v66;
-    v52 = v51;
-    if (v51)
+    objc_msgSend_getReturnValue_(v38, v48, &v64);
+    v50 = v64;
+    v51 = v50;
+    if (v50)
     {
-      if ((objc_msgSend_conformsToProtocol_(v51, v49, &unk_285A16828) & 1) == 0)
+      if ((objc_msgSend_conformsToProtocol_(v50, v48, &unk_285A16828) & 1) == 0)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v62 = MEMORY[0x277CBEAD8];
-          v53 = objc_msgSend_payloadObject(self, v49, v50);
-          objc_msgSend_raise_format_(v62, v54, @"DTXMessageInvocationException", @"Unable to invoke [%@ %@] - 'id' return value does not conform to NSSecureCoding", targetCopy, v53);
+          v60 = MEMORY[0x277CBEAD8];
+          v52 = objc_msgSend_payloadObject(self, v48, v49);
+          objc_msgSend_raise_format_(v60, v53, @"DTXMessageInvocationException", @"Unable to invoke [%@ %@] - 'id' return value does not conform to NSSecureCoding", targetCopy, v52);
         }
       }
     }
   }
 
-  if (objc_msgSend_expectsReply(self, v49, v50))
+  if (objc_msgSend_expectsReply(self, v48, v49))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v57 = v52;
-      v63[0] = MEMORY[0x277D85DD0];
-      v63[1] = 3221225472;
-      v63[2] = sub_247F54710;
-      v63[3] = &unk_278EEF1B8;
-      v64 = channelCopy;
+      v56 = v51;
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = sub_247F54710;
+      v61[3] = &unk_278EEF1B8;
+      v62 = channelCopy;
       selfCopy = self;
-      objc_msgSend_handleCompletion_(v57, v58, v63);
+      objc_msgSend_handleCompletion_(v56, v57, v61);
     }
 
     else
     {
-      if (v52)
+      if (v51)
       {
-        v59 = objc_msgSend_newReplyWithObject_(self, v55, v52);
+        v58 = objc_msgSend_newReplyWithObject_(self, v54, v51);
       }
 
       else
       {
-        v59 = objc_msgSend_newReply(self, v55, v56);
+        v58 = objc_msgSend_newReply(self, v54, v55);
       }
 
-      v57 = v59;
-      objc_msgSend_sendControlAsync_replyHandler_(channelCopy, v60, v59, 0);
+      v56 = v58;
+      objc_msgSend_sendControlAsync_replyHandler_(channelCopy, v59, v58, 0);
     }
   }
 
-  _Block_object_dispose(&v73, 8);
-  _Block_object_dispose(&v77, 8);
-  _Block_object_dispose(&v81, 8);
+  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v79, 8);
 
 LABEL_29:
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)extractSerializedCompressionInfoFromBuffer:(const char *)buffer length:(unint64_t)length compressionType:(int *)type uncompressedLength:(unint64_t *)uncompressedLength compressedDataOffset:(unint64_t *)offset
@@ -1169,6 +1371,57 @@ LABEL_29:
   return result;
 }
 
+- (id)_decompressedData:(id)data compressor:(id)compressor compressionType:(int)type
+{
+  v5 = *&type;
+  v46[1] = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  compressorCopy = compressor;
+  if (!compressorCopy)
+  {
+    sub_247F5A6F0();
+  }
+
+  v11 = compressorCopy;
+  if (objc_msgSend_length(dataCopy, v9, v10) <= 3)
+  {
+    v28 = [DTXDecompressionException alloc];
+    v45 = @"compressionType";
+    v30 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v29, v5);
+    v46[0] = v30;
+    v32 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v31, v46, &v45, 1);
+    v34 = objc_msgSend_initWithName_reason_userInfo_(v28, v33, @"DTXDecompressionException", @"payload too small to contain block compression header", v32);
+    v35 = v34;
+    goto LABEL_10;
+  }
+
+  v12 = dataCopy;
+  v15 = objc_msgSend_bytes(v12, v13, v14);
+  v16 = objc_alloc(MEMORY[0x277CBEB28]);
+  v18 = objc_msgSend_initWithLength_(v16, v17, *v15);
+  v21 = objc_msgSend_length(dataCopy, v19, v20) - 4;
+  v22 = v18;
+  v25 = objc_msgSend_mutableBytes(v22, v23, v24);
+  if ((objc_msgSend_uncompressBuffer_ofLength_toBuffer_withKnownUncompressedLength_usingCompressionType_(v11, v26, (v15 + 1), v21, v25, *v15, v5) & 1) == 0)
+  {
+    v36 = [DTXDecompressionException alloc];
+    v43[0] = @"compressionType";
+    v30 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v37, v5);
+    v43[1] = @"uncompressedSize";
+    v44[0] = v30;
+    v32 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v38, *v15);
+    v44[1] = v32;
+    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, v44, v43, 2);
+    v34 = objc_msgSend_initWithName_reason_userInfo_(v36, v41, @"DTXDecompressionException", @"block decompressor failed", v40);
+    v42 = v34;
+
+LABEL_10:
+    objc_exception_throw(v34);
+  }
+
+  return v18;
+}
+
 - (id)_initWithReferencedSerializedForm:(id)form compressor:(id)compressor payloadSet:(id)set
 {
   formCopy = form;
@@ -1186,7 +1439,7 @@ LABEL_29:
     v18 = *(v15 + 1);
     v19 = *(v15 + 1) - v18;
     setCopy[2](setCopy, &v15[v18 + 16], v19);
-    v11->_auxiliary = DTXPrimitiveDictionaryReferencingSerialized(v15 + 16, *(v15 + 1));
+    v11->_auxiliary = DTXPrimitiveDictionaryReferencingSerialized(v15 + 2, *(v15 + 1));
     v22 = *v15;
     v11->_messageType = v22;
     v11->_status = v22 == 4;

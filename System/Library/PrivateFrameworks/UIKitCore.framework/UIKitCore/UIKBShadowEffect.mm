@@ -97,7 +97,7 @@
   else
   {
     objc_opt_class();
-    v7 = (objc_opt_isKindOfClass() & 1) != 0 && (colorName = self->_colorName, (equalCopy->_colorName != 0) != (colorName == 0)) && (!colorName || [(NSString *)colorName isEqualToString:?]) && (self->_offset.width == equalCopy->_offset.width ? (v6 = self->_offset.height == equalCopy->_offset.height) : (v6 = 0), v6 && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_insets.top, *&equalCopy->_insets.top), vceqq_f64(*&self->_insets.bottom, *&equalCopy->_insets.bottom)))) & 1) != 0 && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_concaveInsets.top, *&equalCopy->_concaveInsets.top), vceqq_f64(*&self->_concaveInsets.bottom, *&equalCopy->_concaveInsets.bottom)))) & 1) != 0) && self->_weight == equalCopy->_weight;
+    v7 = (objc_opt_isKindOfClass() & 1) != 0 && (colorName = self->_colorName, (equalCopy->_colorName != 0) != (colorName == 0)) && (!colorName || objc_msgSend_isEqualToString_(colorName)) && (self->_offset.width == equalCopy->_offset.width ? (v6 = self->_offset.height == equalCopy->_offset.height) : (v6 = 0), v6 && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_insets.top, *&equalCopy->_insets.top), vceqq_f64(*&self->_insets.bottom, *&equalCopy->_insets.bottom)))) & 1) != 0 && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_concaveInsets.top, *&equalCopy->_concaveInsets.top), vceqq_f64(*&self->_concaveInsets.bottom, *&equalCopy->_concaveInsets.bottom)))) & 1) != 0) && self->_weight == equalCopy->_weight;
   }
 
   return v7;

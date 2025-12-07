@@ -25,7 +25,7 @@
 
 - (id)_sha256HashUUID
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_hashLock);
   sha256HashUUID = self->_sha256HashUUID;
   if (!sha256HashUUID)
@@ -41,7 +41,6 @@
 
   v7 = sha256HashUUID;
   os_unfair_lock_unlock(&self->_hashLock);
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -124,7 +123,7 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if ([(NSData *)self->_imageData length])
   {
     v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"data length: %tu", -[NSData length](self->_imageData, "length")];
@@ -135,27 +134,25 @@
     v3 = 0;
   }
 
-  v10.receiver = self;
-  v10.super_class = _INDataImage;
-  _dictionaryRepresentation = [(INImage *)&v10 _dictionaryRepresentation];
+  v9.receiver = self;
+  v9.super_class = _INDataImage;
+  _dictionaryRepresentation = [(INImage *)&v9 _dictionaryRepresentation];
   v5 = [_dictionaryRepresentation mutableCopy];
 
-  v11 = @"imageData";
+  v10 = @"imageData";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = null;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [v5 addEntriesFromDictionary:v7];
 
   if (!v3)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -231,7 +228,7 @@ LABEL_10:
 
 - (void)_loadImageDataAndSizeWithHelper:(id)helper accessSpecifier:(id)specifier completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   specifierCopy = specifier;
   completionCopy = completion;
@@ -243,20 +240,20 @@ LABEL_10:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v18 = "[_INDataImage(INPortableImageLoader) _loadImageDataAndSizeWithHelper:accessSpecifier:completion:]";
-        v19 = 2112;
-        v20 = helperCopy;
+        v17 = "[_INDataImage(INPortableImageLoader) _loadImageDataAndSizeWithHelper:accessSpecifier:completion:]";
+        v18 = 2112;
+        v19 = helperCopy;
         _os_log_impl(&dword_18E991000, v11, OS_LOG_TYPE_INFO, "%s Attempting data image loading strategy with helper: %@", buf, 0x16u);
       }
 
       imageData = [(_INDataImage *)self imageData];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __98___INDataImage_INPortableImageLoader___loadImageDataAndSizeWithHelper_accessSpecifier_completion___block_invoke;
-      v15[3] = &unk_1E72835D0;
-      v15[4] = self;
-      v16 = completionCopy;
-      [helperCopy loadImageSizeFromData:imageData completion:v15];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __98___INDataImage_INPortableImageLoader___loadImageDataAndSizeWithHelper_accessSpecifier_completion___block_invoke;
+      v14[3] = &unk_1E72835D0;
+      v14[4] = self;
+      v15 = completionCopy;
+      [helperCopy loadImageSizeFromData:imageData completion:v14];
     }
 
     else
@@ -265,8 +262,6 @@ LABEL_10:
       (*(completionCopy + 2))(completionCopy, imageData2, 0, 0, 0.0, 0.0);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

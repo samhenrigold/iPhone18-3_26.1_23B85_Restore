@@ -11,18 +11,17 @@
 
 + (BOOL)handlesData:(id)data
 {
-  v7 = *MEMORY[0x277D85DE8];
-  [data getBytes:v6 length:12];
+  v6 = *MEMORY[0x277D85DE8];
+  [data getBytes:v5 length:12];
   v3 = 0;
   result = 1;
   do
   {
-    result &= *(&gKTXFileIdentifier + v3) == v6[v3];
+    result &= *(&gKTXFileIdentifier + v3) == v5[v3];
     ++v3;
   }
 
   while (v3 != 12);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -749,19 +748,19 @@ LABEL_24:
 
 + (BOOL)exportTexture:(id)texture url:(id)url error:(id *)error
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   textureCopy = texture;
   urlCopy = url;
-  v116 = 0u;
-  v117 = 0u;
   v115 = 0u;
-  v113 = 169478669;
+  v116 = 0u;
+  v114 = 0u;
+  v112 = 169478669;
   __ptr = 0xBB31312058544BABLL;
-  v114 = 67305985;
+  v113 = 67305985;
   [textureCopy dimensions];
-  v96 = v9;
+  v95 = v9;
   [textureCopy dimensions];
-  *(&v116 + 4) = __PAIR64__(v10, v96);
+  *(&v115 + 4) = __PAIR64__(v10, v95);
   [textureCopy dimensions];
   if (v11 < 2)
   {
@@ -774,13 +773,13 @@ LABEL_24:
     v13 = v12;
   }
 
-  HIDWORD(v116) = v13;
+  HIDWORD(v115) = v13;
   mipmapLevels = [textureCopy mipmapLevels];
   v15 = [mipmapLevels objectAtIndexedSubscript:0];
   elements = [v15 elements];
   if ([elements count] <= 1)
   {
-    LODWORD(v117) = 0;
+    LODWORD(v116) = 0;
   }
 
   else
@@ -788,7 +787,7 @@ LABEL_24:
     mipmapLevels2 = [textureCopy mipmapLevels];
     v18 = [mipmapLevels2 objectAtIndexedSubscript:0];
     elements2 = [v18 elements];
-    LODWORD(v117) = [elements2 count];
+    LODWORD(v116) = [elements2 count];
   }
 
   if ([textureCopy cubemap])
@@ -801,11 +800,11 @@ LABEL_24:
     v20 = 1;
   }
 
-  DWORD1(v117) = v20;
+  DWORD1(v116) = v20;
   mipmapLevels3 = [textureCopy mipmapLevels];
-  DWORD2(v117) = [mipmapLevels3 count];
+  DWORD2(v116) = [mipmapLevels3 count];
 
-  if (v13 && v117)
+  if (v13 && v116)
   {
     if (error)
     {
@@ -833,37 +832,37 @@ LABEL_41:
   }
 
   v26 = *(v24 + 4);
-  DWORD2(v115) = *(v24 + 6);
-  HIDWORD(v115) = v26;
-  LODWORD(v115) = *(v24 + 5);
-  LODWORD(v116) = *(v24 + 7);
-  if ((v115 - 5122) > 9)
+  DWORD2(v114) = *(v24 + 6);
+  HIDWORD(v114) = v26;
+  LODWORD(v114) = *(v24 + 5);
+  LODWORD(v115) = *(v24 + 7);
+  if ((v114 - 5122) > 9)
   {
     v27 = 1;
   }
 
   else
   {
-    v27 = dword_26F041F10[(v115 - 5122)];
+    v27 = dword_26F041F10[(v114 - 5122)];
   }
 
-  DWORD1(v115) = v27;
-  v105 = -559038737;
-  strcpy(v111, "KTXorientation");
-  strcpy(v110, "S=r,T=d,R=i");
-  strcpy(v109, "File Origin");
-  strcpy(v108, "Apple TextureIO");
-  v103 = 28;
-  v104 = 27;
-  strcpy(v107, "TextureIO major verison");
+  DWORD1(v114) = v27;
+  v104 = -559038737;
+  strcpy(v110, "KTXorientation");
+  strcpy(v109, "S=r,T=d,R=i");
+  strcpy(v108, "File Origin");
+  strcpy(v107, "Apple TextureIO");
+  v102 = 28;
+  v103 = 27;
+  strcpy(v106, "TextureIO major verison");
   v28 = malloc_type_malloc(2uLL, 0x100004077774924uLL);
   __sprintf_chk(v28, 0, 2uLL, "%d", 3);
-  v102 = 26;
-  strcpy(v106, "TextureIO minor verison");
+  v101 = 26;
+  strcpy(v105, "TextureIO minor verison");
   v29 = malloc_type_malloc(3uLL, 0x100004077774924uLL);
   __sprintf_chk(v29, 0, 3uLL, "%d", 10);
-  v101 = 27;
-  HIDWORD(v117) = 128;
+  v100 = 27;
+  HIDWORD(v116) = 128;
   v30 = objc_autoreleasePoolPush();
   v31 = fopen([urlCopy fileSystemRepresentation], "w+");
   objc_autoreleasePoolPop(v30);
@@ -882,26 +881,26 @@ LABEL_41:
   }
 
   errorCopy = error;
-  v91 = urlCopy;
+  v90 = urlCopy;
   fwrite(&__ptr, 0x40uLL, 1uLL, v31);
-  fwrite(&v104, 4uLL, 1uLL, v31);
-  fwrite(v111, 0xFuLL, 1uLL, v31);
-  fwrite(v110, 0xCuLL, 1uLL, v31);
-  fwrite(&v105, 1uLL, 1uLL, v31);
   fwrite(&v103, 4uLL, 1uLL, v31);
+  fwrite(v110, 0xFuLL, 1uLL, v31);
   fwrite(v109, 0xCuLL, 1uLL, v31);
-  fwrite(v108, 0x10uLL, 1uLL, v31);
-  fwrite(&v105, 0, 1uLL, v31);
+  fwrite(&v104, 1uLL, 1uLL, v31);
   fwrite(&v102, 4uLL, 1uLL, v31);
-  fwrite(v107, 0x18uLL, 1uLL, v31);
-  fwrite(v28, 2uLL, 1uLL, v31);
-  fwrite(&v105, 2uLL, 1uLL, v31);
+  fwrite(v108, 0xCuLL, 1uLL, v31);
+  fwrite(v107, 0x10uLL, 1uLL, v31);
+  fwrite(&v104, 0, 1uLL, v31);
   fwrite(&v101, 4uLL, 1uLL, v31);
   fwrite(v106, 0x18uLL, 1uLL, v31);
+  fwrite(v28, 2uLL, 1uLL, v31);
+  fwrite(&v104, 2uLL, 1uLL, v31);
+  fwrite(&v100, 4uLL, 1uLL, v31);
+  fwrite(v105, 0x18uLL, 1uLL, v31);
   fwrite(v29, 3uLL, 1uLL, v31);
-  fwrite(&v105, 1uLL, 1uLL, v31);
+  fwrite(&v104, 1uLL, 1uLL, v31);
   [textureCopy dimensions];
-  v98 = v32;
+  v97 = v32;
   mipmapLevels4 = [textureCopy mipmapLevels];
   v34 = [mipmapLevels4 count];
 
@@ -909,11 +908,11 @@ LABEL_41:
   {
     v35 = 0;
     v36 = 0;
-    v37 = v98;
-    v92 = textureCopy;
+    v37 = v97;
+    v91 = textureCopy;
     while (1)
     {
-      v93 = v36;
+      v92 = v36;
       mipmapLevels5 = [textureCopy mipmapLevels];
       v39 = [mipmapLevels5 objectAtIndexedSubscript:v35];
 
@@ -923,7 +922,7 @@ LABEL_41:
       v43 = [faces objectAtIndexedSubscript:0];
       bytesPerImage = [v43 bytesPerImage];
 
-      v94 = v37;
+      v93 = v37;
       elements4 = [v39 elements];
       v46 = v37 * bytesPerImage * [elements4 count];
       elements5 = [v39 elements];
@@ -931,11 +930,11 @@ LABEL_41:
       faces2 = [v48 faces];
       v50 = v46 * [faces2 count];
 
-      v100 = v50;
-      fwrite(&v100, 4uLL, 1uLL, v31);
+      v99 = v50;
+      fwrite(&v99, 4uLL, 1uLL, v31);
       elements6 = [v39 elements];
       v52 = [elements6 count];
-      v53 = v117;
+      v53 = v116;
 
       if (v52 != v53)
       {
@@ -949,10 +948,10 @@ LABEL_41:
       {
         v56 = 0;
         v57 = 0;
-        v97 = v39;
+        v96 = v39;
         do
         {
-          v95 = v57;
+          v94 = v57;
           elements8 = [v39 elements];
           v59 = [elements8 objectAtIndexedSubscript:v56];
 
@@ -973,8 +972,8 @@ LABEL_41:
 
               bytes = [v67 bytes];
               bytesPerImage2 = [v65 bytesPerImage];
-              v70 = bytesPerImage2 * v94;
-              fwrite(bytes, bytesPerImage2 * v94, 1uLL, v31);
+              v70 = bytesPerImage2 * v93;
+              fwrite(bytes, bytesPerImage2 * v93, 1uLL, v31);
               faces5 = [v59 faces];
               if ([faces5 count] <= 1)
               {
@@ -982,16 +981,16 @@ LABEL_41:
 
               else
               {
-                elements9 = [v97 elements];
+                elements9 = [v96 elements];
                 v73 = [elements9 count];
 
                 if (v73 == 1)
                 {
                   v74 = (v70 - 1) & 3;
-                  v99 = v74 ^ 3;
+                  v98 = v74 ^ 3;
                   if (v74 != 3)
                   {
-                    fwrite(&v99, 1uLL, 1uLL, v31);
+                    fwrite(&v98, 1uLL, 1uLL, v31);
                   }
                 }
               }
@@ -1004,30 +1003,30 @@ LABEL_41:
             while (v76 > v63++);
           }
 
-          v56 = (v95 + 1);
-          v39 = v97;
-          elements10 = [v97 elements];
+          v56 = (v94 + 1);
+          v39 = v96;
+          elements10 = [v96 elements];
           v79 = [elements10 count];
 
-          v57 = v95 + 1;
+          v57 = v94 + 1;
         }
 
         while (v79 > v56);
       }
 
-      if (v94 <= 1)
+      if (v93 <= 1)
       {
         v37 = 1;
       }
 
       else
       {
-        v37 = v94 >> 1;
+        v37 = v93 >> 1;
       }
 
-      textureCopy = v92;
-      v35 = (v93 + 1);
-      mipmapLevels6 = [v92 mipmapLevels];
+      textureCopy = v91;
+      v35 = (v92 + 1);
+      mipmapLevels6 = [v91 mipmapLevels];
       v81 = [mipmapLevels6 count];
 
       v36 = v35;
@@ -1037,20 +1036,20 @@ LABEL_41:
       }
     }
 
-    urlCopy = v91;
+    urlCopy = v90;
     if (errorCopy)
     {
       elements11 = [v39 elements];
       v86 = [elements11 count];
 
-      v87 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid TXRTexture object: Level 0 has %d array elments but level %d has %d elements", v117, v93, v86];
+      v87 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid TXRTexture object: Level 0 has %d array elments but level %d has %d elements", v116, v92, v86];
       *errorCopy = _newTXRErrorWithCodeAndErrorString(5, v87);
     }
 
     fclose(v31);
 
     v22 = 0;
-    textureCopy = v92;
+    textureCopy = v91;
   }
 
   else
@@ -1058,12 +1057,11 @@ LABEL_41:
 LABEL_38:
     fclose(v31);
     v22 = 1;
-    urlCopy = v91;
+    urlCopy = v90;
   }
 
 LABEL_45:
 
-  v88 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

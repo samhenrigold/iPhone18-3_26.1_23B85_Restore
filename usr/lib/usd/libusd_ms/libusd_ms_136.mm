@@ -117,13 +117,13 @@ void pxrInternal__aapl__pxrReserved__::HdMeshReprDescTokens_StaticTokenType::~Hd
 pxrInternal__aapl__pxrReserved__::HdMeshReprDescTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdMeshReprDescTokens_StaticTokenType::HdMeshReprDescTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdMeshReprDescTokens_StaticTokenType *this)
 {
   v28 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "surfaceShader", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "surfaceShaderUnlit", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "surfaceShaderSheer", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "surfaceShaderOutline", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "constantColor", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "hullColor", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 48, "pointColor", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "surfaceShader");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "surfaceShaderUnlit");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "surfaceShaderSheer");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "surfaceShaderOutline");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "constantColor");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 5, "hullColor");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 6, "pointColor");
   v3 = (this + 56);
   v4 = *this;
   v21 = v4;
@@ -357,7 +357,7 @@ void sub_29AC509E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t *pxrInternal__aapl__pxrReserved__::HdMesh::_reprDescConfig(pxrInternal__aapl__pxrReserved__::HdMesh *this)
 {
-  if ((atomic_load_explicit(&qword_2A174A888, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2A174A888, memory_order_acquire) & 1) == 0)
   {
     sub_29B2C6138();
   }
@@ -365,7 +365,7 @@ uint64_t *pxrInternal__aapl__pxrReserved__::HdMesh::_reprDescConfig(pxrInternal_
   return &qword_2A174A890;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdMesh::ConfigureRepr(pxrInternal__aapl__pxrReserved__::HdMesh *a1, uint64_t *a2, uint64_t *a3)
+void *pxrInternal__aapl__pxrReserved__::HdMesh::ConfigureRepr(pxrInternal__aapl__pxrReserved__::HdMesh *a1, uint64_t *a2, uint64_t *a3)
 {
   pxrInternal__aapl__pxrReserved__::HdMesh::_reprDescConfig(a1);
   v6 = a2[1];
@@ -430,27 +430,27 @@ void sub_29AC50B68(_Unwind_Exception *a1)
   }
 }
 
-uint64_t sub_29AC50B94(void *a1, uint64_t *a2, uint64_t a3)
+void *sub_29AC50B94(void *a1, uint64_t *a2, uint64_t a3)
 {
   v6 = *a1;
   v5 = a1[1];
   if (*a1 == v5)
   {
 LABEL_4:
-    sub_29AC51398(v13, a2, a3);
-    result = sub_29AC50F38(a1, v13);
+    sub_29AC51398(v16, a2, a3);
+    result = sub_29AC50F38(a1, v16, v7, v8, v9);
     for (i = 6; i != -2; i -= 4)
     {
-      v9 = v13[i];
-      if ((v9 & 7) != 0)
+      v12 = v16[i];
+      if ((v12 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v12 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
     }
 
-    if ((v13[0] & 7) != 0)
+    if ((v16[0] & 7) != 0)
     {
-      atomic_fetch_add_explicit((v13[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v16[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
   }
 
@@ -467,33 +467,33 @@ LABEL_4:
 
     for (j = 0; j != 8; j += 4)
     {
-      v11 = &v6[j];
+      v14 = &v6[j];
       v6[j + 1] = *(a3 + j * 8);
       result = sub_29A166F2C(&v6[j + 2], (a3 + j * 8 + 8));
-      v12 = *(a3 + j * 8 + 22);
-      v11[3] = *(a3 + j * 8 + 16);
-      *(v11 + 30) = v12;
+      v15 = *(a3 + j * 8 + 22);
+      v14[3] = *(a3 + j * 8 + 16);
+      *(v14 + 30) = v15;
     }
   }
 
   return result;
 }
 
-void sub_29AC50C98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AC50C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_29B2C6190(v2 - 24, va);
+  va_start(va, a3);
+  sub_29B2C6190(v3 - 24, va);
   _Unwind_Resume(a1);
 }
 
-void *pxrInternal__aapl__pxrReserved__::HdMesh::_GetReprDesc@<X0>(pxrInternal__aapl__pxrReserved__::HdMesh *this@<X0>, _OWORD *a2@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdMesh::_GetReprDesc@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::HdMesh *this@<X0>)
 {
   pxrInternal__aapl__pxrReserved__::HdMesh::_reprDescConfig(this);
 
-  return sub_29AC50CF8(&qword_2A174A890, this, v5, a2);
+  return sub_29AC50CF8(&qword_2A174A890, this, a1, v5);
 }
 
-void *sub_29AC50CF8@<X0>(char **a1@<X0>, void *a2@<X1>, char *a3@<X2>, _OWORD *a4@<X8>)
+void *sub_29AC50CF8@<X0>(char **a1@<X0>, void *a2@<X1>, _OWORD *a3@<X8>, char *a4@<X2>)
 {
   v6 = *a1;
   v7 = a1[1];
@@ -524,10 +524,10 @@ void *sub_29AC50CF8@<X0>(char **a1@<X0>, void *a2@<X1>, char *a3@<X2>, _OWORD *a
 
       pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v24, 1, "Repr %s not found", v11);
       v18 = 0;
-      a4[2] = 0u;
-      a4[3] = 0u;
-      *a4 = 0u;
-      a4[1] = 0u;
+      a3[2] = 0u;
+      a3[3] = 0u;
+      *a3 = 0u;
+      a3[1] = 0u;
       while (1)
       {
         result = atomic_load(&pxrInternal__aapl__pxrReserved__::HdMeshReprDescTokens);
@@ -544,7 +544,7 @@ void *sub_29AC50CF8@<X0>(char **a1@<X0>, void *a2@<X1>, char *a3@<X2>, _OWORD *a
             v19 &= 0xFFFFFFFFFFFFFFF8;
           }
 
-          v20 = &a4[v18];
+          v20 = &a3[v18];
           *v20 = 0;
           v20[1] = v19;
           if ((v19 & 7) != 0)
@@ -561,14 +561,14 @@ void *sub_29AC50CF8@<X0>(char **a1@<X0>, void *a2@<X1>, char *a3@<X2>, _OWORD *a
 
         else
         {
-          v22 = &a4[v18];
+          v22 = &a3[v18];
           *v22 = 0;
           v22[1] = v19;
         }
 
         v21 = 1;
 LABEL_26:
-        v23 = &a4[v18];
+        v23 = &a3[v18];
         *(v23 + 4) = 65792;
         *(v23 + 20) = 0;
         *(v23 + 6) = 0;
@@ -586,7 +586,7 @@ LABEL_26:
       }
     }
 
-    if ((*a2 ^ **sub_29AC51424(&v24, a2, a3)) <= 7)
+    if ((*a2 ^ **sub_29AC51424(&v24, a2, a4)) <= 7)
     {
       break;
     }
@@ -597,7 +597,7 @@ LABEL_26:
 
   result = sub_29AC51424(&v24, v8, v9);
   v13 = (*result + 24);
-  v14 = a4 + 1;
+  v14 = a3 + 1;
   v15 = 2;
   do
   {
@@ -638,163 +638,163 @@ void sub_29AC50F04(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29AC50F38(uint64_t a1, void *a2)
+void *sub_29AC50F38(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v6 = *(a1 + 8);
+  if (v6 >= *(a1 + 16))
   {
-    result = sub_29AC50FC0(a1, a2);
+    result = sub_29AC50FC0(a1, a2, a3, a4, a5);
   }
 
   else
   {
-    *v3 = *a2;
-    v4 = v3 + 2;
+    *v6 = *a2;
+    v7 = v6 + 2;
     *a2 = 0;
-    v5 = a2 + 2;
-    v6 = 2;
+    v8 = a2 + 2;
+    v9 = 2;
     do
     {
-      *(v4 - 1) = *(v5 - 1);
-      *v4 = *v5;
-      *v5 = 0;
-      v7 = v5[1];
-      *(v4 + 14) = *(v5 + 14);
-      v4[1] = v7;
-      v5 += 4;
-      v4 += 4;
-      --v6;
+      *(v7 - 1) = *(v8 - 1);
+      *v7 = *v8;
+      *v8 = 0;
+      v10 = v8[1];
+      *(v7 + 14) = *(v8 + 14);
+      v7[1] = v10;
+      v8 += 4;
+      v7 += 4;
+      --v9;
     }
 
-    while (v6);
-    result = (v3 + 9);
+    while (v9);
+    result = v6 + 9;
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_29AC50FC0(uint64_t a1, void *a2)
+uint64_t sub_29AC50FC0(char **a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = 0x8E38E38E38E38E39 * ((*(a1 + 8) - *a1) >> 3);
-  v3 = v2 + 1;
-  if (v2 + 1 > 0x38E38E38E38E38ELL)
+  v5 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
+  v6 = v5 + 1;
+  if (v5 + 1 > 0x38E38E38E38E38ELL)
   {
     sub_29A00C9A4();
   }
 
-  if (0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3) > v6)
   {
-    v3 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3);
+    v6 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) >= 0x1C71C71C71C71C7)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) >= 0x1C71C71C71C71C7)
   {
-    v6 = 0x38E38E38E38E38ELL;
-  }
-
-  else
-  {
-    v6 = v3;
-  }
-
-  v22 = a1;
-  if (v6)
-  {
-    v7 = sub_29A09C03C(a1, v6);
+    v9 = 0x38E38E38E38E38ELL;
   }
 
   else
   {
-    v7 = 0;
+    v9 = v6;
   }
 
-  v8 = &v7[72 * v2];
-  v19 = v7;
-  v20 = v8;
-  *(&v21 + 1) = &v7[72 * v6];
-  *v8 = *a2;
-  v9 = v8 + 16;
+  v25 = a1;
+  if (v9)
+  {
+    v10 = sub_29A09C03C(a1, v9);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = &v10[72 * v5];
+  v22 = v10;
+  v23 = v11;
+  *(&v24 + 1) = &v10[72 * v9];
+  *v11 = *a2;
+  v12 = v11 + 16;
   *a2 = 0;
-  v10 = a2 + 2;
-  v11 = 2;
+  v13 = a2 + 2;
+  v14 = 2;
   do
   {
-    *(v9 - 1) = *(v10 - 1);
-    *v9 = *v10;
-    *v10 = 0;
-    v12 = v10[1];
-    *(v9 + 14) = *(v10 + 14);
-    v9[1] = v12;
-    v10 += 4;
-    v9 += 4;
-    --v11;
+    *(v12 - 1) = *(v13 - 1);
+    *v12 = *v13;
+    *v13 = 0;
+    v15 = v13[1];
+    *(v12 + 14) = *(v13 + 14);
+    v12[1] = v15;
+    v13 += 4;
+    v12 += 4;
+    --v14;
   }
 
-  while (v11);
-  *&v21 = v8 + 72;
-  v13 = *(a1 + 8);
-  v14 = &v8[*a1 - v13];
-  sub_29AC51140(a1, *a1, v13, v14);
-  v15 = *a1;
-  *a1 = v14;
-  v16 = *(a1 + 16);
-  v18 = v21;
-  *(a1 + 8) = v21;
-  *&v21 = v15;
-  *(&v21 + 1) = v16;
-  v19 = v15;
-  v20 = v15;
-  sub_29AC51300(&v19);
-  return v18;
+  while (v14);
+  *&v24 = v11 + 72;
+  v16 = a1[1];
+  v17 = &v11[*a1 - v16];
+  sub_29AC51140(a1, *a1, v16, v17, a5);
+  v18 = *a1;
+  *a1 = v17;
+  v19 = a1[2];
+  v21 = v24;
+  *(a1 + 1) = v24;
+  *&v24 = v18;
+  *(&v24 + 1) = v19;
+  v22 = v18;
+  v23 = v18;
+  sub_29AC51300(&v22);
+  return v21;
 }
 
-void sub_29AC5112C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29AC5112C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29AC51300(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29AC51140(uint64_t a1, void *a2, void *a3, void *a4)
+uint64_t sub_29AC51140(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
+  v13 = a4;
   v12 = a4;
-  v11 = a4;
-  v9[0] = a1;
-  v9[1] = &v11;
-  v9[2] = &v12;
+  v10[0] = a1;
+  v10[1] = &v12;
+  v10[2] = &v13;
   if (a2 != a3)
   {
-    v4 = a2;
+    v5 = a2;
     do
     {
-      v5 = 0;
-      *a4 = *v4;
-      *v4 = 0;
+      v6 = 0;
+      *a4 = *v5;
+      *v5 = 0;
       do
       {
-        v6 = &a4[v5];
-        v6[1] = v4[v5 + 1];
-        v6[2] = v4[v5 + 2];
-        v4[v5 + 2] = 0;
-        v7 = v4[v5 + 3];
-        *(v6 + 30) = *(&v4[v5 + 3] + 6);
-        v6[3] = v7;
-        v5 += 4;
+        v7 = &a4[v6];
+        v7[1] = v5[v6 + 1];
+        v7[2] = v5[v6 + 2];
+        v5[v6 + 2] = 0;
+        v8 = v5[v6 + 3];
+        *(v7 + 30) = *(&v5[v6 + 3] + 6);
+        v7[3] = v8;
+        v6 += 4;
       }
 
-      while (v5 != 8);
-      v4 += 9;
-      a4 = v12 + 9;
-      v12 += 9;
+      while (v6 != 8);
+      v5 += 9;
+      a4 = v13 + 9;
+      v13 += 9;
     }
 
-    while (v4 != a3);
+    while (v5 != a3);
   }
 
-  v10 = 1;
+  v11 = 1;
   sub_29AC51210(a1, a2, a3);
-  return sub_29AC51264(v9);
+  return sub_29AC51264(v10);
 }
 
 void sub_29AC51210(uint64_t a1, void *a2, void *a3)
@@ -1007,11 +1007,11 @@ void pxrInternal__aapl__pxrReserved__::HdMeshSchemaTokens_StaticTokenType::~HdMe
 pxrInternal__aapl__pxrReserved__::HdMeshSchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdMeshSchemaTokens_StaticTokenType::HdMeshSchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdMeshSchemaTokens_StaticTokenType *this)
 {
   v22 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "mesh", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "topology", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "subdivisionScheme", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "subdivisionTags", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "doubleSided", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "mesh");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "topology");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "subdivisionScheme");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "subdivisionTags");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "doubleSided");
   v3 = (this + 40);
   v4 = *this;
   v17 = v4;
@@ -1624,7 +1624,7 @@ void *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetDefaultLocator(pxrInter
   return &unk_2A174A8A8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetTopologyLocator(pxrInternal__aapl__pxrReserved__::HdMeshSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetTopologyLocator(pxrInternal__aapl__pxrReserved__::HdMeshSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A920, memory_order_acquire) & 1) == 0)
   {
@@ -1638,16 +1638,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetTopologyLocator(pxrIn
         v3 = sub_29ABED440(&pxrInternal__aapl__pxrReserved__::HdMeshSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A174A8A8, (v3 + 8), dword_2A174A8E8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A8E8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A8E8, &unk_2A174A8A8, v3 + 1);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A8E8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A920);
     }
   }
 
-  return dword_2A174A8E8;
+  return qword_2A174A8E8;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetSubdivisionSchemeLocator(pxrInternal__aapl__pxrReserved__::HdMeshSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetSubdivisionSchemeLocator(pxrInternal__aapl__pxrReserved__::HdMeshSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A960, memory_order_acquire) & 1) == 0)
   {
@@ -1661,16 +1661,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetSubdivisionSchemeLoca
         v3 = sub_29ABED440(&pxrInternal__aapl__pxrReserved__::HdMeshSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A174A8A8, (v3 + 16), dword_2A174A928);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A928, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A928, &unk_2A174A8A8, v3 + 2);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A928, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A960);
     }
   }
 
-  return dword_2A174A928;
+  return qword_2A174A928;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetSubdivisionTagsLocator(pxrInternal__aapl__pxrReserved__::HdMeshSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetSubdivisionTagsLocator(pxrInternal__aapl__pxrReserved__::HdMeshSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A9A0, memory_order_acquire) & 1) == 0)
   {
@@ -1684,16 +1684,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetSubdivisionTagsLocato
         v3 = sub_29ABED440(&pxrInternal__aapl__pxrReserved__::HdMeshSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A174A8A8, (v3 + 24), dword_2A174A968);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A968, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A968, &unk_2A174A8A8, v3 + 3);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A968, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A9A0);
     }
   }
 
-  return dword_2A174A968;
+  return qword_2A174A968;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetDoubleSidedLocator(pxrInternal__aapl__pxrReserved__::HdMeshSchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetDoubleSidedLocator(pxrInternal__aapl__pxrReserved__::HdMeshSchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174A9E0, memory_order_acquire) & 1) == 0)
   {
@@ -1707,16 +1707,16 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdMeshSchema::GetDoubleSidedLocator(px
         v3 = sub_29ABED440(&pxrInternal__aapl__pxrReserved__::HdMeshSchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(&unk_2A174A8A8, (v3 + 32), dword_2A174A9A8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A9A8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A9A8, &unk_2A174A8A8, v3 + 4);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A9A8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174A9E0);
     }
   }
 
-  return dword_2A174A9A8;
+  return qword_2A174A9A8;
 }
 
-void sub_29AC5252C()
+void sub_29AC5252C(uint64_t result, uint64_t a2)
 {
   if (!atomic_load(pxrInternal__aapl__pxrReserved__::HD_ENABLE_OPENSUBDIV3_ADAPTIVE))
   {
@@ -1891,7 +1891,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::ComputeNumPoints(void
   return (v3 + 1);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::HdMeshTopology(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::HdMeshTopology(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, __int128 *a5, int a6)
 {
   *a1 = &unk_2A207C868;
   pxrInternal__aapl__pxrReserved__::PxOsdMeshTopology::PxOsdMeshTopology(a1 + 8, a2, a3, a4, a5);
@@ -1947,10 +1947,10 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::HdMeshTopology(uint64
   return a1;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::HdMeshTopology(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
+uint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::HdMeshTopology(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, __int128 *a5, uint64_t a6, int a7)
 {
   *a1 = &unk_2A207C868;
-  pxrInternal__aapl__pxrReserved__::PxOsdMeshTopology::PxOsdMeshTopology(a1 + 8);
+  pxrInternal__aapl__pxrReserved__::PxOsdMeshTopology::PxOsdMeshTopology(a1 + 8, a2, a3, a4, a5, a6);
   *(a1 + 480) = 0;
   *(a1 + 448) = 0u;
   *(a1 + 464) = 0u;
@@ -2031,7 +2031,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::operator=(uint64_t a1
   sub_29AC52D28(a1 + 8, a2 + 8);
   if (a1 != a2)
   {
-    sub_29AC52FEC(a1 + 384, *(a2 + 384), *(a2 + 392), (*(a2 + 392) - *(a2 + 384)) >> 6);
+    sub_29AC52FEC((a1 + 384), *(a2 + 384), *(a2 + 392), (*(a2 + 392) - *(a2 + 384)) >> 6);
   }
 
   *(a1 + 488) = *(a2 + 488);
@@ -2047,7 +2047,7 @@ uint64_t sub_29AC52D28(uint64_t a1, uint64_t a2)
   sub_29A27CF04((a1 + 16), (a2 + 16));
   sub_29A27CF04((a1 + 56), (a2 + 56));
   sub_29A27CF04((a1 + 96), (a2 + 96));
-  sub_29AC52F60(a1 + 136, a2 + 136);
+  sub_29AC52F60((a1 + 136), a2 + 136);
   v4 = atomic_load((a2 + 368));
   atomic_store(v4 & 1, (a1 + 368));
   return a1;
@@ -2064,7 +2064,7 @@ BOOL pxrInternal__aapl__pxrReserved__::HdMeshTopology::IsEnabledAdaptive(pxrInte
   return *v1 == 1;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::operator==(uint64_t a1, uint64_t a2)
+BOOL pxrInternal__aapl__pxrReserved__::HdMeshTopology::operator==(uint64_t a1, uint64_t a2)
 {
   result = pxrInternal__aapl__pxrReserved__::PxOsdMeshTopology::operator==((a1 + 8), (a2 + 8));
   if (result)
@@ -2124,24 +2124,24 @@ unint64_t pxrInternal__aapl__pxrReserved__::HdMeshTopology::ComputeHash(pxrInter
   return v3;
 }
 
-uint64_t sub_29AC52F60(uint64_t a1, uint64_t a2)
+__int128 *sub_29AC52F60(__int128 *a1, uint64_t a2)
 {
   sub_29A166F2C(a1, a2);
-  sub_29A166F2C((a1 + 8), (a2 + 8));
-  sub_29A166F2C((a1 + 16), (a2 + 16));
-  sub_29A166F2C((a1 + 24), (a2 + 24));
-  sub_29A27CF04((a1 + 32), (a2 + 32));
+  sub_29A166F2C(a1 + 1, (a2 + 8));
+  sub_29A166F2C(a1 + 2, (a2 + 16));
+  sub_29A166F2C(a1 + 3, (a2 + 24));
+  sub_29A27CF04(a1 + 2, (a2 + 32));
   sub_29A27CF04((a1 + 72), (a2 + 72));
-  sub_29A41712C((a1 + 112), (a2 + 112));
+  sub_29A41712C(a1 + 7, (a2 + 112));
   sub_29A27CF04((a1 + 152), (a2 + 152));
-  sub_29A41712C((a1 + 192), (a2 + 192));
+  sub_29A41712C(a1 + 12, (a2 + 192));
   return a1;
 }
 
-uint64_t sub_29AC52FEC(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void *sub_29AC52FEC(void **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v8 = *a1;
-  if (a4 > (*(a1 + 16) - *a1) >> 6)
+  if (a4 > (a1[2] - *a1) >> 6)
   {
     sub_29AC5312C(a1);
     if (a4 >> 58)
@@ -2149,7 +2149,7 @@ uint64_t sub_29AC52FEC(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
       sub_29A00C9A4();
     }
 
-    v9 = *(a1 + 16) - *a1;
+    v9 = a1[2] - *a1;
     v10 = v9 >> 5;
     if (v9 >> 5 <= a4)
     {
@@ -2167,27 +2167,28 @@ uint64_t sub_29AC52FEC(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
     }
 
     sub_29A1BF94C(a1, v11);
-    result = sub_29AC53198(a1, a2, a3, *(a1 + 8));
+    result = sub_29AC53198(a1, a2, a3, a1[1]);
     goto LABEL_11;
   }
 
-  v13 = *(a1 + 8) - v8;
+  v13 = a1[1] - v8;
   if (a4 > v13 >> 6)
   {
-    sub_29AC533C0(&v15, a2, a2 + v13, v8);
-    result = sub_29AC53198(a1, a2 + v13, a3, *(a1 + 8));
+    sub_29AC533C0(&v16, a2, a2 + v13, v8);
+    result = sub_29AC53198(a1, a2 + v13, a3, a1[1]);
 LABEL_11:
-    *(a1 + 8) = result;
+    a1[1] = result;
     return result;
   }
 
-  result = sub_29AC533C0(&v16, a2, a3, v8);
-  if (*(a1 + 8) != v14)
+  result = sub_29AC533C0(&v17, a2, a3, v8);
+  v15 = a1[1];
+  if (v15 != v14)
   {
-    sub_29AC53360();
+    sub_29AC53360(a1, v15 - 64);
   }
 
-  *(a1 + 8) = v14;
+  a1[1] = v14;
   return result;
 }
 
@@ -2200,7 +2201,7 @@ void sub_29AC5312C(void **a1)
     v4 = *a1;
     if (v3 != v1)
     {
-      sub_29AC53360();
+      sub_29AC53360(a1, v3 - 64);
     }
 
     a1[1] = v1;
@@ -2275,17 +2276,18 @@ uint64_t sub_29AC532D4(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_29AC5330C(uint64_t result)
+uint64_t *sub_29AC5330C(uint64_t *result)
 {
-  if (**(result + 16) != **(result + 8))
+  v1 = result[2];
+  if (*v1 != *result[1])
   {
-    sub_29AC53360();
+    sub_29AC53360(*result, *v1 - 64);
   }
 
   return result;
 }
 
-uint64_t sub_29AC533C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_29AC533C0(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v5 = a2;
   if (a2 == a3)
@@ -2297,12 +2299,12 @@ uint64_t sub_29AC533C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   do
   {
     *a4 = *v5;
-    sub_29A2258F0((a4 + 4), (v5 + 4));
-    sub_29A225948((a4 + 8), (v5 + 8));
-    sub_29A2258F0((a4 + 12), (v5 + 12));
-    sub_29A225948((a4 + 16), (v5 + 16));
-    sub_29A27CF04((a4 + 24), (v5 + 24));
-    a4 += 64;
+    sub_29A2258F0(a4 + 1, (v5 + 4));
+    sub_29A225948(a4 + 2, (v5 + 8));
+    sub_29A2258F0(a4 + 3, (v5 + 12));
+    sub_29A225948(a4 + 4, (v5 + 16));
+    sub_29A27CF04((a4 + 6), (v5 + 24));
+    a4 += 16;
     v5 += 64;
   }
 
@@ -2316,15 +2318,16 @@ void sub_29AC5346C(void ***a1)
   v2 = **a1;
   if (v2)
   {
-    v3 = **a1;
-    if (v1[1] != v2)
+    v3 = v1[1];
+    v4 = **a1;
+    if (v3 != v2)
     {
-      sub_29AC53360();
+      sub_29AC53360(v1, v3 - 64);
     }
 
     v1[1] = v2;
 
-    operator delete(v3);
+    operator delete(v4);
   }
 }
 
@@ -2334,8 +2337,8 @@ void *sub_29AC534F4(void *result, uint64_t a2, uint64_t a3, unint64_t a4)
   {
     v6 = result;
     sub_29A1BF94C(result, a4);
-    result = sub_29AC53198(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = sub_29AC53198(v6, a2, a3, v6[1]);
+    v6[1] = result;
   }
 
   return result;
@@ -2397,13 +2400,13 @@ void pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens_StaticTokenTyp
 pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens_StaticTokenType::HdMeshTopologySchemaTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens_StaticTokenType *this)
 {
   v28 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "topology", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "faceVertexCounts", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "faceVertexIndices", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 24, "holeIndices", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 32, "orientation", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 40, "leftHanded", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 48, "rightHanded", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "topology");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "faceVertexCounts");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "faceVertexIndices");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 3, "holeIndices");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 4, "orientation");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 5, "leftHanded");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 6, "rightHanded");
   v3 = (this + 56);
   v4 = *this;
   v21 = v4;
@@ -2988,7 +2991,7 @@ pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens_StaticTokenType *px
   return result;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema::GetDefaultLocator(pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema *this)
+uint64_t *pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema::GetDefaultLocator(pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema *this)
 {
   if ((atomic_load_explicit(&qword_2A174AA20, memory_order_acquire) & 1) == 0)
   {
@@ -3002,36 +3005,36 @@ _DWORD *pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema::GetDefaultLocato
         v4 = sub_29ABF6EE4(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
       }
 
-      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(DefaultLocator, v4, dword_2A174A9E8);
-      __cxa_atexit(sub_29ABC33B4, dword_2A174A9E8, &dword_299FE7000);
+      pxrInternal__aapl__pxrReserved__::HdDataSourceLocator::Append(qword_2A174A9E8, DefaultLocator, v4);
+      __cxa_atexit(sub_29ABC33B4, qword_2A174A9E8, &dword_299FE7000);
       __cxa_guard_release(&qword_2A174AA20);
     }
   }
 
-  return dword_2A174A9E8;
+  return qword_2A174A9E8;
 }
 
 double pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema::BuildOrientationDataSource@<D0>(pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema *this@<X0>, uint64_t a2@<X8>)
 {
-  v5 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
-  if (!v5)
+  v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
+  if (!v4)
   {
-    v5 = sub_29ABF6EE4(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
+    v4 = sub_29ABF6EE4(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
   }
 
-  if ((*(v5 + 5) ^ *this) > 7)
+  if ((*(v4 + 5) ^ *this) > 7)
   {
-    v7 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
-    if (!v7)
+    v6 = atomic_load(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
+    if (!v6)
     {
-      v7 = sub_29ABF6EE4(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
+      v6 = sub_29ABF6EE4(&pxrInternal__aapl__pxrReserved__::HdMeshTopologySchemaTokens);
     }
 
-    if ((*(v7 + 6) ^ *this) > 7)
+    if ((*(v6 + 6) ^ *this) > 7)
     {
-      sub_29ABCCFA4(this, &v11);
-      result = *&v11;
-      *a2 = v11;
+      sub_29ABCCFA4(this, &v10);
+      result = *&v10;
+      *a2 = v10;
       return result;
     }
 
@@ -3042,7 +3045,7 @@ double pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema::BuildOrientationD
       __cxa_guard_release(&qword_2A174AA50);
     }
 
-    v6 = &qword_2A174AA40;
+    v5 = &qword_2A174AA40;
   }
 
   else
@@ -3054,16 +3057,16 @@ double pxrInternal__aapl__pxrReserved__::HdMeshTopologySchema::BuildOrientationD
       __cxa_guard_release(&qword_2A174AA38);
     }
 
-    v6 = &qword_2A174AA28;
+    v5 = &qword_2A174AA28;
   }
 
-  v9 = *v6;
-  v8 = v6[1];
-  *a2 = v9;
-  *(a2 + 8) = v8;
-  if (v8)
+  v8 = *v5;
+  v7 = v5[1];
+  *a2 = v8;
+  *(a2 + 8) = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
   return result;
@@ -3209,7 +3212,7 @@ LABEL_23:
               do
               {
                 sub_29A21C6E0(v19);
-                v33 = *(v19 + 32);
+                v33 = v19[4];
                 if (v31 + v27 >= v58)
                 {
                   v36 = v33 + v29;
@@ -3254,7 +3257,7 @@ LABEL_23:
                     if (v53 == v27 && v57 >= 8)
                     {
                       sub_29A21C6E0(v19);
-                      v37 = *(v19 + 32) + v29;
+                      v37 = v19[4] + v29;
                       v38 = *v37;
                       *v37 = *(v37 + 8);
                       *(v37 + 4) = v38;
@@ -3267,7 +3270,7 @@ LABEL_23:
                     if (v57 >= 8)
                     {
                       sub_29A21C6E0(v19);
-                      v39 = *(v19 + 32) + v29;
+                      v39 = v19[4] + v29;
                       v40 = *v39;
                       *v39 = *(v39 + 4);
                       *(v39 + 8) = v40;
@@ -3345,7 +3348,7 @@ LABEL_23:
   }
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeTriangulatedFaceVaryingPrimvar(uint64_t a1, uint64_t a2, int a3, int a4, void *a5)
+uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeTriangulatedFaceVaryingPrimvar(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v459 = *MEMORY[0x29EDCA608];
   v444 = *(a1 + 8);
@@ -3353,6 +3356,8 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeTriangulatedFaceVa
   {
     if (a5)
     {
+      v5 = a4;
+      v6 = a3;
       v7 = *(a1 + 8);
       if (*(v444 + 488) < 1)
       {
@@ -3385,13 +3390,13 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeTriangulatedFaceVa
       }
 
       v446 = *(v10 + 71) ^ *(v7 + 16);
-      if (a4 <= 18)
+      if (v5 <= 18)
       {
-        if (a4 <= 14)
+        if (v5 <= 14)
         {
-          if (a4 != 13)
+          if (v5 != 13)
           {
-            if (a4 == 14)
+            if (v5 == 14)
             {
               v11 = v447;
               if (*(v444 + 24) < 1)
@@ -3465,7 +3470,7 @@ LABEL_130:
               v254 = 0;
               v255 = 0;
               v256 = 0;
-              v257 = a3;
+              v257 = v6;
 LABEL_261:
               v258 = *(*(v444 + 56) + 4 * v253);
               if (v258 < 3)
@@ -3688,7 +3693,7 @@ LABEL_122:
           v94 = 0;
           v95 = 0;
           v96 = 0;
-          v97 = a3;
+          v97 = v6;
 LABEL_140:
           v98 = *(*(v444 + 56) + 4 * v93);
           v428 = (v98 - 3);
@@ -3830,9 +3835,9 @@ LABEL_156:
           goto LABEL_162;
         }
 
-        if (a4 != 15)
+        if (v5 != 15)
         {
-          if (a4 != 16)
+          if (v5 != 16)
           {
             goto LABEL_120;
           }
@@ -3909,7 +3914,7 @@ LABEL_134:
           v317 = 0;
           v318 = 0;
           v319 = 0;
-          v320 = a3;
+          v320 = v6;
 LABEL_321:
           v321 = *(*(v444 + 56) + 4 * v316);
           v434 = (v321 - 3);
@@ -4118,7 +4123,7 @@ LABEL_126:
         v156 = 0;
         v157 = 0;
         v158 = 0;
-        v159 = a3;
+        v159 = v6;
 LABEL_201:
         v160 = *(*(v444 + 56) + 4 * v155);
         v430 = (v160 - 3);
@@ -4288,9 +4293,9 @@ LABEL_227:
         }
       }
 
-      if (a4 <= 20)
+      if (v5 <= 20)
       {
-        if (a4 != 19)
+        if (v5 != 19)
         {
           v19 = v447;
           if (*(v444 + 24) < 1)
@@ -4364,7 +4369,7 @@ LABEL_132:
           v286 = 0;
           v287 = 0;
           v288 = 0;
-          v289 = a3;
+          v289 = v6;
 LABEL_291:
           v290 = *(*(v444 + 56) + 4 * v285);
           v433 = (v290 - 3);
@@ -4573,7 +4578,7 @@ LABEL_124:
         v124 = 0;
         v125 = 0;
         v126 = 0;
-        v127 = a3;
+        v127 = v6;
 LABEL_171:
         v128 = *(*(v444 + 56) + 4 * v123);
         if (v128 < 3)
@@ -4713,9 +4718,9 @@ LABEL_197:
         }
       }
 
-      if (a4 != 21)
+      if (v5 != 21)
       {
-        if (a4 != 22)
+        if (v5 != 22)
         {
           goto LABEL_120;
         }
@@ -4780,7 +4785,7 @@ LABEL_136:
           }
         }
 
-        sub_29A196EB8(&v454, v42);
+        sub_29A196EB8(&v454, v42, a3, a4);
         v346 = *(v444 + 24);
         if (v346 < 1)
         {
@@ -4792,7 +4797,7 @@ LABEL_136:
         v348 = 0;
         v349 = 0;
         v350 = 0;
-        v351 = a3;
+        v351 = v6;
 LABEL_351:
         v352 = *(*(v444 + 56) + 4 * v347);
         v435 = (v352 - 3);
@@ -5025,7 +5030,7 @@ LABEL_128:
         }
       }
 
-      sub_29A1948F8(&v454, v74);
+      sub_29A1948F8(&v454, v74, a3);
       v203 = *(v444 + 24);
       if (v203 < 1)
       {
@@ -5037,7 +5042,7 @@ LABEL_128:
       v205 = 0;
       v206 = 0;
       v207 = 0;
-      v208 = a3;
+      v208 = v6;
 LABEL_231:
       v209 = *(*(v444 + 56) + 4 * v204);
       v431 = (v209 - 3);
@@ -5214,7 +5219,7 @@ LABEL_257:
     v456 = 295;
     v457 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeTriangulatedFaceVaryingPrimvar(const void *, int, HdType, VtValue *) const";
     LOBYTE(v458) = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v454, 1, "No output buffer provided for triangulation");
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v454, 1, "No output buffer provided for triangulation", a4);
   }
 
   else
@@ -5224,7 +5229,7 @@ LABEL_257:
     v456 = 291;
     v457 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeTriangulatedFaceVaryingPrimvar(const void *, int, HdType, VtValue *) const";
     LOBYTE(v458) = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v454, 1, "No topology provided for triangulation");
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v454, 1, "No topology provided for triangulation", a4, a5);
   }
 
   return 0;
@@ -5418,13 +5423,14 @@ void pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadInfo(uint64_t a1, 
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t a1, void *a2, void *a3, unint64_t *a4, int a5)
+void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t a1, void *a2, void *a3, unint64_t *a4, uint64_t a5)
 {
   v6 = *(a1 + 8);
   if (v6)
   {
     if (a2 && a3)
     {
+      v8 = a5;
       v9 = *(v6 + 56);
       v10 = *(v6 + 96);
       v65 = *(v6 + 136);
@@ -5448,7 +5454,7 @@ void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t 
       }
 
       v63 = a1;
-      if (a5)
+      if (v8)
       {
         v18 = 6;
       }
@@ -5494,7 +5500,7 @@ void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t 
         v28 = v11 & 0x7FFFFFFF;
         v67 = v13;
         v68 = v12;
-        v76 = a5;
+        v76 = v8;
         v62 = v9;
         v69 = v10;
         v66 = v28;
@@ -5537,7 +5543,7 @@ void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t 
                   *v19 = *v33;
                   v19[1] = v37;
                   v19[2] = v38;
-                  if (a5)
+                  if (v8)
                   {
                     v41 = v19 + 5;
                     v19[3] = v38;
@@ -5559,9 +5565,9 @@ void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t 
                   if (v21)
                   {
                     sub_29A21A6E8(v21);
-                    *(*(v21 + 32) + 8 * v72) = v79;
+                    *(v21[4] + 8 * v72) = v79;
                     sub_29A21A6E8(v21);
-                    *(*(v21 + 32) + 8 * v72 + 4) = v79 + 3;
+                    *(v21[4] + 8 * v72 + 4) = v79 + 3;
                     v59 = v72;
                   }
 
@@ -5673,7 +5679,7 @@ void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t 
 
                   while (v29 != v46);
                   v72 += v46;
-                  a5 = v76;
+                  v8 = v76;
                   v77 += v29 + 1;
                   v9 = v62;
                   v10 = v69;
@@ -5695,7 +5701,7 @@ void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t 
                 {
                   *v19 = 0;
                   v19[2] = 0;
-                  if (a5)
+                  if (v8)
                   {
                     v31 = v19 + 5;
                     v19[3] = 0;
@@ -5720,7 +5726,7 @@ void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(uint64_t 
                   {
                     *v19 = 0;
                     v19[2] = 0;
-                    if (a5)
+                    if (v8)
                     {
                       v44 = v19 + 5;
                       v19[3] = 0;
@@ -5778,7 +5784,7 @@ LABEL_66:
       v84 = 475;
       v85 = "void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(VtIntArray *, VtIntArray *, VtVec2iArray *, BOOL) const";
       v86 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v82, 1, "No output buffer provided for quadrangulation");
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v82, 1, "No output buffer provided for quadrangulation", a4, a5);
     }
   }
 
@@ -5789,51 +5795,53 @@ LABEL_66:
     v84 = 470;
     v85 = "void pxrInternal__aapl__pxrReserved__::HdMeshUtil::_ComputeQuadIndices(VtIntArray *, VtIntArray *, VtVec2iArray *, BOOL) const";
     v86 = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v82, 1, "No topology provided for quadrangulation");
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v82, 1, "No topology provided for quadrangulation", a4, a5);
   }
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrimvar(uint64_t a1, int *a2, uint64_t a3, int a4, int a5, void *a6)
+uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrimvar(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   if (*(a1 + 8))
   {
     if (a6)
     {
+      v7 = a4;
+      v8 = a3;
       if (a5 > 18)
       {
         if (a5 <= 20)
         {
           if (a5 != 19)
           {
-            v17 = sub_29A1921FC(&v257, a2[1] + *a2);
-            v197 = a6;
-            if (*a2 <= a4)
+            v17 = sub_29A1921FC(&v258, a2[1] + *a2);
+            v198 = a6;
+            if (*a2 <= v7)
             {
               sub_29A19255C(v17);
-              memcpy(v261, a3, 16 * *a2);
+              memcpy(v262, v8, 16 * *a2);
               v20 = *a2;
             }
 
             else
             {
-              v252 = "hd/meshUtil.cpp";
-              v253 = "_Quadrangulate";
-              v254 = 692;
-              v255 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec2d]";
-              v256 = 0;
+              v253 = "hd/meshUtil.cpp";
+              v254 = "_Quadrangulate";
+              v255 = 692;
+              v256 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec2d]";
+              v257 = 0;
               Text = pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-              pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v252, "source.numElements and pointsOffset are inconsistent [%s]", v19, Text);
-              sub_29A19255C(&v257);
-              memcpy(v261, a3, 16 * a4);
+              pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v253, "source.numElements and pointsOffset are inconsistent [%s]", v19, Text);
+              sub_29A19255C(&v258);
+              memcpy(v262, v8, 16 * v7);
               v20 = *a2;
-              if (*a2 > a4)
+              if (*a2 > v7)
               {
-                v21 = a4;
-                v22 = a4;
+                v21 = v7;
+                v22 = v7;
                 do
                 {
-                  sub_29A19255C(&v257);
-                  f64 = v261[v22].f64;
+                  sub_29A19255C(&v258);
+                  f64 = v262[v22].f64;
                   ++v21;
                   *f64 = 0;
                   f64[1] = 0;
@@ -5845,105 +5853,105 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
               }
             }
 
-            v153 = *(a2 + 2);
-            v249 = a2;
-            v206 = *(a2 + 3);
-            if (v153 != v206)
+            v154 = *(a2 + 2);
+            v250 = a2;
+            v207 = *(a2 + 3);
+            if (v154 != v207)
             {
-              v154 = 0;
+              v155 = 0;
               __asm { FMOV            V0.2D, #0.5 }
 
-              v216 = _Q0;
+              v217 = _Q0;
               do
               {
-                v156 = *v153;
-                if (v156 < 1)
+                v157 = *v154;
+                if (v157 < 1)
                 {
-                  v240 = 0u;
+                  v241 = 0u;
                 }
 
                 else
                 {
-                  v209 = v153;
-                  v157 = 0;
-                  v212 = v20;
-                  v158 = v20;
-                  v240 = 0u;
+                  v210 = v154;
+                  v158 = 0;
+                  v213 = v20;
+                  v159 = v20;
+                  v241 = 0u;
                   do
                   {
-                    v159 = *(v249 + 5);
-                    v160 = *(v159 + 4 * v154 + 4 * v157);
-                    v161 = v157 + 1;
-                    if (v156 - 1 == v157)
+                    v160 = *(v250 + 5);
+                    v161 = *(v160 + 4 * v155 + 4 * v158);
+                    v162 = v158 + 1;
+                    if (v157 - 1 == v158)
                     {
-                      v162 = 0;
+                      v163 = 0;
                     }
 
                     else
                     {
-                      v162 = v157 + 1;
+                      v163 = v158 + 1;
                     }
 
-                    v163 = *(v159 + 4 * (v162 + v154));
-                    sub_29A19255C(&v257);
-                    v164 = v261;
-                    sub_29A19255C(&v257);
-                    v222 = v261[v163];
-                    v229 = v164[v160];
-                    sub_29A19255C(&v257);
-                    v261[v158 + v157] = vmulq_f64(vaddq_f64(v229, v222), v216);
-                    sub_29A19255C(&v257);
-                    v240 = vaddq_f64(v240, v261[v160]);
-                    ++v157;
+                    v164 = *(v160 + 4 * (v163 + v155));
+                    sub_29A19255C(&v258);
+                    v165 = v262;
+                    sub_29A19255C(&v258);
+                    v223 = v262[v164];
+                    v230 = v165[v161];
+                    sub_29A19255C(&v258);
+                    v262[v159 + v158] = vmulq_f64(vaddq_f64(v230, v223), v217);
+                    sub_29A19255C(&v258);
+                    v241 = vaddq_f64(v241, v262[v161]);
+                    ++v158;
                   }
 
-                  while (v156 != v161);
-                  v20 = v212 + v161;
-                  v153 = v209;
+                  while (v157 != v162);
+                  v20 = v213 + v162;
+                  v154 = v210;
                 }
 
-                sub_29A19255C(&v257);
-                v261[v20] = vmulq_n_f64(v240, 1.0 / v156);
-                v154 += v156;
-                ++v153;
+                sub_29A19255C(&v258);
+                v262[v20] = vmulq_n_f64(v241, 1.0 / v157);
+                v155 += v157;
+                ++v154;
                 ++v20;
               }
 
-              while (v153 != v206);
+              while (v154 != v207);
             }
 
-            sub_29A192690(v197, &v257);
+            sub_29A192690(v198, &v258);
             pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2d>::_DecRef();
           }
 
-          v42 = sub_29A18FC40(&v257, a2[1] + *a2);
-          v201 = a6;
-          if (*a2 <= a4)
+          v42 = sub_29A18FC40(&v258, a2[1] + *a2);
+          v202 = a6;
+          if (*a2 <= v7)
           {
             sub_29A190088(v42);
-            memcpy(v261, a3, 8 * *a2);
+            memcpy(v262, v8, 8 * *a2);
             v45 = *a2;
           }
 
           else
           {
-            v252 = "hd/meshUtil.cpp";
-            v253 = "_Quadrangulate";
-            v254 = 692;
-            v255 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = double]";
-            v256 = 0;
+            v253 = "hd/meshUtil.cpp";
+            v254 = "_Quadrangulate";
+            v255 = 692;
+            v256 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = double]";
+            v257 = 0;
             v43 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v252, "source.numElements and pointsOffset are inconsistent [%s]", v44, v43);
-            sub_29A190088(&v257);
-            memcpy(v261, a3, 8 * a4);
+            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v253, "source.numElements and pointsOffset are inconsistent [%s]", v44, v43);
+            sub_29A190088(&v258);
+            memcpy(v262, v8, 8 * v7);
             v45 = *a2;
-            if (*a2 > a4)
+            if (*a2 > v7)
             {
-              v46 = a4;
+              v46 = v7;
               do
               {
-                sub_29A190088(&v257);
-                v261->f64[v46++] = 0.0;
+                sub_29A190088(&v258);
+                v262->f64[v46++] = 0.0;
               }
 
               while (v46 < *a2);
@@ -5951,104 +5959,104 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
             }
           }
 
-          v75 = *(a2 + 2);
-          v225 = *(a2 + 3);
-          if (v75 != v225)
+          v76 = *(a2 + 2);
+          v226 = *(a2 + 3);
+          if (v76 != v226)
           {
-            v76 = a2;
-            v77 = 0;
+            v77 = a2;
+            v78 = 0;
             do
             {
-              v78 = *v75;
-              if (v78 < 1)
+              v79 = *v76;
+              if (v79 < 1)
               {
-                v81 = 0.0;
+                v82 = 0.0;
               }
 
               else
               {
-                v234 = v75;
-                v79 = 0;
-                v245 = v45;
-                v80 = v45;
-                v81 = 0.0;
+                v235 = v76;
+                v80 = 0;
+                v246 = v45;
+                v81 = v45;
+                v82 = 0.0;
                 do
                 {
-                  v82 = *(v76 + 5);
-                  v83 = *(v82 + 4 * v77 + 4 * v79);
-                  v84 = v79 + 1;
-                  if (v78 - 1 == v79)
+                  v83 = *(v77 + 5);
+                  v84 = *(v83 + 4 * v78 + 4 * v80);
+                  v85 = v80 + 1;
+                  if (v79 - 1 == v80)
                   {
-                    v85 = 0;
+                    v86 = 0;
                   }
 
                   else
                   {
-                    v85 = v79 + 1;
+                    v86 = v80 + 1;
                   }
 
-                  v86 = *(v82 + 4 * (v85 + v77));
-                  sub_29A190088(&v257);
-                  v87 = v261->f64[v83];
-                  sub_29A190088(&v257);
-                  v88 = v261->f64[v86];
-                  sub_29A190088(&v257);
-                  v261->f64[v79 + v80] = (v87 + v88) * 0.5;
-                  sub_29A190088(&v257);
-                  v81 = v81 + v261->f64[v83];
-                  ++v79;
+                  v87 = *(v83 + 4 * (v86 + v78));
+                  sub_29A190088(&v258);
+                  v88 = v262->f64[v84];
+                  sub_29A190088(&v258);
+                  v89 = v262->f64[v87];
+                  sub_29A190088(&v258);
+                  v262->f64[v80 + v81] = (v88 + v89) * 0.5;
+                  sub_29A190088(&v258);
+                  v82 = v82 + v262->f64[v84];
+                  ++v80;
                 }
 
-                while (v78 != v84);
-                v45 = v245 + v84;
-                v75 = v234;
+                while (v79 != v85);
+                v45 = v246 + v85;
+                v76 = v235;
               }
 
-              sub_29A190088(&v257);
-              v261->f64[v45] = v81 / v78;
-              v77 += v78;
-              ++v75;
+              sub_29A190088(&v258);
+              v262->f64[v45] = v82 / v79;
+              v78 += v79;
+              ++v76;
               ++v45;
             }
 
-            while (v75 != v225);
+            while (v76 != v226);
           }
 
-          sub_29A1901BC(v201, &v257);
+          sub_29A1901BC(v202, &v258);
           pxrInternal__aapl__pxrReserved__::VtArray<double>::_DecRef();
         }
 
         if (a5 == 21)
         {
-          v54 = sub_29A1948F8(&v257, a2[1] + *a2);
-          v203 = a6;
-          if (*a2 <= a4)
+          v54 = sub_29A1948F8(&v258, a2[1] + *a2, a3);
+          v204 = a6;
+          if (*a2 <= v7)
           {
             sub_29A194CC8(v54);
-            memcpy(v261, a3, 24 * *a2);
+            memcpy(v262, v8, 24 * *a2);
             LODWORD(v57) = *a2;
           }
 
           else
           {
-            v252 = "hd/meshUtil.cpp";
-            v253 = "_Quadrangulate";
-            v254 = 692;
-            v255 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec3d]";
-            v256 = 0;
+            v253 = "hd/meshUtil.cpp";
+            v254 = "_Quadrangulate";
+            v255 = 692;
+            v256 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec3d]";
+            v257 = 0;
             v55 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v252, "source.numElements and pointsOffset are inconsistent [%s]", v56, v55);
-            sub_29A194CC8(&v257);
-            memcpy(v261, a3, 24 * a4);
+            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v253, "source.numElements and pointsOffset are inconsistent [%s]", v56, v55);
+            sub_29A194CC8(&v258);
+            memcpy(v262, v8, 24 * v7);
             LODWORD(v57) = *a2;
-            if (*a2 > a4)
+            if (*a2 > v7)
             {
-              v58 = a4;
-              v59 = 3 * a4;
+              v58 = v7;
+              v59 = 3 * v7;
               do
               {
-                sub_29A194CC8(&v257);
-                v60 = &v261->f64[v59];
+                sub_29A194CC8(&v258);
+                v60 = &v262->f64[v59];
                 ++v58;
                 *v60 = 0;
                 v60[1] = 0;
@@ -6061,123 +6069,123 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
             }
           }
 
-          v114 = *(a2 + 2);
-          v247 = a2;
-          v208 = *(a2 + 3);
-          if (v114 != v208)
+          v115 = *(a2 + 2);
+          v248 = a2;
+          v209 = *(a2 + 3);
+          if (v115 != v209)
           {
-            v115 = 0;
+            v116 = 0;
             __asm { FMOV            V0.2D, #0.5 }
 
-            v220 = _Q0;
+            v221 = _Q0;
             do
             {
-              v120 = *v114;
-              if (v120 < 1)
+              v121 = *v115;
+              if (v121 < 1)
               {
+                v126 = 0.0;
                 v125 = 0.0;
                 v124 = 0.0;
-                v123 = 0.0;
               }
 
               else
               {
-                v121 = 0;
-                v215 = v57;
-                v122 = 24 * v57;
-                v123 = 0.0;
+                v122 = 0;
+                v216 = v57;
+                v123 = 24 * v57;
                 v124 = 0.0;
                 v125 = 0.0;
+                v126 = 0.0;
                 do
                 {
-                  v126 = *(v247 + 5);
-                  v127 = *(v126 + 4 * v115 + 4 * v121);
-                  _ZF = v120 - 1 == v121++;
+                  v127 = *(v248 + 5);
+                  v128 = *(v127 + 4 * v116 + 4 * v122);
+                  _ZF = v121 - 1 == v122++;
                   if (_ZF)
                   {
-                    v128 = 0;
+                    v129 = 0;
                   }
 
                   else
                   {
-                    v128 = v121;
+                    v129 = v122;
                   }
 
-                  v129 = *(v126 + 4 * (v128 + v115));
-                  sub_29A194CC8(&v257);
-                  v130 = v261;
-                  sub_29A194CC8(&v257);
-                  v131 = (v130 + 24 * v127);
-                  v132 = &v261->f64[3 * v129];
-                  v133 = v131[1].f64[0];
-                  v227 = *v132;
-                  v237 = *v131;
-                  v134 = v132[2];
-                  sub_29A194CC8(&v257);
-                  v135 = (v261 + v122);
-                  *v135 = vmulq_f64(vaddq_f64(v237, v227), v220);
-                  v135[1].f64[0] = (v133 + v134) * 0.5;
-                  sub_29A194CC8(&v257);
-                  v136 = &v261->f64[3 * v127];
-                  v123 = v123 + *v136;
-                  v124 = v124 + v136[1];
-                  v125 = v125 + v136[2];
-                  v122 += 24;
+                  v130 = *(v127 + 4 * (v129 + v116));
+                  sub_29A194CC8(&v258);
+                  v131 = v262;
+                  sub_29A194CC8(&v258);
+                  v132 = (v131 + 24 * v128);
+                  v133 = &v262->f64[3 * v130];
+                  v134 = v132[1].f64[0];
+                  v228 = *v133;
+                  v238 = *v132;
+                  v135 = v133[2];
+                  sub_29A194CC8(&v258);
+                  v136 = (v262 + v123);
+                  *v136 = vmulq_f64(vaddq_f64(v238, v228), v221);
+                  v136[1].f64[0] = (v134 + v135) * 0.5;
+                  sub_29A194CC8(&v258);
+                  v137 = &v262->f64[3 * v128];
+                  v124 = v124 + *v137;
+                  v125 = v125 + v137[1];
+                  v126 = v126 + v137[2];
+                  v123 += 24;
                 }
 
-                while (v120 != v121);
-                LODWORD(v57) = v215 + v121;
+                while (v121 != v122);
+                LODWORD(v57) = v216 + v122;
               }
 
-              sub_29A194CC8(&v257);
-              v137 = 1.0 / v120;
-              v138 = &v261->f64[3 * v57];
+              sub_29A194CC8(&v258);
+              v138 = 1.0 / v121;
+              v139 = &v262->f64[3 * v57];
               LODWORD(v57) = v57 + 1;
-              *v138 = v137 * v123;
-              v138[1] = v137 * v124;
-              v138[2] = v137 * v125;
-              v115 += v120;
-              ++v114;
+              *v139 = v138 * v124;
+              v139[1] = v138 * v125;
+              v139[2] = v138 * v126;
+              v116 += v121;
+              ++v115;
             }
 
-            while (v114 != v208);
+            while (v115 != v209);
           }
 
-          sub_29A194DFC(v203, &v257);
+          sub_29A194DFC(v204, &v258);
           pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>::_DecRef();
         }
 
         if (a5 == 22)
         {
-          v31 = sub_29A196EB8(&v257, a2[1] + *a2);
-          v199 = a6;
-          if (*a2 <= a4)
+          v31 = sub_29A196EB8(&v258, a2[1] + *a2, a3, a4);
+          v200 = a6;
+          if (*a2 <= v7)
           {
             sub_29A19722C(v31);
-            memcpy(v261, a3, 32 * *a2);
+            memcpy(v262, v8, 32 * *a2);
             v34 = *a2;
           }
 
           else
           {
-            v252 = "hd/meshUtil.cpp";
-            v253 = "_Quadrangulate";
-            v254 = 692;
-            v255 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec4d]";
-            v256 = 0;
+            v253 = "hd/meshUtil.cpp";
+            v254 = "_Quadrangulate";
+            v255 = 692;
+            v256 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec4d]";
+            v257 = 0;
             v32 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v252, "source.numElements and pointsOffset are inconsistent [%s]", v33, v32);
-            sub_29A19722C(&v257);
-            memcpy(v261, a3, 32 * a4);
+            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v253, "source.numElements and pointsOffset are inconsistent [%s]", v33, v32);
+            sub_29A19722C(&v258);
+            memcpy(v262, v8, 32 * v7);
             v34 = *a2;
-            if (*a2 > a4)
+            if (*a2 > v7)
             {
-              v35 = a4;
-              v36 = 2 * a4;
+              v35 = v7;
+              v36 = 2 * v7;
               do
               {
-                sub_29A19722C(&v257);
-                v37 = v261[v36].f64;
+                sub_29A19722C(&v258);
+                v37 = v262[v36].f64;
                 ++v35;
                 *v37 = 0u;
                 v37[1] = 0u;
@@ -6189,86 +6197,86 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
             }
           }
 
-          v178 = *(a2 + 2);
-          v204 = *(a2 + 3);
-          if (v178 != v204)
+          v179 = *(a2 + 2);
+          v205 = *(a2 + 3);
+          if (v179 != v205)
           {
-            v179 = a2;
-            v180 = 0;
+            v180 = a2;
+            v181 = 0;
             __asm { FMOV            V0.2D, #0.5 }
 
-            v211 = _Q0;
+            v212 = _Q0;
             do
             {
-              v182 = *v178;
-              if (v182 < 1)
+              v183 = *v179;
+              if (v183 < 1)
               {
-                v243 = 0u;
-                v251 = 0u;
+                v244 = 0u;
+                v252 = 0u;
               }
 
               else
               {
-                v205 = v178;
-                v207 = v34;
-                v183 = 0;
-                v184 = (32 * v34) | 0x10;
-                v243 = 0u;
-                v251 = 0u;
+                v206 = v179;
+                v208 = v34;
+                v184 = 0;
+                v185 = (32 * v34) | 0x10;
+                v244 = 0u;
+                v252 = 0u;
                 do
                 {
-                  v185 = *(v179 + 5);
-                  v186 = *(v185 + 4 * v180 + 4 * v183);
-                  _ZF = v182 - 1 == v183++;
+                  v186 = *(v180 + 5);
+                  v187 = *(v186 + 4 * v181 + 4 * v184);
+                  _ZF = v183 - 1 == v184++;
                   if (_ZF)
                   {
-                    v187 = 0;
+                    v188 = 0;
                   }
 
                   else
                   {
-                    v187 = v183;
+                    v188 = v184;
                   }
 
-                  v188 = *(v185 + 4 * (v187 + v180));
-                  sub_29A19722C(&v257);
-                  v189 = v261;
-                  sub_29A19722C(&v257);
-                  v190 = &v189[2 * v186];
-                  v191 = &v261[2 * v188];
-                  v224 = v190[1];
-                  v232 = *v190;
-                  v214 = v191[1];
-                  v218 = *v191;
-                  sub_29A19722C(&v257);
-                  v192 = (v261 + v184);
-                  v192[-1] = vmulq_f64(vaddq_f64(v232, v218), v211);
-                  *v192 = vmulq_f64(vaddq_f64(v224, v214), v211);
-                  sub_29A19722C(&v257);
-                  v193 = &v261[2 * v186];
-                  v243 = vaddq_f64(v243, v193[1]);
-                  v251 = vaddq_f64(v251, *v193);
-                  v184 += 32;
+                  v189 = *(v186 + 4 * (v188 + v181));
+                  sub_29A19722C(&v258);
+                  v190 = v262;
+                  sub_29A19722C(&v258);
+                  v191 = &v190[2 * v187];
+                  v192 = &v262[2 * v189];
+                  v225 = v191[1];
+                  v233 = *v191;
+                  v215 = v192[1];
+                  v219 = *v192;
+                  sub_29A19722C(&v258);
+                  v193 = (v262 + v185);
+                  v193[-1] = vmulq_f64(vaddq_f64(v233, v219), v212);
+                  *v193 = vmulq_f64(vaddq_f64(v225, v215), v212);
+                  sub_29A19722C(&v258);
+                  v194 = &v262[2 * v187];
+                  v244 = vaddq_f64(v244, v194[1]);
+                  v252 = vaddq_f64(v252, *v194);
+                  v185 += 32;
                 }
 
-                while (v182 != v183);
-                v178 = v205;
-                v34 = v207 + v183;
+                while (v183 != v184);
+                v179 = v206;
+                v34 = v208 + v184;
               }
 
-              sub_29A19722C(&v257);
-              v194 = 1.0 / v182;
-              v195 = &v261[2 * v34++];
-              *v195 = vmulq_n_f64(v251, v194);
-              v195[1] = vmulq_n_f64(v243, v194);
-              v180 += v182;
-              ++v178;
+              sub_29A19722C(&v258);
+              v195 = 1.0 / v183;
+              v196 = &v262[2 * v34++];
+              *v196 = vmulq_n_f64(v252, v195);
+              v196[1] = vmulq_n_f64(v244, v195);
+              v181 += v183;
+              ++v179;
             }
 
-            while (v178 != v204);
+            while (v179 != v205);
           }
 
-          sub_29A197360(v199, &v257);
+          sub_29A197360(v200, &v258);
           pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4d>::_DecRef();
         }
       }
@@ -6277,35 +6285,35 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
       {
         if (a5 == 15)
         {
-          v47 = sub_29A193124(&v257, a2[1] + *a2);
-          v202 = a6;
-          if (*a2 <= a4)
+          v47 = sub_29A193124(&v258, a2[1] + *a2);
+          v203 = a6;
+          if (*a2 <= v7)
           {
             sub_29A1935CC(v47);
-            memcpy(v261, a3, 12 * *a2);
+            memcpy(v262, v8, 12 * *a2);
             LODWORD(v50) = *a2;
           }
 
           else
           {
-            v252 = "hd/meshUtil.cpp";
-            v253 = "_Quadrangulate";
-            v254 = 692;
-            v255 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec3f]";
-            v256 = 0;
+            v253 = "hd/meshUtil.cpp";
+            v254 = "_Quadrangulate";
+            v255 = 692;
+            v256 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec3f]";
+            v257 = 0;
             v48 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v252, "source.numElements and pointsOffset are inconsistent [%s]", v49, v48);
-            sub_29A1935CC(&v257);
-            memcpy(v261, a3, 12 * a4);
+            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v253, "source.numElements and pointsOffset are inconsistent [%s]", v49, v48);
+            sub_29A1935CC(&v258);
+            memcpy(v262, v8, 12 * v7);
             LODWORD(v50) = *a2;
-            if (*a2 > a4)
+            if (*a2 > v7)
             {
-              v51 = a4;
-              v52 = 12 * a4;
+              v51 = v7;
+              v52 = 12 * v7;
               do
               {
-                sub_29A1935CC(&v257);
-                v53 = v261 + v52;
+                sub_29A1935CC(&v258);
+                v53 = v262 + v52;
                 *v53 = 0;
                 *(v53 + 2) = 0;
                 ++v51;
@@ -6317,121 +6325,121 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
             }
           }
 
-          v89 = *(a2 + 2);
-          v246 = a2;
-          v219 = *(a2 + 3);
-          if (v89 != v219)
+          v90 = *(a2 + 2);
+          v247 = a2;
+          v220 = *(a2 + 3);
+          if (v90 != v220)
           {
-            v90 = 0;
+            v91 = 0;
             do
             {
-              v91 = *v89;
-              if (v91 < 1)
+              v92 = *v90;
+              if (v92 < 1)
               {
-                v236 = 0u;
-                v110 = 0.0;
+                v237 = 0u;
+                v111 = 0.0;
               }
 
               else
               {
-                v226 = v89;
-                v92 = 0;
-                v235 = v50;
-                v93 = 12 * v50;
-                v94 = 0;
-                v95 = 0.0;
+                v227 = v90;
+                v93 = 0;
+                v236 = v50;
+                v94 = 12 * v50;
+                v95 = 0;
+                v96 = 0.0;
                 do
                 {
-                  v96 = *(v246 + 5);
-                  v97 = *(v96 + 4 * v90 + 4 * v92);
-                  _ZF = v91 - 1 == v92++;
+                  v97 = *(v247 + 5);
+                  v98 = *(v97 + 4 * v91 + 4 * v93);
+                  _ZF = v92 - 1 == v93++;
                   if (_ZF)
                   {
-                    v99 = 0;
+                    v100 = 0;
                   }
 
                   else
                   {
-                    v99 = v92;
+                    v100 = v93;
                   }
 
-                  v100 = *(v96 + 4 * (v99 + v90));
-                  sub_29A1935CC(&v257);
-                  v101 = v261;
-                  sub_29A1935CC(&v257);
-                  v102 = (v101 + 12 * v97);
-                  v103 = v261 + 3 * v100;
-                  v104 = v102[1].f32[0];
-                  v105 = *v102;
+                  v101 = *(v97 + 4 * (v100 + v91));
+                  sub_29A1935CC(&v258);
+                  v102 = v262;
+                  sub_29A1935CC(&v258);
+                  v103 = (v102 + 12 * v98);
+                  v104 = v262 + 3 * v101;
+                  v105 = v103[1].f32[0];
                   v106 = *v103;
-                  v107 = v103[2];
-                  sub_29A1935CC(&v257);
-                  v108 = (v261 + v93);
-                  *v108 = vmul_f32(vadd_f32(v105, v106), 0x3F0000003F000000);
-                  v108[1].f32[0] = (v104 + v107) * 0.5;
-                  sub_29A1935CC(&v257);
-                  v109 = (v261 + 12 * v97);
-                  v94 = vadd_f32(v94, *v109);
-                  v95 = v95 + v109[1].f32[0];
-                  v93 += 12;
+                  v107 = *v104;
+                  v108 = v104[2];
+                  sub_29A1935CC(&v258);
+                  v109 = (v262 + v94);
+                  *v109 = vmul_f32(vadd_f32(v106, v107), 0x3F0000003F000000);
+                  v109[1].f32[0] = (v105 + v108) * 0.5;
+                  sub_29A1935CC(&v258);
+                  v110 = (v262 + 12 * v98);
+                  v95 = vadd_f32(v95, *v110);
+                  v96 = v96 + v110[1].f32[0];
+                  v94 += 12;
                 }
 
-                while (v91 != v92);
-                LODWORD(v50) = v235 + v92;
-                v110 = v95;
-                v236 = vcvtq_f64_f32(v94);
-                v89 = v226;
+                while (v92 != v93);
+                LODWORD(v50) = v236 + v93;
+                v111 = v96;
+                v237 = vcvtq_f64_f32(v95);
+                v90 = v227;
               }
 
-              sub_29A1935CC(&v257);
-              v111 = 1.0 / v91;
-              v112 = v111 * v110;
-              v113 = (v261 + 12 * v50);
+              sub_29A1935CC(&v258);
+              v112 = 1.0 / v92;
+              v113 = v112 * v111;
+              v114 = (v262 + 12 * v50);
               LODWORD(v50) = v50 + 1;
-              *v113 = vcvt_f32_f64(vmulq_n_f64(v236, v111));
-              v113[1].f32[0] = v112;
-              v90 += v91;
-              ++v89;
+              *v114 = vcvt_f32_f64(vmulq_n_f64(v237, v112));
+              v114[1].f32[0] = v113;
+              v91 += v92;
+              ++v90;
             }
 
-            while (v89 != v219);
+            while (v90 != v220);
           }
 
-          sub_29A193700(v202, &v257);
+          sub_29A193700(v203, &v258);
           pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>::_DecRef();
         }
 
         if (a5 == 16)
         {
-          v24 = sub_29A195790(&v257, a2[1] + *a2);
-          v198 = a6;
-          if (*a2 <= a4)
+          v24 = sub_29A195790(&v258, a2[1] + *a2);
+          v199 = a6;
+          if (*a2 <= v7)
           {
             sub_29A195BC4(v24);
-            memcpy(v261, a3, 16 * *a2);
+            memcpy(v262, v8, 16 * *a2);
             v27 = *a2;
           }
 
           else
           {
-            v252 = "hd/meshUtil.cpp";
-            v253 = "_Quadrangulate";
-            v254 = 692;
-            v255 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec4f]";
-            v256 = 0;
+            v253 = "hd/meshUtil.cpp";
+            v254 = "_Quadrangulate";
+            v255 = 692;
+            v256 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec4f]";
+            v257 = 0;
             v25 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v252, "source.numElements and pointsOffset are inconsistent [%s]", v26, v25);
-            sub_29A195BC4(&v257);
-            memcpy(v261, a3, 16 * a4);
+            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v253, "source.numElements and pointsOffset are inconsistent [%s]", v26, v25);
+            sub_29A195BC4(&v258);
+            memcpy(v262, v8, 16 * v7);
             v27 = *a2;
-            if (*a2 > a4)
+            if (*a2 > v7)
             {
-              v28 = a4;
-              v29 = a4;
+              v28 = v7;
+              v29 = v7;
               do
               {
-                sub_29A195BC4(&v257);
-                v30 = v261[v29].f64;
+                sub_29A195BC4(&v258);
+                v30 = v262[v29].f64;
                 ++v28;
                 *v30 = 0;
                 v30[1] = 0;
@@ -6443,77 +6451,77 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
             }
           }
 
-          v165 = *(a2 + 2);
-          v250 = a2;
-          v210 = *(a2 + 3);
-          if (v165 != v210)
+          v166 = *(a2 + 2);
+          v251 = a2;
+          v211 = *(a2 + 3);
+          if (v166 != v211)
           {
-            v166 = 0;
+            v167 = 0;
             do
             {
-              v167 = *v165;
-              if (v167 < 1)
+              v168 = *v166;
+              if (v168 < 1)
               {
-                v231 = 0u;
-                v242 = 0u;
+                v232 = 0u;
+                v243 = 0u;
               }
 
               else
               {
-                v213 = v165;
-                v168 = 0;
-                v217 = v27;
-                v169 = v27;
-                v170 = 0uLL;
+                v214 = v166;
+                v169 = 0;
+                v218 = v27;
+                v170 = v27;
+                v171 = 0uLL;
                 do
                 {
-                  v241 = v170;
-                  v171 = *(v250 + 5);
-                  v172 = *(v171 + 4 * v166 + 4 * v168);
-                  v173 = v168 + 1;
-                  if (v167 - 1 == v168)
+                  v242 = v171;
+                  v172 = *(v251 + 5);
+                  v173 = *(v172 + 4 * v167 + 4 * v169);
+                  v174 = v169 + 1;
+                  if (v168 - 1 == v169)
                   {
-                    v174 = 0;
+                    v175 = 0;
                   }
 
                   else
                   {
-                    v174 = v168 + 1;
+                    v175 = v169 + 1;
                   }
 
-                  v175 = *(v171 + 4 * (v174 + v166));
-                  sub_29A195BC4(&v257);
-                  v176 = v261;
-                  sub_29A195BC4(&v257);
-                  v223 = v261[v175];
-                  v230 = v176[v172];
-                  sub_29A195BC4(&v257);
-                  v177.i64[0] = 0x3F0000003F000000;
-                  v177.i64[1] = 0x3F0000003F000000;
-                  v261[v169 + v168] = vmulq_f32(vaddq_f32(v230, v223), v177);
-                  sub_29A195BC4(&v257);
-                  v170 = vaddq_f32(v241, v261[v172]);
-                  ++v168;
+                  v176 = *(v172 + 4 * (v175 + v167));
+                  sub_29A195BC4(&v258);
+                  v177 = v262;
+                  sub_29A195BC4(&v258);
+                  v224 = v262[v176];
+                  v231 = v177[v173];
+                  sub_29A195BC4(&v258);
+                  v178.i64[0] = 0x3F0000003F000000;
+                  v178.i64[1] = 0x3F0000003F000000;
+                  v262[v170 + v169] = vmulq_f32(vaddq_f32(v231, v224), v178);
+                  sub_29A195BC4(&v258);
+                  v171 = vaddq_f32(v242, v262[v173]);
+                  ++v169;
                 }
 
-                while (v167 != v173);
-                v27 = v217 + v173;
-                v231 = vcvt_hight_f64_f32(v170);
-                v242 = vcvtq_f64_f32(*v170.f32);
-                v165 = v213;
+                while (v168 != v174);
+                v27 = v218 + v174;
+                v232 = vcvt_hight_f64_f32(v171);
+                v243 = vcvtq_f64_f32(*v171.f32);
+                v166 = v214;
               }
 
-              sub_29A195BC4(&v257);
-              v261[v27] = vcvt_hight_f32_f64(vcvt_f32_f64(vmulq_n_f64(v242, 1.0 / v167)), vmulq_n_f64(v231, 1.0 / v167));
-              v166 += v167;
-              ++v165;
+              sub_29A195BC4(&v258);
+              v262[v27] = vcvt_hight_f32_f64(vcvt_f32_f64(vmulq_n_f64(v243, 1.0 / v168)), vmulq_n_f64(v232, 1.0 / v168));
+              v167 += v168;
+              ++v166;
               ++v27;
             }
 
-            while (v165 != v210);
+            while (v166 != v211);
           }
 
-          sub_29A195CF8(v198, &v257);
+          sub_29A195CF8(v199, &v258);
           pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4f>::_DecRef();
         }
       }
@@ -6522,139 +6530,139 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
       {
         if (a5 == 13)
         {
-          v38 = sub_29A18E048(&v257, a2[1] + *a2);
-          v200 = a6;
-          if (*a2 <= a4)
+          v38 = sub_29A18E048(&v258, a2[1] + *a2);
+          v201 = a6;
+          if (*a2 <= v7)
           {
             sub_29A18E624(v38);
-            memcpy(v261, a3, 4 * *a2);
-            LODWORD(a3) = *a2;
+            memcpy(v262, v8, 4 * *a2);
+            LODWORD(v8) = *a2;
           }
 
           else
           {
-            v252 = "hd/meshUtil.cpp";
-            v253 = "_Quadrangulate";
-            v254 = 692;
-            v255 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = float]";
-            v256 = 0;
+            v253 = "hd/meshUtil.cpp";
+            v254 = "_Quadrangulate";
+            v255 = 692;
+            v256 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = float]";
+            v257 = 0;
             v39 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v252, "source.numElements and pointsOffset are inconsistent [%s]", v40, v39);
-            sub_29A18E624(&v257);
-            memcpy(v261, a3, 4 * a4);
-            LODWORD(a3) = *a2;
-            if (*a2 > a4)
+            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v253, "source.numElements and pointsOffset are inconsistent [%s]", v40, v39);
+            sub_29A18E624(&v258);
+            memcpy(v262, v8, 4 * v7);
+            LODWORD(v8) = *a2;
+            if (*a2 > v7)
             {
-              v41 = a4;
+              v41 = v7;
               do
               {
-                sub_29A18E624(&v257);
-                *(v261->f64 + v41++) = 0;
-                a3 = *a2;
+                sub_29A18E624(&v258);
+                *(v262->f64 + v41++) = 0;
+                v8 = *a2;
               }
 
-              while (v41 < a3);
+              while (v41 < v8);
             }
           }
 
-          v61 = *(a2 + 2);
-          v233 = *(a2 + 3);
-          if (v61 != v233)
+          v62 = *(a2 + 2);
+          v234 = *(a2 + 3);
+          if (v62 != v234)
           {
-            v62 = a2;
-            v63 = 0;
+            v63 = a2;
+            v64 = 0;
             do
             {
-              v64 = *v61;
-              v244 = *v61;
-              if (v64 < 1)
+              v65 = *v62;
+              v245 = *v62;
+              if (v65 < 1)
               {
-                v67 = 0.0;
+                v68 = 0.0;
               }
 
               else
               {
-                v65 = 4 * a3;
-                v66 = 4 * v63;
-                v67 = 0.0;
-                v68 = 1;
+                v66 = 4 * v8;
+                v67 = 4 * v64;
+                v68 = 0.0;
+                v69 = 1;
                 do
                 {
-                  v69 = *(v62 + 5);
-                  v70 = *(v69 + v66);
-                  if (v64 == 1)
+                  v70 = *(v63 + 5);
+                  v71 = *(v70 + v67);
+                  if (v65 == 1)
                   {
-                    v71 = 0;
+                    v72 = 0;
                   }
 
                   else
                   {
-                    v71 = v68;
+                    v72 = v69;
                   }
 
-                  v72 = *(v69 + 4 * (v71 + v63));
-                  sub_29A18E624(&v257);
-                  v73 = *(v261->f64 + v70);
-                  sub_29A18E624(&v257);
-                  v74 = *(v261->f64 + v72);
-                  sub_29A18E624(&v257);
-                  *(v261->f64 + v65) = (v73 + v74) * 0.5;
-                  sub_29A18E624(&v257);
-                  v65 += 4;
-                  v67 = v67 + *(v261->f64 + v70);
-                  LODWORD(a3) = a3 + 1;
-                  ++v68;
+                  v73 = *(v70 + 4 * (v72 + v64));
+                  sub_29A18E624(&v258);
+                  v74 = *(v262->f64 + v71);
+                  sub_29A18E624(&v258);
+                  v75 = *(v262->f64 + v73);
+                  sub_29A18E624(&v258);
+                  *(v262->f64 + v66) = (v74 + v75) * 0.5;
+                  sub_29A18E624(&v258);
                   v66 += 4;
-                  --v64;
+                  v68 = v68 + *(v262->f64 + v71);
+                  LODWORD(v8) = v8 + 1;
+                  ++v69;
+                  v67 += 4;
+                  --v65;
                 }
 
-                while (v64);
+                while (v65);
               }
 
-              sub_29A18E624(&v257);
-              *(v261->f64 + a3) = v67 / v244;
-              v63 += v244;
-              ++v61;
-              LODWORD(a3) = a3 + 1;
+              sub_29A18E624(&v258);
+              *(v262->f64 + v8) = v68 / v245;
+              v64 += v245;
+              ++v62;
+              LODWORD(v8) = v8 + 1;
             }
 
-            while (v61 != v233);
+            while (v62 != v234);
           }
 
-          sub_29A18E758(v200, &v257);
+          sub_29A18E758(v201, &v258);
           pxrInternal__aapl__pxrReserved__::VtArray<float>::_DecRef();
         }
 
         if (a5 == 14)
         {
-          v11 = sub_29A190B18(&v257, a2[1] + *a2);
-          v196 = a6;
-          if (*a2 <= a4)
+          v11 = sub_29A190B18(&v258, a2[1] + *a2);
+          v197 = a6;
+          if (*a2 <= v7)
           {
             sub_29A190F50(v11);
-            memcpy(v261, a3, 8 * *a2);
+            memcpy(v262, v8, 8 * *a2);
             v14 = *a2;
           }
 
           else
           {
-            v252 = "hd/meshUtil.cpp";
-            v253 = "_Quadrangulate";
-            v254 = 692;
-            v255 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec2f]";
-            v256 = 0;
+            v253 = "hd/meshUtil.cpp";
+            v254 = "_Quadrangulate";
+            v255 = 692;
+            v256 = "void pxrInternal__aapl__pxrReserved__::_Quadrangulate(const SdfPath &, const void *, int, const HdQuadInfo *, VtValue *) [T = pxrInternal__aapl__pxrReserved__::GfVec2f]";
+            v257 = 0;
             v12 = pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v252, "source.numElements and pointsOffset are inconsistent [%s]", v13, v12);
-            sub_29A190F50(&v257);
-            memcpy(v261, a3, 8 * a4);
+            pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v253, "source.numElements and pointsOffset are inconsistent [%s]", v13, v12);
+            sub_29A190F50(&v258);
+            memcpy(v262, v8, 8 * v7);
             v14 = *a2;
-            if (*a2 > a4)
+            if (*a2 > v7)
             {
-              v15 = a4;
+              v15 = v7;
               do
               {
-                sub_29A190F50(&v257);
-                v261->f64[v15++] = 0.0;
+                sub_29A190F50(&v258);
+                v262->f64[v15++] = 0.0;
               }
 
               while (v15 < *a2);
@@ -6662,117 +6670,119 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrim
             }
           }
 
-          v139 = *(a2 + 2);
-          v248 = a2;
-          v221 = *(a2 + 3);
-          if (v139 != v221)
+          v140 = *(a2 + 2);
+          v249 = a2;
+          v222 = *(a2 + 3);
+          if (v140 != v222)
           {
-            v140 = 0;
+            v141 = 0;
             do
             {
-              v141 = *v139;
-              if (v141 < 1)
+              v142 = *v140;
+              if (v142 < 1)
               {
-                v239 = 0u;
+                v240 = 0u;
               }
 
               else
               {
-                v228 = v139;
-                v142 = 0;
-                v238 = v14;
-                v143 = v14;
-                v144 = 0;
+                v229 = v140;
+                v143 = 0;
+                v239 = v14;
+                v144 = v14;
+                v145 = 0;
                 do
                 {
-                  v145 = *(v248 + 5);
-                  v146 = *(v145 + 4 * v140 + 4 * v142);
-                  v147 = v142 + 1;
-                  if (v141 - 1 == v142)
+                  v146 = *(v249 + 5);
+                  v147 = *(v146 + 4 * v141 + 4 * v143);
+                  v148 = v143 + 1;
+                  if (v142 - 1 == v143)
                   {
-                    v148 = 0;
+                    v149 = 0;
                   }
 
                   else
                   {
-                    v148 = v142 + 1;
+                    v149 = v143 + 1;
                   }
 
-                  v149 = *(v145 + 4 * (v148 + v140));
-                  sub_29A190F50(&v257);
-                  v150 = v261;
-                  sub_29A190F50(&v257);
-                  v151 = *&v150->f64[v146];
-                  v152 = *&v261->f64[v149];
-                  sub_29A190F50(&v257);
-                  *&v261->f64[v142 + v143] = vmul_f32(vadd_f32(v151, v152), 0x3F0000003F000000);
-                  sub_29A190F50(&v257);
-                  v144 = vadd_f32(v144, *&v261->f64[v146]);
-                  ++v142;
+                  v150 = *(v146 + 4 * (v149 + v141));
+                  sub_29A190F50(&v258);
+                  v151 = v262;
+                  sub_29A190F50(&v258);
+                  v152 = *&v151->f64[v147];
+                  v153 = *&v262->f64[v150];
+                  sub_29A190F50(&v258);
+                  *&v262->f64[v143 + v144] = vmul_f32(vadd_f32(v152, v153), 0x3F0000003F000000);
+                  sub_29A190F50(&v258);
+                  v145 = vadd_f32(v145, *&v262->f64[v147]);
+                  ++v143;
                 }
 
-                while (v141 != v147);
-                v14 = v238 + v147;
-                v239 = vcvtq_f64_f32(v144);
-                v139 = v228;
+                while (v142 != v148);
+                v14 = v239 + v148;
+                v240 = vcvtq_f64_f32(v145);
+                v140 = v229;
               }
 
-              sub_29A190F50(&v257);
-              *&v261->f64[v14] = vcvt_f32_f64(vmulq_n_f64(v239, 1.0 / v141));
-              v140 += v141;
-              ++v139;
+              sub_29A190F50(&v258);
+              *&v262->f64[v14] = vcvt_f32_f64(vmulq_n_f64(v240, 1.0 / v142));
+              v141 += v142;
+              ++v140;
               ++v14;
             }
 
-            while (v139 != v221);
+            while (v140 != v222);
           }
 
-          sub_29A191084(v196, &v257);
+          sub_29A191084(v197, &v258);
           pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2f>::_DecRef();
         }
       }
 
-      v257 = "hd/meshUtil.cpp";
-      v258 = "ComputeQuadrangulatedPrimvar";
-      v259 = 772;
-      v260 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrimvar(const HdQuadInfo *, const void *, int, HdType, VtValue *) const";
-      LOBYTE(v261) = 0;
+      v258 = "hd/meshUtil.cpp";
+      v259 = "ComputeQuadrangulatedPrimvar";
+      v260 = 772;
+      v261 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrimvar(const HdQuadInfo *, const void *, int, HdType, VtValue *) const";
+      LOBYTE(v262) = 0;
       pxrInternal__aapl__pxrReserved__::SdfPath::GetText((a1 + 16));
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v257, 1, "Unsupported points type for quadrangulation [%s]");
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v258, 1, "Unsupported points type for quadrangulation [%s]", v61);
     }
 
     else
     {
-      v257 = "hd/meshUtil.cpp";
-      v258 = "ComputeQuadrangulatedPrimvar";
-      v259 = 741;
-      v260 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrimvar(const HdQuadInfo *, const void *, int, HdType, VtValue *) const";
-      LOBYTE(v261) = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v257, 1, "No output buffer provided for quadrangulation");
+      v258 = "hd/meshUtil.cpp";
+      v259 = "ComputeQuadrangulatedPrimvar";
+      v260 = 741;
+      v261 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrimvar(const HdQuadInfo *, const void *, int, HdType, VtValue *) const";
+      LOBYTE(v262) = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v258, 1, "No output buffer provided for quadrangulation");
     }
   }
 
   else
   {
-    v257 = "hd/meshUtil.cpp";
-    v258 = "ComputeQuadrangulatedPrimvar";
-    v259 = 737;
-    v260 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrimvar(const HdQuadInfo *, const void *, int, HdType, VtValue *) const";
-    LOBYTE(v261) = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v257, 1, "No topology provided for quadrangulation");
+    v258 = "hd/meshUtil.cpp";
+    v259 = "ComputeQuadrangulatedPrimvar";
+    v260 = 737;
+    v261 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedPrimvar(const HdQuadInfo *, const void *, int, HdType, VtValue *) const";
+    LOBYTE(v262) = 0;
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v258, 1, "No topology provided for quadrangulation", a4, a5, a6);
   }
 
   return 0;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedFaceVaryingPrimvar(uint64_t a1, uint64_t a2, int a3, int a4, void *a5)
+uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedFaceVaryingPrimvar(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
+  v692 = a3;
   v694 = *(a1 + 8);
   if (v694)
   {
     v5 = a5;
     if (a5)
     {
+      v6 = a4;
       v7 = a1;
       v8 = *(a1 + 8);
       if (*(v694 + 488) < 1)
@@ -6806,11 +6816,11 @@ uint64_t pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedFace
       }
 
       v602 = *(v11 + 71) ^ *(v8 + 16);
-      if (a4 > 18)
+      if (v6 > 18)
       {
-        if (a4 <= 20)
+        if (v6 <= 20)
         {
-          if (a4 != 19)
+          if (v6 != 19)
           {
             if (*(v694 + 24) < 1)
             {
@@ -6910,7 +6920,7 @@ LABEL_314:
 
               if (v428 == 4)
               {
-                if (v425 + 4 <= a3)
+                if (v425 + 4 <= v692)
                 {
                   sub_29A19255C(&v702);
                   v453 = v424 + 1;
@@ -6991,7 +7001,7 @@ LABEL_413:
 
               else
               {
-                if (v428 + v425 <= a3)
+                if (v428 + v425 <= v692)
                 {
                   v591 = v7;
                   v598 = v5;
@@ -7227,7 +7237,7 @@ LABEL_183:
             if (v151 == 4)
             {
               v154 = v147 + 4;
-              if (v147 + 4 <= a3)
+              if (v147 + 4 <= v692)
               {
                 v661 = v149;
                 v181 = v7;
@@ -7310,7 +7320,7 @@ LABEL_431:
 
             else
             {
-              if (v151 + v147 <= a3)
+              if (v151 + v147 <= v692)
               {
                 v156 = 0.0;
                 v157 = v685;
@@ -7438,7 +7448,7 @@ LABEL_431:
           }
         }
 
-        if (a4 == 21)
+        if (v6 == 21)
         {
           v71 = v695;
           if (*(v694 + 24) < 1)
@@ -7506,7 +7516,7 @@ LABEL_136:
             }
           }
 
-          sub_29A1948F8(&v702, v79);
+          sub_29A1948F8(&v702, v79, a3);
           v589 = v7;
           v596 = v5;
           if (*(v694 + 24) >= 1)
@@ -7547,7 +7557,7 @@ LABEL_136:
                     break;
                   }
 
-                  if (v297 + v289 <= a3)
+                  if (v297 + v289 <= v692)
                   {
                     v603 = v286;
                     v615 = v287;
@@ -7761,7 +7771,7 @@ LABEL_136:
                   }
                 }
 
-                if (v289 + 4 <= a3)
+                if (v289 + 4 <= v692)
                 {
                   break;
                 }
@@ -7874,7 +7884,7 @@ LABEL_424:
           pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>::_DecRef();
         }
 
-        if (a4 == 22)
+        if (v6 == 22)
         {
           if (*(v694 + 24) < 1)
           {
@@ -7941,7 +7951,7 @@ LABEL_144:
             }
           }
 
-          sub_29A196EB8(&v702, v44);
+          sub_29A196EB8(&v702, v44, a3, a4);
           if (*(v694 + 24) < 1)
           {
             goto LABEL_419;
@@ -7978,7 +7988,7 @@ LABEL_401:
 
             if (v502 == 4)
             {
-              if (v646 + 4 <= a3)
+              if (v646 + 4 <= v692)
               {
                 sub_29A19722C(&v702);
                 v551 = v646;
@@ -8079,7 +8089,7 @@ LABEL_419:
 
             else
             {
-              if (v502 + v646 <= a3)
+              if (v502 + v646 <= v692)
               {
                 v593 = v7;
                 v600 = v5;
@@ -8273,9 +8283,9 @@ LABEL_419:
         }
       }
 
-      else if (a4 > 14)
+      else if (v6 > 14)
       {
-        if (a4 == 15)
+        if (v6 == 15)
         {
           if (*(v694 + 24) < 1)
           {
@@ -8380,7 +8390,7 @@ LABEL_134:
                     break;
                   }
 
-                  if (v199 + v195 <= a3)
+                  if (v199 + v195 <= v692)
                   {
                     v614 = v192;
                     v626 = v193;
@@ -8570,7 +8580,7 @@ LABEL_134:
                   }
                 }
 
-                if (v195 + 4 <= a3)
+                if (v195 + 4 <= v692)
                 {
                   break;
                 }
@@ -8678,7 +8688,7 @@ LABEL_421:
           pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>::_DecRef();
         }
 
-        if (a4 == 16)
+        if (v6 == 16)
         {
           if (*(v694 + 24) < 1)
           {
@@ -8775,7 +8785,7 @@ LABEL_346:
 
             if (v462 == 4)
             {
-              if (v460 + 4 <= a3)
+              if (v460 + 4 <= v692)
               {
                 sub_29A195BC4(&v702);
                 v491 = v459 + 1;
@@ -8856,7 +8866,7 @@ LABEL_416:
 
             else
             {
-              if (v462 + v460 <= a3)
+              if (v462 + v460 <= v692)
               {
                 v592 = v7;
                 v473 = 0uLL;
@@ -9007,7 +9017,7 @@ LABEL_416:
 
       else
       {
-        if (a4 == 13)
+        if (v6 == 13)
         {
           v45 = v695;
           if (*(v694 + 24) < 1)
@@ -9106,7 +9116,7 @@ LABEL_148:
             if (v103 == 4)
             {
               v106 = v99 + 4;
-              if (v99 + 4 <= a3)
+              if (v99 + 4 <= v692)
               {
                 v647 = v101;
                 v135 = v7;
@@ -9189,7 +9199,7 @@ LABEL_428:
 
             else
             {
-              if (v103 + v99 <= a3)
+              if (v103 + v99 <= v692)
               {
                 v108 = 0.0;
                 v109 = v684;
@@ -9319,7 +9329,7 @@ LABEL_428:
           }
         }
 
-        if (a4 == 14)
+        if (v6 == 14)
         {
           if (*(v694 + 24) < 1)
           {
@@ -9417,7 +9427,7 @@ LABEL_282:
             if (v388 == 4)
             {
               v391 = v386 + 4;
-              if (v386 + 4 <= a3)
+              if (v386 + 4 <= v692)
               {
                 sub_29A190F50(&v702);
                 v418 = v385 + 1;
@@ -9491,7 +9501,7 @@ LABEL_410:
 
             else
             {
-              if (v388 + v386 <= a3)
+              if (v388 + v386 <= v692)
               {
                 v590 = v7;
                 v597 = v5;
@@ -9636,7 +9646,7 @@ LABEL_410:
     v704 = 927;
     v705 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedFaceVaryingPrimvar(const void *, int, HdType, VtValue *) const";
     LOBYTE(v706) = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v702, 1, "No output buffer provided for quadrangulation");
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v702, 1, "No output buffer provided for quadrangulation", a4, 0);
   }
 
   else
@@ -9646,7 +9656,7 @@ LABEL_410:
     v704 = 923;
     v705 = "BOOL pxrInternal__aapl__pxrReserved__::HdMeshUtil::ComputeQuadrangulatedFaceVaryingPrimvar(const void *, int, HdType, VtValue *) const";
     LOBYTE(v706) = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v702, 1, "No topology provided for quadrangulation");
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v702, 1, "No topology provided for quadrangulation", a4, a5);
   }
 
   return 0;

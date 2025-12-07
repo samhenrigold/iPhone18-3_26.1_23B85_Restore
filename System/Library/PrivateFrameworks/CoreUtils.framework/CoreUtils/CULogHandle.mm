@@ -21,22 +21,23 @@
 
 - (void)ulogv:(int)ulogv format:(id)format args:(char *)args
 {
+  v6 = *&ulogv;
   formatCopy = format;
   v9 = formatCopy;
   ucatPtr = self->_ucatPtr;
-  if (ucatPtr->var0 <= ulogv)
+  if (ucatPtr->var0 <= v6)
   {
     v12 = formatCopy;
     if (ucatPtr->var0 != -1)
     {
 LABEL_3:
       v11 = v9;
-      formatCopy = LogPrintV(ucatPtr, "", ulogv, [v12 UTF8String], args);
+      formatCopy = LogPrintV(ucatPtr, "", v6, [v12 UTF8String], args);
       v9 = v12;
       goto LABEL_5;
     }
 
-    formatCopy = _LogCategory_Initialize(ucatPtr, ulogv);
+    formatCopy = _LogCategory_Initialize(ucatPtr, v6);
     v9 = v12;
     if (formatCopy)
     {
@@ -52,20 +53,22 @@ LABEL_5:
 
 - (void)ulogf:(int)ulogf format:(id)format
 {
+  v4 = *&ulogf;
   formatCopy = format;
   ucatPtr = self->_ucatPtr;
-  if (ucatPtr->var0 <= ulogf && (ucatPtr->var0 != -1 || _LogCategory_Initialize(ucatPtr, ulogf)))
+  if (ucatPtr->var0 <= v4 && (ucatPtr->var0 != -1 || _LogCategory_Initialize(ucatPtr, v4)))
   {
-    LogPrintV(self->_ucatPtr, "", ulogf, [formatCopy UTF8String], &v8);
+    LogPrintV(self->_ucatPtr, "", v4, [formatCopy UTF8String], &v8);
   }
 }
 
 - (void)ulog:(int)ulog message:(id)message
 {
+  v4 = *&ulog;
   messageCopy = message;
   v7 = messageCopy;
   ucatPtr = self->_ucatPtr;
-  if (ucatPtr->var0 <= ulog)
+  if (ucatPtr->var0 <= v4)
   {
     v15 = messageCopy;
     if (ucatPtr->var0 != -1)
@@ -73,12 +76,12 @@ LABEL_5:
 LABEL_3:
       v9 = v7;
       uTF8String = [v15 UTF8String];
-      messageCopy = LogPrintF(ucatPtr, ", ulog, "%s"", v11, v12, v13, v14, uTF8String);
+      messageCopy = LogPrintF(ucatPtr, ", v4, "%s"", v11, v12, v13, v14, uTF8String);
       v7 = v15;
       goto LABEL_5;
     }
 
-    messageCopy = _LogCategory_Initialize(ucatPtr, ulog);
+    messageCopy = _LogCategory_Initialize(ucatPtr, v4);
     v7 = v15;
     if (messageCopy)
     {
@@ -106,21 +109,21 @@ LABEL_5:
 {
   subsystemCopy = subsystem;
   categoryCopy = category;
-  v24.receiver = self;
-  v24.super_class = CULogHandle;
-  v12 = [(CULogHandle *)&v24 init];
+  v17.receiver = self;
+  v17.super_class = CULogHandle;
+  v12 = [(CULogHandle *)&v17 init];
   if (v12)
   {
-    v23 = 0;
-    v13 = LogCategoryCreateEx([subsystemCopy UTF8String], objc_msgSend(categoryCopy, "UTF8String"), level, flags, 0, &v23);
+    v16 = 0;
+    v13 = LogCategoryCreateEx([subsystemCopy UTF8String], objc_msgSend(categoryCopy, "UTF8String"), level, flags, 0, &v16);
     v12->_ucatPtr = v13;
     if (!v13)
     {
-      FatalErrorF("CULogHandle LogCategoryCreateEx failed: %#m", v14, v15, v16, v17, v18, v19, v20, v23);
+      FatalErrorF("CULogHandle LogCategoryCreateEx failed: %#m", v16);
     }
 
     objc_storeStrong(&v12->_categoryName, category);
-    v21 = v12;
+    v14 = v12;
   }
 
   return v12;

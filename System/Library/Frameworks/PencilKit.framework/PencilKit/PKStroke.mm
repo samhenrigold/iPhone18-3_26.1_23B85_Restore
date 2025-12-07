@@ -388,7 +388,7 @@
   {
     v22 = [class alloc];
     _strokeData = [v21 _strokeData];
-    [v21 transform];
+    objc_msgSend_transform(v21);
     mask = [v21 mask];
     v24 = [v22 initWithInk:inkCopy strokePath:_strokeData transform:&v144 mask:mask];
 
@@ -455,7 +455,7 @@ LABEL_11:
   v147 = 0u;
   v144 = 0u;
   v145 = 0u;
-  [PKStroke averagePointForSynthesisFromSourceStrokes:strokesCopy];
+  objc_msgSend_averagePointForSynthesisFromSourceStrokes_(PKStroke);
   array = [MEMORY[0x1E695DF70] array];
   for (i = 0; [v130 strokeCount] > i; ++i)
   {
@@ -608,12 +608,12 @@ LABEL_11:
             *&v136.force = v156;
             *&v136.altitude = v157;
             *&v136.radius2 = v158;
-            PKCompressStrokePoint(&v136, v98, v137);
-            v104 = (v139 + v100);
+            PKCompressStrokePoint(v137, &v136, v98);
+            v104 = v139 + v100;
             v105 = v137[1];
             *v104 = v137[0];
-            v104[1] = v105;
-            v104[2].i32[0] = v138;
+            *(v104 + 1) = v105;
+            *(v104 + 8) = v138;
             ++v101;
             v100 += 36;
             v99 += 16;
@@ -649,7 +649,7 @@ LABEL_11:
       {
         if (v129)
         {
-          [v129 transform];
+          objc_msgSend_transform(v129);
           v63 = *buf;
           v64 = *&buf[8];
         }
@@ -714,7 +714,7 @@ LABEL_11:
               memset(buf, 0, sizeof(buf));
               if (_strokeData2)
               {
-                [_strokeData2 _compressedPointAt:k];
+                objc_msgSend__compressedPointAt_(_strokeData2);
                 v79 = *&buf[12] + -2.0;
               }
 
@@ -748,7 +748,7 @@ LABEL_11:
           v93 = [v73 ink];
           if (v73)
           {
-            [v73 transform];
+            objc_msgSend_transform(v73);
           }
 
           else
@@ -898,7 +898,7 @@ LABEL_92:
   if (objc_opt_isKindOfClass())
   {
     v6 = [path regenerateStrokeWithInk:inkCopy randomSeed:-[PKStroke randomSeed](self strokeClass:{"randomSeed"), objc_opt_class()}];
-    [(PKStroke *)self transform];
+    objc_msgSend_transform(self);
     [v6 _setTransform:v10];
     _strokeMask = [(PKStroke *)self _strokeMask];
     [v6 _setStrokeMask:_strokeMask];
@@ -907,7 +907,7 @@ LABEL_92:
   else
   {
     v8 = objc_alloc(objc_opt_class());
-    [(PKStroke *)self transform];
+    objc_msgSend_transform(self);
     _strokeMask = [(PKStroke *)self mask];
     v6 = [v8 initWithInk:inkCopy strokePath:path transform:v10 mask:_strokeMask];
   }
@@ -1315,9 +1315,9 @@ void __63__PKStroke__consumeRenderVertexes_ink_inkTransform_strokePath___block_i
   else
   {
     _strokeMask = [(PKStroke *)self _strokeMask];
-    [(PKStroke *)self _transform];
+    objc_msgSend__transform(self);
     v8 = [(PKStroke *)self ink];
-    [(PKStroke *)self _inkTransform];
+    objc_msgSend__inkTransform(self);
     path = [(PKStroke *)self path];
     [PKStroke _calculateBounds:_strokeMask transform:v19 ink:v8 inkTransform:&v18 strokePath:path];
     v3 = v10;
@@ -1509,7 +1509,7 @@ void __67__PKStroke__calculateBounds_transform_ink_inkTransform_strokePath___blo
 
 - (void)_applyTransform:(CGAffineTransform *)transform
 {
-  [(PKStroke *)self _transform];
+  objc_msgSend__transform(self, a2);
   v5 = *&transform->c;
   *&v6.a = *&transform->a;
   *&v6.c = v5;
@@ -1536,7 +1536,7 @@ void __67__PKStroke__calculateBounds_transform_ink_inkTransform_strokePath___blo
 - (CGRect)_untransformedBounds
 {
   memset(&v4, 0, sizeof(v4));
-  [(PKStroke *)self _transform];
+  objc_msgSend__transform(self, a2);
   CGAffineTransformInvert(&v4, &v3);
   [(PKStroke *)self _bounds];
   v3 = v4;
@@ -1565,37 +1565,37 @@ void __67__PKStroke__calculateBounds_transform_ink_inkTransform_strokePath___blo
   }
 }
 
-void __53__PKStroke__appendPointsOfInterestForSelection_step___block_invoke(uint64_t a1, double a2, double a3, double a4)
+void __53__PKStroke__appendPointsOfInterestForSelection_step___block_invoke(uint64_t a1, const char *a2, double a3, double a4, double a5)
 {
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    [v7 _transform];
-    v8 = v44;
-    v9 = v42;
-    v11 = v46;
-    v10 = v45;
-    v13 = v47;
-    v12 = v48;
-    v7 = *(a1 + 32);
+    objc_msgSend__transform(v8, a2);
+    v9 = v44;
+    v10 = v42;
+    v12 = v46;
+    v11 = v45;
+    v14 = v47;
+    v13 = v48;
+    v8 = *(a1 + 32);
   }
 
   else
   {
-    v12 = 0.0;
-    v11 = 0.0;
-    v8 = 0.0;
     v13 = 0.0;
-    v10 = 0.0;
+    v12 = 0.0;
     v9 = 0.0;
+    v14 = 0.0;
+    v11 = 0.0;
+    v10 = 0.0;
   }
 
   v43 = 0u;
-  v14 = [v7 path];
-  v15 = v14;
-  if (v14)
+  v15 = [v8 path];
+  v16 = v15;
+  if (v15)
   {
-    [v14 _compressedPointAt:a4];
+    objc_msgSend__compressedPointAt_(v15);
   }
 
   else
@@ -1603,99 +1603,99 @@ void __53__PKStroke__appendPointsOfInterestForSelection_step___block_invoke(uint
     v43 = 0u;
   }
 
-  v16 = v13 + a3 * v10 + v9 * a2;
-  v17 = v12 + a3 * v11 + v8 * a2;
+  v17 = v14 + a4 * v11 + v10 * a3;
+  v18 = v13 + a4 * v12 + v9 * a3;
 
-  LOWORD(v18) = 0;
-  v19 = 10.0;
   LOWORD(v19) = 0;
-  v20 = v19 / 1000.0;
-  v21 = v18 / 10.0 + *(&v43 + 3);
-  v22 = 1.0;
-  if (v20 >= 1.0)
+  v20 = 10.0;
+  LOWORD(v20) = 0;
+  v21 = v20 / 1000.0;
+  v22 = v19 / 10.0 + *(&v43 + 3);
+  v23 = 1.0;
+  if (v21 >= 1.0)
   {
-    v22 = v20;
+    v23 = v21;
   }
 
-  v23 = v21 * v22;
-  if (v23 >= 15.0)
+  v24 = v22 * v23;
+  if (v24 >= 15.0)
   {
-    v24 = v23;
+    v25 = v24;
   }
 
   else
   {
-    v24 = 15.0;
+    v25 = 15.0;
   }
 
-  v25 = 0.0;
+  v26 = 0.0;
   do
   {
-    v26 = __sincos_stret(v25);
-    v27 = v16 + v24 * v26.__cosval;
-    v28 = v17 + v24 * v26.__sinval;
-    v29 = *(a1 + 40);
-    v31 = *(v29 + 8);
-    v30 = *(v29 + 16);
-    if (v31 >= v30)
+    v27 = __sincos_stret(v26);
+    v28 = v17 + v25 * v27.__cosval;
+    v29 = v18 + v25 * v27.__sinval;
+    v30 = *(a1 + 40);
+    v32 = *(v30 + 8);
+    v31 = *(v30 + 16);
+    if (v32 >= v31)
     {
-      v33 = *v29;
-      v34 = v31 - *v29;
-      v35 = v34 >> 4;
-      v36 = (v34 >> 4) + 1;
-      if (v36 >> 60)
+      v34 = *v30;
+      v35 = v32 - *v30;
+      v36 = v35 >> 4;
+      v37 = (v35 >> 4) + 1;
+      if (v37 >> 60)
       {
         std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
       }
 
-      v37 = v30 - v33;
-      if (v37 >> 3 > v36)
+      v38 = v31 - v34;
+      if (v38 >> 3 > v37)
       {
-        v36 = v37 >> 3;
+        v37 = v38 >> 3;
       }
 
-      if (v37 >= 0x7FFFFFFFFFFFFFF0)
+      if (v38 >= 0x7FFFFFFFFFFFFFF0)
       {
-        v38 = 0xFFFFFFFFFFFFFFFLL;
+        v39 = 0xFFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v38 = v36;
+        v39 = v37;
       }
 
-      if (v38)
+      if (v39)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<CGPoint>>(*(a1 + 40), v38);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<CGPoint>>(*(a1 + 40), v39);
       }
 
-      v39 = (16 * v35);
-      *v39 = v27;
-      v39[1] = v28;
-      v32 = 16 * v35 + 16;
-      memcpy(0, v33, v34);
-      v40 = *v29;
-      *v29 = 0;
-      *(v29 + 8) = v32;
-      *(v29 + 16) = 0;
-      if (v40)
+      v40 = (16 * v36);
+      *v40 = v28;
+      v40[1] = v29;
+      v33 = 16 * v36 + 16;
+      memcpy(0, v34, v35);
+      v41 = *v30;
+      *v30 = 0;
+      *(v30 + 8) = v33;
+      *(v30 + 16) = 0;
+      if (v41)
       {
-        operator delete(v40);
+        operator delete(v41);
       }
     }
 
     else
     {
-      *v31 = v27;
-      v31[1] = v28;
-      v32 = (v31 + 2);
+      *v32 = v28;
+      v32[1] = v29;
+      v33 = (v32 + 2);
     }
 
-    *(v29 + 8) = v32;
-    v25 = v25 + 0.392699082;
+    *(v30 + 8) = v33;
+    v26 = v26 + 0.392699082;
   }
 
-  while (v25 < 6.28318531);
+  while (v26 < 6.28318531);
 }
 
 - (double)_maxWidthForStroke
@@ -1712,7 +1712,7 @@ void __53__PKStroke__appendPointsOfInterestForSelection_step___block_invoke(uint
   v4 = &stru_1F476BD20;
   v5 = [&stru_1F476BD20 stringByPaddingToLength:2 * depth withString:@" " startingAtIndex:0];
   memset(&v16, 0, sizeof(v16));
-  [(PKStroke *)self transform];
+  objc_msgSend_transform(self);
   transform = v16;
   if (!CGAffineTransformIsIdentity(&transform))
   {
@@ -1947,7 +1947,7 @@ int64_t __46__PKStroke__newAsciiBitfieldWithWidth_height___block_invoke(uint64_t
             v15 = v14;
             if (v14)
             {
-              [v14 _compressedPointAt:location];
+              objc_msgSend__compressedPointAt_(v14);
             }
 
             else
@@ -2011,7 +2011,7 @@ int64_t __46__PKStroke__newAsciiBitfieldWithWidth_height___block_invoke(uint64_t
   {
     v13 = v9;
     v14 = v8;
-    [(PKStroke *)self _transform];
+    objc_msgSend__transform(self);
     v15 = vaddq_f64(v18, vmlaq_n_f64(vmulq_n_f64(v17, v13), v16, v14));
     v10 = v15.f64[1];
   }
@@ -2305,7 +2305,7 @@ LABEL_18:
   return result;
 }
 
-void *__42__PKStroke_intersectionFromPoint_toPoint___block_invoke(uint64_t a1, _BYTE *a2, double a3, double a4)
+void *__42__PKStroke_intersectionFromPoint_toPoint___block_invoke(uint64_t a1, char *a2, double a3, double a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
@@ -2313,7 +2313,7 @@ void *__42__PKStroke_intersectionFromPoint_toPoint___block_invoke(uint64_t a1, _
   {
     v11 = a4;
     v12 = a3;
-    result = [result _transform];
+    result = objc_msgSend__transform(result);
     a4 = v11;
     a3 = v12;
     v8 = v17;
@@ -2665,7 +2665,7 @@ LABEL_13:
 
     v31 = [PKStroke alloc];
     v32 = [(PKStroke *)self ink];
-    [(PKStroke *)self transform];
+    objc_msgSend_transform(self);
     mask = [(PKStroke *)self mask];
     v34 = [(PKStroke *)v31 initWithInk:v32 strokePath:v30 transform:buf mask:mask randomSeed:[(PKStroke *)self randomSeed]];
 
@@ -2689,8 +2689,8 @@ LABEL_13:
 
   v38 = MTLCreateSystemDefaultDevice();
   v39 = [PKMetalResourceHandler sharedResourceHandlerWithDevice:v38];
-  v40 = [PKMetalRenderer initWithDrawingPixelSize:v38 actualSize:v39 device:0 resourceHandler:? sixChannelBlendingMode:?];
-  v13 = [PKMetalRenderer particleOffsetAtEndOfStroke:v40 forSecondaryParticles:selfCopy];
+  v40 = [[PKMetalRenderer alloc] initWithDrawingPixelSize:v38 actualSize:v39 device:0 resourceHandler:1.0 sixChannelBlendingMode:1.0, 1.0, 1.0];
+  v13 = [(PKMetalRenderer *)v40 particleOffsetAtEndOfStroke:selfCopy forSecondaryParticles:particlesCopy];
 
 LABEL_15:
   return v13;
@@ -2910,7 +2910,7 @@ LABEL_15:
       v13 = 0u;
       v14 = 0u;
       v12 = 0u;
-      [(PKStroke *)self _transform];
+      objc_msgSend__transform(self);
       v7[0] = MEMORY[0x1E69E9820];
       v7[1] = 3221225472;
       v8 = v12;
@@ -3033,18 +3033,18 @@ void __33__PKStroke_Slicing__debugRender___block_invoke(uint64_t a1, double a2, 
   }
 }
 
-uint64_t __73__PKStroke_Slicing__intersectsPoint_boundsOutset_minimumStrokeThreshold___block_invoke(uint64_t a1, _BYTE *a2, double a3, double a4, double a5)
+void *__73__PKStroke_Slicing__intersectsPoint_boundsOutset_minimumStrokeThreshold___block_invoke(uint64_t a1, char *a2, double a3, double a4, double a5)
 {
   v9 = *(a1 + 32);
   if (v9)
   {
-    [v9 _transform];
-    v10 = *(&v24 + 1);
-    v11 = *&v24;
-    v13 = *(&v25 + 1);
-    v12 = *&v25;
-    v14 = *(&v26 + 1);
-    v15 = *&v26;
+    objc_msgSend__transform(v9);
+    v10 = *(&v23 + 1);
+    v11 = *&v23;
+    v13 = *(&v24 + 1);
+    v12 = *&v24;
+    v14 = *(&v25 + 1);
+    v15 = *&v25;
     v9 = *(a1 + 32);
   }
 
@@ -3058,37 +3058,37 @@ uint64_t __73__PKStroke_Slicing__intersectsPoint_boundsOutset_minimumStrokeThres
     v11 = 0.0;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v16 = [v9 _strokeData];
   v17 = v16;
   if (v16)
   {
-    [v16 decompressedPointAt:a5];
+    objc_msgSend_decompressedPointAt_(v16);
   }
 
   else
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
   }
 
   v18 = *(a1 + 32);
-  v23[2] = v26;
-  v23[3] = v27;
-  v23[4] = v28;
-  v23[5] = v29;
-  v23[0] = v24;
-  v23[1] = v25;
-  result = [v18 _thresholdForPoint:v23];
+  v22[2] = v25;
+  v22[3] = v26;
+  v22[4] = v27;
+  v22[5] = v28;
+  v22[0] = v23;
+  v22[1] = v24;
+  result = [v18 _thresholdForPoint:v22];
   v21 = fmax(v20, *(a1 + 48));
   if ((v14 + a4 * v13 + v10 * a3 - *(a1 + 64)) * (v14 + a4 * v13 + v10 * a3 - *(a1 + 64)) + (v15 + a4 * v12 + v11 * a3 - *(a1 + 56)) * (v15 + a4 * v12 + v11 * a3 - *(a1 + 56)) < v21 * v21)
   {
@@ -3163,73 +3163,73 @@ uint64_t __73__PKStroke_Slicing__intersectsPoint_boundsOutset_minimumStrokeThres
   }
 }
 
-uint64_t __56__PKStroke_Slicing__intersectsLineFrom_to_minThreshold___block_invoke(uint64_t a1, _BYTE *a2, double a3, double a4, double a5)
+void *__56__PKStroke_Slicing__intersectsLineFrom_to_minThreshold___block_invoke(uint64_t a1, char *a2, double a3, double a4, double a5)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v8 = *(a1 + 32);
+  v40 = *MEMORY[0x1E69E9840];
+  v7 = *(a1 + 32);
+  if (v7)
+  {
+    objc_msgSend__transform(v7);
+    v15 = v28;
+    v17 = v27;
+    v19 = v29;
+    v7 = *(a1 + 32);
+  }
+
+  else
+  {
+    v17 = 0u;
+    v19 = 0u;
+    v15 = 0u;
+  }
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v8 = [v7 _strokeData];
+  v9 = v8;
   if (v8)
   {
-    [v8 _transform];
-    v16 = v29;
-    v18 = v28;
-    v20 = v30;
-    v8 = *(a1 + 32);
+    objc_msgSend_decompressedPointAt_(v8);
   }
 
   else
   {
-    v18 = 0u;
-    v20 = 0u;
-    v16 = 0u;
-  }
-
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v9 = [v8 _strokeData];
-  v10 = v9;
-  if (v9)
-  {
-    [v9 decompressedPointAt:a5];
-  }
-
-  else
-  {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
   }
 
-  v11 = *(a1 + 32);
+  v10 = *(a1 + 32);
+  v36 = v29;
   v37 = v30;
   v38 = v31;
   v39 = v32;
-  v40 = v33;
+  v34 = v27;
   v35 = v28;
-  v36 = v29;
-  result = [v11 _thresholdForPoint:&v35];
-  v13 = vaddq_f64(v21, vmlaq_n_f64(vmulq_n_f64(v17, a4), v19, a3));
-  if ((v13.f64[1] - *(a1 + 72)) * (v13.f64[1] - *(a1 + 72)) + (v13.f64[0] - *(a1 + 64)) * (v13.f64[0] - *(a1 + 64)) < v14 * v14)
+  result = [v10 _thresholdForPoint:&v34];
+  v12 = vaddq_f64(v20, vmlaq_n_f64(vmulq_n_f64(v16, a4), v18, a3));
+  if ((v12.f64[1] - *(a1 + 72)) * (v12.f64[1] - *(a1 + 72)) + (v12.f64[0] - *(a1 + 64)) * (v12.f64[0] - *(a1 + 64)) < v13 * v13)
   {
     goto LABEL_8;
   }
 
   if (*(a1 + 96) == 1 && *(*(*(a1 + 48) + 8) + 24) == 1)
   {
-    v26 = 0;
-    v15 = *(a1 + 64);
-    v35 = *(a1 + 80);
-    v36 = v15;
-    v34[0] = *(*(*(a1 + 56) + 8) + 48);
-    v34[1] = v13;
-    v24 = v13;
-    result = DKDIntersectionOfLines(&v35, v34, &v26, &v27, v25, 0, 0);
+    v25 = 0;
+    v14 = *(a1 + 64);
+    v34 = *(a1 + 80);
+    v35 = v14;
+    v33[0] = *(*(*(a1 + 56) + 8) + 48);
+    v33[1] = v12;
+    v23 = v12;
+    result = DKDIntersectionOfLines(&v34, v33, &v25, &v26, v24, 0, 0);
     if (result)
     {
 LABEL_8:
@@ -3238,10 +3238,10 @@ LABEL_8:
       return result;
     }
 
-    v13 = v24;
+    v12 = v23;
   }
 
-  *(*(*(a1 + 56) + 8) + 48) = v13;
+  *(*(*(a1 + 56) + 8) + 48) = v12;
   *(*(*(a1 + 48) + 8) + 24) = 1;
   return result;
 }
@@ -3251,7 +3251,7 @@ LABEL_8:
   v18 = 0u;
   v19 = 0u;
   v17 = 0u;
-  [(PKStroke *)self _transform];
+  objc_msgSend__transform(self, a2);
   std::vector<ClipperLib::IntPoint>::reserve(path, [(PKStroke *)self _pointsCount]);
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
@@ -3715,7 +3715,7 @@ LABEL_9:
   v4 = 0u;
   v5 = 0u;
   v3 = 0u;
-  [(PKStroke *)self _transform];
+  objc_msgSend__transform(self, a2);
   operator new();
 }
 
@@ -3793,7 +3793,7 @@ LABEL_9:
       memset(v101, 0, 48);
       if (v8)
       {
-        [v8 _transform];
+        objc_msgSend__transform(v8);
       }
 
       v109 = *v101;
@@ -3816,11 +3816,11 @@ LABEL_9:
         maskPaths = [_strokeMask2 maskPaths];
 
         v14 = *maskPaths;
-        v15 = *(maskPaths + 8);
+        v15 = maskPaths[1];
         while (v14 != v15)
         {
           memset(&v108, 0, 24);
-          std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(&v108, *v14, v14[1], 0xAAAAAAAAAAAAAAABLL * ((v14[1] - *v14) >> 3));
+          std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(&v108, *v14, *(v14 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(v14 + 8) - *v14) >> 3));
           memset(&t1, 0, 24);
           std::vector<ClipperLib::IntPoint>::reserve(&t1, 0xAAAAAAAAAAAAAAABLL * ((*&v108.b - *&v108.a) >> 3));
           a = v108.a;
@@ -3847,7 +3847,7 @@ LABEL_9:
             operator delete(*&v108.a);
           }
 
-          v14 += 3;
+          v14 += 24;
         }
       }
     }
@@ -4141,7 +4141,7 @@ LABEL_62:
             memset(&v109, 0, sizeof(v109));
             if (v89)
             {
-              [v89 _transform];
+              objc_msgSend__transform(v89);
             }
 
             v108 = v109;
@@ -4283,7 +4283,7 @@ LABEL_99:
   }
 
   CGContextSaveGState(masked);
-  [(PKStroke *)self _transform];
+  objc_msgSend__transform(self);
   CGContextConcatCTM(masked, &transform);
   CGContextAddPath(masked, Mutable);
   CGContextStrokePath(masked);
@@ -4318,42 +4318,42 @@ LABEL_99:
   }
 }
 
-void __39__PKStroke_Slicing__debugRenderMasked___block_invoke(void *a1, double a2, double a3)
+void __39__PKStroke_Slicing__debugRenderMasked___block_invoke(void *a1, const char *a2, double a3, double a4)
 {
-  v6 = a1[4];
-  if (v6)
+  v7 = a1[4];
+  if (v7)
   {
-    [v6 _transform];
-    v7 = v16;
+    objc_msgSend__transform(v7, a2);
     v8 = v17;
-    v10 = v18;
-    v9 = v19;
-    v12 = v20;
-    v11 = v21;
+    v9 = v18;
+    v11 = v19;
+    v10 = v20;
+    v13 = v21;
+    v12 = v22;
   }
 
   else
   {
-    v11 = 0.0;
-    v9 = 0.0;
-    v8 = 0.0;
     v12 = 0.0;
     v10 = 0.0;
-    v7 = 0.0;
+    v9 = 0.0;
+    v13 = 0.0;
+    v11 = 0.0;
+    v8 = 0.0;
   }
 
-  v13 = v12 + a3 * v10 + v7 * a2;
-  v14 = v11 + a3 * v9 + v8 * a2;
-  v15 = a1[6];
+  v14 = v13 + a4 * v11 + v8 * a3;
+  v15 = v12 + a4 * v10 + v9 * a3;
+  v16 = a1[6];
   if (*(*(a1[5] + 8) + 24) == 1)
   {
-    CGPathMoveToPoint(v15, 0, v13, v14);
+    CGPathMoveToPoint(v16, 0, v14, v15);
     *(*(a1[5] + 8) + 24) = 0;
   }
 
   else
   {
-    CGPathAddLineToPoint(v15, 0, v13, v14);
+    CGPathAddLineToPoint(v16, 0, v14, v15);
   }
 }
 
@@ -4401,7 +4401,7 @@ void __39__PKStroke_Slicing__debugRenderMasked___block_invoke(void *a1, double a
     v7 = v4;
     v13 = v7;
     v8 = [(PKStroke *)self ink];
-    [(PKStroke *)self _inkTransform];
+    objc_msgSend__inkTransform(self);
     path = [(PKStroke *)self path];
     [PKStroke _consumeRenderVertexes:v12 ink:v8 inkTransform:&v11 strokePath:path];
 
@@ -4612,7 +4612,7 @@ void __33__PKStroke_Slicing__generateMask__block_invoke_2(uint64_t a1, uint64_t 
     v29 = 0;
     v30 = &unk_1F4769880;
     memset(&v18, 0, sizeof(v18));
-    [(PKStroke *)self _transform];
+    objc_msgSend__transform(self);
     CGAffineTransformInvert(&v18, &v17);
     v7 = vmovn_s64(vcvtq_s64_f64(vmulq_f64(vaddq_f64(*&v18.tx, vmlaq_n_f64(vmulq_n_f64(*&v18.c, v15), *&v18.a, v16)), vdupq_n_s64(0x4059000000000000uLL))));
     *&v8 = v7.i32[0];
@@ -4692,7 +4692,7 @@ void __33__PKStroke_Slicing__generateMask__block_invoke_2(uint64_t a1, uint64_t 
   }
 
   memset(&v47, 0, sizeof(v47));
-  [(PKStroke *)self _transform];
+  objc_msgSend__transform(self);
   CGAffineTransformInvert(&v47, v49);
   v11 = vaddq_f64(*&v47.tx, vmlaq_n_f64(vmulq_n_f64(*&v47.c, v35), *&v47.a, v37));
   if ((y - v35) * (y - v35) + (x - v37) * (x - v37) > 1.0)
@@ -4883,7 +4883,7 @@ LABEL_25:
   __p = 0;
   std::vector<ClipperLib::IntPoint>::reserve(&__p, [maskedCopy _pointsCount]);
   memset(&v13, 0, sizeof(v13));
-  [(PKStroke *)self _transform];
+  objc_msgSend__transform(self);
   CGAffineTransformInvert(&v13, &v12);
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
@@ -4892,7 +4892,7 @@ LABEL_25:
   v10[3] = &unk_1E82D9A68;
   v10[4] = &v14;
   [maskedCopy interpolatePointDataWithStep:v10 usingBlock:1.0];
-  ClipperLib::ClipperBase::AddPath(&v24 + *(v24 - 3), (v15 + 6), 0, 1);
+  ClipperLib::ClipperBase::AddPath(&v24 + *(v24 - 3), v15 + 6, 0, 1);
   v5 = *(v24 - 3);
   _strokeMask = [(PKStroke *)self _strokeMask];
   ClipperLib::ClipperBase::AddPaths(&v24 + v5, [_strokeMask maskPaths], 1, 1);
@@ -4987,7 +4987,7 @@ double __50__PKStroke_Slicing__intersectsClosedStrokeMasked___block_invoke(uint6
   v20 = 0;
   std::vector<ClipperLib::IntPoint>::reserve(&v18, 4uLL);
   memset(&v17, 0, sizeof(v17));
-  [(PKStroke *)self _transform];
+  objc_msgSend__transform(self);
   CGAffineTransformInvert(&v17, &v16);
   __p = 0;
   v14 = 0;
@@ -5051,7 +5051,7 @@ double __50__PKStroke_Slicing__intersectsClosedStrokeMasked___block_invoke(uint6
   v7 = *&timestamp->location.y;
   v9[0] = *&timestamp->timestamp;
   v9[1] = v7;
-  return PKCompressStrokePoint(v9, a5, retstr);
+  return PKCompressStrokePoint(retstr, v9, a5);
 }
 
 + (_PKStrokePoint)_decompressStrokePoint:(SEL)point withTimestamp:(PKCompressedStrokePoint *)timestamp

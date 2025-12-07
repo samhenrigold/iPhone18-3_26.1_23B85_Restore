@@ -79,7 +79,7 @@
 
   else
   {
-    v8 = LCSLogExtension();
+    v8 = LCSLogExtension(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(LCSExtension *)v5 extensionWithHostConfiguration:v8];
@@ -140,17 +140,18 @@
     v13 = 0;
     v6 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v13];
     v7 = v13;
+    v8 = v7;
     if (v6)
     {
       entitlements = [v6 entitlements];
-      v9 = objc_opt_self();
-      v10 = [entitlements objectForKey:@"com.apple.LockedContentServices.allowWarmLaunch" ofClass:v9];
-      bOOLValue = [v10 BOOLValue];
+      v10 = objc_opt_self();
+      v11 = [entitlements objectForKey:@"com.apple.LockedContentServices.allowWarmLaunch" ofClass:v10];
+      bOOLValue = [v11 BOOLValue];
     }
 
     else
     {
-      entitlements = LCSLogExtension();
+      entitlements = LCSLogExtension(v7);
       if (os_log_type_enabled(entitlements, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218498;
@@ -158,7 +159,7 @@
         v16 = 2114;
         v17 = bundleIdentifier;
         v18 = 2114;
-        v19 = v7;
+        v19 = v8;
         _os_log_error_impl(&dword_256175000, entitlements, OS_LOG_TYPE_ERROR, "%p Failure in retrieving the bundle record for %{public}@: %{public}@; Warm launch is not allowed", buf, 0x20u);
       }
 
@@ -166,13 +167,12 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (LSApplicationExtensionRecord)applicationExtensionRecord
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   applicationExtensionRecord = [(_EXExtensionIdentity *)self->_identity applicationExtensionRecord];
   if (applicationExtensionRecord)
@@ -185,9 +185,9 @@
   {
     v6 = objc_alloc(MEMORY[0x277CC1E50]);
     identityUUID = self->_identityUUID;
-    v18 = 0;
-    v4 = [v6 initWithUUID:identityUUID error:&v18];
-    v5 = v18;
+    v17 = 0;
+    v4 = [v6 initWithUUID:identityUUID error:&v17];
+    v5 = v17;
   }
 
   else
@@ -210,25 +210,25 @@
 
   if (!v10)
   {
-    v17 = v5;
-    v4 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:bundleIdentifier error:&v17];
-    v11 = v17;
+    v16 = v5;
+    v4 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:bundleIdentifier error:&v16];
+    v11 = v16;
 
     v5 = v11;
   }
 
   if (!v4)
   {
-    v12 = LCSLogExtension();
+    v12 = LCSLogExtension(bundleIdentifier);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       identity = self->_identity;
       *buf = 134218498;
       selfCopy = self;
-      v21 = 2114;
-      v22 = identity;
-      v23 = 2114;
-      v24 = v5;
+      v20 = 2114;
+      v21 = identity;
+      v22 = 2114;
+      v23 = v5;
       _os_log_error_impl(&dword_256175000, v12, OS_LOG_TYPE_ERROR, "%p Failure in application extensionRecord for identity %{public}@: %{public}@", buf, 0x20u);
     }
   }
@@ -236,7 +236,6 @@
   os_unfair_lock_unlock(&self->_lock);
   v13 = v4;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -335,9 +334,10 @@
     v38 = 0;
     v7 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:containerBundleIdentifier allowPlaceholder:0 error:&v38];
     v8 = v38;
+    v9 = v8;
     if (v8)
     {
-      infoDictionary = LCSLogExtension();
+      infoDictionary = LCSLogExtension(v8);
       if (os_log_type_enabled(infoDictionary, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218498;
@@ -345,11 +345,11 @@
         v41 = 2114;
         v42 = containerBundleIdentifier;
         v43 = 2114;
-        v44 = v8;
+        v44 = v9;
         _os_log_error_impl(&dword_256175000, infoDictionary, OS_LOG_TYPE_ERROR, "%p Failure in retrieving the bundle record for %{public}@: %{public}@", buf, 0x20u);
       }
 
-      v10 = 0;
+      v11 = 0;
     }
 
     else
@@ -358,105 +358,105 @@
       infoDictionary = [v7 infoDictionary];
       v36 = v7;
       entitlements = [v7 entitlements];
-      v12 = objc_opt_self();
+      v13 = objc_opt_self();
       v35 = entitlements;
-      v13 = [entitlements objectForKey:@"com.apple.springboard.allowIconVisibilityChanges" ofClass:v12];
-      bOOLValue = [v13 BOOLValue];
+      v14 = [entitlements objectForKey:@"com.apple.springboard.allowIconVisibilityChanges" ofClass:v13];
+      bOOLValue = [v14 BOOLValue];
 
-      v15 = objc_opt_self();
-      v16 = [infoDictionary objectForKey:@"SBIconVisibilitySetByAppPreference" ofClass:v15];
-      LODWORD(entitlements) = [v16 BOOLValue];
+      v16 = objc_opt_self();
+      v17 = [infoDictionary objectForKey:@"SBIconVisibilitySetByAppPreference" ofClass:v16];
+      LODWORD(entitlements) = [v17 BOOLValue];
 
       if (entitlements)
       {
-        v17 = objc_opt_self();
-        v18 = [infoDictionary objectForKey:@"SBIconVisibilityDefaultVisible" ofClass:v17];
+        v18 = objc_opt_self();
+        v19 = [infoDictionary objectForKey:@"SBIconVisibilityDefaultVisible" ofClass:v18];
 
         if ((v3 | v4 | bOOLValue))
         {
-          if (v18)
+          if (v19)
           {
-            v10 = 1;
+            v11 = 1;
           }
 
           else
           {
-            v19 = objc_opt_class();
-            v20 = [infoDictionary objectForKey:@"SBIconVisibilityDefaultVisibleInstallTypes" ofClass:v19 valuesOfClass:objc_opt_class()];
-            v34 = v20;
-            if (v20)
+            v20 = objc_opt_class();
+            v21 = [infoDictionary objectForKey:@"SBIconVisibilityDefaultVisibleInstallTypes" ofClass:v20 valuesOfClass:objc_opt_class()];
+            v34 = v21;
+            if (v21)
             {
-              v21 = @"user";
+              v22 = @"user";
               if (v4)
               {
-                v21 = @"carrier";
+                v22 = @"carrier";
               }
 
               if (v3)
               {
-                v22 = @"internal";
+                v23 = @"internal";
               }
 
               else
               {
-                v22 = v21;
+                v23 = v22;
               }
 
-              LODWORD(v23) = [v20 containsObject:v22];
+              LODWORD(v24) = [v21 containsObject:v23];
             }
 
             else
             {
-              LODWORD(v23) = 0;
+              LODWORD(v24) = 0;
             }
 
-            v24 = objc_opt_class();
-            v25 = [infoDictionary objectForKey:@"SBIconVisibilityDefaultVisiblePlatforms" ofClass:v24 valuesOfClass:objc_opt_class()];
-            if (v25)
+            v25 = objc_opt_class();
+            v26 = [infoDictionary objectForKey:@"SBIconVisibilityDefaultVisiblePlatforms" ofClass:v25 valuesOfClass:objc_opt_class()];
+            if (v26)
             {
-              v26 = MGCopyAnswer();
-              LODWORD(v23) = [v25 containsObject:v26] | v23;
+              v27 = MGCopyAnswer();
+              LODWORD(v24) = [v26 containsObject:v27] | v24;
             }
 
-            v27 = [infoDictionary objectForKey:@"SBIconVisibilityDefaultVisibleFeatureFlag" ofClass:objc_opt_class()];
-            v28 = v27;
-            if (v27)
+            v28 = [infoDictionary objectForKey:@"SBIconVisibilityDefaultVisibleFeatureFlag" ofClass:objc_opt_class()];
+            v29 = v28;
+            if (v28)
             {
-              v29 = v23;
-              v23 = [v27 componentsSeparatedByString:@"/"];
-              if ([v23 count] == 2)
+              v30 = v24;
+              v24 = [v28 componentsSeparatedByString:@"/"];
+              if ([v24 count] == 2)
               {
-                v30 = [v23 objectAtIndex:0];
-                v31 = [v23 objectAtIndex:1];
-                [v30 UTF8String];
+                v31 = [v24 objectAtIndex:0];
+                v32 = [v24 objectAtIndex:1];
                 [v31 UTF8String];
-                v29 |= _os_feature_enabled_impl();
+                [v32 UTF8String];
+                v30 |= _os_feature_enabled_impl();
               }
 
-              LOBYTE(v23) = v29;
+              LOBYTE(v24) = v30;
             }
 
-            if (v23)
+            if (v24)
             {
-              v10 = 1;
+              v11 = 1;
             }
 
             else
             {
-              v10 = 2;
+              v11 = 2;
             }
           }
         }
 
         else
         {
-          v10 = 0;
+          v11 = 0;
         }
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
       v7 = v36;
@@ -466,26 +466,25 @@
 
   else
   {
-    v8 = LCSLogExtension();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LCSLogExtension(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
       selfCopy2 = self;
       v41 = 2114;
       v42 = bundleIdentifier;
-      _os_log_impl(&dword_256175000, v8, OS_LOG_TYPE_DEFAULT, "%p Failure in retrieving the bundle record for extension: %{public}@ because container app can't be determined", buf, 0x16u);
+      _os_log_impl(&dword_256175000, v9, OS_LOG_TYPE_DEFAULT, "%p Failure in retrieving the bundle record for extension: %{public}@ because container app can't be determined", buf, 0x16u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (BOOL)hasImplementedAppIntentProtocol:(id)protocol bundleTarget:(unint64_t)target
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   protocolCopy = protocol;
   containerBundleIdentifier = [(LCSExtension *)self containerBundleIdentifier];
   bundleIdentifier = [(LCSExtension *)self bundleIdentifier];
@@ -503,67 +502,67 @@
     v15 = containerBundleIdentifier;
   }
 
-  v37 = v14;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v36 = v14;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v16 = allValues;
-  v17 = [v16 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v43;
-    v35 = containerBundleIdentifier;
-    v36 = protocolCopy;
-    v33 = v11;
-    v34 = v9;
-    v32 = *v43;
+    v19 = *v42;
+    v34 = containerBundleIdentifier;
+    v35 = protocolCopy;
+    v32 = v11;
+    v33 = v9;
+    v31 = *v42;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v43 != v19)
+        if (*v42 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v42 + 1) + 8 * i);
+        v21 = *(*(&v41 + 1) + 8 * i);
+        v37 = 0u;
         v38 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v41 = 0u;
         effectiveBundleIdentifiers = [v21 effectiveBundleIdentifiers];
-        v23 = [effectiveBundleIdentifiers countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v23 = [effectiveBundleIdentifiers countByEnumeratingWithState:&v37 objects:v45 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v39;
+          v25 = *v38;
           while (2)
           {
             for (j = 0; j != v24; ++j)
             {
-              if (*v39 != v25)
+              if (*v38 != v25)
               {
                 objc_enumerationMutation(effectiveBundleIdentifiers);
               }
 
-              bundleIdentifier2 = [*(*(&v38 + 1) + 8 * j) bundleIdentifier];
+              bundleIdentifier2 = [*(*(&v37 + 1) + 8 * j) bundleIdentifier];
               v28 = [bundleIdentifier2 isEqualToString:v15];
 
               if (v28)
               {
 
                 v29 = 1;
-                containerBundleIdentifier = v35;
-                protocolCopy = v36;
-                v11 = v33;
-                v9 = v34;
+                containerBundleIdentifier = v34;
+                protocolCopy = v35;
+                v11 = v32;
+                v9 = v33;
                 goto LABEL_21;
               }
             }
 
-            v24 = [effectiveBundleIdentifiers countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v24 = [effectiveBundleIdentifiers countByEnumeratingWithState:&v37 objects:v45 count:16];
             if (v24)
             {
               continue;
@@ -573,15 +572,15 @@
           }
         }
 
-        v19 = v32;
+        v19 = v31;
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v41 objects:v46 count:16];
       v29 = 0;
-      containerBundleIdentifier = v35;
-      protocolCopy = v36;
-      v11 = v33;
-      v9 = v34;
+      containerBundleIdentifier = v34;
+      protocolCopy = v35;
+      v11 = v32;
+      v9 = v33;
     }
 
     while (v18);
@@ -594,13 +593,12 @@
 
 LABEL_21:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 - (BOOL)hasEntitlements:(id)entitlements bundleTarget:(unint64_t)target
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   entitlementsCopy = entitlements;
   bundleIdentifier = [(LCSExtension *)self bundleIdentifier];
   if (!target)
@@ -610,105 +608,106 @@ LABEL_21:
     bundleIdentifier = containerBundleIdentifier;
   }
 
-  v38 = 0;
-  v9 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v38];
-  v10 = v38;
+  v39 = 0;
+  v9 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v39];
+  v10 = v39;
+  v11 = v10;
   if (v10)
   {
-    entitlements = LCSLogExtension();
+    entitlements = LCSLogExtension(v10);
     if (os_log_type_enabled(entitlements, OS_LOG_TYPE_ERROR))
     {
       if (target)
       {
-        v27 = @"extension";
+        v28 = @"extension";
       }
 
       else
       {
-        v27 = @"container";
+        v28 = @"container";
       }
 
-      v28 = v27;
-      v29 = [entitlementsCopy description];
+      v29 = v28;
+      v30 = [entitlementsCopy description];
       *buf = 134219010;
       selfCopy2 = self;
-      v42 = 2112;
-      v43 = v27;
-      v44 = 2114;
-      v45 = bundleIdentifier;
-      v46 = 2114;
-      v47 = v10;
-      v48 = 2112;
-      v49 = v29;
+      v43 = 2112;
+      v44 = v28;
+      v45 = 2114;
+      v46 = bundleIdentifier;
+      v47 = 2114;
+      v48 = v11;
+      v49 = 2112;
+      v50 = v30;
       _os_log_error_impl(&dword_256175000, entitlements, OS_LOG_TYPE_ERROR, "%p Failure in retrieving the %@ bundle record for %{public}@: %{public}@; No %@ entitlement found", buf, 0x34u);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
     entitlements = [v9 entitlements];
-    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v13 = entitlementsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (v14)
+    v38 = 0u;
+    v14 = entitlementsCopy;
+    v15 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v15)
     {
-      v15 = v14;
+      v16 = v15;
       targetCopy = target;
-      v31 = v9;
-      v32 = bundleIdentifier;
-      v33 = entitlementsCopy;
-      v16 = *v35;
+      v32 = v9;
+      v33 = bundleIdentifier;
+      v34 = entitlementsCopy;
+      v17 = *v36;
       while (2)
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v35 != v16)
+          if (*v36 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v18 = *(*(&v34 + 1) + 8 * i);
-          v19 = objc_opt_self();
-          v20 = [entitlements objectForKey:v18 ofClass:v19];
-          bOOLValue = [v20 BOOLValue];
+          v19 = *(*(&v35 + 1) + 8 * i);
+          v20 = objc_opt_self();
+          v21 = [entitlements objectForKey:v19 ofClass:v20];
+          bOOLValue = [v21 BOOLValue];
 
           if ((bOOLValue & 1) == 0)
           {
-            v22 = LCSLogExtension();
-            bundleIdentifier = v32;
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v24 = LCSLogExtension(v23);
+            bundleIdentifier = v33;
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
-              v23 = @"extension";
+              v25 = @"extension";
               *buf = 134218754;
               selfCopy2 = self;
-              v42 = 2112;
+              v43 = 2112;
               if (!targetCopy)
               {
-                v23 = @"container";
+                v25 = @"container";
               }
 
-              v43 = v23;
-              v44 = 2114;
-              v45 = v32;
-              v46 = 2112;
-              v47 = v18;
-              v24 = v23;
-              _os_log_impl(&dword_256175000, v22, OS_LOG_TYPE_DEFAULT, "%p %@ bundle record for %{public}@ doesn't have %@ entitlement", buf, 0x2Au);
+              v44 = v25;
+              v45 = 2114;
+              v46 = v33;
+              v47 = 2112;
+              v48 = v19;
+              v26 = v25;
+              _os_log_impl(&dword_256175000, v24, OS_LOG_TYPE_DEFAULT, "%p %@ bundle record for %{public}@ doesn't have %@ entitlement", buf, 0x2Au);
             }
 
-            v12 = 0;
-            entitlementsCopy = v33;
+            v13 = 0;
+            entitlementsCopy = v34;
             goto LABEL_20;
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
-        if (v15)
+        v16 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        if (v16)
         {
           continue;
         }
@@ -716,27 +715,26 @@ LABEL_21:
         break;
       }
 
-      v12 = 1;
-      bundleIdentifier = v32;
-      entitlementsCopy = v33;
+      v13 = 1;
+      bundleIdentifier = v33;
+      entitlementsCopy = v34;
 LABEL_20:
-      v10 = 0;
-      v9 = v31;
+      v11 = 0;
+      v9 = v32;
     }
 
     else
     {
-      v12 = 1;
+      v13 = 1;
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (void)_initWithHostConfiguration:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"processIdentity"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -744,7 +742,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"processIdentity", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -754,7 +752,7 @@ LABEL_20:
 
 - (void)_initWithHostConfiguration:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[identity uniqueIdentifier]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -762,7 +760,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[identity uniqueIdentifier]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -772,7 +770,7 @@ LABEL_20:
 
 - (void)_initWithHostConfiguration:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"identity"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -780,7 +778,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identity", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -790,7 +788,7 @@ LABEL_20:
 
 - (void)_initWithHostConfiguration:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"hostConfiguration"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -798,7 +796,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"hostConfiguration", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -808,16 +806,15 @@ LABEL_20:
 
 + (void)extensionWithHostConfiguration:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_256175000, a2, OS_LOG_TYPE_ERROR, "Failed to lookup processIdentity for %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_256175000, a2, OS_LOG_TYPE_ERROR, "Failed to lookup processIdentity for %{public}@", &v2, 0xCu);
 }
 
 + (void)extensionWithHostConfiguration:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"hostConfiguration"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -825,7 +822,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"hostConfiguration", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -835,7 +832,7 @@ LABEL_20:
 
 + (void)extensionWithIdentity:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:_EXExtensionIdentityClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -843,7 +840,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:_EXExtensionIdentityClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -853,7 +850,7 @@ LABEL_20:
 
 + (void)extensionWithIdentity:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -861,7 +858,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_256175000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

@@ -67,9 +67,9 @@
     objc_msgSend_setWeakReference_message_(archiverCopy, v18, v19, v20);
   }
 
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d We should never archive the placeholder section. <rdar://problem/38071638>", "[TSWPSectionPlaceholder saveToArchiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPSectionPlaceholder.mm", 54);
   v12 = MEMORY[0x277D81150];
-  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSWPSectionPlaceholder saveToArchiver:]", "[TSWPSectionPlaceholder saveToArchiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPSectionPlaceholder.mm", 54);
+  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSWPSectionPlaceholder saveToArchiver:]");
   v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPSectionPlaceholder.mm");
   objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v17, v14, v16, 54, 1, "We should never archive the placeholder section. <rdar://problem/38071638>");
 

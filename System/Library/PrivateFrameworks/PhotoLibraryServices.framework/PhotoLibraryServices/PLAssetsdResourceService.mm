@@ -363,7 +363,7 @@ LABEL_20:
     os_activity_scope_enter(v9, (&v41 + 8));
   }
 
-  v11 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:{objc_msgSend(assetsCopy, "count")}];
+  v11 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:objc_msgSend_count(assetsCopy)];
   v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v13 = [(PLAbstractLibraryServicesManagerService *)self newShortLivedLibraryWithName:"[PLAssetsdResourceService consolidateAssets:reply:]"];
   if (v13)
@@ -388,7 +388,7 @@ LABEL_20:
   else
   {
     v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69BFF48] code:41012 userInfo:0];
-    v17 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+    v17 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(assetsCopy)];
     v28 = replyCopy;
     v38 = 0u;
     v39 = 0u;
@@ -794,7 +794,7 @@ void __77__PLAssetsdResourceService__consolidateResource_assetUUID_bundleScope_e
   }
 
   scheme = [lCopy scheme];
-  if (([scheme isEqualToString:@"ipod-library"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(scheme) & 1) == 0)
   {
 
     goto LABEL_8;
@@ -1699,21 +1699,21 @@ void __90__PLAssetsdResourceService_asynchronousAdjustmentDataForAsset_networkAc
 
     v7 = [MEMORY[0x1E695DF90] dictionary];
     obj = [v5 adjustmentType];
-    if (([*(a1 + 32) isEqualToString:?] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(*(a1 + 32)) & 1) == 0)
     {
       objc_storeStrong((*(*(a1 + 72) + 8) + 40), obj);
     }
 
     [v7 setObject:obj forKey:*MEMORY[0x1E69BF380]];
     v9 = [v5 adjustmentCompoundVersion];
-    if (([*(a1 + 40) isEqualToString:v9] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(*(a1 + 40)) & 1) == 0)
     {
       objc_storeStrong((*(*(a1 + 80) + 8) + 40), v9);
     }
 
     [v7 setObject:v9 forKey:*MEMORY[0x1E69BF388]];
     v10 = [v5 adjustmentCreatorCode];
-    if (([v10 isEqualToString:*(a1 + 48)] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
     {
       objc_storeStrong((*(*(a1 + 88) + 8) + 40), v10);
     }
@@ -1861,7 +1861,7 @@ void __90__PLAssetsdResourceService_asynchronousAdjustmentDataForAsset_networkAc
   v15 = connectionAuthorization;
   if (connectionAuthorization)
   {
-    [connectionAuthorization clientAuditToken];
+    objc_msgSend_clientAuditToken(connectionAuthorization);
   }
 
   v20 = sandbox_extension_issue_file_to_process();
@@ -2915,7 +2915,7 @@ void __86__PLAssetsdResourceService_sandboxExtensionURLForPersistentURL_withAdju
   v6 = v5;
   if (v5)
   {
-    [v5 clientAuditToken];
+    objc_msgSend_clientAuditToken(v5);
   }
 
   else

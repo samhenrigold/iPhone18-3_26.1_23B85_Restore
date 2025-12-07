@@ -47,7 +47,7 @@
 
 void __29__HTHangReporterService_init__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (MEMORY[0x25306A5A0](v3) != MEMORY[0x277D86480])
@@ -70,9 +70,9 @@ LABEL_4:
       v5 = xpc_connection_copy_invalidation_reason();
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136315138;
-        v8 = v5;
-        _os_log_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Connection to hangreporter invalidated: %s", &v7, 0xCu);
+        v6 = 136315138;
+        v7 = v5;
+        _os_log_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Connection to hangreporter invalidated: %s", &v6, 0xCu);
       }
     }
 
@@ -94,8 +94,6 @@ LABEL_4:
   }
 
 LABEL_5:
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProcessingHangsWithCompletion:(id)completion
@@ -115,7 +113,7 @@ LABEL_5:
 
 void __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  *&v30[5] = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x25306A5A0]();
   v5 = MEMORY[0x277D86468];
@@ -143,7 +141,7 @@ void __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke
           v18 = MEMORY[0x25306A550](v17);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
           {
-            __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke_cold_1(buf, v18, v30);
+            __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke_cold_1(buf, v18, &buf[4]);
           }
 
           free(v18);
@@ -156,15 +154,15 @@ void __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke
     }
 
     v20 = dispatch_get_global_queue(21, 0);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke_11;
-    v23[3] = &unk_2796A92F8;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke_11;
+    v22[3] = &unk_2796A92F8;
     v21 = *(a1 + 32);
-    v24 = v12;
-    v25 = v21;
+    v23 = v12;
+    v24 = v21;
     v11 = v12;
-    dispatch_async(v20, v23);
+    dispatch_async(v20, v22);
   }
 
   else
@@ -178,20 +176,18 @@ void __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke
     block[2] = __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke_2;
     block[3] = &unk_2796A92F8;
     v9 = *(a1 + 32);
-    v27 = v7;
-    v28 = v9;
+    v26 = v7;
+    v27 = v9;
     v10 = v7;
     dispatch_async(v8, block);
 
-    v11 = v28;
+    v11 = v27;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCA9B8];
   v2 = *MEMORY[0x277CCA050];
   v3 = &stru_286326598;
@@ -201,31 +197,27 @@ void __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke
     v3 = *(a1 + 32);
   }
 
-  v8 = *MEMORY[0x277CCA450];
-  v9[0] = v3;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x277CCA450];
+  v8[0] = v3;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [v1 errorWithDomain:v2 code:4101 userInfo:v5];
   (*(v4 + 16))(v4, 0, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __29__HTHangReporterService_init__block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_fault_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Connection to hangreporter encountered non-error: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_fault_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Connection to hangreporter encountered non-error: %s", &v1, 0xCu);
 }
 
 void __29__HTHangReporterService_init__block_invoke_cold_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_error_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Connection to hangreporter encountered error: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_error_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Connection to hangreporter encountered error: %s", &v1, 0xCu);
 }
 
 void __58__HTHangReporterService_getProcessingHangsWithCompletion___block_invoke_cold_1(uint8_t *buf, uint64_t a2, void *a3)

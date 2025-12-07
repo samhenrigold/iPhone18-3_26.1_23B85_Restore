@@ -4,11 +4,11 @@
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (RBSEndowmentTree)initWithRBSXPCCoder:(id)coder;
+- (id)_initWithNamespace:(void *)namespace;
 - (id)childrenLinks:(id)links;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)_addLink:(uint64_t)link;
 - (void)_initWithLinks:(void *)links;
-- (void)_initWithNamespace:(void *)namespace;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 @end
 
@@ -163,15 +163,15 @@ LABEL_13:
   return v5;
 }
 
-- (void)_initWithNamespace:(void *)namespace
+- (id)_initWithNamespace:(void *)namespace
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (namespace)
   {
-    v71.receiver = namespace;
-    v71.super_class = RBSEndowmentTree;
-    v5 = objc_msgSendSuper2(&v71, sel_init);
+    v68.receiver = namespace;
+    v68.super_class = RBSEndowmentTree;
+    v5 = objc_msgSendSuper2(&v68, sel_init);
     v6 = v5;
     if (v5)
     {
@@ -185,103 +185,101 @@ LABEL_13:
 
       if (v10)
       {
-        v52 = v6;
-        v69 = 0u;
-        v70 = 0u;
+        v49 = v6;
+        v66 = 0u;
         v67 = 0u;
-        v68 = 0u;
+        v64 = 0u;
+        v65 = 0u;
         v11 = v10;
-        v44 = [v11 countByEnumeratingWithState:&v67 objects:v74 count:16];
-        if (!v44)
+        v41 = [v11 countByEnumeratingWithState:&v64 objects:v71 count:16];
+        if (!v41)
         {
           goto LABEL_36;
         }
 
-        v42 = *v68;
-        v43 = v11;
-        v58 = v4;
+        v39 = *v65;
+        v40 = v11;
+        v55 = v4;
         while (1)
         {
           v12 = 0;
           do
           {
-            if (*v68 != v42)
+            if (*v65 != v39)
             {
               objc_enumerationMutation(v11);
             }
 
-            v45 = v12;
-            v13 = [v11 objectForKeyedSubscript:{*(*(&v67 + 1) + 8 * v12), v42}];
+            v42 = v12;
+            v13 = [v11 objectForKeyedSubscript:{*(*(&v64 + 1) + 8 * v12), v39}];
+            v60 = 0u;
+            v61 = 0u;
+            v62 = 0u;
             v63 = 0u;
-            v64 = 0u;
-            v65 = 0u;
-            v66 = 0u;
             obj = v13;
-            v14 = 0x1E7275000uLL;
-            v48 = [v13 countByEnumeratingWithState:&v63 objects:v73 count:16];
-            if (v48)
+            v45 = [v13 countByEnumeratingWithState:&v60 objects:v70 count:16];
+            if (v45)
             {
-              v47 = *v64;
+              v44 = *v61;
               do
               {
-                v15 = 0;
+                v14 = 0;
                 do
                 {
-                  if (*v64 != v47)
+                  if (*v61 != v44)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v49 = v15;
-                  v16 = *(*(&v63 + 1) + 8 * v15);
+                  v46 = v14;
+                  v15 = *(*(&v60 + 1) + 8 * v14);
+                  v56 = 0u;
+                  v57 = 0u;
+                  v58 = 0u;
                   v59 = 0u;
-                  v60 = 0u;
-                  v61 = 0u;
-                  v62 = 0u;
-                  v53 = v16;
-                  attributes = [v16 attributes];
-                  v18 = [attributes countByEnumeratingWithState:&v59 objects:v72 count:16];
-                  if (v18)
+                  v50 = v15;
+                  attributes = [v15 attributes];
+                  v17 = [attributes countByEnumeratingWithState:&v56 objects:v69 count:16];
+                  if (v17)
                   {
-                    v19 = v18;
-                    v20 = *v60;
+                    v18 = v17;
+                    v19 = *v57;
                     do
                     {
-                      v21 = 0;
+                      v20 = 0;
                       do
                       {
-                        if (*v60 != v20)
+                        if (*v57 != v19)
                         {
                           objc_enumerationMutation(attributes);
                         }
 
-                        v22 = *(*(&v59 + 1) + 8 * v21);
-                        v23 = *(v14 + 2592);
+                        v21 = *(*(&v56 + 1) + 8 * v20);
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v24 = v22;
-                          endowmentNamespace = [v24 endowmentNamespace];
-                          v26 = [endowmentNamespace isEqual:v4];
+                          v22 = v21;
+                          endowmentNamespace = [v22 endowmentNamespace];
+                          v24 = [endowmentNamespace isEqual:v4];
 
-                          if (v26)
+                          if (v24)
                           {
-                            sourceEnvironment = [v24 sourceEnvironment];
+                            sourceEnvironment = [v22 sourceEnvironment];
                             if (!sourceEnvironment)
                             {
                               sourceEnvironment = [RBSEndowmentRootEnvironment copy];
                             }
 
-                            identifier = [v53 identifier];
+                            identifier = [v50 identifier];
                             clientPid = [identifier clientPid];
-                            target = [v53 target];
+                            target = [v50 target];
                             environment = [target environment];
-                            target2 = [v53 target];
+                            target2 = [v50 target];
                             processIdentifier = [target2 processIdentifier];
-                            v32 = +[RBSEndowmentLink endowmentLinkForNamespace:sourceEnvironment:sourcePid:targetEnvironment:targetPid:](RBSEndowmentLink, "endowmentLinkForNamespace:sourceEnvironment:sourcePid:targetEnvironment:targetPid:", v58, sourceEnvironment, clientPid, environment, [processIdentifier pid]);
+                            v30 = +[RBSEndowmentLink endowmentLinkForNamespace:sourceEnvironment:sourcePid:targetEnvironment:targetPid:](RBSEndowmentLink, "endowmentLinkForNamespace:sourceEnvironment:sourcePid:targetEnvironment:targetPid:", v55, sourceEnvironment, clientPid, environment, [processIdentifier pid]);
 
-                            v33 = sourceEnvironment;
-                            [(RBSEndowmentTree *)v52 _addLink:v32];
+                            v31 = sourceEnvironment;
+                            [(RBSEndowmentTree *)v49 _addLink:v30];
 
                             goto LABEL_30;
                           }
@@ -295,62 +293,60 @@ LABEL_13:
                             goto LABEL_27;
                           }
 
-                          endowmentNamespace2 = [v22 endowmentNamespace];
-                          v35 = [endowmentNamespace2 isEqual:v4];
+                          endowmentNamespace2 = [v21 endowmentNamespace];
+                          v33 = [endowmentNamespace2 isEqual:v4];
 
-                          v14 = 0x1E7275000;
-                          if (v35)
+                          if (v33)
                           {
-                            v51 = [RBSEndowmentRootEnvironment copy];
-                            identifier2 = [v53 identifier];
+                            v48 = [RBSEndowmentRootEnvironment copy];
+                            identifier2 = [v50 identifier];
                             clientPid2 = [identifier2 clientPid];
-                            target3 = [v53 target];
+                            target3 = [v50 target];
                             environment2 = [target3 environment];
-                            target4 = [v53 target];
+                            target4 = [v50 target];
                             processIdentifier2 = [target4 processIdentifier];
-                            v33 = +[RBSEndowmentLink endowmentLinkForNamespace:sourceEnvironment:sourcePid:targetEnvironment:targetPid:](RBSEndowmentLink, "endowmentLinkForNamespace:sourceEnvironment:sourcePid:targetEnvironment:targetPid:", v4, v51, clientPid2, environment2, [processIdentifier2 pid]);
+                            v31 = +[RBSEndowmentLink endowmentLinkForNamespace:sourceEnvironment:sourcePid:targetEnvironment:targetPid:](RBSEndowmentLink, "endowmentLinkForNamespace:sourceEnvironment:sourcePid:targetEnvironment:targetPid:", v4, v48, clientPid2, environment2, [processIdentifier2 pid]);
 
-                            [(RBSEndowmentTree *)v52 _addLink:v33];
+                            [(RBSEndowmentTree *)v49 _addLink:v31];
 LABEL_30:
 
-                            v4 = v58;
-                            v14 = 0x1E7275000;
+                            v4 = v55;
                           }
                         }
 
 LABEL_27:
-                        ++v21;
+                        ++v20;
                       }
 
-                      while (v19 != v21);
-                      v39 = [attributes countByEnumeratingWithState:&v59 objects:v72 count:16];
-                      v19 = v39;
+                      while (v18 != v20);
+                      v37 = [attributes countByEnumeratingWithState:&v56 objects:v69 count:16];
+                      v18 = v37;
                     }
 
-                    while (v39);
+                    while (v37);
                   }
 
-                  v15 = v49 + 1;
+                  v14 = v46 + 1;
                 }
 
-                while (v49 + 1 != v48);
-                v48 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
+                while (v46 + 1 != v45);
+                v45 = [obj countByEnumeratingWithState:&v60 objects:v70 count:16];
               }
 
-              while (v48);
+              while (v45);
             }
 
-            v12 = v45 + 1;
-            v11 = v43;
+            v12 = v42 + 1;
+            v11 = v40;
           }
 
-          while (v45 + 1 != v44);
-          v44 = [v43 countByEnumeratingWithState:&v67 objects:v74 count:16];
-          if (!v44)
+          while (v42 + 1 != v41);
+          v41 = [v40 countByEnumeratingWithState:&v64 objects:v71 count:16];
+          if (!v41)
           {
 LABEL_36:
 
-            v6 = v52;
+            v6 = v49;
             goto LABEL_38;
           }
         }
@@ -367,7 +363,6 @@ LABEL_38:
     v6 = 0;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

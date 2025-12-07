@@ -109,7 +109,7 @@ id __38__UIKBUndoStyling_createDynamicColors__block_invoke_3(uint64_t a1, void *
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v5 = ;
 

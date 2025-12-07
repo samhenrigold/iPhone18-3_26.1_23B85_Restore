@@ -19,7 +19,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -29,25 +29,23 @@
     v8 = HMFGetLogIdentifier();
     path = selfCopy->_path;
     report = selfCopy->_report;
-    v13 = 138543874;
-    v14 = v8;
-    v15 = 2112;
-    v16 = path;
-    v17 = 2112;
-    v18 = report;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Attribute timer triggered for path %@ with report %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v8;
+    v14 = 2112;
+    v15 = path;
+    v16 = 2112;
+    v17 = report;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Attribute timer triggered for path %@ with report %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
   server = [(HMMTRAttributeTimer *)selfCopy server];
   [server processAttributeReport:selfCopy->_report];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -55,23 +53,21 @@
   {
     v6 = HMFGetLogIdentifier();
     path = selfCopy->_path;
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = path;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Stopping attribute timer for path %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2112;
+    v12 = path;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Stopping attribute timer for path %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   attributeTimer = [(HMMTRAttributeTimer *)selfCopy attributeTimer];
   [attributeTimer suspend];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -80,25 +76,23 @@
     v6 = HMFGetLogIdentifier();
     [(HMFTimer *)selfCopy->_attributeTimer timeInterval];
     path = selfCopy->_path;
-    v11 = 138543874;
-    v12 = v6;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2112;
-    v16 = path;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Starting attribute timer with delay of %f for path %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2048;
+    v13 = v8;
+    v14 = 2112;
+    v15 = path;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Starting attribute timer with delay of %f for path %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
   attributeTimer = [(HMMTRAttributeTimer *)selfCopy attributeTimer];
   [attributeTimer resume];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateReport:(id)report
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -107,13 +101,13 @@
   {
     v8 = HMFGetLogIdentifier();
     path = selfCopy->_path;
-    v14 = 138543874;
-    v15 = v8;
-    v16 = 2112;
-    v17 = path;
-    v18 = 2112;
-    v19 = reportCopy;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Update report for path %@ with report %@ and reset timer", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v8;
+    v15 = 2112;
+    v16 = path;
+    v17 = 2112;
+    v18 = reportCopy;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Update report for path %@ with report %@ and reset timer", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -123,8 +117,6 @@
 
   attributeTimer = [(HMMTRAttributeTimer *)selfCopy attributeTimer];
   [attributeTimer resume];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTRAttributeTimer)initWithServer:(id)server report:(id)report timeout:(double)timeout queue:(id)queue server:(id)a7
@@ -170,10 +162,11 @@
 
 uint64_t __34__HMMTRAttributeTimer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v5_3698 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_3698;
+  logCategory__hmf_once_v5_3698 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -72,7 +72,7 @@
     {
       if (infoCopy)
       {
-        [infoCopy cropInfo];
+        objc_msgSend_cropInfo(infoCopy);
       }
 
       else

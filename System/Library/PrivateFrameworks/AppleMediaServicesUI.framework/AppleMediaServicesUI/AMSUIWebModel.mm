@@ -68,7 +68,7 @@
 
 + (id)pageModelFromJSObject:(id)object context:(id)context
 {
-  v25[8] = *MEMORY[0x1E69E9840];
+  v24[8] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
   v7 = [objectCopy objectForKeyedSubscript:@"modelClass"];
@@ -83,23 +83,23 @@
     v8 = 0;
   }
 
-  v24[0] = @"AMSCameraReaderPageModel";
-  v25[0] = objc_opt_class();
-  v24[1] = @"AMSDeviceDiagnosticsPageModel";
-  v25[1] = objc_opt_class();
-  v24[2] = @"AMSDynamicPageModel";
-  v25[2] = objc_opt_class();
-  v24[3] = @"AMSErrorPageModel";
-  v25[3] = objc_opt_class();
-  v24[4] = @"AMSLoadingPageModel";
-  v25[4] = objc_opt_class();
-  v24[5] = @"AMSSafariPageModel";
-  v25[5] = objc_opt_class();
-  v24[6] = @"AMSRoutePageModel";
-  v25[6] = objc_opt_class();
-  v24[7] = @"AMSWebPageModel";
-  v25[7] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:8];
+  v23[0] = @"AMSCameraReaderPageModel";
+  v24[0] = objc_opt_class();
+  v23[1] = @"AMSDeviceDiagnosticsPageModel";
+  v24[1] = objc_opt_class();
+  v23[2] = @"AMSDynamicPageModel";
+  v24[2] = objc_opt_class();
+  v23[3] = @"AMSErrorPageModel";
+  v24[3] = objc_opt_class();
+  v23[4] = @"AMSLoadingPageModel";
+  v24[4] = objc_opt_class();
+  v23[5] = @"AMSSafariPageModel";
+  v24[5] = objc_opt_class();
+  v23[6] = @"AMSRoutePageModel";
+  v24[6] = objc_opt_class();
+  v23[7] = @"AMSWebPageModel";
+  v24[7] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:8];
   v10 = [v9 objectForKeyedSubscript:v8];
   if (!v10 || (v11 = [[v10 alloc] initWithJSObject:objectCopy context:contextCopy]) == 0)
   {
@@ -114,19 +114,17 @@
     {
       v14 = objc_opt_class();
       logKey = [contextCopy logKey];
-      v18 = 138543874;
-      v19 = v14;
-      v20 = 2114;
-      v21 = logKey;
-      v22 = 2114;
-      v23 = v8;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid page model: %{public}@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v14;
+      v19 = 2114;
+      v20 = logKey;
+      v21 = 2114;
+      v22 = v8;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid page model: %{public}@", &v17, 0x20u);
     }
 
     v11 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

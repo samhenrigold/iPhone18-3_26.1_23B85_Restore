@@ -71,7 +71,7 @@ void __58__SBGridSwitcherViewController__setupSpringLoadingSupport__block_invoke
 {
   y = location.y;
   x = location.x;
-  v83 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   layoutContext = [(SBFluidSwitcherViewController *)self layoutContext];
   activeGesture = [layoutContext activeGesture];
@@ -102,81 +102,81 @@ void __58__SBGridSwitcherViewController__setupSpringLoadingSupport__block_invoke
   isSwitcherDrag = [v15 isSwitcherDrag];
   if (isSwitcherDrag)
   {
-    v17 = SBLogAppSwitcherDrag();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v18 = SBLogAppSwitcherDrag(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v79 = activeGesture;
-      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_INFO, "Not spring-loading because of active gesture: %@", buf, 0xCu);
+      v80 = activeGesture;
+      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, "Not spring-loading because of active gesture: %@", buf, 0xCu);
     }
 
 LABEL_27:
 
-    v26 = 0;
+    v27 = 0;
   }
 
   else
   {
 
-    v74 = 0u;
     v75 = 0u;
-    v72 = 0u;
+    v76 = 0u;
     v73 = 0u;
+    v74 = 0u;
     activeGesture = [sessionCopy items];
-    v18 = [activeGesture countByEnumeratingWithState:&v72 objects:v82 count:16];
-    if (v18)
+    v19 = [activeGesture countByEnumeratingWithState:&v73 objects:v83 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v73;
+      v20 = v19;
+      v21 = *v74;
       while (2)
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v73 != v20)
+          if (*v74 != v21)
           {
             objc_enumerationMutation(activeGesture);
           }
 
-          localObject = [*(*(&v72 + 1) + 8 * i) localObject];
-          v23 = objc_opt_class();
-          v24 = localObject;
-          if (v23)
+          localObject = [*(*(&v73 + 1) + 8 * i) localObject];
+          v24 = objc_opt_class();
+          v25 = localObject;
+          if (v24)
           {
             if (objc_opt_isKindOfClass())
             {
-              v25 = v24;
+              v26 = v25;
             }
 
             else
             {
-              v25 = 0;
+              v26 = 0;
             }
           }
 
           else
           {
-            v25 = 0;
+            v26 = 0;
           }
 
-          v17 = v25;
+          v18 = v26;
 
-          if (v17 && [v17 startLocation]== 11)
+          if (v18 && [v18 startLocation]== 11)
           {
-            v27 = SBLogAppSwitcherDrag();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+            v28 = SBLogAppSwitcherDrag(11);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v79 = v17;
-              _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_INFO, "Not spring-loading because dragged items came from switcher: %@", buf, 0xCu);
+              v80 = v18;
+              _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_INFO, "Not spring-loading because dragged items came from switcher: %@", buf, 0xCu);
             }
 
             goto LABEL_27;
           }
         }
 
-        v19 = [activeGesture countByEnumeratingWithState:&v72 objects:v82 count:16];
-        v26 = 1;
-        if (v19)
+        v20 = [activeGesture countByEnumeratingWithState:&v73 objects:v83 count:16];
+        v27 = 1;
+        if (v20)
         {
           continue;
         }
@@ -187,7 +187,7 @@ LABEL_27:
 
     else
     {
-      v26 = 1;
+      v27 = 1;
     }
   }
 
@@ -198,111 +198,111 @@ LABEL_27:
   layoutState = [layoutContext2 layoutState];
 
   unlockedEnvironmentMode = [layoutState unlockedEnvironmentMode];
-  v33 = unlockedEnvironmentMode;
-  if (!v26)
+  v34 = unlockedEnvironmentMode;
+  if (!v27)
   {
     goto LABEL_36;
   }
 
-  v34 = unlockedEnvironmentMode & 0xFFFFFFFFFFFFFFFELL;
+  v35 = unlockedEnvironmentMode & 0xFFFFFFFFFFFFFFFELL;
   if (!isChamoisOrFlexibleWindowing)
   {
-    v34 = unlockedEnvironmentMode;
+    v35 = unlockedEnvironmentMode;
   }
 
-  if (v34 != 2)
+  if (v35 != 2)
   {
-    v36 = SBLogAppSwitcherDrag();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v37 = SBLogAppSwitcherDrag(unlockedEnvironmentMode);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
-      v37 = SBStringForUnlockedEnvironmentMode(v33);
+      v38 = SBStringForUnlockedEnvironmentMode(v34);
       _windowManagementContext2 = [(SBFluidSwitcherViewController *)self _windowManagementContext];
-      v39 = NSStringFromSwitcherWindowManagementContext(_windowManagementContext2);
+      v40 = NSStringFromSwitcherWindowManagementContext(_windowManagementContext2);
       *buf = 138412546;
-      v79 = v37;
-      v80 = 2112;
-      v81 = v39;
-      _os_log_impl(&dword_21ED4E000, v36, OS_LOG_TYPE_INFO, "Not spring-loading for unlockedEnvironmentMode: %@, with windowManagementContext: %@", buf, 0x16u);
+      v80 = v38;
+      v81 = 2112;
+      v82 = v40;
+      _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_INFO, "Not spring-loading for unlockedEnvironmentMode: %@, with windowManagementContext: %@", buf, 0x16u);
     }
 
 LABEL_36:
-    v35 = 0;
+    v36 = 0;
     goto LABEL_37;
   }
 
-  v35 = 1;
+  v36 = 1;
 LABEL_37:
-  v40 = [(SBFluidSwitcherViewController *)self _itemContainerAtLocation:0 environment:x, y];
-  appLayout = [v40 appLayout];
-  v42 = appLayout;
-  v43 = 0;
-  if (v40 && appLayout)
+  v41 = [(SBFluidSwitcherViewController *)self _itemContainerAtLocation:0 environment:x, y];
+  appLayout = [v41 appLayout];
+  v43 = appLayout;
+  v44 = 0;
+  if (v41 && appLayout)
   {
-    [v40 killingProgress];
-    if (!BSFloatIsZero() || [v42 type])
+    [v41 killingProgress];
+    if (!BSFloatIsZero() || [v43 type])
     {
-      v43 = 0;
+      v44 = 0;
       goto LABEL_42;
     }
 
-    v46 = [MEMORY[0x277D663F0] draggedItemBundleIdentifiersInDrag:sessionCopy];
-    v47 = [v46 count];
-    if (v47 != 1)
+    v47 = [MEMORY[0x277D663F0] draggedItemBundleIdentifiersInDrag:sessionCopy];
+    v48 = [v47 count];
+    if (v48 != 1)
     {
-      if (!v47 && ([v40 isEligibleForContentDragSpringLoading] & 1) != 0)
+      if (!v48 && ([v41 isEligibleForContentDragSpringLoading] & 1) != 0)
       {
         goto LABEL_47;
       }
 
 LABEL_64:
-      v43 = 0;
+      v44 = 0;
       goto LABEL_65;
     }
 
-    v70 = v46;
-    firstObject = [v46 firstObject];
-    v52 = firstObject;
-    if (!v35)
+    v71 = v47;
+    firstObject = [v47 firstObject];
+    v53 = firstObject;
+    if (!v36)
     {
-      v43 = 0;
+      v44 = 0;
       sharedInstance = firstObject;
-      v46 = v70;
+      v47 = v71;
       goto LABEL_55;
     }
 
-    v53 = firstObject;
-    if ([v42 containsItemWithBundleIdentifier:firstObject])
+    v54 = firstObject;
+    if ([v43 containsItemWithBundleIdentifier:firstObject])
     {
-      v54 = +[SBApplicationController sharedInstance];
-      v55 = [v54 applicationWithBundleIdentifier:v52];
+      v55 = +[SBApplicationController sharedInstance];
+      v56 = [v55 applicationWithBundleIdentifier:v53];
 
-      v69 = v53;
-      v56 = v55;
-      info = [v55 info];
-      LODWORD(v55) = [info supportsMultiwindow];
+      v70 = v54;
+      v57 = v56;
+      info = [v56 info];
+      LODWORD(v56) = [info supportsMultiwindow];
 
-      v58 = v55 & isChamoisOrFlexibleWindowing;
-      v59 = v55;
-      v53 = v69;
-      v46 = v70;
-      if (v58 != 1 || v33 != 3)
+      v59 = v56 & isChamoisOrFlexibleWindowing;
+      v60 = v56;
+      v54 = v70;
+      v47 = v71;
+      if (v59 != 1 || v34 != 3)
       {
 
-        if (!v59)
+        if (!v60)
         {
           goto LABEL_64;
         }
 
 LABEL_47:
-        v43 = v40;
+        v44 = v41;
 
-        v76 = *MEMORY[0x277D674E0];
-        v77 = &unk_2833722F0;
-        v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-        v49 = MEMORY[0x277D65DD0];
-        v46 = v48;
-        sharedInstance = [v49 sharedInstance];
-        [sharedInstance emitEvent:31 withPayload:v46];
+        v77 = *MEMORY[0x277D674E0];
+        v78 = &unk_2833722F0;
+        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+        v50 = MEMORY[0x277D65DD0];
+        v47 = v49;
+        sharedInstance = [v50 sharedInstance];
+        [sharedInstance emitEvent:31 withPayload:v47];
 
 LABEL_55:
 LABEL_65:
@@ -313,18 +313,18 @@ LABEL_65:
 
     else
     {
-      if (v33 == 3)
+      if (v34 == 3)
       {
-        v60 = isChamoisOrFlexibleWindowing;
+        v61 = isChamoisOrFlexibleWindowing;
       }
 
       else
       {
-        v60 = 0;
+        v61 = 0;
       }
 
-      v46 = v70;
-      if ((v60 & 1) == 0)
+      v47 = v71;
+      if ((v61 & 1) == 0)
       {
 
         goto LABEL_47;
@@ -337,21 +337,21 @@ LABEL_65:
     interfaceOrientation = [layoutState interfaceOrientation];
     if ((interfaceOrientation - 1) < 2)
     {
-      v64 = 1;
+      v65 = 1;
     }
 
     else
     {
-      v64 = 2 * ((interfaceOrientation - 3) < 2);
+      v65 = 2 * ((interfaceOrientation - 3) < 2);
     }
 
-    v65 = [displayItemLayoutAttributesProvider zOrderedItemsInAppLayout:appLayout2 orientation:v64];
-    firstObject2 = [v65 firstObject];
+    v66 = [displayItemLayoutAttributesProvider zOrderedItemsInAppLayout:appLayout2 orientation:v65];
+    firstObject2 = [v66 firstObject];
 
-    v67 = [v42 itemForLayoutRole:1];
-    v68 = [(SBDisplayItem *)firstObject2 isEqualToItem:v67];
+    v68 = [v43 itemForLayoutRole:1];
+    v69 = [(SBDisplayItem *)firstObject2 isEqualToItem:v68];
 
-    if ((v68 & 1) == 0)
+    if ((v69 & 1) == 0)
     {
       goto LABEL_47;
     }
@@ -360,9 +360,9 @@ LABEL_65:
   }
 
 LABEL_42:
-  v44 = v43;
+  v45 = v44;
 
-  return v43;
+  return v44;
 }
 
 - (id)targetViewForSpringLoadingEffectForView:(id)view

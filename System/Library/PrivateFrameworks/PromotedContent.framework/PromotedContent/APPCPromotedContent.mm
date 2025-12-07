@@ -49,12 +49,10 @@
 
 - (APPCCarouselMetricsHelping)metricsHelper
 {
-  v3 = OBJC_IVAR___APPCPromotedContent_metricsHelper;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (int64_t)serverUnfilledReason
@@ -111,22 +109,19 @@
 
 - (BOOL)isMRAID
 {
-  v3 = OBJC_IVAR___APPCPromotedContent_representations;
   swift_beginAccess();
-  v4 = *(self + v3);
   selfCopy = self;
 
-  v7 = sub_1C1ABBCD4(v6);
+  v5 = sub_1C1ABBCD4(v4);
 
-  return v7 & 1;
+  return v5 & 1;
 }
 
 - (APPCDiagnosticMetricsHelping)diagnosticMetricHelper
 {
-  v2 = *(self + OBJC_IVAR___APPCPromotedContent_diagnosticMetricHelper);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NSDictionary)metaData
@@ -159,56 +154,53 @@
 
   v5 = OBJC_IVAR___APPCPromotedContent_metaData;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = dataCopy;
 }
 
 - (NSURL)disclosureURL
 {
   v3 = sub_1C1AC1F08(&qword_1EBF07AC8, &qword_1C1B9CED0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR___APPCPromotedContent_disclosureURL;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR___APPCPromotedContent_disclosureURL;
   swift_beginAccess();
-  sub_1C1AA7E30(self + v7, v6, &qword_1EBF07AC8, &qword_1C1B9CED0);
-  v8 = sub_1C1B944A8();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1C1AA7E30(self + v6, v5, &qword_1EBF07AC8, &qword_1C1B9CED0);
+  v7 = sub_1C1B944A8();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1C1B94478();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1C1B94478();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setDisclosureURL:(id)l
 {
   v5 = sub_1C1AC1F08(&qword_1EBF07AC8, &qword_1C1B9CED0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (l)
   {
     sub_1C1B94488();
-    v9 = sub_1C1B944A8();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1C1B944A8();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1C1B944A8();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1C1B944A8();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR___APPCPromotedContent_disclosureURL;
+  v10 = OBJC_IVAR___APPCPromotedContent_disclosureURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_1C1B19384(v8, self + v11, &qword_1EBF07AC8, &qword_1C1B9CED0);
+  sub_1C1B19384(v7, self + v10, &qword_1EBF07AC8, &qword_1C1B9CED0);
   swift_endAccess();
 }
 
@@ -228,14 +220,12 @@
 
 - (NSArray)representations
 {
-  v3 = OBJC_IVAR___APPCPromotedContent_representations;
   swift_beginAccess();
-  v4 = *(self + v3);
 
   sub_1C1AC1F08(&qword_1EBF07AE8, qword_1C1BA46C0);
-  v5 = sub_1C1B94EB8();
+  v2 = sub_1C1B94EB8();
 
-  return v5;
+  return v2;
 }
 
 - (void)setRepresentations:(id)representations
@@ -244,7 +234,6 @@
   v4 = sub_1C1B94EC8();
   v5 = OBJC_IVAR___APPCPromotedContent_representations;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -266,31 +255,29 @@
 {
   v3 = sub_1C1B94588();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR___APPCPromotedContent_expirationDate;
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR___APPCPromotedContent_expirationDate;
   swift_beginAccess();
-  (*(v4 + 16))(v7, self + v8, v3);
-  v9 = sub_1C1B94538();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 16))(v6, self + v7, v3);
+  v8 = sub_1C1B94538();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 - (void)setExpirationDate:(id)date
 {
   v4 = sub_1C1B94588();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C1B94558();
-  v9 = OBJC_IVAR___APPCPromotedContent_expirationDate;
+  v8 = OBJC_IVAR___APPCPromotedContent_expirationDate;
   swift_beginAccess();
-  v10 = *(v5 + 40);
+  v9 = *(v5 + 40);
   selfCopy = self;
-  v10(self + v9, v8, v4);
+  v9(self + v8, v7, v4);
   swift_endAccess();
 }
 
@@ -380,39 +367,37 @@
 - (NSDate)receivedReferenceTime
 {
   v3 = sub_1C1AC1F08(&qword_1EBF07F50, &qword_1C1B9A590);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v13 - v5;
-  sub_1C1AA7E30(self + OBJC_IVAR___APPCPromotedContent_receivedReferenceTime, &v13 - v5, &qword_1EBF07F50, &qword_1C1B9A590);
-  v7 = sub_1C1B94588();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  v5 = &v12 - v4;
+  sub_1C1AA7E30(self + OBJC_IVAR___APPCPromotedContent_receivedReferenceTime, &v12 - v4, &qword_1EBF07F50, &qword_1C1B9A590);
+  v6 = sub_1C1B94588();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 48))(v5, 1, v6);
+  v9 = 0;
+  if (v8 != 1)
   {
-    v11 = sub_1C1B94538();
-    (*(v8 + 8))(v6, v7);
-    v10 = v11;
+    v10 = sub_1C1B94538();
+    (*(v7 + 8))(v5, v6);
+    v9 = v10;
   }
 
-  return v10;
+  return v9;
 }
 
 - (NSArray)adServerEnvironments
 {
   if (*(self + OBJC_IVAR___APPCPromotedContent_adServerEnvironments))
   {
-    v2 = *(self + OBJC_IVAR___APPCPromotedContent_adServerEnvironments);
 
-    v3 = sub_1C1B94EB8();
+    v2 = sub_1C1B94EB8();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (int64_t)numOfArticlesSinceInterstitial
@@ -426,24 +411,23 @@
 - (NSUUID)contextIdentifier
 {
   v3 = sub_1C1AC1F08(&unk_1EBF098E0, &qword_1C1BA22A0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_1C1B6ADBC(v6);
+  sub_1C1B6ADBC(v5);
 
-  v8 = sub_1C1B945F8();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1C1B945F8();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1C1B945B8();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1C1B945B8();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)available
@@ -475,11 +459,11 @@
 - (NSString)debugDescription
 {
   selfCopy = self;
-  sub_1C1B6B9B8();
+  sub_1C1B6B9B8(selfCopy, v3);
 
-  v3 = sub_1C1B94D78();
+  v4 = sub_1C1B94D78();
 
-  return v3;
+  return v4;
 }
 
 - (unint64_t)retrieveNetworkType

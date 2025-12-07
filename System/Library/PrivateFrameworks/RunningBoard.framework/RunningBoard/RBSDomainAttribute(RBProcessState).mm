@@ -63,7 +63,7 @@
 
 - (uint64_t)isValidForContext:()RBProcessState withError:
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   v6 = a3;
   if ([v6 ignoreRestrictions])
   {
@@ -72,9 +72,9 @@ LABEL_2:
     domainAttributeManager = [v6 domainAttributeManager];
     domain = [self domain];
     name = [self name];
-    v32 = 0;
-    v10 = [domainAttributeManager attributesForDomain:domain andName:name context:v6 withError:&v32];
-    v11 = v32;
+    v31 = 0;
+    v10 = [domainAttributeManager attributesForDomain:domain andName:name context:v6 withError:&v31];
+    v11 = v31;
 
     if (v11)
     {
@@ -94,27 +94,27 @@ LABEL_18:
 
     else
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v10 = v10;
-      v22 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v22 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v29;
+        v24 = *v28;
         while (2)
         {
           v25 = 0;
           do
           {
-            if (*v29 != v24)
+            if (*v28 != v24)
             {
               objc_enumerationMutation(v10);
             }
 
-            if (![*(*(&v28 + 1) + 8 * v25) isValidForContext:v6 withError:{a4, v28}])
+            if (![*(*(&v27 + 1) + 8 * v25) isValidForContext:v6 withError:{a4, v27}])
             {
 
               goto LABEL_18;
@@ -124,7 +124,7 @@ LABEL_18:
           }
 
           while (v23 != v25);
-          v23 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v23 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
           if (v23)
           {
             continue;
@@ -166,19 +166,18 @@ LABEL_21:
   v18 = MEMORY[0x277CCA9B8];
   v19 = *MEMORY[0x277D47050];
   v20 = *MEMORY[0x277CCA470];
-  v35[0] = @"Target for domain attribute is missing a required plist property";
+  v34[0] = @"Target for domain attribute is missing a required plist property";
   v21 = *MEMORY[0x277D47048];
-  v34[0] = v20;
-  v34[1] = v21;
+  v33[0] = v20;
+  v33[1] = v21;
   v11 = [self description];
-  v35[1] = v11;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v34[1] = v11;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
   [v18 errorWithDomain:v19 code:2 userInfo:v10];
   *a4 = v13 = 0;
 LABEL_19:
 
 LABEL_22:
-  v26 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -285,11 +284,11 @@ LABEL_22:
 
 - (void)applyToSystemState:()RBProcessState attributePath:context:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a5;
-  v28 = 0;
-  if ([(RBSDomainAttribute *)self _contextContainsRequiredEndowment:v10 requiresEndowment:&v28])
+  v27 = 0;
+  if ([(RBSDomainAttribute *)self _contextContainsRequiredEndowment:v10 requiresEndowment:&v27])
   {
     OUTLINED_FUNCTION_3_6();
     if (v11)
@@ -304,34 +303,34 @@ LABEL_22:
     OUTLINED_FUNCTION_2_12();
     v15 = [v14 attributesForDomain:? andName:? context:? withError:?];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v17)
     {
       v18 = v17;
       v19 = 0;
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         v21 = 0;
         v22 = v19;
         do
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v16);
           }
 
           v19 = v22 + 1;
-          [*(*(&v24 + 1) + 8 * v21++) applyToSystemState:v9 attributePath:RBSAttributePathIncrement(a4 context:{v22++), v10, v24}];
+          [*(*(&v23 + 1) + 8 * v21++) applyToSystemState:v9 attributePath:RBSAttributePathIncrement(a4 context:{v22++), v10, v23}];
         }
 
         while (v18 != v21);
-        v18 = [v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v18);
@@ -343,8 +342,6 @@ LABEL_22:
       [v10 popActiveDueToInheritedEndowment];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)effectiveAttributesWithContext:()RBProcessState

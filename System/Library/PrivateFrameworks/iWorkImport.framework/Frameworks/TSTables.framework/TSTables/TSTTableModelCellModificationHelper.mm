@@ -42,55 +42,55 @@
 {
   if (!self->_sparseCellList)
   {
-    v6 = objc_msgSend_columnRowUIDMap(self, a2, v2, v3, v4);
-    v9 = v6;
-    if (v6)
+    v5 = objc_msgSend_columnRowUIDMap(self, a2, v2, v3);
+    v7 = v5;
+    if (v5)
     {
-      objc_msgSend_cellUIDRangeForCellRange_(v6, v7, *&self->_sourceRect.origin, *&self->_sourceRect.size, v8);
+      objc_msgSend_cellUIDRangeForCellRange_(v5, v6, *&self->_sourceRect.origin, *&self->_sourceRect.size);
     }
 
     else
     {
-      *v22 = 0u;
-      v23 = 0u;
-      *v21 = 0u;
+      *v19 = 0u;
+      v20 = 0u;
+      *v18 = 0u;
     }
 
-    v10 = [TSTConcurrentSparseCellList alloc];
-    v15 = 0;
+    v8 = [TSTConcurrentSparseCellList alloc];
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
+    sub_221086EBC(&v12, v18[0], v18[1], (v18[1] - v18[0]) >> 4);
+    __p = 0;
     v16 = 0;
     v17 = 0;
-    sub_221086EBC(&v15, v21[0], v21[1], (v21[1] - v21[0]) >> 4);
-    __p = 0;
-    v19 = 0;
-    v20 = 0;
-    sub_221086EBC(&__p, v22[1], v23, (v23 - v22[1]) >> 4);
-    v13 = objc_msgSend_initWithContext_cellUIDRange_(v10, v11, 0, &v15, v12);
+    sub_221086EBC(&__p, v19[1], v20, (v20 - v19[1]) >> 4);
+    v10 = objc_msgSend_initWithContext_cellUIDRange_(v8, v9, 0, &v12);
     sparseCellList = self->_sparseCellList;
-    self->_sparseCellList = v13;
+    self->_sparseCellList = v10;
 
     if (__p)
     {
-      v19 = __p;
+      v16 = __p;
       operator delete(__p);
     }
 
-    if (v15)
+    if (v12)
     {
-      v16 = v15;
-      operator delete(v15);
+      v13 = v12;
+      operator delete(v12);
     }
 
-    if (v22[1])
+    if (v19[1])
     {
-      *&v23 = v22[1];
-      operator delete(v22[1]);
+      *&v20 = v19[1];
+      operator delete(v19[1]);
     }
 
-    if (v21[0])
+    if (v18[0])
     {
-      v21[1] = v21[0];
-      operator delete(v21[0]);
+      v18[1] = v18[0];
+      operator delete(v18[0]);
     }
   }
 }

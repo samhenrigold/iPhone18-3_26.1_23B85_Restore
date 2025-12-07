@@ -12,37 +12,36 @@
   v14 = *MEMORY[0x277D85DE8];
   v5 = [(MechanismUINotificationCenter *)self _identifierForNotification:?];
   v6 = [(MechanismUINotificationCenter *)self _checkIsRedundantNotification:notification];
+  v7 = v6;
   if (v6)
   {
-    v7 = LA_LOG_MechanismUINotificationCenter();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LA_LOG_MechanismUINotificationCenter(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138543362;
       v13 = v5;
-      v8 = "Did skip notification with identifier: %{public}@";
+      v9 = "Did skip notification with identifier: %{public}@";
 LABEL_6:
-      _os_log_impl(&dword_238B95000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, 0xCu);
+      _os_log_impl(&dword_238B95000, v8, OS_LOG_TYPE_DEFAULT, v9, &v12, 0xCu);
     }
   }
 
   else
   {
-    v9 = [MEMORY[0x277CCABB0] numberWithInteger:notification];
-    [(MechanismUINotificationCenter *)self setLastNotification:v9];
+    v10 = [MEMORY[0x277CCABB0] numberWithInteger:notification];
+    [(MechanismUINotificationCenter *)self setLastNotification:v10];
 
-    [(MechanismUINotificationCenter *)self _postDarwinNotificationWithIdentifier:v5];
-    v7 = LA_LOG_MechanismUINotificationCenter();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LA_LOG_MechanismUINotificationCenter([(MechanismUINotificationCenter *)self _postDarwinNotificationWithIdentifier:v5]);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138543362;
       v13 = v5;
-      v8 = "Did post notification with identifier: %{public}@";
+      v9 = "Did post notification with identifier: %{public}@";
       goto LABEL_6;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return !v6;
+  return v7 ^ 1;
 }
 
 - (BOOL)_checkIsRedundantNotification:(int64_t)notification

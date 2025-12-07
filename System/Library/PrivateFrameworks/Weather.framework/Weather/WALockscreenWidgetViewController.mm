@@ -13,6 +13,7 @@
 - (void)_delegateUpdateDidFailWithError:(id)error;
 - (void)_delegateWillUpdate;
 - (void)_scheduleNewTimer;
+- (void)_setTodayViewHidden:(BOOL)hidden;
 - (void)_setupWeatherModel;
 - (void)_teardownTimer;
 - (void)_teardownWeatherModel;
@@ -20,10 +21,14 @@
 - (void)_updateTodayView;
 - (void)_updateWithReason:(id)reason;
 - (void)getLocationServicesAuthorizationStatus:(id)status;
+- (void)setLocationServicesActive:(BOOL)active;
 - (void)setUpdateInterval:(double)interval;
 - (void)todayModel:(id)model forecastWasUpdated:(id)updated;
 - (void)updateForChangedSettings:(id)settings;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -84,6 +89,32 @@
   [(WALockscreenWidgetViewController *)self _updateTodayView];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WALockscreenWidgetViewController;
+  [(WALockscreenWidgetViewController *)&v4 viewWillAppear:appear];
+  [(WALockscreenWidgetViewController *)self _updateTodayView];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WALockscreenWidgetViewController;
+  [(WALockscreenWidgetViewController *)&v4 viewDidAppear:appear];
+  [(WALockscreenWidgetViewController *)self _updateWithReason:@"viewDidAppear wants an update."];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WALockscreenWidgetViewController;
+  [(WALockscreenWidgetViewController *)&v4 viewDidDisappear:disappear];
+  [(WALockscreenWidgetViewController *)self _teardownWeatherModel];
+  [(WALockscreenWidgetViewController *)self _setTodayViewHidden:1];
+  [(WALockscreenWidgetViewController *)self _teardownTimer];
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
 {
   height = size.height;
@@ -115,6 +146,25 @@ void __87__WALockscreenWidgetViewController_viewWillTransitionToSize_withTransit
 
   v10 = [WATodayPadViewStyle styleForScreenWithSize:v3 orientation:v7, v9];
   [*(a1 + 32) setStyle:v10];
+}
+
+- (void)setLocationServicesActive:(BOOL)active
+{
+  if (self->_locationServicesActive != active)
+  {
+    activeCopy = active;
+    self->_locationServicesActive = active;
+    todayModel = [(WALockscreenWidgetViewController *)self todayModel];
+    v7 = objc_opt_respondsToSelector();
+
+    if (v7)
+    {
+      todayModel2 = [(WALockscreenWidgetViewController *)self todayModel];
+      [todayModel2 setLocationServicesActive:activeCopy];
+    }
+
+    [(WALockscreenWidgetViewController *)self _updateTodayView];
+  }
 }
 
 - (void)setUpdateInterval:(double)interval
@@ -153,7 +203,7 @@ void __87__WALockscreenWidgetViewController_viewWillTransitionToSize_withTransit
 
 - (void)_updateWithReason:(id)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   todayModel = [(WALockscreenWidgetViewController *)self todayModel];
 
@@ -170,21 +220,21 @@ void __87__WALockscreenWidgetViewController_viewWillTransitionToSize_withTransit
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = reasonCopy;
+      v15 = reasonCopy;
       _os_log_impl(&dword_272ACF000, v6, OS_LOG_TYPE_DEFAULT, "Updating with reason: %@", buf, 0xCu);
     }
 
     v7 = objc_loadWeakRetained(&location);
     todayModel2 = [v7 todayModel];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __54__WALockscreenWidgetViewController__updateWithReason___block_invoke;
-    v11[3] = &unk_279E67F78;
-    objc_copyWeak(&v13, &location);
-    v12 = reasonCopy;
-    [todayModel2 executeModelUpdateWithCompletion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __54__WALockscreenWidgetViewController__updateWithReason___block_invoke;
+    v10[3] = &unk_279E67F78;
+    objc_copyWeak(&v12, &location);
+    v11 = reasonCopy;
+    [todayModel2 executeModelUpdateWithCompletion:v10];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 
@@ -194,12 +244,10 @@ void __87__WALockscreenWidgetViewController_viewWillTransitionToSize_withTransit
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = reasonCopy;
+      v15 = reasonCopy;
       _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "Delegate said to not update with reason: %@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WALockscreenWidgetViewController__updateWithReason___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -256,35 +304,74 @@ void __54__WALockscreenWidgetViewController__updateWithReason___block_invoke(uin
   [v18 _updateTodayView];
 }
 
+- (void)_setTodayViewHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  todayView = [(WALockscreenWidgetViewController *)self todayView];
+  isHidden = [todayView isHidden];
+
+  if (isHidden != hiddenCopy)
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    v8 = defaultCenter;
+    if (hiddenCopy)
+    {
+      v9 = @"WALockscreenWidgetWillDisappearNotification";
+    }
+
+    else
+    {
+      v9 = @"WALockscreenWidgetWillAppearNotification";
+    }
+
+    if (hiddenCopy)
+    {
+      v10 = @"WALockscreenWidgetDidDisappearNotification";
+    }
+
+    else
+    {
+      v10 = @"WALockscreenWidgetDidAppearNotification";
+    }
+
+    [defaultCenter postNotificationName:v9 object:self];
+
+    todayView2 = [(WALockscreenWidgetViewController *)self todayView];
+    [todayView2 setHidden:hiddenCopy];
+
+    defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter2 postNotificationName:v10 object:self];
+  }
+}
+
 - (void)_updateTodayView
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = WALogForCategory(10);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[WALockscreenWidgetViewController _updateTodayView]";
+    v6 = "[WALockscreenWidgetViewController _updateTodayView]";
     _os_log_impl(&dword_272ACF000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __52__WALockscreenWidgetViewController__updateTodayView__block_invoke;
-  v5[3] = &unk_279E67FA0;
-  v5[4] = self;
-  [(WALockscreenWidgetViewController *)self getLocationServicesAuthorizationStatus:v5];
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __52__WALockscreenWidgetViewController__updateTodayView__block_invoke;
+  v4[3] = &unk_279E67FA0;
+  v4[4] = self;
+  [(WALockscreenWidgetViewController *)self getLocationServicesAuthorizationStatus:v4];
 }
 
 void __52__WALockscreenWidgetViewController__updateTodayView__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = WALogForCategory(10);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithInt:a2];
     *buf = 138412290;
-    v34 = v5;
+    v33 = v5;
     _os_log_impl(&dword_272ACF000, v4, OS_LOG_TYPE_DEFAULT, "AuthorizationStatus %@", buf, 0xCu);
   }
 
@@ -324,24 +411,24 @@ void __52__WALockscreenWidgetViewController__updateTodayView__block_invoke(uint6
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       [*(a1 + 32) todayView];
-      v20 = v32 = v7;
+      v20 = v31 = v7;
       v21 = [v20 locationName];
       [*(a1 + 32) todayView];
-      v22 = v31 = v13;
+      v22 = v30 = v13;
       [v22 temperature];
       v23 = v11;
       v25 = v24 = v6;
       *buf = 138412546;
-      v34 = v21;
-      v35 = 2112;
-      v36 = v25;
+      v33 = v21;
+      v34 = 2112;
+      v35 = v25;
       _os_log_impl(&dword_272ACF000, v19, OS_LOG_TYPE_DEFAULT, "Show Today View: %@ at %@", buf, 0x16u);
 
       v6 = v24;
       v11 = v23;
 
-      v13 = v31;
-      v7 = v32;
+      v13 = v30;
+      v7 = v31;
     }
 
     [*(a1 + 32) _setTodayViewHidden:0];
@@ -350,53 +437,51 @@ void __52__WALockscreenWidgetViewController__updateTodayView__block_invoke(uint6
   else
   {
     [*(a1 + 32) _setTodayViewHidden:1];
+    v26 = [*(a1 + 32) todayView];
+    [v26 setConditionsLine:&stru_2882270E8];
+
     v27 = [*(a1 + 32) todayView];
-    [v27 setConditionsLine:&stru_2882270E8];
+    [v27 setLocationName:&stru_2882270E8];
 
     v28 = [*(a1 + 32) todayView];
-    [v28 setLocationName:&stru_2882270E8];
-
-    v29 = [*(a1 + 32) todayView];
-    [v29 setTemperature:&stru_2882270E8];
+    [v28 setTemperature:&stru_2882270E8];
 
     v12 = WALogForCategory(3);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = @"Location Services are disabled.";
+      v29 = @"Location Services are disabled.";
       if (v10)
       {
-        v30 = @"Unknown!";
+        v29 = @"Unknown!";
       }
 
       if (!v8)
       {
-        v30 = @"First Weather Forecast Location; not local weather city";
+        v29 = @"First Weather Forecast Location; not local weather city";
       }
 
       *buf = 138412290;
-      v34 = v30;
+      v33 = v29;
       _os_log_impl(&dword_272ACF000, v12, OS_LOG_TYPE_DEFAULT, "Today View Is Hidden: %@", buf, 0xCu);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)todayModel:(id)model forecastWasUpdated:(id)updated
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   updatedCopy = updated;
   v8 = WALogForCategory(10);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136315650;
-    v21 = "[WALockscreenWidgetViewController todayModel:forecastWasUpdated:]";
-    v22 = 2112;
-    v23 = modelCopy;
-    v24 = 2112;
-    v25 = updatedCopy;
-    _os_log_impl(&dword_272ACF000, v8, OS_LOG_TYPE_DEFAULT, "%s %@ %@", &v20, 0x20u);
+    v19 = 136315650;
+    v20 = "[WALockscreenWidgetViewController todayModel:forecastWasUpdated:]";
+    v21 = 2112;
+    v22 = modelCopy;
+    v23 = 2112;
+    v24 = updatedCopy;
+    _os_log_impl(&dword_272ACF000, v8, OS_LOG_TYPE_DEFAULT, "%s %@ %@", &v19, 0x20u);
   }
 
   v9 = WALogForCategory(10);
@@ -405,11 +490,11 @@ void __52__WALockscreenWidgetViewController__updateTodayView__block_invoke(uint6
     currentForecastModel = [(WALockscreenWidgetViewController *)self currentForecastModel];
     todayModel = [(WALockscreenWidgetViewController *)self todayModel];
     forecastModel = [todayModel forecastModel];
-    v20 = 138412546;
-    v21 = currentForecastModel;
-    v22 = 2112;
-    v23 = forecastModel;
-    _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "current %@ todayModel.forcastModel %@", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = currentForecastModel;
+    v21 = 2112;
+    v22 = forecastModel;
+    _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "current %@ todayModel.forcastModel %@", &v19, 0x16u);
   }
 
   currentForecastModel2 = [(WALockscreenWidgetViewController *)self currentForecastModel];
@@ -421,8 +506,8 @@ void __52__WALockscreenWidgetViewController__updateTodayView__block_invoke(uint6
     v18 = WALogForCategory(10);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_272ACF000, v18, OS_LOG_TYPE_DEFAULT, "Not updating today view since currentForcastModel is equal to todayModel.forcastModel", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_272ACF000, v18, OS_LOG_TYPE_DEFAULT, "Not updating today view since currentForcastModel is equal to todayModel.forcastModel", &v19, 2u);
     }
   }
 
@@ -434,8 +519,6 @@ void __52__WALockscreenWidgetViewController__updateTodayView__block_invoke(uint6
 
     [(WALockscreenWidgetViewController *)self _updateTodayView];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateTimerFired:(id)fired
@@ -673,7 +756,7 @@ uint64_t __48__WALockscreenWidgetViewController__temperature__block_invoke()
       currentForecastModel = [(WALockscreenWidgetViewController *)self currentForecastModel];
       currentConditions = [currentForecastModel currentConditions];
       airQualityConditions = [currentForecastModel airQualityConditions];
-      v22 = WAAirQualityCategoryFromConditions();
+      v22 = WAAirQualityCategoryFromConditions(airQualityConditions);
 
       currentForecastModel2 = [(WALockscreenWidgetViewController *)self currentForecastModel];
       location = [currentForecastModel2 location];
@@ -890,7 +973,7 @@ void __68__WALockscreenWidgetViewController__delegateUpdateDidFailWithError___bl
 - (void)getLocationServicesAuthorizationStatus:(id)status
 {
   statusCopy = status;
-  v4 = __75__WALockscreenWidgetViewController_getLocationServicesAuthorizationStatus___block_invoke();
+  v4 = __75__WALockscreenWidgetViewController_getLocationServicesAuthorizationStatus___block_invoke(statusCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __75__WALockscreenWidgetViewController_getLocationServicesAuthorizationStatus___block_invoke_3;
@@ -900,16 +983,16 @@ void __68__WALockscreenWidgetViewController__delegateUpdateDidFailWithError___bl
   dispatch_async(v4, block);
 }
 
-id __75__WALockscreenWidgetViewController_getLocationServicesAuthorizationStatus___block_invoke()
+id __75__WALockscreenWidgetViewController_getLocationServicesAuthorizationStatus___block_invoke(uint64_t a1)
 {
   if (WALockscreenWidgetDidDisappearNotification_block_invoke_na_once_token_12 != -1)
   {
     __75__WALockscreenWidgetViewController_getLocationServicesAuthorizationStatus___block_invoke_cold_1();
   }
 
-  v1 = WALockscreenWidgetDidDisappearNotification_block_invoke_na_once_object_12;
+  v2 = WALockscreenWidgetDidDisappearNotification_block_invoke_na_once_object_12;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __75__WALockscreenWidgetViewController_getLocationServicesAuthorizationStatus___block_invoke_2()
@@ -942,34 +1025,31 @@ void __75__WALockscreenWidgetViewController_getLocationServicesAuthorizationStat
 
 void __54__WALockscreenWidgetViewController__updateWithReason___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 32);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_272ACF000, log, OS_LOG_TYPE_ERROR, "Update Error: %@ (Update Reason: %@)", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_272ACF000, log, OS_LOG_TYPE_ERROR, "Update Error: %@ (Update Reason: %@)", &v4, 0x16u);
 }
 
 void __54__WALockscreenWidgetViewController__updateWithReason___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_272ACF000, a2, OS_LOG_TYPE_DEBUG, "Update Ignored (not local weather city) (Update Reason: %@)", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_272ACF000, a2, OS_LOG_TYPE_DEBUG, "Update Ignored (not local weather city) (Update Reason: %@)", &v3, 0xCu);
 }
 
 void __54__WALockscreenWidgetViewController__updateWithReason___block_invoke_cold_3(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_272ACF000, a2, OS_LOG_TYPE_DEBUG, "Update Received (Update Reason: %@)", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_272ACF000, a2, OS_LOG_TYPE_DEBUG, "Update Received (Update Reason: %@)", &v3, 0xCu);
 }
 
 @end

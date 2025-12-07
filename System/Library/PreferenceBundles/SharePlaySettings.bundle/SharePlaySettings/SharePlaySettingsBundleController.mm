@@ -124,9 +124,8 @@ LABEL_4:
 {
   v4 = sub_5BA4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin();
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_5C04();
   sub_5BF4();
   sub_5BE4();
@@ -140,25 +139,23 @@ LABEL_4:
   sub_5C14();
 
   LOBYTE(traitCollection) = sub_5B84();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
   return traitCollection & 1;
 }
 
 - (void)handleUserDidTapOnMainSpecifier:(id)specifier parentController:(id)controller
 {
-  v18 = sub_5BA4();
-  v5 = *(v18 - 8);
-  v6 = *(v5 + 64);
+  v15 = sub_5BA4();
+  v5 = *(v15 - 8);
   __chkstk_darwin();
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(*(sub_5C34() - 8) + 64);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_5C34();
   __chkstk_darwin();
-  v10 = sub_5B74();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
+  v8 = sub_5B74();
+  v9 = *(v8 - 8);
   __chkstk_darwin();
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_5C04();
   sub_5BF4();
   sub_5BE4();
@@ -176,8 +173,8 @@ LABEL_4:
   sub_51D8();
   sub_5B94();
 
-  (*(v5 + 8))(v8, v18);
-  (*(v11 + 8))(v14, v10);
+  (*(v5 + 8))(v7, v15);
+  (*(v9 + 8))(v11, v8);
 }
 
 @end

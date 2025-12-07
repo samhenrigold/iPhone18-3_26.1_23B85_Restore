@@ -55,26 +55,24 @@
 
 - (void)systemControllerDied:(id)died
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   diedCopy = died;
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSVolumeMonitor systemControllerDied:]";
-    v9 = 2114;
-    v10 = diedCopy;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSVolumeMonitor systemControllerDied:]";
+    v8 = 2114;
+    v9 = diedCopy;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v6, 0x16u);
   }
 
   [(CSVolumeMonitor *)self startObservingSystemVolumes];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (float)_getNewSystemVolumesWithNotification:(id)notification category:(id)category
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   categoryCopy = category;
   if ([categoryCopy isEqualToString:@"Audio/Video"])
@@ -119,7 +117,7 @@ LABEL_6:
   if (v22 <= 1.0)
   {
     [notificationCopy userInfo];
-    v35 = v5;
+    v34 = v5;
     v23 = notificationCopy;
     v24 = userInfo2;
     v25 = categoryCopy;
@@ -132,7 +130,7 @@ LABEL_6:
     categoryCopy = v25;
     userInfo2 = v24;
     notificationCopy = v23;
-    v5 = v35;
+    v5 = v34;
   }
 
   v18 = v17;
@@ -149,11 +147,11 @@ LABEL_11:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v40 = "[CSVolumeMonitor _getNewSystemVolumesWithNotification:category:]";
-      v41 = 2050;
-      v42 = v11;
-      v43 = 2050;
-      v44 = v17;
+      v39 = "[CSVolumeMonitor _getNewSystemVolumesWithNotification:category:]";
+      v40 = 2050;
+      v41 = v11;
+      v42 = 2050;
+      v43 = v17;
       _os_log_impl(&dword_1DDA4B000, v32, OS_LOG_TYPE_INFO, "%s Receiving fake system volume change: %{public}f -> %{public}f, ignoring...", buf, 0x20u);
     }
 
@@ -162,31 +160,30 @@ LABEL_11:
 
   else
   {
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __65__CSVolumeMonitor__getNewSystemVolumesWithNotification_category___block_invoke;
-    v36[3] = &unk_1E865AC90;
-    v36[4] = self;
-    v38 = v17;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __65__CSVolumeMonitor__getNewSystemVolumesWithNotification_category___block_invoke;
+    v35[3] = &unk_1E865AC90;
+    v35[4] = self;
+    v37 = v17;
     v30 = COERCE_DOUBLE(categoryCopy);
-    v37 = v30;
-    [(CSEventMonitor *)self enumerateObserversInQueue:v36];
+    v36 = v30;
+    [(CSEventMonitor *)self enumerateObserversInQueue:v35];
     v31 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v40 = "[CSVolumeMonitor _getNewSystemVolumesWithNotification:category:]";
-      v41 = 2114;
-      v42 = v30;
-      v43 = 2050;
-      v44 = v11;
-      v45 = 2050;
-      v46 = v17;
+      v39 = "[CSVolumeMonitor _getNewSystemVolumesWithNotification:category:]";
+      v40 = 2114;
+      v41 = v30;
+      v42 = 2050;
+      v43 = v11;
+      v44 = 2050;
+      v45 = v17;
       _os_log_impl(&dword_1DDA4B000, v31, OS_LOG_TYPE_DEFAULT, "%s Observer: system volume for category %{public}@, changed from %{public}f to %{public}f", buf, 0x2Au);
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -206,15 +203,15 @@ LABEL_11:
 
 void __41__CSVolumeMonitor_systemVolumeDidChange___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v12 = MEMORY[0x1E69E9820];
-  v13 = 3221225472;
-  v14 = __41__CSVolumeMonitor_systemVolumeDidChange___block_invoke_2;
-  v15 = &unk_1E865B4E8;
-  v16 = v2;
-  v17 = *(a1 + 40);
-  [v2 enumerateObserversInQueue:&v12];
+  v11 = MEMORY[0x1E69E9820];
+  v12 = 3221225472;
+  v13 = __41__CSVolumeMonitor_systemVolumeDidChange___block_invoke_2;
+  v14 = &unk_1E865B4E8;
+  v15 = v2;
+  v16 = *(a1 + 40);
+  [v2 enumerateObserversInQueue:&v11];
   v3 = [*(a1 + 40) userInfo];
   v4 = [v3 objectForKey:*MEMORY[0x1E69AEA00]];
 
@@ -229,9 +226,9 @@ void __41__CSVolumeMonitor_systemVolumeDidChange___block_invoke(uint64_t a1)
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v19 = "[CSVolumeMonitor systemVolumeDidChange:]_block_invoke";
-        v20 = 2114;
-        v21 = v4;
+        v18 = "[CSVolumeMonitor systemVolumeDidChange:]_block_invoke";
+        v19 = 2114;
+        v20 = v4;
         _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Observer: received system volume change for audioCategory %{public}@", buf, 0x16u);
       }
 
@@ -251,9 +248,9 @@ LABEL_11:
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v19 = "[CSVolumeMonitor systemVolumeDidChange:]_block_invoke";
-        v20 = 2114;
-        v21 = v4;
+        v18 = "[CSVolumeMonitor systemVolumeDidChange:]_block_invoke";
+        v19 = 2114;
+        v20 = v4;
         _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Observer: received system volume change for audioCategory %{public}@", buf, 0x16u);
       }
 
@@ -266,8 +263,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __41__CSVolumeMonitor_systemVolumeDidChange___block_invoke_2(uint64_t a1, void *a2)
@@ -281,7 +276,7 @@ void __41__CSVolumeMonitor_systemVolumeDidChange___block_invoke_2(uint64_t a1, v
 
 - (BOOL)_fetchSystemVolumeForCategory:(id)category usingSystemController:(id)controller volume:(float *)volume
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   controllerCopy = controller;
   v10 = controllerCopy;
@@ -302,9 +297,9 @@ void __41__CSVolumeMonitor_systemVolumeDidChange___block_invoke_2(uint64_t a1, v
     v14 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315138;
-      v18 = "[CSVolumeMonitor _fetchSystemVolumeForCategory:usingSystemController:volume:]";
-      _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s Fetching system volume on wrong device.", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[CSVolumeMonitor _fetchSystemVolumeForCategory:usingSystemController:volume:]";
+      _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s Fetching system volume on wrong device.", &v16, 0xCu);
     }
 
     goto LABEL_11;
@@ -321,19 +316,18 @@ LABEL_11:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v13 = *volume;
-    v17 = 136315650;
-    v18 = "[CSVolumeMonitor _fetchSystemVolumeForCategory:usingSystemController:volume:]";
-    v19 = 2114;
-    v20 = categoryCopy;
-    v21 = 2050;
-    v22 = v13;
-    _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s Fetched system volume for %{public}@ as %{public}f.", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "[CSVolumeMonitor _fetchSystemVolumeForCategory:usingSystemController:volume:]";
+    v18 = 2114;
+    v19 = categoryCopy;
+    v20 = 2050;
+    v21 = v13;
+    _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s Fetched system volume for %{public}@ as %{public}f.", &v16, 0x20u);
   }
 
   v11 = 1;
 LABEL_12:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -353,16 +347,16 @@ LABEL_12:
 
 void __69__CSVolumeMonitor_fetchVolumeFromAVSystemControllerForAudioCategory___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[CSVolumeMonitor fetchVolumeFromAVSystemControllerForAudioCategory:]_block_invoke";
+    v16 = "[CSVolumeMonitor fetchVolumeFromAVSystemControllerForAudioCategory:]_block_invoke";
     _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v15 = 1056964608;
+  v14 = 1056964608;
   v3 = [MEMORY[0x1E69AED08] sharedAVSystemController];
   v4 = [v3 attributeForKey:*MEMORY[0x1E69AEA98]];
   v5 = [v4 BOOLValue];
@@ -373,12 +367,12 @@ void __69__CSVolumeMonitor_fetchVolumeFromAVSystemControllerForAudioCategory___b
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[CSVolumeMonitor fetchVolumeFromAVSystemControllerForAudioCategory:]_block_invoke";
+      v16 = "[CSVolumeMonitor fetchVolumeFromAVSystemControllerForAudioCategory:]_block_invoke";
       _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s System is now muted, fetching volume as 0...", buf, 0xCu);
     }
 
     v7 = 0;
-    v15 = 0;
+    v14 = 0;
   }
 
   else
@@ -387,16 +381,16 @@ void __69__CSVolumeMonitor_fetchVolumeFromAVSystemControllerForAudioCategory___b
     if (v8)
     {
       v7 = v8;
-      if (([*(a1 + 40) _fetchSystemVolumeForCategory:v8 usingSystemController:v3 volume:&v15] & 1) == 0)
+      if (([*(a1 + 40) _fetchSystemVolumeForCategory:v8 usingSystemController:v3 volume:&v14] & 1) == 0)
       {
         v9 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
           v10 = *(a1 + 32);
           *buf = 136315394;
-          v17 = "[CSVolumeMonitor fetchVolumeFromAVSystemControllerForAudioCategory:]_block_invoke";
-          v18 = 2114;
-          v19 = v10;
+          v16 = "[CSVolumeMonitor fetchVolumeFromAVSystemControllerForAudioCategory:]_block_invoke";
+          v17 = 2114;
+          v18 = v10;
           _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s Unable to get the system volume for audio category %{public}@", buf, 0x16u);
         }
       }
@@ -407,11 +401,11 @@ void __69__CSVolumeMonitor_fetchVolumeFromAVSystemControllerForAudioCategory___b
       v11 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(a1 + 32);
+        v13 = *(a1 + 32);
         *buf = 136315394;
-        v17 = "[CSVolumeMonitor fetchVolumeFromAVSystemControllerForAudioCategory:]_block_invoke";
-        v18 = 2114;
-        v19 = v14;
+        v16 = "[CSVolumeMonitor fetchVolumeFromAVSystemControllerForAudioCategory:]_block_invoke";
+        v17 = 2114;
+        v18 = v13;
         _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s Unable to get the volume category for audio category '%{public}@'", buf, 0x16u);
       }
 
@@ -423,7 +417,7 @@ void __69__CSVolumeMonitor_fetchVolumeFromAVSystemControllerForAudioCategory___b
   {
     v12 = &OBJC_IVAR___CSVolumeMonitor__musicVolumeLevel;
 LABEL_18:
-    *(*(a1 + 40) + *v12) = v15;
+    *(*(a1 + 40) + *v12) = v14;
     goto LABEL_19;
   }
 
@@ -434,8 +428,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (float)alarmVolume
@@ -545,32 +537,29 @@ float __30__CSVolumeMonitor_musicVolume__block_invoke(uint64_t a1)
 
 - (void)_stopMonitoring
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSVolumeMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSVolumeMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSVolumeMonitor _startMonitoringWithQueue:]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSVolumeMonitor _startMonitoringWithQueue:]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
   }
 
   [(CSVolumeMonitor *)self _startObservingSystemControllerLifecycle];
   [(CSVolumeMonitor *)self startObservingSystemVolumes];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (CSVolumeMonitor)init
@@ -613,9 +602,11 @@ float __30__CSVolumeMonitor_musicVolume__block_invoke(uint64_t a1)
 
 uint64_t __33__CSVolumeMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_4921 = objc_alloc_init(CSVolumeMonitor);
+  v0 = objc_alloc_init(CSVolumeMonitor);
+  v1 = sharedInstance__sharedInstance_4921;
+  sharedInstance__sharedInstance_4921 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

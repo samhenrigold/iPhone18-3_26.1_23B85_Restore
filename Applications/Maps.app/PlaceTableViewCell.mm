@@ -36,21 +36,21 @@
 {
   if (query)
   {
-    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = v10;
+    v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v12 = v11;
   }
 
   else
   {
-    v9 = 0;
-    v11 = 0;
+    v10 = 0;
+    v12 = 0;
   }
 
   templateCopy = template;
   managerCopy = manager;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100161FEC(template, v9, v11, manager);
+  sub_100161FEC(template, v10, v12, manager, delegate);
 
   swift_unknownObjectRelease();
 }
@@ -71,7 +71,7 @@
   selfCopy = self;
   [v10 setFrameStallSkipRequest:1];
   v20.receiver = selfCopy;
-  v20.super_class = type metadata accessor for PlaceTableViewCell();
+  v20.super_class = type metadata accessor for PlaceTableViewCell(0);
   *&v12 = priority;
   *&v13 = fittingPriority;
   [(PlaceTableViewCell *)&v20 systemLayoutSizeFittingSize:width withHorizontalFittingPriority:height verticalFittingPriority:v12, v13];
@@ -115,7 +115,7 @@
 {
   aCopy = a;
   selfCopy = self;
-  sub_10016A78C();
+  sub_10016A78C(aCopy);
 }
 
 - (void)updateViewModelWithAddStopWithTemplate:(id)template

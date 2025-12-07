@@ -3,7 +3,7 @@
 
 @implementation UIApplication
 
-uint64_t __84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilityPerformMagicTap__block_invoke(uint64_t a1)
+void *__84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilityPerformMagicTap__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) pauseLapTimer];
   result = +[AXMobileTimerGlue playStopSound];
@@ -11,7 +11,7 @@ uint64_t __84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilit
   return result;
 }
 
-uint64_t __84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilityPerformMagicTap__block_invoke_2(uint64_t a1)
+void *__84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilityPerformMagicTap__block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) startLapTimer];
   result = +[AXMobileTimerGlue playStartSound];
@@ -19,7 +19,7 @@ uint64_t __84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilit
   return result;
 }
 
-uint64_t __84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilityPerformMagicTap__block_invoke_3(uint64_t a1)
+void *__84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilityPerformMagicTap__block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) resumeLapTimer];
   result = +[AXMobileTimerGlue playStartSound];
@@ -29,25 +29,24 @@ uint64_t __84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilit
 
 void __84__UIApplication_MobileTimerUIApplicationAccessibility__accessibilityPerformMagicTap__block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   MEMORY[0x29C2E1AE0](@"MTATimerViewController");
   if (objc_opt_isKindOfClass())
   {
-    v3 = [*(a1 + 32) safeValueForKey:@"timerManager"];
-    v4 = [v3 safeValueForKey:@"getCurrentTimerSync"];
-    v5 = [v4 safeValueForKey:@"state"];
-    v6 = [v5 integerValue];
+    v2 = [*(a1 + 32) safeValueForKey:@"timerManager"];
+    v3 = [v2 safeValueForKey:@"getCurrentTimerSync"];
+    v4 = [v3 safeValueForKey:@"state"];
+    v5 = [v4 integerValue];
 
-    if (v6 == 1)
+    if (v5 == 1)
     {
       [*(a1 + 32) startTimer:0];
     }
 
     else
     {
-      if (v6 != 2)
+      if (v5 != 2)
       {
-        if (v6 == 3)
+        if (v5 == 3)
         {
           [*(a1 + 32) pauseResumeTimer:0];
           +[AXMobileTimerGlue playStopSound];

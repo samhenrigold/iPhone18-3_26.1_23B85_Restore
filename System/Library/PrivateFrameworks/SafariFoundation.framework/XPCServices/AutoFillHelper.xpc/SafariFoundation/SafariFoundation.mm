@@ -16,7 +16,7 @@ void sub_10000110C(void *a1, char a2, void *a3)
   }
 }
 
-uint64_t sub_1000013FC()
+uint64_t sub_1000013FC(uint64_t a1, uint64_t a2)
 {
   if (qword_100008678 != -1)
   {

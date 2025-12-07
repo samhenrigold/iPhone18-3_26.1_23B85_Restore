@@ -115,7 +115,7 @@
   {
     if (self->_invalidated)
     {
-      v3 = SBLogContinuitySession();
+      v3 = SBLogContinuitySession(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         [SBContinuityDisplayLayoutPublisher currentLayout];
@@ -132,7 +132,7 @@
 
   else
   {
-    v5 = SBLogContinuitySession();
+    v5 = SBLogContinuitySession(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [SBContinuityDisplayLayoutPublisher currentLayout];
@@ -151,7 +151,7 @@
   {
     if (self->_invalidated)
     {
-      v5 = SBLogContinuitySession();
+      v5 = SBLogContinuitySession(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = BSInterfaceOrientationDescription();
@@ -171,7 +171,7 @@
 
   else
   {
-    v7 = SBLogContinuitySession();
+    v7 = SBLogContinuitySession(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = BSInterfaceOrientationDescription();
@@ -211,7 +211,7 @@
   {
     if (self->_invalidated)
     {
-      v5 = SBLogContinuitySession();
+      v5 = SBLogContinuitySession(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v8 = 134217984;
@@ -230,7 +230,7 @@
 
   else
   {
-    v6 = SBLogContinuitySession();
+    v6 = SBLogContinuitySession(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 134217984;
@@ -275,7 +275,7 @@
 
 - (id)addElement:(id)element
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   v5 = MEMORY[0x277CCACA8];
   v6 = objc_opt_class();
@@ -286,67 +286,67 @@
   if (self->_activated)
   {
     invalidated = self->_invalidated;
-    v11 = SBLogContinuitySession();
-    v12 = v11;
+    v12 = SBLogContinuitySession(v10);
+    v13 = v12;
     if (invalidated)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v24 = elementCopy;
-        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Failed to add element %{public}@ to display layout publisher because it is invalid", buf, 0xCu);
+        v25 = elementCopy;
+        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Failed to add element %{public}@ to display layout publisher because it is invalid", buf, 0xCu);
       }
 
-      v13 = [objc_alloc(MEMORY[0x277CF0CE8]) initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.add-element" forReason:v9 invalidationBlock:&__block_literal_global_338];
+      v14 = [objc_alloc(MEMORY[0x277CF0CE8]) initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.add-element" forReason:v9 invalidationBlock:&__block_literal_global_338];
     }
 
     else
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [SBContinuityDisplayLayoutPublisher addElement:];
       }
 
-      v16 = [(FBSDisplayLayoutPublisher *)self->_rootPublisher addElement:elementCopy];
-      [(NSMutableDictionary *)self->_activeElements setObject:v16 forKey:v9];
-      v17 = objc_alloc(MEMORY[0x277CF0CE8]);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __49__SBContinuityDisplayLayoutPublisher_addElement___block_invoke_25;
-      v19[3] = &unk_2783B18A8;
-      v19[4] = self;
-      v20 = v9;
-      v13 = [v17 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.add-element" forReason:v20 invalidationBlock:v19];
+      v17 = [(FBSDisplayLayoutPublisher *)self->_rootPublisher addElement:elementCopy];
+      [(NSMutableDictionary *)self->_activeElements setObject:v17 forKey:v9];
+      v18 = objc_alloc(MEMORY[0x277CF0CE8]);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __49__SBContinuityDisplayLayoutPublisher_addElement___block_invoke_25;
+      v20[3] = &unk_2783B18A8;
+      v20[4] = self;
+      v21 = v9;
+      v14 = [v18 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.add-element" forReason:v21 invalidationBlock:v20];
     }
   }
 
   else
   {
-    v14 = SBLogContinuitySession();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogContinuitySession(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = elementCopy;
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Pending activation of layout element %{public}@ to display layout publisher because the layout monitor is not activated yet", buf, 0xCu);
+      v25 = elementCopy;
+      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Pending activation of layout element %{public}@ to display layout publisher because the layout monitor is not activated yet", buf, 0xCu);
     }
 
     [(NSMutableDictionary *)self->_elementsPendingActivation setObject:elementCopy forKey:v9];
-    v15 = objc_alloc(MEMORY[0x277CF0CE8]);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __49__SBContinuityDisplayLayoutPublisher_addElement___block_invoke;
-    v21[3] = &unk_2783B18A8;
-    v21[4] = self;
-    v22 = v9;
-    v13 = [v15 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.add-element" forReason:v22 invalidationBlock:v21];
+    v16 = objc_alloc(MEMORY[0x277CF0CE8]);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __49__SBContinuityDisplayLayoutPublisher_addElement___block_invoke;
+    v22[3] = &unk_2783B18A8;
+    v22[4] = self;
+    v23 = v9;
+    v14 = [v16 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.add-element" forReason:v23 invalidationBlock:v22];
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)transitionAssertionWithReason:(id)reason
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   uUID = [MEMORY[0x277CCAD78] UUID];
   v6 = MEMORY[0x277CCACA8];
@@ -364,58 +364,58 @@
   {
     if (self->_invalidated)
     {
-      v11 = SBLogContinuitySession();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = SBLogContinuitySession(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v27 = reasonCopy;
-        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Failed to start transition with reason %{public}@ for display layout publisher because it is invalid", buf, 0xCu);
+        v28 = reasonCopy;
+        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Failed to start transition with reason %{public}@ for display layout publisher because it is invalid", buf, 0xCu);
       }
 
-      v12 = objc_alloc(MEMORY[0x277CF0CE8]);
+      v13 = objc_alloc(MEMORY[0x277CF0CE8]);
       if (reasonCopy)
       {
-        v13 = reasonCopy;
+        v14 = reasonCopy;
       }
 
       else
       {
-        v13 = @"<nil>";
+        v14 = @"<nil>";
       }
 
-      v14 = [v12 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.transition" forReason:v13 invalidationBlock:&__block_literal_global_41_3];
+      v15 = [v13 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.transition" forReason:v14 invalidationBlock:&__block_literal_global_41_3];
     }
 
     else
     {
-      v18 = [(FBSDisplayLayoutPublisher *)self->_rootPublisher transitionAssertionWithReason:reasonCopy];
-      [(NSMutableDictionary *)self->_activeTransitions setObject:v18 forKey:v10];
-      v19 = objc_alloc(MEMORY[0x277CF0CE8]);
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __68__SBContinuityDisplayLayoutPublisher_transitionAssertionWithReason___block_invoke_2;
-      v22[3] = &unk_2783B18A8;
-      v22[4] = self;
-      v23 = v10;
-      v14 = [v19 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.transition" forReason:v23 invalidationBlock:v22];
+      v19 = [(FBSDisplayLayoutPublisher *)self->_rootPublisher transitionAssertionWithReason:reasonCopy];
+      [(NSMutableDictionary *)self->_activeTransitions setObject:v19 forKey:v10];
+      v20 = objc_alloc(MEMORY[0x277CF0CE8]);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __68__SBContinuityDisplayLayoutPublisher_transitionAssertionWithReason___block_invoke_2;
+      v23[3] = &unk_2783B18A8;
+      v23[4] = self;
+      v24 = v10;
+      v15 = [v20 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.transition" forReason:v24 invalidationBlock:v23];
     }
   }
 
   else
   {
-    v15 = SBLogContinuitySession();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = SBLogContinuitySession(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Pending transition with reason %{public}@ to display layout publisher because the layout monitor is not activated yet", buf, 0xCu);
+      v28 = reasonCopy;
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Pending transition with reason %{public}@ to display layout publisher because the layout monitor is not activated yet", buf, 0xCu);
     }
 
     transitionsPendingActivation = self->_transitionsPendingActivation;
     if (reasonCopy)
     {
-      v17 = [(__CFString *)reasonCopy copy];
-      [(NSMutableDictionary *)transitionsPendingActivation setObject:v17 forKey:v10];
+      v18 = [(__CFString *)reasonCopy copy];
+      [(NSMutableDictionary *)transitionsPendingActivation setObject:v18 forKey:v10];
     }
 
     else
@@ -423,17 +423,17 @@
       [(NSMutableDictionary *)self->_transitionsPendingActivation setObject:@"__SBContinuityDisplayLayoutPublisherUnknownTransitionReason__" forKey:v10];
     }
 
-    v20 = objc_alloc(MEMORY[0x277CF0CE8]);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __68__SBContinuityDisplayLayoutPublisher_transitionAssertionWithReason___block_invoke;
-    v24[3] = &unk_2783B18A8;
-    v24[4] = self;
-    v25 = v10;
-    v14 = [v20 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.transition" forReason:v25 invalidationBlock:v24];
+    v21 = objc_alloc(MEMORY[0x277CF0CE8]);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __68__SBContinuityDisplayLayoutPublisher_transitionAssertionWithReason___block_invoke;
+    v25[3] = &unk_2783B18A8;
+    v25[4] = self;
+    v26 = v10;
+    v15 = [v21 initWithIdentifier:@"com.apple.springBoard.continuity.layout.publisher.transition" forReason:v26 invalidationBlock:v25];
   }
 
-  return v14;
+  return v15;
 }
 
 - (void)flush
@@ -448,7 +448,7 @@
 
   else
   {
-    v3 = SBLogContinuitySession();
+    v3 = SBLogContinuitySession(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       if (self->_invalidated)
@@ -588,18 +588,19 @@
   keyCopy = key;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v5 = [(NSMutableDictionary *)self->_elementsPendingActivation objectForKey:keyCopy];
+  v6 = v5;
   if (v5)
   {
-    v6 = SBLogContinuitySession();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SBLogContinuitySession(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [SBContinuityDisplayLayoutPublisher _removeElementForKey:];
     }
   }
 
   [(NSMutableDictionary *)self->_elementsPendingActivation removeObjectForKey:keyCopy];
-  v7 = [(NSMutableDictionary *)self->_activeElements objectForKey:keyCopy];
-  [v7 invalidate];
+  v8 = [(NSMutableDictionary *)self->_activeElements objectForKey:keyCopy];
+  [v8 invalidate];
   [(NSMutableDictionary *)self->_activeElements removeObjectForKey:keyCopy];
 }
 
@@ -608,18 +609,19 @@
   keyCopy = key;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v5 = [(NSMutableDictionary *)self->_transitionsPendingActivation objectForKey:keyCopy];
+  v6 = v5;
   if (v5)
   {
-    v6 = SBLogContinuitySession();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SBLogContinuitySession(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(SBContinuityDisplayLayoutPublisher *)v5 _removeTransitionForKey:v6];
+      [(SBContinuityDisplayLayoutPublisher *)v6 _removeTransitionForKey:v7];
     }
   }
 
   [(NSMutableDictionary *)self->_transitionsPendingActivation removeObjectForKey:keyCopy];
-  v7 = [(NSMutableDictionary *)self->_activeTransitions objectForKey:keyCopy];
-  [v7 invalidate];
+  v8 = [(NSMutableDictionary *)self->_activeTransitions objectForKey:keyCopy];
+  [v8 invalidate];
   [(NSMutableDictionary *)self->_activeTransitions removeObjectForKey:keyCopy];
 }
 

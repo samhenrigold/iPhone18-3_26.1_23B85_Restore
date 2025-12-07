@@ -22,7 +22,7 @@
   return v2;
 }
 
-uint64_t __39__MICapabilitiesManager_defaultManager__block_invoke()
+uint64_t __39__MICapabilitiesManager_defaultManager__block_invoke(uint64_t a1)
 {
   defaultManager_defaultManager_0 = objc_alloc_init(objc_opt_class());
 

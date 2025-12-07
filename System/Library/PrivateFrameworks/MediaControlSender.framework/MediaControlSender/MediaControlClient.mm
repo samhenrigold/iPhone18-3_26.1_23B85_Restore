@@ -48,7 +48,7 @@ void __71__MediaControlClient_setSlideshowInfo_completionQueue_completionBlock__
     v18 = 0;
     v10 = 0;
     Data = 0;
-    v14 = -6745;
+    v14 = 4294960551;
     goto LABEL_16;
   }
 
@@ -64,7 +64,7 @@ LABEL_39:
     goto LABEL_15;
   }
 
-  v6 = _MediaControlClient_EnsureReverseConnected(v2, (v2 + 563288));
+  v6 = _MediaControlClient_EnsureReverseConnected(v2, (v2 + 563288), "slideshow");
   if (v6)
   {
     v14 = v6;
@@ -82,7 +82,7 @@ LABEL_39:
       *(v2 + 844732) = 0u;
       if (gLogCategory_MediaControlClientCore <= 50 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_MediaControlClientCore, "void _MediaControlClient_LogSlideshowStarted(MediaControlClientRef, CFDictionaryRef)", 50, "AirPlay Slideshow session started: %#U\n", v2 + 844704);
       }
     }
 
@@ -101,10 +101,10 @@ LABEL_39:
   if (Data)
   {
     HTTPHeader_InitRequest();
-    HTTPHeader_SetField();
+    HTTPHeader_SetField(v2 + 496, "Content-Type", "text/x-apple-plist+xml");
     BytePtr = CFDataGetBytePtr(Data);
     Length = CFDataGetLength(Data);
-    v14 = _MediaControlClient_DoTransaction(0x32u, v2, v2 + 416, BytePtr, Length);
+    v14 = _MediaControlClient_DoTransaction(50, v2, v2 + 416, BytePtr, Length);
     CFRelease(Data);
     if (v14)
     {
@@ -132,14 +132,14 @@ LABEL_15:
 
         APSLogErrorAt();
         v18 = 0;
-        v14 = -6756;
+        v14 = 4294960540;
       }
 
       else
       {
         APSLogErrorAt();
         v18 = 0;
-        v14 = -6717;
+        v14 = 4294960579;
       }
     }
 
@@ -148,7 +148,7 @@ LABEL_15:
       APSLogErrorAt();
       v18 = 0;
       Data = 0;
-      v14 = -6728;
+      v14 = 4294960568;
     }
   }
 
@@ -156,7 +156,7 @@ LABEL_15:
   {
     APSLogErrorAt();
     v18 = 0;
-    v14 = -6700;
+    v14 = 4294960596;
   }
 
 LABEL_16:
@@ -180,7 +180,7 @@ LABEL_16:
 
     if (gLogCategory_MediaControlClientCore <= 60 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_MediaControlClientCore, "OSStatus MediaControlClient_SetSlideshowInfo(MediaControlClientRef, CFDictionaryRef, CFDictionaryRef *)", 60, "### Set slideshow info failed: %#m\n", v14);
     }
   }
 
@@ -251,7 +251,7 @@ LABEL_22:
   }
 
   HTTPHeader_InitRequest();
-  v5 = _MediaControlClient_DoTransaction(0x32u, v2, v2 + 416, 0, 0);
+  v5 = _MediaControlClient_DoTransaction(50, v2, v2 + 416, 0, 0);
   if (v5)
   {
     v10 = v5;
@@ -278,14 +278,14 @@ LABEL_7:
 
       APSLogErrorAt();
       v11 = 0;
-      v10 = -6756;
+      v10 = 4294960540;
     }
 
     else
     {
       APSLogErrorAt();
       v11 = 0;
-      v10 = -6717;
+      v10 = 4294960579;
     }
   }
 
@@ -294,7 +294,7 @@ LABEL_7:
     APSLogErrorAt();
     v11 = 0;
     v8 = 0;
-    v10 = -6728;
+    v10 = 4294960568;
   }
 
 LABEL_8:
@@ -312,7 +312,7 @@ LABEL_8:
 
   if (v10 && gLogCategory_MediaControlClientCore <= 60 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_MediaControlClientCore, "OSStatus MediaControlClient_CopySlideshowInfo(MediaControlClientRef, CFDictionaryRef *)", 60, "### Get slideshow info failed: %#m\n", v10);
   }
 
   v13 = *(a1 + 40);
@@ -395,10 +395,10 @@ LABEL_29:
   HTTPHeader_InitRequest();
   if (v3 && *v3)
   {
-    HTTPHeader_SetField();
+    HTTPHeader_SetField(v4 + 496, "Accept-Language", "%s", v3);
   }
 
-  v7 = _MediaControlClient_DoTransaction(0x32u, v4, v4 + 416, 0, 0);
+  v7 = _MediaControlClient_DoTransaction(50, v4, v4 + 416, 0, 0);
   if (v7)
   {
     v12 = v7;
@@ -425,14 +425,14 @@ LABEL_14:
 
       APSLogErrorAt();
       v13 = 0;
-      v12 = -6756;
+      v12 = 4294960540;
     }
 
     else
     {
       APSLogErrorAt();
       v13 = 0;
-      v12 = -6717;
+      v12 = 4294960579;
     }
   }
 
@@ -441,7 +441,7 @@ LABEL_14:
     APSLogErrorAt();
     v13 = 0;
     v10 = 0;
-    v12 = -6728;
+    v12 = 4294960568;
   }
 
 LABEL_15:
@@ -459,7 +459,7 @@ LABEL_15:
 
   if (v12 && gLogCategory_MediaControlClientCore <= 60 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_MediaControlClientCore, "OSStatus MediaControlClient_CopySlideshowFeatures(MediaControlClientRef, const char *, CFDictionaryRef *)", 60, "### Get slideshow features failed: %#m\n", v12);
   }
 
   v15 = *(a1 + 40);
@@ -519,7 +519,7 @@ void __86__MediaControlClient_getSlideshowFeaturesWithOptions_completionQueue_co
 
 void __82__MediaControlClient_setProperty_qualifier_value_completionQueue_completionBlock___block_invoke(uint64_t a1)
 {
-  v2 = MediaControlClient_SetProperty(*(*(a1 + 32) + 16));
+  v2 = MediaControlClient_SetProperty(*(*(a1 + 32) + 16), *(a1 + 40), *(a1 + 48), *(a1 + 56));
   v3 = *(a1 + 64);
   if (v3)
   {
@@ -642,7 +642,7 @@ void __76__MediaControlClient_sendPhotoData_options_completionQueue_completionBl
     *(v2 + 563268) = 0u;
     if (gLogCategory_MediaControlClientCore <= 50 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_MediaControlClientCore, "void _MediaControlClient_LogPhotoStarted(MediaControlClientRef)", 50, "AirPlay Photo session started: %#U\n", v2 + 563240);
     }
   }
 
@@ -668,16 +668,16 @@ void __76__MediaControlClient_sendPhotoData_options_completionQueue_completionBl
     if (v11 != CFStringGetTypeID())
     {
       APSLogErrorAt();
-      if (gLogCategory_MediaControlClientCore > 90 || gLogCategory_MediaControlClientCore == -1 && !_LogCategory_Initialize())
+      if (gLogCategory_MediaControlClientCore <= 90 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_63;
+        LogPrintF(&gLogCategory_MediaControlClientCore, "OSStatus MediaControlClient_SendPhotoData(MediaControlClientRef, const void *, size_t, CFDictionaryRef)", 90, "### AssetAction must be a string:\n%1@\n", v10);
       }
 
-      goto LABEL_56;
+      goto LABEL_63;
     }
 
     v12 = CFEqual(v10, @"displayCached") == 0;
-    HTTPHeader_SetField();
+    HTTPHeader_SetField(v2 + 496, "X-Apple-AssetAction", "%@", v10);
     v8 = v2 + 279600;
   }
 
@@ -689,56 +689,55 @@ void __76__MediaControlClient_sendPhotoData_options_completionQueue_completionBl
   v13 = CFDictionaryGetValue(v5, @"assetKey");
   if (v13)
   {
-    v14 = CFGetTypeID(v13);
-    if (v14 == CFStringGetTypeID())
+    v14 = v13;
+    v15 = CFGetTypeID(v13);
+    if (v15 == CFStringGetTypeID())
     {
-      HTTPHeader_SetField();
+      HTTPHeader_SetField(v2 + 496, "X-Apple-AssetKey", "%@", v14);
       v8 = v2 + 279600;
       goto LABEL_16;
     }
 
     APSLogErrorAt();
     v7 = &unk_27F953000;
-    if (gLogCategory_MediaControlClientCore > 90 || gLogCategory_MediaControlClientCore == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_MediaControlClientCore <= 90 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
     {
-LABEL_63:
-      v6 = -6705;
-      v8 = v2 + 279600;
-      goto LABEL_40;
+      LogPrintF(&gLogCategory_MediaControlClientCore, "OSStatus MediaControlClient_SendPhotoData(MediaControlClientRef, const void *, size_t, CFDictionaryRef)", 90, "### AssetKey must be a string:\n%1@\n", v14);
     }
 
-LABEL_56:
-    LogPrintF();
-    goto LABEL_63;
+LABEL_63:
+    v6 = 4294960591;
+    v8 = v2 + 279600;
+    goto LABEL_40;
   }
 
 LABEL_16:
   if (*(v8 + 2180))
   {
-    HTTPHeader_SetField();
+    HTTPHeader_SetField(v2 + 496, "X-Apple-OverscanMode", "%s", (v8 + 2180));
   }
 
-  v15 = CFDictionaryGetValue(v5, @"Transition");
-  if (!v15)
+  v16 = CFDictionaryGetValue(v5, @"Transition");
+  if (!v16)
   {
 LABEL_21:
     Current = CFAbsoluteTimeGetCurrent();
-    v18 = _MediaControlClient_DoTransaction(0x32u, v2, v2 + 416, v3, v4);
-    if (v18)
+    v20 = _MediaControlClient_DoTransaction(50, v2, v2 + 416, v3, v4);
+    if (v20)
     {
-      v6 = v18;
+      v6 = v20;
     }
 
     else
     {
-      v19 = CFAbsoluteTimeGetCurrent();
+      v21 = CFAbsoluteTimeGetCurrent();
       if (v12)
       {
-        if (v4 && (v20 = v19 - Current, v20 > 0.0))
+        if (v4 && (v22 = v21 - Current, v22 > 0.0))
         {
-          v21 = vcvtd_n_u64_f64(v4 / v20, 3uLL);
-          v22 = *(v2 + 563268);
-          if (v22)
+          v23 = vcvtd_n_u64_f64(v4 / v22, 3uLL);
+          v24 = *(v2 + 563268);
+          if (v24)
           {
             v7 = &unk_27F953000;
             if (v4 < *(v2 + 563272))
@@ -751,14 +750,14 @@ LABEL_21:
               *(v2 + 563276) = v4;
             }
 
-            if (*(v2 + 563280) > v21)
+            if (*(v2 + 563280) > v23)
             {
-              *(v2 + 563280) = v21;
+              *(v2 + 563280) = v23;
             }
 
-            if (*(v2 + 563284) < v21)
+            if (*(v2 + 563284) < v23)
             {
-              *(v2 + 563284) = v21;
+              *(v2 + 563284) = v23;
             }
 
             goto LABEL_39;
@@ -766,19 +765,19 @@ LABEL_21:
 
           *(v2 + 563272) = v4;
           *(v2 + 563276) = v4;
-          *(v2 + 563280) = v21;
-          *(v2 + 563284) = v21;
+          *(v2 + 563280) = v23;
+          *(v2 + 563284) = v23;
         }
 
         else
         {
-          v22 = *(v2 + 563268);
+          v24 = *(v2 + 563268);
         }
 
         v7 = &unk_27F953000;
 LABEL_39:
         v6 = 0;
-        *(v2 + 563268) = v22 + 1;
+        *(v2 + 563268) = v24 + 1;
         goto LABEL_40;
       }
 
@@ -789,10 +788,11 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v16 = CFGetTypeID(v15);
-  if (v16 == CFStringGetTypeID())
+  v17 = v16;
+  v18 = CFGetTypeID(v16);
+  if (v18 == CFStringGetTypeID())
   {
-    HTTPHeader_SetField();
+    HTTPHeader_SetField(v2 + 496, "X-Apple-Transition", "%@", v17);
     goto LABEL_21;
   }
 
@@ -800,10 +800,10 @@ LABEL_39:
   v7 = &unk_27F953000;
   if (gLogCategory_MediaControlClientCore <= 90 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_MediaControlClientCore, "OSStatus MediaControlClient_SendPhotoData(MediaControlClientRef, const void *, size_t, CFDictionaryRef)", 90, "### Transition name must be a string:\n%1@\n", v17);
   }
 
-  v6 = -6705;
+  v6 = 4294960591;
 LABEL_40:
   if (*v8)
   {
@@ -813,23 +813,23 @@ LABEL_40:
 
   if (v6)
   {
-    v23 = v7[346];
-    if (v23 <= 60 && (v23 != -1 || _LogCategory_Initialize()))
+    v25 = v7[346];
+    if (v25 <= 60 && (v25 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_MediaControlClientCore, "OSStatus MediaControlClient_SendPhotoData(MediaControlClientRef, const void *, size_t, CFDictionaryRef)", 60, "### Send photo data failed: %#m\n", v6);
     }
   }
 
-  v24 = *(a1 + 56);
-  if (v24)
+  v26 = *(a1 + 56);
+  if (v26)
   {
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __76__MediaControlClient_sendPhotoData_options_completionQueue_completionBlock___block_invoke_2;
     block[3] = &unk_27989A8E8;
-    v26 = v6;
+    v28 = v6;
     block[4] = *(a1 + 64);
-    dispatch_async(v24, block);
+    dispatch_async(v26, block);
     dispatch_release(*(a1 + 56));
   }
 }
@@ -906,15 +906,15 @@ void __72__MediaControlClient_startPresentation_completionQueue_completionBlock_
   {
     APSLogErrorAt();
     v12 = 0;
-    v9 = -6700;
+    v9 = 4294960596;
     goto LABEL_13;
   }
 
   HTTPHeader_InitRequest();
-  HTTPHeader_SetField();
+  HTTPHeader_SetField(v3 + 496, "Content-Type", "application/x-apple-binary-plist");
   BytePtr = CFDataGetBytePtr(Mutable);
   Length = CFDataGetLength(Mutable);
-  v9 = _MediaControlClient_DoTransaction(0x32u, v3, v3 + 416, BytePtr, Length);
+  v9 = _MediaControlClient_DoTransaction(50, v3, v3 + 416, BytePtr, Length);
   CFRelease(Mutable);
   if (v9)
   {
@@ -931,7 +931,7 @@ LABEL_12:
     Mutable = 0;
 LABEL_35:
     v12 = 0;
-    v9 = -6728;
+    v9 = 4294960568;
     goto LABEL_13;
   }
 
@@ -950,14 +950,14 @@ LABEL_35:
 
     APSLogErrorAt();
     Mutable = 0;
-    v9 = -6756;
+    v9 = 4294960540;
   }
 
   else
   {
     APSLogErrorAt();
     Mutable = 0;
-    v9 = -6717;
+    v9 = 4294960579;
   }
 
 LABEL_13:
@@ -980,7 +980,7 @@ LABEL_13:
 
   if (v9 && gLogCategory_MediaControlClientCore <= 60 && (gLogCategory_MediaControlClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_MediaControlClientCore, "OSStatus MediaControlClient_StartPresentation(MediaControlClientRef, CFDictionaryRef, CFDictionaryRef *)", 60, "### Start Presentation failed: %#m\n", v9);
   }
 
   v15 = a1[6];
@@ -1108,16 +1108,16 @@ void __61__MediaControlClient_setEventHandlerQueue_eventHandlerBlock___block_inv
   dispatch_async(queue, block);
 }
 
-void __85__MediaControlClient_performRemoteAction_withParams_completionQueue_completionBlock___block_invoke(uint64_t a1)
+void __85__MediaControlClient_performRemoteAction_withParams_completionQueue_completionBlock___block_invoke(void *a1)
 {
   v9 = 0;
   v8 = 0;
-  v2 = MediaControlClient_DoAction(*(*(a1 + 32) + 16), *(a1 + 40), *(a1 + 48), &v9, &v8);
-  v3 = *(a1 + 56);
+  v2 = MediaControlClient_DoAction(*(a1[4] + 16), a1[5], a1[6], &v9, &v8);
+  v3 = a1[7];
   if (v3)
   {
-    v4 = *(a1 + 64);
-    if (!v4 || (block[0] = MEMORY[0x277D85DD0], block[1] = 3221225472, block[2] = __85__MediaControlClient_performRemoteAction_withParams_completionQueue_completionBlock___block_invoke_2, block[3] = &unk_27989A820, v6 = v2, v7 = v9, block[4] = v4, block[5] = v8, dispatch_async(v3, block), (v3 = *(a1 + 56)) != 0))
+    v4 = a1[8];
+    if (!v4 || (block[0] = MEMORY[0x277D85DD0], block[1] = 3221225472, block[2] = __85__MediaControlClient_performRemoteAction_withParams_completionQueue_completionBlock___block_invoke_2, block[3] = &unk_27989A820, v6 = v2, v7 = v9, block[4] = v4, block[5] = v8, dispatch_async(v3, block), (v3 = a1[7]) != 0))
     {
       dispatch_release(v3);
     }
@@ -1310,7 +1310,7 @@ uint64_t ___MediaControlClient_PlaybackPaused_block_invoke(uint64_t a1)
       if (gLogCategory_MediaControlClientCore != -1 || (result = _LogCategory_Initialize(), result))
       {
 
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_MediaControlClientCore, "void _MediaControlClient_PlaybackPaused(MediaControlClientRef, Boolean)_block_invoke", 40, "Allowing idle sleep after pause grace period over\n");
       }
     }
   }

@@ -13,6 +13,7 @@
 - (id)issuePushToCKWithDependency:(id)dependency;
 - (id)issueRegisterWithDependency:(id)dependency;
 - (id)issueUploadEventsWithDependency:(id)dependency;
+- (id)operationOnQueueWithName:(id)name finishedOK:(BOOL)k;
 - (void)_addOperation:(id)operation onQueue:(id)queue;
 - (void)_populateDependencySet:(id)set ofOperation:(id)operation;
 - (void)addCompletion:(id)completion toOperation:(id)operation;
@@ -50,7 +51,7 @@
 {
   v13 = [CKContainer containerIDForContainerIdentifier:@"com.apple.orion"];
   v3 = objc_alloc_init(CKContainerOptions);
-  v4 = sub_10003E1B4();
+  v4 = sub_10003E1B4(PDAccountInfo);
   v5 = v4;
   if (v4)
   {
@@ -71,7 +72,7 @@
     [v3 setAccountOverrideInfo:v9];
   }
 
-  v10 = sub_10010AE9C();
+  v10 = sub_10010AE9C(PDUtil);
   [v3 setApplicationBundleIdentifierOverrideForNetworkAttribution:v10];
 
   v11 = [[CKContainer alloc] initWithContainerID:v13 options:v3];
@@ -158,7 +159,7 @@ LABEL_18:
 
   if (!operationCount)
   {
-    v18 = sub_1000B51E4();
+    v18 = sub_1000B51E4(PDAnalytics);
     sub_1000B61E0(v18);
 
     CLSInitLog();
@@ -467,6 +468,95 @@ LABEL_19:
   [(PDOperationsManager *)self addOperation:v7];
 
   return v7;
+}
+
+- (id)operationOnQueueWithName:(id)name finishedOK:(BOOL)k
+{
+  kCopy = k;
+  nameCopy = name;
+  [(NSOperationQueue *)self->_operationQueue setSuspended:1];
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  operations = [(NSOperationQueue *)self->_operationQueue operations];
+  v8 = [operations countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    selfCopy = self;
+    v10 = *v26;
+    while (2)
+    {
+      for (i = 0; i != v9; i = i + 1)
+      {
+        if (*v26 != v10)
+        {
+          objc_enumerationMutation(operations);
+        }
+
+        v12 = *(*(&v25 + 1) + 8 * i);
+        if (([v12 isCancelled] & 1) == 0)
+        {
+          objc_opt_class();
+          if (((objc_opt_isKindOfClass() & 1) == 0 || ([v12 isAborted] & 1) == 0) && (!objc_msgSend(v12, "isFinished") || kCopy))
+          {
+            name = [v12 name];
+            if (!(nameCopy | name))
+            {
+              goto LABEL_22;
+            }
+
+            v15 = name;
+            name2 = [v12 name];
+            v17 = name2;
+            if (nameCopy && name2)
+            {
+              [v12 name];
+              v18 = operations;
+              v20 = v19 = kCopy;
+              v24 = [v20 isEqualToString:nameCopy];
+
+              kCopy = v19;
+              operations = v18;
+
+              if (v24)
+              {
+LABEL_22:
+                v21 = v12;
+                goto LABEL_23;
+              }
+            }
+
+            else
+            {
+            }
+          }
+        }
+      }
+
+      v9 = [operations countByEnumeratingWithState:&v25 objects:v29 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
+
+    v21 = 0;
+LABEL_23:
+    self = selfCopy;
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  [(NSOperationQueue *)self->_operationQueue setSuspended:0];
+
+  return v21;
 }
 
 - (void)addReportErrorBlockToOperation:(id)operation
@@ -1104,7 +1194,7 @@ LABEL_27:
       v5 = [PDTaskSchedulerBlockTask alloc];
       v6 = [(PDTaskSchedulerBlockTask *)v5 initWithIdentifier:@"com.apple.progressd.pruneIDs" queue:self->_taskQueue block:v4, v8, v9, v10, v11];
       [(PDTaskSchedulerBlockTask *)v6 setDelay:604800];
-      v7 = sub_10006DCEC();
+      v7 = sub_10006DCEC(PDTaskScheduler);
       sub_10006E4A0(v7, v6);
 
       objc_destroyWeak(&v12);

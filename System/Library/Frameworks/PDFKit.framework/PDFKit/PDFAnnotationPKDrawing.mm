@@ -14,23 +14,23 @@
   y = bounds.origin.y;
   x = bounds.origin.x;
   drawingCopy = drawing;
-  v18.receiver = self;
-  v18.super_class = PDFAnnotationPKDrawing;
-  v11 = [(PDFAnnotation *)&v18 initWithBounds:@"/Square" forType:0 withProperties:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v19.receiver = self;
+  v19.super_class = PDFAnnotationPKDrawing;
+  v11 = [(PDFAnnotation *)&v19 initWithBounds:@"/Square" forType:0 withProperties:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_drawing, drawing);
-    v13 = objc_alloc_init(AKInkAnnotationClass());
+    v14 = objc_alloc_init(AKInkAnnotationClass(v13));
     akInkAnnotation = v12->_akInkAnnotation;
-    v12->_akInkAnnotation = v13;
+    v12->_akInkAnnotation = v14;
 
     [(AKInkAnnotation *)v12->_akInkAnnotation setRectangle:x, y, width, height];
     [(AKInkAnnotation *)v12->_akInkAnnotation setDrawing:v12->_drawing];
     [(PDFAnnotation *)v12 setBounds:x, y, width, height];
-    v15 = objc_alloc_init(PDFBorder);
-    [(PDFBorder *)v15 setLineWidth:0.0];
-    [(PDFAnnotation *)v12 setValue:v15 forAnnotationKey:@"/Border"];
+    v16 = objc_alloc_init(PDFBorder);
+    [(PDFBorder *)v16 setLineWidth:0.0];
+    [(PDFAnnotation *)v12 setValue:v16 forAnnotationKey:@"/Border"];
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [(PDFAnnotation *)v12 setValue:clearColor forAnnotationKey:@"/C"];
     [(PDFAnnotation *)v12 setValue:clearColor forAnnotationKey:@"/IC"];
@@ -57,7 +57,7 @@
   if (v5)
   {
     v6 = [PDFAKAnnotationSerializationHelper akAnnotationFromCGPDFAnnotation:annotation andDictionary:CGPDFAnnotationGetCGPDFDictionary()];
-    AKInkAnnotationClass();
+    AKInkAnnotationClass(v6);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 

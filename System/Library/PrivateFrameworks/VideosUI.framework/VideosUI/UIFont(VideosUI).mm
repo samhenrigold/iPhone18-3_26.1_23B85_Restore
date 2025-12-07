@@ -6,10 +6,10 @@
 + (id)uifontWidthFromFontWidth:()VideosUI;
 + (id)vui_fontFromTextLayout:()VideosUI;
 + (uint64_t)vui_fontFromTextStyle:()VideosUI fontWeight:fontSize:fontWidth:symbolicTraits:;
-- (uint64_t)baselineHeight;
-- (uint64_t)bottomMarginWithBaselineMargin:()VideosUI traitCollection:;
-- (uint64_t)topMarginToFont:()VideosUI withBaselineMargin:traitCollection:;
-- (uint64_t)topMarginWithBaselineMargin:()VideosUI traitCollection:;
+- (double)baselineHeight;
+- (double)bottomMarginWithBaselineMargin:()VideosUI traitCollection:;
+- (double)topMarginToFont:()VideosUI withBaselineMargin:traitCollection:;
+- (double)topMarginWithBaselineMargin:()VideosUI traitCollection:;
 @end
 
 @implementation UIFont(VideosUI)
@@ -19,7 +19,7 @@
   v12 = objc_opt_class();
   v13 = *MEMORY[0x1E69DDC90];
 
-  return [v12 _fontFromTextStyle:a4 maximumContentSizeCategory:v13 fontWeight:a5 fontSize:a6 fontWidth:a7 symbolicTraits:0 fontFeature:self];
+  return [v12 _fontFromTextStyle:a4 maximumContentSizeCategory:v13 fontWeight:a5 fontSize:a6 fontWidth:a7 symbolicTraits:0 fontFeature:a2];
 }
 
 + (id)vui_fontFromTextLayout:()VideosUI
@@ -422,37 +422,41 @@ LABEL_4:
   return v6;
 }
 
-- (uint64_t)baselineHeight
+- (double)baselineHeight
 {
   [self ascender];
 
-  return VUIRoundValue();
+  VUIRoundValue();
+  return result;
 }
 
-- (uint64_t)topMarginWithBaselineMargin:()VideosUI traitCollection:
+- (double)topMarginWithBaselineMargin:()VideosUI traitCollection:
 {
   [VUIUtilities scaleContentSizeValue:"scaleContentSizeValue:forTraitCollection:" forTraitCollection:?];
   [self ascender];
 
-  return VUIRoundValue();
+  VUIRoundValue();
+  return result;
 }
 
-- (uint64_t)bottomMarginWithBaselineMargin:()VideosUI traitCollection:
+- (double)bottomMarginWithBaselineMargin:()VideosUI traitCollection:
 {
   [VUIUtilities scaleContentSizeValue:"scaleContentSizeValue:forTraitCollection:" forTraitCollection:?];
   [self descender];
 
-  return VUIRoundValue();
+  VUIRoundValue();
+  return result;
 }
 
-- (uint64_t)topMarginToFont:()VideosUI withBaselineMargin:traitCollection:
+- (double)topMarginToFont:()VideosUI withBaselineMargin:traitCollection:
 {
   v8 = a4;
   [VUIUtilities scaleContentSizeValue:a5 forTraitCollection:a2];
   [self ascender];
   [v8 descender];
 
-  return VUIRoundValue();
+  VUIRoundValue();
+  return result;
 }
 
 @end

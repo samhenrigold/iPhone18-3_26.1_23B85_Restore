@@ -109,7 +109,7 @@ LABEL_11:
 
 - (void)instrumentForAppearanceEvent:(unint64_t)event turn:(id)turn machAbsoluteTime:(unint64_t)time
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   turnCopy = turn;
   if (event > 1)
   {
@@ -174,15 +174,15 @@ LABEL_12:
         v16 = v15;
         turnIdentifier = [turnCopy turnIdentifier];
         formattedText = [v9 formattedText];
-        v20 = 136315906;
-        v21 = "[SRUIFPlatformHostingInstrumentationHandler instrumentForAppearanceEvent:turn:machAbsoluteTime:]";
-        v22 = 2112;
-        v23 = v9;
-        v24 = 2112;
-        v25 = turnIdentifier;
-        v26 = 2112;
-        v27 = formattedText;
-        _os_log_impl(&dword_26951F000, v16, OS_LOG_TYPE_DEFAULT, "%s #instrumentation %@ in turn %@: \n%@", &v20, 0x2Au);
+        v19 = 136315906;
+        v20 = "[SRUIFPlatformHostingInstrumentationHandler instrumentForAppearanceEvent:turn:machAbsoluteTime:]";
+        v21 = 2112;
+        v22 = v9;
+        v23 = 2112;
+        v24 = turnIdentifier;
+        v25 = 2112;
+        v26 = formattedText;
+        _os_log_impl(&dword_26951F000, v16, OS_LOG_TYPE_DEFAULT, "%s #instrumentation %@ in turn %@: \n%@", &v19, 0x2Au);
       }
 
       [turnCopy emitInstrumentation:v9 machAbsoluteTime:time];
@@ -190,8 +190,6 @@ LABEL_12:
   }
 
 LABEL_19:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (SRUIFPlatformHostingInstrumentationHandlerDelegate)testDelegate

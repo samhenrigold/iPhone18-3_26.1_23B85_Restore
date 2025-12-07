@@ -4,6 +4,7 @@
 - (id)nameForNetworkType:(id)type;
 - (id)submitMetrics;
 - (id)submitMetrics:(id)metrics;
+- (void)evalWiFiVersusPHSLink:(int)link;
 - (void)session:(id)session updatedFoundDevices:(id)devices;
 - (void)updateWiFiRadioMetrics:(int)metrics signalQuality:(int)quality load:(int)load pointOFInterest:(int)interest;
 @end
@@ -192,6 +193,37 @@
   {
     return off_1002402F8[intValue];
   }
+}
+
+- (void)evalWiFiVersusPHSLink:(int)link
+{
+  mRSSIDict = self->mRSSIDict;
+  if (!mRSSIDict)
+  {
+    mRSSIDict = @"<null>";
+  }
+
+  [WCM_Logging logLevel:24 message:@"ProximityLinkEval:evalWiFiVersusPHSLink: RSSI Statistics %@, callActive: %d", mRSSIDict, *&link];
+  mHotspotDict = self->mHotspotDict;
+  if (!mHotspotDict)
+  {
+    mHotspotDict = @"<null>";
+  }
+
+  [WCM_Logging logLevel:24 message:@"ProximityLinkEval:evalWiFiVersusPHSLink: PHS Statistics %@", mHotspotDict];
+  submitMetrics = [(WRM_ProximityLinkEval *)self submitMetrics];
+  if (submitMetrics && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    [WCM_Logging logLevel:24 message:@"ProximityLinkEval:evalWiFiVersusPHSLink: submitMetrics test %@", submitMetrics];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:24 message:@"ProximityLinkEval:evalWiFiVersusPHSLink: submitMetrics returned invalid result", v8];
+  }
+
+  v6 = [(WRM_ProximityLinkEval *)self filterDevices:@"mac"];
+  v7 = [(WRM_ProximityLinkEval *)self filterDevices:@"iphone"];
 }
 
 - (void)session:(id)session updatedFoundDevices:(id)devices

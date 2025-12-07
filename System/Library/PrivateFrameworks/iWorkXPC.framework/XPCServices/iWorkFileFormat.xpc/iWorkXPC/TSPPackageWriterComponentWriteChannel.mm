@@ -24,7 +24,7 @@
 {
   dataCopy = data;
   v5 = atomic_load(&self->_isClosed);
-  v17 = dataCopy;
+  v10 = dataCopy;
   if (v5)
   {
     v6 = +[TSUAssertionHandler _atomicIncrementAssertCount];
@@ -39,10 +39,10 @@
       sub_100152198(v6, v7);
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Channel is closed", v8, v9, v10, v11, v12, v13, v14, "[TSPPackageWriterComponentWriteChannel writeData:]");
-    v15 = [NSString stringWithUTF8String:"[TSPPackageWriterComponentWriteChannel writeData:]"];
-    v16 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriterComponentWriteChannel.mm"];
-    [TSUAssertionHandler handleFailureInFunction:v15 file:v16 lineNumber:30 isFatal:1 description:"Channel is closed"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Channel is closed", "[TSPPackageWriterComponentWriteChannel writeData:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriterComponentWriteChannel.mm", 30);
+    v8 = [NSString stringWithUTF8String:"[TSPPackageWriterComponentWriteChannel writeData:]"];
+    v9 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriterComponentWriteChannel.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:30 isFatal:1 description:"Channel is closed"];
 
     TSUCrashBreakpoint();
     abort();

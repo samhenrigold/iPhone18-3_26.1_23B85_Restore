@@ -146,9 +146,9 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v82.receiver = self;
-  v82.super_class = CHFriendsSetupViewController;
-  [(CHFriendsSetupViewController *)&v82 viewDidLayoutSubviews];
+  v83.receiver = self;
+  v83.super_class = CHFriendsSetupViewController;
+  [(CHFriendsSetupViewController *)&v83 viewDidLayoutSubviews];
   view = [(CHFriendsSetupViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -156,22 +156,22 @@
   v9 = v8;
   v11 = v10;
 
-  v85.origin.x = v5;
-  v85.origin.y = v7;
-  v85.size.width = v9;
-  v85.size.height = v11;
-  MidX = CGRectGetMidX(v85);
   v86.origin.x = v5;
   v86.origin.y = v7;
   v86.size.width = v9;
   v86.size.height = v11;
-  Width = CGRectGetWidth(v86);
+  MidX = CGRectGetMidX(v86);
   v87.origin.x = v5;
   v87.origin.y = v7;
   v87.size.width = v9;
-  v14 = v9;
   v87.size.height = v11;
-  Height = CGRectGetHeight(v87);
+  Width = CGRectGetWidth(v87);
+  v88.origin.x = v5;
+  v88.origin.y = v7;
+  v88.size.width = v9;
+  v14 = v9;
+  v88.size.height = v11;
+  Height = CGRectGetHeight(v88);
   v15 = MidX;
   v16 = sub_1000E0C74(MidX, Width + -32.0);
   +[CATransaction begin];
@@ -185,20 +185,20 @@
   v19 = v18;
 
   [(AVPlayerLayer *)self->_onboardingPlayerLayer frame];
-  v20 = v19 + CGRectGetMaxY(v88);
+  v20 = v19 + CGRectGetMaxY(v89);
   [(UILabel *)self->_titleLabel sizeToFit];
   v75 = v20;
   [(UILabel *)self->_titleLabel _setFirstLineBaselineFrameOriginY:v20];
   v21 = v15;
   v22 = sub_1000E0C74(v15, Width);
   [(UILabel *)self->_titleLabel frame];
-  MidY = CGRectGetMidY(v89);
+  MidY = CGRectGetMidY(v90);
   [(UILabel *)self->_titleLabel frame];
-  v24 = CGRectGetHeight(v90);
+  v24 = CGRectGetHeight(v91);
   v25 = sub_1000E0C74(MidY, v24);
   [(UILabel *)self->_titleLabel bounds];
   v74 = Width;
-  [(UILabel *)self->_titleLabel setBounds:0.0, 0.0, Width, CGRectGetHeight(v91)];
+  [(UILabel *)self->_titleLabel setBounds:0.0, 0.0, Width, CGRectGetHeight(v92)];
   [(UILabel *)self->_titleLabel setPosition:v22, v25];
   view2 = [(CHFriendsSetupViewController *)self view];
   [view2 directionalLayoutMargins];
@@ -226,64 +226,65 @@
   [view6 systemLayoutSizeFittingSize:v41 withHorizontalFittingPriority:0.0 verticalFittingPriority:{v43, v44}];
   v46 = v45;
 
+  v47 = Height + -44.0 - v33 + -30.0 - v46 * 0.5;
   view7 = [(OBPrivacyLinkController *)self->_privacyLink view];
   [view7 setBounds:{0.0, 0.0, v41, v46}];
 
   view8 = [(OBPrivacyLinkController *)self->_privacyLink view];
-  [view8 setPosition:{v21, Height + -44.0 - v33 + -30.0 - v46 * 0.5}];
+  v78 = v21;
+  [view8 setPosition:{v21, v47}];
 
   view9 = [(OBPrivacyLinkController *)self->_privacyLink view];
   [view9 frameOrigin];
-  v51 = v50;
+  v52 = v51;
 
   currentDescriptionLabel = self->_currentDescriptionLabel;
   nextDescriptionLabel = self->_nextDescriptionLabel;
-  v80 = 0u;
   v81 = 0u;
-  v78 = 0u;
+  v82 = 0u;
   v79 = 0u;
-  v83[0] = currentDescriptionLabel;
-  v83[1] = nextDescriptionLabel;
-  v54 = [NSArray arrayWithObjects:v83 count:2];
-  v55 = [v54 countByEnumeratingWithState:&v78 objects:v84 count:16];
-  if (v55)
+  v80 = 0u;
+  v84[0] = currentDescriptionLabel;
+  v84[1] = nextDescriptionLabel;
+  v55 = [NSArray arrayWithObjects:v84 count:2];
+  v56 = [v55 countByEnumeratingWithState:&v79 objects:v85 count:16];
+  if (v56)
   {
-    v56 = v55;
-    v57 = *v79;
+    v57 = v56;
+    v58 = *v80;
     do
     {
-      for (i = 0; i != v56; i = i + 1)
+      for (i = 0; i != v57; i = i + 1)
       {
-        if (*v79 != v57)
+        if (*v80 != v58)
         {
-          objc_enumerationMutation(v54);
+          objc_enumerationMutation(v55);
         }
 
-        v59 = *(*(&v78 + 1) + 8 * i);
-        font2 = [v59 font];
+        v60 = *(*(&v79 + 1) + 8 * i);
+        font2 = [v60 font];
         [font2 _scaledValueForValue:32.0];
-        v62 = v61;
+        v63 = v62;
 
-        v63 = v75 + v62;
-        [v59 sizeThatFits:{v74 + -54.0, 1.79769313e308}];
-        v65 = v64;
-        *&v64 = v66;
-        *&v66 = v51 - v63;
-        [v59 setBounds:{CGPointZero.x, y, v65, fminf(*&v64, *&v66)}];
-        [v59 frame];
-        v68 = v67;
-        v70 = v69;
-        sub_1000E0CA8();
-        v72 = v71;
-        [v59 _firstBaselineOffsetFromTop];
+        v64 = v75 + v63;
+        [v60 sizeThatFits:{v74 + -54.0, 1.79769313e308}];
+        v66 = v65;
+        *&v65 = v67;
+        *&v67 = v52 - v64;
+        [v60 setBounds:{CGPointZero.x, y, v66, fminf(*&v65, *&v67)}];
+        [v60 frame];
+        v69 = v68;
+        v71 = v70;
+        v72 = sub_1000E0CA8(v78, v66);
+        [v60 _firstBaselineOffsetFromTop];
         UIRoundToViewScale();
-        [v59 setFrame:{v72, v73, v68, v70}];
+        [v60 setFrame:{v72, v73, v69, v71}];
       }
 
-      v56 = [v54 countByEnumeratingWithState:&v78 objects:v84 count:16];
+      v57 = [v55 countByEnumeratingWithState:&v79 objects:v85 count:16];
     }
 
-    while (v56);
+    while (v57);
   }
 }
 

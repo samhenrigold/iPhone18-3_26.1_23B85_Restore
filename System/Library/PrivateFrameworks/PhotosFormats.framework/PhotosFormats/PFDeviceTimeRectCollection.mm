@@ -269,7 +269,7 @@ uint64_t __61__PFDeviceTimeRectCollection_nearestRectForPointSpaceHeight___block
   v10.super_class = PFDeviceTimeRectCollection;
   rectsCopy = rects;
   v6 = [(PFDeviceTimeRectCollection *)&v10 init];
-  v7 = [rectsCopy mutableCopy];
+  v7 = objc_msgSend_mutableCopy(rectsCopy, v10.receiver, v10.super_class);
 
   sortedTimeRects = v6->_sortedTimeRects;
   v6->_sortedTimeRects = v7;

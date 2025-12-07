@@ -1,65 +1,3 @@
-void MTSLGLogger::removeControlService(MTSLGLogger *this)
-{
-  if (*(this + 4))
-  {
-    MTDeviceStop();
-    v2 = *(this + 4);
-    MTDeviceRelease();
-    *(this + 4) = 0;
-  }
-
-  v3 = *(this + 5);
-  if (v3)
-  {
-    dispatch_source_cancel(v3);
-    *(this + 5) = 0;
-  }
-}
-
-void MTSLGLogger::addControlService(MTSLGLogger *this)
-{
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *v8 = 0;
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "StudyLog logger: control interface service appeared", v8, 2u);
-  }
-
-  MTSLGLogger::removeControlService(this);
-  v3 = MTDeviceCreateFromService();
-  *(this + 4) = v3;
-  if (!v3)
-  {
-    MTSLGLogger::addControlService();
-LABEL_12:
-    MTSLGLogger::removeControlService(this);
-    return;
-  }
-
-  if (MTDeviceStart())
-  {
-    MTSLGLogger::addControlService();
-    goto LABEL_12;
-  }
-
-  v4 = *(this + 4);
-  v5 = *(this + 1);
-  MultitouchDispatchSource = MTDeviceCreateMultitouchDispatchSource();
-  *(this + 5) = MultitouchDispatchSource;
-  if (!MultitouchDispatchSource)
-  {
-    MTSLGLogger::addControlService();
-    goto LABEL_12;
-  }
-
-  v7 = *(this + 4);
-  if ((MTRegisterProcessedFrameCallback() & 1) == 0)
-  {
-    MTSLGLogger::addControlService();
-    goto LABEL_12;
-  }
-}
-
 void MTSLGLoggerProcessedFrameCallback(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 3128))
@@ -102,7 +40,7 @@ BOOL OUTLINED_FUNCTION_1(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void MTPListGestureConfig::MTPListGestureConfig(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void MTPListGestureConfig::MTPListGestureConfig(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   MTGestureConfig::MTGestureConfig(a1, a2, a3, a4, a5);
 }
@@ -480,7 +418,7 @@ LABEL_25:
                 else
                 {
                   MTActionEvent::MTActionEvent(*(a3 + 8), &v29);
-                  v28 = v27 + 8;
+                  v28 = (v27 + 8);
                   *(a3 + 8) = v27 + 8;
                 }
 
@@ -929,7 +867,7 @@ uint64_t MTPListGestureConfig::extractGestureCategory(MTPListGestureConfig *this
   return v6;
 }
 
-void MTPListGestureConfig::parseGesture(CFDictionaryRef *a1, const __CFDictionary *a2, void **a3, __int128 *a4)
+void MTPListGestureConfig::parseGesture(CFDictionaryRef *a1, const __CFDictionary *a2, const MTActionEvent **a3, __int128 *a4)
 {
   if (a2)
   {
@@ -997,7 +935,7 @@ void MTPListGestureConfig::parseGesture(CFDictionaryRef *a1, const __CFDictionar
         }
 
         *(a3 + 61) = v47;
-        v43 = a3 + 12;
+        v43 = (a3 + 12);
         if (a3 + 12 == &v71)
         {
           goto LABEL_106;
@@ -1026,7 +964,7 @@ LABEL_85:
         }
 
         *(a3 + 77) = v13;
-        v43 = a3 + 16;
+        v43 = (a3 + 16);
         if (a3 + 16 == &v71)
         {
           goto LABEL_106;
@@ -1252,7 +1190,7 @@ LABEL_18:
         valuePtr[4] = xmmword_29D3D6AD0;
         memset(&valuePtr[5], 255, 48);
         memset(valuePtr, 170, 32);
-        MTSlideGesture::MTSlideGesture(valuePtr, v16, GestureCategory, &v69, &v71, v18, v17);
+        MTSlideGesture::MTSlideGesture(valuePtr, v16, GestureCategory, &v69, v18, v17, &v71);
         v51 = a3[21];
         if (v51 >= a3[22])
         {
@@ -1263,7 +1201,7 @@ LABEL_18:
         {
           MTSlideGesture::MTSlideGesture(a3[21], valuePtr);
           v52 = (v51 + 160);
-          a3[21] = v51 + 160;
+          a3[21] = (v51 + 160);
         }
 
         a3[21] = v52;
@@ -1298,7 +1236,7 @@ LABEL_106:
       if (v9 == 6)
       {
         *(a3 + 28) = 3;
-        v15 = a3 + 4;
+        v15 = (a3 + 4);
       }
 
       else
@@ -1309,7 +1247,7 @@ LABEL_106:
         }
 
         *(a3 + 44) = 3;
-        v15 = a3 + 8;
+        v15 = (a3 + 8);
       }
 
       a3 = v15;
@@ -1323,7 +1261,7 @@ LABEL_106:
     goto LABEL_106;
   }
 
-  v14 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@ NULL chord or gesture dictionary\n", @"ERROR in PListGestureParser:");
+  v14 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@ NULL chord or gesture dictionary\n", a4, @"ERROR in PListGestureParser:");
 
   MTPListGestureConfig::setParseErrorString(a1, v14);
 }
@@ -1561,116 +1499,120 @@ uint64_t MTPListGestureConfig::parseChordSpecifier(MTPListGestureConfig *this, C
 
 void MTPListGestureConfig::parseChordGestureSetAndCopyIntoTable(CFDictionaryRef *this, CFTypeRef cf, const __CFString *a3)
 {
-  v41 = *MEMORY[0x29EDCA608];
-  if (!cf || (v6 = CFGetTypeID(cf), TypeID = CFDictionaryGetTypeID(), !a3) || v6 != TypeID || (v8 = CFGetTypeID(a3), v8 != CFStringGetTypeID()))
+  v40 = *MEMORY[0x29EDCA608];
+  if (cf)
   {
-LABEL_28:
-    v28 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  Value = CFDictionaryGetValue(cf, @"Chord");
-  if (Value)
-  {
-    v10 = Value;
-    v11 = CFGetTypeID(Value);
-    if (v11 == CFStringGetTypeID())
+    v6 = CFGetTypeID(cf);
+    TypeID = CFDictionaryGetTypeID();
+    if (a3)
     {
-      GestureCategory = MTPListGestureConfig::extractGestureCategory(this, cf);
-      v13 = MTPListGestureConfig::parseChordSpecifier(GestureCategory, v10);
-      if (v13)
+      if (v6 == TypeID)
       {
-        v14 = v13;
-        *&v15 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v40[3] = v15;
-        v40[4] = v15;
-        v40[1] = v15;
-        v40[2] = v15;
-        v39 = v15;
-        v40[0] = v15;
-        __p = v15;
-        *v36 = v15;
-        v37 = v15;
-        *v34 = v15;
-        v35 = v15;
-        *v32 = v15;
-        v33 = v15;
-        *v30 = v15;
-        v31 = v15;
-        CStringPtr = CFStringGetCStringPtr(v10, 0);
-        MTChordGestureSet::MTChordGestureSet(v30, v14, 0, GestureCategory, CStringPtr);
-        v17 = MTGestureConfig::copyChordIntoHandTable(this, 1, v30);
-        v18 = CFDictionaryGetValue(cf, @"Gesture Set");
-        v19 = v18;
-        if (v18 && (v20 = CFGetTypeID(v18), v20 == CFStringGetTypeID()))
+        v8 = CFGetTypeID(a3);
+        if (v8 == CFStringGetTypeID())
         {
-          v21 = CFDictionaryGetValue(this[11], v19);
-          v22 = v21;
-          if (v21 && (v23 = CFGetTypeID(v21), v23 == CFDictionaryGetTypeID()))
+          Value = CFDictionaryGetValue(cf, @"Chord");
+          if (Value && (v10 = Value, v11 = CFGetTypeID(Value), v11 == CFStringGetTypeID()))
           {
-            MTPListGestureConfig::parseGestureSet(this, v19, v22, v17);
+            GestureCategory = MTPListGestureConfig::extractGestureCategory(this, cf);
+            v13 = GestureCategory;
+            v14 = MTPListGestureConfig::parseChordSpecifier(GestureCategory, v10);
+            if (v14)
+            {
+              v15 = v14;
+              *&v16 = 0xAAAAAAAAAAAAAAAALL;
+              *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+              v39[3] = v16;
+              v39[4] = v16;
+              v39[1] = v16;
+              v39[2] = v16;
+              v38 = v16;
+              v39[0] = v16;
+              __p = v16;
+              *v35 = v16;
+              v36 = v16;
+              *v33 = v16;
+              v34 = v16;
+              *v31 = v16;
+              v32 = v16;
+              *v29 = v16;
+              v30 = v16;
+              CStringPtr = CFStringGetCStringPtr(v10, 0);
+              MTChordGestureSet::MTChordGestureSet(v29, v15, 0, v13, CStringPtr);
+              v18 = MTGestureConfig::copyChordIntoHandTable(this, 1, v29);
+              v19 = CFDictionaryGetValue(cf, @"Gesture Set");
+              v20 = v19;
+              if (v19 && (v21 = CFGetTypeID(v19), v21 == CFStringGetTypeID()))
+              {
+                v22 = CFDictionaryGetValue(this[11], v20);
+                v23 = v22;
+                if (v22 && (v24 = CFGetTypeID(v22), v24 == CFDictionaryGetTypeID()))
+                {
+                  MTPListGestureConfig::parseGestureSet(this, v20, v23, v18);
+                }
+
+                else
+                {
+                  v27 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@ No dictionary for '%@' Gesture Set\n", @"ERROR in PListGestureParser:", v20);
+                  MTPListGestureConfig::setParseErrorString(this, v27);
+                }
+              }
+
+              else
+              {
+                v26 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@ No Gesture Set for '%@' Chord\n", @"ERROR in PListGestureParser:", v10);
+                MTPListGestureConfig::setParseErrorString(this, v26);
+              }
+
+              v28 = v39;
+              std::vector<MTSlideGesture>::__destroy_vector::operator()[abi:ne200100](&v28);
+              if (__p)
+              {
+                *(&__p + 1) = __p;
+                operator delete(__p);
+              }
+
+              if (v35[0])
+              {
+                v35[1] = v35[0];
+                operator delete(v35[0]);
+              }
+
+              if (v33[0])
+              {
+                v33[1] = v33[0];
+                operator delete(v33[0]);
+              }
+
+              if (v31[0])
+              {
+                v31[1] = v31[0];
+                operator delete(v31[0]);
+              }
+
+              if (v29[0])
+              {
+                v29[1] = v29[0];
+                operator delete(v29[0]);
+              }
+            }
           }
 
           else
           {
-            v27 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@ No dictionary for '%@' Gesture Set\n", @"ERROR in PListGestureParser:", v19);
-            MTPListGestureConfig::setParseErrorString(this, v27);
+            v25 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@ Chord Dictionary Missing '%@' Key\n", @"ERROR in PListGestureParser:", @"Chord");
+
+            MTPListGestureConfig::setParseErrorString(this, v25);
           }
         }
-
-        else
-        {
-          v26 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@ No Gesture Set for '%@' Chord\n", @"ERROR in PListGestureParser:", v10);
-          MTPListGestureConfig::setParseErrorString(this, v26);
-        }
-
-        v29 = v40;
-        std::vector<MTSlideGesture>::__destroy_vector::operator()[abi:ne200100](&v29);
-        if (__p)
-        {
-          *(&__p + 1) = __p;
-          operator delete(__p);
-        }
-
-        if (v36[0])
-        {
-          v36[1] = v36[0];
-          operator delete(v36[0]);
-        }
-
-        if (v34[0])
-        {
-          v34[1] = v34[0];
-          operator delete(v34[0]);
-        }
-
-        if (v32[0])
-        {
-          v32[1] = v32[0];
-          operator delete(v32[0]);
-        }
-
-        if (v30[0])
-        {
-          v30[1] = v30[0];
-          operator delete(v30[0]);
-        }
       }
-
-      goto LABEL_28;
     }
   }
-
-  v24 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"%@ Chord Dictionary Missing '%@' Key\n", @"ERROR in PListGestureParser:", @"Chord");
-  v25 = *MEMORY[0x29EDCA608];
-
-  MTPListGestureConfig::setParseErrorString(this, v24);
 }
 
-void sub_29D3A016C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29D3A016C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   MTChordGestureSet::~MTChordGestureSet(va);
   _Unwind_Resume(a1);
 }
@@ -2047,16 +1989,16 @@ void MTChordGestureSet::~MTChordGestureSet(MTChordGestureSet *this)
   }
 }
 
-uint64_t std::vector<MTActionEvent>::__emplace_back_slow_path<MTActionEvent const&>(uint64_t a1, const MTActionEvent *a2)
+const MTActionEvent *std::vector<MTActionEvent>::__emplace_back_slow_path<MTActionEvent const&>(const MTActionEvent **a1, const MTActionEvent *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = (a1[1] - *a1) >> 3;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     std::vector<MTPoint>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -2083,7 +2025,7 @@ uint64_t std::vector<MTActionEvent>::__emplace_back_slow_path<MTActionEvent cons
   MTActionEvent::MTActionEvent((8 * v2), a2);
   v11 = (8 * v2 + 8);
   std::vector<MTActionEvent>::__swap_out_circular_buffer(a1, __p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v11 != __p[1])
   {
     *&v11 = v11 + ((__p[1] - v11 + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -2192,9 +2134,9 @@ uint64_t std::vector<MTSlideGesture>::__emplace_back_slow_path<MTSlideGesture co
   return v12;
 }
 
-void sub_29D3A0E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29D3A0E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<MTSlideGesture>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2360,7 +2302,7 @@ void MTChordGestureSet::MTChordGestureSet(MTChordGestureSet *this)
   *(this + 114) = 0;
 }
 
-uint64_t MTChordGestureSet::MTChordGestureSet(uint64_t a1, signed int a2, __int16 a3, int a4, char *__src)
+uint64_t MTChordGestureSet::MTChordGestureSet(uint64_t a1, unsigned int a2, __int16 a3, int a4, char *__src)
 {
   *(a1 + 204) = 0;
   *(a1 + 208) = 0;
@@ -2379,7 +2321,7 @@ uint64_t MTChordGestureSet::MTChordGestureSet(uint64_t a1, signed int a2, __int1
   *(a1 + 224) = a2;
   *(a1 + 228) = a3;
   *(a1 + 232) = a4;
-  if ((a2 - 1) > 3)
+  if (a2 - 1 > 3)
   {
     if (a2 > 9)
     {
@@ -2438,7 +2380,7 @@ void MTChordGestureSet::MTChordGestureSet(MTChordGestureSet *this, const MTChord
   *(this + 7) = v5;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(this + 32, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 3);
+  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(this + 4, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 3);
   v6 = *(a2 + 14);
   v7 = *(a2 + 15);
   *(this + 8) = 0;
@@ -2446,7 +2388,7 @@ void MTChordGestureSet::MTChordGestureSet(MTChordGestureSet *this, const MTChord
   *(this + 15) = v7;
   *(this + 9) = 0;
   *(this + 10) = 0;
-  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(this + 64, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 3);
+  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(this + 8, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 3);
   v8 = *(a2 + 22);
   v9 = *(a2 + 23);
   *(this + 12) = 0;
@@ -2454,7 +2396,7 @@ void MTChordGestureSet::MTChordGestureSet(MTChordGestureSet *this, const MTChord
   *(this + 23) = v9;
   *(this + 13) = 0;
   *(this + 14) = 0;
-  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(this + 96, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 3);
+  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(this + 12, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 3);
   v10 = *(a2 + 30);
   v11 = *(a2 + 31);
   *(this + 16) = 0;
@@ -2462,7 +2404,7 @@ void MTChordGestureSet::MTChordGestureSet(MTChordGestureSet *this, const MTChord
   *(this + 31) = v11;
   *(this + 17) = 0;
   *(this + 18) = 0;
-  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(this + 128, *(a2 + 16), *(a2 + 17), (*(a2 + 17) - *(a2 + 16)) >> 3);
+  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(this + 16, *(a2 + 16), *(a2 + 17), (*(a2 + 17) - *(a2 + 16)) >> 3);
   *(this + 38) = *(a2 + 38);
   *(this + 39) = *(a2 + 39);
   *(this + 20) = 0;
@@ -2482,43 +2424,43 @@ void MTChordGestureSet::MTChordGestureSet(MTChordGestureSet *this, const MTChord
   strncpy(this + 184, a2 + 184, 0x13uLL);
 }
 
-void sub_29D3A1390(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D3A1390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<MTSlideGesture>::__destroy_vector::operator()[abi:ne200100](va);
-  v8 = *v6;
-  if (*v6)
+  v9 = *v7;
+  if (*v7)
   {
-    *(v2 + 136) = v8;
-    operator delete(v8);
-  }
-
-  v9 = *v5;
-  if (*v5)
-  {
-    *(v2 + 104) = v9;
+    *(v3 + 136) = v9;
     operator delete(v9);
   }
 
-  v10 = *v4;
-  if (*v4)
+  v10 = *v6;
+  if (*v6)
   {
-    *(v2 + 72) = v10;
+    *(v3 + 104) = v10;
     operator delete(v10);
   }
 
-  v11 = *v3;
-  if (*v3)
+  v11 = *v5;
+  if (*v5)
   {
-    *(v2 + 40) = v11;
+    *(v3 + 72) = v11;
     operator delete(v11);
   }
 
-  v12 = *v2;
-  if (*v2)
+  v12 = *v4;
+  if (*v4)
   {
-    *(v2 + 8) = v12;
+    *(v3 + 40) = v12;
     operator delete(v12);
+  }
+
+  v13 = *v3;
+  if (*v3)
+  {
+    *(v3 + 8) = v13;
+    operator delete(v13);
   }
 
   _Unwind_Resume(a1);
@@ -2536,10 +2478,10 @@ uint64_t MTChordGestureSet::operator=(uint64_t a1, uint64_t a2)
     *(a1 + 232) = *(a2 + 232);
     strncpy((a1 + 184), (a2 + 184), 0x13uLL);
     MTGesture::operator=(a1, a2);
-    MTGesture::operator=(a1 + 32, a2 + 32);
-    MTGesture::operator=(a1 + 64, a2 + 64);
-    MTGesture::operator=(a1 + 96, a2 + 96);
-    MTGesture::operator=(a1 + 128, a2 + 128);
+    MTGesture::operator=((a1 + 32), a2 + 32);
+    MTGesture::operator=((a1 + 64), a2 + 64);
+    MTGesture::operator=((a1 + 96), a2 + 96);
+    MTGesture::operator=((a1 + 128), a2 + 128);
     std::vector<MTSlideGesture>::__assign_with_size[abi:ne200100]<MTSlideGesture*,MTSlideGesture*>((a1 + 160), *(a2 + 160), *(a2 + 168), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 168) - *(a2 + 160)) >> 5));
   }
 
@@ -2591,7 +2533,7 @@ uint64_t MTGesture::gestureEquals(uint64_t *a1, uint64_t a2)
     {
       v9 = (v2 + 8 * v5);
       v10 = (*a2 + 8 * v5);
-      if (*v9 != *v10 || v9[1] != v10[1] || *(v9 + 1) != *(v10 + 1))
+      if (__PAIR64__(v9[1], *v9) != __PAIR64__(v10[1], *v10) || *(v9 + 1) != *(v10 + 1))
       {
         break;
       }
@@ -2809,83 +2751,84 @@ uint64_t MTChordGestureSet::hasEnabledFluidDock(MTChordGestureSet *this, const M
 
 uint64_t MTChordGestureSet::hasActiveEdgeSlide(MTChordGestureSet *this, const MTHandStatistics *a2, const MTChordCycling *a3)
 {
-  v28[31] = *MEMORY[0x29EDCA608];
+  v26[31] = *MEMORY[0x29EDCA608];
   v6 = *(this + 58);
-  if (!v6 || (*(a3 + 6) & v6) != 0)
+  if (v6 && (*(a3 + 6) & v6) == 0)
   {
-    v8 = *(this + 20);
-    v7 = *(this + 21);
-    if (v7 != v8)
-    {
-      v9 = 0;
-      v10 = 1;
-      do
-      {
-        v11 = v8 + 160 * v9;
-        v12 = *(v11 + 28);
-        if (!v12 || (*(a3 + 6) & v12) != 0)
-        {
-          MTChordIntegrating::MTChordIntegrating(v19, this);
-          v13 = *(a3 + 400);
-          isActiveEdgeSlide = MTSlideGesture::isActiveEdgeSlide(v11, a2, v19);
-          v18 = v28;
-          std::vector<MTSlideGesture>::__destroy_vector::operator()[abi:ne200100](&v18);
-          if (__p)
-          {
-            v27 = __p;
-            operator delete(__p);
-          }
-
-          if (v24)
-          {
-            v25 = v24;
-            operator delete(v24);
-          }
-
-          if (v22)
-          {
-            v23 = v22;
-            operator delete(v22);
-          }
-
-          if (v20)
-          {
-            v21 = v20;
-            operator delete(v20);
-          }
-
-          if (v19[0])
-          {
-            v19[1] = v19[0];
-            operator delete(v19[0]);
-          }
-
-          if (isActiveEdgeSlide)
-          {
-            result = 1;
-            goto LABEL_22;
-          }
-
-          v8 = *(this + 20);
-          v7 = *(this + 21);
-        }
-
-        v9 = v10;
-      }
-
-      while (0xCCCCCCCCCCCCCCCDLL * ((v7 - v8) >> 5) > v10++);
-    }
+    return 0;
   }
 
-  result = 0;
-LABEL_22:
-  v17 = *MEMORY[0x29EDCA608];
-  return result;
+  v8 = *(this + 20);
+  v7 = *(this + 21);
+  if (v7 == v8)
+  {
+    return 0;
+  }
+
+  v9 = 0;
+  v10 = 1;
+  while (1)
+  {
+    v11 = v8 + 160 * v9;
+    v12 = *(v11 + 28);
+    if (v12 && (*(a3 + 6) & v12) == 0)
+    {
+      goto LABEL_19;
+    }
+
+    MTChordIntegrating::MTChordIntegrating(v17, this);
+    isActiveEdgeSlide = MTSlideGesture::isActiveEdgeSlide(v11, a2, v17);
+    v16 = v26;
+    std::vector<MTSlideGesture>::__destroy_vector::operator()[abi:ne200100](&v16);
+    if (__p)
+    {
+      v25 = __p;
+      operator delete(__p);
+    }
+
+    if (v22)
+    {
+      v23 = v22;
+      operator delete(v22);
+    }
+
+    if (v20)
+    {
+      v21 = v20;
+      operator delete(v20);
+    }
+
+    if (v18)
+    {
+      v19 = v18;
+      operator delete(v18);
+    }
+
+    if (v17[0])
+    {
+      v17[1] = v17[0];
+      operator delete(v17[0]);
+    }
+
+    if (isActiveEdgeSlide)
+    {
+      return 1;
+    }
+
+    v8 = *(this + 20);
+    v7 = *(this + 21);
+LABEL_19:
+    v9 = v10;
+    if (0xCCCCCCCCCCCCCCCDLL * ((v7 - v8) >> 5) <= v10++)
+    {
+      return 0;
+    }
+  }
 }
 
-void sub_29D3A1B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29D3A1B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   MTChordGestureSet::~MTChordGestureSet(va);
   _Unwind_Resume(a1);
 }
@@ -3015,7 +2958,7 @@ void std::vector<MTSlideGesture>::__assign_with_size[abi:ne200100]<MTSlideGestur
       do
       {
         MTSlideGesture::operator=(v8, v6);
-        v6 += 160;
+        v6 = (v6 + 160);
         v8 += 160;
       }
 
@@ -3055,7 +2998,7 @@ void std::vector<MTSlideGesture>::__assign_with_size[abi:ne200100]<MTSlideGestur
       do
       {
         MTSlideGesture::operator=(v8, v14);
-        v14 += 160;
+        v14 = (v14 + 160);
         v8 += 160;
         v13 -= 160;
       }
@@ -3080,7 +3023,7 @@ void std::vector<MTSlideGesture>::__vdeallocate(uint64_t *a1)
   }
 }
 
-void std::vector<MTSlideGesture>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTSlideGesture>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x19999999999999ALL)
   {
@@ -3181,7 +3124,7 @@ void MTChordIntegrating::clearIntegrationState(MTChordIntegrating *this)
   }
 }
 
-MTChordIntegrating *MTChordIntegrating::operator=(MTChordIntegrating *a1, uint64_t a2)
+MTChordIntegrating *MTChordIntegrating::operator=(MTChordIntegrating *a1, MTChordIntegrating *a2)
 {
   if (a1 != a2)
   {
@@ -3194,47 +3137,45 @@ MTChordIntegrating *MTChordIntegrating::operator=(MTChordIntegrating *a1, uint64
 
 void MTChordIntegrating::nullify(void **this)
 {
-  v13[10] = *MEMORY[0x29EDCA608];
-  MTChordGestureSet::MTChordGestureSet(v4);
-  if (v4 != this)
+  v12[10] = *MEMORY[0x29EDCA608];
+  MTChordGestureSet::MTChordGestureSet(v3);
+  if (v3 != this)
   {
-    MTChordGestureSet::operator=(this, v4);
+    MTChordGestureSet::operator=(this, v3);
     MTChordIntegrating::clearIntegrationState(this);
   }
 
-  v3 = v13;
-  std::vector<MTSlideGesture>::__destroy_vector::operator()[abi:ne200100](&v3);
+  v2 = v12;
+  std::vector<MTSlideGesture>::__destroy_vector::operator()[abi:ne200100](&v2);
   if (__p)
   {
-    v12 = __p;
+    v11 = __p;
     operator delete(__p);
   }
 
-  if (v9)
+  if (v8)
   {
-    v10 = v9;
-    operator delete(v9);
+    v9 = v8;
+    operator delete(v8);
   }
 
-  if (v7)
+  if (v6)
   {
-    v8 = v7;
-    operator delete(v7);
+    v7 = v6;
+    operator delete(v6);
   }
 
-  if (v5)
+  if (v4)
   {
-    v6 = v5;
-    operator delete(v5);
+    v5 = v4;
+    operator delete(v4);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    v4[1] = v4[0];
-    operator delete(v4[0]);
+    v3[1] = v3[0];
+    operator delete(v3[0]);
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 BOOL MTChordIntegrating::hasChordStabilized(MTChordIntegrating *this, const MTHandStatistics *a2, const MTHandMotion *a3)
@@ -3287,11 +3228,11 @@ uint64_t MTChordIntegrating::getActiveDegreesOfFreedomMask(MTChordIntegrating *t
   return v8;
 }
 
-double MTChordIntegrating::beginChordIntegration(double *a1, uint64_t a2)
+double MTChordIntegrating::beginChordIntegration(MTChordIntegrating *a1, uint64_t a2)
 {
   MTChordIntegrating::clearIntegrationState(a1);
   result = *(a2 + 80);
-  a1[30] = result;
+  *(a1 + 30) = result;
   return result;
 }
 
@@ -3321,14 +3262,14 @@ void MTChordIntegrating::endChordIntegration(uint64_t a1, uint64_t a2, uint64_t 
   }
 }
 
-void MTChordIntegrating::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void MTChordIntegrating::sendLiftSlideEvents(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  if (*(a1 + 264) != 1)
+  if (*(result + 264) != 1)
   {
     return;
   }
 
-  if (*(a1 + 216) < 2 || (v11 = *(a1 + 96), v11 == *(a1 + 104)) || *v11 != 65 || (v12 = *(a1 + 160), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 168) - v12) >> 5) > 2) || *v12 == v12[1] || **v12 != 69 || ((v13 = *(a1 + 272)) == 0 ? (v14 = 0.0) : (v14 = *(v13 + 144)), *(a2 + 8) - v14 >= *&qword_2A17A1DC8))
+  if (*(result + 216) < 2 || (v11 = *(result + 96), v11 == *(result + 104)) || *v11 != 65 || (v12 = *(result + 160), 0xCCCCCCCCCCCCCCCDLL * ((*(result + 168) - v12) >> 5) > 2) || *v12 == v12[1] || **v12 != 69 || ((v13 = *(result + 272)) == 0 ? (v14 = 0.0) : (v14 = *(v13 + 144)), *(a2 + 8) - v14 >= *&qword_2A17A1DC8))
   {
     v15 = 1;
   }
@@ -3337,7 +3278,7 @@ void MTChordIntegrating::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t 
   {
     MTDragManagerEventQueue::stopMomentum(a6, a5, 4);
     MTTapDragManager::sustainMultiFingerDrag(*(a6 + 392), a2);
-    if ((*(a1 + 264) & 1) == 0)
+    if ((*(result + 264) & 1) == 0)
     {
       return;
     }
@@ -3345,7 +3286,7 @@ void MTChordIntegrating::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t 
     v15 = 0;
   }
 
-  if (*(a1 + 216) == 1 && *a1 != *(a1 + 8) && **a1 == 65)
+  if (*(result + 216) == 1 && *result != *(result + 8) && **result == 65)
   {
     if (*(a2 + 186))
     {
@@ -3379,7 +3320,7 @@ void MTChordIntegrating::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t 
 LABEL_26:
   if (v15)
   {
-    v19 = *(a1 + 272);
+    v19 = *(result + 272);
     if (v19)
     {
       v20 = *v19;
@@ -3394,33 +3335,32 @@ LABEL_26:
         if (v21)
         {
           v22 = v21;
-          v23 = *(a1 + 272);
+          v23 = *(result + 272);
           if (*v23 != v23[1] && (**v23 & 0xFFFE) == 0x46)
           {
-            v24 = *(a1 + 224);
             (*(**(a6 + 392) + 24))(*(a6 + 392), *(a2 + 8));
           }
 
-          v26 = 0xAAAAAAAAAAAAAAAALL;
-          MTActionEvent::MTActionEvent(&v26, v22, 0, 0);
-          (*(**(a6 + 392) + 24))(*(a6 + 392), &v26, a5, 0, 0, a4, 0x2000, *(a1 + 224), *(a2 + 8));
+          v25 = 0xAAAAAAAAAAAAAAAALL;
+          MTActionEvent::MTActionEvent(&v25, v22, 0, 0);
+          (*(**(a6 + 392) + 24))(*(a6 + 392), &v25, a5, 0, 0, a4, 0x2000, *(result + 224), *(a2 + 8));
         }
       }
 
       else
       {
-        MTChordIntegrating::possiblyStartFluidMomentum(a1, a2, a5, a6);
+        MTChordIntegrating::possiblyStartFluidMomentum(result, a2, a5, a6);
       }
     }
 
-    if (*(a1 + 152))
+    if (*(result + 152))
     {
-      v25 = *(a1 + 128);
-      if (v25 != *(a1 + 136))
+      v24 = *(result + 128);
+      if (v24 != *(result + 136))
       {
-        if (*v25)
+        if (*v24)
         {
-          MTGesture::dispatchEvents((a1 + 128), *(a6 + 392), a5, 16, 0, a4, 0x2000, *(a1 + 224), *(a2 + 8));
+          MTGesture::dispatchEvents((result + 128), *(a6 + 392), a5, 16, 0, a4, 0x2000, *(result + 224), *(a2 + 8));
         }
       }
     }
@@ -3491,7 +3431,7 @@ uint64_t MTChordIntegrating::commit2Chord(uint64_t result, uint64_t a2, uint64_t
   v11 = result;
   *(result + 264) = 1;
   *(result + 256) = *(a2 + 8);
-  v19 = *(a3 + 168);
+  v18 = *(a3 + 168);
   v12 = *(result + 216);
   if (v12 != 1)
   {
@@ -3547,7 +3487,6 @@ LABEL_14:
         goto LABEL_28;
       }
 
-      v16 = *(v11 + 224);
       (*(*a4 + 24))(a4, *(a2 + 8));
       *(v11 + 266) = 0;
       v15 = *(v11 + 272);
@@ -3563,20 +3502,20 @@ LABEL_28:
   result = MTActionEvent::deriveGestureStartedType(*v15);
   if (result)
   {
-    v18 = 0xAAAAAAAAAAAAAAAALL;
-    MTActionEvent::MTActionEvent(&v18, result, 0, 0);
-    result = (*(*a4 + 24))(a4, &v18, a5, 2, 0, &v19, 4096, *(v11 + 224), *(a2 + 8));
+    v17 = 0xAAAAAAAAAAAAAAAALL;
+    MTActionEvent::MTActionEvent(&v17, result, 0, 0);
+    result = (*(*a4 + 24))(a4, &v17, a5, 2, 0, &v18, 4096, *(v11 + 224), *(a2 + 8));
   }
 
 LABEL_23:
   if ((*(v11 + 120) & a6) != 0)
   {
-    v17 = *(v11 + 96);
-    if (v17 != *(v11 + 104))
+    v16 = *(v11 + 96);
+    if (v16 != *(v11 + 104))
     {
-      if (*v17)
+      if (*v16)
       {
-        return MTGesture::dispatchEvents((v11 + 96), a4, a5, 2, 0, &v19, 4096, *(v11 + 224), *(a2 + 8));
+        return MTGesture::dispatchEvents((v11 + 96), a4, a5, 2, 0, &v18, 4096, *(v11 + 224), *(a2 + 8));
       }
     }
   }
@@ -3586,7 +3525,7 @@ LABEL_23:
 
 uint64_t MTChordIntegrating::sendSlidePreamble(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int16 a7, double a8)
 {
-  v27 = *(a3 + 168);
+  v26 = *(a3 + 168);
   ++*(a1 + 300);
   v13 = *(a2 + 186);
   *(a1 + 292) = v13;
@@ -3635,7 +3574,7 @@ LABEL_17:
         {
           if (MTActionEvent::deriveGestureEndedType(*v20))
           {
-            v26 = 0xAAAAAAAAAAAAAAAALL;
+            v25 = 0xAAAAAAAAAAAAAAAALL;
             v21 = *(a1 + 272);
             if (*(v21 + 8) == *v21)
             {
@@ -3643,12 +3582,11 @@ LABEL_17:
             }
 
             v22 = MTActionEvent::deriveGestureEndedType(*v21);
-            MTActionEvent::MTActionEvent(&v26, v22, 0, 0);
-            (*(*a4 + 24))(a4, &v26, a5, 16, 0, &v27, 0x2000, *(a1 + 224), *(a2 + 8));
+            MTActionEvent::MTActionEvent(&v25, v22, 0, 0);
+            (*(*a4 + 24))(a4, &v25, a5, 16, 0, &v26, 0x2000, *(a1 + 224), *(a2 + 8));
             v23 = *(a1 + 272);
             if (*v23 != v23[1] && (**v23 & 0xFFFE) == 0x46)
             {
-              v24 = *(a1 + 224);
               (*(*a4 + 24))(a4, *(a2 + 8));
             }
           }
@@ -3662,12 +3600,12 @@ LABEL_30:
               goto LABEL_31;
             }
 
-            v26 = 0xAAAAAAAAAAAAAAAALL;
+            v25 = 0xAAAAAAAAAAAAAAAALL;
             if (*(a6 + 8) != *a6)
             {
-              v25 = MTActionEvent::deriveGestureStartedType(*a6);
-              MTActionEvent::MTActionEvent(&v26, v25, 0, 0);
-              (*(*a4 + 24))(a4, &v26, a5, 2, 0, &v27, 0x2000, *(a1 + 224), *(a2 + 8));
+              v24 = MTActionEvent::deriveGestureStartedType(*a6);
+              MTActionEvent::MTActionEvent(&v25, v24, 0, 0);
+              (*(*a4 + 24))(a4, &v25, a5, 2, 0, &v26, 0x2000, *(a1 + 224), *(a2 + 8));
               goto LABEL_30;
             }
           }
@@ -3746,24 +3684,22 @@ uint64_t MTChordIntegrating::resetMostIntegrators(uint64_t this, MTSlideGesture 
 
 void MTChordIntegrating::momentumFilterAlpha(MTChordIntegrating *this, const MTHandStatistics *a2, int a3)
 {
-  v3 = *(a2 + 1);
-  v4 = v3 - *(a2 + 10);
-  v5 = (v3 - *(a2 + 2)) / 0.00800000038;
+  v3 = (*(a2 + 1) - *(a2 + 2)) / 0.00800000038;
   if (a3)
   {
-    exp2(v5 * -2.0);
-    pow(0.800000012, v5);
+    exp2(v3 * -2.0);
+    pow(0.800000012, v3);
   }
 
   else
   {
-    pow(0.850000024, v5);
+    pow(0.850000024, v3);
   }
 }
 
-double MTChordIntegrating::decayMomentumFilters(MTChordIntegrating *this, const MTHandStatistics *a2)
+double MTChordIntegrating::decayMomentumFilters(uint64_t this, const MTHandStatistics *a2)
 {
-  v4 = *(this + 34);
+  v4 = *(this + 272);
   if (v4)
   {
     result = *(a2 + 1);
@@ -3779,11 +3715,11 @@ double MTChordIntegrating::decayMomentumFilters(MTChordIntegrating *this, const 
   return result;
 }
 
-float32x4_t MTChordIntegrating::updateMomentumMickeys(uint64_t a1, int32x4_t *a2, double *a3)
+float32x4_t MTChordIntegrating::updateMomentumMickeys(uint64_t a1, int32x4_t *a2, const MTHandStatistics *a3)
 {
   v6 = (a1 + 360);
   v7 = *(a1 + 272);
-  if (v7 && a3[1] - *(v7 + 144) <= 0.100000001)
+  if (v7 && *(a3 + 1) - *(v7 + 144) <= 0.100000001)
   {
     v11 = *(a1 + 392);
     v10 = *(a1 + 376);
@@ -3809,7 +3745,7 @@ float32x4_t MTChordIntegrating::updateMomentumMickeys(uint64_t a1, int32x4_t *a2
 
   *(a1 + 328) = *a2;
   v12 = hypot(a2->i32[0], a2->i32[1]);
-  v13 = (a3[1] - a3[2]) / 0.00800000038;
+  v13 = (*(a3 + 1) - *(a3 + 2)) / 0.00800000038;
   v14 = pow(dbl_29D3D6C10[v11 < (v12 + v12)], v13);
   *(a1 + 392) = ((1.0 - v14) * v12) + (v14 * v11);
   v15 = hypotf(v10, v9);
@@ -3880,22 +3816,8 @@ uint64_t MTChordIntegrating::markMomentumPause(MTChordIntegrating *this, const M
     v7 = 1.0;
   }
 
-  if (((*(this + 91) * *(this + 91)) + (*(this + 90) * *(this + 90))) <= v7)
+  if (((*(this + 91) * *(this + 91)) + (*(this + 90) * *(this + 90))) <= v7 || ((v9 = *(this + 82), v10 = *(this + 83), v11 = hypot(v9, v10), v12 = *(this + 94), v13 = *(this + 95), v14 = hypotf(v12, v13), result = 0, (v11 * v11) > v7) ? (v16 = (v14 * v14) <= v7) : (v16 = 1), !v16 && (((v13 * v10) + (v12 * v9)) / (v14 * v11)) < -0.5))
   {
-    goto LABEL_10;
-  }
-
-  v9 = *(this + 82);
-  v10 = *(this + 83);
-  v11 = hypot(v9, v10);
-  v12 = *(this + 94);
-  v13 = *(this + 95);
-  v14 = hypotf(v12, v13);
-  result = 0;
-  v16 = (v11 * v11) <= v7 || (v14 * v14) <= v7;
-  if (!v16 && (((v13 * v10) + (v12 * v9)) / (v14 * v11)) < -0.5)
-  {
-LABEL_10:
     *a4 = *(a2 + 1);
     return 1;
   }
@@ -3954,10 +3876,12 @@ uint64_t MTChordIntegrating::possiblyStartMomentum(uint64_t a1, uint64_t a2, uin
     {
       if (v14 != 1 || v13 <= *(a2 + 195))
       {
-        v24 = *(v6 + 5);
+        v26 = *(v6 + 5);
         MTDragManagerEventQueue::startMomentum(a4, a3, 4);
-        v25 = *(a1 + 360);
-        v26 = *(a1 + 364);
+        v15 = *(a1 + 360);
+        v16 = *(a1 + 364);
+        v17 = a3;
+        v18 = v26;
         goto LABEL_36;
       }
 
@@ -3976,58 +3900,60 @@ LABEL_11:
       MTDragManagerEventQueue::startMomentum(a4, a3, 2);
       v15 = *(a1 + 360);
       v16 = *(a1 + 364);
+      v17 = a3;
+      v18 = 0;
 LABEL_36:
-      MTAppendRelativeMouseEvent();
+      MTAppendRelativeMouseEvent(v17, v15, v16, v18);
       return 1;
     }
 
     return 0;
   }
 
-  v17 = -v11;
-  v18 = -v12;
-  if (v17 >= 0)
+  v19 = -v11;
+  v20 = -v12;
+  if (v19 >= 0)
   {
-    v19 = -v11;
+    v21 = -v11;
   }
 
   else
   {
-    v19 = -v17;
+    v21 = -v19;
   }
 
-  v20 = v19;
-  if (v18 >= 0)
+  v22 = v21;
+  if (v20 >= 0)
   {
-    v21 = v18;
+    v23 = v20;
   }
 
   else
   {
-    v21 = -v18;
+    v23 = -v20;
   }
 
-  if ((v21 * 3.0) >= v20)
+  if ((v23 * 3.0) >= v22)
   {
-    if ((v20 * 3.0) < v21)
+    if ((v22 * 3.0) < v23)
     {
-      v17 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v20 = 0;
   }
 
-  if (((v18 * v18) + (v17 * v17)) < 25.0 || *(a2 + 8) - *(a1 + 400) <= 0.05)
+  if (((v20 * v20) + (v19 * v19)) < 25.0 || *(a2 + 8) - *(a1 + 400) <= 0.05)
   {
     return 1;
   }
 
-  v22 = 1;
-  MTAppendMomentumEnableEvent();
-  MTAppendScrollEvent();
+  v24 = 1;
+  MTAppendMomentumEnableEvent(a3, 1, 1);
+  MTAppendScrollEvent(a3, 0, v19, v20, 0);
   if (*(a4 + 1264) == 1)
   {
     MTDragManagerEventQueue::stopMomentum(a4, a3, 1);
@@ -4036,7 +3962,7 @@ LABEL_36:
   *(a1 + 400) = *(a2 + 8);
   *(a4 + 1268) = 1;
   *(a4 + 1264) = 1;
-  return v22;
+  return v24;
 }
 
 uint64_t MTChordIntegrating::clearMickeysSinceLastTouchdown(uint64_t this)
@@ -4122,7 +4048,7 @@ uint64_t MTChordIntegrating::continueChordIntegration(MTChordGestureSet *this, M
     }
   }
 
-  v54 = a3;
+  v53 = a3;
   v17 = *(this + 58);
   if (v17 && (*(a5 + 24) & v17) == 0)
   {
@@ -4141,13 +4067,12 @@ uint64_t MTChordIntegrating::continueChordIntegration(MTChordGestureSet *this, M
         std::vector<MTActionEvent>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v20 = *(this + 56);
       result = (*(*result + 24))(result, *(a2 + 1));
       *(this + 266) = 1;
     }
   }
 
-  v21 = v18 - v19;
+  v20 = v18 - v19;
   if ((*(this + 264) & 1) == 0)
   {
     result = MTChordIntegrating::hasChordStabilized(this, a2, a3);
@@ -4156,215 +4081,215 @@ uint64_t MTChordIntegrating::continueChordIntegration(MTChordGestureSet *this, M
       result = MTChordGestureSet::chk4ChordTimein(this, a2);
       if (result)
       {
-        result = MTChordIntegrating::sendSlidePreamble(this, a2, a3, *(a5 + 392), a4, 0, 4u, v21);
+        result = MTChordIntegrating::sendSlidePreamble(this, a2, a3, *(a5 + 392), a4, 0, 4u, v20);
       }
     }
   }
 
-  v22 = *(this + 20);
-  if (*(this + 21) == v22)
+  v21 = *(this + 20);
+  if (*(this + 21) == v21)
   {
     goto LABEL_83;
   }
 
+  v22 = 0;
   v23 = 0;
   v24 = 0;
-  v25 = 0;
+  v51 = 0;
   v52 = 0;
-  v53 = 0;
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v28 = 0.0;
-  v29 = 1;
+  v27 = 0.0;
+  v28 = 1;
   do
   {
-    v30 = (v22 + 160 * v23);
-    v31 = *(v30 + 7);
-    if ((!v31 || (*(a5 + 24) & v31) != 0) && (MTSlideGesture::isBlocked(v30, a2, v54, this, *(a5 + 400)) & 1) == 0)
+    v29 = (v21 + 160 * v22);
+    v30 = *(v29 + 7);
+    if ((!v30 || (*(a5 + 24) & v30) != 0) && !MTSlideGesture::isBlocked(v29, a2, v53, this, *(a5 + 400)))
     {
-      v32 = MTSlideGesture::integrateGesture(v30, a2, v54, *(a5 + 392), this, *(a2 + 1) - *(a5 + 1232));
-      canPunishSomeMoving = MTSlideGesture::canPunishSomeMoving(v30, a2, this);
-      v34 = v32 < v28;
-      if (v32 >= v28)
+      v31 = MTSlideGesture::integrateGesture(v29, a2, v53, *(a5 + 392), this, *(a2 + 1) - *(a5 + 1232));
+      canPunishSomeMoving = MTSlideGesture::canPunishSomeMoving(v29, a2, this);
+      v33 = v31 < v27;
+      if (v31 >= v27)
       {
-        v28 = v32;
+        v27 = v31;
       }
 
-      v35 = v53;
-      if (!v34)
+      v34 = v52;
+      if (!v33)
       {
-        v35 = v30;
+        v34 = v29;
       }
 
-      v53 = v35;
-      if (*v30 != v30[1] && **v30 - 35 <= 4)
+      v52 = v34;
+      if (*v29 != v29[1] && **v29 - 35 <= 4)
       {
-        v36 = v52;
-        if (!v52 || fabsf(*(v30 + 20)) > fabsf(*(v52 + 80)))
+        v35 = v51;
+        if (!v51 || fabsf(*(v29 + 20)) > fabsf(*(v51 + 80)))
         {
-          v36 = v30;
+          v35 = v29;
         }
 
-        v52 = v36;
-        if (!v27)
+        v51 = v35;
+        if (!v26)
         {
-          v38 = v30;
-          v30 = 0;
+          v37 = v29;
+          v29 = 0;
           goto LABEL_46;
         }
 
-        v37 = fabsf(*(v30 + 23));
-        if (v37 > fabsf(*(v27 + 92)))
+        v36 = fabsf(*(v29 + 23));
+        if (v36 > fabsf(*(v26 + 92)))
         {
-          v38 = v30;
-          v30 = v27;
+          v37 = v29;
+          v29 = v26;
 LABEL_46:
-          v25 += canPunishSomeMoving;
-          ++v24;
-          v27 = v38;
-          v26 = v30;
+          v24 += canPunishSomeMoving;
+          ++v23;
+          v26 = v37;
+          v25 = v29;
           goto LABEL_47;
         }
 
-        if (!v26 || v37 > fabsf(v26[23]))
+        if (!v25 || v36 > fabsf(v25[23]))
         {
-          v38 = v27;
+          v37 = v26;
           goto LABEL_46;
         }
       }
 
-      v38 = v27;
-      v30 = v26;
+      v37 = v26;
+      v29 = v25;
       goto LABEL_46;
     }
 
 LABEL_47:
-    v23 = v29;
-    v22 = *(this + 20);
-    v39 = *(this + 21);
-    v40 = 0xCCCCCCCCCCCCCCCDLL * ((v39 - v22) >> 5) > v29++;
+    v22 = v28;
+    v21 = *(this + 20);
+    v38 = *(this + 21);
+    v39 = 0xCCCCCCCCCCCCCCCDLL * ((v38 - v21) >> 5) > v28++;
   }
 
-  while (v40);
-  v41 = 0;
-  if (v27 && v52 == v27)
+  while (v39);
+  v40 = 0;
+  if (v26 && v51 == v26)
   {
-    v41 = !v26 || (fabsf(*(v27 + 92)) - *(v27 + 56)) > fabsf(v26[23]);
+    v40 = !v25 || (fabsf(*(v26 + 92)) - *(v26 + 56)) > fabsf(v25[23]);
   }
 
-  result = MTChordIntegrating::hasChordStabilized(this, a2, v54);
-  if (!result || v24 < 1)
+  result = MTChordIntegrating::hasChordStabilized(this, a2, v53);
+  if (!result || v23 < 1)
   {
     goto LABEL_83;
   }
 
   result = *(this + 34);
-  if (!v27 || result)
+  if (!v26 || result)
   {
     goto LABEL_66;
   }
 
-  if (v53 == v27)
+  if (v52 == v26)
   {
     goto LABEL_62;
   }
 
-  if (!v53)
+  if (!v52)
   {
     goto LABEL_76;
   }
 
-  if (*v53 == v53[1] || **v53 - 35 > 4)
+  if (*v52 == v52[1] || **v52 - 35 > 4)
   {
 LABEL_66:
-    if (v24 >= 2 && v25 >= 1 && v53)
+    if (v23 >= 2 && v24 >= 1 && v52)
     {
-      if (v28 <= 0.2 && *(a2 + 1) - *(this + 31) <= *&qword_2A17A1D98)
+      if (v27 <= 0.2 && *(a2 + 1) - *(this + 31) <= *&qword_2A17A1D98)
       {
         goto LABEL_83;
       }
 
-      v42 = *(a5 + 392);
-      result = v53;
+      v41 = *(a5 + 392);
+      result = v52;
 LABEL_70:
-      result = MTSlideGesture::fireGesture(result, a2, v54, v42, a4, this, v21);
+      result = MTSlideGesture::fireGesture(result, a2, v53, v41, a4, this, v20);
       goto LABEL_83;
     }
 
     if (result && *result != *(result + 8) && **result - 35 <= 4)
     {
-      v42 = *(a5 + 392);
-      if (v52)
+      v41 = *(a5 + 392);
+      if (v51)
       {
-        result = v52;
+        result = v51;
       }
 
       goto LABEL_70;
     }
 
 LABEL_76:
-    if (v39 != v22)
+    if (v38 != v21)
     {
-      v43 = 0;
-      v44 = 1;
+      v42 = 0;
+      v43 = 1;
       do
       {
-        v45 = v22 + 160 * v43;
-        v46 = *(v45 + 28);
-        if (!v46 || (*(a5 + 24) & v46) != 0)
+        v44 = v21 + 160 * v42;
+        v45 = *(v44 + 28);
+        if (!v45 || (*(a5 + 24) & v45) != 0)
         {
-          result = MTSlideGesture::isBlocked(v45, a2, v54, this, *(a5 + 400));
+          result = MTSlideGesture::isBlocked(v44, a2, v53, this, *(a5 + 400));
           if ((result & 1) == 0)
           {
-            result = MTSlideGesture::fireGesture(v45, a2, v54, *(a5 + 392), a4, this, v21);
+            result = MTSlideGesture::fireGesture(v44, a2, v53, *(a5 + 392), a4, this, v20);
           }
         }
 
-        v43 = v44;
-        v22 = *(this + 20);
-        v40 = 0xCCCCCCCCCCCCCCCDLL * ((*(this + 21) - v22) >> 5) > v44++;
+        v42 = v43;
+        v21 = *(this + 20);
+        v39 = 0xCCCCCCCCCCCCCCCDLL * ((*(this + 21) - v21) >> 5) > v43++;
       }
 
-      while (v40);
+      while (v39);
     }
 
     goto LABEL_83;
   }
 
 LABEL_62:
-  if (v41)
+  if (v40)
   {
-    v42 = *(a5 + 392);
-    result = v27;
+    v41 = *(a5 + 392);
+    result = v26;
     goto LABEL_70;
   }
 
 LABEL_83:
-  v47 = *(a2 + 1);
-  v48 = *(this + 34);
-  if (v48)
+  v46 = *(a2 + 1);
+  v47 = *(this + 34);
+  if (v47)
   {
-    v49 = *(v48 + 144);
-    if (v47 - v49 < v47 - *(a5 + 1232))
+    v48 = *(v47 + 144);
+    if (v46 - v48 < v46 - *(a5 + 1232))
     {
-      *(a5 + 1232) = v49;
-      v50 = *v48;
-      if (*v48 != *(v48 + 8))
+      *(a5 + 1232) = v48;
+      v49 = *v47;
+      if (*v47 != *(v47 + 8))
       {
-        if ((*v50 & 0xFFFE) == 0x46)
+        if ((*v49 & 0xFFFE) == 0x46)
         {
-          *(a5 + 1240) = v49;
+          *(a5 + 1240) = v48;
         }
 
-        if (*v50 - 35 <= 4)
+        if (*v49 - 35 <= 4)
         {
-          *(a5 + 1248) = v49;
+          *(a5 + 1248) = v48;
         }
       }
     }
   }
 
-  else if (v47 < v47 - *(a5 + 1232))
+  else if (v46 < v46 - *(a5 + 1232))
   {
     *(a5 + 1232) = 0;
   }
@@ -4386,7 +4311,7 @@ void MTSimpleEventDispatcher::MTSimpleEventDispatcher(MTSimpleEventDispatcher *t
 void MTSimpleEventDispatcher::initialize(uint64_t a1, MTSimpleHIDManager *this, const void *a3)
 {
   *(a1 + 16) = this;
-  MTSimpleHIDManager::retain(this);
+  MTSimpleHIDManager::retain(this, this);
   *(a1 + 48) = CFRetain(a3);
   *(a1 + 56) = 0;
   *(a1 + 32) = 0;
@@ -4435,7 +4360,7 @@ unsigned int *MTSimpleEventDispatcher::finalize(MTSimpleEventDispatcher *this)
   return result;
 }
 
-uint64_t MTSimpleEventDispatcher::retain(uint64_t this)
+uint64_t MTSimpleEventDispatcher::retain(uint64_t this, uint64_t a2)
 {
   if (!atomic_load((this + 8)))
   {
@@ -4504,11 +4429,10 @@ uint64_t MTSimpleEventDispatcher::handleEvent(void *a1, uint64_t a2, uint64_t a3
 
 void MTSimpleEventDispatcher::dispatchEvent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   if (a2 && *(a1 + 24) && *(a1 + 16))
   {
     (*(*a1 + 56))(a1);
-    v6 = *(a1 + 48);
     MTDeviceGetDeviceID();
     Type = IOHIDEventGetType();
     Children = IOHIDEventGetChildren();
@@ -4524,25 +4448,24 @@ void MTSimpleEventDispatcher::dispatchEvent(uint64_t a1, uint64_t a2, uint64_t a
 
     if (Type == 11 && ((IOHIDEventGetIntegerValue() & 2) != 0 || (IOHIDEventGetIntegerValue() & 0x80) != 0))
     {
-      v10 = *(a1 + 48);
-      MTDeviceGetDeviceID();
-      v11 = MTLoggingPlugin();
+      DeviceID = MTDeviceGetDeviceID();
+      v11 = MTLoggingPlugin(DeviceID, v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134219520;
-        v20 = Count;
-        v21 = 2048;
+        v21 = Count;
+        v22 = 2048;
         IntegerValue = IOHIDEventGetIntegerValue();
-        v23 = 2048;
-        *v24 = IOHIDEventGetIntegerValue();
-        *&v24[8] = 1024;
-        *&v24[10] = (IOHIDEventGetIntegerValue() >> 7) & 1;
-        v25 = 1024;
-        v26 = IOHIDEventGetIntegerValue() == 1;
-        v27 = 1024;
-        v28 = IOHIDEventGetIntegerValue() == 1;
-        v29 = 2048;
-        v30 = 0;
+        v24 = 2048;
+        *v25 = IOHIDEventGetIntegerValue();
+        *&v25[8] = 1024;
+        *&v25[10] = (IOHIDEventGetIntegerValue() >> 7) & 1;
+        v26 = 1024;
+        v27 = IOHIDEventGetIntegerValue() == 1;
+        v28 = 1024;
+        v29 = IOHIDEventGetIntegerValue() == 1;
+        v30 = 2048;
+        v31 = 0;
         _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_DEFAULT, "Dispatching event with %ld children, _eventMask=0x%lx _childEventMask=0x%lx Cancel=%d Touching=%d inRange=%d (deviceID 0x%llX)", buf, 0x3Cu);
       }
     }
@@ -4552,23 +4475,21 @@ void MTSimpleEventDispatcher::dispatchEvent(uint64_t a1, uint64_t a2, uint64_t a
     v14 = *(a1 + 40);
     v15 = *(a1 + 24);
     HIDService = MTSimpleHIDManager::getHIDService(*(a1 + 16));
-    v15(v13, v14, HIDService, a2, a3);
-    v17 = MTLoggingPlugin();
-    if (os_signpost_enabled(v17))
+    v17 = v15(v13, v14, HIDService, a2, a3);
+    v19 = MTLoggingPlugin(v17, v18);
+    if (os_signpost_enabled(v19))
     {
       *buf = 134349824;
-      v20 = v12;
-      v21 = 2048;
+      v21 = v12;
+      v22 = 2048;
       IntegerValue = 0;
-      v23 = 1024;
-      *v24 = Type;
-      *&v24[4] = 2048;
-      *&v24[6] = Count;
-      _os_signpost_emit_with_name_impl(&dword_29D381000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Multitouch Event Dispatch", "%{public, signpost.description:begin_time}llu mtDeviceID=%llu eventType=%u children=%lu", buf, 0x26u);
+      v24 = 1024;
+      *v25 = Type;
+      *&v25[4] = 2048;
+      *&v25[6] = Count;
+      _os_signpost_emit_with_name_impl(&dword_29D381000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Multitouch Event Dispatch", "%{public, signpost.description:begin_time}llu mtDeviceID=%llu eventType=%u children=%lu", buf, 0x26u);
     }
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void MTSimpleEventDispatcher::recordHIDEvent(uint64_t a1, uint64_t a2, int a3)
@@ -4849,7 +4770,7 @@ void MTTrackpadEventDispatcher::initialize(uint64_t a1, MTSimpleHIDManager *a2, 
   MTSimpleEventDispatcher::initialize(a1, a2, a3);
 }
 
-uint64_t MTTrackpadEventDispatcher::handleEvent(dispatch_object_t *a1, uint64_t a2, uint64_t a3)
+uint64_t MTTrackpadEventDispatcher::handleEvent(dispatch_object_t *a1, NSObject *a2, uint64_t a3)
 {
   a1[7] = a2;
   if (IOHIDEventGetType() != 11 || IOHIDEventGetIntegerValue() != 1)
@@ -4879,7 +4800,7 @@ LABEL_47:
   v40 = v8;
   v38 = IOHIDEventConformsTo();
   ((*a1)[14].isa)(a1);
-  v9 = MTTrackpadEventDispatcher::checkForMomentumCancellation(a1);
+  v9 = MTTrackpadEventDispatcher::checkForMomentumCancellation(a1, a2);
   if (v8 | v39)
   {
     v10 = v9;
@@ -5098,10 +5019,10 @@ LABEL_49:
   return result;
 }
 
-uint64_t MTTrackpadEventDispatcher::checkForMomentumCancellation(dispatch_object_t *a1)
+uint64_t MTTrackpadEventDispatcher::checkForMomentumCancellation(dispatch_object_t *a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x29EDCA608];
-  MomentumEnableEvent = getMomentumEnableEvent();
+  v31 = *MEMORY[0x29EDCA608];
+  MomentumEnableEvent = getMomentumEnableEvent(a2);
   if (a1[57])
   {
     if (MomentumEnableEvent)
@@ -5114,77 +5035,74 @@ uint64_t MTTrackpadEventDispatcher::checkForMomentumCancellation(dispatch_object
     {
       if (!IOHIDEventConformsTo())
       {
-        v17 = 1;
+        v20 = 1;
         MTTrackpadEventDispatcher::cancelOutstandingMomentumTimer(a1, 1);
-        goto LABEL_22;
+        return v20;
       }
 
       context = dispatch_get_context(a1[57]);
       if (context)
       {
-        v4 = context;
-        v5 = context[8];
-        if (IOHIDEventGetIntegerValue() == v5 && *v4 != 1)
+        v5 = context;
+        v6 = context[8];
+        if (IOHIDEventGetIntegerValue() == v6 && *v5 != 1)
         {
-          v6 = *(v4 + 72);
-          v7 = *(v4 + 48);
-          v8 = 0.0;
+          v7 = *(v5 + 72);
+          v8 = *(v5 + 48);
           v9 = 0.0;
-          if (v6 < (*(v4 + 56) - v7) >> 2)
+          v10 = 0.0;
+          if (v7 < (*(v5 + 56) - v8) >> 2)
           {
-            v9 = *(v7 + 4 * v6);
+            v10 = *(v8 + 4 * v7);
           }
 
-          v10 = *(v4 + 112);
-          v11 = *(v4 + 88);
-          if (v10 < (*(v4 + 96) - v11) >> 2)
+          v11 = *(v5 + 112);
+          v12 = *(v5 + 88);
+          if (v11 < (*(v5 + 96) - v12) >> 2)
           {
-            v8 = *(v11 + 4 * v10);
+            v9 = *(v12 + 4 * v11);
           }
 
-          v12 = hypotf(v9, v8);
-          v13 = v9 + IOHIDEventGetIntegerValue() * 0.25;
-          v14 = v8 + IOHIDEventGetIntegerValue() * 0.25;
-          v15.n128_f32[0] = hypotf(v13, v14);
-          if (v12 > 0.0 && v15.n128_f32[0] > v12)
+          v13 = hypotf(v10, v9);
+          v14 = v10 + IOHIDEventGetIntegerValue() * 0.25;
+          v15 = v9 + IOHIDEventGetIntegerValue() * 0.25;
+          v16.n128_f32[0] = hypotf(v14, v15);
+          if (v13 > 0.0 && v16.n128_f32[0] > v13)
           {
-            v15.n128_f32[0] = v12 / v15.n128_f32[0];
-            v13 = v15.n128_f32[0] * v13;
-            v14 = v15.n128_f32[0] * v14;
+            v16.n128_f32[0] = v13 / v16.n128_f32[0];
+            v14 = v16.n128_f32[0] * v14;
+            v15 = v16.n128_f32[0] * v15;
           }
 
-          *(v4 + 24) = v13;
-          *(v4 + 28) = v14;
-          MTTrackpadEventDispatcher::generateMomentumDeltas(a1, v4, v15);
-          v16 = MTLoggingPlugin();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          *(v5 + 24) = v14;
+          *(v5 + 28) = v15;
+          MTTrackpadEventDispatcher::generateMomentumDeltas(a1, v5, v16);
+          v19 = MTLoggingPlugin(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
             *&buf[4] = "";
-            v21 = 2080;
-            v22 = "";
             v23 = 2080;
-            v24 = "checkForMomentumCancellation";
-            v25 = 2048;
-            v26 = v13;
+            v24 = "";
+            v25 = 2080;
+            v26 = "checkForMomentumCancellation";
             v27 = 2048;
             v28 = v14;
-            _os_log_impl(&dword_29D381000, v16, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Adjusted point/drag momentum %4.1fx %4.1fy\n", buf, 0x34u);
+            v29 = 2048;
+            v30 = v15;
+            _os_log_impl(&dword_29D381000, v19, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Adjusted point/drag momentum %4.1fx %4.1fy\n", buf, 0x34u);
           }
         }
       }
     }
   }
 
-  v17 = 0;
-LABEL_22:
-  v18 = *MEMORY[0x29EDCA608];
-  return v17;
+  return 0;
 }
 
 const void *MTTrackpadEventDispatcher::checkForMomentumInitiation(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  result = getMomentumEnableEvent();
+  result = getMomentumEnableEvent(a2);
   *a3 = 1114636288;
   if (result)
   {
@@ -5195,14 +5113,14 @@ const void *MTTrackpadEventDispatcher::checkForMomentumInitiation(uint64_t a1, u
   return result;
 }
 
-uint64_t MTTrackpadEventDispatcher::handleParserDisabled(uint64_t this)
+uint64_t MTTrackpadEventDispatcher::handleParserDisabled(uint64_t this, uint64_t a2)
 {
   v11 = *MEMORY[0x29EDCA608];
   if (*(this + 524) == 1)
   {
-    v1 = this;
-    v2 = MTLoggingPlugin();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v2 = this;
+    v3 = MTLoggingPlugin(this, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v5 = 136315650;
       v6 = "[Debug] ";
@@ -5210,14 +5128,13 @@ uint64_t MTTrackpadEventDispatcher::handleParserDisabled(uint64_t this)
       v8 = "";
       v9 = 2080;
       v10 = "handleParserDisabled";
-      _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Trackpad has been disabled with button down. Dispatching button up event", &v5, 0x20u);
+      _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Trackpad has been disabled with button down. Dispatching button up event", &v5, 0x20u);
     }
 
-    v3 = mach_absolute_time();
-    this = (*(*v1 + 152))(v1, 0, 0, 0, v3, 0, 0);
+    v4 = mach_absolute_time();
+    return (*(*v2 + 152))(v2, 0, 0, 0, v4, 0, 0);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -5396,24 +5313,24 @@ uint64_t MTTrackpadEventDispatcher::getNextScrollPhase(MTTrackpadEventDispatcher
   }
 }
 
-void MTTrackpadEventDispatcher::setScrollMomentumDispatchRate(MTTrackpadEventDispatcher *this, float a2)
+void MTTrackpadEventDispatcher::setScrollMomentumDispatchRate(MTTrackpadEventDispatcher *this, float a2, uint64_t a3)
 {
   v18 = *MEMORY[0x29EDCA608];
-  v4 = 1114636288;
-  if (a2 >= 60.0 && (v4 = 1140457472, a2 <= 500.0))
+  v5 = 1114636288;
+  if (a2 >= 60.0 && (v5 = 1140457472, a2 <= 500.0))
   {
     *(this + 136) = a2;
   }
 
   else
   {
-    *(this + 136) = v4;
+    *(this + 136) = v5;
   }
 
-  v5 = MTLoggingPlugin();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = MTLoggingPlugin(this, a3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(this + 136);
+    v7 = *(this + 136);
     v8 = 136316162;
     v9 = "";
     v10 = 2080;
@@ -5423,11 +5340,9 @@ void MTTrackpadEventDispatcher::setScrollMomentumDispatchRate(MTTrackpadEventDis
     v14 = 2048;
     v15 = a2;
     v16 = 2048;
-    v17 = v6;
-    _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Requested value %f -> set value %f", &v8, 0x34u);
+    v17 = v7;
+    _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Requested value %f -> set value %f", &v8, 0x34u);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 float *MTTrackpadEventDispatcher::dispatchMomentumScrollStartStopEvent(float *this, char a2, uint64_t a3)
@@ -5440,7 +5355,7 @@ float *MTTrackpadEventDispatcher::dispatchMomentumScrollStartStopEvent(float *th
   return this;
 }
 
-void MTTrackpadEventDispatcher::dispatchPointingEvent(MTTrackpadEventDispatcher *this, int a2, int a3, int a4, unint64_t a5, int a6, int a7)
+void MTTrackpadEventDispatcher::dispatchPointingEvent(MTTrackpadEventDispatcher *this, int a2, int a3, int a4, uint64_t a5, int a6, uint64_t a7)
 {
   v8 = a3 | a2 | a7;
   if (a6)
@@ -5477,26 +5392,24 @@ void MTTrackpadEventDispatcher::dispatchPointingEvent(MTTrackpadEventDispatcher 
     v11 = v10;
   }
 
-  v12 = *MEMORY[0x29EDB8ED8];
-  v13 = *(this + 131);
   RelativePointerEvent = IOHIDEventCreateRelativePointerEvent();
   if (RelativePointerEvent)
   {
-    v15 = RelativePointerEvent;
+    v13 = RelativePointerEvent;
     (*(*this + 40))(this, RelativePointerEvent, 0);
-    CFRelease(v15);
+    CFRelease(v13);
   }
 
   *(this + 131) = v11;
 }
 
-void MTTrackpadEventDispatcher::dispatchScrollEvent(MTTrackpadEventDispatcher *this, int a2, int a3, int a4, int a5, int a6, float a7, int a8)
+void MTTrackpadEventDispatcher::dispatchScrollEvent(MTTrackpadEventDispatcher *this, uint64_t a2, int a3, int a4, int a5, int a6, float a7, int a8)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   valuePtr = a7;
   if (*(this + 548) != 1)
   {
-    goto LABEL_32;
+    return;
   }
 
   if (!a6)
@@ -5514,7 +5427,7 @@ void MTTrackpadEventDispatcher::dispatchScrollEvent(MTTrackpadEventDispatcher *t
       *(this + 134) = v14;
       if (v14 > 9)
       {
-        goto LABEL_32;
+        return;
       }
     }
 
@@ -5522,7 +5435,7 @@ void MTTrackpadEventDispatcher::dispatchScrollEvent(MTTrackpadEventDispatcher *t
 LABEL_12:
     if (!v15)
     {
-      goto LABEL_32;
+      return;
     }
 
     goto LABEL_23;
@@ -5530,7 +5443,7 @@ LABEL_12:
 
   if (*(this + 540) != 1)
   {
-    goto LABEL_32;
+    return;
   }
 
   v11 = *(this + 116);
@@ -5546,7 +5459,7 @@ LABEL_12:
     *(this + 116) = v12;
     if (v12 > 9)
     {
-      goto LABEL_32;
+      return;
     }
   }
 
@@ -5557,15 +5470,15 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v17 = MTLoggingPlugin();
+  v17 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v26 = "";
-    v27 = 2080;
-    v28 = "";
-    v29 = 2080;
-    v30 = "dispatchScrollEvent";
+    v25 = "";
+    v26 = 2080;
+    v27 = "";
+    v28 = 2080;
+    v29 = "dispatchScrollEvent";
     _os_log_impl(&dword_29D381000, v17, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Momentum interrupted", buf, 0x20u);
   }
 
@@ -5600,16 +5513,12 @@ LABEL_23:
     (*(*this + 40))(this, v20, 0);
     CFRelease(v20);
   }
-
-LABEL_32:
-  v23 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t MTTrackpadEventDispatcher::recordHIDEvent(uint64_t result, uint64_t a2, int a3)
+void MTTrackpadEventDispatcher::recordHIDEvent(void *a1, uint64_t a2, int a3)
 {
   if (a2 && a3 <= 5)
   {
-    v4 = result;
     Children = IOHIDEventGetChildren();
     if (Children)
     {
@@ -5620,7 +5529,7 @@ uint64_t MTTrackpadEventDispatcher::recordHIDEvent(uint64_t result, uint64_t a2,
         do
         {
           ValueAtIndex = CFArrayGetValueAtIndex(v6, v7);
-          (*(*v4 + 56))(v4, ValueAtIndex, (a3 + 1));
+          (*(*a1 + 56))(a1, ValueAtIndex, (a3 + 1));
           ++v7;
         }
 
@@ -5629,14 +5538,14 @@ uint64_t MTTrackpadEventDispatcher::recordHIDEvent(uint64_t result, uint64_t a2,
     }
 
     Type = IOHIDEventGetType();
-    v10 = Type;
-    result = IOHIDEventGetPhase();
-    if (Type <= 0x2B && (!result || (result & 1) != 0) && Type <= 0x1C)
+    v11 = Type;
+    Phase = IOHIDEventGetPhase();
+    if (Type <= 0x2B && (!Phase || (Phase & 1) != 0) && Type <= 0x1C)
     {
       if (((1 << Type) & 0x4003F2) != 0)
       {
-        v11 = &v10;
-        std::__tree<std::__value_type<unsigned int,std::list<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::list<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::list<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 472, &v10);
+        v12 = &v11;
+        std::__tree<std::__value_type<unsigned int,std::list<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::list<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::list<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 59), &v11, &std::piecewise_construct, &v12);
         CFAbsoluteTimeGetCurrent();
         operator new();
       }
@@ -5653,8 +5562,6 @@ uint64_t MTTrackpadEventDispatcher::recordHIDEvent(uint64_t result, uint64_t a2,
       }
     }
   }
-
-  return result;
 }
 
 __CFDictionary *MTTrackpadEventDispatcher::copyDebugData(MTTrackpadEventDispatcher *this)
@@ -5676,7 +5583,7 @@ __CFDictionary *MTTrackpadEventDispatcher::copyDebugData(MTTrackpadEventDispatch
       }
 
       v7 = *(this + 59);
-      v31 = this;
+      v30 = this;
       v8 = this + 480;
       if (v7 != this + 480)
       {
@@ -5685,16 +5592,16 @@ __CFDictionary *MTTrackpadEventDispatcher::copyDebugData(MTTrackpadEventDispatch
         {
           *&v10 = 0xAAAAAAAAAAAAAAAALL;
           *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v34[0] = v10;
-          v34[1] = v10;
-          LODWORD(v34[0]) = *(v7 + 8);
-          std::list<double>::list(v34 + 1, (v7 + 40));
-          memset(v33, 170, sizeof(v33));
-          std::list<double>::list(v33, v34 + 8);
+          v33[0] = v10;
+          v33[1] = v10;
+          LODWORD(v33[0]) = *(v7 + 8);
+          std::list<double>::list(v33 + 1, (v7 + 40));
+          memset(v32, 170, sizeof(v32));
+          std::list<double>::list(v32, v33 + 8);
           Mutable = CFArrayCreateMutable(v2, 100, v9);
           if (Mutable)
           {
-            v12 = v33[2] == 0;
+            v12 = v32[2] == 0;
           }
 
           else
@@ -5705,7 +5612,7 @@ __CFDictionary *MTTrackpadEventDispatcher::copyDebugData(MTTrackpadEventDispatch
           if (!v12)
           {
             v13 = v8;
-            for (i = v33[1]; i != v33; i = *(i + 8))
+            for (i = v32[1]; i != v32; i = *(i + 8))
             {
               StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(v2, v4, *(i + 16));
               if (StringWithAbsoluteTime)
@@ -5722,8 +5629,8 @@ __CFDictionary *MTTrackpadEventDispatcher::copyDebugData(MTTrackpadEventDispatch
             CFRelease(Mutable);
           }
 
-          std::__list_imp<double>::clear(v33);
-          std::__list_imp<double>::clear(v34 + 1);
+          std::__list_imp<double>::clear(v32);
+          std::__list_imp<double>::clear(v33 + 1);
           v17 = *(v7 + 1);
           if (v17)
           {
@@ -5759,27 +5666,26 @@ __CFDictionary *MTTrackpadEventDispatcher::copyDebugData(MTTrackpadEventDispatch
       {
         v20 = v19;
         v21 = this + 496;
-        v22 = *(v31 + 63);
-        if (v22 != (v31 + 496))
+        v22 = *(v30 + 63);
+        if (v22 != (v30 + 496))
         {
           do
           {
-            v23 = *(v22 + 16);
-            v24 = *(v22 + 20);
-            v25 = CFDateFormatterCreateStringWithAbsoluteTime(v2, v4, *(v22 + 24));
-            if (v25)
+            v23 = *(v22 + 20);
+            v24 = CFDateFormatterCreateStringWithAbsoluteTime(v2, v4, *(v22 + 24));
+            if (v24)
             {
-              v26 = v25;
-              v27 = IOHIDEventTypeGetName();
-              v28 = CFStringCreateWithFormat(v2, 0, @"%@ (%u) @ %@", v27, v24, v26);
-              if (v28)
+              v25 = v24;
+              v26 = IOHIDEventTypeGetName();
+              v27 = CFStringCreateWithFormat(v2, 0, @"%@ (%u) @ %@", v26, v23, v25);
+              if (v27)
               {
-                v29 = v28;
-                CFArrayAppendValue(v20, v28);
-                CFRelease(v29);
+                v28 = v27;
+                CFArrayAppendValue(v20, v27);
+                CFRelease(v28);
               }
 
-              CFRelease(v26);
+              CFRelease(v25);
             }
 
             v22 = *(v22 + 8);
@@ -5900,18 +5806,13 @@ float MTTrackpadEventDispatcher::momentumDecayRateAlpha(int a1, float a2, float 
   return pow(v15, v16);
 }
 
-uint64_t MTTrackpadEventDispatcher::startMomentumTimerForEvent()
+void MTTrackpadEventDispatcher::startMomentumTimerForEvent(uint64_t a1, uint64_t a2, int a3, float *a4)
 {
-  v3 = *MEMORY[0x29EDCA608];
   Event = IOHIDEventGetEvent();
-  result = IOHIDEventGetEvent();
-  if (Event | result)
+  if (Event | IOHIDEventGetEvent())
   {
     operator new();
   }
-
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void MTTrackpadEventDispatcher::cancelOutstandingMomentumTimer(MTTrackpadEventDispatcher *this, uint64_t a2)
@@ -6261,7 +6162,7 @@ uint64_t MTTrackpadEventDispatcher::generateFrameIntervalMomentumDeltas(__n128 a
   return result;
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6310,7 +6211,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -6849,7 +6750,7 @@ LABEL_9:
   }
 }
 
-const void *getMomentumEnableEvent()
+const void *getMomentumEnableEvent(uint64_t a1)
 {
   if (!IOHIDEventConformsTo())
   {
@@ -6862,24 +6763,24 @@ const void *getMomentumEnableEvent()
     return 0;
   }
 
-  v1 = Children;
+  v2 = Children;
   Count = CFArrayGetCount(Children);
   if (Count < 1)
   {
     return 0;
   }
 
-  v3 = Count;
-  v4 = 0;
+  v4 = Count;
+  v5 = 0;
   while (1)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v1, v4);
+    ValueAtIndex = CFArrayGetValueAtIndex(v2, v5);
     if (IOHIDEventGetType() == 1 && IOHIDEventGetIntegerValue() == 65280 && IOHIDEventGetIntegerValue() == 1)
     {
       break;
     }
 
-    if (v3 == ++v4)
+    if (v4 == ++v5)
     {
       return 0;
     }
@@ -6945,48 +6846,48 @@ void std::__tree<std::__value_type<unsigned int,std::list<double>>,std::__map_va
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::list<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::list<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::list<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::list<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::list<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::list<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::list<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::list<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::list<double>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::list<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::list<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::list<double>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7029,12 +6930,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7048,22 +6949,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7097,13 +6998,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7145,20 +7046,20 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-void *std::list<double>::list(void *result, uint64_t a2)
+uint64_t *std::list<double>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,std::greater<int> &,int *,true>(int *result, int *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::greater<int> &,int *,true>(uint64_t result, int *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -8328,7 +8229,7 @@ LABEL_68:
   return v53 - 1;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<int> &,int *>(_DWORD *a1, int *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<int> &,int *>(int *a1, int *a2)
 {
   v2 = a2 - a1;
   if (v2 > 2)
@@ -8981,27 +8882,26 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<int>
   return result;
 }
 
-void *std::__split_buffer<int>::emplace_back<int>(void *result, _DWORD *a2)
+void std::__split_buffer<int>::emplace_back<int>(unint64_t *a1, _DWORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 1;
+        v11 = &v4[-*a1] >> 1;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 2) + 1) / -2;
@@ -9010,33 +8910,32 @@ void *std::__split_buffer<int>::emplace_back<int>(void *result, _DWORD *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-4 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-4 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[4 * v7];
+    a1[1] = &v5[4 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 4;
-  return result;
+  a1[2] = (v4 + 4);
 }
 
-BOOL MTMouseEventDispatcher::shouldDispatchEvent(uint64_t a1)
+BOOL MTMouseEventDispatcher::shouldDispatchEvent(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 432) & 1) != 0 || (IOHIDEventGetIntegerValue() & 0x100) != 0 || (IOHIDEventGetIntegerValue() & 8) != 0 || IOHIDEventConformsTo() || IOHIDEventConformsTo() || IOHIDEventConformsTo() || IOHIDEventConformsTo() || IOHIDEventConformsTo() || IOHIDEventConformsTo())
   {
     return 1;
   }
 
-  v1 = 1;
+  v2 = 1;
   if (!IOHIDEventConformsTo())
   {
     return IOHIDEventConformsTo() != 0;
   }
 
-  return v1;
+  return v2;
 }
 
 void MTMouseEventDispatcher::dispatchEvent(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -9231,7 +9130,7 @@ uint64_t MTSimpleHIDManager::closeManager(MTSimpleHIDManager *this)
   return v2(this);
 }
 
-uint64_t MTSimpleHIDManager::retain(uint64_t this)
+uint64_t MTSimpleHIDManager::retain(uint64_t this, uint64_t a2)
 {
   if (!atomic_load((this + 8)))
   {
@@ -9291,10 +9190,9 @@ uint64_t MTSimpleHIDManager::wasUnscheduledFromDispatchQueue(NSObject **this, di
   }
 
   (*(this[4]->isa + 8))(this[4], a2);
-  v5 = this[21];
-  v6 = *(this[4]->isa + 11);
+  v5 = *(this[4]->isa + 11);
 
-  return v6();
+  return v5();
 }
 
 uint64_t MTSimpleHIDManager::registerDeviceNotifications(MTSimpleHIDManager *this)
@@ -9412,7 +9310,7 @@ unsigned int *MTSimpleHIDManager::setEventDispatcher(MTSimpleHIDManager *this, M
   if (a2)
   {
 
-    return MTSimpleEventDispatcher::retain(a2);
+    return MTSimpleEventDispatcher::retain(a2, a2);
   }
 
   return result;

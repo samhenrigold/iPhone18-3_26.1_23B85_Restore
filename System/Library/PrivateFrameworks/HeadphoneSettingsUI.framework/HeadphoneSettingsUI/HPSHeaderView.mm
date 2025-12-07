@@ -46,12 +46,21 @@
 
   if (name)
   {
-    sub_1AC30A92C();
+    v8 = sub_1AC30A92C();
+    v9 = v6;
     MEMORY[0x1E69E5920](name);
+    v10 = v8;
+    v11 = v9;
   }
 
-  v6 = sub_1AC30910C();
-  sub_1AC2C1B50(v6);
+  else
+  {
+    v10 = 0;
+    v11 = 0;
+  }
+
+  v7 = sub_1AC30910C();
+  sub_1AC2C1B50(v10, v11, v7 & 1, v7);
 }
 
 @end

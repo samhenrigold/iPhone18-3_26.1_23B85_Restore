@@ -79,14 +79,14 @@
 
   else
   {
-    memset(v9, 0, sizeof(v9));
+    memset(v10, 0, sizeof(v10));
     selfCopy2 = self;
   }
 
-  v7 = sub_1C1E052F8();
+  v8 = sub_1C1E052F8(action);
 
-  sub_1C1DF712C(v9);
-  return v7;
+  sub_1C1DF712C(v10);
+  return v8;
 }
 
 - (void)copy:(id)copy
@@ -111,7 +111,7 @@
     v7 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC11CalculateUI22PlatformViewController_handlePasteboard);
 
     v6(0, 0);
-    sub_1C1DD0EB8(v6);
+    sub_1C1DD0EB8(v6, v7);
   }
 
   sub_1C1DF712C(v8);
@@ -152,18 +152,18 @@
     goto LABEL_9;
   }
 
-  sub_1C1DD6A34(v8);
+  sub_1C1DD6A34(v8, v7);
   eventCopy2 = event;
   v11 = sub_1C1E10720(v6);
   if (!v11)
   {
-    sub_1C1DD0EB8(v8);
+    sub_1C1DD0EB8(v8, v7);
     goto LABEL_9;
   }
 
   v12 = v11;
   v13 = v8();
-  sub_1C1DD0EB8(v8);
+  sub_1C1DD0EB8(v8, v7);
 
   if ((v13 & 1) == 0)
   {

@@ -22,7 +22,7 @@
 + (double)smallPreviewOverlayButtonSizeForContentSize:(id)size
 {
   sizeCopy = size;
-  sub_1A3912958();
+  sub_1A3912958(sizeCopy);
   v5 = v4;
 
   return v5;
@@ -30,7 +30,7 @@
 
 + (double)regularFontSizeForContentSize:(id)size
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0FE150);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0FE150, &qword_1A3A72C90);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v16 - v5;
   v7 = sub_1A3A30090();
@@ -63,20 +63,22 @@
 
 + (CGRect)viewportWithAspectRatio:(double)ratio viewSize:(CGSize)size smartStyleControlsExpanded:(BOOL)expanded
 {
+  expandedCopy = expanded;
   height = size.height;
   width = size.width;
   swift_getObjCClassMetadata();
   v9 = sub_1A3913588(ratio, width, height);
   v11 = v10;
-  sub_1A3910F50(expanded, ratio, width, height);
-  v13 = height - v11 - v12;
-  v14 = 0.0;
-  v15 = v9;
-  v16 = v11;
-  result.size.height = v16;
-  result.size.width = v15;
-  result.origin.y = v13;
-  result.origin.x = v14;
+  v12.n128_f64[0] = ratio;
+  sub_1A3910F50(expandedCopy, v12, width, height, v13);
+  v15 = height - v11 - v14;
+  v16 = 0.0;
+  v17 = v9;
+  v18 = v11;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v15;
+  result.origin.x = v16;
   return result;
 }
 
@@ -115,22 +117,22 @@
 
 + (void)shutterButtonCenterBottomInsetForViewSize:(double)size
 {
-  if (size == 0.0 || a2 == 0.0)
+  if (size == 0.0 || a4 == 0.0)
   {
 LABEL_6:
-    sub_1A3911D18();
+    sub_1A3911D18(self, a2);
 LABEL_7:
-    sub_1A3911E3C();
+    sub_1A3911E3C(self);
     return;
   }
 
   capabilities = [objc_opt_self() capabilities];
   if (capabilities)
   {
-    v5 = capabilities;
+    v7 = capabilities;
     isiPad = [capabilities isiPad];
 
-    if ((isiPad & 1) != 0 || fabs(size / a2 + -0.5625) < 0.01)
+    if ((isiPad & 1) != 0 || fabs(size / a4 + -0.5625) < 0.01)
     {
       goto LABEL_7;
     }
@@ -143,7 +145,7 @@ LABEL_7:
 
 + (void)contentFrameForViewSize:(double)size
 {
-  if (size == 0.0 || a2 == 0.0)
+  if (size == 0.0 || a4 == 0.0)
   {
     goto LABEL_6;
   }
@@ -155,17 +157,17 @@ LABEL_7:
     return;
   }
 
-  v5 = capabilities;
+  v7 = capabilities;
   isiPad = [capabilities isiPad];
 
-  if ((isiPad & 1) == 0 && fabs(size / a2 + -0.5625) >= 0.01)
+  if ((isiPad & 1) == 0 && fabs(size / a4 + -0.5625) >= 0.01)
   {
 LABEL_6:
-    sub_1A3911D18();
-    fmax(sub_1A3911D18() + -8.0, 6.0);
+    sub_1A3911D18(self, a2);
+    fmax(sub_1A3911D18(v9, v10) + -8.0, 6.0);
   }
 
-  UIEdgeInsetsInsetRect(0.0, 0.0, size, a2, 0.0, 0.0);
+  UIEdgeInsetsInsetRect(0.0, 0.0, size, a4, 0.0, 0.0);
 }
 
 @end

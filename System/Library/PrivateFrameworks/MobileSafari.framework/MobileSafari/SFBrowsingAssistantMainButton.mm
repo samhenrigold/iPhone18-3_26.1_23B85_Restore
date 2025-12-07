@@ -16,7 +16,7 @@
 
 - (void)updateConfiguration
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9D4730);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9D4730, &unk_18BC41F60);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v8 - v4;
   v6 = type metadata accessor for MainButton();

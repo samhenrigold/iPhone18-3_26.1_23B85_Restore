@@ -69,33 +69,33 @@
 
 - (void)configureSupplementaryRegistration:(id)registration elementKind:(id)kind sectionIdentifier:(id)identifier
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69DCC28];
   registrationCopy = registration;
   headerConfiguration = [v5 headerConfiguration];
-  [headerConfiguration setAxesPreservingSuperviewLayoutMargins:0];
-  v18[0] = *MEMORY[0x1E69DB648];
-  v8 = PKOBKListHeaderFont();
-  v19[0] = v8;
-  v18[1] = *MEMORY[0x1E69DB650];
-  v9 = PKOBKListHeaderTextColor();
-  v19[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v8 = [headerConfiguration setAxesPreservingSuperviewLayoutMargins:0];
+  v19[0] = *MEMORY[0x1E69DB648];
+  v9 = PKOBKListHeaderFont(v8);
+  v20[0] = v9;
+  v19[1] = *MEMORY[0x1E69DB650];
+  v10 = PKOBKListHeaderTextColor(v9);
+  v20[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
-  v11 = PKDeviceSpecificLocalizedStringKeyForKey(@"PAYMENT_SETUP_APP_EXTENSION_HEADER", 0);
-  v12 = PKSetupViewConstantsViewMargin();
-  v13 = PKSetupListViewConstantsViewMargin();
-  v14 = v12 - v13;
-  if (v13 > v12)
+  v12 = PKDeviceSpecificLocalizedStringKeyForKey(@"PAYMENT_SETUP_APP_EXTENSION_HEADER", 0);
+  v13 = PKSetupViewConstantsViewMargin();
+  v14 = PKSetupListViewConstantsViewMargin();
+  v15 = v13 - v14;
+  if (v14 > v13)
   {
-    v14 = 0.0;
+    v15 = 0.0;
   }
 
-  [headerConfiguration setDirectionalLayoutMargins:{10.0, v14, 10.0, v14}];
-  v15 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v16 = PKLocalizedPaymentString(v11);
-  v17 = [v15 initWithString:v16 attributes:v10];
-  [headerConfiguration setAttributedText:v17];
+  [headerConfiguration setDirectionalLayoutMargins:{10.0, v15, 10.0, v15}];
+  v16 = objc_alloc(MEMORY[0x1E696AAB0]);
+  v17 = PKLocalizedPaymentString(v12);
+  v18 = [v16 initWithString:v17 attributes:v11];
+  [headerConfiguration setAttributedText:v18];
 
   [registrationCopy setContentConfiguration:headerConfiguration];
 }
@@ -124,11 +124,11 @@
   }
 }
 
-uint64_t __62__PKPaymentSetupAppExtensionsSectionController_didSelectItem___block_invoke(uint64_t result, int a2)
+id *__62__PKPaymentSetupAppExtensionsSectionController_didSelectItem___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _updateItemIdentifier:*(result + 40) loadingIndicatorVisibility:0 animated:1];
+    return [result[4] _updateItemIdentifier:result[5] loadingIndicatorVisibility:0 animated:1];
   }
 
   return result;

@@ -124,8 +124,8 @@
 - (id)computeCurvesForImageHistogram:(id)histogram
 {
   v5 = 0;
-  v55 = *MEMORY[0x1E69E9840];
-  v6 = &v53;
+  v54 = *MEMORY[0x1E69E9840];
+  v6 = v52 + 1;
   do
   {
     luminance = [histogram luminance];
@@ -138,9 +138,9 @@
   }
 
   while (v5 != 5);
-  v10 = v52[0];
-  v11 = v54;
-  v12 = [PICurvesAutoCalculator autoValuesForBlackPoint:*v52 whitePoint:v54];
+  v10 = *&v52[0];
+  v11 = v53;
+  v12 = [PICurvesAutoCalculator autoValuesForBlackPoint:*v52 whitePoint:v53];
   v13 = [v12 mutableCopy];
 
   if (*MEMORY[0x1E69B3D78] != -1)
@@ -161,7 +161,7 @@
   v40 = v15;
   do
   {
-    v17 = [[PICurveControlPoint alloc] initWithX:1 y:*&v52[2 * v16] editable:*&v52[2 * v16 + 1]];
+    v17 = [[PICurveControlPoint alloc] initWithX:1 y:*&v52[v16] editable:*(&v52[v16] + 1)];
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;

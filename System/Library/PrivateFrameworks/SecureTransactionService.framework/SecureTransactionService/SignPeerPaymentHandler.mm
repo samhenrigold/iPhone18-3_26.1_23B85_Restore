@@ -40,14 +40,14 @@
 
 - (id)signPeerPayment:(id)payment authorization:(id)authorization error:(id *)error
 {
-  v61[4] = *MEMORY[0x277D85DE8];
+  v60[4] = *MEMORY[0x277D85DE8];
   paymentCopy = payment;
   authorizationCopy = authorization;
   activeSTSCredential = [(STSHandler *)self activeSTSCredential];
 
   if (!activeSTSCredential)
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[SignPeerPaymentHandler signPeerPayment:authorization:error:]", 57, self, @"Credential does not exist!", v12, v13, v50);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[SignPeerPaymentHandler signPeerPayment:authorization:error:]", 57, self, @"Credential does not exist!", v12, v13, v49);
     if (!error)
     {
       goto LABEL_19;
@@ -55,20 +55,20 @@
 
     v34 = MEMORY[0x277CCA9B8];
     v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v60[0] = *MEMORY[0x277CCA450];
+    v59[0] = *MEMORY[0x277CCA450];
     v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v61[0] = v22;
-    v61[1] = &unk_2876ED0C8;
-    v60[1] = @"Line";
-    v60[2] = @"Method";
+    v60[0] = v22;
+    v60[1] = &unk_2876ED0C8;
+    v59[1] = @"Line";
+    v59[2] = @"Method";
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v61[2] = v24;
-    v60[3] = *MEMORY[0x277CCA068];
+    v60[2] = v24;
+    v59[3] = *MEMORY[0x277CCA068];
     v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 59];
-    v61[3] = v35;
+    v60[3] = v35;
     v36 = MEMORY[0x277CBEAC0];
-    v37 = v61;
-    v38 = v60;
+    v37 = v60;
+    v38 = v59;
 LABEL_15:
     v44 = [v36 dictionaryWithObjects:v37 forKeys:v38 count:4];
     v45 = v34;
@@ -97,18 +97,18 @@ LABEL_16:
 
     v43 = MEMORY[0x277CCA9B8];
     v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v58[0] = *MEMORY[0x277CCA450];
+    v57[0] = *MEMORY[0x277CCA450];
     v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid Parameter"];
-    v59[0] = v22;
-    v59[1] = &unk_2876ED0E0;
-    v58[1] = @"Line";
-    v58[2] = @"Method";
+    v58[0] = v22;
+    v58[1] = &unk_2876ED0E0;
+    v57[1] = @"Line";
+    v57[2] = @"Method";
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v59[2] = v24;
-    v58[3] = *MEMORY[0x277CCA068];
+    v58[2] = v24;
+    v57[3] = *MEMORY[0x277CCA068];
     v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 67];
-    v59[3] = v35;
-    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:4];
+    v58[3] = v35;
+    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:4];
     v45 = v43;
     v46 = v28;
     v47 = 8;
@@ -117,7 +117,7 @@ LABEL_16:
 
   if (!self->_nfPeerPaymentSession)
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[SignPeerPaymentHandler signPeerPayment:authorization:error:]", 74, self, @"NF session does not exist!", v17, v18, v50);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[SignPeerPaymentHandler signPeerPayment:authorization:error:]", 74, self, @"NF session does not exist!", v17, v18, v49);
     if (!error)
     {
       goto LABEL_19;
@@ -125,20 +125,20 @@ LABEL_16:
 
     v34 = MEMORY[0x277CCA9B8];
     v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v56[0] = *MEMORY[0x277CCA450];
+    v55[0] = *MEMORY[0x277CCA450];
     v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v57[0] = v22;
-    v57[1] = &unk_2876ED0F8;
-    v56[1] = @"Line";
-    v56[2] = @"Method";
+    v56[0] = v22;
+    v56[1] = &unk_2876ED0F8;
+    v55[1] = @"Line";
+    v55[2] = @"Method";
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v57[2] = v24;
-    v56[3] = *MEMORY[0x277CCA068];
+    v56[2] = v24;
+    v55[3] = *MEMORY[0x277CCA068];
     v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 76];
-    v57[3] = v35;
+    v56[3] = v35;
     v36 = MEMORY[0x277CBEAC0];
-    v37 = v57;
-    v38 = v56;
+    v37 = v56;
+    v38 = v55;
     goto LABEL_15;
   }
 
@@ -154,9 +154,9 @@ LABEL_16:
   v22 = [paymentCopy toNFPeerPaymentRequest:identifier3];
 
   nfPeerPaymentSession = self->_nfPeerPaymentSession;
-  v53 = 0;
-  v24 = [(NFPeerPaymentSession *)nfPeerPaymentSession performPeerPayment:authorizationCopy request:v22 error:&v53];
-  v25 = v53;
+  v52 = 0;
+  v24 = [(NFPeerPaymentSession *)nfPeerPaymentSession performPeerPayment:authorizationCopy request:v22 error:&v52];
+  v25 = v52;
   v28 = v25;
   if (!v25)
   {
@@ -168,23 +168,23 @@ LABEL_16:
   if (error)
   {
     v29 = MEMORY[0x277CCA9B8];
-    v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v54[0] = *MEMORY[0x277CCA450];
-    v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Unexpected Result"];
+    v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
+    v53[0] = *MEMORY[0x277CCA450];
+    v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Unexpected Result"];
     v30 = *MEMORY[0x277CCA7E8];
-    v55[0] = v52;
-    v55[1] = v28;
-    v54[1] = v30;
-    v54[2] = @"Line";
-    v55[2] = &unk_2876ED110;
-    v54[3] = @"Method";
+    v54[0] = v51;
+    v54[1] = v28;
+    v53[1] = v30;
+    v53[2] = @"Line";
+    v54[2] = &unk_2876ED110;
+    v53[3] = @"Method";
     v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v55[3] = v31;
-    v54[4] = *MEMORY[0x277CCA068];
+    v54[3] = v31;
+    v53[4] = *MEMORY[0x277CCA068];
     v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 91];
-    v55[4] = v32;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:5];
-    *error = [v29 errorWithDomain:v51 code:10 userInfo:v33];
+    v54[4] = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:5];
+    *error = [v29 errorWithDomain:v50 code:10 userInfo:v33];
 
 LABEL_17:
     error = 0;
@@ -193,7 +193,6 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v48 = *MEMORY[0x277D85DE8];
 
   return error;
 }

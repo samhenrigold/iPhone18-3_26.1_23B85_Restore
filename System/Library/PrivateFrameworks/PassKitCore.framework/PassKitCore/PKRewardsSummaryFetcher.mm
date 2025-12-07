@@ -44,19 +44,19 @@
   v9 = v8;
   if (v8 == v7)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v10 = 0;
+    isEqualToString = 0;
     if (v7 && v8)
     {
-      v10 = [v7 isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
     }
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 - (void)rewardsTierSummariesWithCompletion:(id)completion

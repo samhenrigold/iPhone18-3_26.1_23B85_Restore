@@ -22,14 +22,14 @@
 
 - (void)cellularPlanChanged
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIPlanPendingTransferDetailController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[PSUIPlanPendingTransferDetailController cellularPlanChanged]";
-    v9 = 2112;
-    v10 = @"PSUICellularPlanChanged";
+    v7 = "[PSUIPlanPendingTransferDetailController cellularPlanChanged]";
+    v8 = 2112;
+    v9 = @"PSUICellularPlanChanged";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification %@", buf, 0x16u);
   }
 
@@ -42,33 +42,30 @@
   block[3] = &unk_279BA9D58;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__PSUIPlanPendingTransferDetailController_cellularPlanChanged__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) reloadSpecifiers];
   if (![*(*(a1 + 32) + *MEMORY[0x277D3FC48]) count])
   {
     v2 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[PSUIPlanPendingTransferDetailController cellularPlanChanged]_block_invoke";
-      _os_log_impl(&dword_2658DE000, v2, OS_LOG_TYPE_DEFAULT, "%s No specifiers to show, returning to Settings > Cellular view", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[PSUIPlanPendingTransferDetailController cellularPlanChanged]_block_invoke";
+      _os_log_impl(&dword_2658DE000, v2, OS_LOG_TYPE_DEFAULT, "%s No specifiers to show, returning to Settings > Cellular view", &v5, 0xCu);
     }
 
     v3 = [*(a1 + 32) navigationController];
     v4 = [v3 popViewControllerAnimated:1];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -76,9 +73,9 @@ void __62__PSUIPlanPendingTransferDetailController_cellularPlanChanged__block_in
     getLogger = [(PSUIPlanPendingTransferDetailController *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315138;
-      v16 = "[PSUIPlanPendingTransferDetailController specifiers]";
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s (re)loading specifiers", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "[PSUIPlanPendingTransferDetailController specifiers]";
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s (re)loading specifiers", &v14, 0xCu);
     }
 
     v6 = objc_opt_new();
@@ -102,8 +99,6 @@ void __62__PSUIPlanPendingTransferDetailController_cellularPlanChanged__block_in
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

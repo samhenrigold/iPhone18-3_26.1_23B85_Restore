@@ -26,8 +26,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v17[4] = *MEMORY[0x1E69E9840];
-  v16[0] = @"accountNickname";
+  v16[4] = *MEMORY[0x1E69E9840];
+  v15[0] = @"accountNickname";
   accountNickname = [(INSearchForAccountsIntent *)self accountNickname];
   null = accountNickname;
   if (!accountNickname)
@@ -35,8 +35,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[0] = null;
-  v16[1] = @"accountType";
+  v16[0] = null;
+  v15[1] = @"accountType";
   accountType = [(INSearchForAccountsIntent *)self accountType];
   if ((accountType - 1) > 6)
   {
@@ -49,8 +49,8 @@
   }
 
   v7 = v6;
-  v17[1] = v7;
-  v16[2] = @"organizationName";
+  v16[1] = v7;
+  v15[2] = @"organizationName";
   organizationName = [(INSearchForAccountsIntent *)self organizationName];
   null2 = organizationName;
   if (!organizationName)
@@ -58,8 +58,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[2] = null2;
-  v16[3] = @"requestedBalanceType";
+  v16[2] = null2;
+  v15[3] = @"requestedBalanceType";
   requestedBalanceType = [(INSearchForAccountsIntent *)self requestedBalanceType];
   if ((requestedBalanceType - 1) > 2)
   {
@@ -72,8 +72,8 @@
   }
 
   v12 = v11;
-  v17[3] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   if (!organizationName)
   {
@@ -82,8 +82,6 @@
   if (!accountNickname)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

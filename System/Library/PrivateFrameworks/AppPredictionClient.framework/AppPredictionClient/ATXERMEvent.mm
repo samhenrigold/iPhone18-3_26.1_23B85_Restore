@@ -60,45 +60,50 @@
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXERMEvent *)self initWithProto:v5];
+        [(ATXERMEvent *)self initWithProto:v6];
       }
 
       selfCopy = 0;
       goto LABEL_25;
     }
 
-    v5 = protoCopy;
-    if (([(ATXPBERMEvent *)v5 hasEventDate]& 1) != 0)
+    v6 = protoCopy;
+    hasEventDate = [(ATXPBERMEvent *)v6 hasEventDate];
+    if (hasEventDate)
     {
-      if ([(ATXPBERMEvent *)v5 eventType])
+      eventType = [(ATXPBERMEvent *)v6 eventType];
+      if (eventType)
       {
-        if (([(ATXPBERMEvent *)v5 hasDateEngaged]& 1) != 0)
+        hasDateEngaged = [(ATXPBERMEvent *)v6 hasDateEngaged];
+        if (hasDateEngaged)
         {
-          if ([(ATXPBERMEvent *)v5 hasExecutable])
+          hasExecutable = [(ATXPBERMEvent *)v6 hasExecutable];
+          if (hasExecutable)
           {
-            v6 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:-[ATXPBERMEvent eventDate](v5)];
-            v7 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:-[ATXPBERMEvent dateEngaged](v5)];
-            engagementType = [(ATXPBERMEvent *)v5 engagementType];
-            executable = [(ATXPBERMEvent *)v5 executable];
-            executableType = [(ATXPBERMEvent *)v5 executableType];
+            v11 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:-[ATXPBERMEvent eventDate](v6)];
+            v12 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:-[ATXPBERMEvent dateEngaged](v6)];
+            engagementType = [(ATXPBERMEvent *)v6 engagementType];
+            executable = [(ATXPBERMEvent *)v6 executable];
+            executableType = [(ATXPBERMEvent *)v6 executableType];
             if (executableType > 2)
             {
               if (executableType == 3)
               {
-                v11 = [objc_alloc(MEMORY[0x1E69A45D0]) initWithProtoData:executable];
-                v12 = [[ATXExecutableIdentifier alloc] initWithHeroAppPrediction:v11];
+                v16 = [objc_alloc(MEMORY[0x1E69A45D0]) initWithProtoData:executable];
+                v17 = [[ATXExecutableIdentifier alloc] initWithHeroAppPrediction:v16];
                 goto LABEL_35;
               }
 
               if (executableType == 4)
               {
-                v11 = [objc_alloc(MEMORY[0x1E69C5B88]) initWithProtoData:executable];
-                v12 = [[ATXExecutableIdentifier alloc] initWithInfoSuggestion:v11];
+                v16 = [objc_alloc(MEMORY[0x1E69C5B88]) initWithProtoData:executable];
+                v17 = [[ATXExecutableIdentifier alloc] initWithInfoSuggestion:v16];
                 goto LABEL_35;
               }
             }
@@ -107,22 +112,22 @@
             {
               if (executableType == 1)
               {
-                v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:executable encoding:4];
-                v12 = [[ATXExecutableIdentifier alloc] initWithString:v11];
+                v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:executable encoding:4];
+                v17 = [[ATXExecutableIdentifier alloc] initWithString:v16];
                 goto LABEL_35;
               }
 
               if (executableType == 2)
               {
-                v11 = [[ATXAction alloc] initWithProtoData:executable];
-                v12 = [[ATXExecutableIdentifier alloc] initWithAction:v11];
+                v16 = [[ATXAction alloc] initWithProtoData:executable];
+                v17 = [[ATXExecutableIdentifier alloc] initWithAction:v16];
 LABEL_35:
-                p_super = &v12->super;
+                p_super = &v17->super;
 
-                v16 = [[ATXEngagementRecordEntry alloc] initWithExecutable:p_super dateEngaged:v7 engagementRecordType:engagementType];
-                eventType = [(ATXPBERMEvent *)v5 eventType];
-                clientModelIds = [(ATXPBERMEvent *)v5 clientModelIds];
-                self = [(ATXERMEvent *)self initWithEventDate:v6 eventType:eventType recordEntry:v16 clientModelIds:clientModelIds];
+                v21 = [[ATXEngagementRecordEntry alloc] initWithExecutable:p_super dateEngaged:v12 engagementRecordType:engagementType];
+                eventType2 = [(ATXPBERMEvent *)v6 eventType];
+                clientModelIds = [(ATXPBERMEvent *)v6 clientModelIds];
+                self = [(ATXERMEvent *)self initWithEventDate:v11 eventType:eventType2 recordEntry:v21 clientModelIds:clientModelIds];
 
                 selfCopy = self;
 LABEL_36:
@@ -131,18 +136,18 @@ LABEL_36:
               }
             }
 
-            p_super = __atxlog_handle_default();
+            p_super = __atxlog_handle_default(executableType);
             if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
             {
-              [(ATXERMEvent *)v5 initWithProto:?];
+              [(ATXERMEvent *)v6 initWithProto:?];
             }
 
             selfCopy = 0;
             goto LABEL_36;
           }
 
-          v6 = __atxlog_handle_default();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          v11 = __atxlog_handle_default(hasExecutable);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             [ATXERMEvent initWithProto:];
           }
@@ -150,8 +155,8 @@ LABEL_36:
 
         else
         {
-          v6 = __atxlog_handle_default();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          v11 = __atxlog_handle_default(hasDateEngaged);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             [ATXERMEvent initWithProto:];
           }
@@ -160,8 +165,8 @@ LABEL_36:
 
       else
       {
-        v6 = __atxlog_handle_default();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v11 = __atxlog_handle_default(eventType);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [ATXERMEvent initWithProto:];
         }
@@ -170,8 +175,8 @@ LABEL_36:
 
     else
     {
-      v6 = __atxlog_handle_default();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_default(hasEventDate);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [ATXERMEvent initWithProto:];
       }

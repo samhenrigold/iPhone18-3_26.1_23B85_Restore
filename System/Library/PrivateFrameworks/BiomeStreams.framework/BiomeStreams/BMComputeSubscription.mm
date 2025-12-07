@@ -1,6 +1,7 @@
 @interface BMComputeSubscription
 - (BMComputeSubscription)initWithCoder:(id)coder;
 - (BMComputeSubscription)initWithIdentifier:(id)identifier client:(id)client createdAt:(id)at waking:(BOOL)waking DSLGraph:(id)graph subscriber:(id)subscriber block:(id)block;
+- (BMComputeSubscription)initWithIdentifier:(id)identifier client:(id)client waking:(BOOL)waking DSLGraph:(id)graph block:(id)block;
 - (BMComputeSubscription)initWithToken:(unint64_t)token descriptor:(id)descriptor;
 - (BOOL)isUnclaimed;
 - (NSDate)initialBookmarkTimestamp;
@@ -28,9 +29,23 @@
   return v12;
 }
 
+- (BMComputeSubscription)initWithIdentifier:(id)identifier client:(id)client waking:(BOOL)waking DSLGraph:(id)graph block:(id)block
+{
+  wakingCopy = waking;
+  v12 = MEMORY[0x1E695DF00];
+  blockCopy = block;
+  graphCopy = graph;
+  clientCopy = client;
+  identifierCopy = identifier;
+  v17 = [v12 now];
+  v18 = [(BMComputeSubscription *)self initWithIdentifier:identifierCopy client:clientCopy createdAt:v17 waking:wakingCopy DSLGraph:graphCopy subscriber:0 block:blockCopy];
+
+  return v18;
+}
+
 - (BMComputeSubscription)initWithIdentifier:(id)identifier client:(id)client createdAt:(id)at waking:(BOOL)waking DSLGraph:(id)graph subscriber:(id)subscriber block:(id)block
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   clientCopy = client;
   atCopy = at;
@@ -39,17 +54,17 @@
   aBlock = block;
   if (BMIdentifierIsPathSafe())
   {
-    v62.receiver = self;
-    v62.super_class = BMComputeSubscription;
-    v19 = [(BMComputeSubscription *)&v62 init];
+    v61.receiver = self;
+    v61.super_class = BMComputeSubscription;
+    v19 = [(BMComputeSubscription *)&v61 init];
     if (v19)
     {
-      v54 = atCopy;
+      v53 = atCopy;
       v20 = [identifierCopy copy];
       identifier = v19->_identifier;
       v19->_identifier = v20;
 
-      v55 = clientCopy;
+      v54 = clientCopy;
       v22 = [clientCopy copy];
       client = v19->_client;
       v19->_client = v22;
@@ -62,32 +77,32 @@
       v19->_waking = waking;
       objc_storeStrong(&v19->_graph, graph);
       objc_storeStrong(&v19->_subscriber, subscriber);
-      v53 = graphCopy;
+      v52 = graphCopy;
       rootStreamIdentifiers = [graphCopy rootStreamIdentifiers];
       streamIdentifiers = v19->_streamIdentifiers;
       v19->_streamIdentifiers = rootStreamIdentifiers;
 
       v29 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v57 = 0u;
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
       v30 = v19->_streamIdentifiers;
-      v31 = [(NSSet *)v30 countByEnumeratingWithState:&v58 objects:v63 count:16];
+      v31 = [(NSSet *)v30 countByEnumeratingWithState:&v57 objects:v62 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v59;
+        v33 = *v58;
         do
         {
           for (i = 0; i != v32; ++i)
           {
-            if (*v59 != v33)
+            if (*v58 != v33)
             {
               objc_enumerationMutation(v30);
             }
 
-            v35 = *(*(&v58 + 1) + 8 * i);
+            v35 = *(*(&v57 + 1) + 8 * i);
             v36 = BMBiomeLibraryStreamIdentifierForPremigratedStreamIdentifier();
             v37 = v36;
             if (v36)
@@ -105,7 +120,7 @@
             [v29 addObject:v39];
           }
 
-          v32 = [(NSSet *)v30 countByEnumeratingWithState:&v58 objects:v63 count:16];
+          v32 = [(NSSet *)v30 countByEnumeratingWithState:&v57 objects:v62 count:16];
         }
 
         while (v32);
@@ -122,8 +137,8 @@
 
       v19->_pendingDemand = 0;
       v19->_token = 0;
-      graphCopy = v53;
-      streamPublishers = [v53 streamPublishers];
+      graphCopy = v52;
+      streamPublishers = [v52 streamPublishers];
       if ([streamPublishers count] >= 2)
       {
         v44 = __biome_log_for_category();
@@ -139,8 +154,8 @@
       useCase = v19->_useCase;
       v19->_useCase = useCase;
 
-      atCopy = v54;
-      clientCopy = v55;
+      atCopy = v53;
+      clientCopy = v54;
     }
 
     self = v19;
@@ -158,13 +173,12 @@
     selfCopy = 0;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (BMComputeSubscription)initWithToken:(unint64_t)token descriptor:(id)descriptor
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   string = xpc_dictionary_get_string(descriptorCopy, "identifier");
   if (string)
@@ -212,10 +226,10 @@
         }
 
         v17 = v14;
-        v52 = v13;
-        v56 = 0;
-        v18 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v16 options:0 error:&v56];
-        v19 = v56;
+        v51 = v13;
+        v55 = 0;
+        v18 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v16 options:0 error:&v55];
+        v19 = v55;
         v20 = v19;
         if (!v18 || v19 || ([MEMORY[0x1E698E8A8] unarchiveDSLFromData:v18], (v21 = objc_claimAutoreleasedReturnValue()) == 0))
         {
@@ -224,14 +238,14 @@
           {
             *buf = 138412546;
             *&buf[4] = v11;
-            v58 = 2112;
-            v59 = v20;
+            v57 = 2112;
+            v58 = v20;
             _os_log_impl(&dword_1848EE000, v22, OS_LOG_TYPE_DEFAULT, "BMComputeSubscription unable to unarchive BMDSL as JSON archived object, falling back to legacy dictionary-based format. Subscription: %@; error: %@", buf, 0x16u);
           }
 
-          v55 = 0;
-          v21 = [objc_alloc(MEMORY[0x1E698E880]) initWithDictionary:v16 error:&v55];
-          v23 = v55;
+          v54 = 0;
+          v21 = [objc_alloc(MEMORY[0x1E698E880]) initWithDictionary:v16 error:&v54];
+          v23 = v54;
           v24 = v23;
           if (!v21 || v23)
           {
@@ -243,7 +257,7 @@
 
             selfCopy = 0;
             v16 = v21;
-            v13 = v52;
+            v13 = v51;
             v14 = v17;
             goto LABEL_44;
           }
@@ -255,16 +269,16 @@
       else
       {
         v17 = v14;
-        v52 = v13;
+        v51 = v13;
         *buf = 0;
         data = xpc_dictionary_get_data(descriptorCopy, "graphData", buf);
         v31 = objc_alloc(MEMORY[0x1E695DEF0]);
         v32 = [v31 initWithBytes:data length:*buf];
         v33 = MEMORY[0x1E696ACD0];
         allowed = [MEMORY[0x1E698E888] allowed];
-        v54 = 0;
-        v16 = [v33 unarchivedObjectOfClasses:allowed fromData:v32 error:&v54];
-        v35 = v54;
+        v53 = 0;
+        v16 = [v33 unarchivedObjectOfClasses:allowed fromData:v32 error:&v53];
+        v35 = v53;
 
         if (!v16 || v35)
         {
@@ -286,14 +300,14 @@
       if (v36)
       {
         v37 = v36;
-        v51 = v17;
+        v50 = v17;
         v38 = objc_alloc(MEMORY[0x1E695DEF0]);
         v39 = [v38 initWithBytes:v37 length:*buf];
         v40 = MEMORY[0x1E696ACD0];
         allowed2 = [MEMORY[0x1E698E888] allowed];
-        v53 = 0;
-        v42 = [v40 unarchivedObjectOfClasses:allowed2 fromData:v39 error:&v53];
-        v43 = v53;
+        v52 = 0;
+        v42 = [v40 unarchivedObjectOfClasses:allowed2 fromData:v39 error:&v52];
+        v43 = v52;
 
         if (v43)
         {
@@ -304,18 +318,18 @@
           }
 
           selfCopy = 0;
-          v14 = v51;
+          v14 = v50;
 LABEL_42:
 
 LABEL_43:
-          v13 = v52;
+          v13 = v51;
 LABEL_44:
 
 LABEL_45:
           goto LABEL_46;
         }
 
-        v14 = v51;
+        v14 = v50;
       }
 
       else
@@ -323,7 +337,7 @@ LABEL_45:
         v42 = 0;
       }
 
-      v48 = [(BMComputeSubscription *)self initWithIdentifier:v11 client:v52 createdAt:v14 waking:1 DSLGraph:v16 subscriber:v42 block:0];
+      v48 = [(BMComputeSubscription *)self initWithIdentifier:v11 client:v51 createdAt:v14 waking:1 DSLGraph:v16 subscriber:v42 block:0];
       if (v48)
       {
         v48->_token = token;
@@ -346,7 +360,6 @@ LABEL_45:
   selfCopy = 0;
 LABEL_46:
 
-  v49 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

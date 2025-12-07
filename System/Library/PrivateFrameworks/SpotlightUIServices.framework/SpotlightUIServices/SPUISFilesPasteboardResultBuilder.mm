@@ -22,7 +22,7 @@
   v4 = *MEMORY[0x277CC2498];
   resultCopy = result;
   v6 = [resultCopy valueForAttribute:v4 withType:objc_opt_class()];
-  v7 = [v6 count];
+  v7 = objc_msgSend_count(v6);
 
   v10.receiver = self;
   v10.super_class = &OBJC_METACLASS___SPUISFilesPasteboardResultBuilder;
@@ -126,35 +126,35 @@ void __70__SPUISFilesPasteboardResultBuilder_spotlightPasteboardCacheDirectory__
 
 - (SPUISFilesPasteboardResultBuilder)initWithResult:(id)result
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v19.receiver = self;
-  v19.super_class = SPUISFilesPasteboardResultBuilder;
-  v5 = [(SPUISPasteboardResultBuilder *)&v19 initWithResult:resultCopy];
+  v18.receiver = self;
+  v18.super_class = SPUISFilesPasteboardResultBuilder;
+  v5 = [(SPUISPasteboardResultBuilder *)&v18 initWithResult:resultCopy];
   if (v5)
   {
     v6 = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = [resultCopy valueForAttribute:*MEMORY[0x277CC2498] withType:{objc_opt_class(), 0}];
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [MEMORY[0x277CBEBC0] URLWithString:*(*(&v15 + 1) + 8 * v11)];
+          v12 = [MEMORY[0x277CBEBC0] URLWithString:*(*(&v14 + 1) + 8 * v11)];
           if (v12)
           {
             [v6 addObject:v12];
@@ -164,7 +164,7 @@ void __70__SPUISFilesPasteboardResultBuilder_spotlightPasteboardCacheDirectory__
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
       while (v9);
@@ -173,14 +173,13 @@ void __70__SPUISFilesPasteboardResultBuilder_spotlightPasteboardCacheDirectory__
     [(SPUISFilesPasteboardResultBuilder *)v5 setFileURLs:v6];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)buildTitle
 {
   fileURLs = [(SPUISFilesPasteboardResultBuilder *)self fileURLs];
-  v4 = [fileURLs count];
+  v4 = objc_msgSend_count(fileURLs);
   if (v4 == 1)
   {
     firstObject = [fileURLs firstObject];
@@ -274,9 +273,9 @@ LABEL_18:
 
 - (id)pasteboardDescription
 {
-  v67[6] = *MEMORY[0x277D85DE8];
+  v66[6] = *MEMORY[0x277D85DE8];
   fileURLs = [(SPUISFilesPasteboardResultBuilder *)self fileURLs];
-  v3 = [fileURLs count];
+  v3 = objc_msgSend_count(fileURLs);
   if (v3)
   {
     if (v3 == 1)
@@ -289,58 +288,58 @@ LABEL_18:
 
     else
     {
-      v45 = fileURLs;
+      v44 = fileURLs;
       v10 = *MEMORY[0x277CE1CF0];
-      v67[0] = *MEMORY[0x277CE1CE8];
-      v67[1] = v10;
+      v66[0] = *MEMORY[0x277CE1CE8];
+      v66[1] = v10;
       v11 = *MEMORY[0x277CE1EC8];
-      v67[2] = *MEMORY[0x277CE1E18];
-      v67[3] = v11;
+      v66[2] = *MEMORY[0x277CE1E18];
+      v66[3] = v11;
       v12 = *MEMORY[0x277CE1DB8];
-      v67[4] = *MEMORY[0x277CE1D80];
-      v67[5] = v12;
-      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:6];
+      v66[4] = *MEMORY[0x277CE1D80];
+      v66[5] = v12;
+      v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:6];
       v13 = objc_opt_new();
+      v58 = 0u;
       v59 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
       obj = [(SPUISFilesPasteboardResultBuilder *)self fileURLs];
-      v14 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+      v14 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v60;
+        v16 = *v59;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v60 != v16)
+            if (*v59 != v16)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = [objc_opt_class() typeForURL:*(*(&v59 + 1) + 8 * i)];
+            v18 = [objc_opt_class() typeForURL:*(*(&v58 + 1) + 8 * i)];
+            v54 = 0u;
             v55 = 0u;
             v56 = 0u;
             v57 = 0u;
-            v58 = 0u;
-            v19 = v47;
-            v20 = [v19 countByEnumeratingWithState:&v55 objects:v65 count:16];
+            v19 = v46;
+            v20 = [v19 countByEnumeratingWithState:&v54 objects:v64 count:16];
             if (v20)
             {
               v21 = v20;
-              v22 = *v56;
+              v22 = *v55;
               while (2)
               {
                 for (j = 0; j != v21; ++j)
                 {
-                  if (*v56 != v22)
+                  if (*v55 != v22)
                   {
                     objc_enumerationMutation(v19);
                   }
 
-                  v24 = *(*(&v55 + 1) + 8 * j);
+                  v24 = *(*(&v54 + 1) + 8 * j);
                   if ([v18 conformsToType:v24])
                   {
                     v25 = [v13 objectForKeyedSubscript:v24];
@@ -362,7 +361,7 @@ LABEL_18:
                   }
                 }
 
-                v21 = [v19 countByEnumeratingWithState:&v55 objects:v65 count:16];
+                v21 = [v19 countByEnumeratingWithState:&v54 objects:v64 count:16];
                 if (v21)
                 {
                   continue;
@@ -375,33 +374,33 @@ LABEL_18:
 LABEL_23:
           }
 
-          v15 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+          v15 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
         }
 
         while (v15);
       }
 
-      v50 = objc_opt_new();
+      v49 = objc_opt_new();
+      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
-      v48 = v47;
-      v29 = [v48 countByEnumeratingWithState:&v51 objects:v64 count:16];
+      v47 = v46;
+      v29 = [v47 countByEnumeratingWithState:&v50 objects:v63 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v52;
+        v31 = *v51;
         do
         {
           for (k = 0; k != v30; ++k)
           {
-            if (*v52 != v31)
+            if (*v51 != v31)
             {
-              objc_enumerationMutation(v48);
+              objc_enumerationMutation(v47);
             }
 
-            v33 = *(*(&v51 + 1) + 8 * k);
+            v33 = *(*(&v50 + 1) + 8 * k);
             v34 = [v13 objectForKeyedSubscript:v33];
             integerValue = [v34 integerValue];
 
@@ -414,19 +413,19 @@ LABEL_23:
               integerValue2 = [v39 integerValue];
               localizedDescription2 = [v33 localizedDescription];
               v42 = [v36 localizedStringWithFormat:v38, integerValue2, localizedDescription2];
-              [v50 addObject:v42];
+              [v49 addObject:v42];
             }
           }
 
-          v30 = [v48 countByEnumeratingWithState:&v51 objects:v64 count:16];
+          v30 = [v47 countByEnumeratingWithState:&v50 objects:v63 count:16];
         }
 
         while (v30);
       }
 
-      localizedDescription = [v50 componentsJoinedByString:{@", "}];
+      localizedDescription = [v49 componentsJoinedByString:{@", "}];
 
-      fileURLs = v45;
+      fileURLs = v44;
     }
 
     v9 = localizedDescription;
@@ -435,13 +434,11 @@ LABEL_23:
 
   else
   {
-    v63.receiver = self;
-    v63.super_class = SPUISFilesPasteboardResultBuilder;
-    pasteboardDescription = [(SPUISPasteboardResultBuilder *)&v63 pasteboardDescription];
+    v62.receiver = self;
+    v62.super_class = SPUISFilesPasteboardResultBuilder;
+    pasteboardDescription = [(SPUISPasteboardResultBuilder *)&v62 pasteboardDescription];
     v9 = &stru_287C50EE8;
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return pasteboardDescription;
 }
@@ -449,7 +446,7 @@ LABEL_23:
 - (id)buildThumbnail
 {
   fileURLs = [(SPUISFilesPasteboardResultBuilder *)self fileURLs];
-  v4 = [fileURLs count];
+  v4 = objc_msgSend_count(fileURLs);
   if (v4)
   {
     if (v4 == 1)
@@ -485,80 +482,76 @@ LABEL_7:
 
 - (id)buildCopyItems
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   fileURLs = [(SPUISFilesPasteboardResultBuilder *)self fileURLs];
-  v5 = [fileURLs countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [fileURLs countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(fileURLs);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = objc_opt_new();
         [v10 setUrl:v9];
         [v3 addObject:v10];
       }
 
-      v6 = [fileURLs countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [fileURLs countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)buildShareItems
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   fileURLs = [(SPUISFilesPasteboardResultBuilder *)self fileURLs];
-  v5 = [fileURLs countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [fileURLs countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(fileURLs);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = objc_opt_new();
         [v10 setUrlValue:v9];
         [v3 addObject:v10];
       }
 
-      v6 = [fileURLs countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [fileURLs countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -583,12 +576,11 @@ LABEL_7:
 
 uint64_t __55__SPUISFilesPasteboardResultBuilder_buildDeleteCommand__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 path];
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() spotlightPasteboardCacheDirectory];
-  v6 = [v3 hasPrefix:v5];
+  v2 = [a2 path];
+  v3 = [objc_opt_class() spotlightPasteboardCacheDirectory];
+  v4 = [v2 hasPrefix:v3];
 
-  return v6;
+  return v4;
 }
 
 - (id)buildPreviewButtonItems
@@ -599,7 +591,7 @@ uint64_t __55__SPUISFilesPasteboardResultBuilder_buildDeleteCommand__block_invok
   v4 = [buildPreviewButtonItems mutableCopy];
 
   fileURLs = [(SPUISFilesPasteboardResultBuilder *)self fileURLs];
-  v6 = [fileURLs count];
+  v6 = objc_msgSend_count(fileURLs);
 
   if (v6)
   {
@@ -620,33 +612,29 @@ uint64_t __55__SPUISFilesPasteboardResultBuilder_buildDeleteCommand__block_invok
 
 + (void)shouldHideExtensionForURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B882000, a2, OS_LOG_TYPE_ERROR, "failed to get hidden extension key for url with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B882000, a2, OS_LOG_TYPE_ERROR, "failed to get hidden extension key for url with error: %@", &v2, 0xCu);
 }
 
 - (void)buildTitle
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_26B882000, a2, OS_LOG_TYPE_ERROR, "failed to get localized name key for url with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26B882000, a2, OS_LOG_TYPE_ERROR, "failed to get localized name key for url with error: %@", &v2, 0xCu);
 }
 
 + (void)typeForURL:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 path];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_26B882000, a3, OS_LOG_TYPE_ERROR, "error: %@\ngetting content type for URL: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_26B882000, a3, OS_LOG_TYPE_ERROR, "error: %@\ngetting content type for URL: %@", &v6, 0x16u);
 }
 
 @end

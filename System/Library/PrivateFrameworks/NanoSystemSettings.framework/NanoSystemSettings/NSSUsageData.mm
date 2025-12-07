@@ -109,33 +109,33 @@
 
 + (id)createLegacyUsageDictionary:(id)dictionary
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   v5 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.NanoMailUsageBundle", @"com.apple.NanoCalendarUsage", @"com.apple.ContactsUsageBundle", @"com.apple.NanoPhoneUsageBundle", @"com.apple.NanoHealthUsage", @"com.apple.NanoPassbookUsageBundle", @"com.apple.SoftwareUpdateUsage", @"com.apple.NanoBooks.Usage", 0}];
   v6 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.NanoPhotos", @"com.apple.NanoMusic", @"com.apple.podcasts", 0}];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v41 = dictionaryCopy;
+  v40 = dictionaryCopy;
   appBundleUsage = [dictionaryCopy appBundleUsage];
-  v8 = [appBundleUsage countByEnumeratingWithState:&v47 objects:v54 count:16];
+  v8 = [appBundleUsage countByEnumeratingWithState:&v46 objects:v53 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v48;
+    v10 = *v47;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v48 != v10)
+        if (*v47 != v10)
         {
           objc_enumerationMutation(appBundleUsage);
         }
 
-        v12 = *(*(&v47 + 1) + 8 * i);
+        v12 = *(*(&v46 + 1) + 8 * i);
         bundleIdentifier = [v12 bundleIdentifier];
         if (([v6 containsObject:bundleIdentifier] & 1) == 0)
         {
@@ -155,90 +155,89 @@
         }
       }
 
-      v9 = [appBundleUsage countByEnumeratingWithState:&v47 objects:v54 count:16];
+      v9 = [appBundleUsage countByEnumeratingWithState:&v46 objects:v53 count:16];
     }
 
     while (v9);
   }
 
-  v52[0] = @"Apps";
-  v52[1] = @"Bundles";
-  v53[0] = array;
-  v53[1] = array2;
-  v52[2] = @"UsedStorage";
-  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v41, "usedStorageInBytes")}];
-  v53[2] = v39;
-  v52[3] = @"AvailableStorage";
-  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v41, "availableStorageInBytes")}];
-  v53[3] = v38;
-  v52[4] = @"Usage";
+  v51[0] = @"Apps";
+  v51[1] = @"Bundles";
+  v52[0] = array;
+  v52[1] = array2;
+  v51[2] = @"UsedStorage";
+  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v40, "usedStorageInBytes")}];
+  v52[2] = v38;
+  v51[3] = @"AvailableStorage";
+  v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v40, "availableStorageInBytes")}];
+  v52[3] = v37;
+  v51[4] = @"Usage";
   v16 = MEMORY[0x277CCABB0];
-  [v41 usageTimeInSeconds];
-  v37 = [v16 numberWithFloat:?];
-  v53[4] = v37;
-  v52[5] = @"Standby";
+  [v40 usageTimeInSeconds];
+  v36 = [v16 numberWithFloat:?];
+  v52[4] = v36;
+  v51[5] = @"Standby";
   v17 = MEMORY[0x277CCABB0];
-  [v41 standbyTimeInSeconds];
+  [v40 standbyTimeInSeconds];
   v18 = [v17 numberWithFloat:?];
-  v53[5] = v18;
-  v52[6] = @"Trusted";
-  v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v41, "trusted")}];
-  v53[6] = v19;
-  v52[7] = @"Partially";
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v41, "partiallyCharged")}];
-  v53[7] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:8];
-  v40 = [v21 mutableCopy];
+  v52[5] = v18;
+  v51[6] = @"Trusted";
+  v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v40, "trusted")}];
+  v52[6] = v19;
+  v51[7] = @"Partially";
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v40, "partiallyCharged")}];
+  v52[7] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:8];
+  v39 = [v21 mutableCopy];
 
   v22 = objc_alloc(MEMORY[0x277CBEB38]);
-  categories = [v41 categories];
+  categories = [v40 categories];
   v24 = [v22 initWithCapacity:{objc_msgSend(categories, "count")}];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
-  categories2 = [v41 categories];
-  v26 = [categories2 countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  categories2 = [v40 categories];
+  v26 = [categories2 countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v44;
+    v28 = *v43;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v44 != v28)
+        if (*v43 != v28)
         {
           objc_enumerationMutation(categories2);
         }
 
-        v30 = *(*(&v43 + 1) + 8 * j);
+        v30 = *(*(&v42 + 1) + 8 * j);
         categoryIdentifier = [v30 categoryIdentifier];
         [v24 setValue:v30 forKey:categoryIdentifier];
       }
 
-      v27 = [categories2 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v27 = [categories2 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v27);
   }
 
   v32 = [v24 valueForKey:@"CAT_MEDIA"];
-  addCategoryToDict(v40, @"Songs", v32);
+  addCategoryToDict(v39, @"Songs", v32);
 
-  [v40 setValue:@"com.apple.NanoMusic" forKey:@"MusicAppId"];
+  [v39 setValue:@"com.apple.NanoMusic" forKey:@"MusicAppId"];
   v33 = [v24 valueForKey:@"CAT_PHOTOS"];
-  addCategoryToDict(v40, @"PhotoLibrary", v33);
+  addCategoryToDict(v39, @"PhotoLibrary", v33);
 
-  [v40 setValue:@"com.apple.NanoPhotos" forKey:@"PhotosAppId"];
+  [v39 setValue:@"com.apple.NanoPhotos" forKey:@"PhotosAppId"];
   v34 = [v24 valueForKey:@"CAT_BOOKS"];
-  addCategoryToDict(v40, @"Audiobooks", v34);
+  addCategoryToDict(v39, @"Audiobooks", v34);
 
-  [v40 setValue:@"com.apple.podcasts" forKey:@"PodcastsAppId"];
-  v35 = *MEMORY[0x277D85DE8];
+  [v39 setValue:@"com.apple.podcasts" forKey:@"PodcastsAppId"];
 
-  return v40;
+  return v39;
 }
 
 + (id)newAppBundleFromAppBundleMsg:(id)msg
@@ -259,32 +258,32 @@
 
 + (id)newAppBundleFromBundleUsageMsg:(id)msg
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   msgCopy = msg;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   categories = [msgCopy categories];
-  v5 = [categories countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [categories countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(categories);
         }
 
-        v7 += [*(*(&v17 + 1) + 8 * i) usageInBytes];
+        v7 += [*(*(&v16 + 1) + 8 * i) usageInBytes];
       }
 
-      v6 = [categories countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [categories countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -301,7 +300,6 @@
   v13 = [NSSSizeVector docsAndData:v7];
   v14 = -[NSSUsageDataAppBundle initWithName:bundleIdentifier:bundleVersion:vendor:size:supportsPurge:](v10, "initWithName:bundleIdentifier:bundleVersion:vendor:size:supportsPurge:", name, bundleIdentifier, 0, 0, v13, [msgCopy purgeable]);
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -334,29 +332,29 @@
 
 + (id)dedupeBundles:(id)bundles
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   bundlesCopy = bundles;
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(bundlesCopy, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = bundlesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         bundleIdentifier = [v10 bundleIdentifier];
         v12 = [v4 objectForKeyedSubscript:bundleIdentifier];
         v13 = [v10 mergeWith:v12];
@@ -364,7 +362,7 @@
         [v4 setObject:v13 forKeyedSubscript:bundleIdentifier2];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -372,105 +370,103 @@
 
   allValues = [v4 allValues];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return allValues;
 }
 
 + (id)newUsageDataFromUsageRespMsg:(id)msg
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   msgCopy = msg;
   v5 = objc_alloc(MEMORY[0x277CBEB38]);
   appBundleUsages = [msgCopy appBundleUsages];
-  v84 = [v5 initWithCapacity:{objc_msgSend(appBundleUsages, "count")}];
+  v83 = [v5 initWithCapacity:{objc_msgSend(appBundleUsages, "count")}];
 
   v7 = msgCopy;
-  v85 = objc_opt_new();
+  v84 = objc_opt_new();
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
   appBundleUsages2 = [msgCopy appBundleUsages];
-  v9 = [appBundleUsages2 countByEnumeratingWithState:&v101 objects:v108 count:16];
+  v9 = [appBundleUsages2 countByEnumeratingWithState:&v100 objects:v107 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v102;
+    v11 = *v101;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v102 != v11)
+        if (*v101 != v11)
         {
           objc_enumerationMutation(appBundleUsages2);
         }
 
-        v13 = [self newAppBundleFromAppBundleMsg:*(*(&v101 + 1) + 8 * i)];
-        [v85 addObject:v13];
+        v13 = [self newAppBundleFromAppBundleMsg:*(*(&v100 + 1) + 8 * i)];
+        [v84 addObject:v13];
       }
 
-      v10 = [appBundleUsages2 countByEnumeratingWithState:&v101 objects:v108 count:16];
+      v10 = [appBundleUsages2 countByEnumeratingWithState:&v100 objects:v107 count:16];
     }
 
     while (v10);
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
   v98 = 0u;
-  v83 = v7;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v82 = v7;
   appUsages = [v7 appUsages];
-  v15 = [appUsages countByEnumeratingWithState:&v97 objects:v107 count:16];
+  v15 = [appUsages countByEnumeratingWithState:&v96 objects:v106 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v98;
+    v17 = *v97;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v98 != v17)
+        if (*v97 != v17)
         {
           objc_enumerationMutation(appUsages);
         }
 
-        v19 = [self newAppBundleFromAppUsageMsg:*(*(&v97 + 1) + 8 * j)];
-        [v85 addObject:v19];
+        v19 = [self newAppBundleFromAppUsageMsg:*(*(&v96 + 1) + 8 * j)];
+        [v84 addObject:v19];
         v20 = [v19 size];
-        addToCategory(v84, @"CAT_APPS", [v20 userTotal]);
+        addToCategory(v83, @"CAT_APPS", [v20 userTotal]);
       }
 
-      v16 = [appUsages countByEnumeratingWithState:&v97 objects:v107 count:16];
+      v16 = [appUsages countByEnumeratingWithState:&v96 objects:v106 count:16];
     }
 
     while (v16);
   }
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
-  bundleUsages = [v83 bundleUsages];
-  v22 = [bundleUsages countByEnumeratingWithState:&v93 objects:v106 count:16];
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  bundleUsages = [v82 bundleUsages];
+  v22 = [bundleUsages countByEnumeratingWithState:&v92 objects:v105 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v94;
+    v24 = *v93;
     do
     {
       v25 = 0;
       do
       {
-        if (*v94 != v24)
+        if (*v93 != v24)
         {
           objc_enumerationMutation(bundleUsages);
         }
 
-        v26 = *(*(&v93 + 1) + 8 * v25);
+        v26 = *(*(&v92 + 1) + 8 * v25);
         v27 = [self newAppBundleFromBundleUsageMsg:v26];
-        [v85 addObject:v27];
+        [v84 addObject:v27];
         bundleIdentifier = [v26 bundleIdentifier];
         if (legacyUsageBundleIdToCategory_onceToken != -1)
         {
@@ -484,83 +480,83 @@
         }
 
         v30 = [v27 size];
-        addToCategory(v84, v29, [v30 userTotal]);
+        addToCategory(v83, v29, [v30 userTotal]);
 
         ++v25;
       }
 
       while (v23 != v25);
-      v23 = [bundleUsages countByEnumeratingWithState:&v93 objects:v106 count:16];
+      v23 = [bundleUsages countByEnumeratingWithState:&v92 objects:v105 count:16];
     }
 
     while (v23);
   }
 
-  if (([v83 hasCameralRollUsage] & 1) != 0 || (objc_msgSend(v83, "hasPhotoLibraryUsage") & 1) != 0 || objc_msgSend(v83, "hasPhotoStreamUsage"))
+  if (([v82 hasCameralRollUsage] & 1) != 0 || (objc_msgSend(v82, "hasPhotoLibraryUsage") & 1) != 0 || objc_msgSend(v82, "hasPhotoStreamUsage"))
   {
     v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v32 = [v31 localizedStringForKey:@"PHOTO" value:&stru_286CED1F0 table:@"Localization-shared"];
-    v33 = newFakeAppBundleFromLegacyData(v32, @"com.apple.NanoPhotos", [v83 photoLibraryUsage] + objc_msgSend(v83, "cameralRollUsage") + objc_msgSend(v83, "photoStreamUsage"));
+    v33 = newFakeAppBundleFromLegacyData(v32, @"com.apple.NanoPhotos", [v82 photoLibraryUsage] + objc_msgSend(v82, "cameralRollUsage") + objc_msgSend(v82, "photoStreamUsage"));
 
-    [v85 addObject:v33];
+    [v84 addObject:v33];
   }
 
-  if (([v83 hasSongsUsage] & 1) != 0 || (objc_msgSend(v83, "hasAudiobooksUsage") & 1) != 0 || objc_msgSend(v83, "hasAudioCoursesUsage"))
+  if (([v82 hasSongsUsage] & 1) != 0 || (objc_msgSend(v82, "hasAudiobooksUsage") & 1) != 0 || objc_msgSend(v82, "hasAudioCoursesUsage"))
   {
     v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v35 = [v34 localizedStringForKey:@"MUSIC" value:&stru_286CED1F0 table:@"Localization-shared"];
-    v36 = newFakeAppBundleFromLegacyData(v35, @"com.apple.NanoMusic", [v83 audiobooksUsage] + objc_msgSend(v83, "songsUsage") + objc_msgSend(v83, "audioCoursesUsage"));
+    v36 = newFakeAppBundleFromLegacyData(v35, @"com.apple.NanoMusic", [v82 audiobooksUsage] + objc_msgSend(v82, "songsUsage") + objc_msgSend(v82, "audioCoursesUsage"));
 
-    [v85 addObject:v36];
+    [v84 addObject:v36];
   }
 
-  if ([v83 hasAudioPodcastsUsage])
+  if ([v82 hasAudioPodcastsUsage])
   {
     v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v38 = [v37 localizedStringForKey:@"PODCASTS" value:&stru_286CED1F0 table:@"Localization-shared"];
-    v39 = newFakeAppBundleFromLegacyData(v38, @"com.apple.podcasts", [v83 audioPodcastsUsage]);
+    v39 = newFakeAppBundleFromLegacyData(v38, @"com.apple.podcasts", [v82 audioPodcastsUsage]);
 
-    [v85 addObject:v39];
+    [v84 addObject:v39];
   }
 
-  addToCategory(v84, @"CAT_MEDIA", [v83 moviesUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 movieRentalsUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 tvShowsUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 audioCoursesUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 videoCoursesUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 musicVideosUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 audioPodcastsUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 videoPodcastsUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 songsUsage]);
-  addToCategory(v84, @"CAT_BOOKS", [v83 audiobooksUsage]);
-  addToCategory(v84, @"CAT_MEDIA", [v83 homeVideosUsage]);
-  addToCategory(v84, @"CAT_PHOTOS", [v83 cameralRollUsage]);
-  addToCategory(v84, @"CAT_PHOTOS", [v83 photoLibraryUsage]);
-  addToCategory(v84, @"CAT_PHOTOS", [v83 photoStreamUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 moviesUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 movieRentalsUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 tvShowsUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 audioCoursesUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 videoCoursesUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 musicVideosUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 audioPodcastsUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 videoPodcastsUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 songsUsage]);
+  addToCategory(v83, @"CAT_BOOKS", [v82 audiobooksUsage]);
+  addToCategory(v83, @"CAT_MEDIA", [v82 homeVideosUsage]);
+  addToCategory(v83, @"CAT_PHOTOS", [v82 cameralRollUsage]);
+  addToCategory(v83, @"CAT_PHOTOS", [v82 photoLibraryUsage]);
+  addToCategory(v83, @"CAT_PHOTOS", [v82 photoStreamUsage]);
   v40 = objc_alloc(MEMORY[0x277CBEB38]);
-  categories = [v83 categories];
+  categories = [v82 categories];
   v42 = [v40 initWithCapacity:{objc_msgSend(categories, "count")}];
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
-  categories2 = [v83 categories];
-  v44 = [categories2 countByEnumeratingWithState:&v89 objects:v105 count:16];
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  categories2 = [v82 categories];
+  v44 = [categories2 countByEnumeratingWithState:&v88 objects:v104 count:16];
   if (v44)
   {
     v45 = v44;
-    v46 = *v90;
+    v46 = *v89;
     do
     {
       for (k = 0; k != v45; ++k)
       {
-        if (*v90 != v46)
+        if (*v89 != v46)
         {
           objc_enumerationMutation(categories2);
         }
 
-        v48 = *(*(&v89 + 1) + 8 * k);
+        v48 = *(*(&v88 + 1) + 8 * k);
         categoryIdentifier = [v48 categoryIdentifier];
         if (categoryIdentifier)
         {
@@ -572,7 +568,7 @@
             categoryIdentifier2 = [v48 categoryIdentifier];
             v53 = [v48 size];
             v54 = [self newSizeFromMsg:v53];
-            addUsageSizeToCategory(v84, categoryIdentifier2, v54);
+            addUsageSizeToCategory(v83, categoryIdentifier2, v54);
           }
         }
 
@@ -591,52 +587,51 @@
         }
       }
 
-      v45 = [categories2 countByEnumeratingWithState:&v89 objects:v105 count:16];
+      v45 = [categories2 countByEnumeratingWithState:&v88 objects:v104 count:16];
     }
 
     while (v45);
   }
 
   v60 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __52__NSSUsageData_Proto__newUsageDataFromUsageRespMsg___block_invoke;
-  v86[3] = &unk_27995D528;
-  v87 = v60;
-  v88 = v42;
+  v85[0] = MEMORY[0x277D85DD0];
+  v85[1] = 3221225472;
+  v85[2] = __52__NSSUsageData_Proto__newUsageDataFromUsageRespMsg___block_invoke;
+  v85[3] = &unk_27995D528;
+  v86 = v60;
+  v87 = v42;
   v61 = v42;
   v62 = v60;
-  [v84 enumerateKeysAndObjectsUsingBlock:v86];
-  capacityInBytes = [v83 capacityInBytes];
-  v82 = v62;
-  if ([v83 hasCapacityInBytes])
+  [v83 enumerateKeysAndObjectsUsingBlock:v85];
+  capacityInBytes = [v82 capacityInBytes];
+  v81 = v62;
+  if ([v82 hasCapacityInBytes])
   {
     v64 = 0x27995C000;
-    v81 = capacityInBytes;
+    v80 = capacityInBytes;
   }
 
   else
   {
-    availableStorageInBytes = [v83 availableStorageInBytes];
-    v81 = [v83 usedStorageInBytes] + availableStorageInBytes;
+    availableStorageInBytes = [v82 availableStorageInBytes];
+    v80 = [v82 usedStorageInBytes] + availableStorageInBytes;
     v64 = 0x27995C000uLL;
   }
 
   v66 = objc_alloc(*(v64 + 2792));
-  usedStorageInBytes = [v83 usedStorageInBytes];
-  availableStorageInBytes2 = [v83 availableStorageInBytes];
-  [v83 usageTimeInSeconds];
+  usedStorageInBytes = [v82 usedStorageInBytes];
+  availableStorageInBytes2 = [v82 availableStorageInBytes];
+  [v82 usageTimeInSeconds];
   v70 = v69;
-  [v83 standbyTimeInSeconds];
+  [v82 standbyTimeInSeconds];
   v72 = v71;
-  trusted = [v83 trusted];
-  partiallyCharged = [v83 partiallyCharged];
-  v75 = [self dedupeBundles:v85];
+  trusted = [v82 trusted];
+  partiallyCharged = [v82 partiallyCharged];
+  v75 = [self dedupeBundles:v84];
   LODWORD(v76) = v70;
   LODWORD(v77) = v72;
-  v78 = [v66 initWithCapacity:v81 usedStorageInBytes:usedStorageInBytes available:availableStorageInBytes2 usageTimeInSeconds:trusted standbyTimeInSeconds:partiallyCharged trusted:v75 partiallyCharged:v76 appBundleUsage:v77 categories:v82];
+  v78 = [v66 initWithCapacity:v80 usedStorageInBytes:usedStorageInBytes available:availableStorageInBytes2 usageTimeInSeconds:trusted standbyTimeInSeconds:partiallyCharged trusted:v75 partiallyCharged:v76 appBundleUsage:v77 categories:v81];
 
-  v79 = *MEMORY[0x277D85DE8];
   return v78;
 }
 
@@ -727,7 +722,7 @@ void __52__NSSUsageData_Proto__newUsageDataFromUsageRespMsg___block_invoke(uint6
 
 + (id)setUsageRespMsgFrom:(id)from usageRespMsg:(id)msg
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   msgCopy = msg;
   [msgCopy setCapacityInBytes:{objc_msgSend(fromCopy, "capacityInBytes")}];
@@ -740,30 +735,30 @@ void __52__NSSUsageData_Proto__newUsageDataFromUsageRespMsg___block_invoke(uint6
   [msgCopy setTrusted:{objc_msgSend(fromCopy, "trusted")}];
   [msgCopy setPartiallyCharged:{objc_msgSend(fromCopy, "partiallyCharged")}];
   array = [MEMORY[0x277CBEB18] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   categories = [fromCopy categories];
-  v10 = [categories countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v10 = [categories countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(categories);
         }
 
-        v14 = [self newSizeCategoryMsgFrom:*(*(&v28 + 1) + 8 * i)];
+        v14 = [self newSizeCategoryMsgFrom:*(*(&v27 + 1) + 8 * i)];
         [array addObject:v14];
       }
 
-      v11 = [categories countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v11 = [categories countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v11);
@@ -771,37 +766,36 @@ void __52__NSSUsageData_Proto__newUsageDataFromUsageRespMsg___block_invoke(uint6
 
   [msgCopy setCategories:array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   appBundleUsage = [fromCopy appBundleUsage];
-  v17 = [appBundleUsage countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v17 = [appBundleUsage countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(appBundleUsage);
         }
 
-        v21 = [self newAppBundleMsgFrom:*(*(&v24 + 1) + 8 * j)];
+        v21 = [self newAppBundleMsgFrom:*(*(&v23 + 1) + 8 * j)];
         [array2 addObject:v21];
       }
 
-      v18 = [appBundleUsage countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [appBundleUsage countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v18);
   }
 
   [msgCopy setAppBundleUsages:array2];
-  v22 = *MEMORY[0x277D85DE8];
 
   return msgCopy;
 }

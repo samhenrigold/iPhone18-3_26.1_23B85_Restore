@@ -359,13 +359,6 @@ double __57__QLPXSwipeDownTracker_trackGestureTranslation_velocity___block_invok
   return *(*(*(a1 + 48) + 8) + 32);
 }
 
-double __57__QLPXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_7(uint64_t a1, double a2)
-{
-  v3 = *(*(a1 + 40) + 8);
-  (*(*(a1 + 32) + 16))(*(a1 + 48), a2, *(a1 + 64));
-  return *(*(*(a1 + 40) + 8) + 40);
-}
-
 double __57__QLPXSwipeDownTracker_trackGestureTranslation_velocity___block_invoke_8(uint64_t a1, double a2)
 {
   v4 = *(a1 + 56) + a2 * *(a1 + 72);

@@ -17,11 +17,13 @@
   return v3;
 }
 
-uint64_t __22__MDAgent_sharedAgent__block_invoke()
+uint64_t __22__MDAgent_sharedAgent__block_invoke(uint64_t a1, uint64_t a2)
 {
-  sharedAgent_sMDAgent = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = sharedAgent_sMDAgent;
+  sharedAgent_sMDAgent = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (MDAgent)init

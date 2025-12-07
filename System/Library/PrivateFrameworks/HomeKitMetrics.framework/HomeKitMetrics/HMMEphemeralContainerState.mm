@@ -2,6 +2,7 @@
 - (BOOL)isActive;
 - (HMMEphemeralContainerState)init;
 - (double)activeDuration;
+- (void)setIsActive:(BOOL)active;
 @end
 
 @implementation HMMEphemeralContainerState
@@ -15,6 +16,16 @@
   os_unfair_lock_unlock(v2 + 4);
 
   return v4;
+}
+
+- (void)setIsActive:(BOOL)active
+{
+  activeCopy = active;
+  v4 = *(&self->super.isa + OBJC_IVAR___HMMEphemeralContainerState_lock);
+  selfCopy = self;
+  os_unfair_lock_lock(v4 + 4);
+  sub_22B0B9BF8(activeCopy, selfCopy);
+  os_unfair_lock_unlock(v4 + 4);
 }
 
 - (double)activeDuration

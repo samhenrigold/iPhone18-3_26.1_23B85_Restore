@@ -12,12 +12,12 @@
 
 + (void)initialize
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = 0;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "sEnableCSEventListener: %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = 0;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "sEnableCSEventListener: %d", v4, 8u);
   }
 
   v2 = [(CSXPCConnection *)[SKGImporterAgent alloc] initMachServiceListenerWithName:@"com.apple.spotlightknowledged.importer" enableConnectionLogging:0];
@@ -25,7 +25,6 @@
   sUpdaterAgent = v2;
 
   [sUpdaterAgent _setup];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setup
@@ -38,7 +37,7 @@
 
 - (BOOL)addClientConnectionIfAllowedForConnection:(id)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   pid = xpc_connection_get_pid(connectionCopy);
   xpc_connection_get_audit_token();
@@ -81,18 +80,16 @@ LABEL_10:
 
     CFRelease(v7);
 
-    goto LABEL_12;
+    return bOOLValue;
   }
 
   LOBYTE(bOOLValue) = 0;
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)handleCommand:(const char *)command info:(id)info connection:(id)connection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   connectionCopy = connection;
   if (SKGLogGetCurrentLoggingLevel() >= 5)
@@ -100,11 +97,11 @@ LABEL_12:
     v10 = SKGLogAgentInit();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v19 = 136315394;
+      v18 = 136315394;
       commandCopy = command;
-      v21 = 2048;
-      v22 = infoCopy;
-      _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_INFO, "command %s info:%p", &v19, 0x16u);
+      v20 = 2048;
+      v21 = infoCopy;
+      _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_INFO, "command %s info:%p", &v18, 0x16u);
     }
   }
 
@@ -151,21 +148,20 @@ LABEL_12:
 
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)didReceiveSignal:(unint64_t)signal
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
     v4 = SKGLogAgentInit();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 134217984;
+      v5 = 134217984;
       signalCopy = signal;
-      _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_INFO, "didReceiveSignal %ld", &v6, 0xCu);
+      _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_INFO, "didReceiveSignal %ld", &v5, 0xCu);
     }
   }
 
@@ -173,25 +169,21 @@ LABEL_18:
   {
     exit(0);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveMemoryPressureNotification:(unint64_t)notification
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
     v4 = SKGLogAgentInit();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 134217984;
+      v5 = 134217984;
       notificationCopy = notification;
-      _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_INFO, "didReceiveMemoryPressureNotification %llx", &v6, 0xCu);
+      _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_INFO, "didReceiveMemoryPressureNotification %llx", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)handleProcessRecordMessage:(id)message connection:(id)connection
@@ -361,11 +353,10 @@ uint64_t __58__SKGImporterAgent_handleProcessRecordMessage_connection___block_in
 
 - (void)addClientConnectionIfAllowedForConnection:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_231B25000, a2, OS_LOG_TYPE_ERROR, "Error pid: %d missing sender entitlement", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_231B25000, a2, OS_LOG_TYPE_ERROR, "Error pid: %d missing sender entitlement", v2, 8u);
 }
 
 @end

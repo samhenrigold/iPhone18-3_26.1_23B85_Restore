@@ -101,39 +101,37 @@
 
 + (void)initialize
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
   if (v2 == objc_opt_class())
   {
     v3 = NewsCoreUserDefaults();
-    v6[0] = @"content_environment";
-    v6[1] = @"news.modules.today_feed.debug_feed_config.url";
-    v7[0] = @"production";
-    v7[1] = @"http://127.0.0.1:8080/configs/today-config.jinja.yaml";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
+    v5[0] = @"content_environment";
+    v5[1] = @"news.modules.today_feed.debug_feed_config.url";
+    v6[0] = @"production";
+    v6[1] = @"http://127.0.0.1:8080/configs/today-config.jinja.yaml";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
     [v3 registerDefaults:v4];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (FCContentContext)contentContext
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   contentContext = self->_contentContext;
   if (!contentContext)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_contentContext"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_contentContext"];
       *buf = 136315906;
-      v8 = "[FCCloudContext contentContext]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 492;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext contentContext]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 492;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       contentContext = self->_contentContext;
@@ -144,8 +142,6 @@
       contentContext = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return contentContext;
 }
@@ -175,21 +171,21 @@
 
 - (FCAppActivityMonitor)appActivityMonitor
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   appActivityMonitor = self->_appActivityMonitor;
   if (!appActivityMonitor)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_appActivityMonitor"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_appActivityMonitor"];
       *buf = 136315906;
-      v8 = "[FCCloudContext appActivityMonitor]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 486;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext appActivityMonitor]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 486;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       appActivityMonitor = self->_appActivityMonitor;
@@ -200,8 +196,6 @@
       appActivityMonitor = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return appActivityMonitor;
 }
@@ -224,21 +218,21 @@
 
 - (FCSubscriptionController)subscriptionController
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   subscriptionController = self->_subscriptionController;
   if (!subscriptionController)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_subscriptionController"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_subscriptionController"];
       *buf = 136315906;
-      v8 = "[FCCloudContext subscriptionController]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 468;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext subscriptionController]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 468;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       subscriptionController = self->_subscriptionController;
@@ -249,8 +243,6 @@
       subscriptionController = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return subscriptionController;
 }
@@ -273,21 +265,21 @@
 
 - (FCPrivateDataContext)privateDataContext
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   privateDataContext = self->_privateDataContext;
   if (!privateDataContext)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privateDataContext"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privateDataContext"];
       *buf = 136315906;
-      v8 = "[FCCloudContext privateDataContext]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 503;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext privateDataContext]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 503;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       privateDataContext = self->_privateDataContext;
@@ -298,8 +290,6 @@
       privateDataContext = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return privateDataContext;
 }
@@ -338,21 +328,21 @@
 
 - (FCNetworkBehaviorMonitor)networkBehaviorMonitor
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   networkBehaviorMonitor = self->_networkBehaviorMonitor;
   if (!networkBehaviorMonitor)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_networkBehaviorMonitor"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_networkBehaviorMonitor"];
       *buf = 136315906;
-      v8 = "[FCCloudContext networkBehaviorMonitor]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 480;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext networkBehaviorMonitor]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 480;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       networkBehaviorMonitor = self->_networkBehaviorMonitor;
@@ -363,8 +353,6 @@
       networkBehaviorMonitor = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return networkBehaviorMonitor;
 }
@@ -637,7 +625,7 @@
 
 - (FCCloudContext)initWithConfiguration:(id)configuration configurationManager:(id)manager contentHostDirectory:(id)directory privateDataHostDirectory:(id)hostDirectory privateDataActionProvider:(id)provider networkBehaviorMonitor:(id)monitor networkReachability:(id)reachability appActivityMonitor:(id)self0 desiredHeadlineFieldOptions:(unint64_t)self1 feedUsage:(int64_t)self2 deviceIsiPad:(BOOL)self3 backgroundTaskable:(id)self4 privateDataSyncAvailability:(id)self5 pptContext:(id)self6 options:(int64_t)self7
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   managerCopy = manager;
   directoryCopy = directory;
@@ -649,46 +637,46 @@
   taskableCopy = taskable;
   availabilityCopy = availability;
   contextCopy = context;
-  v45 = directoryCopy;
+  v44 = directoryCopy;
   if (!directoryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentHostDirectory != nil"];
+    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentHostDirectory != nil"];
     *buf = 136315906;
-    v47 = "[FCCloudContext initWithConfiguration:configurationManager:contentHostDirectory:privateDataHostDirectory:privateDataActionProvider:networkBehaviorMonitor:networkReachability:appActivityMonitor:desiredHeadlineFieldOptions:feedUsage:deviceIsiPad:backgroundTaskable:privateDataSyncAvailability:pptContext:options:]";
-    v48 = 2080;
-    v49 = "FCCloudContext.m";
-    v50 = 1024;
-    v51 = 191;
-    v52 = 2114;
-    v53 = v34;
+    v46 = "[FCCloudContext initWithConfiguration:configurationManager:contentHostDirectory:privateDataHostDirectory:privateDataActionProvider:networkBehaviorMonitor:networkReachability:appActivityMonitor:desiredHeadlineFieldOptions:feedUsage:deviceIsiPad:backgroundTaskable:privateDataSyncAvailability:pptContext:options:]";
+    v47 = 2080;
+    v48 = "FCCloudContext.m";
+    v49 = 1024;
+    v50 = 191;
+    v51 = 2114;
+    v52 = v33;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (!hostDirectoryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataHostDirectory != nil"];
+    v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataHostDirectory != nil"];
     *buf = 136315906;
-    v47 = "[FCCloudContext initWithConfiguration:configurationManager:contentHostDirectory:privateDataHostDirectory:privateDataActionProvider:networkBehaviorMonitor:networkReachability:appActivityMonitor:desiredHeadlineFieldOptions:feedUsage:deviceIsiPad:backgroundTaskable:privateDataSyncAvailability:pptContext:options:]";
-    v48 = 2080;
-    v49 = "FCCloudContext.m";
-    v50 = 1024;
-    v51 = 192;
-    v52 = 2114;
-    v53 = v35;
+    v46 = "[FCCloudContext initWithConfiguration:configurationManager:contentHostDirectory:privateDataHostDirectory:privateDataActionProvider:networkBehaviorMonitor:networkReachability:appActivityMonitor:desiredHeadlineFieldOptions:feedUsage:deviceIsiPad:backgroundTaskable:privateDataSyncAvailability:pptContext:options:]";
+    v47 = 2080;
+    v48 = "FCCloudContext.m";
+    v49 = 1024;
+    v50 = 192;
+    v51 = 2114;
+    v52 = v34;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (!activityMonitorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "appActivityMonitor != nil"];
+    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "appActivityMonitor != nil"];
     *buf = 136315906;
-    v47 = "[FCCloudContext initWithConfiguration:configurationManager:contentHostDirectory:privateDataHostDirectory:privateDataActionProvider:networkBehaviorMonitor:networkReachability:appActivityMonitor:desiredHeadlineFieldOptions:feedUsage:deviceIsiPad:backgroundTaskable:privateDataSyncAvailability:pptContext:options:]";
-    v48 = 2080;
-    v49 = "FCCloudContext.m";
-    v50 = 1024;
-    v51 = 193;
-    v52 = 2114;
-    v53 = v36;
+    v46 = "[FCCloudContext initWithConfiguration:configurationManager:contentHostDirectory:privateDataHostDirectory:privateDataActionProvider:networkBehaviorMonitor:networkReachability:appActivityMonitor:desiredHeadlineFieldOptions:feedUsage:deviceIsiPad:backgroundTaskable:privateDataSyncAvailability:pptContext:options:]";
+    v47 = 2080;
+    v48 = "FCCloudContext.m";
+    v49 = 1024;
+    v50 = 193;
+    v51 = 2114;
+    v52 = v35;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -701,8 +689,8 @@
   [(FCCloudContext *)self setContentContext:v27];
   [(FCCloudContext *)self setAppActivityMonitor:activityMonitorCopy];
   v28 = [FCPrivateDataContext alloc];
-  LOBYTE(v37) = [availabilityCopy isPrivateDataSyncingAllowed];
-  v29 = [(FCPrivateDataContext *)v28 initWithConfiguration:configurationCopy context:self privateDataHostDirectory:hostDirectoryCopy privateDataActionProvider:providerCopy encryptionDelegate:self networkBehaviorMonitor:monitorCopy privateDataSyncingEnabled:v37];
+  LOBYTE(v36) = [availabilityCopy isPrivateDataSyncingAllowed];
+  v29 = [(FCPrivateDataContext *)v28 initWithConfiguration:configurationCopy context:self privateDataHostDirectory:hostDirectoryCopy privateDataActionProvider:providerCopy encryptionDelegate:self networkBehaviorMonitor:monitorCopy privateDataSyncingEnabled:v36];
   v30 = [(FCCloudContext *)self initWithContentContext:v27 privateDataContext:v29 networkBehaviorMonitor:monitorCopy networkReachability:reachabilityCopy options:a17];
   v31 = v30;
   if (v30)
@@ -712,7 +700,6 @@
     objc_storeWeak(&v31->_backgroundTaskable, taskableCopy);
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
@@ -767,22 +754,22 @@
 
 - (FCCloudContext)initWithContentContext:(id)context privateDataContext:(id)dataContext networkBehaviorMonitor:(id)monitor networkReachability:(id)reachability options:(int64_t)options
 {
-  v155 = *MEMORY[0x1E69E9840];
+  v154 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   dataContextCopy = dataContext;
   monitorCopy = monitor;
   reachabilityCopy = reachability;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v135 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
+    v134 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
     *buf = 136315906;
-    v148 = "[FCCloudContext initWithContentContext:privateDataContext:networkBehaviorMonitor:networkReachability:options:]";
-    v149 = 2080;
-    v150 = "FCCloudContext.m";
-    v151 = 1024;
-    v152 = 307;
-    v153 = 2114;
-    v154 = v135;
+    v147 = "[FCCloudContext initWithContentContext:privateDataContext:networkBehaviorMonitor:networkReachability:options:]";
+    v148 = 2080;
+    v149 = "FCCloudContext.m";
+    v150 = 1024;
+    v151 = 307;
+    v152 = 2114;
+    v153 = v134;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (dataContextCopy)
@@ -798,39 +785,39 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v136 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataContext"];
+    v135 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataContext"];
     *buf = 136315906;
-    v148 = "[FCCloudContext initWithContentContext:privateDataContext:networkBehaviorMonitor:networkReachability:options:]";
-    v149 = 2080;
-    v150 = "FCCloudContext.m";
-    v151 = 1024;
-    v152 = 308;
-    v153 = 2114;
-    v154 = v136;
+    v147 = "[FCCloudContext initWithContentContext:privateDataContext:networkBehaviorMonitor:networkReachability:options:]";
+    v148 = 2080;
+    v149 = "FCCloudContext.m";
+    v150 = 1024;
+    v151 = 308;
+    v152 = 2114;
+    v153 = v135;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v146.receiver = self;
-  v146.super_class = FCCloudContext;
-  v17 = [(FCCloudContext *)&v146 init];
+  v145.receiver = self;
+  v145.super_class = FCCloudContext;
+  v17 = [(FCCloudContext *)&v145 init];
   v18 = v17;
   if (v17)
   {
     obj = monitor;
-    v143 = monitorCopy;
+    v142 = monitorCopy;
     objc_storeStrong(&v17->_contentContext, context);
     objc_storeStrong(&v18->_privateDataContext, dataContext);
     [dataContextCopy preparePrivateDataControllersForUse];
     configurationManager = [contextCopy configurationManager];
-    v141 = [[FCClientEndpointConnection alloc] initWithConfigurationManager:configurationManager];
-    objc_storeStrong(&v18->_endpointConnection, v141);
+    v140 = [[FCClientEndpointConnection alloc] initWithConfigurationManager:configurationManager];
+    objc_storeStrong(&v18->_endpointConnection, v140);
     v20 = MEMORY[0x1E695DFF8];
     contentDirectory = [contextCopy contentDirectory];
     v22 = [v20 fileURLWithPath:contentDirectory];
 
-    v140 = v22;
-    v142 = reachabilityCopy;
+    v139 = v22;
+    v141 = reachabilityCopy;
     v23 = [[FCWebURLResolutionEndpointConnection alloc] initWithConfigurationManager:configurationManager cachesDirectoryURL:v22 networkReachability:reachabilityCopy];
     webURLResolutionEndpointConnection = v18->_webURLResolutionEndpointConnection;
     v18->_webURLResolutionEndpointConnection = v23;
@@ -838,7 +825,7 @@ LABEL_6:
     internalPrivateDataContext = [dataContextCopy internalPrivateDataContext];
     appActivityMonitor = [internalPrivateDataContext appActivityMonitor];
 
-    v144 = appActivityMonitor;
+    v143 = appActivityMonitor;
     objc_storeStrong(&v18->_appActivityMonitor, appActivityMonitor);
     v18->_options = options;
     v27 = [FCCommandQueue alloc];
@@ -910,12 +897,12 @@ LABEL_6:
     privateDataDirectory4 = [dataContextCopy privateDataDirectory];
     [contextCopy configurationManager];
     v62 = v54 = dataContextCopy;
-    v63 = [(FCBundleSubscriptionManager *)v60 initWithPrivateDataDirectory:privateDataDirectory4 configurationManager:v62 cloudContext:v18 contentContext:contextCopy appActivityMonitor:v144 entitlementsProvider:bundleSubscriptionManager];
+    v63 = [(FCBundleSubscriptionManager *)v60 initWithPrivateDataDirectory:privateDataDirectory4 configurationManager:v62 cloudContext:v18 contentContext:contextCopy appActivityMonitor:v143 entitlementsProvider:bundleSubscriptionManager];
     v64 = v18->_bundleSubscriptionManager;
     v18->_bundleSubscriptionManager = v63;
 
 LABEL_12:
-    v137 = v54;
+    v136 = v54;
 
     [(FCBundleSubscriptionManagerType *)v18->_bundleSubscriptionManager addObserver:v18];
     v66 = [FCPurchaseManager alloc];
@@ -949,32 +936,32 @@ LABEL_12:
     appConfigurationManager = [(FCCloudContext *)v18 appConfigurationManager];
     userInfo2 = [(FCCloudContext *)v18 userInfo];
     [(FCCloudContext *)v18 bundleSubscriptionManager];
-    v88 = v138 = configurationManager;
+    v88 = v137 = configurationManager;
     [(FCCloudContext *)v18 privateDataContext];
-    v89 = v145 = contextCopy;
+    v89 = v144 = contextCopy;
     v90 = [(FCNewsletterManager *)v82 initWithEndpointConnection:v83 endpointCommandQueue:v84 appleAccount:v85 appConfig:appConfigurationManager userInfo:userInfo2 bundleSubscriptionManager:v88 privateDataContext:v89];
     newsletterManager = v18->_newsletterManager;
     v18->_newsletterManager = v90;
 
     v92 = [FCSubscriptionController alloc];
     subscriptionList = [v54 subscriptionList];
-    tagController = [v145 tagController];
-    puzzleTypeController = [v145 puzzleTypeController];
+    tagController = [v144 tagController];
+    puzzleTypeController = [v144 puzzleTypeController];
     v96 = v18->_notificationController;
     v97 = v18->_purchaseProvider;
-    configurationManager5 = [v145 configurationManager];
-    appConfigurationManager2 = [v145 appConfigurationManager];
+    configurationManager5 = [v144 configurationManager];
+    appConfigurationManager2 = [v144 appConfigurationManager];
     userInfo3 = [(FCCloudContext *)v18 userInfo];
-    v101 = [(FCSubscriptionController *)v92 initWithSubscriptionList:subscriptionList tagController:tagController puzzleTypeController:puzzleTypeController notificationController:v96 purchaseProvider:v97 configurationManager:configurationManager5 appConfigurationManager:appConfigurationManager2 appActivityMonitor:v144 userInfo:userInfo3];
+    v101 = [(FCSubscriptionController *)v92 initWithSubscriptionList:subscriptionList tagController:tagController puzzleTypeController:puzzleTypeController notificationController:v96 purchaseProvider:v97 configurationManager:configurationManager5 appConfigurationManager:appConfigurationManager2 appActivityMonitor:v143 userInfo:userInfo3];
     subscriptionController = v18->_subscriptionController;
     v18->_subscriptionController = v101;
 
     objc_storeStrong(&v18->_networkBehaviorMonitor, obj);
-    v103 = [[FCTranslationManager alloc] initWithContentContext:v145];
+    v103 = [[FCTranslationManager alloc] initWithContentContext:v144];
     translationManager = v18->_translationManager;
     v18->_translationManager = v103;
 
-    v105 = [[FCLocalAreasManager alloc] initWithContentContext:v145];
+    v105 = [[FCLocalAreasManager alloc] initWithContentContext:v144];
     localAreasManager = v18->_localAreasManager;
     v18->_localAreasManager = v105;
 
@@ -984,9 +971,9 @@ LABEL_12:
 
     v109 = [FCCurrentIssuesChecker alloc];
     v110 = v18->_subscriptionController;
-    dataContextCopy = v137;
-    issueReadingHistory = [v137 issueReadingHistory];
-    v112 = [(FCCurrentIssuesChecker *)v109 initWithContext:v145 subscriptionController:v110 issueReadingHistory:issueReadingHistory bundleSubscriptionProvider:v18->_bundleSubscriptionManager];
+    dataContextCopy = v136;
+    issueReadingHistory = [v136 issueReadingHistory];
+    v112 = [(FCCurrentIssuesChecker *)v109 initWithContext:v144 subscriptionController:v110 issueReadingHistory:issueReadingHistory bundleSubscriptionProvider:v18->_bundleSubscriptionManager];
     currentIssuesChecker = v18->_currentIssuesChecker;
     v18->_currentIssuesChecker = v112;
 
@@ -1001,29 +988,28 @@ LABEL_12:
     v120 = v118;
 
     v121 = [FCIssueAccessChecker alloc];
-    privateChannelMembershipController2 = [v137 privateChannelMembershipController];
+    privateChannelMembershipController2 = [v136 privateChannelMembershipController];
     v123 = [(FCIssueAccessChecker *)v121 initWithPaidAccessChecker:v120 privateChannelMembershipController:privateChannelMembershipController2];
     issueAccessChecker = v18->_issueAccessChecker;
     v18->_issueAccessChecker = v123;
 
     v125 = [FCArticleAccessChecker alloc];
-    privateChannelMembershipController3 = [v137 privateChannelMembershipController];
+    privateChannelMembershipController3 = [v136 privateChannelMembershipController];
     v127 = [(FCArticleAccessChecker *)v125 initWithPaidAccessChecker:v120 privateChannelMembershipController:privateChannelMembershipController3];
     articleAccessChecker = v18->_articleAccessChecker;
     v18->_articleAccessChecker = v127;
 
     v129 = [FCRecipeAccessChecker alloc];
-    privateChannelMembershipController4 = [v137 privateChannelMembershipController];
+    privateChannelMembershipController4 = [v136 privateChannelMembershipController];
     v131 = [(FCRecipeAccessChecker *)v129 initWithPrivateChannelMembershipController:privateChannelMembershipController4];
     recipeAccessChecker = v18->_recipeAccessChecker;
     v18->_recipeAccessChecker = v131;
 
-    contextCopy = v145;
-    reachabilityCopy = v142;
-    monitorCopy = v143;
+    contextCopy = v144;
+    reachabilityCopy = v141;
+    monitorCopy = v142;
   }
 
-  v133 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -1071,21 +1057,21 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
 
 - (id)notificationsController
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationController = self->_notificationController;
   if (!notificationController)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_notificationController"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_notificationController"];
       *buf = 136315906;
-      v8 = "[FCCloudContext notificationsController]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 474;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext notificationsController]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 474;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       notificationController = self->_notificationController;
@@ -1097,28 +1083,26 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return notificationController;
 }
 
 - (FCClientEndpointConnection)endpointConnection
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   endpointConnection = self->_endpointConnection;
   if (!endpointConnection)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_endpointConnection"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_endpointConnection"];
       *buf = 136315906;
-      v8 = "[FCCloudContext endpointConnection]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 509;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext endpointConnection]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 509;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       endpointConnection = self->_endpointConnection;
@@ -1130,28 +1114,26 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return endpointConnection;
 }
 
 - (FCCommandQueue)endpointCommandQueue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   endpointCommandQueue = self->_endpointCommandQueue;
   if (!endpointCommandQueue)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_endpointCommandQueue"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_endpointCommandQueue"];
       *buf = 136315906;
-      v8 = "[FCCloudContext endpointCommandQueue]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 515;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext endpointCommandQueue]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 515;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       endpointCommandQueue = self->_endpointCommandQueue;
@@ -1163,28 +1145,26 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return endpointCommandQueue;
 }
 
 - (FCNotificationsEndpointConnection)notificationsEndpointConnection
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationsEndpointConnection = self->_notificationsEndpointConnection;
   if (!notificationsEndpointConnection)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_notificationsEndpointConnection"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_notificationsEndpointConnection"];
       *buf = 136315906;
-      v8 = "[FCCloudContext notificationsEndpointConnection]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 521;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext notificationsEndpointConnection]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 521;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       notificationsEndpointConnection = self->_notificationsEndpointConnection;
@@ -1196,28 +1176,26 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return notificationsEndpointConnection;
 }
 
 - (FCCommandQueue)notificationsEndpointCommandQueue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationsEndpointCommandQueue = self->_notificationsEndpointCommandQueue;
   if (!notificationsEndpointCommandQueue)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_notificationsEndpointCommandQueue"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_notificationsEndpointCommandQueue"];
       *buf = 136315906;
-      v8 = "[FCCloudContext notificationsEndpointCommandQueue]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 527;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext notificationsEndpointCommandQueue]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 527;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       notificationsEndpointCommandQueue = self->_notificationsEndpointCommandQueue;
@@ -1228,8 +1206,6 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
       notificationsEndpointCommandQueue = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return notificationsEndpointCommandQueue;
 }
@@ -1336,7 +1312,7 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
 
 - (NSArray)filePathsForDebugAttachments
 {
-  v22[10] = *MEMORY[0x1E69E9840];
+  v21[10] = *MEMORY[0x1E69E9840];
   if (NFInternalBuild())
   {
     privateDataDirectory = [(FCCloudContext *)self privateDataDirectory];
@@ -1345,38 +1321,36 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
     toJSON = [articleExposureRegistry toJSON];
 
     v6 = NSTemporaryDirectory();
-    v20 = [v6 stringByAppendingPathComponent:@"article_exposures.json"];
+    v19 = [v6 stringByAppendingPathComponent:@"article_exposures.json"];
 
-    [toJSON writeToFile:v20 atomically:1];
-    v19 = [privateDataDirectory stringByAppendingPathComponent:@"bundle.json"];
-    v22[0] = v19;
-    v18 = [privateDataDirectory stringByAppendingPathComponent:@"personalization-aggregates.json"];
-    v22[1] = v18;
+    [toJSON writeToFile:v19 atomically:1];
+    v18 = [privateDataDirectory stringByAppendingPathComponent:@"bundle.json"];
+    v21[0] = v18;
+    v17 = [privateDataDirectory stringByAppendingPathComponent:@"personalization-aggregates.json"];
+    v21[1] = v17;
     v7 = [privateDataDirectory stringByAppendingPathComponent:@"personalization-sessions"];
-    v22[2] = v7;
+    v21[2] = v7;
     v8 = [privateDataDirectory stringByAppendingPathComponent:@"user_embedding_transformer.pkg"];
-    v22[3] = v8;
+    v21[3] = v8;
     v9 = [privateDataDirectory stringByAppendingPathComponent:@"subscriptions.json"];
-    v22[4] = v9;
+    v21[4] = v9;
     v10 = [privateDataDirectory stringByAppendingPathComponent:@"allowlist.json"];
-    v22[5] = v10;
+    v21[5] = v10;
     v11 = [privateDataDirectory stringByAppendingPathComponent:@"aggregate_store_human_readable.json"];
-    v22[6] = v11;
+    v21[6] = v11;
     v12 = [privateDataDirectory stringByAppendingPathComponent:@"aggregate_store_human_readable_previous.json"];
-    v22[7] = v12;
+    v21[7] = v12;
     v13 = [privateDataDirectory stringByAppendingPathComponent:@"human_readable_user_embedding_parameters.json"];
-    v22[8] = v13;
+    v21[8] = v13;
     v14 = [privateDataDirectory stringByAppendingPathComponent:@"human_readable_embedding_training_history.json"];
-    v22[9] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:10];
+    v21[9] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:10];
   }
 
   else
   {
     v15 = MEMORY[0x1E695E0F0];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -1396,21 +1370,21 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
 
 - (FCFeedPersonalizing)feedPersonalizer
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   feedPersonalizer = self->_feedPersonalizer;
   if (!feedPersonalizer)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_feedPersonalizer"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_feedPersonalizer"];
       *buf = 136315906;
-      v8 = "[FCCloudContext feedPersonalizer]";
-      v9 = 2080;
-      v10 = "FCCloudContext.m";
-      v11 = 1024;
-      v12 = 621;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCCloudContext feedPersonalizer]";
+      v8 = 2080;
+      v9 = "FCCloudContext.m";
+      v10 = 1024;
+      v11 = 621;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       feedPersonalizer = self->_feedPersonalizer;
@@ -1421,8 +1395,6 @@ void __39__FCCloudContext_offlineArticleManager__block_invoke(uint64_t a1)
       feedPersonalizer = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return feedPersonalizer;
 }
@@ -1779,20 +1751,20 @@ void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invo
 
 void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (v5)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3;
-    v13[3] = &unk_1E7C37BC0;
-    v14 = v5;
-    v15 = *(a1 + 32);
-    __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3(v13);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3;
+    v12[3] = &unk_1E7C37BC0;
+    v13 = v5;
+    v14 = *(a1 + 32);
+    __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3(v12);
 
-    v7 = v14;
+    v7 = v13;
   }
 
   else
@@ -1807,7 +1779,7 @@ void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invo
       }
 
       *buf = 138543362;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "secure database is %{public}@", buf, 0xCu);
     }
 
@@ -1825,26 +1797,21 @@ void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invo
     v7 = [MEMORY[0x1E696AD98] numberWithInteger:v11];
     (*(v10 + 16))(v10, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error checking whether secure database is supported: %{public}@", &v7, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error checking whether secure database is supported: %{public}@", &v5, 0xCu);
   }
 
-  v3 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_223(uint64_t a1, void *a2)
@@ -1932,19 +1899,17 @@ void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invo
 
 uint64_t __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3_225(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v5;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error fetching app config for encryption settings: %{public}@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error fetching app config for encryption settings: %{public}@", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_236(uint64_t a1, void *a2)
@@ -1962,20 +1927,20 @@ void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invo
 
 void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_2_239(uint64_t a1, _OWORD *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (v5)
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3_240;
-    v17[3] = &unk_1E7C37BC0;
-    v18 = v5;
-    v19 = *(a1 + 32);
-    __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3_240(v17);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3_240;
+    v16[3] = &unk_1E7C37BC0;
+    v17 = v5;
+    v18 = *(a1 + 32);
+    __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3_240(v16);
 
-    v7 = v18;
+    v7 = v17;
   }
 
   else
@@ -1985,10 +1950,10 @@ void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invo
     {
       v9 = a2[1];
       *buf = *a2;
-      v21 = v9;
+      v20 = v9;
       v10 = a2[3];
-      v22 = a2[2];
-      v23 = v10;
+      v21 = a2[2];
+      v22 = v10;
       v11 = v8;
       v12 = FCStringFromOSVersions(buf);
       *buf = 138543362;
@@ -1999,32 +1964,28 @@ void __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invo
     v13 = *(a1 + 32);
     v14 = a2[1];
     *buf = *a2;
-    v21 = v14;
+    v20 = v14;
     v15 = a2[3];
-    v22 = a2[2];
-    v23 = v15;
+    v21 = a2[2];
+    v22 = v15;
     v7 = [MEMORY[0x1E696AD98] numberWithInteger:FCCKPrivateDatabaseVersionSupportedByOS(buf)];
     (*(v13 + 16))(v13, v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_3_240(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v5;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error checking device versions: %{public}@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error checking device versions: %{public}@", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 id __60__FCCloudContext_fetchDesiredVersionForDatabase_completion___block_invoke_2_244(uint64_t a1, void *a2)
@@ -2257,44 +2218,40 @@ void __62__FCCloudContext_fetchCleanupToVersionForDatabase_completion___block_in
 
 uint64_t __62__FCCloudContext_fetchCleanupToVersionForDatabase_completion___block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error fetching app config for encryption settings: %{public}@", &v7, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error fetching app config for encryption settings: %{public}@", &v5, 0xCu);
   }
 
-  v3 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t __62__FCCloudContext_fetchCleanupToVersionForDatabase_completion___block_invoke_2_254(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [a2 integerValue];
   v4 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
     v6 = FCCKPrivateDatabaseVersionString(v3);
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "fetched desired private data cleanup version with result: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "fetched desired private data cleanup version with result: %{public}@", &v8, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)shouldAssetKeyManagerSimulateUnauthorizedAssetKeys:(id)keys
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   v5 = NewsCoreUserDefaults();
   v6 = [v5 BOOLForKey:@"simulate_no_access_to_awk"];
@@ -2315,15 +2272,15 @@ uint64_t __62__FCCloudContext_fetchCleanupToVersionForDatabase_completion___bloc
 
       if (!bundleSubscriptionManager && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "self.bundleSubscriptionManager"];
+        v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "self.bundleSubscriptionManager"];
         *buf = 136315906;
-        v21 = "[FCCloudContext shouldAssetKeyManagerSimulateUnauthorizedAssetKeys:]";
-        v22 = 2080;
-        v23 = "FCCloudContext.m";
-        v24 = 1024;
-        v25 = 1122;
-        v26 = 2114;
-        v27 = v19;
+        v20 = "[FCCloudContext shouldAssetKeyManagerSimulateUnauthorizedAssetKeys:]";
+        v21 = 2080;
+        v22 = "FCCloudContext.m";
+        v23 = 1024;
+        v24 = 1122;
+        v25 = 2114;
+        v26 = v18;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -2342,7 +2299,6 @@ uint64_t __62__FCCloudContext_fetchCleanupToVersionForDatabase_completion___bloc
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

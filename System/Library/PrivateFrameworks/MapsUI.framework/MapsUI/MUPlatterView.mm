@@ -80,7 +80,7 @@
 
 - (void)_setup
 {
-  v31[4] = *MEMORY[0x1E69E9840];
+  v30[4] = *MEMORY[0x1E69E9840];
   _createVisualStyleProvider = [(MUPlatterView *)self _createVisualStyleProvider];
   visualStyleProvider = self->_visualStyleProvider;
   self->_visualStyleProvider = _createVisualStyleProvider;
@@ -120,8 +120,8 @@
   contentView = self->_contentView;
   if (contentView)
   {
-    v29 = v8;
-    v30 = fillColor;
+    v28 = v8;
+    v29 = fillColor;
     [(UIView *)contentView setTranslatesAutoresizingMaskIntoConstraints:0];
     if (self->_includeBackground)
     {
@@ -129,34 +129,32 @@
     }
 
     [(MUPlatterView *)self addSubview:self->_contentView];
-    v24 = MEMORY[0x1E696ACD8];
+    v23 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UIView *)self->_contentView leadingAnchor];
     leadingAnchor2 = [(MUPlatterView *)self leadingAnchor];
-    v26 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v31[0] = v26;
+    v25 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v30[0] = v25;
     trailingAnchor = [(UIView *)self->_contentView trailingAnchor];
     trailingAnchor2 = [(MUPlatterView *)self trailingAnchor];
     v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v31[1] = v14;
+    v30[1] = v14;
     topAnchor = [(UIView *)self->_contentView topAnchor];
     topAnchor2 = [(MUPlatterView *)self topAnchor];
     v17 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v31[2] = v17;
+    v30[2] = v17;
     bottomAnchor = [(UIView *)self->_contentView bottomAnchor];
     bottomAnchor2 = [(MUPlatterView *)self bottomAnchor];
     v20 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v31[3] = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
-    [v24 activateConstraints:v21];
+    v30[3] = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
+    [v23 activateConstraints:v21];
 
-    v8 = v29;
-    fillColor = v30;
+    v8 = v28;
+    fillColor = v29;
   }
 
   traitOverrides = [(MUPlatterView *)self traitOverrides];
   [traitOverrides setNSIntegerValue:1 forTrait:objc_opt_class()];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (MUPlatterView)initWithContentView:(id)view includeBackground:(BOOL)background

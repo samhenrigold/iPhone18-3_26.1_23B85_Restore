@@ -34,7 +34,7 @@
 
 - (id)runStopDetectionAnalysisFromTime:(double)time toTime:
 {
-  v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:?];
+  v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:a2];
   v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:time];
   v7 = +[ULDefaultsSingleton shared];
   defaultsDictionary = [v7 defaultsDictionary];
@@ -43,49 +43,39 @@
   v10 = [defaultsDictionary objectForKey:v9];
   if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    unsignedIntValue = [v10 unsignedIntValue];
+    [v10 unsignedIntValue];
   }
 
   else
   {
-    unsignedIntValue = [&unk_286A71370 unsignedIntValue];
+    [&unk_286A71370 unsignedIntValue];
   }
-
-  v12 = unsignedIntValue;
 
   dbStore = [self dbStore];
-  v14 = (*(*dbStore + 128))(dbStore);
-  v15 = v14;
-  __p = 0;
-  v21 = 0;
-  v22 = 0;
-  if (v14)
+  v12 = (*(*dbStore + 128))(dbStore);
+  v13 = v12;
+  memset(&v16[3], 0, 24);
+  if (v12)
   {
-    LOBYTE(v18) = 1;
-    [v14 efficientlyFetchOdometryEntriesWithLOIGroupUUIDs:&__p odometrySource:v12 startDate:v5 endDate:v6 fetchLimit:0 newest:1 ascending:v18];
-    if (__p)
-    {
-      v21 = __p;
-      operator delete(__p);
-    }
+    objc_msgSend_efficientlyFetchOdometryEntriesWithLOIGroupUUIDs_odometrySource_startDate_endDate_fetchLimit_newest_ascending_(v12, 1);
   }
 
   else
   {
-    v23 = 0;
-    v24 = 0;
-    v25 = 0;
+    v17 = 0;
+    v18 = 0;
+    v19 = 0;
   }
 
-  memset(v19, 0, sizeof(v19));
-  std::vector<ULOdometryDO>::__init_with_size[abi:ne200100]<ULOdometryDO*,ULOdometryDO*>(v19, v23, v24, (v24 - v23) >> 6);
-  v16 = [self _getStopMotionTriggersFromOdometryEntries:v19];
-  v26 = v19;
-  std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&v26);
-  v26 = &v23;
-  std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&v26);
+  memset(v16, 0, 24);
+  std::vector<ULOdometryDO>::__init_with_size[abi:ne200100]<ULOdometryDO*,ULOdometryDO*>(v16, v17, v18, (v18 - v17) >> 6);
+  v14 = [self _getStopMotionTriggersFromOdometryEntries:v16];
+  v20 = v16;
+  std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&v20);
+  v20 = &v17;
+  std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&v20);
 
-  return v16;
+  return v14;
 }
 
 - (id)_getStopMotionTriggersFromOdometryEntries:()vector<ULOdometryDO

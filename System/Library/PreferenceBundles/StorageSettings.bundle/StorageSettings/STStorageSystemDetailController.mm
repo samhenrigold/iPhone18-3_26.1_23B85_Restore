@@ -1,9 +1,23 @@
 @interface STStorageSystemDetailController
 - (id)specifiers;
 - (id)valueForSpecifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STStorageSystemDetailController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = STStorageSystemDetailController;
+  [(STStorageSystemDetailController *)&v5 viewWillAppear:appear];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_F5A0;
+  block[3] = &unk_2CAA0;
+  block[4] = self;
+  dispatch_async(&_dispatch_main_q, block);
+}
 
 - (id)valueForSpecifier:(id)specifier
 {

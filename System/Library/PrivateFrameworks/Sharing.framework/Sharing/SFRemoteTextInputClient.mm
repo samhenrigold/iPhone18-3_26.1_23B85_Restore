@@ -27,25 +27,24 @@
 
 - (SFRemoteTextInputClient)init
 {
-  v7.receiver = self;
-  v7.super_class = SFRemoteTextInputClient;
-  v2 = [(SFRemoteTextInputClient *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFRemoteTextInputClient;
+  v2 = [(SFRemoteTextInputClient *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v3 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFRemoteTextInputClient *)v3 activate];
   }
 
@@ -69,32 +68,36 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__SFRemoteTextInputClient_activate__block_invoke(uint64_t a1)
+uint64_t __35__SFRemoteTextInputClient_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFRemoteTextInputClient <= 30 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFRemoteTextInputClient <= 30)
   {
-    __35__SFRemoteTextInputClient_activate__block_invoke_cold_1();
+    if (gLogCategory_SFRemoteTextInputClient != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __35__SFRemoteTextInputClient_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 8) = 1;
-  *(*(a1 + 32) + 10) = 0;
-  v2 = objc_alloc(getRTIInputSystemServiceClass());
-  v3 = getRTIServiceSharingName();
-  v4 = [v2 initWithMachName:v3];
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 16);
-  *(v5 + 16) = v4;
+  *(*(v3 + 32) + 8) = 1;
+  *(*(v3 + 32) + 10) = 0;
+  v4 = objc_alloc(getRTIInputSystemServiceClass());
+  v5 = getRTIServiceSharingName(v4);
+  v6 = [v4 initWithMachName:v5];
+  v7 = *(v3 + 32);
+  v8 = *(v7 + 16);
+  *(v7 + 16) = v6;
 
-  [*(*(a1 + 32) + 16) setDelegate:?];
-  [*(*(a1 + 32) + 16) setEnabled:1];
-  v7 = objc_alloc_init(getRTIInputSystemSourceSessionClass());
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 24);
-  *(v8 + 24) = v7;
+  [*(*(v3 + 32) + 16) setDelegate:?];
+  v9 = [*(*(v3 + 32) + 16) setEnabled:1];
+  v10 = objc_alloc_init(getRTIInputSystemSourceSessionClass(v9));
+  v11 = *(v3 + 32);
+  v12 = *(v11 + 24);
+  *(v11 + 24) = v10;
 
-  v10 = *(*(a1 + 32) + 24);
+  v13 = *(*(v3 + 32) + 24);
 
-  return [v10 setPayloadDelegate:?];
+  return [v13 setPayloadDelegate:?];
 }
 
 - (void)invalidate
@@ -108,21 +111,25 @@ uint64_t __35__SFRemoteTextInputClient_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__SFRemoteTextInputClient_invalidate__block_invoke(uint64_t a1)
+uint64_t __37__SFRemoteTextInputClient_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(a1 + 32) + 9) & 1) == 0 && gLogCategory_SFRemoteTextInputClient <= 30 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if ((*(*(a1 + 32) + 9) & 1) == 0 && gLogCategory_SFRemoteTextInputClient <= 30)
   {
-    __37__SFRemoteTextInputClient_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFRemoteTextInputClient != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __37__SFRemoteTextInputClient_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 9) = 1;
-  *(*(a1 + 32) + 10) = 0;
-  [*(*(a1 + 32) + 16) setDelegate:0];
-  [*(*(a1 + 32) + 16) setEnabled:0];
-  [*(*(a1 + 32) + 24) setPayloadDelegate:0];
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 9) = 1;
+  *(*(v3 + 32) + 10) = 0;
+  [*(*(v3 + 32) + 16) setDelegate:0];
+  [*(*(v3 + 32) + 16) setEnabled:0];
+  [*(*(v3 + 32) + 24) setPayloadDelegate:0];
+  v4 = *(v3 + 32);
 
-  return [v2 _cleanup];
+  return [v4 _cleanup];
 }
 
 - (void)_cleanup
@@ -146,47 +153,50 @@ uint64_t __37__SFRemoteTextInputClient_invalidate__block_invoke(uint64_t a1)
 
 - (NSDictionary)currentPayload
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   currentSession = [(RTIInputSystemService *)self->_rtiService currentSession];
   currentDataPayload = [currentSession currentDataPayload];
 
-  if (!self->_activateCalled || self->_invalidateCalled)
+  if (self->_activateCalled && !self->_invalidateCalled)
   {
-    [(SFRemoteTextInputClient *)&v11 currentPayload];
-    v6 = 0;
-    v7 = v10;
-  }
-
-  else
-  {
-    if (self->_rtiService && currentDataPayload)
+    if (self->_rtiService)
     {
-      v5 = SFTextInputDataForRTIDataPayload(currentDataPayload);
-      if (v5)
+      if (currentDataPayload)
       {
-        v6 = v5;
-        v7 = 0;
-        goto LABEL_12;
+        v5 = SFTextInputDataForRTIDataPayload(currentDataPayload);
+        if (v5)
+        {
+          v6 = v5;
+          v7 = 0;
+          goto LABEL_12;
+        }
+
+        v7 = NSErrorWithOSStatusF(4294960554, "Failed to create SFTextInputData");
+        if (v7 && gLogCategory_SFRemoteTextInputClient <= 60 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+        {
+          [(SFRemoteTextInputClient *)v7 currentPayload];
+        }
+
+        goto LABEL_11;
       }
 
-      v7 = NSErrorWithOSStatusF();
-      if (v7 && gLogCategory_SFRemoteTextInputClient <= 60 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
-      {
-        [(SFRemoteTextInputClient *)v7 currentPayload];
-      }
+      NSErrorWithOSStatusF(4294960569, "No payload found");
     }
 
     else
     {
-      v7 = NSErrorWithOSStatusF();
+      NSErrorWithOSStatusF(4294960576, "No RTI system service");
     }
-
+    v7 = ;
+LABEL_11:
     v6 = 0;
+    goto LABEL_12;
   }
 
+  [(SFRemoteTextInputClient *)&v10 currentPayload];
+  v6 = 0;
+  v7 = v9;
 LABEL_12:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -207,13 +217,13 @@ LABEL_12:
 - (void)handleTextInputData:(id)data
 {
   dataCopy = data;
-  v12 = dataCopy;
+  v17 = dataCopy;
   if (gLogCategory_SFRemoteTextInputClient <= 30)
   {
-    if (gLogCategory_SFRemoteTextInputClient != -1 || (v5 = _LogCategory_Initialize(), dataCopy = v12, v5))
+    if (gLogCategory_SFRemoteTextInputClient != -1 || (v5 = _LogCategory_Initialize(), dataCopy = v17, v5))
     {
       [SFRemoteTextInputClient handleTextInputData:dataCopy];
-      dataCopy = v12;
+      dataCopy = v17;
     }
   }
 
@@ -228,9 +238,12 @@ LABEL_12:
 
     else if (self->_rtiSourceSession)
     {
-      if (gLogCategory_SFRemoteTextInputClient <= 30 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFRemoteTextInputClient <= 30)
       {
-        [SFRemoteTextInputClient handleTextInputData:];
+        if (gLogCategory_SFRemoteTextInputClient != -1 || (currentSession = _LogCategory_Initialize(), currentSession))
+        {
+          [(SFRemoteTextInputClient *)currentSession handleTextInputData:v9, v10];
+        }
       }
 
       [(RTIInputSystemSourceSession *)self->_rtiSourceSession handleTextActionPayload:v6];
@@ -250,20 +263,29 @@ LABEL_12:
       [currentSession3 handleTextActionPayload:v6];
 
 LABEL_17:
-      v11 = 0;
+      v16 = 0;
       goto LABEL_18;
     }
 
-    if (gLogCategory_SFRemoteTextInputClient <= 60 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteTextInputClient <= 60)
     {
-      [SFRemoteTextInputClient handleTextInputData:];
+      if (gLogCategory_SFRemoteTextInputClient != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        [(SFRemoteTextInputClient *)v12 handleTextInputData:v13, v14];
+      }
     }
+
+    NSErrorWithOSStatusF(4294960582, "No current service session, nor input session");
   }
 
-  v11 = NSErrorWithOSStatusF();
-  if (v11 && gLogCategory_SFRemoteTextInputClient <= 60 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+  else
   {
-    [SFRemoteTextInputClient handleTextInputData:v11];
+    NSErrorWithOSStatusF(4294960554, "No payload");
+  }
+  v16 = ;
+  if (v16 && gLogCategory_SFRemoteTextInputClient <= 60 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+  {
+    [SFRemoteTextInputClient handleTextInputData:v16];
   }
 
 LABEL_18:
@@ -275,24 +297,26 @@ LABEL_18:
   passwordCopy = password;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   currentSession = [(RTIInputSystemService *)self->_rtiService currentSession];
-  v9 = usernameCopy;
+  v10 = currentSession;
+  v11 = usernameCopy;
   if (!currentSession)
   {
-    [SFRemoteTextInputClient handleUsername:password:];
+    [(SFRemoteTextInputClient *)0 handleUsername:v9 password:usernameCopy];
     goto LABEL_11;
   }
 
+  v12 = gLogCategory_SFRemoteTextInputClient;
   if (!(usernameCopy | passwordCopy))
   {
-    [SFRemoteTextInputClient handleUsername:gLogCategory_SFRemoteTextInputClient password:?];
+    [gLogCategory_SFRemoteTextInputClient < 31 handleUsername:usernameCopy password:?];
     goto LABEL_11;
   }
 
   if (gLogCategory_SFRemoteTextInputClient <= 30)
   {
-    if (gLogCategory_SFRemoteTextInputClient != -1 || (v10 = _LogCategory_Initialize(), v9 = usernameCopy, v10))
+    if (gLogCategory_SFRemoteTextInputClient != -1 || (currentSession = _LogCategory_Initialize(), v11 = usernameCopy, currentSession))
     {
-      [SFRemoteTextInputClient handleUsername:password:];
+      currentSession = [(SFRemoteTextInputClient *)currentSession handleUsername:v12 password:v11];
       if (!usernameCopy)
       {
         goto LABEL_8;
@@ -302,26 +326,26 @@ LABEL_18:
     }
   }
 
-  if (v9)
+  if (v11)
   {
 LABEL_7:
-    v11 = getTIKeyboardOutputInfoTypeUsernameStr();
-    [v7 setObject:usernameCopy forKeyedSubscript:v11];
+    v13 = getTIKeyboardOutputInfoTypeUsernameStr(currentSession);
+    [v7 setObject:usernameCopy forKeyedSubscript:v13];
   }
 
 LABEL_8:
   if (passwordCopy)
   {
-    v12 = getTIKeyboardOutputInfoTypePasswordStr();
-    [v7 setObject:passwordCopy forKeyedSubscript:v12];
+    v14 = getTIKeyboardOutputInfoTypePasswordStr(currentSession);
+    [v7 setObject:passwordCopy forKeyedSubscript:v14];
   }
 
-  textOperations = [currentSession textOperations];
+  textOperations = [v10 textOperations];
   keyboardOutput = [textOperations keyboardOutput];
   [keyboardOutput setCustomInfo:v7];
 
-  [currentSession setSessionDelegate:self->_rtiService];
-  [currentSession flushOperations];
+  [v10 setSessionDelegate:self->_rtiService];
+  [v10 flushOperations];
 LABEL_11:
 }
 
@@ -341,7 +365,7 @@ LABEL_11:
 
 - (void)_fireEventHandlerWithPayload:(id)payload
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dispatchQueue = self->_dispatchQueue;
   payloadCopy = payload;
   dispatch_assert_queue_V2(dispatchQueue);
@@ -365,11 +389,9 @@ LABEL_11:
 
   else
   {
-    [(SFRemoteTextInputClient *)&v11 _fireEventHandlerWithPayload:v12, &v10];
-    v8 = v10;
+    [(SFRemoteTextInputClient *)&v10 _fireEventHandlerWithPayload:v11, &v9];
+    v8 = v9;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSessionEvent:(int64_t)event forSession:(id)session
@@ -388,13 +410,13 @@ LABEL_11:
   {
     if (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize())
     {
-      [SFRemoteTextInputClient _handleSessionEvent:forSession:];
+      [SFRemoteTextInputClient _handleSessionEvent:autofillMode forSession:?];
     }
 
     v8 = autofillMode == 1;
     if (gLogCategory_SFRemoteTextInputClient <= 30 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
     {
-      [SFRemoteTextInputClient _handleSessionEvent:event forSession:?];
+      [SFRemoteTextInputClient _handleSessionEvent:event forSession:autofillMode == 1];
     }
   }
 
@@ -425,13 +447,13 @@ LABEL_11:
     if (event == 4)
     {
 LABEL_31:
-      v15 = 0;
+      v18 = 0;
       goto LABEL_36;
     }
 
     if (event == 5)
     {
-      v15 = 0;
+      v18 = 0;
       self->_paused = 1;
       goto LABEL_36;
     }
@@ -441,13 +463,13 @@ LABEL_31:
 LABEL_23:
       if (gLogCategory_SFRemoteTextInputClient <= 60 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
       {
-        [SFRemoteTextInputClient _handleSessionEvent:forSession:];
+        [SFRemoteTextInputClient _handleSessionEvent:event forSession:?];
       }
 
       goto LABEL_31;
     }
 
-    v15 = 0;
+    v18 = 0;
     self->_paused = 0;
   }
 
@@ -467,9 +489,12 @@ LABEL_23:
       case 2:
         if (self->_paused)
         {
-          if (gLogCategory_SFRemoteTextInputClient <= 30 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+          if (gLogCategory_SFRemoteTextInputClient <= 30)
           {
-            [SFRemoteTextInputClient _handleSessionEvent:forSession:];
+            if (gLogCategory_SFRemoteTextInputClient != -1 || (v15 = _LogCategory_Initialize(), v15))
+            {
+              [(SFRemoteTextInputClient *)v15 _handleSessionEvent:v16 forSession:v17];
+            }
           }
 
           goto LABEL_31;
@@ -488,17 +513,20 @@ LABEL_23:
       textInputDidEnd[2](textInputDidEnd, v8, v10);
     }
 
-    v15 = 1;
+    v18 = 1;
   }
 
 LABEL_36:
   currentDataPayload = [sessionCopy currentDataPayload];
-  v19 = currentDataPayload;
-  if ((v15 & 1) != 0 || !currentDataPayload)
+  v24 = currentDataPayload;
+  if ((v18 & 1) != 0 || !currentDataPayload)
   {
-    if (gLogCategory_SFRemoteTextInputClient <= 60 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteTextInputClient <= 60)
     {
-      [SFRemoteTextInputClient _handleSessionEvent:forSession:];
+      if (gLogCategory_SFRemoteTextInputClient != -1 || (currentDataPayload = _LogCategory_Initialize(), currentDataPayload))
+      {
+        [(SFRemoteTextInputClient *)currentDataPayload _handleSessionEvent:v22 forSession:v23];
+      }
     }
   }
 
@@ -533,7 +561,7 @@ LABEL_36:
   os_activity_scope_enter(v7, &state);
   if (gLogCategory_SFRemoteTextInputClient <= 30 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient inputSystemService:didCreateInputSession:]", 30, "Service created session: %@\n", sessionCopy);
   }
 
   os_activity_scope_leave(&state);
@@ -661,7 +689,7 @@ LABEL_36:
   {
     if (gLogCategory_SFRemoteTextInputClient != -1 || (v5 = _LogCategory_Initialize(), payloadCopy = v6, v5))
     {
-      [SFRemoteTextInputClient handleTextActionPayload:];
+      [SFRemoteTextInputClient handleTextActionPayload:payloadCopy];
       payloadCopy = v6;
     }
   }
@@ -690,52 +718,53 @@ LABEL_36:
 - (void)handleTextInputData:(void *)a1 .cold.1(void *a1)
 {
   v1 = SFTextInputDataLogString(a1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient handleTextInputData:]", 30, "Handle text input data (%@)\n", v1);
 }
 
 - (void)handleTextInputData:(id *)a1 .cold.3(id *a1)
 {
-  v1 = [*a1 currentSession];
-  LogPrintF();
+  v1 = *a1;
+  v2 = [*a1 currentSession];
+  LogPrintF(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient handleTextInputData:]", 30, "Calling handleText... on the service's (%@) current session (%@)", v1, v2);
 }
 
 - (void)handleTextInputData:(void *)a1 .cold.5(void *a1)
 {
   v1 = [a1 localizedDescription];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient handleTextInputData:]", 60, "### Error handling text input data: %@\n", v1);
 }
 
-- (uint64_t)handleUsername:(uint64_t)result password:(int)a2 .cold.2(uint64_t result, int a2)
+- (uint64_t)handleUsername:(uint64_t)a3 password:.cold.2(uint64_t result, int a2, uint64_t a3)
 {
   if (result)
   {
     if (a2 != -1)
     {
-      return OUTLINED_FUNCTION_2_1();
+      return OUTLINED_FUNCTION_2_1(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient handleUsername:password:]", a3, "No credentials to handle\n");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return OUTLINED_FUNCTION_2_1();
+      return OUTLINED_FUNCTION_2_1(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient handleUsername:password:]", a3, "No credentials to handle\n");
     }
   }
 
   return result;
 }
 
-- (void)handleUsername:password:.cold.3()
+- (void)handleUsername:(uint64_t)a3 password:.cold.3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_SFRemoteTextInputClient <= 30 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_2_1();
+    OUTLINED_FUNCTION_2_1(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient handleUsername:password:]", a3, "No current session to handle credentials\n");
   }
 }
 
 - (void)_fireEventHandlerWithPayload:(void *)a1 .cold.1(void *a1)
 {
   v1 = SFTextInputDataLogString(a1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient _fireEventHandlerWithPayload:]", 30, "Firing event handler with data (%@)\n", v1);
 }
 
 - (void)_fireEventHandlerWithPayload:(void *)a3 .cold.2(void *a1, __CFString **a2, void *a3)
@@ -758,20 +787,25 @@ LABEL_36:
   if (v12 && gLogCategory_SFRemoteTextInputClient <= 60 && (gLogCategory_SFRemoteTextInputClient != -1 || _LogCategory_Initialize()))
   {
     v13 = [v12 localizedDescription];
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient _fireEventHandlerWithPayload:]", 60, "### Error firing event handler: %@\n", v13);
   }
 
   *a3 = v12;
 }
 
-- (uint64_t)_handleSessionEvent:(uint64_t)a1 forSession:.cold.2(uint64_t a1)
+- (uint64_t)_handleSessionEvent:(uint64_t)a1 forSession:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  if ((a1 - 1) <= 5)
+  if ((a1 - 1) > 5)
   {
-    v1 = *(&off_1E788DAB8 + a1 - 1);
+    v4 = @"?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v4 = *(&off_1E788DAB8 + a1 - 1);
+  }
+
+  return LogPrintF(&gLogCategory_SFRemoteTextInputClient, "[SFRemoteTextInputClient _handleSessionEvent:forSession:]", 30, "Handle session event: %@ with flags: %x", v4, a2, v2, v3);
 }
 
 @end

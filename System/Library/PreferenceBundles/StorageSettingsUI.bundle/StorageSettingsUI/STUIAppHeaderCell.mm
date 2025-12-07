@@ -10,7 +10,7 @@
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
   v7[3] = sub_147EC(&qword_BA420, &qword_8C660);
-  v7[4] = sub_14F24(&qword_BA428, &qword_BA420, &qword_8C660);
+  v7[4] = sub_14F24(&qword_BA428, &qword_BA420, &qword_8C660, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
   sub_7E490(v7);
   specifierCopy = specifier;
   selfCopy = self;

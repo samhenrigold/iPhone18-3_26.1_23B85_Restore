@@ -55,47 +55,48 @@
   if (identificationToCleanIfNecessary && [(CPLCloudKitZoneIdentification *)identificationToCleanIfNecessary supportsZoneDelete])
   {
     zoneID = [(CPLCloudKitZoneIdentification *)self->_identificationToCleanIfNecessary zoneID];
+    v5 = zoneID;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_100003744();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100003744(zoneID);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = zoneID;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Will try to delete partially created zone %{public}@", &buf, 0xCu);
+        *(&buf + 4) = v5;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Will try to delete partially created zone %{public}@", &buf, 0xCu);
       }
     }
 
-    v6 = [CPLCloudKitDeleteTransportScopeTask alloc];
+    v7 = [CPLCloudKitDeleteTransportScopeTask alloc];
     controller = [(CPLCloudKitTransportTask *)self controller];
     cloudKitScope = [(CPLCloudKitZoneIdentification *)self->_identificationToCleanIfNecessary cloudKitScope];
     engineScope = [(CPLCloudKitZoneIdentification *)self->_identificationToCleanIfNecessary engineScope];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_10019A67C;
-    v19[3] = &unk_100272468;
-    v20 = zoneID;
-    v10 = zoneID;
-    v11 = [(CPLCloudKitDeleteTransportScopeTask *)v6 initWithController:controller cloudKitScope:cloudKitScope scope:engineScope completionHandler:v19];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10019A67C;
+    v20[3] = &unk_100272468;
+    v21 = v5;
+    v11 = v5;
+    v12 = [(CPLCloudKitDeleteTransportScopeTask *)v7 initWithController:controller cloudKitScope:cloudKitScope scope:engineScope completionHandler:v20];
 
     transportGroup = [(CPLCloudKitTransportTask *)self transportGroup];
-    [(CPLCloudKitTransportTask *)v11 setTransportGroup:transportGroup];
+    [(CPLCloudKitTransportTask *)v12 setTransportGroup:transportGroup];
 
-    v13 = dispatch_get_global_queue(0, 0);
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100049D98;
-    v17[3] = &unk_100271F40;
-    v18 = v11;
-    v14 = v17;
+    v14 = dispatch_get_global_queue(0, 0);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100049D98;
+    v18[3] = &unk_100271F40;
+    v19 = v12;
+    v15 = v18;
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v22 = sub_100002958;
-    v23 = &unk_100271E98;
-    v24 = v14;
-    v15 = v11;
-    v16 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
-    dispatch_async(v13, v16);
+    v23 = sub_100002958;
+    v24 = &unk_100271E98;
+    v25 = v15;
+    v16 = v12;
+    v17 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
+    dispatch_async(v14, v17);
   }
 }
 

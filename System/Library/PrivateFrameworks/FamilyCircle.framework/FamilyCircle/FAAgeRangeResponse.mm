@@ -108,20 +108,19 @@
   ageRangeValidationLevelToString = [(FAAgeRangeResponse *)self ageRangeValidationLevelToString];
   ageRangeResponseToString = [(FAAgeRangeResponse *)self ageRangeResponseToString];
   v8 = ageRangeResponseToString;
-  parentalControlsInformation = self->_parentalControlsInformation;
   if (self->_isSharingNewInformation)
   {
-    v10 = @"YES";
+    v9 = @"YES";
   }
 
   else
   {
-    v10 = @"NO";
+    v9 = @"NO";
   }
 
-  v11 = [v3 stringWithFormat:@"Age Range response with lowerbound: %@, upperbound: %@, validationLevel: %@, response: %@, parentalControlsInformation: %@, isSharingNewInformation: %@", lowerbound, upperbound, ageRangeValidationLevelToString, ageRangeResponseToString, self->_parentalControlsInformation, v10];
+  v10 = [v3 stringWithFormat:@"Age Range response with lowerbound: %@, upperbound: %@, validationLevel: %@, response: %@, parentalControlsInformation: %@, isSharingNewInformation: %@", lowerbound, upperbound, ageRangeValidationLevelToString, ageRangeResponseToString, self->_parentalControlsInformation, v9];
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -185,30 +184,28 @@
 
 + (id)ageRangeValidationLevelDisplayNames
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v5[0] = &unk_1F2F3B9A0;
-  v5[1] = &unk_1F2F3B9B8;
-  v6[0] = @"Unknown";
-  v6[1] = @"Self Attested";
-  v5[2] = &unk_1F2F3B9D0;
-  v6[2] = @"Guardian Attested";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = &unk_1F2F3B9A0;
+  v4[1] = &unk_1F2F3B9B8;
+  v5[0] = @"Unknown";
+  v5[1] = @"Self Attested";
+  v4[2] = &unk_1F2F3B9D0;
+  v5[2] = @"Guardian Attested";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }
 
 + (id)ageRangeResponseDisplayNames
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v5[0] = &unk_1F2F3B9E8;
-  v5[1] = &unk_1F2F3BA00;
-  v6[0] = @"Unknown";
-  v6[1] = @"Shared";
-  v5[2] = &unk_1F2F3BA18;
-  v6[2] = @"Not Shared";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = &unk_1F2F3B9E8;
+  v4[1] = &unk_1F2F3BA00;
+  v5[0] = @"Unknown";
+  v5[1] = @"Shared";
+  v4[2] = &unk_1F2F3BA18;
+  v5[2] = @"Not Shared";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }

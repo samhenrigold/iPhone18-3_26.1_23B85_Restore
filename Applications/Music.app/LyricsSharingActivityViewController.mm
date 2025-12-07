@@ -13,7 +13,7 @@
 - (UIViewControllerTransitioningDelegate)transitioningDelegate
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for LyricsSharingActivityViewController();
+  v4.super_class = type metadata accessor for LyricsSharingActivityViewController(0);
   transitioningDelegate = [(LyricsSharingActivityViewController *)&v4 transitioningDelegate];
 
   return transitioningDelegate;
@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for LyricsSharingActivityViewController();
+  v3.super_class = type metadata accessor for LyricsSharingActivityViewController(0);
   v2 = v3.receiver;
   [(LyricsSharingActivityViewController *)&v3 viewDidLoad];
   [v2 setCustomViewControllerVerticalInset:{0.0, v3.receiver, v3.super_class}];

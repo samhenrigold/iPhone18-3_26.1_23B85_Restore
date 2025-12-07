@@ -241,7 +241,7 @@
       v31 = v26;
       if (v26)
       {
-        objc_msgSend_dimension(v26, v27, v28, v29, v30);
+        objc_msgSend_dimension(v26, v28, v29, v30);
         v32 = v44;
         v33 = v45;
       }
@@ -304,91 +304,91 @@
   }
 
   v10 = objc_autoreleasePoolPush();
-  v110[0] = MEMORY[0x277D85DD0];
-  v110[1] = 3221225472;
-  v110[2] = sub_2761D4A8C;
-  v110[3] = &unk_27A6B68D0;
-  v110[4] = self;
-  v15 = objc_msgSend_dataFromCache_forFile_group_generateBlock_(TSCH3DDocumentDataCache, v11, COERCE_DOUBLE(3221225472), v12, v13, cacheCopy, v9, @"TSCH3DMipmapsBackHeader", v110);
+  v101[0] = MEMORY[0x277D85DD0];
+  v101[1] = 3221225472;
+  v101[2] = sub_2761D4A8C;
+  v101[3] = &unk_27A6B68D0;
+  v101[4] = self;
+  v15 = objc_msgSend_dataFromCache_forFile_group_generateBlock_(TSCH3DDocumentDataCache, v11, COERCE_DOUBLE(3221225472), v12, v13, cacheCopy, v9, @"TSCH3DMipmapsBackHeader", v101);
   if (v15)
   {
-    v108 = 0;
-    v109 = 0;
-    v105 = objc_msgSend_p_decodeCachedData_imageSize_(self, v14, v16, v17, v18, v15, &v108);
-    v104 = v10;
-    v23 = HIDWORD(v109);
-    v24 = v109;
-    v26 = v108;
-    v25 = HIDWORD(v108);
-    v106[0] = v108;
-    v106[1] = v109;
-    v107 = HIDWORD(v109) != 0;
-    if ((v109 - 5) > 0xFFFFFFFB)
+    v99 = 0;
+    v100 = 0;
+    v96 = objc_msgSend_p_decodeCachedData_imageSize_(self, v14, v16, v17, v18, v15, &v99);
+    v95 = v10;
+    v23 = HIDWORD(v100);
+    v24 = v100;
+    v26 = v99;
+    v25 = HIDWORD(v99);
+    v97[0] = v99;
+    v97[1] = v100;
+    v98 = HIDWORD(v100) != 0;
+    if ((v100 - 5) > 0xFFFFFFFB)
     {
-      v56 = objc_msgSend_length(v105, v19, v20, v21, v22);
-      v61 = 0;
-      v62 = 0;
+      v49 = objc_msgSend_length(v96, v19, v20, v21, v22);
+      v54 = 0;
+      v55 = 0;
       do
       {
-        v63 = v25 * v26;
-        if (v62)
+        v56 = v25 * v26;
+        if (v55)
         {
           if (!v23)
           {
             break;
           }
 
-          v63 = (v25 >> v62) * (v26 >> v62);
+          v56 = (v25 >> v55) * (v26 >> v55);
         }
 
-        v61 += v24 * v63;
-        if (v62 == 0x7FFFFFFFFFFFFFFFLL)
+        v54 += v24 * v56;
+        if (v55 == 0x7FFFFFFFFFFFFFFFLL)
         {
           break;
         }
 
-        ++v62;
+        ++v55;
       }
 
-      while (v24 * v63);
-      if (v56 != v61 + 16)
+      while (v24 * v56);
+      if (v49 != v54 + 16)
       {
-        v101 = MEMORY[0x277D81150];
-        v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v58, v59, v60, "[TSCH3DTSPImageData databufferForDataCache:]");
-        v103 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, v65, v66, v67, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DTSPImageData.mm");
-        v72 = objc_msgSend_length(v105, v68, v69, v70, v71);
-        v77 = 0;
-        v78 = 0;
+        v92 = MEMORY[0x277D81150];
+        v93 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, v51, v52, v53, "[TSCH3DTSPImageData databufferForDataCache:]");
+        v94 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v58, v59, v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DTSPImageData.mm");
+        v65 = objc_msgSend_length(v96, v61, v62, v63, v64);
+        v70 = 0;
+        v71 = 0;
         do
         {
-          v79 = v25 * v26;
-          if (v78)
+          v72 = v25 * v26;
+          if (v71)
           {
             if (!v23)
             {
               break;
             }
 
-            v79 = (v25 >> v78) * (v26 >> v78);
+            v72 = (v25 >> v71) * (v26 >> v71);
           }
 
-          v77 += v24 * v79;
-          if (v78 == 0x7FFFFFFFFFFFFFFFLL)
+          v70 += v24 * v72;
+          if (v71 == 0x7FFFFFFFFFFFFFFFLL)
           {
             break;
           }
 
-          ++v78;
+          ++v71;
         }
 
-        while (v24 * v79);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v101, v73, v74, v75, v76, v102, v103, 241, 0, "size mismatch between data and image size %lu, %lu", v72, v77);
+        while (v24 * v72);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v92, v66, v67, v68, v69, v93, v94, 241, 0, "size mismatch between data and image size %lu, %lu", v65, v70);
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v80, v81, v82, v83);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v73, v74, v75, v76);
       }
 
-      v84 = [TSCH3DNSData2DDataBuffer alloc];
-      v55 = objc_msgSend_initWithCapacityDimension_data_(v84, v85, v86, v87, v88, v106, v105);
+      v77 = [TSCH3DNSData2DDataBuffer alloc];
+      v48 = objc_msgSend_initWithCapacityDimension_data_(v77, v78, v79, v80, v81, v97, v96);
     }
 
     else
@@ -397,60 +397,58 @@
       v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v20, v21, v22, "[TSCH3DTSPImageData databufferForDataCache:]");
       v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DTSPImageData.mm");
       v34 = MEMORY[0x277CCACA8];
-      v99 = v109;
-      v100 = HIDWORD(v109);
-      sub_276152FD4("ivec4(%d, %d, %d, %d)", v35, v36, v37, v38, v39, v40, v41, v108);
-      if (v113 >= 0)
+      sub_276152FD4(&v102, "ivec4(%d, %d, %d, %d)", v99, 0, HIDWORD(v99), 0);
+      if (v104 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v34, v42, v43, v44, v45, &v111);
+        objc_msgSend_stringWithUTF8String_(v34, v35, v36, v37, v38, &v102);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v34, v42, v43, v44, v45, v111);
+        objc_msgSend_stringWithUTF8String_(v34, v35, v36, v37, v38, v102);
       }
-      v47 = ;
-      if (v113 < 0)
+      v40 = ;
+      if (v104 < 0)
       {
-        operator delete(v111);
+        operator delete(v102);
       }
 
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v46, v48, v49, v50, v28, v33, 235, 0, "Invalid component count %lu and image size %@. Will not create a new TSCH3DNSData2DDataBuffer from the mipmapData", v24, v47, v99, v100);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v39, v41, v42, v43, v28, v33, 235, 0, "Invalid component count %lu and image size %@. Will not create a new TSCH3DNSData2DDataBuffer from the mipmapData", v24, v40);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53, v54);
-      v55 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47);
+      v48 = 0;
     }
 
-    v10 = v104;
+    v10 = v95;
   }
 
   else
   {
-    v55 = 0;
+    v48 = 0;
   }
 
   objc_autoreleasePoolPop(v10);
-  if (!v55)
+  if (!v48)
   {
 LABEL_28:
-    v111 = objc_opt_class();
-    v112 = 0;
-    v93 = objc_msgSend_newCGImage(self, v89, v90, v91, v92);
-    if (v93)
+    v102 = objc_opt_class();
+    v103 = 0;
+    v86 = objc_msgSend_newCGImage(self, v82, v83, v84, v85);
+    if (v86)
     {
-      v55 = sub_2761D44DC(&v111, v93, v94, v95, v96);
-      CGImageRelease(v93);
+      v48 = sub_2761D44DC(&v102, v86, v87, v88, v89);
+      CGImageRelease(v86);
     }
 
     else
     {
       data = self->_data;
-      v106[0] = 0x10000000100;
-      v55 = sub_2761D4A94(&v111, data, v106, 4);
+      v97[0] = 0x10000000100;
+      v48 = sub_2761D4A94(&v102, data, v97, 4);
     }
   }
 
-  return v55;
+  return v48;
 }
 
 - (id)uniqueFilename

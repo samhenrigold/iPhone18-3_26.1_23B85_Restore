@@ -8,7 +8,7 @@
 
 - (void)markVoiceMailAsRead:(id)read forRemoteDevice:(id)device
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   readCopy = read;
   deviceCopy = device;
   v8 = MEMORY[0x277CEF098];
@@ -16,9 +16,9 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v28 = "[SVXVoiceMailMarkAsReadHandler markVoiceMailAsRead:forRemoteDevice:]";
-    v29 = 2112;
-    v30 = readCopy;
+    v27 = "[SVXVoiceMailMarkAsReadHandler markVoiceMailAsRead:forRemoteDevice:]";
+    v28 = 2112;
+    v29 = readCopy;
     _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
   }
 
@@ -36,9 +36,9 @@
   [v13 setObject:v10];
   plistBinaryParser = self->_plistBinaryParser;
   dictionary = [v13 dictionary];
-  v26 = 0;
-  v18 = [(SVXPlistBinaryParser *)plistBinaryParser dataWithPropertyList:dictionary format:200 options:0 error:&v26];
-  v19 = v26;
+  v25 = 0;
+  v18 = [(SVXPlistBinaryParser *)plistBinaryParser dataWithPropertyList:dictionary format:200 options:0 error:&v25];
+  v19 = v25;
 
   if (v18)
   {
@@ -59,34 +59,30 @@
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v28 = "[SVXVoiceMailMarkAsReadHandler markVoiceMailAsRead:forRemoteDevice:]";
-      v29 = 2112;
-      v30 = v19;
+      v27 = "[SVXVoiceMailMarkAsReadHandler markVoiceMailAsRead:forRemoteDevice:]";
+      v28 = 2112;
+      v29 = v19;
       _os_log_error_impl(&dword_2695B9000, v24, OS_LOG_TYPE_ERROR, "%s Serialization failed: %@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SVXVoiceMailMarkAsReadHandler_markVoiceMailAsRead_forRemoteDevice___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4 || (a2 & 1) == 0)
   {
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[SVXVoiceMailMarkAsReadHandler markVoiceMailAsRead:forRemoteDevice:]_block_invoke";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s Error marking voicemail as read: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[SVXVoiceMailMarkAsReadHandler markVoiceMailAsRead:forRemoteDevice:]_block_invoke";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s Error marking voicemail as read: %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXVoiceMailMarkAsReadHandler)initWithClientLiteFactory:(id)factory plistBinaryParser:(id)parser

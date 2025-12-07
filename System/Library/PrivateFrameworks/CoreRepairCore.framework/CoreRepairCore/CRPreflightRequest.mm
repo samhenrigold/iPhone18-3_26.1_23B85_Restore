@@ -23,14 +23,14 @@
 
 - (id)payload
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   requestID = [(CRPreflightRequest *)self requestID];
 
   if (requestID)
   {
     requestID2 = [(CRPreflightRequest *)self requestID];
-    [v3 setObject:requestID2 forKeyedSubscript:@"RequestID"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   bikCertificate = [(CRPreflightRequest *)self bikCertificate];
@@ -38,7 +38,7 @@
   if (bikCertificate)
   {
     bikCertificate2 = [(CRPreflightRequest *)self bikCertificate];
-    [v3 setObject:bikCertificate2 forKeyedSubscript:@"BIKCertificate"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   sessionID = [(CRPreflightRequest *)self sessionID];
@@ -46,7 +46,7 @@
   if (sessionID)
   {
     sessionID2 = [(CRPreflightRequest *)self sessionID];
-    [v3 setObject:sessionID2 forKeyedSubscript:@"SessionID"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   components = [(CRPreflightRequest *)self components];
@@ -54,32 +54,32 @@
   v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (components)
   {
-    v57 = v3;
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
+    v56 = v3;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     obj = [(CRPreflightRequest *)self components];
-    v12 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
+    v12 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v75;
-      v59 = v11;
+      v14 = *v74;
+      v58 = v11;
       selfCopy = self;
-      v58 = *v75;
+      v57 = *v74;
       do
       {
         v15 = 0;
-        v61 = v13;
+        v60 = v13;
         do
         {
-          if (*v75 != v14)
+          if (*v74 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v74 + 1) + 8 * v15);
+          v16 = *(*(&v73 + 1) + 8 * v15);
           type = [v16 type];
           if (type)
           {
@@ -88,44 +88,44 @@
 
             if (identifier)
             {
-              v63 = v15;
+              v62 = v15;
               v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
               v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
               type2 = [v16 type];
-              [v20 setObject:type2 forKeyedSubscript:@"Type"];
+              objc_msgSend_setObject_forKeyedSubscript_(v20);
 
               identifier2 = [v16 identifier];
-              [v20 setObject:identifier2 forKeyedSubscript:@"Identifier"];
+              objc_msgSend_setObject_forKeyedSubscript_(v20);
 
               asid = [v16 asid];
 
               if (asid)
               {
                 asid2 = [v16 asid];
-                [v21 setObject:asid2 forKeyedSubscript:@"asid"];
+                objc_msgSend_setObject_forKeyedSubscript_(v21);
               }
 
-              v64 = v21;
-              v72 = 0u;
-              v73 = 0u;
-              v70 = 0u;
+              v63 = v21;
               v71 = 0u;
+              v72 = 0u;
+              v69 = 0u;
+              v70 = 0u;
               componentResponses = [(CRPreflightRequest *)self componentResponses];
-              v27 = [componentResponses countByEnumeratingWithState:&v70 objects:v79 count:16];
+              v27 = [componentResponses countByEnumeratingWithState:&v69 objects:v78 count:16];
               if (v27)
               {
                 v28 = v27;
-                v29 = *v71;
+                v29 = *v70;
                 do
                 {
                   for (i = 0; i != v28; ++i)
                   {
-                    if (*v71 != v29)
+                    if (*v70 != v29)
                     {
                       objc_enumerationMutation(componentResponses);
                     }
 
-                    v31 = *(*(&v70 + 1) + 8 * i);
+                    v31 = *(*(&v69 + 1) + 8 * i);
                     v32 = [v31 objectForKeyedSubscript:@"key"];
                     v33 = [v31 objectForKeyedSubscript:@"signature"];
                     v34 = [v31 objectForKeyedSubscript:@"deviceNonce"];
@@ -146,42 +146,42 @@
 
                       if (v37)
                       {
-                        [v20 setObject:v33 forKeyedSubscript:@"Response"];
+                        objc_msgSend_setObject_forKeyedSubscript_(v20);
                         if (v34)
                         {
-                          [v64 setObject:v34 forKeyedSubscript:@"deviceNonce"];
+                          objc_msgSend_setObject_forKeyedSubscript_(v63);
                         }
                       }
                     }
                   }
 
-                  v28 = [componentResponses countByEnumeratingWithState:&v70 objects:v79 count:16];
+                  v28 = [componentResponses countByEnumeratingWithState:&v69 objects:v78 count:16];
                 }
 
                 while (v28);
               }
 
-              v68 = 0u;
-              v69 = 0u;
-              v66 = 0u;
               v67 = 0u;
+              v68 = 0u;
+              v65 = 0u;
+              v66 = 0u;
               self = selfCopy;
               activationResponses = [(CRPreflightRequest *)selfCopy activationResponses];
-              v39 = [activationResponses countByEnumeratingWithState:&v66 objects:v78 count:16];
+              v39 = [activationResponses countByEnumeratingWithState:&v65 objects:v77 count:16];
               if (v39)
               {
                 v40 = v39;
-                v41 = *v67;
+                v41 = *v66;
                 do
                 {
                   for (j = 0; j != v40; ++j)
                   {
-                    if (*v67 != v41)
+                    if (*v66 != v41)
                     {
                       objc_enumerationMutation(activationResponses);
                     }
 
-                    v43 = *(*(&v66 + 1) + 8 * j);
+                    v43 = *(*(&v65 + 1) + 8 * j);
                     v44 = [v43 objectForKeyedSubscript:@"key"];
                     v45 = [v43 objectForKeyedSubscript:@"activationToken"];
                     v46 = v45;
@@ -202,28 +202,28 @@
 
                       if (v49)
                       {
-                        [v64 setObject:v46 forKeyedSubscript:@"activationToken"];
+                        objc_msgSend_setObject_forKeyedSubscript_(v63);
                       }
                     }
                   }
 
-                  v40 = [activationResponses countByEnumeratingWithState:&v66 objects:v78 count:16];
+                  v40 = [activationResponses countByEnumeratingWithState:&v65 objects:v77 count:16];
                 }
 
                 while (v40);
               }
 
-              if ([v64 count])
+              if ([v63 count])
               {
-                [v20 setObject:v64 forKeyedSubscript:@"Properties"];
+                objc_msgSend_setObject_forKeyedSubscript_(v20);
               }
 
-              v11 = v59;
-              [v59 addObject:v20];
+              v11 = v58;
+              [v58 addObject:v20];
 
-              v13 = v61;
-              v14 = v58;
-              v15 = v63;
+              v13 = v60;
+              v14 = v57;
+              v15 = v62;
             }
           }
 
@@ -231,21 +231,25 @@
         }
 
         while (v15 != v13);
-        v13 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
+        v13 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
       }
 
       while (v13);
     }
 
-    v3 = v57;
+    v3 = v56;
+    objc_msgSend_setObject_forKeyedSubscript_(v56);
   }
 
-  [v3 setObject:v11 forKeyedSubscript:@"Components"];
+  else
+  {
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
+  }
 
-  v65 = 0;
+  v64 = 0;
   v50 = v3;
-  v51 = [MEMORY[0x1E696AE40] dataWithPropertyList:v3 format:100 options:0 error:&v65];
-  v52 = v65;
+  v51 = [MEMORY[0x1E696AE40] dataWithPropertyList:v3 format:100 options:0 error:&v64];
+  v52 = v64;
   if (v52)
   {
     v53 = handleForCategory(0);
@@ -261,8 +265,6 @@
   {
     v54 = v51;
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v54;
 }

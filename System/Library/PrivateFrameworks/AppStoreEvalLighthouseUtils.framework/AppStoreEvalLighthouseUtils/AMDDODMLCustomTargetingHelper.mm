@@ -149,7 +149,6 @@
   v4[0] = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:12];
   v3 = MEMORY[0x277D82BE0](v4[0]);
   objc_storeStrong(v4, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -680,7 +679,6 @@ LABEL_35:
 
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v14 = v35;
 
   return v14;
@@ -772,8 +770,6 @@ LABEL_35:
             v60 = MEMORY[0x277D82BE0](v100);
             if ([v60 countByEnumeratingWithState:__b objects:v113 count:16])
             {
-              *__b[2];
-              *__b[2];
               v92 = *__b[1];
               v90 = [v100 objectForKey:v92];
               v89 = [(AMDDODMLCustomTargetingHelper *)selfCopy performOperation:v94 onArray:v90 error:errorCopy];
@@ -878,8 +874,6 @@ LABEL_35:
         v57 = MEMORY[0x277D82BE0](v100);
         if ([v57 countByEnumeratingWithState:v84 objects:v112 count:16])
         {
-          *v84[2];
-          *v84[2];
           v85 = *v84[1];
           v83 = [v100 objectForKey:v85];
           firstObject2 = [v83 firstObject];
@@ -1085,8 +1079,6 @@ LABEL_35:
         v45 = MEMORY[0x277D82BE0](v100);
         if ([v45 countByEnumeratingWithState:v69 objects:v110 count:16])
         {
-          *v69[2];
-          *v69[2];
           v70 = *v69[1];
           v68 = [v100 objectForKey:v70];
           v109 = MEMORY[0x277D82BE0](v68);
@@ -1192,7 +1184,6 @@ LABEL_104:
 LABEL_105:
   objc_storeStrong(&v106, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v37 = v109;
 
   return v37;
@@ -1430,7 +1421,6 @@ LABEL_29:
 
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v10 = v43;
 
   return v10;

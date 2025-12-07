@@ -114,7 +114,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __43__SUSUIControllerClient_getPasscodePolicy___block_invoke(uint64_t a1, void *a2)
@@ -134,7 +133,6 @@ void __43__SUSUIControllerClient_getPasscodePolicy___block_invoke(uint64_t a1, v
   objc_storeStrong(oslog, 0);
   (*(*(a1 + 40) + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__SUSUIControllerClient_getPasscodePolicy___block_invoke_289(uint64_t a1, uint64_t a2)
@@ -239,8 +237,6 @@ uint64_t __43__SUSUIControllerClient_getPasscodePolicy___block_invoke_289(uint64
     objc_destroyWeak(&v25);
     objc_destroyWeak(&from);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__SUSUIControllerClient__connectToServerIfNecessary__block_invoke(uint64_t a1)
@@ -266,9 +262,7 @@ uint64_t __52__SUSUIControllerClient__connectToServerIfNecessary__block_invoke_2
   }
 
   objc_storeStrong(oslog, 0);
-  result = (*(a1[4].isa + 2))();
-  *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[4].isa + 2))();
 }
 
 - (void)_noteConnectionDropped
@@ -285,7 +279,6 @@ uint64_t __52__SUSUIControllerClient__connectToServerIfNecessary__block_invoke_2
 
   objc_storeStrong(oslog, 0);
   selfCopy->_connected = 0;
-  *MEMORY[0x277D85DE8];
 }
 
 @end

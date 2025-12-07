@@ -61,54 +61,54 @@
 - (id)computeCaptionForImage:(__CVBuffer *)image withDecodingMethod:(int64_t)method error:(id *)error
 {
   v27 = *MEMORY[0x1E69E9840];
-  v9 = sub_1AC090E50();
+  v9 = sub_1AC090E50(self);
   v10 = os_signpost_id_generate(v9);
 
-  v11 = sub_1AC090E50();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = sub_1AC090E50(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(v25[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CSUComputeCaptionForImage", "", v25, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CSUComputeCaptionForImage", "", v25, 2u);
   }
 
   v25[0] = &unk_1F20D0E08;
   v25[1] = v10;
   v26 = v25;
-  v16 = objc_autoreleasePoolPush();
+  v17 = objc_autoreleasePoolPush();
   encoder = self->_encoder;
   if (encoder)
   {
-    v19 = objc_msgSend_computeEncodedCaptioningFeaturesForImage_error_(encoder, v13, image, error, v15);
+    v20 = objc_msgSend_computeEncodedCaptioningFeaturesForImage_error_(encoder, v14, image, error, v16);
     if (*error)
     {
-      v20 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v21 = objc_msgSend_computeDecodedCaptionsForFeaturesWithCSUBuffer_withDecodingMethod_error_(self->_decoder, v18, v19, method, error);
+      v22 = objc_msgSend_computeDecodedCaptionsForFeaturesWithCSUBuffer_withDecodingMethod_error_(self->_decoder, v19, v20, method, error);
       if (*error)
       {
-        v20 = 0;
+        v21 = 0;
       }
 
       else
       {
-        v22 = v21;
-        v20 = v21;
+        v23 = v22;
         v21 = v22;
+        v22 = v23;
       }
     }
   }
 
   else
   {
-    objc_msgSend_errorForInternalErrorWithLocalizedDescription_(CSUError, v13, @"Encoder not configured!", v14, v15);
-    *error = v20 = 0;
+    objc_msgSend_errorForInternalErrorWithLocalizedDescription_(CSUError, v14, @"Encoder not configured!", v15, v16);
+    *error = v21 = 0;
   }
 
-  objc_autoreleasePoolPop(v16);
+  objc_autoreleasePoolPop(v17);
   if (!v26)
   {
     sub_1AC066F88();
@@ -125,46 +125,45 @@
     (*(*v26 + 40))();
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v21;
 }
 
 - (id)computeCaptionForEmbedding:(id)embedding withDecodingMethod:(int64_t)method error:(id *)error
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   embeddingCopy = embedding;
-  v9 = sub_1AC090E50();
+  v9 = sub_1AC090E50(embeddingCopy);
   v10 = os_signpost_id_generate(v9);
 
-  v11 = sub_1AC090E50();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = sub_1AC090E50(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CSUComputeCaptionForEmbeddingNSData", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CSUComputeCaptionForEmbeddingNSData", "", buf, 2u);
   }
 
   *buf = &unk_1F20D0E88;
-  v50 = v10;
-  v51 = buf;
+  v51 = v10;
+  v52 = buf;
   v14 = objc_autoreleasePoolPush();
+  v16 = v14;
   if (embeddingCopy)
   {
     decoder = self->_decoder;
-    v47 = 0;
-    v16 = objc_msgSend_computeDecodedCaptionsForFeatures_withDecodingMethod_error_(decoder, v13, embeddingCopy, method, &v47);
-    v17 = v47;
-    if (!v16)
+    v48 = 0;
+    v18 = objc_msgSend_computeDecodedCaptionsForFeatures_withDecodingMethod_error_(decoder, v15, embeddingCopy, method, &v48);
+    v19 = v48;
+    if (!v18)
     {
-      v18 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v23 = objc_msgSend_domain(v17, v19, v20, v21, v22);
-      v27 = objc_msgSend_initWithString_(v18, v24, v23, v25, v26);
+      v20 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v25 = objc_msgSend_domain(v19, v21, v22, v23, v24);
+      v29 = objc_msgSend_initWithString_(v20, v26, v25, v27, v28);
 
-      v32 = objc_msgSend_code(v17, v28, v29, v30, v31);
-      v33 = objc_alloc(MEMORY[0x1E695DF20]);
-      v38 = objc_msgSend_userInfo(v17, v34, v35, v36, v37);
-      v42 = objc_msgSend_initWithDictionary_(v33, v39, v38, v40, v41);
+      v34 = objc_msgSend_code(v19, v30, v31, v32, v33);
+      v35 = objc_alloc(MEMORY[0x1E695DF20]);
+      v40 = objc_msgSend_userInfo(v19, v36, v37, v38, v39);
+      v44 = objc_msgSend_initWithDictionary_(v35, v41, v40, v42, v43);
 
       goto LABEL_11;
     }
@@ -172,79 +171,77 @@
 
   else
   {
-    v17 = sub_1AC090E50();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v19 = sub_1AC090E50(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      *v48 = 0;
-      _os_log_impl(&dword_1AC05D000, v17, OS_LOG_TYPE_INFO, "Input to computeCaptionForEmbedding is null", v48, 2u);
+      *v49 = 0;
+      _os_log_impl(&dword_1AC05D000, v19, OS_LOG_TYPE_INFO, "Input to computeCaptionForEmbedding is null", v49, 2u);
     }
 
-    v16 = 0;
+    v18 = 0;
   }
 
-  v32 = 0;
-  v42 = 0;
-  v27 = 0;
+  v34 = 0;
+  v44 = 0;
+  v29 = 0;
 LABEL_11:
 
-  objc_autoreleasePoolPop(v14);
+  objc_autoreleasePoolPop(v16);
   if (embeddingCopy)
   {
-    if (error && v27)
+    if (error && v29)
     {
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(CSUError, v43, v27, v32, v42);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(CSUError, v45, v29, v34, v44);
     }
 
-    v44 = v16;
+    v46 = v18;
   }
 
   else
   {
-    v44 = 0;
+    v46 = 0;
   }
 
-  if (!v51)
+  if (!v52)
   {
     sub_1AC066F88();
   }
 
-  (*(*v51 + 48))(v51);
-  if (v51 == buf)
+  (*(*v52 + 48))(v52);
+  if (v52 == buf)
   {
-    (*(*v51 + 32))(v51);
+    (*(*v52 + 32))(v52);
   }
 
-  else if (v51)
+  else if (v52)
   {
-    (*(*v51 + 40))();
+    (*(*v52 + 40))();
   }
 
-  v45 = *MEMORY[0x1E69E9840];
-
-  return v44;
+  return v46;
 }
 
 - (id)computeCaptionForCSUBufferEmbedding:(id)embedding withDecodingMethod:(int64_t)method error:(id *)error
 {
   v20 = *MEMORY[0x1E69E9840];
   embeddingCopy = embedding;
-  v9 = sub_1AC090E50();
+  v9 = sub_1AC090E50(embeddingCopy);
   v10 = os_signpost_id_generate(v9);
 
-  v11 = sub_1AC090E50();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = sub_1AC090E50(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(v18[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CSUComputeCaptionForEmbeddingCSUBuffer", "", v18, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CSUComputeCaptionForEmbeddingCSUBuffer", "", v18, 2u);
   }
 
   v18[0] = &unk_1F20D0F08;
   v18[1] = v10;
   v19 = v18;
-  v13 = objc_autoreleasePoolPush();
-  v15 = objc_msgSend_computeDecodedCaptionsForFeaturesWithCSUBuffer_withDecodingMethod_error_(self->_decoder, v14, embeddingCopy, method, error);
-  objc_autoreleasePoolPop(v13);
+  v14 = objc_autoreleasePoolPush();
+  v16 = objc_msgSend_computeDecodedCaptionsForFeaturesWithCSUBuffer_withDecodingMethod_error_(self->_decoder, v15, embeddingCopy, method, error);
+  objc_autoreleasePoolPop(v14);
   if (!v19)
   {
     sub_1AC066F88();
@@ -261,9 +258,7 @@ LABEL_11:
     (*(*v19 + 40))();
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v16;
 }
 
 @end

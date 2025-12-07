@@ -314,9 +314,9 @@ void __34__SCWPreferences__stocksUserAgent__block_invoke()
   uUID = [(SCWPreferences *)self UUID];
   [v14 setValue:uUID forHTTPHeaderField:@"X-Client-UUID"];
 
-  v16 = ClientInfo();
-  v17 = DeviceInfo();
-  if (![v16 length] || !objc_msgSend(v17, "length"))
+  v17 = ClientInfo(v16);
+  v18 = DeviceInfo(v17);
+  if (![v17 length] || !objc_msgSend(v18, "length"))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -326,16 +326,16 @@ void __34__SCWPreferences__stocksUserAgent__block_invoke()
     __assert_rtn("[SCWPreferences signedRequestForURL:parameters:]", "SCWPreferences.m", 328, "0");
   }
 
-  [v14 setValue:v16 forHTTPHeaderField:@"X-Client-Info"];
-  [v14 setValue:v17 forHTTPHeaderField:@"X-Device-Info"];
+  [v14 setValue:v17 forHTTPHeaderField:@"X-Client-Info"];
+  [v14 setValue:v18 forHTTPHeaderField:@"X-Device-Info"];
   _stocksUserAgent = [(SCWPreferences *)self _stocksUserAgent];
   [v14 setValue:_stocksUserAgent forHTTPHeaderField:@"User-Agent"];
 
-  v19 = CreateCredential();
-  v20 = [objc_alloc(MEMORY[0x1E69B7B68]) initWithCredential:v19];
-  v21 = [v20 signedURLRequestWithRequest:v14];
+  v20 = CreateCredential();
+  v21 = [objc_alloc(MEMORY[0x1E69B7B68]) initWithCredential:v20];
+  v22 = [v21 signedURLRequestWithRequest:v14];
 
-  return v21;
+  return v22;
 }
 
 @end

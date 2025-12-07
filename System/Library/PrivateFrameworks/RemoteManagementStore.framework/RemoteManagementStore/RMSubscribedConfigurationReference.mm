@@ -77,27 +77,27 @@
 
 - (id)assetWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   assets = [(RMSubscribedConfigurationReference *)self assets];
-  v6 = [assets countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [assets countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(assets);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         declarationIdentifier = [v9 declarationIdentifier];
         v11 = [declarationIdentifier isEqualToString:identifierCopy];
 
@@ -108,7 +108,7 @@
         }
       }
 
-      v6 = [assets countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [assets countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -119,8 +119,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -234,23 +232,20 @@ LABEL_11:
 
 - (void)_resolveDynamicDeclaration:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_debug_impl(&dword_261E36000, a2, OS_LOG_TYPE_DEBUG, "Resolved dynamic configuration: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_debug_impl(&dword_261E36000, a2, OS_LOG_TYPE_DEBUG, "Resolved dynamic configuration: %{public}@", &v5, 0xCu);
 }
 
 - (void)_resolveDynamicDeclaration:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_261E36000, a2, OS_LOG_TYPE_ERROR, "Failed to resolve dynamic configuration: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_261E36000, a2, OS_LOG_TYPE_ERROR, "Failed to resolve dynamic configuration: %{public}@", &v2, 0xCu);
 }
 
 @end

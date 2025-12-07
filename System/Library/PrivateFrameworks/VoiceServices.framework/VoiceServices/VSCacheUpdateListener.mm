@@ -13,31 +13,31 @@
 
 - (void)_flush
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_lock lock];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   updateRequestQueue = self->_updateRequestQueue;
-  v4 = [(NSMutableArray *)updateRequestQueue countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)updateRequestQueue countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(updateRequestQueue);
         }
 
-        VSRecognitionConfigurationCacheUpdate([*(*(&v9 + 1) + 8 * i) modelIdentifier], objc_msgSend(*(*(&v9 + 1) + 8 * i), "classIdentifier"));
+        VSRecognitionConfigurationCacheUpdate([*(*(&v8 + 1) + 8 * i) modelIdentifier], objc_msgSend(*(*(&v8 + 1) + 8 * i), "classIdentifier"));
       }
 
-      v5 = [(NSMutableArray *)updateRequestQueue countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)updateRequestQueue countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
@@ -48,21 +48,20 @@
 
   self->_flushTimer = 0;
   [(NSLock *)self->_lock unlock];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enqueueRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_lock lock];
   if (self->_isListening)
   {
     v5 = VSGetLogDefault();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v21 = 138412290;
+      v20 = 138412290;
       requestCopy = request;
-      _os_log_debug_impl(&dword_272850000, v5, OS_LOG_TYPE_DEBUG, "Enqueuing request: %@", &v21, 0xCu);
+      _os_log_debug_impl(&dword_272850000, v5, OS_LOG_TYPE_DEBUG, "Enqueuing request: %@", &v20, 0xCu);
     }
 
     v6 = [(NSMutableArray *)self->_updateRequestQueue count];
@@ -142,15 +141,14 @@ LABEL_18:
     v18 = VSGetLogDefault();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v20 = self->_updateRequestQueue;
-      v21 = 138412290;
-      requestCopy = v20;
-      _os_log_debug_impl(&dword_272850000, v18, OS_LOG_TYPE_DEBUG, "Queue is now:\n%@", &v21, 0xCu);
+      v19 = self->_updateRequestQueue;
+      v20 = 138412290;
+      requestCopy = v19;
+      _os_log_debug_impl(&dword_272850000, v18, OS_LOG_TYPE_DEBUG, "Queue is now:\n%@", &v20, 0xCu);
     }
   }
 
   [(NSLock *)self->_lock unlock];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performUpdateForModelIdentifier:(id)identifier classIdentifier:(id)classIdentifier

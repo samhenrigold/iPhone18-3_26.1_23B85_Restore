@@ -8,7 +8,7 @@
 
 + (BOOL)setObject:(id)object forKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   if (MIBUOnceToken != -1)
@@ -19,13 +19,13 @@
   v7 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315650;
-    v14 = "+[MIBUDefaultPreferences setObject:forKey:]";
-    v15 = 2114;
-    v16 = objectCopy;
-    v17 = 2114;
-    v18 = keyCopy;
-    _os_log_impl(&dword_259ABF000, v7, OS_LOG_TYPE_DEFAULT, "%s - Setting %{public}@ for key %{public}@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "+[MIBUDefaultPreferences setObject:forKey:]";
+    v14 = 2114;
+    v15 = objectCopy;
+    v16 = 2114;
+    v17 = keyCopy;
+    _os_log_impl(&dword_259ABF000, v7, OS_LOG_TYPE_DEFAULT, "%s - Setting %{public}@ for key %{public}@", &v12, 0x20u);
   }
 
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -45,7 +45,6 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return synchronize;
 }
 
@@ -93,15 +92,14 @@ void __43__MIBUDefaultPreferences_setObject_forKey___block_invoke_3()
 
 + (void)setObject:(os_log_t)log forKey:.cold.3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "+[MIBUDefaultPreferences setObject:forKey:]";
-  v6 = 2114;
-  v7 = a1;
-  v8 = 2114;
-  v9 = a2;
-  _os_log_error_impl(&dword_259ABF000, log, OS_LOG_TYPE_ERROR, "%s - Failed to set value %{public}@ for key %{public}@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "+[MIBUDefaultPreferences setObject:forKey:]";
+  v5 = 2114;
+  v6 = a1;
+  v7 = 2114;
+  v8 = a2;
+  _os_log_error_impl(&dword_259ABF000, log, OS_LOG_TYPE_ERROR, "%s - Failed to set value %{public}@ for key %{public}@", &v3, 0x20u);
 }
 
 @end

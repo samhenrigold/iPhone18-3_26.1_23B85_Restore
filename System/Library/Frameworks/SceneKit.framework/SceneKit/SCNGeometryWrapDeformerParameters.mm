@@ -272,105 +272,105 @@ LABEL_14:
     free(self->_bindingData.pointIndices);
     free(self->_bindingData.barycentricCoords);
     free(self->_bindingData.legacyOffsetsOrTransforms);
-    Geometry = C3DNodeGetGeometry(ref);
-    Mesh = C3DGeometryGetMesh(Geometry);
-    v9 = C3DNodeGetGeometry(v4);
-    v10 = C3DGeometryGetMesh(v9);
+    Geometry = C3DNodeGetGeometry(ref, v7);
+    Mesh = C3DGeometryGetMesh(Geometry, v9);
+    v12 = C3DNodeGetGeometry(v4, v11);
+    v14 = C3DGeometryGetMesh(v12, v13);
     PositionSource = C3DMeshGetPositionSource(Mesh, 0);
-    v12 = C3DMeshGetPositionSource(v10, 0);
+    v16 = C3DMeshGetPositionSource(v14, 0);
     ChannelForSourceWithSemanticAtIndex = C3DMeshGetChannelForSourceWithSemanticAtIndex(Mesh, 0, 0);
-    v45 = C3DMeshGetChannelForSourceWithSemanticAtIndex(v10, 0, 0);
-    v47 = v12;
-    Count = C3DMeshSourceGetCount(v12);
+    v53 = C3DMeshGetChannelForSourceWithSemanticAtIndex(v14, 0, 0);
+    v55 = v16;
+    Count = C3DMeshSourceGetCount(v16, v17);
     self->_vertexCount = Count;
     *&self->_bindingData.barycentricCoordsStride = xmmword_21C2A2060;
-    v44 = malloc_type_malloc(4 * (Count & 0x7FFFFFFF), 0x1000040BDFB0063uLL);
-    self->_bindingData.barycentricCoords = v44;
-    v48 = PositionSource;
-    v14 = C3DMeshSourceGetCount(PositionSource) - 1;
-    v15 = 1;
-    if (v14 > 0xFF)
+    v52 = malloc_type_malloc(4 * (Count & 0x7FFFFFFF), 0x1000040BDFB0063uLL);
+    self->_bindingData.barycentricCoords = v52;
+    v56 = PositionSource;
+    v20 = C3DMeshSourceGetCount(PositionSource, v19) - 1;
+    v21 = 1;
+    if (v20 > 0xFF)
     {
-      v15 = 2;
+      v21 = 2;
     }
 
-    v16 = HIWORD(v14);
-    if (HIWORD(v14))
+    v22 = HIWORD(v20);
+    if (HIWORD(v20))
     {
-      v17 = 4;
-    }
-
-    else
-    {
-      v17 = v15;
-    }
-
-    v18 = 3 << (v14 > 0xFF);
-    if (v16)
-    {
-      v18 = 12;
-    }
-
-    self->_bindingData.pointIndicesStride = v18;
-    v19 = malloc_type_malloc(v18 * self->_vertexCount, 0xA3C3D017uLL);
-    self->_bindingData.pointIndices = v19;
-    if (v17 == 1)
-    {
-      v21 = 0;
-      v22 = 2;
-      v20 = v19;
+      v23 = 4;
     }
 
     else
     {
-      v20 = 0;
-      if (v17 == 2)
+      v23 = v21;
+    }
+
+    v24 = 3 << (v20 > 0xFF);
+    if (v22)
+    {
+      v24 = 12;
+    }
+
+    self->_bindingData.pointIndicesStride = v24;
+    v25 = malloc_type_malloc(v24 * self->_vertexCount, 0xA3C3D017uLL);
+    self->_bindingData.pointIndices = v25;
+    if (v23 == 1)
+    {
+      v27 = 0;
+      v28 = 2;
+      v26 = v25;
+    }
+
+    else
+    {
+      v26 = 0;
+      if (v23 == 2)
       {
-        v22 = 14;
-        v21 = v19;
+        v28 = 14;
+        v27 = v25;
       }
 
       else
       {
-        v21 = 0;
-        v22 = 38;
+        v27 = 0;
+        v28 = 38;
       }
     }
 
-    self->_bindingData.pointIndicesFormat = v22;
-    if (v16)
+    self->_bindingData.pointIndicesFormat = v28;
+    if (v22)
     {
-      v23 = v19;
+      v29 = v25;
     }
 
     else
     {
-      v23 = 0;
+      v29 = 0;
     }
 
     SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(Mesh, 3, self->_legacyDrivingNodeUVChannel, 0);
     if (!SourceWithSemanticAtIndex)
     {
-      v25 = scn_default_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      v32 = scn_default_log(0, v30);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
       {
-        [(SCNGeometryWrapDeformerParameters *)v25 initParametersIfNeededWithDrivingNodeRef:v26 deformedNodeRef:v27, v28, v29, v30, v31, v32];
+        [(SCNGeometryWrapDeformerParameters *)v32 initParametersIfNeededWithDrivingNodeRef:v33 deformedNodeRef:v34, v35, v36, v37, v38, v39];
       }
     }
 
-    v33 = C3DMeshGetSourceWithSemanticAtIndex(v10, 3, self->_legacyDeformedNodeUVChannel, 0);
-    if (!v33)
+    v41 = C3DMeshGetSourceWithSemanticAtIndex(v14, 3, self->_legacyDeformedNodeUVChannel, 0);
+    if (!v41)
     {
-      v34 = scn_default_log();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+      v42 = scn_default_log(0, v40);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
       {
-        [(SCNGeometryWrapDeformerParameters *)v34 initParametersIfNeededWithDrivingNodeRef:v35 deformedNodeRef:v36, v37, v38, v39, v40, v41];
+        [(SCNGeometryWrapDeformerParameters *)v42 initParametersIfNeededWithDrivingNodeRef:v43 deformedNodeRef:v44, v45, v46, v47, v48, v49];
       }
     }
 
-    v42 = C3DMeshGetChannelForSourceWithSemanticAtIndex(Mesh, 3, self->_legacyDrivingNodeUVChannel);
-    v43 = C3DMeshGetChannelForSourceWithSemanticAtIndex(v10, 3, self->_legacyDeformedNodeUVChannel);
-    C3DWrapDeformerComputeBindingPointIndicesAndBarycentricCoordsFromUVs(self->_bindingMode, self->_vertexCount, v10, Mesh, v47, v48, v33, SourceWithSemanticAtIndex, *self->_anon_a0, *&self->_anon_a0[16], *&self->_anon_a0[32], *&self->_anon_a0[48], v45, v43, ChannelForSourceWithSemanticAtIndex, v42, 0, v20, v21, v23, 0, v44, &self->_bindingData.legacyOffsetsOrTransforms, &self->_bindingData.legacyOffsetsOrTransformsLength);
+    v50 = C3DMeshGetChannelForSourceWithSemanticAtIndex(Mesh, 3, self->_legacyDrivingNodeUVChannel);
+    v51 = C3DMeshGetChannelForSourceWithSemanticAtIndex(v14, 3, self->_legacyDeformedNodeUVChannel);
+    C3DWrapDeformerComputeBindingPointIndicesAndBarycentricCoordsFromUVs(self->_bindingMode, self->_vertexCount, v14, Mesh, v55, v56, v41, SourceWithSemanticAtIndex, *self->_anon_a0, *&self->_anon_a0[16], *&self->_anon_a0[32], *&self->_anon_a0[48], v53, v51, ChannelForSourceWithSemanticAtIndex, v50, 0, v26, v27, v29, 0, v52, &self->_bindingData.legacyOffsetsOrTransforms, &self->_bindingData.legacyOffsetsOrTransformsLength);
   }
 }
 
@@ -387,117 +387,117 @@ LABEL_14:
     free(self->_bindingData.outerLayerTNBs);
     free(self->_bindingData.innerLayerOffsets);
     free(self->_bindingData.outerLayerOffsets);
-    Geometry = C3DNodeGetGeometry(nodeRef);
-    Mesh = C3DGeometryGetMesh(Geometry);
-    v11 = C3DNodeGetGeometry(v6);
-    v12 = C3DGeometryGetMesh(v11);
-    v13 = C3DNodeGetGeometry(v5);
-    v14 = C3DGeometryGetMesh(v13);
+    Geometry = C3DNodeGetGeometry(nodeRef, v9);
+    Mesh = C3DGeometryGetMesh(Geometry, v11);
+    v14 = C3DNodeGetGeometry(v6, v13);
+    v16 = C3DGeometryGetMesh(v14, v15);
+    v18 = C3DNodeGetGeometry(v5, v17);
+    v20 = C3DGeometryGetMesh(v18, v19);
     PositionSource = C3DMeshGetPositionSource(Mesh, 0);
-    v40 = C3DMeshGetPositionSource(v12, 0);
-    v42 = v14;
-    v15 = C3DMeshGetPositionSource(v14, 0);
+    v48 = C3DMeshGetPositionSource(v16, 0);
+    v50 = v20;
+    v21 = C3DMeshGetPositionSource(v20, 0);
     ChannelForSourceWithSemanticAtIndex = C3DMeshGetChannelForSourceWithSemanticAtIndex(Mesh, 0, 0);
-    v37 = C3DMeshGetChannelForSourceWithSemanticAtIndex(v12, 0, 0);
-    v39 = v15;
-    Count = C3DMeshSourceGetCount(v15);
+    v45 = C3DMeshGetChannelForSourceWithSemanticAtIndex(v16, 0, 0);
+    v47 = v21;
+    Count = C3DMeshSourceGetCount(v21, v22);
     self->_vertexCount = Count;
     *&self->_bindingData.barycentricCoordsStride = xmmword_21C2A2070;
-    v17 = malloc_type_malloc(8 * (Count & 0x7FFFFFFF), 0x100004052888210uLL);
-    v18 = 0;
-    self->_bindingData.barycentricCoords = v17;
-    v19 = 1;
+    v24 = malloc_type_malloc(8 * (Count & 0x7FFFFFFF), 0x100004052888210uLL);
+    v25 = 0;
+    self->_bindingData.barycentricCoords = v24;
+    v26 = 1;
     do
     {
-      v20 = v19 & 1;
-      if (v19)
+      v27 = v26 & 1;
+      if (v26)
       {
-        v21 = Mesh;
+        v28 = Mesh;
       }
 
       else
       {
-        v21 = v12;
+        v28 = v16;
       }
 
-      v22 = C3DMeshGetPositionSource(v21, 0);
-      v23 = C3DMeshSourceGetCount(v22);
-      v19 = 0;
-      if (v18 <= v23)
+      v29 = C3DMeshGetPositionSource(v28, 0);
+      v31 = C3DMeshSourceGetCount(v29, v30);
+      v26 = 0;
+      if (v25 <= v31)
       {
-        v18 = v23;
+        v25 = v31;
       }
     }
 
-    while (v20);
-    v24 = v18 - 1;
-    v25 = (v18 - 1) > 0xFF;
-    v26 = 1;
-    if ((v18 - 1) > 0xFF)
+    while (v27);
+    v32 = v25 - 1;
+    v33 = (v25 - 1) > 0xFF;
+    v34 = 1;
+    if ((v25 - 1) > 0xFF)
     {
-      v26 = 2;
+      v34 = 2;
     }
 
-    v27 = HIWORD(v24);
-    if (HIWORD(v24))
+    v35 = HIWORD(v32);
+    if (HIWORD(v32))
     {
-      v28 = 4;
+      v36 = 4;
     }
 
     else
     {
-      v28 = v26;
+      v36 = v34;
     }
 
-    v29 = 3 << v25;
-    if (v27)
+    v37 = 3 << v33;
+    if (v35)
     {
-      v29 = 12;
+      v37 = 12;
     }
 
-    self->_bindingData.pointIndicesStride = v29;
-    v30 = malloc_type_malloc(v29 * self->_vertexCount, 0x46CA9526uLL);
-    self->_bindingData.pointIndices = v30;
-    if (v28 == 1)
+    self->_bindingData.pointIndicesStride = v37;
+    v38 = malloc_type_malloc(v37 * self->_vertexCount, 0x46CA9526uLL);
+    self->_bindingData.pointIndices = v38;
+    if (v36 == 1)
     {
-      v32 = 0;
-      v33 = 2;
-      v31 = v30;
+      v40 = 0;
+      v41 = 2;
+      v39 = v38;
     }
 
     else
     {
-      v31 = 0;
-      if (v28 == 2)
+      v39 = 0;
+      if (v36 == 2)
       {
-        v33 = 14;
-        v32 = v30;
+        v41 = 14;
+        v40 = v38;
       }
 
       else
       {
-        v31 = 0;
-        v32 = 0;
-        v33 = 38;
+        v39 = 0;
+        v40 = 0;
+        v41 = 38;
       }
     }
 
-    self->_bindingData.pointIndicesFormat = v33;
-    if (v27)
+    self->_bindingData.pointIndicesFormat = v41;
+    if (v35)
     {
-      v34 = v30;
+      v42 = v38;
     }
 
     else
     {
-      v34 = 0;
+      v42 = 0;
     }
 
-    v35 = 4 * self->_vertexCount;
-    self->_bindingData.innerLayerInfluencesLength = v35;
-    v36 = malloc_type_malloc(v35, 0x100004052888210uLL);
-    self->_bindingData.innerLayerInfluences = v36;
-    C3DWrapDeformerComputeSharedBindingPointIndicesAndBarycentricCoordsFromSandwichedPositions(self->_bindingMode, self->_vertexCount, v42, Mesh, v12, v39, PositionSource, v40, *self->_anon_a0, *&self->_anon_a0[16], *&self->_anon_a0[32], *&self->_anon_a0[48], ChannelForSourceWithSemanticAtIndex, v37, 1, v31, v32, v34, v17, 0, v36, &self->_bindingData.innerLayerTNBs, &self->_bindingData.outerLayerTNBs, &self->_bindingData.tnbMatricesLength, &self->_bindingData.innerLayerOffsets, &self->_bindingData.outerLayerOffsets, &self->_bindingData.offsetsLength);
+    v43 = 4 * self->_vertexCount;
+    self->_bindingData.innerLayerInfluencesLength = v43;
+    v44 = malloc_type_malloc(v43, 0x100004052888210uLL);
+    self->_bindingData.innerLayerInfluences = v44;
+    C3DWrapDeformerComputeSharedBindingPointIndicesAndBarycentricCoordsFromSandwichedPositions(self->_bindingMode, self->_vertexCount, v50, Mesh, v16, v47, PositionSource, v48, *self->_anon_a0, *&self->_anon_a0[16], *&self->_anon_a0[32], *&self->_anon_a0[48], ChannelForSourceWithSemanticAtIndex, v45, 1, v39, v40, v42, v24, 0, v44, &self->_bindingData.innerLayerTNBs, &self->_bindingData.outerLayerTNBs, &self->_bindingData.tnbMatricesLength, &self->_bindingData.innerLayerOffsets, &self->_bindingData.outerLayerOffsets, &self->_bindingData.offsetsLength);
   }
 }
 
@@ -505,51 +505,65 @@ LABEL_14:
 {
   PositionSource = C3DMeshGetPositionSource(mesh0, 0);
   v7 = C3DMeshGetPositionSource(mesh1, 0);
-  Count = C3DMeshSourceGetCount(PositionSource);
+  Count = C3DMeshSourceGetCount(PositionSource, v8);
   mesh0Copy = mesh0;
   ChannelForSourceWithSemanticAtIndex = C3DMeshGetChannelForSourceWithSemanticAtIndex(mesh0, 0, 0);
-  v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:39];
-  v9 = *MEMORY[0x277CBECE8];
+  v29 = [MEMORY[0x277CBEB18] arrayWithCapacity:39];
+  v10 = *MEMORY[0x277CBECE8];
   bytesDeallocator = *MEMORY[0x277CBECF0];
   for (i = 1; i != 40; ++i)
   {
-    v11 = malloc_type_malloc(12 * Count, 0x100004052888210uLL);
+    v12 = malloc_type_malloc(12 * Count, 0x100004052888210uLL);
     if (Count >= 1)
     {
-      v12 = 0;
-      v13 = i * 0.025;
-      *&v13 = v13;
-      v29 = vdupq_lane_s32(*&v13, 0);
-      v14 = 2;
-      v15 = 1;
+      v13 = 0;
+      v14 = i * 0.025;
+      *&v14 = v14;
+      v30 = vdupq_lane_s32(*&v14, 0);
+      v15 = 2;
+      v16 = 1;
       do
       {
-        *v16.i64 = C3DMeshSourceGetValueAtIndexAsVector3(PositionSource, v12);
-        v30 = v16;
-        *v17.i64 = C3DMeshSourceGetValueAtIndexAsVector3(v7, v12);
-        v18 = vmlaq_f32(v30, vsubq_f32(v17, v30), v29);
-        *&v11[4 * v14 - 8] = v18.i32[0];
-        *&v11[4 * v14 - 4] = v18.i32[1];
-        *&v11[4 * v14] = v18.i32[2];
-        v12 = v15;
-        v14 += 3;
+        *v17.i64 = C3DMeshSourceGetValueAtIndexAsVector3(PositionSource, v13);
+        v31 = v17;
+        *v18.i64 = C3DMeshSourceGetValueAtIndexAsVector3(v7, v13);
+        v19 = vmlaq_f32(v31, vsubq_f32(v18, v31), v30);
+        *&v12[4 * v15 - 8] = v19.i32[0];
+        *&v12[4 * v15 - 4] = v19.i32[1];
+        *&v12[4 * v15] = v19.i32[2];
+        v13 = v16;
+        v15 += 3;
       }
 
-      while (Count > v15++);
+      while (Count > v16++);
     }
 
-    v20 = CFDataCreateWithBytesNoCopy(v9, v11, 12 * Count, bytesDeallocator);
-    values = C3DMeshSourceCreate(v20, 0, Count, 3, 1);
-    v21 = CFArrayCreate(v9, &values, 1, MEMORY[0x277CBF128]);
-    v31 = ChannelForSourceWithSemanticAtIndex;
+    v21 = CFDataCreateWithBytesNoCopy(v10, v12, 12 * Count, bytesDeallocator);
+    values = C3DMeshSourceCreate(v21, 0, Count, 3, 1);
+    v22 = CFArrayCreate(v10, &values, 1, MEMORY[0x277CBF128]);
+    v32 = ChannelForSourceWithSemanticAtIndex;
     MeshElements = C3DMeshGetMeshElements(mesh0Copy, 0);
-    v23 = C3DMeshCreateWithMeshSourcesAndMeshElements(v21, MeshElements, &v31);
-    [v28 addObject:v23];
-    CFRelease(v23);
-    CFRelease(v21);
+    v24 = C3DMeshCreateWithMeshSourcesAndMeshElements(v22, MeshElements, &v32);
+    [v29 addObject:v24];
+    CFRelease(v24);
+    CFRelease(v22);
   }
 
-  return v28;
+  return v29;
+}
+
+- (void)initParametersIfNeededWithDrivingNodeRef:(uint64_t)a3 deformedNodeRef:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "driverTexcoordSource";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initParametersIfNeededWithDrivingNodeRef:(uint64_t)a3 deformedNodeRef:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "deformedTexcoordSource";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

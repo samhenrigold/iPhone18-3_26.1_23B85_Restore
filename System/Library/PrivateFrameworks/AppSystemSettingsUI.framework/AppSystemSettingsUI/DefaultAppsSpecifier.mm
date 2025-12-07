@@ -16,14 +16,13 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v3 = *(&self->super.action + OBJC_IVAR____TtC19AppSystemSettingsUI20DefaultAppsSpecifier_provider);
   __swift_project_boxed_opaque_existential_0Tm((&self->super.super.isa + OBJC_IVAR____TtC19AppSystemSettingsUI20DefaultAppsSpecifier_provider), *(&self->super.setter + OBJC_IVAR____TtC19AppSystemSettingsUI20DefaultAppsSpecifier_provider));
   selfCopy = self;
   sub_21BB22A0C();
 
-  v5 = sub_21BB22FAC();
+  v4 = sub_21BB22FAC();
 
-  return v5;
+  return v4;
 }
 
 - (_TtC19AppSystemSettingsUI20DefaultAppsSpecifier)initWithName:(id)name target:(id)target set:(SEL)set get:(SEL)get detail:(Class)detail cell:(int64_t)cell edit:(Class)edit

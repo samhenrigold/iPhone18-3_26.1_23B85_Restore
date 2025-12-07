@@ -134,8 +134,8 @@ LABEL_23:
   {
 LABEL_4:
     accessory = [self accessory];
-    home = [accessory home];
-    hf_currentUserIsRestrictedGuest = [home hf_currentUserIsRestrictedGuest];
+    v6 = objc_msgSend_home(accessory);
+    hf_currentUserIsRestrictedGuest = [v6 hf_currentUserIsRestrictedGuest];
 
     if (hf_currentUserIsRestrictedGuest & 1) != 0 || ([self hf_isInGroup] & 1) != 0 || (objc_msgSend(self, "hf_isSensorService") & 1) != 0 || (objc_msgSend(self, "hf_isNetworkRouter"))
     {
@@ -163,18 +163,18 @@ LABEL_10:
 
 - (id)hf_updateValue:()HFIncludedContextProtocol forContextType:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     selfCopy = self;
-    v17 = 2080;
-    v18 = "[HMService(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
-    v19 = 1024;
-    v20 = a3;
-    v21 = 2048;
-    v22 = a4;
+    v16 = 2080;
+    v17 = "[HMService(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
+    v18 = 1024;
+    v19 = a3;
+    v20 = 2048;
+    v21 = a4;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "(%@:%s) Updating value to %{BOOL}d for context %lu", buf, 0x26u);
   }
 
@@ -186,13 +186,12 @@ LABEL_10:
     HFAppDataSetValueIfChanged(applicationData, v8, v10);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __70__HMService_HFIncludedContextProtocol__hf_updateValue_forContextType___block_invoke;
-  v14[3] = &unk_277DF2C68;
-  v14[4] = self;
-  v11 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v14];
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __70__HMService_HFIncludedContextProtocol__hf_updateValue_forContextType___block_invoke;
+  v13[3] = &unk_277DF2C68;
+  v13[4] = self;
+  v11 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v13];
 
   return v11;
 }

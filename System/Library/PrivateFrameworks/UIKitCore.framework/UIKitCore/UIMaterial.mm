@@ -8,528 +8,529 @@ void __30___UIMaterial_materialMapping__block_invoke()
   v0 = +[UIDevice currentDevice];
   v1 = [v0 userInterfaceIdiom];
 
-  objc_opt_self();
-  v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v2 = objc_opt_self();
+  v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (v1 != 6)
   {
     if (v1 == 4)
     {
-      v3 = [[_UIMaterial alloc] initWithBlur:?];
-      [v2 setObject:v3 forKeyedSubscript:@"systemBackgroundColor"];
-      [v2 setObject:v3 forKeyedSubscript:@"secondarySystemBackgroundColor"];
-      [v2 setObject:v3 forKeyedSubscript:@"tertiarySystemBackgroundColor"];
-      [v2 setObject:v3 forKeyedSubscript:@"systemGroupedBackgroundColor"];
-      [v2 setObject:v3 forKeyedSubscript:@"secondarySystemGroupedBackgroundColor"];
-      [v2 setObject:v3 forKeyedSubscript:@"tertiarySystemGroupedBackgroundColor"];
-      [v2 setObject:v3 forKeyedSubscript:@"tableBackgroundColor"];
-      [v2 setObject:v3 forKeyedSubscript:@"tableCellGroupedBackgroundColor"];
-      [v2 setObject:v3 forKeyedSubscript:@"tableCellPlainBackgroundColor"];
-      v82 = 0uLL;
-      *v83 = 0;
-      *&v83[4] = xmmword_18A67C2F0;
-      *&v83[20] = xmmword_18A67C300;
-      *&v83[36] = xmmword_18A67C310;
-      *&v83[52] = 0x3F80000000000000;
-      *&v83[60] = 0;
-      v80 = 0uLL;
-      *v81 = 0;
-      *&v81[4] = xmmword_18A67C320;
-      *&v81[20] = 1058139013;
-      *&v81[24] = 0uLL;
-      *&v81[40] = xmmword_18A67C330;
-      *&v81[56] = 1065353216;
-      v79 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v4 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v79];
-      [v2 setObject:v4 forKeyedSubscript:@"systemBlueColor"];
+      v4 = [[_UIMaterial alloc] initWithBlur:?];
+      [v3 setObject:v4 forKeyedSubscript:@"systemBackgroundColor"];
+      [v3 setObject:v4 forKeyedSubscript:@"secondarySystemBackgroundColor"];
+      [v3 setObject:v4 forKeyedSubscript:@"tertiarySystemBackgroundColor"];
+      [v3 setObject:v4 forKeyedSubscript:@"systemGroupedBackgroundColor"];
+      [v3 setObject:v4 forKeyedSubscript:@"secondarySystemGroupedBackgroundColor"];
+      [v3 setObject:v4 forKeyedSubscript:@"tertiarySystemGroupedBackgroundColor"];
+      [v3 setObject:v4 forKeyedSubscript:@"tableBackgroundColor"];
+      [v3 setObject:v4 forKeyedSubscript:@"tableCellGroupedBackgroundColor"];
+      [v3 setObject:v4 forKeyedSubscript:@"tableCellPlainBackgroundColor"];
+      v83 = 0uLL;
+      *v84 = 0;
+      *&v84[4] = xmmword_18A67C2F0;
+      *&v84[20] = xmmword_18A67C300;
+      *&v84[36] = xmmword_18A67C310;
+      *&v84[52] = 0x3F80000000000000;
+      *&v84[60] = 0;
+      v81 = 0uLL;
+      *v82 = 0;
+      *&v82[4] = xmmword_18A67C320;
+      *&v82[20] = 1058139013;
+      *&v82[24] = 0;
+      *&v82[32] = 0;
+      *&v82[40] = xmmword_18A67C330;
+      *&v82[56] = 1065353216;
+      v80 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v5 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v80];
+      [v3 setObject:v5 forKeyedSubscript:@"systemBlueColor"];
 
-      v82 = xmmword_18A67C340;
-      *v83 = xmmword_18A67C350;
-      *&v83[16] = xmmword_18A67C360;
-      *&v83[32] = xmmword_18A67C370;
-      *&v83[48] = xmmword_18A6685B0;
-      v80 = xmmword_18A67C380;
-      *v81 = xmmword_18A67C390;
-      *&v81[16] = xmmword_18A67C3A0;
-      *&v81[32] = xmmword_18A67C3B0;
-      *&v81[48] = xmmword_18A6685B0;
-      v77 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v5 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v77];
-      [v2 setObject:v5 forKeyedSubscript:@"systemGreenColor"];
+      v83 = xmmword_18A67C340;
+      *v84 = xmmword_18A67C350;
+      *&v84[16] = xmmword_18A67C360;
+      *&v84[32] = xmmword_18A67C370;
+      *&v84[48] = xmmword_18A6685B0;
+      v81 = xmmword_18A67C380;
+      *v82 = xmmword_18A67C390;
+      *&v82[16] = xmmword_18A67C3A0;
+      *&v82[32] = xmmword_18A67C3B0;
+      *&v82[48] = xmmword_18A6685B0;
+      v78 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v6 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v78];
+      [v3 setObject:v6 forKeyedSubscript:@"systemGreenColor"];
 
-      v82 = xmmword_18A67C3C0;
-      *v83 = xmmword_18A67C3D0;
-      *&v83[16] = xmmword_18A67C3E0;
-      memset(&v83[36], 0, 20);
-      *&v83[32] = 1011129254;
-      *&v83[56] = 1065353216;
-      v80 = 0uLL;
-      *v81 = xmmword_18A67C3F0;
-      *&v81[16] = xmmword_18A67C400;
-      *&v81[32] = xmmword_18A67C410;
-      *&v81[48] = xmmword_18A6685B0;
-      v76 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v6 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v76];
-      [v2 setObject:v6 forKeyedSubscript:@"systemOrangeColor"];
+      v83 = xmmword_18A67C3C0;
+      *v84 = xmmword_18A67C3D0;
+      *&v84[16] = xmmword_18A67C3E0;
+      memset(&v84[36], 0, 20);
+      *&v84[32] = 1011129254;
+      *&v84[56] = 1065353216;
+      v81 = 0uLL;
+      *v82 = xmmword_18A67C3F0;
+      *&v82[16] = xmmword_18A67C400;
+      *&v82[32] = xmmword_18A67C410;
+      *&v82[48] = xmmword_18A6685B0;
+      v77 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v7 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v77];
+      [v3 setObject:v7 forKeyedSubscript:@"systemOrangeColor"];
 
-      v82 = xmmword_18A67C420;
-      *v83 = xmmword_18A67C430;
-      *&v83[16] = xmmword_18A67C440;
-      *&v83[32] = xmmword_18A67C450;
-      *&v83[48] = xmmword_18A6685B0;
-      v80 = 0uLL;
-      *v81 = xmmword_18A67C460;
-      *&v81[16] = xmmword_18A67C470;
-      *&v81[32] = xmmword_18A67C480;
-      *&v81[48] = xmmword_18A6685B0;
-      v75 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v7 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v75];
-      [v2 setObject:v7 forKeyedSubscript:@"systemRedColor"];
+      v83 = xmmword_18A67C420;
+      *v84 = xmmword_18A67C430;
+      *&v84[16] = xmmword_18A67C440;
+      *&v84[32] = xmmword_18A67C450;
+      *&v84[48] = xmmword_18A6685B0;
+      v81 = 0uLL;
+      *v82 = xmmword_18A67C460;
+      *&v82[16] = xmmword_18A67C470;
+      *&v82[32] = xmmword_18A67C480;
+      *&v82[48] = xmmword_18A6685B0;
+      v76 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v8 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v76];
+      [v3 setObject:v8 forKeyedSubscript:@"systemRedColor"];
 
-      v82 = xmmword_18A67C490;
-      *v83 = xmmword_18A67C4A0;
-      *&v83[16] = 0x3F25604200000000;
-      memset(&v83[24], 0, 32);
-      *&v83[56] = 1065353216;
-      v80 = 0uLL;
-      *v81 = xmmword_18A67C4B0;
-      *&v81[16] = 0x3F570A3D00000000;
-      memset(&v81[24], 0, 32);
-      *&v81[56] = 1065353216;
-      v74 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v8 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v74];
-      [v2 setObject:v8 forKeyedSubscript:@"systemYellowColor"];
+      v83 = xmmword_18A67C490;
+      *v84 = xmmword_18A67C4A0;
+      *&v84[16] = 0x3F25604200000000;
+      memset(&v84[24], 0, 32);
+      *&v84[56] = 1065353216;
+      v81 = 0uLL;
+      *v82 = xmmword_18A67C4B0;
+      *&v82[16] = 0x3F570A3D00000000;
+      memset(&v82[24], 0, 32);
+      *&v82[56] = 1065353216;
+      v75 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v9 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v75];
+      [v3 setObject:v9 forKeyedSubscript:@"systemYellowColor"];
 
-      v82 = xmmword_18A67C4C0;
-      *v83 = xmmword_18A67C4D0;
-      *&v83[16] = xmmword_18A67C4E0;
-      *&v83[32] = xmmword_18A67C4F0;
-      *&v83[48] = xmmword_18A6685B0;
-      v80 = 0uLL;
-      *v81 = xmmword_18A67C500;
-      *&v81[16] = xmmword_18A67C510;
-      *&v81[32] = xmmword_18A67C520;
-      *&v81[48] = xmmword_18A6685B0;
-      v73 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v9 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v73];
-      [v2 setObject:v9 forKeyedSubscript:@"systemPinkColor"];
+      v83 = xmmword_18A67C4C0;
+      *v84 = xmmword_18A67C4D0;
+      *&v84[16] = xmmword_18A67C4E0;
+      *&v84[32] = xmmword_18A67C4F0;
+      *&v84[48] = xmmword_18A6685B0;
+      v81 = 0uLL;
+      *v82 = xmmword_18A67C500;
+      *&v82[16] = xmmword_18A67C510;
+      *&v82[32] = xmmword_18A67C520;
+      *&v82[48] = xmmword_18A6685B0;
+      v74 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v10 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v74];
+      [v3 setObject:v10 forKeyedSubscript:@"systemPinkColor"];
 
-      v82 = xmmword_18A67C530;
-      *v83 = xmmword_18A67C540;
-      *&v83[16] = xmmword_18A67C550;
-      *&v83[32] = xmmword_18A67C560;
-      *&v83[48] = xmmword_18A6685B0;
-      v80 = xmmword_18A67C570;
-      *v81 = xmmword_18A67C580;
-      *&v81[16] = 0x3EF5C28F00000000;
-      *&v81[24] = 0;
-      *&v81[32] = 0;
-      *&v81[40] = xmmword_18A67C330;
-      *&v81[56] = 1065353216;
-      v10 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v11 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v10];
-      [v2 setObject:v11 forKeyedSubscript:@"systemIndigoColor"];
+      v83 = xmmword_18A67C530;
+      *v84 = xmmword_18A67C540;
+      *&v84[16] = xmmword_18A67C550;
+      *&v84[32] = xmmword_18A67C560;
+      *&v84[48] = xmmword_18A6685B0;
+      v81 = xmmword_18A67C570;
+      *v82 = xmmword_18A67C580;
+      *&v82[16] = 0x3EF5C28F00000000;
+      *&v82[24] = 0;
+      *&v82[32] = 0;
+      *&v82[40] = xmmword_18A67C330;
+      *&v82[56] = 1065353216;
+      v11 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v12 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v11];
+      [v3 setObject:v12 forKeyedSubscript:@"systemIndigoColor"];
 
-      v82 = xmmword_18A67C590;
-      *v83 = xmmword_18A67C5A0;
-      *&v83[16] = xmmword_18A67C5B0;
-      *&v83[32] = xmmword_18A67C5C0;
-      *&v83[48] = xmmword_18A6685B0;
-      v80 = xmmword_18A67C5D0;
-      *v81 = xmmword_18A67C5E0;
-      *&v81[16] = xmmword_18A67C5F0;
-      *&v81[32] = xmmword_18A67C600;
-      *&v81[48] = xmmword_18A6685B0;
-      v12 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v13 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v12];
-      [v2 setObject:v13 forKeyedSubscript:@"systemPurpleColor"];
+      v83 = xmmword_18A67C590;
+      *v84 = xmmword_18A67C5A0;
+      *&v84[16] = xmmword_18A67C5B0;
+      *&v84[32] = xmmword_18A67C5C0;
+      *&v84[48] = xmmword_18A6685B0;
+      v81 = xmmword_18A67C5D0;
+      *v82 = xmmword_18A67C5E0;
+      *&v82[16] = xmmword_18A67C5F0;
+      *&v82[32] = xmmword_18A67C600;
+      *&v82[48] = xmmword_18A6685B0;
+      v13 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v14 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v13];
+      [v3 setObject:v14 forKeyedSubscript:@"systemPurpleColor"];
 
-      v82 = 0uLL;
-      *v83 = 0;
-      *&v83[4] = xmmword_18A67C610;
-      *&v83[20] = xmmword_18A67C620;
-      *&v83[36] = xmmword_18A67C630;
-      *&v83[52] = 0x3F80000000000000;
-      *&v83[60] = 0;
-      v80 = 0uLL;
-      *v81 = 0;
-      *&v81[4] = xmmword_18A67C640;
-      *&v81[20] = xmmword_18A67C650;
-      *&v81[36] = xmmword_18A67C660;
-      *&v81[52] = 0x3F80000000000000;
-      *&v81[60] = 0;
-      v14 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v15 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v14];
-      [v2 setObject:v15 forKeyedSubscript:@"systemMintColor"];
+      v83 = 0uLL;
+      *v84 = 0;
+      *&v84[4] = xmmword_18A67C610;
+      *&v84[20] = xmmword_18A67C620;
+      *&v84[36] = xmmword_18A67C630;
+      *&v84[52] = 0x3F80000000000000;
+      *&v84[60] = 0;
+      v81 = 0uLL;
+      *v82 = 0;
+      *&v82[4] = xmmword_18A67C640;
+      *&v82[20] = xmmword_18A67C650;
+      *&v82[36] = xmmword_18A67C660;
+      *&v82[52] = 0x3F80000000000000;
+      *&v82[60] = 0;
+      v15 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v16 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v15];
+      [v3 setObject:v16 forKeyedSubscript:@"systemMintColor"];
 
-      v82 = 0uLL;
-      *v83 = 0;
-      *&v83[4] = xmmword_18A67C670;
-      *&v83[20] = xmmword_18A67C680;
-      *&v83[36] = xmmword_18A67C690;
-      *&v83[52] = 0x3F80000000000000;
-      *&v83[60] = 0;
-      v80 = xmmword_18A67C6A0;
-      *v81 = xmmword_18A67C6B0;
-      *&v81[16] = 0x3F547AE100000000;
-      *&v81[24] = 0;
-      *&v81[32] = 0;
-      *&v81[40] = xmmword_18A67C330;
-      *&v81[56] = 1065353216;
-      v16 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v17 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v16];
-      [v2 setObject:v17 forKeyedSubscript:@"systemCyanColor"];
+      v83 = 0uLL;
+      *v84 = 0;
+      *&v84[4] = xmmword_18A67C670;
+      *&v84[20] = xmmword_18A67C680;
+      *&v84[36] = xmmword_18A67C690;
+      *&v84[52] = 0x3F80000000000000;
+      *&v84[60] = 0;
+      v81 = xmmword_18A67C6A0;
+      *v82 = xmmword_18A67C6B0;
+      *&v82[16] = 0x3F547AE100000000;
+      *&v82[24] = 0;
+      *&v82[32] = 0;
+      *&v82[40] = xmmword_18A67C330;
+      *&v82[56] = 1065353216;
+      v17 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v18 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v17];
+      [v3 setObject:v18 forKeyedSubscript:@"systemCyanColor"];
 
-      v82 = 0uLL;
-      *v83 = 0;
-      *&v83[4] = xmmword_18A67C6C0;
-      *&v83[20] = xmmword_18A67C6D0;
-      *&v83[36] = xmmword_18A67C6E0;
-      *&v83[52] = 0x3F80000000000000;
-      *&v83[60] = 0;
-      *v81 = 0;
-      v80 = 0uLL;
-      *&v81[4] = xmmword_18A67C6F0;
-      *&v81[20] = xmmword_18A67C700;
-      *&v81[36] = xmmword_18A67C710;
-      *&v81[52] = 0x3F80000000000000;
-      *&v81[60] = 0;
-      v18 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v19 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v18];
-      [v2 setObject:v19 forKeyedSubscript:@"systemTealColor"];
+      v83 = 0uLL;
+      *v84 = 0;
+      *&v84[4] = xmmword_18A67C6C0;
+      *&v84[20] = xmmword_18A67C6D0;
+      *&v84[36] = xmmword_18A67C6E0;
+      *&v84[52] = 0x3F80000000000000;
+      *&v84[60] = 0;
+      *v82 = 0;
+      v81 = 0uLL;
+      *&v82[4] = xmmword_18A67C6F0;
+      *&v82[20] = xmmword_18A67C700;
+      *&v82[36] = xmmword_18A67C710;
+      *&v82[52] = 0x3F80000000000000;
+      *&v82[60] = 0;
+      v19 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v20 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v19];
+      [v3 setObject:v20 forKeyedSubscript:@"systemTealColor"];
 
-      v82 = xmmword_18A67C720;
-      *v83 = xmmword_18A67C730;
-      *&v83[16] = xmmword_18A67C740;
-      *&v83[32] = xmmword_18A67C750;
-      *&v83[48] = xmmword_18A6685B0;
-      v80 = xmmword_18A67C760;
-      *v81 = xmmword_18A67C770;
-      *&v81[16] = xmmword_18A67C780;
-      *&v81[32] = xmmword_18A67C790;
-      *&v81[48] = xmmword_18A6685B0;
-      v20 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-      v21 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v18];
-      [v2 setObject:v21 forKeyedSubscript:@"systemBrownColor"];
+      v83 = xmmword_18A67C720;
+      *v84 = xmmword_18A67C730;
+      *&v84[16] = xmmword_18A67C740;
+      *&v84[32] = xmmword_18A67C750;
+      *&v84[48] = xmmword_18A6685B0;
+      v81 = xmmword_18A67C760;
+      *v82 = xmmword_18A67C770;
+      *&v82[16] = xmmword_18A67C780;
+      *&v82[32] = xmmword_18A67C790;
+      *&v82[48] = xmmword_18A6685B0;
+      v21 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+      v22 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v19];
+      [v3 setObject:v22 forKeyedSubscript:@"systemBrownColor"];
 
-      v22 = [_UIMaterial alloc];
-      if (v22)
+      v23 = [_UIMaterial alloc];
+      if (v23)
       {
-        v23 = [(_UIMaterial *)v22 initWithVibrancy:4 forBlurEffectStyle:9];
+        v24 = [(_UIMaterial *)v23 initWithVibrancy:4 forBlurEffectStyle:9];
       }
 
       else
       {
-        v23 = 0;
+        v24 = 0;
       }
 
-      [v2 setObject:v23 forKeyedSubscript:@"systemFillColor"];
+      [v3 setObject:v24 forKeyedSubscript:@"systemFillColor"];
 
-      v24 = [_UIMaterial alloc];
-      if (v24)
+      v25 = [_UIMaterial alloc];
+      if (v25)
       {
-        v25 = [(_UIMaterial *)v24 initWithVibrancy:5 forBlurEffectStyle:9];
+        v26 = [(_UIMaterial *)v25 initWithVibrancy:5 forBlurEffectStyle:9];
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
 
-      [v2 setObject:v25 forKeyedSubscript:@"secondarySystemFillColor"];
+      [v3 setObject:v26 forKeyedSubscript:@"secondarySystemFillColor"];
 
-      v26 = [_UIMaterial alloc];
-      if (v26)
+      v27 = [_UIMaterial alloc];
+      if (v27)
       {
-        v27 = [(_UIMaterial *)v26 initWithVibrancy:6 forBlurEffectStyle:9];
+        v28 = [(_UIMaterial *)v27 initWithVibrancy:6 forBlurEffectStyle:9];
       }
 
       else
       {
-        v27 = 0;
+        v28 = 0;
       }
 
-      [v2 setObject:v27 forKeyedSubscript:@"tertiarySystemFillColor"];
+      [v3 setObject:v28 forKeyedSubscript:@"tertiarySystemFillColor"];
 
-      v28 = [_UIMaterial alloc];
-      if (v28)
+      v29 = [_UIMaterial alloc];
+      if (v29)
       {
-        v29 = [(_UIMaterial *)v28 initWithVibrancy:0 forBlurEffectStyle:9];
+        v30 = [(_UIMaterial *)v29 initWithVibrancy:0 forBlurEffectStyle:9];
       }
 
       else
       {
-        v29 = 0;
+        v30 = 0;
       }
 
-      [v2 setObject:v29 forKeyedSubscript:@"labelColor"];
+      [v3 setObject:v30 forKeyedSubscript:@"labelColor"];
 
-      v30 = [_UIMaterial alloc];
-      if (v30)
+      v31 = [_UIMaterial alloc];
+      if (v31)
       {
-        v31 = [(_UIMaterial *)v30 initWithVibrancy:1 forBlurEffectStyle:9];
+        v32 = [(_UIMaterial *)v31 initWithVibrancy:1 forBlurEffectStyle:9];
       }
 
       else
       {
-        v31 = 0;
+        v32 = 0;
       }
 
-      [v2 setObject:v31 forKeyedSubscript:@"secondaryLabelColor"];
+      [v3 setObject:v32 forKeyedSubscript:@"secondaryLabelColor"];
 
-      v32 = [_UIMaterial alloc];
-      if (v32)
+      v33 = [_UIMaterial alloc];
+      if (v33)
       {
-        v33 = [(_UIMaterial *)v32 initWithVibrancy:2 forBlurEffectStyle:9];
+        v34 = [(_UIMaterial *)v33 initWithVibrancy:2 forBlurEffectStyle:9];
       }
 
       else
       {
-        v33 = 0;
+        v34 = 0;
       }
 
-      [v2 setObject:v33 forKeyedSubscript:@"tertiaryLabelColor"];
+      [v3 setObject:v34 forKeyedSubscript:@"tertiaryLabelColor"];
 
-      v34 = [_UIMaterial alloc];
-      if (v34)
+      v35 = [_UIMaterial alloc];
+      if (v35)
       {
-        v35 = [(_UIMaterial *)v34 initWithVibrancy:3 forBlurEffectStyle:9];
+        v36 = [(_UIMaterial *)v35 initWithVibrancy:3 forBlurEffectStyle:9];
       }
 
       else
       {
-        v35 = 0;
+        v36 = 0;
       }
 
-      [v2 setObject:v35 forKeyedSubscript:@"quaternaryLabelColor"];
+      [v3 setObject:v36 forKeyedSubscript:@"quaternaryLabelColor"];
 
-      v36 = [_UIMaterial alloc];
-      if (v36)
+      v37 = [_UIMaterial alloc];
+      if (v37)
       {
-        v37 = [(_UIMaterial *)v36 initWithVibrancy:7 forBlurEffectStyle:9];
+        v38 = [(_UIMaterial *)v37 initWithVibrancy:7 forBlurEffectStyle:9];
       }
 
       else
       {
-        v37 = 0;
+        v38 = 0;
       }
 
-      v38 = v77;
-      [v2 setObject:v37 forKeyedSubscript:@"separatorColor"];
-      v39 = @"opaqueSeparatorColor";
+      v39 = v78;
+      [v3 setObject:v38 forKeyedSubscript:@"separatorColor"];
+      v40 = @"opaqueSeparatorColor";
 LABEL_42:
-      [v2 setObject:v37 forKeyedSubscript:v39];
+      [v3 setObject:v38 forKeyedSubscript:v40];
 
       goto LABEL_43;
     }
 
-    v3 = [[_UIMaterial alloc] initWithBlur:?];
-    [v2 setObject:v3 forKeyedSubscript:@"systemBackgroundColor"];
-    [v2 setObject:v3 forKeyedSubscript:@"secondarySystemBackgroundColor"];
-    [v2 setObject:v3 forKeyedSubscript:@"tertiarySystemBackgroundColor"];
-    [v2 setObject:v3 forKeyedSubscript:@"systemGroupedBackgroundColor"];
-    [v2 setObject:v3 forKeyedSubscript:@"secondarySystemGroupedBackgroundColor"];
-    [v2 setObject:v3 forKeyedSubscript:@"tertiarySystemGroupedBackgroundColor"];
-    [v2 setObject:v3 forKeyedSubscript:@"tableBackgroundColor"];
-    [v2 setObject:v3 forKeyedSubscript:@"tableCellGroupedBackgroundColor"];
-    [v2 setObject:v3 forKeyedSubscript:@"tableCellPlainBackgroundColor"];
-    v40 = [_UIMaterial alloc];
-    if (v40)
+    v4 = [[_UIMaterial alloc] initWithBlur:?];
+    [v3 setObject:v4 forKeyedSubscript:@"systemBackgroundColor"];
+    [v3 setObject:v4 forKeyedSubscript:@"secondarySystemBackgroundColor"];
+    [v3 setObject:v4 forKeyedSubscript:@"tertiarySystemBackgroundColor"];
+    [v3 setObject:v4 forKeyedSubscript:@"systemGroupedBackgroundColor"];
+    [v3 setObject:v4 forKeyedSubscript:@"secondarySystemGroupedBackgroundColor"];
+    [v3 setObject:v4 forKeyedSubscript:@"tertiarySystemGroupedBackgroundColor"];
+    [v3 setObject:v4 forKeyedSubscript:@"tableBackgroundColor"];
+    [v3 setObject:v4 forKeyedSubscript:@"tableCellGroupedBackgroundColor"];
+    [v3 setObject:v4 forKeyedSubscript:@"tableCellPlainBackgroundColor"];
+    v41 = [_UIMaterial alloc];
+    if (v41)
     {
-      v41 = [(_UIMaterial *)v40 initWithVibrancy:7 forBlurEffectStyle:9];
+      v42 = [(_UIMaterial *)v41 initWithVibrancy:7 forBlurEffectStyle:9];
     }
 
     else
     {
-      v41 = 0;
+      v42 = 0;
     }
 
-    [v2 setObject:v41 forKeyedSubscript:@"separatorColor"];
-    v79 = v41;
-    [v2 setObject:v41 forKeyedSubscript:@"opaqueSeparatorColor"];
-    v42 = [_UIMaterial alloc];
-    if (v42)
+    [v3 setObject:v42 forKeyedSubscript:@"separatorColor"];
+    v80 = v42;
+    [v3 setObject:v42 forKeyedSubscript:@"opaqueSeparatorColor"];
+    v43 = [_UIMaterial alloc];
+    if (v43)
     {
-      v43 = [(_UIMaterial *)v42 initWithVibrancy:5 forBlurEffectStyle:9];
+      v44 = [(_UIMaterial *)v43 initWithVibrancy:5 forBlurEffectStyle:9];
     }
 
     else
     {
-      v43 = 0;
+      v44 = 0;
     }
 
-    [v2 setObject:v43 forKeyedSubscript:@"_switchOffColor"];
+    [v3 setObject:v44 forKeyedSubscript:@"_switchOffColor"];
 
-    v82 = xmmword_18A67C7A0;
-    *v83 = xmmword_18A67C7B0;
-    *&v83[16] = xmmword_18A67C7C0;
-    *&v83[32] = xmmword_18A67C7D0;
-    *&v83[48] = xmmword_18A6685B0;
-    v80 = xmmword_18A67C7E0;
-    *v81 = xmmword_18A67C7F0;
-    *&v81[16] = xmmword_18A67C800;
-    *&v81[32] = xmmword_18A67C810;
-    *&v81[48] = xmmword_18A6685B0;
-    v78 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v82 darkCAColorMatrix:&v80 alpha:1.0];
-    v44 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v78];
-    [v2 setObject:v44 forKeyedSubscript:@"systemRedColor"];
+    v83 = xmmword_18A67C7A0;
+    *v84 = xmmword_18A67C7B0;
+    *&v84[16] = xmmword_18A67C7C0;
+    *&v84[32] = xmmword_18A67C7D0;
+    *&v84[48] = xmmword_18A6685B0;
+    v81 = xmmword_18A67C7E0;
+    *v82 = xmmword_18A67C7F0;
+    *&v82[16] = xmmword_18A67C800;
+    *&v82[32] = xmmword_18A67C810;
+    *&v82[48] = xmmword_18A6685B0;
+    v79 = [UIVibrancyEffect _vibrantEffectWithLightCAColorMatrix:&v83 darkCAColorMatrix:&v81 alpha:1.0];
+    v45 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v79];
+    [v3 setObject:v45 forKeyedSubscript:@"systemRedColor"];
 
-    v76 = [_UIMaterial vibrancyEffectWithA:6.905 B:-51.525 C:91.932 D:54.282 E:-4.146 F:?];
-    v45 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v76];
-    [v2 setObject:v45 forKeyedSubscript:@"systemOrangeColor"];
+    v77 = [(_UIMaterial *)v2 vibrancyEffectWithA:6.905 B:-51.525 C:91.932 D:54.282 E:-4.146 F:?];
+    v46 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v77];
+    [v3 setObject:v46 forKeyedSubscript:@"systemOrangeColor"];
 
-    v75 = [_UIMaterial vibrancyEffectWithA:28.262 B:-51.738 C:94.219 D:78.139 E:-1.859 F:?];
-    v46 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v75];
-    [v2 setObject:v46 forKeyedSubscript:@"systemYellowColor"];
+    v76 = [(_UIMaterial *)v2 vibrancyEffectWithA:28.262 B:-51.738 C:94.219 D:78.139 E:-1.859 F:?];
+    v47 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v76];
+    [v3 setObject:v47 forKeyedSubscript:@"systemYellowColor"];
 
-    v47 = [_UIMaterial alloc];
-    v48 = +[_UIMaterial _systemGreenEffect];
-    v49 = [(_UIMaterial *)v47 initWithVibrantVisualEffect:v48];
-    [v2 setObject:v49 forKeyedSubscript:@"systemGreenColor"];
+    v48 = [_UIMaterial alloc];
+    v49 = +[(_UIMaterial *)v2];
+    v50 = [(_UIMaterial *)v48 initWithVibrantVisualEffect:v49];
+    [v3 setObject:v50 forKeyedSubscript:@"systemGreenColor"];
 
-    v74 = [_UIMaterial vibrancyEffectWithA:27.443 B:23.913 C:24.238 D:75.618 E:74.048 F:?];
-    v50 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v74];
-    [v2 setObject:v50 forKeyedSubscript:@"systemMintColor"];
+    v75 = [(_UIMaterial *)v2 vibrancyEffectWithA:27.443 B:23.913 C:24.238 D:75.618 E:74.048 F:?];
+    v51 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v75];
+    [v3 setObject:v51 forKeyedSubscript:@"systemMintColor"];
 
-    v73 = [_UIMaterial vibrancyEffectWithA:19.521 B:28.541 C:16.214 D:69.544 E:78.954 F:?];
-    v51 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v73];
-    [v2 setObject:v51 forKeyedSubscript:@"systemTealColor"];
+    v74 = [(_UIMaterial *)v2 vibrancyEffectWithA:19.521 B:28.541 C:16.214 D:69.544 E:78.954 F:?];
+    v52 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v74];
+    [v3 setObject:v52 forKeyedSubscript:@"systemTealColor"];
 
-    v10 = [_UIMaterial vibrancyEffectWithA:18.24 B:40.6 C:26.993 D:70.123 E:87.773 F:?];
-    v52 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v10];
-    [v2 setObject:v52 forKeyedSubscript:@"systemCyanColor"];
+    v11 = [(_UIMaterial *)v2 vibrancyEffectWithA:18.24 B:40.6 C:26.993 D:70.123 E:87.773 F:?];
+    v53 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v11];
+    [v3 setObject:v53 forKeyedSubscript:@"systemCyanColor"];
 
-    v12 = [_UIMaterial vibrancyEffectWithA:2.122 B:54.282 C:1.386 D:49.224 E:97.464 F:?];
-    v53 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v12];
-    [v2 setObject:v53 forKeyedSubscript:@"systemBlueColor"];
+    v13 = [(_UIMaterial *)v2 vibrancyEffectWithA:2.122 B:54.282 C:1.386 D:49.224 E:97.464 F:?];
+    v54 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v13];
+    [v3 setObject:v54 forKeyedSubscript:@"systemBlueColor"];
 
-    v14 = [_UIMaterial vibrancyEffectWithA:-12.53 B:37.66 C:34.283 D:33.503 E:87.623 F:?];
-    v54 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v14];
-    [v2 setObject:v54 forKeyedSubscript:@"systemIndigoColor"];
+    v15 = [(_UIMaterial *)v2 vibrancyEffectWithA:-12.53 B:37.66 C:34.283 D:33.503 E:87.623 F:?];
+    v55 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v15];
+    [v3 setObject:v55 forKeyedSubscript:@"systemIndigoColor"];
 
-    v16 = [_UIMaterial vibrancyEffectWithA:-14.779 B:40.121 C:73.393 D:33.783 E:93.393 F:?];
-    v55 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v16];
-    [v2 setObject:v55 forKeyedSubscript:@"systemPurpleColor"];
+    v17 = [(_UIMaterial *)v2 vibrancyEffectWithA:-14.779 B:40.121 C:73.393 D:33.783 E:93.393 F:?];
+    v56 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v17];
+    [v3 setObject:v56 forKeyedSubscript:@"systemPurpleColor"];
 
-    v18 = [_UIMaterial vibrancyEffectWithA:-25.495 B:-9.815 C:105.312 D:26.882 E:42.562 F:?];
-    v56 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v18];
-    [v2 setObject:v56 forKeyedSubscript:@"systemPinkColor"];
+    v19 = [(_UIMaterial *)v2 vibrancyEffectWithA:-25.495 B:-9.815 C:105.312 D:26.882 E:42.562 F:?];
+    v57 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v19];
+    [v3 setObject:v57 forKeyedSubscript:@"systemPinkColor"];
 
-    v20 = [_UIMaterial vibrancyEffectWithA:0.167 B:-14.733 C:61.393 D:49.633 E:34.723 F:?];
-    v57 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v20];
-    [v2 setObject:v57 forKeyedSubscript:@"systemBrownColor"];
+    v21 = [(_UIMaterial *)v2 vibrancyEffectWithA:0.167 B:-14.733 C:61.393 D:49.633 E:34.723 F:?];
+    v58 = [[_UIMaterial alloc] initWithVibrantVisualEffect:v21];
+    [v3 setObject:v58 forKeyedSubscript:@"systemBrownColor"];
 
-    v58 = [_UIMaterial alloc];
-    if (v58)
+    v59 = [_UIMaterial alloc];
+    if (v59)
     {
-      v59 = [(_UIMaterial *)v58 initWithVibrancy:4 forBlurEffectStyle:9];
+      v60 = [(_UIMaterial *)v59 initWithVibrancy:4 forBlurEffectStyle:9];
     }
 
     else
     {
-      v59 = 0;
+      v60 = 0;
     }
 
-    [v2 setObject:v59 forKeyedSubscript:@"systemFillColor"];
+    [v3 setObject:v60 forKeyedSubscript:@"systemFillColor"];
 
-    v60 = [_UIMaterial alloc];
-    if (v60)
+    v61 = [_UIMaterial alloc];
+    if (v61)
     {
-      v61 = [(_UIMaterial *)v60 initWithVibrancy:5 forBlurEffectStyle:9];
+      v62 = [(_UIMaterial *)v61 initWithVibrancy:5 forBlurEffectStyle:9];
     }
 
     else
     {
-      v61 = 0;
+      v62 = 0;
     }
 
-    [v2 setObject:v61 forKeyedSubscript:@"secondarySystemFillColor"];
+    [v3 setObject:v62 forKeyedSubscript:@"secondarySystemFillColor"];
 
-    v62 = [_UIMaterial alloc];
-    if (v62)
+    v63 = [_UIMaterial alloc];
+    if (v63)
     {
-      v63 = [(_UIMaterial *)v62 initWithVibrancy:6 forBlurEffectStyle:9];
+      v64 = [(_UIMaterial *)v63 initWithVibrancy:6 forBlurEffectStyle:9];
     }
 
     else
     {
-      v63 = 0;
+      v64 = 0;
     }
 
-    [v2 setObject:v63 forKeyedSubscript:@"tertiarySystemFillColor"];
+    [v3 setObject:v64 forKeyedSubscript:@"tertiarySystemFillColor"];
 
     if (_UISolariumEnabled())
     {
-      v64 = +[_UIMaterial _labelMaterial];
+      v65 = +[_UIMaterial _labelMaterial];
     }
 
     else
     {
-      v65 = [_UIMaterial alloc];
-      if (!v65)
+      v66 = [_UIMaterial alloc];
+      if (!v66)
       {
-        v66 = 0;
+        v67 = 0;
         goto LABEL_35;
       }
 
-      v64 = [(_UIMaterial *)v65 initWithVibrancy:0 forBlurEffectStyle:9];
+      v65 = [(_UIMaterial *)v66 initWithVibrancy:0 forBlurEffectStyle:9];
     }
 
-    v66 = v64;
+    v67 = v65;
 LABEL_35:
-    [v2 setObject:v66 forKeyedSubscript:@"labelColor"];
+    [v3 setObject:v67 forKeyedSubscript:@"labelColor"];
 
-    v67 = [_UIMaterial alloc];
-    if (v67)
+    v68 = [_UIMaterial alloc];
+    if (v68)
     {
-      v68 = [(_UIMaterial *)v67 initWithVibrancy:1 forBlurEffectStyle:9];
+      v69 = [(_UIMaterial *)v68 initWithVibrancy:1 forBlurEffectStyle:9];
     }
 
     else
     {
-      v68 = 0;
+      v69 = 0;
     }
 
-    [v2 setObject:v68 forKeyedSubscript:@"secondaryLabelColor"];
+    [v3 setObject:v69 forKeyedSubscript:@"secondaryLabelColor"];
 
-    v69 = [_UIMaterial alloc];
-    if (v69)
+    v70 = [_UIMaterial alloc];
+    if (v70)
     {
-      v70 = [(_UIMaterial *)v69 initWithVibrancy:2 forBlurEffectStyle:9];
+      v71 = [(_UIMaterial *)v70 initWithVibrancy:2 forBlurEffectStyle:9];
     }
 
     else
     {
-      v70 = 0;
+      v71 = 0;
     }
 
-    [v2 setObject:v70 forKeyedSubscript:@"tertiaryLabelColor"];
+    [v3 setObject:v71 forKeyedSubscript:@"tertiaryLabelColor"];
 
-    v71 = [_UIMaterial alloc];
-    if (v71)
+    v72 = [_UIMaterial alloc];
+    if (v72)
     {
-      v37 = [(_UIMaterial *)v71 initWithVibrancy:3 forBlurEffectStyle:9];
+      v38 = [(_UIMaterial *)v72 initWithVibrancy:3 forBlurEffectStyle:9];
     }
 
     else
     {
-      v37 = 0;
+      v38 = 0;
     }
 
-    v38 = v78;
-    v39 = @"quaternaryLabelColor";
+    v39 = v79;
+    v40 = @"quaternaryLabelColor";
     goto LABEL_42;
   }
 
 LABEL_43:
-  v72 = qword_1ED49B918;
-  qword_1ED49B918 = v2;
+  v73 = qword_1ED49B918;
+  qword_1ED49B918 = v3;
 }
 
-void __33___UIMaterial__systemGreenEffect__block_invoke()
+void __33___UIMaterial__systemGreenEffect__block_invoke(uint64_t a1)
 {
-  v0 = [_UIMaterial vibrancyEffectWithA:26.706 B:-16.434 C:11.265 D:74.405 E:26.955 F:?];
-  v1 = qword_1ED49B928;
-  qword_1ED49B928 = v0;
+  v1 = [(_UIMaterial *)*(a1 + 32) vibrancyEffectWithA:26.706 B:-16.434 C:11.265 D:74.405 E:26.955 F:?];
+  v2 = qword_1ED49B928;
+  qword_1ED49B928 = v1;
 }
 
 @end

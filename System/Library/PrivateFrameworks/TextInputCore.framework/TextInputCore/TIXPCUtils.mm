@@ -23,8 +23,8 @@
 
 + (id)obtainApplicationIdentifierFromConnection:(id)connection
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (connection && ([connection auditToken], (v3 = SecTaskCreateWithAuditToken(0, &token)) != 0))
+  v11 = *MEMORY[0x277D85DE8];
+  if (connection && (objc_msgSend_auditToken(connection, a2), (v3 = SecTaskCreateWithAuditToken(0, &token)) != 0))
   {
     v4 = v3;
     error = 0;
@@ -55,8 +55,6 @@
   {
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

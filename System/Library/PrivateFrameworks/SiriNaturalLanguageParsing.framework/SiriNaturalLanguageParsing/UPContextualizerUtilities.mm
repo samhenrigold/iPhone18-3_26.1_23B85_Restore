@@ -125,46 +125,44 @@ LABEL_13:
 
 + (id)entityLabelsFromCandidate:(id)candidate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   entities = [candidateCopy entities];
-  v6 = [entities countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [entities countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(entities);
         }
 
-        label = [*(*(&v13 + 1) + 8 * i) label];
+        label = [*(*(&v12 + 1) + 8 * i) label];
         [array addObject:label];
       }
 
-      v7 = [entities countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [entities countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (id)buildPayloadResultFromQuery:(id)query modelIdentifier:(id)identifier intent:(id)intent entityName:(id)name serializer:(id)serializer
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   queryCopy = query;
   identifierCopy = identifier;
   intentCopy = intent;
@@ -178,30 +176,28 @@ LABEL_13:
 
   v17 = utterance;
   v18 = -[UPResultCandidateEntity initWithRange:label:text:groupId:semanticValue:sharedEntityGraph:]([UPResultCandidateEntity alloc], "initWithRange:label:text:groupId:semanticValue:sharedEntityGraph:", 0, [utterance length], nameCopy, utterance, 0, 0, 0);
-  v40[0] = v18;
-  v37 = nameCopy;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+  v39[0] = v18;
+  v36 = nameCopy;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
   appBundleId = [identifierCopy appBundleId];
-  v36 = [serializerCopy serializeFromIntent:intentCopy andEntities:v19 forBundleId:appBundleId];
+  v35 = [serializerCopy serializeFromIntent:intentCopy andEntities:v19 forBundleId:appBundleId];
 
-  v21 = [objc_alloc(MEMORY[0x277D5F5E0]) initWithTask:v36];
+  v21 = [objc_alloc(MEMORY[0x277D5F5E0]) initWithTask:v35];
   v22 = [UPResultCandidate alloc];
   [MEMORY[0x277CCABB0] numberWithDouble:1.0];
-  v23 = v35 = serializerCopy;
-  v39 = v18;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+  v23 = v34 = serializerCopy;
+  v38 = v18;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
   v25 = [(UPResultCandidate *)v22 initWithUncalibratedProbability:v23 calibratedProbability:v17 utterance:intentCopy intent:v24 entities:identifierCopy modelIdentifier:v21 task:1.0];
-  v34 = intentCopy;
+  v33 = intentCopy;
   v26 = queryCopy;
   v27 = v25;
 
   v28 = [UPResult alloc];
-  v38 = v27;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+  v37 = v27;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
   uuid = [v26 uuid];
   v31 = [(UPResult *)v28 initWithCandidates:v29 queryUUID:uuid];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }

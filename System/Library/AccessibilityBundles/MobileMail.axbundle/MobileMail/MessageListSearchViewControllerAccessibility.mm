@@ -1,6 +1,7 @@
 @interface MessageListSearchViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setSearchSuggestionsVisible:(BOOL)visible;
 @end
 
 @implementation MessageListSearchViewControllerAccessibility
@@ -41,6 +42,14 @@ uint64_t __90__MessageListSearchViewControllerAccessibility__accessibilityLoadAc
   v3 = [v2 isEqualToString:@"AXUISearchControllerDimmingView"];
 
   return v3;
+}
+
+- (void)setSearchSuggestionsVisible:(BOOL)visible
+{
+  v4.receiver = self;
+  v4.super_class = MessageListSearchViewControllerAccessibility;
+  [(MessageListSearchViewControllerAccessibility *)&v4 setSearchSuggestionsVisible:visible];
+  [(MessageListSearchViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

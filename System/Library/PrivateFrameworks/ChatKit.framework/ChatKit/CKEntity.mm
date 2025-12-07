@@ -838,8 +838,8 @@ LABEL_10:
 
   if (!fullName)
   {
-    v4 = CKFrameworkBundle();
-    fullName = [v4 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
+    v5 = CKFrameworkBundle(v4);
+    fullName = [v5 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
   return fullName;
@@ -852,8 +852,8 @@ LABEL_10:
 
   if (!name)
   {
-    v4 = CKFrameworkBundle();
-    name = [v4 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
+    v5 = CKFrameworkBundle(v4);
+    name = [v5 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
   return name;

@@ -13,9 +13,11 @@
 
 - (void)setPoints:(id)points
 {
-  self->_points = [points copy];
+  v4 = [points copy];
+  points = self->_points;
+  self->_points = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, points);
 }
 
 - (void)addPoints:(id)points

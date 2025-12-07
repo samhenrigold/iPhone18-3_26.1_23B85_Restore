@@ -70,35 +70,33 @@ void __78__BKUIHostedJindoPresentable_viewWillLayoutSubviewsWithTransitionCoordi
 
 - (void)viewDidLoad
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = BKUIHostedJindoPresentable;
-  [(BKUIHostedJindoPresentable *)&v20 viewDidLoad];
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = BKUIHostedJindoPresentable;
+  [(BKUIHostedJindoPresentable *)&v19 viewDidLoad];
   view = [(BKUIHostedJindoPresentable *)self view];
   enrollView = [(BKUIHostedJindoPresentable *)self enrollView];
   [view addSubview:enrollView];
 
-  v17 = MEMORY[0x277CCAAD0];
+  v16 = MEMORY[0x277CCAAD0];
   enrollView2 = [(BKUIHostedJindoPresentable *)self enrollView];
   centerXAnchor = [enrollView2 centerXAnchor];
   view2 = [(BKUIHostedJindoPresentable *)self view];
   centerXAnchor2 = [view2 centerXAnchor];
   v7 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v21[0] = v7;
+  v20[0] = v7;
   enrollView3 = [(BKUIHostedJindoPresentable *)self enrollView];
   centerYAnchor = [enrollView3 centerYAnchor];
   view3 = [(BKUIHostedJindoPresentable *)self view];
   centerYAnchor2 = [view3 centerYAnchor];
   v12 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v21[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  [v17 activateConstraints:v13];
+  v20[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  [v16 activateConstraints:v13];
 
   enrollView4 = [(BKUIHostedJindoPresentable *)self enrollView];
   view4 = [(BKUIHostedJindoPresentable *)self view];
   [enrollView4 setupAnimationViewWithSuperView:view4];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revoke
@@ -116,16 +114,14 @@ void __78__BKUIHostedJindoPresentable_viewWillLayoutSubviewsWithTransitionCoordi
 
   if (v9)
   {
-    v10 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _BKUILoggingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       v14 = v9;
-      _os_log_impl(&dword_241B0A000, v10, OS_LOG_TYPE_DEFAULT, "Error revoking post  %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "Error revoking post  %{public}@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collapse
@@ -137,14 +133,13 @@ void __78__BKUIHostedJindoPresentable_viewWillLayoutSubviewsWithTransitionCoordi
 
 - (id)userInfoForPosting
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D68090];
-  v6[0] = *MEMORY[0x277D68098];
-  v6[1] = v2;
-  v7[0] = MEMORY[0x277CBEC38];
-  v7[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277D68098];
+  v5[1] = v2;
+  v6[0] = MEMORY[0x277CBEC38];
+  v6[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -217,42 +212,40 @@ void __39__BKUIHostedJindoPresentable__bundleID__block_invoke(uint64_t a1)
     requestAlertingAssertion = [systemApertureElementContext requestAlertingAssertion];
     [requestAlertingAssertion setAutomaticallyInvalidatable:0];
 
-    v6 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134217984;
       selfCopy2 = self;
-      v7 = "Jindo: Acquired alert assertion %p";
+      v8 = "Jindo: Acquired alert assertion %p";
 LABEL_6:
-      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, v7, &v9, 0xCu);
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, v8, &v9, 0xCu);
     }
   }
 
   else
   {
-    v6 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(self);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134217984;
       selfCopy2 = self;
-      v7 = "Jindo: Could not get alert assertion, host set setCanRequestAlertingAssertion NO %p";
+      v8 = "Jindo: Could not get alert assertion, host set setCanRequestAlertingAssertion NO %p";
       goto LABEL_6;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentableWillAppearAsBanner:(id)banner
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   bannerCopy = banner;
-  v5 = _BKUILoggingFacility();
+  v5 = _BKUILoggingFacility(bannerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Jindo: Banner will appear %p", &v10, 0xCu);
+    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Jindo: Banner will appear %p", &v9, 0xCu);
   }
 
   observingDelegate = [(BKUIHostedJindoPresentable *)self observingDelegate];
@@ -263,20 +256,18 @@ LABEL_6:
     observingDelegate2 = [(BKUIHostedJindoPresentable *)self observingDelegate];
     [observingDelegate2 presentableWillAppearAsBanner:bannerCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentableDidAppearAsBanner:(id)banner
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   bannerCopy = banner;
-  v5 = _BKUILoggingFacility();
+  v5 = _BKUILoggingFacility(bannerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Jindo: Banner did appear %p", &v10, 0xCu);
+    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Jindo: Banner did appear %p", &v9, 0xCu);
   }
 
   observingDelegate = [(BKUIHostedJindoPresentable *)self observingDelegate];
@@ -287,8 +278,6 @@ LABEL_6:
     observingDelegate2 = [(BKUIHostedJindoPresentable *)self observingDelegate];
     [observingDelegate2 presentableDidAppearAsBanner:bannerCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentableWillDisappearAsBanner:(id)banner withReason:(id)reason

@@ -45,6 +45,8 @@
 - (void)playPreviewOnce;
 - (void)removeRecordedAnimationFromAvatar:(id)avatar;
 - (void)setAvatar:(id)avatar;
+- (void)setDisableRendering:(BOOL)rendering;
+- (void)setFaceTrackingPaused:(BOOL)paused;
 - (void)setFaceTrackingRecordingURL:(id)l;
 - (void)setMute:(BOOL)mute;
 - (void)setPlayBakedAnimation:(BOOL)animation;
@@ -56,6 +58,7 @@
 - (void)stopPreviewing;
 - (void)stopRecording;
 - (void)stopRecordingAudio;
+- (void)transitionToFaceTrackingWithDuration:(double)duration style:(unint64_t)style enableBakedAnimations:(BOOL)animations completionHandler:(id)handler;
 - (void)trimRecordedData;
 - (void)updateAudioState;
 - (void)updateForChangedFaceTrackingPaused;
@@ -65,10 +68,80 @@
 
 - (void)_avt_commonInit
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  self->_maxRecordingDuration = 30.0;
+  faceTracker = [(AVTView *)self faceTracker];
+  [faceTracker setShouldUseAudioData:?];
+
+  [(AVTView *)self setEnableFaceTracking:?];
+  layer = [(AVTRecordView *)self layer];
+  backingLayer = self->_backingLayer;
+  self->_backingLayer = layer;
+
+  v6 = self->_backingLayer;
+  objc_opt_class();
+  if ([(CALayer *)v6 isMemberOfClass:?])
+  {
+    v7 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:?];
+    v8 = [v7 BOOLForKey:?];
+    self->_checkDrawableAvailable = [v7 BOOLForKey:?] ^ 1;
+    mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
+    v10 = [mainScreen maximumFramesPerSecond] > 60;
+
+    LOBYTE(mainScreen) = v10 | v8;
+    self->_doubleBuffer = ((v10 | v8) & 1) == 0;
+    v12 = avt_default_log(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    if (mainScreen)
+    {
+      if (v13)
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1BB472000, v12, OS_LOG_TYPE_DEFAULT, "[Record view] Start with triple buffering enabled.", buf, 2u);
+      }
+    }
+
+    else if (v13)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1BB472000, v12, OS_LOG_TYPE_DEFAULT, "[Record view] Start with low latency, double buffering enabled.", buf, 2u);
+    }
+
+    [(CALayer *)self->_backingLayer setMaximumDrawableCount:?];
+    v14 = objc_opt_new();
+    droppedDoubleBufferFrames = self->_droppedDoubleBufferFrames;
+    self->_droppedDoubleBufferFrames = v14;
+
+    if ([v7 BOOLForKey:?])
+    {
+      [(CALayer *)self->_backingLayer setAllowsDisplayCompositing:?];
+    }
+  }
+
+  pointOfView = [(AVTRecordView *)self pointOfView];
+
+  if (!pointOfView)
+  {
+    v18 = avt_default_log(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      [AVTRecordView _avt_commonInit];
+    }
+  }
+
+  v19 = objc_alloc_init(MEMORY[0x1E696AD10]);
+  audioLock = self->_audioLock;
+  self->_audioLock = v19;
+
+  v23.receiver = self;
+  v23.super_class = AVTRecordView;
+  self->_preferredFramesPerSecond_user = [(AVTRecordView *)&v23 preferredFramesPerSecond];
+  self->_preferredFramesPerSecond_thermal = 60;
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter addObserver:? selector:? name:? object:?];
+
+  processInfo = [MEMORY[0x1E696AE30] processInfo];
+  [processInfo thermalState];
+  [(AVTRecordView *)self _updateFrameRateForThermalState:?];
 }
 
 - (AVTRecordView)init
@@ -130,7 +203,7 @@
 - (void)dealloc
 {
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  [defaultCenter removeObserver:self name:*MEMORY[0x1E696A7E0] object:0];
+  [defaultCenter removeObserver:? name:? object:?];
 
   v4.receiver = self;
   v4.super_class = AVTRecordView;
@@ -167,8 +240,8 @@
 
 - (void)_updateFrameRateForThermalState:(int64_t)state
 {
-  v5 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.UIKit"];
-  if (([v5 BOOLForKey:@"avatarKit.disableThermalDrivenFPS"] & 1) == 0)
+  v5 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:?];
+  if (([v5 BOOLForKey:?] & 1) == 0)
   {
     if (state <= 3)
     {
@@ -182,7 +255,8 @@
 - (void)_processInfoThermalStateDidChange:(id)change
 {
   object = [change object];
-  -[AVTRecordView _updateFrameRateForThermalState:](self, "_updateFrameRateForThermalState:", [object thermalState]);
+  [object thermalState];
+  [(AVTRecordView *)self _updateFrameRateForThermalState:?];
 }
 
 - (id)faceTrackingRecordingURL
@@ -197,12 +271,12 @@
 {
   lCopy = l;
   faceTracker = [(AVTView *)self faceTracker];
-  [faceTracker setFaceTrackingRecordingURL:lCopy];
+  [faceTracker setFaceTrackingRecordingURL:?];
 }
 
 - (void)faceTracker:(id)tracker session:(id)session didOutputAudioSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  [(NSLock *)self->_audioLock lock:tracker];
+  [(NSLock *)self->_audioLock lock];
   if (self->_audioWriterInput)
   {
     p_currentAudioTime = &self->_currentAudioTime;
@@ -213,7 +287,7 @@
       audioWriter = self->_audioWriter;
       *&v10.value = *&p_currentAudioTime->value;
       v10.epoch = self->_currentAudioTime.epoch;
-      [(AVAssetWriter *)audioWriter startSessionAtSourceTime:&v10];
+      [(AVAssetWriter *)audioWriter startSessionAtSourceTime:*&v10.value, v10.epoch];
       epoch = self->_currentAudioTime.epoch;
       *&self->_startAudioTime.value = *&p_currentAudioTime->value;
       self->_startAudioTime.epoch = epoch;
@@ -223,7 +297,7 @@
     if ([(AVAssetWriterInput *)self->_audioWriterInput isReadyForMoreMediaData])
     {
       self->_recordedSampleCount += CMSampleBufferGetNumSamples(buffer);
-      [(AVAssetWriterInput *)self->_audioWriterInput appendSampleBuffer:buffer];
+      [(AVAssetWriterInput *)self->_audioWriterInput appendSampleBuffer:?];
     }
   }
 
@@ -240,7 +314,7 @@
   if (v9)
   {
     recordDelegate2 = [(AVTRecordView *)self recordDelegate];
-    [recordDelegate2 recordView:self session:sessionCopy didFailWithError:errorCopy];
+    [recordDelegate2 recordView:? session:? didFailWithError:?];
   }
 
   faceTrackingDelegate = [(AVTView *)self faceTrackingDelegate];
@@ -249,7 +323,7 @@
   if (v12)
   {
     faceTrackingDelegate2 = [(AVTView *)self faceTrackingDelegate];
-    [faceTrackingDelegate2 avatarView:self faceTrackingSessionFailedWithError:errorCopy];
+    [faceTrackingDelegate2 avatarView:? faceTrackingSessionFailedWithError:?];
   }
 }
 
@@ -262,7 +336,7 @@
   if (v6)
   {
     recordDelegate2 = [(AVTRecordView *)self recordDelegate];
-    [recordDelegate2 recordView:self sessionWasInterrupted:interruptedCopy];
+    [recordDelegate2 recordView:? sessionWasInterrupted:?];
   }
 
   faceTrackingDelegate = [(AVTView *)self faceTrackingDelegate];
@@ -271,7 +345,7 @@
   if (v9)
   {
     faceTrackingDelegate2 = [(AVTView *)self faceTrackingDelegate];
-    [faceTrackingDelegate2 avatarViewFaceTrackingSessionInterruptionDidBegin:self];
+    [faceTrackingDelegate2 avatarViewFaceTrackingSessionInterruptionDidBegin:?];
   }
 }
 
@@ -284,7 +358,7 @@
   if (v6)
   {
     recordDelegate2 = [(AVTRecordView *)self recordDelegate];
-    [recordDelegate2 recordView:self sessionInterruptionEnded:endedCopy];
+    [recordDelegate2 recordView:? sessionInterruptionEnded:?];
   }
 
   faceTrackingDelegate = [(AVTView *)self faceTrackingDelegate];
@@ -293,20 +367,24 @@
   if (v9)
   {
     faceTrackingDelegate2 = [(AVTView *)self faceTrackingDelegate];
-    [faceTrackingDelegate2 avatarViewFaceTrackingSessionInterruptionDidEnd:self];
+    [faceTrackingDelegate2 avatarViewFaceTrackingSessionInterruptionDidEnd:?];
   }
 }
 
 - (void)faceTrackerDidUpdate:(id)update withARFrame:(id)frame
 {
   updateCopy = update;
-  v26.receiver = self;
-  v26.super_class = AVTRecordView;
-  [(AVTView *)&v26 faceTrackerDidUpdate:updateCopy withARFrame:frame];
+  v25.receiver = self;
+  v25.super_class = AVTRecordView;
+  [(AVTView *)&v25 faceTrackerDidUpdate:updateCopy withARFrame:frame];
   if (!self->_exportingMovie)
   {
-    v7 = [updateCopy faceIsTracked] && !self->_exportingMovie && !-[AVTView faceTrackingIsPaused](self, "faceTrackingIsPaused");
-    [(AVTView *)self setRendersContinuously:v7];
+    if ([updateCopy faceIsTracked] && !self->_exportingMovie)
+    {
+      [(AVTView *)self faceTrackingIsPaused];
+    }
+
+    [(AVTView *)self setRendersContinuously:?];
     if (self->_recording)
     {
       if (self->_recordedCount >= self->_recordingCapacity)
@@ -318,45 +396,84 @@
       {
         faceTrackingInfo = [updateCopy faceTrackingInfo];
         trackingData = [faceTrackingInfo trackingData];
-        [(NSMutableData *)self->_rawTimesData increaseLengthBy:8];
-        v10 = *trackingData;
-        *([(NSMutableData *)self->_rawTimesData mutableBytes]+ 8 * self->_recordedCount) = v10;
-        [(NSMutableData *)self->_rawBlendShapesData increaseLengthBy:204];
-        v11 = [(NSMutableData *)self->_rawBlendShapesData mutableBytes]+ 204 * self->_recordedCount;
-        *v11 = *(trackingData + 256);
-        v12 = *(trackingData + 400);
-        v13 = *(trackingData + 416);
-        v14 = *(trackingData + 432);
-        *(v11 + 188) = *(trackingData + 444);
-        v11[10] = v13;
-        v11[11] = v14;
-        v11[9] = v12;
-        v15 = *(trackingData + 336);
-        v16 = *(trackingData + 352);
-        v17 = *(trackingData + 384);
-        v11[7] = *(trackingData + 368);
-        v11[8] = v17;
-        v11[5] = v15;
-        v11[6] = v16;
-        v18 = *(trackingData + 272);
-        v19 = *(trackingData + 288);
-        v20 = *(trackingData + 320);
-        v11[3] = *(trackingData + 304);
-        v11[4] = v20;
-        v11[1] = v18;
-        v11[2] = v19;
-        [(NSMutableData *)self->_rawTransformsData increaseLengthBy:64];
-        v21 = [(NSMutableData *)self->_rawTransformsData mutableBytes]+ (self->_recordedCount << 6);
+        [(NSMutableData *)self->_rawTimesData increaseLengthBy:?];
+        v9 = *trackingData;
+        [(NSMutableData *)self->_rawTimesData mutableBytes][self->_recordedCount] = v9;
+        [(NSMutableData *)self->_rawBlendShapesData increaseLengthBy:?];
+        v10 = ([(NSMutableData *)self->_rawBlendShapesData mutableBytes]+ 204 * self->_recordedCount);
+        *v10 = *(trackingData + 16);
+        v11 = *(trackingData + 25);
+        v12 = *(trackingData + 26);
+        v13 = *(trackingData + 27);
+        *(v10 + 188) = *(trackingData + 444);
+        v10[10] = v12;
+        v10[11] = v13;
+        v10[9] = v11;
+        v14 = *(trackingData + 21);
+        v15 = *(trackingData + 22);
+        v16 = *(trackingData + 24);
+        v10[7] = *(trackingData + 23);
+        v10[8] = v16;
+        v10[5] = v14;
+        v10[6] = v15;
+        v17 = *(trackingData + 17);
+        v18 = *(trackingData + 18);
+        v19 = *(trackingData + 20);
+        v10[3] = *(trackingData + 19);
+        v10[4] = v19;
+        v10[1] = v17;
+        v10[2] = v18;
+        [(NSMutableData *)self->_rawTransformsData increaseLengthBy:?];
+        v20 = &[(NSMutableData *)self->_rawTransformsData mutableBytes][8 * self->_recordedCount];
         [updateCopy rawTransform];
-        *v21 = v22;
-        v21[1] = v23;
-        v21[2] = v24;
-        v21[3] = v25;
-        [(NSMutableData *)self->_rawParametersData increaseLengthBy:4];
-        *([(NSMutableData *)self->_rawParametersData mutableBytes]+ 4 * self->_recordedCount++) = *(trackingData + 464);
+        *v20 = v21;
+        v20[1] = v22;
+        v20[2] = v23;
+        v20[3] = v24;
+        [(NSMutableData *)self->_rawParametersData increaseLengthBy:?];
+        *([(NSMutableData *)self->_rawParametersData mutableBytes]+ self->_recordedCount++) = *(trackingData + 116);
       }
     }
   }
+}
+
+- (void)transitionToFaceTrackingWithDuration:(double)duration style:(unint64_t)style enableBakedAnimations:(BOOL)animations completionHandler:(id)handler
+{
+  animationsCopy = animations;
+  handlerCopy = handler;
+  if (!self->_exportingMovie && !self->_playing)
+  {
+    v13.receiver = self;
+    v13.super_class = AVTRecordView;
+    [(AVTView *)&v13 transitionToFaceTrackingWithDuration:style style:animationsCopy enableBakedAnimations:handlerCopy completionHandler:duration];
+    goto LABEL_9;
+  }
+
+  avatar = [(AVTView *)self avatar];
+  [avatar setPose:?];
+
+  avatar2 = [(AVTView *)self avatar];
+  [avatar2 stopTransitionAnimation];
+
+  if ([(AVTView *)self enableFaceTracking])
+  {
+    [(AVTRecordView *)self setFaceTrackingPaused:?];
+    if (!handlerCopy)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_7;
+  }
+
+  [(AVTView *)self setEnableFaceTracking:?];
+  if (handlerCopy)
+  {
+LABEL_7:
+    handlerCopy[2](handlerCopy);
+  }
+
+LABEL_9:
 }
 
 - (void)_didLostTrackingForAWhile
@@ -367,7 +484,7 @@
   if (v4)
   {
     recordDelegate2 = [(AVTRecordView *)self recordDelegate];
-    [recordDelegate2 recordViewDidLostTrackingWhileRecording:self];
+    [recordDelegate2 recordViewDidLostTrackingWhileRecording:?];
   }
 }
 
@@ -376,33 +493,26 @@
   _rendererCopy = _renderer;
   if ([(AVTRecordView *)self isPreviewing])
   {
-    memset(&v13[1], 0, sizeof(CMTime));
-    audioPlayer = self->_audioPlayer;
-    if (audioPlayer)
+    memset(&v12, 0, sizeof(v12));
+    if (self->_audioPlayer)
     {
-      [(AVPlayer *)audioPlayer currentTime];
+      [&v12 currentTime];
     }
 
-    v13[0] = v13[1];
-    v8 = fmax(CMTimeGetSeconds(v13), 0.0);
-    lastAudioPlayerTime = self->_lastAudioPlayerTime;
-    if (v8 != 0.0 && lastAudioPlayerTime == v8)
+    v11 = v12;
+    v7 = fmax(CMTimeGetSeconds(&v11), 0.0);
+    if (v7 == 0.0 || self->_lastAudioPlayerTime != v7)
     {
-      v8 = lastAudioPlayerTime + time - self->_lastAudioSystemTime;
-    }
-
-    else
-    {
-      self->_lastAudioPlayerTime = v8;
+      self->_lastAudioPlayerTime = v7;
       self->_lastAudioSystemTime = time;
     }
 
     world = [_rendererCopy world];
     clock = [world clock];
-    [clock setTime:v8];
+    [clock setTime:?];
   }
 
-  [(AVTView *)self updateAtTime:time];
+  [(AVTView *)self updateAtTime:?];
 }
 
 - (double)_renderer:(id)_renderer inputTimeForCurrentFrameWithTime:(double)time
@@ -410,7 +520,7 @@
   result = 0.0;
   if (!self->_playing && !self->_exportingMovie)
   {
-    [(AVTView *)self currentlyRenderedTrackingDate:_renderer];
+    [(AVTView *)self currentlyRenderedTrackingDate];
     if (result == 0.0)
     {
       return time;
@@ -438,7 +548,7 @@
   environment = [(AVTView *)self environment];
   avatar = [(AVTView *)self avatar];
   presentationConfiguration = [(AVTView *)self presentationConfiguration];
-  [environment avatarDidChange:avatar presentationConfiguration:presentationConfiguration];
+  [environment avatarDidChange:? presentationConfiguration:?];
 
   if (!self->_recordedAnimationGroup)
   {
@@ -446,7 +556,7 @@
   }
 
   avatar2 = [(AVTView *)self avatar];
-  [avatar2 setBakedAnimationReferenceTime:self->_referenceAnimationBeginTime];
+  [avatar2 setBakedAnimationReferenceTime:?];
 
   [(AVTView *)self unlockAvatar];
 }
@@ -455,23 +565,22 @@
 {
   [(AVTView *)self lockAvatar];
   self->_playing = 0;
-  v3 = (self->_maxRecordingDuration * 60.0);
-  self->_recordingCapacity = v3;
-  v4 = [MEMORY[0x1E695DF88] dataWithCapacity:8 * v3];
+  self->_recordingCapacity = (self->_maxRecordingDuration * 60.0);
+  v3 = [MEMORY[0x1E695DF88] dataWithCapacity:?];
   rawTimesData = self->_rawTimesData;
-  self->_rawTimesData = v4;
+  self->_rawTimesData = v3;
 
-  v6 = [MEMORY[0x1E695DF88] dataWithCapacity:204 * self->_recordingCapacity];
+  v5 = [MEMORY[0x1E695DF88] dataWithCapacity:?];
   rawBlendShapesData = self->_rawBlendShapesData;
-  self->_rawBlendShapesData = v6;
+  self->_rawBlendShapesData = v5;
 
-  v8 = [MEMORY[0x1E695DF88] dataWithCapacity:self->_recordingCapacity << 6];
+  v7 = [MEMORY[0x1E695DF88] dataWithCapacity:?];
   rawTransformsData = self->_rawTransformsData;
-  self->_rawTransformsData = v8;
+  self->_rawTransformsData = v7;
 
-  v10 = [MEMORY[0x1E695DF88] dataWithCapacity:4 * self->_recordingCapacity];
+  v9 = [MEMORY[0x1E695DF88] dataWithCapacity:?];
   rawParametersData = self->_rawParametersData;
-  self->_rawParametersData = v10;
+  self->_rawParametersData = v9;
 
   self->_recording = 1;
   self->_recordingStartTime = CACurrentMediaTime();
@@ -518,11 +627,9 @@
 
 - (void)_smoothRecordedData
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopRecording
@@ -553,28 +660,28 @@
   v6 = bakedAnimationCopy;
   if (bakedAnimationCopy)
   {
-    [bakedAnimationCopy setBeginTime:0.0];
-    [v6 setTimeOffset:self->_recordingStartTime - self->_referenceAnimationBeginTime];
+    [bakedAnimationCopy setBeginTime:?];
+    [v6 setTimeOffset:?];
     v7 = [(CAAnimationGroup *)v4 copy];
 
     animations = [(CAAnimationGroup *)v7 animations];
-    v9 = [animations arrayByAddingObject:v6];
-    [(CAAnimationGroup *)v7 setAnimations:v9];
+    v9 = [animations arrayByAddingObject:?];
+    [(CAAnimationGroup *)v7 setAnimations:?];
 
     v4 = v7;
   }
 
-  v10 = [MEMORY[0x1E69DF2B0] animationWithCAAnimation:v4];
-  [v10 setRemovedOnCompletion:0];
+  v10 = [MEMORY[0x1E69DF2B0] animationWithCAAnimation:?];
+  [v10 setRemovedOnCompletion:?];
   avatarNode = [avatarCopy avatarNode];
-  [avatarNode addAnimation:v10 forKey:@"kAVTRecordViewLivePreview"];
+  [avatarNode addAnimation:? forKey:?];
 }
 
 - (void)removeRecordedAnimationFromAvatar:(id)avatar
 {
   avatarCopy = avatar;
   avatarNode = [avatarCopy avatarNode];
-  [avatarNode removeAnimationForKey:@"kAVTRecordViewLivePreview"];
+  [avatarNode removeAnimationForKey:?];
 
   [avatarCopy resumeBakedAnimation];
 }
@@ -588,12 +695,12 @@
   if (showReticle)
   {
     environment2 = [(AVTView *)self environment];
-    [environment2 setShowReticle:0];
+    [environment2 setShowReticle:?];
 
-    [(AVTView *)self setFaceIsTracked:1];
+    [(AVTView *)self setFaceIsTracked:?];
   }
 
-  [(AVTRecordView *)self addRecordedAnimationToAvatar:avatar];
+  [(AVTRecordView *)self addRecordedAnimationToAvatar:?];
 }
 
 - (void)startPreviewing
@@ -610,7 +717,7 @@
   if (v4)
   {
     recordDelegate2 = [(AVTRecordView *)self recordDelegate];
-    [recordDelegate2 recordView:self previewDidChangeStatus:0];
+    [recordDelegate2 recordView:? previewDidChangeStatus:?];
   }
 }
 
@@ -624,7 +731,7 @@
     if (v4)
     {
       recordDelegate2 = [(AVTRecordView *)self recordDelegate];
-      [recordDelegate2 recordView:self previewDidChangeStatus:1];
+      [recordDelegate2 recordView:? previewDidChangeStatus:?];
     }
 
     [(AVTView *)self lockAvatar];
@@ -639,7 +746,7 @@
     if (v7)
     {
       recordDelegate4 = [(AVTRecordView *)self recordDelegate];
-      [recordDelegate4 recordView:self previewDidChangeStatus:0];
+      [recordDelegate4 recordView:? previewDidChangeStatus:?];
     }
   }
 
@@ -666,7 +773,7 @@
   if (v4)
   {
     recordDelegate2 = [(AVTRecordView *)self recordDelegate];
-    [recordDelegate2 recordView:self previewDidChangeStatus:1];
+    [recordDelegate2 recordView:? previewDidChangeStatus:?];
   }
 }
 
@@ -676,6 +783,17 @@
   {
     self->_playBakedAnimation = animation;
     [(AVTRecordView *)self _updateTrackingState];
+  }
+}
+
+- (void)setDisableRendering:(BOOL)rendering
+{
+  if (self->_disableRendering != rendering)
+  {
+    self->_disableRendering = rendering;
+    world = [(AVTRecordView *)self world];
+    rootNode = [world rootNode];
+    [rootNode setHidden:?];
   }
 }
 
@@ -694,12 +812,22 @@
   }
 }
 
+- (void)setFaceTrackingPaused:(BOOL)paused
+{
+  if (!self->_playing)
+  {
+    v3.receiver = self;
+    v3.super_class = AVTRecordView;
+    [(AVTView *)&v3 setFaceTrackingPaused:paused];
+  }
+}
+
 - (void)updateForChangedFaceTrackingPaused
 {
-  faceTrackingIsPaused = [(AVTView *)self faceTrackingIsPaused];
+  [(AVTView *)self faceTrackingIsPaused];
   world = [(AVTRecordView *)self world];
   clock = [world clock];
-  [clock setPaused:faceTrackingIsPaused];
+  [clock setPaused:?];
 
   [(AVTRecordView *)self _updateTrackingState];
 }
@@ -766,18 +894,14 @@ LABEL_12:
 LABEL_14:
   v11 = recordedCount - v8;
   self->_recordedCount = v11;
-  v12 = 8 * v11;
-  memmove(mutableBytes, &mutableBytes[v9], v12);
-  [(NSMutableData *)self->_rawTimesData setLength:v12];
-  v13 = 204 * self->_recordedCount;
-  memmove(mutableBytes2, &mutableBytes2[4 * (51 * v8)], v13);
-  [(NSMutableData *)self->_rawBlendShapesData setLength:v13];
-  v14 = self->_recordedCount << 6;
-  memmove(__dst, &__dst[64 * v9], v14);
-  [(NSMutableData *)self->_rawTransformsData setLength:v14];
-  v15 = 4 * self->_recordedCount;
-  memmove(mutableBytes3, &mutableBytes3[4 * v9], v15);
-  [(NSMutableData *)self->_rawParametersData setLength:v15];
+  memmove(mutableBytes, &mutableBytes[v9], 8 * v11);
+  [(NSMutableData *)self->_rawTimesData setLength:?];
+  memmove(mutableBytes2, &mutableBytes2[4 * (51 * v8)], 204 * self->_recordedCount);
+  [(NSMutableData *)self->_rawBlendShapesData setLength:?];
+  memmove(__dst, &__dst[64 * v9], self->_recordedCount << 6);
+  [(NSMutableData *)self->_rawTransformsData setLength:?];
+  memmove(mutableBytes3, &mutableBytes3[4 * v9], 4 * self->_recordedCount);
+  [(NSMutableData *)self->_rawParametersData setLength:?];
 }
 
 - (double)recordingDuration
@@ -795,289 +919,229 @@ LABEL_14:
 - (double)finalVideoDuration
 {
   v17 = *MEMORY[0x1E69E9840];
-  [(AVTRecordView *)self recordingDuration];
-  v3 = v2 + 0.25;
-  *&v2 = (v2 + 0.25) * 60.0;
-  v4 = vcvtps_u32_f32(*&v2);
-  v5 = avt_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  recordingDuration = [(AVTRecordView *)self recordingDuration];
+  v4 = v3 + 0.25;
+  *&v3 = (v3 + 0.25) * 60.0;
+  v5 = vcvtps_u32_f32(*&v3);
+  v6 = avt_default_log(recordingDuration);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v3;
+    v7 = v4;
     v9 = 134218752;
-    v10 = (v4 / 60.0);
+    v10 = (v5 / 60.0);
     v11 = 1024;
-    v12 = v4;
+    v12 = v5;
     v13 = 1024;
     v14 = 60;
     v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_1BB472000, v5, OS_LOG_TYPE_DEFAULT, "[Record view] Final video duration: %.3fs (for %d frames at %dfps ; exact duration: %.3fs)", &v9, 0x22u);
+    v16 = v7;
+    _os_log_impl(&dword_1BB472000, v6, OS_LOG_TYPE_DEFAULT, "[Record view] Final video duration: %.3fs (for %d frames at %dfps ; exact duration: %.3fs)", &v9, 0x22u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return (v4 / 60.0);
+  return (v5 / 60.0);
 }
 
 - (void)convertRecordedDataToAnimationGroup
 {
-  mutableBytes = [(NSMutableData *)self->_rawTimesData mutableBytes];
-  mutableBytes2 = [(NSMutableData *)self->_rawBlendShapesData mutableBytes];
-  mutableBytes3 = [(NSMutableData *)self->_rawTransformsData mutableBytes];
-  mutableBytes4 = [(NSMutableData *)self->_rawParametersData mutableBytes];
+  [(NSMutableData *)self->_rawTimesData mutableBytes];
+  mutableBytes = [(NSMutableData *)self->_rawBlendShapesData mutableBytes];
+  mutableBytes2 = [(NSMutableData *)self->_rawTransformsData mutableBytes];
+  mutableBytes3 = [(NSMutableData *)self->_rawParametersData mutableBytes];
   if (self->_recordedCount)
   {
-    v7 = mutableBytes4;
+    v6 = mutableBytes3;
     [(AVTRecordView *)self recordingDuration];
-    if (v8 > 0.0)
+    if (v7 > 0.0)
     {
-      v9 = v8;
-      v66 = mutableBytes2;
-      v63 = mutableBytes3;
-      v10 = self->_recordedCount + 1;
-      v68 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v69 = v10;
-      v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v10];
-      v12 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979ED8]];
+      v8 = v7;
+      v42 = mutableBytes;
+      v40 = mutableBytes2;
+      v9 = self->_recordedCount + 1;
+      v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v45 = v9;
+      v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
+      v11 = [MEMORY[0x1E69793D0] functionWithName:?];
       if (self->_recordedCount > 1)
       {
-        v13 = 0;
+        v12 = 0;
         do
         {
-          [v11 addObject:v12];
-          ++v13;
+          [v10 addObject:?];
+          ++v12;
         }
 
-        while (v13 < self->_recordedCount - 1);
+        while (v12 < self->_recordedCount - 1);
       }
 
-      v14 = v9 + 0.25;
-      v15 = [MEMORY[0x1E69793D0] functionWithName:*MEMORY[0x1E6979EB8]];
-      [v11 addObject:v15];
+      v13 = v8 + 0.25;
+      v14 = [MEMORY[0x1E69793D0] functionWithName:?];
+      [v10 addObject:?];
 
-      v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v69];
+      v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
       if (self->_recordedCount >= 1)
       {
-        v17 = 0;
+        v16 = 0;
         do
         {
-          v18 = [MEMORY[0x1E696AD98] numberWithDouble:(mutableBytes[v17] - *mutableBytes) / v14];
-          [v16 addObject:v18];
+          v17 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+          [v15 addObject:?];
 
-          ++v17;
+          ++v16;
         }
 
-        while (v17 < self->_recordedCount);
+        while (v16 < self->_recordedCount);
       }
 
-      [v16 addObject:&unk_1F39E2E58];
-      v82[0] = MEMORY[0x1E69E9820];
-      v82[1] = 3221225472;
-      v82[2] = __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke;
-      v82[3] = &__block_descriptor_48_e37_f40__0Q8Q16__NSNumber_24__NSNumber_32l;
-      v82[4] = v66;
-      v82[5] = v7;
-      v73[0] = MEMORY[0x1E69E9820];
-      v73[1] = 3221225472;
-      v74 = __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2;
-      v75 = &unk_1E7F49E40;
+      [v15 addObject:?];
+      v59[0] = MEMORY[0x1E69E9820];
+      v59[1] = 3221225472;
+      v59[2] = __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke;
+      v59[3] = &__block_descriptor_48_e37_f40__0Q8Q16__NSNumber_24__NSNumber_32l;
+      v59[4] = v42;
+      v59[5] = v6;
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v51 = __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2;
+      v52 = &unk_1E7F49E40;
       selfCopy = self;
-      v79 = v14;
-      v67 = v11;
-      v77 = v67;
-      v80 = v69;
-      v81 = v82;
-      v65 = v16;
-      v78 = v65;
-      v19 = AVTBlendShapeLocationToARIndex(*MEMORY[0x1E6986408]);
-      v72 = 0u;
+      v56 = v13;
+      v43 = v10;
+      v54 = v43;
+      v57 = v45;
+      v58 = v59;
+      v41 = v15;
+      v55 = v41;
+      v18 = AVTBlendShapeLocationToARIndex(*MEMORY[0x1E6986408]);
+      v48 = 0u;
+      v49 = 0u;
       avatar = [(AVTView *)self avatar];
-      v21 = avatar;
       if (avatar)
       {
-        [avatar morphInfoForARKitBlendShapeIndex:v19];
+        [&v48 morphInfoForARKitBlendShapeIndex:?];
       }
 
       else
       {
-        v72 = 0u;
+        v48 = 0u;
+        v49 = 0u;
       }
 
-      if (BYTE8(v72) == 1)
+      if (BYTE8(v49) == 1)
       {
-        v22 = v74(v73, v19, 0);
-        if (v22)
+        v20 = v51(v50, v18, 0);
+        if (v20)
         {
-          [v68 addObject:v22];
+          [v44 addObject:?];
         }
       }
 
       else
       {
-        v22 = 0;
+        v20 = 0;
       }
 
-      for (i = 0; i != 52; ++i)
+      v21 = 0;
+      v22 = 0uLL;
+      do
       {
-        if (v19 != i)
+        if (v18 != v21)
         {
-          BYTE8(v71) = 0;
+          v46 = v22;
+          v47 = v22;
           avatar2 = [(AVTView *)self avatar];
-          v25 = avatar2;
           if (avatar2)
           {
-            [avatar2 morphInfoForARKitBlendShapeIndex:i];
+            [&v46 morphInfoForARKitBlendShapeIndex:?];
           }
 
           else
           {
-            v71 = 0u;
+            v46 = 0u;
+            v47 = 0u;
           }
 
-          if (BYTE8(v71))
+          if (BYTE8(v47))
           {
-            v26 = v74(v73, i, v22);
-            if (v26)
+            v24 = v51(v50, v21, v20);
+            if (v24)
             {
-              [v68 addObject:v26];
+              [v44 addObject:?];
             }
           }
+
+          v22 = 0uLL;
         }
+
+        ++v21;
       }
 
-      v27 = [MEMORY[0x1E6979390] animationWithKeyPath:{@"/root_JNT.translation", 0.0}];
-      [v27 setDuration:v14];
-      v64 = *MEMORY[0x1E69797E0];
-      [v27 setFillMode:?];
-      [v27 setTimingFunctions:v67];
-      v28 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v69];
+      while (v21 != 52);
+      v25 = [MEMORY[0x1E6979390] animationWithKeyPath:?];
+      [v25 setDuration:?];
+      [v25 setFillMode:?];
+      [v25 setTimingFunctions:?];
+      v26 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
       if (self->_recordedCount)
       {
-        v29 = 0;
-        v30 = (v63 + 48);
+        v27 = 0;
+        v28 = v40 + 48;
         do
         {
-          v31 = *v30;
-          v30 += 4;
-          v32 = [MEMORY[0x1E696B098] avt_valueWithFloat3_usableWithKVCForSCNVector3:*&v31];
-          [v28 addObject:v32];
+          v28 += 64;
+          v29 = [MEMORY[0x1E696B098] avt_valueWithFloat3_usableWithKVCForSCNVector3:?];
+          [v26 addObject:?];
 
-          ++v29;
+          ++v27;
         }
 
-        while (v29 < self->_recordedCount);
+        while (v27 < self->_recordedCount);
       }
 
-      v33 = [MEMORY[0x1E696B098] avt_valueWithFloat3_usableWithKVCForSCNVector3:*(v63 + 6)];
-      [v28 addObject:v33];
+      v30 = [MEMORY[0x1E696B098] avt_valueWithFloat3_usableWithKVCForSCNVector3:?];
+      [v26 addObject:?];
 
-      [v27 setKeyTimes:v65];
-      [v27 setValues:v28];
-      [v68 addObject:v27];
-      v34 = [MEMORY[0x1E6979390] animationWithKeyPath:@"/head_JNT.orientation"];
+      [v25 setKeyTimes:?];
+      [v25 setValues:?];
+      [v44 addObject:?];
+      v31 = [MEMORY[0x1E6979390] animationWithKeyPath:?];
 
-      [v34 setDuration:v14];
-      [v34 setFillMode:v64];
-      v62 = v34;
-      [v34 setTimingFunctions:v67];
-      v35 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v69];
+      [v31 setDuration:?];
+      [v31 setFillMode:?];
+      v39 = v31;
+      [v31 setTimingFunctions:?];
+      v32 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
 
       if (self->_recordedCount)
       {
-        v36 = 0;
-        v37 = (v63 + 32);
+        v33 = 0;
+        v34 = v40 + 32;
         do
         {
-          v38 = v37[-2];
-          v39 = v37[-1];
-          v40 = vmulq_f32(v38, v38);
-          *&v41 = v40.f32[2] + vaddv_f32(*v40.f32);
-          *v40.f32 = vrsqrte_f32(v41);
-          *v40.f32 = vmul_f32(*v40.f32, vrsqrts_f32(v41, vmul_f32(*v40.f32, *v40.f32)));
-          v42 = vmulq_n_f32(v38, vmul_f32(*v40.f32, vrsqrts_f32(v41, vmul_f32(*v40.f32, *v40.f32))).f32[0]);
-          v43 = vmulq_f32(v39, v39);
-          *&v44 = v43.f32[2] + vaddv_f32(*v43.f32);
-          *v43.f32 = vrsqrte_f32(v44);
-          *v43.f32 = vmul_f32(*v43.f32, vrsqrts_f32(v44, vmul_f32(*v43.f32, *v43.f32)));
-          v45 = vmulq_n_f32(v39, vmul_f32(*v43.f32, vrsqrts_f32(v44, vmul_f32(*v43.f32, *v43.f32))).f32[0]);
-          v46 = vmulq_f32(*v37, *v37);
-          *&v47 = v46.f32[2] + vaddv_f32(*v46.f32);
-          *v46.f32 = vrsqrte_f32(v47);
-          *v46.f32 = vmul_f32(*v46.f32, vrsqrts_f32(v47, vmul_f32(*v46.f32, *v46.f32)));
-          v48 = vmulq_n_f32(*v37, vmul_f32(*v46.f32, vrsqrts_f32(v47, vmul_f32(*v46.f32, *v46.f32))).f32[0]);
-          v49 = (*v42.i32 + *&v45.i32[1]) + *&v48.i32[2];
-          if (v49 <= 0.0)
+          if (![(AVTView *)self arMode])
           {
-            if (*v42.i32 <= *&v45.i32[1] || *v42.i32 <= *&v48.i32[2])
-            {
-              if (*&v45.i32[1] <= *&v48.i32[2])
-              {
-                *v51.f32 = vadd_f32(*&vzip2q_s32(v42, v45), *v48.i8);
-                v50 = ((*&v48.i32[2] + 1.0) - *v42.i32) - *&v45.i32[1];
-                v51.f32[2] = v50;
-                v51.f32[3] = *&v42.i32[1] - *v45.i32;
-              }
-
-              else
-              {
-                v51.f32[0] = *&v42.i32[1] + *v45.i32;
-                v50 = ((*&v45.i32[1] + 1.0) - *v42.i32) - *&v48.i32[2];
-                v53 = vzip2q_s32(v42, v45).u64[0];
-                v51.f32[1] = v50;
-                *&v51.u32[2] = vext_s8(vadd_f32(*v48.i8, v53), vsub_f32(*v48.i8, v53), 4uLL);
-              }
-            }
-
-            else
-            {
-              v50 = ((*v42.i32 + 1.0) - *&v45.i32[1]) - *&v48.i32[2];
-              v54 = *&v42.i32[1];
-              v55 = vzip2q_s32(v42, v45).u64[0];
-              LODWORD(v56) = vadd_f32(v55, *v48.i8).u32[0];
-              HIDWORD(v56) = vsub_f32(v55, *&v48).i32[1];
-              v51.i64[0] = __PAIR64__(v54 + *v45.i32, LODWORD(v50));
-              v51.i64[1] = v56;
-            }
+            [AVTAvatar applyGazeCorrectionWithInputAngle:"applyGazeCorrectionWithInputAngle:translation:" translation:?];
           }
 
-          else
-          {
-            *v51.f32 = vsub_f32(*&vzip2q_s32(v45, vuzp1q_s32(v45, v48)), *&vtrn2q_s32(v48, vzip2q_s32(v48, v42)));
-            v51.f32[2] = *&v42.i32[1] - *v45.i32;
-            v50 = v49 + 1.0;
-            v51.f32[3] = v49 + 1.0;
-          }
+          v35 = [MEMORY[0x1E696B098] avt_valueWithFloat4_usableWithKVCForSCNVector4:?];
+          [v32 addObject:?];
 
-          *&v70 = vmulq_n_f32(v51, 0.5 / sqrtf(v50)).u64[0];
-          if ([(AVTView *)self arMode])
-          {
-            v57 = v70;
-          }
-
-          else
-          {
-            [AVTAvatar applyGazeCorrectionWithInputAngle:v70 translation:*v37[1].i64];
-          }
-
-          v58 = [MEMORY[0x1E696B098] avt_valueWithFloat4_usableWithKVCForSCNVector4:v57];
-          [v35 addObject:v58];
-
-          ++v36;
-          v37 += 4;
+          ++v33;
+          v34 += 64;
         }
 
-        while (v36 < self->_recordedCount);
+        while (v33 < self->_recordedCount);
       }
 
-      v59 = [v35 objectAtIndex:0];
-      [v35 addObject:v59];
+      v36 = [v32 objectAtIndex:?];
+      [v32 addObject:?];
 
-      [v62 setKeyTimes:v65];
-      [v62 setValues:v35];
-      [v68 addObject:v62];
+      [v39 setKeyTimes:?];
+      [v39 setValues:?];
+      [v44 addObject:?];
       animation = [MEMORY[0x1E6979308] animation];
-      [(CAAnimationGroup *)animation setAnimations:v68];
-      [(CAAnimationGroup *)animation setDuration:v14];
-      [(CAAnimationGroup *)animation setFillMode:v64];
+      [(CAAnimationGroup *)animation setAnimations:?];
+      [(CAAnimationGroup *)animation setDuration:?];
+      [(CAAnimationGroup *)animation setFillMode:?];
       recordedAnimationGroup = self->_recordedAnimationGroup;
       self->_recordedAnimationGroup = animation;
     }
@@ -1128,77 +1192,85 @@ float __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke(uint
 id __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v6 = [*(a1 + 32) avatar];
-  v7 = v6;
   if (v6)
   {
-    [v6 morphInfoForARKitBlendShapeIndex:a2];
+    [&v30 morphInfoForARKitBlendShapeIndex:?];
   }
 
   else
   {
-    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
   }
 
-  v8 = AVTBlendShapeLocationFromARIndex(a2);
-  v9 = [*(&v33 + 1) name];
-  if (!v9)
+  if (v31 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2_cold_2();
+    v7 = 0;
   }
 
-  v10 = MEMORY[0x1E6979390];
-  v31 = v9;
-  v32 = v8;
-  v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/%@.morpher.weights[%@]", v9, v8];
-  v12 = [v10 animationWithKeyPath:v11];
-
-  [v12 setDuration:*(a1 + 56)];
-  [v12 setFillMode:*MEMORY[0x1E69797E0]];
-  v30 = v12;
-  [v12 setTimingFunctions:*(a1 + 40)];
-  v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(a1 + 64)];
-  if (*(*(a1 + 32) + 872))
+  else
   {
-    v14 = 0;
-    do
+    v8 = AVTBlendShapeLocationFromARIndex(a2);
+    v9 = [*(&v30 + 1) name];
+    if (!v9)
     {
-      v15 = *(a1 + 72);
-      v16 = [v13 lastObject];
-      v17 = [v5 values];
-      v18 = [v17 objectAtIndexedSubscript:v14];
-      v19 = (*(v15 + 16))(v15, a2, v14, v16, v18);
-
-      if (v19 == -1.0)
-      {
-        __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2_cold_1();
-      }
-
-      *&v20 = v19;
-      v21 = [MEMORY[0x1E696AD98] numberWithFloat:v20];
-      [v13 addObject:v21];
-
-      ++v14;
+      __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2_cold_2();
     }
 
-    while (v14 < *(*(a1 + 32) + 872));
+    v10 = MEMORY[0x1E6979390];
+    v28 = v9;
+    v29 = v8;
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:v9, v8];
+    v12 = [v10 animationWithKeyPath:?];
+
+    [v12 setDuration:?];
+    [v12 setFillMode:?];
+    v27 = v12;
+    [v12 setTimingFunctions:?];
+    v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
+    if (*(*(a1 + 32) + 872))
+    {
+      v14 = 0;
+      do
+      {
+        v15 = *(a1 + 72);
+        v16 = [v13 lastObject];
+        v17 = [v5 values];
+        v18 = [v17 objectAtIndexedSubscript:?];
+        v19 = (*(v15 + 16))(v15, a2, v14, v16, v18);
+
+        if (v19 == -1.0)
+        {
+          __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2_cold_1();
+        }
+
+        v20 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+        [v13 addObject:?];
+
+        ++v14;
+      }
+
+      while (v14 < *(*(a1 + 32) + 872));
+    }
+
+    v21 = *(a1 + 72);
+    v22 = [v13 lastObject];
+    v23 = [v5 values];
+    v24 = [v23 objectAtIndexedSubscript:?];
+    (*(v21 + 16))(v21, a2, 0, v22, v24);
+
+    v25 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+    [v13 addObject:?];
+
+    v7 = v27;
+    [v27 setKeyTimes:?];
+    [v27 setValues:?];
   }
 
-  v22 = *(a1 + 72);
-  v23 = [v13 lastObject];
-  v24 = [v5 values];
-  v25 = [v24 objectAtIndexedSubscript:*(*(a1 + 32) + 872)];
-  v26 = (*(v22 + 16))(v22, a2, 0, v23, v25);
-
-  *&v27 = v26;
-  v28 = [MEMORY[0x1E696AD98] numberWithFloat:v27];
-  [v13 addObject:v28];
-
-  [v30 setKeyTimes:*(a1 + 48)];
-  [v30 setValues:v13];
-
-  return v30;
+  return v7;
 }
 
 - (id)_tmpAudioURL
@@ -1206,7 +1278,7 @@ id __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2(uint6
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   temporaryDirectory = [defaultManager temporaryDirectory];
 
-  v4 = [temporaryDirectory URLByAppendingPathComponent:@"avtpuppet-audio.mp4"];
+  v4 = [temporaryDirectory URLByAppendingPathComponent:?];
 
   return v4;
 }
@@ -1216,7 +1288,7 @@ id __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2(uint6
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   temporaryDirectory = [defaultManager temporaryDirectory];
 
-  v4 = [temporaryDirectory URLByAppendingPathComponent:@"avtpuppet-video.mov"];
+  v4 = [temporaryDirectory URLByAppendingPathComponent:?];
 
   return v4;
 }
@@ -1226,59 +1298,59 @@ id __52__AVTRecordView_convertRecordedDataToAnimationGroup__block_invoke_2(uint6
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   temporaryDirectory = [defaultManager temporaryDirectory];
 
-  v4 = [temporaryDirectory URLByAppendingPathComponent:@"avtpuppet-video-alpha.mov"];
+  v4 = [temporaryDirectory URLByAppendingPathComponent:?];
 
   return v4;
 }
 
 - (BOOL)mergeAudio:(id)audio andVideoTo:(id)to error:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   audioCopy = audio;
   toCopy = to;
   composition = [MEMORY[0x1E6988048] composition];
   _tmpVideoURL = [(AVTRecordView *)self _tmpVideoURL];
-  v7 = [objc_alloc(MEMORY[0x1E6988168]) initWithURL:_tmpVideoURL options:0];
+  v7 = [objc_alloc(MEMORY[0x1E6988168]) initWithURL:? options:?];
   if (v7)
   {
     goto LABEL_5;
   }
 
-  v8 = avt_default_log();
+  v8 = avt_default_log(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [AVTRecordView mergeAudio:andVideoTo:error:];
   }
 
   sleep(1u);
-  v7 = [objc_alloc(MEMORY[0x1E6988168]) initWithURL:_tmpVideoURL options:0];
+  v7 = [objc_alloc(MEMORY[0x1E6988168]) initWithURL:? options:?];
   if (v7)
   {
 LABEL_5:
-    memset(&v59, 0, sizeof(v59));
-    [v7 duration];
+    memset(&v51, 0, sizeof(v51));
+    [&duration duration];
     v9 = 0;
   }
 
   else
   {
-    v44 = avt_default_log();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v40 = avt_default_log(0);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [AVTRecordView mergeAudio:andVideoTo:error:];
     }
 
     v7 = 0;
-    memset(&v59, 0, sizeof(v59));
+    memset(&v51, 0, sizeof(v51));
     memset(&duration, 0, 24);
     v9 = 1;
   }
 
-  v45 = *MEMORY[0x1E6960CC0];
+  v41 = *MEMORY[0x1E6960CC0];
   *&start.start.value = *MEMORY[0x1E6960CC0];
   v10 = *(MEMORY[0x1E6960CC0] + 16);
   start.start.epoch = v10;
-  CMTimeRangeMake(&v59, &start.start, &duration.start);
+  CMTimeRangeMake(&v51, &start.start, &duration.start);
   if (!self->_mute)
   {
     memset(&duration, 0, sizeof(duration));
@@ -1289,28 +1361,27 @@ LABEL_5:
 
     else
     {
-      [v7 duration];
+      [&start duration];
     }
 
-    *&v58.value = v45;
-    v58.epoch = v10;
-    CMTimeRangeMake(&duration, &v58, &start.start);
-    v11 = *MEMORY[0x1E69875A0];
-    v12 = [composition addMutableTrackWithMediaType:*MEMORY[0x1E69875A0] preferredTrackID:0];
-    v13 = [audioCopy tracksWithMediaType:v11];
-    firstObject = [v13 firstObject];
+    *&v50.value = v41;
+    v50.epoch = v10;
+    CMTimeRangeMake(&duration, &v50, &start.start);
+    v11 = [composition addMutableTrackWithMediaType:? preferredTrackID:?];
+    v12 = [audioCopy tracksWithMediaType:?];
+    firstObject = [v12 firstObject];
 
     if (firstObject)
     {
       start = duration;
-      *&v58.value = v45;
-      v58.epoch = v10;
-      [v12 insertTimeRange:&start ofTrack:firstObject atTime:&v58 error:0];
+      *&v50.value = v41;
+      v50.epoch = v10;
+      [v11 insertTimeRange:? ofTrack:? atTime:? error:?];
     }
 
     else
     {
-      v15 = avt_default_log();
+      v15 = avt_default_log(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [AVTRecordView mergeAudio:audioCopy andVideoTo:? error:?];
@@ -1318,61 +1389,57 @@ LABEL_5:
     }
   }
 
-  v16 = *MEMORY[0x1E6987608];
-  v48 = [composition addMutableTrackWithMediaType:*MEMORY[0x1E6987608] preferredTrackID:{0, v45}];
-  v17 = [v7 tracksWithMediaType:v16];
-  firstObject2 = [v17 firstObject];
+  v44 = [composition addMutableTrackWithMediaType:v41 preferredTrackID:?];
+  v16 = [v7 tracksWithMediaType:?];
+  firstObject2 = [v16 firstObject];
 
   if (firstObject2)
   {
-    duration = v59;
-    *&start.start.value = v46;
+    duration = v51;
+    *&start.start.value = v42;
     start.start.epoch = v10;
-    [v48 insertTimeRange:&duration ofTrack:firstObject2 atTime:&start error:0];
+    [v44 insertTimeRange:? ofTrack:? atTime:? error:?];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     path = [toCopy path];
-    v21 = [defaultManager fileExistsAtPath:path];
+    v21 = [defaultManager fileExistsAtPath:?];
 
     if (v21)
     {
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
       path2 = [toCopy path];
-      [defaultManager2 removeItemAtPath:path2 error:0];
+      [defaultManager2 removeItemAtPath:? error:?];
     }
 
-    v24 = objc_alloc(MEMORY[0x1E6987E60]);
-    v25 = [v24 initWithAsset:composition presetName:*MEMORY[0x1E6987338]];
-    [v25 setOutputFileType:*MEMORY[0x1E69874C0]];
-    [v25 setOutputURL:toCopy];
+    v24 = [objc_alloc(MEMORY[0x1E6987E60]) initWithAsset:? presetName:?];
+    [v24 setOutputFileType:?];
+    [v24 setOutputURL:?];
     metadataItem = [MEMORY[0x1E6988050] metadataItem];
-    v27 = *MEMORY[0x1E6987858];
-    [metadataItem setKeySpace:*MEMORY[0x1E6987858]];
-    [metadataItem setKey:@"LOOP"];
+    [metadataItem setKeySpace:?];
+    [metadataItem setKey:?];
     LODWORD(start.start.value) = 0;
-    v28 = *MEMORY[0x1E6960260];
-    [metadataItem setDataType:*MEMORY[0x1E6960260]];
-    v29 = [MEMORY[0x1E695DEF0] dataWithBytes:&start length:4];
-    [metadataItem setValue:v29];
+    [metadataItem setDataType:?];
+    v26 = [MEMORY[0x1E695DEF0] dataWithBytes:? length:?];
+    [metadataItem setValue:?];
 
     metadataItem2 = [MEMORY[0x1E6988050] metadataItem];
-    [metadataItem2 setKeySpace:v27];
-    [metadataItem2 setKey:@"GREY"];
-    [metadataItem2 setDataType:v28];
-    v31 = [MEMORY[0x1E695DEF0] dataWithBytes:&start length:4];
-    [metadataItem2 setValue:v31];
+    [metadataItem2 setKeySpace:?];
+    [metadataItem2 setKey:?];
+    [metadataItem2 setDataType:?];
+    v28 = [MEMORY[0x1E695DEF0] dataWithBytes:? length:?];
+    [metadataItem2 setValue:?];
 
-    v60[0] = metadataItem;
-    v60[1] = metadataItem2;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
-    [v25 setMetadata:v32];
+    v52 = metadataItem;
+    v53 = metadataItem2;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+    [v24 setMetadata:?];
 
-    v33 = dispatch_semaphore_create(0);
-    v34 = avt_default_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v30 = dispatch_semaphore_create(0);
+    v31 = avt_default_log(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(duration.start.value) = 138412290;
-      *(&duration.start.value + 4) = v25;
-      _os_log_impl(&dword_1BB472000, v34, OS_LOG_TYPE_DEFAULT, "[Record view] Video export will start with session %@", &duration, 0xCu);
+      *(&duration.start.value + 4) = v24;
+      _os_log_impl(&dword_1BB472000, v31, OS_LOG_TYPE_DEFAULT, "[Record view] Video export will start with session %@", &duration, 0xCu);
     }
 
     duration.start.value = 0;
@@ -1381,23 +1448,16 @@ LABEL_5:
     duration.duration.value = __Block_byref_object_copy__8;
     *&duration.duration.timescale = __Block_byref_object_dispose__8;
     duration.duration.epoch = 0;
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __45__AVTRecordView_mergeAudio_andVideoTo_error___block_invoke;
-    v53[3] = &unk_1E7F49E68;
-    v35 = v25;
-    v54 = v35;
-    p_duration = &duration;
-    v36 = v33;
-    v55 = v36;
-    [v35 exportAsynchronouslyWithCompletionHandler:v53];
-    v37 = dispatch_time(0, 20000000000);
-    dispatch_semaphore_wait(v36, v37);
-    v38 = *(*&duration.start.timescale + 40);
-    v39 = v38 == 0;
-    if (error && v38)
+    v32 = v24;
+    v33 = v30;
+    [v32 exportAsynchronouslyWithCompletionHandler:?];
+    v34 = dispatch_time(0, 20000000000);
+    dispatch_semaphore_wait(v33, v34);
+    v35 = *(*&duration.start.timescale + 40);
+    v36 = v35 == 0;
+    if (error && v35)
     {
-      *error = v38;
+      *error = v35;
     }
 
     _Block_object_dispose(&duration, 8);
@@ -1405,58 +1465,58 @@ LABEL_5:
 
   else
   {
-    v40 = avt_default_log();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v37 = avt_default_log(v18);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       [AVTRecordView mergeAudio:v7 andVideoTo:audioCopy error:?];
     }
 
     if (!error)
     {
-      v39 = 0;
+      v36 = 0;
       goto LABEL_30;
     }
 
-    v41 = MEMORY[0x1E696ABC0];
-    v61 = *MEMORY[0x1E696A578];
-    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get video track"];
-    v62 = v35;
-    metadataItem = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-    [v41 errorWithDomain:@"AVTErrorDomain" code:1 userInfo:metadataItem];
-    *error = v39 = 0;
+    v38 = MEMORY[0x1E696ABC0];
+    v54 = *MEMORY[0x1E696A578];
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
+    v55 = v32;
+    metadataItem = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    [v38 errorWithDomain:? code:? userInfo:?];
+    *error = v36 = 0;
   }
 
 LABEL_30:
-  v42 = *MEMORY[0x1E69E9840];
-  return v39;
+  return v36;
 }
 
 intptr_t __45__AVTRecordView_mergeAudio_andVideoTo_error___block_invoke(uint64_t a1)
 {
   v2 = (a1 + 32);
-  if ([*(a1 + 32) status] == 3 && (objc_msgSend(*v2, "error"), v3 = objc_claimAutoreleasedReturnValue(), v3, !v3))
+  v3 = [*(a1 + 32) status];
+  if (v3 == 3 && ([*v2 error], v4 = objc_claimAutoreleasedReturnValue(), v4, !v4))
   {
-    v4 = avt_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = avt_default_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1BB472000, v4, OS_LOG_TYPE_DEFAULT, "[Record view] Video export did complete", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1BB472000, v5, OS_LOG_TYPE_DEFAULT, "[Record view] Video export did complete", v10, 2u);
     }
   }
 
   else
   {
-    v4 = avt_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = avt_default_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __45__AVTRecordView_mergeAudio_andVideoTo_error___block_invoke_cold_1(v2);
     }
   }
 
-  v5 = [*(a1 + 32) error];
-  v6 = *(*(a1 + 48) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v6 = [*(a1 + 32) error];
+  v7 = *(*(a1 + 48) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
   return dispatch_semaphore_signal(*(a1 + 40));
 }
@@ -1464,13 +1524,12 @@ intptr_t __45__AVTRecordView_mergeAudio_andVideoTo_error___block_invoke(uint64_t
 - (void)fadePuppetToWhite:(float)white
 {
   environment = [(AVTView *)self environment];
-  *&v4 = white;
-  [environment setFadeFactor:v4];
+  [environment setFadeFactor:?];
 }
 
 - (BOOL)exportMovieToURL:(id)l options:(id)options completionHandler:(id)handler
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v8 = COERCE_DOUBLE(l);
   optionsCopy = options;
   handlerCopy = handler;
@@ -1480,140 +1539,115 @@ intptr_t __45__AVTRecordView_mergeAudio_andVideoTo_error___block_invoke(uint64_t
   if (world)
   {
     exportingMovie = self->_exportingMovie;
-    v13 = avt_default_log();
-    v14 = v13;
+    v14 = avt_default_log(v12);
+    v15 = v14;
     if (exportingMovie)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [AVTRecordView exportMovieToURL:options:completionHandler:];
       }
 
-      v15 = 0;
+      v16 = 0;
     }
 
     else
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v87 = v8;
-        _os_log_impl(&dword_1BB472000, v14, OS_LOG_TYPE_DEFAULT, "[Record view] Video export: exporting movie to %@", buf, 0xCu);
+        v61 = v8;
+        _os_log_impl(&dword_1BB472000, v15, OS_LOG_TYPE_DEFAULT, "[Record view] Video export: exporting movie to %@", buf, 0xCu);
       }
 
       self->_exportingMovie = 1;
       currentProgress = [MEMORY[0x1E696AE38] currentProgress];
-      v64 = v8;
+      v50 = v8;
       if (currentProgress)
       {
-        v14 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:100];
+        v15 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:?];
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
 
-      [v14 becomeCurrentWithPendingUnitCount:1];
+      [v15 becomeCurrentWithPendingUnitCount:?];
       [(AVTRecordView *)self _updateTrackingState];
-      [(AVTRecordView *)self fadePuppetToWhite:0.0];
+      [(AVTRecordView *)self fadePuppetToWhite:?];
       pointOfView = [(AVTRecordView *)self pointOfView];
       camera = [pointOfView camera];
       [pointOfView position];
-      v62 = v19;
       [camera zFar];
-      v21 = v20;
       [(AVTView *)self lockAvatar];
       [MEMORY[0x1E69DF378] lock];
       avatar = [(AVTView *)self avatar];
-      v23 = [avatar copy];
+      v21 = [avatar copy];
 
-      [v23 updateWithOptions:0];
-      [(AVTRecordView *)self addRecordedAnimationToAvatar:v23];
-      [(CAAnimationGroup *)self->_recordedAnimationGroup duration];
-      v25 = v24;
+      [v21 updateWithOptions:?];
+      [(AVTRecordView *)self addRecordedAnimationToAvatar:?];
+      [0x370 duration];
+      v23 = v22;
       [MEMORY[0x1E69DF378] unlock];
-      [(AVTView *)self unlockAvatar];
-      v15 = v25 > 0.0166666667;
-      if (v25 > 0.0166666667)
+      unlockAvatar = [(AVTView *)self unlockAvatar];
+      v16 = v23 > 0.0166666667;
+      if (v23 > 0.0166666667)
       {
-        v26 = avt_default_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v25 = avt_default_log(unlockAvatar);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = v25;
+          v26 = v23;
           *buf = 134217984;
-          v87 = v27;
-          _os_log_impl(&dword_1BB472000, v26, OS_LOG_TYPE_DEFAULT, "[Record view] Video export: scene duration %.3fs", buf, 0xCu);
+          v61 = v26;
+          _os_log_impl(&dword_1BB472000, v25, OS_LOG_TYPE_DEFAULT, "[Record view] Video export: scene duration %.3fs", buf, 0xCu);
         }
 
-        v28 = [optionsCopy objectForKeyedSubscript:@"size"];
-        v63 = camera;
-        v59 = v28;
-        v60 = handlerCopy;
-        if (v28)
+        v27 = [optionsCopy objectForKeyedSubscript:?];
+        v49 = camera;
+        v46 = v27;
+        v47 = handlerCopy;
+        if (v27)
         {
-          [v28 CGSizeValue];
-          v30 = v29;
-          v32 = v31;
+          [v27 CGSizeValue];
         }
 
-        else
+        v28 = [optionsCopy mutableCopy];
+        v29 = [optionsCopy objectForKeyedSubscript:?];
+        if (v29)
         {
-          v32 = 0x4074000000000000;
-          v30 = 0x4074000000000000;
+          [v28 setObject:? forKeyedSubscript:?];
+          [v28 removeObjectForKey:?];
         }
 
-        v33 = [optionsCopy mutableCopy];
-        v34 = [optionsCopy objectForKeyedSubscript:@"codec"];
-        v35 = MEMORY[0x1E6987CB0];
-        if (v34)
+        v45 = v29;
+        v30 = [optionsCopy objectForKeyedSubscript:?];
+        bOOLValue = [v30 BOOLValue];
+
+        v31 = [optionsCopy objectForKeyedSubscript:?];
+
+        if (v31)
         {
-          [v33 setObject:v34 forKeyedSubscript:*MEMORY[0x1E6987CB0]];
-          [v33 removeObjectForKey:@"codec"];
-        }
-
-        v58 = v34;
-        v36 = [optionsCopy objectForKeyedSubscript:@"AVTMovieTransparentBackground"];
-        bOOLValue = [v36 BOOLValue];
-
-        v37 = [optionsCopy objectForKeyedSubscript:@"AVTMovieTransparentBackground"];
-
-        if (v37)
-        {
-          [v33 removeObjectForKey:@"AVTMovieTransparentBackground"];
+          [v28 removeObjectForKey:?];
         }
 
         if (bOOLValue)
         {
-          [v33 setObject:*MEMORY[0x1E6987CF8] forKeyedSubscript:*v35];
+          [v28 setObject:? forKeyedSubscript:?];
         }
 
-        v38 = *MEMORY[0x1E6987D10];
-        v39 = *MEMORY[0x1E6987DE8];
-        v84[0] = *MEMORY[0x1E6987D08];
-        v84[1] = v39;
-        v40 = *MEMORY[0x1E6987DF8];
-        v85[0] = v38;
-        v85[1] = v40;
-        v84[2] = *MEMORY[0x1E6987E10];
-        v85[2] = *MEMORY[0x1E6987E18];
-        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:3];
-        [v33 setObject:v41 forKeyedSubscript:*MEMORY[0x1E6987D20]];
+        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+        [v28 setObject:? forKeyedSubscript:?];
 
-        [v33 removeObjectForKey:@"AVTMovieGenerateAlphaMask-NoLongerImplemented"];
-        [v33 removeObjectForKey:@"size"];
-        v82 = *MEMORY[0x1E6987D40];
-        v83 = &unk_1F39D9470;
-        v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-        [v33 setObject:v42 forKeyedSubscript:*MEMORY[0x1E6987D30]];
+        [v28 removeObjectForKey:?];
+        [v28 removeObjectForKey:?];
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+        [v28 setObject:? forKeyedSubscript:?];
 
-        v80 = @"AVTRendererOptionInitiallyConfigureForARMode";
-        v81 = MEMORY[0x1E695E110];
-        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-        v44 = [(VFXRenderer *)AVTRenderer rendererWithDevice:0 options:v43];
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+        v35 = [VFXRenderer rendererWithDevice:"rendererWithDevice:options:" options:?];
 
-        LODWORD(v45) = 2.0;
-        [v44 set_superSamplingFactor:v45];
+        [v35 set_superSamplingFactor:?];
         if (bOOLValue)
         {
           [MEMORY[0x1E69DC888] clearColor];
@@ -1623,96 +1657,83 @@ intptr_t __45__AVTRecordView_mergeAudio_andVideoTo_error___block_invoke(uint64_t
         {
           [MEMORY[0x1E69DC888] whiteColor];
         }
-        v46 = ;
-        [v44 setBackgroundColor:v46];
+        v36 = ;
+        [v35 setBackgroundColor:?];
 
-        [v44 setAvatar:v23];
-        world2 = [v44 world];
-        [world2 setStartTime:0.0];
-        [world2 setEndTime:v25];
+        [v35 setAvatar:?];
+        world2 = [v35 world];
+        [world2 setStartTime:?];
+        [world2 setEndTime:?];
         [MEMORY[0x1E69DF378] begin];
-        [MEMORY[0x1E69DF378] setAnimationDuration:0.5];
-        [pointOfView setPosition:*&v62];
-        [v63 zFar];
-        *&v49 = v48 + 20.0;
-        [v63 setZFar:v49];
-        v50 = MEMORY[0x1E69DF378];
-        v65[0] = MEMORY[0x1E69E9820];
-        v65[1] = 3221225472;
-        v65[2] = __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invoke;
-        v65[3] = &unk_1E7F49E90;
-        selfCopy = self;
-        v68 = v14;
-        v69 = v44;
-        v77 = v30;
-        v78 = v32;
-        v70 = v33;
-        v71 = world2;
-        v72 = *&v64;
-        v73 = v23;
-        v76 = v60;
-        v74 = pointOfView;
-        v66 = v62;
-        v75 = v63;
-        v79 = v21;
-        v51 = world2;
-        v52 = v33;
-        handlerCopy = v60;
-        v53 = v52;
-        v54 = v44;
-        v55 = v50;
-        camera = v63;
-        [v55 setCompletionBlock:v65];
+        [MEMORY[0x1E69DF378] setAnimationDuration:?];
+        [pointOfView setPosition:?];
+        [v49 zFar];
+        [v49 setZFar:?];
+        v38 = MEMORY[0x1E69DF378];
+        v51 = v15;
+        v52 = v35;
+        v53 = v28;
+        v54 = world2;
+        v55 = *&v50;
+        v56 = v21;
+        v59 = v47;
+        v57 = pointOfView;
+        v58 = v49;
+        v39 = world2;
+        v40 = v28;
+        handlerCopy = v47;
+        v41 = v40;
+        v42 = v35;
+        v43 = v38;
+        camera = v49;
+        [v43 setCompletionBlock:?];
         [MEMORY[0x1E69DF378] commit];
       }
 
-      v8 = v64;
+      v8 = v50;
     }
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v56 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v16;
 }
 
 void __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  [*(a1 + 48) setRendersContinuously:0];
+  v41 = *MEMORY[0x1E69E9840];
+  [*(a1 + 48) setRendersContinuously:?];
   v2 = [*(a1 + 48) world];
   v3 = [v2 clock];
-  [v3 setPaused:1];
+  [v3 setPaused:?];
 
   [*(a1 + 56) resignCurrent];
-  [*(a1 + 56) becomeCurrentWithPendingUnitCount:99];
+  [*(a1 + 56) becomeCurrentWithPendingUnitCount:?];
   Current = CFAbsoluteTimeGetCurrent();
   v5 = [*(a1 + 48) _tmpVideoURL];
   v6 = [v5 path];
   v7 = [MEMORY[0x1E696AC08] defaultManager];
-  v8 = [v7 fileExistsAtPath:v6];
+  v8 = [v7 fileExistsAtPath:?];
 
   if (v8)
   {
     v9 = [MEMORY[0x1E696AC08] defaultManager];
-    [v9 removeItemAtPath:v6 error:0];
+    [v9 removeItemAtPath:? error:?];
   }
 
-  v10 = *(a1 + 64);
-  v11 = *(a1 + 72);
-  v41 = 0;
-  v12 = [v10 renderMovieToURL:v5 size:0 antialiasingMode:v11 attributes:&v41 error:{*(a1 + 128), *(a1 + 136)}];
-  v13 = v41;
-  if (v12)
+  v10 = [*(a1 + 64) renderMovieToURL:? size:? antialiasingMode:? attributes:? error:?];
+  v11 = 0;
+  v12 = v11;
+  if (v10)
   {
-    v14 = CFAbsoluteTimeGetCurrent();
-    v15 = avt_default_log();
+    v13 = CFAbsoluteTimeGetCurrent();
+    v15 = avt_default_log(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v14 - Current;
+      v16 = v13 - Current;
       v17 = v16;
       v18 = v17;
       [*(a1 + 80) endTime];
@@ -1720,54 +1741,48 @@ void __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invo
       [*(a1 + 80) endTime];
       *&v21 = v21 * 60.0 / v16;
       *buf = 134218496;
-      v43 = v18;
-      v44 = 2048;
-      v45 = v20;
-      v46 = 2048;
-      v47 = *&v21;
+      v36 = v18;
+      v37 = 2048;
+      v38 = v20;
+      v39 = 2048;
+      v40 = *&v21;
       _os_log_impl(&dword_1BB472000, v15, OS_LOG_TYPE_DEFAULT, "[Record view] Video export: movie rendered in %.3fs for a length of %.3fs (%.3f frames rendered per second)", buf, 0x20u);
     }
 
     v22 = [*(a1 + 48) _tmpAudioURL];
-    v23 = [objc_alloc(MEMORY[0x1E6988168]) initWithURL:v22 options:0];
-    v24 = *(a1 + 48);
-    v25 = *(a1 + 88);
-    v40 = v13;
-    v26 = [v24 mergeAudio:v23 andVideoTo:v25 error:&v40];
-    v27 = v40;
+    v23 = [objc_alloc(MEMORY[0x1E6988168]) initWithURL:? options:?];
+    v24 = [*(a1 + 48) mergeAudio:? andVideoTo:? error:?];
+    v25 = v12;
 
-    if (v26)
+    if (v24)
     {
-      v13 = v27;
+      v12 = v25;
     }
 
     else
     {
-      v28 = avt_default_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = avt_default_log(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invoke_cold_2();
       }
 
       sleep(1u);
-      v29 = *(a1 + 48);
-      v30 = *(a1 + 88);
-      v39 = v27;
-      v31 = [v29 mergeAudio:v23 andVideoTo:v30 error:&v39];
-      v13 = v39;
+      v28 = [*(a1 + 48) mergeAudio:? andVideoTo:? error:?];
+      v12 = v25;
 
-      v32 = avt_default_log();
-      v33 = v32;
-      if (v31)
+      v30 = avt_default_log(v29);
+      v31 = v30;
+      if (v28)
       {
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1BB472000, v33, OS_LOG_TYPE_DEFAULT, "[Record view] Video export: audio merge succeeded after 2nd try", buf, 2u);
+          _os_log_impl(&dword_1BB472000, v31, OS_LOG_TYPE_DEFAULT, "[Record view] Video export: audio merge succeeded after 2nd try", buf, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invoke_cold_3();
       }
@@ -1776,7 +1791,7 @@ void __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invo
 
   else
   {
-    v22 = avt_default_log();
+    v22 = avt_default_log(v11);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invoke_cold_1();
@@ -1784,97 +1799,90 @@ void __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invo
   }
 
   [*(a1 + 56) resignCurrent];
-  [*(a1 + 96) willRemoveFromWorld:*(a1 + 80)];
-  v34 = [*(a1 + 48) world];
-  v35 = [v34 clock];
-  [v35 setPaused:0];
+  [*(a1 + 96) willRemoveFromWorld:?];
+  v32 = [*(a1 + 48) world];
+  v33 = [v32 clock];
+  [v33 setPaused:?];
 
-  v36 = *(a1 + 120);
-  if (v36)
+  v34 = *(a1 + 120);
+  if (v34)
   {
-    (*(v36 + 16))(v36, v13);
+    (*(v34 + 16))(v34, v12);
   }
 
   *(*(a1 + 48) + 816) = 0;
   [MEMORY[0x1E69DF378] begin];
-  [MEMORY[0x1E69DF378] setAnimationDuration:0.75];
-  [*(a1 + 104) setPosition:*(a1 + 32)];
-  LODWORD(v37) = *(a1 + 144);
-  [*(a1 + 112) setZFar:v37];
+  [MEMORY[0x1E69DF378] setAnimationDuration:?];
+  [*(a1 + 104) setPosition:?];
+  [*(a1 + 112) setZFar:?];
   [*(a1 + 48) _updateTrackingState];
   [MEMORY[0x1E69DF378] commit];
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startRecordingAudio
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   self->_recordedSampleCount = 0;
   _tmpAudioURL = [(AVTRecordView *)self _tmpAudioURL];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  [defaultManager removeItemAtURL:_tmpAudioURL error:0];
+  [defaultManager removeItemAtURL:? error:?];
 
   self->_audioIsRecording = 0;
-  v5 = *MEMORY[0x1E69874B8];
-  v26 = _tmpAudioURL;
-  v27 = 0;
-  v6 = [MEMORY[0x1E6987ED8] assetWriterWithURL:_tmpAudioURL fileType:v5 error:&v27];
-  v7 = v27;
+  v25 = _tmpAudioURL;
+  v5 = [MEMORY[0x1E6987ED8] assetWriterWithURL:? fileType:? error:?];
+  v6 = 0;
   audioWriter = self->_audioWriter;
-  self->_audioWriter = v6;
+  self->_audioWriter = v5;
 
-  if (v7)
+  if (v6)
   {
-    v9 = avt_default_log();
+    v9 = avt_default_log(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v7;
+      v27 = v6;
       _os_log_impl(&dword_1BB472000, v9, OS_LOG_TYPE_DEFAULT, "[Record view] Audio: failed to create AVAssetWriter with error %@", buf, 0xCu);
     }
   }
 
-  v25 = v7;
+  v24 = v6;
+  v28 = 0;
+  v27 = 0;
   v30 = 0;
   v29 = 0;
-  v32 = 0;
-  v31 = 0;
   *buf = 6553601;
-  v24 = MEMORY[0x1E695DF20];
-  v10 = [MEMORY[0x1E696AD98] numberWithInt:1633772320];
+  v23 = MEMORY[0x1E695DF20];
+  v10 = [MEMORY[0x1E696AD98] numberWithInt:?];
   v11 = *MEMORY[0x1E69582B0];
-  v12 = [MEMORY[0x1E696AD98] numberWithInt:1];
+  v12 = [MEMORY[0x1E696AD98] numberWithInt:?];
   v13 = *MEMORY[0x1E6958300];
-  LODWORD(v14) = 1194083328;
-  v15 = [MEMORY[0x1E696AD98] numberWithFloat:v14];
-  v16 = *MEMORY[0x1E6958348];
-  v17 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:32];
-  v18 = *MEMORY[0x1E6958258];
-  v19 = [MEMORY[0x1E696AD98] numberWithInt:64000];
-  v20 = [v24 dictionaryWithObjectsAndKeys:{v10, v11, v12, v13, v15, v16, v17, v18, v19, *MEMORY[0x1E6958280], 0}];
+  v14 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v15 = *MEMORY[0x1E6958348];
+  v16 = [MEMORY[0x1E695DEF0] dataWithBytes:? length:?];
+  v17 = *MEMORY[0x1E6958258];
+  v18 = [MEMORY[0x1E696AD98] numberWithInt:?];
+  v19 = [v23 dictionaryWithObjectsAndKeys:{v11, v12, v13, v14, v15, v16, v17, v18, *MEMORY[0x1E6958280], 0}];
 
-  v21 = [MEMORY[0x1E6987EE0] assetWriterInputWithMediaType:*MEMORY[0x1E69875A0] outputSettings:v20];
-  [v21 setExpectsMediaDataInRealTime:1];
-  if ([(AVAssetWriter *)self->_audioWriter canAddInput:v21])
+  v20 = [MEMORY[0x1E6987EE0] assetWriterInputWithMediaType:? outputSettings:?];
+  [v20 setExpectsMediaDataInRealTime:?];
+  v21 = [(AVAssetWriter *)self->_audioWriter canAddInput:?];
+  if (v21)
   {
-    [(AVAssetWriter *)self->_audioWriter addInput:v21];
+    [(AVAssetWriter *)self->_audioWriter addInput:?];
     [(AVAssetWriter *)self->_audioWriter startWriting];
     [(NSLock *)self->_audioLock lock];
-    objc_storeStrong(&self->_audioWriterInput, v21);
+    objc_storeStrong(&self->_audioWriterInput, v20);
     [(NSLock *)self->_audioLock unlock];
   }
 
   else
   {
-    v22 = avt_default_log();
+    v22 = avt_default_log(v21);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [AVTRecordView startRecordingAudio];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (opaqueCMSampleBuffer)createSilentAudioAtFrame:(int64_t)frame nFrames:(int)frames sampleRate:(double)rate numChannels:(int)channels
@@ -1883,10 +1891,11 @@ void __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invo
   destinationBuffer = 0;
   v11 = *MEMORY[0x1E695E480];
   v12 = 2 * channels * frames;
-  if (CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x1E695E480], 0, v12, 0, 0, 0, v12, 1u, &destinationBuffer))
+  v13 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x1E695E480], 0, v12, 0, 0, 0, v12, 1u, &destinationBuffer);
+  if (v13)
   {
-    v13 = avt_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = avt_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [AVTRecordView createSilentAudioAtFrame:nFrames:sampleRate:numChannels:];
     }
@@ -1896,10 +1905,11 @@ LABEL_10:
     return 0;
   }
 
-  if (CMBlockBufferFillDataBytes(0, destinationBuffer, 0, v12))
+  v15 = CMBlockBufferFillDataBytes(0, destinationBuffer, 0, v12);
+  if (v15)
   {
-    v13 = avt_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = avt_default_log(v15);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [AVTRecordView createSilentAudioAtFrame:nFrames:sampleRate:numChannels:];
     }
@@ -1915,10 +1925,11 @@ LABEL_10:
   asbd.mChannelsPerFrame = channels;
   *&asbd.mBitsPerChannel = 16;
   formatDescriptionOut = 0;
-  if (CMAudioFormatDescriptionCreate(v11, &asbd, 0, 0, 0, 0, 0, &formatDescriptionOut))
+  v16 = CMAudioFormatDescriptionCreate(v11, &asbd, 0, 0, 0, 0, 0, &formatDescriptionOut);
+  if (v16)
   {
-    v13 = avt_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = avt_default_log(v16);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [AVTRecordView createSilentAudioAtFrame:nFrames:sampleRate:numChannels:];
     }
@@ -1927,15 +1938,15 @@ LABEL_10:
   }
 
   sampleBufferOut = 0;
-  v15 = destinationBuffer;
-  v16 = formatDescriptionOut;
+  v18 = destinationBuffer;
+  v19 = formatDescriptionOut;
   CMTimeMake(&presentationTimeStamp, frame, 1);
-  v17 = CMAudioSampleBufferCreateReadyWithPacketDescriptions(v11, v15, v16, frames, &presentationTimeStamp, 0, &sampleBufferOut);
+  v20 = CMAudioSampleBufferCreateReadyWithPacketDescriptions(v11, v18, v19, frames, &presentationTimeStamp, 0, &sampleBufferOut);
   CFRelease(destinationBuffer);
-  if (v17)
+  if (v20)
   {
-    v18 = avt_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v22 = avt_default_log(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [AVTRecordView createSilentAudioAtFrame:nFrames:sampleRate:numChannels:];
     }
@@ -1962,94 +1973,86 @@ LABEL_10:
 
 - (void)finalizeAudioFile
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   [(NSLock *)self->_audioLock lock];
-  [(AVTRecordView *)self finalVideoDuration];
-  v3 = self->_recordedSampleCount / 44100.0;
-  v5 = fmax(v4 - v3, 0.0) + 0.0166666667;
-  v6 = avt_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  finalVideoDuration = [(AVTRecordView *)self finalVideoDuration];
+  v4 = self->_recordedSampleCount / 44100.0;
+  v6 = fmax(v5 - v4, 0.0) + 0.0166666667;
+  v7 = avt_default_log(finalVideoDuration);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v3 + v5;
+    v8 = v4 + v6;
     recordedSampleCount = self->_recordedSampleCount;
     *buf = 134219008;
-    v9 = v3;
-    v19 = v7;
-    v20 = 2048;
-    v21 = v9;
+    v10 = v4;
+    v17 = v8;
+    v18 = 2048;
+    v19 = v10;
+    v20 = 1024;
+    v21 = recordedSampleCount;
     v22 = 1024;
-    v23 = recordedSampleCount;
+    v23 = 44100;
     v24 = 1024;
-    v25 = 44100;
-    v26 = 1024;
-    v27 = (v5 * 44100.0);
-    _os_log_impl(&dword_1BB472000, v6, OS_LOG_TYPE_DEFAULT, "[Record view] Final audio duration: %.3fs (exact duration: %.3fs for %d samples at %dHz ; %d generated silent samples)", buf, 0x28u);
+    v25 = (v6 * 44100.0);
+    _os_log_impl(&dword_1BB472000, v7, OS_LOG_TYPE_DEFAULT, "[Record view] Final audio duration: %.3fs (exact duration: %.3fs for %d samples at %dHz ; %d generated silent samples)", buf, 0x28u);
   }
 
-  if (v5 > 0.0 && self->_audioIsRecording)
+  if (v6 > 0.0 && self->_audioIsRecording)
   {
-    v10 = [(AVTRecordView *)self createSilentAudioAtFrame:self->_recordedSampleCount nFrames:(v5 * 44100.0) sampleRate:1 numChannels:44100.0];
-    if (v10)
+    v11 = [AVTRecordView createSilentAudioAtFrame:"createSilentAudioAtFrame:nFrames:sampleRate:numChannels:" nFrames:? sampleRate:? numChannels:?];
+    if (v11)
     {
-      v11 = v10;
-      [(AVAssetWriterInput *)self->_audioWriterInput appendSampleBuffer:v10];
-      CFRelease(v11);
+      v12 = v11;
+      [(AVAssetWriterInput *)self->_audioWriterInput appendSampleBuffer:?];
+      CFRelease(v12);
     }
   }
 
   audioWriterInput = self->_audioWriterInput;
   self->_audioWriterInput = 0;
 
-  audioWriter = self->_audioWriter;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __34__AVTRecordView_finalizeAudioFile__block_invoke;
-  v17[3] = &unk_1E7F47F90;
-  v17[4] = self;
-  [(AVAssetWriter *)audioWriter finishWritingWithCompletionHandler:v17];
+  [(AVAssetWriter *)self->_audioWriter finishWritingWithCompletionHandler:?];
   [(NSLock *)self->_audioLock lock];
   [(NSLock *)self->_audioLock unlock];
-  v14 = self->_audioWriter;
+  audioWriter = self->_audioWriter;
   self->_audioWriter = 0;
 
   [(AVCaptureMovieFileOutput *)self->_movieFileOutput stopRecording];
   movieFileOutput = self->_movieFileOutput;
   self->_movieFileOutput = 0;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __34__AVTRecordView_finalizeAudioFile__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 912);
-  if ([v2 status] == 2 && (objc_msgSend(v2, "error"), v3 = objc_claimAutoreleasedReturnValue(), v3, !v3))
+  v3 = [v2 status];
+  if (v3 == 2 && ([v2 error], v4 = objc_claimAutoreleasedReturnValue(), v4, !v4))
   {
-    v4 = avt_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = avt_default_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_1BB472000, v4, OS_LOG_TYPE_DEFAULT, "[Record view] Audio writing did finish", v8, 2u);
+      _os_log_impl(&dword_1BB472000, v5, OS_LOG_TYPE_DEFAULT, "[Record view] Audio writing did finish", v8, 2u);
     }
   }
 
   else
   {
-    v4 = avt_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = avt_default_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(*(a1 + 32) + 912) status];
-      v6 = [*(*(a1 + 32) + 912) error];
+      v6 = [*(*(a1 + 32) + 912) status];
+      v7 = [*(*(a1 + 32) + 912) error];
       v8[0] = 67109378;
-      v8[1] = v5;
+      v8[1] = v6;
       v9 = 2112;
-      v10 = v6;
-      _os_log_impl(&dword_1BB472000, v4, OS_LOG_TYPE_DEFAULT, "[Record view] Audio writing did finish with status:%d, error:%@", v8, 0x12u);
+      v10 = v7;
+      _os_log_impl(&dword_1BB472000, v5, OS_LOG_TYPE_DEFAULT, "[Record view] Audio writing did finish with status:%d, error:%@", v8, 0x12u);
     }
   }
 
   [*(*(a1 + 32) + 920) unlock];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelRecordingAudio
@@ -2084,7 +2087,7 @@ void __34__AVTRecordView_finalizeAudioFile__block_invoke(uint64_t a1)
   if (v5)
   {
     recordDelegate2 = [(AVTRecordView *)self recordDelegate];
-    [recordDelegate2 recordView:self previewDidChangeStatus:2];
+    [recordDelegate2 recordView:? previewDidChangeStatus:?];
   }
 }
 
@@ -2093,18 +2096,17 @@ void __34__AVTRecordView_finalizeAudioFile__block_invoke(uint64_t a1)
   if (!self->_audioPlayer)
   {
     _tmpAudioURL = [(AVTRecordView *)self _tmpAudioURL];
-    v3 = [objc_alloc(MEMORY[0x1E69880B0]) initWithURL:_tmpAudioURL];
-    v4 = [MEMORY[0x1E6988098] playerWithPlayerItem:v3];
+    v3 = [objc_alloc(MEMORY[0x1E69880B0]) initWithURL:?];
+    v4 = [MEMORY[0x1E6988098] playerWithPlayerItem:?];
     audioPlayer = self->_audioPlayer;
     self->_audioPlayer = v4;
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v7 = *MEMORY[0x1E6987A10];
     currentItem = [(AVPlayer *)self->_audioPlayer currentItem];
-    [defaultCenter addObserver:self selector:sel_audioPlayerItemDidReachEnd_ name:v7 object:currentItem];
+    [defaultCenter addObserver:? selector:? name:? object:?];
 
     defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-    [defaultCenter2 addObserver:self selector:sel_audioSessionDidInterrupt_ name:*MEMORY[0x1E69580D8] object:0];
+    [defaultCenter2 addObserver:? selector:? name:? object:?];
 
     [(AVTRecordView *)self updateMuteState];
     [(AVPlayer *)self->_audioPlayer play];
@@ -2118,7 +2120,7 @@ void __34__AVTRecordView_finalizeAudioFile__block_invoke(uint64_t a1)
     v19 = v3;
     v20 = v4;
     userInfo = [interrupt userInfo];
-    v7 = [userInfo objectForKey:*MEMORY[0x1E6958100]];
+    v7 = [userInfo objectForKey:?];
     unsignedLongValue = [v7 unsignedLongValue];
     if (unsignedLongValue)
     {
@@ -2127,7 +2129,7 @@ void __34__AVTRecordView_finalizeAudioFile__block_invoke(uint64_t a1)
         goto LABEL_13;
       }
 
-      v9 = avt_default_log();
+      v9 = avt_default_log(1);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -2144,12 +2146,12 @@ void __34__AVTRecordView_finalizeAudioFile__block_invoke(uint64_t a1)
 
       recordDelegate2 = [(AVTRecordView *)self recordDelegate];
       mEMORY[0x1E6958460] = [MEMORY[0x1E6958460] sharedInstance];
-      [recordDelegate2 recordView:self audioSessionWasInterrupted:mEMORY[0x1E6958460]];
+      [recordDelegate2 recordView:? audioSessionWasInterrupted:?];
     }
 
     else
     {
-      v14 = avt_default_log();
+      v14 = avt_default_log(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *v17 = 0;
@@ -2167,7 +2169,7 @@ void __34__AVTRecordView_finalizeAudioFile__block_invoke(uint64_t a1)
 
       recordDelegate2 = [(AVTRecordView *)self recordDelegate];
       mEMORY[0x1E6958460] = [MEMORY[0x1E6958460] sharedInstance];
-      [recordDelegate2 recordView:self audioSessionInterruptionEnded:mEMORY[0x1E6958460]];
+      [recordDelegate2 recordView:? audioSessionInterruptionEnded:?];
     }
 
 LABEL_13:
@@ -2177,12 +2179,11 @@ LABEL_13:
 - (void)stopPlayingAudio
 {
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v4 = *MEMORY[0x1E6987A10];
   currentItem = [(AVPlayer *)self->_audioPlayer currentItem];
-  [defaultCenter removeObserver:self name:v4 object:currentItem];
+  [defaultCenter removeObserver:? name:? object:?];
 
   defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-  [defaultCenter2 removeObserver:self name:*MEMORY[0x1E69580D8] object:0];
+  [defaultCenter2 removeObserver:? name:? object:?];
 
   [(AVPlayer *)self->_audioPlayer pause];
   audioPlayer = self->_audioPlayer;
@@ -2191,10 +2192,9 @@ LABEL_13:
 
 - (double)currentAudioTime
 {
-  audioPlayer = self->_audioPlayer;
-  if (audioPlayer)
+  if (self->_audioPlayer)
   {
-    [(AVPlayer *)audioPlayer currentTime];
+    [&time currentTime];
   }
 
   else
@@ -2225,7 +2225,7 @@ LABEL_4:
 
   if (self->_doubleBuffer)
   {
-    [(AVTRecordView *)self drawableNotAvailableForTime:time];
+    [(AVTRecordView *)self drawableNotAvailableForTime:?];
   }
 }
 
@@ -2233,16 +2233,16 @@ LABEL_4:
 {
   droppedDoubleBufferFrames = self->_droppedDoubleBufferFrames;
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-  [(NSMutableArray *)droppedDoubleBufferFrames addObject:v6];
+  [(NSMutableArray *)droppedDoubleBufferFrames addObject:?];
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x2020000000;
+  v28[3] = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   if ([(AVTRecordView *)self preferredFramesPerSecond]< 1)
   {
     preferredFramesPerSecond = 60;
@@ -2254,41 +2254,47 @@ LABEL_4:
   }
 
   v8 = 1.0 / preferredFramesPerSecond;
-  v13[0] = 0;
-  v13[1] = v13;
-  v13[2] = 0x2020000000;
-  v13[3] = 0;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2020000000;
+  v23[3] = 0;
   v9 = self->_droppedDoubleBufferFrames;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __45__AVTRecordView_drawableNotAvailableForTime___block_invoke;
-  v12[3] = &unk_1E7F49EB8;
-  v12[4] = &v18;
-  v12[5] = v13;
-  *&v12[7] = time + v8 * -12.0;
-  *&v12[8] = v8;
-  v12[6] = &v14;
-  [(NSMutableArray *)v9 enumerateObjectsUsingBlock:v12];
-  [(NSMutableArray *)self->_droppedDoubleBufferFrames removeObjectsInRange:0, v19[3]];
-  if (v15[3] >= 5 && [(CALayer *)self->_backingLayer isMemberOfClass:objc_opt_class()])
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __45__AVTRecordView_drawableNotAvailableForTime___block_invoke;
+  v17 = &unk_1E7F49EB8;
+  v18 = v28;
+  v19 = v23;
+  v21 = time + v8 * -12.0;
+  v22 = v8;
+  v20 = &v24;
+  [(NSMutableArray *)v9 enumerateObjectsUsingBlock:?];
+  [(NSMutableArray *)self->_droppedDoubleBufferFrames removeObjectsInRange:?];
+  if (v25[3] >= 5)
   {
-    v10 = avt_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    backingLayer = self->_backingLayer;
+    objc_opt_class();
+    v11 = [(CALayer *)backingLayer isMemberOfClass:?];
+    if (v11)
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1BB472000, v10, OS_LOG_TYPE_DEFAULT, "[Record view] *****drawableNotAvailableForTime: SWITCHING TO TRIPLE BUFFERING", v11, 2u);
-    }
+      v12 = avt_default_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        *v13 = 0;
+        _os_log_impl(&dword_1BB472000, v12, OS_LOG_TYPE_DEFAULT, "[Record view] *****drawableNotAvailableForTime: SWITCHING TO TRIPLE BUFFERING", v13, 2u);
+      }
 
-    self->_doubleBuffer = 0;
-    [(CALayer *)self->_backingLayer setMaximumDrawableCount:3];
+      self->_doubleBuffer = 0;
+      [(CALayer *)self->_backingLayer setMaximumDrawableCount:?];
+    }
   }
 
-  _Block_object_dispose(v13, 8);
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(v23, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(v28, 8);
 }
 
-uint64_t __45__AVTRecordView_drawableNotAvailableForTime___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__45__AVTRecordView_drawableNotAvailableForTime___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 doubleValue];
   if (v6 >= *(a1 + 56))
@@ -2317,100 +2323,59 @@ uint64_t __45__AVTRecordView_drawableNotAvailableForTime___block_invoke(uint64_t
 
 - (void)mergeAudio:andVideoTo:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  [0 statusOfValueForKey:@"tracks" error:0];
+  [0 statusOfValueForKey:? error:?];
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeAudio:(void *)a1 andVideoTo:error:.cold.3(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  [a1 statusOfValueForKey:@"tracks" error:0];
+  [a1 statusOfValueForKey:? error:?];
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeAudio:(uint64_t)a1 andVideoTo:(void *)a2 error:.cold.4(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [a2 statusOfValueForKey:@"tracks" error:0];
+  [a2 statusOfValueForKey:? error:?];
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __45__AVTRecordView_mergeAudio_andVideoTo_error___block_invoke_cold_1(id *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [*a1 status];
-  v8 = [*a1 error];
+  v7 = [*a1 error];
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __60__AVTRecordView_exportMovieToURL_options_completionHandler___block_invoke_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createSilentAudioAtFrame:nFrames:sampleRate:numChannels:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createSilentAudioAtFrame:nFrames:sampleRate:numChannels:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createSilentAudioAtFrame:nFrames:sampleRate:numChannels:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createSilentAudioAtFrame:nFrames:sampleRate:numChannels:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

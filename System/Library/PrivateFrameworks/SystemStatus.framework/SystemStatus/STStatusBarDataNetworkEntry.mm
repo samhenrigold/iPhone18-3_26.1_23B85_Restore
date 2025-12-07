@@ -1,4 +1,5 @@
 @interface STStatusBarDataNetworkEntry
++ (id)entryWithStatus:(int64_t)status lowDataMode:(BOOL)mode rawValue:(int64_t)value displayValue:(int64_t)displayValue displayRawValue:(BOOL)rawValue;
 - (STStatusBarDataNetworkEntry)initWithBSXPCCoder:(id)coder;
 - (STStatusBarDataNetworkEntry)initWithCoder:(id)coder;
 - (id)_equalsBuilderWithObject:(id)object;
@@ -21,6 +22,14 @@
   v5 = [succinctDescriptionBuilder appendBool:-[STStatusBarDataNetworkEntry lowDataModeActive](self withName:{"lowDataModeActive"), @"lowDataModeActive"}];
 
   return succinctDescriptionBuilder;
+}
+
++ (id)entryWithStatus:(int64_t)status lowDataMode:(BOOL)mode rawValue:(int64_t)value displayValue:(int64_t)displayValue displayRawValue:(BOOL)rawValue
+{
+  result = [self entryWithRawValue:value displayValue:displayValue displayRawValue:rawValue];
+  *(result + 5) = status;
+  *(result + 32) = mode;
+  return result;
 }
 
 - (void)encodeWithCoder:(id)coder

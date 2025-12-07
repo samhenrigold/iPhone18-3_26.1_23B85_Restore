@@ -23,7 +23,7 @@
 
 - (void)reportStateForUserPreference:(int64_t)preference
 {
-  v3 = sub_1D4620F80();
+  v3 = sub_1D4620F80(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1D462EDA4(v3);
@@ -32,7 +32,7 @@
 
 - (void)reportStateForUserPreferences:(id)preferences
 {
-  v3 = sub_1D4620F80();
+  v3 = sub_1D4620F80(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1D462EDE8(v3);

@@ -158,7 +158,7 @@ void sub_1E4C40D74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -172,13 +172,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -188,7 +188,7 @@ uint64_t ims::debug(uint64_t a1, uint64_t a2)
   v4 = ims::_logger;
   std::__optional_copy_base<ClientConfig const,false>::__optional_copy_base[abi:ne200100](v7, a2);
   std::__optional_copy_base<ClientConfig const,false>::__optional_copy_base[abi:ne200100](v11, v7);
-  ImsLogger::getFacilityWithClientConfig(v11, a1, &v15);
+  ImsLogger::getFacilityWithClientConfig(&v15, v11, a1);
   v5 = ImsLogger::streamForFacilityAndPriority(v4, &v15, 7);
   if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -312,7 +312,7 @@ uint64_t ImsLock::set@<X0>(pthread_mutex_t **this@<X0>, pthread_mutex_t *a2@<X1>
   return result;
 }
 
-uint64_t ImsLogger::streamForFacilityAndPriority(uint64_t a1, uint64_t a2, int a3)
+uint64_t ImsLogger::streamForFacilityAndPriority(uint64_t a1, std::string *a2, int a3)
 {
   v17 = 0;
   ImsLock::set(&v17, (a1 + 376), v18);
@@ -322,12 +322,12 @@ uint64_t ImsLogger::streamForFacilityAndPriority(uint64_t a1, uint64_t a2, int a
     ImsLock::~ImsLock(&v17);
     v7 = ImsLogger::facilityWithName(a1, a2, 1);
     v8 = v7;
-    if (*(v7 + 80) >= a3)
+    if (*(v7 + 20) >= a3)
     {
       v17 = 0;
       ImsLock::set(&v17, (v7 + 88), v18);
       ImsResult::~ImsResult(v18);
-      v10 = *(v8 + 48);
+      v10 = *(v8 + 6);
       if (!v10)
       {
         goto LABEL_23;
@@ -349,7 +349,7 @@ uint64_t ImsLogger::streamForFacilityAndPriority(uint64_t a1, uint64_t a2, int a
         v12 = (v10 - 1) & a3;
       }
 
-      v13 = *(*(v8 + 40) + 8 * v12);
+      v13 = *(*(v8 + 5) + 8 * v12);
       if (!v13 || (v14 = *v13) == 0)
       {
 LABEL_23:
@@ -397,7 +397,7 @@ LABEL_23:
       }
     }
 
-    v9 = *(*(v7 + 32) + 264);
+    v9 = *(*(v7 + 4) + 264);
     if (!v9)
     {
       ims::createNullStream(v7);
@@ -419,25 +419,23 @@ LABEL_24:
   return v9;
 }
 
-void ImsLogger::getFacilityWithClientConfig(ClientConfig *this@<X2>, uint64_t a2@<X1>, std::string *a3@<X8>)
+void ImsLogger::getFacilityWithClientConfig(std::string *__return_ptr a1@<X8>, ClientConfig *this@<X2>, uint64_t a3@<X1>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  if (*(a2 + 23) < 0)
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(a3, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(a1, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a3->__r_.__value_.__l.__data_ = *a2;
-    a3->__r_.__value_.__r.__words[2] = *(a2 + 16);
+    *a1 = *a3;
   }
 
   if (*(this + 48) == 1)
   {
-    ClientConfig::getLogTag(this, &__p);
+    ClientConfig::getLogTag(&__p, this);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -458,7 +456,7 @@ void ImsLogger::getFacilityWithClientConfig(ClientConfig *this@<X2>, uint64_t a2
       size = __p.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(a3, p_p, size);
+    std::string::append(a1, p_p, size);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -520,20 +518,20 @@ void ImsResult::~ImsResult(ImsResult *this)
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t ImsLogger::facilityWithName(uint64_t a1, uint64_t a2, int a3)
+const void *ImsLogger::facilityWithName(uint64_t a1, std::string *a2, int a3)
 {
-  v5 = *(a2 + 23);
+  v5 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    size = a2->__r_.__value_.__l.__size_;
   }
 
-  if (v6)
+  if (size)
   {
     v8 = *(a1 + 127);
     v9 = v8;
@@ -542,7 +540,7 @@ uint64_t ImsLogger::facilityWithName(uint64_t a1, uint64_t a2, int a3)
       v8 = *(a1 + 112);
     }
 
-    if (v6 != v8 || (v5 >= 0 ? (v10 = a2) : (v10 = *a2), v9 >= 0 ? (v11 = (a1 + 104)) : (v11 = *(a1 + 104)), memcmp(v10, v11, v6)))
+    if (size != v8 || (v5 >= 0 ? (v10 = a2) : (v10 = a2->__r_.__value_.__r.__words[0]), v9 >= 0 ? (v11 = (a1 + 104)) : (v11 = *(a1 + 104)), memcmp(v10, v11, size)))
     {
       v16 = 0;
       ImsLock::set(&v16, (a1 + 312), v17);
@@ -550,7 +548,7 @@ uint64_t ImsLogger::facilityWithName(uint64_t a1, uint64_t a2, int a3)
       v12 = *(a1 + 272);
       if (v12)
       {
-        v13 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(v12, a2);
+        v13 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(v12, &a2->__r_.__value_.__l.__data_);
         if (v13)
         {
           v14 = v13[5];
@@ -561,13 +559,13 @@ LABEL_24:
 
         if (a3)
         {
-          ImsLogger::addFacility(a1);
+          ImsLogger::addFacility(a1, a2);
         }
       }
 
       else if (a3)
       {
-        ImsLogger::addFacility(a1);
+        ImsLogger::addFacility(a1, a2);
       }
 
       v14 = 0;
@@ -575,7 +573,7 @@ LABEL_24:
     }
   }
 
-  return a1 + 96;
+  return (a1 + 96);
 }
 
 unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2, unint64_t a3)
@@ -895,16 +893,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (LOBYTE(v13[0]) == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -927,9 +925,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_1E4C4224C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1E4C4224C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x1E69232F0](&a10);
+  MEMORY[0x1E69232F0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -1089,7 +1087,7 @@ void ImsLoggerStreambuf::dump(ImsLoggerStreambuf *this, char *a2)
       v25[0].__locale_ = 0;
       v25[1].__locale_ = 0;
       v26 = 0;
-      ims::ctime(&v35, v15, v25);
+      ims::ctime(v25, &v35, v15);
       if ((*(**(this + 9) + 32))(*(this + 9)))
       {
         v16 = (*(**(this + 9) + 32))(*(this + 9));
@@ -1324,7 +1322,7 @@ void std::stringbuf::__init_buf_ptrs[abi:ne200100](uint64_t a1)
   }
 }
 
-const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1338,13 +1336,13 @@ const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -1364,19 +1362,16 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
-_BYTE *ImsLogger::output(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5, _BYTE *a6, uint64_t a7)
+unsigned __int8 *ImsLogger::output(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 *a5, unsigned __int8 *a6, uint64_t a7)
 {
   v7 = a5;
   if (a5 < a6)
@@ -1418,9 +1413,9 @@ _BYTE *ImsLogger::output(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BY
   return v7;
 }
 
-void ImsLogDestinationOslog::output(uint64_t a1, uint64_t a2, int a3, uint64_t *a4, uint64_t *a5)
+void ImsLogDestinationOslog::output(uint64_t a1, uint64_t a2, int a3, uint64_t **a4, uint64_t *a5)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (*(a1 + 24))
   {
     v7 = *(a1 + 24);
@@ -1449,7 +1444,7 @@ void ImsLogDestinationOslog::output(uint64_t a1, uint64_t a2, int a3, uint64_t *
     {
       if (!v16)
       {
-        goto LABEL_40;
+        return;
       }
 
       v17 = *a4;
@@ -1458,31 +1453,33 @@ void ImsLogDestinationOslog::output(uint64_t a1, uint64_t a2, int a3, uint64_t *
         v17 = a4;
       }
 
-      v26 = 136446466;
-      v27 = v17;
-      v28 = 2082;
-      v29 = a5;
+      v25 = 136446466;
+      v26 = v17;
+      v27 = 2082;
+      v28 = a5;
       v18 = "I [%{public}s]: %{public}s";
       v19 = v7;
       v20 = OS_LOG_TYPE_INFO;
-      goto LABEL_38;
+LABEL_38:
+      v23 = 22;
+      goto LABEL_39;
     }
 
     if (!v16)
     {
-      goto LABEL_40;
+      return;
     }
 
-    v26 = 136446210;
-    v27 = a5;
+    v25 = 136446210;
+    v26 = a5;
     v18 = "%{public}s";
     v19 = v7;
     v20 = OS_LOG_TYPE_INFO;
 LABEL_32:
     v23 = 12;
 LABEL_39:
-    _os_log_impl(&dword_1E4C3F000, v19, v20, v18, &v26, v23);
-    goto LABEL_40;
+    _os_log_impl(&dword_1E4C3F000, v19, v20, v18, &v25, v23);
+    return;
   }
 
   if (a3 != 3)
@@ -1494,7 +1491,7 @@ LABEL_39:
       {
         if (!v21)
         {
-          goto LABEL_40;
+          return;
         }
 
         v22 = *a4;
@@ -1503,10 +1500,10 @@ LABEL_39:
           v22 = a4;
         }
 
-        v26 = 136446466;
-        v27 = v22;
-        v28 = 2082;
-        v29 = a5;
+        v25 = 136446466;
+        v26 = v22;
+        v27 = 2082;
+        v28 = a5;
         v18 = "W [%{public}s]: %{public}s";
       }
 
@@ -1514,7 +1511,7 @@ LABEL_39:
       {
         if (!v21)
         {
-          goto LABEL_40;
+          return;
         }
 
         v24 = *a4;
@@ -1523,27 +1520,25 @@ LABEL_39:
           v24 = a4;
         }
 
-        v26 = 136446466;
-        v27 = v24;
-        v28 = 2082;
-        v29 = a5;
+        v25 = 136446466;
+        v26 = v24;
+        v27 = 2082;
+        v28 = a5;
         v18 = "[%{public}s]: %{public}s";
       }
 
       v19 = v7;
       v20 = OS_LOG_TYPE_DEFAULT;
-LABEL_38:
-      v23 = 22;
-      goto LABEL_39;
+      goto LABEL_38;
     }
 
     if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_40;
+      return;
     }
 
-    v26 = 136446210;
-    v27 = a5;
+    v25 = 136446210;
+    v26 = a5;
     v18 = "%{public}s";
     v19 = v7;
     v20 = OS_LOG_TYPE_DEFAULT;
@@ -1553,38 +1548,41 @@ LABEL_38:
   v11 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
   if (v9)
   {
-    if (v11)
+    if (!v11)
     {
-      v12 = *a4;
-      if (v8 >= 0)
-      {
-        v12 = a4;
-      }
-
-      v26 = 136446466;
-      v27 = v12;
-      v28 = 2082;
-      v29 = a5;
-      v13 = "E [%{public}s]: %{public}s";
-      v14 = v7;
-      v15 = 22;
-      goto LABEL_27;
+      return;
     }
+
+    v12 = *a4;
+    if (v8 >= 0)
+    {
+      v12 = a4;
+    }
+
+    v25 = 136446466;
+    v26 = v12;
+    v27 = 2082;
+    v28 = a5;
+    v13 = "E [%{public}s]: %{public}s";
+    v14 = v7;
+    v15 = 22;
   }
 
-  else if (v11)
+  else
   {
-    v26 = 136446210;
-    v27 = a5;
+    if (!v11)
+    {
+      return;
+    }
+
+    v25 = 136446210;
+    v26 = a5;
     v13 = "%{public}s";
     v14 = v7;
     v15 = 12;
-LABEL_27:
-    _os_log_error_impl(&dword_1E4C3F000, v14, OS_LOG_TYPE_ERROR, v13, &v26, v15);
   }
 
-LABEL_40:
-  v25 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1E4C3F000, v14, OS_LOG_TYPE_ERROR, v13, &v25, v15);
 }
 
 void BambiClient::systemHasPoweredOn(BambiClient *this)
@@ -1800,20 +1798,20 @@ void sub_1E4C43994(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsTlsNw::logPrefixStr(ImsTlsNw *this)
+void ImsTlsNw::logPrefixStr()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C43B2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4C43B2C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -1822,7 +1820,7 @@ void sub_1E4C43B2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN8ImsTcpNw11receiveDataEv_block_invoke(void *a1, char *a2, int a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v4 = a1[6];
   if (v4)
   {
@@ -1836,7 +1834,7 @@ void ___ZN8ImsTcpNw11receiveDataEv_block_invoke(void *a1, char *a2, int a3)
       {
 LABEL_52:
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-        goto LABEL_53;
+        return;
       }
 
       if (a3)
@@ -1846,25 +1844,25 @@ LABEL_52:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           (*(*v10 + 27))(__p, v10);
-          v31 = v38;
-          v32 = *__p;
-          v33 = strerror(a3);
-          v34 = __p;
+          v28 = v35;
+          v29 = *__p;
+          v30 = strerror(a3);
+          v31 = __p;
           *buf = 141558787;
-          if (v31 < 0)
+          if (v28 < 0)
           {
-            v34 = v32;
+            v31 = v29;
           }
 
           *&buf[4] = 1752392040;
-          v40 = 2081;
-          v41 = v34;
-          v42 = 2080;
-          v43 = v33;
-          v44 = 2080;
-          v45 = v11;
+          v37 = 2081;
+          v38 = v31;
+          v39 = 2080;
+          v40 = v30;
+          v41 = 2080;
+          v42 = v11;
           _os_log_error_impl(&dword_1E4C3F000, v12, OS_LOG_TYPE_ERROR, "#E %{private, mask.hash}sConnection read error: %s %s", buf, 0x2Au);
-          if (v38 < 0)
+          if (v35 < 0)
           {
             operator delete(*__p);
           }
@@ -1877,15 +1875,15 @@ LABEL_52:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         (*(*v10 + 27))(__p, v10);
-        v14 = v38 >= 0 ? __p : *__p;
+        v14 = v35 >= 0 ? __p : *__p;
         *buf = 141558531;
         *&buf[4] = 1752392040;
-        v40 = 2081;
-        v41 = v14;
-        v42 = 2048;
-        v43 = a2;
+        v37 = 2081;
+        v38 = v14;
+        v39 = 2048;
+        v40 = a2;
         _os_log_impl(&dword_1E4C3F000, v13, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sReceived data length=%zu", buf, 0x20u);
-        if (v38 < 0)
+        if (v35 < 0)
         {
           operator delete(*__p);
         }
@@ -1910,13 +1908,13 @@ LABEL_20:
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               (*(*v10 + 27))(buf, v10);
-              v19 = v42 >= 0 ? buf : *buf;
+              v19 = v39 >= 0 ? buf : *buf;
               *__p = 141558275;
               *&__p[4] = 1752392040;
-              v36 = 2081;
-              v37 = v19;
+              v33 = 2081;
+              v34 = v19;
               _os_log_impl(&dword_1E4C3F000, v18, OS_LOG_TYPE_DEFAULT, "#W %{private, mask.hash}sImsTcpNw: remote end closed connection", __p, 0x16u);
-              if (SHIBYTE(v42) < 0)
+              if (SHIBYTE(v39) < 0)
               {
                 operator delete(*buf);
               }
@@ -1934,17 +1932,17 @@ LABEL_20:
               operator new();
             }
 
-            v28 = dispatch::queue::get(v10 + 6);
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            v26 = dispatch::queue::get(v10 + 6);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               (*(*v10 + 27))(buf, v10);
-              v29 = v42 >= 0 ? buf : *buf;
+              v27 = v39 >= 0 ? buf : *buf;
               *__p = 141558275;
               *&__p[4] = 1752392040;
-              v36 = 2081;
-              v37 = v29;
-              _os_log_impl(&dword_1E4C3F000, v28, OS_LOG_TYPE_DEFAULT, "#W %{private, mask.hash}sImsTcpNw: no delegate to handle, closing myself", __p, 0x16u);
-              if (SHIBYTE(v42) < 0)
+              v33 = 2081;
+              v34 = v27;
+              _os_log_impl(&dword_1E4C3F000, v26, OS_LOG_TYPE_DEFAULT, "#W %{private, mask.hash}sImsTcpNw: no delegate to handle, closing myself", __p, 0x16u);
+              if (SHIBYTE(v39) < 0)
               {
                 operator delete(*buf);
               }
@@ -1957,24 +1955,22 @@ LABEL_20:
           {
             if (v17)
             {
-              v23 = *(v7 + 120);
               v22 = *(v7 + 128);
               if (v22)
               {
                 atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
               }
 
-              v24 = dispatch::queue::get((v7 + 192));
+              v23 = dispatch::queue::get((v7 + 192));
               if (v16)
               {
                 atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              v26 = a1[7];
-              v25 = a1[8];
-              if (v25)
+              v24 = a1[8];
+              if (v24)
               {
-                atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit((v24 + 8), 1uLL, memory_order_relaxed);
               }
 
               if (v22)
@@ -1982,7 +1978,7 @@ LABEL_20:
                 atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
               }
 
-              v27 = v24;
+              v25 = v23;
               operator new();
             }
 
@@ -2010,9 +2006,6 @@ LABEL_20:
       goto LABEL_20;
     }
   }
-
-LABEL_53:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4C44244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2026,7 +2019,7 @@ void sub_1E4C44244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ImsOutStream::putUnknownString(uint64_t a1, uint64_t a2)
+void ImsOutStream::putUnknownString(uint64_t a1, uint64_t **a2)
 {
   if (ImsOutStream::isRedacting(a1))
   {
@@ -2058,7 +2051,7 @@ void ImsOutStream::putUnknownString(uint64_t a1, uint64_t a2)
 
     else
     {
-      v6 = *(a2 + 8);
+      v6 = a2[1];
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 8), v5, v6);
@@ -2076,7 +2069,7 @@ void sub_1E4C44368(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void *ImsStringOutStream::str@<X0>(ImsStringOutStream *this@<X0>, _BYTE *a2@<X8>)
+const void *ImsStringOutStream::str@<X0>(ImsStringOutStream *this@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](*(this + 3) + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2090,13 +2083,13 @@ const void *ImsStringOutStream::str@<X0>(ImsStringOutStream *this@<X0>, _BYTE *a
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -2151,7 +2144,7 @@ void sub_1E4C44520(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IMSClientManager::callOnImsQueue(void *a1)
+void IMSClientManager::callOnImsQueue(ims *a1)
 {
   ims::getQueue(&queue);
   v2 = queue;
@@ -2163,38 +2156,38 @@ void IMSClientManager::callOnImsQueue(void *a1)
   }
 }
 
-void ims::getQueue(NSObject **a1@<X8>)
+void ims::getQueue(NSObject **__return_ptr a1@<X8>)
 {
-  v3 = sImsDispatchQueue;
+  v2 = sImsDispatchQueue;
   if (sImsDispatchQueue)
   {
     *a1 = sImsDispatchQueue;
 LABEL_6:
 
-    dispatch_retain(v3);
+    dispatch_retain(v2);
     return;
   }
 
-  v3 = dispatch_queue_create("com.apple.ipTelephony.queue", 0);
-  v4 = sImsDispatchQueue;
-  sImsDispatchQueue = v3;
-  if (v4)
+  v2 = dispatch_queue_create("com.apple.ipTelephony.queue", 0);
+  v3 = sImsDispatchQueue;
+  sImsDispatchQueue = v2;
+  if (v3)
   {
-    dispatch_release(v4);
-    v3 = sImsDispatchQueue;
+    dispatch_release(v3);
+    v2 = sImsDispatchQueue;
   }
 
-  *a1 = v3;
-  if (v3)
+  *a1 = v2;
+  if (v2)
   {
     goto LABEL_6;
   }
 }
 
-void ___ZNK3ims12ClientHandle17reportDeviceEventERKj_block_invoke(uint64_t a1)
+void ___ZNK3ims12ClientHandle17reportDeviceEventERKj_block_invoke(IPTelephonyManager *a1)
 {
   IPTelephonyManager::instance(&v3);
-  IPTelephonyManager::handleDeviceEvents(v3, a1 + 32, (a1 + 56));
+  IPTelephonyManager::handleDeviceEvents(v3, a1 + 32, a1 + 14);
   v2 = v4;
   if (v4)
   {
@@ -2213,7 +2206,7 @@ void sub_1E4C446A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IPTelephonyManager::handleDeviceEvents(uint64_t a1, uint64_t a2, int *a3)
+void IPTelephonyManager::handleDeviceEvents(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
   v4 = *(a1 + 232);
   if (!v4)
@@ -2267,10 +2260,10 @@ void IPTelephonyManager::instance(uint64_t *__return_ptr a1@<X8>)
     _ZNSt3__115allocate_sharedB8ne200100I18IPTelephonyManagerNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
-  a1[1] = v2;
-  if (v2)
+  a1[1] = v1;
+  if (v1)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v1 + 8), 1uLL, memory_order_relaxed);
   }
 }
 
@@ -2301,57 +2294,50 @@ void BambiClient::handleKeepAliveWake(BambiClient *this)
 
 void SipStack::handleKeepAliveWake(SipStack *this)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (*(this + 2817) != 1)
   {
-LABEL_14:
-    v10 = *MEMORY[0x1E69E9840];
     return;
   }
 
   v2 = *(this + 31);
   v4 = *(v2 + 336);
   v3 = *(v2 + 344);
-  if (!v3)
+  if (v3)
   {
-    if (*(v4 + 716) == 2)
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    v5 = *(v4 + 716);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+    if (v5 == 2)
     {
-      goto LABEL_4;
-    }
-
-    goto LABEL_8;
-  }
-
-  atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  v5 = *(v4 + 716);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  if (v5 != 2)
-  {
-LABEL_8:
-    v8 = *(this + 24);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      (*(*this + 80))(__p, this);
-      v9 = v12 >= 0 ? __p : __p[0];
-      *buf = 141558275;
-      v14 = 1752392040;
-      v15 = 2081;
-      v16 = v9;
-      _os_log_impl(&dword_1E4C3F000, v8, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sdropping keepalive from APNS since we're not registered", buf, 0x16u);
-      if (v12 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    goto LABEL_14;
-  }
-
 LABEL_4:
-  v6 = *(this + 35);
-  v7 = *MEMORY[0x1E69E9840];
+      v6 = *(this + 35);
 
-  SipTransportLayer::handleKeepAliveWake(v6);
+      SipTransportLayer::handleKeepAliveWake(v6);
+      return;
+    }
+  }
+
+  else if (*(v4 + 716) == 2)
+  {
+    goto LABEL_4;
+  }
+
+  v7 = *(this + 24);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    (*(*this + 80))(__p, this);
+    v8 = v10 >= 0 ? __p : __p[0];
+    *buf = 141558275;
+    v12 = 1752392040;
+    v13 = 2081;
+    v14 = v8;
+    _os_log_impl(&dword_1E4C3F000, v7, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sdropping keepalive from APNS since we're not registered", buf, 0x16u);
+    if (v10 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
 }
 
 void *_ZNSt3__110unique_ptrIZZN8ImsTcpNw11receiveDataEvEUb1_E3__3NS_14default_deleteIS2_EEED1B8ne200100Ev(void *a1)
@@ -2386,14 +2372,14 @@ void *_ZNSt3__110unique_ptrIZZN8ImsTcpNw11receiveDataEvEUb1_E3__3NS_14default_de
 
 void ImsTcpNw::receiveData(ImsTcpNw *this)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*(this + 10) && *(this + 22) == 3)
   {
     std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&__p, this + 2);
-    v2 = v7;
-    if (v7)
+    v2 = v6;
+    if (v6)
     {
-      atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v2);
     }
 
@@ -2404,19 +2390,17 @@ void ImsTcpNw::receiveData(ImsTcpNw *this)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     (*(*this + 216))(&__p, this);
-    v5 = v8 >= 0 ? &__p : __p;
+    v4 = v7 >= 0 ? &__p : __p;
     *buf = 141558275;
-    v10 = 1752392040;
-    v11 = 2081;
-    v12 = v5;
+    v9 = 1752392040;
+    v10 = 2081;
+    v11 = v4;
     _os_log_error_impl(&dword_1E4C3F000, v3, OS_LOG_TYPE_ERROR, "#E %{private, mask.hash}sConnection is not ready to receive data", buf, 0x16u);
-    if (v8 < 0)
+    if (v7 < 0)
     {
       operator delete(__p);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4C44EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, std::__shared_weak_count *a17)
@@ -2489,16 +2473,16 @@ void *_ZZN8dispatch5asyncIZZN8ImsTcpNw11receiveDataEvEUb1_E3__3EEvPU28objcproto1
   return _ZNSt3__110unique_ptrIZZN8ImsTcpNw11receiveDataEvEUb1_E3__3NS_14default_deleteIS2_EEED1B8ne200100Ev(&v2);
 }
 
-void sub_1E4C4501C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4C4501C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _ZNSt3__110unique_ptrIZZN8ImsTcpNw11receiveDataEvEUb1_E3__3NS_14default_deleteIS2_EEED1B8ne200100Ev(va);
   _Unwind_Resume(a1);
 }
 
-void SipTcpConnection::processDataFromSocket(int8x8_t *a1, const void *a2, size_t a3)
+void SipTcpConnection::processDataFromSocket(void *a1, const void *a2, std::string::size_type a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v6 = a1[31];
   if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -2513,14 +2497,14 @@ void SipTcpConnection::processDataFromSocket(int8x8_t *a1, const void *a2, size_
   }
 
   v8 = a1[36];
-  if (*(*&v8 + 24))
+  if (*(v8 + 24))
   {
     goto LABEL_7;
   }
 
-  if ((*(*&v8 + 23) & 0x8000000000000000) != 0)
+  if ((*(v8 + 23) & 0x8000000000000000) != 0)
   {
-    if (*(*&v8 + 8))
+    if (*(v8 + 8))
     {
       goto LABEL_7;
     }
@@ -2530,7 +2514,7 @@ LABEL_86:
     goto LABEL_8;
   }
 
-  if (!*(*&v8 + 23))
+  if (!*(v8 + 23))
   {
     goto LABEL_86;
   }
@@ -2538,10 +2522,10 @@ LABEL_86:
 LABEL_7:
   v9 = "true";
 LABEL_8:
-  std::string::basic_string[abi:ne200100]<0>(&v37, v9);
-  v10 = SHIBYTE(v39);
-  v11 = v37;
-  if (a1[64].i8[4])
+  std::string::basic_string[abi:ne200100]<0>(&v36, v9);
+  v10 = SHIBYTE(v38);
+  v11 = v36;
+  if (*(a1 + 516))
   {
     v12 = "true";
   }
@@ -2552,13 +2536,13 @@ LABEL_8:
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, v12);
-  v13 = &v37;
+  v13 = &v36;
   if (v10 < 0)
   {
     v13 = v11;
   }
 
-  if (v42 >= 0)
+  if (v41 >= 0)
   {
     v14 = __p;
   }
@@ -2572,19 +2556,19 @@ LABEL_8:
   *&buf[4] = 1752392040;
   *&buf[12] = 2081;
   *&buf[14] = p_dst;
-  v44 = 2080;
-  v45 = v13;
-  v46 = 2080;
-  v47 = v14;
+  v43 = 2080;
+  v44 = v13;
+  v45 = 2080;
+  v46 = v14;
   _os_log_impl(&dword_1E4C3F000, v6, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sSipTcpConnection::processDataFromSocket hasPartial=%s crlfInFlight=%s", buf, 0x2Au);
-  if (v42 < 0)
+  if (v41 < 0)
   {
     operator delete(*__p);
   }
 
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(v38) < 0)
   {
-    operator delete(v37);
+    operator delete(v36);
   }
 
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
@@ -2611,10 +2595,10 @@ LABEL_22:
   }
 
   __dst.__r_.__value_.__s.__data_[a3] = 0;
+  v36 = 0;
   v37 = 0;
   v38 = 0;
-  v39 = 0;
-  if (a1[64].i8[4] == 1)
+  if (*(a1 + 516) == 1)
   {
     size = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
     v16 = &__dst;
@@ -2632,90 +2616,90 @@ LABEL_22:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         (*(*a1 + 112))(buf, a1);
-        v18 = v44 >= 0 ? buf : *buf;
+        v18 = v43 >= 0 ? buf : *buf;
         *__p = 141558275;
         *&__p[4] = 1752392040;
         *&__p[12] = 2081;
         *&__p[14] = v18;
         _os_log_impl(&dword_1E4C3F000, v17, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sReceived CRLF pong", __p, 0x16u);
-        if (SHIBYTE(v44) < 0)
+        if (SHIBYTE(v43) < 0)
         {
           operator delete(*buf);
         }
       }
 
-      a1[64].i8[4] = 0;
-      v19 = a1[65].i32[1];
+      *(a1 + 516) = 0;
+      v19 = *(a1 + 131);
       if (v19)
       {
-        a1[65].i32[1] = v19 - 1;
+        *(a1 + 131) = v19 - 1;
       }
 
-      if (SHIBYTE(v39) < 0)
+      if (SHIBYTE(v38) < 0)
       {
-        v38 = 13;
-        v20 = v37;
+        v37 = 13;
+        v20 = v36;
       }
 
       else
       {
-        HIBYTE(v39) = 13;
-        v20 = &v37;
+        HIBYTE(v38) = 13;
+        v20 = &v36;
       }
 
       strcpy(v20, "pong received");
       goto LABEL_53;
     }
 
-    if (a1[64].i8[4])
+    if (*(a1 + 516))
     {
       v21 = a1[31];
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         (*(*a1 + 112))(__p, a1);
-        if (v42 >= 0)
+        if (v41 >= 0)
         {
-          v35 = __p;
+          v34 = __p;
         }
 
         else
         {
-          v35 = *__p;
+          v34 = *__p;
         }
 
-        v36 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+        v35 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
         if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v36 = __dst.__r_.__value_.__l.__size_;
+          v35 = __dst.__r_.__value_.__l.__size_;
         }
 
         *buf = 141558531;
         *&buf[4] = 1752392040;
         *&buf[12] = 2081;
-        *&buf[14] = v35;
-        v44 = 2048;
-        v45 = v36;
+        *&buf[14] = v34;
+        v43 = 2048;
+        v44 = v35;
         _os_log_error_impl(&dword_1E4C3F000, v21, OS_LOG_TYPE_ERROR, "#E %{private, mask.hash}sReceived unexpected payload while waiting for pong; size %zu", buf, 0x20u);
-        if (v42 < 0)
+        if (v41 < 0)
         {
           operator delete(*__p);
         }
       }
 
-      a1[64].i8[4] = 0;
+      *(a1 + 516) = 0;
     }
   }
 
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(v38) < 0)
   {
-    v38 = 7;
-    v22 = v37;
+    v37 = 7;
+    v22 = v36;
   }
 
   else
   {
-    HIBYTE(v39) = 7;
-    v22 = &v37;
+    HIBYTE(v38) = 7;
+    v22 = &v36;
   }
 
   strcpy(v22, "MT-Data");
@@ -2724,7 +2708,7 @@ LABEL_22:
     SipTcpConnection::scheduleTcpIdleTimer(a1);
     std::string::basic_string[abi:ne200100]<0>(buf, "MT-Data");
     SipTcpConnection::reportTcpIdleRescheduleEvent(a1, buf);
-    if (SHIBYTE(v44) < 0)
+    if (SHIBYTE(v43) < 0)
     {
       operator delete(*buf);
     }
@@ -2732,7 +2716,7 @@ LABEL_22:
 
 LABEL_53:
   SipTcpConnection::scheduleCrlfKeepAlive(a1);
-  SipTcpConnection::reportKeepaliveRescheduleEvent(a1, v23, &v37);
+  SipTcpConnection::reportKeepaliveRescheduleEvent(a1, v23, &v36);
   v24 = a1[35];
   if (v24)
   {
@@ -2749,9 +2733,9 @@ LABEL_53:
         v28 = *__p;
         if (*__p)
         {
-          (*(**&v27 + 80))(buf, v27);
+          (*(*v27 + 80))(buf, v27);
           BambiClient::releaseKeepAliveAssertion(v28, buf);
-          if (SHIBYTE(v44) < 0)
+          if (SHIBYTE(v43) < 0)
           {
             operator delete(*buf);
           }
@@ -2768,17 +2752,17 @@ LABEL_53:
   }
 
   v29 = a1[36];
-  if (!*(*&v29 + 24))
+  if (!*(v29 + 24))
   {
-    if ((*(*&v29 + 23) & 0x8000000000000000) != 0)
+    if ((*(v29 + 23) & 0x8000000000000000) != 0)
     {
-      if (*(*&v29 + 8))
+      if (*(v29 + 8))
       {
         goto LABEL_68;
       }
     }
 
-    else if (*(*&v29 + 23))
+    else if (*(v29 + 23))
     {
       goto LABEL_68;
     }
@@ -2793,7 +2777,7 @@ LABEL_68:
     v31 = std::__shared_weak_count::lock(v30);
     if (v31)
     {
-      v32 = *&a1[34] != 0;
+      v32 = a1[34] != 0;
     }
 
     else
@@ -2825,17 +2809,15 @@ LABEL_68:
     std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
-  if (SHIBYTE(v39) < 0)
+  if (SHIBYTE(v38) < 0)
   {
-    operator delete(v37);
+    operator delete(v36);
   }
 
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__dst.__r_.__value_.__l.__data_);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4C456B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -2853,20 +2835,20 @@ void sub_1E4C456B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipTcpConnection::logPrefixStr(SipTcpConnection *this)
+void SipTcpConnection::logPrefixStr()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C45848(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4C45848(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -2895,14 +2877,14 @@ void sub_1E4C4594C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipTcpConnection::loggableName(SipTcpConnection *this)
+void SipTcpConnection::loggableName()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C45A70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
+void sub_1E4C45A70(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
 {
   if (a15 < 0)
   {
@@ -2913,7 +2895,7 @@ void sub_1E4C45A70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   {
     if (a17)
     {
-      (*(*a17 + 8))(a17);
+      (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -3006,67 +2988,65 @@ uint64_t ImsTcpNw::socketLocalAddress@<X0>(uint64_t this@<X0>, void *a2@<X8>)
 
 ImsOutStream *Ip4Address::toStream(Ip4Address *this, ImsOutStream *a2, char a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  *v16 = 0;
-  v17 = 0;
-  v6 = inet_ntop(2, this + 32, v16, 0x10u);
+  v17 = *MEMORY[0x1E69E9840];
+  *v15 = 0;
+  v16 = 0;
+  v6 = inet_ntop(2, this + 32, v15, 0x10u);
   if (v6)
   {
     if (*(a2 + 18) == 1)
     {
-      std::string::basic_string[abi:ne200100]<0>(&v11, IpAddress::kAnonymousIPv4);
+      std::string::basic_string[abi:ne200100]<0>(&v10, IpAddress::kAnonymousIPv4);
     }
 
     else
     {
-      std::string::basic_string[abi:ne200100]<0>(&v11, v6);
+      std::string::basic_string[abi:ne200100]<0>(&v10, v6);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v10, "x.x.x.x");
-    PIIString::PIIString(v12, &v11, &v10);
-    (*(*a2 + 48))(a2, v12);
-    if (v15 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v9, "x.x.x.x");
+    PIIString::PIIString(v11, &v10, &v9);
+    (*(*a2 + 48))(a2, v11);
+    if (v14 < 0)
     {
       operator delete(__p);
     }
 
-    if (v13 < 0)
+    if (v12 < 0)
     {
-      operator delete(v12[0]);
+      operator delete(v11[0]);
+    }
+
+    if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v9.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v10.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v11.__r_.__value_.__l.__data_);
       if ((a3 & 1) == 0)
       {
-        goto LABEL_17;
+        return a2;
       }
     }
 
     else if ((a3 & 1) == 0)
     {
-      goto LABEL_17;
+      return a2;
     }
 
     if (*(this + 15))
     {
       v7 = *(a2 + 1);
-      LOBYTE(v12[0]) = 58;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v12, 1);
+      LOBYTE(v11[0]) = 58;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v11, 1);
       *(a2 + 17) = 0;
       MEMORY[0x1E6923390](*(a2 + 1), bswap32(*(this + 15)) >> 16);
       *(a2 + 17) = 0;
     }
   }
 
-LABEL_17:
-  v8 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
@@ -3142,7 +3122,7 @@ BOOL ImsOutStream::isRedacting(ImsOutStream *this)
 
 void SipTransportLayer::handleKeepAliveWake(SipTransportLayer *this)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = *(this + 2);
   if (v2)
   {
@@ -3162,7 +3142,7 @@ void SipTransportLayer::handleKeepAliveWake(SipTransportLayer *this)
             if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
             {
               (*(*this + 224))(__p, this);
-              if (v11 >= 0)
+              if (v10 >= 0)
               {
                 v8 = __p;
               }
@@ -3173,11 +3153,11 @@ void SipTransportLayer::handleKeepAliveWake(SipTransportLayer *this)
               }
 
               *buf = 141558275;
-              v13 = 1752392040;
-              v14 = 2081;
-              v15 = v8;
+              v12 = 1752392040;
+              v13 = 2081;
+              v14 = v8;
               _os_log_impl(&dword_1E4C3F000, v7, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sSipTransportLayer::handleKeepAliveWake()", buf, 0x16u);
-              if (v11 < 0)
+              if (v10 < 0)
               {
                 operator delete(__p[0]);
               }
@@ -3193,24 +3173,22 @@ void SipTransportLayer::handleKeepAliveWake(SipTransportLayer *this)
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void SipTransportLayer::logPrefixStr(SipTransportLayer *this)
+void SipTransportLayer::logPrefixStr()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C46324(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4C46324(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -3354,27 +3332,29 @@ void SipTlsTransportGroup::handleKeepAliveWake(SipTlsTransportGroup *this)
   }
 }
 
-void SipTcpConnection::sendPing(int8x8_t *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+double SipTcpConnection::sendPing@<D0>(SipTcpConnection *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  if (SipTcpConnection::isLazuliConnection(this) && ((v6 = time(0), v7 = this[68], !SipTcpConnection::isOnWiFi(this)) ? (v8 = 540) : (v8 = (80 * this[67].i32[0]) / 0x64uLL), (this[64].i8[4] & 1) != 0 || (v8 + *&v7) > v6))
+  v3 = a2;
+  v24 = *MEMORY[0x1E69E9840];
+  if (SipTcpConnection::isLazuliConnection(this) && ((v6 = time(0), v7 = *(this + 68), !SipTcpConnection::isOnWiFi(this)) ? (v8 = 540) : (v8 = (80 * *(this + 134)) / 0x64uLL), (*(this + 516) & 1) != 0 || (v8 + v7) > v6))
   {
-    v19 = this[31];
+    v19 = *(this + 31);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       (*(*this + 112))(__p, this);
-      v20 = v23 >= 0 ? __p : __p[0];
+      v20 = v22 >= 0 ? __p : __p[0];
       *buf = 141558275;
       *&buf[4] = 1752392040;
       *&buf[12] = 2081;
       *&buf[14] = v20;
       _os_log_impl(&dword_1E4C3F000, v19, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}stoo soon to send another keepalive. skipping.", buf, 0x16u);
-      if (v23 < 0)
+      if (v22 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
+    result = 0.0;
     *(a3 + 24) = 0u;
     *(a3 + 40) = 0u;
     *(a3 + 56) = 0u;
@@ -3386,14 +3366,14 @@ void SipTcpConnection::sendPing(int8x8_t *this@<X0>, int a2@<W1>, uint64_t a3@<X
 
   else
   {
-    v9 = this[35];
+    v9 = *(this + 35);
     if (v9)
     {
       v10 = std::__shared_weak_count::lock(v9);
       if (v10)
       {
         v11 = v10;
-        v12 = this[34];
+        v12 = *(this + 34);
         if (v12)
         {
           *buf = 0;
@@ -3402,9 +3382,9 @@ void SipTcpConnection::sendPing(int8x8_t *this@<X0>, int a2@<W1>, uint64_t a3@<X
           v13 = *buf;
           if (*buf)
           {
-            (*(**&v12 + 80))(__p, v12);
-            BambiClient::acquireKeepAliveAssertion(v13, __p, this[42].u32[0], a2);
-            if (v23 < 0)
+            (*(*v12 + 80))(__p, v12);
+            BambiClient::acquireKeepAliveAssertion(v13, __p, *(this + 84), v3);
+            if (v22 < 0)
             {
               operator delete(__p[0]);
             }
@@ -3420,28 +3400,27 @@ void SipTcpConnection::sendPing(int8x8_t *this@<X0>, int a2@<W1>, uint64_t a3@<X
       }
     }
 
-    if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(&this[44], "KeepaliveTimeout"))
+    if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(this + 44, "KeepaliveTimeout"))
     {
-      SipTimerContainer::cancelTimer(this + 43, "KeepaliveTimeout");
+      SipTimerContainer::cancelTimer((this + 344), "KeepaliveTimeout");
     }
 
-    if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(&this[44], "PongReceiveTimeout"))
+    if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(this + 44, "PongReceiveTimeout"))
     {
-      SipTimerContainer::cancelTimer(this + 43, "PongReceiveTimeout");
+      SipTimerContainer::cancelTimer((this + 344), "PongReceiveTimeout");
     }
 
-    this[64].i8[4] = 1;
+    *(this + 516) = 1;
     if (SipTcpConnection::isLazuliConnection(this))
     {
-      v14 = this[28];
+      v14 = *(this + 28);
       if (v14)
       {
-        v15 = this[27];
-        v16 = std::__shared_weak_count::lock(v14);
-        if (v16)
+        v15 = std::__shared_weak_count::lock(v14);
+        if (v15)
         {
-          atomic_fetch_add_explicit(&v16->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+          atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v15);
           operator new();
         }
       }
@@ -3449,17 +3428,17 @@ void SipTcpConnection::sendPing(int8x8_t *this@<X0>, int a2@<W1>, uint64_t a3@<X
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v17 = this[31];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = *(this + 31);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       (*(*this + 112))(__p, this);
-      v18 = v23 >= 0 ? __p : __p[0];
+      v17 = v22 >= 0 ? __p : __p[0];
       *buf = 141558275;
       *&buf[4] = 1752392040;
       *&buf[12] = 2081;
-      *&buf[14] = v18;
-      _os_log_impl(&dword_1E4C3F000, v17, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}ssending CRLF ping", buf, 0x16u);
-      if (v23 < 0)
+      *&buf[14] = v17;
+      _os_log_impl(&dword_1E4C3F000, v16, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}ssending CRLF ping", buf, 0x16u);
+      if (v22 < 0)
       {
         operator delete(__p[0]);
       }
@@ -3468,7 +3447,7 @@ void SipTcpConnection::sendPing(int8x8_t *this@<X0>, int a2@<W1>, uint64_t a3@<X
     SipTcpConnection::sendData(this, a3);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void sub_1E4C46A80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21)
@@ -3507,7 +3486,7 @@ void *ImsOutStream::putLoggableString(ImsOutStream *this, const LoggableString *
 
 uint64_t SipTcpConnection::crlfKeepAliveAllowed(SipTcpConnection *this)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (*(this + 134))
   {
     goto LABEL_35;
@@ -3573,16 +3552,16 @@ uint64_t SipTcpConnection::crlfKeepAliveAllowed(SipTcpConnection *this)
                   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
                   {
                     (*(*this + 112))(__p, this);
-                    v12 = v19 >= 0 ? __p : __p[0];
+                    v12 = v18 >= 0 ? __p : __p[0];
                     v13 = *(this + 134);
                     *buf = 141558531;
                     *&buf[4] = 1752392040;
                     *&buf[12] = 2081;
                     *&buf[14] = v12;
-                    v21 = 1024;
-                    v22 = v13;
+                    v20 = 1024;
+                    v21 = v13;
                     _os_log_impl(&dword_1E4C3F000, v11, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sUsing last known current keepalive interval  %u", buf, 0x1Cu);
-                    if (v19 < 0)
+                    if (v18 < 0)
                     {
                       operator delete(__p[0]);
                     }
@@ -3635,7 +3614,6 @@ LABEL_35:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
@@ -3745,14 +3723,14 @@ BOOL ims::AccessNetwork::isWifi(ims::AccessNetwork *this)
   return v5 != v3 && v5 - v1 != -1;
 }
 
-const void **SipTimerContainer::cancelTimer(int8x8_t *a1, std::string *a2)
+const void **SipTimerContainer::cancelTimer(SipTimerContainer *a1, std::string *a2)
 {
-  result = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(&a1[1], &a2->__r_.__value_.__l.__data_);
+  result = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(a1 + 1, &a2->__r_.__value_.__l.__data_);
   if (result)
   {
     v5 = result;
-    std::__optional_destruct_base<ClientConfig const,false>::__optional_destruct_base[abi:ne200100]<ClientConfig const&>(v10, &a1[9]);
-    v6 = ims::debug(&a1[6], v10);
+    std::__optional_destruct_base<ClientConfig const,false>::__optional_destruct_base[abi:ne200100]<ClientConfig const&>(v10, a1 + 9);
+    v6 = ims::debug(a1 + 48, v10);
     (*(*a1 + 24))(v8, a1);
     (*(*v6 + 40))(v6, v8);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), ": canceling timer ", 18);
@@ -3797,7 +3775,7 @@ void sub_1E4C471E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -3827,23 +3805,24 @@ uint64_t std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::O
   return v5;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-void AssertionCounter::initialize(atomic_uint *this@<X0>, double a2@<D0>, char a3@<W1>, uint64_t a4@<X8>)
+void AssertionCounter::initialize(atomic_uint *this@<X0>, double a2@<D0>, unsigned __int16 a3@<W1>, uint64_t a4@<X8>)
 {
+  v4 = a3;
   atomic_fetch_add(this + 6, 1u);
   std::string::basic_string[abi:ne200100]<0>(v15, "power");
   v11[0] = 0;
@@ -3870,7 +3849,7 @@ void AssertionCounter::initialize(atomic_uint *this@<X0>, double a2@<D0>, char a
   }
 
   v10 = *(this + 4);
-  if (*(v10 + 6))
+  if (v10[6])
   {
     *(a4 + 24) = 0u;
     *(a4 + 40) = 0u;
@@ -3883,7 +3862,7 @@ void AssertionCounter::initialize(atomic_uint *this@<X0>, double a2@<D0>, char a
 
   else
   {
-    ImsPowerAssertion::initialize(v10, a2, a3, a4);
+    ImsPowerAssertion::initialize(v10, a2, v4, a4);
   }
 }
 
@@ -4039,10 +4018,10 @@ void BambiClient::acquireKeepAliveAssertion(void *a1, uint64_t a2, unsigned int 
     operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  if (a1 + 55 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 54), &__str.__r_.__value_.__l.__data_))
+  if (a1 + 55 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 54), &__str))
   {
     v32.__r_.__value_.__r.__words[0] = &__str;
-    v21 = std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 54), &__str.__r_.__value_.__l.__data_);
+    v21 = std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 54), &__str, &std::piecewise_construct, &v32, &v29);
     AssertionCounter::initialize(*(v21 + 56), 30.0, !isWifi, v22);
     ImsResult::~ImsResult(v22);
     *&v32.__r_.__value_.__l.__data_ = 0uLL;
@@ -4189,178 +4168,7 @@ LABEL_3:
   }
 }
 
-{
-  v6 = std::__string_hash<char>::operator()[abi:ne200100]((a1 + 31), a2);
-  v7 = a1[32];
-  if (!*&v7)
-  {
-    goto LABEL_17;
-  }
-
-  v8 = v6;
-  v9 = vcnt_s8(v7);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
-  {
-    v11 = v6;
-    if (v6 >= *&v7)
-    {
-      v11 = v6 % *&v7;
-    }
-  }
-
-  else
-  {
-    v11 = (*&v7 - 1) & v6;
-  }
-
-  v12 = *(a1[31] + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
-  {
-LABEL_17:
-    v15 = a1[29];
-    if (v15)
-    {
-      if (*(v15 + 4455) < 0)
-      {
-        std::string::__init_copy_ctor_external(&__p, *(v15 + 4432), *(v15 + 4440));
-      }
-
-      else
-      {
-        __p = *(v15 + 4432);
-      }
-
-      v16 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        size = __p.__r_.__value_.__l.__size_;
-      }
-
-      v18 = *(a2 + 23);
-      v19 = v18;
-      if ((v18 & 0x80u) != 0)
-      {
-        v18 = *(a2 + 8);
-      }
-
-      if (size == v18)
-      {
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          p_p = &__p;
-        }
-
-        else
-        {
-          p_p = __p.__r_.__value_.__r.__words[0];
-        }
-
-        if (v19 >= 0)
-        {
-          v21 = a2;
-        }
-
-        else
-        {
-          v21 = *a2;
-        }
-
-        v22 = memcmp(p_p, v21, size) == 0;
-        if (v16 < 0)
-        {
-LABEL_40:
-          operator delete(__p.__r_.__value_.__l.__data_);
-          if (!v22)
-          {
-            goto LABEL_41;
-          }
-
-LABEL_37:
-          v24 = a1[29];
-          v23 = a1[30];
-          goto LABEL_38;
-        }
-      }
-
-      else
-      {
-        v22 = 0;
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          goto LABEL_40;
-        }
-      }
-
-      if (v22)
-      {
-        goto LABEL_37;
-      }
-    }
-
-LABEL_41:
-    *a3 = 0;
-    a3[1] = 0;
-    return;
-  }
-
-  while (1)
-  {
-    v14 = v13[1];
-    if (v8 == v14)
-    {
-      break;
-    }
-
-    if (v10 > 1)
-    {
-      if (v14 >= *&v7)
-      {
-        v14 %= *&v7;
-      }
-    }
-
-    else
-    {
-      v14 &= *&v7 - 1;
-    }
-
-    if (v14 != v11)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_16:
-    v13 = *v13;
-    if (!v13)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100]((a1 + 31), v13 + 2, a2))
-  {
-    goto LABEL_16;
-  }
-
-  v24 = v13[5];
-  v23 = v13[6];
-LABEL_38:
-  *a3 = v24;
-  a3[1] = v23;
-  if (v23)
-  {
-    atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
-  }
-}
-
-void ImsPowerAssertion::initialize(ImsPowerAssertion *this@<X0>, double a2@<D0>, char a3@<W1>, uint64_t a4@<X8>)
+void ImsPowerAssertion::initialize(IOPMAssertionID *this@<X0>, double a2@<D0>, char a3@<W1>, uint64_t a4@<X8>)
 {
   ImsPowerAssertion::deinitialize(this);
   v38[0] = 0;
@@ -4412,10 +4220,10 @@ void ImsPowerAssertion::initialize(ImsPowerAssertion *this@<X0>, double a2@<D0>,
     v31 = 0;
     theValue = 0;
     ims::CFNumber::CFNumber(&v31, a2);
-    if (IOPMAssertionSetProperty(*(this + 6), @"TimeoutSeconds", theValue))
+    if (IOPMAssertionSetProperty(this[6], @"TimeoutSeconds", theValue))
     {
-      IOPMAssertionRelease(*(this + 6));
-      *(this + 6) = 0;
+      IOPMAssertionRelease(this[6]);
+      this[6] = 0;
       std::string::basic_string[abi:ne200100]<0>(&__p, "power");
       v24 = 0u;
       v25 = 0u;
@@ -4457,7 +4265,7 @@ void ImsPowerAssertion::initialize(ImsPowerAssertion *this@<X0>, double a2@<D0>,
         ims::CFMutableArray::appendValue(&__p, @"audio-out");
       }
 
-      if (IOPMAssertionSetProperty(*(this + 6), @"ResourcesUsed", v29))
+      if (IOPMAssertionSetProperty(this[6], @"ResourcesUsed", v29))
       {
         std::string::basic_string[abi:ne200100]<0>(&v20, "power");
         v16[0] = 0;
@@ -4494,7 +4302,7 @@ void ImsPowerAssertion::initialize(ImsPowerAssertion *this@<X0>, double a2@<D0>,
   ims::CFType::~CFType(v38);
 }
 
-void sub_1E4C47FE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, char a50)
+void sub_1E4C47FE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, char a50)
 {
   ims::CFType::~CFType(&a33);
   ims::CFType::~CFType(&a39);
@@ -4634,12 +4442,12 @@ void SipTimerInfo::~SipTimerInfo(SipTimerInfo *this)
   {
     v2 = *(this + 4);
     v3 = *(this + 6);
-    std::__optional_destruct_base<ClientConfig const,false>::__optional_destruct_base[abi:ne200100]<ClientConfig const&>(v13, (v3 + 72));
-    v4 = ims::debug(v3 + 48, v13);
+    std::__optional_destruct_base<ClientConfig const,false>::__optional_destruct_base[abi:ne200100]<ClientConfig const&>(v12, (v3 + 72));
+    v4 = ims::debug(v3 + 48, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "Canceling system wake for timer ", 32);
     *(v4 + 17) = 0;
-    ims::CFString::asString(*(this + 3), 0x8000100, &v11);
-    LoggableString::LoggableString(&__p, &v11);
+    ims::CFString::asString(&v10, *(this + 3), 0x8000100);
+    LoggableString::LoggableString(&__p, &v10);
     (*(*v4 + 40))(v4, &__p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), " at ", 4);
     v5 = v2 + -4.0;
@@ -4652,40 +4460,39 @@ void SipTimerInfo::~SipTimerInfo(SipTimerInfo *this)
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v11.__r_.__value_.__l.__data_);
+      operator delete(v10.__r_.__value_.__l.__data_);
     }
 
-    if (v16 == 1 && v15 < 0)
+    if (v15 == 1 && v14 < 0)
     {
-      operator delete(v14);
+      operator delete(v13);
     }
 
     v7 = CFDateCreate(0, v5);
-    v8 = *(this + 3);
     CPCancelWakeAtDateWithIdentifier();
     CFRelease(v7);
     CFRelease(*(this + 3));
     *(this + 3) = 0;
   }
 
-  v9 = *(this + 5);
-  if (v9)
+  v8 = *(this + 5);
+  if (v8)
   {
-    dispatch_release(v9);
+    dispatch_release(v8);
   }
 
-  v10 = *(this + 11);
+  v9 = *(this + 11);
   *(this + 11) = 0;
-  if (v10 == (this + 64))
+  if (v9 == (this + 64))
   {
-    (*(*v10 + 32))(v10);
+    (*(*v9 + 32))(v9);
   }
 
-  else if (v10)
+  else if (v9)
   {
-    (*(*v10 + 40))(v10);
+    (*(*v9 + 40))(v9);
   }
 
   std::__function::__value_func<void ()(std::string &)>::~__value_func[abi:ne200100](this + 64);
@@ -4721,24 +4528,21 @@ void std::__function::__func<SipTcpConnection::scheduleCrlfKeepAlive(void)::$_0,
   operator delete(__p);
 }
 
-uint64_t SipTimerContainer::startTimer(int8x8_t *a1, uint64_t a2)
+uint64_t SipTimerContainer::startTimer(SipTimerContainer *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 23);
-  if ((v2 & 0x80u) != 0)
+  v5 = *(a2 + 23);
+  if ((v5 & 0x80u) != 0)
   {
-    v2 = *(a2 + 8);
+    v5 = *(a2 + 8);
   }
 
-  if (v2)
+  if (v5)
   {
     SipTimerContainer::cancelTimer(a1, a2);
     operator new();
   }
 
-  result = 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 uint64_t std::__function::__value_func<void ()(std::string &)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -4793,10 +4597,10 @@ void std::__function::__func<SipTcpConnection::sendPing(BOOL)::$_0,std::allocato
   operator delete(__p);
 }
 
-void SipTcpConnection::sendData(int8x8_t *this@<X0>, uint64_t a2@<X8>)
+void SipTcpConnection::sendData(SipTcpConnection *this@<X0>, uint64_t a2@<X8>)
 {
-  v5 = this[32];
-  if (v5)
+  v4 = *(this + 32);
+  if (v4)
   {
     *(a2 + 80) = 0;
     *(a2 + 48) = 0u;
@@ -4804,19 +4608,19 @@ void SipTcpConnection::sendData(int8x8_t *this@<X0>, uint64_t a2@<X8>)
     *(a2 + 16) = 0u;
     *(a2 + 32) = 0u;
     *a2 = 0u;
-    (*(**&v5 + 32))(a2);
+    (*(*v4 + 32))(a2);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     __p = &unk_1F5EBDEF8;
-    v10 = &_bambiDomain;
-    v11 = 1073741840;
+    v9 = &_bambiDomain;
+    v10 = 1073741840;
     if (*(a2 + 8) == &_bambiDomain)
     {
-      v7 = *(a2 + 16);
+      v6 = *(a2 + 16);
       ImsResult::~ImsResult(&__p);
-      if (v7 == 1073741840)
+      if (v6 == 1073741840)
       {
         SipTcpConnection::removeFromTransport(this);
       }
@@ -4827,12 +4631,12 @@ void SipTcpConnection::sendData(int8x8_t *this@<X0>, uint64_t a2@<X8>)
       ImsResult::~ImsResult(&__p);
     }
 
-    if (((*(**(a2 + 8) + 24))(*(a2 + 8), *(a2 + 16)) & 1) == 0 && (this[64].i8[4] & 1) == 0)
+    if (((*(**(a2 + 8) + 24))(*(a2 + 8), *(a2 + 16)) & 1) == 0 && (*(this + 516) & 1) == 0)
     {
       SipTcpConnection::scheduleCrlfKeepAlive(this);
       std::string::basic_string[abi:ne200100]<0>(&__p, "MO-Data");
-      SipTcpConnection::reportKeepaliveRescheduleEvent(this, v8, &__p);
-      if (v12 < 0)
+      SipTcpConnection::reportKeepaliveRescheduleEvent(this, v7, &__p);
+      if (v11 < 0)
       {
         operator delete(__p);
       }
@@ -4842,7 +4646,7 @@ void SipTcpConnection::sendData(int8x8_t *this@<X0>, uint64_t a2@<X8>)
         SipTcpConnection::scheduleTcpIdleTimer(this);
         std::string::basic_string[abi:ne200100]<0>(&__p, "MO-Data");
         SipTcpConnection::reportTcpIdleRescheduleEvent(this, &__p);
-        if (v12 < 0)
+        if (v11 < 0)
         {
           operator delete(__p);
         }
@@ -4852,15 +4656,15 @@ void SipTcpConnection::sendData(int8x8_t *this@<X0>, uint64_t a2@<X8>)
 
   else
   {
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     __p = &unk_1F5EBDEF8;
-    v10 = &_bambiDomain;
-    v11 = 1073741827;
-    v6 = ImsResult::operator<<<char [33]>(&__p, "send: connection not initialized");
-    ImsResult::ImsResult(a2, v6);
+    v9 = &_bambiDomain;
+    v10 = 1073741827;
+    v5 = ImsResult::operator<<<char [33]>(&__p, "send: connection not initialized");
+    ImsResult::ImsResult(a2, v5);
     ImsResult::~ImsResult(&__p);
   }
 }
@@ -4876,22 +4680,22 @@ void sub_1E4C49DD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ImsTcpNw::sendOverSocket(id *this@<X0>, const unsigned __int8 *a2@<X1>, size_t a3@<X2>, ImsTcpNw *a4@<X8>)
+void ImsTcpNw::sendOverSocket(id *this@<X0>, char *a2@<X1>, size_t a3@<X2>, ImsTcpNw *a4@<X8>)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v8 = dispatch::queue::get(this + 6);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     (*(*this + 27))(__p, this);
-    v9 = v12 >= 0 ? __p : __p[0];
+    v9 = v11 >= 0 ? __p : __p[0];
     *buf = 141558531;
-    v14 = 1752392040;
-    v15 = 2081;
-    v16 = v9;
-    v17 = 2048;
-    v18 = a3;
+    v13 = 1752392040;
+    v14 = 2081;
+    v15 = v9;
+    v16 = 2048;
+    v17 = a3;
     _os_log_impl(&dword_1E4C3F000, v8, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}ssendOverSocket %zu bytes", buf, 0x20u);
-    if (SHIBYTE(v12) < 0)
+    if (SHIBYTE(v11) < 0)
     {
       operator delete(__p[0]);
     }
@@ -4901,13 +4705,12 @@ void ImsTcpNw::sendOverSocket(id *this@<X0>, const unsigned __int8 *a2@<X1>, siz
   {
     __p[0] = 0;
     __p[1] = 0;
-    v12 = 0;
+    v11 = 0;
     std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(__p, a2, &a2[a3], a3);
-    std::__list_imp<std::vector<unsigned char>>::__create_node[abi:ne200100]<std::vector<unsigned char> const&>();
+    std::__list_imp<std::vector<unsigned char>>::__create_node[abi:ne200100]<std::vector<unsigned char> const&>((this + 30), 0, 0, __p);
   }
 
   ImsTcpNw::writeToNw(a4, this, a2, a3);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4C4A0D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -4920,7 +4723,7 @@ void sub_1E4C4A0D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ImsTcpNw::writeToNw(ImsTcpNw *this, id *a2, const void *a3, size_t a4)
+double ImsTcpNw::writeToNw(ImsTcpNw *this, id *a2, const void *a3, size_t a4)
 {
   v23 = *MEMORY[0x1E69E9840];
   if (a2[10])
@@ -4988,6 +4791,7 @@ void ImsTcpNw::writeToNw(ImsTcpNw *this, id *a2, const void *a3, size_t a4)
 
   else
   {
+    result = 0.0;
     *(this + 24) = 0u;
     *(this + 40) = 0u;
     *(this + 56) = 0u;
@@ -4997,23 +4801,23 @@ void ImsTcpNw::writeToNw(ImsTcpNw *this, id *a2, const void *a3, size_t a4)
     *(this + 4) = 0x40000000;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
-void SipTimerContainer::loggableName(SipTimerContainer *this)
+void SipTimerContainer::loggableName()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C4A5DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
+void sub_1E4C4A5DC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
 {
   if (a18 == 1)
   {
     if (a17)
     {
-      (*(*a17 + 8))(a17);
+      (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -5035,8 +4839,7 @@ uint64_t ImsTcpNw::remoteEndAddress@<X0>(uint64_t this@<X0>, void *a2@<X8>)
 
 std::string *LoggableString::LoggableString(std::string *a1, const std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   std::string::operator=(a1, a2);
   return a1;
@@ -5119,12 +4922,12 @@ unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::__hash_len_17_to_32[ab
   return 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
 }
 
-void *ImsOutStream::putPIIString(uint64_t a1, uint64_t a2)
+void *ImsOutStream::putPIIString(uint64_t a1, uint64_t ***a2)
 {
   if (ImsOutStream::isRedacting(a1))
   {
 
-    return ImsOutStream::putRedactedString(a1, a2 + 24);
+    return ImsOutStream::putRedactedString(a1, a2 + 3);
   }
 
   else
@@ -5147,7 +4950,7 @@ void *ImsOutStream::putPIIString(uint64_t a1, uint64_t a2)
 
     else
     {
-      v7 = *(a2 + 8);
+      v7 = a2[1];
     }
 
     result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a1 + 8), v6, v7);
@@ -5157,51 +4960,49 @@ void *ImsOutStream::putPIIString(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t SipTcpConnection::scheduleCrlfKeepAlive(SipTcpConnection *this)
+void SipTcpConnection::scheduleCrlfKeepAlive(os_log_t *this)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  result = SipTcpConnection::crlfKeepAliveAllowed(this);
-  if (result)
+  v33 = *MEMORY[0x1E69E9840];
+  if (SipTcpConnection::crlfKeepAliveAllowed(this))
   {
-    v3 = SipTcpConnection::isOnWiFi(this);
-    v4 = *(this + 70);
-    if (v3)
+    v2 = SipTcpConnection::isOnWiFi(this);
+    v3 = this[70];
+    if (v2)
     {
-      if (v4)
+      if (v3)
       {
         goto LABEL_22;
       }
 
-      v5 = *(this + 31);
-      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-      if (v6)
+      v4 = this[31];
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        (*(*this + 112))(__p, this);
-        v7 = v32 >= 0 ? __p : *__p;
+        ((*this)[14].isa)(__p, this);
+        v5 = v27 >= 0 ? __p : *__p;
         *buf = 141558275;
         *&buf[4] = 1752392040;
-        v35 = 2081;
-        v36 = v7;
-        _os_log_impl(&dword_1E4C3F000, v5, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sCreating WoW assertion", buf, 0x16u);
-        if (SHIBYTE(v32) < 0)
+        v30 = 2081;
+        v31 = v5;
+        _os_log_impl(&dword_1E4C3F000, v4, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sCreating WoW assertion", buf, 0x16u);
+        if (SHIBYTE(v27) < 0)
         {
           operator delete(*__p);
         }
       }
 
-      WakeOnWifiAssertion::get(v6, __p);
-      v8 = *__p;
+      WakeOnWifiAssertion::get(__p);
+      v6 = *__p;
       *__p = 0;
       *&__p[8] = 0;
-      v9 = *(this + 71);
-      *(this + 35) = v8;
-      if (!v9)
+      v7 = this[71];
+      *(this + 35) = v6;
+      if (!v7)
       {
         goto LABEL_22;
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-      v10 = *&__p[8];
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      v8 = *&__p[8];
       if (!*&__p[8])
       {
         goto LABEL_22;
@@ -5210,68 +5011,68 @@ uint64_t SipTcpConnection::scheduleCrlfKeepAlive(SipTcpConnection *this)
 
     else
     {
-      if (!v4)
+      if (!v3)
       {
         goto LABEL_22;
       }
 
-      v11 = *(this + 31);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v9 = this[31];
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        (*(*this + 112))(__p, this);
-        v12 = v32 >= 0 ? __p : *__p;
+        ((*this)[14].isa)(__p, this);
+        v10 = v27 >= 0 ? __p : *__p;
         *buf = 141558275;
         *&buf[4] = 1752392040;
-        v35 = 2081;
-        v36 = v12;
-        _os_log_impl(&dword_1E4C3F000, v11, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sReleasing WoW assertion", buf, 0x16u);
-        if (SHIBYTE(v32) < 0)
+        v30 = 2081;
+        v31 = v10;
+        _os_log_impl(&dword_1E4C3F000, v9, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sReleasing WoW assertion", buf, 0x16u);
+        if (SHIBYTE(v27) < 0)
         {
           operator delete(*__p);
         }
       }
 
-      v10 = *(this + 71);
+      v8 = this[71];
       *(this + 35) = 0u;
-      if (!v10)
+      if (!v8)
       {
 LABEL_22:
         if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(this + 44, "KeepaliveTimeout"))
         {
-          SipTimerContainer::cancelTimer(this + 43, "KeepaliveTimeout");
+          SipTimerContainer::cancelTimer((this + 43), "KeepaliveTimeout");
         }
 
         if (std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>(this + 44, "PongReceiveTimeout"))
         {
-          SipTimerContainer::cancelTimer(this + 43, "PongReceiveTimeout");
+          SipTimerContainer::cancelTimer((this + 43), "PongReceiveTimeout");
         }
 
         if (!*(this + 131))
         {
           if (*(this + 130))
           {
-            v19 = *(this + 35);
-            if (v19)
+            v15 = this[35];
+            if (v15)
             {
-              v20 = std::__shared_weak_count::lock(v19);
-              if (v20)
+              v16 = std::__shared_weak_count::lock(v15);
+              if (v16)
               {
-                v21 = v20;
-                v22 = *(this + 34);
-                if (v22)
+                v17 = v16;
+                v18 = this[34];
+                if (v18)
                 {
-                  (*(*v22 + 32))(__p);
+                  (*(v18->isa + 4))(__p);
                   if (*&__p[8])
                   {
-                    v23 = std::__shared_weak_count::lock(*&__p[8]);
-                    if (v23)
+                    v19 = std::__shared_weak_count::lock(*&__p[8]);
+                    if (v19)
                     {
-                      v24 = *__p;
+                      v20 = *__p;
                     }
 
                     else
                     {
-                      v24 = 0;
+                      v20 = 0;
                     }
 
                     if (*&__p[8])
@@ -5279,21 +5080,21 @@ LABEL_22:
                       std::__shared_weak_count::__release_weak(*&__p[8]);
                     }
 
-                    if (v24)
+                    if (v20)
                     {
                       *(this + 130) = 0;
-                      (*(*v24 + 128))(__p, v24);
+                      (*(*v20 + 128))(__p, v20);
                       if (*&__p[8])
                       {
-                        v25 = std::__shared_weak_count::lock(*&__p[8]);
-                        if (v25)
+                        v21 = std::__shared_weak_count::lock(*&__p[8]);
+                        if (v21)
                         {
-                          v26 = *__p;
+                          v22 = *__p;
                         }
 
                         else
                         {
-                          v26 = 0;
+                          v22 = 0;
                         }
 
                         if (*&__p[8])
@@ -5301,31 +5102,31 @@ LABEL_22:
                           std::__shared_weak_count::__release_weak(*&__p[8]);
                         }
 
-                        if (v26)
+                        if (v22)
                         {
-                          *(this + 131) = *(v26 + 2188);
+                          *(this + 131) = *(v22 + 2188);
                         }
 
-                        if (v25)
+                        if (v21)
                         {
-                          std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+                          std::__shared_weak_count::__release_shared[abi:ne200100](v21);
                         }
                       }
 
-                      v27 = *(this + 31);
-                      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                      v23 = this[31];
+                      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                       {
-                        (*(*this + 112))(buf, this);
-                        v28 = v37 >= 0 ? buf : *buf;
-                        v29 = *(this + 131);
+                        ((*this)[14].isa)(buf, this);
+                        v24 = v32 >= 0 ? buf : *buf;
+                        v25 = *(this + 131);
                         *__p = 141558531;
                         *&__p[4] = 1752392040;
                         *&__p[12] = 2081;
-                        *&__p[14] = v28;
-                        v32 = 1024;
-                        LODWORD(v33) = v29;
-                        _os_log_impl(&dword_1E4C3F000, v27, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sSet next CRLF threshold to %u pings", __p, 0x1Cu);
-                        if (v37 < 0)
+                        *&__p[14] = v24;
+                        v27 = 1024;
+                        LODWORD(v28) = v25;
+                        _os_log_impl(&dword_1E4C3F000, v23, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sSet next CRLF threshold to %u pings", __p, 0x1Cu);
+                        if (v32 < 0)
                         {
                           operator delete(*buf);
                         }
@@ -5333,19 +5134,19 @@ LABEL_22:
 
                       if (*(this + 131))
                       {
-                        (*(*v24 + 176))(v24, *(this + 517));
-                        *(this + 134) = (*(*v24 + 160))(v24);
+                        (*(*v20 + 176))(v20, *(this + 517));
+                        *(this + 134) = (*(*v20 + 160))(v20);
                       }
                     }
 
-                    if (v23)
+                    if (v19)
                     {
-                      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+                      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
                     }
                   }
                 }
 
-                std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v17);
               }
             }
           }
@@ -5356,28 +5157,25 @@ LABEL_22:
           }
         }
 
-        v13 = time(0);
-        if (os_log_type_enabled(*(this + 31), OS_LOG_TYPE_DEFAULT))
+        v11 = time(0);
+        if (os_log_type_enabled(this[31], OS_LOG_TYPE_DEFAULT))
         {
-          (*(*this + 112))(buf, this);
-          v30[0] = v13 + *(this + 134);
-          ims::TimeAndIntervalFromNow::logStr(v30);
+          ((*this)[14].isa)(buf, this);
+          ims::TimeAndIntervalFromNow::logStr();
         }
 
-        v14 = *(this + 28);
-        if (v14)
+        v12 = this[28];
+        if (v12)
         {
-          v15 = *(this + 27);
-          v16 = std::__shared_weak_count::lock(v14);
-          if (v16)
+          v13 = std::__shared_weak_count::lock(v12);
+          if (v13)
           {
-            p_shared_weak_owners = &v16->__shared_weak_owners_;
-            atomic_fetch_add_explicit(&v16->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-            std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+            p_shared_weak_owners = &v13->__shared_weak_owners_;
+            atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v13);
             atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-            *(this + 68) = v13;
+            this[68] = v11;
             atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-            v30[7] = 0;
             operator new();
           }
         }
@@ -5386,12 +5184,9 @@ LABEL_22:
       }
     }
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     goto LABEL_22;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1E4C4AEEC(_Unwind_Exception *a1)
@@ -5529,7 +5324,7 @@ LABEL_7:
   return ims::AccessNetwork::isWifi(v1);
 }
 
-void ClientConfig::getLogTag(ClientConfig *this@<X0>, std::string *a2@<X8>)
+void ClientConfig::getLogTag(std::string *__return_ptr a1@<X8>, ClientConfig *this@<X0>)
 {
   ims::asString(*(this + 1), &v22);
   v4 = std::string::insert(&v22, 0, ".", 1uLL);
@@ -5614,7 +5409,7 @@ void ClientConfig::getLogTag(ClientConfig *this@<X0>, std::string *a2@<X8>)
   }
 
   v18 = std::string::append(&v26, v16, size);
-  *a2 = *v18;
+  *a1 = *v18;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
@@ -5694,7 +5489,7 @@ void sub_1E4C4B2EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *ims::asString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *ims::asString@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 > 3)
   {
@@ -5729,30 +5524,30 @@ void BambiClient::handleDeviceEvents(uint64_t a1, uint64_t a2, int a3)
     BambiAirplaneMode::set((a1 + 724), 1);
     v7 = *(a1 + 304);
     __p[1] = 0;
-    v31 = 0;
+    v29 = 0;
     __p[0] = 0;
     IMSNasDeviceClient::setBasebandAvailable(v7, 0, __p);
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v29) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v8 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v9 = off_1EE2BBBC0;
+    pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+    v8 = off_1EE2BBBC0;
     if (!off_1EE2BBBC0)
     {
-      IMSMetricsManager::create_default_global(v8);
+      IMSMetricsManager::create_default_global();
     }
 
-    v12 = *(&off_1EE2BBBC0 + 1);
+    v10 = *(&off_1EE2BBBC0 + 1);
     if (*(&off_1EE2BBBC0 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v13 = v9 + 240;
-    for (i = *(v9 + 248); i != v13; i = *(i + 8))
+    v11 = v8 + 240;
+    for (i = *(v8 + 248); i != v11; i = *(i + 8))
     {
       (*(**(i + 16) + 256))(*(i + 16), 0);
     }
@@ -5769,74 +5564,74 @@ void BambiClient::handleDeviceEvents(uint64_t a1, uint64_t a2, int a3)
     v6 = *(a1 + 304);
     if (*(a2 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v29, *a2, *(a2 + 8));
+      std::string::__init_copy_ctor_external(&v27, *a2, *(a2 + 8));
     }
 
     else
     {
-      v29 = *a2;
+      v27 = *a2;
     }
 
-    IMSNasDeviceClient::setBasebandAvailable(v6, 1, &v29);
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    IMSNasDeviceClient::setBasebandAvailable(v6, 1, &v27);
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
 
-    v10 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v11 = off_1EE2BBBC0;
+    pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+    v9 = off_1EE2BBBC0;
     if (!off_1EE2BBBC0)
     {
-      IMSMetricsManager::create_default_global(v10);
+      IMSMetricsManager::create_default_global();
     }
 
-    v12 = *(&off_1EE2BBBC0 + 1);
+    v10 = *(&off_1EE2BBBC0 + 1);
     if (*(&off_1EE2BBBC0 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v15 = v11 + 240;
-    for (j = *(v11 + 248); j != v15; j = *(j + 8))
+    v13 = v9 + 240;
+    for (j = *(v9 + 248); j != v13; j = *(j + 8))
     {
       (*(**(j + 16) + 256))(*(j + 16), 1);
     }
   }
 
-  if (v12)
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
 LABEL_26:
-  v27 = 0;
-  v28 = 0;
-  (*(*a1 + 184))(&v27, a1, a2);
-  if (v27)
+  v25 = 0;
+  v26 = 0;
+  (*(*a1 + 184))(&v25, a1, a2);
+  if (v25)
   {
     if (a3)
     {
-      v17 = *(v27 + 31);
-      v18 = *(v27 + 32);
-      if (v18)
+      v15 = *(v25 + 31);
+      v16 = *(v25 + 32);
+      if (v16)
       {
-        atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      SipUserAgent::clearLastPreferredPublicUri(v17);
-      if (v18)
+      SipUserAgent::clearLastPreferredPublicUri(v15);
+      if (v16)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v16);
       }
     }
 
     if ((a3 & 8) != 0)
     {
-      v22 = *(a1 + 216);
-      if (v22)
+      v20 = *(a1 + 216);
+      if (v20)
       {
-        if ((v23 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(v22 + 280, a2), v22 + 288 != v23) && *(v23 + 56) == 1 || (v24 = SipStack::prefs(v27), ImsPrefs::EnableAPOnlyMode(v24)))
+        if ((v21 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(v20 + 280, a2), v20 + 288 != v21) && *(v21 + 56) == 1 || (v22 = SipStack::prefs(v25), ImsPrefs::EnableAPOnlyMode(v22)))
         {
           RTPManager::handleAudioReadyEvent(*(a1 + 216));
         }
@@ -5845,41 +5640,41 @@ LABEL_26:
 
     else
     {
-      SipStack::handleDeviceEvents(v27, a3 & 0xFFFD);
+      SipStack::handleDeviceEvents(v25, a3 & 0xFFFD);
     }
   }
 
   else
   {
-    v20 = *(a1 + 16);
-    v19 = a1 + 16;
-    v21 = (*(v20 + 56))(v19);
-    (*(*v19 + 16))(v19, v21);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "No stack for ", 13);
-    *(v21 + 17) = 0;
-    (*(*v21 + 32))(v21, a2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), ". Ignoring device events - ", 27);
-    *(v21 + 17) = 0;
-    deviceEventsToString(a3 & 0xFFFFFFFD, v25);
-    (*(*v21 + 32))(v21, v25);
-    (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v21 + 17) = 0;
-    if (v26 < 0)
+    v18 = *(a1 + 16);
+    v17 = a1 + 16;
+    v19 = (*(v18 + 56))(v17);
+    (*(*v17 + 16))(v17, v19);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "No stack for ", 13);
+    *(v19 + 17) = 0;
+    (*(*v19 + 32))(v19, a2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), ". Ignoring device events - ", 27);
+    *(v19 + 17) = 0;
+    deviceEventsToString(v23, a3 & 0xFFFFFFFD);
+    (*(*v19 + 32))(v19, v23);
+    (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v19 + 17) = 0;
+    if (v24 < 0)
     {
-      operator delete(v25[0]);
+      operator delete(v23[0]);
     }
   }
 
-  if (v28)
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 }
 
 void SipStack::handleDeviceEvents(SipStack *this, __int16 a2)
 {
   SipStack::carrierIdentifier(this, &__p);
-  v4 = ImsPrefsManager::prefsValid(&__p.__r_.__value_.__l.__data_);
+  v4 = ImsPrefsManager::prefsValid(&__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -5963,7 +5758,7 @@ void sub_1E4C4BA10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SipStack::carrierIdentifier(SipStack *this@<X0>, std::string *a2@<X8>)
 {
-  v2 = this + 4456;
+  v2 = (this + 4456);
   if (*(this + 4479) < 0)
   {
     v3 = *(this + 558);
@@ -5977,14 +5772,13 @@ void SipStack::carrierIdentifier(SipStack *this@<X0>, std::string *a2@<X8>)
   else if (*(this + 4479))
   {
 LABEL_8:
-    *&a2->__r_.__value_.__l.__data_ = *v2;
-    a2->__r_.__value_.__r.__words[2] = *(v2 + 2);
+    *a2 = *v2;
     return;
   }
 
   if ((*(this + 4455) & 0x80000000) == 0)
   {
-    v2 = this + 4432;
+    v2 = (this + 4432);
     goto LABEL_8;
   }
 
@@ -5994,7 +5788,7 @@ LABEL_10:
   std::string::__init_copy_ctor_external(a2, v4, v3);
 }
 
-BOOL ImsPrefsManager::prefsValid(void **a1)
+BOOL ImsPrefsManager::prefsValid(ImsPrefsManager *a1)
 {
   if (!ImsPrefsManager::exists(a1))
   {
@@ -6002,8 +5796,8 @@ BOOL ImsPrefsManager::prefsValid(void **a1)
   }
 
   ImsPrefsManager::instance(&v4);
-  v6 = a1;
-  v2 = *(std::__tree<std::__value_type<std::string,ImsCarrierPrefs>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsCarrierPrefs>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsCarrierPrefs>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, a1) + 88) != 0;
+  v7 = a1;
+  v2 = *(std::__tree<std::__value_type<std::string,ImsCarrierPrefs>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsCarrierPrefs>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsCarrierPrefs>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, a1, &std::piecewise_construct, &v7, &v6) + 88) != 0;
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -6022,7 +5816,7 @@ void sub_1E4C4BB1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL ImsPrefsManager::exists(void **a1)
+BOOL ImsPrefsManager::exists(ImsPrefsManager *a1)
 {
   ImsPrefsManager::instance(&v7);
   v2 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(v7, a1);
@@ -6051,7 +5845,7 @@ void sub_1E4C4BBA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefsManager::instance(void *a1@<X8>)
+void ImsPrefsManager::instance(uint64_t *__return_ptr a1@<X8>)
 {
   if ((atomic_load_explicit(&_MergedGlobals_1, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_1))
   {
@@ -6064,12 +5858,12 @@ void ImsPrefsManager::instance(void *a1@<X8>)
     operator new();
   }
 
-  v3 = qword_1EE2BC188;
+  v2 = qword_1EE2BC188;
   *a1 = qword_1EE2BC180;
-  a1[1] = v3;
-  if (v3)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 }
 
@@ -6081,22 +5875,22 @@ void sub_1E4C4BCD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,ImsCarrierPrefs>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsCarrierPrefs>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsCarrierPrefs>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,ImsCarrierPrefs>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsCarrierPrefs>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsCarrierPrefs>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,ImsCarrierPrefs>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsCarrierPrefs>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsCarrierPrefs>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -6107,7 +5901,7 @@ void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_co
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -6125,8 +5919,8 @@ void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_co
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -6177,21 +5971,21 @@ uint64_t SipRegistrationPolicy::shouldDeferRegistration(SipRegistrationPolicy *t
 
 void SipRegistrationPolicy::handleDeviceEvents(SipRegistrationPolicy *this, unsigned int a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = *(this + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    (*(*this + 184))(v25, this);
-    v5 = v26;
-    v6 = v25[0];
-    deviceEventsToString(a2, __p);
-    v7 = v25;
+    (*(*this + 184))(v24, this);
+    v5 = v25;
+    v6 = v24[0];
+    deviceEventsToString(__p, a2);
+    v7 = v24;
     if (v5 < 0)
     {
       v7 = v6;
     }
 
-    if (v24 >= 0)
+    if (v23 >= 0)
     {
       v8 = __p;
     }
@@ -6202,20 +5996,20 @@ void SipRegistrationPolicy::handleDeviceEvents(SipRegistrationPolicy *this, unsi
     }
 
     *buf = 141558531;
-    v28 = 1752392040;
-    v29 = 2081;
-    v30 = v7;
-    v31 = 2080;
-    v32 = v8;
+    v27 = 1752392040;
+    v28 = 2081;
+    v29 = v7;
+    v30 = 2080;
+    v31 = v8;
     _os_log_impl(&dword_1E4C3F000, v4, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}shandling device events: %s", buf, 0x20u);
-    if (v24 < 0)
+    if (v23 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v26 < 0)
+    if (v25 < 0)
     {
-      operator delete(v25[0]);
+      operator delete(v24[0]);
     }
   }
 
@@ -6225,17 +6019,17 @@ void SipRegistrationPolicy::handleDeviceEvents(SipRegistrationPolicy *this, unsi
     v10 = *(this + 24);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      (*(*this + 184))(v25, this);
-      v11 = v26;
-      v12 = v25[0];
-      deviceEventsToString(v9, __p);
-      v13 = v25;
+      (*(*this + 184))(v24, this);
+      v11 = v25;
+      v12 = v24[0];
+      deviceEventsToString(__p, v9);
+      v13 = v24;
       if (v11 < 0)
       {
         v13 = v12;
       }
 
-      if (v24 >= 0)
+      if (v23 >= 0)
       {
         v14 = __p;
       }
@@ -6246,20 +6040,20 @@ void SipRegistrationPolicy::handleDeviceEvents(SipRegistrationPolicy *this, unsi
       }
 
       *buf = 141558531;
-      v28 = 1752392040;
-      v29 = 2081;
-      v30 = v13;
-      v31 = 2080;
-      v32 = v14;
+      v27 = 1752392040;
+      v28 = 2081;
+      v29 = v13;
+      v30 = 2080;
+      v31 = v14;
       _os_log_impl(&dword_1E4C3F000, v10, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sresetting registration errors due to event: %s", buf, 0x20u);
-      if (v24 < 0)
+      if (v23 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v26 < 0)
+      if (v25 < 0)
       {
-        operator delete(v25[0]);
+        operator delete(v24[0]);
       }
     }
 
@@ -6274,17 +6068,17 @@ void SipRegistrationPolicy::handleDeviceEvents(SipRegistrationPolicy *this, unsi
       v16 = *(this + 24);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        (*(*this + 184))(v25, this);
-        v17 = v26;
-        v18 = v25[0];
-        deviceEventsToString(v15, __p);
-        v19 = v25;
+        (*(*this + 184))(v24, this);
+        v17 = v25;
+        v18 = v24[0];
+        deviceEventsToString(__p, v15);
+        v19 = v24;
         if (v17 < 0)
         {
           v19 = v18;
         }
 
-        if (v24 >= 0)
+        if (v23 >= 0)
         {
           v20 = __p;
         }
@@ -6295,20 +6089,20 @@ void SipRegistrationPolicy::handleDeviceEvents(SipRegistrationPolicy *this, unsi
         }
 
         *buf = 141558531;
-        v28 = 1752392040;
-        v29 = 2081;
-        v30 = v19;
-        v31 = 2080;
-        v32 = v20;
+        v27 = 1752392040;
+        v28 = 2081;
+        v29 = v19;
+        v30 = 2080;
+        v31 = v20;
         _os_log_impl(&dword_1E4C3F000, v16, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sresetting registration mode due to event: %s", buf, 0x20u);
-        if (v24 < 0)
+        if (v23 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v26 < 0)
+        if (v25 < 0)
         {
-          operator delete(v25[0]);
+          operator delete(v24[0]);
         }
       }
 
@@ -6319,17 +6113,19 @@ void SipRegistrationPolicy::handleDeviceEvents(SipRegistrationPolicy *this, unsi
   if ((a2 & 0x100) != 0)
   {
     v21 = 1;
-    goto LABEL_40;
   }
 
-  if ((a2 & 0x200) != 0)
+  else
   {
+    if ((a2 & 0x200) == 0)
+    {
+      return;
+    }
+
     v21 = 0;
-LABEL_40:
-    *(this + 2265) = v21;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
+  *(this + 2265) = v21;
 }
 
 void sub_1E4C4C2D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -6342,20 +6138,20 @@ void sub_1E4C4C2D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipRegistrationPolicy::logPrefixStr(SipRegistrationPolicy *this)
+void SipRegistrationPolicy::logPrefixStr()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C4C3E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4C4C3E0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -6439,18 +6235,18 @@ uint64_t SipTimerContainer::cancelTimer(int8x8_t *this, dispatch_source_t *a2)
     v13 = v12[1];
     if (v9.u32[0] > 1uLL)
     {
-      if (v13 >= *&v6)
+      if (*&v13 >= *&v6)
       {
-        v13 %= *&v6;
+        *&v13 %= *&v6;
       }
     }
 
     else
     {
-      v13 &= *&v6 - 1;
+      *&v13 &= *&v6 - 1;
     }
 
-    if (v13 != v8)
+    if (*&v13 != v8)
     {
 LABEL_23:
       if (v7)
@@ -6534,20 +6330,20 @@ void sub_1E4C4C708(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t IMSClientManager::instance@<X0>(void *a1@<X8>)
+uint64_t *IMSClientManager::instance@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = pthread_mutex_lock(&ctu::Singleton<IMSClientManager,IMSClientManager,ctu::PthreadMutexGuardPolicy<IMSClientManager>>::sInstance);
+  pthread_mutex_lock(&ctu::Singleton<IMSClientManager,IMSClientManager,ctu::PthreadMutexGuardPolicy<IMSClientManager>>::sInstance);
   if (!xmmword_1EE2BBC10)
   {
-    IMSClientManager::create_default_global(v3);
+    IMSClientManager::create_default_global();
   }
 
-  v4 = *(&xmmword_1EE2BBC10 + 1);
+  v2 = *(&xmmword_1EE2BBC10 + 1);
   *a1 = xmmword_1EE2BBC10;
-  a1[1] = v4;
-  if (v4)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
   return pthread_mutex_unlock(&ctu::Singleton<IMSClientManager,IMSClientManager,ctu::PthreadMutexGuardPolicy<IMSClientManager>>::sInstance);
@@ -6653,7 +6449,7 @@ void sub_1E4C4C9F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SipTimerContainer::fullTimerId@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t SipTimerContainer::fullTimerId@<X0>(uint64_t a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
 {
   v26 = 0;
   v24 = 0u;
@@ -6713,7 +6509,7 @@ uint64_t SipTimerContainer::fullTimerId@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
 
     else
     {
-      v18 = *(a2 + 8);
+      v18 = a2[1];
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v17, v18);
@@ -6734,7 +6530,7 @@ uint64_t SipTimerContainer::fullTimerId@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>,
   return MEMORY[0x1E6923510](v25);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -6746,14 +6542,14 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
-void IMSTimerManager::unregisterTimer(uint64_t a1, void **a2)
+void IMSTimerManager::unregisterTimer(uint64_t a1, char *a2)
 {
   v11 = 0;
   ImsLock::set(&v11, (a1 + 8), v12);
@@ -6818,7 +6614,7 @@ int *LazuliRegistrationPolicy::name(LazuliRegistrationPolicy *this)
   return &dword_1EE2BC9E8;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -6828,7 +6624,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -6841,12 +6637,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -6889,21 +6685,21 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(const void 
   return 255;
 }
 
-void deviceEventsToString(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void deviceEventsToString(void *__return_ptr a1@<X8>, unsigned int a2@<W0>)
 {
   v12 = 0;
   v13 = 0;
   v14 = 0;
-  if ((a1 & 1) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "SimInserted"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
+  if ((a2 & 1) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "SimInserted"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
   {
     operator delete(__p[0]);
-    if ((a1 & 2) == 0)
+    if ((a2 & 2) == 0)
     {
       goto LABEL_7;
     }
   }
 
-  else if ((a1 & 2) == 0)
+  else if ((a2 & 2) == 0)
   {
     goto LABEL_7;
   }
@@ -6916,16 +6712,16 @@ void deviceEventsToString(unsigned int a1@<W0>, _BYTE *a2@<X8>)
   }
 
 LABEL_7:
-  if ((a1 & 4) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "AccessNetworkChanged"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
+  if ((a2 & 4) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "AccessNetworkChanged"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
   {
     operator delete(__p[0]);
-    if ((a1 & 8) == 0)
+    if ((a2 & 8) == 0)
     {
       goto LABEL_13;
     }
   }
 
-  else if ((a1 & 8) == 0)
+  else if ((a2 & 8) == 0)
   {
     goto LABEL_13;
   }
@@ -6938,16 +6734,16 @@ LABEL_7:
   }
 
 LABEL_13:
-  if ((a1 & 0x10) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "SRVCCHandoverStarted"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
+  if ((a2 & 0x10) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "SRVCCHandoverStarted"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
   {
     operator delete(__p[0]);
-    if ((a1 & 0x80) == 0)
+    if ((a2 & 0x80) == 0)
     {
       goto LABEL_19;
     }
   }
 
-  else if ((a1 & 0x80) == 0)
+  else if ((a2 & 0x80) == 0)
   {
     goto LABEL_19;
   }
@@ -6960,16 +6756,16 @@ LABEL_13:
   }
 
 LABEL_19:
-  if ((a1 & 0x40) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "AirplaneModeDisabled"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
+  if ((a2 & 0x40) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "AirplaneModeDisabled"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
   {
     operator delete(__p[0]);
-    if ((a1 & 0x20) == 0)
+    if ((a2 & 0x20) == 0)
     {
       goto LABEL_25;
     }
   }
 
-  else if ((a1 & 0x20) == 0)
+  else if ((a2 & 0x20) == 0)
   {
     goto LABEL_25;
   }
@@ -6982,16 +6778,16 @@ LABEL_19:
   }
 
 LABEL_25:
-  if ((a1 & 0x200) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "SubEnabled"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
+  if ((a2 & 0x200) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "SubEnabled"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
   {
     operator delete(__p[0]);
-    if ((a1 & 0x100) == 0)
+    if ((a2 & 0x100) == 0)
     {
       goto LABEL_31;
     }
   }
 
-  else if ((a1 & 0x100) == 0)
+  else if ((a2 & 0x100) == 0)
   {
     goto LABEL_31;
   }
@@ -7004,16 +6800,16 @@ LABEL_25:
   }
 
 LABEL_31:
-  if ((a1 & 0x400) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "IMSHandoverStarted"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
+  if ((a2 & 0x400) != 0 && (std::string::basic_string[abi:ne200100]<0>(__p, "IMSHandoverStarted"), std::vector<std::string>::push_back[abi:ne200100](&v12, __p), SHIBYTE(v6[0].__locale_) < 0))
   {
     operator delete(__p[0]);
-    if ((a1 & 0x800) == 0)
+    if ((a2 & 0x800) == 0)
     {
       goto LABEL_37;
     }
   }
 
-  else if ((a1 & 0x800) == 0)
+  else if ((a2 & 0x800) == 0)
   {
     goto LABEL_37;
   }
@@ -7026,7 +6822,7 @@ LABEL_31:
   }
 
 LABEL_37:
-  if ((a1 & 0x1000) != 0)
+  if ((a2 & 0x1000) != 0)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "KeepAliveWakeup");
     std::vector<std::string>::push_back[abi:ne200100](&v12, __p);
@@ -7042,7 +6838,7 @@ LABEL_37:
     ims::join<std::__wrap_iter<std::string const*>>();
   }
 
-  if (a1)
+  if (a2)
   {
     v11 = 0;
     v9 = 0u;
@@ -7055,8 +6851,8 @@ LABEL_37:
     v4 = __p[0];
     *(&__p[1] + *(__p[0] - 3)) |= 0x200u;
     *(&__p[1] + *(v4 - 3)) = *(&__p[1] + *(v4 - 3)) & 0xFFFFFFB5 | 8;
-    MEMORY[0x1E69233B0](__p, a1);
-    std::ostringstream::str[abi:ne200100](__p, a2);
+    MEMORY[0x1E69233B0](__p, a2);
+    std::ostringstream::str[abi:ne200100](__p, a1);
     __p[0] = *MEMORY[0x1E69E54E8];
     *(__p + *(__p[0] - 3)) = *(MEMORY[0x1E69E54E8] + 24);
     __p[1] = (MEMORY[0x1E69E5548] + 16);
@@ -7073,7 +6869,7 @@ LABEL_37:
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(a2, "[none]");
+    std::string::basic_string[abi:ne200100]<0>(a1, "[none]");
   }
 
   __p[0] = &v12;
@@ -7165,8 +6961,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -7276,31 +7071,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -7309,158 +7103,158 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (v19 && (v19[3] & 1) == 0)
+      v18 = *(v7 + 8);
+      if (v18 && (*(v18 + 24) & 1) == 0)
       {
 LABEL_58:
-        v18 = v7;
+        v17 = v7;
       }
 
       else
       {
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_71;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_58;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_67;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (v24 && (v24[3] & 1) == 0)
+  if (v23 && (*(v23 + 24) & 1) == 0)
   {
 LABEL_67:
-    v25 = v7;
+    v24 = v7;
     goto LABEL_68;
   }
 
-  *(v25 + 24) = 1;
-  *(v7 + 24) = 0;
-  v33 = *v25;
-  v7[1] = *v25;
-  if (v33)
-  {
-    *(v33 + 16) = v7;
-  }
-
-  v34 = v7[2];
-  v25[2] = v34;
-  v34[*v34 != v7] = v25;
-  *v25 = v7;
-  v7[2] = v25;
-  v24 = v7;
-LABEL_68:
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
   *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  *(v7 + 24) = 0;
+  v32 = *v24;
+  *(v7 + 8) = *v24;
+  if (v32)
   {
-    *(v35 + 16) = v29;
+    *(v32 + 16) = v7;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v33 = *(v7 + 16);
+  *(v24 + 16) = v33;
+  v33[*v33 != v7] = v24;
+  *v24 = v7;
+  *(v7 + 16) = v24;
+  v23 = v7;
+LABEL_68:
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
+  {
+    *(v34 + 16) = v28;
+  }
+
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_71:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -7513,21 +7307,21 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-void ims::CFString::asString(const __CFString *this@<X0>, const void *a2@<X1>, std::string *a3@<X8>)
+void ims::CFString::asString(std::string *__return_ptr a1@<X8>, const __CFString *this@<X0>, const void *a3@<X1>)
 {
-  if (this && (v4 = a2, v6 = CFGetTypeID(this), v6 == CFStringGetTypeID()))
+  if (this && (v4 = a3, v6 = CFGetTypeID(this), v6 == CFStringGetTypeID()))
   {
     memset(&__p, 0, sizeof(__p));
     if (ims::convertCFString(this, &__p, v4))
     {
-      *a3 = __p;
+      *a1 = __p;
     }
 
     else
     {
-      a3->__r_.__value_.__r.__words[0] = 0;
-      a3->__r_.__value_.__l.__size_ = 0;
-      a3->__r_.__value_.__r.__words[2] = 0;
+      a1->__r_.__value_.__r.__words[0] = 0;
+      a1->__r_.__value_.__l.__size_ = 0;
+      a1->__r_.__value_.__r.__words[2] = 0;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -7537,9 +7331,9 @@ void ims::CFString::asString(const __CFString *this@<X0>, const void *a2@<X1>, s
 
   else
   {
-    a3->__r_.__value_.__r.__words[0] = 0;
-    a3->__r_.__value_.__l.__size_ = 0;
-    a3->__r_.__value_.__r.__words[2] = 0;
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
   }
 }
 
@@ -7555,18 +7349,18 @@ void sub_1E4C4DB6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ims::join<std::__wrap_iter<std::string const*>>()
 {
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  ImsStringOutStream::ImsStringOutStream(v0);
+  v5 = 0;
+  memset(v4, 0, sizeof(v4));
+  ImsStringOutStream::ImsStringOutStream(v4, 1);
 }
 
-void sub_1E4C4DC60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4C4DC60(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -7780,7 +7574,7 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
 
 void ___ZN8ImsTcpNw9writeToNwEPKhm_block_invoke(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[6];
   if (v4)
@@ -7802,10 +7596,10 @@ void ___ZN8ImsTcpNw9writeToNwEPKhm_block_invoke(void *a1, void *a2)
             ims::detail::to_string_impl<int,std::integral_constant<BOOL,false>>::operator()();
           }
 
+          v25 = 0u;
           v26 = 0u;
           v27 = 0u;
           v28 = 0u;
-          v29 = 0u;
           *buf = &unk_1F5EBDEF8;
           *&buf[8] = &_posixDomain;
           *&buf[16] = nw_error_get_error_code(v3);
@@ -7830,9 +7624,9 @@ void ___ZN8ImsTcpNw9writeToNwEPKhm_block_invoke(void *a1, void *a2)
                     {
                       v16 = dispatch::queue::get((v5 + 192));
                       __p = v15;
-                      v23 = v14;
+                      v22 = v14;
                       atomic_fetch_add_explicit(v14 + 1, 1uLL, memory_order_relaxed);
-                      ImsResult::ImsResult(&v24, buf);
+                      ImsResult::ImsResult(&v23, buf);
                       v17 = v16;
                       operator new();
                     }
@@ -7851,17 +7645,17 @@ void ___ZN8ImsTcpNw9writeToNwEPKhm_block_invoke(void *a1, void *a2)
 
         else
         {
-          v20 = dispatch::queue::get(v7 + 6);
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v19 = dispatch::queue::get(v7 + 6);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             (*(*v7 + 27))(&__p, v7);
-            v21 = v24 >= 0 ? &__p : __p;
+            v20 = v23 >= 0 ? &__p : __p;
             *buf = 141558275;
             *&buf[4] = 1752392040;
             *&buf[12] = 2081;
-            *&buf[14] = v21;
-            _os_log_impl(&dword_1E4C3F000, v20, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}snw_connection_send success", buf, 0x16u);
-            if (SHIBYTE(v24) < 0)
+            *&buf[14] = v20;
+            _os_log_impl(&dword_1E4C3F000, v19, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}snw_connection_send success", buf, 0x16u);
+            if (SHIBYTE(v23) < 0)
             {
               operator delete(__p);
             }
@@ -7880,8 +7674,8 @@ LABEL_20:
     v6 = 0;
   }
 
-  ims::getStaticLoggerFor("net.tcpnw", &__p);
-  v18 = v23;
+  ims::getStaticLoggerFor(&__p, "net.tcpnw");
+  v18 = v22;
   ctu::OsLogContext::~OsLogContext(&__p);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -7895,8 +7689,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4C4E560(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
@@ -7959,7 +7751,7 @@ uint64_t ims::formatTime(ims *this, uint64_t a2, tm *a3)
   __p[0] = 0;
   __p[1] = 0;
   v4 = __p;
-  ims::ctime(&v10, a3, __p);
+  ims::ctime(__p, &v10, a3);
   v5 = __p[0];
   *(__p[0] + 24) = 0;
   if (v9 < 0)
@@ -7988,31 +7780,31 @@ void sub_1E4C4E770(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *ims::ctime@<X0>(ims *this@<X0>, tm *a2@<X2>, _BYTE *a3@<X8>)
+void *ims::ctime@<X0>(void *__return_ptr a1@<X8>, ims *this@<X0>, tm *a3@<X2>)
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   if (this)
   {
-    memset(&v40, 0, sizeof(v40));
-    ims::localtime(this, &v40, a2);
+    memset(&v37, 0, sizeof(v37));
+    ims::localtime(this, &v37, a3);
     if ((atomic_load_explicit(&_MergedGlobals_8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_8))
     {
-      std::string::basic_string[abi:ne200100]<0>(&v42, "Sun");
-      std::string::basic_string[abi:ne200100]<0>(&v43 + 8, "Mon");
+      std::string::basic_string[abi:ne200100]<0>(&v39, "Sun");
+      std::string::basic_string[abi:ne200100]<0>(&v40 + 1, "Mon");
       std::string::basic_string[abi:ne200100]<0>(__src, "Tue");
       std::string::basic_string[abi:ne200100]<0>(&__p[1], "Wed");
-      std::string::basic_string[abi:ne200100]<0>(&v48, "Thu");
-      std::string::basic_string[abi:ne200100]<0>(v49 + 8, "Fri");
-      std::string::basic_string[abi:ne200100]<0>(v50, "Sat");
+      std::string::basic_string[abi:ne200100]<0>(&v45, "Thu");
+      std::string::basic_string[abi:ne200100]<0>(v46 + 1, "Fri");
+      std::string::basic_string[abi:ne200100]<0>(v47, "Sat");
       qword_1EE2BC300 = 0;
       *algn_1EE2BC308 = 0;
       qword_1EE2BC310 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&qword_1EE2BC300, &v42, &v50[1] + 8, 7uLL);
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&qword_1EE2BC300, &v39, &v47[1] + 8, 7uLL);
       for (i = 0; i != -168; i -= 24)
       {
-        if (*(&v50[1] + i + 7) < 0)
+        if (*(&v47[1] + i + 7) < 0)
         {
-          operator delete(*(v50 + i));
+          operator delete(*(v47 + i));
         }
       }
 
@@ -8022,202 +7814,198 @@ _BYTE *ims::ctime@<X0>(ims *this@<X0>, tm *a2@<X2>, _BYTE *a3@<X8>)
 
     if ((atomic_load_explicit(&qword_1EE2BC2F8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE2BC2F8))
     {
-      std::string::basic_string[abi:ne200100]<0>(&v42, "Jan");
-      std::string::basic_string[abi:ne200100]<0>(&v43 + 8, "Feb");
+      std::string::basic_string[abi:ne200100]<0>(&v39, "Jan");
+      std::string::basic_string[abi:ne200100]<0>(&v40 + 1, "Feb");
       std::string::basic_string[abi:ne200100]<0>(__src, "Mar");
       std::string::basic_string[abi:ne200100]<0>(&__p[1], "Apr");
-      std::string::basic_string[abi:ne200100]<0>(&v48, "May");
-      std::string::basic_string[abi:ne200100]<0>(v49 + 8, "Jun");
-      std::string::basic_string[abi:ne200100]<0>(v50, "Jul");
-      std::string::basic_string[abi:ne200100]<0>(&v50[1] + 8, "Aug");
-      std::string::basic_string[abi:ne200100]<0>(v51, "Sep");
-      std::string::basic_string[abi:ne200100]<0>(&v51[1] + 8, "Oct");
-      std::string::basic_string[abi:ne200100]<0>(&v52, "Nov");
-      std::string::basic_string[abi:ne200100]<0>(v54, "Dec");
+      std::string::basic_string[abi:ne200100]<0>(&v45, "May");
+      std::string::basic_string[abi:ne200100]<0>(v46 + 1, "Jun");
+      std::string::basic_string[abi:ne200100]<0>(v47, "Jul");
+      std::string::basic_string[abi:ne200100]<0>(&v47[1] + 1, "Aug");
+      std::string::basic_string[abi:ne200100]<0>(v48, "Sep");
+      std::string::basic_string[abi:ne200100]<0>(&v48[1] + 1, "Oct");
+      std::string::basic_string[abi:ne200100]<0>(&v49, "Nov");
+      std::string::basic_string[abi:ne200100]<0>(v51, "Dec");
       qword_1EE2BC318 = 0;
       unk_1EE2BC320 = 0;
       qword_1EE2BC328 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&qword_1EE2BC318, &v42, v55, 0xCuLL);
-      v39 = 288;
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&qword_1EE2BC318, &v39, v52, 0xCuLL);
+      v36 = 288;
       do
       {
-        if (*(&v42 + v39 - 1) < 0)
+        if (*(&v39 + v36 - 1) < 0)
         {
-          operator delete(*(&v40.tm_gmtoff + v39));
+          operator delete(*(&v37.tm_gmtoff + v36));
         }
 
-        v39 -= 24;
+        v36 -= 24;
       }
 
-      while (v39);
+      while (v36);
       __cxa_atexit(std::vector<std::string>::~vector[abi:ne200100], &qword_1EE2BC318, &dword_1E4C3F000);
       __cxa_guard_release(&qword_1EE2BC2F8);
     }
 
-    v53 = 0;
-    v52 = 0u;
-    memset(v51, 0, sizeof(v51));
-    memset(v50, 0, sizeof(v50));
-    v48 = 0u;
-    memset(v49, 0, sizeof(v49));
+    v50 = 0;
+    v49 = 0u;
+    memset(v48, 0, sizeof(v48));
+    memset(v47, 0, sizeof(v47));
+    v45 = 0u;
+    memset(v46, 0, sizeof(v46));
     *__p = 0u;
-    v47 = 0u;
     v44 = 0u;
+    v41 = 0u;
     *__src = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    std::ostringstream::basic_ostringstream[abi:ne200100](&v42);
-    v5 = qword_1EE2BC300 + 24 * v40.tm_wday;
-    v6 = *(v5 + 23);
-    if (v6 >= 0)
+    v39 = 0u;
+    v40 = 0u;
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v39);
+    v4 = qword_1EE2BC300 + 24 * v37.tm_wday;
+    v5 = *(v4 + 23);
+    if (v5 >= 0)
     {
-      v7 = qword_1EE2BC300 + 24 * v40.tm_wday;
+      v6 = qword_1EE2BC300 + 24 * v37.tm_wday;
     }
 
     else
     {
-      v7 = *v5;
+      v6 = *v4;
     }
 
-    if (v6 >= 0)
+    if (v5 >= 0)
     {
-      v8 = *(v5 + 23);
+      v7 = *(v4 + 23);
     }
 
     else
     {
-      v8 = *(v5 + 8);
+      v7 = *(v4 + 8);
     }
 
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, v7, v8);
-    LOBYTE(v41.__locale_) = 32;
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, &v41, 1);
-    v11 = qword_1EE2BC318 + 24 * v40.tm_mon;
-    v12 = *(v11 + 23);
-    if (v12 >= 0)
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, v6, v7);
+    LOBYTE(v38.__locale_) = 32;
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v38, 1);
+    v10 = qword_1EE2BC318 + 24 * v37.tm_mon;
+    v11 = *(v10 + 23);
+    if (v11 >= 0)
     {
-      v13 = qword_1EE2BC318 + 24 * v40.tm_mon;
+      v12 = qword_1EE2BC318 + 24 * v37.tm_mon;
     }
 
     else
     {
-      v13 = *v11;
+      v12 = *v10;
     }
 
-    if (v12 >= 0)
+    if (v11 >= 0)
     {
-      v14 = *(v11 + 23);
+      v13 = *(v10 + 23);
     }
 
     else
     {
-      v14 = *(v11 + 8);
+      v13 = *(v10 + 8);
     }
 
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v13, v14);
-    LOBYTE(v41.__locale_) = 32;
-    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, &v41, 1);
-    *(v16 + *(*v16 - 24) + 24) = 2;
-    v17 = MEMORY[0x1E6923340]();
-    LOBYTE(v41.__locale_) = 32;
-    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, &v41, 1);
-    v19 = v18;
-    v20 = *v18;
-    v21 = v18 + *(*v18 - 24);
-    if (*(v21 + 36) == -1)
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v12, v13);
+    LOBYTE(v38.__locale_) = 32;
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, &v38, 1);
+    *(v15 + *(*v15 - 24) + 24) = 2;
+    v16 = MEMORY[0x1E6923340]();
+    LOBYTE(v38.__locale_) = 32;
+    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, &v38, 1);
+    v18 = v17;
+    v19 = *v17;
+    v20 = v17 + *(*v17 - 24);
+    if (*(v20 + 36) == -1)
     {
-      std::ios_base::getloc((v18 + *(*v18 - 24)));
-      v22 = std::locale::use_facet(&v41, MEMORY[0x1E69E5318]);
-      v23 = (v22->__vftable[2].~facet_0)(v22, 32);
-      std::locale::~locale(&v41);
-      *(v21 + 36) = v23;
-      v20 = *v19;
+      std::ios_base::getloc((v17 + *(*v17 - 24)));
+      v21 = std::locale::use_facet(&v38, MEMORY[0x1E69E5318]);
+      v22 = (v21->__vftable[2].~facet_0)(v21, 32);
+      std::locale::~locale(&v38);
+      *(v20 + 36) = v22;
+      v19 = *v18;
     }
 
-    *(v21 + 36) = 48;
-    *(v19 + *(v20 - 24) + 24) = 2;
-    v24 = MEMORY[0x1E6923340](v19, v40.tm_hour);
-    LOBYTE(v41.__locale_) = 58;
-    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, &v41, 1);
-    *(v25 + *(*v25 - 24) + 24) = 2;
-    v26 = MEMORY[0x1E6923340]();
-    LOBYTE(v41.__locale_) = 58;
-    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, &v41, 1);
-    *(v27 + *(*v27 - 24) + 24) = 2;
-    v28 = MEMORY[0x1E6923340]();
-    LOBYTE(v41.__locale_) = 32;
-    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, &v41, 1);
-    *(v29 + *(*v29 - 24) + 24) = 4;
-    v30 = MEMORY[0x1E6923340]();
-    std::ios_base::getloc((v30 + *(*v30 - 24)));
-    v31 = std::locale::use_facet(&v41, MEMORY[0x1E69E5318]);
-    (v31->__vftable[2].~facet_0)(v31, 10);
-    std::locale::~locale(&v41);
+    *(v20 + 36) = 48;
+    *(v18 + *(v19 - 24) + 24) = 2;
+    v23 = MEMORY[0x1E6923340](v18, v37.tm_hour);
+    LOBYTE(v38.__locale_) = 58;
+    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, &v38, 1);
+    *(v24 + *(*v24 - 24) + 24) = 2;
+    v25 = MEMORY[0x1E6923340]();
+    LOBYTE(v38.__locale_) = 58;
+    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, &v38, 1);
+    *(v26 + *(*v26 - 24) + 24) = 2;
+    v27 = MEMORY[0x1E6923340]();
+    LOBYTE(v38.__locale_) = 32;
+    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, &v38, 1);
+    *(v28 + *(*v28 - 24) + 24) = 4;
+    v29 = MEMORY[0x1E6923340]();
+    std::ios_base::getloc((v29 + *(*v29 - 24)));
+    v30 = std::locale::use_facet(&v38, MEMORY[0x1E69E5318]);
+    (v30->__vftable[2].~facet_0)(v30, 10);
+    std::locale::~locale(&v38);
     std::ostream::put();
     std::ostream::flush();
-    if ((BYTE8(v48) & 0x10) != 0)
+    if ((BYTE8(v45) & 0x10) != 0)
     {
-      v35 = v48;
-      if (v48 < __src[1])
+      v33 = v45;
+      if (v45 < __src[1])
       {
-        *&v48 = __src[1];
-        v35 = __src[1];
+        *&v45 = __src[1];
+        v33 = __src[1];
       }
 
-      v36 = __src[0];
+      v34 = __src[0];
     }
 
     else
     {
-      if ((BYTE8(v48) & 8) == 0)
+      if ((BYTE8(v45) & 8) == 0)
       {
-        v32 = 0;
-        a3[23] = 0;
+        v31 = 0;
+        *(a1 + 23) = 0;
 LABEL_34:
-        a3[v32] = 0;
-        *&v42 = *MEMORY[0x1E69E54E8];
-        *(&v42 + *(v42 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-        *(&v42 + 1) = MEMORY[0x1E69E5548] + 16;
-        if (SHIBYTE(v47) < 0)
+        *(a1 + v31) = 0;
+        *&v39 = *MEMORY[0x1E69E54E8];
+        *(&v39 + *(v39 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+        *(&v39 + 1) = MEMORY[0x1E69E5548] + 16;
+        if (SHIBYTE(v44) < 0)
         {
           operator delete(__p[1]);
         }
 
-        *(&v42 + 1) = MEMORY[0x1E69E5538] + 16;
-        std::locale::~locale(&v43);
+        *(&v39 + 1) = MEMORY[0x1E69E5538] + 16;
+        std::locale::~locale(&v40);
         std::ostream::~ostream();
-        result = MEMORY[0x1E6923510](v49);
-        v37 = *MEMORY[0x1E69E9840];
-        return result;
+        return MEMORY[0x1E6923510](v46);
       }
 
-      v36 = *(&v43 + 1);
-      v35 = *(&v44 + 1);
+      v34 = *(&v40 + 1);
+      v33 = *(&v41 + 1);
     }
 
-    v32 = v35 - v36;
-    if ((v35 - v36) >= 0x7FFFFFFFFFFFFFF8)
+    v31 = v33 - v34;
+    if ((v33 - v34) >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v32 >= 0x17)
+    if (v31 >= 0x17)
     {
       operator new();
     }
 
-    a3[23] = v32;
-    if (v32)
+    *(a1 + 23) = v31;
+    if (v31)
     {
-      memmove(a3, v36, v32);
+      memmove(a1, v34, v31);
     }
 
     goto LABEL_34;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-
-  return std::string::basic_string[abi:ne200100]<0>(a3, "");
+  return std::string::basic_string[abi:ne200100]<0>(a1, "");
 }
 
 void sub_1E4C4EFB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::locale a16, char a17)
@@ -8349,20 +8137,20 @@ LABEL_18:
   return a2;
 }
 
-void ims::TimeAndIntervalFromNow::logStr(ims::TimeAndIntervalFromNow *this)
+void ims::TimeAndIntervalFromNow::logStr()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C4F474(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4C4F474(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -8491,7 +8279,7 @@ LABEL_5:
   }
 
   v8 = (a1 + 80);
-  if (a1 + 80 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 72, &v28.__r_.__value_.__l.__data_))
+  if (a1 + 80 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 72, &v28))
   {
     std::__optional_destruct_base<ClientConfig const,false>::__optional_destruct_base[abi:ne200100]<ClientConfig const&>(v20, (a3 + 72));
     v9 = ims::warn(a3 + 48, v20);
@@ -8529,7 +8317,7 @@ LABEL_5:
     while (1)
     {
       v18 = v17;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v28, (v17 + 32)) & 0x80) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v28, v17 + 32) & 0x80) == 0)
       {
         break;
       }
@@ -8542,13 +8330,13 @@ LABEL_5:
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v18 + 4, &v28.__r_.__value_.__l.__data_) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v18 + 4, &v28) & 0x80) == 0)
     {
       break;
     }
 
-    v8 = v18 + 1;
-    v17 = v18[1];
+    v8 = (v18 + 8);
+    v17 = *(v18 + 1);
     if (!v17)
     {
       goto LABEL_34;
@@ -8564,11 +8352,11 @@ LABEL_34:
 
   if (*(v19 + 79) < 0)
   {
-    operator delete(*(v19 + 56));
+    operator delete(v19[7]);
   }
 
-  *(v19 + 56) = v42;
-  *(v19 + 80) = v43;
+  *(v19 + 7) = v42;
+  *(v19 + 5) = v43;
   if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
     v15 = v28.__r_.__value_.__r.__words[0];
@@ -8615,12 +8403,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -8634,22 +8422,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -8683,13 +8471,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -8750,20 +8538,20 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::str
 
 void IPTelephonyManager::getBambiClient(uint64_t *__return_ptr a1@<X8>)
 {
-  IPTelephonyManager::instance(&v5);
-  v3 = *(v5 + 240);
-  *a1 = *(v5 + 232);
-  a1[1] = v3;
-  if (v3)
+  IPTelephonyManager::instance(&v4);
+  v2 = *(v4 + 240);
+  *a1 = *(v4 + 232);
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4 = v6;
-  if (v6)
+  v3 = v5;
+  if (v5)
   {
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 }
 
@@ -8889,7 +8677,7 @@ void BambiClient::releaseKeepAliveAssertion(void *a1, uint64_t a2)
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  if (a1 + 55 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 54), &__p.__r_.__value_.__l.__data_))
+  if (a1 + 55 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 54), &__p))
   {
     PowerAssertionLock::deinitialize(a1 + 54, &__p);
   }
@@ -8947,7 +8735,7 @@ unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::__hash_len_33_to_64[ab
   return 0x9AE16A3B2F90404FLL * ((v11 - 0x3C5A37A36834CED9 * (v13 ^ (v13 >> 47))) ^ ((v11 - 0x3C5A37A36834CED9 * (v13 ^ (v13 >> 47))) >> 47));
 }
 
-void PowerAssertionLock::deinitialize(void *a1, uint64_t a2)
+void PowerAssertionLock::deinitialize(void *result, uint64_t a2)
 {
   v2 = *(a2 + 23);
   if ((v2 & 0x80u) != 0)
@@ -8957,15 +8745,16 @@ void PowerAssertionLock::deinitialize(void *a1, uint64_t a2)
 
   if (v2)
   {
-    v3 = std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2);
+    v10 = a2;
+    v3 = std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(result, a2, &std::piecewise_construct, &v10, &v9);
     AssertionCounter::deinitialize(*(v3 + 56));
   }
 
   else
   {
-    v4 = a1 + 1;
-    v5 = *a1;
-    if (*a1 != a1 + 1)
+    v4 = result + 1;
+    v5 = *result;
+    if (*result != result + 1)
     {
       do
       {
@@ -9274,7 +9063,7 @@ void ImsResultDomainBambi::~ImsResultDomainBambi(void **this)
   JUMPOUT(0x1E69235B0);
 }
 
-void *ims::SharedLoggable<SharedImsResultItem>::SharedLoggable(void *a1, const char *a2)
+void *ims::SharedLoggable<SharedImsResultItem>::SharedLoggable(void *a1, NSObject *a2)
 {
   v5 = a2;
   ims::getQueue(&object);
@@ -9453,7 +9242,7 @@ uint64_t ImsResult::setItem(uint64_t a1, uint64_t a2)
   return result;
 }
 
-const void *ImsResult::description@<X0>(ImsResult *this@<X0>, _BYTE *a2@<X8>)
+void *ImsResult::description@<X0>(ImsResult *this@<X0>, void *a2@<X8>)
 {
   v2 = *(this + 3);
   if (v2)
@@ -9616,7 +9405,7 @@ ImsOutStream *ImsResult::log(ImsResult *this, ImsOutStream *a2)
   v4 = *(this + 3);
   if (v4)
   {
-    ImsStringOutStream::loggableStr(v4, &__p);
+    ImsStringOutStream::loggableStr(&__p, v4);
     (*(*a2 + 40))(a2, &__p);
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
@@ -9627,18 +9416,17 @@ ImsOutStream *ImsResult::log(ImsResult *this, ImsOutStream *a2)
     goto LABEL_10;
   }
 
-  v6 = *(this + 4);
-  (*(**(this + 1) + 16))(&v8);
-  LoggableString::LoggableString(&__p, &v8);
+  (*(**(this + 1) + 16))(&v7);
+  LoggableString::LoggableString(&__p, &v7);
   (*(*a2 + 40))(a2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
   {
-    v5 = v8.__r_.__value_.__r.__words[0];
+    v5 = v7.__r_.__value_.__r.__words[0];
 LABEL_10:
     operator delete(v5);
   }
@@ -9669,10 +9457,10 @@ void sub_1E4C51D20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsStringOutStream::loggableStr(ImsStringOutStream *this@<X0>, std::string *a2@<X8>)
+void ImsStringOutStream::loggableStr(std::string *__return_ptr a1@<X8>, ImsStringOutStream *this@<X0>)
 {
   std::ostringstream::str[abi:ne200100](*(this + 3), &__p);
-  LoggableString::LoggableString(a2, &__p);
+  LoggableString::LoggableString(a1, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -9689,14 +9477,14 @@ void sub_1E4C51DBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsResult::loggableName(ImsResult *this)
+void ImsResult::loggableName()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C51EC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
+void sub_1E4C51EC8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
 {
   if (a15 < 0)
   {
@@ -9707,29 +9495,237 @@ void sub_1E4C51EC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   {
     if (a17)
     {
-      (*(*a17 + 8))(a17);
+      (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void ImsResult::logStr(ImsResult *this)
+void ImsResult::logStr()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4C52028(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4C52028(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
+}
+
+std::string *ImsResultDomainPosix::textForResultCode@<X0>(uint64_t __errnum@<X1>, std::string *a2@<X8>)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  memset(__strerrbuf, 0, sizeof(__strerrbuf));
+  if (!strerror_r(__errnum, __strerrbuf, 0x1FFuLL))
+  {
+    return std::string::__assign_external(a2, __strerrbuf);
+  }
+
+  v14 = 0;
+  memset(v13, 0, sizeof(v13));
+  v11 = 0u;
+  v12 = 0u;
+  *__p = 0u;
+  memset(v9, 0, sizeof(v9));
+  v8 = 0u;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, "Unknown Error ", 14);
+  MEMORY[0x1E6923340](v4, __errnum);
+  std::ostringstream::str[abi:ne200100](&v8, &v6);
+  *&a2->__r_.__value_.__l.__data_ = v6;
+  a2->__r_.__value_.__r.__words[2] = v7;
+  *&v8 = *MEMORY[0x1E69E54E8];
+  *(&v9[-1] + *(v8 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v8 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v11) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  *(&v8 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v9);
+  std::ostream::~ostream();
+  return MEMORY[0x1E6923510](v13);
+}
+
+void sub_1E4C522C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+{
+  std::ostringstream::~ostringstream(&a13, MEMORY[0x1E69E54E8]);
+  MEMORY[0x1E6923510](&a27);
+  _Unwind_Resume(a1);
+}
+
+void *ImsResultDomainBambi::textForResultCode@<X0>(int a1@<W1>, void *a2@<X8>)
+{
+  switch(a1)
+  {
+    case 1073741825:
+      v2 = "Invalid Argument";
+      break;
+    case 1073741826:
+      v2 = "Invalid State";
+      break;
+    case 1073741827:
+      v2 = "Uninitialized";
+      break;
+    case 1073741828:
+      v2 = "Sip Format Error";
+      break;
+    case 1073741829:
+    case 1073741846:
+    case 1073741849:
+      goto LABEL_7;
+    case 1073741830:
+      v2 = "Timed Out";
+      break;
+    case 1073741831:
+      v2 = "Media Timed Out";
+      break;
+    case 1073741832:
+      v2 = "Auth Sync Failure";
+      break;
+    case 1073741833:
+      v2 = "Not Implemented";
+      break;
+    case 1073741834:
+      v2 = "Not Available";
+      break;
+    case 1073741835:
+      v2 = "Parse Error";
+      break;
+    case 1073741836:
+      v2 = "Not Found";
+      break;
+    case 1073741837:
+      v2 = "Empty";
+      break;
+    case 1073741838:
+      v2 = "Pending";
+      break;
+    case 1073741839:
+      v2 = "Remote Termination";
+      break;
+    case 1073741840:
+      v2 = "Socket Send Error";
+      break;
+    case 1073741841:
+      v2 = "Canceled";
+      break;
+    case 1073741842:
+      v2 = "Network Error";
+      break;
+    case 1073741843:
+      v2 = "Socket Closed By Peer Debug";
+      break;
+    case 1073741844:
+      v2 = "Network Unreachable Error";
+      break;
+    case 1073741845:
+      v2 = "AVConferenced crashed";
+      break;
+    case 1073741847:
+      v2 = "Limited Connectivity";
+      break;
+    case 1073741848:
+      v2 = "Authentication Failed";
+      break;
+    case 1073741850:
+      v2 = "Socket Reset By Peer Debug";
+      break;
+    default:
+      if (a1)
+      {
+        if (a1 == 3)
+        {
+          v2 = "Accepted";
+        }
+
+        else
+        {
+LABEL_7:
+          v2 = "Unknown Error";
+        }
+      }
+
+      else
+      {
+        v2 = "Success";
+      }
+
+      break;
+  }
+
+  return std::string::basic_string[abi:ne200100]<0>(a2, v2);
+}
+
+void ims::result::resultWithCause(ims::result *this@<X0>, const ImsResult *a2@<X1>, uint64_t a3@<X8>)
+{
+  *(a3 + 80) = 0;
+  *(a3 + 48) = 0u;
+  *(a3 + 64) = 0u;
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 0u;
+  *a3 = 0u;
+  ImsResult::ImsResult(a3, this);
+  ImsResult::setCause(a3, a2);
+}
+
+uint64_t ims::result::log(uint64_t a1, uint64_t a2)
+{
+  if ((*(**(a2 + 8) + 24))(*(a2 + 8), *(a2 + 16)))
+  {
+    v6[0] = 0;
+    v9 = 0;
+    v4 = ims::error(a1, v6);
+    (*(*a2 + 16))(a2, v4);
+    (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    v4[17] = 0;
+    if (v9 == 1 && v8 < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  return a2;
+}
+
+void sub_1E4C525E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, char a19)
+{
+  if (a19 == 1 && a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t ims::result::log@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  if ((*(**(a2 + 8) + 24))(*(a2 + 8), *(a2 + 16)))
+  {
+    v8[0] = 0;
+    v11 = 0;
+    v6 = ims::error(a1, v8);
+    (*(*a2 + 16))(a2, v6);
+    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    v6[17] = 0;
+    if (v11 == 1 && v10 < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  return ImsResult::ImsResult(a3, a2);
 }

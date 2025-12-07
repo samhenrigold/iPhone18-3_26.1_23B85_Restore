@@ -74,11 +74,11 @@ void __87__CNMeCardSharingEditAvatarFlowManager_avatarEditingManager_didFinishWi
   }
 }
 
-uint64_t __87__CNMeCardSharingEditAvatarFlowManager_avatarEditingManager_didFinishWithProviderItem___block_invoke_2(uint64_t result)
+id *__87__CNMeCardSharingEditAvatarFlowManager_avatarEditingManager_didFinishWithProviderItem___block_invoke_2(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) presentAvatarEditorViewControllerForProviderItem:?];
+    return [result[5] presentAvatarEditorViewControllerForProviderItem:?];
   }
 
   return result;
@@ -270,8 +270,8 @@ LABEL_7:
   identityCopy = identity;
   controllerCopy = controller;
   unifiedMeContactMonitor = [MEMORY[0x1E6996BA8] unifiedMeContactMonitor];
-  contacts = [identityCopy contacts];
-  firstObject = [contacts firstObject];
+  v10 = objc_msgSend_contacts(identityCopy);
+  firstObject = [v10 firstObject];
   v12 = [unifiedMeContactMonitor isMeContact:firstObject];
   imagePickerController = [(CNMeCardSharingEditAvatarFlowManager *)self imagePickerController];
   [imagePickerController setIsMeContact:v12];

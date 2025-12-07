@@ -117,31 +117,31 @@
 
 + (id)elementMappingsFrom:(id)from for:(id)for
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   forCopy = for;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = forCopy;
-  v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v36;
-    v31 = fromCopy;
+    v10 = *v35;
+    v30 = fromCopy;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v36 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
+        v12 = *(*(&v34 + 1) + 8 * i);
         name = [v12 name];
         v14 = [fromCopy objectForKey:name];
         mappingKey = [v14 mappingKey];
@@ -156,7 +156,7 @@
           name2 = [v12 name];
         }
 
-        v34 = name2;
+        v33 = name2;
 
         if ([v12 kind] == 2)
         {
@@ -173,15 +173,15 @@
           }
 
           v20 = v19;
-          v33 = [GCSDirectionPadMapping alloc];
+          v32 = [GCSDirectionPadMapping alloc];
           [v12 remappingKey];
           [v20 invertHorizontally];
           [v20 invertVertically];
           [v20 swapAxes];
 
-          fromCopy = v31;
-          v21 = v34;
-          v22 = [GCSDirectionPadMapping initWithElementKey:v33 mappingKey:"initWithElementKey:mappingKey:remappingOrder:invertHorizontally:invertVertically:swapAxes:" remappingOrder:name invertHorizontally:? invertVertically:? swapAxes:?];
+          fromCopy = v30;
+          v21 = v33;
+          v22 = [GCSDirectionPadMapping initWithElementKey:v32 mappingKey:"initWithElementKey:mappingKey:remappingOrder:invertHorizontally:invertVertically:swapAxes:" remappingOrder:name invertHorizontally:? invertVertically:? swapAxes:?];
         }
 
         else
@@ -189,14 +189,14 @@
           v23 = [GCSElementMapping alloc];
           remappingKey = [v12 remappingKey];
           v25 = v23;
-          v21 = v34;
-          v22 = [(GCSElementMapping *)v25 initWithElementKey:name mappingKey:v34 remappingOrder:remappingKey];
+          v21 = v33;
+          v22 = [(GCSElementMapping *)v25 initWithElementKey:name mappingKey:v33 remappingOrder:remappingKey];
         }
 
         [v7 addObject:v22];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v9 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v9);
@@ -205,8 +205,6 @@
   v26 = [v7 sortedArrayUsingComparator:&__block_literal_global_1];
   v27 = v7;
   v28 = v26;
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -376,29 +374,29 @@ BOOL __38__GCSProfile_elementMappingsFrom_for___block_invoke(uint64_t a1, void *
 
 - (id)elementMappingsWithJSONDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [dictionary _gcs_dictionaryForJSONKey:@"elementMappings"];
-  v18 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
+  v17 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -419,21 +417,19 @@ BOOL __38__GCSProfile_elementMappingsFrom_for___block_invoke(uint64_t a1, void *
             v15 = [objc_alloc(*v14) initWithJSONObject:v12];
             if (v15)
             {
-              [v18 setObject:v15 forKeyedSubscript:v10];
+              [v17 setObject:v15 forKeyedSubscript:v10];
             }
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 - (GCSProfile)initWithJSONObject:(id)object
@@ -531,7 +527,7 @@ BOOL __38__GCSProfile_elementMappingsFrom_for___block_invoke(uint64_t a1, void *
 
 - (GCSJSONObject)jsonObject
 {
-  v29[14] = *MEMORY[0x277D85DE8];
+  v28[14] = *MEMORY[0x277D85DE8];
   name = self->_name;
   v4 = _GCFConvertStringToLocalizedString();
   LODWORD(name) = [(NSString *)name isEqualToString:v4];
@@ -543,50 +539,50 @@ BOOL __38__GCSProfile_elementMappingsFrom_for___block_invoke(uint64_t a1, void *
   }
 
   v6 = MEMORY[0x277CBEB38];
-  v28[0] = @"modifiedDate";
+  v27[0] = @"modifiedDate";
   jsonObject = [(NSDate *)self->_modifiedDate jsonObject];
-  v29[0] = jsonObject;
-  v28[1] = @"uuid";
+  v28[0] = jsonObject;
+  v27[1] = @"uuid";
   jsonObject2 = [(NSUUID *)self->_uuid jsonObject];
   v7 = self->_name;
-  v29[1] = jsonObject2;
-  v29[2] = v7;
-  v28[2] = @"name";
-  v28[3] = @"isBaseProfile";
-  v25 = [MEMORY[0x277CCABB0] numberWithBool:self->_baseProfile];
-  v29[3] = v25;
-  v28[4] = @"customizable";
-  v24 = [MEMORY[0x277CCABB0] numberWithBool:self->_customizable];
+  v28[1] = jsonObject2;
+  v28[2] = v7;
+  v27[2] = @"name";
+  v27[3] = @"isBaseProfile";
+  v24 = [MEMORY[0x277CCABB0] numberWithBool:self->_baseProfile];
+  v28[3] = v24;
+  v27[4] = @"customizable";
+  v23 = [MEMORY[0x277CCABB0] numberWithBool:self->_customizable];
   sfSymbolsName = self->_sfSymbolsName;
   elementMappings = self->_elementMappings;
-  v29[4] = v24;
-  v29[5] = sfSymbolsName;
-  v28[5] = @"sfSymbolsName";
-  v28[6] = @"elementMappings";
-  v23 = [MEMORY[0x277CBEAC0] _gcs_jsonObjectForSerializableDictionary:elementMappings];
-  v29[6] = v23;
-  v28[7] = @"hapticFeedbackOverride";
+  v28[4] = v23;
+  v28[5] = sfSymbolsName;
+  v27[5] = @"sfSymbolsName";
+  v27[6] = @"elementMappings";
+  v22 = [MEMORY[0x277CBEAC0] _gcs_jsonObjectForSerializableDictionary:elementMappings];
+  v28[6] = v22;
+  v27[7] = @"hapticFeedbackOverride";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:self->_hapticFeedbackOverride];
-  v29[7] = v10;
-  v28[8] = @"hapticStrength";
+  v28[7] = v10;
+  v27[8] = @"hapticStrength";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_hapticStrength];
-  v29[8] = v11;
-  v28[9] = @"doublePressShareGesture_ios";
+  v28[8] = v11;
+  v27[9] = @"doublePressShareGesture_ios";
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:self->_doublePressShareGesture];
-  v29[9] = v12;
-  v28[10] = @"longPressShareGesture_ios";
+  v28[9] = v12;
+  v27[10] = @"longPressShareGesture_ios";
   v13 = [MEMORY[0x277CCABB0] numberWithInteger:self->_longPressShareGesture];
-  v29[10] = v13;
-  v28[11] = @"lightbarOverride";
+  v28[10] = v13;
+  v27[11] = @"lightbarOverride";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:self->_lightbarOverride];
-  v29[11] = v14;
-  v28[12] = @"lightbarCustomColorEnabled";
+  v28[11] = v14;
+  v27[12] = @"lightbarCustomColorEnabled";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:self->_lightbarCustomColorEnabled];
-  v29[12] = v15;
-  v28[13] = @"lightbarColor";
+  v28[12] = v15;
+  v27[13] = @"lightbarColor";
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:self->_lightbarColor];
-  v29[13] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:14];
+  v28[13] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:14];
   v18 = [v6 dictionaryWithDictionary:v17];
 
   persistentControllerIdentifier = self->_persistentControllerIdentifier;
@@ -600,8 +596,6 @@ BOOL __38__GCSProfile_elementMappingsFrom_for___block_invoke(uint64_t a1, void *
   {
     [v18 setObject:gameBundleIdentifier forKeyedSubscript:@"gameBundleIdentifier"];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

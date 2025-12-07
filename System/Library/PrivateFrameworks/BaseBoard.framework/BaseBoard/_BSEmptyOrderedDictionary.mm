@@ -12,9 +12,9 @@
     dispatch_once(&qword_1ED4500C8, &__block_literal_global_240);
   }
 
-  v0 = qword_1ED4500C0;
+  v1 = qword_1ED4500C0;
 
-  return v0;
+  return v1;
 }
 
 @end

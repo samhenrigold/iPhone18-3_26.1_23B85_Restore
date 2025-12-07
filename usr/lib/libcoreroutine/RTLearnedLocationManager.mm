@@ -7686,15 +7686,15 @@ void __105__RTLearnedLocationManager_learnedLocationEngineDidUpdate_intervalSinc
   dispatch_async(queue, block);
 }
 
-uint64_t __58__RTLearnedLocationManager_learnedLocationEngineDidClear___block_invoke(uint64_t a1)
+uint64_t __58__RTLearnedLocationManager_learnedLocationEngineDidClear___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
-  [v1 postNotification:v2];
+  v2 = *(a1 + 32);
+  v3 = objc_opt_new();
+  [v2 postNotification:v3];
 
-  v3 = [*MEMORY[0x277D01460] UTF8String];
+  v4 = [*MEMORY[0x277D01460] UTF8String];
 
-  return notify_post(v3);
+  return notify_post(v4);
 }
 
 - (void)learnedLocationEngineWillBeginTraining:(id)training

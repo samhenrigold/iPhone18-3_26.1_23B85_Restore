@@ -35,104 +35,104 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v50[19] = *MEMORY[0x277D85DE8];
+  v49[19] = *MEMORY[0x277D85DE8];
   previousModeSemanticType = self->_previousModeSemanticType;
-  v48 = previousModeSemanticType;
-  v49[0] = @"previousMode";
+  v47 = previousModeSemanticType;
+  v48[0] = @"previousMode";
   if (!previousModeSemanticType)
   {
     previousModeSemanticType = [MEMORY[0x277CBEB68] null];
   }
 
-  v36 = previousModeSemanticType;
-  v50[0] = previousModeSemanticType;
-  v49[1] = @"previousModeDuration";
-  v47 = [MEMORY[0x277CCABB0] numberWithDouble:self->_previousModeDuration];
-  v50[1] = v47;
-  v49[2] = @"previousHadScheduledExit";
-  v46 = [MEMORY[0x277CCABB0] numberWithBool:self->_previousModeHadScheduledExit];
-  v50[2] = v46;
-  v49[3] = @"exitReason";
+  v35 = previousModeSemanticType;
+  v49[0] = previousModeSemanticType;
+  v48[1] = @"previousModeDuration";
+  v46 = [MEMORY[0x277CCABB0] numberWithDouble:self->_previousModeDuration];
+  v49[1] = v46;
+  v48[2] = @"previousHadScheduledExit";
+  v45 = [MEMORY[0x277CCABB0] numberWithBool:self->_previousModeHadScheduledExit];
+  v49[2] = v45;
+  v48[3] = @"exitReason";
   exitReason = self->_exitReason;
-  v45 = exitReason;
+  v44 = exitReason;
   if (!exitReason)
   {
     exitReason = [MEMORY[0x277CBEB68] null];
   }
 
-  v35 = exitReason;
-  v50[3] = exitReason;
-  v49[4] = @"enterReason";
+  v34 = exitReason;
+  v49[3] = exitReason;
+  v48[4] = @"enterReason";
   enterReason = self->_enterReason;
-  v44 = enterReason;
+  v43 = enterReason;
   if (!enterReason)
   {
     enterReason = [MEMORY[0x277CBEB68] null];
   }
 
-  v34 = enterReason;
-  v50[4] = enterReason;
-  v49[5] = @"transitionDeviceType";
+  v33 = enterReason;
+  v49[4] = enterReason;
+  v48[5] = @"transitionDeviceType";
   transitionDeviceType = self->_transitionDeviceType;
-  v43 = transitionDeviceType;
+  v42 = transitionDeviceType;
   if (!transitionDeviceType)
   {
     transitionDeviceType = [MEMORY[0x277CBEB68] null];
   }
 
-  v33 = transitionDeviceType;
-  v50[5] = transitionDeviceType;
-  v49[6] = @"transitionSource";
+  v32 = transitionDeviceType;
+  v49[5] = transitionDeviceType;
+  v48[6] = @"transitionSource";
   transitionSource = self->_transitionSource;
-  v42 = transitionSource;
+  v41 = transitionSource;
   if (!transitionSource)
   {
     transitionSource = [MEMORY[0x277CBEB68] null];
   }
 
-  v32 = transitionSource;
-  v50[6] = transitionSource;
-  v49[7] = @"nextMode";
+  v31 = transitionSource;
+  v49[6] = transitionSource;
+  v48[7] = @"nextMode";
   nextModeSemanticType = self->_nextModeSemanticType;
-  v41 = nextModeSemanticType;
+  v40 = nextModeSemanticType;
   if (!nextModeSemanticType)
   {
     nextModeSemanticType = [MEMORY[0x277CBEB68] null];
   }
 
-  v31 = nextModeSemanticType;
-  v50[7] = nextModeSemanticType;
-  v49[8] = @"inferredModeConfidenceScore";
+  v30 = nextModeSemanticType;
+  v49[7] = nextModeSemanticType;
+  v48[8] = @"inferredModeConfidenceScore";
   inferredModeConfidenceScore = self->_inferredModeConfidenceScore;
-  v40 = inferredModeConfidenceScore;
+  v39 = inferredModeConfidenceScore;
   if (!inferredModeConfidenceScore)
   {
     inferredModeConfidenceScore = [MEMORY[0x277CBEB68] null];
   }
 
-  v30 = inferredModeConfidenceScore;
-  v50[8] = inferredModeConfidenceScore;
-  v49[9] = @"inferredModeDuration";
+  v29 = inferredModeConfidenceScore;
+  v49[8] = inferredModeConfidenceScore;
+  v48[9] = @"inferredModeDuration";
   inferredModeDuration = self->_inferredModeDuration;
-  v39 = inferredModeDuration;
+  v38 = inferredModeDuration;
   if (!inferredModeDuration)
   {
     inferredModeDuration = [MEMORY[0x277CBEB68] null];
   }
 
-  v29 = inferredModeDuration;
-  v50[9] = inferredModeDuration;
-  v49[10] = @"inferredModeOriginAnchorType";
+  v28 = inferredModeDuration;
+  v49[9] = inferredModeDuration;
+  v48[10] = @"inferredModeOriginAnchorType";
   inferredModeOriginAnchorType = self->_inferredModeOriginAnchorType;
-  v38 = inferredModeOriginAnchorType;
+  v37 = inferredModeOriginAnchorType;
   if (!inferredModeOriginAnchorType)
   {
     inferredModeOriginAnchorType = [MEMORY[0x277CBEB68] null];
   }
 
-  v28 = inferredModeOriginAnchorType;
-  v50[10] = inferredModeOriginAnchorType;
-  v49[11] = @"inferredModeType";
+  v27 = inferredModeOriginAnchorType;
+  v49[10] = inferredModeOriginAnchorType;
+  v48[11] = @"inferredModeType";
   inferredModeType = self->_inferredModeType;
   null = inferredModeType;
   if (!inferredModeType)
@@ -140,9 +140,9 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v27 = null;
-  v50[11] = null;
-  v49[12] = @"inferredModeUILocation";
+  v26 = null;
+  v49[11] = null;
+  v48[12] = @"inferredModeUILocation";
   inferredModeUILocation = self->_inferredModeUILocation;
   null2 = inferredModeUILocation;
   if (!inferredModeUILocation)
@@ -150,9 +150,9 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v26 = null2;
-  v50[12] = null2;
-  v49[13] = @"previousModeOrigin";
+  v25 = null2;
+  v49[12] = null2;
+  v48[13] = @"previousModeOrigin";
   previousModeOrigin = self->_previousModeOrigin;
   null3 = previousModeOrigin;
   if (!previousModeOrigin)
@@ -160,20 +160,20 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v50[13] = null3;
-  v49[14] = @"appBasedSchedulingEnabled";
+  v49[13] = null3;
+  v48[14] = @"appBasedSchedulingEnabled";
   v18 = [MEMORY[0x277CCABB0] numberWithBool:self->_appBasedSchedulingEnabled];
-  v50[14] = v18;
-  v49[15] = @"timeBasedSchedulingEnabled";
+  v49[14] = v18;
+  v48[15] = @"timeBasedSchedulingEnabled";
   v19 = [MEMORY[0x277CCABB0] numberWithBool:self->_timeBasedSchedulingEnabled];
-  v50[15] = v19;
-  v49[16] = @"locationBasedSchedulingEnabled";
+  v49[15] = v19;
+  v48[16] = @"locationBasedSchedulingEnabled";
   v20 = [MEMORY[0x277CCABB0] numberWithBool:self->_locationBasedSchedulingEnabled];
-  v50[16] = v20;
-  v49[17] = @"smartActivationEnabled";
+  v49[16] = v20;
+  v48[17] = @"smartActivationEnabled";
   v21 = [MEMORY[0x277CCABB0] numberWithBool:self->_smartActivationEnabled];
-  v50[17] = v21;
-  v49[18] = @"currentModeOrigin";
+  v49[17] = v21;
+  v48[18] = @"currentModeOrigin";
   currentModeOrigin = self->_currentModeOrigin;
   null4 = currentModeOrigin;
   if (!currentModeOrigin)
@@ -181,8 +181,8 @@
     null4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v50[18] = null4;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:19];
+  v49[18] = null4;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:19];
   if (!currentModeOrigin)
   {
   }
@@ -218,6 +218,10 @@ LABEL_31:
 LABEL_55:
 
 LABEL_32:
+  if (!v37)
+  {
+  }
+
   if (!v38)
   {
   }
@@ -246,17 +250,11 @@ LABEL_32:
   {
   }
 
-  if (!v45)
+  if (!v47)
   {
   }
 
-  if (!v48)
-  {
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v37;
+  return v36;
 }
 
 - (id)description

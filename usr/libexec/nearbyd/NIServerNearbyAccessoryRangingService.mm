@@ -1,5 +1,6 @@
 @interface NIServerNearbyAccessoryRangingService
 + (id)sharedInstance;
+- (BOOL)_buildAndRunRangingSession:(unsigned int)session;
 - (id)_initInternal;
 - (id)_internalPrintableState;
 - (id)_prepareUwbSessionTrackingObjectsForClientTracking:(id)tracking outServiceRequest:(void *)request outStartOptions:(void *)options outShareableConfigData:(id *)data;
@@ -9,6 +10,8 @@
 - (void)_cleanupExcessiveDetachedSessions;
 - (void)_prepareUwbSessionTrackingObjectsFromDebugParameters:(id)parameters outServiceRequest:(void *)request outStartOptions:(void *)options;
 - (void)_relayToClientsOfUWBSessionId:(unsigned int)id blockToRelay:(id)relay;
+- (void)_serviceRequestForUWBSessionID:(unsigned int)d didUpdateStatus:(ServiceRequestStatusUpdate)status;
+- (void)_updateUwbSessionState:(unsigned int)state;
 - (void)notifyServiceClientWithIdentifier:(id)identifier isRunning:(BOOL)running;
 - (void)removeServiceClientWithIdentifier:(id)identifier;
 @end
@@ -156,9 +159,9 @@
 
 - (id)_initInternal
 {
-  v17.receiver = self;
-  v17.super_class = NIServerNearbyAccessoryRangingService;
-  v2 = [(NIServerNearbyAccessoryRangingService *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = NIServerNearbyAccessoryRangingService;
+  v2 = [(NIServerNearbyAccessoryRangingService *)&v16 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
@@ -180,8 +183,7 @@
 
     if (+[NIPlatformInfo isInternalBuild](NIPlatformInfo, "isInternalBuild") || (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 BOOLForKey:@"EnableStateDump"], v12, v13))
     {
-      v14 = v2->_queue;
-      v16 = v2;
+      v15 = v2;
       os_state_add_handler();
     }
   }
@@ -1064,7 +1066,7 @@ LABEL_212:
 
                       v117 = sub_1002FA4F8(*(__dst + 354));
                       uwbSessionId4 = [trackingCopy uwbSessionId];
-                      sub_1002FA31C(&v148, v133, v116, v117, uwbSessionId4, v137, v135, v136, v146, v161, &v167, v25, 0, 2, 0, 0, v128);
+                      sub_1002FA31C(v146, &v148, v133, v116, v117, uwbSessionId4, v137, v135, v136, v161, &v167, v25, 0, 2, 0, 0, v128);
                       sub_1002FA5EC(v146, &__p);
                       *dataCopy = [NSData dataWithBytes:__p length:v145 - __p];
                       v119 = qword_1009F9820;
@@ -1078,9 +1080,9 @@ LABEL_212:
 
                         v121 = *(v140 + 41);
                         *buf = 67110146;
-                        *&buf[4] = v146[0];
+                        *&buf[4] = LOWORD(v146[0]);
                         *&buf[8] = 1024;
-                        *&buf[10] = v146[1];
+                        *&buf[10] = WORD1(v146[0]);
                         *&buf[14] = 2112;
                         *&buf[16] = v120;
                         *&buf[24] = 1024;
@@ -1772,6 +1774,144 @@ LABEL_90:
   _Block_object_dispose(&v104, 8);
 }
 
+- (BOOL)_buildAndRunRangingSession:(unsigned int)session
+{
+  v3 = *&session;
+  dispatch_assert_queue_V2(self->_queue);
+  uwbSessionTracking = self->_uwbSessionTracking;
+  v6 = [NSNumber numberWithUnsignedInt:v3];
+  v7 = [(NSMutableDictionary *)uwbSessionTracking objectForKey:v6];
+
+  if (v7)
+  {
+    selfCopy = self;
+    std::to_string(&v11, v3);
+    [v7 serviceRequest];
+    v9 = *(sub_10035D02C() + 21);
+    if (v9)
+    {
+      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    operator new();
+  }
+
+  return 0;
+}
+
+- (void)_updateUwbSessionState:(unsigned int)state
+{
+  v3 = *&state;
+  dispatch_assert_queue_V2(self->_queue);
+  uwbSessionTracking = self->_uwbSessionTracking;
+  v19 = v3;
+  v6 = [NSNumber numberWithUnsignedInt:v3];
+  v7 = [(NSMutableDictionary *)uwbSessionTracking objectForKey:v6];
+
+  if (v7)
+  {
+    v8 = *[v7 rangingSession] != 0;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  interestedClients = [v7 interestedClients];
+  if ([interestedClients count])
+  {
+    persistWhileDetached = 1;
+  }
+
+  else
+  {
+    persistWhileDetached = [v7 persistWhileDetached];
+  }
+
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  interestedClients2 = [v7 interestedClients];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_1002FBCD0;
+  v20[3] = &unk_1009A3E28;
+  v20[4] = self;
+  v20[5] = &v21;
+  [interestedClients2 enumerateObjectsUsingBlock:v20];
+
+  v12 = qword_1009F9820;
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = *(v22 + 24);
+    interestedClients3 = [v7 interestedClients];
+    v15 = [interestedClients3 count];
+    persistWhileDetached2 = [v7 persistWhileDetached];
+    *buf = 67110656;
+    v26 = v19;
+    v27 = 1024;
+    v28 = v7 != 0;
+    v29 = 1024;
+    v30 = v8;
+    v31 = 1024;
+    v32 = persistWhileDetached;
+    v33 = 1024;
+    v34 = v13;
+    v35 = 1024;
+    v36 = v15;
+    v37 = 1024;
+    v38 = persistWhileDetached2;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#accessory-service,Update session state for UWB session ID %u. Currently: tracking %d, ranging %d. Should be: tracking %d, ranging %d. Clients: %d. Persist-detached: %d.", buf, 0x2Cu);
+  }
+
+  if (v7 != 0 || (persistWhileDetached & 1) == 0)
+  {
+    if ((v7 == 0) | persistWhileDetached & 1)
+    {
+      if (v7)
+      {
+        if (v8)
+        {
+          if ((v22[3] & 1) == 0)
+          {
+            [v7 stopRanging];
+          }
+        }
+
+        else if (*(v22 + 24))
+        {
+          if (*[v7 rangingSession])
+          {
+            __assert_rtn("[NIServerNearbyAccessoryRangingService _updateUwbSessionState:]", "NIServerNearbyAccessoryRangingService.mm", 1716, "uwbSessionTracking.rangingSession == nullptr");
+          }
+
+          if (![(NIServerNearbyAccessoryRangingService *)self _buildAndRunRangingSession:v19])
+          {
+            [(NIServerNearbyAccessoryRangingService *)self _relayToClientsOfUWBSessionId:v19 blockToRelay:&stru_1009A3E68];
+          }
+        }
+      }
+    }
+
+    else
+    {
+      [v7 stopRanging];
+      v17 = self->_uwbSessionTracking;
+      v18 = [NSNumber numberWithUnsignedInt:v19];
+      [(NSMutableDictionary *)v17 removeObjectForKey:v18];
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
+  {
+    sub_1004BC460();
+  }
+
+  _Block_object_dispose(&v21, 8);
+}
+
 - (void)_cleanupExcessiveDetachedSessions
 {
   dispatch_assert_queue_V2(self->_queue);
@@ -1812,6 +1952,132 @@ LABEL_90:
 
     [(NSMutableDictionary *)self->_uwbSessionTracking removeObjectsForKeys:v8];
   }
+}
+
+- (void)_serviceRequestForUWBSessionID:(unsigned int)d didUpdateStatus:(ServiceRequestStatusUpdate)status
+{
+  var2 = status.var2;
+  v5 = *&status.var0;
+  v6 = *&d;
+  dispatch_assert_queue_V2(self->_queue);
+  v8 = qword_1009F9820;
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    sub_100004A08(v36, off_1009A42D8[v5 >> 32]);
+    v9 = v37;
+    v10 = v36[0];
+    sub_100004A08(__p, off_1009A4350[var2]);
+    v11 = v36;
+    if (v9 < 0)
+    {
+      v11 = v10;
+    }
+
+    if (v35 >= 0)
+    {
+      v12 = __p;
+    }
+
+    else
+    {
+      v12 = __p[0];
+    }
+
+    LODWORD(buf) = 67109634;
+    HIDWORD(buf) = v6;
+    v39 = 2080;
+    v40 = v11;
+    v41 = 2080;
+    v42 = v12;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#accessory-service,Service request status update for UWB session ID %u. Event type: %s. Reason: %s", &buf, 0x1Cu);
+    if (v35 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (v37 < 0)
+    {
+      operator delete(v36[0]);
+    }
+  }
+
+  uwbSessionTracking = self->_uwbSessionTracking;
+  v14 = [NSNumber numberWithUnsignedInt:v6];
+  v15 = [(NSMutableDictionary *)uwbSessionTracking objectForKey:v14];
+
+  if (!v15 || (v5 & 0xFFFFFFFF00000000) != 0x200000000 || (var2 - 9) > 1)
+  {
+    goto LABEL_22;
+  }
+
+  if ([v15 rangingRetryCount] > 7)
+  {
+    v26 = qword_1009F9820;
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      buf = 0x804000100;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#accessory-service,Max # of retries (%d) reached. Stop tracking peer.", &buf, 8u);
+    }
+
+LABEL_22:
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_1002FC6D0;
+    v27[3] = &unk_1009A3EB0;
+    v27[4] = v5;
+    v28 = var2;
+    [(NIServerNearbyAccessoryRangingService *)self _relayToClientsOfUWBSessionId:v6 blockToRelay:v27];
+    goto LABEL_23;
+  }
+
+  [v15 setRangingRetryCount:{(objc_msgSend(v15, "rangingRetryCount") + 1)}];
+  v16 = qword_1009F9820;
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    rangingRetryCount = [v15 rangingRetryCount];
+    LODWORD(buf) = 67109376;
+    HIDWORD(buf) = rangingRetryCount;
+    v39 = 1024;
+    LODWORD(v40) = 8;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#accessory-service,Retry ranging (%d of %d)", &buf, 0xEu);
+  }
+
+  rangingRetryTimer = [v15 rangingRetryTimer];
+  v19 = rangingRetryTimer == 0;
+
+  if (!v19)
+  {
+    rangingRetryTimer2 = [v15 rangingRetryTimer];
+    dispatch_source_cancel(rangingRetryTimer2);
+
+    [v15 setRangingRetryTimer:0];
+  }
+
+  v21 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_queue);
+  [v15 setRangingRetryTimer:v21];
+
+  rangingRetryTimer3 = [v15 rangingRetryTimer];
+  v23 = dispatch_time(0, 500000000);
+  dispatch_source_set_timer(rangingRetryTimer3, v23, 0xFFFFFFFFFFFFFFFFLL, 0x989680uLL);
+
+  objc_initWeak(&buf, self);
+  rangingRetryTimer4 = [v15 rangingRetryTimer];
+  handler[0] = _NSConcreteStackBlock;
+  handler[1] = 3221225472;
+  handler[2] = sub_1002FC4E8;
+  handler[3] = &unk_1009A3ED8;
+  objc_copyWeak(&v30, &buf);
+  v31 = v6;
+  v32 = v5;
+  v33 = var2;
+  dispatch_source_set_event_handler(rangingRetryTimer4, handler);
+
+  rangingRetryTimer5 = [v15 rangingRetryTimer];
+  dispatch_resume(rangingRetryTimer5);
+
+  objc_destroyWeak(&v30);
+  objc_destroyWeak(&buf);
+LABEL_23:
 }
 
 - (void)_relayToClientsOfUWBSessionId:(unsigned int)id blockToRelay:(id)relay

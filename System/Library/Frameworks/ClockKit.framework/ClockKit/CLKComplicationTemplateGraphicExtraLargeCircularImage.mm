@@ -94,32 +94,33 @@ void __103__CLKComplicationTemplateGraphicExtraLargeCircularImage__enumerateFull
   _enumerateFullColorImageProviderKeysWithBlock___pointSize_1625 = v8;
   qword_27DE91DA0 = (v6)[2](v6, v3);
   [v3 setNewestAllowedSizeClass:&unk_284A34128];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1624 = (v6)[2](v6, v3);
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1624[0] = (v6)[2](v6, v3);
 }
 
 double __103__CLKComplicationTemplateGraphicExtraLargeCircularImage__enumerateFullColorImageProviderKeysWithBlock___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v5 = getCDCircularMediumComplicationDiameterSymbolLoc_ptr;
-  v15 = getCDCircularMediumComplicationDiameterSymbolLoc_ptr;
+  v16 = getCDCircularMediumComplicationDiameterSymbolLoc_ptr;
   if (!getCDCircularMediumComplicationDiameterSymbolLoc_ptr)
   {
     v6 = ComplicationDisplayLibrary();
-    v13[3] = dlsym(v6, "CDCircularMediumComplicationDiameter");
-    getCDCircularMediumComplicationDiameterSymbolLoc_ptr = v13[3];
-    v5 = v13[3];
+    v14[3] = dlsym(v6, "CDCircularMediumComplicationDiameter");
+    getCDCircularMediumComplicationDiameterSymbolLoc_ptr = v14[3];
+    v5 = v14[3];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v5)
   {
-    v11 = [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
-    _Block_object_dispose(&v12, 8);
-    _Unwind_Resume(v11);
+    [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
+    v12 = v11;
+    _Block_object_dispose(&v13, 8);
+    _Unwind_Resume(v12);
   }
 
   v7 = v5(v4);

@@ -596,53 +596,8 @@ LABEL_2:
   fragmentFunctionForPixelFormatCache = self->_fragmentFunctionForPixelFormatCache;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:format];
   v9 = [(NSMutableDictionary *)fragmentFunctionForPixelFormatCache objectForKeyedSubscript:v8];
-
-  if (v9)
+  if (v9 || ((-[DYMTLTextureResize returnTypeForPixelFormat:](self, "returnTypeForPixelFormat:", format), v10 = ;
   {
-    goto LABEL_19;
-  }
-
-  v10 = [(DYMTLTextureResize *)self returnTypeForPixelFormat:format];
-  v11 = [(DYMTLTextureResize *)self textureTypeForPixelFormat:format];
-  v12 = [(DYMTLTextureResize *)self dataTypeForReturnType:v10];
-  if ((objc_opt_respondsToSelector() & 1) != 0 && ([textureCopy isSparse] & 1) == 0)
-  {
-    v13 = @"tex.sparse_sample(samp, in.uv).value()";
-  }
-
-  else
-  {
-    v13 = @"tex.sample(samp, in.uv)";
-  }
-
-  v14 = !v10 || v11 == 0;
-  v15 = v14 || v12 == 0;
-  v16 = !v15;
-  if (v15)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v24 = v16;
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"#include <metal_stdlib>\nusing namespace metal\n\nstruct VertexOutput\n{\n    vec<float, 4> pos [[position]];\n    vec<float, 2> uv;\n};\n\n\nfragment %@ texturedQuadFragment(VertexOutput in [[ stage_in ]], \n                                     texture2d<%@> tex [[ texture(0) ]], \n                                     sampler samp [[ sampler(0) ]])\n{\n   return %@%@;\n}\n", v10, v11, v13, v12];;
-    device = self->_device;
-    v27 = 0;
-    v26 = v17;
-    v19 = [(MTLDevice *)device newLibraryWithSource:v17 options:0 error:&v27];
-    v25 = v27;
-    v9 = [v19 newFunctionWithName:@"texturedQuadFragment"];
-    v20 = self->_fragmentFunctionForPixelFormatCache;
-    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:format];
-    [(NSMutableDictionary *)v20 setObject:v9 forKey:v21];
-
-    v16 = v24;
-  }
-
-  if (v16)
-  {
-LABEL_19:
     v9 = v9;
     v22 = v9;
   }

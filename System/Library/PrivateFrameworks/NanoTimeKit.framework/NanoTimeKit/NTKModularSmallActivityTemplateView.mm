@@ -213,24 +213,24 @@ LABEL_20:
 
 - (void)applyColorScheme:(id)scheme
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = NTKModularSmallActivityTemplateView;
+  v13[3] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = NTKModularSmallActivityTemplateView;
   schemeCopy = scheme;
-  [(NTKModuleView *)&v11 applyColorScheme:schemeCopy];
+  [(NTKModuleView *)&v12 applyColorScheme:schemeCopy];
   containsOverrideFaceColor = [schemeCopy containsOverrideFaceColor];
 
   if (containsOverrideFaceColor)
   {
     ringsView = self->_ringsView;
-    v7 = NTKMoveNonGradientTextColor();
-    v12[0] = v7;
-    v8 = NTKExerciseNonGradientTextColor();
-    v12[1] = v8;
-    v9 = NTKStandNonGradientTextColor();
-    v12[2] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
-    [(NTKRingsAndDotsView *)ringsView setRingColors:v10];
+    v8 = NTKMoveNonGradientTextColor(v6);
+    v13[0] = v8;
+    v9 = NTKExerciseNonGradientTextColor(v8);
+    v13[1] = v9;
+    v10 = NTKStandNonGradientTextColor(v9);
+    v13[2] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+    [(NTKRingsAndDotsView *)ringsView setRingColors:v11];
   }
 }
 

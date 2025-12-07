@@ -25,7 +25,7 @@
 
   selfCopy = self;
   sub_1CBC(v7, v6);
-  sub_3028(v7);
+  sub_3028(v7, v6);
 }
 
 - (SFMDevicePlaySoundHandler)initWithDictionary:(id)dictionary

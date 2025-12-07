@@ -797,11 +797,11 @@ LABEL_59:
   v100[4] = &v101;
   [v58 enumerateObjectsUsingBlock:v100];
   v14 = v63;
-  std::string::basic_string[abi:ne200100]<0>(&v98, [v63 UTF8String]);
+  std::string::basic_string[abi:ne200100]<0>(v98, [v63 UTF8String]);
   v15 = v62;
   std::string::basic_string[abi:ne200100]<0>(&v97, [v62 UTF8String]);
-  std::ifstream::basic_ifstream(v116);
-  std::ofstream::basic_ofstream(&v113);
+  std::ifstream::basic_ifstream(v116, v98, 4);
+  std::ofstream::basic_ofstream(&v113, &v97, 4);
   std::ostream::operator<<();
   if (!std::filebuf::close())
   {
@@ -1053,7 +1053,7 @@ LABEL_59:
 
   if (v99 < 0)
   {
-    operator delete(v98);
+    operator delete(v98[0]);
   }
 
   _Block_object_dispose(&v101, 8);

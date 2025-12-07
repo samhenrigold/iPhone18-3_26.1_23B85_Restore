@@ -132,25 +132,25 @@
 
 - (HKSharedSummary)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"UUID"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Package"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Name"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Version"];
-  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CompatibilityVersion"];
+  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CompatibilityVersion"];
   v8 = MEMORY[0x1E695DFD8];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
-  v10 = [v8 setWithArray:v9];
-
-  v24 = v10;
-  v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"AuthorizationIdentifiers"];
-  v12 = MEMORY[0x1E695DFD8];
   v25[0] = objc_opt_class();
   v25[1] = objc_opt_class();
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+  v10 = [v8 setWithArray:v9];
+
+  v23 = v10;
+  v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"AuthorizationIdentifiers"];
+  v12 = MEMORY[0x1E695DFD8];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
   v14 = [v12 setWithArray:v13];
 
   v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"ObjectTypes"];
@@ -164,7 +164,6 @@
     [(HKSharedSummary *)v18 _setTransaction:v17];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

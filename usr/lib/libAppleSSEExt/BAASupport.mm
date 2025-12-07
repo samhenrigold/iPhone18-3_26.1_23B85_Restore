@@ -31,7 +31,7 @@
 
 void __28__BAASupport_prepareLazily___block_invoke()
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   v0 = _cfgBaaCertRetryPeriods;
   _cfgBaaCertRetryPeriods = &unk_2A1DEB290;
 
@@ -51,7 +51,7 @@ void __28__BAASupport_prepareLazily___block_invoke()
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v46 = v5;
+          v45 = v5;
           _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: using NSUserDefaults value sseBAACertValidity=%@", buf, 0xCu);
         }
 
@@ -79,7 +79,7 @@ void __28__BAASupport_prepareLazily___block_invoke()
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v46 = v7;
+          v45 = v7;
           _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: using NSUserDefaults value sseBAACertRenewPeriod=%@", buf, 0xCu);
         }
 
@@ -108,7 +108,7 @@ void __28__BAASupport_prepareLazily___block_invoke()
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v46 = v9;
+          v45 = v9;
           _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: using NSUserDefaults value sseBAACertRenewPeriodRatio=%@", buf, 0xCu);
         }
 
@@ -139,30 +139,30 @@ void __28__BAASupport_prepareLazily___block_invoke()
           if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v11;
+            v45 = v11;
             _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: using NSUserDefaults value sseBAACertRetryPeriods=%@", buf, 0xCu);
           }
 
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           v12 = v11;
-          v13 = [v12 countByEnumeratingWithState:&v29 objects:buf count:16];
+          v13 = [v12 countByEnumeratingWithState:&v28 objects:buf count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v30;
+            v15 = *v29;
             while (2)
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v30 != v15)
+                if (*v29 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v29 + 1) + 8 * i);
+                v17 = *(*(&v28 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0 || ![v17 unsignedIntValue])
                 {
@@ -176,7 +176,7 @@ void __28__BAASupport_prepareLazily___block_invoke()
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v29 objects:buf count:16];
+              v14 = [v12 countByEnumeratingWithState:&v28 objects:buf count:16];
               v1 = 0x2A18BD000;
               if (v14)
               {
@@ -204,9 +204,9 @@ LABEL_46:
       {
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
-          *v33 = 138412290;
-          v34 = v19;
-          _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: using NSUserDefaults value sseBAACertForcedFailures=%@", v33, 0xCu);
+          *v32 = 138412290;
+          v33 = v19;
+          _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: using NSUserDefaults value sseBAACertForcedFailures=%@", v32, 0xCu);
         }
 
         _cfgBaaCertForcedFailures = [v19 unsignedIntValue];
@@ -223,9 +223,9 @@ LABEL_46:
       {
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
-          *v33 = 138412290;
-          v34 = v21;
-          _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: using NSUserDefaults value sseBAACertDeleteOnStart=%@", v33, 0xCu);
+          *v32 = 138412290;
+          v33 = v21;
+          _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: using NSUserDefaults value sseBAACertDeleteOnStart=%@", v32, 0xCu);
         }
 
         *(v3 + 1632) = [v21 BOOLValue];
@@ -242,19 +242,19 @@ LABEL_46:
     v24 = *(v2 + 1624);
     v25 = [_cfgBaaCertRetryPeriods componentsJoinedByString:{@", "}];
     v26 = *(v3 + 1632);
-    *v33 = 134219266;
-    v34 = v22;
-    v35 = 2048;
-    v36 = v23;
-    v37 = 1024;
-    v38 = v24;
-    v39 = 2112;
-    v40 = v25;
-    v41 = 1024;
-    v42 = _cfgBaaCertForcedFailures;
-    v43 = 1024;
-    v44 = v26;
-    _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: validity=%llu, renewPeriod=%llu, renewPeriodRatio=%u, retryPeriods=(%@), forcedFailures=%u, deleteOnStart=%u", v33, 0x32u);
+    *v32 = 134219266;
+    v33 = v22;
+    v34 = 2048;
+    v35 = v23;
+    v36 = 1024;
+    v37 = v24;
+    v38 = 2112;
+    v39 = v25;
+    v40 = 1024;
+    v41 = _cfgBaaCertForcedFailures;
+    v42 = 1024;
+    v43 = v26;
+    _os_log_impl(&dword_296B96000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "cacheConfiguration: validity=%llu, renewPeriod=%llu, renewPeriodRatio=%u, retryPeriods=(%@), forcedFailures=%u, deleteOnStart=%u", v32, 0x32u);
   }
 
   if (*(v3 + 1632) == 1)
@@ -292,8 +292,6 @@ LABEL_46:
   {
     __28__BAASupport_prepareLazily___block_invoke_cold_8();
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 + (int)getCertificateExpirationDate:(double *)date
@@ -378,8 +376,8 @@ LABEL_46:
 + (int)prepareLazily:(BOOL)lazily
 {
   lazilyCopy = lazily;
-  v38 = *MEMORY[0x29EDCA608];
-  v31 = 0;
+  v37 = *MEMORY[0x29EDCA608];
+  v30 = 0;
   if (qword_2A18BD350 != -1)
   {
     dispatch_once(&qword_2A18BD350, &__block_literal_global);
@@ -393,7 +391,7 @@ LABEL_46:
 
   else if (qword_2A18BD348)
   {
-    v4 = [qword_2A18BD348 getSigKeyExpDate:3 expirationDate:&v31];
+    v4 = [qword_2A18BD348 getSigKeyExpDate:3 expirationDate:&v30];
     if (v4)
     {
       v9 = v4;
@@ -401,20 +399,20 @@ LABEL_46:
       {
         *buf = 136316162;
         OUTLINED_FUNCTION_7();
-        v35 = v14;
+        v34 = v13;
         OUTLINED_FUNCTION_9();
-        v36 = &unk_296B9B506;
+        v35 = &unk_296B9B506;
         OUTLINED_FUNCTION_3();
-        v37 = 866;
-        OUTLINED_FUNCTION_8(&dword_296B96000, MEMORY[0x29EDCA988], v15, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v16, v17, v18, v19, v30, v31, buf[0]);
+        v36 = 866;
+        OUTLINED_FUNCTION_8(&dword_296B96000, MEMORY[0x29EDCA988], v14, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v15, v16, v17, v18, v29, v30);
       }
     }
 
     else
     {
-      if (v31)
+      if (v30)
       {
-        v5 = [MEMORY[0x29EDB8DB0] dateWithTimeIntervalSinceReferenceDate:v31];
+        v5 = [MEMORY[0x29EDB8DB0] dateWithTimeIntervalSinceReferenceDate:v30];
       }
 
       else
@@ -448,14 +446,14 @@ LABEL_46:
           if (((v11 + 16) > 5 || ((1 << (v11 + 16)) & 0x31) == 0) && v11 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            v33 = "err == 0 ";
-            v34 = 2048;
-            v35 = v9;
+            v32 = "err == 0 ";
+            v33 = 2048;
+            v34 = v9;
             OUTLINED_FUNCTION_9();
-            v36 = &unk_296B9B506;
+            v35 = &unk_296B9B506;
             OUTLINED_FUNCTION_3();
-            v37 = 889;
-            OUTLINED_FUNCTION_8(&dword_296B96000, MEMORY[0x29EDCA988], v20, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v21, v22, v23, v24, v30, v31, buf[0]);
+            v36 = 889;
+            OUTLINED_FUNCTION_8(&dword_296B96000, MEMORY[0x29EDCA988], v19, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v20, v21, v22, v23, v29, v30);
           }
         }
 
@@ -469,170 +467,142 @@ LABEL_46:
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_4();
-      v36 = &unk_296B9B506;
+      v35 = &unk_296B9B506;
       OUTLINED_FUNCTION_3();
-      v37 = 863;
-      OUTLINED_FUNCTION_8(&dword_296B96000, MEMORY[0x29EDCA988], v25, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v26, v27, v28, v29, v30, v31, buf[0]);
+      v36 = 863;
+      OUTLINED_FUNCTION_8(&dword_296B96000, MEMORY[0x29EDCA988], v24, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v25, v26, v27, v28, v29, v30);
     }
 
     v9 = -6;
   }
 
   [qword_2A18BD330 unlock];
-  v12 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
 void __28__BAASupport_prepareLazily___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4);
 }
 
 void __28__BAASupport_prepareLazily___block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4);
 }
 
 void __28__BAASupport_prepareLazily___block_invoke_cold_3()
 {
-  v7 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4);
 }
 
 void __28__BAASupport_prepareLazily___block_invoke_cold_4()
 {
-  v7 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4);
 }
 
 void __28__BAASupport_prepareLazily___block_invoke_cold_7()
 {
-  v7 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
+    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4);
   }
-
-  v0 = *MEMORY[0x29EDCA608];
 }
 
 void __28__BAASupport_prepareLazily___block_invoke_cold_8()
 {
-  v7 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
+    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4);
   }
-
-  v0 = *MEMORY[0x29EDCA608];
 }
 
 + (void)getCertificateExpirationDate:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v9 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v4, v5, v6, v7, v8);
+    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v3, v4, v5, v6);
   }
 
   *v0 = v1;
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 + (void)getCertificateExpirationDate:(_DWORD *)a1 .cold.2(_DWORD *a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v4, v5, v6, v7, v8);
+    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v3, v4, v5, v6);
   }
 
   *a1 = -4;
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 + (void)getCertificates:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v9 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v4, v5, v6, v7, v8);
+    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v3, v4, v5, v6);
   }
 
   *v0 = v1;
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 + (void)getCertificates:.cold.2()
 {
   OUTLINED_FUNCTION_10();
-  v9 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v4, v5, v6, v7, v8);
+    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v3, v4, v5, v6);
   }
 
   *v0 = v1;
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 + (void)getCertificates:(_DWORD *)a1 .cold.3(_DWORD *a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v4, v5, v6, v7, v8);
+    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v2, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v3, v4, v5, v6);
   }
 
   *a1 = -4;
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 + (void)issueNewCertificate
 {
-  v7 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
+    OUTLINED_FUNCTION_5(&dword_296B96000, MEMORY[0x29EDCA988], v0, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n", v1, v2, v3, v4);
   }
-
-  v0 = *MEMORY[0x29EDCA608];
 }
 
 @end

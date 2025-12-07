@@ -49,20 +49,17 @@
   to;
   if ([(_CPMailResultDetailsForFeedback *)self dataSources])
   {
-    dataSources = self->_dataSources;
     PBDataWriterWriteInt32Field();
   }
 
   [(_CPMailResultDetailsForFeedback *)self suggestionScore];
-  if (v5 != 0.0)
+  if (v4 != 0.0)
   {
-    suggestionScore = self->_suggestionScore;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPMailResultDetailsForFeedback *)self skgMegadomeSpotlightIndexEntries])
   {
-    skgMegadomeSpotlightIndexEntries = self->_skgMegadomeSpotlightIndexEntries;
     PBDataWriterWriteInt32Field();
   }
 

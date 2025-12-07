@@ -4,6 +4,7 @@
 - (void)dealloc;
 - (void)handleNetworkDetectionNotification:(int)notification;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)install;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)uninstall;
@@ -139,6 +140,24 @@
   }
 
   return v13;
+}
+
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v3 = *&reason;
+  v5 = ne_log_obj();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%@ handling stop for DNS settings session", buf, 0xCu);
+  }
+
+  v7.receiver = self;
+  v7.super_class = NESMDNSSettingsSession;
+  [(NESMSession *)&v7 handleStopMessageWithReason:v3];
+  server = [(NESMSession *)self server];
+  [server requestUninstallForSession:self];
 }
 
 - (void)handleStartMessage:(id)message
@@ -388,21 +407,21 @@ LABEL_56:
 - (NESMDNSSettingsSession)initWithConfiguration:(id)configuration andServer:(id)server
 {
   configurationCopy = configuration;
-  v23.receiver = self;
-  v23.super_class = NESMDNSSettingsSession;
-  v7 = [(NESMSession *)&v23 initWithConfiguration:configurationCopy andServer:server];
+  v24.receiver = self;
+  v24.super_class = NESMDNSSettingsSession;
+  v7 = [(NESMSession *)&v24 initWithConfiguration:configurationCopy andServer:server];
   if (!v7)
   {
 LABEL_6:
-    v19 = ne_log_obj();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v20 = ne_log_obj();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = v7;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%@ initialized DNS settings session", buf, 0xCu);
+      v26 = v7;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%@ initialized DNS settings session", buf, 0xCu);
     }
 
-    v20 = v7;
+    v21 = v7;
     goto LABEL_12;
   }
 
@@ -433,22 +452,22 @@ LABEL_6:
 
     [(NESMSession *)v7 setPolicySession:v16];
 
-    sub_10008E79C(v7);
+    sub_10008E79C(v7, v19);
     goto LABEL_6;
   }
 
-  v21 = ne_log_obj();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v22 = ne_log_obj();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v25 = v7;
-    _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%@ settings is nil", buf, 0xCu);
+    v26 = v7;
+    _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%@ settings is nil", buf, 0xCu);
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_12:
 
-  return v20;
+  return v21;
 }
 
 @end

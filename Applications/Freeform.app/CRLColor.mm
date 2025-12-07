@@ -321,9 +321,9 @@
     [CRLAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:190 isFatal:0 description:"invalid nil value for '%{public}s'", "CGColor"];
   }
 
-  v50.receiver = self;
-  v50.super_class = CRLColor;
-  v10 = [(CRLColor *)&v50 init];
+  v63.receiver = self;
+  v63.super_class = CRLColor;
+  v10 = [(CRLColor *)&v63 init];
   if (v10)
   {
     if (CGColorGetPattern(color))
@@ -404,14 +404,16 @@ LABEL_65:
         }
 
         v19 = CGColorGetColorSpace(color);
-        v20 = sub_1000CCD4C();
-        if (!CFEqual(v19, v20))
+        v21 = sub_1000CCD4C(v19, v20);
+        v22 = CFEqual(v19, v21);
+        if (!v22)
         {
-          v21 = sub_1000CCE28();
-          if (!CFEqual(v19, v21))
+          v24 = sub_1000CCE28(v22, v23);
+          v25 = CFEqual(v19, v24);
+          if (!v25)
           {
-            v22 = sub_1000CCC44();
-            if (!CFEqual(v19, v22))
+            v27 = sub_1000CCC44(v25, v26);
+            if (!CFEqual(v19, v27))
             {
               +[CRLAssertionHandler _atomicIncrementAssertCount];
               if (qword_101AD5A10 != -1)
@@ -429,10 +431,10 @@ LABEL_65:
                 sub_10137352C();
               }
 
-              v23 = off_1019EDA68;
+              v28 = off_1019EDA68;
               if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
               {
-                sub_10130F3A8(v23);
+                sub_10130F3A8(v28);
               }
 
               v12 = [NSString stringWithUTF8String:"[CRLColor initWithCGColor:colorSpace:]"];
@@ -447,27 +449,29 @@ LABEL_65:
         goto LABEL_51;
       }
 
-      v24 = CGColorGetColorSpace(color);
-      v25 = sub_1000CCD4C();
-      if (!CFEqual(v24, v25))
+      v29 = CGColorGetColorSpace(color);
+      v31 = sub_1000CCD4C(v29, v30);
+      v32 = CFEqual(v29, v31);
+      if (!v32)
       {
-        v26 = sub_1000CCE28();
-        if (!CFEqual(v24, v26))
+        v34 = sub_1000CCE28(v32, v33);
+        if (!CFEqual(v29, v34))
         {
-          v46 = CGColorGetColorSpace(color);
-          if (CGColorSpaceGetModel(v46) == kCGColorSpaceModelRGB && CGColorSpaceIsWideGamutRGB(v46))
+          v57 = CGColorGetColorSpace(color);
+          IsWideGamutRGB = CGColorSpaceGetModel(v57);
+          if (IsWideGamutRGB == 1 && (IsWideGamutRGB = CGColorSpaceIsWideGamutRGB(v57), IsWideGamutRGB))
           {
             space = 1;
-            v47 = sub_1000CCE28();
+            v60 = sub_1000CCE28(IsWideGamutRGB, v59);
           }
 
           else
           {
-            v47 = sub_1000CCD4C();
+            v60 = sub_1000CCD4C(IsWideGamutRGB, v59);
             space = 0;
           }
 
-          Copy = CGColorCreateCopyByMatchingToColorSpace(v47, kCGRenderingIntentDefault, color, 0);
+          Copy = CGColorCreateCopyByMatchingToColorSpace(v60, kCGRenderingIntentDefault, color, 0);
           if (Copy)
           {
 LABEL_66:
@@ -477,27 +481,27 @@ LABEL_66:
             {
               Components = CGColorGetComponents(v10->mCGColor);
               NumberOfComponents = CGColorGetNumberOfComponents(v10->mCGColor);
-              v36 = __chkstk_darwin(NumberOfComponents);
-              v38 = (v37 + 15) & 0xFFFFFFFFFFFFFFF0;
-              v39 = (&v49 - v38);
-              if (v36)
+              __chkstk_darwin(NumberOfComponents);
+              v49 = (v48 + 15) & 0xFFFFFFFFFFFFFFF0;
+              v50 = (&v62 - v49);
+              if (v47)
               {
-                v40 = (&v49 - v38);
+                v51 = (&v62 - v49);
                 do
                 {
-                  v41 = *Components++;
-                  v42 = v41;
-                  *v40++ = v42;
-                  --v36;
+                  v52 = *Components++;
+                  v53 = v52;
+                  *v51++ = v53;
+                  --v47;
                 }
 
-                while (v36);
+                while (v47);
               }
 
-              v43 = CGColorGetColorSpace(v10->mCGColor);
-              v44 = CGColorCreate(v43, v39);
+              v54 = CGColorGetColorSpace(v10->mCGColor);
+              v55 = CGColorCreate(v54, v50);
               CGColorRelease(v10->mCGColor);
-              v10->mCGColor = v44;
+              v10->mCGColor = v55;
             }
 
             return v10;
@@ -532,23 +536,24 @@ LABEL_51:
           sub_10137328C();
         }
 
-        v27 = off_1019EDA68;
+        v35 = off_1019EDA68;
         if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
         {
-          sub_10130F3A8(v27);
+          sub_10130F3A8(v35);
         }
 
-        v28 = [NSString stringWithUTF8String:"[CRLColor initWithCGColor:colorSpace:]"];
-        v29 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLColor.m"];
-        [CRLAssertionHandler handleFailureInFunction:v28 file:v29 lineNumber:223 isFatal:0 description:"Color specified as sRGB isn't even RGB!"];
+        v36 = [NSString stringWithUTF8String:"[CRLColor initWithCGColor:colorSpace:]"];
+        v37 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLColor.m"];
+        [CRLAssertionHandler handleFailureInFunction:v36 file:v37 lineNumber:223 isFatal:0 description:"Color specified as sRGB isn't even RGB!"];
       }
 
-      v30 = CGColorGetColorSpace(color);
-      v31 = sub_1000CCD4C();
-      if (!CFEqual(v30, v31))
+      v38 = CGColorGetColorSpace(color);
+      v40 = sub_1000CCD4C(v38, v39);
+      v41 = CFEqual(v38, v40);
+      if (!v41)
       {
-        v32 = sub_1000CCC44();
-        if (!CFEqual(v30, v32))
+        v43 = sub_1000CCC44(v41, v42);
+        if (!CFEqual(v38, v43))
         {
           +[CRLAssertionHandler _atomicIncrementAssertCount];
           if (qword_101AD5A10 != -1)
@@ -566,10 +571,10 @@ LABEL_51:
             sub_10137336C();
           }
 
-          v48 = off_1019EDA68;
+          v61 = off_1019EDA68;
           if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
           {
-            sub_10130F3A8(v48);
+            sub_10130F3A8(v61);
           }
 
           v12 = [NSString stringWithUTF8String:"[CRLColor initWithCGColor:colorSpace:]"];
@@ -592,12 +597,12 @@ LABEL_51:
 {
   if (!space || space == 2)
   {
-    v13 = sub_1000CCD4C();
+    v13 = sub_1000CCD4C(self, a2);
   }
 
   else if (space == 1)
   {
-    v13 = sub_1000CCE28();
+    v13 = sub_1000CCE28(self, a2);
   }
 
   else
@@ -621,7 +626,7 @@ LABEL_51:
   {
     if (space == 1)
     {
-      v12 = sub_1000CCE28();
+      v12 = sub_1000CCE28(self, a2);
     }
 
     else
@@ -632,7 +637,7 @@ LABEL_51:
 
   else
   {
-    v12 = sub_1000CCD4C();
+    v12 = sub_1000CCD4C(self, a2);
   }
 
   v13 = sub_1000CD2D8(v12, hue, saturation, brightness, alpha);
@@ -648,7 +653,7 @@ LABEL_51:
   yellowCopy = yellow;
   blackCopy = black;
   alphaCopy = alpha;
-  v8 = sub_1000CCC9C();
+  v8 = sub_1000CCC9C(self, a2);
   v9 = CGColorCreate(v8, &cyanCopy);
   v10 = [(CRLColor *)self initWithCGColor:v9, *&cyanCopy, *&magentaCopy, *&yellowCopy, *&blackCopy, *&alphaCopy];
   CGColorRelease(v9);
@@ -791,57 +796,58 @@ LABEL_51:
   cGColor = [colorCopy CGColor];
   if (CGColorGetPattern(cGColor))
   {
-    v9 = [(CRLColor *)self initWithCGColor:cGColor];
+    v10 = [(CRLColor *)self initWithCGColor:cGColor];
   }
 
   else
   {
-    v10 = sub_1000CCE28();
-    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v10, kCGRenderingIntentDefault, cGColor, 0);
-    v12 = sub_1000CCD4C();
-    v13 = CGColorCreateCopyByMatchingToColorSpace(v12, kCGRenderingIntentDefault, CopyByMatchingToColorSpace, 0);
-    v14 = sub_1000CCE28();
-    v15 = CGColorCreateCopyByMatchingToColorSpace(v14, kCGRenderingIntentDefault, v13, 0);
-    v16 = [CRLColor colorWithCGColor:CopyByMatchingToColorSpace];
-    v17 = [CRLColor colorWithCGColor:v15];
-    if ([v16 isEqualWithTolerance:v17])
+    v11 = sub_1000CCE28(0, v9);
+    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v11, kCGRenderingIntentDefault, cGColor, 0);
+    v14 = sub_1000CCD4C(CopyByMatchingToColorSpace, v13);
+    v15 = CGColorCreateCopyByMatchingToColorSpace(v14, kCGRenderingIntentDefault, CopyByMatchingToColorSpace, 0);
+    v17 = sub_1000CCE28(v15, v16);
+    v18 = CGColorCreateCopyByMatchingToColorSpace(v17, kCGRenderingIntentDefault, v15, 0);
+    v19 = [CRLColor colorWithCGColor:CopyByMatchingToColorSpace];
+    v20 = [CRLColor colorWithCGColor:v18];
+    if ([v19 isEqualWithTolerance:v20])
     {
       ColorSpace = CGColorGetColorSpace(cGColor);
-      v19 = sub_1000CCDC4();
-      if (CFEqual(ColorSpace, v19) || (v20 = CGColorGetColorSpace(cGColor), v21 = sub_1000CCD4C(), CFEqual(v20, v21)))
+      v23 = sub_1000CCDC4(ColorSpace, v22);
+      v24 = CFEqual(ColorSpace, v23);
+      if (v24 || (v26 = CGColorGetColorSpace(cGColor), v28 = sub_1000CCD4C(v26, v27), v24 = CFEqual(v26, v28), v24))
       {
-        v22 = sub_1000CCD4C();
+        v29 = sub_1000CCD4C(v24, v25);
         Components = CGColorGetComponents(cGColor);
-        v24 = CGColorCreate(v22, Components);
-        v25 = v24;
+        v31 = CGColorCreate(v29, Components);
+        v32 = v31;
       }
 
       else
       {
-        v25 = 0;
-        v24 = v13;
+        v32 = 0;
+        v31 = v15;
       }
     }
 
     else
     {
-      v25 = 0;
-      v24 = CopyByMatchingToColorSpace;
+      v32 = 0;
+      v31 = CopyByMatchingToColorSpace;
     }
 
-    v26 = [(CRLColor *)self initWithCGColor:v24];
+    v33 = [(CRLColor *)self initWithCGColor:v31];
     CGColorRelease(CopyByMatchingToColorSpace);
-    CGColorRelease(v13);
     CGColorRelease(v15);
-    if (v25)
+    CGColorRelease(v18);
+    if (v32)
     {
-      CGColorRelease(v25);
+      CGColorRelease(v32);
     }
 
-    v9 = v26;
+    v10 = v33;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)dealloc
@@ -1360,27 +1366,27 @@ LABEL_15:
     v10 = self->mColorRGBSpace;
     if (v10 == 1)
     {
-      v56 = [CRLColor alloc];
+      v60 = [CRLColor alloc];
       [(CRLColor *)self redComponent];
-      v58 = v57;
-      [v7 redComponent];
-      v60 = sub_1004C3260(v58, v59, fraction);
-      [(CRLColor *)self greenComponent];
       v62 = v61;
-      [v7 greenComponent];
+      [v7 redComponent];
       v64 = sub_1004C3260(v62, v63, fraction);
-      [(CRLColor *)self blueComponent];
+      [(CRLColor *)self greenComponent];
       v66 = v65;
-      [v7 blueComponent];
+      [v7 greenComponent];
       v68 = sub_1004C3260(v66, v67, fraction);
-      [(CRLColor *)self alphaComponent];
+      [(CRLColor *)self blueComponent];
       v70 = v69;
+      [v7 blueComponent];
+      v72 = sub_1004C3260(v70, v71, fraction);
+      [(CRLColor *)self alphaComponent];
+      v74 = v73;
       [v7 alphaComponent];
-      v27 = sub_1004C3260(v70, v71, fraction);
-      v28 = v56;
-      v29 = v60;
-      v30 = v64;
-      v31 = v68;
+      v27 = sub_1004C3260(v74, v75, fraction);
+      v28 = v60;
+      v29 = v64;
+      v30 = v68;
+      v31 = v72;
       v32 = 1;
     }
 
@@ -1391,7 +1397,7 @@ LABEL_15:
 LABEL_2:
         selfCopy = self;
 LABEL_18:
-        v55 = selfCopy;
+        v59 = selfCopy;
         goto LABEL_19;
       }
 
@@ -1423,52 +1429,54 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if ([(CRLColor *)self colorRGBSpace]== 1)
+  colorRGBSpace = [(CRLColor *)self colorRGBSpace];
+  if (colorRGBSpace == 1)
   {
     selfCopy2 = self;
   }
 
   else
   {
-    v34 = sub_1000CCE28();
-    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v34, kCGRenderingIntentDefault, [(CRLColor *)self CGColor], 0);
+    v36 = sub_1000CCE28(colorRGBSpace, v34);
+    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v36, kCGRenderingIntentDefault, [(CRLColor *)self CGColor], 0);
     selfCopy2 = [[CRLColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:1];
     CGColorRelease(CopyByMatchingToColorSpace);
   }
 
-  if ([v7 colorRGBSpace] == 1)
+  colorRGBSpace2 = [v7 colorRGBSpace];
+  if (colorRGBSpace2 == 1)
   {
-    v36 = v7;
+    v40 = v7;
   }
 
   else
   {
-    v37 = sub_1000CCE28();
-    v38 = CGColorCreateCopyByMatchingToColorSpace(v37, kCGRenderingIntentDefault, [v7 CGColor], 0);
-    v36 = [[CRLColor alloc] initWithCGColor:v38 colorSpace:1];
-    CGColorRelease(v38);
+    v41 = sub_1000CCE28(colorRGBSpace2, v39);
+    v42 = CGColorCreateCopyByMatchingToColorSpace(v41, kCGRenderingIntentDefault, [v7 CGColor], 0);
+    v40 = [[CRLColor alloc] initWithCGColor:v42 colorSpace:1];
+    CGColorRelease(v42);
   }
 
-  v39 = [CRLColor alloc];
+  v43 = [CRLColor alloc];
   [(CRLColor *)selfCopy2 redComponent];
-  v41 = v40;
-  [(CRLColor *)v36 redComponent];
-  v43 = sub_1004C3260(v41, v42, fraction);
-  [(CRLColor *)selfCopy2 greenComponent];
   v45 = v44;
-  [(CRLColor *)v36 greenComponent];
+  [(CRLColor *)v40 redComponent];
   v47 = sub_1004C3260(v45, v46, fraction);
-  [(CRLColor *)selfCopy2 blueComponent];
+  [(CRLColor *)selfCopy2 greenComponent];
   v49 = v48;
-  [(CRLColor *)v36 blueComponent];
+  [(CRLColor *)v40 greenComponent];
   v51 = sub_1004C3260(v49, v50, fraction);
-  [(CRLColor *)selfCopy2 alphaComponent];
+  [(CRLColor *)selfCopy2 blueComponent];
   v53 = v52;
-  [(CRLColor *)v36 alphaComponent];
-  v55 = [(CRLColor *)v39 initWithRed:1 green:v43 blue:v47 alpha:v51 colorSpace:sub_1004C3260(v53, v54, fraction)];
+  [(CRLColor *)v40 blueComponent];
+  v55 = sub_1004C3260(v53, v54, fraction);
+  [(CRLColor *)selfCopy2 alphaComponent];
+  v57 = v56;
+  [(CRLColor *)v40 alphaComponent];
+  v59 = [(CRLColor *)v43 initWithRed:1 green:v47 blue:v51 alpha:v55 colorSpace:sub_1004C3260(v57, v58, fraction)];
 
 LABEL_19:
-  return v55;
+  return v59;
 }
 
 - (id)colorByCompositingSourceOverDestinationColor:(id)color
@@ -1667,46 +1675,47 @@ LABEL_19:
   colorRGBSpace2 = [colorCopy colorRGBSpace];
 
   selfCopy = self;
+  p_isa = &selfCopy->super.isa;
   if (!colorRGBSpace && colorRGBSpace2 == 1)
   {
-    v8 = sub_1000CCE28();
-    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v8, kCGRenderingIntentDefault, selfCopy->mCGColor, 0);
-    v10 = [[CRLColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:1];
+    v10 = sub_1000CCE28(selfCopy, v8);
+    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v10, kCGRenderingIntentDefault, p_isa[1], 0);
+    v12 = [[CRLColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:1];
 
     CGColorRelease(CopyByMatchingToColorSpace);
-    selfCopy = v10;
+    p_isa = &v12->super.isa;
   }
 
-  return selfCopy;
+  return p_isa;
 }
 
 - (BOOL)p_colorIsEqualToColor:(id)color inColorRGBSpace:(unint64_t)space withTolerance:(double)tolerance
 {
   colorCopy = color;
   selfCopy = self;
-  v10 = sub_100438648(space);
+  v11 = sub_100438648(space, v10);
   if ([(CRLColor *)selfCopy colorRGBSpace]!= space)
   {
-    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v10, kCGRenderingIntentDefault, selfCopy->mCGColor, 0);
-    v12 = [[CRLColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:space];
+    CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v11, kCGRenderingIntentDefault, selfCopy->mCGColor, 0);
+    v13 = [[CRLColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:space];
 
     CGColorRelease(CopyByMatchingToColorSpace);
-    selfCopy = v12;
+    selfCopy = v13;
   }
 
-  v13 = colorCopy;
-  v14 = v13;
-  if ([(CRLColor *)v13 colorRGBSpace]!= space)
+  v14 = colorCopy;
+  v15 = v14;
+  if ([(CRLColor *)v14 colorRGBSpace]!= space)
   {
-    v15 = CGColorCreateCopyByMatchingToColorSpace(v10, kCGRenderingIntentDefault, [(CRLColor *)v13 CGColor], 0);
-    v14 = [[CRLColor alloc] initWithCGColor:v15 colorSpace:space];
+    v16 = CGColorCreateCopyByMatchingToColorSpace(v11, kCGRenderingIntentDefault, [(CRLColor *)v14 CGColor], 0);
+    v15 = [[CRLColor alloc] initWithCGColor:v16 colorSpace:space];
 
-    CGColorRelease(v15);
+    CGColorRelease(v16);
   }
 
-  v16 = [(CRLColor *)selfCopy p_isEqualToColor:v14 withTolerance:tolerance];
+  v17 = [(CRLColor *)selfCopy p_isEqualToColor:v15 withTolerance:tolerance];
 
-  return v16;
+  return v17;
 }
 
 - (void)encodeWithCoder:(id)coder

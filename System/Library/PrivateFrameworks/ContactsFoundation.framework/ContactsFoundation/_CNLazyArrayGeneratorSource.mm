@@ -42,36 +42,30 @@
   if (self->_firstTime)
   {
     self->_firstTime = 0;
-    state = self->_state;
-    condition = self->_condition;
     if (((*(self->_condition + 2))() & 1) == 0)
     {
 LABEL_3:
-      v5 = 0;
+      v3 = 0;
       goto LABEL_6;
     }
   }
 
   else
   {
-    nextState = self->_nextState;
-    v7 = self->_state;
-    v8 = (*(self->_nextState + 2))();
-    v9 = self->_state;
-    self->_state = v8;
+    v4 = (*(self->_nextState + 2))();
+    state = self->_state;
+    self->_state = v4;
 
-    v10 = self->_state;
     if (!(*(self->_condition + 2))())
     {
       goto LABEL_3;
     }
   }
 
-  v11 = self->_state;
-  v5 = (*(self->_resultFromState + 2))();
+  v3 = (*(self->_resultFromState + 2))();
 LABEL_6:
 
-  return v5;
+  return v3;
 }
 
 @end

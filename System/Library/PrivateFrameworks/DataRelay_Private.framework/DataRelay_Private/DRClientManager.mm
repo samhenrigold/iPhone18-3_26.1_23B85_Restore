@@ -1,9 +1,11 @@
 @interface DRClientManager
 - (DRClientManager)init;
 - (NSArray)availableServers;
+- (id)addAvailableDataTypes:(id)types dataTypes:(unint64_t)dataTypes wxAddress:(id)address fromServer:(BOOL)server;
 - (id)addAvailableDataTypes:(unint64_t)types device:(id)device wxAddress:(id)address;
 - (id)addAvailableDataTypesFromPairedCompanion:(unint64_t)companion wxAddress:(id)address;
 - (id)identifierFromOptions:(id)options;
+- (id)removeAvailableDataTypes:(id)types dataTypes:(unint64_t)dataTypes wxAddress:(id)address fromServer:(BOOL)server;
 - (id)removeAvailableDataTypes:(unint64_t)types device:(id)device wxAddress:(id)address;
 - (id)removeAvailableDataTypesFromPairedCompanion:(unint64_t)companion wxAddress:(id)address;
 - (unint64_t)dataTypesForPeer:(unint64_t)peer model:(id)model majorVersion:(int64_t)version minorVersion:(int64_t)minorVersion;
@@ -72,9 +74,9 @@ LABEL_12:
   modelIdentifier = [deviceCopy modelIdentifier];
   if (deviceCopy)
   {
-    [deviceCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(deviceCopy);
     v11 = v20;
-    [deviceCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(deviceCopy);
     v12 = v18;
   }
 
@@ -105,9 +107,9 @@ LABEL_12:
   modelIdentifier = [deviceCopy modelIdentifier];
   if (deviceCopy)
   {
-    [deviceCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(deviceCopy);
     v11 = v20;
-    [deviceCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(deviceCopy);
     v12 = v18;
   }
 
@@ -179,12 +181,63 @@ LABEL_12:
   return v19;
 }
 
+- (id)addAvailableDataTypes:(id)types dataTypes:(unint64_t)dataTypes wxAddress:(id)address fromServer:(BOOL)server
+{
+  serverCopy = server;
+  typesCopy = types;
+  addressCopy = address;
+  if (dataTypes)
+  {
+    v12 = +[DataRelayAnalytics getInstance];
+    [v12 updateFromRemoteServer:serverCopy];
+
+    v13 = [(NSMutableDictionary *)self->_serverDictionary objectForKeyedSubscript:typesCopy];
+    if (v13)
+    {
+      v14 = v13;
+      [(DRServer *)v13 setWxAddress:addressCopy];
+      [(DRServer *)v14 addAvailableDataTypes:dataTypes fromServer:serverCopy completion:0];
+    }
+
+    else
+    {
+      v14 = [[DRServer alloc] initWithIdentifier:typesCopy];
+      [(NSMutableDictionary *)self->_serverDictionary setObject:v14 forKeyedSubscript:typesCopy];
+      [(DRServer *)v14 setWxAddress:addressCopy];
+      objc_initWeak(&location, v14);
+      objc_initWeak(&from, self);
+      v15 = [typesCopy copy];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __72__DRClientManager_addAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke;
+      v18[3] = &unk_278F4EB98;
+      v16 = v15;
+      v19 = v16;
+      objc_copyWeak(&v20, &location);
+      objc_copyWeak(&v21, &from);
+      [(DRServer *)v14 addAvailableDataTypes:dataTypes fromServer:serverCopy completion:v18];
+      objc_destroyWeak(&v21);
+      objc_destroyWeak(&v20);
+
+      objc_destroyWeak(&from);
+      objc_destroyWeak(&location);
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  return v14;
+}
+
 void __72__DRClientManager_addAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke(id *a1, void *a2)
 {
   v3 = a2;
   if (gLogCategory_DRClientManager <= 50 && (gLogCategory_DRClientManager != -1 || _LogCategory_Initialize()))
   {
-    __72__DRClientManager_addAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke_cold_1(a1);
+    __72__DRClientManager_addAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke_cold_1();
   }
 
   v10 = MEMORY[0x277D85DD0];
@@ -214,7 +267,7 @@ void __72__DRClientManager_addAvailableDataTypes_dataTypes_wxAddress_fromServer_
 {
   if (gLogCategory_DRClientManager <= 50 && (gLogCategory_DRClientManager != -1 || _LogCategory_Initialize()))
   {
-    __72__DRClientManager_addAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke_2_cold_1(a1);
+    __72__DRClientManager_addAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke_2_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -226,6 +279,34 @@ void __72__DRClientManager_addAvailableDataTypes_dataTypes_wxAddress_fromServer_
   }
 }
 
+- (id)removeAvailableDataTypes:(id)types dataTypes:(unint64_t)dataTypes wxAddress:(id)address fromServer:(BOOL)server
+{
+  serverCopy = server;
+  typesCopy = types;
+  addressCopy = address;
+  v12 = [(NSMutableDictionary *)self->_serverDictionary objectForKeyedSubscript:typesCopy];
+  [v12 setWxAddress:addressCopy];
+  v13 = [typesCopy copy];
+  objc_initWeak(&location, self);
+  objc_initWeak(&from, v12);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __75__DRClientManager_removeAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke;
+  v16[3] = &unk_278F4EBC0;
+  objc_copyWeak(&v18, &from);
+  v14 = v13;
+  v17 = v14;
+  objc_copyWeak(&v19, &location);
+  [v12 removeAvailableDataTypes:dataTypes fromServer:serverCopy completion:v16];
+  objc_destroyWeak(&v19);
+
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&from);
+  objc_destroyWeak(&location);
+
+  return v12;
+}
+
 void __75__DRClientManager_removeAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -235,7 +316,7 @@ void __75__DRClientManager_removeAvailableDataTypes_dataTypes_wxAddress_fromServ
   {
     if (gLogCategory_DRClientManager <= 50 && (gLogCategory_DRClientManager != -1 || _LogCategory_Initialize()))
     {
-      __75__DRClientManager_removeAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke_cold_1(a1);
+      __75__DRClientManager_removeAvailableDataTypes_dataTypes_wxAddress_fromServer___block_invoke_cold_1();
     }
 
     v4 = objc_loadWeakRetained((a1 + 48));
@@ -284,15 +365,14 @@ void __75__DRClientManager_removeAvailableDataTypes_dataTypes_wxAddress_fromServ
 
   else
   {
-    v7 = *MEMORY[0x277D442E8];
     Int64 = CFDictionaryGetInt64();
-    v9 = MEMORY[0x277D442D0];
+    v8 = MEMORY[0x277D442D0];
     if (Int64 < 0)
     {
-      v9 = MEMORY[0x277D442A8];
+      v8 = MEMORY[0x277D442A8];
     }
 
-    v6 = [optionsCopy objectForKeyedSubscript:*v9];
+    v6 = [optionsCopy objectForKeyedSubscript:*v8];
   }
 
   return v6;

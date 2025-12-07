@@ -18,7 +18,7 @@
 
 - (void)signalAllSemaphores
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   begin = self->replySemas.__begin_;
   var0 = self->replySemas.var0;
   if (begin != var0)
@@ -50,11 +50,11 @@ LABEL_7:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v10 = "AUPBClientManager.mm";
-      v11 = 1024;
-      v12 = 92;
-      v13 = 2048;
-      v14 = v4;
+      v9 = "AUPBClientManager.mm";
+      v10 = 1024;
+      v11 = 92;
+      v12 = 2048;
+      v13 = v4;
       _os_log_impl(&dword_18F5DF000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d Signaling an outstanding sema %p\n", buf, 0x1Cu);
     }
 
@@ -63,7 +63,6 @@ LABEL_7:
 
 LABEL_11:
   self->replySemas.var0 = begin;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeSema:(id)sema

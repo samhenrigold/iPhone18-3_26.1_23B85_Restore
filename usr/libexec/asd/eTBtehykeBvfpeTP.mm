@@ -8,6 +8,7 @@
 - (void)PLMCCRRqEw4moT9R:(_KUwyEjpVZR65eUyl *)r UtPlzRffoEpw7Ue1:(_eipjLVDiD7LNwlPc *)ue1 SFkZRA5Ek9YzhDRs:(unsigned int)rs TWWnmIjkBlMfHmma:(id)hmma withCompletion:(id)completion;
 - (void)dealloc;
 - (void)jCbmcix0xxhNVOSS:(_KUwyEjpVZR65eUyl *)s TWWnmIjkBlMfHmma:(id)hmma withCompletion:(id)completion;
+- (void)yVPDC4E5nNW5DSMa:(_KUwyEjpVZR65eUyl *)ma UtPlzRffoEpw7Ue1:(_eipjLVDiD7LNwlPc *)ue1 SFkZRA5Ek9YzhDRs:(unsigned int)rs TWWnmIjkBlMfHmma:(id)hmma withCompletion:(id)completion;
 @end
 
 @implementation eTBtehykeBvfpeTP
@@ -118,12 +119,21 @@ LABEL_10:
 
 - (void)dealloc
 {
-  smoothContext = self->_smoothContext;
   sub_1002C9B10();
   free(self->_smoothContext);
-  v4.receiver = self;
-  v4.super_class = eTBtehykeBvfpeTP;
-  [(eTBtehykeBvfpeTP *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = eTBtehykeBvfpeTP;
+  [(eTBtehykeBvfpeTP *)&v3 dealloc];
+}
+
+- (void)yVPDC4E5nNW5DSMa:(_KUwyEjpVZR65eUyl *)ma UtPlzRffoEpw7Ue1:(_eipjLVDiD7LNwlPc *)ue1 SFkZRA5Ek9YzhDRs:(unsigned int)rs TWWnmIjkBlMfHmma:(id)hmma withCompletion:(id)completion
+{
+  v8 = *&rs;
+  completionCopy = completion;
+  hmmaCopy = hmma;
+  v14 = [[YNHF5E1zsUQomY0e alloc] initWithtaDFBApmLBObrNlM:ma itCyNcNHxjurvzrS:self];
+  v15 = *ue1;
+  [(YNHF5E1zsUQomY0e *)v14 nQ82YhFf5OQDL4Qk:completionCopy UtPlzRffoEpw7Ue1:&v15 SFkZRA5Ek9YzhDRs:v8 TWWnmIjkBlMfHmma:hmmaCopy];
 }
 
 - (void)PLMCCRRqEw4moT9R:(_KUwyEjpVZR65eUyl *)r UtPlzRffoEpw7Ue1:(_eipjLVDiD7LNwlPc *)ue1 SFkZRA5Ek9YzhDRs:(unsigned int)rs TWWnmIjkBlMfHmma:(id)hmma withCompletion:(id)completion

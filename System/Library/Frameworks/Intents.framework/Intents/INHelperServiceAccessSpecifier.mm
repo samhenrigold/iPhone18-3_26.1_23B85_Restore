@@ -65,7 +65,7 @@
 + (id)accessSpecifierAppropriateForXPCConnection:(id)connection
 {
   MEMORY[0x1EEE9AC00](self, a2);
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = v3;
   processIdentifier = [v4 processIdentifier];
   bzero(buffer, 0x1000uLL);
@@ -78,11 +78,11 @@
       v11 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
-        v24 = 136315394;
-        v25 = "bundleProxyForPID";
-        v26 = 2112;
-        v27 = v9;
-        _os_log_impl(&dword_18E991000, v11, OS_LOG_TYPE_INFO, "%s No bundleProxy for bundleURL=%{publid}@", &v24, 0x16u);
+        v23 = 136315394;
+        v24 = "bundleProxyForPID";
+        v25 = 2112;
+        v26 = v9;
+        _os_log_impl(&dword_18E991000, v11, OS_LOG_TYPE_INFO, "%s No bundleProxy for bundleURL=%{publid}@", &v23, 0x16u);
       }
     }
   }
@@ -92,11 +92,11 @@
     v12 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      v24 = 136315394;
-      v25 = "bundleProxyForPID";
-      v26 = 1024;
-      LODWORD(v27) = processIdentifier;
-      _os_log_impl(&dword_18E991000, v12, OS_LOG_TYPE_INFO, "%s No bundleURL for pid=%{publid}d", &v24, 0x12u);
+      v23 = 136315394;
+      v24 = "bundleProxyForPID";
+      v25 = 1024;
+      LODWORD(v26) = processIdentifier;
+      _os_log_impl(&dword_18E991000, v12, OS_LOG_TYPE_INFO, "%s No bundleURL for pid=%{publid}d", &v23, 0x12u);
     }
 
     v10 = 0;
@@ -154,8 +154,6 @@
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

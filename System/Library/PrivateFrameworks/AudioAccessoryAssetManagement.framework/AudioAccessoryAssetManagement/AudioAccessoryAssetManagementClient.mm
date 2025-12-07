@@ -1,6 +1,7 @@
 @interface AudioAccessoryAssetManagementClient
 - (AudioAccessoryAssetManagementClient)init;
 - (AudioAccessoryAssetManagementClient)initWithCoder:(id)coder;
+- (__CFString)_takeXPCServiceAssertion;
 - (id)_ensureAADXPCStarted;
 - (id)_ensureXPCStarted;
 - (uint64_t)_takeXPCServiceAssertion;
@@ -78,12 +79,10 @@ void __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCel
   v3 = *(a1 + 32);
   if (*(v2[1] + 8) == 1)
   {
-    v4 = *MEMORY[0x277CCA590];
-    v5 = NSErrorF();
+    v4 = NSErrorF();
     if (gLogCategory_AudioAccessoryAssetManagementClient <= 90 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
     {
-      v14 = *(a1 + 40);
-      LogPrintF();
+      LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient downloadTranslationAssets:useCellular:showDownloadCompleteNotification:completion:]_block_invoke", 90, "### ### downloadTranslationAssets failed: %@, %@", *(a1 + 40), v4);
     }
   }
 
@@ -94,39 +93,39 @@ void __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCel
       __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_cold_1(v2, a1);
     }
 
-    v5 = [*(a1 + 40) _ensureXPCStarted];
-    if (!v5)
+    v4 = [*(a1 + 40) _ensureXPCStarted];
+    if (!v4)
     {
       [*(a1 + 40) _takeXPCServiceAssertion];
-      v6 = [MEMORY[0x277CCA8D8] mainBundle];
-      v7 = [v6 bundleIdentifier];
+      v5 = [MEMORY[0x277CCA8D8] mainBundle];
+      v6 = [v5 bundleIdentifier];
 
-      v8 = *(*(a1 + 40) + 32);
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_2;
-      v17[3] = &unk_278CDCF20;
-      v18 = *(a1 + 48);
-      v9 = [v8 remoteObjectProxyWithErrorHandler:v17];
-      v10 = *(a1 + 56);
-      v11 = *(a1 + 57);
+      v7 = *(*(a1 + 40) + 32);
       v15[0] = MEMORY[0x277D85DD0];
       v15[1] = 3221225472;
-      v15[2] = __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_3;
-      v15[3] = &unk_278CDCF48;
-      v15[4] = v3;
-      v12 = *(a1 + 40);
+      v15[2] = __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_2;
+      v15[3] = &unk_278CDCF20;
       v16 = *(a1 + 48);
-      [v9 downloadTranslationAssets:v12 localeIdentifiers:v3 useCellular:v10 showDownloadCompleteNotification:v11 bundleIdentifier:v7 completion:v15];
+      v8 = [v7 remoteObjectProxyWithErrorHandler:v15];
+      v9 = *(a1 + 56);
+      v10 = *(a1 + 57);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_3;
+      v13[3] = &unk_278CDCF48;
+      v13[4] = v3;
+      v11 = *(a1 + 40);
+      v14 = *(a1 + 48);
+      [v8 downloadTranslationAssets:v11 localeIdentifiers:v3 useCellular:v9 showDownloadCompleteNotification:v10 bundleIdentifier:v6 completion:v13];
 
       goto LABEL_13;
     }
   }
 
-  v13 = *(a1 + 48);
-  if (v13)
+  v12 = *(a1 + 48);
+  if (v12)
   {
-    (*(v13 + 16))(v13, v5);
+    (*(v12 + 16))(v12, v4);
   }
 
 LABEL_13:
@@ -134,29 +133,39 @@ LABEL_13:
 
 uint64_t __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (gLogCategory_AudioAccessoryAssetManagementClient <= 90 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
+  v3 = a2;
+  v7 = v3;
+  if (gLogCategory_AudioAccessoryAssetManagementClient <= 90)
   {
-    __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_2_cold_1();
+    if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+    {
+      __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_2_cold_1(v3);
+      v3 = v7;
+    }
   }
 
-  v3 = *(a1 + 32);
-  if (v3)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    (*(v3 + 16))(v3, v5);
+    v5 = (*(v5 + 16))(v5, v7);
+    v3 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v3);
 }
 
 void __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    if (gLogCategory_AudioAccessoryAssetManagementClient <= 90 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_AudioAccessoryAssetManagementClient <= 90)
     {
-      __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_3_cold_1();
+      if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
+      {
+        __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_3_cold_1(v3);
+      }
     }
   }
 
@@ -173,7 +182,7 @@ void __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCel
   if (gLogCategory_AudioAccessoryAssetManagementClient <= 40 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient _takeXPCServiceAssertion]", 40, "_downloadTranslationAssetsPid is 0 returning");
   }
 }
 
@@ -207,48 +216,59 @@ void __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCel
 
 uint64_t __83__AudioAccessoryAssetManagementClient_getTranslationAssetsDownloadSize_completion___block_invoke(uint64_t a1)
 {
-  if (*(*(a1 + 32) + 8) == 1)
-  {
-    v2 = *MEMORY[0x277CCA590];
-    v9 = NSErrorF();
-    if (gLogCategory_AudioAccessoryAssetManagementClient <= 90 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
-    {
-      v8 = *(a1 + 32);
-      LogPrintF();
-    }
-
-    v6 = *(a1 + 48);
-    if (v6)
-    {
-      (*(v6 + 16))(v6, v9);
-    }
-  }
-
-  else
+  if (*(*(a1 + 32) + 8) != 1)
   {
     if (gLogCategory_AudioAccessoryAssetManagementClient <= 30 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
     {
       __83__AudioAccessoryAssetManagementClient_getTranslationAssetsDownloadSize_completion___block_invoke_cold_1(a1);
     }
 
-    v3 = [*(a1 + 32) _ensureXPCStarted];
-    if (v3)
+    v2 = [*(a1 + 32) _ensureXPCStarted];
+    if (!v2)
     {
-      v4 = *(a1 + 48);
-      if (v4)
-      {
-        (*(v4 + 16))(v4, v3);
-      }
-    }
-
-    else
-    {
+      v8 = 0;
       v5 = [*(*(a1 + 32) + 32) remoteObjectProxyWithErrorHandler:&__block_literal_global];
       [v5 getTranslationAssetsDownloadSize:*(a1 + 32) localeIdentifiers:*(a1 + 40) completion:*(a1 + 48)];
+
+LABEL_16:
+      v2 = v8;
+      goto LABEL_17;
+    }
+
+    v3 = *(a1 + 48);
+    if (!v3)
+    {
+      goto LABEL_17;
+    }
+
+    v4 = *(v3 + 16);
+    v8 = v2;
+LABEL_15:
+    v3 = v4();
+    goto LABEL_16;
+  }
+
+  v2 = NSErrorF();
+  v8 = v2;
+  if (gLogCategory_AudioAccessoryAssetManagementClient <= 90)
+  {
+    if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (v6 = _LogCategory_Initialize(), v2 = v8, v6))
+    {
+      LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient getTranslationAssetsDownloadSize:completion:]_block_invoke", 90, "### ### getTranslationAssetsDownloadSize failed: %@, %@", *(a1 + 32), v2);
+      v2 = v8;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  v3 = *(a1 + 48);
+  if (v3)
+  {
+    v4 = *(v3 + 16);
+    goto LABEL_15;
+  }
+
+LABEL_17:
+
+  return MEMORY[0x2821F96F8](v3, v2);
 }
 
 uint64_t __83__AudioAccessoryAssetManagementClient_getTranslationAssetsDownloadSize_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -260,7 +280,7 @@ uint64_t __83__AudioAccessoryAssetManagementClient_getTranslationAssetsDownloadS
     v5 = v2;
     if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (v2 = _LogCategory_Initialize(), v3 = v5, v2))
     {
-      v2 = __83__AudioAccessoryAssetManagementClient_getTranslationAssetsDownloadSize_completion___block_invoke_2_cold_1();
+      v2 = __83__AudioAccessoryAssetManagementClient_getTranslationAssetsDownloadSize_completion___block_invoke_2_cold_1(v3);
       v3 = v5;
     }
   }
@@ -279,55 +299,57 @@ uint64_t __83__AudioAccessoryAssetManagementClient_getTranslationAssetsDownloadS
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_invoke(uint64_t a1)
+uint64_t __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   if (*(*(a1 + 32) + 8) == 1)
   {
-    v2 = *MEMORY[0x277CCA590];
-    v3 = NSErrorF();
-    v4 = v3;
+    v4 = NSErrorF();
+    v5 = v4;
     if (gLogCategory_AudioAccessoryAssetManagementClient > 90)
     {
       goto LABEL_12;
     }
 
-    v8 = v3;
+    v8 = v4;
     if (gLogCategory_AudioAccessoryAssetManagementClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v4 = v8;
-      if (!v3)
+      v4 = _LogCategory_Initialize();
+      v5 = v8;
+      if (!v4)
       {
         goto LABEL_12;
       }
     }
 
-    v7 = *(a1 + 32);
-    v3 = LogPrintF();
+    v4 = LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient getTranslationAssets]_block_invoke", 90, "### ### getTranslationAssetsWithCompletion failed: %@, %@", *(v3 + 32), v5);
 LABEL_10:
-    v4 = v8;
+    v5 = v8;
     goto LABEL_12;
   }
 
-  if (gLogCategory_AudioAccessoryAssetManagementClient <= 30 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_AudioAccessoryAssetManagementClient <= 30)
   {
-    __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_invoke_cold_1();
+    if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v3 = [*(a1 + 32) _ensureXPCStarted];
-  v4 = v3;
-  if (!v3)
+  v4 = [*(v3 + 32) _ensureXPCStarted];
+  v5 = v4;
+  if (!v4)
   {
     v8 = 0;
-    v5 = [*(*(a1 + 32) + 32) remoteObjectProxyWithErrorHandler:&__block_literal_global_42];
-    [v5 getTranslationAssets:*(a1 + 32)];
+    v6 = [*(*(v3 + 32) + 32) remoteObjectProxyWithErrorHandler:&__block_literal_global_42];
+    [v6 getTranslationAssets:*(v3 + 32)];
 
     goto LABEL_10;
   }
 
 LABEL_12:
 
-  return MEMORY[0x2821F96F8](v3, v4);
+  return MEMORY[0x2821F96F8](v4, v5);
 }
 
 uint64_t __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_invoke_2(uint64_t a1, void *a2)
@@ -339,7 +361,7 @@ uint64_t __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_i
     v5 = v2;
     if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (v2 = _LogCategory_Initialize(), v3 = v5, v2))
     {
-      v2 = __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_invoke_2_cold_1();
+      v2 = __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_invoke_2_cold_1(v3);
       v3 = v5;
     }
   }
@@ -361,55 +383,57 @@ uint64_t __59__AudioAccessoryAssetManagementClient_getTranslationAssets__block_i
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke(uint64_t a1)
+uint64_t __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   if (*(*(a1 + 32) + 8) == 1)
   {
-    v2 = *MEMORY[0x277CCA590];
-    v3 = NSErrorF();
-    v4 = v3;
+    v4 = NSErrorF();
+    v5 = v4;
     if (gLogCategory_AudioAccessoryAssetManagementClient > 90)
     {
       goto LABEL_12;
     }
 
-    v8 = v3;
+    v8 = v4;
     if (gLogCategory_AudioAccessoryAssetManagementClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v4 = v8;
-      if (!v3)
+      v4 = _LogCategory_Initialize();
+      v5 = v8;
+      if (!v4)
       {
         goto LABEL_12;
       }
     }
 
-    v7 = *(a1 + 32);
-    v3 = LogPrintF();
+    v4 = LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient showDownloadLanguagesNotification:]_block_invoke", 90, "### ### Show download languages notification failed: %@, %@", *(v3 + 32), v5);
 LABEL_10:
-    v4 = v8;
+    v5 = v8;
     goto LABEL_12;
   }
 
-  if (gLogCategory_AudioAccessoryAssetManagementClient <= 30 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_AudioAccessoryAssetManagementClient <= 30)
   {
-    __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke_cold_1();
+    if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v3 = [*(a1 + 32) _ensureAADXPCStarted];
-  v4 = v3;
-  if (!v3)
+  v4 = [*(v3 + 32) _ensureAADXPCStarted];
+  v5 = v4;
+  if (!v4)
   {
     v8 = 0;
-    v5 = [*(*(a1 + 32) + 40) remoteObjectProxyWithErrorHandler:&__block_literal_global_47];
-    [v5 assetManagerShowDownloadNotificationForBTAddress:*(a1 + 40) completionHandler:&__block_literal_global_50];
+    v6 = [*(*(v3 + 32) + 40) remoteObjectProxyWithErrorHandler:&__block_literal_global_47];
+    [v6 assetManagerShowDownloadNotificationForBTAddress:*(v3 + 40) completionHandler:&__block_literal_global_50];
 
     goto LABEL_10;
   }
 
 LABEL_12:
 
-  return MEMORY[0x2821F96F8](v3, v4);
+  return MEMORY[0x2821F96F8](v4, v5);
 }
 
 uint64_t __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke_2(uint64_t a1, void *a2)
@@ -421,7 +445,7 @@ uint64_t __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotifica
     v5 = v2;
     if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (v2 = _LogCategory_Initialize(), v3 = v5, v2))
     {
-      v2 = __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke_2_cold_1();
+      v2 = __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke_2_cold_1(v3);
       v3 = v5;
     }
   }
@@ -438,7 +462,7 @@ uint64_t __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotifica
     v5 = v2;
     if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (v2 = _LogCategory_Initialize(), v3 = v5, v2))
     {
-      v2 = __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke_3_cold_1();
+      v2 = __73__AudioAccessoryAssetManagementClient_showDownloadLanguagesNotification___block_invoke_3_cold_1(v3);
       v3 = v5;
     }
   }
@@ -545,17 +569,20 @@ uint64_t __59__AudioAccessoryAssetManagementClient__ensureAADXPCStarted__block_i
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_AudioAccessoryAssetManagementClient <= 50 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_AudioAccessoryAssetManagementClient <= 50)
   {
-    [AudioAccessoryAssetManagementClient _interrupted];
+    if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(AudioAccessoryAssetManagementClient *)v3 _interrupted];
+    }
   }
 
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v4 = *(interruptionHandler + 2);
+    v7 = *(interruptionHandler + 2);
 
-    v4();
+    v7();
   }
 }
 
@@ -570,32 +597,35 @@ uint64_t __59__AudioAccessoryAssetManagementClient__ensureAADXPCStarted__block_i
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __49__AudioAccessoryAssetManagementClient_invalidate__block_invoke(uint64_t result)
+void *__49__AudioAccessoryAssetManagementClient_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 32);
-  if ((*(v2 + 8) & 1) == 0)
+  v4 = result[4];
+  if ((*(v4 + 8) & 1) == 0)
   {
-    v3 = result;
-    *(v2 + 8) = 1;
-    if ((*(*(result + 32) + 9) & 1) == 0 && gLogCategory_AudioAccessoryAssetManagementClient <= 30 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
+    v5 = result;
+    *(v4 + 8) = 1;
+    if ((*(result[4] + 9) & 1) == 0 && gLogCategory_AudioAccessoryAssetManagementClient <= 30)
     {
-      __49__AudioAccessoryAssetManagementClient_invalidate__block_invoke_cold_1();
+      if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __49__AudioAccessoryAssetManagementClient_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    v4 = *(v3 + 32);
-    if (v4[4])
+    v6 = v5[4];
+    if (v6[4])
     {
-      [v4[4] invalidate];
-      v4 = *(v3 + 32);
+      [v6[4] invalidate];
+      v6 = v5[4];
     }
 
-    if (v4[5])
+    if (v6[5])
     {
-      [v4[5] invalidate];
-      v4 = *(v3 + 32);
+      [v6[5] invalidate];
+      v6 = v5[4];
     }
 
-    return [v4 _invalidated];
+    return [v6 _invalidated];
   }
 
   return result;
@@ -605,33 +635,37 @@ uint64_t __49__AudioAccessoryAssetManagementClient_invalidate__block_invoke(uint
 {
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_AudioAccessoryAssetManagementClient <= 50 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (!self->_invalidateCalled && gLogCategory_AudioAccessoryAssetManagementClient <= 50)
     {
-      [AudioAccessoryAssetManagementClient _invalidated];
+      if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(AudioAccessoryAssetManagementClient *)self _invalidated];
+      }
     }
 
-    if (!self->_xpcCnx && !self->_xpcAADCnx)
+    if (!selfCopy->_xpcCnx && !selfCopy->_xpcAADCnx)
     {
-      [(AudioAccessoryAssetManagementClient *)self _invalidateXPCServiceAssertion];
-      v7 = MEMORY[0x245CE8A10](self->_invalidationHandler);
-      invalidationHandler = self->_invalidationHandler;
-      self->_invalidationHandler = 0;
+      [(AudioAccessoryAssetManagementClient *)selfCopy _invalidateXPCServiceAssertion];
+      v8 = MEMORY[0x245CE8A10](selfCopy->_invalidationHandler);
+      invalidationHandler = selfCopy->_invalidationHandler;
+      selfCopy->_invalidationHandler = 0;
 
-      if (v7)
+      if (v8)
       {
-        v7[2](v7);
+        v8[2](v8);
       }
 
-      interruptionHandler = self->_interruptionHandler;
-      self->_interruptionHandler = 0;
+      interruptionHandler = selfCopy->_interruptionHandler;
+      selfCopy->_interruptionHandler = 0;
 
-      xpcCnx = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      xpcCnx = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
 
-      xpcAADCnx = self->_xpcAADCnx;
-      self->_xpcAADCnx = 0;
+      xpcAADCnx = selfCopy->_xpcAADCnx;
+      selfCopy->_xpcAADCnx = 0;
 
-      self->_invalidateDone = 1;
+      selfCopy->_invalidateDone = 1;
       if (gLogCategory_AudioAccessoryAssetManagementClient <= 10 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
       {
         [AudioAccessoryAssetManagementClient _invalidated];
@@ -679,18 +713,31 @@ uint64_t __66__AudioAccessoryAssetManagementClient_getTranslationAssets_error___
 {
   if (gLogCategory_AudioAccessoryAssetManagementClient <= 30 && (gLogCategory_AudioAccessoryAssetManagementClient != -1 || _LogCategory_Initialize()))
   {
-    [AudioAccessoryAssetManagementClient pidOfDownloadTranslationAssetsXPCService:];
+    [AudioAccessoryAssetManagementClient pidOfDownloadTranslationAssetsXPCService:service];
   }
 
   self->_downloadTranslationAssetsPid = service;
 }
 
-uint64_t __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+uint64_t __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_useCellular_showDownloadCompleteNotification_completion___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  *(a2 + 56);
-  *(a2 + 57);
-  v3 = *a1;
-  return LogPrintF();
+  v2 = "no";
+  if (*(a2 + 56))
+  {
+    v3 = "yes";
+  }
+
+  else
+  {
+    v3 = "no";
+  }
+
+  if (*(a2 + 57))
+  {
+    v2 = "yes";
+  }
+
+  return LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient downloadTranslationAssets:useCellular:showDownloadCompleteNotification:completion:]_block_invoke", 30, "Downloading Translation Assets localeIdentifiers %@, useCellular %s showDownloadCompleteNotification %s", *a1, v3, v2);
 }
 
 - (uint64_t)_takeXPCServiceAssertion
@@ -700,7 +747,28 @@ uint64_t __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_us
   {
     if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient _takeXPCServiceAssertion]", 90, "target is nil returning");
+    }
+  }
+
+  *a2 = v3;
+  return result;
+}
+
+- (__CFString)_takeXPCServiceAssertion
+{
+  v3 = result;
+  if (gLogCategory_AudioAccessoryAssetManagementClient <= 90)
+  {
+    if (gLogCategory_AudioAccessoryAssetManagementClient != -1 || (result = _LogCategory_Initialize(), result))
+    {
+      v4 = @"unknown";
+      if (v3)
+      {
+        v4 = v3;
+      }
+
+      result = LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient _takeXPCServiceAssertion]", 90, "processHandle is nil returning with error %@", v4);
     }
   }
 
@@ -711,15 +779,20 @@ uint64_t __121__AudioAccessoryAssetManagementClient_downloadTranslationAssets_us
 void __66__AudioAccessoryAssetManagementClient_getTranslationAssets_error___block_invoke_cold_1(void *a1)
 {
   v2 = [a1 assetStatus];
-  if (v2 <= 3)
+  if (v2 > 3)
+  {
+    v3 = "?";
+  }
+
+  else
   {
     v3 = off_278CDD048[v2];
   }
 
-  v5 = [a1 displayName];
-  [a1 isSuggested];
-  v4 = [a1 locale];
-  LogPrintF();
+  v6 = [a1 displayName];
+  v4 = [a1 isSuggested];
+  v5 = [a1 locale];
+  LogPrintF(&gLogCategory_AudioAccessoryAssetManagementClient, "[AudioAccessoryAssetManagementClient getTranslationAssets:error:]_block_invoke", 30, "getTranslationAssetsWithCompletion succeeded: AMTranslationAssetInfo: assetStatus %s, displayName %@, isSuggested %d locale %@\n", v3, v6, v4, v5);
 }
 
 @end

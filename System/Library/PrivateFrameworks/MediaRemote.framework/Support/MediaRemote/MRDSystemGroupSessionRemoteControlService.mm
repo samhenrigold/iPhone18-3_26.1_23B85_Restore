@@ -12,12 +12,11 @@
 
 - (MRDSystemGroupSession)activeGroupSession
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___MRDSystemGroupSessionRemoteControlService_executionQueue);
   selfCopy = self;
   sub_1001BC5A8(&qword_100521D08, &unk_10044F120);
   OS_dispatch_queue.sync<A>(execute:)();
 
-  return v5;
+  return v4;
 }
 
 - (MRDSystemGroupSessionRemoteControlService)initWithDelegate:(id)delegate

@@ -90,7 +90,7 @@
 
 - (void)notifyOperation:(int64_t)operation forToken:(id)token withStatus:(int64_t)status
 {
-  v5 = TK_LOG_client_1();
+  v5 = TK_LOG_client_1(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [TKClientToken notifyOperation:v5 forToken:? withStatus:?];

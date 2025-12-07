@@ -283,33 +283,33 @@ void __43__REHTMLPageBuilder__mainNavigationElement__block_invoke()
 
 - (void)setStylesheets:(id)stylesheets
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stylesheetsCopy = stylesheets;
   v6 = stylesheetsCopy;
   if (self->_stylesheets != stylesheetsCopy && ([(NSArray *)stylesheetsCopy isEqual:?]& 1) == 0)
   {
     objc_storeStrong(&self->_stylesheets, stylesheets);
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v7 = v6;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = [objc_opt_class() _stylesheetElementWithLocation:*(*(&v20 + 1) + 8 * i)];
+          v13 = [objc_opt_class() _stylesheetElementWithLocation:*(*(&v19 + 1) + 8 * i)];
           v14 = v13;
           if (v10)
           {
@@ -324,7 +324,7 @@ void __43__REHTMLPageBuilder__mainNavigationElement__block_invoke()
           }
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -341,48 +341,46 @@ void __43__REHTMLPageBuilder__mainNavigationElement__block_invoke()
 
     v10 = [REHTMLElement elementWithHTMLString:&stru_283B97458];
 LABEL_17:
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __36__REHTMLPageBuilder_setStylesheets___block_invoke;
-    v18[3] = &unk_2785F9AE0;
-    v18[4] = self;
-    v19 = v10;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __36__REHTMLPageBuilder_setStylesheets___block_invoke;
+    v17[3] = &unk_2785F9AE0;
+    v17[4] = self;
+    v18 = v10;
     v16 = v10;
-    REHTMLElementAccessLock(v18);
+    REHTMLElementAccessLock(v17);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLoadingScripts:(id)scripts
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   scriptsCopy = scripts;
   v6 = scriptsCopy;
   if (self->_loadingScripts != scriptsCopy && ([(NSArray *)scriptsCopy isEqual:?]& 1) == 0)
   {
     objc_storeStrong(&self->_loadingScripts, scripts);
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v7 = v6;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = [objc_opt_class() _scriptElementWithLocation:*(*(&v20 + 1) + 8 * i)];
+          v13 = [objc_opt_class() _scriptElementWithLocation:*(*(&v19 + 1) + 8 * i)];
           v14 = v13;
           if (v10)
           {
@@ -397,7 +395,7 @@ LABEL_17:
           }
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -414,17 +412,15 @@ LABEL_17:
 
     v10 = [REHTMLElement elementWithHTMLString:&stru_283B97458];
 LABEL_17:
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __39__REHTMLPageBuilder_setLoadingScripts___block_invoke;
-    v18[3] = &unk_2785F9AE0;
-    v18[4] = self;
-    v19 = v10;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __39__REHTMLPageBuilder_setLoadingScripts___block_invoke;
+    v17[3] = &unk_2785F9AE0;
+    v17[4] = self;
+    v18 = v10;
     v16 = v10;
-    REHTMLElementAccessLock(v18);
+    REHTMLElementAccessLock(v17);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPageDescription:(id)description
@@ -474,7 +470,7 @@ LABEL_17:
 
 - (void)setLinks:(id)links
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   linksCopy = links;
   v6 = linksCopy;
   if (self->_links == linksCopy || ([(NSArray *)linksCopy isEqual:?]& 1) != 0)
@@ -483,12 +479,12 @@ LABEL_17:
   }
 
   objc_storeStrong(&self->_links, links);
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v7 = v6;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (!v8)
   {
 
@@ -497,19 +493,19 @@ LABEL_17:
 
   v9 = v8;
   selfCopy = self;
-  v24 = v6;
+  v23 = v6;
   v10 = 0;
-  v11 = *v28;
+  v11 = *v27;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v28 != v11)
+      if (*v27 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v27 + 1) + 8 * i);
+      v13 = *(*(&v26 + 1) + 8 * i);
       location = [v13 location];
       title = [v13 title];
       v16 = [REHTMLElement link:location title:title];
@@ -544,35 +540,34 @@ LABEL_10:
 LABEL_13:
     }
 
-    v9 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = [(NSArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
   }
 
   while (v9);
 
   self = selfCopy;
-  v6 = v24;
+  v6 = v23;
   if (!v10)
   {
 LABEL_18:
     v10 = [REHTMLElement elementWithHTMLString:&stru_283B97458];
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __30__REHTMLPageBuilder_setLinks___block_invoke;
-  v25[3] = &unk_2785F9AE0;
-  v25[4] = self;
-  v26 = v10;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __30__REHTMLPageBuilder_setLinks___block_invoke;
+  v24[3] = &unk_2785F9AE0;
+  v24[4] = self;
+  v25 = v10;
   v21 = v10;
-  REHTMLElementAccessLock(v25);
+  REHTMLElementAccessLock(v24);
 
 LABEL_20:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pageWithTitle:(id)title content:(id)content backLocation:(id)location
 {
-  v72[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   titleCopy = title;
   contentCopy = content;
   locationCopy = location;
@@ -582,51 +577,51 @@ LABEL_20:
     titleCopy = 0;
   }
 
-  v45 = locationCopy;
+  v44 = locationCopy;
   if (!contentCopy)
   {
     contentCopy = [REHTMLElement elementWithHTMLString:&stru_283B97458];
   }
 
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = __Block_byref_object_copy__6;
-  v70 = __Block_byref_object_dispose__6;
-  v71 = 0;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__6;
-  v64 = __Block_byref_object_dispose__6;
   v65 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__6;
-  v58 = __Block_byref_object_dispose__6;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = __Block_byref_object_copy__6;
+  v69 = __Block_byref_object_dispose__6;
+  v70 = 0;
   v59 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__6;
-  v52 = __Block_byref_object_dispose__6;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = __Block_byref_object_copy__6;
+  v63 = __Block_byref_object_dispose__6;
+  v64 = 0;
   v53 = 0;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __56__REHTMLPageBuilder_pageWithTitle_content_backLocation___block_invoke;
-  v47[3] = &unk_2785FAEE8;
-  v47[4] = self;
-  v47[5] = &v66;
-  v47[6] = &v60;
-  v47[7] = &v54;
-  v47[8] = &v48;
-  REHTMLElementAccessLock(v47);
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__6;
+  v57 = __Block_byref_object_dispose__6;
+  v58 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__6;
+  v51 = __Block_byref_object_dispose__6;
+  v52 = 0;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __56__REHTMLPageBuilder_pageWithTitle_content_backLocation___block_invoke;
+  v46[3] = &unk_2785FAEE8;
+  v46[4] = self;
+  v46[5] = &v65;
+  v46[6] = &v59;
+  v46[7] = &v53;
+  v46[8] = &v47;
+  REHTMLElementAccessLock(v46);
   _headElement = [objc_opt_class() _headElement];
-  v11 = v67[5];
-  v72[0] = v55[5];
-  v72[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+  v11 = v66[5];
+  v71[0] = v54[5];
+  v71[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
   v13 = [_headElement addChildren:v12];
 
   if (titleCopy)
@@ -641,16 +636,16 @@ LABEL_20:
 
   v15 = [REHTMLElement htmlElementWithTag:@"title" content:v14];
   v16 = [v13 addChild:v15];
-  v43 = v15;
+  v42 = v15;
 
   _htmlElement = [objc_opt_class() _htmlElement];
   v18 = [_htmlElement addChild:v16];
 
-  v19 = [v18 addChild:v61[5]];
+  v19 = [v18 addChild:v60[5]];
 
   _bodyElement = [objc_opt_class() _bodyElement];
   _mainNavigationElement = [objc_opt_class() _mainNavigationElement];
-  v22 = [_mainNavigationElement addChild:v49[5]];
+  v22 = [_mainNavigationElement addChild:v48[5]];
 
   v23 = [_bodyElement addChild:v22];
 
@@ -666,9 +661,9 @@ LABEL_20:
 
     v29 = [v28 elementByAddingAtttibute:@"id" value:@"main-header"];
 
-    if (v45)
+    if (v44)
     {
-      v30 = [REHTMLElement link:v45 title:@"‹"];
+      v30 = [REHTMLElement link:v44 title:@"‹"];
       v31 = [v30 elementByAddingClass:@"chevron-back"];
 
       v32 = [v29 addChild:v31];
@@ -684,7 +679,7 @@ LABEL_20:
     v26 = v35;
   }
 
-  v36 = [v26 addChild:{contentCopy, v43}];
+  v36 = [v26 addChild:{contentCopy, v42}];
 
   v37 = [v23 addChild:v36];
 
@@ -693,13 +688,11 @@ LABEL_20:
   _docTypeElement = [objc_opt_class() _docTypeElement];
   v40 = [_docTypeElement append:v38];
 
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v53, 8);
 
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(&v66, 8);
-
-  v41 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v65, 8);
 
   return v40;
 }

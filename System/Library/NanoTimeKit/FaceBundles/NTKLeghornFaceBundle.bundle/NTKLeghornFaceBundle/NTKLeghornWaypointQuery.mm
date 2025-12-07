@@ -35,7 +35,7 @@
   latitude = coordinate.latitude;
   filterCopy = filter;
   v9 = [NTKLeghornWaypointQuery alloc];
-  v11 = objc_msgSend_initWithCenterCoordinate_radius_poiFilter_(v9, v10, latitude, filterCopy, longitude, radius);
+  v11 = objc_msgSend_initWithCenterCoordinate_radius_poiFilter_(v9, v10, filterCopy, latitude, longitude, radius);
 
   return v11;
 }
@@ -50,51 +50,50 @@
   {
 
 LABEL_7:
-    v43 = 0;
+    v46 = 0;
     goto LABEL_8;
   }
 
   v16 = objc_msgSend_poiFilter(self, v13, v14);
   v19 = objc_msgSend_poiFilter(queryCopy, v17, v18);
-  isEqual = objc_msgSend_isEqual_(v16, v20, v21, v19);
+  isEqual = objc_msgSend_isEqual_(v16, v20, v19);
 
   if (!isEqual)
   {
     goto LABEL_7;
   }
 
-  objc_msgSend_radius(self, v23, v24);
-  v26 = v25 == 0.0;
-  objc_msgSend_radius(queryCopy, v27, v25);
-  if (v26 == (v29 != 0.0))
+  objc_msgSend_radius(self, v22, v23);
+  v25 = v24 == 0.0;
+  objc_msgSend_radius(queryCopy, v26, v27);
+  if (v25 == (v30 != 0.0))
   {
     goto LABEL_7;
   }
 
   objc_msgSend_radius(self, v28, v29);
-  v31 = v30;
-  objc_msgSend_radius(queryCopy, v32, v30);
-  v35 = vabdd_f64(v31, v34);
-  if (v35 > 10.0)
+  v32 = v31;
+  objc_msgSend_radius(queryCopy, v33, v34);
+  if (vabdd_f64(v32, v37) > 10.0)
   {
     goto LABEL_7;
   }
 
-  objc_msgSend_centerCoordinate(self, v33, v35);
-  v37 = v36;
+  objc_msgSend_centerCoordinate(self, v35, v36);
   v39 = v38;
-  objc_msgSend_centerCoordinate(queryCopy, v40, v36);
-  v43 = fabs(ntk_CLLocationCoordinate2DDistanceToCoordinate(v37, v39, v41, v42)) <= distance;
+  v41 = v40;
+  objc_msgSend_centerCoordinate(queryCopy, v42, v43);
+  v46 = fabs(ntk_CLLocationCoordinate2DDistanceToCoordinate(v39, v41, v44, v45)) <= distance;
 LABEL_8:
 
-  return v43;
+  return v46;
 }
 
 - (BOOL)matchesQuery:(id)query
 {
   queryCopy = query;
   objc_msgSend_radius(self, v5, v6);
-  LOBYTE(self) = objc_msgSend_matchesQuery_distance_(self, v8, v7 * 0.1, queryCopy);
+  LOBYTE(self) = objc_msgSend_matchesQuery_distance_(self, v8, queryCopy, v7 * 0.1);
 
   return self;
 }

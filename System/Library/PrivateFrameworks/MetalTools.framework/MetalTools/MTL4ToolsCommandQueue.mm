@@ -18,6 +18,7 @@
 - (void)updateTextureMappings:(id)mappings heap:(id)heap operations:(id *)operations count:(unint64_t)count;
 - (void)waitForDrawable:(id)drawable;
 - (void)waitForEvent:(id)event value:(unint64_t)value;
+- (void)waitForEvent:(id)event value:(unint64_t)value timeout:(unsigned __int16)timeout;
 @end
 
 @implementation MTL4ToolsCommandQueue
@@ -254,6 +255,16 @@
   baseObject3 = [toBuffer baseObject];
 
   [baseObject copyBufferMappingsFromBuffer:baseObject2 toBuffer:baseObject3 operations:operations count:count];
+}
+
+- (void)waitForEvent:(id)event value:(unint64_t)value timeout:(unsigned __int16)timeout
+{
+  timeoutCopy = timeout;
+  self->_lastCommittedCommandBuffer = 0;
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [event baseObject];
+
+  [baseObject waitForEvent:baseObject2 value:value timeout:timeoutCopy];
 }
 
 - (void)commit:(const void *)commit count:(unint64_t)count options:(id)options preprocessHandler:(id)handler

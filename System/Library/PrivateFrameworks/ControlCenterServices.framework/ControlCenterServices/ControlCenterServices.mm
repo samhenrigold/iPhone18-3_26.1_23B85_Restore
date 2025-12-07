@@ -129,17 +129,18 @@ LABEL_8:
   return a3;
 }
 
-void sub_244282C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_244282C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 __CFString *NSStringFromIconElementType(unint64_t a1)
@@ -179,21 +180,6 @@ __CFString *NSStringFromIconElementRequestErrorCode(uint64_t a1)
   {
     return off_278E0F258[a1 - 1];
   }
-}
-
-uint64_t OUTLINED_FUNCTION_5@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  v4 = *(result + 40);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_6@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
 }
 
 __CFString *NSStringFromCCSModuleSize(uint64_t a1)
@@ -275,7 +261,7 @@ LABEL_19:
   return v2;
 }
 
-void CCSRegisterControlCenterLogging()
+void CCSRegisterControlCenterLogging(uint64_t result, uint64_t a2)
 {
   if (CCSRegisterControlCenterLogging_onceToken != -1)
   {
@@ -336,16 +322,16 @@ uint64_t CCSVisibilityPreferenceForBundleInfoDictionary(void *a1)
   return v6;
 }
 
-id CCSRemoteServiceServerInterface()
+id CCSRemoteServiceServerInterface(uint64_t a1)
 {
   if (CCSRemoteServiceServerInterface_onceToken != -1)
   {
     CCSRemoteServiceServerInterface_cold_1();
   }
 
-  v1 = CCSRemoteServiceServerInterface_remoteServiceServerInterface;
+  v2 = CCSRemoteServiceServerInterface_remoteServiceServerInterface;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CCSRemoteServiceServerInterface_block_invoke()
@@ -408,7 +394,7 @@ void static CCSControlCenterServicesManager.shared.setter(uint64_t a1)
   qword_27EDDCF18 = a1;
 }
 
-uint64_t (*static CCSControlCenterServicesManager.shared.modify())()
+uint64_t (*static CCSControlCenterServicesManager.shared.modify(uint64_t a1))()
 {
   if (qword_27EDDCF10 != -1)
   {
@@ -487,14 +473,11 @@ const char *sub_24428E0A8()
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -502,9 +485,8 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 
 void CCSModuleSizeFromNSString_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24427F000, a2, OS_LOG_TYPE_ERROR, "No matching module size found for string: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24427F000, a2, OS_LOG_TYPE_ERROR, "No matching module size found for string: %@", &v2, 0xCu);
 }

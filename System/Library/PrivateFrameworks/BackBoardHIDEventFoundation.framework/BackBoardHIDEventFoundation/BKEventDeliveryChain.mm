@@ -10,16 +10,16 @@
 
 - (void)appendDescriptionToStream:(id)stream
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   streamCopy = stream;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __50__BKEventDeliveryChain_appendDescriptionToStream___block_invoke;
-  v13[3] = &unk_2784F7270;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __50__BKEventDeliveryChain_appendDescriptionToStream___block_invoke;
+  v12[3] = &unk_2784F7270;
   v5 = streamCopy;
-  v14 = v5;
+  v13 = v5;
   selfCopy = self;
-  [v5 appendProem:0 block:v13];
+  [v5 appendProem:0 block:v12];
   dispatchTarget = self->_dispatchTarget;
   if (!dispatchTarget)
   {
@@ -27,17 +27,17 @@
   }
 
   v7 = dispatchTarget;
-  v12 = v7;
+  v11 = v7;
   if (self->_deferringPath)
   {
-    v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:&v12 count:1];
+    v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:&v11 count:1];
     [v8 addObjectsFromArray:self->_deferringPath];
   }
 
   else
   {
-    v16[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   }
 
   v9 = [v5 appendObject:v8 withName:0];
@@ -46,8 +46,6 @@
   {
     v10 = [v5 appendObject:self->_modalities withName:@"modalities"];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -82,49 +80,7 @@
 
     v9 = v7;
 
-    if (!v9)
-    {
-      goto LABEL_17;
-    }
-
-    identity = self->_identity;
-    v11 = v9->_identity;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_17;
-    }
-
-    dispatchTarget = self->_dispatchTarget;
-    v13 = v9->_dispatchTarget;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_17;
-    }
-
-    senderDescriptor = self->_senderDescriptor;
-    v15 = v9->_senderDescriptor;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_17;
-    }
-
-    modalities = self->_modalities;
-    v17 = v9->_modalities;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_17;
-    }
-
-    if (![(NSArray *)self->_deferringPath count]&& ![(NSArray *)v9->_deferringPath count]|| (deferringPath = self->_deferringPath, v19 = v9->_deferringPath, BSEqualObjects()))
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-LABEL_17:
-      v8 = 0;
-    }
+    v8 = v9 && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && (!-[NSArray count](self->_deferringPath, "count") && ![v9[5] count] || BSEqualObjects());
   }
 
   return v8;
@@ -132,7 +88,7 @@ LABEL_17:
 
 - (id)resolutionPathForEventDescriptor:(uint64_t)descriptor
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (descriptor)
   {
@@ -140,40 +96,40 @@ LABEL_17:
     display = [*(descriptor + 8) display];
     environment = [*(descriptor + 8) environment];
     v7 = MEMORY[0x277CF0638];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __57__BKEventDeliveryChain_resolutionPathForEventDescriptor___block_invoke;
-    v38[3] = &unk_2784F6980;
-    v38[4] = descriptor;
-    v27 = environment;
-    v39 = v27;
-    v25 = display;
-    v40 = v25;
-    v8 = [v7 build:v38];
-    v28 = v4;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __57__BKEventDeliveryChain_resolutionPathForEventDescriptor___block_invoke;
+    v37[3] = &unk_2784F6980;
+    v37[4] = descriptor;
+    v26 = environment;
+    v38 = v26;
+    v24 = display;
+    v39 = v24;
+    v8 = [v7 build:v37];
+    v27 = v4;
     [v4 addObject:v8];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     descriptorCopy = descriptor;
     obj = *(descriptor + 40);
-    v10 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
+    v10 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v35;
+      v12 = *v34;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v35 != v12)
+          if (*v34 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v34 + 1) + 8 * i);
+          v14 = *(*(&v33 + 1) + 8 * i);
           if (v14)
           {
             v14 = v14[2];
@@ -200,20 +156,20 @@ LABEL_17:
           if (target)
           {
             v21 = MEMORY[0x277CF0638];
-            v29[0] = MEMORY[0x277D85DD0];
-            v29[1] = 3221225472;
-            v29[2] = __57__BKEventDeliveryChain_resolutionPathForEventDescriptor___block_invoke_2;
-            v29[3] = &unk_2784F69A8;
-            v30 = target;
-            v31 = v27;
-            v32 = display2;
-            v33 = descriptorCopy;
-            v22 = [v21 build:v29];
-            [v28 addObject:v22];
+            v28[0] = MEMORY[0x277D85DD0];
+            v28[1] = 3221225472;
+            v28[2] = __57__BKEventDeliveryChain_resolutionPathForEventDescriptor___block_invoke_2;
+            v28[3] = &unk_2784F69A8;
+            v29 = target;
+            v30 = v26;
+            v31 = display2;
+            v32 = descriptorCopy;
+            v22 = [v21 build:v28];
+            [v27 addObject:v22];
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
+        v11 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
         if (v11)
         {
           continue;
@@ -228,12 +184,10 @@ LABEL_19:
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 void __57__BKEventDeliveryChain_resolutionPathForEventDescriptor___block_invoke(void *a1, void *a2)

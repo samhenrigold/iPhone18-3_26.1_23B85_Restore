@@ -15,6 +15,12 @@
 - (TUAudioSystemController)init;
 - (TUAudioSystemControllerDelegate)delegate;
 - (float)activeCategoryVolume;
+- (id)_pickableRoutesForPhoneCallWithForceNewRequest:(BOOL)request;
+- (id)_pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest:(BOOL)request;
+- (id)_pickableRoutesForPlayAndRecordVideoWithForceNewRequest:(BOOL)request;
+- (id)_pickableRoutesForPlayAndRecordVoiceWithForceNewRequest:(BOOL)request;
+- (id)_pickableRoutesForTTYWithForceNewRequest:(BOOL)request;
+- (id)_pickableRoutesForVoiceMailWithForceNewRequest:(BOOL)request;
 - (id)currentlyPickedRouteIdForCategory:(id)category andMode:(id)mode;
 - (id)pickableRouteWithUniqueIdentifier:(id)identifier;
 - (id)pickableRoutesForActiveCall;
@@ -28,7 +34,6 @@
 - (void)_mediaServicesWereReset:(id)reset;
 - (void)_subscribeToNotificationAttributes;
 - (void)_updateCachedState;
-- (void)activeCategoryVolume;
 - (void)clearUplinkMutedCache;
 - (void)dealloc;
 - (void)isDownlinkMuted;
@@ -37,6 +42,7 @@
 - (void)otherSessionsRequestNoRingtoneInterruption;
 - (void)setActiveCategoryVolume:(float)volume;
 - (void)setDownlinkMuted:(BOOL)muted;
+- (void)setUplinkMuted:(BOOL)muted;
 - (void)switchBluetoothAudioFormats;
 - (void)triggerEndInterruptionForAudioSessionID:(id)d;
 @end
@@ -48,8 +54,7 @@
   [(TUAudioController *)self _acquireLock];
   [(TUAudioController *)self _requestUpdatedValueWithBlock:&__block_literal_global_72_0 object:&self->_isTTYCached isRequestingPointer:&self->_isRequestingTTY forceNewRequest:0 scheduleTimePointer:&self->_lastTTYRequestScheduleTime notificationString:@"TUAudioSystemTTYChangedNotification" queue:self->_ttyQueue];
   bOOLValue = [(NSNumber *)self->_isTTYCached BOOLValue];
-  [(TUAudioController *)self _releaseLock];
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog([(TUAudioController *)self _releaseLock]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [TUAudioSystemController isTTY];
@@ -82,32 +87,32 @@ id __32__TUAudioSystemController_isTTY__block_invoke()
 
 + (id)sharedSystemController
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2050000000;
-  v2 = getAVSystemControllerClass_softClass;
-  v11 = getAVSystemControllerClass_softClass;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2050000000;
+  v4 = getAVSystemControllerClass_softClass;
+  v13 = getAVSystemControllerClass_softClass;
   if (!getAVSystemControllerClass_softClass)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __getAVSystemControllerClass_block_invoke;
-    v7[3] = &unk_1E7424CD8;
-    v7[4] = &v8;
-    __getAVSystemControllerClass_block_invoke(v7);
-    v2 = v9[3];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __getAVSystemControllerClass_block_invoke;
+    v9[3] = &unk_1E7424CD8;
+    v9[4] = &v10;
+    __getAVSystemControllerClass_block_invoke(v9, a2, v2, v3);
+    v4 = v11[3];
   }
 
-  v3 = v2;
-  _Block_object_dispose(&v8, 8);
-  sharedAVSystemController = [v2 sharedAVSystemController];
+  v5 = v4;
+  _Block_object_dispose(&v10, 8);
+  sharedAVSystemController = [v4 sharedAVSystemController];
   if (!sharedAVSystemController)
   {
-    v5 = TUDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = TUDefaultLog(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "[WARN] +[AVSystemController sharedAVSystemController] returned nil value", v7, 2u);
+      LOWORD(v9[0]) = 0;
+      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "[WARN] +[AVSystemController sharedAVSystemController] returned nil value", v9, 2u);
     }
   }
 
@@ -147,8 +152,7 @@ id __32__TUAudioSystemController_isTTY__block_invoke()
   [(TUAudioController *)self _acquireLock];
   [(TUAudioController *)self _requestUpdatedValueWithBlock:&__block_literal_global_80 object:&self->_isDownlinkMutedCached isRequestingPointer:&self->_isRequestingDownlinkMuted forceNewRequest:0 scheduleTimePointer:&self->_lastDownlinkMutedRequestScheduleTime notificationString:@"TUAudioSystemDownlinkMuteStatusChangedNotification" queue:self->_downlinkMutedQueue];
   bOOLValue = [(NSNumber *)self->_isDownlinkMutedCached BOOLValue];
-  [(TUAudioController *)self _releaseLock];
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog([(TUAudioController *)self _releaseLock]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [TUAudioSystemController isDownlinkMuted];
@@ -263,7 +267,7 @@ uint64_t __54__TUAudioSystemController_sharedAudioSystemController__block_invoke
     v32 = *(v2 + 27);
     *(v2 + 27) = v31;
 
-    [v2 _subscribeToNotificationAttributes];
+    _subscribeToNotificationAttributes = [v2 _subscribeToNotificationAttributes];
     if (init__pred__AVAudioSessionMediaServicesWereResetNotification != -1)
     {
       [TUAudioSystemController init];
@@ -277,7 +281,7 @@ uint64_t __54__TUAudioSystemController_sharedAudioSystemController__block_invoke
 
     else
     {
-      defaultCenter = TUDefaultLog();
+      defaultCenter = TUDefaultLog(_subscribeToNotificationAttributes);
       if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -286,13 +290,12 @@ uint64_t __54__TUAudioSystemController_sharedAudioSystemController__block_invoke
       }
     }
 
-    v34 = dispatch_get_global_queue(21, 0);
-    dispatch_async(v34, &__block_literal_global_41_0);
+    v35 = dispatch_get_global_queue(21, 0);
+    dispatch_async(v35, &__block_literal_global_41_0);
 
     [v2 _updateCachedState];
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -361,45 +364,43 @@ id __45__TUAudioSystemController__updateCachedState__block_invoke(uint64_t a1)
 
 - (void)_handleUplinkMuteDidChangeNotification:(id)notification
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = notificationCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Mute status changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = notificationCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Mute status changed: %@", &v6, 0xCu);
   }
 
   [(TUAudioSystemController *)self isUplinkMuted];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleDownlinkMuteDidChangeNotification:(id)notification
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = notificationCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Downlink mute status changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = notificationCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Downlink mute status changed: %@", &v6, 0xCu);
   }
 
   [(TUAudioSystemController *)self isDownlinkMuted];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleVolumeDidChangeNotification:(id)notification
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(notificationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = notificationCopy;
+    v11 = notificationCopy;
     _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Volume changed: %@", buf, 0xCu);
   }
 
@@ -410,11 +411,9 @@ id __45__TUAudioSystemController__updateCachedState__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __62__TUAudioSystemController__handleVolumeDidChangeNotification___block_invoke;
   block[3] = &unk_1E7424950;
-  v10 = v6;
+  v9 = v6;
   v7 = v6;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __62__TUAudioSystemController__handleVolumeDidChangeNotification___block_invoke(uint64_t a1)
@@ -425,14 +424,14 @@ void __62__TUAudioSystemController__handleVolumeDidChangeNotification___block_in
 
 - (void)_handlePickableRoutesDidChangeNotification:(id)notification
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = notificationCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Pickable Routes Changed: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = notificationCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Pickable Routes Changed: %@", &v13, 0xCu);
   }
 
   if ([(TUAudioSystemController *)self isTTY])
@@ -459,54 +458,50 @@ void __62__TUAudioSystemController__handleVolumeDidChangeNotification___block_in
   }
 
   [(TUAudioController *)self _releaseLock];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void __70__TUAudioSystemController__handlePickableRoutesDidChangeNotification___block_invoke()
+void __70__TUAudioSystemController__handlePickableRoutesDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v0 = TUDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1956FD000, v0, OS_LOG_TYPE_DEFAULT, "Clearing cached current pickable routes and posting TUAudioSystemAudioPickableRoutesChanged", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1956FD000, v1, OS_LOG_TYPE_DEFAULT, "Clearing cached current pickable routes and posting TUAudioSystemAudioPickableRoutesChanged", v3, 2u);
   }
 
-  v1 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v1 postNotificationName:@"TUAudioSystemAudioPickableRoutesChanged" object:0];
+  v2 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v2 postNotificationName:@"TUAudioSystemAudioPickableRoutesChanged" object:0];
 }
 
 - (void)_mediaServicesWereReset:(id)reset
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   resetCopy = reset;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(resetCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = resetCopy;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Media services were reset: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = resetCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Media services were reset: %@", &v6, 0xCu);
   }
 
   [(TUAudioSystemController *)self _subscribeToNotificationAttributes];
   [(TUAudioSystemController *)self _updateCachedState];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (float)activeCategoryVolume
 {
-  v5 = 0.0;
+  v6 = 0.0;
   v2 = +[TUAudioSystemController sharedSystemController];
-  [v2 getActiveCategoryVolume:&v5 andName:0];
+  [v2 getActiveCategoryVolume:&v6 andName:0];
 
-  v3 = TUDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = TUDefaultLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(TUAudioSystemController *)&v5 activeCategoryVolume];
+    [TUAudioSystemController activeCategoryVolume];
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)triggerEndInterruptionForAudioSessionID:(id)d
@@ -530,19 +525,19 @@ void __70__TUAudioSystemController__handlePickableRoutesDidChangeNotification___
   v17[1] = v4;
   v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
-  v6 = TUDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TUDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = v5;
-    _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "Triggering an end of interruption for audio session with ID %@", &buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "Triggering an end of interruption for audio session with ID %@", &buf, 0xCu);
   }
 
-  v7 = +[TUAudioSystemController sharedSystemController];
+  v8 = +[TUAudioSystemController sharedSystemController];
   v12 = 0;
   v13 = &v12;
   v14 = 0x2020000000;
-  v8 = getAVSystemController_PostInterruptionEndedNotificationSymbolLoc_ptr;
+  v9 = getAVSystemController_PostInterruptionEndedNotificationSymbolLoc_ptr;
   v15 = getAVSystemController_PostInterruptionEndedNotificationSymbolLoc_ptr;
   if (!getAVSystemController_PostInterruptionEndedNotificationSymbolLoc_ptr)
   {
@@ -551,22 +546,20 @@ void __70__TUAudioSystemController__handlePickableRoutesDidChangeNotification___
     v19 = __getAVSystemController_PostInterruptionEndedNotificationSymbolLoc_block_invoke;
     v20 = &unk_1E7424CD8;
     v21 = &v12;
-    v9 = MediaExperienceLibrary();
-    v10 = dlsym(v9, "AVSystemController_PostInterruptionEndedNotification");
-    *(v21[1] + 24) = v10;
+    v10 = MediaExperienceLibrary();
+    v11 = dlsym(v10, "AVSystemController_PostInterruptionEndedNotification");
+    *(v21[1] + 24) = v11;
     getAVSystemController_PostInterruptionEndedNotificationSymbolLoc_ptr = *(v21[1] + 24);
-    v8 = v13[3];
+    v9 = v13[3];
   }
 
   _Block_object_dispose(&v12, 8);
-  if (!v8)
+  if (!v9)
   {
     [TUAudioSystemController triggerEndInterruptionForAudioSessionID:];
   }
 
-  [v7 setAttribute:v5 forKey:*v8 error:{0, v12}];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [v8 setAttribute:v5 forKey:*v9 error:{0, v12}];
 }
 
 void __67__TUAudioSystemController_triggerEndInterruptionForAudioSessionID___block_invoke()
@@ -606,24 +599,24 @@ void __67__TUAudioSystemController_triggerEndInterruptionForAudioSessionID___blo
   v2 = +[TUAudioSystemController sharedSystemController];
   v3 = objc_opt_respondsToSelector();
 
-  v4 = TUDefaultLog();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = TUDefaultLog(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Clearing uplink mute cache for AVSystemController", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Clearing uplink mute cache for AVSystemController", buf, 2u);
     }
 
-    v4 = +[TUAudioSystemController sharedSystemController];
-    [v4 clearUplinkMutedCache];
+    v5 = +[TUAudioSystemController sharedSystemController];
+    [v5 clearUplinkMutedCache];
   }
 
-  else if (v5)
+  else if (v6)
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Not clearing uplink mute cache for AVSystemController since it does not conform to clearUplinkMutedCache", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Not clearing uplink mute cache for AVSystemController since it does not conform to clearUplinkMutedCache", v7, 2u);
   }
 }
 
@@ -640,40 +633,37 @@ void __67__TUAudioSystemController_triggerEndInterruptionForAudioSessionID___blo
 
 void __51__TUAudioSystemController_setActiveCategoryVolume___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v11 = 134217984;
-    v12 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Setting active category volume to %f", &v11, 0xCu);
+    v9 = 134217984;
+    v10 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Setting active category volume to %f", &v9, 0xCu);
   }
 
   v4 = +[TUAudioSystemController sharedSystemController];
-  v6 = *(a1 + 32);
-  v5 = (a1 + 32);
-  LODWORD(v7) = v6;
-  v8 = [v4 setActiveCategoryVolumeTo:v7];
+  LODWORD(v5) = *(a1 + 32);
+  v6 = [v4 setActiveCategoryVolumeTo:v5];
 
-  if ((v8 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v9 = TUDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = TUDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __51__TUAudioSystemController_setActiveCategoryVolume___block_invoke_cold_1(v5);
+      __51__TUAudioSystemController_setActiveCategoryVolume___block_invoke_cold_1();
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isUplinkMuted
 {
-  if ([(TUFeatureFlags *)self->_featureFlags sessionBasedMutingEnabled])
+  sessionBasedMutingEnabled = [(TUFeatureFlags *)self->_featureFlags sessionBasedMutingEnabled];
+  if (sessionBasedMutingEnabled)
   {
-    v3 = TUDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = TUDefaultLog(sessionBasedMutingEnabled);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [TUAudioSystemController isUplinkMuted];
     }
@@ -686,9 +676,8 @@ void __51__TUAudioSystemController_setActiveCategoryVolume___block_invoke(uint64
     [(TUAudioController *)self _acquireLock];
     [(TUAudioController *)self _requestUpdatedValueWithBlock:&__block_literal_global_70 object:&self->_isUplinkMutedCached isRequestingPointer:&self->_isRequestingUplinkMuted forceNewRequest:0 scheduleTimePointer:&self->_lastUplinkMutedRequestScheduleTime notificationString:@"TUAudioSystemUplinkMuteStatusChangedNotification" queue:self->_uplinkMutedQueue];
     bOOLValue = [(NSNumber *)self->_isUplinkMutedCached BOOLValue];
-    [(TUAudioController *)self _releaseLock];
-    v3 = TUDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = TUDefaultLog([(TUAudioController *)self _releaseLock]);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [TUAudioSystemController isUplinkMuted];
     }
@@ -700,38 +689,70 @@ void __51__TUAudioSystemController_setActiveCategoryVolume___block_invoke(uint64
 id __40__TUAudioSystemController_isUplinkMuted__block_invoke()
 {
   v0 = +[TUAudioSystemController sharedSystemController];
-  v1 = getAVSystemController_UplinkMuteAttribute();
-  v2 = [v0 attributeForKey:v1];
+  v4 = getAVSystemController_UplinkMuteAttribute(v0, v1, v2, v3);
+  v5 = [v0 attributeForKey:v4];
 
-  return v2;
+  return v5;
+}
+
+- (void)setUplinkMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  sessionBasedMutingEnabled = [(TUFeatureFlags *)self->_featureFlags sessionBasedMutingEnabled];
+  if (sessionBasedMutingEnabled)
+  {
+    v6 = TUDefaultLog(sessionBasedMutingEnabled);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [TUAudioSystemController setUplinkMuted:];
+    }
+  }
+
+  else
+  {
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:mutedCopy];
+    v6 = v7;
+    if (!self->_isUplinkMutedCached || ([v7 isEqualToNumber:?]& 1) == 0)
+    {
+      uplinkMutedQueue = self->_uplinkMutedQueue;
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __42__TUAudioSystemController_setUplinkMuted___block_invoke;
+      block[3] = &unk_1E7425B78;
+      block[4] = self;
+      v6 = v6;
+      v10 = v6;
+      v11 = mutedCopy;
+      dispatch_async(uplinkMutedQueue, block);
+    }
+  }
 }
 
 void __42__TUAudioSystemController_setUplinkMuted___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _acquireLock];
-  v2 = TUDefaultLog();
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog([*(a1 + 32) _acquireLock]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     *buf = 138412290;
-    v16 = v3;
+    v19 = v3;
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "setting isUplinkMuted value = %@", buf, 0xCu);
   }
 
   v4 = +[TUAudioSystemController sharedSystemController];
   v5 = *(a1 + 40);
-  v6 = getAVSystemController_UplinkMuteAttribute();
-  v14 = 0;
-  v7 = [v4 setAttribute:v5 forKey:v6 error:&v14];
-  v8 = v14;
+  v9 = getAVSystemController_UplinkMuteAttribute(v4, v6, v7, v8);
+  v17 = 0;
+  v10 = [v4 setAttribute:v5 forKey:v9 error:&v17];
+  v11 = v17;
 
-  if (v7)
+  if (v10)
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:*(a1 + 48)];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 48);
-    *(v10 + 48) = v9;
+    v13 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:*(a1 + 48)];
+    v14 = *(a1 + 32);
+    v15 = *(v14 + 48);
+    *(v14 + 48) = v13;
 
     [*(a1 + 32) _releaseLock];
     dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_78);
@@ -739,28 +760,26 @@ void __42__TUAudioSystemController_setUplinkMuted___block_invoke(uint64_t a1)
 
   else
   {
-    v12 = TUDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = TUDefaultLog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __42__TUAudioSystemController_setUplinkMuted___block_invoke_cold_1();
     }
 
     [*(a1 + 32) _releaseLock];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void __42__TUAudioSystemController_setUplinkMuted___block_invoke_76()
+void __42__TUAudioSystemController_setUplinkMuted___block_invoke_76(uint64_t a1)
 {
-  v0 = TUDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __42__TUAudioSystemController_setUplinkMuted___block_invoke_76_cold_1();
   }
 
-  v1 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v1 postNotificationName:@"TUAudioSystemUplinkMuteStatusChangedNotification" object:0];
+  v2 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v2 postNotificationName:@"TUAudioSystemUplinkMuteStatusChangedNotification" object:0];
 }
 
 - (void)setDownlinkMuted:(BOOL)muted
@@ -784,8 +803,7 @@ void __42__TUAudioSystemController_setUplinkMuted___block_invoke_76()
 void __44__TUAudioSystemController_setDownlinkMuted___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _acquireLock];
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog([*(a1 + 32) _acquireLock]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -803,10 +821,10 @@ void __44__TUAudioSystemController_setDownlinkMuted___block_invoke(uint64_t a1)
 
   if (v7)
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:*(a1 + 48)];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 56);
-    *(v10 + 56) = v9;
+    v10 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:*(a1 + 48)];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 56);
+    *(v11 + 56) = v10;
 
     [*(a1 + 32) _releaseLock];
     dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_83);
@@ -814,58 +832,164 @@ void __44__TUAudioSystemController_setDownlinkMuted___block_invoke(uint64_t a1)
 
   else
   {
-    v12 = TUDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = TUDefaultLog(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __44__TUAudioSystemController_setDownlinkMuted___block_invoke_cold_1();
     }
 
     [*(a1 + 32) _releaseLock];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void __44__TUAudioSystemController_setDownlinkMuted___block_invoke_81()
+void __44__TUAudioSystemController_setDownlinkMuted___block_invoke_81(uint64_t a1)
 {
-  v0 = TUDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __44__TUAudioSystemController_setDownlinkMuted___block_invoke_81_cold_1();
   }
 
-  v1 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v1 postNotificationName:@"TUAudioSystemDownlinkMuteStatusChangedNotification" object:0];
+  v2 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v2 postNotificationName:@"TUAudioSystemDownlinkMuteStatusChangedNotification" object:0];
 }
 
 - (NSDictionary)pickedRouteAttribute
 {
   v2 = +[TUAudioSystemController sharedSystemController];
-  v3 = getAVSystemController_PickedRouteAttribute();
-  v4 = [v2 attributeForKey:v3];
+  v6 = getAVSystemController_PickedRouteAttribute(v2, v3, v4, v5);
+  v7 = [v2 attributeForKey:v6];
 
-  return v4;
+  return v7;
+}
+
+- (id)_pickableRoutesForTTYWithForceNewRequest:(BOOL)request
+{
+  requestCopy = request;
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [TUAudioSystemController _pickableRoutesForTTYWithForceNewRequest:];
+  }
+
+  [(TUAudioController *)self _acquireLock];
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __68__TUAudioSystemController__pickableRoutesForTTYWithForceNewRequest___block_invoke;
+  aBlock[3] = &unk_1E7425BA0;
+  aBlock[4] = self;
+  v6 = _Block_copy(aBlock);
+  [(TUAudioController *)self _requestUpdatedValueWithBlock:v6 object:&self->_pickableRoutesForTTY isRequestingPointer:&self->_isRequestingPickableRoutesForTTY forceNewRequest:requestCopy scheduleTimePointer:&self->_lastTTYPickableRoutesScheduleTime notificationString:@"TUAudioSystemAudioPickableRoutesChanged" queue:self->_pickableRoutesQueue];
+  v7 = self->_pickableRoutesForTTY;
+  [(TUAudioController *)self _releaseLock];
+  v8 = v7;
+
+  return v7;
 }
 
 id __68__TUAudioSystemController__pickableRoutesForTTYWithForceNewRequest___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = +[TUAudioSystemController sharedSystemController];
-  v4 = getAVSystemController_PickableRoutesAttribute();
-  v5 = [v3 attributeForKey:v4];
-  v6 = [v2 filteredPickableRoutesFromPickableRoutes:v5];
+  v1 = objc_opt_class();
+  v2 = +[TUAudioSystemController sharedSystemController];
+  v6 = getAVSystemController_PickableRoutesAttribute(v2, v3, v4, v5);
+  v7 = [v2 attributeForKey:v6];
+  v8 = [v1 filteredPickableRoutesFromPickableRoutes:v7];
 
-  return v6;
+  return v8;
 }
 
 - (id)pickableRoutesForActiveCall
 {
   v2 = +[TUAudioSystemController sharedSystemController];
-  v3 = getAVSystemController_PickableRoutesAttribute();
-  v4 = [v2 attributeForKey:v3];
+  v6 = getAVSystemController_PickableRoutesAttribute(v2, v3, v4, v5);
+  v7 = [v2 attributeForKey:v6];
 
-  return v4;
+  return v7;
+}
+
+- (id)_pickableRoutesForPhoneCallWithForceNewRequest:(BOOL)request
+{
+  requestCopy = request;
+  v28[1] = *MEMORY[0x1E69E9840];
+  v5 = +[TUCallCapabilities supportsPrimaryCalling];
+  v6 = v5;
+  v7 = TUDefaultLog(v5);
+  v8 = v7;
+  if (v6)
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [TUAudioSystemController _pickableRoutesForPhoneCallWithForceNewRequest:];
+    }
+
+    [(TUAudioController *)self _acquireLock];
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __74__TUAudioSystemController__pickableRoutesForPhoneCallWithForceNewRequest___block_invoke;
+    aBlock[3] = &unk_1E7425BA0;
+    aBlock[4] = self;
+    v9 = _Block_copy(aBlock);
+    delegate = [(TUAudioSystemController *)self delegate];
+    hasActiveAudioSession = [delegate hasActiveAudioSession];
+
+    if (hasActiveAudioSession)
+    {
+      v23 = 0;
+      v24 = &v23;
+      v25 = 0x2020000000;
+      v12 = getAVAudioSessionCategoryPhoneCallSymbolLoc_ptr;
+      v26 = getAVAudioSessionCategoryPhoneCallSymbolLoc_ptr;
+      if (!getAVAudioSessionCategoryPhoneCallSymbolLoc_ptr)
+      {
+        *buf = MEMORY[0x1E69E9820];
+        v19 = 3221225472;
+        v20 = __getAVAudioSessionCategoryPhoneCallSymbolLoc_block_invoke;
+        v21 = &unk_1E7424CD8;
+        v22 = &v23;
+        __getAVAudioSessionCategoryPhoneCallSymbolLoc_block_invoke(buf);
+        v12 = v24[3];
+      }
+
+      _Block_object_dispose(&v23, 8);
+      if (!v12)
+      {
+        [TUAudioSystemController _pickableRoutesForPhoneCallWithForceNewRequest:];
+      }
+
+      v13 = *v12;
+      if (!v13)
+      {
+        v14 = 0;
+LABEL_15:
+        [(TUAudioController *)self _requestUpdatedValueWithBlock:v9 object:&self->_pickableRoutesForPhoneCall isRequestingPointer:&self->_isRequestingPickableRoutesForPhoneCall forceNewRequest:requestCopy scheduleTimePointer:&self->_lastPhoneCallCategoryRoutesScheduleTime notificationString:@"TUAudioSystemAudioPickableRoutesChanged" notificationUserInfo:v14 queue:self->_pickableRoutesQueue];
+        v15 = self->_pickableRoutesForPhoneCall;
+        [(TUAudioController *)self _releaseLock];
+
+        goto LABEL_16;
+      }
+    }
+
+    else
+    {
+      v13 = @"PhoneCall";
+    }
+
+    v27 = @"TUAudioSystemCategoryKey";
+    v28[0] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    goto LABEL_15;
+  }
+
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "_pickableRoutesForPhoneCall is unsupported", buf, 2u);
+  }
+
+  v15 = MEMORY[0x1E695E0F0];
+LABEL_16:
+
+  return v15;
 }
 
 id __74__TUAudioSystemController__pickableRoutesForPhoneCallWithForceNewRequest___block_invoke(uint64_t a1)
@@ -884,56 +1008,55 @@ id __74__TUAudioSystemController__pickableRoutesForPhoneCallWithForceNewRequest_
     v4 = [v5 pickableRoutesForCategory:@"PhoneCall"];
   }
 
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() filteredPickableRoutesFromPickableRoutes:v4];
+  v6 = [objc_opt_class() filteredPickableRoutesFromPickableRoutes:v4];
 
-  return v7;
+  return v6;
 }
 
 - (id)currentlyPickedRouteIdForCategory:(id)category andMode:(id)mode
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   modeCopy = mode;
   [(TUAudioSystemController *)self pickableRoutesForCategory:categoryCopy andMode:?];
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v6 = v25 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v37 count:16];
+  v23 = 0u;
+  v6 = v24 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v36 count:16];
   if (v7)
   {
-    v8 = *v25;
+    v8 = *v24;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
-        v33 = 0;
-        v34 = &v33;
-        v35 = 0x2020000000;
+        v10 = *(*(&v23 + 1) + 8 * i);
+        v32 = 0;
+        v33 = &v32;
+        v34 = 0x2020000000;
         v11 = getAVSystemController_RouteDescriptionKey_RouteCurrentlyPickedSymbolLoc_ptr;
-        v36 = getAVSystemController_RouteDescriptionKey_RouteCurrentlyPickedSymbolLoc_ptr;
+        v35 = getAVSystemController_RouteDescriptionKey_RouteCurrentlyPickedSymbolLoc_ptr;
         if (!getAVSystemController_RouteDescriptionKey_RouteCurrentlyPickedSymbolLoc_ptr)
         {
-          v28 = MEMORY[0x1E69E9820];
-          v29 = 3221225472;
-          v30 = __getAVSystemController_RouteDescriptionKey_RouteCurrentlyPickedSymbolLoc_block_invoke;
-          v31 = &unk_1E7424CD8;
-          v32 = &v33;
+          v27 = MEMORY[0x1E69E9820];
+          v28 = 3221225472;
+          v29 = __getAVSystemController_RouteDescriptionKey_RouteCurrentlyPickedSymbolLoc_block_invoke;
+          v30 = &unk_1E7424CD8;
+          v31 = &v32;
           v12 = MediaExperienceLibrary();
           v13 = dlsym(v12, "AVSystemController_RouteDescriptionKey_RouteCurrentlyPicked");
-          *(v32[1] + 24) = v13;
-          getAVSystemController_RouteDescriptionKey_RouteCurrentlyPickedSymbolLoc_ptr = *(v32[1] + 24);
-          v11 = v34[3];
+          *(v31[1] + 24) = v13;
+          getAVSystemController_RouteDescriptionKey_RouteCurrentlyPickedSymbolLoc_ptr = *(v31[1] + 24);
+          v11 = v33[3];
         }
 
-        _Block_object_dispose(&v33, 8);
+        _Block_object_dispose(&v32, 8);
         if (!v11)
         {
           [TUAudioSystemController currentlyPickedRouteIdForCategory:andMode:];
@@ -944,26 +1067,26 @@ id __74__TUAudioSystemController__pickableRoutesForPhoneCallWithForceNewRequest_
 
         if (bOOLValue)
         {
-          v33 = 0;
-          v34 = &v33;
-          v35 = 0x2020000000;
+          v32 = 0;
+          v33 = &v32;
+          v34 = 0x2020000000;
           v17 = getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_ptr;
-          v36 = getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_ptr;
+          v35 = getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_ptr;
           if (!getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_ptr)
           {
-            v28 = MEMORY[0x1E69E9820];
-            v29 = 3221225472;
-            v30 = __getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_block_invoke;
-            v31 = &unk_1E7424CD8;
-            v32 = &v33;
+            v27 = MEMORY[0x1E69E9820];
+            v28 = 3221225472;
+            v29 = __getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_block_invoke;
+            v30 = &unk_1E7424CD8;
+            v31 = &v32;
             v18 = MediaExperienceLibrary();
             v19 = dlsym(v18, "AVSystemController_RouteDescriptionKey_RouteUID");
-            *(v32[1] + 24) = v19;
-            getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_ptr = *(v32[1] + 24);
-            v17 = v34[3];
+            *(v31[1] + 24) = v19;
+            getAVSystemController_RouteDescriptionKey_RouteUIDSymbolLoc_ptr = *(v31[1] + 24);
+            v17 = v33[3];
           }
 
-          _Block_object_dispose(&v33, 8);
+          _Block_object_dispose(&v32, 8);
           if (!v17)
           {
             [TUAudioSystemController currentlyPickedRouteIdForCategory:andMode:];
@@ -974,7 +1097,7 @@ id __74__TUAudioSystemController__pickableRoutesForPhoneCallWithForceNewRequest_
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v24 objects:v37 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v23 objects:v36 count:16];
       if (v7)
       {
         continue;
@@ -986,8 +1109,6 @@ id __74__TUAudioSystemController__pickableRoutesForPhoneCallWithForceNewRequest_
 
   v16 = 0;
 LABEL_17:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1016,6 +1137,51 @@ LABEL_17:
 LABEL_6:
 
   return v5;
+}
+
+- (id)_pickableRoutesForPlayAndRecordVoiceWithForceNewRequest:(BOOL)request
+{
+  requestCopy = request;
+  v13[2] = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordVoiceWithForceNewRequest:];
+  }
+
+  [(TUAudioController *)self _acquireLock];
+  if (_pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___pred__kMXSessionAudioCategory_PlayAndRecord_NoBluetooth != -1)
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordVoiceWithForceNewRequest:];
+  }
+
+  if (_pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___pred__kMXSessionAudioMode_VoiceChat != -1)
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordVoiceWithForceNewRequest:];
+  }
+
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___block_invoke_3;
+  aBlock[3] = &unk_1E7425BA0;
+  aBlock[4] = self;
+  v6 = _Block_copy(aBlock);
+  v7 = 0;
+  if (_pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth && _pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___kMXSessionAudioMode_VoiceChat)
+  {
+    v12[0] = @"TUAudioSystemCategoryKey";
+    v12[1] = @"TUAudioSystemModeKey";
+    v13[0] = _pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth;
+    v13[1] = _pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___kMXSessionAudioMode_VoiceChat;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  }
+
+  [(TUAudioController *)self _requestUpdatedValueWithBlock:v6 object:&self->_pickableRoutesForPlayAndRecordVoice isRequestingPointer:&self->_isRequestingPickableRoutesForPlayAndRecordVoice forceNewRequest:requestCopy scheduleTimePointer:&self->_lastPlayAndRecordVoiceRoutesScheduleTime notificationString:@"TUAudioSystemAudioPickableRoutesChanged" notificationUserInfo:v7 queue:self->_pickableRoutesQueue];
+  v8 = self->_pickableRoutesForPlayAndRecordVoice;
+  [(TUAudioController *)self _releaseLock];
+  v9 = v8;
+
+  return v8;
 }
 
 void __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___block_invoke()
@@ -1066,10 +1232,54 @@ id __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVoiceWithForceNe
     v4 = [v5 pickableRoutesForCategory:_pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth andMode:_pickableRoutesForPlayAndRecordVoiceWithForceNewRequest___kMXSessionAudioMode_VoiceChat];
   }
 
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() filteredPickableRoutesFromPickableRoutes:v4];
+  v6 = [objc_opt_class() filteredPickableRoutesFromPickableRoutes:v4];
 
-  return v7;
+  return v6;
+}
+
+- (id)_pickableRoutesForPlayAndRecordVideoWithForceNewRequest:(BOOL)request
+{
+  requestCopy = request;
+  v13[2] = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordVideoWithForceNewRequest:];
+  }
+
+  [(TUAudioController *)self _acquireLock];
+  if (_pickableRoutesForPlayAndRecordVideoWithForceNewRequest___pred__kMXSessionAudioCategory_PlayAndRecord_NoBluetooth != -1)
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordVideoWithForceNewRequest:];
+  }
+
+  if (_pickableRoutesForPlayAndRecordVideoWithForceNewRequest___pred__kMXSessionAudioMode_VideoChat != -1)
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordVideoWithForceNewRequest:];
+  }
+
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVideoWithForceNewRequest___block_invoke_3;
+  aBlock[3] = &unk_1E7425BA0;
+  aBlock[4] = self;
+  v6 = _Block_copy(aBlock);
+  v7 = 0;
+  if (_pickableRoutesForPlayAndRecordVideoWithForceNewRequest___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth && _pickableRoutesForPlayAndRecordVideoWithForceNewRequest___kMXSessionAudioMode_VideoChat)
+  {
+    v12[0] = @"TUAudioSystemCategoryKey";
+    v12[1] = @"TUAudioSystemModeKey";
+    v13[0] = _pickableRoutesForPlayAndRecordVideoWithForceNewRequest___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth;
+    v13[1] = _pickableRoutesForPlayAndRecordVideoWithForceNewRequest___kMXSessionAudioMode_VideoChat;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  }
+
+  [(TUAudioController *)self _requestUpdatedValueWithBlock:v6 object:&self->_pickableRoutesForPlayAndRecordVideo isRequestingPointer:&self->_isRequestingPickableRoutesForPlayAndRecordVideo forceNewRequest:requestCopy scheduleTimePointer:&self->_lastPlayAndRecordVideoRoutesScheduleTime notificationString:@"TUAudioSystemAudioPickableRoutesChanged" notificationUserInfo:v7 queue:self->_pickableRoutesQueue];
+  v8 = self->_pickableRoutesForPlayAndRecordVideo;
+  [(TUAudioController *)self _releaseLock];
+  v9 = v8;
+
+  return v8;
 }
 
 void __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVideoWithForceNewRequest___block_invoke()
@@ -1116,13 +1326,12 @@ id __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVideoWithForceNe
     __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVideoWithForceNewRequest___block_invoke_3_cold_2();
   }
 
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = +[TUAudioSystemController sharedSystemController];
-  v5 = [v4 pickableRoutesForCategory:__sharedController_block_invoke__kMXSessionAudioCategory_PlayAndRecord_NoBluetooth andMode:__sharedController_block_invoke__kMXSessionAudioMode_VideoChat];
-  v6 = [v3 filteredPickableRoutesFromPickableRoutes:v5];
+  v1 = objc_opt_class();
+  v2 = +[TUAudioSystemController sharedSystemController];
+  v3 = [v2 pickableRoutesForCategory:__sharedController_block_invoke__kMXSessionAudioCategory_PlayAndRecord_NoBluetooth andMode:__sharedController_block_invoke__kMXSessionAudioMode_VideoChat];
+  v4 = [v1 filteredPickableRoutesFromPickableRoutes:v3];
 
-  return v6;
+  return v4;
 }
 
 void __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVideoWithForceNewRequest___block_invoke_4()
@@ -1155,6 +1364,51 @@ void __83__TUAudioSystemController__pickableRoutesForPlayAndRecordVideoWithForce
   }
 
   objc_storeStrong(&__sharedController_block_invoke__kMXSessionAudioMode_VideoChat, v1);
+}
+
+- (id)_pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest:(BOOL)request
+{
+  requestCopy = request;
+  v13[2] = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest:];
+  }
+
+  [(TUAudioController *)self _acquireLock];
+  if (_pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___pred__kMXSessionAudioCategory_PlayAndRecord_NoBluetooth != -1)
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest:];
+  }
+
+  if (_pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___pred__kMXSessionAudioMode_RemoteVoiceChat != -1)
+  {
+    [TUAudioSystemController _pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest:];
+  }
+
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __89__TUAudioSystemController__pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___block_invoke_3;
+  aBlock[3] = &unk_1E7425BA0;
+  aBlock[4] = self;
+  v6 = _Block_copy(aBlock);
+  v7 = 0;
+  if (_pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth && _pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___kMXSessionAudioMode_RemoteVoiceChat)
+  {
+    v12[0] = @"TUAudioSystemCategoryKey";
+    v12[1] = @"TUAudioSystemModeKey";
+    v13[0] = _pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth;
+    v13[1] = _pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___kMXSessionAudioMode_RemoteVoiceChat;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  }
+
+  [(TUAudioController *)self _requestUpdatedValueWithBlock:v6 object:&self->_pickableRoutesForPlayAndRecordRemoteVoice isRequestingPointer:&self->_isRequestingPickableRoutesForPlayAndRecordRemoteVoice forceNewRequest:requestCopy scheduleTimePointer:&self->_lastPlayAndRecordRemoteVoiceRoutesScheduleTime notificationString:@"TUAudioSystemAudioPickableRoutesChanged" notificationUserInfo:v7 queue:self->_pickableRoutesQueue];
+  v8 = self->_pickableRoutesForPlayAndRecordRemoteVoice;
+  [(TUAudioController *)self _releaseLock];
+  v9 = v8;
+
+  return v8;
 }
 
 void __89__TUAudioSystemController__pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___block_invoke()
@@ -1205,10 +1459,70 @@ id __89__TUAudioSystemController__pickableRoutesForPlayAndRecordRemoteVoiceWithF
     v4 = [v5 pickableRoutesForCategory:_pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth andMode:_pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest___kMXSessionAudioMode_RemoteVoiceChat];
   }
 
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() filteredPickableRoutesFromPickableRoutes:v4];
+  v6 = [objc_opt_class() filteredPickableRoutesFromPickableRoutes:v4];
 
-  return v7;
+  return v6;
+}
+
+- (id)_pickableRoutesForVoiceMailWithForceNewRequest:(BOOL)request
+{
+  requestCopy = request;
+  v16[2] = *MEMORY[0x1E69E9840];
+  v5 = +[TUCallCapabilities supportsPrimaryCalling];
+  v6 = v5;
+  v7 = TUDefaultLog(v5);
+  v8 = v7;
+  if (v6)
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [TUAudioSystemController _pickableRoutesForVoiceMailWithForceNewRequest:];
+    }
+
+    [(TUAudioController *)self _acquireLock];
+    if (_pickableRoutesForVoiceMailWithForceNewRequest___pred__kMXSessionAudioCategory_Voicemail != -1)
+    {
+      [TUAudioSystemController _pickableRoutesForVoiceMailWithForceNewRequest:];
+    }
+
+    if (_pickableRoutesForVoiceMailWithForceNewRequest___pred__kMXSessionAudioMode_VoiceChat != -1)
+    {
+      [TUAudioSystemController _pickableRoutesForVoiceMailWithForceNewRequest:];
+    }
+
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __74__TUAudioSystemController__pickableRoutesForVoiceMailWithForceNewRequest___block_invoke_3;
+    aBlock[3] = &unk_1E7425BA0;
+    aBlock[4] = self;
+    v9 = _Block_copy(aBlock);
+    v10 = 0;
+    if (_pickableRoutesForVoiceMailWithForceNewRequest___kMXSessionAudioCategory_Voicemail && _pickableRoutesForVoiceMailWithForceNewRequest___kMXSessionAudioMode_VoiceChat)
+    {
+      v15[0] = @"TUAudioSystemCategoryKey";
+      v15[1] = @"TUAudioSystemModeKey";
+      v16[0] = _pickableRoutesForVoiceMailWithForceNewRequest___kMXSessionAudioCategory_Voicemail;
+      v16[1] = _pickableRoutesForVoiceMailWithForceNewRequest___kMXSessionAudioMode_VoiceChat;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    }
+
+    [(TUAudioController *)self _requestUpdatedValueWithBlock:v9 object:&self->_pickableRoutesForVoicemail isRequestingPointer:&self->_isRequestingPickableRoutesForVoicemail forceNewRequest:requestCopy scheduleTimePointer:&self->_lastVoicemailRoutesScheduleTime notificationString:@"TUAudioSystemAudioPickableRoutesChanged" notificationUserInfo:v10 queue:self->_pickableRoutesQueue];
+    v11 = self->_pickableRoutesForVoicemail;
+    [(TUAudioController *)self _releaseLock];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "_pickableRoutesForVoiceMailWithForceNewRequest is unsupported", buf, 2u);
+    }
+
+    v11 = MEMORY[0x1E695E0F0];
+  }
+
+  return v11;
 }
 
 void __74__TUAudioSystemController__pickableRoutesForVoiceMailWithForceNewRequest___block_invoke()
@@ -1245,13 +1559,12 @@ void __74__TUAudioSystemController__pickableRoutesForVoiceMailWithForceNewReques
 
 id __74__TUAudioSystemController__pickableRoutesForVoiceMailWithForceNewRequest___block_invoke_3(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = +[TUAudioSystemController sharedSystemController];
-  v4 = [v3 pickableRoutesForCategory:_pickableRoutesForVoiceMailWithForceNewRequest___kMXSessionAudioCategory_Voicemail andMode:_pickableRoutesForVoiceMailWithForceNewRequest___kMXSessionAudioMode_VoiceChat];
-  v5 = [v2 filteredPickableRoutesFromPickableRoutes:v4];
+  v1 = objc_opt_class();
+  v2 = +[TUAudioSystemController sharedSystemController];
+  v3 = [v2 pickableRoutesForCategory:_pickableRoutesForVoiceMailWithForceNewRequest___kMXSessionAudioCategory_Voicemail andMode:_pickableRoutesForVoiceMailWithForceNewRequest___kMXSessionAudioMode_VoiceChat];
+  v4 = [v1 filteredPickableRoutesFromPickableRoutes:v3];
 
-  return v5;
+  return v4;
 }
 
 - (void)_loadCurrentPickableRoutesWithCompletion:(id)completion
@@ -1274,89 +1587,86 @@ id __74__TUAudioSystemController__pickableRoutesForVoiceMailWithForceNewRequest_
 void __68__TUAudioSystemController__loadCurrentPickableRoutesWithCompletion___block_invoke(uint64_t a1)
 {
   v2 = +[TUAudioSystemController sharedSystemController];
-  v3 = getAVSystemController_PickableRoutesAttribute();
-  v4 = [v2 attributeForKey:v3];
+  v6 = getAVSystemController_PickableRoutesAttribute(v2, v3, v4, v5);
+  v7 = [v2 attributeForKey:v6];
 
   [*(a1 + 32) _acquireLock];
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() filteredPickableRoutesFromPickableRoutes:v4];
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 120);
-  *(v7 + 120) = v6;
+  v8 = [objc_opt_class() filteredPickableRoutesFromPickableRoutes:v7];
+  v9 = *(a1 + 32);
+  v10 = *(v9 + 120);
+  *(v9 + 120) = v8;
 
   [*(a1 + 32) _releaseLock];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __68__TUAudioSystemController__loadCurrentPickableRoutesWithCompletion___block_invoke_2;
   block[3] = &unk_1E7424950;
-  v11 = v4;
-  v9 = v4;
+  v13 = v7;
+  v11 = v7;
   dispatch_async(MEMORY[0x1E69E96A0], block);
   (*(*(a1 + 40) + 16))();
 }
 
 void __68__TUAudioSystemController__loadCurrentPickableRoutesWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Fetched current pickable routes %@ and posting TUAudioSystemAudioPickableRoutesChanged", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Fetched current pickable routes %@ and posting TUAudioSystemAudioPickableRoutesChanged", &v5, 0xCu);
   }
 
   v4 = [MEMORY[0x1E696AD88] defaultCenter];
   [v4 postNotificationName:@"TUAudioSystemAudioPickableRoutesChanged" object:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)filteredPickableRoutesFromPickableRoutes:(id)routes
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   array = [MEMORY[0x1E695DF70] array];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v4 = routesCopy;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v32 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v31 count:16];
   if (v5)
   {
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
-        v28 = 0;
-        v29 = &v28;
-        v30 = 0x2020000000;
+        v8 = *(*(&v18 + 1) + 8 * i);
+        v27 = 0;
+        v28 = &v27;
+        v29 = 0x2020000000;
         v9 = getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_ptr;
-        v31 = getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_ptr;
+        v30 = getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_ptr;
         if (!getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_ptr)
         {
-          v23 = MEMORY[0x1E69E9820];
-          v24 = 3221225472;
-          v25 = __getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_block_invoke;
-          v26 = &unk_1E7424CD8;
-          v27 = &v28;
+          v22 = MEMORY[0x1E69E9820];
+          v23 = 3221225472;
+          v24 = __getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_block_invoke;
+          v25 = &unk_1E7424CD8;
+          v26 = &v27;
           v10 = MediaExperienceLibrary();
           v11 = dlsym(v10, "AVSystemController_RouteDescriptionKey_AVAudioRouteName");
-          *(v27[1] + 24) = v11;
-          getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_ptr = *(v27[1] + 24);
-          v9 = v29[3];
+          *(v26[1] + 24) = v11;
+          getAVSystemController_RouteDescriptionKey_AVAudioRouteNameSymbolLoc_ptr = *(v26[1] + 24);
+          v9 = v28[3];
         }
 
-        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v27, 8);
         if (!v9)
         {
           +[TUAudioSystemController filteredPickableRoutesFromPickableRoutes:];
@@ -1375,14 +1685,13 @@ void __68__TUAudioSystemController__loadCurrentPickableRoutesWithCompletion___bl
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v19 objects:v32 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v18 objects:v31 count:16];
     }
 
     while (v5);
   }
 
   v15 = [array copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -1411,10 +1720,11 @@ void __68__TUAudioSystemController__loadCurrentPickableRoutesWithCompletion___bl
 
 - (void)_getPickableRoutesForCategory:(id)category mode:(id)mode onlyKnownCombinations:(BOOL)combinations completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   modeCopy = mode;
   completionCopy = completion;
+  v13 = completionCopy;
   if (!completionCopy)
   {
     goto LABEL_35;
@@ -1427,8 +1737,8 @@ void __68__TUAudioSystemController__loadCurrentPickableRoutesWithCompletion___bl
       [TUAudioSystemController _getPickableRoutesForCategory:mode:onlyKnownCombinations:completion:];
     }
 
-    v13 = TUStringsAreEqualOrNil(categoryCopy, _getPickableRoutesForCategory_mode_onlyKnownCombinations_completion___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth);
-    if (modeCopy && v13)
+    v14 = TUStringsAreEqualOrNil(categoryCopy, _getPickableRoutesForCategory_mode_onlyKnownCombinations_completion___kMXSessionAudioCategory_PlayAndRecord_NoBluetooth);
+    if (modeCopy && v14)
     {
       if (_getPickableRoutesForCategory_mode_onlyKnownCombinations_completion___pred__kMXSessionAudioMode_VideoChat != -1)
       {
@@ -1447,21 +1757,22 @@ void __68__TUAudioSystemController__loadCurrentPickableRoutesWithCompletion___bl
 
       if (TUStringsAreEqualOrNil(modeCopy, _getPickableRoutesForCategory_mode_onlyKnownCombinations_completion___kMXSessionAudioMode_VideoChat))
       {
-        v14 = [(TUAudioSystemController *)self _pickableRoutesForPlayAndRecordVideoWithForceNewRequest:0];
+        completionCopy = [(TUAudioSystemController *)self _pickableRoutesForPlayAndRecordVideoWithForceNewRequest:0];
         goto LABEL_23;
       }
 
       if (TUStringsAreEqualOrNil(modeCopy, _getPickableRoutesForCategory_mode_onlyKnownCombinations_completion___kMXSessionAudioMode_VoiceChat))
       {
-        v14 = [(TUAudioSystemController *)self _pickableRoutesForPlayAndRecordVoiceWithForceNewRequest:0];
+        completionCopy = [(TUAudioSystemController *)self _pickableRoutesForPlayAndRecordVoiceWithForceNewRequest:0];
         goto LABEL_23;
       }
 
-      if (TUStringsAreEqualOrNil(modeCopy, _getPickableRoutesForCategory_mode_onlyKnownCombinations_completion___kMXSessionAudioMode_RemoteVoiceChat))
+      completionCopy = TUStringsAreEqualOrNil(modeCopy, _getPickableRoutesForCategory_mode_onlyKnownCombinations_completion___kMXSessionAudioMode_RemoteVoiceChat);
+      if (completionCopy)
       {
-        v14 = [(TUAudioSystemController *)self _pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest:0];
+        completionCopy = [(TUAudioSystemController *)self _pickableRoutesForPlayAndRecordRemoteVoiceWithForceNewRequest:0];
 LABEL_23:
-        bestGuessPickableRoutesForAnyCall = v14;
+        bestGuessPickableRoutesForAnyCall = completionCopy;
         if (combinations)
         {
           goto LABEL_29;
@@ -1475,12 +1786,12 @@ LABEL_26:
           [(TUAudioController *)self _releaseLock];
           if (v16)
           {
-            completionCopy[2](completionCopy, v16);
+            (v13)[2](v13, v16);
           }
 
           else
           {
-            [(TUAudioSystemController *)self _loadCurrentPickableRoutesWithCompletion:completionCopy];
+            [(TUAudioSystemController *)self _loadCurrentPickableRoutesWithCompletion:v13];
           }
 
           goto LABEL_35;
@@ -1494,13 +1805,14 @@ LABEL_26:
     {
       if ([objc_opt_class() isPhoneCallAudioCategory:categoryCopy])
       {
-        v14 = [(TUAudioSystemController *)self _pickableRoutesForPhoneCallWithForceNewRequest:0];
+        completionCopy = [(TUAudioSystemController *)self _pickableRoutesForPhoneCallWithForceNewRequest:0];
         goto LABEL_23;
       }
 
-      if ([categoryCopy isEqualToString:@"Voicemail"])
+      completionCopy = [categoryCopy isEqualToString:@"Voicemail"];
+      if (completionCopy)
       {
-        v14 = [(TUAudioSystemController *)self _pickableRoutesForVoiceMailWithForceNewRequest:0];
+        completionCopy = [(TUAudioSystemController *)self _pickableRoutesForVoiceMailWithForceNewRequest:0];
         goto LABEL_23;
       }
     }
@@ -1515,23 +1827,22 @@ LABEL_26:
 LABEL_29:
   if (!bestGuessPickableRoutesForAnyCall)
   {
-    v17 = TUDefaultLog();
+    v17 = TUDefaultLog(completionCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
-      v20 = categoryCopy;
-      v21 = 2112;
-      v22 = modeCopy;
-      _os_log_impl(&dword_1956FD000, v17, OS_LOG_TYPE_DEFAULT, "Unknown category (%@) and mode (%@) combination, using default pickable routes", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = categoryCopy;
+      v20 = 2112;
+      v21 = modeCopy;
+      _os_log_impl(&dword_1956FD000, v17, OS_LOG_TYPE_DEFAULT, "Unknown category (%@) and mode (%@) combination, using default pickable routes", &v18, 0x16u);
     }
 
     bestGuessPickableRoutesForAnyCall = [(TUAudioSystemController *)self bestGuessPickableRoutesForAnyCall];
   }
 
-  completionCopy[2](completionCopy, bestGuessPickableRoutesForAnyCall);
+  (v13)[2](v13, bestGuessPickableRoutesForAnyCall);
 
 LABEL_35:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __95__TUAudioSystemController__getPickableRoutesForCategory_mode_onlyKnownCombinations_completion___block_invoke()
@@ -1604,15 +1915,15 @@ void __95__TUAudioSystemController__getPickableRoutesForCategory_mode_onlyKnownC
   v6 = +[TUAudioSystemController sharedSystemController];
   route = [routeCopy route];
 
-  v8 = getAVSystemController_PickedRouteAttribute();
-  LOBYTE(error) = [v6 setAttribute:route forKey:v8 error:error];
+  v12 = getAVSystemController_PickedRouteAttribute(v8, v9, v10, v11);
+  LOBYTE(error) = [v6 setAttribute:route forKey:v12 error:error];
 
   return error;
 }
 
 - (void)switchBluetoothAudioFormats
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1627,7 +1938,7 @@ void __95__TUAudioSystemController__getPickableRoutesForCategory_mode_onlyKnownC
 {
   v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1636,7 +1947,7 @@ void __95__TUAudioSystemController__getPickableRoutesForCategory_mode_onlyKnownC
   }
 
   bestGuessPickableRoutesForAnyCall = [(TUAudioSystemController *)self bestGuessPickableRoutesForAnyCall];
-  v7 = TUDefaultLog();
+  v7 = TUDefaultLog(bestGuessPickableRoutesForAnyCall);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1693,35 +2004,32 @@ LABEL_7:
     v15 = 0;
   }
 
-  v18 = TUDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = TUDefaultLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v27 = v15;
-    _os_log_impl(&dword_1956FD000, v18, OS_LOG_TYPE_DEFAULT, "returning route %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v19, OS_LOG_TYPE_DEFAULT, "returning route %@", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (BOOL)shouldSuppressCallUsingRoute:(id)route
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   routeCopy = route;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(routeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = routeCopy;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "route: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = routeCopy;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "route: %@", &v8, 0xCu);
   }
 
   identifiersOfOtherConnectedDevices = [routeCopy identifiersOfOtherConnectedDevices];
   v6 = [identifiersOfOtherConnectedDevices count] != 0;
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1757,15 +2065,14 @@ LABEL_7:
   v6 = [v2 attributeForKey:{*v3, v11}];
   bOOLValue = [v6 BOOLValue];
 
-  v8 = TUDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = TUDefaultLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
     *&buf[4] = bOOLValue;
-    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Other sessions request no ringtone interruption: %d", buf, 8u);
+    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Other sessions request no ringtone interruption: %d", buf, 8u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -1811,15 +2118,6 @@ void __52__TUAudioSystemController_isPhoneCallAudioCategory___block_invoke()
   objc_storeStrong(&isPhoneCallAudioCategory___AVAudioSessionCategoryPhoneCall, v1);
 }
 
-- (void)activeCategoryVolume
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)triggerEndInterruptionForAudioSessionID:.cold.3()
 {
   v0 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -1827,15 +2125,6 @@ void __52__TUAudioSystemController_isPhoneCallAudioCategory___block_invoke()
   [v0 handleFailureInFunction:v1 file:@"TUAudioSystemController.m" lineNumber:48 description:{@"%s", dlerror()}];
 
   __break(1u);
-}
-
-void __51__TUAudioSystemController_setActiveCategoryVolume___block_invoke_cold_1(float *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isUplinkMuted
@@ -1847,11 +2136,9 @@ void __51__TUAudioSystemController_setActiveCategoryVolume___block_invoke_cold_1
 
 - (void)isTTY
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUplinkMuted:.cold.1()
@@ -1859,14 +2146,6 @@ void __51__TUAudioSystemController_setActiveCategoryVolume___block_invoke_cold_1
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __42__TUAudioSystemController_setUplinkMuted___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __42__TUAudioSystemController_setUplinkMuted___block_invoke_76_cold_1()
@@ -1878,19 +2157,9 @@ void __42__TUAudioSystemController_setUplinkMuted___block_invoke_76_cold_1()
 
 - (void)isDownlinkMuted
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __44__TUAudioSystemController_setDownlinkMuted___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __44__TUAudioSystemController_setDownlinkMuted___block_invoke_81_cold_1()

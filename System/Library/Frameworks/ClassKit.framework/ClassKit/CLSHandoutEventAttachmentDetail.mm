@@ -121,45 +121,43 @@
 
 - (void)mergeWithObject:(id)object
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v21.receiver = self;
-  v21.super_class = CLSHandoutEventAttachmentDetail;
-  [(CLSObject *)&v21 mergeWithObject:objectCopy];
-  v23[0] = @"attachmentID";
-  v23[1] = @"handoutAttachmentType";
-  v23[2] = @"contextType";
-  objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v23, 3);
+  v20.receiver = self;
+  v20.super_class = CLSHandoutEventAttachmentDetail;
+  [(CLSObject *)&v20 mergeWithObject:objectCopy];
+  v22[0] = @"attachmentID";
+  v22[1] = @"handoutAttachmentType";
+  v22[2] = @"contextType";
+  objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v22, 3);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = v20 = 0u;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v17, v22, 16);
+  v6 = v19 = 0u;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v16, v21, 16);
   if (v8)
   {
     v10 = v8;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
-        v14 = objc_msgSend_valueForKey_(objectCopy, v9, v13, v17);
+        v13 = *(*(&v16 + 1) + 8 * i);
+        v14 = objc_msgSend_valueForKey_(objectCopy, v9, v13, v16);
         objc_msgSend_setValue_forKey_(self, v15, v14, v13);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v17, v22, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v16, v21, 16);
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

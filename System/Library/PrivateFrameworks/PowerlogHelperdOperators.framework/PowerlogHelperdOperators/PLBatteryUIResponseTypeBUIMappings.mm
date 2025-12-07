@@ -18,42 +18,40 @@
 
 - (id)result
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"buiMappings";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"buiMappings";
   batteryUIMappings = [(PLBatteryUIResponseTypeBUIMappings *)self batteryUIMappings];
-  v7[0] = batteryUIMappings;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = batteryUIMappings;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 - (id)getInstalledPluginMapping
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v3 = [MEMORY[0x277CC1E50] enumeratorWithOptions:{0, 0}];
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * v7);
+        v8 = *(*(&v21 + 1) + 8 * v7);
         bundleIdentifier = [v8 bundleIdentifier];
         containingBundleRecord = [v8 containingBundleRecord];
         bundleIdentifier2 = [containingBundleRecord bundleIdentifier];
@@ -132,14 +130,12 @@ LABEL_20:
       }
 
       while (v5 != v7);
-      v19 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v19 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
       v5 = v19;
     }
 
     while (v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

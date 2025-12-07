@@ -3,6 +3,7 @@
 - (CIPerspectiveAutoCalcV1)initWithContext:(id)context image:(id)image config:(id *)config;
 - (double)confidence;
 - (id).cxx_construct;
+- (uint64_t)clusterLineSegments;
 - (void)clusterLineSegments;
 - (void)computeGuides;
 - (void)computeTransform;
@@ -68,23 +69,23 @@
 
 - (BOOL)compute
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v33 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
+    v7 = v6;
     if (os_signpost_enabled(v3))
     {
       [(CIImage *)self->super.img extent];
-      v8 = v7;
+      v9 = v8;
       [(CIImage *)self->super.img extent];
       *buf = 67109376;
-      *&buf[4] = v8;
+      *&buf[4] = v9;
       *&buf[8] = 1024;
-      *&buf[10] = v9;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "compute", "imageSize: %d x %d", buf, 0xEu);
+      *&buf[10] = v10;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v7, "compute", "imageSize: %d x %d", buf, 0xEu);
     }
   }
 
@@ -96,17 +97,17 @@
   [(CIPerspectiveAutoCalcV1 *)self extractLineSegments];
   [(CIPerspectiveAutoCalcV1 *)self clusterLineSegments];
   [(CIPerspectiveAutoCalcV1 *)self computeGuides];
-  [(CIPerspectiveAutoCalcV1 *)self computeTransform];
-  v10 = ci_signpost_log_perspectiveAC();
-  v11 = ci_signpost_log_perspectiveAC();
-  v12 = os_signpost_id_make_with_pointer(v11, self);
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  computeTransform = [(CIPerspectiveAutoCalcV1 *)self computeTransform];
+  v13 = ci_signpost_log_perspectiveAC(computeTransform, v12);
+  v15 = ci_signpost_log_perspectiveAC(v13, v14);
+  v16 = os_signpost_id_make_with_pointer(v15, self);
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v13 = v12;
-    if (os_signpost_enabled(v10))
+    v17 = v16;
+    if (os_signpost_enabled(v13))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v10, OS_SIGNPOST_INTERVAL_END, v13, "compute", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v13, OS_SIGNPOST_INTERVAL_END, v17, "compute", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
@@ -114,32 +115,32 @@
   {
     img = self->super.img;
     self->super.debugImage = img;
-    v15 = CGColorCreateSRGB(1.0, 0.0, 0.0, 1.0);
-    v16 = CI::Perspective::plotLines<CI::Perspective::Line>(img, v15, &self->vLines);
-    self->super.debugImage = v16;
-    v17 = CGColorCreateSRGB(1.0, 0.0, 0.0, 1.0);
-    v18 = CI::Perspective::plotLines<CI::Perspective::Line>(v16, v17, &self->hLines);
-    self->super.debugImage = v18;
+    v19 = CGColorCreateSRGB(1.0, 0.0, 0.0, 1.0);
+    v20 = CI::Perspective::plotLines<CI::Perspective::Line>(img, v19, &self->vLines);
+    self->super.debugImage = v20;
+    v21 = CGColorCreateSRGB(1.0, 0.0, 0.0, 1.0);
+    v22 = CI::Perspective::plotLines<CI::Perspective::Line>(v20, v21, &self->hLines);
+    self->super.debugImage = v22;
     if (self->vGuidesValid)
     {
-      v19 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
-      self->super.debugImage = CI::Perspective::plotLines<CI::Perspective::Line>(v18, v19, &self->vLineCluster);
-      v20 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
-      v21 = *&self->_anon_1f8[4];
+      v23 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
+      self->super.debugImage = CI::Perspective::plotLines<CI::Perspective::Line>(v22, v23, &self->vLineCluster);
+      v24 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
+      v25 = *&self->_anon_1f8[4];
       *buf = *&self->_anon_1e8[4];
-      v28 = v21;
+      v32 = v25;
       operator new();
     }
 
     if (self->hGuidesValid)
     {
       debugImage = self->super.debugImage;
-      v23 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
-      self->super.debugImage = CI::Perspective::plotLines<CI::Perspective::Line>(debugImage, v23, &self->hLineCluster);
-      v24 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
-      v25 = *&self->_anon_218[4];
+      v27 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
+      self->super.debugImage = CI::Perspective::plotLines<CI::Perspective::Line>(debugImage, v27, &self->hLineCluster);
+      v28 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
+      v29 = *&self->_anon_218[4];
       *buf = *&self->_anon_208[4];
-      v28 = v25;
+      v32 = v29;
       operator new();
     }
   }
@@ -375,111 +376,539 @@
 
 - (void)extractLineSegments
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v35 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
-    if (os_signpost_enabled(v3))
+    v8 = v6;
+    v6 = os_signpost_enabled(v3);
+    if (v6)
     {
       gradMapW = self->gradMapW;
       gradMapH = self->gradMapH;
       *buf = 134218240;
-      v24 = gradMapW;
-      v25 = 2048;
-      v26 = gradMapH;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "ExtractLineSegments", "gradMapSize: %lu x %lu", buf, 0x16u);
+      v32 = gradMapW;
+      v33 = 2048;
+      v34 = gradMapH;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ExtractLineSegments", "gradMapSize: %lu x %lu", buf, 0x16u);
     }
   }
 
-  v9 = ci_signpost_log_perspectiveAC();
-  v10 = ci_signpost_log_perspectiveAC();
-  v11 = os_signpost_id_make_with_pointer(v10, self);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v11 = ci_signpost_log_perspectiveAC(v6, v7);
+  v13 = ci_signpost_log_perspectiveAC(v11, v12);
+  v14 = os_signpost_id_make_with_pointer(v13, self);
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v12 = v11;
-    if (os_signpost_enabled(v9))
+    v15 = v14;
+    if (os_signpost_enabled(v11))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v12, "GradientMapRender", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v15, "GradientMapRender", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v13 = (8 * self->gradMapW + 15) & 0xFFFFFFFFFFFFFFF0;
-  self->gradMapRb = v13;
-  v14 = malloc_type_malloc(self->gradMapH * v13, 0x100004000313F17uLL);
-  *self->gradMapBmp = v14;
-  [(CIContext *)self->super.ctx render:self->gradMap toBitmap:v14 rowBytes:self->gradMapRb bounds:2310 format:0 colorSpace:0.0, 0.0, self->gradMapW, self->gradMapH];
-  v15 = ci_signpost_log_perspectiveAC();
-  v16 = ci_signpost_log_perspectiveAC();
-  v17 = os_signpost_id_make_with_pointer(v16, self);
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v16 = (8 * self->gradMapW + 15) & 0xFFFFFFFFFFFFFFF0;
+  self->gradMapRb = v16;
+  v17 = malloc_type_malloc(self->gradMapH * v16, 0x100004000313F17uLL);
+  *self->gradMapBmp = v17;
+  v18 = [(CIContext *)self->super.ctx render:self->gradMap toBitmap:v17 rowBytes:self->gradMapRb bounds:2310 format:0 colorSpace:0.0, 0.0, self->gradMapW, self->gradMapH];
+  v20 = ci_signpost_log_perspectiveAC(v18, v19);
+  v22 = ci_signpost_log_perspectiveAC(v20, v21);
+  v23 = os_signpost_id_make_with_pointer(v22, self);
+  if ((v23 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v18 = v17;
-    if (os_signpost_enabled(v15))
+    v25 = v23;
+    v23 = os_signpost_enabled(v20);
+    if (v23)
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v15, OS_SIGNPOST_INTERVAL_END, v18, "GradientMapRender", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v20, OS_SIGNPOST_INTERVAL_END, v25, "GradientMapRender", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v19 = ci_signpost_log_perspectiveAC();
-  v20 = ci_signpost_log_perspectiveAC();
-  v21 = os_signpost_id_make_with_pointer(v20, self);
-  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v26 = ci_signpost_log_perspectiveAC(v23, v24);
+  v28 = ci_signpost_log_perspectiveAC(v26, v27);
+  v29 = os_signpost_id_make_with_pointer(v28, self);
+  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v22 = v21;
-    if (os_signpost_enabled(v19))
+    v30 = v29;
+    if (os_signpost_enabled(v26))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v22, "EDLines", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v30, "EDLines", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  CI::Perspective::EDLines::Create();
+  CI::Perspective::EDLines::Create(*self->gradMapBmp, self->gradMapW, self->gradMapH, self->gradMapRb, 0);
 }
 
 - (void)clusterLineSegments
 {
-  result[3] = 0;
-  result[4] = a4;
-  if (a2)
+  *a3 = 0;
+  a3[1] = 0;
+  a3[2] = 0;
+  v7 = *a2;
+  v6 = a2[1];
+  v8 = ((v6 - *a2) >> 4) * ((v6 - *a2) >> 4);
+  if (v8 >= 2)
   {
-    if (a2 < 0x666666666666667)
+    if (v8 >= 0xCCCCCCCCCCCCCCELL)
     {
-      operator new();
+LABEL_96:
+      std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
     }
 
-    std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
+    std::__split_buffer<[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis>::__split_buffer(&v102, v8 >> 1, 0, a3);
+    v9 = a3[1] - *a3;
+    v10 = *(&v102 + 1) - v9;
+    memcpy((*(&v102 + 1) - v9), *a3, v9);
+    v11 = *a3;
+    *a3 = v10;
+    v12 = a3[2];
+    *(a3 + 1) = *v103;
+    v103[0] = v11;
+    v103[1] = v12;
+    *&v102 = v11;
+    *(&v102 + 1) = v11;
+    if (v11)
+    {
+      operator delete(v11);
+    }
+
+    v7 = *a2;
+    v6 = a2[1];
   }
 
-  *result = 0;
-  result[1] = 40 * a3;
-  result[2] = 40 * a3;
-  result[3] = 0;
-  return result;
+  if (v6 != v7)
+  {
+    v13 = 0;
+    do
+    {
+      if (v13)
+      {
+        v14 = 0;
+        v15 = 0;
+        do
+        {
+          v16 = *a2;
+          v17 = (*a2 + 16 * v13);
+          v18 = (*a2 + v14);
+          v99[0] = 0;
+          v102 = *v17->f32;
+          v100 = *v18;
+          v19 = CI::Perspective::intersect(&v102, &v100, v99);
+          v20 = v19;
+          if (!v19 || (CI::Perspective::pointInBounds(v99, self) & 1) == 0)
+          {
+            v21 = *v17;
+            v22 = v17[1];
+            if (vcgt_f32(v22, *v17).u8[0])
+            {
+              LODWORD(v23) = *v17->f32;
+            }
+
+            else
+            {
+              LODWORD(v23) = v17[1];
+            }
+
+            v24 = *(v16 + v14);
+            v25 = *(v18 + 8);
+            if (vcgt_f32(v25, v24).u8[0])
+            {
+              LODWORD(v26) = *(v16 + v14);
+            }
+
+            else
+            {
+              LODWORD(v26) = *(v18 + 1);
+            }
+
+            if (v23 >= v26)
+            {
+              v23 = v26;
+            }
+
+            if (vcgt_f32(v21, v22).u8[0])
+            {
+              LODWORD(v27) = *v17->f32;
+            }
+
+            else
+            {
+              LODWORD(v27) = v17[1];
+            }
+
+            if (vcgt_f32(v24, v25).u8[0])
+            {
+              LODWORD(v28) = *(v16 + v14);
+            }
+
+            else
+            {
+              LODWORD(v28) = *(v18 + 1);
+            }
+
+            if (v27 <= v28)
+            {
+              v27 = v28;
+            }
+
+            LODWORD(v29) = HIDWORD(*v17);
+            v24.i32[0] = HIDWORD(*(v16 + v14));
+            if (v24.f32[1] <= v25.f32[1])
+            {
+              LODWORD(v30) = HIDWORD(*(v18 + 1));
+            }
+
+            else
+            {
+              LODWORD(v30) = HIDWORD(*(v16 + v14));
+            }
+
+            if (v24.f32[1] >= v25.f32[1])
+            {
+              v24.i32[0] = HIDWORD(*(v18 + 1));
+            }
+
+            if (v21.f32[1] <= v22.f32[1])
+            {
+              LODWORD(v31) = HIDWORD(*&v17[1]);
+            }
+
+            else
+            {
+              LODWORD(v31) = HIDWORD(*v17);
+            }
+
+            if (v21.f32[1] >= v22.f32[1])
+            {
+              LODWORD(v29) = HIDWORD(*&v17[1]);
+            }
+
+            if (v31 <= v30)
+            {
+              v32 = v30;
+            }
+
+            else
+            {
+              v32 = v31;
+            }
+
+            if (v29 >= v24.f32[0])
+            {
+              v29 = v24.f32[0];
+            }
+
+            v33 = (v27 - v23) * (v32 - v29);
+            v34 = v99[0];
+            v35 = a3[1];
+            v36 = a3[2];
+            if (v35 >= v36)
+            {
+              v38 = 0xCCCCCCCCCCCCCCCDLL * ((v35 - *a3) >> 3);
+              v39 = v38 + 1;
+              if ((v38 + 1) > 0x666666666666666)
+              {
+                goto LABEL_96;
+              }
+
+              v40 = 0xCCCCCCCCCCCCCCCDLL * ((v36 - *a3) >> 3);
+              if (2 * v40 > v39)
+              {
+                v39 = 2 * v40;
+              }
+
+              if (v40 >= 0x333333333333333)
+              {
+                v41 = 0x666666666666666;
+              }
+
+              else
+              {
+                v41 = v39;
+              }
+
+              std::__split_buffer<[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis>::__split_buffer(&v102, v41, v38, a3);
+              v42 = v103[0];
+              *v103[0] = v13;
+              v42[1] = v15;
+              v42[2].i8[0] = v20;
+              v42[3] = v34;
+              v42[4].f32[0] = v33;
+              v103[0] = &v42[5];
+              v43 = a3[1] - *a3;
+              v44 = *(&v102 + 1) - v43;
+              memcpy((*(&v102 + 1) - v43), *a3, v43);
+              v45 = *a3;
+              *a3 = v44;
+              v46 = a3[2];
+              v47 = v103[0];
+              *(a3 + 1) = *v103;
+              v103[0] = v45;
+              v103[1] = v46;
+              *&v102 = v45;
+              *(&v102 + 1) = v45;
+              if (v45)
+              {
+                v98 = v47;
+                operator delete(v45);
+                v47 = v98;
+              }
+
+              v37 = v47;
+            }
+
+            else
+            {
+              *v35 = v13;
+              *(v35 + 8) = v15;
+              *(v35 + 16) = v20;
+              *(v35 + 24) = v34;
+              v37 = v35 + 40;
+              *(v35 + 32) = v33;
+            }
+
+            a3[1] = v37;
+          }
+
+          ++*&v15;
+          v14 += 16;
+        }
+
+        while (v13 != *&v15);
+        v7 = *a2;
+        v6 = a2[1];
+      }
+
+      ++v13;
+    }
+
+    while (v13 < (v6 - v7) >> 4);
+  }
+
+  v48 = *a3;
+  v49 = a3[1];
+  if (0xCCCCCCCCCCCCCCCDLL * ((v49 - *a3) >> 3) > 0x14)
+  {
+    v50 = (v48 + 360);
+    v51 = -10;
+    do
+    {
+      std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,-[CIPerspectiveAutoCalcV1 clusterLineSegments]::$_0::operator() const(std::vector<CI::Perspective::Line> const&,unsigned long)::{lambda(-[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis const&,-[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis const&)#1} &,std::__wrap_iter<-[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis*>>(v48, 20, v50);
+      v50 -= 10;
+    }
+
+    while (!__CFADD__(v51++, 1));
+    v53 = (v48 + 800);
+    if (v48 + 800 != v49)
+    {
+      v54 = v48 + 800;
+      do
+      {
+        if (*(v54 + 8) > *(v48 + 8))
+        {
+          v55 = *v54;
+          v56 = *(v54 + 1);
+          v57 = *(v54 + 4);
+          v58 = *(v48 + 4);
+          v59 = *(v48 + 1);
+          *v54 = *v48;
+          *(v54 + 1) = v59;
+          *(v54 + 4) = v58;
+          *(v48 + 4) = v57;
+          *v48 = v55;
+          *(v48 + 1) = v56;
+          std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,-[CIPerspectiveAutoCalcV1 clusterLineSegments]::$_0::operator() const(std::vector<CI::Perspective::Line> const&,unsigned long)::{lambda(-[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis const&,-[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis const&)#1} &,std::__wrap_iter<-[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis*>>(v48, 20, v48);
+        }
+
+        v54 += 40;
+      }
+
+      while (v54 != v49);
+    }
+
+    v60 = 20;
+    do
+    {
+      v61 = 0;
+      v102 = *v48;
+      *v103 = *(v48 + 1);
+      v104 = *(v48 + 4);
+      v62 = v48;
+      do
+      {
+        v63 = v62;
+        v62 += 10 * v61 + 10;
+        v64 = 2 * v61;
+        v61 = (2 * v61) | 1;
+        v65 = v64 + 2;
+        if (v65 < v60 && v62[8] > v62[18])
+        {
+          v62 += 10;
+          v61 = v65;
+        }
+
+        v66 = *v62;
+        v67 = *(v62 + 1);
+        *(v63 + 4) = *(v62 + 4);
+        *v63 = v66;
+        *(v63 + 1) = v67;
+      }
+
+      while (v61 <= ((v60 - 2) >> 1));
+      v53 -= 10;
+      if (v62 == v53)
+      {
+        v79 = v102;
+        v80 = *v103;
+        *(v62 + 4) = v104;
+        *v62 = v79;
+        *(v62 + 1) = v80;
+      }
+
+      else
+      {
+        v68 = *v53;
+        v69 = *(v53 + 1);
+        *(v62 + 4) = *(v53 + 4);
+        *v62 = v68;
+        *(v62 + 1) = v69;
+        *v53 = v102;
+        *(v53 + 1) = *v103;
+        *(v53 + 4) = v104;
+        v70 = v62 - v48 + 40;
+        if (v70 >= 41)
+        {
+          v71 = (-2 - 0x3333333333333333 * (v70 >> 3)) >> 1;
+          v72 = &v48[40 * v71];
+          v73 = v62[8];
+          if (*(v72 + 8) > v73)
+          {
+            v74 = *(v62 + 1);
+            v100 = *v62;
+            v101 = v74;
+            v75 = *(v62 + 9);
+            do
+            {
+              v76 = v62;
+              v62 = v72;
+              v77 = *v72;
+              v78 = *(v72 + 1);
+              *(v76 + 4) = *(v72 + 4);
+              *v76 = v77;
+              *(v76 + 1) = v78;
+              if (!v71)
+              {
+                break;
+              }
+
+              v71 = (v71 - 1) >> 1;
+              v72 = &v48[40 * v71];
+            }
+
+            while (*(v72 + 8) > v73);
+            *v62 = v100;
+            *(v62 + 1) = v101;
+            v62[8] = v73;
+            *(v62 + 9) = v75;
+          }
+        }
+      }
+    }
+
+    while (v60-- > 2);
+    v82 = *a3;
+    v83 = a3[1];
+    v84 = v83 - *a3;
+    v85 = 0xCCCCCCCCCCCCCCCDLL * (v84 >> 3);
+    if (v85 > 0x13)
+    {
+      if (v84 == 800)
+      {
+        return;
+      }
+
+      v96 = v82 + 800;
+    }
+
+    else
+    {
+      v86 = a3[2];
+      if (0xCCCCCCCCCCCCCCCDLL * ((v86 - v83) >> 3) < 20 - v85)
+      {
+        v87 = 0xCCCCCCCCCCCCCCCDLL * ((v86 - v82) >> 3);
+        v88 = 2 * v87;
+        if (2 * v87 <= 0x14)
+        {
+          v88 = 20;
+        }
+
+        if (v87 >= 0x333333333333333)
+        {
+          v89 = 0x666666666666666;
+        }
+
+        else
+        {
+          v89 = v88;
+        }
+
+        std::__split_buffer<[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis>::__split_buffer(&v102, v89, v85, a3);
+        v90 = v103[0];
+        v91 = 760 - v84 - (760 - v84) % 0x28u + 40;
+        bzero(v103[0], v91);
+        v103[0] = &v90[v91];
+        v92 = a3[1] - *a3;
+        v93 = *(&v102 + 1) - v92;
+        memcpy((*(&v102 + 1) - v92), *a3, v92);
+        v94 = *a3;
+        *a3 = v93;
+        v95 = a3[2];
+        *(a3 + 1) = *v103;
+        v103[0] = v94;
+        v103[1] = v95;
+        *&v102 = v94;
+        *(&v102 + 1) = v94;
+        if (v94)
+        {
+          operator delete(v94);
+        }
+
+        return;
+      }
+
+      v97 = 760 - v84 - (760 - v84) % 0x28u + 40;
+      bzero(a3[1], v97);
+      v96 = v83 + v97;
+    }
+
+    a3[1] = v96;
+  }
 }
 
 - (void)computeGuides
 {
-  v98 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 < 0xFFFFFFFFFFFFFFFELL)
+  v100 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if ((v6 - 1) < 0xFFFFFFFFFFFFFFFELL)
   {
-    v7 = v5;
-    if (os_signpost_enabled(v3))
+    v8 = v6;
+    v6 = os_signpost_enabled(v3);
+    if (v6)
     {
-      v8 = (self->vLineCluster.__end_ - self->vLineCluster.__begin_) >> 4;
-      v9 = (self->hLineCluster.__end_ - self->hLineCluster.__begin_) >> 4;
+      v9 = (self->vLineCluster.__end_ - self->vLineCluster.__begin_) >> 4;
+      v10 = (self->hLineCluster.__end_ - self->hLineCluster.__begin_) >> 4;
       *buf = 134218240;
-      *&buf[4] = v8;
+      *&buf[4] = v9;
       *&buf[12] = 2048;
-      *&buf[14] = v9;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v7, "computeGuides", "vLineClusterSize: %lu hLineClusterSize: %lu", buf, 0x16u);
+      *&buf[14] = v10;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v8, "computeGuides", "vLineClusterSize: %lu hLineClusterSize: %lu", buf, 0x16u);
     }
   }
 
@@ -505,25 +934,25 @@
   gradMapH = self->gradMapH;
   if (self->vGuidesValid && begin != end)
   {
-    v15 = -vcvts_n_f32_u64(self->gradMapW, 1uLL);
-    v16 = -INFINITY;
-    v17 = INFINITY;
+    v16 = -vcvts_n_f32_u64(self->gradMapW, 1uLL);
+    v17 = -INFINITY;
+    v18 = INFINITY;
     do
     {
-      v18 = *(begin + 8);
-      v19 = vsub_f32(v18, *begin);
-      v18.f32[0] = v15 + vadd_f32(v18, *begin).f32[0] * 0.5;
-      v20 = sqrtf(vaddv_f32(vmul_f32(v19, v19))) * v18.f32[0];
-      if (v20 < v17)
+      v19 = *(begin + 8);
+      v20 = vsub_f32(v19, *begin);
+      v19.f32[0] = v16 + vadd_f32(v19, *begin).f32[0] * 0.5;
+      v21 = sqrtf(vaddv_f32(vmul_f32(v20, v20))) * v19.f32[0];
+      if (v21 < v18)
       {
         *&self->_anon_1e8[4] = *begin;
-        v17 = v20;
+        v18 = v21;
       }
 
-      if (v20 > v16)
+      if (v21 > v17)
       {
         *&self->_anon_1f8[4] = *begin;
-        v16 = v20;
+        v17 = v21;
       }
 
       begin = (begin + 16);
@@ -534,87 +963,87 @@
 
   if (self->hGuidesValid)
   {
-    v21 = *p_hLineCluster;
-    v22 = self->hLineCluster.__end_;
-    if (*p_hLineCluster != v22)
+    v22 = *p_hLineCluster;
+    v23 = self->hLineCluster.__end_;
+    if (*p_hLineCluster != v23)
     {
-      v23 = -vcvts_n_f32_u64(gradMapH, 1uLL);
-      v24 = -INFINITY;
-      v25 = INFINITY;
+      v24 = -vcvts_n_f32_u64(gradMapH, 1uLL);
+      v25 = -INFINITY;
+      v26 = INFINITY;
       do
       {
-        v26 = v21[1];
-        v27 = vsub_f32(v26, *v21);
-        v26.f32[0] = v23 + COERCE_FLOAT(vadd_f32(v26, *v21).i32[1]) * 0.5;
-        v28 = sqrtf(vaddv_f32(vmul_f32(v27, v27))) * v26.f32[0];
-        if (v28 < v25)
+        v27 = v22[1];
+        v28 = vsub_f32(v27, *v22);
+        v27.f32[0] = v24 + COERCE_FLOAT(vadd_f32(v27, *v22).i32[1]) * 0.5;
+        v29 = sqrtf(vaddv_f32(vmul_f32(v28, v28))) * v27.f32[0];
+        if (v29 < v26)
         {
-          *&self->_anon_208[4] = *v21;
-          v25 = v28;
+          *&self->_anon_208[4] = *v22;
+          v26 = v29;
         }
 
-        if (v28 > v24)
+        if (v29 > v25)
         {
-          *&self->_anon_218[4] = *v21;
-          v24 = v28;
+          *&self->_anon_218[4] = *v22;
+          v25 = v29;
         }
 
-        v21 += 2;
+        v22 += 2;
       }
 
-      while (v21 != v22);
+      while (v22 != v23);
     }
   }
 
   gradMapW = self->gradMapW;
-  v30 = self->gradMapH;
-  v31.i64[0] = 0;
-  *&v31.i32[2] = gradMapW;
-  *&v31.i32[3] = v30;
-  v32 = (v30 * gradMapW);
-  v95 = v31;
+  v31 = self->gradMapH;
+  v32.i64[0] = 0;
+  *&v32.i32[2] = gradMapW;
+  *&v32.i32[3] = v31;
+  v33 = (v31 * gradMapW);
+  v97 = v32;
   if (self->vGuidesValid)
   {
-    v33 = *&self->_anon_1e8[4];
-    v34 = vsub_f32(*&self->_anon_1e8[12], *&v33);
-    v35 = vmul_f32(v34, v34);
-    v35.i32[0] = vadd_f32(v35, vdup_lane_s32(v35, 1)).u32[0];
-    v36 = vrsqrte_f32(v35.u32[0]);
-    v37 = vmul_f32(v36, vrsqrts_f32(v35.u32[0], vmul_f32(v36, v36)));
-    v38 = vmul_n_f32(v34, vmul_f32(v37, vrsqrts_f32(v35.u32[0], vmul_f32(v37, v37))).f32[0]);
+    v34 = *&self->_anon_1e8[4];
+    v35 = vsub_f32(*&self->_anon_1e8[12], *&v34);
+    v36 = vmul_f32(v35, v35);
+    v36.i32[0] = vadd_f32(v36, vdup_lane_s32(v36, 1)).u32[0];
+    v37 = vrsqrte_f32(v36.u32[0]);
+    v38 = vmul_f32(v37, vrsqrts_f32(v36.u32[0], vmul_f32(v37, v37)));
+    v39 = vmul_n_f32(v35, vmul_f32(v38, vrsqrts_f32(v36.u32[0], vmul_f32(v38, v38))).f32[0]);
     *buf = 0;
-    v96[0] = 0.0;
-    CI::Perspective::intersect(buf, v96, v33, *&v38, v31);
-    LODWORD(v39) = *buf;
-    v92 = v39;
-    v93 = v96[0];
-    v40 = *&self->_anon_1f8[4];
-    v41 = vsub_f32(*&self->_anon_1f8[12], *&v40);
-    v42 = vmul_f32(v41, v41);
-    v42.i32[0] = vadd_f32(v42, vdup_lane_s32(v42, 1)).u32[0];
-    v43 = vrsqrte_f32(v42.u32[0]);
-    v44 = vmul_f32(v43, vrsqrts_f32(v42.u32[0], vmul_f32(v43, v43)));
-    v45 = vmul_n_f32(v41, vmul_f32(v44, vrsqrts_f32(v42.u32[0], vmul_f32(v44, v44))).f32[0]);
+    LODWORD(v98) = 0;
+    CI::Perspective::intersect(buf, &v98, v34, *&v39, v32);
+    LODWORD(v40) = *buf;
+    v94 = v40;
+    v95 = *&v98;
+    v41 = *&self->_anon_1f8[4];
+    v42 = vsub_f32(*&self->_anon_1f8[12], *&v41);
+    v43 = vmul_f32(v42, v42);
+    v43.i32[0] = vadd_f32(v43, vdup_lane_s32(v43, 1)).u32[0];
+    v44 = vrsqrte_f32(v43.u32[0]);
+    v45 = vmul_f32(v44, vrsqrts_f32(v43.u32[0], vmul_f32(v44, v44)));
+    v46 = vmul_n_f32(v42, vmul_f32(v45, vrsqrts_f32(v43.u32[0], vmul_f32(v45, v45))).f32[0]);
     *buf = 0;
-    v96[0] = 0.0;
-    CI::Perspective::intersect(buf, v96, v40, *&v45, v95);
-    v46 = vmla_n_f32(*&v33, v38, *&v92);
-    v47 = vmla_n_f32(*&v33, v38, v93);
-    v48 = vmla_n_f32(*&v40, v45, *buf);
-    v49 = vmla_n_f32(*&v40, v45, v96[0]);
-    v50 = vbsl_s8(vcgt_f32(v46, v47), v46, v47);
-    v51 = vbsl_s8(vcgt_f32(v48, v49), v48, v49);
-    v52 = vbsl_s8(vcgt_f32(v47, v46), v46, v47);
-    v53 = vbsl_s8(vcgt_f32(v49, v48), v48, v49);
-    v54 = vsub_f32(vbsl_s8(vcgt_f32(v50, v51), v50, v51), vbsl_s8(vcgt_f32(v53, v52), v52, v53));
-    v54.f32[0] = vmul_lane_f32(v54, v54, 1).f32[0];
-    LODWORD(self->vGuidesAOE) = v54.i32[0];
-    v54.f32[0] = v54.f32[0] / v32;
-    v55 = self->minimumYawCorrectionAreaCoverage < v54.f32[0];
-    self->vGuidesValid = v55;
-    LODWORD(self->yawCorrectionAreaCoverage) = v54.i32[0];
-    v31 = v95;
-    if (!v55)
+    LODWORD(v98) = 0;
+    v6 = CI::Perspective::intersect(buf, &v98, v41, *&v46, v97);
+    v47 = vmla_n_f32(*&v34, v39, *&v94);
+    v48 = vmla_n_f32(*&v34, v39, v95);
+    v49 = vmla_n_f32(*&v41, v46, *buf);
+    v50 = vmla_n_f32(*&v41, v46, *&v98);
+    v51 = vbsl_s8(vcgt_f32(v47, v48), v47, v48);
+    v52 = vbsl_s8(vcgt_f32(v49, v50), v49, v50);
+    v53 = vbsl_s8(vcgt_f32(v48, v47), v47, v48);
+    v54 = vbsl_s8(vcgt_f32(v50, v49), v49, v50);
+    v55 = vsub_f32(vbsl_s8(vcgt_f32(v51, v52), v51, v52), vbsl_s8(vcgt_f32(v54, v53), v53, v54));
+    v55.f32[0] = vmul_lane_f32(v55, v55, 1).f32[0];
+    LODWORD(self->vGuidesAOE) = v55.i32[0];
+    v55.f32[0] = v55.f32[0] / v33;
+    v56 = self->minimumYawCorrectionAreaCoverage < v55.f32[0];
+    self->vGuidesValid = v56;
+    LODWORD(self->yawCorrectionAreaCoverage) = v55.i32[0];
+    v32 = v97;
+    if (!v56)
     {
       self->super.pitchFailureReason = 3;
     }
@@ -622,45 +1051,45 @@
 
   if (self->hGuidesValid)
   {
-    v56 = *&self->_anon_208[4];
-    v57 = vsub_f32(*&self->_anon_208[12], *&v56);
-    v58 = vmul_f32(v57, v57);
-    v58.i32[0] = vadd_f32(v58, vdup_lane_s32(v58, 1)).u32[0];
-    v59 = vrsqrte_f32(v58.u32[0]);
-    v60 = vmul_f32(v59, vrsqrts_f32(v58.u32[0], vmul_f32(v59, v59)));
-    v61 = vmul_n_f32(v57, vmul_f32(v60, vrsqrts_f32(v58.u32[0], vmul_f32(v60, v60))).f32[0]);
+    v57 = *&self->_anon_208[4];
+    v58 = vsub_f32(*&self->_anon_208[12], *&v57);
+    v59 = vmul_f32(v58, v58);
+    v59.i32[0] = vadd_f32(v59, vdup_lane_s32(v59, 1)).u32[0];
+    v60 = vrsqrte_f32(v59.u32[0]);
+    v61 = vmul_f32(v60, vrsqrts_f32(v59.u32[0], vmul_f32(v60, v60)));
+    v62 = vmul_n_f32(v58, vmul_f32(v61, vrsqrts_f32(v59.u32[0], vmul_f32(v61, v61))).f32[0]);
     *buf = 0;
-    v96[0] = 0.0;
-    CI::Perspective::intersect(buf, v96, v56, *&v61, v31);
-    LODWORD(v62) = *buf;
-    v92 = v62;
-    v94 = v96[0];
-    v63 = *&self->_anon_218[4];
-    v64 = vsub_f32(*&self->_anon_218[12], *&v63);
-    v65 = vmul_f32(v64, v64);
-    v65.i32[0] = vadd_f32(v65, vdup_lane_s32(v65, 1)).u32[0];
-    v66 = vrsqrte_f32(v65.u32[0]);
-    v67 = vmul_f32(v66, vrsqrts_f32(v65.u32[0], vmul_f32(v66, v66)));
-    v68 = vmul_n_f32(v64, vmul_f32(v67, vrsqrts_f32(v65.u32[0], vmul_f32(v67, v67))).f32[0]);
+    LODWORD(v98) = 0;
+    CI::Perspective::intersect(buf, &v98, v57, *&v62, v32);
+    LODWORD(v63) = *buf;
+    v94 = v63;
+    v96 = *&v98;
+    v64 = *&self->_anon_218[4];
+    v65 = vsub_f32(*&self->_anon_218[12], *&v64);
+    v66 = vmul_f32(v65, v65);
+    v66.i32[0] = vadd_f32(v66, vdup_lane_s32(v66, 1)).u32[0];
+    v67 = vrsqrte_f32(v66.u32[0]);
+    v68 = vmul_f32(v67, vrsqrts_f32(v66.u32[0], vmul_f32(v67, v67)));
+    v69 = vmul_n_f32(v65, vmul_f32(v68, vrsqrts_f32(v66.u32[0], vmul_f32(v68, v68))).f32[0]);
     *buf = 0;
-    v96[0] = 0.0;
-    CI::Perspective::intersect(buf, v96, v63, *&v68, v95);
-    v69 = vmla_n_f32(*&v56, v61, *&v92);
-    v70 = vmla_n_f32(*&v56, v61, v94);
-    v71 = vmla_n_f32(*&v63, v68, *buf);
-    v72 = vmla_n_f32(*&v63, v68, v96[0]);
-    v73 = vbsl_s8(vcgt_f32(v69, v70), v69, v70);
-    v74 = vbsl_s8(vcgt_f32(v71, v72), v71, v72);
-    v75 = vbsl_s8(vcgt_f32(v70, v69), v69, v70);
-    v76 = vbsl_s8(vcgt_f32(v72, v71), v71, v72);
-    v77 = vsub_f32(vbsl_s8(vcgt_f32(v73, v74), v73, v74), vbsl_s8(vcgt_f32(v76, v75), v75, v76));
-    v77.f32[0] = vmul_lane_f32(v77, v77, 1).f32[0];
-    LODWORD(self->hGuidesAOE) = v77.i32[0];
-    v77.f32[0] = v77.f32[0] / v32;
+    LODWORD(v98) = 0;
+    v6 = CI::Perspective::intersect(buf, &v98, v64, *&v69, v97);
+    v70 = vmla_n_f32(*&v57, v62, *&v94);
+    v71 = vmla_n_f32(*&v57, v62, v96);
+    v72 = vmla_n_f32(*&v64, v69, *buf);
+    v73 = vmla_n_f32(*&v64, v69, *&v98);
+    v74 = vbsl_s8(vcgt_f32(v70, v71), v70, v71);
+    v75 = vbsl_s8(vcgt_f32(v72, v73), v72, v73);
+    v76 = vbsl_s8(vcgt_f32(v71, v70), v70, v71);
+    v77 = vbsl_s8(vcgt_f32(v73, v72), v72, v73);
+    v78 = vsub_f32(vbsl_s8(vcgt_f32(v74, v75), v74, v75), vbsl_s8(vcgt_f32(v77, v76), v76, v77));
+    v78.f32[0] = vmul_lane_f32(v78, v78, 1).f32[0];
+    LODWORD(self->hGuidesAOE) = v78.i32[0];
+    v78.f32[0] = v78.f32[0] / v33;
     isa = self[1].super.super.isa;
-    self->hGuidesValid = *&isa < v77.f32[0];
-    LODWORD(self->minimumPitchCorrectionAreaCoverage) = v77.i32[0];
-    if (*&isa >= v77.f32[0])
+    self->hGuidesValid = *&isa < v78.f32[0];
+    LODWORD(self->minimumPitchCorrectionAreaCoverage) = v78.i32[0];
+    if (*&isa >= v78.f32[0])
     {
       self->super.yawFailureReason = 3;
     }
@@ -673,43 +1102,43 @@
 
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::dump == 1)
   {
-    v79 = CI::Perspective::gradMagImage(self->gradMap, v6);
+    v80 = CI::Perspective::gradMagImage(self->gradMap, v7);
     if (self->vGuidesValid)
     {
-      v80 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
-      CI::Perspective::plotLines<CI::Perspective::Line>(v79, v80, &self->vLineCluster);
-      v81 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
-      v82 = *&self->_anon_1f8[4];
+      v81 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
+      CI::Perspective::plotLines<CI::Perspective::Line>(v80, v81, &self->vLineCluster);
+      v82 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
+      v83 = *&self->_anon_1f8[4];
       *buf = *&self->_anon_1e8[4];
-      *&buf[16] = v82;
+      *&buf[16] = v83;
       operator new();
     }
 
     if (self->hGuidesValid)
     {
-      v83 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
-      CI::Perspective::plotLines<CI::Perspective::Line>(v79, v83, p_hLineCluster);
-      v84 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
-      v85 = *&self->_anon_218[4];
+      v84 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
+      CI::Perspective::plotLines<CI::Perspective::Line>(v80, v84, p_hLineCluster);
+      v85 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
+      v86 = *&self->_anon_218[4];
       *buf = *&self->_anon_208[4];
-      *&buf[16] = v85;
+      *&buf[16] = v86;
       operator new();
     }
 
-    v86 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/guides.png", v92];
-    CI::Perspective::CIImageToFile(v79, v86, v87, *MEMORY[0x1E695F050]);
+    v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/guides.png", v94];
+    v6 = CI::Perspective::CIImageToFile(v80, v87, v88, *MEMORY[0x1E695F050]);
   }
 
-  v88 = ci_signpost_log_perspectiveAC();
-  v89 = ci_signpost_log_perspectiveAC();
-  v90 = os_signpost_id_make_with_pointer(v89, self);
-  if (v90 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v89 = ci_signpost_log_perspectiveAC(v6, v7);
+  v91 = ci_signpost_log_perspectiveAC(v89, v90);
+  v92 = os_signpost_id_make_with_pointer(v91, self);
+  if (v92 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v91 = v90;
-    if (os_signpost_enabled(v88))
+    v93 = v92;
+    if (os_signpost_enabled(v89))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v88, OS_SIGNPOST_INTERVAL_END, v91, "computeGuides", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v89, OS_SIGNPOST_INTERVAL_END, v93, "computeGuides", &unk_19CFBCBAE, buf, 2u);
     }
   }
 }
@@ -1278,6 +1707,27 @@ LABEL_92:
   *(self + 58) = 0;
   *(self + 56) = 0;
   *(self + 69) = 0x100000001;
+  return self;
+}
+
+- (uint64_t)clusterLineSegments
+{
+  self[3] = 0;
+  self[4] = a4;
+  if (a2)
+  {
+    if (a2 < 0x666666666666667)
+    {
+      operator new();
+    }
+
+    std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
+  }
+
+  *self = 0;
+  self[1] = 40 * a3;
+  self[2] = 40 * a3;
+  self[3] = 0;
   return self;
 }
 

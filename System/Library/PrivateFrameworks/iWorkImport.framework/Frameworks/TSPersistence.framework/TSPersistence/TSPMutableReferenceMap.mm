@@ -4,7 +4,7 @@
 - (id)makeReferenceMap;
 - (int64_t)count;
 - (int64_t)hash;
-- (unint64_t)incrementReferenceFromIdentifier:(uint64_t)identifier toIdentifier:(uint64_t)toIdentifier increment:(uint64_t)increment;
+- (uint64_t)incrementReferenceFromIdentifier:(uint64_t)identifier toIdentifier:(uint64_t)toIdentifier increment:(uint64_t)increment;
 - (void)enumerateReferencesUsingBlock:(id)block;
 - (void)mergeWithReferenceMap:(id)map;
 - (void)replaceReferencesFromIdentifier:(int64_t)identifier withIdentifierSet:(id)set;
@@ -39,19 +39,17 @@
 - (void)enumerateReferencesUsingBlock:(id)block
 {
   v4 = _Block_copy(block);
-  v5 = OBJC_IVAR____TtC13TSPersistence22TSPMutableReferenceMap_referenceMap;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v5);
   _Block_copy(v4);
   selfCopy = self;
 
-  sub_276B0762C(v8, v4);
+  sub_276B0762C(v6, v4);
   _Block_release(v4);
 
   _Block_release(v4);
 }
 
-- (unint64_t)incrementReferenceFromIdentifier:(uint64_t)identifier toIdentifier:(uint64_t)toIdentifier increment:(uint64_t)increment
+- (uint64_t)incrementReferenceFromIdentifier:(uint64_t)identifier toIdentifier:(uint64_t)toIdentifier increment:(uint64_t)increment
 {
   swift_beginAccess();
   selfCopy = self;
@@ -71,12 +69,11 @@
   swift_bridgeObjectRetain_n();
   setCopy = set;
   selfCopy = self;
-  v12 = *(&self->super.isa + v9);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(&self->super.isa + v9);
+  v13 = *(&self->super.isa + v9);
   *(&self->super.isa + v9) = 0x8000000000000000;
   sub_276B04D78(v8, identifier, isUniquelyReferenced_nonNull_native);
-  *(&self->super.isa + v9) = v14;
+  *(&self->super.isa + v9) = v13;
   swift_endAccess();
 }
 
@@ -114,7 +111,7 @@
   sub_276BDAF74();
   selfCopy = self;
 
-  sub_276B057D4(v8, v4);
+  sub_276B057D4(&v8, v4);
 
   v6 = sub_276BDAFA4();
 

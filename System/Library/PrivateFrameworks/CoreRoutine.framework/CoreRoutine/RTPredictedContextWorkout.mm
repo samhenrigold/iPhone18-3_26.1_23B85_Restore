@@ -46,7 +46,7 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (!coderCopy)
   {
@@ -54,21 +54,19 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v9 = "[RTPredictedContextWorkout encodeWithCoder:]";
-      v10 = 1024;
-      v11 = 51;
+      v8 = "[RTPredictedContextWorkout encodeWithCoder:]";
+      v9 = 1024;
+      v10 = 51;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: encoder (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = RTPredictedContextWorkout;
-  [(RTPredictedContext *)&v7 encodeWithCoder:coderCopy];
+  v6.receiver = self;
+  v6.super_class = RTPredictedContextWorkout;
+  [(RTPredictedContext *)&v6 encodeWithCoder:coderCopy];
   [coderCopy encodeObject:self->_sourceBundleIdentifier forKey:@"sourceBundleIdentifier"];
   [coderCopy encodeInt64:self->_workoutActivityType forKey:@"workoutActivityType"];
   [coderCopy encodeInteger:self->_workoutLocationType forKey:@"workoutLocationType"];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (RTPredictedContextWorkout)initWithCoder:(id)coder

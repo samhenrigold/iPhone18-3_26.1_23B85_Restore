@@ -15,74 +15,74 @@
   stateCopy = state;
   if (properties)
   {
+    v54 = 0;
     v53 = 0;
-    v52 = 0;
-    v51 = 0.0;
-    if (CXOptionalLongAttribute(properties, CXNoNamespace, "marL", &v53))
+    v52 = 0.0;
+    if (CXOptionalLongAttribute(properties, CXNoNamespace, "marL", &v54))
     {
-      v10 = v53 / 12700.0;
+      v10 = v54 / 12700.0;
       *&v10 = v10;
       [paragraphPropertiesCopy setLeftMargin:v10];
     }
 
-    if (CXOptionalLongAttribute(properties, CXNoNamespace, "marR", &v53))
+    if (CXOptionalLongAttribute(properties, CXNoNamespace, "marR", &v54))
     {
-      v11 = v53 / 12700.0;
+      v11 = v54 / 12700.0;
       *&v11 = v11;
       [paragraphPropertiesCopy setRightMargin:v11];
     }
 
-    if (CXOptionalLongAttribute(properties, CXNoNamespace, "lvl", &v53))
+    if (CXOptionalLongAttribute(properties, CXNoNamespace, "lvl", &v54))
     {
-      [paragraphPropertiesCopy setLevel:v53];
+      [paragraphPropertiesCopy setLevel:v54];
     }
 
-    if (CXOptionalLongAttribute(properties, CXNoNamespace, "indent", &v53))
+    if (CXOptionalLongAttribute(properties, CXNoNamespace, "indent", &v54))
     {
-      v12 = v53 / 12700.0;
+      v12 = v54 / 12700.0;
       *&v12 = v12;
       [paragraphPropertiesCopy setIndent:v12];
     }
 
-    v50 = 0;
-    v13 = CXOptionalStringAttribute(properties, CXNoNamespace, "algn", &v50);
-    v14 = v50;
+    v51 = 0;
+    v13 = CXOptionalStringAttribute(properties, CXNoNamespace, "algn", &v51);
+    v14 = v51;
     if (v13)
     {
       [self readAlign:v14 paragraphProperties:paragraphPropertiesCopy];
     }
 
-    if (CXOptionalLongAttribute(properties, CXNoNamespace, "defTabSz", &v53, 12))
+    if (CXOptionalLongAttribute(properties, CXNoNamespace, "defTabSz", &v54, 12))
     {
-      v15 = v53 / 12700.0;
+      v15 = v54 / 12700.0;
       *&v15 = v15;
       [paragraphPropertiesCopy setDefaultTab:v15];
     }
 
-    if (CXOptionalBoolAttribute(properties, CXNoNamespace, "rtl", &v52))
+    if (CXOptionalBoolAttribute(properties, CXNoNamespace, "rtl", &v53))
     {
-      [paragraphPropertiesCopy setIsRightToLeft:v52];
+      [paragraphPropertiesCopy setIsRightToLeft:v53];
     }
 
-    v49 = 0;
-    v16 = CXOptionalStringAttribute(properties, CXNoNamespace, "fontAlgn", &v49);
-    v17 = v49;
+    v50 = 0;
+    v16 = CXOptionalStringAttribute(properties, CXNoNamespace, "fontAlgn", &v50);
+    v17 = v50;
     if (v16)
     {
       [self readFontAlign:v17 paragraphProperties:paragraphPropertiesCopy];
     }
 
-    if (CXOptionalBoolAttribute(properties, CXNoNamespace, "latinLnBrk", &v52))
+    if (CXOptionalBoolAttribute(properties, CXNoNamespace, "latinLnBrk", &v53))
     {
-      [paragraphPropertiesCopy setIsLatinLineBreak:v52];
+      [paragraphPropertiesCopy setIsLatinLineBreak:v53];
     }
 
-    if (CXOptionalBoolAttribute(properties, CXNoNamespace, "hangingPunct", &v52))
+    if (CXOptionalBoolAttribute(properties, CXNoNamespace, "hangingPunct", &v53))
     {
-      [paragraphPropertiesCopy setIsHangingPunctuation:v52];
+      [paragraphPropertiesCopy setIsHangingPunctuation:v53];
     }
 
-    v44 = v17;
+    v45 = v17;
     for (i = OCXFirstChild(properties); ; i = OCXNextSibling(i))
     {
       if (!i)
@@ -148,13 +148,13 @@ LABEL_37:
 
         if (xmlStrEqual(i->name, "buSzPts"))
         {
-          if (!CXOptionalLongAttribute(i, CXNoNamespace, "val", &v53))
+          if (!CXOptionalLongAttribute(i, CXNoNamespace, "val", &v54))
           {
             goto LABEL_41;
           }
 
           v22 = [OADPointBulletSize alloc];
-          v20 = [(OADPointBulletSize *)v22 initWithPoints:(v53 / 100)];
+          v20 = [(OADPointBulletSize *)v22 initWithPoints:(v54 / 100)];
           [paragraphPropertiesCopy setBulletSize:v20];
         }
 
@@ -162,14 +162,14 @@ LABEL_37:
         {
           if (xmlStrEqual(i->name, "buSzPct"))
           {
-            if (!CXOptionalFractionAttribute(i, CXNoNamespace, "val", &v51))
+            if (!CXOptionalFractionAttribute(i, CXNoNamespace, "val", &v52))
             {
               goto LABEL_41;
             }
 
             v23 = [OADPercentBulletSize alloc];
-            v24 = v51 * 100.0;
-            *&v24 = v51 * 100.0;
+            v24 = v52 * 100.0;
+            *&v24 = v52 * 100.0;
             v20 = [(OADPercentBulletSize *)v23 initWithPercent:v24];
             [paragraphPropertiesCopy setBulletSize:v20];
             goto LABEL_40;
@@ -184,9 +184,9 @@ LABEL_37:
 
           if (xmlStrEqual(i->name, "buFont"))
           {
-            v48 = 0;
-            v25 = CXOptionalStringAttribute(i, CXNoNamespace, "typeface", &v48);
-            v20 = v48;
+            v49 = 0;
+            v25 = CXOptionalStringAttribute(i, CXNoNamespace, "typeface", &v49);
+            v20 = v49;
             if (v25)
             {
               v26 = [[OADBulletFontSpecification alloc] initWithFont:v20];
@@ -199,10 +199,10 @@ LABEL_37:
 
             [paragraphPropertiesCopy setBulletFont:v26];
 
-            v47 = 0;
-            if (CXOptionalUnsignedLongAttribute(i, CXNoNamespace, "charset", &v47))
+            v48 = 0;
+            if (CXOptionalUnsignedLongAttribute(i, CXNoNamespace, "charset", &v48))
             {
-              [paragraphPropertiesCopy setBulletCharSet:v47];
+              [paragraphPropertiesCopy setBulletCharSet:v48];
             }
 
             goto LABEL_40;
@@ -217,32 +217,33 @@ LABEL_37:
 
           if (xmlStrEqual(i->name, "buAutoNum"))
           {
-            v46 = 0;
-            v27 = CXOptionalStringAttribute(i, CXNoNamespace, "type", &v46);
-            v20 = v46;
+            v47 = 0;
+            v27 = CXOptionalStringAttribute(i, CXNoNamespace, "type", &v47);
+            v28 = v47;
+            v20 = v28;
             if (v27)
             {
-              v28 = numberBulletSchemeEnumMap();
-              v40 = v20;
-              v39 = [v28 valueForString:v20];
+              v29 = numberBulletSchemeEnumMap(v28);
+              v41 = v20;
+              v40 = [v29 valueForString:v20];
 
-              LODWORD(v28) = CXOptionalLongAttribute(i, CXNoNamespace, "startAt", &v53);
-              v29 = v53;
-              v30 = [OADAutoNumberBulletProperties alloc];
-              if (v28)
+              LODWORD(v29) = CXOptionalLongAttribute(i, CXNoNamespace, "startAt", &v54);
+              v30 = v54;
+              v31 = [OADAutoNumberBulletProperties alloc];
+              if (v29)
               {
-                v31 = v29;
+                v32 = v30;
               }
 
               else
               {
-                v31 = 1;
+                v32 = 1;
               }
 
-              v32 = [(OADAutoNumberBulletProperties *)v30 initWithAutoNumberSchemeType:v39 startIndex:v31];
-              [paragraphPropertiesCopy setBulletProperties:v32];
+              v33 = [(OADAutoNumberBulletProperties *)v31 initWithAutoNumberSchemeType:v40 startIndex:v32];
+              [paragraphPropertiesCopy setBulletProperties:v33];
 
-              v20 = v40;
+              v20 = v41;
             }
 
             goto LABEL_40;
@@ -250,46 +251,46 @@ LABEL_37:
 
           if (xmlStrEqual(i->name, "buChar"))
           {
-            v45 = 0;
-            v33 = CXOptionalStringAttribute(i, CXNoNamespace, "char", &v45);
-            v34 = v45;
-            v20 = v34;
-            if (!v33)
+            v46 = 0;
+            v34 = CXOptionalStringAttribute(i, CXNoNamespace, "char", &v46);
+            v35 = v46;
+            v20 = v35;
+            if (!v34)
             {
               goto LABEL_40;
             }
 
-            v35 = [(OADBulletColorFollowText *)v34 length];
-            if (!v35)
+            v36 = [(OADBulletColorFollowText *)v35 length];
+            if (!v36)
             {
               goto LABEL_40;
             }
 
-            v36 = [(OADBulletColorFollowText *)v20 characterAtIndex:0]& 0xFC00;
-            if (v36 == 55296)
+            v37 = [(OADBulletColorFollowText *)v20 characterAtIndex:0]& 0xFC00;
+            if (v37 == 55296)
             {
-              if (v35 == 1 || [(OADBulletColorFollowText *)v20 characterAtIndex:1]>> 10 != 55)
+              if (v36 == 1 || [(OADBulletColorFollowText *)v20 characterAtIndex:1]>> 10 != 55)
               {
                 goto LABEL_40;
               }
 
-              v37 = 2;
+              v38 = 2;
             }
 
             else
             {
-              if (v36 == 56320)
+              if (v37 == 56320)
               {
                 goto LABEL_40;
               }
 
-              v37 = 1;
+              v38 = 1;
             }
 
-            v41 = v37;
-            v38 = [OADCharacterBulletProperties alloc];
-            v42 = [(OADBulletColorFollowText *)v20 substringToIndex:v41];
-            v21 = [(OADCharacterBulletProperties *)v38 initWithBullet:v42];
+            v42 = v38;
+            v39 = [OADCharacterBulletProperties alloc];
+            v43 = [(OADBulletColorFollowText *)v20 substringToIndex:v42];
+            v21 = [(OADCharacterBulletProperties *)v39 initWithBullet:v43];
 
             [paragraphPropertiesCopy setBulletProperties:v21];
             goto LABEL_37;

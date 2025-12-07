@@ -23,7 +23,7 @@
 
 - (void)loadView
 {
-  v52[2] = *MEMORY[0x1E69E9840];
+  v53[2] = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
   isTranscriptSharingEnabled = [mEMORY[0x1E69A8070] isTranscriptSharingEnabled];
 
@@ -34,77 +34,77 @@
     v7 = *(MEMORY[0x1E695F058] + 8);
     v8 = *(MEMORY[0x1E695F058] + 16);
     v9 = *(MEMORY[0x1E695F058] + 24);
-    v43 = [(CKTranscriptSharingFooterView *)v5 initWithFrame:*MEMORY[0x1E695F058], v7, v8, v9];
-    [(CKTranscriptSharingFooterViewController *)self setView:v43];
+    v44 = [(CKTranscriptSharingFooterView *)v5 initWithFrame:*MEMORY[0x1E695F058], v7, v8, v9];
+    [(CKTranscriptSharingFooterViewController *)self setView:v44];
     conversation = [(CKTranscriptSharingFooterViewController *)self conversation];
     chat = [conversation chat];
     emergencyUserHandle = [chat emergencyUserHandle];
 
     conversation2 = [(CKTranscriptSharingFooterViewController *)self conversation];
     chat2 = [conversation2 chat];
-    v47 = emergencyUserHandle;
+    v48 = emergencyUserHandle;
     v15 = [emergencyUserHandle displayNameForChat:chat2];
 
     v16 = MEMORY[0x1E696AEC0];
-    v17 = CKFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"TS_DESCRIPTION_INPUT_DISABLED_DESCRIPTION" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
-    v46 = v15;
-    [v16 localizedStringWithFormat:v18, v15];
-    v19 = v44 = self;
+    v18 = CKFrameworkBundle(v17);
+    v19 = [v18 localizedStringForKey:@"TS_DESCRIPTION_INPUT_DISABLED_DESCRIPTION" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+    v47 = v15;
+    [v16 localizedStringWithFormat:v19, v15];
+    v20 = v45 = self;
 
-    v20 = objc_alloc(MEMORY[0x1E696AD40]);
-    v21 = CKFrameworkBundle();
-    v22 = [v21 localizedStringForKey:@"TS_DESCRIPTION_INPUT_DISABLED_TITLE" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
-    v50 = *MEMORY[0x1E69DB648];
-    v23 = v50;
-    v24 = +[CKUIBehavior sharedBehaviors];
-    transcriptFooterNoteTitleFont = [v24 transcriptFooterNoteTitleFont];
-    v52[0] = transcriptFooterNoteTitleFont;
-    v51 = *MEMORY[0x1E69DB650];
-    v26 = v51;
+    v21 = objc_alloc(MEMORY[0x1E696AD40]);
+    v22 = CKFrameworkBundle(v21);
+    v23 = [v22 localizedStringForKey:@"TS_DESCRIPTION_INPUT_DISABLED_TITLE" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+    v51 = *MEMORY[0x1E69DB648];
+    v24 = v51;
+    v25 = +[CKUIBehavior sharedBehaviors];
+    transcriptFooterNoteTitleFont = [v25 transcriptFooterNoteTitleFont];
+    v53[0] = transcriptFooterNoteTitleFont;
+    v52 = *MEMORY[0x1E69DB650];
+    v27 = v52;
     labelColor = [MEMORY[0x1E69DC888] labelColor];
-    v52[1] = labelColor;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v50 count:2];
-    v29 = [v20 initWithString:v22 attributes:v28];
+    v53[1] = labelColor;
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v51 count:2];
+    v30 = [v21 initWithString:v23 attributes:v29];
 
-    v30 = objc_alloc(MEMORY[0x1E696AD40]);
-    v48[0] = v23;
-    v31 = +[CKUIBehavior sharedBehaviors];
-    transcriptFooterNoteBodyFont = [v31 transcriptFooterNoteBodyFont];
-    v48[1] = v26;
-    v49[0] = transcriptFooterNoteBodyFont;
+    v31 = objc_alloc(MEMORY[0x1E696AD40]);
+    v49[0] = v24;
+    v32 = +[CKUIBehavior sharedBehaviors];
+    transcriptFooterNoteBodyFont = [v32 transcriptFooterNoteBodyFont];
+    v49[1] = v27;
+    v50[0] = transcriptFooterNoteBodyFont;
     secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    v49[1] = secondaryLabelColor;
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
-    v45 = v19;
-    v35 = [v30 initWithString:v19 attributes:v34];
+    v50[1] = secondaryLabelColor;
+    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
+    v46 = v20;
+    v36 = [v31 initWithString:v20 attributes:v35];
 
     mEMORY[0x1E69A8070]2 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
-    LOBYTE(v31) = [mEMORY[0x1E69A8070]2 isEntryViewRefreshEnabled];
+    LOBYTE(v32) = [mEMORY[0x1E69A8070]2 isEntryViewRefreshEnabled];
 
-    if ((v31 & 1) == 0)
+    if ((v32 & 1) == 0)
     {
-      v37 = [objc_alloc(MEMORY[0x1E69DD180]) initWithFrame:{v6, v7, v8, v9}];
-      view = [(CKTranscriptSharingFooterViewController *)v44 view];
-      [view addSubview:v37];
+      v38 = [objc_alloc(MEMORY[0x1E69DD180]) initWithFrame:{v6, v7, v8, v9}];
+      view = [(CKTranscriptSharingFooterViewController *)v45 view];
+      [view addSubview:v38];
 
-      [(CKTranscriptSharingFooterView *)v43 setToolbar:v37];
+      [(CKTranscriptSharingFooterView *)v44 setToolbar:v38];
     }
 
-    v39 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
-    [v39 setAttributedText:v29];
-    [v39 setNumberOfLines:0];
-    view2 = [(CKTranscriptSharingFooterViewController *)v44 view];
-    [view2 addSubview:v39];
+    v40 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
+    [v40 setAttributedText:v30];
+    [v40 setNumberOfLines:0];
+    view2 = [(CKTranscriptSharingFooterViewController *)v45 view];
+    [view2 addSubview:v40];
 
-    [(CKTranscriptSharingFooterView *)v43 setFooterTextViewTitle:v39];
-    v41 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
-    [v41 setAttributedText:v35];
-    [v41 setNumberOfLines:0];
-    view3 = [(CKTranscriptSharingFooterViewController *)v44 view];
-    [view3 addSubview:v41];
+    [(CKTranscriptSharingFooterView *)v44 setFooterTextViewTitle:v40];
+    v42 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
+    [v42 setAttributedText:v36];
+    [v42 setNumberOfLines:0];
+    view3 = [(CKTranscriptSharingFooterViewController *)v45 view];
+    [view3 addSubview:v42];
 
-    [(CKTranscriptSharingFooterView *)v43 setFooterTextViewDesc:v41];
+    [(CKTranscriptSharingFooterView *)v44 setFooterTextViewDesc:v42];
   }
 }
 

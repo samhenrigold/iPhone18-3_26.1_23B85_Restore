@@ -4,6 +4,7 @@
 - (id)profileForPersistentControllerIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier;
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)setShowGCPreferencesPane:(BOOL)pane;
 @end
 
 @implementation GCSSettingsStore
@@ -46,6 +47,13 @@
   return v7;
 }
 
+- (void)setShowGCPreferencesPane:(BOOL)pane
+{
+  [(GCUserDefaults *)self->_defaults setBool:pane forKey:@"showGCPrefsPane"];
+
+  notify_post("com.apple.systemsettings.extensions.didchange");
+}
+
 - (id)profileForPersistentControllerIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier
 {
   identifierCopy = identifier;
@@ -82,7 +90,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -93,8 +101,7 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [(GCSSettingsStore *)self setSettingsVersion:v13];
-      v14 = getGCSLogger();
+      v14 = getGCSLogger([(GCSSettingsStore *)self setSettingsVersion:v13]);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         goto LABEL_7;
@@ -103,14 +110,13 @@
 
     else
     {
-      [(GCSSettingsStore *)self setSettingsVersion:@"0.0.0"];
-      v14 = getGCSLogger();
+      v14 = getGCSLogger([(GCSSettingsStore *)self setSettingsVersion:@"0.0.0"]);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
 LABEL_7:
         settingsVersion = [(GCSSettingsStore *)self settingsVersion];
         *buf = 138412290;
-        v19 = settingsVersion;
+        v18 = settingsVersion;
         _os_log_impl(&dword_24E4FA000, v14, OS_LOG_TYPE_INFO, "GCSSettingsStore.settingsVersion = %@", buf, 0xCu);
       }
     }
@@ -118,13 +124,11 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v17.receiver = self;
-  v17.super_class = GCSSettingsStore;
-  [(GCSSettingsStore *)&v17 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+  v16.receiver = self;
+  v16.super_class = GCSSettingsStore;
+  [(GCSSettingsStore *)&v16 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   v13 = changeCopy;
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

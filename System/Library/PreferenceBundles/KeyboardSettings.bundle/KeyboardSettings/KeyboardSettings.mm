@@ -125,17 +125,17 @@ id LocStringKeyBasedOnLanguageCount(id result, unint64_t a2, uint64_t a3)
   return result;
 }
 
-id sub_4988(uint64_t a1, void *a2)
+id sub_4988(uint64_t a1, void *a2, uint64_t a3)
 {
   result = AFOfflineDictationStatusStringIsInstalled();
   if (result)
   {
-    v5 = [+[UIKeyboardInputModeController sharedInputModeController](UIKeyboardInputModeController "sharedInputModeController")];
-    v6 = [a2 stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-    result = [v5 containsObject:v6];
+    v6 = [+[UIKeyboardInputModeController sharedInputModeController](UIKeyboardInputModeController "sharedInputModeController")];
+    v7 = [a2 stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+    result = [v6 containsObject:v7];
     if (result)
     {
-      result = [*(*(*(a1 + 32) + 8) + 40) addObject:v6];
+      result = [*(*(*(a1 + 32) + 8) + 40) addObject:v7];
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -271,7 +271,7 @@ uint64_t sub_7D18()
   return v0;
 }
 
-uint64_t sub_80FC()
+uint64_t sub_80FC(uint64_t a1)
 {
   if (qword_56950 != -1)
   {
@@ -283,7 +283,7 @@ uint64_t sub_80FC()
     return 0;
   }
 
-  return __UISolariumEnabled();
+  return __UISolariumEnabled(a1);
 }
 
 int64_t sub_8934(id a1, PSSpecifier *a2, PSSpecifier *a3)
@@ -385,7 +385,6 @@ uint64_t sub_B890()
 
 uint64_t sub_B988(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_56920 = result;
   return result;
@@ -403,7 +402,6 @@ uint64_t sub_B9FC()
 
 uint64_t sub_BACC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_56938 = result;
   return result;
@@ -704,7 +702,7 @@ void sub_ED74(id a1)
   qword_56958 = v22;
 }
 
-id sub_F7F8(uint64_t a1)
+id sub_F7F8(uint64_t a1, uint64_t a2)
 {
   result = [UIKeyboardInputModeGetNormalizedIdentifier() isEqualToString:*(a1 + 32)];
   if (result)
@@ -790,30 +788,30 @@ id sub_13764(uint64_t a1, void *a2)
   return [LanguageWithRegion isEqualToString:v5];
 }
 
-id sub_14E00(uint64_t a1, void *a2)
+id sub_14E00(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = [a2 stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-  result = [*(a1 + 32) containsObject:v3];
+  v4 = [a2 stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+  result = [*(a1 + 32) containsObject:v4];
   if (result)
   {
     if (AFOfflineDictationStatusStringIsHighQualityModelInstalled())
     {
-      v5 = 40;
+      v6 = 40;
     }
 
     else
     {
       IsInstalled = AFOfflineDictationStatusStringIsInstalled();
-      v5 = 56;
+      v6 = 56;
       if (IsInstalled)
       {
-        v5 = 48;
+        v6 = 48;
       }
     }
 
-    v7 = *(*(*(a1 + v5) + 8) + 40);
+    v8 = *(*(*(a1 + v6) + 8) + 40);
 
-    return [v7 addObject:v3];
+    return [v8 addObject:v4];
   }
 
   return result;
@@ -1007,13 +1005,12 @@ Class sub_197A4(uint64_t a1)
 
 uint64_t sub_198D0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_569A8 = result;
   return result;
 }
 
-uint64_t __TUIFaultDebugAssertLog()
+uint64_t __TUIFaultDebugAssertLog(uint64_t a1, uint64_t a2)
 {
   if (qword_569B8 != -1)
   {
@@ -1023,16 +1020,18 @@ uint64_t __TUIFaultDebugAssertLog()
   return qword_569B0;
 }
 
-void sub_1B700(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1B700(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
-void sub_1B720(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_1B720(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 2u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 BOOL sub_1B740(uint64_t a1)
@@ -1048,7 +1047,7 @@ BOOL sub_1B75C(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_FAULT);
 }
 
-id TIInputModeIsChineseShuangpin()
+id TIInputModeIsChineseShuangpin(uint64_t a1)
 {
   result = [TIInputModeGetBaseLanguage() isEqualToString:@"zh"];
   if (result)
@@ -1260,7 +1259,6 @@ void sub_1DDEC(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1DE64(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
@@ -1268,14 +1266,14 @@ uint64_t sub_1DE64(uint64_t a1)
     result = [*(a1 + 40) isTrackingBrightnessSlider];
     if ((result & 1) == 0)
     {
-      v4 = [*(a1 + 40) specifierForID:@"Keyboard Brightness"];
-      v5 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(*(a1 + 40) + 136) isBacklightSaturatedOnKeyboard:kKBIDDefault] ^ 1);
-      [v4 setObject:v5 forKeyedSubscript:PSEnabledKey];
-      [*(a1 + 40) reloadSpecifier:v4];
-      v6 = [v4 propertyForKey:PSTableCellKey];
-      v7 = *(a1 + 32);
+      v3 = [*(a1 + 40) specifierForID:@"Keyboard Brightness"];
+      v4 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(*(a1 + 40) + 136) isBacklightSaturatedOnKeyboard:kKBIDDefault] ^ 1);
+      [v3 setObject:v4 forKeyedSubscript:PSEnabledKey];
+      [*(a1 + 40) reloadSpecifier:v3];
+      v5 = [v3 propertyForKey:PSTableCellKey];
+      v6 = *(a1 + 32);
 
-      return [v6 setValue:v7];
+      return [v5 setValue:v6];
     }
   }
 
@@ -1312,7 +1310,7 @@ void sub_20894(uint64_t a1)
   }
 }
 
-id TIInputModeIsChineseWubi()
+id TIInputModeIsChineseWubi(uint64_t a1)
 {
   result = [TIInputModeGetBaseLanguage() isEqualToString:@"zh"];
   if (result)
@@ -1516,31 +1514,30 @@ id sub_219D0(void *a1)
 {
   v1 = a1;
   v2 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v1 count]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        v9 = TIInputModeGetLanguageWithRegion();
-        [v2 addObject:{v9, v11}];
+        v8 = TIInputModeGetLanguageWithRegion();
+        [v2 addObject:{v8, v10}];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -1637,42 +1634,41 @@ uint64_t TIUICanAddInputModeToMultilingualSet(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = sub_2200C();
+  v5 = sub_2200C(v4);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
-        v12 = TIInputModeGetNormalizedIdentifier();
-        if ([v5 containsObject:{v12, v16}] && (!v3 || objc_msgSend(v5, "containsObject:", v3) && ((objc_msgSend(&off_4D868, "containsObject:", v3) & 1) != 0 || isH13ANEPresentOnIOS())) && objc_msgSend(v6, "count") < 5)
+        v11 = TIInputModeGetNormalizedIdentifier();
+        if ([v5 containsObject:{v11, v15}] && (!v3 || objc_msgSend(v5, "containsObject:", v3) && ((objc_msgSend(&off_4D868, "containsObject:", v3) & 1) != 0 || isH13ANEPresentOnIOS())) && objc_msgSend(v6, "count") < 5)
         {
 
           IsMultiscriptInput = 1;
-          v14 = v6;
+          v13 = v6;
           goto LABEL_17;
         }
 
-        v10 = v10 + 1;
+        ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -1686,15 +1682,15 @@ uint64_t TIUICanAddInputModeToMultilingualSet(void *a1, void *a2)
   {
     if (v3)
     {
-      v14 = [v6 arrayByAddingObject:v3];
-      if (TIUIMultilingualSetIsMonoscriptInput(v14))
+      v13 = [v6 arrayByAddingObject:v3];
+      if (TIUIMultilingualSetIsMonoscriptInput(v13))
       {
         IsMultiscriptInput = 1;
       }
 
       else
       {
-        IsMultiscriptInput = TIUIMultilingualSetIsMultiscriptInput(v14, 0);
+        IsMultiscriptInput = TIUIMultilingualSetIsMultiscriptInput(v13, 0);
       }
 
 LABEL_17:
@@ -1714,31 +1710,31 @@ LABEL_17:
   return IsMultiscriptInput;
 }
 
-id sub_2200C()
+id sub_2200C(uint64_t a1)
 {
   if (qword_56A18 != -1)
   {
     sub_2CB3C();
   }
 
-  v1 = qword_56A10;
+  v2 = qword_56A10;
 
-  return v1;
+  return v2;
 }
 
 uint64_t TIUIMultilingualSetIsMonoscriptInput(void *a1)
 {
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v17;
+    v5 = *v16;
     v6 = TIInputModePropertiesSupportsMultilingual;
     v7 = TIInputModePropertiesSupportedMultiscriptInputModes;
     do
@@ -1747,23 +1743,22 @@ uint64_t TIUIMultilingualSetIsMonoscriptInput(void *a1)
       v9 = v4;
       do
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v8);
-        v11 = UIKeyboardInputModeGetNormalizedIdentifier();
+        v10 = UIKeyboardInputModeGetNormalizedIdentifier();
         v4 = TIGetInputModeProperties();
 
-        v12 = [v4 objectForKey:{v6, v16}];
-        if ([v12 BOOLValue])
+        v11 = [v4 objectForKey:{v6, v15}];
+        if ([v11 BOOLValue])
         {
-          v13 = [v4 objectForKey:v7];
+          v12 = [v4 objectForKey:v7];
 
-          if (v13)
+          if (v12)
           {
-            v14 = 0;
+            v13 = 0;
             goto LABEL_13;
           }
         }
@@ -1772,25 +1767,25 @@ uint64_t TIUIMultilingualSetIsMonoscriptInput(void *a1)
         {
         }
 
-        v8 = v8 + 1;
+        ++v8;
         v9 = v4;
       }
 
       while (v3 != v8);
-      v3 = [v1 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v3);
-    v14 = 1;
+    v13 = 1;
 LABEL_13:
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
-  return v14;
+  return v13;
 }
 
 uint64_t TIUIMultilingualSetIsMultiscriptInput(void *a1, _BYTE *a2)
@@ -1847,44 +1842,45 @@ id TIUIGetAddableInputModesForMultilingualSet(void *a1)
       while (v4 < [v3 count]);
     }
 
-    v44 = sub_2278C();
-    v61 = 0u;
-    v62 = 0u;
-    v63 = 0u;
+    v47 = sub_2278C(v7);
     v64 = 0u;
-    v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v61 objects:v68 count:16];
-    if (v8)
+    v65 = 0u;
+    v66 = 0u;
+    v67 = 0u;
+    v8 = v3;
+    v9 = [v8 countByEnumeratingWithState:&v64 objects:v71 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = 0;
-      v11 = *v62;
+      v10 = v9;
+      v11 = 0;
+      v12 = *v65;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v62 != v11)
+          if (*v65 != v12)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v61 + 1) + 8 * i);
-          if (![v44 containsObject:v13])
+          v14 = *(*(&v64 + 1) + 8 * i);
+          v15 = [v47 containsObject:v14];
+          if (!v15)
           {
-            v18 = v7;
-            v17 = &__NSArray0__struct;
+            v20 = v8;
+            v19 = &__NSArray0__struct;
             goto LABEL_50;
           }
 
-          sub_2200C();
-          v15 = v14 = v10;
-          v16 = [v15 containsObject:v13];
+          sub_2200C(v15);
+          v17 = v16 = v11;
+          v18 = [v17 containsObject:v14];
 
-          v10 = v16 | v14;
+          v11 = v18 | v16;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v61 objects:v68 count:16];
-        if (v9)
+        v10 = [v8 countByEnumeratingWithState:&v64 objects:v71 count:16];
+        if (v10)
         {
           continue;
         }
@@ -1895,70 +1891,70 @@ id TIUIGetAddableInputModesForMultilingualSet(void *a1)
 
     else
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(v11) = 0;
     }
 
-    v41 = v10;
-    v42 = v2;
-    v43 = v1;
+    v44 = v11;
+    v45 = v2;
+    v46 = v1;
 
-    v45 = +[NSMutableArray array];
-    v57 = 0u;
-    v58 = 0u;
-    v59 = 0u;
+    v48 = +[NSMutableArray array];
     v60 = 0u;
-    v19 = sub_2200C();
-    v20 = [v19 countByEnumeratingWithState:&v57 objects:v67 count:16];
-    if (v20)
+    v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v21 = sub_2200C(v48);
+    v22 = [v21 countByEnumeratingWithState:&v60 objects:v70 count:16];
+    if (v22)
     {
-      v21 = v20;
-      v22 = *v58;
+      v23 = v22;
+      v24 = *v61;
       do
       {
-        for (j = 0; j != v21; j = j + 1)
+        for (j = 0; j != v23; j = j + 1)
         {
-          if (*v58 != v22)
+          if (*v61 != v24)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v21);
           }
 
-          v24 = *(*(&v57 + 1) + 8 * j);
-          if (([v7 containsObject:v24] & 1) == 0)
+          v26 = *(*(&v60 + 1) + 8 * j);
+          if (([v8 containsObject:v26] & 1) == 0)
           {
-            v25 = sub_227F8(v24);
-            v53 = 0u;
-            v54 = 0u;
-            v55 = 0u;
+            v27 = sub_227F8(v26);
             v56 = 0u;
-            v26 = v25;
-            v27 = [v26 countByEnumeratingWithState:&v53 objects:v66 count:16];
-            if (v27)
+            v57 = 0u;
+            v58 = 0u;
+            v59 = 0u;
+            v28 = v27;
+            v29 = [v28 countByEnumeratingWithState:&v56 objects:v69 count:16];
+            if (v29)
             {
-              v28 = v27;
-              v29 = *v54;
+              v30 = v29;
+              v31 = *v57;
               while (2)
               {
-                for (k = 0; k != v28; k = k + 1)
+                for (k = 0; k != v30; k = k + 1)
                 {
-                  if (*v54 != v29)
+                  if (*v57 != v31)
                   {
-                    objc_enumerationMutation(v26);
+                    objc_enumerationMutation(v28);
                   }
 
-                  if ([v7 containsObject:*(*(&v53 + 1) + 8 * k)])
+                  if ([v8 containsObject:*(*(&v56 + 1) + 8 * k)])
                   {
 
-                    if (([&off_4D868 containsObject:v24] & 1) != 0 || isH13ANEPresentOnIOS())
+                    if (([&off_4D868 containsObject:v26] & 1) != 0 || isH13ANEPresentOnIOS())
                     {
-                      [v45 addObject:v24];
+                      [v48 addObject:v26];
                     }
 
                     goto LABEL_35;
                   }
                 }
 
-                v28 = [v26 countByEnumeratingWithState:&v53 objects:v66 count:16];
-                if (v28)
+                v30 = [v28 countByEnumeratingWithState:&v56 objects:v69 count:16];
+                if (v30)
                 {
                   continue;
                 }
@@ -1971,80 +1967,80 @@ LABEL_35:
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v57 objects:v67 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v60 objects:v70 count:16];
       }
 
-      while (v21);
+      while (v23);
     }
 
-    v1 = v43;
-    v17 = v45;
-    if ((v41 & 1) == 0)
+    v1 = v46;
+    v19 = v48;
+    if ((v44 & 1) == 0)
     {
-      v51 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v31 = sub_22878();
-      v32 = [v31 countByEnumeratingWithState:&v49 objects:v65 count:16];
-      if (v32)
+      v53 = 0u;
+      v34 = sub_22878(v33);
+      v35 = [v34 countByEnumeratingWithState:&v52 objects:v68 count:16];
+      if (v35)
       {
-        v33 = v32;
-        v34 = *v50;
+        v36 = v35;
+        v37 = *v53;
         do
         {
-          for (m = 0; m != v33; m = m + 1)
+          for (m = 0; m != v36; m = m + 1)
           {
-            if (*v50 != v34)
+            if (*v53 != v37)
             {
-              objc_enumerationMutation(v31);
+              objc_enumerationMutation(v34);
             }
 
-            v36 = *(*(&v49 + 1) + 8 * m);
-            if (([v7 containsObject:v36] & 1) == 0)
+            v39 = *(*(&v52 + 1) + 8 * m);
+            if (([v8 containsObject:v39] & 1) == 0)
             {
-              [v45 addObject:v36];
+              [v48 addObject:v39];
             }
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v49 objects:v65 count:16];
+          v36 = [v34 countByEnumeratingWithState:&v52 objects:v68 count:16];
         }
 
-        while (v33);
+        while (v36);
       }
     }
 
-    v37 = +[UIKeyboardInputModeController sharedInputModeController];
-    v38 = [v37 enabledInputModeIdentifiers];
+    v40 = +[UIKeyboardInputModeController sharedInputModeController];
+    v41 = [v40 enabledInputModeIdentifiers];
 
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_228BC;
-    v46[3] = &unk_496B0;
-    v47 = v38;
-    v48 = v42;
-    v18 = v38;
-    v39 = [NSPredicate predicateWithBlock:v46];
-    [v45 filterUsingPredicate:v39];
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_228BC;
+    v49[3] = &unk_496B0;
+    v50 = v41;
+    v51 = v45;
+    v20 = v41;
+    v42 = [NSPredicate predicateWithBlock:v49];
+    [v48 filterUsingPredicate:v42];
 
 LABEL_50:
   }
 
   else
   {
-    v17 = &__NSArray0__struct;
+    v19 = &__NSArray0__struct;
   }
 
-  return v17;
+  return v19;
 }
 
-id sub_2278C()
+id sub_2278C(uint64_t a1)
 {
-  v0 = sub_22878();
-  v1 = sub_2200C();
-  v2 = [v0 arrayByAddingObjectsFromArray:v1];
+  v1 = sub_22878(a1);
+  v2 = sub_2200C(v1);
+  v3 = [v1 arrayByAddingObjectsFromArray:v2];
 
-  return v2;
+  return v3;
 }
 
 id sub_227F8(void *a1)
@@ -2068,16 +2064,16 @@ id sub_227F8(void *a1)
   return v2;
 }
 
-id sub_22878()
+id sub_22878(uint64_t a1)
 {
   if (qword_56A40 != -1)
   {
     sub_2CB64();
   }
 
-  v1 = qword_56A38;
+  v2 = qword_56A38;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_228BC(uint64_t a1, void *a2)
@@ -2135,35 +2131,35 @@ id TIUIGetProposedMultilingualSetsForAddingInputMode(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v107 = sub_2278C();
-  if ([v107 containsObject:v3])
+  v108 = sub_2278C(v4);
+  if ([v108 containsObject:v3])
   {
-    v105 = v3;
+    v106 = v3;
     v5 = +[NSMutableOrderedSet orderedSet];
-    v112 = +[NSMutableDictionary dictionary];
-    v124 = 0u;
+    v113 = +[NSMutableDictionary dictionary];
     v125 = 0u;
     v126 = 0u;
     v127 = 0u;
-    v95 = v4;
+    v128 = 0u;
+    v96 = v4;
     obj = v4;
-    v6 = [obj countByEnumeratingWithState:&v124 objects:v150 count:16];
+    v6 = [obj countByEnumeratingWithState:&v125 objects:v151 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v125;
+      v8 = *v126;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v125 != v8)
+          if (*v126 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v124 + 1) + 8 * i);
+          v10 = *(*(&v125 + 1) + 8 * i);
           v11 = TIInputModeGetNormalizedIdentifier();
-          if ([v107 containsObject:v11])
+          if ([v108 containsObject:v11])
           {
             v12 = TIUIGetMultilingualIDFromInputMode();
             v13 = v12;
@@ -2179,11 +2175,11 @@ id TIUIGetProposedMultilingualSetsForAddingInputMode(void *a1, void *a2)
 
             v15 = v14;
 
-            v16 = [v112 objectForKeyedSubscript:v15];
+            v16 = [v113 objectForKeyedSubscript:v15];
             if (!v16)
             {
               v16 = +[NSMutableArray array];
-              [v112 setObject:v16 forKeyedSubscript:v15];
+              [v113 setObject:v16 forKeyedSubscript:v15];
             }
 
             [v16 addObject:v10];
@@ -2191,83 +2187,83 @@ id TIUIGetProposedMultilingualSetsForAddingInputMode(void *a1, void *a2)
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v124 objects:v150 count:16];
+        v7 = [obj countByEnumeratingWithState:&v125 objects:v151 count:16];
       }
 
       while (v7);
     }
 
-    v100 = +[NSMutableArray array];
-    v120 = 0u;
+    v101 = +[NSMutableArray array];
     v121 = 0u;
     v122 = 0u;
     v123 = 0u;
-    v104 = v5;
-    v3 = v105;
-    v108 = [v104 countByEnumeratingWithState:&v120 objects:v149 count:16];
-    if (v108)
+    v124 = 0u;
+    v105 = v5;
+    v3 = v106;
+    v109 = [v105 countByEnumeratingWithState:&v121 objects:v150 count:16];
+    if (v109)
     {
-      v106 = *v121;
+      v107 = *v122;
       v17 = &TUIDictationTitle_ptr;
       do
       {
-        for (j = 0; j != v108; j = j + 1)
+        for (j = 0; j != v109; j = j + 1)
         {
-          if (*v121 != v106)
+          if (*v122 != v107)
           {
-            objc_enumerationMutation(v104);
+            objc_enumerationMutation(v105);
           }
 
-          v19 = *(*(&v120 + 1) + 8 * j);
-          v20 = [v112 objectForKeyedSubscript:v19];
+          v19 = *(*(&v121 + 1) + 8 * j);
+          v20 = [v113 objectForKeyedSubscript:v19];
           if ([v19 hasPrefix:@"_"])
           {
             v21 = v3;
             v22 = v20;
-            v23 = sub_2200C();
+            v23 = sub_2200C(v22);
             v24 = [v23 containsObject:v21];
 
-            v109 = v20;
-            v110 = j;
+            v110 = v20;
+            v111 = j;
             if (v24)
             {
               if (([&off_4D868 containsObject:v21] & 1) != 0 || isH13ANEPresentOnIOS())
               {
-                v25 = sub_227F8(v21);
-                v128 = 0u;
+                v26 = sub_227F8(v21);
                 v129 = 0u;
                 v130 = 0u;
                 v131 = 0u;
-                v26 = v22;
-                v27 = [v26 countByEnumeratingWithState:&v128 objects:v151 count:16];
-                if (v27)
+                v132 = 0u;
+                v27 = v22;
+                v28 = [v27 countByEnumeratingWithState:&v129 objects:v152 count:16];
+                if (v28)
                 {
-                  v28 = v27;
-                  v101 = v22;
-                  v29 = v21;
-                  v30 = *v129;
+                  v29 = v28;
+                  v102 = v22;
+                  v30 = v21;
+                  v31 = *v130;
                   while (2)
                   {
-                    for (k = 0; k != v28; k = k + 1)
+                    for (k = 0; k != v29; k = k + 1)
                     {
-                      if (*v129 != v30)
+                      if (*v130 != v31)
                       {
-                        objc_enumerationMutation(v26);
+                        objc_enumerationMutation(v27);
                       }
 
-                      v32 = *(*(&v128 + 1) + 8 * k);
-                      v33 = TIInputModeGetNormalizedIdentifier();
-                      v34 = [v25 containsObject:v33];
+                      v33 = *(*(&v129 + 1) + 8 * k);
+                      v34 = TIInputModeGetNormalizedIdentifier();
+                      v35 = [v26 containsObject:v34];
 
-                      if (v34)
+                      if (v35)
                       {
-                        v21 = v29;
+                        v21 = v30;
                         goto LABEL_61;
                       }
                     }
 
-                    v28 = [v26 countByEnumeratingWithState:&v128 objects:v151 count:16];
-                    if (v28)
+                    v29 = [v27 countByEnumeratingWithState:&v129 objects:v152 count:16];
+                    if (v29)
                     {
                       continue;
                     }
@@ -2275,77 +2271,77 @@ id TIUIGetProposedMultilingualSetsForAddingInputMode(void *a1, void *a2)
                     break;
                   }
 
-                  v35 = 0;
-                  v21 = v29;
+                  v36 = 0;
+                  v21 = v30;
 LABEL_62:
-                  v22 = v101;
+                  v22 = v102;
                 }
 
                 else
                 {
-                  v35 = 0;
+                  v36 = 0;
                 }
 
-                v3 = v105;
-                v20 = v109;
-                j = v110;
+                v3 = v106;
+                v20 = v110;
+                j = v111;
                 goto LABEL_64;
               }
 
 LABEL_57:
-              v35 = 0;
+              v36 = 0;
             }
 
             else
             {
-              v38 = sub_22878();
-              v39 = [v38 containsObject:v21];
+              v39 = sub_22878(v25);
+              v40 = [v39 containsObject:v21];
 
-              if (!v39)
+              if (!v40)
               {
                 goto LABEL_57;
               }
 
-              v130 = 0u;
               v131 = 0u;
-              v128 = 0u;
+              v132 = 0u;
               v129 = 0u;
-              v25 = v22;
-              v113 = [v25 countByEnumeratingWithState:&v128 objects:v151 count:16];
-              if (v113)
+              v130 = 0u;
+              v26 = v22;
+              v114 = [v26 countByEnumeratingWithState:&v129 objects:v152 count:16];
+              if (v114)
               {
-                v101 = v22;
-                v40 = *v129;
+                v102 = v22;
+                v41 = *v130;
                 while (2)
                 {
-                  for (m = 0; m != v113; m = m + 1)
+                  for (m = 0; m != v114; m = m + 1)
                   {
-                    if (*v129 != v40)
+                    if (*v130 != v41)
                     {
-                      objc_enumerationMutation(v25);
+                      objc_enumerationMutation(v26);
                     }
 
-                    v32 = *(*(&v128 + 1) + 8 * m);
-                    v26 = TIInputModeGetNormalizedIdentifier();
-                    v42 = sub_22878();
-                    if ([v42 containsObject:v26])
+                    v33 = *(*(&v129 + 1) + 8 * m);
+                    v27 = TIInputModeGetNormalizedIdentifier();
+                    v43 = sub_22878(v27);
+                    if ([v43 containsObject:v27])
                     {
                       [NSLocale baseLanguageFromLanguage:v21];
-                      v43 = v40;
-                      v44 = v25;
-                      v46 = v45 = v21;
-                      v47 = [NSLocale baseLanguageFromLanguage:v26];
-                      v48 = [v46 isEqualToString:v47];
+                      v44 = v41;
+                      v45 = v26;
+                      v47 = v46 = v21;
+                      v48 = [NSLocale baseLanguageFromLanguage:v27];
+                      v49 = [v47 isEqualToString:v48];
 
-                      v21 = v45;
-                      v25 = v44;
-                      v40 = v43;
+                      v21 = v46;
+                      v26 = v45;
+                      v41 = v44;
 
-                      if (!v48)
+                      if (!v49)
                       {
                         v17 = &TUIDictationTitle_ptr;
 LABEL_61:
-                        v35 = v32;
+                        v36 = v33;
                         goto LABEL_62;
                       }
                     }
@@ -2354,14 +2350,14 @@ LABEL_61:
                     {
                     }
 
-                    v49 = sub_2200C();
-                    if ([v49 containsObject:v26])
+                    v51 = sub_2200C(v50);
+                    if ([v51 containsObject:v27])
                     {
-                      v50 = sub_227F8(v26);
-                      v51 = [v50 containsObject:v21];
+                      v52 = sub_227F8(v27);
+                      v53 = [v52 containsObject:v21];
 
                       v17 = &TUIDictationTitle_ptr;
-                      if (v51 && (([&off_4D868 containsObject:v26] & 1) != 0 || (isH13ANEPresentOnIOS() & 1) != 0))
+                      if (v53 && (([&off_4D868 containsObject:v27] & 1) != 0 || (isH13ANEPresentOnIOS() & 1) != 0))
                       {
                         goto LABEL_61;
                       }
@@ -2374,8 +2370,8 @@ LABEL_61:
                     }
                   }
 
-                  v113 = [v25 countByEnumeratingWithState:&v128 objects:v151 count:16];
-                  if (v113)
+                  v114 = [v26 countByEnumeratingWithState:&v129 objects:v152 count:16];
+                  if (v114)
                   {
                     continue;
                   }
@@ -2383,197 +2379,196 @@ LABEL_61:
                   break;
                 }
 
-                v35 = 0;
-                v3 = v105;
-                v20 = v109;
-                j = v110;
-                v22 = v101;
+                v36 = 0;
+                v3 = v106;
+                v20 = v110;
+                j = v111;
+                v22 = v102;
               }
 
               else
               {
-                v35 = 0;
+                v36 = 0;
               }
 
 LABEL_64:
             }
 
-            if (v35)
+            if (v36)
             {
-              v52 = obj;
-              v53 = +[NSMutableArray array];
-              v128 = 0u;
+              v54 = obj;
+              v55 = +[NSMutableArray array];
               v129 = 0u;
               v130 = 0u;
               v131 = 0u;
-              v54 = v52;
-              v55 = [v54 countByEnumeratingWithState:&v128 objects:v151 count:16];
-              if (v55)
+              v132 = 0u;
+              v56 = v54;
+              v57 = [v56 countByEnumeratingWithState:&v129 objects:v152 count:16];
+              if (v57)
               {
-                v56 = v55;
-                v57 = *v129;
+                v58 = v57;
+                v59 = *v130;
                 do
                 {
-                  for (n = 0; n != v56; n = n + 1)
+                  for (n = 0; n != v58; ++n)
                   {
-                    if (*v129 != v57)
+                    if (*v130 != v59)
                     {
-                      objc_enumerationMutation(v54);
+                      objc_enumerationMutation(v56);
                     }
 
-                    v59 = *(*(&v128 + 1) + 8 * n);
-                    v60 = TIUIGetMultilingualIDFromInputMode();
-                    if ([v60 length])
+                    v61 = TIUIGetMultilingualIDFromInputMode();
+                    if ([v61 length])
                     {
-                      v61 = [v17[398] numberWithInteger:{objc_msgSend(v60, "integerValue")}];
-                      [v53 addObject:v61];
+                      v62 = [v17[398] numberWithInteger:{objc_msgSend(v61, "integerValue")}];
+                      [v55 addObject:v62];
                     }
                   }
 
-                  v56 = [v54 countByEnumeratingWithState:&v128 objects:v151 count:16];
+                  v58 = [v56 countByEnumeratingWithState:&v129 objects:v152 count:16];
                 }
 
-                while (v56);
+                while (v58);
               }
 
-              [v53 sortUsingSelector:"compare:"];
-              v62 = [v53 lastObject];
-              v63 = [v62 integerValue];
+              [v55 sortUsingSelector:"compare:"];
+              v63 = [v55 lastObject];
+              v64 = [v63 integerValue];
 
-              v64 = [v17[398] numberWithUnsignedInteger:v63 + 1];
-              v37 = [v64 stringValue];
+              v65 = [v17[398] numberWithUnsignedInteger:v64 + 1];
+              v38 = [v65 stringValue];
 
-              v65 = sub_23718(v35, 0, v37);
-              v66 = sub_23718(v21, v65, v37);
-              v67 = TIUIGetPairedInputModesForInputMode(v21);
-              if (![v67 count])
+              v66 = sub_23718(v36, 0, v38);
+              v67 = sub_23718(v21, v66, v38);
+              v68 = TIUIGetPairedInputModesForInputMode(v21);
+              if (![v68 count])
               {
-                v68 = TIInputModeGetNormalizedIdentifier();
-                v69 = TIUIGetPairedInputModesForInputMode(v68);
+                v69 = TIInputModeGetNormalizedIdentifier();
+                v70 = TIUIGetPairedInputModesForInputMode(v69);
 
-                v67 = v69;
+                v68 = v70;
               }
 
-              if ([v67 count])
+              if ([v68 count])
               {
-                v102 = v66;
-                v70 = [NSMutableArray arrayWithObject:v66];
-                v116 = 0u;
+                v103 = v67;
+                v71 = [NSMutableArray arrayWithObject:v67];
                 v117 = 0u;
                 v118 = 0u;
                 v119 = 0u;
-                v114 = v67;
-                v71 = v67;
-                v72 = [v71 countByEnumeratingWithState:&v116 objects:v148 count:16];
-                if (v72)
+                v120 = 0u;
+                v115 = v68;
+                v72 = v68;
+                v73 = [v72 countByEnumeratingWithState:&v117 objects:v149 count:16];
+                if (v73)
                 {
-                  v73 = v72;
-                  v74 = *v117;
+                  v74 = v73;
+                  v75 = *v118;
                   do
                   {
-                    for (ii = 0; ii != v73; ii = ii + 1)
+                    for (ii = 0; ii != v74; ii = ii + 1)
                     {
-                      if (*v117 != v74)
+                      if (*v118 != v75)
                       {
-                        objc_enumerationMutation(v71);
+                        objc_enumerationMutation(v72);
                       }
 
-                      v76 = sub_23718(*(*(&v116 + 1) + 8 * ii), v65, v37);
-                      [v70 addObject:v76];
+                      v77 = sub_23718(*(*(&v117 + 1) + 8 * ii), v66, v38);
+                      [v71 addObject:v77];
                     }
 
-                    v73 = [v71 countByEnumeratingWithState:&v116 objects:v148 count:16];
+                    v74 = [v72 countByEnumeratingWithState:&v117 objects:v149 count:16];
                   }
 
-                  while (v73);
+                  while (v74);
                 }
 
-                v146[0] = @"current";
-                v145 = v35;
-                v77 = [NSArray arrayWithObjects:&v145 count:1];
-                v147[0] = v77;
-                v146[1] = @"updated";
-                v144 = v65;
-                v78 = [NSArray arrayWithObjects:&v144 count:1];
-                v146[2] = @"added";
-                v147[1] = v78;
-                v147[2] = v70;
-                v79 = [NSDictionary dictionaryWithObjects:v147 forKeys:v146 count:3];
-                [v100 addObject:v79];
+                v147[0] = @"current";
+                v146 = v36;
+                v78 = [NSArray arrayWithObjects:&v146 count:1];
+                v148[0] = v78;
+                v147[1] = @"updated";
+                v145 = v66;
+                v79 = [NSArray arrayWithObjects:&v145 count:1];
+                v147[2] = @"added";
+                v148[1] = v79;
+                v148[2] = v71;
+                v80 = [NSDictionary dictionaryWithObjects:v148 forKeys:v147 count:3];
+                [v101 addObject:v80];
 
-                v66 = v102;
-                v67 = v114;
+                v67 = v103;
+                v68 = v115;
               }
 
               else
               {
-                v143[0] = v65;
-                v143[1] = v66;
-                v80 = [NSArray arrayWithObjects:v143 count:2];
-                IsMonoscriptInput = TIUIMultilingualSetIsMonoscriptInput(v80);
+                v144[0] = v66;
+                v144[1] = v67;
+                v81 = [NSArray arrayWithObjects:v144 count:2];
+                IsMonoscriptInput = TIUIMultilingualSetIsMonoscriptInput(v81);
 
                 if (IsMonoscriptInput)
                 {
-                  v141[0] = @"current";
-                  v140 = v35;
-                  v70 = [NSArray arrayWithObjects:&v140 count:1];
-                  v142[0] = v70;
-                  v141[1] = @"updated";
-                  v139 = v65;
-                  v82 = [NSArray arrayWithObjects:&v139 count:1];
-                  v142[1] = v82;
-                  v141[2] = @"added";
-                  v138 = v66;
-                  v83 = [NSArray arrayWithObjects:&v138 count:1];
-                  v142[2] = v83;
-                  [NSDictionary dictionaryWithObjects:v142 forKeys:v141 count:3];
-                  v85 = v84 = v66;
-                  [v100 addObject:v85];
+                  v142[0] = @"current";
+                  v141 = v36;
+                  v71 = [NSArray arrayWithObjects:&v141 count:1];
+                  v143[0] = v71;
+                  v142[1] = @"updated";
+                  v140 = v66;
+                  v83 = [NSArray arrayWithObjects:&v140 count:1];
+                  v143[1] = v83;
+                  v142[2] = @"added";
+                  v139 = v67;
+                  v84 = [NSArray arrayWithObjects:&v139 count:1];
+                  v143[2] = v84;
+                  [NSDictionary dictionaryWithObjects:v143 forKeys:v142 count:3];
+                  v86 = v85 = v67;
+                  [v101 addObject:v86];
 
-                  v66 = v84;
+                  v67 = v85;
                 }
 
                 else
                 {
-                  v137[0] = v65;
-                  v137[1] = v66;
-                  v70 = [NSArray arrayWithObjects:v137 count:2];
-                  v151[0] = 0;
-                  if (TIUIMultilingualSetIsMultiscriptInput(v70, v151))
+                  v138[0] = v66;
+                  v138[1] = v67;
+                  v71 = [NSArray arrayWithObjects:v138 count:2];
+                  v152[0] = 0;
+                  if (TIUIMultilingualSetIsMultiscriptInput(v71, v152))
                   {
-                    v99 = [v70 objectAtIndexedSubscript:v151[0]];
-                    v103 = [v70 objectAtIndexedSubscript:v151[0] ^ 1];
-                    v86 = UIKeyboardInputModeGetNormalizedIdentifier();
-                    v98 = TIUIKeyboardGetSupportedSoftwareMultiscriptLayouts(v86);
+                    v100 = [v71 objectAtIndexedSubscript:v152[0]];
+                    v104 = [v71 objectAtIndexedSubscript:v152[0] ^ 1];
+                    v87 = UIKeyboardInputModeGetNormalizedIdentifier();
+                    v99 = TIUIKeyboardGetSupportedSoftwareMultiscriptLayouts(v87);
 
-                    v97 = [v98 firstObject];
-                    v96 = UIKeyboardInputModeWithNewSWLayout();
-                    v134 = v35;
-                    v135[0] = @"current";
-                    [NSArray arrayWithObjects:&v134 count:1];
-                    v87 = v115 = v67;
-                    v136[0] = v87;
-                    v135[1] = @"updated";
-                    v133 = v96;
-                    v88 = [NSArray arrayWithObjects:&v133 count:1];
-                    v136[1] = v88;
-                    v135[2] = @"added";
-                    v132 = v103;
-                    [NSArray arrayWithObjects:&v132 count:1];
-                    v90 = v89 = v66;
-                    v136[2] = v90;
-                    v91 = [NSDictionary dictionaryWithObjects:v136 forKeys:v135 count:3];
-                    [v100 addObject:v91];
+                    v98 = [v99 firstObject];
+                    v97 = UIKeyboardInputModeWithNewSWLayout();
+                    v135 = v36;
+                    v136[0] = @"current";
+                    [NSArray arrayWithObjects:&v135 count:1];
+                    v88 = v116 = v68;
+                    v137[0] = v88;
+                    v136[1] = @"updated";
+                    v134 = v97;
+                    v89 = [NSArray arrayWithObjects:&v134 count:1];
+                    v137[1] = v89;
+                    v136[2] = @"added";
+                    v133 = v104;
+                    [NSArray arrayWithObjects:&v133 count:1];
+                    v91 = v90 = v67;
+                    v137[2] = v91;
+                    v92 = [NSDictionary dictionaryWithObjects:v137 forKeys:v136 count:3];
+                    [v101 addObject:v92];
 
-                    v66 = v89;
-                    v67 = v115;
+                    v67 = v90;
+                    v68 = v116;
                   }
                 }
               }
 
-              v3 = v105;
-              v20 = v109;
-              j = v110;
+              v3 = v106;
+              v20 = v110;
+              j = v111;
 LABEL_91:
 
               goto LABEL_92;
@@ -2587,15 +2582,15 @@ LABEL_91:
             goto LABEL_93;
           }
 
-          v36 = [v20 firstObject];
-          v35 = sub_23718(v3, v36, v19);
+          v37 = [v20 firstObject];
+          v36 = sub_23718(v3, v37, v19);
 
-          if (([obj containsObject:v35] & 1) == 0)
+          if (([obj containsObject:v36] & 1) == 0)
           {
-            v37 = TIUIGetProposedMultilingualSetByAddingInputMode(v3, v20);
-            if (v37)
+            v38 = TIUIGetProposedMultilingualSetByAddingInputMode(v3, v20);
+            if (v38)
             {
-              [v100 addObject:v37];
+              [v101 addObject:v38];
             }
 
             goto LABEL_91;
@@ -2606,28 +2601,28 @@ LABEL_92:
 LABEL_93:
         }
 
-        v108 = [v104 countByEnumeratingWithState:&v120 objects:v149 count:16];
+        v109 = [v105 countByEnumeratingWithState:&v121 objects:v150 count:16];
       }
 
-      while (v108);
+      while (v109);
     }
 
-    v92 = v100;
-    v93 = [v100 indexesOfObjectsPassingTest:&stru_496F0];
-    if ([v93 count])
+    v93 = v101;
+    v94 = [v101 indexesOfObjectsPassingTest:&stru_496F0];
+    if ([v94 count])
     {
-      [v100 removeObjectsAtIndexes:v93];
+      [v101 removeObjectsAtIndexes:v94];
     }
 
-    v4 = v95;
+    v4 = v96;
   }
 
   else
   {
-    v92 = &__NSArray0__struct;
+    v93 = &__NSArray0__struct;
   }
 
-  return v92;
+  return v93;
 }
 
 id sub_23718(void *a1, void *a2, void *a3)
@@ -3030,43 +3025,42 @@ uint64_t TIUIGetCountOfUserVisibleInputModes()
   v0 = +[UIKeyboardInputModeController sharedInputModeController];
   v1 = [v0 enabledInputModeIdentifiers];
   v2 = +[NSMutableArray array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     while (1)
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        v10 = TIUIGetMultilingualIDFromInputMode();
-        if ([v10 length])
+        v9 = TIUIGetMultilingualIDFromInputMode();
+        if ([v9 length])
         {
-          if ([v2 containsObject:v10])
+          if ([v2 containsObject:v9])
           {
             goto LABEL_10;
           }
 
-          [v2 addObject:v10];
+          [v2 addObject:v9];
         }
 
         ++v6;
 LABEL_10:
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (!v5)
       {
         goto LABEL_14;
@@ -3091,124 +3085,122 @@ id TIUIGetLocalizedConcatenatedLanguageNamesForInputModesWithStyle(void *a1, int
 
   else
   {
-    v38 = a2;
-    v39 = v3;
+    v36 = a2;
+    v37 = v3;
     v6 = +[NSMutableDictionary dictionary];
+    v42 = 0u;
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
     v7 = +[UIKeyboardInputModeController sharedInputModeController];
     v8 = [v7 enabledInputModeIdentifiers];
 
-    v9 = [v8 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v45;
+      v11 = *v43;
       do
       {
-        for (i = 0; i != v10; i = i + 1)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v45 != v11)
+          if (*v43 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v44 + 1) + 8 * i);
-          v14 = TIInputModeGetLanguage();
-          v15 = TIInputModeGetNormalizedIdentifier();
-          v16 = [v6 objectForKeyedSubscript:v14];
-          if (!v16)
+          v13 = TIInputModeGetLanguage();
+          v14 = TIInputModeGetNormalizedIdentifier();
+          v15 = [v6 objectForKeyedSubscript:v13];
+          if (!v15)
           {
-            v16 = +[NSMutableSet set];
-            [v6 setObject:v16 forKeyedSubscript:v14];
+            v15 = +[NSMutableSet set];
+            [v6 setObject:v15 forKeyedSubscript:v13];
           }
 
-          [v16 addObject:v15];
+          [v15 addObject:v14];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v10);
     }
 
-    v17 = [v39 firstObject];
-    v18 = +[NSLocale preferredLanguages];
-    v19 = TIInputModeGetMultilingualSetFromInputModesWithPreferredLanguages();
+    v16 = [v37 firstObject];
+    v17 = +[NSLocale preferredLanguages];
+    v18 = TIInputModeGetMultilingualSetFromInputModesWithPreferredLanguages();
 
-    v20 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v19 count]);
+    v19 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v18 count]);
+    v38 = 0u;
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v21 = v19;
-    v22 = [v21 countByEnumeratingWithState:&v40 objects:v48 count:16];
-    if (v22)
+    v20 = v18;
+    v21 = [v20 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    if (v21)
     {
-      v23 = v22;
-      v24 = *v41;
+      v22 = v21;
+      v23 = *v39;
       do
       {
-        for (j = 0; j != v23; j = j + 1)
+        for (j = 0; j != v22; ++j)
         {
-          if (*v41 != v24)
+          if (*v39 != v23)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v20);
           }
 
-          v26 = *(*(&v40 + 1) + 8 * j);
           if ((TIInputModeIsMultilingualOnly() & 1) == 0)
           {
-            v27 = TIInputModeGetLanguage();
-            v28 = [v6 objectForKeyedSubscript:v27];
-            v29 = [v28 count];
+            v25 = TIInputModeGetLanguage();
+            v26 = [v6 objectForKeyedSubscript:v25];
+            v27 = [v26 count];
 
-            if (v29 >= 2)
+            if (v27 >= 2)
             {
-              v30 = TIInputModeGetNormalizedIdentifier();
+              v28 = TIInputModeGetNormalizedIdentifier();
 
-              v27 = v30;
+              v25 = v28;
             }
 
-            v31 = [TIKeyboardListController keyboardDisplayNameForIdentifier:v27];
-            [v20 addObject:v31];
+            v29 = [TIKeyboardListController keyboardDisplayNameForIdentifier:v25];
+            [v19 addObject:v29];
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v38 objects:v46 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
 
-    if (v38)
+    if (v36)
     {
-      v32 = [v20 count];
-      v33 = [NSBundle bundleForClass:objc_opt_class()];
-      v34 = v33;
-      if (v32 == &dword_0 + 2)
+      v30 = [v19 count];
+      v31 = [NSBundle bundleForClass:objc_opt_class()];
+      v32 = v31;
+      if (v30 == &dword_0 + 2)
       {
-        v35 = @"LIST_SEPARATOR_2";
+        v33 = @"LIST_SEPARATOR_2";
       }
 
       else
       {
-        v35 = @"LIST_SEPARATOR";
+        v33 = @"LIST_SEPARATOR";
       }
 
-      v36 = [v33 localizedStringForKey:v35 value:&stru_49C80 table:@"Keyboard"];
+      v34 = [v31 localizedStringForKey:v33 value:&stru_49C80 table:@"Keyboard"];
 
-      v5 = [v20 componentsJoinedByString:v36];
+      v5 = [v19 componentsJoinedByString:v34];
     }
 
     else
     {
-      v5 = [NSListFormatter localizedStringByJoiningStrings:v20];
+      v5 = [NSListFormatter localizedStringByJoiningStrings:v19];
     }
 
-    v3 = v39;
+    v3 = v37;
   }
 
   return v5;
@@ -3217,30 +3209,29 @@ id TIUIGetLocalizedConcatenatedLanguageNamesForInputModesWithStyle(void *a1, int
 uint64_t TIUIMultilingualSetGetLanguageCount(void *a1)
 {
   v1 = a1;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
-      for (i = 0; i != v3; i = i + 1)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
         v4 += TIInputModeIsMultilingualOnly() ^ 1;
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
@@ -3254,38 +3245,37 @@ uint64_t TIUIMultilingualSetGetLanguageCount(void *a1)
   return v4;
 }
 
-id TIUIMultilingualSetContainsTransliterationInputModes(void *a1)
+char *TIUIMultilingualSetContainsTransliterationInputModes(void *a1)
 {
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
-    v3 = *v10;
+    v3 = *v9;
     while (2)
     {
-      for (i = 0; i != v2; i = i + 1)
+      for (i = 0; i != v2; ++i)
       {
-        if (*v10 != v3)
+        if (*v9 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v9 + 1) + 8 * i);
-        v6 = TIInputModeGetNormalizedIdentifier();
+        v5 = TIInputModeGetNormalizedIdentifier();
         IsTransliteration = TIInputModeIsTransliteration();
 
         if (IsTransliteration)
         {
-          v2 = &dword_0 + 1;
+          v2 = (&dword_0 + 1);
           goto LABEL_11;
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v2)
       {
         continue;
@@ -3372,7 +3362,7 @@ void sub_24C88(id a1)
   qword_56A38 = v16;
 }
 
-uint64_t KeyboardSettingsLog()
+uint64_t KeyboardSettingsLog(uint64_t a1, uint64_t a2)
 {
   if (qword_56A50 != -1)
   {
@@ -3382,7 +3372,7 @@ uint64_t KeyboardSettingsLog()
   return qword_56A48;
 }
 
-uint64_t _TUIKitUserDefaults()
+uint64_t _TUIKitUserDefaults(uint64_t a1, uint64_t a2)
 {
   if (qword_56A60 != -1)
   {
@@ -3515,7 +3505,7 @@ unint64_t __TUILogGetCategoryImpl(_BYTE *__s2)
       {
         if (!memcmp(*(v22 + 264), __s2, v15))
         {
-          v27 = &v8[8 * v21];
+          v27 = &v8[v21];
           goto LABEL_46;
         }
 
@@ -3558,7 +3548,7 @@ unint64_t __TUILogGetCategoryImpl(_BYTE *__s2)
     while (v22);
   }
 
-  v27 = &v8[8 * v21];
+  v27 = &v8[v21];
   v28 = strlen(__s2);
   v29 = v28;
   if (v28 < 0x2801)
@@ -3588,7 +3578,7 @@ unint64_t __TUILogGetCategoryImpl(_BYTE *__s2)
   memcpy(v30, __s2, v29);
   v34 = sub_26644(__s2);
   *v34 = v20;
-  *(v34 + 264) = v30;
+  *(v34 + 33) = v30;
   *(v34 + 8) = 0u;
   *(v34 + 24) = 0u;
   *(v34 + 40) = 0u;
@@ -3612,7 +3602,7 @@ LABEL_46:
   return v9 - 16;
 }
 
-uint64_t sub_26644(const char *a1)
+char *sub_26644(const char *a1)
 {
   v2 = (qword_567D0 + 7) & 0xFFFFFFFFFFFFFFF8;
   if (v2 < qword_567D0 || v2 > 0x26E0)
@@ -3654,7 +3644,7 @@ uint64_t sub_26644(const char *a1)
   }
 
   *(v5 + 8) = os_log_create("com.apple.TextInputUI", a1);
-  return v5 + 16;
+  return (v5 + 16);
 }
 
 uint64_t __TUILogGetCategoryCachedImpl(_BYTE *__s2, unint64_t *a2)
@@ -3698,7 +3688,7 @@ uint64_t sub_26864(uint64_t a1, int a2, void *a3)
   return result;
 }
 
-uint64_t TUISmartReplyLog()
+uint64_t TUISmartReplyLog(uint64_t a1, uint64_t a2)
 {
   if (qword_56B78 != -1)
   {
@@ -3708,7 +3698,7 @@ uint64_t TUISmartReplyLog()
   return qword_56B70;
 }
 
-uint64_t TUISmartActionLog()
+uint64_t TUISmartActionLog(uint64_t a1, uint64_t a2)
 {
   if (qword_56B88 != -1)
   {
@@ -3718,7 +3708,7 @@ uint64_t TUISmartActionLog()
   return qword_56B80;
 }
 
-uint64_t TUICandidateGenerationLog()
+uint64_t TUICandidateGenerationLog(uint64_t a1, uint64_t a2)
 {
   if (qword_56B98 != -1)
   {
@@ -3728,7 +3718,7 @@ uint64_t TUICandidateGenerationLog()
   return qword_56B90;
 }
 
-uint64_t TUIBackendControllerLog()
+uint64_t TUIBackendControllerLog(uint64_t a1, uint64_t a2)
 {
   if (qword_56BA8 != -1)
   {
@@ -3782,10 +3772,9 @@ uint64_t sub_26DE0(uint64_t a1)
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 40);
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -3849,7 +3838,7 @@ void sub_29538(uint64_t a1)
 
 id sub_29970(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  result = [*(a1 + 32) evaluateWithObject:a2];
+  result = [*(a1 + 32) evaluateWithObject:{a2, a4, a5, a6}];
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -3908,11 +3897,11 @@ unint64_t sub_2AC00()
 
 uint64_t sub_2AC70(uint64_t a1)
 {
-  v2 = *(*(sub_2CCAC() - 8) + 64);
+  sub_2CCAC();
   __chkstk_darwin();
   sub_2C15C(0, &unk_568E0, off_48720);
-  v3 = [objc_allocWithZone(PSSpecifier) init];
-  [v3 setProperty:a1 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
+  v2 = [objc_allocWithZone(PSSpecifier) init];
+  [v2 setProperty:a1 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
   sub_2CC8C();
   return sub_2CC6C();
 }
@@ -3925,90 +3914,76 @@ uint64_t sub_2AD5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[7] = a2;
   v5 = sub_2CCAC();
   v4[10] = v5;
-  v6 = *(v5 - 8);
-  v4[11] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4[11] = *(v5 - 8);
   v4[12] = swift_task_alloc();
-  v8 = sub_2CCCC();
-  v4[13] = v8;
-  v9 = *(v8 - 8);
-  v4[14] = v9;
-  v10 = *(v9 + 64) + 15;
+  v6 = sub_2CCCC();
+  v4[13] = v6;
+  v4[14] = *(v6 - 8);
   v4[15] = swift_task_alloc();
   v4[16] = swift_task_alloc();
-  v11 = sub_2CC5C();
-  v4[17] = v11;
-  v12 = *(v11 - 8);
-  v4[18] = v12;
-  v13 = *(v12 + 64) + 15;
+  v7 = sub_2CC5C();
+  v4[17] = v7;
+  v4[18] = *(v7 - 8);
   v4[19] = swift_task_alloc();
-  v14 = *(*(sub_2BB24(&qword_56890, &qword_43CF8) - 8) + 64) + 15;
+  sub_2BB24(&qword_56890, &qword_43CF8);
   v4[20] = swift_task_alloc();
-  v15 = sub_2CC4C();
-  v4[21] = v15;
-  v16 = *(v15 - 8);
-  v4[22] = v16;
-  v17 = *(v16 + 64) + 15;
+  v8 = sub_2CC4C();
+  v4[21] = v8;
+  v4[22] = *(v8 - 8);
   v4[23] = swift_task_alloc();
   sub_2CD6C();
   v4[24] = sub_2CD5C();
-  v19 = sub_2CD4C();
+  v10 = sub_2CD4C();
 
-  return _swift_task_switch(sub_2AFAC, v19, v18);
+  return _swift_task_switch(sub_2AFAC, v10, v9);
 }
 
 void sub_2AFAC()
 {
-  v1 = v0[24];
-  v2 = v0[21];
-  v3 = v0[22];
-  v5 = v0[19];
-  v4 = v0[20];
-  v6 = v0[17];
-  v7 = v0[18];
-  v8 = v0[7];
+  v1 = v0[21];
+  v2 = v0[22];
+  v4 = v0[19];
+  v3 = v0[20];
+  v5 = v0[17];
+  v6 = v0[18];
 
   sub_2CCFC();
   sub_2CC1C();
-  (*(v7 + 8))(v5, v6);
-  if ((*(v3 + 48))(v4, 1, v2) == 1)
+  (*(v6 + 8))(v4, v5);
+  if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
-    v9 = v0[16];
-    v10 = v0[13];
-    v11 = v0[14];
-    v13 = v0[6];
-    v12 = v0[7];
+    v7 = v0[16];
+    v8 = v0[13];
+    v9 = v0[14];
     sub_2C000(v0[20]);
     sub_2CCEC();
     sub_2CD0C();
-    (*(v11 + 8))(v9, v10);
+    (*(v9 + 8))(v7, v8);
     goto LABEL_58;
   }
 
-  v14 = v0[15];
-  v15 = v0[7];
   (*(v0[22] + 32))(v0[23], v0[20], v0[21]);
   sub_2CCEC();
   v0[2] = sub_2CC2C();
-  v0[3] = v16;
+  v0[3] = v10;
   v0[4] = 47;
   v0[5] = 0xE100000000000000;
   sub_2C068();
-  v17 = sub_2CD7C();
+  v11 = sub_2CD7C();
 
-  v18 = *(v17 + 16);
-  if (v18)
+  v12 = *(v11 + 16);
+  if (v12)
   {
-    v19 = 0;
-    v20 = -v18;
-    v21 = v17 + 40;
-    v22 = &_swiftEmptyArrayStorage;
+    v13 = 0;
+    v14 = -v12;
+    v15 = v11 + 40;
+    v16 = &_swiftEmptyArrayStorage;
     do
     {
-      v23 = (v21 + 16 * v19++);
+      v17 = (v15 + 16 * v13++);
       while (1)
       {
-        if ((v19 - 1) >= *(v17 + 16))
+        if ((v13 - 1) >= *(v11 + 16))
         {
           __break(1u);
 LABEL_64:
@@ -4018,123 +3993,118 @@ LABEL_65:
           return;
         }
 
-        v24 = *(v23 - 1);
-        v25 = *v23;
-        v26 = HIBYTE(*v23) & 0xF;
-        if ((*v23 & 0x2000000000000000) == 0)
+        v18 = *(v17 - 1);
+        v19 = *v17;
+        v20 = HIBYTE(*v17) & 0xF;
+        if ((*v17 & 0x2000000000000000) == 0)
         {
-          v26 = v24 & 0xFFFFFFFFFFFFLL;
+          v20 = v18 & 0xFFFFFFFFFFFFLL;
         }
 
-        if (v26)
+        if (v20)
         {
-          if (v24 != 0x6472616F6279654BLL || v25 != 0xE800000000000000)
+          v21 = v18 == 0x6472616F6279654BLL && v19 == 0xE800000000000000;
+          if (!v21 && (sub_2CD9C() & 1) == 0)
           {
-            v28 = *(v23 - 1);
-            v29 = *v23;
-            if ((sub_2CD9C() & 1) == 0)
-            {
-              break;
-            }
+            break;
           }
         }
 
-        ++v19;
-        v23 += 2;
-        if (v20 + v19 == 1)
+        ++v13;
+        v17 += 2;
+        if (v14 + v13 == 1)
         {
           goto LABEL_23;
         }
       }
 
-      v110 = v22;
+      v76 = v16;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        sub_2BDC8(0, *(v22 + 2) + 1, 1);
+        sub_2BDC8(0, *(v16 + 2) + 1, 1);
       }
 
-      v21 = v17 + 40;
-      v31 = *(v22 + 2);
-      v30 = *(v22 + 3);
-      v32 = v31 + 1;
-      if (v31 >= v30 >> 1)
+      v15 = v11 + 40;
+      v23 = *(v16 + 2);
+      v22 = *(v16 + 3);
+      v24 = v23 + 1;
+      if (v23 >= v22 >> 1)
       {
-        v34 = v31 + 1;
-        v109 = v31;
-        sub_2BDC8((v30 > 1), v31 + 1, 1);
-        v32 = v34;
-        v31 = v109;
-        v21 = v17 + 40;
-        v22 = v110;
+        v26 = v23 + 1;
+        v75 = v23;
+        sub_2BDC8((v22 > 1), v23 + 1, 1);
+        v24 = v26;
+        v23 = v75;
+        v15 = v11 + 40;
+        v16 = v76;
       }
 
-      *(v22 + 2) = v32;
-      v33 = &v22[16 * v31];
-      *(v33 + 4) = v24;
-      *(v33 + 5) = v25;
+      *(v16 + 2) = v24;
+      v25 = &v16[16 * v23];
+      *(v25 + 4) = v18;
+      *(v25 + 5) = v19;
     }
 
-    while (v20 + v19);
+    while (v14 + v13);
   }
 
   else
   {
-    v22 = &_swiftEmptyArrayStorage;
+    v16 = &_swiftEmptyArrayStorage;
   }
 
 LABEL_23:
 
-  v35 = *(v22 + 2);
-  if (!v35)
+  v27 = *(v16 + 2);
+  if (!v27)
   {
-    v91 = v0[23];
     sub_2CC3C();
-    if (v92)
+    if (v65)
     {
-      v93 = v0[9];
+      v66 = v0[9];
 
-      v94 = sub_2CD2C();
+      v67 = sub_2CD2C();
 
-      [v93 setSpecifierIdentifierToScrollAndHighlight:v94];
+      [v66 setSpecifierIdentifierToScrollAndHighlight:v67];
 
       goto LABEL_57;
     }
 
-    v35 = *(v22 + 2);
-    if (!v35)
+    v27 = *(v16 + 2);
+    if (!v27)
     {
 
       goto LABEL_57;
     }
   }
 
-  v36 = (v0[11] + 8);
+  v28 = (v0[11] + 8);
   while (1)
   {
-    v42 = *(v22 + 4);
-    v43 = *(v22 + 5);
+    v31 = *(v16 + 4);
+    v32 = *(v16 + 5);
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    if (!isUniquelyReferenced_nonNull_native || (v35 - 1) > *(v22 + 3) >> 1)
+    if (!isUniquelyReferenced_nonNull_native || (v27 - 1) > *(v16 + 3) >> 1)
     {
-      v22 = sub_2BEF4(isUniquelyReferenced_nonNull_native, v35, 1, v22);
+      v16 = sub_2BEF4(isUniquelyReferenced_nonNull_native, v27, 1, v16);
     }
 
-    sub_2C0BC((v22 + 32));
-    v45 = *(v22 + 2);
-    memmove(v22 + 32, v22 + 48, 16 * v45 - 16);
-    *(v22 + 2) = v45 - 1;
+    sub_2C0BC((v16 + 32));
+    v34 = *(v16 + 2);
+    memmove(v16 + 32, v16 + 48, 16 * v34 - 16);
+    *(v16 + 2) = v34 - 1;
 
-    v46._rawValue = &off_49AE0;
-    v112._countAndFlagsBits = v42;
-    v112._object = v43;
-    v47 = sub_2CD8C(v46, v112);
+    v35._rawValue = &off_49AE0;
+    v78._countAndFlagsBits = v31;
+    v78._object = v32;
+    v36 = sub_2CD8C(v35, v78);
 
-    if (v47 <= 2)
+    if (v36 <= 2)
     {
-      if (v47)
+      if (v36)
       {
-        if (v47 == 1)
+        if (v36 == 1)
         {
           IsHardwareKeyboardAttached = GSEventIsHardwareKeyboardAttached();
 
@@ -4143,161 +4113,142 @@ LABEL_23:
             goto LABEL_56;
           }
 
-          v80 = v0[15];
-          v81 = v0[12];
-          v82 = v0[10];
-          v40 = &unk_568C8;
-          v41 = off_48740;
+          v29 = &unk_568C8;
+          v30 = off_48740;
         }
 
         else
         {
-          if (v47 != 2)
+          if (v36 != 2)
           {
             goto LABEL_55;
           }
 
-          v48 = v0[15];
-          v49 = v0[12];
-          v50 = v0[10];
-
-          v40 = &unk_568C0;
-          v41 = off_48728;
+          v29 = &unk_568C0;
+          v30 = off_48728;
         }
       }
 
       else
       {
-        v37 = v0[15];
-        v38 = v0[12];
-        v39 = v0[10];
 
-        v40 = &unk_568D0;
-        v41 = &off_48748;
+        v29 = &unk_568D0;
+        v30 = &off_48748;
       }
 
       goto LABEL_26;
     }
 
-    if (v47 != 3)
+    if (v36 != 3)
     {
       break;
     }
 
-    v71 = [objc_opt_self() sharedInputModeController];
-    if (!v71)
+    v54 = [objc_opt_self() sharedInputModeController];
+    if (!v54)
     {
       goto LABEL_65;
     }
 
-    v72 = v71;
-    v73 = [v71 activeDictationSupportedInputModeIdentifiers];
+    v55 = v54;
+    v56 = [v54 activeDictationSupportedInputModeIdentifiers];
 
-    if (!v73)
+    if (!v56)
     {
       goto LABEL_64;
     }
 
-    v74 = sub_2CD3C();
+    v57 = sub_2CD3C();
 
-    v75 = *(v74 + 16);
+    v58 = *(v57 + 16);
 
-    if (v75 <= 1)
+    if (v58 <= 1)
     {
       goto LABEL_56;
     }
 
-    v76 = v0[15];
-    v77 = v0[12];
-    v78 = v0[10];
-    v40 = &unk_568B8;
-    v41 = off_48730;
+    v29 = &unk_568B8;
+    v30 = off_48730;
 LABEL_26:
-    sub_2C15C(0, v40, v41);
+    sub_2C15C(0, v29, v30);
     sub_2CC9C();
-    sub_2C110(&qword_568A8, &type metadata accessor for PreferencesControllerRecipe);
+    sub_2C110(&qword_568A8, &type metadata accessor for PreferencesControllerRecipe, &protocol conformance descriptor for PreferencesControllerRecipe);
     sub_2CCBC();
 LABEL_27:
-    (*v36)(v0[12], v0[10]);
-    v35 = *(v22 + 2);
-    if (!v35)
+    (*v28)(v0[12], v0[10]);
+    v27 = *(v16 + 2);
+    if (!v27)
     {
       goto LABEL_56;
     }
   }
 
-  if (v47 == 4)
+  if (v36 == 4)
   {
     if (!GSEventIsHardwareKeyboardAttached())
     {
       goto LABEL_55;
     }
 
-    v83 = v0[8];
-    v84 = sub_2CD2C();
+    v60 = v0[8];
+    v61 = sub_2CD2C();
 
-    v85 = [v83 specifierForID:v84];
+    v62 = [v60 specifierForID:v61];
 
-    if (!v85)
+    if (!v62)
     {
       goto LABEL_56;
     }
 
-    v86 = v0[15];
-    v87 = v0[12];
-    v88 = v0[10];
-    v89 = v0[8];
-    v90 = sub_2CD2C();
-    [v85 setProperty:v89 forKey:v90];
+    v63 = v0[8];
+    v64 = sub_2CD2C();
+    [v62 setProperty:v63 forKey:v64];
 
     sub_2C15C(0, &qword_568B0, off_48738);
-    v70 = v85;
+    v53 = v62;
     sub_2CC8C();
-    sub_2C110(&qword_568A8, &type metadata accessor for PreferencesControllerRecipe);
+    sub_2C110(&qword_568A8, &type metadata accessor for PreferencesControllerRecipe, &protocol conformance descriptor for PreferencesControllerRecipe);
     goto LABEL_52;
   }
 
-  if (v47 == 5)
+  if (v36 == 5)
   {
-    v51 = [objc_opt_self() currentDevice];
-    v52 = [v51 userInterfaceIdiom];
+    v37 = [objc_opt_self() currentDevice];
+    v38 = [v37 userInterfaceIdiom];
 
-    if (v52 != &dword_0 + 1)
+    if (v38 != &dword_0 + 1)
     {
-      v53 = [objc_opt_self() mainScreen];
-      [v53 _referenceBounds];
-      v55 = v54;
-      v57 = v56;
-      v59 = v58;
-      v61 = v60;
+      v39 = [objc_opt_self() mainScreen];
+      [v39 _referenceBounds];
+      v41 = v40;
+      v43 = v42;
+      v45 = v44;
+      v47 = v46;
 
-      v113.origin.x = v55;
-      v113.origin.y = v57;
-      v113.size.width = v59;
-      v113.size.height = v61;
-      if (CGRectGetWidth(v113) > 320.0)
+      v79.origin.x = v41;
+      v79.origin.y = v43;
+      v79.size.width = v45;
+      v79.size.height = v47;
+      if (CGRectGetWidth(v79) > 320.0)
       {
-        v62 = v0[8];
-        v63 = sub_2CD2C();
+        v48 = v0[8];
+        v49 = sub_2CD2C();
 
-        v64 = [v62 specifierForID:v63];
+        v50 = [v48 specifierForID:v49];
 
-        if (!v64)
+        if (!v50)
         {
           goto LABEL_56;
         }
 
-        v65 = v0[15];
-        v66 = v0[12];
-        v67 = v0[10];
-        v68 = v0[8];
-        v69 = sub_2CD2C();
-        [v64 setProperty:v68 forKey:v69];
+        v51 = v0[8];
+        v52 = sub_2CD2C();
+        [v50 setProperty:v51 forKey:v52];
 
         sub_2C15C(0, &qword_568A0, PSListItemsController_ptr);
-        v70 = v64;
+        v53 = v50;
         sub_2CC8C();
-        sub_2C110(&qword_568A8, &type metadata accessor for PreferencesControllerRecipe);
+        sub_2C110(&qword_568A8, &type metadata accessor for PreferencesControllerRecipe, &protocol conformance descriptor for PreferencesControllerRecipe);
 LABEL_52:
         sub_2CCBC();
 
@@ -4311,54 +4262,46 @@ LABEL_55:
 LABEL_56:
 
 LABEL_57:
-  v96 = v0[22];
-  v95 = v0[23];
-  v97 = v0[21];
-  v99 = v0[14];
-  v98 = v0[15];
-  v100 = v0[13];
-  v101 = v0[6];
+  v69 = v0[22];
+  v68 = v0[23];
+  v70 = v0[21];
+  v72 = v0[14];
+  v71 = v0[15];
+  v73 = v0[13];
   sub_2CD0C();
-  (*(v99 + 8))(v98, v100);
-  (*(v96 + 8))(v95, v97);
+  (*(v72 + 8))(v71, v73);
+  (*(v69 + 8))(v68, v70);
 LABEL_58:
-  v102 = v0[23];
-  v103 = v0[19];
-  v104 = v0[20];
-  v106 = v0[15];
-  v105 = v0[16];
-  v107 = v0[12];
 
-  v108 = v0[1];
+  v74 = v0[1];
 
-  v108();
+  v74();
 }
 
 uint64_t sub_2B8F8()
 {
   v1 = sub_2BB24(&qword_56878, &qword_43CE0);
   v2 = *(v1 - 8);
-  v3 = (*(v2 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v5 = &v15 - v4;
-  v6 = *v0;
-  v7 = *(v0 + 8);
-  v8 = swift_allocObject();
-  *(v8 + 16) = v6;
-  *(v8 + 24) = v7;
+  v4 = &v14 - v3;
+  v5 = *v0;
+  v6 = *(v0 + 8);
+  v7 = swift_allocObject();
+  *(v7 + 16) = v5;
+  *(v7 + 24) = v6;
   sub_2CC7C();
-  sub_2C110(&qword_56880, &type metadata accessor for PreferencesControllerView);
+  sub_2C110(&qword_56880, &type metadata accessor for PreferencesControllerView, &protocol conformance descriptor for PreferencesControllerView);
+  v8 = v5;
   v9 = v6;
-  v10 = v7;
   sub_2CD1C();
-  v11 = swift_allocObject();
-  *(v11 + 16) = v9;
-  *(v11 + 24) = v10;
+  v10 = swift_allocObject();
+  *(v10 + 16) = v8;
+  *(v10 + 24) = v9;
   sub_2BD1C();
+  v11 = v8;
   v12 = v9;
-  v13 = v10;
   sub_2CCDC();
-  return (*(v2 + 8))(v5, v1);
+  return (*(v2 + 8))(v4, v1);
 }
 
 id sub_2BAC8@<X0>(void *a1@<X8>)
@@ -4375,7 +4318,6 @@ uint64_t sub_2BB24(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4397,12 +4339,11 @@ uint64_t sub_2BB74(uint64_t a1, uint64_t a2)
 
 uint64_t sub_2BC28()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t sub_2BD1C()
@@ -4423,7 +4364,6 @@ uint64_t sub_2BD80(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -4431,7 +4371,7 @@ uint64_t sub_2BD80(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-char *sub_2BDC8(char *a1, int64_t a2, char a3)
+char *sub_2BDC8(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_2BDE8(a1, a2, a3, *v3);
   *v3 = result;
@@ -4615,7 +4555,7 @@ unint64_t sub_2C068()
   return result;
 }
 
-uint64_t sub_2C110(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2C110(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4628,12 +4568,11 @@ uint64_t sub_2C110(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_2C15C(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_2C15C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -4715,25 +4654,26 @@ void sub_2C2E8(char a1, NSObject *a2)
 
 void sub_2C4B0(uint8_t *a1, _BYTE *a2, uint8_t *a3, _BYTE *a4)
 {
-  if (os_variant_has_internal_diagnostics())
+  has_internal_diagnostics = os_variant_has_internal_diagnostics();
+  if (has_internal_diagnostics)
   {
-    v9 = __TUIFaultDebugAssertLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v11 = __TUIFaultDebugAssertLog(has_internal_diagnostics, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *a1 = 0;
       *a2 = 0;
-      _os_log_fault_impl(&dword_0, v9, OS_LOG_TYPE_FAULT, "Supported multiscript layouts must be subset of all supported layouts. If that changes, address logic below accordingly.", a1, 2u);
+      _os_log_fault_impl(&dword_0, v11, OS_LOG_TYPE_FAULT, "Supported multiscript layouts must be subset of all supported layouts. If that changes, address logic below accordingly.", a1, 2u);
     }
   }
 
   else
   {
-    v8 = *(__TUILogGetCategoryCachedImpl("Assert", &qword_56990) + 8);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = *(__TUILogGetCategoryCachedImpl("Assert", &qword_56990) + 8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *a3 = 0;
       *a4 = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Supported multiscript layouts must be subset of all supported layouts. If that changes, address logic below accordingly.", a3, 2u);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Supported multiscript layouts must be subset of all supported layouts. If that changes, address logic below accordingly.", a3, 2u);
     }
   }
 }
@@ -4754,12 +4694,14 @@ id sub_2C5E8(uint64_t a1, uint64_t a2)
 
 void sub_2C728()
 {
-  if (os_variant_has_internal_diagnostics())
+  has_internal_diagnostics = os_variant_has_internal_diagnostics();
+  if (has_internal_diagnostics)
   {
-    v7 = __TUIFaultDebugAssertLog();
-    if (sub_1B75C(v7))
+    v9 = __TUIFaultDebugAssertLog(has_internal_diagnostics, v1);
+    if (sub_1B75C(v9))
     {
-      sub_1B700(&dword_0, v8, v9, "Supported multiscript layouts must be subset of all supported layouts. If that changes, adjust logic below accordingly.", v10, v11, v12, v13, 0);
+      v17 = 0;
+      sub_1B700(&dword_0, v10, v11, "Supported multiscript layouts must be subset of all supported layouts. If that changes, adjust logic below accordingly.", v12, v13, v14, v15, v17);
     }
   }
 
@@ -4768,30 +4710,31 @@ void sub_2C728()
     CategoryCachedImpl = __TUILogGetCategoryCachedImpl("Assert", &qword_569C0);
     if (sub_1B740(CategoryCachedImpl))
     {
-      sub_1B720(&dword_0, v1, v2, "Supported multiscript layouts must be subset of all supported layouts. If that changes, adjust logic below accordingly.", v3, v4, v5, v6, v14, v15, 0);
+      sub_1B720(&dword_0, v3, v4, "Supported multiscript layouts must be subset of all supported layouts. If that changes, adjust logic below accordingly.", v5, v6, v7, v8, v16, v18);
     }
   }
 }
 
 void sub_2C7B8(uint64_t a1, void *a2)
 {
-  if (os_variant_has_internal_diagnostics())
+  has_internal_diagnostics = os_variant_has_internal_diagnostics();
+  if (has_internal_diagnostics)
   {
-    v5 = __TUIFaultDebugAssertLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v7 = __TUIFaultDebugAssertLog(has_internal_diagnostics, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      *v6 = 0;
-      _os_log_fault_impl(&dword_0, v5, OS_LOG_TYPE_FAULT, "We should only set up a layout detail view if we have content for >1 section.", v6, 2u);
+      *v8 = 0;
+      _os_log_fault_impl(&dword_0, v7, OS_LOG_TYPE_FAULT, "We should only set up a layout detail view if we have content for >1 section.", v8, 2u);
     }
   }
 
   else
   {
-    v4 = *(__TUILogGetCategoryCachedImpl("Assert", &qword_569C8) + 8);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = *(__TUILogGetCategoryCachedImpl("Assert", &qword_569C8) + 8);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "We should only set up a layout detail view if we have content for >1 section.", buf, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "We should only set up a layout detail view if we have content for >1 section.", buf, 2u);
     }
   }
 
@@ -4800,12 +4743,14 @@ void sub_2C7B8(uint64_t a1, void *a2)
 
 void sub_2C890()
 {
-  if (os_variant_has_internal_diagnostics())
+  has_internal_diagnostics = os_variant_has_internal_diagnostics();
+  if (has_internal_diagnostics)
   {
-    v7 = __TUIFaultDebugAssertLog();
-    if (sub_1B75C(v7))
+    v9 = __TUIFaultDebugAssertLog(has_internal_diagnostics, v1);
+    if (sub_1B75C(v9))
     {
-      sub_1B700(&dword_0, v8, v9, "Multiscript set should not have paired IMs.", v10, v11, v12, v13, 0);
+      v17 = 0;
+      sub_1B700(&dword_0, v10, v11, "Multiscript set should not have paired IMs.", v12, v13, v14, v15, v17);
     }
   }
 
@@ -4814,19 +4759,21 @@ void sub_2C890()
     CategoryCachedImpl = __TUILogGetCategoryCachedImpl("Assert", &qword_569D0);
     if (sub_1B740(CategoryCachedImpl))
     {
-      sub_1B720(&dword_0, v1, v2, "Multiscript set should not have paired IMs.", v3, v4, v5, v6, v14, v15, 0);
+      sub_1B720(&dword_0, v3, v4, "Multiscript set should not have paired IMs.", v5, v6, v7, v8, v16, v18);
     }
   }
 }
 
 void sub_2C920()
 {
-  if (os_variant_has_internal_diagnostics())
+  has_internal_diagnostics = os_variant_has_internal_diagnostics();
+  if (has_internal_diagnostics)
   {
-    v7 = __TUIFaultDebugAssertLog();
-    if (sub_1B75C(v7))
+    v9 = __TUIFaultDebugAssertLog(has_internal_diagnostics, v1);
+    if (sub_1B75C(v9))
     {
-      sub_1B700(&dword_0, v8, v9, "Removing an input mode from a multiscript pair should not result in a multiscript layout.", v10, v11, v12, v13, 0);
+      v17 = 0;
+      sub_1B700(&dword_0, v10, v11, "Removing an input mode from a multiscript pair should not result in a multiscript layout.", v12, v13, v14, v15, v17);
     }
   }
 
@@ -4835,19 +4782,21 @@ void sub_2C920()
     CategoryCachedImpl = __TUILogGetCategoryCachedImpl("Assert", &qword_569D8);
     if (sub_1B740(CategoryCachedImpl))
     {
-      sub_1B720(&dword_0, v1, v2, "Removing an input mode from a multiscript pair should not result in a multiscript layout.", v3, v4, v5, v6, v14, v15, 0);
+      sub_1B720(&dword_0, v3, v4, "Removing an input mode from a multiscript pair should not result in a multiscript layout.", v5, v6, v7, v8, v16, v18);
     }
   }
 }
 
 void sub_2C9B0()
 {
-  if (os_variant_has_internal_diagnostics())
+  has_internal_diagnostics = os_variant_has_internal_diagnostics();
+  if (has_internal_diagnostics)
   {
-    v7 = __TUIFaultDebugAssertLog();
-    if (sub_1B75C(v7))
+    v9 = __TUIFaultDebugAssertLog(has_internal_diagnostics, v1);
+    if (sub_1B75C(v9))
     {
-      sub_1B700(&dword_0, v8, v9, "An existing multiscript set should not be in the wrong order.", v10, v11, v12, v13, 0);
+      v17 = 0;
+      sub_1B700(&dword_0, v10, v11, "An existing multiscript set should not be in the wrong order.", v12, v13, v14, v15, v17);
     }
   }
 
@@ -4856,17 +4805,18 @@ void sub_2C9B0()
     CategoryCachedImpl = __TUILogGetCategoryCachedImpl("Assert", &qword_569E0);
     if (sub_1B740(CategoryCachedImpl))
     {
-      sub_1B720(&dword_0, v1, v2, "An existing multiscript set should not be in the wrong order.", v3, v4, v5, v6, v14, v15, 0);
+      sub_1B720(&dword_0, v3, v4, "An existing multiscript set should not be in the wrong order.", v5, v6, v7, v8, v16, v18);
     }
   }
 }
 
 void sub_2CA40(uint8_t *a1, _BYTE *a2, NSObject *a3, _BYTE *a4)
 {
-  if (os_variant_has_internal_diagnostics())
+  has_internal_diagnostics = os_variant_has_internal_diagnostics();
+  if (has_internal_diagnostics)
   {
-    v9 = __TUIFaultDebugAssertLog();
-    if (sub_1B75C(v9))
+    v11 = __TUIFaultDebugAssertLog(has_internal_diagnostics, v9);
+    if (sub_1B75C(v11))
     {
       *a1 = 0;
       *a2 = 0;
@@ -4876,12 +4826,12 @@ void sub_2CA40(uint8_t *a1, _BYTE *a2, NSObject *a3, _BYTE *a4)
 
   else
   {
-    v8 = *(__TUILogGetCategoryCachedImpl("Assert", &qword_569E8) + 8);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = *(__TUILogGetCategoryCachedImpl("Assert", &qword_569E8) + 8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       LOBYTE(a3->isa) = 0;
       *a4 = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Language item should not be checked in the multilingual keyboard view.", a3, 2u);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Language item should not be checked in the multilingual keyboard view.", a3, 2u);
     }
   }
 }

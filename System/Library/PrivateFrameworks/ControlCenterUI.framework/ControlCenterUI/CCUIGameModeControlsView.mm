@@ -53,7 +53,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = GameModeControlsView.performPrimaryAction(for:)();
+  LOBYTE(self) = GameModeControlsView.performPrimaryAction(for:)(viewCopy);
 
   return self & 1;
 }

@@ -228,7 +228,7 @@
 
 - (void)_setResult:(id)result error:(id)error notify_NOLOCK:(BOOL)k
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(GTFuture_replayer *)self willChangeValueForKey:@"isFinished"];
   [(GTFuture_replayer *)self willChangeValueForKey:@"isExecuting"];
   [(NSCondition *)self->_condition lock];
@@ -268,30 +268,30 @@ LABEL_16:
       completion[2](completion);
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v12 = [(NSMutableArray *)notifyList countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v12 = [(NSMutableArray *)notifyList countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(notifyList);
           }
 
-          [*(*(&v17 + 1) + 8 * v15++) start];
+          [*(*(&v16 + 1) + 8 * v15++) start];
         }
 
         while (v13 != v15);
-        v13 = [(NSMutableArray *)notifyList countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v13 = [(NSMutableArray *)notifyList countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v13);
@@ -300,7 +300,6 @@ LABEL_16:
 
   [(GTFuture_replayer *)self didChangeValueForKey:@"isFinished"];
   [(GTFuture_replayer *)self didChangeValueForKey:@"isExecuting"];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int)intResult

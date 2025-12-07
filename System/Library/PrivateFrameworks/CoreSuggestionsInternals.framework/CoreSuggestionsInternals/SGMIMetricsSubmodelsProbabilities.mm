@@ -1229,7 +1229,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    personFromSenderProbability = self->_personFromSenderProbability;
     PBDataWriterWriteFloatField();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -1249,7 +1248,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  personFromSenderInDyadicConversationProbability = self->_personFromSenderInDyadicConversationProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -1264,7 +1262,6 @@ LABEL_4:
   }
 
 LABEL_20:
-  subjectContentProbability = self->_subjectContentProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -1279,7 +1276,6 @@ LABEL_5:
   }
 
 LABEL_21:
-  personToRecipientsProbability = self->_personToRecipientsProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -1294,7 +1290,6 @@ LABEL_6:
   }
 
 LABEL_22:
-  personCCRecipientsProbability = self->_personCCRecipientsProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -1309,7 +1304,6 @@ LABEL_7:
   }
 
 LABEL_23:
-  domainFromSenderProbability = self->_domainFromSenderProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -1324,7 +1318,6 @@ LABEL_8:
   }
 
 LABEL_24:
-  conversationProbability = self->_conversationProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -1339,7 +1332,6 @@ LABEL_9:
   }
 
 LABEL_25:
-  listIdProbability = self->_listIdProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -1354,7 +1346,6 @@ LABEL_10:
   }
 
 LABEL_26:
-  attachmentsProbability = self->_attachmentsProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -1369,7 +1360,6 @@ LABEL_11:
   }
 
 LABEL_27:
-  subjectCountStatsProbability = self->_subjectCountStatsProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -1384,7 +1374,6 @@ LABEL_12:
   }
 
 LABEL_28:
-  standardMailRulesProbability = self->_standardMailRulesProbability;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -1399,12 +1388,10 @@ LABEL_13:
   }
 
 LABEL_29:
-  mailboxProbability = self->_mailboxProbability;
   PBDataWriterWriteFloatField();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_14:
-    mailboxTypeProbability = self->_mailboxTypeProbability;
     PBDataWriterWriteFloatField();
   }
 

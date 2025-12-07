@@ -23,7 +23,7 @@
 
 - (BOOL)_checkForValidContent:(id)content outError:(id *)error
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   v7 = [contentCopy objectForKey:@"DataSetName"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -46,7 +46,7 @@
     goto LABEL_43;
   }
 
-  v42 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v41 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || [v9 count] > 0x3E8)
   {
@@ -55,32 +55,32 @@
     goto LABEL_64;
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = v9;
-  v44 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+  v43 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
   v10 = 0;
-  if (!v44)
+  if (!v43)
   {
     goto LABEL_42;
   }
 
-  v43 = *v48;
-  v38 = v8;
-  v39 = v9;
+  v42 = *v47;
+  v37 = v8;
+  v38 = v9;
   do
   {
     v11 = 0;
     do
     {
-      if (*v48 != v43)
+      if (*v47 != v42)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v47 + 1) + 8 * v11);
+      v12 = *(*(&v46 + 1) + 8 * v11);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -88,8 +88,8 @@
 
         v10 = v25;
 LABEL_41:
-        v8 = v38;
-        v9 = v39;
+        v8 = v37;
+        v9 = v38;
         goto LABEL_42;
       }
 
@@ -97,8 +97,8 @@ LABEL_41:
       v14 = [v12 objectForKey:@"Latitude"];
       v15 = [v12 objectForKey:@"Radius"];
       v16 = [v12 objectForKey:@"GeofenceId"];
-      v45 = v13;
-      v46 = v14;
+      v44 = v13;
+      v45 = v14;
       if (!v13 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         v18 = v16;
@@ -107,7 +107,7 @@ LABEL_41:
         v20 = 2002;
         v21 = @"Longitude";
 LABEL_33:
-        v22 = [(MCCellularPrivateNetworkPayload *)selfCopy5 _validationErrorType:v20 forInvalidKey:v21, v38];
+        v22 = [(MCCellularPrivateNetworkPayload *)selfCopy5 _validationErrorType:v20 forInvalidKey:v21, v37];
 
         v23 = 0;
         v10 = v22;
@@ -143,7 +143,7 @@ LABEL_33:
         goto LABEL_32;
       }
 
-      if ([v42 containsObject:v16])
+      if ([v41 containsObject:v16])
       {
         v18 = v16;
         selfCopy5 = self;
@@ -154,7 +154,7 @@ LABEL_32:
       }
 
       v18 = v16;
-      [v42 addObject:v16];
+      [v41 addObject:v16];
       v23 = 1;
 LABEL_34:
 
@@ -166,18 +166,18 @@ LABEL_34:
       ++v11;
     }
 
-    while (v44 != v11);
-    v24 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
-    v8 = v38;
-    v9 = v39;
-    v44 = v24;
+    while (v43 != v11);
+    v24 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v8 = v37;
+    v9 = v38;
+    v43 = v24;
   }
 
   while (v24);
 LABEL_42:
 
 LABEL_43:
-  v26 = [contentCopy objectForKey:{@"CellularDataPreferred", v38}];
+  v26 = [contentCopy objectForKey:{@"CellularDataPreferred", v37}];
   if (!v26)
   {
 LABEL_47:
@@ -210,7 +210,7 @@ LABEL_62:
     }
 
 LABEL_51:
-    v40 = v9;
+    v39 = v9;
     v28 = [contentCopy objectForKey:@"CsgNetworkIdentifier"];
     if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -233,7 +233,7 @@ LABEL_51:
       }
     }
 
-    v9 = v40;
+    v9 = v39;
     goto LABEL_62;
   }
 
@@ -269,38 +269,37 @@ LABEL_66:
     *error = v10;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v10 == 0;
 }
 
 - (BOOL)_checkForValidLegacyArrayContent:(id)content outError:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   contentCopy = content;
-  v7 = [contentCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [contentCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v20;
+    v10 = *v19;
 LABEL_3:
     v11 = 0;
     v12 = v9;
     while (1)
     {
-      if (*v20 != v10)
+      if (*v19 != v10)
       {
         objc_enumerationMutation(contentCopy);
       }
 
-      v13 = *(*(&v19 + 1) + 8 * v11);
-      v18 = v12;
-      v14 = [(MCCellularPrivateNetworkPayload *)self _checkForValidContent:v13 outError:&v18];
-      v9 = v18;
+      v13 = *(*(&v18 + 1) + 8 * v11);
+      v17 = v12;
+      v14 = [(MCCellularPrivateNetworkPayload *)self _checkForValidContent:v13 outError:&v17];
+      v9 = v17;
 
       if (!v14)
       {
@@ -311,7 +310,7 @@ LABEL_3:
       v12 = v9;
       if (v8 == v11)
       {
-        v8 = [contentCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [contentCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -333,67 +332,66 @@ LABEL_3:
     *error = v9;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v9 == 0;
 }
 
 - (void)_finishInitializationWithContent:(id)content
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   array = [MEMORY[0x1E695DF70] array];
-  v44 = 0;
-  v6 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"DataSetName" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v44];
-  v7 = v44;
+  v43 = 0;
+  v6 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"DataSetName" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v43];
+  v7 = v43;
   dataSetName = self->_dataSetName;
   self->_dataSetName = v6;
 
-  if (v7 || (v43 = 0, [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"VersionNumber" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v43], v9 = objc_claimAutoreleasedReturnValue(), v7 = v43, versionNumber = self->_versionNumber, self->_versionNumber = v9, versionNumber, v7))
+  if (v7 || (v42 = 0, [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"VersionNumber" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v42], v9 = objc_claimAutoreleasedReturnValue(), v7 = v42, versionNumber = self->_versionNumber, self->_versionNumber = v9, versionNumber, v7))
   {
-    v32 = v7;
+    v31 = v7;
   }
 
   else
   {
-    v42 = 0;
-    v23 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"EnableNRStandalone" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v42];
-    v24 = v42;
-    self->_enableNRStandalone = v23;
-    if (v24)
+    v41 = 0;
+    v22 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"EnableNRStandalone" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v41];
+    v23 = v41;
+    self->_enableNRStandalone = v22;
+    if (v23)
     {
-      v32 = v24;
+      v31 = v23;
     }
 
     else
     {
-      v41 = 0;
-      v25 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"CsgNetworkIdentifier" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v41];
-      v26 = v41;
+      v40 = 0;
+      v24 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"CsgNetworkIdentifier" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v40];
+      v25 = v40;
       csgNetworkIdentifier = self->_csgNetworkIdentifier;
-      self->_csgNetworkIdentifier = v25;
+      self->_csgNetworkIdentifier = v24;
 
-      if (v26)
+      if (v25)
       {
-        v32 = v26;
+        v31 = v25;
       }
 
       else
       {
-        v40 = 0;
-        v28 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"NetworkIdentifier" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v40];
-        v29 = v40;
+        v39 = 0;
+        v27 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"NetworkIdentifier" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v39];
+        v28 = v39;
         networkIdentifier = self->_networkIdentifier;
-        self->_networkIdentifier = v28;
+        self->_networkIdentifier = v27;
 
-        if (!v29)
+        if (!v28)
         {
-          v39 = 0;
-          v11 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"CellularDataPreferred" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v39];
-          v32 = v39;
+          v38 = 0;
+          v11 = [MCProfile removeOptionalObjectInDictionary:contentCopy key:@"CellularDataPreferred" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v38];
+          v31 = v38;
           goto LABEL_5;
         }
 
-        v32 = v29;
+        v31 = v28;
       }
     }
   }
@@ -402,29 +400,29 @@ LABEL_3:
 LABEL_5:
   selfCopy = self;
   self->_cellularDataPreferred = [v11 BOOLValue];
-  v33 = contentCopy;
+  v32 = contentCopy;
   obj = [contentCopy objectForKey:@"Geofences"];
   if (obj)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v12 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v12 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v36;
+      v14 = *v35;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v36 != v14)
+          if (*v35 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v35 + 1) + 8 * i);
+          v16 = *(*(&v34 + 1) + 8 * i);
           v17 = [v16 objectForKeyedSubscript:@"Longitude"];
           v18 = [v16 objectForKeyedSubscript:@"Latitude"];
           v19 = [v16 objectForKeyedSubscript:@"Radius"];
@@ -433,7 +431,7 @@ LABEL_5:
           [array addObject:v21];
         }
 
-        v13 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v13 = [obj countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v13);
@@ -444,42 +442,40 @@ LABEL_5:
   {
     objc_storeStrong(&selfCopy->_geofenceList, array);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishInitializationWithLegacyArrayContent:(id)content
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   array = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = contentCopy;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(MCCellularPrivateNetworkPayload *)self _finishInitializationWithContent:*(*(&v12 + 1) + 8 * v10), v12];
+        [(MCCellularPrivateNetworkPayload *)self _finishInitializationWithContent:*(*(&v11 + 1) + 8 * v10), v11];
         [array addObjectsFromArray:self->_geofenceList];
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -489,17 +485,15 @@ LABEL_5:
   {
     objc_storeStrong(&self->_geofenceList, array);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (MCCellularPrivateNetworkPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v41.receiver = self;
-  v41.super_class = MCCellularPrivateNetworkPayload;
-  v9 = [(MCPayload *)&v41 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v40.receiver = self;
+  v40.super_class = MCCellularPrivateNetworkPayload;
+  v9 = [(MCPayload *)&v40 initWithDictionary:dictionaryCopy profile:profile outError:error];
   v10 = v9;
   if (v9)
   {
@@ -508,9 +502,9 @@ LABEL_5:
 
     if (isStub)
     {
-      v40 = 0;
-      v13 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"DataSetName" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v40];
-      v14 = v40;
+      v39 = 0;
+      v13 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"DataSetName" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v39];
+      v14 = v39;
       dataSetName = v10->_dataSetName;
       v10->_dataSetName = v13;
 
@@ -519,9 +513,9 @@ LABEL_5:
         goto LABEL_19;
       }
 
-      v39 = 0;
-      v16 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"VersionNumber" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v39];
-      v14 = v39;
+      v38 = 0;
+      v16 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"VersionNumber" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v38];
+      v14 = v38;
       versionNumber = v10->_versionNumber;
       v10->_versionNumber = v16;
 
@@ -530,9 +524,9 @@ LABEL_5:
         goto LABEL_19;
       }
 
-      v38 = 0;
-      v18 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"CsgNetworkIdentifier" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v38];
-      v14 = v38;
+      v37 = 0;
+      v18 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"CsgNetworkIdentifier" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v37];
+      v14 = v37;
       csgNetworkIdentifier = v10->_csgNetworkIdentifier;
       v10->_csgNetworkIdentifier = v18;
 
@@ -541,9 +535,9 @@ LABEL_5:
         goto LABEL_19;
       }
 
-      v37 = 0;
-      v20 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"NetworkIdentifier" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v37];
-      v14 = v37;
+      v36 = 0;
+      v20 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"NetworkIdentifier" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v36];
+      v14 = v36;
       networkIdentifier = v10->_networkIdentifier;
       v10->_networkIdentifier = v20;
 LABEL_18:
@@ -552,15 +546,15 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    v36 = 0;
-    networkIdentifier = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v36];
-    v22 = v36;
+    v35 = 0;
+    networkIdentifier = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v35];
+    v22 = v35;
     v23 = v22;
     if (v22 || !networkIdentifier)
     {
-      v34 = v22;
-      [(MCCellularPrivateNetworkPayload *)v10 _checkForValidContent:dictionaryCopy outError:&v34];
-      v14 = v34;
+      v33 = v22;
+      [(MCCellularPrivateNetworkPayload *)v10 _checkForValidContent:dictionaryCopy outError:&v33];
+      v14 = v33;
 
       if (!v14)
       {
@@ -571,9 +565,9 @@ LABEL_19:
 
     else
     {
-      v35 = 0;
-      [(MCCellularPrivateNetworkPayload *)v10 _checkForValidLegacyArrayContent:networkIdentifier outError:&v35];
-      v14 = v35;
+      v34 = 0;
+      [(MCCellularPrivateNetworkPayload *)v10 _checkForValidLegacyArrayContent:networkIdentifier outError:&v34];
+      v14 = v34;
       if (!v14)
       {
         [(MCCellularPrivateNetworkPayload *)v10 _finishInitializationWithLegacyArrayContent:networkIdentifier];
@@ -597,9 +591,9 @@ LABEL_19:
       v30 = v29;
       mCVerboseDescription = [v25 MCVerboseDescription];
       *buf = 138543618;
-      v43 = v29;
-      v44 = 2114;
-      v45 = mCVerboseDescription;
+      v42 = v29;
+      v43 = 2114;
+      v44 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v28, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -609,7 +603,6 @@ LABEL_19:
 
 LABEL_20:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

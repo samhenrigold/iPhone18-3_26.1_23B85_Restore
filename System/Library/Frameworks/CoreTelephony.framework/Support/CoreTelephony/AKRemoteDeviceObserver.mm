@@ -58,7 +58,7 @@
     v13 = +[NSDistributedNotificationCenter defaultCenter];
     [v13 addObserver:v7 selector:"_notifyAKDeviceListChanged:" name:@"com.apple.authkit.trusted-device-list-changed" object:0];
 
-    [(AKRemoteDeviceObserver *)v7 getLogContext];
+    objc_msgSend_getLogContext(v7);
     v14 = v17;
     ctu::OsLogContext::~OsLogContext(v16);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -73,7 +73,7 @@
 
 - (void)_notifyAKDeviceListChanged:(id)changed
 {
-  [(AKRemoteDeviceObserver *)self getLogContext];
+  objc_msgSend_getLogContext(self, a2, changed);
   v4 = v11;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))

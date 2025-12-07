@@ -350,7 +350,7 @@ LABEL_3:
 
 - (id)itk_objectBefore:()ITK wrap:
 {
-  v6 = [self indexOfObject:?];
+  v6 = [self indexOfObject:a3];
   v7 = 0;
   if (v6)
   {
@@ -372,7 +372,7 @@ LABEL_3:
 
 - (id)itk_objectAfter:()ITK wrap:
 {
-  v6 = [self indexOfObject:?];
+  v6 = [self indexOfObject:a3];
   if (v6 == 0x7FFFFFFFFFFFFFFFLL || (v8 = v6, (a4 & 1) == 0) && v6 == [self count] - 1)
   {
     v7 = 0;

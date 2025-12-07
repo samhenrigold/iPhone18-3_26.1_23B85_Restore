@@ -158,14 +158,13 @@
   _Block_object_dispose(&v37, 8);
 }
 
-uint64_t __110__PXGStackedSublayoutComposition_updateSublayoutGeometriesFromAnchorSublayoutIndex_usingSublayoutUpdateBlock___block_invoke(uint64_t a1)
+void __110__PXGStackedSublayoutComposition_updateSublayoutGeometriesFromAnchorSublayoutIndex_usingSublayoutUpdateBlock___block_invoke(void *a1, uint64_t a2)
 {
-  (*(*(a1 + 32) + 16))();
-  result = PXSizeSubtract();
-  v3 = *(*(a1 + 40) + 8);
+  (*(a1[4] + 16))();
+  PXSizeSubtract();
+  v3 = *(a1[5] + 8);
   *(v3 + 32) = v4;
   *(v3 + 40) = v5;
-  return result;
 }
 
 - (void)updateEstimatedSublayoutGeometries

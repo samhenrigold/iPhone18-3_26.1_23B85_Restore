@@ -49,7 +49,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNScale.mm", 0x4B, @"[MPSNNScaleNode init] Error: Abstract class. \n\tPlease use MPSNNBilinearScaleNode or MPSNNLanczosScaleNode instead.", v6, v7, v8, v9);
   }
 
   return 0;

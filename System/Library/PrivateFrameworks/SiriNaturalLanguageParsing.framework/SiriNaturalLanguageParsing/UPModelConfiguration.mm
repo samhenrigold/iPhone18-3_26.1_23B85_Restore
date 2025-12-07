@@ -56,13 +56,13 @@
 
 + (id)configurationFromDirectoryUrl:(id)url error:(id *)error
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   urlCopy = url;
   path = [urlCopy path];
   v6 = [path stringByAppendingPathComponent:@"calibration_model.mlmodelc"];
 
-  v33[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   LODWORD(path) = [UPUtilities checkFileExistence:v7 error:0];
 
   v8 = 0;
@@ -73,9 +73,9 @@
 
   path2 = [urlCopy path];
   [path2 stringByAppendingPathComponent:@"info.plist"];
-  v10 = v28 = v6;
-  v32 = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+  v10 = v27 = v6;
+  v31 = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
   v12 = [UPUtilities checkFileExistence:v11 error:0];
 
   if (v12)
@@ -100,16 +100,14 @@
   v19 = [path7 stringByAppendingPathComponent:@"span.vocab.txt"];
   path8 = [urlCopy path];
   v21 = [path8 stringByAppendingPathComponent:@"model.mlmodelc"];
-  v31 = [self _configurationWithBioLabelsVocabPath:v14 configPath:v15 grammarPath:v16 intentVocabPath:v17 spanVocabPath:v19 parserEspressoModelPath:v21 calibrationEspressoModelPath:v8 error:error];
+  v30 = [self _configurationWithBioLabelsVocabPath:v14 configPath:v15 grammarPath:v16 intentVocabPath:v17 spanVocabPath:v19 parserEspressoModelPath:v21 calibrationEspressoModelPath:v8 error:error];
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 + (id)_configurationWithBioLabelsVocabPath:(id)path configPath:(id)configPath grammarPath:(id)grammarPath intentVocabPath:(id)vocabPath spanVocabPath:(id)spanVocabPath parserEspressoModelPath:(id)modelPath calibrationEspressoModelPath:(id)espressoModelPath error:(id *)self0
 {
-  v32[6] = *MEMORY[0x277D85DE8];
+  v31[6] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   configPathCopy = configPath;
   grammarPathCopy = grammarPath;
@@ -117,28 +115,26 @@
   spanVocabPathCopy = spanVocabPath;
   modelPathCopy = modelPath;
   espressoModelPathCopy = espressoModelPath;
-  v30 = pathCopy;
-  v32[0] = pathCopy;
-  v32[1] = configPathCopy;
+  v29 = pathCopy;
+  v31[0] = pathCopy;
+  v31[1] = configPathCopy;
   v22 = configPathCopy;
-  v32[2] = grammarPathCopy;
-  v32[3] = vocabPathCopy;
-  v32[4] = spanVocabPathCopy;
-  v32[5] = modelPathCopy;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:6];
-  if (+[UPUtilities checkFileExistence:error:](UPUtilities, "checkFileExistence:error:", v23, error) && (!espressoModelPathCopy || (v31 = espressoModelPathCopy, [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1], v24 = objc_claimAutoreleasedReturnValue(), v25 = +[UPUtilities checkFileExistence:error:](UPUtilities, "checkFileExistence:error:", v24, error), v24, v25)))
+  v31[2] = grammarPathCopy;
+  v31[3] = vocabPathCopy;
+  v31[4] = spanVocabPathCopy;
+  v31[5] = modelPathCopy;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:6];
+  if (+[UPUtilities checkFileExistence:error:](UPUtilities, "checkFileExistence:error:", v23, error) && (!espressoModelPathCopy || (v30 = espressoModelPathCopy, [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1], v24 = objc_claimAutoreleasedReturnValue(), v25 = +[UPUtilities checkFileExistence:error:](UPUtilities, "checkFileExistence:error:", v24, error), v24, v25)))
   {
-    v26 = v30;
-    v27 = [[UPModelConfiguration alloc] _initWithBioLabelsVocabPath:v30 configPath:v22 grammarPath:grammarPathCopy intentVocabPath:vocabPathCopy spanVocabPath:spanVocabPathCopy parserEspressoModelPath:modelPathCopy calibrationEspressoModelPath:espressoModelPathCopy];
+    v26 = v29;
+    v27 = [[UPModelConfiguration alloc] _initWithBioLabelsVocabPath:v29 configPath:v22 grammarPath:grammarPathCopy intentVocabPath:vocabPathCopy spanVocabPath:spanVocabPathCopy parserEspressoModelPath:modelPathCopy calibrationEspressoModelPath:espressoModelPathCopy];
   }
 
   else
   {
     v27 = 0;
-    v26 = v30;
+    v26 = v29;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

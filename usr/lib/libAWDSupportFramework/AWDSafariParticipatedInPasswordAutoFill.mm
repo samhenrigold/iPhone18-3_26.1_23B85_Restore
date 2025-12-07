@@ -1,5 +1,6 @@
 @interface AWDSafariParticipatedInPasswordAutoFill
 - (BOOL)isEqual:(id)equal;
+- (id)autoFillInteractionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -40,6 +41,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)autoFillInteractionTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32D60[string];
+  }
 }
 
 - (int)StringAsAutoFillInteractionType:(id)type
@@ -108,14 +122,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    autoFillInteractionType = self->_autoFillInteractionType;
 
     PBDataWriterWriteInt32Field();
   }

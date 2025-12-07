@@ -234,7 +234,7 @@ void *__45__AVAssetTrackInspector_mediaCharacteristics__block_invoke(uint64_t a1
       v10 = *(*(&v24 + 1) + 8 * i);
       if (v10)
       {
-        [*(*(&v24 + 1) + 8 * i) timeMapping];
+        objc_msgSend_timeMapping(*(*(&v24 + 1) + 8 * i));
       }
 
       else
@@ -269,7 +269,7 @@ LABEL_26:
       firstObject = [(NSArray *)segments firstObject];
       if (firstObject)
       {
-        [firstObject timeMapping];
+        objc_msgSend_timeMapping(firstObject);
       }
 
       else
@@ -307,7 +307,7 @@ LABEL_26:
 {
   v14[0] = *a4;
   result = [(AVAssetTrackInspector *)self segmentForTrackTime:v14];
-  if (result && (memset(v16, 0, sizeof(v16)), v15 = 0u, memset(v14, 0, sizeof(v14)), result = [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result timeMapping], (v14[0].var2 & 1) != 0) && (v14[1].var2 & 1) != 0 && !v14[1].var3 && (v14[1].var0 & 0x8000000000000000) == 0 && (BYTE12(v15) & 1) != 0 && (BYTE4(v16[1]) & 1) != 0 && !*(&v16[1] + 1) && (*(&v16[0] + 1) & 0x8000000000000000) == 0 && (time = *(v16 + 8), Seconds = CMTimeGetSeconds(&time), time = v14[1], v9 = CMTimeGetSeconds(&time), memset(&time, 0, sizeof(time)), lhs = *a4, *&rhs.value = v15, rhs.epoch = *&v16[0], result = CMTimeSubtract(&time, &lhs, &rhs), Seconds > 0.0) && (time.flags & 0x1D) == 1 && (memset(&lhs, 0, sizeof(lhs)), rhs = time, result = CMTimeMultiplyByFloat64(&lhs, &rhs, v9 / Seconds), (lhs.flags & 0x1D) == 1))
+  if (result && (memset(v16, 0, sizeof(v16)), v15 = 0u, memset(v14, 0, sizeof(v14)), result = objc_msgSend_timeMapping(result), (v14[0].var2 & 1) != 0) && (v14[1].var2 & 1) != 0 && !v14[1].var3 && (v14[1].var0 & 0x8000000000000000) == 0 && (BYTE12(v15) & 1) != 0 && (BYTE4(v16[1]) & 1) != 0 && !*(&v16[1] + 1) && (*(&v16[0] + 1) & 0x8000000000000000) == 0 && (time = *(v16 + 8), Seconds = CMTimeGetSeconds(&time), time = v14[1], v9 = CMTimeGetSeconds(&time), memset(&time, 0, sizeof(time)), lhs = *a4, *&rhs.value = v15, rhs.epoch = *&v16[0], result = CMTimeSubtract(&time, &lhs, &rhs), Seconds > 0.0) && (time.flags & 0x1D) == 1 && (memset(&lhs, 0, sizeof(lhs)), rhs = time, result = CMTimeMultiplyByFloat64(&lhs, &rhs, v9 / Seconds), (lhs.flags & 0x1D) == 1))
   {
     rhs = lhs;
     v10 = v14[0];

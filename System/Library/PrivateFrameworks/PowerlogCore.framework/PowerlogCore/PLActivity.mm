@@ -40,7 +40,7 @@
 
 - (BOOL)allCriteriaSatisfied
 {
-  v3 = PLLogCommon();
+  v3 = PLLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PLActivity allCriteriaSatisfied];
@@ -55,8 +55,7 @@
   v7[2] = __34__PLActivity_allCriteriaSatisfied__block_invoke;
   v7[3] = &unk_1E851AFE0;
   v7[4] = &v8;
-  [(PLActivity *)self enumerateCriteriaWithBlock:v7];
-  v4 = PLLogCommon();
+  v4 = PLLogCommon([(PLActivity *)self enumerateCriteriaWithBlock:v7]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [PLActivity allCriteriaSatisfied];
@@ -70,7 +69,7 @@
 void __34__PLActivity_allCriteriaSatisfied__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
-  v6 = PLLogCommon();
+  v6 = PLLogCommon(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __34__PLActivity_allCriteriaSatisfied__block_invoke_cold_1(v5, v6);
@@ -97,7 +96,7 @@ void __34__PLActivity_allCriteriaSatisfied__block_invoke(uint64_t a1, void *a2, 
 uint64_t __25__PLActivity_runActivity__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = PLLogCommon();
+  v3 = PLLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __25__PLActivity_runActivity__block_invoke_cold_1();
@@ -108,8 +107,8 @@ uint64_t __25__PLActivity_runActivity__block_invoke(uint64_t a1)
   v6 = [MEMORY[0x1E695DF00] monotonicDate];
   (v4)[2](v4, v5, v6);
 
-  v7 = PLLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = PLLogCommon(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __25__PLActivity_runActivity__block_invoke_cold_2();
   }
@@ -117,42 +116,46 @@ uint64_t __25__PLActivity_runActivity__block_invoke(uint64_t a1)
   objc_autoreleasePoolPop(v2);
   if ([*(a1 + 32) state] == 3)
   {
-    v8 = PLLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = PLLogCommon(3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __25__PLActivity_runActivity__block_invoke_cold_4();
     }
 
-    v9 = *(a1 + 32);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __25__PLActivity_runActivity__block_invoke_17;
-    v16[3] = &unk_1E851AFB8;
-    v16[4] = v9;
-    [v9 enumerateCriteriaWithBlock:v16];
+    v10 = *(a1 + 32);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __25__PLActivity_runActivity__block_invoke_17;
+    v18[3] = &unk_1E851AFB8;
+    v18[4] = v10;
+    [v10 enumerateCriteriaWithBlock:v18];
   }
 
-  else if ([*(a1 + 32) state] == 1 || objc_msgSend(*(a1 + 32), "state") == 2)
+  else
   {
-    v10 = PLLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = [*(a1 + 32) state];
+    if (v11 == 1 || (v11 = [*(a1 + 32) state], v11 == 2))
     {
-      __25__PLActivity_runActivity__block_invoke_cold_3();
+      v12 = PLLogCommon(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        __25__PLActivity_runActivity__block_invoke_cold_3();
+      }
+
+      [*(a1 + 32) setState:4];
+      v13 = [MEMORY[0x1E695DF00] monotonicDate];
+      [*(a1 + 32) setLastCompletedDate:v13];
+
+      v14 = *(a1 + 32);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __25__PLActivity_runActivity__block_invoke_18;
+      v17[3] = &unk_1E851AFB8;
+      v17[4] = v14;
+      [v14 enumerateCriteriaWithBlock:v17];
+      v15 = [*(a1 + 32) mustRunCriterion];
+      [v15 didCompleteActivity:*(a1 + 32)];
     }
-
-    [*(a1 + 32) setState:4];
-    v11 = [MEMORY[0x1E695DF00] monotonicDate];
-    [*(a1 + 32) setLastCompletedDate:v11];
-
-    v12 = *(a1 + 32);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __25__PLActivity_runActivity__block_invoke_18;
-    v15[3] = &unk_1E851AFB8;
-    v15[4] = v12;
-    [v12 enumerateCriteriaWithBlock:v15];
-    v13 = [*(a1 + 32) mustRunCriterion];
-    [v13 didCompleteActivity:*(a1 + 32)];
   }
 
   return [*(a1 + 32) setState:0];
@@ -282,10 +285,10 @@ uint64_t __25__PLActivity_runActivity__block_invoke(uint64_t a1)
 
   if (enabled)
   {
-    v7 = PLLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = PLLogCommon(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [(PLActivity *)criterionCopy didChangeCriterion:selfCopy, v7];
+      [(PLActivity *)criterionCopy didChangeCriterion:selfCopy, v8];
     }
 
     if (-[PLActivity state](selfCopy, "state") || ![criterionCopy satisfied])
@@ -301,18 +304,18 @@ uint64_t __25__PLActivity_runActivity__block_invoke(uint64_t a1)
     {
       if ([(PLActivity *)selfCopy mustRunCriterionSatisfied])
       {
-        v8 = selfCopy;
-        v9 = 2;
+        v9 = selfCopy;
+        v10 = 2;
 LABEL_13:
-        [(PLActivity *)v8 setState:v9];
+        [(PLActivity *)v9 setState:v10];
         [(PLActivity *)selfCopy runActivity];
         goto LABEL_14;
       }
 
       if ([(PLActivity *)selfCopy allCriteriaSatisfied])
       {
-        v8 = selfCopy;
-        v9 = 1;
+        v9 = selfCopy;
+        v10 = 1;
         goto LABEL_13;
       }
     }
@@ -395,9 +398,9 @@ LABEL_4:
 
 - (void)syncWithDB
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1D8611000, a2, a3, "PLActivity::syncWithDB: lastCompletedActivityStatesEntry=%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_1D8611000, a2, a3, "PLActivity::syncWithDB: lastCompletedActivityStatesEntry=%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __24__PLActivity_syncWithDB__block_invoke(uint64_t a1)
@@ -413,7 +416,7 @@ void __24__PLActivity_syncWithDB__block_invoke(uint64_t a1)
 
 - (void)enable
 {
-  v3 = PLLogCommon();
+  v3 = PLLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PLActivity enable];
@@ -432,7 +435,7 @@ void __24__PLActivity_syncWithDB__block_invoke(uint64_t a1)
 
 - (void)disable
 {
-  v3 = PLLogCommon();
+  v3 = PLLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PLActivity disable];
@@ -479,40 +482,40 @@ void __31__PLActivity_interruptActivity__block_invoke(uint64_t a1)
 
 - (void)enumerateCriteriaWithBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (blockCopy)
   {
     criteria = [(PLActivity *)self criteria];
     objc_sync_enter(criteria);
-    v15 = 0;
+    v14 = 0;
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     criteria2 = [(PLActivity *)self criteria];
-    v7 = [criteria2 countByEnumeratingWithState:&v11 objects:v16 count:16];
+    v7 = [criteria2 countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v7)
     {
-      v8 = *v12;
+      v8 = *v11;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(criteria2);
         }
 
-        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9), &v15);
-        if (v15)
+        blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9), &v14);
+        if (v14)
         {
           break;
         }
 
         if (v7 == ++v9)
         {
-          v7 = [criteria2 countByEnumeratingWithState:&v11 objects:v16 count:16];
+          v7 = [criteria2 countByEnumeratingWithState:&v10 objects:v15 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -525,8 +528,6 @@ LABEL_4:
 
     objc_sync_exit(criteria);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
@@ -588,26 +589,24 @@ void __28__PLActivity_criteriaString__block_invoke(uint64_t a1, void *a2)
 
 - (void)didChangeCriterion:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = 138412802;
-  v6 = a1;
-  v7 = 2048;
-  v8 = [a2 state];
-  v9 = 1024;
-  v10 = [v6 satisfied];
-  _os_log_debug_impl(&dword_1D8611000, a3, OS_LOG_TYPE_DEBUG, "PLActivity::didChangeCriterion:%@, state=%lu, satisfied=%i", &v5, 0x1Cu);
-  v4 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = 138412802;
+  v5 = a1;
+  v6 = 2048;
+  v7 = [a2 state];
+  v8 = 1024;
+  v9 = [v5 satisfied];
+  _os_log_debug_impl(&dword_1D8611000, a3, OS_LOG_TYPE_DEBUG, "PLActivity::didChangeCriterion:%@, state=%lu, satisfied=%i", &v4, 0x1Cu);
 }
 
 void __34__PLActivity_allCriteriaSatisfied__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = [a1 satisfied];
-  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "PLActivity::allCriteriaSatisfied criterion=%@, satisfied=%i", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = [a1 satisfied];
+  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "PLActivity::allCriteriaSatisfied criterion=%@, satisfied=%i", &v3, 0x12u);
 }
 
 @end

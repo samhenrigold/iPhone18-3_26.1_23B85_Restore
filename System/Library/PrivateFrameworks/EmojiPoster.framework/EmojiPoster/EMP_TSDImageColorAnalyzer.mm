@@ -55,7 +55,7 @@
       [v3 addObject:v7];
 
       JCColor::~JCColor(v18);
-      v5 = (v5 + 16);
+      v5 += 2;
     }
 
     while (v5 != v6);
@@ -89,7 +89,7 @@
 
 - (UIColor)backgroundColor
 {
-  JCColor::JCColor(v4, (self->_imageAnalyzer + 24));
+  JCColor::JCColor(v4, self->_imageAnalyzer + 3);
   if (v4[0])
   {
     v2 = [MEMORY[0x277D75348] colorWithCGColor:?];
@@ -132,7 +132,7 @@
 {
   colorCopy = color;
   JCColor::JCColor(v8, [colorCopy CGColor]);
-  JCImageAnalyzer::GetTextColorForBackgroundColor(self->_imageAnalyzer, v8, v7);
+  JCImageAnalyzer::GetTextColorForBackgroundColor(v7, self->_imageAnalyzer, v8);
   v5 = [MEMORY[0x277D75348] colorWithCGColor:v7[0]];
   JCColor::~JCColor(v7);
   JCColor::~JCColor(v8);
@@ -146,7 +146,7 @@
   backgroundColorCopy = backgroundColor;
   JCColor::JCColor(v11, [colorCopy CGColor]);
   JCColor::JCColor(v10, [backgroundColorCopy CGColor]);
-  JCImageAnalyzer::GetTextShadowColor(v11, v10, v9);
+  JCImageAnalyzer::GetTextShadowColor(v9, v11, v10);
   v7 = [MEMORY[0x277D75348] colorWithCGColor:v9[0]];
   JCColor::~JCColor(v9);
   JCColor::~JCColor(v10);

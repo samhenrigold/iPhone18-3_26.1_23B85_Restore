@@ -26,13 +26,12 @@
 
 - (void)didTapCancel
 {
-  v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI37PreAuthorizationWelcomeViewController_flow) + OBJC_IVAR____TtC28HealthExposureNotificationUI20PreAuthorizationFlow_completionHandler;
+  v3 = (*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI37PreAuthorizationWelcomeViewController_flow) + OBJC_IVAR____TtC28HealthExposureNotificationUI20PreAuthorizationFlow_completionHandler);
   swift_beginAccess();
-  v5 = *v3;
-  v4 = *(v3 + 1);
+  v4 = *v3;
   selfCopy = self;
 
-  v5(0);
+  v4(0);
 }
 
 - (_TtC28HealthExposureNotificationUI37PreAuthorizationWelcomeViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

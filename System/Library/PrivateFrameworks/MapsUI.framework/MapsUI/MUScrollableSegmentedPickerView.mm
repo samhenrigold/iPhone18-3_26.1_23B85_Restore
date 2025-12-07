@@ -34,7 +34,7 @@
 
 - (void)_setupContentView
 {
-  v29[6] = *MEMORY[0x1E69E9840];
+  v28[6] = *MEMORY[0x1E69E9840];
   v3 = [MUScrollableSegmentedPickerContentView alloc];
   v4 = [(MUScrollableSegmentedPickerContentView *)v3 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   contentView = self->_contentView;
@@ -50,33 +50,31 @@
 
   LODWORD(v9) = 1111752704;
   [(NSLayoutConstraint *)self->_widthConstraint setPriority:v9];
-  v22 = MEMORY[0x1E696ACD8];
+  v21 = MEMORY[0x1E696ACD8];
   centerXAnchor = [(MUScrollableSegmentedPickerContentView *)self->_contentView centerXAnchor];
   centerXAnchor2 = [(MUScrollableSegmentedPickerView *)self centerXAnchor];
-  v26 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v29[0] = v26;
+  v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v28[0] = v25;
   topAnchor = [(MUScrollableSegmentedPickerContentView *)self->_contentView topAnchor];
   topAnchor2 = [(MUScrollableSegmentedPickerView *)self topAnchor];
-  v23 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v29[1] = v23;
+  v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v28[1] = v22;
   bottomAnchor = [(MUScrollableSegmentedPickerContentView *)self->_contentView bottomAnchor];
   bottomAnchor2 = [(MUScrollableSegmentedPickerView *)self bottomAnchor];
   v11 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v29[2] = v11;
+  v28[2] = v11;
   leadingAnchor = [(MUScrollableSegmentedPickerContentView *)self->_contentView leadingAnchor];
   leadingAnchor2 = [(MUScrollableSegmentedPickerView *)self leadingAnchor];
   v14 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
-  v29[3] = v14;
+  v28[3] = v14;
   trailingAnchor = [(MUScrollableSegmentedPickerContentView *)self->_contentView trailingAnchor];
   trailingAnchor2 = [(MUScrollableSegmentedPickerView *)self trailingAnchor];
   v17 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
   v18 = self->_widthConstraint;
-  v29[4] = v17;
-  v29[5] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:6];
-  [v22 activateConstraints:v19];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v28[4] = v17;
+  v28[5] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:6];
+  [v21 activateConstraints:v19];
 }
 
 - (MUScrollableSegmentedPickerView)initWithFrame:(CGRect)frame

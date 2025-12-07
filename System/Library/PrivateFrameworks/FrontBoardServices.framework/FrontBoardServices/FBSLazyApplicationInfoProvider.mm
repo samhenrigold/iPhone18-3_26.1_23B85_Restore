@@ -53,7 +53,7 @@
   v6 = MEMORY[0x1E6963618];
   if (tokenCopy)
   {
-    [tokenCopy realToken];
+    objc_msgSend_realToken(tokenCopy);
   }
 
   else

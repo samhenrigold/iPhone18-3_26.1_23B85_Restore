@@ -12,9 +12,9 @@
 
 + (id)crk_studentDaemonConnection
 {
-  v0 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.studentd" options:{objc_msgSend(objc_opt_class(), "crk_studentDaemonConnectionOptions")}];
+  v1 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.studentd" options:{objc_msgSend(objc_opt_class(), "crk_studentDaemonConnectionOptions")}];
 
-  return v0;
+  return v1;
 }
 
 + (id)crk_studentDaemonNonCatalystConnection

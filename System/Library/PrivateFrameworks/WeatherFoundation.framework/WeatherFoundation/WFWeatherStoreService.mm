@@ -124,7 +124,7 @@ LABEL_12:
   v16 = WFLogForCategory(2uLL);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [WFWeatherStoreService initWithConfiguration:error:];
+    [WFWeatherStoreService initWithConfiguration:v16 error:?];
   }
 
   if (!error)
@@ -1597,7 +1597,7 @@ uint64_t __88__WFWeatherStoreService__cacheParsedForecastData_types_location_dat
 - (void)_enumerateForecastTypesIn:(unint64_t)in usingBlock:(id)block
 {
   blockCopy = block;
-  v6 = WFForecastTypes();
+  v6 = WFForecastTypes(blockCopy);
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
   v8[2] = __62__WFWeatherStoreService__enumerateForecastTypesIn_usingBlock___block_invoke;
@@ -2571,13 +2571,13 @@ void __57__WFWeatherStoreService__cleanupCallbacksAndTasksForURL___block_invoke(
   }
 }
 
-- (void)initWithConfiguration:error:.cold.2()
+- (void)initWithConfiguration:(uint64_t)a1 error:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)forecastForLocation:locale:onDate:requestIdentifier:options:completionHandler:.cold.1()
@@ -2602,7 +2602,7 @@ void __57__WFWeatherStoreService__cleanupCallbacksAndTasksForURL___block_invoke(
   OUTLINED_FUNCTION_9();
   v2 = [OUTLINED_FUNCTION_10(v0 v1)];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7(&dword_272B94000, v3, v4, "(%{public}@) Invalid location given for HourlyForecast request: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_7(&dword_272B94000, v3, v4, "(%{public}@) Invalid location given for HourlyForecast request: %@", v5, v6, v7, v8);
 }
 
 - (void)dailyForecastForLocation:locale:requestIdentifier:completionHandler:.cold.3()
@@ -2610,7 +2610,7 @@ void __57__WFWeatherStoreService__cleanupCallbacksAndTasksForURL___block_invoke(
   OUTLINED_FUNCTION_9();
   v2 = [OUTLINED_FUNCTION_10(v0 v1)];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7(&dword_272B94000, v3, v4, "(%{public}@) Invalid location given for DailyForecast request: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_7(&dword_272B94000, v3, v4, "(%{public}@) Invalid location given for DailyForecast request: %@", v5, v6, v7, v8);
 }
 
 - (void)airQualityForLocation:locale:requestIdentifier:options:completionHandler:.cold.1()
@@ -2627,7 +2627,7 @@ void __57__WFWeatherStoreService__cleanupCallbacksAndTasksForURL___block_invoke(
   OUTLINED_FUNCTION_9();
   v2 = [OUTLINED_FUNCTION_10(v0 v1)];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7(&dword_272B94000, v3, v4, "(%{public}@) Valid WFAirQualityConditions instance found in cache. Expires @ %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_7(&dword_272B94000, v3, v4, "(%{public}@) Valid WFAirQualityConditions instance found in cache. Expires @ %@", v5, v6, v7, v8);
 }
 
 - (void)_forecastConditionsForTypes:location:units:locale:date:requestIdentifier:requestOptions:completionHandler:.cold.1()

@@ -214,26 +214,27 @@ void __54__OBAnimationController__stepAnimationStatesForLayer___block_invoke(uin
 {
   lCopy = l;
   v4 = *MEMORY[0x1E6979EF8];
-  v10 = 0;
-  v5 = [MEMORY[0x1E6979400] packageWithContentsOfURL:lCopy type:v4 options:0 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [MEMORY[0x1E6979400] packageWithContentsOfURL:lCopy type:v4 options:0 error:&v11];
+  v6 = v11;
+  v7 = v6;
   if (v6)
   {
-    v7 = _OBLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _OBLoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(OBAnimationController *)lCopy packageForURL:v6, v7];
+      [(OBAnimationController *)lCopy packageForURL:v7, v8];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v5;
+    v9 = v5;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)_caStateForAnimationState:(id)state
@@ -274,16 +275,14 @@ void __54__OBAnimationController__stepAnimationStatesForLayer___block_invoke(uin
 
 + (void)packageForURL:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a1 description];
   v6 = [a2 description];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_1B4FB6000, a3, OS_LOG_TYPE_ERROR, "Unable to load package with url %@: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_1B4FB6000, a3, OS_LOG_TYPE_ERROR, "Unable to load package with url %@: %{public}@", &v7, 0x16u);
 }
 
 @end

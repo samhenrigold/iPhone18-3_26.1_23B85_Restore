@@ -65,7 +65,7 @@ LABEL_3:
 
 + (id)extractAvailableMechanisms:(unint64_t)mechanisms
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBF8];
   if (mechanisms > 3)
   {
@@ -73,9 +73,9 @@ LABEL_3:
     {
       v4 = +[LACUIAuthenticatorServiceConfigurationRequirementBuilder _biometryEvents];
       v5 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277D23F00]];
-      v12 = v5;
+      v11 = v5;
       v6 = MEMORY[0x277CBEA60];
-      v7 = &v12;
+      v7 = &v11;
     }
 
     else
@@ -87,12 +87,12 @@ LABEL_3:
 
       v4 = +[LACUIAuthenticatorServiceConfigurationRequirementBuilder _biometryEvents];
       v5 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277D23F00]];
-      v11 = v5;
+      v10 = v5;
       v6 = MEMORY[0x277CBEA60];
-      v7 = &v11;
+      v7 = &v10;
     }
 
-    v8 = [v6 arrayWithObjects:v7 count:{1, v11, v12}];
+    v8 = [v6 arrayWithObjects:v7 count:{1, v10, v11}];
     v3 = [v4 arrayByAddingObjectsFromArray:v8];
   }
 
@@ -110,27 +110,24 @@ LABEL_3:
     }
 
     v4 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277D23F00]];
-    v13[0] = v4;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v4;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
 LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)_biometryEvents
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   objc_opt_self();
   v0 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277D23F10]];
-  v5[0] = v0;
+  v4[0] = v0;
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277D23F08]];
-  v5[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

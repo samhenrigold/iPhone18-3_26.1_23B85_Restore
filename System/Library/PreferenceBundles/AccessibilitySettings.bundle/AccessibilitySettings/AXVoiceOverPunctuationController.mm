@@ -641,8 +641,7 @@ void __47__AXVoiceOverPunctuationController_viewDidLoad__block_invoke(uint64_t a
 
 void __62__AXVoiceOverPunctuationController__punctuationGroupsChanged___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) _loadPunctationGroups];
-  v2 = AXAssetAndDataClient();
+  v2 = AXAssetAndDataClient([*(a1 + 32) _loadPunctationGroups]);
   v1 = +[AXAccessQueue mainAccessQueue];
   [v2 sendAsynchronousMessage:&__NSDictionary0__struct withIdentifier:3 targetAccessQueue:v1 completion:0];
 }

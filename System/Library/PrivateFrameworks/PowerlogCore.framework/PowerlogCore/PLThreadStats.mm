@@ -237,78 +237,81 @@ void __28__PLThreadStats_filterDiff___block_invoke_3(uint64_t a1, void *a2, void
 - (BOOL)shouldIncludeThread:(id)thread withTotalSystemTime:(double)time withTotalUserTime:(double)userTime
 {
   threadCopy = thread;
-  if ([(PLThreadStats *)self percentTimeFilter])
+  percentTimeFilter = [(PLThreadStats *)self percentTimeFilter];
+  if (percentTimeFilter)
   {
     if (time <= 0.0)
     {
-      v12 = 0;
+      v14 = 0;
     }
 
     else
     {
-      [threadCopy systemTime];
-      v10 = v9 * 100.0 / time;
-      v11 = PLLogThreadStats();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      systemTime = [threadCopy systemTime];
+      v12 = v11 * 100.0 / time;
+      v13 = PLLogThreadStats(systemTime);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [PLThreadStats shouldIncludeThread:? withTotalSystemTime:? withTotalUserTime:?];
       }
 
-      v12 = v10 >= [(PLThreadStats *)self percentTimeFilter];
+      percentTimeFilter = [(PLThreadStats *)self percentTimeFilter];
+      v14 = v12 >= percentTimeFilter;
     }
 
     if (userTime > 0.0)
     {
-      [threadCopy userTime];
-      v14 = v13 * 100.0 / userTime;
-      v15 = PLLogThreadStats();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      userTime = [threadCopy userTime];
+      v17 = v16 * 100.0 / userTime;
+      v18 = PLLogThreadStats(userTime);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [PLThreadStats shouldIncludeThread:? withTotalSystemTime:? withTotalUserTime:?];
       }
 
-      if (v14 >= [(PLThreadStats *)self percentTimeFilter])
+      percentTimeFilter = [(PLThreadStats *)self percentTimeFilter];
+      if (v17 >= percentTimeFilter)
       {
-        v12 = 1;
+        v14 = 1;
       }
     }
   }
 
   else
   {
-    v12 = 1;
+    v14 = 1;
   }
 
-  v16 = PLLogThreadStats();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v19 = PLLogThreadStats(percentTimeFilter);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    [PLThreadStats shouldIncludeThread:v12 withTotalSystemTime:v16 withTotalUserTime:?];
+    [PLThreadStats shouldIncludeThread:v14 withTotalSystemTime:v19 withTotalUserTime:?];
   }
 
   [(PLThreadStats *)self absoluteTimeFilter];
-  if (v17 == 0.0)
+  if (v20 == 0.0)
   {
-    v18 = 1;
+    v21 = 1;
   }
 
   else
   {
     [threadCopy systemTime];
-    v20 = v19;
+    v23 = v22;
     [(PLThreadStats *)self absoluteTimeFilter];
-    v22 = v20 >= v21;
+    v25 = v23 >= v24;
     [threadCopy userTime];
-    v24 = v23;
+    v27 = v26;
     [(PLThreadStats *)self absoluteTimeFilter];
-    v18 = v24 >= v25 || v22;
+    v21 = v27 >= v28 || v25;
   }
 
-  return v18 & v12;
+  return v21 & v14;
 }
 
 + (id)getThreadName:(unint64_t)name inProcess:(int)process isNamed:(BOOL *)named
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   *named = 0;
   name = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%llx", name];
   if (process < 1)
@@ -318,7 +321,7 @@ void __28__PLThreadStats_filterDiff___block_invoke_3(uint64_t a1, void *a2, void
 
   else
   {
-    memset(v16, 0, 464);
+    memset(v15, 0, 464);
     memset(buffer, 0, sizeof(buffer));
     if (proc_pidinfo(process, 10, name, buffer, 1288) <= 0 && (*__error() == 3 || *__error() == 22))
     {
@@ -327,7 +330,7 @@ void __28__PLThreadStats_filterDiff___block_invoke_3(uint64_t a1, void *a2, void
 
     else
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
       v10 = [v9 length];
       v11 = name;
       if (v10)
@@ -340,8 +343,6 @@ void __28__PLThreadStats_filterDiff___block_invoke_3(uint64_t a1, void *a2, void
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
@@ -352,7 +353,7 @@ void __28__PLThreadStats_filterDiff___block_invoke_3(uint64_t a1, void *a2, void
   if (self)
   {
     v2 = objc_opt_new();
-    v3 = PLLogThreadStats();
+    v3 = PLLogThreadStats(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -364,48 +365,46 @@ void __28__PLThreadStats_filterDiff___block_invoke_3(uint64_t a1, void *a2, void
     v5 = (v18 - ((4 * v4 + 15) & 0xFFFFFFFFFFFFFFF0));
     bzero(v5, 4 * v4);
     v6 = proc_listpids(1u, 0, 0, 0);
-    proc_listpids(1u, 0, v5, 4 * v4);
+    v7 = proc_listpids(1u, 0, v5, 4 * v4);
     if (v6 >> 2 >= v4)
     {
-      v7 = v4;
+      v8 = v4;
     }
 
     else
     {
-      v7 = v6 >> 2;
+      v8 = v6 >> 2;
     }
 
-    for (; v7; --v7)
+    for (; v8; --v8)
     {
-      v13 = *v5++;
-      v12 = v13;
-      v14 = [PLUtilities fullProcessNameForPid:v13];
-      if ([selfCopy shouldGatherStatsForProcessName:v14])
+      v14 = *v5++;
+      v13 = v14;
+      v15 = [PLUtilities fullProcessNameForPid:v14];
+      if ([selfCopy shouldGatherStatsForProcessName:v15])
       {
         processThreadMap = [selfCopy processThreadMap];
-        v9 = [processThreadMap objectForKeyedSubscript:v14];
-        v10 = [(PLThreadStats *)selfCopy threadStatsForPid:v12 withThreads:v9];
+        v10 = [processThreadMap objectForKeyedSubscript:v15];
+        v11 = [(PLThreadStats *)selfCopy threadStatsForPid:v13 withThreads:v10];
 
-        if ([v10 count])
+        if ([v11 count])
         {
-          v11 = [[PLProcessInfo alloc] initWithName:v14 andID:v12];
-          [(PLProcessInfo *)v11 setThreadNameToInfo:v10];
-          [v2 setObject:v11 forKeyedSubscript:v14];
+          v12 = [[PLProcessInfo alloc] initWithName:v15 andID:v13];
+          [(PLProcessInfo *)v12 setThreadNameToInfo:v11];
+          [v2 setObject:v12 forKeyedSubscript:v15];
         }
       }
     }
 
-    v15 = PLLogThreadStats();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = PLLogThreadStats(v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *v19 = 0;
-      _os_log_impl(&dword_1D8611000, v15, OS_LOG_TYPE_INFO, "finished snapshot generation", v19, 2u);
+      _os_log_impl(&dword_1D8611000, v16, OS_LOG_TYPE_INFO, "finished snapshot generation", v19, 2u);
     }
 
     selfCopy = [v2 copy];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -507,29 +506,24 @@ LABEL_20:
 
 - (void)shouldIncludeThread:(void *)a1 withTotalSystemTime:withTotalUserTime:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 percentTimeFilter];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_7(&dword_1D8611000, v1, v2, "sys pct %f filter %zu", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_7(&dword_1D8611000, v1, v2, "sys pct %f filter %zu", v3, v4, v5, v6);
 }
 
 - (void)shouldIncludeThread:(void *)a1 withTotalSystemTime:withTotalUserTime:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 percentTimeFilter];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_7(&dword_1D8611000, v1, v2, "usr pct %f filter %zu", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_7(&dword_1D8611000, v1, v2, "usr pct %f filter %zu", v3, v4, v5, v6);
 }
 
 - (void)shouldIncludeThread:(char)a1 withTotalSystemTime:(NSObject *)a2 withTotalUserTime:.cold.3(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "thread meets pct: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "thread meets pct: %d", v2, 8u);
 }
 
 @end

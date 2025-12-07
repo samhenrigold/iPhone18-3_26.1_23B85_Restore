@@ -1,13 +1,13 @@
-id PowerMSSLog()
+id PowerMSSLog(uint64_t a1)
 {
   if (qword_100008158 != -1)
   {
     sub_100001170();
   }
 
-  v1 = qword_100008150;
+  v2 = qword_100008150;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000BFC(id a1)

@@ -18,7 +18,7 @@
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event
 {
   ObjectType = swift_getObjectType();
-  sub_257BD2C2C(0, &qword_27F8F78B0);
+  sub_257BD2C2C(0, &qword_27F8F78B0, 0x277D75C68);
   sub_257CF5978();
   sub_257ECFA70();
   eventCopy = event;
@@ -34,7 +34,7 @@
 
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
-  sub_257BD2C2C(0, &qword_27F8F78B0);
+  sub_257BD2C2C(0, &qword_27F8F78B0, 0x277D75C68);
   sub_257CF5978();
   v6 = sub_257ECFA70();
   eventCopy = event;
@@ -60,7 +60,7 @@
   }
 
   [*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC16MagnifierSupport14MFHapticButton_buttonFeedbackGenerator) userInteractionStarted];
-  sub_257BE4084(&v6, &unk_27F8F62F0);
+  sub_257BE4084(&v6, &unk_27F8F62F0, &unk_257ED9D30);
 }
 
 - (_TtC16MagnifierSupport14MFHapticButton)initWithFrame:(CGRect)frame

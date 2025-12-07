@@ -22,7 +22,7 @@
 
 - (id)deviceOrientationBlocking
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C7B0 != -1)
   {
     dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
@@ -44,12 +44,13 @@
       dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
     }
 
-    LOWORD(v49) = 0;
-    v5 = _os_log_send_and_compose_impl();
+    LOWORD(v54) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 1, "Received deviceOrientationBlocking", &v54, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
@@ -57,31 +58,28 @@
   internal = self->_internal;
   if ((internal[13] & 0x80000000) == 0)
   {
-    v9 = [CMDeviceOrientation alloc];
-    v10 = internal[13];
+    v10 = [CMDeviceOrientation alloc];
+    v11 = internal[13];
     Current = CFAbsoluteTimeGetCurrent();
-    v13 = objc_msgSend_initWithOrientation_andTimestamp_(v9, v12, v10, Current);
-LABEL_32:
-    v29 = v13;
-    goto LABEL_33;
+    return objc_msgSend_initWithOrientation_andTimestamp_(v10, v13, v11, Current);
   }
 
-  if (objc_msgSend_orientationNotificationsDisabled(self, v6, v7))
+  if (objc_msgSend_orientationNotificationsDisabled(self, v7, v8))
   {
     if (qword_1ED71C7B0 != -1)
     {
       dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
     }
 
-    v14 = off_1ED71C7C0;
+    v15 = off_1ED71C7C0;
     if (os_log_type_enabled(off_1ED71C7C0, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_FAULT, "Notifications disabled", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_FAULT, "Notifications disabled", buf, 2u);
     }
 
-    v15 = sub_19B420058();
-    if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
+    v16 = sub_19B420058();
+    if ((*(v16 + 160) & 0x80000000) == 0 || (*(v16 + 164) & 0x80000000) == 0 || (*(v16 + 168) & 0x80000000) == 0 || *(v16 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C7B0 != -1)
@@ -89,75 +87,74 @@ LABEL_32:
         dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
       }
 
-      LOWORD(v49) = 0;
-      v16 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v16);
-      if (v16 != buf)
+      LOWORD(v54) = 0;
+      LODWORD(v52) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 17, "Notifications disabled", &v54, v52);
+      v18 = v17;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v17);
+      if (v18 != buf)
       {
-        free(v16);
+        free(v18);
       }
     }
 
-    v17 = [CMDeviceOrientation alloc];
-    v13 = objc_msgSend_initWithOrientation_andTimestamp_(v17, v18, 0, 0.0);
-    goto LABEL_32;
+    v19 = [CMDeviceOrientation alloc];
+    return objc_msgSend_initWithOrientation_andTimestamp_(v19, v20, 0, 0.0);
   }
 
   if ((sub_19B421620() & 0x80) != 0)
   {
-    v23 = sub_19B4484E8();
-    v24 = COERCE_DOUBLE(sub_19B448530(v23, 0));
-    v26 = v25;
+    v25 = sub_19B4484E8();
+    v26 = COERCE_DOUBLE(sub_19B448530(v25, 0));
+    v28 = v27;
     os_unfair_lock_lock(internal + 2);
-    *(internal + 8) = v24;
-    *(internal + 9) = v26;
+    *(internal + 8) = v26;
+    *(internal + 9) = v28;
     os_unfair_lock_unlock(internal + 2);
-    v27 = [CMDeviceOrientation alloc];
-    v13 = objc_msgSend_initWithOrientation_andTimestamp_(v27, v28, v26, v24);
-    goto LABEL_32;
+    v29 = [CMDeviceOrientation alloc];
+    return objc_msgSend_initWithOrientation_andTimestamp_(v29, v30, v28, v26);
   }
 
   os_unfair_lock_lock(internal + 2);
-  v19 = *(internal + 8);
-  v20 = internal[18];
+  v21 = *(internal + 8);
+  v22 = internal[18];
   os_unfair_lock_unlock(internal + 2);
-  if (v20)
+  if (v22)
   {
-    v21 = [CMDeviceOrientation alloc];
-    v13 = objc_msgSend_initWithOrientation_andTimestamp_(v21, v22, v20, v19);
-    goto LABEL_32;
+    v23 = [CMDeviceOrientation alloc];
+    return objc_msgSend_initWithOrientation_andTimestamp_(v23, v24, v22, v21);
   }
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3052000000;
-  v52 = sub_19B428AEC;
-  v53 = sub_19B429070;
   v54 = 0;
-  v32 = sub_19B420D84();
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = sub_19B71FC2C;
-  v48[3] = &unk_1E75338E8;
-  v48[4] = internal;
-  v48[5] = &v49;
-  sub_19B420C9C(v32, v48);
-  if (v50[5])
+  v55 = &v54;
+  v56 = 0x3052000000;
+  v57 = sub_19B428AEC;
+  v58 = sub_19B429070;
+  v59 = 0;
+  v33 = sub_19B420D84();
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = sub_19B71FC2C;
+  v53[3] = &unk_1E75338E8;
+  v53[4] = internal;
+  v53[5] = &v54;
+  sub_19B420C9C(v33, v53);
+  if (v55[5])
   {
     if (qword_1ED71C7B0 != -1)
     {
       dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
     }
 
-    v33 = off_1ED71C7C0;
+    v34 = off_1ED71C7C0;
     if (os_log_type_enabled(off_1ED71C7C0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_DEFAULT, "Waiting for the first orientation to come in", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v34, OS_LOG_TYPE_DEFAULT, "Waiting for the first orientation to come in", buf, 2u);
     }
 
-    v34 = sub_19B420058();
-    if (*(v34 + 160) > 1 || *(v34 + 164) > 1 || *(v34 + 168) > 1 || *(v34 + 152))
+    v35 = sub_19B420058();
+    if (*(v35 + 160) > 1 || *(v35 + 164) > 1 || *(v35 + 168) > 1 || *(v35 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C7B0 != -1)
@@ -165,33 +162,35 @@ LABEL_32:
         dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
       }
 
-      LOWORD(v55) = 0;
-      v35 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v35);
-      if (v35 != buf)
+      LOWORD(v60[0]) = 0;
+      LODWORD(v52) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 0, "Waiting for the first orientation to come in", v60, v52);
+      v37 = v36;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v36);
+      if (v37 != buf)
       {
-        free(v35);
+        free(v37);
       }
     }
 
-    v36 = v50[5];
-    v37 = dispatch_time(0, 1000000000);
-    if (dispatch_semaphore_wait(v36, v37))
+    v38 = v55[5];
+    v39 = dispatch_time(0, 1000000000);
+    if (dispatch_semaphore_wait(v38, v39))
     {
       if (qword_1ED71C7B0 != -1)
       {
         dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
       }
 
-      v38 = off_1ED71C7C0;
+      v40 = off_1ED71C7C0;
       if (os_log_type_enabled(off_1ED71C7C0, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v38, OS_LOG_TYPE_ERROR, "Orientation blocking: timeout exceeded!", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v40, OS_LOG_TYPE_ERROR, "Orientation blocking: timeout exceeded!", buf, 2u);
       }
 
-      v39 = sub_19B420058();
-      if ((*(v39 + 160) & 0x80000000) == 0 || (*(v39 + 164) & 0x80000000) == 0 || (*(v39 + 168) & 0x80000000) == 0 || *(v39 + 152))
+      v41 = sub_19B420058();
+      if ((*(v41 + 160) & 0x80000000) == 0 || (*(v41 + 164) & 0x80000000) == 0 || (*(v41 + 168) & 0x80000000) == 0 || *(v41 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C7B0 != -1)
@@ -199,23 +198,25 @@ LABEL_32:
           dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
         }
 
-        LOWORD(v55) = 0;
-        v40 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v40);
-        if (v40 != buf)
+        LOWORD(v60[0]) = 0;
+        LODWORD(v52) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 16, "Orientation blocking: timeout exceeded!", v60, v52);
+        v43 = v42;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v42);
+        if (v43 != buf)
         {
-          free(v40);
+          free(v43);
         }
       }
     }
 
-    dispatch_release(v50[5]);
-    v50[5] = 0;
+    dispatch_release(v55[5]);
+    v55[5] = 0;
   }
 
   os_unfair_lock_lock(internal + 2);
-  v41 = *(internal + 8);
-  v42 = internal[18];
+  v44 = *(internal + 8);
+  v45 = internal[18];
   os_unfair_lock_unlock(internal + 2);
   kdebug_trace();
   if (qword_1ED71C7B0 != -1)
@@ -223,18 +224,18 @@ LABEL_32:
     dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
   }
 
-  v43 = off_1ED71C7C0;
+  v46 = off_1ED71C7C0;
   if (os_log_type_enabled(off_1ED71C7C0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240448;
-    v60 = v42;
-    v61 = 2050;
-    v62 = v41;
-    _os_log_impl(&dword_19B41C000, v43, OS_LOG_TYPE_DEFAULT, "Got latest sample: %{public}d @ %{public}f", buf, 0x12u);
+    v64 = v45;
+    v65 = 2050;
+    v66 = v44;
+    _os_log_impl(&dword_19B41C000, v46, OS_LOG_TYPE_DEFAULT, "Got latest sample: %{public}d @ %{public}f", buf, 0x12u);
   }
 
-  v44 = sub_19B420058();
-  if (*(v44 + 160) > 1 || *(v44 + 164) > 1 || *(v44 + 168) > 1 || *(v44 + 152))
+  v47 = sub_19B420058();
+  if (*(v47 + 160) > 1 || *(v47 + 164) > 1 || *(v47 + 168) > 1 || *(v47 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C7B0 != -1)
@@ -242,38 +243,38 @@ LABEL_32:
       dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
     }
 
-    v55 = 67240448;
-    v56 = v42;
-    v57 = 2050;
-    v58 = v41;
-    v45 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v45);
-    if (v45 != buf)
+    v60[0] = 67240448;
+    v60[1] = v45;
+    v61 = 2050;
+    v62 = v44;
+    LODWORD(v52) = 18;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 0, "Got latest sample: %{public}d @ %{public}f", v60, v52);
+    v49 = v48;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager deviceOrientationBlocking]", "CoreLocation: %s\n", v48);
+    if (v49 != buf)
     {
-      free(v45);
+      free(v49);
     }
   }
 
-  if (v41 <= 0.0)
+  if (v44 <= 0.0)
   {
-    v29 = 0;
+    v31 = 0;
   }
 
   else
   {
-    v46 = [CMDeviceOrientation alloc];
-    v29 = objc_msgSend_initWithOrientation_andTimestamp_(v46, v47, v42, v41);
+    v50 = [CMDeviceOrientation alloc];
+    v31 = objc_msgSend_initWithOrientation_andTimestamp_(v50, v51, v45, v44);
   }
 
-  _Block_object_dispose(&v49, 8);
-LABEL_33:
-  v30 = *MEMORY[0x1E69E9840];
-  return v29;
+  _Block_object_dispose(&v54, 8);
+  return v31;
 }
 
 - (void)stopDeviceOrientationUpdates
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   if (qword_1ED71C7B0 != -1)
   {
@@ -286,9 +287,9 @@ LABEL_33:
     v5 = internal[18];
     v6 = internal[22];
     *buf = 67240448;
-    v19 = v5;
-    v20 = 1026;
-    v21 = v6;
+    v18 = v5;
+    v19 = 1026;
+    v20 = v6;
     _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_DEFAULT, "Stopping orientation updates, latest %{public}d, last significant %{public}d", buf, 0xEu);
   }
 
@@ -303,26 +304,26 @@ LABEL_33:
 
     v8 = internal[18];
     v9 = internal[22];
-    v14 = 67240448;
-    v15 = v8;
-    v16 = 1026;
-    v17 = v9;
-    v10 = _os_log_send_and_compose_impl();
+    v14[0] = 67240448;
+    v14[1] = v8;
+    v15 = 1026;
+    v16 = v9;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 0, "Stopping orientation updates, latest %{public}d, last significant %{public}d", v14, 14);
+    v11 = v10;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager stopDeviceOrientationUpdates]", "CoreLocation: %s\n", v10);
-    if (v10 != buf)
+    if (v11 != buf)
     {
-      free(v10);
+      free(v11);
     }
   }
 
-  v11 = sub_19B420D84();
+  v12 = sub_19B420D84();
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = sub_19B44988C;
   v13[3] = &unk_1E7532988;
   v13[4] = self;
-  sub_19B420C9C(v11, v13);
-  v12 = *MEMORY[0x1E69E9840];
+  sub_19B420C9C(v12, v13);
 }
 
 - (void)stopDeviceOrientationUpdatesPrivate
@@ -416,7 +417,7 @@ LABEL_33:
 
 + (void)initialize
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     v5 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v3, v4);
@@ -452,16 +453,16 @@ LABEL_33:
         dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
       }
 
-      v14 = _os_log_send_and_compose_impl();
+      v16[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 0, "Orientation Manager initialized", v16, 2);
+      v15 = v14;
       sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMDeviceOrientationManager initialize]", "CoreLocation: %s\n", v14);
-      if (v14 != buf)
+      if (v15 != buf)
       {
-        free(v14);
+        free(v15);
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (CMDeviceOrientationManager)init
@@ -541,7 +542,7 @@ LABEL_33:
 
 - (void)onMotionPreferencesUpdated
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   v4 = sub_19B420D84();
   v5 = *(v4 + 24);
@@ -551,7 +552,7 @@ LABEL_33:
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v7 = sub_19B432FD8(v5, "OrientationCallbackMode", internal + 13);
+  v7 = sub_19B432FD8(v5, "OrientationCallbackMode", internal + 13, 0xFFFFFFFFLL);
   if (v6)
   {
     sub_19B41FFEC(v6);
@@ -570,7 +571,7 @@ LABEL_33:
     atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v13 = sub_19B438CCC(v9, "EnableOrientationNotification", internal + 56);
+  v13 = sub_19B438CCC(v9, "EnableOrientationNotification", internal + 56, 0xFFFFFFFFLL);
   if (v10)
   {
     sub_19B41FFEC(v10);
@@ -605,9 +606,9 @@ LABEL_16:
     v19 = *(internal + 13);
     v20 = internal[56];
     *buf = 67240448;
-    v27 = v19;
-    v28 = 1026;
-    v29 = v20;
+    v30 = v19;
+    v31 = 1026;
+    v32 = v20;
     _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_DEFAULT, "OrientationCallbackMode,%{public}d,EnableOrientationNotification,%{public}d", buf, 0xEu);
   }
 
@@ -620,17 +621,20 @@ LABEL_16:
       dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
     }
 
-    v24 = *(internal + 13);
-    v25 = internal[56];
-    v22 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager onMotionPreferencesUpdated]", "CoreLocation: %s\n", v22);
-    if (v22 != buf)
+    v22 = *(internal + 13);
+    v23 = internal[56];
+    v26[0] = 67240448;
+    v26[1] = v22;
+    v27 = 1026;
+    v28 = v23;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 0, "OrientationCallbackMode,%{public}d,EnableOrientationNotification,%{public}d", v26, 14);
+    v25 = v24;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager onMotionPreferencesUpdated]", "CoreLocation: %s\n", v24);
+    if (v25 != buf)
     {
-      free(v22);
+      free(v25);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onNotification:(id)notification
@@ -647,7 +651,7 @@ LABEL_16:
 
 - (void)startDeviceOrientationUpdatesToQueue:(id)queue withHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   if (qword_1ED71C7B0 != -1)
   {
@@ -660,9 +664,9 @@ LABEL_16:
     v9 = internal[13];
     v10 = *(internal + 56);
     *buf = 67240448;
-    v23 = v9;
-    v24 = 1026;
-    v25 = v10;
+    v22 = v9;
+    v23 = 1026;
+    v24 = v10;
     _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_DEFAULT, "Starting orientation updates, callback mode %{public}d, enable %{public}d", buf, 0xEu);
   }
 
@@ -677,20 +681,21 @@ LABEL_16:
 
     v12 = internal[13];
     v13 = *(internal + 56);
-    v18 = 67240448;
-    v19 = v12;
-    v20 = 1026;
-    v21 = v13;
-    v14 = _os_log_send_and_compose_impl();
+    v18[0] = 67240448;
+    v18[1] = v12;
+    v19 = 1026;
+    v20 = v13;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 0, "Starting orientation updates, callback mode %{public}d, enable %{public}d", v18, 14);
+    v15 = v14;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager startDeviceOrientationUpdatesToQueue:withHandler:]", "CoreLocation: %s\n", v14);
-    if (v14 != buf)
+    if (v15 != buf)
     {
-      free(v14);
+      free(v15);
     }
   }
 
   kdebug_trace();
-  v15 = sub_19B420D84();
+  v16 = sub_19B420D84();
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
   v17[2] = sub_19B71F2F4;
@@ -698,8 +703,7 @@ LABEL_16:
   v17[4] = self;
   v17[5] = queue;
   v17[6] = handler;
-  sub_19B420C9C(v15, v17);
-  v16 = *MEMORY[0x1E69E9840];
+  sub_19B420C9C(v16, v17);
 }
 
 - (void)startDeviceOrientationUpdatesPrivateToQueue:(id)queue withHandler:(id)handler
@@ -761,7 +765,7 @@ LABEL_16:
 
 - (void)onDeviceOrientation:(const Sample *)orientation
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_orientationNotificationsDisabled(self, a2, orientation))
   {
     if (qword_1ED71C7B0 != -1)
@@ -785,12 +789,13 @@ LABEL_16:
         dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
       }
 
-      LOWORD(v47) = 0;
-      v7 = _os_log_send_and_compose_impl();
+      LOWORD(v51) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C7C0, 0, "Notifications disabled", &v51, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager onDeviceOrientation:]", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
   }
@@ -803,23 +808,23 @@ LABEL_16:
       dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
     }
 
-    v9 = off_1ED71C7C0;
+    v10 = off_1ED71C7C0;
     if (os_log_type_enabled(off_1ED71C7C0, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_msgSend_stringForOrientation_(self, v10, internal[18]);
-      v13 = objc_msgSend_stringForOrientation_(self, v12, LODWORD(orientation->acceleration.x));
+      v12 = objc_msgSend_stringForOrientation_(self, v11, internal[18]);
+      v14 = objc_msgSend_stringForOrientation_(self, v13, LODWORD(orientation->acceleration.x));
       timestamp = orientation->timestamp;
       *buf = 138543874;
-      v54 = v11;
-      v55 = 2114;
-      v56 = v13;
-      v57 = 2050;
-      v58 = timestamp;
-      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_DEFAULT, "Received orientation. (%{public}@ to %{public}@) Timestamp %{public}f", buf, 0x20u);
+      v58 = v12;
+      v59 = 2114;
+      v60 = v14;
+      v61 = 2050;
+      v62 = timestamp;
+      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "Received orientation. (%{public}@ to %{public}@) Timestamp %{public}f", buf, 0x20u);
     }
 
-    v15 = sub_19B420058();
-    if (*(v15 + 160) > 1 || *(v15 + 164) > 1 || *(v15 + 168) > 1 || *(v15 + 152))
+    v16 = sub_19B420058();
+    if (*(v16 + 160) > 1 || *(v16 + 164) > 1 || *(v16 + 168) > 1 || *(v16 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C7B0 != -1)
@@ -827,20 +832,22 @@ LABEL_16:
         dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
       }
 
-      v17 = objc_msgSend_stringForOrientation_(self, v16, internal[18]);
-      v19 = objc_msgSend_stringForOrientation_(self, v18, LODWORD(orientation->acceleration.x));
-      v20 = orientation->timestamp;
-      v47 = 138543874;
-      v48 = v17;
-      v49 = 2114;
-      v50 = v19;
-      v51 = 2050;
-      v52 = v20;
-      v21 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager onDeviceOrientation:]", "CoreLocation: %s\n", v21);
-      if (v21 != buf)
+      v18 = off_1ED71C7C0;
+      v19 = objc_msgSend_stringForOrientation_(self, v17, internal[18]);
+      v21 = objc_msgSend_stringForOrientation_(self, v20, LODWORD(orientation->acceleration.x));
+      v22 = orientation->timestamp;
+      v51 = 138543874;
+      v52 = v19;
+      v53 = 2114;
+      v54 = v21;
+      v55 = 2050;
+      v56 = v22;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v18, 0, "Received orientation. (%{public}@ to %{public}@) Timestamp %{public}f", &v51, 32);
+      v24 = v23;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager onDeviceOrientation:]", "CoreLocation: %s\n", v23);
+      if (v24 != buf)
       {
-        free(v21);
+        free(v24);
       }
     }
 
@@ -849,7 +856,6 @@ LABEL_16:
     *(internal + 4) = *&orientation->timestamp;
     os_unfair_lock_unlock(internal + 2);
     p_acceleration = &orientation->acceleration;
-    x_low = LODWORD(orientation->acceleration.x);
     kdebug_trace();
     if ((internal[12] & 1) == 0)
     {
@@ -859,41 +865,41 @@ LABEL_16:
 
     if (*(internal + 4) && *(internal + 3))
     {
-      objc_msgSend_updateAggregateDictionaryPrivate(self, v24, v25);
-      v26 = objc_autoreleasePoolPush();
-      v28 = (internal + 13);
-      v27 = internal[13];
-      v29 = [CMDeviceOrientation alloc];
-      if (v27 == -1)
+      objc_msgSend_updateAggregateDictionaryPrivate(self, v26, v27);
+      v28 = objc_autoreleasePoolPush();
+      v30 = (internal + 13);
+      v29 = internal[13];
+      v31 = [CMDeviceOrientation alloc];
+      if (v29 == -1)
       {
-        v31 = &orientation->acceleration;
+        v33 = &orientation->acceleration;
       }
 
       else
       {
-        v31 = (internal + 13);
+        v33 = (internal + 13);
       }
 
-      v32 = objc_msgSend_initWithOrientation_andTimestamp_(v29, v30, LODWORD(v31->x), orientation->timestamp);
+      v34 = objc_msgSend_initWithOrientation_andTimestamp_(v31, v32, LODWORD(v33->x), orientation->timestamp);
       if (qword_1ED71C7B0 != -1)
       {
         dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
       }
 
-      v33 = off_1ED71C7C0;
+      v35 = off_1ED71C7C0;
       if (os_log_type_enabled(off_1ED71C7C0, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = objc_msgSend_stringForOrientation_(self, v34, LODWORD(p_acceleration->x));
-        v36 = *v28;
+        v37 = objc_msgSend_stringForOrientation_(self, v36, LODWORD(p_acceleration->x));
+        v38 = *v30;
         *buf = 138543618;
-        v54 = v35;
-        v55 = 1026;
-        LODWORD(v56) = v36;
-        _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_DEFAULT, "Updating client handler: Orientation %{public}@, Callback mode: %{public}d", buf, 0x12u);
+        v58 = v37;
+        v59 = 1026;
+        LODWORD(v60) = v38;
+        _os_log_impl(&dword_19B41C000, v35, OS_LOG_TYPE_DEFAULT, "Updating client handler: Orientation %{public}@, Callback mode: %{public}d", buf, 0x12u);
       }
 
-      v37 = sub_19B420058();
-      if (*(v37 + 160) > 1 || *(v37 + 164) > 1 || *(v37 + 168) > 1 || *(v37 + 152))
+      v39 = sub_19B420058();
+      if (*(v39 + 160) > 1 || *(v39 + 164) > 1 || *(v39 + 168) > 1 || *(v39 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C7B0 != -1)
@@ -901,35 +907,36 @@ LABEL_16:
           dispatch_once(&qword_1ED71C7B0, &unk_1F0E29FA0);
         }
 
-        v40 = objc_msgSend_stringForOrientation_(self, v39, LODWORD(p_acceleration->x));
-        v41 = *v28;
-        v47 = 138543618;
-        v48 = v40;
-        v49 = 1026;
-        LODWORD(v50) = v41;
-        v42 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager onDeviceOrientation:]", "CoreLocation: %s\n", v42);
-        if (v42 != buf)
+        v42 = off_1ED71C7C0;
+        v43 = objc_msgSend_stringForOrientation_(self, v41, LODWORD(p_acceleration->x));
+        v44 = *v30;
+        v51 = 138543618;
+        v52 = v43;
+        v53 = 1026;
+        LODWORD(v54) = v44;
+        LODWORD(v49) = 18;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v42, 0, "Updating client handler: Orientation %{public}@, Callback mode: %{public}d", &v51, v49);
+        v46 = v45;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMDeviceOrientationManager onDeviceOrientation:]", "CoreLocation: %s\n", v45);
+        if (v46 != buf)
         {
-          free(v42);
+          free(v46);
         }
       }
 
-      v44 = *(internal + 3);
-      v43 = *(internal + 4);
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = sub_19B71FC14;
-      v46[3] = &unk_1E7532B90;
-      v46[4] = v32;
-      v46[5] = v44;
-      objc_msgSend_addOperationWithBlock_(v43, v38, v46);
+      v48 = *(internal + 3);
+      v47 = *(internal + 4);
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = sub_19B71FC14;
+      v50[3] = &unk_1E7532B90;
+      v50[4] = v34;
+      v50[5] = v48;
+      objc_msgSend_addOperationWithBlock_(v47, v40, v50);
 
-      objc_autoreleasePoolPop(v26);
+      objc_autoreleasePoolPop(v28);
     }
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (id)stringForOrientation:(int)orientation

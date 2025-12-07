@@ -16,47 +16,48 @@
 
 - (ARMotionSensor)initWithMotionManager:(id)manager
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
-  if (![managerCopy isGyroAvailable] || (objc_msgSend(managerCopy, "isAccelerometerAvailable") & 1) == 0)
+  isGyroAvailable = [managerCopy isGyroAvailable];
+  if (!isGyroAvailable || (isGyroAvailable = [managerCopy isAccelerometerAvailable], (isGyroAvailable & 1) == 0))
   {
     if (ARShouldUseLogTypeError_onceToken_2 != -1)
     {
       [ARMotionSensor initWithMotionManager:];
     }
 
-    v15 = ARShouldUseLogTypeError_internalOSVersion_2;
-    v16 = _ARLogSensor_3();
-    v17 = v16;
-    if (v15 == 1)
+    v16 = ARShouldUseLogTypeError_internalOSVersion_2;
+    v17 = _ARLogSensor_3(isGyroAvailable);
+    v18 = v17;
+    if (v16 == 1)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138543618;
-        v27 = v19;
-        v28 = 2048;
+        v28 = v20;
+        v29 = 2048;
         selfCopy2 = self;
-        v20 = "%{public}@ <%p>: Unable to initialize ARMotionSensor: accelerometer and/or gyroscope from CMMotionManager not available.";
-        v21 = v17;
-        v22 = OS_LOG_TYPE_ERROR;
+        v21 = "%{public}@ <%p>: Unable to initialize ARMotionSensor: accelerometer and/or gyroscope from CMMotionManager not available.";
+        v22 = v18;
+        v23 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-        _os_log_impl(&dword_1C241C000, v21, v22, v20, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v22, v23, v21, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v23 = objc_opt_class();
-      v19 = NSStringFromClass(v23);
+      v24 = objc_opt_class();
+      v20 = NSStringFromClass(v24);
       *buf = 138543618;
-      v27 = v19;
-      v28 = 2048;
+      v28 = v20;
+      v29 = 2048;
       selfCopy2 = self;
-      v20 = "Error: %{public}@ <%p>: Unable to initialize ARMotionSensor: accelerometer and/or gyroscope from CMMotionManager not available.";
-      v21 = v17;
-      v22 = OS_LOG_TYPE_INFO;
+      v21 = "Error: %{public}@ <%p>: Unable to initialize ARMotionSensor: accelerometer and/or gyroscope from CMMotionManager not available.";
+      v22 = v18;
+      v23 = OS_LOG_TYPE_INFO;
       goto LABEL_14;
     }
 
@@ -64,31 +65,31 @@ LABEL_14:
     goto LABEL_16;
   }
 
-  v25.receiver = self;
-  v25.super_class = ARMotionSensor;
-  v6 = [(ARMotionSensor *)&v25 init];
-  v7 = v6;
-  if (v6)
+  v26.receiver = self;
+  v26.super_class = ARMotionSensor;
+  v7 = [(ARMotionSensor *)&v26 init];
+  v8 = v7;
+  if (v7)
   {
-    objc_storeStrong(&v6->_motionManager, manager);
-    v7->_requestMagnetometerData = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.motionSensor.magnetometerEnabled"];
-    v8 = objc_opt_new();
-    currentGyroData = v7->_currentGyroData;
-    v7->_currentGyroData = v8;
+    objc_storeStrong(&v7->_motionManager, manager);
+    v8->_requestMagnetometerData = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.motionSensor.magnetometerEnabled"];
+    v9 = objc_opt_new();
+    currentGyroData = v8->_currentGyroData;
+    v8->_currentGyroData = v9;
 
-    v10 = objc_opt_new();
-    currentAccelerometerData = v7->_currentAccelerometerData;
-    v7->_currentAccelerometerData = v10;
+    v11 = objc_opt_new();
+    currentAccelerometerData = v8->_currentAccelerometerData;
+    v8->_currentAccelerometerData = v11;
 
-    if (v7->_requestMagnetometerData)
+    if (v8->_requestMagnetometerData)
     {
-      v12 = objc_opt_new();
-      currentMagnetometerData = v7->_currentMagnetometerData;
-      v7->_currentMagnetometerData = v12;
+      v13 = objc_opt_new();
+      currentMagnetometerData = v8->_currentMagnetometerData;
+      v8->_currentMagnetometerData = v13;
     }
   }
 
-  self = v7;
+  self = v8;
   selfCopy3 = self;
 LABEL_16:
 
@@ -98,8 +99,7 @@ LABEL_16:
 - (void)dealloc
 {
   v14 = *MEMORY[0x1E69E9840];
-  [(ARMotionSensor *)self stop];
-  v3 = _ARLogSensor_3();
+  v3 = _ARLogSensor_3([(ARMotionSensor *)self stop]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
@@ -134,31 +134,31 @@ LABEL_16:
 
 - (void)start
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_3();
+  v30 = *MEMORY[0x1E69E9840];
+  v3 = _ARLogSensor_3(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     motionManager = self->_motionManager;
-    v23 = 138543874;
-    v24 = v5;
-    v25 = 2048;
+    v24 = 138543874;
+    v25 = v5;
+    v26 = 2048;
     selfCopy3 = self;
-    v27 = 2048;
-    v28 = motionManager;
-    _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARMotionSensor start (%p).", &v23, 0x20u);
+    v28 = 2048;
+    v29 = motionManager;
+    _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARMotionSensor start (%p).", &v24, 0x20u);
   }
 
   [(ARMotionSensor *)self preferredInterval];
   [(ARMotionSensor *)self setInterval:?];
-  [(ARMotionSensor *)self interval];
-  if (v7 > 0.0)
+  interval = [(ARMotionSensor *)self interval];
+  if (v8 > 0.0)
   {
     delegate = [(ARMotionSensor *)self delegate];
-    v9 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if ((v9 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
       return;
     }
@@ -173,52 +173,52 @@ LABEL_16:
     [ARMotionSensor start];
   }
 
-  v11 = ARShouldUseLogTypeError_internalOSVersion_2;
-  v12 = _ARLogSensor_3();
-  v13 = v12;
-  if (v11 == 1)
+  v12 = ARShouldUseLogTypeError_internalOSVersion_2;
+  v13 = _ARLogSensor_3(interval);
+  v14 = v13;
+  if (v12 == 1)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v23 = 138543618;
-      v24 = v15;
-      v25 = 2048;
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v24 = 138543618;
+      v25 = v16;
+      v26 = 2048;
       selfCopy3 = self;
-      v16 = "%{public}@ <%p>: Accelerometer and/or Gyroscope sensor(s) not available";
-      v17 = v13;
-      v18 = OS_LOG_TYPE_ERROR;
+      v17 = "%{public}@ <%p>: Accelerometer and/or Gyroscope sensor(s) not available";
+      v18 = v14;
+      v19 = OS_LOG_TYPE_ERROR;
 LABEL_13:
-      _os_log_impl(&dword_1C241C000, v17, v18, v16, &v23, 0x16u);
+      _os_log_impl(&dword_1C241C000, v18, v19, v17, &v24, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v19 = objc_opt_class();
-    v15 = NSStringFromClass(v19);
-    v23 = 138543618;
-    v24 = v15;
-    v25 = 2048;
+    v20 = objc_opt_class();
+    v16 = NSStringFromClass(v20);
+    v24 = 138543618;
+    v25 = v16;
+    v26 = 2048;
     selfCopy3 = self;
-    v16 = "Error: %{public}@ <%p>: Accelerometer and/or Gyroscope sensor(s) not available";
-    v17 = v13;
-    v18 = OS_LOG_TYPE_INFO;
+    v17 = "Error: %{public}@ <%p>: Accelerometer and/or Gyroscope sensor(s) not available";
+    v18 = v14;
+    v19 = OS_LOG_TYPE_INFO;
     goto LABEL_13;
   }
 
   delegate3 = [(ARMotionSensor *)self delegate];
-  v21 = objc_opt_respondsToSelector();
+  v22 = objc_opt_respondsToSelector();
 
-  if ((v21 & 1) == 0)
+  if ((v22 & 1) == 0)
   {
     return;
   }
 
   delegate2 = [(ARMotionSensor *)self delegate];
-  v22 = ARErrorWithCodeAndUserInfo(101, 0);
-  [delegate2 sensor:self didFailWithError:v22];
+  v23 = ARErrorWithCodeAndUserInfo(101, 0);
+  [delegate2 sensor:self didFailWithError:v23];
 
 LABEL_16:
 }
@@ -226,7 +226,7 @@ LABEL_16:
 - (void)stop
 {
   v13 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_3();
+  v3 = _ARLogSensor_3(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
@@ -246,7 +246,7 @@ LABEL_16:
 
 - (void)setInterval:(double)interval
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self->_interval == interval)
   {
     return;
@@ -257,11 +257,12 @@ LABEL_16:
   {
     [(CMMotionManager *)motionManager setGyroDataCallback:0 info:0 interval:0.0];
     [(CMMotionManager *)self->_motionManager setAccelerometerDataCallback:0 info:0 interval:0.0];
-    if ([(CMMotionManager *)self->_motionManager isMagnetometerAvailable]&& self->_requestMagnetometerData)
+    isMagnetometerAvailable = [(CMMotionManager *)self->_motionManager isMagnetometerAvailable];
+    if (isMagnetometerAvailable && self->_requestMagnetometerData)
     {
-      v6 = self->_motionManager;
+      v7 = self->_motionManager;
       intervalCopy = 0.0;
-      v7 = 0;
+      v8 = 0;
       selfCopy = 0;
       goto LABEL_9;
     }
@@ -271,29 +272,30 @@ LABEL_16:
   {
     [(CMMotionManager *)motionManager setGyroDataCallback:rawGyroscopeCallback info:self interval:interval];
     [(CMMotionManager *)self->_motionManager setAccelerometerDataCallback:rawAccelerometerCallback info:self interval:interval];
-    if ([(CMMotionManager *)self->_motionManager isMagnetometerAvailable]&& self->_requestMagnetometerData)
+    isMagnetometerAvailable = [(CMMotionManager *)self->_motionManager isMagnetometerAvailable];
+    if (isMagnetometerAvailable && self->_requestMagnetometerData)
     {
-      v6 = self->_motionManager;
-      v7 = rawMagnetometerCallback;
+      v7 = self->_motionManager;
+      v8 = rawMagnetometerCallback;
       selfCopy = self;
       intervalCopy = interval;
 LABEL_9:
-      [(CMMotionManager *)v6 setMagnetometerDataCallback:v7 info:selfCopy interval:intervalCopy];
+      isMagnetometerAvailable = [(CMMotionManager *)v7 setMagnetometerDataCallback:v8 info:selfCopy interval:intervalCopy];
     }
   }
 
-  v10 = _ARLogSensor_3();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _ARLogSensor_3(isMagnetometerAvailable);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
-    v13 = 138543874;
-    v14 = v12;
-    v15 = 2048;
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v14 = 138543874;
+    v15 = v13;
+    v16 = 2048;
     selfCopy2 = self;
-    v17 = 2048;
+    v18 = 2048;
     intervalCopy2 = interval;
-    _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Accelerometer and Gyroscope update interval set at %f", &v13, 0x20u);
+    _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Accelerometer and Gyroscope update interval set at %f", &v14, 0x20u);
   }
 
   self->_interval = interval;

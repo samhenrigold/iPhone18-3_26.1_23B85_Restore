@@ -83,7 +83,7 @@ void ZinIrTransposeUnitInfo::~ZinIrTransposeUnitInfo(ZinIrTransposeUnitInfo *thi
   operator delete(this);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType,mlir::detail::TypedValue<mlir::MemRefType>>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType,mlir::detail::TypedValue<mlir::MemRefType>>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v23[28] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -108,7 +108,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType,mlir::deta
   *(v20 + 8 * v12) = v11;
   ++v21;
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Reshape,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Reshape,void>::id)
   {
     v14 = v13;
   }
@@ -1113,10 +1113,10 @@ void ZinIrTileUnitInfo::~ZinIrTileUnitInfo(ZinIrTileUnitInfo *this)
   operator delete(this);
 }
 
-void *std::__hash_table<std::__hash_value_type<ZinIrDimension,int>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,int>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,int>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,int>>>::__emplace_unique_key_args<ZinIrDimension,std::piecewise_construct_t const&,std::tuple<ZinIrDimension&&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
+void *std::__hash_table<std::__hash_value_type<ZinIrDimension,int>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,int>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,int>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,int>>>::__emplace_unique_key_args<ZinIrDimension,std::piecewise_construct_t const&,std::tuple<ZinIrDimension&&>,std::tuple<>>(float *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
   v7 = *a2;
-  v8 = *(a1 + 8);
+  v8 = *(a1 + 1);
   if (v8)
   {
     v9 = vcnt_s8(v8);
@@ -1138,45 +1138,37 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,int>,std::__unorde
     v10 = *(*a1 + 8 * v4);
     if (v10)
     {
-      result = *v10;
-      if (*v10)
+      for (result = *v10; result; result = *result)
       {
-        do
+        v12 = result[1];
+        if (v12 == v7)
         {
-          v12 = result[1];
-          if (v12 == v7)
+          if (*(result + 4) == v7)
           {
-            if (*(result + 4) == v7)
+            return result;
+          }
+        }
+
+        else
+        {
+          if (v9.u32[0] > 1uLL)
+          {
+            if (v12 >= v8)
             {
-              return result;
+              v12 %= v8;
             }
           }
 
           else
           {
-            if (v9.u32[0] > 1uLL)
-            {
-              if (v12 >= v8)
-              {
-                v12 %= v8;
-              }
-            }
-
-            else
-            {
-              v12 &= v8 - 1;
-            }
-
-            if (v12 != v4)
-            {
-              break;
-            }
+            v12 &= v8 - 1;
           }
 
-          result = *result;
+          if (v12 != v4)
+          {
+            break;
+          }
         }
-
-        while (result);
       }
     }
   }
@@ -1186,8 +1178,8 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,int>,std::__unorde
   result[1] = v7;
   *(result + 4) = **a4;
   *(result + 5) = 0;
-  v13 = (*(a1 + 24) + 1);
-  v14 = *(a1 + 32);
+  v13 = (*(a1 + 3) + 1);
+  v14 = a1[8];
   if (!v8 || (v14 * v8) < v13)
   {
     v15 = 1;
@@ -1218,7 +1210,7 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,int>,std::__unorde
       v19 = result;
       prime = std::__next_prime(prime);
       result = v19;
-      v8 = *(a1 + 8);
+      v8 = *(a1 + 1);
     }
 
     if (prime > v8)
@@ -1228,7 +1220,7 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,int>,std::__unorde
 
     if (prime < v8)
     {
-      v21 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+      v21 = vcvtps_u32_f32(*(a1 + 3) / a1[8]);
       if (v8 < 3 || (v22 = vcnt_s8(v8), v22.i16[0] = vaddlv_u8(v22), v22.u32[0] > 1uLL))
       {
         v24 = result;
@@ -1262,7 +1254,7 @@ LABEL_30:
       }
     }
 
-    v8 = *(a1 + 8);
+    v8 = *(a1 + 1);
     if ((v8 & (v8 - 1)) != 0)
     {
       if (v8 <= v7)
@@ -1292,9 +1284,9 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  *result = *(a1 + 16);
-  *(a1 + 16) = result;
-  *(v27 + 8 * v4) = a1 + 16;
+  *result = *(a1 + 2);
+  *(a1 + 2) = result;
+  *(v27 + 8 * v4) = a1 + 4;
   if (*result)
   {
     v29 = *(*result + 8);
@@ -1316,7 +1308,7 @@ LABEL_55:
   }
 
 LABEL_56:
-  ++*(a1 + 24);
+  ++*(a1 + 3);
   return result;
 }
 
@@ -1634,10 +1626,10 @@ void *llvm::SmallVectorTemplateBase<unsigned char,true>::push_back(void *result,
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,unsigned long>>(uint64_t a1, int *a2, uint64_t a3)
+void *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,unsigned long>>(float *a1, int *a2, uint64_t a3)
 {
   v6 = *a2;
-  v7 = *(a1 + 8);
+  v7 = *(a1 + 1);
   if (v7)
   {
     v8 = vcnt_s8(v7);
@@ -1659,45 +1651,37 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetP
     v9 = *(*a1 + 8 * v3);
     if (v9)
     {
-      result = *v9;
-      if (*v9)
+      for (result = *v9; result; result = *result)
       {
-        do
+        v11 = result[1];
+        if (v11 == v6)
         {
-          v11 = result[1];
-          if (v11 == v6)
+          if (*(result + 4) == v6)
           {
-            if (*(result + 4) == v6)
+            return result;
+          }
+        }
+
+        else
+        {
+          if (v8.u32[0] > 1uLL)
+          {
+            if (v11 >= v7)
             {
-              return result;
+              v11 %= v7;
             }
           }
 
           else
           {
-            if (v8.u32[0] > 1uLL)
-            {
-              if (v11 >= v7)
-              {
-                v11 %= v7;
-              }
-            }
-
-            else
-            {
-              v11 &= v7 - 1;
-            }
-
-            if (v11 != v3)
-            {
-              break;
-            }
+            v11 &= v7 - 1;
           }
 
-          result = *result;
+          if (v11 != v3)
+          {
+            break;
+          }
         }
-
-        while (result);
       }
     }
   }
@@ -1708,8 +1692,8 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetP
   *(result + 4) = *a3;
   result[3] = *(a3 + 8);
   *(result + 32) = 0;
-  v12 = (*(a1 + 24) + 1);
-  v13 = *(a1 + 32);
+  v12 = (*(a1 + 3) + 1);
+  v13 = a1[8];
   if (!v7 || (v13 * v7) < v12)
   {
     v14 = 1;
@@ -1740,7 +1724,7 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetP
       v18 = result;
       prime = std::__next_prime(prime);
       result = v18;
-      v7 = *(a1 + 8);
+      v7 = *(a1 + 1);
     }
 
     if (prime > v7)
@@ -1750,7 +1734,7 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetP
 
     if (prime < v7)
     {
-      v20 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+      v20 = vcvtps_u32_f32(*(a1 + 3) / a1[8]);
       if (v7 < 3 || (v21 = vcnt_s8(v7), v21.i16[0] = vaddlv_u8(v21), v21.u32[0] > 1uLL))
       {
         v23 = result;
@@ -1784,7 +1768,7 @@ LABEL_30:
       }
     }
 
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 1);
     if ((v7 & (v7 - 1)) != 0)
     {
       if (v7 <= v6)
@@ -1814,9 +1798,9 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  *result = *(a1 + 16);
-  *(a1 + 16) = result;
-  *(v26 + 8 * v3) = a1 + 16;
+  *result = *(a1 + 2);
+  *(a1 + 2) = result;
+  *(v26 + 8 * v3) = a1 + 4;
   if (*result)
   {
     v28 = *(*result + 8);
@@ -1838,14 +1822,14 @@ LABEL_55:
   }
 
 LABEL_56:
-  ++*(a1 + 24);
+  ++*(a1 + 3);
   return result;
 }
 
-char *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,std::string>>(uint64_t a1, int *a2, uint64_t a3)
+char *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,std::string>>(float *a1, int *a2, uint64_t a3)
 {
   v6 = *a2;
-  v7 = *(a1 + 8);
+  v7 = *(a1 + 1);
   if (v7)
   {
     v8 = vcnt_s8(v7);
@@ -1932,8 +1916,8 @@ char *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffset
     v12[48] = 0;
   }
 
-  v16 = (*(a1 + 24) + 1);
-  v17 = *(a1 + 32);
+  v16 = (*(a1 + 3) + 1);
+  v17 = a1[8];
   if (!v7 || (v17 * v7) < v16)
   {
     v18 = 1;
@@ -1964,7 +1948,7 @@ char *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffset
       prime = std::__next_prime(prime);
     }
 
-    v22 = *(a1 + 8);
+    v22 = *(a1 + 2);
     if (prime > *&v22)
     {
       goto LABEL_33;
@@ -1972,7 +1956,7 @@ char *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffset
 
     if (prime < *&v22)
     {
-      v23 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+      v23 = vcvtps_u32_f32(*(a1 + 3) / a1[8]);
       if (*&v22 < 3uLL || (v24 = vcnt_s8(v22), v24.i16[0] = vaddlv_u8(v24), v24.u32[0] > 1uLL))
       {
         v26 = prime;
@@ -2001,7 +1985,7 @@ LABEL_33:
       }
     }
 
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 1);
     if ((v7 & (v7 - 1)) != 0)
     {
       if (v7 <= v6)
@@ -2031,9 +2015,9 @@ LABEL_58:
     goto LABEL_59;
   }
 
-  *i = *(a1 + 16);
-  *(a1 + 16) = i;
-  *(v27 + 8 * v3) = a1 + 16;
+  *i = *(a1 + 2);
+  *(a1 + 2) = i;
+  *(v27 + 8 * v3) = a1 + 4;
   if (*i)
   {
     v29 = *(*i + 8);
@@ -2055,7 +2039,7 @@ LABEL_58:
   }
 
 LABEL_59:
-  ++*(a1 + 24);
+  ++*(a1 + 3);
   return i;
 }
 
@@ -2112,10 +2096,10 @@ void ZinIrRingBufferReaderUnitInfo::~ZinIrRingBufferReaderUnitInfo(ZinIrRingBuff
   operator delete(v5);
 }
 
-void *std::__hash_table<std::__hash_value_type<ZinIrDimension,long>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,long>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,long>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,long>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,unsigned char>>(uint64_t a1, int *a2, uint64_t a3)
+void *std::__hash_table<std::__hash_value_type<ZinIrDimension,long>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,long>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,long>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,long>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,unsigned char>>(float *a1, int *a2, uint64_t a3)
 {
   v6 = *a2;
-  v7 = *(a1 + 8);
+  v7 = *(a1 + 1);
   if (v7)
   {
     v8 = vcnt_s8(v7);
@@ -2137,45 +2121,37 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,long>,std::__unord
     v9 = *(*a1 + 8 * v3);
     if (v9)
     {
-      result = *v9;
-      if (*v9)
+      for (result = *v9; result; result = *result)
       {
-        do
+        v11 = result[1];
+        if (v11 == v6)
         {
-          v11 = result[1];
-          if (v11 == v6)
+          if (*(result + 4) == v6)
           {
-            if (*(result + 4) == v6)
+            return result;
+          }
+        }
+
+        else
+        {
+          if (v8.u32[0] > 1uLL)
+          {
+            if (v11 >= v7)
             {
-              return result;
+              v11 %= v7;
             }
           }
 
           else
           {
-            if (v8.u32[0] > 1uLL)
-            {
-              if (v11 >= v7)
-              {
-                v11 %= v7;
-              }
-            }
-
-            else
-            {
-              v11 &= v7 - 1;
-            }
-
-            if (v11 != v3)
-            {
-              break;
-            }
+            v11 &= v7 - 1;
           }
 
-          result = *result;
+          if (v11 != v3)
+          {
+            break;
+          }
         }
-
-        while (result);
       }
     }
   }
@@ -2185,8 +2161,8 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,long>,std::__unord
   result[1] = v6;
   *(result + 4) = *a3;
   result[3] = *(a3 + 4);
-  v12 = (*(a1 + 24) + 1);
-  v13 = *(a1 + 32);
+  v12 = (*(a1 + 3) + 1);
+  v13 = a1[8];
   if (!v7 || (v13 * v7) < v12)
   {
     v14 = 1;
@@ -2217,7 +2193,7 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,long>,std::__unord
       v18 = result;
       prime = std::__next_prime(prime);
       result = v18;
-      v7 = *(a1 + 8);
+      v7 = *(a1 + 1);
     }
 
     if (prime > v7)
@@ -2227,7 +2203,7 @@ void *std::__hash_table<std::__hash_value_type<ZinIrDimension,long>,std::__unord
 
     if (prime < v7)
     {
-      v20 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+      v20 = vcvtps_u32_f32(*(a1 + 3) / a1[8]);
       if (v7 < 3 || (v21 = vcnt_s8(v7), v21.i16[0] = vaddlv_u8(v21), v21.u32[0] > 1uLL))
       {
         v23 = result;
@@ -2261,7 +2237,7 @@ LABEL_30:
       }
     }
 
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 1);
     if ((v7 & (v7 - 1)) != 0)
     {
       if (v7 <= v6)
@@ -2291,9 +2267,9 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  *result = *(a1 + 16);
-  *(a1 + 16) = result;
-  *(v26 + 8 * v3) = a1 + 16;
+  *result = *(a1 + 2);
+  *(a1 + 2) = result;
+  *(v26 + 8 * v3) = a1 + 4;
   if (*result)
   {
     v28 = *(*result + 8);
@@ -2315,7 +2291,7 @@ LABEL_55:
   }
 
 LABEL_56:
-  ++*(a1 + 24);
+  ++*(a1 + 3);
   return result;
 }
 
@@ -2452,7 +2428,7 @@ uint64_t llvm::function_ref<mlir::Type ()(mlir::Builder &,llvm::ArrayRef<mlir::T
   return mlir::Builder::getFunctionType(a2, v11[0], v11[1], v10[0], v10[1]);
 }
 
-uint64_t llvm::CastInfo<mlir::anec::ArgMinMaxModeAttr,mlir::Attribute const,void>::isPossible(uint64_t a1)
+BOOL llvm::CastInfo<mlir::anec::ArgMinMaxModeAttr,mlir::Attribute const,void>::isPossible(uint64_t a1)
 {
   if (*(*a1 + 136) != &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
   {
@@ -2793,12 +2769,16 @@ void mlir::RewritePatternSet::add<mlir::anec::Transpose>(llvm::LogicalResult (*)
   operator delete(__p);
 }
 
-BOOL OUTLINED_FUNCTION_7_17(void *a1)
+float OUTLINED_FUNCTION_7_17(void *a1)
 {
+
+  return result;
 }
 
-BOOL OUTLINED_FUNCTION_9_17(void *a1)
+float OUTLINED_FUNCTION_9_17(void *a1)
 {
+
+  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_10_18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -2818,7 +2798,7 @@ uint64_t OUTLINED_FUNCTION_13_20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 void OUTLINED_FUNCTION_55_7()
 {
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(v2, v1 + 40, v0 + 1, 24);
+  llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (v1 + 40), v0 + 1, 24);
 }
 
 uint64_t OUTLINED_FUNCTION_88_7(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -2853,7 +2833,7 @@ BOOL OUTLINED_FUNCTION_93_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 void OUTLINED_FUNCTION_94_4(uint64_t a1)
 {
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(a1, v2 + 40, v1 + 1, 24);
+  llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (v2 + 40), v1 + 1, 24);
 }
 
 uint64_t OUTLINED_FUNCTION_112_6()
@@ -2863,97 +2843,97 @@ uint64_t OUTLINED_FUNCTION_112_6()
   return mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(v2);
 }
 
-void mlir::anec::computeOpKeyString(mlir::anec *this@<X0>, std::string *a2@<X8>)
+void mlir::anec::computeOpKeyString(std::string *__return_ptr a1@<X8>, mlir::anec *this@<X0>)
 {
-  if (!*(this + 47) || (v28.var0 = "name", v28.var1 = 4, InherentAttr = mlir::Operation::getInherentAttr(this, v28), (v6 & 1) == 0))
+  if (!*(this + 47) || (v27.var0 = "name", v27.var1 = 4, InherentAttr = mlir::Operation::getInherentAttr(this, v27), (v5 & 1) == 0))
   {
-    v29.var0 = "name";
-    v29.var1 = 4;
-    InherentAttr = mlir::DictionaryAttr::get((this + 56), v29);
+    v28.var0 = "name";
+    v28.var1 = 4;
+    InherentAttr = mlir::DictionaryAttr::get((this + 56), v28);
   }
 
   if (InherentAttr)
   {
-    v26[0] = InherentAttr;
-    AttrData = mlir::OpaqueAttr::getAttrData(v26);
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    v25[0] = InherentAttr;
+    AttrData = mlir::OpaqueAttr::getAttrData(v25);
+    if (v7 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::vector<mlir::CallGraphNode *>::__throw_length_error[abi:nn200100]();
     }
 
-    v9 = AttrData;
-    v10 = v8;
-    if (v8 >= 0x17)
+    v8 = AttrData;
+    v9 = v7;
+    if (v7 >= 0x17)
     {
-      if ((v8 | 7) == 0x17)
+      if ((v7 | 7) == 0x17)
       {
-        v19 = 25;
+        v18 = 25;
       }
 
       else
       {
-        v19 = (v8 | 7) + 1;
+        v18 = (v7 | 7) + 1;
       }
 
-      v20 = operator new(v19);
-      a2->__r_.__value_.__l.__size_ = v10;
-      a2->__r_.__value_.__r.__words[2] = v19 | 0x8000000000000000;
-      a2->__r_.__value_.__r.__words[0] = v20;
-      a2 = v20;
+      v19 = operator new(v18);
+      a1->__r_.__value_.__l.__size_ = v9;
+      a1->__r_.__value_.__r.__words[2] = v18 | 0x8000000000000000;
+      a1->__r_.__value_.__r.__words[0] = v19;
+      a1 = v19;
     }
 
     else
     {
-      *(&a2->__r_.__value_.__s + 23) = v8;
-      if (!v8)
+      *(&a1->__r_.__value_.__s + 23) = v7;
+      if (!v7)
       {
         goto LABEL_19;
       }
     }
 
-    memmove(a2, v9, v10);
+    memmove(a1, v8, v9);
 LABEL_19:
-    a2->__r_.__value_.__s.__data_[v10] = 0;
+    a1->__r_.__value_.__s.__data_[v9] = 0;
     return;
   }
 
-  v26[0] = *(*(this + 6) + 8);
-  v23 = 1283;
-  v22[2] = mlir::OpaqueAttr::getAttrData(v26);
-  v22[3] = v11;
-  v24[0] = v22;
-  v24[2] = "_";
-  v25 = 770;
-  v12 = mlir::anec::ANECIRNetwork::name_counter_++;
-  v21 = v12;
-  v22[0] = "__";
-  v26[0] = v24;
-  v26[2] = &v21;
-  v27 = 2818;
-  llvm::Twine::str(v26, a2);
+  v25[0] = *(*(this + 6) + 8);
+  v22 = 1283;
+  v21[2] = mlir::OpaqueAttr::getAttrData(v25);
+  v21[3] = v10;
+  v23[0] = v21;
+  v23[2] = "_";
+  v24 = 770;
+  v11 = mlir::anec::ANECIRNetwork::name_counter_++;
+  v20 = v11;
+  v21[0] = "__";
+  v25[0] = v23;
+  v25[2] = &v20;
+  v26 = 2818;
+  llvm::Twine::str(v25, a1);
   Context = mlir::Attribute::getContext((this + 24));
-  size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-  v15 = a2->__r_.__value_.__r.__words[0];
+  size = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+  v14 = a1->__r_.__value_.__r.__words[0];
   if (size >= 0)
   {
-    v15 = a2;
+    v14 = a1;
   }
 
   if (size < 0)
   {
-    size = a2->__r_.__value_.__l.__size_;
+    size = a1->__r_.__value_.__l.__size_;
   }
 
-  v25 = 261;
-  v24[0] = v15;
-  v24[1] = size;
-  v16 = mlir::StringAttr::get(Context, v24);
-  v17 = mlir::Attribute::getContext((this + 24));
-  v27 = 261;
-  v26[0] = "name";
-  v26[1] = 4;
-  v18 = mlir::StringAttr::get(v17, v26);
-  mlir::Operation::setAttr(this, v18, v16);
+  v24 = 261;
+  v23[0] = v14;
+  v23[1] = size;
+  v15 = mlir::StringAttr::get(Context, v23);
+  v16 = mlir::Attribute::getContext((this + 24));
+  v26 = 261;
+  v25[0] = "name";
+  v25[1] = 4;
+  v17 = mlir::StringAttr::get(v16, v25);
+  mlir::Operation::setAttr(this, v17, v15);
 }
 
 uint64_t mlir::anec::getANECIRDataType(uint64_t a1)
@@ -3059,7 +3039,7 @@ uint64_t mlir::anec::getANECIRDataType(uint64_t a1)
   return mlir::anec::getANECIRDataType(isSplat) & 0xFFFFFFFFFFLL;
 }
 
-void mlir::anec::ANECIRInput::Serialize(mlir::anec::ANECIRInput *this@<X0>, uint64_t **a2@<X8>)
+void mlir::anec::ANECIRInput::Serialize(mlir::anec::ANECIRInput *this@<X0>, mlir::anec::ANECDictionary **a2@<X8>)
 {
   mlir::anec::ANECDictionary::Create(a2);
   v4 = *a2;
@@ -3185,7 +3165,7 @@ LABEL_26:
 
 LABEL_27:
   v11 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 18), &v54);
+  mlir::anec::ANECDictionary::PListEntry(&v54, *(this + 18));
   mlir::anec::ANECDictionary::Add(v11, @"BatchSize", &v54);
   v12 = v55;
   if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3195,7 +3175,7 @@ LABEL_27:
   }
 
   v13 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 13), &v54);
+  mlir::anec::ANECDictionary::PListEntry(&v54, *(this + 13));
   mlir::anec::ANECDictionary::Add(v13, @"InputInterleave", &v54);
   v14 = v55;
   if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3255,7 +3235,7 @@ LABEL_42:
 
 LABEL_43:
   v20 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 16), &v54);
+  mlir::anec::ANECDictionary::PListEntry(&v54, *(this + 16));
   mlir::anec::ANECDictionary::Add(v20, @"InputHeight", &v54);
   v21 = v55;
   if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3265,7 +3245,7 @@ LABEL_43:
   }
 
   v22 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 15), &v54);
+  mlir::anec::ANECDictionary::PListEntry(&v54, *(this + 15));
   mlir::anec::ANECDictionary::Add(v22, @"InputWidth", &v54);
   v23 = v55;
   if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3275,7 +3255,7 @@ LABEL_43:
   }
 
   v24 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 17), &v54);
+  mlir::anec::ANECDictionary::PListEntry(&v54, *(this + 17));
   mlir::anec::ANECDictionary::Add(v24, @"InputChannels", &v54);
   v25 = v55;
   if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3285,7 +3265,7 @@ LABEL_43:
   }
 
   v26 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 20), &v54);
+  mlir::anec::ANECDictionary::PListEntry(&v54, *(this + 20));
   mlir::anec::ANECDictionary::Add(v26, @"InputRowStride", &v54);
   v27 = v55;
   if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3295,7 +3275,7 @@ LABEL_43:
   }
 
   v28 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 21), &v54);
+  mlir::anec::ANECDictionary::PListEntry(&v54, *(this + 21));
   mlir::anec::ANECDictionary::Add(v28, @"InputPlaneStride", &v54);
   v29 = v55;
   if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3308,7 +3288,7 @@ LABEL_43:
   if (v30)
   {
     v31 = *a2;
-    mlir::anec::ANECDictionary::PListEntry(v30, &v54);
+    mlir::anec::ANECDictionary::PListEntry(&v54, v30);
     mlir::anec::ANECDictionary::Add(v31, @"InputDepth", &v54);
     v32 = v55;
     if (v55)
@@ -3325,7 +3305,7 @@ LABEL_43:
   if (v33)
   {
     v34 = *a2;
-    mlir::anec::ANECDictionary::PListEntry(v33, &v54);
+    mlir::anec::ANECDictionary::PListEntry(&v54, v33);
     mlir::anec::ANECDictionary::Add(v34, @"InputDepthStride", &v54);
     v35 = v55;
     if (v55)
@@ -3342,7 +3322,7 @@ LABEL_43:
   if (v36)
   {
     v37 = *a2;
-    mlir::anec::ANECDictionary::PListEntry(v36, &v54);
+    mlir::anec::ANECDictionary::PListEntry(&v54, v36);
     mlir::anec::ANECDictionary::Add(v37, @"InputBatchStride", &v54);
     v38 = v55;
     if (v55)
@@ -3505,7 +3485,7 @@ LABEL_31:
   return result;
 }
 
-void mlir::anec::ANECDictionary::Add<unsigned short,mlir::anec::ANECIRInput::Serialize(void)::$_0>(uint64_t *a1, CFStringRef theString, unsigned __int16 *a3, uint64_t a4)
+void mlir::anec::ANECDictionary::Add<unsigned short,mlir::anec::ANECIRInput::Serialize(void)::$_0>(mlir::anec::ANECDictionary *a1, CFStringRef theString, unsigned __int16 *a3, uint64_t a4)
 {
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v8 = strlen(CStringPtr);
@@ -3561,7 +3541,7 @@ LABEL_11:
   do
   {
     v13 = v22;
-    mlir::anec::ANECDictionary::PListEntry(*a3, &v24);
+    mlir::anec::ANECDictionary::PListEntry(&v24, *a3);
     plist::PListArray::push_back(v13, &v24);
     v14 = *(&v24 + 1);
     if (*(&v24 + 1) && !atomic_fetch_add((*(&v24 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -3799,7 +3779,7 @@ LABEL_41:
 
 LABEL_42:
   v15 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 18), &v33);
+  mlir::anec::ANECDictionary::PListEntry(&v33, *(this + 18));
   mlir::anec::ANECDictionary::Add(v15, @"OutputRowStride", &v33);
   v16 = v34;
   if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3809,7 +3789,7 @@ LABEL_42:
   }
 
   v17 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 19), &v33);
+  mlir::anec::ANECDictionary::PListEntry(&v33, *(this + 19));
   mlir::anec::ANECDictionary::Add(v17, @"OutputPlaneStride", &v33);
   v18 = v34;
   if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3819,7 +3799,7 @@ LABEL_42:
   }
 
   v19 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 13), &v33);
+  mlir::anec::ANECDictionary::PListEntry(&v33, *(this + 13));
   mlir::anec::ANECDictionary::Add(v19, @"OutputInterleave", &v33);
   v20 = v34;
   if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3832,7 +3812,7 @@ LABEL_42:
   if (v21)
   {
     v22 = *a2;
-    mlir::anec::ANECDictionary::PListEntry(v21, &v33);
+    mlir::anec::ANECDictionary::PListEntry(&v33, v21);
     mlir::anec::ANECDictionary::Add(v22, @"OutputDepthStride", &v33);
     v23 = v34;
     if (v34)
@@ -3849,7 +3829,7 @@ LABEL_42:
   if (v24)
   {
     v25 = *a2;
-    mlir::anec::ANECDictionary::PListEntry(v24, &v33);
+    mlir::anec::ANECDictionary::PListEntry(&v33, v24);
     mlir::anec::ANECDictionary::Add(v25, @"OutputBatchStride", &v33);
     v26 = v34;
     if (v34)
@@ -3863,28 +3843,28 @@ LABEL_42:
   }
 }
 
-void mlir::anec::ANECIRUnit::Serialize(mlir::anec::ANECIRUnit *this@<X0>, uint64_t **a2@<X8>)
+void mlir::anec::ANECIRUnit::Serialize(mlir::anec::ANECIRUnit *this@<X0>, uint64_t **a3@<X8>)
 {
-  v4 = *(this + 5);
-  if (v4)
+  v5 = *(this + 5);
+  if (v5)
   {
 
-    mlir::anec::ANECDictionary::Create(v4, a2);
+    mlir::anec::ANECDictionary::Create(v5, a3);
     return;
   }
 
-  mlir::anec::ANECDictionary::Create(a2);
-  v5 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 7), &v10);
-  mlir::anec::ANECDictionary::Add(v5, @"Type", &v10);
-  v6 = v11;
-  if (v11 && !atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::Create(a3);
+  v6 = *a3;
+  mlir::anec::ANECDictionary::PListEntry(&v11, *(this + 7));
+  mlir::anec::ANECDictionary::Add(v6, @"Type", &v11);
+  v7 = v12;
+  if (v12 && !atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v6->__on_zero_shared)(v6);
-    std::__shared_weak_count::__release_weak(v6);
+    (v7->__on_zero_shared)(v7);
+    std::__shared_weak_count::__release_weak(v7);
   }
 
-  v7 = *a2;
+  v8 = *a3;
   if (*(this + 31) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *(this + 1), *(this + 2));
@@ -3895,10 +3875,10 @@ void mlir::anec::ANECIRUnit::Serialize(mlir::anec::ANECIRUnit *this@<X0>, uint64
     __p = *(this + 8);
   }
 
-  mlir::anec::ANECDictionary::PListEntry(&__p, &v10);
-  mlir::anec::ANECDictionary::Add(v7, @"Name", &v10);
-  v8 = v11;
-  if (!v11 || atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::PListEntry(&__p, &v11);
+  mlir::anec::ANECDictionary::Add(v8, @"Name", &v11);
+  v9 = v12;
+  if (!v12 || atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
@@ -3908,8 +3888,8 @@ void mlir::anec::ANECIRUnit::Serialize(mlir::anec::ANECIRUnit *this@<X0>, uint64
     goto LABEL_14;
   }
 
-  (v8->__on_zero_shared)(v8);
-  std::__shared_weak_count::__release_weak(v8);
+  (v9->__on_zero_shared)(v9);
+  std::__shared_weak_count::__release_weak(v9);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_14:
@@ -3922,8 +3902,9 @@ LABEL_15:
   }
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(uint64_t *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(plist::PListArray *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), uint64_t a6)
 {
+  v6 = a6;
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v12 = strlen(CStringPtr);
   if (v12 >= 0x7FFFFFFFFFFFFFF8)
@@ -3960,7 +3941,7 @@ LABEL_9:
   }
 
   *(p_dst + v13) = 0;
-  mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(a1, &__dst, a3, a4, a5, a6);
+  mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(a1, &__dst, a3, a4, a5, v6);
   if (SHIBYTE(v17) < 0)
   {
     operator delete(__dst);
@@ -3976,13 +3957,13 @@ void anonymous namespace::get_elem<std::pair<std::string,mlir::anec::ANECIRDataT
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a2 = *a1;
   }
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(uint64_t *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(plist::PListArray *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), uint64_t a6)
 {
+  v6 = a6;
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v12 = strlen(CStringPtr);
   if (v12 >= 0x7FFFFFFFFFFFFFF8)
@@ -4019,15 +4000,16 @@ LABEL_9:
   }
 
   *(p_dst + v13) = 0;
-  mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(a1, &__dst, a3, a4, a5, a6);
+  mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(a1, &__dst, a3, a4, a5, v6);
   if (SHIBYTE(v17) < 0)
   {
     operator delete(__dst);
   }
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(uint64_t *a1, CFStringRef theString, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(mlir::anec::ANECDictionary *a1, CFStringRef theString, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
+  v6 = a6;
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v12 = strlen(CStringPtr);
   if (v12 >= 0x7FFFFFFFFFFFFFF8)
@@ -4064,89 +4046,89 @@ LABEL_9:
   }
 
   *(p_dst + v13) = 0;
-  mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(a1, &__dst, a3, a4, a5, a6);
+  mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(a1, &__dst, a3, a4, a5, v6);
   if (SHIBYTE(v17) < 0)
   {
     operator delete(__dst);
   }
 }
 
-void mlir::anec::ANECIRGOCUnit::Serialize(mlir::anec::ANECIRGOCUnit *this@<X0>, uint64_t **a2@<X8>)
+void mlir::anec::ANECIRGOCUnit::Serialize(mlir::anec::ANECIRGOCUnit *this@<X0>, uint64_t **a3@<X8>)
 {
-  mlir::anec::ANECIRUnit::Serialize(this, a2);
-  mlir::anec::ANECDictionary::Create(&v43);
-  mlir::anec::ANECDictionary::Create(&v41);
-  v4 = *(this + 44);
-  if (v4 != 0x80000000)
+  mlir::anec::ANECIRUnit::Serialize(this, a3);
+  mlir::anec::ANECDictionary::Create(&v44);
+  mlir::anec::ANECDictionary::Create(&v42);
+  v5 = *(this + 44);
+  if (v5 != 0x80000000)
   {
-    v13 = v43;
-    mlir::anec::ANECDictionary::PListEntry(v4, &v45);
-    mlir::anec::ANECDictionary::Add(v13, @"BiasScalar", &v45);
-    v14 = v46;
-    if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v14 = v44;
+    mlir::anec::ANECDictionary::PListEntry(&v46, v5);
+    mlir::anec::ANECDictionary::Add(v14, @"BiasScalar", &v46);
+    v15 = v47;
+    if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v14->__on_zero_shared)(v14);
-      std::__shared_weak_count::__release_weak(v14);
+      (v15->__on_zero_shared)(v15);
+      std::__shared_weak_count::__release_weak(v15);
     }
 
     goto LABEL_16;
   }
 
-  v5 = *(this + 25);
-  if (!v5)
+  v6 = *(this + 25);
+  if (!v6)
   {
 LABEL_16:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_17;
   }
 
-  v6 = v41;
-  mlir::anec::ANECDictionary::PListEntry(v5 / 2, &v45);
-  mlir::anec::ANECDictionary::Add(v6, @"BiasCount", &v45);
-  v7 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v7 = v42;
+  mlir::anec::ANECDictionary::PListEntry(&v46, v6 / 2);
+  mlir::anec::ANECDictionary::Add(v7, @"BiasCount", &v46);
+  v8 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
+    (v8->__on_zero_shared)(v8);
+    std::__shared_weak_count::__release_weak(v8);
   }
 
-  v8 = v41;
-  mlir::anec::ANECDictionary::PListEntry(0, &v45);
-  mlir::anec::ANECDictionary::Add(v8, @"BiasIndex", &v45);
-  v9 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v9 = v42;
+  mlir::anec::ANECDictionary::PListEntry(&v46, 0);
+  mlir::anec::ANECDictionary::Add(v9, @"BiasIndex", &v46);
+  v10 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v9->__on_zero_shared)(v9);
-    std::__shared_weak_count::__release_weak(v9);
+    (v10->__on_zero_shared)(v10);
+    std::__shared_weak_count::__release_weak(v10);
   }
 
-  v10 = v41;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 23), &v45);
-  mlir::anec::ANECDictionary::Add(v10, @"BiasOffset", &v45);
-  v11 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v11 = v42;
+  mlir::anec::ANECDictionary::PListEntry(&v46, *(this + 23));
+  mlir::anec::ANECDictionary::Add(v11, @"BiasOffset", &v46);
+  v12 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v11->__on_zero_shared)(v11);
-    std::__shared_weak_count::__release_weak(v11);
+    (v12->__on_zero_shared)(v12);
+    std::__shared_weak_count::__release_weak(v12);
   }
 
-  v12 = 1;
+  v13 = 1;
 LABEL_17:
-  v15 = *(this + 45);
-  if (v15 != 0x80000000)
+  v16 = *(this + 45);
+  if (v16 != 0x80000000)
   {
-    v23 = v43;
-    mlir::anec::ANECDictionary::PListEntry(v15, &v45);
-    mlir::anec::ANECDictionary::Add(v23, @"ScaleScalar", &v45);
-    v24 = v46;
-    if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v24 = v44;
+    mlir::anec::ANECDictionary::PListEntry(&v46, v16);
+    mlir::anec::ANECDictionary::Add(v24, @"ScaleScalar", &v46);
+    v25 = v47;
+    if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v24->__on_zero_shared)(v24);
-      std::__shared_weak_count::__release_weak(v24);
+      (v25->__on_zero_shared)(v25);
+      std::__shared_weak_count::__release_weak(v25);
     }
 
 LABEL_31:
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_40;
     }
@@ -4154,137 +4136,137 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v16 = *(this + 26);
-  if (!v16)
+  v17 = *(this + 26);
+  if (!v17)
   {
     goto LABEL_31;
   }
 
-  v17 = v41;
-  mlir::anec::ANECDictionary::PListEntry(v16 / 2, &v45);
-  mlir::anec::ANECDictionary::Add(v17, @"ScaleCount", &v45);
-  v18 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v18 = v42;
+  mlir::anec::ANECDictionary::PListEntry(&v46, v17 / 2);
+  mlir::anec::ANECDictionary::Add(v18, @"ScaleCount", &v46);
+  v19 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v18->__on_zero_shared)(v18);
-    std::__shared_weak_count::__release_weak(v18);
+    (v19->__on_zero_shared)(v19);
+    std::__shared_weak_count::__release_weak(v19);
   }
 
-  v19 = v41;
-  mlir::anec::ANECDictionary::PListEntry(0, &v45);
-  mlir::anec::ANECDictionary::Add(v19, @"ScaleIndex", &v45);
-  v20 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v20 = v42;
+  mlir::anec::ANECDictionary::PListEntry(&v46, 0);
+  mlir::anec::ANECDictionary::Add(v20, @"ScaleIndex", &v46);
+  v21 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
+    (v21->__on_zero_shared)(v21);
+    std::__shared_weak_count::__release_weak(v21);
   }
 
-  v21 = v41;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 24), &v45);
-  mlir::anec::ANECDictionary::Add(v21, @"ScaleOffset", &v45);
-  v22 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v22 = v42;
+  mlir::anec::ANECDictionary::PListEntry(&v46, *(this + 24));
+  mlir::anec::ANECDictionary::Add(v22, @"ScaleOffset", &v46);
+  v23 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v22->__on_zero_shared)(v22);
-    std::__shared_weak_count::__release_weak(v22);
+    (v23->__on_zero_shared)(v23);
+    std::__shared_weak_count::__release_weak(v23);
   }
 
 LABEL_32:
-  v25 = v43;
-  v39 = v41;
+  v26 = v44;
   v40 = v42;
-  if (v42)
+  v41 = v43;
+  if (v43)
   {
-    atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mlir::anec::ANECDictionary::PListEntry(&v39, &v45);
-  mlir::anec::ANECDictionary::Add(v25, @"BiasScaleGroupData", &v45);
-  v26 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v26->__on_zero_shared)(v26);
-    std::__shared_weak_count::__release_weak(v26);
-  }
-
-  v27 = v40;
-  if (v40 && !atomic_fetch_add(&v40->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::PListEntry(&v40, &v46);
+  mlir::anec::ANECDictionary::Add(v26, @"BiasScaleGroupData", &v46);
+  v27 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v27->__on_zero_shared)(v27);
     std::__shared_weak_count::__release_weak(v27);
   }
 
+  v28 = v41;
+  if (v41 && !atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v28->__on_zero_shared)(v28);
+    std::__shared_weak_count::__release_weak(v28);
+  }
+
 LABEL_40:
-  v28 = v43;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 216), &v45);
-  mlir::anec::ANECDictionary::Add(v28, @"BiasShift", &v45);
-  v29 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v29 = v44;
+  mlir::anec::ANECDictionary::PListEntry(&v46, *(this + 216));
+  mlir::anec::ANECDictionary::Add(v29, @"BiasShift", &v46);
+  v30 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v29->__on_zero_shared)(v29);
-    std::__shared_weak_count::__release_weak(v29);
+    (v30->__on_zero_shared)(v30);
+    std::__shared_weak_count::__release_weak(v30);
   }
 
-  v30 = v43;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 217), &v45);
-  mlir::anec::ANECDictionary::Add(v30, @"ScaleShift", &v45);
-  v31 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v31 = v44;
+  mlir::anec::ANECDictionary::PListEntry(&v46, *(this + 217));
+  mlir::anec::ANECDictionary::Add(v31, @"ScaleShift", &v46);
+  v32 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v31->__on_zero_shared)(v31);
-    std::__shared_weak_count::__release_weak(v31);
+    (v32->__on_zero_shared)(v32);
+    std::__shared_weak_count::__release_weak(v32);
   }
 
-  v32 = *a2;
-  v37 = v43;
+  v33 = *a3;
   v38 = v44;
-  if (v44)
+  v39 = v45;
+  if (v45)
   {
-    atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mlir::anec::ANECDictionary::PListEntry(&v37, &v45);
-  mlir::anec::ANECDictionary::Add(v32, @"Params", &v45);
-  v33 = v46;
-  if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v33->__on_zero_shared)(v33);
-    std::__shared_weak_count::__release_weak(v33);
-  }
-
-  v34 = v38;
-  if (v38 && !atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::PListEntry(&v38, &v46);
+  mlir::anec::ANECDictionary::Add(v33, @"Params", &v46);
+  v34 = v47;
+  if (v47 && !atomic_fetch_add(&v47->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v34->__on_zero_shared)(v34);
     std::__shared_weak_count::__release_weak(v34);
   }
 
-  v35 = v42;
-  if (v42 && !atomic_fetch_add(&v42->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v35 = v39;
+  if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v35->__on_zero_shared)(v35);
     std::__shared_weak_count::__release_weak(v35);
   }
 
-  v36 = v44;
-  if (v44)
+  v36 = v43;
+  if (v43 && !atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if (!atomic_fetch_add(&v44->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    (v36->__on_zero_shared)(v36);
+    std::__shared_weak_count::__release_weak(v36);
+  }
+
+  v37 = v45;
+  if (v45)
+  {
+    if (!atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v36->__on_zero_shared)(v36);
-      std::__shared_weak_count::__release_weak(v36);
+      (v37->__on_zero_shared)(v37);
+      std::__shared_weak_count::__release_weak(v37);
     }
   }
 }
 
-void mlir::anec::ANECIRConvPoolBase::addParams(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECIRConvPoolBase::addParams(uint64_t a1, mlir::anec::ANECDictionary **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v34 = *MEMORY[0x1E69E9840];
   if (a5)
   {
     v9 = *a2;
-    mlir::anec::ANECDictionary::PListEntry(a5, &v32);
+    mlir::anec::ANECDictionary::PListEntry(&v32, a5);
     mlir::anec::ANECDictionary::Add(v9, @"KernelDepth", &v32);
     v10 = *(&v32 + 1);
     if (*(&v32 + 1))
@@ -4298,7 +4280,7 @@ void mlir::anec::ANECIRConvPoolBase::addParams(uint64_t a1, uint64_t **a2, uint6
   }
 
   v11 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(a3, &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, a3);
   mlir::anec::ANECDictionary::Add(v11, @"KernelWidth", &v32);
   v12 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4308,7 +4290,7 @@ void mlir::anec::ANECIRConvPoolBase::addParams(uint64_t a1, uint64_t **a2, uint6
   }
 
   v13 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(a4, &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, a4);
   mlir::anec::ANECDictionary::Add(v13, @"KernelHeight", &v32);
   v14 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4331,7 +4313,7 @@ LABEL_11:
   }
 
   v15 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(a1 + 200), &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, *(a1 + 200));
   mlir::anec::ANECDictionary::Add(v15, @"PadTop", &v32);
   v16 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4341,7 +4323,7 @@ LABEL_11:
   }
 
   v17 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(a1 + 208), &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, *(a1 + 208));
   mlir::anec::ANECDictionary::Add(v17, @"PadBot", &v32);
   v18 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4351,7 +4333,7 @@ LABEL_11:
   }
 
   v19 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(a1 + 216), &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, *(a1 + 216));
   mlir::anec::ANECDictionary::Add(v19, @"PadLeft", &v32);
   v20 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4361,7 +4343,7 @@ LABEL_11:
   }
 
   v21 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(a1 + 224), &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, *(a1 + 224));
   mlir::anec::ANECDictionary::Add(v21, @"PadRight", &v32);
   v22 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4371,7 +4353,7 @@ LABEL_11:
   }
 
   v23 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(a1 + 232), &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, *(a1 + 232));
   mlir::anec::ANECDictionary::Add(v23, @"PadFront", &v32);
   v24 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4381,7 +4363,7 @@ LABEL_11:
   }
 
   v25 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(a1 + 240), &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, *(a1 + 240));
   mlir::anec::ANECDictionary::Add(v25, @"PadBack", &v32);
   v26 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4391,7 +4373,7 @@ LABEL_11:
   }
 
   v27 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(@"Zero", &v32);
+  mlir::anec::ANECDictionary::PListEntry(&v32, @"Zero");
   mlir::anec::ANECDictionary::Add(v27, @"PaddingMode", &v32);
   v28 = *(&v32 + 1);
   if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -4416,8 +4398,9 @@ LABEL_39:
   }
 }
 
-void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(uint64_t *a1, CFStringRef theString, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(mlir::anec::ANECDictionary *a1, CFStringRef theString, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
+  v6 = a6;
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v12 = strlen(CStringPtr);
   if (v12 >= 0x7FFFFFFFFFFFFFF8)
@@ -4454,7 +4437,7 @@ LABEL_9:
   }
 
   *(p_dst + v13) = 0;
-  mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(a1, &__dst, a3, a4, a5, a6);
+  mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(a1, &__dst, a3, a4, a5, v6);
   if (SHIBYTE(v17) < 0)
   {
     operator delete(__dst);
@@ -4587,18 +4570,18 @@ LABEL_37:
   return result;
 }
 
-void mlir::anec::ANECIRNeuron::Serialize(mlir::anec::ANECIRNeuron *this@<X0>, uint64_t **a2@<X8>)
+void mlir::anec::ANECIRNeuron::Serialize(mlir::anec::ANECIRNeuron *this@<X0>, uint64_t **a3@<X8>)
 {
-  mlir::anec::ANECIRUnit::Serialize(this, a2);
-  mlir::anec::ANECDictionary::Create(&v23);
-  v4 = *(this + 44);
-  if (v4 > 11)
+  mlir::anec::ANECIRUnit::Serialize(this, a3);
+  mlir::anec::ANECDictionary::Create(&v24);
+  v5 = *(this + 44);
+  if (v5 > 11)
   {
-    if (v4 > 13)
+    if (v5 > 13)
     {
-      if (v4 != 14)
+      if (v5 != 14)
       {
-        if (v4 != 17)
+        if (v5 != 17)
         {
           goto LABEL_26;
         }
@@ -4606,90 +4589,90 @@ void mlir::anec::ANECIRNeuron::Serialize(mlir::anec::ANECIRNeuron *this@<X0>, ui
         goto LABEL_11;
       }
 
-      v9 = v23;
-      mlir::anec::ANECDictionary::PListEntry(*(this + 92), &v25);
-      v10 = @"ReluMax";
+      v10 = v24;
+      mlir::anec::ANECDictionary::PListEntry(&v26, *(this + 92));
+      v11 = @"ReluMax";
     }
 
     else
     {
-      if (v4 != 12)
+      if (v5 != 12)
       {
         goto LABEL_11;
       }
 
-      v9 = v23;
-      mlir::anec::ANECDictionary::PListEntry(*(this + 90), &v25);
-      v10 = @"ReluOffset";
+      v10 = v24;
+      mlir::anec::ANECDictionary::PListEntry(&v26, *(this + 90));
+      v11 = @"ReluOffset";
     }
 
-    mlir::anec::ANECDictionary::Add(v9, v10, &v25);
-    v11 = v26;
-    if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    mlir::anec::ANECDictionary::Add(v10, v11, &v26);
+    v12 = v27;
+    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v11->__on_zero_shared)(v11);
-      std::__shared_weak_count::__release_weak(v11);
+      (v12->__on_zero_shared)(v12);
+      std::__shared_weak_count::__release_weak(v12);
     }
 
-    v5 = v23;
-    mlir::anec::ANECDictionary::PListEntry(*(this + 91), &v25);
-    v6 = @"ReluSlope";
+    v6 = v24;
+    mlir::anec::ANECDictionary::PListEntry(&v26, *(this + 91));
+    v7 = @"ReluSlope";
     goto LABEL_23;
   }
 
-  if (v4 == 1)
+  if (v5 == 1)
   {
-    v7 = v23;
-    mlir::anec::ANECDictionary::PListEntry(*(this + 93), &v25);
-    mlir::anec::ANECDictionary::Add(v7, @"ReluMin", &v25);
-    v8 = v26;
-    if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v8 = v24;
+    mlir::anec::ANECDictionary::PListEntry(&v26, *(this + 93));
+    mlir::anec::ANECDictionary::Add(v8, @"ReluMin", &v26);
+    v9 = v27;
+    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v8->__on_zero_shared)(v8);
-      std::__shared_weak_count::__release_weak(v8);
+      (v9->__on_zero_shared)(v9);
+      std::__shared_weak_count::__release_weak(v9);
     }
 
-    v5 = v23;
-    mlir::anec::ANECDictionary::PListEntry(*(this + 92), &v25);
-    v6 = @"ReluMax";
+    v6 = v24;
+    mlir::anec::ANECDictionary::PListEntry(&v26, *(this + 92));
+    v7 = @"ReluMax";
     goto LABEL_23;
   }
 
-  if (v4 == 5)
+  if (v5 == 5)
   {
-    v5 = v23;
-    mlir::anec::ANECDictionary::PListEntry(*(this + 94), &v25);
-    v6 = @"EluAlpha";
+    v6 = v24;
+    mlir::anec::ANECDictionary::PListEntry(&v26, *(this + 94));
+    v7 = @"EluAlpha";
     goto LABEL_23;
   }
 
-  if (v4 != 11)
+  if (v5 != 11)
   {
     goto LABEL_26;
   }
 
 LABEL_11:
-  v5 = v23;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 95), &v25);
-  v6 = @"Epsilon";
+  v6 = v24;
+  mlir::anec::ANECDictionary::PListEntry(&v26, *(this + 95));
+  v7 = @"Epsilon";
 LABEL_23:
-  mlir::anec::ANECDictionary::Add(v5, v6, &v25);
-  v12 = v26;
-  if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::Add(v6, v7, &v26);
+  v13 = v27;
+  if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v12->__on_zero_shared)(v12);
-    std::__shared_weak_count::__release_weak(v12);
+    (v13->__on_zero_shared)(v13);
+    std::__shared_weak_count::__release_weak(v13);
   }
 
 LABEL_26:
-  v13 = v23;
+  v14 = v24;
   mlir::anec::ANECIRNeuron::ActivationToAneIRType(*(this + 44), __p);
-  mlir::anec::ANECDictionary::PListEntry(__p, &v25);
-  mlir::anec::ANECDictionary::Add(v13, @"Type", &v25);
-  v14 = v26;
-  if (!v26 || atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::PListEntry(__p, &v26);
+  mlir::anec::ANECDictionary::Add(v14, @"Type", &v26);
+  v15 = v27;
+  if (!v27 || atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if ((v22 & 0x80000000) == 0)
+    if ((v23 & 0x80000000) == 0)
     {
       goto LABEL_30;
     }
@@ -4697,46 +4680,46 @@ LABEL_26:
     goto LABEL_29;
   }
 
-  (v14->__on_zero_shared)(v14);
-  std::__shared_weak_count::__release_weak(v14);
-  if (v22 < 0)
+  (v15->__on_zero_shared)(v15);
+  std::__shared_weak_count::__release_weak(v15);
+  if (v23 < 0)
   {
 LABEL_29:
     operator delete(__p[0]);
   }
 
 LABEL_30:
-  v15 = *a2;
-  v19 = v23;
+  v16 = *a3;
   v20 = v24;
-  if (v24)
+  v21 = v25;
+  if (v25)
   {
-    atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  mlir::anec::ANECDictionary::PListEntry(&v19, &v25);
-  mlir::anec::ANECDictionary::Add(v15, @"Params", &v25);
-  v16 = v26;
-  if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v16->__on_zero_shared)(v16);
-    std::__shared_weak_count::__release_weak(v16);
-  }
-
-  v17 = v20;
-  if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::PListEntry(&v20, &v26);
+  mlir::anec::ANECDictionary::Add(v16, @"Params", &v26);
+  v17 = v27;
+  if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v17->__on_zero_shared)(v17);
     std::__shared_weak_count::__release_weak(v17);
   }
 
-  v18 = v24;
-  if (v24)
+  v18 = v21;
+  if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if (!atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    (v18->__on_zero_shared)(v18);
+    std::__shared_weak_count::__release_weak(v18);
+  }
+
+  v19 = v25;
+  if (v25)
+  {
+    if (!atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v18->__on_zero_shared)(v18);
-      std::__shared_weak_count::__release_weak(v18);
+      (v19->__on_zero_shared)(v19);
+      std::__shared_weak_count::__release_weak(v19);
     }
   }
 }
@@ -4803,20 +4786,20 @@ LABEL_15:
   return result;
 }
 
-void mlir::anec::ANECIRPoolUnit::Serialize(mlir::anec::ANECIRPoolUnit *this@<X0>, uint64_t **a2@<X8>)
+void mlir::anec::ANECIRPoolUnit::Serialize(mlir::anec::ANECIRPoolUnit *this@<X0>, uint64_t **a3@<X8>)
 {
-  mlir::anec::ANECIRUnit::Serialize(this, a2);
-  mlir::anec::ANECDictionary::Create(&v18);
-  v4 = v18;
+  mlir::anec::ANECIRUnit::Serialize(this, a3);
+  mlir::anec::ANECDictionary::Create(&v19);
+  v5 = v19;
   mlir::anec::ANECIRPoolUnit::PoolTypeToAneIRType(*(this + 62), __p);
-  mlir::anec::ANECDictionary::PListEntry(__p, &v20);
-  mlir::anec::ANECDictionary::Add(v4, @"Type", &v20);
-  v5 = v21;
-  if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::PListEntry(__p, &v21);
+  mlir::anec::ANECDictionary::Add(v5, @"Type", &v21);
+  v6 = v22;
+  if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v5->__on_zero_shared)(v5);
-    std::__shared_weak_count::__release_weak(v5);
-    if ((v17 & 0x80000000) == 0)
+    (v6->__on_zero_shared)(v6);
+    std::__shared_weak_count::__release_weak(v6);
+    if ((v18 & 0x80000000) == 0)
     {
       goto LABEL_5;
     }
@@ -4824,73 +4807,73 @@ void mlir::anec::ANECIRPoolUnit::Serialize(mlir::anec::ANECIRPoolUnit *this@<X0>
     goto LABEL_4;
   }
 
-  if (v17 < 0)
+  if (v18 < 0)
   {
 LABEL_4:
     operator delete(__p[0]);
   }
 
 LABEL_5:
-  v6 = v18;
-  mlir::anec::ANECDictionary::PListEntry((*(this + 280) & 1) == 0, &v20);
-  mlir::anec::ANECDictionary::Add(v6, @"AverageCountExcludePadding", &v20);
-  v7 = v21;
-  if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v7 = v19;
+  mlir::anec::ANECDictionary::PListEntry(&v21, (*(this + 280) & 1) == 0);
+  mlir::anec::ANECDictionary::Add(v7, @"AverageCountExcludePadding", &v21);
+  v8 = v22;
+  if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
+    (v8->__on_zero_shared)(v8);
+    std::__shared_weak_count::__release_weak(v8);
   }
 
-  v8 = v19;
-  v15[0] = v18;
-  v15[1] = v19;
-  if (v19)
+  v9 = v20;
+  v16[0] = v19;
+  v16[1] = v20;
+  if (v20)
   {
-    atomic_fetch_add_explicit(v19 + 1, 1uLL, memory_order_relaxed);
-    mlir::anec::ANECIRConvPoolBase::addParams(this, v15, *(this + 32), *(this + 33), *(this + 34));
-    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    atomic_fetch_add_explicit(v20 + 1, 1uLL, memory_order_relaxed);
+    mlir::anec::ANECIRConvPoolBase::addParams(this, v16, *(this + 32), *(this + 33), *(this + 34));
+    if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v8->__on_zero_shared)(v8);
-      std::__shared_weak_count::__release_weak(v8);
+      (v9->__on_zero_shared)(v9);
+      std::__shared_weak_count::__release_weak(v9);
     }
   }
 
   else
   {
-    mlir::anec::ANECIRConvPoolBase::addParams(this, v15, *(this + 32), *(this + 33), *(this + 34));
+    mlir::anec::ANECIRConvPoolBase::addParams(this, v16, *(this + 32), *(this + 33), *(this + 34));
   }
 
-  v9 = *a2;
-  v13 = v18;
+  v10 = *a3;
   v14 = v19;
-  if (v19)
+  v15 = v20;
+  if (v20)
   {
-    atomic_fetch_add_explicit(v19 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v20 + 1, 1uLL, memory_order_relaxed);
   }
 
-  mlir::anec::ANECDictionary::PListEntry(&v13, &v20);
-  mlir::anec::ANECDictionary::Add(v9, @"Params", &v20);
-  v10 = v21;
-  if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v10->__on_zero_shared)(v10);
-    std::__shared_weak_count::__release_weak(v10);
-  }
-
-  v11 = v14;
-  if (v14 && !atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  mlir::anec::ANECDictionary::PListEntry(&v14, &v21);
+  mlir::anec::ANECDictionary::Add(v10, @"Params", &v21);
+  v11 = v22;
+  if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v11->__on_zero_shared)(v11);
     std::__shared_weak_count::__release_weak(v11);
   }
 
-  v12 = v19;
-  if (v19)
+  v12 = v15;
+  if (v15 && !atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if (!atomic_fetch_add(v19 + 1, 0xFFFFFFFFFFFFFFFFLL))
+    (v12->__on_zero_shared)(v12);
+    std::__shared_weak_count::__release_weak(v12);
+  }
+
+  v13 = v20;
+  if (v20)
+  {
+    if (!atomic_fetch_add(v20 + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v12->__on_zero_shared)(v12);
-      std::__shared_weak_count::__release_weak(v12);
+      (v13->__on_zero_shared)(v13);
+      std::__shared_weak_count::__release_weak(v13);
     }
   }
 }
@@ -4968,7 +4951,7 @@ LABEL_11:
 
 LABEL_12:
   v8 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 5), &v25);
+  mlir::anec::ANECDictionary::PListEntry(&v25, *(this + 5));
   mlir::anec::ANECDictionary::Add(v8, @"ConstantByteOffset", &v25);
   v9 = v26;
   if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -4978,7 +4961,7 @@ LABEL_12:
   }
 
   v10 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(1, &v25);
+  mlir::anec::ANECDictionary::PListEntry(&v25, 1);
   mlir::anec::ANECDictionary::Add(v10, @"ConstantInterleave", &v25);
   v11 = v26;
   if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -4988,7 +4971,7 @@ LABEL_12:
   }
 
   v12 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 12), &v25);
+  mlir::anec::ANECDictionary::PListEntry(&v25, *(this + 12));
   mlir::anec::ANECDictionary::Add(v12, @"ConstantWidth", &v25);
   v13 = v26;
   if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -4998,7 +4981,7 @@ LABEL_12:
   }
 
   v14 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 11), &v25);
+  mlir::anec::ANECDictionary::PListEntry(&v25, *(this + 11));
   mlir::anec::ANECDictionary::Add(v14, @"ConstantHeight", &v25);
   v15 = v26;
   if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -5008,7 +4991,7 @@ LABEL_12:
   }
 
   v16 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 10), &v25);
+  mlir::anec::ANECDictionary::PListEntry(&v25, *(this + 10));
   mlir::anec::ANECDictionary::Add(v16, @"ConstantChannels", &v25);
   v17 = v26;
   if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -5018,7 +5001,7 @@ LABEL_12:
   }
 
   v18 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 9), &v25);
+  mlir::anec::ANECDictionary::PListEntry(&v25, *(this + 9));
   mlir::anec::ANECDictionary::Add(v18, @"ConstantDepth", &v25);
   v19 = v26;
   if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -5028,7 +5011,7 @@ LABEL_12:
   }
 
   v20 = *a2;
-  mlir::anec::ANECDictionary::PListEntry(*(this + 8), &v25);
+  mlir::anec::ANECDictionary::PListEntry(&v25, *(this + 8));
   mlir::anec::ANECDictionary::Add(v20, @"ConstantBatchSize", &v25);
   v21 = v26;
   if (v26)
@@ -5145,7 +5128,7 @@ void *mlir::anec::ANECIRNetwork::Serialize@<X0>(mlir::anec::ANECIRNetwork *this@
   return result;
 }
 
-void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRInput,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(uint64_t *a1, CFStringRef theString, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRInput,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(plist::PListArray *a1, CFStringRef theString, mlir::anec::ANECIRInput **a3, uint64_t a4, uint64_t a5)
 {
   v21 = *MEMORY[0x1E69E9840];
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
@@ -5229,7 +5212,7 @@ LABEL_21:
   }
 }
 
-void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIROutput,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(uint64_t *a1, CFStringRef theString, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIROutput,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(plist::PListArray *a1, CFStringRef theString, mlir::anec::ANECIROutput **a3, uint64_t a4, uint64_t a5)
 {
   v21 = *MEMORY[0x1E69E9840];
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
@@ -5313,7 +5296,7 @@ LABEL_21:
   }
 }
 
-void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRUnit,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(uint64_t *a1, CFStringRef theString, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRUnit,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(plist::PListArray *a1, CFStringRef theString, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v21 = *MEMORY[0x1E69E9840];
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
@@ -5397,7 +5380,7 @@ LABEL_21:
   }
 }
 
-void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRConstant,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(uint64_t *a1, CFStringRef theString, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRConstant,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(plist::PListArray *a1, CFStringRef theString, mlir::anec::ANECIRConstant **a3, uint64_t a4, uint64_t a5)
 {
   v21 = *MEMORY[0x1E69E9840];
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
@@ -5610,13 +5593,13 @@ LABEL_30:
   }
 }
 
-uint64_t mlir::anec::ANECIRNetwork::getWeightFileIndex(uint64_t a1, void *a2, void *a3, mlir *a4)
+uint64_t mlir::anec::ANECIRNetwork::getWeightFileIndex(uint64_t a1, const void **a2, void *a3, mlir *a4)
 {
   v38 = *MEMORY[0x1E69E9840];
   v8 = std::map<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>::find[abi:ne200100](a1 + 464, a2);
   if (a1 + 472 == v8)
   {
-    mlir::emitError(a4, v9, &v26);
+    mlir::emitError(&v26, a4, v9);
     if (v26)
     {
       LODWORD(v24[0]) = 3;
@@ -5631,7 +5614,7 @@ uint64_t mlir::anec::ANECIRNetwork::getWeightFileIndex(uint64_t a1, void *a2, vo
           v23 = v24 - v28;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v28, v31, v29 + 1, 24);
           v12 = v28;
-          v11 = v28 + v23;
+          v11 = (v28 + v23);
         }
 
         else
@@ -5644,7 +5627,7 @@ uint64_t mlir::anec::ANECIRNetwork::getWeightFileIndex(uint64_t a1, void *a2, vo
 
       v13 = &v12[24 * v29];
       v14 = *v11;
-      *(v13 + 2) = *(v11 + 2);
+      *(v13 + 2) = v11[2];
       *v13 = v14;
       ++v29;
       if (v26)
@@ -6364,19 +6347,19 @@ LABEL_57:
   }
 }
 
-void mlir::anec::ANECIRTop::Serialize(uint64_t a1@<X0>, uint64_t a2@<X2>, const void *a3@<X3>, std::string::size_type a4@<X4>, uint64_t **a5@<X8>)
+void mlir::anec::ANECIRTop::Serialize(mlir::anec::ANECDictionary *a1@<X0>, uint64_t a2@<X2>, const void *a3@<X3>, std::string::size_type a4@<X4>, uint64_t **a5@<X8>)
 {
   v166 = a2;
   mlir::anec::ANECDictionary::Create(a5);
   v9 = *a5;
   if (*(a1 + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v165, *(a1 + 48), *(a1 + 56));
+    std::string::__init_copy_ctor_external(&v165, *(a1 + 6), *(a1 + 7));
   }
 
   else
   {
-    v165 = *(a1 + 48);
+    v165 = *(a1 + 2);
   }
 
   mlir::anec::ANECDictionary::PListEntry(&v165, &v171);
@@ -6402,8 +6385,8 @@ LABEL_7:
 
 LABEL_8:
   v160 = *a5;
-  v158 = *(a1 + 72);
-  v11 = *(a1 + 80);
+  v158 = *(a1 + 9);
+  v11 = *(a1 + 20);
   CStringPtr = CFStringGetCStringPtr(@"Networks", 0x8000100u);
   v13 = strlen(CStringPtr);
   if (v13 > 0x7FFFFFFFFFFFFFF7)
@@ -6450,7 +6433,7 @@ LABEL_16:
     {
       v162 = *v17;
       mlir::anec::ANECIRNetwork::Serialize(*v17, &v169);
-      v18 = **(a1 + 72);
+      v18 = **(a1 + 9);
       *(&v174 + 1) = 0;
       v175 = 0;
       *&v174 = &v174 + 8;
@@ -7348,7 +7331,7 @@ LABEL_22:
       v19 = v26;
       if (v26 == v20)
       {
-        v18 = **(a1 + 72);
+        v18 = **(a1 + 9);
         goto LABEL_35;
       }
     }
@@ -7361,16 +7344,16 @@ LABEL_235:
     operator delete(__dst);
   }
 
-  if (!*(a1 + 112))
+  if (!*(a1 + 28))
   {
     goto LABEL_258;
   }
 
   plist::PListArray::Create(&v179);
-  v101 = *(a1 + 112);
+  v101 = *(a1 + 28);
   if (v101)
   {
-    v102 = *(a1 + 104);
+    v102 = *(a1 + 13);
     for (i = 16 * v101; i; i -= 16)
     {
       mlir::anec::ANECIRProcedure::Serialize(*v102, &v171);
@@ -7829,7 +7812,7 @@ LABEL_9:
   if (!v10)
   {
     v18 = __dst;
-    v12 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 8, __dst, &std::piecewise_construct, &v18);
+    v12 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), __dst, &std::piecewise_construct, &v18);
     v14 = *a3;
     v13 = a3[1];
     if (v13)
@@ -7855,7 +7838,7 @@ LABEL_9:
   return v10 == 0;
 }
 
-uint64_t mlir::anec::ANECIRTop::Write(uint64_t a1, llvm::raw_ostream *a2, uint64_t a3, uint64_t a4, const void *a5, std::string::size_type a6)
+uint64_t mlir::anec::ANECIRTop::Write(mlir::anec::ANECDictionary *a1, llvm::raw_ostream *a2, uint64_t a3, uint64_t a4, const void *a5, std::string::size_type a6)
 {
   mlir::anec::ANECIRTop::Serialize(a1, a4, a5, a6, &v10);
   result = mlir::anec::ANECDictionary::WriteToStream(v10, a2);
@@ -7874,7 +7857,7 @@ uint64_t mlir::anec::ANECIRTop::Write(uint64_t a1, llvm::raw_ostream *a2, uint64
   return result;
 }
 
-void mlir::anec::ANECIRUnit::UpdateNamesWithProcName(uint64_t a1, uint64_t a2, uint64_t **a3, void *a4)
+void mlir::anec::ANECIRUnit::UpdateNamesWithProcName(uint64_t a1, uint64_t a2, uint64_t ***a3, void *a4)
 {
   v8 = (a1 + 8);
   if (*(a1 + 31) < 0)
@@ -7962,10 +7945,10 @@ void mlir::anec::ANECIRPoolUnit::~ANECIRPoolUnit(mlir::anec::ANECIRPoolUnit *thi
   operator delete(v1);
 }
 
-char *std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 **a4)
+char *std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
   v6 = a2;
-  v8 = *(a2 + 8);
+  v8 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v9 = *(a2 + 23);
@@ -7979,7 +7962,7 @@ char *std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist
 
   v10 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v41, a2, v9);
   v11 = v10;
-  v12 = *(a1 + 8);
+  v12 = *(a1 + 1);
   if (v12)
   {
     v13 = vcnt_s8(v12);
@@ -8005,15 +7988,15 @@ char *std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist
       v16 = *v15;
       if (*v15)
       {
-        v17 = v6[23];
+        v17 = *(v6 + 23);
         if (v17 >= 0)
         {
-          v18 = v6[23];
+          v18 = *(v6 + 23);
         }
 
         else
         {
-          v18 = *(v6 + 1);
+          v18 = v6[1];
         }
 
         if (v17 < 0)
@@ -8088,8 +8071,8 @@ char *std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist
 
   *(v16 + 5) = 0;
   *(v16 + 6) = 0;
-  v26 = (*(a1 + 24) + 1);
-  v27 = *(a1 + 32);
+  v26 = (*(a1 + 3) + 1);
+  v27 = a1[8];
   if (!v12 || (v27 * v12) < v26)
   {
     v28 = 1;
@@ -8120,7 +8103,7 @@ char *std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist
       prime = std::__next_prime(prime);
     }
 
-    v32 = *(a1 + 8);
+    v32 = *(a1 + 2);
     if (prime > *&v32)
     {
       goto LABEL_48;
@@ -8128,7 +8111,7 @@ char *std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist
 
     if (prime < *&v32)
     {
-      v33 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+      v33 = vcvtps_u32_f32(*(a1 + 3) / a1[8]);
       if (*&v32 < 3uLL || (v34 = vcnt_s8(v32), v34.i16[0] = vaddlv_u8(v34), v34.u32[0] > 1uLL))
       {
         v36 = prime;
@@ -8157,7 +8140,7 @@ LABEL_48:
       }
     }
 
-    v12 = *(a1 + 8);
+    v12 = *(a1 + 1);
     if ((v12 & (v12 - 1)) != 0)
     {
       if (v11 >= v12)
@@ -8187,9 +8170,9 @@ LABEL_72:
     goto LABEL_73;
   }
 
-  *v16 = *(a1 + 16);
-  *(a1 + 16) = v16;
-  *(v37 + 8 * v4) = a1 + 16;
+  *v16 = *(a1 + 2);
+  *(a1 + 2) = v16;
+  *(v37 + 8 * v4) = a1 + 4;
   if (*v16)
   {
     v39 = *(*v16 + 8);
@@ -8211,7 +8194,7 @@ LABEL_72:
   }
 
 LABEL_73:
-  ++*(a1 + 24);
+  ++*(a1 + 3);
   return v16;
 }
 
@@ -8282,7 +8265,7 @@ LABEL_15:
   }
 }
 
-void mlir::anec::ANECDictionary::PListEntry(CFStringRef theString@<X1>, void *a2@<X8>)
+void mlir::anec::ANECDictionary::PListEntry(uint64_t *__return_ptr a1@<X8>, CFStringRef theString@<X1>)
 {
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v5 = strlen(CStringPtr);
@@ -8320,14 +8303,14 @@ LABEL_9:
   }
 
   *(v6 + v7) = 0;
-  mlir::anec::ANECDictionary::PListEntry(__dst, a2);
+  mlir::anec::ANECDictionary::PListEntry(__dst, a1);
   if (SHIBYTE(v10) < 0)
   {
     operator delete(__dst[0]);
   }
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(uint64_t *a1, __int128 *a2, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(plist::PListArray *a1, __int128 *a2, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
 {
   if (a4)
   {
@@ -8417,7 +8400,7 @@ LABEL_7:
   }
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(uint64_t *a1, __int128 *a2, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(plist::PListArray *a1, __int128 *a2, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
 {
   if (a4)
   {
@@ -8507,7 +8490,7 @@ LABEL_7:
   }
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(uint64_t *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(mlir::anec::ANECDictionary *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), char a6)
 {
   if (a4)
   {
@@ -8515,7 +8498,7 @@ void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsign
     if (a4 == 1 && (a6 & 1) == 0)
     {
       v10 = a5(a3);
-      mlir::anec::ANECDictionary::PListEntry(v10, &v23);
+      mlir::anec::ANECDictionary::PListEntry(&v23, v10);
       mlir::anec::ANECDictionary::Add(a1, a2, &v23);
       v11 = *(&v23 + 1);
       if (!*(&v23 + 1))
@@ -8532,7 +8515,7 @@ void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsign
     {
       v14 = v21;
       v15 = a5(v7);
-      mlir::anec::ANECDictionary::PListEntry(v15, &v23);
+      mlir::anec::ANECDictionary::PListEntry(&v23, v15);
       plist::PListArray::push_back(v14, &v23);
       v16 = *(&v23 + 1);
       if (*(&v23 + 1) && !atomic_fetch_add((*(&v23 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -8582,7 +8565,7 @@ LABEL_20:
   }
 }
 
-void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(uint64_t *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(mlir::anec::ANECDictionary *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), char a6)
 {
   if (a4)
   {
@@ -8590,7 +8573,7 @@ void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsi
     if (a4 == 1 && (a6 & 1) == 0)
     {
       v10 = a5(a3);
-      mlir::anec::ANECDictionary::PListEntry(*v10, &v23);
+      mlir::anec::ANECDictionary::PListEntry(&v23, *v10);
       mlir::anec::ANECDictionary::Add(a1, a2, &v23);
       v11 = *(&v23 + 1);
       if (!*(&v23 + 1))
@@ -8607,7 +8590,7 @@ void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsi
     {
       v14 = v21;
       v15 = a5(v7);
-      mlir::anec::ANECDictionary::PListEntry(*v15, &v23);
+      mlir::anec::ANECDictionary::PListEntry(&v23, *v15);
       plist::PListArray::push_back(v14, &v23);
       v16 = *(&v23 + 1);
       if (*(&v23 + 1) && !atomic_fetch_add((*(&v23 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
@@ -8657,7 +8640,7 @@ LABEL_20:
   }
 }
 
-void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRInput,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(uint64_t *a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRInput,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(plist::PListArray *a1, __int128 *a2, mlir::anec::ANECIRInput **a3, uint64_t a4, uint64_t a5)
 {
   if (!a4)
   {
@@ -8729,7 +8712,7 @@ LABEL_8:
   mlir::anec::ANECDictionary::Add<std::shared_ptr<mlir::anec::ANECIRInput>,void mlir::anec::ANECDictionary::AddLayerNames<mlir::anec::ANECIRInput>(std::string const&,llvm::ArrayRef<std::shared_ptr<mlir::anec::ANECIRInput>>)::{lambda(std::shared_ptr<mlir::anec::ANECIRInput> const&)#1}>(v17, v18, v19, v20, v21);
 }
 
-void mlir::anec::ANECDictionary::Add<std::shared_ptr<mlir::anec::ANECIRInput>,void mlir::anec::ANECDictionary::AddLayerNames<mlir::anec::ANECIRInput>(std::string const&,llvm::ArrayRef<std::shared_ptr<mlir::anec::ANECIRInput>>)::{lambda(std::shared_ptr<mlir::anec::ANECIRInput> const&)#1}>(uint64_t *a1, __int128 *a2, uint64_t *a3, uint64_t a4, char a5)
+void mlir::anec::ANECDictionary::Add<std::shared_ptr<mlir::anec::ANECIRInput>,void mlir::anec::ANECDictionary::AddLayerNames<mlir::anec::ANECIRInput>(std::string const&,llvm::ArrayRef<std::shared_ptr<mlir::anec::ANECIRInput>>)::{lambda(std::shared_ptr<mlir::anec::ANECIRInput> const&)#1}>(plist::PListArray *a1, __int128 *a2, uint64_t *a3, uint64_t a4, char a5)
 {
   if (a4)
   {
@@ -8861,7 +8844,7 @@ void _ZNSt3__110__function6__funcIZN4mlir4anec14ANECDictionary9AddLayersINS3_11A
   }
 }
 
-void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIROutput,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(uint64_t *a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIROutput,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(plist::PListArray *a1, __int128 *a2, mlir::anec::ANECIROutput **a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -8942,7 +8925,7 @@ void _ZNSt3__110__function6__funcIZN4mlir4anec14ANECDictionary9AddLayersINS3_12A
   }
 }
 
-void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRUnit,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(uint64_t *a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRUnit,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(plist::PListArray *a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -9023,7 +9006,7 @@ void _ZNSt3__110__function6__funcIZN4mlir4anec14ANECDictionary9AddLayersINS3_10A
   }
 }
 
-void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRConstant,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(uint64_t *a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::anec::ANECDictionary::AddLayers<mlir::anec::ANECIRConstant,std::function<std::shared_ptr<mlir::anec::ANECDictionary> ()(std::shared_ptr<mlir::anec::ANECDictionary>)>>(plist::PListArray *a1, __int128 *a2, mlir::anec::ANECIRConstant **a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -9104,9 +9087,9 @@ void _ZNSt3__110__function6__funcIZN4mlir4anec14ANECDictionary9AddLayersINS3_14A
   }
 }
 
-uint64_t **std::__tree<std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::tuple<std::string,std::string,unsigned int>>>(uint64_t **a1, const void **a2, uint64_t a3)
+uint64_t **std::__tree<std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::tuple<std::string,std::string,unsigned int>>>(uint64_t ***a1, const void **a2, uint64_t a3)
 {
-  v6 = a1 + 1;
+  v6 = (a1 + 1);
   v5 = a1[1];
   if (v5)
   {
@@ -9213,7 +9196,7 @@ uint64_t **std::__tree<std::__value_type<std::string,std::tuple<std::string,std:
 
   else
   {
-    v10 = a1 + 1;
+    v10 = (a1 + 1);
 LABEL_27:
     v22 = operator new(0x70uLL);
     v23 = v22;
@@ -9330,7 +9313,7 @@ std::string **std::pair<std::vector<std::string>,std::vector<std::string>>::pair
     a1[2] = (v8 + v7);
     do
     {
-      if (*(v5 + 23) < 0)
+      if (v5[23] < 0)
       {
         std::string::__init_copy_ctor_external(v8, *v5, *(v5 + 1));
       }
@@ -9342,7 +9325,7 @@ std::string **std::pair<std::vector<std::string>,std::vector<std::string>>::pair
         *&v8->__r_.__value_.__l.__data_ = v9;
       }
 
-      v5 = (v5 + 24);
+      v5 += 24;
       ++v8;
     }
 
@@ -9373,7 +9356,7 @@ LABEL_18:
   a1[5] = (v13 + v12);
   do
   {
-    if (*(v10 + 23) < 0)
+    if (v10[23] < 0)
     {
       std::string::__init_copy_ctor_external(v13, *v10, *(v10 + 1));
     }
@@ -9385,7 +9368,7 @@ LABEL_18:
       *&v13->__r_.__value_.__l.__data_ = v14;
     }
 
-    v10 = (v10 + 24);
+    v10 += 24;
     ++v13;
   }
 
@@ -9439,7 +9422,7 @@ LABEL_5:
   operator delete(a2);
 }
 
-void mlir::anec::ANECDictionary::Add<std::shared_ptr<mlir::anec::ANECIRNetwork>,void mlir::anec::ANECDictionary::AddLayerNames<mlir::anec::ANECIRNetwork>(std::string const&,llvm::ArrayRef<std::shared_ptr<mlir::anec::ANECIRNetwork>>)::{lambda(std::shared_ptr<mlir::anec::ANECIRNetwork> const&)#1}>(uint64_t *a1, __int128 *a2, uint64_t *a3, uint64_t a4, char a5)
+void mlir::anec::ANECDictionary::Add<std::shared_ptr<mlir::anec::ANECIRNetwork>,void mlir::anec::ANECDictionary::AddLayerNames<mlir::anec::ANECIRNetwork>(std::string const&,llvm::ArrayRef<std::shared_ptr<mlir::anec::ANECIRNetwork>>)::{lambda(std::shared_ptr<mlir::anec::ANECIRNetwork> const&)#1}>(plist::PListArray *a1, __int128 *a2, uint64_t *a3, uint64_t a4, char a5)
 {
   if (a4)
   {
@@ -9704,7 +9687,7 @@ unint64_t mlir::anec::ANECIRWeightSerializer::addConstant(uint64_t a1, uint64_t 
   v31 = a2;
   v32 = a3;
   isSplat = a2;
-  llvm::DenseMapBase<llvm::DenseMap<void const*,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<void const*,void>,llvm::detail::DenseSetPair<void const*>>,void const*,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<void const*,void>,llvm::detail::DenseSetPair<void const*>>::try_emplace<llvm::detail::DenseSetEmpty&>(a1 + 48, &isSplat, &ArgOperands);
+  llvm::DenseMapBase<llvm::DenseMap<void const*,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<void const*,void>,llvm::detail::DenseSetPair<void const*>>,void const*,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<void const*,void>,llvm::detail::DenseSetPair<void const*>>::try_emplace<llvm::detail::DenseSetEmpty&>((a1 + 48), &isSplat, &ArgOperands);
   v5 = *(a1 + 8);
   v6 = *(a1 + 24);
   if (!v6)
@@ -9793,7 +9776,7 @@ LABEL_4:
     v29 = v15;
     isSplat = v31;
     v35 = 0;
-    llvm::DenseMapBase<llvm::DenseMap<mlir::StringAttr,unsigned int,llvm::DenseMapInfo<mlir::StringAttr,void>,llvm::detail::DenseMapPair<mlir::StringAttr,unsigned int>>,mlir::StringAttr,unsigned int,llvm::DenseMapInfo<mlir::StringAttr,void>,llvm::detail::DenseMapPair<mlir::StringAttr,unsigned int>>::try_emplace<unsigned int>(a1 + 8, &isSplat, &v35, &ArgOperands);
+    llvm::DenseMapBase<llvm::DenseMap<mlir::StringAttr,unsigned int,llvm::DenseMapInfo<mlir::StringAttr,void>,llvm::detail::DenseMapPair<mlir::StringAttr,unsigned int>>,mlir::StringAttr,unsigned int,llvm::DenseMapInfo<mlir::StringAttr,void>,llvm::detail::DenseMapPair<mlir::StringAttr,unsigned int>>::try_emplace<unsigned int>((a1 + 8), &isSplat, &v35, &ArgOperands);
     if (v38 == 1)
     {
       v17 = *(a1 + 40);

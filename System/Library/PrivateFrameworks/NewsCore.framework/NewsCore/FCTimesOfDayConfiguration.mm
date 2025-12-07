@@ -7,11 +7,11 @@
 
 - (FCTimesOfDayConfiguration)initWithDictionary:(id)dictionary
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v25.receiver = self;
-  v25.super_class = FCTimesOfDayConfiguration;
-  v5 = [(FCTimesOfDayConfiguration *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = FCTimesOfDayConfiguration;
+  v5 = [(FCTimesOfDayConfiguration *)&v24 init];
   if (v5)
   {
     v6 = FCAppConfigurationDictionaryValueWithDefaultValue(dictionaryCopy, @"morning", 0);
@@ -24,7 +24,7 @@
     v13 = [[FCTimeOfDayConfiguration alloc] initWithDictionary:v7];
     v14 = v8;
     v15 = [[FCTimeOfDayConfiguration alloc] initWithDictionary:v8];
-    v24 = v9;
+    v23 = v9;
     v16 = [[FCTimeOfDayConfiguration alloc] initWithDictionary:v9];
     v17 = v16;
     if (v11 && v13 && v15 && v16)
@@ -37,13 +37,13 @@
       if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138544130;
-        v27 = v11;
-        v28 = 2114;
-        v29 = v13;
-        v30 = 2114;
-        v31 = v15;
-        v32 = 2114;
-        v33 = v17;
+        v26 = v11;
+        v27 = 2114;
+        v28 = v13;
+        v29 = 2114;
+        v30 = v15;
+        v31 = 2114;
+        v32 = v17;
         _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "Parsed a times of day configuration with morning: %{public}@, afternoon: %{public}@, evening: %{public}@ and night: %{public}@", buf, 0x2Au);
       }
 
@@ -61,7 +61,7 @@
           if (v20)
           {
             *buf = 138543362;
-            v27 = v17;
+            v26 = v17;
             v21 = "Invalid night time of day configuration in %{public}@";
 LABEL_19:
             _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
@@ -71,7 +71,7 @@ LABEL_19:
         else if (v20)
         {
           *buf = 138543362;
-          v27 = 0;
+          v26 = 0;
           v21 = "Invalid evening time of day configuration in %{public}@";
           goto LABEL_19;
         }
@@ -83,7 +83,7 @@ LABEL_19:
         if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v27 = 0;
+          v26 = 0;
           v21 = "Invalid afternoon time of day configuration in %{public}@";
           goto LABEL_19;
         }
@@ -96,7 +96,7 @@ LABEL_19:
       if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v27 = 0;
+        v26 = 0;
         v21 = "Invalid morning time of day configuration in %{public}@";
         goto LABEL_19;
       }
@@ -106,7 +106,6 @@ LABEL_19:
 LABEL_21:
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

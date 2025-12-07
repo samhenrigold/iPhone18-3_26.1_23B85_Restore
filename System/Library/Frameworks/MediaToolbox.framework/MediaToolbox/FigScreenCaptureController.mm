@@ -10,10 +10,10 @@
 - (FigScreenCaptureController)initWithScreenCaptureConfiguration:(id)configuration;
 - (FigScreenCaptureController)initWithSize:(CGSize)size minIntervalBetweenFrames:(id *)frames;
 - (__CFDictionary)getFVDOptions;
+- (double)resumeCapture;
+- (double)startCapture;
+- (double)suspendCapture;
 - (id)description;
-- (uint64_t)resumeCapture;
-- (uint64_t)startCapture;
-- (uint64_t)suspendCapture;
 - (void)dealloc;
 - (void)resumeCapture;
 - (void)setFigVirtualDisplayOption:(id)option forKey:(id)key;
@@ -231,7 +231,7 @@
       result = self->_screenCaptureConfiguration;
       if (result)
       {
-        result = [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result minFrameInterval];
+        result = objc_msgSend_minFrameInterval(result);
       }
 
       else
@@ -310,8 +310,8 @@ LABEL_9:
 
 - (void)startCapture
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v22 = 0;
+  v32 = *MEMORY[0x1E69E9840];
+  v24 = 0;
   cf = 0;
   getFVDOptions = [(FigScreenCaptureController *)self getFVDOptions];
   FigSimpleMutexLock();
@@ -323,46 +323,46 @@ LABEL_9:
     goto LABEL_21;
   }
 
-  v28 = 0;
+  v30 = 0;
   type[0] = OS_LOG_TYPE_DEFAULT;
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
   if (FVDUtilsSessionServerEnabled())
   {
-    *v24 = 0;
-    *&v24[8] = v24;
-    *&v24[16] = 0x3052000000;
-    *&v25 = __Block_byref_object_copy_;
-    *(&v25 + 1) = __Block_byref_object_dispose_;
+    *v26 = 0;
+    *&v26[8] = v26;
+    *&v26[16] = 0x3052000000;
+    *&v27 = __Block_byref_object_copy_;
+    *(&v27 + 1) = __Block_byref_object_dispose_;
     selfCopy = self;
     v6 = *MEMORY[0x1E695E480];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __42__FigScreenCaptureController_startCapture__block_invoke;
-    v21[3] = &unk_1E7479BB8;
-    v21[4] = v24;
-    if (FigVirtualDisplaySessionRemoteFrameReceiverCreate(v6, getFVDOptions, v21, &self->_session))
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __42__FigScreenCaptureController_startCapture__block_invoke;
+    v23[3] = &unk_1E7479BB8;
+    v23[4] = v26;
+    if (FigVirtualDisplaySessionRemoteFrameReceiverCreate(v6, getFVDOptions, v23, &self->_session))
     {
       *type = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
-      v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v21 = OS_LOG_TYPE_DEFAULT;
+      v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      _Block_object_dispose(v24, 8);
+      _Block_object_dispose(v26, 8);
       goto LABEL_21;
     }
 
     CMNotificationCenterGetDefaultLocalCenter();
     CMNotificationCenterAddListener();
-    _Block_object_dispose(v24, 8);
+    _Block_object_dispose(v26, 8);
   }
 
   else
   {
     selfCopy = 0;
-    v25 = 0u;
-    *&v24[8] = 0u;
+    v27 = 0u;
+    *&v26[8] = 0u;
     if (!CFDictionaryContainsKey(getFVDOptions, @"clientName"))
     {
       v7 = getprogname();
@@ -376,23 +376,23 @@ LABEL_9:
     if (FigVirtualDisplayProcessorCreate(*MEMORY[0x1E695E480], getFVDOptions, &cf))
     {
       *type = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
-      v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      v21 = OS_LOG_TYPE_DEFAULT;
+      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       goto LABEL_21;
     }
 
-    *v24 = self;
-    *&v25 = conduitFinalizeCallback;
-    *(&v25 + 1) = conduitPushFrameCallback;
-    v27 = conduitClearScreenCallback;
-    if (FigVirtualDisplaySinkConduitCreate(v8, v24, getFVDOptions, &v22) || FigVirtualDisplaySessionCreateWithComponents(v8, 0, cf, v22, getFVDOptions, &self->_session))
+    *v26 = self;
+    *&v27 = conduitFinalizeCallback;
+    *(&v27 + 1) = conduitPushFrameCallback;
+    v29 = conduitClearScreenCallback;
+    if (FigVirtualDisplaySinkConduitCreate(v8, v26, getFVDOptions, &v24) || FigVirtualDisplaySessionCreateWithComponents(v8, 0, cf, v24, getFVDOptions, &self->_session))
     {
       *type = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
-      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      v21 = OS_LOG_TYPE_DEFAULT;
+      v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       goto LABEL_21;
     }
@@ -401,15 +401,15 @@ LABEL_9:
   CMNotificationCenterGetDefaultLocalCenter();
   CMNotificationCenterAddListener();
   session = self->_session;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __42__FigScreenCaptureController_startCapture__block_invoke_130;
-  v18[3] = &unk_1E7479BE0;
-  v18[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __42__FigScreenCaptureController_startCapture__block_invoke_130;
+  v20[3] = &unk_1E7479BE0;
+  v20[4] = self;
   v10 = *(*(CMBaseObjectGetVTable() + 16) + 8);
   if (v10)
   {
-    v11 = v10(session, getFVDOptions, v18);
+    v11 = v10(session, getFVDOptions, v20);
     if (!v11)
     {
       goto LABEL_21;
@@ -421,29 +421,30 @@ LABEL_9:
     v11 = -12782;
   }
 
-  v28 = 0;
+  v30 = 0;
   type[0] = OS_LOG_TYPE_DEFAULT;
   v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v13 = v28;
+  v13 = v30;
+  v14 = type[0];
   if (os_log_type_enabled(v12, type[0]))
   {
-    v14 = v13;
+    v15 = v13;
   }
 
   else
   {
-    v14 = v13 & 0xFFFFFFFE;
+    v15 = v13 & 0xFFFFFFFE;
   }
 
-  if (v14)
+  if (v15)
   {
-    *v24 = 136315650;
-    *&v24[4] = "[FigScreenCaptureController startCapture]";
-    *&v24[12] = 1024;
-    *&v24[14] = 1392;
-    *&v24[18] = 1024;
-    *&v24[20] = v11;
-    _os_log_send_and_compose_impl();
+    *v26 = 136315650;
+    *&v26[4] = "[FigScreenCaptureController startCapture]";
+    *&v26[12] = 1024;
+    *&v26[14] = 1392;
+    *&v26[18] = 1024;
+    *&v26[20] = v11;
+    _os_log_send_and_compose_impl(v15, 0, v31, 128, &dword_1962D5000, v12, v14, "<<<< FigScreenCaptureController >>>> %s: %d: got error %d", v26, 24, v19);
   }
 
   fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -454,9 +455,9 @@ LABEL_21:
     CFRelease(cf);
   }
 
-  if (v22)
+  if (v24)
   {
-    CFRelease(v22);
+    CFRelease(v24);
   }
 }
 
@@ -506,6 +507,7 @@ uint64_t __42__FigScreenCaptureController_startCapture__block_invoke_130(uint64_
 
 - (void)suspendCapture
 {
+  v6 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
   if (self->_session)
   {
@@ -530,6 +532,7 @@ uint64_t __42__FigScreenCaptureController_startCapture__block_invoke_130(uint64_
 
 - (void)resumeCapture
 {
+  v6 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
   if (self->_session)
   {
@@ -554,6 +557,7 @@ uint64_t __42__FigScreenCaptureController_startCapture__block_invoke_130(uint64_
 
 - (void)stopCapture
 {
+  v7 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
   if (self->_session)
   {
@@ -582,52 +586,53 @@ uint64_t __42__FigScreenCaptureController_startCapture__block_invoke_130(uint64_
   FigSimpleMutexUnlock();
 }
 
-- (uint64_t)startCapture
+- (double)startCapture
 {
   OUTLINED_FUNCTION_5_14(*MEMORY[0x1E69E9840]);
-  v0 = OUTLINED_FUNCTION_4_19();
-  v8 = OUTLINED_FUNCTION_103_0(v0, v1, v2, v3, v4, v5, v6, v7, v11, v12, v13, v14, SWORD2(v14), SBYTE6(v14), HIBYTE(v14));
-  if (OUTLINED_FUNCTION_77_0(v8))
+  v8 = OUTLINED_FUNCTION_4_19(v0, v1, v2, v3, v4, v5, v6, v7, v30, v32, v35, v38, *v41, *&v41[2], v41[4], v41[5]);
+  v16 = OUTLINED_FUNCTION_103_0(v8, v9, v10, v11, v12, v13, v14, v15, v31, v33, v36, v39, v42, v43, v44);
+  if (OUTLINED_FUNCTION_77_0(v16))
   {
-    OUTLINED_FUNCTION_2_25(v15, 4.8151e-34);
-    *(v9 + 14) = 1336;
-    OUTLINED_FUNCTION_1_24();
+    OUTLINED_FUNCTION_2_25(v45, 4.8151e-34);
+    *(v17 + 14) = 1336;
+    LODWORD(v34) = 18;
+    OUTLINED_FUNCTION_1_24(v18, v19, v20, v21, &dword_1962D5000, v22, v23, "<<<< FigScreenCaptureController >>>> %s: %d: false condition", v45, v34, v37, v40);
   }
 
   OUTLINED_FUNCTION_6_13();
-  return OUTLINED_FUNCTION_0_26();
+  return OUTLINED_FUNCTION_0_26(v24, v25, v26, v27, v28);
 }
 
-- (uint64_t)suspendCapture
+- (double)suspendCapture
 {
   OUTLINED_FUNCTION_5_14(*MEMORY[0x1E69E9840]);
-  v0 = OUTLINED_FUNCTION_4_19();
-  v8 = OUTLINED_FUNCTION_103_0(v0, v1, v2, v3, v4, v5, v6, v7, v11, v12, v13, v14, SWORD2(v14), SBYTE6(v14), HIBYTE(v14));
-  if (OUTLINED_FUNCTION_77_0(v8))
+  v8 = OUTLINED_FUNCTION_4_19(v0, v1, v2, v3, v4, v5, v6, v7, v30, v33, v36, v39, *v42, *&v42[2], v42[4], v42[5]);
+  v16 = OUTLINED_FUNCTION_103_0(v8, v9, v10, v11, v12, v13, v14, v15, v31, v34, v37, v40, v43, v44, v45);
+  if (OUTLINED_FUNCTION_77_0(v16))
   {
-    OUTLINED_FUNCTION_2_25(v15, 4.8151e-34);
-    OUTLINED_FUNCTION_8_7(v9);
-    OUTLINED_FUNCTION_1_24();
+    OUTLINED_FUNCTION_2_25(v46, 4.8151e-34);
+    OUTLINED_FUNCTION_8_7(v17);
+    OUTLINED_FUNCTION_1_24(v18, v19, v20, v21, &dword_1962D5000, v22, v23, "<<<< FigScreenCaptureController >>>> %s: %d: false condition", v32, v35, v38, v41);
   }
 
   OUTLINED_FUNCTION_6_13();
-  return OUTLINED_FUNCTION_0_26();
+  return OUTLINED_FUNCTION_0_26(v24, v25, v26, v27, v28);
 }
 
-- (uint64_t)resumeCapture
+- (double)resumeCapture
 {
   OUTLINED_FUNCTION_5_14(*MEMORY[0x1E69E9840]);
-  v0 = OUTLINED_FUNCTION_4_19();
-  v8 = OUTLINED_FUNCTION_103_0(v0, v1, v2, v3, v4, v5, v6, v7, v11, v12, v13, v14, SWORD2(v14), SBYTE6(v14), HIBYTE(v14));
-  if (OUTLINED_FUNCTION_77_0(v8))
+  v8 = OUTLINED_FUNCTION_4_19(v0, v1, v2, v3, v4, v5, v6, v7, v30, v33, v36, v39, *v42, *&v42[2], v42[4], v42[5]);
+  v16 = OUTLINED_FUNCTION_103_0(v8, v9, v10, v11, v12, v13, v14, v15, v31, v34, v37, v40, v43, v44, v45);
+  if (OUTLINED_FUNCTION_77_0(v16))
   {
-    OUTLINED_FUNCTION_2_25(v15, 4.8151e-34);
-    OUTLINED_FUNCTION_8_7(v9);
-    OUTLINED_FUNCTION_1_24();
+    OUTLINED_FUNCTION_2_25(v46, 4.8151e-34);
+    OUTLINED_FUNCTION_8_7(v17);
+    OUTLINED_FUNCTION_1_24(v18, v19, v20, v21, &dword_1962D5000, v22, v23, "<<<< FigScreenCaptureController >>>> %s: %d: false condition", v32, v35, v38, v41);
   }
 
   OUTLINED_FUNCTION_6_13();
-  return OUTLINED_FUNCTION_0_26();
+  return OUTLINED_FUNCTION_0_26(v24, v25, v26, v27, v28);
 }
 
 @end

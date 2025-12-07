@@ -32,6 +32,7 @@
 - (void)_loadContentViews;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_unloadContentViews;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateComplicationViewsAlphasWithAnimation:(BOOL)animation;
@@ -470,6 +471,29 @@ LABEL_7:
 
     timeView2 = [(NTKCharacterFaceView *)self timeView];
     [timeView2 setAlpha:v13];
+  }
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  groupCopy = group;
+  v8.receiver = self;
+  v8.super_class = NTKCharacterFaceView;
+  [(NTKCharacterFaceView *)&v8 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  v7 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    selfCopy = self;
+    v11 = 1024;
+    v12 = discardCopy;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%p _renderSynchronouslyWithImageQueueDiscard = %d", buf, 0x12u);
+  }
+
+  if ([(NTKCharacterFaceView *)self dataMode]!= &dword_4)
+  {
+    [(NTKCharacterTimeView *)self->_characterTimeView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
   }
 }
 

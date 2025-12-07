@@ -258,7 +258,7 @@
   [navigationItem3 setLeftBarButtonItem:v37];
 
   v39 = objc_alloc(MEMORY[0x1E69DC708]);
-  v40 = AVTAvatarUIBundle();
+  v40 = AVTAvatarUIBundle(v39);
   v41 = [v40 localizedStringForKey:@"NEXT" value:&stru_1F39618F0 table:@"Localized"];
   v42 = [v39 initWithTitle:v41 style:2 target:self action:sel_didTapDone_];
   doneButton = self->_doneButton;

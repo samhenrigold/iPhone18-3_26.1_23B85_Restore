@@ -51,7 +51,7 @@
 
       v11 = *(*(&v21 + 1) + 8 * i);
       v12 = v11;
-      if (v11 == @"x-conversation-id" || v11 && (v13 = [(__CFString *)v11 isEqualToString:@"x-conversation-id"], v12, v13))
+      if (v11 == @"x-conversation-id" || v11 && (isEqualToString = objc_msgSend_isEqualToString_(v11), v12, isEqualToString))
       {
         [(NSDictionary *)self->_headers PKStringForKey:v12];
         v8 = v14 = v8;

@@ -405,7 +405,7 @@ LABEL_10:
     }
   }
 
-  [*(a1 + 48) finishWithSuccess:v5 == 0 error:{v5, *v16, *&v16[16], v17}];
+  [*(a1 + 48) finishWithSuccess:v5 == 0 error:{v5, *v16, *&v16[8], v17}];
 }
 
 - (id)sendDialog:(id)dialog account:(id)account
@@ -594,7 +594,7 @@ LABEL_10:
     }
   }
 
-  [*(a1 + 48) finishWithSuccess:v5 == 0 error:{v5, *v16, *&v16[16], v17}];
+  [*(a1 + 48) finishWithSuccess:v5 == 0 error:{v5, *v16, *&v16[8], v17}];
 }
 
 - (void)deviceMessengerDidClearMessage:(id)message

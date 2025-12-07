@@ -8,7 +8,7 @@
 
 + (id)communicationLimitsBlockingViewControllerWithViewModel:(id)model
 {
-  v4 = objc_allocWithZone(type metadata accessor for STCommunicationLimitsBlockingViewController());
+  v4 = objc_allocWithZone(type metadata accessor for STCommunicationLimitsBlockingViewController(0));
   *&v4[qword_27CE90620] = model;
   modelCopy = model;
   v6 = sub_21DDBD7E0();
@@ -34,7 +34,7 @@
     type = 0;
   }
 
-  type metadata accessor for CommunicationLimitsBlockingViewModel();
+  type metadata accessor for CommunicationLimitsBlockingViewModel(0);
   swift_getObjectType();
   swift_unknownObjectRetain();
   v10 = sub_21DDB78F8(type, v8, delegate, v9);

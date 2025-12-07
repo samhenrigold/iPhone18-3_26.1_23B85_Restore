@@ -12,21 +12,21 @@
 
 - (int64_t)pruneSourcesWithNoReferencesWithTxnWitness:(id)witness
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   witnessCopy = witness;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v5 = [witnessCopy db];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __62__PPSourceStorage_pruneSourcesWithNoReferencesWithTxnWitness___block_invoke;
-  v14[3] = &unk_278976450;
-  v14[4] = &v15;
-  [v5 prepAndRunQuery:@"SELECT COUNT(*) as count FROM sources WHERE ref_count <= 0" onPrep:0 onRow:v14 onError:0];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __62__PPSourceStorage_pruneSourcesWithNoReferencesWithTxnWitness___block_invoke;
+  v13[3] = &unk_278976450;
+  v13[4] = &v14;
+  [v5 prepAndRunQuery:@"SELECT COUNT(*) as count FROM sources WHERE ref_count <= 0" onPrep:0 onRow:v13 onError:0];
 
-  if (!v16[3])
+  if (!v15[3])
   {
     goto LABEL_10;
   }
@@ -41,7 +41,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "PPSourceStorage: pruneSourcesWithNoReferencesWithTxnWitness: deleted %lld contact handles", buf, 0xCu);
     }
   }
@@ -56,14 +56,14 @@
     }
   }
 
-  if (v16[3])
+  if (v15[3])
   {
     v9 = pp_default_log_handle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v16[3];
+      v10 = v15[3];
       *buf = 134217984;
-      v20 = v10;
+      v19 = v10;
       _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPSourceStorage: pruneSourcesWithNoReferencesWithTxnWitness: deleted %lld sources", buf, 0xCu);
     }
   }
@@ -79,10 +79,9 @@ LABEL_10:
     }
   }
 
-  v11 = v16[3];
-  _Block_object_dispose(&v15, 8);
+  v11 = v15[3];
+  _Block_object_dispose(&v14, 8);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -612,40 +611,38 @@ void __52__PPSourceStorage_iterSourcesWithQuery_error_block___block_invoke_5(uin
 
 void __52__PPSourceStorage_iterSourcesWithQuery_error_block___block_invoke_6(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__PPSourceStorage_iterSourcesWithQuery_error_block___block_invoke_7(uint64_t a1, void *a2)

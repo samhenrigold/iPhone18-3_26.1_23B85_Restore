@@ -109,7 +109,6 @@
   v8 = [MEMORY[0x1E696ABC0] ak_errorWithCode:v11 userInfo:{v9, &v9}];
   objc_storeStrong(v7, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -136,7 +135,6 @@
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AKAnisetteError" code:v11 userInfo:{v9, &v9}];
   objc_storeStrong(v7, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -163,7 +161,6 @@
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AKAttestationErrorDomain" code:v11 userInfo:{v9, &v9}];
   objc_storeStrong(v7, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -193,7 +190,6 @@
   objc_storeStrong(&v10, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -214,7 +210,6 @@
   v8 = [v6 errorWithDomain:@"AKAnisetteError" code:v5 userInfo:?];
   MEMORY[0x1E69E5920](v7);
   objc_storeStrong(&v9, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -346,7 +341,6 @@ LABEL_14:
     v17 = v14;
   }
 
-  *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
@@ -468,7 +462,6 @@ LABEL_14:
   }
 
   objc_storeStrong(&oslog, 0);
-  *MEMORY[0x1E69E9840];
   return ak_isUnableToPromptError & 1;
 }
 
@@ -625,7 +618,6 @@ LABEL_14:
   }
 
   MEMORY[0x1E69E5920](obj);
-  *MEMORY[0x1E69E9840];
   return v12 & 1;
 }
 

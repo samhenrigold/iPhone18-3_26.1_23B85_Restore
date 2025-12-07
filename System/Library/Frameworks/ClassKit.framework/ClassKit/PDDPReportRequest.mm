@@ -337,30 +337,29 @@ LABEL_53:
 - (void)writeTo:(id)to
 {
   toCopy = to;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v5 = self->_requestItems;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -369,14 +368,12 @@ LABEL_53:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    maxReportItemsCount = self->_maxReportItemsCount;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    maxPayloadSize = self->_maxPayloadSize;
     PBDataWriterWriteInt32Field();
   }
 
@@ -496,7 +493,6 @@ LABEL_53:
     }
   }
 
-  v6 = *(equalCopy + 32);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_maxReportItemsCount != *(equalCopy + 5))
@@ -508,7 +504,7 @@ LABEL_53:
   else if ((*(equalCopy + 32) & 2) != 0)
   {
 LABEL_16:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
@@ -528,17 +524,17 @@ LABEL_16:
   batchPointer = self->_batchPointer;
   if (batchPointer | *(equalCopy + 1))
   {
-    v8 = [(NSData *)batchPointer isEqual:?];
+    v7 = [(NSData *)batchPointer isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

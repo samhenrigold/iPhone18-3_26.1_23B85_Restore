@@ -39,27 +39,25 @@
 
 - (id)getEncodedModel
 {
-  v3 = type metadata accessor for JSONEncoder();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   selfCopy = self;
   JSONEncoder.init()();
-  type metadata accessor for PCNeuralNetModel();
-  lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type PCNeuralNetModel and conformance PCNeuralNetModel, 255, type metadata accessor for PCNeuralNetModel);
-  v7 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v9 = v8;
+  type metadata accessor for PCNeuralNetModel(0);
+  lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type PCNeuralNetModel and conformance PCNeuralNetModel, 255, type metadata accessor for PCNeuralNetModel, &protocol conformance descriptor for PCNeuralNetModel);
+  v4 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v6 = v5;
 
-  v10.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  outlined consume of Data._Representation(v7, v9);
+  v7.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  outlined consume of Data._Representation(v4, v6);
 
-  return v10.super.isa;
+  return v7.super.isa;
 }
 
 - (void)encodeWithLabelEncoderWithArray:(NSArray *)array completionHandler:(id)handler
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -85,8 +83,8 @@
 
 - (void)fitLabelEncoderWithArray:(NSArray *)array completionHandler:(id)handler
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();

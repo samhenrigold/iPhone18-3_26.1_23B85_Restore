@@ -163,7 +163,7 @@
     if (latestUltraWideImage)
     {
       v9->_capturedUltraWideImage = CVPixelBufferRetain([latestUltraWideImage pixelBuffer]);
-      [v35 timestamp];
+      objc_msgSend_timestamp(v35);
       v9->_ultraWideImageTimestamp = v36;
       v37 = [[ARCamera alloc] initFromImageData:v35];
       ultraWideCamera = v9->_ultraWideCamera;
@@ -328,10 +328,10 @@
 {
   [(ARFrame *)self transformPointToNDCSpace:point.x, point.y];
   camera = [(ARFrame *)self camera];
-  [camera transform];
+  objc_msgSend_transform(camera);
 
   camera2 = [(ARFrame *)self camera];
-  [camera2 transform];
+  objc_msgSend_transform(camera2);
 
   return [ARFrame _hitTestFromOrigin:"_hitTestFromOrigin:withDirection:types:" withDirection:types types:?];
 }
@@ -341,11 +341,11 @@
   [(ARFrame *)self transformPointToNDCSpace:point.x, point.y];
   v24 = v8;
   camera = [(ARFrame *)self camera];
-  [camera transform];
+  objc_msgSend_transform(camera);
   v25 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, v24.f32[0]), v11, *v24.f32, 1), v12, v24, 2), v13, v24, 3);
 
   camera2 = [(ARFrame *)self camera];
-  [camera2 transform];
+  objc_msgSend_transform(camera2);
   v26 = vsubq_f32(v25, v15);
   v16 = vmulq_f32(v26, v26);
   *&v17 = v16.f32[2] + vaddv_f32(*v16.f32);
@@ -355,7 +355,7 @@
 
   v18 = [ARRaycastQuery alloc];
   camera3 = [(ARFrame *)self camera];
-  [camera3 transform];
+  objc_msgSend_transform(camera3);
   v21 = [(ARRaycastQuery *)v18 initWithOrigin:target direction:alignment allowingTarget:v20 alignment:*vmulq_n_f32(v26, v23).i64];
 
   return v21;
@@ -453,30 +453,28 @@
     }
 
     while (v2 != 4);
-    v10.columns[0].i64[0] = *&v9[0];
+    return v9[0];
   }
 
   else if ([self worldAlignmentTransformAvailable])
   {
-    v10.columns[0].i64[0] = __invert_f4(*(self + 688));
+    return __invert_f4(*(self + 688));
   }
 
   else if ([self sessionOriginTransformAvailable])
   {
-    v10.columns[0] = *(self + 624);
+    return *(self + 624);
   }
 
   else
   {
-    v10.columns[0] = *MEMORY[0x1E69E9B18];
+    return *MEMORY[0x1E69E9B18];
   }
-
-  return v10.columns[0];
 }
 
 - (BOOL)useHittestRaycasting
 {
-  if (!ARDeviceSupportsJasper())
+  if (!ARDeviceSupportsJasper(self, a2))
   {
     return 0;
   }
@@ -501,7 +499,7 @@
   v67 = v3;
   v68 = v4;
   v80 = *MEMORY[0x1E69E9840];
-  [(ARFrame *)self timestamp];
+  objc_msgSend_timestamp(self, direction);
   kdebug_trace();
   [ARSessionMetrics recordHitTest:types];
   v7 = objc_opt_new();
@@ -640,7 +638,7 @@ LABEL_23:
     if ([(ARFrame *)self useHittestRaycasting])
     {
       camera3 = [(ARFrame *)self camera];
-      [camera3 transform];
+      objc_msgSend_transform(camera3);
       v36 = 0;
       v73[0] = xmmword_1C25C9230;
       v73[1] = xmmword_1C25C9240;
@@ -893,7 +891,7 @@ LABEL_63:
       v18 = [v11 objectAtIndexedSubscript:v13];
       if ([v18 alignment] == a9)
       {
-        [v18 transform];
+        objc_msgSend_transform(v18);
         v19 = 0;
         v51[0] = v20;
         v51[1] = v21;
@@ -1017,9 +1015,9 @@ LABEL_8:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [(ARFrame *)self timestamp];
+    objc_msgSend_timestamp(self);
     v6 = v5;
-    [equalCopy timestamp];
+    objc_msgSend_timestamp(equalCopy);
     v8 = v6 == v7;
   }
 
@@ -1038,7 +1036,7 @@ LABEL_8:
   v5 = NSStringFromClass(v4);
   v6 = [v3 stringWithFormat:@"<%@: %p", v5, self];
 
-  [(ARFrame *)self timestamp];
+  objc_msgSend_timestamp(self);
   [v6 appendFormat:@" timestamp=%f", v7];
   [v6 appendFormat:@" capturedImage=%p", -[ARFrame capturedImage](self, "capturedImage")];
   camera = [(ARFrame *)self camera];

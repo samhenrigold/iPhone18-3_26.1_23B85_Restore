@@ -26,15 +26,15 @@
 
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen bounds];
-  v4 = v3;
-  v6 = v5;
+  v5 = v4;
+  v7 = v6;
 
   keyWindow = [self keyWindow];
   [keyWindow bounds];
-  v9 = v8;
-  v11 = v10;
+  v10 = v9;
+  v12 = v11;
 
-  return v4 + v6 == v9 + v11;
+  return v5 + v7 == v10 + v12;
 }
 
 - (void)SKUI_isMedusaActive

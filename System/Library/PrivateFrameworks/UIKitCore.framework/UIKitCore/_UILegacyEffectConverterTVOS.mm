@@ -353,7 +353,7 @@ LABEL_24:
         v9 = +[UIColor whiteColor];
         goto LABEL_23;
       case 4011:
-        v9 = +[UIColor blackColor];
+        v9 = objc_msgSend_blackColor(UIColor, a2);
         goto LABEL_23;
       case 4012:
         if (_AXSEnhanceBackgroundContrastEnabled())

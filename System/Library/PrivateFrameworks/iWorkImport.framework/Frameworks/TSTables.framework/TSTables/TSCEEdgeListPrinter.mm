@@ -14,9 +14,9 @@
   {
     if (!self->_edgesForOwner)
     {
-      v10 = objc_opt_new();
+      v9 = objc_opt_new();
       edgesForOwner = self->_edgesForOwner;
-      self->_edgesForOwner = v10;
+      self->_edgesForOwner = v9;
     }
 
     if (!ownerCopy)
@@ -24,84 +24,84 @@
       ownerCopy = &stru_2834BADA0;
     }
 
-    v16 = objc_msgSend_objectForKey_(self->_edgesForOwner, v6, ownerCopy, v7, v8);
-    if (!v16)
+    v14 = objc_msgSend_objectForKey_(self->_edgesForOwner, v6, ownerCopy, v7);
+    if (!v14)
     {
-      v16 = objc_msgSend_array(MEMORY[0x277CBEB18], v12, v13, v14, v15);
-      objc_msgSend_setObject_forKey_(self->_edgesForOwner, v17, v16, ownerCopy, v18);
+      v14 = objc_msgSend_array(MEMORY[0x277CBEB18], v11, v12, v13);
+      objc_msgSend_setObject_forKey_(self->_edgesForOwner, v15, v14, ownerCopy);
     }
 
-    objc_msgSend_addObject_(v16, v12, edgeCopy, v14, v15);
+    objc_msgSend_addObject_(v14, v11, edgeCopy, v13);
   }
 }
 
 - (id)stringForOwnerID:(id)d withLimit:(unint64_t)limit
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dCopy = d;
   edgesForOwner = self->_edgesForOwner;
   if (dCopy)
   {
-    objc_msgSend_objectForKey_(edgesForOwner, v6, dCopy, v7, v8);
+    objc_msgSend_objectForKey_(edgesForOwner, v6, dCopy, v7);
   }
 
   else
   {
-    objc_msgSend_objectForKey_(edgesForOwner, v6, &stru_2834BADA0, v7, v8);
+    objc_msgSend_objectForKey_(edgesForOwner, v6, &stru_2834BADA0, v7);
   }
-  v11 = ;
-  if (!objc_msgSend_count(v11, v12, v13, v14, v15))
+  v10 = ;
+  if (!objc_msgSend_count(v10, v11, v12, v13))
   {
-    v31 = 0;
+    v27 = 0;
     goto LABEL_36;
   }
 
-  objc_msgSend_sortedArrayUsingSelector_(v11, v16, sel_tsce_numericCompare_, v17, v18);
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v19 = v49 = 0u;
-  v47 = v11;
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v48, v52, 16);
+  objc_msgSend_sortedArrayUsingSelector_(v10, v14, sel_tsce_numericCompare_, v15);
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v16 = v42 = 0u;
+  v40 = v10;
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v41, v45, 16);
   limitCopy = limit;
-  if (v24)
+  if (v20)
   {
-    v25 = 0;
-    v26 = 0;
-    v27 = *v49;
-    v28 = limit - 1;
+    v21 = 0;
+    v22 = 0;
+    v23 = *v42;
+    v24 = limit - 1;
 LABEL_7:
-    v29 = 0;
-    v30 = v25 + 1;
-    v25 += v24;
+    v25 = 0;
+    v26 = v21 + 1;
+    v21 += v20;
     while (1)
     {
-      if (*v49 != v27)
+      if (*v42 != v23)
       {
-        objc_enumerationMutation(v19);
+        objc_enumerationMutation(v16);
       }
 
-      if (v26)
+      if (v22)
       {
-        objc_msgSend_appendFormat_(v26, v21, @", %@", v22, v23, *(*(&v48 + 1) + 8 * v29));
+        objc_msgSend_appendFormat_(v22, v18, @", %@", v19, *(*(&v41 + 1) + 8 * v25));
       }
 
       else
       {
-        v26 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], v21, *(*(&v48 + 1) + 8 * v29), v22, v23);
+        v22 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], v18, *(*(&v41 + 1) + 8 * v25), v19);
       }
 
-      if (v28 < v30)
+      if (v24 < v26)
       {
         break;
       }
 
-      ++v29;
-      ++v30;
-      if (v24 == v29)
+      ++v25;
+      ++v26;
+      if (v20 == v25)
       {
-        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v21, &v48, v52, 16);
-        if (v24)
+        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v41, v45, 16);
+        if (v20)
         {
           goto LABEL_7;
         }
@@ -113,105 +113,105 @@ LABEL_7:
 
   else
   {
-    v26 = 0;
+    v22 = 0;
   }
 
-  v11 = v47;
+  v10 = v40;
   if (dCopy)
   {
-    v36 = objc_msgSend_count(v47, v32, v33, v34, v35);
-    if (v36 >= 2)
+    v31 = objc_msgSend_count(v40, v28, v29, v30);
+    if (v31 >= 2)
     {
-      v40 = @"%@::{%@}";
+      v34 = @"%@::{%@}";
     }
 
     else
     {
-      v40 = @"%@::%@";
+      v34 = @"%@::%@";
     }
 
-    if (v36 >= 2 && limitCopy)
+    if (v31 >= 2 && limitCopy)
     {
-      if (objc_msgSend_count(v47, v37, v40, v38, v39) > limitCopy)
+      if (objc_msgSend_count(v40, v32, v34, v33) > limitCopy)
       {
-        objc_msgSend_stringWithFormat_(MEMORY[0x277CCAB68], v37, @"%@::{%@, ...}", v38, v39, dCopy, v26);
-        v41 = LABEL_29:;
+        objc_msgSend_stringWithFormat_(MEMORY[0x277CCAB68], v32, @"%@::{%@, ...}", v33, dCopy, v22);
+        v35 = LABEL_29:;
         goto LABEL_30;
       }
 
-      v40 = @"%@::{%@}";
+      v34 = @"%@::{%@}";
     }
 
-    objc_msgSend_stringWithFormat_(MEMORY[0x277CCAB68], v37, v40, v38, v39, dCopy, v26);
+    objc_msgSend_stringWithFormat_(MEMORY[0x277CCAB68], v32, v34, v33, dCopy, v22);
     goto LABEL_29;
   }
 
-  if (!limitCopy || objc_msgSend_count(v47, v32, v33, v34, v35) <= limitCopy)
+  if (!limitCopy || objc_msgSend_count(v40, v28, v29, v30) <= limitCopy)
   {
-    v31 = v26;
+    v27 = v22;
     goto LABEL_35;
   }
 
-  v41 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCAB68], v42, @"%@, ...", v43, v44, v26);
+  v35 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCAB68], v36, @"%@, ...", v37, v22);
 LABEL_30:
-  v31 = v41;
+  v27 = v35;
 
 LABEL_35:
 LABEL_36:
 
-  return v31;
+  return v27;
 }
 
 - (id)stringForEdgesWithLimit:(unint64_t)limit
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v6 = objc_msgSend_stringForOwnerID_withLimit_(self, a2, 0, limit, v3);
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v7 = self->_edgesForOwner;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v31, v35, 16);
-  if (v13)
+  v31 = *MEMORY[0x277D85DE8];
+  v5 = objc_msgSend_stringForOwnerID_withLimit_(self, a2, 0, limit);
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v6 = self->_edgesForOwner;
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v26, v30, 16);
+  if (v11)
   {
-    v14 = *v32;
+    v12 = *v27;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v32 != v14)
+        if (*v27 != v12)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v16 = *(*(&v31 + 1) + 8 * i);
-        if (objc_msgSend_length(v16, v9, v10, v11, v12))
+        v14 = *(*(&v26 + 1) + 8 * i);
+        if (objc_msgSend_length(v14, v8, v9, v10))
         {
-          v17 = objc_msgSend_stringForOwnerID_withLimit_(self, v9, v16, limit, v12);
-          if (objc_msgSend_length(v17, v18, v19, v20, v21))
+          v15 = objc_msgSend_stringForOwnerID_withLimit_(self, v8, v14, limit);
+          if (objc_msgSend_length(v15, v16, v17, v18))
           {
-            if (objc_msgSend_length(v6, v22, v23, v24, v25))
+            if (objc_msgSend_length(v5, v19, v20, v21))
             {
-              objc_msgSend_appendFormat_(v6, v26, @", %@", v27, v28, v17);
+              objc_msgSend_appendFormat_(v5, v22, @", %@", v23, v15);
             }
 
             else
             {
-              v29 = v17;
+              v24 = v15;
 
-              v6 = v29;
+              v5 = v24;
             }
           }
         }
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v31, v35, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v26, v30, 16);
     }
 
-    while (v13);
+    while (v11);
   }
 
-  return v6;
+  return v5;
 }
 
 @end

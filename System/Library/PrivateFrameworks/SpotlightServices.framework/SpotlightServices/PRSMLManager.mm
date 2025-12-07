@@ -174,27 +174,27 @@ uint64_t __37__PRSMLManager_getSPMLSharedInstance__block_invoke()
 
 void __46__PRSMLManager_dumpPredictionStatsToFlatFiles__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v18 = *MEMORY[0x1E69E9840];
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v2 = *(*(a1 + 32) + 16);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
-    v4 = *v15;
+    v4 = *v14;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v15 != v4)
+        if (*v14 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v14 + 1) + 8 * i);
-        v7 = [*(*(a1 + 32) + 32) objectForKey:{v6, v14}];
+        v6 = *(*(&v13 + 1) + 8 * i);
+        v7 = [*(*(a1 + 32) + 32) objectForKey:{v6, v13}];
         v8 = [*(*(a1 + 32) + 24) objectForKey:v6];
         v9 = v8;
         if (v8)
@@ -216,7 +216,7 @@ void __46__PRSMLManager_dumpPredictionStatsToFlatFiles__block_invoke(uint64_t a1
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v3);
@@ -226,8 +226,6 @@ void __46__PRSMLManager_dumpPredictionStatsToFlatFiles__block_invoke(uint64_t a1
   objc_sync_enter(v12);
   [*(*(a1 + 32) + 48) writeToFile:pathToCoreDuetFlatFile atomically:1];
   objc_sync_exit(v12);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

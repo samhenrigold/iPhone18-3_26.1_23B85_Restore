@@ -85,7 +85,7 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v16[9] = *MEMORY[0x1E69E9840];
+  v15[9] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:self->_count];
@@ -105,21 +105,19 @@
 
   v10 = [v7 componentsJoinedByString:v6];
   v11 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = MTLResourceAddressRangeArray;
-  v12 = [(MTLResourceAddressRangeArray *)&v15 description];
-  v16[0] = v5;
-  v16[1] = @"count =";
-  v16[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_count];
-  v16[3] = v5;
-  v16[4] = @"ranges = {";
-  v16[5] = v6;
-  v16[6] = v10;
-  v16[7] = v5;
-  v16[8] = @"}";
-  result = [v11 stringWithFormat:@"%@%@", v12, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v16, 9), "componentsJoinedByString:", @" "];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v14.receiver = self;
+  v14.super_class = MTLResourceAddressRangeArray;
+  v12 = [(MTLResourceAddressRangeArray *)&v14 description];
+  v15[0] = v5;
+  v15[1] = @"count =";
+  v15[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_count];
+  v15[3] = v5;
+  v15[4] = @"ranges = {";
+  v15[5] = v6;
+  v15[6] = v10;
+  v15[7] = v5;
+  v15[8] = @"}";
+  return [v11 stringWithFormat:@"%@%@", v12, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 9), "componentsJoinedByString:", @" "];
 }
 
 @end

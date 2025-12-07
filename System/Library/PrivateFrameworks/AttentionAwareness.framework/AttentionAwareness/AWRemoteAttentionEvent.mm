@@ -57,40 +57,40 @@
 
 - (AWRemoteAttentionEvent)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v19 = 0;
+  v21 = *MEMORY[0x1E69E9840];
+  v18 = 0;
   coderCopy = coder;
-  v5 = decodeDouble(coderCopy, &v19, @"timestamp");
-  v6 = decodeUInt64(coderCopy, &v19, @"usagePage");
-  v7 = decodeUInt64(coderCopy, &v19, @"usage");
-  v8 = decodeUInt64(coderCopy, &v19, @"senderID");
-  v9 = decodeUInt64(coderCopy, &v19, @"buttonPressed");
-  v10 = decodeUInt64(coderCopy, &v19, @"tagIndex");
+  v5 = decodeDouble(coderCopy, &v18, @"timestamp");
+  v6 = decodeUInt64(coderCopy, &v18, @"usagePage");
+  v7 = decodeUInt64(coderCopy, &v18, @"usage");
+  v8 = decodeUInt64(coderCopy, &v18, @"senderID");
+  v9 = decodeUInt64(coderCopy, &v18, @"buttonPressed");
+  v10 = decodeUInt64(coderCopy, &v18, @"tagIndex");
 
-  if (v19 == 1)
+  if (v18 == 1)
   {
     if (currentLogLevel >= 3)
     {
       v11 = _AALog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v15 = absTimeNS();
-        if (v15 == -1)
+        v14 = absTimeNS();
+        if (v14 == -1)
         {
-          v16 = INFINITY;
+          v15 = INFINITY;
         }
 
         else
         {
-          v16 = v15 / 1000000000.0;
+          v15 = v14 / 1000000000.0;
         }
 
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
+        v16 = objc_opt_class();
+        v17 = NSStringFromClass(v16);
         *buf = 134218242;
-        *&buf[4] = v16;
+        *&buf[4] = v15;
         *&buf[12] = 2112;
-        *&buf[14] = v18;
+        *&buf[14] = v17;
         _os_log_error_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_ERROR, "%13.5f: failed to decode %@", buf, 0x16u);
       }
     }
@@ -103,11 +103,10 @@
     *buf = v6;
     *&buf[8] = v7;
     *&buf[16] = v8;
-    v21 = v9 != 0;
+    v20 = v9 != 0;
     v12 = [[AWRemoteAttentionEvent alloc] initWithTimestamp:v10 tagIndex:buf remoteMetadata:v5];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

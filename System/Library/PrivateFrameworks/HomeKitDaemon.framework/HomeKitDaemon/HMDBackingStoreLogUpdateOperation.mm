@@ -7,29 +7,29 @@
 
 - (id)mainReturningError
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   store = [(HMDBackingStoreOperation *)self store];
   local = [store local];
   _begin = [local _begin];
 
   if (!_begin)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     values = [(HMDBackingStoreLogUpdateOperation *)self values];
-    v7 = [values countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [values countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
       _begin = 0;
-      v9 = *v20;
+      v9 = *v19;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(values);
         }
@@ -39,14 +39,14 @@ LABEL_4:
           break;
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(*(&v18 + 1) + 8 * v10);
         store2 = [(HMDBackingStoreOperation *)self store];
         local2 = [store2 local];
         _begin = [local2 _updateLog:objc_msgSend(v11 mask:"unsignedIntegerValue") set:{-[HMDBackingStoreLogUpdateOperation maskValue](self, "maskValue"), -[HMDBackingStoreLogUpdateOperation setValue](self, "setValue")}];
 
         if (v8 == ++v10)
         {
-          v8 = [values countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v8 = [values countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -76,8 +76,6 @@ LABEL_16:
   }
 
   v16 = _begin;
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

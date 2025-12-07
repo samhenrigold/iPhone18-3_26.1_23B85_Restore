@@ -1,3 +1,36 @@
+void mmcs_http_context_should_stop_with_error(uint64_t a1, __CFError *a2)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  if (a1 && !*(a1 + 288) && !*(a1 + 289))
+  {
+    v4 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"http context %p should stop", a1);
+      v7 = mmcs_logging_logger_default(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138543362;
+        v10 = v5;
+        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      }
+
+      if (v5)
+      {
+        CFRelease(v5);
+      }
+    }
+
+    if (a2)
+    {
+      mmcs_http_context_set_error(a1, a2);
+    }
+
+    mmcs_http_context_did_stop_with_error(a1, a2);
+    mmcs_http_context_transaction_complete(a1, v8);
+  }
+}
+
 __CFString *mmcs_http_get_stream_status_string(unsigned int a1)
 {
   if (a1 > 3)
@@ -33,23 +66,22 @@ uint64_t mmcs_http_context_actual_bytes_written(uint64_t a1)
 
 BOOL mmcs_http_context_is_sending(uint64_t a1)
 {
-  v1 = *(a1 + 56);
   if (*(a1 + 56))
   {
-    v2 = 1;
+    v1 = 1;
   }
 
   else
   {
-    v2 = *(a1 + 296) == 0;
+    v1 = *(a1 + 296) == 0;
   }
 
-  return !v2;
+  return !v1;
 }
 
 uint64_t mmcs_http_context_send(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(*(a1 + 584), &state);
@@ -76,24 +108,24 @@ uint64_t mmcs_http_context_send(uint64_t a1, uint64_t a2, uint64_t a3)
       goto LABEL_10;
     }
 
-    v11 = v10;
+    v12 = v10;
     IntValue = CFStringGetIntValue(v10);
   }
 
   else
   {
-    v13 = CFHTTPMessageCopyBody(v9);
-    if (!v13)
+    v10 = CFHTTPMessageCopyBody(v9);
+    if (!v10)
     {
       IntValue = 0;
       goto LABEL_10;
     }
 
-    v11 = v13;
-    IntValue = CFDataGetLength(v13);
+    v12 = v10;
+    IntValue = CFDataGetLength(v10);
   }
 
-  CFRelease(v11);
+  CFRelease(v12);
 LABEL_10:
   *(a1 + 136) = IntValue;
   if (!*(a1 + 488) && gMMCS_DebugLevel < 3)
@@ -101,7 +133,7 @@ LABEL_10:
     goto LABEL_22;
   }
 
-  v14 = mmcs_logging_logger_default();
+  v14 = mmcs_logging_logger_default(v10, v11);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
   if (IntValue == -1)
   {
@@ -111,14 +143,14 @@ LABEL_10:
     }
 
     v16 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"context (%p) sending request with unknown length body", a1);
-    v17 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = mmcs_logging_logger_default(v16, v19);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_20;
     }
 
     *buf = 138543362;
-    v22 = v16;
+    v23 = v16;
   }
 
   else
@@ -129,17 +161,17 @@ LABEL_10:
     }
 
     v16 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"context (%p) sending %lld body bytes", a1, *(a1 + 136));
-    v17 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = mmcs_logging_logger_default(v16, v17);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_20;
     }
 
     *buf = 138543362;
-    v22 = v16;
+    v23 = v16;
   }
 
-  _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+  _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
 LABEL_20:
   if (v16)
   {
@@ -154,11 +186,10 @@ LABEL_22:
       mmcs_http_context_send_cold_1();
     }
 
-    mmcs_http_context_transaction_complete(a1);
+    mmcs_http_context_transaction_complete(a1, v11);
   }
 
   os_activity_scope_leave(&state);
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -178,24 +209,24 @@ void mmcs_http_context_will_reset_request(uint64_t a1)
   os_activity_scope_leave(&v3);
 }
 
-uint64_t mmcs_http_reset_context_for_new_stream(uint64_t a1)
+uint64_t mmcs_http_reset_context_for_new_stream(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = mmcs_logging_logger_default(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v3 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"context (%p) resetting for new stream", a1);
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"context (%p) resetting for new stream", a1);
+    v6 = mmcs_logging_logger_default(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v14 = v3;
-      _os_log_impl(&dword_2577D8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v15 = v4;
+      _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
@@ -212,65 +243,64 @@ uint64_t mmcs_http_reset_context_for_new_stream(uint64_t a1)
   metricsinfo__clear_bytes_read(a1 + 24);
   mmcs_http_context_will_reset_request(a1);
   *(a1 + 484) = 0;
-  v5 = *(a1 + 424);
-  if (v5)
+  v7 = *(a1 + 424);
+  if (v7)
   {
-    fclose(v5);
+    fclose(v7);
     *(a1 + 424) = 0;
   }
 
   result = debug_begin_writing_http_message_to_file(a1, *(a1 + 336), (a1 + 424), *(a1 + 264), 0);
   if (result && !*(a1 + 400) && *(a1 + 424))
   {
-    v7 = CFHTTPMessageCopyBody(*(a1 + 336));
-    if (v7)
+    v9 = CFHTTPMessageCopyBody(*(a1 + 336));
+    if (v9)
     {
-      v8 = v7;
-      BytePtr = CFDataGetBytePtr(v7);
-      Length = CFDataGetLength(v8);
+      v10 = v9;
+      BytePtr = CFDataGetBytePtr(v9);
+      Length = CFDataGetLength(v10);
       fwrite(BytePtr, Length, 1uLL, *(a1 + 424));
-      CFRelease(v8);
+      CFRelease(v10);
     }
 
     result = fclose(*(a1 + 424));
     *(a1 + 424) = 0;
   }
 
-  v11 = *(a1 + 504);
-  if (v11)
+  v13 = *(a1 + 504);
+  if (v13)
   {
-    result = v11(a1, *(a1 + 576));
+    return v13(a1, *(a1 + 576));
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void mmcs_http_reset_response_state_for_background_retry(uint64_t a1)
+void mmcs_http_reset_response_state_for_background_retry(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = mmcs_logging_logger_default(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v3 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"http context %p", a1);
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"http context %p", a1);
+    v6 = mmcs_logging_logger_default(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v16 = v3;
-      _os_log_impl(&dword_2577D8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v17 = v4;
+      _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
-  v5 = *(a1 + 432);
-  if (v5)
+  v7 = *(a1 + 432);
+  if (v7)
   {
-    fclose(v5);
+    fclose(v7);
     *(a1 + 432) = 0;
   }
 
@@ -282,10 +312,10 @@ void mmcs_http_reset_response_state_for_background_retry(uint64_t a1)
   metricsinfo__clear_timed_out(a1 + 24);
   *(a1 + 56) = 0;
   metricsinfo__clear_http_status(a1 + 24);
-  v6 = *(a1 + 488);
-  if (v6)
+  v8 = *(a1 + 488);
+  if (v8)
   {
-    mmcs_metrics_http_info_release(v6);
+    mmcs_metrics_http_info_release(v8);
     *(a1 + 488) = 0;
   }
 
@@ -295,16 +325,16 @@ void mmcs_http_reset_response_state_for_background_retry(uint64_t a1)
   *(a1 + 312) = 0;
   metricsinfo__clear_last_send_time(a1 + 24);
   metricsinfo__clear_bytes_read(a1 + 24);
-  v7 = *(a1 + 408);
-  if (v7)
+  v9 = *(a1 + 408);
+  if (v9)
   {
-    CFDataSetLength(v7, 0);
+    CFDataSetLength(v9, 0);
   }
 
-  v8 = *(a1 + 432);
-  if (v8)
+  v10 = *(a1 + 432);
+  if (v10)
   {
-    fclose(v8);
+    fclose(v10);
     *(a1 + 432) = 0;
   }
 
@@ -313,36 +343,35 @@ void mmcs_http_reset_response_state_for_background_retry(uint64_t a1)
   *(a1 + 312) = Current;
   *(a1 + 320) = Current;
   *(a1 + 280) = Current;
-  v10 = *(a1 + 328);
-  if (v10)
+  v12 = *(a1 + 328);
+  if (v12)
   {
-    CFRelease(v10);
+    CFRelease(v12);
   }
 
   *(a1 + 328) = 0;
-  v11 = *(a1 + 392);
-  if (v11)
+  v13 = *(a1 + 392);
+  if (v13)
   {
-    CFRelease(v11);
+    CFRelease(v13);
   }
 
   *(a1 + 392) = 0;
-  v12 = *(a1 + 464);
-  if (v12)
+  v14 = *(a1 + 464);
+  if (v14)
   {
-    free(v12);
+    free(v14);
   }
 
   *(a1 + 464) = 0;
-  v13 = *(a1 + 472);
-  if (v13)
+  v15 = *(a1 + 472);
+  if (v15)
   {
-    free(v13);
+    free(v15);
   }
 
   *(a1 + 472) = 0;
   *(a1 + 480) = 0;
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 size_t mmcs_http_write_request_body(uint64_t a1, const void *a2, uint64_t a3)
@@ -428,7 +457,7 @@ uint64_t mmcs_http_request_body_can_accept_data(uint64_t a1)
 
 __CFHTTPMessage *create_http_protobuf_message(const __CFString *a1, const __CFString *a2, const __CFString *a3, const __CFString *a4, const __CFString *a5, const __CFURL *a6, const __CFData *a7)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (gMMCS_DebugLevel <= 4)
   {
     v16 = *MEMORY[0x277CBECE8];
@@ -436,18 +465,18 @@ __CFHTTPMessage *create_http_protobuf_message(const __CFString *a1, const __CFSt
 
   else
   {
-    v14 = mmcs_logging_logger_default();
+    v14 = mmcs_logging_logger_default(a1, a2);
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
     v16 = *MEMORY[0x277CBECE8];
     if (v15)
     {
       v17 = CFStringCreateWithFormat(v16, 0, @"url: %@", a6);
-      v18 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = mmcs_logging_logger_default(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         *&buf[4] = v17;
-        _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v17)
@@ -458,20 +487,20 @@ __CFHTTPMessage *create_http_protobuf_message(const __CFString *a1, const __CFSt
   }
 
   Request = CFHTTPMessageCreateRequest(v16, @"POST", a6, *MEMORY[0x277CBAD00]);
-  v20 = Request;
+  v22 = Request;
   if (Request)
   {
     CFHTTPMessageSetHeaderFieldValue(Request, @"Content-Type", @"application/vnd.com.apple.me.ubchunk+protobuf");
-    CFHTTPMessageSetHeaderFieldValue(v20, @"Accept", @"application/vnd.com.apple.me.ubchunk+protobuf");
-    CFHTTPMessageSetHeaderFieldValue(v20, @"x-apple-mmcs-proto-version", a1);
-    CFHTTPMessageSetHeaderFieldValue(v20, @"x-mme-client-info", a2);
-    CFHTTPMessageSetHeaderFieldValue(v20, @"x-apple-mmcs-dataclass", a3);
+    CFHTTPMessageSetHeaderFieldValue(v22, @"Accept", @"application/vnd.com.apple.me.ubchunk+protobuf");
+    CFHTTPMessageSetHeaderFieldValue(v22, @"x-apple-mmcs-proto-version", a1);
+    CFHTTPMessageSetHeaderFieldValue(v22, @"x-mme-client-info", a2);
+    CFHTTPMessageSetHeaderFieldValue(v22, @"x-apple-mmcs-dataclass", a3);
     value = 0;
     *buf = 0;
     mmcs_report_copy_plist_header_values(buf, &value);
     if (*buf)
     {
-      CFHTTPMessageSetHeaderFieldValue(v20, @"x-apple-mmcs-plist-version", *buf);
+      CFHTTPMessageSetHeaderFieldValue(v22, @"x-apple-mmcs-plist-version", *buf);
       if (*buf)
       {
         CFRelease(*buf);
@@ -482,7 +511,7 @@ __CFHTTPMessage *create_http_protobuf_message(const __CFString *a1, const __CFSt
 
     if (value)
     {
-      CFHTTPMessageSetHeaderFieldValue(v20, @"x-apple-mmcs-plist-sha256", value);
+      CFHTTPMessageSetHeaderFieldValue(v22, @"x-apple-mmcs-plist-sha256", value);
       if (value)
       {
         CFRelease(value);
@@ -493,40 +522,39 @@ __CFHTTPMessage *create_http_protobuf_message(const __CFString *a1, const __CFSt
 
     if (a4)
     {
-      CFHTTPMessageSetHeaderFieldValue(v20, @"x-apple-mme-dsid", a4);
+      CFHTTPMessageSetHeaderFieldValue(v22, @"x-apple-mme-dsid", a4);
     }
 
     if (a5)
     {
-      CFHTTPMessageSetHeaderFieldValue(v20, @"x-apple-caller-request-uuid", a5);
+      CFHTTPMessageSetHeaderFieldValue(v22, @"x-apple-caller-request-uuid", a5);
     }
 
-    CFHTTPMessageSetBody(v20, a7);
+    CFHTTPMessageSetBody(v22, a7);
   }
 
   else
   {
-    v21 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = mmcs_logging_logger_default(0, v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v22 = CFStringCreateWithFormat(v16, 0, @"Failed creating request to %@", a6);
-      v23 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = CFStringCreateWithFormat(v16, 0, @"Failed creating request to %@", a6);
+      v26 = mmcs_logging_logger_default(v24, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v22;
-        _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v24;
+        _os_log_impl(&dword_2577D8000, v26, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v22)
+      if (v24)
       {
-        CFRelease(v22);
+        CFRelease(v24);
       }
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v22;
 }
 
 double mmcs_http_context_elapsed_seconds(uint64_t a1)
@@ -543,81 +571,78 @@ double mmcs_http_context_elapsed_seconds(uint64_t a1)
   return result;
 }
 
-double mmcs_http_context_enqueued_seconds(uint64_t a1)
+double mmcs_http_context_enqueued_seconds(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 232);
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 232);
   if (*(a1 + 248))
   {
-    if (v1)
+    if (v2)
     {
-      v2 = *(a1 + 240);
+      v3 = *(a1 + 240);
     }
 
     else
     {
-      v2 = *(a1 + 80);
-      if (v2 == 0.0)
+      v3 = *(a1 + 80);
+      if (v3 == 0.0)
       {
-        v3 = 0.0;
-        goto LABEL_16;
+        return 0.0;
       }
     }
 
-    v3 = v2 - *(a1 + 256);
+    v4 = v3 - *(a1 + 256);
   }
 
   else
   {
-    v3 = 0.0;
-    if (!v1)
+    v4 = 0.0;
+    if (!v2)
     {
-      goto LABEL_16;
+      return v4;
     }
 
-    v4 = *(a1 + 80);
-    if (v4 == 0.0)
+    v5 = *(a1 + 80);
+    if (v5 == 0.0)
     {
-      goto LABEL_16;
+      return v4;
     }
 
-    v3 = *(a1 + 240) - v4;
+    v4 = *(a1 + 240) - v5;
   }
 
-  if (v3 < 0.0)
+  if (v4 < 0.0)
   {
-    v5 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ignoring enqueued duration of %lf", *&v3);
-      v7 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"ignoring enqueued duration of %lf", *&v4);
+      v9 = mmcs_logging_logger_default(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v11 = v6;
-        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v12 = v7;
+        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v6)
+      if (v7)
       {
-        CFRelease(v6);
+        CFRelease(v7);
       }
     }
   }
 
-LABEL_16:
-  v8 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v4;
 }
 
-void mmcs_http_context_name_resolution_seconds(uint64_t a1)
+void mmcs_http_context_name_resolution_seconds(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 88))
   {
     if (*(a1 + 104))
     {
-      metricsinfo__get_start_name_resolution(a1 + 24);
-      metricsinfo__get_stop_name_resolution(a1 + 24);
+      metricsinfo__get_start_name_resolution(a1 + 24, a2);
+      metricsinfo__get_stop_name_resolution(a1 + 24, v3);
     }
   }
 }
@@ -636,16 +661,16 @@ __CFString *mmcs_http_context_class_description(uint64_t a1)
   }
 }
 
-void mmcs_http_context_append_description(uint64_t a1)
+void mmcs_http_context_append_description(uint64_t *a1)
 {
   v2 = *a1;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(*(v2 + 584), &state);
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 1);
   v15 = *a1;
   v16 = v3;
-  v17 = *(a1 + 32);
+  v17 = *(a1 + 2);
   *(&v16 + 1) = *(&v3 + 1) + 1;
   if (!*(v2 + 56))
   {
@@ -661,8 +686,8 @@ void mmcs_http_context_append_description(uint64_t a1)
       v5 = off_279845628[v4];
     }
 
-    CFStringAppendFormat(*(a1 + 16), 0, @"<%@ %p>", v5, v2, v15, v16, v17);
-    v6 = *(a1 + 16);
+    CFStringAppendFormat(a1[2], 0, @"<%@ %p>", v5, v2, v15, v16, v17);
+    v6 = a1[2];
     v7 = *(v2 + 336);
     if (v7)
     {
@@ -699,7 +724,7 @@ void mmcs_http_context_append_description(uint64_t a1)
     }
 
     CFStringAppendFormat(v6, 0, @" streamState=%@", v13);
-    CFStringAppend(*(a1 + 16), @"\n");
+    CFStringAppend(a1[2], @"\n");
     v14 = callbacks[15 * *(v2 + 16) + 2];
     if (v14)
     {
@@ -856,7 +881,7 @@ LABEL_31:
 
           else
           {
-            mmcs_index_set_add_index(a1, valuePtr.location);
+            mmcs_index_set_add_index(a1, LODWORD(valuePtr.location));
             v20 = 1;
           }
 
@@ -936,82 +961,77 @@ LABEL_29:
 
 uint64_t mmcs_file_extents(const char *a1, off_t *a2, void *a3, void *a4, void *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v9 = open(a1, 0, 0);
   if (v9 < 0)
   {
-    v11 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  v10 = v9;
+  memset(v19, 0, 20);
+  bzero(&v20, 0x878uLL);
+  memset(&v18, 0, sizeof(v18));
+  if (!fstatfs(v10, &v20) && !fstat(v10, &v18))
   {
-    v10 = v9;
-    memset(v20, 0, 20);
-    bzero(&v21, 0x878uLL);
-    memset(&v19, 0, sizeof(v19));
-    if (!fstatfs(v10, &v21) && !fstat(v10, &v19))
+    st_size = v18.st_size;
+    if (v18.st_size)
     {
-      st_size = v19.st_size;
-      if (v19.st_size)
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
+      while (1)
       {
-        v15 = 0;
-        v16 = 0;
-        v17 = 0;
-        while (1)
+        *(v19 + 4) = st_size;
+        *(&v19[1] + 4) = v16;
+        if (fcntl(v10, 65, v19) == -1)
         {
-          *(v20 + 4) = st_size;
-          *(&v20[1] + 4) = v17;
-          if (fcntl(v10, 65, v20) == -1)
+          break;
+        }
+
+        f_bsize = v20.f_bsize;
+        v16 += *(v19 + 4);
+        v15 += (*(v19 + 4) + (v20.f_bsize - 1)) / v20.f_bsize;
+        ++v14;
+        st_size -= *(v19 + 4);
+        if (!st_size)
+        {
+          if (a2)
           {
-            break;
+            *a2 = v18.st_size;
           }
 
-          f_bsize = v21.f_bsize;
-          v17 += *(v20 + 4);
-          v16 += (*(v20 + 4) + (v21.f_bsize - 1)) / v21.f_bsize;
-          ++v15;
-          st_size -= *(v20 + 4);
-          if (!st_size)
+          if (a4)
           {
-            if (a2)
-            {
-              *a2 = v19.st_size;
-            }
-
-            if (a4)
-            {
-              *a4 = f_bsize;
-            }
-
-            if (a3)
-            {
-              *a3 = v16;
-            }
-
-            v11 = 0;
-            if (a5)
-            {
-              *a5 = v15;
-            }
-
-            goto LABEL_5;
+            *a4 = f_bsize;
           }
+
+          if (a3)
+          {
+            *a3 = v15;
+          }
+
+          v11 = 0;
+          if (a5)
+          {
+            *a5 = v14;
+          }
+
+          goto LABEL_5;
         }
       }
     }
-
-    v11 = 0xFFFFFFFFLL;
-LABEL_5:
-    close(v10);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = 0xFFFFFFFFLL;
+LABEL_5:
+  close(v10);
   return v11;
 }
 
 uint64_t mmcs_item_init(uint64_t a1, uint64_t a2, unsigned __int8 *a3, const char *a4, uint64_t a5, uint64_t a6, CFErrorRef *a7, uint64_t a8)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   *(a1 + 384) = 0u;
   *(a1 + 400) = 0u;
   *(a1 + 352) = 0u;
@@ -1043,121 +1063,118 @@ uint64_t mmcs_item_init(uint64_t a1, uint64_t a2, unsigned __int8 *a3, const cha
   {
     if (a7)
     {
-      LOBYTE(v30) = a2;
+      v32 = a2;
       v13 = @"NULL signature for item %lld";
       goto LABEL_8;
     }
 
-    goto LABEL_31;
+    return 0;
   }
 
   v10 = a5;
-  if ((a5 & 1) == 0 || *a3 != 129)
+  if ((a5 & 1) != 0 && *a3 == 129)
   {
-    v18 = mmcs_file_signature_copy(a3);
-    *a1 = v18;
-    if (v18)
+    if (a7)
     {
-      if (!a4 || (v19 = strdup(a4), (*(a1 + 8) = v19) != 0))
-      {
-        *(a1 + 16) = -1;
-        *(a1 + 32) = v10;
-        *(a1 + 272) = 0;
-        *(a1 + 392) = 0;
-        v20 = *MEMORY[0x277CBECE8];
-        *(a1 + 280) = CFSetCreateMutable(*MEMORY[0x277CBECE8], 0, &chunkReferenceSignatureEqualitySetCallbacks);
-        *(a1 + 232) = 0;
-        *(a1 + 256) = 0;
-        *(a1 + 264) = 0;
-        *(a1 + 296) = 0;
-        *(a1 + 304) = 0;
-        *(a1 + 160) = a6;
-        if (a6 == 2)
-        {
-          *(a1 + 172) = 1;
-          goto LABEL_20;
-        }
-
-        if (a6 == 1)
-        {
-          *(a1 + 164) = 1;
-LABEL_20:
-          result = 1;
-          goto LABEL_32;
-        }
-
-        v21 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-        {
-          v27 = CFStringCreateWithFormat(v20, 0, @"Invalid operation type %d", a6);
-          v28 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138543362;
-            v33 = v27;
-            _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
-          }
-
-          if (v27)
-          {
-            CFRelease(v27);
-          }
-        }
-
-        if (a7)
-        {
-          v31 = *(a1 + 40);
-          v15 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Invalid operation type (%d) for item %lld", v22, v23, v24, v25, v26, *(a1 + 160));
-          goto LABEL_10;
-        }
-
-LABEL_31:
-        result = 0;
-        goto LABEL_32;
-      }
-
-      if (!a7)
-      {
-        goto LABEL_31;
-      }
-
-      v30 = *(a1 + 40);
-      v13 = @"Unable to allocate token for item %lld";
+      v32 = a2;
+      v13 = @"signature for item %lld requires the item to be put unencrypted";
+LABEL_8:
+      v14 = 40;
+LABEL_9:
+      v15 = mmcs_cferror_create_with_format(@"com.apple.mmcs", v14, v13, a4, a5, a6, a7, a8, v32);
+LABEL_10:
+      v16 = v15;
+      result = 0;
+      *a7 = v16;
+      return result;
     }
 
-    else
-    {
-      if (!a7)
-      {
-        goto LABEL_31;
-      }
+    return 0;
+  }
 
-      v30 = *(a1 + 40);
-      v13 = @"Unable to allocate signature for item %lld";
+  v18 = mmcs_file_signature_copy(a3);
+  *a1 = v18;
+  if (!v18)
+  {
+    if (!a7)
+    {
+      return 0;
     }
 
+    v32 = *(a1 + 40);
+    v13 = @"Unable to allocate signature for item %lld";
+LABEL_30:
     v14 = 37;
     goto LABEL_9;
   }
 
-  if (!a7)
+  if (a4)
   {
-    goto LABEL_31;
+    v19 = strdup(a4);
+    *(a1 + 8) = v19;
+    if (!v19)
+    {
+      if (!a7)
+      {
+        return 0;
+      }
+
+      v32 = *(a1 + 40);
+      v13 = @"Unable to allocate token for item %lld";
+      goto LABEL_30;
+    }
   }
 
-  LOBYTE(v30) = a2;
-  v13 = @"signature for item %lld requires the item to be put unencrypted";
-LABEL_8:
-  v14 = 40;
-LABEL_9:
-  v15 = mmcs_cferror_create_with_format(@"com.apple.mmcs", v14, v13, a4, a5, a6, a7, a8, v30);
-LABEL_10:
-  v16 = v15;
-  result = 0;
-  *a7 = v16;
-LABEL_32:
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  *(a1 + 16) = -1;
+  *(a1 + 32) = v10;
+  *(a1 + 272) = 0;
+  *(a1 + 392) = 0;
+  v20 = *MEMORY[0x277CBECE8];
+  Mutable = CFSetCreateMutable(*MEMORY[0x277CBECE8], 0, &chunkReferenceSignatureEqualitySetCallbacks);
+  *(a1 + 280) = Mutable;
+  *(a1 + 232) = 0;
+  *(a1 + 256) = 0;
+  *(a1 + 264) = 0;
+  *(a1 + 296) = 0;
+  *(a1 + 304) = 0;
+  *(a1 + 160) = a6;
+  if (a6 == 2)
+  {
+    *(a1 + 172) = 1;
+    return 1;
+  }
+
+  if (a6 == 1)
+  {
+    *(a1 + 164) = 1;
+    return 1;
+  }
+
+  v23 = mmcs_logging_logger_default(Mutable, v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  {
+    v29 = CFStringCreateWithFormat(v20, 0, @"Invalid operation type %d", a6);
+    v31 = mmcs_logging_logger_default(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543362;
+      v34 = v29;
+      _os_log_impl(&dword_2577D8000, v31, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+    }
+
+    if (v29)
+    {
+      CFRelease(v29);
+    }
+  }
+
+  if (a7)
+  {
+    v15 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 1, @"Invalid operation type (%d) for item %lld", v24, v25, v26, v27, v28, *(a1 + 160), *(a1 + 40));
+    goto LABEL_10;
+  }
+
+  return 0;
 }
 
 BOOL mmcs_item_set_chunk_instance_capacity(uint64_t a1, unint64_t a2)
@@ -1403,10 +1420,10 @@ void mmcs_item_set_file_verification_key(uint64_t a1, CFTypeRef cf)
   }
 }
 
-CFStringRef mmcs_item_copy_description(uint64_t a1)
+CFStringRef mmcs_item_copy_description(char **a1)
 {
   v2 = mmcs_file_signature_to_hexstring(*a1);
-  v3 = *(a1 + 400);
+  v3 = a1[50];
   if (v3)
   {
     BytePtr = CFDataGetBytePtr(v3);
@@ -1418,8 +1435,7 @@ CFStringRef mmcs_item_copy_description(uint64_t a1)
     v5 = 0;
   }
 
-  v6 = *(a1 + 48);
-  v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"<req_item %p> id:%lld sig:%s rsig:%s roff:%lld rlen:%lld wrap ref:%@ unwrap ref:%@ chunks:%lld", a1, *(a1 + 40), v2, v5, *(a1 + 376), *(a1 + 384), *(a1 + 64), v6, *(a1 + 144));
+  v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"<req_item %p> id:%lld sig:%s rsig:%s roff:%lld rlen:%lld wrap ref:%@ unwrap ref:%@ chunks:%lld", a1, a1[5], v2, v5, a1[47], a1[48], a1[8], a1[6], a1[18]);
   if (v2)
   {
     free(v2);
@@ -1430,27 +1446,27 @@ CFStringRef mmcs_item_copy_description(uint64_t a1)
     free(v5);
   }
 
-  return v7;
+  return v6;
 }
 
-void mmcs_item_items_by_signature_description(uint64_t a1, CFArrayRef theArray, uint64_t a3)
+void mmcs_item_items_by_signature_description(char **a1, CFArrayRef theArray, uint64_t a3)
 {
   v15 = *MEMORY[0x277D85DE8];
   if (a3 == 2)
   {
     v4 = mmcs_file_signature_to_hexstring(*a1);
-    CStringDescription = XCFDataCreateCStringDescription(*(a1 + 64));
-    v6 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    CStringDescription = XCFDataCreateCStringDescription(a1[8]);
+    v7 = mmcs_logging_logger_default(CStringDescription, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 336);
+      v8 = a1[42];
       *v10 = 138543874;
-      *&v10[4] = v7;
+      *&v10[4] = v8;
       v11 = 2082;
       v12 = v4;
       v13 = 2082;
       v14 = CStringDescription;
-      _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_INFO, "sectionId:%{public}@ sig:%{public}s ref:%{public}s", v10, 0x20u);
+      _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_INFO, "sectionId:%{public}@ sig:%{public}s ref:%{public}s", v10, 0x20u);
     }
 
     if (v4)
@@ -1471,20 +1487,19 @@ void mmcs_item_items_by_signature_description(uint64_t a1, CFArrayRef theArray, 
     v16.location = 0;
     CFArrayApplyFunction(theArray, v16, _item_by_signature_description, v10);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void _item_by_signature_description(uint64_t a1, void *a2)
+void _item_by_signature_description(char **a1, void *a2)
 {
   v24 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 384))
+  if (a1[48])
   {
-    v3 = *(a1 + 400);
+    v3 = a1[50];
     if (v3)
     {
       BytePtr = CFDataGetBytePtr(v3);
-      CStringDescription = mmcs_file_signature_to_hexstring(BytePtr);
+      v3 = mmcs_file_signature_to_hexstring(BytePtr);
+      CStringDescription = v3;
     }
 
     else
@@ -1492,45 +1507,45 @@ void _item_by_signature_description(uint64_t a1, void *a2)
       CStringDescription = 0;
     }
 
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = mmcs_logging_logger_default(v3, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 376);
-      v14 = *(a1 + 384);
+      v13 = a1[5];
+      v14 = a1[47];
+      v15 = a1[48];
       v16 = 134218754;
-      v17 = v12;
+      v17 = v13;
       v18 = 2080;
       v19 = CStringDescription;
       v20 = 2048;
-      v21 = v13;
+      v21 = v14;
       v22 = 2048;
-      v23 = v14;
-      _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_INFO, "itemId:%llu rsig:%s itemOffset:%lld itemLength:%lld", &v16, 0x2Au);
+      v23 = v15;
+      _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_INFO, "itemId:%llu rsig:%s itemOffset:%lld itemLength:%lld", &v16, 0x2Au);
     }
   }
 
   else
   {
     v7 = mmcs_file_signature_to_hexstring(*a1);
-    v8 = 64;
+    v8 = 8;
     if (*a2 == 3)
     {
-      v8 = 48;
+      v8 = 6;
     }
 
-    CStringDescription = XCFDataCreateCStringDescription(*(a1 + v8));
-    v9 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    CStringDescription = XCFDataCreateCStringDescription(a1[v8]);
+    v10 = mmcs_logging_logger_default(CStringDescription, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = *(a1 + 40);
+      v11 = a1[5];
       v16 = 134218498;
-      v17 = v10;
+      v17 = v11;
       v18 = 2082;
       v19 = v7;
       v20 = 2082;
       v21 = CStringDescription;
-      _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_INFO, "itemId:%llu sig:%{public}s ref:%{public}s", &v16, 0x20u);
+      _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_INFO, "itemId:%llu sig:%{public}s ref:%{public}s", &v16, 0x20u);
     }
 
     if (v7)
@@ -1543,11 +1558,9 @@ void _item_by_signature_description(uint64_t a1, void *a2)
   {
     free(CStringDescription);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t mmcs_item_signature_reference_equals(uint64_t *a1, uint64_t *a2)
+uint64_t mmcs_item_signature_reference_equals(void *a1, void *a2)
 {
   if (a1 == a2)
   {
@@ -1559,8 +1572,6 @@ uint64_t mmcs_item_signature_reference_equals(uint64_t *a1, uint64_t *a2)
   {
     if (a2)
     {
-      v5 = *a1;
-      v6 = *a2;
       result = CKFileSignaturesEqual();
       if (result)
       {
@@ -1590,16 +1601,16 @@ void mmcs_item_set_size(uint64_t a1, uint64_t a2)
   {
     if (a2 < 0)
     {
-      v4 = mmcs_logging_logger_default();
+      v4 = mmcs_logging_logger_default(a1, a2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Item size must not be negative (itemid: %lld size: %lld)!\n", *(a1 + 40), a2);
-        v6 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v7 = mmcs_logging_logger_default(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
           v9 = v5;
-          _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
         if (v5)
@@ -1614,8 +1625,6 @@ void mmcs_item_set_size(uint64_t a1, uint64_t a2)
       *(a1 + 16) = a2;
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_item_set_padded_size(uint64_t a1, uint64_t a2)
@@ -1625,16 +1634,16 @@ void mmcs_item_set_padded_size(uint64_t a1, uint64_t a2)
   {
     if (a2 < 0)
     {
-      v4 = mmcs_logging_logger_default();
+      v4 = mmcs_logging_logger_default(a1, a2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Item padded size must not be negative (itemid: %lld size: %lld)!\n", *(a1 + 40), a2);
-        v6 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v7 = mmcs_logging_logger_default(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
           v9 = v5;
-          _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
         if (v5)
@@ -1649,8 +1658,6 @@ void mmcs_item_set_padded_size(uint64_t a1, uint64_t a2)
       *(a1 + 24) = a2;
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t mmcs_item_is_encrypted(char **a1)
@@ -1812,21 +1819,24 @@ void mmcs_item_append_put_container_error(uint64_t a1, void *value)
   CFArrayAppendValue(Mutable, value);
 }
 
-void mmcs_item_update_get_progress(uint64_t a1, unint64_t a2)
+void mmcs_item_update_get_progress(_BOOL8 a1, unint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v20 = *MEMORY[0x277D85DE8];
   if (gMMCS_DebugLevel >= 5)
   {
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v4 = mmcs_logging_logger_default(a1, a2);
+    a1 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    if (a1)
     {
-      v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Item %p received %llu bytes\n", a1, a2);
-      v6 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Item %p received %llu bytes\n", v3, a2);
+      v7 = mmcs_logging_logger_default(v5, v6);
+      a1 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+      if (a1)
       {
         *buf = 138543362;
-        v18 = v5;
-        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v19 = v5;
+        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v5)
@@ -1836,54 +1846,53 @@ void mmcs_item_update_get_progress(uint64_t a1, unint64_t a2)
     }
   }
 
-  v7 = *(a1 + 304);
-  v8 = v7 >= a2;
-  v9 = v7 - a2;
-  if (!v8)
+  v8 = *(v3 + 304);
+  v9 = v8 >= a2;
+  v10 = v8 - a2;
+  if (!v9)
   {
-    v10 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"outstandingChunkReferencesPlaintextSizeRequested underflow averted\n");
-      v12 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"outstandingChunkReferencesPlaintextSizeRequested underflow averted\n");
+      v14 = mmcs_logging_logger_default(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v18 = v11;
-        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v19 = v12;
+        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v11)
+      if (v12)
       {
-        CFRelease(v11);
+        CFRelease(v12);
       }
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  *(a1 + 304) = v9;
-  v13 = *(a1 + 296);
-  v14 = v13 - v9;
-  if (v14 < 0.0)
+  *(v3 + 304) = v10;
+  v15 = *(v3 + 296);
+  v16 = v15 - v10;
+  if (v16 < 0.0)
   {
-    v14 = 0.0;
+    v16 = 0.0;
   }
 
-  v15 = v14 / v13;
-  if (v15 > 1.0)
+  v17 = v16 / v15;
+  if (v17 > 1.0)
   {
-    v15 = 1.0;
+    v17 = 1.0;
   }
 
-  mmcs_get_item_progress_make_state_progress(3, buf, v15);
-  mmcs_item_set_get_progress(a1, buf, 0, 0);
-  v16 = *MEMORY[0x277D85DE8];
+  mmcs_get_item_progress_make_state_progress(3, buf, v17);
+  mmcs_item_set_get_progress(v3, buf, 0, 0);
 }
 
 void mmcs_item_set_get_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 0;
@@ -1902,8 +1911,8 @@ void mmcs_item_set_get_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
     {
       if (v8 == v9)
       {
-        v13 = *(a1 + 248) != a2[1] || !*(a1 + 192) && *(a2 + 2);
-        v14 = 0;
+        v14 = *(a1 + 248) != a2[1] || !*(a1 + 192) && *(a2 + 2);
+        v15 = 0;
         *(a1 + 328) = MMCSGetItemStateIsDeterminant(v8);
       }
 
@@ -1912,17 +1921,17 @@ void mmcs_item_set_get_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
         if (v9 == 5)
         {
           *(a1 + 176) = v8;
-          v14 = 1;
+          v15 = 1;
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
         }
 
         *(a1 + 172) = v9;
         *(a1 + 328) = 0;
-        v13 = 1;
+        v14 = 1;
       }
 
       *(a1 + 248) = a2[1];
@@ -1931,53 +1940,54 @@ void mmcs_item_set_get_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
         v16 = *(a2 + 2);
         if (v16)
         {
-          *(a1 + 192) = CFRetain(v16);
-          v17 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v17 = CFRetain(v16);
+          *(a1 + 192) = v17;
+          v19 = mmcs_logging_logger_default(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            v18 = *(a1 + 40);
-            v19 = MMCSPutItemStateCString(*(a1 + 168));
+            v20 = *(a1 + 40);
+            v21 = MMCSPutItemStateCString(*(a1 + 168));
             *buf = 134218242;
-            v23 = v18;
-            v24 = 2082;
-            v25 = v19;
-            _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_INFO, "Item issue. itemId:%llu state:%{public}s", buf, 0x16u);
+            v26 = v20;
+            v27 = 2082;
+            v28 = v21;
+            _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_INFO, "Item issue. itemId:%llu state:%{public}s", buf, 0x16u);
           }
 
-          v20 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"itemId:%llu issue", *(a1 + 40));
-          v21 = mmcs_logging_logger_default();
-          XCFPrint(v21, v20, *(a1 + 192));
-          if (v20)
+          v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"itemId:%llu issue", *(a1 + 40));
+          v24 = mmcs_logging_logger_default(v22, v23);
+          XCFPrint(v24, v22, *(a1 + 192));
+          if (v22)
           {
-            CFRelease(v20);
+            CFRelease(v22);
           }
         }
       }
 
       if (a3)
       {
-        *a3 = v13;
+        *a3 = v14;
       }
 
       if (a4)
       {
-        *a4 = v14;
+        *a4 = v15;
       }
     }
   }
 
   else
   {
-    v10 = mmcs_logging_logger_default();
+    v10 = mmcs_logging_logger_default(v8, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid item state transition %d to %d\n", *(a1 + 172), *a2);
-      v12 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = mmcs_logging_logger_default(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v23 = v11;
-        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v26 = v11;
+        _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
       if (v11)
@@ -1986,8 +1996,6 @@ void mmcs_item_set_get_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_item_update_get_unprogress(uint64_t a1, uint64_t a2)
@@ -1995,16 +2003,16 @@ void mmcs_item_update_get_unprogress(uint64_t a1, uint64_t a2)
   v14 = *MEMORY[0x277D85DE8];
   if (gMMCS_DebugLevel >= 5)
   {
-    v4 = mmcs_logging_logger_default();
+    v4 = mmcs_logging_logger_default(a1, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Item %p unhandling %llu bytes\n", a1, a2);
-      v6 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = mmcs_logging_logger_default(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         v13 = v5;
-        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v5)
@@ -2014,24 +2022,23 @@ void mmcs_item_update_get_unprogress(uint64_t a1, uint64_t a2)
     }
   }
 
-  v7 = *(a1 + 304) + a2;
-  *(a1 + 304) = v7;
-  v8 = *(a1 + 296);
-  v9 = v8 - v7;
-  if (v9 < 0.0)
+  v8 = *(a1 + 304) + a2;
+  *(a1 + 304) = v8;
+  v9 = *(a1 + 296);
+  v10 = v9 - v8;
+  if (v10 < 0.0)
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
-  v10 = v9 / v8;
-  if (v10 > 1.0)
+  v11 = v10 / v9;
+  if (v11 > 1.0)
   {
-    v10 = 1.0;
+    v11 = 1.0;
   }
 
-  mmcs_get_item_progress_make_state_progress(3, buf, v10);
+  mmcs_get_item_progress_make_state_progress(3, buf, v11);
   mmcs_item_set_get_progress(a1, buf, 0, 0);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_item_update_get_derivative_progress(uint64_t a1, uint64_t a2)
@@ -2096,26 +2103,78 @@ uint64_t mmcs_item_remove_outstanding_chunk_reference(uint64_t a1, const void *a
   return result;
 }
 
-void mmcs_item_chunk_instance_was_read(uint64_t a1, uint64_t a2, unint64_t a3)
+void mmcs_item_chunk_instance_was_read(uint64_t result, uint64_t a2, unint64_t a3, __n128 a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 160) == 1 && (*(a1 + 164) - 3) <= 1)
+  v20 = *MEMORY[0x277D85DE8];
+  if (*(result + 160) == 1 && (*(result + 164) - 3) <= 1)
   {
-    v5 = *(a1 + 304);
-    v6 = v5 >= a3;
-    v7 = v5 - a3;
-    if (!v6)
+    v6 = *(result + 304);
+    v7 = v6 >= a3;
+    v8 = v6 - a3;
+    if (!v7)
     {
-      v8 = mmcs_logging_logger_default();
+      v9 = mmcs_logging_logger_default(result, a2);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"outstandingChunkReferencesPlaintextSizeRequested underflow averted\n");
+        v12 = mmcs_logging_logger_default(v10, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          v18 = 138543362;
+          v19 = v10;
+          _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", &v18, 0xCu);
+        }
+
+        if (v10)
+        {
+          CFRelease(v10);
+        }
+      }
+
+      v8 = 0;
+    }
+
+    *(result + 304) = v8;
+    v13 = *(result + 296);
+    v14 = v13 - v8;
+    if (v14 < 0.0)
+    {
+      v14 = 0.0;
+    }
+
+    v15 = v14 / v13;
+    if (v15 > 1.0)
+    {
+      v15 = 1.0;
+    }
+
+    v16 = *result;
+    v17 = *(result + 64);
+    mmcs_put_item_progress_make_state_progress(4, &v18, v15);
+    mmcs_put_request_set_progress_for_items_with_signature_reference(a2, v16, v17, &v18);
+  }
+}
+
+void mmcs_item_chunk_instance_was_unread(uint64_t result, uint64_t a2, uint64_t a3, __n128 a4)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (*(result + 160) == 1 && *(result + 164) == 4)
+  {
+    v6 = *(result + 296);
+    v7 = *(result + 304) + a3;
+    *(result + 304) = v7;
+    if (v6 < v7)
+    {
+      v8 = mmcs_logging_logger_default(result, a2);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"outstandingChunkReferencesPlaintextSizeRequested underflow averted\n");
-        v10 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"outstandingChunkReferencesPlaintextSizeRequested overflow averted\n");
+        v11 = mmcs_logging_logger_default(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          v17 = 138543362;
-          v18 = v9;
-          _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_ERROR, "%{public}@", &v17, 0xCu);
+          v16 = 138543362;
+          v17 = v9;
+          _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, "%{public}@", &v16, 0xCu);
         }
 
         if (v9)
@@ -2124,89 +2183,33 @@ void mmcs_item_chunk_instance_was_read(uint64_t a1, uint64_t a2, unint64_t a3)
         }
       }
 
-      v7 = 0;
+      v7 = *(result + 296);
+      *(result + 304) = v7;
+      v6 = v7;
     }
 
-    *(a1 + 304) = v7;
-    v11 = *(a1 + 296);
-    v12 = v11 - v7;
+    v12 = v6 - v7;
     if (v12 < 0.0)
     {
       v12 = 0.0;
     }
 
-    v13 = v12 / v11;
+    v13 = v12 / v6;
     if (v13 > 1.0)
     {
       v13 = 1.0;
     }
 
-    v14 = *a1;
-    v15 = *(a1 + 64);
-    mmcs_put_item_progress_make_state_progress(4, &v17, v13);
-    mmcs_put_request_set_progress_for_items_with_signature_reference(a2, v14, v15, &v17);
+    v14 = *result;
+    v15 = *(result + 64);
+    mmcs_put_item_progress_make_state_progress(4, &v16, v13);
+    mmcs_put_request_set_progress_for_items_with_signature_reference(a2, v14, v15, &v16);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-void mmcs_item_chunk_instance_was_unread(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 160) == 1 && *(a1 + 164) == 4)
-  {
-    v5 = *(a1 + 296);
-    v6 = *(a1 + 304) + a3;
-    *(a1 + 304) = v6;
-    if (v5 < v6)
-    {
-      v7 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"outstandingChunkReferencesPlaintextSizeRequested overflow averted\n");
-        v9 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-        {
-          v15 = 138543362;
-          v16 = v8;
-          _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_ERROR, "%{public}@", &v15, 0xCu);
-        }
-
-        if (v8)
-        {
-          CFRelease(v8);
-        }
-      }
-
-      v6 = *(a1 + 296);
-      *(a1 + 304) = v6;
-      v5 = v6;
-    }
-
-    v10 = v5 - v6;
-    if (v10 < 0.0)
-    {
-      v10 = 0.0;
-    }
-
-    v11 = v10 / v5;
-    if (v11 > 1.0)
-    {
-      v11 = 1.0;
-    }
-
-    v12 = *a1;
-    v13 = *(a1 + 64);
-    mmcs_put_item_progress_make_state_progress(4, &v15, v11);
-    mmcs_put_request_set_progress_for_items_with_signature_reference(a2, v12, v13, &v15);
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 BOOL mmcs_item_copy_chunk_instances_from_item(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (*(a1 + 400))
   {
     *(a1 + 392) = 1;
@@ -2220,7 +2223,8 @@ BOOL mmcs_item_copy_chunk_instances_from_item(uint64_t a1, uint64_t a2)
     v4 = *(a2 + 144);
   }
 
-  if (mmcs_item_set_chunk_instance_capacity(a1, v4))
+  v6 = mmcs_item_set_chunk_instance_capacity(a1, v4);
+  if (v6)
   {
     if (*(a1 + 144))
     {
@@ -2229,72 +2233,71 @@ BOOL mmcs_item_copy_chunk_instances_from_item(uint64_t a1, uint64_t a2)
 
     if (v4)
     {
-      v6 = 0;
-      v7 = *MEMORY[0x277CBED28];
-      v8 = 104 * start_chunk_index_for_inner_item;
+      v8 = 0;
+      v9 = *MEMORY[0x277CBED28];
+      v10 = 104 * start_chunk_index_for_inner_item;
       do
       {
-        v9 = *(a2 + 272);
-        if (*(v9 + v8 + 8) != a2)
+        v11 = *(a2 + 272);
+        if (*(v11 + v10 + 8) != a2)
         {
           mmcs_item_copy_chunk_instances_from_item_cold_2();
         }
 
-        v10 = *(a1 + 144);
-        v11 = *(a1 + 272) + 104 * v10;
-        if (*(v11 + 72))
+        v12 = *(a1 + 144);
+        v13 = *(a1 + 272) + 104 * v12;
+        if (*(v13 + 72))
         {
           mmcs_item_copy_chunk_instances_from_item_cold_3();
         }
 
-        if (!*(a1 + 400) && v6 != *(v9 + v8 + 32))
+        if (!*(a1 + 400) && v8 != *(v11 + v10 + 32))
         {
           mmcs_item_copy_chunk_instances_from_item_cold_4();
         }
 
-        v12 = v9 + v8;
-        mmcs_chunk_instance_init_with_source_instance(*(a1 + 272) + 104 * v10, v9 + v8, *(v9 + v8 + 56), v6, *(v9 + v8 + 24), a1);
-        mmcs_chunk_reference_add_instance(*(v12 + 56), v11);
+        v14 = v11 + v10;
+        mmcs_chunk_instance_init_with_source_instance(*(a1 + 272) + 104 * v12, v11 + v10, *(v11 + v10 + 56), v8, *(v11 + v10 + 24), a1);
+        mmcs_chunk_reference_add_instance(*(v14 + 56), v13);
         ++*(a1 + 144);
-        mmcs_item_add_outstanding_chunk_reference(a1, *(v11 + 56));
-        *(v11 + 72) = v7;
+        mmcs_item_add_outstanding_chunk_reference(a1, *(v13 + 56));
+        *(v13 + 72) = v9;
         ++*(a1 + 152);
-        v6 += *(*(v12 + 56) + 4);
-        v8 += 104;
+        v8 += *(*(v14 + 56) + 4);
+        v10 += 104;
         --v4;
       }
 
       while (v4);
     }
 
-    result = 1;
+    return 1;
   }
 
   else
   {
-    v14 = mmcs_logging_logger_default();
-    result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+    v16 = mmcs_logging_logger_default(v6, v7);
+    result = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to set chunk instance capacity for item %lld\n", *(a1 + 40));
-      v16 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Failed to set chunk instance capacity for item %lld\n", *(a1 + 40));
+      v19 = mmcs_logging_logger_default(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v19 = v15;
-        _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v21 = v17;
+        _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v15)
+      if (v17)
       {
-        CFRelease(v15);
+        CFRelease(v17);
       }
 
-      result = 0;
+      return 0;
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2509,48 +2512,46 @@ char *mmcs_item_append_chunk_instance(char **a1, uint64_t a2, CFErrorRef *a3)
       {
         mmcs_chunk_reference_add_instance(a2, v10);
         ++a1[18];
-        goto LABEL_32;
+        return v10;
       }
 
       if (a3)
       {
-        v20 = @"mmcs_chunk_instance_init";
-        v21 = 37;
+        v21 = @"mmcs_chunk_instance_init";
+        v22 = 37;
         goto LABEL_20;
       }
     }
 
     else if (a3)
     {
-      v22 = mmcs_file_signature_to_hexstring(v7);
-      v23 = mmcs_chunk_signature_to_hexstring(*(a2 + 8));
-      *a3 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Observed inconsistent encryption type between item signature %s and chunk signature %s.", v24, v25, v26, v27, v28, v22);
-      if (v22)
-      {
-        free(v22);
-      }
-
+      v23 = mmcs_file_signature_to_hexstring(v7);
+      v24 = mmcs_chunk_signature_to_hexstring(*(a2 + 8));
+      *a3 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Observed inconsistent encryption type between item signature %s and chunk signature %s.", v25, v26, v27, v28, v29, v23, v24);
       if (v23)
       {
         free(v23);
       }
+
+      if (v24)
+      {
+        free(v24);
+      }
     }
 
-LABEL_31:
-    v10 = 0;
-    goto LABEL_32;
+    return 0;
   }
 
-  v12 = mmcs_logging_logger_default();
+  v12 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"chunk instance overflow\n");
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = mmcs_logging_logger_default(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
       v33 = v18;
-      _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v20, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
     if (v18)
@@ -2561,17 +2562,15 @@ LABEL_31:
 
   if (!a3)
   {
-    goto LABEL_31;
+    return 0;
   }
 
   v31 = a1[17];
-  v20 = @"Unable to append chunk instance; capacity %llu exceeded.";
-  v21 = 6;
+  v21 = @"Unable to append chunk instance; capacity %llu exceeded.";
+  v22 = 6;
 LABEL_20:
   v10 = 0;
-  *a3 = mmcs_cferror_create_with_format(@"com.apple.mmcs", v21, v20, v13, v14, v15, v16, v17, v31);
-LABEL_32:
-  v29 = *MEMORY[0x277D85DE8];
+  *a3 = mmcs_cferror_create_with_format(@"com.apple.mmcs", v22, v21, v13, v14, v15, v16, v17, v31);
   return v10;
 }
 
@@ -2583,12 +2582,12 @@ void mmcs_item_setup_chunk_references(void *a1)
     {
       v2 = 0;
       v3 = 0;
-      v17 = 0;
+      v19 = 0;
       v4 = 0;
       v5 = 0;
-      v14 = a1[48] + a1[47];
-      v15 = 0;
-      v16 = *MEMORY[0x277CBED10];
+      v16 = a1[48] + a1[47];
+      v17 = 0;
+      v18 = *MEMORY[0x277CBED10];
       v6 = *MEMORY[0x277CBED28];
       do
       {
@@ -2605,7 +2604,7 @@ void mmcs_item_setup_chunk_references(void *a1)
           if (a1[50])
           {
             *(v7 + v2 + 32) = 0;
-            v10 = v16;
+            v10 = v18;
           }
 
           else
@@ -2617,24 +2616,24 @@ void mmcs_item_setup_chunk_references(void *a1)
           *(v7 + v2 + 72) = v10;
           if (v5 + v9 > a1[47])
           {
-            v11 = v17;
+            v11 = v19;
             if (!v3)
             {
               v11 = v5;
             }
 
-            v17 = v11;
-            if (v5 < v14)
+            v19 = v11;
+            if (v5 < v16)
             {
               mmcs_item_add_outstanding_chunk_reference(a1, v8);
               if (a1[50])
               {
                 *(v7 + v2 + 72) = v6;
                 ++a1[19];
-                *(v7 + v2 + 32) = v15;
+                *(v7 + v2 + 32) = v17;
               }
 
-              v15 += v9;
+              v17 += v9;
             }
 
             v3 = 1;
@@ -2658,29 +2657,29 @@ void mmcs_item_setup_chunk_references(void *a1)
 
     else
     {
-      v15 = 0;
       v17 = 0;
+      v19 = 0;
     }
 
     if (a1[50])
     {
-      if (a1[47] != v17)
+      if (a1[47] != v19)
       {
         error = mmcs_cferror_create_error(@"com.apple.mmcs", 45, @"requestedFileOffset is expected to align with chunks when a signature is validated");
-        mmcs_get_item_progress_make_done_error(error, v18);
+        mmcs_get_item_progress_make_done_error(error, v13, v20);
       }
 
-      if (a1[48] != v15)
+      if (a1[48] != v17)
       {
-        v13 = mmcs_cferror_create_error(@"com.apple.mmcs", 45, @"requestedLengthAtFileOffset is expected to align with chunks when a signature is validated");
-        mmcs_get_item_progress_make_done_error(v13, v18);
+        v14 = mmcs_cferror_create_error(@"com.apple.mmcs", 45, @"requestedLengthAtFileOffset is expected to align with chunks when a signature is validated");
+        mmcs_get_item_progress_make_done_error(v14, v15, v20);
       }
     }
 
     else
     {
-      a1[47] = v17;
-      a1[48] = v15;
+      a1[47] = v19;
+      a1[48] = v17;
     }
   }
 }
@@ -2799,15 +2798,15 @@ void mmcs_item_set_get_chunk_references(uint64_t a1, CFTypeRef cf)
   }
 }
 
-void mmcs_item_add_get_chunk_references(uint64_t a1, CFSetRef theSet)
+void mmcs_item_add_get_chunk_references(CFIndex result, CFSetRef theSet)
 {
   if (theSet && CFSetGetCount(theSet) >= 1)
   {
-    Mutable = *(a1 + 288);
+    Mutable = *(result + 288);
     if (!Mutable)
     {
       Mutable = CFSetCreateMutable(*MEMORY[0x277CBECE8], 0, &chunkReferenceSignatureEqualitySetCallbacks);
-      *(a1 + 288) = Mutable;
+      *(result + 288) = Mutable;
     }
 
     XCFSetAddValuesFromSet(Mutable, theSet);
@@ -2827,7 +2826,7 @@ const __CFSet *mmcs_item_needs_auth_get_chunks(uint64_t a1)
 
 void mmcs_item_set_put_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 0;
@@ -2846,8 +2845,8 @@ void mmcs_item_set_put_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
     {
       if (v8 == v9)
       {
-        v13 = *(a1 + 248) != a2[1] || !*(a1 + 192) && *(a2 + 4);
-        v14 = 0;
+        v14 = *(a1 + 248) != a2[1] || !*(a1 + 192) && *(a2 + 4);
+        v15 = 0;
         *(a1 + 328) = MMCSPutItemStateIsDeterminant(v8);
       }
 
@@ -2856,17 +2855,17 @@ void mmcs_item_set_put_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
         if (v9 == 7)
         {
           *(a1 + 168) = v8;
-          v14 = 1;
+          v15 = 1;
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
         }
 
         *(a1 + 164) = v9;
         *(a1 + 328) = 0;
-        v13 = 1;
+        v14 = 1;
       }
 
       *(a1 + 248) = a2[1];
@@ -2875,53 +2874,54 @@ void mmcs_item_set_put_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
         v16 = *(a2 + 4);
         if (v16)
         {
-          *(a1 + 192) = CFRetain(v16);
-          v17 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v17 = CFRetain(v16);
+          *(a1 + 192) = v17;
+          v19 = mmcs_logging_logger_default(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            v18 = *(a1 + 40);
-            v19 = MMCSPutItemStateCString(*(a1 + 168));
+            v20 = *(a1 + 40);
+            v21 = MMCSPutItemStateCString(*(a1 + 168));
             *buf = 134218242;
-            v23 = v18;
-            v24 = 2082;
-            v25 = v19;
-            _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_INFO, "Item issue. itemId:%llu state:%{public}s", buf, 0x16u);
+            v26 = v20;
+            v27 = 2082;
+            v28 = v21;
+            _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_INFO, "Item issue. itemId:%llu state:%{public}s", buf, 0x16u);
           }
 
-          v20 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"itemId:%llu issue", *(a1 + 40));
-          v21 = mmcs_logging_logger_default();
-          XCFPrint(v21, v20, *(a1 + 192));
-          if (v20)
+          v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"itemId:%llu issue", *(a1 + 40));
+          v24 = mmcs_logging_logger_default(v22, v23);
+          XCFPrint(v24, v22, *(a1 + 192));
+          if (v22)
           {
-            CFRelease(v20);
+            CFRelease(v22);
           }
         }
       }
 
       if (a3)
       {
-        *a3 = v13;
+        *a3 = v14;
       }
 
       if (a4)
       {
-        *a4 = v14;
+        *a4 = v15;
       }
     }
   }
 
   else
   {
-    v10 = mmcs_logging_logger_default();
+    v10 = mmcs_logging_logger_default(v8, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid item state transition %d to %d\n", *(a1 + 164), *a2);
-      v12 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = mmcs_logging_logger_default(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v23 = v11;
-        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v26 = v11;
+        _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
       if (v11)
@@ -2930,8 +2930,6 @@ void mmcs_item_set_put_progress(uint64_t a1, double *a2, BOOL *a3, char *a4)
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 double mmcs_item_chunking_elapsed_seconds(uint64_t a1)
@@ -3151,118 +3149,117 @@ CFTypeRef mmcs_item_set_derivative_digest_results_for_file_validation(uint64_t a
 
 void *mmcs_report_tickle(void *result)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (gMMCS_MobileMeReporting)
   {
     v1 = result;
     Current = CFAbsoluteTimeGetCurrent();
-    pthread_mutex_lock(&sReportingInfoAccessLock);
+    v3 = pthread_mutex_lock(&sReportingInfoAccessLock);
     if (gMMCS_MobileMeReporting)
     {
-      v3 = *(gMMCS_MobileMeReporting + 48);
-      if (v3 == 0.0)
+      v5 = *(gMMCS_MobileMeReporting + 48);
+      if (v5 == 0.0)
       {
-        v4 = Current - *(gMMCS_MobileMeReporting + 56);
-        v5 = *(gMMCS_MobileMeReporting + 40);
+        v6 = Current - *(gMMCS_MobileMeReporting + 56);
+        v7 = *(gMMCS_MobileMeReporting + 40);
       }
 
       else
       {
-        v4 = Current - v3;
-        v5 = *(gMMCS_MobileMeReporting + 32);
+        v6 = Current - v5;
+        v7 = *(gMMCS_MobileMeReporting + 32);
       }
 
-      if (v4 > v5)
+      if (v6 > v7)
       {
         if (*(gMMCS_MobileMeReporting + 64))
         {
-          v6 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+          v8 = mmcs_logging_logger_default(v3, v4);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
-            v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Background fetch for MobileMe configs is already underway.");
-            v8 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+            v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Background fetch for MobileMe configs is already underway.");
+            v11 = mmcs_logging_logger_default(v9, v10);
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v15 = v7;
-              _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              v18 = v9;
+              _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v7)
+            if (v9)
             {
-              CFRelease(v7);
+              CFRelease(v9);
             }
           }
         }
 
         else
         {
-          v13 = 0;
-          v9 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          v16 = 0;
+          v12 = mmcs_logging_logger_default(v3, v4);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
-            v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Scheduling fetch for MobileMe configs.");
-            v11 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+            v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Scheduling fetch for MobileMe configs.");
+            v15 = mmcs_logging_logger_default(v13, v14);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v15 = v10;
-              _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              v18 = v13;
+              _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v10)
+            if (v13)
             {
-              CFRelease(v10);
+              CFRelease(v13);
             }
           }
 
           *(gMMCS_MobileMeReporting + 64) = 1;
           C3BaseRetain(v1);
-          pthread_create(&v13, 0, _mmcs_report_fetchFromMobileMe, v1);
+          pthread_create(&v16, 0, _mmcs_report_fetchFromMobileMe, v1);
         }
       }
     }
 
-    result = pthread_mutex_unlock(&sReportingInfoAccessLock);
+    return pthread_mutex_unlock(&sReportingInfoAccessLock);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t _mmcs_report_fetchFromMobileMe(const void *a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v2 = _os_activity_create(&dword_2577D8000, "mmcs-fetch-plist", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v2, &state);
-  v3 = mmcs_logging_logger_default();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-  v5 = *MEMORY[0x277CBECE8];
-  if (v4)
+  v5 = mmcs_logging_logger_default(v3, v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  v7 = *MEMORY[0x277CBECE8];
+  if (v6)
   {
-    v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs_config_fetcher started.");
-    v7 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs_config_fetcher started.");
+    v10 = mmcs_logging_logger_default(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v6;
-      _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
+      *(&buf + 4) = v8;
+      _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
     }
 
-    if (v6)
+    if (v8)
     {
-      CFRelease(v6);
+      CFRelease(v8);
     }
   }
 
-  v8 = CFURLCreateWithString(v5, @"https://gateway.icloud.com/configuration/configurations/internetservices/mobileme/content/content-1.0.plist", 0);
-  if (v8)
+  v11 = CFURLCreateWithString(v7, @"https://gateway.icloud.com/configuration/configurations/internetservices/mobileme/content/content-1.0.plist", 0);
+  if (v11)
   {
-    v9 = v8;
-    Request = CFHTTPMessageCreateRequest(v5, @"GET", v8, *MEMORY[0x277CBAD00]);
-    CFRelease(v9);
+    v13 = v11;
+    Request = CFHTTPMessageCreateRequest(v7, @"GET", v11, *MEMORY[0x277CBAD00]);
+    CFRelease(v13);
     if (!Request)
     {
       goto LABEL_31;
@@ -3271,35 +3268,35 @@ uint64_t _mmcs_report_fetchFromMobileMe(const void *a1)
     client_header_value = mmcs_engine_create_client_header_value(0);
     if (client_header_value)
     {
-      v12 = client_header_value;
+      v16 = client_header_value;
       CFHTTPMessageSetHeaderFieldValue(Request, @"x-mme-client-info", client_header_value);
-      CFRelease(v12);
+      CFRelease(v16);
     }
 
     Current = CFRunLoopGetCurrent();
     CFRetain(Current);
     *&buf = @"content_plist";
     *(&buf + 1) = Request;
-    v30 = a1;
-    v31 = xmmword_25785F9B0;
-    v32 = -1;
-    v33 = -1;
-    v35 = 0;
-    v36 = 0;
-    v34 = 0;
-    v37 = mmcs_reporting_fetch_operation_http_callback;
-    v38 = 0;
-    v39 = 0;
-    v40 = 0;
-    v43 = 0;
-    v41 = Current;
+    v37 = a1;
+    v38 = xmmword_25785F9B0;
+    v39 = -1;
+    v40 = -1;
     v42 = 0;
-    v44 = 1;
+    v43 = 0;
+    v41 = 0;
+    v44 = mmcs_reporting_fetch_operation_http_callback;
     v45 = 0;
-    v46 = v2;
+    v46 = 0;
+    v47 = 0;
+    v50 = 0;
+    v48 = Current;
+    v49 = 0;
+    v51 = 1;
+    v52 = 0;
+    v53 = v2;
     cf = 0;
-    v14 = mmcs_http_class_default_value(2);
-    if (!mmcs_http_context_create(&cf, v14, &buf))
+    v18 = mmcs_http_class_default_value(2);
+    if (!mmcs_http_context_create(&cf, v18, &buf))
     {
       goto LABEL_30;
     }
@@ -3312,18 +3309,18 @@ uint64_t _mmcs_report_fetchFromMobileMe(const void *a1)
     {
       *(gMMCS_MobileMeReporting + 16) = cf;
       pthread_mutex_unlock(&sReportingInfoAccessLock);
-      v18 = CFArrayCreate(v5, MEMORY[0x277CBF048], 1, MEMORY[0x277CBF128]);
-      v26 = 0;
-      mmcs_perform_run_loop_target_create(&v26, Current, v18);
-      if (mmcs_http_context_send(cf, 0, v26))
+      v23 = CFArrayCreate(v7, MEMORY[0x277CBF048], 1, MEMORY[0x277CBF128]);
+      v33 = 0;
+      mmcs_perform_run_loop_target_create(&v33, Current, v23);
+      if (mmcs_http_context_send(cf, 0, v33))
       {
-        memset(&v25, 0, sizeof(v25));
-        v19 = CFRunLoopSourceCreate(v5, 0, &v25);
-        CFRunLoopAddSource(Current, v19, *MEMORY[0x277CBF058]);
+        memset(&v32, 0, sizeof(v32));
+        v24 = CFRunLoopSourceCreate(v7, 0, &v32);
+        CFRunLoopAddSource(Current, v24, *MEMORY[0x277CBF058]);
         CFRunLoopRun();
-        if (v19)
+        if (v24)
         {
-          CFRelease(v19);
+          CFRelease(v24);
         }
       }
 
@@ -3332,13 +3329,13 @@ uint64_t _mmcs_report_fetchFromMobileMe(const void *a1)
         _mmcs_report_clearFetchContext(cf);
       }
 
-      if (v18)
+      if (v23)
       {
-        CFRelease(v18);
+        CFRelease(v23);
       }
 
-      v15 = v26;
-      if (!v26)
+      v19 = v33;
+      if (!v33)
       {
         goto LABEL_28;
       }
@@ -3348,7 +3345,7 @@ uint64_t _mmcs_report_fetchFromMobileMe(const void *a1)
     {
       pthread_mutex_unlock(&sReportingInfoAccessLock);
       mmcs_http_context_invalidate(cf);
-      v15 = cf;
+      v19 = cf;
       if (!cf)
       {
 LABEL_30:
@@ -3357,7 +3354,7 @@ LABEL_30:
       }
     }
 
-    C3BaseRelease(v15);
+    C3BaseRelease(v19);
 LABEL_28:
     if (cf)
     {
@@ -3367,16 +3364,16 @@ LABEL_28:
     goto LABEL_30;
   }
 
-  v16 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v20 = mmcs_logging_logger_default(0, v12);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    Request = CFStringCreateWithFormat(v5, 0, @"Failed to create URL for MobileMe reporting levels.");
-    v17 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    Request = CFStringCreateWithFormat(v7, 0, @"Failed to create URL for MobileMe reporting levels.");
+    v22 = mmcs_logging_logger_default(Request, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 138543362;
       *(&buf + 4) = Request;
-      _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
     }
 
     if (Request)
@@ -3402,31 +3399,30 @@ LABEL_31:
     *(gMMCS_MobileMeReporting + 64) = 0;
   }
 
-  pthread_mutex_unlock(&sReportingInfoAccessLock);
-  v20 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v25 = pthread_mutex_unlock(&sReportingInfoAccessLock);
+  v27 = mmcs_logging_logger_default(v25, v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
-    v21 = CFStringCreateWithFormat(v5, 0, @"mmcs_config_fetcher completed.");
-    v22 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v28 = CFStringCreateWithFormat(v7, 0, @"mmcs_config_fetcher completed.");
+    v30 = mmcs_logging_logger_default(v28, v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v21;
-      _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
+      *(&buf + 4) = v28;
+      _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
     }
 
-    if (v21)
+    if (v28)
     {
-      CFRelease(v21);
+      CFRelease(v28);
     }
   }
 
   os_activity_scope_leave(&state);
-  v23 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-const void *mmcs_report_copy_vendor_configuration_with_name(CFStringRef a1)
+const void *mmcs_report_copy_vendor_configuration_with_name(__CFString *a1)
 {
   theDict = 0;
   _mmcs_report_copyConfiguration(&theDict, 0);
@@ -3489,7 +3485,7 @@ LABEL_11:
   return v6;
 }
 
-const void *mmcs_report_copy_vendor_retryable_http_errors(const __CFString *a1, const __CFString *a2)
+const void *mmcs_report_copy_vendor_retryable_http_errors(__CFString *a1, const __CFString *a2)
 {
   v3 = mmcs_report_copy_vendor_configuration_with_name(a1);
   if (v3)
@@ -3715,7 +3711,7 @@ LABEL_6:
 uint64_t mmcs_report_is_valid_base_url_for_configs(const __CFArray *a1, const __CFArray *a2, CFURLRef anURL)
 {
   v3 = 0;
-  v48 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   if (a2 && a1)
   {
     v6 = 0;
@@ -3725,42 +3721,49 @@ uint64_t mmcs_report_is_valid_base_url_for_configs(const __CFArray *a1, const __
       if (v8)
       {
         v9 = v8;
-        if (CFArrayGetCount(a1) >= 1)
+        Count = CFArrayGetCount(a1);
+        if (Count >= 1)
         {
-          v10 = 0;
-          v11 = *MEMORY[0x277CBECE8];
+          v12 = 0;
+          v13 = *MEMORY[0x277CBECE8];
           do
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(a1, v10);
+            ValueAtIndex = CFArrayGetValueAtIndex(a1, v12);
             if (ValueAtIndex)
             {
-              v13 = ValueAtIndex;
-              v14 = CFGetTypeID(ValueAtIndex);
-              if (v14 == CFStringGetTypeID())
+              v15 = ValueAtIndex;
+              v16 = CFGetTypeID(ValueAtIndex);
+              TypeID = CFStringGetTypeID();
+              if (v16 == TypeID)
               {
                 v6 = 1;
-                if (CFStringCompare(v13, v9, 1uLL) == kCFCompareEqualTo)
+                if (CFStringCompare(v15, v9, 1uLL) == kCFCompareEqualTo)
                 {
                   goto LABEL_28;
                 }
 
-                if (CFStringHasPrefix(v13, @".") && CFStringHasSuffix(v9, v13))
+                HasPrefix = CFStringHasPrefix(v15, @".");
+                if (HasPrefix)
                 {
-                  v6 = 1;
-                  goto LABEL_28;
+                  HasPrefix = CFStringHasSuffix(v9, v15);
+                  if (HasPrefix)
+                  {
+                    v6 = 1;
+                    goto LABEL_28;
+                  }
                 }
 
-                v15 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+                v21 = mmcs_logging_logger_default(HasPrefix, v20);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                 {
-                  v16 = CFStringCreateWithFormat(v11, 0, @"Did not match %@ from config as suffix of hostname %@.", v13, v9);
-                  v17 = mmcs_logging_logger_default();
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+                  v22 = CFStringCreateWithFormat(v13, 0, @"Did not match %@ from config as suffix of hostname %@.", v15, v9);
+                  v24 = mmcs_logging_logger_default(v22, v23);
+                  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138543362;
-                    v47 = v16;
-                    v18 = v17;
-                    v19 = OS_LOG_TYPE_DEBUG;
+                    v64 = v22;
+                    v25 = v24;
+                    v26 = OS_LOG_TYPE_DEBUG;
                     goto LABEL_18;
                   }
 
@@ -3770,153 +3773,158 @@ uint64_t mmcs_report_is_valid_base_url_for_configs(const __CFArray *a1, const __
 
               else
               {
-                v20 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+                v27 = mmcs_logging_logger_default(TypeID, v18);
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                 {
-                  v21 = CFGetTypeID(v13);
-                  v16 = CFStringCreateWithFormat(v11, 0, @"Invalid typeId %llu provided for %@ element.", v21, @"metaserver.allowed.hostname.suffix");
-                  v22 = mmcs_logging_logger_default();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                  v28 = CFGetTypeID(v15);
+                  v22 = CFStringCreateWithFormat(v13, 0, @"Invalid typeId %llu provided for %@ element.", v28, @"metaserver.allowed.hostname.suffix");
+                  v30 = mmcs_logging_logger_default(v22, v29);
+                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
-                    v47 = v16;
-                    v18 = v22;
-                    v19 = OS_LOG_TYPE_ERROR;
+                    v64 = v22;
+                    v25 = v30;
+                    v26 = OS_LOG_TYPE_ERROR;
 LABEL_18:
-                    _os_log_impl(&dword_2577D8000, v18, v19, "%{public}@", buf, 0xCu);
+                    _os_log_impl(&dword_2577D8000, v25, v26, "%{public}@", buf, 0xCu);
                   }
 
 LABEL_19:
-                  if (v16)
+                  if (v22)
                   {
-                    CFRelease(v16);
+                    CFRelease(v22);
                   }
                 }
               }
             }
 
-            ++v10;
+            ++v12;
+            Count = CFArrayGetCount(a1);
           }
 
-          while (v10 < CFArrayGetCount(a1));
+          while (v12 < Count);
         }
 
-        v23 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v31 = mmcs_logging_logger_default(Count, v11);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Metaserver Hostname %@ Not Allowed", v9);
-          v25 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v32 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Metaserver Hostname %@ Not Allowed", v9);
+          v34 = mmcs_logging_logger_default(v32, v33);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v47 = v24;
-            _os_log_impl(&dword_2577D8000, v25, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            v64 = v32;
+            _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v24)
+          if (v32)
           {
-            CFRelease(v24);
+            CFRelease(v32);
           }
         }
 
         v6 = 0;
 LABEL_28:
         CFRelease(v9);
-        v26 = CFURLCopyScheme(anURL);
-        if (v26)
+        v35 = CFURLCopyScheme(anURL);
+        if (v35)
         {
-          v27 = v26;
-          if (CFArrayGetCount(a2) >= 1)
+          v36 = v35;
+          v37 = CFArrayGetCount(a2);
+          if (v37 >= 1)
           {
-            v28 = 0;
-            v29 = *MEMORY[0x277CBECE8];
+            v39 = 0;
+            v40 = *MEMORY[0x277CBECE8];
             do
             {
-              v30 = CFArrayGetValueAtIndex(a2, v28);
-              if (v30)
+              v41 = CFArrayGetValueAtIndex(a2, v39);
+              if (v41)
               {
-                v31 = v30;
-                v32 = CFGetTypeID(v30);
-                if (v32 == CFStringGetTypeID())
+                v42 = v41;
+                v43 = CFGetTypeID(v41);
+                v44 = CFStringGetTypeID();
+                if (v43 == v44)
                 {
                   v3 = 1;
-                  if (CFStringCompare(v27, v31, 1uLL) == kCFCompareEqualTo)
+                  v46 = CFStringCompare(v36, v42, 1uLL);
+                  if (v46 == kCFCompareEqualTo)
                   {
                     goto LABEL_50;
                   }
 
-                  v33 = mmcs_logging_logger_default();
-                  if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+                  v48 = mmcs_logging_logger_default(v46, v47);
+                  if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
                   {
                     goto LABEL_43;
                   }
 
-                  v34 = CFStringCreateWithFormat(v29, 0, @"Did not match %@ from config as suffix of scheme %@.", v31, v27);
-                  v35 = mmcs_logging_logger_default();
-                  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+                  v49 = CFStringCreateWithFormat(v40, 0, @"Did not match %@ from config as suffix of scheme %@.", v42, v36);
+                  v51 = mmcs_logging_logger_default(v49, v50);
+                  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138543362;
-                    v47 = v34;
-                    v36 = v35;
-                    v37 = OS_LOG_TYPE_DEBUG;
+                    v64 = v49;
+                    v52 = v51;
+                    v53 = OS_LOG_TYPE_DEBUG;
                     goto LABEL_40;
                   }
 
                   goto LABEL_41;
                 }
 
-                v38 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                v54 = mmcs_logging_logger_default(v44, v45);
+                if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
                 {
-                  v39 = CFGetTypeID(v31);
-                  v34 = CFStringCreateWithFormat(v29, 0, @"Invalid typeId %llu provided for %@ element.", v39, @"metaserver.allowed.schemes");
-                  v40 = mmcs_logging_logger_default();
-                  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                  v55 = CFGetTypeID(v42);
+                  v49 = CFStringCreateWithFormat(v40, 0, @"Invalid typeId %llu provided for %@ element.", v55, @"metaserver.allowed.schemes");
+                  v57 = mmcs_logging_logger_default(v49, v56);
+                  if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
-                    v47 = v34;
-                    v36 = v40;
-                    v37 = OS_LOG_TYPE_ERROR;
+                    v64 = v49;
+                    v52 = v57;
+                    v53 = OS_LOG_TYPE_ERROR;
 LABEL_40:
-                    _os_log_impl(&dword_2577D8000, v36, v37, "%{public}@", buf, 0xCu);
+                    _os_log_impl(&dword_2577D8000, v52, v53, "%{public}@", buf, 0xCu);
                   }
 
 LABEL_41:
-                  if (v34)
+                  if (v49)
                   {
-                    CFRelease(v34);
+                    CFRelease(v49);
                   }
                 }
               }
 
 LABEL_43:
-              ++v28;
+              ++v39;
+              v37 = CFArrayGetCount(a2);
             }
 
-            while (v28 < CFArrayGetCount(a2));
+            while (v39 < v37);
           }
 
-          v41 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v58 = mmcs_logging_logger_default(v37, v38);
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
-            v42 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Metaserver Scheme %@ Not Allowed", v27);
-            v43 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v59 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Metaserver Scheme %@ Not Allowed", v36);
+            v61 = mmcs_logging_logger_default(v59, v60);
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v47 = v42;
-              _os_log_impl(&dword_2577D8000, v43, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+              v64 = v59;
+              _os_log_impl(&dword_2577D8000, v61, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
-            if (v42)
+            if (v59)
             {
-              CFRelease(v42);
+              CFRelease(v59);
             }
           }
 
           v3 = 0;
 LABEL_50:
-          CFRelease(v27);
+          CFRelease(v36);
         }
 
         else
@@ -3938,7 +3946,6 @@ LABEL_50:
     v6 = 0;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v3 & v6;
 }
 
@@ -4136,48 +4143,48 @@ __CFDictionary *mmcs_report_create_vendor_http_stats(uint64_t a1, int a2, unsign
   {
     if (v6)
     {
-      v15 = mmcs_http_context_elapsed_seconds(a1);
-      MillisStringFromAbsoluteTime = createMillisStringFromAbsoluteTime(v15);
+      v16 = mmcs_http_context_elapsed_seconds(a1);
+      MillisStringFromAbsoluteTime = createMillisStringFromAbsoluteTime(v16);
       if (MillisStringFromAbsoluteTime)
       {
-        v17 = MillisStringFromAbsoluteTime;
+        v18 = MillisStringFromAbsoluteTime;
         CFDictionaryAddValue(Mutable, @"vendor.roundtrip.millis", MillisStringFromAbsoluteTime);
-        CFRelease(v17);
+        CFRelease(v18);
       }
     }
 
     if (v7)
     {
-      v18 = a2 ? mmcs_http_context_actual_bytes_written(a1) : mmcs_http_context_actual_bytes_read(a1);
-      v20 = CFStringCreateWithFormat(v13, 0, @"%lld", v18);
-      if (v20)
+      v19 = a2 ? mmcs_http_context_actual_bytes_written(a1) : mmcs_http_context_actual_bytes_read(a1);
+      v21 = CFStringCreateWithFormat(v13, 0, @"%lld", v19);
+      if (v21)
       {
-        v21 = v20;
-        CFDictionaryAddValue(Mutable, @"contentlength.bytes", v20);
-        CFRelease(v21);
+        v22 = v21;
+        CFDictionaryAddValue(Mutable, @"contentlength.bytes", v21);
+        CFRelease(v22);
       }
     }
 
     if (v8)
     {
-      mmcs_http_context_name_resolution_seconds(a1);
-      v23 = createMillisStringFromAbsoluteTime(v22);
-      if (v23)
+      mmcs_http_context_name_resolution_seconds(a1, v14);
+      v24 = createMillisStringFromAbsoluteTime(v23);
+      if (v24)
       {
-        v24 = v23;
-        CFDictionaryAddValue(Mutable, @"vendor.nameresolution.millis", v23);
-        CFRelease(v24);
+        v25 = v24;
+        CFDictionaryAddValue(Mutable, @"vendor.nameresolution.millis", v24);
+        CFRelease(v25);
       }
     }
 
     if (v9)
     {
-      v25 = mmcs_http_context_copy_destination_address(a1);
-      if (v25)
+      v26 = mmcs_http_context_copy_destination_address(a1);
+      if (v26)
       {
-        v26 = v25;
-        CFDictionaryAddValue(Mutable, @"vendor.nameresolution.serverAddress", v25);
-        CFRelease(v26);
+        v27 = v26;
+        CFDictionaryAddValue(Mutable, @"vendor.nameresolution.serverAddress", v26);
+        CFRelease(v27);
       }
     }
 
@@ -4188,20 +4195,20 @@ __CFDictionary *mmcs_report_create_vendor_http_stats(uint64_t a1, int a2, unsign
       String = MMCSRequestOptionsDiscretionaryNetworkBehaviorGetString(discretionary_network_behavior);
       if (String)
       {
-        v30 = String;
+        v31 = String;
         CFDictionaryAddValue(Mutable, @"vendor.request.qos", String);
-        CFRelease(v30);
+        CFRelease(v31);
       }
     }
 
     if (v12)
     {
-      v31 = mmcs_http_context_copy_interface_identifier(a1);
-      if (v31)
+      v32 = mmcs_http_context_copy_interface_identifier(a1);
+      if (v32)
       {
-        v32 = v31;
-        CFDictionaryAddValue(Mutable, @"vendor.network.interface", v31);
-        CFRelease(v32);
+        v33 = v32;
+        CFDictionaryAddValue(Mutable, @"vendor.network.interface", v32);
+        CFRelease(v33);
       }
     }
   }
@@ -4481,8 +4488,8 @@ const __CFString *mmcs_report_auth_simulcast_response_signing_key_public_prior()
 
 void mmcs_reporting_fetch_operation_http_callback(const void *a1, CFDataRef *a2, __CFRunLoop *a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v6 = mmcs_http_context_status_succeeded(a1);
+  v55 = *MEMORY[0x277D85DE8];
+  v6 = mmcs_http_context_status_succeeded(a1, a2);
   v7 = MEMORY[0x277CBECE8];
   if (!a2 || !v6 || !*a2)
   {
@@ -4491,7 +4498,7 @@ void mmcs_reporting_fetch_operation_http_callback(const void *a1, CFDataRef *a2,
       v15 = "was cancelled";
     }
 
-    else if (mmcs_http_context_has_timedout(a1) && mmcs_http_context_is_timedout(a1))
+    else if (mmcs_http_context_has_timedout(a1) && mmcs_http_context_is_timedout(a1, v32))
     {
       v15 = "timed out";
     }
@@ -4507,50 +4514,51 @@ void mmcs_reporting_fetch_operation_http_callback(const void *a1, CFDataRef *a2,
     }
 
     has_http_status = mmcs_http_context_has_http_status(a1);
-    v17 = mmcs_logging_logger_default();
-    if (has_http_status)
+    v17 = has_http_status;
+    v19 = mmcs_logging_logger_default(has_http_status, v18);
+    if (v17)
     {
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_20;
       }
 
-      v18 = *v7;
-      v19 = mmcs_http_context_http_status(a1);
-      v20 = CFStringCreateWithFormat(v18, 0, @"Request to MobileMe config server %s with status: %d.", v15, v19);
-      v21 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v21 = *v7;
+      v22 = mmcs_http_context_http_status(a1, v20);
+      v23 = CFStringCreateWithFormat(v21, 0, @"Request to MobileMe config server %s with status: %d.", v15, v22);
+      v25 = mmcs_logging_logger_default(v23, v24);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_18;
       }
 
       c.count[0] = 138543362;
-      *&c.count[1] = v20;
-      v22 = v21;
-      v23 = OS_LOG_TYPE_DEBUG;
+      *&c.count[1] = v23;
+      v26 = v25;
+      v27 = OS_LOG_TYPE_DEBUG;
     }
 
     else
     {
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_20;
       }
 
-      v20 = CFStringCreateWithFormat(*v7, 0, @"Request to MobileMe config server %s has no status!", v15);
-      v24 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v23 = CFStringCreateWithFormat(*v7, 0, @"Request to MobileMe config server %s has no status!", v15);
+      v29 = mmcs_logging_logger_default(v23, v28);
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_18:
-        if (v20)
+        if (v23)
         {
-          CFRelease(v20);
+          CFRelease(v23);
         }
 
 LABEL_20:
-        v25 = 0;
+        v30 = 0;
         v12 = 0;
-        v26 = 0;
+        v31 = 0;
         if (!a2)
         {
           goto LABEL_42;
@@ -4560,17 +4568,17 @@ LABEL_20:
       }
 
       c.count[0] = 138543362;
-      *&c.count[1] = v20;
-      v22 = v24;
-      v23 = OS_LOG_TYPE_DEFAULT;
+      *&c.count[1] = v23;
+      v26 = v29;
+      v27 = OS_LOG_TYPE_DEFAULT;
     }
 
-    _os_log_impl(&dword_2577D8000, v22, v23, "%{public}@", &c, 0xCu);
+    _os_log_impl(&dword_2577D8000, v26, v27, "%{public}@", &c, 0xCu);
     goto LABEL_18;
   }
 
   *md = 0u;
-  v43 = 0u;
+  v54 = 0u;
   memset(&c, 0, sizeof(c));
   CC_SHA256_Init(&c);
   BytePtr = CFDataGetBytePtr(*a2);
@@ -4602,24 +4610,25 @@ LABEL_20:
 
   error = 0;
   format = 0;
-  v25 = CFPropertyListCreateWithData(v10, *a2, 0, &format, &error);
+  v33 = CFPropertyListCreateWithData(v10, *a2, 0, &format, &error);
+  v30 = v33;
   if (error)
   {
-    v27 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v35 = mmcs_logging_logger_default(v33, v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v28 = CFStringCreateWithFormat(v10, 0, @"Failed to create configuration plist (%@) ", error);
-      v29 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v36 = CFStringCreateWithFormat(v10, 0, @"Failed to create configuration plist (%@) ", error);
+      v38 = mmcs_logging_logger_default(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v40 = v28;
-        _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v51 = v36;
+        _os_log_impl(&dword_2577D8000, v38, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v28)
+      if (v36)
       {
-        CFRelease(v28);
+        CFRelease(v36);
       }
     }
 
@@ -4629,7 +4638,7 @@ LABEL_20:
     }
   }
 
-  v26 = v25 != 0;
+  v31 = v30 != 0;
 LABEL_39:
   if (*a2)
   {
@@ -4639,13 +4648,13 @@ LABEL_39:
   *a2 = 0;
 LABEL_42:
   *c.count = CFAbsoluteTimeGetCurrent();
-  v30 = *v7;
-  v31 = CFNumberCreate(*v7, kCFNumberDoubleType, &c);
-  v32 = *c.count;
-  if (v26)
+  v39 = *v7;
+  v40 = CFNumberCreate(*v7, kCFNumberDoubleType, &c);
+  v41 = *c.count;
+  if (v31)
   {
-    _mmcs_report_setReportingInfo(a1, v12, v25, 1, v31, *c.count, 0.0);
-    if (!v31)
+    v42 = _mmcs_report_setReportingInfo(a1, v12, v30, 1, v40, *c.count, 0.0);
+    if (!v40)
     {
       goto LABEL_50;
     }
@@ -4656,8 +4665,8 @@ LABEL_42:
   pthread_mutex_lock(&sReportingInfoAccessLock);
   if (!gMMCS_MobileMeReporting || a1 && *(gMMCS_MobileMeReporting + 16) != a1)
   {
-    pthread_mutex_unlock(&sReportingInfoAccessLock);
-    if (!v31)
+    v42 = pthread_mutex_unlock(&sReportingInfoAccessLock);
+    if (!v40)
     {
       goto LABEL_50;
     }
@@ -4665,20 +4674,20 @@ LABEL_42:
     goto LABEL_49;
   }
 
-  *(gMMCS_MobileMeReporting + 48) = v32;
+  *(gMMCS_MobileMeReporting + 48) = v41;
   pthread_mutex_unlock(&sReportingInfoAccessLock);
-  CFPreferencesSetAppValue(@"report.LastFailedCheckTime", v31, @"com.apple.mmcs");
-  CFPreferencesAppSynchronize(@"com.apple.mmcs");
-  if (v31)
+  CFPreferencesSetAppValue(@"report.LastFailedCheckTime", v40, @"com.apple.mmcs");
+  v42 = CFPreferencesAppSynchronize(@"com.apple.mmcs");
+  if (v40)
   {
 LABEL_49:
-    CFRelease(v31);
+    CFRelease(v40);
   }
 
 LABEL_50:
-  if (v25)
+  if (v30)
   {
-    CFRelease(v25);
+    CFRelease(v30);
   }
 
   if (v12)
@@ -4686,21 +4695,21 @@ LABEL_50:
     CFRelease(v12);
   }
 
-  v33 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+  v44 = mmcs_logging_logger_default(v42, v43);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
   {
-    v34 = CFStringCreateWithFormat(v30, 0, @"Remote fetch completed (%d)", v26);
-    v35 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v45 = CFStringCreateWithFormat(v39, 0, @"Remote fetch completed (%d)", v31);
+    v47 = mmcs_logging_logger_default(v45, v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
       c.count[0] = 138543362;
-      *&c.count[1] = v34;
-      _os_log_impl(&dword_2577D8000, v35, OS_LOG_TYPE_DEBUG, "%{public}@", &c, 0xCu);
+      *&c.count[1] = v45;
+      _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_DEBUG, "%{public}@", &c, 0xCu);
     }
 
-    if (v34)
+    if (v45)
     {
-      CFRelease(v34);
+      CFRelease(v45);
     }
   }
 
@@ -4710,8 +4719,6 @@ LABEL_50:
   {
     CFRelease(a3);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _mmcs_report_clearFetchContext(const void *a1)
@@ -4733,9 +4740,9 @@ uint64_t _mmcs_report_clearFetchContext(const void *a1)
   return pthread_mutex_unlock(&sReportingInfoAccessLock);
 }
 
-CFStringRef mmcs_report_copy_cfarray_with_key(const __CFDictionary *a1, const void *a2, const __CFString *a3)
+CFStringRef mmcs_report_copy_cfarray_with_key(const __CFDictionary *a1, const void *a2, const void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
 LABEL_11:
@@ -4751,20 +4758,21 @@ LABEL_11:
   }
 
   v7 = CFGetTypeID(Value);
-  if (v7 != CFArrayGetTypeID())
+  TypeID = CFArrayGetTypeID();
+  if (v7 != TypeID)
   {
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = mmcs_logging_logger_default(TypeID, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v9 = *MEMORY[0x277CBECE8];
-      v10 = CFGetTypeID(v6);
-      v6 = CFStringCreateWithFormat(v9, 0, @"Invalid typeId %llu provided for %@.", v10, a2);
-      v11 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v11 = *MEMORY[0x277CBECE8];
+      v12 = CFGetTypeID(v6);
+      v6 = CFStringCreateWithFormat(v11, 0, @"Invalid typeId %llu provided for %@.", v12, a2);
+      v14 = mmcs_logging_logger_default(v6, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v15 = v6;
-        _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v17 = v6;
+        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
       if (!v6)
@@ -4781,18 +4789,16 @@ LABEL_11:
   if (CFArrayGetCount(v6))
   {
     CFRetain(v6);
-    goto LABEL_14;
+    return v6;
   }
 
 LABEL_12:
   if (a3)
   {
     CFRetain(a3);
-    v6 = a3;
+    return a3;
   }
 
-LABEL_14:
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -4931,15 +4937,15 @@ _OWORD *chunkserver__get_chunk_keys_request__create(uint64_t a1)
   return v3;
 }
 
-CFDataRef chunkserver__get_chunk_keys_request__create_data(void **a1)
+CFDataRef chunkserver__get_chunk_keys_request__create_data(void **a1, uint64_t a2)
 {
-  packed_size = chunkserver__get_chunk_keys_request__get_packed_size(a1);
-  v3 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
-  chunkserver__get_chunk_keys_request__pack(a1, v3);
-  v4 = *MEMORY[0x277CBECE8];
-  v5 = *MEMORY[0x277CBECF0];
+  packed_size = chunkserver__get_chunk_keys_request__get_packed_size(a1, a2);
+  v4 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
+  chunkserver__get_chunk_keys_request__pack(a1, v4);
+  v5 = *MEMORY[0x277CBECE8];
+  v6 = *MEMORY[0x277CBECF0];
 
-  return XCFDataCreateWithBytesNoCopy(v4, v3, packed_size, v5);
+  return XCFDataCreateWithBytesNoCopy(v5, v4, packed_size, v6);
 }
 
 void **chunkserver__put_chunk_keys_request__create(uint64_t a1)
@@ -4964,15 +4970,15 @@ void **chunkserver__put_chunk_keys_request__create(uint64_t a1)
   return v3;
 }
 
-CFDataRef chunkserver__put_chunk_keys_request__create_data(void **a1)
+CFDataRef chunkserver__put_chunk_keys_request__create_data(void **a1, uint64_t a2)
 {
-  packed_size = chunkserver__put_chunk_keys_request__get_packed_size(a1);
-  v3 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
-  chunkserver__put_chunk_keys_request__pack(a1, v3);
-  v4 = *MEMORY[0x277CBECE8];
-  v5 = *MEMORY[0x277CBECF0];
+  packed_size = chunkserver__put_chunk_keys_request__get_packed_size(a1, a2);
+  v4 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
+  chunkserver__put_chunk_keys_request__pack(a1, v4);
+  v5 = *MEMORY[0x277CBECE8];
+  v6 = *MEMORY[0x277CBECF0];
 
-  return XCFDataCreateWithBytesNoCopy(v4, v3, packed_size, v5);
+  return XCFDataCreateWithBytesNoCopy(v5, v4, packed_size, v6);
 }
 
 _OWORD *chunkserver__put_file_chunk_keys__create(uint64_t a1)
@@ -5006,124 +5012,121 @@ _OWORD *chunkserver__chunk_key__create()
 
 void *mmcs_create_RangedItem(const __CFData *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v10 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v16 = mmcs_logging_logger_default(0, a2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v11 = "mmcs_create_FileReferenceDataV1Chunk fileVerificationKey required.";
-      v12 = v10;
-      v13 = 2;
+      v17 = "mmcs_create_FileReferenceDataV1Chunk fileVerificationKey required.";
+      v18 = v16;
+      v19 = 2;
 LABEL_11:
-      _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, v11, buf, v13);
+      _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
     }
 
-LABEL_20:
-    v5 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   v4 = malloc_type_malloc(0x38uLL, 0x1070040B7852850uLL);
   if (!v4)
   {
-    v14 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v20 = mmcs_logging_logger_default(0, v5);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
       *&buf[4] = "mmcs_create_RangedItem";
-      v11 = "%s failed to allocate rangedItem.";
-      v12 = v14;
-      v13 = 12;
+      v17 = "%s failed to allocate rangedItem.";
+      v18 = v20;
+      v19 = 12;
       goto LABEL_11;
     }
 
-    goto LABEL_20;
+    return 0;
   }
 
-  v5 = v4;
+  v6 = v4;
   opaque__file_reference_data__ranged_item__init(v4);
   *buf = a2;
-  ProtobufCBinaryData_SetCopyBufferLen(v5 + 5, buf, 8uLL);
-  if (!v5[6])
+  ProtobufCBinaryData_SetCopyBufferLen(v6 + 5, buf, 8uLL);
+  if (!v6[6])
   {
-    v15 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v21 = mmcs_logging_logger_default(v7, v8);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_19;
     }
 
-    *v19 = 0;
-    v16 = "mmcs_create_FileReferenceDataV1Chunk failed to allocate chunk_length.";
+    *v24 = 0;
+    v22 = "mmcs_create_FileReferenceDataV1Chunk failed to allocate chunk_length.";
 LABEL_18:
-    _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_ERROR, v16, v19, 2u);
+    _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_ERROR, v22, v24, 2u);
     goto LABEL_19;
   }
 
-  if (CFDataGetLength(a1) != 32)
+  Length = CFDataGetLength(a1);
+  if (Length != 32)
   {
-    v15 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v21 = mmcs_logging_logger_default(Length, v10);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_19;
     }
 
-    *v19 = 0;
-    v16 = "mmcs_create_FileReferenceDataV1Chunk unexpected fileVerificationKey length.";
+    *v24 = 0;
+    v22 = "mmcs_create_FileReferenceDataV1Chunk unexpected fileVerificationKey length.";
     goto LABEL_18;
   }
 
-  v6 = malloc_type_malloc(0x20uLL, 0x100004077774924uLL);
-  v5[4] = v6;
-  if (!v6)
+  v11 = malloc_type_malloc(0x20uLL, 0x100004077774924uLL);
+  v6[4] = v11;
+  if (!v11)
   {
-    v15 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v21 = mmcs_logging_logger_default(0, v12);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      *v19 = 0;
-      v16 = "mmcs_create_FileReferenceDataV1Chunk failed to allocate file verification key.";
+      *v24 = 0;
+      v22 = "mmcs_create_FileReferenceDataV1Chunk failed to allocate file verification key.";
       goto LABEL_18;
     }
 
 LABEL_19:
-    free(v5);
-    goto LABEL_20;
+    free(v6);
+    return 0;
   }
 
-  v7 = v6;
-  v5[3] = 32;
+  v13 = v11;
+  v6[3] = 32;
   BytePtr = CFDataGetBytePtr(a1);
-  v9 = *(BytePtr + 1);
-  *v7 = *BytePtr;
-  v7[1] = v9;
-LABEL_21:
-  v17 = *MEMORY[0x277D85DE8];
-  return v5;
+  v15 = *(BytePtr + 1);
+  *v13 = *BytePtr;
+  v13[1] = v15;
+  return v6;
 }
 
-CFDataRef mmcs_RangedItem_copyFileVerificationKey_copyItemLength(CFDataRef result, void *a2, void *a3)
+CFIndex *mmcs_RangedItem_copyFileVerificationKey_copyItemLength(CFIndex *result, uint64_t *a2, void *a3)
 {
   if (result)
   {
     v4 = result;
-    v5 = *(result + 4);
-    if (v5 && *(result + 5) == 8)
+    v5 = result[4];
+    if (v5 && result[5] == 8)
     {
-      result = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v5, *(result + 3), *MEMORY[0x277CBECF0]);
+      result = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v5, result[3], *MEMORY[0x277CBECF0]);
       if (result)
       {
         if (a2)
         {
-          *(v4 + 3) = 0;
-          *(v4 + 4) = 0;
+          v4[3] = 0;
+          v4[4] = 0;
           *a2 = result;
           result = 0;
         }
 
         if (a3)
         {
-          *a3 = **(v4 + 6);
+          *a3 = *v4[6];
         }
 
         if (result)
@@ -5144,48 +5147,48 @@ CFDataRef mmcs_RangedItem_copyFileVerificationKey_copyItemLength(CFDataRef resul
   return result;
 }
 
-uint64_t mmcs_item_create_FileOpaqueReferenceData(uint64_t a1)
+uint64_t mmcs_item_create_FileOpaqueReferenceData(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
     FileReferenceData = mmcs_generic_item_create_FileReferenceData(a1, mmcs_item_generic_item_callbacks);
     if (FileReferenceData)
     {
-      v3 = FileReferenceData;
-      v4 = *(a1 + 72);
-      if (v4)
+      v5 = FileReferenceData;
+      v6 = *(a1 + 72);
+      if (v6)
       {
-        v5 = CFGetTypeID(v4);
-        if (v5 == CFDataGetTypeID())
+        v7 = CFGetTypeID(v6);
+        TypeID = CFDataGetTypeID();
+        if (v7 == TypeID)
         {
-          v6 = *(a1 + 72);
-          file_reference_data_with_cfdata = mmcs_create_file_reference_data_with_cfdata(v3);
+          file_reference_data_with_cfdata = mmcs_create_file_reference_data_with_cfdata(v5, *(a1 + 72));
           if (file_reference_data_with_cfdata)
           {
 LABEL_20:
-            mmcs_free_FileReferenceData(v3);
+            mmcs_free_FileReferenceData(v5);
             return file_reference_data_with_cfdata;
           }
 
-          v8 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v12 = mmcs_logging_logger_default(0, v10);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            v15 = 0;
-            v9 = "mmcs_item_create_FileOpaqueReferenceData failed to create cfdata from fileReferenceData.";
-            v10 = &v15;
+            v19 = 0;
+            v13 = "mmcs_item_create_FileOpaqueReferenceData failed to create cfdata from fileReferenceData.";
+            v14 = &v19;
 LABEL_18:
-            _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_ERROR, v9, v10, 2u);
+            _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, v13, v14, 2u);
           }
         }
 
         else
         {
-          v8 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v12 = mmcs_logging_logger_default(TypeID, v9);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            *v16 = 0;
-            v9 = "mmcs_item_create_FileOpaqueReferenceData must have CFDataRef referenceObject.";
-            v10 = v16;
+            *v20 = 0;
+            v13 = "mmcs_item_create_FileOpaqueReferenceData must have CFDataRef referenceObject.";
+            v14 = v20;
             goto LABEL_18;
           }
         }
@@ -5193,12 +5196,12 @@ LABEL_18:
 
       else
       {
-        v8 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v12 = mmcs_logging_logger_default(0, v4);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v17 = 0;
-          v9 = "mmcs_item_create_FileOpaqueReferenceData cannot have NULL referenceObject.";
-          v10 = &v17;
+          v21 = 0;
+          v13 = "mmcs_item_create_FileOpaqueReferenceData cannot have NULL referenceObject.";
+          v14 = &v21;
           goto LABEL_18;
         }
       }
@@ -5207,26 +5210,26 @@ LABEL_18:
       goto LABEL_20;
     }
 
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = mmcs_logging_logger_default(0, v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v12 = "mmcs_item_create_FileOpaquedReferenceData failed to create fileReferenceData.";
-      v13 = buf;
+      v16 = "mmcs_item_create_FileOpaquedReferenceData failed to create fileReferenceData.";
+      v17 = buf;
       goto LABEL_12;
     }
   }
 
   else
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = mmcs_logging_logger_default(0, a2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = 0;
-      v12 = "mmcs_item_create_FileOpaquedReferenceData cannot have NULL item.";
-      v13 = &v19;
+      v23 = 0;
+      v16 = "mmcs_item_create_FileOpaquedReferenceData cannot have NULL item.";
+      v17 = &v23;
 LABEL_12:
-      _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, v12, v13, 2u);
+      _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_ERROR, v16, v17, 2u);
     }
   }
 
@@ -5235,526 +5238,546 @@ LABEL_12:
 
 void **mmcs_generic_item_create_FileReferenceData(uint64_t a1, uint64_t a2)
 {
-  v141 = *MEMORY[0x277D85DE8];
+  v181 = *MEMORY[0x277D85DE8];
   v4 = (*a2)();
   if (!v4)
   {
-    v45 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v66 = mmcs_logging_logger_default(0, v5);
+    if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_86;
+      return 0;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
-    v46 = "%s failed, cannot have no signature";
+    v67 = "%s failed, cannot have no signature";
     goto LABEL_85;
   }
 
-  v5 = v4;
+  v6 = v4;
   if ((*v4 & 0x7F) != 4 && (*v4 & 8) == 0)
   {
-    v45 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v66 = mmcs_logging_logger_default(v4, v5);
+    if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_86;
+      return 0;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
-    v46 = "%s failed, FORD unexpected for non-MMCSv2 file";
+    v67 = "%s failed, FORD unexpected for non-MMCSv2 file";
     goto LABEL_85;
   }
 
   if (*v4 < 0)
   {
-    v45 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v66 = mmcs_logging_logger_default(v4, v5);
+    if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_86;
+      return 0;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
-    v46 = "%s failed, FORD unexpected for unencrypted file";
+    v67 = "%s failed, FORD unexpected for unencrypted file";
     goto LABEL_85;
   }
 
-  if (!(*(a2 + 8))(a1))
+  v8 = (*(a2 + 8))(a1);
+  if (!v8)
   {
-    v45 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v66 = mmcs_logging_logger_default(0, v9);
+    if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_86;
+      return 0;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
-    v46 = "%s failed, Sha2HMAC signature cannot have NULL fileVerificationKey.";
+    v67 = "%s failed, Sha2HMAC signature cannot have NULL fileVerificationKey.";
     goto LABEL_85;
   }
 
-  if (*v5 < 0)
+  if (*v6 < 0)
   {
-    v45 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v66 = mmcs_logging_logger_default(v8, v9);
+    if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_86;
+      return 0;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
-    v46 = "%s failed, Sha2HMAC signature cannot be unencrypted.";
+    v67 = "%s failed, Sha2HMAC signature cannot be unencrypted.";
     goto LABEL_85;
   }
 
-  v7 = (*(a2 + 64))(a1);
-  v8 = v7;
-  if ((*v5 & 8) != 0)
+  v10 = (*(a2 + 64))(a1);
+  v12 = v10;
+  if ((*v6 & 8) != 0)
   {
-    if (!v7)
+    if (!v10)
     {
-      v45 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v66 = mmcs_logging_logger_default(0, v11);
+      if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_86;
+        return 0;
       }
 
       *buf = 136315138;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
-      v46 = "%s failed, Sha2HMAC package must have ranged items.";
+      v67 = "%s failed, Sha2HMAC package must have ranged items.";
       goto LABEL_85;
     }
 
-    if (!CFArrayGetCount(v7))
+    if (!CFArrayGetCount(v10))
     {
-      v45 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v66 = mmcs_logging_logger_default(0, v13);
+      if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_86;
+        return 0;
       }
 
       *buf = 136315138;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
-      v46 = "%s failed, Sha2HMAC package must have non-zero ranged items.";
+      v67 = "%s failed, Sha2HMAC package must have non-zero ranged items.";
       goto LABEL_85;
     }
   }
 
-  v9 = (*(a2 + 24))(a1);
-  if (!v9)
+  v14 = (*(a2 + 24))(a1);
+  if (!v14)
   {
-    v47 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v68 = mmcs_logging_logger_default(0, v15);
+    v69 = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
+    if (!v69)
     {
       goto LABEL_78;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-    v48 = "%s failed, cannot have no-chunks";
+    v71 = "%s failed, cannot have no-chunks";
 LABEL_77:
-    _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_ERROR, v48, buf, 0xCu);
+    _os_log_impl(&dword_2577D8000, v68, OS_LOG_TYPE_ERROR, v71, buf, 0xCu);
     goto LABEL_78;
   }
 
-  v10 = v9;
-  v11 = (*a2)(a1);
-  if (!v11)
+  v16 = v14;
+  v17 = (*a2)(a1);
+  if (!v17)
   {
-    v47 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v68 = mmcs_logging_logger_default(0, v18);
+    v69 = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
+    if (!v69)
     {
       goto LABEL_78;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-    v48 = "%s failed, cannot have no signature";
+    v71 = "%s failed, cannot have no signature";
     goto LABEL_77;
   }
 
-  if ((*v11 & 0x7F) != 4 && (*v11 & 8) == 0)
+  if ((*v17 & 0x7F) != 4 && (*v17 & 8) == 0)
   {
-    v47 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v68 = mmcs_logging_logger_default(v17, v18);
+    v69 = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
+    if (!v69)
     {
       goto LABEL_78;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-    v48 = "%s failed, FORD unexpected for non-MMCSv2 file";
+    v71 = "%s failed, FORD unexpected for non-MMCSv2 file";
     goto LABEL_77;
   }
 
-  if (*v11 < 0)
+  if (*v17 < 0)
   {
-    v47 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v68 = mmcs_logging_logger_default(v17, v18);
+    v69 = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
+    if (!v69)
     {
       goto LABEL_78;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-    v48 = "%s failed, FORD unexpected for unencrypted file";
+    v71 = "%s failed, FORD unexpected for unencrypted file";
     goto LABEL_77;
   }
 
-  v13 = (*(a2 + 8))(a1);
-  if (!v13)
+  v20 = (*(a2 + 8))(a1);
+  if (!v20)
   {
-    v47 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v68 = mmcs_logging_logger_default(0, v21);
+    v69 = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
+    if (!v69)
     {
       goto LABEL_78;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-    v48 = "%s failed, cannot have NULL fileVerificationKey";
+    v71 = "%s failed, cannot have NULL fileVerificationKey";
     goto LABEL_77;
   }
 
-  v14 = v13;
-  FileReferenceData = mmcs_create_FileReferenceData(v8);
+  v22 = v20;
+  FileReferenceData = mmcs_create_FileReferenceData(v12);
   if (!FileReferenceData)
   {
-    v47 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v68 = mmcs_logging_logger_default(0, v24);
+    v69 = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
+    if (v69)
     {
       *buf = 136315138;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-      v48 = "%s failed to invoke mmcs_create_FileReferenceData";
+      v71 = "%s failed to invoke mmcs_create_FileReferenceData";
       goto LABEL_77;
     }
 
 LABEL_78:
-    v16 = 0;
+    v25 = 0;
     goto LABEL_79;
   }
 
-  v16 = FileReferenceData;
-  v17 = malloc_type_malloc(8 * v10, 0x2004093837F09uLL);
-  if (!v17)
+  v25 = FileReferenceData;
+  v26 = malloc_type_malloc(8 * v16, 0x2004093837F09uLL);
+  if (!v26)
   {
-    v52 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v76 = mmcs_logging_logger_default(0, v27);
+    v69 = os_log_type_enabled(v76, OS_LOG_TYPE_ERROR);
+    if (!v69)
     {
       goto LABEL_79;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-    v53 = "%s failed to allocate chunk list";
+    v77 = "%s failed to allocate chunk list";
     goto LABEL_94;
   }
 
-  v18 = v17;
-  v19 = malloc_type_malloc(0x40uLL, 0x10F0040790CF86CuLL);
-  if (!v19)
+  v28 = v26;
+  v29 = malloc_type_malloc(0x40uLL, 0x10F0040790CF86CuLL);
+  if (!v29)
   {
-    v54 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v78 = mmcs_logging_logger_default(0, v30);
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v54, OS_LOG_TYPE_ERROR, "mmcs_create_FileReferenceDataV1 failed to allocate fileReferenceData.", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v78, OS_LOG_TYPE_ERROR, "mmcs_create_FileReferenceDataV1 failed to allocate fileReferenceData.", buf, 2u);
     }
 
-    free(v18);
-    v52 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    free(v28);
+    v76 = mmcs_logging_logger_default(v79, v80);
+    v69 = os_log_type_enabled(v76, OS_LOG_TYPE_ERROR);
+    if (!v69)
     {
       goto LABEL_79;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-    v53 = "%s failed to invoke mmcs_create_FileReferenceDataV1";
+    v77 = "%s failed to invoke mmcs_create_FileReferenceDataV1";
 LABEL_94:
-    v55 = v52;
-    v56 = 12;
+    v81 = v76;
+    v82 = 12;
     goto LABEL_112;
   }
 
-  v20 = v19;
-  opaque__file_reference_data__v1__init(v19);
-  *(v20 + 3) = 0;
-  *(v20 + 4) = v18;
-  *(v20 + 10) = 1;
-  BytePtr = CFDataGetBytePtr(v14);
-  Length = CFDataGetLength(v14);
-  v23 = 0;
+  v31 = v29;
+  opaque__file_reference_data__v1__init(v29);
+  *(v31 + 3) = 0;
+  *(v31 + 4) = v28;
+  *(v31 + 10) = 1;
+  BytePtr = CFDataGetBytePtr(v22);
+  Length = CFDataGetLength(v22);
+  v34 = 0;
   if (BytePtr)
   {
-    v24 = Length;
+    v35 = Length;
   }
 
   else
   {
-    v24 = 0;
+    v35 = 0;
   }
 
   if (Length)
   {
-    v25 = BytePtr;
+    v36 = BytePtr;
   }
 
   else
   {
-    v25 = 0;
+    v36 = 0;
   }
 
-  *(v20 + 6) = v24;
-  *(v20 + 7) = v25;
-  v16[3] = v20;
-  v134 = v20;
+  *(v31 + 6) = v35;
+  *(v31 + 7) = v36;
+  v25[3] = v31;
+  v174 = v31;
   do
   {
-    v26 = *(*(a2 + 40))(a1, v23);
-    if ((v26 & 0x7F) != 4)
+    v37 = (*(a2 + 40))(a1, v34);
+    if ((*v37 & 0x7F) != 4)
     {
-      v57 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v83 = mmcs_logging_logger_default(v37, v38);
+      v69 = os_log_type_enabled(v83, OS_LOG_TYPE_ERROR);
+      if (v69)
       {
         *buf = 136315394;
         *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
         *&buf[12] = 2048;
-        *&buf[14] = v23;
-        v53 = "%s observed inconsistent signature type between registerItem->signature and registerItem->chunks[%llu]->signature.";
+        *&buf[14] = v34;
+        v77 = "%s observed inconsistent signature type between registerItem->signature and registerItem->chunks[%llu]->signature.";
         goto LABEL_111;
       }
 
       goto LABEL_79;
     }
 
-    if ((v26 & 0x80) == 0)
+    if ((*v37 & 0x80) == 0)
     {
-      v57 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v83 = mmcs_logging_logger_default(v37, v38);
+      v69 = os_log_type_enabled(v83, OS_LOG_TYPE_ERROR);
+      if (v69)
       {
         *buf = 136315394;
         *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
         *&buf[12] = 2048;
-        *&buf[14] = v23;
-        v53 = "%s observed inconsistent encryption between registerItem->signature and registerItem->chunks[%llu]->signature.";
+        *&buf[14] = v34;
+        v77 = "%s observed inconsistent encryption between registerItem->signature and registerItem->chunks[%llu]->signature.";
         goto LABEL_111;
       }
 
       goto LABEL_79;
     }
 
-    v27 = (*(a2 + 56))(a1, v23);
-    v28 = (*(a2 + 32))(a1, v23);
-    v29 = (*(a2 + 48))(a1, v23);
-    if (!v29)
+    v39 = (*(a2 + 56))(a1, v34);
+    v40 = (*(a2 + 32))(a1, v34);
+    v41 = (*(a2 + 48))(a1, v34);
+    if (!v41)
     {
-      v58 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v84 = mmcs_logging_logger_default(0, v42);
+      v85 = os_log_type_enabled(v84, OS_LOG_TYPE_ERROR);
+      if (!v85)
       {
         goto LABEL_109;
       }
 
       *buf = 0;
-      v59 = "mmcs_create_FileReferenceDataV1Chunk cannot have NULL chunkEncryptionKey.";
+      v87 = "mmcs_create_FileReferenceDataV1Chunk cannot have NULL chunkEncryptionKey.";
 LABEL_105:
-      _os_log_impl(&dword_2577D8000, v58, OS_LOG_TYPE_ERROR, v59, buf, 2u);
+      _os_log_impl(&dword_2577D8000, v84, OS_LOG_TYPE_ERROR, v87, buf, 2u);
       goto LABEL_109;
     }
 
-    v30 = v29;
-    v31 = CKChunkSchemeAndEncryptionKeySize();
-    if (!v31)
+    v43 = v41;
+    v44 = CKChunkSchemeAndEncryptionKeySize();
+    if (!v44)
     {
-      v58 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v84 = mmcs_logging_logger_default(0, v45);
+      v85 = os_log_type_enabled(v84, OS_LOG_TYPE_ERROR);
+      if (!v85)
       {
         goto LABEL_109;
       }
 
       *buf = 0;
-      v59 = "mmcs_create_FileReferenceDataV1Chunk cannot have zero length chunkEncryptionSignature.";
+      v87 = "mmcs_create_FileReferenceDataV1Chunk cannot have zero length chunkEncryptionSignature.";
       goto LABEL_105;
     }
 
-    v32 = v31;
-    v136 = v23;
-    v33 = malloc_type_malloc(0x58uLL, 0x10700408B6EF5B1uLL);
-    if (!v33)
+    v46 = v44;
+    v176 = v34;
+    v47 = malloc_type_malloc(0x58uLL, 0x10700408B6EF5B1uLL);
+    if (!v47)
     {
-      v58 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v84 = mmcs_logging_logger_default(0, v48);
+      v85 = os_log_type_enabled(v84, OS_LOG_TYPE_ERROR);
+      if (!v85)
       {
         goto LABEL_109;
       }
 
       *buf = 0;
-      v59 = "mmcs_create_FileReferenceDataV1Chunk failed to allocate fileReferenceDataChunk.";
+      v87 = "mmcs_create_FileReferenceDataV1Chunk failed to allocate fileReferenceDataChunk.";
       goto LABEL_105;
     }
 
-    v34 = v33;
-    opaque__file_reference_data__v1__chunk__init(v33);
-    if (!v28)
+    v49 = v47;
+    opaque__file_reference_data__v1__chunk__init(v47);
+    if (!v40)
     {
       goto LABEL_38;
     }
 
-    *buf = v28;
-    ProtobufCBinaryData_SetCopyBufferLen(v34 + 6, buf, 4uLL);
-    if (!v34[7])
+    *buf = v40;
+    ProtobufCBinaryData_SetCopyBufferLen(v49 + 6, buf, 4uLL);
+    if (!v49[7])
     {
-      v60 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v88 = mmcs_logging_logger_default(v50, v51);
+      if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
       {
-        *v139 = 0;
-        _os_log_impl(&dword_2577D8000, v60, OS_LOG_TYPE_ERROR, "mmcs_create_FileReferenceDataV1Chunk failed to allocate chunk_length.", v139, 2u);
+        *v179 = 0;
+        _os_log_impl(&dword_2577D8000, v88, OS_LOG_TYPE_ERROR, "mmcs_create_FileReferenceDataV1Chunk failed to allocate chunk_length.", v179, 2u);
       }
 
-      free(v34);
-      v23 = v136;
+      free(v49);
+      v34 = v176;
 LABEL_109:
-      v57 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v83 = mmcs_logging_logger_default(v85, v86);
+      v69 = os_log_type_enabled(v83, OS_LOG_TYPE_ERROR);
+      if (v69)
       {
         *buf = 136315394;
         *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
         *&buf[12] = 2048;
-        *&buf[14] = v23;
-        v53 = "%s observed error processing registerItem->chunks[%llu]";
+        *&buf[14] = v34;
+        v77 = "%s observed error processing registerItem->chunks[%llu]";
 LABEL_111:
-        v55 = v57;
-        v56 = 22;
+        v81 = v83;
+        v82 = 22;
 LABEL_112:
-        _os_log_impl(&dword_2577D8000, v55, OS_LOG_TYPE_ERROR, v53, buf, v56);
+        _os_log_impl(&dword_2577D8000, v81, OS_LOG_TYPE_ERROR, v77, buf, v82);
       }
 
 LABEL_79:
-      v49 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v72 = mmcs_logging_logger_default(v69, v70);
+      v73 = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
+      if (v73)
       {
         *buf = 136315138;
         *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV1";
-        _os_log_impl(&dword_2577D8000, v49, OS_LOG_TYPE_ERROR, "%s failed to create fileReferenceData", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v72, OS_LOG_TYPE_ERROR, "%s failed to create fileReferenceData", buf, 0xCu);
       }
 
-      if (v16)
+      if (v25)
       {
-        mmcs_free_FileReferenceData(v16);
+        v73 = mmcs_free_FileReferenceData(v25);
       }
 
-      v45 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v66 = mmcs_logging_logger_default(v73, v74);
+      if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_86;
+        return 0;
       }
 
       *buf = 136315138;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
-      v46 = "%s failed, cannot have NULL fileReferenceData";
+      v67 = "%s failed, cannot have NULL fileReferenceData";
 LABEL_85:
-      _os_log_impl(&dword_2577D8000, v45, OS_LOG_TYPE_ERROR, v46, buf, 0xCu);
-      goto LABEL_86;
+      _os_log_impl(&dword_2577D8000, v66, OS_LOG_TYPE_ERROR, v67, buf, 0xCu);
+      return 0;
     }
 
-    *(v34 + 10) = 1;
+    *(v49 + 10) = 1;
 LABEL_38:
-    v34[3] = v32;
-    v34[4] = v30;
-    if (v27)
+    v49[3] = v46;
+    v49[4] = v43;
+    if (v39)
     {
-      v35 = CKSubchunkBlobSize();
-      if (v35)
+      v52 = CKSubchunkBlobSize();
+      if (v52)
       {
-        v36 = v27;
+        v53 = v39;
       }
 
       else
       {
-        v36 = 0;
+        v53 = 0;
       }
 
-      v34[9] = v35;
-      v34[10] = v36;
-      v37 = 1;
+      v49[9] = v52;
+      v49[10] = v53;
+      v54 = 1;
     }
 
     else
     {
-      v37 = 0;
+      v54 = 0;
     }
 
-    *(v34 + 16) = v37;
-    v39 = *(v134 + 3);
-    v38 = *(v134 + 4);
-    *(v134 + 3) = v39 + 1;
-    *(v38 + 8 * v39) = v34;
-    v23 = v136 + 1;
+    *(v49 + 16) = v54;
+    v56 = *(v174 + 3);
+    v55 = *(v174 + 4);
+    *(v174 + 3) = v56 + 1;
+    *(v55 + 8 * v56) = v49;
+    v34 = v176 + 1;
   }
 
-  while (v10 != v136 + 1);
-  v40 = (*(a2 + 24))(a1);
-  if (!v40)
+  while (v16 != v176 + 1);
+  v57 = (*(a2 + 24))(a1);
+  if (!v57)
   {
-    v43 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v62 = mmcs_logging_logger_default(0, v58);
+    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
+    if (!v63)
     {
       goto LABEL_152;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV2";
-    v44 = "%s failed, cannot have no-chunks";
+    v65 = "%s failed, cannot have no-chunks";
 LABEL_151:
-    _os_log_impl(&dword_2577D8000, v43, OS_LOG_TYPE_ERROR, v44, buf, 0xCu);
+    _os_log_impl(&dword_2577D8000, v62, OS_LOG_TYPE_ERROR, v65, buf, 0xCu);
     goto LABEL_152;
   }
 
-  v41 = v40;
-  v42 = (*a2)(a1);
-  if (!v42)
+  v59 = v57;
+  v60 = (*a2)(a1);
+  if (!v60)
   {
-    v43 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v62 = mmcs_logging_logger_default(0, v61);
+    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
+    if (!v63)
     {
       goto LABEL_152;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV2";
-    v44 = "%s failed, cannot have no signature";
+    v65 = "%s failed, cannot have no signature";
     goto LABEL_151;
   }
 
-  if ((*v42 & 0x7F) != 4 && (*v42 & 8) == 0)
+  if ((*v60 & 0x7F) != 4 && (*v60 & 8) == 0)
   {
-    v43 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v62 = mmcs_logging_logger_default(v60, v61);
+    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
+    if (v63)
     {
       *buf = 136315138;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV2";
-      v44 = "%s failed, FORD unexpected for non-MMCSv2 file";
+      v65 = "%s failed, FORD unexpected for non-MMCSv2 file";
       goto LABEL_151;
     }
 
 LABEL_152:
-    v63 = 0;
+    v92 = 0;
 LABEL_153:
-    v88 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+    v114 = mmcs_logging_logger_default(v63, v64);
+    v115 = os_log_type_enabled(v114, OS_LOG_TYPE_ERROR);
+    if (v115)
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v88, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileReferenceData failed to create fileReferenceData", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v114, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileReferenceData failed to create fileReferenceData", buf, 2u);
     }
 
-    if (v63)
+    if (v92)
     {
-      mmcs_free_FileReferenceData(v63);
+      v115 = mmcs_free_FileReferenceData(v92);
     }
 
-    v89 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+    v117 = mmcs_logging_logger_default(v115, v116);
+    if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
@@ -5764,86 +5787,91 @@ LABEL_153:
     goto LABEL_160;
   }
 
-  if (*v42 < 0)
+  if (*v60 < 0)
   {
-    v43 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v62 = mmcs_logging_logger_default(v60, v61);
+    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
+    if (!v63)
     {
       goto LABEL_152;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV2";
-    v44 = "%s failed, FORD unexpected for unencrypted file";
+    v65 = "%s failed, FORD unexpected for unencrypted file";
     goto LABEL_151;
   }
 
-  v61 = (*(a2 + 8))(a1);
-  if (!v61)
+  v89 = (*(a2 + 8))(a1);
+  if (!v89)
   {
-    v43 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v62 = mmcs_logging_logger_default(0, v90);
+    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
+    if (!v63)
     {
       goto LABEL_152;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV2";
-    v44 = "%s failed, cannot have NULL fileVerificationKey";
+    v65 = "%s failed, cannot have NULL fileVerificationKey";
     goto LABEL_151;
   }
 
-  v62 = v61;
-  v63 = mmcs_create_FileReferenceData(v8);
+  v91 = v89;
+  v63 = mmcs_create_FileReferenceData(v12);
+  v92 = v63;
   if (!v63)
   {
     goto LABEL_153;
   }
 
-  v133 = malloc_type_malloc(0x38uLL, 0x10F0040167B91E7uLL);
-  if (!v133)
+  v63 = malloc_type_malloc(0x38uLL, 0x10F0040167B91E7uLL);
+  v173 = v63;
+  if (!v63)
   {
     goto LABEL_153;
   }
 
-  opaque__file_reference_data__v2__init(v133);
-  v63[4] = v133;
-  v64 = CFDataGetBytePtr(v62);
-  v65 = CFDataGetLength(v62);
-  v132 = 0;
-  v135 = 0;
-  v137 = 0;
-  if (v64)
+  opaque__file_reference_data__v2__init(v63);
+  *(v92 + 32) = v173;
+  v93 = CFDataGetBytePtr(v91);
+  v94 = CFDataGetLength(v91);
+  v172 = 0;
+  v175 = 0;
+  v177 = 0;
+  if (v93)
   {
-    v66 = v65;
+    v95 = v94;
   }
 
   else
   {
-    v66 = 0;
+    v95 = 0;
   }
 
-  if (v65)
+  if (v94)
   {
-    v67 = v64;
+    v96 = v93;
   }
 
   else
   {
-    v67 = 0;
+    v96 = 0;
   }
 
-  v133[3] = v66;
-  v133[4] = v67;
+  *(v173 + 24) = v95;
+  *(v173 + 32) = v96;
   while (2)
   {
-    v68 = (*(a2 + 40))(a1, v137);
-    v69 = (*(a2 + 32))(a1, v137);
-    v70 = (*(a2 + 48))(a1, v137);
-    if ((*v68 & 0x7F) != 4)
+    v97 = (*(a2 + 40))(a1, v177);
+    v98 = (*(a2 + 32))(a1, v177);
+    v63 = (*(a2 + 48))(a1, v177);
+    if ((*v97 & 0x7F) != 4)
     {
-      v90 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+      v118 = mmcs_logging_logger_default(v63, v64);
+      v63 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
+      if (!v63)
       {
         goto LABEL_153;
       }
@@ -5851,105 +5879,107 @@ LABEL_153:
       *buf = 136315394;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV2";
       *&buf[12] = 2048;
-      *&buf[14] = v137;
-      v91 = "%s observed inconsistent signature type between registerItem->signature and registerItem->chunks[%llu]->signature.";
-      v92 = v90;
-      v93 = 22;
+      *&buf[14] = v177;
+      v119 = "%s observed inconsistent signature type between registerItem->signature and registerItem->chunks[%llu]->signature.";
+      v120 = v118;
+      v121 = 22;
 LABEL_165:
-      _os_log_impl(&dword_2577D8000, v92, OS_LOG_TYPE_ERROR, v91, buf, v93);
+      _os_log_impl(&dword_2577D8000, v120, OS_LOG_TYPE_ERROR, v119, buf, v121);
       goto LABEL_153;
     }
 
-    if ((*v68 & 0x80) == 0)
+    if ((*v97 & 0x80) == 0)
     {
-      v94 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+      v122 = mmcs_logging_logger_default(v63, v64);
+      v63 = os_log_type_enabled(v122, OS_LOG_TYPE_ERROR);
+      if (!v63)
       {
         goto LABEL_153;
       }
 
       *buf = 134217984;
-      *&buf[4] = v137;
-      v91 = "mmcs_item_create_FileReferenceData observed inconsistent encryption between registerItem->signature and registerItem->ri_chunkInstances[%llu].chunkReference->signature.";
-      v92 = v94;
-      v93 = 12;
+      *&buf[4] = v177;
+      v119 = "mmcs_item_create_FileReferenceData observed inconsistent encryption between registerItem->signature and registerItem->ri_chunkInstances[%llu].chunkReference->signature.";
+      v120 = v122;
+      v121 = 12;
       goto LABEL_165;
     }
 
-    v71 = v70;
-    if (v132 != v69)
+    v99 = v63;
+    if (v172 != v98)
     {
-      v72 = malloc_type_realloc(v133[6], 8 * v133[5] + 8, 0x2004093837F09uLL);
-      if (!v72)
+      v63 = malloc_type_realloc(*(v173 + 48), 8 * *(v173 + 40) + 8, 0x2004093837F09uLL);
+      if (!v63)
       {
         goto LABEL_153;
       }
 
-      v133[6] = v72;
-      v135 = malloc_type_malloc(0x38uLL, 0x10F0040167B91E7uLL);
-      if (!v135)
+      *(v173 + 48) = v63;
+      v63 = malloc_type_malloc(0x38uLL, 0x10F0040167B91E7uLL);
+      v175 = v63;
+      if (!v63)
       {
         goto LABEL_153;
       }
 
-      opaque__file_reference_data__v2__chunk_group__init(v135);
-      v74 = v133[5];
-      v73 = v133[6];
-      v133[5] = v74 + 1;
-      v73[v74] = v135;
-      *buf = v69;
-      ProtobufCBinaryData_SetCopyBufferLen(v135 + 3, buf, 4uLL);
-      v132 = v69;
-      if (!*(v135 + 4))
+      opaque__file_reference_data__v2__chunk_group__init(v63);
+      v101 = *(v173 + 40);
+      v100 = *(v173 + 48);
+      *(v173 + 40) = v101 + 1;
+      *(v100 + 8 * v101) = v175;
+      *buf = v98;
+      ProtobufCBinaryData_SetCopyBufferLen((v175 + 24), buf, 4uLL);
+      v172 = v98;
+      if (!*(v175 + 32))
       {
         goto LABEL_153;
       }
     }
 
-    if (!v71)
+    if (!v99)
     {
       goto LABEL_153;
     }
 
-    v75 = CKChunkSchemeAndEncryptionKeySize();
-    if (!v75)
+    v63 = CKChunkSchemeAndEncryptionKeySize();
+    if (!v63)
     {
       goto LABEL_153;
     }
 
-    v76 = v75;
-    v77 = malloc_type_malloc(0x40uLL, 0x10700407A2CD8F7uLL);
-    v78 = opaque__file_reference_data__v2__chunk_group__chunk__init(v77);
-    v77[3] = v76;
-    v77[4] = v71;
-    v79 = (*(a2 + 56))(a1, v137, v78);
-    if (v79)
+    v102 = v63;
+    v103 = malloc_type_malloc(0x40uLL, 0x10700407A2CD8F7uLL);
+    v104 = opaque__file_reference_data__v2__chunk_group__chunk__init(v103);
+    v103[3] = v102;
+    v103[4] = v99;
+    v105 = (*(a2 + 56))(a1, v177, v104);
+    if (v105)
     {
-      v80 = v79;
-      v81 = CKSubchunkBlobSize();
-      v82 = v81 ? v80 : 0;
-      v77[6] = v81;
-      v77[7] = v82;
-      v83 = 1;
+      v106 = v105;
+      v107 = CKSubchunkBlobSize();
+      v108 = v107 ? v106 : 0;
+      v103[6] = v107;
+      v103[7] = v108;
+      v109 = 1;
     }
 
     else
     {
-      v83 = 0;
+      v109 = 0;
     }
 
-    *(v77 + 10) = v83;
-    v84 = malloc_type_realloc(*(v135 + 6), 8 * *(v135 + 5) + 8, 0x2004093837F09uLL);
-    if (!v84)
+    *(v103 + 10) = v109;
+    v63 = malloc_type_realloc(*(v175 + 48), 8 * *(v175 + 40) + 8, 0x2004093837F09uLL);
+    if (!v63)
     {
       goto LABEL_153;
     }
 
-    v85 = *(v135 + 5);
-    *(v135 + 5) = v85 + 1;
-    *(v135 + 6) = v84;
-    v84[v85] = v77;
-    if (v41 != ++v137)
+    v110 = *(v175 + 40);
+    *(v175 + 40) = v110 + 1;
+    *(v175 + 48) = v63;
+    *(v63 + 8 * v110) = v103;
+    if (v59 != ++v177)
     {
       continue;
     }
@@ -5957,119 +5987,126 @@ LABEL_165:
     break;
   }
 
-  packed_size = opaque__file_reference_data__get_packed_size(v63);
-  if (packed_size && opaque__file_reference_data__get_packed_size(v16) > packed_size)
+  packed_size = opaque__file_reference_data__get_packed_size(v92, v64);
+  if (packed_size && opaque__file_reference_data__get_packed_size(v25, v112) > packed_size)
   {
-    v87 = v16;
-    v16 = v63;
+    v113 = v25;
+    v25 = v92;
   }
 
   else
   {
-    v87 = v63;
+    v113 = v92;
   }
 
-  mmcs_free_FileReferenceData(v87);
-  v95 = (*(a2 + 24))(a1);
-  if (!v95)
+  mmcs_free_FileReferenceData(v113);
+  v123 = (*(a2 + 24))(a1);
+  if (!v123)
   {
-    v98 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+    v128 = mmcs_logging_logger_default(0, v124);
+    Mutable = os_log_type_enabled(v128, OS_LOG_TYPE_ERROR);
+    if (!Mutable)
     {
       goto LABEL_216;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV3";
-    v99 = "%s failed, cannot have no-chunks";
+    v131 = "%s failed, cannot have no-chunks";
 LABEL_215:
-    _os_log_impl(&dword_2577D8000, v98, OS_LOG_TYPE_ERROR, v99, buf, 0xCu);
+    _os_log_impl(&dword_2577D8000, v128, OS_LOG_TYPE_ERROR, v131, buf, 0xCu);
     goto LABEL_216;
   }
 
-  v96 = v95;
-  v97 = (*a2)(a1);
-  if (!v97)
+  v125 = v123;
+  v126 = (*a2)(a1);
+  if (!v126)
   {
-    v98 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+    v128 = mmcs_logging_logger_default(0, v127);
+    Mutable = os_log_type_enabled(v128, OS_LOG_TYPE_ERROR);
+    if (!Mutable)
     {
       goto LABEL_216;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV3";
-    v99 = "%s failed, cannot have no signature";
+    v131 = "%s failed, cannot have no signature";
     goto LABEL_215;
   }
 
-  if ((*v97 & 0x7F) != 4 && (*v97 & 8) == 0)
+  if ((*v126 & 0x7F) != 4 && (*v126 & 8) == 0)
   {
-    v98 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+    v128 = mmcs_logging_logger_default(v126, v127);
+    Mutable = os_log_type_enabled(v128, OS_LOG_TYPE_ERROR);
+    if (Mutable)
     {
       *buf = 136315138;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV3";
-      v99 = "%s failed, FORD unexpected for non-MMCSv2 file";
+      v131 = "%s failed, FORD unexpected for non-MMCSv2 file";
       goto LABEL_215;
     }
 
 LABEL_216:
-    Mutable = 0;
+    v135 = 0;
 LABEL_217:
-    v108 = 0;
+    v145 = 0;
     goto LABEL_218;
   }
 
-  if (*v97 < 0)
+  if (*v126 < 0)
   {
-    v98 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+    v128 = mmcs_logging_logger_default(v126, v127);
+    Mutable = os_log_type_enabled(v128, OS_LOG_TYPE_ERROR);
+    if (!Mutable)
     {
       goto LABEL_216;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV3";
-    v99 = "%s failed, FORD unexpected for unencrypted file";
+    v131 = "%s failed, FORD unexpected for unencrypted file";
     goto LABEL_215;
   }
 
-  v100 = (*(a2 + 8))(a1);
-  if (!v100)
+  v132 = (*(a2 + 8))(a1);
+  if (!v132)
   {
-    v98 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+    v128 = mmcs_logging_logger_default(0, v133);
+    Mutable = os_log_type_enabled(v128, OS_LOG_TYPE_ERROR);
+    if (!Mutable)
     {
       goto LABEL_216;
     }
 
     *buf = 136315138;
     *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV3";
-    v99 = "%s failed, cannot have NULL fileVerificationKey";
+    v131 = "%s failed, cannot have NULL fileVerificationKey";
     goto LABEL_215;
   }
 
-  v101 = v100;
+  v134 = v132;
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, 0, MEMORY[0x277CBF150]);
+  v135 = Mutable;
   if (!Mutable)
   {
     goto LABEL_217;
   }
 
-  for (i = 0; i != v96; ++i)
+  for (i = 0; i != v125; ++i)
   {
-    v104 = (*(a2 + 32))(a1, i);
-    Value = CFDictionaryGetValue(Mutable, v104);
+    v137 = (*(a2 + 32))(a1, i);
+    Value = CFDictionaryGetValue(v135, v137);
     *buf = Value;
     if (!Value)
     {
-      if (!mmcs_index_set_create(buf))
+      Mutable = mmcs_index_set_create(buf);
+      if (!Mutable)
       {
         goto LABEL_217;
       }
 
-      CFDictionarySetValue(Mutable, v104, *buf);
+      CFDictionarySetValue(v135, v137, *buf);
       Value = *buf;
       if (*buf)
       {
@@ -6083,24 +6120,26 @@ LABEL_217:
 
   *buf = 0;
   mmcs_index_set_create(buf);
-  CFDictionaryApplyFunction(Mutable, _chunkLengthIndexSetChecker, *buf);
-  if (!mmcs_index_set_contains_range(*buf, 0, v96 - 1))
+  CFDictionaryApplyFunction(v135, _chunkLengthIndexSetChecker, *buf);
+  v139 = mmcs_index_set_contains_range(*buf, 0, v125 - 1);
+  if (!v139)
   {
-    v106 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+    v141 = mmcs_logging_logger_default(v139, v140);
+    if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
     {
-      *v139 = 0;
-      _os_log_impl(&dword_2577D8000, v106, OS_LOG_TYPE_ERROR, "index set missing indexes", v139, 2u);
+      *v179 = 0;
+      _os_log_impl(&dword_2577D8000, v141, OS_LOG_TYPE_ERROR, "index set missing indexes", v179, 2u);
     }
   }
 
-  if (mmcs_index_set_count(*buf) != v96)
+  v142 = mmcs_index_set_count(*buf, v140);
+  if (v142 != v125)
   {
-    v107 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+    v144 = mmcs_logging_logger_default(v142, v143);
+    if (os_log_type_enabled(v144, OS_LOG_TYPE_ERROR))
     {
-      *v139 = 0;
-      _os_log_impl(&dword_2577D8000, v107, OS_LOG_TYPE_ERROR, "index set wrong number of indexes", v139, 2u);
+      *v179 = 0;
+      _os_log_impl(&dword_2577D8000, v144, OS_LOG_TYPE_ERROR, "index set wrong number of indexes", v179, 2u);
     }
   }
 
@@ -6109,80 +6148,84 @@ LABEL_217:
     C3BaseRelease(*buf);
   }
 
-  v108 = mmcs_create_FileReferenceData(v8);
-  if (!v108 || (v138 = malloc_type_malloc(0x48uLL, 0x10F00406B62C39FuLL)) == 0)
+  Mutable = mmcs_create_FileReferenceData(v12);
+  v145 = Mutable;
+  if (!Mutable || (Mutable = malloc_type_malloc(0x48uLL, 0x10F00406B62C39FuLL), (v178 = Mutable) == 0))
   {
 LABEL_218:
-    v124 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+    v163 = mmcs_logging_logger_default(Mutable, v130);
+    Mutable = os_log_type_enabled(v163, OS_LOG_TYPE_ERROR);
+    if (Mutable)
     {
-      *v139 = 0;
-      _os_log_impl(&dword_2577D8000, v124, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileReferenceData failed to create fileReferenceData", v139, 2u);
+      *v179 = 0;
+      _os_log_impl(&dword_2577D8000, v163, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileReferenceData failed to create fileReferenceData", v179, 2u);
     }
 
-    if (v108)
+    if (v145)
     {
-      mmcs_free_FileReferenceData(v108);
-      v108 = 0;
+      Mutable = mmcs_free_FileReferenceData(v145);
+      v145 = 0;
     }
 
     goto LABEL_222;
   }
 
-  opaque__file_reference_data__v3__init(v138);
-  v108[5] = v138;
-  v109 = CFDataGetBytePtr(v101);
-  v110 = CFDataGetLength(v101);
-  if (v109)
+  opaque__file_reference_data__v3__init(Mutable);
+  *(v145 + 40) = v178;
+  v146 = CFDataGetBytePtr(v134);
+  v147 = CFDataGetLength(v134);
+  if (v146)
   {
-    v111 = v110;
+    v148 = v147;
   }
 
   else
   {
-    v111 = 0;
+    v148 = 0;
   }
 
-  if (v110)
+  if (v147)
   {
-    v112 = v109;
+    v149 = v146;
   }
 
   else
   {
-    v112 = 0;
+    v149 = 0;
   }
 
-  v138[3] = v111;
-  v138[4] = v112;
-  v113 = malloc_type_malloc(8 * v96, 0x2004093837F09uLL);
-  if (!v113)
+  v178[3] = v148;
+  v178[4] = v149;
+  v150 = malloc_type_malloc(8 * v125, 0x2004093837F09uLL);
+  if (!v150)
   {
-    v126 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+    v166 = mmcs_logging_logger_default(0, v151);
+    Mutable = os_log_type_enabled(v166, OS_LOG_TYPE_ERROR);
+    if (!Mutable)
     {
       goto LABEL_218;
     }
 
     *buf = 0;
-    v127 = "mmcs_item_create_FileReferenceData failed to allocate chunk list";
-    v128 = v126;
-    v129 = 2;
+    v167 = "mmcs_item_create_FileReferenceData failed to allocate chunk list";
+    v168 = v166;
+    v169 = 2;
     goto LABEL_240;
   }
 
-  v114 = 0;
-  v138[6] = v113;
+  v152 = 0;
+  v178[6] = v150;
   do
   {
-    v115 = (*(a2 + 40))(a1, v114);
-    v116 = (*(a2 + 48))(a1, v114);
-    v117 = (*(a2 + 32))(a1, v114);
-    v118 = (*(a2 + 56))(a1, v114);
-    if ((*v115 & 0x7F) != 4)
+    v153 = (*(a2 + 40))(a1, v152);
+    v154 = (*(a2 + 48))(a1, v152);
+    v155 = (*(a2 + 32))(a1, v152);
+    v156 = (*(a2 + 56))(a1, v152);
+    if ((*v153 & 0x7F) != 4)
     {
-      v130 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+      v170 = mmcs_logging_logger_default(v156, v157);
+      Mutable = os_log_type_enabled(v170, OS_LOG_TYPE_ERROR);
+      if (!Mutable)
       {
         goto LABEL_218;
       }
@@ -6190,184 +6233,183 @@ LABEL_218:
       *buf = 136315394;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceDataUsingV3";
       *&buf[12] = 2048;
-      *&buf[14] = v114;
-      v127 = "%s observed inconsistent signature type between registerItem->signature and registerItem->chunks[%llu]->signature.";
-      v128 = v130;
-      v129 = 22;
+      *&buf[14] = v152;
+      v167 = "%s observed inconsistent signature type between registerItem->signature and registerItem->chunks[%llu]->signature.";
+      v168 = v170;
+      v169 = 22;
 LABEL_240:
-      _os_log_impl(&dword_2577D8000, v128, OS_LOG_TYPE_ERROR, v127, buf, v129);
+      _os_log_impl(&dword_2577D8000, v168, OS_LOG_TYPE_ERROR, v167, buf, v169);
       goto LABEL_218;
     }
 
-    if ((*v115 & 0x80) == 0)
+    if ((*v153 & 0x80) == 0)
     {
-      v131 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
+      v171 = mmcs_logging_logger_default(v156, v157);
+      Mutable = os_log_type_enabled(v171, OS_LOG_TYPE_ERROR);
+      if (!Mutable)
       {
         goto LABEL_218;
       }
 
       *buf = 134217984;
-      *&buf[4] = v114;
-      v127 = "mmcs_item_create_FileReferenceData observed inconsistent encryption between registerItem->signature and registerItem->ri_chunkInstances[%llu].chunkReference->signature.";
+      *&buf[4] = v152;
+      v167 = "mmcs_item_create_FileReferenceData observed inconsistent encryption between registerItem->signature and registerItem->ri_chunkInstances[%llu].chunkReference->signature.";
 LABEL_239:
-      v128 = v131;
-      v129 = 12;
+      v168 = v171;
+      v169 = 12;
       goto LABEL_240;
     }
 
-    FileReferenceDataV3Chunk = mmcs_create_FileReferenceDataV3Chunk(v116, v117, v118);
+    FileReferenceDataV3Chunk = mmcs_create_FileReferenceDataV3Chunk(v154, v155, v156);
     if (!FileReferenceDataV3Chunk)
     {
-      v131 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
+      v171 = mmcs_logging_logger_default(0, v159);
+      Mutable = os_log_type_enabled(v171, OS_LOG_TYPE_ERROR);
+      if (!Mutable)
       {
         goto LABEL_218;
       }
 
       *buf = 134217984;
-      *&buf[4] = v114;
-      v127 = "mmcs_item_create_FileReferenceData observed error processing registerItem->ri_chunkInstances[%llu].chunkReference";
+      *&buf[4] = v152;
+      v167 = "mmcs_item_create_FileReferenceData observed error processing registerItem->ri_chunkInstances[%llu].chunkReference";
       goto LABEL_239;
     }
 
-    v121 = v138[5];
-    v120 = v138[6];
-    v138[5] = v121 + 1;
-    *(v120 + 8 * v121) = FileReferenceDataV3Chunk;
-    ++v114;
+    v161 = v178[5];
+    v160 = v178[6];
+    v178[5] = v161 + 1;
+    *(v160 + 8 * v161) = FileReferenceDataV3Chunk;
+    ++v152;
   }
 
-  while (v96 != v114);
-  Count = CFDictionaryGetCount(Mutable);
-  v123 = malloc_type_malloc(8 * Count, 0x2004093837F09uLL);
-  v138[8] = v123;
-  if (!v123)
+  while (v125 != v152);
+  Count = CFDictionaryGetCount(v135);
+  Mutable = malloc_type_malloc(8 * Count, 0x2004093837F09uLL);
+  v178[8] = Mutable;
+  if (!Mutable)
   {
     goto LABEL_218;
   }
 
   *&buf[8] = 0;
   *&buf[16] = 1;
-  *buf = v138;
-  CFDictionaryApplyFunction(Mutable, _add_index_set, buf);
+  *buf = v178;
+  CFDictionaryApplyFunction(v135, _add_index_set, buf);
   if (!buf[16])
   {
     goto LABEL_218;
   }
 
 LABEL_222:
-  if (Mutable)
+  if (v135)
   {
-    CFRelease(Mutable);
+    CFRelease(v135);
   }
 
-  if (!v108)
+  if (!v145)
   {
-    v89 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+    v117 = mmcs_logging_logger_default(Mutable, v130);
+    if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
       *&buf[4] = "mmcs_generic_item_create_FileReferenceData";
 LABEL_159:
-      _os_log_impl(&dword_2577D8000, v89, OS_LOG_TYPE_ERROR, "%s failed, cannot have NULL fileReferenceData", buf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v117, OS_LOG_TYPE_ERROR, "%s failed, cannot have NULL fileReferenceData", buf, 0xCu);
     }
 
 LABEL_160:
-    mmcs_free_FileReferenceData(v16);
-LABEL_86:
-    v16 = 0;
-    goto LABEL_87;
+    mmcs_free_FileReferenceData(v25);
+    return 0;
   }
 
-  v125 = opaque__file_reference_data__get_packed_size(v108);
-  if (v125 && opaque__file_reference_data__get_packed_size(v16) > v125)
+  v164 = opaque__file_reference_data__get_packed_size(v145, v130);
+  if (v164 && opaque__file_reference_data__get_packed_size(v25, v165) > v164)
   {
-    mmcs_free_FileReferenceData(v16);
-    v16 = v108;
+    mmcs_free_FileReferenceData(v25);
+    return v145;
   }
 
   else
   {
-    mmcs_free_FileReferenceData(v108);
+    mmcs_free_FileReferenceData(v145);
   }
 
-LABEL_87:
-  v50 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v25;
 }
 
-uint64_t mmcs_create_file_reference_data_with_cfdata(void **a1)
+uint64_t mmcs_create_file_reference_data_with_cfdata(void **a1, uint64_t a2)
 {
-  packed_size = opaque__file_reference_data__get_packed_size(a1);
+  packed_size = opaque__file_reference_data__get_packed_size(a1, a2);
   if (packed_size)
   {
-    v3 = packed_size;
-    v4 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
-    if (v4)
+    v5 = packed_size;
+    v6 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
+    if (v6)
     {
-      v5 = v4;
-      if (v3 == opaque__file_reference_data__pack(a1, v4))
+      v8 = v6;
+      v9 = opaque__file_reference_data__pack(a1, v6);
+      if (v5 == v9)
       {
-        v6 = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v5, v3, *MEMORY[0x277CBECF0]);
-        if (v6)
+        v11 = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v8, v5, *MEMORY[0x277CBECF0]);
+        if (v11)
         {
-          v7 = v6;
-          v8 = PCSMMCSCopyEncryptedData();
-          CFRelease(v7);
-          return v8;
+          v13 = v11;
+          v14 = PCSMMCSCopyEncryptedData();
+          CFRelease(v13);
+          return v14;
         }
 
-        v13 = mmcs_logging_logger_default();
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v19 = mmcs_logging_logger_default(0, v12);
+        if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_16;
         }
 
-        v16 = 0;
-        v14 = "mmcs_create_file_reference_data_with_cfdata failed to allocate CFData wrapping body buffer";
-        v15 = &v16;
+        v22 = 0;
+        v20 = "mmcs_create_file_reference_data_with_cfdata failed to allocate CFData wrapping body buffer";
+        v21 = &v22;
       }
 
       else
       {
-        v13 = mmcs_logging_logger_default();
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v19 = mmcs_logging_logger_default(v9, v10);
+        if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
 LABEL_16:
-          free(v5);
+          free(v8);
           return 0;
         }
 
-        v17 = 0;
-        v14 = "mmcs_create_file_reference_data_with_cfdata failed to serialize fileReferenceData to expected size";
-        v15 = &v17;
+        v23 = 0;
+        v20 = "mmcs_create_file_reference_data_with_cfdata failed to serialize fileReferenceData to expected size";
+        v21 = &v23;
       }
 
-      _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, v14, v15, 2u);
+      _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, v20, v21, 2u);
       goto LABEL_16;
     }
 
-    v10 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v16 = mmcs_logging_logger_default(0, v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v11 = "mmcs_create_file_reference_data_with_cfdata failed to allocate buffer for serialized fileReferenceData";
-      v12 = buf;
+      v17 = "mmcs_create_file_reference_data_with_cfdata failed to allocate buffer for serialized fileReferenceData";
+      v18 = buf;
       goto LABEL_10;
     }
   }
 
   else
   {
-    v10 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v16 = mmcs_logging_logger_default(0, v4);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v19 = 0;
-      v11 = "mmcs_create_file_reference_data_with_cfdata invalid size for serialized fileReferenceData";
-      v12 = &v19;
+      v25 = 0;
+      v17 = "mmcs_create_file_reference_data_with_cfdata invalid size for serialized fileReferenceData";
+      v18 = &v25;
 LABEL_10:
-      _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_ERROR, v11, v12, 2u);
+      _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_ERROR, v17, v18, 2u);
     }
   }
 
@@ -6386,8 +6428,8 @@ void **mmcs_free_FileReferenceData(void **result)
       free(v2);
     }
 
-    v1[7] = 0;
-    v3 = v1[3];
+    *(v1 + 56) = 0;
+    v3 = *(v1 + 24);
     if (v3)
     {
       v4 = v3[3];
@@ -6412,7 +6454,7 @@ void **mmcs_free_FileReferenceData(void **result)
       v3[7] = 0;
     }
 
-    v7 = v1[4];
+    v7 = *(v1 + 32);
     if (v7)
     {
       v8 = v7[5];
@@ -6451,7 +6493,7 @@ void **mmcs_free_FileReferenceData(void **result)
       v7[4] = 0;
     }
 
-    v16 = v1[5];
+    v16 = *(v1 + 40);
     if (v16)
     {
       v17 = v16[5];
@@ -6482,48 +6524,48 @@ void **mmcs_free_FileReferenceData(void **result)
   return result;
 }
 
-uint64_t mmcs_register_item_create_FileOpaqueReferenceData(uint64_t a1)
+uint64_t mmcs_register_item_create_FileOpaqueReferenceData(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
     FileReferenceData = mmcs_generic_item_create_FileReferenceData(a1, mmcs_register_item_generic_item_callbacks);
     if (FileReferenceData)
     {
-      v3 = FileReferenceData;
-      v4 = *(a1 + 32);
-      if (v4)
+      v5 = FileReferenceData;
+      v6 = *(a1 + 32);
+      if (v6)
       {
-        v5 = CFGetTypeID(v4);
-        if (v5 == CFDataGetTypeID())
+        v7 = CFGetTypeID(v6);
+        TypeID = CFDataGetTypeID();
+        if (v7 == TypeID)
         {
-          v6 = *(a1 + 32);
-          file_reference_data_with_cfdata = mmcs_create_file_reference_data_with_cfdata(v3);
+          file_reference_data_with_cfdata = mmcs_create_file_reference_data_with_cfdata(v5, *(a1 + 32));
           if (file_reference_data_with_cfdata)
           {
 LABEL_20:
-            mmcs_free_FileReferenceData(v3);
+            mmcs_free_FileReferenceData(v5);
             return file_reference_data_with_cfdata;
           }
 
-          v8 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v12 = mmcs_logging_logger_default(0, v10);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            v15 = 0;
-            v9 = "mmcs_register_item_create_FileOpaquedReferenceData failed to create cfdata from fileReferenceData.";
-            v10 = &v15;
+            v19 = 0;
+            v13 = "mmcs_register_item_create_FileOpaquedReferenceData failed to create cfdata from fileReferenceData.";
+            v14 = &v19;
 LABEL_18:
-            _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_ERROR, v9, v10, 2u);
+            _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, v13, v14, 2u);
           }
         }
 
         else
         {
-          v8 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v12 = mmcs_logging_logger_default(TypeID, v9);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            *v16 = 0;
-            v9 = "mmcs_register_item_create_FileOpaquedReferenceData must have CFDataRef referenceObject.";
-            v10 = v16;
+            *v20 = 0;
+            v13 = "mmcs_register_item_create_FileOpaquedReferenceData must have CFDataRef referenceObject.";
+            v14 = v20;
             goto LABEL_18;
           }
         }
@@ -6531,12 +6573,12 @@ LABEL_18:
 
       else
       {
-        v8 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v12 = mmcs_logging_logger_default(0, v4);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v17 = 0;
-          v9 = "mmcs_register_item_create_FileOpaquedReferenceData cannot have NULL referenceObject.";
-          v10 = &v17;
+          v21 = 0;
+          v13 = "mmcs_register_item_create_FileOpaquedReferenceData cannot have NULL referenceObject.";
+          v14 = &v21;
           goto LABEL_18;
         }
       }
@@ -6545,26 +6587,26 @@ LABEL_18:
       goto LABEL_20;
     }
 
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = mmcs_logging_logger_default(0, v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v12 = "mmcs_register_item_create_FileOpaquedReferenceData failed to create fileReferenceData.";
-      v13 = buf;
+      v16 = "mmcs_register_item_create_FileOpaquedReferenceData failed to create fileReferenceData.";
+      v17 = buf;
       goto LABEL_12;
     }
   }
 
   else
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = mmcs_logging_logger_default(0, a2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = 0;
-      v12 = "mmcs_register_item_create_FileOpaquedReferenceData cannot have NULL registerItem.";
-      v13 = &v19;
+      v23 = 0;
+      v16 = "mmcs_register_item_create_FileOpaquedReferenceData cannot have NULL registerItem.";
+      v17 = &v23;
 LABEL_12:
-      _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, v12, v13, 2u);
+      _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_ERROR, v16, v17, 2u);
     }
   }
 
@@ -6587,149 +6629,150 @@ void mmcs_free_ChunkInfo(void *a1)
   }
 }
 
-CFIndex *mmcs_create_ChunkInfo(int a1, char *a2, const UInt8 *a3, __CFData *a4)
+CFIndex *mmcs_create_ChunkInfo(uint64_t a1, char *a2, const UInt8 *a3, __CFData *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = mmcs_logging_logger_default(a1, 0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *cf = 0;
-      v12 = "ChunkInfo cannot have NULL chunkSignature.";
+      v13 = "ChunkInfo cannot have NULL chunkSignature.";
       goto LABEL_35;
     }
 
-LABEL_36:
-    v14 = 0;
-    goto LABEL_37;
+    return 0;
   }
 
+  v4 = a1;
   if (!a1)
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *cf = 0;
-      v12 = "ChunkInfo cannot have zero length chunk.";
+      v13 = "ChunkInfo cannot have zero length chunk.";
       goto LABEL_35;
     }
 
-    goto LABEL_36;
+    return 0;
   }
 
   v8 = CKChunkSchemeAndSignatureSize();
   if (!v8)
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = mmcs_logging_logger_default(0, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *cf = 0;
-      v12 = "ChunkInfo cannot have zero length chunkSignature.";
+      v13 = "ChunkInfo cannot have zero length chunkSignature.";
       goto LABEL_35;
     }
 
-    goto LABEL_36;
+    return 0;
   }
 
-  v9 = v8;
+  v10 = v8;
   if (a3)
   {
-    v10 = CKChunkSchemeAndEncryptionKeySize();
-    if (!v10)
+    v8 = CKChunkSchemeAndEncryptionKeySize();
+    v11 = v8;
+    if (!v8)
     {
-      v11 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = mmcs_logging_logger_default(0, v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *cf = 0;
-        v12 = "ChunkInfo cannot have zero length chunkEncryptionSignature.";
+        v13 = "ChunkInfo cannot have zero length chunkEncryptionSignature.";
 LABEL_35:
-        _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, v12, cf, 2u);
-        goto LABEL_36;
+        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, v13, cf, 2u);
+        return 0;
       }
 
-      goto LABEL_36;
+      return 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   if (a4)
   {
     if ((*a4 == 0) != (*(a4 + 1) == 0))
     {
-      v11 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = mmcs_logging_logger_default(v8, v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *cf = 0;
-        v12 = "ChunkInfo cannot have partial complete pcs info.";
+        v13 = "ChunkInfo cannot have partial complete pcs info.";
         goto LABEL_35;
       }
 
-      goto LABEL_36;
+      return 0;
     }
 
     if (!a3 && *a4)
     {
-      v11 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = mmcs_logging_logger_default(v8, v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *cf = 0;
-        v12 = "ChunkInfo cannot have reference signature without encryption signature.";
+        v13 = "ChunkInfo cannot have reference signature without encryption signature.";
         goto LABEL_35;
       }
 
-      goto LABEL_36;
+      return 0;
     }
   }
 
-  v13 = malloc_type_malloc(0x50uLL, 0x10700403FCE3692uLL);
-  if (!v13)
+  v14 = malloc_type_malloc(0x50uLL, 0x10700403FCE3692uLL);
+  if (!v14)
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = mmcs_logging_logger_default(0, v15);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *cf = 0;
-      v12 = "ChunkInfo failed to allocate Chunkserver__ChunkInfo";
+      v13 = "ChunkInfo failed to allocate Chunkserver__ChunkInfo";
       goto LABEL_35;
     }
 
-    goto LABEL_36;
+    return 0;
   }
 
-  v14 = v13;
+  v16 = v14;
   if (a3)
   {
-    v15 = CFDataCreate(*MEMORY[0x277CBECE8], a3, v10);
-    v16 = v15;
-    if (!v15)
+    v17 = CFDataCreate(*MEMORY[0x277CBECE8], a3, v11);
+    v19 = v17;
+    if (!v17)
     {
-      v18 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v23 = mmcs_logging_logger_default(0, v18);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *cf = 0;
-        v19 = "ChunkInfo failed to create schemeAndKey for chunkEncryptionSignature";
-        v20 = cf;
+        v24 = "ChunkInfo failed to create schemeAndKey for chunkEncryptionSignature";
+        v25 = cf;
         goto LABEL_56;
       }
 
 LABEL_57:
-      free(v14);
+      free(v16);
       a4 = 0;
-      v14 = 0;
+      v16 = 0;
       goto LABEL_63;
     }
 
     if (a4)
     {
-      v17 = *(a4 + 1);
-      if (v17)
+      v20 = *(a4 + 1);
+      if (v20)
       {
         *cf = 0;
-        a4 = mmcs_chunk_key_copy_wraptured_scheme_and_key(v15, v17, 1, cf);
+        a4 = mmcs_chunk_key_copy_wraptured_scheme_and_key(v17, v20, 1, cf);
+        v22 = *cf;
         if (*cf)
         {
           CFRelease(*cf);
@@ -6738,14 +6781,14 @@ LABEL_57:
         *cf = 0;
         if (!a4)
         {
-          v18 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v23 = mmcs_logging_logger_default(v22, v21);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            v30 = 0;
-            v19 = "ChunkInfo failed to create wrappedKey for chunkEncryptionSignature";
-            v20 = &v30;
+            v36 = 0;
+            v24 = "ChunkInfo failed to create wrappedKey for chunkEncryptionSignature";
+            v25 = &v36;
 LABEL_56:
-            _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_ERROR, v19, v20, 2u);
+            _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_ERROR, v24, v25, 2u);
             goto LABEL_57;
           }
 
@@ -6763,7 +6806,7 @@ LABEL_56:
   else
   {
     a4 = 0;
-    v16 = 0;
+    v19 = 0;
   }
 
   if (gMMCS_DebugLevel < 4)
@@ -6776,17 +6819,17 @@ LABEL_56:
     Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
   }
 
-  chunkserver__chunk_info__init(v14);
-  *(v14 + 16) = a1;
-  v14[3] = v9;
-  v14[4] = a2;
+  chunkserver__chunk_info__init(v16);
+  *(v16 + 16) = v4;
+  v16[3] = v10;
+  v16[4] = a2;
   if (Mutable)
   {
-    v24 = hextostrdup(a2, v9);
-    CFStringAppendFormat(Mutable, 0, @"chunk sig %s", v24);
-    if (v24)
+    v28 = hextostrdup(a2, v10);
+    CFStringAppendFormat(Mutable, 0, @"chunk sig %s", v28);
+    if (v28)
     {
-      free(v24);
+      free(v28);
     }
 
     if (!a3)
@@ -6794,12 +6837,12 @@ LABEL_56:
       goto LABEL_60;
     }
 
-    *(v14 + 10) = 1;
-    v25 = mmcs_key_description_create_with_cfdata(v16, 1);
-    CFStringAppendFormat(Mutable, 0, @" key %@", v25);
-    if (v25)
+    *(v16 + 10) = 1;
+    v31 = mmcs_key_description_create_with_cfdata(v19, 1);
+    CFStringAppendFormat(Mutable, 0, @" key %@", v31);
+    if (v31)
     {
-      CFRelease(v25);
+      CFRelease(v31);
     }
 
     if (a4)
@@ -6819,41 +6862,41 @@ LABEL_56:
 
   if (a3)
   {
-    *(v14 + 10) = 1;
+    *(v16 + 10) = 1;
     if (a4)
     {
 LABEL_53:
-      v27 = v14 + 6;
-      v28 = a4;
+      v33 = v16 + 6;
+      v34 = a4;
       goto LABEL_59;
     }
 
 LABEL_58:
-    v27 = v14 + 6;
-    v28 = v16;
+    v33 = v16 + 6;
+    v34 = v19;
 LABEL_59:
-    ProtobufCBinaryData_SetData(v27, v28);
+    ProtobufCBinaryData_SetData(v33, v34);
     if (!Mutable)
     {
       goto LABEL_63;
     }
 
 LABEL_60:
-    v29 = mmcs_logging_logger_chunk();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v35 = mmcs_logging_logger_chunk(v29, v30);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *cf = 138543362;
       *&cf[4] = Mutable;
-      _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_DEFAULT, "ChunkInfo %{public}@", cf, 0xCu);
+      _os_log_impl(&dword_2577D8000, v35, OS_LOG_TYPE_DEFAULT, "ChunkInfo %{public}@", cf, 0xCu);
     }
 
     CFRelease(Mutable);
   }
 
 LABEL_63:
-  if (v16)
+  if (v19)
   {
-    CFRelease(v16);
+    CFRelease(v19);
   }
 
   if (a4)
@@ -6861,39 +6904,38 @@ LABEL_63:
     CFRelease(a4);
   }
 
-LABEL_37:
-  v21 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v16;
 }
 
-_DWORD *mmcs_create_FordInfo(int a1)
+_DWORD *mmcs_create_FordInfo(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
-    v2 = malloc_type_malloc(0x28uLL, 0x10600401BE82CDFuLL);
-    v3 = v2;
-    if (v2)
+    v2 = a1;
+    v3 = malloc_type_malloc(0x28uLL, 0x10600401BE82CDFuLL);
+    v4 = v3;
+    if (v3)
     {
-      chunkserver__ford_info__init(v2);
-      v3[6] = 1;
-      v3[7] = a1;
-      v3[8] = 0;
+      chunkserver__ford_info__init(v3);
+      v4[6] = 1;
+      v4[7] = v2;
+      v4[8] = 0;
     }
   }
 
   else
   {
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_2577D8000, v4, OS_LOG_TYPE_ERROR, "FordInfo cannot have zero length fileOpaqueReferenceDataLength.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_2577D8000, v5, OS_LOG_TYPE_ERROR, "FordInfo cannot have zero length fileOpaqueReferenceDataLength.", v7, 2u);
     }
 
     return 0;
   }
 
-  return v3;
+  return v4;
 }
 
 void mmcs_free_ChunkingProfile(void *a1)
@@ -6924,67 +6966,63 @@ void mmcs_free_ChunkingProfile(void *a1)
   }
 }
 
-_DWORD *mmcs_create_ChunkingProfile(uint64_t a1)
+_DWORD *mmcs_create_ChunkingProfile(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
-    v2 = malloc_type_malloc(0x48uLL, 0x10700402FA450D5uLL);
-    v3 = v2;
-    if (v2)
+    v3 = malloc_type_malloc(0x48uLL, 0x10700402FA450D5uLL);
+    v4 = v3;
+    if (v3)
     {
-      chunkserver__file_chunk_list__chunking_profile__init(v2);
-      v3[6] = 1;
-      v4 = *(a1 + 24);
-      *(v3 + 4) = *(a1 + 16);
+      chunkserver__file_chunk_list__chunking_profile__init(v3);
+      v4[6] = 1;
+      *(v4 + 4) = *(a1 + 16);
       v5 = CKProfileResultsConfigurationVersion();
       if (v5)
       {
-        *(v3 + 6) = createCStringWithCFString(v5);
+        *(v4 + 6) = createCStringWithCFString(v5);
       }
 
-      v6 = *(a1 + 24);
-      v7 = CKProfileResultsResolvedFileExtension();
-      if (v7)
+      v6 = CKProfileResultsResolvedFileExtension();
+      if (v6)
       {
-        *(v3 + 8) = createCStringWithCFString(v7);
+        *(v4 + 8) = createCStringWithCFString(v6);
       }
 
-      v8 = *(a1 + 24);
       if (CKProfileResultsType())
       {
-        v9 = *MEMORY[0x277CBECE8];
-        v10 = CKProfileTypeDescription();
-        v11 = CFStringCreateWithCString(v9, v10, 0x8000100u);
-        *(v3 + 5) = createCStringWithCFString(v11);
-        if (v11)
+        v7 = *MEMORY[0x277CBECE8];
+        v8 = CKProfileTypeDescription();
+        v9 = CFStringCreateWithCString(v7, v8, 0x8000100u);
+        *(v4 + 5) = createCStringWithCFString(v9);
+        if (v9)
         {
-          CFRelease(v11);
+          CFRelease(v9);
         }
       }
 
-      v12 = *(a1 + 24);
       IsDefault = CKProfileResultsIsDefault();
-      v3[14] = IsDefault != 0;
+      v4[14] = IsDefault != 0;
       if (IsDefault)
       {
-        v3[15] = CFBooleanGetValue(IsDefault) != 0;
+        v4[15] = CFBooleanGetValue(IsDefault) != 0;
       }
     }
   }
 
   else
   {
-    v14 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v11 = mmcs_logging_logger_default(0, a2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v16[0] = 0;
-      _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_ERROR, "chunkingProfile cannot be NULL.", v16, 2u);
+      v13[0] = 0;
+      _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, "chunkingProfile cannot be NULL.", v13, 2u);
     }
 
     return 0;
   }
 
-  return v3;
+  return v4;
 }
 
 void mmcs_free_FileChunkList(void *a1)
@@ -7052,12 +7090,12 @@ _OWORD *mmcs_create_FileChunkList(uint64_t a1, uint64_t a2, const __CFString *a3
 {
   if (!a1)
   {
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = mmcs_logging_logger_default(0, a2);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v34 = 0;
-      v20 = "FileChunkList cannot have NULL fileSignature.";
-      v21 = &v34;
+      v35 = 0;
+      v21 = "FileChunkList cannot have NULL fileSignature.";
+      v22 = &v35;
       goto LABEL_27;
     }
 
@@ -7066,12 +7104,12 @@ _OWORD *mmcs_create_FileChunkList(uint64_t a1, uint64_t a2, const __CFString *a3
 
   if (!a5)
   {
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v33 = 0;
-      v20 = "FileChunkList cannot have zero length chunk.";
-      v21 = &v33;
+      v34 = 0;
+      v21 = "FileChunkList cannot have zero length chunk.";
+      v22 = &v34;
       goto LABEL_27;
     }
 
@@ -7080,12 +7118,12 @@ _OWORD *mmcs_create_FileChunkList(uint64_t a1, uint64_t a2, const __CFString *a3
 
   if (!a6)
   {
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v32 = 0;
-      v20 = "FileChunkList cannot have NULL chunkList.";
-      v21 = &v32;
+      v33 = 0;
+      v21 = "FileChunkList cannot have NULL chunkList.";
+      v22 = &v33;
       goto LABEL_27;
     }
 
@@ -7095,60 +7133,50 @@ _OWORD *mmcs_create_FileChunkList(uint64_t a1, uint64_t a2, const __CFString *a3
   v17 = CKFileSchemeAndSignatureSize();
   if (!v17)
   {
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = mmcs_logging_logger_default(0, v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v20 = "FileChunkList cannot have zero length fileSignature.";
-      v21 = buf;
+      v21 = "FileChunkList cannot have zero length fileSignature.";
+      v22 = buf;
       goto LABEL_27;
     }
 
     return 0;
   }
 
-  v18 = v17;
+  v19 = v17;
   if (a4 && (*a4 == 0) != (*(a4 + 8) == 0))
   {
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = mmcs_logging_logger_default(v17, v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v30 = 0;
-      v20 = "FileChunkList cannot have partial complete pcs info.";
-      v21 = &v30;
+      v31 = 0;
+      v21 = "FileChunkList cannot have partial complete pcs info.";
+      v22 = &v31;
 LABEL_27:
-      _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, v20, v21, 2u);
+      _os_log_impl(&dword_2577D8000, v20, OS_LOG_TYPE_ERROR, v21, v22, 2u);
       return 0;
     }
 
     return 0;
   }
 
-  v22 = malloc_type_malloc(0x80uLL, 0x10F00400DC2D0DAuLL);
-  v23 = v22;
-  if (v22)
+  v23 = malloc_type_malloc(0x80uLL, 0x10F00400DC2D0DAuLL);
+  v24 = v23;
+  if (v23)
   {
-    chunkserver__file_chunk_list__init(v22);
-    *(v23 + 3) = v18;
-    *(v23 + 4) = a1;
-    if (a4 && (v24 = *a4) != 0)
+    chunkserver__file_chunk_list__init(v23);
+    *(v24 + 3) = v19;
+    *(v24 + 4) = a1;
+    if (a4 && (v25 = *a4) != 0)
     {
-      *(v23 + 16) = 1;
-      BytePtr = CFDataGetBytePtr(v24);
+      *(v24 + 16) = 1;
+      BytePtr = CFDataGetBytePtr(v25);
       Length = CFDataGetLength(*a4);
       if (BytePtr)
       {
-        v27 = Length;
-      }
-
-      else
-      {
-        v27 = 0;
-      }
-
-      if (Length)
-      {
-        v28 = BytePtr;
+        v28 = Length;
       }
 
       else
@@ -7156,38 +7184,48 @@ LABEL_27:
         v28 = 0;
       }
 
-      *(v23 + 9) = v27;
-      *(v23 + 10) = v28;
+      if (Length)
+      {
+        v29 = BytePtr;
+      }
+
+      else
+      {
+        v29 = 0;
+      }
+
+      *(v24 + 9) = v28;
+      *(v24 + 10) = v29;
     }
 
     else
     {
-      *(v23 + 16) = 0;
-      *(v23 + 9) = 0;
-      *(v23 + 10) = 0;
+      *(v24 + 16) = 0;
+      *(v24 + 9) = 0;
+      *(v24 + 10) = 0;
     }
 
-    *(v23 + 5) = a2;
+    *(v24 + 5) = a2;
     if (a3)
     {
-      *(v23 + 11) = createCStringWithCFString(a3);
+      *(v24 + 11) = createCStringWithCFString(a3);
     }
 
-    *(v23 + 6) = a5;
-    *(v23 + 7) = a6;
+    *(v24 + 6) = a5;
+    *(v24 + 7) = a6;
     if (a7)
     {
-      *(v23 + 12) = a7;
+      *(v24 + 12) = a7;
     }
 
     if (a8 && a9)
     {
-      *(v23 + 14) = a8;
-      *(v23 + 15) = a9;
+      *(v24 + 14) = a8;
+      *(v24 + 15) = a9;
     }
   }
 
-  return v23;
+  return v24;
 }
 
 void mmcs_free_FileChunkLists(void *a1)
@@ -7222,18 +7260,18 @@ void mmcs_free_FileChunkLists(void *a1)
   }
 }
 
-void *mmcs_create_FileChunkLists(int a1, int a2, uint64_t a3, const __CFData *a4, uint64_t a5)
+void *mmcs_create_FileChunkLists(uint64_t a1, uint64_t a2, uint64_t a3, const __CFData *a4, uint64_t a5)
 {
   if (!a3)
   {
-    v13 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = 0;
-      v14 = "FileChunkLists cannot have zero length chunk count.";
-      v15 = &v20;
+      v22 = 0;
+      v16 = "FileChunkLists cannot have zero length chunk count.";
+      v17 = &v22;
 LABEL_18:
-      _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, v14, v15, 2u);
+      _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_ERROR, v16, v17, 2u);
     }
 
     return 0;
@@ -7241,48 +7279,51 @@ LABEL_18:
 
   if (!a5)
   {
-    v13 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      *v19 = 0;
-      v14 = "FileChunkLists cannot have NULL fileChunkLists.";
-      v15 = v19;
+      *v21 = 0;
+      v16 = "FileChunkLists cannot have NULL fileChunkLists.";
+      v17 = v21;
       goto LABEL_18;
     }
 
     return 0;
   }
 
+  v8 = a2;
+  v9 = a1;
   v10 = malloc_type_malloc(0x58uLL, 0x10F00405CAB4923uLL);
   chunkserver__file_chunk_lists__init(v10);
   v10[3] = a3;
   v10[4] = a5;
   *(v10 + 12) = 1;
   v10[7] = 65;
-  if (a1 && a2)
+  if (v9 && v8)
   {
     mmcs_create_FileChunkLists_cold_1();
   }
 
-  if (a1 == 2 && !a4)
+  if (v9 == 2 && !a4)
   {
     v10[7] = 81;
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = mmcs_logging_logger_default(v11, v12);
+    v11 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
+    if (v11)
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_INFO, "Asking for Inline Put Complete Request Version 2", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_INFO, "Asking for Inline Put Complete Request Version 2", buf, 2u);
     }
   }
 
-  if (a2)
+  if (v8)
   {
     v10[7] |= 2uLL;
-    v12 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = mmcs_logging_logger_default(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_INFO, "Request LAN Asset Cache Headers", v17, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_INFO, "Request LAN Asset Cache Headers", v19, 2u);
     }
   }
 
@@ -7295,704 +7336,676 @@ LABEL_18:
   return v10;
 }
 
-void *mmcs_put_request_create_FileChunkLists(uint64_t a1)
+void *mmcs_put_request_create_FileChunkLists(uint64_t a1, uint64_t a2)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v49 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v59 = mmcs_logging_logger_default(0, a2);
+    if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_56;
+      return 0;
     }
 
     *buf = 0;
-    v50 = "PutRequest cannot be NULL.";
+    v60 = "PutRequest cannot be NULL.";
 LABEL_55:
-    _os_log_impl(&dword_2577D8000, v49, OS_LOG_TYPE_ERROR, v50, buf, 2u);
-    goto LABEL_56;
+    _os_log_impl(&dword_2577D8000, v59, OS_LOG_TYPE_ERROR, v60, buf, 2u);
+    return 0;
   }
 
-  v2 = *(a1 + 304);
-  if (!v2)
+  v3 = *(a1 + 304);
+  if (!v3)
   {
-    v49 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v59 = mmcs_logging_logger_default(a1, a2);
+    if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_56;
+      return 0;
     }
 
     *buf = 0;
-    v50 = "PutRequest cannot have NULL putState.";
+    v60 = "PutRequest cannot have NULL putState.";
     goto LABEL_55;
   }
 
-  if (!*(v2 + 144))
+  if (!*(v3 + 144))
   {
-    v49 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v59 = mmcs_logging_logger_default(a1, a2);
+    if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_56;
+      return 0;
     }
 
     *buf = 0;
-    v50 = "PutRequest cannot have zero state item count.";
+    v60 = "PutRequest cannot have zero state item count.";
     goto LABEL_55;
   }
 
-  Count = CFSetGetCount(*(v2 + 56));
-  v4 = 8 * Count;
+  Count = CFSetGetCount(*(v3 + 56));
+  v5 = 8 * Count;
   MEMORY[0x28223BE20](Count);
-  v5 = &v69 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
-  bzero(&v69 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v4);
-  bzero(&v69 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v4);
-  v6 = *(a1 + 304);
-  if (!*(v6 + 144))
+  v6 = &v77 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(&v77 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
+  bzero(&v77 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
+  v9 = *(a1 + 304);
+  if (!*(v9 + 144))
   {
     goto LABEL_51;
   }
 
-  v7 = 0;
-  v8 = 0;
-  v9 = 152;
+  v10 = 0;
+  v11 = 0;
+  v12 = 152;
   do
   {
-    v10 = v6 + v9;
-    Value = CFSetGetValue(*(v6 + 56), (v6 + v9));
+    v13 = v9 + v12;
+    Value = CFSetGetValue(*(v9 + 56), (v9 + v12));
     if (!Value)
     {
-      v49 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v59 = mmcs_logging_logger_default(0, v8);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v50 = "PutRequest putState distinct item list corrupt";
+        v60 = "PutRequest putState distinct item list corrupt";
         goto LABEL_55;
       }
 
-      goto LABEL_56;
+      return 0;
     }
 
-    if (v10 == Value && mmcs_item_needs_put(v10))
+    if (v13 == Value)
     {
-      if (v7 >= Count)
+      Value = mmcs_item_needs_put(v13);
+      if (Value)
       {
-        v49 = mmcs_logging_logger_default();
-        if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        if (v10 >= Count)
         {
-          goto LABEL_56;
+          v59 = mmcs_logging_logger_default(Value, v8);
+          if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+          {
+            return 0;
+          }
+
+          *buf = 0;
+          v60 = "PutRequest too many distinct items!";
+          goto LABEL_55;
         }
 
-        *buf = 0;
-        v50 = "PutRequest too many distinct items!";
-        goto LABEL_55;
+        *&v6[8 * v10++] = v13;
       }
-
-      *&v5[8 * v7++] = v10;
     }
 
-    ++v8;
-    v6 = *(a1 + 304);
-    v9 += 416;
+    ++v11;
+    v9 = *(a1 + 304);
+    v12 += 416;
   }
 
-  while (v8 < *(v6 + 144));
-  if (!v7)
+  while (v11 < *(v9 + 144));
+  if (!v10)
   {
 LABEL_51:
-    v49 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v59 = mmcs_logging_logger_default(Value, v8);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v50 = "PutRequest no items in the put request available";
+      v60 = "PutRequest no items in the put request available";
       goto LABEL_55;
     }
 
-LABEL_56:
-    v51 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
-  v12 = malloc_type_malloc(8 * v7, 0x2004093837F09uLL);
-  v13 = 0;
-  v72 = v12;
+  v15 = malloc_type_malloc(8 * v10, 0x2004093837F09uLL);
+  v16 = 0;
+  v80 = v15;
   do
   {
-    v14 = *&v5[8 * v13];
-    if (!v14)
+    v17 = *&v6[8 * v16];
+    if (!v17)
     {
       mmcs_put_request_create_FileChunkLists_cold_1();
     }
 
-    if (!*(v14 + 104))
+    if (!*(v17 + 104))
     {
       FordInfo = 0;
       goto LABEL_21;
     }
 
-    FileOpaqueReferenceData = mmcs_item_create_FileOpaqueReferenceData(*&v5[8 * v13]);
-    *(v14 + 208) = FileOpaqueReferenceData;
+    FileOpaqueReferenceData = mmcs_item_create_FileOpaqueReferenceData(*&v6[8 * v16], v14);
+    *(v17 + 208) = FileOpaqueReferenceData;
     if (!FileOpaqueReferenceData)
     {
-      v64 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v72 = mmcs_logging_logger_default(0, v19);
+      v73 = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
+      if (v73)
       {
         *buf = 0;
-        v63 = "mmcs_item_create_FileChunkList failed to create fileOpaqueMetadataReference.";
+        v71 = "mmcs_item_create_FileChunkList failed to create fileOpaqueMetadataReference.";
 LABEL_94:
-        _os_log_impl(&dword_2577D8000, v64, OS_LOG_TYPE_ERROR, v63, buf, 2u);
+        _os_log_impl(&dword_2577D8000, v72, OS_LOG_TYPE_ERROR, v71, buf, 2u);
       }
 
 LABEL_79:
-      v12[v13] = 0;
-      v60 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v15[v16] = 0;
+      v68 = mmcs_logging_logger_default(v73, v74);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v60, OS_LOG_TYPE_ERROR, "Unable to create file chunk list for item.", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v68, OS_LOG_TYPE_ERROR, "Unable to create file chunk list for item.", buf, 2u);
       }
 
-      if (v13)
+      if (v16)
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          mmcs_free_FileChunkList(v12[i]);
+          mmcs_free_FileChunkList(v15[i]);
         }
       }
 
-      free(v12);
-      goto LABEL_56;
+      free(v15);
+      return 0;
     }
 
     Length = CFDataGetLength(FileOpaqueReferenceData);
     if (!Length)
     {
-      v64 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v72 = mmcs_logging_logger_default(Length, v21);
+      v73 = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
+      if (v73)
       {
         *buf = 0;
-        v63 = "mmcs_item_create_FileChunkList cannot have 0 length fileOpaqueMetadataReference.";
+        v71 = "mmcs_item_create_FileChunkList cannot have 0 length fileOpaqueMetadataReference.";
         goto LABEL_94;
       }
 
       goto LABEL_79;
     }
 
-    FordInfo = mmcs_create_FordInfo(Length);
+    FordInfo = mmcs_create_FordInfo(Length, v21);
     if (!FordInfo)
     {
-      v64 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v72 = mmcs_logging_logger_default(0, v22);
+      v73 = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
+      if (!v73)
       {
         goto LABEL_79;
       }
 
       *buf = 0;
-      v63 = "mmcs_item_create_FileChunkList failed to create fordInfo.";
+      v71 = "mmcs_item_create_FileChunkList failed to create fordInfo.";
       goto LABEL_94;
     }
 
 LABEL_21:
-    v18 = *(v14 + 112);
-    if (v18)
+    v24 = *(v17 + 112);
+    if (v24)
     {
-      v19 = CFArrayGetCount(v18);
-      v20 = v19;
-      if (v19 >= 1)
+      v25 = CFArrayGetCount(v24);
+      v26 = v25;
+      if (v25 >= 1)
       {
-        v21 = malloc_type_malloc(8 * v19, 0x2004093837F09uLL);
-        if (v21)
+        v27 = malloc_type_malloc(8 * v25, 0x2004093837F09uLL);
+        if (v27)
         {
-          v22 = v21;
-          v23 = 0;
+          v29 = v27;
+          v30 = 0;
           while (1)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(*(v14 + 112), v23);
-            ChunkingProfile = mmcs_create_ChunkingProfile(ValueAtIndex);
-            v22[v23] = ChunkingProfile;
+            ValueAtIndex = CFArrayGetValueAtIndex(*(v17 + 112), v30);
+            ChunkingProfile = mmcs_create_ChunkingProfile(ValueAtIndex, v32);
+            v29[v30] = ChunkingProfile;
             if (!ChunkingProfile)
             {
               break;
             }
 
-            if (v20 == ++v23)
+            if (v26 == ++v30)
             {
-              v26 = FordInfo;
+              v35 = FordInfo;
               goto LABEL_30;
             }
           }
 
-          v73 = v22;
-          v56 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+          v81 = v29;
+          v64 = mmcs_logging_logger_default(0, v34);
+          v73 = os_log_type_enabled(v64, OS_LOG_TYPE_ERROR);
+          if (v73)
           {
             *buf = 0;
-            _os_log_impl(&dword_2577D8000, v56, OS_LOG_TYPE_ERROR, "chunkProfiles[i] undefined.", buf, 2u);
+            _os_log_impl(&dword_2577D8000, v64, OS_LOG_TYPE_ERROR, "chunkProfiles[i] undefined.", buf, 2u);
           }
 
-          v30 = 0;
-          v42 = 0;
-          v20 = v23;
+          v40 = 0;
+          v53 = 0;
+          v26 = v30;
         }
 
         else
         {
-          v68 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+          v76 = mmcs_logging_logger_default(0, v28);
+          v73 = os_log_type_enabled(v76, OS_LOG_TYPE_ERROR);
+          if (v73)
           {
             *buf = 0;
-            _os_log_impl(&dword_2577D8000, v68, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileChunkList failed to allocate chunkProfiles.", buf, 2u);
+            _os_log_impl(&dword_2577D8000, v76, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileChunkList failed to allocate chunkProfiles.", buf, 2u);
           }
 
-          v30 = 0;
-          v42 = 0;
-          v73 = 0;
+          v40 = 0;
+          v53 = 0;
+          v81 = 0;
         }
 
         goto LABEL_65;
       }
 
-      v26 = FordInfo;
-      v22 = 0;
+      v35 = FordInfo;
+      v29 = 0;
     }
 
     else
     {
-      v26 = FordInfo;
-      v22 = 0;
-      v20 = 0;
+      v35 = FordInfo;
+      v29 = 0;
+      v26 = 0;
     }
 
 LABEL_30:
-    v27 = malloc_type_malloc(8 * *(v14 + 144), 0x2004093837F09uLL);
-    if (!v27)
+    v36 = malloc_type_malloc(8 * *(v17 + 144), 0x2004093837F09uLL);
+    if (!v36)
     {
-      v73 = v22;
-      v62 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v81 = v29;
+      v70 = mmcs_logging_logger_default(0, v37);
+      v73 = os_log_type_enabled(v70, OS_LOG_TYPE_ERROR);
+      if (v73)
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v62, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileChunkList failed to allocate chunks.", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v70, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileChunkList failed to allocate chunks.", buf, 2u);
       }
 
-      v30 = 0;
-      v42 = 0;
-      FordInfo = v26;
-      v12 = v72;
+      v40 = 0;
+      v53 = 0;
+      FordInfo = v35;
+      v15 = v80;
 LABEL_65:
       if (FordInfo)
       {
         free(FordInfo);
       }
 
-      if (v73)
+      if (v81)
       {
-        if (v20 >= 1)
+        if (v26 >= 1)
         {
-          v57 = v73;
+          v65 = v81;
           do
           {
-            v58 = *v57++;
-            mmcs_free_ChunkingProfile(v58);
-            --v20;
+            v66 = *v65++;
+            mmcs_free_ChunkingProfile(v66);
+            --v26;
           }
 
-          while (v20);
+          while (v26);
         }
 
-        free(v73);
+        free(v81);
       }
 
-      if (v42)
+      if (v53)
       {
-        if (v30)
+        if (v40)
         {
-          v59 = v42;
+          v67 = v53;
           do
           {
-            mmcs_free_ChunkInfo(*v59);
-            if (*v59)
+            mmcs_free_ChunkInfo(*v67);
+            if (*v67)
             {
-              free(*v59);
+              free(*v67);
             }
 
-            *v59++ = 0;
-            --v30;
+            *v67++ = 0;
+            --v40;
           }
 
-          while (v30);
+          while (v40);
         }
 
-        free(v42);
+        free(v53);
       }
 
       goto LABEL_79;
     }
 
-    v28 = v27;
-    v29 = *(v14 + 144);
-    if (v29)
+    v38 = v36;
+    v39 = *(v17 + 144);
+    if (v39)
     {
-      v73 = v22;
-      v70 = v26;
-      v71 = v13;
-      v30 = 0;
-      v74 = (v14 + 64);
-      v31 = 56;
+      v81 = v29;
+      v78 = v35;
+      v79 = v16;
+      v40 = 0;
+      v82 = (v17 + 64);
+      v41 = 56;
       while (1)
       {
-        v32 = *(*(v14 + 272) + v31);
-        v33 = mmcs_item_padded_chunk_length(v14, *(v32 + 4));
-        if (*(v14 + 104))
+        v42 = *(*(v17 + 272) + v41);
+        v43 = mmcs_item_padded_chunk_length(v17, *(v42 + 4));
+        if (*(v17 + 104))
         {
-          v34 = 0;
-          v35 = 0;
+          v44 = 0;
+          v45 = 0;
         }
 
         else
         {
-          v35 = *(v32 + 16);
-          v34 = v74;
+          v45 = *(v42 + 16);
+          v44 = v82;
         }
 
-        ChunkInfo = mmcs_create_ChunkInfo(v33, *(v32 + 8), v35, v34);
-        *(v28 + 8 * v30) = ChunkInfo;
+        ChunkInfo = mmcs_create_ChunkInfo(v43, *(v42 + 8), v45, v44);
+        *(v38 + 8 * v40) = ChunkInfo;
         if (!ChunkInfo)
         {
           break;
         }
 
-        ++v30;
-        v31 += 104;
-        if (v29 == v30)
+        ++v40;
+        v41 += 104;
+        if (v39 == v40)
         {
-          v37 = *(v14 + 144);
-          v26 = v70;
-          v13 = v71;
-          v22 = v73;
+          v48 = *(v17 + 144);
+          v35 = v78;
+          v16 = v79;
+          v29 = v81;
           goto LABEL_40;
         }
       }
 
-      v52 = mmcs_logging_logger_default();
-      v53 = os_log_type_enabled(v52, OS_LOG_TYPE_ERROR);
-      v13 = v71;
-      v54 = v72;
-      v55 = v70;
-      if (v53)
+      v61 = mmcs_logging_logger_default(0, v47);
+      v73 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+      v16 = v79;
+      v62 = v80;
+      v63 = v78;
+      if (v73)
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v52, OS_LOG_TYPE_ERROR, "chunks[i] undefined.", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v61, OS_LOG_TYPE_ERROR, "chunks[i] undefined.", buf, 2u);
       }
 
-      v42 = v28;
-      FordInfo = v55;
-      v12 = v54;
+      v53 = v38;
+      FordInfo = v63;
+      v15 = v62;
       goto LABEL_65;
     }
 
-    v37 = 0;
+    v48 = 0;
 LABEL_40:
-    v38 = *v14;
-    v39 = *(v14 + 8);
-    v40 = *(v14 + 200);
-    v41 = v14 + 64;
-    v42 = v28;
-    FileChunkList = mmcs_create_FileChunkList(v38, v39, v40, v41, v37, v28, v26, v20, v22);
+    v49 = *v17;
+    v50 = *(v17 + 8);
+    v51 = *(v17 + 200);
+    v52 = v17 + 64;
+    v53 = v38;
+    FileChunkList = mmcs_create_FileChunkList(v49, v50, v51, v52, v48, v38, v35, v26, v29);
     if (!FileChunkList)
     {
-      FordInfo = v26;
-      v73 = v22;
-      v66 = mmcs_logging_logger_default();
-      v67 = os_log_type_enabled(v66, OS_LOG_TYPE_ERROR);
-      v12 = v72;
-      if (v67)
+      FordInfo = v35;
+      v81 = v29;
+      v75 = mmcs_logging_logger_default(0, v14);
+      v73 = os_log_type_enabled(v75, OS_LOG_TYPE_ERROR);
+      v15 = v80;
+      if (v73)
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v66, OS_LOG_TYPE_ERROR, "mmcs_register_item_create_FileReferenceData failed to create fileReferenceData", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v75, OS_LOG_TYPE_ERROR, "mmcs_register_item_create_FileReferenceData failed to create fileReferenceData", buf, 2u);
       }
 
-      v30 = v29;
+      v40 = v39;
       goto LABEL_65;
     }
 
-    v12 = v72;
-    v72[v13++] = FileChunkList;
+    v15 = v80;
+    v80[v16++] = FileChunkList;
   }
 
-  while (v13 != v7);
-  v44 = *(a1 + 68);
-  v45 = *(a1 + 72);
-  v46 = *(*(a1 + 304) + 120);
-  v47 = *MEMORY[0x277D85DE8];
+  while (v16 != v10);
+  v55 = *(a1 + 68);
+  v56 = *(a1 + 72);
+  v57 = *(*(a1 + 304) + 120);
 
-  return mmcs_create_FileChunkLists(v44, v45, v7, v46, v12);
+  return mmcs_create_FileChunkLists(v55, v56, v10, v57, v15);
 }
 
-CFDataRef mmcs_put_request_create_AuthorizePutRequestBody(uint64_t a1)
+CFDataRef mmcs_put_request_create_AuthorizePutRequestBody(uint64_t a1, uint64_t a2)
 {
-  FileChunkLists = mmcs_put_request_create_FileChunkLists(a1);
+  FileChunkLists = mmcs_put_request_create_FileChunkLists(a1, a2);
 
-  return mmcs_create_AuthorizePutRequestBody(FileChunkLists);
+  return mmcs_create_AuthorizePutRequestBody(FileChunkLists, v3);
 }
 
-CFDataRef mmcs_create_AuthorizePutRequestBody(void **a1)
+CFDataRef mmcs_create_AuthorizePutRequestBody(void **a1, uint64_t a2)
 {
   if (a1)
   {
-    packed_size = chunkserver__file_chunk_lists__get_packed_size(a1);
+    packed_size = chunkserver__file_chunk_lists__get_packed_size(a1, a2);
     if (packed_size)
     {
-      v3 = packed_size;
-      v4 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
-      if (v4)
+      v5 = packed_size;
+      v6 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
+      if (v6)
       {
-        v5 = v4;
-        if (v3 == chunkserver__file_chunk_lists__pack(a1, v4))
+        v8 = v6;
+        v9 = chunkserver__file_chunk_lists__pack(a1, v6);
+        if (v5 == v9)
         {
-          v6 = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v5, v3, *MEMORY[0x277CBECF0]);
-          if (v6)
+          v12 = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v8, v5, *MEMORY[0x277CBECF0]);
+          if (v12)
           {
 LABEL_21:
             mmcs_free_FileChunkLists(a1);
-            return v6;
+            return v12;
           }
 
-          v7 = mmcs_logging_logger_default();
-          if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v13 = mmcs_logging_logger_default(0, v11);
+          if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_19;
           }
 
-          v15 = 0;
-          v8 = "AuthorizePutRequestBody failed to allocate CFData wrapping body buffer";
-          v9 = &v15;
+          v21 = 0;
+          v14 = "AuthorizePutRequestBody failed to allocate CFData wrapping body buffer";
+          v15 = &v21;
         }
 
         else
         {
-          v7 = mmcs_logging_logger_default();
-          if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v13 = mmcs_logging_logger_default(v9, v10);
+          if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
 LABEL_19:
-            free(v5);
+            free(v8);
             goto LABEL_20;
           }
 
-          *v16 = 0;
-          v8 = "AuthorizePutRequestBody failed to create request body of expected size";
-          v9 = v16;
+          *v22 = 0;
+          v14 = "AuthorizePutRequestBody failed to create request body of expected size";
+          v15 = v22;
         }
 
-        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_ERROR, v8, v9, 2u);
+        _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, v14, v15, 2u);
         goto LABEL_19;
       }
 
-      v11 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v17 = mmcs_logging_logger_default(0, v7);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        *v17 = 0;
-        v12 = "AuthorizePutRequestBody failed to allocate request body buffer";
-        v13 = v17;
+        *v23 = 0;
+        v18 = "AuthorizePutRequestBody failed to allocate request body buffer";
+        v19 = v23;
         goto LABEL_15;
       }
     }
 
     else
     {
-      v11 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v17 = mmcs_logging_logger_default(0, v4);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v18 = 0;
-        v12 = "AuthorizePutRequestBody invalid request size";
-        v13 = &v18;
+        v24 = 0;
+        v18 = "AuthorizePutRequestBody invalid request size";
+        v19 = &v24;
 LABEL_15:
-        _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, v12, v13, 2u);
+        _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_ERROR, v18, v19, 2u);
       }
     }
 
 LABEL_20:
-    v6 = 0;
+    v12 = 0;
     goto LABEL_21;
   }
 
-  v10 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v16 = mmcs_logging_logger_default(0, a2);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_ERROR, "AuthorizePutRequestBody cannot have NULL fileChunkLists.", buf, 2u);
+    _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_ERROR, "AuthorizePutRequestBody cannot have NULL fileChunkLists.", buf, 2u);
   }
 
   return 0;
 }
 
-CFDataRef mmcs_register_request_create_AuthorizePutRequestBody(uint64_t a1)
+CFDataRef mmcs_register_request_create_AuthorizePutRequestBody(uint64_t a1, uint64_t a2)
 {
-  FileChunkLists = mmcs_register_request_create_FileChunkLists(a1);
+  FileChunkLists = mmcs_register_request_create_FileChunkLists(a1, a2);
 
-  return mmcs_create_AuthorizePutRequestBody(FileChunkLists);
+  return mmcs_create_AuthorizePutRequestBody(FileChunkLists, v3);
 }
 
-void *mmcs_register_request_create_FileChunkLists(uint64_t a1)
+void *mmcs_register_request_create_FileChunkLists(uint64_t a1, uint64_t a2)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v21 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v29 = mmcs_logging_logger_default(0, a2);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      return 0;
     }
 
     *buf = 0;
-    v22 = "RegisterRequest cannot be NULL.";
+    v30 = "RegisterRequest cannot be NULL.";
     goto LABEL_39;
   }
 
-  v2 = *(a1 + 304);
-  if (!v2)
-  {
-    v21 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_40;
-    }
-
-    *buf = 0;
-    v22 = "RegisterRequest cannot have NULL registerState.";
-    goto LABEL_39;
-  }
-
-  v3 = *(v2 + 8);
+  v3 = *(a1 + 304);
   if (!v3)
   {
-    v21 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v29 = mmcs_logging_logger_default(a1, a2);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      return 0;
     }
 
     *buf = 0;
-    v22 = "RegisterRequest cannot have NULL registerItems.";
+    v30 = "RegisterRequest cannot have NULL registerState.";
     goto LABEL_39;
   }
 
-  if (CFArrayGetCount(v3) < 1)
+  v4 = *(v3 + 8);
+  if (!v4)
   {
-    v21 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v29 = mmcs_logging_logger_default(0, a2);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      return 0;
     }
 
     *buf = 0;
-    v22 = "RegisterRequest cannot have zero registerItems.";
+    v30 = "RegisterRequest cannot have NULL registerItems.";
     goto LABEL_39;
   }
 
-  if (CFArrayGetCount(*(*(a1 + 304) + 8)) < 1)
+  Count = CFArrayGetCount(v4);
+  if (Count < 1)
+  {
+    v29 = mmcs_logging_logger_default(Count, v6);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      return 0;
+    }
+
+    *buf = 0;
+    v30 = "RegisterRequest cannot have zero registerItems.";
+    goto LABEL_39;
+  }
+
+  v7 = CFArrayGetCount(*(*(a1 + 304) + 8));
+  if (v7 < 1)
   {
     goto LABEL_35;
   }
 
-  v5 = 0;
-  v6 = 0;
-  *&v4 = 138412290;
-  v87 = v4;
+  v10 = 0;
+  v11 = 0;
+  *&v9 = 138412290;
+  v106 = v9;
   do
   {
-    v7 = *(CFArrayGetValueAtIndex(*(*(a1 + 304) + 8), v6) + 16);
-    if (v7)
+    v12 = *(CFArrayGetValueAtIndex(*(*(a1 + 304) + 8), v11) + 16);
+    if (v12)
     {
-      v8 = mmcs_cferror_copy_description(v7);
-      v9 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = mmcs_cferror_copy_description(v12);
+      v15 = mmcs_logging_logger_default(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *buf = v87;
-        v90 = v8;
-        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_ERROR, "RegisterItem exited registration with error: %@", buf, 0xCu);
+        *buf = v106;
+        v109 = v13;
+        _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_ERROR, "RegisterItem exited registration with error: %@", buf, 0xCu);
       }
 
-      if (v8)
+      if (v13)
       {
-        CFRelease(v8);
+        CFRelease(v13);
       }
     }
 
     else
     {
-      ++v5;
+      ++v10;
     }
 
-    ++v6;
+    ++v11;
+    v7 = CFArrayGetCount(*(*(a1 + 304) + 8));
   }
 
-  while (v6 < CFArrayGetCount(*(*(a1 + 304) + 8)));
-  if (!v5)
+  while (v11 < v7);
+  if (!v10)
   {
 LABEL_35:
-    v21 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v29 = mmcs_logging_logger_default(v7, v8);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      return 0;
     }
 
     *buf = 0;
-    v22 = "RegisterRequest had no items available after registration.";
+    v30 = "RegisterRequest had no items available after registration.";
     goto LABEL_39;
   }
 
   Mutable = CFSetCreateMutable(*MEMORY[0x277CBECE8], 0, &registerItemSignatureEqualitySetCallbacks);
   if (CFArrayGetCount(*(*(a1 + 304) + 8)) >= 1)
   {
-    v11 = 0;
+    v17 = 0;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(*(*(a1 + 304) + 8), v11);
+      ValueAtIndex = CFArrayGetValueAtIndex(*(*(a1 + 304) + 8), v17);
       if (!ValueAtIndex[16])
       {
-        v13 = ValueAtIndex;
+        v19 = ValueAtIndex;
         if (!CFSetContainsValue(Mutable, ValueAtIndex))
         {
-          CFSetAddValue(Mutable, v13);
-        }
-      }
-
-      ++v11;
-    }
-
-    while (v11 < CFArrayGetCount(*(*(a1 + 304) + 8)));
-  }
-
-  Count = CFSetGetCount(Mutable);
-  v15 = 8 * Count;
-  MEMORY[0x28223BE20]();
-  v16 = &v81 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
-  bzero(&v81 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v15);
-  if (CFArrayGetCount(*(*(a1 + 304) + 8)) < 1)
-  {
-    v18 = 0;
-  }
-
-  else
-  {
-    v17 = 0;
-    v18 = 0;
-    do
-    {
-      v19 = CFArrayGetValueAtIndex(*(*(a1 + 304) + 8), v17);
-      if (!v19[16])
-      {
-        v20 = v19;
-        if (CFSetContainsValue(Mutable, v19))
-        {
-          if (v18 >= Count)
-          {
-            mmcs_register_request_create_FileChunkLists_cold_1();
-          }
-
-          *&v16[8 * v18] = v20;
-          CFSetRemoveValue(Mutable, v20);
-          ++v18;
+          CFSetAddValue(Mutable, v19);
         }
       }
 
@@ -8002,7 +8015,48 @@ LABEL_35:
     while (v17 < CFArrayGetCount(*(*(a1 + 304) + 8)));
   }
 
-  if (v18 != Count)
+  v20 = CFSetGetCount(Mutable);
+  v21 = 8 * v20;
+  MEMORY[0x28223BE20]();
+  v22 = &v100 - ((8 * v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(&v100 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), v21);
+  v23 = CFArrayGetCount(*(*(a1 + 304) + 8));
+  if (v23 < 1)
+  {
+    v26 = 0;
+  }
+
+  else
+  {
+    v25 = 0;
+    v26 = 0;
+    do
+    {
+      v27 = CFArrayGetValueAtIndex(*(*(a1 + 304) + 8), v25);
+      if (!v27[16])
+      {
+        v28 = v27;
+        if (CFSetContainsValue(Mutable, v27))
+        {
+          if (v26 >= v20)
+          {
+            mmcs_register_request_create_FileChunkLists_cold_1();
+          }
+
+          *&v22[8 * v26] = v28;
+          CFSetRemoveValue(Mutable, v28);
+          ++v26;
+        }
+      }
+
+      ++v25;
+      v23 = CFArrayGetCount(*(*(a1 + 304) + 8));
+    }
+
+    while (v25 < v23);
+  }
+
+  if (v26 != v20)
   {
     mmcs_register_request_create_FileChunkLists_cold_2();
   }
@@ -8012,101 +8066,103 @@ LABEL_35:
     CFRelease(Mutable);
   }
 
-  if (!Count)
+  if (!v20)
   {
-    v21 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v29 = mmcs_logging_logger_default(v23, v24);
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_40;
+      return 0;
     }
 
     *buf = 0;
-    v22 = "RegisterRequest no items in the put request available";
+    v30 = "RegisterRequest no items in the put request available";
 LABEL_39:
-    _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_ERROR, v22, buf, 2u);
-    goto LABEL_40;
+    _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_ERROR, v30, buf, 2u);
+    return 0;
   }
 
-  v25 = malloc_type_malloc(v15, 0x2004093837F09uLL);
-  v26 = v25;
-  if (Count < 1)
+  FileChunkList = malloc_type_malloc(v21, 0x2004093837F09uLL);
+  v34 = FileChunkList;
+  if (v20 < 1)
   {
-LABEL_82:
-    result = mmcs_create_FileChunkLists(*(a1 + 68), *(a1 + 72), Count, *(*(a1 + 304) + 56), v26);
-    goto LABEL_41;
+    return mmcs_create_FileChunkLists(*(a1 + 68), *(a1 + 72), v20, *(*(a1 + 304) + 56), v34);
   }
 
-  v27 = 0;
-  v84 = v25;
-  v82 = &v81 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = 0;
+  v103 = FileChunkList;
+  v101 = &v100 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   while (1)
   {
-    v28 = *&v16[8 * v27];
-    if (!v28)
+    v36 = *&v22[8 * v35];
+    if (!v36)
     {
       mmcs_register_request_create_FileChunkLists_cold_3();
     }
 
     valuePtr = 0;
-    if (!*(v28 + 80))
+    if (!*(v36 + 80))
     {
-      v76 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+      v95 = mmcs_logging_logger_default(FileChunkList, v33);
+      v96 = os_log_type_enabled(v95, OS_LOG_TYPE_ERROR);
+      if (!v96)
       {
-        goto LABEL_111;
+        goto LABEL_110;
       }
 
       *buf = 0;
-      v69 = "RegisterItem cannot have NULL chunks.";
-      goto LABEL_134;
+      v88 = "RegisterItem cannot have NULL chunks.";
+      goto LABEL_133;
     }
 
-    if (*(v28 + 64))
+    if (*(v36 + 64))
     {
-      FileOpaqueReferenceData = mmcs_register_item_create_FileOpaqueReferenceData(v28);
+      FileOpaqueReferenceData = mmcs_register_item_create_FileOpaqueReferenceData(v36, v33);
       if (!FileOpaqueReferenceData)
       {
-        v76 = mmcs_logging_logger_default();
-        if (!os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+        v95 = mmcs_logging_logger_default(0, v38);
+        v96 = os_log_type_enabled(v95, OS_LOG_TYPE_ERROR);
+        if (!v96)
         {
-          goto LABEL_111;
+          goto LABEL_110;
         }
 
         *buf = 0;
-        v69 = "mmcs_register_item_create_FileChunkList failed to create fileOpaqueMetadataReference.";
-        goto LABEL_134;
+        v88 = "mmcs_register_item_create_FileChunkList failed to create fileOpaqueMetadataReference.";
+        goto LABEL_133;
       }
 
-      v30 = FileOpaqueReferenceData;
+      v39 = FileOpaqueReferenceData;
       Length = CFDataGetLength(FileOpaqueReferenceData);
-      CFRelease(v30);
+      CFRelease(v39);
       if (!Length)
       {
-        v76 = mmcs_logging_logger_default();
-        if (!os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+        v95 = mmcs_logging_logger_default(v41, v42);
+        v96 = os_log_type_enabled(v95, OS_LOG_TYPE_ERROR);
+        if (!v96)
         {
-          goto LABEL_111;
+          goto LABEL_110;
         }
 
         *buf = 0;
-        v69 = "mmcs_register_item_create_FileChunkList cannot have 0 length fileOpaqueMetadataReference.";
-        goto LABEL_134;
+        v88 = "mmcs_register_item_create_FileChunkList cannot have 0 length fileOpaqueMetadataReference.";
+        goto LABEL_133;
       }
 
-      FordInfo = mmcs_create_FordInfo(Length);
+      FordInfo = mmcs_create_FordInfo(Length, v42);
       if (!FordInfo)
       {
-        v76 = mmcs_logging_logger_default();
-        if (!os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+        v95 = mmcs_logging_logger_default(0, v43);
+        v96 = os_log_type_enabled(v95, OS_LOG_TYPE_ERROR);
+        if (!v96)
         {
-          goto LABEL_111;
+          goto LABEL_110;
         }
 
         *buf = 0;
-        v69 = "mmcs_register_item_create_FileChunkList failed to create fordInfo";
-LABEL_134:
-        _os_log_impl(&dword_2577D8000, v76, OS_LOG_TYPE_ERROR, v69, buf, 2u);
-        goto LABEL_111;
+        v88 = "mmcs_register_item_create_FileChunkList failed to create fordInfo";
+LABEL_133:
+        _os_log_impl(&dword_2577D8000, v95, OS_LOG_TYPE_ERROR, v88, buf, 2u);
+        goto LABEL_110;
       }
     }
 
@@ -8115,488 +8171,496 @@ LABEL_134:
       FordInfo = 0;
     }
 
-    v33 = *(v28 + 72);
-    if (!v33)
+    v45 = *(v36 + 72);
+    if (!v45)
     {
-      v37 = 0;
-      v35 = 0;
-      goto LABEL_66;
+      v50 = 0;
+      v47 = 0;
+      goto LABEL_65;
     }
 
-    v34 = CFArrayGetCount(v33);
-    v35 = v34;
-    if (v34 >= 1)
+    v46 = CFArrayGetCount(v45);
+    v47 = v46;
+    if (v46 >= 1)
     {
       break;
     }
 
-    v37 = 0;
-LABEL_66:
-    Value = CFNumberGetValue(*(v28 + 120), kCFNumberSInt64Type, &valuePtr);
-    *&v87 = v37;
+    v50 = 0;
+LABEL_65:
+    Value = CFNumberGetValue(*(v36 + 120), kCFNumberSInt64Type, &valuePtr);
+    *&v106 = v50;
     if (!Value)
     {
-      v70 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+      v89 = mmcs_logging_logger_default(Value, v57);
+      v96 = os_log_type_enabled(v89, OS_LOG_TYPE_ERROR);
+      if (v96)
       {
         *buf = 0;
-        v71 = "RegisterItem cannot parse registerItem->chunkCount value.";
-        v72 = v70;
-        v73 = 2;
-        goto LABEL_123;
+        v90 = "RegisterItem cannot parse registerItem->chunkCount value.";
+        v91 = v89;
+        v92 = 2;
+        goto LABEL_122;
       }
 
-LABEL_124:
-      v44 = 0;
-      goto LABEL_97;
+LABEL_123:
+      v61 = 0;
+      goto LABEL_96;
     }
 
     if (!valuePtr)
     {
-      v74 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      v93 = mmcs_logging_logger_default(Value, v57);
+      v96 = os_log_type_enabled(v93, OS_LOG_TYPE_ERROR);
+      if (v96)
       {
         *buf = 134217984;
-        v90 = valuePtr;
-        v71 = "RegisterItem cannot registerItem->chunkCount has invalid value %llu.";
-        v72 = v74;
-        v73 = 12;
-LABEL_123:
-        _os_log_impl(&dword_2577D8000, v72, OS_LOG_TYPE_ERROR, v71, buf, v73);
+        v109 = valuePtr;
+        v90 = "RegisterItem cannot registerItem->chunkCount has invalid value %llu.";
+        v91 = v93;
+        v92 = 12;
+LABEL_122:
+        _os_log_impl(&dword_2577D8000, v91, OS_LOG_TYPE_ERROR, v90, buf, v92);
       }
 
-      goto LABEL_124;
+      goto LABEL_123;
     }
 
-    v85 = v27;
-    v42 = *CFDataGetBytePtr(*(v28 + 96));
-    v43 = malloc_type_malloc(8 * valuePtr, 0x2004093837F09uLL);
-    if (!v43)
+    v104 = v35;
+    v58 = *CFDataGetBytePtr(*(v36 + 96));
+    v59 = malloc_type_malloc(8 * valuePtr, 0x2004093837F09uLL);
+    if (!v59)
     {
-      v75 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v94 = mmcs_logging_logger_default(0, v60);
+      v96 = os_log_type_enabled(v94, OS_LOG_TYPE_ERROR);
+      if (v96)
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v75, OS_LOG_TYPE_ERROR, "RegisterItem failed to allocate request chunk list.", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v94, OS_LOG_TYPE_ERROR, "RegisterItem failed to allocate request chunk list.", buf, 2u);
       }
 
-      v44 = 0;
-      v26 = v84;
-      v27 = v85;
-      goto LABEL_97;
+      v61 = 0;
+      v34 = v103;
+      v35 = v104;
+      goto LABEL_96;
     }
 
-    v44 = v43;
-    v83 = FordInfo;
+    v61 = v59;
+    v102 = FordInfo;
     if (valuePtr)
     {
-      v45 = 0;
-      v46 = *(v28 + 80);
-      v86 = (v28 + 24);
+      v62 = 0;
+      v63 = *(v36 + 80);
+      v105 = (v36 + 24);
       while (1)
       {
-        if (!v46)
+        if (!v63)
         {
-          v57 = mmcs_logging_logger_default();
-          if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+          v76 = mmcs_logging_logger_default(v59, v60);
+          ChunkInfo = os_log_type_enabled(v76, OS_LOG_TYPE_ERROR);
+          if (!ChunkInfo)
           {
-            goto LABEL_93;
+            goto LABEL_92;
           }
 
           *buf = 134218240;
-          v90 = v45 + 1;
-          v91 = 2048;
-          v92 = valuePtr;
-          v58 = "RegisterItem chunk %llu of %llu not returned.";
-          v59 = v57;
-          v60 = 22;
-          goto LABEL_92;
+          v109 = v62 + 1;
+          v110 = 2048;
+          v111 = valuePtr;
+          v77 = "RegisterItem chunk %llu of %llu not returned.";
+          v78 = v76;
+          v79 = 22;
+          goto LABEL_91;
         }
 
-        if (v42 >= 0 != (CKRegisteredChunkKey() != 0))
+        v64 = CKRegisteredChunkKey();
+        if (v58 >= 0 != (v64 != 0))
         {
           break;
         }
 
-        v47 = CKRegisteredChunkLength();
-        v48 = mmcs_register_item_padded_chunk_length(v28, v47);
-        v49 = CKRegisteredChunkSignature();
-        if (*(v28 + 64))
+        v66 = CKRegisteredChunkLength();
+        v67 = mmcs_register_item_padded_chunk_length(v36, v66);
+        v68 = CKRegisteredChunkSignature();
+        if (*(v36 + 64))
         {
-          v50 = 0;
-          v51 = 0;
+          v69 = 0;
+          v70 = 0;
         }
 
         else
         {
-          v51 = CKRegisteredChunkKey();
-          if (*(v28 + 64))
+          v70 = CKRegisteredChunkKey();
+          if (*(v36 + 64))
           {
-            v50 = 0;
+            v69 = 0;
           }
 
           else
           {
-            v50 = v86;
+            v69 = v105;
           }
         }
 
-        ChunkInfo = mmcs_create_ChunkInfo(v48, v49, v51, v50);
-        v44[v45] = ChunkInfo;
+        ChunkInfo = mmcs_create_ChunkInfo(v67, v68, v70, v69);
+        v61[v62] = ChunkInfo;
         if (!ChunkInfo)
         {
-          goto LABEL_94;
+          goto LABEL_93;
         }
 
-        v46 += CKRegisteredChunkSize();
-        if (++v45 >= valuePtr)
+        v59 = CKRegisteredChunkSize();
+        v63 += v59;
+        if (++v62 >= valuePtr)
         {
-          goto LABEL_80;
+          goto LABEL_79;
         }
       }
 
-      v61 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v80 = mmcs_logging_logger_default(v64, v65);
+      ChunkInfo = os_log_type_enabled(v80, OS_LOG_TYPE_ERROR);
+      if (!ChunkInfo)
       {
-        goto LABEL_93;
+        goto LABEL_92;
       }
 
       *buf = 0;
-      v58 = "RegisterItem inconsistent Encryption between File and Chunks.";
-      v59 = v61;
-      v60 = 2;
+      v77 = "RegisterItem inconsistent Encryption between File and Chunks.";
+      v78 = v80;
+      v79 = 2;
+LABEL_91:
+      _os_log_impl(&dword_2577D8000, v78, OS_LOG_TYPE_ERROR, v77, buf, v79);
 LABEL_92:
-      _os_log_impl(&dword_2577D8000, v59, OS_LOG_TYPE_ERROR, v58, buf, v60);
+      v61[v62] = 0;
 LABEL_93:
-      v44[v45] = 0;
-LABEL_94:
-      v62 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v81 = mmcs_logging_logger_default(ChunkInfo, v72);
+      v96 = os_log_type_enabled(v81, OS_LOG_TYPE_ERROR);
+      if (v96)
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v62, OS_LOG_TYPE_ERROR, "chunkList[i] undefined.", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v81, OS_LOG_TYPE_ERROR, "chunkList[i] undefined.", buf, 2u);
       }
 
-      valuePtr = v45;
-      v26 = v84;
-      v27 = v85;
-      FordInfo = v83;
-      goto LABEL_97;
+      valuePtr = v62;
+      v34 = v103;
+      v35 = v104;
+      FordInfo = v102;
+      goto LABEL_96;
     }
 
-LABEL_80:
-    BytePtr = CFDataGetBytePtr(*(v28 + 96));
-    FordInfo = v83;
-    FileChunkList = mmcs_create_FileChunkList(BytePtr, 0, 0, v28 + 24, valuePtr, v44, v83, v35, v87);
+LABEL_79:
+    BytePtr = CFDataGetBytePtr(*(v36 + 96));
+    FordInfo = v102;
+    FileChunkList = mmcs_create_FileChunkList(BytePtr, 0, 0, v36 + 24, valuePtr, v61, v102, v47, v106);
     if (!FileChunkList)
     {
-      v79 = mmcs_logging_logger_default();
-      v80 = os_log_type_enabled(v79, OS_LOG_TYPE_ERROR);
-      v26 = v84;
-      v27 = v85;
-      if (v80)
+      v99 = mmcs_logging_logger_default(0, v33);
+      v96 = os_log_type_enabled(v99, OS_LOG_TYPE_ERROR);
+      v34 = v103;
+      v35 = v104;
+      if (v96)
       {
         *buf = 0;
-        _os_log_impl(&dword_2577D8000, v79, OS_LOG_TYPE_ERROR, "mmcs_register_item_create_FileReferenceData failed to create fileReferenceData", buf, 2u);
+        _os_log_impl(&dword_2577D8000, v99, OS_LOG_TYPE_ERROR, "mmcs_register_item_create_FileReferenceData failed to create fileReferenceData", buf, 2u);
       }
 
-      goto LABEL_97;
+      goto LABEL_96;
     }
 
-    v26 = v84;
-    v55 = v85;
-    v84[v85] = FileChunkList;
-    v27 = v55 + 1;
-    v16 = v82;
-    if (v27 == Count)
+    v34 = v103;
+    v74 = v104;
+    v103[v104] = FileChunkList;
+    v35 = v74 + 1;
+    v22 = v101;
+    if (v35 == v20)
     {
-      goto LABEL_82;
+      return mmcs_create_FileChunkLists(*(a1 + 68), *(a1 + 72), v20, *(*(a1 + 304) + 56), v34);
     }
   }
 
-  v36 = malloc_type_malloc(8 * v34, 0x2004093837F09uLL);
-  if (v36)
+  v48 = malloc_type_malloc(8 * v46, 0x2004093837F09uLL);
+  if (v48)
   {
-    v37 = v36;
-    v38 = 0;
+    v50 = v48;
+    v51 = 0;
     while (1)
     {
-      v39 = CFArrayGetValueAtIndex(*(v28 + 72), v38);
-      ChunkingProfile = mmcs_create_ChunkingProfile(v39);
-      v37[v38] = ChunkingProfile;
+      v52 = CFArrayGetValueAtIndex(*(v36 + 72), v51);
+      ChunkingProfile = mmcs_create_ChunkingProfile(v52, v53);
+      v50[v51] = ChunkingProfile;
       if (!ChunkingProfile)
       {
         break;
       }
 
-      if (v35 == ++v38)
+      if (v47 == ++v51)
       {
-        goto LABEL_66;
+        goto LABEL_65;
       }
     }
 
-    *&v87 = v37;
-    v56 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    *&v106 = v50;
+    v75 = mmcs_logging_logger_default(0, v55);
+    v96 = os_log_type_enabled(v75, OS_LOG_TYPE_ERROR);
+    if (v96)
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v56, OS_LOG_TYPE_ERROR, "chunkProfiles[i] undefined.", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v75, OS_LOG_TYPE_ERROR, "chunkProfiles[i] undefined.", buf, 2u);
     }
 
-    v44 = 0;
-    v35 = v38;
+    v61 = 0;
+    v47 = v51;
   }
 
   else
   {
-    v78 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+    v98 = mmcs_logging_logger_default(0, v49);
+    v96 = os_log_type_enabled(v98, OS_LOG_TYPE_ERROR);
+    if (v96)
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v78, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileChunkList failed to allocate chunkProfiles.", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v98, OS_LOG_TYPE_ERROR, "mmcs_item_create_FileChunkList failed to allocate chunkProfiles.", buf, 2u);
     }
 
-    v44 = 0;
-    *&v87 = 0;
+    v61 = 0;
+    *&v106 = 0;
   }
 
-LABEL_97:
+LABEL_96:
   if (FordInfo)
   {
     free(FordInfo);
   }
 
-  if (v87)
+  if (v106)
   {
-    if (v35 >= 1)
+    if (v47 >= 1)
     {
-      v63 = v87;
+      v82 = v106;
       do
       {
-        v64 = *v63++;
-        mmcs_free_ChunkingProfile(v64);
-        --v35;
+        v83 = *v82++;
+        mmcs_free_ChunkingProfile(v83);
+        --v47;
       }
 
-      while (v35);
+      while (v47);
     }
 
-    free(v87);
+    free(v106);
   }
 
-  if (v44)
+  if (v61)
   {
     if (valuePtr)
     {
       for (i = 0; i < valuePtr; ++i)
       {
-        mmcs_free_ChunkInfo(v44[i]);
-        v66 = v44[i];
-        if (v66)
+        mmcs_free_ChunkInfo(v61[i]);
+        v85 = v61[i];
+        if (v85)
         {
-          free(v66);
+          free(v85);
         }
 
-        v44[i] = 0;
+        v61[i] = 0;
       }
     }
 
-    free(v44);
+    free(v61);
   }
 
-LABEL_111:
-  v26[v27] = 0;
-  v67 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+LABEL_110:
+  v34[v35] = 0;
+  v86 = mmcs_logging_logger_default(v96, v97);
+  if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_2577D8000, v67, OS_LOG_TYPE_ERROR, "Unable to create file chunk list for item.", buf, 2u);
+    _os_log_impl(&dword_2577D8000, v86, OS_LOG_TYPE_ERROR, "Unable to create file chunk list for item.", buf, 2u);
   }
 
-  if (v27)
+  if (v35)
   {
-    for (j = 0; j != v27; ++j)
+    for (j = 0; j != v35; ++j)
     {
-      mmcs_free_FileChunkList(v26[j]);
+      mmcs_free_FileChunkList(v34[j]);
     }
   }
 
-  free(v26);
-LABEL_40:
-  result = 0;
-LABEL_41:
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  free(v34);
+  return 0;
 }
 
-CFDataRef mmcs_update_request_create_AuthorizePutRequestBody(uint64_t a1)
+CFDataRef mmcs_update_request_create_AuthorizePutRequestBody(uint64_t a1, uint64_t a2)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v19 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v27 = mmcs_logging_logger_default(0, a2);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_40;
     }
 
     *buf = 0;
-    v20 = "updateRequest cannot be NULL.";
+    v29 = "updateRequest cannot be NULL.";
 LABEL_39:
-    _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, v20, buf, 2u);
+    _os_log_impl(&dword_2577D8000, v27, OS_LOG_TYPE_ERROR, v29, buf, 2u);
     goto LABEL_40;
   }
 
-  v2 = *(a1 + 304);
-  if (!v2)
-  {
-    v19 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_40;
-    }
-
-    *buf = 0;
-    v20 = "updateRequest cannot have NULL updateState.";
-    goto LABEL_39;
-  }
-
-  v3 = *(v2 + 16);
+  v3 = *(a1 + 304);
   if (!v3)
   {
-    v19 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v27 = mmcs_logging_logger_default(a1, a2);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_40;
     }
 
     *buf = 0;
-    v20 = "updateRequest cannot have NULL updateItems.";
+    v29 = "updateRequest cannot have NULL updateState.";
     goto LABEL_39;
   }
 
-  if (CFArrayGetCount(v3) < 1)
+  v4 = *(v3 + 16);
+  if (!v4)
   {
-    v19 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v27 = mmcs_logging_logger_default(0, a2);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_40;
     }
 
     *buf = 0;
-    v20 = "updateRequest cannot have zero updateItems.";
+    v29 = "updateRequest cannot have NULL updateItems.";
     goto LABEL_39;
   }
 
-  if (CFArrayGetCount(*(*(a1 + 304) + 16)) < 1)
+  Count = CFArrayGetCount(v4);
+  if (Count < 1)
+  {
+    v27 = mmcs_logging_logger_default(Count, v6);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_40;
+    }
+
+    *buf = 0;
+    v29 = "updateRequest cannot have zero updateItems.";
+    goto LABEL_39;
+  }
+
+  v7 = CFArrayGetCount(*(*(a1 + 304) + 16));
+  if (v7 < 1)
   {
     goto LABEL_35;
   }
 
-  v4 = 0;
-  v5 = 0;
-  do
+  v9 = 0;
+  for (i = 0; i < v7; ++i)
   {
-    v6 = *(CFArrayGetValueAtIndex(*(*(a1 + 304) + 16), v5) + 5);
-    if (v6)
+    v11 = *(CFArrayGetValueAtIndex(*(*(a1 + 304) + 16), i) + 5);
+    if (v11)
     {
-      v7 = mmcs_cferror_copy_description(v6);
-      v8 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = mmcs_cferror_copy_description(v11);
+      v14 = mmcs_logging_logger_default(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v55 = v7;
-        _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_ERROR, "updateItem exited registration with error: %@", buf, 0xCu);
+        v70 = v12;
+        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_ERROR, "updateItem exited registration with error: %@", buf, 0xCu);
       }
 
-      if (v7)
+      if (v12)
       {
-        CFRelease(v7);
+        CFRelease(v12);
       }
     }
 
     else
     {
-      ++v4;
+      ++v9;
     }
 
-    ++v5;
+    v7 = CFArrayGetCount(*(*(a1 + 304) + 16));
   }
 
-  while (v5 < CFArrayGetCount(*(*(a1 + 304) + 16)));
-  if (!v4)
+  if (!v9)
   {
 LABEL_35:
-    v19 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v27 = mmcs_logging_logger_default(v7, v8);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_40;
     }
 
     *buf = 0;
-    v20 = "updateRequest had no items available after registration.";
+    v29 = "updateRequest had no items available after registration.";
     goto LABEL_39;
   }
 
   Mutable = CFSetCreateMutable(*MEMORY[0x277CBECE8], 0, &_update_items_wrap_set_callbacks);
   if (CFArrayGetCount(*(*(a1 + 304) + 16)) >= 1)
   {
-    v10 = 0;
+    v16 = 0;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(*(*(a1 + 304) + 16), v10);
+      ValueAtIndex = CFArrayGetValueAtIndex(*(*(a1 + 304) + 16), v16);
       if (!ValueAtIndex[5])
       {
-        v12 = ValueAtIndex;
+        v18 = ValueAtIndex;
         if (!CFSetContainsValue(Mutable, ValueAtIndex))
         {
-          CFSetAddValue(Mutable, v12);
+          CFSetAddValue(Mutable, v18);
         }
       }
 
-      ++v10;
+      ++v16;
     }
 
-    while (v10 < CFArrayGetCount(*(*(a1 + 304) + 16)));
+    while (v16 < CFArrayGetCount(*(*(a1 + 304) + 16)));
   }
 
-  Count = CFSetGetCount(Mutable);
-  v14 = malloc_type_calloc(Count, 8uLL, 0x80040B8603338uLL);
-  if (CFArrayGetCount(*(*(a1 + 304) + 16)) < 1)
+  v19 = CFSetGetCount(Mutable);
+  v20 = malloc_type_calloc(v19, 8uLL, 0x80040B8603338uLL);
+  v21 = CFArrayGetCount(*(*(a1 + 304) + 16));
+  if (v21 < 1)
   {
-    v16 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v15 = 0;
-    v16 = 0;
+    v23 = 0;
+    v24 = 0;
     do
     {
-      v17 = CFArrayGetValueAtIndex(*(*(a1 + 304) + 16), v15);
-      if (!v17[5])
+      v25 = CFArrayGetValueAtIndex(*(*(a1 + 304) + 16), v23);
+      if (!v25[5])
       {
-        v18 = v17;
-        if (CFSetContainsValue(Mutable, v17))
+        v26 = v25;
+        if (CFSetContainsValue(Mutable, v25))
         {
-          if (v16 >= Count)
+          if (v24 >= v19)
           {
             mmcs_update_request_create_AuthorizePutRequestBody_cold_1();
           }
 
-          v14[v16] = v18;
-          CFSetRemoveValue(Mutable, v18);
-          ++v16;
+          v20[v24] = v26;
+          CFSetRemoveValue(Mutable, v26);
+          ++v24;
         }
       }
 
-      ++v15;
+      ++v23;
+      v21 = CFArrayGetCount(*(*(a1 + 304) + 16));
     }
 
-    while (v15 < CFArrayGetCount(*(*(a1 + 304) + 16)));
+    while (v23 < v21);
   }
 
-  if (v16 != Count)
+  if (v24 != v19)
   {
     mmcs_update_request_create_AuthorizePutRequestBody_cold_2();
   }
@@ -8606,299 +8670,303 @@ LABEL_35:
     CFRelease(Mutable);
   }
 
-  if (!Count)
+  if (!v19)
   {
-    v44 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v57 = mmcs_logging_logger_default(v21, v22);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v44, OS_LOG_TYPE_ERROR, "updateRequest no items in the put request available", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v57, OS_LOG_TYPE_ERROR, "updateRequest no items in the put request available", buf, 2u);
     }
 
     goto LABEL_88;
   }
 
-  v24 = malloc_type_malloc(8 * Count, 0x2004093837F09uLL);
-  v25 = v24;
-  if (Count < 1)
+  v32 = malloc_type_malloc(8 * v19, 0x2004093837F09uLL);
+  v34 = v32;
+  if (v19 < 1)
   {
 LABEL_60:
-    free(v14);
-    FileChunkLists = mmcs_create_FileChunkLists(0, 0, Count, *(*(a1 + 304) + 88), v25);
-    goto LABEL_41;
+    free(v20);
+    FileChunkLists = mmcs_create_FileChunkLists(0, 0, v19, *(*(a1 + 304) + 88), v34);
+    return mmcs_create_AuthorizePutRequestBody(FileChunkLists, v28);
   }
 
-  v26 = 0;
-  v52 = v24;
-  v53 = v14;
-  v51 = Count;
+  v35 = 0;
+  v67 = v32;
+  v68 = v20;
+  v66 = v19;
   while (1)
   {
-    v27 = v14[v26];
-    if (!v27)
+    v36 = v20[v35];
+    if (!v36)
     {
       mmcs_update_request_create_AuthorizePutRequestBody_cold_3();
     }
 
-    v28 = v27[12];
-    if (!v28)
+    v37 = v36[12];
+    if (!v37)
     {
-      v45 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v58 = mmcs_logging_logger_default(0, v33);
+      v59 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
+      if (!v59)
       {
         goto LABEL_82;
       }
 
       *buf = 0;
-      v46 = "updateItem cannot have NULL chunkSignatures.";
+      v61 = "updateItem cannot have NULL chunkSignatures.";
 LABEL_73:
-      _os_log_impl(&dword_2577D8000, v45, OS_LOG_TYPE_ERROR, v46, buf, 2u);
+      _os_log_impl(&dword_2577D8000, v58, OS_LOG_TYPE_ERROR, v61, buf, 2u);
       goto LABEL_82;
     }
 
-    if (!v27[13])
+    if (!v36[13])
     {
-      v45 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v58 = mmcs_logging_logger_default(v37, v33);
+      v59 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
+      if (!v59)
       {
         goto LABEL_82;
       }
 
       *buf = 0;
-      v46 = "updateItem cannot have NULL chunkKeys.";
+      v61 = "updateItem cannot have NULL chunkKeys.";
       goto LABEL_73;
     }
 
-    if (!CFArrayGetCount(v28))
+    if (!CFArrayGetCount(v37))
     {
-      v45 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v58 = mmcs_logging_logger_default(0, v38);
+      v59 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
+      if (!v59)
       {
         goto LABEL_82;
       }
 
       *buf = 0;
-      v46 = "updateItem cannot have 0 chunkSignatures.";
+      v61 = "updateItem cannot have 0 chunkSignatures.";
       goto LABEL_73;
     }
 
-    v29 = CFArrayGetCount(v27[12]);
-    if (v29 != CFArrayGetCount(v27[13]))
+    v39 = CFArrayGetCount(v36[12]);
+    v40 = CFArrayGetCount(v36[13]);
+    if (v39 != v40)
     {
-      v45 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v58 = mmcs_logging_logger_default(v40, v41);
+      v59 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
+      if (!v59)
       {
         goto LABEL_82;
       }
 
       *buf = 0;
-      v46 = "updateItem cannot have a different number of signatures and keys.";
+      v61 = "updateItem cannot have a different number of signatures and keys.";
       goto LABEL_73;
     }
 
-    v30 = CFArrayGetCount(v27[12]);
-    v31 = malloc_type_malloc(8 * v30, 0x2004093837F09uLL);
-    if (!v31)
+    v42 = CFArrayGetCount(v36[12]);
+    v43 = malloc_type_malloc(8 * v42, 0x2004093837F09uLL);
+    if (!v43)
     {
-      v45 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v58 = mmcs_logging_logger_default(0, v44);
+      v59 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
+      if (!v59)
       {
         goto LABEL_82;
       }
 
       *buf = 0;
-      v46 = "updateItem failed to allocate request chunk list.";
+      v61 = "updateItem failed to allocate request chunk list.";
       goto LABEL_73;
     }
 
-    v32 = v31;
-    v33 = CFArrayGetCount(v27[12]);
-    if (v33 >= 1)
+    v45 = v43;
+    v46 = CFArrayGetCount(v36[12]);
+    if (v46 >= 1)
     {
-      v34 = v33;
-      for (i = 0; i != v34; ++i)
+      v47 = v46;
+      for (j = 0; j != v47; ++j)
       {
-        v36 = CFArrayGetValueAtIndex(v27[12], i);
-        v37 = CFArrayGetValueAtIndex(v27[13], i);
-        v38 = CFArrayGetValueAtIndex(v27[14], i);
+        v49 = CFArrayGetValueAtIndex(v36[12], j);
+        v50 = CFArrayGetValueAtIndex(v36[13], j);
+        v51 = CFArrayGetValueAtIndex(v36[14], j);
         *buf = 0;
-        CFNumberGetValue(v38, kCFNumberSInt32Type, buf);
-        v39 = *buf;
-        BytePtr = CFDataGetBytePtr(v36);
-        v41 = CFDataGetBytePtr(v37);
-        v32[i] = mmcs_create_ChunkInfo(v39, BytePtr, v41, (v27 + 10));
+        CFNumberGetValue(v51, kCFNumberSInt32Type, buf);
+        v52 = *buf;
+        BytePtr = CFDataGetBytePtr(v49);
+        v54 = CFDataGetBytePtr(v50);
+        v45[j] = mmcs_create_ChunkInfo(v52, BytePtr, v54, (v36 + 10));
       }
     }
 
-    v42 = CFDataGetBytePtr(v27[2]);
-    FileChunkList = mmcs_create_FileChunkList(v42, 0, 0, (v27 + 10), v30, v32, 0, 0, 0);
+    v55 = CFDataGetBytePtr(v36[2]);
+    FileChunkList = mmcs_create_FileChunkList(v55, 0, 0, (v36 + 10), v42, v45, 0, 0, 0);
     if (!FileChunkList)
     {
       break;
     }
 
-    Count = v51;
-    v25 = v52;
-    v52[v26++] = FileChunkList;
-    v14 = v53;
-    if (v26 == v51)
+    v19 = v66;
+    v34 = v67;
+    v67[v35++] = FileChunkList;
+    v20 = v68;
+    if (v35 == v66)
     {
       goto LABEL_60;
     }
   }
 
-  v47 = mmcs_logging_logger_default();
-  v25 = v52;
-  v14 = v53;
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+  v62 = mmcs_logging_logger_default(0, v33);
+  v34 = v67;
+  v20 = v68;
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_2577D8000, v47, OS_LOG_TYPE_ERROR, "mmcs_update_item_create_FileChunkList failed to create fileReferenceData", buf, 2u);
+    _os_log_impl(&dword_2577D8000, v62, OS_LOG_TYPE_ERROR, "mmcs_update_item_create_FileChunkList failed to create fileReferenceData", buf, 2u);
   }
 
-  if (v30)
+  if (v42)
   {
-    v48 = v32;
+    v63 = v45;
     do
     {
-      mmcs_free_ChunkInfo(*v48);
-      if (*v48)
+      mmcs_free_ChunkInfo(*v63);
+      if (*v63)
       {
-        free(*v48);
+        free(*v63);
       }
 
-      *v48++ = 0;
-      --v30;
+      *v63++ = 0;
+      --v42;
     }
 
-    while (v30);
+    while (v42);
   }
 
-  free(v32);
+  free(v45);
 LABEL_82:
-  v25[v26] = 0;
-  v49 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+  v34[v35] = 0;
+  v64 = mmcs_logging_logger_default(v59, v60);
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_2577D8000, v49, OS_LOG_TYPE_ERROR, "Unable to create file chunk list for item.", buf, 2u);
+    _os_log_impl(&dword_2577D8000, v64, OS_LOG_TYPE_ERROR, "Unable to create file chunk list for item.", buf, 2u);
   }
 
-  if (v26)
+  if (v35)
   {
-    for (j = 0; j != v26; ++j)
+    for (k = 0; k != v35; ++k)
     {
-      mmcs_free_FileChunkList(v25[j]);
+      mmcs_free_FileChunkList(v34[k]);
     }
   }
 
-  free(v25);
+  free(v34);
 LABEL_88:
-  free(v14);
+  free(v20);
 LABEL_40:
   FileChunkLists = 0;
-LABEL_41:
-  result = mmcs_create_AuthorizePutRequestBody(FileChunkLists);
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return mmcs_create_AuthorizePutRequestBody(FileChunkLists, v28);
 }
 
 CFDataRef mmcs_create_put_complete_at_edge_payload_trailer(const __CFData *a1, const __CFData *a2)
 {
   v4 = malloc_type_malloc(0x40uLL, 0x10700407A2CD8F7uLL);
-  v5 = v4;
+  v6 = v4;
   if (!v4)
   {
-    v15 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v22 = mmcs_logging_logger_default(0, v5);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_22;
     }
 
-    v23 = 0;
-    v16 = "mmcs_create_put_complete_at_edge_payload_trailer failed to create protobuf object.";
-    v17 = &v23;
+    v30 = 0;
+    v23 = "mmcs_create_put_complete_at_edge_payload_trailer failed to create protobuf object.";
+    v24 = &v30;
 LABEL_17:
-    _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_ERROR, v16, v17, 2u);
+    _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_ERROR, v23, v24, 2u);
     goto LABEL_22;
   }
 
   chunkserver__put_complete_at_edge_payload_trailer__init(v4);
-  ProtobufCBinaryData_SetData(v5 + 3, a1);
+  ProtobufCBinaryData_SetData(v6 + 3, a1);
   if (a2)
   {
-    *(v5 + 10) = 1;
-    ProtobufCBinaryData_SetData(v5 + 6, a2);
+    *(v6 + 10) = 1;
+    ProtobufCBinaryData_SetData(v6 + 6, a2);
   }
 
-  packed_size = chunkserver__put_complete_at_edge_payload_trailer__get_packed_size(v5);
+  packed_size = chunkserver__put_complete_at_edge_payload_trailer__get_packed_size(v6, v7);
   if (!packed_size)
   {
-    v15 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v22 = mmcs_logging_logger_default(0, v9);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_22;
     }
 
-    v22 = 0;
-    v16 = "mmcs_create_put_complete_at_edge_payload_trailer invalid request size";
-    v17 = &v22;
+    v29 = 0;
+    v23 = "mmcs_create_put_complete_at_edge_payload_trailer invalid request size";
+    v24 = &v29;
     goto LABEL_17;
   }
 
-  v7 = packed_size;
-  v8 = packed_size + 4;
+  v10 = packed_size;
+  v11 = packed_size + 4;
   if (packed_size + 4 <= 0)
   {
     mmcs_create_put_complete_at_edge_payload_trailer_cold_1();
   }
 
-  v9 = malloc_type_malloc(packed_size + 4, 0x100004077774924uLL);
-  if (!v9)
+  v12 = malloc_type_malloc(packed_size + 4, 0x100004077774924uLL);
+  if (!v12)
   {
-    v15 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v22 = mmcs_logging_logger_default(0, v13);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v16 = "mmcs_create_put_complete_at_edge_payload_trailer failed to allocate request body buffer";
-      v17 = buf;
+      v23 = "mmcs_create_put_complete_at_edge_payload_trailer failed to allocate request body buffer";
+      v24 = buf;
       goto LABEL_17;
     }
 
 LABEL_22:
-    v11 = 0;
+    v18 = 0;
     goto LABEL_23;
   }
 
-  v10 = v9;
-  *v9 = bswap32(v7);
-  if (v7 != chunkserver__put_complete_at_edge_payload_trailer__pack(v5, (v9 + 1)))
+  v14 = v12;
+  *v12 = bswap32(v10);
+  v15 = chunkserver__put_complete_at_edge_payload_trailer__pack(v6, (v12 + 1));
+  if (v10 != v15)
   {
-    v12 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v19 = mmcs_logging_logger_default(v15, v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 0;
-      v13 = "mmcs_create_put_complete_at_edge_payload_trailer failed to create request body of expected size";
-      v14 = v20;
+      *v27 = 0;
+      v20 = "mmcs_create_put_complete_at_edge_payload_trailer failed to create request body of expected size";
+      v21 = v27;
       goto LABEL_20;
     }
 
 LABEL_21:
-    free(v10);
+    free(v14);
     goto LABEL_22;
   }
 
-  v11 = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v10, v8, *MEMORY[0x277CBECF0]);
-  if (!v11)
+  v18 = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v14, v11, *MEMORY[0x277CBECF0]);
+  if (!v18)
   {
-    v12 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v19 = mmcs_logging_logger_default(0, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 = 0;
-      v13 = "mmcs_create_put_complete_at_edge_payload_trailer failed to allocate CFData wrapping body buffer";
-      v14 = &v19;
+      v26 = 0;
+      v20 = "mmcs_create_put_complete_at_edge_payload_trailer failed to allocate CFData wrapping body buffer";
+      v21 = &v26;
 LABEL_20:
-      _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, v13, v14, 2u);
+      _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, v20, v21, 2u);
       goto LABEL_21;
     }
 
@@ -8906,13 +8974,13 @@ LABEL_20:
   }
 
 LABEL_23:
-  chunkserver__put_complete_at_edge_payload_trailer__free_unpacked(v5, 0);
-  return v11;
+  chunkserver__put_complete_at_edge_payload_trailer__free_unpacked(v6, 0);
+  return v18;
 }
 
-CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
+CFDataRef AuthorizeGetBodyCreate(void *Value, uint64_t a2)
 {
-  v2 = *(a1 + 304);
+  v2 = Value[38];
   v3 = 80;
   if (!a2)
   {
@@ -8921,34 +8989,40 @@ CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
 
   if (*(v2 + 168))
   {
+    v4 = a2;
+    v5 = Value;
     v6 = 0;
     v7 = 0;
     v8 = *(v2 + v3);
     v9 = 176;
     do
     {
-      v10 = v2 + v9;
-      if ((v2 + v9) == CFSetGetValue(v8, (v2 + v9)) && (a2 || mmcs_item_needs_auth_get_chunks(v10)))
+      v10 = (v2 + v9);
+      Value = CFSetGetValue(v8, (v2 + v9));
+      if (v10 == Value)
       {
-        ++v6;
+        if (v4 || (Value = mmcs_item_needs_auth_get_chunks(v10), Value))
+        {
+          ++v6;
+        }
       }
 
       ++v7;
-      v2 = *(a1 + 304);
+      v2 = v5[38];
       v9 += 416;
     }
 
     while (v7 < *(v2 + 168));
     if (v6 >= 1)
     {
-      v11 = malloc_type_malloc(0x38uLL, 0x10E004083CC9259uLL);
-      if (v11)
+      Value = malloc_type_malloc(0x38uLL, 0x10E004083CC9259uLL);
+      if (Value)
       {
-        v12 = v11;
-        chunkserver__file_checksum_authorization_list__init(v11);
-        v12[3] = 0;
-        v12[4] = malloc_type_malloc(8 * v6, 0x2004093837F09uLL);
-        v13 = *(a1 + 304);
+        v11 = Value;
+        chunkserver__file_checksum_authorization_list__init(Value);
+        v11[3] = 0;
+        v11[4] = malloc_type_malloc(8 * v6, 0x2004093837F09uLL);
+        v13 = v5[38];
         if (*(v13 + 168))
         {
           v14 = 0;
@@ -8958,7 +9032,7 @@ CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
             v15 = (v13 + 416 * v14 + 176);
             if (v15 == CFSetGetValue(v8, v15))
             {
-              if (a2)
+              if (v4)
               {
                 MutableCopy = 0;
               }
@@ -8971,13 +9045,13 @@ CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
                 }
 
                 MutableCopy = CFSetCreateMutableCopy(allocator, 0, v15[36]);
-                Value = CFDictionaryGetValue(*(*(a1 + 304) + 64), v15);
-                if (CFArrayGetCount(Value) >= 1)
+                v23 = CFDictionaryGetValue(*(v5[38] + 64), v15);
+                if (CFArrayGetCount(v23) >= 1)
                 {
                   v24 = 0;
                   do
                   {
-                    ValueAtIndex = CFArrayGetValueAtIndex(Value, v24);
+                    ValueAtIndex = CFArrayGetValueAtIndex(v23, v24);
                     if (v15 != ValueAtIndex)
                     {
                       v26 = ValueAtIndex;
@@ -8990,7 +9064,7 @@ CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
                     ++v24;
                   }
 
-                  while (v24 < CFArrayGetCount(Value));
+                  while (v24 < CFArrayGetCount(v23));
                 }
               }
 
@@ -9000,7 +9074,7 @@ CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
               v20 = malloc_type_malloc(0x60uLL, 0x1070040B2EF5D3EuLL);
               if (!v20)
               {
-                chunkserver__file_checksum_authorization_list__free_unpacked(v12, 0);
+                Value = chunkserver__file_checksum_authorization_list__free_unpacked(v11, 0);
                 if (MutableCopy)
                 {
                   CFRelease(MutableCopy);
@@ -9030,7 +9104,7 @@ CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
               }
 
               *(v21 + 5) = v22;
-              if (!a2)
+              if (!v4)
               {
                 Count = CFSetGetCount(MutableCopy);
                 *(v21 + 6) = Count;
@@ -9040,9 +9114,9 @@ CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
                 CFSetApplyFunction(MutableCopy, add_checksum_applier, context);
               }
 
-              v29 = v12[3];
-              v28 = v12[4];
-              v12[3] = v29 + 1;
+              v29 = v11[3];
+              v28 = v11[4];
+              v11[3] = v29 + 1;
               v28[v29] = v21;
               if (MutableCopy)
               {
@@ -9052,105 +9126,106 @@ CFDataRef AuthorizeGetBodyCreate(uint64_t a1, int a2)
 
 LABEL_35:
             ++v14;
-            v13 = *(a1 + 304);
+            v13 = v5[38];
           }
 
           while (v14 < *(v13 + 168));
         }
 
-        if (*(a1 + 72))
+        if (*(v5 + 72))
         {
-          *(v12 + 10) = 1;
-          v12[6] = (v12[6] | 2);
-          v13 = *(a1 + 304);
+          *(v11 + 10) = 1;
+          v11[6] = (v11[6] | 2);
+          v13 = v5[38];
         }
 
         if (*(v13 + 152))
         {
-          *(v12 + 10) = 1;
-          v12[6] = (v12[6] | 0x10);
+          *(v11 + 10) = 1;
+          v11[6] = (v11[6] | 0x10);
         }
 
-        packed_size = chunkserver__file_checksum_authorization_list__get_packed_size(v12);
+        packed_size = chunkserver__file_checksum_authorization_list__get_packed_size(v11, v12);
         if (packed_size)
         {
-          v31 = packed_size;
-          v32 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
-          if (v32)
+          v32 = packed_size;
+          v33 = malloc_type_malloc(packed_size, 0x100004077774924uLL);
+          if (v33)
           {
-            v33 = v32;
-            if (v31 == chunkserver__file_checksum_authorization_list__pack(v12, v32))
+            v35 = v33;
+            v36 = chunkserver__file_checksum_authorization_list__pack(v11, v33);
+            if (v32 == v36)
             {
-              v34 = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v33, v31, *MEMORY[0x277CBECF0]);
-              if (v34)
+              v39 = XCFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v35, v32, *MEMORY[0x277CBECF0]);
+              if (v39)
               {
 LABEL_56:
-                chunkserver__file_checksum_authorization_list__free_unpacked(v12, 0);
-                return v34;
+                chunkserver__file_checksum_authorization_list__free_unpacked(v11, 0);
+                return v39;
               }
 
-              v35 = mmcs_logging_logger_default();
-              if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v40 = mmcs_logging_logger_default(0, v38);
+              if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_54;
               }
 
               LOWORD(context[0]) = 0;
-              v36 = "AuthorizeGetBodyCreate failed to allocate CFData wrapping body buffer";
+              v41 = "AuthorizeGetBodyCreate failed to allocate CFData wrapping body buffer";
             }
 
             else
             {
-              v35 = mmcs_logging_logger_default();
-              if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v40 = mmcs_logging_logger_default(v36, v37);
+              if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
 LABEL_54:
-                free(v33);
+                free(v35);
                 goto LABEL_55;
               }
 
               LOWORD(context[0]) = 0;
-              v36 = "AuthorizeGetBodyCreate failed to create request body of expected size";
+              v41 = "AuthorizeGetBodyCreate failed to create request body of expected size";
             }
 
-            _os_log_impl(&dword_2577D8000, v35, OS_LOG_TYPE_ERROR, v36, context, 2u);
+            _os_log_impl(&dword_2577D8000, v40, OS_LOG_TYPE_ERROR, v41, context, 2u);
             goto LABEL_54;
           }
 
-          v37 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v42 = mmcs_logging_logger_default(0, v34);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             LOWORD(context[0]) = 0;
-            v38 = "AuthorizeGetBodyCreate failed to allocate request body buffer";
+            v43 = "AuthorizeGetBodyCreate failed to allocate request body buffer";
             goto LABEL_50;
           }
         }
 
         else
         {
-          v37 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v42 = mmcs_logging_logger_default(0, v31);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             LOWORD(context[0]) = 0;
-            v38 = "AuthorizeGetBodyCreate invalid request size";
+            v43 = "AuthorizeGetBodyCreate invalid request size";
 LABEL_50:
-            _os_log_impl(&dword_2577D8000, v37, OS_LOG_TYPE_ERROR, v38, context, 2u);
+            _os_log_impl(&dword_2577D8000, v42, OS_LOG_TYPE_ERROR, v43, context, 2u);
           }
         }
 
 LABEL_55:
-        v34 = 0;
+        v39 = 0;
         goto LABEL_56;
       }
     }
   }
 
 LABEL_59:
-  v39 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+  v44 = mmcs_logging_logger_default(Value, a2);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
   {
     LOWORD(context[0]) = 0;
-    _os_log_impl(&dword_2577D8000, v39, OS_LOG_TYPE_ERROR, "AuthorizeGetBodyCreate cannot have NULL fileCheksumAuthList.", context, 2u);
+    _os_log_impl(&dword_2577D8000, v44, OS_LOG_TYPE_ERROR, "AuthorizeGetBodyCreate cannot have NULL fileCheksumAuthList.", context, 2u);
   }
 
   return 0;
@@ -9337,14 +9412,14 @@ LABEL_30:
 
       v21 = @"Invalid return receipt";
 LABEL_26:
-      v23 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, v21, v12, v13, v14, v15, v16, v31);
+      v23 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, v21, v12, v13, v14, v15, v16);
       v28 = 0;
       v29 = 0;
       goto LABEL_27;
     }
   }
 
-  v22 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Invalid signature", v12, v13, v14, v15, v16, v31);
+  v22 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Invalid signature", v12, v13, v14, v15, v16);
   v23 = v22;
   v24 = 0;
   if (a6 && v22)
@@ -9405,7 +9480,7 @@ uint64_t chunkserver__file_error__parse_and_validate(uint64_t a1, CFDataRef *a2,
           v25 = @"Invalid signature";
           v26 = 6;
 LABEL_25:
-          v27 = mmcs_cferror_create_with_format(@"com.apple.mmcs", v26, v25, v22, v23, v17, v18, v19, v33);
+          v27 = mmcs_cferror_create_with_format(@"com.apple.mmcs", v26, v25, v22, v23, v17, v18, v19);
           v28 = 0;
           goto LABEL_26;
         }
@@ -9416,7 +9491,7 @@ LABEL_25:
         v24 = 0;
       }
 
-      error_with_error_response_and_format = mmcs_cferror_create_error_with_error_response_and_format(1, 0, a6, *(a1 + 40), @"%@", v17, v18, v19, v14);
+      error_with_error_response_and_format = mmcs_cferror_create_error_with_error_response_and_format(1, 0, a6, *(a1 + 40), @"%@", v17, v18, v19, v14, va);
       if (error_with_error_response_and_format)
       {
         v30 = error_with_error_response_and_format;
@@ -9461,7 +9536,7 @@ LABEL_25:
     }
   }
 
-  v27 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Invalid signature", v15, v16, v17, v18, v19, v33);
+  v27 = mmcs_cferror_create_with_format(@"com.apple.mmcs", 6, @"Invalid signature", v15, v16, v17, v18, v19);
   v21 = 0;
   v24 = 0;
   v28 = 1;
@@ -9653,72 +9728,74 @@ LABEL_21:
 _OWORD *create_error_response_for_Error(__CFError *a1)
 {
   v2 = malloc_type_malloc(0x50uLL, 0x10F00405BFF1630uLL);
-  v3 = v2;
+  v4 = v2;
   if (v2)
   {
     chunkserver__error_response__init(v2);
     Domain = CFErrorGetDomain(a1);
-    *(v3 + 3) = createCStringWithCFString(Domain);
-    *(v3 + 8) = CFErrorGetCode(a1);
-    *(v3 + 8) = 0;
-    v5 = CFErrorCopyDescription(a1);
-    if (v5)
+    *(v4 + 3) = createCStringWithCFString(Domain);
+    *(v4 + 8) = CFErrorGetCode(a1);
+    *(v4 + 8) = 0;
+    v6 = CFErrorCopyDescription(a1);
+    if (v6)
     {
-      v6 = v5;
-      *(v3 + 5) = createCStringWithCFString(v5);
-      CFRelease(v6);
+      v7 = v6;
+      *(v4 + 5) = createCStringWithCFString(v6);
+      CFRelease(v7);
     }
 
-    v7 = CFErrorCopyUserInfo(a1);
-    if (v7)
+    v8 = CFErrorCopyUserInfo(a1);
+    if (v8)
     {
-      v8 = v7;
-      if (CFDictionaryGetValue(v7, *MEMORY[0x277CBEE78]))
+      v9 = v8;
+      Value = CFDictionaryGetValue(v8, *MEMORY[0x277CBEE78]);
+      if (Value)
       {
-        v9 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v9 = mmcs_cfnetwork_copy_underlying_stream_error(v8);
-        if (!v9)
+        Value = mmcs_cfnetwork_copy_underlying_stream_error(v9);
+        v11 = Value;
+        if (!Value)
         {
 LABEL_15:
-          Value = CFDictionaryGetValue(v8, @"kMMCSErrorSupplementalDictionaryKey");
-          if (IsValidCFDictionary(Value))
+          v18 = CFDictionaryGetValue(v9, @"kMMCSErrorSupplementalDictionaryKey");
+          if (IsValidCFDictionary(v18))
           {
-            Count = CFDictionaryGetCount(Value);
-            *(v3 + 9) = malloc_type_malloc(8 * Count, 0x2004093837F09uLL);
-            CFDictionaryApplyFunction(Value, copy_error_response_nv_pairs, v3);
+            Count = CFDictionaryGetCount(v18);
+            *(v4 + 9) = malloc_type_malloc(8 * Count, 0x2004093837F09uLL);
+            CFDictionaryApplyFunction(v18, copy_error_response_nv_pairs, v4);
           }
 
-          if (v9)
+          if (v11)
           {
-            CFRelease(v9);
+            CFRelease(v11);
           }
 
-          CFRelease(v8);
-          return v3;
+          CFRelease(v9);
+          return v4;
         }
       }
 
-      error_response_for_Error = create_error_response_for_Error();
-      v12 = malloc_type_malloc(8uLL, 0x2004093837F09uLL);
-      *(v3 + 7) = v12;
-      if (v12)
+      error_response_for_Error = create_error_response_for_Error(Value);
+      v14 = malloc_type_malloc(8uLL, 0x2004093837F09uLL);
+      *(v4 + 7) = v14;
+      if (v14)
       {
-        v13 = *(v3 + 6);
-        *(v3 + 6) = v13 + 1;
-        v12[v13] = error_response_for_Error;
+        v16 = *(v4 + 6);
+        *(v4 + 6) = v16 + 1;
+        v14[v16] = error_response_for_Error;
       }
 
       else
       {
-        v14 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v17 = mmcs_logging_logger_default(0, v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v18[0] = 0;
-          _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_ERROR, "malloc", v18, 2u);
+          v21[0] = 0;
+          _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_ERROR, "malloc", v21, 2u);
         }
 
         chunkserver__error_response__free_unpacked(error_response_for_Error, 0);
@@ -9730,39 +9807,13 @@ LABEL_15:
 
   else
   {
-    v10 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = mmcs_logging_logger_default(0, v3);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_ERROR, "malloc", buf, 2u);
+      _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "malloc", buf, 2u);
     }
   }
 
-  return v3;
-}
-
-void *copy_error_response_nv_pairs(const __CFString *a1, __CFString *a2, uint64_t a3)
-{
-  result = createNameValuePair(a1, a2);
-  v6 = *(a3 + 64);
-  v5 = *(a3 + 72);
-  *(a3 + 64) = v6 + 1;
-  *(v5 + 8 * v6) = result;
-  return result;
-}
-
-_BYTE *Copy_MethodCompletionInfo(void **a1)
-{
-  packed_size = chunkserver__method_completion_info__get_packed_size(a1);
-  result = malloc_type_malloc(packed_size, 0x100004077774924uLL);
-  if (result)
-  {
-    v4 = result;
-    v5 = chunkserver__method_completion_info__pack(a1, result);
-    v6 = chunkserver__method_completion_info__unpack(0, v5, v4);
-    free(v4);
-    return v6;
-  }
-
-  return result;
+  return v4;
 }

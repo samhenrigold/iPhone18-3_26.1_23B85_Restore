@@ -28,6 +28,7 @@
 - (NSString)Sides;
 - (PKMediaCol)MediaCol;
 - (id)fileHandleForStreaming;
+- (id)finalizeFilePosition:(int64_t *)position forJobID:(int)d session:(id)session;
 - (int)OrientationRequested;
 - (int)PrintQuality;
 - (int)RasterFeedOrientation;
@@ -329,6 +330,110 @@ LABEL_13:
 LABEL_14:
 
   return integerValue;
+}
+
+- (id)finalizeFilePosition:(int64_t *)position forJobID:(int)d session:(id)session
+{
+  v5 = *&d;
+  sessionCopy = session;
+  clientBundleIdentifier = [sessionCopy clientBundleIdentifier];
+  v10 = clientBundleIdentifier;
+  v11 = @"unknown_bundle";
+  if (clientBundleIdentifier)
+  {
+    v11 = clientBundleIdentifier;
+  }
+
+  v12 = v11;
+
+  documentFormat = [(job_spool_client_t *)self DocumentFormat];
+  if ([documentFormat caseInsensitiveCompare:@"image/jpeg"])
+  {
+    if ([documentFormat caseInsensitiveCompare:@"image/png"])
+    {
+      if ([documentFormat caseInsensitiveCompare:@"application/pdf"])
+      {
+        if ([documentFormat caseInsensitiveCompare:@"application/urf"])
+        {
+          v14 = @"prn";
+        }
+
+        else
+        {
+          v14 = @"urf";
+        }
+      }
+
+      else
+      {
+        v14 = @"pdf";
+      }
+    }
+
+    else
+    {
+      v14 = @"png";
+    }
+  }
+
+  else
+  {
+    v14 = @"jpg";
+  }
+
+  v15 = [NSString stringWithFormat:@"%@_%d_%d.%@", v12, getpid(), v5, v14];
+  v16 = +[NSFileManager defaultManager];
+  temporaryDirectory = [v16 temporaryDirectory];
+  v18 = [temporaryDirectory URLByAppendingPathComponent:v15];
+
+  v19 = _PKLogCategory(PKLogCategoryProgress[0]);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    clientID = [(job_spool_client_t *)self clientID];
+    v39 = 2114;
+    v40 = v18;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[Client %d] Saving print job to %{public}@.", buf, 0x12u);
+  }
+
+  v20 = [(job_spool_client_t *)self moveStreamingFileTo:v18];
+  *position = v20;
+  if (v20 < 0)
+  {
+    v21 = _PKLogCategory(PKLogCategoryProgress[0]);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      clientID2 = [(job_spool_client_t *)self clientID];
+      *buf = 67109378;
+      clientID = clientID2;
+      v39 = 2114;
+      v40 = v18;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[Client %d] Unable to move print file to %{public}@", buf, 0x12u);
+    }
+  }
+
+  if (PreserveControlFiles)
+  {
+    v23 = [(PKPrintSettings *)self->_printSettings copyWithZone:0];
+    v24 = self->_printer;
+    v25 = dispatch_get_global_queue(-2, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10001309C;
+    block[3] = &unk_1000A0450;
+    v30 = v18;
+    v36 = v5;
+    v31 = v12;
+    v32 = v23;
+    v33 = documentFormat;
+    v34 = sessionCopy;
+    v35 = v24;
+    v26 = v24;
+    v27 = v23;
+    dispatch_async(v25, block);
+  }
+
+  return v18;
 }
 
 - (void)submitRequestWithSession:(id)session completionHandler:(id)handler
@@ -1321,30 +1426,15 @@ LABEL_16:
     printerDescription = [(lite_printer_t *)self->_printer printerDescription];
     specialFeedOrientation = [printerDescription specialFeedOrientation];
 
-    if (!specialFeedOrientation)
+    if (specialFeedOrientation && ([paper baseName], (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend(paper, "baseName"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(specialFeedOrientation, "objectForKey:", v7), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, v8))
     {
-      goto LABEL_6;
-    }
-
-    baseName = [paper baseName];
-    if (!baseName)
-    {
-      goto LABEL_6;
-    }
-
-    baseName2 = [paper baseName];
-    v8 = [specialFeedOrientation objectForKey:baseName2];
-
-    if (v8)
-    {
-      baseName3 = [paper baseName];
-      v10 = [specialFeedOrientation objectForKey:baseName3];
+      baseName = [paper baseName];
+      v10 = [specialFeedOrientation objectForKey:baseName];
       intValue = [v10 intValue];
     }
 
     else
     {
-LABEL_6:
       intValue = 3;
     }
   }

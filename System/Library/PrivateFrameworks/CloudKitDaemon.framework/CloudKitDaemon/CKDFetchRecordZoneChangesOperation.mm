@@ -68,44 +68,44 @@
 
 - (void)_noteCompletedURLRequest:(id)request withSchedulerInfo:(id)info
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   infoCopy = info;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v105 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v105, v106, a2, self, @"CKDFetchRecordZoneChangesOperation.m", 67, &stru_28385ED00);
+    v104 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v104, v105, a2, self, @"CKDFetchRecordZoneChangesOperation.m", 67, &stru_28385ED00);
   }
 
-  v110 = requestCopy;
+  v109 = requestCopy;
   v12 = objc_msgSend_container(self, v10, v11);
-  v15 = objc_msgSend_recordZoneIDs(v110, v13, v14);
-  v108 = objc_msgSend_resultsByRecordZoneID(v110, v16, v17);
-  v112 = objc_msgSend_zoneErrorsByZoneID(v110, v18, v19);
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
+  v15 = objc_msgSend_recordZoneIDs(v109, v13, v14);
+  v107 = objc_msgSend_resultsByRecordZoneID(v109, v16, v17);
+  v111 = objc_msgSend_zoneErrorsByZoneID(v109, v18, v19);
   v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
   obj = v15;
-  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v120, v129, 16);
+  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v119, v128, 16);
   if (v22)
   {
-    v24 = *v121;
+    v24 = *v120;
     *&v23 = 138412290;
-    v107 = v23;
+    v106 = v23;
     while (2)
     {
       v25 = 0;
       do
       {
-        if (*v121 != v24)
+        if (*v120 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v120 + 1) + 8 * v25);
-        v27 = objc_msgSend_objectForKeyedSubscript_(v112, v21, v26, v107);
+        v26 = *(*(&v119 + 1) + 8 * v25);
+        v27 = objc_msgSend_objectForKeyedSubscript_(v111, v21, v26, v106);
         if (objc_msgSend_CKIsNotFoundError(v27, v28, v29))
         {
           if (*MEMORY[0x277CBC880] != -1)
@@ -119,9 +119,9 @@
             v35 = v32;
             v38 = objc_msgSend_operationID(self, v36, v37);
             *buf = 138412546;
-            v126 = v26;
-            v127 = 2114;
-            v128 = v38;
+            v125 = v26;
+            v126 = 2114;
+            v127 = v38;
             _os_log_impl(&dword_22506F000, v35, OS_LOG_TYPE_INFO, "Warn: Zone %@ wasn't found on the server for fetch changes request %{public}@. Wiping caches for that zone", buf, 0x16u);
           }
 
@@ -140,8 +140,8 @@
               v47 = *MEMORY[0x277CBC830];
               if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
               {
-                *buf = v107;
-                v126 = v26;
+                *buf = v106;
+                v125 = v26;
                 _os_log_debug_impl(&dword_22506F000, v47, OS_LOG_TYPE_DEBUG, "Possible anonymous share %@ not found. Removing share from anonymous share list", buf, 0xCu);
               }
 
@@ -150,16 +150,16 @@
               dispatch_group_enter(v50);
 
               v53 = objc_msgSend_anonymousSharingManager(v12, v51, v52);
-              v124 = v26;
-              v55 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v54, &v124, 1);
-              v118[0] = MEMORY[0x277D85DD0];
-              v118[1] = 3221225472;
-              v118[2] = sub_2251E7BB8;
-              v118[3] = &unk_278549318;
-              objc_copyWeak(&v119, buf);
-              objc_msgSend_removeAnonymousSharesFromSharedDB_operation_withCompletionBlock_(v53, v56, v55, self, v118);
+              v123 = v26;
+              v55 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v54, &v123, 1);
+              v117[0] = MEMORY[0x277D85DD0];
+              v117[1] = 3221225472;
+              v117[2] = sub_2251E7BB8;
+              v117[3] = &unk_278549318;
+              objc_copyWeak(&v118, buf);
+              objc_msgSend_removeAnonymousSharesFromSharedDB_operation_withCompletionBlock_(v53, v56, v55, self, v117);
 
-              objc_destroyWeak(&v119);
+              objc_destroyWeak(&v118);
               objc_destroyWeak(buf);
             }
           }
@@ -193,7 +193,7 @@
       }
 
       while (v22 != v25);
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v120, v129, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v119, v128, 16);
       if (v22)
       {
         continue;
@@ -214,7 +214,7 @@ LABEL_28:
   if (objc_msgSend_clientIsUsingLegacyCKFetchRecordChangesOperationAPI(self, v71, v72))
   {
     v76 = objc_msgSend_firstObject(obj, v74, v75);
-    v73 = objc_msgSend_objectForKeyedSubscript_(v108, v77, v76);
+    v73 = objc_msgSend_objectForKeyedSubscript_(v107, v77, v76);
 
     v78 = objc_alloc(MEMORY[0x277CBC670]);
     v81 = objc_msgSend_resultServerChangeTokenData(v73, v79, v80);
@@ -239,17 +239,15 @@ LABEL_31:
   block[2] = sub_2251E7CCC;
   block[3] = &unk_278548978;
   block[4] = self;
-  v114 = obj;
-  v115 = v108;
-  v116 = v112;
-  v117 = infoCopy;
+  v113 = obj;
+  v114 = v107;
+  v115 = v111;
+  v116 = infoCopy;
   v100 = infoCopy;
-  v101 = v112;
-  v102 = v108;
+  v101 = v111;
+  v102 = v107;
   v103 = obj;
   dispatch_group_notify(v96, v99, block);
-
-  v104 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_noteChangedRecordWithID:(id)d record:(id)record error:(id)error
@@ -325,7 +323,7 @@ LABEL_31:
 
 - (id)_createAndConfigureURLRequestForZoneIDs:(id)ds optionsByZoneID:(id)d
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   dCopy = d;
   if (*MEMORY[0x277CBC880] != -1)
@@ -341,16 +339,16 @@ LABEL_31:
     v15 = objc_msgSend_count(dsCopy, v13, v14);
     v16 = @"s";
     *buf = 134218498;
-    v82 = v12;
+    v81 = v12;
     if (v15 == 1)
     {
       v16 = &stru_28385ED00;
     }
 
-    v83 = 2114;
-    v84 = v16;
-    v85 = 2112;
-    v86 = dCopy;
+    v82 = 2114;
+    v83 = v16;
+    v84 = 2112;
+    v85 = dCopy;
     _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Fetching changes from the server for %lu zone%{public}@ with options:\n%@", buf, 0x20u);
   }
 
@@ -390,50 +388,48 @@ LABEL_31:
 
   if (v58)
   {
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = sub_2251E8B4C;
-    v77[3] = &unk_278549538;
-    objc_copyWeak(&v78, buf);
-    objc_copyWeak(&v79, &location);
-    objc_msgSend_setRecordsChangedBlock_(v19, v59, v77);
-    objc_destroyWeak(&v79);
+    v76[0] = MEMORY[0x277D85DD0];
+    v76[1] = 3221225472;
+    v76[2] = sub_2251E8B4C;
+    v76[3] = &unk_278549538;
+    objc_copyWeak(&v77, buf);
+    objc_copyWeak(&v78, &location);
+    objc_msgSend_setRecordsChangedBlock_(v19, v59, v76);
     objc_destroyWeak(&v78);
+    objc_destroyWeak(&v77);
   }
 
-  v74[0] = MEMORY[0x277D85DD0];
-  v74[1] = 3221225472;
-  v74[2] = sub_2251E8BDC;
-  v74[3] = &unk_278549BA0;
-  objc_copyWeak(&v75, buf);
-  objc_copyWeak(&v76, &location);
-  objc_msgSend_setRecordDeletedBlock_(v19, v60, v74);
-  v71[0] = MEMORY[0x277D85DD0];
-  v71[1] = 3221225472;
-  v71[2] = sub_2251E8C6C;
-  v71[3] = &unk_278549BC8;
-  objc_copyWeak(&v72, buf);
-  objc_copyWeak(&v73, &location);
-  objc_msgSend_setZoneAttributesChangedBlock_(v19, v61, v71);
+  v73[0] = MEMORY[0x277D85DD0];
+  v73[1] = 3221225472;
+  v73[2] = sub_2251E8BDC;
+  v73[3] = &unk_278549BA0;
+  objc_copyWeak(&v74, buf);
+  objc_copyWeak(&v75, &location);
+  objc_msgSend_setRecordDeletedBlock_(v19, v60, v73);
+  v70[0] = MEMORY[0x277D85DD0];
+  v70[1] = 3221225472;
+  v70[2] = sub_2251E8C6C;
+  v70[3] = &unk_278549BC8;
+  objc_copyWeak(&v71, buf);
+  objc_copyWeak(&v72, &location);
+  objc_msgSend_setZoneAttributesChangedBlock_(v19, v61, v70);
   v63 = objc_msgSend_setWithArray_(MEMORY[0x277CBEB98], v62, dsCopy);
   if (objc_msgSend_count(v63, v64, v65))
   {
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = sub_2251E8CE0;
-    v69[3] = &unk_2785487F8;
-    v70 = v63;
-    objc_msgSend_updateCloudKitMetrics_(self, v66, v69);
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = sub_2251E8CE0;
+    v68[3] = &unk_2785487F8;
+    v69 = v63;
+    objc_msgSend_updateCloudKitMetrics_(self, v66, v68);
   }
 
-  objc_destroyWeak(&v73);
   objc_destroyWeak(&v72);
-  objc_destroyWeak(&v76);
+  objc_destroyWeak(&v71);
   objc_destroyWeak(&v75);
+  objc_destroyWeak(&v74);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v67 = *MEMORY[0x277D85DE8];
 
   return v55;
 }

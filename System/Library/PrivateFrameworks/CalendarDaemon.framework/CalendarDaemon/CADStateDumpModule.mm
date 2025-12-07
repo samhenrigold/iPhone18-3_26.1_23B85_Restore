@@ -30,40 +30,51 @@
 
 id __45__CADStateDumpModule_registerForStateCapture__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v22 = objc_opt_new();
+  v30 = *MEMORY[0x277D85DE8];
+  v20 = objc_opt_new();
   cf = CalDatabaseCreateWithOptions();
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
   obj = CalDatabaseCopyOfAllCalendarsInStoreWithOptions();
-  v1 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v1 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v1)
   {
     v2 = v1;
-    v23 = *v26;
+    v21 = *v24;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v26 != v23)
+        if (*v24 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v25 + 1) + 8 * i);
-        v5 = CalCalendarCopyUUID();
-        v6 = CalCalendarCopyType();
-        v7 = CalCalendarCopyColorString();
-        v8 = CalCalendarCopyStore();
-        v9 = CalStoreCopyUUID();
-        v10 = [*(a1 + 32) _storeTypeStringFromType:CalStoreGetType()];
+        v4 = CalCalendarCopyUUID();
+        v5 = CalCalendarCopyType();
+        v6 = CalCalendarCopyColorString();
+        v7 = CalCalendarCopyStore();
+        v8 = CalStoreCopyUUID();
+        v9 = [*(a1 + 32) _storeTypeStringFromType:CalStoreGetType()];
         IsIgnoringEventAlerts = CalCalendarIsIgnoringEventAlerts();
-        if (v5)
+        if (v4)
         {
-          v29[0] = @"calendarUUID";
-          v29[1] = @"calendarType";
+          v27[0] = @"calendarUUID";
+          v27[1] = @"calendarType";
+          if (v5)
+          {
+            v11 = v5;
+          }
+
+          else
+          {
+            v11 = &stru_2837B4630;
+          }
+
+          v28[0] = v4;
+          v28[1] = v11;
           if (v6)
           {
             v12 = v6;
@@ -74,11 +85,11 @@ id __45__CADStateDumpModule_registerForStateCapture__block_invoke(uint64_t a1)
             v12 = &stru_2837B4630;
           }
 
-          v30[0] = v5;
-          v30[1] = v12;
-          if (v7)
+          v27[2] = @"colorString";
+          v27[3] = @"storeUUID";
+          if (v8)
           {
-            v13 = v7;
+            v13 = v8;
           }
 
           else
@@ -86,8 +97,8 @@ id __45__CADStateDumpModule_registerForStateCapture__block_invoke(uint64_t a1)
             v13 = &stru_2837B4630;
           }
 
-          v29[2] = @"colorString";
-          v29[3] = @"storeUUID";
+          v28[2] = v12;
+          v28[3] = v13;
           if (v9)
           {
             v14 = v9;
@@ -98,39 +109,27 @@ id __45__CADStateDumpModule_registerForStateCapture__block_invoke(uint64_t a1)
             v14 = &stru_2837B4630;
           }
 
-          v30[2] = v13;
-          v30[3] = v14;
-          if (v10)
-          {
-            v15 = v10;
-          }
-
-          else
-          {
-            v15 = &stru_2837B4630;
-          }
-
-          v29[4] = @"storeType";
-          v29[5] = @"ignoreAlerts";
-          v16 = @"No";
+          v27[4] = @"storeType";
+          v27[5] = @"ignoreAlerts";
+          v15 = @"No";
           if (IsIgnoringEventAlerts)
           {
-            v16 = @"Yes";
+            v15 = @"Yes";
           }
 
-          v30[4] = v15;
-          v30[5] = v16;
-          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
-          [v22 setObject:v17 forKeyedSubscript:v5];
+          v28[4] = v14;
+          v28[5] = v15;
+          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:6];
+          [v20 setObject:v16 forKeyedSubscript:v4];
         }
 
-        if (v8)
+        if (v7)
         {
-          CFRelease(v8);
+          CFRelease(v7);
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v2 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v2);
@@ -141,9 +140,7 @@ id __45__CADStateDumpModule_registerForStateCapture__block_invoke(uint64_t a1)
     CFRelease(cf);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v20;
 }
 
 id __45__CADStateDumpModule_registerForStateCapture__block_invoke_2()

@@ -8,25 +8,24 @@
 
 - (MovingAverage)initWithWindowSize:(unint64_t)size
 {
-  v14.receiver = self;
-  v14.super_class = MovingAverage;
-  v4 = [(MovingAverage *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = MovingAverage;
+  v4 = [(MovingAverage *)&v13 init];
   v5 = v4;
   if (v4)
   {
     if (!size)
     {
       v9 = MEMORY[0x277CBEAD8];
-      v10 = *MEMORY[0x277CBE660];
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid parameter for windowSize: %lu, windowSize must be > 0", 0];
-      v12 = [v9 exceptionWithName:v10 reason:v11 userInfo:0];
-      v13 = v12;
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:0];
+      v11 = [v9 exceptionWithName:? reason:? userInfo:?];
+      v12 = v11;
 
-      objc_exception_throw(v12);
+      objc_exception_throw(v11);
     }
 
     v4->_windowSize = size;
-    v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:size];
+    v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
     queue = v5->_queue;
     v5->_queue = v6;
 
@@ -54,26 +53,21 @@
     }
 
     queue3 = [(MovingAverage *)self queue];
-    v10 = [[MovingAverageEntry alloc] initWithValue:numberCopy];
-    [queue3 addObject:v10];
+    v10 = [[MovingAverageEntry alloc] initWithValue:?];
+    [queue3 addObject:?];
 
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 0;
+    v13[0] = 0;
+    v13[1] = v13;
+    v13[2] = 0x2020000000;
+    v13[3] = 0;
     queue4 = [(MovingAverage *)self queue];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __27__MovingAverage_addNumber___block_invoke;
-    v14[3] = &unk_2787531D8;
-    v14[4] = &v15;
-    [queue4 na_each:v14];
+    [queue4 na_each:?];
 
-    v12 = v16[3];
     queue5 = [(MovingAverage *)self queue];
-    -[MovingAverage setMovingAverage:](self, "setMovingAverage:", v12 / [queue5 count]);
+    [queue5 count];
+    [(MovingAverage *)self setMovingAverage:?];
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(v13, 8);
     os_unfair_lock_unlock(&self->_lock);
   }
 }
@@ -88,35 +82,28 @@ void __27__MovingAverage_addNumber___block_invoke(uint64_t a1, void *a2)
 - (double)movingAverageForInterval:(double)interval defaultValue:(double)value
 {
   os_unfair_lock_lock_with_options();
-  v7 = [MEMORY[0x277CBEAA8] now];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
+  v6 = [MEMORY[0x277CBEAA8] now];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   queue = [(MovingAverage *)self queue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55__MovingAverage_movingAverageForInterval_defaultValue___block_invoke;
-  v12[3] = &unk_278753200;
-  v9 = v7;
-  intervalCopy = interval;
-  v13 = v9;
-  v14 = &v17;
-  v15 = &v21;
-  [queue na_each:v12];
+  v11 = MEMORY[0x277D85DD0];
+  v8 = v6;
+  [queue na_each:{v11, 3221225472, __55__MovingAverage_movingAverageForInterval_defaultValue___block_invoke, &unk_278753200}];
 
-  v10 = *(v22 + 6);
-  if (v10)
+  v9 = *(v17 + 6);
+  if (v9)
   {
-    value = v18[3] / v10;
+    value = v13[3] / v9;
   }
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v16, 8);
 
   os_unfair_lock_unlock(&self->_lock);
   return value;
@@ -128,7 +115,7 @@ void __55__MovingAverage_movingAverageForInterval_defaultValue___block_invoke(ui
   v4 = *(a1 + 32);
   v10 = v3;
   v5 = [v3 date];
-  [v4 timeIntervalSinceDate:v5];
+  [v4 timeIntervalSinceDate:?];
   v7 = v6;
 
   if (v7 < *(a1 + 56))

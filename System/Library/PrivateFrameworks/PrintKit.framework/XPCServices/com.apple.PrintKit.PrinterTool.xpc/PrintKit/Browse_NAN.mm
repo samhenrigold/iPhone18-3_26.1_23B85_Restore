@@ -45,7 +45,7 @@
   v22 = 0;
   if (connectionCopy)
   {
-    [connectionCopy peerAddress];
+    objc_msgSend_peerAddress(connectionCopy);
   }
 
   memset(v27, 0, sizeof(v27));

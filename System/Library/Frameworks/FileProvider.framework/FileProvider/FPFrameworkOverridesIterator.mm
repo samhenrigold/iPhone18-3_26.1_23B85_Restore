@@ -16,7 +16,7 @@
 {
   handlerCopy = handler;
   v6 = [FPFrameworkOverridesIterator alloc];
-  v7 = cachedFrameworkOverridingObjects();
+  v7 = cachedFrameworkOverridingObjects(v6);
   v8 = [(FPFrameworkOverridesIterator *)v6 initWithOverrides:v7 url:l noSuitableModuleFoundHandler:handlerCopy];
 
   return v8;
@@ -24,7 +24,7 @@
 
 + (id)allOverrides
 {
-  v2 = cachedFrameworkOverridingObjects();
+  v2 = cachedFrameworkOverridingObjects(self);
   v3 = [v2 copy];
 
   return v3;
@@ -117,7 +117,7 @@ LABEL_8:
 {
   invocation = self->_invocation;
   self->_invocation = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, invocation);
 }
 
 + (void)addOverride:(id)override
@@ -125,7 +125,7 @@ LABEL_8:
   if (override)
   {
     overrideCopy = override;
-    v4 = cachedFrameworkOverridingObjects();
+    v4 = cachedFrameworkOverridingObjects(overrideCopy);
     v5 = [frameworkOverridingObjects mutableCopy];
     [v5 insertObject:overrideCopy atIndex:0];
 

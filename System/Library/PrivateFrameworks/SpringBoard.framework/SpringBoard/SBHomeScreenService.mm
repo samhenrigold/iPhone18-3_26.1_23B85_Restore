@@ -130,11 +130,11 @@
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   homeScreenBundleIdentifiersAuthenticator = [(SBHomeScreenService *)self homeScreenBundleIdentifiersAuthenticator];
   v18 = 0;
-  v7 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v7 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:v5 error:&v18];
   v8 = v18;
 
   if (v7)
@@ -172,8 +172,9 @@
 - (void)allHomeScreenApplicationBundleIdentifiers
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)noteHomeScreenApplicationsDidChange
@@ -223,11 +224,11 @@
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   homeScreenBundleIdentifiersAuthenticator = [(SBHomeScreenService *)self homeScreenBundleIdentifiersAuthenticator];
   v18 = 0;
-  v7 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v7 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:v5 error:&v18];
   v8 = v18;
 
   if (v7)
@@ -587,11 +588,11 @@ void __67__SBHomeScreenService_initWithIconController_homeScreenController___blo
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   resetHomeScreenLayoutAuthenticator = [(SBHomeScreenService *)self resetHomeScreenLayoutAuthenticator];
   v15 = 0;
-  v9 = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:auditToken error:&v15];
+  v9 = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:v7 error:&v15];
   v10 = v15;
 
   if (v9)
@@ -631,11 +632,11 @@ void __67__SBHomeScreenService_initWithIconController_homeScreenController___blo
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   resetHomeScreenLayoutAuthenticator = [(SBHomeScreenService *)self resetHomeScreenLayoutAuthenticator];
   v18 = 0;
-  v12 = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v12 = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:v10 error:&v18];
   v13 = v18;
 
   if (v12)
@@ -675,11 +676,11 @@ void __67__SBHomeScreenService_initWithIconController_homeScreenController___blo
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   resetHomeScreenLayoutAuthenticator = [(SBHomeScreenService *)self resetHomeScreenLayoutAuthenticator];
   v18 = 0;
-  v12 = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v12 = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:v10 error:&v18];
   v13 = v18;
 
   if (v12)
@@ -718,11 +719,11 @@ void __67__SBHomeScreenService_initWithIconController_homeScreenController___blo
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   resetHomeScreenLayoutAuthenticator = [(SBHomeScreenService *)self resetHomeScreenLayoutAuthenticator];
   v15 = 0;
-  v9 = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:auditToken error:&v15];
+  v9 = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:v7 error:&v15];
   v10 = v15;
 
   if (v9)
@@ -761,11 +762,11 @@ void __67__SBHomeScreenService_initWithIconController_homeScreenController___blo
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   resetHomeScreenLayoutAuthenticator = [(SBHomeScreenService *)self resetHomeScreenLayoutAuthenticator];
   v23 = 0;
-  LOBYTE(remoteProcess) = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:auditToken error:&v23];
+  LOBYTE(remoteProcess) = [resetHomeScreenLayoutAuthenticator authenticateAuditToken:v7 error:&v23];
   v9 = v23;
 
   if (remoteProcess)
@@ -860,11 +861,11 @@ uint64_t __63__SBHomeScreenService_runFloatingDockStressTestWithCompletion___blo
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v13 = objc_msgSend_auditToken(remoteProcess);
 
   requestSuggestedAppAuthenticator = [(SBHomeScreenService *)self requestSuggestedAppAuthenticator];
   v30 = 0;
-  LOBYTE(remoteProcess) = [requestSuggestedAppAuthenticator authenticateAuditToken:auditToken error:&v30];
+  LOBYTE(remoteProcess) = [requestSuggestedAppAuthenticator authenticateAuditToken:v13 error:&v30];
   v15 = v30;
 
   if (remoteProcess)
@@ -944,11 +945,11 @@ void __96__SBHomeScreenService_requestSuggestedApplicationWithBundleIdentifier_a
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   iconFolderPathLookupAuthenticator = [(SBHomeScreenService *)self iconFolderPathLookupAuthenticator];
   v15 = 0;
-  v9 = [iconFolderPathLookupAuthenticator authenticateAuditToken:auditToken error:&v15];
+  v9 = [iconFolderPathLookupAuthenticator authenticateAuditToken:v7 error:&v15];
   v10 = v15;
 
   if (v9)
@@ -979,11 +980,11 @@ void __96__SBHomeScreenService_requestSuggestedApplicationWithBundleIdentifier_a
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   addApplicationIconAuthenticator = [(SBHomeScreenService *)self addApplicationIconAuthenticator];
   v25 = 0;
-  v9 = [addApplicationIconAuthenticator authenticateAuditToken:auditToken error:&v25];
+  v9 = [addApplicationIconAuthenticator authenticateAuditToken:v7 error:&v25];
   v10 = v25;
 
   if (v9)
@@ -1049,11 +1050,11 @@ LABEL_13:
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v13 = objc_msgSend_auditToken(remoteProcess);
 
   addApplicationIconAuthenticator = [(SBHomeScreenService *)self addApplicationIconAuthenticator];
   v36 = 0;
-  v15 = [addApplicationIconAuthenticator authenticateAuditToken:auditToken error:&v36];
+  v15 = [addApplicationIconAuthenticator authenticateAuditToken:v13 error:&v36];
   v16 = v36;
 
   if (v15)
@@ -1123,11 +1124,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   addApplicationIconAuthenticator = [(SBHomeScreenService *)self addApplicationIconAuthenticator];
   v27 = 0;
-  v9 = [addApplicationIconAuthenticator authenticateAuditToken:auditToken error:&v27];
+  v9 = [addApplicationIconAuthenticator authenticateAuditToken:v7 error:&v27];
   v10 = v27;
 
   if (v9)
@@ -1179,11 +1180,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   largeIconLayoutAuthenticator = [(SBHomeScreenService *)self largeIconLayoutAuthenticator];
   v13 = 0;
-  LOBYTE(remoteProcess) = [largeIconLayoutAuthenticator authenticateAuditToken:auditToken error:&v13];
+  LOBYTE(remoteProcess) = [largeIconLayoutAuthenticator authenticateAuditToken:v5 error:&v13];
   v7 = v13;
 
   if (remoteProcess)
@@ -1215,11 +1216,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   largeIconLayoutAuthenticator = [(SBHomeScreenService *)self largeIconLayoutAuthenticator];
   v12 = 0;
-  LOBYTE(remoteProcess) = [largeIconLayoutAuthenticator authenticateAuditToken:auditToken error:&v12];
+  LOBYTE(remoteProcess) = [largeIconLayoutAuthenticator authenticateAuditToken:v7 error:&v12];
   v9 = v12;
 
   if (remoteProcess)
@@ -1244,11 +1245,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   largeIconLayoutAuthenticator = [(SBHomeScreenService *)self largeIconLayoutAuthenticator];
   v13 = 0;
-  v7 = [largeIconLayoutAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v7 = [largeIconLayoutAuthenticator authenticateAuditToken:v5 error:&v13];
   v8 = v13;
 
   if (v7)
@@ -1278,11 +1279,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   largeIconLayoutAuthenticator = [(SBHomeScreenService *)self largeIconLayoutAuthenticator];
   v12 = 0;
-  v9 = [largeIconLayoutAuthenticator authenticateAuditToken:auditToken error:&v12];
+  v9 = [largeIconLayoutAuthenticator authenticateAuditToken:v7 error:&v12];
   v10 = v12;
 
   if (v9)
@@ -1305,11 +1306,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   addsNewIconsToHomeScreenAuthenticator = [(SBHomeScreenService *)self addsNewIconsToHomeScreenAuthenticator];
   v13 = 0;
-  v7 = [addsNewIconsToHomeScreenAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v7 = [addsNewIconsToHomeScreenAuthenticator authenticateAuditToken:v5 error:&v13];
   v8 = v13;
 
   if (v7)
@@ -1340,11 +1341,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   addsNewIconsToHomeScreenAuthenticator = [(SBHomeScreenService *)self addsNewIconsToHomeScreenAuthenticator];
   v12 = 0;
-  LOBYTE(remoteProcess) = [addsNewIconsToHomeScreenAuthenticator authenticateAuditToken:auditToken error:&v12];
+  LOBYTE(remoteProcess) = [addsNewIconsToHomeScreenAuthenticator authenticateAuditToken:v7 error:&v12];
   v9 = v12;
 
   if (remoteProcess)
@@ -1371,17 +1372,17 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   addsNewIconsToHomeScreenAuthenticator = [(SBHomeScreenService *)self addsNewIconsToHomeScreenAuthenticator];
   v49 = 0;
-  v9 = [addsNewIconsToHomeScreenAuthenticator authenticateAuditToken:auditToken error:&v49];
+  v9 = [addsNewIconsToHomeScreenAuthenticator authenticateAuditToken:v7 error:&v49];
   v10 = v49;
 
   if (v9)
   {
     v31 = v10;
-    v32 = auditToken;
+    v32 = v7;
     iconController = [(SBHomeScreenService *)self iconController];
     iconModel = [iconController iconModel];
     rootFolder = [iconModel rootFolder];
@@ -1478,7 +1479,7 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
       while (v20);
     }
 
-    auditToken = v32;
+    v7 = v32;
     hiddenCopy = v33;
     v10 = v31;
   }
@@ -1498,11 +1499,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   showsBadgesInAppLibraryAuthenticator = [(SBHomeScreenService *)self showsBadgesInAppLibraryAuthenticator];
   v13 = 0;
-  LOBYTE(remoteProcess) = [showsBadgesInAppLibraryAuthenticator authenticateAuditToken:auditToken error:&v13];
+  LOBYTE(remoteProcess) = [showsBadgesInAppLibraryAuthenticator authenticateAuditToken:v5 error:&v13];
   v7 = v13;
 
   if (remoteProcess)
@@ -1534,11 +1535,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   showsBadgesInAppLibraryAuthenticator = [(SBHomeScreenService *)self showsBadgesInAppLibraryAuthenticator];
   v12 = 0;
-  LOBYTE(remoteProcess) = [showsBadgesInAppLibraryAuthenticator authenticateAuditToken:auditToken error:&v12];
+  LOBYTE(remoteProcess) = [showsBadgesInAppLibraryAuthenticator authenticateAuditToken:v7 error:&v12];
   v9 = v12;
 
   if (remoteProcess)
@@ -1563,11 +1564,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   showsHomeScreenSearchAffordanceAuthenticator = [(SBHomeScreenService *)self showsHomeScreenSearchAffordanceAuthenticator];
   v13 = 0;
-  LOBYTE(remoteProcess) = [showsHomeScreenSearchAffordanceAuthenticator authenticateAuditToken:auditToken error:&v13];
+  LOBYTE(remoteProcess) = [showsHomeScreenSearchAffordanceAuthenticator authenticateAuditToken:v5 error:&v13];
   v7 = v13;
 
   if (remoteProcess)
@@ -1599,11 +1600,11 @@ uint64_t __103__SBHomeScreenService_addApplicationIconToHomeScreenWithBundleIden
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   showsHomeScreenSearchAffordanceAuthenticator = [(SBHomeScreenService *)self showsHomeScreenSearchAffordanceAuthenticator];
   v12 = 0;
-  LOBYTE(remoteProcess) = [showsHomeScreenSearchAffordanceAuthenticator authenticateAuditToken:auditToken error:&v12];
+  LOBYTE(remoteProcess) = [showsHomeScreenSearchAffordanceAuthenticator authenticateAuditToken:v7 error:&v12];
   v9 = v12;
 
   if (remoteProcess)
@@ -1646,11 +1647,11 @@ void __64__SBHomeScreenService_allHomeScreenApplicationBundleIdentifiers__block_
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   homeScreenBundleIdentifiersAuthenticator = [(SBHomeScreenService *)self homeScreenBundleIdentifiersAuthenticator];
   v16 = 0;
-  v9 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:auditToken error:&v16];
+  v9 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:v7 error:&v16];
   v10 = v16;
 
   if (v9)
@@ -1695,11 +1696,11 @@ void __64__SBHomeScreenService_allHomeScreenApplicationBundleIdentifiers__block_
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   homeScreenBundleIdentifiersAuthenticator = [(SBHomeScreenService *)self homeScreenBundleIdentifiersAuthenticator];
   v15 = 0;
-  v7 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:auditToken error:&v15];
+  v7 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:v5 error:&v15];
   v8 = v15;
 
   if (v7)
@@ -1731,11 +1732,11 @@ void __64__SBHomeScreenService_allHomeScreenApplicationBundleIdentifiers__block_
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   homeScreenBundleIdentifiersAuthenticator = [(SBHomeScreenService *)self homeScreenBundleIdentifiersAuthenticator];
   v19 = 0;
-  v9 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:auditToken error:&v19];
+  v9 = [homeScreenBundleIdentifiersAuthenticator authenticateAuditToken:v7 error:&v19];
   v10 = v19;
 
   if (v9)
@@ -1837,11 +1838,11 @@ LABEL_13:
   {
     currentContext = [MEMORY[0x277CF3280] currentContext];
     remoteProcess = [currentContext remoteProcess];
-    auditToken = [remoteProcess auditToken];
+    v10 = objc_msgSend_auditToken(remoteProcess);
 
     configurationAuthenticator = [(SBHomeScreenService *)self configurationAuthenticator];
     v16 = 0;
-    v12 = [configurationAuthenticator authenticateAuditToken:auditToken error:&v16];
+    v12 = [configurationAuthenticator authenticateAuditToken:v10 error:&v16];
     v13 = v16;
 
     if (v12)
@@ -1871,15 +1872,17 @@ LABEL_13:
 - (void)runDownloadingIconTest
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)runRemoveAndRestoreIconTest
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)requestAppLibraryUpdate:(id)update reason:(id)reason completion:(id)completion
@@ -1950,11 +1953,11 @@ LABEL_13:
   unsignedIntegerValue = [updateCopy unsignedIntegerValue];
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v17 = objc_msgSend_auditToken(remoteProcess);
 
   appLibraryRequestUpdateAuthenticator = [(SBHomeScreenService *)self appLibraryRequestUpdateAuthenticator];
   v32 = 0;
-  LOBYTE(remoteProcess) = [appLibraryRequestUpdateAuthenticator authenticateAuditToken:auditToken error:&v32];
+  LOBYTE(remoteProcess) = [appLibraryRequestUpdateAuthenticator authenticateAuditToken:v17 error:&v32];
   v19 = v32;
 
   if (remoteProcess)
@@ -2050,15 +2053,17 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
 - (void)configureDeweyEachAppHasItsOwnCategory
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)configureDeweyOneCategoryWithAllApps
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)configureLibraryWithCategoryLimit:(id)limit
@@ -2066,11 +2071,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   limitCopy = limit;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   configurationAuthenticator = [(SBHomeScreenService *)self configurationAuthenticator];
   v12 = 0;
-  v9 = [configurationAuthenticator authenticateAuditToken:auditToken error:&v12];
+  v9 = [configurationAuthenticator authenticateAuditToken:v7 error:&v12];
   v10 = v12;
 
   if (v9)
@@ -2094,11 +2099,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   lCopy = l;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   configurationAuthenticator = [(SBHomeScreenService *)self configurationAuthenticator];
   v14 = 0;
-  v9 = [configurationAuthenticator authenticateAuditToken:auditToken error:&v14];
+  v9 = [configurationAuthenticator authenticateAuditToken:v7 error:&v14];
   v10 = v14;
 
   if (v9)
@@ -2126,11 +2131,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   countCopy = count;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   configurationAuthenticator = [(SBHomeScreenService *)self configurationAuthenticator];
   v13 = 0;
-  v9 = [configurationAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v9 = [configurationAuthenticator authenticateAuditToken:v7 error:&v13];
   v10 = v13;
 
   if (v9)
@@ -2155,11 +2160,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   countCopy = count;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   configurationAuthenticator = [(SBHomeScreenService *)self configurationAuthenticator];
   v13 = 0;
-  v9 = [configurationAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v9 = [configurationAuthenticator authenticateAuditToken:v7 error:&v13];
   v10 = v13;
 
   if (v9)
@@ -2184,11 +2189,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   countCopy = count;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   configurationAuthenticator = [(SBHomeScreenService *)self configurationAuthenticator];
   v13 = 0;
-  v9 = [configurationAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v9 = [configurationAuthenticator authenticateAuditToken:v7 error:&v13];
   v10 = v13;
 
   if (v9)
@@ -2211,22 +2216,25 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
 - (void)ignoreAllApps
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)removeAllWidgets
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)removeWidgetsFromHomeScreen
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)addFileStackWithURL:(id)l
@@ -2234,11 +2242,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   lCopy = l;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   fileStackIconListAuthenticator = [(SBHomeScreenService *)self fileStackIconListAuthenticator];
   v13 = 0;
-  v9 = [fileStackIconListAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v9 = [fileStackIconListAuthenticator authenticateAuditToken:v7 error:&v13];
   v10 = v13;
 
   if (v9)
@@ -2263,11 +2271,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   lCopy = l;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   fileStackIconListAuthenticator = [(SBHomeScreenService *)self fileStackIconListAuthenticator];
   v13 = 0;
-  v9 = [fileStackIconListAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v9 = [fileStackIconListAuthenticator authenticateAuditToken:v7 error:&v13];
   v10 = v13;
 
   if (v9)
@@ -2292,11 +2300,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   lCopy = l;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   fileStackIconListAuthenticator = [(SBHomeScreenService *)self fileStackIconListAuthenticator];
   v15 = 0;
-  v9 = [fileStackIconListAuthenticator authenticateAuditToken:auditToken error:&v15];
+  v9 = [fileStackIconListAuthenticator authenticateAuditToken:v7 error:&v15];
   v10 = v15;
 
   if (v9)
@@ -2324,8 +2332,9 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
 - (void)deleteAllWebClips
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)changeDisplayedDateOverride:(id)override
@@ -2334,11 +2343,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   displayedDateAuthenticator = [(SBHomeScreenService *)self displayedDateAuthenticator];
   v11 = 0;
-  LOBYTE(remoteProcess) = [displayedDateAuthenticator authenticateAuditToken:auditToken error:&v11];
+  LOBYTE(remoteProcess) = [displayedDateAuthenticator authenticateAuditToken:v7 error:&v11];
   v9 = v11;
 
   if (remoteProcess)
@@ -2363,11 +2372,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   displayedDateAuthenticator = [(SBHomeScreenService *)self displayedDateAuthenticator];
   v11 = 0;
-  LOBYTE(remoteProcess) = [displayedDateAuthenticator authenticateAuditToken:auditToken error:&v11];
+  LOBYTE(remoteProcess) = [displayedDateAuthenticator authenticateAuditToken:v7 error:&v11];
   v9 = v11;
 
   if (remoteProcess)
@@ -2393,11 +2402,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   displayedDateAuthenticator = [(SBHomeScreenService *)self displayedDateAuthenticator];
   v11 = 0;
-  LOBYTE(remoteProcess) = [displayedDateAuthenticator authenticateAuditToken:auditToken error:&v11];
+  LOBYTE(remoteProcess) = [displayedDateAuthenticator authenticateAuditToken:v7 error:&v11];
   v9 = v11;
 
   if (remoteProcess)
@@ -2419,22 +2428,25 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
 - (void)reloadHomeScreenLayout
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)resetTodayViewLayout
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)clearTodayViewLayout
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)overrideBadgeValue:(id)value forBundleIdentifier:(id)identifier
@@ -2444,11 +2456,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   configurationAuthenticator = [(SBHomeScreenService *)self configurationAuthenticator];
   v22 = 0;
-  v12 = [configurationAuthenticator authenticateAuditToken:auditToken error:&v22];
+  v12 = [configurationAuthenticator authenticateAuditToken:v10 error:&v22];
   v13 = v22;
 
   if (v12)
@@ -2487,8 +2499,9 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
 - (void)clearNewlyInstalledAndRecentlyUpdatedAppIndicators
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)presentAppLibraryCategoryPodForCategoryIdentifier:(id)identifier completion:(id)completion
@@ -2498,11 +2511,11 @@ void __101__SBHomeScreenService__requestAppLibraryUpdate_categoryMapProvider_rea
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   openPodAuthenticator = [(SBHomeScreenService *)self openPodAuthenticator];
   v21 = 0;
-  v12 = [openPodAuthenticator authenticateAuditToken:auditToken error:&v21];
+  v12 = [openPodAuthenticator authenticateAuditToken:v10 error:&v21];
   v13 = v21;
 
   if (v12)
@@ -2614,11 +2627,11 @@ LABEL_14:
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v9 = objc_msgSend_auditToken(remoteProcess);
 
   configurationAuthenticator = [(SBHomeScreenService *)self configurationAuthenticator];
   v20 = 0;
-  v11 = [configurationAuthenticator authenticateAuditToken:auditToken error:&v20];
+  v11 = [configurationAuthenticator authenticateAuditToken:v9 error:&v20];
   v12 = v20;
 
   if (v11)
@@ -2669,11 +2682,11 @@ LABEL_14:
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   openPodAuthenticator = [(SBHomeScreenService *)self openPodAuthenticator];
   v18 = 0;
-  v9 = [openPodAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v9 = [openPodAuthenticator authenticateAuditToken:v7 error:&v18];
   v10 = v18;
 
   if (v9)
@@ -2846,11 +2859,11 @@ void __98__SBHomeScreenService__translatedSBSPresentationErrorCompletionForSBHPr
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v13 = objc_msgSend_auditToken(remoteProcess);
 
   addDebugIconAuthenticator = [(SBHomeScreenService *)self addDebugIconAuthenticator];
   v30 = 0;
-  v15 = [addDebugIconAuthenticator authenticateAuditToken:auditToken error:&v30];
+  v15 = [addDebugIconAuthenticator authenticateAuditToken:v13 error:&v30];
   v16 = v30;
 
   if (v15)
@@ -2957,11 +2970,11 @@ uint64_t __89__SBHomeScreenService_addDebugIconWithSizeClassDescription_inPage_a
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   observeInstalledWebClipsAuthenticator = [(SBHomeScreenService *)self observeInstalledWebClipsAuthenticator];
   v16 = 0;
-  v9 = [observeInstalledWebClipsAuthenticator authenticateAuditToken:auditToken error:&v16];
+  v9 = [observeInstalledWebClipsAuthenticator authenticateAuditToken:v7 error:&v16];
   v10 = v16;
 
   if (v9)
@@ -3048,11 +3061,11 @@ uint64_t __89__SBHomeScreenService_addDebugIconWithSizeClassDescription_inPage_a
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   activeWidgetInfoAuthenticator = [(SBHomeScreenService *)self activeWidgetInfoAuthenticator];
   v13 = 0;
-  v7 = [activeWidgetInfoAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v7 = [activeWidgetInfoAuthenticator authenticateAuditToken:v5 error:&v13];
   v8 = v13;
 
   if (v7)
@@ -3083,11 +3096,11 @@ uint64_t __89__SBHomeScreenService_addDebugIconWithSizeClassDescription_inPage_a
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   addEmptyPageAuthenticator = [(SBHomeScreenService *)self addEmptyPageAuthenticator];
   v16 = 0;
-  v9 = [addEmptyPageAuthenticator authenticateAuditToken:auditToken error:&v16];
+  v9 = [addEmptyPageAuthenticator authenticateAuditToken:v7 error:&v16];
   v10 = v16;
 
   if (v9)
@@ -3116,8 +3129,9 @@ uint64_t __89__SBHomeScreenService_addDebugIconWithSizeClassDescription_inPage_a
 - (void)addEmptyPage
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)addSuggestedPageWithPageType:(id)type focusModeIdentifier:(id)identifier
@@ -3127,11 +3141,11 @@ uint64_t __89__SBHomeScreenService_addDebugIconWithSizeClassDescription_inPage_a
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   addSuggestedPageAuthenticator = [(SBHomeScreenService *)self addSuggestedPageAuthenticator];
   v17 = 0;
-  v12 = [addSuggestedPageAuthenticator authenticateAuditToken:auditToken error:&v17];
+  v12 = [addSuggestedPageAuthenticator authenticateAuditToken:v10 error:&v17];
   v13 = v17;
 
   if (v12)
@@ -3159,11 +3173,11 @@ uint64_t __89__SBHomeScreenService_addDebugIconWithSizeClassDescription_inPage_a
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   homeScreenLayoutAvailabilityAuthenticator = [(SBHomeScreenService *)self homeScreenLayoutAvailabilityAuthenticator];
   v18 = 0;
-  v9 = [homeScreenLayoutAvailabilityAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v9 = [homeScreenLayoutAvailabilityAuthenticator authenticateAuditToken:v7 error:&v18];
   v10 = v18;
 
   if ((v9 & 1) == 0)
@@ -3263,11 +3277,11 @@ LABEL_12:
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   homeScreenLayoutAvailabilityAuthenticator = [(SBHomeScreenService *)self homeScreenLayoutAvailabilityAuthenticator];
   v13 = 0;
-  v7 = [homeScreenLayoutAvailabilityAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v7 = [homeScreenLayoutAvailabilityAuthenticator authenticateAuditToken:v5 error:&v13];
   v8 = v13;
 
   if (v7)
@@ -3326,11 +3340,11 @@ LABEL_12:
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   homeScreenLayoutAuthenticator = [(SBHomeScreenService *)self homeScreenLayoutAuthenticator];
   v16 = 0;
-  v9 = [homeScreenLayoutAuthenticator authenticateAuditToken:auditToken error:&v16];
+  v9 = [homeScreenLayoutAuthenticator authenticateAuditToken:v7 error:&v16];
   v10 = v16;
 
   if (v9)
@@ -3376,11 +3390,11 @@ LABEL_12:
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   iconBadgeValueAuthenticator = [(SBHomeScreenService *)self iconBadgeValueAuthenticator];
   v18 = 0;
-  v9 = [iconBadgeValueAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v9 = [iconBadgeValueAuthenticator authenticateAuditToken:v7 error:&v18];
   v10 = v18;
 
   if (v9)
@@ -3571,11 +3585,11 @@ void __81__SBHomeScreenService_processUpdatesToBadgeValueForApplicationBundleIde
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   iconBadgeValueAuthenticator = [(SBHomeScreenService *)self iconBadgeValueAuthenticator];
   v18 = 0;
-  v9 = [iconBadgeValueAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v9 = [iconBadgeValueAuthenticator authenticateAuditToken:v7 error:&v18];
   v10 = v18;
 
   if (v9)
@@ -3610,11 +3624,11 @@ void __81__SBHomeScreenService_processUpdatesToBadgeValueForApplicationBundleIde
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   iconBadgeValueAuthenticator = [(SBHomeScreenService *)self iconBadgeValueAuthenticator];
   v21 = 0;
-  v12 = [iconBadgeValueAuthenticator authenticateAuditToken:auditToken error:&v21];
+  v12 = [iconBadgeValueAuthenticator authenticateAuditToken:v10 error:&v21];
   v13 = v21;
 
   if (v12)
@@ -3674,10 +3688,10 @@ void __81__SBHomeScreenService_processUpdatesToBadgeValueForApplicationBundleIde
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   v11 = 0;
-  v6 = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:auditToken error:&v11];
+  v6 = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:v5 error:&v11];
   v7 = v11;
   if (v6)
   {
@@ -3705,10 +3719,10 @@ void __81__SBHomeScreenService_processUpdatesToBadgeValueForApplicationBundleIde
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   v11 = 0;
-  v8 = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:auditToken error:&v11];
+  v8 = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:v7 error:&v11];
   v9 = v11;
   if (v8)
   {
@@ -3733,10 +3747,10 @@ void __81__SBHomeScreenService_processUpdatesToBadgeValueForApplicationBundleIde
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   v15 = 0;
-  v11 = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:auditToken error:&v15];
+  v11 = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:v10 error:&v15];
   v12 = v15;
   if (v11)
   {
@@ -3761,10 +3775,10 @@ void __81__SBHomeScreenService_processUpdatesToBadgeValueForApplicationBundleIde
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   v18 = 0;
-  v8 = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:auditToken error:&v18];
+  v8 = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:v7 error:&v18];
   v9 = v18;
   if (!v8)
   {
@@ -3882,8 +3896,9 @@ void __66__SBHomeScreenService_beginObservingNotificationsForIconTintColor__bloc
 - (void)clearAllOverflowSlotCounts
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (SBSHomeScreenServiceArrayOfNumbers)overflowSlotCounts
@@ -3891,11 +3906,11 @@ void __66__SBHomeScreenService_beginObservingNotificationsForIconTintColor__bloc
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   overflowSlotsAuthenticator = [(SBHomeScreenService *)self overflowSlotsAuthenticator];
   v22 = 0;
-  v7 = [overflowSlotsAuthenticator authenticateAuditToken:auditToken error:&v22];
+  v7 = [overflowSlotsAuthenticator authenticateAuditToken:v5 error:&v22];
   v8 = v22;
 
   if (v7)
@@ -3940,15 +3955,17 @@ void __41__SBHomeScreenService_overflowSlotCounts__block_invoke(uint64_t a1, voi
 - (void)setupHomeScreenForWidgetScrollPerformanceTest
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)runWidgetDiscoverabilityTest
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (id)silhouetteLayoutForPageAtIndex:(id)index
@@ -3957,11 +3974,11 @@ void __41__SBHomeScreenService_overflowSlotCounts__block_invoke(uint64_t a1, voi
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   silhouetteAuthenticator = [(SBHomeScreenService *)self silhouetteAuthenticator];
   v15 = 0;
-  v9 = [silhouetteAuthenticator authenticateAuditToken:auditToken error:&v15];
+  v9 = [silhouetteAuthenticator authenticateAuditToken:v7 error:&v15];
   v10 = v15;
 
   if (v9)
@@ -3993,11 +4010,11 @@ void __41__SBHomeScreenService_overflowSlotCounts__block_invoke(uint64_t a1, voi
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   prominentIconSwapAuthenticator = [(SBHomeScreenService *)self prominentIconSwapAuthenticator];
   v16 = 0;
-  v12 = [prominentIconSwapAuthenticator authenticateAuditToken:auditToken error:&v16];
+  v12 = [prominentIconSwapAuthenticator authenticateAuditToken:v10 error:&v16];
   v13 = v16;
 
   if (v12)
@@ -4025,11 +4042,11 @@ void __41__SBHomeScreenService_overflowSlotCounts__block_invoke(uint64_t a1, voi
   BSDispatchQueueAssertMain();
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
   prominentIconSwapAuthenticator = [(SBHomeScreenService *)self prominentIconSwapAuthenticator];
   v18 = 0;
-  v12 = [prominentIconSwapAuthenticator authenticateAuditToken:auditToken error:&v18];
+  v12 = [prominentIconSwapAuthenticator authenticateAuditToken:v10 error:&v18];
   v13 = v18;
 
   if (v12)
@@ -4058,11 +4075,11 @@ void __41__SBHomeScreenService_overflowSlotCounts__block_invoke(uint64_t a1, voi
 {
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   osMigrationHomeScreenAuthenticator = [(SBHomeScreenService *)self osMigrationHomeScreenAuthenticator];
   v13 = 0;
-  v7 = [osMigrationHomeScreenAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v7 = [osMigrationHomeScreenAuthenticator authenticateAuditToken:v5 error:&v13];
   v8 = v13;
 
   if (v7)
@@ -4091,11 +4108,11 @@ void __41__SBHomeScreenService_overflowSlotCounts__block_invoke(uint64_t a1, voi
 {
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v5 = objc_msgSend_auditToken(remoteProcess);
 
   osMigrationHomeScreenAuthenticator = [(SBHomeScreenService *)self osMigrationHomeScreenAuthenticator];
   v13 = 0;
-  v7 = [osMigrationHomeScreenAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v7 = [osMigrationHomeScreenAuthenticator authenticateAuditToken:v5 error:&v13];
   v8 = v13;
 
   if (v7)
@@ -4125,11 +4142,11 @@ void __41__SBHomeScreenService_overflowSlotCounts__block_invoke(uint64_t a1, voi
   layoutCopy = layout;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   osMigrationHomeScreenAuthenticator = [(SBHomeScreenService *)self osMigrationHomeScreenAuthenticator];
   v13 = 0;
-  v9 = [osMigrationHomeScreenAuthenticator authenticateAuditToken:auditToken error:&v13];
+  v9 = [osMigrationHomeScreenAuthenticator authenticateAuditToken:v7 error:&v13];
   v10 = v13;
 
   if (v9)
@@ -4156,16 +4173,16 @@ void __41__SBHomeScreenService_overflowSlotCounts__block_invoke(uint64_t a1, voi
   descriptionsCopy = descriptions;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v7 = objc_msgSend_auditToken(remoteProcess);
 
   v42 = 0;
-  LOBYTE(remoteProcess) = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:auditToken error:&v42];
+  LOBYTE(remoteProcess) = [(SBHomeScreenService *)self authenticateIconStyleRequestForAuditToken:v7 error:&v42];
   v8 = v42;
   v9 = v8;
   if (remoteProcess)
   {
     v34 = v8;
-    v35 = auditToken;
+    v35 = v7;
     v36 = currentContext;
     iconController = [(SBHomeScreenService *)self iconController];
     iconManager = [iconController iconManager];
@@ -4262,7 +4279,7 @@ LABEL_21:
         currentContext = v36;
         descriptionsCopy = v37;
         v9 = v34;
-        auditToken = v35;
+        v7 = v35;
         v30 = iconController;
         goto LABEL_24;
       }
@@ -4380,456 +4397,542 @@ void __65__SBHomeScreenService_listener_didReceiveConnection_withContext___block
 - (void)resetHomeScreenLayoutWithCompletion:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)unforbidApplicationBundleIdentifierFromLibrary:(void *)a1 withCompletion:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)forbidApplicationBundleIdentifierFromLibrary:(void *)a1 withCompletion:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)resetCategoriesLayoutWithCompletion:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)runFloatingDockStressTestWithCompletion:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)requestSuggestedApplicationWithBundleIdentifier:(void *)a1 assertionPort:completion:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)folderPathToIconWithBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)addApplicationIconToHomeScreenWithBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
+}
+
+- (void)addApplicationIconToHomeScreenWithBundleIdentifier:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBHomeScreenService addApplicationIconToHomeScreenWithBundleIdentifier:]";
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a1, a3, "%s 'applicationBundleIdentifier' is empty", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addApplicationIconToHomeScreenWithBundleIdentifier:(void *)a1 inPage:atPositionDescription:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
+}
+
+- (void)addApplicationIconToHomeScreenWithBundleIdentifier:(uint64_t)a3 inPage:(uint64_t)a4 atPositionDescription:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBHomeScreenService addApplicationIconToHomeScreenWithBundleIdentifier:inPage:atPositionDescription:]";
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a1, a3, "%s 'applicationBundleIdentifier' is empty", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addPageOfApplicationIconsWithBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
+}
+
+- (void)addPageOfApplicationIconsWithBundleIdentifier:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBHomeScreenService addPageOfApplicationIconsWithBundleIdentifier:]";
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a1, a3, "%s 'applicationBundleIdentifier' is empty", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)largeIconLayoutEnabledValue
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setLargeIconLayoutEnabledValue:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)largeIconSizeEnabledValue
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setLargeIconSizeEnabledValue:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)addsNewIconsToHomeScreenValue
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setAddsNewIconsToHomeScreenValue:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setIconListsHidden:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)showsBadgesInAppLibraryValue
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setShowsBadgesInAppLibraryValue:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)showsHomeScreenSearchAffordanceValue
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setShowsHomeScreenSearchAffordanceValue:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)allHomeScreenApplicationPlaceholderBundleIdentifiers
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setObservingHomeScreenApplications:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)allIconLists
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)hasWidgetWithBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)debugContinuityWithBadgeType:(void *)a1 deviceTypeIdentifier:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)_requestAppLibraryUpdate:(void *)a1 categoryMapProvider:reason:optionalCompletionHandler:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)configureLibraryWithCategoryLimit:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)configureCategoryMapProviderToUseCategoryMapAtURL:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)organizeAllIconsIntoFoldersWithPageCount:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)organizeAllIconsAcrossPagesWithPageCount:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)randomizeAllIconsAcrossPagesWithPageCount:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)addFileStackWithURL:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)removeFileStackWithURL:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)hasConfiguredFilesStackWithURL:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)changeDisplayedDateOverride:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)changeDisplayedDateOffsetOverride:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)changeDisplayedDateWithAutoupdatingSecondsOverride:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)overrideBadgeValue:(void *)a1 forBundleIdentifier:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)presentAppLibraryCategoryPodForCategoryIdentifier:(void *)a1 completion:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)presentAppLibraryAnimated:(void *)a1 completion:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)dismissAppLibraryWithCompletion:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)addDebugIconWithSizeClassDescription:(void *)a1 inPage:atPositionDescription:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setObservingInstalledWebClips:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)debuggingActiveWidgetInfo
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)insertEmptyPageAtIndex:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)addSuggestedPageWithPageType:(void *)a1 focusModeIdentifier:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setObservingHomeScreenLayoutAvailability:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)homeScreenLayoutAvailability
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setObservingHomeScreenLayout:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setObservingIconBadgeValue:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)badgeValueForIconWithApplicationBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)badgeValueForIconWithApplicationBundleIdentifier:(void *)a1 completionHandler:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)homeScreenIconStyleConfiguration
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setHomeScreenIconStyleConfiguration:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setHomeScreenIconStyleConfiguration:(void *)a1 wallpaperDimmed:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)setObservingIconTintColor:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)overflowSlotCounts
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)silhouetteLayoutForPageAtIndex:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)swapApplicationIconsInProminentPositionsWithBundleIdentifier:(void *)a1 withApplicationIconsWithWithBundleIdentifier:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)canSwapApplicationIconsInProminentPositionsWithBundleIdentifier:(void *)a1 withApplicationIconsWithWithBundleIdentifier:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)osMigrationHomeScreenLayout
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)osMigrationDefaultHomeScreenLayout
 {
   localizedDescription = [self localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)importOSMigrationHomeScreenLayout:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 - (void)precacheIconLayersOnFirstPageWithAppearanceDescriptions:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "%s %{public}@", v4, v5, v6, v7, v8);
 }
 
 @end

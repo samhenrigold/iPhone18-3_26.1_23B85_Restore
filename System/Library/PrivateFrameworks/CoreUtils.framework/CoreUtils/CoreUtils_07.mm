@@ -270,7 +270,7 @@ LABEL_13:
 
   if (gLogCategory_HTTPServer <= 40 && (gLogCategory_HTTPServer != -1 || _LogCategory_Initialize(&gLogCategory_HTTPServer, 0x28u)))
   {
-    LogPrintF(&gLogCategory_HTTPServer, "OSStatus HTTPServer_Start(HTTPServerOldRef)", 0x28u, "Listening on port %d\n", v7, v8, v9, v10, *(a1 + 128));
+    LogPrintF(&gLogCategory_HTTPServer, "OSStatus HTTPServer_Start(HTTPServerOldRef)", 40, "Listening on port %d\n", v7, v8, v9, v10, *(a1 + 128));
   }
 
   v13 = *(a1 + 24);
@@ -373,9 +373,9 @@ LABEL_32:
     }
 
     v16 = v35;
-    *(v35 + 4) = v7;
+    v35[1] = v7;
     v4[3] = v16;
-    *(v16 + 112) = *(v5 + 95);
+    *(v16 + 14) = *(v5 + 95);
     v34 = 28;
     if (getsockname(v7, v4 + 2, &v34) && (!*__error() || *__error()))
     {
@@ -401,7 +401,7 @@ LABEL_32:
     v33 = 1;
     if (setsockopt(v7, 6, 1, &v33, 4u) && (!*__error() || *__error()) && gLogCategory_HTTPServer <= 60 && (gLogCategory_HTTPServer != -1 || _LogCategory_Initialize(&gLogCategory_HTTPServer, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_HTTPServer, "void __HTTPServer_AcceptConnection(void *)", 0x3Cu, "### set TCP_NODELAY failed on sock %d: %#m\n", v20, v21, v22, v23, v7);
+      LogPrintF(&gLogCategory_HTTPServer, "void __HTTPServer_AcceptConnection(void *)", 60, "### set TCP_NODELAY failed on sock %d: %#m\n", v20, v21, v22, v23, v7);
     }
 
     v24 = dispatch_queue_create("HTTPServerConnection", 0);
@@ -440,7 +440,7 @@ LABEL_32:
       if (*v31 != -1)
       {
 LABEL_37:
-        LogPrintF(v31, "void __HTTPServer_AcceptConnection(void *)", 0x28u, "Accepted connection from %##a to %##a \n", v27, v28, v29, v30, v4 + 60);
+        LogPrintF(v31, "void __HTTPServer_AcceptConnection(void *)", 40, "Accepted connection from %##a to %##a \n", v27, v28, v29, v30, v4 + 60);
         return;
       }
 
@@ -504,7 +504,7 @@ void __HTTPServer_FinalizeConnection(uint64_t a1, uint64_t a2, uint64_t a3, uint
       if (*v10 != -1)
       {
 LABEL_4:
-        LogPrintF(v10, "void __HTTPServer_FinalizeConnection(void *)", 0x28u, "Closing  connection from %##a to %##a\n", a5, a6, a7, a8, a1 + 60);
+        LogPrintF(v10, "void __HTTPServer_FinalizeConnection(void *)", 40, "Closing  connection from %##a to %##a\n", a5, a6, a7, a8, a1 + 60);
         goto LABEL_6;
       }
 
@@ -527,7 +527,7 @@ LABEL_6:
   v12 = *(v9 + 48);
   if (v12 && *(a1 + 20))
   {
-    v12(a1);
+    v12(a1, a2, a3, a4, a5, a6, a7, a8);
   }
 
   dispatch_release(*(v9 + 112));
@@ -656,7 +656,7 @@ LABEL_17:
     v12 = *(*(a1 + 8) + 216);
   }
 
-  LogPrintF(v12, "void __HTTPServer_ReadHandler(void *)", 0x14u, "### Connection read error: %#m\n", v5, v6, v7, v8, v9);
+  LogPrintF(v12, "void __HTTPServer_ReadHandler(void *)", 20, "### Connection read error: %#m\n", v5, v6, v7, v8, v9);
 LABEL_26:
   dispatch_source_cancel(*(a1 + 152));
 }
@@ -704,16 +704,16 @@ LABEL_3:
     {
       if (gLogCategory_HTTPServer <= 50 && (gLogCategory_HTTPServer != -1 || _LogCategory_Initialize(&gLogCategory_HTTPServer, 0x32u)))
       {
-        LogPrintF(&gLogCategory_HTTPServer, "Boolean HTTPServer_GetNextURLSegment(HTTPServerConnectionRef, const char **, size_t *, OSStatus *)", 0x32u, "### HTTP URL segment not found: '%.*s %.*s'\n", a5, a6, a7, a8, a1[1048]);
+        LogPrintF(&gLogCategory_HTTPServer, "Boolean HTTPServer_GetNextURLSegment(HTTPServerConnectionRef, const char **, size_t *, OSStatus *)", 50, "### HTTP URL segment not found: '%.*s %.*s'\n", a5, a6, a7, a8, a1[1048]);
       }
     }
 
     else if (gLogCategory_HTTPServer <= 60 && (gLogCategory_HTTPServer != -1 || _LogCategory_Initialize(&gLogCategory_HTTPServer, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_HTTPServer, "Boolean HTTPServer_GetNextURLSegment(HTTPServerConnectionRef, const char **, size_t *, OSStatus *)", 0x3Cu, "### Corrupt HTTP request:\n%.*s\n", a5, a6, a7, a8, a1[1044]);
+      LogPrintF(&gLogCategory_HTTPServer, "Boolean HTTPServer_GetNextURLSegment(HTTPServerConnectionRef, const char **, size_t *, OSStatus *)", 60, "### Corrupt HTTP request:\n%.*s\n", a5, a6, a7, a8, a1[1044]);
     }
 
-    v16 = HTTPServer_SendStatusResponse(a1, 400, a3, a4, a5, a6, a7, a8);
+    v16 = HTTPServer_SendStatusResponse(a1, 400);
     v17 = 0;
   }
 
@@ -742,7 +742,7 @@ LABEL_16:
     v16 = 0;
     *a2 = v10;
     *a3 = v11 - v10;
-    a1[1066] = &v11[v15];
+    a1[1066] = v11 + v15;
     v17 = 1;
   }
 
@@ -750,43 +750,43 @@ LABEL_16:
   return v17;
 }
 
-uint64_t HTTPServer_SendStatusResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPServer_SendStatusResponse(uint64_t a1, uint64_t a2)
 {
-  result = HTTPServer_InitResponse(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = HTTPServer_InitResponse(a1, a2);
   if (!result)
   {
-    HTTPHeader_SetField((a1 + 139720), "Content-Length", "0", v10, v11, v12, v13, v14, v18);
+    HTTPHeader_SetField((a1 + 139720), "Content-Length", "0");
     result = HTTPHeader_Commit(a1 + 139720);
     if (!result)
     {
-      LogHTTP(*(a1 + 279280), *(a1 + 279288), (a1 + 139720), *(a1 + 147912), 0, 0, v15, v16);
-      v17 = *(*(a1 + 24) + 32);
+      LogHTTP(*(a1 + 279280), *(a1 + 279288), (a1 + 139720), *(a1 + 147912), 0, 0, v4, v5);
+      v6 = *(*(a1 + 24) + 32);
 
-      return v17();
+      return v6();
     }
   }
 
   return result;
 }
 
-uint64_t HTTPServer_InitResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPServer_InitResponse(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  HTTPHeader_InitResponseEx(a1 + 139720, "HTTP/1.1", a2, 0, 0, a6, a7, a8);
-  v10 = time(0);
-  v11 = HTTPMakeDateString(v10, v19, 0x40uLL);
-  if (*v11)
+  v9 = *MEMORY[0x1E69E9840];
+  HTTPHeader_InitResponseEx(a1 + 139720, "HTTP/1.1", a2, 0, 0);
+  v4 = time(0);
+  v5 = HTTPMakeDateString(v4, v8, 0x40uLL);
+  if (*v5)
   {
-    HTTPHeader_SetField((a1 + 139720), "Date", "%s", v12, v13, v14, v15, v16, v11);
+    HTTPHeader_SetField((a1 + 139720), "Date", "%s", v5);
   }
 
-  v17 = *(*(a1 + 8) + 72);
-  if (!v17)
+  v6 = *(*(a1 + 8) + 72);
+  if (!v6)
   {
     return 0;
   }
 
-  result = v17(a1, a2);
+  result = v6(a1, a2);
   if (!result)
   {
     return 0;
@@ -795,34 +795,34 @@ uint64_t HTTPServer_InitResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   return result;
 }
 
-uint64_t HTTPServer_GetOrCopyFormVariable(uint64_t a1, unsigned __int8 *a2, void *a3, void *a4, char **a5)
+uint64_t HTTPServer_GetOrCopyFormVariable(unsigned __int8 *a1, unsigned __int8 *a2, void *a3, void *a4, char **a5)
 {
-  result = URLGetOrCopyVariable(*(a1 + 8496), (*(a1 + 8496) + *(a1 + 8504)), a2, a3, a4, a5, 0);
+  result = URLGetOrCopyVariable(*(a1 + 1062), (*(a1 + 1062) + *(a1 + 1063)), a2, a3, a4, a5, 0);
   if (result)
   {
-    v11 = (a1 + 8640 + *(a1 + 139712));
+    v11 = &a1[*(a1 + 17464) + 8640];
 
-    return URLGetOrCopyVariable((a1 + 8640), v11, a2, a3, a4, a5, 0);
+    return URLGetOrCopyVariable(a1 + 8640, v11, a2, a3, a4, a5, 0);
   }
 
   return result;
 }
 
-uint64_t HTTPServer_SendSimpleResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPServer_SendSimpleResponse(uint64_t a1, uint64_t a2, const char *a3, unsigned __int8 *a4, uint64_t a5)
 {
-  result = HTTPServer_InitResponse(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = HTTPServer_InitResponse(a1, a2);
   if (!result)
   {
     if (a3)
     {
-      HTTPHeader_SetField((a1 + 139720), "Content-Type", "%s", v13, v14, v15, v16, v17, a3);
+      HTTPHeader_SetField((a1 + 139720), "Content-Type", "%s", a3);
     }
 
-    HTTPHeader_SetField((a1 + 139720), "Content-Length", "%zu", v13, v14, v15, v16, v17, a5);
+    HTTPHeader_SetField((a1 + 139720), "Content-Length", "%zu", a5);
     result = HTTPHeader_Commit(a1 + 139720);
     if (!result)
     {
-      LogHTTP(*(a1 + 279280), *(a1 + 279288), (a1 + 139720), *(a1 + 147912), a4, a5, v18, v19);
+      LogHTTP(*(a1 + 279280), *(a1 + 279288), (a1 + 139720), *(a1 + 147912), a4, a5, v10, v11);
       return (*(*(a1 + 24) + 40))();
     }
   }
@@ -830,20 +830,26 @@ uint64_t HTTPServer_SendSimpleResponse(uint64_t a1, uint64_t a2, uint64_t a3, ui
   return result;
 }
 
-uint64_t HTTPServer_SendUnauthorizedResponse(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPServer_SendUnauthorizedResponse(uint64_t a1, const char *a2, const char *a3, int a4)
 {
-  result = HTTPServer_InitResponse(a1, 401, a3, a4, a5, a6, a7, a8);
+  result = HTTPServer_InitResponse(a1, 401);
   if (!result)
   {
-    HTTPHeader_SetField((a1 + 139720), "Content-Length", "0", v11, v12, v13, v14, v15, v24);
-    HTTPHeader_SetField((a1 + 139720), "WWW-Authenticate", "Digest realm=%s, nonce=%s%s", v16, v17, v18, v19, v20, a2);
+    HTTPHeader_SetField((a1 + 139720), "Content-Length", "0");
+    v9 = ", stale=true";
+    if (!a4)
+    {
+      v9 = "";
+    }
+
+    HTTPHeader_SetField((a1 + 139720), "WWW-Authenticate", "Digest realm=%s, nonce=%s%s", a2, a3, v9);
     result = HTTPHeader_Commit(a1 + 139720);
     if (!result)
     {
-      LogHTTP(*(a1 + 279280), *(a1 + 279288), (a1 + 139720), *(a1 + 147912), 0, 0, v21, v22);
-      v23 = *(*(a1 + 24) + 32);
+      LogHTTP(*(a1 + 279280), *(a1 + 279288), (a1 + 139720), *(a1 + 147912), 0, 0, v10, v11);
+      v12 = *(*(a1 + 24) + 32);
 
-      return v23();
+      return v12();
     }
   }
 
@@ -941,7 +947,7 @@ LABEL_14:
     goto LABEL_51;
   }
 
-  v16 = (a2 - v14);
+  v16 = &a2[-v14];
   v17 = v14;
   while (1)
   {
@@ -1045,7 +1051,7 @@ LABEL_23:
 LABEL_44:
     if (v17 < a2)
     {
-      v25 = a2 - v17;
+      v25 = (a2 - v17);
       do
       {
         v26 = *v17;
@@ -1079,7 +1085,7 @@ LABEL_44:
 LABEL_51:
   if (v17 < a2 && (v27 = *v17, memchr("()<>@,;:\\[]?={} \t", *v17, 0x13uLL)))
   {
-    v28 = (v17 + 1);
+    v28 = v17 + 1;
     do
     {
       v17 = v28;
@@ -1090,7 +1096,7 @@ LABEL_51:
 
       v29 = *v28;
       v30 = v29 < 0 ? __maskrune(*v17, 0x4000uLL) : *(v12 + 4 * v29 + 60) & 0x4000;
-      v28 = (v17 + 1);
+      v28 = v17 + 1;
     }
 
     while (v30);
@@ -1286,53 +1292,53 @@ uint64_t HTTPParseCacheControlHeader(char *__s, size_t a2, uint64_t a3)
 uint64_t HTTPParseCacheControlValue(char *__s, size_t a2, uint64_t a3)
 {
   v4 = a2;
-  v23 = __s;
+  v13 = __s;
   if (a2 == -1)
   {
     v4 = strlen(__s);
   }
 
-  v21 = 0;
-  v22 = 0;
-  v19 = 0;
-  v20 = 0;
+  v11 = 0;
+  v12 = 0;
+  v9 = 0;
+  v10 = 0;
   v6 = __s;
-  v18 = 0;
+  v8 = 0;
   while (1)
   {
-    if (HTTPParseParameter(v6, &__s[v4], &v22, &v21, &v20, &v19, 0, &v23))
+    if (HTTPParseParameter(v6, &__s[v4], &v12, &v11, &v10, &v9, 0, &v13))
     {
       return 0;
     }
 
-    if (!strnicmpx(v22, v21, "no-cache"))
+    if (!strnicmpx(v12, v11, "no-cache"))
     {
       *a3 = 1;
       goto LABEL_13;
     }
 
-    if (!strnicmpx(v22, v21, "max-age"))
+    if (!strnicmpx(v12, v11, "max-age"))
     {
       break;
     }
 
-    if (!strnicmpx(v22, v21, "s-maxage"))
+    if (!strnicmpx(v12, v11, "s-maxage"))
     {
-      if (SNScanF(v20, v19, "%lld", v12, v13, v14, v15, v16, &v18) != 1)
+      if (SNScanF(v10, v9, "%lld", &v8) != 1)
       {
         return 4294960559;
       }
 
-      *(a3 + 16) = v18;
+      *(a3 + 16) = v8;
     }
 
 LABEL_13:
-    v6 = v23;
+    v6 = v13;
   }
 
-  if (SNScanF(v20, v19, "%lld", v7, v8, v9, v10, v11, &v18) == 1)
+  if (SNScanF(v10, v9, "%lld", &v8) == 1)
   {
-    *(a3 + 8) = v18;
+    *(a3 + 8) = v8;
     goto LABEL_13;
   }
 
@@ -1341,47 +1347,47 @@ LABEL_13:
 
 uint64_t HTTPParseRTPInfo(char *a1, int64_t a2, _WORD *a3, _DWORD *a4)
 {
-  v30 = 0;
-  v31 = 0;
-  v28 = 0;
-  v29 = 0;
-  v26 = 0;
-  v27 = 0;
-  v25 = 0;
-  result = HTTPGetHeaderField(a1, a2, "RTP-Info", 0, 0, &v31, &v30, 0);
+  v20 = 0;
+  v21 = 0;
+  v18 = 0;
+  v19 = 0;
+  v16 = 0;
+  v17 = 0;
+  v15 = 0;
+  result = HTTPGetHeaderField(a1, a2, "RTP-Info", 0, 0, &v21, &v20, 0);
   if (!result)
   {
-    v24 = a4;
+    v14 = a4;
     v7 = 0;
     v8 = 0;
     v9 = 0;
     v10 = 0;
-    v12 = v30;
-    v11 = v31;
-    for (i = v31; !HTTPParseParameter(i, &v11[v12], &v29, &v28, &v27, &v26, 0, &v31); i = v31)
+    v12 = v20;
+    v11 = v21;
+    for (i = v21; !HTTPParseParameter(i, &v11[v12], &v19, &v18, &v17, &v16, 0, &v21); i = v21)
     {
-      if (strnicmpx(v29, v28, "seq"))
+      if (strnicmpx(v19, v18, "seq"))
       {
-        if (!strnicmpx(v29, v28, "rtptime"))
+        if (!strnicmpx(v19, v18, "rtptime"))
         {
-          if (SNScanF(v27, v26, "%u", v19, v20, v21, v22, v23, &v25) != 1)
+          if (SNScanF(v17, v16, "%u", &v15) != 1)
           {
             return 4294960554;
           }
 
           v8 = 1;
-          v10 = v25;
+          v10 = v15;
         }
       }
 
       else
       {
-        if (SNScanF(v27, v26, "%u", v14, v15, v16, v17, v18, &v25) != 1)
+        if (SNScanF(v17, v16, "%u", &v15) != 1)
         {
           return 4294960554;
         }
 
-        v9 = v25;
+        v9 = v15;
         v7 = 1;
       }
     }
@@ -1396,7 +1402,7 @@ uint64_t HTTPParseRTPInfo(char *a1, int64_t a2, _WORD *a3, _DWORD *a4)
       *a3 = v9;
     }
 
-    if (v24)
+    if (v14)
     {
       result = 4294960569;
     }
@@ -1406,10 +1412,10 @@ uint64_t HTTPParseRTPInfo(char *a1, int64_t a2, _WORD *a3, _DWORD *a4)
       result = 0;
     }
 
-    if (((v24 != 0) & v8) == 1)
+    if (((v14 != 0) & v8) == 1)
     {
       result = 0;
-      *v24 = v10;
+      *v14 = v10;
     }
   }
 
@@ -1418,34 +1424,34 @@ uint64_t HTTPParseRTPInfo(char *a1, int64_t a2, _WORD *a3, _DWORD *a4)
 
 uint64_t HTTPMakeTimedNonce(const void *a1, CC_LONG a2, const void *a3, CC_LONG a4, _BYTE *a5, unint64_t a6, void *a7)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!a6)
   {
     return 4294960591;
   }
 
   memset(&c, 0, sizeof(c));
-  v24 = 0;
+  v19 = 0;
   v14 = time(0);
-  v20 = SNPrintF(data, 64, "%u", v15, v16, v17, v18, v19, v14);
+  v15 = SNPrintF(data, 64, "%u", v14);
   CC_MD5_Init(&c);
-  CC_MD5_Update(&c, data, v20);
+  CC_MD5_Update(&c, data, v15);
   CC_MD5_Update(&c, ":", 1u);
   CC_MD5_Update(&c, a1, a2);
   CC_MD5_Update(&c, ":", 1u);
   CC_MD5_Update(&c, a3, a4);
-  v21 = &data[v20];
-  *v21 = 32;
-  CC_MD5_Final(v21 + 1, &c);
-  result = Base64EncodeEx(data, (v20 + 17), 0, a5, a6, &v24);
+  v16 = &data[v15];
+  *v16 = 32;
+  CC_MD5_Final(v16 + 1, &c);
+  result = Base64EncodeEx(data, (v15 + 17), 0, a5, a6, &v19);
   if (!result)
   {
-    v23 = v24;
-    a5[v24] = 0;
+    v18 = v19;
+    a5[v19] = 0;
     result = 0;
     if (a7)
     {
-      *a7 = v23;
+      *a7 = v18;
     }
   }
 
@@ -1725,7 +1731,7 @@ uint64_t HTTPClientAuthorization_Apply(uint64_t a1, uint64_t a2, uint64_t a3, ui
 
 uint64_t _HTTPAddDigestAuth(uint64_t a1)
 {
-  v14[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   if ((*a1 & 2) == 0)
   {
     return 4294960561;
@@ -1748,10 +1754,10 @@ uint64_t _HTTPAddDigestAuth(uint64_t a1)
     goto LABEL_10;
   }
 
-  v13 = 0;
-  v14[0] = 0;
-  HTTPGetHeaderField(*(a1 + 24), *(*(a1 + 24) + 0x2000), "Authorization", 0, 0, v14, &v13, 0);
-  if (v13 && strnicmpx(*(a1 + 152), *(a1 + 160), "true"))
+  v8 = 0;
+  v9[0] = 0;
+  HTTPGetHeaderField(*(a1 + 24), *(*(a1 + 24) + 0x2000), "Authorization", 0, 0, v9, &v8, 0);
+  if (v8 && strnicmpx(*(a1 + 152), *(a1 + 160), "true"))
   {
     return 4294960542;
   }
@@ -1774,8 +1780,8 @@ LABEL_10:
       v7 = "0123456789abcdef";
     }
 
-    _HTTPMakeAuthDigest(v2, v5, v3, v6, *(*(a1 + 24) + 8216), *(*(a1 + 24) + 8224), *(*(a1 + 24) + 8240), *(*(a1 + 24) + 8248), *(a1 + 120), *(a1 + 128), *(a1 + 88), *(a1 + 96), v7, v14);
-    result = HTTPHeader_SetField(*(a1 + 24), "Authorization", "Digest username=%s, realm=%.*s, nonce=%.*s, uri=%.*s, response=%s", v8, v9, v10, v11, v12, *(a1 + 8));
+    _HTTPMakeAuthDigest(v2, v5, v3, v6, *(*(a1 + 24) + 8216), *(*(a1 + 24) + 8224), *(*(a1 + 24) + 8240), *(*(a1 + 24) + 8248), *(a1 + 120), *(a1 + 128), *(a1 + 88), *(a1 + 96), v7, v9);
+    result = HTTPHeader_SetField(*(a1 + 24), "Authorization", "Digest username=%s, realm=%.*s, nonce=%.*s, uri=%.*s, response=%s", *(a1 + 8), *(a1 + 128), *(a1 + 120), *(a1 + 96), *(a1 + 88), *(*(a1 + 24) + 8248), *(*(a1 + 24) + 8240), v9);
     if (!result)
     {
       *(a1 + 168) = 2;
@@ -1798,54 +1804,54 @@ uint64_t _HTTPAddBasicAuth(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
     return 4294960542;
   }
 
-  v31 = 0;
-  v32 = 0;
-  ASPrintF(&v32, "%s:%s", a3, a4, a5, a6, a7, a8, v9);
-  v10 = v32;
-  if (!v32)
+  v26 = 0;
+  v27 = 0;
+  ASPrintF(&v27, "%s:%s", a3, a4, a5, a6, a7, a8, v9);
+  v10 = v27;
+  if (!v27)
   {
     return 4294960568;
   }
 
-  v11 = Base64EncodeCopyEx(v32, 0xFFFFFFFFFFFFFFFFLL, 0, &v31, 0);
+  v11 = Base64EncodeCopyEx(v27, 0xFFFFFFFFFFFFFFFFLL, 0, &v26, 0);
   free(v10);
   if (v11)
   {
     return v11;
   }
 
-  v30 = 0;
-  v19 = v31;
-  ASPrintF(&v30, "Basic %s", v12, v13, v14, v15, v16, v17, v31);
+  v25 = 0;
+  v19 = v26;
+  ASPrintF(&v25, "Basic %s", v12, v13, v14, v15, v16, v17, v26);
   free(v19);
-  v25 = v30;
-  if (!v30)
+  v20 = v25;
+  if (!v25)
   {
     return 4294960568;
   }
 
   if (*(*(a1 + 32) + 8432) == 401)
   {
-    v28 = 0;
-    v29 = 0;
-    HTTPGetHeaderField(*(a1 + 24), *(*(a1 + 24) + 0x2000), "Authorization", 0, 0, &v29, &v28, 0);
-    v26 = 0;
-    while (v28 != v26)
+    v23 = 0;
+    v24 = 0;
+    HTTPGetHeaderField(*(a1 + 24), *(*(a1 + 24) + 0x2000), "Authorization", 0, 0, &v24, &v23, 0);
+    v21 = 0;
+    while (v23 != v21)
     {
-      v27 = v25[v26];
-      if (v29[v26] != v27)
+      v22 = v20[v21];
+      if (v24[v21] != v22)
       {
         goto LABEL_15;
       }
 
-      ++v26;
-      if (!v27)
+      ++v21;
+      if (!v22)
       {
         goto LABEL_18;
       }
     }
 
-    if (!v25[v28])
+    if (!v20[v23])
     {
 LABEL_18:
       v11 = 4294960542;
@@ -1860,14 +1866,14 @@ LABEL_15:
     }
 
 LABEL_19:
-    free(v25);
+    free(v20);
   }
 
   else
   {
 LABEL_16:
-    v11 = HTTPHeader_SetField(*(a1 + 24), "Authorization", "%s", v20, v21, v22, v23, v24, v25);
-    free(v25);
+    v11 = HTTPHeader_SetField(*(a1 + 24), "Authorization", "%s", v20);
+    free(v20);
     if (!v11)
     {
       *(a1 + 168) = 1;
@@ -2292,7 +2298,7 @@ LABEL_74:
   return v7;
 }
 
-uint64_t HTTPReadLine(char *a1, uint64_t (*a2)(char *), uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPReadLine(char *a1, uint64_t (*a2)(char *), uint64_t a3, char **a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   for (i = *(a1 + 1026); ; *(a1 + 1026) = i)
   {
@@ -2317,7 +2323,7 @@ LABEL_6:
         {
           i = *(a1 + 1026);
 LABEL_19:
-          LogPrintF_safe(&gLogCategory_HTTPUtils, "OSStatus HTTPReadLine(HTTPHeader *, NetTransportRead_f, void *, const char **, size_t *)", 0x5Au, "### Bad extra data length: %zu vs %zu", a5, a6, a7, a8, i);
+          LogPrintF_safe(&gLogCategory_HTTPUtils, "OSStatus HTTPReadLine(HTTPHeader *, NetTransportRead_f, void *, const char **, size_t *)", 90, "### Bad extra data length: %zu vs %zu", a5, a6, a7, a8, i);
         }
       }
 
@@ -2490,7 +2496,7 @@ uint64_t IEGetNext(_BYTE *a1, _BYTE *a2, _BYTE *a3, void *a4, void *a5, void *a6
   return result;
 }
 
-uint64_t IEGetVendorSpecific(unsigned __int8 *a1, unint64_t a2, int a3, void *a4, void *a5, void *a6)
+uint64_t IEGetVendorSpecific(unsigned __int8 *a1, unint64_t a2, int a3, void *a4, void *a5, unsigned __int8 **a6)
 {
   if ((a2 - a1) < 2)
   {
@@ -2866,7 +2872,7 @@ LABEL_11:
   return result;
 }
 
-const void *CFCreateWithJSONBytes(char *__s, size_t a2, char a3, uint64_t a4, int *a5)
+CFDictionaryRef CFCreateWithJSONBytes(char *__s, size_t a2, char a3, uint64_t a4, int *a5)
 {
   v8 = a2;
   if (a2 != -1)
@@ -3012,66 +3018,71 @@ uint64_t CFCreateJSONData(uint64_t a1, char a2, int *a3)
   return v8;
 }
 
-uint64_t KeychainAddFormatted(CFTypeRef *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t KeychainAddFormatted(CFTypeRef *a1, const UInt8 *a2, ...)
 {
+  va_start(va, a2);
   attributes = 0;
-  v10 = CFPropertyListBuildFormatted(0, 0, &attributes, a2, &a9, a6, a7, a8);
-  if (!v10)
+  v3 = CFPropertyListBuildFormatted(0, 0, &attributes, a2, va);
+  if (!v3)
   {
-    v10 = SecItemAdd(attributes, a1);
+    v3 = SecItemAdd(attributes, a1);
     CFRelease(attributes);
   }
 
-  return v10;
+  return v3;
 }
 
-CFTypeRef KeychainCopyMatchingFormatted(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+CFTypeRef KeychainCopyMatchingFormatted(_DWORD *a1, const UInt8 *a2, ...)
 {
+  va_start(va, a2);
   query = 0;
   result = 0;
-  v10 = CFPropertyListBuildFormatted(0, 0, &query, a2, &a9, a6, a7, a8);
-  if (!v10)
+  v3 = CFPropertyListBuildFormatted(0, 0, &query, a2, va);
+  if (!v3)
   {
-    v10 = SecItemCopyMatching(query, &result);
+    v3 = SecItemCopyMatching(query, &result);
     CFRelease(query);
   }
 
   if (a1)
   {
-    *a1 = v10;
+    *a1 = v3;
   }
 
   return result;
 }
 
-uint64_t KeychainDeleteFormatted(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t KeychainDeleteFormatted(const UInt8 *a1, ...)
 {
+  va_start(va, a1);
   query = 0;
-  v9 = CFPropertyListBuildFormatted(0, 0, &query, a1, &a9, a6, a7, a8);
-  if (!v9)
+  v1 = CFPropertyListBuildFormatted(0, 0, &query, a1, va);
+  if (!v1)
   {
-    v9 = SecItemDelete(query);
+    v1 = SecItemDelete(query);
     CFRelease(query);
   }
 
-  return v9;
+  return v1;
 }
 
-uint64_t KeychainUpdateFormatted(const __CFDictionary *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t KeychainUpdateFormatted(const __CFDictionary *a1, const UInt8 *a2, ...)
 {
+  va_start(va, a2);
   attributesToUpdate = 0;
-  v10 = CFPropertyListBuildFormatted(0, 0, &attributesToUpdate, a2, &a9, a6, a7, a8);
-  if (!v10)
+  v3 = CFPropertyListBuildFormatted(0, 0, &attributesToUpdate, a2, va);
+  if (!v3)
   {
-    v10 = SecItemUpdate(a1, attributesToUpdate);
+    v3 = SecItemUpdate(a1, attributesToUpdate);
     CFRelease(attributesToUpdate);
   }
 
-  return v10;
+  return v3;
 }
 
-uint64_t _LogControlLockedCF(const __CFString *a1, int a2)
+uint64_t _LogControlLockedCF(const __CFString *a1, uint64_t a2)
 {
+  v2 = a2;
   Length = CFStringGetLength(a1);
   MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
   usedBufLen = MaximumSizeForEncoding;
@@ -3094,7 +3105,7 @@ uint64_t _LogControlLockedCF(const __CFString *a1, int a2)
     else
     {
       v7[usedBufLen] = 0;
-      v8 = _LogControlLocked(v7, a2);
+      v8 = _LogControlLocked(v7, v2);
     }
   }
 
@@ -3310,7 +3321,7 @@ LABEL_88:
       {
         if (v7)
         {
-          _LogUtils_ReadCFPreferences(a2 | 4u);
+          _LogUtils_ReadCFPreferences(a2 | 4);
         }
 
         else if (v9)
@@ -3725,98 +3736,104 @@ LABEL_35:
   return result;
 }
 
-void _LogOutputFile_Writer(int a1, uint64_t a2, void *__ptr, size_t __nitems, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void _LogOutputFile_Writer(int a1, uint64_t a2, void *__ptr, size_t __nitems)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v11 = (a2 + 56);
-  v10 = *(a2 + 56);
-  if (v10 != *MEMORY[0x1E69E9848] && v10 != *MEMORY[0x1E69E9858])
+  v30 = *MEMORY[0x1E69E9840];
+  v7 = (a2 + 56);
+  v6 = *(a2 + 56);
+  if (v6 != *MEMORY[0x1E69E9848] && v6 != *MEMORY[0x1E69E9858])
   {
-    v14 = *(a2 + 72);
-    v15 = *(a2 + 64) + __nitems;
-    *(a2 + 64) = v15;
-    if (v14 >= 1 && v15 > v14)
+    v10 = *(a2 + 72);
+    v11 = *(a2 + 64) + __nitems;
+    *(a2 + 64) = v11;
+    if (v10 >= 1 && v11 > v10)
     {
-      if (*(a2 + 88) && *(a2 + 96) >= 1)
+      if (*(a2 + 88))
       {
-        SNPrintF(&__p, 1025, "%s.%d", v10, a5, a6, a7, a8, *(a2 + 88));
-        remove(&__p, v17);
-        v23 = *(a2 + 96);
-        if (v23 >= 3)
+        v13 = *(a2 + 96);
+        v14 = __OFSUB__(v13, 1);
+        v15 = v13 - 1;
+        if (v15 < 0 == v14)
         {
-          v24 = v23 - 2;
-          do
+          SNPrintF(&__p, 1025, "%s.%d", *(a2 + 88), v15);
+          remove(&__p, v16);
+          v17 = *(a2 + 96);
+          if (v17 >= 3)
           {
-            SNPrintF(&__p, 1025, "%s.%d", v18, v19, v20, v21, v22, *(a2 + 88));
-            SNPrintF(&__to, 1025, "%s.%d", v25, v26, v27, v28, v29, *(a2 + 88));
-            rename(&__p, &__to, v30);
-            v31 = v24-- != 0;
-          }
-
-          while (v24 != 0 && v31);
-        }
-
-        SNPrintF(&__to, 1025, "%s.1", v18, v19, v20, v21, v22, *(a2 + 88));
-        rename(*(a2 + 88), &__to, v32);
-        SNPrintF(&__to, 1025, "%s", v33, v34, v35, v36, v37, *(a2 + 88));
-        v38 = *(a2 + 48);
-        v39 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-        if (v39)
-        {
-          v40 = v39;
-          v41 = fopen(v38, "r");
-          if (v41 || *__error() && !*__error())
-          {
-            v42 = fopen(&__to, "w");
-            if (v42)
+            v18 = v17 - 2;
+            do
             {
-              goto LABEL_21;
+              SNPrintF(&__p, 1025, "%s.%d", *(a2 + 88), v18);
+              SNPrintF(&__to, 1025, "%s.%d", *(a2 + 88), v18 + 1);
+              rename(&__p, &__to, v19);
+              v20 = v18-- != 0;
             }
 
-LABEL_19:
-            if (*__error() && !*__error())
-            {
-LABEL_21:
-              while (1)
-              {
-                v43 = fread(v40, 1uLL, 0x1000uLL, v41);
-                if (!v43)
-                {
-                  break;
-                }
+            while (v18 != 0 && v20);
+          }
 
-                if (fwrite(v40, 1uLL, v43, v42) != v43)
+          SNPrintF(&__to, 1025, "%s.1", *(a2 + 88));
+          rename(*(a2 + 88), &__to, v21);
+          SNPrintF(&__to, 1025, "%s", *(a2 + 88));
+          v22 = *(a2 + 48);
+          v23 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+          if (v23)
+          {
+            v24 = v23;
+            v25 = fopen(v22, "r");
+            if (v25 || *__error() && !*__error())
+            {
+              v26 = fopen(&__to, "w");
+              if (v26)
+              {
+                goto LABEL_21;
+              }
+
+LABEL_19:
+              if (*__error() && !*__error())
+              {
+LABEL_21:
+                while (1)
                 {
-                  goto LABEL_19;
+                  v27 = fread(v24, 1uLL, 0x1000uLL, v25);
+                  if (!v27)
+                  {
+                    break;
+                  }
+
+                  if (fwrite(v24, 1uLL, v27, v26) != v27)
+                  {
+                    goto LABEL_19;
+                  }
                 }
+              }
+
+              if (v25)
+              {
+                fclose(v25);
+              }
+
+              if (v26)
+              {
+                fclose(v26);
               }
             }
 
-            if (v41)
-            {
-              fclose(v41);
-            }
-
-            if (v42)
-            {
-              fclose(v42);
-            }
+            free(v24);
           }
-
-          free(v40);
         }
       }
 
-      RollLogFiles(v11, "\nLOG ENDED, CONTINUES IN NEXT LOG FILE\n", *(a2 + 48), *(a2 + 80));
+      RollLogFiles(v7, "\nLOG ENDED, CONTINUES IN NEXT LOG FILE\n", *(a2 + 48), *(a2 + 80));
       *(a2 + 64) = __nitems;
-      v10 = *(a2 + 56);
+      v6 = *(a2 + 56);
     }
   }
 
-  if (v10)
+  if (v6)
   {
-    fwrite(__ptr, 1uLL, __nitems, v10);
-    fflush(*v11);
+    fwrite(__ptr, 1uLL, __nitems, v6);
+    fflush(*v7);
   }
 }
 
@@ -3948,14 +3965,14 @@ uint64_t LogSetOutputCallback(const char *a1, uint64_t a2, uint64_t a3, uint64_t
 
 uint64_t LogShow(void **a1)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&gLogUtilsLock);
-  v68 = 0;
+  v50 = 0;
   v2 = getprogname();
   getpid();
-  if (ASPrintF(&v68, "=== LogUtils (%s, PID %llu) ===\n", v3, v4, v5, v6, v7, v8, v2) < 1)
+  if (ASPrintF(&v50, "=== LogUtils (%s, PID %llu) ===\n", v3, v4, v5, v6, v7, v8, v2) < 1)
   {
-    v51 = 4294960568;
+    v33 = 4294960568;
   }
 
   else
@@ -3976,103 +3993,103 @@ uint64_t LogShow(void **a1)
         v11 = v12;
       }
 
-      _LULevelToString(*v9, __s, v13, v14, v15, v16, v17, v18);
-      v19 = strlen(__s);
-      if (v19 > v10)
+      _LULevelToString(*v9, __s);
+      v13 = strlen(__s);
+      if (v13 > v10)
       {
-        v10 = v19;
+        v10 = v13;
       }
 
       v9 = *(v9 + 48);
     }
 
     while (v9);
-    v26 = gLogCategoryList;
+    v14 = gLogCategoryList;
     if (gLogCategoryList)
     {
-      v67 = a1;
+      v49 = a1;
       do
       {
-        v70[0] = 0;
-        v27 = *(v26 + 56);
-        if (v27)
+        v52[0] = 0;
+        v15 = *(v14 + 56);
+        if (v15)
         {
-          v28 = *(v27 + 16);
-          v29 = *(v27 + 24);
-          if (v29 != -1)
+          v16 = *(v15 + 16);
+          v17 = *(v15 + 24);
+          if (v17 != -1)
           {
-            _LULevelToString(v29, v70, v20, v21, v22, v23, v24, v25);
+            _LULevelToString(v17, v52);
           }
         }
 
         else
         {
-          v28 = 0;
+          v16 = 0;
         }
 
-        if (!v28)
+        if (!v16)
         {
-          v28 = "";
+          v16 = "";
         }
 
-        stricmp_prefix(v28, "callback");
-        v69[0] = 0;
-        v36 = *(v26 + 64);
-        if (v36)
+        stricmp_prefix(v16, "callback");
+        v51[0] = 0;
+        v18 = *(v14 + 64);
+        if (v18)
         {
-          v37 = *(v36 + 16);
-          v38 = *(v36 + 24);
-          if (v38 != -1)
+          v19 = *(v18 + 16);
+          v20 = *(v18 + 24);
+          if (v20 != -1)
           {
-            _LULevelToString(v38, v69, v30, v31, v32, v33, v34, v35);
+            _LULevelToString(v20, v51);
           }
         }
 
         else
         {
-          v37 = 0;
+          v19 = 0;
         }
 
-        if (!v37)
+        if (!v19)
         {
-          v37 = "";
+          v19 = "";
         }
 
-        stricmp_prefix(v37, "callback");
-        _LULevelToString(*v26, __s, v39, v40, v41, v42, v43, v44);
-        UpTicksToMilliseconds(*(v26 + 72));
-        if (AppendPrintF(&v68, "  %-*s  L=%-*s  R=%u/%-5llu  O1=%s  O1L=%s  O2=%s  O2L=%s\n", v45, v46, v47, v48, v49, v50, v11) <= 0)
+        stricmp_prefix(v19, "callback");
+        _LULevelToString(*v14, __s);
+        UpTicksToMilliseconds(*(v14 + 72));
+        if (AppendPrintF(&v50, "  %-*s  L=%-*s  R=%u/%-5llu  O1=%s  O1L=%s  O2=%s  O2L=%s\n", v21, v22, v23, v24, v25, v26, v11) <= 0)
         {
-          v51 = 4294960568;
-          a1 = v67;
+          v33 = 4294960568;
+          a1 = v49;
           goto LABEL_43;
         }
 
-        v26 = *(v26 + 48);
+        v14 = *(v14 + 48);
       }
 
-      while (v26);
-      v51 = 0;
-      v52 = gLogActionList;
+      while (v14);
+      v33 = 0;
+      v34 = gLogActionList;
       if (gLogCategoryList)
       {
-        a1 = v67;
+        a1 = v49;
         if (!gLogActionList)
         {
           goto LABEL_33;
         }
 
-        if (AppendPrintF(&v68, "\n", v20, v21, v22, v23, v24, v25, v66) <= 0)
+        if (AppendPrintF(&v50, "\n", v27, v28, v29, v30, v31, v32, v48) <= 0)
         {
-          v51 = 4294960568;
+          v33 = 4294960568;
         }
 
         else
         {
-          v51 = 0;
+          v33 = 0;
         }
 
-        v52 = gLogActionList;
+        v34 = gLogActionList;
         if (gLogActionList)
         {
           goto LABEL_34;
@@ -4081,7 +4098,7 @@ uint64_t LogShow(void **a1)
 
       else
       {
-        a1 = v67;
+        a1 = v49;
         if (gLogActionList)
         {
           goto LABEL_34;
@@ -4092,107 +4109,106 @@ uint64_t LogShow(void **a1)
     else
     {
 LABEL_32:
-      v51 = 0;
-      v52 = gLogActionList;
+      v33 = 0;
+      v34 = gLogActionList;
 LABEL_33:
-      if (v52)
+      if (v34)
       {
 LABEL_34:
         while (1)
         {
-          if ((v53 = *(v52 + 16), strcasecmp(v53, "output")) && strcasecmp(v53, "output2") || stricmp_prefix(*(v52 + 24), "callback"))
+          if ((v35 = *(v34 + 16), strcasecmp(v35, "output")) && strcasecmp(v35, "output2") || stricmp_prefix(*(v34 + 24), "callback"))
           {
-            if (AppendPrintF(&v68, "  Action: %s:%s=%s\n", v54, v55, v56, v57, v58, v59, *(v52 + 8)) < 1)
+            if (AppendPrintF(&v50, "  Action: %s:%s=%s\n", v36, v37, v38, v39, v40, v41, *(v34 + 8)) < 1)
             {
               break;
             }
           }
 
-          v52 = *v52;
-          if (!v52)
+          v34 = *v34;
+          if (!v34)
           {
             goto LABEL_43;
           }
         }
 
-        v51 = 4294960568;
+        v33 = 4294960568;
       }
     }
   }
 
 LABEL_43:
   pthread_mutex_unlock(&gLogUtilsLock);
-  v64 = v68;
-  if (v68)
+  v46 = v50;
+  if (v50)
   {
     if (a1)
     {
-      *a1 = v68;
+      *a1 = v50;
     }
 
     else
     {
       if (gLogCategory_LogUtils <= 254 && (gLogCategory_LogUtils != -1 || _LogCategory_Initialize(&gLogCategory_LogUtils, 0xFEu)))
       {
-        LogPrintF(&gLogCategory_LogUtils, "OSStatus LogShow(char **)", 0xFEu, "%s", v60, v61, v62, v63, v64);
+        LogPrintF(&gLogCategory_LogUtils, "OSStatus LogShow(char **)", 254, "%s", v42, v43, v44, v45, v46);
       }
 
-      free(v64);
+      free(v46);
     }
   }
 
   else if (!a1 && gLogCategory_LogUtils <= 90 && (gLogCategory_LogUtils != -1 || _LogCategory_Initialize(&gLogCategory_LogUtils, 0x5Au)))
   {
-    LogPrintF(&gLogCategory_LogUtils, "OSStatus LogShow(char **)", 0x5Au, "### ERROR: %#m\n", v60, v61, v62, v63, v51);
+    LogPrintF(&gLogCategory_LogUtils, "OSStatus LogShow(char **)", 90, "### ERROR: %#m\n", v42, v43, v44, v45, v33);
   }
 
-  return v51;
+  return v33;
 }
 
-uint64_t _LULevelToString(unsigned __int8 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _LULevelToString(unsigned __int8 a1, uint64_t a2)
 {
-  v9 = 0;
-  v10 = 0;
-  v11 = 0x7FFFFFFF;
-  v12 = kLogLevelToStringTable;
+  v3 = 0;
+  v4 = 0;
+  v5 = 0x7FFFFFFF;
+  v6 = kLogLevelToStringTable;
   do
   {
-    v13 = *v12;
-    v12 += 4;
-    v14 = a1 - v13;
-    if (v14 < 0)
+    v7 = *v6;
+    v6 += 4;
+    v8 = a1 - v7;
+    if (v8 < 0)
     {
-      v14 = -v14;
+      v8 = -v8;
     }
 
-    if (v14 < v11)
+    if (v8 < v5)
     {
-      v11 = v14;
-      v10 = v9;
+      v5 = v8;
+      v4 = v3;
     }
 
-    ++v9;
+    ++v3;
   }
 
-  while (v9 != 18);
-  v15 = &kLogLevelToStringTable[4 * v10];
-  v16 = a1 - *v15;
-  if (v16 < 1)
+  while (v3 != 18);
+  v9 = a1 - kLogLevelToStringTable[4 * v4];
+  if (v9 < 1)
   {
-    if (v16 < 0)
+    if (v9 < 0)
     {
-      SNPrintF(a2, 64, "%s-%u", a4, a5, a6, a7, a8, *(v15 + 1));
+      SNPrintF(a2, 64, "%s-%u");
     }
 
     else
     {
-      SNPrintF(a2, 64, "%s", a4, a5, a6, a7, a8, *(v15 + 1));
+      SNPrintF(a2, 64, "%s");
     }
   }
 
   else
   {
-    SNPrintF(a2, 64, "%s+%u", a4, a5, a6, a7, a8, *(v15 + 1));
+    SNPrintF(a2, 64, "%s+%u");
   }
 
   return a2;
@@ -4446,33 +4462,33 @@ uint64_t MFiPlatform_VerifySignatureEx(const UInt8 *a1, uint64_t a2, const UInt8
   {
     if (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x1Eu, "MFi verify signature: %zu data bytes, %zu sig bytes, %zu cert bytes, extraInfo %s\n", a5, a6, theDict, a8, a2);
+      LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 30, "MFi verify signature: %zu data bytes, %zu sig bytes, %zu cert bytes, extraInfo %s\n", a5, a6, theDict, a8, a2);
     }
 
     if (gLogCategory_MFiClientCore <= 9)
     {
       if (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 9u))
       {
-        LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 9u, "MFi challenge:\n%1.2H\n", a5, a6, theDict, a8, a1);
+        LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 9, "MFi challenge:\n%1.2H\n", a5, a6, theDict, a8, a1);
       }
 
       if (gLogCategory_MFiClientCore <= 9)
       {
         if (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 9u))
         {
-          LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 9u, "MFi certificate:\n%1.2H\n", a5, a6, theDict, a8, a5);
+          LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 9, "MFi certificate:\n%1.2H\n", a5, a6, theDict, a8, a5);
         }
 
         if (gLogCategory_MFiClientCore <= 9)
         {
           if (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 9u))
           {
-            LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 9u, "MFi signature:\n%1.2H\n", a5, a6, theDict, a8, a3);
+            LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 9, "MFi signature:\n%1.2H\n", a5, a6, theDict, a8, a3);
           }
 
           if (gLogCategory_MFiClientCore <= 9 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 9u)))
           {
-            LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 9u, "MFi extra info: %##@", a5, a6, theDict, a8, theDict);
+            LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 9, "MFi extra info: %##@", a5, a6, theDict, a8, theDict);
           }
         }
       }
@@ -4527,7 +4543,7 @@ LABEL_43:
       v144 = -6742;
       if (gLogCategory_MFiClientCore <= 90 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x5Au)))
       {
-        LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### Decode BAA intermediate cert failed", v18, v19, v20, v21, v138);
+        LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### Decode BAA intermediate cert failed", v18, v19, v20, v21, v138);
       }
 
       v22 = 0;
@@ -4573,7 +4589,7 @@ LABEL_170:
             v34 = error[0];
           }
 
-          LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### Verify BAA signature failed: %@", v30, v31, v32, v33, v34);
+          LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### Verify BAA signature failed: %@", v30, v31, v32, v33, v34);
           goto LABEL_41;
         }
 
@@ -4611,7 +4627,7 @@ LABEL_170:
                   v45 = v144;
                 }
 
-                LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### Create BAA trust failed: %#m", v41, v42, v43, v44, v45);
+                LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### Create BAA trust failed: %#m", v41, v42, v43, v44, v45);
                 goto LABEL_41;
               }
 
@@ -4650,7 +4666,7 @@ LABEL_170:
                       v53 = v144;
                     }
 
-                    LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### Set BAA anchors failed: %#m", v49, v50, v51, v52, v53);
+                    LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### Set BAA anchors failed: %#m", v49, v50, v51, v52, v53);
                     goto LABEL_41;
                   }
 
@@ -4744,7 +4760,7 @@ LABEL_41:
       }
 
 LABEL_213:
-      LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, v137, v24, v25, v26, v27, v138);
+      LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _MFiPlatform_VerifySignatureBAA(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, v137, v24, v25, v26, v27, v138);
       goto LABEL_41;
     }
 
@@ -4831,13 +4847,13 @@ LABEL_58:
           v68 = 6;
         }
 
-        theArray = (softLinkmfaa_certificateManager_copyAnchorCertificates[0])(v68);
+        theArray = softLinkmfaa_certificateManager_copyAnchorCertificates(v68);
         if (theArray)
         {
           if (gLogCategory_MFiClientCore <= 30 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x1Eu)))
           {
             Count = CFArrayGetCount(theArray);
-            LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x1Eu, "MFi verify signature: %d anchor certs\n", v74, v75, v76, v77, Count);
+            LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 30, "MFi verify signature: %d anchor certs\n", v74, v75, v76, v77, Count);
           }
 
           v81 = SecTrustSetAnchorCertificates(v142, theArray);
@@ -4846,7 +4862,7 @@ LABEL_58:
             v56 = v81;
             if (gLogCategory_MFiClientCore <= 90 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x5Au)))
             {
-              LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### MFi set anchor certs failed: %#m\n", v82, v83, v84, v85, v56);
+              LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### MFi set anchor certs failed: %#m\n", v82, v83, v84, v85, v56);
             }
 
             goto LABEL_129;
@@ -4858,7 +4874,7 @@ LABEL_58:
             v56 = v86;
             if (gLogCategory_MFiClientCore <= 90 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x5Au)))
             {
-              LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### MFi set anchor certs only failed: %#m\n", v87, v88, v89, v90, v56);
+              LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### MFi set anchor certs only failed: %#m\n", v87, v88, v89, v90, v56);
             }
 
             goto LABEL_129;
@@ -4867,7 +4883,7 @@ LABEL_58:
 
         else if (gLogCategory_MFiClientCore <= 90 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x5Au)))
         {
-          LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### MFi no certificates from MFA\n", v69, v70, v71, v72, v138);
+          LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### MFi no certificates from MFA\n", v69, v70, v71, v72, v138);
         }
 
         err = 0;
@@ -4910,7 +4926,7 @@ LABEL_58:
           v79 = theArray;
           if (gLogCategory_MFiClientCore <= 90 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x5Au)))
           {
-            LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### MFi SecTrustEvaluate failed: %#m\n", v91, v92, v93, v94, v56);
+            LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### MFi SecTrustEvaluate failed: %#m\n", v91, v92, v93, v94, v56);
           }
 
           goto LABEL_130;
@@ -4964,7 +4980,7 @@ LABEL_110:
 
                 if (MFAAuthenticationLibrary_sLib && dlsym(MFAAuthenticationLibrary_sLib, "mfaa_certificateManager_validateCertificate"))
                 {
-                  v115 = (softLinkmfaa_certificateManager_validateCertificate[0])(v58, 0);
+                  v115 = softLinkmfaa_certificateManager_validateCertificate(v58, 0);
                   if (v115 != 1)
                   {
                     v56 = 4294896132;
@@ -4975,7 +4991,7 @@ LABEL_110:
                       v120 = v115;
                       if (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x3Cu))
                       {
-                        LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x3Cu, "### MFi cert rejected (%d)\n", v116, v117, v118, v119, v120);
+                        LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 60, "### MFi cert rejected (%d)\n", v116, v117, v118, v119, v120);
                       }
                     }
 
@@ -4987,7 +5003,7 @@ LABEL_110:
 
                 if (gLogCategory_MFiClientCore <= 60 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x3Cu)))
                 {
-                  LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x3Cu, "### MFi cert manager not available\n", v111, v112, v113, v114, v138);
+                  LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 60, "### MFi cert manager not available\n", v111, v112, v113, v114, v138);
                 }
 
                 if (a4 != 128 || (v121 = SecCertificateCopySerialNumberData(ValueAtIndex, 0)) == 0)
@@ -5002,7 +5018,7 @@ LABEL_128:
                 Length = CFDataGetLength(v122);
                 if (gLogCategory_MFiClientCore <= 40 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x28u)))
                 {
-                  LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _VerifySerialNumber(const uint8_t *, size_t)", 0x28u, "MFi certificate serial number: %.3H\n", v124, v125, v126, v127, BytePtr);
+                  LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _VerifySerialNumber(const uint8_t *, size_t)", 40, "MFi certificate serial number: %.3H\n", v124, v125, v126, v127, BytePtr);
                 }
 
                 if (Length == 15 && (*BytePtr == 0x7AA191212AA3333 ? (v130 = *(BytePtr + 7) == 0x10000AA0600AA07) : (v130 = 0), v130))
@@ -5040,7 +5056,7 @@ LABEL_169:
                     v56 = softLinkMFiVerifyCertificateSerialNumber(BytePtr, Length);
                     if (v56 && gLogCategory_MFiClientCore <= 60 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x3Cu)))
                     {
-                      LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _VerifySerialNumber(const uint8_t *, size_t)", 0x3Cu, "### Bad MFi certificate SN <%.3H>: %#m\n", v131, v132, v133, v134, BytePtr);
+                      LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _VerifySerialNumber(const uint8_t *, size_t)", 60, "### Bad MFi certificate SN <%.3H>: %#m\n", v131, v132, v133, v134, BytePtr);
                     }
 
                     goto LABEL_156;
@@ -5090,7 +5106,7 @@ LABEL_129:
 
             if (gLogCategory_MFiClientCore <= 90 && (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x5Au)))
             {
-              LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _SecKeyVerifySignature(SecKeyRef, const uint8_t *, size_t, const uint8_t *, size_t)", 0x5Au, "### MFi SecKeyVerifySignature failed: %#m, %@\n", v107, v108, v109, v110, v56);
+              LogPrintF(&gLogCategory_MFiClientCore, "OSStatus _SecKeyVerifySignature(SecKeyRef, const uint8_t *, size_t, const uint8_t *, size_t)", 90, "### MFi SecKeyVerifySignature failed: %#m, %@\n", v107, v108, v109, v110, v56);
             }
 
 LABEL_108:
@@ -5116,7 +5132,7 @@ LABEL_108:
         v80 = v139;
         if (gLogCategory_MFiClientCore != -1 || _LogCategory_Initialize(&gLogCategory_MFiClientCore, 0x5Au))
         {
-          LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 0x5Au, "### MFi create trust failed: %#m\n", v64, v65, v66, v67, v56);
+          LogPrintF(&gLogCategory_MFiClientCore, "OSStatus MFiPlatform_VerifySignatureEx(const void *, size_t, const void *, size_t, const void *, size_t, CFDictionaryRef)", 90, "### MFi create trust failed: %#m\n", v64, v65, v66, v67, v56);
         }
 
         v79 = 0;
@@ -5201,7 +5217,7 @@ uint64_t initmfaa_certificateManager_validateCertificate(uint64_t a1, uint64_t a
   }
 
   v4 = dlsym(MFAAuthenticationLibrary_sLib, "mfaa_certificateManager_validateCertificate");
-  softLinkmfaa_certificateManager_validateCertificate[0] = v4;
+  softLinkmfaa_certificateManager_validateCertificate = v4;
 
   return (v4)(a1, a2);
 }
@@ -5221,9 +5237,9 @@ uint64_t initmfaa_certificateManager_copyAnchorCertificates(uint64_t a1)
   }
 
   v2 = dlsym(MFAAuthenticationLibrary_sLib, "mfaa_certificateManager_copyAnchorCertificates");
-  softLinkmfaa_certificateManager_copyAnchorCertificates[0] = v2;
+  softLinkmfaa_certificateManager_copyAnchorCertificates = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t MFiSAP_Create(void *a1, int a2)
@@ -7149,14 +7165,15 @@ dispatch_queue_t __CUMainQueue_block_invoke()
   CUMainQueue_sQueue = result;
   if (!result)
   {
-    FatalErrorF("Create wrapper main queue failed", v1, v2, v3, v4, v5, v6, v7, vars0);
+    FatalErrorF("Create wrapper main queue failed");
   }
 
   return result;
 }
 
-uint64_t mkparent(const char *a1, unsigned int a2)
+uint64_t mkparent(const char *a1, uint64_t a2)
 {
+  v2 = a2;
   v9 = *MEMORY[0x1E69E9840];
   v4 = &a1[strlen(a1)];
   do
@@ -7187,7 +7204,7 @@ LABEL_8:
   __dst[v6] = 0;
   if (__dst[0])
   {
-    return mkpath(__dst, a2, a2);
+    return mkpath(__dst, v2, v2);
   }
 
   return result;
@@ -7624,14 +7641,14 @@ uint64_t RunProcessAndCaptureOutputEx(char *a1, void **a2, void *a3)
   return v6;
 }
 
-uint64_t SwitchToMobileUser()
+int *SwitchToMobileUser()
 {
   v0 = getpwnam("mobile");
   if (!v0)
   {
-    v11 = *MEMORY[0x1E69E9848];
-    v18 = *__error();
-    return FPrintF(v11, "error: lookup mobile user failed: %#m\n", v12, v13, v14, v15, v16, v17, v18);
+    v5 = *MEMORY[0x1E69E9848];
+    v6 = *__error();
+    return FPrintF(v5, "error: lookup mobile user failed: %#m\n", v6);
   }
 
   v1 = v0;
@@ -7645,8 +7662,8 @@ uint64_t SwitchToMobileUser()
       if (*__error())
       {
         result = __error();
-        v10 = *result;
-        if (!v10)
+        v4 = *result;
+        if (!v4)
         {
           return result;
         }
@@ -7654,10 +7671,10 @@ uint64_t SwitchToMobileUser()
 
       else
       {
-        v10 = 4294960596;
+        v4 = 4294960596;
       }
 
-      return FPrintF(*MEMORY[0x1E69E9848], "error: setuid failed: %#m\n", v4, v5, v6, v7, v8, v9, v10);
+      return FPrintF(*MEMORY[0x1E69E9848], "error: setuid failed: %#m\n", v4);
     }
   }
 
@@ -7732,7 +7749,7 @@ LABEL_17:
   return v9;
 }
 
-uint64_t systemf(const char *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t systemf(const char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v20 = *MEMORY[0x1E69E9840];
   v17[0] = 0;
@@ -7740,7 +7757,7 @@ uint64_t systemf(const char *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, 
   v19 = unk_1E73A4988;
   *v16 = 0;
   v17[1] = &a9;
-  VASPrintF(v17, a2, &a9, a4, a5, a6, a7, a8);
+  VASPrintF(v17, a2, &a9);
   v10 = v17[0];
   if (!v17[0])
   {
@@ -8236,14 +8253,14 @@ uint64_t cced25519_make_key_pair_compat(uint64_t a1, uint64_t a2)
   return MEMORY[0x1EEE6F548](v4, v5, a1, a2);
 }
 
-uint64_t cced25519_sign_compat()
+uint64_t cced25519_sign_compat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   ccsha512_di();
 
   return cced25519_sign();
 }
 
-uint64_t cced25519_verify_compat()
+uint64_t cced25519_verify_compat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   ccsha512_di();
 
@@ -8252,7 +8269,7 @@ uint64_t cced25519_verify_compat()
 
 uint64_t Curve25519MakeKeyPair(uint64_t a1, void *a2)
 {
-  CryptoRandomKey(a2, 0x20uLL);
+  CryptoRandomKey(a2, 0x20uLL, "Salt", 4, "Info", 4);
 
   return cccurve25519_make_pub();
 }
@@ -8456,7 +8473,7 @@ void NetPerfSetEventHandler(void *a1, uint64_t a2, uint64_t a3, NSObject *a4)
   a1[5] = v5;
 }
 
-uint64_t _NetPerfControl(unint64_t a1, int a2, CFStringRef theString1, uint64_t a4, const __CFDictionary *a5, __CFDictionary **a6)
+uint64_t _NetPerfControl(uint64_t a1, int a2, CFStringRef theString1, uint64_t a4, const __CFDictionary *a5, __CFDictionary **a6)
 {
   if (CFStringCompare(theString1, @"startClientSession", 0) == kCFCompareEqualTo)
   {
@@ -8629,7 +8646,7 @@ LABEL_29:
   return 4294960582;
 }
 
-unint64_t _NetPerfClientRunStateMachine(unint64_t result)
+uint64_t _NetPerfClientRunStateMachine(uint64_t result)
 {
   v1 = result;
   v2 = (result + 112);
@@ -8717,18 +8734,18 @@ LABEL_11:
   return result;
 }
 
-void _NetPerfClientStop(char *cf)
+void _NetPerfClientStop(unsigned int *cf)
 {
   if (*(cf + 13))
   {
-    SendSelfConnectedLoopbackMessage(*(cf + 21), "q", 1uLL);
+    SendSelfConnectedLoopbackMessage(cf[21], "q", 1uLL);
     pthread_join(*(cf + 12), 0);
     *(cf + 13) = 0;
   }
 
   if (*(cf + 15))
   {
-    SendSelfConnectedLoopbackMessage(*(cf + 21), "q", 1uLL);
+    SendSelfConnectedLoopbackMessage(cf[21], "q", 1uLL);
     pthread_join(*(cf + 14), 0);
     *(cf + 15) = 0;
   }
@@ -8756,7 +8773,7 @@ void _NetPerfClientStop(char *cf)
     *(cf + 9) = 0;
   }
 
-  v5 = *(cf + 21);
+  v5 = cf[21];
   if ((v5 & 0x80000000) == 0)
   {
     if (close(v5) && *__error())
@@ -8764,10 +8781,10 @@ void _NetPerfClientStop(char *cf)
       __error();
     }
 
-    *(cf + 21) = -1;
+    cf[21] = -1;
   }
 
-  v6 = *(cf + 22);
+  v6 = cf[22];
   if ((v6 & 0x80000000) == 0)
   {
     if (close(v6) && *__error())
@@ -8775,7 +8792,7 @@ void _NetPerfClientStop(char *cf)
       __error();
     }
 
-    *(cf + 22) = -1;
+    cf[22] = -1;
   }
 
   v7 = *(cf + 21);
@@ -8785,7 +8802,7 @@ void _NetPerfClientStop(char *cf)
     *(cf + 21) = 0;
   }
 
-  if (*(cf + 20))
+  if (cf[20])
   {
     if (*(cf + 3))
     {
@@ -8794,24 +8811,24 @@ void _NetPerfClientStop(char *cf)
       {
         *v8 = 4;
         v8[1] = 0;
-        *(v8 + 1) = *(cf + 24);
+        *(v8 + 1) = *(cf + 6);
         dispatch_async_f(*(cf + 5), v8, _PostEventOnEventQueue);
       }
     }
 
-    *(cf + 20) = 0;
+    cf[20] = 0;
 
     CFRelease(cf);
   }
 }
 
-void _NetPerfServerSessionTearDown(CFTypeRef cf)
+void _NetPerfServerSessionTearDown(pthread_t *cf)
 {
-  if (*(cf + 18))
+  if (cf[18])
   {
     SendSelfConnectedLoopbackMessage(*(cf + 38), "q", 1uLL);
-    pthread_join(*(cf + 17), 0);
-    *(cf + 18) = 0;
+    pthread_join(cf[17], 0);
+    cf[18] = 0;
   }
 
   v2 = *(cf + 38);
@@ -8847,11 +8864,11 @@ void _NetPerfServerSessionTearDown(CFTypeRef cf)
     *(cf + 40) = -1;
   }
 
-  v5 = *(cf + 21);
+  v5 = cf[21];
   if (v5)
   {
     free(v5);
-    *(cf + 21) = 0;
+    cf[21] = 0;
   }
 
   if (*(cf + 128))
@@ -8862,11 +8879,11 @@ void _NetPerfServerSessionTearDown(CFTypeRef cf)
   }
 }
 
-uint64_t _NetPerfServerDataThread(uint64_t a1)
+uint64_t _NetPerfServerDataThread(int8x8_t *a1)
 {
-  v2 = *(a1 + 156);
-  v1 = *(a1 + 160);
-  v3 = *(a1 + 152);
+  v2 = a1[19].u32[1];
+  v1 = a1[20].u32[0];
+  v3 = a1[19].i32[0];
   SetCurrentThreadPriority(62);
   memset(&v16, 0, sizeof(v16));
   if (v2 <= v1)
@@ -8957,7 +8974,7 @@ uint64_t _NetPerfServerDataThread(uint64_t a1)
   return 0;
 }
 
-int *_NetPerfServerDataHandler(uint64_t a1, int a2)
+int *_NetPerfServerDataHandler(int8x8_t *a1, int a2)
 {
   v16 = 0;
   *&v13.sa_len = 0;
@@ -8966,8 +8983,8 @@ int *_NetPerfServerDataHandler(uint64_t a1, int a2)
   v14 = 0;
   v11 = 0;
   *v12 = 0;
-  v4 = *(a1 + 168);
-  result = SocketRecvFrom(a2, v4, *(a1 + 176), &v16, &v13, 0x1Cu, v12, &v11, 0, 0);
+  v4 = a1[21];
+  result = SocketRecvFrom(a2, v4, *&a1[22], &v16, &v13, 0x1Cu, v12, &v11, 0, 0);
   if (result)
   {
     return result;
@@ -8975,7 +8992,7 @@ int *_NetPerfServerDataHandler(uint64_t a1, int a2)
 
   v6 = UpTicksToNTP(v11);
   v7 = bswap32(v4->i32[0]);
-  v8 = *(a1 + 184);
+  v8 = a1[23].i32[0];
   v9 = v7 - (v8 + 1);
   if (v7 == v8 + 1)
   {
@@ -8984,30 +9001,30 @@ int *_NetPerfServerDataHandler(uint64_t a1, int a2)
 
   if (v9 >= 1)
   {
-    *(a1 + 204) += v9;
+    a1[25].i32[1] += v9;
 LABEL_5:
-    *(a1 + 184) = v7;
+    a1[23].i32[0] = v7;
     goto LABEL_6;
   }
 
   if (v7 == v8)
   {
-    ++*(a1 + 208);
+    ++a1[26].i32[0];
   }
 
   else
   {
-    ++*(a1 + 200);
+    ++a1[25].i32[0];
   }
 
 LABEL_6:
-  ++*(a1 + 192);
+  ++*&a1[24];
   v4[1] = v4[3];
   v4[2] = bswap64(v6);
   v10 = mach_absolute_time();
   v4[3] = bswap64(UpTicksToNTP(v10));
-  v4[4] = vrev64_s32(vrev32_s8(*(a1 + 200)));
-  v4[5].i32[0] = bswap32(*(a1 + 208));
+  v4[4] = vrev64_s32(vrev32_s8(a1[25]));
+  v4[5].i32[0] = bswap32(a1[26].u32[0]);
   result = sendto(a2, v4, 0x30uLL, 0, &v13, v12[0]);
   if (result != 48)
   {
@@ -9061,9 +9078,9 @@ uint64_t _NetPerfClientSendControlMessage(uint64_t a1, const void *a2)
     return v14;
   }
 
-  v22 = *(a1 + 56);
+  v16 = *(a1 + 56);
 
-  return HTTPClientSendMessage(v22, v4, v15, v16, v17, v18, v19, v20);
+  return HTTPClientSendMessage(v16, v4);
 }
 
 uint64_t _NetPerfClientSendThread(uint64_t a1)
@@ -9232,7 +9249,7 @@ uint64_t _NetPerfClientReceiveThread(uint64_t a1)
   return 0;
 }
 
-unint64_t _NetPerfClientHandleControlCompletion(unint64_t result)
+uint64_t _NetPerfClientHandleControlCompletion(uint64_t result)
 {
   if (!*(result + 9648))
   {
@@ -9338,7 +9355,7 @@ uint64_t _NetSocketTransportWriteV(uint64_t a1, unint64_t *a2, int a3, unsigned 
     v13 = v4;
     while (1)
     {
-      v14 = *(v13 + 8);
+      v14 = v13[1];
       if (v8 - v12 < v14)
       {
         break;
@@ -9346,7 +9363,7 @@ uint64_t _NetSocketTransportWriteV(uint64_t a1, unint64_t *a2, int a3, unsigned 
 
       v11 += v14;
       v12 = (v12 + v14);
-      v13 += 16;
+      v13 += 2;
       if (v13 >= v9)
       {
         if (!v11)
@@ -9387,7 +9404,7 @@ LABEL_12:
       v7 = (v7 + *v15);
       v17 += v20;
       v16 = (v5 + v17);
-      v22 = (v15 + 1) >= v9;
+      v22 = v15 + 1 >= v9;
       v15 += 2;
       if (v22)
       {
@@ -9600,7 +9617,7 @@ LABEL_45:
     {
       if (gLogCategory_NetSocketChaCha20Poly1305 <= 60 && (gLogCategory_NetSocketChaCha20Poly1305 != -1 || _LogCategory_Initialize(&gLogCategory_NetSocketChaCha20Poly1305, 0x3Cu)))
       {
-        LogPrintF(&gLogCategory_NetSocketChaCha20Poly1305, "OSStatus _NetSocketTransportRead(NetSocketRef, size_t, size_t, void *, size_t *, int, int32_t)", 0x3Cu, "### NSTCP verify len failed: %zu vs %zu\n", v29, v30, v31, v32, v34);
+        LogPrintF(&gLogCategory_NetSocketChaCha20Poly1305, "OSStatus _NetSocketTransportRead(NetSocketRef, size_t, size_t, void *, size_t *, int, int32_t)", 60, "### NSTCP verify len failed: %zu vs %zu\n", v29, v30, v31, v32, v34);
       }
 
       v33 = 4294960534;
@@ -9649,7 +9666,7 @@ LABEL_45:
 
   if (gLogCategory_NetSocketChaCha20Poly1305 <= 60 && (gLogCategory_NetSocketChaCha20Poly1305 != -1 || _LogCategory_Initialize(&gLogCategory_NetSocketChaCha20Poly1305, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_NetSocketChaCha20Poly1305, "OSStatus _NetSocketTransportRead(NetSocketRef, size_t, size_t, void *, size_t *, int, int32_t)", 0x3Cu, "### NSTCP verify failed: %#m\n", v29, v30, v31, v32, v33);
+    LogPrintF(&gLogCategory_NetSocketChaCha20Poly1305, "OSStatus _NetSocketTransportRead(NetSocketRef, size_t, size_t, void *, size_t *, int, int32_t)", 60, "### NSTCP verify failed: %#m\n", v29, v30, v31, v32, v33);
   }
 
 LABEL_57:
@@ -9707,7 +9724,7 @@ void _NetSocketGCM_Free(uint64_t a1)
   }
 }
 
-uint64_t _NetSocketGCM_WriteV(uint64_t a1, uint64_t *a2, int a3, unsigned int a4)
+uint64_t _NetSocketGCM_WriteV(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
 {
   v30 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 96);

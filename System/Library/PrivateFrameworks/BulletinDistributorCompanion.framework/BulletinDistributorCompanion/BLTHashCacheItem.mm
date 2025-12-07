@@ -141,19 +141,19 @@ LABEL_13:
 
     else
     {
-      v10 = [(BLTHashCacheItem *)self url];
+      v9 = [(BLTHashCacheItem *)self url];
 
-      if (!v10)
+      if (!v9)
       {
         goto LABEL_6;
       }
 
-      v11 = [(BLTHashCacheItem *)self url];
-      v12 = [v11 MD5:v13];
+      v10 = [(BLTHashCacheItem *)self url];
+      v11 = [v10 MD5:v13];
 
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
-        p_super = blt_general_log();
+        p_super = blt_general_log(v12);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
           [(BLTHashCacheItem *)self MD5];
@@ -172,8 +172,6 @@ LABEL_6:
     MD5 = self->_MD5;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return MD5;
 }
 
@@ -190,13 +188,11 @@ LABEL_6:
 
 - (void)MD5
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [self url];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Unable to MD5 item: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Unable to MD5 item: %@", &v4, 0xCu);
 }
 
 @end

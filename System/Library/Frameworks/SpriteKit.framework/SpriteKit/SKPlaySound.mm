@@ -73,22 +73,22 @@
   v9->_mycaction->var21 = completion;
   if (v9->_filePath)
   {
-    SKCRendererEnsureSoundContext();
-    v18 = [SKSoundBuffer bufferWithFileNamed:v9->_filePath];
-    v19 = [SKSoundSource sourceWithBuffer:v18];
-    v20 = v19;
-    if (v19)
+    SKCRendererEnsureSoundContext(v18);
+    v19 = [SKSoundBuffer bufferWithFileNamed:v9->_filePath];
+    v20 = [SKSoundSource sourceWithBuffer:v19];
+    v21 = v20;
+    if (v20)
     {
-      [v19 setPosition:{v9->_position.x, v9->_position.y}];
-      objc_storeStrong(&v9->_soundSource, v20);
-      objc_storeWeak(&v9->_mycaction->var19, v20);
-      v21 = 0.0;
+      [v20 setPosition:{v9->_position.x, v9->_position.y}];
+      objc_storeStrong(&v9->_soundSource, v21);
+      objc_storeWeak(&v9->_mycaction->var19, v21);
+      v22 = 0.0;
       if (v9->_mycaction->var21)
       {
-        [v18 duration];
+        [v19 duration];
       }
 
-      [(SKAction *)v9 setDuration:v21];
+      [(SKAction *)v9 setDuration:v22];
     }
 
     else
@@ -107,38 +107,38 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v11.receiver = self;
-  v11.super_class = SKPlaySound;
-  v4 = [(SKAction *)&v11 copyWithZone:zone];
+  v12.receiver = self;
+  v12.super_class = SKPlaySound;
+  v4 = [(SKAction *)&v12 copyWithZone:zone];
   objc_storeStrong(v4 + 3, self->_fileName);
   objc_storeStrong(v4 + 2, self->_filePath);
   *(v4 + 40) = self->_position;
   *(*(v4 + 4) + 121) = self->_mycaction->var21;
   if (*(v4 + 2))
   {
-    SKCRendererEnsureSoundContext();
-    v5 = [SKSoundBuffer bufferWithFileNamed:*(v4 + 2)];
-    v6 = [SKSoundSource sourceWithBuffer:v5];
-    v7 = v6;
-    if (v6)
+    SKCRendererEnsureSoundContext(v5);
+    v6 = [SKSoundBuffer bufferWithFileNamed:*(v4 + 2)];
+    v7 = [SKSoundSource sourceWithBuffer:v6];
+    v8 = v7;
+    if (v7)
     {
-      [v6 setPosition:{*(v4 + 5), *(v4 + 6)}];
-      objc_storeStrong(v4 + 7, v7);
-      objc_storeWeak((*(v4 + 4) + 112), v7);
-      v8 = 0.0;
+      [v7 setPosition:{*(v4 + 5), *(v4 + 6)}];
+      objc_storeStrong(v4 + 7, v8);
+      objc_storeWeak((*(v4 + 4) + 112), v8);
+      v9 = 0.0;
       if (*(*(v4 + 4) + 121) == 1)
       {
-        [v5 duration];
+        [v6 duration];
       }
 
-      [(SKAction *)self setDuration:v8];
+      [(SKAction *)self setDuration:v9];
     }
 
     else
     {
       lastPathComponent = [*(v4 + 2) lastPathComponent];
       NSLog(&cfstr_SkactionErrorL.isa, lastPathComponent);
-      v7 = lastPathComponent;
+      v8 = lastPathComponent;
     }
   }
 

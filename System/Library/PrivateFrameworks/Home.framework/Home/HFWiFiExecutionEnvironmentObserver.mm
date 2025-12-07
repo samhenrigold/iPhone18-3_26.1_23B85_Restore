@@ -44,9 +44,9 @@
 - (void)_updateState
 {
   dispatcher = [(HFWiFiExecutionEnvironmentObserver *)self dispatcher];
-  home = [dispatcher home];
+  v13 = objc_msgSend_home(dispatcher);
 
-  if (home || ([(HFWiFiExecutionEnvironmentObserver *)self lastKnownHome], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
+  if (v13 || ([(HFWiFiExecutionEnvironmentObserver *)self lastKnownHome], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
   {
     lastKnownHome = [(HFWiFiExecutionEnvironmentObserver *)self lastKnownHome];
 
@@ -54,7 +54,7 @@
     environment = [(HFWiFiExecutionEnvironmentObserver *)self environment];
     runningState = [environment runningState];
 
-    if (home == lastKnownHome)
+    if (v13 == lastKnownHome)
     {
       if (lastKnownRunningState == runningState)
       {
@@ -67,7 +67,7 @@
       lastKnownHome2 = [(HFWiFiExecutionEnvironmentObserver *)self lastKnownHome];
       [lastKnownHome2 stopDiscoveringSymptomsForNearbyDevices];
 
-      [(HFWiFiExecutionEnvironmentObserver *)self setLastKnownHome:home];
+      [(HFWiFiExecutionEnvironmentObserver *)self setLastKnownHome:v13];
     }
 
     environment2 = [(HFWiFiExecutionEnvironmentObserver *)self environment];

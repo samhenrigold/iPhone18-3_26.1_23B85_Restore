@@ -25,12 +25,12 @@
 
 void __46__ULCoreDuetPublisher_saveEventsToDuetStream___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CFE208] knowledgeStore];
   v3 = *(a1 + 32);
-  v17 = 0;
-  v4 = [v2 saveObjects:v3 error:&v17];
-  v5 = v17;
+  v16 = 0;
+  v4 = [v2 saveObjects:v3 error:&v16];
+  v5 = v16;
 
   if (v4)
   {
@@ -57,7 +57,7 @@ void __46__ULCoreDuetPublisher_saveEventsToDuetStream___block_invoke(uint64_t a1
       v14 = v11;
       v15 = [v12 numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
       *buf = 138412290;
-      v19 = v15;
+      v18 = v15;
       _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "Saved %@ events", buf, 0xCu);
     }
   }
@@ -76,14 +76,12 @@ void __46__ULCoreDuetPublisher_saveEventsToDuetStream___block_invoke(uint64_t a1
       v9 = v7;
       v10 = [v8 numberWithBool:v4];
       *buf = 138412546;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v5;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v5;
       _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "Couldnt save events, res: %@, error: %@", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (void)clearMicroLocationVisitStream
@@ -96,12 +94,12 @@ void __46__ULCoreDuetPublisher_saveEventsToDuetStream___block_invoke(uint64_t a1
 
 void __52__ULCoreDuetPublisher_clearMicroLocationVisitStream__block_invoke()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CFE208] knowledgeStore];
   v1 = [MEMORY[0x277CFE298] microLocationVisitStream];
-  v10 = 0;
-  v2 = [v0 deleteAllEventsInEventStream:v1 error:&v10];
-  v3 = v10;
+  v9 = 0;
+  v2 = [v0 deleteAllEventsInEventStream:v1 error:&v9];
+  v3 = v9;
 
   if (v3)
   {
@@ -114,7 +112,7 @@ void __52__ULCoreDuetPublisher_clearMicroLocationVisitStream__block_invoke()
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v3;
+      v11 = v3;
       _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_ERROR, "Couldnt delete all events from microLocationVisitStream, error: %@", buf, 0xCu);
     }
   }
@@ -133,17 +131,15 @@ void __52__ULCoreDuetPublisher_clearMicroLocationVisitStream__block_invoke()
       v7 = v5;
       v8 = [v6 numberWithUnsignedInteger:v2];
       *buf = 138412290;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "Deleted: %@ events", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)saveEventForDebugInitialBringUp
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CFE1D8];
   microLocationVisitStream = [MEMORY[0x277CFE298] microLocationVisitStream];
   v5 = [MEMORY[0x277CBEAA8] now];
@@ -154,11 +150,9 @@ void __52__ULCoreDuetPublisher_clearMicroLocationVisitStream__block_invoke()
   v10 = [v8 withUUID:uUID];
   v11 = [v3 eventWithStream:microLocationVisitStream startDate:v5 endDate:v7 value:v10];
 
-  v14[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [self saveEventsToDuetStream:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

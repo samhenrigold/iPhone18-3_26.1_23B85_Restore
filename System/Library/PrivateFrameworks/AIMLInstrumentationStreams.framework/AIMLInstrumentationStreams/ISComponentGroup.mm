@@ -18,12 +18,11 @@
 
 - (NSArray)events
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___ISComponentGroup_eventsInternal);
   sub_23C5AE59C();
 
-  v3 = sub_23C871894();
+  v2 = sub_23C871894();
 
-  return v3;
+  return v2;
 }
 
 - (ISComponentIdentifier)componentIdentifier

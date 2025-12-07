@@ -6,7 +6,7 @@
 
 - (id)applyOverrides:(id)overrides toSectionInfo:(id)info
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   overridesCopy = overrides;
   if (!info)
   {
@@ -87,11 +87,11 @@ LABEL_17:
       [v6 setBulletinGroupingSetting:v28];
     }
 
-    v56 = *MEMORY[0x277CF33F8];
+    v55 = *MEMORY[0x277CF33F8];
     v29 = [overridesCopy objectForKeyedSubscript:?];
     bOOLValue4 = [v29 BOOLValue];
 
-    v57 = bOOLValue4;
+    v56 = bOOLValue4;
     if (bOOLValue4)
     {
       bOOLValue5 = 1;
@@ -113,68 +113,68 @@ LABEL_17:
 
     if (v35)
     {
-      v52 = subsections2;
-      v53 = overridesCopy;
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
+      v51 = subsections2;
+      v52 = overridesCopy;
       v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       obj = [overridesCopy objectForKeyedSubscript:v34];
-      v60 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
-      if (v60)
+      v59 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
+      if (v59)
       {
-        v58 = *v67;
+        v57 = *v66;
         v36 = *MEMORY[0x277CF3418];
-        v55 = v57 | bOOLValue5;
-        v59 = v6;
+        v54 = v56 | bOOLValue5;
+        v58 = v6;
         do
         {
           v37 = 0;
           do
           {
-            if (*v67 != v58)
+            if (*v66 != v57)
             {
               objc_enumerationMutation(obj);
             }
 
-            v61 = v37;
-            v38 = *(*(&v66 + 1) + 8 * v37);
+            v60 = v37;
+            v38 = *(*(&v65 + 1) + 8 * v37);
+            v61 = 0u;
             v62 = 0u;
             v63 = 0u;
             v64 = 0u;
-            v65 = 0u;
             subsections = [v6 subsections];
-            v40 = [subsections countByEnumeratingWithState:&v62 objects:v74 count:16];
+            v40 = [subsections countByEnumeratingWithState:&v61 objects:v73 count:16];
             if (v40)
             {
               v41 = v40;
-              v42 = *v63;
+              v42 = *v62;
               while (2)
               {
                 for (i = 0; i != v41; ++i)
                 {
-                  if (*v63 != v42)
+                  if (*v62 != v42)
                   {
                     objc_enumerationMutation(subsections);
                   }
 
-                  v44 = *(*(&v62 + 1) + 8 * i);
+                  v44 = *(*(&v61 + 1) + 8 * i);
                   v45 = [v38 objectForKeyedSubscript:v36];
                   subsectionID = [v44 subsectionID];
                   v47 = [v45 isEqualToString:subsectionID];
 
                   if (v47)
                   {
-                    v48 = [v38 objectForKeyedSubscript:v56];
+                    v48 = [v38 objectForKeyedSubscript:v55];
                     bOOLValue6 = [v48 BOOLValue];
 
-                    [v44 updateAlertingStatusForGizmoWithAlertsEnabled:v57 & bOOLValue6 NCEnabled:v55 & bOOLValue6];
+                    [v44 updateAlertingStatusForGizmoWithAlertsEnabled:v56 & bOOLValue6 NCEnabled:v54 & bOOLValue6];
                     [v44 setNotificationCenterLimit:20];
                     goto LABEL_46;
                   }
                 }
 
-                v41 = [subsections countByEnumeratingWithState:&v62 objects:v74 count:16];
+                v41 = [subsections countByEnumeratingWithState:&v61 objects:v73 count:16];
                 if (v41)
                 {
                   continue;
@@ -186,19 +186,19 @@ LABEL_17:
 
 LABEL_46:
 
-            v37 = v61 + 1;
-            v6 = v59;
+            v37 = v60 + 1;
+            v6 = v58;
           }
 
-          while (v61 + 1 != v60);
-          v60 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
+          while (v60 + 1 != v59);
+          v59 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
         }
 
-        while (v60);
+        while (v59);
       }
 
-      subsections2 = v52;
-      overridesCopy = v53;
+      subsections2 = v51;
+      overridesCopy = v52;
     }
 
     goto LABEL_49;
@@ -206,31 +206,31 @@ LABEL_46:
 
   [v6 enableAlertsForGizmo:BLTBBSectionInfoEnabled(v6)];
   [v6 setNotificationCenterLimit:20];
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   subsections2 = [v6 subsections];
-  v16 = [subsections2 countByEnumeratingWithState:&v70 objects:v76 count:16];
+  v16 = [subsections2 countByEnumeratingWithState:&v69 objects:v75 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v71;
+    v18 = *v70;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v71 != v18)
+        if (*v70 != v18)
         {
           objc_enumerationMutation(subsections2);
         }
 
-        v20 = *(*(&v70 + 1) + 8 * j);
+        v20 = *(*(&v69 + 1) + 8 * j);
         [v20 enableAlertsForGizmo:BLTBBSectionInfoEnabled(v20)];
         [v20 setNotificationCenterLimit:20];
       }
 
-      v17 = [subsections2 countByEnumeratingWithState:&v70 objects:v76 count:16];
+      v17 = [subsections2 countByEnumeratingWithState:&v69 objects:v75 count:16];
     }
 
     while (v17);
@@ -239,7 +239,6 @@ LABEL_46:
 LABEL_49:
 
 LABEL_50:
-  v50 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

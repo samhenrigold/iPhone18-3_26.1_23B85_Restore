@@ -1,8 +1,19 @@
 @interface SoundAnalysisSignal
+- (NSSet)featureNames;
 - (id)featureValueForName:(id)name;
 @end
 
 @implementation SoundAnalysisSignal
+
+- (NSSet)featureNames
+{
+
+  sub_1C4B2E730();
+
+  v2 = sub_1C4F01AA8();
+
+  return v2;
+}
 
 - (id)featureValueForName:(id)name
 {

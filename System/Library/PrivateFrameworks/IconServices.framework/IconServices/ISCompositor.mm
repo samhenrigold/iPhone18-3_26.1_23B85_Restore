@@ -95,9 +95,7 @@
 
 - (void)reset
 {
-  array = [MEMORY[0x1E695DF70] array];
-  elements = self->_elements;
-  self->_elements = array;
+  self->_elements = [MEMORY[0x1E695DF70] array];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -126,27 +124,28 @@
   if (firstObject)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [firstObject setRecipe:recipeCopy];
     }
 
     else
     {
-      v10 = _ISDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _ISDefaultLog(isKindOfClass);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [ISCompositor(Convenience) setRecipe:v10];
+        [ISCompositor(Convenience) setRecipe:v11];
       }
     }
   }
 
   else
   {
-    v7 = [_ISCompositorElement alloc];
-    v8 = [(_ISCompositorElement *)v7 initWithRecipe:recipeCopy resources:MEMORY[0x1E695E0F8]];
+    v8 = [_ISCompositorElement alloc];
+    v9 = [(_ISCompositorElement *)v8 initWithRecipe:recipeCopy resources:MEMORY[0x1E695E0F8]];
     elements2 = [(ISCompositor *)self elements];
-    [elements2 addObject:v8];
+    [elements2 addObject:v9];
   }
 }
 
@@ -176,17 +175,18 @@
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [firstObject setResource:resourceCopy forName:namedCopy];
   }
 
   else
   {
-    v12 = _ISDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _ISDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [ISCompositor(Convenience) setResource:namedCopy named:v12];
+      [ISCompositor(Convenience) setResource:namedCopy named:v13];
     }
   }
 }
@@ -198,17 +198,18 @@
   firstObject = [elements firstObject];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [firstObject addResourcesFromDictionary:dictionaryCopy];
   }
 
   else
   {
-    v7 = _ISDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ISDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ISCompositor(Convenience) *)dictionaryCopy addResourcesFromDictionary:v7];
+      [(ISCompositor(Convenience) *)dictionaryCopy addResourcesFromDictionary:v8];
     }
   }
 }
@@ -219,50 +220,51 @@
   firstObject = [elements firstObject];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [firstObject clearResources];
   }
 
   else
   {
-    v4 = _ISDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ISDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(ISCompositor(Convenience) *)v4 clearResources];
+      [(ISCompositor(Convenience) *)v5 clearResources];
     }
   }
 }
 
 - (void)drawInContext:(id)context
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (![(ISCompositor *)self renderingMode]|| [(ISCompositor *)self renderingMode]== 1 || [(ISCompositor *)self renderingMode]== 2)
   {
-    v56 = 0u;
-    v57 = 0u;
     v54 = 0u;
     v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     elements = [(ISCompositor *)self elements];
-    v6 = [elements countByEnumeratingWithState:&v54 objects:v59 count:16];
+    v6 = [elements countByEnumeratingWithState:&v52 objects:v57 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v55;
+      v8 = *v53;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v55 != v8)
+          if (*v53 != v8)
           {
             objc_enumerationMutation(elements);
           }
 
-          [(ISCompositor *)self drawElement:*(*(&v54 + 1) + 8 * i) inContext:contextCopy];
+          [(ISCompositor *)self drawElement:*(*(&v52 + 1) + 8 * i) inContext:contextCopy];
         }
 
-        v7 = [elements countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v7 = [elements countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
       while (v7);
@@ -274,15 +276,15 @@
   [contextCopy bounds];
   v11 = v10;
   v13 = v12;
-  v43 = contextCopy;
+  v41 = contextCopy;
   [contextCopy scale];
   v15 = v14;
+  v48 = 0u;
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v53 = 0u;
   obj = [(ISCompositor *)self elements];
-  v16 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v16 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
   if (!v16)
   {
     elements = 0;
@@ -291,117 +293,115 @@
 
   v17 = v16;
   elements = 0;
-  v18 = *v51;
-  v19 = *MEMORY[0x1E695FA48];
-  v44 = *MEMORY[0x1E695FA48];
-  v45 = *MEMORY[0x1E695FAB0];
+  v18 = *v49;
+  v42 = *MEMORY[0x1E695FA48];
+  v43 = *MEMORY[0x1E695FAB0];
   do
   {
     for (j = 0; j != v17; ++j)
     {
-      if (*v51 != v18)
+      if (*v49 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v50 + 1) + 8 * j);
-      recipe = [v21 recipe];
-      v23 = [recipe layerTreeForSize:v11 scale:{v13, v15}];
+      v20 = *(*(&v48 + 1) + 8 * j);
+      recipe = [v20 recipe];
+      v22 = [recipe layerTreeForSize:v11 scale:{v13, v15}];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        effect = [v23 effect];
-        resourceProvider = [v21 resourceProvider];
-        v26 = [(ISCompositor *)self filterForLayer:v23 scale:resourceProvider resourceProvider:v15];
+        effect = [v22 effect];
+        resourceProvider = [v20 resourceProvider];
+        v25 = [(ISCompositor *)self filterForLayer:v22 scale:resourceProvider resourceProvider:v15];
 
         if (effect)
         {
           outputImage = [elements outputImage];
-          [v26 outputImage];
+          [v25 outputImage];
           selfCopy = self;
-          v29 = v17;
-          v31 = v30 = v18;
-          v47 = [effect filterWithBackgroundImage:outputImage inputImage:v31];
+          v28 = v17;
+          v30 = v29 = v18;
+          v45 = [effect filterWithBackgroundImage:outputImage inputImage:v30];
 
-          v18 = v30;
-          v17 = v29;
+          v18 = v29;
+          v17 = v28;
           self = selfCopy;
 
-          elements = v47;
+          elements = v45;
           goto LABEL_24;
         }
       }
 
       else
       {
-        v26 = 0;
+        v25 = 0;
       }
 
       if (elements)
       {
-        v32 = [MEMORY[0x1E695F648] filterWithName:@"CISourceOverCompositing"];
-        outputImage2 = [v26 outputImage];
-        [v32 setValue:outputImage2 forKey:v45];
+        v31 = [MEMORY[0x1E695F648] filterWithName:@"CISourceOverCompositing"];
+        outputImage2 = [v25 outputImage];
+        [v31 setValue:outputImage2 forKey:v43];
 
         outputImage3 = [elements outputImage];
-        [v32 setValue:outputImage3 forKey:v44];
+        [v31 setValue:outputImage3 forKey:v42];
 
-        elements = v32;
+        elements = v31;
       }
 
       else
       {
-        v26 = v26;
-        elements = v26;
+        v25 = v25;
+        elements = v25;
       }
 
 LABEL_24:
     }
 
-    v17 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
+    v17 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
   }
 
   while (v17);
 LABEL_28:
 
   outputImage4 = [elements outputImage];
-  memset(&v49, 0, sizeof(v49));
-  CGAffineTransformMakeScale(&v49, v15, v15);
-  v48 = v49;
-  v61.origin.x = 0.0;
-  v61.origin.y = 0.0;
-  v61.size.width = v11;
-  v61.size.height = v13;
-  v62 = CGRectApplyAffineTransform(v61, &v48);
-  x = v62.origin.x;
-  y = v62.origin.y;
-  width = v62.size.width;
-  height = v62.size.height;
+  memset(&v47, 0, sizeof(v47));
+  CGAffineTransformMakeScale(&v47, v15, v15);
+  v46 = v47;
+  v59.origin.x = 0.0;
+  v59.origin.y = 0.0;
+  v59.size.width = v11;
+  v59.size.height = v13;
+  v60 = CGRectApplyAffineTransform(v59, &v46);
+  x = v60.origin.x;
+  y = v60.origin.y;
+  width = v60.size.width;
+  height = v60.size.height;
   sharedCIContext = [(ISCompositor *)self sharedCIContext];
-  v41 = [sharedCIContext createCGImage:outputImage4 fromRect:{x, y, width, height}];
+  v40 = [sharedCIContext createCGImage:outputImage4 fromRect:{x, y, width, height}];
 
-  contextCopy = v43;
-  if (v41)
+  contextCopy = v41;
+  if (v40)
   {
-    [v43 drawCGImage:v41 inRect:{0.0, 0.0, v11, v13}];
-    CFRelease(v41);
+    [v41 drawCGImage:v40 inRect:{0.0, 0.0, v11, v13}];
+    CFRelease(v40);
   }
 
 LABEL_31:
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (id)filterForLayer:(id)layer scale:(double)scale resourceProvider:(id)provider
 {
-  v120[1] = *MEMORY[0x1E69E9840];
+  v119[1] = *MEMORY[0x1E69E9840];
   layerCopy = layer;
   providerCopy = provider;
   objc_opt_class();
-  v97 = layerCopy;
+  v96 = layerCopy;
   if ((objc_opt_isKindOfClass() & 1) == 0 || ([layerCopy content], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
   {
-    v93 = 0;
+    v92 = 0;
     goto LABEL_38;
   }
 
@@ -421,11 +421,11 @@ LABEL_31:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v89 = content2;
+    v88 = content2;
     if ([content2 conformsToProtocol:&unk_1F1A669B8])
     {
-      v120[0] = content2;
-      resourceStack = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:1];
+      v119[0] = content2;
+      resourceStack = [MEMORY[0x1E695DEC8] arrayWithObjects:v119 count:1];
     }
 
     else
@@ -456,39 +456,39 @@ LABEL_14:
       v15 = 0;
     }
 
-    v116 = 0u;
-    v117 = 0u;
-    v114 = 0u;
     v115 = 0u;
+    v116 = 0u;
+    v113 = 0u;
+    v114 = 0u;
     obj = v19;
-    v98 = [obj countByEnumeratingWithState:&v114 objects:v119 count:16];
-    if (v98)
+    v97 = [obj countByEnumeratingWithState:&v113 objects:v118 count:16];
+    if (v97)
     {
-      v23 = *v115;
+      v23 = *v114;
       v24 = *MEMORY[0x1E695FAB0];
-      v94 = *MEMORY[0x1E695FB38];
-      v95 = *MEMORY[0x1E695FB20];
+      v93 = *MEMORY[0x1E695FB38];
+      v94 = *MEMORY[0x1E695FB20];
       v25 = 0x1E695F000uLL;
-      v91 = *MEMORY[0x1E695FA48];
-      v102 = *MEMORY[0x1E695FAB0];
+      v90 = *MEMORY[0x1E695FA48];
+      v101 = *MEMORY[0x1E695FAB0];
       do
       {
-        for (i = 0; i != v98; i = i + 1)
+        for (i = 0; i != v97; i = i + 1)
         {
-          if (*v115 != v23)
+          if (*v114 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v114 + 1) + 8 * i);
+          v27 = *(*(&v113 + 1) + 8 * i);
           [v9 size];
           v28 = [v27 imageForSize:? scale:?];
           if (v28)
           {
             v29 = [objc_alloc(MEMORY[0x1E695F658]) initWithCGImage:{objc_msgSend(v28, "CGImage")}];
-            v106 = [*(v25 + 1608) filterWithName:@"CILanczosScaleTransform"];
-            v100 = v29;
-            [v106 setValue:v29 forKey:v24];
+            v105 = [*(v25 + 1608) filterWithName:@"CILanczosScaleTransform"];
+            v99 = v29;
+            [v105 setValue:v29 forKey:v24];
             [v9 size];
             v31 = v30 * scale;
             [v9 size];
@@ -511,24 +511,24 @@ LABEL_14:
             }
 
             v40 = [MEMORY[0x1E696AD98] numberWithDouble:v36];
-            [v106 setValue:v40 forKey:v95];
+            [v105 setValue:v40 forKey:v94];
 
             [v28 pixelSize];
             v42 = v41;
             v44 = v43;
-            CGAffineTransformMakeScale(&v113, v36, v36);
-            v45 = (v31 - (v44 * v113.c + v113.a * v42)) * 0.5;
-            v46 = (v33 - (v44 * v113.d + v113.b * v42)) * 0.5;
+            CGAffineTransformMakeScale(&v112, v36, v36);
+            v45 = (v31 - (v44 * v112.c + v112.a * v42)) * 0.5;
+            v46 = (v33 - (v44 * v112.d + v112.b * v42)) * 0.5;
             v47 = [*(v25 + 1608) filterWithName:@"CIAffineTransform"];
-            memset(&v113, 0, sizeof(v113));
+            memset(&v112, 0, sizeof(v112));
             [v9 position];
             v49 = v45 + v48 * scale;
             [v9 position];
-            CGAffineTransformMakeTranslation(&v113, v49, v46 + v50 * scale);
-            v51 = [MEMORY[0x1E696B098] valueWithBytes:&v113 objCType:"{CGAffineTransform=dddddd}"];
-            [v47 setValue:v51 forKey:v94];
-            outputImage = [v106 outputImage];
-            [v47 setValue:outputImage forKey:v102];
+            CGAffineTransformMakeTranslation(&v112, v49, v46 + v50 * scale);
+            v51 = [MEMORY[0x1E696B098] valueWithBytes:&v112 objCType:"{CGAffineTransform=dddddd}"];
+            [v47 setValue:v51 forKey:v93];
+            outputImage = [v105 outputImage];
+            [v47 setValue:outputImage forKey:v101];
 
             if (v15)
             {
@@ -536,10 +536,10 @@ LABEL_14:
               [v47 outputImage];
               v54 = v9;
               v56 = v55 = v23;
-              [v53 setValue:v56 forKey:v102];
+              [v53 setValue:v56 forKey:v101];
 
               outputImage2 = [v15 outputImage];
-              [v53 setValue:outputImage2 forKey:v91];
+              [v53 setValue:outputImage2 forKey:v90];
 
               v23 = v55;
               v9 = v54;
@@ -552,19 +552,19 @@ LABEL_14:
               v15 = v47;
             }
 
-            v24 = v102;
+            v24 = v101;
             v25 = 0x1E695F000;
           }
         }
 
-        v98 = [obj countByEnumeratingWithState:&v114 objects:v119 count:16];
+        v97 = [obj countByEnumeratingWithState:&v113 objects:v118 count:16];
       }
 
-      while (v98);
+      while (v97);
     }
 
-    layerCopy = v97;
-    v16 = v90;
+    layerCopy = v96;
+    v16 = v89;
     goto LABEL_37;
   }
 
@@ -574,62 +574,62 @@ LABEL_14:
   [v15 setValue:v17 forKey:*MEMORY[0x1E695FA78]];
 
 LABEL_37:
-  v93 = v15;
+  v92 = v15;
 
 LABEL_38:
-  v111 = 0u;
-  v112 = 0u;
-  v109 = 0u;
   v110 = 0u;
+  v111 = 0u;
+  v108 = 0u;
+  v109 = 0u;
   sublayers = [layerCopy sublayers];
-  v107 = [sublayers countByEnumeratingWithState:&v109 objects:v118 count:16];
-  if (!v107)
+  v106 = [sublayers countByEnumeratingWithState:&v108 objects:v117 count:16];
+  if (!v106)
   {
 
     v59 = 0;
 LABEL_54:
-    v75 = v93;
+    v75 = v92;
     goto LABEL_55;
   }
 
   v59 = 0;
-  v103 = *v110;
+  v102 = *v109;
   v60 = *MEMORY[0x1E695FAB0];
-  v101 = *MEMORY[0x1E695FB38];
-  v96 = *MEMORY[0x1E695FA48];
-  v99 = sublayers;
+  v100 = *MEMORY[0x1E695FB38];
+  v95 = *MEMORY[0x1E695FA48];
+  v98 = sublayers;
   do
   {
-    for (j = 0; j != v107; ++j)
+    for (j = 0; j != v106; ++j)
     {
-      if (*v110 != v103)
+      if (*v109 != v102)
       {
-        objc_enumerationMutation(v99);
+        objc_enumerationMutation(v98);
       }
 
-      v62 = [(ISCompositor *)self filterForLayer:*(*(&v109 + 1) + 8 * j) scale:providerCopy resourceProvider:scale];
+      v62 = [(ISCompositor *)self filterForLayer:*(*(&v108 + 1) + 8 * j) scale:providerCopy resourceProvider:scale];
       if (v62)
       {
         v63 = [MEMORY[0x1E695F648] filterWithName:@"CICrop"];
-        memset(&v113, 0, sizeof(v113));
-        CGAffineTransformMakeScale(&v113, scale, scale);
+        memset(&v112, 0, sizeof(v112));
+        CGAffineTransformMakeScale(&v112, scale, scale);
         [layerCopy frame];
-        v108 = v113;
-        v123 = CGRectApplyAffineTransform(v122, &v108);
-        v64 = [MEMORY[0x1E695F688] vectorWithCGRect:{v123.origin.x, v123.origin.y, v123.size.width, v123.size.height}];
+        v107 = v112;
+        v122 = CGRectApplyAffineTransform(v121, &v107);
+        v64 = [MEMORY[0x1E695F688] vectorWithCGRect:{v122.origin.x, v122.origin.y, v122.size.width, v122.size.height}];
         [v63 setValue:v64 forKey:@"inputRectangle"];
 
         outputImage3 = [v62 outputImage];
         [v63 setValue:outputImage3 forKey:v60];
 
         v66 = [MEMORY[0x1E695F648] filterWithName:@"CIAffineTransform"];
-        memset(&v108, 0, sizeof(v108));
+        memset(&v107, 0, sizeof(v107));
         [layerCopy position];
         v68 = v67 * scale;
         [layerCopy position];
-        CGAffineTransformMakeTranslation(&v108, v68, v69 * scale);
-        v70 = [MEMORY[0x1E696B098] valueWithBytes:&v108 objCType:"{CGAffineTransform=dddddd}"];
-        [v66 setValue:v70 forKey:v101];
+        CGAffineTransformMakeTranslation(&v107, v68, v69 * scale);
+        v70 = [MEMORY[0x1E696B098] valueWithBytes:&v107 objCType:"{CGAffineTransform=dddddd}"];
+        [v66 setValue:v70 forKey:v100];
         outputImage4 = [v63 outputImage];
         [v66 setValue:outputImage4 forKey:v60];
 
@@ -640,9 +640,9 @@ LABEL_54:
           [v72 setValue:outputImage5 forKey:v60];
 
           outputImage6 = [v59 outputImage];
-          [v72 setValue:outputImage6 forKey:v96];
+          [v72 setValue:outputImage6 forKey:v95];
 
-          layerCopy = v97;
+          layerCopy = v96;
           v59 = v72;
         }
 
@@ -653,25 +653,25 @@ LABEL_54:
       }
     }
 
-    v107 = [v99 countByEnumeratingWithState:&v109 objects:v118 count:16];
+    v106 = [v98 countByEnumeratingWithState:&v108 objects:v117 count:16];
   }
 
-  while (v107);
+  while (v106);
 
   if (!v59)
   {
     goto LABEL_54;
   }
 
-  v75 = v93;
-  if (v93)
+  v75 = v92;
+  if (v92)
   {
     v76 = [MEMORY[0x1E695F648] filterWithName:@"CISourceOverCompositing"];
     outputImage7 = [v59 outputImage];
     [v76 setValue:outputImage7 forKey:v60];
 
-    outputImage8 = [v93 outputImage];
-    [v76 setValue:outputImage8 forKey:v96];
+    outputImage8 = [v92 outputImage];
+    [v76 setValue:outputImage8 forKey:v95];
 
     goto LABEL_57;
   }
@@ -690,11 +690,11 @@ LABEL_57:
 
   v75 = v76;
 LABEL_58:
-  v80 = v97;
+  v80 = v96;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v81 = v97;
+    v81 = v96;
     mask = [v81 mask];
     v83 = [(ISCompositor *)self filterForLayer:mask scale:providerCopy resourceProvider:scale];
 
@@ -710,10 +710,8 @@ LABEL_58:
       v75 = v84;
     }
 
-    v80 = v97;
+    v80 = v96;
   }
-
-  v87 = *MEMORY[0x1E69E9840];
 
   return v75;
 }
@@ -832,23 +830,24 @@ LABEL_9:
         v27 = *MEMORY[0x1E695FAB0];
         [v26 setValue:v21 forKey:*MEMORY[0x1E695FAB0]];
         v28 = *(MEMORY[0x1E695EFD0] + 16);
-        v53[0] = *MEMORY[0x1E695EFD0];
-        v53[1] = v28;
-        v53[2] = *(MEMORY[0x1E695EFD0] + 32);
-        v29 = [MEMORY[0x1E696B098] valueWithBytes:v53 objCType:"{CGAffineTransform=dddddd}"];
+        v54[0] = *MEMORY[0x1E695EFD0];
+        v54[1] = v28;
+        v54[2] = *(MEMORY[0x1E695EFD0] + 32);
+        v29 = [MEMORY[0x1E696B098] valueWithBytes:v54 objCType:"{CGAffineTransform=dddddd}"];
         [v26 setValue:v29 forKey:*MEMORY[0x1E695FB38]];
 
-        if (_os_feature_enabled_simple_impl())
+        v30 = _os_feature_enabled_simple_impl();
+        if (v30)
         {
-          v30 = _ISDefaultLog();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+          v31 = _ISDefaultLog(v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
-            [ISCompositor(Rendering) scaledImageFromContent:v30 size:? scale:? needsScaled:?];
+            [ISCompositor(Rendering) scaledImageFromContent:v31 size:? scale:? needsScaled:?];
           }
 
           outputImage = [v26 outputImage];
-          CGAffineTransformMakeScale(&v52, v20, v20);
-          v31OutputImage = [outputImage imageByApplyingTransform:&v52 highQualityDownsample:1];
+          CGAffineTransformMakeScale(&v53, v20, v20);
+          v32OutputImage = [outputImage imageByApplyingTransform:&v53 highQualityDownsample:1];
         }
 
         else
@@ -857,32 +856,32 @@ LABEL_9:
           outputImage2 = [v26 outputImage];
           [outputImage setValue:outputImage2 forKey:v27];
 
-          v34 = [MEMORY[0x1E696AD98] numberWithDouble:v20];
-          [outputImage setValue:v34 forKey:*MEMORY[0x1E695FB20]];
+          v35 = [MEMORY[0x1E696AD98] numberWithDouble:v20];
+          [outputImage setValue:v35 forKey:*MEMORY[0x1E695FB20]];
 
-          v31OutputImage = [outputImage outputImage];
+          v32OutputImage = [outputImage outputImage];
         }
 
-        v35 = v31OutputImage;
+        v36 = v32OutputImage;
 
-        v36 = [MEMORY[0x1E695F648] filterWithName:@"CICrop"];
-        v37 = [MEMORY[0x1E695F688] vectorWithCGRect:{0.0, 0.0, v23, v25}];
-        [v36 setValue:v37 forKey:@"inputRectangle"];
+        v37 = [MEMORY[0x1E695F648] filterWithName:@"CICrop"];
+        v38 = [MEMORY[0x1E695F688] vectorWithCGRect:{0.0, 0.0, v23, v25}];
+        [v37 setValue:v38 forKey:@"inputRectangle"];
 
-        [v36 setValue:v35 forKey:v27];
-        outputImage3 = [v36 outputImage];
-        v39 = outputImage3;
+        [v37 setValue:v36 forKey:v27];
+        outputImage3 = [v37 outputImage];
+        v40 = outputImage3;
         if (outputImage3)
         {
           [outputImage3 extent];
-          v41 = v40;
-          v43 = v42;
-          v45 = v44;
-          v47 = v46;
+          v42 = v41;
+          v44 = v43;
+          v46 = v45;
+          v48 = v47;
           sharedCIContext = [(ISCompositor *)self sharedCIContext];
-          v49 = [sharedCIContext createCGImage:v39 fromRect:{v41, v43, v45, v47}];
+          v50 = [sharedCIContext createCGImage:v40 fromRect:{v42, v44, v46, v48}];
 
-          if (v49)
+          if (v50)
           {
             [v11 CGImage];
             if (CGImageGetProperty() == *MEMORY[0x1E695E4D0])
@@ -890,10 +889,10 @@ LABEL_9:
               CGImageSetProperty();
             }
 
-            v50 = [objc_alloc(MEMORY[0x1E69A8988]) initWithCGImage:v49 scale:scale];
+            v51 = [objc_alloc(MEMORY[0x1E69A8988]) initWithCGImage:v50 scale:scale];
 
-            CFRelease(v49);
-            v11 = v50;
+            CFRelease(v50);
+            v11 = v51;
           }
         }
       }
@@ -931,7 +930,7 @@ LABEL_9:
 
 - (void)drawLayer:(id)layer resourceProvider:(id)provider inContext:(id)context
 {
-  v156[1] = *MEMORY[0x1E69E9840];
+  v154[1] = *MEMORY[0x1E69E9840];
   layerCopy = layer;
   providerCopy = provider;
   contextCopy = context;
@@ -943,30 +942,30 @@ LABEL_9:
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  v127 = *(MEMORY[0x1E695EFD0] + 16);
+  v125 = *(MEMORY[0x1E695EFD0] + 16);
   *obj = *MEMORY[0x1E695EFD0];
-  *&v153.a = *MEMORY[0x1E695EFD0];
-  *&v153.c = v127;
-  v125 = *(MEMORY[0x1E695EFD0] + 32);
-  *&v153.tx = v125;
+  *&v151.a = *MEMORY[0x1E695EFD0];
+  *&v151.c = v125;
+  v123 = *(MEMORY[0x1E695EFD0] + 32);
+  *&v151.tx = v123;
   [contextCopy scale];
   v22 = v21;
   if (contextCopy)
   {
-    [contextCopy transform];
-    v23 = *&v152;
-    [contextCopy transform];
-    v24 = *(&v149 + 1);
+    objc_msgSend_transform(contextCopy);
+    v23 = *&v150;
+    objc_msgSend_transform(contextCopy);
+    v24 = *(&v147 + 1);
   }
 
   else
   {
-    v151 = 0u;
-    v152 = 0u;
     v149 = 0u;
     v150 = 0u;
     v147 = 0u;
     v148 = 0u;
+    v145 = 0u;
+    v146 = 0u;
     v24 = 0.0;
     v23 = 0.0;
   }
@@ -976,18 +975,18 @@ LABEL_9:
   if ([layerCopy flipped] == 3)
   {
     *&t1.a = *obj;
-    *&t1.c = v127;
-    *&t1.tx = v125;
-    CGAffineTransformTranslate(&v153, &t1, v22 * v25, v22 * v26);
-    t2 = v153;
+    *&t1.c = v125;
+    *&t1.tx = v123;
+    CGAffineTransformTranslate(&v151, &t1, v22 * v25, v22 * v26);
+    t2 = v151;
     CGAffineTransformScale(&t1, &t2, -1.0, -1.0);
-    v153 = t1;
+    v151 = t1;
     t2 = t1;
     CGAffineTransformTranslate(&t1, &t2, -((v18 + v25) * v22), -((v20 + v26) * v22));
-    v153 = t1;
+    v151 = t1;
     if (contextCopy)
     {
-      [contextCopy transform];
+      objc_msgSend_transform(contextCopy);
     }
 
     else
@@ -995,26 +994,26 @@ LABEL_9:
       memset(&t1, 0, sizeof(t1));
     }
 
-    CGAffineTransformTranslate(&v144, &t1, -v14, -v16);
-    *&t1.a = *&v144.a;
-    *&t1.c = *&v144.c;
-    v27 = *&v144.tx;
+    CGAffineTransformTranslate(&v142, &t1, -v14, -v16);
+    *&t1.a = *&v142.a;
+    *&t1.c = *&v142.c;
+    v27 = *&v142.tx;
   }
 
   else if ([layerCopy flipped] == 1)
   {
-    t2 = v153;
+    t2 = v151;
     CGAffineTransformTranslate(&t1, &t2, 0.0, v22 * v26);
-    v153 = t1;
+    v151 = t1;
     t2 = t1;
     CGAffineTransformScale(&t1, &t2, 1.0, -1.0);
-    v153 = t1;
+    v151 = t1;
     t2 = t1;
     CGAffineTransformTranslate(&t1, &t2, 0.0, -((v20 + v26) * v22));
-    v153 = t1;
+    v151 = t1;
     if (contextCopy)
     {
-      [contextCopy transform];
+      objc_msgSend_transform(contextCopy);
     }
 
     else
@@ -1022,26 +1021,26 @@ LABEL_9:
       memset(&t1, 0, sizeof(t1));
     }
 
-    CGAffineTransformTranslate(&v143, &t1, v14, -v16);
-    *&t1.a = *&v143.a;
-    *&t1.c = *&v143.c;
-    v27 = *&v143.tx;
+    CGAffineTransformTranslate(&v141, &t1, v14, -v16);
+    *&t1.a = *&v141.a;
+    *&t1.c = *&v141.c;
+    v27 = *&v141.tx;
   }
 
   else if ([layerCopy flipped] == 2)
   {
-    t2 = v153;
+    t2 = v151;
     CGAffineTransformTranslate(&t1, &t2, v22 * v25, 0.0);
-    v153 = t1;
+    v151 = t1;
     t2 = t1;
     CGAffineTransformScale(&t1, &t2, -1.0, 1.0);
-    v153 = t1;
+    v151 = t1;
     t2 = t1;
     CGAffineTransformTranslate(&t1, &t2, -((v18 + v25) * v22), 0.0);
-    v153 = t1;
+    v151 = t1;
     if (contextCopy)
     {
-      [contextCopy transform];
+      objc_msgSend_transform(contextCopy);
     }
 
     else
@@ -1049,17 +1048,17 @@ LABEL_9:
       memset(&t1, 0, sizeof(t1));
     }
 
-    CGAffineTransformTranslate(&v142, &t1, -v14, v16);
-    *&t1.a = *&v142.a;
-    *&t1.c = *&v142.c;
-    v27 = *&v142.tx;
+    CGAffineTransformTranslate(&v140, &t1, -v14, v16);
+    *&t1.a = *&v140.a;
+    *&t1.c = *&v140.c;
+    v27 = *&v140.tx;
   }
 
   else
   {
     if (contextCopy)
     {
-      [contextCopy transform];
+      objc_msgSend_transform(contextCopy);
     }
 
     else
@@ -1067,17 +1066,17 @@ LABEL_9:
       memset(&t1, 0, sizeof(t1));
     }
 
-    CGAffineTransformTranslate(&v141, &t1, v14, v16);
-    *&t1.a = *&v141.a;
-    *&t1.c = *&v141.c;
-    v27 = *&v141.tx;
+    CGAffineTransformTranslate(&v139, &t1, v14, v16);
+    *&t1.a = *&v139.a;
+    *&t1.c = *&v139.c;
+    v27 = *&v139.tx;
   }
 
   *&t1.tx = v27;
   [contextCopy setTransform:&t1];
   if (contextCopy)
   {
-    [contextCopy transform];
+    objc_msgSend_transform(contextCopy);
   }
 
   else
@@ -1085,9 +1084,9 @@ LABEL_9:
     memset(&t1, 0, sizeof(t1));
   }
 
-  t2 = v153;
-  CGAffineTransformConcat(&v140, &t1, &t2);
-  t1 = v140;
+  t2 = v151;
+  CGAffineTransformConcat(&v138, &t1, &t2);
+  t1 = v138;
   [contextCopy setTransform:&t1];
   [layerCopy bounds];
   v29 = v28;
@@ -1097,7 +1096,7 @@ LABEL_9:
   v36 = [(ISCompositor *)self maskImageForLayer:layerCopy size:providerCopy scale:v32 resourceProvider:v34, v12];
   [contextCopy clipToMaskCGImage:objc_msgSend(v36 inRect:{"CGImage"), v29, v31, v33, v35}];
   v37 = contextCopy;
-  v124 = v36;
+  v122 = v36;
   if (v36 || ([layerCopy effect], v38 = objc_claimAutoreleasedReturnValue(), v38, v39 = v37, v38))
   {
     v40 = MEMORY[0x1E69A8978];
@@ -1106,7 +1105,7 @@ LABEL_9:
   }
 
   objc_opt_class();
-  v126 = v37;
+  v124 = v37;
   if (objc_opt_isKindOfClass())
   {
     content = [layerCopy content];
@@ -1143,8 +1142,8 @@ LABEL_51:
 
           if (objc_opt_respondsToSelector())
           {
-            v156[0] = content3;
-            resourceStack = [MEMORY[0x1E695DEC8] arrayWithObjects:v156 count:1];
+            v154[0] = content3;
+            resourceStack = [MEMORY[0x1E695DEC8] arrayWithObjects:v154 count:1];
           }
 
           else
@@ -1171,47 +1170,46 @@ LABEL_64:
           }
 
           acceptSymbol = [v43 acceptSymbol];
+          v134 = 0u;
+          v135 = 0u;
           v136 = 0u;
           v137 = 0u;
-          v138 = 0u;
-          v139 = 0u;
           obja = v64;
-          v69 = [obja countByEnumeratingWithState:&v136 objects:v155 count:16];
+          v69 = [obja countByEnumeratingWithState:&v134 objects:v153 count:16];
           if (v69)
           {
             v70 = v69;
             v71 = v43;
-            v72 = *v137;
+            v72 = *v135;
             v73 = 0x1E69A8000uLL;
             do
             {
               v74 = 0;
-              v128 = v70;
+              v126 = v70;
               do
               {
-                if (*v137 != v72)
+                if (*v135 != v72)
                 {
                   objc_enumerationMutation(obja);
                 }
 
-                v75 = *(*(&v136 + 1) + 8 * v74);
-                v76 = *(v73 + 2480);
+                v75 = *(*(&v134 + 1) + 8 * v74);
                 objc_opt_class();
                 if (acceptSymbol & 1 | ((objc_opt_isKindOfClass() & 1) == 0))
                 {
                   LOBYTE(t1.a) = 0;
                   [v71 size];
-                  v77 = [ISCompositor scaledImageFromContent:"scaledImageFromContent:size:scale:needsScaled:" size:v75 scale:&t1 needsScaled:?];
-                  v78 = v77;
-                  if (v77)
+                  v76 = [ISCompositor scaledImageFromContent:"scaledImageFromContent:size:scale:needsScaled:" size:v75 scale:&t1 needsScaled:?];
+                  v77 = v76;
+                  if (v76)
                   {
-                    v79 = v72;
+                    v78 = v72;
                     selfCopy = self;
-                    v81 = providerCopy;
-                    v82 = v73;
-                    v83 = v71;
+                    v80 = providerCopy;
+                    v81 = v73;
+                    v82 = v71;
                     a_low = LOBYTE(t1.a);
-                    cGImage = [v77 CGImage];
+                    cGImage = [v76 CGImage];
                     if (a_low == 1)
                     {
                       [v39 drawCGImage:cGImage inRect:{v29, v31, v33, v35}];
@@ -1222,12 +1220,12 @@ LABEL_64:
                       [v39 drawCGImage:cGImage centeredInRect:{v29, v31, v33, v35}];
                     }
 
-                    v71 = v83;
-                    v73 = v82;
-                    providerCopy = v81;
+                    v71 = v82;
+                    v73 = v81;
+                    providerCopy = v80;
                     self = selfCopy;
-                    v72 = v79;
-                    v70 = v128;
+                    v72 = v78;
+                    v70 = v126;
                   }
                 }
 
@@ -1235,15 +1233,15 @@ LABEL_64:
               }
 
               while (v70 != v74);
-              v70 = [obja countByEnumeratingWithState:&v136 objects:v155 count:16];
+              v70 = [obja countByEnumeratingWithState:&v134 objects:v153 count:16];
             }
 
             while (v70);
           }
 
-          contextCopy = v122;
-          layerCopy = v123;
-          content3 = v121;
+          contextCopy = v120;
+          layerCopy = v121;
+          content3 = v119;
           goto LABEL_81;
         }
 
@@ -1356,71 +1354,71 @@ LABEL_34:
 LABEL_81:
 
 LABEL_82:
-  v134 = 0u;
-  v135 = 0u;
   v132 = 0u;
   v133 = 0u;
+  v130 = 0u;
+  v131 = 0u;
   sublayers = [layerCopy sublayers];
-  v87 = [sublayers countByEnumeratingWithState:&v132 objects:v154 count:16];
-  if (v87)
+  v86 = [sublayers countByEnumeratingWithState:&v130 objects:v152 count:16];
+  if (v86)
   {
-    v88 = v87;
-    v89 = *v133;
+    v87 = v86;
+    v88 = *v131;
     do
     {
-      for (i = 0; i != v88; ++i)
+      for (i = 0; i != v87; ++i)
       {
-        if (*v133 != v89)
+        if (*v131 != v88)
         {
           objc_enumerationMutation(sublayers);
         }
 
-        v91 = *(*(&v132 + 1) + 8 * i);
+        v90 = *(*(&v130 + 1) + 8 * i);
         [v39 pushState];
-        [v39 setBlendMode:{objc_msgSend(v91, "blendMode")}];
-        [(ISCompositor *)self drawLayer:v91 resourceProvider:providerCopy inContext:v39];
+        [v39 setBlendMode:{objc_msgSend(v90, "blendMode")}];
+        [(ISCompositor *)self drawLayer:v90 resourceProvider:providerCopy inContext:v39];
         [v39 popState];
       }
 
-      v88 = [sublayers countByEnumeratingWithState:&v132 objects:v154 count:16];
+      v87 = [sublayers countByEnumeratingWithState:&v130 objects:v152 count:16];
     }
 
-    while (v88);
+    while (v87);
   }
 
-  v92 = v126;
-  if (v39 != v126)
+  v91 = v124;
+  if (v39 != v124)
   {
     effect = [layerCopy effect];
     if (effect)
     {
-      v94 = effect;
+      v93 = effect;
       superlayer = [layerCopy superlayer];
       if (superlayer)
       {
-        v96 = superlayer;
+        v95 = superlayer;
         canUseCoreImageForEffects = [(ISCompositor *)self canUseCoreImageForEffects];
 
         if (!canUseCoreImageForEffects)
         {
-          v100 = 0;
+          v99 = 0;
 LABEL_107:
-          v92 = v126;
+          v91 = v124;
           goto LABEL_108;
         }
 
-        v98 = objc_alloc(MEMORY[0x1E695F658]);
+        v97 = objc_alloc(MEMORY[0x1E695F658]);
         image = [v39 image];
-        v100 = [v98 initWithCGImage:{objc_msgSend(image, "CGImage")}];
+        v99 = [v97 initWithCGImage:{objc_msgSend(image, "CGImage")}];
 
-        [v126 pushState];
-        [v126 bounds];
-        v102 = v101;
-        [v126 scale];
-        v104 = v103 * v102;
+        [v124 pushState];
+        [v124 bounds];
+        v101 = v100;
+        [v124 scale];
+        v103 = v102 * v101;
         if (contextCopy)
         {
-          [v126 transform];
+          objc_msgSend_transform(v124);
         }
 
         else
@@ -1432,27 +1430,27 @@ LABEL_107:
         t2.c = 0.0;
         t2.a = 1.0;
         *&t2.d = xmmword_1A78250C0;
-        t2.ty = v104;
-        CGAffineTransformConcat(&v131, &t1, &t2);
-        t1 = v131;
-        [v126 setTransform:&t1];
-        v105 = [v126 imageFromRect:{v29, v31, v33, v35}];
-        [v126 popState];
-        v106 = [objc_alloc(MEMORY[0x1E695F658]) initWithCGImage:{objc_msgSend(v105, "CGImage")}];
+        t2.ty = v103;
+        CGAffineTransformConcat(&v129, &t1, &t2);
+        t1 = v129;
+        [v124 setTransform:&t1];
+        v104 = [v124 imageFromRect:{v29, v31, v33, v35}];
+        [v124 popState];
+        v105 = [objc_alloc(MEMORY[0x1E695F658]) initWithCGImage:{objc_msgSend(v104, "CGImage")}];
         effect2 = [layerCopy effect];
-        image2 = [effect2 filterWithBackgroundImage:v106 inputImage:v100];
+        image2 = [effect2 filterWithBackgroundImage:v105 inputImage:v99];
 
         effect3 = [layerCopy effect];
         objc_opt_class();
-        v110 = objc_opt_isKindOfClass();
+        v109 = objc_opt_isKindOfClass();
 
         effect4 = [layerCopy effect];
-        if ((v110 & 1) == 0)
+        if ((v109 & 1) == 0)
         {
           objc_opt_class();
-          v112 = objc_opt_isKindOfClass();
+          v111 = objc_opt_isKindOfClass();
 
-          if ((v112 & 1) == 0)
+          if ((v111 & 1) == 0)
           {
             goto LABEL_103;
           }
@@ -1470,26 +1468,26 @@ LABEL_103:
           memset(&t1, 0, sizeof(t1));
           CGAffineTransformMakeScale(&t1, v12, v12);
           t2 = t1;
-          v157.origin.x = 0.0;
-          v157.origin.y = 0.0;
-          v157.size.width = v33;
-          v157.size.height = v35;
-          v158 = CGRectApplyAffineTransform(v157, &t2);
-          x = v158.origin.x;
-          y = v158.origin.y;
-          width = v158.size.width;
-          height = v158.size.height;
+          v155.origin.x = 0.0;
+          v155.origin.y = 0.0;
+          v155.size.width = v33;
+          v155.size.height = v35;
+          v156 = CGRectApplyAffineTransform(v155, &t2);
+          x = v156.origin.x;
+          y = v156.origin.y;
+          width = v156.size.width;
+          height = v156.size.height;
           sharedCIContext = [(ISCompositor *)self sharedCIContext];
-          v119 = [sharedCIContext createCGImage:outputImage fromRect:{x, y, width, height}];
+          v118 = [sharedCIContext createCGImage:outputImage fromRect:{x, y, width, height}];
 
-          v92 = v126;
-          if (v119)
+          v91 = v124;
+          if (v118)
           {
-            [v126 drawCGImage:v119 centeredInRect:{v29, v31, v33, v35}];
-            CFRelease(v119);
+            [v124 drawCGImage:v118 centeredInRect:{v29, v31, v33, v35}];
+            CFRelease(v118);
           }
 
-          v100 = outputImage;
+          v99 = outputImage;
           goto LABEL_109;
         }
 
@@ -1497,16 +1495,14 @@ LABEL_103:
       }
     }
 
-    v100 = 0;
+    v99 = 0;
 LABEL_108:
     image2 = [v39 image];
-    [v92 drawCGImage:objc_msgSend(image2 centeredInRect:{"CGImage"), v29, v31, v33, v35}];
+    [v91 drawCGImage:objc_msgSend(image2 centeredInRect:{"CGImage"), v29, v31, v33, v35}];
 LABEL_109:
   }
 
-  [v92 popState];
-
-  v120 = *MEMORY[0x1E69E9840];
+  [v91 popState];
 }
 
 @end

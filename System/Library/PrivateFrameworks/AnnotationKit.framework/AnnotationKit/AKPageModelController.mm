@@ -194,7 +194,7 @@
 - (void)_enableEditObservationForAnnotationIfNew:(id)new
 {
   newCopy = new;
-  if ((sub_23F4ABA3C() & 1) == 0 && ([newCopy isEdited] & 1) == 0 && (objc_msgSend(newCopy, "shouldObserveEdits") & 1) == 0)
+  if ((sub_23F4ABA3C(newCopy, v3) & 1) == 0 && ([newCopy isEdited] & 1) == 0 && (objc_msgSend(newCopy, "shouldObserveEdits") & 1) == 0)
   {
     [newCopy setShouldObserveEdits:1];
   }
@@ -670,21 +670,25 @@ LABEL_12:
 {
   selectionCopy = selection;
   annotationCopy = annotation;
+  v7 = annotationCopy;
   if (annotationCopy)
   {
+    v9 = annotationCopy;
     if (selectionCopy)
     {
-      [(AKPageModelController *)self addSelectedAnnotationsObject:annotationCopy];
+      annotationCopy = [(AKPageModelController *)self addSelectedAnnotationsObject:annotationCopy];
     }
 
     else
     {
-      v7 = [MEMORY[0x277CBEB98] setWithObject:annotationCopy];
-      [(AKPageModelController *)self setSelectedAnnotations:v7];
+      v8 = [MEMORY[0x277CBEB98] setWithObject:annotationCopy];
+      [(AKPageModelController *)self setSelectedAnnotations:v8];
     }
+
+    v7 = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](annotationCopy, v7);
 }
 
 - (void)selectAnnotationsAtIndexes:(id)indexes byExtendingSelection:(BOOL)selection

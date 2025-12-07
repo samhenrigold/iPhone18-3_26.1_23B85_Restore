@@ -20,7 +20,7 @@
 
 - (void)unionState:(id)state
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = stateCopy;
   if (stateCopy && stateCopy != self)
@@ -61,7 +61,7 @@
       }
     }
 
-    v31 = v6;
+    v30 = v6;
     v14 = v5->super._preventLaunchPredicates;
     if ([(NSMutableSet *)v14 count])
     {
@@ -97,46 +97,44 @@
       }
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     allKeys = [(NSMutableDictionary *)v5->super._conditions allKeys];
-    v23 = [allKeys countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v23 = [allKeys countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v35;
+      v25 = *v34;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v35 != v25)
+          if (*v34 != v25)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v27 = *(*(&v34 + 1) + 8 * i);
+          v27 = *(*(&v33 + 1) + 8 * i);
           v28 = [(NSMutableDictionary *)v5->super._conditions objectForKey:v27];
           -[RBMutableSystemState upgradeCondition:toValue:](self, "upgradeCondition:toValue:", v27, [v28 integerValue]);
         }
 
-        v24 = [allKeys countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v24 = [allKeys countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v24);
     }
 
     prewarmConfiguration = v5->super._prewarmConfiguration;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __35__RBMutableSystemState_unionState___block_invoke;
-    v33[3] = &unk_279B332D0;
-    v33[4] = self;
-    [(NSMutableDictionary *)prewarmConfiguration enumerateKeysAndObjectsUsingBlock:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __35__RBMutableSystemState_unionState___block_invoke;
+    v32[3] = &unk_279B332D0;
+    v32[4] = self;
+    [(NSMutableDictionary *)prewarmConfiguration enumerateKeysAndObjectsUsingBlock:v32];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __35__RBMutableSystemState_unionState___block_invoke(uint64_t a1, void *a2, void *a3)

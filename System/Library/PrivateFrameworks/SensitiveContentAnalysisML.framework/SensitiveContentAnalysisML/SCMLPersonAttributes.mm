@@ -118,7 +118,6 @@
 
   v5 = OBJC_IVAR____TtC26SensitiveContentAnalysisML20SCMLPersonAttributes_gender;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = genderCopy;
 }
 

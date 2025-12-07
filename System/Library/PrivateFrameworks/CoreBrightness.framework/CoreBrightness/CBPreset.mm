@@ -49,19 +49,13 @@
     }
   }
 
-  if (currentPreset)
+  if (!currentPreset)
   {
-    v4 = [selfCopy alloc];
-    v6 = [v4 initWithCAPreset:currentPreset];
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
-
-  *MEMORY[0x1E69E9840];
-  return v6;
+  v4 = [selfCopy alloc];
+  return [v4 initWithCAPreset:currentPreset];
 }
 
 - (CBPreset)initWithCAPreset:(id)preset

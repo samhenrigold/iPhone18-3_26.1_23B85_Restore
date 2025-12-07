@@ -2925,38 +2925,38 @@ void __58__SFAirDropActivityViewController_browserDidUpdatePeople___block_invoke
   [v3 performBatchUpdates:v8 completion:0];
 }
 
-void __58__SFAirDropActivityViewController_browserDidUpdatePeople___block_invoke_3(uint64_t a1)
+void __58__SFAirDropActivityViewController_browserDidUpdatePeople___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = airdrop_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = airdrop_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) valueForKeyPath:@"displayName"];
-    v4 = SFCompactStringFromCollection();
+    v4 = [*(a1 + 32) valueForKeyPath:@"displayName"];
     v5 = SFCompactStringFromCollection();
     v6 = SFCompactStringFromCollection();
-    v9 = 138412802;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_1B9E4B000, v2, OS_LOG_TYPE_DEFAULT, "browserDidUpdatePeople %@ with deleted %@, inserted %@", &v9, 0x20u);
+    v7 = SFCompactStringFromCollection();
+    v10 = 138412802;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&dword_1B9E4B000, v3, OS_LOG_TYPE_DEFAULT, "browserDidUpdatePeople %@ with deleted %@, inserted %@", &v10, 0x20u);
   }
 
   objc_storeStrong((*(a1 + 56) + 1400), *(a1 + 32));
   [*(a1 + 56) _collectTelemetryForPeople:*(*(a1 + 56) + 1400)];
   [*(a1 + 56) updateContentAreaAnimated:0];
-  v7 = [*(a1 + 56) indexSetToIndexPaths:*(a1 + 40) inSection:0];
-  if ([v7 count])
-  {
-    [*(*(a1 + 56) + 1192) deleteItemsAtIndexPaths:v7];
-  }
-
-  v8 = [*(a1 + 56) indexSetToIndexPaths:*(a1 + 48) inSection:0];
+  v8 = [*(a1 + 56) indexSetToIndexPaths:*(a1 + 40) inSection:0];
   if ([v8 count])
   {
-    [*(*(a1 + 56) + 1192) insertItemsAtIndexPaths:v8];
+    [*(*(a1 + 56) + 1192) deleteItemsAtIndexPaths:v8];
+  }
+
+  v9 = [*(a1 + 56) indexSetToIndexPaths:*(a1 + 48) inSection:0];
+  if ([v9 count])
+  {
+    [*(*(a1 + 56) + 1192) insertItemsAtIndexPaths:v9];
   }
 }
 

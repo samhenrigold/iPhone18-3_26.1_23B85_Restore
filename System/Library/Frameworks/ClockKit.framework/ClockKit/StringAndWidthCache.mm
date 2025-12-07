@@ -26,7 +26,7 @@ void __60___StringAndWidthCache_attributedStringAndSize_forMaxWidth___block_invo
   }
 }
 
-uint64_t __56___StringAndWidthCache_smallestAttributedStringAndSize___block_invoke(void *a1, void *a2, uint64_t a3)
+void *__56___StringAndWidthCache_smallestAttributedStringAndSize___block_invoke(void *a1, void *a2, uint64_t a3)
 {
   result = [a2 CGSizeValue];
   v8 = *(a1[5] + 8);

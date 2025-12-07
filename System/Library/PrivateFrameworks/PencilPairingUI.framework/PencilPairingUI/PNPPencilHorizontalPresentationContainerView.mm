@@ -42,7 +42,7 @@
   deviceState = [pencilView6 deviceState];
   if (pencilView5)
   {
-    [pencilView5 transformForDeviceState:deviceState];
+    objc_msgSend_transformForDeviceState_(pencilView5);
   }
 
   else

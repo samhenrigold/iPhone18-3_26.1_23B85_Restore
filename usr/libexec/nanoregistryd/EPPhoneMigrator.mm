@@ -99,35 +99,35 @@ LABEL_14:
 
           if (v22)
           {
-            v48 = 0u;
-            v49 = 0u;
-            v46 = 0u;
-            v47 = 0u;
-            v23 = self->_migrationReadResponseBlocks;
-            v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v46 objects:v50 count:16];
-            if (v24)
+            v52 = 0u;
+            v53 = 0u;
+            v50 = 0u;
+            v51 = 0u;
+            v24 = self->_migrationReadResponseBlocks;
+            v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v50 objects:v54 count:16];
+            if (v25)
             {
-              v25 = v24;
-              v26 = *v47;
+              v26 = v25;
+              v27 = *v51;
               do
               {
-                v27 = 0;
+                v28 = 0;
                 do
                 {
-                  if (*v47 != v26)
+                  if (*v51 != v27)
                   {
-                    objc_enumerationMutation(v23);
+                    objc_enumerationMutation(v24);
                   }
 
-                  (*(*(*(&v46 + 1) + 8 * v27) + 16))();
-                  v27 = v27 + 1;
+                  (*(*(*(&v50 + 1) + 8 * v28) + 16))();
+                  v28 = v28 + 1;
                 }
 
-                while (v25 != v27);
-                v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v46 objects:v50 count:16];
+                while (v26 != v28);
+                v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v50 objects:v54 count:16];
               }
 
-              while (v25);
+              while (v26);
             }
 
             [(NSMutableArray *)self->_migrationReadResponseBlocks removeAllObjects];
@@ -135,15 +135,15 @@ LABEL_14:
 
           else
           {
-            v31 = sub_1000034AC();
-            v32 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
+            v32 = sub_1000034AC(v23);
+            v33 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
 
-            if (v32)
+            if (v33)
             {
-              v33 = sub_1000034AC();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+              v35 = sub_1000034AC(v34);
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
-                sub_100103D18(v33);
+                sub_100103D18(v35);
               }
             }
           }
@@ -152,7 +152,7 @@ LABEL_14:
 
       else
       {
-        v30 = self->_currentChallenge;
+        v31 = self->_currentChallenge;
         self->_currentChallenge = 0;
       }
     }
@@ -163,43 +163,44 @@ LABEL_14:
     self->_sharedKey = 0;
 
     [(EPServiceRegistry *)self->_serviceRegistry removeService:self->_oobKeyGenerator];
-    v28 = self->_oobKeyGenerator;
+    v29 = self->_oobKeyGenerator;
     self->_oobKeyGenerator = 0;
 
-    v29 = self->_currentChallenge;
+    v30 = self->_currentChallenge;
     self->_currentChallenge = 0;
 
     [(EPPhoneMigrator *)self wipeCharacteristicHandlers];
   }
 
-  if ([(NSMutableArray *)self->_idsAccountPlusDeviceBlocks count]&& self->_propertiesReceivedFlag && self->_propertiesSentFlag && self->_bluetoothUUIDReceivedWithAccountAndDevice)
+  v36 = [(NSMutableArray *)self->_idsAccountPlusDeviceBlocks count];
+  if (v36 && self->_propertiesReceivedFlag && self->_propertiesSentFlag && self->_bluetoothUUIDReceivedWithAccountAndDevice)
   {
-    v34 = sub_1000034AC();
-    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+    v37 = sub_1000034AC(v36);
+    v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
 
-    if (v35)
+    if (v38)
     {
-      v36 = sub_1000034AC();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v40 = sub_1000034AC(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Migration: Calling blocks to alert of end of pairing", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Migration: Calling blocks to alert of end of pairing", buf, 2u);
       }
     }
 
-    v37 = self->_bluetoothUUIDReceivedWithAccountAndDevice;
-    v38 = [(NSMutableArray *)self->_idsAccountPlusDeviceBlocks copy];
+    v41 = self->_bluetoothUUIDReceivedWithAccountAndDevice;
+    v42 = [(NSMutableArray *)self->_idsAccountPlusDeviceBlocks copy];
     [(NSMutableArray *)self->_idsAccountPlusDeviceBlocks removeAllObjects];
     queue = [(EPPhoneMigrator *)self queue];
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_1000DC8C4;
-    v42[3] = &unk_100175598;
-    v43 = v38;
-    v44 = v37;
-    v40 = v37;
-    v41 = v38;
-    dispatch_async(queue, v42);
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_1000DC8C4;
+    v46[3] = &unk_100175598;
+    v47 = v42;
+    v48 = v41;
+    v44 = v41;
+    v45 = v42;
+    dispatch_async(queue, v46);
   }
 }
 
@@ -343,25 +344,26 @@ LABEL_14:
 - (void)respondToChallengeWritesWithSuccess:(BOOL)success
 {
   successCopy = success;
-  if (![(NSMutableArray *)self->_migrationChallengeResponseBlocks count])
+  v5 = [(NSMutableArray *)self->_migrationChallengeResponseBlocks count];
+  if (!v5)
   {
     return;
   }
 
-  v5 = sub_1000034AC();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = sub_1000034AC(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (successCopy)
   {
-    if (v6)
+    if (v7)
     {
-      v7 = sub_1000034AC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_1000034AC(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v8 = "Ready to pair, responding to Challenge write";
+        v10 = "Ready to pair, responding to Challenge write";
 LABEL_9:
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
         goto LABEL_10;
       }
 
@@ -369,45 +371,45 @@ LABEL_9:
     }
   }
 
-  else if (v6)
+  else if (v7)
   {
-    v7 = sub_1000034AC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000034AC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v8 = "Migration timed out or was canceled. Responding negatively to challenge write requests.";
+      v10 = "Migration timed out or was canceled. Responding negatively to challenge write requests.";
       goto LABEL_9;
     }
 
 LABEL_10:
   }
 
+  v18 = 0u;
+  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v9 = self->_migrationChallengeResponseBlocks;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v19 count:16];
-  if (v10)
+  v11 = self->_migrationChallengeResponseBlocks;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  if (v12)
   {
-    v11 = v10;
-    v12 = *v15;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v13; i = i + 1)
       {
-        if (*v15 != v12)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v11);
         }
 
-        (*(*(*(&v14 + 1) + 8 * i) + 16))(*(*(&v14 + 1) + 8 * i));
+        (*(*(*(&v16 + 1) + 8 * i) + 16))(*(*(&v16 + 1) + 8 * i));
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
-    while (v11);
+    while (v13);
   }
 
   [(NSMutableArray *)self->_migrationChallengeResponseBlocks removeAllObjects];
@@ -433,16 +435,16 @@ LABEL_10:
 
 - (void)clearPairingFlags
 {
-  v3 = sub_1000034AC();
+  v3 = sub_1000034AC(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000034AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000034AC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Clearing Migration pairing flags", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Clearing Migration pairing flags", v8, 2u);
     }
   }
 

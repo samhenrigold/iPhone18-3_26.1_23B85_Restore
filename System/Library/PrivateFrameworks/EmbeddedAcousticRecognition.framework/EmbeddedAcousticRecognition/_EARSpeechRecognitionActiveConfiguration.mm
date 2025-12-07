@@ -186,7 +186,7 @@
 
           v13 = *(*(&v54 + 1) + 8 * v12);
           unsignedIntegerValue = [v13 unsignedIntegerValue];
-          std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(&v50, &unsignedIntegerValue);
+          std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(&v50, &unsignedIntegerValue, &unsignedIntegerValue);
 
           ++v12;
         }
@@ -243,7 +243,7 @@
 
           v24 = *(*(&v54 + 1) + 8 * v23);
           LOBYTE(unsignedIntegerValue) = [v24 BOOLValue];
-          std::__tree<BOOL>::__emplace_unique_key_args<BOOL,BOOL>(&v50, &unsignedIntegerValue);
+          std::__tree<BOOL>::__emplace_unique_key_args<BOOL,BOOL>(&v50, &unsignedIntegerValue, &unsignedIntegerValue);
 
           ++v23;
         }
@@ -300,7 +300,7 @@
 
           v35 = *(*(&v54 + 1) + 8 * v34);
           LOBYTE(unsignedIntegerValue) = [v35 BOOLValue];
-          std::__tree<BOOL>::__emplace_unique_key_args<BOOL,BOOL>(&v50, &unsignedIntegerValue);
+          std::__tree<BOOL>::__emplace_unique_key_args<BOOL,BOOL>(&v50, &unsignedIntegerValue, &unsignedIntegerValue);
 
           ++v34;
         }
@@ -355,7 +355,7 @@
 - (id)description
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
-  [(_EARSpeechRecognitionActiveConfiguration *)self speechRecognizerActiveConfiguration];
+  objc_msgSend_speechRecognizerActiveConfiguration(self);
   quasar::operator<<(&v10, __p);
   quasar::SpeechRecognizerActiveConfiguration::~SpeechRecognizerActiveConfiguration(__p);
   v3 = MEMORY[0x1E696AEC0];

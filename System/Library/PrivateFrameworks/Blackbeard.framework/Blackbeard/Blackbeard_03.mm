@@ -1,2038 +1,349 @@
-uint64_t sub_1E5E38644()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3867C()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E386C0()
-{
-  MEMORY[0x1E694F2D0](v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E386F8()
-{
-  _Block_release(*(v0 + 16));
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E38738()
-{
-  v1 = *(v0 + 16);
-  swift_unknownObjectRelease();
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E38778()
-{
-  v1 = *(v0 + 16);
-  swift_unknownObjectRelease();
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E387D0()
-{
-  v1 = sub_1E65DB438();
-  v2 = *(v1 - 8);
-  v3 = (*(v2 + 80) + 56) & ~*(v2 + 80);
-  v4 = *(v2 + 64);
-  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
-  (*(v2 + 8))(v0 + v3, v1);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E38894()
-{
-  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E388CC()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0723B8, &qword_1E65EABF0);
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  (*(v2 + 8))(v0 + ((*(v2 + 80) + 56) & ~*(v2 + 80)), v1);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E38960()
-{
-  if (*(v0 + 16))
-  {
-    v1 = *(v0 + 24);
-  }
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E389A0()
-{
-  v117 = type metadata accessor for AppComposer();
-  v115 = *(*(v117 - 1) + 80);
-  v112 = *(*(v117 - 1) + 64);
-  v114 = sub_1E65D8D48();
-  v111 = *(v114 - 8);
-  v109 = *(v111 + 80);
-  v110 = *(v111 + 64);
-  v116 = v0;
-  v113 = (v115 + 16) & ~v115;
-  v106 = v0 + v113;
-  v1 = *(v0 + v113);
-
-  v2 = (v0 + v113 + v117[5]);
-  v3 = *v2;
-  swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v108 = type metadata accessor for AccountService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v2[v5], v108);
-  v6 = v4[7];
-  v105 = type metadata accessor for AppStateService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v6], v105);
-  v7 = v4[8];
-  v103 = type metadata accessor for ArchivedSessionService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v7], v103);
-  v8 = v4[9];
-  v101 = type metadata accessor for AssetService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v8], v101);
-  v9 = v4[10];
-  v99 = type metadata accessor for AwardsService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v9], v99);
-  v10 = v4[11];
-  v97 = type metadata accessor for BookmarkService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v10], v97);
-  v11 = v4[12];
-  v95 = type metadata accessor for CatalogService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v11], v95);
-  v12 = v4[13];
-  v93 = type metadata accessor for ConfigurationService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v12], v93);
-  v13 = v4[14];
-  v91 = type metadata accessor for ContentAvailabilityService();
-  v90 = *(v91[-1].Description + 1);
-  v90(&v2[v13], v91);
-  v14 = v4[15];
-  v89 = type metadata accessor for EngagementService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v14], v89);
-  v15 = v4[16];
-  v87 = type metadata accessor for HealthDataService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v15], v87);
-  v16 = v4[17];
-  v85 = type metadata accessor for InteropService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v16], v85);
-  v17 = v4[18];
-  v83 = type metadata accessor for LocalizationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v17], v83);
-  v18 = v4[19];
-  v81 = type metadata accessor for MarketingService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v18], v81);
-  v19 = v4[20];
-  v79 = type metadata accessor for MetricService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v19], v79);
-  v20 = v4[21];
-  v77 = type metadata accessor for PersonalizationService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v20], v77);
-  v21 = v4[22];
-  v75 = type metadata accessor for PlayerService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v21], v75);
-  v22 = v4[23];
-  v73 = type metadata accessor for PrivacyPreferenceService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v22], v73);
-  v23 = v4[24];
-  v71 = type metadata accessor for RecommendationService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v23], v71);
-  v24 = v4[25];
-  v69 = type metadata accessor for RemoteBrowsingService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v2[v24], v69);
-  v25 = v4[26];
-  v67 = type metadata accessor for SearchService();
-  v66 = *(v67[-1].Description + 1);
-  v66(&v2[v25], v67);
-  v26 = v4[27];
-  v65 = type metadata accessor for ServiceSubscriptionService();
-  v64 = *(v65[-1].Description + 1);
-  v64(&v2[v26], v65);
-  v27 = v4[28];
-  v58 = type metadata accessor for SessionService();
-  v63 = *(v58[-1].Description + 1);
-  v63(&v2[v27], v58);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v62 = *(v29[-1].Description + 1);
-  v62(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v61 = *(v31[-1].Description + 1);
-  v61(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v60 = *(v33[-1].Description + 1);
-  v60(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
-
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
-  QueueService = type metadata accessor for UpNextQueueService();
-  v59 = *(QueueService[-1].Description + 1);
-  v59(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
-
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v57 = *(v42[-1].Description + 1);
-  v57(&v2[v41], v42);
-  v43 = *(v106 + v117[6]);
-
-  v44 = (v106 + v117[7]);
-  v45 = *v44;
-
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
-  swift_unknownObjectRelease();
-  v107(&v47[v4[6]], v108);
-  v104(&v47[v4[7]], v105);
-  v102(&v47[v4[8]], v103);
-  v100(&v47[v4[9]], v101);
-  v98(&v47[v4[10]], v99);
-  v96(&v47[v4[11]], v97);
-  v94(&v47[v4[12]], v95);
-  v92(&v47[v4[13]], v93);
-  v90(&v47[v4[14]], v91);
-  v88(&v47[v4[15]], v89);
-  v86(&v47[v4[16]], v87);
-  v84(&v47[v4[17]], v85);
-  v82(&v47[v4[18]], v83);
-  v80(&v47[v4[19]], v81);
-  v78(&v47[v4[20]], v79);
-  v76(&v47[v4[21]], v77);
-  v74(&v47[v4[22]], v75);
-  v72(&v47[v4[23]], v73);
-  v70(&v47[v4[24]], v71);
-  v68(&v47[v4[25]], v69);
-  v66(&v47[v4[26]], v67);
-  v64(&v47[v4[27]], v65);
-  v63(&v47[v4[28]], v58);
-  v62(&v47[v4[29]], v29);
-  v61(&v47[v4[30]], v31);
-  v60(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
-
-  v51 = *(v49 + 3);
-
-  v52 = *(v49 + 5);
-
-  v59(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v57(&v47[v4[36]], v42);
-  v54 = *(v106 + v117[8]);
-  swift_unknownObjectRelease();
-  if (*(v106 + v117[9] + 8) >= 0xCuLL)
-  {
-  }
-
-  v55 = (v106 + v117[10]);
-  if (v55[3])
-  {
-    __swift_destroy_boxed_opaque_existential_1(v55);
-  }
-
-  (*(v111 + 8))(v116 + ((v113 + v112 + v109) & ~v109), v114);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E39738()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E39770()
-{
-  v118 = type metadata accessor for AppComposer();
-  v116 = *(*(v118 - 1) + 80);
-  v114 = *(*(v118 - 1) + 64);
-  v1 = *(v0 + 24);
-
-  v117 = v0;
-  v115 = (v116 + 32) & ~v116;
-  v111 = v0 + v115;
-  v2 = *(v0 + v115);
-
-  v3 = (v0 + v115 + v118[5]);
-  v4 = *v3;
-  swift_unknownObjectRelease();
-  v5 = type metadata accessor for AppEnvironment();
-  v6 = v5[6];
-  v113 = type metadata accessor for AccountService();
-  v112 = *(v113[-1].Description + 1);
-  v112(&v3[v6], v113);
-  v7 = v5[7];
-  v110 = type metadata accessor for AppStateService();
-  v109 = *(v110[-1].Description + 1);
-  v109(&v3[v7], v110);
-  v8 = v5[8];
-  v108 = type metadata accessor for ArchivedSessionService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v3[v8], v108);
-  v9 = v5[9];
-  v106 = type metadata accessor for AssetService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v3[v9], v106);
-  v10 = v5[10];
-  v104 = type metadata accessor for AwardsService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v3[v10], v104);
-  v11 = v5[11];
-  v102 = type metadata accessor for BookmarkService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v3[v11], v102);
-  v12 = v5[12];
-  v100 = type metadata accessor for CatalogService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v3[v12], v100);
-  v13 = v5[13];
-  v98 = type metadata accessor for ConfigurationService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v3[v13], v98);
-  v14 = v5[14];
-  v96 = type metadata accessor for ContentAvailabilityService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v3[v14], v96);
-  v15 = v5[15];
-  v94 = type metadata accessor for EngagementService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v3[v15], v94);
-  v16 = v5[16];
-  v92 = type metadata accessor for HealthDataService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v3[v16], v92);
-  v17 = v5[17];
-  v90 = type metadata accessor for InteropService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v3[v17], v90);
-  v18 = v5[18];
-  v88 = type metadata accessor for LocalizationService();
-  v87 = *(v88[-1].Description + 1);
-  v87(&v3[v18], v88);
-  v19 = v5[19];
-  v86 = type metadata accessor for MarketingService();
-  v85 = *(v86[-1].Description + 1);
-  v85(&v3[v19], v86);
-  v20 = v5[20];
-  v84 = type metadata accessor for MetricService();
-  v83 = *(v84[-1].Description + 1);
-  v83(&v3[v20], v84);
-  v21 = v5[21];
-  v82 = type metadata accessor for PersonalizationService();
-  v81 = *(v82[-1].Description + 1);
-  v81(&v3[v21], v82);
-  v22 = v5[22];
-  v80 = type metadata accessor for PlayerService();
-  v79 = *(v80[-1].Description + 1);
-  v79(&v3[v22], v80);
-  v23 = v5[23];
-  v78 = type metadata accessor for PrivacyPreferenceService();
-  v77 = *(v78[-1].Description + 1);
-  v77(&v3[v23], v78);
-  v24 = v5[24];
-  v76 = type metadata accessor for RecommendationService();
-  v75 = *(v76[-1].Description + 1);
-  v75(&v3[v24], v76);
-  v25 = v5[25];
-  v74 = type metadata accessor for RemoteBrowsingService();
-  v73 = *(v74[-1].Description + 1);
-  v73(&v3[v25], v74);
-  v26 = v5[26];
-  v72 = type metadata accessor for SearchService();
-  v71 = *(v72[-1].Description + 1);
-  v71(&v3[v26], v72);
-  v27 = v5[27];
-  v70 = type metadata accessor for ServiceSubscriptionService();
-  v69 = *(v70[-1].Description + 1);
-  v69(&v3[v27], v70);
-  v28 = v5[28];
-  v63 = type metadata accessor for SessionService();
-  v68 = *(v63[-1].Description + 1);
-  v68(&v3[v28], v63);
-  v29 = v5[29];
-  v30 = type metadata accessor for SharePlayService();
-  v67 = *(v30[-1].Description + 1);
-  v67(&v3[v29], v30);
-  v31 = v5[30];
-  v32 = type metadata accessor for SiriService();
-  v66 = *(v32[-1].Description + 1);
-  v66(&v3[v31], v32);
-  v33 = v5[31];
-  v34 = type metadata accessor for SyncService();
-  v65 = *(v34[-1].Description + 1);
-  v65(&v3[v33], v34);
-  v35 = &v3[v5[32]];
-  v36 = *(v35 + 1);
-
-  v37 = *(v35 + 3);
-
-  v38 = *(v35 + 5);
-
-  v39 = v5[33];
-  QueueService = type metadata accessor for UpNextQueueService();
-  v64 = *(QueueService[-1].Description + 1);
-  v64(&v3[v39], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v3[v5[34]]);
-  v41 = *&v3[v5[35]];
-
-  v42 = v5[36];
-  v43 = type metadata accessor for WorkoutPlanService();
-  v62 = *(v43[-1].Description + 1);
-  v62(&v3[v42], v43);
-  v44 = *(v111 + v118[6]);
-
-  v45 = (v111 + v118[7]);
-  v46 = *v45;
-
-  v47 = v45[1];
-
-  v48 = v45 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v49 = *v48;
-  swift_unknownObjectRelease();
-  v112(&v48[v5[6]], v113);
-  v109(&v48[v5[7]], v110);
-  v107(&v48[v5[8]], v108);
-  v105(&v48[v5[9]], v106);
-  v103(&v48[v5[10]], v104);
-  v101(&v48[v5[11]], v102);
-  v99(&v48[v5[12]], v100);
-  v97(&v48[v5[13]], v98);
-  v95(&v48[v5[14]], v96);
-  v93(&v48[v5[15]], v94);
-  v91(&v48[v5[16]], v92);
-  v89(&v48[v5[17]], v90);
-  v87(&v48[v5[18]], v88);
-  v85(&v48[v5[19]], v86);
-  v83(&v48[v5[20]], v84);
-  v81(&v48[v5[21]], v82);
-  v79(&v48[v5[22]], v80);
-  v77(&v48[v5[23]], v78);
-  v75(&v48[v5[24]], v76);
-  v73(&v48[v5[25]], v74);
-  v71(&v48[v5[26]], v72);
-  v69(&v48[v5[27]], v70);
-  v68(&v48[v5[28]], v63);
-  v67(&v48[v5[29]], v30);
-  v66(&v48[v5[30]], v32);
-  v65(&v48[v5[31]], v34);
-  v50 = &v48[v5[32]];
-  v51 = *(v50 + 1);
-
-  v52 = *(v50 + 3);
-
-  v53 = *(v50 + 5);
-
-  v64(&v48[v5[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v48[v5[34]]);
-  v54 = *&v48[v5[35]];
-
-  v62(&v48[v5[36]], v43);
-  v55 = *(v111 + v118[8]);
-  swift_unknownObjectRelease();
-  if (*(v111 + v118[9] + 8) >= 0xCuLL)
-  {
-  }
-
-  v56 = (v111 + v118[10]);
-  if (v56[3])
-  {
-    __swift_destroy_boxed_opaque_existential_1(v56);
-  }
-
-  v57 = (v115 + v114) & 0xFFFFFFFFFFFFFFF8;
-  v58 = (v57 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v59 = *(v117 + v57 + 16);
-
-  v60 = *(v117 + v58);
-  swift_unknownObjectRelease();
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3A46C()
-{
-  v116 = type metadata accessor for AppComposer();
-  v114 = *(*(v116 - 1) + 80);
-  v112 = *(*(v116 - 1) + 64);
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
-  swift_unknownObjectRelease();
-  v115 = v0;
-  v113 = (v114 + 48) & ~v114;
-  v109 = v0 + v113;
-  v3 = *(v0 + v113);
-
-  v4 = (v0 + v113 + v116[5]);
-  v5 = *v4;
-  swift_unknownObjectRelease();
-  v6 = type metadata accessor for AppEnvironment();
-  v7 = v6[6];
-  v111 = type metadata accessor for AccountService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v4[v7], v111);
-  v8 = v6[7];
-  v108 = type metadata accessor for AppStateService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v4[v8], v108);
-  v9 = v6[8];
-  v106 = type metadata accessor for ArchivedSessionService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v4[v9], v106);
-  v10 = v6[9];
-  v104 = type metadata accessor for AssetService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v4[v10], v104);
-  v11 = v6[10];
-  v102 = type metadata accessor for AwardsService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v4[v11], v102);
-  v12 = v6[11];
-  v100 = type metadata accessor for BookmarkService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v4[v12], v100);
-  v13 = v6[12];
-  v98 = type metadata accessor for CatalogService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v4[v13], v98);
-  v14 = v6[13];
-  v96 = type metadata accessor for ConfigurationService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v4[v14], v96);
-  v15 = v6[14];
-  v94 = type metadata accessor for ContentAvailabilityService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v4[v15], v94);
-  v16 = v6[15];
-  v92 = type metadata accessor for EngagementService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v4[v16], v92);
-  v17 = v6[16];
-  v90 = type metadata accessor for HealthDataService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v4[v17], v90);
-  v18 = v6[17];
-  v88 = type metadata accessor for InteropService();
-  v87 = *(v88[-1].Description + 1);
-  v87(&v4[v18], v88);
-  v19 = v6[18];
-  v86 = type metadata accessor for LocalizationService();
-  v85 = *(v86[-1].Description + 1);
-  v85(&v4[v19], v86);
-  v20 = v6[19];
-  v84 = type metadata accessor for MarketingService();
-  v83 = *(v84[-1].Description + 1);
-  v83(&v4[v20], v84);
-  v21 = v6[20];
-  v82 = type metadata accessor for MetricService();
-  v81 = *(v82[-1].Description + 1);
-  v81(&v4[v21], v82);
-  v22 = v6[21];
-  v80 = type metadata accessor for PersonalizationService();
-  v79 = *(v80[-1].Description + 1);
-  v79(&v4[v22], v80);
-  v23 = v6[22];
-  v78 = type metadata accessor for PlayerService();
-  v77 = *(v78[-1].Description + 1);
-  v77(&v4[v23], v78);
-  v24 = v6[23];
-  v76 = type metadata accessor for PrivacyPreferenceService();
-  v75 = *(v76[-1].Description + 1);
-  v75(&v4[v24], v76);
-  v25 = v6[24];
-  v74 = type metadata accessor for RecommendationService();
-  v73 = *(v74[-1].Description + 1);
-  v73(&v4[v25], v74);
-  v26 = v6[25];
-  v72 = type metadata accessor for RemoteBrowsingService();
-  v71 = *(v72[-1].Description + 1);
-  v71(&v4[v26], v72);
-  v27 = v6[26];
-  v70 = type metadata accessor for SearchService();
-  v69 = *(v70[-1].Description + 1);
-  v69(&v4[v27], v70);
-  v28 = v6[27];
-  v68 = type metadata accessor for ServiceSubscriptionService();
-  v67 = *(v68[-1].Description + 1);
-  v67(&v4[v28], v68);
-  v29 = v6[28];
-  v61 = type metadata accessor for SessionService();
-  v66 = *(v61[-1].Description + 1);
-  v66(&v4[v29], v61);
-  v30 = v6[29];
-  v31 = type metadata accessor for SharePlayService();
-  v65 = *(v31[-1].Description + 1);
-  v65(&v4[v30], v31);
-  v32 = v6[30];
-  v33 = type metadata accessor for SiriService();
-  v64 = *(v33[-1].Description + 1);
-  v64(&v4[v32], v33);
-  v34 = v6[31];
-  v35 = type metadata accessor for SyncService();
-  v63 = *(v35[-1].Description + 1);
-  v63(&v4[v34], v35);
-  v36 = &v4[v6[32]];
-  v37 = *(v36 + 1);
-
-  v38 = *(v36 + 3);
-
-  v39 = *(v36 + 5);
-
-  v40 = v6[33];
-  QueueService = type metadata accessor for UpNextQueueService();
-  v62 = *(QueueService[-1].Description + 1);
-  v62(&v4[v40], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v4[v6[34]]);
-  v42 = *&v4[v6[35]];
-
-  v43 = v6[36];
-  v44 = type metadata accessor for WorkoutPlanService();
-  v60 = *(v44[-1].Description + 1);
-  v60(&v4[v43], v44);
-  v45 = *(v109 + v116[6]);
-
-  v46 = (v109 + v116[7]);
-  v47 = *v46;
-
-  v48 = v46[1];
-
-  v49 = v46 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v50 = *v49;
-  swift_unknownObjectRelease();
-  v110(&v49[v6[6]], v111);
-  v107(&v49[v6[7]], v108);
-  v105(&v49[v6[8]], v106);
-  v103(&v49[v6[9]], v104);
-  v101(&v49[v6[10]], v102);
-  v99(&v49[v6[11]], v100);
-  v97(&v49[v6[12]], v98);
-  v95(&v49[v6[13]], v96);
-  v93(&v49[v6[14]], v94);
-  v91(&v49[v6[15]], v92);
-  v89(&v49[v6[16]], v90);
-  v87(&v49[v6[17]], v88);
-  v85(&v49[v6[18]], v86);
-  v83(&v49[v6[19]], v84);
-  v81(&v49[v6[20]], v82);
-  v79(&v49[v6[21]], v80);
-  v77(&v49[v6[22]], v78);
-  v75(&v49[v6[23]], v76);
-  v73(&v49[v6[24]], v74);
-  v71(&v49[v6[25]], v72);
-  v69(&v49[v6[26]], v70);
-  v67(&v49[v6[27]], v68);
-  v66(&v49[v6[28]], v61);
-  v65(&v49[v6[29]], v31);
-  v64(&v49[v6[30]], v33);
-  v63(&v49[v6[31]], v35);
-  v51 = &v49[v6[32]];
-  v52 = *(v51 + 1);
-
-  v53 = *(v51 + 3);
-
-  v54 = *(v51 + 5);
-
-  v62(&v49[v6[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v49[v6[34]]);
-  v55 = *&v49[v6[35]];
-
-  v60(&v49[v6[36]], v44);
-  v56 = *(v109 + v116[8]);
-  swift_unknownObjectRelease();
-  if (*(v109 + v116[9] + 8) >= 0xCuLL)
-  {
-  }
-
-  v57 = (v109 + v116[10]);
-  if (v57[3])
-  {
-    __swift_destroy_boxed_opaque_existential_1(v57);
-  }
-
-  v58 = *(v115 + ((v113 + v112) & 0xFFFFFFFFFFFFFFF8) + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3B160()
-{
-  v116 = type metadata accessor for AppComposer();
-  v114 = *(*(v116 - 1) + 80);
-  v112 = *(*(v116 - 1) + 64);
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
-  swift_unknownObjectRelease();
-  v115 = v0;
-  v113 = (v114 + 48) & ~v114;
-  v109 = v0 + v113;
-  v3 = *(v0 + v113);
-
-  v4 = (v0 + v113 + v116[5]);
-  v5 = *v4;
-  swift_unknownObjectRelease();
-  v6 = type metadata accessor for AppEnvironment();
-  v7 = v6[6];
-  v111 = type metadata accessor for AccountService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v4[v7], v111);
-  v8 = v6[7];
-  v108 = type metadata accessor for AppStateService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v4[v8], v108);
-  v9 = v6[8];
-  v106 = type metadata accessor for ArchivedSessionService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v4[v9], v106);
-  v10 = v6[9];
-  v104 = type metadata accessor for AssetService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v4[v10], v104);
-  v11 = v6[10];
-  v102 = type metadata accessor for AwardsService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v4[v11], v102);
-  v12 = v6[11];
-  v100 = type metadata accessor for BookmarkService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v4[v12], v100);
-  v13 = v6[12];
-  v98 = type metadata accessor for CatalogService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v4[v13], v98);
-  v14 = v6[13];
-  v96 = type metadata accessor for ConfigurationService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v4[v14], v96);
-  v15 = v6[14];
-  v94 = type metadata accessor for ContentAvailabilityService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v4[v15], v94);
-  v16 = v6[15];
-  v92 = type metadata accessor for EngagementService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v4[v16], v92);
-  v17 = v6[16];
-  v90 = type metadata accessor for HealthDataService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v4[v17], v90);
-  v18 = v6[17];
-  v88 = type metadata accessor for InteropService();
-  v87 = *(v88[-1].Description + 1);
-  v87(&v4[v18], v88);
-  v19 = v6[18];
-  v86 = type metadata accessor for LocalizationService();
-  v85 = *(v86[-1].Description + 1);
-  v85(&v4[v19], v86);
-  v20 = v6[19];
-  v84 = type metadata accessor for MarketingService();
-  v83 = *(v84[-1].Description + 1);
-  v83(&v4[v20], v84);
-  v21 = v6[20];
-  v82 = type metadata accessor for MetricService();
-  v81 = *(v82[-1].Description + 1);
-  v81(&v4[v21], v82);
-  v22 = v6[21];
-  v80 = type metadata accessor for PersonalizationService();
-  v79 = *(v80[-1].Description + 1);
-  v79(&v4[v22], v80);
-  v23 = v6[22];
-  v78 = type metadata accessor for PlayerService();
-  v77 = *(v78[-1].Description + 1);
-  v77(&v4[v23], v78);
-  v24 = v6[23];
-  v76 = type metadata accessor for PrivacyPreferenceService();
-  v75 = *(v76[-1].Description + 1);
-  v75(&v4[v24], v76);
-  v25 = v6[24];
-  v74 = type metadata accessor for RecommendationService();
-  v73 = *(v74[-1].Description + 1);
-  v73(&v4[v25], v74);
-  v26 = v6[25];
-  v72 = type metadata accessor for RemoteBrowsingService();
-  v71 = *(v72[-1].Description + 1);
-  v71(&v4[v26], v72);
-  v27 = v6[26];
-  v70 = type metadata accessor for SearchService();
-  v69 = *(v70[-1].Description + 1);
-  v69(&v4[v27], v70);
-  v28 = v6[27];
-  v68 = type metadata accessor for ServiceSubscriptionService();
-  v67 = *(v68[-1].Description + 1);
-  v67(&v4[v28], v68);
-  v29 = v6[28];
-  v61 = type metadata accessor for SessionService();
-  v66 = *(v61[-1].Description + 1);
-  v66(&v4[v29], v61);
-  v30 = v6[29];
-  v31 = type metadata accessor for SharePlayService();
-  v65 = *(v31[-1].Description + 1);
-  v65(&v4[v30], v31);
-  v32 = v6[30];
-  v33 = type metadata accessor for SiriService();
-  v64 = *(v33[-1].Description + 1);
-  v64(&v4[v32], v33);
-  v34 = v6[31];
-  v35 = type metadata accessor for SyncService();
-  v63 = *(v35[-1].Description + 1);
-  v63(&v4[v34], v35);
-  v36 = &v4[v6[32]];
-  v37 = *(v36 + 1);
-
-  v38 = *(v36 + 3);
-
-  v39 = *(v36 + 5);
-
-  v40 = v6[33];
-  QueueService = type metadata accessor for UpNextQueueService();
-  v62 = *(QueueService[-1].Description + 1);
-  v62(&v4[v40], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v4[v6[34]]);
-  v42 = *&v4[v6[35]];
-
-  v43 = v6[36];
-  v44 = type metadata accessor for WorkoutPlanService();
-  v60 = *(v44[-1].Description + 1);
-  v60(&v4[v43], v44);
-  v45 = *(v109 + v116[6]);
-
-  v46 = (v109 + v116[7]);
-  v47 = *v46;
-
-  v48 = v46[1];
-
-  v49 = v46 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v50 = *v49;
-  swift_unknownObjectRelease();
-  v110(&v49[v6[6]], v111);
-  v107(&v49[v6[7]], v108);
-  v105(&v49[v6[8]], v106);
-  v103(&v49[v6[9]], v104);
-  v101(&v49[v6[10]], v102);
-  v99(&v49[v6[11]], v100);
-  v97(&v49[v6[12]], v98);
-  v95(&v49[v6[13]], v96);
-  v93(&v49[v6[14]], v94);
-  v91(&v49[v6[15]], v92);
-  v89(&v49[v6[16]], v90);
-  v87(&v49[v6[17]], v88);
-  v85(&v49[v6[18]], v86);
-  v83(&v49[v6[19]], v84);
-  v81(&v49[v6[20]], v82);
-  v79(&v49[v6[21]], v80);
-  v77(&v49[v6[22]], v78);
-  v75(&v49[v6[23]], v76);
-  v73(&v49[v6[24]], v74);
-  v71(&v49[v6[25]], v72);
-  v69(&v49[v6[26]], v70);
-  v67(&v49[v6[27]], v68);
-  v66(&v49[v6[28]], v61);
-  v65(&v49[v6[29]], v31);
-  v64(&v49[v6[30]], v33);
-  v63(&v49[v6[31]], v35);
-  v51 = &v49[v6[32]];
-  v52 = *(v51 + 1);
-
-  v53 = *(v51 + 3);
-
-  v54 = *(v51 + 5);
-
-  v62(&v49[v6[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v49[v6[34]]);
-  v55 = *&v49[v6[35]];
-
-  v60(&v49[v6[36]], v44);
-  v56 = *(v109 + v116[8]);
-  swift_unknownObjectRelease();
-  if (*(v109 + v116[9] + 8) >= 0xCuLL)
-  {
-  }
-
-  v57 = (v109 + v116[10]);
-  if (v57[3])
-  {
-    __swift_destroy_boxed_opaque_existential_1(v57);
-  }
-
-  v58 = *(v115 + ((v112 + v113 + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3BE58()
-{
-  v112 = type metadata accessor for AppComposer();
-  v111 = *(*(v112 - 1) + 80);
-  v110 = *(*(v112 - 1) + 64);
-  v1 = *(v0 + 24);
-
-  v107 = (v0 + ((v111 + 32) & ~v111));
-  v2 = *v107;
-
-  v3 = v107 + v112[5];
-  v4 = *v3;
-  swift_unknownObjectRelease();
-  v5 = type metadata accessor for AppEnvironment();
-  v6 = v5[6];
-  v109 = type metadata accessor for AccountService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v3[v6], v109);
-  v7 = v5[7];
-  v106 = type metadata accessor for AppStateService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v3[v7], v106);
-  v8 = v5[8];
-  v104 = type metadata accessor for ArchivedSessionService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v3[v8], v104);
-  v9 = v5[9];
-  v102 = type metadata accessor for AssetService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v3[v9], v102);
-  v10 = v5[10];
-  v100 = type metadata accessor for AwardsService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v3[v10], v100);
-  v11 = v5[11];
-  v98 = type metadata accessor for BookmarkService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v3[v11], v98);
-  v12 = v5[12];
-  v96 = type metadata accessor for CatalogService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v3[v12], v96);
-  v13 = v5[13];
-  v94 = type metadata accessor for ConfigurationService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v3[v13], v94);
-  v14 = v5[14];
-  v92 = type metadata accessor for ContentAvailabilityService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v3[v14], v92);
-  v15 = v5[15];
-  v90 = type metadata accessor for EngagementService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v3[v15], v90);
-  v16 = v5[16];
-  v88 = type metadata accessor for HealthDataService();
-  v87 = *(v88[-1].Description + 1);
-  v87(&v3[v16], v88);
-  v17 = v5[17];
-  v86 = type metadata accessor for InteropService();
-  v85 = *(v86[-1].Description + 1);
-  v85(&v3[v17], v86);
-  v18 = v5[18];
-  v84 = type metadata accessor for LocalizationService();
-  v83 = *(v84[-1].Description + 1);
-  v83(&v3[v18], v84);
-  v19 = v5[19];
-  v82 = type metadata accessor for MarketingService();
-  v81 = *(v82[-1].Description + 1);
-  v81(&v3[v19], v82);
-  v20 = v5[20];
-  v80 = type metadata accessor for MetricService();
-  v79 = *(v80[-1].Description + 1);
-  v79(&v3[v20], v80);
-  v21 = v5[21];
-  v78 = type metadata accessor for PersonalizationService();
-  v77 = *(v78[-1].Description + 1);
-  v77(&v3[v21], v78);
-  v22 = v5[22];
-  v76 = type metadata accessor for PlayerService();
-  v75 = *(v76[-1].Description + 1);
-  v75(&v3[v22], v76);
-  v23 = v5[23];
-  v74 = type metadata accessor for PrivacyPreferenceService();
-  v73 = *(v74[-1].Description + 1);
-  v73(&v3[v23], v74);
-  v24 = v5[24];
-  v72 = type metadata accessor for RecommendationService();
-  v71 = *(v72[-1].Description + 1);
-  v71(&v3[v24], v72);
-  v25 = v5[25];
-  v70 = type metadata accessor for RemoteBrowsingService();
-  v69 = *(v70[-1].Description + 1);
-  v69(&v3[v25], v70);
-  v26 = v5[26];
-  v68 = type metadata accessor for SearchService();
-  v67 = *(v68[-1].Description + 1);
-  v67(&v3[v26], v68);
-  v27 = v5[27];
-  v66 = type metadata accessor for ServiceSubscriptionService();
-  v65 = *(v66[-1].Description + 1);
-  v65(&v3[v27], v66);
-  v28 = v5[28];
-  v59 = type metadata accessor for SessionService();
-  v64 = *(v59[-1].Description + 1);
-  v64(&v3[v28], v59);
-  v29 = v5[29];
-  v30 = type metadata accessor for SharePlayService();
-  v63 = *(v30[-1].Description + 1);
-  v63(&v3[v29], v30);
-  v31 = v5[30];
-  v32 = type metadata accessor for SiriService();
-  v62 = *(v32[-1].Description + 1);
-  v62(&v3[v31], v32);
-  v33 = v5[31];
-  v34 = type metadata accessor for SyncService();
-  v61 = *(v34[-1].Description + 1);
-  v61(&v3[v33], v34);
-  v35 = &v3[v5[32]];
-  v36 = *(v35 + 1);
-
-  v37 = *(v35 + 3);
-
-  v38 = *(v35 + 5);
-
-  v39 = v5[33];
-  QueueService = type metadata accessor for UpNextQueueService();
-  v60 = *(QueueService[-1].Description + 1);
-  v60(&v3[v39], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v3[v5[34]]);
-  v41 = *&v3[v5[35]];
-
-  v42 = v5[36];
-  v43 = type metadata accessor for WorkoutPlanService();
-  v58 = *(v43[-1].Description + 1);
-  v58(&v3[v42], v43);
-  v44 = *(v107 + v112[6]);
-
-  v45 = (v107 + v112[7]);
-  v46 = *v45;
-
-  v47 = v45[1];
-
-  v48 = v45 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v49 = *v48;
-  swift_unknownObjectRelease();
-  v108(&v48[v5[6]], v109);
-  v105(&v48[v5[7]], v106);
-  v103(&v48[v5[8]], v104);
-  v101(&v48[v5[9]], v102);
-  v99(&v48[v5[10]], v100);
-  v97(&v48[v5[11]], v98);
-  v95(&v48[v5[12]], v96);
-  v93(&v48[v5[13]], v94);
-  v91(&v48[v5[14]], v92);
-  v89(&v48[v5[15]], v90);
-  v87(&v48[v5[16]], v88);
-  v85(&v48[v5[17]], v86);
-  v83(&v48[v5[18]], v84);
-  v81(&v48[v5[19]], v82);
-  v79(&v48[v5[20]], v80);
-  v77(&v48[v5[21]], v78);
-  v75(&v48[v5[22]], v76);
-  v73(&v48[v5[23]], v74);
-  v71(&v48[v5[24]], v72);
-  v69(&v48[v5[25]], v70);
-  v67(&v48[v5[26]], v68);
-  v65(&v48[v5[27]], v66);
-  v64(&v48[v5[28]], v59);
-  v63(&v48[v5[29]], v30);
-  v62(&v48[v5[30]], v32);
-  v61(&v48[v5[31]], v34);
-  v50 = &v48[v5[32]];
-  v51 = *(v50 + 1);
-
-  v52 = *(v50 + 3);
-
-  v53 = *(v50 + 5);
-
-  v60(&v48[v5[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v48[v5[34]]);
-  v54 = *&v48[v5[35]];
-
-  v58(&v48[v5[36]], v43);
-  v55 = *(v107 + v112[8]);
-  swift_unknownObjectRelease();
-  if (*(v107 + v112[9] + 8) >= 0xC)
-  {
-  }
-
-  v56 = (v107 + v112[10]);
-  if (v56[3])
-  {
-    __swift_destroy_boxed_opaque_existential_1(v56);
-  }
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3CB28()
-{
-  v1 = type metadata accessor for ContentAvailabilityService();
-  Description = v1[-1].Description;
-  v3 = Description[8];
-  (Description[1])(v0 + ((*(Description + 80) + 16) & ~*(Description + 80)), v1);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3CBE0(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a2 == 0x7FFFFFFF)
-  {
-    v4 = *(a1 + 8);
-    if (v4 >= 0xFFFFFFFF)
-    {
-      LODWORD(v4) = -1;
-    }
-
-    return (v4 + 1);
-  }
-
-  else
-  {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0726C8, &qword_1E66094D0);
-    v9 = *(*(v8 - 8) + 48);
-    v10 = a1 + *(a3 + 24);
-
-    return v9(v10, a2, v8);
-  }
-}
-
-uint64_t sub_1E5E3CC9C(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0726D0, &qword_1E65EBAB0);
-  v5 = (*(*(v4 - 8) + 48))(a1, a2, v4);
-  if (v5 >= 2)
-  {
-    return v5 - 1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sub_1E5E3CD14(uint64_t a1, int a2, uint64_t a3)
-{
-  if (a2)
-  {
-    v5 = (a2 + 1);
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0726D0, &qword_1E65EBAB0);
-  v7 = *(*(v6 - 8) + 56);
-
-  return v7(a1, v5, a3, v6);
-}
-
-uint64_t sub_1E5E3CDA0()
-{
-  v1 = (type metadata accessor for TaskScheduler.ScheduledTask(0) - 8);
-  v2 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v3 = *(*v1 + 64);
-  v4 = sub_1E65D76F8();
-  v5 = *(v4 - 8);
-  v6 = (v2 + v3 + *(v5 + 80)) & ~*(v5 + 80);
-  v7 = (*(v5 + 64) + v6 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(v0 + 16);
-  swift_unknownObjectRelease();
-  v9 = v0 + v2;
-  v10 = *(v9 + 16);
-
-  v11 = v1[8];
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0726C8, &qword_1E66094D0);
-  (*(*(v12 - 8) + 8))(v9 + v11, v12);
-  (*(v5 + 8))(v0 + v6, v4);
-  v13 = *(v0 + v7);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3CF34()
-{
-  v1 = (type metadata accessor for TaskScheduler.ScheduledTask(0) - 8);
-  v2 = (*(*v1 + 80) + 40) & ~*(*v1 + 80);
-  v3 = *(*v1 + 64);
-  v4 = sub_1E65D76F8();
-  v5 = *(v4 - 8);
-  v6 = (v2 + v3 + *(v5 + 80)) & ~*(v5 + 80);
-  v7 = *(v5 + 64);
-  v8 = *(v0 + 16);
-  swift_unknownObjectRelease();
-  v9 = *(v0 + 32);
-
-  v10 = v0 + v2;
-  v11 = *(v10 + 16);
-
-  v12 = v1[8];
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0726C8, &qword_1E66094D0);
-  (*(*(v13 - 8) + 8))(v10 + v12, v13);
-  (*(v5 + 8))(v0 + v6, v4);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3D0C4()
-{
-  v118 = type metadata accessor for AppComposer();
-  v116 = *(*(v118 - 1) + 80);
-  v114 = *(*(v118 - 1) + 64);
-  v1 = *(v0 + 24);
-
-  v117 = v0;
-  v115 = (v116 + 32) & ~v116;
-  v111 = v0 + v115;
-  v2 = *(v0 + v115);
-
-  v3 = (v0 + v115 + v118[5]);
-  v4 = *v3;
-  swift_unknownObjectRelease();
-  v5 = type metadata accessor for AppEnvironment();
-  v6 = v5[6];
-  v113 = type metadata accessor for AccountService();
-  v112 = *(v113[-1].Description + 1);
-  v112(&v3[v6], v113);
-  v7 = v5[7];
-  v110 = type metadata accessor for AppStateService();
-  v109 = *(v110[-1].Description + 1);
-  v109(&v3[v7], v110);
-  v8 = v5[8];
-  v108 = type metadata accessor for ArchivedSessionService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v3[v8], v108);
-  v9 = v5[9];
-  v106 = type metadata accessor for AssetService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v3[v9], v106);
-  v10 = v5[10];
-  v104 = type metadata accessor for AwardsService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v3[v10], v104);
-  v11 = v5[11];
-  v102 = type metadata accessor for BookmarkService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v3[v11], v102);
-  v12 = v5[12];
-  v100 = type metadata accessor for CatalogService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v3[v12], v100);
-  v13 = v5[13];
-  v98 = type metadata accessor for ConfigurationService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v3[v13], v98);
-  v14 = v5[14];
-  v96 = type metadata accessor for ContentAvailabilityService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v3[v14], v96);
-  v15 = v5[15];
-  v94 = type metadata accessor for EngagementService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v3[v15], v94);
-  v16 = v5[16];
-  v92 = type metadata accessor for HealthDataService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v3[v16], v92);
-  v17 = v5[17];
-  v90 = type metadata accessor for InteropService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v3[v17], v90);
-  v18 = v5[18];
-  v88 = type metadata accessor for LocalizationService();
-  v87 = *(v88[-1].Description + 1);
-  v87(&v3[v18], v88);
-  v19 = v5[19];
-  v86 = type metadata accessor for MarketingService();
-  v85 = *(v86[-1].Description + 1);
-  v85(&v3[v19], v86);
-  v20 = v5[20];
-  v84 = type metadata accessor for MetricService();
-  v83 = *(v84[-1].Description + 1);
-  v83(&v3[v20], v84);
-  v21 = v5[21];
-  v82 = type metadata accessor for PersonalizationService();
-  v81 = *(v82[-1].Description + 1);
-  v81(&v3[v21], v82);
-  v22 = v5[22];
-  v80 = type metadata accessor for PlayerService();
-  v79 = *(v80[-1].Description + 1);
-  v79(&v3[v22], v80);
-  v23 = v5[23];
-  v78 = type metadata accessor for PrivacyPreferenceService();
-  v77 = *(v78[-1].Description + 1);
-  v77(&v3[v23], v78);
-  v24 = v5[24];
-  v76 = type metadata accessor for RecommendationService();
-  v75 = *(v76[-1].Description + 1);
-  v75(&v3[v24], v76);
-  v25 = v5[25];
-  v74 = type metadata accessor for RemoteBrowsingService();
-  v73 = *(v74[-1].Description + 1);
-  v73(&v3[v25], v74);
-  v26 = v5[26];
-  v72 = type metadata accessor for SearchService();
-  v71 = *(v72[-1].Description + 1);
-  v71(&v3[v26], v72);
-  v27 = v5[27];
-  v70 = type metadata accessor for ServiceSubscriptionService();
-  v69 = *(v70[-1].Description + 1);
-  v69(&v3[v27], v70);
-  v28 = v5[28];
-  v63 = type metadata accessor for SessionService();
-  v68 = *(v63[-1].Description + 1);
-  v68(&v3[v28], v63);
-  v29 = v5[29];
-  v30 = type metadata accessor for SharePlayService();
-  v67 = *(v30[-1].Description + 1);
-  v67(&v3[v29], v30);
-  v31 = v5[30];
-  v32 = type metadata accessor for SiriService();
-  v66 = *(v32[-1].Description + 1);
-  v66(&v3[v31], v32);
-  v33 = v5[31];
-  v34 = type metadata accessor for SyncService();
-  v65 = *(v34[-1].Description + 1);
-  v65(&v3[v33], v34);
-  v35 = &v3[v5[32]];
-  v36 = *(v35 + 1);
-
-  v37 = *(v35 + 3);
-
-  v38 = *(v35 + 5);
-
-  v39 = v5[33];
-  QueueService = type metadata accessor for UpNextQueueService();
-  v64 = *(QueueService[-1].Description + 1);
-  v64(&v3[v39], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v3[v5[34]]);
-  v41 = *&v3[v5[35]];
-
-  v42 = v5[36];
-  v43 = type metadata accessor for WorkoutPlanService();
-  v62 = *(v43[-1].Description + 1);
-  v62(&v3[v42], v43);
-  v44 = *(v111 + v118[6]);
-
-  v45 = (v111 + v118[7]);
-  v46 = *v45;
-
-  v47 = v45[1];
-
-  v48 = v45 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v49 = *v48;
-  swift_unknownObjectRelease();
-  v112(&v48[v5[6]], v113);
-  v109(&v48[v5[7]], v110);
-  v107(&v48[v5[8]], v108);
-  v105(&v48[v5[9]], v106);
-  v103(&v48[v5[10]], v104);
-  v101(&v48[v5[11]], v102);
-  v99(&v48[v5[12]], v100);
-  v97(&v48[v5[13]], v98);
-  v95(&v48[v5[14]], v96);
-  v93(&v48[v5[15]], v94);
-  v91(&v48[v5[16]], v92);
-  v89(&v48[v5[17]], v90);
-  v87(&v48[v5[18]], v88);
-  v85(&v48[v5[19]], v86);
-  v83(&v48[v5[20]], v84);
-  v81(&v48[v5[21]], v82);
-  v79(&v48[v5[22]], v80);
-  v77(&v48[v5[23]], v78);
-  v75(&v48[v5[24]], v76);
-  v73(&v48[v5[25]], v74);
-  v71(&v48[v5[26]], v72);
-  v69(&v48[v5[27]], v70);
-  v68(&v48[v5[28]], v63);
-  v67(&v48[v5[29]], v30);
-  v66(&v48[v5[30]], v32);
-  v65(&v48[v5[31]], v34);
-  v50 = &v48[v5[32]];
-  v51 = *(v50 + 1);
-
-  v52 = *(v50 + 3);
-
-  v53 = *(v50 + 5);
-
-  v64(&v48[v5[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v48[v5[34]]);
-  v54 = *&v48[v5[35]];
-
-  v62(&v48[v5[36]], v43);
-  v55 = *(v111 + v118[8]);
-  swift_unknownObjectRelease();
-  if (*(v111 + v118[9] + 8) >= 0xCuLL)
-  {
-  }
-
-  v56 = (v111 + v118[10]);
-  if (v56[3])
-  {
-    __swift_destroy_boxed_opaque_existential_1(v56);
-  }
-
-  v57 = (v115 + v114) & 0xFFFFFFFFFFFFFFF8;
-  v58 = (v57 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v59 = *(v117 + v57 + 16);
-
-  v60 = *(v117 + v58);
-  swift_unknownObjectRelease();
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_1E5E3DDC0()
-{
-  v116 = type metadata accessor for AppComposer();
-  v114 = *(*(v116 - 1) + 80);
-  v112 = *(*(v116 - 1) + 64);
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
-  swift_unknownObjectRelease();
-  v115 = v0;
-  v113 = (v114 + 48) & ~v114;
-  v109 = v0 + v113;
-  v3 = *(v0 + v113);
-
-  v4 = (v0 + v113 + v116[5]);
-  v5 = *v4;
-  swift_unknownObjectRelease();
-  v6 = type metadata accessor for AppEnvironment();
-  v7 = v6[6];
-  v111 = type metadata accessor for AccountService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v4[v7], v111);
-  v8 = v6[7];
-  v108 = type metadata accessor for AppStateService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v4[v8], v108);
-  v9 = v6[8];
-  v106 = type metadata accessor for ArchivedSessionService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v4[v9], v106);
-  v10 = v6[9];
-  v104 = type metadata accessor for AssetService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v4[v10], v104);
-  v11 = v6[10];
-  v102 = type metadata accessor for AwardsService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v4[v11], v102);
-  v12 = v6[11];
-  v100 = type metadata accessor for BookmarkService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v4[v12], v100);
-  v13 = v6[12];
-  v98 = type metadata accessor for CatalogService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v4[v13], v98);
-  v14 = v6[13];
-  v96 = type metadata accessor for ConfigurationService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v4[v14], v96);
-  v15 = v6[14];
-  v94 = type metadata accessor for ContentAvailabilityService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v4[v15], v94);
-  v16 = v6[15];
-  v92 = type metadata accessor for EngagementService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v4[v16], v92);
-  v17 = v6[16];
-  v90 = type metadata accessor for HealthDataService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v4[v17], v90);
-  v18 = v6[17];
-  v88 = type metadata accessor for InteropService();
-  v87 = *(v88[-1].Description + 1);
-  v87(&v4[v18], v88);
-  v19 = v6[18];
-  v86 = type metadata accessor for LocalizationService();
-  v85 = *(v86[-1].Description + 1);
-  v85(&v4[v19], v86);
-  v20 = v6[19];
-  v84 = type metadata accessor for MarketingService();
-  v83 = *(v84[-1].Description + 1);
-  v83(&v4[v20], v84);
-  v21 = v6[20];
-  v82 = type metadata accessor for MetricService();
-  v81 = *(v82[-1].Description + 1);
-  v81(&v4[v21], v82);
-  v22 = v6[21];
-  v80 = type metadata accessor for PersonalizationService();
-  v79 = *(v80[-1].Description + 1);
-  v79(&v4[v22], v80);
-  v23 = v6[22];
-  v78 = type metadata accessor for PlayerService();
-  v77 = *(v78[-1].Description + 1);
-  v77(&v4[v23], v78);
-  v24 = v6[23];
-  v76 = type metadata accessor for PrivacyPreferenceService();
-  v75 = *(v76[-1].Description + 1);
-  v75(&v4[v24], v76);
-  v25 = v6[24];
-  v74 = type metadata accessor for RecommendationService();
-  v73 = *(v74[-1].Description + 1);
-  v73(&v4[v25], v74);
-  v26 = v6[25];
-  v72 = type metadata accessor for RemoteBrowsingService();
-  v71 = *(v72[-1].Description + 1);
-  v71(&v4[v26], v72);
-  v27 = v6[26];
-  v70 = type metadata accessor for SearchService();
-  v69 = *(v70[-1].Description + 1);
-  v69(&v4[v27], v70);
-  v28 = v6[27];
-  v68 = type metadata accessor for ServiceSubscriptionService();
-  v67 = *(v68[-1].Description + 1);
-  v67(&v4[v28], v68);
-  v29 = v6[28];
-  v61 = type metadata accessor for SessionService();
-  v66 = *(v61[-1].Description + 1);
-  v66(&v4[v29], v61);
-  v30 = v6[29];
-  v31 = type metadata accessor for SharePlayService();
-  v65 = *(v31[-1].Description + 1);
-  v65(&v4[v30], v31);
-  v32 = v6[30];
-  v33 = type metadata accessor for SiriService();
-  v64 = *(v33[-1].Description + 1);
-  v64(&v4[v32], v33);
-  v34 = v6[31];
-  v35 = type metadata accessor for SyncService();
-  v63 = *(v35[-1].Description + 1);
-  v63(&v4[v34], v35);
-  v36 = &v4[v6[32]];
-  v37 = *(v36 + 1);
-
-  v38 = *(v36 + 3);
-
-  v39 = *(v36 + 5);
-
-  v40 = v6[33];
-  QueueService = type metadata accessor for UpNextQueueService();
-  v62 = *(QueueService[-1].Description + 1);
-  v62(&v4[v40], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v4[v6[34]]);
-  v42 = *&v4[v6[35]];
-
-  v43 = v6[36];
-  v44 = type metadata accessor for WorkoutPlanService();
-  v60 = *(v44[-1].Description + 1);
-  v60(&v4[v43], v44);
-  v45 = *(v109 + v116[6]);
-
-  v46 = (v109 + v116[7]);
-  v47 = *v46;
-
-  v48 = v46[1];
-
-  v49 = v46 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v50 = *v49;
-  swift_unknownObjectRelease();
-  v110(&v49[v6[6]], v111);
-  v107(&v49[v6[7]], v108);
-  v105(&v49[v6[8]], v106);
-  v103(&v49[v6[9]], v104);
-  v101(&v49[v6[10]], v102);
-  v99(&v49[v6[11]], v100);
-  v97(&v49[v6[12]], v98);
-  v95(&v49[v6[13]], v96);
-  v93(&v49[v6[14]], v94);
-  v91(&v49[v6[15]], v92);
-  v89(&v49[v6[16]], v90);
-  v87(&v49[v6[17]], v88);
-  v85(&v49[v6[18]], v86);
-  v83(&v49[v6[19]], v84);
-  v81(&v49[v6[20]], v82);
-  v79(&v49[v6[21]], v80);
-  v77(&v49[v6[22]], v78);
-  v75(&v49[v6[23]], v76);
-  v73(&v49[v6[24]], v74);
-  v71(&v49[v6[25]], v72);
-  v69(&v49[v6[26]], v70);
-  v67(&v49[v6[27]], v68);
-  v66(&v49[v6[28]], v61);
-  v65(&v49[v6[29]], v31);
-  v64(&v49[v6[30]], v33);
-  v63(&v49[v6[31]], v35);
-  v51 = &v49[v6[32]];
-  v52 = *(v51 + 1);
-
-  v53 = *(v51 + 3);
-
-  v54 = *(v51 + 5);
-
-  v62(&v49[v6[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v49[v6[34]]);
-  v55 = *&v49[v6[35]];
-
-  v60(&v49[v6[36]], v44);
-  v56 = *(v109 + v116[8]);
-  swift_unknownObjectRelease();
-  if (*(v109 + v116[9] + 8) >= 0xCuLL)
-  {
-  }
-
-  v57 = (v109 + v116[10]);
-  if (v57[3])
-  {
-    __swift_destroy_boxed_opaque_existential_1(v57);
-  }
-
-  v58 = *(v115 + ((v113 + v112) & 0xFFFFFFFFFFFFFFF8) + 16);
-
-  return swift_deallocObject();
-}
-
 uint64_t sub_1E5E3EAB4()
 {
-  v116 = type metadata accessor for AppComposer();
-  v114 = *(*(v116 - 1) + 80);
-  v112 = *(*(v116 - 1) + 64);
-  v1 = *(v0 + 24);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
 
-  v2 = *(v0 + 32);
   swift_unknownObjectRelease();
-  v115 = v0;
-  v113 = (v114 + 48) & ~v114;
-  v109 = v0 + v113;
-  v3 = *(v0 + v113);
+  v89 = v0 + ((v92 + 48) & ~v92);
 
-  v4 = (v0 + v113 + v116[5]);
-  v5 = *v4;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v6 = type metadata accessor for AppEnvironment();
-  v7 = v6[6];
-  v111 = type metadata accessor for AccountService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v4[v7], v111);
-  v8 = v6[7];
-  v108 = type metadata accessor for AppStateService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v4[v8], v108);
-  v9 = v6[8];
-  v106 = type metadata accessor for ArchivedSessionService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v4[v9], v106);
-  v10 = v6[9];
-  v104 = type metadata accessor for AssetService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v4[v10], v104);
-  v11 = v6[10];
-  v102 = type metadata accessor for AwardsService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v4[v11], v102);
-  v12 = v6[11];
-  v100 = type metadata accessor for BookmarkService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v4[v12], v100);
-  v13 = v6[12];
-  v98 = type metadata accessor for CatalogService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v4[v13], v98);
-  v14 = v6[13];
-  v96 = type metadata accessor for ConfigurationService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v4[v14], v96);
-  v15 = v6[14];
-  v94 = type metadata accessor for ContentAvailabilityService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v4[v15], v94);
-  v16 = v6[15];
-  v92 = type metadata accessor for EngagementService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v4[v16], v92);
-  v17 = v6[16];
-  v90 = type metadata accessor for HealthDataService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v4[v17], v90);
-  v18 = v6[17];
-  v88 = type metadata accessor for InteropService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v4[v18], v88);
-  v19 = v6[18];
-  v86 = type metadata accessor for LocalizationService();
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v4[v19], v86);
-  v20 = v6[19];
-  v84 = type metadata accessor for MarketingService();
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v4[v20], v84);
-  v21 = v6[20];
-  v82 = type metadata accessor for MetricService();
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v4[v21], v82);
-  v22 = v6[21];
-  v80 = type metadata accessor for PersonalizationService();
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v4[v22], v80);
-  v23 = v6[22];
-  v78 = type metadata accessor for PlayerService();
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v4[v23], v78);
-  v24 = v6[23];
-  v76 = type metadata accessor for PrivacyPreferenceService();
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v4[v24], v76);
-  v25 = v6[24];
-  v74 = type metadata accessor for RecommendationService();
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
   v73 = *(v74[-1].Description + 1);
-  v73(&v4[v25], v74);
-  v26 = v6[25];
-  v72 = type metadata accessor for RemoteBrowsingService();
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
   v71 = *(v72[-1].Description + 1);
-  v71(&v4[v26], v72);
-  v27 = v6[26];
-  v70 = type metadata accessor for SearchService();
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
   v69 = *(v70[-1].Description + 1);
-  v69(&v4[v27], v70);
-  v28 = v6[27];
-  v68 = type metadata accessor for ServiceSubscriptionService();
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
   v67 = *(v68[-1].Description + 1);
-  v67(&v4[v28], v68);
-  v29 = v6[28];
-  v61 = type metadata accessor for SessionService();
-  v66 = *(v61[-1].Description + 1);
-  v66(&v4[v29], v61);
-  v30 = v6[29];
-  v31 = type metadata accessor for SharePlayService();
-  v65 = *(v31[-1].Description + 1);
-  v65(&v4[v30], v31);
-  v32 = v6[30];
-  v33 = type metadata accessor for SiriService();
-  v64 = *(v33[-1].Description + 1);
-  v64(&v4[v32], v33);
-  v34 = v6[31];
-  v35 = type metadata accessor for SyncService();
-  v63 = *(v35[-1].Description + 1);
-  v63(&v4[v34], v35);
-  v36 = &v4[v6[32]];
-  v37 = *(v36 + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v38 = *(v36 + 3);
-
-  v39 = *(v36 + 5);
-
-  v40 = v6[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v62 = *(QueueService[-1].Description + 1);
-  v62(&v4[v40], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v4[v6[34]]);
-  v42 = *&v4[v6[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v43 = v6[36];
-  v44 = type metadata accessor for WorkoutPlanService();
-  v60 = *(v44[-1].Description + 1);
-  v60(&v4[v43], v44);
-  v45 = *(v109 + v116[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v46 = (v109 + v116[7]);
-  v47 = *v46;
+  v36 = v89 + v93[7];
 
-  v48 = v46[1];
-
-  v49 = v46 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v50 = *v49;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v110(&v49[v6[6]], v111);
-  v107(&v49[v6[7]], v108);
-  v105(&v49[v6[8]], v106);
-  v103(&v49[v6[9]], v104);
-  v101(&v49[v6[10]], v102);
-  v99(&v49[v6[11]], v100);
-  v97(&v49[v6[12]], v98);
-  v95(&v49[v6[13]], v96);
-  v93(&v49[v6[14]], v94);
-  v91(&v49[v6[15]], v92);
-  v89(&v49[v6[16]], v90);
-  v87(&v49[v6[17]], v88);
-  v85(&v49[v6[18]], v86);
-  v83(&v49[v6[19]], v84);
-  v81(&v49[v6[20]], v82);
-  v79(&v49[v6[21]], v80);
-  v77(&v49[v6[22]], v78);
-  v75(&v49[v6[23]], v76);
-  v73(&v49[v6[24]], v74);
-  v71(&v49[v6[25]], v72);
-  v69(&v49[v6[26]], v70);
-  v67(&v49[v6[27]], v68);
-  v66(&v49[v6[28]], v61);
-  v65(&v49[v6[29]], v31);
-  v64(&v49[v6[30]], v33);
-  v63(&v49[v6[31]], v35);
-  v51 = &v49[v6[32]];
-  v52 = *(v51 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v53 = *(v51 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v54 = *(v51 + 5);
-
-  v62(&v49[v6[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v49[v6[34]]);
-  v55 = *&v49[v6[35]];
-
-  v60(&v49[v6[36]], v44);
-  v56 = *(v109 + v116[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v109 + v116[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v57 = (v109 + v116[10]);
-  if (v57[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v57);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
-
-  v58 = *(v115 + ((v112 + v113 + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E3F7AC()
 {
-  v112 = type metadata accessor for AppComposer();
-  v111 = *(*(v112 - 1) + 80);
-  v110 = *(*(v112 - 1) + 64);
-  v1 = *(v0 + 24);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
 
-  v107 = (v0 + ((v111 + 32) & ~v111));
-  v2 = *v107;
+  v89 = v0 + ((v92 + 32) & ~v92);
 
-  v3 = v107 + v112[5];
-  v4 = *v3;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v5 = type metadata accessor for AppEnvironment();
-  v6 = v5[6];
-  v109 = type metadata accessor for AccountService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v3[v6], v109);
-  v7 = v5[7];
-  v106 = type metadata accessor for AppStateService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v3[v7], v106);
-  v8 = v5[8];
-  v104 = type metadata accessor for ArchivedSessionService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v3[v8], v104);
-  v9 = v5[9];
-  v102 = type metadata accessor for AssetService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v3[v9], v102);
-  v10 = v5[10];
-  v100 = type metadata accessor for AwardsService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v3[v10], v100);
-  v11 = v5[11];
-  v98 = type metadata accessor for BookmarkService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v3[v11], v98);
-  v12 = v5[12];
-  v96 = type metadata accessor for CatalogService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v3[v12], v96);
-  v13 = v5[13];
-  v94 = type metadata accessor for ConfigurationService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v3[v13], v94);
-  v14 = v5[14];
-  v92 = type metadata accessor for ContentAvailabilityService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v3[v14], v92);
-  v15 = v5[15];
-  v90 = type metadata accessor for EngagementService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v3[v15], v90);
-  v16 = v5[16];
-  v88 = type metadata accessor for HealthDataService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v3[v16], v88);
-  v17 = v5[17];
-  v86 = type metadata accessor for InteropService();
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v3[v17], v86);
-  v18 = v5[18];
-  v84 = type metadata accessor for LocalizationService();
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v3[v18], v84);
-  v19 = v5[19];
-  v82 = type metadata accessor for MarketingService();
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v3[v19], v82);
-  v20 = v5[20];
-  v80 = type metadata accessor for MetricService();
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v3[v20], v80);
-  v21 = v5[21];
-  v78 = type metadata accessor for PersonalizationService();
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v3[v21], v78);
-  v22 = v5[22];
-  v76 = type metadata accessor for PlayerService();
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v3[v22], v76);
-  v23 = v5[23];
-  v74 = type metadata accessor for PrivacyPreferenceService();
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
   v73 = *(v74[-1].Description + 1);
-  v73(&v3[v23], v74);
-  v24 = v5[24];
-  v72 = type metadata accessor for RecommendationService();
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
   v71 = *(v72[-1].Description + 1);
-  v71(&v3[v24], v72);
-  v25 = v5[25];
-  v70 = type metadata accessor for RemoteBrowsingService();
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
   v69 = *(v70[-1].Description + 1);
-  v69(&v3[v25], v70);
-  v26 = v5[26];
-  v68 = type metadata accessor for SearchService();
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
   v67 = *(v68[-1].Description + 1);
-  v67(&v3[v26], v68);
-  v27 = v5[27];
-  v66 = type metadata accessor for ServiceSubscriptionService();
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
   v65 = *(v66[-1].Description + 1);
-  v65(&v3[v27], v66);
-  v28 = v5[28];
-  v59 = type metadata accessor for SessionService();
-  v64 = *(v59[-1].Description + 1);
-  v64(&v3[v28], v59);
-  v29 = v5[29];
-  v30 = type metadata accessor for SharePlayService();
-  v63 = *(v30[-1].Description + 1);
-  v63(&v3[v29], v30);
-  v31 = v5[30];
-  v32 = type metadata accessor for SiriService();
-  v62 = *(v32[-1].Description + 1);
-  v62(&v3[v31], v32);
-  v33 = v5[31];
-  v34 = type metadata accessor for SyncService();
-  v61 = *(v34[-1].Description + 1);
-  v61(&v3[v33], v34);
-  v35 = &v3[v5[32]];
-  v36 = *(v35 + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v37 = *(v35 + 3);
-
-  v38 = *(v35 + 5);
-
-  v39 = v5[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v60 = *(QueueService[-1].Description + 1);
-  v60(&v3[v39], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v3[v5[34]]);
-  v41 = *&v3[v5[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v42 = v5[36];
-  v43 = type metadata accessor for WorkoutPlanService();
-  v58 = *(v43[-1].Description + 1);
-  v58(&v3[v42], v43);
-  v44 = *(v107 + v112[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v45 = (v107 + v112[7]);
-  v46 = *v45;
+  v36 = v89 + v93[7];
 
-  v47 = v45[1];
-
-  v48 = v45 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v49 = *v48;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v108(&v48[v5[6]], v109);
-  v105(&v48[v5[7]], v106);
-  v103(&v48[v5[8]], v104);
-  v101(&v48[v5[9]], v102);
-  v99(&v48[v5[10]], v100);
-  v97(&v48[v5[11]], v98);
-  v95(&v48[v5[12]], v96);
-  v93(&v48[v5[13]], v94);
-  v91(&v48[v5[14]], v92);
-  v89(&v48[v5[15]], v90);
-  v87(&v48[v5[16]], v88);
-  v85(&v48[v5[17]], v86);
-  v83(&v48[v5[18]], v84);
-  v81(&v48[v5[19]], v82);
-  v79(&v48[v5[20]], v80);
-  v77(&v48[v5[21]], v78);
-  v75(&v48[v5[22]], v76);
-  v73(&v48[v5[23]], v74);
-  v71(&v48[v5[24]], v72);
-  v69(&v48[v5[25]], v70);
-  v67(&v48[v5[26]], v68);
-  v65(&v48[v5[27]], v66);
-  v64(&v48[v5[28]], v59);
-  v63(&v48[v5[29]], v30);
-  v62(&v48[v5[30]], v32);
-  v61(&v48[v5[31]], v34);
-  v50 = &v48[v5[32]];
-  v51 = *(v50 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v52 = *(v50 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v53 = *(v50 + 5);
-
-  v60(&v48[v5[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v48[v5[34]]);
-  v54 = *&v48[v5[35]];
-
-  v58(&v48[v5[36]], v43);
-  v55 = *(v107 + v112[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v107 + v112[9] + 8) >= 0xC)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v56 = (v107 + v112[10]);
-  if (v56[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v56);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
   return swift_deallocObject();
@@ -2047,1712 +358,1453 @@ uint64_t sub_1E5E4047C()
 
 uint64_t sub_1E5E404B4()
 {
-  v115 = type metadata accessor for AppComposer();
-  v113 = *(*(v115 - 1) + 80);
-  v111 = *(*(v115 - 1) + 64);
-  v1 = *(v0 + 24);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
 
-  v114 = v0;
-  v112 = (v113 + 32) & ~v113;
-  v108 = v0 + v112;
-  v2 = *(v0 + v112);
+  v89 = v0 + ((v92 + 32) & ~v92);
 
-  v3 = (v0 + v112 + v115[5]);
-  v4 = *v3;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v5 = type metadata accessor for AppEnvironment();
-  v6 = v5[6];
-  v110 = type metadata accessor for AccountService();
-  v109 = *(v110[-1].Description + 1);
-  v109(&v3[v6], v110);
-  v7 = v5[7];
-  v107 = type metadata accessor for AppStateService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v3[v7], v107);
-  v8 = v5[8];
-  v105 = type metadata accessor for ArchivedSessionService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v3[v8], v105);
-  v9 = v5[9];
-  v103 = type metadata accessor for AssetService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v3[v9], v103);
-  v10 = v5[10];
-  v101 = type metadata accessor for AwardsService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v3[v10], v101);
-  v11 = v5[11];
-  v99 = type metadata accessor for BookmarkService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v3[v11], v99);
-  v12 = v5[12];
-  v97 = type metadata accessor for CatalogService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v3[v12], v97);
-  v13 = v5[13];
-  v95 = type metadata accessor for ConfigurationService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v3[v13], v95);
-  v14 = v5[14];
-  v93 = type metadata accessor for ContentAvailabilityService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v3[v14], v93);
-  v15 = v5[15];
-  v91 = type metadata accessor for EngagementService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v3[v15], v91);
-  v16 = v5[16];
-  v89 = type metadata accessor for HealthDataService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v3[v16], v89);
-  v17 = v5[17];
-  v87 = type metadata accessor for InteropService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v3[v17], v87);
-  v18 = v5[18];
-  v85 = type metadata accessor for LocalizationService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v3[v18], v85);
-  v19 = v5[19];
-  v83 = type metadata accessor for MarketingService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v3[v19], v83);
-  v20 = v5[20];
-  v81 = type metadata accessor for MetricService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v3[v20], v81);
-  v21 = v5[21];
-  v79 = type metadata accessor for PersonalizationService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v3[v21], v79);
-  v22 = v5[22];
-  v77 = type metadata accessor for PlayerService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v3[v22], v77);
-  v23 = v5[23];
-  v75 = type metadata accessor for PrivacyPreferenceService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v3[v23], v75);
-  v24 = v5[24];
-  v73 = type metadata accessor for RecommendationService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v3[v24], v73);
-  v25 = v5[25];
-  v71 = type metadata accessor for RemoteBrowsingService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v3[v25], v71);
-  v26 = v5[26];
-  v69 = type metadata accessor for SearchService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v3[v26], v69);
-  v27 = v5[27];
-  v67 = type metadata accessor for ServiceSubscriptionService();
-  v66 = *(v67[-1].Description + 1);
-  v66(&v3[v27], v67);
-  v28 = v5[28];
-  v60 = type metadata accessor for SessionService();
-  v65 = *(v60[-1].Description + 1);
-  v65(&v3[v28], v60);
-  v29 = v5[29];
-  v30 = type metadata accessor for SharePlayService();
-  v64 = *(v30[-1].Description + 1);
-  v64(&v3[v29], v30);
-  v31 = v5[30];
-  v32 = type metadata accessor for SiriService();
-  v63 = *(v32[-1].Description + 1);
-  v63(&v3[v31], v32);
-  v33 = v5[31];
-  v34 = type metadata accessor for SyncService();
-  v62 = *(v34[-1].Description + 1);
-  v62(&v3[v33], v34);
-  v35 = &v3[v5[32]];
-  v36 = *(v35 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v37 = *(v35 + 3);
-
-  v38 = *(v35 + 5);
-
-  v39 = v5[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v61 = *(QueueService[-1].Description + 1);
-  v61(&v3[v39], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v3[v5[34]]);
-  v41 = *&v3[v5[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v42 = v5[36];
-  v43 = type metadata accessor for WorkoutPlanService();
-  v59 = *(v43[-1].Description + 1);
-  v59(&v3[v42], v43);
-  v44 = *(v108 + v115[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v45 = (v108 + v115[7]);
-  v46 = *v45;
+  v36 = v89 + v93[7];
 
-  v47 = v45[1];
-
-  v48 = v45 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v49 = *v48;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v109(&v48[v5[6]], v110);
-  v106(&v48[v5[7]], v107);
-  v104(&v48[v5[8]], v105);
-  v102(&v48[v5[9]], v103);
-  v100(&v48[v5[10]], v101);
-  v98(&v48[v5[11]], v99);
-  v96(&v48[v5[12]], v97);
-  v94(&v48[v5[13]], v95);
-  v92(&v48[v5[14]], v93);
-  v90(&v48[v5[15]], v91);
-  v88(&v48[v5[16]], v89);
-  v86(&v48[v5[17]], v87);
-  v84(&v48[v5[18]], v85);
-  v82(&v48[v5[19]], v83);
-  v80(&v48[v5[20]], v81);
-  v78(&v48[v5[21]], v79);
-  v76(&v48[v5[22]], v77);
-  v74(&v48[v5[23]], v75);
-  v72(&v48[v5[24]], v73);
-  v70(&v48[v5[25]], v71);
-  v68(&v48[v5[26]], v69);
-  v66(&v48[v5[27]], v67);
-  v65(&v48[v5[28]], v60);
-  v64(&v48[v5[29]], v30);
-  v63(&v48[v5[30]], v32);
-  v62(&v48[v5[31]], v34);
-  v50 = &v48[v5[32]];
-  v51 = *(v50 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v52 = *(v50 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v53 = *(v50 + 5);
-
-  v61(&v48[v5[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v48[v5[34]]);
-  v54 = *&v48[v5[35]];
-
-  v59(&v48[v5[36]], v43);
-  v55 = *(v108 + v115[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v108 + v115[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v56 = (v108 + v115[10]);
-  if (v56[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v56);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
-
-  v57 = *(v114 + ((v111 + v112 + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E411A4()
 {
-  v1 = *(v0 + 24);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E411DC()
 {
-  v1 = *(v0 + 24);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E41214()
 {
-  v123 = type metadata accessor for AppComposer();
-  v121 = *(*(v123 - 1) + 80);
-  v119 = *(*(v123 - 1) + 64);
-  v120 = (v121 + 16) & ~v121;
-  v122 = v0;
-  v116 = v0 + v120;
-  v1 = *(v0 + v120);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = (v0 + v120 + v123[5]);
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v118 = type metadata accessor for AccountService();
-  v117 = *(v118[-1].Description + 1);
-  v117(&v2[v5], v118);
-  v6 = v4[7];
-  v115 = type metadata accessor for AppStateService();
-  v114 = *(v115[-1].Description + 1);
-  v114(&v2[v6], v115);
-  v7 = v4[8];
-  v113 = type metadata accessor for ArchivedSessionService();
-  v112 = *(v113[-1].Description + 1);
-  v112(&v2[v7], v113);
-  v8 = v4[9];
-  v111 = type metadata accessor for AssetService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v2[v8], v111);
-  v9 = v4[10];
-  v109 = type metadata accessor for AwardsService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v2[v9], v109);
-  v10 = v4[11];
-  v107 = type metadata accessor for BookmarkService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v2[v10], v107);
-  v11 = v4[12];
-  v105 = type metadata accessor for CatalogService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v11], v105);
-  v12 = v4[13];
-  v103 = type metadata accessor for ConfigurationService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v12], v103);
-  v13 = v4[14];
-  v101 = type metadata accessor for ContentAvailabilityService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v13], v101);
-  v14 = v4[15];
-  v99 = type metadata accessor for EngagementService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v14], v99);
-  v15 = v4[16];
-  v97 = type metadata accessor for HealthDataService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v15], v97);
-  v16 = v4[17];
-  v95 = type metadata accessor for InteropService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v16], v95);
-  v17 = v4[18];
-  v93 = type metadata accessor for LocalizationService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v17], v93);
-  v18 = v4[19];
-  v91 = type metadata accessor for MarketingService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v18], v91);
-  v19 = v4[20];
-  v89 = type metadata accessor for MetricService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v19], v89);
-  v20 = v4[21];
-  v87 = type metadata accessor for PersonalizationService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v20], v87);
-  v21 = v4[22];
-  v85 = type metadata accessor for PlayerService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v21], v85);
-  v22 = v4[23];
-  v83 = type metadata accessor for PrivacyPreferenceService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v22], v83);
-  v23 = v4[24];
-  v81 = type metadata accessor for RecommendationService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v23], v81);
-  v24 = v4[25];
-  v79 = type metadata accessor for RemoteBrowsingService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v24], v79);
-  v25 = v4[26];
-  v77 = type metadata accessor for SearchService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v25], v77);
-  v26 = v4[27];
-  v75 = type metadata accessor for ServiceSubscriptionService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v26], v75);
-  v27 = v4[28];
-  v68 = type metadata accessor for SessionService();
-  v73 = *(v68[-1].Description + 1);
-  v73(&v2[v27], v68);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v72 = *(v29[-1].Description + 1);
-  v72(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v71 = *(v31[-1].Description + 1);
-  v71(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v70 = *(v33[-1].Description + 1);
-  v70(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v69 = *(QueueService[-1].Description + 1);
-  v69(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v67 = *(v42[-1].Description + 1);
-  v67(&v2[v41], v42);
-  v43 = *(v116 + v123[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v116 + v123[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v117(&v47[v4[6]], v118);
-  v114(&v47[v4[7]], v115);
-  v112(&v47[v4[8]], v113);
-  v110(&v47[v4[9]], v111);
-  v108(&v47[v4[10]], v109);
-  v106(&v47[v4[11]], v107);
-  v104(&v47[v4[12]], v105);
-  v102(&v47[v4[13]], v103);
-  v100(&v47[v4[14]], v101);
-  v98(&v47[v4[15]], v99);
-  v96(&v47[v4[16]], v97);
-  v94(&v47[v4[17]], v95);
-  v92(&v47[v4[18]], v93);
-  v90(&v47[v4[19]], v91);
-  v88(&v47[v4[20]], v89);
-  v86(&v47[v4[21]], v87);
-  v84(&v47[v4[22]], v85);
-  v82(&v47[v4[23]], v83);
-  v80(&v47[v4[24]], v81);
-  v78(&v47[v4[25]], v79);
-  v76(&v47[v4[26]], v77);
-  v74(&v47[v4[27]], v75);
-  v73(&v47[v4[28]], v68);
-  v72(&v47[v4[29]], v29);
-  v71(&v47[v4[30]], v31);
-  v70(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v69(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v67(&v47[v4[36]], v42);
-  v54 = *(v116 + v123[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v116 + v123[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v116 + v123[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
-  v56 = (v119 + v120 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v57 = (v56 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v58 = *(v122 + v56);
-
-  v59 = *(v122 + v57 + 8);
-
-  v60 = (v122 + ((v57 + 23) & 0xFFFFFFFFFFFFFFF8));
-  v61 = *v60;
   swift_unknownObjectRelease();
-  v62 = v60[3];
-
-  v63 = v60[5];
-
-  v64 = v60[7];
-
-  v65 = v60[9];
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E41F3C()
 {
-  v122 = type metadata accessor for AppComposer();
-  v120 = *(*(v122 - 1) + 80);
-  v118 = *(*(v122 - 1) + 64);
-  v119 = (v120 + 16) & ~v120;
-  v121 = v0;
-  v115 = v0 + v119;
-  v1 = *(v0 + v119);
+  v96 = type metadata accessor for AppComposer(0);
+  v94 = *(*(v96 - 1) + 80);
+  v92 = *(*(v96 - 1) + 64);
+  v93 = (v94 + 16) & ~v94;
+  v95 = v0;
+  v89 = v0 + v93;
 
-  v2 = (v0 + v119 + v122[5]);
-  v3 = *v2;
+  v1 = v0 + v93 + v96[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v117 = type metadata accessor for AccountService();
-  v116 = *(v117[-1].Description + 1);
-  v116(&v2[v5], v117);
-  v6 = v4[7];
-  v114 = type metadata accessor for AppStateService();
-  v113 = *(v114[-1].Description + 1);
-  v113(&v2[v6], v114);
-  v7 = v4[8];
-  v112 = type metadata accessor for ArchivedSessionService();
-  v111 = *(v112[-1].Description + 1);
-  v111(&v2[v7], v112);
-  v8 = v4[9];
-  v110 = type metadata accessor for AssetService();
-  v109 = *(v110[-1].Description + 1);
-  v109(&v2[v8], v110);
-  v9 = v4[10];
-  v108 = type metadata accessor for AwardsService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v2[v9], v108);
-  v10 = v4[11];
-  v106 = type metadata accessor for BookmarkService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v2[v10], v106);
-  v11 = v4[12];
-  v104 = type metadata accessor for CatalogService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v2[v11], v104);
-  v12 = v4[13];
-  v102 = type metadata accessor for ConfigurationService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v2[v12], v102);
-  v13 = v4[14];
-  v100 = type metadata accessor for ContentAvailabilityService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v2[v13], v100);
-  v14 = v4[15];
-  v98 = type metadata accessor for EngagementService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v2[v14], v98);
-  v15 = v4[16];
-  v96 = type metadata accessor for HealthDataService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v2[v15], v96);
-  v16 = v4[17];
-  v94 = type metadata accessor for InteropService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v2[v16], v94);
-  v17 = v4[18];
-  v92 = type metadata accessor for LocalizationService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v2[v17], v92);
-  v18 = v4[19];
-  v90 = type metadata accessor for MarketingService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v2[v18], v90);
-  v19 = v4[20];
-  v88 = type metadata accessor for MetricService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v2[v19], v88);
-  v20 = v4[21];
-  v86 = type metadata accessor for PersonalizationService();
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v2[v20], v86);
-  v21 = v4[22];
-  v84 = type metadata accessor for PlayerService();
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v2[v21], v84);
-  v22 = v4[23];
-  v82 = type metadata accessor for PrivacyPreferenceService();
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v2[v22], v82);
-  v23 = v4[24];
-  v80 = type metadata accessor for RecommendationService();
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v2[v23], v80);
-  v24 = v4[25];
-  v78 = type metadata accessor for RemoteBrowsingService();
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v2[v24], v78);
-  v25 = v4[26];
-  v76 = type metadata accessor for SearchService();
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v2[v25], v76);
-  v26 = v4[27];
-  v74 = type metadata accessor for ServiceSubscriptionService();
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
   v73 = *(v74[-1].Description + 1);
-  v73(&v2[v26], v74);
-  v27 = v4[28];
-  v67 = type metadata accessor for SessionService();
-  v72 = *(v67[-1].Description + 1);
-  v72(&v2[v27], v67);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v71 = *(v29[-1].Description + 1);
-  v71(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v70 = *(v31[-1].Description + 1);
-  v70(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v69 = *(v33[-1].Description + 1);
-  v69(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v68 = *(QueueService[-1].Description + 1);
-  v68(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v66 = *(v42[-1].Description + 1);
-  v66(&v2[v41], v42);
-  v43 = *(v115 + v122[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v115 + v122[7]);
-  v45 = *v44;
+  v36 = v89 + v96[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v116(&v47[v4[6]], v117);
-  v113(&v47[v4[7]], v114);
-  v111(&v47[v4[8]], v112);
-  v109(&v47[v4[9]], v110);
-  v107(&v47[v4[10]], v108);
-  v105(&v47[v4[11]], v106);
-  v103(&v47[v4[12]], v104);
-  v101(&v47[v4[13]], v102);
-  v99(&v47[v4[14]], v100);
-  v97(&v47[v4[15]], v98);
-  v95(&v47[v4[16]], v96);
-  v93(&v47[v4[17]], v94);
-  v91(&v47[v4[18]], v92);
-  v89(&v47[v4[19]], v90);
-  v87(&v47[v4[20]], v88);
-  v85(&v47[v4[21]], v86);
-  v83(&v47[v4[22]], v84);
-  v81(&v47[v4[23]], v82);
-  v79(&v47[v4[24]], v80);
-  v77(&v47[v4[25]], v78);
-  v75(&v47[v4[26]], v76);
-  v73(&v47[v4[27]], v74);
-  v72(&v47[v4[28]], v67);
-  v71(&v47[v4[29]], v29);
-  v70(&v47[v4[30]], v31);
-  v69(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v68(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v66(&v47[v4[36]], v42);
-  v54 = *(v115 + v122[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v115 + v122[9] + 8) >= 0xCuLL)
+  if (*(v89 + v96[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v115 + v122[10]);
-  if (v55[3])
+  v38 = (v89 + v96[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
-  v56 = (v118 + v119 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v57 = (v56 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v58 = *(v121 + v56);
-
-  __swift_destroy_boxed_opaque_existential_1((v121 + v57));
-  v59 = (v121 + ((v57 + 47) & 0xFFFFFFFFFFFFFFF8));
-  v60 = *v59;
+  __swift_destroy_boxed_opaque_existential_1((v95 + ((((v92 + v93 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8)));
   swift_unknownObjectRelease();
-  v61 = v59[3];
-
-  v62 = v59[5];
-
-  v63 = v59[7];
-
-  v64 = v59[9];
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E42C64()
 {
-  v113 = type metadata accessor for AppComposer();
-  v111 = *(*(v113 - 1) + 80);
-  v109 = *(*(v113 - 1) + 64);
-  v110 = (v111 + 16) & ~v111;
-  v112 = v0;
-  v106 = v0 + v110;
-  v1 = *(v0 + v110);
+  v96 = type metadata accessor for AppComposer(0);
+  v94 = *(*(v96 - 1) + 80);
+  v92 = *(*(v96 - 1) + 64);
+  v93 = (v94 + 16) & ~v94;
+  v95 = v0;
+  v89 = v0 + v93;
 
-  v2 = (v0 + v110 + v113[5]);
-  v3 = *v2;
+  v1 = v0 + v93 + v96[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v108 = type metadata accessor for AccountService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v2[v5], v108);
-  v6 = v4[7];
-  v105 = type metadata accessor for AppStateService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v6], v105);
-  v7 = v4[8];
-  v103 = type metadata accessor for ArchivedSessionService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v7], v103);
-  v8 = v4[9];
-  v101 = type metadata accessor for AssetService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v8], v101);
-  v9 = v4[10];
-  v99 = type metadata accessor for AwardsService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v9], v99);
-  v10 = v4[11];
-  v97 = type metadata accessor for BookmarkService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v10], v97);
-  v11 = v4[12];
-  v95 = type metadata accessor for CatalogService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v11], v95);
-  v12 = v4[13];
-  v93 = type metadata accessor for ConfigurationService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v12], v93);
-  v13 = v4[14];
-  v91 = type metadata accessor for ContentAvailabilityService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v13], v91);
-  v14 = v4[15];
-  v89 = type metadata accessor for EngagementService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v14], v89);
-  v15 = v4[16];
-  v87 = type metadata accessor for HealthDataService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v15], v87);
-  v16 = v4[17];
-  v85 = type metadata accessor for InteropService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v16], v85);
-  v17 = v4[18];
-  v83 = type metadata accessor for LocalizationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v17], v83);
-  v18 = v4[19];
-  v81 = type metadata accessor for MarketingService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v18], v81);
-  v19 = v4[20];
-  v79 = type metadata accessor for MetricService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v19], v79);
-  v20 = v4[21];
-  v77 = type metadata accessor for PersonalizationService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v20], v77);
-  v21 = v4[22];
-  v75 = type metadata accessor for PlayerService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v21], v75);
-  v22 = v4[23];
-  v73 = type metadata accessor for PrivacyPreferenceService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v22], v73);
-  v23 = v4[24];
-  v71 = type metadata accessor for RecommendationService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v23], v71);
-  v24 = v4[25];
-  v69 = type metadata accessor for RemoteBrowsingService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v2[v24], v69);
-  v25 = v4[26];
-  v67 = type metadata accessor for SearchService();
-  v66 = *(v67[-1].Description + 1);
-  v66(&v2[v25], v67);
-  v26 = v4[27];
-  v65 = type metadata accessor for ServiceSubscriptionService();
-  v64 = *(v65[-1].Description + 1);
-  v64(&v2[v26], v65);
-  v27 = v4[28];
-  v58 = type metadata accessor for SessionService();
-  v63 = *(v58[-1].Description + 1);
-  v63(&v2[v27], v58);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v62 = *(v29[-1].Description + 1);
-  v62(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v61 = *(v31[-1].Description + 1);
-  v61(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v60 = *(v33[-1].Description + 1);
-  v60(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v59 = *(QueueService[-1].Description + 1);
-  v59(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v57 = *(v42[-1].Description + 1);
-  v57(&v2[v41], v42);
-  v43 = *(v106 + v113[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v106 + v113[7]);
-  v45 = *v44;
+  v36 = v89 + v96[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v107(&v47[v4[6]], v108);
-  v104(&v47[v4[7]], v105);
-  v102(&v47[v4[8]], v103);
-  v100(&v47[v4[9]], v101);
-  v98(&v47[v4[10]], v99);
-  v96(&v47[v4[11]], v97);
-  v94(&v47[v4[12]], v95);
-  v92(&v47[v4[13]], v93);
-  v90(&v47[v4[14]], v91);
-  v88(&v47[v4[15]], v89);
-  v86(&v47[v4[16]], v87);
-  v84(&v47[v4[17]], v85);
-  v82(&v47[v4[18]], v83);
-  v80(&v47[v4[19]], v81);
-  v78(&v47[v4[20]], v79);
-  v76(&v47[v4[21]], v77);
-  v74(&v47[v4[22]], v75);
-  v72(&v47[v4[23]], v73);
-  v70(&v47[v4[24]], v71);
-  v68(&v47[v4[25]], v69);
-  v66(&v47[v4[26]], v67);
-  v64(&v47[v4[27]], v65);
-  v63(&v47[v4[28]], v58);
-  v62(&v47[v4[29]], v29);
-  v61(&v47[v4[30]], v31);
-  v60(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v59(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v57(&v47[v4[36]], v42);
-  v54 = *(v106 + v113[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v106 + v113[9] + 8) >= 0xCuLL)
+  if (*(v89 + v96[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v106 + v113[10]);
-  if (v55[3])
+  v38 = (v89 + v96[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
-  __swift_destroy_boxed_opaque_existential_1((v112 + ((v109 + v110 + 7) & 0xFFFFFFFFFFFFFFF8)));
+  __swift_destroy_boxed_opaque_existential_1((v95 + ((v92 + v93 + 7) & 0xFFFFFFFFFFFFFFF8)));
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E43948()
 {
-  v118 = type metadata accessor for AppComposer();
-  v124 = *(*(v118 - 1) + 80);
-  v122 = *(*(v118 - 1) + 64);
+  v91 = type metadata accessor for AppComposer(0);
+  v97 = *(*(v91 - 1) + 80);
+  v95 = *(*(v91 - 1) + 64);
   v1 = sub_1E65D76F8();
-  v126 = *(v1 - 8);
-  v127 = v1;
-  v121 = *(v126 + 80);
-  v125 = *(v126 + 64);
-  v123 = (v124 + 17) & ~v124;
-  v128 = v0;
-  v129 = v0 + v123;
-  v2 = *(v0 + v123);
+  v98 = *(v1 - 8);
+  v99 = v1;
+  v94 = *(v98 + 80);
+  v96 = (v97 + 17) & ~v97;
+  v100 = v0;
+  v101 = v0 + v96;
 
-  v3 = (v0 + v123 + v118[5]);
-  v4 = *v3;
+  v2 = v0 + v96 + v91[5];
   swift_unknownObjectRelease();
-  v5 = type metadata accessor for AppEnvironment();
-  v6 = v5[6];
-  v120 = type metadata accessor for AccountService();
-  v119 = *(v120[-1].Description + 1);
-  v119(&v3[v6], v120);
-  v7 = v5[7];
-  v117 = type metadata accessor for AppStateService();
-  v116 = *(v117[-1].Description + 1);
-  v116(&v3[v7], v117);
-  v8 = v5[8];
-  v115 = type metadata accessor for ArchivedSessionService();
-  v114 = *(v115[-1].Description + 1);
-  v114(&v3[v8], v115);
-  v9 = v5[9];
-  v113 = type metadata accessor for AssetService();
-  v112 = *(v113[-1].Description + 1);
-  v112(&v3[v9], v113);
-  v10 = v5[10];
-  v111 = type metadata accessor for AwardsService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v3[v10], v111);
-  v11 = v5[11];
-  v109 = type metadata accessor for BookmarkService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v3[v11], v109);
-  v12 = v5[12];
-  v107 = type metadata accessor for CatalogService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v3[v12], v107);
-  v13 = v5[13];
-  v105 = type metadata accessor for ConfigurationService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v3[v13], v105);
-  v14 = v5[14];
-  v103 = type metadata accessor for ContentAvailabilityService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v3[v14], v103);
-  v15 = v5[15];
-  v101 = type metadata accessor for EngagementService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v3[v15], v101);
-  v16 = v5[16];
-  v99 = type metadata accessor for HealthDataService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v3[v16], v99);
-  v17 = v5[17];
-  v97 = type metadata accessor for InteropService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v3[v17], v97);
-  v18 = v5[18];
-  v95 = type metadata accessor for LocalizationService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v3[v18], v95);
-  v19 = v5[19];
-  v93 = type metadata accessor for MarketingService();
+  v3 = type metadata accessor for AppEnvironment(0);
+  v4 = v3[6];
+  v93 = type metadata accessor for AccountService();
   v92 = *(v93[-1].Description + 1);
-  v92(&v3[v19], v93);
-  v20 = v5[20];
-  v91 = type metadata accessor for MetricService();
-  v90 = *(v91[-1].Description + 1);
-  v90(&v3[v20], v91);
-  v21 = v5[21];
-  v89 = type metadata accessor for PersonalizationService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v3[v21], v89);
-  v22 = v5[22];
-  v87 = type metadata accessor for PlayerService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v3[v22], v87);
-  v23 = v5[23];
-  v85 = type metadata accessor for PrivacyPreferenceService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v3[v23], v85);
-  v24 = v5[24];
-  v83 = type metadata accessor for RecommendationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v3[v24], v83);
-  v25 = v5[25];
-  v81 = type metadata accessor for RemoteBrowsingService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v3[v25], v81);
-  v26 = v5[26];
-  v79 = type metadata accessor for SearchService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v3[v26], v79);
-  v27 = v5[27];
-  v77 = type metadata accessor for ServiceSubscriptionService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v3[v27], v77);
-  v28 = v5[28];
-  v70 = type metadata accessor for SessionService();
-  v75 = *(v70[-1].Description + 1);
-  v75(&v3[v28], v70);
-  v29 = v5[29];
-  v30 = type metadata accessor for SharePlayService();
-  v74 = *(v30[-1].Description + 1);
-  v74(&v3[v29], v30);
-  v31 = v5[30];
-  v32 = type metadata accessor for SiriService();
-  v73 = *(v32[-1].Description + 1);
-  v73(&v3[v31], v32);
-  v33 = v5[31];
-  v34 = type metadata accessor for SyncService();
-  v72 = *(v34[-1].Description + 1);
-  v72(&v3[v33], v34);
-  v35 = &v3[v5[32]];
-  v36 = *(v35 + 1);
+  v92(v2 + v4, v93);
+  v5 = v3[7];
+  v90 = type metadata accessor for AppStateService();
+  v89 = *(v90[-1].Description + 1);
+  v89(v2 + v5, v90);
+  v6 = v3[8];
+  v88 = type metadata accessor for ArchivedSessionService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v2 + v6, v88);
+  v7 = v3[9];
+  v86 = type metadata accessor for AssetService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v2 + v7, v86);
+  v8 = v3[10];
+  v84 = type metadata accessor for AwardsService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v2 + v8, v84);
+  v9 = v3[11];
+  v82 = type metadata accessor for BookmarkService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v2 + v9, v82);
+  v10 = v3[12];
+  v80 = type metadata accessor for CatalogService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v2 + v10, v80);
+  v11 = v3[13];
+  v78 = type metadata accessor for ConfigurationService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v2 + v11, v78);
+  v12 = v3[14];
+  v76 = type metadata accessor for ContentAvailabilityService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v2 + v12, v76);
+  v13 = v3[15];
+  v74 = type metadata accessor for EngagementService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v2 + v13, v74);
+  v14 = v3[16];
+  v72 = type metadata accessor for HealthDataService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v2 + v14, v72);
+  v15 = v3[17];
+  v70 = type metadata accessor for InteropService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v2 + v15, v70);
+  v16 = v3[18];
+  v68 = type metadata accessor for LocalizationService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v2 + v16, v68);
+  v17 = v3[19];
+  v66 = type metadata accessor for MarketingService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v2 + v17, v66);
+  v18 = v3[20];
+  v64 = type metadata accessor for MetricService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v2 + v18, v64);
+  v19 = v3[21];
+  v62 = type metadata accessor for PersonalizationService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v2 + v19, v62);
+  v20 = v3[22];
+  v60 = type metadata accessor for PlayerService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v2 + v20, v60);
+  v21 = v3[23];
+  v58 = type metadata accessor for PrivacyPreferenceService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v2 + v21, v58);
+  v22 = v3[24];
+  v56 = type metadata accessor for RecommendationService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v2 + v22, v56);
+  v23 = v3[25];
+  v54 = type metadata accessor for RemoteBrowsingService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v2 + v23, v54);
+  v24 = v3[26];
+  v52 = type metadata accessor for SearchService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v2 + v24, v52);
+  v25 = v3[27];
+  v50 = type metadata accessor for ServiceSubscriptionService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v2 + v25, v50);
+  v26 = v3[28];
+  v43 = type metadata accessor for SessionService();
+  v48 = *(v43[-1].Description + 1);
+  v48(v2 + v26, v43);
+  v27 = v3[29];
+  v28 = type metadata accessor for SharePlayService();
+  v47 = *(v28[-1].Description + 1);
+  v47(v2 + v27, v28);
+  v29 = v3[30];
+  v30 = type metadata accessor for SiriService();
+  v46 = *(v30[-1].Description + 1);
+  v46(v2 + v29, v30);
+  v31 = v3[31];
+  v32 = type metadata accessor for SyncService();
+  v45 = *(v32[-1].Description + 1);
+  v45(v2 + v31, v32);
 
-  v37 = *(v35 + 3);
-
-  v38 = *(v35 + 5);
-
-  v39 = v5[33];
+  v33 = v3[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v71 = *(QueueService[-1].Description + 1);
-  v71(&v3[v39], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v3[v5[34]]);
-  v41 = *&v3[v5[35]];
+  v44 = *(QueueService[-1].Description + 1);
+  v44(v2 + v33, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v2 + v3[34]));
 
-  v42 = v5[36];
-  v43 = type metadata accessor for WorkoutPlanService();
-  v69 = *(v43[-1].Description + 1);
-  v69(&v3[v42], v43);
-  v44 = *(v129 + v118[6]);
+  v35 = v3[36];
+  v36 = type metadata accessor for WorkoutPlanService();
+  v42 = *(v36[-1].Description + 1);
+  v42(v2 + v35, v36);
 
-  v45 = (v129 + v118[7]);
-  v46 = *v45;
+  v37 = v101 + v91[7];
 
-  v47 = v45[1];
-
-  v48 = v45 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v49 = *v48;
+  v38 = v37 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v119(&v48[v5[6]], v120);
-  v116(&v48[v5[7]], v117);
-  v114(&v48[v5[8]], v115);
-  v112(&v48[v5[9]], v113);
-  v110(&v48[v5[10]], v111);
-  v108(&v48[v5[11]], v109);
-  v106(&v48[v5[12]], v107);
-  v104(&v48[v5[13]], v105);
-  v102(&v48[v5[14]], v103);
-  v100(&v48[v5[15]], v101);
-  v98(&v48[v5[16]], v99);
-  v96(&v48[v5[17]], v97);
-  v94(&v48[v5[18]], v95);
-  v92(&v48[v5[19]], v93);
-  v90(&v48[v5[20]], v91);
-  v88(&v48[v5[21]], v89);
-  v86(&v48[v5[22]], v87);
-  v84(&v48[v5[23]], v85);
-  v82(&v48[v5[24]], v83);
-  v80(&v48[v5[25]], v81);
-  v78(&v48[v5[26]], v79);
-  v76(&v48[v5[27]], v77);
-  v75(&v48[v5[28]], v70);
-  v74(&v48[v5[29]], v30);
-  v73(&v48[v5[30]], v32);
-  v72(&v48[v5[31]], v34);
-  v50 = &v48[v5[32]];
-  v51 = *(v50 + 1);
+  v92(v38 + v3[6], v93);
+  v89(v38 + v3[7], v90);
+  v87(v38 + v3[8], v88);
+  v85(v38 + v3[9], v86);
+  v83(v38 + v3[10], v84);
+  v81(v38 + v3[11], v82);
+  v79(v38 + v3[12], v80);
+  v77(v38 + v3[13], v78);
+  v75(v38 + v3[14], v76);
+  v73(v38 + v3[15], v74);
+  v71(v38 + v3[16], v72);
+  v69(v38 + v3[17], v70);
+  v67(v38 + v3[18], v68);
+  v65(v38 + v3[19], v66);
+  v63(v38 + v3[20], v64);
+  v61(v38 + v3[21], v62);
+  v59(v38 + v3[22], v60);
+  v57(v38 + v3[23], v58);
+  v55(v38 + v3[24], v56);
+  v53(v38 + v3[25], v54);
+  v51(v38 + v3[26], v52);
+  v49(v38 + v3[27], v50);
+  v48(v38 + v3[28], v43);
+  v47(v38 + v3[29], v28);
+  v46(v38 + v3[30], v30);
+  v45(v38 + v3[31], v32);
 
-  v52 = *(v50 + 3);
+  v44(v38 + v3[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v38 + v3[34]));
 
-  v53 = *(v50 + 5);
-
-  v71(&v48[v5[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v48[v5[34]]);
-  v54 = *&v48[v5[35]];
-
-  v69(&v48[v5[36]], v43);
-  v55 = *(v129 + v118[8]);
+  v42(v38 + v3[36], v36);
   swift_unknownObjectRelease();
-  if (*(v129 + v118[9] + 8) >= 0xCuLL)
+  if (*(v101 + v91[9] + 8) >= 0xCuLL)
   {
   }
 
-  v56 = (v129 + v118[10]);
-  if (v56[3])
+  v39 = (v101 + v91[10]);
+  if (v39[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v56);
+    __swift_destroy_boxed_opaque_existential_1(v39);
   }
 
-  v57 = (v122 + v123 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v58 = (v57 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v59 = (v58 + 47) & 0xFFFFFFFFFFFFFFF8;
-  v60 = (v59 + 87) & 0xFFFFFFFFFFFFFFF8;
-  v61 = *(v128 + v57);
+  v40 = (((v95 + v96 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
 
-  __swift_destroy_boxed_opaque_existential_1((v128 + v58));
-  v62 = *(v128 + v59);
+  __swift_destroy_boxed_opaque_existential_1((v100 + v40));
   swift_unknownObjectRelease();
-  v63 = *(v128 + v59 + 24);
 
-  v64 = *(v128 + v59 + 40);
-
-  v65 = *(v128 + v59 + 56);
-
-  v66 = *(v128 + v59 + 72);
-
-  v67 = *(v128 + v60 + 8);
-
-  (*(v126 + 8))(v128 + ((v121 + v60 + 16) & ~v121), v127);
+  (*(v98 + 8))(v100 + ((v94 + ((((v40 + 47) & 0xFFFFFFFFFFFFFFF8) + 87) & 0xFFFFFFFFFFFFFFF8) + 16) & ~v94), v99);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E44710()
 {
-  v135 = type metadata accessor for AppComposer();
-  v128 = *(*(v135 - 1) + 80);
-  v126 = *(*(v135 - 1) + 64);
+  v107 = type metadata accessor for AppComposer(0);
+  v101 = *(*(v107 - 1) + 80);
+  v99 = *(*(v107 - 1) + 64);
   v1 = sub_1E65D76F8();
-  v132 = *(v1 - 8);
-  v133 = v1;
-  v125 = *(v132 + 80);
-  v124 = *(v132 + 64);
+  v104 = *(v1 - 8);
+  v105 = v1;
+  v98 = *(v104 + 80);
+  v97 = *(v104 + 64);
   v2 = sub_1E65E3C48();
-  v130 = *(v2 - 8);
-  v131 = v2;
-  v123 = *(v130 + 80);
-  v129 = *(v130 + 64);
-  v134 = v0;
-  v127 = (v128 + 18) & ~v128;
-  v120 = v0 + v127;
-  v3 = *(v0 + v127);
+  v102 = *(v2 - 8);
+  v103 = v2;
+  v96 = *(v102 + 80);
+  v106 = v0;
+  v100 = (v101 + 18) & ~v101;
+  v93 = v0 + v100;
 
-  v4 = (v0 + v127 + v135[5]);
-  v5 = *v4;
+  v3 = v0 + v100 + v107[5];
   swift_unknownObjectRelease();
-  v6 = type metadata accessor for AppEnvironment();
-  v7 = v6[6];
-  v122 = type metadata accessor for AccountService();
-  v121 = *(v122[-1].Description + 1);
-  v121(&v4[v7], v122);
-  v8 = v6[7];
-  v119 = type metadata accessor for AppStateService();
-  v118 = *(v119[-1].Description + 1);
-  v118(&v4[v8], v119);
-  v9 = v6[8];
-  v117 = type metadata accessor for ArchivedSessionService();
-  v116 = *(v117[-1].Description + 1);
-  v116(&v4[v9], v117);
-  v10 = v6[9];
-  v115 = type metadata accessor for AssetService();
-  v114 = *(v115[-1].Description + 1);
-  v114(&v4[v10], v115);
-  v11 = v6[10];
-  v113 = type metadata accessor for AwardsService();
-  v112 = *(v113[-1].Description + 1);
-  v112(&v4[v11], v113);
-  v12 = v6[11];
-  v111 = type metadata accessor for BookmarkService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v4[v12], v111);
-  v13 = v6[12];
-  v109 = type metadata accessor for CatalogService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v4[v13], v109);
-  v14 = v6[13];
-  v107 = type metadata accessor for ConfigurationService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v4[v14], v107);
-  v15 = v6[14];
-  v105 = type metadata accessor for ContentAvailabilityService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v4[v15], v105);
-  v16 = v6[15];
-  v103 = type metadata accessor for EngagementService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v4[v16], v103);
-  v17 = v6[16];
-  v101 = type metadata accessor for HealthDataService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v4[v17], v101);
-  v18 = v6[17];
-  v99 = type metadata accessor for InteropService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v4[v18], v99);
-  v19 = v6[18];
-  v97 = type metadata accessor for LocalizationService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v4[v19], v97);
-  v20 = v6[19];
-  v95 = type metadata accessor for MarketingService();
+  v4 = type metadata accessor for AppEnvironment(0);
+  v5 = v4[6];
+  v95 = type metadata accessor for AccountService();
   v94 = *(v95[-1].Description + 1);
-  v94(&v4[v20], v95);
-  v21 = v6[20];
-  v93 = type metadata accessor for MetricService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v4[v21], v93);
-  v22 = v6[21];
-  v91 = type metadata accessor for PersonalizationService();
-  v90 = *(v91[-1].Description + 1);
-  v90(&v4[v22], v91);
-  v23 = v6[22];
-  v89 = type metadata accessor for PlayerService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v4[v23], v89);
-  v24 = v6[23];
-  v87 = type metadata accessor for PrivacyPreferenceService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v4[v24], v87);
-  v25 = v6[24];
-  v85 = type metadata accessor for RecommendationService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v4[v25], v85);
-  v26 = v6[25];
-  v83 = type metadata accessor for RemoteBrowsingService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v4[v26], v83);
-  v27 = v6[26];
-  v81 = type metadata accessor for SearchService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v4[v27], v81);
-  v28 = v6[27];
-  v79 = type metadata accessor for ServiceSubscriptionService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v4[v28], v79);
-  v29 = v6[28];
-  v72 = type metadata accessor for SessionService();
-  v77 = *(v72[-1].Description + 1);
-  v77(&v4[v29], v72);
-  v30 = v6[29];
-  v31 = type metadata accessor for SharePlayService();
-  v76 = *(v31[-1].Description + 1);
-  v76(&v4[v30], v31);
-  v32 = v6[30];
-  v33 = type metadata accessor for SiriService();
-  v75 = *(v33[-1].Description + 1);
-  v75(&v4[v32], v33);
-  v34 = v6[31];
-  v35 = type metadata accessor for SyncService();
-  v74 = *(v35[-1].Description + 1);
-  v74(&v4[v34], v35);
-  v36 = &v4[v6[32]];
-  v37 = *(v36 + 1);
+  v94(v3 + v5, v95);
+  v6 = v4[7];
+  v92 = type metadata accessor for AppStateService();
+  v91 = *(v92[-1].Description + 1);
+  v91(v3 + v6, v92);
+  v7 = v4[8];
+  v90 = type metadata accessor for ArchivedSessionService();
+  v89 = *(v90[-1].Description + 1);
+  v89(v3 + v7, v90);
+  v8 = v4[9];
+  v88 = type metadata accessor for AssetService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v3 + v8, v88);
+  v9 = v4[10];
+  v86 = type metadata accessor for AwardsService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v3 + v9, v86);
+  v10 = v4[11];
+  v84 = type metadata accessor for BookmarkService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v3 + v10, v84);
+  v11 = v4[12];
+  v82 = type metadata accessor for CatalogService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v3 + v11, v82);
+  v12 = v4[13];
+  v80 = type metadata accessor for ConfigurationService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v3 + v12, v80);
+  v13 = v4[14];
+  v78 = type metadata accessor for ContentAvailabilityService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v3 + v13, v78);
+  v14 = v4[15];
+  v76 = type metadata accessor for EngagementService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v3 + v14, v76);
+  v15 = v4[16];
+  v74 = type metadata accessor for HealthDataService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v3 + v15, v74);
+  v16 = v4[17];
+  v72 = type metadata accessor for InteropService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v3 + v16, v72);
+  v17 = v4[18];
+  v70 = type metadata accessor for LocalizationService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v3 + v17, v70);
+  v18 = v4[19];
+  v68 = type metadata accessor for MarketingService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v3 + v18, v68);
+  v19 = v4[20];
+  v66 = type metadata accessor for MetricService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v3 + v19, v66);
+  v20 = v4[21];
+  v64 = type metadata accessor for PersonalizationService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v3 + v20, v64);
+  v21 = v4[22];
+  v62 = type metadata accessor for PlayerService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v3 + v21, v62);
+  v22 = v4[23];
+  v60 = type metadata accessor for PrivacyPreferenceService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v3 + v22, v60);
+  v23 = v4[24];
+  v58 = type metadata accessor for RecommendationService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v3 + v23, v58);
+  v24 = v4[25];
+  v56 = type metadata accessor for RemoteBrowsingService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v3 + v24, v56);
+  v25 = v4[26];
+  v54 = type metadata accessor for SearchService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v3 + v25, v54);
+  v26 = v4[27];
+  v52 = type metadata accessor for ServiceSubscriptionService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v3 + v26, v52);
+  v27 = v4[28];
+  v45 = type metadata accessor for SessionService();
+  v50 = *(v45[-1].Description + 1);
+  v50(v3 + v27, v45);
+  v28 = v4[29];
+  v29 = type metadata accessor for SharePlayService();
+  v49 = *(v29[-1].Description + 1);
+  v49(v3 + v28, v29);
+  v30 = v4[30];
+  v31 = type metadata accessor for SiriService();
+  v48 = *(v31[-1].Description + 1);
+  v48(v3 + v30, v31);
+  v32 = v4[31];
+  v33 = type metadata accessor for SyncService();
+  v47 = *(v33[-1].Description + 1);
+  v47(v3 + v32, v33);
 
-  v38 = *(v36 + 3);
-
-  v39 = *(v36 + 5);
-
-  v40 = v6[33];
+  v34 = v4[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v73 = *(QueueService[-1].Description + 1);
-  v73(&v4[v40], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v4[v6[34]]);
-  v42 = *&v4[v6[35]];
+  v46 = *(QueueService[-1].Description + 1);
+  v46(v3 + v34, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v3 + v4[34]));
 
-  v43 = v6[36];
-  v44 = type metadata accessor for WorkoutPlanService();
-  v71 = *(v44[-1].Description + 1);
-  v71(&v4[v43], v44);
-  v45 = *(v120 + v135[6]);
+  v36 = v4[36];
+  v37 = type metadata accessor for WorkoutPlanService();
+  v44 = *(v37[-1].Description + 1);
+  v44(v3 + v36, v37);
 
-  v46 = (v120 + v135[7]);
-  v47 = *v46;
+  v38 = v93 + v107[7];
 
-  v48 = v46[1];
-
-  v49 = v46 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v50 = *v49;
+  v39 = v38 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v121(&v49[v6[6]], v122);
-  v118(&v49[v6[7]], v119);
-  v116(&v49[v6[8]], v117);
-  v114(&v49[v6[9]], v115);
-  v112(&v49[v6[10]], v113);
-  v110(&v49[v6[11]], v111);
-  v108(&v49[v6[12]], v109);
-  v106(&v49[v6[13]], v107);
-  v104(&v49[v6[14]], v105);
-  v102(&v49[v6[15]], v103);
-  v100(&v49[v6[16]], v101);
-  v98(&v49[v6[17]], v99);
-  v96(&v49[v6[18]], v97);
-  v94(&v49[v6[19]], v95);
-  v92(&v49[v6[20]], v93);
-  v90(&v49[v6[21]], v91);
-  v88(&v49[v6[22]], v89);
-  v86(&v49[v6[23]], v87);
-  v84(&v49[v6[24]], v85);
-  v82(&v49[v6[25]], v83);
-  v80(&v49[v6[26]], v81);
-  v78(&v49[v6[27]], v79);
-  v77(&v49[v6[28]], v72);
-  v76(&v49[v6[29]], v31);
-  v75(&v49[v6[30]], v33);
-  v74(&v49[v6[31]], v35);
-  v51 = &v49[v6[32]];
-  v52 = *(v51 + 1);
+  v94(v39 + v4[6], v95);
+  v91(v39 + v4[7], v92);
+  v89(v39 + v4[8], v90);
+  v87(v39 + v4[9], v88);
+  v85(v39 + v4[10], v86);
+  v83(v39 + v4[11], v84);
+  v81(v39 + v4[12], v82);
+  v79(v39 + v4[13], v80);
+  v77(v39 + v4[14], v78);
+  v75(v39 + v4[15], v76);
+  v73(v39 + v4[16], v74);
+  v71(v39 + v4[17], v72);
+  v69(v39 + v4[18], v70);
+  v67(v39 + v4[19], v68);
+  v65(v39 + v4[20], v66);
+  v63(v39 + v4[21], v64);
+  v61(v39 + v4[22], v62);
+  v59(v39 + v4[23], v60);
+  v57(v39 + v4[24], v58);
+  v55(v39 + v4[25], v56);
+  v53(v39 + v4[26], v54);
+  v51(v39 + v4[27], v52);
+  v50(v39 + v4[28], v45);
+  v49(v39 + v4[29], v29);
+  v48(v39 + v4[30], v31);
+  v47(v39 + v4[31], v33);
 
-  v53 = *(v51 + 3);
+  v46(v39 + v4[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v39 + v4[34]));
 
-  v54 = *(v51 + 5);
-
-  v73(&v49[v6[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v49[v6[34]]);
-  v55 = *&v49[v6[35]];
-
-  v71(&v49[v6[36]], v44);
-  v56 = *(v120 + v135[8]);
+  v44(v39 + v4[36], v37);
   swift_unknownObjectRelease();
-  if (*(v120 + v135[9] + 8) >= 0xCuLL)
+  if (*(v93 + v107[9] + 8) >= 0xCuLL)
   {
   }
 
-  v57 = (v120 + v135[10]);
-  if (v57[3])
+  v40 = (v93 + v107[10]);
+  if (v40[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v57);
+    __swift_destroy_boxed_opaque_existential_1(v40);
   }
 
-  v58 = (v126 + v127 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v59 = (v58 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v60 = (v59 + 47) & 0xFFFFFFFFFFFFFFF8;
-  v61 = (v60 + 87) & 0xFFFFFFFFFFFFFFF8;
-  v62 = (v125 + v61 + 16) & ~v125;
-  v63 = *(v134 + v58);
+  v41 = (((v99 + v100 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
+  v42 = (v98 + ((((v41 + 47) & 0xFFFFFFFFFFFFFFF8) + 87) & 0xFFFFFFFFFFFFFFF8) + 16) & ~v98;
 
-  __swift_destroy_boxed_opaque_existential_1((v134 + v59));
-  v64 = *(v134 + v60);
+  __swift_destroy_boxed_opaque_existential_1((v106 + v41));
   swift_unknownObjectRelease();
-  v65 = *(v134 + v60 + 24);
 
-  v66 = *(v134 + v60 + 40);
-
-  v67 = *(v134 + v60 + 56);
-
-  v68 = *(v134 + v60 + 72);
-
-  v69 = *(v134 + v61 + 8);
-
-  (*(v132 + 8))(v134 + v62, v133);
-  (*(v130 + 8))(v134 + ((v124 + v123 + v62) & ~v123), v131);
+  (*(v104 + 8))(v106 + v42, v105);
+  (*(v102 + 8))(v106 + ((v97 + v96 + v42) & ~v96), v103);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E45568()
 {
-  v117 = type metadata accessor for AppComposer();
-  v115 = *(*(v117 - 1) + 80);
-  v113 = *(*(v117 - 1) + 64);
-  v114 = (v115 + 16) & ~v115;
-  v116 = v0;
-  v110 = v0 + v114;
-  v1 = *(v0 + v114);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = (v0 + v114 + v117[5]);
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v112 = type metadata accessor for AccountService();
-  v111 = *(v112[-1].Description + 1);
-  v111(&v2[v5], v112);
-  v6 = v4[7];
-  v109 = type metadata accessor for AppStateService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v2[v6], v109);
-  v7 = v4[8];
-  v107 = type metadata accessor for ArchivedSessionService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v2[v7], v107);
-  v8 = v4[9];
-  v105 = type metadata accessor for AssetService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v8], v105);
-  v9 = v4[10];
-  v103 = type metadata accessor for AwardsService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v9], v103);
-  v10 = v4[11];
-  v101 = type metadata accessor for BookmarkService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v10], v101);
-  v11 = v4[12];
-  v99 = type metadata accessor for CatalogService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v11], v99);
-  v12 = v4[13];
-  v97 = type metadata accessor for ConfigurationService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v12], v97);
-  v13 = v4[14];
-  v95 = type metadata accessor for ContentAvailabilityService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v13], v95);
-  v14 = v4[15];
-  v93 = type metadata accessor for EngagementService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v14], v93);
-  v15 = v4[16];
-  v91 = type metadata accessor for HealthDataService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v15], v91);
-  v16 = v4[17];
-  v89 = type metadata accessor for InteropService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v16], v89);
-  v17 = v4[18];
-  v87 = type metadata accessor for LocalizationService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v17], v87);
-  v18 = v4[19];
-  v85 = type metadata accessor for MarketingService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v18], v85);
-  v19 = v4[20];
-  v83 = type metadata accessor for MetricService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v19], v83);
-  v20 = v4[21];
-  v81 = type metadata accessor for PersonalizationService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v20], v81);
-  v21 = v4[22];
-  v79 = type metadata accessor for PlayerService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v21], v79);
-  v22 = v4[23];
-  v77 = type metadata accessor for PrivacyPreferenceService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v22], v77);
-  v23 = v4[24];
-  v75 = type metadata accessor for RecommendationService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v23], v75);
-  v24 = v4[25];
-  v73 = type metadata accessor for RemoteBrowsingService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v24], v73);
-  v25 = v4[26];
-  v71 = type metadata accessor for SearchService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v25], v71);
-  v26 = v4[27];
-  v69 = type metadata accessor for ServiceSubscriptionService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v2[v26], v69);
-  v27 = v4[28];
-  v62 = type metadata accessor for SessionService();
-  v67 = *(v62[-1].Description + 1);
-  v67(&v2[v27], v62);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v66 = *(v29[-1].Description + 1);
-  v66(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v65 = *(v31[-1].Description + 1);
-  v65(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v64 = *(v33[-1].Description + 1);
-  v64(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v63 = *(QueueService[-1].Description + 1);
-  v63(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v61 = *(v42[-1].Description + 1);
-  v61(&v2[v41], v42);
-  v43 = *(v110 + v117[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v110 + v117[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v111(&v47[v4[6]], v112);
-  v108(&v47[v4[7]], v109);
-  v106(&v47[v4[8]], v107);
-  v104(&v47[v4[9]], v105);
-  v102(&v47[v4[10]], v103);
-  v100(&v47[v4[11]], v101);
-  v98(&v47[v4[12]], v99);
-  v96(&v47[v4[13]], v97);
-  v94(&v47[v4[14]], v95);
-  v92(&v47[v4[15]], v93);
-  v90(&v47[v4[16]], v91);
-  v88(&v47[v4[17]], v89);
-  v86(&v47[v4[18]], v87);
-  v84(&v47[v4[19]], v85);
-  v82(&v47[v4[20]], v83);
-  v80(&v47[v4[21]], v81);
-  v78(&v47[v4[22]], v79);
-  v76(&v47[v4[23]], v77);
-  v74(&v47[v4[24]], v75);
-  v72(&v47[v4[25]], v73);
-  v70(&v47[v4[26]], v71);
-  v68(&v47[v4[27]], v69);
-  v67(&v47[v4[28]], v62);
-  v66(&v47[v4[29]], v29);
-  v65(&v47[v4[30]], v31);
-  v64(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v63(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v61(&v47[v4[36]], v42);
-  v54 = *(v110 + v117[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v110 + v117[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v110 + v117[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
-
-  v56 = (v113 + v114 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v57 = (v56 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v58 = *(v116 + v56 + 8);
-
-  v59 = *(v116 + v57);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E46260()
 {
-  v114 = type metadata accessor for AppComposer();
-  v112 = *(*(v114 - 1) + 80);
-  v110 = *(*(v114 - 1) + 64);
-  v111 = (v112 + 16) & ~v112;
-  v113 = v0;
-  v107 = v0 + v111;
-  v1 = *(v0 + v111);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = (v0 + v111 + v114[5]);
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v109 = type metadata accessor for AccountService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v2[v5], v109);
-  v6 = v4[7];
-  v106 = type metadata accessor for AppStateService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v2[v6], v106);
-  v7 = v4[8];
-  v104 = type metadata accessor for ArchivedSessionService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v2[v7], v104);
-  v8 = v4[9];
-  v102 = type metadata accessor for AssetService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v2[v8], v102);
-  v9 = v4[10];
-  v100 = type metadata accessor for AwardsService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v2[v9], v100);
-  v10 = v4[11];
-  v98 = type metadata accessor for BookmarkService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v2[v10], v98);
-  v11 = v4[12];
-  v96 = type metadata accessor for CatalogService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v2[v11], v96);
-  v12 = v4[13];
-  v94 = type metadata accessor for ConfigurationService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v2[v12], v94);
-  v13 = v4[14];
-  v92 = type metadata accessor for ContentAvailabilityService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v2[v13], v92);
-  v14 = v4[15];
-  v90 = type metadata accessor for EngagementService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v2[v14], v90);
-  v15 = v4[16];
-  v88 = type metadata accessor for HealthDataService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v2[v15], v88);
-  v16 = v4[17];
-  v86 = type metadata accessor for InteropService();
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v2[v16], v86);
-  v17 = v4[18];
-  v84 = type metadata accessor for LocalizationService();
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v2[v17], v84);
-  v18 = v4[19];
-  v82 = type metadata accessor for MarketingService();
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v2[v18], v82);
-  v19 = v4[20];
-  v80 = type metadata accessor for MetricService();
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v2[v19], v80);
-  v20 = v4[21];
-  v78 = type metadata accessor for PersonalizationService();
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v2[v20], v78);
-  v21 = v4[22];
-  v76 = type metadata accessor for PlayerService();
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v2[v21], v76);
-  v22 = v4[23];
-  v74 = type metadata accessor for PrivacyPreferenceService();
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
   v73 = *(v74[-1].Description + 1);
-  v73(&v2[v22], v74);
-  v23 = v4[24];
-  v72 = type metadata accessor for RecommendationService();
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
   v71 = *(v72[-1].Description + 1);
-  v71(&v2[v23], v72);
-  v24 = v4[25];
-  v70 = type metadata accessor for RemoteBrowsingService();
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
   v69 = *(v70[-1].Description + 1);
-  v69(&v2[v24], v70);
-  v25 = v4[26];
-  v68 = type metadata accessor for SearchService();
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
   v67 = *(v68[-1].Description + 1);
-  v67(&v2[v25], v68);
-  v26 = v4[27];
-  v66 = type metadata accessor for ServiceSubscriptionService();
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
   v65 = *(v66[-1].Description + 1);
-  v65(&v2[v26], v66);
-  v27 = v4[28];
-  v59 = type metadata accessor for SessionService();
-  v64 = *(v59[-1].Description + 1);
-  v64(&v2[v27], v59);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v63 = *(v29[-1].Description + 1);
-  v63(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v62 = *(v31[-1].Description + 1);
-  v62(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v61 = *(v33[-1].Description + 1);
-  v61(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v60 = *(QueueService[-1].Description + 1);
-  v60(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v58 = *(v42[-1].Description + 1);
-  v58(&v2[v41], v42);
-  v43 = *(v107 + v114[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v107 + v114[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v108(&v47[v4[6]], v109);
-  v105(&v47[v4[7]], v106);
-  v103(&v47[v4[8]], v104);
-  v101(&v47[v4[9]], v102);
-  v99(&v47[v4[10]], v100);
-  v97(&v47[v4[11]], v98);
-  v95(&v47[v4[12]], v96);
-  v93(&v47[v4[13]], v94);
-  v91(&v47[v4[14]], v92);
-  v89(&v47[v4[15]], v90);
-  v87(&v47[v4[16]], v88);
-  v85(&v47[v4[17]], v86);
-  v83(&v47[v4[18]], v84);
-  v81(&v47[v4[19]], v82);
-  v79(&v47[v4[20]], v80);
-  v77(&v47[v4[21]], v78);
-  v75(&v47[v4[22]], v76);
-  v73(&v47[v4[23]], v74);
-  v71(&v47[v4[24]], v72);
-  v69(&v47[v4[25]], v70);
-  v67(&v47[v4[26]], v68);
-  v65(&v47[v4[27]], v66);
-  v64(&v47[v4[28]], v59);
-  v63(&v47[v4[29]], v29);
-  v62(&v47[v4[30]], v31);
-  v61(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v60(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v58(&v47[v4[36]], v42);
-  v54 = *(v107 + v114[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v107 + v114[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v107 + v114[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
-
-  v56 = *(v113 + ((v110 + v111 + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
 
   return swift_deallocObject();
 }
@@ -3766,20 +1818,10 @@ uint64_t sub_1E5E46F48()
   v5 = sub_1E65DC4B8();
   v6 = *(v5 - 8);
   v7 = (v4 + *(v6 + 80) + 80) & ~*(v6 + 80);
-  v8 = *(v6 + 64);
-  v9 = *(v0 + 16);
   swift_unknownObjectRelease();
   sub_1E5FED0B8(*(v0 + 32), *(v0 + 40), *(v0 + 48), *(v0 + 56), *(v0 + 64), *(v0 + 72));
   (*(v2 + 8))(v0 + v3, v1);
-  v10 = *(v0 + v4);
   swift_unknownObjectRelease();
-  v11 = *(v0 + v4 + 24);
-
-  v12 = *(v0 + v4 + 40);
-
-  v13 = *(v0 + v4 + 56);
-
-  v14 = *(v0 + v4 + 72);
 
   (*(v6 + 8))(v0 + v7, v5);
 
@@ -3788,7 +1830,7 @@ uint64_t sub_1E5E46F48()
 
 uint64_t sub_1E5E470E4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  *a2 = *(a1 + *(type metadata accessor for AppState() + 100) + 8);
+  *a2 = *(a1 + *(type metadata accessor for AppState(0) + 100) + 8);
 }
 
 uint64_t sub_1E5E47138()
@@ -3796,218 +1838,190 @@ uint64_t sub_1E5E47138()
   v1 = sub_1E65D76A8();
   v2 = *(v1 - 8);
   v3 = (*(v2 + 80) + 49) & ~*(v2 + 80);
-  v4 = (*(v2 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v5 = *(v0 + 24);
 
   (*(v2 + 8))(v0 + v3, v1);
-  v6 = *(v0 + v4);
-
-  v7 = *(v0 + ((v4 + 15) & 0xFFFFFFFFFFFFFFF8));
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E47228()
 {
-  v117 = type metadata accessor for AppComposer();
-  v115 = *(*(v117 - 1) + 80);
-  v112 = *(*(v117 - 1) + 64);
-  v114 = sub_1E65D76F8();
-  v110 = *(*(v114 - 8) + 80);
-  v111 = *(v114 - 8);
-  v109 = *(v111 + 64);
-  v116 = v0;
-  v113 = (v115 + 16) & ~v115;
-  v106 = v0 + v113;
-  v1 = *(v0 + v113);
+  v99 = type metadata accessor for AppComposer(0);
+  v97 = *(*(v99 - 1) + 80);
+  v94 = *(*(v99 - 1) + 64);
+  v96 = sub_1E65D76F8();
+  v92 = *(*(v96 - 8) + 80);
+  v93 = *(v96 - 8);
+  v98 = v0;
+  v95 = (v97 + 16) & ~v97;
+  v89 = v0 + v95;
 
-  v2 = (v0 + v113 + v117[5]);
-  v3 = *v2;
+  v1 = v0 + v95 + v99[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v108 = type metadata accessor for AccountService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v2[v5], v108);
-  v6 = v4[7];
-  v105 = type metadata accessor for AppStateService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v6], v105);
-  v7 = v4[8];
-  v103 = type metadata accessor for ArchivedSessionService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v7], v103);
-  v8 = v4[9];
-  v101 = type metadata accessor for AssetService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v8], v101);
-  v9 = v4[10];
-  v99 = type metadata accessor for AwardsService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v9], v99);
-  v10 = v4[11];
-  v97 = type metadata accessor for BookmarkService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v10], v97);
-  v11 = v4[12];
-  v95 = type metadata accessor for CatalogService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v11], v95);
-  v12 = v4[13];
-  v93 = type metadata accessor for ConfigurationService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v12], v93);
-  v13 = v4[14];
-  v91 = type metadata accessor for ContentAvailabilityService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v13], v91);
-  v14 = v4[15];
-  v89 = type metadata accessor for EngagementService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v14], v89);
-  v15 = v4[16];
-  v87 = type metadata accessor for HealthDataService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v15], v87);
-  v16 = v4[17];
-  v85 = type metadata accessor for InteropService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v16], v85);
-  v17 = v4[18];
-  v83 = type metadata accessor for LocalizationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v17], v83);
-  v18 = v4[19];
-  v81 = type metadata accessor for MarketingService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v18], v81);
-  v19 = v4[20];
-  v79 = type metadata accessor for MetricService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v19], v79);
-  v20 = v4[21];
-  v77 = type metadata accessor for PersonalizationService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v20], v77);
-  v21 = v4[22];
-  v75 = type metadata accessor for PlayerService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v21], v75);
-  v22 = v4[23];
-  v73 = type metadata accessor for PrivacyPreferenceService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v22], v73);
-  v23 = v4[24];
-  v71 = type metadata accessor for RecommendationService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v23], v71);
-  v24 = v4[25];
-  v69 = type metadata accessor for RemoteBrowsingService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v2[v24], v69);
-  v25 = v4[26];
-  v67 = type metadata accessor for SearchService();
-  v66 = *(v67[-1].Description + 1);
-  v66(&v2[v25], v67);
-  v26 = v4[27];
-  v65 = type metadata accessor for ServiceSubscriptionService();
-  v64 = *(v65[-1].Description + 1);
-  v64(&v2[v26], v65);
-  v27 = v4[28];
-  v58 = type metadata accessor for SessionService();
-  v63 = *(v58[-1].Description + 1);
-  v63(&v2[v27], v58);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v62 = *(v29[-1].Description + 1);
-  v62(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v61 = *(v31[-1].Description + 1);
-  v61(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v60 = *(v33[-1].Description + 1);
-  v60(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v59 = *(QueueService[-1].Description + 1);
-  v59(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v57 = *(v42[-1].Description + 1);
-  v57(&v2[v41], v42);
-  v43 = *(v106 + v117[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v106 + v117[7]);
-  v45 = *v44;
+  v36 = v89 + v99[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v107(&v47[v4[6]], v108);
-  v104(&v47[v4[7]], v105);
-  v102(&v47[v4[8]], v103);
-  v100(&v47[v4[9]], v101);
-  v98(&v47[v4[10]], v99);
-  v96(&v47[v4[11]], v97);
-  v94(&v47[v4[12]], v95);
-  v92(&v47[v4[13]], v93);
-  v90(&v47[v4[14]], v91);
-  v88(&v47[v4[15]], v89);
-  v86(&v47[v4[16]], v87);
-  v84(&v47[v4[17]], v85);
-  v82(&v47[v4[18]], v83);
-  v80(&v47[v4[19]], v81);
-  v78(&v47[v4[20]], v79);
-  v76(&v47[v4[21]], v77);
-  v74(&v47[v4[22]], v75);
-  v72(&v47[v4[23]], v73);
-  v70(&v47[v4[24]], v71);
-  v68(&v47[v4[25]], v69);
-  v66(&v47[v4[26]], v67);
-  v64(&v47[v4[27]], v65);
-  v63(&v47[v4[28]], v58);
-  v62(&v47[v4[29]], v29);
-  v61(&v47[v4[30]], v31);
-  v60(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v59(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v57(&v47[v4[36]], v42);
-  v54 = *(v106 + v117[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v106 + v117[9] + 8) >= 0xCuLL)
+  if (*(v89 + v99[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v106 + v117[10]);
-  if (v55[3])
+  v38 = (v89 + v99[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
-  (*(v111 + 8))(v116 + ((v113 + v112 + v110) & ~v110), v114);
+  (*(v93 + 8))(v98 + ((v95 + v94 + v92) & ~v92), v96);
 
   return swift_deallocObject();
 }
@@ -4020,230 +2034,202 @@ uint64_t sub_1E5E47F8C()
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED072810, &qword_1E65EBE08);
   v5 = *(v4 - 8);
   v6 = *(v5 + 80);
-  v7 = *(v5 + 64);
-  v8 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v9 = (v0 + v2);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 3)
   {
     if (EnumCaseMultiPayload <= 5)
     {
-      if (EnumCaseMultiPayload == 4)
-      {
-        goto LABEL_14;
-      }
-
-LABEL_8:
-      v11 = v9[1];
-
-      goto LABEL_17;
+      goto LABEL_7;
     }
 
     if (EnumCaseMultiPayload != 6)
     {
       if (EnumCaseMultiPayload != 7)
       {
-        goto LABEL_17;
+        goto LABEL_16;
       }
 
-LABEL_13:
-      v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED072618, qword_1E65FBAF0);
-      goto LABEL_16;
+LABEL_12:
+      v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED072618, qword_1E65FBAF0);
+      goto LABEL_15;
     }
 
-    type metadata accessor for ItemContext();
-    v24 = swift_getEnumCaseMultiPayload();
-    if (v24 > 4)
+    type metadata accessor for ItemContext(0);
+    v10 = swift_getEnumCaseMultiPayload();
+    if (v10 > 4)
     {
-      if (v24 <= 6)
+      if (v10 <= 6)
       {
-        if (v24 == 5)
+        if (v10 == 5)
         {
-          v12 = sub_1E65E0248();
+          v8 = sub_1E65E0248();
         }
 
         else
         {
-          v12 = sub_1E65E3498();
+          v8 = sub_1E65E3498();
         }
 
-        goto LABEL_16;
+        goto LABEL_15;
       }
 
-      switch(v24)
+      switch(v10)
       {
         case 7:
-          type metadata accessor for ProgramDetailItemContext();
+          type metadata accessor for ProgramDetailItemContext(0);
           if (swift_getEnumCaseMultiPayload() == 1)
           {
-            v12 = sub_1E65E3578();
+            v8 = sub_1E65E3578();
             break;
           }
 
-          goto LABEL_8;
+          goto LABEL_7;
         case 8:
-          type metadata accessor for SearchItemContext();
+          type metadata accessor for SearchItemContext(0);
           if (swift_getEnumCaseMultiPayload() == 1)
           {
-            v12 = sub_1E65DCCE8();
+            v8 = sub_1E65DCCE8();
           }
 
           else
           {
-            v12 = sub_1E65DCF98();
+            v8 = sub_1E65DCF98();
           }
 
           break;
         case 9:
-          v12 = sub_1E65E26E8();
+          v8 = sub_1E65E26E8();
           break;
         default:
-          goto LABEL_17;
+          goto LABEL_16;
       }
     }
 
     else
     {
-      if (v24 > 1)
+      if (v10 > 1)
       {
-        if (v24 != 2)
+        if (v10 != 2)
         {
-          if (v24 == 3)
+          if (v10 == 3)
           {
-            v12 = sub_1E65DC508();
-            goto LABEL_16;
+            v8 = sub_1E65DC508();
+            goto LABEL_15;
           }
 
-          type metadata accessor for LibraryItemContext();
+          type metadata accessor for LibraryItemContext(0);
           if (swift_getEnumCaseMultiPayload() == 1)
           {
-            v12 = sub_1E65DF3B8();
-            goto LABEL_16;
+            v8 = sub_1E65DF3B8();
+            goto LABEL_15;
           }
 
-          goto LABEL_8;
+LABEL_7:
+
+          goto LABEL_16;
         }
 
-LABEL_40:
-        v26 = *v9;
-        v27 = v9[1];
-        v28 = *(v9 + 16);
-        sub_1E5E483B8();
-        goto LABEL_17;
+LABEL_39:
+        sub_1E5E483B8(*(v0 + v2), *(v0 + v2 + 8));
+        goto LABEL_16;
       }
 
-      if (!v24)
+      if (!v10)
       {
-        goto LABEL_40;
+        goto LABEL_39;
       }
 
-      if (v24 != 1)
+      if (v10 != 1)
       {
-        goto LABEL_17;
+        goto LABEL_16;
       }
 
-      type metadata accessor for BrowseItemContext();
-      v25 = swift_getEnumCaseMultiPayload();
-      if (v25 > 3)
+      type metadata accessor for BrowseItemContext(0);
+      v11 = swift_getEnumCaseMultiPayload();
+      if (v11 > 3)
       {
-        switch(v25)
+        switch(v11)
         {
           case 4:
-            v12 = sub_1E65DFDA8();
+            v8 = sub_1E65DFDA8();
             break;
           case 5:
-            v12 = sub_1E65DFC88();
+            v8 = sub_1E65DFC88();
             break;
           case 6:
-            v12 = sub_1E65E0128();
+            v8 = sub_1E65E0128();
             break;
           default:
-            goto LABEL_17;
+            goto LABEL_16;
         }
       }
 
       else
       {
-        if (!v25)
+        if (!v11)
         {
-          v12 = sub_1E65DFF38();
+          v8 = sub_1E65DFF38();
+          goto LABEL_15;
+        }
+
+        if (v11 == 1)
+        {
+          goto LABEL_7;
+        }
+
+        if (v11 != 2)
+        {
           goto LABEL_16;
         }
 
-        if (v25 == 1)
-        {
-          goto LABEL_8;
-        }
-
-        if (v25 != 2)
-        {
-          goto LABEL_17;
-        }
-
-        v12 = sub_1E65DF978();
+        v8 = sub_1E65DF978();
       }
     }
 
-LABEL_16:
-    (*(*(v12 - 8) + 8))(v0 + v2, v12);
-    goto LABEL_17;
+LABEL_15:
+    (*(*(v8 - 8) + 8))(v0 + v2, v8);
+    goto LABEL_16;
   }
 
   if (EnumCaseMultiPayload > 1)
   {
     if (EnumCaseMultiPayload == 2)
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   if (!EnumCaseMultiPayload)
   {
-LABEL_14:
-    v13 = *v9;
-
-    goto LABEL_17;
+    goto LABEL_7;
   }
 
   if (EnumCaseMultiPayload == 1)
   {
-LABEL_15:
-    v12 = sub_1E65D7968();
-    goto LABEL_16;
+LABEL_14:
+    v8 = sub_1E65D7968();
+    goto LABEL_15;
   }
 
-LABEL_17:
-  v14 = (v2 + v3 + v6) & ~v6;
-  v15 = (v7 + v14 + 7) & 0xFFFFFFFFFFFFFFF8;
-  (*(v5 + 8))(v0 + v14, v4);
-  v16 = *(v0 + v15);
+LABEL_16:
+  (*(v5 + 8))(v0 + ((v2 + v3 + v6) & ~v6), v4);
 
-  v17 = (v0 + ((v15 + 15) & 0xFFFFFFFFFFFFFFF8));
-  v18 = *v17;
   swift_unknownObjectRelease();
-  v19 = v17[3];
-
-  v20 = v17[5];
-
-  v21 = v17[7];
-
-  v22 = v17[9];
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E483C0()
 {
-  v1 = type metadata accessor for RouteDestination();
+  v1 = type metadata accessor for RouteDestination(0);
   v2 = *(*(v1 - 8) + 80);
   v3 = (v2 + 56) & ~v2;
-  v4 = *(*(v1 - 8) + 64);
   __swift_destroy_boxed_opaque_existential_1((v0 + 16));
-  v5 = v0 + v3;
-  type metadata accessor for RouteResource();
+  v4 = v0 + v3;
+  type metadata accessor for RouteResource(0);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 0u:
@@ -4253,36 +2239,32 @@ uint64_t sub_1E5E483C0()
     case 0xDu:
     case 0xFu:
     case 0x10u:
-      goto LABEL_2;
+      goto LABEL_16;
     case 1u:
-      v46 = sub_1E65D76F8();
-      v47 = *(v46 - 8);
-      if (!(*(v47 + 48))(v0 + v3, 1, v46))
+      v38 = sub_1E65D76F8();
+      v39 = *(v38 - 8);
+      if (!(*(v39 + 48))(v0 + v3, 1, v38))
       {
-        (*(v47 + 8))(v0 + v3, v46);
+        (*(v39 + 8))(v0 + v3, v38);
       }
 
-      v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
-      v49 = *(v5 + v48[12] + 8);
+      v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
 
-      v50 = v48[16];
-      v51 = sub_1E65E2CF8();
-      v52 = *(v51 - 8);
-      if (!(*(v52 + 48))(v5 + v50, 1, v51))
+      v41 = *(v40 + 64);
+      v42 = sub_1E65E2CF8();
+      v43 = *(v42 - 8);
+      if (!(*(v43 + 48))(v4 + v41, 1, v42))
       {
-        (*(v52 + 8))(v5 + v50, v51);
+        (*(v43 + 8))(v4 + v41, v42);
       }
 
-      v53 = *(v5 + v48[20]);
-
-      v23 = v48[24];
-      v54 = sub_1E65E1FC8();
+      v18 = *(v40 + 96);
+      v44 = sub_1E65E1FC8();
       goto LABEL_46;
     case 3u:
-      v62 = *(v5 + 8);
 
-      v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
-      v30 = sub_1E65D72D8();
+      v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
+      v25 = sub_1E65D72D8();
       goto LABEL_44;
     case 4u:
       sub_1E65E0B48();
@@ -4293,15 +2275,14 @@ uint64_t sub_1E5E483C0()
         {
           if (EnumCaseMultiPayload == 1)
           {
-            v57 = sub_1E65E0FD8();
-            (*(*(v57 - 8) + 8))(v0 + v3, v57);
+            v46 = sub_1E65E0FD8();
+            (*(*(v46 - 8) + 8))(v0 + v3, v46);
           }
 
           goto LABEL_76;
         }
 
 LABEL_75:
-        v84 = *(v5 + 8);
 
         goto LABEL_76;
       }
@@ -4312,15 +2293,15 @@ LABEL_75:
       }
 
 LABEL_76:
-      v85 = *(v5 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280) + 48) + 8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280);
 
 LABEL_51:
-      v70 = v5 + *(v1 + 20);
+      v49 = v4 + *(v1 + 20);
       type metadata accessor for RouteSource(0);
-      v71 = swift_getEnumCaseMultiPayload();
-      if (v71 <= 1)
+      v50 = swift_getEnumCaseMultiPayload();
+      if (v50 <= 1)
       {
-        if (!v71)
+        if (!v50)
         {
           type metadata accessor for AppLaunchScope(0);
           if (swift_getEnumCaseMultiPayload() > 1)
@@ -4328,132 +2309,114 @@ LABEL_51:
             goto LABEL_67;
           }
 
-          v87 = v0 + v3;
-          v78 = sub_1E65D74E8();
-          v79 = *(v78 - 8);
-          v86 = *(v79 + 8);
-          v86(v70, v78);
-          v76 = type metadata accessor for URLContext(0);
-          v80 = *(v76 + 20);
-          if (!(*(v79 + 48))(v70 + v80, 1, v78))
+          v56 = sub_1E65D74E8();
+          v57 = *(v56 - 8);
+          v60 = *(v57 + 8);
+          v60(v49, v56);
+          v58 = *(type metadata accessor for URLContext(0) + 20);
+          if (!(*(v57 + 48))(v49 + v58, 1, v56))
           {
-            v86(v70 + v80, v78);
+            v60(v49 + v58, v56);
           }
 
           goto LABEL_66;
         }
 
-        if (v71 != 1)
+        if (v50 != 1)
         {
           goto LABEL_67;
         }
 
 LABEL_58:
-        v87 = v0 + v3;
-        v73 = sub_1E65D74E8();
-        v74 = *(v73 - 8);
-        v75 = *(v74 + 8);
-        v75(v70, v73);
-        v76 = type metadata accessor for URLContext(0);
-        v77 = *(v76 + 20);
-        if (!(*(v74 + 48))(v70 + v77, 1, v73))
+        v52 = sub_1E65D74E8();
+        v53 = *(v52 - 8);
+        v54 = *(v53 + 8);
+        v54(v49, v52);
+        v55 = *(type metadata accessor for URLContext(0) + 20);
+        if (!(*(v53 + 48))(v49 + v55, 1, v52))
         {
-          v75(v70 + v77, v73);
+          v54(v49 + v55, v52);
         }
 
 LABEL_66:
-        v81 = *(v70 + *(v76 + 24) + 8);
 
-        v5 = v87;
         goto LABEL_67;
       }
 
-      switch(v71)
+      switch(v50)
       {
         case 2:
           goto LABEL_58;
         case 3:
-          v72 = sub_1E65D74E8();
+          v51 = sub_1E65D74E8();
           break;
         case 4:
-          v72 = sub_1E65D8D48();
+          v51 = sub_1E65D8D48();
           break;
         default:
           goto LABEL_67;
       }
 
-      (*(*(v72 - 8) + 8))(v70, v72);
+      (*(*(v51 - 8) + 8))(v49, v51);
 LABEL_67:
-      v82 = *(v5 + *(v1 + 24));
 
       return swift_deallocObject();
     case 6u:
 
-      v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
-      v28 = *(v27 + 48);
-      v29 = sub_1E65DB848();
-      (*(*(v29 - 8) + 8))(v5 + v28, v29);
-      v10 = *(v27 + 64);
-      v30 = sub_1E65E1518();
+      v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
+      v23 = *(v22 + 48);
+      v24 = sub_1E65DB848();
+      (*(*(v24 - 8) + 8))(v4 + v23, v24);
+      v8 = *(v22 + 64);
+      v25 = sub_1E65E1518();
       goto LABEL_44;
     case 7u:
-      v38 = sub_1E65DB848();
-      (*(*(v38 - 8) + 8))(v0 + v3, v38);
-      v39 = &unk_1ED0720D0;
-      v40 = &unk_1E65EA290;
+      v33 = sub_1E65DB848();
+      (*(*(v33 - 8) + 8))(v0 + v3, v33);
+      v34 = &unk_1ED0720D0;
+      v35 = &unk_1E65EA290;
       goto LABEL_42;
     case 8u:
     case 9u:
 
-      v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
-      v8 = *(v7 + 48);
-      v9 = sub_1E65DB848();
-      (*(*(v9 - 8) + 8))(v5 + v8, v9);
-      v10 = *(v7 + 64);
+      v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
+      v6 = *(v5 + 48);
+      v7 = sub_1E65DB848();
+      (*(*(v7 - 8) + 8))(v4 + v6, v7);
+      v8 = *(v5 + 64);
       goto LABEL_43;
     case 0xCu:
-      v55 = *(v5 + 8);
 
-      sub_1E5F94E00(*(v5 + 16), *(v5 + 24));
+      sub_1E5F94E00(*(v4 + 16), *(v4 + 24));
       goto LABEL_51;
     case 0xEu:
-      v26 = sub_1E65DB718();
+      v21 = sub_1E65DB718();
       goto LABEL_50;
     case 0x11u:
-      v66 = *(v5 + 8);
 
-      v39 = &unk_1ED0720E0;
-      v40 = &unk_1E65EA2A0;
+      v34 = &unk_1ED0720E0;
+      v35 = &unk_1E65EA2A0;
 LABEL_42:
-      v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v39, v40) + 48);
+      v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v34, v35) + 48);
 LABEL_43:
-      v30 = sub_1E65D74E8();
+      v25 = sub_1E65D74E8();
       goto LABEL_44;
     case 0x12u:
-      v63 = *v5;
-      v64 = *(v5 + 8);
-      v65 = *(v5 + 16);
-      sub_1E5F94E14();
+      sub_1E5F94E14(*v4, *(v4 + 8), *(v4 + 16));
       goto LABEL_51;
     case 0x13u:
       goto LABEL_23;
     case 0x14u:
-      v41 = *(v5 + 8);
-
-      v42 = *(v5 + 24);
 
       goto LABEL_51;
     case 0x15u:
-      v67 = *(v5 + 8);
 
-      v68 = *(v5 + 24);
-
-      v23 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
-      v54 = sub_1E65D96F8();
+      v18 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
+      v44 = sub_1E65D96F8();
 LABEL_46:
-      v24 = v54;
-      v25 = *(v54 - 8);
-      if (!(*(v25 + 48))(v5 + v23, 1, v54))
+      v19 = v44;
+      v20 = *(v44 - 8);
+      if (!(*(v20 + 48))(v4 + v18, 1, v44))
       {
         goto LABEL_47;
       }
@@ -4461,130 +2424,115 @@ LABEL_46:
       goto LABEL_51;
     case 0x16u:
       __swift_destroy_boxed_opaque_existential_1((v0 + v3));
-      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
-      v12 = v11[12];
-      v13 = sub_1E65D74E8();
-      (*(*(v13 - 8) + 8))(v5 + v12, v13);
-      v14 = *(v5 + v11[16] + 8);
+      v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
+      v10 = v9[12];
+      v11 = sub_1E65D74E8();
+      (*(*(v11 - 8) + 8))(v4 + v10, v11);
 
-      v15 = v11[20];
-      v16 = sub_1E65DB3E8();
+      v12 = v9[20];
+      v13 = sub_1E65DB3E8();
+      v14 = *(v13 - 8);
+      if (!(*(v14 + 48))(v4 + v12, 1, v13))
+      {
+        (*(v14 + 8))(v4 + v12, v13);
+      }
+
+      v15 = v9[32];
+      v16 = sub_1E65DB5D8();
       v17 = *(v16 - 8);
-      if (!(*(v17 + 48))(v5 + v15, 1, v16))
+      if (!(*(v17 + 48))(v4 + v15, 1, v16))
       {
-        (*(v17 + 8))(v5 + v15, v16);
+        (*(v17 + 8))(v4 + v15, v16);
       }
 
-      v18 = *(v5 + v11[24] + 8);
-
-      v19 = *(v5 + v11[28] + 8);
-
-      v20 = v11[32];
-      v21 = sub_1E65DB5D8();
-      v22 = *(v21 - 8);
-      if (!(*(v22 + 48))(v5 + v20, 1, v21))
-      {
-        (*(v22 + 8))(v5 + v20, v21);
-      }
-
-      v23 = v11[36];
-      v24 = sub_1E65D7A38();
-      v25 = *(v24 - 8);
-      if (!(*(v25 + 48))(v5 + v23, 1, v24))
+      v18 = v9[36];
+      v19 = sub_1E65D7A38();
+      v20 = *(v19 - 8);
+      if (!(*(v20 + 48))(v4 + v18, 1, v19))
       {
 LABEL_47:
-        (*(v25 + 8))(v5 + v23, v24);
+        (*(v20 + 8))(v4 + v18, v19);
       }
 
       goto LABEL_51;
     case 0x17u:
-      v34 = sub_1E65E57D8();
-      (*(*(v34 - 8) + 8))(v0 + v3, v34);
-      v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
-      v36 = *(v35 + 48);
-      v37 = sub_1E65E5528();
-      (*(*(v37 - 8) + 8))(v5 + v36, v37);
-      if (*(v5 + *(v35 + 64) + 8) >= 0xCuLL)
+      v29 = sub_1E65E57D8();
+      (*(*(v29 - 8) + 8))(v0 + v3, v29);
+      v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
+      v31 = *(v30 + 48);
+      v32 = sub_1E65E5528();
+      (*(*(v32 - 8) + 8))(v4 + v31, v32);
+      if (*(v4 + *(v30 + 64) + 8) >= 0xCuLL)
       {
+        goto LABEL_16;
       }
 
       goto LABEL_51;
     case 0x18u:
 
-      v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
-      v30 = sub_1E65DB848();
+      v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
+      v25 = sub_1E65DB848();
       goto LABEL_44;
     case 0x1Au:
       sub_1E65E52B8();
-      v45 = swift_getEnumCaseMultiPayload();
-      if (v45 == 1)
+      v37 = swift_getEnumCaseMultiPayload();
+      if (v37 == 1)
       {
-
-        goto LABEL_51;
       }
 
-      if (v45)
+      else if (!v37)
       {
-        goto LABEL_51;
-      }
-
 LABEL_23:
-      v26 = sub_1E65D74E8();
-      goto LABEL_50;
-    case 0x1Bu:
-      type metadata accessor for PlaylistType();
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v26 = sub_1E65DAEB8();
+        v21 = sub_1E65D74E8();
 LABEL_50:
-        (*(*(v26 - 8) + 8))(v0 + v3, v26);
-      }
-
-      else
-      {
-LABEL_2:
-        v6 = *(v5 + 8);
+        (*(*(v21 - 8) + 8))(v0 + v3, v21);
       }
 
       goto LABEL_51;
+    case 0x1Bu:
+      type metadata accessor for PlaylistType(0);
+      if (swift_getEnumCaseMultiPayload() != 1)
+      {
+        goto LABEL_16;
+      }
+
+      v21 = sub_1E65DAEB8();
+      goto LABEL_50;
     case 0x1Cu:
-      v26 = sub_1E65D76F8();
+      v21 = sub_1E65D76F8();
       goto LABEL_50;
     case 0x1Du:
-      v69 = sub_1E65E55E8();
-      (*(*(v69 - 8) + 8))(v0 + v3, v69);
-      v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
-      v30 = sub_1E65D7EB8();
+      v48 = sub_1E65E55E8();
+      (*(*(v48 - 8) + 8))(v0 + v3, v48);
+      v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
+      v25 = sub_1E65D7EB8();
 LABEL_44:
-      (*(*(v30 - 8) + 8))(v5 + v10, v30);
+      (*(*(v25 - 8) + 8))(v4 + v8, v25);
       goto LABEL_51;
     case 0x1Eu:
-      v31 = sub_1E65E56B8();
-      (*(*(v31 - 8) + 8))(v0 + v3, v31);
-      v32 = &unk_1ED072110;
-      v33 = &unk_1E65EA2D0;
+      v26 = sub_1E65E56B8();
+      (*(*(v26 - 8) + 8))(v0 + v3, v26);
+      v27 = &unk_1ED072110;
+      v28 = &unk_1E65EA2D0;
       goto LABEL_37;
     case 0x1Fu:
-      v43 = sub_1E65DA308();
-      (*(*(v43 - 8) + 8))(v0 + v3, v43);
-      v44 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810) + 48);
-      goto LABEL_38;
+      v36 = sub_1E65DA308();
+      (*(*(v36 - 8) + 8))(v0 + v3, v36);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810);
+      goto LABEL_16;
     case 0x20u:
-      v58 = sub_1E65E58D8();
-      (*(*(v58 - 8) + 8))(v0 + v3, v58);
-      v32 = &qword_1ED072120;
-      v33 = &qword_1E65EA2E0;
+      v47 = sub_1E65E58D8();
+      (*(*(v47 - 8) + 8))(v0 + v3, v47);
+      v27 = &qword_1ED072120;
+      v28 = &qword_1E65EA2E0;
 LABEL_37:
-      v59 = __swift_instantiateConcreteTypeFromMangledNameV2(v32, v33);
-      v60 = *(v5 + *(v59 + 48));
+      __swift_instantiateConcreteTypeFromMangledNameV2(v27, v28);
 
-      v44 = *(v59 + 64);
-LABEL_38:
-      v61 = *(v5 + v44);
+LABEL_16:
 
       goto LABEL_51;
     case 0x21u:
-      v26 = sub_1E65D9048();
+      v21 = sub_1E65D9048();
       goto LABEL_50;
     default:
       goto LABEL_51;
@@ -4600,412 +2548,354 @@ uint64_t sub_1E5E491C4()
 
 uint64_t sub_1E5E491FC()
 {
-  v122 = type metadata accessor for AppComposer();
-  v120 = *(*(v122 - 1) + 80);
-  v118 = *(*(v122 - 1) + 64);
-  v119 = (v120 + 16) & ~v120;
-  v121 = v0;
-  v115 = v0 + v119;
-  v1 = *(v0 + v119);
+  v96 = type metadata accessor for AppComposer(0);
+  v94 = *(*(v96 - 1) + 80);
+  v92 = *(*(v96 - 1) + 64);
+  v93 = (v94 + 16) & ~v94;
+  v95 = v0;
+  v89 = v0 + v93;
 
-  v2 = (v0 + v119 + v122[5]);
-  v3 = *v2;
+  v1 = v0 + v93 + v96[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v117 = type metadata accessor for AccountService();
-  v116 = *(v117[-1].Description + 1);
-  v116(&v2[v5], v117);
-  v6 = v4[7];
-  v114 = type metadata accessor for AppStateService();
-  v113 = *(v114[-1].Description + 1);
-  v113(&v2[v6], v114);
-  v7 = v4[8];
-  v112 = type metadata accessor for ArchivedSessionService();
-  v111 = *(v112[-1].Description + 1);
-  v111(&v2[v7], v112);
-  v8 = v4[9];
-  v110 = type metadata accessor for AssetService();
-  v109 = *(v110[-1].Description + 1);
-  v109(&v2[v8], v110);
-  v9 = v4[10];
-  v108 = type metadata accessor for AwardsService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v2[v9], v108);
-  v10 = v4[11];
-  v106 = type metadata accessor for BookmarkService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v2[v10], v106);
-  v11 = v4[12];
-  v104 = type metadata accessor for CatalogService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v2[v11], v104);
-  v12 = v4[13];
-  v102 = type metadata accessor for ConfigurationService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v2[v12], v102);
-  v13 = v4[14];
-  v100 = type metadata accessor for ContentAvailabilityService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v2[v13], v100);
-  v14 = v4[15];
-  v98 = type metadata accessor for EngagementService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v2[v14], v98);
-  v15 = v4[16];
-  v96 = type metadata accessor for HealthDataService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v2[v15], v96);
-  v16 = v4[17];
-  v94 = type metadata accessor for InteropService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v2[v16], v94);
-  v17 = v4[18];
-  v92 = type metadata accessor for LocalizationService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v2[v17], v92);
-  v18 = v4[19];
-  v90 = type metadata accessor for MarketingService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v2[v18], v90);
-  v19 = v4[20];
-  v88 = type metadata accessor for MetricService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v2[v19], v88);
-  v20 = v4[21];
-  v86 = type metadata accessor for PersonalizationService();
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v2[v20], v86);
-  v21 = v4[22];
-  v84 = type metadata accessor for PlayerService();
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v2[v21], v84);
-  v22 = v4[23];
-  v82 = type metadata accessor for PrivacyPreferenceService();
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v2[v22], v82);
-  v23 = v4[24];
-  v80 = type metadata accessor for RecommendationService();
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v2[v23], v80);
-  v24 = v4[25];
-  v78 = type metadata accessor for RemoteBrowsingService();
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v2[v24], v78);
-  v25 = v4[26];
-  v76 = type metadata accessor for SearchService();
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v2[v25], v76);
-  v26 = v4[27];
-  v74 = type metadata accessor for ServiceSubscriptionService();
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
   v73 = *(v74[-1].Description + 1);
-  v73(&v2[v26], v74);
-  v27 = v4[28];
-  v67 = type metadata accessor for SessionService();
-  v72 = *(v67[-1].Description + 1);
-  v72(&v2[v27], v67);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v71 = *(v29[-1].Description + 1);
-  v71(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v70 = *(v31[-1].Description + 1);
-  v70(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v69 = *(v33[-1].Description + 1);
-  v69(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v68 = *(QueueService[-1].Description + 1);
-  v68(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v66 = *(v42[-1].Description + 1);
-  v66(&v2[v41], v42);
-  v43 = *(v115 + v122[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v115 + v122[7]);
-  v45 = *v44;
+  v36 = v89 + v96[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v116(&v47[v4[6]], v117);
-  v113(&v47[v4[7]], v114);
-  v111(&v47[v4[8]], v112);
-  v109(&v47[v4[9]], v110);
-  v107(&v47[v4[10]], v108);
-  v105(&v47[v4[11]], v106);
-  v103(&v47[v4[12]], v104);
-  v101(&v47[v4[13]], v102);
-  v99(&v47[v4[14]], v100);
-  v97(&v47[v4[15]], v98);
-  v95(&v47[v4[16]], v96);
-  v93(&v47[v4[17]], v94);
-  v91(&v47[v4[18]], v92);
-  v89(&v47[v4[19]], v90);
-  v87(&v47[v4[20]], v88);
-  v85(&v47[v4[21]], v86);
-  v83(&v47[v4[22]], v84);
-  v81(&v47[v4[23]], v82);
-  v79(&v47[v4[24]], v80);
-  v77(&v47[v4[25]], v78);
-  v75(&v47[v4[26]], v76);
-  v73(&v47[v4[27]], v74);
-  v72(&v47[v4[28]], v67);
-  v71(&v47[v4[29]], v29);
-  v70(&v47[v4[30]], v31);
-  v69(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v68(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v66(&v47[v4[36]], v42);
-  v54 = *(v115 + v122[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v115 + v122[9] + 8) >= 0xCuLL)
+  if (*(v89 + v96[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v115 + v122[10]);
-  if (v55[3])
+  v38 = (v89 + v96[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
-  v56 = (v119 + v118) & 0xFFFFFFFFFFFFFFF8;
-  v57 = (v56 + 103) & 0xFFFFFFFFFFFFFFF8;
-  v58 = (v121 + v56);
-  v59 = *(v121 + v56 + 8);
-
-  v60 = v58[2];
   swift_unknownObjectRelease();
-  v61 = v58[5];
 
-  v62 = v58[7];
-
-  v63 = v58[9];
-
-  v64 = v58[11];
-
-  __swift_destroy_boxed_opaque_existential_1((v121 + v57));
+  __swift_destroy_boxed_opaque_existential_1((v95 + ((((v93 + v92) & 0xFFFFFFFFFFFFFFF8) + 103) & 0xFFFFFFFFFFFFFFF8)));
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E49F14()
 {
-  v111 = type metadata accessor for AppComposer();
-  v110 = *(*(v111 - 1) + 80);
-  v109 = *(*(v111 - 1) + 64);
-  v106 = (v0 + ((v110 + 16) & ~v110));
-  v1 = *v106;
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = v106 + v111[5];
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v108 = type metadata accessor for AccountService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v2[v5], v108);
-  v6 = v4[7];
-  v105 = type metadata accessor for AppStateService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v6], v105);
-  v7 = v4[8];
-  v103 = type metadata accessor for ArchivedSessionService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v7], v103);
-  v8 = v4[9];
-  v101 = type metadata accessor for AssetService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v8], v101);
-  v9 = v4[10];
-  v99 = type metadata accessor for AwardsService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v9], v99);
-  v10 = v4[11];
-  v97 = type metadata accessor for BookmarkService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v10], v97);
-  v11 = v4[12];
-  v95 = type metadata accessor for CatalogService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v11], v95);
-  v12 = v4[13];
-  v93 = type metadata accessor for ConfigurationService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v12], v93);
-  v13 = v4[14];
-  v91 = type metadata accessor for ContentAvailabilityService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v13], v91);
-  v14 = v4[15];
-  v89 = type metadata accessor for EngagementService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v14], v89);
-  v15 = v4[16];
-  v87 = type metadata accessor for HealthDataService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v15], v87);
-  v16 = v4[17];
-  v85 = type metadata accessor for InteropService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v16], v85);
-  v17 = v4[18];
-  v83 = type metadata accessor for LocalizationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v17], v83);
-  v18 = v4[19];
-  v81 = type metadata accessor for MarketingService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v18], v81);
-  v19 = v4[20];
-  v79 = type metadata accessor for MetricService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v19], v79);
-  v20 = v4[21];
-  v77 = type metadata accessor for PersonalizationService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v20], v77);
-  v21 = v4[22];
-  v75 = type metadata accessor for PlayerService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v21], v75);
-  v22 = v4[23];
-  v73 = type metadata accessor for PrivacyPreferenceService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v22], v73);
-  v23 = v4[24];
-  v71 = type metadata accessor for RecommendationService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v23], v71);
-  v24 = v4[25];
-  v69 = type metadata accessor for RemoteBrowsingService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v2[v24], v69);
-  v25 = v4[26];
-  v67 = type metadata accessor for SearchService();
-  v66 = *(v67[-1].Description + 1);
-  v66(&v2[v25], v67);
-  v26 = v4[27];
-  v65 = type metadata accessor for ServiceSubscriptionService();
-  v64 = *(v65[-1].Description + 1);
-  v64(&v2[v26], v65);
-  v27 = v4[28];
-  v58 = type metadata accessor for SessionService();
-  v63 = *(v58[-1].Description + 1);
-  v63(&v2[v27], v58);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v62 = *(v29[-1].Description + 1);
-  v62(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v61 = *(v31[-1].Description + 1);
-  v61(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v60 = *(v33[-1].Description + 1);
-  v60(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v59 = *(QueueService[-1].Description + 1);
-  v59(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v57 = *(v42[-1].Description + 1);
-  v57(&v2[v41], v42);
-  v43 = *(v106 + v111[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v106 + v111[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v107(&v47[v4[6]], v108);
-  v104(&v47[v4[7]], v105);
-  v102(&v47[v4[8]], v103);
-  v100(&v47[v4[9]], v101);
-  v98(&v47[v4[10]], v99);
-  v96(&v47[v4[11]], v97);
-  v94(&v47[v4[12]], v95);
-  v92(&v47[v4[13]], v93);
-  v90(&v47[v4[14]], v91);
-  v88(&v47[v4[15]], v89);
-  v86(&v47[v4[16]], v87);
-  v84(&v47[v4[17]], v85);
-  v82(&v47[v4[18]], v83);
-  v80(&v47[v4[19]], v81);
-  v78(&v47[v4[20]], v79);
-  v76(&v47[v4[21]], v77);
-  v74(&v47[v4[22]], v75);
-  v72(&v47[v4[23]], v73);
-  v70(&v47[v4[24]], v71);
-  v68(&v47[v4[25]], v69);
-  v66(&v47[v4[26]], v67);
-  v64(&v47[v4[27]], v65);
-  v63(&v47[v4[28]], v58);
-  v62(&v47[v4[29]], v29);
-  v61(&v47[v4[30]], v31);
-  v60(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v59(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v57(&v47[v4[36]], v42);
-  v54 = *(v106 + v111[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v106 + v111[9] + 8) >= 0xC)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v106 + v111[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
   return swift_deallocObject();
@@ -5020,871 +2910,755 @@ uint64_t sub_1E5E4ABD8(uint64_t a1)
 
 uint64_t sub_1E5E4AC44()
 {
-  v119 = type metadata accessor for AppComposer();
-  v117 = *(*(v119 - 1) + 80);
-  v115 = *(*(v119 - 1) + 64);
-  v116 = (v117 + 16) & ~v117;
-  v118 = v0;
-  v112 = v0 + v116;
-  v1 = *(v0 + v116);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = (v0 + v116 + v119[5]);
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v114 = type metadata accessor for AccountService();
-  v113 = *(v114[-1].Description + 1);
-  v113(&v2[v5], v114);
-  v6 = v4[7];
-  v111 = type metadata accessor for AppStateService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v2[v6], v111);
-  v7 = v4[8];
-  v109 = type metadata accessor for ArchivedSessionService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v2[v7], v109);
-  v8 = v4[9];
-  v107 = type metadata accessor for AssetService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v2[v8], v107);
-  v9 = v4[10];
-  v105 = type metadata accessor for AwardsService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v9], v105);
-  v10 = v4[11];
-  v103 = type metadata accessor for BookmarkService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v10], v103);
-  v11 = v4[12];
-  v101 = type metadata accessor for CatalogService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v11], v101);
-  v12 = v4[13];
-  v99 = type metadata accessor for ConfigurationService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v12], v99);
-  v13 = v4[14];
-  v97 = type metadata accessor for ContentAvailabilityService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v13], v97);
-  v14 = v4[15];
-  v95 = type metadata accessor for EngagementService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v14], v95);
-  v15 = v4[16];
-  v93 = type metadata accessor for HealthDataService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v15], v93);
-  v16 = v4[17];
-  v91 = type metadata accessor for InteropService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v16], v91);
-  v17 = v4[18];
-  v89 = type metadata accessor for LocalizationService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v17], v89);
-  v18 = v4[19];
-  v87 = type metadata accessor for MarketingService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v18], v87);
-  v19 = v4[20];
-  v85 = type metadata accessor for MetricService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v19], v85);
-  v20 = v4[21];
-  v83 = type metadata accessor for PersonalizationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v20], v83);
-  v21 = v4[22];
-  v81 = type metadata accessor for PlayerService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v21], v81);
-  v22 = v4[23];
-  v79 = type metadata accessor for PrivacyPreferenceService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v22], v79);
-  v23 = v4[24];
-  v77 = type metadata accessor for RecommendationService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v23], v77);
-  v24 = v4[25];
-  v75 = type metadata accessor for RemoteBrowsingService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v24], v75);
-  v25 = v4[26];
-  v73 = type metadata accessor for SearchService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v25], v73);
-  v26 = v4[27];
-  v71 = type metadata accessor for ServiceSubscriptionService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v26], v71);
-  v27 = v4[28];
-  v64 = type metadata accessor for SessionService();
-  v69 = *(v64[-1].Description + 1);
-  v69(&v2[v27], v64);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v68 = *(v29[-1].Description + 1);
-  v68(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v67 = *(v31[-1].Description + 1);
-  v67(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v66 = *(v33[-1].Description + 1);
-  v66(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v65 = *(QueueService[-1].Description + 1);
-  v65(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v63 = *(v42[-1].Description + 1);
-  v63(&v2[v41], v42);
-  v43 = *(v112 + v119[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v112 + v119[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v113(&v47[v4[6]], v114);
-  v110(&v47[v4[7]], v111);
-  v108(&v47[v4[8]], v109);
-  v106(&v47[v4[9]], v107);
-  v104(&v47[v4[10]], v105);
-  v102(&v47[v4[11]], v103);
-  v100(&v47[v4[12]], v101);
-  v98(&v47[v4[13]], v99);
-  v96(&v47[v4[14]], v97);
-  v94(&v47[v4[15]], v95);
-  v92(&v47[v4[16]], v93);
-  v90(&v47[v4[17]], v91);
-  v88(&v47[v4[18]], v89);
-  v86(&v47[v4[19]], v87);
-  v84(&v47[v4[20]], v85);
-  v82(&v47[v4[21]], v83);
-  v80(&v47[v4[22]], v81);
-  v78(&v47[v4[23]], v79);
-  v76(&v47[v4[24]], v77);
-  v74(&v47[v4[25]], v75);
-  v72(&v47[v4[26]], v73);
-  v70(&v47[v4[27]], v71);
-  v69(&v47[v4[28]], v64);
-  v68(&v47[v4[29]], v29);
-  v67(&v47[v4[30]], v31);
-  v66(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v65(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v63(&v47[v4[36]], v42);
-  v54 = *(v112 + v119[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v112 + v119[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v112 + v119[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
-  v56 = (v118 + ((v115 + v116 + 7) & 0xFFFFFFFFFFFFFFF8));
-  v57 = *v56;
   swift_unknownObjectRelease();
-  v58 = v56[3];
-
-  v59 = v56[5];
-
-  v60 = v56[7];
-
-  v61 = v56[9];
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E4B94C()
 {
-  v115 = type metadata accessor for AppComposer();
-  v113 = *(*(v115 - 1) + 80);
-  v111 = *(*(v115 - 1) + 64);
-  v1 = *(v0 + 24);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
 
-  v114 = v0;
-  v112 = (v113 + 32) & ~v113;
-  v108 = v0 + v112;
-  v2 = *(v0 + v112);
+  v89 = v0 + ((v92 + 32) & ~v92);
 
-  v3 = (v0 + v112 + v115[5]);
-  v4 = *v3;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v5 = type metadata accessor for AppEnvironment();
-  v6 = v5[6];
-  v110 = type metadata accessor for AccountService();
-  v109 = *(v110[-1].Description + 1);
-  v109(&v3[v6], v110);
-  v7 = v5[7];
-  v107 = type metadata accessor for AppStateService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v3[v7], v107);
-  v8 = v5[8];
-  v105 = type metadata accessor for ArchivedSessionService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v3[v8], v105);
-  v9 = v5[9];
-  v103 = type metadata accessor for AssetService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v3[v9], v103);
-  v10 = v5[10];
-  v101 = type metadata accessor for AwardsService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v3[v10], v101);
-  v11 = v5[11];
-  v99 = type metadata accessor for BookmarkService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v3[v11], v99);
-  v12 = v5[12];
-  v97 = type metadata accessor for CatalogService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v3[v12], v97);
-  v13 = v5[13];
-  v95 = type metadata accessor for ConfigurationService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v3[v13], v95);
-  v14 = v5[14];
-  v93 = type metadata accessor for ContentAvailabilityService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v3[v14], v93);
-  v15 = v5[15];
-  v91 = type metadata accessor for EngagementService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v3[v15], v91);
-  v16 = v5[16];
-  v89 = type metadata accessor for HealthDataService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v3[v16], v89);
-  v17 = v5[17];
-  v87 = type metadata accessor for InteropService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v3[v17], v87);
-  v18 = v5[18];
-  v85 = type metadata accessor for LocalizationService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v3[v18], v85);
-  v19 = v5[19];
-  v83 = type metadata accessor for MarketingService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v3[v19], v83);
-  v20 = v5[20];
-  v81 = type metadata accessor for MetricService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v3[v20], v81);
-  v21 = v5[21];
-  v79 = type metadata accessor for PersonalizationService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v3[v21], v79);
-  v22 = v5[22];
-  v77 = type metadata accessor for PlayerService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v3[v22], v77);
-  v23 = v5[23];
-  v75 = type metadata accessor for PrivacyPreferenceService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v3[v23], v75);
-  v24 = v5[24];
-  v73 = type metadata accessor for RecommendationService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v3[v24], v73);
-  v25 = v5[25];
-  v71 = type metadata accessor for RemoteBrowsingService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v3[v25], v71);
-  v26 = v5[26];
-  v69 = type metadata accessor for SearchService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v3[v26], v69);
-  v27 = v5[27];
-  v67 = type metadata accessor for ServiceSubscriptionService();
-  v66 = *(v67[-1].Description + 1);
-  v66(&v3[v27], v67);
-  v28 = v5[28];
-  v60 = type metadata accessor for SessionService();
-  v65 = *(v60[-1].Description + 1);
-  v65(&v3[v28], v60);
-  v29 = v5[29];
-  v30 = type metadata accessor for SharePlayService();
-  v64 = *(v30[-1].Description + 1);
-  v64(&v3[v29], v30);
-  v31 = v5[30];
-  v32 = type metadata accessor for SiriService();
-  v63 = *(v32[-1].Description + 1);
-  v63(&v3[v31], v32);
-  v33 = v5[31];
-  v34 = type metadata accessor for SyncService();
-  v62 = *(v34[-1].Description + 1);
-  v62(&v3[v33], v34);
-  v35 = &v3[v5[32]];
-  v36 = *(v35 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v37 = *(v35 + 3);
-
-  v38 = *(v35 + 5);
-
-  v39 = v5[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v61 = *(QueueService[-1].Description + 1);
-  v61(&v3[v39], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v3[v5[34]]);
-  v41 = *&v3[v5[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v42 = v5[36];
-  v43 = type metadata accessor for WorkoutPlanService();
-  v59 = *(v43[-1].Description + 1);
-  v59(&v3[v42], v43);
-  v44 = *(v108 + v115[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v45 = (v108 + v115[7]);
-  v46 = *v45;
+  v36 = v89 + v93[7];
 
-  v47 = v45[1];
-
-  v48 = v45 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v49 = *v48;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v109(&v48[v5[6]], v110);
-  v106(&v48[v5[7]], v107);
-  v104(&v48[v5[8]], v105);
-  v102(&v48[v5[9]], v103);
-  v100(&v48[v5[10]], v101);
-  v98(&v48[v5[11]], v99);
-  v96(&v48[v5[12]], v97);
-  v94(&v48[v5[13]], v95);
-  v92(&v48[v5[14]], v93);
-  v90(&v48[v5[15]], v91);
-  v88(&v48[v5[16]], v89);
-  v86(&v48[v5[17]], v87);
-  v84(&v48[v5[18]], v85);
-  v82(&v48[v5[19]], v83);
-  v80(&v48[v5[20]], v81);
-  v78(&v48[v5[21]], v79);
-  v76(&v48[v5[22]], v77);
-  v74(&v48[v5[23]], v75);
-  v72(&v48[v5[24]], v73);
-  v70(&v48[v5[25]], v71);
-  v68(&v48[v5[26]], v69);
-  v66(&v48[v5[27]], v67);
-  v65(&v48[v5[28]], v60);
-  v64(&v48[v5[29]], v30);
-  v63(&v48[v5[30]], v32);
-  v62(&v48[v5[31]], v34);
-  v50 = &v48[v5[32]];
-  v51 = *(v50 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v52 = *(v50 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v53 = *(v50 + 5);
-
-  v61(&v48[v5[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v48[v5[34]]);
-  v54 = *&v48[v5[35]];
-
-  v59(&v48[v5[36]], v43);
-  v55 = *(v108 + v115[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v108 + v115[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v56 = (v108 + v115[10]);
-  if (v56[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v56);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
-
-  v57 = *(v114 + ((v111 + v112 + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E4C63C()
 {
-  v1 = *(v0 + 24);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E4C674()
 {
-  v1 = *(v0 + 24);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E4C6BC()
 {
-  v1 = type metadata accessor for NavigationControllerRoutingContext();
-  v122 = *(*(v1 - 8) + 80);
-  v118 = *(*(v1 - 8) + 64);
-  v119 = (v122 + 16) & ~v122;
-  v123 = v0;
-  v2 = (v0 + v119);
+  v1 = type metadata accessor for NavigationControllerRoutingContext(0);
+  v100 = *(*(v1 - 8) + 80);
+  v96 = *(*(v1 - 8) + 64);
+  v97 = (v100 + 16) & ~v100;
+  v101 = v0;
+  v2 = (v0 + v97);
 
-  v120 = v2;
-  v121 = v1;
-  v3 = (v2 + *(v1 + 20));
-  v4 = *v3;
-  v5 = v3;
-  v115 = v3;
+  v98 = v2;
+  v99 = v1;
+  v93 = v2 + *(v1 + 20);
 
-  v124 = type metadata accessor for AppComposer();
-  v6 = v5 + v124[5];
-  v7 = *v6;
+  v102 = type metadata accessor for AppComposer(0);
+  v3 = &v93[v102[5]];
   swift_unknownObjectRelease();
-  v8 = type metadata accessor for AppEnvironment();
-  v9 = v8[6];
-  v117 = type metadata accessor for AccountService();
-  v116 = *(v117[-1].Description + 1);
-  v116(&v6[v9], v117);
-  v10 = v8[7];
-  v114 = type metadata accessor for AppStateService();
-  v113 = *(v114[-1].Description + 1);
-  v113(&v6[v10], v114);
-  v11 = v8[8];
-  v112 = type metadata accessor for ArchivedSessionService();
-  v111 = *(v112[-1].Description + 1);
-  v111(&v6[v11], v112);
-  v12 = v8[9];
-  v110 = type metadata accessor for AssetService();
-  v109 = *(v110[-1].Description + 1);
-  v109(&v6[v12], v110);
-  v13 = v8[10];
-  v108 = type metadata accessor for AwardsService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v6[v13], v108);
-  v14 = v8[11];
-  v106 = type metadata accessor for BookmarkService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v6[v14], v106);
-  v15 = v8[12];
-  v104 = type metadata accessor for CatalogService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v6[v15], v104);
-  v16 = v8[13];
-  v102 = type metadata accessor for ConfigurationService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v6[v16], v102);
-  v17 = v8[14];
-  v100 = type metadata accessor for ContentAvailabilityService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v6[v17], v100);
-  v18 = v8[15];
-  v98 = type metadata accessor for EngagementService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v6[v18], v98);
-  v19 = v8[16];
-  v96 = type metadata accessor for HealthDataService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v6[v19], v96);
-  v20 = v8[17];
-  v94 = type metadata accessor for InteropService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v6[v20], v94);
-  v21 = v8[18];
-  v92 = type metadata accessor for LocalizationService();
+  v4 = type metadata accessor for AppEnvironment(0);
+  v5 = v4[6];
+  v95 = type metadata accessor for AccountService();
+  v94 = *(v95[-1].Description + 1);
+  v94(&v3[v5], v95);
+  v6 = v4[7];
+  v92 = type metadata accessor for AppStateService();
   v91 = *(v92[-1].Description + 1);
-  v91(&v6[v21], v92);
-  v22 = v8[19];
-  v90 = type metadata accessor for MarketingService();
+  v91(&v3[v6], v92);
+  v7 = v4[8];
+  v90 = type metadata accessor for ArchivedSessionService();
   v89 = *(v90[-1].Description + 1);
-  v89(&v6[v22], v90);
-  v23 = v8[20];
-  v88 = type metadata accessor for MetricService();
+  v89(&v3[v7], v90);
+  v8 = v4[9];
+  v88 = type metadata accessor for AssetService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v6[v23], v88);
-  v24 = v8[21];
-  v86 = type metadata accessor for PersonalizationService();
+  v87(&v3[v8], v88);
+  v9 = v4[10];
+  v86 = type metadata accessor for AwardsService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v6[v24], v86);
-  v25 = v8[22];
-  v84 = type metadata accessor for PlayerService();
+  v85(&v3[v9], v86);
+  v10 = v4[11];
+  v84 = type metadata accessor for BookmarkService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v6[v25], v84);
-  v26 = v8[23];
-  v82 = type metadata accessor for PrivacyPreferenceService();
+  v83(&v3[v10], v84);
+  v11 = v4[12];
+  v82 = type metadata accessor for CatalogService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v6[v26], v82);
-  v27 = v8[24];
-  v80 = type metadata accessor for RecommendationService();
+  v81(&v3[v11], v82);
+  v12 = v4[13];
+  v80 = type metadata accessor for ConfigurationService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v6[v27], v80);
-  v28 = v8[25];
-  v78 = type metadata accessor for RemoteBrowsingService();
+  v79(&v3[v12], v80);
+  v13 = v4[14];
+  v78 = type metadata accessor for ContentAvailabilityService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v6[v28], v78);
-  v29 = v8[26];
-  v76 = type metadata accessor for SearchService();
+  v77(&v3[v13], v78);
+  v14 = v4[15];
+  v76 = type metadata accessor for EngagementService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v6[v29], v76);
-  v30 = v8[27];
-  v69 = type metadata accessor for ServiceSubscriptionService();
-  v74 = *(v69[-1].Description + 1);
-  v74(&v6[v30], v69);
-  v31 = v8[28];
-  v67 = type metadata accessor for SessionService();
-  v73 = *(v67[-1].Description + 1);
-  v73(&v6[v31], v67);
-  v32 = v8[29];
-  v33 = type metadata accessor for SharePlayService();
-  v72 = *(v33[-1].Description + 1);
-  v72(&v6[v32], v33);
-  v34 = v8[30];
-  v35 = type metadata accessor for SiriService();
-  v71 = *(v35[-1].Description + 1);
-  v71(&v6[v34], v35);
-  v36 = v8[31];
-  v37 = type metadata accessor for SyncService();
-  v70 = *(v37[-1].Description + 1);
-  v70(&v6[v36], v37);
-  v38 = &v6[v8[32]];
-  v39 = *(v38 + 1);
+  v75(&v3[v14], v76);
+  v15 = v4[16];
+  v74 = type metadata accessor for HealthDataService();
+  v73 = *(v74[-1].Description + 1);
+  v73(&v3[v15], v74);
+  v16 = v4[17];
+  v72 = type metadata accessor for InteropService();
+  v71 = *(v72[-1].Description + 1);
+  v71(&v3[v16], v72);
+  v17 = v4[18];
+  v70 = type metadata accessor for LocalizationService();
+  v69 = *(v70[-1].Description + 1);
+  v69(&v3[v17], v70);
+  v18 = v4[19];
+  v68 = type metadata accessor for MarketingService();
+  v67 = *(v68[-1].Description + 1);
+  v67(&v3[v18], v68);
+  v19 = v4[20];
+  v66 = type metadata accessor for MetricService();
+  v65 = *(v66[-1].Description + 1);
+  v65(&v3[v19], v66);
+  v20 = v4[21];
+  v64 = type metadata accessor for PersonalizationService();
+  v63 = *(v64[-1].Description + 1);
+  v63(&v3[v20], v64);
+  v21 = v4[22];
+  v62 = type metadata accessor for PlayerService();
+  v61 = *(v62[-1].Description + 1);
+  v61(&v3[v21], v62);
+  v22 = v4[23];
+  v60 = type metadata accessor for PrivacyPreferenceService();
+  v59 = *(v60[-1].Description + 1);
+  v59(&v3[v22], v60);
+  v23 = v4[24];
+  v58 = type metadata accessor for RecommendationService();
+  v57 = *(v58[-1].Description + 1);
+  v57(&v3[v23], v58);
+  v24 = v4[25];
+  v56 = type metadata accessor for RemoteBrowsingService();
+  v55 = *(v56[-1].Description + 1);
+  v55(&v3[v24], v56);
+  v25 = v4[26];
+  v54 = type metadata accessor for SearchService();
+  v53 = *(v54[-1].Description + 1);
+  v53(&v3[v25], v54);
+  v26 = v4[27];
+  v47 = type metadata accessor for ServiceSubscriptionService();
+  v52 = *(v47[-1].Description + 1);
+  v52(&v3[v26], v47);
+  v27 = v4[28];
+  v45 = type metadata accessor for SessionService();
+  v51 = *(v45[-1].Description + 1);
+  v51(&v3[v27], v45);
+  v28 = v4[29];
+  v29 = type metadata accessor for SharePlayService();
+  v50 = *(v29[-1].Description + 1);
+  v50(&v3[v28], v29);
+  v30 = v4[30];
+  v31 = type metadata accessor for SiriService();
+  v49 = *(v31[-1].Description + 1);
+  v49(&v3[v30], v31);
+  v32 = v4[31];
+  v33 = type metadata accessor for SyncService();
+  v48 = *(v33[-1].Description + 1);
+  v48(&v3[v32], v33);
 
-  v40 = *(v38 + 3);
-
-  v41 = *(v38 + 5);
-
-  v42 = v8[33];
+  v34 = v4[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v68 = *(QueueService[-1].Description + 1);
-  v68(&v6[v42], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v6[v8[34]]);
-  v44 = *&v6[v8[35]];
+  v46 = *(QueueService[-1].Description + 1);
+  v46(&v3[v34], QueueService);
+  __swift_destroy_boxed_opaque_existential_1(&v3[v4[34]]);
 
-  v45 = v8[36];
-  v46 = type metadata accessor for WorkoutPlanService();
-  v47 = *(v46[-1].Description + 1);
-  v47(&v6[v45], v46);
-  v48 = *(v115 + v124[6]);
+  v36 = v4[36];
+  v37 = type metadata accessor for WorkoutPlanService();
+  v38 = *(v37[-1].Description + 1);
+  v38(&v3[v36], v37);
 
-  v49 = (v115 + v124[7]);
-  v50 = *v49;
+  v39 = &v93[v102[7]];
 
-  v51 = v49[1];
-
-  v52 = v49 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v53 = *v52;
+  v40 = &v39[*(type metadata accessor for AppDataItemResolver(0) + 24)];
   swift_unknownObjectRelease();
-  v116(&v52[v8[6]], v117);
-  v113(&v52[v8[7]], v114);
-  v111(&v52[v8[8]], v112);
-  v109(&v52[v8[9]], v110);
-  v107(&v52[v8[10]], v108);
-  v105(&v52[v8[11]], v106);
-  v103(&v52[v8[12]], v104);
-  v101(&v52[v8[13]], v102);
-  v99(&v52[v8[14]], v100);
-  v97(&v52[v8[15]], v98);
-  v95(&v52[v8[16]], v96);
-  v93(&v52[v8[17]], v94);
-  v91(&v52[v8[18]], v92);
-  v89(&v52[v8[19]], v90);
-  v87(&v52[v8[20]], v88);
-  v85(&v52[v8[21]], v86);
-  v83(&v52[v8[22]], v84);
-  v81(&v52[v8[23]], v82);
-  v79(&v52[v8[24]], v80);
-  v77(&v52[v8[25]], v78);
-  v75(&v52[v8[26]], v76);
-  v74(&v52[v8[27]], v69);
-  v73(&v52[v8[28]], v67);
-  v72(&v52[v8[29]], v33);
-  v71(&v52[v8[30]], v35);
-  v70(&v52[v8[31]], v37);
-  v54 = &v52[v8[32]];
-  v55 = *(v54 + 1);
+  v94(&v40[v4[6]], v95);
+  v91(&v40[v4[7]], v92);
+  v89(&v40[v4[8]], v90);
+  v87(&v40[v4[9]], v88);
+  v85(&v40[v4[10]], v86);
+  v83(&v40[v4[11]], v84);
+  v81(&v40[v4[12]], v82);
+  v79(&v40[v4[13]], v80);
+  v77(&v40[v4[14]], v78);
+  v75(&v40[v4[15]], v76);
+  v73(&v40[v4[16]], v74);
+  v71(&v40[v4[17]], v72);
+  v69(&v40[v4[18]], v70);
+  v67(&v40[v4[19]], v68);
+  v65(&v40[v4[20]], v66);
+  v63(&v40[v4[21]], v64);
+  v61(&v40[v4[22]], v62);
+  v59(&v40[v4[23]], v60);
+  v57(&v40[v4[24]], v58);
+  v55(&v40[v4[25]], v56);
+  v53(&v40[v4[26]], v54);
+  v52(&v40[v4[27]], v47);
+  v51(&v40[v4[28]], v45);
+  v50(&v40[v4[29]], v29);
+  v49(&v40[v4[30]], v31);
+  v48(&v40[v4[31]], v33);
 
-  v56 = *(v54 + 3);
+  v46(&v40[v4[33]], QueueService);
+  __swift_destroy_boxed_opaque_existential_1(&v40[v4[34]]);
 
-  v57 = *(v54 + 5);
-
-  v68(&v52[v8[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v52[v8[34]]);
-  v58 = *&v52[v8[35]];
-
-  v47(&v52[v8[36]], v46);
-  v59 = *(v115 + v124[8]);
+  v38(&v40[v4[36]], v37);
   swift_unknownObjectRelease();
-  if (*(v115 + v124[9] + 8) >= 0xCuLL)
+  if (*&v93[v102[9] + 8] >= 0xCuLL)
   {
   }
 
-  v60 = (v115 + v124[10]);
-  if (v60[3])
+  v41 = &v93[v102[10]];
+  if (*(v41 + 3))
   {
-    __swift_destroy_boxed_opaque_existential_1(v60);
+    __swift_destroy_boxed_opaque_existential_1(v41);
   }
 
-  v61 = *(v120 + v121[6]);
   swift_unknownObjectRelease();
-  v62 = (v120 + v121[7]);
-  if (v62[3])
+  v42 = (v98 + *(v99 + 28));
+  if (v42[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v62);
+    __swift_destroy_boxed_opaque_existential_1(v42);
   }
 
-  v63 = (v118 + v119 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v64 = *(v120 + v121[8]);
+  v43 = (((v96 + v97 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
   swift_unknownObjectRelease();
-  v65 = *(v123 + v63);
 
-  sub_1E5F94E00(*(v123 + ((v63 + 15) & 0xFFFFFFFFFFFFFFF8)), *(v123 + ((v63 + 15) & 0xFFFFFFFFFFFFFFF8) + 8));
+  sub_1E5F94E00(*(v101 + v43), *(v101 + v43 + 8));
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E4D3FC()
 {
-  v1 = type metadata accessor for NavigationControllerRoutingContext();
-  v201 = *(*(v1 - 8) + 80);
+  v1 = type metadata accessor for NavigationControllerRoutingContext(0);
+  v155 = *(*(v1 - 8) + 80);
   v2 = *(*(v1 - 8) + 64);
-  v3 = type metadata accessor for RouteDestination();
-  v203 = *(*(v3 - 8) + 80);
-  v204 = v3;
-  v196 = v2 + v203;
-  v200 = *(*(v3 - 8) + 64);
-  v202 = v0;
-  v197 = (v201 + 16) & ~v201;
+  v3 = type metadata accessor for RouteDestination(0);
+  v157 = *(*(v3 - 8) + 80);
+  v158 = v3;
+  v150 = v2 + v157;
+  v154 = *(*(v3 - 8) + 64);
+  v156 = v0;
+  v151 = (v155 + 16) & ~v155;
 
-  v198 = v0 + v197;
-  v199 = v1;
-  v4 = *(v0 + v197 + *(v1 + 20));
-  v5 = v0 + v197 + *(v1 + 20);
-  v193 = v5;
+  v152 = v0 + v151;
+  v153 = v1;
+  v147 = v0 + v151 + *(v1 + 20);
 
-  v192 = type metadata accessor for AppComposer();
-  v6 = (v5 + v192[5]);
-  v7 = *v6;
+  v146 = type metadata accessor for AppComposer(0);
+  v4 = v147 + v146[5];
   swift_unknownObjectRelease();
-  v8 = type metadata accessor for AppEnvironment();
-  v9 = v8[6];
-  v195 = type metadata accessor for AccountService();
-  v194 = *(v195[-1].Description + 1);
-  v194(v6 + v9, v195);
-  v10 = v8[7];
-  v191 = type metadata accessor for AppStateService();
-  v190 = *(v191[-1].Description + 1);
-  v190(v6 + v10, v191);
-  v11 = v8[8];
-  v189 = type metadata accessor for ArchivedSessionService();
-  v188 = *(v189[-1].Description + 1);
-  v188(v6 + v11, v189);
-  v12 = v8[9];
-  v187 = type metadata accessor for AssetService();
-  v186 = *(v187[-1].Description + 1);
-  v186(v6 + v12, v187);
-  v13 = v8[10];
-  v185 = type metadata accessor for AwardsService();
-  v184 = *(v185[-1].Description + 1);
-  v184(v6 + v13, v185);
-  v14 = v8[11];
-  v183 = type metadata accessor for BookmarkService();
-  v182 = *(v183[-1].Description + 1);
-  v182(v6 + v14, v183);
-  v15 = v8[12];
-  v181 = type metadata accessor for CatalogService();
-  v180 = *(v181[-1].Description + 1);
-  v180(v6 + v15, v181);
-  v16 = v8[13];
-  v179 = type metadata accessor for ConfigurationService();
-  v178 = *(v179[-1].Description + 1);
-  v178(v6 + v16, v179);
-  v17 = v8[14];
-  v177 = type metadata accessor for ContentAvailabilityService();
-  v176 = *(v177[-1].Description + 1);
-  v176(v6 + v17, v177);
-  v18 = v8[15];
-  v175 = type metadata accessor for EngagementService();
-  v174 = *(v175[-1].Description + 1);
-  v174(v6 + v18, v175);
-  v19 = v8[16];
-  v173 = type metadata accessor for HealthDataService();
-  v172 = *(v173[-1].Description + 1);
-  v172(v6 + v19, v173);
-  v20 = v8[17];
-  v171 = type metadata accessor for InteropService();
-  v170 = *(v171[-1].Description + 1);
-  v170(v6 + v20, v171);
-  v21 = v8[18];
-  v169 = type metadata accessor for LocalizationService();
-  v168 = *(v169[-1].Description + 1);
-  v168(v6 + v21, v169);
-  v22 = v8[19];
-  v167 = type metadata accessor for MarketingService();
-  v166 = *(v167[-1].Description + 1);
-  v166(v6 + v22, v167);
-  v23 = v8[20];
-  v165 = type metadata accessor for MetricService();
-  v164 = *(v165[-1].Description + 1);
-  v164(v6 + v23, v165);
-  v24 = v8[21];
-  v163 = type metadata accessor for PersonalizationService();
-  v162 = *(v163[-1].Description + 1);
-  v162(v6 + v24, v163);
-  v25 = v8[22];
-  v161 = type metadata accessor for PlayerService();
-  v160 = *(v161[-1].Description + 1);
-  v160(v6 + v25, v161);
-  v26 = v8[23];
-  v159 = type metadata accessor for PrivacyPreferenceService();
-  v158 = *(v159[-1].Description + 1);
-  v158(v6 + v26, v159);
-  v27 = v8[24];
-  v157 = type metadata accessor for RecommendationService();
-  v156 = *(v157[-1].Description + 1);
-  v156(v6 + v27, v157);
-  v28 = v8[25];
-  v155 = type metadata accessor for RemoteBrowsingService();
-  v154 = *(v155[-1].Description + 1);
-  v154(v6 + v28, v155);
-  v29 = v8[26];
-  v153 = type metadata accessor for SearchService();
-  v152 = *(v153[-1].Description + 1);
-  v152(v6 + v29, v153);
-  v30 = v8[27];
-  v146 = type metadata accessor for ServiceSubscriptionService();
-  v151 = *(v146[-1].Description + 1);
-  v151(v6 + v30, v146);
-  v31 = v8[28];
-  v144 = type metadata accessor for SessionService();
-  v150 = *(v144[-1].Description + 1);
-  v150(v6 + v31, v144);
-  v32 = v8[29];
-  v33 = type metadata accessor for SharePlayService();
-  v149 = *(v33[-1].Description + 1);
-  v149(v6 + v32, v33);
-  v34 = v8[30];
-  v35 = type metadata accessor for SiriService();
-  v148 = *(v35[-1].Description + 1);
-  v148(v6 + v34, v35);
-  v36 = v8[31];
-  v37 = type metadata accessor for SyncService();
-  v147 = *(v37[-1].Description + 1);
-  v147(v6 + v36, v37);
-  v38 = (v6 + v8[32]);
-  v39 = v38[1];
+  v5 = type metadata accessor for AppEnvironment(0);
+  v6 = v5[6];
+  v149 = type metadata accessor for AccountService();
+  v148 = *(v149[-1].Description + 1);
+  v148(v4 + v6, v149);
+  v7 = v5[7];
+  v145 = type metadata accessor for AppStateService();
+  v144 = *(v145[-1].Description + 1);
+  v144(v4 + v7, v145);
+  v8 = v5[8];
+  v143 = type metadata accessor for ArchivedSessionService();
+  v142 = *(v143[-1].Description + 1);
+  v142(v4 + v8, v143);
+  v9 = v5[9];
+  v141 = type metadata accessor for AssetService();
+  v140 = *(v141[-1].Description + 1);
+  v140(v4 + v9, v141);
+  v10 = v5[10];
+  v139 = type metadata accessor for AwardsService();
+  v138 = *(v139[-1].Description + 1);
+  v138(v4 + v10, v139);
+  v11 = v5[11];
+  v137 = type metadata accessor for BookmarkService();
+  v136 = *(v137[-1].Description + 1);
+  v136(v4 + v11, v137);
+  v12 = v5[12];
+  v135 = type metadata accessor for CatalogService();
+  v134 = *(v135[-1].Description + 1);
+  v134(v4 + v12, v135);
+  v13 = v5[13];
+  v133 = type metadata accessor for ConfigurationService();
+  v132 = *(v133[-1].Description + 1);
+  v132(v4 + v13, v133);
+  v14 = v5[14];
+  v131 = type metadata accessor for ContentAvailabilityService();
+  v130 = *(v131[-1].Description + 1);
+  v130(v4 + v14, v131);
+  v15 = v5[15];
+  v129 = type metadata accessor for EngagementService();
+  v128 = *(v129[-1].Description + 1);
+  v128(v4 + v15, v129);
+  v16 = v5[16];
+  v127 = type metadata accessor for HealthDataService();
+  v126 = *(v127[-1].Description + 1);
+  v126(v4 + v16, v127);
+  v17 = v5[17];
+  v125 = type metadata accessor for InteropService();
+  v124 = *(v125[-1].Description + 1);
+  v124(v4 + v17, v125);
+  v18 = v5[18];
+  v123 = type metadata accessor for LocalizationService();
+  v122 = *(v123[-1].Description + 1);
+  v122(v4 + v18, v123);
+  v19 = v5[19];
+  v121 = type metadata accessor for MarketingService();
+  v120 = *(v121[-1].Description + 1);
+  v120(v4 + v19, v121);
+  v20 = v5[20];
+  v119 = type metadata accessor for MetricService();
+  v118 = *(v119[-1].Description + 1);
+  v118(v4 + v20, v119);
+  v21 = v5[21];
+  v117 = type metadata accessor for PersonalizationService();
+  v116 = *(v117[-1].Description + 1);
+  v116(v4 + v21, v117);
+  v22 = v5[22];
+  v115 = type metadata accessor for PlayerService();
+  v114 = *(v115[-1].Description + 1);
+  v114(v4 + v22, v115);
+  v23 = v5[23];
+  v113 = type metadata accessor for PrivacyPreferenceService();
+  v112 = *(v113[-1].Description + 1);
+  v112(v4 + v23, v113);
+  v24 = v5[24];
+  v111 = type metadata accessor for RecommendationService();
+  v110 = *(v111[-1].Description + 1);
+  v110(v4 + v24, v111);
+  v25 = v5[25];
+  v109 = type metadata accessor for RemoteBrowsingService();
+  v108 = *(v109[-1].Description + 1);
+  v108(v4 + v25, v109);
+  v26 = v5[26];
+  v107 = type metadata accessor for SearchService();
+  v106 = *(v107[-1].Description + 1);
+  v106(v4 + v26, v107);
+  v27 = v5[27];
+  v100 = type metadata accessor for ServiceSubscriptionService();
+  v105 = *(v100[-1].Description + 1);
+  v105(v4 + v27, v100);
+  v28 = v5[28];
+  v98 = type metadata accessor for SessionService();
+  v104 = *(v98[-1].Description + 1);
+  v104(v4 + v28, v98);
+  v29 = v5[29];
+  v30 = type metadata accessor for SharePlayService();
+  v103 = *(v30[-1].Description + 1);
+  v103(v4 + v29, v30);
+  v31 = v5[30];
+  v32 = type metadata accessor for SiriService();
+  v102 = *(v32[-1].Description + 1);
+  v102(v4 + v31, v32);
+  v33 = v5[31];
+  v34 = type metadata accessor for SyncService();
+  v101 = *(v34[-1].Description + 1);
+  v101(v4 + v33, v34);
 
-  v40 = v38[3];
-
-  v41 = v38[5];
-
-  v42 = v8[33];
+  v35 = v5[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v145 = *(QueueService[-1].Description + 1);
-  v145(v6 + v42, QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v6 + v8[34]));
-  v44 = *(v6 + v8[35]);
+  v99 = *(QueueService[-1].Description + 1);
+  v99(v4 + v35, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v4 + v5[34]));
 
-  v45 = v8[36];
-  v46 = type metadata accessor for WorkoutPlanService();
-  v47 = *(v46[-1].Description + 1);
-  v47(v6 + v45, v46);
-  v48 = *(v193 + v192[6]);
+  v37 = v5[36];
+  v38 = type metadata accessor for WorkoutPlanService();
+  v39 = *(v38[-1].Description + 1);
+  v39(v4 + v37, v38);
 
-  v49 = (v193 + v192[7]);
-  v50 = *v49;
+  v40 = v147 + v146[7];
 
-  v51 = v49[1];
-
-  v52 = (v49 + *(type metadata accessor for AppDataItemResolver() + 24));
-  v53 = *v52;
+  v41 = v40 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v194(v52 + v8[6], v195);
-  v190(v52 + v8[7], v191);
-  v188(v52 + v8[8], v189);
-  v186(v52 + v8[9], v187);
-  v184(v52 + v8[10], v185);
-  v182(v52 + v8[11], v183);
-  v180(v52 + v8[12], v181);
-  v178(v52 + v8[13], v179);
-  v176(v52 + v8[14], v177);
-  v174(v52 + v8[15], v175);
-  v172(v52 + v8[16], v173);
-  v170(v52 + v8[17], v171);
-  v168(v52 + v8[18], v169);
-  v166(v52 + v8[19], v167);
-  v164(v52 + v8[20], v165);
-  v162(v52 + v8[21], v163);
-  v160(v52 + v8[22], v161);
-  v158(v52 + v8[23], v159);
-  v156(v52 + v8[24], v157);
-  v154(v52 + v8[25], v155);
-  v152(v52 + v8[26], v153);
-  v151(v52 + v8[27], v146);
-  v150(v52 + v8[28], v144);
-  v149(v52 + v8[29], v33);
-  v148(v52 + v8[30], v35);
-  v147(v52 + v8[31], v37);
-  v54 = (v52 + v8[32]);
-  v55 = v54[1];
+  v148(v41 + v5[6], v149);
+  v144(v41 + v5[7], v145);
+  v142(v41 + v5[8], v143);
+  v140(v41 + v5[9], v141);
+  v138(v41 + v5[10], v139);
+  v136(v41 + v5[11], v137);
+  v134(v41 + v5[12], v135);
+  v132(v41 + v5[13], v133);
+  v130(v41 + v5[14], v131);
+  v128(v41 + v5[15], v129);
+  v126(v41 + v5[16], v127);
+  v124(v41 + v5[17], v125);
+  v122(v41 + v5[18], v123);
+  v120(v41 + v5[19], v121);
+  v118(v41 + v5[20], v119);
+  v116(v41 + v5[21], v117);
+  v114(v41 + v5[22], v115);
+  v112(v41 + v5[23], v113);
+  v110(v41 + v5[24], v111);
+  v108(v41 + v5[25], v109);
+  v106(v41 + v5[26], v107);
+  v105(v41 + v5[27], v100);
+  v104(v41 + v5[28], v98);
+  v103(v41 + v5[29], v30);
+  v102(v41 + v5[30], v32);
+  v101(v41 + v5[31], v34);
 
-  v56 = v54[3];
+  v99(v41 + v5[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v41 + v5[34]));
 
-  v57 = v54[5];
-
-  v145(v52 + v8[33], QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v52 + v8[34]));
-  v58 = *(v52 + v8[35]);
-
-  v47(v52 + v8[36], v46);
-  v59 = *(v193 + v192[8]);
+  v39(v41 + v5[36], v38);
   swift_unknownObjectRelease();
-  if (*(v193 + v192[9] + 8) >= 0xCuLL)
+  if (*(v147 + v146[9] + 8) >= 0xCuLL)
   {
   }
 
-  v60 = (v193 + v192[10]);
-  if (v60[3])
+  v42 = (v147 + v146[10]);
+  if (v42[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v60);
+    __swift_destroy_boxed_opaque_existential_1(v42);
   }
 
-  v61 = (v197 + v196) & ~v203;
-  v62 = *(v198 + v199[6]);
+  v43 = (v151 + v150) & ~v157;
   swift_unknownObjectRelease();
-  v63 = (v198 + v199[7]);
-  if (v63[3])
+  v44 = (v152 + *(v153 + 28));
+  if (v44[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v63);
+    __swift_destroy_boxed_opaque_existential_1(v44);
   }
 
-  v64 = *(v198 + v199[8]);
   swift_unknownObjectRelease();
-  v65 = v202 + v61;
-  type metadata accessor for RouteResource();
+  v45 = v156 + v43;
+  type metadata accessor for RouteResource(0);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 0u:
@@ -5894,36 +3668,32 @@ uint64_t sub_1E5E4D3FC()
     case 0xDu:
     case 0xFu:
     case 0x10u:
-      goto LABEL_8;
+      goto LABEL_22;
     case 1u:
-      v106 = sub_1E65D76F8();
-      v107 = *(v106 - 8);
-      if (!(*(v107 + 48))(v202 + v61, 1, v106))
+      v79 = sub_1E65D76F8();
+      v80 = *(v79 - 8);
+      if (!(*(v80 + 48))(v156 + v43, 1, v79))
       {
-        (*(v107 + 8))(v202 + v61, v106);
+        (*(v80 + 8))(v156 + v43, v79);
       }
 
-      v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
-      v109 = *(v65 + v108[12] + 8);
+      v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
 
-      v110 = v108[16];
-      v111 = sub_1E65E2CF8();
-      v112 = *(v111 - 8);
-      if (!(*(v112 + 48))(v65 + v110, 1, v111))
+      v82 = *(v81 + 64);
+      v83 = sub_1E65E2CF8();
+      v84 = *(v83 - 8);
+      if (!(*(v84 + 48))(v45 + v82, 1, v83))
       {
-        (*(v112 + 8))(v65 + v110, v111);
+        (*(v84 + 8))(v45 + v82, v83);
       }
 
-      v113 = *(v65 + v108[20]);
-
-      v83 = v108[24];
-      v114 = sub_1E65E1FC8();
+      v59 = *(v81 + 96);
+      v85 = sub_1E65E1FC8();
       goto LABEL_52;
     case 3u:
-      v122 = *(v65 + 8);
 
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
-      v90 = sub_1E65D72D8();
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
+      v66 = sub_1E65D72D8();
       goto LABEL_50;
     case 4u:
       sub_1E65E0B48();
@@ -5934,15 +3704,14 @@ uint64_t sub_1E5E4D3FC()
         {
           if (EnumCaseMultiPayload == 1)
           {
-            v117 = sub_1E65E0FD8();
-            (*(*(v117 - 8) + 8))(v202 + v61, v117);
+            v87 = sub_1E65E0FD8();
+            (*(*(v87 - 8) + 8))(v156 + v43, v87);
           }
 
           goto LABEL_80;
         }
 
 LABEL_79:
-        v142 = *(v65 + 8);
 
         goto LABEL_80;
       }
@@ -5953,18 +3722,17 @@ LABEL_79:
       }
 
 LABEL_80:
-      v143 = *(v65 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280) + 48) + 8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280);
 
 LABEL_57:
-      v130 = v204;
-      v131 = v65 + *(v204 + 20);
+      v90 = v45 + *(v158 + 20);
       type metadata accessor for RouteSource(0);
-      v132 = swift_getEnumCaseMultiPayload();
-      if (v132 <= 1)
+      v91 = swift_getEnumCaseMultiPayload();
+      if (v91 <= 1)
       {
-        if (v132)
+        if (v91)
         {
-          if (v132 != 1)
+          if (v91 != 1)
           {
             goto LABEL_71;
           }
@@ -5982,240 +3750,209 @@ LABEL_57:
         goto LABEL_68;
       }
 
-      switch(v132)
+      switch(v91)
       {
         case 2:
 LABEL_68:
-          v134 = sub_1E65D74E8();
-          v135 = *(v134 - 8);
-          v136 = *(v135 + 8);
-          v136(v131, v134);
-          v137 = type metadata accessor for URLContext(0);
-          v138 = *(v137 + 20);
-          if (!(*(v135 + 48))(v131 + v138, 1, v134))
+          v93 = sub_1E65D74E8();
+          v94 = *(v93 - 8);
+          v95 = *(v94 + 8);
+          v95(v90, v93);
+          v96 = *(type metadata accessor for URLContext(0) + 20);
+          if (!(*(v94 + 48))(v90 + v96, 1, v93))
           {
-            v136(v131 + v138, v134);
+            v95(v90 + v96, v93);
           }
 
-          v139 = *(v131 + *(v137 + 24) + 8);
-
-          v130 = v204;
           goto LABEL_71;
         case 3:
-          v133 = sub_1E65D74E8();
+          v92 = sub_1E65D74E8();
           break;
         case 4:
-          v133 = sub_1E65D8D48();
+          v92 = sub_1E65D8D48();
           break;
         default:
           goto LABEL_71;
       }
 
-      (*(*(v133 - 8) + 8))(v131, v133);
+      (*(*(v92 - 8) + 8))(v90, v92);
 LABEL_71:
-      v140 = *(v65 + *(v130 + 24));
 
-      sub_1E5F94E00(*(v202 + ((v200 + v61 + 7) & 0xFFFFFFFFFFFFFFF8)), *(v202 + ((v200 + v61 + 7) & 0xFFFFFFFFFFFFFFF8) + 8));
+      sub_1E5F94E00(*(v156 + ((v154 + v43 + 7) & 0xFFFFFFFFFFFFFFF8)), *(v156 + ((v154 + v43 + 7) & 0xFFFFFFFFFFFFFFF8) + 8));
 
       return swift_deallocObject();
     case 6u:
 
-      v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
-      v88 = *(v87 + 48);
-      v89 = sub_1E65DB848();
-      (*(*(v89 - 8) + 8))(v65 + v88, v89);
-      v70 = *(v87 + 64);
-      v90 = sub_1E65E1518();
+      v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
+      v64 = *(v63 + 48);
+      v65 = sub_1E65DB848();
+      (*(*(v65 - 8) + 8))(v45 + v64, v65);
+      v49 = *(v63 + 64);
+      v66 = sub_1E65E1518();
       goto LABEL_50;
     case 7u:
-      v98 = sub_1E65DB848();
-      (*(*(v98 - 8) + 8))(v202 + v61, v98);
-      v99 = &unk_1ED0720D0;
-      v100 = &unk_1E65EA290;
+      v74 = sub_1E65DB848();
+      (*(*(v74 - 8) + 8))(v156 + v43, v74);
+      v75 = &unk_1ED0720D0;
+      v76 = &unk_1E65EA290;
       goto LABEL_48;
     case 8u:
     case 9u:
 
-      v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
-      v68 = *(v67 + 48);
-      v69 = sub_1E65DB848();
-      (*(*(v69 - 8) + 8))(v65 + v68, v69);
-      v70 = *(v67 + 64);
+      v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
+      v47 = *(v46 + 48);
+      v48 = sub_1E65DB848();
+      (*(*(v48 - 8) + 8))(v45 + v47, v48);
+      v49 = *(v46 + 64);
       goto LABEL_49;
     case 0xCu:
-      v115 = *(v65 + 8);
 
-      sub_1E5F94E00(*(v65 + 16), *(v65 + 24));
+      sub_1E5F94E00(*(v45 + 16), *(v45 + 24));
       goto LABEL_57;
     case 0xEu:
-      v86 = sub_1E65DB718();
+      v62 = sub_1E65DB718();
       goto LABEL_56;
     case 0x11u:
-      v126 = *(v65 + 8);
 
-      v99 = &unk_1ED0720E0;
-      v100 = &unk_1E65EA2A0;
+      v75 = &unk_1ED0720E0;
+      v76 = &unk_1E65EA2A0;
 LABEL_48:
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v99, v100) + 48);
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v75, v76) + 48);
 LABEL_49:
-      v90 = sub_1E65D74E8();
+      v66 = sub_1E65D74E8();
       goto LABEL_50;
     case 0x12u:
-      v123 = *v65;
-      v124 = *(v65 + 8);
-      v125 = *(v65 + 16);
-      sub_1E5F94E14();
+      sub_1E5F94E14(*v45, *(v45 + 8), *(v45 + 16));
       goto LABEL_57;
     case 0x13u:
       goto LABEL_29;
     case 0x14u:
-      v101 = *(v65 + 8);
-
-      v102 = *(v65 + 24);
 
       goto LABEL_57;
     case 0x15u:
-      v127 = *(v65 + 8);
 
-      v128 = *(v65 + 24);
-
-      v83 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
-      v114 = sub_1E65D96F8();
+      v59 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
+      v85 = sub_1E65D96F8();
 LABEL_52:
-      v84 = v114;
-      v85 = *(v114 - 8);
-      if (!(*(v85 + 48))(v65 + v83, 1, v114))
+      v60 = v85;
+      v61 = *(v85 - 8);
+      if (!(*(v61 + 48))(v45 + v59, 1, v85))
       {
         goto LABEL_53;
       }
 
       goto LABEL_57;
     case 0x16u:
-      __swift_destroy_boxed_opaque_existential_1((v202 + v61));
-      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
-      v72 = v71[12];
-      v73 = sub_1E65D74E8();
-      (*(*(v73 - 8) + 8))(v65 + v72, v73);
-      v74 = *(v65 + v71[16] + 8);
+      __swift_destroy_boxed_opaque_existential_1((v156 + v43));
+      v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
+      v51 = v50[12];
+      v52 = sub_1E65D74E8();
+      (*(*(v52 - 8) + 8))(v45 + v51, v52);
 
-      v75 = v71[20];
-      v76 = sub_1E65DB3E8();
-      v77 = *(v76 - 8);
-      if (!(*(v77 + 48))(v65 + v75, 1, v76))
+      v53 = v50[20];
+      v54 = sub_1E65DB3E8();
+      v55 = *(v54 - 8);
+      if (!(*(v55 + 48))(v45 + v53, 1, v54))
       {
-        (*(v77 + 8))(v65 + v75, v76);
+        (*(v55 + 8))(v45 + v53, v54);
       }
 
-      v78 = *(v65 + v71[24] + 8);
-
-      v79 = *(v65 + v71[28] + 8);
-
-      v80 = v71[32];
-      v81 = sub_1E65DB5D8();
-      v82 = *(v81 - 8);
-      if (!(*(v82 + 48))(v65 + v80, 1, v81))
+      v56 = v50[32];
+      v57 = sub_1E65DB5D8();
+      v58 = *(v57 - 8);
+      if (!(*(v58 + 48))(v45 + v56, 1, v57))
       {
-        (*(v82 + 8))(v65 + v80, v81);
+        (*(v58 + 8))(v45 + v56, v57);
       }
 
-      v83 = v71[36];
-      v84 = sub_1E65D7A38();
-      v85 = *(v84 - 8);
-      if (!(*(v85 + 48))(v65 + v83, 1, v84))
+      v59 = v50[36];
+      v60 = sub_1E65D7A38();
+      v61 = *(v60 - 8);
+      if (!(*(v61 + 48))(v45 + v59, 1, v60))
       {
 LABEL_53:
-        (*(v85 + 8))(v65 + v83, v84);
+        (*(v61 + 8))(v45 + v59, v60);
       }
 
       goto LABEL_57;
     case 0x17u:
-      v94 = sub_1E65E57D8();
-      (*(*(v94 - 8) + 8))(v202 + v61, v94);
-      v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
-      v96 = *(v95 + 48);
-      v97 = sub_1E65E5528();
-      (*(*(v97 - 8) + 8))(v65 + v96, v97);
-      if (*(v65 + *(v95 + 64) + 8) >= 0xCuLL)
+      v70 = sub_1E65E57D8();
+      (*(*(v70 - 8) + 8))(v156 + v43, v70);
+      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
+      v72 = *(v71 + 48);
+      v73 = sub_1E65E5528();
+      (*(*(v73 - 8) + 8))(v45 + v72, v73);
+      if (*(v45 + *(v71 + 64) + 8) >= 0xCuLL)
       {
+        goto LABEL_22;
       }
 
       goto LABEL_57;
     case 0x18u:
 
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
-      v90 = sub_1E65DB848();
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
+      v66 = sub_1E65DB848();
       goto LABEL_50;
     case 0x1Au:
       sub_1E65E52B8();
-      v105 = swift_getEnumCaseMultiPayload();
-      if (v105 == 1)
+      v78 = swift_getEnumCaseMultiPayload();
+      if (v78 == 1)
       {
-
-        goto LABEL_57;
       }
 
-      if (v105)
+      else if (!v78)
       {
-        goto LABEL_57;
-      }
-
 LABEL_29:
-      v86 = sub_1E65D74E8();
-      goto LABEL_56;
-    case 0x1Bu:
-      type metadata accessor for PlaylistType();
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v86 = sub_1E65DAEB8();
+        v62 = sub_1E65D74E8();
 LABEL_56:
-        (*(*(v86 - 8) + 8))(v202 + v61, v86);
-      }
-
-      else
-      {
-LABEL_8:
-        v66 = *(v65 + 8);
+        (*(*(v62 - 8) + 8))(v156 + v43, v62);
       }
 
       goto LABEL_57;
+    case 0x1Bu:
+      type metadata accessor for PlaylistType(0);
+      if (swift_getEnumCaseMultiPayload() != 1)
+      {
+        goto LABEL_22;
+      }
+
+      v62 = sub_1E65DAEB8();
+      goto LABEL_56;
     case 0x1Cu:
-      v86 = sub_1E65D76F8();
+      v62 = sub_1E65D76F8();
       goto LABEL_56;
     case 0x1Du:
-      v129 = sub_1E65E55E8();
-      (*(*(v129 - 8) + 8))(v202 + v61, v129);
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
-      v90 = sub_1E65D7EB8();
+      v89 = sub_1E65E55E8();
+      (*(*(v89 - 8) + 8))(v156 + v43, v89);
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
+      v66 = sub_1E65D7EB8();
 LABEL_50:
-      (*(*(v90 - 8) + 8))(v65 + v70, v90);
+      (*(*(v66 - 8) + 8))(v45 + v49, v66);
       goto LABEL_57;
     case 0x1Eu:
-      v91 = sub_1E65E56B8();
-      (*(*(v91 - 8) + 8))(v202 + v61, v91);
-      v92 = &unk_1ED072110;
-      v93 = &unk_1E65EA2D0;
+      v67 = sub_1E65E56B8();
+      (*(*(v67 - 8) + 8))(v156 + v43, v67);
+      v68 = &unk_1ED072110;
+      v69 = &unk_1E65EA2D0;
       goto LABEL_43;
     case 0x1Fu:
-      v103 = sub_1E65DA308();
-      (*(*(v103 - 8) + 8))(v202 + v61, v103);
-      v104 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810) + 48);
-      goto LABEL_44;
+      v77 = sub_1E65DA308();
+      (*(*(v77 - 8) + 8))(v156 + v43, v77);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810);
+      goto LABEL_22;
     case 0x20u:
-      v118 = sub_1E65E58D8();
-      (*(*(v118 - 8) + 8))(v202 + v61, v118);
-      v92 = &qword_1ED072120;
-      v93 = &qword_1E65EA2E0;
+      v88 = sub_1E65E58D8();
+      (*(*(v88 - 8) + 8))(v156 + v43, v88);
+      v68 = &qword_1ED072120;
+      v69 = &qword_1E65EA2E0;
 LABEL_43:
-      v119 = __swift_instantiateConcreteTypeFromMangledNameV2(v92, v93);
-      v120 = *(v65 + *(v119 + 48));
+      __swift_instantiateConcreteTypeFromMangledNameV2(v68, v69);
 
-      v104 = *(v119 + 64);
-LABEL_44:
-      v121 = *(v65 + v104);
+LABEL_22:
 
       goto LABEL_57;
     case 0x21u:
-      v86 = sub_1E65D9048();
+      v62 = sub_1E65D9048();
       goto LABEL_56;
     default:
       goto LABEL_57;
@@ -6224,223 +3961,196 @@ LABEL_44:
 
 uint64_t sub_1E5E4ED74()
 {
-  v1 = type metadata accessor for NavigationControllerRoutingContext();
-  v200 = *(*(v1 - 8) + 80);
+  v1 = type metadata accessor for NavigationControllerRoutingContext(0);
+  v152 = *(*(v1 - 8) + 80);
   v2 = *(*(v1 - 8) + 64);
-  v3 = type metadata accessor for RouteDestination();
-  v202 = *(*(v3 - 8) + 80);
-  v203 = v3;
-  v195 = v2 + v202;
-  v199 = *(*(v3 - 8) + 64);
-  v201 = v0;
-  v196 = (v200 + 16) & ~v200;
+  v3 = type metadata accessor for RouteDestination(0);
+  v154 = *(*(v3 - 8) + 80);
+  v155 = v3;
+  v149 = v2 + v154;
+  v153 = v0;
+  v150 = (v152 + 16) & ~v152;
 
-  v197 = v0 + v196;
-  v198 = v1;
-  v4 = *(v0 + v196 + *(v1 + 20));
-  v5 = v0 + v196 + *(v1 + 20);
-  v146 = v5;
+  v151 = v1;
+  v100 = v0 + v150 + *(v1 + 20);
 
-  v204 = type metadata accessor for AppComposer();
-  v6 = (v5 + v204[5]);
-  v7 = *v6;
+  v156 = type metadata accessor for AppComposer(0);
+  v4 = v100 + v156[5];
   swift_unknownObjectRelease();
-  v8 = type metadata accessor for AppEnvironment();
-  v9 = v8[6];
-  v194 = type metadata accessor for AccountService();
-  v193 = *(v194[-1].Description + 1);
-  v193(v6 + v9, v194);
-  v10 = v8[7];
-  v192 = type metadata accessor for AppStateService();
-  v191 = *(v192[-1].Description + 1);
-  v191(v6 + v10, v192);
-  v11 = v8[8];
-  v190 = type metadata accessor for ArchivedSessionService();
-  v189 = *(v190[-1].Description + 1);
-  v189(v6 + v11, v190);
-  v12 = v8[9];
-  v188 = type metadata accessor for AssetService();
-  v187 = *(v188[-1].Description + 1);
-  v187(v6 + v12, v188);
-  v13 = v8[10];
-  v186 = type metadata accessor for AwardsService();
-  v185 = *(v186[-1].Description + 1);
-  v185(v6 + v13, v186);
-  v14 = v8[11];
-  v184 = type metadata accessor for BookmarkService();
-  v183 = *(v184[-1].Description + 1);
-  v183(v6 + v14, v184);
-  v15 = v8[12];
-  v182 = type metadata accessor for CatalogService();
-  v181 = *(v182[-1].Description + 1);
-  v181(v6 + v15, v182);
-  v16 = v8[13];
-  v180 = type metadata accessor for ConfigurationService();
-  v179 = *(v180[-1].Description + 1);
-  v179(v6 + v16, v180);
-  v17 = v8[14];
-  v178 = type metadata accessor for ContentAvailabilityService();
-  v177 = *(v178[-1].Description + 1);
-  v177(v6 + v17, v178);
-  v18 = v8[15];
-  v176 = type metadata accessor for EngagementService();
-  v175 = *(v176[-1].Description + 1);
-  v175(v6 + v18, v176);
-  v19 = v8[16];
-  v174 = type metadata accessor for HealthDataService();
-  v173 = *(v174[-1].Description + 1);
-  v173(v6 + v19, v174);
-  v20 = v8[17];
-  v172 = type metadata accessor for InteropService();
-  v171 = *(v172[-1].Description + 1);
-  v171(v6 + v20, v172);
-  v21 = v8[18];
-  v170 = type metadata accessor for LocalizationService();
-  v169 = *(v170[-1].Description + 1);
-  v169(v6 + v21, v170);
-  v22 = v8[19];
-  v168 = type metadata accessor for MarketingService();
-  v167 = *(v168[-1].Description + 1);
-  v167(v6 + v22, v168);
-  v23 = v8[20];
-  v166 = type metadata accessor for MetricService();
-  v165 = *(v166[-1].Description + 1);
-  v165(v6 + v23, v166);
-  v24 = v8[21];
-  v164 = type metadata accessor for PersonalizationService();
-  v163 = *(v164[-1].Description + 1);
-  v163(v6 + v24, v164);
-  v25 = v8[22];
-  v162 = type metadata accessor for PlayerService();
-  v161 = *(v162[-1].Description + 1);
-  v161(v6 + v25, v162);
-  v26 = v8[23];
-  v160 = type metadata accessor for PrivacyPreferenceService();
-  v159 = *(v160[-1].Description + 1);
-  v159(v6 + v26, v160);
-  v27 = v8[24];
-  v158 = type metadata accessor for RecommendationService();
-  v157 = *(v158[-1].Description + 1);
-  v157(v6 + v27, v158);
-  v28 = v8[25];
-  v156 = type metadata accessor for RemoteBrowsingService();
-  v155 = *(v156[-1].Description + 1);
-  v155(v6 + v28, v156);
-  v29 = v8[26];
-  v154 = type metadata accessor for SearchService();
-  v153 = *(v154[-1].Description + 1);
-  v153(v6 + v29, v154);
-  v30 = v8[27];
-  v152 = type metadata accessor for ServiceSubscriptionService();
-  v151 = *(v152[-1].Description + 1);
-  v151(v6 + v30, v152);
-  v31 = v8[28];
-  v144 = type metadata accessor for SessionService();
-  v150 = *(v144[-1].Description + 1);
-  v150(v6 + v31, v144);
-  v32 = v8[29];
-  v33 = type metadata accessor for SharePlayService();
-  v149 = *(v33[-1].Description + 1);
-  v149(v6 + v32, v33);
-  v34 = v8[30];
-  v35 = type metadata accessor for SiriService();
-  v148 = *(v35[-1].Description + 1);
-  v148(v6 + v34, v35);
-  v36 = v8[31];
-  v37 = type metadata accessor for SyncService();
-  v147 = *(v37[-1].Description + 1);
-  v147(v6 + v36, v37);
-  v38 = (v6 + v8[32]);
-  v39 = v38[1];
+  v5 = type metadata accessor for AppEnvironment(0);
+  v6 = v5[6];
+  v148 = type metadata accessor for AccountService();
+  v147 = *(v148[-1].Description + 1);
+  v147(v4 + v6, v148);
+  v7 = v5[7];
+  v146 = type metadata accessor for AppStateService();
+  v145 = *(v146[-1].Description + 1);
+  v145(v4 + v7, v146);
+  v8 = v5[8];
+  v144 = type metadata accessor for ArchivedSessionService();
+  v143 = *(v144[-1].Description + 1);
+  v143(v4 + v8, v144);
+  v9 = v5[9];
+  v142 = type metadata accessor for AssetService();
+  v141 = *(v142[-1].Description + 1);
+  v141(v4 + v9, v142);
+  v10 = v5[10];
+  v140 = type metadata accessor for AwardsService();
+  v139 = *(v140[-1].Description + 1);
+  v139(v4 + v10, v140);
+  v11 = v5[11];
+  v138 = type metadata accessor for BookmarkService();
+  v137 = *(v138[-1].Description + 1);
+  v137(v4 + v11, v138);
+  v12 = v5[12];
+  v136 = type metadata accessor for CatalogService();
+  v135 = *(v136[-1].Description + 1);
+  v135(v4 + v12, v136);
+  v13 = v5[13];
+  v134 = type metadata accessor for ConfigurationService();
+  v133 = *(v134[-1].Description + 1);
+  v133(v4 + v13, v134);
+  v14 = v5[14];
+  v132 = type metadata accessor for ContentAvailabilityService();
+  v131 = *(v132[-1].Description + 1);
+  v131(v4 + v14, v132);
+  v15 = v5[15];
+  v130 = type metadata accessor for EngagementService();
+  v129 = *(v130[-1].Description + 1);
+  v129(v4 + v15, v130);
+  v16 = v5[16];
+  v128 = type metadata accessor for HealthDataService();
+  v127 = *(v128[-1].Description + 1);
+  v127(v4 + v16, v128);
+  v17 = v5[17];
+  v126 = type metadata accessor for InteropService();
+  v125 = *(v126[-1].Description + 1);
+  v125(v4 + v17, v126);
+  v18 = v5[18];
+  v124 = type metadata accessor for LocalizationService();
+  v123 = *(v124[-1].Description + 1);
+  v123(v4 + v18, v124);
+  v19 = v5[19];
+  v122 = type metadata accessor for MarketingService();
+  v121 = *(v122[-1].Description + 1);
+  v121(v4 + v19, v122);
+  v20 = v5[20];
+  v120 = type metadata accessor for MetricService();
+  v119 = *(v120[-1].Description + 1);
+  v119(v4 + v20, v120);
+  v21 = v5[21];
+  v118 = type metadata accessor for PersonalizationService();
+  v117 = *(v118[-1].Description + 1);
+  v117(v4 + v21, v118);
+  v22 = v5[22];
+  v116 = type metadata accessor for PlayerService();
+  v115 = *(v116[-1].Description + 1);
+  v115(v4 + v22, v116);
+  v23 = v5[23];
+  v114 = type metadata accessor for PrivacyPreferenceService();
+  v113 = *(v114[-1].Description + 1);
+  v113(v4 + v23, v114);
+  v24 = v5[24];
+  v112 = type metadata accessor for RecommendationService();
+  v111 = *(v112[-1].Description + 1);
+  v111(v4 + v24, v112);
+  v25 = v5[25];
+  v110 = type metadata accessor for RemoteBrowsingService();
+  v109 = *(v110[-1].Description + 1);
+  v109(v4 + v25, v110);
+  v26 = v5[26];
+  v108 = type metadata accessor for SearchService();
+  v107 = *(v108[-1].Description + 1);
+  v107(v4 + v26, v108);
+  v27 = v5[27];
+  v106 = type metadata accessor for ServiceSubscriptionService();
+  v105 = *(v106[-1].Description + 1);
+  v105(v4 + v27, v106);
+  v28 = v5[28];
+  v98 = type metadata accessor for SessionService();
+  v104 = *(v98[-1].Description + 1);
+  v104(v4 + v28, v98);
+  v29 = v5[29];
+  v30 = type metadata accessor for SharePlayService();
+  v103 = *(v30[-1].Description + 1);
+  v103(v4 + v29, v30);
+  v31 = v5[30];
+  v32 = type metadata accessor for SiriService();
+  v102 = *(v32[-1].Description + 1);
+  v102(v4 + v31, v32);
+  v33 = v5[31];
+  v34 = type metadata accessor for SyncService();
+  v101 = *(v34[-1].Description + 1);
+  v101(v4 + v33, v34);
 
-  v40 = v38[3];
-
-  v41 = v38[5];
-
-  v42 = v8[33];
+  v35 = v5[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v145 = *(QueueService[-1].Description + 1);
-  v145(v6 + v42, QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v6 + v8[34]));
-  v44 = *(v6 + v8[35]);
+  v99 = *(QueueService[-1].Description + 1);
+  v99(v4 + v35, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v4 + v5[34]));
 
-  v45 = v8[36];
-  v46 = type metadata accessor for WorkoutPlanService();
-  v143 = *(v46[-1].Description + 1);
-  v143(v6 + v45, v46);
-  v47 = *(v146 + v204[6]);
+  v37 = v5[36];
+  v38 = type metadata accessor for WorkoutPlanService();
+  v97 = *(v38[-1].Description + 1);
+  v97(v4 + v37, v38);
 
-  v48 = (v146 + v204[7]);
-  v49 = *v48;
+  v39 = v100 + v156[7];
 
-  v50 = v48[1];
-
-  v51 = (v48 + *(type metadata accessor for AppDataItemResolver() + 24));
-  v52 = *v51;
+  v40 = v39 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v193(v51 + v8[6], v194);
-  v191(v51 + v8[7], v192);
-  v189(v51 + v8[8], v190);
-  v187(v51 + v8[9], v188);
-  v185(v51 + v8[10], v186);
-  v183(v51 + v8[11], v184);
-  v181(v51 + v8[12], v182);
-  v179(v51 + v8[13], v180);
-  v177(v51 + v8[14], v178);
-  v175(v51 + v8[15], v176);
-  v173(v51 + v8[16], v174);
-  v171(v51 + v8[17], v172);
-  v169(v51 + v8[18], v170);
-  v167(v51 + v8[19], v168);
-  v165(v51 + v8[20], v166);
-  v163(v51 + v8[21], v164);
-  v161(v51 + v8[22], v162);
-  v159(v51 + v8[23], v160);
-  v157(v51 + v8[24], v158);
-  v155(v51 + v8[25], v156);
-  v153(v51 + v8[26], v154);
-  v151(v51 + v8[27], v152);
-  v150(v51 + v8[28], v144);
-  v149(v51 + v8[29], v33);
-  v148(v51 + v8[30], v35);
-  v147(v51 + v8[31], v37);
-  v53 = (v51 + v8[32]);
-  v54 = v53[1];
+  v147(v40 + v5[6], v148);
+  v145(v40 + v5[7], v146);
+  v143(v40 + v5[8], v144);
+  v141(v40 + v5[9], v142);
+  v139(v40 + v5[10], v140);
+  v137(v40 + v5[11], v138);
+  v135(v40 + v5[12], v136);
+  v133(v40 + v5[13], v134);
+  v131(v40 + v5[14], v132);
+  v129(v40 + v5[15], v130);
+  v127(v40 + v5[16], v128);
+  v125(v40 + v5[17], v126);
+  v123(v40 + v5[18], v124);
+  v121(v40 + v5[19], v122);
+  v119(v40 + v5[20], v120);
+  v117(v40 + v5[21], v118);
+  v115(v40 + v5[22], v116);
+  v113(v40 + v5[23], v114);
+  v111(v40 + v5[24], v112);
+  v109(v40 + v5[25], v110);
+  v107(v40 + v5[26], v108);
+  v105(v40 + v5[27], v106);
+  v104(v40 + v5[28], v98);
+  v103(v40 + v5[29], v30);
+  v102(v40 + v5[30], v32);
+  v101(v40 + v5[31], v34);
 
-  v55 = v53[3];
+  v99(v40 + v5[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v40 + v5[34]));
 
-  v56 = v53[5];
-
-  v145(v51 + v8[33], QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v51 + v8[34]));
-  v57 = *(v51 + v8[35]);
-
-  v143(v51 + v8[36], v46);
-  v58 = *(v146 + v204[8]);
+  v97(v40 + v5[36], v38);
   swift_unknownObjectRelease();
-  if (*(v146 + v204[9] + 8) >= 0xCuLL)
+  if (*(v100 + v156[9] + 8) >= 0xCuLL)
   {
   }
 
-  v59 = (v146 + v204[10]);
-  if (v59[3])
+  v41 = (v100 + v156[10]);
+  if (v41[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v59);
+    __swift_destroy_boxed_opaque_existential_1(v41);
   }
 
-  v60 = (v196 + v195) & ~v202;
-  v61 = *(v197 + v198[6]);
+  v42 = (v150 + v149) & ~v154;
   swift_unknownObjectRelease();
-  v62 = (v197 + v198[7]);
-  if (v62[3])
+  v43 = (v0 + v150 + *(v151 + 28));
+  if (v43[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v62);
+    __swift_destroy_boxed_opaque_existential_1(v43);
   }
 
-  v63 = *(v197 + v198[8]);
   swift_unknownObjectRelease();
-  v64 = v0 + v60;
-  type metadata accessor for RouteResource();
+  v44 = v0 + v42;
+  type metadata accessor for RouteResource(0);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 0u:
@@ -6450,36 +4160,32 @@ uint64_t sub_1E5E4ED74()
     case 0xDu:
     case 0xFu:
     case 0x10u:
-      goto LABEL_8;
+      goto LABEL_22;
     case 1u:
-      v105 = sub_1E65D76F8();
-      v106 = *(v105 - 8);
-      if (!(*(v106 + 48))(v201 + v60, 1, v105))
+      v78 = sub_1E65D76F8();
+      v79 = *(v78 - 8);
+      if (!(*(v79 + 48))(v153 + v42, 1, v78))
       {
-        (*(v106 + 8))(v201 + v60, v105);
+        (*(v79 + 8))(v153 + v42, v78);
       }
 
-      v107 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
-      v108 = *(v64 + v107[12] + 8);
+      v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
 
-      v109 = v107[16];
-      v110 = sub_1E65E2CF8();
-      v111 = *(v110 - 8);
-      if (!(*(v111 + 48))(v64 + v109, 1, v110))
+      v81 = *(v80 + 64);
+      v82 = sub_1E65E2CF8();
+      v83 = *(v82 - 8);
+      if (!(*(v83 + 48))(v44 + v81, 1, v82))
       {
-        (*(v111 + 8))(v64 + v109, v110);
+        (*(v83 + 8))(v44 + v81, v82);
       }
 
-      v112 = *(v64 + v107[20]);
-
-      v82 = v107[24];
-      v113 = sub_1E65E1FC8();
+      v58 = *(v80 + 96);
+      v84 = sub_1E65E1FC8();
       goto LABEL_52;
     case 3u:
-      v121 = *(v64 + 8);
 
-      v69 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
-      v89 = sub_1E65D72D8();
+      v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
+      v65 = sub_1E65D72D8();
       goto LABEL_50;
     case 4u:
       sub_1E65E0B48();
@@ -6490,15 +4196,14 @@ uint64_t sub_1E5E4ED74()
         {
           if (EnumCaseMultiPayload == 1)
           {
-            v116 = sub_1E65E0FD8();
-            (*(*(v116 - 8) + 8))(v0 + v60, v116);
+            v86 = sub_1E65E0FD8();
+            (*(*(v86 - 8) + 8))(v0 + v42, v86);
           }
 
           goto LABEL_80;
         }
 
 LABEL_79:
-        v141 = *(v64 + 8);
 
         goto LABEL_80;
       }
@@ -6509,18 +4214,17 @@ LABEL_79:
       }
 
 LABEL_80:
-      v142 = *(v64 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280) + 48) + 8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280);
 
 LABEL_57:
-      v129 = v203;
-      v130 = v64 + *(v203 + 20);
+      v89 = v44 + *(v155 + 20);
       type metadata accessor for RouteSource(0);
-      v131 = swift_getEnumCaseMultiPayload();
-      if (v131 <= 1)
+      v90 = swift_getEnumCaseMultiPayload();
+      if (v90 <= 1)
       {
-        if (v131)
+        if (v90)
         {
-          if (v131 != 1)
+          if (v90 != 1)
           {
             goto LABEL_71;
           }
@@ -6538,238 +4242,207 @@ LABEL_57:
         goto LABEL_68;
       }
 
-      switch(v131)
+      switch(v90)
       {
         case 2:
 LABEL_68:
-          v133 = sub_1E65D74E8();
-          v134 = *(v133 - 8);
-          v135 = *(v134 + 8);
-          v135(v130, v133);
-          v136 = type metadata accessor for URLContext(0);
-          v137 = *(v136 + 20);
-          if (!(*(v134 + 48))(v130 + v137, 1, v133))
+          v92 = sub_1E65D74E8();
+          v93 = *(v92 - 8);
+          v94 = *(v93 + 8);
+          v94(v89, v92);
+          v95 = *(type metadata accessor for URLContext(0) + 20);
+          if (!(*(v93 + 48))(v89 + v95, 1, v92))
           {
-            v135(v130 + v137, v133);
+            v94(v89 + v95, v92);
           }
 
-          v138 = *(v130 + *(v136 + 24) + 8);
-
-          v129 = v203;
           goto LABEL_71;
         case 3:
-          v132 = sub_1E65D74E8();
+          v91 = sub_1E65D74E8();
           break;
         case 4:
-          v132 = sub_1E65D8D48();
+          v91 = sub_1E65D8D48();
           break;
         default:
           goto LABEL_71;
       }
 
-      (*(*(v132 - 8) + 8))(v130, v132);
+      (*(*(v91 - 8) + 8))(v89, v91);
 LABEL_71:
-      v139 = *(v64 + *(v129 + 24));
 
       return swift_deallocObject();
     case 6u:
 
-      v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
-      v87 = *(v86 + 48);
-      v88 = sub_1E65DB848();
-      (*(*(v88 - 8) + 8))(v64 + v87, v88);
-      v69 = *(v86 + 64);
-      v89 = sub_1E65E1518();
+      v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
+      v63 = *(v62 + 48);
+      v64 = sub_1E65DB848();
+      (*(*(v64 - 8) + 8))(v44 + v63, v64);
+      v48 = *(v62 + 64);
+      v65 = sub_1E65E1518();
       goto LABEL_50;
     case 7u:
-      v97 = sub_1E65DB848();
-      (*(*(v97 - 8) + 8))(v0 + v60, v97);
-      v98 = &unk_1ED0720D0;
-      v99 = &unk_1E65EA290;
+      v73 = sub_1E65DB848();
+      (*(*(v73 - 8) + 8))(v0 + v42, v73);
+      v74 = &unk_1ED0720D0;
+      v75 = &unk_1E65EA290;
       goto LABEL_48;
     case 8u:
     case 9u:
 
-      v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
-      v67 = *(v66 + 48);
-      v68 = sub_1E65DB848();
-      (*(*(v68 - 8) + 8))(v64 + v67, v68);
-      v69 = *(v66 + 64);
+      v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
+      v46 = *(v45 + 48);
+      v47 = sub_1E65DB848();
+      (*(*(v47 - 8) + 8))(v44 + v46, v47);
+      v48 = *(v45 + 64);
       goto LABEL_49;
     case 0xCu:
-      v114 = *(v64 + 8);
 
-      sub_1E5F94E00(*(v64 + 16), *(v64 + 24));
+      sub_1E5F94E00(*(v44 + 16), *(v44 + 24));
       goto LABEL_57;
     case 0xEu:
-      v85 = sub_1E65DB718();
+      v61 = sub_1E65DB718();
       goto LABEL_56;
     case 0x11u:
-      v125 = *(v64 + 8);
 
-      v98 = &unk_1ED0720E0;
-      v99 = &unk_1E65EA2A0;
+      v74 = &unk_1ED0720E0;
+      v75 = &unk_1E65EA2A0;
 LABEL_48:
-      v69 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v98, v99) + 48);
+      v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v74, v75) + 48);
 LABEL_49:
-      v89 = sub_1E65D74E8();
+      v65 = sub_1E65D74E8();
       goto LABEL_50;
     case 0x12u:
-      v122 = *v64;
-      v123 = *(v64 + 8);
-      v124 = *(v64 + 16);
-      sub_1E5F94E14();
+      sub_1E5F94E14(*v44, *(v44 + 8), *(v44 + 16));
       goto LABEL_57;
     case 0x13u:
       goto LABEL_29;
     case 0x14u:
-      v100 = *(v64 + 8);
-
-      v101 = *(v64 + 24);
 
       goto LABEL_57;
     case 0x15u:
-      v126 = *(v64 + 8);
 
-      v127 = *(v64 + 24);
-
-      v82 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
-      v113 = sub_1E65D96F8();
+      v58 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
+      v84 = sub_1E65D96F8();
 LABEL_52:
-      v83 = v113;
-      v84 = *(v113 - 8);
-      if (!(*(v84 + 48))(v64 + v82, 1, v113))
+      v59 = v84;
+      v60 = *(v84 - 8);
+      if (!(*(v60 + 48))(v44 + v58, 1, v84))
       {
         goto LABEL_53;
       }
 
       goto LABEL_57;
     case 0x16u:
-      __swift_destroy_boxed_opaque_existential_1((v0 + v60));
-      v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
-      v71 = v70[12];
-      v72 = sub_1E65D74E8();
-      (*(*(v72 - 8) + 8))(v64 + v71, v72);
-      v73 = *(v64 + v70[16] + 8);
+      __swift_destroy_boxed_opaque_existential_1((v0 + v42));
+      v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
+      v50 = v49[12];
+      v51 = sub_1E65D74E8();
+      (*(*(v51 - 8) + 8))(v44 + v50, v51);
 
-      v74 = v70[20];
-      v75 = sub_1E65DB3E8();
-      v76 = *(v75 - 8);
-      if (!(*(v76 + 48))(v64 + v74, 1, v75))
+      v52 = v49[20];
+      v53 = sub_1E65DB3E8();
+      v54 = *(v53 - 8);
+      if (!(*(v54 + 48))(v44 + v52, 1, v53))
       {
-        (*(v76 + 8))(v64 + v74, v75);
+        (*(v54 + 8))(v44 + v52, v53);
       }
 
-      v77 = *(v64 + v70[24] + 8);
-
-      v78 = *(v64 + v70[28] + 8);
-
-      v79 = v70[32];
-      v80 = sub_1E65DB5D8();
-      v81 = *(v80 - 8);
-      if (!(*(v81 + 48))(v64 + v79, 1, v80))
+      v55 = v49[32];
+      v56 = sub_1E65DB5D8();
+      v57 = *(v56 - 8);
+      if (!(*(v57 + 48))(v44 + v55, 1, v56))
       {
-        (*(v81 + 8))(v64 + v79, v80);
+        (*(v57 + 8))(v44 + v55, v56);
       }
 
-      v82 = v70[36];
-      v83 = sub_1E65D7A38();
-      v84 = *(v83 - 8);
-      if (!(*(v84 + 48))(v64 + v82, 1, v83))
+      v58 = v49[36];
+      v59 = sub_1E65D7A38();
+      v60 = *(v59 - 8);
+      if (!(*(v60 + 48))(v44 + v58, 1, v59))
       {
 LABEL_53:
-        (*(v84 + 8))(v64 + v82, v83);
+        (*(v60 + 8))(v44 + v58, v59);
       }
 
       goto LABEL_57;
     case 0x17u:
-      v93 = sub_1E65E57D8();
-      (*(*(v93 - 8) + 8))(v0 + v60, v93);
-      v94 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
-      v95 = *(v94 + 48);
-      v96 = sub_1E65E5528();
-      (*(*(v96 - 8) + 8))(v64 + v95, v96);
-      if (*(v64 + *(v94 + 64) + 8) >= 0xCuLL)
+      v69 = sub_1E65E57D8();
+      (*(*(v69 - 8) + 8))(v0 + v42, v69);
+      v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
+      v71 = *(v70 + 48);
+      v72 = sub_1E65E5528();
+      (*(*(v72 - 8) + 8))(v44 + v71, v72);
+      if (*(v44 + *(v70 + 64) + 8) >= 0xCuLL)
       {
+        goto LABEL_22;
       }
 
       goto LABEL_57;
     case 0x18u:
 
-      v69 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
-      v89 = sub_1E65DB848();
+      v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
+      v65 = sub_1E65DB848();
       goto LABEL_50;
     case 0x1Au:
       sub_1E65E52B8();
-      v104 = swift_getEnumCaseMultiPayload();
-      if (v104 == 1)
+      v77 = swift_getEnumCaseMultiPayload();
+      if (v77 == 1)
       {
-
-        goto LABEL_57;
       }
 
-      if (v104)
+      else if (!v77)
       {
-        goto LABEL_57;
-      }
-
 LABEL_29:
-      v85 = sub_1E65D74E8();
-      goto LABEL_56;
-    case 0x1Bu:
-      type metadata accessor for PlaylistType();
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v85 = sub_1E65DAEB8();
+        v61 = sub_1E65D74E8();
 LABEL_56:
-        (*(*(v85 - 8) + 8))(v0 + v60, v85);
-      }
-
-      else
-      {
-LABEL_8:
-        v65 = *(v64 + 8);
+        (*(*(v61 - 8) + 8))(v0 + v42, v61);
       }
 
       goto LABEL_57;
+    case 0x1Bu:
+      type metadata accessor for PlaylistType(0);
+      if (swift_getEnumCaseMultiPayload() != 1)
+      {
+        goto LABEL_22;
+      }
+
+      v61 = sub_1E65DAEB8();
+      goto LABEL_56;
     case 0x1Cu:
-      v85 = sub_1E65D76F8();
+      v61 = sub_1E65D76F8();
       goto LABEL_56;
     case 0x1Du:
-      v128 = sub_1E65E55E8();
-      (*(*(v128 - 8) + 8))(v0 + v60, v128);
-      v69 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
-      v89 = sub_1E65D7EB8();
+      v88 = sub_1E65E55E8();
+      (*(*(v88 - 8) + 8))(v0 + v42, v88);
+      v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
+      v65 = sub_1E65D7EB8();
 LABEL_50:
-      (*(*(v89 - 8) + 8))(v64 + v69, v89);
+      (*(*(v65 - 8) + 8))(v44 + v48, v65);
       goto LABEL_57;
     case 0x1Eu:
-      v90 = sub_1E65E56B8();
-      (*(*(v90 - 8) + 8))(v0 + v60, v90);
-      v91 = &unk_1ED072110;
-      v92 = &unk_1E65EA2D0;
+      v66 = sub_1E65E56B8();
+      (*(*(v66 - 8) + 8))(v0 + v42, v66);
+      v67 = &unk_1ED072110;
+      v68 = &unk_1E65EA2D0;
       goto LABEL_43;
     case 0x1Fu:
-      v102 = sub_1E65DA308();
-      (*(*(v102 - 8) + 8))(v0 + v60, v102);
-      v103 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810) + 48);
-      goto LABEL_44;
+      v76 = sub_1E65DA308();
+      (*(*(v76 - 8) + 8))(v0 + v42, v76);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810);
+      goto LABEL_22;
     case 0x20u:
-      v117 = sub_1E65E58D8();
-      (*(*(v117 - 8) + 8))(v0 + v60, v117);
-      v91 = &qword_1ED072120;
-      v92 = &qword_1E65EA2E0;
+      v87 = sub_1E65E58D8();
+      (*(*(v87 - 8) + 8))(v0 + v42, v87);
+      v67 = &qword_1ED072120;
+      v68 = &qword_1E65EA2E0;
 LABEL_43:
-      v118 = __swift_instantiateConcreteTypeFromMangledNameV2(v91, v92);
-      v119 = *(v64 + *(v118 + 48));
+      __swift_instantiateConcreteTypeFromMangledNameV2(v67, v68);
 
-      v103 = *(v118 + 64);
-LABEL_44:
-      v120 = *(v64 + v103);
+LABEL_22:
 
       goto LABEL_57;
     case 0x21u:
-      v85 = sub_1E65D9048();
+      v61 = sub_1E65D9048();
       goto LABEL_56;
     default:
       goto LABEL_57;
@@ -6778,223 +4451,198 @@ LABEL_44:
 
 uint64_t sub_1E5E506D0()
 {
-  v1 = type metadata accessor for NavigationControllerRoutingContext();
-  v201 = *(*(v1 - 8) + 80);
+  v1 = type metadata accessor for NavigationControllerRoutingContext(0);
+  v155 = *(*(v1 - 8) + 80);
   v2 = *(*(v1 - 8) + 64);
-  v3 = type metadata accessor for RouteDestination();
-  v203 = *(*(v3 - 8) + 80);
-  v204 = v3;
-  v196 = v2 + v203;
-  v200 = *(*(v3 - 8) + 64);
-  v202 = v0;
-  v197 = (v201 + 16) & ~v201;
+  v3 = type metadata accessor for RouteDestination(0);
+  v157 = *(*(v3 - 8) + 80);
+  v158 = v3;
+  v150 = v2 + v157;
+  v154 = *(*(v3 - 8) + 64);
+  v156 = v0;
+  v151 = (v155 + 16) & ~v155;
 
-  v198 = v0 + v197;
-  v199 = v1;
-  v4 = *(v0 + v197 + *(v1 + 20));
-  v5 = v0 + v197 + *(v1 + 20);
-  v193 = v5;
+  v152 = v0 + v151;
+  v153 = v1;
+  v147 = v0 + v151 + *(v1 + 20);
 
-  v192 = type metadata accessor for AppComposer();
-  v6 = (v5 + v192[5]);
-  v7 = *v6;
+  v146 = type metadata accessor for AppComposer(0);
+  v4 = v147 + v146[5];
   swift_unknownObjectRelease();
-  v8 = type metadata accessor for AppEnvironment();
-  v9 = v8[6];
-  v195 = type metadata accessor for AccountService();
-  v194 = *(v195[-1].Description + 1);
-  v194(v6 + v9, v195);
-  v10 = v8[7];
-  v191 = type metadata accessor for AppStateService();
-  v190 = *(v191[-1].Description + 1);
-  v190(v6 + v10, v191);
-  v11 = v8[8];
-  v189 = type metadata accessor for ArchivedSessionService();
-  v188 = *(v189[-1].Description + 1);
-  v188(v6 + v11, v189);
-  v12 = v8[9];
-  v187 = type metadata accessor for AssetService();
-  v186 = *(v187[-1].Description + 1);
-  v186(v6 + v12, v187);
-  v13 = v8[10];
-  v185 = type metadata accessor for AwardsService();
-  v184 = *(v185[-1].Description + 1);
-  v184(v6 + v13, v185);
-  v14 = v8[11];
-  v183 = type metadata accessor for BookmarkService();
-  v182 = *(v183[-1].Description + 1);
-  v182(v6 + v14, v183);
-  v15 = v8[12];
-  v181 = type metadata accessor for CatalogService();
-  v180 = *(v181[-1].Description + 1);
-  v180(v6 + v15, v181);
-  v16 = v8[13];
-  v179 = type metadata accessor for ConfigurationService();
-  v178 = *(v179[-1].Description + 1);
-  v178(v6 + v16, v179);
-  v17 = v8[14];
-  v177 = type metadata accessor for ContentAvailabilityService();
-  v176 = *(v177[-1].Description + 1);
-  v176(v6 + v17, v177);
-  v18 = v8[15];
-  v175 = type metadata accessor for EngagementService();
-  v174 = *(v175[-1].Description + 1);
-  v174(v6 + v18, v175);
-  v19 = v8[16];
-  v173 = type metadata accessor for HealthDataService();
-  v172 = *(v173[-1].Description + 1);
-  v172(v6 + v19, v173);
-  v20 = v8[17];
-  v171 = type metadata accessor for InteropService();
-  v170 = *(v171[-1].Description + 1);
-  v170(v6 + v20, v171);
-  v21 = v8[18];
-  v169 = type metadata accessor for LocalizationService();
-  v168 = *(v169[-1].Description + 1);
-  v168(v6 + v21, v169);
-  v22 = v8[19];
-  v167 = type metadata accessor for MarketingService();
-  v166 = *(v167[-1].Description + 1);
-  v166(v6 + v22, v167);
-  v23 = v8[20];
-  v165 = type metadata accessor for MetricService();
-  v164 = *(v165[-1].Description + 1);
-  v164(v6 + v23, v165);
-  v24 = v8[21];
-  v163 = type metadata accessor for PersonalizationService();
-  v162 = *(v163[-1].Description + 1);
-  v162(v6 + v24, v163);
-  v25 = v8[22];
-  v161 = type metadata accessor for PlayerService();
-  v160 = *(v161[-1].Description + 1);
-  v160(v6 + v25, v161);
-  v26 = v8[23];
-  v159 = type metadata accessor for PrivacyPreferenceService();
-  v158 = *(v159[-1].Description + 1);
-  v158(v6 + v26, v159);
-  v27 = v8[24];
-  v157 = type metadata accessor for RecommendationService();
-  v156 = *(v157[-1].Description + 1);
-  v156(v6 + v27, v157);
-  v28 = v8[25];
-  v155 = type metadata accessor for RemoteBrowsingService();
-  v154 = *(v155[-1].Description + 1);
-  v154(v6 + v28, v155);
-  v29 = v8[26];
-  v153 = type metadata accessor for SearchService();
-  v152 = *(v153[-1].Description + 1);
-  v152(v6 + v29, v153);
-  v30 = v8[27];
-  v146 = type metadata accessor for ServiceSubscriptionService();
-  v151 = *(v146[-1].Description + 1);
-  v151(v6 + v30, v146);
-  v31 = v8[28];
-  v144 = type metadata accessor for SessionService();
-  v150 = *(v144[-1].Description + 1);
-  v150(v6 + v31, v144);
-  v32 = v8[29];
-  v33 = type metadata accessor for SharePlayService();
-  v149 = *(v33[-1].Description + 1);
-  v149(v6 + v32, v33);
-  v34 = v8[30];
-  v35 = type metadata accessor for SiriService();
-  v148 = *(v35[-1].Description + 1);
-  v148(v6 + v34, v35);
-  v36 = v8[31];
-  v37 = type metadata accessor for SyncService();
-  v147 = *(v37[-1].Description + 1);
-  v147(v6 + v36, v37);
-  v38 = (v6 + v8[32]);
-  v39 = v38[1];
+  v5 = type metadata accessor for AppEnvironment(0);
+  v6 = v5[6];
+  v149 = type metadata accessor for AccountService();
+  v148 = *(v149[-1].Description + 1);
+  v148(v4 + v6, v149);
+  v7 = v5[7];
+  v145 = type metadata accessor for AppStateService();
+  v144 = *(v145[-1].Description + 1);
+  v144(v4 + v7, v145);
+  v8 = v5[8];
+  v143 = type metadata accessor for ArchivedSessionService();
+  v142 = *(v143[-1].Description + 1);
+  v142(v4 + v8, v143);
+  v9 = v5[9];
+  v141 = type metadata accessor for AssetService();
+  v140 = *(v141[-1].Description + 1);
+  v140(v4 + v9, v141);
+  v10 = v5[10];
+  v139 = type metadata accessor for AwardsService();
+  v138 = *(v139[-1].Description + 1);
+  v138(v4 + v10, v139);
+  v11 = v5[11];
+  v137 = type metadata accessor for BookmarkService();
+  v136 = *(v137[-1].Description + 1);
+  v136(v4 + v11, v137);
+  v12 = v5[12];
+  v135 = type metadata accessor for CatalogService();
+  v134 = *(v135[-1].Description + 1);
+  v134(v4 + v12, v135);
+  v13 = v5[13];
+  v133 = type metadata accessor for ConfigurationService();
+  v132 = *(v133[-1].Description + 1);
+  v132(v4 + v13, v133);
+  v14 = v5[14];
+  v131 = type metadata accessor for ContentAvailabilityService();
+  v130 = *(v131[-1].Description + 1);
+  v130(v4 + v14, v131);
+  v15 = v5[15];
+  v129 = type metadata accessor for EngagementService();
+  v128 = *(v129[-1].Description + 1);
+  v128(v4 + v15, v129);
+  v16 = v5[16];
+  v127 = type metadata accessor for HealthDataService();
+  v126 = *(v127[-1].Description + 1);
+  v126(v4 + v16, v127);
+  v17 = v5[17];
+  v125 = type metadata accessor for InteropService();
+  v124 = *(v125[-1].Description + 1);
+  v124(v4 + v17, v125);
+  v18 = v5[18];
+  v123 = type metadata accessor for LocalizationService();
+  v122 = *(v123[-1].Description + 1);
+  v122(v4 + v18, v123);
+  v19 = v5[19];
+  v121 = type metadata accessor for MarketingService();
+  v120 = *(v121[-1].Description + 1);
+  v120(v4 + v19, v121);
+  v20 = v5[20];
+  v119 = type metadata accessor for MetricService();
+  v118 = *(v119[-1].Description + 1);
+  v118(v4 + v20, v119);
+  v21 = v5[21];
+  v117 = type metadata accessor for PersonalizationService();
+  v116 = *(v117[-1].Description + 1);
+  v116(v4 + v21, v117);
+  v22 = v5[22];
+  v115 = type metadata accessor for PlayerService();
+  v114 = *(v115[-1].Description + 1);
+  v114(v4 + v22, v115);
+  v23 = v5[23];
+  v113 = type metadata accessor for PrivacyPreferenceService();
+  v112 = *(v113[-1].Description + 1);
+  v112(v4 + v23, v113);
+  v24 = v5[24];
+  v111 = type metadata accessor for RecommendationService();
+  v110 = *(v111[-1].Description + 1);
+  v110(v4 + v24, v111);
+  v25 = v5[25];
+  v109 = type metadata accessor for RemoteBrowsingService();
+  v108 = *(v109[-1].Description + 1);
+  v108(v4 + v25, v109);
+  v26 = v5[26];
+  v107 = type metadata accessor for SearchService();
+  v106 = *(v107[-1].Description + 1);
+  v106(v4 + v26, v107);
+  v27 = v5[27];
+  v100 = type metadata accessor for ServiceSubscriptionService();
+  v105 = *(v100[-1].Description + 1);
+  v105(v4 + v27, v100);
+  v28 = v5[28];
+  v98 = type metadata accessor for SessionService();
+  v104 = *(v98[-1].Description + 1);
+  v104(v4 + v28, v98);
+  v29 = v5[29];
+  v30 = type metadata accessor for SharePlayService();
+  v103 = *(v30[-1].Description + 1);
+  v103(v4 + v29, v30);
+  v31 = v5[30];
+  v32 = type metadata accessor for SiriService();
+  v102 = *(v32[-1].Description + 1);
+  v102(v4 + v31, v32);
+  v33 = v5[31];
+  v34 = type metadata accessor for SyncService();
+  v101 = *(v34[-1].Description + 1);
+  v101(v4 + v33, v34);
 
-  v40 = v38[3];
-
-  v41 = v38[5];
-
-  v42 = v8[33];
+  v35 = v5[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v145 = *(QueueService[-1].Description + 1);
-  v145(v6 + v42, QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v6 + v8[34]));
-  v44 = *(v6 + v8[35]);
+  v99 = *(QueueService[-1].Description + 1);
+  v99(v4 + v35, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v4 + v5[34]));
 
-  v45 = v8[36];
-  v46 = type metadata accessor for WorkoutPlanService();
-  v47 = *(v46[-1].Description + 1);
-  v47(v6 + v45, v46);
-  v48 = *(v193 + v192[6]);
+  v37 = v5[36];
+  v38 = type metadata accessor for WorkoutPlanService();
+  v39 = *(v38[-1].Description + 1);
+  v39(v4 + v37, v38);
 
-  v49 = (v193 + v192[7]);
-  v50 = *v49;
+  v40 = v147 + v146[7];
 
-  v51 = v49[1];
-
-  v52 = (v49 + *(type metadata accessor for AppDataItemResolver() + 24));
-  v53 = *v52;
+  v41 = v40 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v194(v52 + v8[6], v195);
-  v190(v52 + v8[7], v191);
-  v188(v52 + v8[8], v189);
-  v186(v52 + v8[9], v187);
-  v184(v52 + v8[10], v185);
-  v182(v52 + v8[11], v183);
-  v180(v52 + v8[12], v181);
-  v178(v52 + v8[13], v179);
-  v176(v52 + v8[14], v177);
-  v174(v52 + v8[15], v175);
-  v172(v52 + v8[16], v173);
-  v170(v52 + v8[17], v171);
-  v168(v52 + v8[18], v169);
-  v166(v52 + v8[19], v167);
-  v164(v52 + v8[20], v165);
-  v162(v52 + v8[21], v163);
-  v160(v52 + v8[22], v161);
-  v158(v52 + v8[23], v159);
-  v156(v52 + v8[24], v157);
-  v154(v52 + v8[25], v155);
-  v152(v52 + v8[26], v153);
-  v151(v52 + v8[27], v146);
-  v150(v52 + v8[28], v144);
-  v149(v52 + v8[29], v33);
-  v148(v52 + v8[30], v35);
-  v147(v52 + v8[31], v37);
-  v54 = (v52 + v8[32]);
-  v55 = v54[1];
+  v148(v41 + v5[6], v149);
+  v144(v41 + v5[7], v145);
+  v142(v41 + v5[8], v143);
+  v140(v41 + v5[9], v141);
+  v138(v41 + v5[10], v139);
+  v136(v41 + v5[11], v137);
+  v134(v41 + v5[12], v135);
+  v132(v41 + v5[13], v133);
+  v130(v41 + v5[14], v131);
+  v128(v41 + v5[15], v129);
+  v126(v41 + v5[16], v127);
+  v124(v41 + v5[17], v125);
+  v122(v41 + v5[18], v123);
+  v120(v41 + v5[19], v121);
+  v118(v41 + v5[20], v119);
+  v116(v41 + v5[21], v117);
+  v114(v41 + v5[22], v115);
+  v112(v41 + v5[23], v113);
+  v110(v41 + v5[24], v111);
+  v108(v41 + v5[25], v109);
+  v106(v41 + v5[26], v107);
+  v105(v41 + v5[27], v100);
+  v104(v41 + v5[28], v98);
+  v103(v41 + v5[29], v30);
+  v102(v41 + v5[30], v32);
+  v101(v41 + v5[31], v34);
 
-  v56 = v54[3];
+  v99(v41 + v5[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v41 + v5[34]));
 
-  v57 = v54[5];
-
-  v145(v52 + v8[33], QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v52 + v8[34]));
-  v58 = *(v52 + v8[35]);
-
-  v47(v52 + v8[36], v46);
-  v59 = *(v193 + v192[8]);
+  v39(v41 + v5[36], v38);
   swift_unknownObjectRelease();
-  if (*(v193 + v192[9] + 8) >= 0xCuLL)
+  if (*(v147 + v146[9] + 8) >= 0xCuLL)
   {
   }
 
-  v60 = (v193 + v192[10]);
-  if (v60[3])
+  v42 = (v147 + v146[10]);
+  if (v42[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v60);
+    __swift_destroy_boxed_opaque_existential_1(v42);
   }
 
-  v61 = (v197 + v196) & ~v203;
-  v62 = *(v198 + v199[6]);
+  v43 = (v151 + v150) & ~v157;
   swift_unknownObjectRelease();
-  v63 = (v198 + v199[7]);
-  if (v63[3])
+  v44 = (v152 + *(v153 + 28));
+  if (v44[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v63);
+    __swift_destroy_boxed_opaque_existential_1(v44);
   }
 
-  v64 = *(v198 + v199[8]);
   swift_unknownObjectRelease();
-  v65 = v202 + v61;
-  type metadata accessor for RouteResource();
+  v45 = v156 + v43;
+  type metadata accessor for RouteResource(0);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 0u:
@@ -7004,36 +4652,32 @@ uint64_t sub_1E5E506D0()
     case 0xDu:
     case 0xFu:
     case 0x10u:
-      goto LABEL_8;
+      goto LABEL_22;
     case 1u:
-      v106 = sub_1E65D76F8();
-      v107 = *(v106 - 8);
-      if (!(*(v107 + 48))(v202 + v61, 1, v106))
+      v79 = sub_1E65D76F8();
+      v80 = *(v79 - 8);
+      if (!(*(v80 + 48))(v156 + v43, 1, v79))
       {
-        (*(v107 + 8))(v202 + v61, v106);
+        (*(v80 + 8))(v156 + v43, v79);
       }
 
-      v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
-      v109 = *(v65 + v108[12] + 8);
+      v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
 
-      v110 = v108[16];
-      v111 = sub_1E65E2CF8();
-      v112 = *(v111 - 8);
-      if (!(*(v112 + 48))(v65 + v110, 1, v111))
+      v82 = *(v81 + 64);
+      v83 = sub_1E65E2CF8();
+      v84 = *(v83 - 8);
+      if (!(*(v84 + 48))(v45 + v82, 1, v83))
       {
-        (*(v112 + 8))(v65 + v110, v111);
+        (*(v84 + 8))(v45 + v82, v83);
       }
 
-      v113 = *(v65 + v108[20]);
-
-      v83 = v108[24];
-      v114 = sub_1E65E1FC8();
+      v59 = *(v81 + 96);
+      v85 = sub_1E65E1FC8();
       goto LABEL_52;
     case 3u:
-      v122 = *(v65 + 8);
 
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
-      v90 = sub_1E65D72D8();
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
+      v66 = sub_1E65D72D8();
       goto LABEL_50;
     case 4u:
       sub_1E65E0B48();
@@ -7044,15 +4688,14 @@ uint64_t sub_1E5E506D0()
         {
           if (EnumCaseMultiPayload == 1)
           {
-            v117 = sub_1E65E0FD8();
-            (*(*(v117 - 8) + 8))(v202 + v61, v117);
+            v87 = sub_1E65E0FD8();
+            (*(*(v87 - 8) + 8))(v156 + v43, v87);
           }
 
           goto LABEL_80;
         }
 
 LABEL_79:
-        v142 = *(v65 + 8);
 
         goto LABEL_80;
       }
@@ -7063,18 +4706,17 @@ LABEL_79:
       }
 
 LABEL_80:
-      v143 = *(v65 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280) + 48) + 8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280);
 
 LABEL_57:
-      v130 = v204;
-      v131 = v65 + *(v204 + 20);
+      v90 = v45 + *(v158 + 20);
       type metadata accessor for RouteSource(0);
-      v132 = swift_getEnumCaseMultiPayload();
-      if (v132 <= 1)
+      v91 = swift_getEnumCaseMultiPayload();
+      if (v91 <= 1)
       {
-        if (v132)
+        if (v91)
         {
-          if (v132 != 1)
+          if (v91 != 1)
           {
             goto LABEL_71;
           }
@@ -7092,240 +4734,209 @@ LABEL_57:
         goto LABEL_68;
       }
 
-      switch(v132)
+      switch(v91)
       {
         case 2:
 LABEL_68:
-          v134 = sub_1E65D74E8();
-          v135 = *(v134 - 8);
-          v136 = *(v135 + 8);
-          v136(v131, v134);
-          v137 = type metadata accessor for URLContext(0);
-          v138 = *(v137 + 20);
-          if (!(*(v135 + 48))(v131 + v138, 1, v134))
+          v93 = sub_1E65D74E8();
+          v94 = *(v93 - 8);
+          v95 = *(v94 + 8);
+          v95(v90, v93);
+          v96 = *(type metadata accessor for URLContext(0) + 20);
+          if (!(*(v94 + 48))(v90 + v96, 1, v93))
           {
-            v136(v131 + v138, v134);
+            v95(v90 + v96, v93);
           }
 
-          v139 = *(v131 + *(v137 + 24) + 8);
-
-          v130 = v204;
           goto LABEL_71;
         case 3:
-          v133 = sub_1E65D74E8();
+          v92 = sub_1E65D74E8();
           break;
         case 4:
-          v133 = sub_1E65D8D48();
+          v92 = sub_1E65D8D48();
           break;
         default:
           goto LABEL_71;
       }
 
-      (*(*(v133 - 8) + 8))(v131, v133);
+      (*(*(v92 - 8) + 8))(v90, v92);
 LABEL_71:
-      v140 = *(v65 + *(v130 + 24));
 
-      sub_1E5F94E00(*(v202 + ((v61 + v200) & 0xFFFFFFFFFFFFFFF8) + 8), *(v202 + ((v61 + v200) & 0xFFFFFFFFFFFFFFF8) + 16));
+      sub_1E5F94E00(*(v156 + ((v43 + v154) & 0xFFFFFFFFFFFFFFF8) + 8), *(v156 + ((v43 + v154) & 0xFFFFFFFFFFFFFFF8) + 16));
 
       return swift_deallocObject();
     case 6u:
 
-      v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
-      v88 = *(v87 + 48);
-      v89 = sub_1E65DB848();
-      (*(*(v89 - 8) + 8))(v65 + v88, v89);
-      v70 = *(v87 + 64);
-      v90 = sub_1E65E1518();
+      v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
+      v64 = *(v63 + 48);
+      v65 = sub_1E65DB848();
+      (*(*(v65 - 8) + 8))(v45 + v64, v65);
+      v49 = *(v63 + 64);
+      v66 = sub_1E65E1518();
       goto LABEL_50;
     case 7u:
-      v98 = sub_1E65DB848();
-      (*(*(v98 - 8) + 8))(v202 + v61, v98);
-      v99 = &unk_1ED0720D0;
-      v100 = &unk_1E65EA290;
+      v74 = sub_1E65DB848();
+      (*(*(v74 - 8) + 8))(v156 + v43, v74);
+      v75 = &unk_1ED0720D0;
+      v76 = &unk_1E65EA290;
       goto LABEL_48;
     case 8u:
     case 9u:
 
-      v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
-      v68 = *(v67 + 48);
-      v69 = sub_1E65DB848();
-      (*(*(v69 - 8) + 8))(v65 + v68, v69);
-      v70 = *(v67 + 64);
+      v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
+      v47 = *(v46 + 48);
+      v48 = sub_1E65DB848();
+      (*(*(v48 - 8) + 8))(v45 + v47, v48);
+      v49 = *(v46 + 64);
       goto LABEL_49;
     case 0xCu:
-      v115 = *(v65 + 8);
 
-      sub_1E5F94E00(*(v65 + 16), *(v65 + 24));
+      sub_1E5F94E00(*(v45 + 16), *(v45 + 24));
       goto LABEL_57;
     case 0xEu:
-      v86 = sub_1E65DB718();
+      v62 = sub_1E65DB718();
       goto LABEL_56;
     case 0x11u:
-      v126 = *(v65 + 8);
 
-      v99 = &unk_1ED0720E0;
-      v100 = &unk_1E65EA2A0;
+      v75 = &unk_1ED0720E0;
+      v76 = &unk_1E65EA2A0;
 LABEL_48:
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v99, v100) + 48);
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v75, v76) + 48);
 LABEL_49:
-      v90 = sub_1E65D74E8();
+      v66 = sub_1E65D74E8();
       goto LABEL_50;
     case 0x12u:
-      v123 = *v65;
-      v124 = *(v65 + 8);
-      v125 = *(v65 + 16);
-      sub_1E5F94E14();
+      sub_1E5F94E14(*v45, *(v45 + 8), *(v45 + 16));
       goto LABEL_57;
     case 0x13u:
       goto LABEL_29;
     case 0x14u:
-      v101 = *(v65 + 8);
-
-      v102 = *(v65 + 24);
 
       goto LABEL_57;
     case 0x15u:
-      v127 = *(v65 + 8);
 
-      v128 = *(v65 + 24);
-
-      v83 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
-      v114 = sub_1E65D96F8();
+      v59 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
+      v85 = sub_1E65D96F8();
 LABEL_52:
-      v84 = v114;
-      v85 = *(v114 - 8);
-      if (!(*(v85 + 48))(v65 + v83, 1, v114))
+      v60 = v85;
+      v61 = *(v85 - 8);
+      if (!(*(v61 + 48))(v45 + v59, 1, v85))
       {
         goto LABEL_53;
       }
 
       goto LABEL_57;
     case 0x16u:
-      __swift_destroy_boxed_opaque_existential_1((v202 + v61));
-      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
-      v72 = v71[12];
-      v73 = sub_1E65D74E8();
-      (*(*(v73 - 8) + 8))(v65 + v72, v73);
-      v74 = *(v65 + v71[16] + 8);
+      __swift_destroy_boxed_opaque_existential_1((v156 + v43));
+      v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
+      v51 = v50[12];
+      v52 = sub_1E65D74E8();
+      (*(*(v52 - 8) + 8))(v45 + v51, v52);
 
-      v75 = v71[20];
-      v76 = sub_1E65DB3E8();
-      v77 = *(v76 - 8);
-      if (!(*(v77 + 48))(v65 + v75, 1, v76))
+      v53 = v50[20];
+      v54 = sub_1E65DB3E8();
+      v55 = *(v54 - 8);
+      if (!(*(v55 + 48))(v45 + v53, 1, v54))
       {
-        (*(v77 + 8))(v65 + v75, v76);
+        (*(v55 + 8))(v45 + v53, v54);
       }
 
-      v78 = *(v65 + v71[24] + 8);
-
-      v79 = *(v65 + v71[28] + 8);
-
-      v80 = v71[32];
-      v81 = sub_1E65DB5D8();
-      v82 = *(v81 - 8);
-      if (!(*(v82 + 48))(v65 + v80, 1, v81))
+      v56 = v50[32];
+      v57 = sub_1E65DB5D8();
+      v58 = *(v57 - 8);
+      if (!(*(v58 + 48))(v45 + v56, 1, v57))
       {
-        (*(v82 + 8))(v65 + v80, v81);
+        (*(v58 + 8))(v45 + v56, v57);
       }
 
-      v83 = v71[36];
-      v84 = sub_1E65D7A38();
-      v85 = *(v84 - 8);
-      if (!(*(v85 + 48))(v65 + v83, 1, v84))
+      v59 = v50[36];
+      v60 = sub_1E65D7A38();
+      v61 = *(v60 - 8);
+      if (!(*(v61 + 48))(v45 + v59, 1, v60))
       {
 LABEL_53:
-        (*(v85 + 8))(v65 + v83, v84);
+        (*(v61 + 8))(v45 + v59, v60);
       }
 
       goto LABEL_57;
     case 0x17u:
-      v94 = sub_1E65E57D8();
-      (*(*(v94 - 8) + 8))(v202 + v61, v94);
-      v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
-      v96 = *(v95 + 48);
-      v97 = sub_1E65E5528();
-      (*(*(v97 - 8) + 8))(v65 + v96, v97);
-      if (*(v65 + *(v95 + 64) + 8) >= 0xCuLL)
+      v70 = sub_1E65E57D8();
+      (*(*(v70 - 8) + 8))(v156 + v43, v70);
+      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
+      v72 = *(v71 + 48);
+      v73 = sub_1E65E5528();
+      (*(*(v73 - 8) + 8))(v45 + v72, v73);
+      if (*(v45 + *(v71 + 64) + 8) >= 0xCuLL)
       {
+        goto LABEL_22;
       }
 
       goto LABEL_57;
     case 0x18u:
 
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
-      v90 = sub_1E65DB848();
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
+      v66 = sub_1E65DB848();
       goto LABEL_50;
     case 0x1Au:
       sub_1E65E52B8();
-      v105 = swift_getEnumCaseMultiPayload();
-      if (v105 == 1)
+      v78 = swift_getEnumCaseMultiPayload();
+      if (v78 == 1)
       {
-
-        goto LABEL_57;
       }
 
-      if (v105)
+      else if (!v78)
       {
-        goto LABEL_57;
-      }
-
 LABEL_29:
-      v86 = sub_1E65D74E8();
-      goto LABEL_56;
-    case 0x1Bu:
-      type metadata accessor for PlaylistType();
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v86 = sub_1E65DAEB8();
+        v62 = sub_1E65D74E8();
 LABEL_56:
-        (*(*(v86 - 8) + 8))(v202 + v61, v86);
-      }
-
-      else
-      {
-LABEL_8:
-        v66 = *(v65 + 8);
+        (*(*(v62 - 8) + 8))(v156 + v43, v62);
       }
 
       goto LABEL_57;
+    case 0x1Bu:
+      type metadata accessor for PlaylistType(0);
+      if (swift_getEnumCaseMultiPayload() != 1)
+      {
+        goto LABEL_22;
+      }
+
+      v62 = sub_1E65DAEB8();
+      goto LABEL_56;
     case 0x1Cu:
-      v86 = sub_1E65D76F8();
+      v62 = sub_1E65D76F8();
       goto LABEL_56;
     case 0x1Du:
-      v129 = sub_1E65E55E8();
-      (*(*(v129 - 8) + 8))(v202 + v61, v129);
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
-      v90 = sub_1E65D7EB8();
+      v89 = sub_1E65E55E8();
+      (*(*(v89 - 8) + 8))(v156 + v43, v89);
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
+      v66 = sub_1E65D7EB8();
 LABEL_50:
-      (*(*(v90 - 8) + 8))(v65 + v70, v90);
+      (*(*(v66 - 8) + 8))(v45 + v49, v66);
       goto LABEL_57;
     case 0x1Eu:
-      v91 = sub_1E65E56B8();
-      (*(*(v91 - 8) + 8))(v202 + v61, v91);
-      v92 = &unk_1ED072110;
-      v93 = &unk_1E65EA2D0;
+      v67 = sub_1E65E56B8();
+      (*(*(v67 - 8) + 8))(v156 + v43, v67);
+      v68 = &unk_1ED072110;
+      v69 = &unk_1E65EA2D0;
       goto LABEL_43;
     case 0x1Fu:
-      v103 = sub_1E65DA308();
-      (*(*(v103 - 8) + 8))(v202 + v61, v103);
-      v104 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810) + 48);
-      goto LABEL_44;
+      v77 = sub_1E65DA308();
+      (*(*(v77 - 8) + 8))(v156 + v43, v77);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810);
+      goto LABEL_22;
     case 0x20u:
-      v118 = sub_1E65E58D8();
-      (*(*(v118 - 8) + 8))(v202 + v61, v118);
-      v92 = &qword_1ED072120;
-      v93 = &qword_1E65EA2E0;
+      v88 = sub_1E65E58D8();
+      (*(*(v88 - 8) + 8))(v156 + v43, v88);
+      v68 = &qword_1ED072120;
+      v69 = &qword_1E65EA2E0;
 LABEL_43:
-      v119 = __swift_instantiateConcreteTypeFromMangledNameV2(v92, v93);
-      v120 = *(v65 + *(v119 + 48));
+      __swift_instantiateConcreteTypeFromMangledNameV2(v68, v69);
 
-      v104 = *(v119 + 64);
-LABEL_44:
-      v121 = *(v65 + v104);
+LABEL_22:
 
       goto LABEL_57;
     case 0x21u:
-      v86 = sub_1E65D9048();
+      v62 = sub_1E65D9048();
       goto LABEL_56;
     default:
       goto LABEL_57;
@@ -7334,220 +4945,193 @@ LABEL_44:
 
 uint64_t sub_1E5E52044()
 {
-  v1 = type metadata accessor for NavigationControllerRoutingContext();
-  v121 = *(*(v1 - 8) + 80);
-  v118 = *(*(v1 - 8) + 64);
-  v2 = *(v0 + 16);
+  v1 = type metadata accessor for NavigationControllerRoutingContext(0);
+  v99 = *(*(v1 - 8) + 80);
+  v96 = *(*(v1 - 8) + 64);
 
-  v122 = v0;
-  v119 = (v121 + 24) & ~v121;
-  v3 = (v0 + v119);
+  v100 = v0;
+  v97 = (v99 + 24) & ~v99;
+  v2 = (v0 + v97);
 
-  v120 = v1;
-  v117 = v3;
-  v4 = (v3 + *(v1 + 20));
-  v5 = *v4;
-  v6 = v4;
-  v114 = v4;
+  v98 = v1;
+  v95 = v2;
+  v92 = v2 + *(v1 + 20);
 
-  v123 = type metadata accessor for AppComposer();
-  v7 = v6 + v123[5];
-  v8 = *v7;
+  v101 = type metadata accessor for AppComposer(0);
+  v3 = &v92[v101[5]];
   swift_unknownObjectRelease();
-  v9 = type metadata accessor for AppEnvironment();
-  v10 = v9[6];
-  v116 = type metadata accessor for AccountService();
-  v115 = *(v116[-1].Description + 1);
-  v115(&v7[v10], v116);
-  v11 = v9[7];
-  v113 = type metadata accessor for AppStateService();
-  v112 = *(v113[-1].Description + 1);
-  v112(&v7[v11], v113);
-  v12 = v9[8];
-  v111 = type metadata accessor for ArchivedSessionService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v7[v12], v111);
-  v13 = v9[9];
-  v109 = type metadata accessor for AssetService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v7[v13], v109);
-  v14 = v9[10];
-  v107 = type metadata accessor for AwardsService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v7[v14], v107);
-  v15 = v9[11];
-  v105 = type metadata accessor for BookmarkService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v7[v15], v105);
-  v16 = v9[12];
-  v103 = type metadata accessor for CatalogService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v7[v16], v103);
-  v17 = v9[13];
-  v101 = type metadata accessor for ConfigurationService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v7[v17], v101);
-  v18 = v9[14];
-  v99 = type metadata accessor for ContentAvailabilityService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v7[v18], v99);
-  v19 = v9[15];
-  v97 = type metadata accessor for EngagementService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v7[v19], v97);
-  v20 = v9[16];
-  v95 = type metadata accessor for HealthDataService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v7[v20], v95);
-  v21 = v9[17];
-  v93 = type metadata accessor for InteropService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v7[v21], v93);
-  v22 = v9[18];
-  v91 = type metadata accessor for LocalizationService();
+  v4 = type metadata accessor for AppEnvironment(0);
+  v5 = v4[6];
+  v94 = type metadata accessor for AccountService();
+  v93 = *(v94[-1].Description + 1);
+  v93(&v3[v5], v94);
+  v6 = v4[7];
+  v91 = type metadata accessor for AppStateService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v7[v22], v91);
-  v23 = v9[19];
-  v89 = type metadata accessor for MarketingService();
+  v90(&v3[v6], v91);
+  v7 = v4[8];
+  v89 = type metadata accessor for ArchivedSessionService();
   v88 = *(v89[-1].Description + 1);
-  v88(&v7[v23], v89);
-  v24 = v9[20];
-  v87 = type metadata accessor for MetricService();
+  v88(&v3[v7], v89);
+  v8 = v4[9];
+  v87 = type metadata accessor for AssetService();
   v86 = *(v87[-1].Description + 1);
-  v86(&v7[v24], v87);
-  v25 = v9[21];
-  v85 = type metadata accessor for PersonalizationService();
+  v86(&v3[v8], v87);
+  v9 = v4[10];
+  v85 = type metadata accessor for AwardsService();
   v84 = *(v85[-1].Description + 1);
-  v84(&v7[v25], v85);
-  v26 = v9[22];
-  v83 = type metadata accessor for PlayerService();
+  v84(&v3[v9], v85);
+  v10 = v4[11];
+  v83 = type metadata accessor for BookmarkService();
   v82 = *(v83[-1].Description + 1);
-  v82(&v7[v26], v83);
-  v27 = v9[23];
-  v81 = type metadata accessor for PrivacyPreferenceService();
+  v82(&v3[v10], v83);
+  v11 = v4[12];
+  v81 = type metadata accessor for CatalogService();
   v80 = *(v81[-1].Description + 1);
-  v80(&v7[v27], v81);
-  v28 = v9[24];
-  v79 = type metadata accessor for RecommendationService();
+  v80(&v3[v11], v81);
+  v12 = v4[13];
+  v79 = type metadata accessor for ConfigurationService();
   v78 = *(v79[-1].Description + 1);
-  v78(&v7[v28], v79);
-  v29 = v9[25];
-  v77 = type metadata accessor for RemoteBrowsingService();
+  v78(&v3[v12], v79);
+  v13 = v4[14];
+  v77 = type metadata accessor for ContentAvailabilityService();
   v76 = *(v77[-1].Description + 1);
-  v76(&v7[v29], v77);
-  v30 = v9[26];
-  v75 = type metadata accessor for SearchService();
+  v76(&v3[v13], v77);
+  v14 = v4[15];
+  v75 = type metadata accessor for EngagementService();
   v74 = *(v75[-1].Description + 1);
-  v74(&v7[v30], v75);
-  v31 = v9[27];
-  v68 = type metadata accessor for ServiceSubscriptionService();
-  v73 = *(v68[-1].Description + 1);
-  v73(&v7[v31], v68);
-  v32 = v9[28];
-  v66 = type metadata accessor for SessionService();
-  v72 = *(v66[-1].Description + 1);
-  v72(&v7[v32], v66);
-  v33 = v9[29];
-  v34 = type metadata accessor for SharePlayService();
-  v71 = *(v34[-1].Description + 1);
-  v71(&v7[v33], v34);
-  v35 = v9[30];
-  v36 = type metadata accessor for SiriService();
-  v70 = *(v36[-1].Description + 1);
-  v70(&v7[v35], v36);
-  v37 = v9[31];
-  v38 = type metadata accessor for SyncService();
-  v69 = *(v38[-1].Description + 1);
-  v69(&v7[v37], v38);
-  v39 = &v7[v9[32]];
-  v40 = *(v39 + 1);
+  v74(&v3[v14], v75);
+  v15 = v4[16];
+  v73 = type metadata accessor for HealthDataService();
+  v72 = *(v73[-1].Description + 1);
+  v72(&v3[v15], v73);
+  v16 = v4[17];
+  v71 = type metadata accessor for InteropService();
+  v70 = *(v71[-1].Description + 1);
+  v70(&v3[v16], v71);
+  v17 = v4[18];
+  v69 = type metadata accessor for LocalizationService();
+  v68 = *(v69[-1].Description + 1);
+  v68(&v3[v17], v69);
+  v18 = v4[19];
+  v67 = type metadata accessor for MarketingService();
+  v66 = *(v67[-1].Description + 1);
+  v66(&v3[v18], v67);
+  v19 = v4[20];
+  v65 = type metadata accessor for MetricService();
+  v64 = *(v65[-1].Description + 1);
+  v64(&v3[v19], v65);
+  v20 = v4[21];
+  v63 = type metadata accessor for PersonalizationService();
+  v62 = *(v63[-1].Description + 1);
+  v62(&v3[v20], v63);
+  v21 = v4[22];
+  v61 = type metadata accessor for PlayerService();
+  v60 = *(v61[-1].Description + 1);
+  v60(&v3[v21], v61);
+  v22 = v4[23];
+  v59 = type metadata accessor for PrivacyPreferenceService();
+  v58 = *(v59[-1].Description + 1);
+  v58(&v3[v22], v59);
+  v23 = v4[24];
+  v57 = type metadata accessor for RecommendationService();
+  v56 = *(v57[-1].Description + 1);
+  v56(&v3[v23], v57);
+  v24 = v4[25];
+  v55 = type metadata accessor for RemoteBrowsingService();
+  v54 = *(v55[-1].Description + 1);
+  v54(&v3[v24], v55);
+  v25 = v4[26];
+  v53 = type metadata accessor for SearchService();
+  v52 = *(v53[-1].Description + 1);
+  v52(&v3[v25], v53);
+  v26 = v4[27];
+  v46 = type metadata accessor for ServiceSubscriptionService();
+  v51 = *(v46[-1].Description + 1);
+  v51(&v3[v26], v46);
+  v27 = v4[28];
+  v44 = type metadata accessor for SessionService();
+  v50 = *(v44[-1].Description + 1);
+  v50(&v3[v27], v44);
+  v28 = v4[29];
+  v29 = type metadata accessor for SharePlayService();
+  v49 = *(v29[-1].Description + 1);
+  v49(&v3[v28], v29);
+  v30 = v4[30];
+  v31 = type metadata accessor for SiriService();
+  v48 = *(v31[-1].Description + 1);
+  v48(&v3[v30], v31);
+  v32 = v4[31];
+  v33 = type metadata accessor for SyncService();
+  v47 = *(v33[-1].Description + 1);
+  v47(&v3[v32], v33);
 
-  v41 = *(v39 + 3);
-
-  v42 = *(v39 + 5);
-
-  v43 = v9[33];
+  v34 = v4[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v67 = *(QueueService[-1].Description + 1);
-  v67(&v7[v43], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v7[v9[34]]);
-  v45 = *&v7[v9[35]];
+  v45 = *(QueueService[-1].Description + 1);
+  v45(&v3[v34], QueueService);
+  __swift_destroy_boxed_opaque_existential_1(&v3[v4[34]]);
 
-  v46 = v9[36];
-  v47 = type metadata accessor for WorkoutPlanService();
-  v48 = *(v47[-1].Description + 1);
-  v48(&v7[v46], v47);
-  v49 = *(v114 + v123[6]);
+  v36 = v4[36];
+  v37 = type metadata accessor for WorkoutPlanService();
+  v38 = *(v37[-1].Description + 1);
+  v38(&v3[v36], v37);
 
-  v50 = (v114 + v123[7]);
-  v51 = *v50;
+  v39 = &v92[v101[7]];
 
-  v52 = v50[1];
-
-  v53 = v50 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v54 = *v53;
+  v40 = &v39[*(type metadata accessor for AppDataItemResolver(0) + 24)];
   swift_unknownObjectRelease();
-  v115(&v53[v9[6]], v116);
-  v112(&v53[v9[7]], v113);
-  v110(&v53[v9[8]], v111);
-  v108(&v53[v9[9]], v109);
-  v106(&v53[v9[10]], v107);
-  v104(&v53[v9[11]], v105);
-  v102(&v53[v9[12]], v103);
-  v100(&v53[v9[13]], v101);
-  v98(&v53[v9[14]], v99);
-  v96(&v53[v9[15]], v97);
-  v94(&v53[v9[16]], v95);
-  v92(&v53[v9[17]], v93);
-  v90(&v53[v9[18]], v91);
-  v88(&v53[v9[19]], v89);
-  v86(&v53[v9[20]], v87);
-  v84(&v53[v9[21]], v85);
-  v82(&v53[v9[22]], v83);
-  v80(&v53[v9[23]], v81);
-  v78(&v53[v9[24]], v79);
-  v76(&v53[v9[25]], v77);
-  v74(&v53[v9[26]], v75);
-  v73(&v53[v9[27]], v68);
-  v72(&v53[v9[28]], v66);
-  v71(&v53[v9[29]], v34);
-  v70(&v53[v9[30]], v36);
-  v69(&v53[v9[31]], v38);
-  v55 = &v53[v9[32]];
-  v56 = *(v55 + 1);
+  v93(&v40[v4[6]], v94);
+  v90(&v40[v4[7]], v91);
+  v88(&v40[v4[8]], v89);
+  v86(&v40[v4[9]], v87);
+  v84(&v40[v4[10]], v85);
+  v82(&v40[v4[11]], v83);
+  v80(&v40[v4[12]], v81);
+  v78(&v40[v4[13]], v79);
+  v76(&v40[v4[14]], v77);
+  v74(&v40[v4[15]], v75);
+  v72(&v40[v4[16]], v73);
+  v70(&v40[v4[17]], v71);
+  v68(&v40[v4[18]], v69);
+  v66(&v40[v4[19]], v67);
+  v64(&v40[v4[20]], v65);
+  v62(&v40[v4[21]], v63);
+  v60(&v40[v4[22]], v61);
+  v58(&v40[v4[23]], v59);
+  v56(&v40[v4[24]], v57);
+  v54(&v40[v4[25]], v55);
+  v52(&v40[v4[26]], v53);
+  v51(&v40[v4[27]], v46);
+  v50(&v40[v4[28]], v44);
+  v49(&v40[v4[29]], v29);
+  v48(&v40[v4[30]], v31);
+  v47(&v40[v4[31]], v33);
 
-  v57 = *(v55 + 3);
+  v45(&v40[v4[33]], QueueService);
+  __swift_destroy_boxed_opaque_existential_1(&v40[v4[34]]);
 
-  v58 = *(v55 + 5);
-
-  v67(&v53[v9[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v53[v9[34]]);
-  v59 = *&v53[v9[35]];
-
-  v48(&v53[v9[36]], v47);
-  v60 = *(v114 + v123[8]);
+  v38(&v40[v4[36]], v37);
   swift_unknownObjectRelease();
-  if (*(v114 + v123[9] + 8) >= 0xCuLL)
+  if (*&v92[v101[9] + 8] >= 0xCuLL)
   {
   }
 
-  v61 = (v114 + v123[10]);
-  if (v61[3])
+  v41 = &v92[v101[10]];
+  if (*(v41 + 3))
   {
-    __swift_destroy_boxed_opaque_existential_1(v61);
+    __swift_destroy_boxed_opaque_existential_1(v41);
   }
 
-  v62 = *(v117 + v120[6]);
   swift_unknownObjectRelease();
-  v63 = (v117 + v120[7]);
-  if (v63[3])
+  v42 = (v95 + *(v98 + 28));
+  if (v42[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v63);
+    __swift_destroy_boxed_opaque_existential_1(v42);
   }
 
-  v64 = *(v117 + v120[8]);
   swift_unknownObjectRelease();
-  sub_1E5F94E00(*(v122 + ((v119 + v118) & 0xFFFFFFFFFFFFFFF8) + 8), *(v122 + ((v119 + v118) & 0xFFFFFFFFFFFFFFF8) + 16));
+  sub_1E5F94E00(*(v100 + ((v97 + v96) & 0xFFFFFFFFFFFFFFF8) + 8), *(v100 + ((v97 + v96) & 0xFFFFFFFFFFFFFFF8) + 16));
 
   return swift_deallocObject();
 }
@@ -7556,31 +5140,29 @@ uint64_t sub_1E5E52D88()
 {
   v1 = *(type metadata accessor for RouteSource(0) - 8);
   v2 = (*(v1 + 80) + 24) & ~*(v1 + 80);
-  v3 = *(v1 + 64);
-  v4 = v0 + v2;
+  v3 = v0 + v2;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
     if (!EnumCaseMultiPayload)
     {
       type metadata accessor for AppLaunchScope(0);
-      if (swift_getEnumCaseMultiPayload() <= 1)
+      if (swift_getEnumCaseMultiPayload() > 1)
       {
-        v13 = sub_1E65D74E8();
-        v14 = *(v13 - 8);
-        v21 = *(v14 + 8);
-        v21(v0 + v2, v13);
-        v15 = type metadata accessor for URLContext(0);
-        v16 = *(v15 + 20);
-        if (!(*(v14 + 48))(v4 + v16, 1, v13))
-        {
-          v21(v4 + v16, v13);
-        }
-
-        v17 = *(v4 + *(v15 + 24) + 8);
+        goto LABEL_17;
       }
 
-      goto LABEL_17;
+      v10 = sub_1E65D74E8();
+      v11 = *(v10 - 8);
+      v14 = *(v11 + 8);
+      v14(v0 + v2, v10);
+      v12 = *(type metadata accessor for URLContext(0) + 20);
+      if (!(*(v11 + 48))(v3 + v12, 1, v10))
+      {
+        v14(v3 + v12, v10);
+      }
+
+      goto LABEL_16;
     }
 
     if (EnumCaseMultiPayload != 1)
@@ -7589,21 +5171,18 @@ uint64_t sub_1E5E52D88()
     }
 
 LABEL_8:
-    v20 = v3;
-    v7 = sub_1E65D74E8();
-    v8 = *(v7 - 8);
-    v9 = *(v8 + 8);
-    v9(v0 + v2, v7);
-    v10 = type metadata accessor for URLContext(0);
-    v11 = *(v10 + 20);
-    if (!(*(v8 + 48))(v4 + v11, 1, v7))
+    v6 = sub_1E65D74E8();
+    v7 = *(v6 - 8);
+    v8 = *(v7 + 8);
+    v8(v0 + v2, v6);
+    v9 = *(type metadata accessor for URLContext(0) + 20);
+    if (!(*(v7 + 48))(v3 + v9, 1, v6))
     {
-      v9(v4 + v11, v7);
+      v8(v3 + v9, v6);
     }
 
-    v12 = *(v4 + *(v10 + 24) + 8);
+LABEL_16:
 
-    v3 = v20;
     goto LABEL_17;
   }
 
@@ -7612,25 +5191,23 @@ LABEL_8:
     case 2:
       goto LABEL_8;
     case 3:
-      v6 = sub_1E65D74E8();
+      v5 = sub_1E65D74E8();
       break;
     case 4:
-      v6 = sub_1E65D8D48();
+      v5 = sub_1E65D8D48();
       break;
     default:
       goto LABEL_17;
   }
 
-  (*(*(v6 - 8) + 8))(v0 + v2, v6);
+  (*(*(v5 - 8) + 8))(v0 + v2, v5);
 LABEL_17:
-  v18 = *(v0 + ((v3 + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E53084()
 {
-  v1 = *(v0 + 24);
 
   return swift_deallocObject();
 }
@@ -7639,12 +5216,11 @@ uint64_t sub_1E5E530BC()
 {
   v1 = *(type metadata accessor for RouteSource(0) - 8);
   v2 = (*(v1 + 80) + 32) & ~*(v1 + 80);
-  v3 = *(v1 + 64);
   if (*(v0 + 24) >= 6uLL)
   {
   }
 
-  v4 = v0 + v2;
+  v3 = v0 + v2;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
@@ -7656,15 +5232,14 @@ uint64_t sub_1E5E530BC()
         goto LABEL_19;
       }
 
-      v12 = sub_1E65D74E8();
-      v13 = *(v12 - 8);
-      v17 = *(v13 + 8);
-      v17(v0 + v2, v12);
-      v10 = type metadata accessor for URLContext(0);
-      v14 = *(v10 + 20);
-      if (!(*(v13 + 48))(v4 + v14, 1, v12))
+      v10 = sub_1E65D74E8();
+      v11 = *(v10 - 8);
+      v14 = *(v11 + 8);
+      v14(v0 + v2, v10);
+      v12 = *(type metadata accessor for URLContext(0) + 20);
+      if (!(*(v11 + 48))(v3 + v12, 1, v10))
       {
-        v17(v4 + v14, v12);
+        v14(v3 + v12, v10);
       }
 
       goto LABEL_18;
@@ -7676,19 +5251,17 @@ uint64_t sub_1E5E530BC()
     }
 
 LABEL_10:
-    v7 = sub_1E65D74E8();
-    v8 = *(v7 - 8);
-    v9 = *(v8 + 8);
-    v9(v0 + v2, v7);
-    v10 = type metadata accessor for URLContext(0);
-    v11 = *(v10 + 20);
-    if (!(*(v8 + 48))(v4 + v11, 1, v7))
+    v6 = sub_1E65D74E8();
+    v7 = *(v6 - 8);
+    v8 = *(v7 + 8);
+    v8(v0 + v2, v6);
+    v9 = *(type metadata accessor for URLContext(0) + 20);
+    if (!(*(v7 + 48))(v3 + v9, 1, v6))
     {
-      v9(v4 + v11, v7);
+      v8(v3 + v9, v6);
     }
 
 LABEL_18:
-    v15 = *(v4 + *(v10 + 24) + 8);
 
     goto LABEL_19;
   }
@@ -7698,16 +5271,16 @@ LABEL_18:
     case 2:
       goto LABEL_10;
     case 3:
-      v6 = sub_1E65D74E8();
+      v5 = sub_1E65D74E8();
       break;
     case 4:
-      v6 = sub_1E65D8D48();
+      v5 = sub_1E65D8D48();
       break;
     default:
       goto LABEL_19;
   }
 
-  (*(*(v6 - 8) + 8))(v0 + v2, v6);
+  (*(*(v5 - 8) + 8))(v0 + v2, v5);
 LABEL_19:
 
   return swift_deallocObject();
@@ -7720,7 +5293,6 @@ uint64_t sub_1E5E533B8()
   v3 = (*(v2 + 80) + 16) & ~*(v2 + 80);
   v4 = *(v2 + 64);
   v5 = *(type metadata accessor for RouteSource(0) - 8);
-  v16 = *(v5 + 64);
   v6 = (v3 + v4 + *(v5 + 80)) & ~*(v5 + 80);
   v7 = *(v2 + 8);
   v7(v0 + v3, v1);
@@ -7763,17 +5335,13 @@ uint64_t sub_1E5E533B8()
   }
 
   v7(v0 + v6, v1);
-  v11 = type metadata accessor for URLContext(0);
-  v15 = *(v11 + 20);
-  if (!(*(v2 + 48))(v8 + v15, 1, v1))
+  v12 = *(type metadata accessor for URLContext(0) + 20);
+  if (!(*(v2 + 48))(v8 + v12, 1, v1))
   {
-    v7(v8 + v15, v1);
+    v7(v8 + v12, v1);
   }
 
-  v12 = *(v8 + *(v11 + 24) + 8);
-
 LABEL_14:
-  v13 = *(v0 + ((v16 + v6 + 7) & 0xFFFFFFFFFFFFFFF8));
 
   return swift_deallocObject();
 }
@@ -7781,9 +5349,7 @@ LABEL_14:
 uint64_t sub_1E5E53634()
 {
   v1 = sub_1E65E43E8();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)), v1);
+  (*(*(v1 - 8) + 8))(v0 + ((*(*(v1 - 8) + 80) + 16) & ~*(*(v1 - 8) + 80)), v1);
 
   return swift_deallocObject();
 }
@@ -7804,19 +5370,9 @@ uint64_t sub_1E5E5372C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1E5E537A8()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  v2 = v0[6];
 
-  v3 = v0[7];
   swift_unknownObjectRelease();
-  v4 = v0[10];
-
-  v5 = v0[12];
-
-  v6 = v0[14];
-
-  v7 = v0[16];
 
   return swift_deallocObject();
 }
@@ -7830,9 +5386,8 @@ uint64_t sub_1E5E53810()
   v5 = type metadata accessor for LocalizationService();
   v6 = v5[-1].Description;
   v7 = (v3 + v4 + *(v6 + 80)) & ~*(v6 + 80);
-  v8 = v6[8];
   (Description[1])(v0 + v3, v1);
-  (v6[1])(v0 + v7, v5);
+  v6[1](v0 + v7, v5);
 
   return swift_deallocObject();
 }
@@ -7846,10 +5401,7 @@ uint64_t sub_1E5E53958()
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED072AF0, &qword_1E65EC4B8);
   v6 = *(v5 - 8);
   v7 = (v4 + *(v6 + 80)) & ~*(v6 + 80);
-  v8 = *(v6 + 64);
-  v9 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v10 = *(v0 + 32);
 
   (Description[1])(v0 + v3, v1);
   (*(v6 + 8))(v0 + v7, v5);
@@ -7948,223 +5500,198 @@ uint64_t sub_1E5E53D1C(uint64_t a1, uint64_t a2, unsigned __int8 a3)
 
 uint64_t sub_1E5E53D34()
 {
-  v1 = type metadata accessor for NavigationControllerRoutingContext();
-  v201 = *(*(v1 - 8) + 80);
+  v1 = type metadata accessor for NavigationControllerRoutingContext(0);
+  v155 = *(*(v1 - 8) + 80);
   v2 = *(*(v1 - 8) + 64);
-  v3 = type metadata accessor for RouteDestination();
-  v203 = *(*(v3 - 8) + 80);
-  v204 = v3;
-  v196 = v2 + v203;
-  v200 = *(*(v3 - 8) + 64);
-  v202 = v0;
-  v197 = (v201 + 16) & ~v201;
+  v3 = type metadata accessor for RouteDestination(0);
+  v157 = *(*(v3 - 8) + 80);
+  v158 = v3;
+  v150 = v2 + v157;
+  v154 = *(*(v3 - 8) + 64);
+  v156 = v0;
+  v151 = (v155 + 16) & ~v155;
 
-  v198 = v0 + v197;
-  v199 = v1;
-  v4 = *(v0 + v197 + *(v1 + 20));
-  v5 = v0 + v197 + *(v1 + 20);
-  v193 = v5;
+  v152 = v0 + v151;
+  v153 = v1;
+  v147 = v0 + v151 + *(v1 + 20);
 
-  v192 = type metadata accessor for AppComposer();
-  v6 = (v5 + v192[5]);
-  v7 = *v6;
+  v146 = type metadata accessor for AppComposer(0);
+  v4 = v147 + v146[5];
   swift_unknownObjectRelease();
-  v8 = type metadata accessor for AppEnvironment();
-  v9 = v8[6];
-  v195 = type metadata accessor for AccountService();
-  v194 = *(v195[-1].Description + 1);
-  v194(v6 + v9, v195);
-  v10 = v8[7];
-  v191 = type metadata accessor for AppStateService();
-  v190 = *(v191[-1].Description + 1);
-  v190(v6 + v10, v191);
-  v11 = v8[8];
-  v189 = type metadata accessor for ArchivedSessionService();
-  v188 = *(v189[-1].Description + 1);
-  v188(v6 + v11, v189);
-  v12 = v8[9];
-  v187 = type metadata accessor for AssetService();
-  v186 = *(v187[-1].Description + 1);
-  v186(v6 + v12, v187);
-  v13 = v8[10];
-  v185 = type metadata accessor for AwardsService();
-  v184 = *(v185[-1].Description + 1);
-  v184(v6 + v13, v185);
-  v14 = v8[11];
-  v183 = type metadata accessor for BookmarkService();
-  v182 = *(v183[-1].Description + 1);
-  v182(v6 + v14, v183);
-  v15 = v8[12];
-  v181 = type metadata accessor for CatalogService();
-  v180 = *(v181[-1].Description + 1);
-  v180(v6 + v15, v181);
-  v16 = v8[13];
-  v179 = type metadata accessor for ConfigurationService();
-  v178 = *(v179[-1].Description + 1);
-  v178(v6 + v16, v179);
-  v17 = v8[14];
-  v177 = type metadata accessor for ContentAvailabilityService();
-  v176 = *(v177[-1].Description + 1);
-  v176(v6 + v17, v177);
-  v18 = v8[15];
-  v175 = type metadata accessor for EngagementService();
-  v174 = *(v175[-1].Description + 1);
-  v174(v6 + v18, v175);
-  v19 = v8[16];
-  v173 = type metadata accessor for HealthDataService();
-  v172 = *(v173[-1].Description + 1);
-  v172(v6 + v19, v173);
-  v20 = v8[17];
-  v171 = type metadata accessor for InteropService();
-  v170 = *(v171[-1].Description + 1);
-  v170(v6 + v20, v171);
-  v21 = v8[18];
-  v169 = type metadata accessor for LocalizationService();
-  v168 = *(v169[-1].Description + 1);
-  v168(v6 + v21, v169);
-  v22 = v8[19];
-  v167 = type metadata accessor for MarketingService();
-  v166 = *(v167[-1].Description + 1);
-  v166(v6 + v22, v167);
-  v23 = v8[20];
-  v165 = type metadata accessor for MetricService();
-  v164 = *(v165[-1].Description + 1);
-  v164(v6 + v23, v165);
-  v24 = v8[21];
-  v163 = type metadata accessor for PersonalizationService();
-  v162 = *(v163[-1].Description + 1);
-  v162(v6 + v24, v163);
-  v25 = v8[22];
-  v161 = type metadata accessor for PlayerService();
-  v160 = *(v161[-1].Description + 1);
-  v160(v6 + v25, v161);
-  v26 = v8[23];
-  v159 = type metadata accessor for PrivacyPreferenceService();
-  v158 = *(v159[-1].Description + 1);
-  v158(v6 + v26, v159);
-  v27 = v8[24];
-  v157 = type metadata accessor for RecommendationService();
-  v156 = *(v157[-1].Description + 1);
-  v156(v6 + v27, v157);
-  v28 = v8[25];
-  v155 = type metadata accessor for RemoteBrowsingService();
-  v154 = *(v155[-1].Description + 1);
-  v154(v6 + v28, v155);
-  v29 = v8[26];
-  v153 = type metadata accessor for SearchService();
-  v152 = *(v153[-1].Description + 1);
-  v152(v6 + v29, v153);
-  v30 = v8[27];
-  v146 = type metadata accessor for ServiceSubscriptionService();
-  v151 = *(v146[-1].Description + 1);
-  v151(v6 + v30, v146);
-  v31 = v8[28];
-  v144 = type metadata accessor for SessionService();
-  v150 = *(v144[-1].Description + 1);
-  v150(v6 + v31, v144);
-  v32 = v8[29];
-  v33 = type metadata accessor for SharePlayService();
-  v149 = *(v33[-1].Description + 1);
-  v149(v6 + v32, v33);
-  v34 = v8[30];
-  v35 = type metadata accessor for SiriService();
-  v148 = *(v35[-1].Description + 1);
-  v148(v6 + v34, v35);
-  v36 = v8[31];
-  v37 = type metadata accessor for SyncService();
-  v147 = *(v37[-1].Description + 1);
-  v147(v6 + v36, v37);
-  v38 = (v6 + v8[32]);
-  v39 = v38[1];
+  v5 = type metadata accessor for AppEnvironment(0);
+  v6 = v5[6];
+  v149 = type metadata accessor for AccountService();
+  v148 = *(v149[-1].Description + 1);
+  v148(v4 + v6, v149);
+  v7 = v5[7];
+  v145 = type metadata accessor for AppStateService();
+  v144 = *(v145[-1].Description + 1);
+  v144(v4 + v7, v145);
+  v8 = v5[8];
+  v143 = type metadata accessor for ArchivedSessionService();
+  v142 = *(v143[-1].Description + 1);
+  v142(v4 + v8, v143);
+  v9 = v5[9];
+  v141 = type metadata accessor for AssetService();
+  v140 = *(v141[-1].Description + 1);
+  v140(v4 + v9, v141);
+  v10 = v5[10];
+  v139 = type metadata accessor for AwardsService();
+  v138 = *(v139[-1].Description + 1);
+  v138(v4 + v10, v139);
+  v11 = v5[11];
+  v137 = type metadata accessor for BookmarkService();
+  v136 = *(v137[-1].Description + 1);
+  v136(v4 + v11, v137);
+  v12 = v5[12];
+  v135 = type metadata accessor for CatalogService();
+  v134 = *(v135[-1].Description + 1);
+  v134(v4 + v12, v135);
+  v13 = v5[13];
+  v133 = type metadata accessor for ConfigurationService();
+  v132 = *(v133[-1].Description + 1);
+  v132(v4 + v13, v133);
+  v14 = v5[14];
+  v131 = type metadata accessor for ContentAvailabilityService();
+  v130 = *(v131[-1].Description + 1);
+  v130(v4 + v14, v131);
+  v15 = v5[15];
+  v129 = type metadata accessor for EngagementService();
+  v128 = *(v129[-1].Description + 1);
+  v128(v4 + v15, v129);
+  v16 = v5[16];
+  v127 = type metadata accessor for HealthDataService();
+  v126 = *(v127[-1].Description + 1);
+  v126(v4 + v16, v127);
+  v17 = v5[17];
+  v125 = type metadata accessor for InteropService();
+  v124 = *(v125[-1].Description + 1);
+  v124(v4 + v17, v125);
+  v18 = v5[18];
+  v123 = type metadata accessor for LocalizationService();
+  v122 = *(v123[-1].Description + 1);
+  v122(v4 + v18, v123);
+  v19 = v5[19];
+  v121 = type metadata accessor for MarketingService();
+  v120 = *(v121[-1].Description + 1);
+  v120(v4 + v19, v121);
+  v20 = v5[20];
+  v119 = type metadata accessor for MetricService();
+  v118 = *(v119[-1].Description + 1);
+  v118(v4 + v20, v119);
+  v21 = v5[21];
+  v117 = type metadata accessor for PersonalizationService();
+  v116 = *(v117[-1].Description + 1);
+  v116(v4 + v21, v117);
+  v22 = v5[22];
+  v115 = type metadata accessor for PlayerService();
+  v114 = *(v115[-1].Description + 1);
+  v114(v4 + v22, v115);
+  v23 = v5[23];
+  v113 = type metadata accessor for PrivacyPreferenceService();
+  v112 = *(v113[-1].Description + 1);
+  v112(v4 + v23, v113);
+  v24 = v5[24];
+  v111 = type metadata accessor for RecommendationService();
+  v110 = *(v111[-1].Description + 1);
+  v110(v4 + v24, v111);
+  v25 = v5[25];
+  v109 = type metadata accessor for RemoteBrowsingService();
+  v108 = *(v109[-1].Description + 1);
+  v108(v4 + v25, v109);
+  v26 = v5[26];
+  v107 = type metadata accessor for SearchService();
+  v106 = *(v107[-1].Description + 1);
+  v106(v4 + v26, v107);
+  v27 = v5[27];
+  v100 = type metadata accessor for ServiceSubscriptionService();
+  v105 = *(v100[-1].Description + 1);
+  v105(v4 + v27, v100);
+  v28 = v5[28];
+  v98 = type metadata accessor for SessionService();
+  v104 = *(v98[-1].Description + 1);
+  v104(v4 + v28, v98);
+  v29 = v5[29];
+  v30 = type metadata accessor for SharePlayService();
+  v103 = *(v30[-1].Description + 1);
+  v103(v4 + v29, v30);
+  v31 = v5[30];
+  v32 = type metadata accessor for SiriService();
+  v102 = *(v32[-1].Description + 1);
+  v102(v4 + v31, v32);
+  v33 = v5[31];
+  v34 = type metadata accessor for SyncService();
+  v101 = *(v34[-1].Description + 1);
+  v101(v4 + v33, v34);
 
-  v40 = v38[3];
-
-  v41 = v38[5];
-
-  v42 = v8[33];
+  v35 = v5[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v145 = *(QueueService[-1].Description + 1);
-  v145(v6 + v42, QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v6 + v8[34]));
-  v44 = *(v6 + v8[35]);
+  v99 = *(QueueService[-1].Description + 1);
+  v99(v4 + v35, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v4 + v5[34]));
 
-  v45 = v8[36];
-  v46 = type metadata accessor for WorkoutPlanService();
-  v47 = *(v46[-1].Description + 1);
-  v47(v6 + v45, v46);
-  v48 = *(v193 + v192[6]);
+  v37 = v5[36];
+  v38 = type metadata accessor for WorkoutPlanService();
+  v39 = *(v38[-1].Description + 1);
+  v39(v4 + v37, v38);
 
-  v49 = (v193 + v192[7]);
-  v50 = *v49;
+  v40 = v147 + v146[7];
 
-  v51 = v49[1];
-
-  v52 = (v49 + *(type metadata accessor for AppDataItemResolver() + 24));
-  v53 = *v52;
+  v41 = v40 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v194(v52 + v8[6], v195);
-  v190(v52 + v8[7], v191);
-  v188(v52 + v8[8], v189);
-  v186(v52 + v8[9], v187);
-  v184(v52 + v8[10], v185);
-  v182(v52 + v8[11], v183);
-  v180(v52 + v8[12], v181);
-  v178(v52 + v8[13], v179);
-  v176(v52 + v8[14], v177);
-  v174(v52 + v8[15], v175);
-  v172(v52 + v8[16], v173);
-  v170(v52 + v8[17], v171);
-  v168(v52 + v8[18], v169);
-  v166(v52 + v8[19], v167);
-  v164(v52 + v8[20], v165);
-  v162(v52 + v8[21], v163);
-  v160(v52 + v8[22], v161);
-  v158(v52 + v8[23], v159);
-  v156(v52 + v8[24], v157);
-  v154(v52 + v8[25], v155);
-  v152(v52 + v8[26], v153);
-  v151(v52 + v8[27], v146);
-  v150(v52 + v8[28], v144);
-  v149(v52 + v8[29], v33);
-  v148(v52 + v8[30], v35);
-  v147(v52 + v8[31], v37);
-  v54 = (v52 + v8[32]);
-  v55 = v54[1];
+  v148(v41 + v5[6], v149);
+  v144(v41 + v5[7], v145);
+  v142(v41 + v5[8], v143);
+  v140(v41 + v5[9], v141);
+  v138(v41 + v5[10], v139);
+  v136(v41 + v5[11], v137);
+  v134(v41 + v5[12], v135);
+  v132(v41 + v5[13], v133);
+  v130(v41 + v5[14], v131);
+  v128(v41 + v5[15], v129);
+  v126(v41 + v5[16], v127);
+  v124(v41 + v5[17], v125);
+  v122(v41 + v5[18], v123);
+  v120(v41 + v5[19], v121);
+  v118(v41 + v5[20], v119);
+  v116(v41 + v5[21], v117);
+  v114(v41 + v5[22], v115);
+  v112(v41 + v5[23], v113);
+  v110(v41 + v5[24], v111);
+  v108(v41 + v5[25], v109);
+  v106(v41 + v5[26], v107);
+  v105(v41 + v5[27], v100);
+  v104(v41 + v5[28], v98);
+  v103(v41 + v5[29], v30);
+  v102(v41 + v5[30], v32);
+  v101(v41 + v5[31], v34);
 
-  v56 = v54[3];
+  v99(v41 + v5[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v41 + v5[34]));
 
-  v57 = v54[5];
-
-  v145(v52 + v8[33], QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v52 + v8[34]));
-  v58 = *(v52 + v8[35]);
-
-  v47(v52 + v8[36], v46);
-  v59 = *(v193 + v192[8]);
+  v39(v41 + v5[36], v38);
   swift_unknownObjectRelease();
-  if (*(v193 + v192[9] + 8) >= 0xCuLL)
+  if (*(v147 + v146[9] + 8) >= 0xCuLL)
   {
   }
 
-  v60 = (v193 + v192[10]);
-  if (v60[3])
+  v42 = (v147 + v146[10]);
+  if (v42[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v60);
+    __swift_destroy_boxed_opaque_existential_1(v42);
   }
 
-  v61 = (v197 + v196) & ~v203;
-  v62 = *(v198 + v199[6]);
+  v43 = (v151 + v150) & ~v157;
   swift_unknownObjectRelease();
-  v63 = (v198 + v199[7]);
-  if (v63[3])
+  v44 = (v152 + *(v153 + 28));
+  if (v44[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v63);
+    __swift_destroy_boxed_opaque_existential_1(v44);
   }
 
-  v64 = *(v198 + v199[8]);
   swift_unknownObjectRelease();
-  v65 = v202 + v61;
-  type metadata accessor for RouteResource();
+  v45 = v156 + v43;
+  type metadata accessor for RouteResource(0);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 0u:
@@ -8174,36 +5701,32 @@ uint64_t sub_1E5E53D34()
     case 0xDu:
     case 0xFu:
     case 0x10u:
-      goto LABEL_8;
+      goto LABEL_22;
     case 1u:
-      v106 = sub_1E65D76F8();
-      v107 = *(v106 - 8);
-      if (!(*(v107 + 48))(v202 + v61, 1, v106))
+      v79 = sub_1E65D76F8();
+      v80 = *(v79 - 8);
+      if (!(*(v80 + 48))(v156 + v43, 1, v79))
       {
-        (*(v107 + 8))(v202 + v61, v106);
+        (*(v80 + 8))(v156 + v43, v79);
       }
 
-      v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
-      v109 = *(v65 + v108[12] + 8);
+      v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720B0, &unk_1E65EA270);
 
-      v110 = v108[16];
-      v111 = sub_1E65E2CF8();
-      v112 = *(v111 - 8);
-      if (!(*(v112 + 48))(v65 + v110, 1, v111))
+      v82 = *(v81 + 64);
+      v83 = sub_1E65E2CF8();
+      v84 = *(v83 - 8);
+      if (!(*(v84 + 48))(v45 + v82, 1, v83))
       {
-        (*(v112 + 8))(v65 + v110, v111);
+        (*(v84 + 8))(v45 + v82, v83);
       }
 
-      v113 = *(v65 + v108[20]);
-
-      v83 = v108[24];
-      v114 = sub_1E65E1FC8();
+      v59 = *(v81 + 96);
+      v85 = sub_1E65E1FC8();
       goto LABEL_52;
     case 3u:
-      v122 = *(v65 + 8);
 
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
-      v90 = sub_1E65D72D8();
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AE0, &unk_1E65EA7B0) + 80);
+      v66 = sub_1E65D72D8();
       goto LABEL_50;
     case 4u:
       sub_1E65E0B48();
@@ -8214,15 +5737,14 @@ uint64_t sub_1E5E53D34()
         {
           if (EnumCaseMultiPayload == 1)
           {
-            v117 = sub_1E65E0FD8();
-            (*(*(v117 - 8) + 8))(v202 + v61, v117);
+            v87 = sub_1E65E0FD8();
+            (*(*(v87 - 8) + 8))(v156 + v43, v87);
           }
 
           goto LABEL_80;
         }
 
 LABEL_79:
-        v142 = *(v65 + 8);
 
         goto LABEL_80;
       }
@@ -8233,18 +5755,17 @@ LABEL_79:
       }
 
 LABEL_80:
-      v143 = *(v65 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280) + 48) + 8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720C0, &unk_1E65EA280);
 
 LABEL_57:
-      v130 = v204;
-      v131 = v65 + *(v204 + 20);
+      v90 = v45 + *(v158 + 20);
       type metadata accessor for RouteSource(0);
-      v132 = swift_getEnumCaseMultiPayload();
-      if (v132 <= 1)
+      v91 = swift_getEnumCaseMultiPayload();
+      if (v91 <= 1)
       {
-        if (v132)
+        if (v91)
         {
-          if (v132 != 1)
+          if (v91 != 1)
           {
             goto LABEL_71;
           }
@@ -8262,250 +5783,219 @@ LABEL_57:
         goto LABEL_68;
       }
 
-      switch(v132)
+      switch(v91)
       {
         case 2:
 LABEL_68:
-          v134 = sub_1E65D74E8();
-          v135 = *(v134 - 8);
-          v136 = *(v135 + 8);
-          v136(v131, v134);
-          v137 = type metadata accessor for URLContext(0);
-          v138 = *(v137 + 20);
-          if (!(*(v135 + 48))(v131 + v138, 1, v134))
+          v93 = sub_1E65D74E8();
+          v94 = *(v93 - 8);
+          v95 = *(v94 + 8);
+          v95(v90, v93);
+          v96 = *(type metadata accessor for URLContext(0) + 20);
+          if (!(*(v94 + 48))(v90 + v96, 1, v93))
           {
-            v136(v131 + v138, v134);
+            v95(v90 + v96, v93);
           }
 
-          v139 = *(v131 + *(v137 + 24) + 8);
-
-          v130 = v204;
           goto LABEL_71;
         case 3:
-          v133 = sub_1E65D74E8();
+          v92 = sub_1E65D74E8();
           break;
         case 4:
-          v133 = sub_1E65D8D48();
+          v92 = sub_1E65D8D48();
           break;
         default:
           goto LABEL_71;
       }
 
-      (*(*(v133 - 8) + 8))(v131, v133);
+      (*(*(v92 - 8) + 8))(v90, v92);
 LABEL_71:
-      v140 = *(v65 + *(v130 + 24));
 
-      sub_1E5F94E00(*(v202 + ((v61 + v200) & 0xFFFFFFFFFFFFFFF8) + 8), *(v202 + ((v61 + v200) & 0xFFFFFFFFFFFFFFF8) + 16));
+      sub_1E5F94E00(*(v156 + ((v43 + v154) & 0xFFFFFFFFFFFFFFF8) + 8), *(v156 + ((v43 + v154) & 0xFFFFFFFFFFFFFFF8) + 16));
 
       return swift_deallocObject();
     case 6u:
 
-      v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
-      v88 = *(v87 + 48);
-      v89 = sub_1E65DB848();
-      (*(*(v89 - 8) + 8))(v65 + v88, v89);
-      v70 = *(v87 + 64);
-      v90 = sub_1E65E1518();
+      v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077AC0, &unk_1E65EA7C0);
+      v64 = *(v63 + 48);
+      v65 = sub_1E65DB848();
+      (*(*(v65 - 8) + 8))(v45 + v64, v65);
+      v49 = *(v63 + 64);
+      v66 = sub_1E65E1518();
       goto LABEL_50;
     case 7u:
-      v98 = sub_1E65DB848();
-      (*(*(v98 - 8) + 8))(v202 + v61, v98);
-      v99 = &unk_1ED0720D0;
-      v100 = &unk_1E65EA290;
+      v74 = sub_1E65DB848();
+      (*(*(v74 - 8) + 8))(v156 + v43, v74);
+      v75 = &unk_1ED0720D0;
+      v76 = &unk_1E65EA290;
       goto LABEL_48;
     case 8u:
     case 9u:
 
-      v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
-      v68 = *(v67 + 48);
-      v69 = sub_1E65DB848();
-      (*(*(v69 - 8) + 8))(v65 + v68, v69);
-      v70 = *(v67 + 64);
+      v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED078600, &unk_1E65EA7D0);
+      v47 = *(v46 + 48);
+      v48 = sub_1E65DB848();
+      (*(*(v48 - 8) + 8))(v45 + v47, v48);
+      v49 = *(v46 + 64);
       goto LABEL_49;
     case 0xCu:
-      v115 = *(v65 + 8);
 
-      sub_1E5F94E00(*(v65 + 16), *(v65 + 24));
+      sub_1E5F94E00(*(v45 + 16), *(v45 + 24));
       goto LABEL_57;
     case 0xEu:
-      v86 = sub_1E65DB718();
+      v62 = sub_1E65DB718();
       goto LABEL_56;
     case 0x11u:
-      v126 = *(v65 + 8);
 
-      v99 = &unk_1ED0720E0;
-      v100 = &unk_1E65EA2A0;
+      v75 = &unk_1ED0720E0;
+      v76 = &unk_1E65EA2A0;
 LABEL_48:
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v99, v100) + 48);
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(v75, v76) + 48);
 LABEL_49:
-      v90 = sub_1E65D74E8();
+      v66 = sub_1E65D74E8();
       goto LABEL_50;
     case 0x12u:
-      v123 = *v65;
-      v124 = *(v65 + 8);
-      v125 = *(v65 + 16);
-      sub_1E5F94E14();
+      sub_1E5F94E14(*v45, *(v45 + 8), *(v45 + 16));
       goto LABEL_57;
     case 0x13u:
       goto LABEL_29;
     case 0x14u:
-      v101 = *(v65 + 8);
-
-      v102 = *(v65 + 24);
 
       goto LABEL_57;
     case 0x15u:
-      v127 = *(v65 + 8);
 
-      v128 = *(v65 + 24);
-
-      v83 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
-      v114 = sub_1E65D96F8();
+      v59 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077900, &unk_1E65EA7E0) + 112);
+      v85 = sub_1E65D96F8();
 LABEL_52:
-      v84 = v114;
-      v85 = *(v114 - 8);
-      if (!(*(v85 + 48))(v65 + v83, 1, v114))
+      v60 = v85;
+      v61 = *(v85 - 8);
+      if (!(*(v61 + 48))(v45 + v59, 1, v85))
       {
         goto LABEL_53;
       }
 
       goto LABEL_57;
     case 0x16u:
-      __swift_destroy_boxed_opaque_existential_1((v202 + v61));
-      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
-      v72 = v71[12];
-      v73 = sub_1E65D74E8();
-      (*(*(v73 - 8) + 8))(v65 + v72, v73);
-      v74 = *(v65 + v71[16] + 8);
+      __swift_destroy_boxed_opaque_existential_1((v156 + v43));
+      v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0720F0, &unk_1E65EA2B0);
+      v51 = v50[12];
+      v52 = sub_1E65D74E8();
+      (*(*(v52 - 8) + 8))(v45 + v51, v52);
 
-      v75 = v71[20];
-      v76 = sub_1E65DB3E8();
-      v77 = *(v76 - 8);
-      if (!(*(v77 + 48))(v65 + v75, 1, v76))
+      v53 = v50[20];
+      v54 = sub_1E65DB3E8();
+      v55 = *(v54 - 8);
+      if (!(*(v55 + 48))(v45 + v53, 1, v54))
       {
-        (*(v77 + 8))(v65 + v75, v76);
+        (*(v55 + 8))(v45 + v53, v54);
       }
 
-      v78 = *(v65 + v71[24] + 8);
-
-      v79 = *(v65 + v71[28] + 8);
-
-      v80 = v71[32];
-      v81 = sub_1E65DB5D8();
-      v82 = *(v81 - 8);
-      if (!(*(v82 + 48))(v65 + v80, 1, v81))
+      v56 = v50[32];
+      v57 = sub_1E65DB5D8();
+      v58 = *(v57 - 8);
+      if (!(*(v58 + 48))(v45 + v56, 1, v57))
       {
-        (*(v82 + 8))(v65 + v80, v81);
+        (*(v58 + 8))(v45 + v56, v57);
       }
 
-      v83 = v71[36];
-      v84 = sub_1E65D7A38();
-      v85 = *(v84 - 8);
-      if (!(*(v85 + 48))(v65 + v83, 1, v84))
+      v59 = v50[36];
+      v60 = sub_1E65D7A38();
+      v61 = *(v60 - 8);
+      if (!(*(v61 + 48))(v45 + v59, 1, v60))
       {
 LABEL_53:
-        (*(v85 + 8))(v65 + v83, v84);
+        (*(v61 + 8))(v45 + v59, v60);
       }
 
       goto LABEL_57;
     case 0x17u:
-      v94 = sub_1E65E57D8();
-      (*(*(v94 - 8) + 8))(v202 + v61, v94);
-      v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
-      v96 = *(v95 + 48);
-      v97 = sub_1E65E5528();
-      (*(*(v97 - 8) + 8))(v65 + v96, v97);
-      if (*(v65 + *(v95 + 64) + 8) >= 0xCuLL)
+      v70 = sub_1E65E57D8();
+      (*(*(v70 - 8) + 8))(v156 + v43, v70);
+      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0778F0, &unk_1E65EA7F0);
+      v72 = *(v71 + 48);
+      v73 = sub_1E65E5528();
+      (*(*(v73 - 8) + 8))(v45 + v72, v73);
+      if (*(v45 + *(v71 + 64) + 8) >= 0xCuLL)
       {
+        goto LABEL_22;
       }
 
       goto LABEL_57;
     case 0x18u:
 
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
-      v90 = sub_1E65DB848();
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED072100, &unk_1E65EA2C0) + 48);
+      v66 = sub_1E65DB848();
       goto LABEL_50;
     case 0x1Au:
       sub_1E65E52B8();
-      v105 = swift_getEnumCaseMultiPayload();
-      if (v105 == 1)
+      v78 = swift_getEnumCaseMultiPayload();
+      if (v78 == 1)
       {
-
-        goto LABEL_57;
       }
 
-      if (v105)
+      else if (!v78)
       {
-        goto LABEL_57;
-      }
-
 LABEL_29:
-      v86 = sub_1E65D74E8();
-      goto LABEL_56;
-    case 0x1Bu:
-      type metadata accessor for PlaylistType();
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v86 = sub_1E65DAEB8();
+        v62 = sub_1E65D74E8();
 LABEL_56:
-        (*(*(v86 - 8) + 8))(v202 + v61, v86);
-      }
-
-      else
-      {
-LABEL_8:
-        v66 = *(v65 + 8);
+        (*(*(v62 - 8) + 8))(v156 + v43, v62);
       }
 
       goto LABEL_57;
+    case 0x1Bu:
+      type metadata accessor for PlaylistType(0);
+      if (swift_getEnumCaseMultiPayload() != 1)
+      {
+        goto LABEL_22;
+      }
+
+      v62 = sub_1E65DAEB8();
+      goto LABEL_56;
     case 0x1Cu:
-      v86 = sub_1E65D76F8();
+      v62 = sub_1E65D76F8();
       goto LABEL_56;
     case 0x1Du:
-      v129 = sub_1E65E55E8();
-      (*(*(v129 - 8) + 8))(v202 + v61, v129);
-      v70 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
-      v90 = sub_1E65D7EB8();
+      v89 = sub_1E65E55E8();
+      (*(*(v89 - 8) + 8))(v156 + v43, v89);
+      v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077860, &unk_1E65EA800) + 48);
+      v66 = sub_1E65D7EB8();
 LABEL_50:
-      (*(*(v90 - 8) + 8))(v65 + v70, v90);
+      (*(*(v66 - 8) + 8))(v45 + v49, v66);
       goto LABEL_57;
     case 0x1Eu:
-      v91 = sub_1E65E56B8();
-      (*(*(v91 - 8) + 8))(v202 + v61, v91);
-      v92 = &unk_1ED072110;
-      v93 = &unk_1E65EA2D0;
+      v67 = sub_1E65E56B8();
+      (*(*(v67 - 8) + 8))(v156 + v43, v67);
+      v68 = &unk_1ED072110;
+      v69 = &unk_1E65EA2D0;
       goto LABEL_43;
     case 0x1Fu:
-      v103 = sub_1E65DA308();
-      (*(*(v103 - 8) + 8))(v202 + v61, v103);
-      v104 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810) + 48);
-      goto LABEL_44;
+      v77 = sub_1E65DA308();
+      (*(*(v77 - 8) + 8))(v156 + v43, v77);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077850, &unk_1E65EA810);
+      goto LABEL_22;
     case 0x20u:
-      v118 = sub_1E65E58D8();
-      (*(*(v118 - 8) + 8))(v202 + v61, v118);
-      v92 = &qword_1ED072120;
-      v93 = &qword_1E65EA2E0;
+      v88 = sub_1E65E58D8();
+      (*(*(v88 - 8) + 8))(v156 + v43, v88);
+      v68 = &qword_1ED072120;
+      v69 = &qword_1E65EA2E0;
 LABEL_43:
-      v119 = __swift_instantiateConcreteTypeFromMangledNameV2(v92, v93);
-      v120 = *(v65 + *(v119 + 48));
+      __swift_instantiateConcreteTypeFromMangledNameV2(v68, v69);
 
-      v104 = *(v119 + 64);
-LABEL_44:
-      v121 = *(v65 + v104);
+LABEL_22:
 
       goto LABEL_57;
     case 0x21u:
-      v86 = sub_1E65D9048();
+      v62 = sub_1E65D9048();
       goto LABEL_56;
     default:
       goto LABEL_57;
   }
 }
 
-uint64_t sub_1E5E556B0@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_1E5E556B0@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -8518,196 +6008,173 @@ uint64_t sub_1E5E556E8()
 
 uint64_t sub_1E5E55720()
 {
-  v111 = type metadata accessor for AppComposer();
-  v110 = *(*(v111 - 1) + 80);
-  v109 = *(*(v111 - 1) + 64);
-  v106 = (v0 + ((v110 + 16) & ~v110));
-  v1 = *v106;
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = v106 + v111[5];
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v108 = type metadata accessor for AccountService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v2[v5], v108);
-  v6 = v4[7];
-  v105 = type metadata accessor for AppStateService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v6], v105);
-  v7 = v4[8];
-  v103 = type metadata accessor for ArchivedSessionService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v7], v103);
-  v8 = v4[9];
-  v101 = type metadata accessor for AssetService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v8], v101);
-  v9 = v4[10];
-  v99 = type metadata accessor for AwardsService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v9], v99);
-  v10 = v4[11];
-  v97 = type metadata accessor for BookmarkService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v10], v97);
-  v11 = v4[12];
-  v95 = type metadata accessor for CatalogService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v11], v95);
-  v12 = v4[13];
-  v93 = type metadata accessor for ConfigurationService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v12], v93);
-  v13 = v4[14];
-  v91 = type metadata accessor for ContentAvailabilityService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v13], v91);
-  v14 = v4[15];
-  v89 = type metadata accessor for EngagementService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v14], v89);
-  v15 = v4[16];
-  v87 = type metadata accessor for HealthDataService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v15], v87);
-  v16 = v4[17];
-  v85 = type metadata accessor for InteropService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v16], v85);
-  v17 = v4[18];
-  v83 = type metadata accessor for LocalizationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v17], v83);
-  v18 = v4[19];
-  v81 = type metadata accessor for MarketingService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v18], v81);
-  v19 = v4[20];
-  v79 = type metadata accessor for MetricService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v19], v79);
-  v20 = v4[21];
-  v77 = type metadata accessor for PersonalizationService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v20], v77);
-  v21 = v4[22];
-  v75 = type metadata accessor for PlayerService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v21], v75);
-  v22 = v4[23];
-  v73 = type metadata accessor for PrivacyPreferenceService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v22], v73);
-  v23 = v4[24];
-  v71 = type metadata accessor for RecommendationService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v23], v71);
-  v24 = v4[25];
-  v69 = type metadata accessor for RemoteBrowsingService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v2[v24], v69);
-  v25 = v4[26];
-  v67 = type metadata accessor for SearchService();
-  v66 = *(v67[-1].Description + 1);
-  v66(&v2[v25], v67);
-  v26 = v4[27];
-  v65 = type metadata accessor for ServiceSubscriptionService();
-  v64 = *(v65[-1].Description + 1);
-  v64(&v2[v26], v65);
-  v27 = v4[28];
-  v58 = type metadata accessor for SessionService();
-  v63 = *(v58[-1].Description + 1);
-  v63(&v2[v27], v58);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v62 = *(v29[-1].Description + 1);
-  v62(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v61 = *(v31[-1].Description + 1);
-  v61(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v60 = *(v33[-1].Description + 1);
-  v60(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v59 = *(QueueService[-1].Description + 1);
-  v59(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v57 = *(v42[-1].Description + 1);
-  v57(&v2[v41], v42);
-  v43 = *(v106 + v111[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v106 + v111[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v107(&v47[v4[6]], v108);
-  v104(&v47[v4[7]], v105);
-  v102(&v47[v4[8]], v103);
-  v100(&v47[v4[9]], v101);
-  v98(&v47[v4[10]], v99);
-  v96(&v47[v4[11]], v97);
-  v94(&v47[v4[12]], v95);
-  v92(&v47[v4[13]], v93);
-  v90(&v47[v4[14]], v91);
-  v88(&v47[v4[15]], v89);
-  v86(&v47[v4[16]], v87);
-  v84(&v47[v4[17]], v85);
-  v82(&v47[v4[18]], v83);
-  v80(&v47[v4[19]], v81);
-  v78(&v47[v4[20]], v79);
-  v76(&v47[v4[21]], v77);
-  v74(&v47[v4[22]], v75);
-  v72(&v47[v4[23]], v73);
-  v70(&v47[v4[24]], v71);
-  v68(&v47[v4[25]], v69);
-  v66(&v47[v4[26]], v67);
-  v64(&v47[v4[27]], v65);
-  v63(&v47[v4[28]], v58);
-  v62(&v47[v4[29]], v29);
-  v61(&v47[v4[30]], v31);
-  v60(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v59(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v57(&v47[v4[36]], v42);
-  v54 = *(v106 + v111[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v106 + v111[9] + 8) >= 0xC)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v106 + v111[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
   return swift_deallocObject();
@@ -8715,198 +6182,174 @@ uint64_t sub_1E5E55720()
 
 uint64_t sub_1E5E563E4()
 {
-  v112 = type metadata accessor for AppComposer();
-  v111 = *(*(v112 - 1) + 80);
-  v110 = *(*(v112 - 1) + 64);
-  v1 = *(v0 + 24);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
 
-  v107 = (v0 + ((v111 + 32) & ~v111));
-  v2 = *v107;
+  v89 = v0 + ((v92 + 32) & ~v92);
 
-  v3 = v107 + v112[5];
-  v4 = *v3;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v5 = type metadata accessor for AppEnvironment();
-  v6 = v5[6];
-  v109 = type metadata accessor for AccountService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v3[v6], v109);
-  v7 = v5[7];
-  v106 = type metadata accessor for AppStateService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v3[v7], v106);
-  v8 = v5[8];
-  v104 = type metadata accessor for ArchivedSessionService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v3[v8], v104);
-  v9 = v5[9];
-  v102 = type metadata accessor for AssetService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v3[v9], v102);
-  v10 = v5[10];
-  v100 = type metadata accessor for AwardsService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v3[v10], v100);
-  v11 = v5[11];
-  v98 = type metadata accessor for BookmarkService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v3[v11], v98);
-  v12 = v5[12];
-  v96 = type metadata accessor for CatalogService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v3[v12], v96);
-  v13 = v5[13];
-  v94 = type metadata accessor for ConfigurationService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v3[v13], v94);
-  v14 = v5[14];
-  v92 = type metadata accessor for ContentAvailabilityService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v3[v14], v92);
-  v15 = v5[15];
-  v90 = type metadata accessor for EngagementService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v3[v15], v90);
-  v16 = v5[16];
-  v88 = type metadata accessor for HealthDataService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v3[v16], v88);
-  v17 = v5[17];
-  v86 = type metadata accessor for InteropService();
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v3[v17], v86);
-  v18 = v5[18];
-  v84 = type metadata accessor for LocalizationService();
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v3[v18], v84);
-  v19 = v5[19];
-  v82 = type metadata accessor for MarketingService();
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v3[v19], v82);
-  v20 = v5[20];
-  v80 = type metadata accessor for MetricService();
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v3[v20], v80);
-  v21 = v5[21];
-  v78 = type metadata accessor for PersonalizationService();
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v3[v21], v78);
-  v22 = v5[22];
-  v76 = type metadata accessor for PlayerService();
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v3[v22], v76);
-  v23 = v5[23];
-  v74 = type metadata accessor for PrivacyPreferenceService();
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
   v73 = *(v74[-1].Description + 1);
-  v73(&v3[v23], v74);
-  v24 = v5[24];
-  v72 = type metadata accessor for RecommendationService();
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
   v71 = *(v72[-1].Description + 1);
-  v71(&v3[v24], v72);
-  v25 = v5[25];
-  v70 = type metadata accessor for RemoteBrowsingService();
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
   v69 = *(v70[-1].Description + 1);
-  v69(&v3[v25], v70);
-  v26 = v5[26];
-  v68 = type metadata accessor for SearchService();
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
   v67 = *(v68[-1].Description + 1);
-  v67(&v3[v26], v68);
-  v27 = v5[27];
-  v66 = type metadata accessor for ServiceSubscriptionService();
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
   v65 = *(v66[-1].Description + 1);
-  v65(&v3[v27], v66);
-  v28 = v5[28];
-  v59 = type metadata accessor for SessionService();
-  v64 = *(v59[-1].Description + 1);
-  v64(&v3[v28], v59);
-  v29 = v5[29];
-  v30 = type metadata accessor for SharePlayService();
-  v63 = *(v30[-1].Description + 1);
-  v63(&v3[v29], v30);
-  v31 = v5[30];
-  v32 = type metadata accessor for SiriService();
-  v62 = *(v32[-1].Description + 1);
-  v62(&v3[v31], v32);
-  v33 = v5[31];
-  v34 = type metadata accessor for SyncService();
-  v61 = *(v34[-1].Description + 1);
-  v61(&v3[v33], v34);
-  v35 = &v3[v5[32]];
-  v36 = *(v35 + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v37 = *(v35 + 3);
-
-  v38 = *(v35 + 5);
-
-  v39 = v5[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v60 = *(QueueService[-1].Description + 1);
-  v60(&v3[v39], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v3[v5[34]]);
-  v41 = *&v3[v5[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v42 = v5[36];
-  v43 = type metadata accessor for WorkoutPlanService();
-  v58 = *(v43[-1].Description + 1);
-  v58(&v3[v42], v43);
-  v44 = *(v107 + v112[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v45 = (v107 + v112[7]);
-  v46 = *v45;
+  v36 = v89 + v93[7];
 
-  v47 = v45[1];
-
-  v48 = v45 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v49 = *v48;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v108(&v48[v5[6]], v109);
-  v105(&v48[v5[7]], v106);
-  v103(&v48[v5[8]], v104);
-  v101(&v48[v5[9]], v102);
-  v99(&v48[v5[10]], v100);
-  v97(&v48[v5[11]], v98);
-  v95(&v48[v5[12]], v96);
-  v93(&v48[v5[13]], v94);
-  v91(&v48[v5[14]], v92);
-  v89(&v48[v5[15]], v90);
-  v87(&v48[v5[16]], v88);
-  v85(&v48[v5[17]], v86);
-  v83(&v48[v5[18]], v84);
-  v81(&v48[v5[19]], v82);
-  v79(&v48[v5[20]], v80);
-  v77(&v48[v5[21]], v78);
-  v75(&v48[v5[22]], v76);
-  v73(&v48[v5[23]], v74);
-  v71(&v48[v5[24]], v72);
-  v69(&v48[v5[25]], v70);
-  v67(&v48[v5[26]], v68);
-  v65(&v48[v5[27]], v66);
-  v64(&v48[v5[28]], v59);
-  v63(&v48[v5[29]], v30);
-  v62(&v48[v5[30]], v32);
-  v61(&v48[v5[31]], v34);
-  v50 = &v48[v5[32]];
-  v51 = *(v50 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v52 = *(v50 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v53 = *(v50 + 5);
-
-  v60(&v48[v5[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v48[v5[34]]);
-  v54 = *&v48[v5[35]];
-
-  v58(&v48[v5[36]], v43);
-  v55 = *(v107 + v112[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v107 + v112[9] + 8) >= 0xC)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v56 = (v107 + v112[10]);
-  if (v56[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v56);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
   return swift_deallocObject();
@@ -8914,217 +6357,182 @@ uint64_t sub_1E5E563E4()
 
 uint64_t sub_1E5E570B4()
 {
-  v119 = type metadata accessor for AppComposer();
-  v117 = *(*(v119 - 1) + 80);
-  v115 = *(*(v119 - 1) + 64);
-  v116 = (v117 + 16) & ~v117;
-  v118 = v0;
-  v112 = v0 + v116;
-  v1 = *(v0 + v116);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = (v0 + v116 + v119[5]);
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v114 = type metadata accessor for AccountService();
-  v113 = *(v114[-1].Description + 1);
-  v113(&v2[v5], v114);
-  v6 = v4[7];
-  v111 = type metadata accessor for AppStateService();
-  v110 = *(v111[-1].Description + 1);
-  v110(&v2[v6], v111);
-  v7 = v4[8];
-  v109 = type metadata accessor for ArchivedSessionService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v2[v7], v109);
-  v8 = v4[9];
-  v107 = type metadata accessor for AssetService();
-  v106 = *(v107[-1].Description + 1);
-  v106(&v2[v8], v107);
-  v9 = v4[10];
-  v105 = type metadata accessor for AwardsService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v9], v105);
-  v10 = v4[11];
-  v103 = type metadata accessor for BookmarkService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v10], v103);
-  v11 = v4[12];
-  v101 = type metadata accessor for CatalogService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v11], v101);
-  v12 = v4[13];
-  v99 = type metadata accessor for ConfigurationService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v12], v99);
-  v13 = v4[14];
-  v97 = type metadata accessor for ContentAvailabilityService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v13], v97);
-  v14 = v4[15];
-  v95 = type metadata accessor for EngagementService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v14], v95);
-  v15 = v4[16];
-  v93 = type metadata accessor for HealthDataService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v15], v93);
-  v16 = v4[17];
-  v91 = type metadata accessor for InteropService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v16], v91);
-  v17 = v4[18];
-  v89 = type metadata accessor for LocalizationService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v17], v89);
-  v18 = v4[19];
-  v87 = type metadata accessor for MarketingService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v18], v87);
-  v19 = v4[20];
-  v85 = type metadata accessor for MetricService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v19], v85);
-  v20 = v4[21];
-  v83 = type metadata accessor for PersonalizationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v20], v83);
-  v21 = v4[22];
-  v81 = type metadata accessor for PlayerService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v21], v81);
-  v22 = v4[23];
-  v79 = type metadata accessor for PrivacyPreferenceService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v22], v79);
-  v23 = v4[24];
-  v77 = type metadata accessor for RecommendationService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v23], v77);
-  v24 = v4[25];
-  v75 = type metadata accessor for RemoteBrowsingService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v24], v75);
-  v25 = v4[26];
-  v73 = type metadata accessor for SearchService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v25], v73);
-  v26 = v4[27];
-  v71 = type metadata accessor for ServiceSubscriptionService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v26], v71);
-  v27 = v4[28];
-  v64 = type metadata accessor for SessionService();
-  v69 = *(v64[-1].Description + 1);
-  v69(&v2[v27], v64);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v68 = *(v29[-1].Description + 1);
-  v68(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v67 = *(v31[-1].Description + 1);
-  v67(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v66 = *(v33[-1].Description + 1);
-  v66(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v65 = *(QueueService[-1].Description + 1);
-  v65(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v63 = *(v42[-1].Description + 1);
-  v63(&v2[v41], v42);
-  v43 = *(v112 + v119[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v112 + v119[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v113(&v47[v4[6]], v114);
-  v110(&v47[v4[7]], v111);
-  v108(&v47[v4[8]], v109);
-  v106(&v47[v4[9]], v107);
-  v104(&v47[v4[10]], v105);
-  v102(&v47[v4[11]], v103);
-  v100(&v47[v4[12]], v101);
-  v98(&v47[v4[13]], v99);
-  v96(&v47[v4[14]], v97);
-  v94(&v47[v4[15]], v95);
-  v92(&v47[v4[16]], v93);
-  v90(&v47[v4[17]], v91);
-  v88(&v47[v4[18]], v89);
-  v86(&v47[v4[19]], v87);
-  v84(&v47[v4[20]], v85);
-  v82(&v47[v4[21]], v83);
-  v80(&v47[v4[22]], v81);
-  v78(&v47[v4[23]], v79);
-  v76(&v47[v4[24]], v77);
-  v74(&v47[v4[25]], v75);
-  v72(&v47[v4[26]], v73);
-  v70(&v47[v4[27]], v71);
-  v69(&v47[v4[28]], v64);
-  v68(&v47[v4[29]], v29);
-  v67(&v47[v4[30]], v31);
-  v66(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v65(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v63(&v47[v4[36]], v42);
-  v54 = *(v112 + v119[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v112 + v119[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v112 + v119[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
-  v56 = (v118 + ((v115 + v116 + 7) & 0xFFFFFFFFFFFFFFF8));
-  v57 = *v56;
   swift_unknownObjectRelease();
-  v58 = v56[3];
-
-  v59 = v56[5];
-
-  v60 = v56[7];
-
-  v61 = v56[9];
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E57DB8()
 {
-  v1 = *(v0 + 24);
 
   return swift_deallocObject();
 }
@@ -9135,617 +6543,531 @@ uint64_t sub_1E5E57DF0()
   v2 = *(v1 - 8);
   v3 = (*(v2 + 80) + 33) & ~*(v2 + 80);
   v4 = *(v2 + 64);
-  v124 = type metadata accessor for AppComposer();
-  v122 = *(*(v124 - 1) + 80);
-  v120 = *(*(v124 - 1) + 64);
-  v5 = *(v0 + 16);
+  v97 = type metadata accessor for AppComposer(0);
+  v96 = *(*(v97 - 1) + 80);
   swift_unknownObjectRelease();
   (*(v2 + 8))(v0 + v3, v1);
-  v123 = v0;
-  v121 = (v3 + v4 + v122) & ~v122;
-  v117 = v0 + v121;
-  v6 = *(v0 + v121);
+  v93 = v0 + ((v3 + v4 + v96) & ~v96);
 
-  v7 = (v0 + v121 + v124[5]);
-  v8 = *v7;
+  v5 = v93 + v97[5];
   swift_unknownObjectRelease();
-  v9 = type metadata accessor for AppEnvironment();
-  v10 = v9[6];
-  v119 = type metadata accessor for AccountService();
-  v118 = *(v119[-1].Description + 1);
-  v118(&v7[v10], v119);
-  v11 = v9[7];
-  v116 = type metadata accessor for AppStateService();
-  v115 = *(v116[-1].Description + 1);
-  v115(&v7[v11], v116);
-  v12 = v9[8];
-  v114 = type metadata accessor for ArchivedSessionService();
-  v113 = *(v114[-1].Description + 1);
-  v113(&v7[v12], v114);
-  v13 = v9[9];
-  v112 = type metadata accessor for AssetService();
-  v111 = *(v112[-1].Description + 1);
-  v111(&v7[v13], v112);
-  v14 = v9[10];
-  v110 = type metadata accessor for AwardsService();
-  v109 = *(v110[-1].Description + 1);
-  v109(&v7[v14], v110);
-  v15 = v9[11];
-  v108 = type metadata accessor for BookmarkService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v7[v15], v108);
-  v16 = v9[12];
-  v106 = type metadata accessor for CatalogService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v7[v16], v106);
-  v17 = v9[13];
-  v104 = type metadata accessor for ConfigurationService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v7[v17], v104);
-  v18 = v9[14];
-  v102 = type metadata accessor for ContentAvailabilityService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v7[v18], v102);
-  v19 = v9[15];
-  v100 = type metadata accessor for EngagementService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v7[v19], v100);
-  v20 = v9[16];
-  v98 = type metadata accessor for HealthDataService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v7[v20], v98);
-  v21 = v9[17];
-  v96 = type metadata accessor for InteropService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v7[v21], v96);
-  v22 = v9[18];
-  v94 = type metadata accessor for LocalizationService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v7[v22], v94);
-  v23 = v9[19];
-  v92 = type metadata accessor for MarketingService();
+  v6 = type metadata accessor for AppEnvironment(0);
+  v7 = v6[6];
+  v95 = type metadata accessor for AccountService();
+  v94 = *(v95[-1].Description + 1);
+  v94(v5 + v7, v95);
+  v8 = v6[7];
+  v92 = type metadata accessor for AppStateService();
   v91 = *(v92[-1].Description + 1);
-  v91(&v7[v23], v92);
-  v24 = v9[20];
-  v90 = type metadata accessor for MetricService();
+  v91(v5 + v8, v92);
+  v9 = v6[8];
+  v90 = type metadata accessor for ArchivedSessionService();
   v89 = *(v90[-1].Description + 1);
-  v89(&v7[v24], v90);
-  v25 = v9[21];
-  v88 = type metadata accessor for PersonalizationService();
+  v89(v5 + v9, v90);
+  v10 = v6[9];
+  v88 = type metadata accessor for AssetService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v7[v25], v88);
-  v26 = v9[22];
-  v86 = type metadata accessor for PlayerService();
+  v87(v5 + v10, v88);
+  v11 = v6[10];
+  v86 = type metadata accessor for AwardsService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v7[v26], v86);
-  v27 = v9[23];
-  v84 = type metadata accessor for PrivacyPreferenceService();
+  v85(v5 + v11, v86);
+  v12 = v6[11];
+  v84 = type metadata accessor for BookmarkService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v7[v27], v84);
-  v28 = v9[24];
-  v82 = type metadata accessor for RecommendationService();
+  v83(v5 + v12, v84);
+  v13 = v6[12];
+  v82 = type metadata accessor for CatalogService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v7[v28], v82);
-  v29 = v9[25];
-  v80 = type metadata accessor for RemoteBrowsingService();
+  v81(v5 + v13, v82);
+  v14 = v6[13];
+  v80 = type metadata accessor for ConfigurationService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v7[v29], v80);
-  v30 = v9[26];
-  v78 = type metadata accessor for SearchService();
+  v79(v5 + v14, v80);
+  v15 = v6[14];
+  v78 = type metadata accessor for ContentAvailabilityService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v7[v30], v78);
-  v31 = v9[27];
-  v76 = type metadata accessor for ServiceSubscriptionService();
+  v77(v5 + v15, v78);
+  v16 = v6[15];
+  v76 = type metadata accessor for EngagementService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v7[v31], v76);
-  v32 = v9[28];
-  v69 = type metadata accessor for SessionService();
-  v74 = *(v69[-1].Description + 1);
-  v74(&v7[v32], v69);
-  v33 = v9[29];
-  v34 = type metadata accessor for SharePlayService();
-  v73 = *(v34[-1].Description + 1);
-  v73(&v7[v33], v34);
-  v35 = v9[30];
-  v36 = type metadata accessor for SiriService();
-  v72 = *(v36[-1].Description + 1);
-  v72(&v7[v35], v36);
-  v37 = v9[31];
-  v38 = type metadata accessor for SyncService();
-  v71 = *(v38[-1].Description + 1);
-  v71(&v7[v37], v38);
-  v39 = &v7[v9[32]];
-  v40 = *(v39 + 1);
+  v75(v5 + v16, v76);
+  v17 = v6[16];
+  v74 = type metadata accessor for HealthDataService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v5 + v17, v74);
+  v18 = v6[17];
+  v72 = type metadata accessor for InteropService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v5 + v18, v72);
+  v19 = v6[18];
+  v70 = type metadata accessor for LocalizationService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v5 + v19, v70);
+  v20 = v6[19];
+  v68 = type metadata accessor for MarketingService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v5 + v20, v68);
+  v21 = v6[20];
+  v66 = type metadata accessor for MetricService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v5 + v21, v66);
+  v22 = v6[21];
+  v64 = type metadata accessor for PersonalizationService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v5 + v22, v64);
+  v23 = v6[22];
+  v62 = type metadata accessor for PlayerService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v5 + v23, v62);
+  v24 = v6[23];
+  v60 = type metadata accessor for PrivacyPreferenceService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v5 + v24, v60);
+  v25 = v6[24];
+  v58 = type metadata accessor for RecommendationService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v5 + v25, v58);
+  v26 = v6[25];
+  v56 = type metadata accessor for RemoteBrowsingService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v5 + v26, v56);
+  v27 = v6[26];
+  v54 = type metadata accessor for SearchService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v5 + v27, v54);
+  v28 = v6[27];
+  v52 = type metadata accessor for ServiceSubscriptionService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v5 + v28, v52);
+  v29 = v6[28];
+  v45 = type metadata accessor for SessionService();
+  v50 = *(v45[-1].Description + 1);
+  v50(v5 + v29, v45);
+  v30 = v6[29];
+  v31 = type metadata accessor for SharePlayService();
+  v49 = *(v31[-1].Description + 1);
+  v49(v5 + v30, v31);
+  v32 = v6[30];
+  v33 = type metadata accessor for SiriService();
+  v48 = *(v33[-1].Description + 1);
+  v48(v5 + v32, v33);
+  v34 = v6[31];
+  v35 = type metadata accessor for SyncService();
+  v47 = *(v35[-1].Description + 1);
+  v47(v5 + v34, v35);
 
-  v41 = *(v39 + 3);
-
-  v42 = *(v39 + 5);
-
-  v43 = v9[33];
+  v36 = v6[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v70 = *(QueueService[-1].Description + 1);
-  v70(&v7[v43], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v7[v9[34]]);
-  v45 = *&v7[v9[35]];
+  v46 = *(QueueService[-1].Description + 1);
+  v46(v5 + v36, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v5 + v6[34]));
 
-  v46 = v9[36];
-  v47 = type metadata accessor for WorkoutPlanService();
-  v68 = *(v47[-1].Description + 1);
-  v68(&v7[v46], v47);
-  v48 = *(v117 + v124[6]);
+  v38 = v6[36];
+  v39 = type metadata accessor for WorkoutPlanService();
+  v44 = *(v39[-1].Description + 1);
+  v44(v5 + v38, v39);
 
-  v49 = (v117 + v124[7]);
-  v50 = *v49;
+  v40 = v93 + v97[7];
 
-  v51 = v49[1];
-
-  v52 = v49 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v53 = *v52;
+  v41 = v40 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v118(&v52[v9[6]], v119);
-  v115(&v52[v9[7]], v116);
-  v113(&v52[v9[8]], v114);
-  v111(&v52[v9[9]], v112);
-  v109(&v52[v9[10]], v110);
-  v107(&v52[v9[11]], v108);
-  v105(&v52[v9[12]], v106);
-  v103(&v52[v9[13]], v104);
-  v101(&v52[v9[14]], v102);
-  v99(&v52[v9[15]], v100);
-  v97(&v52[v9[16]], v98);
-  v95(&v52[v9[17]], v96);
-  v93(&v52[v9[18]], v94);
-  v91(&v52[v9[19]], v92);
-  v89(&v52[v9[20]], v90);
-  v87(&v52[v9[21]], v88);
-  v85(&v52[v9[22]], v86);
-  v83(&v52[v9[23]], v84);
-  v81(&v52[v9[24]], v82);
-  v79(&v52[v9[25]], v80);
-  v77(&v52[v9[26]], v78);
-  v75(&v52[v9[27]], v76);
-  v74(&v52[v9[28]], v69);
-  v73(&v52[v9[29]], v34);
-  v72(&v52[v9[30]], v36);
-  v71(&v52[v9[31]], v38);
-  v54 = &v52[v9[32]];
-  v55 = *(v54 + 1);
+  v94(v41 + v6[6], v95);
+  v91(v41 + v6[7], v92);
+  v89(v41 + v6[8], v90);
+  v87(v41 + v6[9], v88);
+  v85(v41 + v6[10], v86);
+  v83(v41 + v6[11], v84);
+  v81(v41 + v6[12], v82);
+  v79(v41 + v6[13], v80);
+  v77(v41 + v6[14], v78);
+  v75(v41 + v6[15], v76);
+  v73(v41 + v6[16], v74);
+  v71(v41 + v6[17], v72);
+  v69(v41 + v6[18], v70);
+  v67(v41 + v6[19], v68);
+  v65(v41 + v6[20], v66);
+  v63(v41 + v6[21], v64);
+  v61(v41 + v6[22], v62);
+  v59(v41 + v6[23], v60);
+  v57(v41 + v6[24], v58);
+  v55(v41 + v6[25], v56);
+  v53(v41 + v6[26], v54);
+  v51(v41 + v6[27], v52);
+  v50(v41 + v6[28], v45);
+  v49(v41 + v6[29], v31);
+  v48(v41 + v6[30], v33);
+  v47(v41 + v6[31], v35);
 
-  v56 = *(v54 + 3);
+  v46(v41 + v6[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v41 + v6[34]));
 
-  v57 = *(v54 + 5);
-
-  v70(&v52[v9[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v52[v9[34]]);
-  v58 = *&v52[v9[35]];
-
-  v68(&v52[v9[36]], v47);
-  v59 = *(v117 + v124[8]);
+  v44(v41 + v6[36], v39);
   swift_unknownObjectRelease();
-  if (*(v117 + v124[9] + 8) >= 0xCuLL)
+  if (*(v93 + v97[9] + 8) >= 0xCuLL)
   {
   }
 
-  v60 = (v117 + v124[10]);
-  if (v60[3])
+  v42 = (v93 + v97[10]);
+  if (v42[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v60);
+    __swift_destroy_boxed_opaque_existential_1(v42);
   }
 
-  v61 = (v123 + ((v120 + v121 + 7) & 0xFFFFFFFFFFFFFFF8));
-  v62 = *v61;
   swift_unknownObjectRelease();
-  v63 = v61[3];
-
-  v64 = v61[5];
-
-  v65 = v61[7];
-
-  v66 = v61[9];
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E58B88()
 {
-  v1 = *(v0 + 24);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E58BCC()
 {
-  v114 = type metadata accessor for AppComposer();
-  v112 = *(*(v114 - 1) + 80);
-  v110 = *(*(v114 - 1) + 64);
-  v111 = (v112 + 16) & ~v112;
-  v113 = v0;
-  v107 = v0 + v111;
-  v1 = *(v0 + v111);
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = (v0 + v111 + v114[5]);
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v109 = type metadata accessor for AccountService();
-  v108 = *(v109[-1].Description + 1);
-  v108(&v2[v5], v109);
-  v6 = v4[7];
-  v106 = type metadata accessor for AppStateService();
-  v105 = *(v106[-1].Description + 1);
-  v105(&v2[v6], v106);
-  v7 = v4[8];
-  v104 = type metadata accessor for ArchivedSessionService();
-  v103 = *(v104[-1].Description + 1);
-  v103(&v2[v7], v104);
-  v8 = v4[9];
-  v102 = type metadata accessor for AssetService();
-  v101 = *(v102[-1].Description + 1);
-  v101(&v2[v8], v102);
-  v9 = v4[10];
-  v100 = type metadata accessor for AwardsService();
-  v99 = *(v100[-1].Description + 1);
-  v99(&v2[v9], v100);
-  v10 = v4[11];
-  v98 = type metadata accessor for BookmarkService();
-  v97 = *(v98[-1].Description + 1);
-  v97(&v2[v10], v98);
-  v11 = v4[12];
-  v96 = type metadata accessor for CatalogService();
-  v95 = *(v96[-1].Description + 1);
-  v95(&v2[v11], v96);
-  v12 = v4[13];
-  v94 = type metadata accessor for ConfigurationService();
-  v93 = *(v94[-1].Description + 1);
-  v93(&v2[v12], v94);
-  v13 = v4[14];
-  v92 = type metadata accessor for ContentAvailabilityService();
-  v91 = *(v92[-1].Description + 1);
-  v91(&v2[v13], v92);
-  v14 = v4[15];
-  v90 = type metadata accessor for EngagementService();
-  v89 = *(v90[-1].Description + 1);
-  v89(&v2[v14], v90);
-  v15 = v4[16];
-  v88 = type metadata accessor for HealthDataService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
   v87 = *(v88[-1].Description + 1);
-  v87(&v2[v15], v88);
-  v16 = v4[17];
-  v86 = type metadata accessor for InteropService();
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
   v85 = *(v86[-1].Description + 1);
-  v85(&v2[v16], v86);
-  v17 = v4[18];
-  v84 = type metadata accessor for LocalizationService();
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
   v83 = *(v84[-1].Description + 1);
-  v83(&v2[v17], v84);
-  v18 = v4[19];
-  v82 = type metadata accessor for MarketingService();
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
   v81 = *(v82[-1].Description + 1);
-  v81(&v2[v18], v82);
-  v19 = v4[20];
-  v80 = type metadata accessor for MetricService();
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
   v79 = *(v80[-1].Description + 1);
-  v79(&v2[v19], v80);
-  v20 = v4[21];
-  v78 = type metadata accessor for PersonalizationService();
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
   v77 = *(v78[-1].Description + 1);
-  v77(&v2[v20], v78);
-  v21 = v4[22];
-  v76 = type metadata accessor for PlayerService();
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
   v75 = *(v76[-1].Description + 1);
-  v75(&v2[v21], v76);
-  v22 = v4[23];
-  v74 = type metadata accessor for PrivacyPreferenceService();
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
   v73 = *(v74[-1].Description + 1);
-  v73(&v2[v22], v74);
-  v23 = v4[24];
-  v72 = type metadata accessor for RecommendationService();
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
   v71 = *(v72[-1].Description + 1);
-  v71(&v2[v23], v72);
-  v24 = v4[25];
-  v70 = type metadata accessor for RemoteBrowsingService();
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
   v69 = *(v70[-1].Description + 1);
-  v69(&v2[v24], v70);
-  v25 = v4[26];
-  v68 = type metadata accessor for SearchService();
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
   v67 = *(v68[-1].Description + 1);
-  v67(&v2[v25], v68);
-  v26 = v4[27];
-  v66 = type metadata accessor for ServiceSubscriptionService();
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
   v65 = *(v66[-1].Description + 1);
-  v65(&v2[v26], v66);
-  v27 = v4[28];
-  v59 = type metadata accessor for SessionService();
-  v64 = *(v59[-1].Description + 1);
-  v64(&v2[v27], v59);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v63 = *(v29[-1].Description + 1);
-  v63(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v62 = *(v31[-1].Description + 1);
-  v62(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v61 = *(v33[-1].Description + 1);
-  v61(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v60 = *(QueueService[-1].Description + 1);
-  v60(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v58 = *(v42[-1].Description + 1);
-  v58(&v2[v41], v42);
-  v43 = *(v107 + v114[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v107 + v114[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v108(&v47[v4[6]], v109);
-  v105(&v47[v4[7]], v106);
-  v103(&v47[v4[8]], v104);
-  v101(&v47[v4[9]], v102);
-  v99(&v47[v4[10]], v100);
-  v97(&v47[v4[11]], v98);
-  v95(&v47[v4[12]], v96);
-  v93(&v47[v4[13]], v94);
-  v91(&v47[v4[14]], v92);
-  v89(&v47[v4[15]], v90);
-  v87(&v47[v4[16]], v88);
-  v85(&v47[v4[17]], v86);
-  v83(&v47[v4[18]], v84);
-  v81(&v47[v4[19]], v82);
-  v79(&v47[v4[20]], v80);
-  v77(&v47[v4[21]], v78);
-  v75(&v47[v4[22]], v76);
-  v73(&v47[v4[23]], v74);
-  v71(&v47[v4[24]], v72);
-  v69(&v47[v4[25]], v70);
-  v67(&v47[v4[26]], v68);
-  v65(&v47[v4[27]], v66);
-  v64(&v47[v4[28]], v59);
-  v63(&v47[v4[29]], v29);
-  v62(&v47[v4[30]], v31);
-  v61(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v60(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v58(&v47[v4[36]], v42);
-  v54 = *(v107 + v114[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v107 + v114[9] + 8) >= 0xCuLL)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v107 + v114[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
-
-  v56 = *(v113 + ((v110 + v111 + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E598B0()
 {
-  v111 = type metadata accessor for AppComposer();
-  v110 = *(*(v111 - 1) + 80);
-  v109 = *(*(v111 - 1) + 64);
-  v106 = (v0 + ((v110 + 16) & ~v110));
-  v1 = *v106;
+  v93 = type metadata accessor for AppComposer(0);
+  v92 = *(*(v93 - 1) + 80);
+  v89 = v0 + ((v92 + 16) & ~v92);
 
-  v2 = v106 + v111[5];
-  v3 = *v2;
+  v1 = v89 + v93[5];
   swift_unknownObjectRelease();
-  v4 = type metadata accessor for AppEnvironment();
-  v5 = v4[6];
-  v108 = type metadata accessor for AccountService();
-  v107 = *(v108[-1].Description + 1);
-  v107(&v2[v5], v108);
-  v6 = v4[7];
-  v105 = type metadata accessor for AppStateService();
-  v104 = *(v105[-1].Description + 1);
-  v104(&v2[v6], v105);
-  v7 = v4[8];
-  v103 = type metadata accessor for ArchivedSessionService();
-  v102 = *(v103[-1].Description + 1);
-  v102(&v2[v7], v103);
-  v8 = v4[9];
-  v101 = type metadata accessor for AssetService();
-  v100 = *(v101[-1].Description + 1);
-  v100(&v2[v8], v101);
-  v9 = v4[10];
-  v99 = type metadata accessor for AwardsService();
-  v98 = *(v99[-1].Description + 1);
-  v98(&v2[v9], v99);
-  v10 = v4[11];
-  v97 = type metadata accessor for BookmarkService();
-  v96 = *(v97[-1].Description + 1);
-  v96(&v2[v10], v97);
-  v11 = v4[12];
-  v95 = type metadata accessor for CatalogService();
-  v94 = *(v95[-1].Description + 1);
-  v94(&v2[v11], v95);
-  v12 = v4[13];
-  v93 = type metadata accessor for ConfigurationService();
-  v92 = *(v93[-1].Description + 1);
-  v92(&v2[v12], v93);
-  v13 = v4[14];
-  v91 = type metadata accessor for ContentAvailabilityService();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(&v2[v13], v91);
-  v14 = v4[15];
-  v89 = type metadata accessor for EngagementService();
-  v88 = *(v89[-1].Description + 1);
-  v88(&v2[v14], v89);
-  v15 = v4[16];
-  v87 = type metadata accessor for HealthDataService();
-  v86 = *(v87[-1].Description + 1);
-  v86(&v2[v15], v87);
-  v16 = v4[17];
-  v85 = type metadata accessor for InteropService();
-  v84 = *(v85[-1].Description + 1);
-  v84(&v2[v16], v85);
-  v17 = v4[18];
-  v83 = type metadata accessor for LocalizationService();
-  v82 = *(v83[-1].Description + 1);
-  v82(&v2[v17], v83);
-  v18 = v4[19];
-  v81 = type metadata accessor for MarketingService();
-  v80 = *(v81[-1].Description + 1);
-  v80(&v2[v18], v81);
-  v19 = v4[20];
-  v79 = type metadata accessor for MetricService();
-  v78 = *(v79[-1].Description + 1);
-  v78(&v2[v19], v79);
-  v20 = v4[21];
-  v77 = type metadata accessor for PersonalizationService();
-  v76 = *(v77[-1].Description + 1);
-  v76(&v2[v20], v77);
-  v21 = v4[22];
-  v75 = type metadata accessor for PlayerService();
-  v74 = *(v75[-1].Description + 1);
-  v74(&v2[v21], v75);
-  v22 = v4[23];
-  v73 = type metadata accessor for PrivacyPreferenceService();
-  v72 = *(v73[-1].Description + 1);
-  v72(&v2[v22], v73);
-  v23 = v4[24];
-  v71 = type metadata accessor for RecommendationService();
-  v70 = *(v71[-1].Description + 1);
-  v70(&v2[v23], v71);
-  v24 = v4[25];
-  v69 = type metadata accessor for RemoteBrowsingService();
-  v68 = *(v69[-1].Description + 1);
-  v68(&v2[v24], v69);
-  v25 = v4[26];
-  v67 = type metadata accessor for SearchService();
-  v66 = *(v67[-1].Description + 1);
-  v66(&v2[v25], v67);
-  v26 = v4[27];
-  v65 = type metadata accessor for ServiceSubscriptionService();
-  v64 = *(v65[-1].Description + 1);
-  v64(&v2[v26], v65);
-  v27 = v4[28];
-  v58 = type metadata accessor for SessionService();
-  v63 = *(v58[-1].Description + 1);
-  v63(&v2[v27], v58);
-  v28 = v4[29];
-  v29 = type metadata accessor for SharePlayService();
-  v62 = *(v29[-1].Description + 1);
-  v62(&v2[v28], v29);
-  v30 = v4[30];
-  v31 = type metadata accessor for SiriService();
-  v61 = *(v31[-1].Description + 1);
-  v61(&v2[v30], v31);
-  v32 = v4[31];
-  v33 = type metadata accessor for SyncService();
-  v60 = *(v33[-1].Description + 1);
-  v60(&v2[v32], v33);
-  v34 = &v2[v4[32]];
-  v35 = *(v34 + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
 
-  v36 = *(v34 + 3);
-
-  v37 = *(v34 + 5);
-
-  v38 = v4[33];
+  v32 = v2[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v59 = *(QueueService[-1].Description + 1);
-  v59(&v2[v38], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v2[v4[34]]);
-  v40 = *&v2[v4[35]];
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
 
-  v41 = v4[36];
-  v42 = type metadata accessor for WorkoutPlanService();
-  v57 = *(v42[-1].Description + 1);
-  v57(&v2[v41], v42);
-  v43 = *(v106 + v111[6]);
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
 
-  v44 = (v106 + v111[7]);
-  v45 = *v44;
+  v36 = v89 + v93[7];
 
-  v46 = v44[1];
-
-  v47 = v44 + *(type metadata accessor for AppDataItemResolver() + 24);
-  v48 = *v47;
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v107(&v47[v4[6]], v108);
-  v104(&v47[v4[7]], v105);
-  v102(&v47[v4[8]], v103);
-  v100(&v47[v4[9]], v101);
-  v98(&v47[v4[10]], v99);
-  v96(&v47[v4[11]], v97);
-  v94(&v47[v4[12]], v95);
-  v92(&v47[v4[13]], v93);
-  v90(&v47[v4[14]], v91);
-  v88(&v47[v4[15]], v89);
-  v86(&v47[v4[16]], v87);
-  v84(&v47[v4[17]], v85);
-  v82(&v47[v4[18]], v83);
-  v80(&v47[v4[19]], v81);
-  v78(&v47[v4[20]], v79);
-  v76(&v47[v4[21]], v77);
-  v74(&v47[v4[22]], v75);
-  v72(&v47[v4[23]], v73);
-  v70(&v47[v4[24]], v71);
-  v68(&v47[v4[25]], v69);
-  v66(&v47[v4[26]], v67);
-  v64(&v47[v4[27]], v65);
-  v63(&v47[v4[28]], v58);
-  v62(&v47[v4[29]], v29);
-  v61(&v47[v4[30]], v31);
-  v60(&v47[v4[31]], v33);
-  v49 = &v47[v4[32]];
-  v50 = *(v49 + 1);
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
 
-  v51 = *(v49 + 3);
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
 
-  v52 = *(v49 + 5);
-
-  v59(&v47[v4[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v47[v4[34]]);
-  v53 = *&v47[v4[35]];
-
-  v57(&v47[v4[36]], v42);
-  v54 = *(v106 + v111[8]);
+  v40(v37 + v2[36], v35);
   swift_unknownObjectRelease();
-  if (*(v106 + v111[9] + 8) >= 0xC)
+  if (*(v89 + v93[9] + 8) >= 0xCuLL)
   {
   }
 
-  v55 = (v106 + v111[10]);
-  if (v55[3])
+  v38 = (v89 + v93[10]);
+  if (v38[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v55);
+    __swift_destroy_boxed_opaque_existential_1(v38);
   }
 
   return swift_deallocObject();
@@ -9754,9 +7076,7 @@ uint64_t sub_1E5E598B0()
 uint64_t sub_1E5E5A590()
 {
   v1 = type metadata accessor for ContentAvailabilityService();
-  Description = v1[-1].Description;
-  v3 = Description[8];
-  (Description[1])(v0 + ((*(Description + 80) + 16) & ~*(Description + 80)), v1);
+  (*(v1[-1].Description + 1))(v0 + ((*(v1[-1].Description + 80) + 16) & ~*(v1[-1].Description + 80)), v1);
 
   return swift_deallocObject();
 }
@@ -9813,12 +7133,11 @@ uint64_t sub_1E5E5A7B8()
   v5 = type metadata accessor for AccountService();
   v6 = v5[-1].Description;
   v7 = (v3 + v4 + *(v6 + 80)) & ~*(v6 + 80);
-  v8 = (v6[8] + v7 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v8 = (((v6[8] + v7 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
   (Description[1])(v0 + v3, v1);
   (v6[1])(v0 + v7, v5);
-  v9 = *(v0 + v8);
 
-  __swift_destroy_boxed_opaque_existential_1((v0 + ((v8 + 15) & 0xFFFFFFFFFFFFFFF8)));
+  __swift_destroy_boxed_opaque_existential_1((v0 + v8));
 
   return swift_deallocObject();
 }
@@ -9828,8 +7147,6 @@ uint64_t sub_1E5E5A988()
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0726C8, &qword_1E66094D0);
   v2 = *(v1 - 8);
   v3 = (*(v2 + 80) + 25) & ~*(v2 + 80);
-  v4 = *(v2 + 64);
-  v5 = *(v0 + 16);
 
   (*(v2 + 8))(v0 + v3, v1);
 
@@ -9838,16 +7155,13 @@ uint64_t sub_1E5E5A988()
 
 uint64_t sub_1E5E5AA58()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1E5E5AA98()
 {
-  v1 = *(v0 + 16);
 
   return swift_deallocObject();
 }
@@ -9900,212 +7214,2856 @@ uint64_t sub_1E5E5AB9C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_1E5E5AC64()
 {
-  v116 = type metadata accessor for AppComposer();
-  v1 = (*(*(v116 - 1) + 80) + 96) & ~*(*(v116 - 1) + 80);
-  v114 = *(*(v116 - 1) + 64) + v1 + 7;
-  v2 = v0[2];
+  v94 = type metadata accessor for AppComposer(0);
+  v1 = (*(*(v94 - 1) + 80) + 96) & ~*(*(v94 - 1) + 80);
+  v92 = *(*(v94 - 1) + 64) + v1 + 7;
   swift_unknownObjectRelease();
-  v3 = v0[5];
 
-  v4 = v0[7];
+  v93 = v0;
+  v95 = v0 + v1;
 
-  v5 = v0[9];
-
-  v6 = v0[11];
-
-  v115 = v0;
-  v117 = v0 + v1;
-  v7 = *(v0 + v1);
-
-  v8 = (v0 + v1 + v116[5]);
-  v9 = *v8;
+  v2 = v0 + v1 + v94[5];
   swift_unknownObjectRelease();
-  v10 = type metadata accessor for AppEnvironment();
-  v11 = v10[6];
-  v113 = type metadata accessor for AccountService();
-  v112 = *(v113[-1].Description + 1);
-  v112(v8 + v11, v113);
-  v12 = v10[7];
-  v111 = type metadata accessor for AppStateService();
-  v110 = *(v111[-1].Description + 1);
-  v110(v8 + v12, v111);
-  v13 = v10[8];
-  v109 = type metadata accessor for ArchivedSessionService();
-  v108 = *(v109[-1].Description + 1);
-  v108(v8 + v13, v109);
-  v14 = v10[9];
-  v107 = type metadata accessor for AssetService();
-  v106 = *(v107[-1].Description + 1);
-  v106(v8 + v14, v107);
-  v15 = v10[10];
-  v105 = type metadata accessor for AwardsService();
-  v104 = *(v105[-1].Description + 1);
-  v104(v8 + v15, v105);
-  v16 = v10[11];
-  v103 = type metadata accessor for BookmarkService();
-  v102 = *(v103[-1].Description + 1);
-  v102(v8 + v16, v103);
-  v17 = v10[12];
-  v101 = type metadata accessor for CatalogService();
-  v100 = *(v101[-1].Description + 1);
-  v100(v8 + v17, v101);
-  v18 = v10[13];
-  v99 = type metadata accessor for ConfigurationService();
-  v98 = *(v99[-1].Description + 1);
-  v98(v8 + v18, v99);
-  v19 = v10[14];
-  v97 = type metadata accessor for ContentAvailabilityService();
-  v96 = *(v97[-1].Description + 1);
-  v96(v8 + v19, v97);
-  v20 = v10[15];
-  v95 = type metadata accessor for EngagementService();
-  v94 = *(v95[-1].Description + 1);
-  v94(v8 + v20, v95);
-  v21 = v10[16];
-  v93 = type metadata accessor for HealthDataService();
-  v92 = *(v93[-1].Description + 1);
-  v92(v8 + v21, v93);
-  v22 = v10[17];
-  v91 = type metadata accessor for InteropService();
+  v3 = type metadata accessor for AppEnvironment(0);
+  v4 = v3[6];
+  v91 = type metadata accessor for AccountService();
   v90 = *(v91[-1].Description + 1);
-  v90(v8 + v22, v91);
-  v23 = v10[18];
-  v89 = type metadata accessor for LocalizationService();
+  v90(v2 + v4, v91);
+  v5 = v3[7];
+  v89 = type metadata accessor for AppStateService();
   v88 = *(v89[-1].Description + 1);
-  v88(v8 + v23, v89);
-  v24 = v10[19];
-  v87 = type metadata accessor for MarketingService();
+  v88(v2 + v5, v89);
+  v6 = v3[8];
+  v87 = type metadata accessor for ArchivedSessionService();
   v86 = *(v87[-1].Description + 1);
-  v86(v8 + v24, v87);
-  v25 = v10[20];
-  v85 = type metadata accessor for MetricService();
+  v86(v2 + v6, v87);
+  v7 = v3[9];
+  v85 = type metadata accessor for AssetService();
   v84 = *(v85[-1].Description + 1);
-  v84(v8 + v25, v85);
-  v26 = v10[21];
-  v83 = type metadata accessor for PersonalizationService();
+  v84(v2 + v7, v85);
+  v8 = v3[10];
+  v83 = type metadata accessor for AwardsService();
   v82 = *(v83[-1].Description + 1);
-  v82(v8 + v26, v83);
-  v27 = v10[22];
-  v81 = type metadata accessor for PlayerService();
+  v82(v2 + v8, v83);
+  v9 = v3[11];
+  v81 = type metadata accessor for BookmarkService();
   v80 = *(v81[-1].Description + 1);
-  v80(v8 + v27, v81);
-  v28 = v10[23];
-  v79 = type metadata accessor for PrivacyPreferenceService();
+  v80(v2 + v9, v81);
+  v10 = v3[12];
+  v79 = type metadata accessor for CatalogService();
   v78 = *(v79[-1].Description + 1);
-  v78(v8 + v28, v79);
-  v29 = v10[24];
-  v77 = type metadata accessor for RecommendationService();
+  v78(v2 + v10, v79);
+  v11 = v3[13];
+  v77 = type metadata accessor for ConfigurationService();
   v76 = *(v77[-1].Description + 1);
-  v76(v8 + v29, v77);
-  v30 = v10[25];
-  v75 = type metadata accessor for RemoteBrowsingService();
+  v76(v2 + v11, v77);
+  v12 = v3[14];
+  v75 = type metadata accessor for ContentAvailabilityService();
   v74 = *(v75[-1].Description + 1);
-  v74(v8 + v30, v75);
-  v31 = v10[26];
-  v73 = type metadata accessor for SearchService();
+  v74(v2 + v12, v75);
+  v13 = v3[15];
+  v73 = type metadata accessor for EngagementService();
   v72 = *(v73[-1].Description + 1);
-  v72(v8 + v31, v73);
-  v32 = v10[27];
-  v66 = type metadata accessor for ServiceSubscriptionService();
-  v71 = *(v66[-1].Description + 1);
-  v71(v8 + v32, v66);
-  v33 = v10[28];
-  v64 = type metadata accessor for SessionService();
-  v70 = *(v64[-1].Description + 1);
-  v70(v8 + v33, v64);
-  v34 = v10[29];
-  v35 = type metadata accessor for SharePlayService();
-  v69 = *(v35[-1].Description + 1);
-  v69(v8 + v34, v35);
-  v36 = v10[30];
-  v37 = type metadata accessor for SiriService();
-  v68 = *(v37[-1].Description + 1);
-  v68(v8 + v36, v37);
-  v38 = v10[31];
-  v39 = type metadata accessor for SyncService();
-  v67 = *(v39[-1].Description + 1);
-  v67(v8 + v38, v39);
-  v40 = (v8 + v10[32]);
-  v41 = v40[1];
+  v72(v2 + v13, v73);
+  v14 = v3[16];
+  v71 = type metadata accessor for HealthDataService();
+  v70 = *(v71[-1].Description + 1);
+  v70(v2 + v14, v71);
+  v15 = v3[17];
+  v69 = type metadata accessor for InteropService();
+  v68 = *(v69[-1].Description + 1);
+  v68(v2 + v15, v69);
+  v16 = v3[18];
+  v67 = type metadata accessor for LocalizationService();
+  v66 = *(v67[-1].Description + 1);
+  v66(v2 + v16, v67);
+  v17 = v3[19];
+  v65 = type metadata accessor for MarketingService();
+  v64 = *(v65[-1].Description + 1);
+  v64(v2 + v17, v65);
+  v18 = v3[20];
+  v63 = type metadata accessor for MetricService();
+  v62 = *(v63[-1].Description + 1);
+  v62(v2 + v18, v63);
+  v19 = v3[21];
+  v61 = type metadata accessor for PersonalizationService();
+  v60 = *(v61[-1].Description + 1);
+  v60(v2 + v19, v61);
+  v20 = v3[22];
+  v59 = type metadata accessor for PlayerService();
+  v58 = *(v59[-1].Description + 1);
+  v58(v2 + v20, v59);
+  v21 = v3[23];
+  v57 = type metadata accessor for PrivacyPreferenceService();
+  v56 = *(v57[-1].Description + 1);
+  v56(v2 + v21, v57);
+  v22 = v3[24];
+  v55 = type metadata accessor for RecommendationService();
+  v54 = *(v55[-1].Description + 1);
+  v54(v2 + v22, v55);
+  v23 = v3[25];
+  v53 = type metadata accessor for RemoteBrowsingService();
+  v52 = *(v53[-1].Description + 1);
+  v52(v2 + v23, v53);
+  v24 = v3[26];
+  v51 = type metadata accessor for SearchService();
+  v50 = *(v51[-1].Description + 1);
+  v50(v2 + v24, v51);
+  v25 = v3[27];
+  v44 = type metadata accessor for ServiceSubscriptionService();
+  v49 = *(v44[-1].Description + 1);
+  v49(v2 + v25, v44);
+  v26 = v3[28];
+  v42 = type metadata accessor for SessionService();
+  v48 = *(v42[-1].Description + 1);
+  v48(v2 + v26, v42);
+  v27 = v3[29];
+  v28 = type metadata accessor for SharePlayService();
+  v47 = *(v28[-1].Description + 1);
+  v47(v2 + v27, v28);
+  v29 = v3[30];
+  v30 = type metadata accessor for SiriService();
+  v46 = *(v30[-1].Description + 1);
+  v46(v2 + v29, v30);
+  v31 = v3[31];
+  v32 = type metadata accessor for SyncService();
+  v45 = *(v32[-1].Description + 1);
+  v45(v2 + v31, v32);
 
-  v42 = v40[3];
-
-  v43 = v40[5];
-
-  v44 = v10[33];
+  v33 = v3[33];
   QueueService = type metadata accessor for UpNextQueueService();
-  v65 = *(QueueService[-1].Description + 1);
-  v65(v8 + v44, QueueService);
-  __swift_destroy_boxed_opaque_existential_1((v8 + v10[34]));
-  v46 = *(v8 + v10[35]);
+  v43 = *(QueueService[-1].Description + 1);
+  v43(v2 + v33, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v2 + v3[34]));
 
-  v47 = v10[36];
-  v48 = type metadata accessor for WorkoutPlanService();
-  v49 = *(v48[-1].Description + 1);
-  v49(v8 + v47, v48);
-  v50 = *&v117[v116[6]];
+  v35 = v3[36];
+  v36 = type metadata accessor for WorkoutPlanService();
+  v37 = *(v36[-1].Description + 1);
+  v37(v2 + v35, v36);
 
-  v51 = &v117[v116[7]];
-  v52 = *v51;
+  v38 = v95 + v94[7];
 
-  v53 = *(v51 + 1);
-
-  v54 = &v51[*(type metadata accessor for AppDataItemResolver() + 24)];
-  v55 = *v54;
+  v39 = v38 + *(type metadata accessor for AppDataItemResolver(0) + 24);
   swift_unknownObjectRelease();
-  v112(&v54[v10[6]], v113);
-  v110(&v54[v10[7]], v111);
-  v108(&v54[v10[8]], v109);
-  v106(&v54[v10[9]], v107);
-  v104(&v54[v10[10]], v105);
-  v102(&v54[v10[11]], v103);
-  v100(&v54[v10[12]], v101);
-  v98(&v54[v10[13]], v99);
-  v96(&v54[v10[14]], v97);
-  v94(&v54[v10[15]], v95);
-  v92(&v54[v10[16]], v93);
-  v90(&v54[v10[17]], v91);
-  v88(&v54[v10[18]], v89);
-  v86(&v54[v10[19]], v87);
-  v84(&v54[v10[20]], v85);
-  v82(&v54[v10[21]], v83);
-  v80(&v54[v10[22]], v81);
-  v78(&v54[v10[23]], v79);
-  v76(&v54[v10[24]], v77);
-  v74(&v54[v10[25]], v75);
-  v72(&v54[v10[26]], v73);
-  v71(&v54[v10[27]], v66);
-  v70(&v54[v10[28]], v64);
-  v69(&v54[v10[29]], v35);
-  v68(&v54[v10[30]], v37);
-  v67(&v54[v10[31]], v39);
-  v56 = &v54[v10[32]];
-  v57 = *(v56 + 1);
+  v90(v39 + v3[6], v91);
+  v88(v39 + v3[7], v89);
+  v86(v39 + v3[8], v87);
+  v84(v39 + v3[9], v85);
+  v82(v39 + v3[10], v83);
+  v80(v39 + v3[11], v81);
+  v78(v39 + v3[12], v79);
+  v76(v39 + v3[13], v77);
+  v74(v39 + v3[14], v75);
+  v72(v39 + v3[15], v73);
+  v70(v39 + v3[16], v71);
+  v68(v39 + v3[17], v69);
+  v66(v39 + v3[18], v67);
+  v64(v39 + v3[19], v65);
+  v62(v39 + v3[20], v63);
+  v60(v39 + v3[21], v61);
+  v58(v39 + v3[22], v59);
+  v56(v39 + v3[23], v57);
+  v54(v39 + v3[24], v55);
+  v52(v39 + v3[25], v53);
+  v50(v39 + v3[26], v51);
+  v49(v39 + v3[27], v44);
+  v48(v39 + v3[28], v42);
+  v47(v39 + v3[29], v28);
+  v46(v39 + v3[30], v30);
+  v45(v39 + v3[31], v32);
 
-  v58 = *(v56 + 3);
+  v43(v39 + v3[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v39 + v3[34]));
 
-  v59 = *(v56 + 5);
-
-  v65(&v54[v10[33]], QueueService);
-  __swift_destroy_boxed_opaque_existential_1(&v54[v10[34]]);
-  v60 = *&v54[v10[35]];
-
-  v49(&v54[v10[36]], v48);
-  v61 = *&v117[v116[8]];
+  v37(v39 + v3[36], v36);
   swift_unknownObjectRelease();
-  if (*&v117[v116[9] + 8] >= 0xCuLL)
+  if (*(v95 + v94[9] + 8) >= 0xCuLL)
   {
   }
 
-  v62 = &v117[v116[10]];
-  if (v62[3])
+  v40 = (v95 + v94[10]);
+  if (v40[3])
   {
-    __swift_destroy_boxed_opaque_existential_1(v62);
+    __swift_destroy_boxed_opaque_existential_1(v40);
   }
 
-  if (*(v115 + (v114 & 0xFFFFFFFFFFFFFFF8) + 8) >= 0xCuLL)
+  if (*(v93 + (v92 & 0xFFFFFFFFFFFFFFF8) + 8) >= 0xCuLL)
   {
   }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E5B96C()
+{
+  v1 = type metadata accessor for PageMetricsClick(0);
+  v2 = (*(*(v1 - 1) + 80) + 96) & ~*(*(v1 - 1) + 80);
+  v3 = *(*(v1 - 1) + 64);
+  swift_unknownObjectRelease();
+
+  v4 = v0 + v2;
+  v5 = sub_1E65D9D78();
+  v6 = *(v5 - 8);
+  if (!(*(v6 + 48))(v0 + v2, 1, v5))
+  {
+    (*(v6 + 8))(v0 + v2, v5);
+  }
+
+  v7 = v1[5];
+  v8 = sub_1E65D8C68();
+  (*(*(v8 - 8) + 8))(v4 + v7, v8);
+  v9 = v1[6];
+  v10 = sub_1E65D74E8();
+  v11 = *(v10 - 8);
+  if (!(*(v11 + 48))(v4 + v9, 1, v10))
+  {
+    (*(v11 + 8))(v4 + v9, v10);
+  }
+
+  v12 = v1[8];
+  v13 = sub_1E65DA208();
+  v14 = *(v13 - 8);
+  if (!(*(v14 + 48))(v4 + v12, 1, v13))
+  {
+    (*(v14 + 8))(v4 + v12, v13);
+  }
+
+  v15 = v1[14];
+  v16 = sub_1E65D8F28();
+  (*(*(v16 - 8) + 8))(v4 + v15, v16);
+  v17 = v1[15];
+  v18 = sub_1E65D9908();
+  v19 = *(v18 - 8);
+  if (!(*(v19 + 48))(v4 + v17, 1, v18))
+  {
+    (*(v19 + 8))(v4 + v17, v18);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1((v0 + ((v3 + v2 + 7) & 0xFFFFFFFFFFFFFFF8)));
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E5BCFC()
+{
+  v1 = (type metadata accessor for GalleryDescriptor(0) - 8);
+  v2 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v3 = (*(*v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v100 = type metadata accessor for AppComposer(0);
+  v98 = *(*(v100 - 1) + 80);
+  v96 = *(*(v100 - 1) + 64);
+
+  v4 = v1[9];
+  v5 = sub_1E65D72D8();
+  (*(*(v5 - 8) + 8))(v0 + v2 + v4, v5);
+  swift_unknownObjectRelease();
+
+  v99 = v0;
+  v97 = (v3 + v98 + 80) & ~v98;
+  v101 = v0 + v97;
+
+  v6 = v0 + v97 + v100[5];
+  swift_unknownObjectRelease();
+  v7 = type metadata accessor for AppEnvironment(0);
+  v8 = v7[6];
+  v95 = type metadata accessor for AccountService();
+  v94 = *(v95[-1].Description + 1);
+  v94(v6 + v8, v95);
+  v9 = v7[7];
+  v93 = type metadata accessor for AppStateService();
+  v92 = *(v93[-1].Description + 1);
+  v92(v6 + v9, v93);
+  v10 = v7[8];
+  v91 = type metadata accessor for ArchivedSessionService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v6 + v10, v91);
+  v11 = v7[9];
+  v89 = type metadata accessor for AssetService();
+  v88 = *(v89[-1].Description + 1);
+  v88(v6 + v11, v89);
+  v12 = v7[10];
+  v87 = type metadata accessor for AwardsService();
+  v86 = *(v87[-1].Description + 1);
+  v86(v6 + v12, v87);
+  v13 = v7[11];
+  v85 = type metadata accessor for BookmarkService();
+  v84 = *(v85[-1].Description + 1);
+  v84(v6 + v13, v85);
+  v14 = v7[12];
+  v83 = type metadata accessor for CatalogService();
+  v82 = *(v83[-1].Description + 1);
+  v82(v6 + v14, v83);
+  v15 = v7[13];
+  v81 = type metadata accessor for ConfigurationService();
+  v80 = *(v81[-1].Description + 1);
+  v80(v6 + v15, v81);
+  v16 = v7[14];
+  v79 = type metadata accessor for ContentAvailabilityService();
+  v78 = *(v79[-1].Description + 1);
+  v78(v6 + v16, v79);
+  v17 = v7[15];
+  v77 = type metadata accessor for EngagementService();
+  v76 = *(v77[-1].Description + 1);
+  v76(v6 + v17, v77);
+  v18 = v7[16];
+  v75 = type metadata accessor for HealthDataService();
+  v74 = *(v75[-1].Description + 1);
+  v74(v6 + v18, v75);
+  v19 = v7[17];
+  v73 = type metadata accessor for InteropService();
+  v72 = *(v73[-1].Description + 1);
+  v72(v6 + v19, v73);
+  v20 = v7[18];
+  v71 = type metadata accessor for LocalizationService();
+  v70 = *(v71[-1].Description + 1);
+  v70(v6 + v20, v71);
+  v21 = v7[19];
+  v69 = type metadata accessor for MarketingService();
+  v68 = *(v69[-1].Description + 1);
+  v68(v6 + v21, v69);
+  v22 = v7[20];
+  v67 = type metadata accessor for MetricService();
+  v66 = *(v67[-1].Description + 1);
+  v66(v6 + v22, v67);
+  v23 = v7[21];
+  v65 = type metadata accessor for PersonalizationService();
+  v64 = *(v65[-1].Description + 1);
+  v64(v6 + v23, v65);
+  v24 = v7[22];
+  v63 = type metadata accessor for PlayerService();
+  v62 = *(v63[-1].Description + 1);
+  v62(v6 + v24, v63);
+  v25 = v7[23];
+  v61 = type metadata accessor for PrivacyPreferenceService();
+  v60 = *(v61[-1].Description + 1);
+  v60(v6 + v25, v61);
+  v26 = v7[24];
+  v59 = type metadata accessor for RecommendationService();
+  v58 = *(v59[-1].Description + 1);
+  v58(v6 + v26, v59);
+  v27 = v7[25];
+  v57 = type metadata accessor for RemoteBrowsingService();
+  v56 = *(v57[-1].Description + 1);
+  v56(v6 + v27, v57);
+  v28 = v7[26];
+  v55 = type metadata accessor for SearchService();
+  v54 = *(v55[-1].Description + 1);
+  v54(v6 + v28, v55);
+  v29 = v7[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v53 = *(v48[-1].Description + 1);
+  v53(v6 + v29, v48);
+  v30 = v7[28];
+  v46 = type metadata accessor for SessionService();
+  v52 = *(v46[-1].Description + 1);
+  v52(v6 + v30, v46);
+  v31 = v7[29];
+  v32 = type metadata accessor for SharePlayService();
+  v51 = *(v32[-1].Description + 1);
+  v51(v6 + v31, v32);
+  v33 = v7[30];
+  v34 = type metadata accessor for SiriService();
+  v50 = *(v34[-1].Description + 1);
+  v50(v6 + v33, v34);
+  v35 = v7[31];
+  v36 = type metadata accessor for SyncService();
+  v49 = *(v36[-1].Description + 1);
+  v49(v6 + v35, v36);
+
+  v37 = v7[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v47 = *(QueueService[-1].Description + 1);
+  v47(v6 + v37, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v6 + v7[34]));
+
+  v39 = v7[36];
+  v40 = type metadata accessor for WorkoutPlanService();
+  v41 = *(v40[-1].Description + 1);
+  v41(v6 + v39, v40);
+
+  v42 = v101 + v100[7];
+
+  v43 = v42 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v94(v43 + v7[6], v95);
+  v92(v43 + v7[7], v93);
+  v90(v43 + v7[8], v91);
+  v88(v43 + v7[9], v89);
+  v86(v43 + v7[10], v87);
+  v84(v43 + v7[11], v85);
+  v82(v43 + v7[12], v83);
+  v80(v43 + v7[13], v81);
+  v78(v43 + v7[14], v79);
+  v76(v43 + v7[15], v77);
+  v74(v43 + v7[16], v75);
+  v72(v43 + v7[17], v73);
+  v70(v43 + v7[18], v71);
+  v68(v43 + v7[19], v69);
+  v66(v43 + v7[20], v67);
+  v64(v43 + v7[21], v65);
+  v62(v43 + v7[22], v63);
+  v60(v43 + v7[23], v61);
+  v58(v43 + v7[24], v59);
+  v56(v43 + v7[25], v57);
+  v54(v43 + v7[26], v55);
+  v53(v43 + v7[27], v48);
+  v52(v43 + v7[28], v46);
+  v51(v43 + v7[29], v32);
+  v50(v43 + v7[30], v34);
+  v49(v43 + v7[31], v36);
+
+  v47(v43 + v7[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v43 + v7[34]));
+
+  v41(v43 + v7[36], v40);
+  swift_unknownObjectRelease();
+  if (*(v101 + v100[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v44 = (v101 + v100[10]);
+  if (v44[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v44);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1((v99 + ((v96 + v97 + 7) & 0xFFFFFFFFFFFFFFF8)));
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E5CAC0()
+{
+  v1 = type metadata accessor for PageMetricsClick(0);
+  v2 = (*(*(v1 - 1) + 80) + 160) & ~*(*(v1 - 1) + 80);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 24));
+
+  swift_unknownObjectRelease();
+
+  v3 = v0 + v2;
+  v4 = sub_1E65D9D78();
+  v5 = *(v4 - 8);
+  if (!(*(v5 + 48))(v0 + v2, 1, v4))
+  {
+    (*(v5 + 8))(v0 + v2, v4);
+  }
+
+  v6 = v1[5];
+  v7 = sub_1E65D8C68();
+  (*(*(v7 - 8) + 8))(v3 + v6, v7);
+  v8 = v1[6];
+  v9 = sub_1E65D74E8();
+  v10 = *(v9 - 8);
+  if (!(*(v10 + 48))(v3 + v8, 1, v9))
+  {
+    (*(v10 + 8))(v3 + v8, v9);
+  }
+
+  v11 = v1[8];
+  v12 = sub_1E65DA208();
+  v13 = *(v12 - 8);
+  if (!(*(v13 + 48))(v3 + v11, 1, v12))
+  {
+    (*(v13 + 8))(v3 + v11, v12);
+  }
+
+  v14 = v1[14];
+  v15 = sub_1E65D8F28();
+  (*(*(v15 - 8) + 8))(v3 + v14, v15);
+  v16 = v1[15];
+  v17 = sub_1E65D9908();
+  v18 = *(v17 - 8);
+  if (!(*(v18 + 48))(v3 + v16, 1, v17))
+  {
+    (*(v18 + 8))(v3 + v16, v17);
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E5CE4C()
+{
+  v96 = type metadata accessor for AppComposer(0);
+  v94 = *(*(v96 - 1) + 80);
+  v92 = *(*(v96 - 1) + 64);
+  v93 = (v94 + 16) & ~v94;
+  v95 = v0;
+  v89 = v0 + v93;
+
+  v1 = v0 + v93 + v96[5];
+  swift_unknownObjectRelease();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
+
+  v32 = v2[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
+
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
+
+  v36 = v89 + v96[7];
+
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
+
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
+
+  v40(v37 + v2[36], v35);
+  swift_unknownObjectRelease();
+  if (*(v89 + v96[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v38 = (v89 + v96[10]);
+  if (v38[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v38);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1((v95 + ((v93 + v92) & 0xFFFFFFFFFFFFFFF8) + 8));
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E5DB64()
+{
+  v121 = type metadata accessor for AppComposer(0);
+  v119 = *(*(v121 - 1) + 80);
+  v1 = (v119 + 16) & ~v119;
+  v2 = v1 + *(*(v121 - 1) + 64);
+  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0736B0, &unk_1E65F8480) - 8);
+  v110 = (v2 + *(v3 + 80)) & ~*(v3 + 80);
+  v4 = (*(v3 + 64) + v110 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v115 = sub_1E65D76F8();
+  v113 = *(v115 - 8);
+  v118 = *(v113 + 80);
+  v111 = (*(v113 + 64) + ((v4 + v118 + 8) & ~v118) + 7) & 0xFFFFFFFFFFFFFFF8;
+  v112 = (v4 + v118 + 8) & ~v118;
+  v5 = sub_1E65DEC18();
+  v116 = *(v5 - 8);
+  v117 = v5;
+  v114 = (((v111 + 47) & 0xFFFFFFFFFFFFFFF8) + *(v116 + 80) + 80) & ~*(v116 + 80);
+  v109 = *(v116 + 64) + v114;
+  v120 = v0;
+  v106 = v0 + v1;
+
+  v6 = v0 + v1 + v121[5];
+  swift_unknownObjectRelease();
+  v7 = type metadata accessor for AppEnvironment(0);
+  v8 = v7[6];
+  v108 = type metadata accessor for AccountService();
+  v107 = *(v108[-1].Description + 1);
+  v107(v6 + v8, v108);
+  v9 = v7[7];
+  v105 = type metadata accessor for AppStateService();
+  v104 = *(v105[-1].Description + 1);
+  v104(v6 + v9, v105);
+  v10 = v7[8];
+  v103 = type metadata accessor for ArchivedSessionService();
+  v102 = *(v103[-1].Description + 1);
+  v102(v6 + v10, v103);
+  v11 = v7[9];
+  v101 = type metadata accessor for AssetService();
+  v100 = *(v101[-1].Description + 1);
+  v100(v6 + v11, v101);
+  v12 = v7[10];
+  v99 = type metadata accessor for AwardsService();
+  v98 = *(v99[-1].Description + 1);
+  v98(v6 + v12, v99);
+  v13 = v7[11];
+  v97 = type metadata accessor for BookmarkService();
+  v96 = *(v97[-1].Description + 1);
+  v96(v6 + v13, v97);
+  v14 = v7[12];
+  v95 = type metadata accessor for CatalogService();
+  v94 = *(v95[-1].Description + 1);
+  v94(v6 + v14, v95);
+  v15 = v7[13];
+  v93 = type metadata accessor for ConfigurationService();
+  v92 = *(v93[-1].Description + 1);
+  v92(v6 + v15, v93);
+  v16 = v7[14];
+  v91 = type metadata accessor for ContentAvailabilityService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v6 + v16, v91);
+  v17 = v7[15];
+  v89 = type metadata accessor for EngagementService();
+  v88 = *(v89[-1].Description + 1);
+  v88(v6 + v17, v89);
+  v18 = v7[16];
+  v87 = type metadata accessor for HealthDataService();
+  v86 = *(v87[-1].Description + 1);
+  v86(v6 + v18, v87);
+  v19 = v7[17];
+  v85 = type metadata accessor for InteropService();
+  v84 = *(v85[-1].Description + 1);
+  v84(v6 + v19, v85);
+  v20 = v7[18];
+  v83 = type metadata accessor for LocalizationService();
+  v82 = *(v83[-1].Description + 1);
+  v82(v6 + v20, v83);
+  v21 = v7[19];
+  v81 = type metadata accessor for MarketingService();
+  v80 = *(v81[-1].Description + 1);
+  v80(v6 + v21, v81);
+  v22 = v7[20];
+  v79 = type metadata accessor for MetricService();
+  v78 = *(v79[-1].Description + 1);
+  v78(v6 + v22, v79);
+  v23 = v7[21];
+  v77 = type metadata accessor for PersonalizationService();
+  v76 = *(v77[-1].Description + 1);
+  v76(v6 + v23, v77);
+  v24 = v7[22];
+  v75 = type metadata accessor for PlayerService();
+  v74 = *(v75[-1].Description + 1);
+  v74(v6 + v24, v75);
+  v25 = v7[23];
+  v73 = type metadata accessor for PrivacyPreferenceService();
+  v72 = *(v73[-1].Description + 1);
+  v72(v6 + v25, v73);
+  v26 = v7[24];
+  v71 = type metadata accessor for RecommendationService();
+  v70 = *(v71[-1].Description + 1);
+  v70(v6 + v26, v71);
+  v27 = v7[25];
+  v69 = type metadata accessor for RemoteBrowsingService();
+  v68 = *(v69[-1].Description + 1);
+  v68(v6 + v27, v69);
+  v28 = v7[26];
+  v67 = type metadata accessor for SearchService();
+  v66 = *(v67[-1].Description + 1);
+  v66(v6 + v28, v67);
+  v29 = v7[27];
+  v60 = type metadata accessor for ServiceSubscriptionService();
+  v65 = *(v60[-1].Description + 1);
+  v65(v6 + v29, v60);
+  v30 = v7[28];
+  v58 = type metadata accessor for SessionService();
+  v64 = *(v58[-1].Description + 1);
+  v64(v6 + v30, v58);
+  v31 = v7[29];
+  v32 = type metadata accessor for SharePlayService();
+  v63 = *(v32[-1].Description + 1);
+  v63(v6 + v31, v32);
+  v33 = v7[30];
+  v34 = type metadata accessor for SiriService();
+  v62 = *(v34[-1].Description + 1);
+  v62(v6 + v33, v34);
+  v35 = v7[31];
+  v36 = type metadata accessor for SyncService();
+  v61 = *(v36[-1].Description + 1);
+  v61(v6 + v35, v36);
+
+  v37 = v7[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v59 = *(QueueService[-1].Description + 1);
+  v59(v6 + v37, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v6 + v7[34]));
+
+  v39 = v7[36];
+  v40 = type metadata accessor for WorkoutPlanService();
+  v57 = *(v40[-1].Description + 1);
+  v57(v6 + v39, v40);
+
+  v41 = v106 + v121[7];
+
+  v42 = v41 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v107(v42 + v7[6], v108);
+  v104(v42 + v7[7], v105);
+  v102(v42 + v7[8], v103);
+  v100(v42 + v7[9], v101);
+  v98(v42 + v7[10], v99);
+  v96(v42 + v7[11], v97);
+  v94(v42 + v7[12], v95);
+  v92(v42 + v7[13], v93);
+  v90(v42 + v7[14], v91);
+  v88(v42 + v7[15], v89);
+  v86(v42 + v7[16], v87);
+  v84(v42 + v7[17], v85);
+  v82(v42 + v7[18], v83);
+  v80(v42 + v7[19], v81);
+  v78(v42 + v7[20], v79);
+  v76(v42 + v7[21], v77);
+  v74(v42 + v7[22], v75);
+  v72(v42 + v7[23], v73);
+  v70(v42 + v7[24], v71);
+  v68(v42 + v7[25], v69);
+  v66(v42 + v7[26], v67);
+  v65(v42 + v7[27], v60);
+  v64(v42 + v7[28], v58);
+  v63(v42 + v7[29], v32);
+  v62(v42 + v7[30], v34);
+  v61(v42 + v7[31], v36);
+
+  v59(v42 + v7[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v42 + v7[34]));
+
+  v57(v42 + v7[36], v40);
+  swift_unknownObjectRelease();
+  if (*(v106 + v121[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v43 = (v106 + v121[10]);
+  if (v43[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v43);
+  }
+
+  v44 = (v109 + 7) & 0xFFFFFFFFFFFFFFF8;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+
+  if (EnumCaseMultiPayload == 1)
+  {
+    v46 = v120 + v110 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737C0, &unk_1E65F7310) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737C8, &unk_1E6605140);
+    v47 = swift_getEnumCaseMultiPayload();
+    switch(v47)
+    {
+      case 2:
+
+        break;
+      case 1:
+        v49 = sub_1E65DE788();
+        (*(*(v49 - 8) + 8))(v46, v49);
+        v50 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED077E20, &unk_1E65F7140) + 48);
+        v51 = sub_1E65D76A8();
+        (*(*(v51 - 8) + 8))(v46 + v50, v51);
+        break;
+      case 0:
+        v48 = sub_1E65DE788();
+        (*(*(v48 - 8) + 8))(v46, v48);
+        break;
+    }
+
+    v52 = v46 + *(type metadata accessor for DynamicStartWorkoutButtonLoadState(0) + 20);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CD0, &unk_1E65F42F0);
+    v53 = swift_getEnumCaseMultiPayload();
+    if (v53 == 2)
+    {
+    }
+
+    else if (v53 == 1)
+    {
+      v54 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737D0, &unk_1E65F4330) + 48);
+      v55 = sub_1E65D76A8();
+      (*(*(v55 - 8) + 8))(v52 + v54, v55);
+    }
+  }
+
+  (*(v113 + 8))(v120 + v112, v115);
+  __swift_destroy_boxed_opaque_existential_1((v120 + v111));
+  swift_unknownObjectRelease();
+
+  (*(v116 + 8))(v120 + v114, v117);
+  if (*(v120 + v44 + 24))
+  {
+    __swift_destroy_boxed_opaque_existential_1((v120 + v44));
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E5EC4C()
+{
+  v1 = sub_1E65D74E8();
+  v2 = *(v1 - 8);
+  v3 = (*(v2 + 80) + 72) & ~*(v2 + 80);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
+
+  (*(v2 + 8))(v0 + v3, v1);
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E5ED18()
+{
+  v93 = type metadata accessor for AppComposer(0);
+  v98 = *(*(v93 - 1) + 80);
+  v1 = (v98 + 16) & ~v98;
+  v96 = (*(*(v93 - 1) + 64) + v1 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v97 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073718, &qword_1E65ED978) - 8) + 80);
+  v99 = v0;
+  v100 = v0 + v1;
+
+  v2 = v0 + v1 + v93[5];
+  swift_unknownObjectRelease();
+  v3 = type metadata accessor for AppEnvironment(0);
+  v4 = v3[6];
+  v95 = type metadata accessor for AccountService();
+  v94 = *(v95[-1].Description + 1);
+  v94(v2 + v4, v95);
+  v5 = v3[7];
+  v92 = type metadata accessor for AppStateService();
+  v91 = *(v92[-1].Description + 1);
+  v91(v2 + v5, v92);
+  v6 = v3[8];
+  v90 = type metadata accessor for ArchivedSessionService();
+  v89 = *(v90[-1].Description + 1);
+  v89(v2 + v6, v90);
+  v7 = v3[9];
+  v88 = type metadata accessor for AssetService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v2 + v7, v88);
+  v8 = v3[10];
+  v86 = type metadata accessor for AwardsService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v2 + v8, v86);
+  v9 = v3[11];
+  v84 = type metadata accessor for BookmarkService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v2 + v9, v84);
+  v10 = v3[12];
+  v82 = type metadata accessor for CatalogService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v2 + v10, v82);
+  v11 = v3[13];
+  v80 = type metadata accessor for ConfigurationService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v2 + v11, v80);
+  v12 = v3[14];
+  v78 = type metadata accessor for ContentAvailabilityService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v2 + v12, v78);
+  v13 = v3[15];
+  v76 = type metadata accessor for EngagementService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v2 + v13, v76);
+  v14 = v3[16];
+  v74 = type metadata accessor for HealthDataService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v2 + v14, v74);
+  v15 = v3[17];
+  v72 = type metadata accessor for InteropService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v2 + v15, v72);
+  v16 = v3[18];
+  v70 = type metadata accessor for LocalizationService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v2 + v16, v70);
+  v17 = v3[19];
+  v68 = type metadata accessor for MarketingService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v2 + v17, v68);
+  v18 = v3[20];
+  v66 = type metadata accessor for MetricService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v2 + v18, v66);
+  v19 = v3[21];
+  v64 = type metadata accessor for PersonalizationService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v2 + v19, v64);
+  v20 = v3[22];
+  v62 = type metadata accessor for PlayerService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v2 + v20, v62);
+  v21 = v3[23];
+  v60 = type metadata accessor for PrivacyPreferenceService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v2 + v21, v60);
+  v22 = v3[24];
+  v58 = type metadata accessor for RecommendationService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v2 + v22, v58);
+  v23 = v3[25];
+  v56 = type metadata accessor for RemoteBrowsingService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v2 + v23, v56);
+  v24 = v3[26];
+  v54 = type metadata accessor for SearchService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v2 + v24, v54);
+  v25 = v3[27];
+  v52 = type metadata accessor for ServiceSubscriptionService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v2 + v25, v52);
+  v26 = v3[28];
+  v45 = type metadata accessor for SessionService();
+  v50 = *(v45[-1].Description + 1);
+  v50(v2 + v26, v45);
+  v27 = v3[29];
+  v28 = type metadata accessor for SharePlayService();
+  v49 = *(v28[-1].Description + 1);
+  v49(v2 + v27, v28);
+  v29 = v3[30];
+  v30 = type metadata accessor for SiriService();
+  v48 = *(v30[-1].Description + 1);
+  v48(v2 + v29, v30);
+  v31 = v3[31];
+  v32 = type metadata accessor for SyncService();
+  v47 = *(v32[-1].Description + 1);
+  v47(v2 + v31, v32);
+
+  v33 = v3[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v46 = *(QueueService[-1].Description + 1);
+  v46(v2 + v33, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v2 + v3[34]));
+
+  v35 = v3[36];
+  v36 = type metadata accessor for WorkoutPlanService();
+  v44 = *(v36[-1].Description + 1);
+  v44(v2 + v35, v36);
+
+  v37 = v100 + v93[7];
+
+  v38 = v37 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v94(v38 + v3[6], v95);
+  v91(v38 + v3[7], v92);
+  v89(v38 + v3[8], v90);
+  v87(v38 + v3[9], v88);
+  v85(v38 + v3[10], v86);
+  v83(v38 + v3[11], v84);
+  v81(v38 + v3[12], v82);
+  v79(v38 + v3[13], v80);
+  v77(v38 + v3[14], v78);
+  v75(v38 + v3[15], v76);
+  v73(v38 + v3[16], v74);
+  v71(v38 + v3[17], v72);
+  v69(v38 + v3[18], v70);
+  v67(v38 + v3[19], v68);
+  v65(v38 + v3[20], v66);
+  v63(v38 + v3[21], v64);
+  v61(v38 + v3[22], v62);
+  v59(v38 + v3[23], v60);
+  v57(v38 + v3[24], v58);
+  v55(v38 + v3[25], v56);
+  v53(v38 + v3[26], v54);
+  v51(v38 + v3[27], v52);
+  v50(v38 + v3[28], v45);
+  v49(v38 + v3[29], v28);
+  v48(v38 + v3[30], v30);
+  v47(v38 + v3[31], v32);
+
+  v46(v38 + v3[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v38 + v3[34]));
+
+  v44(v38 + v3[36], v36);
+  swift_unknownObjectRelease();
+  if (*(v100 + v93[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v39 = (((v96 + 47) & 0xFFFFFFFFFFFFFFF8) + v97 + 16) & ~v97;
+  v40 = (v100 + v93[10]);
+  if (v40[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v40);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1((v99 + v96));
+
+  v41 = sub_1E65E20A8();
+  v42 = *(v41 - 8);
+  if (!(*(v42 + 48))(v99 + v39, 1, v41))
+  {
+    (*(v42 + 8))(v99 + v39, v41);
+  }
+
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E5FB58()
+{
+  v96 = type metadata accessor for AppComposer(0);
+  v94 = *(*(v96 - 1) + 80);
+  v92 = *(*(v96 - 1) + 64);
+  v93 = (v94 + 16) & ~v94;
+  v95 = v0;
+  v89 = v0 + v93;
+
+  v1 = v0 + v93 + v96[5];
+  swift_unknownObjectRelease();
+  v2 = type metadata accessor for AppEnvironment(0);
+  v3 = v2[6];
+  v91 = type metadata accessor for AccountService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v1 + v3, v91);
+  v4 = v2[7];
+  v88 = type metadata accessor for AppStateService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v1 + v4, v88);
+  v5 = v2[8];
+  v86 = type metadata accessor for ArchivedSessionService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v1 + v5, v86);
+  v6 = v2[9];
+  v84 = type metadata accessor for AssetService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v1 + v6, v84);
+  v7 = v2[10];
+  v82 = type metadata accessor for AwardsService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v1 + v7, v82);
+  v8 = v2[11];
+  v80 = type metadata accessor for BookmarkService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v1 + v8, v80);
+  v9 = v2[12];
+  v78 = type metadata accessor for CatalogService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v1 + v9, v78);
+  v10 = v2[13];
+  v76 = type metadata accessor for ConfigurationService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v1 + v10, v76);
+  v11 = v2[14];
+  v74 = type metadata accessor for ContentAvailabilityService();
+  v73 = *(v74[-1].Description + 1);
+  v73(v1 + v11, v74);
+  v12 = v2[15];
+  v72 = type metadata accessor for EngagementService();
+  v71 = *(v72[-1].Description + 1);
+  v71(v1 + v12, v72);
+  v13 = v2[16];
+  v70 = type metadata accessor for HealthDataService();
+  v69 = *(v70[-1].Description + 1);
+  v69(v1 + v13, v70);
+  v14 = v2[17];
+  v68 = type metadata accessor for InteropService();
+  v67 = *(v68[-1].Description + 1);
+  v67(v1 + v14, v68);
+  v15 = v2[18];
+  v66 = type metadata accessor for LocalizationService();
+  v65 = *(v66[-1].Description + 1);
+  v65(v1 + v15, v66);
+  v16 = v2[19];
+  v64 = type metadata accessor for MarketingService();
+  v63 = *(v64[-1].Description + 1);
+  v63(v1 + v16, v64);
+  v17 = v2[20];
+  v62 = type metadata accessor for MetricService();
+  v61 = *(v62[-1].Description + 1);
+  v61(v1 + v17, v62);
+  v18 = v2[21];
+  v60 = type metadata accessor for PersonalizationService();
+  v59 = *(v60[-1].Description + 1);
+  v59(v1 + v18, v60);
+  v19 = v2[22];
+  v58 = type metadata accessor for PlayerService();
+  v57 = *(v58[-1].Description + 1);
+  v57(v1 + v19, v58);
+  v20 = v2[23];
+  v56 = type metadata accessor for PrivacyPreferenceService();
+  v55 = *(v56[-1].Description + 1);
+  v55(v1 + v20, v56);
+  v21 = v2[24];
+  v54 = type metadata accessor for RecommendationService();
+  v53 = *(v54[-1].Description + 1);
+  v53(v1 + v21, v54);
+  v22 = v2[25];
+  v52 = type metadata accessor for RemoteBrowsingService();
+  v51 = *(v52[-1].Description + 1);
+  v51(v1 + v22, v52);
+  v23 = v2[26];
+  v50 = type metadata accessor for SearchService();
+  v49 = *(v50[-1].Description + 1);
+  v49(v1 + v23, v50);
+  v24 = v2[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v47 = *(v48[-1].Description + 1);
+  v47(v1 + v24, v48);
+  v25 = v2[28];
+  v41 = type metadata accessor for SessionService();
+  v46 = *(v41[-1].Description + 1);
+  v46(v1 + v25, v41);
+  v26 = v2[29];
+  v27 = type metadata accessor for SharePlayService();
+  v45 = *(v27[-1].Description + 1);
+  v45(v1 + v26, v27);
+  v28 = v2[30];
+  v29 = type metadata accessor for SiriService();
+  v44 = *(v29[-1].Description + 1);
+  v44(v1 + v28, v29);
+  v30 = v2[31];
+  v31 = type metadata accessor for SyncService();
+  v43 = *(v31[-1].Description + 1);
+  v43(v1 + v30, v31);
+
+  v32 = v2[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v42 = *(QueueService[-1].Description + 1);
+  v42(v1 + v32, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v1 + v2[34]));
+
+  v34 = v2[36];
+  v35 = type metadata accessor for WorkoutPlanService();
+  v40 = *(v35[-1].Description + 1);
+  v40(v1 + v34, v35);
+
+  v36 = v89 + v96[7];
+
+  v37 = v36 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v90(v37 + v2[6], v91);
+  v87(v37 + v2[7], v88);
+  v85(v37 + v2[8], v86);
+  v83(v37 + v2[9], v84);
+  v81(v37 + v2[10], v82);
+  v79(v37 + v2[11], v80);
+  v77(v37 + v2[12], v78);
+  v75(v37 + v2[13], v76);
+  v73(v37 + v2[14], v74);
+  v71(v37 + v2[15], v72);
+  v69(v37 + v2[16], v70);
+  v67(v37 + v2[17], v68);
+  v65(v37 + v2[18], v66);
+  v63(v37 + v2[19], v64);
+  v61(v37 + v2[20], v62);
+  v59(v37 + v2[21], v60);
+  v57(v37 + v2[22], v58);
+  v55(v37 + v2[23], v56);
+  v53(v37 + v2[24], v54);
+  v51(v37 + v2[25], v52);
+  v49(v37 + v2[26], v50);
+  v47(v37 + v2[27], v48);
+  v46(v37 + v2[28], v41);
+  v45(v37 + v2[29], v27);
+  v44(v37 + v2[30], v29);
+  v43(v37 + v2[31], v31);
+
+  v42(v37 + v2[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v37 + v2[34]));
+
+  v40(v37 + v2[36], v35);
+  swift_unknownObjectRelease();
+  if (*(v89 + v96[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v38 = (v89 + v96[10]);
+  if (v38[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v38);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1((v95 + ((v92 + v93 + 7) & 0xFFFFFFFFFFFFFFF8)));
+
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E608E4()
+{
+  v1 = sub_1E65D74E8();
+  v2 = *(v1 - 8);
+  v3 = (*(v2 + 80) + 88) & ~*(v2 + 80);
+  swift_unknownObjectRelease();
+  __swift_destroy_boxed_opaque_existential_1((v0 + 32));
+
+  (*(v2 + 8))(v0 + v3, v1);
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E609CC()
+{
+  v1 = type metadata accessor for PageMetricsClick(0);
+  v2 = (*(*(v1 - 1) + 80) + 176) & ~*(*(v1 - 1) + 80);
+  swift_unknownObjectRelease();
+  __swift_destroy_boxed_opaque_existential_1((v0 + 40));
+
+  swift_unknownObjectRelease();
+
+  v3 = v0 + v2;
+  v4 = sub_1E65D9D78();
+  v5 = *(v4 - 8);
+  if (!(*(v5 + 48))(v0 + v2, 1, v4))
+  {
+    (*(v5 + 8))(v0 + v2, v4);
+  }
+
+  v6 = v1[5];
+  v7 = sub_1E65D8C68();
+  (*(*(v7 - 8) + 8))(v3 + v6, v7);
+  v8 = v1[6];
+  v9 = sub_1E65D74E8();
+  v10 = *(v9 - 8);
+  if (!(*(v10 + 48))(v3 + v8, 1, v9))
+  {
+    (*(v10 + 8))(v3 + v8, v9);
+  }
+
+  v11 = v1[8];
+  v12 = sub_1E65DA208();
+  v13 = *(v12 - 8);
+  if (!(*(v13 + 48))(v3 + v11, 1, v12))
+  {
+    (*(v13 + 8))(v3 + v11, v12);
+  }
+
+  v14 = v1[14];
+  v15 = sub_1E65D8F28();
+  (*(*(v15 - 8) + 8))(v3 + v14, v15);
+  v16 = v1[15];
+  v17 = sub_1E65D9908();
+  v18 = *(v17 - 8);
+  if (!(*(v18 + 48))(v3 + v16, 1, v17))
+  {
+    (*(v18 + 8))(v3 + v16, v17);
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E60D68@<X0>(uint64_t *a1@<X8>)
+{
+  result = sub_1E65E3ED8();
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_1E5E60E24()
+{
+  v1 = (type metadata accessor for GalleryDescriptor(0) - 8);
+  v2 = (*(*v1 + 80) + 48) & ~*(*v1 + 80);
+  v3 = (*(*v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v100 = type metadata accessor for AppComposer(0);
+  v98 = *(*(v100 - 1) + 80);
+  v96 = *(*(v100 - 1) + 64);
+  swift_unknownObjectRelease();
+
+  v4 = v1[9];
+  v5 = sub_1E65D72D8();
+  (*(*(v5 - 8) + 8))(v0 + v2 + v4, v5);
+  swift_unknownObjectRelease();
+
+  v99 = v0;
+  v97 = (v3 + v98 + 80) & ~v98;
+  v101 = v0 + v97;
+
+  v6 = v0 + v97 + v100[5];
+  swift_unknownObjectRelease();
+  v7 = type metadata accessor for AppEnvironment(0);
+  v8 = v7[6];
+  v95 = type metadata accessor for AccountService();
+  v94 = *(v95[-1].Description + 1);
+  v94(v6 + v8, v95);
+  v9 = v7[7];
+  v93 = type metadata accessor for AppStateService();
+  v92 = *(v93[-1].Description + 1);
+  v92(v6 + v9, v93);
+  v10 = v7[8];
+  v91 = type metadata accessor for ArchivedSessionService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v6 + v10, v91);
+  v11 = v7[9];
+  v89 = type metadata accessor for AssetService();
+  v88 = *(v89[-1].Description + 1);
+  v88(v6 + v11, v89);
+  v12 = v7[10];
+  v87 = type metadata accessor for AwardsService();
+  v86 = *(v87[-1].Description + 1);
+  v86(v6 + v12, v87);
+  v13 = v7[11];
+  v85 = type metadata accessor for BookmarkService();
+  v84 = *(v85[-1].Description + 1);
+  v84(v6 + v13, v85);
+  v14 = v7[12];
+  v83 = type metadata accessor for CatalogService();
+  v82 = *(v83[-1].Description + 1);
+  v82(v6 + v14, v83);
+  v15 = v7[13];
+  v81 = type metadata accessor for ConfigurationService();
+  v80 = *(v81[-1].Description + 1);
+  v80(v6 + v15, v81);
+  v16 = v7[14];
+  v79 = type metadata accessor for ContentAvailabilityService();
+  v78 = *(v79[-1].Description + 1);
+  v78(v6 + v16, v79);
+  v17 = v7[15];
+  v77 = type metadata accessor for EngagementService();
+  v76 = *(v77[-1].Description + 1);
+  v76(v6 + v17, v77);
+  v18 = v7[16];
+  v75 = type metadata accessor for HealthDataService();
+  v74 = *(v75[-1].Description + 1);
+  v74(v6 + v18, v75);
+  v19 = v7[17];
+  v73 = type metadata accessor for InteropService();
+  v72 = *(v73[-1].Description + 1);
+  v72(v6 + v19, v73);
+  v20 = v7[18];
+  v71 = type metadata accessor for LocalizationService();
+  v70 = *(v71[-1].Description + 1);
+  v70(v6 + v20, v71);
+  v21 = v7[19];
+  v69 = type metadata accessor for MarketingService();
+  v68 = *(v69[-1].Description + 1);
+  v68(v6 + v21, v69);
+  v22 = v7[20];
+  v67 = type metadata accessor for MetricService();
+  v66 = *(v67[-1].Description + 1);
+  v66(v6 + v22, v67);
+  v23 = v7[21];
+  v65 = type metadata accessor for PersonalizationService();
+  v64 = *(v65[-1].Description + 1);
+  v64(v6 + v23, v65);
+  v24 = v7[22];
+  v63 = type metadata accessor for PlayerService();
+  v62 = *(v63[-1].Description + 1);
+  v62(v6 + v24, v63);
+  v25 = v7[23];
+  v61 = type metadata accessor for PrivacyPreferenceService();
+  v60 = *(v61[-1].Description + 1);
+  v60(v6 + v25, v61);
+  v26 = v7[24];
+  v59 = type metadata accessor for RecommendationService();
+  v58 = *(v59[-1].Description + 1);
+  v58(v6 + v26, v59);
+  v27 = v7[25];
+  v57 = type metadata accessor for RemoteBrowsingService();
+  v56 = *(v57[-1].Description + 1);
+  v56(v6 + v27, v57);
+  v28 = v7[26];
+  v55 = type metadata accessor for SearchService();
+  v54 = *(v55[-1].Description + 1);
+  v54(v6 + v28, v55);
+  v29 = v7[27];
+  v48 = type metadata accessor for ServiceSubscriptionService();
+  v53 = *(v48[-1].Description + 1);
+  v53(v6 + v29, v48);
+  v30 = v7[28];
+  v46 = type metadata accessor for SessionService();
+  v52 = *(v46[-1].Description + 1);
+  v52(v6 + v30, v46);
+  v31 = v7[29];
+  v32 = type metadata accessor for SharePlayService();
+  v51 = *(v32[-1].Description + 1);
+  v51(v6 + v31, v32);
+  v33 = v7[30];
+  v34 = type metadata accessor for SiriService();
+  v50 = *(v34[-1].Description + 1);
+  v50(v6 + v33, v34);
+  v35 = v7[31];
+  v36 = type metadata accessor for SyncService();
+  v49 = *(v36[-1].Description + 1);
+  v49(v6 + v35, v36);
+
+  v37 = v7[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v47 = *(QueueService[-1].Description + 1);
+  v47(v6 + v37, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v6 + v7[34]));
+
+  v39 = v7[36];
+  v40 = type metadata accessor for WorkoutPlanService();
+  v41 = *(v40[-1].Description + 1);
+  v41(v6 + v39, v40);
+
+  v42 = v101 + v100[7];
+
+  v43 = v42 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v94(v43 + v7[6], v95);
+  v92(v43 + v7[7], v93);
+  v90(v43 + v7[8], v91);
+  v88(v43 + v7[9], v89);
+  v86(v43 + v7[10], v87);
+  v84(v43 + v7[11], v85);
+  v82(v43 + v7[12], v83);
+  v80(v43 + v7[13], v81);
+  v78(v43 + v7[14], v79);
+  v76(v43 + v7[15], v77);
+  v74(v43 + v7[16], v75);
+  v72(v43 + v7[17], v73);
+  v70(v43 + v7[18], v71);
+  v68(v43 + v7[19], v69);
+  v66(v43 + v7[20], v67);
+  v64(v43 + v7[21], v65);
+  v62(v43 + v7[22], v63);
+  v60(v43 + v7[23], v61);
+  v58(v43 + v7[24], v59);
+  v56(v43 + v7[25], v57);
+  v54(v43 + v7[26], v55);
+  v53(v43 + v7[27], v48);
+  v52(v43 + v7[28], v46);
+  v51(v43 + v7[29], v32);
+  v50(v43 + v7[30], v34);
+  v49(v43 + v7[31], v36);
+
+  v47(v43 + v7[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v43 + v7[34]));
+
+  v41(v43 + v7[36], v40);
+  swift_unknownObjectRelease();
+  if (*(v101 + v100[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v44 = (v101 + v100[10]);
+  if (v44[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v44);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1((v99 + ((v96 + v97 + 7) & 0xFFFFFFFFFFFFFFF8)));
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E61BF0()
+{
+  v1 = type metadata accessor for PageMetricsClick(0);
+  v2 = (*(*(v1 - 1) + 80) + 112) & ~*(*(v1 - 1) + 80);
+  v3 = *(*(v1 - 1) + 64);
+  swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+
+  v4 = v0 + v2;
+  v5 = sub_1E65D9D78();
+  v6 = *(v5 - 8);
+  if (!(*(v6 + 48))(v0 + v2, 1, v5))
+  {
+    (*(v6 + 8))(v0 + v2, v5);
+  }
+
+  v7 = v1[5];
+  v8 = sub_1E65D8C68();
+  (*(*(v8 - 8) + 8))(v4 + v7, v8);
+  v9 = v1[6];
+  v10 = sub_1E65D74E8();
+  v11 = *(v10 - 8);
+  if (!(*(v11 + 48))(v4 + v9, 1, v10))
+  {
+    (*(v11 + 8))(v4 + v9, v10);
+  }
+
+  v12 = v1[8];
+  v13 = sub_1E65DA208();
+  v14 = *(v13 - 8);
+  if (!(*(v14 + 48))(v4 + v12, 1, v13))
+  {
+    (*(v14 + 8))(v4 + v12, v13);
+  }
+
+  v15 = v1[14];
+  v16 = sub_1E65D8F28();
+  (*(*(v16 - 8) + 8))(v4 + v15, v16);
+  v17 = v1[15];
+  v18 = sub_1E65D9908();
+  v19 = *(v18 - 8);
+  if (!(*(v19 + 48))(v4 + v17, 1, v18))
+  {
+    (*(v19 + 8))(v4 + v17, v18);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1((v0 + ((v3 + v2 + 7) & 0xFFFFFFFFFFFFFFF8)));
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E61F88()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E61FC0()
+{
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED072AA8, &unk_1E65FA900) - 8);
+  v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  v3 = *(v1 + 64);
+  v4 = sub_1E65D76F8();
+  v5 = *(v4 - 8);
+  v6 = *(v5 + 80);
+  v7 = v0 + v2;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  sub_1E6001C2C(*v7, *(v7 + 8), *(v7 + 16));
+  if (EnumCaseMultiPayload == 1)
+  {
+    v9 = v7 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073868, &unk_1E65FA930) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CC0, &unk_1E65F2610);
+    v10 = swift_getEnumCaseMultiPayload();
+    if (v10 == 2)
+    {
+    }
+
+    else if (v10 == 1)
+    {
+      v11 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073870, &unk_1E65F4340) + 48);
+      v12 = sub_1E65D76A8();
+      (*(*(v12 - 8) + 8))(v9 + v11, v12);
+    }
+
+    v13 = v9 + *(type metadata accessor for RemoveLibraryActionLoadState(0) + 20);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CD0, &unk_1E65F42F0);
+    v14 = swift_getEnumCaseMultiPayload();
+    if (v14 == 2)
+    {
+    }
+
+    else if (v14 == 1)
+    {
+      v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737D0, &unk_1E65F4330) + 48);
+      v16 = sub_1E65D76A8();
+      (*(*(v16 - 8) + 8))(v13 + v15, v16);
+    }
+  }
+
+  (*(v5 + 8))(v0 + ((v2 + v3 + v6) & ~v6), v4);
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E6227C()
+{
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED072AA8, &unk_1E65FA900) - 8);
+  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  sub_1E6001C2C(*v2, *(v2 + 8), *(v2 + 16));
+  if (EnumCaseMultiPayload == 1)
+  {
+    v4 = v2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073868, &unk_1E65FA930) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CC0, &unk_1E65F2610);
+    v5 = swift_getEnumCaseMultiPayload();
+    if (v5 == 2)
+    {
+    }
+
+    else if (v5 == 1)
+    {
+      v6 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073870, &unk_1E65F4340) + 48);
+      v7 = sub_1E65D76A8();
+      (*(*(v7 - 8) + 8))(v4 + v6, v7);
+    }
+
+    v8 = v4 + *(type metadata accessor for RemoveLibraryActionLoadState(0) + 20);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CD0, &unk_1E65F42F0);
+    v9 = swift_getEnumCaseMultiPayload();
+    if (v9 == 2)
+    {
+    }
+
+    else if (v9 == 1)
+    {
+      v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737D0, &unk_1E65F4330) + 48);
+      v11 = sub_1E65D76A8();
+      (*(*(v11 - 8) + 8))(v8 + v10, v11);
+    }
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E624A4()
+{
+  v107 = type metadata accessor for AppComposer(0);
+  v105 = *(*(v107 - 1) + 80);
+  v1 = (v105 + 16) & ~v105;
+  v103 = (*(*(v107 - 1) + 64) + v1 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v104 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED072AA8, &unk_1E65FA900) - 8) + 80);
+  v106 = v0;
+  v100 = v0 + v1;
+
+  v2 = v0 + v1 + v107[5];
+  swift_unknownObjectRelease();
+  v3 = type metadata accessor for AppEnvironment(0);
+  v4 = v3[6];
+  v102 = type metadata accessor for AccountService();
+  v101 = *(v102[-1].Description + 1);
+  v101(v2 + v4, v102);
+  v5 = v3[7];
+  v99 = type metadata accessor for AppStateService();
+  v98 = *(v99[-1].Description + 1);
+  v98(v2 + v5, v99);
+  v6 = v3[8];
+  v97 = type metadata accessor for ArchivedSessionService();
+  v96 = *(v97[-1].Description + 1);
+  v96(v2 + v6, v97);
+  v7 = v3[9];
+  v95 = type metadata accessor for AssetService();
+  v94 = *(v95[-1].Description + 1);
+  v94(v2 + v7, v95);
+  v8 = v3[10];
+  v93 = type metadata accessor for AwardsService();
+  v92 = *(v93[-1].Description + 1);
+  v92(v2 + v8, v93);
+  v9 = v3[11];
+  v91 = type metadata accessor for BookmarkService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v2 + v9, v91);
+  v10 = v3[12];
+  v89 = type metadata accessor for CatalogService();
+  v88 = *(v89[-1].Description + 1);
+  v88(v2 + v10, v89);
+  v11 = v3[13];
+  v87 = type metadata accessor for ConfigurationService();
+  v86 = *(v87[-1].Description + 1);
+  v86(v2 + v11, v87);
+  v12 = v3[14];
+  v85 = type metadata accessor for ContentAvailabilityService();
+  v84 = *(v85[-1].Description + 1);
+  v84(v2 + v12, v85);
+  v13 = v3[15];
+  v83 = type metadata accessor for EngagementService();
+  v82 = *(v83[-1].Description + 1);
+  v82(v2 + v13, v83);
+  v14 = v3[16];
+  v81 = type metadata accessor for HealthDataService();
+  v80 = *(v81[-1].Description + 1);
+  v80(v2 + v14, v81);
+  v15 = v3[17];
+  v79 = type metadata accessor for InteropService();
+  v78 = *(v79[-1].Description + 1);
+  v78(v2 + v15, v79);
+  v16 = v3[18];
+  v77 = type metadata accessor for LocalizationService();
+  v76 = *(v77[-1].Description + 1);
+  v76(v2 + v16, v77);
+  v17 = v3[19];
+  v75 = type metadata accessor for MarketingService();
+  v74 = *(v75[-1].Description + 1);
+  v74(v2 + v17, v75);
+  v18 = v3[20];
+  v73 = type metadata accessor for MetricService();
+  v72 = *(v73[-1].Description + 1);
+  v72(v2 + v18, v73);
+  v19 = v3[21];
+  v71 = type metadata accessor for PersonalizationService();
+  v70 = *(v71[-1].Description + 1);
+  v70(v2 + v19, v71);
+  v20 = v3[22];
+  v69 = type metadata accessor for PlayerService();
+  v68 = *(v69[-1].Description + 1);
+  v68(v2 + v20, v69);
+  v21 = v3[23];
+  v67 = type metadata accessor for PrivacyPreferenceService();
+  v66 = *(v67[-1].Description + 1);
+  v66(v2 + v21, v67);
+  v22 = v3[24];
+  v65 = type metadata accessor for RecommendationService();
+  v64 = *(v65[-1].Description + 1);
+  v64(v2 + v22, v65);
+  v23 = v3[25];
+  v63 = type metadata accessor for RemoteBrowsingService();
+  v62 = *(v63[-1].Description + 1);
+  v62(v2 + v23, v63);
+  v24 = v3[26];
+  v61 = type metadata accessor for SearchService();
+  v60 = *(v61[-1].Description + 1);
+  v60(v2 + v24, v61);
+  v25 = v3[27];
+  v59 = type metadata accessor for ServiceSubscriptionService();
+  v58 = *(v59[-1].Description + 1);
+  v58(v2 + v25, v59);
+  v26 = v3[28];
+  v52 = type metadata accessor for SessionService();
+  v57 = *(v52[-1].Description + 1);
+  v57(v2 + v26, v52);
+  v27 = v3[29];
+  v28 = type metadata accessor for SharePlayService();
+  v56 = *(v28[-1].Description + 1);
+  v56(v2 + v27, v28);
+  v29 = v3[30];
+  v30 = type metadata accessor for SiriService();
+  v55 = *(v30[-1].Description + 1);
+  v55(v2 + v29, v30);
+  v31 = v3[31];
+  v32 = type metadata accessor for SyncService();
+  v54 = *(v32[-1].Description + 1);
+  v54(v2 + v31, v32);
+
+  v33 = v3[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v53 = *(QueueService[-1].Description + 1);
+  v53(v2 + v33, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v2 + v3[34]));
+
+  v35 = v3[36];
+  v36 = type metadata accessor for WorkoutPlanService();
+  v51 = *(v36[-1].Description + 1);
+  v51(v2 + v35, v36);
+
+  v37 = v100 + v107[7];
+
+  v38 = v37 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v101(v38 + v3[6], v102);
+  v98(v38 + v3[7], v99);
+  v96(v38 + v3[8], v97);
+  v94(v38 + v3[9], v95);
+  v92(v38 + v3[10], v93);
+  v90(v38 + v3[11], v91);
+  v88(v38 + v3[12], v89);
+  v86(v38 + v3[13], v87);
+  v84(v38 + v3[14], v85);
+  v82(v38 + v3[15], v83);
+  v80(v38 + v3[16], v81);
+  v78(v38 + v3[17], v79);
+  v76(v38 + v3[18], v77);
+  v74(v38 + v3[19], v75);
+  v72(v38 + v3[20], v73);
+  v70(v38 + v3[21], v71);
+  v68(v38 + v3[22], v69);
+  v66(v38 + v3[23], v67);
+  v64(v38 + v3[24], v65);
+  v62(v38 + v3[25], v63);
+  v60(v38 + v3[26], v61);
+  v58(v38 + v3[27], v59);
+  v57(v38 + v3[28], v52);
+  v56(v38 + v3[29], v28);
+  v55(v38 + v3[30], v30);
+  v54(v38 + v3[31], v32);
+
+  v53(v38 + v3[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v38 + v3[34]));
+
+  v51(v38 + v3[36], v36);
+  swift_unknownObjectRelease();
+  if (*(v100 + v107[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v39 = (v100 + v107[10]);
+  if (v39[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v39);
+  }
+
+  swift_unknownObjectRelease();
+
+  v40 = v106 + ((v103 + v104 + 80) & ~v104);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  sub_1E6001C2C(*v40, *(v40 + 8), *(v40 + 16));
+  if (EnumCaseMultiPayload == 1)
+  {
+    v42 = v40 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073868, &unk_1E65FA930) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CC0, &unk_1E65F2610);
+    v43 = swift_getEnumCaseMultiPayload();
+    if (v43 == 2)
+    {
+    }
+
+    else if (v43 == 1)
+    {
+      v44 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073870, &unk_1E65F4340) + 48);
+      v45 = sub_1E65D76A8();
+      (*(*(v45 - 8) + 8))(v42 + v44, v45);
+    }
+
+    v46 = v42 + *(type metadata accessor for RemoveLibraryActionLoadState(0) + 20);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CD0, &unk_1E65F42F0);
+    v47 = swift_getEnumCaseMultiPayload();
+    if (v47 == 2)
+    {
+    }
+
+    else if (v47 == 1)
+    {
+      v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737D0, &unk_1E65F4330) + 48);
+      v49 = sub_1E65D76A8();
+      (*(*(v49 - 8) + 8))(v46 + v48, v49);
+    }
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E633A8()
+{
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E633E0()
+{
+  v108 = type metadata accessor for AppComposer(0);
+  v106 = *(*(v108 - 1) + 80);
+  v1 = (v106 + 16) & ~v106;
+  v2 = v1 + *(*(v108 - 1) + 64);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073858, &unk_1E65F84A0);
+  v105 = *(*(v3 - 8) + 80);
+  v103 = v2 + v105;
+  v104 = *(*(v3 - 8) + 64);
+  v107 = v0;
+  v100 = v0 + v1;
+
+  v4 = v0 + v1 + v108[5];
+  swift_unknownObjectRelease();
+  v5 = type metadata accessor for AppEnvironment(0);
+  v6 = v5[6];
+  v102 = type metadata accessor for AccountService();
+  v101 = *(v102[-1].Description + 1);
+  v101(v4 + v6, v102);
+  v7 = v5[7];
+  v99 = type metadata accessor for AppStateService();
+  v98 = *(v99[-1].Description + 1);
+  v98(v4 + v7, v99);
+  v8 = v5[8];
+  v97 = type metadata accessor for ArchivedSessionService();
+  v96 = *(v97[-1].Description + 1);
+  v96(v4 + v8, v97);
+  v9 = v5[9];
+  v95 = type metadata accessor for AssetService();
+  v94 = *(v95[-1].Description + 1);
+  v94(v4 + v9, v95);
+  v10 = v5[10];
+  v93 = type metadata accessor for AwardsService();
+  v92 = *(v93[-1].Description + 1);
+  v92(v4 + v10, v93);
+  v11 = v5[11];
+  v91 = type metadata accessor for BookmarkService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v4 + v11, v91);
+  v12 = v5[12];
+  v89 = type metadata accessor for CatalogService();
+  v88 = *(v89[-1].Description + 1);
+  v88(v4 + v12, v89);
+  v13 = v5[13];
+  v87 = type metadata accessor for ConfigurationService();
+  v86 = *(v87[-1].Description + 1);
+  v86(v4 + v13, v87);
+  v14 = v5[14];
+  v85 = type metadata accessor for ContentAvailabilityService();
+  v84 = *(v85[-1].Description + 1);
+  v84(v4 + v14, v85);
+  v15 = v5[15];
+  v83 = type metadata accessor for EngagementService();
+  v82 = *(v83[-1].Description + 1);
+  v82(v4 + v15, v83);
+  v16 = v5[16];
+  v81 = type metadata accessor for HealthDataService();
+  v80 = *(v81[-1].Description + 1);
+  v80(v4 + v16, v81);
+  v17 = v5[17];
+  v79 = type metadata accessor for InteropService();
+  v78 = *(v79[-1].Description + 1);
+  v78(v4 + v17, v79);
+  v18 = v5[18];
+  v77 = type metadata accessor for LocalizationService();
+  v76 = *(v77[-1].Description + 1);
+  v76(v4 + v18, v77);
+  v19 = v5[19];
+  v75 = type metadata accessor for MarketingService();
+  v74 = *(v75[-1].Description + 1);
+  v74(v4 + v19, v75);
+  v20 = v5[20];
+  v73 = type metadata accessor for MetricService();
+  v72 = *(v73[-1].Description + 1);
+  v72(v4 + v20, v73);
+  v21 = v5[21];
+  v71 = type metadata accessor for PersonalizationService();
+  v70 = *(v71[-1].Description + 1);
+  v70(v4 + v21, v71);
+  v22 = v5[22];
+  v69 = type metadata accessor for PlayerService();
+  v68 = *(v69[-1].Description + 1);
+  v68(v4 + v22, v69);
+  v23 = v5[23];
+  v67 = type metadata accessor for PrivacyPreferenceService();
+  v66 = *(v67[-1].Description + 1);
+  v66(v4 + v23, v67);
+  v24 = v5[24];
+  v65 = type metadata accessor for RecommendationService();
+  v64 = *(v65[-1].Description + 1);
+  v64(v4 + v24, v65);
+  v25 = v5[25];
+  v63 = type metadata accessor for RemoteBrowsingService();
+  v62 = *(v63[-1].Description + 1);
+  v62(v4 + v25, v63);
+  v26 = v5[26];
+  v61 = type metadata accessor for SearchService();
+  v60 = *(v61[-1].Description + 1);
+  v60(v4 + v26, v61);
+  v27 = v5[27];
+  v59 = type metadata accessor for ServiceSubscriptionService();
+  v58 = *(v59[-1].Description + 1);
+  v58(v4 + v27, v59);
+  v28 = v5[28];
+  v52 = type metadata accessor for SessionService();
+  v57 = *(v52[-1].Description + 1);
+  v57(v4 + v28, v52);
+  v29 = v5[29];
+  v30 = type metadata accessor for SharePlayService();
+  v56 = *(v30[-1].Description + 1);
+  v56(v4 + v29, v30);
+  v31 = v5[30];
+  v32 = type metadata accessor for SiriService();
+  v55 = *(v32[-1].Description + 1);
+  v55(v4 + v31, v32);
+  v33 = v5[31];
+  v34 = type metadata accessor for SyncService();
+  v54 = *(v34[-1].Description + 1);
+  v54(v4 + v33, v34);
+
+  v35 = v5[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v53 = *(QueueService[-1].Description + 1);
+  v53(v4 + v35, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v4 + v5[34]));
+
+  v37 = v5[36];
+  v38 = type metadata accessor for WorkoutPlanService();
+  v51 = *(v38[-1].Description + 1);
+  v51(v4 + v37, v38);
+
+  v39 = v100 + v108[7];
+
+  v40 = v39 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v101(v40 + v5[6], v102);
+  v98(v40 + v5[7], v99);
+  v96(v40 + v5[8], v97);
+  v94(v40 + v5[9], v95);
+  v92(v40 + v5[10], v93);
+  v90(v40 + v5[11], v91);
+  v88(v40 + v5[12], v89);
+  v86(v40 + v5[13], v87);
+  v84(v40 + v5[14], v85);
+  v82(v40 + v5[15], v83);
+  v80(v40 + v5[16], v81);
+  v78(v40 + v5[17], v79);
+  v76(v40 + v5[18], v77);
+  v74(v40 + v5[19], v75);
+  v72(v40 + v5[20], v73);
+  v70(v40 + v5[21], v71);
+  v68(v40 + v5[22], v69);
+  v66(v40 + v5[23], v67);
+  v64(v40 + v5[24], v65);
+  v62(v40 + v5[25], v63);
+  v60(v40 + v5[26], v61);
+  v58(v40 + v5[27], v59);
+  v57(v40 + v5[28], v52);
+  v56(v40 + v5[29], v30);
+  v55(v40 + v5[30], v32);
+  v54(v40 + v5[31], v34);
+
+  v53(v40 + v5[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v40 + v5[34]));
+
+  v51(v40 + v5[36], v38);
+  swift_unknownObjectRelease();
+  if (*(v100 + v108[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v41 = v103 & ~v105;
+  v42 = (v100 + v108[10]);
+  if (v42[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v42);
+  }
+
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+
+  if (EnumCaseMultiPayload == 1)
+  {
+    v44 = v107 + v41 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073878, &unk_1E65F8490) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737C8, &unk_1E6605140);
+    v45 = swift_getEnumCaseMultiPayload();
+    switch(v45)
+    {
+      case 2:
+
+        break;
+      case 1:
+        v47 = sub_1E65DE788();
+        (*(*(v47 - 8) + 8))(v44, v47);
+        v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED077E20, &unk_1E65F7140) + 48);
+        v49 = sub_1E65D76A8();
+        (*(*(v49 - 8) + 8))(v44 + v48, v49);
+        break;
+      case 0:
+        v46 = sub_1E65DE788();
+        (*(*(v46 - 8) + 8))(v44, v46);
+        break;
+    }
+  }
+
+  __swift_destroy_boxed_opaque_existential_1((v107 + ((v104 + v41 + 7) & 0xFFFFFFFFFFFFFFF8)));
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E6428C()
+{
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073858, &unk_1E65F84A0) - 8);
+  v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  v3 = *(v1 + 64);
+  v4 = sub_1E65D76F8();
+  v5 = *(v4 - 8);
+  v6 = *(v5 + 80);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+
+  if (EnumCaseMultiPayload == 1)
+  {
+    v8 = v0 + v2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073878, &unk_1E65F8490) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737C8, &unk_1E6605140);
+    v9 = swift_getEnumCaseMultiPayload();
+    switch(v9)
+    {
+      case 2:
+
+        break;
+      case 1:
+        v11 = sub_1E65DE788();
+        (*(*(v11 - 8) + 8))(v8, v11);
+        v12 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED077E20, &unk_1E65F7140) + 48);
+        v13 = sub_1E65D76A8();
+        (*(*(v13 - 8) + 8))(v8 + v12, v13);
+        break;
+      case 0:
+        v10 = sub_1E65DE788();
+        (*(*(v10 - 8) + 8))(v8, v10);
+        break;
+    }
+  }
+
+  (*(v5 + 8))(v0 + ((((v3 + v2 + 7) & 0xFFFFFFFFFFFFFFF8) + v6 + 8) & ~v6), v4);
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E64528()
+{
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073858, &unk_1E65F84A0) - 8);
+  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+
+  if (EnumCaseMultiPayload == 1)
+  {
+    v4 = v2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073878, &unk_1E65F8490) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737C8, &unk_1E6605140);
+    v5 = swift_getEnumCaseMultiPayload();
+    switch(v5)
+    {
+      case 2:
+
+        break;
+      case 1:
+        v7 = sub_1E65DE788();
+        (*(*(v7 - 8) + 8))(v4, v7);
+        v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED077E20, &unk_1E65F7140) + 48);
+        v9 = sub_1E65D76A8();
+        (*(*(v9 - 8) + 8))(v4 + v8, v9);
+        break;
+      case 0:
+        v6 = sub_1E65DE788();
+        (*(*(v6 - 8) + 8))(v4, v6);
+        break;
+    }
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E64720()
+{
+  v100 = type metadata accessor for AppComposer(0);
+  v96 = *(*(v100 - 1) + 80);
+  v94 = *(*(v100 - 1) + 64);
+  v1 = sub_1E65DEC18();
+  v97 = *(v1 - 8);
+  v98 = v1;
+  v93 = *(v97 + 80);
+  v99 = v0;
+  v95 = (v96 + 16) & ~v96;
+  v90 = v0 + v95;
+
+  v2 = v0 + v95 + v100[5];
+  swift_unknownObjectRelease();
+  v3 = type metadata accessor for AppEnvironment(0);
+  v4 = v3[6];
+  v92 = type metadata accessor for AccountService();
+  v91 = *(v92[-1].Description + 1);
+  v91(v2 + v4, v92);
+  v5 = v3[7];
+  v89 = type metadata accessor for AppStateService();
+  v88 = *(v89[-1].Description + 1);
+  v88(v2 + v5, v89);
+  v6 = v3[8];
+  v87 = type metadata accessor for ArchivedSessionService();
+  v86 = *(v87[-1].Description + 1);
+  v86(v2 + v6, v87);
+  v7 = v3[9];
+  v85 = type metadata accessor for AssetService();
+  v84 = *(v85[-1].Description + 1);
+  v84(v2 + v7, v85);
+  v8 = v3[10];
+  v83 = type metadata accessor for AwardsService();
+  v82 = *(v83[-1].Description + 1);
+  v82(v2 + v8, v83);
+  v9 = v3[11];
+  v81 = type metadata accessor for BookmarkService();
+  v80 = *(v81[-1].Description + 1);
+  v80(v2 + v9, v81);
+  v10 = v3[12];
+  v79 = type metadata accessor for CatalogService();
+  v78 = *(v79[-1].Description + 1);
+  v78(v2 + v10, v79);
+  v11 = v3[13];
+  v77 = type metadata accessor for ConfigurationService();
+  v76 = *(v77[-1].Description + 1);
+  v76(v2 + v11, v77);
+  v12 = v3[14];
+  v75 = type metadata accessor for ContentAvailabilityService();
+  v74 = *(v75[-1].Description + 1);
+  v74(v2 + v12, v75);
+  v13 = v3[15];
+  v73 = type metadata accessor for EngagementService();
+  v72 = *(v73[-1].Description + 1);
+  v72(v2 + v13, v73);
+  v14 = v3[16];
+  v71 = type metadata accessor for HealthDataService();
+  v70 = *(v71[-1].Description + 1);
+  v70(v2 + v14, v71);
+  v15 = v3[17];
+  v69 = type metadata accessor for InteropService();
+  v68 = *(v69[-1].Description + 1);
+  v68(v2 + v15, v69);
+  v16 = v3[18];
+  v67 = type metadata accessor for LocalizationService();
+  v66 = *(v67[-1].Description + 1);
+  v66(v2 + v16, v67);
+  v17 = v3[19];
+  v65 = type metadata accessor for MarketingService();
+  v64 = *(v65[-1].Description + 1);
+  v64(v2 + v17, v65);
+  v18 = v3[20];
+  v63 = type metadata accessor for MetricService();
+  v62 = *(v63[-1].Description + 1);
+  v62(v2 + v18, v63);
+  v19 = v3[21];
+  v61 = type metadata accessor for PersonalizationService();
+  v60 = *(v61[-1].Description + 1);
+  v60(v2 + v19, v61);
+  v20 = v3[22];
+  v59 = type metadata accessor for PlayerService();
+  v58 = *(v59[-1].Description + 1);
+  v58(v2 + v20, v59);
+  v21 = v3[23];
+  v57 = type metadata accessor for PrivacyPreferenceService();
+  v56 = *(v57[-1].Description + 1);
+  v56(v2 + v21, v57);
+  v22 = v3[24];
+  v55 = type metadata accessor for RecommendationService();
+  v54 = *(v55[-1].Description + 1);
+  v54(v2 + v22, v55);
+  v23 = v3[25];
+  v53 = type metadata accessor for RemoteBrowsingService();
+  v52 = *(v53[-1].Description + 1);
+  v52(v2 + v23, v53);
+  v24 = v3[26];
+  v51 = type metadata accessor for SearchService();
+  v50 = *(v51[-1].Description + 1);
+  v50(v2 + v24, v51);
+  v25 = v3[27];
+  v49 = type metadata accessor for ServiceSubscriptionService();
+  v48 = *(v49[-1].Description + 1);
+  v48(v2 + v25, v49);
+  v26 = v3[28];
+  v42 = type metadata accessor for SessionService();
+  v47 = *(v42[-1].Description + 1);
+  v47(v2 + v26, v42);
+  v27 = v3[29];
+  v28 = type metadata accessor for SharePlayService();
+  v46 = *(v28[-1].Description + 1);
+  v46(v2 + v27, v28);
+  v29 = v3[30];
+  v30 = type metadata accessor for SiriService();
+  v45 = *(v30[-1].Description + 1);
+  v45(v2 + v29, v30);
+  v31 = v3[31];
+  v32 = type metadata accessor for SyncService();
+  v44 = *(v32[-1].Description + 1);
+  v44(v2 + v31, v32);
+
+  v33 = v3[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v43 = *(QueueService[-1].Description + 1);
+  v43(v2 + v33, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v2 + v3[34]));
+
+  v35 = v3[36];
+  v36 = type metadata accessor for WorkoutPlanService();
+  v41 = *(v36[-1].Description + 1);
+  v41(v2 + v35, v36);
+
+  v37 = v90 + v100[7];
+
+  v38 = v37 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v91(v38 + v3[6], v92);
+  v88(v38 + v3[7], v89);
+  v86(v38 + v3[8], v87);
+  v84(v38 + v3[9], v85);
+  v82(v38 + v3[10], v83);
+  v80(v38 + v3[11], v81);
+  v78(v38 + v3[12], v79);
+  v76(v38 + v3[13], v77);
+  v74(v38 + v3[14], v75);
+  v72(v38 + v3[15], v73);
+  v70(v38 + v3[16], v71);
+  v68(v38 + v3[17], v69);
+  v66(v38 + v3[18], v67);
+  v64(v38 + v3[19], v65);
+  v62(v38 + v3[20], v63);
+  v60(v38 + v3[21], v61);
+  v58(v38 + v3[22], v59);
+  v56(v38 + v3[23], v57);
+  v54(v38 + v3[24], v55);
+  v52(v38 + v3[25], v53);
+  v50(v38 + v3[26], v51);
+  v48(v38 + v3[27], v49);
+  v47(v38 + v3[28], v42);
+  v46(v38 + v3[29], v28);
+  v45(v38 + v3[30], v30);
+  v44(v38 + v3[31], v32);
+
+  v43(v38 + v3[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v38 + v3[34]));
+
+  v41(v38 + v3[36], v36);
+  swift_unknownObjectRelease();
+  if (*(v90 + v100[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v39 = (v90 + v100[10]);
+  if (v39[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v39);
+  }
+
+  swift_unknownObjectRelease();
+
+  (*(v97 + 8))(v99 + ((((v94 + v95 + 7) & 0xFFFFFFFFFFFFFFF8) + v93 + 80) & ~v93), v98);
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E654B0()
+{
+  v124 = type metadata accessor for AppComposer(0);
+  v122 = *(*(v124 - 1) + 80);
+  v1 = (v122 + 16) & ~v122;
+  v2 = v1 + *(*(v124 - 1) + 64);
+  v121 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073648, &qword_1E6607560) - 8) + 80);
+  v120 = v2 + v121;
+  v123 = v0;
+  v117 = v0 + v1;
+
+  v3 = v0 + v1 + v124[5];
+  swift_unknownObjectRelease();
+  v4 = type metadata accessor for AppEnvironment(0);
+  v5 = v4[6];
+  v119 = type metadata accessor for AccountService();
+  v118 = *(v119[-1].Description + 1);
+  v118(v3 + v5, v119);
+  v6 = v4[7];
+  v116 = type metadata accessor for AppStateService();
+  v115 = *(v116[-1].Description + 1);
+  v115(v3 + v6, v116);
+  v7 = v4[8];
+  v114 = type metadata accessor for ArchivedSessionService();
+  v113 = *(v114[-1].Description + 1);
+  v113(v3 + v7, v114);
+  v8 = v4[9];
+  v112 = type metadata accessor for AssetService();
+  v111 = *(v112[-1].Description + 1);
+  v111(v3 + v8, v112);
+  v9 = v4[10];
+  v110 = type metadata accessor for AwardsService();
+  v109 = *(v110[-1].Description + 1);
+  v109(v3 + v9, v110);
+  v10 = v4[11];
+  v108 = type metadata accessor for BookmarkService();
+  v107 = *(v108[-1].Description + 1);
+  v107(v3 + v10, v108);
+  v11 = v4[12];
+  v106 = type metadata accessor for CatalogService();
+  v105 = *(v106[-1].Description + 1);
+  v105(v3 + v11, v106);
+  v12 = v4[13];
+  v104 = type metadata accessor for ConfigurationService();
+  v103 = *(v104[-1].Description + 1);
+  v103(v3 + v12, v104);
+  v13 = v4[14];
+  v102 = type metadata accessor for ContentAvailabilityService();
+  v101 = *(v102[-1].Description + 1);
+  v101(v3 + v13, v102);
+  v14 = v4[15];
+  v100 = type metadata accessor for EngagementService();
+  v99 = *(v100[-1].Description + 1);
+  v99(v3 + v14, v100);
+  v15 = v4[16];
+  v98 = type metadata accessor for HealthDataService();
+  v97 = *(v98[-1].Description + 1);
+  v97(v3 + v15, v98);
+  v16 = v4[17];
+  v96 = type metadata accessor for InteropService();
+  v95 = *(v96[-1].Description + 1);
+  v95(v3 + v16, v96);
+  v17 = v4[18];
+  v94 = type metadata accessor for LocalizationService();
+  v93 = *(v94[-1].Description + 1);
+  v93(v3 + v17, v94);
+  v18 = v4[19];
+  v92 = type metadata accessor for MarketingService();
+  v91 = *(v92[-1].Description + 1);
+  v91(v3 + v18, v92);
+  v19 = v4[20];
+  v90 = type metadata accessor for MetricService();
+  v89 = *(v90[-1].Description + 1);
+  v89(v3 + v19, v90);
+  v20 = v4[21];
+  v88 = type metadata accessor for PersonalizationService();
+  v87 = *(v88[-1].Description + 1);
+  v87(v3 + v20, v88);
+  v21 = v4[22];
+  v86 = type metadata accessor for PlayerService();
+  v85 = *(v86[-1].Description + 1);
+  v85(v3 + v21, v86);
+  v22 = v4[23];
+  v84 = type metadata accessor for PrivacyPreferenceService();
+  v83 = *(v84[-1].Description + 1);
+  v83(v3 + v22, v84);
+  v23 = v4[24];
+  v82 = type metadata accessor for RecommendationService();
+  v81 = *(v82[-1].Description + 1);
+  v81(v3 + v23, v82);
+  v24 = v4[25];
+  v80 = type metadata accessor for RemoteBrowsingService();
+  v79 = *(v80[-1].Description + 1);
+  v79(v3 + v24, v80);
+  v25 = v4[26];
+  v78 = type metadata accessor for SearchService();
+  v77 = *(v78[-1].Description + 1);
+  v77(v3 + v25, v78);
+  v26 = v4[27];
+  v76 = type metadata accessor for ServiceSubscriptionService();
+  v75 = *(v76[-1].Description + 1);
+  v75(v3 + v26, v76);
+  v27 = v4[28];
+  v69 = type metadata accessor for SessionService();
+  v74 = *(v69[-1].Description + 1);
+  v74(v3 + v27, v69);
+  v28 = v4[29];
+  v29 = type metadata accessor for SharePlayService();
+  v73 = *(v29[-1].Description + 1);
+  v73(v3 + v28, v29);
+  v30 = v4[30];
+  v31 = type metadata accessor for SiriService();
+  v72 = *(v31[-1].Description + 1);
+  v72(v3 + v30, v31);
+  v32 = v4[31];
+  v33 = type metadata accessor for SyncService();
+  v71 = *(v33[-1].Description + 1);
+  v71(v3 + v32, v33);
+
+  v34 = v4[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v70 = *(QueueService[-1].Description + 1);
+  v70(v3 + v34, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v3 + v4[34]));
+
+  v36 = v4[36];
+  v37 = type metadata accessor for WorkoutPlanService();
+  v68 = *(v37[-1].Description + 1);
+  v68(v3 + v36, v37);
+
+  v38 = v117 + v124[7];
+
+  v39 = v38 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v118(v39 + v4[6], v119);
+  v115(v39 + v4[7], v116);
+  v113(v39 + v4[8], v114);
+  v111(v39 + v4[9], v112);
+  v109(v39 + v4[10], v110);
+  v107(v39 + v4[11], v108);
+  v105(v39 + v4[12], v106);
+  v103(v39 + v4[13], v104);
+  v101(v39 + v4[14], v102);
+  v99(v39 + v4[15], v100);
+  v97(v39 + v4[16], v98);
+  v95(v39 + v4[17], v96);
+  v93(v39 + v4[18], v94);
+  v91(v39 + v4[19], v92);
+  v89(v39 + v4[20], v90);
+  v87(v39 + v4[21], v88);
+  v85(v39 + v4[22], v86);
+  v83(v39 + v4[23], v84);
+  v81(v39 + v4[24], v82);
+  v79(v39 + v4[25], v80);
+  v77(v39 + v4[26], v78);
+  v75(v39 + v4[27], v76);
+  v74(v39 + v4[28], v69);
+  v73(v39 + v4[29], v29);
+  v72(v39 + v4[30], v31);
+  v71(v39 + v4[31], v33);
+
+  v70(v39 + v4[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v39 + v4[34]));
+
+  v68(v39 + v4[36], v37);
+  swift_unknownObjectRelease();
+  if (*(v117 + v124[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v40 = (v117 + v124[10]);
+  if (v40[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v40);
+  }
+
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+
+  if (EnumCaseMultiPayload == 1)
+  {
+    v42 = v123 + (v120 & ~v121) + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073880, &qword_1E65EDC20) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737C8, &unk_1E6605140);
+    v43 = swift_getEnumCaseMultiPayload();
+    switch(v43)
+    {
+      case 2:
+
+        break;
+      case 1:
+        v45 = sub_1E65DE788();
+        (*(*(v45 - 8) + 8))(v42, v45);
+        v46 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED077E20, &unk_1E65F7140) + 48);
+        v47 = sub_1E65D76A8();
+        (*(*(v47 - 8) + 8))(v42 + v46, v47);
+        break;
+      case 0:
+        v44 = sub_1E65DE788();
+        (*(*(v44 - 8) + 8))(v42, v44);
+        break;
+    }
+
+    State = type metadata accessor for WorkoutActionsMenuLoadState(0);
+    v49 = v42 + State[5];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CC0, &unk_1E65F2610);
+    v50 = swift_getEnumCaseMultiPayload();
+    if (v50 == 2)
+    {
+    }
+
+    else if (v50 == 1)
+    {
+      v51 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073870, &unk_1E65F4340) + 48);
+      v52 = sub_1E65D76A8();
+      (*(*(v52 - 8) + 8))(v49 + v51, v52);
+    }
+
+    v53 = v42 + State[6];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077CD0, &unk_1E65F42F0);
+    v54 = swift_getEnumCaseMultiPayload();
+    if (v54 == 2)
+    {
+    }
+
+    else if (v54 == 1)
+    {
+      v55 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED0737D0, &unk_1E65F4330) + 48);
+      v56 = sub_1E65D76A8();
+      (*(*(v56 - 8) + 8))(v53 + v55, v56);
+    }
+
+    v57 = v42 + State[7];
+    v58 = swift_getEnumCaseMultiPayload();
+    if (v58 == 2)
+    {
+    }
+
+    else if (v58 == 1)
+    {
+      v59 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ED073870, &unk_1E65F4340) + 48);
+      v60 = sub_1E65D76A8();
+      (*(*(v60 - 8) + 8))(v57 + v59, v60);
+    }
+
+    v61 = v42 + State[8];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077A70, &qword_1E65F2620);
+    v62 = swift_getEnumCaseMultiPayload();
+    switch(v62)
+    {
+      case 2:
+
+        break;
+      case 1:
+        v64 = sub_1E65DE508();
+        (*(*(v64 - 8) + 8))(v61, v64);
+        v65 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED07A400, &unk_1E65F7150) + 48);
+        v66 = sub_1E65D76A8();
+        (*(*(v66 - 8) + 8))(v61 + v65, v66);
+        break;
+      case 0:
+        v63 = sub_1E65DE508();
+        (*(*(v63 - 8) + 8))(v61, v63);
+        break;
+    }
+  }
+
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_1E5E66664@<X0>(uint64_t *a1@<X8>)
+{
+  result = sub_1E65E3EA8();
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_1E5E666BC()
+{
+  v112 = type metadata accessor for AppComposer(0);
+  v110 = *(*(v112 - 1) + 80);
+  v1 = (v110 + 16) & ~v110;
+  v2 = v1 + *(*(v112 - 1) + 64);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED0776E0, &qword_1E65EDC00);
+  v109 = *(*(v3 - 8) + 80);
+  v106 = *(*(v3 - 8) + 64);
+  v4 = sub_1E65D76F8();
+  v107 = *(v4 - 8);
+  v108 = v4;
+  v105 = *(v107 + 80);
+  v111 = v0;
+  v102 = v0 + v1;
+
+  v5 = v0 + v1 + v112[5];
+  swift_unknownObjectRelease();
+  v6 = type metadata accessor for AppEnvironment(0);
+  v7 = v6[6];
+  v104 = type metadata accessor for AccountService();
+  v103 = *(v104[-1].Description + 1);
+  v103(v5 + v7, v104);
+  v8 = v6[7];
+  v101 = type metadata accessor for AppStateService();
+  v100 = *(v101[-1].Description + 1);
+  v100(v5 + v8, v101);
+  v9 = v6[8];
+  v99 = type metadata accessor for ArchivedSessionService();
+  v98 = *(v99[-1].Description + 1);
+  v98(v5 + v9, v99);
+  v10 = v6[9];
+  v97 = type metadata accessor for AssetService();
+  v96 = *(v97[-1].Description + 1);
+  v96(v5 + v10, v97);
+  v11 = v6[10];
+  v95 = type metadata accessor for AwardsService();
+  v94 = *(v95[-1].Description + 1);
+  v94(v5 + v11, v95);
+  v12 = v6[11];
+  v93 = type metadata accessor for BookmarkService();
+  v92 = *(v93[-1].Description + 1);
+  v92(v5 + v12, v93);
+  v13 = v6[12];
+  v91 = type metadata accessor for CatalogService();
+  v90 = *(v91[-1].Description + 1);
+  v90(v5 + v13, v91);
+  v14 = v6[13];
+  v89 = type metadata accessor for ConfigurationService();
+  v88 = *(v89[-1].Description + 1);
+  v88(v5 + v14, v89);
+  v15 = v6[14];
+  v87 = type metadata accessor for ContentAvailabilityService();
+  v86 = *(v87[-1].Description + 1);
+  v86(v5 + v15, v87);
+  v16 = v6[15];
+  v85 = type metadata accessor for EngagementService();
+  v84 = *(v85[-1].Description + 1);
+  v84(v5 + v16, v85);
+  v17 = v6[16];
+  v83 = type metadata accessor for HealthDataService();
+  v82 = *(v83[-1].Description + 1);
+  v82(v5 + v17, v83);
+  v18 = v6[17];
+  v81 = type metadata accessor for InteropService();
+  v80 = *(v81[-1].Description + 1);
+  v80(v5 + v18, v81);
+  v19 = v6[18];
+  v79 = type metadata accessor for LocalizationService();
+  v78 = *(v79[-1].Description + 1);
+  v78(v5 + v19, v79);
+  v20 = v6[19];
+  v77 = type metadata accessor for MarketingService();
+  v76 = *(v77[-1].Description + 1);
+  v76(v5 + v20, v77);
+  v21 = v6[20];
+  v75 = type metadata accessor for MetricService();
+  v74 = *(v75[-1].Description + 1);
+  v74(v5 + v21, v75);
+  v22 = v6[21];
+  v73 = type metadata accessor for PersonalizationService();
+  v72 = *(v73[-1].Description + 1);
+  v72(v5 + v22, v73);
+  v23 = v6[22];
+  v71 = type metadata accessor for PlayerService();
+  v70 = *(v71[-1].Description + 1);
+  v70(v5 + v23, v71);
+  v24 = v6[23];
+  v69 = type metadata accessor for PrivacyPreferenceService();
+  v68 = *(v69[-1].Description + 1);
+  v68(v5 + v24, v69);
+  v25 = v6[24];
+  v67 = type metadata accessor for RecommendationService();
+  v66 = *(v67[-1].Description + 1);
+  v66(v5 + v25, v67);
+  v26 = v6[25];
+  v65 = type metadata accessor for RemoteBrowsingService();
+  v64 = *(v65[-1].Description + 1);
+  v64(v5 + v26, v65);
+  v27 = v6[26];
+  v63 = type metadata accessor for SearchService();
+  v62 = *(v63[-1].Description + 1);
+  v62(v5 + v27, v63);
+  v28 = v6[27];
+  v61 = type metadata accessor for ServiceSubscriptionService();
+  v60 = *(v61[-1].Description + 1);
+  v60(v5 + v28, v61);
+  v29 = v6[28];
+  v54 = type metadata accessor for SessionService();
+  v59 = *(v54[-1].Description + 1);
+  v59(v5 + v29, v54);
+  v30 = v6[29];
+  v31 = type metadata accessor for SharePlayService();
+  v58 = *(v31[-1].Description + 1);
+  v58(v5 + v30, v31);
+  v32 = v6[30];
+  v33 = type metadata accessor for SiriService();
+  v57 = *(v33[-1].Description + 1);
+  v57(v5 + v32, v33);
+  v34 = v6[31];
+  v35 = type metadata accessor for SyncService();
+  v56 = *(v35[-1].Description + 1);
+  v56(v5 + v34, v35);
+
+  v36 = v6[33];
+  QueueService = type metadata accessor for UpNextQueueService();
+  v55 = *(QueueService[-1].Description + 1);
+  v55(v5 + v36, QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v5 + v6[34]));
+
+  v38 = v6[36];
+  v39 = type metadata accessor for WorkoutPlanService();
+  v53 = *(v39[-1].Description + 1);
+  v53(v5 + v38, v39);
+
+  v40 = v102 + v112[7];
+
+  v41 = v40 + *(type metadata accessor for AppDataItemResolver(0) + 24);
+  swift_unknownObjectRelease();
+  v103(v41 + v6[6], v104);
+  v100(v41 + v6[7], v101);
+  v98(v41 + v6[8], v99);
+  v96(v41 + v6[9], v97);
+  v94(v41 + v6[10], v95);
+  v92(v41 + v6[11], v93);
+  v90(v41 + v6[12], v91);
+  v88(v41 + v6[13], v89);
+  v86(v41 + v6[14], v87);
+  v84(v41 + v6[15], v85);
+  v82(v41 + v6[16], v83);
+  v80(v41 + v6[17], v81);
+  v78(v41 + v6[18], v79);
+  v76(v41 + v6[19], v77);
+  v74(v41 + v6[20], v75);
+  v72(v41 + v6[21], v73);
+  v70(v41 + v6[22], v71);
+  v68(v41 + v6[23], v69);
+  v66(v41 + v6[24], v67);
+  v64(v41 + v6[25], v65);
+  v62(v41 + v6[26], v63);
+  v60(v41 + v6[27], v61);
+  v59(v41 + v6[28], v54);
+  v58(v41 + v6[29], v31);
+  v57(v41 + v6[30], v33);
+  v56(v41 + v6[31], v35);
+
+  v55(v41 + v6[33], QueueService);
+  __swift_destroy_boxed_opaque_existential_1((v41 + v6[34]));
+
+  v53(v41 + v6[36], v39);
+  swift_unknownObjectRelease();
+  if (*(v102 + v112[9] + 8) >= 0xCuLL)
+  {
+  }
+
+  v42 = (v2 + v109) & ~v109;
+  v43 = (v102 + v112[10]);
+  if (v43[3])
+  {
+    __swift_destroy_boxed_opaque_existential_1(v43);
+  }
+
+  v44 = v111 + v42;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  sub_1E6001C2C(*v44, *(v44 + 8), *(v44 + 16));
+  if (EnumCaseMultiPayload == 1)
+  {
+    v46 = v44 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED07A3F0, &unk_1E65F7290) + 48);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED077A70, &qword_1E65F2620);
+    v47 = swift_getEnumCaseMultiPayload();
+    switch(v47)
+    {
+      case 2:
+
+        break;
+      case 1:
+        v49 = sub_1E65DE508();
+        (*(*(v49 - 8) + 8))(v46, v49);
+        v50 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ED07A400, &unk_1E65F7150) + 48);
+        v51 = sub_1E65D76A8();
+        (*(*(v51 - 8) + 8))(v46 + v50, v51);
+        break;
+      case 0:
+        v48 = sub_1E65DE508();
+        (*(*(v48 - 8) + 8))(v46, v48);
+        break;
+    }
+  }
+
+  (*(v107 + 8))(v111 + ((v42 + v106 + v105) & ~v105), v108);
+  swift_unknownObjectRelease();
 
   return swift_deallocObject();
 }

@@ -106,7 +106,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    value = self->_value;
     PBDataWriterWriteDoubleField();
   }
 }

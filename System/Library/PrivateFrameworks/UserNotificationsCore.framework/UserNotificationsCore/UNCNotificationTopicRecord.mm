@@ -244,121 +244,30 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (!equalCopy)
-  {
-    goto LABEL_25;
-  }
-
-  v5 = objc_opt_class();
-  if (v5 != objc_opt_class())
-  {
-    goto LABEL_25;
-  }
-
-  identifier = [(UNCNotificationTopicRecord *)self identifier];
-  identifier2 = [equalCopy identifier];
-  v8 = UNSimilarStrings();
-
-  if (!v8)
-  {
-    goto LABEL_25;
-  }
-
-  displayName = [(UNCNotificationTopicRecord *)self displayName];
-  displayName2 = [equalCopy displayName];
-  v11 = UNSimilarStrings();
-
-  if (!v11)
-  {
-    goto LABEL_25;
-  }
-
-  displayNameLocalizationKey = [(UNCNotificationTopicRecord *)self displayNameLocalizationKey];
-  displayNameLocalizationKey2 = [equalCopy displayNameLocalizationKey];
-  v14 = UNSimilarStrings();
-
-  if (!v14)
-  {
-    goto LABEL_25;
-  }
-
-  priority = [(UNCNotificationTopicRecord *)self priority];
-  if (priority != [equalCopy priority])
-  {
-    goto LABEL_25;
-  }
-
-  sortIdentifier = [(UNCNotificationTopicRecord *)self sortIdentifier];
-  sortIdentifier2 = [equalCopy sortIdentifier];
-  v18 = UNSimilarStrings();
-
-  if (!v18)
-  {
-    goto LABEL_25;
-  }
-
-  supportsAlerts = [(UNCNotificationTopicRecord *)self supportsAlerts];
-  if (supportsAlerts != [equalCopy supportsAlerts])
-  {
-    goto LABEL_25;
-  }
-
-  supportsBadges = [(UNCNotificationTopicRecord *)self supportsBadges];
-  if (supportsBadges != [equalCopy supportsBadges])
-  {
-    goto LABEL_25;
-  }
-
-  supportsLockScreen = [(UNCNotificationTopicRecord *)self supportsLockScreen];
-  if (supportsLockScreen != [equalCopy supportsLockScreen])
-  {
-    goto LABEL_25;
-  }
-
-  supportsNotificationCenter = [(UNCNotificationTopicRecord *)self supportsNotificationCenter];
-  if (supportsNotificationCenter != [equalCopy supportsNotificationCenter])
-  {
-    goto LABEL_25;
-  }
-
-  supportsCarPlay = [(UNCNotificationTopicRecord *)self supportsCarPlay];
-  if (supportsCarPlay != [equalCopy supportsCarPlay])
-  {
-    goto LABEL_25;
-  }
-
-  supportsCriticalAlerts = [(UNCNotificationTopicRecord *)self supportsCriticalAlerts];
-  if (supportsCriticalAlerts != [equalCopy supportsCriticalAlerts])
-  {
-    goto LABEL_25;
-  }
-
-  supportsTimeSensitive = [(UNCNotificationTopicRecord *)self supportsTimeSensitive];
-  if (supportsTimeSensitive != [equalCopy supportsTimeSensitive])
-  {
-    goto LABEL_25;
-  }
-
-  supportsSounds = [(UNCNotificationTopicRecord *)self supportsSounds];
-  if (supportsSounds != [equalCopy supportsSounds])
-  {
-    goto LABEL_25;
-  }
-
-  supportsSpoken = [(UNCNotificationTopicRecord *)self supportsSpoken];
-  if (supportsSpoken != [equalCopy supportsSpoken])
-  {
-    goto LABEL_25;
-  }
-
-  enablesAlerts = [(UNCNotificationTopicRecord *)self enablesAlerts];
-  if (enablesAlerts != [equalCopy enablesAlerts])
-  {
-    goto LABEL_25;
-  }
-
-  enablesBadges = [(UNCNotificationTopicRecord *)self enablesBadges];
-  if (enablesBadges == [equalCopy enablesBadges] && (v30 = -[UNCNotificationTopicRecord enablesLockScreen](self, "enablesLockScreen"), v30 == objc_msgSend(equalCopy, "enablesLockScreen")) && (v31 = -[UNCNotificationTopicRecord enablesNotificationCenter](self, "enablesNotificationCenter"), v31 == objc_msgSend(equalCopy, "enablesNotificationCenter")) && (v32 = -[UNCNotificationTopicRecord enablesCarPlay](self, "enablesCarPlay"), v32 == objc_msgSend(equalCopy, "enablesCarPlay")) && (v33 = -[UNCNotificationTopicRecord enablesCriticalAlerts](self, "enablesCriticalAlerts"), v33 == objc_msgSend(equalCopy, "enablesCriticalAlerts")) && (v34 = -[UNCNotificationTopicRecord enablesSounds](self, "enablesSounds"), v34 == objc_msgSend(equalCopy, "enablesSounds")) && (v35 = -[UNCNotificationTopicRecord enablesSpoken](self, "enablesSpoken"), v35 == objc_msgSend(equalCopy, "enablesSpoken")))
+  if (equalCopy
+    && (v5 = objc_opt_class(), v5 == objc_opt_class())
+    && (-[UNCNotificationTopicRecord identifier](self, "identifier"), v6 = objc_claimAutoreleasedReturnValue(), [equalCopy identifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = UNSimilarStrings(), v7, v6, v8)
+    && (-[UNCNotificationTopicRecord displayName](self, "displayName"), v9 = objc_claimAutoreleasedReturnValue(), [equalCopy displayName], v10 = objc_claimAutoreleasedReturnValue(), v11 = UNSimilarStrings(), v10, v9, v11)
+    && (-[UNCNotificationTopicRecord displayNameLocalizationKey](self, "displayNameLocalizationKey"), v12 = objc_claimAutoreleasedReturnValue(), [equalCopy displayNameLocalizationKey], v13 = objc_claimAutoreleasedReturnValue(), v14 = UNSimilarStrings(), v13, v12, v14)
+    && (v15 = -[UNCNotificationTopicRecord priority](self, "priority"), v15 == [equalCopy priority])
+    && (-[UNCNotificationTopicRecord sortIdentifier](self, "sortIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), [equalCopy sortIdentifier], v17 = objc_claimAutoreleasedReturnValue(), v18 = UNSimilarStrings(), v17, v16, v18)
+    && (v19 = -[UNCNotificationTopicRecord supportsAlerts](self, "supportsAlerts"), v19 == [equalCopy supportsAlerts])
+    && (v20 = -[UNCNotificationTopicRecord supportsBadges](self, "supportsBadges"), v20 == [equalCopy supportsBadges])
+    && (v21 = -[UNCNotificationTopicRecord supportsLockScreen](self, "supportsLockScreen"), v21 == [equalCopy supportsLockScreen])
+    && (v22 = -[UNCNotificationTopicRecord supportsNotificationCenter](self, "supportsNotificationCenter"), v22 == [equalCopy supportsNotificationCenter])
+    && (v23 = -[UNCNotificationTopicRecord supportsCarPlay](self, "supportsCarPlay"), v23 == [equalCopy supportsCarPlay])
+    && (v24 = -[UNCNotificationTopicRecord supportsCriticalAlerts](self, "supportsCriticalAlerts"), v24 == [equalCopy supportsCriticalAlerts])
+    && (v25 = -[UNCNotificationTopicRecord supportsTimeSensitive](self, "supportsTimeSensitive"), v25 == [equalCopy supportsTimeSensitive])
+    && (v26 = -[UNCNotificationTopicRecord supportsSounds](self, "supportsSounds"), v26 == [equalCopy supportsSounds])
+    && (v27 = -[UNCNotificationTopicRecord supportsSpoken](self, "supportsSpoken"), v27 == [equalCopy supportsSpoken])
+    && (v28 = -[UNCNotificationTopicRecord enablesAlerts](self, "enablesAlerts"), v28 == [equalCopy enablesAlerts])
+    && (v29 = -[UNCNotificationTopicRecord enablesBadges](self, "enablesBadges"), v29 == [equalCopy enablesBadges])
+    && (v30 = -[UNCNotificationTopicRecord enablesLockScreen](self, "enablesLockScreen"), v30 == [equalCopy enablesLockScreen])
+    && (v31 = -[UNCNotificationTopicRecord enablesNotificationCenter](self, "enablesNotificationCenter"), v31 == [equalCopy enablesNotificationCenter])
+    && (v32 = -[UNCNotificationTopicRecord enablesCarPlay](self, "enablesCarPlay"), v32 == [equalCopy enablesCarPlay])
+    && (v33 = -[UNCNotificationTopicRecord enablesCriticalAlerts](self, "enablesCriticalAlerts"), v33 == [equalCopy enablesCriticalAlerts])
+    && (v34 = -[UNCNotificationTopicRecord enablesSounds](self, "enablesSounds"), v34 == [equalCopy enablesSounds])
+    && (v35 = -[UNCNotificationTopicRecord enablesSpoken](self, "enablesSpoken"), v35 == [equalCopy enablesSpoken]))
   {
     modalAlertStyle = [(UNCNotificationTopicRecord *)self modalAlertStyle];
     v36 = modalAlertStyle ^ [equalCopy modalAlertStyle] ^ 1;
@@ -366,7 +275,6 @@
 
   else
   {
-LABEL_25:
     LOBYTE(v36) = 0;
   }
 
@@ -421,23 +329,22 @@ LABEL_25:
 
 - (UNCNotificationTopicRecord)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
   v17 = objc_opt_class();
-  v18 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:7];
-  v7 = [v4 setWithArray:{v6, v12, v13, v14, v15, v16, v17}];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:7];
+  v7 = [v4 setWithArray:{v6, v11, v12, v13, v14, v15, v16}];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"dictionary"];
 
   v9 = [[UNCNotificationTopicRecord alloc] initWithDictionaryRepresentation:v8];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

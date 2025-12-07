@@ -129,8 +129,8 @@ LABEL_88:
       JUMPOUT(0x225837E1CLL);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -506,8 +506,8 @@ LABEL_88:
       JUMPOUT(0x225838498);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -883,8 +883,8 @@ LABEL_88:
       JUMPOUT(0x225838B14);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -1260,8 +1260,8 @@ LABEL_88:
       JUMPOUT(0x225839190);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -1678,8 +1678,8 @@ LABEL_114:
       JUMPOUT(0x2258398F4);
     }
 
-    v14 = (v45[0] + v9 * 4 - 16);
-    v13 = *(v45[0] + v9 * 4);
+    v14 = &v45[0][v9 - 4];
+    v13 = LOBYTE(v45[0][v9]);
     if (v38 == 255)
     {
       if (v13 == 255)
@@ -2064,7 +2064,7 @@ LABEL_80:
     {
       if (*(v3 + 48) == 2)
       {
-        __y[0] = atan2(*v5, *v8);
+        __y[0] = COERCE_UNSIGNED_INT8_(atan2(*v5, *v8));
         v47 = 2;
         v53 = 2;
         *a2 = __y[0];
@@ -2132,7 +2132,7 @@ LABEL_116:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v53 = 0;
@@ -2151,8 +2151,8 @@ LABEL_116:
         goto LABEL_110;
       }
 
-      v18 = (v62[0] + v14 - 16);
-      v17 = *(v62[0] + v14);
+      v18 = &v62[0][v14 - 4];
+      v17 = LOBYTE(v62[0][v14]);
       if (v53 == 255)
       {
         if (v17 == 255)
@@ -2205,8 +2205,8 @@ LABEL_110:
         goto LABEL_116;
       }
 
-      v20 = (v64[0] + v14 - 16);
-      v19 = *(v64[0] + v14);
+      v20 = &v64[0][v14 - 4];
+      v19 = LOBYTE(v64[0][v14]);
       if (v55 == 255)
       {
         if (v19 == 255)
@@ -2348,7 +2348,7 @@ LABEL_59:
       JUMPOUT(0x22583A178);
     }
 
-    if (LOBYTE(v12[v14 / 4]) == 255)
+    if (LOBYTE(v12[v14]) == 255)
     {
       if (v60 == 255)
       {
@@ -2359,7 +2359,7 @@ LABEL_59:
     else if (v60 == 255)
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v56, v13);
-      LOBYTE(v12[v14 / 4]) = -1;
+      LOBYTE(v12[v14]) = -1;
       goto LABEL_65;
     }
 
@@ -2398,7 +2398,7 @@ LABEL_65:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -2608,8 +2608,8 @@ LABEL_88:
       JUMPOUT(0x22583A7A4);
     }
 
-    v14 = (v39[0] + v9 * 4 - 16);
-    v13 = *(v39[0] + v9 * 4);
+    v14 = &v39[0][v9 - 4];
+    v13 = LOBYTE(v39[0][v9]);
     if (v32 == 255)
     {
       if (v13 == 255)
@@ -3041,7 +3041,7 @@ LABEL_216:
           v45 = *v8;
         }
 
-        *v50 = v45;
+        v50[0] = *&v45;
         v51 = 2;
         *a2 = v45;
         *(a2 + 16) = 2;
@@ -3146,8 +3146,8 @@ LABEL_224:
 
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
-  v13 = (v12 + 2);
-  v14 = 24;
+  v13 = v12 + 2;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v51 = 0;
@@ -3168,8 +3168,8 @@ LABEL_224:
         goto LABEL_217;
       }
 
-      v18 = (v62[0] + v14 - 16);
-      v17 = *(v62[0] + v14);
+      v18 = &v62[0][v14 - 4];
+      v17 = LOBYTE(v62[0][v14]);
       if (v51 == 255)
       {
         if (v17 == 255)
@@ -3218,8 +3218,8 @@ LABEL_38:
         goto LABEL_217;
       }
 
-      v20 = (v64[0] + v14 - 16);
-      v19 = *(v64[0] + v14);
+      v20 = &v64[0][v14 - 4];
+      v19 = LOBYTE(v64[0][v14]);
       if (v53 == 255)
       {
         if (v19 == 255)
@@ -3272,8 +3272,8 @@ LABEL_217:
         goto LABEL_224;
       }
 
-      v21 = (v66[0] + v14 - 16);
-      v10 = *(v66[0] + v14);
+      v21 = &v66[0][v14 - 4];
+      v10 = LOBYTE(v66[0][v14]);
       if (v55 == 255)
       {
         if (v10 == 255)
@@ -3378,7 +3378,7 @@ LABEL_215:
             v30 = v54[0];
           }
 
-          *v56 = v30;
+          v56[0] = v30;
           v25 = 5;
           v57 = 5;
           v59[0] = v30;
@@ -3466,7 +3466,7 @@ LABEL_222:
           v29 = v54[0];
         }
 
-        *v56 = v29;
+        v56[0] = v29;
         v57 = v55;
         v59[0] = v29;
       }
@@ -3512,7 +3512,7 @@ LABEL_121:
         v26 = *v54;
       }
 
-      v56[0] = v26;
+      *v56 = v26;
       v57 = 0;
       *v59 = v26;
       v60 = 0;
@@ -3534,7 +3534,7 @@ LABEL_108:
       JUMPOUT(0x22583B3D4);
     }
 
-    if (LOBYTE(v12[v14 / 4]) == 255)
+    if (LOBYTE(v12[v14]) == 255)
     {
       if (v60 == 255)
       {
@@ -3545,11 +3545,11 @@ LABEL_108:
     else if (v60 == 255)
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v56, v13);
-      LOBYTE(v12[v14 / 4]) = -1;
+      LOBYTE(v12[v14]) = -1;
       goto LABEL_127;
     }
 
-    *v56 = v13;
+    v56[0] = v13;
     _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignINS0_15move_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSH_OT0_E_JRSC_SG_EEEDcmSI_DpOT0_(v60, v56, v13, v59);
 LABEL_127:
     if (v61 != 255)
@@ -3583,8 +3583,8 @@ LABEL_127:
     }
 
     ++v15;
-    v13 += 3;
-    v14 += 24;
+    v13 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -3799,8 +3799,8 @@ LABEL_82:
       JUMPOUT(0x22583BA28);
     }
 
-    v13 = (v40[0] + v8 * 4 - 16);
-    v12 = *(v40[0] + v8 * 4);
+    v13 = &v40[0][v8 - 4];
+    v12 = LOBYTE(v40[0][v8]);
     if (v33 == 255)
     {
       if (v12 == 255)
@@ -4139,8 +4139,8 @@ LABEL_82:
       JUMPOUT(0x22583C050);
     }
 
-    v14 = (v43[0] + v8 * 4 - 16);
-    v13 = *(v43[0] + v8 * 4);
+    v14 = &v43[0][v8 - 4];
+    v13 = LOBYTE(v43[0][v8]);
     if (v36 == 255)
     {
       if (v13 == 255)
@@ -4483,8 +4483,8 @@ LABEL_82:
       JUMPOUT(0x22583C664);
     }
 
-    v13 = (v40[0] + v8 * 4 - 16);
-    v12 = *(v40[0] + v8 * 4);
+    v13 = &v40[0][v8 - 4];
+    v12 = LOBYTE(v40[0][v8]);
     if (v33 == 255)
     {
       if (v12 == 255)
@@ -5449,8 +5449,8 @@ LABEL_88:
       JUMPOUT(0x22583D81CLL);
     }
 
-    v14 = (v52[0] + v9 * 4 - 16);
-    v13 = *(v52[0] + v9 * 4);
+    v14 = &v52[0][v9 - 4];
+    v13 = LOBYTE(v52[0][v9]);
     if (v45 == 255)
     {
       if (v13 == 255)
@@ -6500,98 +6500,98 @@ LABEL_29:
   }
 }
 
-void WGSL::constantDot(const WGSL::Type **a1@<X0>, uint64_t a2@<X8>)
+void WGSL::constantDot(uint64_t *a1@<X0>, WTF::StringImpl *a2@<X1>, uint64_t a3@<X8>)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v4 = WGSL::constantMultiply(v37);
-  if (v39)
+  v41 = *MEMORY[0x277D85DE8];
+  WGSL::constantMultiply(a1, a2, v38);
+  if (v40)
   {
-    if (v39 == 1)
+    if (v40 == 1)
     {
-      v6 = v37[0];
-      if (v37[0])
+      v7 = v38[0];
+      if (v38[0])
       {
-        atomic_fetch_add_explicit(v37[0], 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v38[0], 2u, memory_order_relaxed);
       }
 
-      *a2 = v6;
-      *(a2 + 24) = 1;
-      v7 = v39;
-      if (v39 == 255)
+      *a3 = v7;
+      *(a3 + 24) = 1;
+      v8 = v40;
+      if (v40 == 255)
       {
         return;
       }
 
 LABEL_56:
-      if (v7)
+      if (v8)
       {
-        v22 = v37[0];
-        v37[0] = 0;
-        if (v22 && atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v23 = v38[0];
+        v38[0] = 0;
+        if (v23 && atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v22, v5);
+          WTF::StringImpl::destroy(v23, v6);
         }
       }
 
-      else if (v38 != 255)
+      else if (v39 != 255)
       {
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v30, v37);
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v31, v38);
       }
 
       return;
     }
 
 LABEL_69:
-    mpark::throw_bad_variant_access(v4);
+    mpark::throw_bad_variant_access(v5);
   }
 
-  if (v38 != 8)
+  if (v39 != 8)
   {
-    if (v38 <= 6u)
+    if (v39 <= 6u)
     {
       goto LABEL_72;
     }
 
-    if (v38 > 9u)
+    if (v39 > 9u)
     {
-      if (v38 != 10)
+      if (v39 != 10)
       {
         goto LABEL_72;
       }
     }
 
-    else if (v38 != 7)
+    else if (v39 != 7)
     {
-      v37[1] = 0;
-      WGSL::zeroValue(v25, a1);
+      v38[1] = 0;
+      WGSL::zeroValue(v26, a1);
       goto LABEL_69;
     }
 
-    v37[0] = 0;
+    v38[0] = 0;
 LABEL_72:
-    WGSL::zeroValue(v25, a1);
-    mpark::throw_bad_variant_access(v23);
+    WGSL::zeroValue(v26, a1);
+    mpark::throw_bad_variant_access(v24);
   }
 
-  v8 = v37[0];
-  v37[0] = 0;
-  v27 = v8;
-  v28 = 8;
-  WGSL::zeroValue(v25, a1);
-  if (v8)
+  v9 = v38[0];
+  v38[0] = 0;
+  v28 = v9;
+  v29 = 8;
+  WGSL::zeroValue(v26, a1);
+  if (v9)
   {
-    v9 = v8 + 2;
+    v10 = v9 + 2;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v10 = 0;
-    if (!v9)
+    v11 = 0;
+    if (!v10)
     {
       goto LABEL_51;
     }
@@ -6599,181 +6599,181 @@ LABEL_72:
     while (1)
     {
 LABEL_15:
-      LOBYTE(v30[0]) = 0;
-      v31 = -1;
-      if (v26 != 255)
+      LOBYTE(v31[0]) = 0;
+      v32 = -1;
+      if (v27 != 255)
       {
-        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v26, v34, v30, v25);
-        v31 = v26;
+        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v27, v35, v31, v26);
+        v32 = v27;
       }
 
-      LOBYTE(v32[0]) = 0;
-      v33 = -1;
-      v11 = *(v9 + 16);
-      if (v11 != 255)
+      LOBYTE(v33[0]) = 0;
+      v34 = -1;
+      v12 = *(v10 + 16);
+      if (v12 != 255)
       {
-        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v11, v34, v32, v9);
-        v33 = *(v9 + 16);
+        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v12, v35, v33, v10);
+        v34 = *(v10 + 16);
       }
 
-      v12 = WTF::fastMalloc(0x38);
-      *v12 = 2;
-      *(v12 + 8) = 0;
-      *(v12 + 24) = -1;
-      if (v31 != 255)
+      v13 = WTF::fastMalloc(0x38);
+      *v13 = 2;
+      *(v13 + 8) = 0;
+      *(v13 + 24) = -1;
+      if (v32 != 255)
       {
-        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v31, v34, v12 + 1, v30);
-        *(v12 + 24) = v31;
+        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v32, v35, v13 + 1, v31);
+        *(v13 + 24) = v32;
       }
 
-      *(v12 + 32) = 0;
-      *(v12 + 48) = -1;
-      if (v33 != 255)
+      *(v13 + 32) = 0;
+      *(v13 + 48) = -1;
+      if (v34 != 255)
       {
-        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v33, v34, v12 + 4, v32);
-        *(v12 + 48) = v33;
+        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v34, v35, v13 + 4, v33);
+        *(v13 + 48) = v34;
       }
 
-      v24 = v12;
-      WGSL::constantAdd(a1, &v24, v34);
-      v14 = *v12;
-      if (v14)
+      v25 = v13;
+      WGSL::constantAdd(a1, &v25, v35);
+      v15 = *v13;
+      if (v15)
       {
-        v15 = 24 * v14;
-        v16 = v12 + 6;
+        v16 = 24 * v15;
+        v17 = v13 + 6;
         do
         {
-          v13 = v16 - 16;
-          if (*v16 != 255)
+          v14 = v17 - 16;
+          if (*v17 != 255)
           {
-            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v29, v13);
+            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v14);
           }
 
-          *v16 = -1;
-          v16 += 24;
-          v15 -= 24;
+          *v17 = -1;
+          v17 += 24;
+          v16 -= 24;
         }
 
-        while (v15);
+        while (v16);
       }
 
-      v4 = WTF::fastFree(v12, v13);
-      if (v33 != 255)
+      v5 = WTF::fastFree(v13, v14);
+      if (v34 != 255)
       {
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v29, v32);
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v33);
       }
 
-      v33 = -1;
-      if (v31 != 255)
+      v34 = -1;
+      if (v32 != 255)
       {
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v29, v30);
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v31);
       }
 
-      v18 = v36;
-      if (v36)
+      v19 = v37;
+      if (v37)
       {
-        if (v36 != 1)
+        if (v37 != 1)
         {
           goto LABEL_69;
         }
 
-        v19 = v34[0];
-        if (v34[0])
+        v20 = v35[0];
+        if (v35[0])
         {
-          atomic_fetch_add_explicit(v34[0], 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v35[0], 2u, memory_order_relaxed);
         }
 
-        *a2 = v19;
-        *(a2 + 24) = 1;
+        *a3 = v20;
+        *(a3 + 24) = 1;
       }
 
       else
       {
-        if (v26 == 255)
+        if (v27 == 255)
         {
-          if (v35 == 255)
+          if (v36 == 255)
           {
             goto LABEL_42;
           }
         }
 
-        else if (v35 == 255)
+        else if (v36 == 255)
         {
-          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v30, v25);
-          v26 = -1;
+          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v31, v26);
+          v27 = -1;
           goto LABEL_42;
         }
 
-        v30[0] = v25;
-        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignINS0_15move_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSH_OT0_E_JRSC_SG_EEEDcmSI_DpOT0_(v35, v30, v25, v34);
+        v31[0] = v26;
+        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignINS0_15move_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSH_OT0_E_JRSC_SG_EEEDcmSI_DpOT0_(v36, v31, v26, v35);
       }
 
 LABEL_42:
-      if (v36 != 255)
+      if (v37 != 255)
       {
-        if (v36)
+        if (v37)
         {
-          v20 = v34[0];
-          v34[0] = 0;
-          if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          v21 = v35[0];
+          v35[0] = 0;
+          if (v21 && atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v20, v17);
+            WTF::StringImpl::destroy(v21, v18);
           }
         }
 
-        else if (v35 != 255)
+        else if (v36 != 255)
         {
-          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v30, v34);
+          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v31, v35);
         }
       }
 
-      if (v18)
+      if (v19)
       {
-        if (v26 == 255)
+        if (v27 == 255)
         {
           goto LABEL_55;
         }
 
 LABEL_54:
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v30, v25);
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v31, v26);
         goto LABEL_55;
       }
 
-      v9 += 6;
-      if (v9 == v10)
+      v10 += 6;
+      if (v10 == v11)
       {
         goto LABEL_51;
       }
     }
   }
 
-  v10 = &v8[6 * *v8 + 2];
-  if (v9 != v10)
+  v11 = &v9[6 * *v9 + 2];
+  if (v10 != v11)
   {
     goto LABEL_15;
   }
 
 LABEL_51:
-  *a2 = 0;
-  v21 = 255;
-  *(a2 + 16) = -1;
-  if (v26 != 255)
+  *a3 = 0;
+  v22 = 255;
+  *(a3 + 16) = -1;
+  if (v27 != 255)
   {
-    _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v26, v30, a2, v25);
-    v21 = v26;
-    *(a2 + 16) = v26;
+    _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v27, v31, a3, v26);
+    v22 = v27;
+    *(a3 + 16) = v27;
   }
 
-  *(a2 + 24) = 0;
-  if (v21 != 255)
+  *(a3 + 24) = 0;
+  if (v22 != 255)
   {
     goto LABEL_54;
   }
 
 LABEL_55:
-  mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v30, &v27);
-  v7 = v39;
-  if (v39 != 255)
+  mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v31, &v28);
+  v8 = v40;
+  if (v40 != 255)
   {
     goto LABEL_56;
   }
@@ -6982,8 +6982,8 @@ LABEL_88:
       JUMPOUT(0x22583F6F8);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -7359,8 +7359,8 @@ LABEL_88:
       JUMPOUT(0x22583FD74);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -7805,8 +7805,8 @@ LABEL_113:
       JUMPOUT(0x2258404C8);
     }
 
-    v18 = (v55[0] + v12 * 4 - 16);
-    v17 = *(v55[0] + v12 * 4);
+    v18 = &v55[0][v12 - 4];
+    v17 = LOBYTE(v55[0][v12]);
     if (v50 == 255)
     {
       if (v17 == 255)
@@ -8108,7 +8108,7 @@ LABEL_100:
   }
 
   v40[0] = v10;
-  WGSL::constantDot(v7, &v47);
+  WGSL::constantDot(v7, v40, &v47);
   v12 = *v10;
   if (v12)
   {
@@ -8569,8 +8569,8 @@ LABEL_93:
       JUMPOUT(0x225841204);
     }
 
-    v13 = (v48[0] + v8 * 4 - 16);
-    v12 = *(v48[0] + v8 * 4);
+    v13 = &v48[0][v8 - 4];
+    v12 = LOBYTE(v48[0][v8]);
     if (v41 == 255)
     {
       if (v12 == 255)
@@ -8947,8 +8947,8 @@ LABEL_94:
       JUMPOUT(0x22584183CLL);
     }
 
-    v13 = (v48[0] + v8 * 4 - 16);
-    v12 = *(v48[0] + v8 * 4);
+    v13 = &v48[0][v8 - 4];
+    v12 = LOBYTE(v48[0][v8]);
     if (v41 == 255)
     {
       if (v12 == 255)
@@ -9314,8 +9314,8 @@ LABEL_88:
       JUMPOUT(0x225841E7CLL);
     }
 
-    v14 = (v39[0] + v9 * 4 - 16);
-    v13 = *(v39[0] + v9 * 4);
+    v14 = &v39[0][v9 - 4];
+    v13 = LOBYTE(v39[0][v9]);
     if (v32 == 255)
     {
       if (v13 == 255)
@@ -9554,7 +9554,7 @@ LABEL_61:
   }
 }
 
-void WGSL::constantFma(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantFma(uint64_t *a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   v40 = *MEMORY[0x277D85DE8];
   v4 = *a2;

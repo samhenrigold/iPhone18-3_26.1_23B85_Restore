@@ -34,12 +34,12 @@
   [(PKCollectionSectionHeaderView *)&v4 layoutSubviews];
   contentView = [(PKCollectionSectionHeaderView *)self contentView];
   [contentView bounds];
-  [(PKCollectionSectionHeaderView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKCollectionSectionHeaderView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -65,43 +65,57 @@
   v13 = topPadding + 0.0 + bottomPadding;
   [(UILabel *)self->_primaryLabel sizeThatFits:v10, v11];
   v15 = v14;
-  [(UILabel *)self->_secondaryLabel sizeThatFits:v10, v11];
   v17 = v16;
-  v41.origin.x = v8;
-  v41.origin.y = v9;
-  v41.size.width = v10;
-  v41.size.height = v11;
-  CGRectDivide(v41, &slice, &remainder, v15, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v35 = v19;
-  v36 = v18;
-  v21 = v20;
-  v23 = v22;
-  v24 = v13 + v22;
-  if (v15 > 0.0 && v17 > 0.0)
+  [(UILabel *)self->_secondaryLabel sizeThatFits:v10, v11];
+  v56 = v18;
+  v20 = v19;
+  v61.origin.x = v8;
+  v61.origin.y = v9;
+  v61.size.width = v10;
+  v61.size.height = v11;
+  CGRectDivide(v61, &slice, &remainder, v17, CGRectMinYEdge);
+  v21 = PKContentAlignmentMake();
+  v22.n128_u64[0] = *&slice.origin.x;
+  v23.n128_u64[0] = *&slice.origin.y;
+  v24.n128_u64[0] = *&slice.size.width;
+  v25.n128_u64[0] = *&slice.size.height;
+  v26.n128_u64[0] = v15;
+  v27.n128_f64[0] = v17;
+  PKSizeAlignedInRect(v21, v26, v27, v22, v23, v24, v25, v28);
+  v54 = v30;
+  v55 = v29;
+  v32 = v31;
+  v34 = v33;
+  v35 = v13 + v33;
+  if (v17 > 0.0 && v20 > 0.0)
   {
     CGRectDivide(remainder, &slice, &remainder, 5.0, CGRectMinYEdge);
-    v24 = v24 + 5.0;
+    v35 = v35 + 5.0;
   }
 
-  CGRectDivide(remainder, &slice, &remainder, v17, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v29 = v28;
+  CGRectDivide(remainder, &slice, &remainder, v20, CGRectMinYEdge);
+  v36 = PKContentAlignmentMake();
+  v37.n128_u64[0] = *&slice.origin.x;
+  v38.n128_u64[0] = *&slice.origin.y;
+  v39.n128_u64[0] = *&slice.size.width;
+  v40.n128_u64[0] = *&slice.size.height;
+  v41.n128_u64[0] = v56;
+  v42.n128_f64[0] = v20;
+  PKSizeAlignedInRect(v36, v41, v42, v37, v38, v39, v40, v43);
+  v48 = v47;
   if (!layout)
   {
-    v30 = v25;
-    v31 = v26;
-    v32 = v27;
-    [(UILabel *)self->_primaryLabel setFrame:v36, v35, v21, v23];
-    [(UILabel *)self->_secondaryLabel setFrame:v30, v31, v32, v29];
+    v49 = v44;
+    v50 = v45;
+    v51 = v46;
+    [(UILabel *)self->_primaryLabel setFrame:v55, v54, v32, v34];
+    [(UILabel *)self->_secondaryLabel setFrame:v49, v50, v51, v48];
   }
 
-  v33 = v24 + v29;
-  v34 = width;
-  result.height = v33;
-  result.width = v34;
+  v52 = v35 + v48;
+  v53 = width;
+  result.height = v52;
+  result.width = v53;
   return result;
 }
 

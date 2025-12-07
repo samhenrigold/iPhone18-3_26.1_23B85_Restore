@@ -26,6 +26,8 @@
 - (void)_discoveryEnsureStarted;
 - (void)_discoveryEnsureStopped;
 - (void)_ensureKeychainCleaned:(BOOL)cleaned;
+- (void)_helpersClientPairingSucceeded:(BOOL)succeeded completion:(id)completion;
+- (void)_helpersClientPromptForPIN:(unsigned int)n throttleSeconds:(int)seconds;
 - (void)_invalidate;
 - (void)_postSetupNotificationForDevice:(id)device;
 - (void)_proximityChanged:(id)changed;
@@ -345,14 +347,17 @@ LABEL_27:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_deviceDiscovery)
   {
-    if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+    if (dword_1009707D0 <= 30)
     {
-      sub_1000E9D34();
+      if (dword_1009707D0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1000E9D34(v3, v4, v5);
+      }
     }
 
-    v3 = objc_alloc_init(SFDeviceDiscovery);
+    v6 = objc_alloc_init(SFDeviceDiscovery);
     deviceDiscovery = self->_deviceDiscovery;
-    self->_deviceDiscovery = v3;
+    self->_deviceDiscovery = v6;
 
     [(SFDeviceDiscovery *)self->_deviceDiscovery setChangeFlags:13];
     [(SFDeviceDiscovery *)self->_deviceDiscovery setDiscoveryFlags:8208];
@@ -360,31 +365,31 @@ LABEL_27:
     [(SFDeviceDiscovery *)self->_deviceDiscovery setPurpose:@"AutoFill"];
     [(SFDeviceDiscovery *)self->_deviceDiscovery setRssiThreshold:-60];
     [(SFDeviceDiscovery *)self->_deviceDiscovery setScanRate:20];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1000E4F9C;
+    v17[3] = &unk_1008CE7A0;
+    v17[4] = self;
+    [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceFoundHandler:v17];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000E4FA8;
+    v16[3] = &unk_1008CE7A0;
+    v16[4] = self;
+    [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceLostHandler:v16];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10003010C;
+    v15[3] = &unk_1008CE7C8;
+    v15[4] = self;
+    [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceChangedHandler:v15];
+    v8 = self->_deviceDiscovery;
     v14[0] = _NSConcreteStackBlock;
     v14[1] = 3221225472;
-    v14[2] = sub_1000E4F9C;
-    v14[3] = &unk_1008CE7A0;
+    v14[2] = sub_1000E4FB4;
+    v14[3] = &unk_1008CDF90;
     v14[4] = self;
-    [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceFoundHandler:v14];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000E4FA8;
-    v13[3] = &unk_1008CE7A0;
-    v13[4] = self;
-    [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceLostHandler:v13];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10003010C;
-    v12[3] = &unk_1008CE7C8;
-    v12[4] = self;
-    [(SFDeviceDiscovery *)self->_deviceDiscovery setDeviceChangedHandler:v12];
-    v5 = self->_deviceDiscovery;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000E4FB4;
-    v11[3] = &unk_1008CDF90;
-    v11[4] = self;
-    [(SFDeviceDiscovery *)v5 activateWithCompletion:v11];
+    [(SFDeviceDiscovery *)v8 activateWithCompletion:v14];
     if (!self->_clinkClient)
     {
       if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
@@ -392,32 +397,32 @@ LABEL_27:
         sub_1000E9D50();
       }
 
-      v6 = objc_alloc_init(RPCompanionLinkClient);
+      v9 = objc_alloc_init(RPCompanionLinkClient);
       clinkClient = self->_clinkClient;
-      self->_clinkClient = v6;
+      self->_clinkClient = v9;
 
       [(RPCompanionLinkClient *)self->_clinkClient setControlFlags:[(RPCompanionLinkClient *)self->_clinkClient controlFlags]| 0x2004];
       [(RPCompanionLinkClient *)self->_clinkClient setDispatchQueue:self->_dispatchQueue];
       [(RPCompanionLinkClient *)self->_clinkClient setInterruptionHandler:&stru_1008CFF00];
       [(RPCompanionLinkClient *)self->_clinkClient setInvalidationHandler:&stru_1008CFF20];
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_1000E5100;
-      v10[3] = &unk_1008CE210;
-      v10[4] = self;
-      [(RPCompanionLinkClient *)self->_clinkClient setDeviceFoundHandler:v10];
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_1000E510C;
-      v9[3] = &unk_1008CE210;
-      v9[4] = self;
-      [(RPCompanionLinkClient *)self->_clinkClient setDeviceLostHandler:v9];
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_1000E5118;
-      v8[3] = &unk_1008CE238;
-      v8[4] = self;
-      [(RPCompanionLinkClient *)self->_clinkClient setDeviceChangedHandler:v8];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_1000E5100;
+      v13[3] = &unk_1008CE210;
+      v13[4] = self;
+      [(RPCompanionLinkClient *)self->_clinkClient setDeviceFoundHandler:v13];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_1000E510C;
+      v12[3] = &unk_1008CE210;
+      v12[4] = self;
+      [(RPCompanionLinkClient *)self->_clinkClient setDeviceLostHandler:v12];
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_1000E5118;
+      v11[3] = &unk_1008CE238;
+      v11[4] = self;
+      [(RPCompanionLinkClient *)self->_clinkClient setDeviceChangedHandler:v11];
       [(RPCompanionLinkClient *)self->_clinkClient activateWithCompletion:&stru_1008CFF40];
     }
   }
@@ -471,9 +476,12 @@ LABEL_27:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_proximityDiscovery)
   {
-    if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+    if (dword_1009707D0 <= 30)
     {
-      sub_1000EA1E4();
+      if (dword_1009707D0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1000EA1E4(v3, v4, v5);
+      }
     }
 
     [(SFBLEScanner *)self->_proximityDiscovery invalidate];
@@ -498,17 +506,21 @@ LABEL_27:
 {
   if (self->_requestingService)
   {
-    if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1009707D0 <= 30)
     {
-      sub_1000EA350();
+      if (dword_1009707D0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1000EA350(self, a2, v2);
+      }
     }
 
-    [(SDAutoFillAgent *)self _serviceStopRequestingAutoFill];
-    [(SFRemoteAutoFillService *)self->_requestingService invalidate];
-    requestingService = self->_requestingService;
-    self->_requestingService = 0;
+    [(SDAutoFillAgent *)selfCopy _serviceStopRequestingAutoFill];
+    [(SFRemoteAutoFillService *)selfCopy->_requestingService invalidate];
+    requestingService = selfCopy->_requestingService;
+    selfCopy->_requestingService = 0;
 
-    self->_requestingServiceState = 0;
+    selfCopy->_requestingServiceState = 0;
   }
 }
 
@@ -549,9 +561,12 @@ LABEL_27:
 - (void)_activate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000E982C();
+    if (dword_1009707D0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1000E982C(v3, v4, v5);
+    }
   }
 
   [(SDAutoFillAgent *)self prefsChanged];
@@ -573,9 +588,12 @@ LABEL_27:
 - (void)_invalidate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000E9848();
+    if (dword_1009707D0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1000E9848(v3, v4, v5);
+    }
   }
 
   [(SDAutoFillAgent *)self _commonEnsureStopped];
@@ -735,7 +753,7 @@ LABEL_27:
     [v9 postNotificationName:@"com.apple.sharing.ProxAutoFill" object:@"com.apple.sharingd" userInfo:v8 deliverImmediately:1];
     if (dword_1009707D0 <= 50 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000E9BBC();
+      sub_1000E9BBC(v8);
     }
   }
 }
@@ -857,7 +875,7 @@ LABEL_27:
         lCopy = v39;
         if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1000E9C5C();
+          sub_1000E9C5C(v39);
         }
 
         [(SDAutoFillAgent *)selfCopy _uiStart:0 extraInfo:v31];
@@ -874,7 +892,7 @@ LABEL_27:
 
   if (dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000E9C9C();
+    sub_1000E9C9C(lCopy);
     if (!completionCopy)
     {
       goto LABEL_44;
@@ -961,9 +979,12 @@ LABEL_44:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_deviceDiscovery)
   {
-    if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+    if (dword_1009707D0 <= 30)
     {
-      sub_1000E9E78();
+      if (dword_1009707D0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1000E9E78(v3, v4, v5);
+      }
     }
 
     [(SFDeviceDiscovery *)self->_deviceDiscovery invalidate];
@@ -1001,7 +1022,7 @@ LABEL_44:
   if (clinkClient)
   {
     [(RPCompanionLinkClient *)clinkClient invalidate];
-    v11 = self->_clinkClient;
+    v14 = self->_clinkClient;
     self->_clinkClient = 0;
   }
 }
@@ -1011,7 +1032,7 @@ LABEL_44:
   requestingCopy = requesting;
   if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000E9E94();
+    sub_1000E9E94(requestingCopy);
   }
 
   [(SDAutoFillAgent *)self _uiStop:requestingCopy];
@@ -1024,7 +1045,7 @@ LABEL_44:
     {
       if (dword_1009707D0 <= 50 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000E9ED4();
+        sub_1000E9ED4(requestingCopy);
       }
 
       [(NSMutableDictionary *)self->_triggeredDevices removeObjectForKey:identifier];
@@ -1042,7 +1063,7 @@ LABEL_44:
     v6 = foundCopy;
     if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      sub_1000E9F14();
+      sub_1000E9F14(v4);
       v4 = v6;
     }
   }
@@ -1057,7 +1078,7 @@ LABEL_44:
     v6 = lostCopy;
     if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      sub_1000E9F54();
+      sub_1000E9F54(v4);
       v4 = v6;
     }
   }
@@ -1072,7 +1093,7 @@ LABEL_44:
     v6 = changedCopy;
     if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      sub_1000E9F94();
+      sub_1000E9F94(v4);
       v4 = v6;
     }
   }
@@ -1132,7 +1153,7 @@ LABEL_44:
           {
             if (dword_1009707D0 <= 90 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF();
+              LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _rpCompanionLinkDeviceForSFDevice:]", 90, "### No IDS or route identifier match between %@ and %@ \n", v22, v12);
             }
 
 LABEL_20:
@@ -1173,9 +1194,12 @@ LABEL_21:
 {
   startCopy = start;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000E9FD4();
+    if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      sub_1000E9FD4(v5, v6, v7);
+    }
   }
 
   [startCopy setDispatchQueue:self->_dispatchQueue];
@@ -1183,9 +1207,9 @@ LABEL_21:
   helpers = self->_helpers;
   if (!helpers)
   {
-    v6 = objc_alloc_init(NSMutableSet);
-    v7 = self->_helpers;
-    self->_helpers = v6;
+    v9 = objc_alloc_init(NSMutableSet);
+    v10 = self->_helpers;
+    self->_helpers = v9;
 
     helpers = self->_helpers;
   }
@@ -1201,9 +1225,12 @@ LABEL_21:
 {
   stopCopy = stop;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000E9FF0();
+    if (dword_1009707D0 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_1000E9FF0(v4, v5, v6);
+    }
   }
 
   [(NSMutableSet *)self->_helpers removeObject:stopCopy];
@@ -1217,61 +1244,69 @@ LABEL_21:
   usernameCopy = username;
   passwordCopy = password;
   errorCopy = error;
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  v16 = errorCopy;
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000EA00C();
+    if (dword_1009707D0 != -1 || (errorCopy = _LogCategory_Initialize(), errorCopy))
+    {
+      sub_1000EA00C(errorCopy, v14, v15);
+    }
   }
 
-  if (([(NSMutableSet *)self->_helpers containsObject:helperCopy]& 1) == 0 && dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  v17 = [(NSMutableSet *)self->_helpers containsObject:helperCopy];
+  if ((v17 & 1) == 0 && dword_1009707D0 <= 60)
   {
-    sub_1000EA028();
+    if (dword_1009707D0 != -1 || (v17 = _LogCategory_Initialize(), v17))
+    {
+      sub_1000EA028(v17, v18, v19);
+    }
   }
 
   credentialsHandler = self->_credentialsHandler;
   if (credentialsHandler)
   {
-    credentialsHandler[2](credentialsHandler, usernameCopy, passwordCopy, errorCopy);
-    if (errorCopy)
+    (*(credentialsHandler + 16))(credentialsHandler, usernameCopy, passwordCopy, v16);
+    if (v16)
     {
       goto LABEL_24;
     }
   }
 
-  else if (dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || (credentialsHandler = _LogCategory_Initialize(), credentialsHandler)))
   {
-    sub_1000EA044();
-    if (errorCopy)
+    sub_1000EA044(credentialsHandler, v18, v19);
+    if (v16)
     {
       goto LABEL_24;
     }
   }
 
-  else if (errorCopy)
+  else if (v16)
   {
     goto LABEL_24;
   }
 
   peerDevice = [(SFRemoteAutoFillSession *)self->_grantingSession peerDevice];
   identifier = [peerDevice identifier];
-  v17 = identifier;
+  v23 = identifier;
   if (peerDevice && identifier)
   {
     if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000EA060();
+      sub_1000EA060(v23);
     }
 
     grantedDevices = self->_grantedDevices;
     if (!grantedDevices)
     {
-      v19 = objc_alloc_init(NSMutableDictionary);
-      v20 = self->_grantedDevices;
-      self->_grantedDevices = v19;
+      v25 = objc_alloc_init(NSMutableDictionary);
+      v26 = self->_grantedDevices;
+      self->_grantedDevices = v25;
 
       grantedDevices = self->_grantedDevices;
     }
 
-    [(NSMutableDictionary *)grantedDevices setObject:peerDevice forKeyedSubscript:v17];
+    [(NSMutableDictionary *)grantedDevices setObject:peerDevice forKeyedSubscript:v23];
   }
 
 LABEL_24:
@@ -1284,12 +1319,16 @@ LABEL_24:
   nCopy = n;
   if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000EA0A0();
+    sub_1000EA0A0(nCopy);
   }
 
-  if (([(NSMutableSet *)self->_helpers containsObject:helperCopy]& 1) == 0 && dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  v8 = [(NSMutableSet *)self->_helpers containsObject:helperCopy];
+  if ((v8 & 1) == 0 && dword_1009707D0 <= 60)
   {
-    sub_1000EA0E0();
+    if (dword_1009707D0 != -1 || (v8 = _LogCategory_Initialize(), v8))
+    {
+      sub_1000EA0E0(v8, v9, v10);
+    }
   }
 
   [(SFRemoteAutoFillSession *)self->_grantingSession tryPIN:nCopy];
@@ -1301,17 +1340,25 @@ LABEL_24:
 {
   helperCopy = helper;
   activateCopy = activate;
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  v10 = activateCopy;
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000EA0FC();
+    if (dword_1009707D0 != -1 || (activateCopy = _LogCategory_Initialize(), activateCopy))
+    {
+      sub_1000EA0FC(activateCopy, v8, v9);
+    }
   }
 
-  if (([(NSMutableSet *)self->_helpers containsObject:helperCopy]& 1) == 0 && dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  v11 = [(NSMutableSet *)self->_helpers containsObject:helperCopy];
+  if ((v11 & 1) == 0 && dword_1009707D0 <= 60)
   {
-    sub_1000EA118();
+    if (dword_1009707D0 != -1 || (v11 = _LogCategory_Initialize(), v11))
+    {
+      sub_1000EA118(v11, v12, v13);
+    }
   }
 
-  [(SDAutoFillAgent *)self _sessionStart:activateCopy];
+  [(SDAutoFillAgent *)self _sessionStart:v10];
 
   return 0;
 }
@@ -1320,20 +1367,110 @@ LABEL_24:
 {
   helperCopy = helper;
   dismissCopy = dismiss;
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  v10 = dismissCopy;
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000EA134();
+    if (dword_1009707D0 != -1 || (dismissCopy = _LogCategory_Initialize(), dismissCopy))
+    {
+      sub_1000EA134(dismissCopy, v8, v9);
+    }
   }
 
-  if (([(NSMutableSet *)self->_helpers containsObject:helperCopy]& 1) == 0 && dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  v11 = [(NSMutableSet *)self->_helpers containsObject:helperCopy];
+  if ((v11 & 1) == 0 && dword_1009707D0 <= 60)
   {
-    sub_1000EA150();
+    if (dword_1009707D0 != -1 || (v11 = _LogCategory_Initialize(), v11))
+    {
+      sub_1000EA150(v11, v12, v13);
+    }
   }
 
-  uUIDString = [dismissCopy UUIDString];
+  uUIDString = [v10 UUIDString];
   [(SDAutoFillAgent *)self notificiationDidDismiss:uUIDString];
 
   return 0;
+}
+
+- (void)_helpersClientPairingSucceeded:(BOOL)succeeded completion:(id)completion
+{
+  succeededCopy = succeeded;
+  completionCopy = completion;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = self->_helpers;
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v14;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v14 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = *(*(&v13 + 1) + 8 * v11);
+        if (objc_opt_respondsToSelector())
+        {
+          [v12 clientPairingSucceeded:succeededCopy completion:{completionCopy, v13}];
+        }
+
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v9);
+  }
+}
+
+- (void)_helpersClientPromptForPIN:(unsigned int)n throttleSeconds:(int)seconds
+{
+  v4 = *&seconds;
+  v5 = *&n;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = self->_helpers;
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v13;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v11 = *(*(&v12 + 1) + 8 * v10);
+        if (objc_opt_respondsToSelector())
+        {
+          [v11 clientPromptForPIN:v5 throttleSeconds:{v4, v12}];
+        }
+
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (void)_proximityEnsureStarted
@@ -1341,42 +1478,45 @@ LABEL_24:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_proximityDiscovery)
   {
-    if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+    if (dword_1009707D0 <= 30)
     {
-      sub_1000EA16C();
+      if (dword_1009707D0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1000EA16C(v3, v4, v5);
+      }
     }
 
-    v3 = [[SFBLEScanner alloc] initWithType:7];
+    v6 = [[SFBLEScanner alloc] initWithType:7];
     proximityDiscovery = self->_proximityDiscovery;
-    self->_proximityDiscovery = v3;
+    self->_proximityDiscovery = v6;
 
     [(SFBLEScanner *)self->_proximityDiscovery setChangeFlags:13];
     [(SFBLEScanner *)self->_proximityDiscovery setDispatchQueue:self->_dispatchQueue];
     [(SFBLEScanner *)self->_proximityDiscovery setRssiThreshold:-60];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1000E61C8;
-    v9[3] = &unk_1008CE810;
-    v9[4] = self;
-    [(SFBLEScanner *)self->_proximityDiscovery setDeviceFoundHandler:v9];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000E61D4;
-    v8[3] = &unk_1008CE810;
-    v8[4] = self;
-    [(SFBLEScanner *)self->_proximityDiscovery setDeviceLostHandler:v8];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_1000E61E0;
-    v7[3] = &unk_1008CE878;
-    v7[4] = self;
-    [(SFBLEScanner *)self->_proximityDiscovery setDeviceChangedHandler:v7];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000E61C8;
+    v12[3] = &unk_1008CE810;
+    v12[4] = self;
+    [(SFBLEScanner *)self->_proximityDiscovery setDeviceFoundHandler:v12];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1000E61D4;
+    v11[3] = &unk_1008CE810;
+    v11[4] = self;
+    [(SFBLEScanner *)self->_proximityDiscovery setDeviceLostHandler:v11];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_1000E61E0;
+    v10[3] = &unk_1008CE878;
+    v10[4] = self;
+    [(SFBLEScanner *)self->_proximityDiscovery setDeviceChangedHandler:v10];
     [(SFBLEScanner *)self->_proximityDiscovery activateWithCompletion:&stru_1008CFF60];
     if (!self->_proximityController)
     {
-      v5 = +[SDProximityController sharedController];
+      v8 = +[SDProximityController sharedController];
       proximityController = self->_proximityController;
-      self->_proximityController = v5;
+      self->_proximityController = v8;
     }
   }
 }
@@ -1399,7 +1539,7 @@ LABEL_24:
   infoCopy = info;
   if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000EA200();
+    sub_1000EA200(flagsCopy);
   }
 
   v6 = flagsCopy & 1;
@@ -1437,12 +1577,13 @@ LABEL_24:
 
 - (void)handleInputDidEndWithFlags:(unint64_t)flags sessionInfo:(id)info
 {
+  flagsCopy = flags;
   infoCopy = info;
   if (dword_1009707D0 <= 30)
   {
     if (dword_1009707D0 != -1 || _LogCategory_Initialize())
     {
-      sub_1000EA298();
+      sub_1000EA298(flagsCopy);
     }
 
     if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
@@ -1474,12 +1615,16 @@ LABEL_24:
 {
   if (!self->_requestingService)
   {
-    if (dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1009707D0 <= 60)
     {
-      sub_1000EA334();
+      if (dword_1009707D0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1000EA334(self, a2, v2);
+      }
     }
 
-    self->_requestingServiceState = 2;
+    selfCopy->_requestingServiceState = 2;
   }
 }
 
@@ -1492,7 +1637,7 @@ LABEL_24:
     v6 = errorCopy;
     if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      sub_1000EA36C();
+      sub_1000EA36C(v4);
       v4 = v6;
     }
   }
@@ -1505,7 +1650,7 @@ LABEL_24:
   errorCopy = error;
   if (errorCopy && dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000EA3AC();
+    sub_1000EA3AC(errorCopy);
   }
 
   if (usernameCopy | passwordCopy)
@@ -1515,13 +1660,13 @@ LABEL_24:
       sub_1000EA3EC();
     }
 
-    v9 = +[SDSharedRemoteTextInputClient sharedClient];
-    [v9 handleUsername:usernameCopy password:passwordCopy];
+    v10 = +[SDSharedRemoteTextInputClient sharedClient];
+    [v10 handleUsername:usernameCopy password:passwordCopy];
   }
 
   else
   {
-    sub_1000EA448(dword_1009707D0 < 31, dword_1009707D0);
+    sub_1000EA448(dword_1009707D0 < 31, dword_1009707D0, v8);
   }
 }
 
@@ -1529,112 +1674,133 @@ LABEL_24:
 {
   if (self->_siriRemoteMonitorState == 4)
   {
+    selfCopy = self;
+    v4 = dword_1009707D0;
     if (self->_requestingServiceState == 4)
     {
-      if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+      if (dword_1009707D0 <= 30)
       {
-        sub_1000EA550();
+        if (dword_1009707D0 != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          sub_1000EA550(self, v4, v2);
+        }
       }
 
-      [(SFRemoteAutoFillService *)self->_requestingService startRequestingAutoFill];
+      [(SFRemoteAutoFillService *)selfCopy->_requestingService startRequestingAutoFill];
 
-      [(SDAutoFillAgent *)self _serviceTimeoutStart];
+      [(SDAutoFillAgent *)selfCopy _serviceTimeoutStart];
     }
 
     else
     {
-      sub_1000EA4FC(dword_1009707D0 < 31, dword_1009707D0);
+      sub_1000EA4FC(dword_1009707D0 < 31, dword_1009707D0, v2);
     }
   }
 
   else
   {
-    sub_1000EA49C();
+    sub_1000EA49C(self, a2, v2);
   }
 }
 
 - (void)_serviceStopRequestingAutoFill
 {
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000EA56C();
+    if (dword_1009707D0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000EA56C(self, a2, v2);
+    }
   }
 
-  [(SDAutoFillAgent *)self _serviceTimeoutStop];
-  requestingService = self->_requestingService;
+  [(SDAutoFillAgent *)selfCopy _serviceTimeoutStop];
+  requestingService = selfCopy->_requestingService;
 
   [(SFRemoteAutoFillService *)requestingService stopRequestingAutoFill];
 }
 
 - (void)_serviceTimeoutStart
 {
+  selfCopy = self;
   requestingServiceTimer = self->_requestingServiceTimer;
   if (requestingServiceTimer)
   {
-    v4 = requestingServiceTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_requestingServiceTimer;
-    self->_requestingServiceTimer = 0;
+    v5 = requestingServiceTimer;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_requestingServiceTimer;
+    selfCopy->_requestingServiceTimer = 0;
   }
 
-  self->_requestingServiceTimedOut = 0;
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  selfCopy->_requestingServiceTimedOut = 0;
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000EA588();
+    if (dword_1009707D0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000EA588(self, a2, v2);
+    }
   }
 
-  v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-  v7 = self->_requestingServiceTimer;
-  self->_requestingServiceTimer = v6;
+  v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, selfCopy->_dispatchQueue);
+  v8 = selfCopy->_requestingServiceTimer;
+  selfCopy->_requestingServiceTimer = v7;
 
-  v8 = self->_requestingServiceTimer;
-  v9 = dispatch_time(0, 3600000000000);
-  dispatch_source_set_timer(v8, v9, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
-  v10 = self->_requestingServiceTimer;
+  v9 = selfCopy->_requestingServiceTimer;
+  v10 = dispatch_time(0, 3600000000000);
+  dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+  v11 = selfCopy->_requestingServiceTimer;
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_1000E69D8;
   handler[3] = &unk_1008CDEA0;
-  handler[4] = self;
-  dispatch_source_set_event_handler(v10, handler);
-  dispatch_resume(self->_requestingServiceTimer);
+  handler[4] = selfCopy;
+  dispatch_source_set_event_handler(v11, handler);
+  dispatch_resume(selfCopy->_requestingServiceTimer);
 }
 
 - (void)_serviceTimeoutStop
 {
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000EA5C0();
+    if (dword_1009707D0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000EA5C0(self, a2, v2);
+    }
   }
 
-  requestingServiceTimer = self->_requestingServiceTimer;
+  requestingServiceTimer = selfCopy->_requestingServiceTimer;
   if (requestingServiceTimer)
   {
-    v4 = requestingServiceTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_requestingServiceTimer;
-    self->_requestingServiceTimer = 0;
+    v5 = requestingServiceTimer;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_requestingServiceTimer;
+    selfCopy->_requestingServiceTimer = 0;
   }
 
-  self->_requestingServiceTimedOut = 0;
+  selfCopy->_requestingServiceTimedOut = 0;
 }
 
 - (void)_sessionStart:(id)start
 {
   startCopy = start;
   dispatch_assert_queue_V2(self->_dispatchQueue);
+  v7 = dword_1009707D0;
   if (startCopy)
   {
-    if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+    if (dword_1009707D0 <= 30)
     {
-      sub_1000EA5DC();
+      if (dword_1009707D0 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_1000EA5DC(v7, v5, v6);
+      }
     }
 
-    v5 = [(NSMutableDictionary *)self->_devices objectForKeyedSubscript:startCopy];
-    if (!v5)
+    v8 = [(NSMutableDictionary *)self->_devices objectForKeyedSubscript:startCopy];
+    if (!v8)
     {
-      v5 = objc_alloc_init(SFDevice);
-      [v5 setIdentifier:startCopy];
+      v8 = objc_alloc_init(SFDevice);
+      [v8 setIdentifier:startCopy];
     }
 
     grantingSession = self->_grantingSession;
@@ -1643,49 +1809,49 @@ LABEL_24:
       [(SFRemoteAutoFillSession *)grantingSession invalidate];
     }
 
-    v7 = objc_alloc_init(SFRemoteAutoFillSession);
-    v8 = self->_grantingSession;
-    self->_grantingSession = v7;
+    v10 = objc_alloc_init(SFRemoteAutoFillSession);
+    v11 = self->_grantingSession;
+    self->_grantingSession = v10;
 
     [(SFRemoteAutoFillSession *)self->_grantingSession setDispatchQueue:self->_dispatchQueue];
-    [(SFRemoteAutoFillSession *)self->_grantingSession setPeerDevice:v5];
+    [(SFRemoteAutoFillSession *)self->_grantingSession setPeerDevice:v8];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000E6D80;
+    v16[3] = &unk_1008CDF90;
+    v16[4] = self;
+    [(SFRemoteAutoFillSession *)self->_grantingSession setCompletedHandler:v16];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000E6D8C;
+    v14[3] = &unk_1008CE028;
+    v14[4] = self;
+    v15 = startCopy;
+    [(SFRemoteAutoFillSession *)self->_grantingSession setPairingFinishedHandler:v14];
+
     v13[0] = _NSConcreteStackBlock;
     v13[1] = 3221225472;
-    v13[2] = sub_1000E6D80;
-    v13[3] = &unk_1008CDF90;
+    v13[2] = sub_1000E6EB4;
+    v13[3] = &unk_1008CFF88;
     v13[4] = self;
-    [(SFRemoteAutoFillSession *)self->_grantingSession setCompletedHandler:v13];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000E6D8C;
-    v11[3] = &unk_1008CE028;
-    v11[4] = self;
-    v12 = startCopy;
-    [(SFRemoteAutoFillSession *)self->_grantingSession setPairingFinishedHandler:v11];
-
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000E6EB4;
-    v10[3] = &unk_1008CFF88;
-    v10[4] = self;
-    [(SFRemoteAutoFillSession *)self->_grantingSession setPromptForPickerHandler:v10];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1000E6FD8;
-    v9[3] = &unk_1008CFFB0;
-    v9[4] = self;
-    [(SFRemoteAutoFillSession *)self->_grantingSession setPromptForPINHandler:v9];
+    [(SFRemoteAutoFillSession *)self->_grantingSession setPromptForPickerHandler:v13];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000E6FD8;
+    v12[3] = &unk_1008CFFB0;
+    v12[4] = self;
+    [(SFRemoteAutoFillSession *)self->_grantingSession setPromptForPINHandler:v12];
     [(SFRemoteAutoFillSession *)self->_grantingSession activate];
   }
 
   else
   {
-    if (sub_1000EA5F8(dword_1009707D0, &v15, &v16, &v14))
+    if (sub_1000EA5F8(dword_1009707D0, &v18, &v19, &v17))
     {
       goto LABEL_11;
     }
 
-    v5 = v14;
+    v8 = v17;
   }
 
 LABEL_11:
@@ -1731,7 +1897,7 @@ LABEL_11:
 
     if (dword_1009707D0 <= 60 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000EA79C();
+      sub_1000EA79C(stopCopy);
     }
   }
 
@@ -1754,7 +1920,7 @@ LABEL_11:
     v6 = responseCopy;
     if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      sub_1000EA810();
+      sub_1000EA810(v4);
       v4 = v6;
     }
   }
@@ -1765,7 +1931,7 @@ LABEL_11:
   triggerCopy = trigger;
   if (dword_1009707D0 <= 50 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000EA850();
+    sub_1000EA850(triggerCopy);
   }
 
   v5 = [(NSMutableDictionary *)self->_proximityDevices objectForKeyedSubscript:triggerCopy];
@@ -1788,7 +1954,7 @@ LABEL_11:
   keychainCopy = keychain;
   if (dword_1009707D0 <= 50 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000EA890();
+    sub_1000EA890(keychainCopy);
   }
 
   [(SDAutoFillAgent *)self _ensureKeychainCleaned:1];
@@ -1803,7 +1969,7 @@ LABEL_11:
     v6 = remoteCopy;
     if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      sub_1000EA8D0();
+      sub_1000EA8D0(v4);
       v4 = v6;
     }
   }
@@ -1817,7 +1983,7 @@ LABEL_11:
   {
     if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), serviceCopy = v7, v5))
     {
-      sub_1000EA910();
+      sub_1000EA910(serviceCopy);
       serviceCopy = v7;
     }
   }
@@ -1847,7 +2013,7 @@ LABEL_9:
   iCopy = i;
   if (dword_1009707D0 <= 50 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000EA950();
+    sub_1000EA950(iCopy);
   }
 
   v5 = objc_alloc_init(SFDevice);
@@ -1882,45 +2048,52 @@ LABEL_9:
 {
   if (!self->_uiDelayTimer)
   {
-    handler[7] = v2;
-    handler[8] = v3;
-    if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+    handler[7] = v3;
+    handler[8] = v4;
+    selfCopy = self;
+    if (dword_1009707D0 <= 30)
     {
-      sub_1000EA990();
+      if (dword_1009707D0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1000EA990(self, a2, v2);
+      }
     }
 
-    v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-    uiDelayTimer = self->_uiDelayTimer;
-    self->_uiDelayTimer = v5;
+    v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, selfCopy->_dispatchQueue);
+    uiDelayTimer = selfCopy->_uiDelayTimer;
+    selfCopy->_uiDelayTimer = v6;
 
-    v7 = self->_uiDelayTimer;
-    v8 = dispatch_time(0, 500000000);
-    dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
-    v9 = self->_uiDelayTimer;
+    v8 = selfCopy->_uiDelayTimer;
+    v9 = dispatch_time(0, 500000000);
+    dispatch_source_set_timer(v8, v9, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
+    v10 = selfCopy->_uiDelayTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_1000E7914;
     handler[3] = &unk_1008CDEA0;
-    handler[4] = self;
-    dispatch_source_set_event_handler(v9, handler);
-    dispatch_resume(self->_uiDelayTimer);
+    handler[4] = selfCopy;
+    dispatch_source_set_event_handler(v10, handler);
+    dispatch_resume(selfCopy->_uiDelayTimer);
   }
 }
 
 - (void)_deactivateUIDelayTimer
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
+  if (dword_1009707D0 <= 30)
   {
-    sub_1000EA9C8();
+    if (dword_1009707D0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1000EA9C8(v3, v4, v5);
+    }
   }
 
   uiDelayTimer = self->_uiDelayTimer;
   if (uiDelayTimer)
   {
-    v4 = uiDelayTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_uiDelayTimer;
+    v7 = uiDelayTimer;
+    dispatch_source_cancel(v7);
+    v8 = self->_uiDelayTimer;
     self->_uiDelayTimer = 0;
   }
 
@@ -2063,73 +2236,73 @@ LABEL_10:
 
   if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _ensureKeychainCleaned:]", 30, "Cleaning up old keys");
   }
 
   self->_cleanKeysState = 1;
-  v64[0] = kSecAttrAccessGroup;
-  v64[1] = kSecClass;
-  v65[0] = @"com.apple.sharing.safaripasswordsharing";
-  v65[1] = kSecClassKey;
-  v64[2] = kSecMatchLimit;
-  v64[3] = kSecReturnAttributes;
-  v65[2] = kSecMatchLimitAll;
-  v65[3] = &__kCFBooleanTrue;
-  v64[4] = kSecReturnPersistentRef;
-  v65[4] = &__kCFBooleanTrue;
+  v63[0] = kSecAttrAccessGroup;
+  v63[1] = kSecClass;
+  v64[0] = @"com.apple.sharing.safaripasswordsharing";
+  v64[1] = kSecClassKey;
+  v63[2] = kSecMatchLimit;
+  v63[3] = kSecReturnAttributes;
+  v64[2] = kSecMatchLimitAll;
+  v64[3] = &__kCFBooleanTrue;
+  v63[4] = kSecReturnPersistentRef;
+  v64[4] = &__kCFBooleanTrue;
   v6 = &kSFNodeProtocolWebDAVS_ptr;
-  v7 = SecItemCopyMatching([NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:5], &result);
+  v7 = SecItemCopyMatching([NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:5], &result);
   selfCopy = self;
   if (v7)
   {
-    if (dword_1009707D0 > 60 || (v35 = v7, dword_1009707D0 == -1) && !_LogCategory_Initialize())
+    if (dword_1009707D0 > 60 || (v36 = v7, dword_1009707D0 == -1) && !_LogCategory_Initialize())
     {
       obj = 0;
-      v34 = 3;
+      v35 = 3;
       goto LABEL_44;
     }
 
-    v36 = v35;
-    v62 = NSLocalizedDescriptionKey;
-    v37 = [NSString stringWithUTF8String:DebugGetErrorString()];
-    v21 = v37;
-    v38 = @"?";
-    if (v37)
+    v37 = v36;
+    v61 = NSLocalizedDescriptionKey;
+    v38 = [NSString stringWithUTF8String:DebugGetErrorString()];
+    v21 = v38;
+    v39 = @"?";
+    if (v38)
     {
-      v38 = v37;
+      v39 = v38;
     }
 
-    v63 = v38;
-    v39 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-    v41 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v36 userInfo:v39];
-    LogPrintF();
+    v62 = v39;
+    v40 = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+    v41 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v37 userInfo:v40];
+    LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _ensureKeychainCleaned:]", 60, "### Error fetching keys: %@", v41);
 
     obj = 0;
-    v34 = 3;
+    v35 = 3;
     goto LABEL_43;
   }
 
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = result;
-  v8 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+  v8 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v52;
+    v10 = *v51;
     v11 = kSecAttrEndDate;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v52 != v10)
+        if (*v51 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v51 + 1) + 8 * i);
+        v13 = *(*(&v50 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -2151,9 +2324,7 @@ LABEL_10:
                 [v5 addObject:v19];
                 if (dword_1009707D0 <= 10 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
                 {
-                  v40 = v15;
-                  v42 = v20;
-                  LogPrintF();
+                  LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _ensureKeychainCleaned:]", 10, "Should delete item with end date: %@ and persistent ref: %@", v15, v20);
                 }
               }
             }
@@ -2161,21 +2332,21 @@ LABEL_10:
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+      v9 = [obj countByEnumeratingWithState:&v50 objects:v60 count:16];
     }
 
     while (v9);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v21 = v5;
-  v22 = [v21 countByEnumeratingWithState:&v47 objects:v60 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v46 objects:v59 count:16];
   if (!v22)
   {
-    v34 = 4;
+    v35 = 4;
 LABEL_43:
 
     self = selfCopy;
@@ -2183,29 +2354,29 @@ LABEL_43:
   }
 
   v23 = v22;
-  v43 = v5;
-  v24 = *v48;
+  v42 = v5;
+  v24 = *v47;
   p_cb = &OBJC_PROTOCOL___SDProximityControllerDelegate.cb;
-  v45 = v21;
+  v44 = v21;
   do
   {
     for (j = 0; j != v23; j = j + 1)
     {
-      if (*v48 != v24)
+      if (*v47 != v24)
       {
         objc_enumerationMutation(v21);
       }
 
-      v27 = *(*(&v47 + 1) + 8 * j);
-      v58 = kSecValuePersistentRef;
-      v59 = v27;
-      v28 = SecItemDelete([v6[214] dictionaryWithObjects:&v59 forKeys:&v58 count:{1, v40, v42}]);
+      v27 = *(*(&v46 + 1) + 8 * j);
+      v57 = kSecValuePersistentRef;
+      v58 = v27;
+      v28 = SecItemDelete([v6[214] dictionaryWithObjects:&v58 forKeys:&v57 count:1]);
       if (v28)
       {
         v29 = p_cb[500];
         if (v29 <= 60 && (v29 != -1 || _LogCategory_Initialize()))
         {
-          v56 = NSLocalizedDescriptionKey;
+          v55 = NSLocalizedDescriptionKey;
           v30 = [NSString stringWithUTF8String:DebugGetErrorString()];
           v31 = v30;
           v32 = @"?";
@@ -2214,21 +2385,20 @@ LABEL_43:
             v32 = v30;
           }
 
-          v57 = v32;
-          v33 = [v6[214] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          [NSError errorWithDomain:NSOSStatusErrorDomain code:v28 userInfo:v33];
-          v42 = v40 = v27;
-          LogPrintF();
+          v56 = v32;
+          v33 = [v6[214] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          v34 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v28 userInfo:v33];
+          LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _ensureKeychainCleaned:]", 60, "### Deleting %@ error: %@", v27, v34);
 
           p_cb = (&OBJC_PROTOCOL___SDProximityControllerDelegate + 64);
           v6 = &kSFNodeProtocolWebDAVS_ptr;
 
-          v21 = v45;
+          v21 = v44;
         }
       }
     }
 
-    v23 = [v21 countByEnumeratingWithState:&v47 objects:v60 count:16];
+    v23 = [v21 countByEnumeratingWithState:&v46 objects:v59 count:16];
   }
 
   while (v23);
@@ -2237,14 +2407,14 @@ LABEL_43:
   selfCopy->_cleanKeysState = 4;
   if (!v28)
   {
-    v5 = v43;
+    v5 = v42;
     goto LABEL_46;
   }
 
-  v34 = 3;
-  v5 = v43;
+  v35 = 3;
+  v5 = v42;
 LABEL_44:
-  self->_cleanKeysState = v34;
+  self->_cleanKeysState = v35;
 LABEL_46:
 
 LABEL_47:
@@ -2274,7 +2444,7 @@ LABEL_28:
     {
       if (dword_1009707D0 <= 10 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _deviceChanged:]", 10, "Ignoring paired TV\n");
       }
 
       ignoredTVs = self->_ignoredTVs;
@@ -2353,7 +2523,7 @@ LABEL_29:
           if (dword_1009707D0 != -1 || (deviceActionType = _LogCategory_Initialize(), deviceActionType))
           {
             sub_100021E94(deviceActionType, v6, v7, v8, v9, v10, v11, v12, v25, foundCopy);
-            LogPrintF();
+            LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _deviceFound:]", 10, "Found device: %@\n");
           }
         }
 
@@ -2369,8 +2539,8 @@ LABEL_29:
 
         [(NSMutableDictionary *)devices setObject:foundCopy forKeyedSubscript:v3];
         bleDevice = [foundCopy bleDevice];
-        advertisementFields = [bleDevice advertisementFields];
-        v18 = [advertisementFields objectForKeyedSubscript:@"bdAddr"];
+        v17 = objc_msgSend_advertisementFields(bleDevice);
+        v18 = [v17 objectForKeyedSubscript:@"bdAddr"];
 
         if (v18)
         {
@@ -2409,7 +2579,7 @@ LABEL_29:
     if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v5))
     {
       sub_100021E94(v5, v6, v7, v8, v9, v10, v11, v12, v19, lostCopy);
-      LogPrintF();
+      LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _deviceLost:]", 10, "Lost device: %@\n");
     }
   }
 
@@ -2418,8 +2588,8 @@ LABEL_29:
     [(NSMutableDictionary *)self->_devices removeObjectForKey:v3];
     [sub_100035D58() _deviceStoppedRequesting:?];
     bleDevice = [lostCopy bleDevice];
-    advertisementFields = [bleDevice advertisementFields];
-    v15 = [advertisementFields objectForKeyedSubscript:@"bdAddr"];
+    v14 = objc_msgSend_advertisementFields(bleDevice);
+    v15 = [v14 objectForKeyedSubscript:@"bdAddr"];
 
     if (v15)
     {
@@ -2474,7 +2644,7 @@ LABEL_36:
   v11 = [(SDProximityController *)self->_proximityController checkDeviceRegion:v5];
   if (v11 == 2 && dword_1009707D0 <= 50 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _proximityChanged:]", 50, "#ni_estimator autofill triggered");
   }
 
   v12 = v11 == 2;
@@ -2494,12 +2664,10 @@ LABEL_36:
 
     if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
     {
-      v19 = identifier;
-      rssiEstimate = [changedCopy rssiEstimate];
-      LogPrintF();
+      LogPrintF(&dword_1009707D0, "-[SDAutoFillAgent _proximityChanged:]", 30, "Proximity remote %@ exited at %d\n", identifier, [changedCopy rssiEstimate]);
     }
 
-    [(NSMutableDictionary *)self->_proximityDevices removeObjectForKey:identifier, v19, rssiEstimate];
+    [(NSMutableDictionary *)self->_proximityDevices removeObjectForKey:identifier];
   }
 
   else
@@ -2515,9 +2683,7 @@ LABEL_36:
     {
       if (dword_1009707D0 != -1 || (v15 = _LogCategory_Initialize(), v14 = changedCopy, v15))
       {
-        v19 = identifier;
-        rssiEstimate = [v14 rssiEstimate];
-        LogPrintF();
+        LogPrintF(&dword_1009707D0, "-[SDAutoFillAgent _proximityChanged:]", 30, "Proximity remote %@ entered at %d\n", identifier, [v14 rssiEstimate]);
         v14 = changedCopy;
       }
     }
@@ -2533,7 +2699,7 @@ LABEL_36:
       proximityDevices = self->_proximityDevices;
     }
 
-    [(NSMutableDictionary *)proximityDevices setObject:v14 forKeyedSubscript:identifier, v19, rssiEstimate];
+    [(NSMutableDictionary *)proximityDevices setObject:v14 forKeyedSubscript:identifier];
   }
 
   [(SDAutoFillAgent *)self _update];
@@ -2553,7 +2719,7 @@ LABEL_31:
       if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v5))
       {
         sub_100021E94(v5, v6, v7, v8, v9, v10, v11, v12, v13, foundCopy);
-        LogPrintF();
+        LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _proximityFound:]", 10, "Found proximity device: %@\n");
       }
     }
 
@@ -2574,7 +2740,7 @@ LABEL_31:
       if (dword_1009707D0 != -1 || (v5 = _LogCategory_Initialize(), v5))
       {
         sub_100021E94(v5, v6, v7, v8, v9, v10, v11, v12, v13, lostCopy);
-        LogPrintF();
+        LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _proximityLost:]", 10, "Lost proximity device: %@\n");
       }
     }
 
@@ -2605,15 +2771,10 @@ LABEL_31:
     {
       if (dword_1009707D0 <= 10 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
-        [(NSMutableDictionary *)self->_triggeredDevices removeObjectForKey:identifier, identifier];
+        LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _uiStartIfNeeded:extraInfo:]", 10, "No proximity devices, un-triggering TV device %@\n", identifier);
       }
 
-      else
-      {
-        [(NSMutableDictionary *)self->_triggeredDevices removeObjectForKey:identifier, v31];
-      }
-
+      [(NSMutableDictionary *)self->_triggeredDevices removeObjectForKey:identifier];
       goto LABEL_37;
     }
 
@@ -2663,7 +2824,7 @@ LABEL_16:
           if (dword_1009707D0 != -1 || (v18 = _LogCategory_Initialize(), v18))
           {
             sub_100021E94(v18, v19, v20, v21, v22, v23, v24, v25, v31, neededCopy);
-            LogPrintF();
+            LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _uiStartIfNeeded:extraInfo:]", 30, "UI delay timer active, deferring notification for %@");
           }
         }
 
@@ -2677,13 +2838,12 @@ LABEL_16:
         {
           if (dword_1009707D0 != -1 || (v27 = _LogCategory_Initialize(), v26 = neededCopy, v27))
           {
-            v31 = v26;
-            LogPrintF();
+            LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _uiStartIfNeeded:extraInfo:]", 50, "Triggering ProximityAutoFill with %@", v26);
             v26 = neededCopy;
           }
         }
 
-        [(SDAutoFillAgent *)self _uiStart:v26 extraInfo:infoCopy, v31];
+        [(SDAutoFillAgent *)self _uiStart:v26 extraInfo:infoCopy];
       }
     }
 
@@ -2692,7 +2852,7 @@ LABEL_16:
 
   if (dword_1009707D0 <= 30 && (dword_1009707D0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1009707D0, "[SDAutoFillAgent _uiStartIfNeeded:extraInfo:]", 30, "### Active user profiles do not match \n");
   }
 
 LABEL_37:

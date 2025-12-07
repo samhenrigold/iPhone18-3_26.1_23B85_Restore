@@ -7,9 +7,9 @@
 
 + (uint64_t)smu_isInAnimationBlock
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 _isInAnimationBlock];
+  return [v2 _isInAnimationBlock];
 }
 
 + (void)smu_animateUsingSpringWithTension:()Private friction:animations:completion:

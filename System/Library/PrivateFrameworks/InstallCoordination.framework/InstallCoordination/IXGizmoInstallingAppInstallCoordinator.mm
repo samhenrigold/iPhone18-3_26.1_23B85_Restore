@@ -55,34 +55,32 @@
 
 void __72__IXGizmoInstallingAppInstallCoordinator_setTargetGizmoPairingID_error___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v10 = 136315906;
-    v11 = "[IXGizmoInstallingAppInstallCoordinator setTargetGizmoPairingID:error:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set target gizmo pairing ID to %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXGizmoInstallingAppInstallCoordinator setTargetGizmoPairingID:error:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set target gizmo pairing ID to %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[6] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __72__IXGizmoInstallingAppInstallCoordinator_setTargetGizmoPairingID_error___block_invoke_10(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -91,15 +89,15 @@ void __72__IXGizmoInstallingAppInstallCoordinator_setTargetGizmoPairingID_error_
     {
       v6 = a1[4];
       v7 = a1[5];
-      v9 = 136315906;
-      v10 = "[IXGizmoInstallingAppInstallCoordinator setTargetGizmoPairingID:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set target gizmo pairing ID to %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXGizmoInstallingAppInstallCoordinator setTargetGizmoPairingID:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set target gizmo pairing ID to %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
@@ -109,8 +107,6 @@ void __72__IXGizmoInstallingAppInstallCoordinator_setTargetGizmoPairingID_error_
   {
     *(*(a1[7] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)targetGizmoPairingIDWithError:(id *)error
@@ -162,31 +158,29 @@ void __72__IXGizmoInstallingAppInstallCoordinator_setTargetGizmoPairingID_error_
 
 void __72__IXGizmoInstallingAppInstallCoordinator_targetGizmoPairingIDWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXGizmoInstallingAppInstallCoordinator targetGizmoPairingIDWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get target gizmo pairing ID from %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXGizmoInstallingAppInstallCoordinator targetGizmoPairingIDWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get target gizmo pairing ID from %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __72__IXGizmoInstallingAppInstallCoordinator_targetGizmoPairingIDWithError___block_invoke_11(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -195,13 +189,13 @@ void __72__IXGizmoInstallingAppInstallCoordinator_targetGizmoPairingIDWithError_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v12 = 136315650;
-      v13 = "[IXGizmoInstallingAppInstallCoordinator targetGizmoPairingIDWithError:]_block_invoke";
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get target gizmo pairing ID from %@ : %@", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "[IXGizmoInstallingAppInstallCoordinator targetGizmoPairingIDWithError:]_block_invoke";
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v7;
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get target gizmo pairing ID from %@ : %@", &v11, 0x20u);
     }
 
     v10 = 40;
@@ -214,8 +208,6 @@ void __72__IXGizmoInstallingAppInstallCoordinator_targetGizmoPairingIDWithError_
   }
 
   objc_storeStrong((*(*(a1 + v10) + 8) + 40), a3);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

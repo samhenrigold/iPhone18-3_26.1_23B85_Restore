@@ -42,48 +42,50 @@
 {
   markerCopy = marker;
   equalsMarkerCopy = equalsMarker;
-  if ([markerCopy index] == 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(equalsMarkerCopy, "index") == 0x7FFFFFFFFFFFFFFFLL)
+  index = [markerCopy index];
+  if (index == 0x7FFFFFFFFFFFFFFFLL || (index = [equalsMarkerCopy index], index == 0x7FFFFFFFFFFFFFFFLL))
   {
-    v7 = CACLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CACLogGeneral(index);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [CACTextMarker marker:v7 precedesOrEqualsMarker:?];
+      [CACTextMarker marker:v8 precedesOrEqualsMarker:?];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    index = [markerCopy index];
-    v8 = index < [equalsMarkerCopy index];
+    index2 = [markerCopy index];
+    v9 = index2 < [equalsMarkerCopy index];
   }
 
-  return v8;
+  return v9;
 }
 
 + (unint64_t)lengthFromMarker:(id)marker toMarker:(id)toMarker
 {
   markerCopy = marker;
   toMarkerCopy = toMarker;
-  if ([markerCopy index] == 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(toMarkerCopy, "index") == 0x7FFFFFFFFFFFFFFFLL)
+  index = [markerCopy index];
+  if (index == 0x7FFFFFFFFFFFFFFFLL || (index = [toMarkerCopy index], index == 0x7FFFFFFFFFFFFFFFLL))
   {
-    v7 = CACLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CACLogGeneral(index);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [CACTextMarker lengthFromMarker:v7 toMarker:?];
+      [CACTextMarker lengthFromMarker:v8 toMarker:?];
     }
 
-    v8 = 0x7FFFFFFFFFFFFFFFLL;
+    v9 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    index = [toMarkerCopy index];
-    v8 = index - [markerCopy index];
+    index2 = [toMarkerCopy index];
+    v9 = index2 - [markerCopy index];
   }
 
-  return v8;
+  return v9;
 }
 
 + (BOOL)marker:(id)marker precedesMarker:(id)precedesMarker

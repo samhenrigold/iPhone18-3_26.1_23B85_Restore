@@ -49,7 +49,7 @@
 
     [(UIButton *)v4 setTitle:@"▶︎" forState:0];
     [(UIControl *)v4 addTarget:self action:sel_deliverToggle forControlEvents:64];
-    v22 = +[UIColor blackColor];
+    v22 = objc_msgSend_blackColor(UIColor);
     [(UIButton *)v4 setTitleColor:v22 forState:0];
 
     disclosureButton = self->_disclosureButton;

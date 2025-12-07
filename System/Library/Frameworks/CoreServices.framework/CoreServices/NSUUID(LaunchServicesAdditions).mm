@@ -7,21 +7,21 @@
 
 + (id)_LS_nullUUID
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   memset(uu, 0, sizeof(uu));
   uuid_clear(uu);
   v0 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:uu];
-  v1 = *MEMORY[0x1E69E9840];
 
   return v0;
 }
 
 + (id)_LS_UUIDWithData:()LaunchServicesAdditions digestType:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
-  *v25 = 0uLL;
+  *v24 = 0;
+  *&v24[8] = 0;
   if (!v5 || ![v5 bytes] || !objc_msgSend(v6, "length"))
   {
     _LS_nullUUID = [MEMORY[0x1E696AFB0] _LS_nullUUID];
@@ -36,8 +36,8 @@
       bytes = [v19 bytes];
       v21 = [v19 length];
 
-      CC_MD5(bytes, v21, v25);
-      v16 = v25[6];
+      CC_MD5(bytes, v21, v24);
+      v16 = v24[6];
       v17 = 48;
       goto LABEL_12;
     case 1:
@@ -56,20 +56,18 @@
 
       CC_SHA256(bytes3, v10, md);
 LABEL_10:
-      *v25 = *md;
+      *v24 = *md;
       v16 = md[6];
       v17 = 80;
 LABEL_12:
-      v25[6] = v17 & 0xF0 | v16 & 0xF;
-      v25[8] = v25[8] & 0x3F | 0x80;
+      v24[6] = v17 & 0xF0 | v16 & 0xF;
+      v24[8] = v24[8] & 0x3F | 0x80;
       break;
   }
 
-  _LS_nullUUID = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v25];
+  _LS_nullUUID = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v24];
 LABEL_14:
   v22 = _LS_nullUUID;
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

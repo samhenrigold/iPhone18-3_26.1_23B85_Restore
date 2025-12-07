@@ -86,9 +86,9 @@
       goto LABEL_45;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_46;
     }
@@ -109,7 +109,7 @@
       goto LABEL_45;
     }
 
-    v13 = [(NSString *)v7 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v7);
 
     if (!v13)
     {
@@ -182,7 +182,7 @@
       goto LABEL_45;
     }
 
-    v22 = [(NSString *)v7 isEqualToString:v21];
+    v22 = objc_msgSend_isEqualToString_(v7);
 
     if (!v22)
     {
@@ -212,7 +212,7 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  v25 = [(NSString *)v7 isEqualToString:v24];
+  v25 = objc_msgSend_isEqualToString_(v7);
 
   if (!v25)
   {
@@ -311,7 +311,7 @@ LABEL_47:
 
   if (self->_stylingInfoData)
   {
-    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:getMKWalletMerchantStylingInfoClass_1[0]() fromData:self->_stylingInfoData error:0];
+    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:getMKWalletMerchantStylingInfoClass_1() fromData:self->_stylingInfoData error:0];
     v5 = self->_lazyStylingInfo;
     self->_lazyStylingInfo = v4;
 
@@ -684,18 +684,14 @@ LABEL_5:
     }
   }
 
-  else
+  else if (([(NSString *)name isEqual:?]& 1) == 0)
   {
-    v8 = [(NSString *)name isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_41;
-    }
+    goto LABEL_41;
   }
 
   phoneNumber = self->_phoneNumber;
-  v10 = merchantCopy[5];
-  if (phoneNumber && v10)
+  v9 = merchantCopy[5];
+  if (phoneNumber && v9)
   {
     if (([(NSString *)phoneNumber isEqual:?]& 1) == 0)
     {
@@ -703,14 +699,14 @@ LABEL_5:
     }
   }
 
-  else if (phoneNumber != v10)
+  else if (phoneNumber != v9)
   {
     goto LABEL_41;
   }
 
   url = self->_url;
-  v12 = merchantCopy[6];
-  if (url && v12)
+  v11 = merchantCopy[6];
+  if (url && v11)
   {
     if (([(NSURL *)url isEqual:?]& 1) == 0)
     {
@@ -718,14 +714,14 @@ LABEL_5:
     }
   }
 
-  else if (url != v12)
+  else if (url != v11)
   {
     goto LABEL_41;
   }
 
   postalAddress = self->_postalAddress;
-  v14 = merchantCopy[9];
-  if (postalAddress && v14)
+  v13 = merchantCopy[9];
+  if (postalAddress && v13)
   {
     if (([(CNPostalAddress *)postalAddress isEqual:?]& 1) == 0)
     {
@@ -733,14 +729,14 @@ LABEL_5:
     }
   }
 
-  else if (postalAddress != v14)
+  else if (postalAddress != v13)
   {
     goto LABEL_41;
   }
 
   heroImageURL = self->_heroImageURL;
-  v16 = merchantCopy[10];
-  if (heroImageURL && v16)
+  v15 = merchantCopy[10];
+  if (heroImageURL && v15)
   {
     if (([(NSURL *)heroImageURL isEqual:?]& 1) == 0)
     {
@@ -748,45 +744,45 @@ LABEL_5:
     }
   }
 
-  else if (heroImageURL != v16)
+  else if (heroImageURL != v15)
   {
     goto LABEL_41;
   }
 
-  v17 = merchantCopy[13];
-  v18 = self->_detailedCategory;
-  v19 = v17;
-  v20 = v19;
-  if (v18 == v19)
+  v16 = merchantCopy[13];
+  v17 = self->_detailedCategory;
+  v18 = v16;
+  v19 = v18;
+  if (v17 == v18)
   {
   }
 
   else
   {
-    if (!v18 || !v19)
+    if (!v17 || !v18)
     {
       goto LABEL_40;
     }
 
-    v21 = [(NSString *)v18 isEqualToString:v19];
+    isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-    if (!v21)
+    if (!isEqualToString)
     {
       goto LABEL_41;
     }
   }
 
-  v22 = merchantCopy[11];
-  v18 = self->_heroImageAttributionName;
-  v23 = v22;
-  v20 = v23;
-  if (v18 != v23)
+  v21 = merchantCopy[11];
+  v17 = self->_heroImageAttributionName;
+  v22 = v21;
+  v19 = v22;
+  if (v17 != v22)
   {
-    if (v18 && v23)
+    if (v17 && v22)
     {
-      v24 = [(NSString *)v18 isEqualToString:v23];
+      v23 = objc_msgSend_isEqualToString_(v17);
 
-      if (!v24)
+      if (!v23)
       {
         goto LABEL_41;
       }
@@ -801,8 +797,8 @@ LABEL_40:
 
 LABEL_44:
   businessChatURL = self->_businessChatURL;
-  v28 = merchantCopy[15];
-  if (businessChatURL && v28)
+  v27 = merchantCopy[15];
+  if (businessChatURL && v27)
   {
     if (([(NSURL *)businessChatURL isEqual:?]& 1) == 0)
     {
@@ -810,22 +806,22 @@ LABEL_44:
     }
   }
 
-  else if (businessChatURL != v28)
+  else if (businessChatURL != v27)
   {
     goto LABEL_41;
   }
 
   if (self->_category == merchantCopy[12] && self->_identifier == merchantCopy[3] && self->_resultProviderIdentifier == *(merchantCopy + 4) && self->_locationLatitude == *(merchantCopy + 7) && self->_locationLongitude == *(merchantCopy + 8))
   {
-    v25 = (self->_stylingInfoData == 0) ^ (merchantCopy[14] != 0);
+    v24 = (self->_stylingInfoData == 0) ^ (merchantCopy[14] != 0);
     goto LABEL_42;
   }
 
 LABEL_41:
-  v25 = 0;
+  v24 = 0;
 LABEL_42:
 
-  return v25;
+  return v24;
 }
 
 - (unint64_t)hash

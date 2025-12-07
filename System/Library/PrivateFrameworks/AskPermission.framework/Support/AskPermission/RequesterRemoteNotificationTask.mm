@@ -228,26 +228,26 @@ LABEL_13:
 
     v18 = [v17 objectForKeyedSubscript:@"lockupData"];
     objc_opt_class();
-    v50 = v13;
+    v49 = v13;
     if (objc_opt_isKindOfClass())
     {
-      v53 = v18;
+      v52 = v18;
     }
 
     else
     {
-      v53 = 0;
+      v52 = 0;
     }
 
     v19 = +[NSDate date];
     requestIdentifier = [(RequesterRemoteNotificationTask *)self requestIdentifier];
-    v48 = v15;
+    v47 = v15;
     stringValue = [v15 stringValue];
     requestStatus = [(RequesterRemoteNotificationTask *)self requestStatus];
-    v52 = [Localizations stringWithKey:@"ACTION_APPROVE"];
-    v51 = [Localizations stringWithKey:@"ACTION_DECLINE"];
-    v45 = requestStatus;
-    v47 = v7;
+    v51 = [Localizations stringWithKey:@"ACTION_APPROVE"];
+    v50 = [Localizations stringWithKey:@"ACTION_DECLINE"];
+    v44 = requestStatus;
+    v46 = v7;
     if (requestStatus == 1)
     {
       v22 = [v9 objectForKeyedSubscript:@"approvalString"];
@@ -304,7 +304,7 @@ LABEL_13:
       v36 = [Localizations stringWithKey:@"NOTIFICATION_TITLE_REQUESTER_APPROVED"];
       if (v36)
       {
-        v30 = [v23[327] stringWithValidatedFormat:v36 validFormatSpecifiers:@"%@" error:0, v50];
+        v30 = [v23[327] stringWithValidatedFormat:v36 validFormatSpecifiers:@"%@" error:0, v49];
       }
 
       else
@@ -316,7 +316,6 @@ LABEL_13:
     else
     {
       v25 = [v9 objectForKeyedSubscript:@"declinedString"];
-      v23 = &APCustomError_ptr;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -333,7 +332,7 @@ LABEL_13:
       v28 = [Localizations stringWithKey:@"NOTIFICATION_TITLE_REQUESTER_DECLINED"];
       if (v28)
       {
-        v29 = [NSString stringWithValidatedFormat:v28 validFormatSpecifiers:@"%@" error:0, v50];
+        v29 = [NSString stringWithValidatedFormat:v28 validFormatSpecifiers:@"%@" error:0, v49];
 LABEL_33:
         v30 = v29;
         goto LABEL_45;
@@ -344,34 +343,33 @@ LABEL_33:
 
 LABEL_45:
 
-    v37 = [[RequestLocalizations alloc] initWithApprove:v52 body:v24 decline:v51 title:v30];
-    v38 = [v53 objectForKeyedSubscript:@"offerName"];
-    v39 = v23[327];
+    v37 = [[RequestLocalizations alloc] initWithApprove:v51 body:v24 decline:v50 title:v30];
+    v38 = [v52 objectForKeyedSubscript:@"offerName"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v40 = v38;
+      v39 = v38;
     }
 
     else
     {
-      v40 = 0;
+      v39 = 0;
     }
 
     if (v24 && stringValue)
     {
       if (_os_feature_enabled_impl())
       {
-        v41 = [[RequesterRequest alloc] initWithDate:v19 requestIdentifier:v27 uniqueIdentifier:@"xxxxxxxxx" itemIdentifier:stringValue localizations:v37 offerName:v40 status:v45];
+        v40 = [[RequesterRequest alloc] initWithDate:v19 requestIdentifier:v27 uniqueIdentifier:@"xxxxxxxxx" itemIdentifier:stringValue localizations:v37 offerName:v39 status:v44];
       }
 
       else
       {
-        LOBYTE(v44) = 0;
-        v41 = [[Request alloc] initWithDate:v19 requestIdentifier:v27 uniqueIdentifier:@"xxxxxxxxx" itemBundleIdentifier:0 itemIdentifier:stringValue localizations:v37 mocked:v44 offerName:0 previewURL:0 productType:0 productTypeName:0 productURL:0 requestInfo:v9 status:v45];
+        LOBYTE(v43) = 0;
+        v40 = [[Request alloc] initWithDate:v19 requestIdentifier:v27 uniqueIdentifier:@"xxxxxxxxx" itemBundleIdentifier:0 itemIdentifier:stringValue localizations:v37 mocked:v43 offerName:0 previewURL:0 productType:0 productTypeName:0 productURL:0 requestInfo:v9 status:v44];
       }
 
-      v11 = v41;
+      v11 = v40;
       v10 = 0;
     }
 
@@ -382,7 +380,7 @@ LABEL_45:
     }
 
     error = errorCopy;
-    v7 = v47;
+    v7 = v46;
     if (!errorCopy)
     {
       goto LABEL_57;
@@ -396,7 +394,7 @@ LABEL_45:
   if (error)
   {
 LABEL_56:
-    v42 = v10;
+    v41 = v10;
     *error = v10;
   }
 

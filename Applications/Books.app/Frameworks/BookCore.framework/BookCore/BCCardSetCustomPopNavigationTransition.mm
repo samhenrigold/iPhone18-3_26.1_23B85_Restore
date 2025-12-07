@@ -75,7 +75,7 @@
   v34 = cardSetViewController4;
   if (cardSetViewController4)
   {
-    [cardSetViewController4 expandedTransform];
+    objc_msgSend_expandedTransform(cardSetViewController4);
   }
 
   else
@@ -92,7 +92,7 @@
   v36 = cardSetViewController5;
   if (cardSetViewController5)
   {
-    [cardSetViewController5 contractedTransform];
+    objc_msgSend_contractedTransform(cardSetViewController5);
   }
 
   else
@@ -140,7 +140,7 @@
     fromView = [(BCCardSetCustomNavigationTransition *)self fromView];
     [fromView removeFromSuperview];
 
-    [(BCCardSetCustomNavigationTransition *)self targetTransform];
+    objc_msgSend_targetTransform(self);
     cardSetViewController = [(BCCardSetCustomNavigationTransition *)self cardSetViewController];
     scrollView = [cardSetViewController scrollView];
     v32[0] = v32[3];

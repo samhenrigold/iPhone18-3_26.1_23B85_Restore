@@ -72,7 +72,7 @@
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v33 = "[ADCloudKitKeyValueMirroredStore synchronizeKeychainPreferencesWithCompletion:]";
+    v34 = "[ADCloudKitKeyValueMirroredStore synchronizeKeychainPreferencesWithCompletion:]";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -85,16 +85,16 @@
   localKeychainPreferenceCache = self->_localKeychainPreferenceCache;
   self->_localKeychainPreferenceCache = v9;
 
-  v11 = sub_10029A9C8();
-  if ([v11 containsObject:@"User Identifier"])
+  v12 = sub_10029A9C8(v11);
+  if ([v12 containsObject:@"User Identifier"])
   {
-    v12 = +[ADPreferences sharedPreferences];
-    sharedUserIdentifier = [v12 sharedUserIdentifier];
+    v13 = +[ADPreferences sharedPreferences];
+    sharedUserIdentifier = [v13 sharedUserIdentifier];
 
-    v14 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:@"User Identifier"];
-    v15 = [sharedUserIdentifier isEqual:v14];
+    v15 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
+    v16 = [sharedUserIdentifier isEqual:v15];
 
-    if ((v15 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
       if (sharedUserIdentifier)
       {
@@ -104,25 +104,25 @@
 
       else
       {
-        v16 = +[NSNull null];
-        [v6 setObject:v16 forKey:@"User Identifier"];
+        v17 = +[NSNull null];
+        [v6 setObject:v17 forKey:@"User Identifier"];
       }
 
-      v17 = self->_modificationDateCache;
-      v18 = +[NSDate date];
-      [(NSMutableDictionary *)v17 setObject:v18 forKey:@"User Identifier"];
+      v18 = self->_modificationDateCache;
+      v19 = +[NSDate date];
+      [(NSMutableDictionary *)v18 setObject:v19 forKey:@"User Identifier"];
     }
   }
 
-  if ([v11 containsObject:@"Logging User Identifier"])
+  if ([v12 containsObject:@"Logging User Identifier"])
   {
-    v19 = +[ADPreferences sharedPreferences];
-    loggingSharedUserIdentifier = [v19 loggingSharedUserIdentifier];
+    v20 = +[ADPreferences sharedPreferences];
+    loggingSharedUserIdentifier = [v20 loggingSharedUserIdentifier];
 
-    v21 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:@"Logging User Identifier"];
-    v22 = [loggingSharedUserIdentifier isEqual:v21];
+    v22 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
+    v23 = [loggingSharedUserIdentifier isEqual:v22];
 
-    if ((v22 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
       if (loggingSharedUserIdentifier)
       {
@@ -132,37 +132,37 @@
 
       else
       {
-        v23 = +[NSNull null];
-        [v6 setObject:v23 forKey:@"Logging User Identifier"];
+        v24 = +[NSNull null];
+        [v6 setObject:v24 forKey:@"Logging User Identifier"];
       }
 
-      v24 = self->_modificationDateCache;
-      v25 = +[NSDate date];
-      [(NSMutableDictionary *)v24 setObject:v25 forKey:@"Logging User Identifier"];
+      v25 = self->_modificationDateCache;
+      v26 = +[NSDate date];
+      [(NSMutableDictionary *)v25 setObject:v26 forKey:@"Logging User Identifier"];
     }
   }
 
   if ([v6 count])
   {
     allKeys = [v6 allKeys];
-    v27 = AFSiriLogContextDaemon;
+    v28 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v33 = "[ADCloudKitKeyValueMirroredStore synchronizeKeychainPreferencesWithCompletion:]";
-      v34 = 2112;
-      v35 = allKeys;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "%s Saving keys: %@", buf, 0x16u);
+      v34 = "[ADCloudKitKeyValueMirroredStore synchronizeKeychainPreferencesWithCompletion:]";
+      v35 = 2112;
+      v36 = allKeys;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s Saving keys: %@", buf, 0x16u);
     }
 
-    v28 = +[ADCloudKitManager sharedManager];
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_10019B8AC;
-    v30[3] = &unk_10051D5B0;
-    v31 = allKeys;
-    v29 = allKeys;
-    [v28 saveKeyValueRecordsWithDictionary:v6 mirror:1 completion:v30];
+    v29 = +[ADCloudKitManager sharedManager];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10019B8AC;
+    v31[3] = &unk_10051D5B0;
+    v32 = allKeys;
+    v30 = allKeys;
+    [v29 saveKeyValueRecordsWithDictionary:v6 mirror:1 completion:v31];
   }
 
   if (completionCopy)
@@ -205,7 +205,7 @@
         }
 
         v12 = *(*(&v113 + 1) + 8 * i);
-        v13 = [v7 objectForKey:v12];
+        v13 = objc_msgSend_objectForKey_(v7);
         if (v13)
         {
           [v6 setObject:v13 forKey:v12];
@@ -228,10 +228,10 @@
   {
     v110 = completionCopy;
     v15 = kAFSessionLanguage;
-    v16 = [v6 objectForKey:kAFSessionLanguage];
+    v16 = objc_msgSend_objectForKey_(v6);
 
     v17 = kAFOutputVoice;
-    v18 = [v6 objectForKey:kAFOutputVoice];
+    v18 = objc_msgSend_objectForKey_(v6);
     v19 = v16 | v18;
 
     if (!v19)
@@ -239,9 +239,9 @@
       goto LABEL_173;
     }
 
-    v20 = [v6 objectForKey:v15];
+    v20 = objc_msgSend_objectForKey_(v6);
     v21 = sub_1002984B0(v20);
-    v108 = [v6 objectForKey:v17];
+    v108 = objc_msgSend_objectForKey_(v6);
     v22 = sub_100298408(v108, v21);
     v107 = v22;
     if (!v22)

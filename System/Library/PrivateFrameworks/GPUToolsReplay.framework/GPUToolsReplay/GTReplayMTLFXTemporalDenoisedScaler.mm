@@ -2,13 +2,12 @@
 + (id)wrapperWithDevice:(id)device descriptor:(id)descriptor;
 - (GTReplayMTLFXTemporalDenoisedScaler)initWithDevice:(id)device descriptor:(id)descriptor;
 - (MTLTexture)dilatedMotionVectors;
-- (uint64_t)setViewToClipMatrix:(double)matrix;
-- (uint64_t)setWorldToViewMatrix:(double)matrix;
 - (void)encodeToCommandBuffer:(id)buffer;
 - (void)encodeToCommandQueue:(id)queue;
 - (void)setColorTexture:(id)texture;
 - (void)setDebugTexture:(id)texture;
 - (void)setDenoiseStrengthMaskTexture:(id)texture;
+- (void)setDepthReversed:(BOOL)reversed;
 - (void)setDepthTexture:(id)texture;
 - (void)setDiffuseAlbedoTexture:(id)texture;
 - (void)setExposureTexture:(id)texture;
@@ -24,10 +23,14 @@
 - (void)setOutputTexture:(id)texture;
 - (void)setPreExposure:(float)exposure;
 - (void)setReactiveMaskTexture:(id)texture;
+- (void)setReset:(BOOL)reset;
 - (void)setRoughnessTexture:(id)texture;
+- (void)setShouldResetHistory:(BOOL)history;
 - (void)setSpecularAlbedoTexture:(id)texture;
 - (void)setSpecularHitDistanceTexture:(id)texture;
 - (void)setTransparencyOverlayTexture:(id)texture;
+- (void)setViewToClipMatrix:(double)matrix;
+- (void)setWorldToViewMatrix:(double)matrix;
 @end
 
 @implementation GTReplayMTLFXTemporalDenoisedScaler
@@ -109,7 +112,7 @@ LABEL_6:
   return dilatedMotionVectors;
 }
 
-- (uint64_t)setViewToClipMatrix:(double)matrix
+- (void)setViewToClipMatrix:(double)matrix
 {
   [*(self + 8) setViewToClipMatrix:?];
   v6 = *(self + 16);
@@ -117,12 +120,39 @@ LABEL_6:
   return [v6 setViewToClipMatrix:{a2, matrix, a4, a5}];
 }
 
-- (uint64_t)setWorldToViewMatrix:(double)matrix
+- (void)setWorldToViewMatrix:(double)matrix
 {
   [*(self + 8) setWorldToViewMatrix:?];
   v6 = *(self + 16);
 
   return [v6 setWorldToViewMatrix:{a2, matrix, a4, a5}];
+}
+
+- (void)setDepthReversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  [self->super._gpuScaler setDepthReversed:?];
+  aneScaler = self->super._aneScaler;
+
+  [aneScaler setDepthReversed:reversedCopy];
+}
+
+- (void)setShouldResetHistory:(BOOL)history
+{
+  historyCopy = history;
+  [self->super._gpuScaler setShouldResetHistory:?];
+  aneScaler = self->super._aneScaler;
+
+  [aneScaler setShouldResetHistory:historyCopy];
+}
+
+- (void)setReset:(BOOL)reset
+{
+  resetCopy = reset;
+  [self->super._gpuScaler setReset:?];
+  aneScaler = self->super._aneScaler;
+
+  [aneScaler setReset:resetCopy];
 }
 
 - (void)setMotionVectorScaleY:(float)y

@@ -14,17 +14,17 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v15.receiver = self;
-  v15.super_class = TSCH3DBaseImageTextureTiling;
-  v5 = [(TSCH3DTextureTiling *)&v15 copyWithZone:zone];
-  if (v5)
+  v14.receiver = self;
+  v14.super_class = TSCH3DBaseImageTextureTiling;
+  v4 = [(TSCH3DTextureTiling *)&v14 copyWithZone:zone];
+  if (v4)
   {
-    objc_msgSend_scale(self, v4, v6, v7, v8);
-    v14 = v13;
-    objc_msgSend_setScale_(v5, v9, v13, v10, v11, &v14);
+    objc_msgSend_scale(self, v5, v6, v7);
+    v13 = v12;
+    objc_msgSend_setScale_(v4, v8, v12, v9, v10, &v13);
   }
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -32,48 +32,48 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v15 = 1;
+    v13 = 1;
   }
 
   else
   {
     objc_opt_class();
-    v6 = TSUSpecificCast();
-    if (v6)
+    v5 = TSUSpecificCast();
+    if (v5)
     {
-      objc_msgSend_scale(self, v5, v7, v8, v9);
-      objc_msgSend_scale(v6, v10, v11, v12, v13);
-      v15 = 0;
-      if (v20 == v18)
+      objc_msgSend_scale(self, v6, v7, v8);
+      objc_msgSend_scale(v5, v9, v10, v11);
+      v13 = 0;
+      if (v18 == v16)
       {
-        *&v14 = v21;
-        if (v21 == v19)
+        *&v12 = v19;
+        if (v19 == v17)
         {
-          v17.receiver = self;
-          v17.super_class = TSCH3DBaseImageTextureTiling;
-          v15 = [(TSCH3DTextureTiling *)&v17 isEqual:equalCopy, v14];
+          v15.receiver = self;
+          v15.super_class = TSCH3DBaseImageTextureTiling;
+          v13 = [(TSCH3DTextureTiling *)&v15 isEqual:equalCopy, v12];
         }
       }
     }
 
     else
     {
-      v15 = 0;
+      v13 = 0;
     }
   }
 
-  return v15;
+  return v13;
 }
 
 - (unint64_t)hash
 {
-  v14.receiver = self;
-  v14.super_class = TSCH3DBaseImageTextureTiling;
-  v3 = [(TSCH3DTextureTiling *)&v14 hash];
-  objc_msgSend_scale(self, v4, v5, v6, v7);
-  *v13 = v12;
-  v13[1] = 0;
-  return v3 + objc_msgSend_hashVec4_(TSCH3DVector, v8, v12, v9, v10, v13);
+  v13.receiver = self;
+  v13.super_class = TSCH3DBaseImageTextureTiling;
+  v3 = [(TSCH3DTextureTiling *)&v13 hash];
+  objc_msgSend_scale(self, v4, v5, v6);
+  *v12 = v11;
+  v12[1] = 0;
+  return v3 + objc_msgSend_hashVec4_(TSCH3DVector, v7, v11, v8, v9, v12);
 }
 
 - (void)restoreDefault

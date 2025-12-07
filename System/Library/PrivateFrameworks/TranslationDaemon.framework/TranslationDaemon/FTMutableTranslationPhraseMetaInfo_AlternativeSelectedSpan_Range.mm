@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)length;
 - (int)start;
+- (void)setLength:(int)length;
+- (void)setStart:(int)start;
 @end
 
 @implementation FTMutableTranslationPhraseMetaInfo_AlternativeSelectedSpan_Range
@@ -40,12 +42,24 @@
   return intValue;
 }
 
+- (void)setStart:(int)start
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&start];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)length
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"length"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setLength:(int)length
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&length];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

@@ -20,7 +20,7 @@
   sessionCopy = session;
   optionsCopy = options;
   selfCopy = self;
-  sub_1000104A0(sceneCopy);
+  sub_1000104A0(sceneCopy, selfCopy);
 }
 
 - (void)sceneDidBecomeActive:(id)active
@@ -33,10 +33,10 @@
 - (_TtC21AppleIDSetupUIService24RemoteAlertSceneDelegate)init
 {
   *(&self->super.super.isa + OBJC_IVAR____TtC21AppleIDSetupUIService24RemoteAlertSceneDelegate_window) = 0;
-  type metadata accessor for PresentationRequest();
+  type metadata accessor for PresentationRequest(0);
   swift_storeEnumTagMultiPayload();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for RemoteAlertSceneDelegate();
+  v4.super_class = type metadata accessor for RemoteAlertSceneDelegate(0);
   return [(RemoteAlertSceneDelegate *)&v4 init];
 }
 

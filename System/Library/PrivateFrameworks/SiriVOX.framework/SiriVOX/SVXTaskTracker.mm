@@ -298,13 +298,12 @@
 - (NSString)description
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v8.receiver = self;
-  v8.super_class = SVXTaskTracker;
-  v4 = [(SVXTaskTracker *)&v8 description];
-  context = self->_context;
-  v6 = [v3 initWithFormat:@"%@ {context = %@, instrumentationContext = %@}", v4, context, self->_instrumentationContext];
+  v7.receiver = self;
+  v7.super_class = SVXTaskTracker;
+  v4 = [(SVXTaskTracker *)&v7 description];
+  v5 = [v3 initWithFormat:@"%@ {context = %@, instrumentationContext = %@}", v4, self->_context, self->_instrumentationContext];
 
-  return v6;
+  return v5;
 }
 
 - (void)dealloc

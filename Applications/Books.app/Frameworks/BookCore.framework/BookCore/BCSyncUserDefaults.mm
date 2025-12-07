@@ -43,18 +43,18 @@
   v2 = +[BUAccountsProvider sharedProvider];
   isUserSignedInToiCloud = [v2 isUserSignedInToiCloud];
 
-  v4 = BCUbiquityEnabledLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = BCUbiquityEnabledLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = @"NO";
+    v6 = @"NO";
     if (isUserSignedInToiCloud)
     {
-      v5 = @"YES";
+      v6 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "BCSyncUserDefaults: isSignedIntoICloud = %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "BCSyncUserDefaults: isSignedIntoICloud = %@", &v8, 0xCu);
   }
 
   return isUserSignedInToiCloud;
@@ -77,18 +77,18 @@
   v2 = +[BUAccountsProvider sharedProvider];
   isGlobalICloudDriveSyncOptedIn = [v2 isGlobalICloudDriveSyncOptedIn];
 
-  v4 = BCUbiquityEnabledLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = BCUbiquityEnabledLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = @"NO";
+    v6 = @"NO";
     if (isGlobalICloudDriveSyncOptedIn)
     {
-      v5 = @"YES";
+      v6 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "BCSyncUserDefaults: isGlobalICloudDriveSyncOptedIn = %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "BCSyncUserDefaults: isGlobalICloudDriveSyncOptedIn = %@", &v8, 0xCu);
   }
 
   return isGlobalICloudDriveSyncOptedIn;
@@ -112,21 +112,11 @@
   v6 = +[NSUserDefaults standardUserDefaults];
   v7 = [v6 BOOLForKey:@"BCSyncCloudKit"];
 
-  v8 = BCUbiquityEnabledLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = BCUbiquityEnabledLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = @"NO";
+    v10 = @"NO";
     if (isPrimaryAccountManagedAppleID)
-    {
-      v10 = @"YES";
-    }
-
-    else
-    {
-      v10 = @"NO";
-    }
-
-    if (v5)
     {
       v11 = @"YES";
     }
@@ -136,18 +126,28 @@
       v11 = @"NO";
     }
 
-    v13 = 138412802;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v11;
-    if (v7)
+    if (v5)
     {
-      v9 = @"YES";
+      v12 = @"YES";
     }
 
-    v17 = 2112;
-    v18 = v9;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "BCSyncUserDefaults: isICloudDriveSyncOptedIn isPrimaryAccountManagedAppleID = %@ isBCSyncICloudDriveUserDefaults = %@ isBCSyncCloudKitUserDefaults = %@", &v13, 0x20u);
+    else
+    {
+      v12 = @"NO";
+    }
+
+    v14 = 138412802;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v12;
+    if (v7)
+    {
+      v10 = @"YES";
+    }
+
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "BCSyncUserDefaults: isICloudDriveSyncOptedIn isPrimaryAccountManagedAppleID = %@ isBCSyncICloudDriveUserDefaults = %@ isBCSyncCloudKitUserDefaults = %@", &v14, 0x20u);
   }
 
   return (isPrimaryAccountManagedAppleID | v5 & v7) & 1;
@@ -177,18 +177,18 @@
 {
   v2 = +[BCICloudIdentityToken tokenForCurrentIdentityIfICloudDriveEnabled];
 
-  v3 = BCUbiquityEnabledLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = BCUbiquityEnabledLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = @"NO";
+    v5 = @"NO";
     if (v2)
     {
-      v4 = @"YES";
+      v5 = @"YES";
     }
 
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "BCSyncUserDefaults: isICloudDriveEnabledForBooks = %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "BCSyncUserDefaults: isICloudDriveEnabledForBooks = %@", &v7, 0xCu);
   }
 
   return v2 != 0;
@@ -213,7 +213,7 @@
 
 + (void)syncDefaultsWithTCC
 {
-  v2 = BCUbiquityEnabledLog();
+  v2 = BCUbiquityEnabledLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;

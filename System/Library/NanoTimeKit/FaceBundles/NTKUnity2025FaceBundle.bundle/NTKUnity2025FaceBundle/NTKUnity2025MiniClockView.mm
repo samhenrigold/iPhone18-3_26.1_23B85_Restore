@@ -12,112 +12,111 @@
 {
   deviceCopy = device;
   timerCopy = timer;
-  v19.receiver = self;
-  v19.super_class = NTKUnity2025MiniClockView;
-  v8 = [(CLKUIAnalogTimeView *)&v19 initWithDevice:deviceCopy clockTimer:timerCopy];
-  if (v8)
+  v27.receiver = self;
+  v27.super_class = NTKUnity2025MiniClockView;
+  v9 = [(CLKUIAnalogTimeView *)&v27 initWithDevice:deviceCopy clockTimer:timerCopy];
+  if (v9)
   {
-    v9 = [(NTKFaceBundle *)NTKUnity2025FaceBundle imageWithName:@"MiniClockHour00"];
-    v10 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v9];
-    view = v8->_view;
-    v8->_view = v10;
+    v10 = objc_msgSend_imageWithName_(NTKUnity2025FaceBundle, v8, @"MiniClockHour00");
+    v11 = objc_alloc(MEMORY[0x277D755E8]);
+    v13 = objc_msgSend_initWithImage_(v11, v12, v10);
+    v14 = *(v9 + 74);
+    *(v9 + 74) = v13;
 
-    [(NTKUnity2025MiniClockView *)v8 insertSubview:v8->_view atIndex:0];
-    v12 = [MEMORY[0x277CBB700] now];
-    [(NTKUnity2025MiniClockView *)v8 updateImageIfHourChanged:v12];
+    objc_msgSend_insertSubview_atIndex_(v9, v15, *(v9 + 74), 0);
+    v18 = objc_msgSend_now(MEMORY[0x277CBB700], v16, v17);
+    objc_msgSend_updateImageIfHourChanged_(v9, v19, v18);
 
-    objc_initWeak(&location, v8);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = sub_23C09CCCC;
-    v16[3] = &unk_278BADF40;
-    objc_copyWeak(&v17, &location);
-    v13 = [timerCopy startUpdatesWithUpdateFrequency:0 withHandler:v16 identificationLog:&unk_284EDCB00];
-    token = v8->_token;
-    v8->_token = v13;
+    objc_initWeak(&location, v9);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = sub_23C09CCCC;
+    v24[3] = &unk_278BADF40;
+    objc_copyWeak(&v25, &location);
+    v21 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(timerCopy, v20, 0, v24, &unk_284EDCB00);
+    v22 = *(v9 + 75);
+    *(v9 + 75) = v21;
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)dealloc
 {
   if (self->_token)
   {
-    clockTimer = [(CLKUITimeView *)self clockTimer];
-    [clockTimer stopUpdatesForToken:self->_token];
+    v4 = objc_msgSend_clockTimer(self, a2, v2);
+    objc_msgSend_stopUpdatesForToken_(v4, v5, self->_token);
   }
 
-  v4.receiver = self;
-  v4.super_class = NTKUnity2025MiniClockView;
-  [(CLKUITimeView *)&v4 dealloc];
+  v6.receiver = self;
+  v6.super_class = NTKUnity2025MiniClockView;
+  [(CLKUITimeView *)&v6 dealloc];
 }
 
 - (void)layoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = NTKUnity2025MiniClockView;
-  [(CLKUIAnalogTimeView *)&v3 layoutSubviews];
-  [(NTKUnity2025MiniClockView *)self bounds];
-  [(UIImageView *)self->_view setFrame:?];
+  v7.receiver = self;
+  v7.super_class = NTKUnity2025MiniClockView;
+  [(CLKUIAnalogTimeView *)&v7 layoutSubviews];
+  objc_msgSend_bounds(self, v3, v4);
+  objc_msgSend_setFrame_(self->_view, v5, v6);
 }
 
 - (void)updateImageIfHourChanged:(id)changed
 {
-  v8 = 0;
-  getHourAndMinuteFromDate(changed, &v8, &v7);
-  v4 = v8;
-  if (v8 != self->_hour)
+  v11 = 0;
+  getHourAndMinuteFromDate(changed, &v11, &v10);
+  v5 = v11;
+  if (v11 != self->_hour)
   {
-    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"MiniClockHour%ld%ld", v8 / 10, v8 % 10];
-    v5 = [(NTKFaceBundle *)NTKUnity2025FaceBundle imageWithName:v6];
-    [(UIImageView *)self->_view setImage:v5];
-    self->_hour = v4;
+    v9 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v4, @"MiniClockHour%ld%ld", v11 / 10, v11 % 10);
+    v7 = objc_msgSend_imageWithName_(NTKUnity2025FaceBundle, v6, v9);
+    objc_msgSend_setImage_(self->_view, v8, v7);
+    self->_hour = v5;
   }
 }
 
 - (void)setConfiguration:(id)configuration
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v15.receiver = self;
-  v15.super_class = NTKUnity2025MiniClockView;
-  [(CLKUIAnalogTimeView *)&v15 setConfiguration:configurationCopy];
-  greyscale = [configurationCopy greyscale];
-  layer = [(UIImageView *)self->_view layer];
-  v7 = layer;
-  if (!greyscale)
+  v29.receiver = self;
+  v29.super_class = NTKUnity2025MiniClockView;
+  [(CLKUIAnalogTimeView *)&v29 setConfiguration:configurationCopy];
+  v7 = objc_msgSend_greyscale(configurationCopy, v5, v6);
+  v10 = objc_msgSend_layer(self->_view, v8, v9);
+  v13 = v10;
+  if (!v7)
   {
-    [layer setFilters:MEMORY[0x277CBEBF8]];
+    objc_msgSend_setFilters_(v10, v11, MEMORY[0x277CBEBF8]);
     goto LABEL_5;
   }
 
-  filters = [layer filters];
-  v9 = [filters count];
+  v14 = objc_msgSend_filters(v10, v11, v12);
+  v17 = objc_msgSend_count(v14, v15, v16);
 
-  if (v9 != 1)
+  if (v17 != 1)
   {
-    v7 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2C0]];
-    v14[2] = xmmword_23C0A0A40;
-    v14[3] = unk_23C0A0A50;
-    v14[4] = xmmword_23C0A0A60;
-    v14[0] = xmmword_23C0A0A20;
-    v14[1] = unk_23C0A0A30;
-    v10 = [MEMORY[0x277CCAE60] valueWithBytes:v14 objCType:"{CAColorMatrix=ffffffffffffffffffff}"];
-    [v7 setValue:v10 forKey:*MEMORY[0x277CDA440]];
+    v13 = objc_msgSend_filterWithType_(MEMORY[0x277CD9EA0], v18, *MEMORY[0x277CDA2C0]);
+    v28[2] = xmmword_23C0A0A40;
+    v28[3] = unk_23C0A0A50;
+    v28[4] = xmmword_23C0A0A60;
+    v28[0] = xmmword_23C0A0A20;
+    v28[1] = unk_23C0A0A30;
+    v20 = objc_msgSend_valueWithBytes_objCType_(MEMORY[0x277CCAE60], v19, v28, "{CAColorMatrix=ffffffffffffffffffff}");
+    objc_msgSend_setValue_forKey_(v13, v21, v20, *MEMORY[0x277CDA440]);
 
-    v16[0] = v7;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-    layer2 = [(UIImageView *)self->_view layer];
-    [layer2 setFilters:v11];
+    v30[0] = v13;
+    v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v22, v30, 1);
+    v26 = objc_msgSend_layer(self->_view, v24, v25);
+    objc_msgSend_setFilters_(v26, v27, v23);
 
 LABEL_5:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

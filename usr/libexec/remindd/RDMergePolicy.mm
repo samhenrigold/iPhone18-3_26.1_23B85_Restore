@@ -17,6 +17,7 @@
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100490C3C(v5);
+  v5, v7, v8, v9, v10, v11, v12, v13;
 
   return 1;
 }

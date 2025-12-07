@@ -10,7 +10,7 @@ void __48___ISPlayerItemChefOperation__preparePlayerItem__block_invoke(uint64_t 
   v7 = v6;
   if (v6)
   {
-    [v6 preferredTransform];
+    objc_msgSend_preferredTransform(v6);
   }
 
   else

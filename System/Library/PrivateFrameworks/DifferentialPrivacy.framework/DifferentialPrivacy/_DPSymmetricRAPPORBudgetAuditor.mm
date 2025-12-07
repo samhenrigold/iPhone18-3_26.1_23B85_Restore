@@ -7,7 +7,7 @@
 
 - (_DPSymmetricRAPPORBudgetAuditor)initWithMetadata:(id)metadata plistParameters:(id)parameters error:(id *)error
 {
-  v53[3] = *MEMORY[0x277D85DE8];
+  v52[3] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   parametersCopy = parameters;
   v10 = [parametersCopy objectForKeyedSubscript:@"DefaultMinBatchSize"];
@@ -49,7 +49,7 @@
 
           if (v28)
           {
-            v48 = v21;
+            v47 = v21;
             v16 = v26;
 LABEL_16:
             v42 = [[_DPSymmetricRAPPORWithOHE alloc] initWithBatchSize:unsignedIntValue2 localEpsilon:v27 error:v16];
@@ -61,12 +61,12 @@ LABEL_16:
                 [_DPSymmetricRAPPORBudgetAuditor initWithMetadata:unsignedIntValue2 plistParameters:v43 error:v16];
               }
 
-              v51.receiver = selfCopy;
-              v51.super_class = _DPSymmetricRAPPORBudgetAuditor;
-              v44 = [(_DPBudgetAuditor *)&v51 initWithMetadata:v22 plistParameters:parametersCopy targetADP:v28 maxADP:v17 analysis:v42 error:v27];
+              v50.receiver = selfCopy;
+              v50.super_class = _DPSymmetricRAPPORBudgetAuditor;
+              v44 = [(_DPBudgetAuditor *)&v50 initWithMetadata:v22 plistParameters:parametersCopy targetADP:v28 maxADP:v17 analysis:v42 error:v27];
               if (v44)
               {
-                v44->_auditedFromPlist = v48 == 0;
+                v44->_auditedFromPlist = v47 == 0;
               }
 
               v32 = v44;
@@ -78,7 +78,7 @@ LABEL_16:
               v32 = 0;
             }
 
-            v21 = v48;
+            v21 = v47;
             goto LABEL_25;
           }
 
@@ -98,8 +98,8 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v47 = metadataCopy;
-      v48 = 0;
+      v46 = metadataCopy;
+      v47 = 0;
       if (unsignedIntValue2 <= unsignedIntValue)
       {
         unsignedIntValue2 = unsignedIntValue;
@@ -115,20 +115,20 @@ LABEL_25:
       v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:unsignedIntValue2];
       [v34 setObject:v35 forKeyedSubscript:@"MinBatchSize"];
 
-      v52[0] = @"LocalEpsilon";
+      v51[0] = @"LocalEpsilon";
       v36 = [MEMORY[0x277CCABB0] numberWithDouble:v16];
-      v53[0] = v36;
-      v52[1] = @"TargetCentralEpsilon";
+      v52[0] = v36;
+      v51[1] = @"TargetCentralEpsilon";
       v37 = MEMORY[0x277CCABB0];
       [v17 epsilon];
       v38 = [v37 numberWithDouble:?];
-      v53[1] = v38;
-      v52[2] = @"TargetCentralDelta";
+      v52[1] = v38;
+      v51[2] = @"TargetCentralDelta";
       v39 = MEMORY[0x277CCABB0];
       [v17 delta];
       v40 = [v39 numberWithDouble:?];
-      v53[2] = v40;
-      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:3];
+      v52[2] = v40;
+      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3];
       [v34 setObject:v41 forKeyedSubscript:@"DPConfig"];
 
       [v33 setObject:v34 forKeyedSubscript:@"DediscoTaskConfig"];
@@ -163,7 +163,6 @@ LABEL_11:
   *error = v17;
 LABEL_26:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -186,13 +185,12 @@ LABEL_26:
 
 - (void)initWithMetadata:(int)a1 plistParameters:(NSObject *)a2 error:(double)a3 .cold.2(int a1, NSObject *a2, double a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a1;
-  v5 = 2048;
-  v6 = a3;
-  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "Symmetric RAPPOR budget auditor uses min batch size = %d, local epsilon = %f", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a1;
+  v4 = 2048;
+  v5 = a3;
+  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "Symmetric RAPPOR budget auditor uses min batch size = %d, local epsilon = %f", v3, 0x12u);
 }
 
 @end

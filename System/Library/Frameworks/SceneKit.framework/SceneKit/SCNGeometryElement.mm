@@ -41,7 +41,7 @@
       {
         case MDLGeometryTypeTriangleStrips:
           faceCount = [(MDLSubmesh *)mdlSubMesh indexCount]- 2;
-          v8 = 1;
+          v9 = 1;
           goto LABEL_23;
         case MDLGeometryTypeQuads:
           faceCount = [(MDLSubmesh *)mdlSubMesh indexCount]>> 2;
@@ -51,16 +51,16 @@
           break;
         default:
 LABEL_17:
-          v10 = scn_default_log();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v11 = scn_default_log(geometryType, v7);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            [(SCNGeometryElement(SCNModelIO) *)v10 geometryElementWithMDLSubmesh:v11, v12];
+            [(SCNGeometryElement(SCNModelIO) *)v11 geometryElementWithMDLSubmesh:v12, v13];
           }
 
           goto LABEL_19;
       }
 
-      v8 = 4;
+      v9 = 4;
     }
 
     else
@@ -69,7 +69,7 @@ LABEL_17:
       {
 LABEL_19:
         faceCount = [(MDLSubmesh *)mdlSubMesh indexCount];
-        v8 = 3;
+        v9 = 3;
         goto LABEL_23;
       }
 
@@ -77,7 +77,7 @@ LABEL_19:
       {
         if (geometryType == MDLGeometryTypeTriangles)
         {
-          v8 = 0;
+          v9 = 0;
           faceCount = [(MDLSubmesh *)mdlSubMesh indexCount]/ 3;
           goto LABEL_23;
         }
@@ -86,100 +86,100 @@ LABEL_19:
       }
 
       faceCount = [(MDLSubmesh *)mdlSubMesh indexCount]>> 1;
-      v8 = 2;
+      v9 = 2;
     }
 
 LABEL_23:
-    v13 = [(MDLSubmesh *)mdlSubMesh indexType]>> 3;
-    v14 = [objc_msgSend(-[MDLSubmesh indexBuffer](mdlSubMesh "indexBuffer")];
-    v15 = [-[MDLSubmesh indexBuffer](mdlSubMesh "indexBuffer")];
+    v14 = [(MDLSubmesh *)mdlSubMesh indexType]>> 3;
+    v15 = [objc_msgSend(-[MDLSubmesh indexBuffer](mdlSubMesh "indexBuffer")];
+    v16 = [-[MDLSubmesh indexBuffer](mdlSubMesh "indexBuffer")];
     if ([(MDLSubmesh *)mdlSubMesh geometryType]== MDLGeometryTypeQuads)
     {
-      v16 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:v15 + v13 * faceCount];
-      [v16 setLength:v13 * faceCount];
+      v17 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:v16 + v14 * faceCount];
+      [v17 setLength:v14 * faceCount];
       if (faceCount)
       {
         for (i = 0; i != faceCount; ++i)
         {
-          if (v13 > 3)
+          if (v14 > 3)
           {
-            if (v13 == 4)
+            if (v14 == 4)
             {
-              *([v16 mutableBytes] + 4 * i) = 4;
+              *([v17 mutableBytes] + 4 * i) = 4;
             }
 
-            else if (v13 == 8)
+            else if (v14 == 8)
             {
-              *([v16 mutableBytes] + 8 * i) = 4;
+              *([v17 mutableBytes] + 8 * i) = 4;
             }
           }
 
-          else if (v13 == 1)
+          else if (v14 == 1)
           {
-            *([v16 mutableBytes] + i) = 4;
+            *([v17 mutableBytes] + i) = 4;
           }
 
-          else if (v13 == 2)
+          else if (v14 == 2)
           {
-            *([v16 mutableBytes] + 2 * i) = 4;
+            *([v17 mutableBytes] + 2 * i) = 4;
           }
         }
       }
 
-      [v16 appendBytes:v14 length:v15];
-      v18 = v16;
+      [v17 appendBytes:v15 length:v16];
+      v19 = v17;
     }
 
     else
     {
       if ([(MDLSubmesh *)mdlSubMesh geometryType]!= MDLGeometryTypeVariableTopology)
       {
-        v26 = [MEMORY[0x277CBEA90] dataWithBytes:v14 length:v15];
-        return [self geometryElementWithData:v26 primitiveType:v8 primitiveCount:faceCount bytesPerIndex:v13];
+        v27 = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:v16];
+        return [self geometryElementWithData:v27 primitiveType:v9 primitiveCount:faceCount bytesPerIndex:v14];
       }
 
-      v19 = [objc_msgSend(-[MDLSubmeshTopology faceTopology](-[MDLSubmesh topology](mdlSubMesh "topology")];
-      v20 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:v15 + v13 * faceCount];
-      [v20 setLength:v13 * faceCount];
+      v20 = [objc_msgSend(-[MDLSubmeshTopology faceTopology](-[MDLSubmesh topology](mdlSubMesh "topology")];
+      v21 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:v16 + v14 * faceCount];
+      [v21 setLength:v14 * faceCount];
       if (faceCount)
       {
         for (j = 0; j != faceCount; ++j)
         {
-          if (v13 > 3)
+          if (v14 > 3)
           {
-            if (v13 == 4)
+            if (v14 == 4)
             {
-              v25 = *(v19 + j);
-              *([v20 mutableBytes] + 4 * j) = v25;
+              v26 = *(v20 + j);
+              *([v21 mutableBytes] + 4 * j) = v26;
             }
 
-            else if (v13 == 8)
+            else if (v14 == 8)
             {
-              v23 = *(v19 + j);
-              *([v20 mutableBytes] + 8 * j) = v23;
+              v24 = *(v20 + j);
+              *([v21 mutableBytes] + 8 * j) = v24;
             }
           }
 
-          else if (v13 == 1)
+          else if (v14 == 1)
           {
-            v24 = *(v19 + j);
-            *([v20 mutableBytes] + j) = v24;
+            v25 = *(v20 + j);
+            *([v21 mutableBytes] + j) = v25;
           }
 
-          else if (v13 == 2)
+          else if (v14 == 2)
           {
-            v22 = *(v19 + j);
-            *([v20 mutableBytes] + 2 * j) = v22;
+            v23 = *(v20 + j);
+            *([v21 mutableBytes] + 2 * j) = v23;
           }
         }
       }
 
-      [v20 appendBytes:v14 length:v15];
-      v18 = v20;
+      [v21 appendBytes:v15 length:v16];
+      v19 = v21;
     }
 
-    v26 = v18;
-    return [self geometryElementWithData:v26 primitiveType:v8 primitiveCount:faceCount bytesPerIndex:v13];
+    v27 = v19;
+    return [self geometryElementWithData:v27 primitiveType:v9 primitiveCount:faceCount bytesPerIndex:v14];
   }
 
   if (geometryType != MDLGeometryTypeVariableTopology)
@@ -192,9 +192,9 @@ LABEL_23:
 
 - (SCNGeometryElement)initWithMeshElement:(const void *)element
 {
-  v20.receiver = self;
-  v20.super_class = SCNGeometryElement;
-  v4 = [(SCNGeometryElement *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = SCNGeometryElement;
+  v4 = [(SCNGeometryElement *)&v21 init];
   __asm { FMOV            V0.2S, #1.0 }
 
   *&v4->_pointSize = _D0;
@@ -202,48 +202,48 @@ LABEL_23:
   if (element)
   {
     C3DEntitySetObjCWrapper(element, v4);
-    v19 = 0;
+    v20 = 0;
     v4->_meshElement = CFRetain(element);
-    v4->_elementData = C3DMeshElementGetIndexes(element, &v19);
-    v4->_primitiveType = C3DMeshElementGetType(element);
+    v4->_elementData = C3DMeshElementGetIndexes(element, &v20);
+    v4->_primitiveType = C3DMeshElementGetType(element, v10);
     v4->_primitiveCount = C3DMeshElementGetPrimitiveCount(element);
     v4->_indicesChannelCount = C3DMeshElementGetIndicesChannelCount(element);
     v4->_interleavedIndicesChannels = C3DMeshElementGetUsesInterleavedIndicesChannels(element);
-    v18 = 0;
-    PrimitiveRanges = C3DMeshElementGetPrimitiveRanges(element, &v18);
+    v19 = 0;
+    PrimitiveRanges = C3DMeshElementGetPrimitiveRanges(element, &v19);
     if (PrimitiveRanges)
     {
-      v11 = PrimitiveRanges;
-      v12 = objc_alloc(MEMORY[0x277CBEB18]);
-      v13 = [v12 initWithCapacity:v18];
-      if (v18)
+      v12 = PrimitiveRanges;
+      v13 = objc_alloc(MEMORY[0x277CBEB18]);
+      v14 = [v13 initWithCapacity:v19];
+      if (v19)
       {
-        v14 = 0;
-        v15 = (v11 + 8);
+        v15 = 0;
+        v16 = (v12 + 8);
         do
         {
-          if (*(v15 - 1) == -1)
+          if (*(v16 - 1) == -1)
           {
-            v16 = 0x7FFFFFFFFFFFFFFFLL;
+            v17 = 0x7FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v16 = *(v15 - 1);
+            v17 = *(v16 - 1);
           }
 
-          -[NSArray addObject:](v13, "addObject:", [MEMORY[0x277CCAE60] valueWithRange:{v16, *v15}]);
-          ++v14;
-          v15 += 2;
+          -[NSArray addObject:](v14, "addObject:", [MEMORY[0x277CCAE60] valueWithRange:{v17, *v16}]);
+          ++v15;
+          v16 += 2;
         }
 
-        while (v14 < v18);
+        while (v15 < v19);
       }
 
-      v4->_primitiveRanges = v13;
+      v4->_primitiveRanges = v14;
     }
 
-    v4->_bytesPerIndex = v19;
+    v4->_bytesPerIndex = v20;
     v4->_pointSize = C3DMeshElementGetPointSize(element);
     v4->_minimumPointScreenSpaceRadius = C3DMeshElementGetMinimumPointScreenRadius(element);
     v4->_maximumPointScreenSpaceRadius = C3DMeshElementGetMaximumPointScreenRadius(element);
@@ -291,7 +291,7 @@ LABEL_23:
 
   indicesChannelCount = self->_indicesChannelCount;
   v10 = C3DBaseTypeFromDescription(self->_bytesPerIndex, 1, 0);
-  return [v3 stringWithFormat:@"<%@: %p | %u x %@, %u channels, %@ indices>", v5, self, primitiveCount, v8, indicesChannelCount, C3DBaseTypeStringDescription(v10)];
+  return [v3 stringWithFormat:@"<%@: %p | %u x %@, %u channels, %@ indices>", v5, self, primitiveCount, v8, indicesChannelCount, C3DBaseTypeStringDescription(v10, v11)];
 }
 
 + (SCNGeometryElement)geometryElementWithBuffer:(id)buffer primitiveType:(int64_t)type primitiveCount:(int64_t)count indicesChannelCount:(int64_t)channelCount interleavedIndicesChannels:(BOOL)channels bytesPerIndex:(int64_t)index
@@ -303,36 +303,37 @@ LABEL_23:
 
 - (SCNGeometryElement)initWithBuffer:(id)buffer primitiveType:(int64_t)type primitiveCount:(int64_t)count indicesChannelCount:(int64_t)channelCount interleavedIndicesChannels:(BOOL)channels bytesPerIndex:(int64_t)index
 {
-  v17.receiver = self;
-  v17.super_class = SCNGeometryElement;
-  v14 = [(SCNGeometryElement *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = SCNGeometryElement;
+  v14 = [(SCNGeometryElement *)&v19 init];
+  v16 = v14;
   if (v14)
   {
     if (type == 4)
     {
-      v15 = scn_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = scn_default_log(v14, v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [SCNGeometryElement initWithBuffer:primitiveType:primitiveCount:indicesChannelCount:interleavedIndicesChannels:bytesPerIndex:];
       }
     }
 
-    v14->_mtlBuffer = buffer;
-    v14->_primitiveType = type;
-    v14->_primitiveCount = count;
-    v14->_indicesChannelCount = channelCount;
-    v14->_interleavedIndicesChannels = channels;
-    v14->_bytesPerIndex = index;
+    v16->_mtlBuffer = buffer;
+    v16->_primitiveType = type;
+    v16->_primitiveCount = count;
+    v16->_indicesChannelCount = channelCount;
+    v16->_interleavedIndicesChannels = channels;
+    v16->_bytesPerIndex = index;
   }
 
-  return v14;
+  return v16;
 }
 
 - (SCNGeometryElement)initWithData:(id)data primitiveType:(int64_t)type primitiveCount:(int64_t)count indicesChannelCount:(int64_t)channelCount interleavedIndicesChannels:(BOOL)channels bytesPerIndex:(int64_t)index
 {
-  v30.receiver = self;
-  v30.super_class = SCNGeometryElement;
-  v14 = [(SCNGeometryElement *)&v30 init];
+  v33.receiver = self;
+  v33.super_class = SCNGeometryElement;
+  v14 = [(SCNGeometryElement *)&v33 init];
   if (!v14)
   {
     return v14;
@@ -350,12 +351,13 @@ LABEL_18:
     return v14;
   }
 
-  if ([data length] < (index * count))
+  v15 = [data length];
+  if (v15 < index * count)
   {
-    v15 = scn_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = scn_default_log(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      [(SCNGeometryElement *)v15 initWithData:v16 primitiveType:v17 primitiveCount:v18 indicesChannelCount:v19 interleavedIndicesChannels:v20 bytesPerIndex:v21, v22];
+      [(SCNGeometryElement *)v17 initWithData:v18 primitiveType:v19 primitiveCount:v20 indicesChannelCount:v21 interleavedIndicesChannels:v22 bytesPerIndex:v23, v24];
     }
   }
 
@@ -367,7 +369,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v23 = 0;
+  v25 = 0;
   type = 4;
   countCopy = count;
   while (1)
@@ -378,25 +380,25 @@ LABEL_17:
       break;
     }
 
-    v26 = *(bytes + v23);
+    v29 = *(bytes + v25);
 LABEL_14:
-    if (v26 <= 2)
+    if (v29 <= 2)
     {
-      v28 = scn_default_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v31 = scn_default_log(bytes, v28);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        [SCNGeometryElement initWithData:v26 primitiveType:v28 primitiveCount:? indicesChannelCount:? interleavedIndicesChannels:? bytesPerIndex:?];
+        [SCNGeometryElement initWithData:v29 primitiveType:v31 primitiveCount:? indicesChannelCount:? interleavedIndicesChannels:? bytesPerIndex:?];
       }
 
       goto LABEL_24;
     }
 
-    if (v26 != 3)
+    if (v29 != 3)
     {
       goto LABEL_18;
     }
 
-    v23 += index;
+    v25 += index;
     if (!--countCopy)
     {
       goto LABEL_17;
@@ -405,20 +407,20 @@ LABEL_14:
 
   if (index == 2)
   {
-    v26 = *(bytes + v23);
+    v29 = *(bytes + v25);
     goto LABEL_14;
   }
 
   if (index == 1)
   {
-    v26 = *(bytes + v23);
+    v29 = *(bytes + v25);
     goto LABEL_14;
   }
 
-  v29 = scn_default_log();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v32 = scn_default_log(bytes, v28);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
-    [SCNGeometryElement initWithData:index primitiveType:v29 primitiveCount:? indicesChannelCount:? interleavedIndicesChannels:? bytesPerIndex:?];
+    [SCNGeometryElement initWithData:index primitiveType:v32 primitiveCount:? indicesChannelCount:? interleavedIndicesChannels:? bytesPerIndex:?];
   }
 
 LABEL_24:
@@ -476,21 +478,21 @@ LABEL_24:
 {
   meshElement = [(SCNGeometryElement *)self meshElement];
 
-  C3DMeshElementPrintData(meshElement);
+  C3DMeshElementPrintData(meshElement, v3);
 }
 
 - (unint64_t)indexCount
 {
   meshElement = [(SCNGeometryElement *)self meshElement];
 
-  return C3DMeshElementGetIndexCount(meshElement);
+  return C3DMeshElementGetIndexCount(meshElement, v3);
 }
 
 - (__C3DScene)sceneRef
 {
   __CFObject = [(SCNGeometryElement *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -614,20 +616,20 @@ LABEL_24:
   result = self->_meshElement;
   if (!result)
   {
-    v4 = C3DMeshElementCreate();
+    v4 = C3DMeshElementCreate(0, *&a2);
     self->_meshElement = v4;
     mtlBuffer = self->_mtlBuffer;
-    primitiveType = self->_primitiveType;
+    primitiveType_low = SLOBYTE(self->_primitiveType);
     primitiveCount = self->_primitiveCount;
     interleavedIndicesChannels = self->_interleavedIndicesChannels;
     if (mtlBuffer)
     {
-      C3DMeshElementInitIndexedWithMTLBuffer(v4, primitiveType, primitiveCount, self->_indicesChannelCount, interleavedIndicesChannels, mtlBuffer, self->_bytesPerIndex);
+      C3DMeshElementInitIndexedWithMTLBuffer(v4, primitiveType_low, primitiveCount, self->_indicesChannelCount, interleavedIndicesChannels, mtlBuffer, self->_bytesPerIndex);
     }
 
     else
     {
-      C3DMeshElementInitIndexed(v4, primitiveType, primitiveCount, self->_indicesChannelCount, interleavedIndicesChannels, self->_elementData, self->_bytesPerIndex);
+      C3DMeshElementInitIndexed(v4, primitiveType_low, primitiveCount, self->_indicesChannelCount, interleavedIndicesChannels, self->_elementData, self->_bytesPerIndex);
     }
 
     __C3DMeshElementSetPrimitiveRanges(self->_meshElement, self->_primitiveRanges);
@@ -778,15 +780,22 @@ LABEL_24:
 {
   if (!self->_primitiveType)
   {
-    v6 = v2;
-    v7 = v3;
+    v7 = v2;
+    v8 = v3;
     C3DMeshElementOptimizeIndices(self->_meshElement);
-    v5 = 0;
-    self->_elementData = C3DMeshElementGetIndexes(self->_meshElement, &v5);
-    self->_primitiveType = C3DMeshElementGetType(self->_meshElement);
+    v6 = 0;
+    self->_elementData = C3DMeshElementGetIndexes(self->_meshElement, &v6);
+    self->_primitiveType = C3DMeshElementGetType(self->_meshElement, v5);
     self->_primitiveCount = C3DMeshElementGetPrimitiveCount(self->_meshElement);
-    self->_bytesPerIndex = v5;
+    self->_bytesPerIndex = v6;
   }
+}
+
+- (void)initWithData:(uint64_t)a3 primitiveType:(uint64_t)a4 primitiveCount:(uint64_t)a5 indicesChannelCount:(uint64_t)a6 interleavedIndicesChannels:(uint64_t)a7 bytesPerIndex:(uint64_t)a8 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "data.length >= (NSUInteger)(primitiveCount * bytesPerIndex)";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. SCNGeometryElement initialization - Invalid data length", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithData:(uint64_t)a1 primitiveType:(NSObject *)a2 primitiveCount:indicesChannelCount:interleavedIndicesChannels:bytesPerIndex:.cold.2(uint64_t a1, NSObject *a2)

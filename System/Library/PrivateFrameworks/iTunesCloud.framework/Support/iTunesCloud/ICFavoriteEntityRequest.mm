@@ -2,17 +2,9 @@
 - (ICFavoriteEntityRequest)initWithStoreID:(int64_t)d globalPlaylistID:(id)iD albumCloudLibraryID:(id)libraryID artistCloudLibraryID:(id)cloudLibraryID entityType:(int64_t)type time:(id)time databaseID:(unsigned int)databaseID databaseRevision:(unsigned int)self0;
 - (id)_bodyDataWithStoreID:(int64_t)d globalPlaylistID:(id)iD albumCloudLibraryID:(id)libraryID artistCloudLibraryID:(id)cloudLibraryID time:(id)time serverDatabaseRevision:(unsigned int)revision;
 - (id)canonicalResponseForResponse:(id)response;
-- (id)description;
 @end
 
 @implementation ICFavoriteEntityRequest
-
-- (id)description
-{
-  v3 = objc_opt_class();
-  artistCloudLibraryID = self->_artistCloudLibraryID;
-  return [NSString stringWithFormat:@"<%@: %p storeID=%lld, globalPlaylistID=%@, cloudAlbumID=%@, cloudArtistID=%@ timeStamp=%@>", v3, self, self->_adamID, self->_globalPlaylistID, self->_albumCloudLibraryID, artistCloudLibraryID, self->_timeStamp];
-}
 
 - (id)_bodyDataWithStoreID:(int64_t)d globalPlaylistID:(id)iD albumCloudLibraryID:(id)libraryID artistCloudLibraryID:(id)cloudLibraryID time:(id)time serverDatabaseRevision:(unsigned int)revision
 {

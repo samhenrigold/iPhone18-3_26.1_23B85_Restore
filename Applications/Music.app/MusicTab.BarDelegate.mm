@@ -34,7 +34,7 @@
 
 - (id)tabBarController:(id)controller displayedViewControllersForTab:(id)tab proposedViewControllers:(id)controllers
 {
-  sub_100009F78(0, &qword_101183D40);
+  sub_100009F78(0, &qword_101183D40, UIViewController_ptr);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   tabCopy = tab;
@@ -92,7 +92,7 @@
 
 - (void)tabBarController:(id)controller visibilityDidChangeForTabs:(id)tabs
 {
-  sub_100009F78(0, &qword_101181F70);
+  sub_100009F78(0, &qword_101181F70, UITab_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

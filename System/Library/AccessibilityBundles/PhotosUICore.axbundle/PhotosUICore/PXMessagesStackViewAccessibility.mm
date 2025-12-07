@@ -135,7 +135,7 @@ uint64_t __62__PXMessagesStackViewAccessibility_accessibilityCustomActions__bloc
   return v7;
 }
 
-uint64_t __62__PXMessagesStackViewAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1)
+void *__62__PXMessagesStackViewAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [*(a1 + 40) frame];

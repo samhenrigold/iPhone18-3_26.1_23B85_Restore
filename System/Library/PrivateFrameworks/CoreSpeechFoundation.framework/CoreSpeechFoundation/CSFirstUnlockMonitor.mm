@@ -5,6 +5,7 @@
 - (void)_didReceiveFirstUnlock:(BOOL)unlock;
 - (void)_didReceiveFirstUnlockInQueue:(BOOL)queue;
 - (void)_firstUnlockNotified;
+- (void)_notifyObserver:(id)observer withUnlocked:(BOOL)unlocked;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 @end
@@ -47,7 +48,7 @@
 
 - (BOOL)_checkFirstUnlocked
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = MKBDeviceUnlockedSinceBoot();
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
@@ -58,16 +59,25 @@
       v4 = @"NO";
     }
 
-    v7 = 136315394;
-    v8 = "[CSFirstUnlockMonitor _checkFirstUnlocked]";
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Unlocked since boot = %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSFirstUnlockMonitor _checkFirstUnlocked]";
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Unlocked since boot = %{public}@", &v6, 0x16u);
   }
 
-  result = v2 == 1;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 == 1;
+}
+
+- (void)_notifyObserver:(id)observer withUnlocked:(BOOL)unlocked
+{
+  unlockedCopy = unlocked;
+  observerCopy = observer;
+  [(CSEventMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSFirstUnlockMonitor:self didReceiveFirstUnlock:unlockedCopy];
+  }
 }
 
 - (void)_didReceiveFirstUnlock:(BOOL)unlock
@@ -94,7 +104,7 @@
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   notifyToken = self->_notifyToken;
   if (notifyToken != -1)
   {
@@ -103,13 +113,11 @@
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[CSFirstUnlockMonitor _stopMonitoring]";
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : First unlock", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSFirstUnlockMonitor _stopMonitoring]";
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : First unlock", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_firstUnlockNotified
@@ -122,7 +130,7 @@
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_notifyToken == -1)
   {
@@ -136,7 +144,7 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSFirstUnlockMonitor _startMonitoringWithQueue:]";
+      v9 = "[CSFirstUnlockMonitor _startMonitoringWithQueue:]";
       v6 = "%s Start monitoring : First unlock";
       goto LABEL_6;
     }
@@ -148,7 +156,7 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSFirstUnlockMonitor _startMonitoringWithQueue:]";
+      v9 = "[CSFirstUnlockMonitor _startMonitoringWithQueue:]";
       v6 = "%s Cannot start monitoring first unlock because it was already started";
 LABEL_6:
       _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
@@ -156,8 +164,6 @@ LABEL_6:
   }
 
   self->_firstUnlocked = [(CSFirstUnlockMonitor *)self _checkFirstUnlocked];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __38__CSFirstUnlockMonitor_sharedInstance__block_invoke()

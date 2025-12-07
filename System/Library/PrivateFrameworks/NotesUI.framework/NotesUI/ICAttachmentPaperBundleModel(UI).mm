@@ -111,7 +111,9 @@ LABEL_16:
 {
   v1 = [a1 attachment];
   v2 = [v1 ic_loggingIdentifier];
-  OUTLINED_FUNCTION_0_4(&dword_1D4171000, v3, v4, "Unable to generate PDF Document from fallback PDF Data for attachment: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_4(&dword_1D4171000, v3, v4, "Unable to generate PDF Document from fallback PDF Data for attachment: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

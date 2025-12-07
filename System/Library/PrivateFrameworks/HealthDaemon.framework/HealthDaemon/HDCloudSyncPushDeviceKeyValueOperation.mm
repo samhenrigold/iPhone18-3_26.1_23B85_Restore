@@ -8,13 +8,13 @@
 
 - (void)main
 {
-  v101 = *MEMORY[0x277D85DE8];
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x3032000000;
-  v74 = __Block_byref_object_copy__56;
-  v75 = __Block_byref_object_dispose__56;
-  v76 = 0;
+  v100 = *MEMORY[0x277D85DE8];
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x3032000000;
+  v73 = __Block_byref_object_copy__56;
+  v74 = __Block_byref_object_dispose__56;
+  v75 = 0;
   profile = [(HDCloudSyncOperation *)self profile];
   syncIdentityManager = [profile syncIdentityManager];
   currentSyncIdentity = [syncIdentityManager currentSyncIdentity];
@@ -26,8 +26,8 @@
   repository = [configuration2 repository];
   primaryCKContainer = [repository primaryCKContainer];
   containerIdentifier = [primaryCKContainer containerIdentifier];
-  v12 = (v72 + 5);
-  obj = v72[5];
+  v12 = (v71 + 5);
+  obj = v71[5];
   v13 = [cachedCloudState contextSyncZoneForContainerID:containerIdentifier error:&obj];
   objc_storeStrong(v12, obj);
   contextSyncZone = self->_contextSyncZone;
@@ -37,18 +37,18 @@
   if (v15)
   {
     v16 = objc_opt_class();
-    v18 = (v72 + 5);
-    v17 = v72[5];
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke;
-    v66[3] = &unk_27861B0A8;
-    v68 = &v71;
-    v69 = v17;
-    v66[4] = self;
-    v67 = identity;
-    v19 = [(HDCloudSyncCachedZone *)v15 recordsForClass:v16 error:&v69 filter:v66];
-    objc_storeStrong(v18, v69);
+    v18 = (v71 + 5);
+    v17 = v71[5];
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke;
+    v65[3] = &unk_27861B0A8;
+    v67 = &v70;
+    v68 = v17;
+    v65[4] = self;
+    v66 = identity;
+    v19 = [(HDCloudSyncCachedZone *)v15 recordsForClass:v16 error:&v68 filter:v65];
+    objc_storeStrong(v18, v68);
     if (v19)
     {
       if ([v19 count] < 2)
@@ -57,33 +57,33 @@
         recordWithCurrentIdentity = self->_recordWithCurrentIdentity;
         self->_recordWithCurrentIdentity = firstObject;
 
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke_303;
-        v65[3] = &unk_27861B0D0;
-        v65[4] = self;
-        v32 = v65;
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke_303;
+        v64[3] = &unk_27861B0D0;
+        v64[4] = self;
+        v32 = v64;
         v33 = objc_alloc_init(MEMORY[0x277CBEB58]);
         v34 = objc_alloc_init(MEMORY[0x277CBEB58]);
-        v88 = 0;
-        v89 = &v88;
-        v90 = 0x3032000000;
-        v91 = __Block_byref_object_copy__56;
-        v92 = __Block_byref_object_dispose__56;
-        v93 = 0;
+        v87 = 0;
+        v88 = &v87;
+        v89 = 0x3032000000;
+        v90 = __Block_byref_object_copy__56;
+        v91 = __Block_byref_object_dispose__56;
+        v92 = 0;
         v35 = objc_alloc_init(MEMORY[0x277D10BB0]);
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDeleteWithCompletion___block_invoke;
-        v95 = &unk_27861B0F8;
+        v94 = &unk_27861B0F8;
         selfCopy = self;
-        v100 = &v88;
-        v61 = v32;
-        v99 = v61;
+        v99 = &v87;
+        v60 = v32;
+        v98 = v60;
         v36 = v33;
-        v97 = v36;
+        v96 = v36;
         v37 = v34;
-        v98 = v37;
+        v97 = v37;
         [v35 setDidFinish:buf];
         v38 = +[HDMutableDatabaseTransactionContext contextForReadingProtectedData];
         configuration3 = [(HDCloudSyncOperation *)self configuration];
@@ -95,40 +95,40 @@
         repository2 = [configuration4 repository];
         profile2 = [repository2 profile];
         database = [profile2 database];
-        v45 = v89;
-        v87 = v89[5];
-        v82[0] = MEMORY[0x277D85DD0];
-        v82[1] = 3221225472;
-        v82[2] = __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDeleteWithCompletion___block_invoke_309;
-        v82[3] = &unk_27861B120;
+        v45 = v88;
+        v86 = v88[5];
+        v81[0] = MEMORY[0x277D85DD0];
+        v81[1] = 3221225472;
+        v81[2] = __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDeleteWithCompletion___block_invoke_309;
+        v81[3] = &unk_27861B120;
         v46 = v35;
-        v83 = v46;
+        v82 = v46;
         selfCopy2 = self;
         v47 = v36;
         v48 = configuration4;
         v49 = v19;
         v50 = v41;
         v51 = v47;
-        v85 = v47;
+        v84 = v47;
         v52 = v37;
-        v86 = v52;
-        v77[0] = MEMORY[0x277D85DD0];
-        v77[1] = 3221225472;
-        v77[2] = __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDeleteWithCompletion___block_invoke_4;
-        v77[3] = &unk_27861B148;
+        v85 = v52;
+        v76[0] = MEMORY[0x277D85DD0];
+        v76[1] = 3221225472;
+        v76[2] = __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDeleteWithCompletion___block_invoke_4;
+        v76[3] = &unk_27861B148;
         v53 = v46;
-        v78 = v53;
+        v77 = v53;
         selfCopy3 = self;
         v54 = v51;
         v55 = v50;
         v19 = v49;
         v56 = v48;
         v57 = v54;
-        v80 = v54;
+        v79 = v54;
         v58 = v52;
-        v81 = v58;
-        LOBYTE(v52) = [database performTransactionWithContext:v55 error:&v87 block:v82 inaccessibilityHandler:v77];
-        objc_storeStrong(v45 + 5, v87);
+        v80 = v58;
+        LOBYTE(v52) = [database performTransactionWithContext:v55 error:&v86 block:v81 inaccessibilityHandler:v76];
+        objc_storeStrong(v45 + 5, v86);
 
         if (v52)
         {
@@ -137,22 +137,22 @@
 
         else
         {
-          [v53 failTaskWithError:{v89[5], v61}];
+          [v53 failTaskWithError:{v88[5], v60}];
         }
 
-        _Block_object_dispose(&v88, 8);
+        _Block_object_dispose(&v87, 8);
         goto LABEL_18;
       }
 
       v20 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Multiple device contexts for same identity"];
-      v21 = v72[5];
-      v72[5] = v20;
+      v21 = v71[5];
+      v71[5] = v20;
 
       _HKInitializeLogging();
       v22 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
       {
-        v23 = v72[5];
+        v23 = v71[5];
         *buf = 138543618;
         *&buf[4] = self;
         *&buf[12] = 2114;
@@ -163,52 +163,51 @@
 
     else
     {
-      if (!v72[5])
+      if (!v71[5])
       {
         v27 = [MEMORY[0x277CCA9B8] hk_error:11 description:@"No context record for local device on the cloud"];
-        v28 = v72[5];
-        v72[5] = v27;
+        v28 = v71[5];
+        v71[5] = v27;
       }
 
       _HKInitializeLogging();
       v29 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v60 = v72[5];
+        v59 = v71[5];
         *buf = 138543618;
         *&buf[4] = self;
         *&buf[12] = 2114;
-        *&buf[14] = v60;
+        *&buf[14] = v59;
         _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching context record for local identity %{public}@", buf, 0x16u);
       }
     }
 
-    [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v72[5]];
+    [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v71[5]];
 LABEL_18:
 
     goto LABEL_19;
   }
 
-  v24 = v72[5];
+  v24 = v71[5];
   if (!v24)
   {
     v25 = [MEMORY[0x277CCA9B8] hk_error:724 format:@"Context zone not present."];
-    v26 = v72[5];
-    v72[5] = v25;
+    v26 = v71[5];
+    v71[5] = v25;
 
-    v24 = v72[5];
+    v24 = v71[5];
   }
 
   [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v24];
 LABEL_19:
 
-  _Block_object_dispose(&v71, 8);
-  v59 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v70, 8);
 }
 
 uint64_t __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a1[6] + 8);
   obj = *(v3 + 40);
   v4 = [a2 deviceContextWithError:&obj];
@@ -225,25 +224,24 @@ uint64_t __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke(void *a
     v7 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v10 = a1[4];
-      v11 = *(*(a1[6] + 8) + 40);
+      v9 = a1[4];
+      v10 = *(*(a1[6] + 8) + 40);
       *buf = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v11;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v10;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch context record: %{public}@", buf, 0x16u);
     }
 
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke_303(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = v8;
@@ -255,19 +253,19 @@ void __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke_303(uint64_
     {
       v11 = v10;
       *buf = 134218240;
-      v28 = [v7 count];
-      v29 = 2048;
-      v30 = [v9 count];
+      v27 = [v7 count];
+      v28 = 2048;
+      v29 = [v9 count];
       _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to save %lu key-value records, delete %lu key-value records", buf, 0x16u);
     }
 
     v12 = *(a1 + 32);
     v13 = [v7 allObjects];
-    v25 = v9;
+    v24 = v9;
     v14 = [v9 allObjects];
     if (v12)
     {
-      v26 = v14;
+      v25 = v14;
       v15 = v14;
       v16 = v13;
       v17 = [HDCloudSyncModifyRecordsOperation alloc];
@@ -281,23 +279,21 @@ void __46__HDCloudSyncPushDeviceKeyValueOperation_main__block_invoke_303(uint64_
       v13 = v20;
       [v12 delegateToOperation:v23];
 
-      v14 = v26;
+      v14 = v25;
     }
 
-    v9 = v25;
+    v9 = v24;
   }
 
   else
   {
     [*(a1 + 32) finishWithSuccess:0 error:a4];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDeleteWithCompletion___block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a4;
   if ([v5 count])
   {
@@ -305,13 +301,13 @@ void __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDelete
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v12 = a1[4];
-      v13 = *(*(a1[8] + 8) + 40);
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2114;
-      v17 = v13;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Error in fetching local entries %{public}@", &v14, 0x16u);
+      v9 = a1[4];
+      v10 = *(*(a1[8] + 8) + 40);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2114;
+      v14 = v10;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Error in fetching local entries %{public}@", &v11, 0x16u);
     }
 
     v7 = a1[7];
@@ -321,12 +317,8 @@ void __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDelete
 
   else
   {
-    v9 = a1[6];
-    v10 = a1[5];
     (*(a1[7] + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDeleteWithCompletion___block_invoke_309(uint64_t a1)
@@ -442,7 +434,7 @@ void __87__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSaveAndDelete
 
 void __95__HDCloudSyncPushDeviceKeyValueOperation__fetchLocalKeyValuesForProtectionCategory_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -452,8 +444,8 @@ void __95__HDCloudSyncPushDeviceKeyValueOperation__fetchLocalKeyValuesForProtect
     v9 = objc_alloc_init(v7);
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v11 = a1[4];
-    v49 = a1[6];
-    v51 = v6;
+    v48 = a1[6];
+    v50 = v6;
     v12 = v9;
     v13 = v10;
     v14 = v8;
@@ -462,98 +454,98 @@ void __95__HDCloudSyncPushDeviceKeyValueOperation__fetchLocalKeyValuesForProtect
     if (v11)
     {
       v17 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __120__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSave_recordIDsToDelete_localEntries_protectionCategory_error___block_invoke;
-      v62[3] = &unk_27861B198;
-      v62[4] = v11;
-      v18 = [v16 hk_mapToDictionary:v62];
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __120__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSave_recordIDsToDelete_localEntries_protectionCategory_error___block_invoke;
+      v61[3] = &unk_27861B198;
+      v61[4] = v11;
+      v18 = [v16 hk_mapToDictionary:v61];
       v19 = *(v11 + 104);
       v20 = objc_opt_class();
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __120__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSave_recordIDsToDelete_localEntries_protectionCategory_error___block_invoke_2;
-      v56[3] = &unk_27861B1C0;
-      v47 = v15;
-      v56[4] = v15;
-      v61 = v49;
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __120__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSave_recordIDsToDelete_localEntries_protectionCategory_error___block_invoke_2;
+      v55[3] = &unk_27861B1C0;
+      v46 = v15;
+      v55[4] = v15;
+      v60 = v48;
       v21 = v18;
-      v57 = v21;
-      v58 = v13;
-      v50 = v17;
-      v59 = v50;
-      v46 = v12;
-      v60 = v46;
-      if ([v19 recordsForClass:v20 epoch:0 error:&v51 enumerationHandler:v56])
+      v56 = v21;
+      v57 = v13;
+      v49 = v17;
+      v58 = v49;
+      v45 = v12;
+      v59 = v45;
+      if ([v19 recordsForClass:v20 epoch:0 error:&v50 enumerationHandler:v55])
       {
-        v41 = v16;
-        v42 = v13;
-        v43 = v6;
-        v44 = v12;
-        v45 = a1;
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
+        v40 = v16;
+        v41 = v13;
+        v42 = v6;
+        v43 = v12;
+        v44 = a1;
         v53 = 0u;
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
         v22 = v21;
-        v23 = [v22 countByEnumeratingWithState:&v52 objects:v63 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v51 objects:v62 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v53;
+          v25 = *v52;
           do
           {
             v26 = 0;
-            v48 = v24;
+            v47 = v24;
             do
             {
-              if (*v53 != v25)
+              if (*v52 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v27 = *(*(&v52 + 1) + 8 * v26);
-              if (([v50 containsObject:v27] & 1) == 0)
+              v27 = *(*(&v51 + 1) + 8 * v26);
+              if (([v49 containsObject:v27] & 1) == 0)
               {
                 v28 = v21;
                 v29 = [HDCloudSyncDeviceKeyValueRecord alloc];
-                [*(v47 + 104) zoneIdentifier];
+                [*(v46 + 104) zoneIdentifier];
                 v31 = v30 = v25;
                 v32 = [v31 zoneIdentifier];
                 v33 = [v22 objectForKeyedSubscript:v27];
-                v34 = *(v47 + 112);
+                v34 = *(v46 + 112);
                 [MEMORY[0x277CCAD78] UUID];
                 v36 = v35 = v22;
                 v37 = [(HDCloudSyncDeviceKeyValueRecord *)v29 initInZone:v32 deviceKeyValueEntry:v33 deviceContextRecord:v34 UUID:v36];
                 v38 = [v37 record];
-                [v46 addObject:v38];
+                [v45 addObject:v38];
 
                 v21 = v28;
                 v22 = v35;
 
                 v25 = v30;
-                v24 = v48;
+                v24 = v47;
               }
 
               ++v26;
             }
 
             while (v24 != v26);
-            v24 = [v22 countByEnumeratingWithState:&v52 objects:v63 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v51 objects:v62 count:16];
           }
 
           while (v24);
         }
 
-        v12 = v44;
-        a1 = v45;
-        v13 = v42;
-        v6 = v43;
-        v16 = v41;
+        v12 = v43;
+        a1 = v44;
+        v13 = v41;
+        v6 = v42;
+        v16 = v40;
       }
     }
 
-    v39 = v51;
+    v39 = v50;
     (*(a1[5] + 16))();
   }
 
@@ -561,8 +553,6 @@ void __95__HDCloudSyncPushDeviceKeyValueOperation__fetchLocalKeyValuesForProtect
   {
     v39 = v5;
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_computeEntryHash:(uint64_t)hash
@@ -601,11 +591,11 @@ void __120__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSave_recordI
 
 uint64_t __120__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSave_recordIDsToDelete_localEntries_protectionCategory_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v25 = 0;
-  v4 = [v3 deviceKeyValueEntry:&v25];
-  v5 = v25;
+  v24 = 0;
+  v4 = [v3 deviceKeyValueEntry:&v24];
+  v5 = v24;
   if (v4)
   {
     v6 = [v4 syncIdentity];
@@ -654,14 +644,13 @@ uint64_t __120__HDCloudSyncPushDeviceKeyValueOperation__computeRecordsToSave_rec
     {
       v21 = *(a1 + 32);
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2114;
-      v29 = v5;
+      v26 = v21;
+      v27 = 2114;
+      v28 = v5;
       _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching key value entry for remote record during computing updated records %{public}@", buf, 0x16u);
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

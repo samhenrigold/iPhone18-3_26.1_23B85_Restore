@@ -17,9 +17,9 @@ void _UIApplicationSceneDisconnectionHandler_block_invoke_3(uint64_t a1, void *a
     {
       v6 = [UIApp _defaultSceneIfExists];
       v7 = [v5 _FBSScene];
-      v8 = [v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (v8)
+      if (isEqual)
       {
         if (([UIApp isFrontBoard] & 1) == 0)
         {

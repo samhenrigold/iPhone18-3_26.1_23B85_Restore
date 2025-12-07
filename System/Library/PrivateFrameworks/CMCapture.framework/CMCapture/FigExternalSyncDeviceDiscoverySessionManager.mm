@@ -180,7 +180,7 @@ uint64_t __72__FigExternalSyncDeviceDiscoverySessionManager_deviceDisconnectedEv
   dispatch_async(queue, v6);
 }
 
-uint64_t __72__FigExternalSyncDeviceDiscoverySessionManager_registerClient_delegate___block_invoke(uint64_t a1)
+void *__72__FigExternalSyncDeviceDiscoverySessionManager_registerClient_delegate___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 64);
   v9[0] = *(a1 + 48);
@@ -243,7 +243,7 @@ uint64_t __72__FigExternalSyncDeviceDiscoverySessionManager_registerClient_deleg
   dispatch_async(queue, block);
 }
 
-uint64_t __75__FigExternalSyncDeviceDiscoverySessionManager_unregisterAndCleanupClient___block_invoke(uint64_t a1)
+void *__75__FigExternalSyncDeviceDiscoverySessionManager_unregisterAndCleanupClient___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 56);
   v17[0] = *(a1 + 40);
@@ -409,7 +409,7 @@ uint64_t __75__FigExternalSyncDeviceDiscoverySessionManager_unregisterAndCleanup
   return v3;
 }
 
-uint64_t __62__FigExternalSyncDeviceDiscoverySessionManager_currentDevices__block_invoke(uint64_t a1)
+void *__62__FigExternalSyncDeviceDiscoverySessionManager_currentDevices__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _currentDevices];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -586,10 +586,10 @@ uint64_t __62__FigExternalSyncDeviceDiscoverySessionManager_currentDevices__bloc
       }
     }
 
-    v13 = 0;
-    IORegistryEntryGetRegistryEntryID(v7, &v13);
+    *v13 = 0;
+    IORegistryEntryGetRegistryEntryID(v7, v13);
     v12 = [FigExternalSyncDevice alloc];
-    -[FigExternalSyncDeviceDiscoverySessionManager _addDevice:](self, "_addDevice:", -[FigExternalSyncDevice initWithHpmEntID:ssamEntID:connectionState:vid:pid:](v12, "initWithHpmEntID:ssamEntID:connectionState:vid:pid:", v13, entryID[0], 1, [v8 unsignedIntValue], objc_msgSend(v9, "unsignedIntValue")));
+    -[FigExternalSyncDeviceDiscoverySessionManager _addDevice:](self, "_addDevice:", -[FigExternalSyncDevice initWithHpmEntID:ssamEntID:connectionState:vid:pid:](v12, "initWithHpmEntID:ssamEntID:connectionState:vid:pid:", *v13, entryID[0], 1, [v8 unsignedIntValue], objc_msgSend(v9, "unsignedIntValue")));
   }
 }
 

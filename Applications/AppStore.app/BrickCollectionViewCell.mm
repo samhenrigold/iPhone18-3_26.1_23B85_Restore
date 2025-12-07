@@ -23,7 +23,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000F8C64();
+  sub_1000F8C64(selfCopy, v2);
 }
 
 - (void)prepareForReuse

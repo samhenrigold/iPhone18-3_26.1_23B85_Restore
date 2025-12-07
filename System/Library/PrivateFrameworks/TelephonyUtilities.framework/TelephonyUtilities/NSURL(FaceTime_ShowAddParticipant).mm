@@ -1,11 +1,11 @@
 @interface NSURL(FaceTime_ShowAddParticipant)
 - (id)conversationGroupUUID;
-- (uint64_t)isShowAddParticipantURL;
+- (void)isShowAddParticipantURL;
 @end
 
 @implementation NSURL(FaceTime_ShowAddParticipant)
 
-- (uint64_t)isShowAddParticipantURL
+- (void)isShowAddParticipantURL
 {
   result = [self isFaceTimeMultiwayURL];
   if (result)

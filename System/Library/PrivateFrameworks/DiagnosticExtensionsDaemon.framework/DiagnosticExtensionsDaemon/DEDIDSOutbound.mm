@@ -143,39 +143,39 @@
 
 - (void)deviceSupportsDiagnosticExtensions:(id)extensions session:(id)session
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   sessionCopy = session;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(extensionsCopy, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = extensionsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       v14 = 0;
       do
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        serialize = [*(*(&v20 + 1) + 8 * v14) serialize];
+        serialize = [*(*(&v19 + 1) + 8 * v14) serialize];
         [v9 addObject:serialize];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
@@ -187,8 +187,6 @@
   v17 = [DEDIDSConnection packPayload:dictionary];
   deviceAddress = [(DEDIDSOutbound *)self deviceAddress];
   [connection sendMessage:3 withData:v17 forIDSDeviceID:deviceAddress isResponse:0];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDiagnosticWithIdentifier:(id)identifier parameters:(id)parameters session:(id)session

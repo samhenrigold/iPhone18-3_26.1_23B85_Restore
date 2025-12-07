@@ -61,12 +61,12 @@
 - (id)identifier
 {
   v3 = MEMORY[0x1E696AEC0];
-  [(PXPhotoKitLivePhotoVideoContentProviderSpec *)self crossfadeDuration];
+  objc_msgSend_crossfadeDuration(self, a2);
   Seconds = CMTimeGetSeconds(&time);
-  [(PXPhotoKitLivePhotoVideoContentProviderSpec *)self loopTimeRange];
+  objc_msgSend_loopTimeRange(self);
   time = v9;
   v5 = CMTimeGetSeconds(&time);
-  [(PXPhotoKitLivePhotoVideoContentProviderSpec *)self loopTimeRange];
+  objc_msgSend_loopTimeRange(self);
   time = v8;
   v6 = [v3 stringWithFormat:@"-%f-%f-%f", *&Seconds, *&v5, CMTimeGetSeconds(&time)];
 

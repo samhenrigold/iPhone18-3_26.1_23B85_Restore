@@ -277,7 +277,7 @@ void *__49__AVExternalSyncDevice_handleSessionStateChange___block_invoke(uint64_
   dispatch_async(queue, block);
 }
 
-uint64_t __44__AVExternalSyncDevice_handleClockReceived___block_invoke(uint64_t a1)
+void *__44__AVExternalSyncDevice_handleClockReceived___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) referencedObject];
   result = [v2 _setClock:*(a1 + 40)];
@@ -325,7 +325,7 @@ uint64_t __44__AVExternalSyncDevice_handleClockReceived___block_invoke(uint64_t 
   dispatch_async(queue, block);
 }
 
-uint64_t __56__AVExternalSyncDevice_handleClockSetupFailedWithError___block_invoke(uint64_t a1)
+void *__56__AVExternalSyncDevice_handleClockSetupFailedWithError___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) referencedObject];
   if (result)
@@ -364,13 +364,13 @@ uint64_t __56__AVExternalSyncDevice_handleClockSetupFailedWithError___block_invo
   dispatch_async(queue, block);
 }
 
-uint64_t __43__AVExternalSyncDevice_handleFollowTimeout__block_invoke(uint64_t a1)
+void *__43__AVExternalSyncDevice_handleFollowTimeout__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) referencedObject];
   if (result)
   {
     v2 = result;
-    v3 = *(result + 56);
+    v3 = result[7];
     if (v3)
     {
 
@@ -411,15 +411,15 @@ uint64_t __43__AVExternalSyncDevice_handleFollowTimeout__block_invoke(uint64_t a
   dispatch_async(queue, block);
 }
 
-uint64_t __65__AVExternalSyncDevice_handleLockStateUpdateTriggerID_lockState___block_invoke(uint64_t a1)
+_BYTE *__65__AVExternalSyncDevice_handleLockStateUpdateTriggerID_lockState___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) referencedObject];
   v3 = *(a1 + 40);
-  *(result + 97) = v3;
+  result[97] = v3;
   if (v3 == 1)
   {
     v4 = result;
-    if (*(result + 16))
+    if (*(result + 2))
     {
       result = [result state];
       if (result == 4)
@@ -458,6 +458,8 @@ id *__62__AVExternalSyncDevice_handleTSMSGOutOfBoundsTriggerID_error___block_inv
     v2 = result;
     if ([result state] == 8 || (result = objc_msgSend(v2, "state"), result == 16))
     {
+      v5 = 0;
+      v4 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -674,13 +676,13 @@ LABEL_9:
   dispatch_async(queue, block);
 }
 
-uint64_t __46__AVExternalSyncDevice__handleSourceDiedEvent__block_invoke(uint64_t a1)
+void *__46__AVExternalSyncDevice__handleSourceDiedEvent__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) referencedObject];
   if (result)
   {
     v2 = *(result + 24);
-    v3 = *(result + 40);
+    v3 = result[5];
     if (v2)
     {
       v4 = 2;
@@ -786,7 +788,7 @@ uint64_t __46__AVExternalSyncDevice__handleSourceDiedEvent__block_invoke(uint64_
   captureDeviceInput = self->_captureDeviceInput;
   if (captureDeviceInput)
   {
-    [(AVCaptureDeviceInput *)captureDeviceInput activeExternalSyncVideoFrameDuration];
+    objc_msgSend_activeExternalSyncVideoFrameDuration(captureDeviceInput);
     v5 = self->_captureDeviceInput;
   }
 
@@ -920,6 +922,8 @@ void *__53__AVExternalSyncDevice_handleTransitionToConfiguring__block_invoke(uin
 
     else if (dword_1EB385A38)
     {
+      v7 = 0;
+      v6 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();

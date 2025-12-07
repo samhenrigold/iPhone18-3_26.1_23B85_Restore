@@ -85,39 +85,40 @@ void __36__ARRemoteControl_initWithEndpoint___block_invoke_2(uint64_t a1)
 
 void __36__ARRemoteControl_initWithEndpoint___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v3 = v2;
   if (ARShouldUseLogTypeError_onceToken_51 != -1)
   {
     __36__ARRemoteControl_initWithEndpoint___block_invoke_3_cold_1();
   }
 
-  v3 = ARShouldUseLogTypeError_internalOSVersion_51;
-  v4 = _ARLogGeneral_45();
-  v5 = v4;
-  if (v3 == 1)
+  v4 = ARShouldUseLogTypeError_internalOSVersion_51;
+  v5 = _ARLogGeneral_45(v2);
+  v6 = v5;
+  if (v4 == 1)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v6 = [v2 description];
-      v10 = 138412290;
-      v11 = v6;
-      v7 = "ARRemoteControl: Remote object proxy failed with error: %@";
-      v8 = v5;
-      v9 = OS_LOG_TYPE_ERROR;
+      v7 = [v3 description];
+      v11 = 138412290;
+      v12 = v7;
+      v8 = "ARRemoteControl: Remote object proxy failed with error: %@";
+      v9 = v6;
+      v10 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-      _os_log_impl(&dword_1C241C000, v8, v9, v7, &v10, 0xCu);
+      _os_log_impl(&dword_1C241C000, v9, v10, v8, &v11, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = [v2 description];
-    v10 = 138412290;
-    v11 = v6;
-    v7 = "Error: ARRemoteControl: Remote object proxy failed with error: %@";
-    v8 = v5;
-    v9 = OS_LOG_TYPE_INFO;
+    v7 = [v3 description];
+    v11 = 138412290;
+    v12 = v7;
+    v8 = "Error: ARRemoteControl: Remote object proxy failed with error: %@";
+    v9 = v6;
+    v10 = OS_LOG_TYPE_INFO;
     goto LABEL_8;
   }
 }
@@ -132,37 +133,38 @@ LABEL_8:
 
 void __30__ARRemoteControl_syncControl__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v3 = v2;
   if (ARShouldUseLogTypeError_onceToken_51 != -1)
   {
     __36__ARRemoteControl_initWithEndpoint___block_invoke_3_cold_1();
   }
 
-  v3 = ARShouldUseLogTypeError_internalOSVersion_51;
-  v4 = _ARLogGeneral_45();
-  v5 = v4;
-  if (v3 == 1)
+  v4 = ARShouldUseLogTypeError_internalOSVersion_51;
+  v5 = _ARLogGeneral_45(v2);
+  v6 = v5;
+  if (v4 == 1)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v2;
-      v6 = "ARRemoteControl: Sync remote object proxy failed with error: %@";
-      v7 = v5;
-      v8 = OS_LOG_TYPE_ERROR;
+      v10 = 138412290;
+      v11 = v3;
+      v7 = "ARRemoteControl: Sync remote object proxy failed with error: %@";
+      v8 = v6;
+      v9 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-      _os_log_impl(&dword_1C241C000, v7, v8, v6, &v9, 0xCu);
+      _os_log_impl(&dword_1C241C000, v8, v9, v7, &v10, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v2;
-    v6 = "Error: ARRemoteControl: Sync remote object proxy failed with error: %@";
-    v7 = v5;
-    v8 = OS_LOG_TYPE_INFO;
+    v10 = 138412290;
+    v11 = v3;
+    v7 = "Error: ARRemoteControl: Sync remote object proxy failed with error: %@";
+    v8 = v6;
+    v9 = OS_LOG_TYPE_INFO;
     goto LABEL_8;
   }
 }
@@ -180,7 +182,7 @@ LABEL_8:
 - (void)interruptionHandler
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogGeneral_45();
+  v3 = _ARLogGeneral_45(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -199,7 +201,7 @@ LABEL_8:
 - (void)invalidationHandler
 {
   v10 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogGeneral_45();
+  v3 = _ARLogGeneral_45(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();

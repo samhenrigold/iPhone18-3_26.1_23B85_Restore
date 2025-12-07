@@ -143,28 +143,28 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v71 = *MEMORY[0x277D85DE8];
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
+  v70 = *MEMORY[0x277D85DE8];
   v68 = 0u;
-  v65 = 0u;
+  v69 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
-  v61 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v59 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v57 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
+  v53 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v49 = 0u;
   TLV8BufferInit();
   operationType = [(HAPAccessCodeControl *)self operationType];
 
@@ -172,30 +172,30 @@ LABEL_21:
   {
 LABEL_8:
     errorCopy = error;
-    v46 = 0u;
-    v44 = 0u;
     v45 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v42 = 0u;
     accessCodeControlRequest = [(HAPAccessCodeControl *)self accessCodeControlRequest];
-    v35 = [accessCodeControlRequest countByEnumeratingWithState:&v43 objects:v49 count:16];
-    if (v35)
+    v34 = [accessCodeControlRequest countByEnumeratingWithState:&v42 objects:v48 count:16];
+    if (v34)
     {
-      v13 = *v44;
+      v13 = *v43;
       v14 = 1;
 LABEL_10:
       v15 = 0;
 LABEL_11:
-      if (*v44 != v13)
+      if (*v43 != v13)
       {
         objc_enumerationMutation(accessCodeControlRequest);
       }
 
-      v16 = *(*(&v43 + 1) + 8 * v15);
+      v16 = *(*(&v42 + 1) + 8 * v15);
       if ((v14 & 1) != 0 || (v17 = TLV8BufferAppend(), !v17))
       {
-        v42 = 0;
-        v18 = [v16 serializeWithError:&v42];
-        v19 = v42;
+        v41 = 0;
+        v18 = [v16 serializeWithError:&v41];
+        v19 = v41;
         if (!v19)
         {
           bytes = [v18 bytes];
@@ -214,14 +214,14 @@ LABEL_11:
             {
 
               v14 = 0;
-              if (++v15 != v35)
+              if (++v15 != v34)
               {
                 goto LABEL_11;
               }
 
               v14 = 0;
-              v35 = [accessCodeControlRequest countByEnumeratingWithState:&v43 objects:v49 count:16];
-              if (v35)
+              v34 = [accessCodeControlRequest countByEnumeratingWithState:&v42 objects:v48 count:16];
+              if (v34)
               {
                 goto LABEL_10;
               }
@@ -239,38 +239,38 @@ LABEL_11:
     {
 LABEL_24:
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       accessCodeControlRequest = [(HAPAccessCodeControl *)self accessCodeControlResponse];
-      v24 = [accessCodeControlRequest countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v24 = [accessCodeControlRequest countByEnumeratingWithState:&v37 objects:v47 count:16];
       if (!v24)
       {
 LABEL_40:
 
-        v10 = [MEMORY[0x277CBEA90] dataWithBytes:v50 length:?];
+        v10 = [MEMORY[0x277CBEA90] dataWithBytes:v49 length:?];
         v8 = 0;
         goto LABEL_47;
       }
 
       v25 = v24;
-      v26 = *v39;
+      v26 = *v38;
       v27 = 1;
 LABEL_26:
       v28 = 0;
 LABEL_27:
-      if (*v39 != v26)
+      if (*v38 != v26)
       {
         objc_enumerationMutation(accessCodeControlRequest);
       }
 
-      v29 = *(*(&v38 + 1) + 8 * v28);
+      v29 = *(*(&v37 + 1) + 8 * v28);
       if ((v27 & 1) != 0 || (v17 = TLV8BufferAppend(), !v17))
       {
-        v37 = 0;
-        v18 = [v29 serializeWithError:&v37];
-        v19 = v37;
+        v36 = 0;
+        v18 = [v29 serializeWithError:&v36];
+        v19 = v36;
         if (!v19)
         {
           bytes2 = [v18 bytes];
@@ -294,7 +294,7 @@ LABEL_27:
                 goto LABEL_27;
               }
 
-              v25 = [accessCodeControlRequest countByEnumeratingWithState:&v38 objects:v48 count:16];
+              v25 = [accessCodeControlRequest countByEnumeratingWithState:&v37 objects:v47 count:16];
               v27 = 0;
               if (v25)
               {
@@ -336,9 +336,9 @@ LABEL_3:
   }
 
   operationType2 = [(HAPAccessCodeControl *)self operationType];
-  v47 = 0;
-  accessCodeControlRequest = [operationType2 serializeWithError:&v47];
-  v8 = v47;
+  v46 = 0;
+  accessCodeControlRequest = [operationType2 serializeWithError:&v46];
+  v8 = v46;
 
   if (v8)
   {
@@ -370,8 +370,6 @@ LABEL_46:
   v10 = 0;
 LABEL_47:
   TLV8BufferFree();
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

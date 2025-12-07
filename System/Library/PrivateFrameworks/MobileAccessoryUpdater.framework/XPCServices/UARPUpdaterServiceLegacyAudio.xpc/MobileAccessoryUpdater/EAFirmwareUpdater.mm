@@ -40,6 +40,7 @@
 - (void)setFirmwareURL:(id)l withManifest:(id)manifest signature:(id)signature certificate:(id)certificate hash:(id)hash;
 - (void)setManifestIDs:(id)ds;
 - (void)setSession:(id)session;
+- (void)startReconnectTimer:(int)timer;
 - (void)stopReconnectTimer;
 - (void)stream:(id)stream handleEvent:(unint64_t)event;
 - (void)updateComplete:(id)complete error:(id)error;
@@ -390,6 +391,23 @@ LABEL_14:
   }
 
   return [(EAFirmwareUpdater *)self accessory]!= 0;
+}
+
+- (void)startReconnectTimer:(int)timer
+{
+  v3 = *&timer;
+  objc_sync_enter(self);
+  -[EAFirmwareUpdater log:format:](self, "log:format:", 5, @"%s %@", "-[EAFirmwareUpdater startReconnectTimer:]", [[NSString alloc] initWithFormat:@"_isExpectingReconnect=%d reconnectType=%d", self->_isExpectingReconnect, v3]);
+  if (self->_reconnectTimer)
+  {
+    [(EAFirmwareUpdater *)self stopReconnectTimer];
+  }
+
+  self->_isExpectingReconnect = v3;
+  self->_reconnectTimer = [NSTimer timerWithTimeInterval:self target:"reconnectTimerDidFire:" selector:0 userInfo:0 repeats:90.0];
+  [+[NSRunLoop mainRunLoop](NSRunLoop addTimer:"addTimer:forMode:" forMode:self->_reconnectTimer, NSDefaultRunLoopMode];
+
+  objc_sync_exit(self);
 }
 
 - (void)setManifestIDs:(id)ds
@@ -1061,6 +1079,7 @@ LABEL_18:
   v11 = v10;
   if (*(v10 + 16))
   {
+    selfCopy = self;
     v12 = 0;
     while (1)
     {
@@ -1100,7 +1119,7 @@ LABEL_18:
       v17 = @"Error could not update Manifest size in SuperBinary header";
     }
 
-    sub_100014CDC(self, v17);
+    sub_100014CDC(selfCopy, v17);
     v15 = 0;
     goto LABEL_13;
   }
@@ -1746,7 +1765,7 @@ LABEL_16:
           {
             if (self->_eaNotificationDispatchQueue)
             {
-              sub_100014E40(&v17);
+              sub_100014E40(v17);
               goto LABEL_16;
             }
 
@@ -1766,7 +1785,7 @@ LABEL_16:
           {
             if (self->_eaNotificationDispatchQueue)
             {
-              sub_100014E00(&v16);
+              sub_100014E00(v16);
               goto LABEL_16;
             }
 
@@ -1799,7 +1818,7 @@ LABEL_16:
     objc_sync_enter(self);
     v5 = [objc_msgSend(disconnect "userInfo")];
     -[EAFirmwareUpdater log:format:](self, "log:format:", 5, @"%s %@", "-[EAFirmwareUpdater _accessoryDidDisconnect:]", [[NSString alloc] initWithFormat:@"_isExpectingReconnect=%d _isMultiAssetSession=%d disconnecting=[%@:%lu:FWvA%@:FWvP%@] current=[%@:%lu:FWvA%@:FWP%@]", self->_isExpectingReconnect, self->_isMultiAssetSession, objc_msgSend(v5, "modelNumber"), objc_msgSend(v5, "connectionID"), objc_msgSend(v5, "firmwareRevisionActive"), objc_msgSend(v5, "firmwareRevisionPending"), -[EAAccessory modelNumber](-[EAFirmwareUpdater accessory](self, "accessory"), "modelNumber"), -[EAAccessory connectionID](-[EAFirmwareUpdater accessory](self, "accessory"), "connectionID"), -[EAAccessory firmwareRevisionActive](-[EAFirmwareUpdater accessory](self, "accessory"), "firmwareRevisionActive"), -[EAAccessory firmwareRevisionPending](-[EAFirmwareUpdater accessory](self, "accessory"), "firmwareRevisionPending")]);
-    sub_100014E80(&self->_eaNotificationDispatchQueue, &v6, v5, self);
+    sub_100014E80(&self->_eaNotificationDispatchQueue, v6, v5, self);
   }
 }
 
@@ -1876,15 +1895,15 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  v24 = [objc_opt_class() getEAFirmwareRevisionPending:self->_accessory forProtocol:self->_protocolString];
-  v23 = [objc_opt_class() getEAFirmwareRevisionActive:self->_accessory forProtocol:self->_protocolString];
+  v21 = [objc_opt_class() getEAFirmwareRevisionPending:self->_accessory forProtocol:self->_protocolString];
+  v20 = [objc_opt_class() getEAFirmwareRevisionActive:self->_accessory forProtocol:self->_protocolString];
   v5 = [NSString alloc];
   modelNumber = [(EAAccessory *)self->_accessory modelNumber];
   connectionID = [(EAAccessory *)self->_accessory connectionID];
   modelNumber2 = [accessory modelNumber];
   connectionID2 = [accessory connectionID];
   v10 = [objc_opt_class() getEAFirmwareRevisionActive:accessory forProtocol:self->_protocolString];
-  v11 = [v5 initWithFormat:@"old=[%@:%lu:FWvA%@:FWvP%@] new=[%@:%lu:FWvA%@:FWvP%@] ", modelNumber, connectionID, v23, v24, modelNumber2, connectionID2, v10, objc_msgSend(objc_opt_class(), "getEAFirmwareRevisionPending:forProtocol:", accessory, self->_protocolString)];
+  v11 = [v5 initWithFormat:@"old=[%@:%lu:FWvA%@:FWvP%@] new=[%@:%lu:FWvA%@:FWvP%@] ", modelNumber, connectionID, v20, v21, modelNumber2, connectionID2, v10, objc_msgSend(objc_opt_class(), "getEAFirmwareRevisionPending:forProtocol:", accessory, self->_protocolString)];
   [sub_1000091D4() log:"-[EAFirmwareUpdater setAccessory:]" format:v11];
   accessory = self->_accessory;
   if (accessory)
@@ -1925,9 +1944,7 @@ LABEL_16:
           self->_firmwareVersionMajor = [objc_msgSend(v17 objectAtIndex:{0), "longLongValue"}];
           self->_firmwareVersionMinor = [objc_msgSend(v17 objectAtIndex:{1), "longLongValue"}];
           self->_firmwareVersionRelease = [objc_msgSend(v17 objectAtIndex:{2), "longLongValue"}];
-          v18 = [NSString alloc];
-          firmwareVersionMinor = self->_firmwareVersionMinor;
-          [sub_1000091D4() log:"-[EAFirmwareUpdater setAccessory:]" format:{objc_msgSend(v18, "initWithFormat:", @" - FW Version: %llu.%llu.%llu", self->_firmwareVersionMajor, firmwareVersionMinor, self->_firmwareVersionRelease)}];
+          [sub_1000091D4() log:"-[EAFirmwareUpdater setAccessory:]" format:{objc_msgSend([NSString alloc], "initWithFormat:", @" - FW Version: %llu.%llu.%llu", self->_firmwareVersionMajor, self->_firmwareVersionMinor, self->_firmwareVersionRelease)}];
           goto LABEL_14;
         }
       }
@@ -1940,12 +1957,11 @@ LABEL_18:
 
 LABEL_14:
   [sub_1000091D4() log:"-[EAFirmwareUpdater setAccessory:]" format:{objc_msgSend([NSString alloc], "initWithFormat:", @" - FW Version: %llu.%llu.%llu (%@)", self->_firmwareVersionMajor, self->_firmwareVersionMinor, self->_firmwareVersionRelease, -[EAFirmwareUpdater protocolString](self, "protocolString"))}];
-  v20 = self->_firmwareVersionMinor;
-  [(EAFirmwareUpdater *)self setCurrentFirmwareVersionOnAcc:[NSString stringWithFormat:@"%llu.%llu.%llu", self->_firmwareVersionMajor, v20, self->_firmwareVersionRelease]];
+  [(EAFirmwareUpdater *)self setCurrentFirmwareVersionOnAcc:[NSString stringWithFormat:@"%llu.%llu.%llu", self->_firmwareVersionMajor, self->_firmwareVersionMinor, self->_firmwareVersionRelease]];
 LABEL_15:
   sub_100009258();
 
-  [v21 setSession:?];
+  [v18 setSession:?];
 }
 
 - (id)supportedProtocolForAccessory:(id)accessory
@@ -1965,26 +1981,25 @@ LABEL_15:
       if (result)
       {
         v6 = result;
-        v13 = 0u;
-        v14 = 0u;
-        v11 = 0u;
         v12 = 0u;
-        result = [result countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v13 = 0u;
+        v10 = 0u;
+        v11 = 0u;
+        result = [result countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (result)
         {
           v7 = result;
-          v8 = *v12;
+          v8 = *v11;
           while (2)
           {
             v9 = 0;
             do
             {
-              if (*v12 != v8)
+              if (*v11 != v8)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v10 = *(*(&v11 + 1) + 8 * v9);
               if ([(EAFirmwareUpdater *)self isMultiAssetSession])
               {
                 if (sub_10000921C([(EAFirmwareUpdater *)self multiAssetAppProtocol]) != 0x7FFFFFFFFFFFFFFFLL)
@@ -2006,11 +2021,11 @@ LABEL_15:
                 }
               }
 
-              v9 = v9 + 1;
+              ++v9;
             }
 
             while (v7 != v9);
-            result = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+            result = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
             v7 = result;
             if (result)
             {
@@ -2111,10 +2126,10 @@ LABEL_15:
 {
   if (![(EAFirmwareUpdater *)self asset])
   {
-    v32 = @"NoAsset";
-    v33 = 2;
+    v29 = @"NoAsset";
+    v30 = 2;
 LABEL_27:
-    sub_100006010(0, v33, v32, v3, v4, v5, v6, v7, v36);
+    sub_100006010(0, v30, v29, v3, v4, v5, v6, v7, v33);
     v14 = 0;
     goto LABEL_21;
   }
@@ -2123,30 +2138,30 @@ LABEL_27:
   v14 = v8;
   if (!v8)
   {
-    v34 = @"No local URL for asset";
-    v35 = 5;
+    v31 = @"No local URL for asset";
+    v32 = 5;
 LABEL_32:
-    sub_100006010(0, v35, v34, v9, v10, v11, v12, v13, v36);
+    sub_100006010(0, v32, v31, v9, v10, v11, v12, v13, v33);
     goto LABEL_21;
   }
 
   v15 = [[NSString alloc] initWithFormat:@"validating MobileAsset [localURL=%@] attributes=%@\n", v8, objc_msgSend(-[EAFirmwareUpdater asset](self, "asset"), "attributes")];
-  v36 = "[EAFirmwareUpdater validateAsset]";
-  v38 = v15;
+  v33 = "[EAFirmwareUpdater validateAsset]";
+  v35 = v15;
   [sub_1000091D4() log:? format:?];
   -[EAFirmwareUpdater setFirmwareBundleURL:](self, "setFirmwareBundleURL:", [-[FirmwareBundle URLByAppendingPathComponent:](v14 URLByAppendingPathComponent:{-[EAFirmwareUpdater firmwareBundleFilename](self, "firmwareBundleFilename")), "filePathURL"}]);
   if (![(EAFirmwareUpdater *)self firmwareBundleURL])
   {
-    v32 = @"Couldn't build firmware update URL";
-    v33 = 4;
+    v29 = @"Couldn't build firmware update URL";
+    v30 = 4;
     goto LABEL_27;
   }
 
   if (![+[NSFileManager isReadableFileAtPath:"isReadableFileAtPath:"]
   {
-    v36 = [(EAFirmwareUpdater *)self firmwareBundleURL:"[EAFirmwareUpdater validateAsset]"];
-    v32 = @"No firmware bundle: %@";
-    v33 = 6;
+    v33 = [(EAFirmwareUpdater *)self firmwareBundleURL:"[EAFirmwareUpdater validateAsset]"];
+    v29 = @"No firmware bundle: %@";
+    v30 = 6;
     goto LABEL_27;
   }
 
@@ -2160,9 +2175,9 @@ LABEL_32:
   v14 = v16;
   if (!v16)
   {
-    v34 = @"Couldn't read firmware bundle";
+    v31 = @"Couldn't read firmware bundle";
 LABEL_31:
-    v35 = 4;
+    v32 = 4;
     goto LABEL_32;
   }
 
@@ -2171,53 +2186,51 @@ LABEL_31:
     [(FirmwareBundle *)v14 loadFirmwareImage];
   }
 
-  bytes = [(NSData *)[(FirmwareBundle *)v14 firmwareImage] bytes];
+  [(NSData *)[(FirmwareBundle *)v14 firmwareImage] bytes];
   [(NSData *)[(FirmwareBundle *)v14 firmwareImage] length];
-  v18 = parseSuperBinaryAndPayloadHeaders();
-  if (!v18)
+  v17 = parseSuperBinaryAndPayloadHeaders();
+  if (!v17)
   {
-    v34 = @"Couldn't parse SuperBinary header";
+    v31 = @"Couldn't parse SuperBinary header";
     goto LABEL_31;
   }
 
-  v19 = v18;
-  if (*(v18 + 16))
+  v18 = v17;
+  if (*(v17 + 16))
   {
-    v20 = 0;
-    v21 = (v18 + 20);
+    v19 = 0;
+    v20 = (v17 + 20);
     while (1)
     {
-      v22 = [NSString stringWithFormat:@"%c%c%c%c", *v21, v21[1], v21[2], v21[3]];
-      if (!v22)
+      v21 = [NSString stringWithFormat:@"%c%c%c%c", *v20, v20[1], v20[2], v20[3]];
+      if (!v21)
       {
-        sub_100006010(0, 4, @"Couldn't parse SuperBinary header tag", v23, v24, v25, v26, v27, v37);
+        sub_100006010(0, 4, @"Couldn't parse SuperBinary header tag", v22, v23, v24, v25, v26, v34);
         goto LABEL_20;
       }
 
-      if ([(NSString *)v22 isEqualToString:@"sbmd"])
+      if ([(NSString *)v21 isEqualToString:@"sbmd"])
       {
         break;
       }
 
-      ++v20;
-      v21 += 20;
-      if (v20 >= v19[8])
+      ++v19;
+      v20 += 20;
+      if (v19 >= v18[8])
       {
         goto LABEL_20;
       }
     }
 
-    v28 = &bytes[*(v21 + 3)];
-    v29 = (*(v21 + 4) + *(v21 + 3));
     if (metadataTLVGetNext())
     {
-      v30 = [[NSString alloc] initWithFormat:@"Warning: Unsupported TLV type found in metadata: %d", 0];
+      v27 = [[NSString alloc] initWithFormat:@"Warning: Unsupported TLV type found in metadata: %d", 0];
       [sub_1000091D4() log:? format:?];
     }
   }
 
 LABEL_20:
-  free(v19);
+  free(v18);
 LABEL_21:
 
   sub_100009258();

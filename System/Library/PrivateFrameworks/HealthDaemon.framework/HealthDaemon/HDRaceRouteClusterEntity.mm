@@ -15,7 +15,7 @@
 + (int64_t)nextSyncAnchorWithSession:(id)session startSyncAnchor:(int64_t)anchor profile:(id)profile error:(id *)error;
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error;
 + (uint64_t)_deleteClusterBackingDataWithPredicate:(void *)predicate transaction:(uint64_t)transaction error:;
-+ (uint64_t)_enumerateRoutePointsForClusterUUID:(double)d workoutSelection:(uint64_t)selection timestampAnchor:(void *)anchor limit:(uint64_t)limit startDuration:(uint64_t)duration finishDuration:(void *)finishDuration profile:(uint64_t)profile error:(void *)self0 dataHandler:;
++ (uint64_t)_enumerateRoutePointsForClusterUUID:(uint64_t)d workoutSelection:(uint64_t)selection timestampAnchor:(void *)anchor limit:(uint64_t)limit startDuration:(void *)duration finishDuration:(double)finishDuration profile:(double)profile error:(double)self0 dataHandler:;
 - (uint64_t)_fetchWorkoutIDsWithTransaction:(uint64_t)transaction error:(void *)error handler:;
 @end
 
@@ -48,10 +48,9 @@
   v3[20] = @"sync_anchor";
   v3[21] = @"relevance_anchor";
   v3[22] = @"sync_identity";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:23];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:23];
 
-  return v0;
+  return v1;
 }
 
 void __102__HDRaceRouteClusterEntity__insertRacingCluster_routeSnapshot_syncIdentity_transaction_profile_error___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -99,7 +98,6 @@ void __102__HDRaceRouteClusterEntity__insertRacingCluster_routeSnapshot_syncIden
   MEMORY[0x22AAC6B30](a2, @"frozen", 1);
   MEMORY[0x22AAC6B90](a2, @"sync_anchor", *(*(*(a1 + 64) + 8) + 24));
   MEMORY[0x22AAC6B90](a2, @"relevance_anchor", *(*(*(a1 + 64) + 8) + 24));
-  v12 = *(a1 + 72);
 
   JUMPOUT(0x22AAC6B90);
 }
@@ -256,7 +254,7 @@ LABEL_30:
     v52 = v43;
     if ([v43 executeSQL:@"SELECT COALESCE(MAX(relevance_anchor) + 1 error:1) FROM RacePreviousRoute_concrete_cluster" bindingHandler:error enumerationHandler:{0, &v72}])
     {
-      v49 = +[HDRaceRouteClusterEntity _baseEntityProperties];
+      v49 = +[(HDRaceRouteClusterEntity *)v42];
       v62 = MEMORY[0x277D85DD0];
       v63 = 3221225472;
       v64 = __102__HDRaceRouteClusterEntity__insertRacingCluster_routeSnapshot_syncIdentity_transaction_profile_error___block_invoke_2;
@@ -347,7 +345,7 @@ void __109__HDRaceRouteClusterEntity_insertOrUpdateRacingCluster_routeSnapshot_s
 
   if (error)
   {
-    v13 = [v12 copy];
+    v13 = objc_msgSend_copy(v12);
   }
 
   else
@@ -360,7 +358,7 @@ void __109__HDRaceRouteClusterEntity_insertOrUpdateRacingCluster_routeSnapshot_s
 
 uint64_t __75__HDRaceRouteClusterEntity_raceRouteClustersForActivityType_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [v4 databaseForEntityClass:*(a1 + 40)];
   v6 = MEMORY[0x277D10B18];
@@ -369,31 +367,29 @@ uint64_t __75__HDRaceRouteClusterEntity_raceRouteClustersForActivityType_profile
 
   v9 = [MEMORY[0x277D10B18] predicateWithProperty:@"frozen" equalToValue:MEMORY[0x277CBEC38]];
   v10 = MEMORY[0x277D10B20];
-  v29[0] = v8;
-  v29[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v27[0] = v8;
+  v27[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
   v12 = [v10 predicateMatchingAllPredicates:v11];
 
   v13 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"relevance" entityClass:*(a1 + 40) ascending:0];
   v14 = *(a1 + 40);
   v15 = *MEMORY[0x277D10C08];
-  v28 = v13;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v26 = v13;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   v17 = [v14 queryWithDatabase:v5 predicate:v12 limit:v15 orderingTerms:v16 groupBy:0];
 
-  v18 = *(a1 + 40);
-  v19 = +[HDRaceRouteClusterEntity _baseEntityProperties];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __75__HDRaceRouteClusterEntity_raceRouteClustersForActivityType_profile_error___block_invoke_2;
-  v25[3] = &unk_27861E428;
-  v26 = v4;
-  v27 = *(a1 + 32);
-  v20 = v4;
-  v21 = [v17 enumeratePersistentIDsAndProperties:v19 error:a3 enumerationHandler:v25];
+  v18 = +[(HDRaceRouteClusterEntity *)*(a1];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __75__HDRaceRouteClusterEntity_raceRouteClustersForActivityType_profile_error___block_invoke_2;
+  v23[3] = &unk_27861E428;
+  v24 = v4;
+  v25 = *(a1 + 32);
+  v19 = v4;
+  v20 = [v17 enumeratePersistentIDsAndProperties:v18 error:a3 enumerationHandler:v23];
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v20;
 }
 
 uint64_t __75__HDRaceRouteClusterEntity_raceRouteClustersForActivityType_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -477,7 +473,7 @@ uint64_t __75__HDRaceRouteClusterEntity_raceRouteClustersForActivityType_profile
 
 + (BOOL)pruneRaceRouteClustersWithEligibleEntities:(id)entities transaction:(id)transaction error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v9 = [entities hk_map:&__block_literal_global_80];
   v10 = [MEMORY[0x277D10B28] doesNotContainPredicateWithProperty:@"ROWID" values:v9];
@@ -485,23 +481,23 @@ uint64_t __75__HDRaceRouteClusterEntity_raceRouteClustersForActivityType_profile
   {
     v11 = [transactionCopy databaseForEntityClass:self];
     v12 = [self deleteEntitiesInDatabase:v11 predicate:v10 error:error];
-    v21 = 0;
-    v13 = [HDRaceRouteWorkoutEntity pruneWorkoutsMarkedForDeletionInTransaction:transactionCopy error:&v21];
-    v14 = v21;
+    v20 = 0;
+    v13 = [HDRaceRouteWorkoutEntity pruneWorkoutsMarkedForDeletionInTransaction:transactionCopy error:&v20];
+    v14 = v20;
     if (!v13)
     {
       _HKInitializeLogging();
       v15 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
-        v18 = v15;
-        v19 = objc_opt_class();
+        v17 = v15;
+        v18 = objc_opt_class();
         *buf = 138543618;
-        v23 = v19;
-        v24 = 2114;
-        v25 = v14;
-        v20 = v19;
-        _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: Failed to prune workouts marked for deletion: %{public}@", buf, 0x16u);
+        v22 = v18;
+        v23 = 2114;
+        v24 = v14;
+        v19 = v18;
+        _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%{public}@: Failed to prune workouts marked for deletion: %{public}@", buf, 0x16u);
       }
     }
   }
@@ -511,7 +507,6 @@ uint64_t __75__HDRaceRouteClusterEntity_raceRouteClustersForActivityType_profile
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -525,52 +520,51 @@ uint64_t __89__HDRaceRouteClusterEntity_pruneRaceRouteClustersWithEligibleEntiti
 
 + (uint64_t)_deleteClusterBackingDataWithPredicate:(void *)predicate transaction:(uint64_t)transaction error:
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   v7 = a2;
   v8 = objc_opt_self();
   v9 = [predicateCopy databaseForEntityClass:v8];
   v10 = [v8 queryWithDatabase:v9 predicate:v7];
 
-  v18[0] = @"last_workout_rowid";
-  v18[1] = @"best_workout_rowid";
-  v18[2] = @"snapshot_id";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __85__HDRaceRouteClusterEntity__deleteClusterBackingDataWithPredicate_transaction_error___block_invoke;
-  v16[3] = &unk_27861E4C0;
-  v17 = predicateCopy;
+  v17[0] = @"last_workout_rowid";
+  v17[1] = @"best_workout_rowid";
+  v17[2] = @"snapshot_id";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __85__HDRaceRouteClusterEntity__deleteClusterBackingDataWithPredicate_transaction_error___block_invoke;
+  v15[3] = &unk_27861E4C0;
+  v16 = predicateCopy;
   v12 = predicateCopy;
-  v13 = [v10 enumerateProperties:v11 error:transaction enumerationHandler:v16];
+  v13 = [v10 enumerateProperties:v11 error:transaction enumerationHandler:v15];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-+ (uint64_t)_enumerateRoutePointsForClusterUUID:(double)d workoutSelection:(uint64_t)selection timestampAnchor:(void *)anchor limit:(uint64_t)limit startDuration:(uint64_t)duration finishDuration:(void *)finishDuration profile:(uint64_t)profile error:(void *)self0 dataHandler:
++ (uint64_t)_enumerateRoutePointsForClusterUUID:(uint64_t)d workoutSelection:(uint64_t)selection timestampAnchor:(void *)anchor limit:(uint64_t)limit startDuration:(void *)duration finishDuration:(double)finishDuration profile:(double)profile error:(double)self0 dataHandler:
 {
+  v18 = a2;
+  durationCopy = duration;
   anchorCopy = anchor;
-  errorCopy = error;
-  finishDurationCopy = finishDuration;
   v21 = objc_opt_self();
-  database = [finishDurationCopy database];
+  database = [anchorCopy database];
 
   v27[0] = MEMORY[0x277D85DD0];
   v27[1] = 3221225472;
   v27[2] = __158__HDRaceRouteClusterEntity__enumerateRoutePointsForClusterUUID_workoutSelection_timestampAnchor_limit_startDuration_finishDuration_profile_error_dataHandler___block_invoke;
   v27[3] = &unk_27861E538;
   v30 = v21;
-  limitCopy = limit;
-  selfCopy = self;
-  durationCopy = duration;
-  v34 = a2;
   dCopy = d;
-  v28 = anchorCopy;
-  v29 = errorCopy;
-  v23 = errorCopy;
-  v24 = anchorCopy;
-  v25 = [v21 performReadTransactionWithHealthDatabase:database error:profile block:v27];
+  finishDurationCopy = finishDuration;
+  selectionCopy = selection;
+  profileCopy = profile;
+  errorCopy = error;
+  v28 = v18;
+  v29 = durationCopy;
+  v23 = durationCopy;
+  v24 = v18;
+  v25 = [v21 performReadTransactionWithHealthDatabase:database error:limit block:v27];
 
   return v25;
 }
@@ -669,11 +663,9 @@ LABEL_13:
   return v16;
 }
 
-uint64_t __85__HDRaceRouteClusterEntity__entityForLastWorkoutUUID_bestWorkoutUUID_database_error___block_invoke(uint64_t a1)
+uint64_t __85__HDRaceRouteClusterEntity__entityForLastWorkoutUUID_bestWorkoutUUID_database_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -759,27 +751,25 @@ uint64_t __59__HDRaceRouteClusterEntity__isFrozenWithTransaction_error___block_i
 uint64_t __102__HDRaceRouteClusterEntity__applyIncrementalChangeWithRelevance_workoutClusterUUID_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_double(a2, 1, *(a1 + 48));
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = [MEMORY[0x277CBEAA8] date];
+  v4 = [MEMORY[0x277CBEAA8] date];
   HDSQLiteBindFoundationValueToStatement();
 
-  v6 = [*(a1 + 40) persistentID];
+  v5 = [*(a1 + 40) persistentID];
 
-  return sqlite3_bind_int64(a2, 4, v6);
+  return sqlite3_bind_int64(a2, 4, v5);
 }
 
 uint64_t __97__HDRaceRouteClusterEntity__applyIncrementalChangeWithRouteLabel_snapshotData_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, [*(a1 + 40) persistentID]);
-  v5 = [MEMORY[0x277CBEAA8] date];
+  v4 = [MEMORY[0x277CBEAA8] date];
   HDSQLiteBindFoundationValueToStatement();
 
-  v6 = [*(a1 + 48) persistentID];
+  v5 = [*(a1 + 48) persistentID];
 
-  return sqlite3_bind_int64(a2, 4, v6);
+  return sqlite3_bind_int64(a2, 4, v5);
 }
 
 void __99__HDRaceRouteClusterEntity__insertCodableLastRoutePoints_codableBestRoutePoints_transaction_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -798,11 +788,10 @@ void __99__HDRaceRouteClusterEntity__insertCodableLastRoutePoints_codableBestRou
 
 uint64_t __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUUID_eligibleEntity_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = [*(a1 + 40) persistentID];
+  v4 = [*(a1 + 40) persistentID];
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 BOOL __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUUID_eligibleEntity_transaction_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -822,11 +811,10 @@ BOOL __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUU
 
 uint64_t __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUUID_eligibleEntity_transaction_error___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = [*(a1 + 40) persistentID];
+  v4 = [*(a1 + 40) persistentID];
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 uint64_t __74__HDRaceRouteClusterEntity__fetchWorkoutIDsWithTransaction_error_handler___block_invoke(uint64_t a1, sqlite3_stmt *a2)
@@ -836,17 +824,17 @@ uint64_t __74__HDRaceRouteClusterEntity__fetchWorkoutIDsWithTransaction_error_ha
   return sqlite3_bind_int64(a2, 1, v3);
 }
 
-uint64_t __74__HDRaceRouteClusterEntity__fetchWorkoutIDsWithTransaction_error_handler___block_invoke_2(uint64_t a1)
+uint64_t __74__HDRaceRouteClusterEntity__fetchWorkoutIDsWithTransaction_error_handler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  v5 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v6 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
   return 0;
 }
@@ -940,61 +928,57 @@ uint64_t __158__HDRaceRouteClusterEntity__enumerateRoutePointsForClusterUUID_wor
 
 + (id)uniquedColumns
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"uuid";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"uuid";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D10B38]) initWithEntityClass:objc_opt_class() property:@"ROWID" deletionAction:0 isDeferred:1];
-  v6 = @"snapshot_id";
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"snapshot_id";
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)privateSubEntities
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 + (id)insertCodableCluster:(id)cluster syncProvenance:(int64_t)provenance syncIdentity:(int64_t)identity transaction:(id)transaction error:(id *)error
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   transactionCopy = transaction;
   v13 = MEMORY[0x277CCAD78];
   uuid = [clusterCopy uuid];
-  v89 = [v13 hk_UUIDWithData:uuid];
+  v88 = [v13 hk_UUIDWithData:uuid];
 
-  v88 = [transactionCopy databaseForEntityClass:self];
-  v99 = 0;
-  v15 = [(HDRaceRouteClusterEntity *)self _entityForClusterUUID:v89 database:v88 error:&v99];
-  v16 = v99;
-  v85 = v16;
+  v87 = [transactionCopy databaseForEntityClass:self];
+  v98 = 0;
+  v15 = [(HDRaceRouteClusterEntity *)self _entityForClusterUUID:v88 database:v87 error:&v98];
+  v16 = v98;
+  v84 = v16;
   if (!v15)
   {
-    if ([v16 hk_isObjectNotFoundError])
+    if (objc_msgSend_hk_isObjectNotFoundError(v16))
     {
       lastWorkoutMetrics = [clusterCopy lastWorkoutMetrics];
       bestWorkoutMetrics = [clusterCopy bestWorkoutMetrics];
       if (lastWorkoutMetrics && bestWorkoutMetrics)
       {
-        v81 = [HDRaceRouteWorkoutEntity insertCodableRacingMetrics:lastWorkoutMetrics transaction:transactionCopy error:error];
-        if (v81)
+        v80 = [HDRaceRouteWorkoutEntity insertCodableRacingMetrics:lastWorkoutMetrics transaction:transactionCopy error:error];
+        if (v80)
         {
           workoutUUID = [lastWorkoutMetrics workoutUUID];
           workoutUUID2 = [bestWorkoutMetrics workoutUUID];
@@ -1006,8 +990,8 @@ uint64_t __158__HDRaceRouteClusterEntity__enumerateRoutePointsForClusterUUID_wor
             goto LABEL_48;
           }
 
-          v80 = [HDRaceRouteWorkoutEntity insertCodableRacingMetrics:bestWorkoutMetrics transaction:transactionCopy error:error];
-          if (v80)
+          v79 = [HDRaceRouteWorkoutEntity insertCodableRacingMetrics:bestWorkoutMetrics transaction:transactionCopy error:error];
+          if (v79)
           {
             [clusterCopy routeSnapshot];
             v62 = LABEL_48:;
@@ -1015,20 +999,20 @@ uint64_t __158__HDRaceRouteClusterEntity__enumerateRoutePointsForClusterUUID_wor
 
             if (v63)
             {
-              v64 = +[HDRaceRouteClusterEntity _baseEntityProperties];
-              v90[0] = MEMORY[0x277D85DD0];
-              v90[1] = 3221225472;
-              v90[2] = __95__HDRaceRouteClusterEntity_insertCodableCluster_syncProvenance_syncIdentity_transaction_error___block_invoke;
-              v90[3] = &unk_27861E7A0;
-              v91 = clusterCopy;
-              v92 = lastWorkoutMetrics;
-              v93 = v81;
-              v94 = bestWorkoutMetrics;
-              v95 = v79;
-              v96 = v63;
+              v64 = +[(HDRaceRouteClusterEntity *)self];
+              v89[0] = MEMORY[0x277D85DD0];
+              v89[1] = 3221225472;
+              v89[2] = __95__HDRaceRouteClusterEntity_insertCodableCluster_syncProvenance_syncIdentity_transaction_error___block_invoke;
+              v89[3] = &unk_27861E7A0;
+              v90 = clusterCopy;
+              v91 = lastWorkoutMetrics;
+              v92 = v80;
+              v93 = bestWorkoutMetrics;
+              v94 = v78;
+              v95 = v63;
               provenanceCopy = provenance;
               identityCopy = identity;
-              v15 = [self insertOrReplaceEntity:0 database:v88 properties:v64 error:error bindingHandler:v90];
+              v15 = [self insertOrReplaceEntity:0 database:v87 properties:v64 error:error bindingHandler:v89];
 
               v65 = v15 != 0;
             }
@@ -1085,7 +1069,7 @@ LABEL_53:
 
     else
     {
-      v51 = v85;
+      v51 = v84;
       v52 = v51;
       if (v51)
       {
@@ -1107,26 +1091,26 @@ LABEL_53:
   }
 
   v17 = transactionCopy;
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x2020000000;
-  LOBYTE(v103) = 0;
+  v99 = 0;
+  v100 = &v99;
+  v101 = 0x2020000000;
+  LOBYTE(v102) = 0;
   v18 = [v17 databaseForEntity:v15];
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __59__HDRaceRouteClusterEntity__isFrozenWithTransaction_error___block_invoke;
-  v113 = &unk_278614860;
-  v114 = v15;
-  v106 = MEMORY[0x277D85DD0];
-  v107 = 3221225472;
-  v108 = __59__HDRaceRouteClusterEntity__isFrozenWithTransaction_error___block_invoke_2;
-  v109 = &unk_278614620;
-  v110 = &v100;
-  v19 = [v18 executeSQL:@"SELECT frozen FROM RacePreviousRoute_concrete_cluster WHERE ROWID = ?" error:error bindingHandler:buf enumerationHandler:&v106];
+  v112 = &unk_278614860;
+  v113 = v15;
+  v105 = MEMORY[0x277D85DD0];
+  v106 = 3221225472;
+  v107 = __59__HDRaceRouteClusterEntity__isFrozenWithTransaction_error___block_invoke_2;
+  v108 = &unk_278614620;
+  v109 = &v99;
+  v19 = [v18 executeSQL:@"SELECT frozen FROM RacePreviousRoute_concrete_cluster WHERE ROWID = ?" error:error bindingHandler:buf enumerationHandler:&v105];
 
   if (v19)
   {
-    v20 = [MEMORY[0x277CCABB0] numberWithBool:*(v101 + 24)];
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:*(v100 + 24)];
   }
 
   else
@@ -1134,7 +1118,7 @@ LABEL_53:
     v20 = 0;
   }
 
-  _Block_object_dispose(&v100, 8);
+  _Block_object_dispose(&v99, 8);
 
   if (!v20)
   {
@@ -1153,7 +1137,7 @@ LABEL_53:
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      *&buf[4] = v89;
+      *&buf[4] = v88;
       *&buf[12] = 2114;
       *&buf[14] = v27;
       _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "Updating relevance value for re-synced cluster UUID: %{public}@ (workout cluster %{public}@)", buf, 0x16u);
@@ -1166,11 +1150,11 @@ LABEL_53:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __102__HDRaceRouteClusterEntity__applyIncrementalChangeWithRelevance_workoutClusterUUID_transaction_error___block_invoke;
-    v113 = &unk_2786199F8;
-    v116 = v31;
+    v112 = &unk_2786199F8;
+    v115 = v31;
     v34 = v32;
-    v114 = v34;
-    v115 = v15;
+    v113 = v34;
+    v114 = v15;
     LODWORD(v32) = [v33 executeSQL:@"UPDATE RacePreviousRoute_concrete_cluster SET relevance = ? error:workout_cluster_uuid = ? bindingHandler:modified_date = ? WHERE ROWID = ?" enumerationHandler:{error, buf, 0}];
 
     if (v32)
@@ -1185,7 +1169,7 @@ LABEL_53:
       if (os_log_type_enabled(*v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        *&buf[4] = v89;
+        *&buf[4] = v88;
         *&buf[12] = 2114;
         *&buf[14] = v34;
         _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_DEFAULT, "Updating route snapshot/label for re-synced cluster UUID: %{public}@ (workout cluster %{public}@)", buf, 0x16u);
@@ -1202,15 +1186,15 @@ LABEL_53:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __97__HDRaceRouteClusterEntity__applyIncrementalChangeWithRouteLabel_snapshotData_transaction_error___block_invoke;
-        v113 = &unk_278613528;
+        v112 = &unk_278613528;
         v41 = v37;
-        v114 = v41;
+        v113 = v41;
         v42 = v39;
-        v115 = v42;
-        v116 = v15;
-        v87 = [v40 executeSQL:@"UPDATE RacePreviousRoute_concrete_cluster SET route_label = ? error:snapshot_id = ? bindingHandler:modified_date = ? WHERE ROWID = ?" enumerationHandler:{error, buf, 0}];
+        v114 = v42;
+        v115 = v15;
+        v86 = [v40 executeSQL:@"UPDATE RacePreviousRoute_concrete_cluster SET route_label = ? error:snapshot_id = ? bindingHandler:modified_date = ? WHERE ROWID = ?" enumerationHandler:{error, buf, 0}];
 
-        if (v87)
+        if (v86)
         {
 LABEL_22:
           v43 = v15;
@@ -1228,73 +1212,17 @@ LABEL_66:
     v43 = 0;
     goto LABEL_66;
   }
-
-  lastWorkoutMetrics2 = [clusterCopy lastWorkoutMetrics];
-  routePoints = [lastWorkoutMetrics2 routePoints];
-  bestWorkoutMetrics2 = [clusterCopy bestWorkoutMetrics];
-  routePoints2 = [bestWorkoutMetrics2 routePoints];
-  v47 = routePoints;
-  v48 = routePoints2;
-  v49 = v17;
-  *buf = 0;
-  *&buf[8] = buf;
-  *&buf[16] = 0x3032000000;
-  v113 = __Block_byref_object_copy__72;
-  v114 = __Block_byref_object_dispose__72;
-  v115 = 0;
-  v106 = 0;
-  v107 = &v106;
-  v108 = 0x3032000000;
-  v109 = __Block_byref_object_copy__72;
-  v110 = __Block_byref_object_dispose__72;
-  v111 = 0;
-  v100 = MEMORY[0x277D85DD0];
-  v101 = 3221225472;
-  v102 = __99__HDRaceRouteClusterEntity__insertCodableLastRoutePoints_codableBestRoutePoints_transaction_error___block_invoke;
-  v103 = &unk_27861E4E8;
-  v104 = buf;
-  v105 = &v106;
-  if ((-[HDRaceRouteClusterEntity _fetchWorkoutIDsWithTransaction:error:handler:](v15, v49, error, &v100) & 1) == 0 || [v47 count] && !+[HDRaceRouteWorkoutEntity insertCodableRoutePoints:workoutPersistentID:transaction:error:](HDRaceRouteWorkoutEntity, "insertCodableRoutePoints:workoutPersistentID:transaction:error:", v47, objc_msgSend(*(*&buf[8] + 40), "longLongValue"), v49, error))
-  {
-    goto LABEL_32;
-  }
-
-  if (![v48 count] || +[HDRaceRouteWorkoutEntity insertCodableRoutePoints:workoutPersistentID:transaction:error:](HDRaceRouteWorkoutEntity, "insertCodableRoutePoints:workoutPersistentID:transaction:error:", v48, objc_msgSend(*(v107 + 40), "longLongValue"), v49, error))
-  {
-    v50 = 1;
-  }
-
-  else
-  {
-LABEL_32:
-    v50 = 0;
-  }
-
-  _Block_object_dispose(&v106, 8);
+  v50 = ([clusterCopy lastWorkoutMetrics], v83 = ;
+  _Block_object_dispose(&v105, 8);
 
   _Block_object_dispose(buf, 8);
-  if (!v50)
+  if (!v50 || [clusterCopy final] && (*buf = @"frozen", v54 = MEMORY[0x277CBEA60], v55 = v49, objc_msgSend(v54, "arrayWithObjects:count:", buf, 1), v56 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v55, "databaseForEntity:", v15), v57 = objc_claimAutoreleasedReturnValue(), v55, LOBYTE(v55) = objc_msgSend(v15, "updateProperties:database:error:bindingHandler:", v56, v57, error, &__block_literal_global_413), v57, v56, (v55 & 1) == 0))
   {
-    goto LABEL_37;
-  }
-
-  if ([clusterCopy final])
-  {
-    *buf = @"frozen";
-    v54 = MEMORY[0x277CBEA60];
-    v55 = v49;
-    v56 = [v54 arrayWithObjects:buf count:1];
-    v57 = [v55 databaseForEntity:v15];
-
-    LOBYTE(v55) = [v15 updateProperties:v56 database:v57 error:error bindingHandler:&__block_literal_global_413];
-    if ((v55 & 1) == 0)
-    {
 LABEL_37:
-      v43 = 0;
+    v43 = 0;
 LABEL_67:
 
-      goto LABEL_68;
-    }
+    goto LABEL_68;
   }
 
   if (![clusterCopy final])
@@ -1314,26 +1242,26 @@ LABEL_56:
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUUID_eligibleEntity_transaction_error___block_invoke;
-  v113 = &unk_278613038;
+  v112 = &unk_278613038;
   v73 = v69;
-  v114 = v73;
+  v113 = v73;
   v74 = v70;
-  v115 = v74;
-  v100 = MEMORY[0x277D85DD0];
-  v101 = 3221225472;
-  v102 = __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUUID_eligibleEntity_transaction_error___block_invoke_2;
-  v103 = &unk_278614098;
+  v114 = v74;
+  v99 = MEMORY[0x277D85DD0];
+  v100 = 3221225472;
+  v101 = __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUUID_eligibleEntity_transaction_error___block_invoke_2;
+  v102 = &unk_278614098;
   v75 = v71;
-  v104 = v75;
-  if ([v72 executeSQL:@"SELECT last_workout_rowid error:best_workout_rowid FROM RacePreviousRoute_concrete_cluster WHERE workout_cluster_uuid = ? AND ROWID != ?" bindingHandler:error enumerationHandler:{buf, &v100}])
+  v103 = v75;
+  if ([v72 executeSQL:@"SELECT last_workout_rowid error:best_workout_rowid FROM RacePreviousRoute_concrete_cluster WHERE workout_cluster_uuid = ? AND ROWID != ?" bindingHandler:error enumerationHandler:{buf, &v99}])
   {
-    v106 = MEMORY[0x277D85DD0];
-    v107 = 3221225472;
-    v108 = __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUUID_eligibleEntity_transaction_error___block_invoke_3;
-    v109 = &unk_278613038;
-    v110 = v73;
-    v111 = v74;
-    v76 = [v72 executeSQL:@"DELETE FROM RacePreviousRoute_concrete_cluster WHERE workout_cluster_uuid = ? AND ROWID != ?" error:error bindingHandler:&v106 enumerationHandler:0];
+    v105 = MEMORY[0x277D85DD0];
+    v106 = 3221225472;
+    v107 = __107__HDRaceRouteClusterEntity__pruneRaceRouteClustersFromWorkoutClusterUUID_eligibleEntity_transaction_error___block_invoke_3;
+    v108 = &unk_278613038;
+    v109 = v73;
+    v110 = v74;
+    v76 = [v72 executeSQL:@"DELETE FROM RacePreviousRoute_concrete_cluster WHERE workout_cluster_uuid = ? AND ROWID != ?" error:error bindingHandler:&v105 enumerationHandler:0];
   }
 
   else
@@ -1355,8 +1283,6 @@ LABEL_61:
   }
 
 LABEL_68:
-
-  v77 = *MEMORY[0x277D85DE8];
 
   return v43;
 }
@@ -1404,7 +1330,6 @@ void __95__HDRaceRouteClusterEntity_insertCodableCluster_syncProvenance_syncIden
   MEMORY[0x22AAC6B30](a2, @"frozen", [*(a1 + 32) final]);
   MEMORY[0x22AAC6B90](a2, @"sync_anchor", 0);
   MEMORY[0x22AAC6B90](a2, @"relevance_anchor", 0);
-  v10 = *(a1 + 88);
 
   JUMPOUT(0x22AAC6B90);
 }
@@ -1476,92 +1401,92 @@ uint64_t __79__HDRaceRouteClusterEntity__enumerateClusterUUIDsForProfile_error_d
   v57 = &v56;
   v58 = 0x2020000000;
   v59 = start;
-  objc_opt_self();
-  v17 = +[HDRaceRouteClusterEntity _baseEntityProperties];
+  v17 = objc_opt_self();
+  v18 = +[(HDRaceRouteClusterEntity *)v17];
   v69 = @"modified_date";
   v70 = @"sync_provenance";
   v71 = @"frozen";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:3];
-  v40 = [v17 arrayByExcludingObjectsInArray:v18];
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:3];
+  v40 = [v18 arrayByExcludingObjectsInArray:v19];
 
-  v19 = [v40 componentsJoinedByString:{@", "}];
+  v20 = [v40 componentsJoinedByString:{@", "}];
   database = [profileCopy database];
   v43[0] = MEMORY[0x277D85DD0];
   v43[1] = 3221225472;
   v43[2] = __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
   v43[3] = &unk_27861E840;
   selfCopy = self;
-  v21 = v19;
-  v44 = v21;
+  v22 = v20;
+  v44 = v22;
   v48 = &v56;
   v53 = start;
   v54 = end;
   v49 = &v60;
-  v22 = profileCopy;
-  v45 = v22;
+  v23 = profileCopy;
+  v45 = v23;
   v50 = v68;
-  v23 = v16;
-  v46 = v23;
+  v24 = v16;
+  v46 = v24;
   v51 = &v64;
   v55 = v15;
-  v24 = handlerCopy;
-  v47 = v24;
-  v25 = [self performReadTransactionWithHealthDatabase:database error:error block:v43];
+  v25 = handlerCopy;
+  v47 = v25;
+  v26 = [self performReadTransactionWithHealthDatabase:database error:error block:v43];
 
   if (*(v61 + 24) != 1)
   {
-    if (v25)
+    if (v26)
     {
       goto LABEL_8;
     }
 
 LABEL_10:
-    v35 = 0;
+    v36 = 0;
     goto LABEL_11;
   }
 
-  v26 = objc_alloc_init(HDCodableRacingCluster);
+  v27 = objc_alloc_init(HDCodableRacingCluster);
   v41[0] = MEMORY[0x277D85DD0];
   v41[1] = 3221225472;
   v41[2] = __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_5;
   v41[3] = &unk_27861E868;
-  v27 = v26;
-  v42 = v27;
-  v28 = v41;
-  v29 = v22;
-  v30 = objc_opt_self();
-  database2 = [v29 database];
+  v28 = v27;
+  v42 = v28;
+  v29 = v41;
+  v30 = v23;
+  v31 = objc_opt_self();
+  database2 = [v30 database];
 
   v69 = MEMORY[0x277D85DD0];
   v70 = 3221225472;
   v71 = __79__HDRaceRouteClusterEntity__enumerateClusterUUIDsForProfile_error_dataHandler___block_invoke;
   v72 = &unk_27861E7C8;
-  v73 = v28;
-  v74 = v30;
-  v32 = v28;
-  LOBYTE(v28) = [v30 performReadTransactionWithHealthDatabase:database2 error:error block:&v69];
+  v73 = v29;
+  v74 = v31;
+  v33 = v29;
+  LOBYTE(v29) = [v31 performReadTransactionWithHealthDatabase:database2 error:error block:&v69];
 
-  if ((v28 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
 
     goto LABEL_10;
   }
 
-  eligibleClusterUUIDs = [(HDCodableRacingCluster *)v27 eligibleClusterUUIDs];
-  v34 = [eligibleClusterUUIDs count] == 0;
+  eligibleClusterUUIDs = [(HDCodableRacingCluster *)v28 eligibleClusterUUIDs];
+  v35 = [eligibleClusterUUIDs count] == 0;
 
-  if (!v34)
+  if (!v35)
   {
-    [v23 addObject:v27];
+    [v24 addObject:v28];
   }
 
-  if ((v25 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_8:
-  v35 = [v24 sendCodableChange:v23 resultAnchor:v57[3] sequence:v65[3] done:1 error:error];
+  v36 = [v25 sendCodableChange:v24 resultAnchor:v57[3] sequence:v65[3] done:1 error:error];
 LABEL_11:
 
   _Block_object_dispose(&v56, 8);
@@ -1569,39 +1494,37 @@ LABEL_11:
   _Block_object_dispose(&v64, 8);
   _Block_object_dispose(v68, 8);
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v35;
+  return v36;
 }
 
 uint64_t __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
   v6 = [v5 databaseForEntityClass:*(a1 + 96)];
-  v7 = *(*(*(a1 + 64) + 8) + 24);
-  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT %@ FROM RacePreviousRoute_concrete_cluster WHERE relevance_anchor > %lld AND relevance_anchor <= %lld ORDER BY relevance_anchor ASC", *(a1 + 32), v7, *(a1 + 112)];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2;
-  v17[3] = &unk_27861E818;
-  v9 = *(a1 + 104);
-  v22 = vextq_s8(*(a1 + 64), *(a1 + 64), 8uLL);
-  v25 = v9;
-  v26 = *(a1 + 96);
-  v18 = v5;
-  v10 = *(a1 + 40);
-  v11 = *(a1 + 80);
-  v19 = v10;
-  v23 = v11;
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 88);
-  v20 = v12;
-  v24 = v13;
-  v27 = *(a1 + 120);
-  v21 = *(a1 + 56);
-  v14 = v5;
-  v15 = [v6 executeSQL:v8 error:a3 bindingHandler:0 enumerationHandler:v17];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT %@ FROM RacePreviousRoute_concrete_cluster WHERE relevance_anchor > %lld AND relevance_anchor <= %lld ORDER BY relevance_anchor ASC", *(a1 + 32), *(*(*(a1 + 64) + 8) + 24), *(a1 + 112)];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2;
+  v16[3] = &unk_27861E818;
+  v8 = *(a1 + 104);
+  v21 = vextq_s8(*(a1 + 64), *(a1 + 64), 8uLL);
+  v24 = v8;
+  v25 = *(a1 + 96);
+  v17 = v5;
+  v9 = *(a1 + 40);
+  v10 = *(a1 + 80);
+  v18 = v9;
+  v22 = v10;
+  v11 = *(a1 + 48);
+  v12 = *(a1 + 88);
+  v19 = v11;
+  v23 = v12;
+  v26 = *(a1 + 120);
+  v20 = *(a1 + 56);
+  v13 = v5;
+  v14 = [v6 executeSQL:v7 error:a3 bindingHandler:0 enumerationHandler:v16];
 
-  return v15;
+  return v14;
 }
 
 uint64_t __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1610,283 +1533,281 @@ uint64_t __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAncho
   *(*(*(a1 + 72) + 8) + 24) = HDSQLiteColumnWithNameAsInt64();
   v4 = HDSQLiteColumnWithNameAsInt64();
   v5 = *(a1 + 96);
-  v6 = *(a1 + 112);
   objc_opt_self();
-  v7 = objc_alloc_init(HDCodableRacingCluster);
-  v8 = HDSQLiteColumnWithNameAsData();
-  [(HDCodableRacingCluster *)v7 setUuid:v8];
+  v6 = objc_alloc_init(HDCodableRacingCluster);
+  v7 = HDSQLiteColumnWithNameAsData();
+  [(HDCodableRacingCluster *)v6 setUuid:v7];
 
-  v9 = HDSQLiteColumnWithNameAsData();
-  [(HDCodableRacingCluster *)v7 setWorkoutClusterUUID:v9];
+  v8 = HDSQLiteColumnWithNameAsData();
+  [(HDCodableRacingCluster *)v6 setWorkoutClusterUUID:v8];
 
   HDSQLiteColumnWithNameAsDouble();
-  [(HDCodableRacingCluster *)v7 setRelevance:?];
+  [(HDCodableRacingCluster *)v6 setRelevance:?];
   if (v4 > v5)
   {
-    [(HDCodableRacingCluster *)v7 setActivityType:HDSQLiteColumnWithNameAsInt64()];
-    [(HDCodableRacingCluster *)v7 setClusterSize:HDSQLiteColumnWithNameAsInt64()];
-    v10 = objc_alloc_init(HDCodableRacingMetrics);
-    v11 = HDSQLiteColumnWithNameAsData();
-    [(HDCodableRacingMetrics *)v10 setWorkoutUUID:v11];
+    [(HDCodableRacingCluster *)v6 setActivityType:HDSQLiteColumnWithNameAsInt64()];
+    [(HDCodableRacingCluster *)v6 setClusterSize:HDSQLiteColumnWithNameAsInt64()];
+    v9 = objc_alloc_init(HDCodableRacingMetrics);
+    v10 = HDSQLiteColumnWithNameAsData();
+    [(HDCodableRacingMetrics *)v9 setWorkoutUUID:v10];
 
     HDSQLiteColumnWithNameAsDouble();
-    [(HDCodableRacingMetrics *)v10 setStartDate:?];
+    [(HDCodableRacingMetrics *)v9 setStartDate:?];
     HDSQLiteColumnWithNameAsDouble();
-    [(HDCodableRacingMetrics *)v10 setDistance:?];
+    [(HDCodableRacingMetrics *)v9 setDistance:?];
     HDSQLiteColumnWithNameAsDouble();
-    [(HDCodableRacingMetrics *)v10 setDuration:?];
-    [(HDCodableRacingCluster *)v7 setLastWorkoutMetrics:v10];
-    v12 = objc_alloc_init(HDCodableRacingMetrics);
-    v13 = HDSQLiteColumnWithNameAsData();
-    [(HDCodableRacingMetrics *)v12 setWorkoutUUID:v13];
+    [(HDCodableRacingMetrics *)v9 setDuration:?];
+    [(HDCodableRacingCluster *)v6 setLastWorkoutMetrics:v9];
+    v11 = objc_alloc_init(HDCodableRacingMetrics);
+    v12 = HDSQLiteColumnWithNameAsData();
+    [(HDCodableRacingMetrics *)v11 setWorkoutUUID:v12];
 
     HDSQLiteColumnWithNameAsDouble();
-    [(HDCodableRacingMetrics *)v12 setStartDate:?];
+    [(HDCodableRacingMetrics *)v11 setStartDate:?];
     HDSQLiteColumnWithNameAsDouble();
-    [(HDCodableRacingMetrics *)v12 setDistance:?];
+    [(HDCodableRacingMetrics *)v11 setDistance:?];
     HDSQLiteColumnWithNameAsDouble();
-    [(HDCodableRacingMetrics *)v12 setDuration:?];
-    [(HDCodableRacingCluster *)v7 setBestWorkoutMetrics:v12];
-    v14 = HDSQLiteColumnWithNameAsString();
-    [(HDCodableRacingCluster *)v7 setRouteLabel:v14];
+    [(HDCodableRacingMetrics *)v11 setDuration:?];
+    [(HDCodableRacingCluster *)v6 setBestWorkoutMetrics:v11];
+    v13 = HDSQLiteColumnWithNameAsString();
+    [(HDCodableRacingCluster *)v6 setRouteLabel:v13];
   }
 
-  v15 = *(a1 + 112);
-  v16 = *(a1 + 32);
-  v17 = *(a1 + 40);
-  v18 = v7;
-  v19 = v17;
-  v20 = v16;
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 40);
+  v16 = v6;
+  v17 = v15;
+  v18 = v14;
   objc_opt_self();
-  v21 = HDSQLiteColumnWithNameAsInt64();
-  v22 = [v19 syncIdentityManager];
+  v19 = HDSQLiteColumnWithNameAsInt64();
+  v20 = [v17 syncIdentityManager];
 
-  v23 = [v22 identityForEntityID:v21 transaction:v20 error:a3];
+  v21 = [v20 identityForEntityID:v19 transaction:v18 error:a3];
 
-  if (v23)
+  if (v21)
   {
-    v24 = [v23 identity];
-    v25 = [v24 codableSyncIdentity];
-    [(HDCodableRacingCluster *)v18 setSyncIdentity:v25];
+    v22 = [v21 identity];
+    v23 = [v22 codableSyncIdentity];
+    [(HDCodableRacingCluster *)v16 setSyncIdentity:v23];
 
     if (v4 <= v5)
     {
-      *(*(*(a1 + 80) + 8) + 24) += [(PBCodable *)v18 encodedByteCount];
-      [*(a1 + 48) addObject:v18];
-      v66 = 1;
+      *(*(*(a1 + 80) + 8) + 24) += [(PBCodable *)v16 encodedByteCount];
+      [*(a1 + 48) addObject:v16];
+      v64 = 1;
     }
 
     else
     {
-      v26 = MEMORY[0x277CCAD78];
-      v27 = [(HDCodableRacingCluster *)v18 uuid];
-      v28 = [v26 hk_UUIDWithData:v27];
+      v24 = MEMORY[0x277CCAD78];
+      v25 = [(HDCodableRacingCluster *)v16 uuid];
+      v26 = [v24 hk_UUIDWithData:v25];
 
-      v79 = [(HDSQLiteEntity *)[HDRaceRouteSnapshotEntity alloc] initWithPersistentID:HDSQLiteColumnWithNameAsInt64()];
-      v29 = [(HDRaceRouteSnapshotEntity *)v79 snapshotDataWithTransaction:*(a1 + 32) error:a3];
-      if (v29)
+      v77 = [(HDSQLiteEntity *)[HDRaceRouteSnapshotEntity alloc] initWithPersistentID:HDSQLiteColumnWithNameAsInt64()];
+      v27 = [(HDRaceRouteSnapshotEntity *)v77 snapshotDataWithTransaction:*(a1 + 32) error:a3];
+      if (v27)
       {
-        v77 = v29;
-        [(HDCodableRacingCluster *)v18 setRouteSnapshot:v29];
-        v105 = 0;
-        v106 = &v105;
-        v107 = 0x2020000000;
-        v108 = 0xBFF0000000000000;
-        v101 = 0;
-        v102 = &v101;
-        v103 = 0x2020000000;
-        v104 = 0xBFF0000000000000;
-        v30 = MEMORY[0x277CCAD78];
-        v31 = [(HDCodableRacingCluster *)v18 bestWorkoutMetrics];
-        v32 = [v31 workoutUUID];
-        v78 = [v30 hk_UUIDWithData:v32];
+        v75 = v27;
+        [(HDCodableRacingCluster *)v16 setRouteSnapshot:v27];
+        v103 = 0;
+        v104 = &v103;
+        v105 = 0x2020000000;
+        v106 = 0xBFF0000000000000;
+        v99 = 0;
+        v100 = &v99;
+        v101 = 0x2020000000;
+        v102 = 0xBFF0000000000000;
+        v28 = MEMORY[0x277CCAD78];
+        v29 = [(HDCodableRacingCluster *)v16 bestWorkoutMetrics];
+        v30 = [v29 workoutUUID];
+        v76 = [v28 hk_UUIDWithData:v30];
 
-        v33 = *(a1 + 32);
-        v34 = [*(a1 + 40) metadataManager];
-        v35 = [HDRaceRouteClusterWorkout clusterWorkoutWithWorkoutUUID:v78 transaction:v33 metadataManager:v34 error:a3];
+        v31 = *(a1 + 32);
+        v32 = [*(a1 + 40) metadataManager];
+        v33 = [HDRaceRouteClusterWorkout clusterWorkoutWithWorkoutUUID:v76 transaction:v31 metadataManager:v32 error:a3];
 
-        v80 = v35;
-        if (v35)
+        v78 = v33;
+        if (v33)
         {
-          v36 = MEMORY[0x277CCAD78];
-          v37 = [(HDCodableRacingCluster *)v18 lastWorkoutMetrics];
-          v38 = [v37 workoutUUID];
-          v39 = [v36 hk_UUIDWithData:v38];
+          v34 = MEMORY[0x277CCAD78];
+          v35 = [(HDCodableRacingCluster *)v16 lastWorkoutMetrics];
+          v36 = [v35 workoutUUID];
+          v37 = [v34 hk_UUIDWithData:v36];
 
-          v40 = *(a1 + 32);
-          v41 = [*(a1 + 40) metadataManager];
-          v42 = [HDRaceRouteClusterWorkout clusterWorkoutWithWorkoutUUID:v39 transaction:v40 metadataManager:v41 error:a3];
-          v76 = v39;
+          v38 = *(a1 + 32);
+          v39 = [*(a1 + 40) metadataManager];
+          v40 = [HDRaceRouteClusterWorkout clusterWorkoutWithWorkoutUUID:v37 transaction:v38 metadataManager:v39 error:a3];
+          v74 = v37;
 
-          if (v42)
+          if (v40)
           {
             *(*(*(a1 + 88) + 8) + 24) = 0;
-            v81 = v42;
+            v79 = v40;
             while (1)
             {
-              v43 = [(HDCodableRacingCluster *)v18 copy];
-              v44 = *(*(*(a1 + 80) + 8) + 24);
-              v45 = [v43 encodedByteCount];
-              v46 = *(a1 + 112);
-              v47 = *(a1 + 120) - v45 - v44;
-              if (v47 >= 150)
+              v41 = objc_msgSend_copy(v16, v74);
+              v42 = *(*(*(a1 + 80) + 8) + 24);
+              v43 = [v41 encodedByteCount];
+              v44 = *(a1 + 112);
+              v45 = *(a1 + 120) - v43 - v42;
+              if (v45 >= 150)
               {
-                v48 = v47 / 50;
+                v46 = v45 / 50;
               }
 
               else
               {
-                v48 = 2;
+                v46 = 2;
               }
 
-              v97 = 0;
-              v98 = &v97;
-              v99 = 0x2020000000;
-              v100 = 0;
-              v49 = v102[3];
-              [v42 startDuration];
+              v95 = 0;
+              v96 = &v95;
+              v97 = 0x2020000000;
+              v98 = 0;
+              v47 = v100[3];
+              [v40 startDuration];
+              v49 = v48;
+              [v40 finishDuration];
               v51 = v50;
-              [v42 finishDuration];
-              v53 = v52;
-              v54 = vcvtpd_u64_f64(vcvtd_n_f64_s64(v48, 1uLL));
-              v55 = *(a1 + 40);
-              v92[0] = MEMORY[0x277D85DD0];
-              v92[1] = 3221225472;
-              v92[2] = __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_3;
-              v92[3] = &unk_27861E7F0;
-              v94 = &v97;
-              v96 = v54;
-              v56 = v43;
-              v93 = v56;
-              v95 = &v101;
-              if (([(HDRaceRouteClusterEntity *)v49 _enumerateRoutePointsForClusterUUID:v51 workoutSelection:v53 timestampAnchor:v46 limit:v28 startDuration:1 finishDuration:v54 + 1 profile:v55 error:a3 dataHandler:v92]& 1) == 0)
+              v52 = vcvtpd_u64_f64(vcvtd_n_f64_s64(v46, 1uLL));
+              v53 = *(a1 + 40);
+              v90[0] = MEMORY[0x277D85DD0];
+              v90[1] = 3221225472;
+              v90[2] = __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_3;
+              v90[3] = &unk_27861E7F0;
+              v92 = &v95;
+              v94 = v52;
+              v54 = v41;
+              v91 = v54;
+              v93 = &v99;
+              if (([(HDRaceRouteClusterEntity *)v44 _enumerateRoutePointsForClusterUUID:v26 workoutSelection:1 timestampAnchor:v52 + 1 limit:v53 startDuration:a3 finishDuration:v90 profile:v47 error:v49 dataHandler:v51]& 1) == 0)
               {
-                v66 = 0;
-                v65 = 1;
+                v64 = 0;
+                v63 = 1;
                 goto LABEL_29;
               }
 
-              v57 = v18;
-              v58 = v28;
-              v88 = 0;
-              v89 = &v88;
-              v90 = 0x2020000000;
-              v91 = 0;
-              v59 = [v56 lastWorkoutMetrics];
+              v55 = v16;
+              v56 = v26;
+              v86 = 0;
+              v87 = &v86;
+              v88 = 0x2020000000;
+              v89 = 0;
+              v57 = [v54 lastWorkoutMetrics];
+              v58 = [v57 workoutUUID];
+              v59 = [v54 bestWorkoutMetrics];
               v60 = [v59 workoutUUID];
-              v61 = [v56 bestWorkoutMetrics];
-              v62 = [v61 workoutUUID];
-              v63 = [v60 isEqualToData:v62];
+              v61 = [v58 isEqualToData:v60];
 
-              if (v63)
+              if (v61)
               {
-                v64 = v98;
+                v62 = v96;
               }
 
               else
               {
-                v67 = *(a1 + 112);
-                v68 = v106[3];
-                [v80 startDuration];
+                v65 = *(a1 + 112);
+                v66 = v104[3];
+                [v78 startDuration];
+                v68 = v67;
+                v26 = v56;
+                [v78 finishDuration];
                 v70 = v69;
-                v28 = v58;
-                [v80 finishDuration];
-                v72 = v71;
-                v73 = *(a1 + 40);
-                v83[0] = MEMORY[0x277D85DD0];
-                v83[1] = 3221225472;
-                v83[2] = __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_4;
-                v83[3] = &unk_27861E7F0;
-                v85 = &v88;
-                v87 = v54;
-                v84 = v56;
-                v86 = &v105;
-                LODWORD(v73) = [(HDRaceRouteClusterEntity *)v68 _enumerateRoutePointsForClusterUUID:v70 workoutSelection:v72 timestampAnchor:v67 limit:v58 startDuration:2 finishDuration:v54 + 1 profile:v73 error:a3 dataHandler:v83];
+                v71 = *(a1 + 40);
+                v81[0] = MEMORY[0x277D85DD0];
+                v81[1] = 3221225472;
+                v81[2] = __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_4;
+                v81[3] = &unk_27861E7F0;
+                v83 = &v86;
+                v85 = v52;
+                v82 = v54;
+                v84 = &v103;
+                LODWORD(v71) = [(HDRaceRouteClusterEntity *)v65 _enumerateRoutePointsForClusterUUID:v56 workoutSelection:2 timestampAnchor:v52 + 1 limit:v71 startDuration:a3 finishDuration:v81 profile:v66 error:v68 dataHandler:v70];
 
-                if (!v73)
+                if (!v71)
                 {
-                  v66 = 0;
-                  v65 = 1;
+                  v64 = 0;
+                  v63 = 1;
                   goto LABEL_26;
                 }
 
-                if (v98[3] > v54)
+                if (v96[3] > v52)
                 {
 LABEL_20:
-                  v65 = 1;
+                  v63 = 1;
                   goto LABEL_21;
                 }
 
-                v64 = v89;
+                v62 = v87;
               }
 
-              if (v64[3] > v54)
+              if (v62[3] > v52)
               {
                 goto LABEL_20;
               }
 
-              [v56 setFinal:1];
-              v65 = 0;
+              [v54 setFinal:1];
+              v63 = 0;
 LABEL_21:
-              *(*(*(a1 + 80) + 8) + 24) += [v56 encodedByteCount];
-              [*(a1 + 48) addObject:v56];
+              *(*(*(a1 + 80) + 8) + 24) += [v54 encodedByteCount];
+              [*(a1 + 48) addObject:v54];
               if (*(*(*(a1 + 80) + 8) + 24) > *(a1 + 120))
               {
-                v28 = v58;
-                v18 = v57;
-                v42 = v81;
+                v26 = v56;
+                v16 = v55;
+                v40 = v79;
                 if ([*(a1 + 56) sendCodableChange:*(a1 + 48) resultAnchor:*(*(*(a1 + 72) + 8) + 24) sequence:*(*(*(a1 + 88) + 8) + 24) done:0 error:a3])
                 {
                   ++*(*(*(a1 + 88) + 8) + 24);
                   *(*(*(a1 + 80) + 8) + 24) = 0;
                   [*(a1 + 48) removeAllObjects];
-                  v66 = 1;
+                  v64 = 1;
                 }
 
                 else
                 {
-                  v66 = 0;
+                  v64 = 0;
                 }
 
                 goto LABEL_28;
               }
 
-              v66 = 1;
-              v28 = v58;
+              v64 = 1;
+              v26 = v56;
 LABEL_26:
-              v18 = v57;
-              v42 = v81;
+              v16 = v55;
+              v40 = v79;
 LABEL_28:
-              _Block_object_dispose(&v88, 8);
+              _Block_object_dispose(&v86, 8);
 LABEL_29:
 
-              _Block_object_dispose(&v97, 8);
-              if (!v65 || (v66 & 1) == 0)
+              _Block_object_dispose(&v95, 8);
+              if (!v63 || (v64 & 1) == 0)
               {
                 goto LABEL_38;
               }
             }
           }
 
-          v66 = 0;
+          v64 = 0;
 LABEL_38:
         }
 
         else
         {
-          v66 = 0;
+          v64 = 0;
         }
 
-        _Block_object_dispose(&v101, 8);
-        _Block_object_dispose(&v105, 8);
-        v74 = v79;
-        v29 = v77;
+        _Block_object_dispose(&v99, 8);
+        _Block_object_dispose(&v103, 8);
+        v72 = v77;
+        v27 = v75;
       }
 
       else
       {
-        v66 = 0;
-        v74 = v79;
+        v64 = 0;
+        v72 = v77;
       }
     }
   }
@@ -1894,10 +1815,10 @@ LABEL_38:
   else
   {
 
-    v66 = 0;
+    v64 = 0;
   }
 
-  return v66;
+  return v64;
 }
 
 uint64_t __103__HDRaceRouteClusterEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_3(uint64_t a1, void *a2)

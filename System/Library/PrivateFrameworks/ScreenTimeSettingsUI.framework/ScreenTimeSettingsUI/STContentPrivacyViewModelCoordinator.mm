@@ -738,12 +738,13 @@ LABEL_19:
 
     else
     {
-      if (![rmConfiguration isEqualToString:@"STSBCapabilityConfiguration"])
+      v18 = [rmConfiguration isEqualToString:@"STSBCapabilityConfiguration"];
+      if (!v18)
       {
-        v27 = STSupportedConfigurations();
-        v28 = [v27 objectForKeyedSubscript:rmConfiguration];
+        v28 = STSupportedConfigurations(v18);
+        v29 = [v28 objectForKeyedSubscript:rmConfiguration];
 
-        if (!v28)
+        if (!v29)
         {
           [(STContentPrivacyViewModelCoordinator *)a2 valueForRestriction:rmConfiguration];
         }
@@ -753,7 +754,7 @@ LABEL_19:
 
         if (v12)
         {
-          v18 = [(STContentPrivacyViewModelCoordinator *)self _valueInConfiguration:v12 keyPath:payloadKey];
+          v19 = [(STContentPrivacyViewModelCoordinator *)self _valueInConfiguration:v12 keyPath:payloadKey];
 LABEL_29:
 
           goto LABEL_30;
@@ -766,7 +767,7 @@ LABEL_29:
     }
 
 LABEL_16:
-    v18 = _valueForWebFilterState;
+    v19 = _valueForWebFilterState;
     goto LABEL_30;
   }
 
@@ -790,27 +791,27 @@ LABEL_16:
     v13 = [STRestrictionItem alloc];
     v14 = @"allowCellularPlanModification";
 LABEL_22:
-    v21 = [(STRestrictionItem *)v13 initWithConfiguration:v8 restrictionKey:v14 labelName:&stru_28766E5A8 type:3 restrictionValue:0];
-    v22 = [(STContentPrivacyViewModelCoordinator *)self valueForRestriction:v21];
+    v22 = [(STRestrictionItem *)v13 initWithConfiguration:v8 restrictionKey:v14 labelName:&stru_28766E5A8 type:3 restrictionValue:0];
+    v23 = [(STContentPrivacyViewModelCoordinator *)self valueForRestriction:v22];
 
-    if (v22)
+    if (v23)
     {
-      v23 = v22;
+      v24 = v23;
     }
 
     else
     {
-      v23 = v11;
+      v24 = v11;
     }
 
     bOOLValue = [v12 BOOLValue];
-    v25 = MEMORY[0x277CBEC28];
-    if (bOOLValue && [v23 BOOLValue])
+    v26 = MEMORY[0x277CBEC28];
+    if (bOOLValue && [v24 BOOLValue])
     {
-      v25 = v11;
+      v26 = v11;
     }
 
-    v18 = v25;
+    v19 = v26;
 
     goto LABEL_29;
   }
@@ -840,13 +841,13 @@ LABEL_22:
   if ([payloadKey isEqualToString:@"STCustomRestrictionMathResults"])
   {
     v8 = @"system.siri";
-    v19 = [[STRestrictionItem alloc] initWithConfiguration:@"system.siri" restrictionKey:@"allowMathPaperSolving" labelName:&stru_28766E5A8 type:3 restrictionValue:0];
-    v20 = [(STContentPrivacyViewModelCoordinator *)self valueForRestriction:v19];
+    v20 = [[STRestrictionItem alloc] initWithConfiguration:@"system.siri" restrictionKey:@"allowMathPaperSolving" labelName:&stru_28766E5A8 type:3 restrictionValue:0];
+    v21 = [(STContentPrivacyViewModelCoordinator *)self valueForRestriction:v20];
 
     v11 = MEMORY[0x277CBEC38];
-    if (v20)
+    if (v21)
     {
-      v12 = v20;
+      v12 = v21;
     }
 
     else
@@ -869,10 +870,10 @@ LABEL_22:
   [currentHandler handleFailureInMethod:a2 object:self file:@"STContentPrivacyViewModel.m" lineNumber:764 description:{@"Unimplemented key %@", payloadKey}];
 
 LABEL_40:
-  v18 = 0;
+  v19 = 0;
 LABEL_30:
 
-  return v18;
+  return v19;
 }
 
 - (id)_valuesByRestriction
@@ -1257,9 +1258,9 @@ LABEL_11:
 
 void __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v156 = *MEMORY[0x277D85DE8];
+  v157 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v105 = a1;
+  v106 = a1;
   v5 = *(a1 + 32);
   v4 = (a1 + 32);
   v6 = [v5 userObjectID];
@@ -1272,7 +1273,7 @@ void __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandl
     v9 = 0;
 LABEL_5:
     v18 = [v8 localUserDeviceState];
-    v107 = v4;
+    v108 = v4;
     [*v4 setIsLocalDevice:v18 != 0];
 
     v19 = objc_opt_new();
@@ -1306,15 +1307,15 @@ LABEL_9:
     v27 = [v8 managingOrganization];
     v28 = MEMORY[0x277D4B928];
     v29 = [*v4 userDSID];
-    v104 = v27;
+    v105 = v27;
     v30 = [v28 fetchRequestMatchingBlueprintsForUserWithDSID:v29 ofType:*MEMORY[0x277D4BBA0] fromOrganization:v27];
 
-    v146 = v9;
-    v31 = [v30 execute:&v146];
-    v32 = v146;
+    v147 = v9;
+    v31 = [v30 execute:&v147];
+    v32 = v147;
 
-    v102 = v31;
-    v103 = v30;
+    v103 = v31;
+    v104 = v30;
     if (!v31)
     {
       v42 = +[STUILog persistence];
@@ -1323,7 +1324,7 @@ LABEL_9:
         __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_cold_3();
       }
 
-      v43 = *(v105 + 48);
+      v43 = *(v106 + 48);
       v44 = v32;
       v45 = v27;
       if (v43)
@@ -1338,9 +1339,9 @@ LABEL_9:
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __STUICallCompletionHandlerOnMainThread_block_invoke_0;
-          v153 = &unk_279B7D130;
-          v155 = v43;
-          v154 = v44;
+          v154 = &unk_279B7D130;
+          v156 = v43;
+          v155 = v44;
           dispatch_async(MEMORY[0x277D85CD0], buf);
         }
       }
@@ -1351,7 +1352,7 @@ LABEL_76:
 
     v33 = [v31 firstObject];
     v34 = [v8 organizationIdentifier];
-    v106 = v33;
+    v107 = v33;
     if ([v34 isEqualToString:*MEMORY[0x277D4BC48]])
     {
       v35 = [v33 identifier];
@@ -1360,47 +1361,47 @@ LABEL_76:
       if (!v36)
       {
 LABEL_26:
-        v100 = v19;
-        v101 = v8;
-        v99 = v3;
+        v101 = v19;
+        v102 = v8;
+        v100 = v3;
         v46 = MEMORY[0x277CBEB38];
-        v47 = [v106 configurations];
+        v47 = [v107 configurations];
         v48 = [v46 dictionaryWithCapacity:{objc_msgSend(v47, "count")}];
 
         v49 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"objectID.URIRepresentation.absoluteString" ascending:1];
-        v151 = v49;
-        v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v151 count:1];
+        v152 = v49;
+        v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v152 count:1];
 
-        v143 = 0u;
         v144 = 0u;
-        v141 = 0u;
+        v145 = 0u;
         v142 = 0u;
-        v51 = [v106 configurations];
-        v98 = v50;
+        v143 = 0u;
+        v51 = [v107 configurations];
+        v99 = v50;
         v52 = [v51 sortedArrayUsingDescriptors:v50];
 
-        v110 = v48;
-        v115 = [v52 countByEnumeratingWithState:&v141 objects:v150 count:16];
+        v111 = v48;
+        v116 = [v52 countByEnumeratingWithState:&v142 objects:v151 count:16];
         v53 = 0;
-        if (v115)
+        if (v116)
         {
-          v113 = *v142;
-          v108 = v52;
+          v114 = *v143;
+          v109 = v52;
           do
           {
-            for (i = 0; i != v115; ++i)
+            for (i = 0; i != v116; ++i)
             {
               v55 = v32;
-              if (*v142 != v113)
+              if (*v143 != v114)
               {
                 objc_enumerationMutation(v52);
               }
 
               v56 = MEMORY[0x277CFBBA0];
-              v57 = [*(*(&v141 + 1) + 8 * i) payloadPlist];
-              v140 = v32;
-              v58 = [v56 declarationForData:v57 error:&v140];
-              v32 = v140;
+              v57 = [*(*(&v142 + 1) + 8 * i) payloadPlist];
+              v141 = v32;
+              v58 = [v56 declarationForData:v57 error:&v141];
+              v32 = v141;
 
               if (v58)
               {
@@ -1423,12 +1424,12 @@ LABEL_26:
                   v63 = +[STUILog contentPrivacy];
                   if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
                   {
-                    v75 = [v58 unknownPayloadKeys];
-                    v76 = [v58 declarationIdentifier];
+                    v76 = [v58 unknownPayloadKeys];
+                    v77 = [v58 declarationIdentifier];
                     *buf = 138543619;
-                    *&buf[4] = v75;
+                    *&buf[4] = v76;
                     *&buf[12] = 2113;
-                    *&buf[14] = v76;
+                    *&buf[14] = v77;
                     _os_log_error_impl(&dword_264BA2000, v63, OS_LOG_TYPE_ERROR, "Unknown keys found in payload. Restrictions UI will be disabled.\nUnknown keys:%{public}@\n Declaration ID:%{private}@", buf, 0x16u);
                   }
                 }
@@ -1438,53 +1439,53 @@ LABEL_26:
 
                 if (v64)
                 {
-                  v65 = +[STUILog contentPrivacy];
-                  if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+                  v66 = +[STUILog contentPrivacy];
+                  if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
                   {
                     *buf = 138543362;
                     *&buf[4] = v59;
-                    _os_log_fault_impl(&dword_264BA2000, v65, OS_LOG_TYPE_FAULT, "Duplicate configurations of type %{public}@ found, skipping", buf, 0xCu);
+                    _os_log_fault_impl(&dword_264BA2000, v66, OS_LOG_TYPE_FAULT, "Duplicate configurations of type %{public}@ found, skipping", buf, 0xCu);
                   }
                 }
 
                 else
                 {
-                  v111 = v53;
-                  v66 = v32;
-                  v67 = STSupportedConfigurations();
-                  v136 = 0u;
+                  v112 = v53;
+                  v67 = v32;
+                  v68 = STSupportedConfigurations(v65);
                   v137 = 0u;
                   v138 = 0u;
                   v139 = 0u;
-                  v65 = v67;
-                  v68 = [v65 countByEnumeratingWithState:&v136 objects:v149 count:16];
-                  if (v68)
+                  v140 = 0u;
+                  v66 = v68;
+                  v69 = [v66 countByEnumeratingWithState:&v137 objects:v150 count:16];
+                  if (v69)
                   {
-                    v69 = v68;
-                    v70 = *v137;
+                    v70 = v69;
+                    v71 = *v138;
                     while (2)
                     {
-                      for (j = 0; j != v69; ++j)
+                      for (j = 0; j != v70; ++j)
                       {
-                        if (*v137 != v70)
+                        if (*v138 != v71)
                         {
-                          objc_enumerationMutation(v65);
+                          objc_enumerationMutation(v66);
                         }
 
-                        v72 = *(*(&v136 + 1) + 8 * j);
-                        v73 = [v65 objectForKeyedSubscript:v72];
-                        if (v73 == objc_opt_class())
+                        v73 = *(*(&v137 + 1) + 8 * j);
+                        v74 = [v66 objectForKeyedSubscript:v73];
+                        if (v74 == objc_opt_class())
                         {
-                          v48 = v110;
-                          [v110 setObject:v58 forKeyedSubscript:v72];
-                          v74 = v65;
-                          v32 = v66;
+                          v48 = v111;
+                          [v111 setObject:v58 forKeyedSubscript:v73];
+                          v75 = v66;
+                          v32 = v67;
                           goto LABEL_57;
                         }
                       }
 
-                      v69 = [v65 countByEnumeratingWithState:&v136 objects:v149 count:16];
-                      if (v69)
+                      v70 = [v66 countByEnumeratingWithState:&v137 objects:v150 count:16];
+                      if (v70)
                       {
                         continue;
                       }
@@ -1493,20 +1494,20 @@ LABEL_26:
                     }
                   }
 
-                  v74 = +[STUILog contentPrivacy];
-                  if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                  v75 = +[STUILog contentPrivacy];
+                  if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
                     *&buf[4] = v59;
-                    _os_log_error_impl(&dword_264BA2000, v74, OS_LOG_TYPE_ERROR, "Unknown future configuration, preserving: %@", buf, 0xCu);
+                    _os_log_error_impl(&dword_264BA2000, v75, OS_LOG_TYPE_ERROR, "Unknown future configuration, preserving: %@", buf, 0xCu);
                   }
 
-                  v32 = v66;
-                  v48 = v110;
+                  v32 = v67;
+                  v48 = v111;
 LABEL_57:
-                  v52 = v108;
+                  v52 = v109;
 
-                  v53 = v111;
+                  v53 = v112;
                 }
               }
 
@@ -1524,60 +1525,60 @@ LABEL_57:
               }
             }
 
-            v115 = [v52 countByEnumeratingWithState:&v141 objects:v150 count:16];
+            v116 = [v52 countByEnumeratingWithState:&v142 objects:v151 count:16];
           }
 
-          while (v115);
+          while (v116);
         }
 
-        v77 = [v101 effectivePasscode];
-        v78 = [v77 length] != 0;
+        v78 = [v102 effectivePasscode];
+        v79 = [v78 length] != 0;
 
-        v79 = [*v107 isRestrictAdultContentEnabledValue];
-        v112 = v53;
-        if ([v79 BOOLValue])
+        v80 = [*v108 isRestrictAdultContentEnabledValue];
+        v113 = v53;
+        if ([v80 BOOLValue])
         {
-          v80 = 1;
+          v81 = 1;
         }
 
         else
         {
-          v80 = [v106 enabled];
+          v81 = [v107 enabled];
         }
 
-        v81 = [v101 isManaged];
-        v82 = [v101 localUserDeviceState];
-        v83 = v82 == 0;
+        v82 = [v102 isManaged];
+        v83 = [v102 localUserDeviceState];
+        v84 = v83 == 0;
 
-        v84 = [STUIUser userTypeFromUser:v101];
+        v85 = [STUIUser userTypeFromUser:v102];
         if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
         {
-          v114 = [*(v105 + 32) organizationSettingsRestrictionUtility];
-          v109 = [*(v105 + 32) userDSID];
-          v126[0] = MEMORY[0x277D85DD0];
-          v126[1] = 3221225472;
-          v126[2] = __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_794;
-          v126[3] = &unk_279B7D500;
-          v85 = &v127;
-          v86 = *(v105 + 40);
-          v87 = v110;
-          v126[4] = *(v105 + 32);
-          v127 = v110;
-          v88 = &v128;
-          v128 = v86;
-          v131 = v78;
-          v132 = v80;
+          v115 = [*(v106 + 32) organizationSettingsRestrictionUtility];
+          v110 = [*(v106 + 32) userDSID];
+          v127[0] = MEMORY[0x277D85DD0];
+          v127[1] = 3221225472;
+          v127[2] = __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_794;
+          v127[3] = &unk_279B7D500;
+          v86 = &v128;
+          v87 = *(v106 + 40);
+          v88 = v111;
+          v127[4] = *(v106 + 32);
+          v128 = v111;
           v89 = &v129;
-          v90 = v100;
+          v129 = v87;
+          v132 = v79;
           v133 = v81;
-          v134 = v83;
-          v129 = v90;
-          v130[1] = v84;
-          v135 = v112;
-          v91 = v130;
-          v130[0] = *(v105 + 48);
-          v92 = v110;
-          [v114 isImageGenerationAllowedForUserDSID:v109 completionHandler:v126];
+          v90 = &v130;
+          v91 = v101;
+          v134 = v82;
+          v135 = v84;
+          v130 = v91;
+          v131[1] = v85;
+          v136 = v113;
+          v92 = v131;
+          v131[0] = *(v106 + 48);
+          v93 = v111;
+          [v115 isImageGenerationAllowedForUserDSID:v110 completionHandler:v127];
         }
 
         else
@@ -1586,32 +1587,32 @@ LABEL_57:
           block[1] = 3221225472;
           block[2] = __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_2;
           block[3] = &unk_279B7D528;
-          v85 = &v117;
-          v93 = *(v105 + 40);
-          v87 = v110;
-          block[4] = *(v105 + 32);
-          v117 = v110;
-          v88 = &v118;
-          v118 = v93;
-          v121 = v78;
-          v122 = v80;
+          v86 = &v118;
+          v94 = *(v106 + 40);
+          v88 = v111;
+          block[4] = *(v106 + 32);
+          v118 = v111;
           v89 = &v119;
-          v94 = v100;
-          v123 = v81;
-          v124 = v83;
           v119 = v94;
-          v120[1] = v84;
-          v125 = v112;
-          v91 = v120;
-          v120[0] = *(v105 + 48);
-          v95 = v110;
+          v122 = v79;
+          v123 = v81;
+          v90 = &v120;
+          v95 = v101;
+          v124 = v82;
+          v125 = v84;
+          v120 = v95;
+          v121[1] = v85;
+          v126 = v113;
+          v92 = v121;
+          v121[0] = *(v106 + 48);
+          v96 = v111;
           dispatch_async(MEMORY[0x277D85CD0], block);
         }
 
-        v3 = v99;
-        v19 = v100;
-        v8 = v101;
-        v45 = v104;
+        v3 = v100;
+        v19 = v101;
+        v8 = v102;
+        v45 = v105;
         v44 = v32;
         goto LABEL_76;
       }
@@ -1619,14 +1620,14 @@ LABEL_57:
       v37 = +[STUILog persistence];
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_cold_1(v106, v37);
+        __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_cold_1(v107, v37);
       }
 
-      [v106 tombstone];
+      [v107 tombstone];
       v38 = [*v4 persistenceController];
-      v145 = v32;
-      v39 = [v38 saveContext:v3 error:&v145];
-      v40 = v145;
+      v146 = v32;
+      v39 = [v38 saveContext:v3 error:&v146];
+      v40 = v146;
 
       v41 = +[STUILog persistence];
       v34 = v41;
@@ -1638,8 +1639,8 @@ LABEL_57:
           _os_log_impl(&dword_264BA2000, v34, OS_LOG_TYPE_DEFAULT, "Saved database after deleting Family Restrictions blueprint with Personal organization identifier.", buf, 2u);
         }
 
-        v34 = v106;
-        v106 = 0;
+        v34 = v107;
+        v107 = 0;
       }
 
       else if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
@@ -1661,16 +1662,16 @@ LABEL_57:
   v11 = [*v4 userDSID];
   v8 = [v10 fetchRequestForUsersWithDSID:v11];
 
-  v148 = 0;
-  v12 = [v8 execute:&v148];
-  v13 = v148;
+  v149 = 0;
+  v12 = [v8 execute:&v149];
+  v13 = v149;
   if (v12)
   {
     v14 = MEMORY[0x277D4B988];
     v15 = [*v4 userDSID];
-    v147 = v13;
-    v16 = [v14 fetchUserWithDSID:v15 inContext:v3 error:&v147];
-    v9 = v147;
+    v148 = v13;
+    v16 = [v14 fetchUserWithDSID:v15 inContext:v3 error:&v148];
+    v9 = v148;
 
     v17 = [v16 objectID];
     [*v4 setUserObjectID:v17];
@@ -1679,19 +1680,19 @@ LABEL_57:
     goto LABEL_5;
   }
 
-  v96 = +[STUILog persistence];
-  if (os_log_type_enabled(v96, OS_LOG_TYPE_FAULT))
+  v97 = +[STUILog persistence];
+  if (os_log_type_enabled(v97, OS_LOG_TYPE_FAULT))
   {
-    __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_cold_4(v4, v13, v96);
+    __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_cold_4(v4, v13, v97);
   }
 
-  v97 = *(v105 + 48);
+  v98 = *(v106 + 48);
   v44 = v13;
-  if (v97)
+  if (v98)
   {
     if ([MEMORY[0x277CCACC8] isMainThread])
     {
-      v97[2](v97, v44);
+      v98[2](v98, v44);
     }
 
     else
@@ -1699,9 +1700,9 @@ LABEL_57:
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __STUICallCompletionHandlerOnMainThread_block_invoke_0;
-      v153 = &unk_279B7D130;
-      v155 = v97;
-      v154 = v44;
+      v154 = &unk_279B7D130;
+      v156 = v98;
+      v155 = v44;
       dispatch_async(MEMORY[0x277D85CD0], buf);
     }
   }
@@ -2290,7 +2291,7 @@ void __82__STContentPrivacyViewModelCoordinator_saveCommunicationLimits_completi
     v12 = +[STUILog persistence];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      __82__STContentPrivacyViewModelCoordinator_saveCommunicationLimits_completionHandler___block_invoke_cold_2(a1 + 32, v12, v13, v14, v15, v16, v17, v18);
+      __82__STContentPrivacyViewModelCoordinator_saveCommunicationLimits_completionHandler___block_invoke_cold_2((a1 + 32), v12, v13, v14, v15, v16, v17, v18);
     }
 
     v19 = MEMORY[0x277CCA9B8];
@@ -3196,6 +3197,13 @@ LABEL_14:
   [v6 handleFailureInMethod:a1 object:a2 file:@"STContentPrivacyViewModel.m" lineNumber:771 description:{@"Unimplemented configuration %@", a3}];
 }
 
+- (void)controller:(void *)a1 didChangeObject:atIndexPath:forChangeType:newIndexPath:.cold.1(void *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 numExpectedChanges];
+  OUTLINED_FUNCTION_3(&dword_264BA2000, v1, v2, "Observed a change, %d more are expected", v3, v4, v5, v6, v7);
+}
+
 void __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_cold_1(void *a1, NSObject *a2)
 {
   v5 = *MEMORY[0x277D85DE8];
@@ -3212,6 +3220,27 @@ void __75__STContentPrivacyViewModelCoordinator_loadViewModelWithCompletionHandl
   v7 = 2114;
   v8 = a2;
   _os_log_fault_impl(&dword_264BA2000, a3, OS_LOG_TYPE_FAULT, "failed to fetch user for restrictions %{public}@: %{public}@", v6, 0x16u);
+}
+
+void __84__STContentPrivacyViewModelCoordinator_saveContentPrivacyEnabled_completionHandler___block_invoke_cold_1(id *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [*a1 numExpectedChanges];
+  OUTLINED_FUNCTION_3(&dword_264BA2000, v1, v2, "Saving restrictions enabled, %d changes expected", v3, v4, v5, v6, v7);
+}
+
+void __82__STContentPrivacyViewModelCoordinator_saveCommunicationLimits_completionHandler___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_264BA2000, a2, a3, "user with objectID could not be found: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __84__STContentPrivacyViewModelCoordinator_saveValuesForRestrictions_completionHandler___block_invoke_cold_3(id *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [*a1 numExpectedChanges];
+  OUTLINED_FUNCTION_3(&dword_264BA2000, v1, v2, "Saving restrictions, %d changes expected", v3, v4, v5, v6, v7);
 }
 
 @end

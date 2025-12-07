@@ -87,7 +87,6 @@ LABEL_3:
     }
   }
 
-  v6 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_domainCode != *(equalCopy + 1))
@@ -99,7 +98,7 @@ LABEL_3:
   else if (*(equalCopy + 40))
   {
 LABEL_16:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
@@ -119,17 +118,17 @@ LABEL_16:
   errorDescription = self->_errorDescription;
   if (errorDescription | *(equalCopy + 4))
   {
-    v8 = [(NSString *)errorDescription isEqual:?];
+    v7 = [(NSString *)errorDescription isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -194,33 +193,31 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_domain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    domainCode = self->_domainCode;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    code = self->_code;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_errorDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

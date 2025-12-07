@@ -55,7 +55,7 @@
 + (id)snoozeCategoryForEventWithStartDate:(id)date endDate:(id)endDate now:(id)now isAllDay:(BOOL)day
 {
   dayCopy = day;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   nowCopy = now;
@@ -64,26 +64,26 @@
   v15 = v14;
   [endDateCopy timeIntervalSinceDate:nowCopy];
   v17 = v16;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v18 = snoozeCategories;
-  v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v30;
+    v21 = *v29;
     while (2)
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v30 != v21)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v29 + 1) + 8 * i);
+        v23 = *(*(&v28 + 1) + 8 * i);
         if (dayCopy)
         {
           if (*(v23 + 17))
@@ -104,7 +104,7 @@ LABEL_17:
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v20)
       {
         continue;
@@ -116,8 +116,6 @@ LABEL_17:
 
   v26 = 0;
 LABEL_18:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -136,15 +134,13 @@ LABEL_18:
 
 void __38__CALNSnoozeCategory_snoozeCategories__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = [CALNSnoozeCategory alloc];
   v1 = [(CALNSnoozeCategory *)v0 initWithSuffix:&stru_28551FB98 timedExpirationInterval:0 leeway:1 relativeToEnd:MEMORY[0x277CBEBF8] validForAllDay:-1000000000.0 actions:0.0];
-  v5[0] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v3 = snoozeCategories_categories;
   snoozeCategories_categories = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

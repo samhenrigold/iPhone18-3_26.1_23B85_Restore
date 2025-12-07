@@ -39,7 +39,7 @@ flatbuffers::DetachedBuffer *__31__QSSCategoryData_flatbuffData__block_invoke(ui
 
 - (Offset<siri::speech::schema_fb::CategoryData>)addObjectToBuffer:(void *)buffer
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   category_name = [(QSSCategoryData *)self category_name];
   v6 = category_name;
   if (!category_name)
@@ -63,16 +63,11 @@ flatbuffers::DetachedBuffer *__31__QSSCategoryData_flatbuffData__block_invoke(ui
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  memset(v19, 0, sizeof(v19));
   obj = [(QSSCategoryData *)self category_data];
-  if ([obj countByEnumeratingWithState:&v21 objects:v25 count:16])
+  if ([obj countByEnumeratingWithState:v19 objects:v20 count:16])
   {
-    *v22;
-    *v22;
-    [**(&v21 + 1) addObjectToBuffer:buffer];
+    [**(&v19[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -90,9 +85,7 @@ flatbuffers::DetachedBuffer *__31__QSSCategoryData_flatbuffData__block_invoke(ui
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v15);
   }
 
-  v16.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v12 - v13 + v14);
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v12 - v13 + v14);
 }
 
 - (NSArray)category_data

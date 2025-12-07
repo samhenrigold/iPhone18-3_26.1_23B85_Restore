@@ -219,7 +219,7 @@
 
 - (BOOL)callRinging
 {
-  v3 = IntentHandlerDefaultLog();
+  v3 = IntentHandlerDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -227,43 +227,43 @@
   }
 
   *buf = 0;
-  v11 = buf;
-  v12 = 0x2020000000;
-  v13 = 0;
+  v12 = buf;
+  v13 = 0x2020000000;
+  v14 = 0;
   dispatchQueue = self->_dispatchQueue;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10001FE18;
-  v9[3] = &unk_10004D0A0;
-  v9[4] = self;
-  v9[5] = buf;
-  dispatch_sync(dispatchQueue, v9);
-  v5 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10001FE18;
+  v10[3] = &unk_10004D0A0;
+  v10[4] = self;
+  v10[5] = buf;
+  dispatch_sync(dispatchQueue, v10);
+  v6 = IntentHandlerDefaultLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    if (v11[24])
+    if (v12[24])
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
     else
     {
-      v6 = @"NO";
+      v7 = @"NO";
     }
 
-    *v14 = 138412290;
-    v15 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "is there any call ringing currently? %@", v14, 0xCu);
+    *v15 = 138412290;
+    v16 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "is there any call ringing currently? %@", v15, 0xCu);
   }
 
-  v7 = v11[24];
+  v8 = v12[24];
   _Block_object_dispose(buf, 8);
-  return v7;
+  return v8;
 }
 
 - (BOOL)callsInProgress
 {
-  v3 = IntentHandlerDefaultLog();
+  v3 = IntentHandlerDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -271,38 +271,38 @@
   }
 
   *buf = 0;
-  v11 = buf;
-  v12 = 0x2020000000;
-  v13 = 0;
+  v12 = buf;
+  v13 = 0x2020000000;
+  v14 = 0;
   dispatchQueue = self->_dispatchQueue;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100020054;
-  v9[3] = &unk_10004D0A0;
-  v9[4] = self;
-  v9[5] = buf;
-  dispatch_sync(dispatchQueue, v9);
-  v5 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100020054;
+  v10[3] = &unk_10004D0A0;
+  v10[4] = self;
+  v10[5] = buf;
+  dispatch_sync(dispatchQueue, v10);
+  v6 = IntentHandlerDefaultLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    if (v11[24])
+    if (v12[24])
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
     else
     {
-      v6 = @"NO";
+      v7 = @"NO";
     }
 
-    *v14 = 138412290;
-    v15 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "is there any call in progress? %@", v14, 0xCu);
+    *v15 = 138412290;
+    v16 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "is there any call in progress? %@", v15, 0xCu);
   }
 
-  v7 = v11[24];
+  v8 = v12[24];
   _Block_object_dispose(buf, 8);
-  return v7;
+  return v8;
 }
 
 - (BOOL)hasCamera
@@ -371,8 +371,8 @@
 
   if ((emergencyServicesOverrideEnabled & 1) == 0)
   {
-    v8 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = IntentHandlerDefaultLog(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_10003087C();
     }
@@ -382,13 +382,13 @@
 
   emergencyProvider = [(StartCallIntentHandlerDataSource *)self emergencyProvider];
   emergencyLabeledHandles = [emergencyProvider emergencyLabeledHandles];
-  v7 = [emergencyLabeledHandles count];
+  v8 = [emergencyLabeledHandles count];
 
-  v8 = IntentHandlerDefaultLog();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
-  if (v7)
+  v10 = IntentHandlerDefaultLog(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  if (v8)
   {
-    if (v9)
+    if (v11)
     {
       sub_1000308B0();
     }
@@ -400,7 +400,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (v9)
+  if (v11)
   {
     sub_100030918();
   }
@@ -408,14 +408,14 @@ LABEL_7:
   emergencyProvider2 = [(StartCallIntentHandlerDataSource *)self emergencyServicesOverrideProvider];
   emergencyLabeledHandles2 = [emergencyProvider2 emergencyServicesOverrides];
 LABEL_8:
-  v12 = emergencyLabeledHandles2;
+  v14 = emergencyLabeledHandles2;
 
-  return v12;
+  return v14;
 }
 
 - (BOOL)expectUpstreamContactRecommendation
 {
-  v2 = IntentHandlerDefaultLog();
+  v2 = IntentHandlerDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = _os_feature_enabled_impl();
@@ -435,7 +435,7 @@ LABEL_8:
 
 - (BOOL)expectFoundInAppsContacts
 {
-  v2 = IntentHandlerDefaultLog();
+  v2 = IntentHandlerDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = _os_feature_enabled_impl();
@@ -460,45 +460,46 @@ LABEL_8:
   v5 = dispatch_queue_attr_make_with_qos_class(&_dispatch_queue_attr_concurrent, QOS_CLASS_UNSPECIFIED, 0);
   v6 = dispatch_queue_create("com.apple.messages.imcore.spi.qos-unspecified", v5);
 
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_10001FBCC;
-  v21 = sub_10001FBDC;
-  v22 = 0;
-  if ([dCopy length])
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_10001FBCC;
+  v22 = sub_10001FBDC;
+  v23 = 0;
+  v7 = [dCopy length];
+  if (v7)
   {
-    v16 = dispatch_semaphore_create(0);
+    v17 = dispatch_semaphore_create(0);
     IMSPIQueryChatWithGuid();
-    v7 = dispatch_time(0, 5000000000);
-    dispatch_semaphore_wait(v16, v7);
+    v8 = dispatch_time(0, 5000000000);
+    dispatch_semaphore_wait(v17, v8);
   }
 
-  v8 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = IntentHandlerDefaultLog(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    handles = [v18[5] handles];
+    handles = [v19[5] handles];
     *buf = 138412290;
-    v24 = handles;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "spiChat person handles: %@", buf, 0xCu);
+    v25 = handles;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "spiChat person handles: %@", buf, 0xCu);
   }
 
-  v10 = v18[5];
-  if (v10)
+  v11 = v19[5];
+  if (v11)
   {
-    handles2 = [v10 handles];
-    v12 = [handles2 count] == 0;
+    handles2 = [v11 handles];
+    v13 = [handles2 count] == 0;
 
-    if (!v12)
+    if (!v13)
     {
-      handles3 = [v18[5] handles];
-      v14 = [handles3 copy];
+      handles3 = [v19[5] handles];
+      v15 = [handles3 copy];
 
-      v4 = v14;
+      v4 = v15;
     }
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
 
   return v4;
 }

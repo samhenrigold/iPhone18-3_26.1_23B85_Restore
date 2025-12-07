@@ -37,7 +37,7 @@
 
 - (BOOL)serviceCanProcessMessageWithIdentifier:(unint64_t)identifier fromClientWithConnection:(id)connection possibleRequiredEntitlements:(id *)entitlements needsToRequireEntitlements:(BOOL *)requireEntitlements
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   clientConnections = [(AXUIServiceEntitlementChecker *)self clientConnections];
   v10 = [clientConnections count];
@@ -61,13 +61,13 @@
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
   if (v15 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v44 = 0;
+    v43 = 0;
   }
 
   else
   {
-    v44 = [entitlementsCaches2 objectAtIndex:v15];
-    v19 = [v44 objectForKey:v18];
+    v43 = [entitlementsCaches2 objectAtIndex:v15];
+    v19 = [v43 objectForKey:v18];
     if (v19)
     {
       v20 = v19;
@@ -77,52 +77,52 @@
     }
   }
 
-  v39 = v18;
-  v40 = entitlementsCaches2;
+  v38 = v18;
+  v39 = entitlementsCaches2;
   v20 = [(AXUIServiceEntitlementChecker *)self _singleRequiredEntitlementForMessageWithIdentifier:identifier];
   if (v20)
   {
     v23 = 0;
 LABEL_12:
-    memset(v49, 0, sizeof(v49));
+    memset(v48, 0, sizeof(v48));
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     if (v20)
     {
-      LODWORD(v21) = [(AXUIServiceEntitlementChecker *)self _clientProcessWithAuditToken:v49 hasEntitlement:v20];
+      LODWORD(v21) = [(AXUIServiceEntitlementChecker *)self _clientProcessWithAuditToken:v48 hasEntitlement:v20];
     }
 
     else
     {
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       v24 = v23;
-      v21 = [v24 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v21 = [v24 countByEnumeratingWithState:&v44 objects:v49 count:16];
       if (v21)
       {
-        v25 = *v46;
+        v25 = *v45;
         while (2)
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v46 != v25)
+            if (*v45 != v25)
             {
               objc_enumerationMutation(v24);
             }
 
-            if ([(AXUIServiceEntitlementChecker *)self _clientProcessWithAuditToken:v49 hasEntitlement:*(*(&v45 + 1) + 8 * i)])
+            if ([(AXUIServiceEntitlementChecker *)self _clientProcessWithAuditToken:v48 hasEntitlement:*(*(&v44 + 1) + 8 * i)])
             {
               LODWORD(v21) = 1;
               goto LABEL_26;
             }
           }
 
-          v21 = [v24 countByEnumeratingWithState:&v45 objects:v50 count:16];
+          v21 = [v24 countByEnumeratingWithState:&v44 objects:v49 count:16];
           if (v21)
           {
             continue;
@@ -149,7 +149,7 @@ LABEL_26:
 
   LODWORD(v21) = [(AXUIServiceEntitlementChecker *)self _isSafeToProcessMessageFromUnentitledProcessWithIdentifier:identifier];
 LABEL_29:
-  entitlementsCaches2 = v40;
+  entitlementsCaches2 = v39;
   entitlementsCopy2 = entitlements;
   if (v15 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -162,7 +162,7 @@ LABEL_29:
 
     v28 = identifierCopy2;
     [clientConnections2 addObject:v14];
-    if (!v40)
+    if (!v39)
     {
       entitlementsCaches2 = objc_opt_new();
       [(AXUIServiceEntitlementChecker *)self setEntitlementsCaches:entitlementsCaches2];
@@ -176,20 +176,20 @@ LABEL_29:
   else
   {
     v28 = identifierCopy2;
-    v29 = v44;
+    v29 = v43;
   }
 
   v30 = [MEMORY[0x277CCABB0] numberWithBool:v21];
-  v44 = v29;
-  [v29 setObject:v30 forKey:v39];
+  v43 = v29;
+  [v29 setObject:v30 forKey:v38];
 
-  v18 = v39;
+  v18 = v38;
   identifierCopy2 = v28;
 LABEL_37:
 
   if (!entitlementsCopy2)
   {
-    v32 = v44;
+    v32 = v43;
     v31 = requireEntitlementsCopy;
     if (!requireEntitlementsCopy)
     {
@@ -210,7 +210,7 @@ LABEL_43:
   if (v21)
   {
     *entitlementsCopy2 = 0;
-    v32 = v44;
+    v32 = v43;
     if (!requireEntitlementsCopy)
     {
       goto LABEL_52;
@@ -232,7 +232,7 @@ LABEL_43:
   v34 = ;
   *entitlementsCopy2 = v34;
 
-  v32 = v44;
+  v32 = v43;
   if (requireEntitlementsCopy)
   {
 LABEL_48:
@@ -251,7 +251,6 @@ LABEL_48:
 
 LABEL_52:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -279,31 +278,31 @@ LABEL_52:
 
 - (unint64_t)_indexOfClientConnection:(id)connection
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   [(AXUIServiceEntitlementChecker *)self clientConnections];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_3:
     v10 = 0;
     v11 = v8;
     v8 += v7;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      if ([*(*(&v14 + 1) + 8 * v10) isEqual:{connectionCopy, v14}])
+      if ([*(*(&v13 + 1) + 8 * v10) isEqual:{connectionCopy, v13}])
       {
         break;
       }
@@ -311,7 +310,7 @@ LABEL_3:
       ++v11;
       if (v7 == ++v10)
       {
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -328,7 +327,6 @@ LABEL_9:
     v11 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -396,11 +394,10 @@ LABEL_9:
 
 - (void)serviceCanProcessMessageWithIdentifier:(uint64_t)a1 fromClientWithConnection:(NSObject *)a2 possibleRequiredEntitlements:needsToRequireEntitlements:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_23DBD1000, a2, OS_LOG_TYPE_FAULT, "The client connections array and the entitlements caches array are supposed to have the same number of elements (%@).", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_23DBD1000, a2, OS_LOG_TYPE_FAULT, "The client connections array and the entitlements caches array are supposed to have the same number of elements (%@).", &v2, 0xCu);
 }
 
 @end

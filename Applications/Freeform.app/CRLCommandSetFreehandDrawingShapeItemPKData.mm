@@ -20,7 +20,7 @@
   (*(v9 + 16))(self + OBJC_IVAR____TtC8Freeform43CRLCommandSetFreehandDrawingShapeItemPKData_id, v11, v8);
   *(&self->super.super.isa + v12) = data;
   *(&self->super.super.isa + v13) = path;
-  v14 = type metadata accessor for CRLCommandSetFreehandDrawingShapeItemPKData();
+  v14 = type metadata accessor for CRLCommandSetFreehandDrawingShapeItemPKData(0);
   v19.receiver = self;
   v19.super_class = v14;
   dataCopy = data;

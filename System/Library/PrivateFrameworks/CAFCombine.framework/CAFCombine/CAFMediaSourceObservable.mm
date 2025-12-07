@@ -27,7 +27,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFMediaSourceObservable.mediaSourceService(_:didUpdateCurrentFrequency:)();
+  CAFMediaSourceObservable.mediaSourceService(_:didUpdateCurrentFrequency:)(selfCopy, frequency);
 }
 
 - (void)mediaSourceService:(id)service didUpdateMediaItems:(id)items
@@ -42,14 +42,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFMediaSourceObservable.mediaSourceService(_:didUpdateMediaSourceSemanticType:)();
+  CAFMediaSourceObservable.mediaSourceService(_:didUpdateMediaSourceSemanticType:)(selfCopy, type);
 }
 
 - (void)mediaSourceService:(id)service didUpdateDisabled:(BOOL)disabled
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFMediaSourceObservable.mediaSourceService(_:didUpdateDisabled:)();
+  CAFMediaSourceObservable.mediaSourceService(_:didUpdateDisabled:)(selfCopy, disabled);
 }
 
 - (void)mediaSourceService:(id)service didUpdateMediaItemImages:(id)images

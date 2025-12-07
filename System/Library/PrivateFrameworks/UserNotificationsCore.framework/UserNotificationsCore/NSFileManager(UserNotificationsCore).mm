@@ -70,7 +70,7 @@ LABEL_15:
 
 - (id)unc_contentsSortedByLastModificationDateOfDirectoryAtPath:()UserNotificationsCore error:
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (![self fileExistsAtPath:v6])
   {
@@ -86,61 +86,59 @@ LABEL_14:
 
   if (v8)
   {
-    v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+    v25 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     obj = v8;
-    v9 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v9 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v29;
+      v11 = *v28;
       v12 = *MEMORY[0x1E696A350];
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v29 != v11)
+          if (*v28 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = [v6 stringByAppendingPathComponent:*(*(&v28 + 1) + 8 * i)];
+          v14 = [v6 stringByAppendingPathComponent:*(*(&v27 + 1) + 8 * i)];
           defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-          v27 = 0;
-          v16 = [defaultManager2 attributesOfItemAtPath:v14 error:&v27];
-          v17 = v27;
+          v26 = 0;
+          v16 = [defaultManager2 attributesOfItemAtPath:v14 error:&v26];
+          v17 = v26;
 
           v18 = [v16 objectForKey:v12];
           v19 = v18;
           if (v18)
           {
-            v32[0] = @"path";
-            v32[1] = @"lastModDate";
-            v33[0] = v14;
-            v33[1] = v18;
-            v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
-            [v26 addObject:v20];
+            v31[0] = @"path";
+            v31[1] = @"lastModDate";
+            v32[0] = v14;
+            v32[1] = v18;
+            v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+            [v25 addObject:v20];
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v10 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    v21 = [v26 sortedArrayUsingComparator:&__block_literal_global_8];
+    v21 = [v25 sortedArrayUsingComparator:&__block_literal_global_8];
 
     goto LABEL_14;
   }
 
   v22 = 0;
 LABEL_15:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

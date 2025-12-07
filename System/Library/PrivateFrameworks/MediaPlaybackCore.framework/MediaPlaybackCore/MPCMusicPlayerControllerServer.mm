@@ -983,7 +983,7 @@ void __92___MPCMusicPlayerControllerServer__appendPlaybackContexts_remoteCommand
   [*(a1 + 40) _appendPlaybackContexts:v2 remoteCommandSenderID:*(a1 + 48) completion:*(a1 + 56)];
 }
 
-uint64_t __63___MPCMusicPlayerControllerServer_appendDescriptor_completion___block_invoke(uint64_t a1)
+void *__63___MPCMusicPlayerControllerServer_appendDescriptor_completion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _appendPlaybackContexts:*(a1 + 40) remoteCommandSenderID:*(a1 + 48) completion:*(a1 + 56)];
   *(*(a1 + 32) + 32) = 0;
@@ -1027,7 +1027,7 @@ void __93___MPCMusicPlayerControllerServer__prependPlaybackContexts_remoteComman
   [*(a1 + 40) _prependPlaybackContexts:v2 remoteCommandSenderID:*(a1 + 48) completion:*(a1 + 56)];
 }
 
-uint64_t __64___MPCMusicPlayerControllerServer_prependDescriptor_completion___block_invoke(uint64_t a1)
+void *__64___MPCMusicPlayerControllerServer_prependDescriptor_completion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _prependPlaybackContexts:*(a1 + 40) remoteCommandSenderID:*(a1 + 48) completion:*(a1 + 56)];
   *(*(a1 + 32) + 32) = 0;

@@ -73,9 +73,9 @@
     if (self->mDrawArrows || !self->mSegmentIndex)
     {
       v52 = 0u;
-      *v53 = 0u;
+      v53[0] = 0u;
       v51 = 0u;
-      if (!v7 || ([v7 transformStruct], v8 = v53[0], v53[0] == 0.0) && (v8 = v53[1], v53[1] == 0.0))
+      if (!v7 || (objc_msgSend_transformStruct(v7), v8 = *v53, *v53 == 0.0) && (v8 = *(v53 + 1), *(v53 + 1) == 0.0))
       {
         [(OADOrientedBounds *)self->super.mOrientedBounds bounds];
         x = v54.origin.x;
@@ -89,11 +89,11 @@
         v55.size.height = height;
         v15 = (v14 + CGRectGetHeight(v55)) * 0.03;
         v16 = __sincos_stret((self->mSegmentIndex + 0.5 + self->mSegmentIndex + 0.5) * -3.14159265 / self->mSegmentCount + 1.57079633);
-        v53[0] = v15 * v16.__cosval;
-        v53[1] = -(v15 * v16.__sinval);
+        *v53 = v15 * v16.__cosval;
+        *(v53 + 1) = -(v15 * v16.__sinval);
         v50[0] = v51;
         v50[1] = v52;
-        v50[2] = *v53;
+        v50[2] = v53[0];
         [v9 setTransformStruct:v50];
       }
     }

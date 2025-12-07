@@ -109,43 +109,41 @@ void __57__CNFeatureFlagsTestDouble_setFeatureEnabled_forFeature___block_invoke(
 
 void __39__CNFeatureFlagsTestDouble_description__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 8) allKeys];
   v3 = [v2 sortedArrayUsingSelector:sel_compare_];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v10 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:{v9, v15}];
+        v9 = *(*(&v14 + 1) + 8 * i);
+        v10 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:{v9, v14}];
         v11 = *(a1 + 40);
         v12 = +[CNFeatureFlags descriptionOfFeatureFlag:](CNFeatureFlags, "descriptionOfFeatureFlag:", [v9 cnFeatureFlagValue]);
         v13 = [v11 appendName:v12 object:v10];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

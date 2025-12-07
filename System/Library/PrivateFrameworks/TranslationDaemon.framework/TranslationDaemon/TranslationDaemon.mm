@@ -1,4 +1,4 @@
-uint64_t _LTOSLogXPC()
+uint64_t _LTOSLogXPC(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogXPC_onceToken != -1)
   {
@@ -8,7 +8,7 @@ uint64_t _LTOSLogXPC()
   return _LTOSLogXPC_log;
 }
 
-uint64_t _LTOSLogAssets()
+uint64_t _LTOSLogAssets(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogAssets_onceToken != -1)
   {
@@ -69,6 +69,13 @@ void _LTAnalyticsSendOptionalErrorEvent(void *a1, void *a2)
   }
 }
 
+void sub_232E573CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -76,9 +83,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_232E578DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_232E578DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -111,11 +118,11 @@ void sub_232E5875C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_232E58B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_232E58B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -126,10 +133,11 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_232E5A5A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
@@ -154,20 +162,22 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_232E5B484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_232E5B484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 176), 8);
-  _Block_object_dispose((v37 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 176), 8);
+  _Block_object_dispose((v36 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232E5BCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_232E5BCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
-  _Block_object_dispose((v31 - 128), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -178,32 +188,30 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_232E5C724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232E5C724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __AppleNeuralEngineLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppleNeuralEngineLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_232E6174C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_232E6174C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -277,10 +285,18 @@ uint64_t _LTTaskHintToLTDAssetAnalyticsDownloadTriggerSource(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
+}
+
+void sub_232E65550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
@@ -290,36 +306,39 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_232E66A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_232E66A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_232E66E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t *OUTLINED_FUNCTION_4@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_5_0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -345,21 +364,21 @@ void sub_232E6D880(_Unwind_Exception *a1)
 
 id _LTErrorFromRemoteFailure(unsigned int a1, void *a2)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = v4;
   v6 = MEMORY[0x277CCA9B8];
   v7 = *MEMORY[0x277CCA450];
-  v20 = *MEMORY[0x277CCA450];
+  v19 = *MEMORY[0x277CCA450];
   v8 = v3;
   if (!v3)
   {
     v8 = [v4 localizedStringForKey:@"UNKNOWN_ERROR_DESCRIPTION" value:&stru_284834138 table:0];
   }
 
-  v21[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v20[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v10 = [v6 errorWithDomain:@"LTRemoteFailure" code:a1 userInfo:v9];
 
   if (!v3)
@@ -368,20 +387,18 @@ id _LTErrorFromRemoteFailure(unsigned int a1, void *a2)
 
   v11 = MEMORY[0x277CCA9B8];
   v12 = *MEMORY[0x277CE1C58];
-  v18[0] = v7;
+  v17[0] = v7;
   v13 = [v5 localizedStringForKey:@"REMOTE_SERVICE_FAILURE_DESCRIPTION" value:&stru_284834138 table:0];
-  v18[1] = *MEMORY[0x277CCA7E8];
-  v19[0] = v13;
-  v19[1] = v10;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17[1] = *MEMORY[0x277CCA7E8];
+  v18[0] = v13;
+  v18[1] = v10;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v15 = [v11 errorWithDomain:v12 code:4 userInfo:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
-uint64_t _LTDeviseHasGMSCapability()
+uint64_t _LTDeviseHasGMSCapability(uint64_t a1, uint64_t a2)
 {
   if (_LTDeviseHasGMSCapability_once != -1)
   {
@@ -391,10 +408,11 @@ uint64_t _LTDeviseHasGMSCapability()
   return _LTDeviseHasGMSCapability_deviceSupportsGenerativeModelSystems;
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t OUTLINED_FUNCTION_3_0()
@@ -416,22 +434,23 @@ void OUTLINED_FUNCTION_1_3(void *a1, int a2, os_log_t log, const char *a4, uint8
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, a5, 2u);
 }
 
-void OUTLINED_FUNCTION_5_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_232E779FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_232E779FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232E77F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_232E77F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -461,43 +480,38 @@ void __getCSLanguageDetectorClass_block_invoke(uint64_t a1)
 
 void CoreSpeechLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!CoreSpeechLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __CoreSpeechLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_2789B6508;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __CoreSpeechLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_2789B6508;
+    v3 = 0;
     CoreSpeechLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!CoreSpeechLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __CoreSpeechLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreSpeechLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -517,13 +531,14 @@ void __getCSLanguageDetectorOptionClass_block_invoke(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_4_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-uint64_t _LTOSLogAnalytics()
+uint64_t _LTOSLogAnalytics(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogAnalytics_onceToken != -1)
   {
@@ -533,7 +548,7 @@ uint64_t _LTOSLogAnalytics()
   return _LTOSLogAnalytics_log;
 }
 
-uint64_t _LTOSLogAssetObservation()
+uint64_t _LTOSLogAssetObservation(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogAssetObservation_onceToken != -1)
   {
@@ -543,7 +558,7 @@ uint64_t _LTOSLogAssetObservation()
   return _LTOSLogAssetObservation_log;
 }
 
-uint64_t _LTOSLogDeviceState()
+uint64_t _LTOSLogDeviceState(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogDeviceState_onceToken != -1)
   {
@@ -553,7 +568,7 @@ uint64_t _LTOSLogDeviceState()
   return _LTOSLogDeviceState_log;
 }
 
-uint64_t _LTOSLogDisambiguation()
+uint64_t _LTOSLogDisambiguation(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogDisambiguation_onceToken != -1)
   {
@@ -563,7 +578,7 @@ uint64_t _LTOSLogDisambiguation()
   return _LTOSLogDisambiguation_log;
 }
 
-uint64_t _LTOSLogEtiquetteSanitizer()
+uint64_t _LTOSLogEtiquetteSanitizer(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogEtiquetteSanitizer_onceToken != -1)
   {
@@ -573,7 +588,7 @@ uint64_t _LTOSLogEtiquetteSanitizer()
   return _LTOSLogEtiquetteSanitizer_log;
 }
 
-uint64_t _LTOSLogHotfix()
+uint64_t _LTOSLogHotfix(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogHotfix_onceToken != -1)
   {
@@ -583,7 +598,7 @@ uint64_t _LTOSLogHotfix()
   return _LTOSLogHotfix_log;
 }
 
-uint64_t _LTOSLogLID()
+uint64_t _LTOSLogLID(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogLID_onceToken != -1)
   {
@@ -593,7 +608,7 @@ uint64_t _LTOSLogLID()
   return _LTOSLogLID_log;
 }
 
-uint64_t _LTOSLogSandbox()
+uint64_t _LTOSLogSandbox(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogSandbox_onceToken != -1)
   {
@@ -603,7 +618,7 @@ uint64_t _LTOSLogSandbox()
   return _LTOSLogSandbox_log;
 }
 
-uint64_t _LTOSLogSELFLogging()
+uint64_t _LTOSLogSELFLogging(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogSELFLogging_onceToken != -1)
   {
@@ -613,7 +628,7 @@ uint64_t _LTOSLogSELFLogging()
   return _LTOSLogSELFLogging_log;
 }
 
-uint64_t _LTOSLogSpeech()
+uint64_t _LTOSLogSpeech(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogSpeech_onceToken != -1)
   {
@@ -623,7 +638,7 @@ uint64_t _LTOSLogSpeech()
   return _LTOSLogSpeech_log;
 }
 
-uint64_t _LTOSLogStabilization()
+uint64_t _LTOSLogStabilization(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogStabilization_onceToken != -1)
   {
@@ -633,7 +648,7 @@ uint64_t _LTOSLogStabilization()
   return _LTOSLogStabilization_log;
 }
 
-uint64_t _LTOSLogTranslationEngine()
+uint64_t _LTOSLogTranslationEngine(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogTranslationEngine_onceToken != -1)
   {
@@ -643,7 +658,7 @@ uint64_t _LTOSLogTranslationEngine()
   return _LTOSLogTranslationEngine_log;
 }
 
-uint64_t _LTOSLogTTS()
+uint64_t _LTOSLogTTS(uint64_t a1, uint64_t a2)
 {
   if (_LTOSLogTTS_onceToken != -1)
   {
@@ -663,7 +678,7 @@ uint64_t LTDOspreyDataSharingStatus(uint64_t result)
   return result;
 }
 
-uint64_t LTDDisablePayloadLogging(uint64_t a1)
+uint64_t LTDDisablePayloadLogging(uint64_t a1, uint64_t a2)
 {
   if (a1 == 2)
   {
@@ -672,7 +687,7 @@ uint64_t LTDDisablePayloadLogging(uint64_t a1)
 
   else
   {
-    return _LTDeviseHasGMSCapability();
+    return _LTDeviseHasGMSCapability(a1, a2);
   }
 }
 
@@ -770,37 +785,37 @@ void _LTPreferencesSetObjectForKey(void *a1, void *a2)
 
 void _LTPreferencesSetInstalledLocales(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB58] set];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * v7) localeIdentifier];
+        v8 = [*(*(&v10 + 1) + 8 * v7) localeIdentifier];
         [v2 addObject:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -808,23 +823,21 @@ void _LTPreferencesSetInstalledLocales(void *a1)
 
   v9 = [v2 allObjects];
   _LTPreferencesSetObjectForKey(v9, @"InstalledLocales");
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-id _LTPreferencesOverrideDefaultCatalog()
+id _LTPreferencesOverrideDefaultCatalog(uint64_t a1, uint64_t a2)
 {
   if (_LTIsInternalInstall())
   {
-    v0 = _LTPreferencesStringForKey(@"OverrideDefaultCatalog", 0);
+    v2 = _LTPreferencesStringForKey(@"OverrideDefaultCatalog", 0);
   }
 
   else
   {
-    v0 = 0;
+    v2 = 0;
   }
 
-  return v0;
+  return v2;
 }
 
 uint64_t _LTPreferencesASRConfidenceThreshold(void *a1)
@@ -1036,7 +1049,7 @@ uint64_t _LTPreferencesLanguageDetectorFeatureCombinationModelSupportedForLocale
 
 id _LTPreferencesGetLanguageDetectorUnsupportedPairs()
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v0 = [@"LanguageDetectorNotSupported" stringByAppendingString:@"-"];
   v1 = [v0 stringByAppendingString:@"v250501"];
 
@@ -1080,37 +1093,35 @@ LABEL_9:
   v6 = v5;
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [MEMORY[0x277CE1B38] pairWithIdentifiers:{*(*(&v17 + 1) + 8 * i), v17}];
+        v13 = [MEMORY[0x277CE1B38] pairWithIdentifiers:{*(*(&v16 + 1) + 8 * i), v16}];
         v14 = [v13 canonicalLocalePair];
         [v7 addObject:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1458,7 +1469,7 @@ uint64_t _LTPreferencesTranslationEngineCacheSize()
 
 id _LTPreferencesSupportedLocales(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v1 = 3;
   if (a1 == 4)
   {
@@ -1493,26 +1504,26 @@ LABEL_18:
   }
 
   v5 = [MEMORY[0x277CBEB58] set];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [MEMORY[0x277CE1B38] pairWithIdentifiers:{*(*(&v17 + 1) + 8 * i), v17}];
+        v11 = [MEMORY[0x277CE1B38] pairWithIdentifiers:{*(*(&v16 + 1) + 8 * i), v16}];
         v12 = [v11 sourceLocale];
         [v5 addObject:v12];
 
@@ -1520,7 +1531,7 @@ LABEL_18:
         [v5 addObject:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -1529,181 +1540,175 @@ LABEL_18:
   v14 = [v5 allObjects];
 
 LABEL_19:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 id _LTPreferencesAdditionalLikelyPreferredLocales(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [_LTDConfigurationService configurationForType:6 error:0];
   v3 = [v2 objectForKeyedSubscript:@"locales"];
 
   v4 = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = [v1 localeIdentifier];
   v6 = [v3 objectForKeyedSubscript:v5];
 
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(*(&v15 + 1) + 8 * i)];
+        v11 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(*(&v14 + 1) + 8 * i)];
         [v4 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v4 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id _LTPreferencesConfigInfoForLocale(void *a1, void *a2)
 {
-  v48[20] = *MEMORY[0x277D85DE8];
+  v49[20] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v47[0] = @"OspreyEndpointURL";
-  v44 = _LTPreferencesOspreyEndpointURL();
-  v48[0] = v44;
-  v47[1] = @"HotfixEndpointURL";
-  v43 = _LTPreferencesHotfixEndpointURL();
-  v48[1] = v43;
-  v47[2] = @"BatchingMaxParagraphs";
-  v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesBatchingMaxParagraphs()];
-  v48[2] = v42;
-  v47[3] = @"BatchingMaxParagraphBufferSize";
-  v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesBatchingMaxParagraphBufferSize()];
-  v48[3] = v41;
-  v47[4] = @"BatchingMaxParagraphBufferTimeout";
-  v40 = [MEMORY[0x277CCABB0] numberWithDouble:_LTPreferencesBatchingMaxParagraphBufferTimeout()];
-  v48[4] = v40;
-  v47[5] = *MEMORY[0x277CE1CA0];
-  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesRateLimitingMaximumPageLoadRequests()];
-  v48[5] = v39;
-  v47[6] = *MEMORY[0x277CE1C98];
-  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesRateLimitingMaximumDynamicContentRequests()];
-  v48[6] = v38;
-  v47[7] = @"LastOfflineAssetCatalogUpdate";
-  v5 = _LTPreferencesObjectForKey(@"LastOfflineAssetCatalogUpdate", 0);
-  v6 = v5;
-  if (!v5)
-  {
-    v5 = [MEMORY[0x277CBEB68] null];
-  }
-
-  v32 = v5;
-  v48[7] = v5;
-  v47[8] = @"LastOfflineAssetUpdate";
-  v7 = _LTPreferencesObjectForKey(@"LastOfflineAssetUpdate", 0);
+  v48[0] = @"OspreyEndpointURL";
+  v45 = _LTPreferencesOspreyEndpointURL(v4, v5);
+  v49[0] = v45;
+  v48[1] = @"HotfixEndpointURL";
+  v44 = _LTPreferencesHotfixEndpointURL(v45, v6);
+  v49[1] = v44;
+  v48[2] = @"BatchingMaxParagraphs";
+  v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesBatchingMaxParagraphs()];
+  v49[2] = v43;
+  v48[3] = @"BatchingMaxParagraphBufferSize";
+  v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesBatchingMaxParagraphBufferSize()];
+  v49[3] = v42;
+  v48[4] = @"BatchingMaxParagraphBufferTimeout";
+  v41 = [MEMORY[0x277CCABB0] numberWithDouble:_LTPreferencesBatchingMaxParagraphBufferTimeout()];
+  v49[4] = v41;
+  v48[5] = *MEMORY[0x277CE1CA0];
+  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesRateLimitingMaximumPageLoadRequests()];
+  v49[5] = v40;
+  v48[6] = *MEMORY[0x277CE1C98];
+  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesRateLimitingMaximumDynamicContentRequests()];
+  v49[6] = v39;
+  v48[7] = @"LastOfflineAssetCatalogUpdate";
+  v7 = _LTPreferencesObjectForKey(@"LastOfflineAssetCatalogUpdate", 0);
   v8 = v7;
   if (!v7)
   {
     v7 = [MEMORY[0x277CBEB68] null];
   }
 
-  v31 = v7;
-  v48[8] = v7;
-  v47[9] = @"LastConfigAssetUpdate";
-  v9 = _LTPreferencesObjectForKey(@"LastConfigAssetUpdate", 0);
-  v35 = v9;
+  v33 = v7;
+  v49[7] = v7;
+  v48[8] = @"LastOfflineAssetUpdate";
+  v9 = _LTPreferencesObjectForKey(@"LastOfflineAssetUpdate", 0);
+  v10 = v9;
   if (!v9)
   {
     v9 = [MEMORY[0x277CBEB68] null];
   }
 
-  v37 = v6;
-  v45 = v4;
-  v30 = v9;
-  v48[9] = v9;
-  v47[10] = @"LastCDNUpdate";
-  v10 = _LTPreferencesObjectForKey(@"LastCDNUpdate", 0);
-  v11 = v10;
-  if (!v10)
+  v32 = v9;
+  v49[8] = v9;
+  v48[9] = @"LastConfigAssetUpdate";
+  v11 = _LTPreferencesObjectForKey(@"LastConfigAssetUpdate", 0);
+  v36 = v11;
+  if (!v11)
   {
-    v10 = [MEMORY[0x277CBEB68] null];
+    v11 = [MEMORY[0x277CBEB68] null];
   }
 
-  v29 = v10;
-  v48[10] = v10;
-  v47[11] = @"ServerSpeechSessionInitialOnlineTimeout";
-  v34 = [MEMORY[0x277CCABB0] numberWithDouble:_LTPreferencesServerSpeechSessionInitialOnlineTimeout()];
-  v48[11] = v34;
-  v47[12] = @"ServerSpeechSessionOnlineTimeout";
-  v33 = [MEMORY[0x277CCABB0] numberWithDouble:_LTPreferencesServerSpeechSessionOnlineTimeout()];
-  v48[12] = v33;
-  v47[13] = @"DeviceSessionID";
-  v12 = _LTPreferencesSessionIDOverride(@"default");
+  v38 = v8;
+  v46 = v4;
+  v31 = v11;
+  v49[9] = v11;
+  v48[10] = @"LastCDNUpdate";
+  v12 = _LTPreferencesObjectForKey(@"LastCDNUpdate", 0);
   v13 = v12;
   if (!v12)
   {
     v12 = [MEMORY[0x277CBEB68] null];
   }
 
-  v36 = v8;
-  v46 = v3;
-  v28 = v12;
-  v48[13] = v12;
-  v47[14] = @"RequestID";
-  v14 = _LTPreferencesRequestIDOverride(@"default");
+  v30 = v12;
+  v49[10] = v12;
+  v48[11] = @"ServerSpeechSessionInitialOnlineTimeout";
+  v35 = [MEMORY[0x277CCABB0] numberWithDouble:_LTPreferencesServerSpeechSessionInitialOnlineTimeout()];
+  v49[11] = v35;
+  v48[12] = @"ServerSpeechSessionOnlineTimeout";
+  v34 = [MEMORY[0x277CCABB0] numberWithDouble:_LTPreferencesServerSpeechSessionOnlineTimeout()];
+  v49[12] = v34;
+  v48[13] = @"DeviceSessionID";
+  v14 = _LTPreferencesSessionIDOverride(@"default");
   v15 = v14;
   if (!v14)
   {
-    v15 = [MEMORY[0x277CBEB68] null];
+    v14 = [MEMORY[0x277CBEB68] null];
   }
 
-  v48[14] = v15;
-  v47[15] = @"MinimumAcousticLanguageDetectionResults";
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesMinimumAcousticLanguageDetectionResults()];
-  v48[15] = v16;
-  v47[16] = @"MaximumAcousticLanguageDetectionResults";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesMaximumAcousticLanguageDetectionResults()];
-  v48[16] = v17;
-  v47[17] = @"FinalAcousticLanguageDetectionResultsWaitTimeInMs";
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesFinalLanguageDetectionResultWaitTime()];
-  v48[17] = v18;
-  v47[18] = @"FinalThresholdsAcousticLanguageDetectionResultsWaitTimeInMs";
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesFinalThresholdsLanguageDetectionResultWaitTime()];
-  v47[19] = @"LanguageDetectorFeatureCombinationModelVersionID";
-  v48[18] = v19;
-  v48[19] = @"v250501";
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:20];
-  v21 = [v20 mutableCopy];
+  v37 = v10;
+  v47 = v3;
+  v29 = v14;
+  v49[13] = v14;
+  v48[14] = @"RequestID";
+  v16 = _LTPreferencesRequestIDOverride(@"default");
+  v17 = v16;
+  if (!v16)
+  {
+    v17 = [MEMORY[0x277CBEB68] null];
+  }
 
-  if (!v14)
+  v49[14] = v17;
+  v48[15] = @"MinimumAcousticLanguageDetectionResults";
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesMinimumAcousticLanguageDetectionResults()];
+  v49[15] = v18;
+  v48[16] = @"MaximumAcousticLanguageDetectionResults";
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesMaximumAcousticLanguageDetectionResults()];
+  v49[16] = v19;
+  v48[17] = @"FinalAcousticLanguageDetectionResultsWaitTimeInMs";
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesFinalLanguageDetectionResultWaitTime()];
+  v49[17] = v20;
+  v48[18] = @"FinalThresholdsAcousticLanguageDetectionResultsWaitTimeInMs";
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_LTPreferencesFinalThresholdsLanguageDetectionResultWaitTime()];
+  v48[19] = @"LanguageDetectorFeatureCombinationModelVersionID";
+  v49[18] = v21;
+  v49[19] = @"v250501";
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:20];
+  v23 = [v22 mutableCopy];
+
+  if (!v16)
+  {
+  }
+
+  if (!v15)
   {
   }
 
   if (!v13)
-  {
-  }
-
-  if (!v11)
-  {
-  }
-
-  if (!v35)
   {
   }
 
@@ -1715,72 +1720,74 @@ id _LTPreferencesConfigInfoForLocale(void *a1, void *a2)
   {
   }
 
-  if (v46)
+  if (!v38)
   {
-    v22 = [MEMORY[0x277CCABB0] numberWithInteger:_LTPreferencesServerASRConfidenceThreshold(v46)];
-    [v21 setObject:v22 forKeyedSubscript:@"ASRConfidenceThresholds"];
+  }
 
-    v23 = [MEMORY[0x277CCABB0] numberWithInteger:_LTPreferencesServerASRWordLevelConfidenceThreshold(v46)];
-    [v21 setObject:v23 forKeyedSubscript:@"ASRWordLevelConfidenceThreshold"];
+  if (v47)
+  {
+    v24 = [MEMORY[0x277CCABB0] numberWithInteger:_LTPreferencesServerASRConfidenceThreshold(v47)];
+    [v23 setObject:v24 forKeyedSubscript:@"ASRConfidenceThresholds"];
 
-    if (v45)
+    v25 = [MEMORY[0x277CCABB0] numberWithInteger:_LTPreferencesServerASRWordLevelConfidenceThreshold(v47)];
+    [v23 setObject:v25 forKeyedSubscript:@"ASRWordLevelConfidenceThreshold"];
+
+    if (v46)
     {
-      v24 = [MEMORY[0x277CCABB0] numberWithBool:{_LTPreferencesHybridEndpointerEnabledForLocales(v46, v45)}];
-      [v21 setObject:v24 forKeyedSubscript:@"EnableHybridEndpointer"];
+      v26 = [MEMORY[0x277CCABB0] numberWithBool:{_LTPreferencesHybridEndpointerEnabledForLocales(v47, v46)}];
+      [v23 setObject:v26 forKeyedSubscript:@"EnableHybridEndpointer"];
     }
   }
 
-  v25 = [v21 copy];
+  v27 = [v23 copy];
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v27;
 }
 
-id _LTPreferencesOspreyEndpointURL()
+id _LTPreferencesOspreyEndpointURL(uint64_t a1, uint64_t a2)
 {
   if (_LTIsInternalInstall())
   {
-    v0 = @"https://carry-sequoia.siri.apple.com";
+    v2 = @"https://carry-sequoia.siri.apple.com";
   }
 
   else
   {
-    v0 = @"https://sequoia.apple.com";
+    v2 = @"https://sequoia.apple.com";
   }
 
   if (_LTIsSeedInstall())
   {
-    v1 = @"https://seed-sequoia.siri.apple.com";
+    v3 = @"https://seed-sequoia.siri.apple.com";
   }
 
   else
   {
-    v1 = v0;
+    v3 = v2;
   }
 
-  v2 = _LTPreferencesObjectForKey(@"OspreyEndpointURL", v1);
-  v3 = [MEMORY[0x277CBEBC0] URLWithString:v2];
+  v4 = _LTPreferencesObjectForKey(@"OspreyEndpointURL", v3);
+  v5 = [MEMORY[0x277CBEBC0] URLWithString:v4];
 
-  return v3;
+  return v5;
 }
 
-id _LTPreferencesHotfixEndpointURL()
+id _LTPreferencesHotfixEndpointURL(uint64_t a1, uint64_t a2)
 {
   if (_LTIsInternalInstall())
   {
-    v0 = @"https://sequoia-test.cdn-apple.com/sequoia-livability/carry";
+    v2 = @"https://sequoia-test.cdn-apple.com/sequoia-livability/carry";
   }
 
   else
   {
-    v0 = @"https://sequoia.cdn-apple.com/sequoia-prod";
+    v2 = @"https://sequoia.cdn-apple.com/sequoia-prod";
   }
 
-  v1 = _LTPreferencesObjectForKey(@"HotfixEndpointURL", v0);
-  v2 = [MEMORY[0x277CBEBC0] URLWithString:v1];
+  v3 = _LTPreferencesObjectForKey(@"HotfixEndpointURL", v2);
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:v3];
 
-  return v2;
+  return v4;
 }
 
 uint64_t _LTPreferencesBatchingMaxParagraphs()
@@ -1955,10 +1962,11 @@ uint64_t _LTPreferencesTranslationIsDisabled()
   return v4;
 }
 
-void OUTLINED_FUNCTION_0_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 uint64_t convertFromNSLocale(void *a1)
@@ -1991,9 +1999,9 @@ uint64_t convertFromNSLocale(void *a1)
   return v6;
 }
 
-void sub_232E85400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232E85400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2005,41 +2013,41 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_232E85560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232E85560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232E85808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_232E85808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_232E85B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 144), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_232E85B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose((v16 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2050,10 +2058,11 @@ void sub_232E8606C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
@@ -2063,130 +2072,138 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_232E8D9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id replacementDictionaryForEtiquetteFileAtURL(void *a1)
 {
-  v1 = a1;
-  if (v1)
+  v2 = a1;
+  if (v2)
   {
-    v2 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v1];
-    if (!v2)
+    v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v2];
+    if (!v4)
     {
-      v7 = _LTOSLogEtiquetteSanitizer();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v13 = _LTOSLogEtiquetteSanitizer(0, v3);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         replacementDictionaryForEtiquetteFileAtURL_cold_3();
       }
 
-      v5 = 0;
+      v11 = 0;
       goto LABEL_21;
     }
 
-    v18 = 0;
-    v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v2 options:0 error:&v18];
-    v4 = v18;
-    if (v3)
+    v24 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v4 options:0 error:&v24];
+    v6 = v24;
+    v8 = v6;
+    if (v5)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v14 = 0;
-        v15 = &v14;
-        v16 = 0x2020000000;
-        v17 = 1;
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __replacementDictionaryForEtiquetteFileAtURL_block_invoke;
-        v11[3] = &unk_2789B6A70;
-        v12 = v1;
-        v13 = &v14;
-        [v3 enumerateKeysAndObjectsUsingBlock:v11];
-        if (v15[3])
+        v20 = 0;
+        v21 = &v20;
+        v22 = 0x2020000000;
+        v23 = 1;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __replacementDictionaryForEtiquetteFileAtURL_block_invoke;
+        v17[3] = &unk_2789B6A70;
+        v18 = v2;
+        v19 = &v20;
+        [v5 enumerateKeysAndObjectsUsingBlock:v17];
+        if (v21[3])
         {
-          v5 = v3;
+          v11 = v5;
         }
 
         else
         {
-          v5 = 0;
+          v11 = 0;
         }
 
-        _Block_object_dispose(&v14, 8);
+        _Block_object_dispose(&v20, 8);
         goto LABEL_20;
       }
 
-      v9 = _LTOSLogEtiquetteSanitizer();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v15 = _LTOSLogEtiquetteSanitizer(isKindOfClass, v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        replacementDictionaryForEtiquetteFileAtURL_cold_1(v1, v9);
+        replacementDictionaryForEtiquetteFileAtURL_cold_1(v2, v15, v5);
       }
     }
 
     else
     {
-      v8 = _LTOSLogEtiquetteSanitizer();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v14 = _LTOSLogEtiquetteSanitizer(v6, v7);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         replacementDictionaryForEtiquetteFileAtURL_cold_2();
       }
     }
 
-    v5 = 0;
+    v11 = 0;
 LABEL_20:
 
 LABEL_21:
     goto LABEL_22;
   }
 
-  v6 = _LTOSLogEtiquetteSanitizer();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v12 = _LTOSLogEtiquetteSanitizer(0, v1);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    replacementDictionaryForEtiquetteFileAtURL_cold_4(v6);
+    replacementDictionaryForEtiquetteFileAtURL_cold_4(v12);
   }
 
-  v5 = 0;
+  v11 = 0;
 LABEL_22:
 
-  return v5;
+  return v11;
 }
 
-void sub_232E8F94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_232E8F94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __replacementDictionaryForEtiquetteFileAtURL_block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = _LTOSLogEtiquetteSanitizer();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _LTOSLogEtiquetteSanitizer(isKindOfClass, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = 138412802;
-      v13 = v11;
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      _os_log_error_impl(&dword_232E53000, v9, OS_LOG_TYPE_ERROR, "Model at URL %@ contains bogus key/value pair: %@ => %@", &v12, 0x20u);
+      v12 = *(a1 + 32);
+      v13 = 138412802;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v8;
+      _os_log_error_impl(&dword_232E53000, v11, OS_LOG_TYPE_ERROR, "Model at URL %@ contains bogus key/value pair: %@ => %@", &v13, 0x20u);
     }
 
     *a4 = 1;
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_232E8FE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232E8FE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2198,7 +2215,7 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_232E90214(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id location)
+void sub_232E90214(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id location)
 {
   objc_destroyWeak(&a27);
   _Block_object_dispose(&a28, 8);
@@ -2337,9 +2354,16 @@ uint64_t getModelFeature(void *a1)
   return v2;
 }
 
-void sub_232E95C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_232E95C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_232E96230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2350,9 +2374,8 @@ void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, ui
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0xCu);
 }
 
-id OUTLINED_FUNCTION_9(uint64_t *a1, void *a2)
+id OUTLINED_FUNCTION_9(uint64_t a1, void *a2)
 {
-  v3 = *a1;
 
   return a2;
 }
@@ -2376,6 +2399,13 @@ uint64_t __Block_byref_object_copy__9(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_232E9C73C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_232E9EBE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location)
@@ -2403,20 +2433,20 @@ void sub_232EA20C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_232EA2B64(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_232EA2B64(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232EA3C18(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, ...)
+void sub_232EA3C18(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, void *a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
 
   objc_destroyWeak(va);
-  objc_destroyWeak((v20 - 112));
+  objc_destroyWeak((v27 - 112));
 
   _Unwind_Resume(a1);
 }
@@ -2486,7 +2516,7 @@ void sub_232EAD824(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_232EAE5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_232EAE5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -2518,11 +2548,11 @@ uint64_t OUTLINED_FUNCTION_5_3(uint64_t result, uint64_t a2, int a3, float a4)
   return result;
 }
 
-void sub_232EAF610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_232EAF610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v5 - 24));
+  objc_destroyWeak((v9 - 24));
   _Unwind_Resume(a1);
 }
 
@@ -2549,38 +2579,38 @@ void sub_232EB0824(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void _LTAudioPlaybackServiceAudioQueueCallback(uint64_t a1, AudioQueueRef inAQ, AudioQueueBuffer *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  memset(&v10, 0, sizeof(v10));
-  AudioQueueGetCurrentTime(inAQ, 0, &v10, 0);
-  v6 = _LTOSLogTTS();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v20 = *MEMORY[0x277D85DE8];
+  memset(&v13, 0, sizeof(v13));
+  CurrentTime = AudioQueueGetCurrentTime(inAQ, 0, &v13, 0);
+  v8 = _LTOSLogTTS(CurrentTime, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     mAudioDataByteSize = a3->mAudioDataByteSize;
     *buf = 134218496;
-    v12 = a1;
-    v13 = 2048;
-    mSampleTime = v10.mSampleTime;
-    v15 = 2048;
-    v16 = mAudioDataByteSize;
-    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "LTPlaybackServices %p played audio buffer at sample time: %f, size: %ld", buf, 0x20u);
+    v15 = a1;
+    v16 = 2048;
+    mSampleTime = v13.mSampleTime;
+    v18 = 2048;
+    v19 = mAudioDataByteSize;
+    _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "LTPlaybackServices %p played audio buffer at sample time: %f, size: %ld", buf, 0x20u);
   }
 
-  if (AudioQueueFreeBuffer(inAQ, a3))
+  v10 = AudioQueueFreeBuffer(inAQ, a3);
+  if (v10)
   {
-    v8 = _LTOSLogTTS();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = _LTOSLogTTS(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       _LTAudioPlaybackServiceAudioQueueCallback_cold_1();
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_1_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void OUTLINED_FUNCTION_3_3(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2590,16 +2620,16 @@ void OUTLINED_FUNCTION_3_3(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void sub_232EB4F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EB4F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232EB50CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EB50CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2611,16 +2641,16 @@ uint64_t __Block_byref_object_copy__12(uint64_t a1, uint64_t a2)
   return result;
 }
 
-id _sharedQueue(void)
+id _sharedQueue(uint64_t a1)
 {
   if (_sharedQueue(void)::onceToken != -1)
   {
     _sharedQueue();
   }
 
-  v1 = _sharedQueue(void)::queue;
+  v2 = _sharedQueue(void)::queue;
 
-  return v1;
+  return v2;
 }
 
 void sub_232EB68AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
@@ -2663,33 +2693,33 @@ uint64_t AudioConverterFillComplexBuffer_BlockInvoke(uint64_t a1, uint64_t a2, u
 
 uint64_t _anyDownloading(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
-    v3 = *v8;
+    v3 = *v7;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v8 != v3)
+        if (*v7 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        if ([*(*(&v7 + 1) + 8 * i) isDownloading])
+        if ([*(*(&v6 + 1) + 8 * i) isDownloading])
         {
           v2 = 1;
           goto LABEL_11;
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
       if (v2)
       {
         continue;
@@ -2701,39 +2731,38 @@ uint64_t _anyDownloading(void *a1)
 
 LABEL_11:
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t _allInstalled(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 count])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v11;
+      v5 = *v10;
       LOBYTE(v6) = 1;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v11 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
           if (v6)
           {
-            v6 = [*(*(&v10 + 1) + 8 * i) isInstalled];
+            v6 = [*(*(&v9 + 1) + 8 * i) isInstalled];
           }
 
           else
@@ -2742,7 +2771,7 @@ uint64_t _allInstalled(void *a1)
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v4);
@@ -2759,15 +2788,15 @@ uint64_t _allInstalled(void *a1)
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-void sub_232EBDC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_232EBDC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a43, 8);
-  _Block_object_dispose((v43 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v42 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2778,17 +2807,9 @@ uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_5_5@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void sub_232EC1344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  *(v3 - 8) = a3;
-  v4 = *(*(*(result + 48) + 8) + 40);
-  v5 = *(*(*a2 + 8) + 40);
-  return result;
-}
-
-void sub_232EC1344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2830,15 +2851,14 @@ void sub_232EC19B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t morphun::Chunk::end(morphun::Chunk *this)
 {
-  v2 = *(this + 2);
-  if (v2)
+  v1 = *(this + 2);
+  if (v1)
   {
-    morphun::Token::getNext(v2);
-    v3 = *(this + 2);
+    morphun::Token::getNext(v1);
   }
 
   morphun::TokenIterator::TokenIterator();
-  return v5;
+  return v3;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(uint64_t a1, uint64_t a2)
@@ -2872,17 +2892,17 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void *std::vector<unsigned short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_232EC2008(_Unwind_Exception *exception_object)
@@ -2897,7 +2917,7 @@ void sub_232EC2008(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2907,10 +2927,11 @@ void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_
   std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
 }
 
-void OUTLINED_FUNCTION_0_15(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_15(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
 uint64_t OUTLINED_FUNCTION_2_7()
@@ -2968,10 +2989,11 @@ void sub_232ECBBBC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 __CFString *_LTVoiceTypeRemoteServiceString(uint64_t a1)
@@ -2995,7 +3017,7 @@ __CFString *_LTVoiceTypeRemoteServiceString(uint64_t a1)
 
 uint64_t _LTVoiceTypeLocaleOverride(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [a2 _ltLocaleIdentifier];
   v4 = [&unk_284868220 valueForKey:v3];
   v5 = [v4 intValue];
@@ -3003,41 +3025,25 @@ uint64_t _LTVoiceTypeLocaleOverride(uint64_t a1, void *a2)
 
   if (v5)
   {
-    v7 = v5 == a1;
+    v9 = v5 == a1;
   }
 
   else
   {
-    v7 = 1;
+    v9 = 1;
   }
 
-  if (v7)
+  if (v9)
   {
     v6 = a1;
   }
 
   else
   {
-    v8 = _LTOSLogTTS();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = _LTOSLogTTS(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       if (a1 == 2)
-      {
-        v10 = @"female";
-      }
-
-      else
-      {
-        v10 = &stru_284834138;
-      }
-
-      if (a1 == 1)
-      {
-        v10 = @"male";
-      }
-
-      v11 = v10;
-      if (v5 == 2)
       {
         v12 = @"female";
       }
@@ -3047,23 +3053,38 @@ uint64_t _LTVoiceTypeLocaleOverride(uint64_t a1, void *a2)
         v12 = &stru_284834138;
       }
 
-      if (v5 == 1)
+      if (a1 == 1)
       {
         v12 = @"male";
       }
 
       v13 = v12;
-      v16 = 138543874;
-      v17 = v3;
-      v18 = 2114;
-      v19 = v11;
-      v20 = 2114;
-      v21 = v13;
-      _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "Voice type overridden for locale %{public}@ from %{public}@ to %{public}@", &v16, 0x20u);
+      if (v5 == 2)
+      {
+        v14 = @"female";
+      }
+
+      else
+      {
+        v14 = &stru_284834138;
+      }
+
+      if (v5 == 1)
+      {
+        v14 = @"male";
+      }
+
+      v15 = v14;
+      v17 = 138543874;
+      v18 = v3;
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2114;
+      v22 = v15;
+      _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_INFO, "Voice type overridden for locale %{public}@ from %{public}@ to %{public}@", &v17, 0x20u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3081,9 +3102,9 @@ uint64_t _LTPreferredVoiceTypeForLocale(void *a1)
   return v3;
 }
 
-void sub_232ECDB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ECDB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -3097,7 +3118,6 @@ void apple::aiml::flatbuffers2::DetachedBuffer::~DetachedBuffer(apple::aiml::fla
     v4 = *this;
     if (*this)
     {
-      v5 = *(this + 3);
       (*(*v4 + 24))(v4);
     }
 
@@ -3118,184 +3138,184 @@ void apple::aiml::flatbuffers2::DetachedBuffer::~DetachedBuffer(apple::aiml::fla
   v3[1] = 0u;
 }
 
-void sub_232ECDFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ECDFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ECEC98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ECEC98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED1778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED1778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED1FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED1FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED27E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED27E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED3020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED3020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED3858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED3858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED4090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED4090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED48C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED48C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED5100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED5100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED72E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED72E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232ED8D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232ED8D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDB0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDB0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDC0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDC0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDC8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDC8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDD424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDD424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDDC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDDC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDE494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDE494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDECCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDECCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDF504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDF504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EDFD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EDFD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EE0A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EE0A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EE1258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EE1258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EE1A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EE1A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EE25D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EE25D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void sub_232EE515C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232EE515C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -3309,13 +3329,13 @@ uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(apple::aiml:
   return (*(this + 8) - *(this + 12) + *(this + 10));
 }
 
-void *apple::aiml::flatbuffers2::vector_downward::fill(void *this, unint64_t a2)
+char *apple::aiml::flatbuffers2::vector_downward::fill(char *this, unint64_t a2)
 {
   v3 = this;
-  v4 = this[6];
-  if (v4 - this[7] >= a2)
+  v4 = *(this + 6);
+  if (v4 - *(this + 7) >= a2)
   {
-    this[6] = v4 - a2;
+    *(this + 6) = v4 - a2;
     if (!a2)
     {
       return this;
@@ -3325,13 +3345,13 @@ void *apple::aiml::flatbuffers2::vector_downward::fill(void *this, unint64_t a2)
   else
   {
     this = apple::aiml::flatbuffers2::vector_downward::reallocate(this, a2);
-    v3[6] -= a2;
+    *(v3 + 6) -= a2;
   }
 
   v5 = 0;
   do
   {
-    *(v3[6] + v5++) = 0;
+    *(*(v3 + 6) + v5++) = 0;
   }
 
   while (a2 != v5);
@@ -3354,7 +3374,7 @@ uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned int>
   return (*(a1 + 32) - v5 + *(a1 + 40));
 }
 
-void *apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign(apple::aiml::flatbuffers2::FlatBufferBuilder *this, uint64_t a2, unint64_t a3)
+char *apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign(apple::aiml::flatbuffers2::FlatBufferBuilder *this, uint64_t a2, unint64_t a3)
 {
   if (*(this + 9) < a3)
   {
@@ -3364,7 +3384,7 @@ void *apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign(apple::aiml::flatbu
   return apple::aiml::flatbuffers2::vector_downward::fill(this, (a3 - 1) & (-a2 - (*(this + 8) - *(this + 12) + *(this + 10))));
 }
 
-uint64_t apple::aiml::flatbuffers2::vector_downward::reallocate(apple::aiml::flatbuffers2::vector_downward *this, unint64_t a2)
+char *apple::aiml::flatbuffers2::vector_downward::reallocate(apple::aiml::flatbuffers2::vector_downward *this, unint64_t a2)
 {
   v3 = *(this + 4);
   v4 = *(this + 5);
@@ -3410,10 +3430,10 @@ uint64_t apple::aiml::flatbuffers2::vector_downward::reallocate(apple::aiml::fla
     result = (*(*v9 + 16))(v9, v8);
   }
 
-  v11 = result + *(this + 4) - v5;
+  v11 = &result[*(this + 4) - v5];
   *(this + 5) = result;
   *(this + 6) = v11;
-  *(this + 7) = result + v6;
+  *(this + 7) = &result[v6];
   return result;
 }
 
@@ -3434,19 +3454,19 @@ void apple::aiml::flatbuffers2::DefaultAllocator::deallocate(apple::aiml::flatbu
   }
 }
 
-void *apple::aiml::flatbuffers2::vector_downward::push(void *this, const unsigned __int8 *__src, unint64_t a3)
+apple::aiml::flatbuffers2::vector_downward *apple::aiml::flatbuffers2::vector_downward::push(apple::aiml::flatbuffers2::vector_downward *this, const unsigned __int8 *__src, unint64_t a3)
 {
   if (a3)
   {
     v5 = this;
-    v6 = this[6];
-    if (v6 - this[7] < a3)
+    v6 = *(this + 6);
+    if (v6 - *(this + 7) < a3)
     {
       apple::aiml::flatbuffers2::vector_downward::reallocate(this, a3);
-      v6 = v5[6];
+      v6 = *(v5 + 6);
     }
 
-    v5[6] = v6 - a3;
+    *(v5 + 6) = v6 - a3;
 
     return memcpy((v6 - a3), __src, a3);
   }
@@ -3454,7 +3474,7 @@ void *apple::aiml::flatbuffers2::vector_downward::push(void *this, const unsigne
   return this;
 }
 
-void *apple::aiml::flatbuffers2::FlatBufferBuilder::Align(apple::aiml::flatbuffers2::FlatBufferBuilder *this, unint64_t a2)
+char *apple::aiml::flatbuffers2::FlatBufferBuilder::Align(apple::aiml::flatbuffers2::FlatBufferBuilder *this, unint64_t a2)
 {
   if (*(this + 9) < a2)
   {
@@ -3464,10 +3484,10 @@ void *apple::aiml::flatbuffers2::FlatBufferBuilder::Align(apple::aiml::flatbuffe
   return apple::aiml::flatbuffers2::vector_downward::fill(this, (a2 - 1) & -(*(this + 8) - *(this + 12) + *(this + 10)));
 }
 
-void *apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(void *result, uint64_t a2, int a3, int a4)
+char *apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(char *result, uint64_t a2, int a3, int a4)
 {
   v5 = result;
-  if (a3 != a4 || *(result + 80) == 1)
+  if (a3 != a4 || result[80] == 1)
   {
     v6 = apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned int>(result, a3);
 
@@ -3477,18 +3497,18 @@ void *apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(voi
   return result;
 }
 
-void *apple::aiml::flatbuffers2::FlatBufferBuilder::TrackField(void *this, uint64_t a2, unsigned int a3)
+char *apple::aiml::flatbuffers2::FlatBufferBuilder::TrackField(char *this, uint64_t a2, unsigned int a3)
 {
   v5 = this;
-  v6 = this[7];
-  if (this[6] - v6 <= 7uLL)
+  v6 = *(this + 7);
+  if (*(this + 6) - v6 <= 7uLL)
   {
     this = apple::aiml::flatbuffers2::vector_downward::reallocate(this, 8uLL);
-    v6 = v5[7];
+    v6 = *(v5 + 7);
   }
 
   *v6 = a3 | (a2 << 32);
-  v5[7] += 8;
+  *(v5 + 7) += 8;
   ++*(v5 + 16);
   v7 = *(v5 + 34);
   if (v7 <= a2)
@@ -3546,12 +3566,11 @@ uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(apple::aiml::fla
   v11 = (v8 - 8 * v10);
   if (v10)
   {
-    v12 = v8 - 8 * v10;
+    v12 = (v8 - 8 * v10);
     do
     {
-      v13 = (v4 - *v12);
-      *(v9 + *(v12 + 4)) = v4 - *v12;
-      v12 += 8;
+      *(v9 + v12[2]) = v4 - *v12;
+      v12 += 4;
     }
 
     while (v12 < v8);
@@ -3560,50 +3579,50 @@ uint64_t apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(apple::aiml::fla
   *(this + 7) = v11;
   *(this + 16) = 0;
   *(this + 34) = 0;
-  v14 = *(this + 4);
-  v15 = *(this + 5);
-  v16 = v14 - v9 + v15;
-  if (*(this + 81) == 1 && v15 < v11)
+  v13 = *(this + 4);
+  v14 = *(this + 5);
+  v15 = v13 - v9 + v14;
+  if (*(this + 81) == 1 && v14 < v11)
   {
-    v18 = *v9;
-    v19 = v15 + v14;
-    v20 = *(this + 5);
+    v17 = *v9;
+    v18 = v14 + v13;
+    v19 = *(this + 5);
     while (1)
     {
-      v21 = *v20;
-      if (v18 == *(v19 - v21) && !memcmp((v19 - v21), v9, v18))
+      v20 = *v19;
+      if (v17 == *(v18 - v20) && !memcmp((v18 - v20), v9, v17))
       {
         break;
       }
 
-      if (++v20 >= v11)
+      if (++v19 >= v11)
       {
-        v16 = v14 - v9 + v15;
+        v15 = v13 - v9 + v14;
         goto LABEL_19;
       }
     }
 
-    v9 = (v9 + (v14 - v9 + v15 - v4));
+    v9 = (v9 + (v13 - v9 + v14 - v4));
     *(this + 6) = v9;
-    v16 = v21;
+    v15 = v20;
   }
 
 LABEL_19:
-  if (v16 == v14 + v15 - v9)
+  if (v15 == v13 + v14 - v9)
   {
     if ((v9 - v11) <= 3)
     {
       apple::aiml::flatbuffers2::vector_downward::reallocate(this, 4uLL);
       v11 = *(this + 7);
-      v14 = *(this + 4);
-      v15 = *(this + 5);
+      v13 = *(this + 4);
+      v14 = *(this + 5);
     }
 
-    *v11 = v16;
+    *v11 = v15;
     *(this + 7) = v11 + 4;
   }
 
-  *(v15 + v14 - v4) = v16 - v4;
+  *(v14 + v13 - v4) = v15 - v4;
   *(this + 70) = 0;
   return v4;
 }
@@ -3616,7 +3635,6 @@ void apple::aiml::flatbuffers2::vector_downward::~vector_downward(apple::aiml::f
     v3 = *this;
     if (*this)
     {
-      v4 = *(this + 4);
       (*(*v3 + 24))(v3);
     }
 
@@ -3659,10 +3677,10 @@ void std::__tree<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::St
   }
 }
 
-void *apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(void *result, uint64_t a2, int a3, int a4)
+char *apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(char *result, uint64_t a2, uint64_t a3, int a4)
 {
   v5 = result;
-  if (a3 != a4 || *(result + 80) == 1)
+  if (a3 != a4 || result[80] == 1)
   {
     v6 = apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<unsigned char>(result, a3);
 
@@ -5010,262 +5028,212 @@ BOOL siri::speech::schema_fb::StartSpeechRequest::Verify(siri::speech::schema_fb
                                     {
                                       v35 = (this - *this);
                                       v36 = *v35;
-                                      if (v36 < 0x1B)
+                                      if (v36 < 0x1B || (!v35[13] || (result = 0, v37 = *(a2 + 1), v37 >= 5) && v37 - 4 >= this + v35[13] - *a2) && (v36 < 0x1D || (!v35[14] || (result = 0, v38 = *(a2 + 1), v38 >= 2) && v38 - 1 >= this + v35[14] - *a2) && (v36 < 0x1F || (!v35[15] || (result = 0, v39 = *(a2 + 1), v39 >= 2) && v39 - 1 >= this + v35[15] - *a2) && (v36 < 0x21 || (v40 = v35[16]) == 0 || (result = 0, v41 = *(a2 + 1), v41 >= 2) && v41 - 1 >= this + v40 - *a2))))
                                       {
-                                        goto LABEL_197;
-                                      }
-
-                                      if (!v35[13] || (result = 0, v37 = *(a2 + 1), v37 >= 5) && v37 - 4 >= this + v35[13] - *a2)
-                                      {
-                                        if (v36 < 0x1D || (!v35[14] || (result = 0, v38 = *(a2 + 1), v38 >= 2) && v38 - 1 >= this + v35[14] - *a2) && (v36 < 0x1F || (!v35[15] || (result = 0, v39 = *(a2 + 1), v39 >= 2) && v39 - 1 >= this + v35[15] - *a2) && (v36 < 0x21 || (v40 = v35[16]) == 0 || (result = 0, v41 = *(a2 + 1), v41 >= 2) && v41 - 1 >= this + v40 - *a2)))
+                                        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x22u);
+                                        if (result)
                                         {
-LABEL_197:
-                                          result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x22u);
+                                          v42 = (this - *this);
+                                          if (*v42 >= 0x23u && (v43 = v42[17]) != 0)
+                                          {
+                                            v44 = this + v43 + *(this + v43);
+                                          }
+
+                                          else
+                                          {
+                                            v44 = 0;
+                                          }
+
+                                          result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v44);
                                           if (result)
                                           {
-                                            v42 = (this - *this);
-                                            if (*v42 >= 0x23u && (v43 = v42[17]) != 0)
+                                            v45 = (this - *this);
+                                            v46 = *v45;
+                                            if (v46 < 0x25 || (!v45[18] || (result = 0, v47 = *(a2 + 1), v47 >= 5) && v47 - 4 >= this + v45[18] - *a2) && (v46 < 0x27 || (!v45[19] || (result = 0, v48 = *(a2 + 1), v48 >= 5) && v48 - 4 >= this + v45[19] - *a2) && (v46 < 0x29 || (!v45[20] || (result = 0, v49 = *(a2 + 1), v49 >= 2) && v49 - 1 >= this + v45[20] - *a2) && (v46 < 0x2B || (!v45[21] || (result = 0, v50 = *(a2 + 1), v50 >= 2) && v50 - 1 >= this + v45[21] - *a2) && (v46 < 0x2D || (!v45[22] || (result = 0, v51 = *(a2 + 1), v51 >= 2) && v51 - 1 >= this + v45[22] - *a2) && (v46 < 0x2F || (!v45[23] || (result = 0, v52 = *(a2 + 1), v52 >= 9) && v52 - 8 >= this + v45[23] - *a2) && (v46 < 0x31 || (!v45[24] || (result = 0, v53 = *(a2 + 1), v53 >= 9) && v53 - 8 >= this + v45[24] - *a2) && (v46 < 0x33 || (v54 = v45[25]) == 0 || (result = 0, v55 = *(a2 + 1), v55 >= 2) && v55 - 1 >= this + v54 - *a2))))))))
                                             {
-                                              v44 = this + v43 + *(this + v43);
-                                            }
-
-                                            else
-                                            {
-                                              v44 = 0;
-                                            }
-
-                                            result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v44);
-                                            if (result)
-                                            {
-                                              v45 = (this - *this);
-                                              v46 = *v45;
-                                              if (v46 < 0x25)
+                                              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x34u);
+                                              if (result)
                                               {
-                                                goto LABEL_198;
-                                              }
-
-                                              if (!v45[18] || (result = 0, v47 = *(a2 + 1), v47 >= 5) && v47 - 4 >= this + v45[18] - *a2)
-                                              {
-                                                if (v46 < 0x27)
+                                                v56 = (this - *this);
+                                                if (*v56 >= 0x35u && (v57 = v56[26]) != 0)
                                                 {
-                                                  goto LABEL_198;
+                                                  v58 = this + v57 + *(this + v57);
                                                 }
 
-                                                if (!v45[19] || (result = 0, v48 = *(a2 + 1), v48 >= 5) && v48 - 4 >= this + v45[19] - *a2)
+                                                else
                                                 {
-                                                  if (v46 < 0x29)
-                                                  {
-                                                    goto LABEL_198;
-                                                  }
+                                                  v58 = 0;
+                                                }
 
-                                                  if (!v45[20] || (result = 0, v49 = *(a2 + 1), v49 >= 2) && v49 - 1 >= this + v45[20] - *a2)
+                                                result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v58);
+                                                if (result)
+                                                {
+                                                  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x36u);
+                                                  if (result)
                                                   {
-                                                    if (v46 < 0x2B)
+                                                    v59 = (this - *this);
+                                                    if (*v59 >= 0x37u && (v60 = v59[27]) != 0)
                                                     {
-                                                      goto LABEL_198;
+                                                      v61 = this + v60 + *(this + v60);
                                                     }
 
-                                                    if (!v45[21] || (result = 0, v50 = *(a2 + 1), v50 >= 2) && v50 - 1 >= this + v45[21] - *a2)
+                                                    else
                                                     {
-                                                      if (v46 < 0x2D)
-                                                      {
-                                                        goto LABEL_198;
-                                                      }
+                                                      v61 = 0;
+                                                    }
 
-                                                      if (!v45[22] || (result = 0, v51 = *(a2 + 1), v51 >= 2) && v51 - 1 >= this + v45[22] - *a2)
+                                                    result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v61);
+                                                    if (result)
+                                                    {
+                                                      result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x38u);
+                                                      if (result)
                                                       {
-                                                        if (v46 < 0x2F || (!v45[23] || (result = 0, v52 = *(a2 + 1), v52 >= 9) && v52 - 8 >= this + v45[23] - *a2) && (v46 < 0x31 || (!v45[24] || (result = 0, v53 = *(a2 + 1), v53 >= 9) && v53 - 8 >= this + v45[24] - *a2) && (v46 < 0x33 || (v54 = v45[25]) == 0 || (result = 0, v55 = *(a2 + 1), v55 >= 2) && v55 - 1 >= this + v54 - *a2)))
+                                                        v62 = (this - *this);
+                                                        if (*v62 >= 0x39u && (v63 = v62[28]) != 0)
                                                         {
-LABEL_198:
-                                                          result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x34u);
-                                                          if (result)
+                                                          v64 = this + v63 + *(this + v63);
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v64 = 0;
+                                                        }
+
+                                                        result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v64);
+                                                        if (result)
+                                                        {
+                                                          v65 = (this - *this);
+                                                          v66 = *v65;
+                                                          if (v66 < 0x3B || (!v65[29] || (result = 0, v67 = *(a2 + 1), v67 >= 5) && v67 - 4 >= this + v65[29] - *a2) && (v66 < 0x3D || (!v65[30] || (result = 0, v68 = *(a2 + 1), v68 >= 2) && v68 - 1 >= this + v65[30] - *a2) && (v66 < 0x3F || (v69 = v65[31]) == 0 || (result = 0, v70 = *(a2 + 1), v70 >= 2) && v70 - 1 >= this + v69 - *a2)))
                                                           {
-                                                            v56 = (this - *this);
-                                                            if (*v56 >= 0x35u && (v57 = v56[26]) != 0)
-                                                            {
-                                                              v58 = this + v57 + *(this + v57);
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v58 = 0;
-                                                            }
-
-                                                            result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v58);
+                                                            result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x40u);
                                                             if (result)
                                                             {
-                                                              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x36u);
+                                                              v71 = (this - *this);
+                                                              if (*v71 >= 0x41u && (v72 = v71[32]) != 0)
+                                                              {
+                                                                v73 = this + v72 + *(this + v72);
+                                                              }
+
+                                                              else
+                                                              {
+                                                                v73 = 0;
+                                                              }
+
+                                                              result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v73);
                                                               if (result)
                                                               {
-                                                                v59 = (this - *this);
-                                                                if (*v59 >= 0x37u && (v60 = v59[27]) != 0)
+                                                                v74 = (this - *this);
+                                                                if (*v74 < 0x43u || (v75 = v74[33]) == 0 || (result = 0, v76 = *(a2 + 1), v76 >= 5) && v76 - 4 >= this + v75 - *a2)
                                                                 {
-                                                                  v61 = this + v60 + *(this + v60);
-                                                                }
-
-                                                                else
-                                                                {
-                                                                  v61 = 0;
-                                                                }
-
-                                                                result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v61);
-                                                                if (result)
-                                                                {
-                                                                  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x38u);
+                                                                  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x44u);
                                                                   if (result)
                                                                   {
-                                                                    v62 = (this - *this);
-                                                                    if (*v62 >= 0x39u && (v63 = v62[28]) != 0)
+                                                                    v77 = (this - *this);
+                                                                    if (*v77 >= 0x45u && (v78 = v77[34]) != 0)
                                                                     {
-                                                                      v64 = this + v63 + *(this + v63);
+                                                                      v79 = this + v78 + *(this + v78);
                                                                     }
 
                                                                     else
                                                                     {
-                                                                      v64 = 0;
+                                                                      v79 = 0;
                                                                     }
 
-                                                                    result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v64);
+                                                                    result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v79);
                                                                     if (result)
                                                                     {
-                                                                      v65 = (this - *this);
-                                                                      v66 = *v65;
-                                                                      if (v66 < 0x3B || (!v65[29] || (result = 0, v67 = *(a2 + 1), v67 >= 5) && v67 - 4 >= this + v65[29] - *a2) && (v66 < 0x3D || (!v65[30] || (result = 0, v68 = *(a2 + 1), v68 >= 2) && v68 - 1 >= this + v65[30] - *a2) && (v66 < 0x3F || (v69 = v65[31]) == 0 || (result = 0, v70 = *(a2 + 1), v70 >= 2) && v70 - 1 >= this + v69 - *a2)))
+                                                                      result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x46u);
+                                                                      if (result)
                                                                       {
-                                                                        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x40u);
+                                                                        v80 = (this - *this);
+                                                                        if (*v80 >= 0x47u && (v81 = v80[35]) != 0)
+                                                                        {
+                                                                          v82 = this + v81 + *(this + v81);
+                                                                        }
+
+                                                                        else
+                                                                        {
+                                                                          v82 = 0;
+                                                                        }
+
+                                                                        result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v82);
                                                                         if (result)
                                                                         {
-                                                                          v71 = (this - *this);
-                                                                          if (*v71 >= 0x41u && (v72 = v71[32]) != 0)
-                                                                          {
-                                                                            v73 = this + v72 + *(this + v72);
-                                                                          }
-
-                                                                          else
-                                                                          {
-                                                                            v73 = 0;
-                                                                          }
-
-                                                                          result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v73);
+                                                                          result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x48u);
                                                                           if (result)
                                                                           {
-                                                                            v74 = (this - *this);
-                                                                            if (*v74 < 0x43u || (v75 = v74[33]) == 0 || (result = 0, v76 = *(a2 + 1), v76 >= 5) && v76 - 4 >= this + v75 - *a2)
+                                                                            v83 = (this - *this);
+                                                                            if (*v83 >= 0x49u && (v84 = v83[36]) != 0)
                                                                             {
-                                                                              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x44u);
+                                                                              v85 = this + v84 + *(this + v84);
+                                                                            }
+
+                                                                            else
+                                                                            {
+                                                                              v85 = 0;
+                                                                            }
+
+                                                                            result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v85);
+                                                                            if (result)
+                                                                            {
+                                                                              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x4Au);
                                                                               if (result)
                                                                               {
-                                                                                v77 = (this - *this);
-                                                                                if (*v77 >= 0x45u && (v78 = v77[34]) != 0)
+                                                                                v86 = *this;
+                                                                                v87 = -v86;
+                                                                                v88 = (this - v86);
+                                                                                if (*v88 >= 0x4Bu)
                                                                                 {
-                                                                                  v79 = this + v78 + *(this + v78);
+                                                                                  v89 = v88[37];
+                                                                                  if (v89)
+                                                                                  {
+                                                                                    result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this + v89 + *(this + v89), 4uLL, 0);
+                                                                                    if (!result)
+                                                                                    {
+                                                                                      return result;
+                                                                                    }
+
+                                                                                    v87 = -*this;
+                                                                                  }
+                                                                                }
+
+                                                                                v90 = (this + v87);
+                                                                                if (*v90 >= 0x4Bu && (v91 = v90[37]) != 0)
+                                                                                {
+                                                                                  v92 = (this + v91 + *(this + v91));
                                                                                 }
 
                                                                                 else
                                                                                 {
-                                                                                  v79 = 0;
+                                                                                  v92 = 0;
                                                                                 }
 
-                                                                                result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v79);
+                                                                                result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::UserParameters>(a2, v92);
                                                                                 if (result)
                                                                                 {
-                                                                                  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x46u);
-                                                                                  if (result)
+                                                                                  v93 = (this - *this);
+                                                                                  if (*v93 < 0x4Du || (v94 = v93[38]) == 0 || (result = 0, v95 = *(a2 + 1), v95 >= 5) && v95 - 4 >= this + v94 - *a2)
                                                                                   {
-                                                                                    v80 = (this - *this);
-                                                                                    if (*v80 >= 0x47u && (v81 = v80[35]) != 0)
-                                                                                    {
-                                                                                      v82 = this + v81 + *(this + v81);
-                                                                                    }
-
-                                                                                    else
-                                                                                    {
-                                                                                      v82 = 0;
-                                                                                    }
-
-                                                                                    result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v82);
+                                                                                    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x4Eu);
                                                                                     if (result)
                                                                                     {
-                                                                                      result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x48u);
+                                                                                      v96 = (this - *this);
+                                                                                      if (*v96 >= 0x4Fu && (v97 = v96[39]) != 0)
+                                                                                      {
+                                                                                        v98 = this + v97 + *(this + v97);
+                                                                                      }
+
+                                                                                      else
+                                                                                      {
+                                                                                        v98 = 0;
+                                                                                      }
+
+                                                                                      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v98);
                                                                                       if (result)
                                                                                       {
-                                                                                        v83 = (this - *this);
-                                                                                        if (*v83 >= 0x49u && (v84 = v83[36]) != 0)
-                                                                                        {
-                                                                                          v85 = this + v84 + *(this + v84);
-                                                                                        }
-
-                                                                                        else
-                                                                                        {
-                                                                                          v85 = 0;
-                                                                                        }
-
-                                                                                        result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v85);
-                                                                                        if (result)
-                                                                                        {
-                                                                                          result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x4Au);
-                                                                                          if (result)
-                                                                                          {
-                                                                                            v86 = *this;
-                                                                                            v87 = -v86;
-                                                                                            v88 = (this - v86);
-                                                                                            if (*v88 >= 0x4Bu)
-                                                                                            {
-                                                                                              v89 = v88[37];
-                                                                                              if (v89)
-                                                                                              {
-                                                                                                result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this + v89 + *(this + v89), 4uLL, 0);
-                                                                                                if (!result)
-                                                                                                {
-                                                                                                  return result;
-                                                                                                }
-
-                                                                                                v87 = -*this;
-                                                                                              }
-                                                                                            }
-
-                                                                                            v90 = (this + v87);
-                                                                                            if (*v90 >= 0x4Bu && (v91 = v90[37]) != 0)
-                                                                                            {
-                                                                                              v92 = (this + v91 + *(this + v91));
-                                                                                            }
-
-                                                                                            else
-                                                                                            {
-                                                                                              v92 = 0;
-                                                                                            }
-
-                                                                                            result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::UserParameters>(a2, v92);
-                                                                                            if (result)
-                                                                                            {
-                                                                                              v93 = (this - *this);
-                                                                                              if (*v93 < 0x4Du || (v94 = v93[38]) == 0 || (result = 0, v95 = *(a2 + 1), v95 >= 5) && v95 - 4 >= this + v94 - *a2)
-                                                                                              {
-                                                                                                result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x4Eu);
-                                                                                                if (result)
-                                                                                                {
-                                                                                                  v96 = (this - *this);
-                                                                                                  if (*v96 >= 0x4Fu && (v97 = v96[39]) != 0)
-                                                                                                  {
-                                                                                                    v98 = this + v97 + *(this + v97);
-                                                                                                  }
-
-                                                                                                  else
-                                                                                                  {
-                                                                                                    v98 = 0;
-                                                                                                  }
-
-                                                                                                  result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v98);
-                                                                                                  if (result)
-                                                                                                  {
-                                                                                                    --*(a2 + 4);
-                                                                                                    return 1;
-                                                                                                  }
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          }
-                                                                                        }
+                                                                                        --*(a2 + 4);
+                                                                                        return 1;
                                                                                       }
                                                                                     }
                                                                                   }
@@ -6147,61 +6115,44 @@ BOOL siri::speech::schema_fb::RecognitionToken::Verify(siri::speech::schema_fb::
       {
         v8 = (this - *this);
         v9 = *v8;
-        if (v9 < 7)
+        if (v9 < 7 || (!v8[3] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v8[3] - *a2) && (v9 < 9 || (!v8[4] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v8[4] - *a2) && (v9 < 0xB || (!v8[5] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v8[5] - *a2) && (v9 < 0xD || (!v8[6] || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v8[6] - *a2) && (v9 < 0xF || (v14 = v8[7]) == 0 || (result = 0, v15 = *(a2 + 1), v15 >= 2) && v15 - 1 >= this + v14 - *a2)))))
         {
-          goto LABEL_43;
-        }
-
-        if (!v8[3] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v8[3] - *a2)
-        {
-          if (v9 < 9)
+          result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x10u);
+          if (result)
           {
-            goto LABEL_43;
-          }
-
-          if (!v8[4] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v8[4] - *a2)
-          {
-            if (v9 < 0xB || (!v8[5] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v8[5] - *a2) && (v9 < 0xD || (!v8[6] || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v8[6] - *a2) && (v9 < 0xF || (v14 = v8[7]) == 0 || (result = 0, v15 = *(a2 + 1), v15 >= 2) && v15 - 1 >= this + v14 - *a2)))
+            v16 = (this - *this);
+            if (*v16 >= 0x11u && (v17 = v16[8]) != 0)
             {
-LABEL_43:
-              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x10u);
+              v18 = this + v17 + *(this + v17);
+            }
+
+            else
+            {
+              v18 = 0;
+            }
+
+            result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v18);
+            if (result)
+            {
+              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x12u);
               if (result)
               {
-                v16 = (this - *this);
-                if (*v16 >= 0x11u && (v17 = v16[8]) != 0)
+                v19 = (this - *this);
+                if (*v19 >= 0x13u && (v20 = v19[9]) != 0)
                 {
-                  v18 = this + v17 + *(this + v17);
+                  v21 = this + v20 + *(this + v20);
                 }
 
                 else
                 {
-                  v18 = 0;
+                  v21 = 0;
                 }
 
-                result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v18);
+                result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v21);
                 if (result)
                 {
-                  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x12u);
-                  if (result)
-                  {
-                    v19 = (this - *this);
-                    if (*v19 >= 0x13u && (v20 = v19[9]) != 0)
-                    {
-                      v21 = this + v20 + *(this + v20);
-                    }
-
-                    else
-                    {
-                      v21 = 0;
-                    }
-
-                    result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v21);
-                    if (result)
-                    {
-                      --*(a2 + 4);
-                      return 1;
-                    }
-                  }
+                  --*(a2 + 4);
+                  return 1;
                 }
               }
             }
@@ -6702,19 +6653,10 @@ BOOL siri::speech::schema_fb::ItnAlignment::Verify(siri::speech::schema_fb::ItnA
   {
     v5 = (this - *this);
     v6 = *v5;
-    if (v6 < 5)
+    if (v6 < 5 || (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2) && (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (v10 = v5[5]) == 0 || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v10 - *a2))))
     {
-      goto LABEL_18;
-    }
-
-    if (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2)
-    {
-      if (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (v10 = v5[5]) == 0 || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v10 - *a2)))
-      {
-LABEL_18:
-        --*(a2 + 4);
-        return 1;
-      }
+      --*(a2 + 4);
+      return 1;
     }
   }
 
@@ -7039,19 +6981,10 @@ BOOL siri::speech::schema_fb::LatnnMitigatorResult::Verify(siri::speech::schema_
         {
           v11 = (this - *this);
           v12 = *v11;
-          if (v12 < 9)
+          if (v12 < 9 || (!v11[4] || (result = 0, v13 = *(a2 + 1), v13 >= 9) && v13 - 8 >= this + v11[4] - *a2) && (v12 < 0xB || (!v11[5] || (result = 0, v14 = *(a2 + 1), v14 >= 9) && v14 - 8 >= this + v11[5] - *a2) && (v12 < 0xD || (!v11[6] || (result = 0, v15 = *(a2 + 1), v15 >= 5) && v15 - 4 >= this + v11[6] - *a2) && (v12 < 0xF || (v16 = v11[7]) == 0 || (result = 0, v17 = *(a2 + 1), v17 >= 5) && v17 - 4 >= this + v16 - *a2))))
           {
-            goto LABEL_28;
-          }
-
-          if (!v11[4] || (result = 0, v13 = *(a2 + 1), v13 >= 9) && v13 - 8 >= this + v11[4] - *a2)
-          {
-            if (v12 < 0xB || (!v11[5] || (result = 0, v14 = *(a2 + 1), v14 >= 9) && v14 - 8 >= this + v11[5] - *a2) && (v12 < 0xD || (!v11[6] || (result = 0, v15 = *(a2 + 1), v15 >= 5) && v15 - 4 >= this + v11[6] - *a2) && (v12 < 0xF || (v16 = v11[7]) == 0 || (result = 0, v17 = *(a2 + 1), v17 >= 5) && v17 - 4 >= this + v16 - *a2)))
-            {
-LABEL_28:
-              --*(a2 + 4);
-              return 1;
-            }
+            --*(a2 + 4);
+            return 1;
           }
         }
       }
@@ -8108,77 +8041,68 @@ BOOL siri::speech::schema_fb::ServerEndpointFeatures::Verify(siri::speech::schem
   {
     v5 = (this - *this);
     v6 = *v5;
-    if (v6 < 5)
+    if (v6 < 5 || (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2) && (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (v10 = v5[5]) == 0 || (result = 0, v11 = *(a2 + 1), v11 >= 9) && v11 - 8 >= this + v10 - *a2))))
     {
-      goto LABEL_18;
-    }
-
-    if (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2)
-    {
-      if (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (v10 = v5[5]) == 0 || (result = 0, v11 = *(a2 + 1), v11 >= 9) && v11 - 8 >= this + v10 - *a2)))
+      result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xCu);
+      if (result)
       {
-LABEL_18:
-        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xCu);
-        if (result)
+        v12 = *this;
+        v13 = -v12;
+        v14 = (this - v12);
+        if (*v14 >= 0xDu)
         {
-          v12 = *this;
-          v13 = -v12;
-          v14 = (this - v12);
-          if (*v14 >= 0xDu)
+          v15 = v14[6];
+          if (v15)
           {
-            v15 = v14[6];
-            if (v15)
+            result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this + v15 + *(this + v15), 4uLL, 0);
+            if (!result)
             {
-              result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this + v15 + *(this + v15), 4uLL, 0);
-              if (!result)
-              {
-                return result;
-              }
-
-              v13 = -*this;
+              return result;
             }
-          }
 
-          v16 = (this + v13);
-          if (*v16 < 0xFu || (v17 = v16[7]) == 0 || (result = 0, v18 = *(a2 + 1), v18 >= 9) && v18 - 8 >= this + v17 - *a2)
+            v13 = -*this;
+          }
+        }
+
+        v16 = (this + v13);
+        if (*v16 < 0xFu || (v17 = v16[7]) == 0 || (result = 0, v18 = *(a2 + 1), v18 >= 9) && v18 - 8 >= this + v17 - *a2)
+        {
+          result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x10u);
+          if (result)
           {
-            result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x10u);
+            v19 = (this - *this);
+            if (*v19 >= 0x11u && (v20 = v19[8]) != 0)
+            {
+              v21 = this + v20 + *(this + v20);
+            }
+
+            else
+            {
+              v21 = 0;
+            }
+
+            result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v21);
             if (result)
             {
-              v19 = (this - *this);
-              if (*v19 >= 0x11u && (v20 = v19[8]) != 0)
-              {
-                v21 = this + v20 + *(this + v20);
-              }
-
-              else
-              {
-                v21 = 0;
-              }
-
-              result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v21);
+              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x12u);
               if (result)
               {
-                result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0x12u);
+                v22 = (this - *this);
+                if (*v22 >= 0x13u && (v23 = v22[9]) != 0)
+                {
+                  v24 = this + v23 + *(this + v23);
+                }
+
+                else
+                {
+                  v24 = 0;
+                }
+
+                result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v24);
                 if (result)
                 {
-                  v22 = (this - *this);
-                  if (*v22 >= 0x13u && (v23 = v22[9]) != 0)
-                  {
-                    v24 = this + v23 + *(this + v23);
-                  }
-
-                  else
-                  {
-                    v24 = 0;
-                  }
-
-                  result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v24);
-                  if (result)
-                  {
-                    --*(a2 + 4);
-                    return 1;
-                  }
+                  --*(a2 + 4);
+                  return 1;
                 }
               }
             }
@@ -9362,6 +9286,135 @@ BOOL siri::speech::schema_fb::PostItnHammerRequest::Verify(siri::speech::schema_
                       {
                         --*(a2 + 4);
                         return 1;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL siri::speech::schema_fb::PostItnHammerResponse::Verify(siri::speech::schema_fb::PostItnHammerResponse *this, apple::aiml::flatbuffers2::Verifier *a2)
+{
+  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this);
+  if (result)
+  {
+    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
+    if (result)
+    {
+      v5 = (this - *this);
+      if (*v5 >= 5u && (v6 = v5[2]) != 0)
+      {
+        v7 = this + v6 + *(this + v6);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v7);
+      if (result)
+      {
+        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
+        if (result)
+        {
+          v8 = (this - *this);
+          if (*v8 >= 7u && (v9 = v8[3]) != 0)
+          {
+            v10 = this + v9 + *(this + v9);
+          }
+
+          else
+          {
+            v10 = 0;
+          }
+
+          result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v10);
+          if (result)
+          {
+            result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 8u);
+            if (result)
+            {
+              v11 = (this - *this);
+              if (*v11 >= 9u && (v12 = v11[4]) != 0)
+              {
+                v13 = this + v12 + *(this + v12);
+              }
+
+              else
+              {
+                v13 = 0;
+              }
+
+              result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v13);
+              if (result)
+              {
+                v14 = (this - *this);
+                if (*v14 < 0xBu || (v15 = v14[5]) == 0 || (result = 0, v16 = *(a2 + 1), v16 >= 5) && v16 - 4 >= this + v15 - *a2)
+                {
+                  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xCu);
+                  if (result)
+                  {
+                    v17 = (this - *this);
+                    if (*v17 >= 0xDu && (v18 = v17[6]) != 0)
+                    {
+                      v19 = this + v18 + *(this + v18);
+                    }
+
+                    else
+                    {
+                      v19 = 0;
+                    }
+
+                    result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v19);
+                    if (result)
+                    {
+                      result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xEu);
+                      if (result)
+                      {
+                        v20 = *this;
+                        v21 = -v20;
+                        v22 = (this - v20);
+                        if (*v22 >= 0xFu)
+                        {
+                          v23 = v22[7];
+                          if (v23)
+                          {
+                            result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this + v23 + *(this + v23), 4uLL, 0);
+                            if (!result)
+                            {
+                              return result;
+                            }
+
+                            v21 = -*this;
+                          }
+                        }
+
+                        v24 = (this + v21);
+                        if (*v24 >= 0xFu && (v25 = v24[7]) != 0)
+                        {
+                          v26 = (this + v25 + *(this + v25));
+                        }
+
+                        else
+                        {
+                          v26 = 0;
+                        }
+
+                        result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::RecognitionToken>(a2, v26);
+                        if (result)
+                        {
+                          --*(a2 + 4);
+                          return 1;
+                        }
                       }
                     }
                   }

@@ -146,57 +146,39 @@ BOOL __53___MFXTemporalScalingEffectV4_encodeToCommandBuffer___block_invoke_3(ui
 void __53___MFXTemporalScalingEffectV4_encodeToCommandBuffer___block_invoke_4(uint64_t a1)
 {
   *(*(a1 + 32) + 48);
-  memset(v25, 0, 24);
+  memset(v6, 0, 24);
   if (MTLTraceEnabled())
   {
-    v2 = *(a1 + 32);
     [*(a1 + 40) globalTraceObjectID];
     kdebug_trace();
   }
 
-  v23 = [*(*(a1 + 32) + 448) commandBuffer];
+  v4 = [*(*(a1 + 32) + 448) commandBuffer];
   if (MTLTraceEnabled())
   {
-    v3 = *(a1 + 32);
-    [v23 globalTraceObjectID];
+    [v4 globalTraceObjectID];
     kdebug_trace();
   }
 
-  [v23 encodeWaitForEvent:*(*(a1 + 32) + 456) value:*(a1 + 112)];
-  v4 = *(a1 + 32);
-  if (*(v4 + 291) == 1)
+  [v4 encodeWaitForEvent:*(*(a1 + 32) + 456) value:*(a1 + 112)];
+  v2 = *(a1 + 32);
+  if (*(v2 + 291) == 1)
   {
-    v5 = *(v4 + 488);
-    if (v5)
+    v3 = *(v2 + 488);
+    if (v3)
     {
-      [v23 encodeSignalEvent:v5 value:*(a1 + 120)];
+      [v4 encodeSignalEvent:v3 value:*(a1 + 120)];
     }
   }
 
-  MFXComputeEncoder3::beginEncoding(v25, v23);
-  v24 = v25[0];
-  [v24 setLabel:@"MetalFX_Temporal_PreProcessing"];
-  v6 = v24;
-  v7 = *(a1 + 128);
+  MFXComputeEncoder3::beginEncoding(v6, v4);
+  v5 = v6[0];
+  [v5 setLabel:@"MetalFX_Temporal_PreProcessing"];
+  v5;
   [*(a1 + 32) _didCreateComputeCommandEncoder:? forEncode:?];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 424);
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 56);
-  v12 = *(v8 + 232);
-  v14 = *(a1 + 64);
-  v13 = *(a1 + 72);
-  [*(v8 + 432) mpsndarray];
+  [*(*(a1 + 32) + 432) mpsndarray];
   [objc_claimAutoreleasedReturnValue() buffer];
   objc_claimAutoreleasedReturnValue();
-  v15 = *(a1 + 136);
-  v16 = *(a1 + 144);
-  v17 = *(a1 + 152);
-  v18 = *(a1 + 176);
-  v22 = *(a1 + 186);
-  v21 = *(a1 + 180);
-  v20 = *(*(a1 + 32) + 290);
-  v19 = *(a1 + 184);
   BRNet_v3_Filter<MFXDevice3>::encodePre();
 }
 
@@ -209,8 +191,8 @@ void __53___MFXTemporalScalingEffectV4_encodeToCommandBuffer___block_invoke_5(ui
 
 void __53___MFXTemporalScalingEffectV4_encodeToCommandBuffer___block_invoke_6(void *a1, void *a2)
 {
-  v19 = a2;
-  [v19 GPUEndTime];
+  v16 = a2;
+  [v16 GPUEndTime];
   *(*(a1[5] + 8) + 24) = v3;
   {
     MetalFXHUDInstance(void)::inst = WEAK_CADeveloperHUDProperties();
@@ -233,36 +215,33 @@ void __53___MFXTemporalScalingEffectV4_encodeToCommandBuffer___block_invoke_6(vo
       v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lux%lu", *(a1[4] + 72), *(a1[4] + 80)];
       [v6 updateLabelMetric:@"com.apple.hud-label.metalfx.v2.target_resolution" label:v8];
 
-      v9 = a1[4];
-      v10 = *(v9 + 290);
-      v11 = *(v9 + 424);
       BRNet_v3_Filter<MFXDevice3>::getInternalExposure();
     }
 
-    v12 = (*(*(a1[5] + 8) + 24) - *(*(a1[6] + 8) + 24)) * 1000.0;
-    CHistoryRecord::Add(*(a1[4] + 824), *(a1[4] + 816), v12);
-    v13 = a1[4];
-    if (*(v13 + 344) == 1 && (*(v13 + 291) & 1) != 0)
+    v9 = (*(*(a1[5] + 8) + 24) - *(*(a1[6] + 8) + 24)) * 1000.0;
+    CHistoryRecord::Add(*(a1[4] + 824), *(a1[4] + 816), v9);
+    v10 = a1[4];
+    if (*(v10 + 344) == 1 && (*(v10 + 291) & 1) != 0)
     {
-      v14 = "ANE";
+      v11 = "ANE";
     }
 
     else
     {
-      v14 = "GPU";
+      v11 = "GPU";
     }
 
-    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"MetalFX TAAU Enabled %s", v14];
-    [v4 updateLabel:@"com.apple.hud-label.metalfx" value:v15];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"MetalFX TAAU Enabled %s", v11];
+    [v4 updateLabel:@"com.apple.hud-label.metalfx" value:v12];
 
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lux%lu->%lux%lu", *(a1[4] + 56), *(a1[4] + 64), *(a1[4] + 72), *(a1[4] + 80)];
-    [v4 updateLabel:@"com.apple.hud-label.metalfx.resolution" value:v16];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lux%lu->%lux%lu", *(a1[4] + 56), *(a1[4] + 64), *(a1[4] + 72), *(a1[4] + 80)];
+    [v4 updateLabel:@"com.apple.hud-label.metalfx.resolution" value:v13];
 
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"c. %lux%lu->%lux%lu", *(a1[4] + 88), *(a1[4] + 96), *(a1[4] + 72), *(a1[4] + 80)];
-    [v4 updateLabel:@"com.apple.hud-label.metalfx.content_resolution" value:v17];
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"c. %lux%lu->%lux%lu", *(a1[4] + 88), *(a1[4] + 96), *(a1[4] + 72), *(a1[4] + 80)];
+    [v4 updateLabel:@"com.apple.hud-label.metalfx.content_resolution" value:v14];
 
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%2.2f [%2.2f %2.2f]", *(*(a1[4] + 824) + 16), *(*(a1[4] + 824) + 500), *(*(a1[4] + 824) + 504)];
-    [v4 updateLabel:@"com.apple.hud-label.metalfx.timing" value:v18];
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%2.2f [%2.2f %2.2f]", *(*(a1[4] + 824) + 16), *(*(a1[4] + 824) + 500), *(*(a1[4] + 824) + 504)];
+    [v4 updateLabel:@"com.apple.hud-label.metalfx.timing" value:v15];
   }
 
   ++*(a1[4] + 816);

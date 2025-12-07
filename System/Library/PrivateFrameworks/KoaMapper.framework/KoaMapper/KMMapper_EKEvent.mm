@@ -7,25 +7,25 @@
 
 - (id)itemsFromExternalObject:(id)object additionalFields:(id)fields error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   builder = self->_builder;
   eventIdentifier = [objectCopy eventIdentifier];
-  v34 = 0;
-  v10 = [(KVItemBuilder *)builder setItemType:15 itemId:eventIdentifier error:&v34];
-  v11 = v34;
+  v33 = 0;
+  v10 = [(KVItemBuilder *)builder setItemType:15 itemId:eventIdentifier error:&v33];
+  v11 = v33;
   if (v10)
   {
     v12 = self->_builder;
     title = [objectCopy title];
-    v33 = v11;
-    v14 = [(KVItemBuilder *)v12 addFieldWithType:650 value:title error:&v33];
-    v15 = v33;
+    v32 = v11;
+    v14 = [(KVItemBuilder *)v12 addFieldWithType:650 value:title error:&v32];
+    v15 = v32;
 
     if (v14)
     {
-      v28 = v14;
-      v29 = title;
+      v27 = v14;
+      v28 = title;
       errorCopy = error;
       v16 = self->_builder;
       structuredLocation = [objectCopy structuredLocation];
@@ -36,9 +36,9 @@
         location = [objectCopy location];
       }
 
-      v32 = v15;
-      v19 = [(KVItemBuilder *)v16 addFieldWithType:651 value:location error:&v32];
-      v20 = v32;
+      v31 = v15;
+      v19 = [(KVItemBuilder *)v16 addFieldWithType:651 value:location error:&v31];
+      v20 = v31;
 
       v21 = v19 == 0;
       if (!title2)
@@ -46,9 +46,9 @@
       }
 
       v15 = v20;
-      title = v29;
+      title = v28;
       error = errorCopy;
-      v14 = v28;
+      v14 = v27;
     }
 
     else
@@ -59,14 +59,14 @@
     if (!v21)
     {
       v23 = self->_builder;
-      v31 = v15;
-      v24 = [(KVItemBuilder *)v23 buildItemWithError:&v31];
-      v11 = v31;
+      v30 = v15;
+      v24 = [(KVItemBuilder *)v23 buildItemWithError:&v30];
+      v11 = v30;
 
       if (v24)
       {
-        v35[0] = v24;
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+        v34[0] = v24;
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
       }
 
       else
@@ -88,8 +88,6 @@
   KMMapperSetBuilderError(error, v11);
   v22 = 0;
 LABEL_17:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

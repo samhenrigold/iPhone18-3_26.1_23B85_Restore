@@ -194,10 +194,8 @@ LABEL_7:
   [(TermIndex *)self term_ids_limit];
   [(TermIndex *)self term_ids_map_size];
   [(TermIndex *)self compact];
-  index = self->_index;
-  cindex = self->_cindex;
-  v8 = iterateCopy;
-  v7 = iterateCopy;
+  v6 = iterateCopy;
+  v5 = iterateCopy;
   _SIDirectoryStoreIterate();
 }
 
@@ -221,38 +219,35 @@ LABEL_7:
 - (void)getPostings:(unint64_t)postings block:(id)block
 {
   blockCopy = block;
-  v14[0] = 0;
-  v14[1] = v14;
-  v14[2] = 0x2020000000;
-  v15 = 0;
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_10000A414;
-  v12[3] = &unk_100034FF8;
-  v12[4] = v14;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2020000000;
+  v19 = 0;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10000A414;
+  v16[3] = &unk_100034FF8;
+  v16[4] = v18;
   compact = [(TermIndex *)self compact];
-  v6 = objc_retainBlock(v12);
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10000A48C;
-  v10[3] = &unk_100035020;
-  v7 = blockCopy;
-  v11 = v7;
-  v8 = objc_retainBlock(v10);
-  v9 = sub_10001AB3C([(TermIndex *)self postings_fd], [(TermIndex *)self base], v6, v8);
-  sub_10001AB9C();
-  j__free(v9);
+  v7 = objc_retainBlock(v16);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10000A48C;
+  v14[3] = &unk_100035020;
+  v8 = blockCopy;
+  v15 = v8;
+  v9 = objc_retainBlock(v14);
+  v10 = sub_10001AB3C([(TermIndex *)self postings_fd], [(TermIndex *)self base], v7, v9);
+  sub_10001AB9C(v10, postings, v11, v12, v13);
+  j__free(v10);
 
-  _Block_object_dispose(v14, 8);
+  _Block_object_dispose(v18, 8);
 }
 
 - (void)getTerms:(id)terms
 {
   termsCopy = terms;
-  index = self->_index;
-  cindex = self->_cindex;
-  v8 = termsCopy;
-  v7 = termsCopy;
+  v3 = termsCopy;
   _SITermIndexIterate();
 }
 

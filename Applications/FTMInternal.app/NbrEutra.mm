@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)frameTypeAsString:(int)string;
 - (int)StringAsFrameType:(id)type;
 - (int)frameType;
 - (unint64_t)hash;
@@ -229,6 +230,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFF7 | v3;
+}
+
+- (id)frameTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318398 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsFrameType:(id)type
@@ -595,7 +611,6 @@ LABEL_18:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    earfcn = self->_earfcn;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -615,7 +630,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  qRxlevMin = self->_qRxlevMin;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -630,7 +644,6 @@ LABEL_4:
   }
 
 LABEL_26:
-  qQualMin = self->_qQualMin;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -645,7 +658,6 @@ LABEL_5:
   }
 
 LABEL_27:
-  qOffset = self->_qOffset;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -660,7 +672,6 @@ LABEL_6:
   }
 
 LABEL_28:
-  pmax = self->_pmax;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -675,7 +686,6 @@ LABEL_7:
   }
 
 LABEL_29:
-  dlBw = self->_dlBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -690,7 +700,6 @@ LABEL_8:
   }
 
 LABEL_30:
-  thresXHighP = self->_thresXHighP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -705,7 +714,6 @@ LABEL_9:
   }
 
 LABEL_31:
-  thresXLowP = self->_thresXLowP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -720,7 +728,6 @@ LABEL_10:
   }
 
 LABEL_32:
-  thresXHighQ = self->_thresXHighQ;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x8000) == 0)
@@ -735,7 +742,6 @@ LABEL_11:
   }
 
 LABEL_33:
-  thresXLowQ = self->_thresXLowQ;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -750,7 +756,6 @@ LABEL_12:
   }
 
 LABEL_34:
-  priority = self->_priority;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -765,7 +770,6 @@ LABEL_13:
   }
 
 LABEL_35:
-  frameType = self->_frameType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -780,7 +784,6 @@ LABEL_14:
   }
 
 LABEL_36:
-  band = self->_band;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -795,7 +798,6 @@ LABEL_15:
   }
 
 LABEL_37:
-  tReselection = self->_tReselection;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -810,12 +812,10 @@ LABEL_16:
   }
 
 LABEL_38:
-  sfMedium = self->_sfMedium;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_17:
-    sfHigh = self->_sfHigh;
     PBDataWriterWriteUint32Field();
   }
 
@@ -826,15 +826,14 @@ LABEL_18:
     PBDataWriterPlaceMark();
     if (p_pcis->count)
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        v9 = p_pcis->list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v7;
       }
 
-      while (v8 < p_pcis->count);
+      while (v7 < p_pcis->count);
     }
 
     PBDataWriterRecallMark();

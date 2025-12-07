@@ -39,16 +39,16 @@
 
 - (void)addMessage:(id)message
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = messageCopy;
-    v11 = 2112;
+    v8 = 138412546;
+    v9 = messageCopy;
+    v10 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "Will add message %@ to queue %@", &v9, 0x16u);
+    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "Will add message %@ to queue %@", &v8, 0x16u);
   }
 
   messages = [(VSMessageQueue *)self messages];
@@ -56,8 +56,6 @@
 
   delegate = [(VSMessageQueue *)self delegate];
   [delegate didAddMessagesToMessageQueue:self];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)removeAllMessages

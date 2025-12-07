@@ -18,7 +18,6 @@
   else
   {
     *(&selfCopy->super.isa + OBJC_IVAR____TtC16enhancedloggingd11HomeManager_homeListStatus) = 1;
-    v6 = *(&selfCopy->super.isa + OBJC_IVAR____TtC16enhancedloggingd11HomeManager_statusSemaphore);
     OS_dispatch_semaphore.signal()();
     v5 = selfCopy;
   }

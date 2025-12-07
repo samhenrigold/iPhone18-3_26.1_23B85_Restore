@@ -28,21 +28,21 @@
 
 - (void)saveGraphicsState
 {
-  if (softLinkUIGraphicsGetCurrentContext[0]())
+  if (softLinkUIGraphicsGetCurrentContext())
   {
-    v2 = softLinkUIGraphicsGetCurrentContext[0]();
+    CurrentContext = softLinkUIGraphicsGetCurrentContext();
 
-    CGContextSaveGState(v2);
+    CGContextSaveGState(CurrentContext);
   }
 }
 
 - (void)restoreGraphicsState
 {
-  if (softLinkUIGraphicsGetCurrentContext[0]())
+  if (softLinkUIGraphicsGetCurrentContext())
   {
-    v2 = softLinkUIGraphicsGetCurrentContext[0]();
+    CurrentContext = softLinkUIGraphicsGetCurrentContext();
 
-    CGContextRestoreGState(v2);
+    CGContextRestoreGState(CurrentContext);
   }
 }
 

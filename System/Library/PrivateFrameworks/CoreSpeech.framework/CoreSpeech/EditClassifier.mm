@@ -259,18 +259,8 @@ LABEL_49:
   recognizer = v10->_recognizer;
   v10->_recognizer = v11;
 
-  if (!v10->_recognizer)
+  if (!v10->_recognizer || (v13 = objc_alloc_init(SRAudioGenerator), synthesizer = v10->_synthesizer, v10->_synthesizer = v13, synthesizer, !v10->_synthesizer) || (v15 = objc_alloc_init(_EAREditDistance), aligner = v10->_aligner, v10->_aligner = v15, aligner, !v10->_aligner) || ![languageCopy length])
   {
-    goto LABEL_10;
-  }
-
-  v13 = objc_alloc_init(SRAudioGenerator);
-  synthesizer = v10->_synthesizer;
-  v10->_synthesizer = v13;
-
-  if (!v10->_synthesizer || (v15 = objc_alloc_init(_EAREditDistance), aligner = v10->_aligner, v10->_aligner = v15, aligner, !v10->_aligner) || ![languageCopy length])
-  {
-LABEL_10:
     v18 = 0;
     goto LABEL_11;
   }

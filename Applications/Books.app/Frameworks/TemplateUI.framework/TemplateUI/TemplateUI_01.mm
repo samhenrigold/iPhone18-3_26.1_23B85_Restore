@@ -161,7 +161,7 @@ void TUI::Evaluation::Variables::Modern::~Modern(TUI::Evaluation::Variables::Mod
 {
   *this = off_25E378;
   *(this + 1) = off_25E4A8;
-  sub_28770(this + 1848);
+  sub_28770(this + 231);
   v6 = (this + 1824);
   sub_286D0(&v6);
   v2 = *(this + 227);
@@ -280,7 +280,7 @@ void TUI::Evaluation::Variables::Modern::_popCapture(TUI::Evaluation::Variables:
   if (v3)
   {
     *(this + 2) = v3;
-    [v3 model];
+    objc_msgSend_model(v3, v5);
     v7 = *(this + 227);
     *(this + 113) = v8;
     if (v7)
@@ -437,7 +437,7 @@ void TUI::Evaluation::Variables::Modern::pushComponent(TUI::Evaluation::Variable
   *(this + 2) = v7;
   if (v7)
   {
-    [(TUIComponent *)v7 model];
+    objc_msgSend_model(v7);
     v9 = v53;
   }
 
@@ -510,7 +510,7 @@ LABEL_14:
 
   if (v13)
   {
-    TUI::Evaluation::Variables::Scope::beginMark((this + 920), &v44);
+    TUI::Evaluation::Variables::Scope::beginMark(&v44, (this + 920));
     v57 = v48;
     v58 = v49;
     v59 = v50;
@@ -673,18 +673,18 @@ void sub_24444(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void TUI::Evaluation::Variables::Modern::newSnapshot(uint64_t a1, unsigned int a2)
+void TUI::Evaluation::Variables::Modern::newSnapshot(uint64_t a1, int a2)
 {
-  v4 = [*(a1 + 56) packageBuffer];
-  if (TUIClosureNotNil(a2) && v4[47] > a2)
+  v5 = [*(a1 + 56) packageBuffer];
+  if (TUIClosureNotNil(a2) && v5[47] > a2)
   {
-    if (v4[46] + 28 * a2)
+    if (v5[46] + 28 * a2)
     {
-      TUI::Evaluation::Variables::Capture::create(*(a1 + 16), *(a1 + 56), &v5);
+      TUI::Evaluation::Variables::Capture::create(*(a1 + 16), *(a1 + 56), &v6);
     }
   }
 
-  TUI::Evaluation::Variables::Capture::create(*(a1 + 16), &v5);
+  TUI::Evaluation::Variables::Capture::create(&v6, *(a1 + 16));
   operator new();
 }
 
@@ -841,26 +841,26 @@ void TUI::Evaluation::Variables::Modern::evaluateWithSnapshot(uint64_t a1, uint6
   }
 }
 
-void sub_2486C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2486C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v7 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
-  *(v5 - 96) = va;
-  sub_286D0((v5 - 96));
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  *(v7 - 96) = va;
+  sub_286D0((v7 - 96));
   TUI::Evaluation::Variables::Scope::~Scope(va1);
-  if (v4)
+  if (v6)
   {
-    sub_11420(v4);
+    sub_11420(v6);
   }
 
   _Unwind_Resume(a1);
 }
 
-double sub_248F0@<D0>(uint64_t a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
+double sub_248F0@<D0>(uint64_t a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   *a4 = a2;
   *(a4 + 16) = 0;
@@ -879,7 +879,7 @@ double sub_248F0@<D0>(uint64_t a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, uint6
       v9 = *(a1 + 16);
       if (v9)
       {
-        TUI::Evaluation::Variables::Capture::create(v9, &v10);
+        TUI::Evaluation::Variables::Capture::create(&v10, v9);
       }
 
       else
@@ -1145,24 +1145,15 @@ void non-virtual thunk toTUI::Evaluation::Variables::Modern::define(uint64_t a1,
   TUI::Evaluation::Variables::Modern::define(a1 - 8, a2, a3);
 }
 
-void TUI::Evaluation::Variables::Modern::define(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, int a5)
+void TUI::Evaluation::Variables::Modern::define(uint64_t a1, unsigned int a2, __int128 *a3, int a4, int a5)
 {
   v9 = *a3;
-  v10 = *(a3 + 16);
+  v10 = *(a3 + 2);
   sub_248F0(a1, a4, a5, v7);
   TUI::Evaluation::Variables::Scope::define(a1 + 920, a2, &v9, v7);
   if (v8)
   {
     sub_11420(v8);
-  }
-}
-
-{
-  sub_248F0(a1, a4, a5, v8);
-  TUI::Evaluation::Variables::Scope::define(a1 + 920, a2, a3, v8);
-  if (v9)
-  {
-    sub_11420(v9);
   }
 }
 
@@ -1176,15 +1167,6 @@ void sub_24EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void non-virtual thunk toTUI::Evaluation::Variables::Modern::define(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, int a5)
-{
-  TUI::Evaluation::Variables::Modern::define(a1 - 8, a2, a3, a4, a5);
-}
-
-{
-  TUI::Evaluation::Variables::Modern::define(a1 - 8, a2, a3, a4, a5);
-}
-
 void sub_24F98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
 {
   if (a12)
@@ -1193,6 +1175,16 @@ void sub_24F98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void TUI::Evaluation::Variables::Modern::define(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5)
+{
+  sub_248F0(a1, a4, a5, v8);
+  TUI::Evaluation::Variables::Scope::define(a1 + 920, a2, a3, v8);
+  if (v9)
+  {
+    sub_11420(v9);
+  }
 }
 
 void sub_25028(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -1236,7 +1228,7 @@ uint64_t TUI::Evaluation::Variables::Modern::evaluateGlobalsDependencies(uint64_
       if (v16)
       {
         v5 = v5 & 0xFFFFFFFF00000000 | *v16 | (v16[1] << 16);
-        TUI::Evaluation::Variables::Modern::globalsWithName(&v19, a1, v5, a3, a4);
+        TUI::Evaluation::Variables::Modern::globalsWithName(a1, v5, a3, a4, &v19);
         if (v19)
         {
           sub_257C4((a1 + 1824), &v19);
@@ -1276,12 +1268,12 @@ void sub_2525C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-void TUI::Evaluation::Variables::Modern::globalsWithName(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t **a5@<X8>)
+void TUI::Evaluation::Variables::Modern::globalsWithName(uint64_t a1@<X0>, Entry a2@<W1>, void *a3@<X2>, uint64_t a4@<X3>, Entry **a5@<X8>)
 {
   *a5 = 0;
   a5[1] = 0;
   v40 = a2;
-  v10 = sub_26874(a3, &v40);
+  v10 = sub_26874(a3, &v40.var0);
   if (v10)
   {
     v12 = v10[3];
@@ -1297,7 +1289,7 @@ void TUI::Evaluation::Variables::Modern::globalsWithName(uint64_t a1@<X0>, int a
 
   else
   {
-    v13 = TUI::Package::Buffer::globalsWithName([*(a1 + 56) packageBuffer], a2);
+    v13 = TUI::Package::Buffer::globalsWithName([*(a1 + 56) packageBuffer], *&a2);
     if (v13)
     {
       v14 = *(a1 + 16);
@@ -1321,36 +1313,36 @@ void TUI::Evaluation::Variables::Modern::globalsWithName(uint64_t a1@<X0>, int a
       if (v17)
       {
         v18 = v40;
-        *v45 = v40;
+        v45[0] = v40;
         v19 = sub_26874((v17 + 48), v45);
         if (!v19)
         {
           v42 = 0;
           v43 = 0;
           v44 = 0;
-          LODWORD(v41) = *v45;
-          v19 = sub_26940((v17 + 48), &v41);
+          LODWORD(v41) = v45[0];
+          v19 = sub_26940((v17 + 48), &v41, &v41);
         }
 
-        v19[3] = (v19[3] + 1);
+        ++v19[3];
         *(v17 + 3208 + 16 * *(v17 + 3224)) = v18;
         v20 = mach_absolute_time();
         v21 = *(v17 + 3224);
         *(v17 + 3208 + 16 * v21 + 8) = v20;
         *(v17 + 3224) = v21 + 1;
         v22 = *(a4 + 768);
-        *v45 = v40;
+        v45[0] = v40;
         v23 = sub_26874((v22 + 48), v45);
         if (!v23)
         {
           v42 = 0;
           v43 = 0;
           v44 = 0;
-          LODWORD(v41) = *v45;
-          v23 = sub_26940((v22 + 48), &v41);
+          LODWORD(v41) = v45[0];
+          v23 = sub_26940((v22 + 48), &v41, &v41);
         }
 
-        v23[4] = (v23[4] + 1);
+        ++v23[4];
       }
 
       v33 = v14;
@@ -1364,15 +1356,15 @@ void TUI::Evaluation::Variables::Modern::globalsWithName(uint64_t a1@<X0>, int a
         v27 = *(v26 + 3208);
         v28 = *(v26 + 3216);
         v29 = mach_absolute_time();
-        *v45 = v27;
+        v45[0] = v27;
         v30 = sub_26874((v24 + 48), v45);
         if (!v30)
         {
           v42 = 0;
           v43 = 0;
           v44 = 0;
-          LODWORD(v41) = *v45;
-          v30 = sub_26940((v24 + 48), &v41);
+          LODWORD(v41) = v45[0];
+          v30 = sub_26940((v24 + 48), &v41, &v41);
         }
 
         v31 = v29 - v28;
@@ -1381,7 +1373,7 @@ void TUI::Evaluation::Variables::Modern::globalsWithName(uint64_t a1@<X0>, int a
           v31 = v28 - v29;
         }
 
-        v30[5] = (v30[5] + v31);
+        v30[5] += v31;
       }
 
       TUI::Evaluation::Variables::Scope::swap((a1 + 920), v39);
@@ -1391,12 +1383,12 @@ void TUI::Evaluation::Variables::Modern::globalsWithName(uint64_t a1@<X0>, int a
       *(a1 + 1824) = v37;
       *(a1 + 1840) = v38;
       *(a1 + 16) = v33;
-      TUI::Symbol::Tab::string(*(a1 + 64), v40);
+      TUI::Symbol::Tab::string(*(a1 + 64), *&v40);
       objc_claimAutoreleasedReturnValue();
       operator new();
     }
 
-    v32 = TUI::Symbol::Tab::string(*(a1 + 64), v40);
+    v32 = TUI::Symbol::Tab::string(*(a1 + 64), *&v40);
     TUI::Evaluation::Context::reportError(a4, 1012, v32);
   }
 }
@@ -1447,7 +1439,7 @@ void **sub_257C4(void **result, __int128 *a2)
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -1526,7 +1518,7 @@ void sub_259BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_259E8(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *sub_259E8(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -1591,261 +1583,263 @@ uint64_t TUI::Evaluation::Variables::Modern::globalsEnvironmentUseMask(TUI::Eval
 
 void TUI::Evaluation::Variables::Modern::updateGlobalsWithEnvironment(TUI::Evaluation::Variables::Modern *this, TUIEnvironment *a2, TUI::Evaluation::Context *a3)
 {
-  v75 = a2;
-  v76 = a3;
-  v4 = *(a3 + 96);
-  if (v4)
+  v4 = a2;
+  v76 = v4;
+  v77 = a3;
+  v5 = *(a3 + 96);
+  if (v5)
   {
-    *(v4 + 27880) = mach_absolute_time();
+    v4 = mach_absolute_time();
+    *(v5 + 27880) = v4;
   }
 
-  v5 = TUIInstantiationLog();
-  v6 = os_signpost_id_generate(v5);
+  v6 = TUIInstantiationLog(v4);
+  v7 = os_signpost_id_generate(v6);
 
-  v7 = TUIInstantiationLog();
-  v8 = v7;
-  spid = v6;
-  v72 = v6 - 1;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v9 = TUIInstantiationLog(v8);
+  v10 = v9;
+  spid = v7;
+  v73 = v7 - 1;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "Variables::Modern::updateGlobalsWithEnvironment", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Variables::Modern::updateGlobalsWithEnvironment", "", buf, 2u);
   }
 
-  memset(v81, 0, sizeof(v81));
-  v82 = 1065353216;
-  v9 = [*(this + 7) packageBuffer];
-  v10 = v9;
-  v11 = v9[51];
-  if (v11)
+  memset(v82, 0, sizeof(v82));
+  v83 = 1065353216;
+  v11 = [*(this + 7) packageBuffer];
+  v12 = v11;
+  v13 = v11[51];
+  if (v13)
   {
-    v73 = (this + 1768);
-    v12 = v9[50];
-    v13 = 4 * v12;
+    v74 = (this + 1768);
+    v14 = v11[50];
+    v15 = 4 * v14;
     while (1)
     {
-      if (v10[43] <= v12 || (v14 = v10[42], !(v13 + v14)))
+      if (v12[43] <= v14 || (v16 = v12[42], !(v15 + v16)))
       {
-        v51 = TUIInstantiationLog();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v52 = TUIInstantiationLog(v11);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v52 = TUI::Evaluation::Context::feedId(*(this + 6));
+          v53 = TUI::Evaluation::Context::feedId(*(this + 6));
           *buf = 134218240;
-          *&buf[4] = v52;
+          *&buf[4] = v53;
           *&buf[12] = 2048;
-          *&buf[14] = v12;
-          _os_log_error_impl(&dword_0, v51, OS_LOG_TYPE_ERROR, "[fid:%lu] couldn't find component name with index: %lu", buf, 0x16u);
+          *&buf[14] = v14;
+          _os_log_error_impl(&dword_0, v52, OS_LOG_TYPE_ERROR, "[fid:%lu] couldn't find component name with index: %lu", buf, 0x16u);
         }
 
         goto LABEL_39;
       }
 
-      v15 = (v14 + v13);
-      v16 = *v15;
-      v17 = v15[1];
-      *buf = *v15;
-      *&buf[2] = v17;
-      v18 = sub_26874(this + 231, buf);
-      if (v18)
+      v17 = (v16 + v15);
+      v18 = *v17;
+      v19 = v17[1];
+      *buf = *v17;
+      *&buf[2] = v19;
+      v11 = sub_26874(this + 231, buf);
+      if (v11)
       {
         break;
       }
 
 LABEL_39:
-      ++v12;
-      v13 += 4;
-      if (!--v11)
+      ++v14;
+      v15 += 4;
+      if (!--v13)
       {
         goto LABEL_61;
       }
     }
 
-    v20 = v18[3];
-    v19 = v18[4];
-    if (v19)
+    v21 = v11[3];
+    v20 = v11[4];
+    if (v20)
     {
-      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v21 = *(v20 + 80) | *(v20 + 72);
-    if (*(v20 + 72) == 0)
+    v22 = *(v21 + 80) | *(v21 + 72);
+    if (*(v21 + 72) == 0)
     {
       goto LABEL_54;
     }
 
-    v77 = v19;
-    v22 = *(v20 + 64);
-    v23 = [(TUIEnvironment *)v75 differenceMaskWithEnvironment:v22];
+    v78 = v20;
+    v23 = *(v21 + 64);
+    v24 = [(TUIEnvironment *)v76 differenceMaskWithEnvironment:v23];
 
-    if ((v23 & v21) != 0)
+    if ((v24 & v22) != 0)
     {
-      v24 = *(v20 + 80) & v23;
-      v25 = *(v20 + 72) & v23;
-      v26 = v25 != 0;
-      v27 = *(v20 + 16);
-      if (v24)
+      v25 = *(v21 + 80) & v24;
+      v26 = *(v21 + 72) & v24;
+      v27 = v26 != 0;
+      v28 = *(v21 + 16);
+      if (v25)
       {
-        v28 = 1;
+        v29 = 1;
       }
 
       else
       {
-        v28 = v25 == 0;
+        v29 = v26 == 0;
       }
 
-      v74 = *(v20 + 16);
-      if (!v28)
+      v75 = *(v21 + 16);
+      if (!v29)
       {
-        v29 = *(this + 114);
+        v30 = *(this + 114);
         *(this + 114) = 0u;
-        *buf = v29;
-        v30 = *(this + 230);
+        *buf = v30;
+        v31 = *(this + 230);
         *(this + 230) = 0;
-        *&buf[16] = v30;
-        TUI::Evaluation::Variables::Modern::evaluateGlobalsDependencies(this, v27, v81, v76);
-        v31 = *(this + 114);
+        *&buf[16] = v31;
+        TUI::Evaluation::Variables::Modern::evaluateGlobalsDependencies(this, v28, v82, v77);
+        v32 = *(this + 114);
         *(this + 114) = *buf;
-        *buf = v31;
-        v32 = *(this + 230);
+        *buf = v32;
+        v33 = *(this + 230);
         *(this + 230) = *&buf[16];
-        *&buf[16] = v32;
-        v26 = (v25 != 0) & ~TUI::Evaluation::Variables::Globals::equivalentTo(v20, buf);
-        v83 = buf;
-        sub_286D0(&v83);
+        *&buf[16] = v33;
+        v27 = (v26 != 0) & ~TUI::Evaluation::Variables::Globals::equivalentTo(v21, buf);
+        v84 = buf;
+        sub_286D0(&v84);
       }
 
-      if (v24)
+      if (v25)
       {
-        v33 = 0;
+        v34 = 0;
       }
 
       else
       {
-        v33 = v26 == 0;
+        v34 = v27 == 0;
       }
 
-      v19 = v77;
-      if (v33)
+      v20 = v78;
+      if (v34)
       {
         goto LABEL_54;
       }
 
-      v34 = *(this + 2);
+      v35 = *(this + 2);
       *(this + 2) = 0;
       TUI::Evaluation::Variables::Scope::Scope(buf);
-      v66 = v34;
-      v79 = 0uLL;
-      v80 = 0;
+      v67 = v35;
+      v80 = 0uLL;
+      v81 = 0;
       TUI::Evaluation::Variables::Scope::swap((this + 920), buf);
-      v68 = *v73;
-      v65 = *(this + 1784);
+      v69 = *v74;
+      v66 = *(this + 1784);
       *(this + 221) = 0;
       *(this + 111) = 0u;
-      v35 = *(this + 225);
+      v36 = *(this + 225);
       *(this + 112) = 0u;
-      v36 = *(this + 114);
-      *(this + 114) = v79;
-      v79 = v36;
-      v37 = *(this + 230);
-      *(this + 230) = v80;
+      v37 = *(this + 114);
+      *(this + 114) = v80;
       v80 = v37;
-      v38 = *(v76 + 96);
-      if (v38)
+      v38 = *(this + 230);
+      *(this + 230) = v81;
+      v81 = v38;
+      v39 = *(v77 + 96);
+      if (v39)
       {
-        *v87 = v16 | (v17 << 16);
-        v39 = sub_26874((v38 + 48), v87);
-        if (!v39)
+        *v88 = v18 | (v19 << 16);
+        v40 = sub_26874((v39 + 48), v88);
+        if (!v40)
         {
-          v84 = 0;
           v85 = 0;
           v86 = 0;
-          LODWORD(v83) = *v87;
-          v39 = sub_26940((v38 + 48), &v83);
+          v87 = 0;
+          LODWORD(v84) = *v88;
+          v40 = sub_26940((v39 + 48), &v84, &v84);
         }
 
-        v39[3] = (v39[3] + 1);
-        *(v38 + 3208 + 16 * *(v38 + 3224)) = v16 | (v17 << 16);
-        v40 = mach_absolute_time();
-        v41 = *(v38 + 3224);
-        *(v38 + 3208 + 16 * v41 + 8) = v40;
-        *(v38 + 3224) = v41 + 1;
+        ++v40[3];
+        *(v39 + 3208 + 16 * *(v39 + 3224)) = v18 | (v19 << 16);
+        v41 = mach_absolute_time();
+        v42 = *(v39 + 3224);
+        *(v39 + 3208 + 16 * v42 + 8) = v41;
+        *(v39 + 3224) = v42 + 1;
       }
 
-      TUI::Evaluation::Variables::Modern::evaluateGlobalsDependencies(this, v74, v81, v76);
-      TUI::Evaluation::Context::evaluateGlobals(v76, *v74 | (*(v74 + 4) << 32));
-      v42 = *(v76 + 96);
-      if (v42)
+      TUI::Evaluation::Variables::Modern::evaluateGlobalsDependencies(this, v75, v82, v77);
+      TUI::Evaluation::Context::evaluateGlobals(v77, *v75 | (*(v75 + 4) << 32));
+      v43 = *(v77 + 96);
+      if (v43)
       {
-        v63 = v35;
-        v43 = *(v42 + 3224) - 1;
-        *(v42 + 3224) = v43;
-        v44 = v42 + 16 * v43;
-        v45 = *(v44 + 3208);
-        __p = *(v44 + 3216);
-        v46 = mach_absolute_time();
-        *v87 = v45;
-        v47 = sub_26874((v42 + 48), v87);
-        v35 = v63;
-        if (!v47)
+        v64 = v36;
+        v44 = *(v43 + 3224) - 1;
+        *(v43 + 3224) = v44;
+        v45 = v43 + 16 * v44;
+        v46 = *(v45 + 3208);
+        __p = *(v45 + 3216);
+        v47 = mach_absolute_time();
+        *v88 = v46;
+        v48 = sub_26874((v43 + 48), v88);
+        v36 = v64;
+        if (!v48)
         {
-          v84 = 0;
           v85 = 0;
           v86 = 0;
-          LODWORD(v83) = *v87;
-          v47 = sub_26940((v42 + 48), &v83);
+          v87 = 0;
+          LODWORD(v84) = *v88;
+          v48 = sub_26940((v43 + 48), &v84, &v84);
         }
 
-        v48 = (v46 - __p);
-        if (__p >= v46)
+        v49 = v47 - __p;
+        if (__p >= v47)
         {
-          v48 = &__p[-v46];
+          v49 = &__p[-v47];
         }
 
-        v47[5] = &v48[v47[5]];
+        v48[5] += v49;
       }
 
       TUI::Evaluation::Variables::Scope::swap((this + 920), buf);
       __pa = *(this + 221);
-      *v73 = v68;
-      *(this + 1784) = v65;
-      v69 = *(this + 225);
-      *(this + 225) = v35;
-      v49 = *(this + 114);
-      *(this + 114) = v79;
-      v79 = v49;
-      v50 = *(this + 230);
-      *(this + 230) = v80;
+      *v74 = v69;
+      *(this + 1784) = v66;
+      v70 = *(this + 225);
+      *(this + 225) = v36;
+      v50 = *(this + 114);
+      *(this + 114) = v80;
       v80 = v50;
-      *(this + 2) = v66;
-      v67 = TUI::Evaluation::Variables::Globals::equivalentTo(v20, buf);
-      if ((v67 & 1) == 0)
+      v51 = *(this + 230);
+      *(this + 230) = v81;
+      v81 = v51;
+      *(this + 2) = v67;
+      v68 = TUI::Evaluation::Variables::Globals::equivalentTo(v21, buf);
+      if ((v68 & 1) == 0)
       {
-        v53 = *(v76 + 96);
-        if (v53)
+        v54 = *(v77 + 96);
+        if (v54)
         {
-          *v87 = v16 | (v17 << 16);
-          v54 = sub_26874((v53 + 48), v87);
-          if (!v54)
+          *v88 = v18 | (v19 << 16);
+          v55 = sub_26874((v54 + 48), v88);
+          if (!v55)
           {
-            v84 = 0;
             v85 = 0;
             v86 = 0;
-            LODWORD(v83) = *v87;
-            v54 = sub_26940((v53 + 48), &v83);
+            v87 = 0;
+            LODWORD(v84) = *v88;
+            v55 = sub_26940((v54 + 48), &v84, &v84);
           }
 
-          v54[4] = (v54[4] + 1);
+          ++v55[4];
         }
 
-        *(v20 + 8);
+        *(v21 + 8);
         operator new();
       }
 
-      v83 = &v79;
-      sub_286D0(&v83);
-      if (v69)
+      v84 = &v80;
+      sub_286D0(&v84);
+      if (v70)
       {
-        sub_11420(v69);
+        sub_11420(v70);
       }
 
       if (__pa)
@@ -1854,33 +1848,33 @@ LABEL_39:
       }
 
       TUI::Evaluation::Variables::Scope::~Scope(buf);
-      if (!v67)
+      if (!v68)
       {
-        v19 = v77;
+        v20 = v78;
 LABEL_58:
-        if (v19)
+        if (v20)
         {
-          sub_11420(v19);
+          sub_11420(v20);
         }
 
         goto LABEL_39;
       }
     }
 
-    v19 = v77;
+    v20 = v78;
 LABEL_54:
-    LOWORD(v83) = v16;
-    WORD1(v83) = v17;
-    *buf = &v83;
-    v55 = sub_28C9C(v81, &v83);
-    if (v19)
+    LOWORD(v84) = v18;
+    WORD1(v84) = v19;
+    *buf = &v84;
+    v11 = sub_28C9C(v82, &v84, &std::piecewise_construct, buf);
+    if (v20)
     {
-      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v56 = v55[4];
-    v55[3] = v20;
-    v55[4] = v19;
+    v56 = v11[4];
+    v11[3] = v21;
+    v11[4] = v20;
     if (v56)
     {
       sub_11420(v56);
@@ -1890,34 +1884,35 @@ LABEL_54:
   }
 
 LABEL_61:
-  sub_28FD0(this + 1848, v81);
-  v57 = TUIInstantiationLog();
-  v58 = v57;
-  if (v72 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
+  sub_28FD0(this + 1848, v82);
+  v58 = TUIInstantiationLog(v57);
+  v59 = v58;
+  if (v73 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v58, OS_SIGNPOST_INTERVAL_END, spid, "Variables::Modern::updateGlobalsWithEnvironment", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v59, OS_SIGNPOST_INTERVAL_END, spid, "Variables::Modern::updateGlobalsWithEnvironment", "", buf, 2u);
   }
 
-  v59 = *(v76 + 96);
-  if (v59)
+  v60 = *(v77 + 96);
+  if (v60)
   {
-    v60 = *(v59 + 27880);
-    v61 = mach_absolute_time();
-    v62 = -v60;
-    if (v60 >= v61)
+    v61 = *(v60 + 27880);
+    v62 = mach_absolute_time();
+    v63 = -v61;
+    if (v61 >= v62)
     {
-      v62 = ~v60;
+      v63 = ~v61;
     }
 
-    *(v59 + 27840) += v62 + v61;
+    *(v60 + 27840) += v63 + v62;
   }
 
-  sub_28770(v81);
+  sub_28770(v82);
 }
 
-void sub_26318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, __int128 a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, std::__shared_weak_count *a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char *a49, char a50)
+void sub_26318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, __int128 a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, std::__shared_weak_count *a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char *a49, ...)
 {
+  va_start(va, a49);
   a49 = &a34;
   sub_286D0(&a49);
   if (a21)
@@ -1930,7 +1925,7 @@ void sub_26318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
     operator delete(__p);
   }
 
-  TUI::Evaluation::Variables::Scope::~Scope(&a50);
+  TUI::Evaluation::Variables::Scope::~Scope(va);
   if (a30)
   {
     sub_11420(a30);
@@ -2027,7 +2022,7 @@ void *TUI::Evaluation::Variables::Modern::Snapshot::Snapshot(void *a1, uint64_t 
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  sub_284C0((a1 + 3), *a3, a3[1], (a3[1] - *a3) >> 4);
+  sub_284C0(a1 + 3, *a3, a3[1], (a3[1] - *a3) >> 4);
   return a1;
 }
 
@@ -2060,7 +2055,7 @@ void TUI::Evaluation::Variables::Modern::Snapshot::~Snapshot(TUI::Evaluation::Va
   operator delete();
 }
 
-uint64_t **sub_26874(void *a1, unsigned __int16 *a2)
+uint64_t ***sub_26874(void *a1, unsigned __int16 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -2129,35 +2124,35 @@ uint64_t **sub_26874(void *a1, unsigned __int16 *a2)
   return result;
 }
 
-uint64_t **sub_26940(void *a1, unsigned __int16 *a2)
+uint64_t **sub_26940(void *a1, unsigned __int16 *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = (v2 << 16) | v3;
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = *a2;
+  v4 = a2[1];
+  v5 = (v3 << 16) | v4;
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = (v2 << 16) | v3;
-    if (*&v5 <= v4)
+    v8 = (v3 << 16) | v4;
+    if (*&v6 <= v5)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -2165,44 +2160,44 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 9) != v3 || *(v9 + 8) != v2)
+  if (*(v10 + 9) != v4 || *(v10 + 8) != v3)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t sub_26B94(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t *a5, void *a6, uint64_t a7, uint64_t a8, int a9)
@@ -2224,7 +2219,7 @@ uint64_t sub_26B94(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t *a5, v
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  sub_284C0(a1 + 40, *a5, a5[1], (a5[1] - *a5) >> 4);
+  sub_284C0((a1 + 40), *a5, a5[1], (a5[1] - *a5) >> 4);
   v20 = v17;
   *(a1 + 64) = v20;
   *(a1 + 72) = a8;
@@ -2264,15 +2259,15 @@ uint64_t sub_26B94(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t *a5, v
   return a1;
 }
 
-void sub_26D18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_286D0(va);
-  v6 = *(v2 + 32);
-  if (v6)
+  v7 = *(v3 + 32);
+  if (v7)
   {
-    sub_11420(v6);
+    sub_11420(v7);
   }
 
   _Unwind_Resume(a1);
@@ -2378,7 +2373,7 @@ uint64_t sub_27104(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_27178(uint64_t a1, unsigned int a2)
+uint64_t sub_27178(uint64_t a1, int a2)
 {
   v4 = a2;
   result = TUI::Evaluation::Variables::Scope::lookup(a1 + 920, a2);
@@ -2514,7 +2509,7 @@ void *sub_273DC(void *a1, int a2, unint64_t a3, unint64_t a4)
   return v6;
 }
 
-uint64_t sub_27474(uint64_t a1, unsigned int a2)
+uint64_t sub_27474(uint64_t a1, int a2)
 {
   v4 = a2;
   v5 = TUI::Evaluation::Variables::Scope::lookup(a1 + 920, a2);
@@ -2652,7 +2647,7 @@ void *sub_276E0(void *a1, int a2, unint64_t a3, unint64_t a4)
   return v6;
 }
 
-uint64_t sub_27778(uint64_t a1, unsigned int a2)
+uint64_t sub_27778(uint64_t a1, int a2)
 {
   v4 = a2;
   v5 = TUI::Evaluation::Variables::Scope::lookup(a1 + 920, a2);
@@ -2764,7 +2759,7 @@ uint64_t sub_27934(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t sub_279E4(uint64_t a1, unsigned int a2)
+uint64_t sub_279E4(uint64_t a1, int a2)
 {
   v4 = a2;
   v5 = TUI::Evaluation::Variables::Scope::lookup(a1 + 920, a2);
@@ -2902,7 +2897,7 @@ void *sub_27C50(void *a1, int a2, unint64_t a3, unint64_t a4)
   return v6;
 }
 
-uint64_t sub_27CE4(uint64_t a1, unsigned int a2)
+uint64_t sub_27CE4(uint64_t a1, int a2)
 {
   v4 = a2;
   v5 = TUI::Evaluation::Variables::Scope::lookup(a1 + 920, a2);
@@ -3014,7 +3009,7 @@ uint64_t sub_27EA0(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t sub_27F50(uint64_t a1, unsigned int a2)
+uint64_t sub_27F50(uint64_t a1, int a2)
 {
   v4 = a2;
   v5 = TUI::Evaluation::Variables::Scope::lookup(a1 + 920, a2);
@@ -3126,7 +3121,7 @@ uint64_t sub_2810C(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t sub_281BC(uint64_t a1, unsigned int a2)
+uint64_t sub_281BC(uint64_t a1, int a2)
 {
   v4 = a2;
   v5 = TUI::Evaluation::Variables::Scope::lookup(a1 + 920, a2);
@@ -3264,7 +3259,7 @@ void *sub_28428(void *a1, int a2, unint64_t a3, unint64_t a4)
   return v6;
 }
 
-uint64_t sub_284C0(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_284C0(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3274,14 +3269,14 @@ uint64_t sub_284C0(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_28528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_28528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   sub_286D0(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_28548(uint64_t a1, unint64_t a2)
+void sub_28548(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3387,9 +3382,9 @@ void sub_28724(uint64_t *a1)
   a1[1] = v2;
 }
 
-uint64_t sub_28770(uint64_t a1)
+void **sub_28770(void **a1)
 {
-  sub_287AC(a1, *(a1 + 16));
+  sub_287AC(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -3601,35 +3596,35 @@ uint64_t sub_28C5C(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t **sub_28C9C(void *a1, unsigned __int16 *a2)
+uint64_t **sub_28C9C(void *a1, unsigned __int16 *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = (v2 << 16) | v3;
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = *a2;
+  v5 = a2[1];
+  v6 = (v4 << 16) | v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = (v2 << 16) | v3;
-    if (*&v5 <= v4)
+    v9 = (v4 << 16) | v5;
+    if (*&v7 <= v6)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v9 = (*&v7 - 1) & v6;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_22:
     operator new();
@@ -3637,44 +3632,44 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 9) != v3 || *(v9 + 8) != v2)
+  if (*(v11 + 9) != v5 || *(v11 + 8) != v4)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v11;
 }
 
 void sub_28F04(uint64_t a1, void *__p)
@@ -4143,16 +4138,16 @@ id sub_2ECAC(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
   return v33;
 }
 
-id TUISignpostDefault()
+id TUISignpostDefault(uint64_t a1)
 {
   if (qword_2E6080 != -1)
   {
     sub_199A10();
   }
 
-  v1 = qword_2E6078;
+  v2 = qword_2E6078;
 
-  return v1;
+  return v2;
 }
 
 void sub_2F030(id a1)
@@ -4162,16 +4157,16 @@ void sub_2F030(id a1)
   qword_2E6078 = v1;
 }
 
-id TUISignpostFeedViewController()
+id TUISignpostFeedViewController(uint64_t a1)
 {
   if (qword_2E6090 != -1)
   {
     sub_199A24();
   }
 
-  v1 = qword_2E6088;
+  v2 = qword_2E6088;
 
-  return v1;
+  return v2;
 }
 
 void sub_2F0B8(id a1)
@@ -4223,7 +4218,7 @@ void TUI::Evaluation::Enumerator::Each::evaluate(Entry *a1, TUI::Evaluation::Con
   }
 }
 
-void sub_319DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_319DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   TUI::Evaluation::Enumerator::State::~State(&a9);
 
@@ -4238,11 +4233,11 @@ void TUI::Evaluation::Enumerator::Each::enumerate(uint64_t a1, TUI::Evaluation::
     TUI::Evaluation::Context::beginScope(a2);
     v6 = *(a1 + 8);
     v7 = *(a1 + 12);
-    TUI::Evaluation::Enumerator::State::State(v60, v6, v7);
+    TUI::Evaluation::Enumerator::State::State(v61, v6, v7);
     v8 = TUI::Evaluation::Context::pushBinding(a2);
     v46 = v9;
     v10 = v8;
-    TUI::Evaluation::Enumerator::State::~State(v60);
+    TUI::Evaluation::Enumerator::State::~State(v61);
     TUI::Evaluation::Context::resolve(a2, *(a1 + 16), v59);
     v45 = a2;
     obj = TUI::Evaluation::ResolvedValue::objectValue(v59, a2);
@@ -4264,7 +4259,7 @@ void TUI::Evaluation::Enumerator::Each::enumerate(uint64_t a1, TUI::Evaluation::
         v51 = 0u;
         v52 = 0u;
         v24 = v43;
-        v25 = [v24 countByEnumeratingWithState:&v51 objects:v62 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v51 objects:v63 count:16];
         if (v25)
         {
           v26 = 0;
@@ -4287,7 +4282,7 @@ void TUI::Evaluation::Enumerator::Each::enumerate(uint64_t a1, TUI::Evaluation::
               TUI::Evaluation::Context::evaluateWithIdentifier(v45, v26++, v5);
             }
 
-            v25 = [v24 countByEnumeratingWithState:&v51 objects:v62 count:16];
+            v25 = [v24 countByEnumeratingWithState:&v51 objects:v63 count:16];
           }
 
           while (v25);
@@ -4329,7 +4324,7 @@ void TUI::Evaluation::Enumerator::Each::enumerate(uint64_t a1, TUI::Evaluation::
         v47 = 0u;
         v48 = 0u;
         v11 = [obj objectEnumerator];
-        v32 = [v11 countByEnumeratingWithState:&v47 objects:v61 count:16];
+        v32 = [v11 countByEnumeratingWithState:&v47 objects:v62 count:16];
         if (v32)
         {
           v33 = 0;
@@ -4349,7 +4344,7 @@ void TUI::Evaluation::Enumerator::Each::enumerate(uint64_t a1, TUI::Evaluation::
               TUI::Evaluation::Context::evaluateWithIdentifier(v45, v33++, v5);
             }
 
-            v32 = [v11 countByEnumeratingWithState:&v47 objects:v61 count:16];
+            v32 = [v11 countByEnumeratingWithState:&v47 objects:v62 count:16];
           }
 
           while (v32);
@@ -4365,7 +4360,7 @@ void TUI::Evaluation::Enumerator::Each::enumerate(uint64_t a1, TUI::Evaluation::
       v56 = 0u;
       v11 = [obj keyEnumerator];
       v42 = v11;
-      v12 = [v11 countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v55 objects:v64 count:16];
       if (v12)
       {
         v41 = *v56;
@@ -4396,7 +4391,7 @@ void TUI::Evaluation::Enumerator::Each::enumerate(uint64_t a1, TUI::Evaluation::
             v11 = v42;
           }
 
-          v12 = [v42 countByEnumeratingWithState:&v55 objects:v63 count:16];
+          v12 = [v42 countByEnumeratingWithState:&v55 objects:v64 count:16];
         }
 
         while (v12);
@@ -4448,7 +4443,7 @@ void TUI::Evaluation::Enumerator::Assign::evaluate(Entry *a1, TUI::Evaluation::C
   }
 }
 
-void sub_321AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_321AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   TUI::Evaluation::Enumerator::State::~State(&a9);
 
@@ -4480,9 +4475,9 @@ void TUI::Evaluation::Enumerator::Assign::enumerate(uint64_t a1, TUI::Symbol::Ta
   }
 }
 
-void sub_322FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_322FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TUI::Evaluation::Enumerator::State::~State(va);
 
   _Unwind_Resume(a1);
@@ -4548,9 +4543,9 @@ void sub_32BF8(uint64_t a1, void *a2)
   (*(v4 + 16))(v4, v5);
 }
 
-void sub_32E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_32E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4737,7 +4732,7 @@ void sub_33FA4(void *a1, uint64_t *a2, uint64_t *a3)
 LABEL_11:
   if (a2 != a3)
   {
-    sub_3456C();
+    sub_3456C(a1, a2 + 2);
   }
 }
 
@@ -4919,7 +4914,7 @@ LABEL_19:
   return result;
 }
 
-void sub_34300(uint64_t a1, size_t __n)
+void sub_34300(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -4935,7 +4930,7 @@ void sub_34300(uint64_t a1, size_t __n)
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -4943,7 +4938,7 @@ void sub_34300(uint64_t a1, size_t __n)
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -4967,7 +4962,7 @@ void sub_34300(uint64_t a1, size_t __n)
     {
 LABEL_6:
 
-      sub_343F0(a1, prime);
+      sub_343F0(result, prime);
     }
   }
 }
@@ -4994,7 +4989,7 @@ void sub_343F0(uint64_t a1, unint64_t a2)
   *(a1 + 8) = 0;
 }
 
-uint64_t *sub_345F8(void *a1, unsigned __int16 *a2)
+uint64_t **sub_345F8(void *a1, unsigned __int16 *a2)
 {
   result = sub_11F88(a1, a2);
   if (result)
@@ -5130,33 +5125,33 @@ LABEL_19:
   return result;
 }
 
-uint64_t **sub_347B0(void *a1, unsigned __int16 *a2)
+uint64_t **sub_347B0(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5164,60 +5159,60 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_349EC(void *a1, void *a2, void *a3)
+void sub_349EC(void *result, void *a2, void *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -5243,8 +5238,8 @@ void sub_349EC(void *a1, void *a2, void *a3)
         v10 = *v8;
         v11 = *(v8 + 8);
         v8[1] = v11;
-        v12 = sub_340B8(a1, v11, v8 + 8);
-        sub_34218(a1, v8, v12);
+        v12 = sub_340B8(result, v11, v8 + 8);
+        sub_34218(result, v8, v12);
         v4 = *v4;
         if (v10)
         {
@@ -5262,12 +5257,12 @@ void sub_349EC(void *a1, void *a2, void *a3)
       while (!v13);
     }
 
-    sub_34B10(a1, v10);
+    sub_34B10(result, v10);
   }
 
   if (v4 != a3)
   {
-    sub_34BAC();
+    sub_34BAC(result);
   }
 }
 
@@ -5305,9 +5300,9 @@ uint64_t sub_34B54(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_34C14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_34C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_34CB0(va);
   _Unwind_Resume(a1);
 }
@@ -5341,33 +5336,33 @@ uint64_t sub_34CFC(uint64_t a1)
   return a1;
 }
 
-uint64_t **sub_34D38(void *a1, unsigned __int16 *a2)
+uint64_t **sub_34D38(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5375,54 +5370,54 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_34F90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_34F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_34CB0(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t _TUIDeviceHasInternalInstall()
+uint64_t _TUIDeviceHasInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (qword_2E60A0 != -1)
   {
@@ -5490,7 +5485,7 @@ void sub_35ED4(uint64_t a1)
   if (v3)
   {
     v5 = [*(a1 + 48) statsCollector];
-    [v5 recordEvent:19];
+    objc_msgSend_recordEvent_(v5);
 
     v6 = *(a1 + 32);
     v7 = *(v6 + 32);
@@ -5551,7 +5546,7 @@ void sub_36390(id a1)
   qword_2E60B8 = v2;
 }
 
-uint64_t TUIShouldStopInDebugger()
+uint64_t TUIShouldStopInDebugger(uint64_t a1, uint64_t a2)
 {
   if (TUIGrantDebuggerPermissionToStopExecution == 1 && qword_2E60D0 != -1)
   {
@@ -5561,7 +5556,7 @@ uint64_t TUIShouldStopInDebugger()
   return 0;
 }
 
-uint64_t TUIIsRunningTests()
+uint64_t TUIIsRunningTests(uint64_t a1, uint64_t a2)
 {
   if (qword_2E60D0 != -1)
   {
@@ -5571,7 +5566,7 @@ uint64_t TUIIsRunningTests()
   return byte_2E60C8;
 }
 
-void TUIHaltDebugger()
+void TUIHaltDebugger(uint64_t result, uint64_t a2)
 {
   if (TUIGrantDebuggerPermissionToStopExecution == 1 && qword_2E60D0 != -1)
   {
@@ -5687,9 +5682,9 @@ void sub_36F2C(uint64_t a1)
   }
 }
 
-void sub_37114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_37114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5701,9 +5696,9 @@ uint64_t sub_3712C(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_372A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_372A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5758,7 +5753,7 @@ void sub_37928(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 void sub_38DBC(uint64_t a1, void *a2)
 {
   v7 = a2;
-  v4 = [v7 box];
+  v4 = objc_msgSend_box(v7);
   v5 = [v4 role];
 
   if (v5 == &dword_0 + 3)
@@ -5871,7 +5866,7 @@ double sub_3922C(uint64_t a1)
     v7 = *a1;
     do
     {
-      v8 = [*v7 box];
+      v8 = objc_msgSend_box(*v7);
       v9 = [v8 valign];
 
       v10 = *v7;
@@ -5925,7 +5920,7 @@ double sub_3922C(uint64_t a1)
   {
     do
     {
-      v18 = [*v2 box];
+      v18 = objc_msgSend_box(*v2);
       v19 = [v18 valign];
 
       if (v19 <= 1)
@@ -6213,6 +6208,13 @@ void sub_3A314(uint64_t a1)
   }
 }
 
+void sub_3A6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_3A6F8(void *a1)
 {
   v2 = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
@@ -6294,9 +6296,9 @@ void sub_3A7E4(uint64_t a1)
   }
 }
 
-void sub_3A9D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_3A9D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6328,9 +6330,9 @@ void sub_3AE68(uint64_t a1, void *a2, void *a3)
   [v8 performDropWithSession:*(a1 + 40) actionObject:v6 behavior:v7];
 }
 
-void sub_3AFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3AFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6506,8 +6508,8 @@ uint64_t sub_3FF80(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v10[0] = objc_opt_class();
-    v4 = sub_3D34((a1 + 48), v10);
+    v10 = objc_opt_class();
+    v4 = sub_3D34((a1 + 48), &v10);
     if (v4)
     {
       v5 = *(v4 + 24);
@@ -6518,8 +6520,8 @@ uint64_t sub_3FF80(uint64_t a1, void *a2)
       v6 = objc_opt_class();
       v7 = TUIDynamicCast(v6, v3);
 
-      v10[2] = v10;
-      v8 = sub_42708((a1 + 48), v10);
+      v11 = &v10;
+      v8 = sub_42708((a1 + 48), &v10, &std::piecewise_construct, &v11);
       v5 = v7 != 0;
       *(v8 + 24) = v7 != 0;
     }
@@ -6810,18 +6812,18 @@ uint64_t TUI::Evaluation::ResolvedValue::nameValue(TUI::Evaluation::ResolvedValu
   return v2;
 }
 
-double TUI::Evaluation::ResolvedValue::transformValue@<D0>(TUI::Evaluation::ResolvedValue *this@<X0>, const TUI::Evaluation::Context *a2@<X1>, _OWORD *a3@<X8>)
+double TUI::Evaluation::ResolvedValue::transformValue@<D0>(uint64_t *__return_ptr a1@<X8>, TUI::Evaluation::ResolvedValue *this@<X0>, const TUI::Evaluation::Context *a3@<X1>)
 {
   v4 = *&CGAffineTransformIdentity.c;
-  *a3 = *&CGAffineTransformIdentity.a;
-  a3[1] = v4;
-  a3[2] = *&CGAffineTransformIdentity.tx;
+  *a1 = *&CGAffineTransformIdentity.a;
+  *(a1 + 1) = v4;
+  *(a1 + 2) = *&CGAffineTransformIdentity.tx;
   if (*this == 13)
   {
     v5 = *(this + 1);
     if (v5)
     {
-      [v5 CGAffineTransformValue];
+      objc_msgSend_CGAffineTransformValue(v5, a3);
     }
 
     else
@@ -6831,16 +6833,16 @@ double TUI::Evaluation::ResolvedValue::transformValue@<D0>(TUI::Evaluation::Reso
       v7 = 0u;
     }
 
-    *a3 = v7;
-    a3[1] = v8;
+    *a1 = v7;
+    *(a1 + 1) = v8;
     result = *&v9;
-    a3[2] = v9;
+    *(a1 + 2) = v9;
   }
 
   else
   {
 
-    TUI::Evaluation::Context::reportError(a2, 1000, 0);
+    TUI::Evaluation::Context::reportError(a3, 1000, 0);
   }
 
   return result;
@@ -7314,7 +7316,7 @@ LABEL_12:
   return v4;
 }
 
-void TUI::Evaluation::ResolvedValue::springTimingParameters(id *this@<X0>, const TUI::Evaluation::Context *a2@<X1>, uint64_t a3@<X8>)
+double TUI::Evaluation::ResolvedValue::springTimingParameters@<D0>(id *this@<X0>, const TUI::Evaluation::Context *a2@<X1>, uint64_t a3@<X8>)
 {
   *a3 = TUISpringTimingParametersZero;
   *(a3 + 16) = unk_24CEC0;
@@ -7328,6 +7330,8 @@ void TUI::Evaluation::ResolvedValue::springTimingParameters(id *this@<X0>, const
   {
     TUI::Evaluation::Context::reportError(a2, 1000, 0);
   }
+
+  return result;
 }
 
 id TUI::Evaluation::ResolvedValue::BOOLValue(TUI::Evaluation::ResolvedValue *this, const TUI::Evaluation::Context *a2)
@@ -7419,13 +7423,14 @@ id TUI::Evaluation::ResolvedValue::structValue(id *this, const TUI::Evaluation::
   return v2;
 }
 
-void TUI::Evaluation::ResolvedValue::resolveProperty(id *this@<X0>, const TUI::Evaluation::Context *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+void TUI::Evaluation::ResolvedValue::resolveProperty(uint64_t *__return_ptr a1@<X8>, id *this@<X0>, const TUI::Evaluation::Context *a3@<X1>, uint64_t a4@<X2>)
 {
+  v4 = a4;
   v81 = 0;
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  v8 = (a4 + 8);
-  v9 = *(a2 + 70);
+  *a1 = 0;
+  a1[1] = 0;
+  v8 = (a1 + 1);
+  v9 = *(a3 + 70);
   v10 = *this;
   if (*this <= 13)
   {
@@ -7446,7 +7451,7 @@ void TUI::Evaluation::ResolvedValue::resolveProperty(id *this@<X0>, const TUI::E
           v13 = v11[2];
         }
 
-        if (v13 != a3)
+        if (v13 != v4)
         {
           if (v12 < 4)
           {
@@ -7458,7 +7463,7 @@ void TUI::Evaluation::ResolvedValue::resolveProperty(id *this@<X0>, const TUI::E
             v28 = v11[3];
           }
 
-          if (v28 != a3)
+          if (v28 != v4)
           {
             if (v12 < 5)
             {
@@ -7470,7 +7475,7 @@ void TUI::Evaluation::ResolvedValue::resolveProperty(id *this@<X0>, const TUI::E
               v40 = v11[4];
             }
 
-            if (v40 != a3)
+            if (v40 != v4)
             {
               if (v12 < 6)
               {
@@ -7482,12 +7487,12 @@ void TUI::Evaluation::ResolvedValue::resolveProperty(id *this@<X0>, const TUI::E
                 v50 = v11[5];
               }
 
-              if (v50 == a3)
+              if (v50 == v4)
               {
                 LODWORD(v82) = 1;
                 v83 = 0;
                 v84 = v88;
-                sub_41C10(a4, &v82);
+                sub_41C10(a1, &v82);
 
                 return;
               }
@@ -7518,7 +7523,7 @@ LABEL_48:
     v23 = *(v9 + 48) - v22;
     if (v23)
     {
-      if (*v22 != a3)
+      if (*v22 != v4)
       {
         if (v23 < 3)
         {
@@ -7537,30 +7542,30 @@ LABEL_48:
     else
     {
       v24 = 0xFFFF;
-      if (a3 != 0xFFFF)
+      if (v4 != 0xFFFF)
       {
 LABEL_57:
-        if (v24 == a3)
+        if (v24 == v4)
         {
-          *a4 = 1;
-          v47 = *(a4 + 8);
-          *(a4 + 8) = 0;
+          *a1 = 1;
+          v47 = a1[1];
+          a1[1] = 0;
 
-          *(a4 + 16) = v21;
+          a1[2] = v21;
           return;
         }
 
-        v81 = TUI::Symbol::Tab::string(*(a2 + 70), a3);
-        TUI::Evaluation::Context::reportError(a2, 1004, v81);
+        v81 = TUI::Symbol::Tab::string(*(a3 + 70), v4);
+        TUI::Evaluation::Context::reportError(a3, 1004, v81);
         goto LABEL_92;
       }
     }
 
-    *a4 = 1;
-    v31 = *(a4 + 8);
-    *(a4 + 8) = 0;
+    *a1 = 1;
+    v31 = a1[1];
+    a1[1] = 0;
 
-    *(a4 + 16) = v19;
+    a1[2] = v19;
     return;
   }
 
@@ -7579,7 +7584,7 @@ LABEL_57:
       v27 = v25[72];
     }
 
-    if (v27 != a3)
+    if (v27 != v4)
     {
       if (v26 < 0x4A)
       {
@@ -7591,7 +7596,7 @@ LABEL_57:
         v30 = v25[73];
       }
 
-      if (v30 != a3)
+      if (v30 != v4)
       {
         if (v26 < 0x4B)
         {
@@ -7603,11 +7608,11 @@ LABEL_57:
           v41 = v25[74];
         }
 
-        if (v41 != a3)
+        if (v41 != v4)
         {
 LABEL_80:
-          v55 = TUI::Symbol::Tab::string(*(a2 + 70), a3);
-          TUI::Evaluation::Context::reportError(a2, 1004, v55);
+          v55 = TUI::Symbol::Tab::string(*(a3 + 70), v4);
+          TUI::Evaluation::Context::reportError(a3, 1004, v55);
 
           return;
         }
@@ -7621,11 +7626,11 @@ LABEL_80:
 LABEL_27:
     v29 = v85;
 LABEL_70:
-    *a4 = 1;
-    v51 = *(a4 + 8);
-    *(a4 + 8) = 0;
+    *a1 = 1;
+    v51 = a1[1];
+    a1[1] = 0;
 
-    *(a4 + 16) = v29;
+    a1[2] = v29;
     return;
   }
 
@@ -7634,16 +7639,16 @@ LABEL_70:
     goto LABEL_33;
   }
 
-  if (sub_41C50(a2 + 64, this[1]))
+  if (sub_41C50(a3 + 64, this[1]))
   {
     v14 = this[1];
-    v80 = TUI::Symbol::Tab::string(*(a2 + 70), a3);
+    v80 = TUI::Symbol::Tab::string(*(a3 + 70), v4);
     v15 = [v14 tui_hasProperty:v80];
     v16 = v80;
     if (v15)
     {
       v17 = [this[1] tui_valueForProperty:v80];
-      *a4 = 16;
+      *a1 = 16;
       objc_storeStrong(v8, v17);
 
       goto LABEL_62;
@@ -7668,7 +7673,7 @@ LABEL_33:
         v36 = v35;
         while (1)
         {
-          v37 = sub_41D40([v36 value], a3);
+          v37 = sub_41D40([v36 value], v4);
           v38 = v37;
           if (v37)
           {
@@ -7684,16 +7689,16 @@ LABEL_33:
           }
         }
 
-        *a4 = *v37;
+        *a1 = *v37;
         objc_storeStrong(v8, *(v37 + 8));
-        *(a4 + 16) = *(v38 + 16);
+        a1[2] = *(v38 + 16);
       }
 
       else
       {
 LABEL_41:
-        v36 = TUI::Symbol::Tab::string(*(a2 + 70), a3);
-        TUI::Evaluation::Context::reportError(a2, 1004, v36);
+        v36 = TUI::Symbol::Tab::string(*(a3 + 70), v4);
+        TUI::Evaluation::Context::reportError(a3, 1004, v36);
       }
 
       goto LABEL_90;
@@ -7713,20 +7718,20 @@ LABEL_41:
         v34 = v32[62];
       }
 
-      if (v34 == a3)
+      if (v34 == v4)
       {
         v42 = this[1];
-        v43 = *(a2 + 73);
+        v43 = *(a3 + 73);
         v44 = [v42 mappedSpecIfNeededWithEnvironment:v43];
 
         [v44 scale];
 LABEL_84:
         v58 = v45;
-        *a4 = 1;
-        v59 = *(a4 + 8);
-        *(a4 + 8) = 0;
+        *a1 = 1;
+        v59 = a1[1];
+        a1[1] = 0;
 
-        *(a4 + 16) = v58;
+        a1[2] = v58;
 LABEL_92:
         v49 = v81;
         goto LABEL_93;
@@ -7742,10 +7747,10 @@ LABEL_92:
         v46 = v32[64];
       }
 
-      if (v46 == a3)
+      if (v46 == v4)
       {
         v52 = this[1];
-        v53 = *(a2 + 73);
+        v53 = *(a3 + 73);
         v44 = [v52 mappedSpecIfNeededWithEnvironment:v53];
 
         [v44 leading];
@@ -7762,10 +7767,10 @@ LABEL_92:
         v54 = v32[104];
       }
 
-      if (v54 == a3)
+      if (v54 == v4)
       {
         v56 = this[1];
-        v57 = *(a2 + 73);
+        v57 = *(a3 + 73);
         v44 = [v56 mappedSpecIfNeededWithEnvironment:v57];
 
         [v44 pointSize];
@@ -7774,9 +7779,9 @@ LABEL_92:
     }
 
 LABEL_85:
-    if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(this, 11, a2))
+    if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(this, 11, a3))
     {
-      v60 = TUI::Evaluation::ResolvedValue::colorValue(this, a2);
+      v60 = TUI::Evaluation::ResolvedValue::colorValue(this, a3);
       v61 = v60;
       v62 = *(v9 + 40);
       v63 = (*(v9 + 48) - v62) >> 1;
@@ -7790,7 +7795,7 @@ LABEL_85:
         v64 = v62[38];
       }
 
-      if (v64 == a3)
+      if (v64 == v4)
       {
         v82 = 0;
         [v60 getRed:&v82 green:0 blue:0 alpha:0];
@@ -7808,7 +7813,7 @@ LABEL_85:
           v69 = v62[39];
         }
 
-        if (v69 == a3)
+        if (v69 == v4)
         {
           v82 = 0;
           [v60 getRed:0 green:&v82 blue:0 alpha:0];
@@ -7826,7 +7831,7 @@ LABEL_85:
             v70 = v62[40];
           }
 
-          if (v70 == a3)
+          if (v70 == v4)
           {
             v82 = 0;
             [v60 getRed:0 green:0 blue:&v82 alpha:0];
@@ -7844,7 +7849,7 @@ LABEL_85:
               v71 = v62[41];
             }
 
-            if (v71 == a3)
+            if (v71 == v4)
             {
               v82 = 0x3FF0000000000000;
               [v60 getRed:0 green:0 blue:0 alpha:&v82];
@@ -7862,7 +7867,7 @@ LABEL_85:
                 v72 = v62[60];
               }
 
-              if (v72 != a3)
+              if (v72 != v4)
               {
                 if (v63 < 0x6A)
                 {
@@ -7874,9 +7879,9 @@ LABEL_85:
                   v73 = v62[105];
                 }
 
-                if (v73 == a3)
+                if (v73 == v4)
                 {
-                  v74 = *(a2 + 73);
+                  v74 = *(a3 + 73);
                   v75 = [v74 traitCollection];
                   v76 = sub_41DC4(v61, v75, 1);
                 }
@@ -7893,15 +7898,15 @@ LABEL_85:
                     v77 = v62[106];
                   }
 
-                  if (v77 != a3)
+                  if (v77 != v4)
                   {
-                    v79 = TUI::Symbol::Tab::string(*(a2 + 70), a3);
-                    TUI::Evaluation::Context::reportError(a2, 1004, v79);
+                    v79 = TUI::Symbol::Tab::string(*(a3 + 70), v4);
+                    TUI::Evaluation::Context::reportError(a3, 1004, v79);
 
                     goto LABEL_120;
                   }
 
-                  v74 = *(a2 + 73);
+                  v74 = *(a3 + 73);
                   v75 = [v74 traitCollection];
                   v76 = sub_41DC4(v61, v75, 2);
                 }
@@ -7909,7 +7914,7 @@ LABEL_85:
                 LODWORD(v85) = 11;
                 v86 = v76;
                 v78 = v76;
-                sub_41C10(a4, &v85);
+                sub_41C10(a1, &v85);
 
 LABEL_120:
                 return;
@@ -7925,24 +7930,24 @@ LABEL_120:
       LODWORD(v85) = 1;
       v86 = 0;
       v87 = v82;
-      sub_41C10(a4, &v85);
+      sub_41C10(a1, &v85);
 
       goto LABEL_120;
     }
 
     if (*this != 16)
     {
-      v68 = TUI::Symbol::Tab::string(*(a2 + 70), a3);
-      TUI::Evaluation::Context::reportError(a2, 1004, v68);
+      v68 = TUI::Symbol::Tab::string(*(a3 + 70), v4);
+      TUI::Evaluation::Context::reportError(a3, 1004, v68);
 
       goto LABEL_92;
     }
 
     v65 = objc_opt_class();
     v36 = NSStringFromClass(v65);
-    v66 = TUI::Symbol::Tab::string(*(a2 + 70), a3);
+    v66 = TUI::Symbol::Tab::string(*(a3 + 70), v4);
     v67 = [NSString stringWithFormat:@"%@.%@", v36, v66];
-    TUI::Evaluation::Context::reportError(a2, 1024, v67);
+    TUI::Evaluation::Context::reportError(a3, 1024, v67);
 
 LABEL_90:
     goto LABEL_92;
@@ -7954,9 +7959,9 @@ LABEL_90:
     goto LABEL_85;
   }
 
-  *a4 = 16;
-  v48 = *(a4 + 8);
-  *(a4 + 8) = 0;
+  *a1 = 16;
+  v48 = a1[1];
+  a1[1] = 0;
   v80 = v16;
 
 LABEL_62:
@@ -7982,8 +7987,8 @@ uint64_t sub_41C50(uint64_t a1, void *a2)
 
   else if (v3)
   {
-    v9[0] = objc_opt_class();
-    v6 = sub_3D34((a1 + 8), v9);
+    v9 = objc_opt_class();
+    v6 = sub_3D34((a1 + 8), &v9);
     if (v6)
     {
       v4 = *(v6 + 24);
@@ -7993,8 +7998,8 @@ uint64_t sub_41C50(uint64_t a1, void *a2)
     {
       v7 = TUIProtocolCast(&OBJC_PROTOCOL___TUIPropertyAccessing, v3);
 
-      v9[2] = v9;
-      v8 = sub_42708((a1 + 8), v9);
+      v10 = &v9;
+      v8 = sub_42708((a1 + 8), &v9, &std::piecewise_construct, &v10);
       v4 = v7 != 0;
       *(v8 + 24) = v7 != 0;
     }
@@ -8058,17 +8063,17 @@ id sub_41DC4(void *a1, void *a2, uint64_t a3)
   return v9;
 }
 
-void sub_41F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_41F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
   _Unwind_Resume(a1);
 }
 
-void TUI::Evaluation::ResolvedValue::testProperty(TUI::Evaluation::ResolvedValue *this@<X0>, const TUI::Evaluation::Context *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+void TUI::Evaluation::ResolvedValue::testProperty(uint64_t *__return_ptr a1@<X8>, TUI::Evaluation::ResolvedValue *this@<X0>, const TUI::Evaluation::Context *a3@<X1>, unsigned int a4@<W2>)
 {
   v38 = 0;
-  v8 = *(a2 + 70);
+  v8 = *(a3 + 70);
   v9 = *this;
   if (*this <= 13)
   {
@@ -8078,7 +8083,7 @@ void TUI::Evaluation::ResolvedValue::testProperty(TUI::Evaluation::ResolvedValue
       v26 = *(v8 + 48) - v25;
       if (v26)
       {
-        if (*v25 == a3)
+        if (*v25 == a4)
         {
           goto LABEL_59;
         }
@@ -8094,7 +8099,7 @@ void TUI::Evaluation::ResolvedValue::testProperty(TUI::Evaluation::ResolvedValue
       else
       {
         v27 = 0xFFFF;
-        if (a3 == 0xFFFF)
+        if (a4 == 0xFFFF)
         {
           goto LABEL_59;
         }
@@ -8102,7 +8107,7 @@ void TUI::Evaluation::ResolvedValue::testProperty(TUI::Evaluation::ResolvedValue
 
 LABEL_63:
       v10 = 0;
-      v14 = v27 == a3;
+      v14 = v27 == a4;
       goto LABEL_77;
     }
 
@@ -8123,13 +8128,13 @@ LABEL_63:
       v18 = v16[2];
     }
 
-    if (v18 != a3)
+    if (v18 != a4)
     {
       v29 = v17 < 4 ? 0xFFFF : v16[3];
-      if (v29 != a3)
+      if (v29 != a4)
       {
         v30 = v17 < 5 ? 0xFFFF : v16[4];
-        if (v30 != a3)
+        if (v30 != a4)
         {
           if (v17 >= 6)
           {
@@ -8162,10 +8167,10 @@ LABEL_59:
       v21 = v19[72];
     }
 
-    if (v21 != a3)
+    if (v21 != a4)
     {
       v28 = v20 < 0x4A ? 0xFFFF : v19[73];
-      if (v28 != a3)
+      if (v28 != a4)
       {
         if (v20 >= 0x4B)
         {
@@ -8184,10 +8189,10 @@ LABEL_62:
 
   if (v9 == 16)
   {
-    if (sub_41C50(a2 + 64, *(this + 1)))
+    if (sub_41C50(a3 + 64, *(this + 1)))
     {
       v22 = *(this + 1);
-      v23 = TUI::Symbol::Tab::string(*(a2 + 70), a3);
+      v23 = TUI::Symbol::Tab::string(*(a3 + 70), a4);
       if ([v22 tui_hasProperty:v23])
       {
         v24 = [*(this + 1) tui_valueForProperty:v23];
@@ -8212,12 +8217,12 @@ LABEL_62:
   {
 LABEL_46:
     v14 = 0;
-    if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(this, 11, a2))
+    if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(this, 11, a3))
     {
       v31 = *(v8 + 40);
       v32 = (*(v8 + 48) - v31) >> 1;
       v33 = v32 < 0x27 ? 0xFFFF : v31[38];
-      if (v33 == a3 || (v32 < 0x28 ? (v34 = 0xFFFF) : (v34 = v31[39]), v34 == a3 || (v32 < 0x29 ? (v35 = 0xFFFF) : (v35 = v31[40]), v35 == a3 || (v32 < 0x2A ? (v36 = 0xFFFF) : (v36 = v31[41]), v36 == a3 || (v32 < 0x3D ? (v37 = 0xFFFF) : (v37 = v31[60]), v37 == a3)))))
+      if (v33 == a4 || (v32 < 0x28 ? (v34 = 0xFFFF) : (v34 = v31[39]), v34 == a4 || (v32 < 0x29 ? (v35 = 0xFFFF) : (v35 = v31[40]), v35 == a4 || (v32 < 0x2A ? (v36 = 0xFFFF) : (v36 = v31[41]), v36 == a4 || (v32 < 0x3D ? (v37 = 0xFFFF) : (v37 = v31[60]), v37 == a4)))))
       {
         v14 = 1;
       }
@@ -8230,7 +8235,7 @@ LABEL_46:
   v10 = *(this + 1);
   if (v10)
   {
-    v11 = a3 << 16;
+    v11 = a4 << 16;
     while (1)
     {
       v39 = v10;
@@ -8263,9 +8268,9 @@ LABEL_36:
   }
 
 LABEL_77:
-  *a4 = 12;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = v14;
+  *a1 = 12;
+  a1[1] = 0;
+  *(a1 + 16) = v14;
 }
 
 id TUI::Evaluation::ResolvedValue::operator==(uint64_t a1, uint64_t a2)
@@ -8373,33 +8378,33 @@ uint64_t sub_42610(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *sub_42708(void *a1, unint64_t *a2)
+void *sub_42708(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8407,44 +8412,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t sub_4293C(uint64_t result, uint64_t a2)
@@ -8538,64 +8543,64 @@ id sub_436F0(id *a1)
 
   objc_storeStrong(a1[4] + 5, a1[5]);
   ++*(a1[4] + 7);
-  v5 = TUITransactionLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = TUITransactionLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = a1[4];
-    v7 = v6[12];
-    v8 = v6[5];
+    v7 = a1[4];
+    v8 = v7[12];
+    v9 = v7[5];
     *buf = 134218242;
-    v26 = v7;
-    v27 = 2114;
-    v28 = v8;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "[fid:%lu] scheduling sync transaction: %{public}@", buf, 0x16u);
+    v27 = v8;
+    v28 = 2114;
+    v29 = v9;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "[fid:%lu] scheduling sync transaction: %{public}@", buf, 0x16u);
   }
 
-  v9 = [a1[6] options];
-  v10 = [v9 flags];
+  v10 = [a1[6] options];
+  v11 = [v10 flags];
 
-  if ((v10 & 8) != 0)
+  if ((v11 & 8) != 0)
   {
-    v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v11 = *(a1[4] + 3);
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    if (v12)
+    v22 = 0u;
+    v12 = *(a1[4] + 3);
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v21;
+      v14 = v13;
+      v15 = *v22;
       do
       {
-        v15 = 0;
+        v16 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v22 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * v15);
-          if (a1[6] != v16)
+          v17 = *(*(&v21 + 1) + 8 * v16);
+          if (a1[6] != v17)
           {
-            v17 = a1[5];
-            v18 = [v16 dependencyToken];
-            [v17 dependentOn:v18];
+            v18 = a1[5];
+            v19 = [v17 dependencyToken];
+            [v18 dependentOn:v19];
           }
 
-          v15 = v15 + 1;
+          v16 = v16 + 1;
         }
 
-        while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        while (v14 != v16);
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
   }
 
-  return [*(a1[4] + 3) addObject:{a1[5], v20}];
+  return [*(a1[4] + 3) addObject:{a1[5], v21}];
 }
 
 uint64_t sub_43A28(uint64_t a1)
@@ -8609,6 +8614,13 @@ uint64_t sub_43A28(uint64_t a1)
   return result;
 }
 
+void sub_43F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_43F58(void *a1)
 {
   if ([*(a1[4] + 48) containsTransaction:a1[5]])
@@ -8616,22 +8628,22 @@ void sub_43F58(void *a1)
     objc_storeStrong((*(a1[6] + 8) + 40), *(a1[4] + 48));
     if (a1[5] == *(a1[4] + 40))
     {
-      v2 = TUITransactionLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = TUITransactionLog(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = a1[4];
-        v4 = *(v3 + 96);
-        v5 = *(v3 + 40);
-        v8 = 134218242;
-        v9 = v4;
-        v10 = 2114;
-        v11 = v5;
-        _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "[fid:%lu] clearing sync transaction: %{public}@", &v8, 0x16u);
+        v4 = a1[4];
+        v5 = *(v4 + 96);
+        v6 = *(v4 + 40);
+        v9 = 134218242;
+        v10 = v5;
+        v11 = 2114;
+        v12 = v6;
+        _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "[fid:%lu] clearing sync transaction: %{public}@", &v9, 0x16u);
       }
 
-      v6 = a1[4];
-      v7 = *(v6 + 40);
-      *(v6 + 40) = 0;
+      v7 = a1[4];
+      v8 = *(v7 + 40);
+      *(v7 + 40) = 0;
     }
   }
 }
@@ -8671,9 +8683,9 @@ void *sub_440D8(void *result)
   return result;
 }
 
-void sub_44338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_44338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8752,16 +8764,16 @@ void sub_45250(void *a1)
   *(*(a1[7] + 8) + 24) = *(a1[4] + 56) != 0;
   if (*(*(a1[6] + 8) + 40))
   {
-    v7 = TUITransactionLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = TUITransactionLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = *(a1[4] + 96);
-      v9 = *(*(a1[6] + 8) + 40);
-      v10 = 134218242;
-      v11 = v8;
-      v12 = 2114;
-      v13 = v9;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "[fid:%lu] picked up sync transaction for processing: %{public}@", &v10, 0x16u);
+      v9 = *(a1[4] + 96);
+      v10 = *(*(a1[6] + 8) + 40);
+      v11 = 134218242;
+      v12 = v9;
+      v13 = 2114;
+      v14 = v10;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "[fid:%lu] picked up sync transaction for processing: %{public}@", &v11, 0x16u);
     }
   }
 }
@@ -8924,8 +8936,7 @@ id sub_46298(uint64_t a1)
       }
 
       v5 = [*(v4 + 32) firstObject];
-      [*(*(a1 + 32) + 32) removeObjectAtIndex:0];
-      v6 = TUITransactionLog();
+      v6 = TUITransactionLog([*(*(a1 + 32) + 32) removeObjectAtIndex:0]);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = *(*(a1 + 32) + 96);
@@ -8968,9 +8979,9 @@ BOOL sub_464AC(id a1, TUITransactionGroup *a2, unint64_t a3, BOOL *a4)
   return result;
 }
 
-void sub_46764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_46764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8997,9 +9008,9 @@ void sub_46C18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_4734C(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_4734C(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -9204,9 +9215,9 @@ id sub_5308C(void *a1, void *a2, int a3, void *a4)
   v10 = 0;
   if (v7 && v8 != v7)
   {
-    v11 = [v7 box];
+    v11 = objc_msgSend_box(v7);
     v12 = [v11 refId];
-    v13 = [v12 isEqualToString:v9];
+    v13 = objc_msgSend_isEqualToString_(v12);
 
     if (v13)
     {
@@ -9219,7 +9230,7 @@ id sub_5308C(void *a1, void *a2, int a3, void *a4)
       v26 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v14 = [v7 children];
+      v14 = objc_msgSend_children(v7, 0);
       v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v15)
       {
@@ -9287,26 +9298,26 @@ void sub_53440(id a1)
   qword_2E61A0 = &off_2757B0;
 }
 
-void TUI::Evaluation::Variables::Capture::create(void *a1@<X1>, void *a2@<X5>, void *a3@<X8>)
+void TUI::Evaluation::Variables::Capture::create(void *a2@<X1>, void *a6@<X5>, void *a8@<X8>)
 {
-  v5 = a1;
-  v6 = a2;
-  *a3 = 0;
-  a3[1] = 0;
+  v10 = a2;
+  v11 = a6;
+  *a8 = 0;
+  a8[1] = 0;
   operator new();
 }
 
-void TUI::Evaluation::Variables::Capture::create(TUI::Evaluation::Variables::Capture *this@<X0>, void *a2@<X8>)
+void TUI::Evaluation::Variables::Capture::create(uint64_t *__return_ptr a1@<X8>, TUI::Evaluation::Variables::Capture *this@<X0>)
 {
   if (this)
   {
     operator new();
   }
 
-  TUI::Evaluation::Variables::Capture::emptyClosed(a2);
+  TUI::Evaluation::Variables::Capture::emptyClosed(a1);
 }
 
-void TUI::Evaluation::Variables::Capture::emptyClosed(void *a1@<X8>)
+void TUI::Evaluation::Variables::Capture::emptyClosed(uint64_t *__return_ptr a1@<X8>)
 {
   if (qword_2E61C0 != -1)
   {
@@ -9322,7 +9333,7 @@ void TUI::Evaluation::Variables::Capture::emptyClosed(void *a1@<X8>)
   }
 }
 
-void TUI::Evaluation::Variables::Capture::emptyClosedComponentPassthrough(void *a1@<X8>)
+void TUI::Evaluation::Variables::Capture::emptyClosedComponentPassthrough(uint64_t *__return_ptr a1@<X8>)
 {
   if (qword_2E61D8 != -1)
   {

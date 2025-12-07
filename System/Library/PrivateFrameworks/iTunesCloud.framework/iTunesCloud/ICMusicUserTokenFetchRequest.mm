@@ -206,7 +206,7 @@ LABEL_10:
       v9 = @"This is most likely due to an expired or otherwise invalid developer token";
     }
 
-    v20 = [MEMORY[0x1E696ABC0] msv_errorWithDomain:@"ICError" code:-8101 debugDescription:{@"Failed to fetch music user token with %@ status code. %@.", v11, v9, *buf, *&buf[16], v37}];
+    v20 = [MEMORY[0x1E696ABC0] msv_errorWithDomain:@"ICError" code:-8101 debugDescription:{@"Failed to fetch music user token with %@ status code. %@.", v11, v9, *buf, *&buf[8], v37}];
 
     v24 = os_log_create("com.apple.amp.iTunesCloud", "Default");
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))

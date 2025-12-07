@@ -76,32 +76,32 @@
 
 - (void)invalidate
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_descriptors;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) invalidate];
+        [*(*(&v8 + 1) + 8 * v7++) invalidate];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
@@ -110,7 +110,6 @@
   [(CBCharacteristic *)self setDescriptors:0];
   [(CBPeripheral *)self->_peripheral removeAttributeForHandle:self->_valueHandle];
   [(CBPeripheral *)self->_peripheral removeAttributeForHandle:self->_handle];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)handleValueUpdated:(id)updated
@@ -143,17 +142,17 @@
 
 - (id)handleDescriptorsDiscovered:(id)discovered
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v4 = [discovered objectForKeyedSubscript:@"kCBMsgArgDescriptors"];
   selfCopy = self;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:self->_descriptors];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v6 = v4;
-  v25 = [v6 countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (!v25)
+  v24 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  if (!v24)
   {
 LABEL_25:
 
@@ -164,22 +163,22 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v8 = *v28;
+  v8 = *v27;
   *&v7 = 138412546;
-  v22 = v7;
-  v23 = v6;
-  v24 = v5;
+  v21 = v7;
+  v22 = v6;
+  v23 = v5;
 LABEL_4:
   v9 = 0;
   while (1)
   {
-    if (*v28 != v8)
+    if (*v27 != v8)
     {
       objc_enumerationMutation(v6);
     }
 
-    v10 = *(*(&v27 + 1) + 8 * v9);
-    v11 = [v10 objectForKeyedSubscript:{@"kCBMsgArgDescriptorHandle", v22}];
+    v10 = *(*(&v26 + 1) + 8 * v9);
+    v11 = [v10 objectForKeyedSubscript:{@"kCBMsgArgDescriptorHandle", v21}];
     v12 = [(CBPeripheral *)selfCopy->_peripheral attributeForHandle:v11];
     if (v12)
     {
@@ -203,9 +202,9 @@ LABEL_4:
     handle = [(CBDescriptor *)v12 handle];
     [(CBPeripheral *)peripheral setAttribute:v12 forHandle:handle];
 
-    v6 = v23;
-    v5 = v24;
-    if (([v24 containsObject:v12] & 1) == 0)
+    v6 = v22;
+    v5 = v23;
+    if (([v23 containsObject:v12] & 1) == 0)
     {
 LABEL_16:
       [v5 addObject:v12];
@@ -217,20 +216,20 @@ LABEL_16:
       v16 = CBLogComponent;
       if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v22;
-        v32 = v12;
-        v33 = 2112;
-        v34 = selfCopy;
+        *buf = v21;
+        v31 = v12;
+        v32 = 2112;
+        v33 = selfCopy;
         _os_log_debug_impl(&dword_1C0AC1000, v16, OS_LOG_TYPE_DEBUG, "Added %@ to %@", buf, 0x16u);
       }
     }
 
 LABEL_5:
 
-    if (v25 == ++v9)
+    if (v24 == ++v9)
     {
-      v25 = [v6 countByEnumeratingWithState:&v27 objects:v35 count:16];
-      if (!v25)
+      v24 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      if (!v24)
       {
         goto LABEL_25;
       }
@@ -250,12 +249,10 @@ LABEL_5:
     [(CBCharacteristic *)v11 handleDescriptorsDiscovered:selfCopy, v17];
   }
 
-  v6 = v23;
+  v6 = v22;
   v18 = 0;
-  v5 = v24;
+  v5 = v23;
 LABEL_26:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -269,13 +266,12 @@ LABEL_26:
 
 - (void)handleDescriptorsDiscovered:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_debug_impl(&dword_1C0AC1000, log, OS_LOG_TYPE_DEBUG, "Data in %@ does not contain a valid UUID for descriptor handle = %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_debug_impl(&dword_1C0AC1000, log, OS_LOG_TYPE_DEBUG, "Data in %@ does not contain a valid UUID for descriptor handle = %@", &v3, 0x16u);
 }
 
 @end

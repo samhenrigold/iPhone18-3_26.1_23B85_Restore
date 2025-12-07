@@ -56,16 +56,16 @@
 
       if (!previousCopy || [previousCopy isExtensionInputMode])
       {
-        if ([modeCopy isEqual:previousCopy])
+        if (objc_msgSend_isEqual_(modeCopy))
         {
           goto LABEL_10;
         }
 
         containingBundleDisplayName = [modeCopy containingBundleDisplayName];
         containingBundleDisplayName2 = [previousCopy containingBundleDisplayName];
-        v9 = [containingBundleDisplayName isEqualToString:containingBundleDisplayName2];
+        isEqualToString = objc_msgSend_isEqualToString_(containingBundleDisplayName);
 
-        if ((v9 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           goto LABEL_10;
         }
@@ -233,7 +233,7 @@ LABEL_11:
 
   if (v7)
   {
-    if (!autocorrectionCopy && ([candidateCopy input], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "length"), v8, v9) && (objc_msgSend(candidateCopy, "input"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(candidateCopy, "candidate"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToString:", v11), v11, v10, v12))
+    if (!autocorrectionCopy && ([candidateCopy input], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "length"), v8, v9) && (objc_msgSend(candidateCopy, "input"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(candidateCopy, "candidate"), v11 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v10), v11, v10, isEqualToString))
     {
       v13 = TIStatisticGetKeyForInputMode();
       TIStatisticScalarIncrement();

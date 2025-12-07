@@ -1,10 +1,10 @@
 @interface A:
-- (uint64_t)B;
+- (double)B;
 @end
 
 @implementation A:
 
-- (uint64_t)B
+- (double)B
 {
   if (a3)
   {

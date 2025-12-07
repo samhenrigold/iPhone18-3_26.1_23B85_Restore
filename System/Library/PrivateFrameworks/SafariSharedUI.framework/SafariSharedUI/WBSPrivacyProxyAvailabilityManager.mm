@@ -107,12 +107,12 @@ void __42__WBSPrivacyProxyAvailabilityManager_init__block_invoke(uint64_t a1)
   return isPrivacyProxyPaidTierUnavailableInUserCountry;
 }
 
-uint64_t __42__WBSPrivacyProxyAvailabilityManager_init__block_invoke_2(uint64_t a1)
+uint64_t __42__WBSPrivacyProxyAvailabilityManager_init__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXPrivacyProxy();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXPrivacyProxy(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __42__WBSPrivacyProxyAvailabilityManager_init__block_invoke_2_cold_1(v2);
+    __42__WBSPrivacyProxyAvailabilityManager_init__block_invoke_2_cold_1(v3);
   }
 
   [*(a1 + 32) _registerForPrivacyProxyChangeNotifications];
@@ -168,7 +168,7 @@ void __77__WBSPrivacyProxyAvailabilityManager_setPrivacyProxyState_completionHan
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to set user privacy proxy tier to Subscriber: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to set user privacy proxy tier to Subscriber: %{public}@", v6, v7, v8, v9);
 }
 
 void __77__WBSPrivacyProxyAvailabilityManager_setPrivacyProxyState_completionHandler___block_invoke_19_cold_1(void *a1)
@@ -176,7 +176,7 @@ void __77__WBSPrivacyProxyAvailabilityManager_setPrivacyProxyState_completionHan
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to change privacy proxy state: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to change privacy proxy state: %{public}@", v6, v7, v8, v9);
 }
 
 void __84__WBSPrivacyProxyAvailabilityManager__updatePrivacyProxyStateWithCompletionHandler___block_invoke_25_cold_1(void *a1)
@@ -184,7 +184,7 @@ void __84__WBSPrivacyProxyAvailabilityManager__updatePrivacyProxyStateWithComple
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to query privacy proxy tier: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to query privacy proxy tier: %{public}@", v6, v7, v8, v9);
 }
 
 void __84__WBSPrivacyProxyAvailabilityManager__updatePrivacyProxyStateWithCompletionHandler___block_invoke_27_cold_1(void *a1)
@@ -192,7 +192,7 @@ void __84__WBSPrivacyProxyAvailabilityManager__updatePrivacyProxyStateWithComple
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to query privacy proxy state: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to query privacy proxy state: %{public}@", v6, v7, v8, v9);
 }
 
 void __84__WBSPrivacyProxyAvailabilityManager__updatePrivacyProxyStateWithCompletionHandler___block_invoke_30_cold_1(void *a1)
@@ -200,7 +200,7 @@ void __84__WBSPrivacyProxyAvailabilityManager__updatePrivacyProxyStateWithComple
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to query privacy proxy account type: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to query privacy proxy account type: %{public}@", v6, v7, v8, v9);
 }
 
 void __84__WBSPrivacyProxyAvailabilityManager__updatePrivacyProxyStateWithCompletionHandler___block_invoke_31_cold_1(void *a1)
@@ -208,7 +208,7 @@ void __84__WBSPrivacyProxyAvailabilityManager__updatePrivacyProxyStateWithComple
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to query privacy proxy service status: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to query privacy proxy service status: %{public}@", v6, v7, v8, v9);
 }
 
 @end

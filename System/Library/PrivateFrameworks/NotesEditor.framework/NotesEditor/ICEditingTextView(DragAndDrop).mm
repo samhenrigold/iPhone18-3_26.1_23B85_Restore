@@ -24,7 +24,7 @@
   v2 = [v1 note];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drag will begin: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drag will begin: %@", v6, v7, v8, v9);
 }
 
 - (void)textDraggableView:()DragAndDrop dragSessionDidEnd:withOperation:.cold.1(void *a1)
@@ -33,7 +33,7 @@
   v2 = [v1 note];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drag did end: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drag did end: %@", v6, v7, v8, v9);
 }
 
 - (void)textDroppableView:()DragAndDrop willPerformDrop:.cold.1(void *a1)
@@ -42,7 +42,7 @@
   v2 = [v1 note];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Will perform drop: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Will perform drop: %@", v6, v7, v8, v9);
 }
 
 - (void)textDroppableView:()DragAndDrop dropSessionDidEnter:.cold.1(void *a1)
@@ -51,7 +51,7 @@
   v2 = [v1 note];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drop did enter: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drop did enter: %@", v6, v7, v8, v9);
 }
 
 - (void)textDroppableView:()DragAndDrop dropSessionDidExit:.cold.1(void *a1)
@@ -60,7 +60,7 @@
   v2 = [v1 note];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drop did exit: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drop did exit: %@", v6, v7, v8, v9);
 }
 
 - (void)textDroppableView:()DragAndDrop dropSessionDidEnd:.cold.1(void *a1)
@@ -69,7 +69,7 @@
   v2 = [v1 note];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drop did end: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Drop did end: %@", v6, v7, v8, v9);
 }
 
 - (void)textPasteConfigurationSupporting:()DragAndDrop transformPasteItem:.cold.1(void *a1)
@@ -78,14 +78,14 @@
   v2 = [v1 note];
   v3 = [v2 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Transform paste item: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v4, v5, "Transform paste item: %@", v6, v7, v8, v9);
 }
 
 - (void)textPasteConfigurationSupporting:()DragAndDrop transformPasteItem:.cold.2(void *a1)
 {
   v1 = [a1 registeredTypeIdentifiers];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v2, v3, "Transform paste item types: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_2151A1000, v2, v3, "Transform paste item types: %@", v4, v5, v6, v7);
 }
 
 - (void)textPasteConfigurationSupporting:()DragAndDrop performPasteOfAttributedString:toRange:.cold.1(void *a1, NSObject *a2)

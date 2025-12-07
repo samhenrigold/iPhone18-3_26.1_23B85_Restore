@@ -37,14 +37,14 @@
 
 - (void)persistState:(id)state
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   workQueue = [(HMDHomePrimaryResidentInitialReachabilityManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v15 = 0;
-  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:stateCopy requiringSecureCoding:1 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:stateCopy requiringSecureCoding:1 error:&v14];
+  v7 = v14;
   if (v6)
   {
     dataSource = [(HMDHomePrimaryResidentInitialReachabilityManager *)self dataSource];
@@ -61,21 +61,19 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v7;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v7;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to persist primary resident reachability state, encoding failed: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDResidentReachabilityState)persistedState
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomePrimaryResidentInitialReachabilityManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -85,9 +83,9 @@
 
   if (v6)
   {
-    v16 = 0;
-    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v16];
-    v8 = v16;
+    v15 = 0;
+    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v15];
+    v8 = v15;
     if (v7)
     {
       v9 = v7;
@@ -102,9 +100,9 @@
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v8;
+        v17 = v13;
+        v18 = 2112;
+        v19 = v8;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode primary resident reachability state: %@", buf, 0x16u);
       }
 
@@ -117,14 +115,12 @@
     v7 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)handlePrimaryResidentUpdated:(id)updated reason:(id)reason
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   reasonCopy = reason;
   workQueue = [(HMDHomePrimaryResidentInitialReachabilityManager *)self workQueue];
@@ -143,13 +139,13 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v29 = 138543874;
-      v30 = v16;
-      v31 = 2112;
-      v32 = reasonCopy;
-      v33 = 2112;
-      v34 = persistedState;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping primary resident update for reason: %@, because resident device identifier found in peristed state: %@", &v29, 0x20u);
+      v28 = 138543874;
+      v29 = v16;
+      v30 = 2112;
+      v31 = reasonCopy;
+      v32 = 2112;
+      v33 = persistedState;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping primary resident update for reason: %@, because resident device identifier found in peristed state: %@", &v28, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -167,13 +163,13 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       v23 = HMFGetLogIdentifier();
-      v29 = 138543874;
-      v30 = v23;
-      v31 = 2112;
-      v32 = reasonCopy;
-      v33 = 2112;
-      v34 = v19;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Persisting primary resident reachability state for reason %@:%@", &v29, 0x20u);
+      v28 = 138543874;
+      v29 = v23;
+      v30 = 2112;
+      v31 = reasonCopy;
+      v32 = 2112;
+      v33 = v19;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Persisting primary resident reachability state for reason %@:%@", &v28, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
@@ -188,23 +184,21 @@
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       v27 = HMFGetLogIdentifier();
-      v29 = 138543618;
-      v30 = v27;
-      v31 = 2112;
-      v32 = reasonCopy;
-      _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Clearing persisted reachability state for reason: %@ because primary resident is nil", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v27;
+      v30 = 2112;
+      v31 = reasonCopy;
+      _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Clearing persisted reachability state for reason: %@ because primary resident is nil", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v24);
     [(HMDHomePrimaryResidentInitialReachabilityManager *)selfCopy3 clearPersistedState];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeRemovedNotification:(id)notification
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   home = [(HMDHomePrimaryResidentInitialReachabilityManager *)self home];
   residentDeviceManager = [home residentDeviceManager];
@@ -219,7 +213,7 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v11;
+      v26 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Not handling home removed notification because current device is a resident", buf, 0xCu);
     }
 
@@ -251,9 +245,9 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v19;
-      v28 = 2112;
-      v29 = v15;
+      v26 = v19;
+      v27 = 2112;
+      v28 = v15;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Received notification home removed: %@", buf, 0x16u);
     }
 
@@ -273,33 +267,29 @@
       dispatch_async(workQueue, block);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __82__HMDHomePrimaryResidentInitialReachabilityManager_handleHomeRemovedNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Clearing persisted reachability state because home was removed", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Clearing persisted reachability state because home was removed", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) clearPersistedState];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) clearPersistedState];
 }
 
 - (void)handleResidentDeviceEnabledStateChangeNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -338,41 +328,37 @@ uint64_t __82__HMDHomePrimaryResidentInitialReachabilityManager_handleHomeRemove
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v7;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v7;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not handling resident enabled state change, because it is not for current device: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentDeviceEnabledStateChangeNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Clearing persisted reachability state because current device became resident", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Clearing persisted reachability state because current device became resident", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) clearPersistedState];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) clearPersistedState];
 }
 
 - (void)handleResidentDeviceManagerUpdateResidentNotification:(id)notification
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDHomePrimaryResidentInitialReachabilityManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -398,9 +384,9 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v36 = 138543362;
-      v37 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not handling resident update notification because current device is a resident", &v36, 0xCu);
+      v35 = 138543362;
+      v36 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not handling resident update notification because current device is a resident", &v35, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -446,13 +432,13 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
         {
           v28 = HMFGetLogIdentifier();
           persistedState2 = [(HMDHomePrimaryResidentInitialReachabilityManager *)selfCopy2 persistedState];
-          v36 = 138543874;
-          v37 = v28;
-          v38 = 2112;
-          v39 = persistedState2;
-          v40 = 2112;
-          v41 = v21;
-          _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Not handling resident update notification because peristed state: %@ is equal to state: %@", &v36, 0x20u);
+          v35 = 138543874;
+          v36 = v28;
+          v37 = 2112;
+          v38 = persistedState2;
+          v39 = 2112;
+          v40 = v21;
+          _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Not handling resident update notification because peristed state: %@ is equal to state: %@", &v35, 0x20u);
         }
 
         objc_autoreleasePoolPop(v24);
@@ -463,11 +449,11 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
         if (v27)
         {
           v34 = HMFGetLogIdentifier();
-          v36 = 138543618;
-          v37 = v34;
-          v38 = 2112;
-          v39 = v21;
-          _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Persisting primary resident reachability state: %@", &v36, 0x16u);
+          v35 = 138543618;
+          v36 = v34;
+          v37 = 2112;
+          v38 = v21;
+          _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Persisting primary resident reachability state: %@", &v35, 0x16u);
         }
 
         objc_autoreleasePoolPop(v24);
@@ -483,23 +469,21 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
       if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         v33 = HMFGetLogIdentifier();
-        v36 = 138543618;
-        v37 = v33;
-        v38 = 2112;
-        v39 = v16;
-        _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Not handling resident update notification because it is for non-primary resident device: %@", &v36, 0x16u);
+        v35 = 138543618;
+        v36 = v33;
+        v37 = 2112;
+        v38 = v16;
+        _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Not handling resident update notification because it is for non-primary resident device: %@", &v35, 0x16u);
       }
 
       objc_autoreleasePoolPop(v30);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePrimaryResidentUpdateNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDHomePrimaryResidentInitialReachabilityManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -525,9 +509,9 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not handling primary resident updated notification because current device is a resident", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Not handling primary resident updated notification because current device is a resident", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -553,8 +537,6 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
 
     [(HMDHomePrimaryResidentInitialReachabilityManager *)self handlePrimaryResidentUpdated:v16 reason:@"Notification"];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -567,7 +549,7 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
 
 - (void)configureWithHome:(id)home
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   workQueue = [(HMDHomePrimaryResidentInitialReachabilityManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -601,9 +583,9 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v18 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v18;
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Clearing persisted state since current device this device is enabled as a resident", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v18;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Clearing persisted state since current device this device is enabled as a resident", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -616,13 +598,11 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
     primaryResidentDevice = [residentDeviceManager3 primaryResidentDevice];
     [(HMDHomePrimaryResidentInitialReachabilityManager *)self handlePrimaryResidentUpdated:primaryResidentDevice reason:@"Configure"];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)initialReachability
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomePrimaryResidentInitialReachabilityManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -649,13 +629,13 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         v17 = HMFGetLogIdentifier();
-        v20 = 138543874;
-        v21 = v17;
-        v22 = 2112;
-        v23 = primaryResidentUUID;
-        v24 = 2112;
-        v25 = persistedState;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Returning reachability as nil, primary resident UUID: %@ not found in persisted state: %@", &v20, 0x20u);
+        v19 = 138543874;
+        v20 = v17;
+        v21 = 2112;
+        v22 = primaryResidentUUID;
+        v23 = 2112;
+        v24 = persistedState;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Returning reachability as nil, primary resident UUID: %@ not found in persisted state: %@", &v19, 0x20u);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -671,16 +651,14 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Returning reachability as nil, no persisted state", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Returning reachability as nil, no persisted state", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -737,12 +715,11 @@ uint64_t __103__HMDHomePrimaryResidentInitialReachabilityManager_handleResidentD
 
 uint64_t __63__HMDHomePrimaryResidentInitialReachabilityManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_155670;
-  logCategory__hmf_once_v5_155670 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_155670;
+  logCategory__hmf_once_v5_155670 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

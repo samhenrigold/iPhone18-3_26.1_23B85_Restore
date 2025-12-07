@@ -188,10 +188,10 @@
 - (id)featureOnboardingRecordWithError:(id *)error
 {
   selfCopy = self;
-  v28 = *MEMORY[0x277D85DE8];
-  v22 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  v21 = 0;
   v5 = [(HDFeatureAvailabilityManager *)self _onboardingCompletionsByStateWithError:?];
-  v6 = v22;
+  v6 = v21;
   v7 = v6;
   if (v5)
   {
@@ -209,9 +209,9 @@ LABEL_16:
       WeakRetained = objc_loadWeakRetained(&selfCopy->_profile);
       featureSettingsManager = [WeakRetained featureSettingsManager];
       featureIdentifier = selfCopy->_featureIdentifier;
-      v23 = 0;
-      v14 = [featureSettingsManager featureSettingsForFeatureIdentifier:featureIdentifier error:&v23];
-      v15 = v23;
+      v22 = 0;
+      v14 = [featureSettingsManager featureSettingsForFeatureIdentifier:featureIdentifier error:&v22];
+      v15 = v22;
 
       if (v15)
       {
@@ -221,9 +221,9 @@ LABEL_16:
         if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v25 = selfCopy;
-          v26 = 2114;
-          v27 = v15;
+          v24 = selfCopy;
+          v25 = 2114;
+          v26 = v15;
           _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get keys/values out of feature settings domain: %{public}@", buf, 0x16u);
         }
 
@@ -290,22 +290,20 @@ LABEL_20:
   v10 = 0;
 LABEL_22:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_onboardingCompletionsByStateWithError:(uint64_t)error
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (error)
   {
     WeakRetained = objc_loadWeakRetained((error + 8));
     onboardingCompletionManager = [WeakRetained onboardingCompletionManager];
     v6 = *(error + 24);
-    v49 = 0;
-    v7 = [onboardingCompletionManager onboardingCompletionsForHighestVersionOfFeatureIdentifier:v6 error:&v49];
-    v8 = v49;
+    v48 = 0;
+    v7 = [onboardingCompletionManager onboardingCompletionsForHighestVersionOfFeatureIdentifier:v6 error:&v48];
+    v8 = v48;
 
     if (v7)
     {
@@ -321,8 +319,8 @@ LABEL_22:
       {
         *buf = 138543618;
         errorCopy = error;
-        v55 = 2114;
-        v56 = v8;
+        v54 = 2114;
+        v55 = v8;
         _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to fetch highest version of onboarding completed: %{public}@", buf, 0x16u);
       }
 
@@ -367,50 +365,50 @@ LABEL_22:
     }
 
     v16 = *(error + 88);
-    v48 = v15;
-    v17 = [v16 onboardingEligibilitiesForOnboardingCompletions:v7 error:&v48];
-    v18 = v48;
+    v47 = v15;
+    v17 = [v16 onboardingEligibilitiesForOnboardingCompletions:v7 error:&v47];
+    v18 = v47;
 
     if (v17)
     {
-      v42 = v18;
-      v43 = v7;
+      v41 = v18;
+      v42 = v7;
       v19 = MEMORY[0x277CBEB38];
-      v51[0] = &unk_283CB0A08;
+      v50[0] = &unk_283CB0A08;
       array = [MEMORY[0x277CBEB18] array];
-      v52[0] = array;
-      v51[1] = &unk_283CB0A50;
+      v51[0] = array;
+      v50[1] = &unk_283CB0A50;
       array2 = [MEMORY[0x277CBEB18] array];
-      v52[1] = array2;
-      v51[2] = &unk_283CB0A38;
+      v51[1] = array2;
+      v50[2] = &unk_283CB0A38;
       array3 = [MEMORY[0x277CBEB18] array];
-      v52[2] = array3;
-      v51[3] = &unk_283CB0A20;
+      v51[2] = array3;
+      v50[3] = &unk_283CB0A20;
       array4 = [MEMORY[0x277CBEB18] array];
-      v52[3] = array4;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:4];
+      v51[3] = array4;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
       v25 = [v19 dictionaryWithDictionary:v24];
 
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
       v45 = 0u;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
       v26 = v17;
-      v27 = [v26 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v43 objects:v49 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v45;
+        v29 = *v44;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v45 != v29)
+            if (*v44 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v44 + 1) + 8 * i);
+            v31 = *(*(&v43 + 1) + 8 * i);
             v32 = MEMORY[0x277CCABB0];
             onboardingEligibility = [v31 onboardingEligibility];
             v34 = [v32 numberWithInteger:{objc_msgSend(onboardingEligibility, "onboardedCountrySupportedState")}];
@@ -419,15 +417,15 @@ LABEL_22:
             [v35 addObject:onboardingCompletion];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v44 objects:v50 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v43 objects:v49 count:16];
         }
 
         while (v28);
       }
 
       v37 = [v25 hk_map:&__block_literal_global_64];
-      v7 = v43;
-      v18 = v42;
+      v7 = v42;
+      v18 = v41;
       goto LABEL_30;
     }
 
@@ -454,40 +452,39 @@ LABEL_31:
 
   v37 = 0;
 LABEL_32:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
 
 - (uint64_t)_onboardedCountryCodeSupportedStateFromOnboardingCompletionsByState:(uint64_t)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (state)
   {
     if ([v3 count])
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
-      v5 = [&unk_283CAEA88 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
+      v5 = [&unk_283CAEA88 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v15;
+        v7 = *v14;
         state = 3;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v15 != v7)
+            if (*v14 != v7)
             {
               objc_enumerationMutation(&unk_283CAEA88);
             }
 
-            v9 = *(*(&v14 + 1) + 8 * i);
+            v9 = *(*(&v13 + 1) + 8 * i);
             v10 = [v4 objectForKeyedSubscript:v9];
             v11 = [v10 count];
 
@@ -498,7 +495,7 @@ LABEL_32:
             }
           }
 
-          v6 = [&unk_283CAEA88 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v6 = [&unk_283CAEA88 countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v6)
           {
             continue;
@@ -522,7 +519,6 @@ LABEL_32:
 
 LABEL_15:
 
-  v12 = *MEMORY[0x277D85DE8];
   return state;
 }
 
@@ -580,15 +576,15 @@ LABEL_15:
 
 - (id)earliestDateLowestOnboardingVersionCompletedWithError:(id *)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     onboardingCompletionManager = [WeakRetained onboardingCompletionManager];
     featureIdentifier = self->_featureIdentifier;
-    v53 = 0;
-    v8 = [onboardingCompletionManager onboardingCompletionsForLowestVersionOfFeatureIdentifier:featureIdentifier error:&v53];
-    v9 = v53;
+    v52 = 0;
+    v8 = [onboardingCompletionManager onboardingCompletionsForLowestVersionOfFeatureIdentifier:featureIdentifier error:&v52];
+    v9 = v52;
 
     if (v8)
     {
@@ -604,8 +600,8 @@ LABEL_15:
       {
         *buf = 138543618;
         selfCopy5 = self;
-        v57 = 2114;
-        v58 = v9;
+        v56 = 2114;
+        v57 = v9;
         _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to fetch lowest version of onboarding completed: %{public}@", buf, 0x16u);
       }
 
@@ -663,39 +659,39 @@ LABEL_39:
   }
 
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v46 = v8;
+  v45 = v8;
   obj = v8;
-  v18 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v18 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v18)
   {
     v19 = v18;
     errorCopy = error;
-    v20 = *v50;
+    v20 = *v49;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
         v22 = v16;
-        if (*v50 != v20)
+        if (*v49 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v49 + 1) + 8 * i);
+        v23 = *(*(&v48 + 1) + 8 * i);
         countryCode = [v23 countryCode];
-        v48 = v16;
-        v25 = [(HDFeatureAvailabilityManager *)self onboardingEligibilityForCountryCode:countryCode error:&v48];
-        v16 = v48;
+        v47 = v16;
+        v25 = [(HDFeatureAvailabilityManager *)self onboardingEligibilityForCountryCode:countryCode error:&v47];
+        v16 = v47;
 
         if (!v25)
         {
           v39 = v16;
           v16 = v39;
-          v8 = v46;
+          v8 = v45;
           if (v39)
           {
             if (errorCopy)
@@ -725,8 +721,8 @@ LABEL_39:
             v30 = HKSensitiveLogItem();
             *buf = 138543618;
             selfCopy5 = self;
-            v57 = 2114;
-            v58 = v30;
+            v56 = 2114;
+            v57 = v30;
             _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding completion found with supported country code: %{public}@", buf, 0x16u);
           }
 
@@ -742,13 +738,13 @@ LABEL_39:
           v34 = HKSensitiveLogItem();
           *buf = 138543618;
           selfCopy5 = self;
-          v57 = 2114;
-          v58 = v34;
+          v56 = 2114;
+          v57 = v34;
           _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding completion found with unsupported country code: %{public}@", buf, 0x16u);
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v19 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
       if (v19)
       {
         continue;
@@ -765,7 +761,7 @@ LABEL_39:
   {
     _HKInitializeLogging();
     v37 = self->_loggingCategory;
-    v8 = v46;
+    v8 = v45;
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
@@ -781,22 +777,21 @@ LABEL_43:
   {
     distantFuture = distantFuture;
     v42 = distantFuture;
-    v8 = v46;
+    v8 = v45;
   }
 
 LABEL_45:
-  v43 = *MEMORY[0x277D85DE8];
 
   return v42;
 }
 
 - (id)canCompleteOnboardingForCountryCode:(id)code error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   codeCopy = code;
-  v15 = 0;
-  v7 = [(HDFeatureAvailabilityManager *)self onboardingEligibilityForCountryCode:codeCopy error:&v15];
-  v8 = v15;
+  v14 = 0;
+  v7 = [(HDFeatureAvailabilityManager *)self onboardingEligibilityForCountryCode:codeCopy error:&v14];
+  v8 = v14;
   if (v7)
   {
     v9 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v7, "isEligible")}];
@@ -809,8 +804,8 @@ LABEL_45:
   {
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = v8;
+    v17 = 2114;
+    v18 = v8;
     _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to determine onboarding eligibility: %{public}@", buf, 0x16u);
     if (v8)
     {
@@ -849,8 +844,6 @@ LABEL_8:
 LABEL_13:
   v9 = 0;
 LABEL_14:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -944,14 +937,14 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
 
 - (void)saveOnboardingCompletion:(id)completion settings:(id)settings completion:(id)a5
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   settingsCopy = settings;
   v10 = a5;
   v11 = settingsCopy;
   featureSettingsAtOnboardingTimeValidator = self->_featureSettingsAtOnboardingTimeValidator;
   v13 = v11;
-  if (featureSettingsAtOnboardingTimeValidator && (v26 = 0, [(HDFeatureSettingsValidating *)featureSettingsAtOnboardingTimeValidator featureSettingsGivenBaseSettings:v11 onboardingCompletion:completionCopy error:&v26], v13 = objc_claimAutoreleasedReturnValue(), v14 = v26, v11, v14))
+  if (featureSettingsAtOnboardingTimeValidator && (v25 = 0, [(HDFeatureSettingsValidating *)featureSettingsAtOnboardingTimeValidator featureSettingsGivenBaseSettings:v11 onboardingCompletion:completionCopy error:&v25], v13 = objc_claimAutoreleasedReturnValue(), v14 = v25, v11, v14))
   {
     _HKInitializeLogging();
     loggingCategory = self->_loggingCategory;
@@ -969,7 +962,7 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
 
   else
   {
-    v25 = 0;
+    v24 = 0;
     v16 = completionCopy;
     v17 = v13;
     WeakRetained = objc_loadWeakRetained(&self->_profile);
@@ -977,17 +970,17 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __88__HDFeatureAvailabilityManager__insertOnboardingCompletion_featureSettingsValues_error___block_invoke;
-    v28 = &unk_27861B120;
+    v27 = &unk_27861B120;
     v13 = v17;
-    v29 = v13;
-    v30 = WeakRetained;
+    v28 = v13;
+    v29 = WeakRetained;
     v20 = v16;
-    v31 = v20;
+    v30 = v20;
     selfCopy = self;
     v21 = WeakRetained;
-    v22 = [(HDHealthEntity *)HDOnboardingCompletionEntity performWriteTransactionWithHealthDatabase:database error:&v25 block:buf inaccessibilityHandler:0];
+    v22 = [(HDHealthEntity *)HDOnboardingCompletionEntity performWriteTransactionWithHealthDatabase:database error:&v24 block:buf inaccessibilityHandler:0];
 
-    v14 = v25;
+    v14 = v24;
     _HKInitializeLogging();
     v23 = self->_loggingCategory;
     if (v22)
@@ -1013,8 +1006,6 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
 
     v10[2](v10, v22, v14);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerImmediateSyncWithReason:(uint64_t)reason
@@ -1058,17 +1049,17 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
 
 - (void)setFeatureSettingData:(id)data forKey:(id)key completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   keyCopy = key;
   dataCopy = data;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   featureSettingsManager = [WeakRetained featureSettingsManager];
   featureIdentifier = self->_featureIdentifier;
-  v18 = 0;
-  v14 = [featureSettingsManager setFeatureSettingsData:dataCopy forKey:keyCopy featureIdentifier:featureIdentifier error:&v18];
+  v17 = 0;
+  v14 = [featureSettingsManager setFeatureSettingsData:dataCopy forKey:keyCopy featureIdentifier:featureIdentifier error:&v17];
 
-  v15 = v18;
+  v15 = v17;
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (v14)
@@ -1087,29 +1078,27 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v21 = 2114;
-    v22 = v15;
+    v20 = 2114;
+    v21 = v15;
     _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to set data for key in feature settings domain, with error: %{public}@", buf, 0x16u);
   }
 
   completionCopy[2](completionCopy, v14, v15);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeatureSettingNumber:(id)number forKey:(id)key completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   keyCopy = key;
   numberCopy = number;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   featureSettingsManager = [WeakRetained featureSettingsManager];
   featureIdentifier = self->_featureIdentifier;
-  v18 = 0;
-  v14 = [featureSettingsManager setFeatureSettingsNumber:numberCopy forKey:keyCopy featureIdentifier:featureIdentifier suppressNotificationsToObserver:0 error:&v18];
+  v17 = 0;
+  v14 = [featureSettingsManager setFeatureSettingsNumber:numberCopy forKey:keyCopy featureIdentifier:featureIdentifier suppressNotificationsToObserver:0 error:&v17];
 
-  v15 = v18;
+  v15 = v17;
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (v14)
@@ -1128,29 +1117,27 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v21 = 2114;
-    v22 = v15;
+    v20 = 2114;
+    v21 = v15;
     _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to set number for key in feature settings domain, with error: %{public}@", buf, 0x16u);
   }
 
   completionCopy[2](completionCopy, v14, v15);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeatureSettingString:(id)string forKey:(id)key completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   keyCopy = key;
   stringCopy = string;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   featureSettingsManager = [WeakRetained featureSettingsManager];
   featureIdentifier = self->_featureIdentifier;
-  v18 = 0;
-  v14 = [featureSettingsManager setFeatureSettingsString:stringCopy forKey:keyCopy featureIdentifier:featureIdentifier error:&v18];
+  v17 = 0;
+  v14 = [featureSettingsManager setFeatureSettingsString:stringCopy forKey:keyCopy featureIdentifier:featureIdentifier error:&v17];
 
-  v15 = v18;
+  v15 = v17;
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (v14)
@@ -1169,28 +1156,26 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v21 = 2114;
-    v22 = v15;
+    v20 = 2114;
+    v21 = v15;
     _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to set string for key in feature settings domain, with error: %{public}@", buf, 0x16u);
   }
 
   completionCopy[2](completionCopy, v14, v15);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeFeatureSettingValueForKey:(id)key completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   keyCopy = key;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   featureSettingsManager = [WeakRetained featureSettingsManager];
   featureIdentifier = self->_featureIdentifier;
-  v15 = 0;
-  v11 = [featureSettingsManager removeFeatureSettingsValueForKey:keyCopy featureIdentifier:featureIdentifier error:&v15];
+  v14 = 0;
+  v11 = [featureSettingsManager removeFeatureSettingsValueForKey:keyCopy featureIdentifier:featureIdentifier error:&v14];
 
-  v12 = v15;
+  v12 = v14;
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (v11)
@@ -1209,32 +1194,30 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v18 = 2114;
-    v19 = v12;
+    v17 = 2114;
+    v18 = v12;
     _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to remove value for key in feature settings domain, with error: %{public}@", buf, 0x16u);
   }
 
   completionCopy[2](completionCopy, v11, v12);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetOnboardingWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v15 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__HDFeatureAvailabilityManager_resetOnboardingWithCompletion___block_invoke;
-  v12[3] = &unk_278613218;
+  v14 = 0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__HDFeatureAvailabilityManager_resetOnboardingWithCompletion___block_invoke;
+  v11[3] = &unk_278613218;
   v7 = WeakRetained;
-  v13 = v7;
+  v12 = v7;
   selfCopy = self;
-  v8 = [(HDHealthEntity *)HDOnboardingCompletionEntity performWriteTransactionWithHealthDatabase:database error:&v15 block:v12 inaccessibilityHandler:0];
-  v9 = v15;
+  v8 = [(HDHealthEntity *)HDOnboardingCompletionEntity performWriteTransactionWithHealthDatabase:database error:&v14 block:v11 inaccessibilityHandler:0];
+  v9 = v14;
 
   if (v8)
   {
@@ -1249,15 +1232,13 @@ void __71__HDFeatureAvailabilityManager__onboardingCompletionsByStateWithError__
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v18 = 2114;
-      v19 = v9;
+      v17 = 2114;
+      v18 = v9;
       _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to reset onboarding: %{public}@", buf, 0x16u);
     }
   }
 
   completionCopy[2](completionCopy, v8, v9);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__HDFeatureAvailabilityManager_resetOnboardingWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1394,7 +1375,7 @@ LABEL_15:
 
 void __64__HDFeatureAvailabilityManager__triggerImmediateSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *(a1 + 32);
@@ -1404,32 +1385,30 @@ void __64__HDFeatureAvailabilityManager__triggerImmediateSyncWithReason___block_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v8;
-      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] NanoSync completed after %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v8;
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] NanoSync completed after %{public}@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] NanoSync failed after %{public}@: %{public}@", &v11, 0x20u);
+    v9 = *(a1 + 40);
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] NanoSync failed after %{public}@: %{public}@", &v10, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HDFeatureAvailabilityManager__triggerImmediateSyncWithReason___block_invoke_412(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *(a1 + 32);
@@ -1440,34 +1419,32 @@ void __64__HDFeatureAvailabilityManager__triggerImmediateSyncWithReason___block_
     if (v8)
     {
       v9 = *(a1 + 40);
-      v15 = 138543618;
-      v16 = v6;
-      v17 = 2114;
-      v18 = v9;
+      v14 = 138543618;
+      v15 = v6;
+      v16 = 2114;
+      v17 = v9;
       v10 = "[%{public}@] Cloud sync request completed after %{public}@";
       v11 = v7;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, v10, &v15, v12);
+      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, v10, &v14, v12);
     }
   }
 
   else if (v8)
   {
     v13 = *(a1 + 40);
-    v15 = 138543874;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v13;
-    v19 = 2114;
-    v20 = v5;
+    v14 = 138543874;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v13;
+    v18 = 2114;
+    v19 = v5;
     v10 = "[%{public}@] Cloud sync request failed after %{public}@: %{public}@";
     v11 = v7;
     v12 = 32;
     goto LABEL_6;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer queue:(id)queue
@@ -1488,7 +1465,7 @@ LABEL_6:
 
 void __55__HDFeatureAvailabilityManager_registerObserver_queue___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) featureSettingsManager];
   [v2 registerObserver:*(a1 + 40) featureIdentifier:*(*(a1 + 40) + 24) queue:*(*(a1 + 40) + 112)];
 
@@ -1507,28 +1484,26 @@ void __55__HDFeatureAvailabilityManager_registerObserver_queue___block_invoke(ui
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] First unlock has not occurred, registering to notify when it has", buf, 0xCu);
     }
 
     v8 = [*(a1 + 32) database];
     v9 = *(a1 + 40);
     v10 = *(v9 + 112);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __55__HDFeatureAvailabilityManager_registerObserver_queue___block_invoke_413;
-    v12[3] = &unk_278613968;
-    v12[4] = v9;
-    [v8 performWhenDataProtectedByFirstUnlockIsAvailableOnQueue:v10 block:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __55__HDFeatureAvailabilityManager_registerObserver_queue___block_invoke_413;
+    v11[3] = &unk_278613968;
+    v11[4] = v9;
+    [v8 performWhenDataProtectedByFirstUnlockIsAvailableOnQueue:v10 block:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__HDFeatureAvailabilityManager_registerObserver_queue___block_invoke_413(uint64_t result)
+void *__55__HDFeatureAvailabilityManager_registerObserver_queue___block_invoke_413(void *result)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v8 = *MEMORY[0x277D85DE8];
+  v1 = result[4];
   if (v1)
   {
     dispatch_assert_queue_V2(*(v1 + 112));
@@ -1536,21 +1511,20 @@ uint64_t __55__HDFeatureAvailabilityManager_registerObserver_queue___block_invok
     v2 = *(v1 + 16);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v5) = 138543362;
-      *(&v5 + 4) = v1;
-      _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying for first unlock", &v5, 0xCu);
+      LODWORD(v4) = 138543362;
+      *(&v4 + 4) = v1;
+      _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying for first unlock", &v4, 0xCu);
     }
 
     v3 = *(v1 + 104);
-    *&v5 = MEMORY[0x277D85DD0];
-    *(&v5 + 1) = 3221225472;
-    v6 = __76__HDFeatureAvailabilityManager__queue_dataProtectedByFirstUnlockIsAvailable__block_invoke;
-    v7 = &unk_27861BF80;
-    v8 = v1;
-    result = [v3 notifyObservers:&v5];
+    *&v4 = MEMORY[0x277D85DD0];
+    *(&v4 + 1) = 3221225472;
+    v5 = __76__HDFeatureAvailabilityManager__queue_dataProtectedByFirstUnlockIsAvailable__block_invoke;
+    v6 = &unk_27861BF80;
+    v7 = v1;
+    return [v3 notifyObservers:&v4];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1565,7 +1539,7 @@ void __76__HDFeatureAvailabilityManager__queue_dataProtectedByFirstUnlockIsAvail
 
 - (void)onboardingCompletionManager:(id)manager didUpdateOnboardingCompletionsForFeatureIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
@@ -1576,24 +1550,23 @@ void __76__HDFeatureAvailabilityManager__queue_dataProtectedByFirstUnlockIsAvail
     v9 = [v6 numberWithUnsignedInteger:{-[HKObserverSet count](observers, "count")}];
     *buf = 138543618;
     selfCopy = self;
-    v15 = 2112;
-    v16 = v9;
+    v14 = 2112;
+    v15 = v9;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of onboarding completion update", buf, 0x16u);
   }
 
   v10 = self->_observers;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __111__HDFeatureAvailabilityManager_onboardingCompletionManager_didUpdateOnboardingCompletionsForFeatureIdentifier___block_invoke;
-  v12[3] = &unk_27861BF80;
-  v12[4] = self;
-  [(HKObserverSet *)v10 notifyObservers:v12];
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __111__HDFeatureAvailabilityManager_onboardingCompletionManager_didUpdateOnboardingCompletionsForFeatureIdentifier___block_invoke;
+  v11[3] = &unk_27861BF80;
+  v11[4] = self;
+  [(HKObserverSet *)v10 notifyObservers:v11];
 }
 
 - (void)featureSettingsManager:(id)manager didUpdateSettingsForFeatureIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
@@ -1604,19 +1577,18 @@ void __76__HDFeatureAvailabilityManager__queue_dataProtectedByFirstUnlockIsAvail
     v9 = [v6 numberWithUnsignedInteger:{-[HKObserverSet count](observers, "count")}];
     *buf = 138543618;
     selfCopy = self;
-    v15 = 2112;
-    v16 = v9;
+    v14 = 2112;
+    v15 = v9;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of feature settings update", buf, 0x16u);
   }
 
   v10 = self->_observers;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __93__HDFeatureAvailabilityManager_featureSettingsManager_didUpdateSettingsForFeatureIdentifier___block_invoke;
-  v12[3] = &unk_27861BF80;
-  v12[4] = self;
-  [(HKObserverSet *)v10 notifyObservers:v12];
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __93__HDFeatureAvailabilityManager_featureSettingsManager_didUpdateSettingsForFeatureIdentifier___block_invoke;
+  v11[3] = &unk_27861BF80;
+  v11[4] = self;
+  [(HKObserverSet *)v10 notifyObservers:v11];
 }
 
 void __93__HDFeatureAvailabilityManager_featureSettingsManager_didUpdateSettingsForFeatureIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -1630,7 +1602,7 @@ void __93__HDFeatureAvailabilityManager_featureSettingsManager_didUpdateSettings
 
 - (void)pairedDeviceCapabilitiesDidUpdate:(id)update
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
@@ -1641,39 +1613,42 @@ void __93__HDFeatureAvailabilityManager_featureSettingsManager_didUpdateSettings
     v8 = [v5 numberWithUnsignedInteger:{-[HKObserverSet count](observers, "count")}];
     *buf = 138543618;
     selfCopy = self;
-    v14 = 2112;
-    v15 = v8;
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of paired device capability update", buf, 0x16u);
   }
 
   v9 = self->_observers;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __66__HDFeatureAvailabilityManager_pairedDeviceCapabilitiesDidUpdate___block_invoke;
-  v11[3] = &unk_27861BF80;
-  v11[4] = self;
-  [(HKObserverSet *)v9 notifyObservers:v11];
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __66__HDFeatureAvailabilityManager_pairedDeviceCapabilitiesDidUpdate___block_invoke;
+  v10[3] = &unk_27861BF80;
+  v10[4] = self;
+  [(HKObserverSet *)v9 notifyObservers:v10];
 }
 
 uint64_t __66__HDFeatureAvailabilityManager_pairedDeviceCapabilitiesDidUpdate___block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if ([v5 conformsToProtocol:&unk_283D07E80])
+  v7 = a2;
+  v3 = [v7 conformsToProtocol:&unk_283D07E80];
+  v4 = v7;
+  if (v3)
   {
-    v3 = v5;
+    v5 = v7;
     if (objc_opt_respondsToSelector())
     {
-      [v3 featureAvailabilityExtensionDidUpdatePairedDeviceCapability:*(a1 + 32)];
+      [v5 featureAvailabilityExtensionDidUpdatePairedDeviceCapability:*(a1 + 32)];
     }
+
+    v4 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 - (void)regionAvailabilityProvidingDidUpdate:(id)update
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
@@ -1684,19 +1659,18 @@ uint64_t __66__HDFeatureAvailabilityManager_pairedDeviceCapabilitiesDidUpdate___
     v8 = [v5 numberWithUnsignedInteger:{-[HKObserverSet count](observers, "count")}];
     *buf = 138543618;
     selfCopy = self;
-    v14 = 2112;
-    v15 = v8;
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of region availability update", buf, 0x16u);
   }
 
   v9 = self->_observers;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __69__HDFeatureAvailabilityManager_regionAvailabilityProvidingDidUpdate___block_invoke;
-  v11[3] = &unk_27861BF80;
-  v11[4] = self;
-  [(HKObserverSet *)v9 notifyObservers:v11];
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __69__HDFeatureAvailabilityManager_regionAvailabilityProvidingDidUpdate___block_invoke;
+  v10[3] = &unk_27861BF80;
+  v10[4] = self;
+  [(HKObserverSet *)v9 notifyObservers:v10];
 }
 
 void __69__HDFeatureAvailabilityManager_regionAvailabilityProvidingDidUpdate___block_invoke(uint64_t a1, void *a2)
@@ -1710,7 +1684,7 @@ void __69__HDFeatureAvailabilityManager_regionAvailabilityProvidingDidUpdate___b
 
 - (void)disableAndExpiryProviderDidUpdate:(id)update
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   loggingCategory = self->_loggingCategory;
   if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
@@ -1721,19 +1695,18 @@ void __69__HDFeatureAvailabilityManager_regionAvailabilityProvidingDidUpdate___b
     v8 = [v5 numberWithUnsignedInteger:{-[HKObserverSet count](observers, "count")}];
     *buf = 138543618;
     selfCopy = self;
-    v14 = 2112;
-    v15 = v8;
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of disable and expiry update", buf, 0x16u);
   }
 
   v9 = self->_observers;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __66__HDFeatureAvailabilityManager_disableAndExpiryProviderDidUpdate___block_invoke;
-  v11[3] = &unk_27861BF80;
-  v11[4] = self;
-  [(HKObserverSet *)v9 notifyObservers:v11];
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __66__HDFeatureAvailabilityManager_disableAndExpiryProviderDidUpdate___block_invoke;
+  v10[3] = &unk_27861BF80;
+  v10[4] = self;
+  [(HKObserverSet *)v9 notifyObservers:v10];
 }
 
 @end

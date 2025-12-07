@@ -103,7 +103,7 @@
   _assetOrderByAssetUUID = [(PLManagedAlbum *)self _assetOrderByAssetUUID];
   mutableAssets = [(PLManagedAlbum *)self mutableAssets];
   v7 = [(PLManagedAlbum *)self _orderComparisonValueForAsset:v22 iTunesLookupOrder:_assetOrderByAssetUUID];
-  v8 = [mutableAssets count];
+  v8 = objc_msgSend_count(mutableAssets);
   if (!v8 || !v7)
   {
     [mutableAssets addObject:v22];
@@ -245,7 +245,7 @@ uint64_t __49__PLManagedAlbum_sortAssetsUsingiTunesAlbumOrder__block_invoke(uint
 
     if (!dateCreated)
     {
-      dateCreated = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(orderCopy, "count")}];
+      dateCreated = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(orderCopy)];
     }
   }
 
@@ -409,7 +409,7 @@ uint64_t __49__PLManagedAlbum_sortAssetsUsingiTunesAlbumOrder__block_invoke(uint
   {
     v4 = objc_autoreleasePoolPush();
     assets = [(PLManagedAlbum *)self assets];
-    v6 = [assets count];
+    v6 = objc_msgSend_count(assets);
 
     objc_autoreleasePoolPop(v4);
     return v6;
@@ -581,7 +581,7 @@ LABEL_7:
     {
       if ([(PLManagedAlbum *)self faultingState])
       {
-        [pathCopy isEqualToString:@"assets"];
+        objc_msgSend_isEqualToString_(pathCopy);
       }
 
       else
@@ -589,10 +589,10 @@ LABEL_7:
         managedObjectContext = [(PLManagedAlbum *)self managedObjectContext];
         hasChanges = [managedObjectContext hasChanges];
 
-        v15 = [pathCopy isEqualToString:@"assets"];
+        isEqualToString = objc_msgSend_isEqualToString_(pathCopy);
         if (hasChanges)
         {
-          v16 = v15;
+          v16 = isEqualToString;
           managedObjectContext2 = [(PLManagedAlbum *)self managedObjectContext];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -702,7 +702,7 @@ LABEL_7:
             }
 
             v30 = *(*(&v56 + 1) + 8 * i);
-            v31 = [v24 count];
+            v31 = objc_msgSend_count(v24);
             array = [v24 array];
             v33 = [array indexOfObject:v30 inSortedRange:0 options:v31 usingComparator:{1024, photoLibrary}];
 
@@ -766,7 +766,7 @@ LABEL_7:
       array2 = 0;
     }
 
-    if ([array2 count])
+    if (objc_msgSend_count(array2))
     {
       photoLibrary2 = [(PLGenericAlbum *)self photoLibrary];
       v49[0] = MEMORY[0x1E69E9820];
@@ -824,7 +824,7 @@ void __132__PLManagedAlbum__insertInternalUserEditableAssets_atIndexes_assetsSha
 - (unint64_t)countOfInternalUserEditableAssets
 {
   assets = [(PLManagedAlbum *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
 
   return v3;
 }
@@ -1232,7 +1232,7 @@ void __42__PLManagedAlbum_validKindsForPersistence__block_invoke()
   objectID = [(PLManagedAlbum *)self objectID];
   v7 = [managedObjectContext _orderKeysForRelationshipWithName__:@"assets" onObjectWithID:objectID];
 
-  if ([v7 count] == 2)
+  if (objc_msgSend_count(v7) == 2)
   {
     v24 = v5;
     v25 = managedObjectContext;
@@ -1242,7 +1242,7 @@ void __42__PLManagedAlbum_validKindsForPersistence__block_invoke()
     objectID2 = [(PLManagedAlbum *)self objectID];
     uRIRepresentation = [objectID2 URIRepresentation];
     v12 = [v7 objectAtIndexedSubscript:0];
-    [string appendFormat:@"ALBUM %@ [%d]\n", uRIRepresentation, objc_msgSend(v12, "count")];
+    [string appendFormat:@"ALBUM %@ [%d]\n", uRIRepresentation, objc_msgSend_count(v12)];
 
     v28 = 0u;
     v29 = 0u;

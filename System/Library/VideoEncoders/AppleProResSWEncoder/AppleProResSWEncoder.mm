@@ -271,82 +271,85 @@ uint64_t VideoEncoderBase<IcpVideoEncoder>::createInstance(uint64_t a1, uint64_t
     return 4294954394;
   }
 
-  if (enabledSignpostCategories())
+  if (enabledSignpostCategories(a1, a2))
   {
     kdebug_trace();
   }
 
   VTVideoEncoderGetClassID();
-  v4 = CMDerivedObjectCreate();
-  if (!v4)
+  v5 = CMDerivedObjectCreate();
+  if (!v5)
   {
-    v4 = 4294954389;
+    v5 = 4294954389;
   }
 
   *a3 = 0;
-  if (enabledSignpostCategories())
+  if (enabledSignpostCategories(0, v4))
   {
     kdebug_trace();
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t VideoCodecBase<IcpVideoEncoder>::Invalidate()
+uint64_t VideoCodecBase<IcpVideoEncoder>::Invalidate(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage)
   {
-    v1 = *DerivedStorage;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v3 = *DerivedStorage;
+    v4 = enabledSignpostCategories(DerivedStorage, v2);
+    if ((v4 & 1) == 0)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    (*(*v1 + 48))(v1);
+    (*(*v3 + 48))(v3);
     kdebug_trace();
     goto LABEL_7;
   }
 
-  v1 = 0;
-  if (enabledSignpostCategories())
+  v3 = 0;
+  v4 = enabledSignpostCategories(0, v2);
+  if (v4)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  if (!v1)
+  if (!v3)
   {
-    v2 = 4294954388;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v6 = 4294954388;
+    if ((enabledSignpostCategories(v4, v5) & 1) == 0)
     {
-      return v2;
+      return v6;
     }
 
     goto LABEL_8;
   }
 
 LABEL_7:
-  v2 = (*(*v1 + 16))(v1);
-  if (enabledSignpostCategories())
+  v6 = (*(*v3 + 16))(v3);
+  if (enabledSignpostCategories(v6, v7))
   {
 LABEL_8:
-    (*(*v1 + 48))(v1);
+    (*(*v3 + 48))(v3);
     kdebug_trace();
   }
 
-  return v2;
+  return v6;
 }
 
-uint64_t VideoCodecBase<IcpVideoEncoder>::Finalize()
+uint64_t VideoCodecBase<IcpVideoEncoder>::Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = DerivedStorage;
+  v3 = DerivedStorage;
   if (DerivedStorage)
   {
-    v2 = *DerivedStorage;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v4 = *DerivedStorage;
+    v5 = enabledSignpostCategories(DerivedStorage, v2);
+    if ((v5 & 1) == 0)
     {
       goto LABEL_3;
     }
@@ -354,11 +357,12 @@ uint64_t VideoCodecBase<IcpVideoEncoder>::Finalize()
 
   else
   {
-    v2 = 0;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v4 = 0;
+    v5 = enabledSignpostCategories(0, v2);
+    if ((v5 & 1) == 0)
     {
 LABEL_3:
-      if (!v2)
+      if (!v4)
       {
         goto LABEL_8;
       }
@@ -367,14 +371,14 @@ LABEL_3:
     }
   }
 
-  (*(*v2 + 48))(v2);
+  (*(*v4 + 48))(v4);
   kdebug_trace();
 LABEL_7:
-  (*(*v2 + 24))(v2);
-  (*(*v2 + 8))(v2);
-  *v1 = 0;
+  (*(*v4 + 24))(v4);
+  v5 = (*(*v4 + 8))(v4);
+  *v3 = 0;
 LABEL_8:
-  result = enabledSignpostCategories();
+  result = enabledSignpostCategories(v5, v6);
   if (result)
   {
 
@@ -384,7 +388,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t VideoCodecBase<IcpVideoEncoder>::CopyProperty()
+uint64_t VideoCodecBase<IcpVideoEncoder>::CopyProperty(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
@@ -392,18 +396,18 @@ uint64_t VideoCodecBase<IcpVideoEncoder>::CopyProperty()
     return 4294954388;
   }
 
-  v1 = *DerivedStorage;
-  if (!v1)
+  v2 = *DerivedStorage;
+  if (!v2)
   {
     return 4294954388;
   }
 
-  v2 = *(*v1 + 32);
+  v3 = *(*v2 + 32);
 
-  return v2();
+  return v3();
 }
 
-uint64_t VideoCodecBase<IcpVideoEncoder>::SetProperty()
+uint64_t VideoCodecBase<IcpVideoEncoder>::SetProperty(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
@@ -411,15 +415,15 @@ uint64_t VideoCodecBase<IcpVideoEncoder>::SetProperty()
     return 4294954388;
   }
 
-  v1 = *DerivedStorage;
-  if (!v1)
+  v2 = *DerivedStorage;
+  if (!v2)
   {
     return 4294954388;
   }
 
-  v2 = *(*v1 + 40);
+  v3 = *(*v2 + 40);
 
-  return v2();
+  return v3();
 }
 
 uint64_t VideoEncoderBase<IcpVideoEncoder>::StartSession(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -434,8 +438,9 @@ uint64_t VideoEncoderBase<IcpVideoEncoder>::StartSession(uint64_t a1, uint64_t a
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
   {
-    v9 = 0;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v10 = 0;
+    v11 = enabledSignpostCategories(0, v9);
+    if ((v11 & 1) == 0)
     {
       goto LABEL_6;
     }
@@ -443,18 +448,19 @@ uint64_t VideoEncoderBase<IcpVideoEncoder>::StartSession(uint64_t a1, uint64_t a
     goto LABEL_5;
   }
 
-  v9 = *DerivedStorage;
-  if (enabledSignpostCategories())
+  v10 = *DerivedStorage;
+  v11 = enabledSignpostCategories(DerivedStorage, v9);
+  if (v11)
   {
 LABEL_5:
-    kdebug_trace();
+    v11 = kdebug_trace();
   }
 
 LABEL_6:
-  if (!v9)
+  if (!v10)
   {
     v4 = 4294954388;
-    if ((enabledSignpostCategories() & 1) == 0)
+    if ((enabledSignpostCategories(v11, v12) & 1) == 0)
     {
       return v4;
     }
@@ -462,8 +468,8 @@ LABEL_6:
     goto LABEL_8;
   }
 
-  v4 = (*(*v9 + 56))(v9, a2, a3, a4);
-  if (enabledSignpostCategories())
+  v4 = (*(*v10 + 56))(v10, a2, a3, a4);
+  if (enabledSignpostCategories(v4, v13))
   {
 LABEL_8:
     kdebug_trace();
@@ -484,8 +490,9 @@ uint64_t VideoEncoderBase<IcpVideoEncoder>::EncodeFrame(uint64_t a1, uint64_t a2
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
   {
-    v15 = 0;
-    if ((enabledSignpostCategories() & 2) == 0)
+    v16 = 0;
+    v17 = enabledSignpostCategories(0, v15);
+    if ((v17 & 2) == 0)
     {
       goto LABEL_7;
     }
@@ -493,18 +500,19 @@ uint64_t VideoEncoderBase<IcpVideoEncoder>::EncodeFrame(uint64_t a1, uint64_t a2
     goto LABEL_6;
   }
 
-  v15 = *DerivedStorage;
-  if ((enabledSignpostCategories() & 2) != 0)
+  v16 = *DerivedStorage;
+  v17 = enabledSignpostCategories(DerivedStorage, v15);
+  if ((v17 & 2) != 0)
   {
 LABEL_6:
-    kdebug_trace();
+    v17 = kdebug_trace();
   }
 
 LABEL_7:
-  if (!v15)
+  if (!v16)
   {
     v7 = 4294954388;
-    if ((enabledSignpostCategories() & 2) == 0)
+    if ((enabledSignpostCategories(v17, v18) & 2) == 0)
     {
       return v7;
     }
@@ -512,12 +520,12 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v19 = *a4;
-  v20 = *(a4 + 2);
-  v17 = *a5;
-  v18 = *(a5 + 2);
-  v7 = (*(*v15 + 64))(v15, a2, a3, &v19, &v17, a6, a7);
-  if ((enabledSignpostCategories() & 2) != 0)
+  v23 = *a4;
+  v24 = *(a4 + 2);
+  v21 = *a5;
+  v22 = *(a5 + 2);
+  v7 = (*(*v16 + 64))(v16, a2, a3, &v23, &v21, a6, a7);
+  if ((enabledSignpostCategories(v7, v19) & 2) != 0)
   {
 LABEL_9:
     kdebug_trace();
@@ -583,7 +591,7 @@ uint64_t VideoEncoderBase<IcpVideoEncoder>::CopySupportedPropertyDictionary(uint
   return result;
 }
 
-void IcpVideoEncoder::IcpVideoEncoder(IcpVideoEncoder *this, int a2)
+void IcpVideoEncoder::IcpVideoEncoder(IcpVideoEncoder *this, signed int a2)
 {
   v4 = VideoEncoderBase<IcpVideoEncoder>::VideoEncoderBase(this, a2);
   *v4 = &unk_2A1C7D3B0;
@@ -872,19 +880,8 @@ uint64_t IcpVideoEncoder::startSession(uint64_t a1, uint64_t a2, uint64_t a3, co
   }
 
   v15 = CFNumberCreate(v11, kCFNumberSInt32Type, v14);
-  if (!v15)
+  if (!v15 || ((v16 = v15, CFArrayAppendValue(v13, v15), CFRelease(v16), !v8) ? (v17 = &IcpVideoEncoder::kPixelFormatList422) : (v17 = &IcpVideoEncoder::kPixelFormatList4444), (v18 = CFNumberCreate(v11, kCFNumberSInt32Type, v17 + 4)) == 0 || (v19 = v18, CFArrayAppendValue(v13, v18), CFRelease(v19), (v20 = CFDictionaryCreateMutable(v11, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020])) == 0)))
   {
-    goto LABEL_24;
-  }
-
-  v16 = v15;
-  CFArrayAppendValue(v13, v15);
-  CFRelease(v16);
-  v17 = (v8 ? &IcpVideoEncoder::kPixelFormatList4444 : &IcpVideoEncoder::kPixelFormatList422);
-  v18 = CFNumberCreate(v11, kCFNumberSInt32Type, v17 + 4);
-  if (!v18 || (v19 = v18, CFArrayAppendValue(v13, v18), CFRelease(v19), (v20 = CFDictionaryCreateMutable(v11, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020])) == 0))
-  {
-LABEL_24:
     CFRelease(v13);
     return 4294954392;
   }
@@ -900,8 +897,8 @@ LABEL_24:
     CFRelease(v23);
   }
 
-  v29 = v9;
-  v24 = CFNumberCreate(v11, kCFNumberIntType, &v29);
+  v28 = v9;
+  v24 = CFNumberCreate(v11, kCFNumberIntType, &v28);
   if (v24)
   {
     v25 = v24;
@@ -910,7 +907,6 @@ LABEL_24:
   }
 
   CFRelease(v13);
-  v26 = *(a1 + 32);
   VTEncoderSessionSetPixelBufferAttributes();
   CFRelease(v21);
   if (!*(a1 + 112))
@@ -1027,10 +1023,10 @@ LABEL_8:
   return v19;
 }
 
-uint64_t IcpVideoEncoder::encodeFrame(uint64_t a1, int a2, CVPixelBufferRef pixelBuffer, CMTime *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+uint64_t IcpVideoEncoder::encodeFrame(uint64_t a1, uint64_t a2, CVPixelBufferRef pixelBuffer, CMTime *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
-  v120 = *MEMORY[0x29EDCA608];
-  v94 = 0;
+  v107 = *MEMORY[0x29EDCA608];
+  v81 = 0;
   blockBufferOut = 0;
   memset(dataLength, 0, sizeof(dataLength));
   *&sampleTimingArray.duration.value = *a5;
@@ -1039,66 +1035,64 @@ uint64_t IcpVideoEncoder::encodeFrame(uint64_t a1, int a2, CVPixelBufferRef pixe
   sampleTimingArray.decodeTimeStamp = **&MEMORY[0x29EDB9398];
   if (*(a1 + 160) >= 2)
   {
-    v11 = *(a1 + 168);
-    if (v11)
+    v10 = *(a1 + 168);
+    if (v10)
     {
       *sampleBufferOut = 0;
-      VideoFormatDescription = CMSampleBufferCreateCopyWithNewTiming(*MEMORY[0x29EDB8ED8], v11, 1, &sampleTimingArray, sampleBufferOut);
-      v13 = *(a1 + 32);
-      v14 = *a7;
+      VideoFormatDescription = CMSampleBufferCreateCopyWithNewTiming(*MEMORY[0x29EDB8ED8], v10, 1, &sampleTimingArray, sampleBufferOut);
       VTEncoderSessionEmitEncodedFrame();
       if (*sampleBufferOut)
       {
         CFRelease(*sampleBufferOut);
       }
 
-      v16 = *(a1 + 160);
-      v15 = *(a1 + 164);
-      *(a1 + 164) = v15 + 1;
-      if (v15 == v16 - 2)
+      v13 = *(a1 + 160);
+      v12 = *(a1 + 164);
+      *(a1 + 164) = v12 + 1;
+      if (v12 == v13 - 2)
       {
         CFRelease(*(a1 + 168));
         *(a1 + 168) = 0;
         *(a1 + 164) = 0;
       }
 
-      goto LABEL_29;
+      return VideoFormatDescription;
     }
   }
 
   PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
-  v18 = PixelFormatType;
+  v15 = PixelFormatType;
   if ((PixelFormatType == 1378955371 || PixelFormatType == 1915892016 || PixelFormatType == 1848848434) && !codecTypeIs444(*(a1 + 12)))
   {
-    v28 = 0;
+    v25 = 0;
     VideoFormatDescription = 4294954391;
     goto LABEL_21;
   }
 
-  MaxCompressionSizeExcludingAlpha = EncoderSetup::getMaxCompressionSizeExcludingAlpha(*(a1 + 12), *(a1 + 44) * *(a1 + 40), v18);
-  v20 = codecTypeIs444(*(a1 + 12));
-  v21 = *(a1 + 40);
-  v22 = *(a1 + 44);
-  v23 = v21 + 15;
-  if (v21 < -15)
+  MaxCompressionSizeExcludingAlpha = EncoderSetup::getMaxCompressionSizeExcludingAlpha(*(a1 + 12), *(a1 + 44) * *(a1 + 40), v15);
+  v17 = codecTypeIs444(*(a1 + 12));
+  v18 = *(a1 + 40);
+  v19 = *(a1 + 44);
+  v20 = v18 + 15;
+  if (v18 < -15)
   {
-    v23 = v21 + 30;
+    v20 = v18 + 30;
   }
 
-  v24 = MaxCompressionSizeExcludingAlpha + 48 * v22 * (v23 >> 4);
-  if (v20)
+  v21 = MaxCompressionSizeExcludingAlpha + 48 * v19 * (v20 >> 4);
+  if (v17)
   {
-    v25 = v24;
+    v22 = v21;
   }
 
   else
   {
-    v25 = MaxCompressionSizeExcludingAlpha;
+    v22 = MaxCompressionSizeExcludingAlpha;
   }
 
-  v26 = EncoderSetup::getMaxCompressionSizeExcludingAlpha(*(a1 + 12), v22 * v21, v18);
-  BlockBufferInEncoder = createBlockBufferInEncoder(*(a1 + 32), *(a1 + 96), v25);
-  v28 = BlockBufferInEncoder;
+  v23 = EncoderSetup::getMaxCompressionSizeExcludingAlpha(*(a1 + 12), v19 * v18, v15);
+  BlockBufferInEncoder = createBlockBufferInEncoder(*(a1 + 32), *(a1 + 96), v22);
+  v25 = BlockBufferInEncoder;
   if (!BlockBufferInEncoder)
   {
     VideoFormatDescription = 0;
@@ -1113,53 +1107,53 @@ uint64_t IcpVideoEncoder::encodeFrame(uint64_t a1, int a2, CVPixelBufferRef pixe
     goto LABEL_21;
   }
 
-  *&v88 = CVPixelBufferGetBaseAddress(pixelBuffer);
+  BaseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
   BytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer);
-  v90 = v18;
-  v33 = *(a1 + 12);
-  v91 = *(a1 + 40);
-  v92 = codecTypeIs422(v33);
-  v79.i32[0] = 4;
-  EncoderSetup::setQuantIndex(*(a1 + 12), &v80, v81, v34);
-  v81[1] = v26;
-  v81[2] = 8 * v26 / 9;
+  v77 = v15;
+  v27 = *(a1 + 12);
+  v78 = *(a1 + 40);
+  v79 = codecTypeIs422(v27);
+  v66.i32[0] = 4;
+  EncoderSetup::setQuantIndex(*(a1 + 12), &v67, v68, v28);
+  v68[1] = v23;
+  v68[2] = 8 * v23 / 9;
   if (*(a1 + 60) == 2)
   {
     if (CFEqual(*(a1 + 64), *MEMORY[0x29EDB95E0]))
     {
-      v35 = 2;
+      v29 = 2;
     }
 
     else
     {
-      v35 = 1;
+      v29 = 1;
     }
 
-    v82 = v35;
+    v69 = v29;
   }
 
   else
   {
-    v82 = 0;
+    v69 = 0;
   }
 
-  v36 = v90;
-  v37 = codecTypeIs422(*(a1 + 12));
-  v38 = 2;
-  if ((v37 & 1) == 0 && v36 != 846624121 && v36 != 1983000880 && v36 != 2037741171)
+  v30 = v77;
+  v31 = codecTypeIs422(*(a1 + 12));
+  v32 = 2;
+  if ((v31 & 1) == 0 && v30 != 846624121 && v30 != 1983000880 && v30 != 2037741171)
   {
-    if (v36 == 1983000886)
+    if (v30 == 1983000886)
     {
-      v38 = 2;
+      v32 = 2;
     }
 
     else
     {
-      v38 = 3;
+      v32 = 3;
     }
   }
 
-  v83 = v38;
+  v70 = v32;
   Attachment = *(a1 + 72);
   if (!Attachment)
   {
@@ -1174,168 +1168,168 @@ uint64_t IcpVideoEncoder::encodeFrame(uint64_t a1, int a2, CVPixelBufferRef pixe
   {
     if (CFEqual(Attachment, *MEMORY[0x29EDB95B0]))
     {
-      v40 = 5;
+      v34 = 5;
       goto LABEL_58;
     }
 
     if (CFEqual(Attachment, *MEMORY[0x29EDB95D0]))
     {
-      v40 = 6;
+      v34 = 6;
       goto LABEL_58;
     }
 
     if (CFEqual(Attachment, *MEMORY[0x29EDB9290]))
     {
-      v40 = 9;
+      v34 = 9;
       goto LABEL_58;
     }
 
     if (CFEqual(Attachment, *MEMORY[0x29EDB9288]))
     {
-      v40 = 11;
+      v34 = 11;
       goto LABEL_58;
     }
 
     if (CFEqual(Attachment, *MEMORY[0x29EDB9298]))
     {
-      v40 = 12;
+      v34 = 12;
       goto LABEL_58;
     }
 
 LABEL_57:
-    v40 = 2;
+    v34 = 2;
     goto LABEL_58;
   }
 
-  v40 = 1;
+  v34 = 1;
 LABEL_58:
-  v84 = v40;
-  v41 = *(a1 + 80);
-  if (!v41)
+  v71 = v34;
+  v35 = *(a1 + 80);
+  if (!v35)
   {
-    v41 = CVBufferGetAttachment(pixelBuffer, *MEMORY[0x29EDB9608], 0);
-    if (!v41)
+    v35 = CVBufferGetAttachment(pixelBuffer, *MEMORY[0x29EDB9608], 0);
+    if (!v35)
     {
       goto LABEL_71;
     }
   }
 
-  if (!CFEqual(v41, *MEMORY[0x29EDB9620]))
+  if (!CFEqual(v35, *MEMORY[0x29EDB9620]))
   {
-    if (CFEqual(v41, *MEMORY[0x29EDB9630]))
+    if (CFEqual(v35, *MEMORY[0x29EDB9630]))
     {
-      v42 = 7;
+      v36 = 7;
       goto LABEL_72;
     }
 
-    if (!CFEqual(v41, *MEMORY[0x29EDB92E8]))
+    if (!CFEqual(v35, *MEMORY[0x29EDB92E8]))
     {
-      if (CFEqual(v41, *MEMORY[0x29EDB9300]))
+      if (CFEqual(v35, *MEMORY[0x29EDB9300]))
       {
-        v42 = 17;
+        v36 = 17;
         goto LABEL_72;
       }
 
-      if (CFEqual(v41, *MEMORY[0x29EDB92F8]))
+      if (CFEqual(v35, *MEMORY[0x29EDB92F8]))
       {
-        v42 = 16;
+        v36 = 16;
         goto LABEL_72;
       }
 
-      if (CFEqual(v41, *MEMORY[0x29EDB92F0]))
+      if (CFEqual(v35, *MEMORY[0x29EDB92F0]))
       {
-        v42 = 18;
+        v36 = 18;
         goto LABEL_72;
       }
 
 LABEL_71:
-      v42 = 2;
+      v36 = 2;
       goto LABEL_72;
     }
   }
 
-  v42 = 1;
+  v36 = 1;
 LABEL_72:
-  v85 = v42;
-  v43 = *(a1 + 88);
-  if (!v43)
+  v72 = v36;
+  v37 = *(a1 + 88);
+  if (!v37)
   {
-    v43 = CVBufferGetAttachment(pixelBuffer, *MEMORY[0x29EDB9658], 0);
-    if (!v43)
+    v37 = CVBufferGetAttachment(pixelBuffer, *MEMORY[0x29EDB9658], 0);
+    if (!v37)
     {
       goto LABEL_81;
     }
   }
 
-  if (!CFEqual(v43, *MEMORY[0x29EDB9678]))
+  if (!CFEqual(v37, *MEMORY[0x29EDB9678]))
   {
-    if (CFEqual(v43, *MEMORY[0x29EDB9670]))
+    if (CFEqual(v37, *MEMORY[0x29EDB9670]))
     {
       goto LABEL_90;
     }
 
-    if (CFEqual(v43, *MEMORY[0x29EDB9688]))
+    if (CFEqual(v37, *MEMORY[0x29EDB9688]))
     {
-      v45 = 7;
+      v40 = 7;
       goto LABEL_82;
     }
 
-    if (CFEqual(v43, *MEMORY[0x29EDB9310]))
+    if (CFEqual(v37, *MEMORY[0x29EDB9310]))
     {
-      v44 = 9;
+      v39 = 9;
       goto LABEL_91;
     }
 
 LABEL_81:
-    v45 = 2;
+    v40 = 2;
 LABEL_82:
-    v86 = v45;
-    if (v90 <= 1647719520)
+    v73 = v40;
+    if (v77 <= 1647719520)
     {
-      if (v90 == 32)
+      if (v77 == 32)
       {
         goto LABEL_89;
       }
 
-      v46 = 1378955371;
+      v41 = 1378955371;
     }
 
     else
     {
-      if (v90 == 1647719521 || v90 == 1915892016)
+      if (v77 == 1647719521 || v77 == 1915892016)
       {
         goto LABEL_89;
       }
 
-      v46 = 1848848434;
+      v41 = 1848848434;
     }
 
-    if (v90 != v46)
+    if (v77 != v41)
     {
       goto LABEL_92;
     }
 
 LABEL_89:
-    if (SHIDWORD(v91) >= 720)
+    if (SHIDWORD(v78) >= 720)
     {
       goto LABEL_75;
     }
 
 LABEL_90:
-    v44 = 6;
+    v39 = 6;
     goto LABEL_91;
   }
 
 LABEL_75:
-  v44 = 1;
+  v39 = 1;
 LABEL_91:
-  v86 = v44;
+  v73 = v39;
 LABEL_92:
   if (*(a1 + 121) == 1)
   {
-    v47 = codecTypeIs444(*(a1 + 12));
-    v87 = v47;
-    v76 = 1;
+    v42 = codecTypeIs444(*(a1 + 12));
+    v74 = v42;
+    v63 = 1;
     if (a4->value)
     {
       goto LABEL_106;
@@ -1344,82 +1338,88 @@ LABEL_92:
 
   else
   {
-    v47 = 0;
-    v87 = 0;
-    v76 = 1;
+    v42 = 0;
+    v74 = 0;
+    v63 = 1;
     if (a4->value)
     {
       goto LABEL_106;
     }
   }
 
-  if (IcpUtility::logLevel(v47) >= 1 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+  v42 = IcpUtility::logLevel(v42);
+  if (v42 >= 1)
   {
-    v48 = *(a1 + 12);
-    if (v90 == 32)
+    v42 = os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT);
+    if (v42)
     {
-      v49 = &v97;
-      values = 0x2942475241283233;
-      v50 = 8;
-    }
+      v43 = *(a1 + 12);
+      if (v77 == 32)
+      {
+        v44 = &v84;
+        values = 0x2942475241283233;
+        v45 = 8;
+      }
 
-    else
-    {
-      v49 = (&values + 4);
-      LODWORD(values) = bswap32(v90);
-      v50 = 4;
-    }
+      else
+      {
+        v44 = (&values + 4);
+        LODWORD(values) = bswap32(v77);
+        v45 = 4;
+      }
 
-    *v49 = 0;
-    v98 = v50;
-    v51 = v82 ? 105 : 112;
-    *sampleBufferOut = 134220802;
-    *&sampleBufferOut[4] = a1;
-    *&sampleBufferOut[12] = 1024;
-    *&sampleBufferOut[14] = v48 >> 24;
-    v100 = 1024;
-    v101 = v48 << 8 >> 24;
-    v102 = 1024;
-    v103 = v48 >> 8;
-    v104 = 1024;
-    v105 = v48;
-    v106 = 2080;
-    p_values = &values;
-    v108 = 1024;
-    v109 = v91;
-    v110 = 1024;
-    v111 = HIDWORD(v91);
-    v112 = 1024;
-    v113 = v51;
-    v114 = 1024;
-    v115 = v84;
-    v116 = 1024;
-    v117 = v85;
-    v118 = 1024;
-    v119 = v86;
-    _os_log_impl(&dword_29539A000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IcpVideoEncoder[%p]: Encoding '%c%c%c%c' from '%s' (%dx%d%c %d-%d-%d)\n", sampleBufferOut, 0x52u);
-    if (v98 < 0)
-    {
-      operator delete(values);
+      *v44 = 0;
+      v85 = v45;
+      v46 = v69 ? 105 : 112;
+      *sampleBufferOut = 134220802;
+      *&sampleBufferOut[4] = a1;
+      *&sampleBufferOut[12] = 1024;
+      *&sampleBufferOut[14] = v43 >> 24;
+      v87 = 1024;
+      v88 = v43 << 8 >> 24;
+      v89 = 1024;
+      v90 = v43 >> 8;
+      v91 = 1024;
+      v92 = v43;
+      v93 = 2080;
+      p_values = &values;
+      v95 = 1024;
+      v96 = v78;
+      v97 = 1024;
+      v98 = HIDWORD(v78);
+      v99 = 1024;
+      v100 = v46;
+      v101 = 1024;
+      v102 = v71;
+      v103 = 1024;
+      v104 = v72;
+      v105 = 1024;
+      v106 = v73;
+      _os_log_impl(&dword_29539A000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IcpVideoEncoder[%p]: Encoding '%c%c%c%c' from '%s' (%dx%d%c %d-%d-%d)\n", sampleBufferOut, 0x52u);
+      if (v85 < 0)
+      {
+        operator delete(values);
+      }
     }
   }
 
 LABEL_106:
-  if ((enabledSignpostCategories() & 0x100) != 0)
+  if ((enabledSignpostCategories(v42, v38) & 0x100) != 0)
   {
     kdebug_trace();
   }
 
-  v52 = FrameEncoder::encode(*(a1 + 112), &v88, &v79, *&dataLength[1], v25, dataLength, &v76);
-  if ((enabledSignpostCategories() & 0x100) != 0)
+  v47 = FrameEncoder::encode(*(a1 + 112), &BaseAddress, &v66, *&dataLength[1], v22, dataLength, &v63);
+  v48 = v47;
+  if ((enabledSignpostCategories(v47, v49) & 0x100) != 0)
   {
     kdebug_trace();
   }
 
   CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
-  if (v52 < 0)
+  if (v48 < 0)
   {
-    if (v52 == -3)
+    if (v48 == -3)
     {
       VideoFormatDescription = 4294954394;
     }
@@ -1432,11 +1432,11 @@ LABEL_106:
     goto LABEL_21;
   }
 
-  if (*(a1 + 16) || (v59 = *(a1 + 32), v60 = *(a1 + 12), v61 = *(a1 + 40), v62 = *(a1 + 44), v63 = *(a1 + 104), VideoFormatDescription = VTEncoderSessionCreateVideoFormatDescription(), !VideoFormatDescription) && (*(a1 + 144) != 1 || (VideoFormatDescription = IcpVideoEncoder::replaceFormatDescriptionForCustomNCLC(a1, v84, v85, v86, (a1 + 16)), !VideoFormatDescription)))
+  if (*(a1 + 16) || (VideoFormatDescription = VTEncoderSessionCreateVideoFormatDescription(), !VideoFormatDescription) && (*(a1 + 144) != 1 || (VideoFormatDescription = IcpVideoEncoder::replaceFormatDescriptionForCustomNCLC(a1, v71, v72, v73, (a1 + 16)), !VideoFormatDescription)))
   {
-    v53 = v76;
-    v54 = MEMORY[0x29EDB8ED8];
-    if (*(a1 + 120) != 1 || (v76 & 1) != 0)
+    v50 = v63;
+    v51 = MEMORY[0x29EDB8ED8];
+    if (*(a1 + 120) != 1 || (v63 & 1) != 0)
     {
       goto LABEL_140;
     }
@@ -1446,49 +1446,44 @@ LABEL_106:
       goto LABEL_143;
     }
 
-    v55 = *MEMORY[0x29EDB8ED8];
+    v52 = *MEMORY[0x29EDB8ED8];
     addNumberToDictionary<int>(*MEMORY[0x29EDB8ED8], *(a1 + 104), *MEMORY[0x29EDB92B0], 32);
-    v56 = *(a1 + 124);
-    if (v56)
+    v53 = *(a1 + 124);
+    if (v53)
     {
       goto LABEL_130;
     }
 
-    v57 = CVBufferGetAttachment(pixelBuffer, *MEMORY[0x29EDB9540], 0);
-    v58 = v57;
-    if (v57)
+    v54 = CVBufferGetAttachment(pixelBuffer, *MEMORY[0x29EDB9540], 0);
+    v55 = v54;
+    if (v54)
     {
-      if (CFEqual(v57, *MEMORY[0x29EDB9550]))
+      if (CFEqual(v54, *MEMORY[0x29EDB9550]))
       {
-        v56 = 256;
+        v53 = 256;
 LABEL_128:
-        *(a1 + 124) = v56;
+        *(a1 + 124) = v53;
         goto LABEL_130;
       }
 
-      if (CFEqual(v58, *MEMORY[0x29EDB9548]))
+      if (CFEqual(v55, *MEMORY[0x29EDB9548]))
       {
-        v56 = 258;
+        v53 = 258;
         goto LABEL_128;
       }
     }
 
-    v56 = *(a1 + 124);
-    if (!v56)
+    v53 = *(a1 + 124);
+    if (!v53)
     {
 LABEL_134:
-      v67 = *(a1 + 136);
-      if (v67)
+      v59 = *(a1 + 136);
+      if (v59)
       {
-        CFRelease(v67);
+        CFRelease(v59);
         *(a1 + 136) = 0;
       }
 
-      v68 = *(a1 + 32);
-      v69 = *(a1 + 12);
-      v70 = *(a1 + 40);
-      v71 = *(a1 + 44);
-      v72 = *(a1 + 104);
       VideoFormatDescription = VTEncoderSessionCreateVideoFormatDescription();
       if (VideoFormatDescription)
       {
@@ -1497,7 +1492,7 @@ LABEL_134:
 
       if (*(a1 + 144) == 1)
       {
-        VideoFormatDescription = IcpVideoEncoder::replaceFormatDescriptionForCustomNCLC(a1, v84, v85, v86, (a1 + 136));
+        VideoFormatDescription = IcpVideoEncoder::replaceFormatDescriptionForCustomNCLC(a1, v71, v72, v73, (a1 + 136));
         if (VideoFormatDescription)
         {
           goto LABEL_21;
@@ -1505,19 +1500,19 @@ LABEL_134:
       }
 
       *(a1 + 128) = 0;
-      v53 = v76;
+      v50 = v63;
 LABEL_140:
-      if (v53)
+      if (v50)
       {
         if (*(a1 + 120))
         {
 LABEL_145:
-          v73 = *(a1 + 16);
+          v60 = *(a1 + 16);
 LABEL_146:
-          v74 = *v54;
-          CMBlockBufferCreateWithBufferReference(*v54, v28, 0, dataLength[0], 0, &blockBufferOut);
+          v61 = *v51;
+          CMBlockBufferCreateWithBufferReference(*v51, v25, 0, dataLength[0], 0, &blockBufferOut);
           *sampleBufferOut = dataLength[0];
-          VideoFormatDescription = CMSampleBufferCreate(v74, blockBufferOut, 1u, 0, 0, v73, 1, 1, &sampleTimingArray, 1, sampleBufferOut, &v94);
+          VideoFormatDescription = CMSampleBufferCreate(v61, blockBufferOut, 1u, 0, 0, v60, 1, 1, &sampleTimingArray, 1, sampleBufferOut, &v81);
           if (*(a1 + 48) == 1)
           {
             *(a1 + 120) = 1;
@@ -1527,8 +1522,8 @@ LABEL_146:
         }
 
 LABEL_144:
-        v73 = *(a1 + 136);
-        if (v73)
+        v60 = *(a1 + 136);
+        if (v60)
         {
           goto LABEL_146;
         }
@@ -1542,39 +1537,37 @@ LABEL_143:
     }
 
 LABEL_130:
-    *bytes = bswap32(v56);
-    v64 = CFDataCreate(v55, bytes, 4);
-    v65 = v64;
-    if (v64)
+    *bytes = bswap32(v53);
+    v56 = CFDataCreate(v52, bytes, 4);
+    v57 = v56;
+    if (v56)
     {
       *sampleBufferOut = xmmword_29EDCB1D8;
-      values = v64;
-      v97 = 0;
-      v66 = CFDictionaryCreate(v55, sampleBufferOut, &values, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-      if (v66)
+      values = v56;
+      v84 = 0;
+      v58 = CFDictionaryCreate(v52, sampleBufferOut, &values, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+      if (v58)
       {
-        CFDictionarySetValue(*(a1 + 104), *MEMORY[0x29EDB92C8], v66);
-        CFRelease(v66);
+        CFDictionarySetValue(*(a1 + 104), *MEMORY[0x29EDB92C8], v58);
+        CFRelease(v58);
       }
 
-      CFRelease(v65);
+      CFRelease(v57);
     }
 
     goto LABEL_134;
   }
 
 LABEL_21:
-  v29 = *(a1 + 32);
-  v30 = *a7;
   VTEncoderSessionEmitEncodedFrame();
   if (*(a1 + 160) >= 2)
   {
-    *(a1 + 168) = CFRetain(v94);
+    *(a1 + 168) = CFRetain(v81);
   }
 
-  if (v94)
+  if (v81)
   {
-    CFRelease(v94);
+    CFRelease(v81);
   }
 
   if (blockBufferOut)
@@ -1582,13 +1575,11 @@ LABEL_21:
     CFRelease(blockBufferOut);
   }
 
-  if (v28)
+  if (v25)
   {
-    CFRelease(v28);
+    CFRelease(v25);
   }
 
-LABEL_29:
-  v31 = *MEMORY[0x29EDCA608];
   return VideoFormatDescription;
 }
 
@@ -2136,7 +2127,7 @@ uint64_t RateControl::interpolateSize(RateControl *this, int a2, uint64_t a3, ui
   return a4;
 }
 
-double DiscreteCosineTransform::fdct<short>(int16x8_t *a1, int16x8_t *a2)
+double DiscreteCosineTransform::fdct<short>(int8x16_t *a1, int16x8_t *a2)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -2595,17 +2586,17 @@ void FrameEncoder::~FrameEncoder(FrameEncoder *this)
   }
 }
 
-uint64_t FrameEncoder::encode(_DWORD **a1, __int128 *a2, int32x2_t *a3, uint64_t a4, int a5, _DWORD *a6, _BYTE *a7)
+uint64_t FrameEncoder::encode(_DWORD **a1, unsigned int *a2, int32x2_t *a3, uint64_t a4, int a5, _DWORD *a6, BOOL *a7)
 {
-  AlphaEncoder::AlphaEncoder(v47, a3[5].u8[4], *(a2 + 9));
+  AlphaEncoder::AlphaEncoder(v47, a3[5].u8[4], a2[9]);
   a1[27] = v47;
-  v14 = *(a2 + 10);
+  v14 = a2[10];
   if (HIWORD(v14))
   {
     return 4294967293;
   }
 
-  v15 = *(a2 + 11);
+  v15 = a2[11];
   if (HIWORD(v15))
   {
     return 4294967293;
@@ -2648,7 +2639,7 @@ uint64_t FrameEncoder::encode(_DWORD **a1, __int128 *a2, int32x2_t *a3, uint64_t
   v22 = *(a1 + 4) + 8;
   v23 = a3[1];
   v24 = vadd_s32(vsub_s32(a3[2], vdup_n_s32(v22)), 0x3100000031);
-  *(a1 + 14) = *(a2 + 9);
+  *(a1 + 14) = a2[9];
   *(a1 + 15) = v17;
   v44 = a3->i32[0];
   v45 = v23;
@@ -2659,11 +2650,11 @@ uint64_t FrameEncoder::encode(_DWORD **a1, __int128 *a2, int32x2_t *a3, uint64_t
     v46.i32[1] = v24.i32[1] / 2;
   }
 
-  v25 = a2[1];
+  v25 = *(a2 + 1);
   v40 = *a2;
   v41 = v25;
-  v26 = a2[3];
-  v42 = a2[2];
+  v26 = *(a2 + 3);
+  v42 = *(a2 + 2);
   v43 = v26;
   v27 = a1[26];
   if (!v27)
@@ -2678,17 +2669,17 @@ uint64_t FrameEncoder::encode(_DWORD **a1, __int128 *a2, int32x2_t *a3, uint64_t
     {
       v27[25] = 1;
       *&v40 = *a2;
-      v28 = 2 * *(a2 + 6);
-      v29 = *(a2 + 11) + 1;
+      v28 = 2 * a2[6];
+      v29 = a2[11] + 1;
     }
 
     else
     {
       v27[25] = 2;
-      v30 = *(a2 + 6);
+      v30 = a2[6];
       *&v40 = *a2 + v30;
       v28 = 2 * v30;
-      v29 = *(a2 + 11);
+      v29 = a2[11];
     }
 
     DWORD2(v41) = v28;
@@ -2711,18 +2702,18 @@ uint64_t FrameEncoder::encode(_DWORD **a1, __int128 *a2, int32x2_t *a3, uint64_t
   {
     v31[25] = 1;
     *&v40 = *a2;
-    DWORD2(v41) = 2 * *(a2 + 6);
-    v36 = *(a2 + 11) + 1;
+    DWORD2(v41) = 2 * a2[6];
+    v36 = a2[11] + 1;
     goto LABEL_27;
   }
 
   if (v34)
   {
     v31[25] = 2;
-    v35 = *(a2 + 6);
+    v35 = a2[6];
     *&v40 = *a2 + v35;
     DWORD2(v41) = 2 * v35;
-    v36 = *(a2 + 11);
+    v36 = a2[11];
 LABEL_27:
     HIDWORD(v42) = v36 / 2;
     *(v31 + 13) = a4 + v32;
@@ -3027,7 +3018,7 @@ void EncoderWorker::~EncoderWorker(EncoderWorker *this)
   free(*this);
 }
 
-void EncoderWorker::runJob(uint64_t a1, uint64_t a2)
+void EncoderWorker::runJob(uint64_t result, uint64_t a2)
 {
   if (*a2)
   {
@@ -3036,7 +3027,7 @@ void EncoderWorker::runJob(uint64_t a1, uint64_t a2)
       v4 = 0;
       do
       {
-        SliceEncoder::encode(*(a1 + 64), *(*(a2 + 8) + 8 * v4++));
+        SliceEncoder::encode(*(result + 64), *(*(a2 + 8) + 8 * v4++));
       }
 
       while (v4 < *(a2 + 16));
@@ -3057,7 +3048,7 @@ void EncoderWorker::runJob(uint64_t a1, uint64_t a2)
   }
 
   v6 = *(a2 + 32);
-  if (atomic_load_explicit(&qword_2A1388058, memory_order_acquire))
+  if (atomic_load_explicit(byte_2A1388058, memory_order_acquire))
   {
     v7 = *(a2 + 32);
     if (*(v7 + 36) != 1983000880)
@@ -3079,12 +3070,12 @@ void EncoderWorker::runJob(uint64_t a1, uint64_t a2)
   v8 = *(a2 + 52);
   v9 = *(v7 + 40);
   v10 = (4 * v9 + 15) & 0xFFFFFFF0;
-  v11 = *(a1 + 24);
-  v12 = *a1;
+  v11 = *(result + 24);
+  v12 = *result;
   if (v11 < v10)
   {
-    free(*a1);
-    *a1 = 0;
+    free(*result);
+    *result = 0;
     v13 = malloc_type_malloc(16 * v10, 0x324508D9uLL);
     if (!v13)
     {
@@ -3094,21 +3085,21 @@ void EncoderWorker::runJob(uint64_t a1, uint64_t a2)
     }
 
     v12 = v13;
-    *a1 = v13;
-    *(a1 + 24) = v10;
+    *result = v13;
+    *(result + 24) = v10;
     v9 = *(v7 + 40);
     v11 = v10;
     v7 = *(a2 + 32);
   }
 
-  *(a1 + 40) = v9;
-  *(a1 + 44) = v8;
+  *(result + 40) = v9;
+  *(result + 44) = v8;
   convertV210ToV216(*(a2 + 40), *(v7 + 24), v12, v11, v9, v8);
-  v14 = *a1;
-  *(a2 + 32) = a1;
+  v14 = *result;
+  *(a2 + 32) = result;
   *(a2 + 40) = v14;
   *(a2 + 48) = _MergedGlobals;
-  v7 = a1;
+  v7 = result;
 LABEL_16:
   if (*(v7 + 48) == 1)
   {
@@ -3154,15 +3145,15 @@ LABEL_16:
     {
       if (v15 == 32)
       {
-        allocateIntermediateV216Buffer(a1, v7, *(a2 + 52));
-        convertARGBToV216WithChromaFiltering<(PixelFormat)32>(*(a2 + 40), *(*(a2 + 32) + 24), *a1, *(a1 + 24), *(a1 + 40), *(a1 + 44), *(*(a2 + 24) + 8));
+        allocateIntermediateV216Buffer(result, v7, *(a2 + 52));
+        convertARGBToV216WithChromaFiltering<(PixelFormat)32>(*(a2 + 40), *(*(a2 + 32) + 24), *result, *(result + 24), *(result + 40), *(result + 44), *(*(a2 + 24) + 8));
         goto LABEL_39;
       }
 
       if (v15 == 1378955371)
       {
-        allocateIntermediateV216Buffer(a1, v7, *(a2 + 52));
-        convertARGBToV216WithChromaFiltering<(PixelFormat)1378955371>(*(a2 + 40), *(*(a2 + 32) + 24), *a1, *(a1 + 24), *(a1 + 40), *(a1 + 44), *(*(a2 + 24) + 8));
+        allocateIntermediateV216Buffer(result, v7, *(a2 + 52));
+        convertARGBToV216WithChromaFiltering<(PixelFormat)1378955371>(*(a2 + 40), *(*(a2 + 32) + 24), *result, *(result + 24), *(result + 40), *(result + 44), *(*(a2 + 24) + 8));
         goto LABEL_39;
       }
     }
@@ -3172,19 +3163,19 @@ LABEL_16:
       switch(v15)
       {
         case 1647719521:
-          allocateIntermediateV216Buffer(a1, v7, *(a2 + 52));
-          convertARGBToV216WithChromaFiltering<(PixelFormat)1647719521>(*(a2 + 40), *(*(a2 + 32) + 24), *a1, *(a1 + 24), *(a1 + 40), *(a1 + 44), *(*(a2 + 24) + 8));
+          allocateIntermediateV216Buffer(result, v7, *(a2 + 52));
+          convertARGBToV216WithChromaFiltering<(PixelFormat)1647719521>(*(a2 + 40), *(*(a2 + 32) + 24), *result, *(result + 24), *(result + 40), *(result + 44), *(*(a2 + 24) + 8));
           goto LABEL_39;
         case 1647719542:
-          allocateIntermediateV216Buffer(a1, v7, *(a2 + 52));
-          convertARGBToV216WithChromaFiltering<(PixelFormat)1647719542>(*(a2 + 40), *(*(a2 + 32) + 24), *a1, *(a1 + 24), *(a1 + 40), *(a1 + 44), *(*(a2 + 24) + 8));
+          allocateIntermediateV216Buffer(result, v7, *(a2 + 52));
+          convertARGBToV216WithChromaFiltering<(PixelFormat)1647719542>(*(a2 + 40), *(*(a2 + 32) + 24), *result, *(result + 24), *(result + 40), *(result + 44), *(*(a2 + 24) + 8));
           goto LABEL_39;
         case 1915892016:
-          allocateIntermediateV216Buffer(a1, v7, *(a2 + 52));
-          convertARGBToV216WithChromaFiltering<(PixelFormat)1915892016>(*(a2 + 40), *(*(a2 + 32) + 24), *a1, *(a1 + 24), *(a1 + 40), *(a1 + 44), *(*(a2 + 24) + 8));
+          allocateIntermediateV216Buffer(result, v7, *(a2 + 52));
+          convertARGBToV216WithChromaFiltering<(PixelFormat)1915892016>(*(a2 + 40), *(*(a2 + 32) + 24), *result, *(result + 24), *(result + 40), *(result + 44), *(*(a2 + 24) + 8));
 LABEL_39:
-          v16 = *a1;
-          *(a2 + 32) = a1;
+          v16 = *result;
+          *(a2 + 32) = result;
           *(a2 + 40) = v16;
           *(a2 + 48) = _MergedGlobals;
           break;
@@ -3199,7 +3190,7 @@ LABEL_40:
     do
     {
       SliceEncoder::doForwardTransform(*(*(a2 + 8) + 8 * v17), a2);
-      SliceEncoder::encode(*(a1 + 64), *(*(a2 + 8) + 8 * v17++));
+      SliceEncoder::encode(*(result + 64), *(*(a2 + 8) + 8 * v17++));
     }
 
     while (v17 < *(a2 + 16));
@@ -3237,11 +3228,11 @@ void **allocateIntermediateV216Buffer(void **result, uint64_t a2, int a3)
 
 void EncoderWorker::runJob()
 {
-  if (__cxa_guard_acquire(&qword_2A1388058))
+  if (__cxa_guard_acquire(byte_2A1388058))
   {
     _MergedGlobals = 64;
 
-    __cxa_guard_release(&qword_2A1388058);
+    __cxa_guard_release(byte_2A1388058);
   }
 }
 
@@ -3326,7 +3317,7 @@ CFIndex ___ZN10IcpUtility8logLevelEv_block_invoke()
   return result;
 }
 
-uint64_t enabledSignpostCategories()
+uint64_t enabledSignpostCategories(uint64_t a1, uint64_t a2)
 {
   if (qword_2A1388078 != -1)
   {
@@ -4335,10 +4326,10 @@ LABEL_202:
               v204 = 0;
               v205 = 0;
               v206 = v19 & 0x7FFFFFFE;
-              v207 = (v184 + 8);
+              v207 = v184 + 8;
               do
               {
-                v208 = *(v207 - 1);
+                v208 = *(v207 - 8);
                 result = *v207;
                 v209 = v208[15] - v131;
                 v210 = *(*v207 + 60) - v131;
@@ -4356,7 +4347,7 @@ LABEL_202:
                 v205 += v210;
                 v208[20] = v209;
                 *(result + 80) = v210;
-                v207 += 2;
+                v207 += 16;
                 v206 -= 2;
               }
 
@@ -4985,7 +4976,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-void *ThreadPool<EncoderWorker,EncoderJob,void>::dispatch_routine(uint64_t a1)
+void ThreadPool<EncoderWorker,EncoderJob,void>::dispatch_routine(uint64_t a1)
 {
   {
     ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::cacheLineSize = getCacheLineSize();
@@ -4997,18 +4988,16 @@ void *ThreadPool<EncoderWorker,EncoderJob,void>::dispatch_routine(uint64_t a1)
 
   v2 = ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::blockSize;
   v3 = -ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::blockSize;
-  result = malloc_type_malloc(((ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::blockSize + 71) & -ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::blockSize) + ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::blockSize, 0xAF2C8CB1uLL);
-  if (result)
+  v4 = malloc_type_malloc(((ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::blockSize + 71) & -ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::blockSize) + ThreadPool<EncoderWorker,EncoderJob,void>::getBlockSize(void)::blockSize, 0xAF2C8CB1uLL);
+  if (v4)
   {
-    v5 = ((result + v2) & v3);
-    *(v5 - 1) = result;
+    v5 = ((v4 + v2) & v3);
+    *(v5 - 1) = v4;
     if (v5)
     {
       EncoderWorker::EncoderWorker(v5, *(a1 + 40));
     }
   }
-
-  return result;
 }
 
 int *IcpRateControl::estimateBytes(int *this, int *a2, const Slice *a3)
@@ -5121,11 +5110,12 @@ int *IcpRateControl::estimateBytes(int *this, int *a2, const Slice *a3)
   }
 
   v26 = &a2[v18 + 41 + a3];
-  v27 = &_MergedGlobals_2[v18 + 2];
+  v27 = &_MergedGlobals_2[8 * v18 + 16];
   v28 = v8 - v18;
   do
   {
-    v30 = *v27++;
+    v30 = *v27;
+    v27 += 8;
     v29 = v30;
     LODWORD(v30) = *v26++;
     v19 += v29 * v30;
@@ -5232,10 +5222,11 @@ LABEL_29:
 
   v53 = v8 - v45;
   v54 = &a2[v45 + 49 + a3];
-  v55 = &_MergedGlobals_2[v45 + 2];
+  v55 = &_MergedGlobals_2[8 * v45 + 16];
   do
   {
-    v57 = *v55++;
+    v57 = *v55;
+    v55 += 8;
     v56 = v57;
     LODWORD(v57) = *v54++;
     v46 += v56 * v57;
@@ -5343,10 +5334,11 @@ LABEL_55:
 
   v81 = v8 - v73;
   v82 = &a2[v73 + 57 + v3];
-  v83 = &_MergedGlobals_2[v73 + 2];
+  v83 = &_MergedGlobals_2[8 * v73 + 16];
   do
   {
-    v85 = *v83++;
+    v85 = *v83;
+    v83 += 8;
     v84 = v85;
     LODWORD(v85) = *v82++;
     v74 += v84 * v85;
@@ -5523,260 +5515,266 @@ void SliceEncoder::encode(SliceEncoder *this, Slice *a2)
 {
   v2 = MEMORY[0x2A1C7C4A8](this, a2);
   v4 = v3;
-  v94 = *MEMORY[0x29EDCA608];
+  v93 = *MEMORY[0x29EDCA608];
   v5 = *(v3 + 16);
   if (v5 == 4)
   {
     v32 = *(**v3 + 224);
     v33 = *(v3 + 15);
-    if (v33 > *(v3 + 20) + v32)
+    if (v33 <= *(v3 + 20) + v32)
     {
-      v34 = *(v3 + 18);
-      if (v34 <= 1)
+      return;
+    }
+
+    v34 = *(v3 + 18);
+    if (v34 <= 1)
+    {
+      v35 = 1;
+    }
+
+    else
+    {
+      v35 = *(v3 + 18);
+    }
+
+    if (v35 >= 224)
+    {
+      v36 = 224;
+    }
+
+    else
+    {
+      v36 = v35;
+    }
+
+    v37 = *(v3 + 25);
+    v38 = *(v3 + 26);
+    *(v3 + 65) = v37;
+    *(v3 + 66) = v38;
+    v39 = *(v3 + 27);
+    *(v3 + 67) = v39;
+    if (v34 >= 129)
+    {
+      LODWORD(v40) = 4 * v36 - 384;
+    }
+
+    else
+    {
+      LODWORD(v40) = v36;
+    }
+
+    *(v3 + 68) = v33 - v32;
+    if (v40 > 511)
+    {
+      v48 = v37 + v38 + v39;
+    }
+
+    else
+    {
+      v41 = v2;
+      v42 = -1;
+      v43 = (v3 + 260);
+      do
       {
-        v35 = 1;
+        v44 = v40;
+        LODWORD(v40) = 3 * v40;
+        v45 = v43 + 4;
+        IcpRateControl::estimateBytes(v43 + 4, v4, (v42 + 2));
+        v46 = v43[7];
+        v47 = *(v4 + 21);
+        ++v42;
+        v43 += 4;
       }
 
-      else
+      while (v46 > v47 && v44 < 171);
+      if (v46 <= v47)
       {
-        v35 = *(v3 + 18);
-      }
-
-      if (v35 >= 224)
-      {
-        v36 = 224;
-      }
-
-      else
-      {
-        v36 = v35;
-      }
-
-      v37 = *(v3 + 25);
-      v38 = *(v3 + 26);
-      *(v3 + 65) = v37;
-      *(v3 + 66) = v38;
-      v39 = *(v3 + 27);
-      *(v3 + 67) = v39;
-      if (v34 >= 129)
-      {
-        LODWORD(v40) = 4 * v36 - 384;
-      }
-
-      else
-      {
-        LODWORD(v40) = v36;
-      }
-
-      *(v3 + 68) = v33 - v32;
-      if (v40 > 511)
-      {
-        v48 = v37 + v38 + v39;
-      }
-
-      else
-      {
-        v41 = v2;
-        v42 = -1;
-        v43 = (v3 + 260);
-        do
+        v49 = (v4 + 16 * v42 + 260);
+        v50 = (RateControl::interpolateQuant(v47, v44, v49[3], v40, v46) + 0x8000) >> 16;
+        if (v50 <= 1)
         {
-          v44 = v40;
-          LODWORD(v40) = 3 * v40;
-          v45 = v43 + 4;
-          IcpRateControl::estimateBytes(v43 + 4, v4, (v42 + 2));
-          v46 = v43[7];
-          v47 = *(v4 + 21);
-          ++v42;
-          v43 += 4;
-        }
-
-        while (v46 > v47 && v44 < 171);
-        if (v46 <= v47)
-        {
-          v49 = (v4 + 16 * v42 + 260);
-          v50 = (RateControl::interpolateQuant(v47, v44, v49[3], v40, v46) + 0x8000) >> 16;
-          if (v50 <= 1)
-          {
-            v51 = 1;
-          }
-
-          else
-          {
-            v51 = v50;
-          }
-
-          if (v51 >= 512)
-          {
-            v51 = 512;
-          }
-
-          if (v50 >= 129)
-          {
-            v52 = ((v51 - 126) >> 2) + 128;
-          }
-
-          else
-          {
-            v52 = v51;
-          }
-
-          if (v52 >= 0xE0)
-          {
-            v53 = 224;
-          }
-
-          else
-          {
-            v53 = v52;
-          }
-
-          if (v52 >= 0x81)
-          {
-            v40 = (4 * v53 - 384);
-          }
-
-          else
-          {
-            v40 = v53;
-          }
-
-          v54 = RateControl::interpolateSize(v40, v44, *v49, *v45);
-          v38 = RateControl::interpolateSize(v40, v44, v49[1], v45[1]);
-          v39 = RateControl::interpolateSize(v40, v44, v49[2], v43[2]);
-          v48 = v54 + v38 + v39;
+          v51 = 1;
         }
 
         else
         {
-          v38 = v45[1];
-          v39 = v43[2];
-          LODWORD(v40) = 512;
-          v48 = v43[3];
+          v51 = v50;
         }
 
-        v2 = v41;
-      }
+        if (v51 >= 512)
+        {
+          v51 = 512;
+        }
 
-      if (v40 <= 1)
-      {
-        v55 = 1;
+        if (v50 >= 129)
+        {
+          v52 = ((v51 - 126) >> 2) + 128;
+        }
+
+        else
+        {
+          v52 = v51;
+        }
+
+        if (v52 >= 0xE0)
+        {
+          v53 = 224;
+        }
+
+        else
+        {
+          v53 = v52;
+        }
+
+        if (v52 >= 0x81)
+        {
+          v40 = (4 * v53 - 384);
+        }
+
+        else
+        {
+          v40 = v53;
+        }
+
+        v54 = RateControl::interpolateSize(v40, v44, *v49, *v45);
+        v38 = RateControl::interpolateSize(v40, v44, v49[1], v45[1]);
+        v39 = RateControl::interpolateSize(v40, v44, v49[2], v43[2]);
+        v48 = v54 + v38 + v39;
       }
 
       else
       {
-        v55 = v40;
+        v38 = v45[1];
+        v39 = v43[2];
+        LODWORD(v40) = 512;
+        v48 = v43[3];
       }
 
-      if (v55 >= 512)
-      {
-        v55 = 512;
-      }
-
-      if (v40 >= 129)
-      {
-        v55 = ((v55 - 126) >> 2) + 128;
-      }
-
-      *(v4 + 18) = v55;
-      v56 = *(v4 + 28);
-      v57 = *(v4 + 29);
-      v58 = v56 + 7;
-      v71 = v56 < -7;
-      v59 = v56 + 14;
-      if (!v71)
-      {
-        v59 = v58;
-      }
-
-      v60 = v57 + 7;
-      v71 = v57 < -7;
-      v61 = v57 + 14;
-      if (!v71)
-      {
-        v61 = v60;
-      }
-
-      v62 = v61 >> 3;
-      v63 = v62 + (v59 >> 3);
-      v64 = *(v4 + 30);
-      v65 = v64 + 7;
-      v71 = v64 < -7;
-      v66 = v64 + 14;
-      if (!v71)
-      {
-        v66 = v65;
-      }
-
-      v67 = v66 >> 3;
-      v68 = v63 + v67;
-      v69 = *(v4 + 19);
-      v70 = *(v4 + 20);
-      v71 = v68 < v70;
-      if (v68 >= v70)
-      {
-        v68 = 0;
-        v62 = 0;
-      }
-
-      v72 = ((v70 - v68) << 16) / v48;
-      v73 = v62 + ((v72 * v38 + 0x8000) >> 16);
-      if (!v71)
-      {
-        v67 = 0;
-      }
-
-      v91[1] = v73;
-      v92 = v67 + ((v72 * v39 + 0x8000) >> 16);
-      v91[0] = v70 - (v73 + v92);
-      if (v2[16].i32[0] != v40 || v2[16].i32[1] != v69)
-      {
-        v74 = 0;
-        v75 = v69 << 6;
-        v76 = &Macroblock::CustomQuantizationMatrixLuma + v75;
-        v77 = &Macroblock::CustomQuantizationMatrixChroma + v75;
-        v78 = vdupq_n_s16(v40);
-        v79 = &v2[9];
-        v80.i64[0] = -1;
-        v80.i64[1] = -1;
-        v81.i64[0] = 0x4700000047000000;
-        v81.i64[1] = 0x4700000047000000;
-        do
-        {
-          v82 = *&v76[v74];
-          v83 = vceqq_s8(v82, v80);
-          v84 = vmulq_s16(v78, vzip1q_s8(v82, 0));
-          v85 = vmulq_s16(v78, vzip2q_s8(v82, 0));
-          v79[-9] = vbicq_s8(vqmovn_high_s32(vqmovn_s32(vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip1q_s16(v84, 0))))), vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip2q_s16(v84, 0))))), vzip1q_s8(v83, v83));
-          v79[-8] = vbicq_s8(vqmovn_high_s32(vqmovn_s32(vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip1q_s16(v85, 0))))), vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip2q_s16(v85, 0))))), vzip2q_s8(v83, v83));
-          v86 = *&v77[v74];
-          v87 = vceqq_s8(v86, v80);
-          v88 = vmulq_s16(v78, vzip1q_s8(v86, 0));
-          v89 = vmulq_s16(v78, vzip2q_s8(v86, 0));
-          v79[-1] = vbicq_s8(vqmovn_high_s32(vqmovn_s32(vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip1q_s16(v88, 0))))), vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip2q_s16(v88, 0))))), vzip1q_s8(v87, v87));
-          *v79 = vbicq_s8(vqmovn_high_s32(vqmovn_s32(vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip1q_s16(v89, 0))))), vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip2q_s16(v89, 0))))), vzip2q_s8(v87, v87));
-          v79 += 2;
-          v26 = v74 >= 0x30;
-          v74 += 16;
-        }
-
-        while (!v26);
-        v2[16].i32[0] = v40;
-        v2[16].i32[1] = v69;
-      }
-
-      SliceEncoder::doQuantization(v2, v4, v93);
-      v27 = *(v4 + 15);
-      v28 = *(v4 + 18);
-      v30 = *(v4 + 20) + v32;
-      v31 = v91;
-      v29 = v4;
-      goto LABEL_77;
+      v2 = v41;
     }
+
+    if (v40 <= 1)
+    {
+      v55 = 1;
+    }
+
+    else
+    {
+      v55 = v40;
+    }
+
+    if (v55 >= 512)
+    {
+      v55 = 512;
+    }
+
+    if (v40 >= 129)
+    {
+      v55 = ((v55 - 126) >> 2) + 128;
+    }
+
+    *(v4 + 18) = v55;
+    v56 = *(v4 + 28);
+    v57 = *(v4 + 29);
+    v58 = v56 + 7;
+    v71 = v56 < -7;
+    v59 = v56 + 14;
+    if (!v71)
+    {
+      v59 = v58;
+    }
+
+    v60 = v57 + 7;
+    v71 = v57 < -7;
+    v61 = v57 + 14;
+    if (!v71)
+    {
+      v61 = v60;
+    }
+
+    v62 = v61 >> 3;
+    v63 = v62 + (v59 >> 3);
+    v64 = *(v4 + 30);
+    v65 = v64 + 7;
+    v71 = v64 < -7;
+    v66 = v64 + 14;
+    if (!v71)
+    {
+      v66 = v65;
+    }
+
+    v67 = v66 >> 3;
+    v68 = v63 + v67;
+    v69 = *(v4 + 19);
+    v70 = *(v4 + 20);
+    v71 = v68 < v70;
+    if (v68 >= v70)
+    {
+      v68 = 0;
+      v62 = 0;
+    }
+
+    v72 = ((v70 - v68) << 16) / v48;
+    v73 = v62 + ((v72 * v38 + 0x8000) >> 16);
+    if (!v71)
+    {
+      v67 = 0;
+    }
+
+    v90[1] = v73;
+    v91 = v67 + ((v72 * v39 + 0x8000) >> 16);
+    v90[0] = v70 - (v73 + v91);
+    if (v2[16].i32[0] != v40 || v2[16].i32[1] != v69)
+    {
+      v74 = 0;
+      v75 = v69 << 6;
+      v76 = &Macroblock::CustomQuantizationMatrixLuma + v75;
+      v77 = &Macroblock::CustomQuantizationMatrixChroma + v75;
+      v78 = vdupq_n_s16(v40);
+      v79 = &v2[9];
+      v80.i64[0] = -1;
+      v80.i64[1] = -1;
+      v81.i64[0] = 0x4700000047000000;
+      v81.i64[1] = 0x4700000047000000;
+      do
+      {
+        v82 = *&v76[v74];
+        v83 = vceqq_s8(v82, v80);
+        v84 = vmulq_s16(v78, vzip1q_s8(v82, 0));
+        v85 = vmulq_s16(v78, vzip2q_s8(v82, 0));
+        v79[-9] = vbicq_s8(vqmovn_high_s32(vqmovn_s32(vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip1q_s16(v84, 0))))), vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip2q_s16(v84, 0))))), vzip1q_s8(v83, v83));
+        v79[-8] = vbicq_s8(vqmovn_high_s32(vqmovn_s32(vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip1q_s16(v85, 0))))), vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip2q_s16(v85, 0))))), vzip2q_s8(v83, v83));
+        v86 = *&v77[v74];
+        v87 = vceqq_s8(v86, v80);
+        v88 = vmulq_s16(v78, vzip1q_s8(v86, 0));
+        v89 = vmulq_s16(v78, vzip2q_s8(v86, 0));
+        v79[-1] = vbicq_s8(vqmovn_high_s32(vqmovn_s32(vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip1q_s16(v88, 0))))), vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip2q_s16(v88, 0))))), vzip1q_s8(v87, v87));
+        *v79 = vbicq_s8(vqmovn_high_s32(vqmovn_s32(vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip1q_s16(v89, 0))))), vcvtq_s32_f32(vdivq_f32(v81, vcvtq_f32_u32(vzip2q_s16(v89, 0))))), vzip2q_s8(v87, v87));
+        v79 += 2;
+        v26 = v74 >= 0x30;
+        v74 += 16;
+      }
+
+      while (!v26);
+      v2[16].i32[0] = v40;
+      v2[16].i32[1] = v69;
+    }
+
+    SliceEncoder::doQuantization(v2, v4, v92);
+    v27 = *(v4 + 15);
+    v28 = *(v4 + 18);
+    v30 = *(v4 + 20) + v32;
+    v31 = v90;
+    v29 = v4;
   }
 
-  else if (!v5)
+  else
   {
+    if (v5)
+    {
+      return;
+    }
+
     v7 = *(v3 + 18);
     v6 = *(v3 + 19);
     if (v7 <= 1)
@@ -5840,24 +5838,21 @@ void SliceEncoder::encode(SliceEncoder *this, Slice *a2)
       v2[16].i32[1] = v6;
     }
 
-    SliceEncoder::doQuantization(v2, v3, v93);
-    if (*(v4 + 68) == 1)
+    SliceEncoder::doQuantization(v2, v3, v92);
+    if (*(v4 + 68) != 1)
     {
-      v27 = *(v4 + 15);
-      v28 = *(v4 + 18);
-      v29 = v4;
-      v30 = 0;
-      v31 = 0;
-LABEL_77:
-      SliceEncoder::encodeVlc<true>(v29, v93, v28, v27, v30, v31);
-      goto LABEL_78;
+      SliceEncoder::encodeVlc<false>(v4, v92, *(v4 + 18));
+      return;
     }
 
-    SliceEncoder::encodeVlc<false>(v4, v93, *(v4 + 18));
+    v27 = *(v4 + 15);
+    v28 = *(v4 + 18);
+    v29 = v4;
+    v30 = 0;
+    v31 = 0;
   }
 
-LABEL_78:
-  v90 = *MEMORY[0x29EDCA608];
+  SliceEncoder::encodeVlc<true>(v29, v92, v28, v27, v30, v31);
 }
 
 void SliceEncoder::doQuantization(int16x8_t *this, Slice *a2, int16x8_t *a3)
@@ -5936,7 +5931,7 @@ unint64_t SliceEncoder::encodeVlc<true>(void **a1, uint64_t a2, int a3, int a4, 
     a3 = v17;
   }
 
-  v19 = v10[25] - 1;
+  v19 = *(v10 + 100) - 1;
   if (v19 > 2)
   {
     v20 = 0;
@@ -5948,7 +5943,7 @@ unint64_t SliceEncoder::encodeVlc<true>(void **a1, uint64_t a2, int a3, int a4, 
   }
 
   v21 = *(a1 + 3);
-  v22 = (v10[30] - 4) / 2;
+  v22 = (*(v10 + 120) - 4) / 2;
   if (a5 < 1)
   {
     v24 = v13 / 2 - 6;
@@ -6100,10 +6095,10 @@ void SliceEncoder::encodeVlc<false>(_DWORD *a1, uint64_t a2, int a3)
 
 unint64_t SliceEncoder::runLevelScanAndVlc<true>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
 {
-  result = MEMORY[0x2A1C7C4A8]();
+  result = MEMORY[0x2A1C7C4A8](a1, a2);
   v22 = v15;
-  v241 = *MEMORY[0x29EDCA608];
-  v238 = v17 * v16;
+  v240 = *MEMORY[0x29EDCA608];
+  v237 = v17 * v16;
   *result = 0;
   v23 = (-(*v15 & 1) ^ (*v15 >> 1)) + (*v15 & 1);
   if (v23)
@@ -6146,8 +6141,8 @@ unint64_t SliceEncoder::runLevelScanAndVlc<true>(uint64_t a1, uint64_t a2, uint6
   v32 = v26;
   v33 = a10[5];
   v34 = v31 - v33;
-  v235 = v13;
-  v233 = v11;
+  v234 = v13;
+  v232 = v11;
   if (v31 >= v33)
   {
     v37 = a10[2];
@@ -6183,8 +6178,8 @@ unint64_t SliceEncoder::runLevelScanAndVlc<true>(uint64_t a1, uint64_t a2, uint6
         a10[1] = 0;
         a10[2] = 0;
         v46 = v16;
-        v47 = (v15 + 2 * v238);
-        if (v238 > v16)
+        v47 = (v15 + 2 * v237);
+        if (v237 > v16)
         {
           goto LABEL_22;
         }
@@ -6199,8 +6194,8 @@ unint64_t SliceEncoder::runLevelScanAndVlc<true>(uint64_t a1, uint64_t a2, uint6
         a10[4] = v35;
         a10[5] = 0;
         v46 = v16;
-        v47 = (v15 + 2 * v238);
-        if (v238 > v16)
+        v47 = (v15 + 2 * v237);
+        if (v237 > v16)
         {
           goto LABEL_22;
         }
@@ -6240,8 +6235,8 @@ unint64_t SliceEncoder::runLevelScanAndVlc<true>(uint64_t a1, uint64_t a2, uint6
   a10[4] = v35;
   a10[5] = v36;
   v46 = v16;
-  v47 = (v15 + 2 * v238);
-  if (v238 > v16)
+  v47 = (v15 + 2 * v237);
+  if (v237 > v16)
   {
 LABEL_22:
     v49 = 3;
@@ -6426,12 +6421,12 @@ LABEL_58:
   v78 = a10 + 1;
   v79 = a10[1];
   v80 = *a10;
-  v234 = v12;
+  v233 = v12;
   *v12 = v79 + *a10 - v36;
   *v14 = 0;
   if (v17 <= 3)
   {
-    v236 = v22;
+    v235 = v22;
     v166 = 0;
     v167 = 2u;
     v168 = 4u;
@@ -6444,7 +6439,7 @@ LABEL_58:
     while (1)
     {
       v174 = *(v77 + v172);
-      if (v174 < v238)
+      if (v174 < v237)
       {
         break;
       }
@@ -6460,7 +6455,7 @@ LABEL_133:
       }
     }
 
-    v175 = (v236 + 2 * v174);
+    v175 = (v235 + 2 * v174);
     while (1)
     {
       while (1)
@@ -6915,11 +6910,11 @@ LABEL_137:
       v93 = vzip1q_s16(v18, v19);
       v19 = vzip1q_s16(v20, v21);
       v20 = vzip1q_s32(v93, v19);
-      *&v240[v91 + 256] = v20.i64[0];
-      *&v240[v90 + 256] = v20.i64[1];
+      *&v239[v91 + 256] = v20.i64[0];
+      *&v239[v90 + 256] = v20.i64[1];
       v18 = vzip2q_s32(v93, v19);
-      *&v240[v89 + 256] = v18.i64[0];
-      *&v240[v88 + 256] = v18.i64[1];
+      *&v239[v89 + 256] = v18.i64[0];
+      *&v239[v88 + 256] = v18.i64[1];
       v88 += 8;
       v89 += 8;
       v90 += 8;
@@ -6938,19 +6933,19 @@ LABEL_137:
   v96 = 0;
   do
   {
-    v97 = vandq_s8(vceqzq_s8(vqmovn_high_s16(vqmovn_s16(*&v240[16 * v95 + 256]), *&v240[16 * v95 + 272])), xmmword_2953CB9B0);
+    v97 = vandq_s8(vceqzq_s8(vqmovn_high_s16(vqmovn_s16(*&v239[16 * v95 + 256]), *&v239[16 * v95 + 272])), xmmword_2953CB9B0);
     v98 = vaddv_s8(*v97.i8);
     v97.i64[0] = vextq_s8(v97, v97, 8uLL).u64[0];
     v97.i8[0] = vaddv_s8(*v97.i8);
     result = ~(v98 | (v97.i32[0] << 8));
-    *&v240[v95] = ~(v98 | (v97.i16[0] << 8));
+    *&v239[v95] = ~(v98 | (v97.i16[0] << 8));
     v96 += 16;
     v95 += 2;
   }
 
   while (v96 < v17 << 6);
-  v237 = v17 << 6;
-  v99 = *&v240[4 * (v17 >> 5)] >> v17;
+  v236 = v17 << 6;
+  v99 = *&v239[4 * (v17 >> 5)] >> v17;
   v100 = 32 - (v17 & 0x1F);
   v101 = 0uLL;
   v102 = 4u;
@@ -6960,7 +6955,7 @@ LABEL_137:
   v106 = v79;
   v107 = v17;
   v108 = 0uLL;
-  v239 = &v240[4 * (v17 >> 5)];
+  v238 = &v239[4 * (v17 >> 5)];
   if (!v99)
   {
     goto LABEL_127;
@@ -6990,7 +6985,7 @@ LABEL_67:
       v119 = (v117 ^ 0x3F) + v115 - 2 * __clz(v118);
     }
 
-    v120 = *&v240[2 * v112 + 256];
+    v120 = *&v239[2 * v112 + 256];
     v121 = v120 >> 1;
     v122 = v121 - 1;
     v123 = EntropyCode::levelCodeBook[v103];
@@ -7386,17 +7381,17 @@ LABEL_69:
   while (1)
   {
     v107 += v100;
-    if (v107 >= v237)
+    if (v107 >= v236)
     {
       break;
     }
 
-    v165 = *(v239 + 1);
+    v165 = *(v238 + 1);
     v99 = v165;
     v100 = 32;
     v17 = v109;
     v103 = v121;
-    v239 += 4;
+    v238 += 4;
     if (v165)
     {
       goto LABEL_67;
@@ -7412,9 +7407,9 @@ LABEL_194:
   v225.i32[1] = vdupq_lane_s32(*v225.i8, 1).u32[0];
   v226 = vnegq_s32(v101);
   v226.i32[1] = vdupq_lane_s32(*v226.i8, 1).u32[0];
-  *v233 = v225;
-  v233[1] = v226;
-  *v235 = v79 + v80 - v36 - *v234;
+  *v232 = v225;
+  v232[1] = v226;
+  *v234 = v79 + v80 - v36 - *v233;
   v227 = v79 - v36;
   v228 = v35 << (v36 - v79);
   a10[4] = v228;
@@ -7439,16 +7434,15 @@ LABEL_194:
   a10[5] = 0;
   *v78 = 0;
   a10[2] = 0;
-  v232 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 double SliceEncoder::runLevelScanAndVlc<false>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t *a10)
 {
-  v10 = MEMORY[0x2A1C7C4A8]();
-  v114 = v21;
-  v115 = v20;
-  v117 = *MEMORY[0x29EDCA608];
+  v10 = MEMORY[0x2A1C7C4A8](a1, a2);
+  v113 = v21;
+  v114 = v20;
+  v116 = *MEMORY[0x29EDCA608];
   v22 = v15 * v14;
   *v10 = 0;
   v23 = (-(*v13 & 1) ^ (*v13 >> 1)) + (*v13 & 1);
@@ -7573,7 +7567,7 @@ double SliceEncoder::runLevelScanAndVlc<false>(uint64_t a1, uint64_t a2, uint64_
 
   v43 = a10[1];
   v44 = a10[5];
-  *v115 = v43 + v30 - v44;
+  *v114 = v43 + v30 - v44;
   *v12 = 0;
   if (v15 <= 3)
   {
@@ -7705,11 +7699,11 @@ LABEL_68:
       v53 = vzip1q_s16(v16, v17);
       v17 = vzip1q_s16(v18, v19);
       v18 = vzip1q_s32(v53, v17);
-      *&v116[v51 + 256] = v18.i64[0];
-      *&v116[v50 + 256] = v18.i64[1];
+      *&v115[v51 + 256] = v18.i64[0];
+      *&v115[v50 + 256] = v18.i64[1];
       v16 = vzip2q_s32(v53, v17);
-      *&v116[v49 + 256] = v16.i64[0];
-      *&v116[v48 + 256] = v16.i64[1];
+      *&v115[v49 + 256] = v16.i64[0];
+      *&v115[v48 + 256] = v16.i64[1];
       v48 += 8;
       v49 += 8;
       v50 += 8;
@@ -7729,18 +7723,18 @@ LABEL_68:
   v57 = v15 << 6;
   do
   {
-    v58 = vandq_s8(vceqzq_s8(vqmovn_high_s16(vqmovn_s16(*&v116[16 * v55 + 256]), *&v116[16 * v55 + 272])), xmmword_2953CB9B0);
+    v58 = vandq_s8(vceqzq_s8(vqmovn_high_s16(vqmovn_s16(*&v115[16 * v55 + 256]), *&v115[16 * v55 + 272])), xmmword_2953CB9B0);
     v59 = vaddv_s8(*v58.i8);
     v58.i64[0] = vextq_s8(v58, v58, 8uLL).u64[0];
     v58.i8[0] = vaddv_s8(*v58.i8);
-    *&v116[v55] = ~(v59 | (v58.i16[0] << 8));
+    *&v115[v55] = ~(v59 | (v58.i16[0] << 8));
     v56 += 16;
     v55 += 2;
   }
 
   while (v56 < v57);
   v60 = 0;
-  v61 = &v116[4 * (v15 >> 5)];
+  v61 = &v115[4 * (v15 >> 5)];
   v62 = *v61 >> v15;
   v63 = 32 - (v15 & 0x1F);
   v64 = 0uLL;
@@ -7764,7 +7758,7 @@ LABEL_40:
     if (v79 < 0x400)
     {
       v82 = RiceExpComboCodeCodewordLengthTables[1024 * v80 + (v79 & 0x3FF)];
-      v83 = *&v116[2 * v78 + 256] >> 1;
+      v83 = *&v115[2 * v78 + 256] >> 1;
       v84 = v83 - 1;
       v85 = EntropyCode::levelCodeBook[v66];
       if ((v83 - 1) < 0x400)
@@ -7779,7 +7773,7 @@ LABEL_49:
     {
       v81 = RiceExpComboCodeCatalog[v80];
       v82 = (v81 & 3) + ((v81 >> 2) & 7 ^ 0x3F) - 2 * __clz((~(v81 & 3) << (v81 >> 5)) + v79 + (1 << ((v81 >> 2) & 7))) + 1;
-      v83 = *&v116[2 * v78 + 256] >> 1;
+      v83 = *&v115[2 * v78 + 256] >> 1;
       v84 = v83 - 1;
       v85 = EntropyCode::levelCodeBook[v66];
       if ((v83 - 1) < 0x400)
@@ -7854,75 +7848,73 @@ LABEL_70:
   v111.i32[1] = vdupq_lane_s32(*v111.i8, 1).u32[0];
   *v11 = v110;
   v11[1] = v111;
-  *v114 = v43 - v44 + v30 - *v115;
+  *v113 = v43 - v44 + v30 - *v114;
   *a10 = (v30 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v112 = *MEMORY[0x29EDCA608];
   return *v111.i64;
 }
 
 int32x4_t *convertV210ToV216(int32x4_t *result, int a2, unsigned __int8 *a3, int a4, int a5, int a6)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (a2 >= 16 * ((a5 + 5) / 6) && a6 >= 1)
   {
-    v8 = 0;
-    v9 = vdupq_n_s64(0xFFC00000FFC0uLL);
+    v7 = 0;
+    v8 = vdupq_n_s64(0xFFC00000FFC0uLL);
     do
     {
-      v10 = 0;
-      v11 = a5;
-      v12 = a3;
-      v13 = result;
+      v9 = 0;
+      v10 = a5;
+      v11 = a3;
+      v12 = result;
       while (1)
       {
-        if (v11 >= 6)
+        if (v10 >= 6)
         {
           goto LABEL_9;
         }
 
-        if (v11 <= 0)
+        if (v10 <= 0)
         {
           break;
         }
 
-        v10 = v12;
-        v12 = v24;
+        v9 = v11;
+        v11 = v23;
 LABEL_9:
-        v14 = *v13++;
-        v15 = vandq_s8(vshlq_n_s32(v14, 6uLL), v9);
-        v16 = vandq_s8(vshrq_n_u32(v14, 4uLL), v9);
-        v17 = vandq_s8(vshrq_n_u32(v14, 0xEuLL), v9);
-        v18 = vorrq_s8(v15, vextq_s8(0, v16, 0xEuLL));
-        v19 = vorrq_s8(v17, vextq_s8(v15, 0, 2uLL));
-        v20 = vorrq_s8(v16, vextq_s8(0, v17, 0xEuLL));
-        *&v21 = vzip1q_s32(v18, v19).u64[0];
-        *(&v21 + 1) = vzip2q_s32(vzip1q_s32(v20, v9), v18).u64[0];
-        *v12 = v21;
-        *(v12 + 2) = vzip2q_s32(v19, vdupq_laneq_s32(v20, 3)).u64[0];
-        v12 += 24;
-        v11 -= 6;
+        v13 = *v12++;
+        v14 = vandq_s8(vshlq_n_s32(v13, 6uLL), v8);
+        v15 = vandq_s8(vshrq_n_u32(v13, 4uLL), v8);
+        v16 = vandq_s8(vshrq_n_u32(v13, 0xEuLL), v8);
+        v17 = vorrq_s8(v14, vextq_s8(0, v15, 0xEuLL));
+        v18 = vorrq_s8(v16, vextq_s8(v14, 0, 2uLL));
+        v19 = vorrq_s8(v15, vextq_s8(0, v16, 0xEuLL));
+        *&v20 = vzip1q_s32(v17, v18).u64[0];
+        *(&v20 + 1) = vzip2q_s32(vzip1q_s32(v19, v8), v17).u64[0];
+        *v11 = v20;
+        *(v11 + 2) = vzip2q_s32(v18, vdupq_laneq_s32(v19, 3)).u64[0];
+        v11 += 24;
+        v10 -= 6;
       }
 
-      if (v10 && v11 >= -5)
+      if (v9 && v10 >= -5)
       {
-        v22 = 0;
+        v21 = 0;
         do
         {
-          *&v10[4 * v22] = v24[v22];
+          *&v9[4 * v21] = v23[v21];
         }
 
-        while (v22++ < (v11 + 5));
+        while (v21++ < (v10 + 5));
       }
 
       result = (result + a2);
       a3 += a4;
-      ++v8;
+      ++v7;
     }
 
-    while (v8 != a6);
+    while (v7 != a6);
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 

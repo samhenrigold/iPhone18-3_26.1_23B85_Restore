@@ -42,17 +42,15 @@
 
 - (void)copyWithBindings:(NSObject *)a3 .cold.1(uint64_t a1, const char *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = NSStringFromSelector(a2);
-  v9 = 138543618;
-  v10 = v6;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_debug_impl(&dword_275572000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ subclass must implement %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543618;
+  v9 = v6;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_debug_impl(&dword_275572000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ subclass must implement %{public}@", &v8, 0x16u);
 }
 
 @end

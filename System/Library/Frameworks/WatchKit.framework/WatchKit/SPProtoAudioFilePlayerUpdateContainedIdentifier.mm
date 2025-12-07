@@ -49,8 +49,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  identifier = self->_identifier;
-  v6 = toCopy;
   PBDataWriterWriteStringField();
   if (self->_containedIdentifier)
   {

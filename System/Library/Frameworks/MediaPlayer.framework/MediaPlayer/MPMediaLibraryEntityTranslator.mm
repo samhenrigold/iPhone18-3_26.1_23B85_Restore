@@ -91,7 +91,7 @@ LABEL_15:
           goto LABEL_16;
         }
 
-        [v14 propertiesToFetchMap];
+        objc_msgSend_propertiesToFetchMap(v14);
         v16 = v65;
         if (v66)
         {
@@ -104,7 +104,7 @@ LABEL_15:
         }
 
 LABEL_16:
-        [v15 propertiesToFetchMap];
+        objc_msgSend_propertiesToFetchMap(v15);
         std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(&v65, __p);
         if (v63)
         {
@@ -117,7 +117,7 @@ LABEL_16:
         {
           do
           {
-            std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>(v73 + 6, v25[5]);
+            std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>(v73 + 12, v25[5], v25 + 5);
             v25 = *v25;
           }
 
@@ -177,7 +177,7 @@ LABEL_16:
       v31 = v30;
       if (v30)
       {
-        [v30 propertiesToFetchMap];
+        objc_msgSend_propertiesToFetchMap(v30);
         v32 = v65;
         if (v66)
         {
@@ -206,7 +206,7 @@ LABEL_16:
       MPModelPropertyMappingMissing(mPModelClass4, @"_MPModelPropertyPlaylistEntryArtwork", v40);
 
 LABEL_37:
-      [v31 propertiesToFetchMap];
+      objc_msgSend_propertiesToFetchMap(v31);
       std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(&v65, __p);
       if (v63)
       {
@@ -230,7 +230,7 @@ LABEL_37:
           }
 
           v55 = v41[5];
-          std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>(v73 + 6, v55);
+          std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>(v73 + 12, v55, &v55);
           if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v54.__r_.__value_.__l.__data_);
@@ -266,7 +266,7 @@ LABEL_37:
     }
   }
 
-  v45 = v73[8];
+  v45 = *(v73 + 8);
   retstr->var1 = 0;
   retstr->var2 = 0;
   retstr->var0 = 0;
@@ -317,7 +317,7 @@ void __121__MPMediaLibraryEntityTranslator__MLCorePropertiesForPropertySet_withF
     v6 = v12;
   }
 
-  [v7 relationshipValidationProperties];
+  objc_msgSend_relationshipValidationProperties(v7);
   std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v30, __p);
   if (v28)
   {
@@ -339,7 +339,7 @@ void __121__MPMediaLibraryEntityTranslator__MLCorePropertiesForPropertySet_withF
   {
     do
     {
-      std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>((*(*(a1 + 48) + 8) + 48), v14[5]);
+      std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>((*(*(a1 + 48) + 8) + 48), v14[5], v14 + 5);
       v14 = *v14;
     }
 
@@ -352,7 +352,7 @@ void __121__MPMediaLibraryEntityTranslator__MLCorePropertiesForPropertySet_withF
     v16 = v15;
     if (v15)
     {
-      [v15 _MLCorePropertiesForPropertySet:v6 withForeignPropertyBase:*(a1 + 56) deferLoadingRelationProperties:*(a1 + 64)];
+      objc_msgSend__MLCorePropertiesForPropertySet_withForeignPropertyBase_deferLoadingRelationProperties_(v15);
     }
 
     else
@@ -369,7 +369,8 @@ void __121__MPMediaLibraryEntityTranslator__MLCorePropertiesForPropertySet_withF
       v23 = *(*(a1 + 48) + 8);
       do
       {
-        std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>((v23 + 48), *v21++);
+        std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>((v23 + 48), *v21, v21);
+        ++v21;
       }
 
       while (v21 != v22);
@@ -380,18 +381,18 @@ LABEL_29:
 
   else
   {
-    Property = [v7 foreignPropertyBase];
+    v17 = [v7 foreignPropertyBase];
     v18 = *(a1 + 56);
     if (v18)
     {
-      Property = MPMediaLibraryGetProperty(v18, Property);
+      MPMediaLibraryGetProperty(v18, v17);
     }
 
     v19 = [v7 entityTranslator];
     v20 = v19;
     if (v19)
     {
-      [v19 _MLCorePropertiesForPropertySet:v6 withForeignPropertyBase:Property deferLoadingRelationProperties:*(a1 + 64)];
+      objc_msgSend__MLCorePropertiesForPropertySet_withForeignPropertyBase_deferLoadingRelationProperties_(v19);
     }
 
     else
@@ -408,7 +409,8 @@ LABEL_29:
       v25 = *(*(a1 + 48) + 8);
       do
       {
-        std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>((v25 + 48), *v21++);
+        std::__hash_table<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>,std::allocator<mlcore::ModelPropertyBase *>>::__emplace_unique_key_args<mlcore::ModelPropertyBase *,mlcore::ModelPropertyBase * const&>((v25 + 48), *v21, v21);
+        ++v21;
       }
 
       while (v21 != v24);
@@ -613,7 +615,7 @@ void __120__MPMediaLibraryEntityTranslator__objectForPropertySet_entityClass_pro
     v11 = [v8 subarrayWithRange:{0, objc_msgSend(v8, "count") - 1}];
     v12 = [v10 _propertyForKeyPath:v11];
 
-    [v7 relationshipValidationProperties];
+    objc_msgSend_relationshipValidationProperties(v7);
     std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v35, __p);
     if (v33)
     {
@@ -643,7 +645,7 @@ void __120__MPMediaLibraryEntityTranslator__objectForPropertySet_entityClass_pro
     v16 = [v8 subarrayWithRange:{0, objc_msgSend(v8, "count") - 1}];
     v17 = [v15 _propertyForKeyPath:v16];
 
-    [v7 relationshipValidationProperties];
+    objc_msgSend_relationshipValidationProperties(v7);
     std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(v35, __p);
     if (v33)
     {
@@ -722,7 +724,7 @@ LABEL_24:
 
   if (valueTransformer)
   {
-    [(MPMediaLibraryEntityTranslator *)self _propertyMapForKeyPath:pathCopy includePropertiesToSort:0];
+    objc_msgSend__propertyMapForKeyPath_includePropertiesToSort_(self);
     valueTransformer2 = [v11 valueTransformer];
     v14 = (valueTransformer2)[2](valueTransformer2, contextCopy, v18, cache);
 
@@ -753,7 +755,7 @@ LABEL_11:
     v13 = v19;
     if (v19)
     {
-      [v19 propertiesToFetchMap];
+      objc_msgSend_propertiesToFetchMap(v19);
       if (sortCopy)
       {
         goto LABEL_14;
@@ -783,7 +785,7 @@ LABEL_14:
     std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(&v34, *v8);
     if (sortCopy)
     {
-      [v13 propertiesToSortMap];
+      objc_msgSend_propertiesToSortMap(v13);
       std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(__p, v36);
       if (v37)
       {
@@ -795,7 +797,7 @@ LABEL_14:
       {
         do
         {
-          std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mlcore::ModelPropertyBase *> const&>(&v34, v20 + 2);
+          std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,mlcore::ModelPropertyBase *> const&>(&v34, v20 + 2, (v20 + 2));
           v20 = *v20;
         }
 
@@ -854,7 +856,7 @@ LABEL_14:
   v18 = v17;
   if (v17)
   {
-    [v17 propertiesToFetchMap];
+    objc_msgSend_propertiesToFetchMap(v17);
     if (v35)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v35);
@@ -885,7 +887,7 @@ LABEL_14:
   }
 
 LABEL_8:
-  [v18 propertiesToFetchMap];
+  objc_msgSend_propertiesToFetchMap(v18);
 LABEL_9:
 
 LABEL_27:
@@ -1538,7 +1540,7 @@ LABEL_9:
     goto LABEL_5;
   }
 
-  [v8 propertiesToFetchMap];
+  objc_msgSend_propertiesToFetchMap(v8);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v16);
@@ -1550,7 +1552,7 @@ LABEL_9:
   }
 
 LABEL_5:
-  [v9 propertiesToFetchMap];
+  objc_msgSend_propertiesToFetchMap(v9);
   std::unordered_map<std::string,mlcore::ModelPropertyBase *>::unordered_map(retstr, v15);
   if (v16)
   {
@@ -1615,7 +1617,7 @@ LABEL_5:
           [currentHandler2 handleFailureInMethod:a3 object:self file:@"MPMediaLibraryEntityTranslator.mm" lineNumber:432 description:{@"Property filter transformer missing for property filter: %@", v9}];
         }
 
-        [(MPMediaLibraryEntityTranslator *)self _propertyMapForKeyPath:keys includePropertiesToSort:0];
+        objc_msgSend__propertyMapForKeyPath_includePropertiesToSort_(self);
         filterTransformer2 = [v12 filterTransformer];
         filterTransformer2[2](&v44);
 
@@ -1810,7 +1812,7 @@ LABEL_5:
           [currentHandler3 handleFailureInMethod:a3 object:self file:@"MPMediaLibraryEntityTranslator.mm" lineNumber:412 description:{@"Sort descriptor missing transformer: %@", v10}];
         }
 
-        [(MPMediaLibraryEntityTranslator *)self _propertyMapForKeyPath:keyPath includePropertiesToSort:1];
+        objc_msgSend__propertyMapForKeyPath_includePropertiesToSort_(self);
         sortTransformer2 = [v13 sortTransformer];
         sortTransformer2[2](&v63);
 
@@ -2105,122 +2107,121 @@ LABEL_5:
 
 - (shared_ptr<mlcore::EntityQuery>)entityQueryForPropertySet:(id)set sortDescriptors:(id)descriptors context:(id)context view:(id)view deferLoadingRelationProperties:(BOOL)properties
 {
-  propertiesCopy = properties;
-  v13 = v7;
-  v113 = *MEMORY[0x1E69E9840];
+  v12 = v7;
+  v112 = *MEMORY[0x1E69E9840];
   setCopy = set;
   descriptorsCopy = descriptors;
   contextCopy = context;
   viewCopy = view;
   entityQueryBlock = self->_entityQueryBlock;
-  v63 = viewCopy;
+  v62 = viewCopy;
   if (!entityQueryBlock)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v55 = NSStringFromClass([(MPMediaLibraryEntityTranslator *)self MPModelClass]);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"MPMediaLibraryEntityTranslator.mm" lineNumber:277 description:{@"No entityQueryBlock was mapped for %@", v55}];
+    v54 = NSStringFromClass([(MPMediaLibraryEntityTranslator *)self MPModelClass]);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"MPMediaLibraryEntityTranslator.mm" lineNumber:277 description:{@"No entityQueryBlock was mapped for %@", v54}];
 
     entityQueryBlock = self->_entityQueryBlock;
   }
 
   if (viewCopy)
   {
-    [viewCopy mlCoreView];
-    v16 = v76;
+    objc_msgSend_mlCoreView(viewCopy);
+    v15 = v75;
   }
 
   else
   {
-    v16 = 0uLL;
+    v15 = 0uLL;
   }
 
-  v107 = v16;
-  v76 = 0uLL;
-  entityQueryBlock[2](entityQueryBlock, contextCopy, &v107);
-  if (*(&v107 + 1))
+  v106 = v15;
+  v75 = 0uLL;
+  entityQueryBlock[2](entityQueryBlock, contextCopy, &v106);
+  if (*(&v106 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v107 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v106 + 1));
   }
 
-  v17 = +[MPPropertySet emptyPropertySet];
-  [(MPMediaLibraryEntityTranslator *)self MLCorePropertiesForPropertySet:v17 deferLoadingRelationProperties:propertiesCopy];
+  v16 = +[MPPropertySet emptyPropertySet];
+  objc_msgSend_MLCorePropertiesForPropertySet_deferLoadingRelationProperties_(self);
 
-  v104 = 0;
-  __p = 0;
   v103 = 0;
-  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&__p, v105, v106, (v106 - v105) >> 3);
+  __p = 0;
+  v102 = 0;
+  std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&__p, v104, v105, (v105 - v104) >> 3);
   mlcore::EntityQuery::setIdentityPropertiesToFetch();
   if (__p)
   {
-    v103 = __p;
+    v102 = __p;
     operator delete(__p);
   }
 
-  if (!*v13)
+  if (!*v12)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v57 = NSStringFromClass([(MPMediaLibraryEntityTranslator *)self MPModelClass]);
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"MPMediaLibraryEntityTranslator.mm" lineNumber:283 description:{@"%@ entityQueryBlock did not return a query.", v57}];
+    v56 = NSStringFromClass([(MPMediaLibraryEntityTranslator *)self MPModelClass]);
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"MPMediaLibraryEntityTranslator.mm" lineNumber:283 description:{@"%@ entityQueryBlock did not return a query.", v56}];
   }
 
   mPModelClass = [(MPMediaLibraryEntityTranslator *)self MPModelClass];
   if (mPModelClass == objc_opt_class())
   {
-    v94 = 0;
-    v95 = &v94;
-    v96 = 0x4012000000;
-    v97 = __Block_byref_object_copy__43576;
-    v98 = __Block_byref_object_dispose__43577;
-    v99 = "";
-    v22 = v13[1];
-    v100 = *v13;
-    v101 = v22;
-    if (v22)
+    v93 = 0;
+    v94 = &v93;
+    v95 = 0x4012000000;
+    v96 = __Block_byref_object_copy__43576;
+    v97 = __Block_byref_object_dispose__43577;
+    v98 = "";
+    v21 = v12[1];
+    v99 = *v12;
+    v100 = v21;
+    if (v21)
     {
-      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     modelKind = [contextCopy modelKind];
     relationships = [setCopy relationships];
-    v88[0] = MEMORY[0x1E69E9820];
-    v88[1] = 3221225472;
-    v88[2] = __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescriptors_context_view_deferLoadingRelationProperties___block_invoke;
-    v88[3] = &unk_1E767DBB0;
-    v93 = a2;
-    v88[4] = self;
-    v92 = &v94;
-    v89 = viewCopy;
-    v24 = contextCopy;
-    v90 = v24;
-    v59 = modelKind;
-    v91 = v59;
-    [relationships enumerateKeysAndObjectsUsingBlock:v88];
+    v87[0] = MEMORY[0x1E69E9820];
+    v87[1] = 3221225472;
+    v87[2] = __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescriptors_context_view_deferLoadingRelationProperties___block_invoke;
+    v87[3] = &unk_1E767DBB0;
+    v92 = a2;
+    v87[4] = self;
+    v91 = &v93;
+    v88 = viewCopy;
+    v23 = contextCopy;
+    v89 = v23;
+    v58 = modelKind;
+    v90 = v58;
+    [relationships enumerateKeysAndObjectsUsingBlock:v87];
 
-    [v24 setModelKind:v59];
+    [v23 setModelKind:v58];
     __src = 0;
-    v87 = 0uLL;
+    v86 = 0uLL;
+    v81 = 0u;
     v82 = 0u;
     v83 = 0u;
     v84 = 0u;
-    v85 = 0u;
     obj = descriptorsCopy;
-    v25 = [obj countByEnumeratingWithState:&v82 objects:v112 count:16];
-    if (v25)
+    v24 = [obj countByEnumeratingWithState:&v81 objects:v111 count:16];
+    if (v24)
     {
-      v67 = *v83;
+      v66 = *v82;
       selfCopy = self;
       do
       {
-        v26 = 0;
-        v66 = v25;
+        v25 = 0;
+        v65 = v24;
         do
         {
-          if (*v83 != v67)
+          if (*v82 != v66)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v82 + 1) + 8 * v26);
+          v26 = *(*(&v81 + 1) + 8 * v25);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -2228,271 +2229,271 @@ LABEL_5:
             [currentHandler3 handleFailureInMethod:a2 object:self file:@"MPMediaLibraryEntityTranslator.mm" lineNumber:311 description:@"MPModelGenericObject can only be sorted by MPMulitSortDescriptor."];
           }
 
-          *&v76 = 0;
-          *(&v76 + 1) = &v76;
-          v77 = 0x4812000000;
-          v78 = __Block_byref_object_copy__127;
-          v79 = __Block_byref_object_dispose__128;
-          v80 = "";
-          memset(v81, 0, 24);
-          relatedProperties = [v27 relatedProperties];
-          v75[0] = MEMORY[0x1E69E9820];
-          v75[1] = 3221225472;
-          v75[2] = __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescriptors_context_view_deferLoadingRelationProperties___block_invoke_130;
-          v75[3] = &unk_1E767DBD8;
-          v75[4] = self;
-          v75[5] = v27;
-          v75[6] = &v76;
-          v75[7] = a2;
-          [relatedProperties enumerateKeysAndObjectsUsingBlock:v75];
+          *&v75 = 0;
+          *(&v75 + 1) = &v75;
+          v76 = 0x4812000000;
+          v77 = __Block_byref_object_copy__127;
+          v78 = __Block_byref_object_dispose__128;
+          v79 = "";
+          memset(v80, 0, 24);
+          relatedProperties = [v26 relatedProperties];
+          v74[0] = MEMORY[0x1E69E9820];
+          v74[1] = 3221225472;
+          v74[2] = __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescriptors_context_view_deferLoadingRelationProperties___block_invoke_130;
+          v74[3] = &unk_1E767DBD8;
+          v74[4] = self;
+          v74[5] = v26;
+          v74[6] = &v75;
+          v74[7] = a2;
+          [relatedProperties enumerateKeysAndObjectsUsingBlock:v74];
 
-          v30 = *(*(&v76 + 1) + 48);
-          v29 = *(*(&v76 + 1) + 56);
-          v31 = v29 - v30;
-          if (v29 - v30 >= 1)
+          v29 = *(*(&v75 + 1) + 48);
+          v28 = *(*(&v75 + 1) + 56);
+          v30 = v28 - v29;
+          if (v28 - v29 >= 1)
           {
-            v32 = v87;
-            if (*(&v87 + 1) - v87 >= v31)
+            v31 = v86;
+            if (*(&v86 + 1) - v86 >= v30)
             {
-              if (v29 != v30)
+              if (v28 != v29)
               {
-                v35 = 0;
+                v34 = 0;
                 do
                 {
-                  v32[v35] = MEMORY[0x1E69B0830] + 16;
-                  std::unordered_map<mlcore::EntityClass *,mlcore::ModelPropertyBase *>::unordered_map(&v32[v35 + 1], v30 + v35 * 8 + 8);
-                  LODWORD(v32[v35 + 6]) = *(v30 + v35 * 8 + 48);
-                  v35 += 7;
+                  v31[v34] = MEMORY[0x1E69B0830] + 16;
+                  std::unordered_map<mlcore::EntityClass *,mlcore::ModelPropertyBase *>::unordered_map(&v31[v34 + 1], v29 + v34 * 8 + 8);
+                  LODWORD(v31[v34 + 6]) = *(v29 + v34 * 8 + 48);
+                  v34 += 7;
                 }
 
-                while (v30 + v35 * 8 != v29);
-                v32 = (v32 + v35 * 8);
+                while (v29 + v34 * 8 != v28);
+                v31 = (v31 + v34 * 8);
                 self = selfCopy;
-                v25 = v66;
+                v24 = v65;
               }
 
-              *&v87 = v32;
+              *&v86 = v31;
             }
 
             else
             {
-              v33 = 0x6DB6DB6DB6DB6DB7 * ((v87 - __src) >> 3) + 0x6DB6DB6DB6DB6DB7 * (v31 >> 3);
-              if (v33 > 0x492492492492492)
+              v32 = 0x6DB6DB6DB6DB6DB7 * ((v86 - __src) >> 3) + 0x6DB6DB6DB6DB6DB7 * (v30 >> 3);
+              if (v32 > 0x492492492492492)
               {
                 std::vector<std::string>::__throw_length_error[abi:ne200100]();
               }
 
-              if (0xDB6DB6DB6DB6DB6ELL * ((*(&v87 + 1) - __src) >> 3) > v33)
+              if (0xDB6DB6DB6DB6DB6ELL * ((*(&v86 + 1) - __src) >> 3) > v32)
               {
-                v33 = 0xDB6DB6DB6DB6DB6ELL * ((*(&v87 + 1) - __src) >> 3);
+                v32 = 0xDB6DB6DB6DB6DB6ELL * ((*(&v86 + 1) - __src) >> 3);
               }
 
-              if ((0x6DB6DB6DB6DB6DB7 * ((*(&v87 + 1) - __src) >> 3)) >= 0x249249249249249)
+              if ((0x6DB6DB6DB6DB6DB7 * ((*(&v86 + 1) - __src) >> 3)) >= 0x249249249249249)
               {
-                v34 = 0x492492492492492;
+                v33 = 0x492492492492492;
               }
 
               else
               {
-                v34 = v33;
+                v33 = v32;
               }
 
               p_src = &__src;
-              if (v34)
+              if (v33)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<mlcore::MultiSortDescriptor>>(v34);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<mlcore::MultiSortDescriptor>>(v33);
               }
 
-              v36 = 0;
-              v37 = 8 * ((v87 - __src) >> 3);
-              v108 = 0;
-              v109 = v37;
-              v110 = v37;
+              v35 = 0;
+              v36 = 8 * ((v86 - __src) >> 3);
+              v107 = 0;
+              v108 = v36;
+              v109 = v36;
               do
               {
-                *(v37 + v36) = MEMORY[0x1E69B0830] + 16;
-                std::unordered_map<mlcore::EntityClass *,mlcore::ModelPropertyBase *>::unordered_map(v37 + v36 + 8, v30 + v36 + 8);
-                *(v37 + v36 + 48) = *(v30 + v36 + 48);
-                v36 += 56;
+                *(v36 + v35) = MEMORY[0x1E69B0830] + 16;
+                std::unordered_map<mlcore::EntityClass *,mlcore::ModelPropertyBase *>::unordered_map(v36 + v35 + 8, v29 + v35 + 8);
+                *(v36 + v35 + 48) = *(v29 + v35 + 48);
+                v35 += 56;
               }
 
-              while (v31 != v36);
-              *&v110 = v37 + v31;
-              std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<mlcore::MultiSortDescriptor>,mlcore::MultiSortDescriptor*>(v32, v87, v37 + v31);
-              *&v110 = v110 + v87 - v32;
-              *&v87 = v32;
-              v38 = v109 + __src - v32;
-              std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<mlcore::MultiSortDescriptor>,mlcore::MultiSortDescriptor*>(__src, v32, v38);
-              v39 = __src;
-              v40 = *(&v87 + 1);
-              __src = v38;
-              v87 = v110;
-              *&v110 = v39;
-              *(&v110 + 1) = v40;
-              v109 = v39;
-              v108 = v39;
-              std::__split_buffer<mlcore::MultiSortDescriptor>::~__split_buffer(&v108);
-              viewCopy = v63;
+              while (v30 != v35);
+              *&v109 = v36 + v30;
+              std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<mlcore::MultiSortDescriptor>,mlcore::MultiSortDescriptor*>(v31, v86, v36 + v30);
+              *&v109 = v109 + v86 - v31;
+              *&v86 = v31;
+              v37 = v108 + __src - v31;
+              std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<mlcore::MultiSortDescriptor>,mlcore::MultiSortDescriptor*>(__src, v31, v37);
+              v38 = __src;
+              v39 = *(&v86 + 1);
+              __src = v37;
+              v86 = v109;
+              *&v109 = v38;
+              *(&v109 + 1) = v39;
+              v108 = v38;
+              v107 = v38;
+              std::__split_buffer<mlcore::MultiSortDescriptor>::~__split_buffer(&v107);
+              viewCopy = v62;
               self = selfCopy;
-              v25 = v66;
+              v24 = v65;
             }
           }
 
-          _Block_object_dispose(&v76, 8);
-          v108 = v81;
-          std::vector<mlcore::MultiSortDescriptor>::__destroy_vector::operator()[abi:ne200100](&v108);
-          ++v26;
+          _Block_object_dispose(&v75, 8);
+          v107 = v80;
+          std::vector<mlcore::MultiSortDescriptor>::__destroy_vector::operator()[abi:ne200100](&v107);
+          ++v25;
         }
 
-        while (v26 != v25);
-        v25 = [obj countByEnumeratingWithState:&v82 objects:v112 count:16];
+        while (v25 != v24);
+        v24 = [obj countByEnumeratingWithState:&v81 objects:v111 count:16];
       }
 
-      while (v25);
+      while (v24);
     }
 
     mlcore::MultiEntityQuery::setMultiSortDescriptors();
-    *&v76 = &__src;
-    std::vector<mlcore::MultiSortDescriptor>::__destroy_vector::operator()[abi:ne200100](&v76);
+    *&v75 = &__src;
+    std::vector<mlcore::MultiSortDescriptor>::__destroy_vector::operator()[abi:ne200100](&v75);
 
-    _Block_object_dispose(&v94, 8);
-    if (v101)
+    _Block_object_dispose(&v93, 8);
+    if (v100)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v101);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v100);
     }
   }
 
   else
   {
-    [(MPMediaLibraryEntityTranslator *)self MLCorePropertiesForPropertySet:setCopy deferLoadingRelationProperties:propertiesCopy];
-    v73 = 0;
-    v74 = 0;
+    objc_msgSend_MLCorePropertiesForPropertySet_deferLoadingRelationProperties_(self);
     v72 = 0;
-    std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&v72, v76, *(&v76 + 1), (*(&v76 + 1) - v76) >> 3);
+    v73 = 0;
+    v71 = 0;
+    std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase **,mlcore::ModelPropertyBase **>(&v71, v75, *(&v75 + 1), (*(&v75 + 1) - v75) >> 3);
     mlcore::PropertiesQuery::setPropertiesToFetch();
-    if (v72)
+    if (v71)
     {
-      v73 = v72;
-      operator delete(v72);
+      v72 = v71;
+      operator delete(v71);
     }
 
-    [(MPMediaLibraryEntityTranslator *)self MLCoreSortDescriptorsForModelSortDescriptors:descriptorsCopy];
-    if (v109 != v108)
+    objc_msgSend_MLCoreSortDescriptorsForModelSortDescriptors_(self);
+    if (v108 != v107)
     {
       mlcore::PropertiesQuery::setSortDescriptors();
     }
 
     propertyFilters = [contextCopy propertyFilters];
-    [(MPMediaLibraryEntityTranslator *)self MLCorePredicateForModelPropertyFilters:propertyFilters];
+    objc_msgSend_MLCorePredicateForModelPropertyFilters_(self);
 
-    if (v87 != __src)
+    if (v86 != __src)
     {
-      mlcore::Query::predicate(&v71, *v13);
-      v20 = v87;
-      if (v87 >= *(&v87 + 1))
+      mlcore::Query::predicate(&v70, *v12);
+      v19 = v86;
+      if (v86 >= *(&v86 + 1))
       {
-        v42 = __src;
-        v43 = v87 - __src;
-        v44 = (v87 - __src) >> 4;
-        v45 = v44 + 1;
-        if ((v44 + 1) >> 60)
+        v41 = __src;
+        v42 = v86 - __src;
+        v43 = (v86 - __src) >> 4;
+        v44 = v43 + 1;
+        if ((v43 + 1) >> 60)
         {
           std::vector<std::string>::__throw_length_error[abi:ne200100]();
         }
 
-        v46 = *(&v87 + 1) - __src;
-        if ((*(&v87 + 1) - __src) >> 3 > v45)
+        v45 = *(&v86 + 1) - __src;
+        if ((*(&v86 + 1) - __src) >> 3 > v44)
         {
-          v45 = v46 >> 3;
+          v44 = v45 >> 3;
         }
 
-        if (v46 >= 0x7FFFFFFFFFFFFFF0)
+        if (v45 >= 0x7FFFFFFFFFFFFFF0)
         {
-          v47 = 0xFFFFFFFFFFFFFFFLL;
+          v46 = 0xFFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v47 = v45;
+          v46 = v44;
         }
 
-        v98 = &__src;
-        if (v47)
+        v97 = &__src;
+        if (v46)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<mlcore::Predicate>>>(v47);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<mlcore::Predicate>>>(v46);
         }
 
-        v48 = (16 * v44);
-        v49 = &v48[-((v87 - __src) >> 4)];
-        *v48 = v71;
-        v21 = (v48 + 1);
-        v71 = 0uLL;
-        memcpy(v49, v42, v43);
-        v50 = __src;
-        v51 = *(&v87 + 1);
-        __src = v49;
-        v87 = v21;
+        v47 = (16 * v43);
+        v48 = &v47[-((v86 - __src) >> 4)];
+        *v47 = v70;
+        v20 = (v47 + 1);
+        v70 = 0uLL;
+        memcpy(v48, v41, v42);
+        v49 = __src;
+        v50 = *(&v86 + 1);
+        __src = v48;
+        v86 = v20;
+        v95 = v49;
         v96 = v50;
-        v97 = v51;
-        v95 = v50;
-        v94 = v50;
-        std::__split_buffer<std::shared_ptr<mlcore::Predicate>>::~__split_buffer(&v94);
-        *&v87 = v21;
-        if (*(&v71 + 1))
+        v94 = v49;
+        v93 = v49;
+        std::__split_buffer<std::shared_ptr<mlcore::Predicate>>::~__split_buffer(&v93);
+        *&v86 = v20;
+        if (*(&v70 + 1))
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v71 + 1));
-          v21 = v87;
+          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v70 + 1));
+          v20 = v86;
         }
       }
 
       else
       {
-        *v87 = v71;
-        v21 = v20 + 16;
-        *&v87 = v21;
+        *v86 = v70;
+        v20 = v19 + 16;
+        *&v86 = v20;
       }
 
-      memset(v69, 0, sizeof(v69));
-      std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v69, __src, v21, (v21 - __src) >> 4);
+      memset(v68, 0, sizeof(v68));
+      std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v68, __src, v20, (v20 - __src) >> 4);
       mlcore::CreateAndPredicate();
       mlcore::Query::setPredicate();
-      if (v70)
+      if (v69)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v69);
       }
 
-      v94 = v69;
-      std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v94);
+      v93 = v68;
+      std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v93);
     }
 
-    v94 = &__src;
-    std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v94);
-    v94 = &v108;
-    std::vector<mlcore::SortDescriptor>::__destroy_vector::operator()[abi:ne200100](&v94);
-    if (v76)
+    v93 = &__src;
+    std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v93);
+    v93 = &v107;
+    std::vector<mlcore::SortDescriptor>::__destroy_vector::operator()[abi:ne200100](&v93);
+    if (v75)
     {
-      *(&v76 + 1) = v76;
-      operator delete(v76);
+      *(&v75 + 1) = v75;
+      operator delete(v75);
     }
   }
 
   if ([contextCopy sortUsingAllowedEntityIdentifiers])
   {
-    v76 = 0uLL;
-    v77 = 0;
+    v75 = 0uLL;
+    v76 = 0;
     mlcore::PropertiesQuery::setSortDescriptors();
-    v94 = &v76;
-    std::vector<mlcore::SortDescriptor>::__destroy_vector::operator()[abi:ne200100](&v94);
+    v93 = &v75;
+    std::vector<mlcore::SortDescriptor>::__destroy_vector::operator()[abi:ne200100](&v93);
   }
 
-  if (v105)
+  if (v104)
   {
-    v106 = v105;
-    operator delete(v105);
+    v105 = v104;
+    operator delete(v104);
   }
 
-  result.__cntrl_ = v53;
-  result.__ptr_ = v52;
+  result.__cntrl_ = v52;
+  result.__ptr_ = v51;
   return result;
 }
 
@@ -2514,7 +2515,7 @@ void __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescrip
   v9 = v8;
   if (v8)
   {
-    [v8 MLCorePropertiesForPropertySet:v6];
+    objc_msgSend_MLCorePropertiesForPropertySet_(v8);
     v10 = v39;
     v11 = v40;
   }
@@ -2544,7 +2545,7 @@ void __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescrip
   v13 = v12;
   if (v12)
   {
-    [v12 mlCoreView];
+    objc_msgSend_mlCoreView(v12);
     v15 = v34;
     v14 = v35;
   }
@@ -2648,7 +2649,7 @@ void __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescrip
   v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
   if (v8)
   {
-    [v8 MLCoreSortDescriptorsForModelSortDescriptors:v9];
+    objc_msgSend_MLCoreSortDescriptorsForModelSortDescriptors_(v8);
   }
 
   else
@@ -2746,7 +2747,7 @@ void __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescrip
 
 - (shared_ptr<mlcore::EntityQuery>)entityQueryForPropertySet:(id)set sortDescriptors:(id)descriptors context:(id)context view:(id)view
 {
-  v6 = [(MPMediaLibraryEntityTranslator *)self entityQueryForPropertySet:set sortDescriptors:descriptors context:context view:view deferLoadingRelationProperties:0];
+  v6 = objc_msgSend_entityQueryForPropertySet_sortDescriptors_context_view_deferLoadingRelationProperties_(self, a2, set, descriptors, context, view, 0);
   result.__cntrl_ = v7;
   result.__ptr_ = v6;
   return result;
@@ -2773,18 +2774,18 @@ void __120__MPMediaLibraryEntityTranslator_entityQueryForPropertySet_sortDescrip
   handlerCopy = handler;
   if (!self->_relationshipsToTranslators)
   {
-    v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
     relationshipsToTranslators = self->_relationshipsToTranslators;
-    self->_relationshipsToTranslators = v15;
+    self->_relationshipsToTranslators = v16;
   }
 
-  v17 = objc_alloc_init(_MPMediaLibraryEntityRelationshipTranslator);
-  [(NSMutableDictionary *)self->_relationshipsToTranslators setObject:v17 forKeyedSubscript:keyCopy];
-  [(_MPMediaLibraryEntityRelationshipTranslator *)v17 setTransient:transientCopy];
-  [(_MPMediaLibraryEntityRelationshipTranslator *)v17 setRelationshipModelClass:class];
-  [(_MPMediaLibraryEntityRelationshipTranslator *)v17 setForeignPropertyBase:base];
-  [(_MPMediaLibraryEntityRelationshipTranslator *)v17 setValidRelationshipHandler:handlerCopy];
-  std::allocate_shared[abi:ne200100]<std::unordered_map<std::string,mlcore::ModelPropertyBase *>,std::allocator<std::unordered_map<std::string,mlcore::ModelPropertyBase *>>,std::unordered_map<std::string,mlcore::ModelPropertyBase *> const&,0>();
+  v18 = objc_alloc_init(_MPMediaLibraryEntityRelationshipTranslator);
+  [(NSMutableDictionary *)self->_relationshipsToTranslators setObject:v18 forKeyedSubscript:keyCopy];
+  [(_MPMediaLibraryEntityRelationshipTranslator *)v18 setTransient:transientCopy];
+  [(_MPMediaLibraryEntityRelationshipTranslator *)v18 setRelationshipModelClass:class];
+  [(_MPMediaLibraryEntityRelationshipTranslator *)v18 setForeignPropertyBase:base];
+  [(_MPMediaLibraryEntityRelationshipTranslator *)v18 setValidRelationshipHandler:handlerCopy];
+  std::allocate_shared[abi:ne200100]<std::unordered_map<std::string,mlcore::ModelPropertyBase *>,std::allocator<std::unordered_map<std::string,mlcore::ModelPropertyBase *>>,std::unordered_map<std::string,mlcore::ModelPropertyBase *> const&,0>(&v19, properties);
 }
 
 - (void)mapRelationshipKey:(id)key toModelClass:(Class)class transient:(BOOL)transient usingForeignPropertyBase:(void *)base
@@ -2815,7 +2816,7 @@ BOOL __101__MPMediaLibraryEntityTranslator_mapRelationshipKey_toModelClass_trans
   v6 = a2;
   std::string::basic_string[abi:ne200100]<0>(__p, "joinProperty");
   v13 = __p;
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a3, __p, &v13);
   v8 = MPMediaLibraryPropertyCacheValueForProperty(v7[5], a4);
   v9 = [v8 longLongValue];
 
@@ -2836,9 +2837,9 @@ BOOL __101__MPMediaLibraryEntityTranslator_mapRelationshipKey_toModelClass_trans
   propertiesToTranslators = self->_propertiesToTranslators;
   if (!propertiesToTranslators)
   {
-    v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v18 = self->_propertiesToTranslators;
-    self->_propertiesToTranslators = v17;
+    v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v19 = self->_propertiesToTranslators;
+    self->_propertiesToTranslators = v18;
 
     propertiesToTranslators = self->_propertiesToTranslators;
   }
@@ -2849,7 +2850,7 @@ BOOL __101__MPMediaLibraryEntityTranslator_mapRelationshipKey_toModelClass_trans
     [(NSMutableDictionary *)self->_propertiesToTranslators setObject:objc_alloc_init(_MPMediaLibraryEntityPropertyTranslator) forKey:keyCopy];
   }
 
-  std::allocate_shared[abi:ne200100]<std::unordered_map<std::string,mlcore::ModelPropertyBase *>,std::allocator<std::unordered_map<std::string,mlcore::ModelPropertyBase *>>,std::unordered_map<std::string,mlcore::ModelPropertyBase *> const&,0>();
+  std::allocate_shared[abi:ne200100]<std::unordered_map<std::string,mlcore::ModelPropertyBase *>,std::allocator<std::unordered_map<std::string,mlcore::ModelPropertyBase *>>,std::unordered_map<std::string,mlcore::ModelPropertyBase *> const&,0>(&v20, fetch);
 }
 
 - (void)mapPropertyKey:(id)key withPropertiesToFetch:(const void *)fetch valueTransformer:(id)transformer
@@ -2876,7 +2877,7 @@ BOOL __101__MPMediaLibraryEntityTranslator_mapRelationshipKey_toModelClass_trans
   }
 }
 
-void __88__MPMediaLibraryEntityTranslator_mapPropertyKey_withPropertiesToFetch_valueTransformer___block_invoke(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void __88__MPMediaLibraryEntityTranslator_mapPropertyKey_withPropertiesToFetch_valueTransformer___block_invoke(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
   v7 = a3;
@@ -3012,7 +3013,7 @@ void __84__MPMediaLibraryEntityTranslator_mapIdentifierMLProperties_identifierCr
   {
     v11 = __MPClassToTranslator();
     v22 = &classCopy;
-    v12 = std::__hash_table<std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<objc_class * {__strong},std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::hash<objc_class * {__strong}>,std::equal_to<objc_class * {__strong}>,true>,std::__unordered_map_equal<objc_class * {__strong},std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<objc_class * {__strong}>,std::hash<objc_class * {__strong}>,true>,std::allocator<std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(v11, classCopy);
+    v12 = std::__hash_table<std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<objc_class * {__strong},std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::hash<objc_class * {__strong}>,std::equal_to<objc_class * {__strong}>,true>,std::__unordered_map_equal<objc_class * {__strong},std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<objc_class * {__strong}>,std::hash<objc_class * {__strong}>,true>,std::allocator<std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(v11, classCopy, &v22);
 LABEL_5:
     entityClassCopy = v12[3];
     goto LABEL_6;
@@ -3022,7 +3023,7 @@ LABEL_5:
   {
     v13 = __MLEntityClassToTranslator();
     v22 = &entityClassCopy2;
-    v12 = std::__hash_table<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::hash<mlcore::EntityClass *>,std::equal_to<mlcore::EntityClass *>,true>,std::__unordered_map_equal<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<mlcore::EntityClass *>,std::hash<mlcore::EntityClass *>,true>,std::allocator<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<mlcore::EntityClass *,std::piecewise_construct_t const&,std::tuple<mlcore::EntityClass * const&>,std::tuple<>>(v13, entityClassCopy2);
+    v12 = std::__hash_table<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::hash<mlcore::EntityClass *>,std::equal_to<mlcore::EntityClass *>,true>,std::__unordered_map_equal<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<mlcore::EntityClass *>,std::hash<mlcore::EntityClass *>,true>,std::allocator<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<mlcore::EntityClass *,std::piecewise_construct_t const&,std::tuple<mlcore::EntityClass * const&>,std::tuple<>>(v13, entityClassCopy2, &v22);
     goto LABEL_5;
   }
 
@@ -3050,13 +3051,13 @@ LABEL_6:
     *(entityClassCopy + 24) = transient;
     v15 = __MPClassToTranslator();
     v22 = &classCopy;
-    v16 = std::__hash_table<std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<objc_class * {__strong},std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::hash<objc_class * {__strong}>,std::equal_to<objc_class * {__strong}>,true>,std::__unordered_map_equal<objc_class * {__strong},std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<objc_class * {__strong}>,std::hash<objc_class * {__strong}>,true>,std::allocator<std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(v15, classCopy);
+    v16 = std::__hash_table<std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<objc_class * {__strong},std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::hash<objc_class * {__strong}>,std::equal_to<objc_class * {__strong}>,true>,std::__unordered_map_equal<objc_class * {__strong},std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<objc_class * {__strong}>,std::hash<objc_class * {__strong}>,true>,std::allocator<std::__hash_value_type<objc_class * {__strong},MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(v15, classCopy, &v22);
     objc_storeStrong(v16 + 3, entityClassCopy);
     if (entityClassCopy2)
     {
       v17 = __MLEntityClassToTranslator();
       v22 = &entityClassCopy2;
-      v18 = std::__hash_table<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::hash<mlcore::EntityClass *>,std::equal_to<mlcore::EntityClass *>,true>,std::__unordered_map_equal<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<mlcore::EntityClass *>,std::hash<mlcore::EntityClass *>,true>,std::allocator<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<mlcore::EntityClass *,std::piecewise_construct_t const&,std::tuple<mlcore::EntityClass * const&>,std::tuple<>>(v17, entityClassCopy2);
+      v18 = std::__hash_table<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::__unordered_map_hasher<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::hash<mlcore::EntityClass *>,std::equal_to<mlcore::EntityClass *>,true>,std::__unordered_map_equal<mlcore::EntityClass *,std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>,std::equal_to<mlcore::EntityClass *>,std::hash<mlcore::EntityClass *>,true>,std::allocator<std::__hash_value_type<mlcore::EntityClass *,MPMediaLibraryEntityTranslator * {__strong}>>>::__emplace_unique_key_args<mlcore::EntityClass *,std::piecewise_construct_t const&,std::tuple<mlcore::EntityClass * const&>,std::tuple<>>(v17, entityClassCopy2, &v22);
       objc_storeStrong(v18 + 3, entityClassCopy);
     }
   }

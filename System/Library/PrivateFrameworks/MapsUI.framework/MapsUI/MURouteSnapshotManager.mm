@@ -35,7 +35,7 @@
 
 void __60__MURouteSnapshotManager_purgeSnapshotsWithCompletionBlock___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = MUGetMURouteSnapshotManagerLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -53,28 +53,28 @@ void __60__MURouteSnapshotManager_purgeSnapshotsWithCompletionBlock___block_invo
 
   v4 = +[MURouteSnapshotManager cacheDirectory];
   v5 = [MEMORY[0x1E696AC08] defaultManager];
-  v15 = 0;
-  [v5 removeItemAtURL:v4 error:&v15];
-  v6 = v15;
+  v14 = 0;
+  [v5 removeItemAtURL:v4 error:&v14];
+  v6 = v14;
 
   v7 = MUGetMURouteSnapshotManagerLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v17 = v6;
+    v16 = v6;
     _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_INFO, "re-creating on-disk snapshots directory, deleteError: %{public}@", buf, 0xCu);
   }
 
   v8 = [MEMORY[0x1E696AC08] defaultManager];
-  v14 = 0;
-  [v8 createDirectoryAtURL:v4 withIntermediateDirectories:0 attributes:0 error:&v14];
-  v9 = v14;
+  v13 = 0;
+  [v8 createDirectoryAtURL:v4 withIntermediateDirectories:0 attributes:0 error:&v13];
+  v9 = v13;
 
   v10 = MUGetMURouteSnapshotManagerLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v17 = v9;
+    v16 = v9;
     _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_INFO, "completed snapshot purge, createError: %{public}@", buf, 0xCu);
   }
 
@@ -86,8 +86,6 @@ void __60__MURouteSnapshotManager_purgeSnapshotsWithCompletionBlock___block_invo
   {
     dispatch_async(MEMORY[0x1E69E96A0], v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_generateSnapshotForRoute:(id)route key:(id)key completion:(id)completion
@@ -111,7 +109,7 @@ void __60__MURouteSnapshotManager_purgeSnapshotsWithCompletionBlock___block_invo
 
 void __67__MURouteSnapshotManager__generateSnapshotForRoute_key_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _optionsFromKey:*(a1 + 40) route:*(a1 + 48)];
   v3 = [objc_alloc(MEMORY[0x1E696F2B8]) initWithOptions:v2];
   [*(*(a1 + 32) + 24) addObject:v3];
@@ -120,22 +118,20 @@ void __67__MURouteSnapshotManager__generateSnapshotForRoute_key_completion___blo
   {
     v5 = *(a1 + 40);
     *buf = 138412290;
-    v13 = v5;
+    v12 = v5;
     _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_INFO, "starting snapshot request for key: %@", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __67__MURouteSnapshotManager__generateSnapshotForRoute_key_completion___block_invoke_26;
-  v9[3] = &unk_1E8218F80;
-  v9[4] = *(a1 + 32);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __67__MURouteSnapshotManager__generateSnapshotForRoute_key_completion___block_invoke_26;
+  v8[3] = &unk_1E8218F80;
+  v8[4] = *(a1 + 32);
   v6 = *(a1 + 56);
-  v10 = v3;
-  v11 = v6;
+  v9 = v3;
+  v10 = v6;
   v7 = v3;
-  [v7 startWithCompletionHandler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v7 startWithCompletionHandler:v8];
 }
 
 void __67__MURouteSnapshotManager__generateSnapshotForRoute_key_completion___block_invoke_26(uint64_t a1, void *a2, void *a3)
@@ -180,17 +176,17 @@ void __67__MURouteSnapshotManager__generateSnapshotForRoute_key_completion___blo
 
 - (id)_optionsFromKey:(id)key route:(id)route
 {
-  v38[2] = *MEMORY[0x1E69E9840];
-  v37 = 0;
-  v35 = 0u;
-  v36 = 0u;
+  v37[2] = *MEMORY[0x1E69E9840];
+  v36 = 0;
   v34 = 0u;
+  v35 = 0u;
+  v33 = 0u;
   routeCopy = route;
   keyCopy = key;
   _MKCartographicConfigurationForMapType();
-  memset(v32, 0, sizeof(v32));
-  v33 = 0;
-  v7 = [objc_alloc(MEMORY[0x1E696F458]) initWithCartographicConfiguration:v32];
+  memset(v31, 0, sizeof(v31));
+  v32 = 0;
+  v7 = [objc_alloc(MEMORY[0x1E696F458]) initWithCartographicConfiguration:v31];
   [v7 setShowsHiking:1];
   [v7 setShowsTopographicFeatures:1];
   v8 = objc_opt_new();
@@ -205,12 +201,12 @@ void __67__MURouteSnapshotManager__generateSnapshotForRoute_key_completion___blo
   GEOMapRectForMapRegion();
   [v8 size];
   [keyCopy padding];
-  v30 = v13;
-  v31 = v14;
-  v28 = v15;
-  v29 = v16;
+  v29 = v13;
+  v30 = v14;
+  v27 = v15;
+  v28 = v16;
   _MKMapRectThatFits();
-  [v8 setMapRect:{v28, v29, v30, v31}];
+  [v8 setMapRect:{v27, v28, v29, v30}];
 
   filterExcludingAllCategories = [MEMORY[0x1E696F350] filterExcludingAllCategories];
   [v8 setPointOfInterestFilter:filterExcludingAllCategories];
@@ -228,19 +224,17 @@ void __67__MURouteSnapshotManager__generateSnapshotForRoute_key_completion___blo
   }
 
   v19 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:v18];
-  v38[0] = v19;
+  v37[0] = v19;
   v20 = MEMORY[0x1E69DD1B8];
   [keyCopy scale];
   v22 = v21;
 
   v23 = [v20 traitCollectionWithDisplayScale:v22];
-  v38[1] = v23;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+  v37[1] = v23;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
 
   v25 = [MEMORY[0x1E69DD1B8] traitCollectionWithTraitsFromCollections:v24];
   [v8 setTraitCollection:v25];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -289,20 +283,7 @@ void __61__MURouteSnapshotManager_getSnapshotForKey_route_completion___block_inv
   v6 = [v4 path];
   v7 = [v5 contentsAtPath:v6];
 
-  if (!v7)
-  {
-    goto LABEL_4;
-  }
-
-  v8 = MEMORY[0x1E69DCAB8];
-  [*(a1 + 32) scale];
-  v9 = [v8 imageWithData:v7 scale:?];
-  v10 = *(*(a1 + 64) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
-
-  v12 = *(*(*(a1 + 64) + 8) + 40);
-  if (v12)
+  if (v7 && (v8 = MEMORY[0x1E69DCAB8], [*(a1 + 32) scale], objc_msgSend(v8, "imageWithData:scale:", v7), v9 = objc_claimAutoreleasedReturnValue(), v10 = *(*(a1 + 64) + 8), v11 = *(v10 + 40), *(v10 + 40) = v9, v11, (v12 = *(*(*(a1 + 64) + 8) + 40)) != 0))
   {
     [*(*(a1 + 40) + 8) setObject:v12 forKey:*(a1 + 32)];
     block[0] = MEMORY[0x1E69E9820];
@@ -319,7 +300,6 @@ void __61__MURouteSnapshotManager_getSnapshotForKey_route_completion___block_inv
 
   else
   {
-LABEL_4:
     v17 = *(a1 + 40);
     v16 = *(a1 + 48);
     v18 = *(a1 + 32);
@@ -339,7 +319,7 @@ LABEL_4:
 
 void __61__MURouteSnapshotManager_getSnapshotForKey_route_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(*(a1 + 32) + 8);
@@ -356,7 +336,7 @@ void __61__MURouteSnapshotManager_getSnapshotForKey_route_completion___block_inv
     {
       v12 = *(a1 + 40);
       *buf = 138412290;
-      v28 = v12;
+      v27 = v12;
       v13 = "got snapshot for key: %@";
       v14 = v11;
       v15 = OS_LOG_TYPE_INFO;
@@ -377,9 +357,9 @@ LABEL_6:
     {
       v18 = *(a1 + 40);
       *buf = 138412546;
-      v28 = v18;
-      v29 = 2114;
-      v30 = v5;
+      v27 = v18;
+      v28 = 2114;
+      v29 = v5;
       v13 = "Failed to generate image for key: %@, with error %{public}@";
       v14 = v11;
       v15 = OS_LOG_TYPE_ERROR;
@@ -393,14 +373,12 @@ LABEL_6:
   block[2] = __61__MURouteSnapshotManager_getSnapshotForKey_route_completion___block_invoke_18;
   block[3] = &unk_1E821B8D8;
   v19 = *(a1 + 56);
-  v25 = v6;
-  v26 = v19;
-  v24 = v5;
+  v24 = v6;
+  v25 = v19;
+  v23 = v5;
   v20 = v6;
   v21 = v5;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (MURouteSnapshotManager)init

@@ -98,9 +98,9 @@
 
 - (void)setUpUI
 {
-  v43.receiver = self;
-  v43.super_class = HROnboardingElectrocardiogramAvailabilityViewController;
-  [(HROnboardingElectrocardiogramAvailabilityViewController *)&v43 setUpUI];
+  v44.receiver = self;
+  v44.super_class = HROnboardingElectrocardiogramAvailabilityViewController;
+  [(HROnboardingElectrocardiogramAvailabilityViewController *)&v44 setUpUI];
   createHeroView = [(HROnboardingElectrocardiogramAvailabilityViewController *)self createHeroView];
   [(HROnboardingElectrocardiogramAvailabilityViewController *)self setHeroView:createHeroView];
 
@@ -185,10 +185,10 @@
   ageQuestionView3 = [(HROnboardingElectrocardiogramAvailabilityViewController *)self ageQuestionView];
   [ageQuestionView3 setDelegate:self];
 
-  v37 = HRHeartRhythmUIFrameworkBundle();
-  v38 = [v37 localizedStringForKey:@"AGE_GATE_PROMPT" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
+  v38 = HRHeartRhythmUIFrameworkBundle(v37);
+  v39 = [v38 localizedStringForKey:@"AGE_GATE_PROMPT" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
   ageQuestionView4 = [(HROnboardingElectrocardiogramAvailabilityViewController *)self ageQuestionView];
-  [ageQuestionView4 setQuestionText:v38];
+  [ageQuestionView4 setQuestionText:v39];
 
   ageQuestionView5 = [(HROnboardingElectrocardiogramAvailabilityViewController *)self ageQuestionView];
   [ageQuestionView5 reloadOptions];
@@ -289,44 +289,44 @@
 
 - (void)_setupBirthdayEntryView
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D756B8]);
   [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
   _ageEntryTitleFont = [(HROnboardingElectrocardiogramAvailabilityViewController *)self _ageEntryTitleFont];
   [v3 setFont:_ageEntryTitleFont];
 
-  v5 = HRHeartRhythmUIFrameworkBundle();
-  v6 = [v5 localizedStringForKey:@"AGE_GATE_DATE_OF_BIRTH_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
-  [v3 setText:v6];
+  v6 = HRHeartRhythmUIFrameworkBundle(v5);
+  v7 = [v6 localizedStringForKey:@"AGE_GATE_DATE_OF_BIRTH_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
+  [v3 setText:v7];
 
-  v7 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:1 suffix:@"BirthDate.Title"];
-  [v3 setAccessibilityIdentifier:v7];
+  v8 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:1 suffix:@"BirthDate.Title"];
+  [v3 setAccessibilityIdentifier:v8];
 
   [v3 setAdjustsFontForContentSizeCategory:1];
   [v3 setNumberOfLines:0];
-  v8 = objc_alloc(MEMORY[0x277D12990]);
-  v9 = HRHeartRhythmUIFrameworkBundle();
-  v10 = [v9 localizedStringForKey:@"AGE_GATE_FIELD_REQUIRED_PLACEHOLDER" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
+  v9 = objc_alloc(MEMORY[0x277D12990]);
+  v10 = HRHeartRhythmUIFrameworkBundle(v9);
+  v11 = [v10 localizedStringForKey:@"AGE_GATE_FIELD_REQUIRED_PLACEHOLDER" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
   _defaultDOB = [(HROnboardingElectrocardiogramAvailabilityViewController *)self _defaultDOB];
-  v12 = [v8 initWithFrame:v10 initialText:_defaultDOB defaultDate:130 maxYears:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+  v13 = [v9 initWithFrame:v11 initialText:_defaultDOB defaultDate:130 maxYears:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
 
-  [v12 setDelegate:self];
-  [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v13 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:1 suffix:@"BirthDate.Picker"];
-  [v12 setAccessibilityIdentifier:v13];
+  [v13 setDelegate:self];
+  [v13 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v14 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:1 suffix:@"BirthDate.Picker"];
+  [v13 setAccessibilityIdentifier:v14];
 
-  v14 = objc_alloc(MEMORY[0x277D75A68]);
-  v20[0] = v3;
-  v20[1] = v12;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v16 = [v14 initWithArrangedSubviews:v15];
+  v15 = objc_alloc(MEMORY[0x277D75A68]);
+  v21[0] = v3;
+  v21[1] = v13;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v17 = [v15 initWithArrangedSubviews:v16];
 
-  [v16 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v16 setAxis:HKUIApplicationIsUsingAccessibilityContentSizeCategory()];
-  [v16 setCustomSpacing:v3 afterView:28.0];
-  LODWORD(v17) = 1148846080;
-  [v3 setContentHuggingPriority:0 forAxis:v17];
-  [(HROnboardingElectrocardiogramAvailabilityViewController *)self setBirthdayEntryView:v16];
+  [v17 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v17 setAxis:HKUIApplicationIsUsingAccessibilityContentSizeCategory()];
+  [v17 setCustomSpacing:v3 afterView:28.0];
+  LODWORD(v18) = 1148846080;
+  [v3 setContentHuggingPriority:0 forAxis:v18];
+  [(HROnboardingElectrocardiogramAvailabilityViewController *)self setBirthdayEntryView:v17];
   contentView = [(HROnboardingElectrocardiogramAvailabilityViewController *)self contentView];
   birthdayEntryView = [(HROnboardingElectrocardiogramAvailabilityViewController *)self birthdayEntryView];
   [contentView addSubview:birthdayEntryView];
@@ -837,7 +837,7 @@ LABEL_9:
 
 - (id)locationFooterString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_LOCATION_FOOTNOTE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -865,7 +865,7 @@ LABEL_9:
 
 - (id)buttonTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
 
   return v3;
@@ -873,7 +873,7 @@ LABEL_9:
 
 - (id)locationFeatureIneligiblePromptBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_LOCATION_INELIGIBLE_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -881,7 +881,7 @@ LABEL_9:
 
 - (id)locationNotFoundPromptTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_LOCATION_NOT_FOUND_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -889,7 +889,7 @@ LABEL_9:
 
 - (id)locationNotFoundPromptBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_LOCATION_NOT_FOUND_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -897,7 +897,7 @@ LABEL_9:
 
 - (id)featureDisabledBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_FEATURE_DISABLED_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -905,7 +905,7 @@ LABEL_9:
 
 - (id)deviceNotSupportedBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_DEVICE_NOT_SUPPORTED_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;
@@ -913,7 +913,7 @@ LABEL_9:
 
 - (id)watchOSVersionTooLowBodyString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ECG_ONBOARDING_1_OS_VERSION_TOO_LOW" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Shared"];
 
   return v3;

@@ -1,25 +1,25 @@
-id MCDCarDisplayBundle()
+id MCDCarDisplayBundle(uint64_t a1)
 {
   if (MCDCarDisplayBundle_onceToken != -1)
   {
     MCDCarDisplayBundle_cold_1();
   }
 
-  v1 = MCDCarDisplayBundle_carDisplayBundle;
+  v2 = MCDCarDisplayBundle_carDisplayBundle;
 
-  return v1;
+  return v2;
 }
 
-id MCDMusicGeneralLogging()
+id MCDMusicGeneralLogging(uint64_t a1)
 {
   if (MCDMusicGeneralLogging_onceToken != -1)
   {
     MCDMusicGeneralLogging_cold_1();
   }
 
-  v1 = MCDMusicGeneralLogging_facility;
+  v2 = MCDMusicGeneralLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 void sub_25AD90718(_Unwind_Exception *a1)
@@ -85,16 +85,16 @@ uint64_t __MCDCarDisplayBundle_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MCDMusicBundle()
+id MCDMusicBundle(uint64_t a1)
 {
   if (MCDMusicBundle_onceToken != -1)
   {
     MCDMusicBundle_cold_1();
   }
 
-  v1 = MCDMusicBundle_musicBundle;
+  v2 = MCDMusicBundle_musicBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MCDMusicBundle_block_invoke()
@@ -209,77 +209,81 @@ id MCDFavoriteIcon()
 id MCDFormattedPlaybackRateString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToNumber:&unk_286C30DF0])
+  v2 = [v1 isEqualToNumber:&unk_286C30DF0];
+  if (v2)
   {
-    v2 = MCDCarDisplayBundle();
-    v3 = v2;
-    v4 = @"PLAYBACK_RATE_SPEED_HALF";
+    v3 = MCDCarDisplayBundle(v2);
+    v4 = v3;
+    v5 = @"PLAYBACK_RATE_SPEED_HALF";
 LABEL_9:
-    v5 = [v2 localizedStringForKey:v4 value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+    v9 = [v3 localizedStringForKey:v5 value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
     goto LABEL_10;
   }
 
-  if ([v1 isEqualToNumber:&unk_286C30E00])
+  v6 = [v1 isEqualToNumber:&unk_286C30E00];
+  if (v6)
   {
-    v2 = MCDCarDisplayBundle();
-    v3 = v2;
-    v4 = @"PLAYBACK_RATE_SPEED_THREE_QUARTERS";
+    v3 = MCDCarDisplayBundle(v6);
+    v4 = v3;
+    v5 = @"PLAYBACK_RATE_SPEED_THREE_QUARTERS";
     goto LABEL_9;
   }
 
-  if ([v1 isEqualToNumber:&unk_286C30E10])
+  v7 = [v1 isEqualToNumber:&unk_286C30E10];
+  if (v7)
   {
-    v2 = MCDCarDisplayBundle();
-    v3 = v2;
-    v4 = @"PLAYBACK_RATE_SPEED_ONE_AND_QUARTER";
+    v3 = MCDCarDisplayBundle(v7);
+    v4 = v3;
+    v5 = @"PLAYBACK_RATE_SPEED_ONE_AND_QUARTER";
     goto LABEL_9;
   }
 
-  if ([v1 isEqualToNumber:&unk_286C30E20])
+  v8 = [v1 isEqualToNumber:&unk_286C30E20];
+  if (v8)
   {
-    v2 = MCDCarDisplayBundle();
-    v3 = v2;
-    v4 = @"PLAYBACK_RATE_SPEED_ONE_AND_HALF";
+    v3 = MCDCarDisplayBundle(v8);
+    v4 = v3;
+    v5 = @"PLAYBACK_RATE_SPEED_ONE_AND_HALF";
     goto LABEL_9;
   }
 
-  v7 = MEMORY[0x277CCACA8];
-  v3 = MCDCarDisplayBundle();
-  v8 = [v3 localizedStringForKey:@"PLAYBACK_RATE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-  v9 = MCDFormattedNumberString(v1);
-  v5 = [v7 stringWithFormat:v8, v9];
+  v11 = MEMORY[0x277CCACA8];
+  v4 = MCDCarDisplayBundle(v8);
+  v12 = [v4 localizedStringForKey:@"PLAYBACK_RATE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+  v13 = MCDFormattedNumberString(v1);
+  v9 = [v11 stringWithFormat:v12, v13];
 
 LABEL_10:
 
-  return v5;
+  return v9;
 }
 
 id MCDAlbumDetailFormat(uint64_t a1, uint64_t a2)
 {
   v4 = MEMORY[0x277CCACA8];
-  v5 = MCDCarDisplayBundle();
+  v5 = MCDCarDisplayBundle(a1);
   v6 = [v5 localizedStringForKey:@"%d Song(s)" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
   v7 = [v4 localizedStringWithFormat:v6, a1];
 
   if (a2 < 1)
   {
-    v15 = v7;
+    v17 = v7;
   }
 
   else
   {
-    v8 = MEMORY[0x277CCACA8];
-    v9 = MCDCarDisplayBundle();
-    v10 = [v9 localizedStringForKey:@"%d Minute(s)" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-    v11 = [v8 localizedStringWithFormat:v10, a2];
+    v9 = MEMORY[0x277CCACA8];
+    v10 = MCDCarDisplayBundle(v8);
+    v11 = [v10 localizedStringForKey:@"%d Minute(s)" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+    v12 = [v9 localizedStringWithFormat:v11, a2];
 
-    v12 = MEMORY[0x277CCACA8];
-    v13 = MCDCarDisplayBundle();
-    v14 = [v13 localizedStringForKey:@"ALBUM_DETAIL_FORMAT_FULL" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-    v15 = [v12 localizedStringWithFormat:v14, v7, v11];
+    v13 = MEMORY[0x277CCACA8];
+    v15 = MCDCarDisplayBundle(v14);
+    v16 = [v15 localizedStringForKey:@"ALBUM_DETAIL_FORMAT_FULL" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+    v17 = [v13 localizedStringWithFormat:v16, v7, v12];
   }
 
-  return v15;
+  return v17;
 }
 
 id MCDMPModelObjectForGenericObject(void *a1)
@@ -328,29 +332,29 @@ LABEL_11:
 
 void MCDSetChargeOnDescendantsOfView(void *a1, uint64_t a2, double a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = [v5 subviews];
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        MCDSetChargeOnDescendantsOfView(*(*(&v14 + 1) + 8 * v11), a2, a3);
+        MCDSetChargeOnDescendantsOfView(*(*(&v13 + 1) + 8 * v11), a2, a3);
         if (objc_opt_isKindOfClass())
         {
           v10 = a3;
@@ -362,65 +366,61 @@ void MCDSetChargeOnDescendantsOfView(void *a1, uint64_t a2, double a3)
       }
 
       while (v8 != v11);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void MCDClearTableViewSelection(void *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a1;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = [v3 indexPathsForSelectedRows];
   v5 = [v4 copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v3 deselectRowAtIndexPath:*(*(&v11 + 1) + 8 * v9++) animated:a2];
+        [v3 deselectRowAtIndexPath:*(*(&v10 + 1) + 8 * v9++) animated:a2];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *_MCDStringFromIndexPath(void *a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 length])
   {
     v2 = [v1 length];
-    v11[0] = v11;
+    v10[0] = v10;
     MEMORY[0x28223BE20](v2, v3);
-    v5 = v11 - v4;
-    [v1 getIndexes:v11 - v4];
+    v5 = v10 - v4;
+    [v1 getIndexes:v10 - v4];
     v6 = objc_alloc_init(MEMORY[0x277CCAB68]);
     if (v2 >= 1)
     {
@@ -441,8 +441,6 @@ __CFString *_MCDStringFromIndexPath(void *a1)
   {
     v6 = @"ROOT";
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -497,34 +495,38 @@ id MCDFormatArtistAlbumString(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  if ([v3 length] && objc_msgSend(v4, "length"))
+  if ([v3 length])
   {
-    v5 = MEMORY[0x277CCACA8];
-    v6 = MCDCarDisplayBundle();
-    v7 = [v6 localizedStringForKey:@"%@ — %@" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-    v8 = [v5 localizedStringWithFormat:v7, v3, v4];
+    v5 = [v4 length];
+    if (v5)
+    {
+      v6 = MEMORY[0x277CCACA8];
+      v7 = MCDCarDisplayBundle(v5);
+      v8 = [v7 localizedStringForKey:@"%@ — %@" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+      v9 = [v6 localizedStringWithFormat:v8, v3, v4];
 
-    goto LABEL_9;
+      goto LABEL_9;
+    }
   }
 
   if ([v4 length])
   {
-    v9 = v4;
+    v10 = v4;
 LABEL_8:
-    v8 = v9;
+    v9 = v10;
     goto LABEL_9;
   }
 
   if ([v3 length])
   {
-    v9 = v3;
+    v10 = v3;
     goto LABEL_8;
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_9:
 
-  return v8;
+  return v9;
 }
 
 uint64_t MCDTimeDurationForSeconds(float a1)
@@ -592,11 +594,12 @@ void MCDPerformColorUpdateWithCurrentTraitCollection(void *a1, void *a2)
   }
 }
 
-void sub_25AD96928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_25AD96928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose((v51 - 224), 8);
-  _Block_object_dispose((v51 - 176), 8);
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v50 - 224), 8);
+  _Block_object_dispose((v50 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -607,11 +610,12 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25AD973DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_25AD973DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v30 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -678,6 +682,13 @@ void sub_25AD9C2C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
+void sub_25AD9D4B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -685,27 +696,34 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25AD9F468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25AD9D9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a9);
+  va_start(va, a34);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25AD9F694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25AD9F468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25AD9F694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id MCDNSIndexPathFromMRMediaRemoteIndexPath(uint64_t a1, uint64_t a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x28223BE20](a1, a2);
   if (v3)
   {
-    v5 = (v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v5 = (v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
     v6 = v3;
     do
     {
@@ -718,7 +736,6 @@ id MCDNSIndexPathFromMRMediaRemoteIndexPath(uint64_t a1, uint64_t a2)
   }
 
   v8 = [MEMORY[0x277CCAA70] indexPathWithIndexes:? length:?];
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -730,16 +747,16 @@ void sub_25AD9FBD4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id MCDGeneralLogging()
+id MCDGeneralLogging(uint64_t a1)
 {
   if (MCDGeneralLogging_onceToken != -1)
   {
     MCDGeneralLogging_cold_1();
   }
 
-  v1 = MCDGeneralLogging_facility;
+  v2 = MCDGeneralLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MCDGeneralLogging_block_invoke()

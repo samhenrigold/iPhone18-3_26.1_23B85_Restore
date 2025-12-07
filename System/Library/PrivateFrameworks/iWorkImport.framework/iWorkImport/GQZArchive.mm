@@ -62,7 +62,7 @@
 {
   if (self)
   {
-    [(GQZArchive *)self readEndOfCentralDirectory];
+    objc_msgSend_readEndOfCentralDirectory(self, a2);
   }
 }
 
@@ -176,7 +176,7 @@ LABEL_13:
   {
     v12 = 0uLL;
     v13 = 0;
-    result = [(GQZArchive *)self readZip64EndOfCentralDirectoryWithEocdOffset:v14];
+    result = objc_msgSend_readZip64EndOfCentralDirectoryWithEocdOffset_(self);
     if (*(&v12 + 1))
     {
       *&retstr->var0 = v12;

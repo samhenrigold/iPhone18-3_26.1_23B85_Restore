@@ -16,7 +16,7 @@
 
 - (void)preferredContentSizeCategoryDidChangeWithView:(id)view previousTraitCollection:(id)collection
 {
-  sub_1902188FC(0, &qword_1EAD46500);
+  sub_1902188FC(0, &qword_1EAD46500, 0x1E69E58C0);
   viewCopy = view;
   selfCopy = self;
   if (sub_190D57D90())

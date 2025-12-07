@@ -312,10 +312,10 @@ LABEL_18:
   *(a1 + 120) = a4;
   if ((*(a1 + 16) & 0xFFF) != 6 || v19 != 1 && v18 != 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
-    std::string::basic_string[abi:ne200100]<0>(v23, "ColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v25, 4294967081, v24, v23, __p, 2460);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
+    std::string::basic_string[abi:ne200100]<0>(&v23, "ColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v25, -215, &v24, &v23, &__p, 2460);
     cv::error(v25, v20);
   }
 
@@ -657,10 +657,10 @@ LABEL_18:
   *(a1 + 116) = v20;
   if ((*(a1 + 16) & 0xFFF) != 5 || v19 != 1 && v18 != 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v25, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
-    std::string::basic_string[abi:ne200100]<0>(v24, "ColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v26, 4294967081, v25, v24, __p, 2460);
+    std::string::basic_string[abi:ne200100]<0>(&v25, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
+    std::string::basic_string[abi:ne200100]<0>(&v24, "ColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v26, -215, &v25, &v24, &__p, 2460);
     cv::error(v26, v21);
   }
 
@@ -967,10 +967,10 @@ LABEL_18:
   *(a1 + 120) = a4;
   if ((*(a1 + 16) & 0xFFF) != 6 || v19 != 1 && v18 != 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
-    std::string::basic_string[abi:ne200100]<0>(v23, "ColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v25, 4294967081, v24, v23, __p, 2460);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
+    std::string::basic_string[abi:ne200100]<0>(&v23, "ColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v25, -215, &v24, &v23, &__p, 2460);
     cv::error(v25, v20);
   }
 
@@ -1199,23 +1199,23 @@ uint64_t cv::ColumnFilter<cv::Cast<double,double>,cv::ColumnNoVec>::operator()(u
   return result;
 }
 
-uint64_t cv::SymmColumnSmallFilter<cv::FixedPtCastEx<int,unsigned char>,cv::ColumnNoVec>::SymmColumnSmallFilter(uint64_t a1, cv::Mat *a2, int a3, int a4, void *a5, double a6)
+uint64_t cv::SymmColumnSmallFilter<cv::FixedPtCastEx<int,unsigned char>,cv::ColumnNoVec>::SymmColumnSmallFilter(uint64_t a1, cv::Mat *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, double a7)
 {
-  v7 = cv::SymmColumnFilter<cv::FixedPtCastEx<int,unsigned char>,cv::ColumnNoVec>::SymmColumnFilter(a1, a2, a3, a4, a5, a6);
-  *v7 = &unk_284055210;
-  if (*(v7 + 8) != 3)
+  v8 = cv::SymmColumnFilter<cv::FixedPtCastEx<int,unsigned char>,cv::ColumnNoVec>::SymmColumnFilter(a1, a2, a3, a4, a5, a7);
+  *v8 = &unk_284055210;
+  if (*(v8 + 8) != 3)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "this->ksize == 3");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnSmallFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2629);
-    cv::error(v13, v8);
+    std::string::basic_string[abi:ne200100]<0>(&v13, "this->ksize == 3");
+    std::string::basic_string[abi:ne200100]<0>(&v12, "SymmColumnSmallFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v14, -215, &v13, &v12, &__p, 2629);
+    cv::error(v14, v9);
   }
 
   return a1;
 }
 
-void sub_22D204654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D204654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -1244,17 +1244,17 @@ uint64_t cv::SymmColumnFilter<cv::FixedPtCastEx<int,unsigned char>,cv::ColumnNoV
   *(v8 + 128) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v13, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v12, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v14, 4294967081, v13, v12, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v13, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v12, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v14, -215, &v13, &v12, &__p, 2523);
     cv::error(v14, v9);
   }
 
   return a1;
 }
 
-void sub_22D2047B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D2047B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -2255,23 +2255,23 @@ uint64_t cv::SymmColumnFilter<cv::FixedPtCastEx<int,unsigned char>,cv::ColumnNoV
   return result;
 }
 
-uint64_t cv::SymmColumnSmallFilter<cv::Cast<int,short>,cv::SymmColumnSmallNoVec>::SymmColumnSmallFilter(uint64_t a1, cv::Mat *a2, int a3, int a4, double a5)
+uint64_t cv::SymmColumnSmallFilter<cv::Cast<int,short>,cv::SymmColumnSmallNoVec>::SymmColumnSmallFilter(uint64_t a1, cv::Mat *a2, uint64_t a3, int a4, double a5)
 {
   v6 = cv::SymmColumnFilter<cv::Cast<int,short>,cv::SymmColumnSmallNoVec>::SymmColumnFilter(a1, a2, a3, a4, a5);
   *v6 = &unk_2840552A0;
   if (*(v6 + 8) != 3)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "this->ksize == 3");
-    std::string::basic_string[abi:ne200100]<0>(v10, "SymmColumnSmallFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 2629);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "this->ksize == 3");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "SymmColumnSmallFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 2629);
     cv::error(v12, v7);
   }
 
   return a1;
 }
 
-void sub_22D205664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D205664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -2293,24 +2293,24 @@ void sub_22D205664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t cv::SymmColumnFilter<cv::Cast<int,short>,cv::SymmColumnSmallNoVec>::SymmColumnFilter(uint64_t a1, cv::Mat *a2, int a3, int a4, double a5)
+uint64_t cv::SymmColumnFilter<cv::Cast<int,short>,cv::SymmColumnSmallNoVec>::SymmColumnFilter(uint64_t a1, cv::Mat *a2, uint64_t a3, int a4, double a5)
 {
   v7 = cv::ColumnFilter<cv::Cast<int,short>,cv::SymmColumnSmallNoVec>::ColumnFilter(a1, a2, a3, a5);
   *v7 = &unk_284055318;
   *(v7 + 120) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D2057C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D2057C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -2926,10 +2926,10 @@ LABEL_18:
   *(a1 + 116) = rint(a4);
   if ((*(a1 + 16) & 0xFFF) != 4 || v19 != 1 && v18 != 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
-    std::string::basic_string[abi:ne200100]<0>(v23, "ColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v25, 4294967081, v24, v23, __p, 2460);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
+    std::string::basic_string[abi:ne200100]<0>(&v23, "ColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v25, -215, &v24, &v23, &__p, 2460);
     cv::error(v25, v20);
   }
 
@@ -3438,23 +3438,23 @@ uint64_t cv::ColumnFilter<cv::Cast<int,short>,cv::SymmColumnSmallNoVec>::operato
   return result;
 }
 
-uint64_t cv::SymmColumnSmallFilter<cv::Cast<float,float>,cv::SymmColumnSmallNoVec>::SymmColumnSmallFilter(uint64_t a1, cv::Mat *a2, int a3, int a4, double a5)
+uint64_t cv::SymmColumnSmallFilter<cv::Cast<float,float>,cv::SymmColumnSmallNoVec>::SymmColumnSmallFilter(uint64_t a1, cv::Mat *a2, uint64_t a3, int a4, double a5)
 {
   v6 = cv::SymmColumnFilter<cv::Cast<float,float>,cv::SymmColumnSmallNoVec>::SymmColumnFilter(a1, a2, a3, a4, a5);
   *v6 = &unk_284055378;
   if (*(v6 + 8) != 3)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "this->ksize == 3");
-    std::string::basic_string[abi:ne200100]<0>(v10, "SymmColumnSmallFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 2629);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "this->ksize == 3");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "SymmColumnSmallFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 2629);
     cv::error(v12, v7);
   }
 
   return a1;
 }
 
-void sub_22D206A1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D206A1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3476,24 +3476,24 @@ void sub_22D206A1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t cv::SymmColumnFilter<cv::Cast<float,float>,cv::SymmColumnSmallNoVec>::SymmColumnFilter(uint64_t a1, cv::Mat *a2, int a3, int a4, double a5)
+uint64_t cv::SymmColumnFilter<cv::Cast<float,float>,cv::SymmColumnSmallNoVec>::SymmColumnFilter(uint64_t a1, cv::Mat *a2, uint64_t a3, int a4, double a5)
 {
   v7 = cv::ColumnFilter<cv::Cast<float,float>,cv::SymmColumnSmallNoVec>::ColumnFilter(a1, a2, a3, a5);
   *v7 = &unk_2840553F0;
   *(v7 + 120) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D206B78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D206B78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -4030,10 +4030,10 @@ LABEL_18:
   *(a1 + 116) = v20;
   if ((*(a1 + 16) & 0xFFF) != 5 || v19 != 1 && v18 != 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v25, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
-    std::string::basic_string[abi:ne200100]<0>(v24, "ColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v26, 4294967081, v25, v24, __p, 2460);
+    std::string::basic_string[abi:ne200100]<0>(&v25, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
+    std::string::basic_string[abi:ne200100]<0>(&v24, "ColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v26, -215, &v25, &v24, &__p, 2460);
     cv::error(v26, v21);
   }
 
@@ -4509,17 +4509,17 @@ uint64_t cv::SymmColumnFilter<cv::Cast<float,unsigned char>,cv::ColumnNoVec>::Sy
   *(v7 + 120) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D207D18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D207D18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -4832,17 +4832,17 @@ uint64_t cv::SymmColumnFilter<cv::Cast<double,unsigned char>,cv::ColumnNoVec>::S
   *(v7 + 128) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D2082D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D2082D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5166,17 +5166,17 @@ uint64_t cv::SymmColumnFilter<cv::Cast<float,unsigned short>,cv::ColumnNoVec>::S
   *(v7 + 120) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D2088B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D2088B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5487,17 +5487,17 @@ uint64_t cv::SymmColumnFilter<cv::Cast<double,unsigned short>,cv::ColumnNoVec>::
   *(v7 + 128) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D208E7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D208E7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5814,24 +5814,24 @@ uint64_t cv::SymmColumnFilter<cv::Cast<double,unsigned short>,cv::ColumnNoVec>::
   return result;
 }
 
-uint64_t cv::SymmColumnFilter<cv::Cast<int,short>,cv::ColumnNoVec>::SymmColumnFilter(uint64_t a1, cv::Mat *a2, int a3, int a4, double a5)
+uint64_t cv::SymmColumnFilter<cv::Cast<int,short>,cv::ColumnNoVec>::SymmColumnFilter(uint64_t a1, cv::Mat *a2, uint64_t a3, int a4, double a5)
 {
   v7 = cv::ColumnFilter<cv::Cast<int,short>,cv::ColumnNoVec>::ColumnFilter(a1, a2, a3, a5);
   *v7 = &unk_284055570;
   *(v7 + 120) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D209458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D209458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5950,10 +5950,10 @@ LABEL_18:
   *(a1 + 116) = rint(a4);
   if ((*(a1 + 16) & 0xFFF) != 4 || v19 != 1 && v18 != 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
-    std::string::basic_string[abi:ne200100]<0>(v23, "ColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v25, 4294967081, v24, v23, __p, 2460);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "kernel.type() == DataType<ST>::type && (kernel.rows == 1 || kernel.cols == 1)");
+    std::string::basic_string[abi:ne200100]<0>(&v23, "ColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v25, -215, &v24, &v23, &__p, 2460);
     cv::error(v25, v20);
   }
 
@@ -6469,17 +6469,17 @@ uint64_t cv::SymmColumnFilter<cv::Cast<float,short>,cv::ColumnNoVec>::SymmColumn
   *(v7 + 120) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D20A02C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20A02C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6789,17 +6789,17 @@ uint64_t cv::SymmColumnFilter<cv::Cast<double,short>,cv::ColumnNoVec>::SymmColum
   *(v7 + 128) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D20A5E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20A5E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -7121,17 +7121,17 @@ uint64_t cv::SymmColumnFilter<cv::Cast<float,float>,cv::ColumnNoVec>::SymmColumn
   *(v7 + 120) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D20ABB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20ABB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -7419,17 +7419,17 @@ uint64_t cv::SymmColumnFilter<cv::Cast<double,double>,cv::ColumnNoVec>::SymmColu
   *(v7 + 128) = a4;
   if ((a4 & 3) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
-    std::string::basic_string[abi:ne200100]<0>(v11, "SymmColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 2523);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "(symmetryType & (KERNEL_SYMMETRICAL | KERNEL_ASYMMETRICAL)) != 0");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "SymmColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v13, -215, &v12, &v11, &__p, 2523);
     cv::error(v13, v8);
   }
 
   return a1;
 }
 
-void sub_22D20B0D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20B0D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -7851,19 +7851,19 @@ uint64_t cv::Filter2D<unsigned char,cv::Cast<float,unsigned char>,cv::FilterNoVe
   *(a1 + 96) = v6;
   if ((*a2 & 0xFFF) != 5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v10, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 3116);
     cv::error(v12, v7);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20B854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20B854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -8101,19 +8101,19 @@ uint64_t cv::Filter2D<unsigned char,cv::Cast<float,unsigned short>,cv::FilterNoV
   *(a1 + 96) = v6;
   if ((*a2 & 0xFFF) != 5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v10, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 3116);
     cv::error(v12, v7);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20BCD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20BCD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -8352,19 +8352,19 @@ uint64_t cv::Filter2D<unsigned char,cv::Cast<float,short>,cv::FilterNoVec>::Filt
   *(a1 + 96) = v6;
   if ((*a2 & 0xFFF) != 5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v10, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 3116);
     cv::error(v12, v7);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20C14C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20C14C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -8599,19 +8599,19 @@ uint64_t cv::Filter2D<unsigned char,cv::Cast<float,float>,cv::FilterNoVec>::Filt
   *(a1 + 96) = v6;
   if ((*a2 & 0xFFF) != 5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v10, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 3116);
     cv::error(v12, v7);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20C5C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20C5C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -8753,7 +8753,8 @@ uint64_t *cv::Filter2D<unsigned char,cv::Cast<float,float>,cv::FilterNoVec>::ope
             {
               v27 = *result++;
               v26 = v27;
-              LODWORD(v27) = *v25++;
+              LODWORD(v27) = *v25;
+              v25 = (v25 + 4);
               a12.i32[0] = *(v26 + v22);
               a12 = vcvtq_f32_u32(vmovl_u16(*&vmovl_u8(*a12.f32)));
               v23 = vmlaq_n_f32(v23, a12, *&v27);
@@ -8835,19 +8836,19 @@ uint64_t cv::Filter2D<unsigned char,cv::Cast<double,double>,cv::FilterNoVec>::Fi
   *(a1 + 96) = a4;
   if ((*a2 & 0xFFF) != 6)
   {
-    std::string::basic_string[abi:ne200100]<0>(v10, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v9, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v11, 4294967081, v10, v9, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v10, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v9, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v11, -215, &v10, &v9, &__p, 3116);
     cv::error(v11, v6);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20C9F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20C9F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -9089,19 +9090,19 @@ uint64_t cv::Filter2D<unsigned short,cv::Cast<float,unsigned short>,cv::FilterNo
   *(a1 + 96) = v6;
   if ((*a2 & 0xFFF) != 5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v10, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 3116);
     cv::error(v12, v7);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20CE5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20CE5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -9339,19 +9340,19 @@ uint64_t cv::Filter2D<unsigned short,cv::Cast<float,float>,cv::FilterNoVec>::Fil
   *(a1 + 96) = v6;
   if ((*a2 & 0xFFF) != 5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v10, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 3116);
     cv::error(v12, v7);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20D2E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20D2E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -9493,7 +9494,8 @@ uint64_t *cv::Filter2D<unsigned short,cv::Cast<float,float>,cv::FilterNoVec>::op
             {
               v27 = *result++;
               v26 = v27;
-              LODWORD(v27) = *v25++;
+              LODWORD(v27) = *v25;
+              v25 = (v25 + 4);
               a12 = vcvtq_f32_u32(vmovl_u16(*(v26 + 2 * v22)));
               v23 = vmlaq_n_f32(v23, a12, *&v27);
               --v24;
@@ -9574,19 +9576,19 @@ uint64_t cv::Filter2D<unsigned short,cv::Cast<double,double>,cv::FilterNoVec>::F
   *(a1 + 96) = a4;
   if ((*a2 & 0xFFF) != 6)
   {
-    std::string::basic_string[abi:ne200100]<0>(v10, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v9, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v11, 4294967081, v10, v9, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v10, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v9, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v11, -215, &v10, &v9, &__p, 3116);
     cv::error(v11, v6);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20D718(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20D718(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -9828,19 +9830,19 @@ uint64_t cv::Filter2D<short,cv::Cast<float,short>,cv::FilterNoVec>::Filter2D(uin
   *(a1 + 96) = v6;
   if ((*a2 & 0xFFF) != 5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "_kernel.type() == DataType<KT>::type");
-    std::string::basic_string[abi:ne200100]<0>(v10, "Filter2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
-    cv::Exception::Exception(v12, 4294967081, v11, v10, __p, 3116);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "_kernel.type() == DataType<KT>::type");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Filter2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/filter.cpp");
+    cv::Exception::Exception(v12, -215, &v11, &v10, &__p, 3116);
     cv::error(v12, v7);
   }
 
-  cv::preprocess2DKernel(a2, (a1 + 24), a1 + 48);
+  cv::preprocess2DKernel(a2, (a1 + 24), (a1 + 48));
   std::vector<unsigned char *>::resize(v5, (*(a1 + 32) - *(a1 + 24)) >> 3);
   return a1;
 }
 
-void sub_22D20DB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D20DB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)

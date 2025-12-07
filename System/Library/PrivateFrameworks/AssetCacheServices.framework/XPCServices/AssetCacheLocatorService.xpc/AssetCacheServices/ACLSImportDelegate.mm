@@ -1,4 +1,5 @@
 @interface ACLSImportDelegate
+- (ACLSImportDelegate)initWithFileHandle:(id)handle fileOffset:(unint64_t)offset length:(unint64_t)length callback:(id)callback callbackQueue:(id)queue tag:(unsigned int)tag;
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler;
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler;
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error;
@@ -7,6 +8,29 @@
 @end
 
 @implementation ACLSImportDelegate
+
+- (ACLSImportDelegate)initWithFileHandle:(id)handle fileOffset:(unint64_t)offset length:(unint64_t)length callback:(id)callback callbackQueue:(id)queue tag:(unsigned int)tag
+{
+  v8 = *&tag;
+  handleCopy = handle;
+  callbackCopy = callback;
+  queueCopy = queue;
+  v20.receiver = self;
+  v20.super_class = ACLSImportDelegate;
+  v17 = [(ACLSImportDelegate *)&v20 init];
+  v18 = v17;
+  if (v17)
+  {
+    [(ACLSImportDelegate *)v17 setFileHandle:handleCopy];
+    [(ACLSImportDelegate *)v18 setFileOffset:offset];
+    [(ACLSImportDelegate *)v18 setLength:length];
+    [(ACLSImportDelegate *)v18 setCallback:callbackCopy];
+    [(ACLSImportDelegate *)v18 setCallbackQueue:queueCopy];
+    [(ACLSImportDelegate *)v18 setTag:v8];
+  }
+
+  return v18;
+}
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {

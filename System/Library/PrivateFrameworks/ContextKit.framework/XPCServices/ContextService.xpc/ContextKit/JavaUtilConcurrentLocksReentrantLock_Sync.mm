@@ -11,20 +11,21 @@
 - (BOOL)tryReleaseWithInt:(int)int
 {
   getState = [(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self getState];
-  v6 = JavaLangThread_currentThread();
-  if (v6 != [(JavaUtilConcurrentLocksAbstractOwnableSynchronizer *)self getExclusiveOwnerThread])
+  v6 = getState;
+  v8 = JavaLangThread_currentThread(getState, v7);
+  if (v8 != [(JavaUtilConcurrentLocksAbstractOwnableSynchronizer *)self getExclusiveOwnerThread])
   {
-    v8 = new_JavaLangIllegalMonitorStateException_init();
-    objc_exception_throw(v8);
+    v10 = new_JavaLangIllegalMonitorStateException_init();
+    objc_exception_throw(v10);
   }
 
-  if (getState == int)
+  if (v6 == int)
   {
     [(JavaUtilConcurrentLocksAbstractOwnableSynchronizer *)self setExclusiveOwnerThreadWithJavaLangThread:0];
   }
 
-  [(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self setStateWithInt:getState - int];
-  return getState == int;
+  [(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self setStateWithInt:(v6 - int)];
+  return v6 == int;
 }
 
 - (id)newCondition
@@ -47,7 +48,7 @@
 - (int)getHoldCount
 {
   getExclusiveOwnerThread = [(JavaUtilConcurrentLocksAbstractOwnableSynchronizer *)self getExclusiveOwnerThread];
-  if (getExclusiveOwnerThread != JavaLangThread_currentThread())
+  if (getExclusiveOwnerThread != JavaLangThread_currentThread(getExclusiveOwnerThread, v4))
   {
     return 0;
   }

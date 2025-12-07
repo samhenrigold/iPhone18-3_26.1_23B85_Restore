@@ -14,7 +14,7 @@
   v5[1] = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC13MediaControls23SessionHapticController_applicationSupportsHaptics) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SessionHapticController();
+  v7.super_class = type metadata accessor for SessionHapticController(0);
   return [(MRUHapticController *)&v7 init];
 }
 

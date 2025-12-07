@@ -1,8 +1,7 @@
 void sub_5E5C(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  v5 = *(a1 + 32);
-  v3 = v4;
+  v3 = a2;
+  v2 = v3;
   performBlockOnMainThread();
 }
 
@@ -134,8 +133,7 @@ void sub_722C(uint64_t a1)
   v4 = [v3 isModernNote];
   if ((v4 & 1) != 0 || ([*(a1 + 32) invitation], (v1 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() modernBackgroundContext];
+    v5 = [objc_opt_class() modernBackgroundContext];
     if (v4)
     {
       goto LABEL_7;
@@ -144,21 +142,20 @@ void sub_722C(uint64_t a1)
 
   else
   {
-    v7 = *(a1 + 32);
-    v6 = [objc_opt_class() legacyBackgroundContext];
+    v5 = [objc_opt_class() legacyBackgroundContext];
   }
 
 LABEL_7:
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_7344;
-  v10[3] = &unk_185B0;
-  v8 = *(a1 + 40);
-  v10[4] = *(a1 + 32);
-  v11 = v6;
-  v12 = v8;
-  v9 = v6;
-  [v9 performBlock:v10];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_7344;
+  v8[3] = &unk_185B0;
+  v6 = *(a1 + 40);
+  v8[4] = *(a1 + 32);
+  v9 = v5;
+  v10 = v6;
+  v7 = v5;
+  [v7 performBlock:v8];
 }
 
 uint64_t sub_7344(uint64_t a1)
@@ -245,9 +242,9 @@ id sub_A5E0(uint64_t a1)
   return [v9 setRestricted:0];
 }
 
-void sub_A9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_A9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

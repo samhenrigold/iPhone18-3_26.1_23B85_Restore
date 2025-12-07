@@ -27,9 +27,11 @@ uint64_t __60__BLSHAsyncDisplayPowerResourceHint_sharedHighPriorityQueue__block_
 
   dispatch_workloop_set_scheduler_priority();
   dispatch_activate(sharedHighPriorityQueue_rootWorkloop);
-  sharedHighPriorityQueue_sharedQueue = dispatch_queue_create_with_target_V2("BLSHAsyncDisplayPowerResourceHintQueue", 0, sharedHighPriorityQueue_rootWorkloop);
+  v2 = dispatch_queue_create_with_target_V2("BLSHAsyncDisplayPowerResourceHintQueue", 0, sharedHighPriorityQueue_rootWorkloop);
+  v3 = sharedHighPriorityQueue_sharedQueue;
+  sharedHighPriorityQueue_sharedQueue = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 + (id)hintWithHint:(id)hint

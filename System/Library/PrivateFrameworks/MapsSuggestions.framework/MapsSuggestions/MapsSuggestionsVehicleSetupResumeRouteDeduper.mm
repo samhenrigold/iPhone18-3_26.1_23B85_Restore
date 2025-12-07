@@ -59,7 +59,7 @@ LABEL_18:
     goto LABEL_17;
   }
 
-  if (([entryCopy hasMultipleWaypointsLeft] & 1) != 0 || (objc_msgSend(v7, "hasMultipleWaypointsLeft") & 1) != 0 || !MapsSuggestionsEntriesShouldBeOfOneOfEachType(20, 11, entryCopy, v7))
+  if (([entryCopy hasMultipleWaypointsLeft] & 1) != 0 || (objc_msgSend(v7, "hasMultipleWaypointsLeft") & 1) != 0 || !MapsSuggestionsEntriesShouldBeOfOneOfEachType(0x14, 0xB, entryCopy, v7))
   {
     goto LABEL_18;
   }

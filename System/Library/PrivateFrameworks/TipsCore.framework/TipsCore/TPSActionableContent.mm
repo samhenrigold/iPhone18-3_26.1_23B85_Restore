@@ -10,11 +10,11 @@
 
 - (TPSActionableContent)initWithDictionary:(id)dictionary metadata:(id)metadata
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = TPSActionableContent;
-  v7 = [(TPSContent *)&v27 initWithDictionary:dictionaryCopy metadata:metadata];
+  v26.receiver = self;
+  v26.super_class = TPSActionableContent;
+  v7 = [(TPSContent *)&v26 initWithDictionary:dictionaryCopy metadata:metadata];
   if (v7)
   {
     v8 = [dictionaryCopy TPSSafeArrayForKey:@"actions"];
@@ -22,29 +22,29 @@
     if (v9)
     {
       v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:v9];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v24;
+        v14 = *v23;
         do
         {
           v15 = 0;
           do
           {
-            if (*v24 != v14)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v23 + 1) + 8 * v15);
+            v16 = *(*(&v22 + 1) + 8 * v15);
             v17 = [TPSURLAction alloc];
-            v18 = [(TPSURLAction *)v17 initWithDictionary:v16, v23];
+            v18 = [(TPSURLAction *)v17 initWithDictionary:v16, v22];
             if (v18)
             {
               [v10 addObject:v18];
@@ -54,7 +54,7 @@
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v13);
@@ -66,7 +66,6 @@
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

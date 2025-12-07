@@ -95,13 +95,13 @@ uint64_t __73__APAssistedModeBrowser_startBrowsingFor_withTimeout_deviceFoundHan
   if ([*(a1 + 32) isBrowsing])
   {
     __73__APAssistedModeBrowser_startBrowsingFor_withTimeout_deviceFoundHandler___block_invoke_cold_6();
-    v6 = 4294960587;
+    v8 = 4294960587;
     goto LABEL_19;
   }
 
   if (gLogCategory_APAssistedModeBrowser <= 30 && (gLogCategory_APAssistedModeBrowser != -1 || _LogCategory_Initialize()))
   {
-    __73__APAssistedModeBrowser_startBrowsingFor_withTimeout_deviceFoundHandler___block_invoke_cold_1(v2);
+    __73__APAssistedModeBrowser_startBrowsingFor_withTimeout_deviceFoundHandler___block_invoke_cold_1(v2, v3, v4);
   }
 
   [*(a1 + 32) setInstanceName:{objc_msgSend(*(a1 + 40), "objectForKeyedSubscript:", @"AssistedInstanceName"}];
@@ -109,7 +109,7 @@ uint64_t __73__APAssistedModeBrowser_startBrowsingFor_withTimeout_deviceFoundHan
   {
     __73__APAssistedModeBrowser_startBrowsingFor_withTimeout_deviceFoundHandler___block_invoke_cold_5();
 LABEL_17:
-    v6 = 4294960591;
+    v8 = 4294960591;
     goto LABEL_19;
   }
 
@@ -128,21 +128,21 @@ LABEL_17:
   }
 
   [*(a1 + 32) setDeviceFoundHandlerBlock:_Block_copy(*(a1 + 48))];
-  v3 = [*(a1 + 32) startBonjourBrowser];
-  if (!v3)
+  v5 = [*(a1 + 32) startBonjourBrowser];
+  if (!v5)
   {
     [*(a1 + 32) startTimerWithTimeout:*(a1 + 56)];
-    v4 = *(a1 + 32);
+    v6 = *(a1 + 32);
 
-    return [v4 setIsBrowsing:1];
+    return [v6 setIsBrowsing:1];
   }
 
-  v6 = v3;
-  __73__APAssistedModeBrowser_startBrowsingFor_withTimeout_deviceFoundHandler___block_invoke_cold_2();
+  v8 = v5;
+  __73__APAssistedModeBrowser_startBrowsingFor_withTimeout_deviceFoundHandler___block_invoke_cold_2(v5);
 LABEL_19:
-  v7 = *v2;
+  v9 = *v2;
 
-  return [v7 stopBrowsingWithError:v6];
+  return [v9 stopBrowsingWithError:v8];
 }
 
 - (void)stopBrowsing
@@ -197,8 +197,8 @@ void __42__APAssistedModeBrowser_setDispatchQueue___block_invoke(uint64_t a1)
   setupBonjourBrowser = [(APAssistedModeBrowser *)self setupBonjourBrowser];
   if (setupBonjourBrowser)
   {
-    v4 = setupBonjourBrowser;
-    [APAssistedModeBrowser startBonjourBrowser];
+    v5 = setupBonjourBrowser;
+    [(APAssistedModeBrowser *)setupBonjourBrowser startBonjourBrowser];
   }
 
   else
@@ -211,13 +211,14 @@ void __42__APAssistedModeBrowser_setDispatchQueue___block_invoke(uint64_t a1)
     [(APAssistedModeBrowser *)self bonjourBrowser];
     [-[APAssistedModeBrowser getExpectedBonjourService](self "getExpectedBonjourService")];
     v4 = BonjourBrowser_Start();
+    v5 = v4;
     if (v4)
     {
-      [APAssistedModeBrowser startBonjourBrowser];
+      [(APAssistedModeBrowser *)v4 startBonjourBrowser];
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (int)setupBonjourBrowser
@@ -228,7 +229,7 @@ void __42__APAssistedModeBrowser_setDispatchQueue___block_invoke(uint64_t a1)
     if (v3)
     {
       v4 = v3;
-      [APAssistedModeBrowser setupBonjourBrowser];
+      [(APAssistedModeBrowser *)v3 setupBonjourBrowser];
       return v4;
     }
 
@@ -242,12 +243,12 @@ void __42__APAssistedModeBrowser_setDispatchQueue___block_invoke(uint64_t a1)
   return 0;
 }
 
-uint64_t __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke(uint64_t result, int a2, CFDictionaryRef theDict)
+uint64_t __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke(uint64_t result, uint64_t a2, CFDictionaryRef theDict)
 {
   v5 = result;
   if (gLogCategory_APAssistedModeBrowser <= 30 && (gLogCategory_APAssistedModeBrowser != -1 || (result = _LogCategory_Initialize(), result)))
   {
-    result = __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_1(v5, a2);
+    result = __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_1(v5, a2, theDict);
     if (!theDict)
     {
       goto LABEL_6;
@@ -262,7 +263,7 @@ uint64_t __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke(uint64_t 
   result = [objc_msgSend(CFDictionaryGetValue(theDict @"dnsName")];
   if ((result & 1) == 0)
   {
-    return __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_2(v5 + 32, a2);
+    return __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_2((v5 + 32));
   }
 
 LABEL_6:
@@ -283,13 +284,13 @@ LABEL_6:
   {
     if (gLogCategory_APAssistedModeBrowser != -1)
     {
-      return __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_3(v5);
+      return __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_3(v5, a2, theDict);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_3(v5);
+      return __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_3(v5, a2, theDict);
     }
   }
 
@@ -323,14 +324,12 @@ LABEL_6:
     dispatch_source_set_event_handler(timeoutTimer, handler);
     if (gLogCategory_APAssistedModeBrowser <= 30 && (gLogCategory_APAssistedModeBrowser != -1 || _LogCategory_Initialize()))
     {
-      timeoutCopy = timeout;
-      selfCopy = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAssistedModeBrowser, "[APAssistedModeBrowser startTimerWithTimeout:]", 33554462, "[%{ptr}] Starting %.fs browse timeout timer", self, *&timeout);
     }
 
-    v7 = [(APAssistedModeBrowser *)self timeoutTimer:selfCopy];
+    timeoutTimer2 = [(APAssistedModeBrowser *)self timeoutTimer];
     v8 = dispatch_time(0, 1000000000 * timeout);
-    dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+    dispatch_source_set_timer(timeoutTimer2, v8, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
     dispatch_resume([(APAssistedModeBrowser *)self timeoutTimer]);
     return 0;
   }
@@ -342,7 +341,7 @@ LABEL_6:
   }
 }
 
-uint64_t __47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke(uint64_t a1)
+void *__47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke(uint64_t a1)
 {
   v1 = (a1 + 32);
   result = [*(a1 + 32) isBrowsing];
@@ -350,12 +349,12 @@ uint64_t __47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke(uint64
   {
     if (gLogCategory_APAssistedModeBrowser <= 30 && (gLogCategory_APAssistedModeBrowser != -1 || _LogCategory_Initialize()))
     {
-      __47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke_cold_1(v1);
+      __47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke_cold_1(v1, v3, v4);
     }
 
-    v3 = *v1;
+    v5 = *v1;
 
-    return [v3 stopBrowsingWithError:4294960574];
+    return [v5 stopBrowsingWithError:4294960574];
   }
 
   return result;
@@ -363,6 +362,7 @@ uint64_t __47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke(uint64
 
 - (void)stopBrowsingWithError:(int)error
 {
+  v3 = *&error;
   if ([(APAssistedModeBrowser *)self timeoutTimer])
   {
     timeoutTimer = self->_timeoutTimer;
@@ -383,16 +383,16 @@ uint64_t __47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke(uint64
 
   if ([(APAssistedModeBrowser *)self isBrowsing]&& gLogCategory_APAssistedModeBrowser <= 50 && (gLogCategory_APAssistedModeBrowser != -1 || _LogCategory_Initialize()))
   {
-    [APAssistedModeBrowser stopBrowsingWithError:?];
+    [(APAssistedModeBrowser *)self stopBrowsingWithError:v3];
   }
 
   self->_instanceName = 0;
   self->_bonjourServiceName = 0;
 
   self->_bonjourProtocol = 0;
-  if (error)
+  if (v3)
   {
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:error userInfo:0];
+    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v3 userInfo:0];
   }
 
   else
@@ -407,24 +407,21 @@ uint64_t __47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke(uint64
 
 - (void)callDeviceFoundHandlerOnce:(id)once error:(id)error
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3052000000;
-  v17 = __Block_byref_object_copy__4;
-  v18 = __Block_byref_object_dispose__4;
-  v19 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3052000000;
+  v14 = __Block_byref_object_copy__4;
+  v15 = __Block_byref_object_dispose__4;
+  v16 = 0;
   if ([(APAssistedModeBrowser *)self deviceFoundHandlerBlock])
   {
     if (gLogCategory_APAssistedModeBrowser <= 30 && (gLogCategory_APAssistedModeBrowser != -1 || _LogCategory_Initialize()))
     {
-      deviceFoundHandlerBlock = [(APAssistedModeBrowser *)self deviceFoundHandlerBlock];
-      errorCopy = error;
-      selfCopy = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAssistedModeBrowser, "[APAssistedModeBrowser callDeviceFoundHandlerOnce:error:]", 33554462, "[%{ptr}] Calling device found handler block [%{ptr}], err=%@", self, [(APAssistedModeBrowser *)self deviceFoundHandlerBlock], error);
     }
 
-    v7 = _Block_copy([(APAssistedModeBrowser *)self deviceFoundHandlerBlock:selfCopy]);
-    v15[5] = v7;
+    v7 = _Block_copy([(APAssistedModeBrowser *)self deviceFoundHandlerBlock]);
+    v12[5] = v7;
     deviceFoundHandlerBlock = self->_deviceFoundHandlerBlock;
     if (deviceFoundHandlerBlock)
     {
@@ -438,53 +435,34 @@ uint64_t __47__APAssistedModeBrowser_startTimerWithTimeout___block_invoke(uint64
     block[2] = __58__APAssistedModeBrowser_callDeviceFoundHandlerOnce_error___block_invoke;
     block[3] = &unk_278BC95C0;
     block[5] = error;
-    block[6] = &v14;
+    block[6] = &v11;
     block[4] = once;
     dispatch_async(dispatchQueue, block);
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v11, 8);
 }
 
-void __58__APAssistedModeBrowser_callDeviceFoundHandlerOnce_error___block_invoke(void *a1)
+void __58__APAssistedModeBrowser_callDeviceFoundHandlerOnce_error___block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(*(*(a1[6] + 8) + 40) + 16))();
-  v4 = *(*(a1[6] + 8) + 40);
-  if (v4)
+  (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
+  v2 = *(*(*(a1 + 48) + 8) + 40);
+  if (v2)
   {
-    _Block_release(v4);
-    *(*(a1[6] + 8) + 40) = 0;
+    _Block_release(v2);
+    *(*(*(a1 + 48) + 8) + 40) = 0;
   }
 }
 
-uint64_t __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_1(uint64_t a1, int a2)
-{
-  if ((a2 - 1) <= 2)
-  {
-    v2 = off_278BC95E0[a2 - 1];
-  }
-
-  v4 = *(a1 + 32);
-  return OUTLINED_FUNCTION_7_0();
-}
-
-uint64_t __44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_2(uint64_t result, int a2)
+id *__44__APAssistedModeBrowser_setupBonjourBrowser__block_invoke_cold_2(id *result)
 {
   if (gLogCategory_APAssistedModeBrowser <= 30)
   {
-    v3 = result;
+    v1 = result;
     if (gLogCategory_APAssistedModeBrowser != -1 || (result = _LogCategory_Initialize(), result))
     {
-      v4 = *v3;
-      if ((a2 - 1) <= 2)
-      {
-        v5 = off_278BC95E0[a2 - 1];
-      }
-
-      [v4 getExpectedServiceInstanceName];
-      return OUTLINED_FUNCTION_7_0();
+      [*v1 getExpectedServiceInstanceName];
+      return OUTLINED_FUNCTION_7_0(&gLogCategory_APAssistedModeBrowser, "[APAssistedModeBrowser setupBonjourBrowser]_block_invoke", v2, "[%{ptr}] Ignoring %s event for %@. Does not match target: %@");
     }
   }
 

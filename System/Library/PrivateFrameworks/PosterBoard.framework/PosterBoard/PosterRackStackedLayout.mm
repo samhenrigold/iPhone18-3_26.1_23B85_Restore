@@ -16,14 +16,14 @@
 - (void)prepareForCollectionViewUpdates:(id)updates
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for PosterRackStackedLayout();
+  v4.super_class = type metadata accessor for PosterRackStackedLayout(0);
   [(PosterRackStackedLayout *)&v4 prepareForCollectionViewUpdates:updates];
 }
 
 - (void)finalizeCollectionViewUpdates
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PosterRackStackedLayout();
+  v3.super_class = type metadata accessor for PosterRackStackedLayout(0);
   v2 = v3.receiver;
   [(PosterRackStackedLayout *)&v3 finalizeCollectionViewUpdates];
   *&v2[OBJC_IVAR____TtC11PosterBoard23PosterRackStackedLayout_sectionIndexPathsToDelete] = MEMORY[0x277D84F90];
@@ -32,7 +32,7 @@
 - (void)prepareForTransitionToLayout:(id)layout
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for PosterRackStackedLayout();
+  v9.super_class = type metadata accessor for PosterRackStackedLayout(0);
   layoutCopy = layout;
   v5 = v9.receiver;
   [(PosterRackStackedLayout *)&v9 prepareForTransitionToLayout:layoutCopy];
@@ -60,10 +60,10 @@
 
 - (void)finalizeLayoutTransition
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93500);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93500, &qword_21B6D8630);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v11 - v4;
-  v6 = type metadata accessor for PosterRackStackedLayout();
+  v6 = type metadata accessor for PosterRackStackedLayout(0);
   v12.receiver = self;
   v12.super_class = v6;
   selfCopy = self;
@@ -119,16 +119,17 @@
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)offset
 {
+  y = offset.y;
   x = offset.x;
   selfCopy = self;
-  sub_21B632BC4(x);
-  v6 = v5;
-  v8 = v7;
+  sub_21B632BC4(x, y);
+  v7 = v6;
+  v9 = v8;
 
-  v9 = v6;
-  v10 = v8;
-  result.y = v10;
-  result.x = v9;
+  v10 = v7;
+  v11 = v9;
+  result.y = v11;
+  result.x = v10;
   return result;
 }
 

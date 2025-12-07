@@ -882,39 +882,40 @@ uint64_t __23__SBSAContext_isEqual___block_invoke_34(uint64_t a1)
 
 - (id)copyByAddingSignals:(unint64_t)signals debugRequestingProvider:(id)provider
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   selfCopy = self;
+  v9 = selfCopy;
   if (signals)
   {
-    v9 = SBLogSystemAperturePreferencesStack();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = SBLogSystemAperturePreferencesStack(selfCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      queryIteration = [(SBSAContext *)selfCopy queryIteration];
-      v13 = _StringFromPreferencesStackSignals(signals);
-      v14 = [providerCopy description];
+      queryIteration = [v9 queryIteration];
+      v14 = _StringFromPreferencesStackSignals(signals);
+      v15 = [providerCopy description];
       *buf = 134349570;
-      v17 = queryIteration;
-      v18 = 2112;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_debug_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEBUG, "[%{public}lu] Signals added: <%@> by provider: %@", buf, 0x20u);
+      v18 = queryIteration;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_debug_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEBUG, "[%{public}lu] Signals added: <%@> by provider: %@", buf, 0x20u);
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___block_invoke;
-    v15[3] = &unk_2783ACD90;
-    v15[4] = selfCopy;
-    v15[5] = a2;
-    v15[6] = signals;
-    v10 = [(SBSAContext *)selfCopy copyWithBlock:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___block_invoke;
+    v16[3] = &unk_2783ACD90;
+    v16[4] = v9;
+    v16[5] = a2;
+    v16[6] = signals;
+    v11 = [v9 copyWithBlock:v16];
 
-    selfCopy = v10;
+    v9 = v11;
   }
 
-  return selfCopy;
+  return v9;
 }
 
 void __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___block_invoke(uint64_t a1, void *a2)
@@ -946,7 +947,7 @@ void __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___bl
 
     if (!v6)
     {
-      __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___block_invoke_cold_1();
+      __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___block_invoke_cold_1(a1, v4);
     }
   }
 
@@ -960,39 +961,40 @@ void __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___bl
 
 - (id)copyByAddingFlags:(unint64_t)flags debugRequestingProvider:(id)provider
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   selfCopy = self;
+  v9 = selfCopy;
   if (flags)
   {
-    v9 = SBLogSystemAperturePreferencesStack();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = SBLogSystemAperturePreferencesStack(selfCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      queryIteration = [(SBSAContext *)selfCopy queryIteration];
-      v13 = _StringFromPreferencesStackFlags(flags);
-      v14 = [providerCopy description];
+      queryIteration = [v9 queryIteration];
+      v14 = _StringFromPreferencesStackFlags(flags);
+      v15 = [providerCopy description];
       *buf = 134349570;
-      v17 = queryIteration;
-      v18 = 2112;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_debug_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEBUG, "[%{public}lu] Flags Added: <%@> by provider: %@", buf, 0x20u);
+      v18 = queryIteration;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_debug_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEBUG, "[%{public}lu] Flags Added: <%@> by provider: %@", buf, 0x20u);
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __66__SBSAContext_Private__copyByAddingFlags_debugRequestingProvider___block_invoke;
-    v15[3] = &unk_2783ACD90;
-    v15[4] = selfCopy;
-    v15[5] = a2;
-    v15[6] = flags;
-    v10 = [(SBSAContext *)selfCopy copyWithBlock:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __66__SBSAContext_Private__copyByAddingFlags_debugRequestingProvider___block_invoke;
+    v16[3] = &unk_2783ACD90;
+    v16[4] = v9;
+    v16[5] = a2;
+    v16[6] = flags;
+    v11 = [v9 copyWithBlock:v16];
 
-    selfCopy = v10;
+    v9 = v11;
   }
 
-  return selfCopy;
+  return v9;
 }
 
 void __66__SBSAContext_Private__copyByAddingFlags_debugRequestingProvider___block_invoke(uint64_t a1, void *a2)
@@ -1024,7 +1026,7 @@ void __66__SBSAContext_Private__copyByAddingFlags_debugRequestingProvider___bloc
 
     if (!v6)
     {
-      __66__SBSAContext_Private__copyByAddingFlags_debugRequestingProvider___block_invoke_cold_1();
+      __66__SBSAContext_Private__copyByAddingFlags_debugRequestingProvider___block_invoke_cold_1(a1, v4);
     }
   }
 
@@ -1081,7 +1083,7 @@ void __50__SBSAContext_Private__copyByUpdatingPreferences___block_invoke(uint64_
 
     if (!v6)
     {
-      __50__SBSAContext_Private__copyByUpdatingPreferences___block_invoke_cold_1();
+      __50__SBSAContext_Private__copyByUpdatingPreferences___block_invoke_cold_1(a1, v4);
     }
   }
 
@@ -1093,31 +1095,31 @@ void __50__SBSAContext_Private__copyByUpdatingPreferences___block_invoke(uint64_
   [v6 setPreferences:*(a1 + 40)];
 }
 
-void __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___block_invoke_cold_1()
+void __68__SBSAContext_Private__copyByAddingSignals_debugRequestingProvider___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsacontextmut.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsacontextmut.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
-void __66__SBSAContext_Private__copyByAddingFlags_debugRequestingProvider___block_invoke_cold_1()
+void __66__SBSAContext_Private__copyByAddingFlags_debugRequestingProvider___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsacontextmut.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsacontextmut.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
-void __50__SBSAContext_Private__copyByUpdatingPreferences___block_invoke_cold_1()
+void __50__SBSAContext_Private__copyByUpdatingPreferences___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsacontextmut.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsacontextmut.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
 @end

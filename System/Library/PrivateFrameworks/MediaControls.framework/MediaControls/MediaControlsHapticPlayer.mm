@@ -65,16 +65,17 @@
 
 - (void)checkError:(id)error
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   errorCopy = error;
+  v4 = errorCopy;
   if (errorCopy)
   {
-    v4 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MCLogCategoryDefault(errorCopy);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = errorCopy;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_ERROR, "[MediaControlsHapticPlayer] Error: %{public}@", &v5, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_ERROR, "[MediaControlsHapticPlayer] Error: %{public}@", &v6, 0xCu);
     }
   }
 }

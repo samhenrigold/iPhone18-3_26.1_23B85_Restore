@@ -3,16 +3,16 @@
 
 @implementation UIForceClickInteractionDriver
 
-uint64_t __59___UIForceClickInteractionDriver__handleGestureRecognizer___block_invoke(uint64_t result, uint64_t a2)
+id *__59___UIForceClickInteractionDriver__handleGestureRecognizer___block_invoke(id *result, uint64_t a2)
 {
   if (a2 == 2)
   {
-    return [*(result + 32) cancelInteraction];
+    return [result[4] cancelInteraction];
   }
 
   if (!a2)
   {
-    return handleEvent(stateMachineSpec_8, *(*(result + 32) + 8), 0, *(result + 32), (*(result + 32) + 8));
+    return handleEvent(stateMachineSpec_8, *(result[4] + 1), 0, result[4], result[4] + 1);
   }
 
   return result;

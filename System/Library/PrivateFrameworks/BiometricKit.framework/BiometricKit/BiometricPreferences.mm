@@ -7,7 +7,7 @@
 
 + (id)preferenceValueOfClass:(Class)class forKey:(id)key
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:@"/Library/Managed Preferences/mobile/com.apple.biometrickitd.plist"];
   v6 = v5;
@@ -48,17 +48,17 @@
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136316162;
-      v14 = "0";
-      v15 = 2048;
-      v16 = 0;
-      v17 = 2080;
-      v18 = &unk_1C82F52EE;
-      v19 = 2080;
-      v20 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricSupportTools.m";
-      v21 = 1024;
-      v22 = 1032;
-      _os_log_impl(&dword_1C82AD000, v9, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v13, 0x30u);
+      v12 = 136316162;
+      v13 = "0";
+      v14 = 2048;
+      v15 = 0;
+      v16 = 2080;
+      v17 = &unk_1C82F52EE;
+      v18 = 2080;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricSupportTools.m";
+      v20 = 1024;
+      v21 = 1032;
+      _os_log_impl(&dword_1C82AD000, v9, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v12, 0x30u);
     }
 
     CFRelease(v7);
@@ -79,17 +79,17 @@
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136316162;
-      v14 = "0";
-      v15 = 2048;
-      v16 = 0;
-      v17 = 2080;
-      v18 = &unk_1C82F52EE;
-      v19 = 2080;
-      v20 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricSupportTools.m";
-      v21 = 1024;
-      v22 = 1050;
-      _os_log_impl(&dword_1C82AD000, v10, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v13, 0x30u);
+      v12 = 136316162;
+      v13 = "0";
+      v14 = 2048;
+      v15 = 0;
+      v16 = 2080;
+      v17 = &unk_1C82F52EE;
+      v18 = 2080;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricSupportTools.m";
+      v20 = 1024;
+      v21 = 1050;
+      _os_log_impl(&dword_1C82AD000, v10, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v12, 0x30u);
     }
 
     CFRelease(v7);
@@ -97,8 +97,6 @@
   }
 
 LABEL_22:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

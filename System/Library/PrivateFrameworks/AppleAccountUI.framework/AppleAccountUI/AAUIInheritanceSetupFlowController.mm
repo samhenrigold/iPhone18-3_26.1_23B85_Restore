@@ -60,7 +60,7 @@
 - (void)_showIntro
 {
   v14 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -162,7 +162,7 @@ void __62__AAUIInheritanceSetupFlowController__beginAddBeneficiaryFlow__block_in
 {
   v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -193,45 +193,46 @@ void __62__AAUIInheritanceSetupFlowController__beginAddBeneficiaryFlow__block_in
 
 void __69__AAUIInheritanceSetupFlowController__validateAccountWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (!v5 || v6)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __69__AAUIInheritanceSetupFlowController__validateAccountWithCompletion___block_invoke_2;
     block[3] = &unk_1E820B708;
-    v14 = v6;
-    v15 = *(a1 + 32);
-    v16 = *(a1 + 40);
-    v18 = v14;
+    v15 = v6;
+    v16 = *(a1 + 32);
+    v17 = *(a1 + 40);
     v19 = v15;
     v20 = v16;
+    v21 = v17;
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
-    v13 = v18;
+    v14 = v19;
   }
 
   else
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AAUILogSystem(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138412290;
-      v22 = v10;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "%@ : Authentication successful, continue setup...", buf, 0xCu);
+      v23 = v11;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "%@ : Authentication successful, continue setup...", buf, 0xCu);
     }
 
-    v11 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DBA8]];
-    v12 = WeakRetained[5];
-    WeakRetained[5] = v11;
+    v12 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DBA8]];
+    v13 = v8[5];
+    v8[5] = v12;
 
-    v13 = objc_loadWeakRetained((a1 + 48));
-    [v13 _verifyCDPWithCompletion:*(a1 + 40)];
+    v14 = objc_loadWeakRetained((a1 + 48));
+    [v14 _verifyCDPWithCompletion:*(a1 + 40)];
   }
 }
 
@@ -239,7 +240,7 @@ uint64_t __69__AAUIInheritanceSetupFlowController__validateAccountWithCompletion
 {
   v11 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) code];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   v4 = v3;
   if (v2 == -7003)
   {
@@ -301,7 +302,7 @@ uint64_t __63__AAUIInheritanceSetupFlowController__verifyCDPWithCompletion___blo
 - (void)_fetchSuggestedContacts
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -375,7 +376,7 @@ void __61__AAUIInheritanceSetupFlowController__fetchSuggestedContacts__block_inv
 {
   v15 = *MEMORY[0x1E69E9840];
   selectorCopy = selector;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(selectorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -401,7 +402,7 @@ void __61__AAUIInheritanceSetupFlowController__fetchSuggestedContacts__block_inv
 - (void)_showDefaultContactPicker
 {
   v10 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -420,7 +421,7 @@ void __61__AAUIInheritanceSetupFlowController__fetchSuggestedContacts__block_inv
 - (void)_showDefaultContactPickerWithCancel
 {
   v12 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -443,7 +444,7 @@ void __61__AAUIInheritanceSetupFlowController__fetchSuggestedContacts__block_inv
 - (void)_showShareData
 {
   v15 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -471,7 +472,7 @@ void __61__AAUIInheritanceSetupFlowController__fetchSuggestedContacts__block_inv
 - (void)_showShareAccessKey
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -506,7 +507,7 @@ void __61__AAUIInheritanceSetupFlowController__fetchSuggestedContacts__block_inv
 - (void)_showPrintPreview
 {
   v17 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -545,17 +546,18 @@ void __61__AAUIInheritanceSetupFlowController__fetchSuggestedContacts__block_inv
 
 void __55__AAUIInheritanceSetupFlowController__showPrintPreview__block_invoke(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
+  v9 = v8;
   if (v8)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Error presenting printInteractionController - %@", buf, 0xCu);
+      v18 = v9;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Error presenting printInteractionController - %@", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x1E69E9820];
@@ -563,33 +565,33 @@ void __55__AAUIInheritanceSetupFlowController__showPrintPreview__block_invoke(ui
     block[2] = __55__AAUIInheritanceSetupFlowController__showPrintPreview__block_invoke_84;
     block[3] = &unk_1E820BEB8;
     block[4] = *(a1 + 32);
-    v15 = v8;
+    v16 = v9;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v10 = v15;
+    v11 = v16;
     goto LABEL_8;
   }
 
   if (!a3)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __55__AAUIInheritanceSetupFlowController__showPrintPreview__block_invoke_3;
-    v11[3] = &unk_1E820BEB8;
-    v11[4] = *(a1 + 32);
-    v12 = v7;
-    dispatch_async(MEMORY[0x1E69E96A0], v11);
-    v10 = v12;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __55__AAUIInheritanceSetupFlowController__showPrintPreview__block_invoke_3;
+    v12[3] = &unk_1E820BEB8;
+    v12[4] = *(a1 + 32);
+    v13 = v7;
+    dispatch_async(MEMORY[0x1E69E96A0], v12);
+    v11 = v13;
 LABEL_8:
 
     goto LABEL_9;
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __55__AAUIInheritanceSetupFlowController__showPrintPreview__block_invoke_2;
-  v13[3] = &unk_1E820B8F0;
-  v13[4] = *(a1 + 32);
-  dispatch_async(MEMORY[0x1E69E96A0], v13);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __55__AAUIInheritanceSetupFlowController__showPrintPreview__block_invoke_2;
+  v14[3] = &unk_1E820B8F0;
+  v14[4] = *(a1 + 32);
+  dispatch_async(MEMORY[0x1E69E96A0], v14);
 LABEL_9:
 }
 
@@ -738,22 +740,23 @@ void __78__AAUIInheritanceSetupFlowController__dismissAndNavigateToDateOfBirthSe
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    stringValue = [value stringValue];
+    isKindOfClass = [value stringValue];
 LABEL_5:
-    v10 = stringValue;
+    v10 = isKindOfClass;
     goto LABEL_7;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    stringValue = value;
+    isKindOfClass = value;
     goto LABEL_5;
   }
 
   v10 = 0;
 LABEL_7:
-  v11 = _AAUILogSystem();
+  v11 = _AAUILogSystem(isKindOfClass);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [AAUIInheritanceSetupFlowController contactPicker:didSelectContactProperty:];
@@ -798,8 +801,8 @@ LABEL_7:
   selectedBeneficiary = self->_selectedBeneficiary;
   self->_selectedBeneficiary = v12;
 
-  v14 = _AAUILogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = _AAUILogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [AAUIInheritanceSetupFlowController accountContactSelector:didSelectContact:];
   }
@@ -816,7 +819,7 @@ LABEL_7:
 {
   v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_opt_class();
@@ -870,7 +873,7 @@ uint64_t __70__AAUIInheritanceSetupFlowController_inviteMessageWasSent_completio
     v2 = _AALogSystem();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __70__AAUIInheritanceSetupFlowController_inviteMessageWasSent_completion___block_invoke_2_cold_1();
+      __70__AAUIInheritanceSetupFlowController_inviteMessageWasSent_completion___block_invoke_2_cold_1(a1);
     }
 
     return (*(a1[6] + 16))();
@@ -887,7 +890,7 @@ uint64_t __70__AAUIInheritanceSetupFlowController_inviteMessageWasSent_completio
 - (void)_setupBeneficiary
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -926,58 +929,58 @@ uint64_t __70__AAUIInheritanceSetupFlowController_inviteMessageWasSent_completio
 
 void __55__AAUIInheritanceSetupFlowController__setupBeneficiary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [a2 accessKey];
   v8 = *(a1 + 32);
   v7 = a1 + 32;
   [*(v8 + 32) setAccessKey:v6];
 
-  v9 = _AAUILogSystem();
-  v10 = v9;
+  v10 = _AAUILogSystem(v9);
+  v11 = v10;
   if (v5)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __55__AAUIInheritanceSetupFlowController__setupBeneficiary__block_invoke_cold_1();
     }
 
     if ([v5 code] == 6)
     {
-      v11 = [MEMORY[0x1E698B9B0] cannotAddAnExistingBeneficiaryErrorTitle];
-      v12 = MEMORY[0x1E696AEC0];
-      v13 = [MEMORY[0x1E698B9B0] cannotAddAnExistingBeneficiaryErrorMessage];
-      v14 = [*(*v7 + 32) handle];
-      v15 = [v12 stringWithFormat:v13, v14];
+      v12 = [MEMORY[0x1E698B9B0] cannotAddAnExistingBeneficiaryErrorTitle];
+      v13 = MEMORY[0x1E696AEC0];
+      v14 = [MEMORY[0x1E698B9B0] cannotAddAnExistingBeneficiaryErrorMessage];
+      v15 = [*(*v7 + 32) handle];
+      v16 = [v13 stringWithFormat:v14, v15];
     }
 
     else
     {
-      v11 = [MEMORY[0x1E698B9B0] setupBeneficiaryErrorTitle];
-      v15 = [MEMORY[0x1E698B9B0] setupBeneficiaryErrorMessage];
+      v12 = [MEMORY[0x1E698B9B0] setupBeneficiaryErrorTitle];
+      v16 = [MEMORY[0x1E698B9B0] setupBeneficiaryErrorMessage];
     }
 
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __55__AAUIInheritanceSetupFlowController__setupBeneficiary__block_invoke_108;
-    v21[3] = &unk_1E820BF58;
-    v21[4] = *v7;
-    v22 = v11;
-    v23 = v15;
-    v18 = v15;
-    v19 = v11;
-    dispatch_async(MEMORY[0x1E69E96A0], v21);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __55__AAUIInheritanceSetupFlowController__setupBeneficiary__block_invoke_108;
+    v22[3] = &unk_1E820BF58;
+    v22[4] = *v7;
+    v23 = v12;
+    v24 = v16;
+    v19 = v16;
+    v20 = v12;
+    dispatch_async(MEMORY[0x1E69E96A0], v22);
   }
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138412290;
-      v25 = v17;
-      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "%@ : Beneficiary setup successful.", buf, 0xCu);
+      v26 = v18;
+      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "%@ : Beneficiary setup successful.", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x1E69E9820];
@@ -1089,12 +1092,12 @@ void __69__AAUIInheritanceSetupFlowController__validateAccountWithCompletion___b
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __70__AAUIInheritanceSetupFlowController_inviteMessageWasSent_completion___block_invoke_2_cold_1()
+void __70__AAUIInheritanceSetupFlowController_inviteMessageWasSent_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __55__AAUIInheritanceSetupFlowController__setupBeneficiary__block_invoke_cold_1()

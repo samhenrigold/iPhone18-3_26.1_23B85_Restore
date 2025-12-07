@@ -4,10 +4,12 @@
 - (BOOL)_removeACLAtPath:(const char *)path isDir:(BOOL)dir error:(id *)error;
 - (BOOL)_traverseDirectory:(id)directory ignoringFTSErrors:(BOOL)errors error:(id *)error withBlock:(id)block;
 - (BOOL)_validateSymlink:(id)symlink withStartingDepth:(unsigned int)depth andEndingDepth:(unsigned int *)endingDepth;
+- (BOOL)copyACLFrom:(id)from toAllChildrenOfPath:(id)path ignoringCopyErrors:(BOOL)errors error:(id *)error;
 - (BOOL)createSymbolicLinkAtURL:(id)l withDestinationURL:(id)rL error:(id *)error;
 - (BOOL)dataProtectionClassOfItemAtURL:(id)l class:(int *)class error:(id *)error;
 - (BOOL)itemDoesNotExistAtURL:(id)l;
 - (BOOL)releaseSandboxExtensionToken:(int64_t)token error:(id *)error;
+- (BOOL)setDataProtectionClassOfItemAtURL:(id)l toClass:(int)class ifPredicate:(id)predicate error:(id *)error;
 - (BOOL)setPermissions:(unsigned __int16)permissions onAllChildrenOfPath:(id)path error:(id *)error;
 - (BOOL)setPermissionsOfItemAtURL:(id)l toMode:(unsigned __int16)mode error:(id *)error;
 - (BOOL)standardizeOwnershipAtURL:(id)l toUID:(unsigned int)d toGID:(unsigned int)iD error:(id *)error;
@@ -44,7 +46,6 @@
 
 uint64_t __31__IXFileManager_defaultManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   defaultManager_defaultInstance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x1EEE66BB8]();
@@ -209,12 +210,12 @@ LABEL_10:
 
 - (BOOL)_traverseDirectory:(id)directory ignoringFTSErrors:(BOOL)errors error:(id *)error withBlock:(id)block
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   fileSystemRepresentation = [directory fileSystemRepresentation];
-  v38[0] = fileSystemRepresentation;
-  v38[1] = 0;
-  v11 = fts_open(v38, 84, 0);
+  v37[0] = fileSystemRepresentation;
+  v37[1] = 0;
+  v11 = fts_open(v37, 84, 0);
   if (!v11)
   {
     v22 = *MEMORY[0x1E696A798];
@@ -316,7 +317,6 @@ LABEL_24:
     *error = v15;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
@@ -340,7 +340,6 @@ LABEL_24:
           v60 = *MEMORY[0x1E696A798];
           if (v59)
           {
-            v70 = *MEMORY[0x1E696A798];
             [IXFileManager _removeACLAtPath:isDir:error:];
           }
 
@@ -365,7 +364,6 @@ LABEL_24:
           v14 = *MEMORY[0x1E696A798];
           if (v13)
           {
-            v69 = *MEMORY[0x1E696A798];
             [IXFileManager _removeACLAtPath:isDir:error:];
           }
 
@@ -376,7 +374,7 @@ LABEL_24:
           v20 = 253;
         }
 
-        v30 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", v20, @"IXErrorDomain", 1uLL, v19, 0, @"Failed to remove ACL", v18, v71);
+        v30 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", v20, @"IXErrorDomain", 1uLL, v19, 0, @"Failed to remove ACL", v18, v66);
 
         v31 = 0;
 LABEL_32:
@@ -389,7 +387,6 @@ LABEL_32:
       v45 = *MEMORY[0x1E696A798];
       if (v44)
       {
-        v67 = *MEMORY[0x1E696A798];
         [IXFileManager _removeACLAtPath:isDir:error:];
       }
 
@@ -415,7 +412,6 @@ LABEL_32:
           v37 = *MEMORY[0x1E696A798];
           if (v36)
           {
-            v66 = *MEMORY[0x1E696A798];
             [IXFileManager _removeACLAtPath:isDir:error:];
           }
 
@@ -423,7 +419,7 @@ LABEL_32:
           v39 = __error();
           strerror(*v39);
           v41 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", 264, v37, v38, 0, 0, @"Failed to set ACL on %s: %s", v40, path);
-          v30 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", 264, @"IXErrorDomain", 1uLL, v41, 0, @"Failed to remove ACL", v42, v73);
+          v30 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", 264, @"IXErrorDomain", 1uLL, v41, 0, @"Failed to remove ACL", v42, v68);
         }
 
         else
@@ -447,7 +443,6 @@ LABEL_33:
       v54 = *MEMORY[0x1E696A798];
       if (v53)
       {
-        v68 = *MEMORY[0x1E696A798];
         [IXFileManager _removeACLAtPath:isDir:error:];
       }
 
@@ -458,7 +453,7 @@ LABEL_33:
       v51 = 259;
     }
 
-    v30 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", v51, @"IXErrorDomain", 1uLL, v50, 0, @"Failed to remove ACL", v49, v74);
+    v30 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", v51, @"IXErrorDomain", 1uLL, v50, 0, @"Failed to remove ACL", v49, v69);
 
     v31 = 0;
     goto LABEL_33;
@@ -476,7 +471,7 @@ LABEL_33:
   v25 = __error();
   v26 = strerror(*v25);
   v28 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", 235, v23, v24, 0, 0, @"acl_init() failed: %s", v27, v26);
-  v30 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", 235, @"IXErrorDomain", 1uLL, v28, 0, @"Failed to remove ACL", v29, v72);
+  v30 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", 235, @"IXErrorDomain", 1uLL, v28, 0, @"Failed to remove ACL", v29, v67);
 
   v31 = 0;
   if (error)
@@ -523,23 +518,22 @@ BOOL __58__IXFileManager_setPermissions_onAllChildrenOfPath_error___block_invoke
     return 1;
   }
 
-  v9 = *(a2 + 48);
-  v10 = lchmod(v9, *(a1 + 32));
-  if (a3 && v10)
+  v8 = *(a2 + 48);
+  v9 = lchmod(v8, *(a1 + 32));
+  if (a3 && v9)
   {
-    v11 = *__error();
-    v12 = *MEMORY[0x1E696A798];
-    v13 = v11;
-    v18 = *(a1 + 32);
-    strerror(v11);
-    v15 = _CreateError("[IXFileManager setPermissions:onAllChildrenOfPath:error:]_block_invoke", 304, v12, v13, 0, 0, @"Failed to lchmod %s to mode 0%o : %s", v14, v9);
-    v16 = v15;
+    v10 = *__error();
+    v11 = *MEMORY[0x1E696A798];
+    v12 = v10;
+    strerror(v10);
+    v14 = _CreateError("[IXFileManager setPermissions:onAllChildrenOfPath:error:]_block_invoke", 304, v11, v12, 0, 0, @"Failed to lchmod %s to mode 0%o : %s", v13, v8);
+    v15 = v14;
     result = 0;
-    *a3 = v15;
+    *a3 = v14;
     return result;
   }
 
-  return !v10;
+  return !v9;
 }
 
 - (BOOL)standardizeOwnershipAtURL:(id)l toUID:(unsigned int)d toGID:(unsigned int)iD error:(id *)error
@@ -572,29 +566,82 @@ BOOL __61__IXFileManager_standardizeOwnershipAtURL_toUID_toGID_error___block_inv
     return 1;
   }
 
-  v9 = *(a2 + 48);
-  v10 = lchown(v9, *(a1 + 32), *(a1 + 36));
-  if (a3 && v10)
+  v8 = *(a2 + 48);
+  v9 = lchown(v8, *(a1 + 32), *(a1 + 36));
+  if (a3 && v9)
   {
-    v11 = *__error();
-    v12 = *MEMORY[0x1E696A798];
-    v13 = v11;
-    v14 = *(a1 + 32);
-    v19 = *(a1 + 36);
-    strerror(v11);
-    v16 = _CreateError("[IXFileManager standardizeOwnershipAtURL:toUID:toGID:error:]_block_invoke", 337, v12, v13, 0, 0, @"Failed to lchown %s with uid/gid %d/%d : %s", v15, v9);
-    v17 = v16;
+    v10 = *__error();
+    v11 = *MEMORY[0x1E696A798];
+    v12 = v10;
+    strerror(v10);
+    v14 = _CreateError("[IXFileManager standardizeOwnershipAtURL:toUID:toGID:error:]_block_invoke", 337, v11, v12, 0, 0, @"Failed to lchown %s with uid/gid %d/%d : %s", v13, v8);
+    v15 = v14;
     result = 0;
-    *a3 = v16;
+    *a3 = v14;
     return result;
   }
 
-  return !v10;
+  return !v9;
+}
+
+- (BOOL)copyACLFrom:(id)from toAllChildrenOfPath:(id)path ignoringCopyErrors:(BOOL)errors error:(id *)error
+{
+  errorsCopy = errors;
+  fromCopy = from;
+  pathCopy = path;
+  fileSystemRepresentation = [fromCopy fileSystemRepresentation];
+  link_np = acl_get_link_np(fileSystemRepresentation, ACL_TYPE_EXTENDED);
+  if (link_np)
+  {
+    v14 = link_np;
+    v23 = 0;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __74__IXFileManager_copyACLFrom_toAllChildrenOfPath_ignoringCopyErrors_error___block_invoke;
+    v21[3] = &__block_descriptor_41_e79_B24__0___ftsent____ftsent____ftsent____ftsent_q_v__iiSSQiSsSSS__stat__1c__8__16l;
+    v21[4] = link_np;
+    v22 = errorsCopy;
+    v15 = [(IXFileManager *)self _traverseDirectory:pathCopy ignoringFTSErrors:errorsCopy error:&v23 withBlock:v21];
+    v16 = v23;
+    acl_free(v14);
+    if (!error)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_9;
+  }
+
+  v18 = *__error();
+  if (v18 == 2 && [(IXFileManager *)self itemExistsAtURL:fromCopy])
+  {
+    _CreateError("[IXFileManager copyACLFrom:toAllChildrenOfPath:ignoringCopyErrors:error:]", 374, *MEMORY[0x1E696A798], 0x5DuLL, 0, 0, @"acl_get_link_np found no ACLs on %s", v17, fileSystemRepresentation);
+  }
+
+  else
+  {
+    _CreateError("[IXFileManager copyACLFrom:toAllChildrenOfPath:ignoringCopyErrors:error:]", 379, *MEMORY[0x1E696A798], v18, 0, 0, @"acl_get_link_np failed for %s", v17, fileSystemRepresentation);
+  }
+  v16 = ;
+  v15 = 0;
+  if (error)
+  {
+LABEL_9:
+    if (!v15)
+    {
+      v19 = v16;
+      *error = v16;
+    }
+  }
+
+LABEL_11:
+
+  return v15;
 }
 
 uint64_t __74__IXFileManager_copyACLFrom_toAllChildrenOfPath_ignoringCopyErrors_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 88);
   result = 1;
   v6 = v4 > 8;
@@ -610,7 +657,7 @@ uint64_t __74__IXFileManager_copyACLFrom_toAllChildrenOfPath_ignoringCopyErrors_
 
     if (!acl_set_link_np(v10, ACL_TYPE_EXTENDED, *(a1 + 32)))
     {
-      goto LABEL_12;
+      return 1;
     }
 
     v13 = *__error();
@@ -620,17 +667,15 @@ uint64_t __74__IXFileManager_copyACLFrom_toAllChildrenOfPath_ignoringCopyErrors_
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v19 = "[IXFileManager copyACLFrom:toAllChildrenOfPath:ignoringCopyErrors:error:]_block_invoke";
-        v20 = 2080;
-        v21 = strerror(v13);
-        v22 = 2080;
-        v23 = v10;
+        v18 = "[IXFileManager copyACLFrom:toAllChildrenOfPath:ignoringCopyErrors:error:]_block_invoke";
+        v19 = 2080;
+        v20 = strerror(v13);
+        v21 = 2080;
+        v22 = v10;
         _os_log_impl(&dword_1DA47A000, v14, OS_LOG_TYPE_DEFAULT, "%s: Ignoring error %s from acl_set_link_np for %s", buf, 0x20u);
       }
 
-LABEL_12:
-      result = 1;
-      goto LABEL_16;
+      return 1;
     }
 
     if (a3)
@@ -643,12 +688,10 @@ LABEL_12:
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_16:
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -683,9 +726,9 @@ LABEL_16:
 
 - (id)destinationOfSymbolicLinkAtURL:(id)l error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v6 = readlink([lCopy fileSystemRepresentation], v18, 0x400uLL);
+  v6 = readlink([lCopy fileSystemRepresentation], v17, 0x400uLL);
   if (v6 < 0)
   {
     v11 = *MEMORY[0x1E696A798];
@@ -703,9 +746,9 @@ LABEL_16:
 
   else
   {
-    v18[v6] = 0;
+    v17[v6] = 0;
     v7 = MEMORY[0x1E695DFF8];
-    v8 = [MEMORY[0x1E696AEC0] stringWithFileSystemRepresentation:v18 length:v6];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFileSystemRepresentation:v17 length:v6];
     v9 = [v7 fileURLWithPath:v8];
 
     v10 = 0;
@@ -723,17 +766,15 @@ LABEL_16:
 
 LABEL_7:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (BOOL)itemDoesNotExistAtURL:(id)l
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  memset(&v10, 0, sizeof(v10));
-  if (!lstat([lCopy fileSystemRepresentation], &v10))
+  memset(&v9, 0, sizeof(v9));
+  if (!lstat([lCopy fileSystemRepresentation], &v9))
   {
 LABEL_7:
     v4 = 0;
@@ -748,11 +789,11 @@ LABEL_7:
       v6 = __error();
       v7 = strerror(*v6);
       *buf = 136315650;
-      v12 = "[IXFileManager itemDoesNotExistAtURL:]";
-      v13 = 2112;
-      v14 = lCopy;
-      v15 = 2080;
-      v16 = v7;
+      v11 = "[IXFileManager itemDoesNotExistAtURL:]";
+      v12 = 2112;
+      v13 = lCopy;
+      v14 = 2080;
+      v15 = v7;
       _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to determine if %@ exists: %s", buf, 0x20u);
     }
 
@@ -762,7 +803,6 @@ LABEL_7:
   v4 = 1;
 LABEL_8:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -843,6 +883,92 @@ LABEL_10:
   return v25;
 }
 
+- (BOOL)setDataProtectionClassOfItemAtURL:(id)l toClass:(int)class ifPredicate:(id)predicate error:(id *)error
+{
+  v8 = *&class;
+  lCopy = l;
+  predicateCopy = predicate;
+  v11 = open([lCopy fileSystemRepresentation], 256);
+  v12 = v11;
+  if (v11 < 0)
+  {
+    v18 = *MEMORY[0x1E696A798];
+    v19 = *__error();
+    fileSystemRepresentation = [lCopy fileSystemRepresentation];
+    v21 = __error();
+    v33 = fileSystemRepresentation;
+    strerror(*v21);
+    v23 = @"Failed to open %s : %s";
+    v24 = 545;
+  }
+
+  else
+  {
+    if (!predicateCopy)
+    {
+LABEL_5:
+      if (fcntl(v12, 64, v8))
+      {
+        v14 = *MEMORY[0x1E696A798];
+        v15 = *__error();
+        [lCopy fileSystemRepresentation];
+        v16 = __error();
+        strerror(*v16);
+        _CreateError("[IXFileManager setDataProtectionClassOfItemAtURL:toClass:ifPredicate:error:]", 562, v14, v15, 0, 0, @"Failed to setclass(%d) on file %s: %s", v17, v8);
+        goto LABEL_11;
+      }
+
+LABEL_8:
+      v25 = 0;
+      v26 = 1;
+LABEL_14:
+      close(v12);
+      v31 = v26;
+      goto LABEL_15;
+    }
+
+    v13 = fcntl(v11, 63);
+    if ((v13 & 0x80000000) == 0)
+    {
+      if (!predicateCopy[2](predicateCopy, v13))
+      {
+        goto LABEL_8;
+      }
+
+      goto LABEL_5;
+    }
+
+    v18 = *MEMORY[0x1E696A798];
+    v19 = *__error();
+    fileSystemRepresentation2 = [lCopy fileSystemRepresentation];
+    v28 = __error();
+    v33 = fileSystemRepresentation2;
+    strerror(*v28);
+    v23 = @"Failed to getclass of file %s: %s";
+    v24 = 553;
+  }
+
+  _CreateError("[IXFileManager setDataProtectionClassOfItemAtURL:toClass:ifPredicate:error:]", v24, v18, v19, 0, 0, v23, v22, v33);
+  v29 = LABEL_11:;
+  v25 = v29;
+  if (error)
+  {
+    v30 = v29;
+    *error = v25;
+  }
+
+  v26 = 0;
+  v31 = 0;
+  if ((v12 & 0x80000000) == 0)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_15:
+
+  return v31;
+}
+
 - (BOOL)setPermissionsOfItemAtURL:(id)l toMode:(unsigned __int16)mode error:(id *)error
 {
   fileSystemRepresentation = [l fileSystemRepresentation];
@@ -866,7 +992,7 @@ LABEL_10:
 
 - (id)_realPathWhatExistsInPath:(id)path
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pathComponents = [path pathComponents];
   v5 = [pathComponents count];
   v6 = v5 - 1;
@@ -894,11 +1020,11 @@ LABEL_10:
           {
             path = [v10 path];
             *buf = 136315650;
-            v18 = "[IXFileManager _realPathWhatExistsInPath:]";
-            v19 = 2112;
-            v20 = path;
-            v21 = 2112;
-            v22 = v12;
+            v17 = "[IXFileManager _realPathWhatExistsInPath:]";
+            v18 = 2112;
+            v19 = path;
+            v20 = 2112;
+            v21 = v12;
             _os_log_debug_impl(&dword_1DA47A000, v13, OS_LOG_TYPE_DEBUG, "%s: Realpathed %@ ; appending non-existing components %@", buf, 0x20u);
           }
 
@@ -922,20 +1048,18 @@ LABEL_10:
     while (v6);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)_realPathForURL:(id)l allowNonExistentPathComponents:(BOOL)components
 {
   componentsCopy = components;
-  v26 = *MEMORY[0x1E69E9840];
-  bzero(v25, 0x400uLL);
+  v25 = *MEMORY[0x1E69E9840];
+  bzero(v24, 0x400uLL);
   path = [l path];
-  if (realpath_DARWIN_EXTSN([path fileSystemRepresentation], v25))
+  if (realpath_DARWIN_EXTSN([path fileSystemRepresentation], v24))
   {
-    v8 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v25 isDirectory:0 relativeToURL:0];
+    v8 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v24 isDirectory:0 relativeToURL:0];
 LABEL_11:
     v14 = v8;
     goto LABEL_12;
@@ -953,54 +1077,52 @@ LABEL_11:
     fileSystemRepresentation = [path fileSystemRepresentation];
     v12 = __error();
     v13 = strerror(*v12);
-    v17 = 136315906;
-    v18 = "[IXFileManager _realPathForURL:allowNonExistentPathComponents:]";
-    v19 = 2080;
-    v20 = fileSystemRepresentation;
-    v21 = 2080;
-    v22 = v13;
-    v23 = 2080;
-    v24 = v25;
-    _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: Failed to realpath %s : %s at %s", &v17, 0x2Au);
+    v16 = 136315906;
+    v17 = "[IXFileManager _realPathForURL:allowNonExistentPathComponents:]";
+    v18 = 2080;
+    v19 = fileSystemRepresentation;
+    v20 = 2080;
+    v21 = v13;
+    v22 = 2080;
+    v23 = v24;
+    _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: Failed to realpath %s : %s at %s", &v16, 0x2Au);
   }
 
   v14 = 0;
 LABEL_12:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BOOL)_validateSymlink:(id)symlink withStartingDepth:(unsigned int)depth andEndingDepth:(unsigned int *)endingDepth
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   symlinkCopy = symlink;
   v8 = symlinkCopy;
   if (symlinkCopy)
   {
     endingDepthCopy = endingDepth;
     [symlinkCopy pathComponents];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v9 = v23 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = v22 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       depthCopy2 = depth;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           if ([v15 isEqualToString:@".."])
           {
             --depthCopy2;
@@ -1018,7 +1140,7 @@ LABEL_12:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v11)
         {
           continue;
@@ -1048,16 +1170,15 @@ LABEL_18:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (id)realPathForURL:(id)l ifChildOfURL:(id)rL
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
-  bzero(v105, 0x400uLL);
+  bzero(v104, 0x400uLL);
   if (!lCopy || !rLCopy)
   {
     v25 = IXGetLoggingHandle(kIXLoggingSubsystem);
@@ -1067,11 +1188,11 @@ LABEL_18:
     }
 
     *buf = 136315650;
-    v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-    v93 = 2112;
-    v94 = rLCopy;
-    v95 = 2112;
-    v96 = lCopy;
+    v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+    v92 = 2112;
+    v93 = rLCopy;
+    v94 = 2112;
+    v95 = lCopy;
     v30 = "%s: The base path %@ and/or suspicious path %@ were nil";
     v31 = v25;
     v32 = 32;
@@ -1116,11 +1237,11 @@ LABEL_18:
       path7 = [lCopy path];
       path8 = [rLCopy path];
       *buf = 136315650;
-      v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-      v93 = 2112;
-      v94 = path7;
-      v95 = 2112;
-      v96 = path8;
+      v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+      v92 = 2112;
+      v93 = path7;
+      v94 = 2112;
+      v95 = path8;
       _os_log_impl(&dword_1DA47A000, v25, OS_LOG_TYPE_DEFAULT, "%s: supiscious path %@ does not contain base path %@ as a prefix", buf, 0x20u);
 
 LABEL_22:
@@ -1140,9 +1261,9 @@ LABEL_22:
     {
       path7 = [lCopy path];
       *buf = 136315394;
-      v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-      v93 = 2112;
-      v94 = path7;
+      v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+      v92 = 2112;
+      v93 = path7;
       v27 = "%s: The suspicious path %@ contains '..' paths, which are invalid";
 LABEL_11:
       v28 = v25;
@@ -1165,7 +1286,7 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v34 = readlink([lCopy fileSystemRepresentation], v105, 0x400uLL);
+  v34 = readlink([lCopy fileSystemRepresentation], v104, 0x400uLL);
   if (v34 < 0)
   {
     if (*__error() == 22 || *__error() == 2)
@@ -1181,12 +1302,12 @@ LABEL_26:
       goto LABEL_23;
     }
 
-    v53 = __error();
-    v54 = strerror(*v53);
+    v52 = __error();
+    v53 = strerror(*v52);
     *buf = 136315394;
-    v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-    v93 = 2080;
-    v94 = v54;
+    v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+    v92 = 2080;
+    v93 = v53;
     v30 = "%s: Readlink failed: %s";
     v31 = v25;
     v32 = 22;
@@ -1195,18 +1316,18 @@ LABEL_14:
     goto LABEL_23;
   }
 
-  if (v105[0] == 47)
+  if (v104[0] == 47)
   {
     v25 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       path7 = [lCopy path];
       *buf = 136315650;
-      v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-      v93 = 2112;
-      v94 = path7;
-      v95 = 2080;
-      v96 = v105;
+      v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+      v92 = 2112;
+      v93 = path7;
+      v94 = 2080;
+      v95 = v104;
       v27 = "%s: Rejecting %@ -> %s, as absolute symlinks are not allowed";
       v28 = v25;
       v29 = 32;
@@ -1216,11 +1337,11 @@ LABEL_14:
     goto LABEL_23;
   }
 
-  v90 = 0;
+  v89 = 0;
   path10 = [rLCopy path];
-  v44 = [(IXFileManager *)self _validateSymlink:path10 withStartingDepth:0 andEndingDepth:&v90];
+  v43 = [(IXFileManager *)self _validateSymlink:path10 withStartingDepth:0 andEndingDepth:&v89];
 
-  if (!v44)
+  if (!v43)
   {
     v25 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -1230,38 +1351,38 @@ LABEL_14:
 
     path7 = [rLCopy path];
     *buf = 136315394;
-    v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-    v93 = 2112;
-    v94 = path7;
+    v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+    v92 = 2112;
+    v93 = path7;
     v27 = "%s: Failed to retrieve depth of %@";
     goto LABEL_11;
   }
 
   path11 = [lCopy path];
   path12 = [rLCopy path];
-  v47 = [path11 substringFromIndex:{objc_msgSend(path12, "length")}];
+  v46 = [path11 substringFromIndex:{objc_msgSend(path12, "length")}];
 
-  stringByDeletingLastPathComponent = [v47 stringByDeletingLastPathComponent];
+  stringByDeletingLastPathComponent = [v46 stringByDeletingLastPathComponent];
 
-  v48 = [MEMORY[0x1E696AEC0] stringWithFileSystemRepresentation:v105 length:v34];
-  path9 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:v48];
+  v47 = [MEMORY[0x1E696AEC0] stringWithFileSystemRepresentation:v104 length:v34];
+  path9 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:v47];
 
-  if (![(IXFileManager *)self _validateSymlink:path9 withStartingDepth:v90 andEndingDepth:0])
+  if (![(IXFileManager *)self _validateSymlink:path9 withStartingDepth:v89 andEndingDepth:0])
   {
-    v51 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v50 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       path13 = [lCopy path];
       path14 = [rLCopy path];
       *buf = 136315906;
-      v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-      v93 = 2112;
-      v94 = path13;
-      v95 = 2112;
-      v96 = path9;
-      v97 = 2112;
-      v98 = path14;
-      _os_log_impl(&dword_1DA47A000, v51, OS_LOG_TYPE_DEFAULT, "%s: Rejecting %@ -> %@, as it is points outside or to the base %@", buf, 0x2Au);
+      v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+      v92 = 2112;
+      v93 = path13;
+      v94 = 2112;
+      v95 = path9;
+      v96 = 2112;
+      v97 = path14;
+      _os_log_impl(&dword_1DA47A000, v50, OS_LOG_TYPE_DEFAULT, "%s: Rejecting %@ -> %@, as it is points outside or to the base %@", buf, 0x2Au);
 
       goto LABEL_50;
     }
@@ -1272,18 +1393,18 @@ LABEL_51:
   }
 
 LABEL_35:
-  v49 = [(IXFileManager *)self _realPathForURL:rLCopy allowNonExistentPathComponents:0];
-  if (!v49)
+  v48 = [(IXFileManager *)self _realPathForURL:rLCopy allowNonExistentPathComponents:0];
+  if (!v48)
   {
-    v51 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v50 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       path13 = [rLCopy path];
       *buf = 136315394;
-      v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-      v93 = 2112;
-      v94 = path13;
-      _os_log_impl(&dword_1DA47A000, v51, OS_LOG_TYPE_DEFAULT, "%s: Failed to retrieve realpath for base path %@ ", buf, 0x16u);
+      v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+      v92 = 2112;
+      v93 = path13;
+      _os_log_impl(&dword_1DA47A000, v50, OS_LOG_TYPE_DEFAULT, "%s: Failed to retrieve realpath for base path %@ ", buf, 0x16u);
 LABEL_50:
 
       goto LABEL_51;
@@ -1292,83 +1413,83 @@ LABEL_50:
     goto LABEL_51;
   }
 
-  v37 = v49;
-  v50 = [(IXFileManager *)self _realPathForURL:lCopy allowNonExistentPathComponents:1];
-  if (!v50)
+  v37 = v48;
+  v49 = [(IXFileManager *)self _realPathForURL:lCopy allowNonExistentPathComponents:1];
+  if (!v49)
   {
-    v55 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+    v54 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
       path15 = [lCopy path];
       *buf = 136315394;
-      v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-      v93 = 2112;
-      v94 = path15;
-      _os_log_impl(&dword_1DA47A000, v55, OS_LOG_TYPE_DEFAULT, "%s: Failed to retrieve realpath for suspicious path %@", buf, 0x16u);
+      v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+      v92 = 2112;
+      v93 = path15;
+      _os_log_impl(&dword_1DA47A000, v54, OS_LOG_TYPE_DEFAULT, "%s: Failed to retrieve realpath for suspicious path %@", buf, 0x16u);
     }
 
     goto LABEL_25;
   }
 
-  v38 = v50;
+  v38 = v49;
   if (v34 < 0)
   {
-    pathComponents2 = [v50 pathComponents];
+    pathComponents2 = [v49 pathComponents];
     pathComponents3 = [v37 pathComponents];
-    v59 = [pathComponents3 count];
-    v89 = pathComponents2;
-    v60 = [pathComponents2 count];
-    if (v60 < 2 || v59 <= 1)
+    v58 = [pathComponents3 count];
+    v88 = pathComponents2;
+    v59 = [pathComponents2 count];
+    if (v59 < 2 || v58 <= 1)
     {
-      v66 = IXGetLoggingHandle(kIXLoggingSubsystem);
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+      v65 = IXGetLoggingHandle(kIXLoggingSubsystem);
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
       {
         [lCopy path];
-        v71 = loga = v66;
+        v70 = loga = v65;
         path16 = [rLCopy path];
         path17 = [v38 path];
         path18 = [v37 path];
         *buf = 136316162;
-        v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-        v93 = 2112;
-        v94 = v71;
-        v95 = 2112;
-        v96 = path16;
-        v97 = 2112;
-        v98 = path17;
-        v99 = 2112;
-        v100 = path18;
+        v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+        v92 = 2112;
+        v93 = v70;
+        v94 = 2112;
+        v95 = path16;
+        v96 = 2112;
+        v97 = path17;
+        v98 = 2112;
+        v99 = path18;
         _os_log_impl(&dword_1DA47A000, loga, OS_LOG_TYPE_DEFAULT, "%s: Rejecting %@ with base %@ because real component counts don't make sense (reals %@ ; %@)", buf, 0x34u);
 
-        v66 = loga;
+        v65 = loga;
       }
     }
 
     else
     {
-      v61 = v60;
-      v62 = 1;
-      v63 = [pathComponents3 objectAtIndexedSubscript:1];
-      if ([v63 isEqualToString:@"private"])
+      v60 = v59;
+      v61 = 1;
+      v62 = [pathComponents3 objectAtIndexedSubscript:1];
+      if ([v62 isEqualToString:@"private"])
       {
-        v62 = 2;
+        v61 = 2;
       }
 
-      [v89 objectAtIndexedSubscript:1];
-      v64 = v83 = v59;
-      if ([v64 isEqualToString:@"private"])
+      [v88 objectAtIndexedSubscript:1];
+      v63 = v82 = v58;
+      if ([v63 isEqualToString:@"private"])
       {
-        v65 = 2;
+        v64 = 2;
       }
 
       else
       {
-        v65 = 1;
+        v64 = 1;
       }
 
-      if (v83 - v62 <= v61 - v65)
+      if (v82 - v61 <= v60 - v64)
       {
-        if (v83 <= v62)
+        if (v82 <= v61)
         {
 LABEL_67:
 
@@ -1377,72 +1498,72 @@ LABEL_67:
 
         while (1)
         {
-          v75 = [pathComponents3 objectAtIndexedSubscript:v62];
-          v76 = [v89 objectAtIndexedSubscript:v65];
-          logb = [v75 isEqualToString:v76];
+          v74 = [pathComponents3 objectAtIndexedSubscript:v61];
+          v75 = [v88 objectAtIndexedSubscript:v64];
+          logb = [v74 isEqualToString:v75];
 
           if ((logb & 1) == 0)
           {
             break;
           }
 
-          ++v62;
-          ++v65;
-          if (v83 == v62)
+          ++v61;
+          ++v64;
+          if (v82 == v61)
           {
             goto LABEL_67;
           }
         }
 
-        v66 = IXGetLoggingHandle(kIXLoggingSubsystem);
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+        v65 = IXGetLoggingHandle(kIXLoggingSubsystem);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
         {
           logc = [lCopy path];
           path19 = [rLCopy path];
           path20 = [v38 path];
           path21 = [v37 path];
-          v77 = [pathComponents3 objectAtIndexedSubscript:v62];
-          v78 = [v89 objectAtIndexedSubscript:v65];
+          v76 = [pathComponents3 objectAtIndexedSubscript:v61];
+          v77 = [v88 objectAtIndexedSubscript:v64];
           *buf = 136316674;
-          v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-          v93 = 2112;
-          v94 = logc;
-          v95 = 2112;
-          v96 = path19;
-          v97 = 2112;
-          v98 = path20;
-          v99 = 2112;
-          v100 = path21;
-          v101 = 2112;
-          v102 = v77;
-          v103 = 2112;
-          v104 = v78;
-          v79 = v78;
-          _os_log_impl(&dword_1DA47A000, v66, OS_LOG_TYPE_DEFAULT, "%s: Rejecting %@ with base %@ (reals %@ ; %@) because components diverge at %@ != %@", buf, 0x48u);
+          v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+          v92 = 2112;
+          v93 = logc;
+          v94 = 2112;
+          v95 = path19;
+          v96 = 2112;
+          v97 = path20;
+          v98 = 2112;
+          v99 = path21;
+          v100 = 2112;
+          v101 = v76;
+          v102 = 2112;
+          v103 = v77;
+          v78 = v77;
+          _os_log_impl(&dword_1DA47A000, v65, OS_LOG_TYPE_DEFAULT, "%s: Rejecting %@ with base %@ (reals %@ ; %@) because components diverge at %@ != %@", buf, 0x48u);
         }
       }
 
       else
       {
-        v66 = IXGetLoggingHandle(kIXLoggingSubsystem);
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+        v65 = IXGetLoggingHandle(kIXLoggingSubsystem);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
         {
           log = [lCopy path];
           path22 = [rLCopy path];
           path23 = [v38 path];
           path24 = [v37 path];
           *buf = 136316162;
-          v92 = "[IXFileManager realPathForURL:ifChildOfURL:]";
-          v93 = 2112;
-          v94 = log;
-          v95 = 2112;
-          v96 = path22;
-          v97 = 2112;
-          v98 = path23;
-          v99 = 2112;
-          v100 = path24;
-          v70 = path24;
-          _os_log_impl(&dword_1DA47A000, v66, OS_LOG_TYPE_DEFAULT, "%s: Rejecting %@ with base %@ because base component count is greater than child component count (reals %@ ; %@)", buf, 0x34u);
+          v91 = "[IXFileManager realPathForURL:ifChildOfURL:]";
+          v92 = 2112;
+          v93 = log;
+          v94 = 2112;
+          v95 = path22;
+          v96 = 2112;
+          v97 = path23;
+          v98 = 2112;
+          v99 = path24;
+          v69 = path24;
+          _os_log_impl(&dword_1DA47A000, v65, OS_LOG_TYPE_DEFAULT, "%s: Rejecting %@ with base %@ because base component count is greater than child component count (reals %@ ; %@)", buf, 0x34u);
         }
       }
     }
@@ -1456,25 +1577,23 @@ LABEL_38:
 LABEL_27:
   v40 = v39;
 
-  v41 = *MEMORY[0x1E69E9840];
-
   return v40;
 }
 
 - (unint64_t)_diskUsageForDirectoryURL:(id)l
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v4 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:1];
-  v57 = 0;
-  v59 = 0;
-  v56 = 0xA200000900000005;
-  v58 = 0x500000002;
+  v56 = 0;
+  v58 = 0;
+  v55 = 0xA200000900000005;
+  v57 = 0x500000002;
   v6 = malloc_type_malloc(0x8000uLL, 0x223271D7uLL);
-  v48 = lCopy;
+  v47 = lCopy;
   path = [lCopy path];
-  v47 = path;
+  v46 = path;
   if (path)
   {
     [v5 addObject:path];
@@ -1486,27 +1605,27 @@ LABEL_27:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v61 = "[IXFileManager _diskUsageForDirectoryURL:]";
-      v62 = 2112;
-      v63 = v48;
+      v60 = "[IXFileManager _diskUsageForDirectoryURL:]";
+      v61 = 2112;
+      v62 = v47;
       _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get path to url %@", buf, 0x16u);
     }
   }
 
   if ([v5 count])
   {
-    v54 = 0;
-    v53 = v4;
-    v51 = v5;
-    v49 = v6;
+    v53 = 0;
+    v52 = v4;
+    v50 = v5;
+    v48 = v6;
     while (1)
     {
       v9 = objc_autoreleasePoolPush();
       v10 = [v5 objectAtIndex:0];
       [v5 removeObjectAtIndex:0];
-      v55 = v10;
-      v52 = open([v10 fileSystemRepresentation], 1048832);
-      if (v52 < 0)
+      v54 = v10;
+      v51 = open([v10 fileSystemRepresentation], 1048832);
+      if (v51 < 0)
       {
         v39 = IXGetLoggingHandle(kIXLoggingSubsystem);
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
@@ -1514,24 +1633,24 @@ LABEL_27:
           v40 = __error();
           v41 = strerror(*v40);
           *buf = 136315650;
-          v61 = "[IXFileManager _diskUsageForDirectoryURL:]";
-          v62 = 2112;
-          v63 = v55;
-          v64 = 2080;
-          v65 = v41;
+          v60 = "[IXFileManager _diskUsageForDirectoryURL:]";
+          v61 = 2112;
+          v62 = v54;
+          v63 = 2080;
+          v64 = v41;
           _os_log_impl(&dword_1DA47A000, v39, OS_LOG_TYPE_DEFAULT, "%s: Failed to open directory %@ : %s", buf, 0x20u);
         }
       }
 
       else
       {
-        v50 = v9;
+        v49 = v9;
         v11 = 0;
 LABEL_10:
-        v6 = v49;
+        v6 = v48;
         while (1)
         {
-          v12 = getattrlistbulk(v52, &v56, v49, 0x8000uLL, 0);
+          v12 = getattrlistbulk(v51, &v55, v48, 0x8000uLL, 0);
           if (v12 == -1)
           {
             break;
@@ -1560,13 +1679,13 @@ LABEL_10:
                     v30 = __error();
                     v31 = strerror(*v30);
                     *buf = 136315906;
-                    v61 = "[IXFileManager _diskUsageForDirectoryURL:]";
-                    v62 = 2080;
-                    v63 = v31;
-                    v64 = 2048;
-                    v65 = v11;
-                    v66 = 2112;
-                    v67 = v55;
+                    v60 = "[IXFileManager _diskUsageForDirectoryURL:]";
+                    v61 = 2080;
+                    v62 = v31;
+                    v63 = 2048;
+                    v64 = v11;
+                    v65 = 2112;
+                    v66 = v54;
                     v32 = v29;
                     v33 = "%s: Got error %s while processing entry %llu in %@";
                     v34 = 42;
@@ -1646,11 +1765,11 @@ LABEL_32:
                   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 136315650;
-                    v61 = "[IXFileManager _diskUsageForDirectoryURL:]";
-                    v62 = 2112;
-                    v63 = v55;
-                    v64 = 2080;
-                    v65 = v18;
+                    v60 = "[IXFileManager _diskUsageForDirectoryURL:]";
+                    v61 = 2112;
+                    v62 = v54;
+                    v63 = 2080;
+                    v64 = v18;
                     _os_log_debug_impl(&dword_1DA47A000, v29, OS_LOG_TYPE_DEBUG, "%s: skipping empty directory at %@/%s", buf, 0x20u);
                   }
 
@@ -1663,11 +1782,11 @@ LABEL_32:
                   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315650;
-                    v61 = "[IXFileManager _diskUsageForDirectoryURL:]";
-                    v62 = 2048;
-                    v63 = v11;
-                    v64 = 2112;
-                    v65 = v55;
+                    v60 = "[IXFileManager _diskUsageForDirectoryURL:]";
+                    v61 = 2048;
+                    v62 = v11;
+                    v63 = 2112;
+                    v64 = v54;
                     v32 = v29;
                     v33 = "%s: Failed to get name for directory item %llu in %@; not counting its children";
                     v34 = 32;
@@ -1680,11 +1799,11 @@ LABEL_42:
 
                 v26 = objc_autoreleasePoolPush();
                 v36 = [MEMORY[0x1E696AEC0] stringWithFileSystemRepresentation:v18 length:v19];
-                v27 = [v55 stringByAppendingPathComponent:v36];
+                v27 = [v54 stringByAppendingPathComponent:v36];
 
                 if (v27)
                 {
-                  v37 = v51;
+                  v37 = v50;
                   goto LABEL_44;
                 }
 
@@ -1692,11 +1811,11 @@ LABEL_42:
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315650;
-                  v61 = "[IXFileManager _diskUsageForDirectoryURL:]";
-                  v62 = 2080;
-                  v63 = v18;
-                  v64 = 2112;
-                  v65 = v55;
+                  v60 = "[IXFileManager _diskUsageForDirectoryURL:]";
+                  v61 = 2080;
+                  v62 = v18;
+                  v63 = 2112;
+                  v64 = v54;
                   _os_log_impl(&dword_1DA47A000, v28, OS_LOG_TYPE_DEFAULT, "%s: Failed to create path to child directory by appending %s to %@", buf, 0x20u);
                 }
 
@@ -1740,32 +1859,32 @@ LABEL_21:
 LABEL_22:
                 v26 = objc_autoreleasePoolPush();
                 v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v22];
-                if ([v53 containsObject:v27])
+                if ([v52 containsObject:v27])
                 {
                   v28 = IXGetLoggingHandle(kIXLoggingSubsystem);
                   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 136315650;
-                    v61 = "[IXFileManager _diskUsageForDirectoryURL:]";
-                    v62 = 2112;
-                    v63 = v55;
-                    v64 = 2080;
-                    v65 = v18;
+                    v60 = "[IXFileManager _diskUsageForDirectoryURL:]";
+                    v61 = 2112;
+                    v62 = v54;
+                    v63 = 2080;
+                    v64 = v18;
                     _os_log_debug_impl(&dword_1DA47A000, v28, OS_LOG_TYPE_DEBUG, "%s: Skipping hardlinked file at %@/%s", buf, 0x20u);
                   }
 
                   goto LABEL_47;
                 }
 
-                v54 += v25;
-                v37 = v53;
+                v53 += v25;
+                v37 = v52;
 LABEL_44:
                 [v37 addObject:v27];
                 goto LABEL_48;
               }
 
 LABEL_39:
-              v54 += v25;
+              v53 += v25;
 LABEL_52:
               v6 = (v6 + v15);
               ++v11;
@@ -1783,21 +1902,21 @@ LABEL_52:
           v43 = __error();
           v44 = strerror(*v43);
           *buf = 136315906;
-          v61 = "[IXFileManager _diskUsageForDirectoryURL:]";
-          v62 = 2048;
-          v63 = v11;
-          v64 = 2112;
-          v65 = v55;
-          v66 = 2080;
-          v67 = v44;
+          v60 = "[IXFileManager _diskUsageForDirectoryURL:]";
+          v61 = 2048;
+          v62 = v11;
+          v63 = 2112;
+          v64 = v54;
+          v65 = 2080;
+          v66 = v44;
           _os_log_impl(&dword_1DA47A000, v42, OS_LOG_TYPE_DEFAULT, "%s: getattrlistbulk on entry %llu in %@ returned error %s", buf, 0x2Au);
         }
 
 LABEL_60:
-        close(v52);
-        v4 = v53;
-        v5 = v51;
-        v9 = v50;
+        close(v51);
+        v4 = v52;
+        v5 = v50;
+        v9 = v49;
       }
 
       objc_autoreleasePoolPop(v9);
@@ -1808,20 +1927,19 @@ LABEL_60:
     }
   }
 
-  v54 = 0;
+  v53 = 0;
 LABEL_64:
   free(v6);
 
-  v45 = *MEMORY[0x1E69E9840];
-  return v54;
+  return v53;
 }
 
 - (unint64_t)diskUsageForURL:(id)l
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  memset(&v12, 0, sizeof(v12));
-  if (lstat([lCopy fileSystemRepresentation], &v12))
+  memset(&v11, 0, sizeof(v11));
+  if (lstat([lCopy fileSystemRepresentation], &v11))
   {
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1830,28 +1948,27 @@ LABEL_64:
       v7 = __error();
       v8 = strerror(*v7);
       *buf = 136315650;
-      v14 = "[IXFileManager diskUsageForURL:]";
-      v15 = 2080;
-      v16 = fileSystemRepresentation;
-      v17 = 2080;
-      v18 = v8;
+      v13 = "[IXFileManager diskUsageForURL:]";
+      v14 = 2080;
+      v15 = fileSystemRepresentation;
+      v16 = 2080;
+      v17 = v8;
       _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to stat %s : %s", buf, 0x20u);
     }
 
     v9 = 0;
   }
 
-  else if ((v12.st_mode & 0xF000) == 0x4000)
+  else if ((v11.st_mode & 0xF000) == 0x4000)
   {
     v9 = [(IXFileManager *)self _diskUsageForDirectoryURL:lCopy];
   }
 
   else
   {
-    v9 = v12.st_blocks << 9;
+    v9 = v11.st_blocks << 9;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1859,12 +1976,11 @@ LABEL_64:
 {
   lCopy = l;
   [lCopy fileSystemRepresentation];
-  v7 = *MEMORY[0x1E69E9BE0];
-  v8 = sandbox_extension_issue_file();
-  if (v8)
+  v7 = sandbox_extension_issue_file();
+  if (v7)
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v8 length:strlen(v8) encoding:4 freeWhenDone:1];
-    v10 = 0;
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v7 length:strlen(v7) encoding:4 freeWhenDone:1];
+    v9 = 0;
     if (!error)
     {
       goto LABEL_7;
@@ -1873,28 +1989,28 @@ LABEL_64:
 
   else
   {
-    v11 = *__error();
-    v12 = *MEMORY[0x1E696A798];
+    v10 = *__error();
+    v11 = *MEMORY[0x1E696A798];
     path = [lCopy path];
-    strerror(v11);
-    v10 = _CreateError("[IXFileManager issueSandboxExtensionForURL:withExtensionClass:error:]", 1071, v12, v11, 0, 0, @"sandbox_extension_issue_file for path %@ failed: %s", v14, path);
+    strerror(v10);
+    v9 = _CreateError("[IXFileManager issueSandboxExtensionForURL:withExtensionClass:error:]", 1071, v11, v10, 0, 0, @"sandbox_extension_issue_file for path %@ failed: %s", v13, path);
 
-    v9 = 0;
+    v8 = 0;
     if (!error)
     {
       goto LABEL_7;
     }
   }
 
-  if (!v9)
+  if (!v8)
   {
-    v15 = v10;
-    *error = v10;
+    v14 = v9;
+    *error = v9;
   }
 
 LABEL_7:
 
-  return v9;
+  return v8;
 }
 
 - (int64_t)consumeSandboxExtension:(id)extension error:(id *)error
@@ -1953,115 +2069,94 @@ LABEL_7:
 
 - (void)_moveItemAtURL:(NSObject *)a3 toURL:failIfSrcMissing:error:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [a1 path];
-  v7 = 136315650;
-  v8 = "[IXFileManager _moveItemAtURL:toURL:failIfSrcMissing:error:]";
-  v9 = 2112;
-  v10 = v5;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_1DA47A000, a3, OS_LOG_TYPE_ERROR, "%s: Failed to remove move source after copy at %@ : %@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 136315650;
+  v7 = "[IXFileManager _moveItemAtURL:toURL:failIfSrcMissing:error:]";
+  v8 = 2112;
+  v9 = v5;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_1DA47A000, a3, OS_LOG_TYPE_ERROR, "%s: Failed to remove move source after copy at %@ : %@", &v6, 0x20u);
 }
 
 - (void)_removeACLAtPath:isDir:error:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v22 = *MEMORY[0x1E69E9840];
-  v1 = *__error();
-  v2 = __error();
-  v20 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   OUTLINED_FUNCTION_1();
-  v11 = _CreateError(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = _CreateError(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DA47A000, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v19, v20, v21);
-
-  v18 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1DA47A000, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 - (void)_removeACLAtPath:isDir:error:.cold.2()
 {
   OUTLINED_FUNCTION_3();
-  v22 = *MEMORY[0x1E69E9840];
-  v1 = *__error();
-  v2 = __error();
-  v20 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   OUTLINED_FUNCTION_1();
-  v11 = _CreateError(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = _CreateError(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DA47A000, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v19, v20, v21);
-
-  v18 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1DA47A000, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 - (void)_removeACLAtPath:isDir:error:.cold.3()
 {
   OUTLINED_FUNCTION_3();
-  v22 = *MEMORY[0x1E69E9840];
-  v1 = *__error();
-  v2 = __error();
-  v20 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   OUTLINED_FUNCTION_1();
-  v11 = _CreateError(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = _CreateError(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DA47A000, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v19, v20, v21);
-
-  v18 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1DA47A000, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 - (void)_removeACLAtPath:isDir:error:.cold.4()
 {
   OUTLINED_FUNCTION_3();
-  v22 = *MEMORY[0x1E69E9840];
-  v1 = *__error();
-  v2 = __error();
-  v20 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   OUTLINED_FUNCTION_1();
-  v11 = _CreateError(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = _CreateError(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DA47A000, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v19, v20, v21);
-
-  v18 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1DA47A000, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 - (void)_removeACLAtPath:isDir:error:.cold.5()
 {
   OUTLINED_FUNCTION_3();
-  v22 = *MEMORY[0x1E69E9840];
-  v1 = *__error();
-  v2 = __error();
-  v20 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   OUTLINED_FUNCTION_1();
-  v11 = _CreateError(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = _CreateError(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1DA47A000, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v19, v20, v21);
-
-  v18 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1DA47A000, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 - (void)_removeACLAtPath:(void *)a1 isDir:error:.cold.6(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v2 = *__error();
   v3 = __error();
   v4 = strerror(*v3);
-  v15 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", 235, a1, v2, 0, 0, @"acl_init() failed: %s", v5, v4);
-  OUTLINED_FUNCTION_2(&dword_1DA47A000, v6, v7, "%s: Failed to remove ACL : %@", v8, v9, v10, v11, v13, v14, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = _CreateError("[IXFileManager _removeACLAtPath:isDir:error:]", 235, a1, v2, 0, 0, @"acl_init() failed: %s", v5, v4);
+  OUTLINED_FUNCTION_2(&dword_1DA47A000, v6, v7, "%s: Failed to remove ACL : %@", v8, v9, v10, v11, v12, v13);
 }
 
 void __74__IXFileManager_copyACLFrom_toAllChildrenOfPath_ignoringCopyErrors_error___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[IXFileManager copyACLFrom:toAllChildrenOfPath:ignoringCopyErrors:error:]_block_invoke";
-  v5 = 2080;
-  v6 = a1;
-  _os_log_debug_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_DEBUG, "%s: Writing ACL to %s", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[IXFileManager copyACLFrom:toAllChildrenOfPath:ignoringCopyErrors:error:]_block_invoke";
+  v4 = 2080;
+  v5 = a1;
+  _os_log_debug_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_DEBUG, "%s: Writing ACL to %s", &v2, 0x16u);
 }
 
 @end

@@ -42,32 +42,31 @@ void __40__ATXUsageInsightsServer_sharedInstance__block_invoke()
   v9.receiver = self;
   v9.super_class = ATXUsageInsightsServer;
   v2 = [(ATXUsageInsightsServer *)&v9 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_usage_insights();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_usage_insights(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "ATXUsageInsightsServer: launched", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXUsageInsightsServer: launched", buf, 2u);
     }
 
-    v4 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.proactive.UsageInsights"];
-    listener = v2->_listener;
-    v2->_listener = v4;
+    v5 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.proactive.UsageInsights"];
+    listener = v3->_listener;
+    v3->_listener = v5;
 
-    [(NSXPCListener *)v2->_listener setDelegate:v2];
-    [(NSXPCListener *)v2->_listener resume];
-    v6 = __atxlog_handle_usage_insights();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    [(NSXPCListener *)v3->_listener setDelegate:v3];
+    v7 = __atxlog_handle_usage_insights([(NSXPCListener *)v3->_listener resume]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v11 = "[ATXUsageInsightsServer init]";
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%s: Listening for connections", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%s: Listening for connections", buf, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v3;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -75,7 +74,7 @@ void __40__ATXUsageInsightsServer_sharedInstance__block_invoke()
   v31 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = __atxlog_handle_usage_insights();
+  v8 = __atxlog_handle_usage_insights(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -84,18 +83,19 @@ void __40__ATXUsageInsightsServer_sharedInstance__block_invoke()
   }
 
   v9 = [connectionCopy valueForEntitlement:@"com.apple.proactive.UsageInsights"];
-  if (v9 && (objc_opt_respondsToSelector() & 1) != 0 && ([v9 BOOLValue] & 1) != 0)
+  v10 = v9;
+  if (v9 && (v9 = objc_opt_respondsToSelector(), (v9 & 1) != 0) && (v9 = [v10 BOOLValue], (v9 & 1) != 0))
   {
-    v10 = __atxlog_handle_usage_insights();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = __atxlog_handle_usage_insights(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v30 = "[ATXUsageInsightsServer listener:shouldAcceptNewConnection:]";
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "%s: Connection established", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "%s: Connection established", buf, 0xCu);
     }
 
-    v11 = ATXUsageInsightsInterface();
-    [connectionCopy setExportedInterface:v11];
+    v12 = ATXUsageInsightsInterface();
+    [connectionCopy setExportedInterface:v12];
 
     [connectionCopy setExportedObject:self];
     objc_initWeak(buf, connectionCopy);
@@ -115,28 +115,27 @@ void __40__ATXUsageInsightsServer_sharedInstance__block_invoke()
     objc_destroyWeak(&v26);
     objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
-    v12 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v13 = __atxlog_handle_usage_insights();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_usage_insights(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(ATXUsageInsightsServer *)connectionCopy listener:v13 shouldAcceptNewConnection:v14, v15, v16, v17, v18, v19];
+      [(ATXUsageInsightsServer *)connectionCopy listener:v14 shouldAcceptNewConnection:v15, v16, v17, v18, v19, v20];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 void __61__ATXUsageInsightsServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = __atxlog_handle_usage_insights();
+  v2 = __atxlog_handle_usage_insights(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__ATXUsageInsightsServer_listener_shouldAcceptNewConnection___block_invoke_cold_1();
@@ -146,7 +145,7 @@ void __61__ATXUsageInsightsServer_listener_shouldAcceptNewConnection___block_inv
 void __61__ATXUsageInsightsServer_listener_shouldAcceptNewConnection___block_invoke_23(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = __atxlog_handle_usage_insights();
+  v2 = __atxlog_handle_usage_insights(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__ATXUsageInsightsServer_listener_shouldAcceptNewConnection___block_invoke_23_cold_1();
@@ -254,25 +253,25 @@ void __61__ATXUsageInsightsServer_listener_shouldAcceptNewConnection___block_inv
 
 - (void)listener:(uint64_t)a3 shouldAcceptNewConnection:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3(&dword_2263AA000, a2, a3, "ATXUsageInsightsServer: Rejecting connection %@ without entitlement %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 138412546;
+  *&v8[4] = a1;
+  *&v8[12] = 2112;
+  *&v8[14] = @"com.apple.proactive.UsageInsights";
+  OUTLINED_FUNCTION_1_3(&dword_2263AA000, a2, a3, "ATXUsageInsightsServer: Rejecting connection %@ without entitlement %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 void __61__ATXUsageInsightsServer_listener_shouldAcceptNewConnection___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_3(&dword_2263AA000, v0, v1, "%s: Unexpected Interruption: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_2263AA000, v0, v1, "%s: Unexpected Interruption: %@", v2, v3, v4, v5, v6);
 }
 
 void __61__ATXUsageInsightsServer_listener_shouldAcceptNewConnection___block_invoke_23_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_3(&dword_2263AA000, v0, v1, "%s: Connection invalidated: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_2263AA000, v0, v1, "%s: Connection invalidated: %@", v2, v3, v4, v5, v6);
 }
 
 @end

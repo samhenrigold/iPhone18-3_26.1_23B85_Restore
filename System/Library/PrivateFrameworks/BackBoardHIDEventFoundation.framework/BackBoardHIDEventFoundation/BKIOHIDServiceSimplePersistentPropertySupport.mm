@@ -9,29 +9,29 @@
 
 - (void)matcher:(id)matcher servicesDidMatch:(id)match
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   matchCopy = match;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v6 = [matchCopy countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v6 = [matchCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v22;
+    v9 = *v21;
     *&v7 = 138543362;
-    v20 = v7;
+    v19 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(matchCopy);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         persistentPropertyController = self->_persistentPropertyController;
         senderDescriptor = [v11 senderDescriptor];
         v14 = [(BKIOHIDServicePersistentPropertyController *)persistentPropertyController allPersistentPropertiesForServicesMatchingDescriptor:senderDescriptor];
@@ -45,9 +45,9 @@
           {
             v18 = [MEMORY[0x277CF0C08] descriptionForRootObject:v14];
             *buf = 138543618;
-            v26 = v18;
-            v27 = 2114;
-            v28 = v11;
+            v25 = v18;
+            v26 = 2114;
+            v27 = v11;
             _os_log_impl(&dword_223CBE000, v16, OS_LOG_TYPE_DEFAULT, "sending persistent properties %{public}@ to %{public}@", buf, 0x16u);
           }
 
@@ -58,57 +58,54 @@
         {
           if (v17)
           {
-            *buf = v20;
-            v26 = v11;
+            *buf = v19;
+            v25 = v11;
             _os_log_impl(&dword_223CBE000, v16, OS_LOG_TYPE_DEFAULT, "no persistent properties for %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v8 = [matchCopy countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v8 = [matchCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)setPersistentProperties:(id)properties forServicesMatchingDescriptor:(id)descriptor
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   existingServices = [(BKIOHIDServiceMatcher *)self->_matcher existingServices];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [existingServices countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [existingServices countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(existingServices);
         }
 
-        [*(*(&v13 + 1) + 8 * v10++) setProperties:propertiesCopy];
+        [*(*(&v12 + 1) + 8 * v10++) setProperties:propertiesCopy];
       }
 
       while (v8 != v10);
-      v8 = [existingServices countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [existingServices countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 2;
 }
 

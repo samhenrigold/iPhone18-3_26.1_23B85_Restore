@@ -35,9 +35,8 @@
 
 void __74__FTBlazarService_performMultiUserWithDelegate_requestBuilder_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [[FTMultiUserStreamingResponse alloc] initAndVerifyWithFlatbuffData:v6];
-  v4 = *(a1 + 32);
+  v5 = a2;
+  v3 = [[FTMultiUserStreamingResponse alloc] initAndVerifyWithFlatbuffData:v5];
   if (v3)
   {
     if (objc_opt_respondsToSelector())
@@ -48,8 +47,8 @@ void __74__FTBlazarService_performMultiUserWithDelegate_requestBuilder_completio
 
   else if (objc_opt_respondsToSelector())
   {
-    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
-    [*(a1 + 32) streamFailVerifyMultiUserStreamingResponse:v5];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
+    [*(a1 + 32) streamFailVerifyMultiUserStreamingResponse:v4];
   }
 }
 
@@ -78,9 +77,8 @@ void __74__FTBlazarService_performMultiUserWithDelegate_requestBuilder_completio
 
 void __77__FTBlazarService_performMultilingualWithDelegate_requestBuilder_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [[FTMultilingualStreamingResponse alloc] initAndVerifyWithFlatbuffData:v6];
-  v4 = *(a1 + 32);
+  v5 = a2;
+  v3 = [[FTMultilingualStreamingResponse alloc] initAndVerifyWithFlatbuffData:v5];
   if (v3)
   {
     if (objc_opt_respondsToSelector())
@@ -91,8 +89,8 @@ void __77__FTBlazarService_performMultilingualWithDelegate_requestBuilder_comple
 
   else if (objc_opt_respondsToSelector())
   {
-    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
-    [*(a1 + 32) streamFailVerifyMultilingualStreamingResponse:v5];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
+    [*(a1 + 32) streamFailVerifyMultilingualStreamingResponse:v4];
   }
 }
 
@@ -121,9 +119,8 @@ void __77__FTBlazarService_performMultilingualWithDelegate_requestBuilder_comple
 
 void __82__FTBlazarService_performSpeechTranslationWithDelegate_requestBuilder_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [[FTSpeechTranslationStreamingResponse alloc] initAndVerifyWithFlatbuffData:v6];
-  v4 = *(a1 + 32);
+  v5 = a2;
+  v3 = [[FTSpeechTranslationStreamingResponse alloc] initAndVerifyWithFlatbuffData:v5];
   if (v3)
   {
     if (objc_opt_respondsToSelector())
@@ -134,8 +131,8 @@ void __82__FTBlazarService_performSpeechTranslationWithDelegate_requestBuilder_c
 
   else if (objc_opt_respondsToSelector())
   {
-    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
-    [*(a1 + 32) streamFailVerifySpeechTranslationStreamingResponse:v5];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
+    [*(a1 + 32) streamFailVerifySpeechTranslationStreamingResponse:v4];
   }
 }
 
@@ -164,9 +161,8 @@ void __82__FTBlazarService_performSpeechTranslationWithDelegate_requestBuilder_c
 
 void __81__FTBlazarService_performBatchTranslationWithDelegate_requestBuilder_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [[FTBatchTranslationStreamingResponse alloc] initAndVerifyWithFlatbuffData:v6];
-  v4 = *(a1 + 32);
+  v5 = a2;
+  v3 = [[FTBatchTranslationStreamingResponse alloc] initAndVerifyWithFlatbuffData:v5];
   if (v3)
   {
     if (objc_opt_respondsToSelector())
@@ -177,8 +173,8 @@ void __81__FTBlazarService_performBatchTranslationWithDelegate_requestBuilder_co
 
   else if (objc_opt_respondsToSelector())
   {
-    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
-    [*(a1 + 32) streamFailVerifyBatchTranslationStreamingResponse:v5];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
+    [*(a1 + 32) streamFailVerifyBatchTranslationStreamingResponse:v4];
   }
 }
 
@@ -246,9 +242,8 @@ void __71__FTBlazarService_performTextToSpeechRouter_requestBuilder_completion__
 
 void __92__FTBlazarService_performTextToSpeechRouterStreamingWithDelegate_requestBuilder_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [[FTTextToSpeechRouterStreamingStreamingResponse alloc] initAndVerifyWithFlatbuffData:v6];
-  v4 = *(a1 + 32);
+  v5 = a2;
+  v3 = [[FTTextToSpeechRouterStreamingStreamingResponse alloc] initAndVerifyWithFlatbuffData:v5];
   if (v3)
   {
     if (objc_opt_respondsToSelector())
@@ -259,8 +254,8 @@ void __92__FTBlazarService_performTextToSpeechRouterStreamingWithDelegate_reques
 
   else if (objc_opt_respondsToSelector())
   {
-    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
-    [*(a1 + 32) streamFailVerifyTextToSpeechRouterStreamingStreamingResponse:v5];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
+    [*(a1 + 32) streamFailVerifyTextToSpeechRouterStreamingStreamingResponse:v4];
   }
 }
 

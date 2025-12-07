@@ -210,26 +210,26 @@ void __85__SHMediaItem_Presentation__presentMediaItem_presentationSettings_compl
 
 - (SHMediaItem)initWithCoder:(id)coder
 {
-  v25[11] = *MEMORY[0x277D85DE8];
+  v24[11] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = SHMediaItem;
-  v5 = [(SHMediaItem *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SHMediaItem;
+  v5 = [(SHMediaItem *)&v23 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB58];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v25[2] = objc_opt_class();
-    v25[3] = objc_opt_class();
-    v25[4] = objc_opt_class();
-    v25[5] = objc_opt_class();
-    v25[6] = objc_opt_class();
-    v25[7] = objc_opt_class();
-    v25[8] = objc_opt_class();
-    v25[9] = objc_opt_class();
-    v25[10] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:11];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v24[2] = objc_opt_class();
+    v24[3] = objc_opt_class();
+    v24[4] = objc_opt_class();
+    v24[5] = objc_opt_class();
+    v24[6] = objc_opt_class();
+    v24[7] = objc_opt_class();
+    v24[8] = objc_opt_class();
+    v24[9] = objc_opt_class();
+    v24[10] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:11];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"properties"];
@@ -264,7 +264,6 @@ void __85__SHMediaItem_Presentation__presentMediaItem_presentationSettings_compl
     v5->_underlyingIdentifier = uUID;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -575,9 +574,63 @@ LABEL_10:
 
 - (BOOL)describesFrequencySkew:(double)skew
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   frequencySkewRanges = [(SHMediaItem *)self frequencySkewRanges];
   v6 = [frequencySkewRanges count];
+
+  if (v6)
+  {
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    frequencySkewRanges2 = [(SHMediaItem *)self frequencySkewRanges];
+    v8 = [frequencySkewRanges2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v8)
+    {
+      v9 = *v13;
+      while (2)
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v13 != v9)
+          {
+            objc_enumerationMutation(frequencySkewRanges2);
+          }
+
+          if ([*(*(&v12 + 1) + 8 * i) contains:skew])
+          {
+            LOBYTE(v8) = 1;
+            goto LABEL_12;
+          }
+        }
+
+        v8 = [frequencySkewRanges2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        if (v8)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+LABEL_12:
+  }
+
+  else
+  {
+    LOBYTE(v8) = 1;
+  }
+
+  return v8;
+}
+
+- (BOOL)describesOffset:(double)offset
+{
+  v18 = *MEMORY[0x277D85DE8];
+  timeRanges = [(SHMediaItem *)self timeRanges];
+  v6 = [timeRanges count];
 
   if (v6)
   {
@@ -585,84 +638,29 @@ LABEL_10:
     v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    frequencySkewRanges2 = [(SHMediaItem *)self frequencySkewRanges];
-    v8 = [frequencySkewRanges2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    timeRanges2 = [(SHMediaItem *)self timeRanges];
+    v8 = [timeRanges2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = *v14;
+      v10 = offset + 0.01;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
           if (*v14 != v9)
           {
-            objc_enumerationMutation(frequencySkewRanges2);
-          }
-
-          if ([*(*(&v13 + 1) + 8 * i) contains:skew])
-          {
-            LOBYTE(v8) = 1;
-            goto LABEL_12;
-          }
-        }
-
-        v8 = [frequencySkewRanges2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        if (v8)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-LABEL_12:
-  }
-
-  else
-  {
-    LOBYTE(v8) = 1;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v8;
-}
-
-- (BOOL)describesOffset:(double)offset
-{
-  v19 = *MEMORY[0x277D85DE8];
-  timeRanges = [(SHMediaItem *)self timeRanges];
-  v6 = [timeRanges count];
-
-  if (v6)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    timeRanges2 = [(SHMediaItem *)self timeRanges];
-    v8 = [timeRanges2 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v8)
-    {
-      v9 = *v15;
-      v10 = offset + 0.01;
-      while (2)
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          if (*v15 != v9)
-          {
             objc_enumerationMutation(timeRanges2);
           }
 
-          if ([*(*(&v14 + 1) + 8 * i) contains:v10])
+          if ([*(*(&v13 + 1) + 8 * i) contains:v10])
           {
             LOBYTE(v8) = 1;
             goto LABEL_12;
           }
         }
 
-        v8 = [timeRanges2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [timeRanges2 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -680,7 +678,6 @@ LABEL_12:
     LOBYTE(v8) = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

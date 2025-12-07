@@ -274,27 +274,21 @@ LABEL_18:
 
 - (void)setTrailingText:(id)text
 {
-  v4 = [text copy];
-  trailingText = self->_trailingText;
-  self->_trailingText = v4;
+  self->_trailingText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setElementPath:(id)path
 {
-  v4 = [path copy];
-  elementPath = self->_elementPath;
-  self->_elementPath = v4;
+  self->_elementPath = [path copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setText:(id)text
 {
-  v4 = [text copy];
-  text = self->_text;
-  self->_text = v4;
+  self->_text = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }

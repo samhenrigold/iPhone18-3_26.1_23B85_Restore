@@ -32,7 +32,8 @@
       v3 = rbs_power_log();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        OUTLINED_FUNCTION_3(&dword_262485000, v4, v5, "Acquired first power assertion", v6, v7, v8, v9, 0);
+        v11 = 0;
+        OUTLINED_FUNCTION_3(&dword_262485000, v4, v5, "Acquired first power assertion", v6, v7, v8, v9, v11);
       }
 
       WeakRetained = objc_loadWeakRetained((self + 48));
@@ -61,7 +62,8 @@
       v4 = rbs_power_log();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        OUTLINED_FUNCTION_3(&dword_262485000, v5, v6, "Released last power assertion", v7, v8, v9, v10, 0);
+        v13 = 0;
+        OUTLINED_FUNCTION_3(&dword_262485000, v5, v6, "Released last power assertion", v7, v8, v9, v10, v13);
       }
 
       WeakRetained = objc_loadWeakRetained((self + 48));
@@ -165,27 +167,27 @@
 
 void __50__RBPowerAssertionManager_didUpdateProcessStates___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = [v7 identity];
         v9 = [v7 updatedState];
         v10 = [*(*(a1 + 40) + 8) setValue:v9 forIdentity:v8];
@@ -194,13 +196,11 @@ void __50__RBPowerAssertionManager_didUpdateProcessStates___block_invoke(uint64_
         [(RBPowerAssertionManager *)v11 _queue_updateProcessAssertion:v12 withState:v9];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateProcessAssertion:(void *)assertion withState:

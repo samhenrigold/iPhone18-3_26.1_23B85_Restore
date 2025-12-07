@@ -236,8 +236,7 @@ LABEL_52:
     DerivedStorage = CMBaseObjectGetDerivedStorage();
     time1.value = 0;
     time2.value = 0;
-    v28 = *(DerivedStorage + 160);
-    if (v28 && (FigBaseObject = FigPlaybackItemGetFigBaseObject(v28), (v30 = *(*(CMBaseObjectGetVTable() + 8) + 48)) != 0) && (v31 = *v3, !v30(FigBaseObject, @"ChosenTrackIDArray", *v3, &time1)))
+    if (*(DerivedStorage + 160) && (FigPlaybackItemGetFigBaseObject(), v29 = v28, (v30 = *(*(CMBaseObjectGetVTable() + 8) + 48)) != 0) && (v31 = *v3, !v30(v29, @"ChosenTrackIDArray", *v3, &time1)))
     {
       v34 = 0;
       v35 = 0;
@@ -332,24 +331,24 @@ LABEL_52:
   }
 }
 
-uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191(void *a1)
+uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191(double *a1)
 {
-  v66 = *MEMORY[0x1E69E9840];
-  theArray = *(*(a1[4] + 8) + 24);
+  v70 = *MEMORY[0x1E69E9840];
+  theArray = *(*(*(a1 + 4) + 8) + 24);
   if (theArray >= 1)
   {
     v2 = 0;
     do
     {
-      CFArrayGetValueAtIndex(*(*(a1[5] + 8) + 24), v2);
+      CFArrayGetValueAtIndex(*(*(*(a1 + 5) + 8) + 24), v2);
       CMBaseObjectGetDerivedStorage();
       FirstIndexOfValue = FigCFArrayGetFirstIndexOfValue();
       v4 = fpic_UnwrapEvent();
       v5 = FigPlayerInterstitialEventCopyIdentifier(v4);
       if ((FirstIndexOfValue & 0x8000000000000000) == 0)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(*(*(a1[6] + 8) + 24), v2);
-        if (*(*(a1[7] + 8) + 24) >= 1)
+        ValueAtIndex = CFArrayGetValueAtIndex(*(*(*(a1 + 6) + 8) + 24), v2);
+        if (*(*(*(a1 + 7) + 8) + 24) >= 1)
         {
           v7 = 0;
           do
@@ -357,7 +356,7 @@ uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191(void *a1)
             fpic_SetPerAssetPerEventTrackedObject();
             if (dword_1EAF178D0)
             {
-              LODWORD(v52.value) = 0;
+              LODWORD(v56.value) = 0;
               LOBYTE(type.value) = 0;
               os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
               os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -367,7 +366,7 @@ uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191(void *a1)
             ++v7;
           }
 
-          while (v7 < *(*(a1[7] + 8) + 24));
+          while (v7 < *(*(*(a1 + 7) + 8) + 24));
         }
 
         for (i = 0; ; ++i)
@@ -382,7 +381,7 @@ uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191(void *a1)
           fpic_SetPerAssetPerEventTrackedObject();
           if (dword_1EAF178D0)
           {
-            LODWORD(v52.value) = 0;
+            LODWORD(v56.value) = 0;
             LOBYTE(type.value) = 0;
             v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
             os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
@@ -390,10 +389,10 @@ uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191(void *a1)
           }
         }
 
-        *(*(a1[7] + 8) + 24) = 0;
-        CFArrayRemoveValueAtIndex(*(*(a1[6] + 8) + 24), v2);
-        CFArrayRemoveValueAtIndex(*(*(a1[5] + 8) + 24), v2--);
-        --*(*(a1[4] + 8) + 24);
+        *(*(*(a1 + 7) + 8) + 24) = 0;
+        CFArrayRemoveValueAtIndex(*(*(*(a1 + 6) + 8) + 24), v2);
+        CFArrayRemoveValueAtIndex(*(*(*(a1 + 5) + 8) + 24), v2--);
+        --*(*(*(a1 + 4) + 8) + 24);
       }
 
       if (v5)
@@ -404,10 +403,10 @@ uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191(void *a1)
       ++v2;
     }
 
-    while (v2 < *(*(a1[4] + 8) + 24));
+    while (v2 < *(*(*(a1 + 4) + 8) + 24));
   }
 
-  if (!*(CMBaseObjectGetDerivedStorage() + 896) || *(a1[11] + 1028) || (CMBaseObjectGetDerivedStorage(), FigCFArrayGetFirstIndexOfValue()) || (v12 = a1[11], (*(v12 + 924) & 1) == 0))
+  if (!*(CMBaseObjectGetDerivedStorage() + 896) || *(*(a1 + 11) + 1028) || (CMBaseObjectGetDerivedStorage(), FigCFArrayGetFirstIndexOfValue()) || (v12 = *(a1 + 11), (*(v12 + 924) & 1) == 0))
   {
     result = CMBaseObjectGetDerivedStorage();
     if (*(result + 896))
@@ -422,7 +421,7 @@ uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191(void *a1)
 
     if (!v14)
     {
-      v15 = a1[11];
+      v15 = *(a1 + 11);
       if (*(v15 + 924))
       {
 LABEL_30:
@@ -436,33 +435,35 @@ LABEL_30:
   }
 
   v17 = *(v12 + 904);
-  v18 = *(v12 + 1024);
-  v19 = a1[10];
-  theArraya = *(*(a1[9] + 8) + 24);
-  v44 = a1[12];
-  *&v47.value = *(v12 + 912);
-  v47.epoch = *(v12 + 928);
-  *&v46.value = *(v12 + 976);
-  v46.epoch = *(v12 + 992);
-  *&v45.value = *(v12 + 1000);
-  v45.epoch = *(v12 + 1016);
+  v18 = *(v12 + 896);
+  v19 = *(v12 + 1024);
+  v20 = a1[10];
+  theArraya = *(*(*(a1 + 9) + 8) + 24);
+  v48 = *(a1 + 12);
+  *&v51.value = *(v12 + 912);
+  v51.epoch = *(v12 + 928);
+  *&v50.value = *(v12 + 976);
+  v50.epoch = *(v12 + 992);
+  *&v49.value = *(v12 + 1000);
+  v49.epoch = *(v12 + 1016);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   CMBaseObjectGetDerivedStorage();
-  v21 = FigCFArrayGetFirstIndexOfValue();
-  PerEventTrackingCount = fpic_GetPerEventTrackingCount(DerivedStorage, v21);
-  memset(&v52, 0, sizeof(v52));
-  v23 = CMBaseObjectGetDerivedStorage();
-  lhs = v23[18];
-  rhs = v23[20];
-  CMTimeAdd(&v52, &lhs, &rhs);
-  type = v47;
-  if (v21 == -1)
+  v22 = FigCFArrayGetFirstIndexOfValue();
+  PerEventTrackingCount = fpic_GetPerEventTrackingCount(DerivedStorage, v22);
+  memset(&v56, 0, sizeof(v56));
+  v24 = CMBaseObjectGetDerivedStorage();
+  lhs = v24[18];
+  rhs = v24[20];
+  CMTimeAdd(&v56, &lhs, &rhs);
+  type = v51;
+  if (v22 == -1)
   {
     __fpic_EnsureNextEventWillBuffer_block_invoke_191_cold_1(&lhs);
     result = LODWORD(lhs.value);
     goto LABEL_49;
   }
 
+  v45 = v18;
   if (PerEventTrackingCount < 1)
   {
 LABEL_48:
@@ -470,43 +471,43 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  lhs = v47;
-  rhs = v52;
+  lhs = v51;
+  rhs = v56;
   CMTimeSubtract(&type, &lhs, &rhs);
-  v24 = 0;
+  v25 = 0;
   while (1)
   {
-    PerAssetPerEventTrackedObject = fpic_GetPerAssetPerEventTrackedObject(DerivedStorage, v21, v24, @"PlaybackItem");
+    PerAssetPerEventTrackedObject = fpic_GetPerAssetPerEventTrackedObject(DerivedStorage, v22, v25, @"PlaybackItem");
     if (PerAssetPerEventTrackedObject)
     {
-      v26 = PerAssetPerEventTrackedObject == @"DummyItem";
+      v27 = PerAssetPerEventTrackedObject == @"DummyItem";
     }
 
     else
     {
-      v26 = 1;
+      v27 = 1;
     }
 
-    if (v26)
+    if (v27)
     {
       goto LABEL_40;
     }
 
-    v27 = PerAssetPerEventTrackedObject;
-    v28 = CMBaseObjectGetDerivedStorage();
-    if (v44)
+    v28 = PerAssetPerEventTrackedObject;
+    v29 = CMBaseObjectGetDerivedStorage();
+    if (v48)
     {
-      v39 = (*(v28 + 80))(v19, v44, v27);
+      v42 = COERCE_DOUBLE((*(v29 + 80))(COERCE_DOUBLE(*&v20), v48, v28));
     }
 
     else
     {
-      v39 = 0;
+      v42 = 0.0;
     }
 
-    v40 = v17;
-    v41 = v19;
-    fpic_GetEventItemDurationOnAssetTimeline(v17, v24, &lhs);
+    v43 = *&v17;
+    v44 = v20;
+    fpic_GetEventItemDurationOnAssetTimeline(v17, v25, &lhs);
     value = lhs.value;
     flags = lhs.flags;
     timescale = lhs.timescale;
@@ -527,97 +528,98 @@ LABEL_48:
     }
 
     rhs = type;
-    v50.value = value;
-    v50.timescale = timescale;
-    v50.flags = flags;
-    v50.epoch = epoch;
-    CMTimeSubtract(&lhs, &rhs, &v50);
+    v54.value = value;
+    v54.timescale = timescale;
+    v54.flags = flags;
+    v54.epoch = epoch;
+    CMTimeSubtract(&lhs, &rhs, &v54);
     type = lhs;
-    CFArrayAppendValue(theArraya, v27);
+    CFArrayAppendValue(theArraya, v28);
     rhs = DerivedStorage[20];
-    v50.value = value;
-    v50.timescale = timescale;
-    v50.flags = flags;
-    v50.epoch = epoch;
-    CMTimeAdd(&lhs, &rhs, &v50);
+    v54.value = value;
+    v54.timescale = timescale;
+    v54.flags = flags;
+    v54.epoch = epoch;
+    CMTimeAdd(&lhs, &rhs, &v54);
     DerivedStorage[20] = lhs;
     fpic_SetPerAssetPerEventTrackedObject();
-    v17 = v40;
-    v19 = v41;
+    *&v17 = v43;
+    v20 = v44;
 LABEL_40:
-    if (PerEventTrackingCount == ++v24)
+    if (PerEventTrackingCount == ++v25)
     {
       goto LABEL_48;
     }
   }
 
-  if (!v39)
+  v33 = *&v42;
+  if (v42 == 0.0)
   {
 LABEL_60:
-    v31 = 1;
+    v32 = 1;
 LABEL_64:
     result = 0;
     goto LABEL_50;
   }
 
-  v32 = CMBaseObjectGetDerivedStorage();
-  lhs = v32[18];
-  rhs = v32[20];
-  CMTimeAdd(&v50, &lhs, &rhs);
-  v52 = v50;
-  memset(&v50, 0, sizeof(v50));
-  rhs = v46;
-  v49 = v52;
-  CMTimeSubtract(&lhs, &rhs, &v49);
+  v34 = CMBaseObjectGetDerivedStorage();
+  lhs = v34[18];
+  rhs = v34[20];
+  CMTimeAdd(&v54, &lhs, &rhs);
+  v56 = v54;
+  memset(&v54, 0, sizeof(v54));
+  rhs = v50;
+  v53 = v56;
+  CMTimeSubtract(&lhs, &rhs, &v53);
   rhs = **&MEMORY[0x1E6960CC0];
-  CMTimeMaximum(&v50, &lhs, &rhs);
-  memset(&v49, 0, sizeof(v49));
-  rhs = v45;
-  v48 = v52;
-  CMTimeSubtract(&lhs, &rhs, &v48);
+  CMTimeMaximum(&v54, &lhs, &rhs);
+  memset(&v53, 0, sizeof(v53));
+  rhs = v49;
+  v52 = v56;
+  CMTimeSubtract(&lhs, &rhs, &v52);
   rhs.value = value;
   rhs.timescale = timescale;
   rhs.flags = flags;
   rhs.epoch = epoch;
-  CMTimeMinimum(&v49, &lhs, &rhs);
+  CMTimeMinimum(&v53, &lhs, &rhs);
   if (dword_1EAF178D0)
   {
-    LODWORD(v48.value) = 0;
-    v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v34 = v48.value;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    LODWORD(v52.value) = 0;
+    v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v36 = v52.value;
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = v34;
+      v37 = v36;
     }
 
     else
     {
-      v35 = v34 & 0xFFFFFFFE;
+      v37 = v36 & 0xFFFFFFFE;
     }
 
-    if (v35)
+    if (v37)
     {
       lhs = type;
       Seconds = CMTimeGetSeconds(&lhs);
-      lhs = v50;
-      v37 = CMTimeGetSeconds(&lhs);
-      lhs = v49;
-      v38 = CMTimeGetSeconds(&lhs);
+      lhs = v54;
+      v39 = CMTimeGetSeconds(&lhs);
+      lhs = v53;
+      v40 = CMTimeGetSeconds(&lhs);
       LODWORD(rhs.value) = 136316674;
       *(&rhs.value + 4) = "fpic_seekIntoCurrentEvent";
       LOWORD(rhs.flags) = 2048;
-      *(&rhs.flags + 2) = v41;
+      *(&rhs.flags + 2) = v44;
       HIWORD(rhs.epoch) = 2048;
-      v54 = v39;
-      v55 = 2048;
-      v56 = Seconds;
-      v57 = 2048;
-      v58 = v37;
+      v58 = v42;
       v59 = 2048;
-      v60 = v38;
-      v61 = 1024;
-      v62 = v18;
-      _os_log_send_and_compose_impl();
+      v60 = Seconds;
+      v61 = 2048;
+      v62 = v39;
+      v63 = 2048;
+      v64 = v40;
+      v65 = 1024;
+      v66 = v19;
+      _os_log_send_and_compose_impl(v37, 0, &lhs, 128, &dword_1962D5000, v35, 0, "<<<< FigPlayerInterstitial >>>> %s: %p: seeking into current event item %p at time %1.5g, minSnapTime %1.5g, maxSnapTime %1.5g, flags %d", &rhs, 68, v41, v42, v43, v44, v19);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -628,22 +630,22 @@ LABEL_64:
   CMNotificationCenterGetDefaultLocalCenter();
   FigNotificationCenterAddWeakListener();
   lhs = type;
-  rhs = v50;
-  v48 = v49;
-  result = FPSupport_SetCurrentTimeWithRangeIDAndReason(v39, &lhs.value, v18, &rhs.value, &v48.value);
+  rhs = v54;
+  v52 = v53;
+  result = FPSupport_SetCurrentTimeWithRangeIDAndReason(v33, &lhs.value, v19, &rhs.value, &v52.value, v45, 7);
   if (!result)
   {
-    v31 = 0;
+    v32 = 0;
     goto LABEL_64;
   }
 
 LABEL_49:
-  v31 = 1;
+  v32 = 1;
 LABEL_50:
-  *(*(a1[8] + 8) + 24) = result;
-  if ((v31 & 1) == 0 && !*(*(a1[8] + 8) + 24))
+  *(*(*(a1 + 8) + 8) + 24) = result;
+  if ((v32 & 1) == 0 && !*(*(*(a1 + 8) + 8) + 24))
   {
-    v15 = a1[11];
+    v15 = *(a1 + 11);
     goto LABEL_30;
   }
 
@@ -673,13 +675,6 @@ uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_cold_1()
     }
   }
 
-  return result;
-}
-
-uint64_t __fpic_EnsureNextEventWillBuffer_block_invoke_191_cold_1(_DWORD *a1)
-{
-  result = FigSignalErrorAtGM();
-  *a1 = result;
   return result;
 }
 

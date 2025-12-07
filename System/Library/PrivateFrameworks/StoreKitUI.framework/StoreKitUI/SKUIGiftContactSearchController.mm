@@ -7,10 +7,14 @@
 - (void)_finishSearchWithResults:(id)results;
 - (void)_setResults:(id)results;
 - (void)autocompleteResultsController:(id)controller didSelectRecipient:(id)recipient atIndex:(unint64_t)index;
+- (void)cancelSearch;
 - (void)consumeAutocompleteSearchResults:(id)results taskID:(id)d;
 - (void)dealloc;
+- (void)numberOfResults;
 - (void)resetSearch;
 - (void)searchForText:(id)text;
+- (void)searchResultsView;
+- (void)searchResultsViewController;
 @end
 
 @implementation SKUIGiftContactSearchController
@@ -106,18 +110,18 @@
     searchManager = self->_searchManager;
     if (!searchManager)
     {
-      v16 = SKUIContactsAutocompleteUIFramework();
-      v17 = [objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cnautocomplete.isa v16))];
-      v18 = self->_searchManager;
-      self->_searchManager = v17;
+      v17 = SKUIContactsAutocompleteUIFramework(0, v15);
+      v18 = [objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cnautocomplete.isa v17))];
+      v19 = self->_searchManager;
+      self->_searchManager = v18;
 
       [(CNAutocompleteSearchManager *)self->_searchManager setSearchTypes:3];
       searchManager = self->_searchManager;
     }
 
-    v19 = [(CNAutocompleteSearchManager *)searchManager searchForText:textCopy withAutocompleteFetchContext:0 consumer:self];
+    v20 = [(CNAutocompleteSearchManager *)searchManager searchForText:textCopy withAutocompleteFetchContext:0 consumer:self];
     searchTaskIdentifier = self->_searchTaskIdentifier;
-    self->_searchTaskIdentifier = v19;
+    self->_searchTaskIdentifier = v20;
   }
 
   else
@@ -286,6 +290,48 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)cancelSearch
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftContactSearchController cancelSearch]";
+}
+
+- (void)numberOfResults
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftContactSearchController numberOfResults]";
+}
+
+- (void)searchForText:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftContactSearchController searchForText:]";
+}
+
+- (void)searchResultsView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftContactSearchController searchResultsView]";
+}
+
+- (void)searchResultsViewController
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftContactSearchController searchResultsViewController]";
+}
+
+- (void)consumeAutocompleteSearchResults:(uint64_t)a3 taskID:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftContactSearchController consumeAutocompleteSearchResults:taskID:]";
+}
+
+- (void)autocompleteResultsController:(uint64_t)a3 didSelectRecipient:(uint64_t)a4 atIndex:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftContactSearchController autocompleteResultsController:didSelectRecipient:atIndex:]";
 }
 
 @end

@@ -13,8 +13,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"identifier";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"identifier";
   identifier = self->_identifier;
   null = identifier;
   if (!identifier)
@@ -22,8 +22,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"assetInfo";
-  v11[0] = null;
+  v9[1] = @"assetInfo";
+  v10[0] = null;
   assetInfo = self->_assetInfo;
   null2 = assetInfo;
   if (!assetInfo)
@@ -31,8 +31,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (assetInfo)
   {
     if (identifier)
@@ -51,7 +51,6 @@
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

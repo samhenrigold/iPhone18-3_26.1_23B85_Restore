@@ -18,7 +18,7 @@
   v6 = sub_BE38(v5, qword_99E450);
   (*(*(v5 - 8) + 16))(self + v4, v6, v5);
   v7 = OBJC_IVAR____TtC18ASMessagesProvider36InAppPurchaseSearchResultContentView_bodyBackgroundColor;
-  sub_BE70(0, &qword_93E540);
+  sub_BE70(0, &qword_93E540, UIColor_ptr);
   *(&self->super.super.super.isa + v7) = sub_76A070();
   result = sub_76A840();
   __break(1u);

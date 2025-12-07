@@ -11,6 +11,7 @@
 - (void)update;
 - (void)updateApplicationMetadataWithFilePath:(id)path currentDate:(id)date legacyPath:(id)legacyPath;
 - (void)updateMetadata:(_app_metadata *)metadata lastUpdatedTime:(double)time nowTime:(double)nowTime;
+- (void)updateWithCompletionHandler:(id)handler clean:(BOOL)clean activity:(id)activity;
 @end
 
 @implementation SPApplicationMetadataUpdater
@@ -236,6 +237,29 @@ LABEL_22:
   }
 
   objc_sync_exit(selfCopy);
+}
+
+- (void)updateWithCompletionHandler:(id)handler clean:(BOOL)clean activity:(id)activity
+{
+  cleanCopy = clean;
+  handlerCopy = handler;
+  activityCopy = activity;
+  [(SPApplicationMetadataUpdater *)self update];
+  v10 = dispatch_group_create();
+  v11 = +[SPApplicationIndexer sharedIndexer];
+  [v11 updateApplications:v10 appBundleArray:0 clean:cleanCopy activity:activityCopy];
+
+  v12 = +[SPCoreSpotlightContactsUpdater sharedInstance];
+  [v12 updateContactCounts:v10];
+
+  v13 = dispatch_get_global_queue(21, 0);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10002691C;
+  block[3] = &unk_100092E98;
+  v16 = handlerCopy;
+  v14 = handlerCopy;
+  dispatch_group_notify(v10, v13, block);
 }
 
 - (BOOL)migrateDataIfNecessaryFromOlderFormatFile:(id)file newFormatFile:(id)formatFile

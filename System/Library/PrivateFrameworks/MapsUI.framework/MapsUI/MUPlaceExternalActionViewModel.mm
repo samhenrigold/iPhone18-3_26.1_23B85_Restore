@@ -1,6 +1,7 @@
 @interface MUPlaceExternalActionViewModel
 - (BOOL)isEnabled;
 - (BOOL)shouldShowMenu;
+- (MUPlaceExternalActionViewModel)initWithExternalAction:(id)action amsResultProvider:(id)provider iconCache:(id)cache analyticsModuleType:(int64_t)type singleVendorAnalyticsTarget:(int)target multipleVendorAnalyticsTarget:(int)analyticsTarget appleMediaServicesSource:(int64_t)source actionHandler:(id)self0 analyticsHandler:(id)self1;
 - (id)buildMenuWithPresentationOptions:(id)options;
 - (void)buildMenuItemViewModelsWithUpdateDelegate:(id)delegate completion:(id)completion;
 - (void)openPartnerActionUsingMenuItemViewModel:(id)model presentationOptions:(id)options;
@@ -85,6 +86,35 @@
   }
 
   return v6;
+}
+
+- (MUPlaceExternalActionViewModel)initWithExternalAction:(id)action amsResultProvider:(id)provider iconCache:(id)cache analyticsModuleType:(int64_t)type singleVendorAnalyticsTarget:(int)target multipleVendorAnalyticsTarget:(int)analyticsTarget appleMediaServicesSource:(int64_t)source actionHandler:(id)self0 analyticsHandler:(id)self1
+{
+  v11 = *&analyticsTarget;
+  v12 = *&target;
+  actionCopy = action;
+  providerCopy = provider;
+  cacheCopy = cache;
+  handlerCopy = handler;
+  analyticsHandlerCopy = analyticsHandler;
+  v29.receiver = self;
+  v29.super_class = MUPlaceExternalActionViewModel;
+  v23 = [(MUActionRowItemViewModel *)&v29 init];
+  v24 = v23;
+  if (v23)
+  {
+    objc_storeStrong(&v23->_externalAction, action);
+    v25 = [[MUGroupedExternalActionController alloc] initWithGroupedExternalAction:actionCopy amsResultProvider:providerCopy supportsMultipleVendorSelection:1 actionHandler:handlerCopy analyticsHandler:analyticsHandlerCopy];
+    [(MUGroupedExternalActionController *)v25 setSingleVendorAnalyticsTarget:v12];
+    [(MUGroupedExternalActionController *)v25 setMultipleVendorAnalyticsTarget:v11];
+    [(MUGroupedExternalActionController *)v25 setAnalyticsModuleType:type];
+    [(MUGroupedExternalActionController *)v25 setSource:source];
+    v26 = [[MUPlaceExternalActionMenuHelper alloc] initWithExternalActionController:v25 iconCache:cacheCopy];
+    menuHelper = v24->_menuHelper;
+    v24->_menuHelper = v26;
+  }
+
+  return v24;
 }
 
 @end

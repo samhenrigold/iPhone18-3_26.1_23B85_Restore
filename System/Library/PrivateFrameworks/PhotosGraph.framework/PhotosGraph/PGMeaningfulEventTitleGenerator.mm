@@ -85,40 +85,38 @@ LABEL_7:
 
 void __56__PGMeaningfulEventTitleGenerator__meaningLabelForTitle__block_invoke()
 {
-  v4[14] = *MEMORY[0x277D85DE8];
-  v3[0] = @"Wedding";
-  v3[1] = @"AmusementPark";
-  v4[0] = @"Celebration";
-  v4[1] = @"Entertainment";
-  v3[2] = @"Performance";
-  v3[3] = @"Concert";
-  v4[2] = @"Entertainment";
-  v4[3] = @"Entertainment";
-  v3[4] = @"Festival";
-  v3[5] = @"Theater";
-  v4[4] = @"Entertainment";
-  v4[5] = @"Entertainment";
-  v3[6] = @"Dance";
-  v3[7] = @"Museum";
-  v4[6] = @"Entertainment";
-  v4[7] = @"Entertainment";
-  v3[8] = @"NightOut";
-  v3[9] = @"SportEvent";
-  v4[8] = @"Entertainment";
-  v4[9] = @"Entertainment";
-  v3[10] = @"WinterSport";
-  v3[11] = @"Diving";
-  v4[10] = @"Activity";
-  v4[11] = @"Activity";
-  v3[12] = @"Hiking";
-  v3[13] = @"Climbing";
-  v4[12] = @"Activity";
-  v4[13] = @"Activity";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:14];
+  v3[14] = *MEMORY[0x277D85DE8];
+  v2[0] = @"Wedding";
+  v2[1] = @"AmusementPark";
+  v3[0] = @"Celebration";
+  v3[1] = @"Entertainment";
+  v2[2] = @"Performance";
+  v2[3] = @"Concert";
+  v3[2] = @"Entertainment";
+  v3[3] = @"Entertainment";
+  v2[4] = @"Festival";
+  v2[5] = @"Theater";
+  v3[4] = @"Entertainment";
+  v3[5] = @"Entertainment";
+  v2[6] = @"Dance";
+  v2[7] = @"Museum";
+  v3[6] = @"Entertainment";
+  v3[7] = @"Entertainment";
+  v2[8] = @"NightOut";
+  v2[9] = @"SportEvent";
+  v3[8] = @"Entertainment";
+  v3[9] = @"Entertainment";
+  v2[10] = @"WinterSport";
+  v2[11] = @"Diving";
+  v3[10] = @"Activity";
+  v3[11] = @"Activity";
+  v2[12] = @"Hiking";
+  v2[13] = @"Climbing";
+  v3[12] = @"Activity";
+  v3[13] = @"Activity";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:14];
   v1 = _meaningLabelForTitle_meaningLabelToUnreliableMeaningLabel;
   _meaningLabelForTitle_meaningLabelToUnreliableMeaningLabel = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_title

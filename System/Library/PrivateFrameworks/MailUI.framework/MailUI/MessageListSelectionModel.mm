@@ -123,32 +123,33 @@ uint64_t ___ef_log_MessageListSelectionModel_block_invoke()
 
 - (id)currentMessageListItemSelection
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   trackedItems = [(MessageListSelectionModel *)self trackedItems];
   messageListItems = [trackedItems messageListItems];
   v5 = [messageListItems count];
-  if (v5 != [trackedItems count])
+  v6 = [trackedItems count];
+  if (v5 != v6)
   {
-    v6 = _ef_log_MessageListSelectionModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ef_log_MessageListSelectionModel(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = [trackedItems count];
-      v13 = 138543874;
-      v14 = v11;
-      v15 = 2048;
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = [trackedItems count];
+      v14 = 138543874;
+      v15 = v12;
+      v16 = 2048;
       selfCopy = self;
-      v17 = 2048;
-      v18 = v12 - [messageListItems count];
-      _os_log_error_impl(&dword_214A5E000, v6, OS_LOG_TYPE_ERROR, "<%{public}@: %p> Message list selection is missing %lu items", &v13, 0x20u);
+      v18 = 2048;
+      v19 = v13 - [messageListItems count];
+      _os_log_error_impl(&dword_214A5E000, v7, OS_LOG_TYPE_ERROR, "<%{public}@: %p> Message list selection is missing %lu items", &v14, 0x20u);
     }
   }
 
   trackedMailboxes = [(MessageListSelectionModel *)self trackedMailboxes];
-  v8 = [(MessageListSelectionModel *)self selectionWithMessageListItems:messageListItems mailboxes:trackedMailboxes];
+  v9 = [(MessageListSelectionModel *)self selectionWithMessageListItems:messageListItems mailboxes:trackedMailboxes];
 
-  return v8;
+  return v9;
 }
 
 - (id)selectionWithMessageListItems:(id)items mailboxes:(id)mailboxes
@@ -199,87 +200,89 @@ uint64_t ___ef_log_MessageListSelectionModel_block_invoke()
 - (id)cascadedItemIDsForItemID:(id)d isSelecting:(BOOL)selecting
 {
   selectingCopy = selecting;
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(MessageListSelectionModel *)self dataSource];
   if ([dataSource selectionModel:self isThreadedItemID:dCopy])
   {
     v9 = [dataSource selectionModel:self isItemIDExpandedThread:dCopy];
-    v10 = _ef_log_MessageListSelectionModel();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = v9;
+    v11 = _ef_log_MessageListSelectionModel(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = NSStringFromSelector(a2);
-      v21 = 138544386;
-      v22 = v11;
-      v23 = 2114;
-      v24 = dCopy;
-      v25 = 1024;
-      v26 = selectingCopy;
+      v12 = NSStringFromSelector(a2);
+      v23 = 138544386;
+      v24 = v12;
+      v25 = 2114;
+      v26 = dCopy;
       v27 = 1024;
-      v28 = 1;
+      v28 = selectingCopy;
       v29 = 1024;
-      LODWORD(v30) = v9;
-      _os_log_impl(&dword_214A5E000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ - itemID: %{public}@, isSelecting: %{BOOL}d, isThread: %{BOOL}d, isExpanded: %{BOOL}d", &v21, 0x28u);
+      v30 = 1;
+      v31 = 1024;
+      LODWORD(v32) = v10;
+      _os_log_impl(&dword_214A5E000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ - itemID: %{public}@, isSelecting: %{BOOL}d, isThread: %{BOOL}d, isExpanded: %{BOOL}d", &v23, 0x28u);
     }
 
-    if (v9)
+    if (v10)
     {
-      v12 = [dataSource selectionModel:self itemIDsInExpandedThread:dCopy];
+      v13 = [dataSource selectionModel:self itemIDsInExpandedThread:dCopy];
     }
 
     else
     {
-      v12 = MEMORY[0x277CBEBF8];
+      v13 = MEMORY[0x277CBEBF8];
     }
   }
 
   else
   {
-    v13 = [dataSource selectionModel:self threadItemIDForItemInExpandedThread:dCopy];
-    if (v13)
+    v14 = [dataSource selectionModel:self threadItemIDForItemInExpandedThread:dCopy];
+    if (v14)
     {
-      v14 = MEMORY[0x277CBEB98];
-      v15 = [dataSource selectionModel:self itemIDsInExpandedThread:v13];
-      v16 = [v14 setWithArray:v15];
+      v15 = MEMORY[0x277CBEB98];
+      v16 = [dataSource selectionModel:self itemIDsInExpandedThread:v14];
+      v17 = [v15 setWithArray:v16];
 
-      v17 = [(MessageListSelectionModel *)self _allChildrenSelected:v16];
-      v18 = _ef_log_MessageListSelectionModel();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v18 = [(MessageListSelectionModel *)self _allChildrenSelected:v17];
+      v19 = v18;
+      v20 = _ef_log_MessageListSelectionModel(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = NSStringFromSelector(a2);
-        v21 = 138544642;
-        v22 = v19;
-        v23 = 2114;
-        v24 = dCopy;
-        v25 = 1024;
-        v26 = selectingCopy;
+        v21 = NSStringFromSelector(a2);
+        v23 = 138544642;
+        v24 = v21;
+        v25 = 2114;
+        v26 = dCopy;
         v27 = 1024;
-        v28 = v17;
-        v29 = 2114;
-        v30 = v13;
+        v28 = selectingCopy;
+        v29 = 1024;
+        v30 = v19;
         v31 = 2114;
-        v32 = v16;
-        _os_log_impl(&dword_214A5E000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ - itemID: %{public}@, isSelecting: %{BOOL}d, allChildrenSelected: %{BOOL}d, parent: %{public}@, children: %{public}@", &v21, 0x36u);
+        v32 = v14;
+        v33 = 2114;
+        v34 = v17;
+        _os_log_impl(&dword_214A5E000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ - itemID: %{public}@, isSelecting: %{BOOL}d, allChildrenSelected: %{BOOL}d, parent: %{public}@, children: %{public}@", &v23, 0x36u);
       }
 
-      if (v17 == selectingCopy)
+      if (v19 == selectingCopy)
       {
-        v12 = [MEMORY[0x277CBEBF8] arrayByAddingObject:v13];
+        v13 = [MEMORY[0x277CBEBF8] arrayByAddingObject:v14];
       }
 
       else
       {
-        v12 = MEMORY[0x277CBEBF8];
+        v13 = MEMORY[0x277CBEBF8];
       }
     }
 
     else
     {
-      v12 = MEMORY[0x277CBEBF8];
+      v13 = MEMORY[0x277CBEBF8];
     }
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)itemIDsToUnselectForItemID:(id)d
@@ -329,7 +332,7 @@ uint64_t ___ef_log_MessageListSelectionModel_block_invoke()
 void __58__MessageListSelectionModel__fetchMissingMessageListItems__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ef_log_MessageListSelectionModel();
+  v4 = _ef_log_MessageListSelectionModel(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__MessageListSelectionModel__fetchMissingMessageListItems__block_invoke_2_cold_1(a1, v3, v4);
@@ -339,7 +342,7 @@ void __58__MessageListSelectionModel__fetchMissingMessageListItems__block_invoke
 - (BOOL)_trackItemIDs:(id)ds updateCount:(BOOL)count
 {
   countCopy = count;
-  v60 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   if ([dsCopy count])
   {
@@ -351,132 +354,134 @@ void __58__MessageListSelectionModel__fetchMissingMessageListItems__block_invoke
     {
       allObjects = [v9 allObjects];
       dataSource = [(MessageListSelectionModel *)self dataSource];
-      v40 = dataSource;
-      v41 = allObjects;
-      if ([(MessageListSelectionModel *)self isPerformingDataSourceUpdates])
+      isPerformingDataSourceUpdates = [(MessageListSelectionModel *)self isPerformingDataSourceUpdates];
+      v42 = dataSource;
+      v43 = allObjects;
+      if (isPerformingDataSourceUpdates)
       {
-        v12 = _ef_log_MessageListSelectionModel();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = _ef_log_MessageListSelectionModel(isPerformingDataSourceUpdates);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = objc_opt_class();
-          v14 = NSStringFromClass(v13);
+          v14 = objc_opt_class();
+          v15 = NSStringFromClass(v14);
           *buf = 138544130;
-          v53 = v14;
-          v54 = 2048;
-          selfCopy2 = self;
+          v55 = v15;
           v56 = 2048;
-          v57 = [allObjects count];
-          v58 = 2114;
-          v59 = allObjects;
-          _os_log_impl(&dword_214A5E000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Data source is performing updates, load message list items (%lu) once completed: %{public}@", buf, 0x2Au);
+          selfCopy2 = self;
+          v58 = 2048;
+          v59 = [allObjects count];
+          v60 = 2114;
+          v61 = allObjects;
+          _os_log_impl(&dword_214A5E000, v13, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Data source is performing updates, load message list items (%lu) once completed: %{public}@", buf, 0x2Au);
         }
 
         itemIDsMissingMessageListItem = [(MessageListSelectionModel *)self itemIDsMissingMessageListItem];
         [itemIDsMissingMessageListItem addObjectsFromArray:allObjects];
 
+        v50 = 0u;
+        v51 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v46 = 0u;
-        v47 = 0u;
-        v16 = allObjects;
-        v17 = [v16 countByEnumeratingWithState:&v46 objects:v51 count:16];
-        if (v17)
+        v17 = allObjects;
+        v18 = [v17 countByEnumeratingWithState:&v48 objects:v53 count:16];
+        if (v18)
         {
-          v18 = v17;
-          v19 = *v47;
+          v19 = v18;
+          v20 = *v49;
           do
           {
-            for (i = 0; i != v18; ++i)
+            for (i = 0; i != v19; ++i)
             {
-              if (*v47 != v19)
+              if (*v49 != v20)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v17);
               }
 
-              [trackedItems trackMessageListItemWithItemID:*(*(&v46 + 1) + 8 * i)];
+              [trackedItems trackMessageListItemWithItemID:*(*(&v48 + 1) + 8 * i)];
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v46 objects:v51 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v48 objects:v53 count:16];
           }
 
-          while (v18);
+          while (v19);
         }
       }
 
       else
       {
-        v37 = v9;
-        v38 = dsCopy;
-        v39 = countCopy;
-        v21 = [dataSource selectionModel:self messageListItemsForItemIDs:allObjects];
-        v22 = [v21 ef_map:&__block_literal_global_48];
+        v39 = v9;
+        v40 = dsCopy;
+        v41 = countCopy;
+        v22 = [dataSource selectionModel:self messageListItemsForItemIDs:allObjects];
+        v23 = [v22 ef_map:&__block_literal_global_48];
 
+        v46 = 0u;
+        v47 = 0u;
         v44 = 0u;
         v45 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        v16 = v22;
-        v23 = [v16 countByEnumeratingWithState:&v42 objects:v50 count:16];
-        if (v23)
+        v17 = v23;
+        v24 = [v17 countByEnumeratingWithState:&v44 objects:v52 count:16];
+        if (v24)
         {
-          v24 = v23;
-          v25 = *v43;
-          v26 = *MEMORY[0x277D07110];
+          v25 = v24;
+          v26 = *v45;
+          v27 = *MEMORY[0x277D07110];
           do
           {
-            for (j = 0; j != v24; ++j)
+            for (j = 0; j != v25; ++j)
             {
-              if (*v43 != v25)
+              if (*v45 != v26)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v17);
               }
 
-              v28 = *(*(&v42 + 1) + 8 * j);
-              if ((*(v26 + 16))(v26, v28))
+              v29 = *(*(&v44 + 1) + 8 * j);
+              v30 = (*(v27 + 16))(v27, v29);
+              if (v30)
               {
-                [trackedItems trackmessageListItem:v28];
+                [trackedItems trackmessageListItem:v29];
               }
 
               else
               {
-                v29 = _ef_log_MessageListSelectionModel();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                v31 = _ef_log_MessageListSelectionModel(v30);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
-                  v30 = objc_opt_class();
-                  v31 = NSStringFromClass(v30);
+                  v32 = objc_opt_class();
+                  v33 = NSStringFromClass(v32);
                   *buf = 138543618;
-                  v53 = v31;
-                  v54 = 2048;
+                  v55 = v33;
+                  v56 = 2048;
                   selfCopy2 = self;
-                  _os_log_error_impl(&dword_214A5E000, v29, OS_LOG_TYPE_ERROR, "<%{public}@: %p> Skip tracking message -- message is null", buf, 0x16u);
+                  _os_log_error_impl(&dword_214A5E000, v31, OS_LOG_TYPE_ERROR, "<%{public}@: %p> Skip tracking message -- message is null", buf, 0x16u);
                 }
               }
             }
 
-            v24 = [v16 countByEnumeratingWithState:&v42 objects:v50 count:16];
+            v25 = [v17 countByEnumeratingWithState:&v44 objects:v52 count:16];
           }
 
-          while (v24);
+          while (v25);
         }
 
-        countCopy = v39;
-        dsCopy = v38;
-        v9 = v37;
+        countCopy = v41;
+        dsCopy = v40;
+        v9 = v39;
       }
 
       if (countCopy)
       {
         allObjects2 = [v9 allObjects];
-        -[MessageListSelectionModel setTrackedItemsCount:](self, "setTrackedItemsCount:", -[MessageListSelectionModel trackedItemsCount](self, "trackedItemsCount") + [v40 selectionModel:self countForItemIDs:allObjects2]);
+        -[MessageListSelectionModel setTrackedItemsCount:](self, "setTrackedItemsCount:", -[MessageListSelectionModel trackedItemsCount](self, "trackedItemsCount") + [v42 selectionModel:self countForItemIDs:allObjects2]);
 
         allObjects3 = [v9 allObjects];
-        -[MessageListSelectionModel setTrackedItemsWillMoveToTrash:](self, "setTrackedItemsWillMoveToTrash:", -[MessageListSelectionModel trackedItemsWillMoveToTrash](self, "trackedItemsWillMoveToTrash") + [v40 selectionModel:self countDeleteMovesToTrashForItemIDs:allObjects3]);
+        -[MessageListSelectionModel setTrackedItemsWillMoveToTrash:](self, "setTrackedItemsWillMoveToTrash:", -[MessageListSelectionModel trackedItemsWillMoveToTrash](self, "trackedItemsWillMoveToTrash") + [v42 selectionModel:self countDeleteMovesToTrashForItemIDs:allObjects3]);
 
         allObjects4 = [v9 allObjects];
-        -[MessageListSelectionModel setTrackedItemsSupportArchiving:](self, "setTrackedItemsSupportArchiving:", -[MessageListSelectionModel trackedItemsSupportArchiving](self, "trackedItemsSupportArchiving") + [v40 selectionModel:self countSupportsArchivingForItemIDs:allObjects4]);
+        -[MessageListSelectionModel setTrackedItemsSupportArchiving:](self, "setTrackedItemsSupportArchiving:", -[MessageListSelectionModel trackedItemsSupportArchiving](self, "trackedItemsSupportArchiving") + [v42 selectionModel:self countSupportsArchivingForItemIDs:allObjects4]);
 
         allObjects5 = [v9 allObjects];
-        -[MessageListSelectionModel setTrackedItemsArchiveByDefault:](self, "setTrackedItemsArchiveByDefault:", -[MessageListSelectionModel trackedItemsArchiveByDefault](self, "trackedItemsArchiveByDefault") + [v40 selectionModel:self countShouldArchiveByDefaultForItemIDs:allObjects5]);
+        -[MessageListSelectionModel setTrackedItemsArchiveByDefault:](self, "setTrackedItemsArchiveByDefault:", -[MessageListSelectionModel trackedItemsArchiveByDefault](self, "trackedItemsArchiveByDefault") + [v42 selectionModel:self countShouldArchiveByDefaultForItemIDs:allObjects5]);
       }
 
       [(MessageListSelectionModel *)self _scheduleMailboxPredictionUpdate];
@@ -801,7 +806,7 @@ void __61__MessageListSelectionModel__scheduleMailboxPredictionUpdate__block_inv
   dataSource = [(MessageListSelectionModel *)self dataSource];
   v6 = [dataSource selectionModel:self objectIDsForItemIDs:selectionCopy];
   ef_UUID = [MEMORY[0x277CCACA8] ef_UUID];
-  v8 = _ef_log_MessageListSelectionModel();
+  v8 = _ef_log_MessageListSelectionModel(ef_UUID);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
@@ -833,7 +838,7 @@ void __61__MessageListSelectionModel___updatePredictionWithSelection___block_inv
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _ef_log_MessageListSelectionModel();
+  v4 = _ef_log_MessageListSelectionModel(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [v3 ef_publicDescription];
@@ -848,48 +853,50 @@ void __61__MessageListSelectionModel___updatePredictionWithSelection___block_inv
 
 void __61__MessageListSelectionModel___updatePredictionWithSelection___block_invoke_54(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if ([v3 ef_isCancelledError])
+  v4 = [v3 ef_isCancelledError];
+  if (v4)
   {
-    v4 = _ef_log_MessageListSelectionModel();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _ef_log_MessageListSelectionModel(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
-      v12 = 138543362;
-      v13 = v5;
-      v6 = "Mailbox prediction cancelled. predictionID=%{public}@";
+      v6 = *(a1 + 32);
+      v14 = 138543362;
+      v15 = v6;
+      v7 = "Mailbox prediction cancelled. predictionID=%{public}@";
 LABEL_7:
-      _os_log_impl(&dword_214A5E000, v4, OS_LOG_TYPE_INFO, v6, &v12, 0xCu);
+      _os_log_impl(&dword_214A5E000, v5, OS_LOG_TYPE_INFO, v7, &v14, 0xCu);
     }
   }
 
   else
   {
-    v7 = [v3 em_isItemNotFoundError];
-    v4 = _ef_log_MessageListSelectionModel();
-    v8 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
-    if (v7)
+    v8 = [v3 em_isItemNotFoundError];
+    v9 = v8;
+    v5 = _ef_log_MessageListSelectionModel(v8);
+    v10 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+    if (v9)
     {
-      if (v8)
+      if (v10)
       {
-        v9 = *(a1 + 32);
-        v12 = 138543362;
-        v13 = v9;
-        v6 = "Mailbox prediction finished with no mailbox found. predictionID=%{public}@";
+        v11 = *(a1 + 32);
+        v14 = 138543362;
+        v15 = v11;
+        v7 = "Mailbox prediction finished with no mailbox found. predictionID=%{public}@";
         goto LABEL_7;
       }
     }
 
-    else if (v8)
+    else if (v10)
     {
-      v10 = *(a1 + 32);
-      v11 = [v3 ef_publicDescription];
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v11;
-      _os_log_impl(&dword_214A5E000, v4, OS_LOG_TYPE_INFO, "Mailbox prediction produced an unexpected error. predictionID=%{public}@ error=%{public}@", &v12, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = [v3 ef_publicDescription];
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2114;
+      v17 = v13;
+      _os_log_impl(&dword_214A5E000, v5, OS_LOG_TYPE_INFO, "Mailbox prediction produced an unexpected error. predictionID=%{public}@ error=%{public}@", &v14, 0x16u);
     }
   }
 }
@@ -983,28 +990,29 @@ void __46__MessageListSelectionModel_preserveSelection__block_invoke(uint64_t a1
 
 - (void)_fetchMissingMessageListItems
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self)
   {
     itemIDsMissingMessageListItem = [self itemIDsMissingMessageListItem];
     allObjects = [itemIDsMissingMessageListItem allObjects];
 
-    if ([allObjects count])
+    v4 = [allObjects count];
+    if (v4)
     {
-      v4 = _ef_log_MessageListSelectionModel();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = _ef_log_MessageListSelectionModel(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = objc_opt_class();
-        v6 = NSStringFromClass(v5);
+        v6 = objc_opt_class();
+        v7 = NSStringFromClass(v6);
         *buf = 138544130;
-        v29 = v6;
-        v30 = 2048;
+        v30 = v7;
+        v31 = 2048;
         selfCopy = self;
-        v32 = 2048;
-        v33 = [allObjects count];
-        v34 = 2114;
-        v35 = allObjects;
-        _os_log_impl(&dword_214A5E000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Fetch message list items for item ids (%lu): %{public}@", buf, 0x2Au);
+        v33 = 2048;
+        v34 = [allObjects count];
+        v35 = 2114;
+        v36 = allObjects;
+        _os_log_impl(&dword_214A5E000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Fetch message list items for item ids (%lu): %{public}@", buf, 0x2Au);
       }
 
       itemIDsMissingMessageListItem2 = [self itemIDsMissingMessageListItem];
@@ -1013,49 +1021,49 @@ void __46__MessageListSelectionModel_preserveSelection__block_invoke(uint64_t a1
       trackedItems = [self trackedItems];
       dataSource = [self dataSource];
       selfCopy2 = self;
-      v11 = [dataSource selectionModel:self messageListItemsForItemIDs:allObjects];
+      v12 = [dataSource selectionModel:self messageListItemsForItemIDs:allObjects];
 
-      v25 = 0u;
       v26 = 0u;
-      v23 = 0u;
+      v27 = 0u;
       v24 = 0u;
-      obj = v11;
-      v12 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
-      if (v12)
+      v25 = 0u;
+      obj = v12;
+      v13 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v24;
+        v14 = v13;
+        v15 = *v25;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v24 != v14)
+            if (*v25 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v23 + 1) + 8 * i);
+            v17 = *(*(&v24 + 1) + 8 * i);
             mainThreadScheduler = [MEMORY[0x277D071B8] mainThreadScheduler];
-            v21[0] = MEMORY[0x277D85DD0];
-            v21[1] = 3221225472;
-            v21[2] = __58__MessageListSelectionModel__fetchMissingMessageListItems__block_invoke;
-            v21[3] = &unk_278189710;
-            v22 = trackedItems;
-            [v16 onScheduler:mainThreadScheduler addSuccessBlock:v21];
+            v22[0] = MEMORY[0x277D85DD0];
+            v22[1] = 3221225472;
+            v22[2] = __58__MessageListSelectionModel__fetchMissingMessageListItems__block_invoke;
+            v22[3] = &unk_278189710;
+            v23 = trackedItems;
+            [v17 onScheduler:mainThreadScheduler addSuccessBlock:v22];
 
             mainThreadScheduler2 = [MEMORY[0x277D071B8] mainThreadScheduler];
-            v20[0] = MEMORY[0x277D85DD0];
-            v20[1] = 3221225472;
-            v20[2] = __58__MessageListSelectionModel__fetchMissingMessageListItems__block_invoke_2;
-            v20[3] = &unk_278189738;
-            v20[4] = selfCopy2;
-            [v16 onScheduler:mainThreadScheduler2 addFailureBlock:v20];
+            v21[0] = MEMORY[0x277D85DD0];
+            v21[1] = 3221225472;
+            v21[2] = __58__MessageListSelectionModel__fetchMissingMessageListItems__block_invoke_2;
+            v21[3] = &unk_278189738;
+            v21[4] = selfCopy2;
+            [v17 onScheduler:mainThreadScheduler2 addFailureBlock:v21];
           }
 
-          v13 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v14 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
-        while (v13);
+        while (v14);
       }
     }
   }

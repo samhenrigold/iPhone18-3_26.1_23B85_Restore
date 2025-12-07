@@ -3,16 +3,12 @@
 
 @implementation LSDatabaseGetNoServerLock
 
-uint64_t ___LSDatabaseGetNoServerLock_block_invoke()
+double ___LSDatabaseGetNoServerLock_block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = [__LSDefaultsGetSharedInstance() hasServer];
-  if ((result & 1) == 0)
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
+  if ((v2 & 1) == 0 && ([__LSDefaultsGetSharedInstance(v2 v3)] & 1) == 0)
   {
-    result = [__LSDefaultsGetSharedInstance() isServer];
-    if ((result & 1) == 0)
-    {
-      operator new();
-    }
+    operator new();
   }
 
   return result;

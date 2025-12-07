@@ -394,7 +394,7 @@ void __92__ICRecentNotesCoreDataIndexer_indexObjectsInSection_sectionIndex_fetch
         }
 
         v13 = [*(a1 + 40) sectionIdentifiersToManagedObjectIDs];
-        v14 = [v13 objectForKeyedSubscript:v12];
+        v14 = objc_msgSend_objectForKeyedSubscript_(v13);
 
         if (!v14)
         {
@@ -404,14 +404,14 @@ void __92__ICRecentNotesCoreDataIndexer_indexObjectsInSection_sectionIndex_fetch
         }
 
         v17 = [*(a1 + 40) sectionIdentifiersToManagedObjectIDs];
-        v18 = [v17 objectForKeyedSubscript:v12];
+        v18 = objc_msgSend_objectForKeyedSubscript_(v17);
         v19 = [v18 count];
         v20 = [*(a1 + 40) maximumNumberOfNotesPerAccount];
 
         if (v19 < v20)
         {
           v21 = [*(a1 + 40) sectionIdentifiersToManagedObjectIDs];
-          v22 = [v21 objectForKeyedSubscript:v12];
+          v22 = objc_msgSend_objectForKeyedSubscript_(v21);
           v23 = [v6 objectID];
           [v22 addObject:v23];
 
@@ -493,7 +493,7 @@ void __110__ICRecentNotesCoreDataIndexer_newSnapshotFromIndexWithLegacyManagedOb
 
         v10 = *(*(&v15 + 1) + 8 * v9);
         v11 = [*(a1 + 40) sectionIdentifiersToManagedObjectIDs];
-        v12 = [v11 objectForKeyedSubscript:v10];
+        v12 = objc_msgSend_objectForKeyedSubscript_(v11);
 
         v13 = *(a1 + 32);
         v14 = [v12 array];
@@ -558,9 +558,9 @@ void __117__ICRecentNotesCoreDataIndexer_sectionSnapshotsForSectionType_legacyMa
         v9 = objc_alloc_init(MEMORY[0x1E69DC5D0]);
         [*(a1 + 40) setObject:v9 forKeyedSubscript:v8];
 
-        v10 = [*(a1 + 40) objectForKeyedSubscript:v8];
+        v10 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 40));
         v11 = [*(a1 + 32) sectionIdentifiersToManagedObjectIDs];
-        v12 = [v11 objectForKeyedSubscript:v8];
+        v12 = objc_msgSend_objectForKeyedSubscript_(v11);
         v13 = [v12 array];
         [v10 appendItems:v13];
 
@@ -615,7 +615,7 @@ void __117__ICRecentNotesCoreDataIndexer_sectionSnapshotsForSectionType_legacyMa
   sectionIdentifiersToManagedObjectIDs = [(ICRecentNotesCoreDataIndexer *)self sectionIdentifiersToManagedObjectIDs];
   sortedSectionIdentifiers = [(ICRecentNotesCoreDataIndexer *)self sortedSectionIdentifiers];
   firstObject = [sortedSectionIdentifiers firstObject];
-  v6 = [sectionIdentifiersToManagedObjectIDs objectForKeyedSubscript:firstObject];
+  v6 = objc_msgSend_objectForKeyedSubscript_(sectionIdentifiersToManagedObjectIDs);
   firstObject2 = [v6 firstObject];
 
   return firstObject2;

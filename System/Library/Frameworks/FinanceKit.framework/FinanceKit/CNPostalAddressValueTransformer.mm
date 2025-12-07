@@ -7,7 +7,7 @@
 
 + (Class)transformedValueClass
 {
-  sub_1B7205540(0, &qword_1EDAFAF20);
+  sub_1B7205540(0, &qword_1EDAFAF20, 0x1E695CF60);
 
   return swift_getObjCClassFromMetadata();
 }

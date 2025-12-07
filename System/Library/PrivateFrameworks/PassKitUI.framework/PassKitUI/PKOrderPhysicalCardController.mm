@@ -727,47 +727,47 @@ void __96__PKOrderPhysicalCardController_completeOrderPhysicalCardWithApplePayTr
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __96__PKOrderPhysicalCardController_completeOrderPhysicalCardWithApplePayTrustSignature_completion___block_invoke_2(uint64_t a1)
+void __96__PKOrderPhysicalCardController_completeOrderPhysicalCardWithApplePayTrustSignature_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 40);
   if (*(a1 + 32))
   {
-    if (!v2)
+    if (!v3)
     {
       objc_storeStrong((*(a1 + 48) + 24), *(a1 + 56));
       goto LABEL_6;
     }
   }
 
-  else if (!v2)
+  else if (!v3)
   {
     goto LABEL_6;
   }
 
-  v2 = +[PKAccountFlowController displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:](PKAccountFlowController, "displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:", v2, [*(*(a1 + 48) + 24) feature], 0, 0);
+  v3 = +[PKAccountFlowController displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:](PKAccountFlowController, "displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:", v3, [*(*(a1 + 48) + 24) feature], 0, 0);
 LABEL_6:
-  v3 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = @"YES";
-    v5 = *(a1 + 40);
+    v5 = @"YES";
+    v6 = *(a1 + 40);
     if (!*(a1 + 32))
     {
-      v4 = @"NO";
+      v5 = @"NO";
     }
 
-    v7 = 138543618;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Completed physical card order %{public}@, error: %@", &v7, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Completed physical card order %{public}@, error: %@", &v8, 0x16u);
   }
 
-  v6 = *(a1 + 64);
-  if (v6)
+  v7 = *(a1 + 64);
+  if (v7)
   {
-    (*(v6 + 16))(v6, *(a1 + 32), v2);
+    (*(v7 + 16))(v7, *(a1 + 32), v3);
   }
 }
 

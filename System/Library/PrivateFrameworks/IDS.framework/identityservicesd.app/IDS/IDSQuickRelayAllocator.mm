@@ -1499,7 +1499,7 @@ LABEL_3:
 
       v15 = *(*(&v79 + 1) + 8 * v14);
       v16 = [v15 objectForKeyedSubscript:v13];
-      if ([v16 isEqualToIgnoringCase:iCopy])
+      if (objc_msgSend_isEqualToIgnoringCase_(v16))
       {
         break;
       }
@@ -1634,7 +1634,7 @@ LABEL_9:
                       v47 = [v45 objectForKeyedSubscript:v29];
                       unsignedLongLongValue4 = [v47 unsignedLongLongValue];
 
-                      if (unsignedLongLongValue3 == unsignedLongLongValue4 && [v46 isEqualToIgnoringCase:v66])
+                      if (unsignedLongLongValue3 == unsignedLongLongValue4 && objc_msgSend_isEqualToIgnoringCase_(v46))
                       {
                         v49 = +[IDSFoundationLog QRAllocator];
                         iCopy = v66;
@@ -6246,7 +6246,7 @@ LABEL_131:
           }
 
           v246 = v107;
-          [v246 doubleValue];
+          objc_msgSend_doubleValue(v246);
           [(QRAllocation *)v271 setPurgeAtExpiration:?];
           responses = [(QRAllocation *)v271 responses];
           [responses addObject:v39];
@@ -7194,7 +7194,7 @@ LABEL_372:
         }
 
         v117 = v116;
-        [v117 doubleValue];
+        objc_msgSend_doubleValue(v117);
         [(QRAllocation *)v271 setPurgeAtExpiration:?];
       }
 
@@ -8590,7 +8590,7 @@ LABEL_219:
   }
 
   relayExpiryTimeStamp = [(IDSQuickRelayAllocateMessage *)v6 relayExpiryTimeStamp];
-  [relayExpiryTimeStamp doubleValue];
+  objc_msgSend_doubleValue(relayExpiryTimeStamp);
   v131 = v130;
 
   v132 = [[NSNumber alloc] initWithDouble:v131];
@@ -11105,7 +11105,7 @@ LABEL_25:
 
           v16 = *(*(&v22 + 1) + 8 * i);
           requestIDStr = [v16 requestIDStr];
-          v18 = [requestIDStr isEqualToIgnoringCase:strCopy];
+          v18 = objc_msgSend_isEqualToIgnoringCase_(requestIDStr);
 
           if (v18)
           {

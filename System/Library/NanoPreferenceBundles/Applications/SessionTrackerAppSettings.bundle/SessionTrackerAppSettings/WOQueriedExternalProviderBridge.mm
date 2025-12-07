@@ -9,37 +9,34 @@
 
 - (NSString)sourceName
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOQueriedExternalProviderBridge_externalProvider);
   selfCopy = self;
   sub_22544();
   sub_22434();
 
-  v4 = sub_22864();
+  v3 = sub_22864();
 
-  return v4;
+  return v3;
 }
 
 - (NSData)sourceImageData
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOQueriedExternalProviderBridge_externalProvider);
   selfCopy = self;
   sub_22544();
-  v4 = sub_22444();
-  v6 = v5;
+  v3 = sub_22444();
+  v5 = v4;
 
-  v7.super.isa = sub_22214().super.isa;
-  sub_1C758(v4, v6);
+  v6.super.isa = sub_22214().super.isa;
+  sub_1C758(v3, v5);
 
-  return v7.super.isa;
+  return v6.super.isa;
 }
 
 - (BOOL)isEnabled
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOQueriedExternalProviderBridge_externalProvider);
   selfCopy = self;
-  v4 = sub_22554();
+  v3 = sub_22554();
 
-  return v4 == 2;
+  return v3 == 2;
 }
 
 - (WOQueriedExternalProviderBridge)init

@@ -330,7 +330,7 @@
         }
 
         v32 = _UIStringForIDSRegistrationServiceType();
-        if ([v32 length] && (objc_msgSend(v17, "containsObject:", v32) & 1) == 0 && ((objc_msgSend(v32, "isEqualToIgnoringCase:", @"iMessage") & 1) != 0 || objc_msgSend(v32, "isEqualToIgnoringCase:", @"FaceTime")))
+        if ([v32 length] && (objc_msgSend(v17, "containsObject:", v32) & 1) == 0 && ((objc_msgSend_isEqualToIgnoringCase_(v32) & 1) != 0 || objc_msgSend_isEqualToIgnoringCase_(v32)))
         {
           [v17 addObject:v32];
           v33 = sub_1004A6900(v32, v79);
@@ -439,11 +439,11 @@ LABEL_47:
     [v54 setAction:0];
     v56 = IDSDailyAccountAddedNotificationMetricTotalKey;
     v57 = [(IDSPersistentMap *)selfCopy->_dailyMetricsData objectForKey:IDSDailyAccountAddedNotificationMetricTotalKey];
-    [v57 doubleValue];
+    objc_msgSend_doubleValue(v57);
     v59 = v58;
 
     v60 = [(IDSPersistentMap *)selfCopy->_dailyMetricsData objectForKey:IDSDailyAccountAddedNotificationMetricDuplicateKey];
-    [v60 doubleValue];
+    objc_msgSend_doubleValue(v60);
 
     dailyMetricsData = selfCopy->_dailyMetricsData;
     v62 = [NSNumber numberWithInteger:v59 + 1];

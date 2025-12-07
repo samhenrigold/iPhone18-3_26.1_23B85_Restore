@@ -22,16 +22,17 @@
 
 void __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
     if (*(a1 + 40))
     {
-      v4 = SBLogSystemNotes();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = SBLogSystemNotes(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_cold_1(a1, v3, v4);
+        __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_cold_1(a1, v4, v5);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -40,45 +41,44 @@ void __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguratio
 
   else
   {
-    v5 = MEMORY[0x1E698F498];
-    v6 = [MEMORY[0x1E698F498] defaultShellMachName];
-    v7 = +[SBSSystemNotesPresentationServiceInterfaceSpecification identifier];
-    v8 = [v5 endpointForMachName:v6 service:v7 instance:0];
+    v6 = MEMORY[0x1E698F498];
+    v7 = [MEMORY[0x1E698F498] defaultShellMachName];
+    v8 = +[SBSSystemNotesPresentationServiceInterfaceSpecification identifier];
+    v9 = [v6 endpointForMachName:v7 service:v8 instance:0];
 
-    v9 = [MEMORY[0x1E698F490] connectionWithEndpoint:v8];
-    v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v11 = dispatch_queue_create("com.apple.SpringBoardServices.SBSSystemNotesPresentationRequest.connectionQueue", v10);
+    v10 = [MEMORY[0x1E698F490] connectionWithEndpoint:v9];
+    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v12 = dispatch_queue_create("com.apple.SpringBoardServices.SBSSystemNotesPresentationRequest.connectionQueue", v11);
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_3;
-    v23[3] = &unk_1E7360370;
-    v12 = *(a1 + 48);
-    v24 = v11;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_3;
+    v24[3] = &unk_1E7360370;
+    v13 = *(a1 + 48);
     v25 = v12;
-    v13 = v11;
-    [v9 configureConnection:v23];
-    v14 = SBLogSystemNotes();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v26 = v13;
+    v14 = v12;
+    v15 = SBLogSystemNotes([v10 configureConnection:v24]);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = v9;
-      _os_log_impl(&dword_19169D000, v14, OS_LOG_TYPE_DEFAULT, "Activating Connection: %{public}@", buf, 0xCu);
+      v28 = v10;
+      _os_log_impl(&dword_19169D000, v15, OS_LOG_TYPE_DEFAULT, "Activating Connection: %{public}@", buf, 0xCu);
     }
 
-    [v9 activate];
-    v15 = v9;
-    v16 = [v15 remoteTarget];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_12;
-    v20[3] = &unk_1E735FEC0;
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    v21 = v15;
-    v22 = v18;
-    v19 = v15;
-    [v16 presentWithConfiguration:v17 completion:v20];
+    [v10 activate];
+    v16 = v10;
+    v17 = [v16 remoteTarget];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_12;
+    v21[3] = &unk_1E735FEC0;
+    v18 = *(a1 + 32);
+    v19 = *(a1 + 40);
+    v22 = v16;
+    v23 = v19;
+    v20 = v16;
+    [v17 presentWithConfiguration:v18 completion:v21];
   }
 }
 
@@ -102,7 +102,7 @@ void __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguratio
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogSystemNotes();
+  v3 = SBLogSystemNotes(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -115,7 +115,7 @@ void __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguratio
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogSystemNotes();
+  v3 = SBLogSystemNotes(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -129,7 +129,7 @@ void __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguratio
 void __85__SBSSystemNotesPresentationRequest_performPresentationWithConfiguration_completion___block_invoke_8(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogSystemNotes();
+  v3 = SBLogSystemNotes(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __76__SBSSystemNotesPresentationClientToServerProxy__setupAndActivateConnection__block_invoke_19_cold_1(v2, v3);

@@ -5,6 +5,7 @@
 + (id)keyChainQueryForDeletePreferredNetworkRecordOperationForNetworkName:(id)name;
 + (id)keyChainQueryForDeletePreferredNetworkRecordWithNetworkName:(id)name;
 + (id)keyChainQueryForFetchPreferredNetworkRecordsOperation;
++ (id)keyChainQueryForFetchPreferredNetworkRecordsOperationForTheCount:(int)count;
 + (id)keyChainQueryForPreferredNetworkRecordsOperationForLabelAsSSID:(id)d;
 + (id)keyChainQueryForPreferredNetworkRecordsOperationForNetwork:(id)network;
 + (id)keyChainQueryForPreferredNetworkRecordsOperationForNetworkName:(id)name;
@@ -688,6 +689,30 @@ LABEL_16:
   v2 = [NSDictionary dictionaryWithObjects:v5 forKeys:v4 count:8];
 
   return v2;
+}
+
++ (id)keyChainQueryForFetchPreferredNetworkRecordsOperationForTheCount:(int)count
+{
+  v6[0] = kSecClass;
+  v6[1] = kSecAttrSynchronizable;
+  v7[0] = kSecClassInternetPassword;
+  v7[1] = kSecAttrSynchronizableAny;
+  v6[2] = kSecAttrAccessGroup;
+  v6[3] = kSecAttrSyncViewHint;
+  v7[2] = @"com.apple.preferred.network";
+  v7[3] = kSecAttrViewHintHome;
+  v6[4] = kSecAttrAccessible;
+  v6[5] = kSecReturnData;
+  v7[4] = kSecAttrAccessibleAlways;
+  v7[5] = &__kCFBooleanTrue;
+  v7[6] = &__kCFBooleanTrue;
+  v6[6] = kSecReturnAttributes;
+  v6[7] = kSecMatchLimit;
+  v3 = [NSNumber numberWithInt:*&count];
+  v7[7] = v3;
+  v4 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:8];
+
+  return v4;
 }
 
 + (id)keyChainQueryForPreferredNetworkRecordsOperationForNetwork:(id)network

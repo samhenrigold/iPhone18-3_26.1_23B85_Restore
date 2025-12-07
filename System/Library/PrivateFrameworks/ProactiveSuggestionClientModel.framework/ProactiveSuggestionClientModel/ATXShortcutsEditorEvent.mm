@@ -37,29 +37,33 @@
   dCopy = d;
   dsCopy = ds;
   metadataCopy = metadata;
-  if ((type & 0xFFFFFFFFFFFFFFFELL) == 2 && [dsCopy count] >= 2)
+  if ((type & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
-    v16 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v16 = [dsCopy count];
+    if (v16 >= 2)
     {
-      [ATXShortcutsEditorEvent initWithAbsoluteDate:dsCopy eventType:type blendingCacheUUID:v16 suggestionUUIDs:? metadata:?];
+      v17 = __atxlog_handle_blending(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      {
+        [ATXShortcutsEditorEvent initWithAbsoluteDate:dsCopy eventType:type blendingCacheUUID:v17 suggestionUUIDs:? metadata:?];
+      }
     }
   }
 
-  v20.receiver = self;
-  v20.super_class = ATXShortcutsEditorEvent;
-  v17 = [(ATXShortcutsEditorEvent *)&v20 init];
-  v18 = v17;
-  if (v17)
+  v21.receiver = self;
+  v21.super_class = ATXShortcutsEditorEvent;
+  v18 = [(ATXShortcutsEditorEvent *)&v21 init];
+  v19 = v18;
+  if (v18)
   {
-    v17->_absoluteDate = date;
-    v17->_eventType = type;
-    objc_storeStrong(&v17->_blendingCacheUUID, d);
-    objc_storeStrong(&v18->_suggestionUUIDs, ds);
-    objc_storeStrong(&v18->_metadata, metadata);
+    v18->_absoluteDate = date;
+    v18->_eventType = type;
+    objc_storeStrong(&v18->_blendingCacheUUID, d);
+    objc_storeStrong(&v19->_suggestionUUIDs, ds);
+    objc_storeStrong(&v19->_metadata, metadata);
   }
 
-  return v18;
+  return v19;
 }
 
 - (NSDate)date
@@ -177,18 +181,18 @@ LABEL_19:
 
 - (id)jsonDict
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   v3 = [(NSArray *)self->_suggestionUUIDs _pas_mappedArrayWithTransform:&__block_literal_global_1];
-  v15[0] = @"date";
+  v14[0] = @"date";
   v4 = MEMORY[0x1E696AD98];
   date = [(ATXShortcutsEditorEvent *)self date];
   [date timeIntervalSinceReferenceDate];
   v6 = [v4 numberWithDouble:?];
-  v16[0] = v6;
-  v15[1] = @"eventType";
+  v15[0] = v6;
+  v14[1] = @"eventType";
   v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%lu", self->_eventType];
-  v16[1] = v7;
-  v15[2] = @"blendingCacheUUID";
+  v15[1] = v7;
+  v14[2] = @"blendingCacheUUID";
   uUIDString = [(NSUUID *)self->_blendingCacheUUID UUIDString];
   v9 = uUIDString;
   v10 = @"nil";
@@ -202,17 +206,15 @@ LABEL_19:
     v11 = @"nil";
   }
 
-  v15[3] = @"suggestionUUIDs";
+  v14[3] = @"suggestionUUIDs";
   if (v3)
   {
     v10 = v3;
   }
 
-  v16[2] = v11;
-  v16[3] = v10;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[2] = v11;
+  v15[3] = v10;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   return v12;
 }
@@ -277,41 +279,42 @@ LABEL_10:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      [(ATXShortcutsEditorEvent *)self initWithProto:v12];
+      [(ATXShortcutsEditorEvent *)self initWithProto:v13];
     }
 
     goto LABEL_10;
   }
 
-  v5 = protoCopy;
-  if ([v5 hasDate] && (objc_msgSend(v5, "date"), v7 = v6, objc_msgSend(v5, "hasEventType")))
+  v6 = protoCopy;
+  if ([v6 hasDate] && (objc_msgSend(v6, "date"), v8 = v7, objc_msgSend(v6, "hasEventType")))
   {
-    eventType = [v5 eventType];
-    if ([v5 hasBlendingCacheId])
+    eventType = [v6 eventType];
+    if ([v6 hasBlendingCacheId])
     {
-      v9 = objc_alloc(MEMORY[0x1E696AFB0]);
-      blendingCacheId = [v5 blendingCacheId];
-      v11 = [v9 initWithUUIDString:blendingCacheId];
+      v10 = objc_alloc(MEMORY[0x1E696AFB0]);
+      blendingCacheId = [v6 blendingCacheId];
+      v12 = [v10 initWithUUIDString:blendingCacheId];
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    suggestionUUIDs = [v5 suggestionUUIDs];
-    v15 = [suggestionUUIDs _pas_mappedArrayWithTransform:&__block_literal_global_57];
+    suggestionUUIDs = [v6 suggestionUUIDs];
+    v16 = [suggestionUUIDs _pas_mappedArrayWithTransform:&__block_literal_global_57];
 
-    v16 = [ATXShortcutsEditorEventMetadata alloc];
-    metadata = [v5 metadata];
-    v18 = [(ATXShortcutsEditorEventMetadata *)v16 initWithProto:metadata];
+    v17 = [ATXShortcutsEditorEventMetadata alloc];
+    metadata = [v6 metadata];
+    v19 = [(ATXShortcutsEditorEventMetadata *)v17 initWithProto:metadata];
 
-    self = [(ATXShortcutsEditorEvent *)self initWithAbsoluteDate:eventType eventType:v11 blendingCacheUUID:v15 suggestionUUIDs:v18 metadata:v7];
+    self = [(ATXShortcutsEditorEvent *)self initWithAbsoluteDate:eventType eventType:v12 blendingCacheUUID:v16 suggestionUUIDs:v19 metadata:v8];
     selfCopy = self;
   }
 
@@ -354,7 +357,7 @@ id __41__ATXShortcutsEditorEvent_initWithProto___block_invoke(uint64_t a1, void 
 
 - (id)proto
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   [v3 setDate:self->_absoluteDate];
   [v3 setEventType:self->_eventType];
@@ -368,30 +371,30 @@ id __41__ATXShortcutsEditorEvent_initWithProto___block_invoke(uint64_t a1, void 
   if (self->_suggestionUUIDs)
   {
     v6 = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = self->_suggestionUUIDs;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          uUIDString2 = [*(*(&v15 + 1) + 8 * i) UUIDString];
+          uUIDString2 = [*(*(&v14 + 1) + 8 * i) UUIDString];
           [v6 addObject:uUIDString2];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -399,8 +402,6 @@ id __41__ATXShortcutsEditorEvent_initWithProto___block_invoke(uint64_t a1, void 
 
     [v3 setSuggestionUUIDs:v6];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -480,25 +481,22 @@ LABEL_8:
 
 - (void)initWithAbsoluteDate:(os_log_t)log eventType:blendingCacheUUID:suggestionUUIDs:metadata:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "Encountered more than 1 suggestionUUID for event type %lu. Expected 1, received: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "Encountered more than 1 suggestionUUID for event type %lu. Expected 1, received: %@", &v3, 0x16u);
 }
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBShortcutsEditorEvent proto", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBShortcutsEditorEvent proto", &v5, 0xCu);
 }
 
 @end

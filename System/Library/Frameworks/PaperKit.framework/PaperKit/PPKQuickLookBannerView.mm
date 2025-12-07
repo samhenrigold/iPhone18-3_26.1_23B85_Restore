@@ -806,11 +806,11 @@ LABEL_34:
   [v4 enumerateEventHandlers:v5];
 }
 
-uint64_t __47__PPKQuickLookBannerView_clearExistingActions___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+id *__47__PPKQuickLookBannerView_clearExistingActions___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2)
   {
-    return [*(result + 32) removeAction:a2 forControlEvents:a5];
+    return [result[4] removeAction:a2 forControlEvents:a5];
   }
 
   return result;

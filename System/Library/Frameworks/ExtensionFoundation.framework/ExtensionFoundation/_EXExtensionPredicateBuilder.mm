@@ -3,6 +3,7 @@
 - (id)applyRuleWithRuleName:(id)name acceptRule:(id)rule rejectRule:(id)rejectRule types:(id)types exceptTypes:(id)exceptTypes parentType:(id)type children:(id)children parentAccepted:(BOOL)self0 accepted:(BOOL *)self1 acceptedTypesInSubtree:(id *)self2 exceptTypesInSubtree:(id *)self3;
 - (id)gatherChildrenPredicateWithRuleDictionary:(id)dictionary parentType:(id)type parentAccepted:(BOOL)accepted acceptedChildTypes:(id *)types exceptChildTypes:(id *)childTypes;
 - (id)makePredicate;
+- (id)predicateForCountingRule:(id)rule type:(id)type exceptTypes:(id)types specifiedCount:(int)count;
 - (id)predicateForRejectExceptOtherTypesRule:(id)rule type:(id)type otherTypes:(id)types;
 @end
 
@@ -29,6 +30,53 @@
   }
 
   return v8;
+}
+
+- (id)predicateForCountingRule:(id)rule type:(id)type exceptTypes:(id)types specifiedCount:(int)count
+{
+  v6 = *&count;
+  v22[1] = *MEMORY[0x1E69E9840];
+  ruleCopy = rule;
+  typeCopy = type;
+  if (ruleCopy | typeCopy)
+  {
+    v12 = [MEMORY[0x1E696AD98] numberWithInt:v6];
+    v13 = v12;
+    if (ruleCopy)
+    {
+      v21 = @"SPECIFIED_COUNT";
+      v22[0] = v12;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v15 = _EXPredicateWithString(ruleCopy);
+      v11 = [v15 predicateWithSubstitutionVariables:v14];
+    }
+
+    else
+    {
+      v19[0] = @"SPECIFIED_COUNT";
+      v19[1] = @"TYPE";
+      v20[0] = v12;
+      v20[1] = typeCopy;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+      v11 = [self->_activationRules->var0 predicateWithSubstitutionVariables:v14];
+    }
+
+    if (!v11)
+    {
+      v17 = _EXDefaultLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      {
+        [_EXExtensionPredicateBuilder predicateForCountingRule:type:exceptTypes:specifiedCount:];
+      }
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (id)predicateForRejectExceptOtherTypesRule:(id)rule type:(id)type otherTypes:(id)types
@@ -68,8 +116,8 @@
 
       if (!v12)
       {
-        v16 = _EXDefaultLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+        v17 = _EXDefaultLog(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           [_EXExtensionPredicateBuilder predicateForRejectExceptOtherTypesRule:type:otherTypes:];
         }
@@ -86,8 +134,6 @@
   {
     v12 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -250,94 +296,89 @@ LABEL_20:
 
 - (id)makePredicate
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   var7 = self->_activationRules->var7;
-  v23 = 0;
-  v24 = 0;
-  v4 = [(_EXExtensionPredicateBuilder *)self gatherChildrenPredicateWithRuleDictionary:var7 parentType:0 parentAccepted:0 acceptedChildTypes:&v24 exceptChildTypes:&v23];
-  v5 = v24;
-  v6 = v23;
+  v21 = 0;
+  v22 = 0;
+  v4 = [(_EXExtensionPredicateBuilder *)self gatherChildrenPredicateWithRuleDictionary:var7 parentType:0 parentAccepted:0 acceptedChildTypes:&v22 exceptChildTypes:&v21];
+  v5 = v22;
+  v6 = v21;
   if ([v5 count])
   {
     v7 = [v6 mutableCopy];
     [v7 removeObjectsInArray:v5];
     v8 = [v7 count];
     activationRules = self->_activationRules;
-    v10 = !self->_usesStrictMatching;
     if (v8)
     {
-      v11 = 48;
+      v10 = 48;
       if (self->_usesStrictMatching)
       {
-        v11 = 40;
+        v10 = 40;
       }
 
-      v12 = *(&activationRules->var0 + v11);
-      v25[0] = @"TYPES";
-      v25[1] = @"REJECTED_TYPES";
-      v26[0] = v5;
-      v26[1] = v7;
-      v13 = MEMORY[0x1E695DF20];
-      v14 = v26;
-      v15 = v25;
-      v16 = 2;
+      v11 = *(&activationRules->var0 + v10);
+      v23[0] = @"TYPES";
+      v23[1] = @"REJECTED_TYPES";
+      v24[0] = v5;
+      v24[1] = v7;
+      v12 = MEMORY[0x1E695DF20];
+      v13 = v24;
+      v14 = v23;
+      v15 = 2;
     }
 
     else
     {
-      v18 = 32;
+      v17 = 32;
       if (self->_usesStrictMatching)
       {
-        v18 = 24;
+        v17 = 24;
       }
 
-      v12 = *(&activationRules->var0 + v18);
-      v27 = @"TYPES";
-      v28[0] = v5;
-      v13 = MEMORY[0x1E695DF20];
-      v14 = v28;
-      v15 = &v27;
-      v16 = 1;
+      v11 = *(&activationRules->var0 + v17);
+      v25 = @"TYPES";
+      v26[0] = v5;
+      v12 = MEMORY[0x1E695DF20];
+      v13 = v26;
+      v14 = &v25;
+      v15 = 1;
     }
 
-    v19 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:v16];
-    v17 = [v12 predicateWithSubstitutionVariables:v19];
+    v18 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:v15];
+    v16 = [v11 predicateWithSubstitutionVariables:v18];
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  v20 = _EXExtensionMakeAndPredicate(v4, v17);
+  v19 = _EXExtensionMakeAndPredicate(v4, v16);
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v19;
 }
 
 - (void)predicateForCountingRule:type:exceptTypes:specifiedCount:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = "predicate != NULL";
-  v4 = 2080;
-  v2 = 136315650;
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = "predicate != NULL";
+  v3 = 2080;
+  v1 = 136315650;
   OUTLINED_FUNCTION_4_0();
-  v5 = 670;
-  _os_log_fault_impl(&dword_1847D1000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Unable to create predicate!", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v4 = 670;
+  _os_log_fault_impl(&dword_1847D1000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Unable to create predicate!", &v1, 0x1Cu);
 }
 
 - (void)predicateForRejectExceptOtherTypesRule:type:otherTypes:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = "predicate != NULL";
-  v4 = 2080;
-  v2 = 136315650;
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = "predicate != NULL";
+  v3 = 2080;
+  v1 = 136315650;
   OUTLINED_FUNCTION_4_0();
-  v5 = 694;
-  _os_log_fault_impl(&dword_1847D1000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Unable to create predicate!", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v4 = 694;
+  _os_log_fault_impl(&dword_1847D1000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Unable to create predicate!", &v1, 0x1Cu);
 }
 
 @end

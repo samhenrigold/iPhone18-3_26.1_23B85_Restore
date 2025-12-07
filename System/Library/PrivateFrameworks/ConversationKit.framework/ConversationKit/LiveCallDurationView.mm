@@ -52,7 +52,7 @@
 - (double)alpha
 {
   selfCopy = self;
-  LiveCallDurationView.alpha.getter();
+  LiveCallDurationView.alpha.getter(selfCopy);
   v4 = v3;
 
   return v4;
@@ -61,21 +61,22 @@
 - (void)setAlpha:(double)alpha
 {
   selfCopy = self;
-  LiveCallDurationView.alpha.setter(alpha);
+  LiveCallDurationView.alpha.setter(selfCopy, alpha);
 }
 
 - (BOOL)isHidden
 {
   selfCopy = self;
-  v3 = LiveCallDurationView.isHidden.getter();
+  v3 = LiveCallDurationView.isHidden.getter(selfCopy);
 
   return v3 & 1;
 }
 
 - (void)setHidden:(BOOL)hidden
 {
+  hiddenCopy = hidden;
   selfCopy = self;
-  LiveCallDurationView.isHidden.setter(hidden);
+  LiveCallDurationView.isHidden.setter(hiddenCopy);
 }
 
 - (void)didMoveToWindow

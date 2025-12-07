@@ -2,6 +2,7 @@
 - (BLTSettingsSendSerializer)init;
 - (void)handleFileURL:(id)l;
 - (void)sendNowWithSent:(id)sent withAcknowledgement:(id)acknowledgement withTimeout:(id)timeout;
+- (void)sendRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send andResponse:(id)response spoolToFile:(BOOL)self0;
 @end
 
 @implementation BLTSettingsSendSerializer
@@ -51,7 +52,7 @@ void __33__BLTSettingsSendSerializer_init__block_invoke(uint64_t a1)
     goto LABEL_5;
   }
 
-  v3 = blt_general_log();
+  v3 = blt_general_log(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __33__BLTSettingsSendSerializer_init__block_invoke_cold_1(v3);
@@ -66,7 +67,7 @@ LABEL_5:
 
   else
   {
-    v5 = blt_general_log();
+    v5 = blt_general_log(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __28__BLTBulletinSendQueue_init__block_invoke_cold_2(v5);
@@ -86,16 +87,48 @@ LABEL_5:
   [(BLTSendQueueSerializer *)queueSerializer handleFileURL:lCopy protobufHandler:delegate];
 }
 
+- (void)sendRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send andResponse:(id)response spoolToFile:(BOOL)self0
+{
+  typeCopy = type;
+  requestCopy = request;
+  timeoutCopy = timeout;
+  descriptionCopy = description;
+  forCopy = for;
+  sendCopy = send;
+  responseCopy = response;
+  if (file)
+  {
+    queue = self->_queue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __117__BLTSettingsSendSerializer_sendRequest_type_withTimeout_withDescription_onlyOneFor_didSend_andResponse_spoolToFile___block_invoke;
+    block[3] = &unk_278D32350;
+    block[4] = self;
+    v25 = requestCopy;
+    v29 = typeCopy;
+    v26 = descriptionCopy;
+    v27 = responseCopy;
+    v28 = sendCopy;
+    dispatch_async(queue, block);
+  }
+
+  else
+  {
+    delegate = [(BLTSettingsSendSerializerPassthrough *)self delegate];
+    [delegate sendRequest:requestCopy type:typeCopy withTimeout:timeoutCopy withDescription:descriptionCopy onlyOneFor:forCopy didSend:sendCopy andResponse:responseCopy];
+  }
+}
+
 void __117__BLTSettingsSendSerializer_sendRequest_type_withTimeout_withDescription_onlyOneFor_didSend_andResponse_spoolToFile___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 40);
   v6 = *(*(a1 + 32) + 24);
   v7 = *(a1 + 72);
-  v25 = 0;
-  [v6 add:v5 type:v7 messageIdentifier:&v25];
-  v8 = v25;
-  v9 = blt_ids_log();
+  v23 = 0;
+  [v6 add:v5 type:v7 messageIdentifier:&v23];
+  v8 = v23;
+  v9 = blt_ids_log(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 48);
@@ -103,30 +136,29 @@ void __117__BLTSettingsSendSerializer_sendRequest_type_withTimeout_withDescripti
     if (!v10)
     {
       v11 = MEMORY[0x277CCACA8];
-      v12 = *(a1 + 40);
-      v13 = objc_opt_class();
-      v1 = NSStringFromClass(v13);
+      v12 = objc_opt_class();
+      v1 = NSStringFromClass(v12);
       v2 = [*(a1 + 40) redact];
       v3 = [v11 stringWithFormat:@"%@: %@", v1, v2];
     }
 
-    v14 = *(a1 + 56);
+    v13 = *(a1 + 56);
     *buf = 138412802;
-    if (v14)
+    if (v13)
     {
-      v15 = "YES";
+      v14 = "YES";
     }
 
     else
     {
-      v15 = "NO";
+      v14 = "NO";
     }
 
-    v27 = v3;
-    v28 = 2112;
-    v29 = v8;
-    v30 = 2080;
-    v31 = v15;
+    v25 = v3;
+    v26 = 2112;
+    v27 = v8;
+    v28 = 2080;
+    v29 = v14;
     _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_DEFAULT, "Setting send stored protobuf %@ got message identifier: %@ with response completion: %s", buf, 0x20u);
     if (!v10)
     {
@@ -136,27 +168,27 @@ void __117__BLTSettingsSendSerializer_sendRequest_type_withTimeout_withDescripti
   if (*(a1 + 56) && v8)
   {
     objc_initWeak(buf, *(a1 + 32));
-    v16 = *(a1 + 56);
-    if (v16)
+    v15 = *(a1 + 56);
+    if (v15)
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __117__BLTSettingsSendSerializer_sendRequest_type_withTimeout_withDescription_onlyOneFor_didSend_andResponse_spoolToFile___block_invoke_26;
-      v22[3] = &unk_278D32328;
-      v9 = &v24;
-      objc_copyWeak(&v24, buf);
-      v23 = *(a1 + 56);
-      v17 = [v22 copy];
-      v3 = &v23;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __117__BLTSettingsSendSerializer_sendRequest_type_withTimeout_withDescription_onlyOneFor_didSend_andResponse_spoolToFile___block_invoke_26;
+      v20[3] = &unk_278D32328;
+      v9 = &v22;
+      objc_copyWeak(&v22, buf);
+      v21 = *(a1 + 56);
+      v16 = [v20 copy];
+      v3 = &v21;
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
-    [*(*(a1 + 32) + 40) setObject:v17 forKeyedSubscript:v8];
-    if (v16)
+    [*(*(a1 + 32) + 40) setObject:v16 forKeyedSubscript:v8];
+    if (v15)
     {
 
       objc_destroyWeak(&v9->isa);
@@ -165,15 +197,13 @@ void __117__BLTSettingsSendSerializer_sendRequest_type_withTimeout_withDescripti
     objc_destroyWeak(buf);
   }
 
-  v18 = *(a1 + 64);
-  if (v18)
+  v17 = *(a1 + 64);
+  if (v17)
   {
-    v19 = *(*(a1 + 32) + 32);
-    v20 = [v18 copy];
-    [v19 addObject:v20];
+    v18 = *(*(a1 + 32) + 32);
+    v19 = [v17 copy];
+    [v18 addObject:v19];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __117__BLTSettingsSendSerializer_sendRequest_type_withTimeout_withDescription_onlyOneFor_didSend_andResponse_spoolToFile___block_invoke_26(uint64_t a1, void *a2)
@@ -271,34 +301,34 @@ void __77__BLTSettingsSendSerializer_sendNowWithSent_withAcknowledgement_withTim
 
 void __77__BLTSettingsSendSerializer_sendNowWithSent_withAcknowledgement_withTimeout___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v10) + 16))(*(*(&v13 + 1) + 8 * v10));
+        (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -309,8 +339,6 @@ void __77__BLTSettingsSendSerializer_sendNowWithSent_withAcknowledgement_withTim
   {
     (*(v11 + 16))(v11, a2, v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,8 +1,8 @@
 @interface SBSystemActionSuppressionManager
 - (id)initWithSelectedAction:(id *)action;
-- (uint64_t)removeObserver:(uint64_t)result;
+- (id)removeObserver:(id *)result;
 - (uint64_t)suppressionStatus;
-- (uint64_t)systemActionInteractionDidStartWithLongPressTimeout:(uint64_t)result;
+- (uint64_t)systemActionInteractionDidStartWithLongPressTimeout:(uint64_t *)result;
 - (void)_didReduceState:(id)state;
 - (void)_queryPocketStateWithTimeout:(double)timeout;
 - (void)_subscribeToViewObstructionEvents;
@@ -34,7 +34,7 @@
   v8 = *MEMORY[0x277D85DE8];
   if (self->_subscribedToViewObstructionEvents)
   {
-    v3 = SBLogSystemActionSuppression();
+    v3 = SBLogSystemActionSuppression(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138543362;
@@ -115,37 +115,41 @@ void __59__SBSystemActionSuppressionManager_initWithSelectedAction___block_invok
 
 - (void)_subscribeToViewObstructionEvents
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (!self->_subscribedToViewObstructionEvents && [MEMORY[0x277CC1D50] isAvailable])
+  v13 = *MEMORY[0x277D85DE8];
+  if (!self->_subscribedToViewObstructionEvents)
   {
-    v3 = SBLogSystemActionSuppression();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    isAvailable = [MEMORY[0x277CC1D50] isAvailable];
+    if (isAvailable)
     {
-      *buf = 138543362;
-      selfCopy = self;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "(%{public}@) subscribing to VO", buf, 0xCu);
-    }
-
-    suppressionManager = self->_suppressionManager;
-    if (!suppressionManager)
-    {
-      v5 = [objc_alloc(MEMORY[0x277CC1D50]) initWithClientType:3];
-      v6 = self->_suppressionManager;
-      self->_suppressionManager = v5;
+      v4 = SBLogSystemActionSuppression(isAvailable);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        selfCopy = self;
+        _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "(%{public}@) subscribing to VO", buf, 0xCu);
+      }
 
       suppressionManager = self->_suppressionManager;
-    }
+      if (!suppressionManager)
+      {
+        v6 = [objc_alloc(MEMORY[0x277CC1D50]) initWithClientType:3];
+        v7 = self->_suppressionManager;
+        self->_suppressionManager = v6;
 
-    self->_subscribedToViewObstructionEvents = 1;
-    [(CMSuppressionManager *)suppressionManager startService];
-    v7 = self->_suppressionManager;
-    mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __69__SBSystemActionSuppressionManager__subscribeToViewObstructionEvents__block_invoke;
-    v9[3] = &unk_2783B0558;
-    v9[4] = self;
-    [(CMSuppressionManager *)v7 startSuppressionUpdatesToQueue:mainQueue withOptions:1 withHandler:v9];
+        suppressionManager = self->_suppressionManager;
+      }
+
+      self->_subscribedToViewObstructionEvents = 1;
+      [(CMSuppressionManager *)suppressionManager startService];
+      v8 = self->_suppressionManager;
+      mainQueue = [MEMORY[0x277CCABD8] mainQueue];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __69__SBSystemActionSuppressionManager__subscribeToViewObstructionEvents__block_invoke;
+      v10[3] = &unk_2783B0558;
+      v10[4] = self;
+      [(CMSuppressionManager *)v8 startSuppressionUpdatesToQueue:mainQueue withOptions:1 withHandler:v10];
+    }
   }
 }
 
@@ -154,7 +158,7 @@ void __69__SBSystemActionSuppressionManager__subscribeToViewObstructionEvents__b
   v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = SBLogSystemActionSuppression();
+  v7 = SBLogSystemActionSuppression(v6);
   v8 = v7;
   if (!v5 || v6)
   {
@@ -200,70 +204,72 @@ void __69__SBSystemActionSuppressionManager__subscribeToViewObstructionEvents__b
 
 - (void)_queryPocketStateWithTimeout:(double)timeout
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if ([MEMORY[0x277CC1D28] isPocketStateAvailable])
+  v15 = *MEMORY[0x277D85DE8];
+  isPocketStateAvailable = [MEMORY[0x277CC1D28] isPocketStateAvailable];
+  if (isPocketStateAvailable)
   {
-    v5 = SBLogSystemActionSuppression();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogSystemActionSuppression(isPocketStateAvailable);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@) querying pocket state", buf, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@) querying pocket state", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     BSContinuousMachTimeNow();
-    v7 = v6;
+    v8 = v7;
     pocketStateManager = self->_pocketStateManager;
-    v9 = MEMORY[0x277D85CD0];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __65__SBSystemActionSuppressionManager__queryPocketStateWithTimeout___block_invoke;
-    v10[3] = &unk_2783B0580;
-    objc_copyWeak(v11, buf);
-    v11[1] = v7;
-    [(CMPocketStateManager *)pocketStateManager queryStateOntoQueue:MEMORY[0x277D85CD0] andMonitorFor:v10 withTimeout:10.0 andHandler:timeout];
+    v10 = MEMORY[0x277D85CD0];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __65__SBSystemActionSuppressionManager__queryPocketStateWithTimeout___block_invoke;
+    v11[3] = &unk_2783B0580;
+    objc_copyWeak(v12, buf);
+    v12[1] = v8;
+    [(CMPocketStateManager *)pocketStateManager queryStateOntoQueue:MEMORY[0x277D85CD0] andMonitorFor:v11 withTimeout:10.0 andHandler:timeout];
 
-    objc_destroyWeak(v11);
+    objc_destroyWeak(v12);
     objc_destroyWeak(buf);
   }
 }
 
 void __65__SBSystemActionSuppressionManager__queryPocketStateWithTimeout___block_invoke(uint64_t a1, unint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = SBLogSystemActionSuppression();
-    v8 = v7;
+    v8 = SBLogSystemActionSuppression(WeakRetained);
+    v9 = v8;
     if (v5)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __65__SBSystemActionSuppressionManager__queryPocketStateWithTimeout___block_invoke_cold_1(WeakRetained, v5, v8);
+        __65__SBSystemActionSuppressionManager__queryPocketStateWithTimeout___block_invoke_cold_1(v7, v5, v9);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = SBNSStringFromCMPocketStateType(a2);
-        v12 = 138543618;
-        v13 = WeakRetained;
-        v14 = 2114;
-        v15 = v9;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@) pocket state queried: %{public}@", &v12, 0x16u);
+        v10 = SBNSStringFromCMPocketStateType(a2);
+        v13 = 138543618;
+        v14 = v7;
+        v15 = 2114;
+        v16 = v10;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@) pocket state queried: %{public}@", &v13, 0x16u);
       }
 
-      [(SBSystemActionSuppressionManagerStateReducer *)WeakRetained[3] setPocketState:a2];
+      [(SBSystemActionSuppressionManagerStateReducer *)v7[3] setPocketState:a2];
     }
 
-    v10 = +[SBSystemActionAnalyticsTracker sharedTracker];
+    v11 = +[SBSystemActionAnalyticsTracker sharedTracker];
     BSContinuousMachTimeNow();
-    [(SBSystemActionAnalyticsTracker *)v10 trackPocketStateQueryWithExecutionTime:v5 error:v11 - *(a1 + 40)];
+    [(SBSystemActionAnalyticsTracker *)v11 trackPocketStateQueryWithExecutionTime:v5 error:v12 - *(a1 + 40)];
   }
 }
 
@@ -333,7 +339,7 @@ void __65__SBSystemActionSuppressionManager__queryPocketStateWithTimeout___block
 void __70__SBSystemActionSuppressionManager_pocketStateManager_didUpdateState___block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSystemActionSuppression();
+  v2 = SBLogSystemActionSuppression(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -348,7 +354,7 @@ void __70__SBSystemActionSuppressionManager_pocketStateManager_didUpdateState___
   [(SBSystemActionSuppressionManagerStateReducer *)*(*(a1 + 32) + 24) setPocketState:?];
 }
 
-- (uint64_t)systemActionInteractionDidStartWithLongPressTimeout:(uint64_t)result
+- (uint64_t)systemActionInteractionDidStartWithLongPressTimeout:(uint64_t *)result
 {
   if (result)
   {
@@ -389,11 +395,11 @@ void __70__SBSystemActionSuppressionManager_pocketStateManager_didUpdateState___
   }
 }
 
-- (uint64_t)removeObserver:(uint64_t)result
+- (id)removeObserver:(id *)result
 {
   if (result)
   {
-    return [*(result + 48) removeObject:a2];
+    return [result[6] removeObject:a2];
   }
 
   return result;

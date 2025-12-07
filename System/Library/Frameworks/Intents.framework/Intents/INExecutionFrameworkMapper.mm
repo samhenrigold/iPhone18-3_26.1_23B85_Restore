@@ -234,37 +234,37 @@ LABEL_10:
 
 - (void)loadSystemExtensionInformation
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __60__INExecutionFrameworkMapper_loadSystemExtensionInformation__block_invoke;
-  v23[3] = &unk_1E72882F8;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __60__INExecutionFrameworkMapper_loadSystemExtensionInformation__block_invoke;
+  v22[3] = &unk_1E72882F8;
   selfCopy = self;
-  v23[4] = self;
-  v17 = MEMORY[0x193AD7780](v23);
+  v22[4] = self;
+  v16 = MEMORY[0x193AD7780](v22);
   if (!self->_filled)
   {
     [MEMORY[0x1E69635D0] enumeratorWithOptions:1];
+    v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    obj = v20 = 0u;
-    v4 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v18 = 0u;
+    obj = v19 = 0u;
+    v4 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v4)
     {
-      v5 = *v20;
+      v5 = *v19;
       do
       {
         v6 = 0;
         do
         {
-          if (*v20 != v5)
+          if (*v19 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v19 + 1) + 8 * v6);
+          v7 = *(*(&v18 + 1) + 8 * v6);
           v8 = objc_autoreleasePoolPush();
           bundleIdentifier = [v7 bundleIdentifier];
           if (bundleIdentifier)
@@ -299,7 +299,7 @@ LABEL_10:
         }
 
         while (v4 != v6);
-        v4 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v4 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v4);
@@ -308,9 +308,7 @@ LABEL_10:
     selfCopy->_filled = 1;
   }
 
-  v17[2]();
-
-  v16 = *MEMORY[0x1E69E9840];
+  v16[2]();
 }
 
 - (void)_addExtensionBundleIdentifier:(id)identifier forAppBundleIdentifier:(id)bundleIdentifier

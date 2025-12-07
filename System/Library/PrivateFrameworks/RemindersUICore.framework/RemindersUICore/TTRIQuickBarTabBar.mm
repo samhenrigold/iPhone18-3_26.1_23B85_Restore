@@ -46,7 +46,7 @@
 
   sub_21D4ACE20(v6);
 
-  sub_21D0CF7E0(v6, &qword_27CE5C690);
+  sub_21D0CF7E0(v6, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (void)buttonAction:(id)action

@@ -28,33 +28,45 @@
 {
   replyCopy = reply;
   v4 = *__error();
-  if (sub_1000E95F0())
+  v5 = sub_1000E95F0();
+  if (v5)
   {
-    v5 = sub_1000E957C();
-    os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v9 = 45;
-    v10 = 2080;
-    v11 = "[DIIOClientDelegate addToRefCountWithReply:]";
-    v6 = _os_log_send_and_compose_impl();
-
-    if (v6)
+    v12 = 0;
+    v7 = sub_1000E957C(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v6);
-      free(v6);
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    *buf = 68157954;
+    v14 = 45;
+    v15 = 2080;
+    v16 = "[DIIOClientDelegate addToRefCountWithReply:]";
+    LODWORD(v11) = 18;
+    v9 = _os_log_send_and_compose_impl(v8, &v12, 0, 0, &_mh_execute_header, v7, 0, "%.*s: Reached, keeping connection alive", buf, v11);
+
+    if (v9)
+    {
+      fprintf(__stderrp, "%s\n", v9);
+      free(v9);
     }
   }
 
   else
   {
-    v7 = sub_1000E957C();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000E957C(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v9 = 45;
-      v10 = 2080;
-      v11 = "[DIIOClientDelegate addToRefCountWithReply:]";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%.*s: Reached, keeping connection alive", buf, 0x12u);
+      v14 = 45;
+      v15 = 2080;
+      v16 = "[DIIOClientDelegate addToRefCountWithReply:]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Reached, keeping connection alive", buf, 0x12u);
     }
   }
 
@@ -66,116 +78,137 @@
 {
   connectionCopy = connection;
   v5 = *__error();
-  if (sub_1000E95F0())
+  v6 = sub_1000E95F0();
+  if (v6)
   {
     location = 0;
-    v6 = sub_1000E957C();
-    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v34 = 41;
-    v35 = 2080;
-    v36 = "[DIIOClientDelegate setupNewConnection:]";
-    LODWORD(v24) = 18;
-    v23 = buf;
-    v7 = _os_log_send_and_compose_impl();
-
-    if (v7)
+    v8 = sub_1000E957C(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v7);
-      free(v7);
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    *buf = 68157954;
+    v41 = 41;
+    v42 = 2080;
+    v43 = "[DIIOClientDelegate setupNewConnection:]";
+    LODWORD(v29) = 18;
+    v10 = _os_log_send_and_compose_impl(v9, &location, 0, 0, &_mh_execute_header, v8, 0, "%.*s: A new client has connected to the clients listener", buf, v29);
+
+    if (v10)
+    {
+      fprintf(__stderrp, "%s\n", v10);
+      free(v10);
     }
   }
 
   else
   {
-    v8 = sub_1000E957C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000E957C(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v34 = 41;
-      v35 = 2080;
-      v36 = "[DIIOClientDelegate setupNewConnection:]";
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%.*s: A new client has connected to the clients listener", buf, 0x12u);
+      v41 = 41;
+      v42 = 2080;
+      v43 = "[DIIOClientDelegate setupNewConnection:]";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%.*s: A new client has connected to the clients listener", buf, 0x12u);
     }
   }
 
   *__error() = v5;
-  v9 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DIIOClientProtocol];
-  [connectionCopy setExportedInterface:v9];
+  v12 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DIIOClientProtocol];
+  [connectionCopy setExportedInterface:v12];
 
   [connectionCopy setExportedObject:self];
   objc_initWeak(&location, self);
   objc_initWeak(&from, connectionCopy);
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100006398;
-  v28[3] = &unk_1001F5760;
-  objc_copyWeak(&v29, &location);
-  objc_copyWeak(&v30, &from);
-  [connectionCopy setInvalidationHandler:v28];
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_100006568;
-  v25[3] = &unk_1001F5760;
-  objc_copyWeak(&v26, &location);
-  objc_copyWeak(&v27, &from);
-  [connectionCopy setInterruptionHandler:v25];
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = sub_100006398;
+  v35[3] = &unk_1001F5760;
+  objc_copyWeak(&v36, &location);
+  objc_copyWeak(&v37, &from);
+  [connectionCopy setInvalidationHandler:v35];
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_100006568;
+  v32[3] = &unk_1001F5760;
+  objc_copyWeak(&v33, &location);
+  objc_copyWeak(&v34, &from);
+  [connectionCopy setInterruptionHandler:v32];
   weakDaemon = [(DIIOClientDelegate *)self weakDaemon];
-  v11 = weakDaemon;
+  v14 = weakDaemon;
   if (weakDaemon)
   {
-    v12 = weakDaemon;
-    objc_sync_enter(v12);
-    activeConnections = [v12 activeConnections];
+    v15 = weakDaemon;
+    objc_sync_enter(v15);
+    activeConnections = [v15 activeConnections];
     [activeConnections addObject:connectionCopy];
 
-    v14 = *__error();
-    if (sub_1000E95F0())
+    v17 = *__error();
+    v18 = sub_1000E95F0();
+    if (v18)
     {
-      v15 = sub_1000E957C();
-      os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-      activeConnections2 = [v12 activeConnections];
-      v17 = [activeConnections2 count];
-      *buf = 68158210;
-      v34 = 41;
-      v35 = 2080;
-      v36 = "[DIIOClientDelegate setupNewConnection:]";
-      v37 = 2048;
-      v38 = v17;
-      v18 = _os_log_send_and_compose_impl();
-
-      if (v18)
+      v31 = 0;
+      v20 = sub_1000E957C(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v18);
-        free(v18);
+        v21 = 3;
+      }
+
+      else
+      {
+        v21 = 2;
+      }
+
+      activeConnections2 = [v15 activeConnections];
+      v23 = [activeConnections2 count];
+      *buf = 68158210;
+      v41 = 41;
+      v42 = 2080;
+      v43 = "[DIIOClientDelegate setupNewConnection:]";
+      v44 = 2048;
+      v45 = v23;
+      LODWORD(v29) = 28;
+      v24 = _os_log_send_and_compose_impl(v21, &v31, 0, 0, &_mh_execute_header, v20, 0, "%.*s: # of active connections: %lu", buf, v29, v30);
+
+      if (v24)
+      {
+        fprintf(__stderrp, "%s\n", v24);
+        free(v24);
       }
     }
 
     else
     {
-      v19 = sub_1000E957C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_1000E957C(v18, v19);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        activeConnections3 = [v12 activeConnections];
-        v21 = [activeConnections3 count];
+        activeConnections3 = [v15 activeConnections];
+        v27 = [activeConnections3 count];
         *buf = 68158210;
-        v34 = 41;
-        v35 = 2080;
-        v36 = "[DIIOClientDelegate setupNewConnection:]";
-        v37 = 2048;
-        v38 = v21;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%.*s: # of active connections: %lu", buf, 0x1Cu);
+        v41 = 41;
+        v42 = 2080;
+        v43 = "[DIIOClientDelegate setupNewConnection:]";
+        v44 = 2048;
+        v45 = v27;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%.*s: # of active connections: %lu", buf, 0x1Cu);
       }
     }
 
-    *__error() = v14;
-    objc_sync_exit(v12);
+    *__error() = v17;
+    objc_sync_exit(v15);
   }
 
-  objc_destroyWeak(&v27);
-  objc_destroyWeak(&v26);
-  objc_destroyWeak(&v30);
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v34);
+  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
 

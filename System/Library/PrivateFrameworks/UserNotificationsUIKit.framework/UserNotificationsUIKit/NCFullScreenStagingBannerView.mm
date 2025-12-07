@@ -279,18 +279,19 @@ void __47__NCFullScreenStagingBannerView_layoutSubviews__block_invoke(uint64_t a
 {
   stringCopy = string;
   importantText = [provider importantText];
-  v7 = stringCopy;
-  if ([importantText length])
+  v7 = [importantText length];
+  v8 = stringCopy;
+  if (v7)
   {
-    v8 = MEMORY[0x277CCACA8];
-    v9 = NCUserNotificationsUIKitFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"IMPORTANT_TEXT_FULLSCREEN_FORMAT" value:&stru_282FE84F8 table:0];
-    v7 = [v8 stringWithFormat:v10, stringCopy, importantText];
+    v9 = MEMORY[0x277CCACA8];
+    v10 = NCUserNotificationsUIKitFrameworkBundle(v7);
+    v11 = [v10 localizedStringForKey:@"IMPORTANT_TEXT_FULLSCREEN_FORMAT" value:&stru_282FE84F8 table:0];
+    v8 = [v9 stringWithFormat:v11, stringCopy, importantText];
   }
 
-  v11 = [MEMORY[0x277CCA898] nc_safeAttributedStringWithString:v7];
+  v12 = [MEMORY[0x277CCA898] nc_safeAttributedStringWithString:v8];
 
-  return v11;
+  return v12;
 }
 
 - (void)_configureDetailScrollViewIfNecessary
@@ -1319,7 +1320,7 @@ BOOL __77__NCFullScreenStagingBannerView__layoutForBriefStageWithSettings_comple
   return v2;
 }
 
-uint64_t __77__NCFullScreenStagingBannerView__layoutForBriefStageWithSettings_completion___block_invoke_11(uint64_t a1)
+uint64_t __77__NCFullScreenStagingBannerView__layoutForBriefStageWithSettings_completion___block_invoke_11(uint64_t a1, double a2)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -1340,9 +1341,9 @@ uint64_t __77__NCFullScreenStagingBannerView__layoutForBriefStageWithSettings_co
     result = BSFloatApproximatelyEqualToFloat();
     if (result)
     {
-      v3 = *(*(a1 + 64) + 16);
+      v4 = *(*(a1 + 64) + 16);
 
-      return v3();
+      return v4();
     }
   }
 
@@ -2050,7 +2051,7 @@ BOOL __78__NCFullScreenStagingBannerView__layoutForDetailStageWithSettings_compl
   return v2;
 }
 
-uint64_t __78__NCFullScreenStagingBannerView__layoutForDetailStageWithSettings_completion___block_invoke_5_39(uint64_t a1)
+uint64_t __78__NCFullScreenStagingBannerView__layoutForDetailStageWithSettings_completion___block_invoke_5_39(uint64_t a1, double a2)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -2067,9 +2068,9 @@ uint64_t __78__NCFullScreenStagingBannerView__layoutForDetailStageWithSettings_c
     if (result)
     {
       (*(*(a1 + 64) + 16))();
-      v3 = *(*(a1 + 72) + 16);
+      v4 = *(*(a1 + 72) + 16);
 
-      return v3();
+      return v4();
     }
   }
 

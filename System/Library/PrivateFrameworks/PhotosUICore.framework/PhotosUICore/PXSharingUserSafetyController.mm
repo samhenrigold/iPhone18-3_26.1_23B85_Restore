@@ -278,15 +278,15 @@ uint64_t __104__PXSharingUserSafetyController__analyzeAsset_withSensitivityAnaly
   return [v10 removeObject:v11];
 }
 
-void __104__PXSharingUserSafetyController__analyzeAsset_withSensitivityAnalyzer_activeRequests_completionHandler___block_invoke(double a1)
+void __104__PXSharingUserSafetyController__analyzeAsset_withSensitivityAnalyzer_activeRequests_completionHandler___block_invoke(uint64_t a1, double a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = PLSharingGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = PLSharingGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v3 = 134217984;
-    v4 = a1;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEBUG, "[Civic] Current video analyzation progress: %f", &v3, 0xCu);
+    v4 = 134217984;
+    v5 = a2;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEBUG, "[Civic] Current video analyzation progress: %f", &v4, 0xCu);
   }
 }
 

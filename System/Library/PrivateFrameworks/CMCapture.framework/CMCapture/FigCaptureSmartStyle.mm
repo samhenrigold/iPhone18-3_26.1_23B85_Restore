@@ -49,7 +49,7 @@
       {
         if (fabsf(bias) <= 1.0)
         {
-          *(v9 + 1) = [a2 copy];
+          v9[1] = [a2 copy];
           v10[4] = cast;
           v10[5] = intensity;
           v10[6] = bias;
@@ -128,7 +128,7 @@
 {
   if (equal == self)
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(isEqualToString) = 1;
   }
 
   else
@@ -137,37 +137,39 @@
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 LABEL_6:
-      LOBYTE(v5) = 0;
-      return v5;
+      LOBYTE(isEqualToString) = 0;
+      return isEqualToString;
     }
 
-    v5 = -[NSString isEqualToString:](-[FigCaptureSmartStyle cast](self, "cast"), "isEqualToString:", [equal cast]);
-    if (v5)
+    cast = [(FigCaptureSmartStyle *)self cast];
+    [equal cast];
+    isEqualToString = objc_msgSend_isEqualToString_(cast);
+    if (isEqualToString)
     {
       [(FigCaptureSmartStyle *)self intensity];
-      v7 = v6;
+      v8 = v7;
       [equal intensity];
-      if (v7 != v8)
+      if (v8 != v9)
       {
         goto LABEL_6;
       }
 
       [(FigCaptureSmartStyle *)self toneBias];
-      v10 = v9;
+      v11 = v10;
       [equal toneBias];
-      if (v10 != v11)
+      if (v11 != v12)
       {
         goto LABEL_6;
       }
 
       [(FigCaptureSmartStyle *)self colorBias];
-      v13 = v12;
+      v14 = v13;
       [equal colorBias];
-      LOBYTE(v5) = v13 == v14;
+      LOBYTE(isEqualToString) = v14 == v15;
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -185,13 +187,13 @@ LABEL_6:
 
 - (BOOL)isIdentity
 {
-  v3 = [(NSString *)self->_cast isEqualToString:FigSmartStyleCastTypeStandard];
-  if (v3)
+  isEqualToString = objc_msgSend_isEqualToString_(self->_cast, a2, FigSmartStyleCastTypeStandard);
+  if (isEqualToString)
   {
-    LOBYTE(v3) = self->_toneBias == 0.0 && self->_colorBias == 0.0;
+    LOBYTE(isEqualToString) = self->_toneBias == 0.0 && self->_colorBias == 0.0;
   }
 
-  return v3;
+  return isEqualToString;
 }
 
 - (NSDictionary)dictionaryRepresentation

@@ -19,7 +19,7 @@
 - (BKViewController)initWithNibName:(id)name bundle:(id)bundle
 {
   nameCopy = name;
-  v6 = AEBundle();
+  v6 = AEBundle(nameCopy);
   v10.receiver = self;
   v10.super_class = BKViewController;
   v7 = [(BKViewController *)&v10 initWithNibName:nameCopy bundle:v6];

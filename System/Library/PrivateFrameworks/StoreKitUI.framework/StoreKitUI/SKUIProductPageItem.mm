@@ -108,13 +108,13 @@ LABEL_32:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v32 = [v31 isEqualToString:@"appsApple"];
+              isEqualToString = objc_msgSend_isEqualToString_(v31);
               v33 = [SKUIItemContentRating alloc];
               v34 = [v53 objectForKey:v31];
               v35 = [v31 copy];
               v36 = [(SKUIItemContentRating *)v33 initWithContentRatingDictionary:v34 systemName:v35];
               v37 = v36;
-              if (v32)
+              if (isEqualToString)
               {
                 contentRating = v11->_contentRating;
                 v11->_contentRating = v36;
@@ -367,13 +367,13 @@ LABEL_33:
             if (objc_opt_isKindOfClass())
             {
               v52 = v9;
-              v53 = [v51 isEqualToString:@"appsApple"];
+              isEqualToString = objc_msgSend_isEqualToString_(v51);
               v54 = [SKUIItemContentRating alloc];
               v55 = [v124 objectForKey:v51];
               v56 = [v51 copy];
               v57 = [(SKUIItemContentRating *)v54 initWithContentRatingDictionary:v55 systemName:v56];
               v58 = v57;
-              if (v53)
+              if (isEqualToString)
               {
                 contentRating = v123->_contentRating;
                 v123->_contentRating = v57;

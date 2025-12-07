@@ -49,10 +49,11 @@ void __53__AAInheritanceContactsViewModel_fetchBeneficiaries___block_invoke(uint
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __53__AAInheritanceContactsViewModel_fetchBeneficiaries___block_invoke_cold_1();
     }
@@ -60,17 +61,17 @@ void __53__AAInheritanceContactsViewModel_fetchBeneficiaries___block_invoke(uint
 
   else if ([v5 count])
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __53__AAInheritanceContactsViewModel_fetchBeneficiaries___block_invoke_29;
-    v11[3] = &unk_1E7C9BDF0;
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 32);
-    v13 = v9;
-    v11[4] = v10;
-    v12 = v5;
-    [v8 _fetchInvitationStatuses:v11];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __53__AAInheritanceContactsViewModel_fetchBeneficiaries___block_invoke_29;
+    v12[3] = &unk_1E7C9BDF0;
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 32);
+    v14 = v10;
+    v12[4] = v11;
+    v13 = v5;
+    [v9 _fetchInvitationStatuses:v12];
 
     goto LABEL_8;
   }
@@ -104,10 +105,11 @@ void __51__AAInheritanceContactsViewModel_fetchBenefactors___block_invoke(uint64
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __51__AAInheritanceContactsViewModel_fetchBenefactors___block_invoke_cold_1();
     }
@@ -117,17 +119,17 @@ void __51__AAInheritanceContactsViewModel_fetchBenefactors___block_invoke(uint64
 
   else
   {
-    v8 = [v5 count];
-    v9 = *(a1 + 40);
-    if (v8)
+    v9 = [v5 count];
+    v10 = *(a1 + 40);
+    if (v9)
     {
-      v10 = [*(a1 + 32) _localBenefactors:v5];
-      (*(v9 + 16))(v9, v10);
+      v11 = [*(a1 + 32) _localBenefactors:v5];
+      (*(v10 + 16))(v10, v11);
     }
 
     else
     {
-      (*(v9 + 16))(*(a1 + 40), MEMORY[0x1E695E0F0]);
+      (*(v10 + 16))(*(a1 + 40), MEMORY[0x1E695E0F0]);
     }
   }
 }
@@ -148,23 +150,24 @@ void __51__AAInheritanceContactsViewModel_fetchBenefactors___block_invoke(uint64
 void __62__AAInheritanceContactsViewModel_fetchSuggestedBeneficiaries___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _AALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _AALogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __62__AAInheritanceContactsViewModel_fetchSuggestedBeneficiaries___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)_fetchInvitationStatuses:(id)statuses
@@ -184,27 +187,27 @@ void __62__AAInheritanceContactsViewModel_fetchSuggestedBeneficiaries___block_in
 
 void __59__AAInheritanceContactsViewModel__fetchInvitationStatuses___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = *(a1 + 32);
         v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v8, "status")}];
         v11 = [v8 beneficiaryID];
@@ -212,16 +215,13 @@ void __59__AAInheritanceContactsViewModel__fetchInvitationStatuses___block_invok
         [v9 setObject:v10 forKey:v12];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  v13 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchInvitations:(id)invitations
@@ -240,23 +240,24 @@ void __59__AAInheritanceContactsViewModel__fetchInvitationStatuses___block_invok
 void __52__AAInheritanceContactsViewModel__fetchInvitations___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _AALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _AALogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __52__AAInheritanceContactsViewModel__fetchInvitations___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (id)_localBeneficiaries:(id)beneficiaries invitationStatuses:(id)statuses
@@ -369,34 +370,30 @@ id __52__AAInheritanceContactsViewModel__localBenefactors___block_invoke(uint64_
 
 void __53__AAInheritanceContactsViewModel_fetchBeneficiaries___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "%{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "%{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __51__AAInheritanceContactsViewModel_fetchBenefactors___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "%{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "%{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __62__AAInheritanceContactsViewModel_fetchSuggestedBeneficiaries___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "%{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "%{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __52__AAInheritanceContactsViewModel__fetchInvitations___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "%{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "%{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

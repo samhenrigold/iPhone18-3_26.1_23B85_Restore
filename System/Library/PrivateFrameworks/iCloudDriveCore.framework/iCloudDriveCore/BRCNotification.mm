@@ -246,16 +246,16 @@ LABEL_8:
 
 - (BRCNotification)initWithLocalItem:(id)item itemDiffs:(unint64_t)diffs
 {
-  v264 = *MEMORY[0x277D85DE8];
+  v263 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if ([itemCopy isBRAlias])
   {
     [BRCNotification initWithLocalItem:itemDiffs:];
   }
 
-  v252.receiver = self;
-  v252.super_class = BRCNotification;
-  v8 = [(BRCNotification *)&v252 init];
+  v251.receiver = self;
+  v251.super_class = BRCNotification;
+  v8 = [(BRCNotification *)&v251 init];
 
   if (v8)
   {
@@ -305,7 +305,7 @@ LABEL_8:
     v22 = v10;
     v23 = *MEMORY[0x277CFAF98];
     objc_storeStrong((&v8->super.super.isa + v23), v21);
-    v244 = v22;
+    v243 = v22;
     if (!v22)
     {
 
@@ -348,12 +348,12 @@ LABEL_8:
     {
 
       p_isa = &v36->super.isa;
-      v39 = v244;
+      v39 = v243;
     }
 
     else
     {
-      v39 = v244;
+      v39 = v243;
       if (v37)
       {
         v40 = [(BRCAppLibrary *)v36 isEqual:v37];
@@ -361,7 +361,7 @@ LABEL_8:
         if (v40)
         {
 LABEL_24:
-          v242 = v36;
+          v241 = v36;
           fromReadOnlyDB = [itemCopy fromReadOnlyDB];
           v44 = (v8 + *MEMORY[0x277CFAF78]);
           if (fromReadOnlyDB)
@@ -375,8 +375,8 @@ LABEL_24:
           }
 
           v46 = *v44 & 0xFFEFFFCF | v45;
-          v245 = (v8 + *MEMORY[0x277CFAF78]);
-          v246 = v8;
+          v244 = (v8 + *MEMORY[0x277CFAF78]);
+          v245 = v8;
           if (isOnDisk)
           {
             *v44 = v46;
@@ -412,12 +412,12 @@ LABEL_24:
 
                     fileObjectID2 = [v58 fileObjectID];
                     v60 = *MEMORY[0x277CFAFD0];
-                    v61 = *(&v246->super.super.isa + v60);
-                    *(&v246->super.super.isa + v60) = fileObjectID2;
+                    v61 = *(&v245->super.super.isa + v60);
+                    *(&v245->super.super.isa + v60) = fileObjectID2;
 
-                    v8 = v246;
-                    v39 = v244;
-                    v44 = v245;
+                    v8 = v245;
+                    v39 = v243;
+                    v44 = v244;
                   }
 
                   goto LABEL_39;
@@ -482,7 +482,7 @@ LABEL_39:
             v72 = 0x20000;
           }
 
-          v240 = orig;
+          v239 = orig;
           diffsCopy = diffs;
           *v44 = *v44 & 0xFFF1FFFF | v72;
           if ([itemCopy isDirectory])
@@ -571,8 +571,8 @@ LABEL_39:
             [(BRCNotification *)v8 setAttribute:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CFB038]];
           }
 
-          v91 = v245;
-          *v245 = *v245 & 0xFFFFFFF3 | (4 * ([itemCopy uploadStatus] & 3));
+          v91 = v244;
+          *v244 = *v244 & 0xFFFFFFF3 | (4 * ([itemCopy uploadStatus] & 3));
           clientZone3 = [itemCopy clientZone];
           isSharedZone = [clientZone3 isSharedZone];
 
@@ -591,19 +591,19 @@ LABEL_39:
                 [itemCopy sharingOptions];
                 v100 = BRCPrettyPrintBitmap();
                 *buf = 138413314;
-                v255 = digestDescription;
-                v256 = 2112;
-                v257 = appLibrary3;
-                v258 = 2048;
-                v259 = sharingOptions;
-                v260 = 2112;
-                v261 = v100;
-                v262 = 2112;
-                v263 = v95;
+                v254 = digestDescription;
+                v255 = 2112;
+                v256 = appLibrary3;
+                v257 = 2048;
+                v258 = sharingOptions;
+                v259 = 2112;
+                v260 = v100;
+                v261 = 2112;
+                v262 = v95;
                 _os_log_impl(&dword_223E7A000, v96, OS_LOG_TYPE_DEFAULT, "[WARNING] item %@ in shared zone %@ should have share-options set (actual:%lu %@)%@", buf, 0x34u);
               }
 
-              v91 = v245;
+              v91 = v244;
             }
 
             if (([itemCopy isShareAcceptationFault] & 1) == 0)
@@ -618,7 +618,7 @@ LABEL_39:
                   [BRCNotification initWithLocalItem:itemDiffs:];
                 }
 
-                v91 = v245;
+                v91 = v244;
               }
             }
 
@@ -632,7 +632,7 @@ LABEL_92:
               dbFacade3 = [itemCopy dbFacade];
               v110 = [v107 nameComponentsForKey:ownerKey dbFacade:dbFacade3];
 
-              [(BRCNotification *)v246 setAttribute:v110 forKey:*MEMORY[0x277CFB050]];
+              [(BRCNotification *)v245 setAttribute:v110 forKey:*MEMORY[0x277CFB050]];
               goto LABEL_93;
             }
 
@@ -651,17 +651,17 @@ LABEL_92:
               if (sharingOptions3)
               {
                 sharingOptions4 = [itemCopy sharingOptions];
-                v236 = *v245 & 0xFFFFC7FF;
+                v235 = *v244 & 0xFFFFC7FF;
                 isDocument = 0;
                 v112 = 0;
                 if ((sharingOptions4 & 2) != 0)
                 {
-                  v132 = v236 | 0x800;
+                  v132 = v235 | 0x800;
                 }
 
                 else
                 {
-                  v132 = v236 | 0x1000;
+                  v132 = v235 | 0x1000;
                 }
               }
 
@@ -669,10 +669,10 @@ LABEL_92:
               {
                 isDocument = 0;
                 v112 = 0;
-                v132 = *v245 & 0xFFFFC7FF;
+                v132 = *v244 & 0xFFFFC7FF;
               }
 
-              *v245 = v132;
+              *v244 = v132;
               goto LABEL_94;
             }
 
@@ -686,14 +686,14 @@ LABEL_92:
               v106 = 4096;
             }
 
-            *v245 = *v245 & 0xFFFFC7FF | v106;
+            *v244 = *v244 & 0xFFFFC7FF | v106;
           }
 
 LABEL_93:
           isDocument = [itemCopy isDocument];
           v112 = 1;
 LABEL_94:
-          v243 = itemCopy;
+          v242 = itemCopy;
           if ([itemCopy isShared] && (objc_msgSend(itemCopy, "sharingOptions") & 4) != 0)
           {
             collaborationIdentifierIfComputable = [itemCopy collaborationIdentifierIfComputable];
@@ -706,26 +706,26 @@ LABEL_94:
             collaborationIdentifierIfComputable = 0;
           }
 
-          objc_storeStrong((&v246->super.super.isa + *MEMORY[0x277CFAF38]), collaborationIdentifierIfComputable);
+          objc_storeStrong((&v245->super.super.isa + *MEMORY[0x277CFAF38]), collaborationIdentifierIfComputable);
           if (v113)
           {
           }
 
-          itemCopy = v243;
+          itemCopy = v242;
           if (v112)
           {
-            *v245 = (*v245 & 0xFFDFFFFF | ((([v243 sharingOptions] >> 2) & 1) << 21)) ^ 0x200000;
+            *v244 = (*v244 & 0xFFDFFFFF | ((([v242 sharingOptions] >> 2) & 1) << 21)) ^ 0x200000;
           }
 
           if (isDocument)
           {
-            asDocument = [v243 asDocument];
+            asDocument = [v242 asDocument];
             currentVersion = [asDocument currentVersion];
             lastEditorRowID = [currentVersion lastEditorRowID];
 
             if ([lastEditorRowID br_isEqualToNumber:&unk_2837AFFE0])
             {
-              [(BRCNotification *)v246 setAttribute:0 forKey:*MEMORY[0x277CFB048]];
+              [(BRCNotification *)v245 setAttribute:0 forKey:*MEMORY[0x277CFB048]];
             }
 
             else
@@ -736,34 +736,34 @@ LABEL_94:
               dbFacade4 = [asDocument dbFacade];
               v122 = [v118 nameComponentsForKey:lastEditorRowID2 dbFacade:dbFacade4];
 
-              [(BRCNotification *)v246 setAttribute:v122 forKey:*MEMORY[0x277CFB048]];
+              [(BRCNotification *)v245 setAttribute:v122 forKey:*MEMORY[0x277CFB048]];
             }
           }
 
-          if ([v243 isInTrashScope])
+          if ([v242 isInTrashScope])
           {
-            v123 = [v243 st];
+            v123 = [v242 st];
             logicalName = [v123 logicalName];
             if ([logicalName length])
             {
-              v125 = [v243 st];
+              v125 = [v242 st];
               logicalName2 = [v125 logicalName];
-              *v245 = *v245 & 0xFBFFFFFF | (([logicalName2 characterAtIndex:0] == 46) << 26);
+              *v244 = *v244 & 0xFBFFFFFF | (([logicalName2 characterAtIndex:0] == 46) << 26);
             }
 
             else
             {
-              *v245 &= ~0x4000000u;
+              *v244 &= ~0x4000000u;
             }
 
-            v128 = v245;
-            v131 = v246;
+            v128 = v244;
+            v131 = v245;
 LABEL_123:
-            if ([v243 isDocument])
+            if ([v242 isDocument])
             {
-              asDocument2 = [v243 asDocument];
+              asDocument2 = [v242 asDocument];
               currentVersion3 = [asDocument2 currentVersion];
-              v135 = [v243 st];
+              v135 = [v242 st];
               if ([v135 isHiddenExt])
               {
                 v136 = 0x4000;
@@ -802,8 +802,8 @@ LABEL_123:
                 *(&v131->super.super.isa + v143) = v142;
               }
 
-              v238 = asDocument2;
-              if ([v243 isFinderBookmark])
+              v237 = asDocument2;
+              if ([v242 isFinderBookmark])
               {
                 v145 = 3;
               }
@@ -821,30 +821,30 @@ LABEL_123:
               v128[5] = v145;
               v176 = objc_alloc(MEMORY[0x277CBEB18]);
               conflictLoserEtags = [currentVersion3 conflictLoserEtags];
-              v247 = [v176 initWithCapacity:{objc_msgSend(conflictLoserEtags, "count")}];
+              v246 = [v176 initWithCapacity:{objc_msgSend(conflictLoserEtags, "count")}];
 
               resolvedConflictLoserEtags = [asDocument2 resolvedConflictLoserEtags];
+              v247 = 0u;
               v248 = 0u;
               v249 = 0u;
               v250 = 0u;
-              v251 = 0u;
-              v237 = currentVersion3;
+              v236 = currentVersion3;
               conflictLoserEtags2 = [currentVersion3 conflictLoserEtags];
-              v180 = [conflictLoserEtags2 countByEnumeratingWithState:&v248 objects:v253 count:16];
+              v180 = [conflictLoserEtags2 countByEnumeratingWithState:&v247 objects:v252 count:16];
               if (v180)
               {
                 v181 = v180;
-                v182 = *v249;
+                v182 = *v248;
                 do
                 {
                   for (i = 0; i != v181; ++i)
                   {
-                    if (*v249 != v182)
+                    if (*v248 != v182)
                     {
                       objc_enumerationMutation(conflictLoserEtags2);
                     }
 
-                    v184 = *(*(&v248 + 1) + 8 * i);
+                    v184 = *(*(&v247 + 1) + 8 * i);
                     if (([resolvedConflictLoserEtags containsObject:v184] & 1) == 0)
                     {
                       v185 = [[BRFieldContentSignature alloc] initWithLoserEtag:v184];
@@ -852,39 +852,39 @@ LABEL_123:
                       data = [(BRFieldContentSignature *)v185 data];
                       data2 = [MEMORY[0x277CBEA90] data];
                       v189 = [v186 initWithContentVersion:data metadataVersion:data2];
-                      [v247 addObject:v189];
+                      [v246 addObject:v189];
                     }
                   }
 
-                  v181 = [conflictLoserEtags2 countByEnumeratingWithState:&v248 objects:v253 count:16];
+                  v181 = [conflictLoserEtags2 countByEnumeratingWithState:&v247 objects:v252 count:16];
                 }
 
                 while (v181);
               }
 
               v190 = *MEMORY[0x277CFAF40];
-              v131 = v246;
-              objc_storeStrong((&v246->super.super.isa + v190), v247);
-              *v245 = *v245 & 0xFFFFFFBF | (([*(&v246->super.super.isa + v190) count] != 0) << 6);
-              itemCopy = v243;
-              if ([v243 isDocument] && (*v245 & 0x40) != 0 && objc_msgSend(v243, "isIWorkItem"))
+              v131 = v245;
+              objc_storeStrong((&v245->super.super.isa + v190), v246);
+              *v244 = *v244 & 0xFFFFFFBF | (([*(&v245->super.super.isa + v190) count] != 0) << 6);
+              itemCopy = v242;
+              if ([v242 isDocument] && (*v244 & 0x40) != 0 && objc_msgSend(v242, "isIWorkItem"))
               {
-                asDocument3 = [v243 asDocument];
+                asDocument3 = [v242 asDocument];
                 currentVersion4 = [asDocument3 currentVersion];
-                dbFacade5 = [v243 dbFacade];
+                dbFacade5 = [v242 dbFacade];
                 v194 = [currentVersion4 lastEditorDeviceDisplayNameWithDBFacade:dbFacade5];
                 v195 = *MEMORY[0x277CFAF80];
-                v196 = *(&v246->super.super.isa + v195);
-                *(&v246->super.super.isa + v195) = v194;
+                v196 = *(&v245->super.super.isa + v195);
+                *(&v245->super.super.isa + v195) = v194;
               }
 
-              v174 = v240;
+              v174 = v239;
               v173 = diffsCopy;
               v175 = session;
-              if (([v238 isDead] & 1) == 0)
+              if (([v237 isDead] & 1) == 0)
               {
                 fsUploader = [session fsUploader];
-                if ([fsUploader isUploadingItem:v238])
+                if ([fsUploader isUploadingItem:v237])
                 {
                   v198 = 256;
                 }
@@ -894,15 +894,15 @@ LABEL_123:
                   v198 = 0;
                 }
 
-                *v245 = *v245 & 0xFFFFFEFF | v198;
+                *v244 = *v244 & 0xFFFFFEFF | v198;
               }
 
-              *v245 = *v245 & 0xFFFFFFFC | [v238 downloadStatus] & 3;
-              uploadError = [v238 uploadError];
+              *v244 = *v244 & 0xFFFFFFFC | [v237 downloadStatus] & 3;
+              uploadError = [v237 uploadError];
               brc_wrappedError = [uploadError brc_wrappedError];
 
-              v165 = v238;
-              if ([v238 isEvictable])
+              v165 = v237;
+              if ([v237 isEvictable])
               {
                 v200 = 0x10000000;
               }
@@ -912,19 +912,19 @@ LABEL_123:
                 v200 = 0;
               }
 
-              *v245 = *v245 & 0xEFFFFFFF | v200;
+              *v244 = *v244 & 0xEFFFFFFF | v200;
 
-              v128 = v245;
+              v128 = v244;
             }
 
             else
             {
-              if ([v243 isDirectory])
+              if ([v242 isDirectory])
               {
-                syncUpError = [v243 syncUpError];
+                syncUpError = [v242 syncUpError];
                 brc_wrappedError = [syncUpError brc_wrappedError];
 
-                asDirectory = [v243 asDirectory];
+                asDirectory = [v242 asDirectory];
                 v128[5] = 0;
                 v149 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(asDirectory, "mtime")}];
                 v150 = *MEMORY[0x277CFAFA0];
@@ -964,7 +964,7 @@ LABEL_123:
                 }
 
                 *v128 = *v128 & 0xBFFFFFFF | v154;
-                itemID = [v243 itemID];
+                itemID = [v242 itemID];
                 if ([itemID isNonDesktopRoot])
                 {
                   v156 = 0x80000000;
@@ -977,7 +977,7 @@ LABEL_123:
 
                 *v128 = v156 & 0x80000000 | *v128 & 0x7FFFFFFF;
 
-                itemID2 = [v243 itemID];
+                itemID2 = [v242 itemID];
                 v128[4] = v128[4] & 0xFE | [itemID2 isDocumentsFolder];
 
                 if ([asDirectory isDirectoryFault])
@@ -988,7 +988,7 @@ LABEL_123:
                   *(&v131->super.super.isa + v159) = serverQuotaUsage;
                 }
 
-                asDirectory2 = [v243 asDirectory];
+                asDirectory2 = [v242 asDirectory];
                 childItemCount = [asDirectory2 childItemCount];
                 v163 = *MEMORY[0x277CFAF30];
                 v164 = *(&v131->super.super.isa + v163);
@@ -1000,14 +1000,14 @@ LABEL_123:
 
               else
               {
-                if (![v243 isSymLink])
+                if (![v242 isSymLink])
                 {
                   brc_wrappedError = 0;
-                  v174 = v240;
+                  v174 = v239;
                   v173 = diffsCopy;
                   v175 = session;
 LABEL_179:
-                  parentID = [v244 parentID];
+                  parentID = [v243 parentID];
                   isNonDesktopRoot = [parentID isNonDesktopRoot];
 
                   if (isNonDesktopRoot)
@@ -1059,7 +1059,7 @@ LABEL_179:
                     *(&v131->super.super.isa + v217) = v216;
                   }
 
-                  v218 = v242;
+                  v218 = v241;
 
                   isZoneRoot = [itemCopy isZoneRoot];
                   if (isZoneRoot)
@@ -1075,7 +1075,7 @@ LABEL_179:
                     data4 = [(BRFieldStructureSignature *)v131 data];
                   }
 
-                  objc_storeStrong((&v246->super.super.isa + *MEMORY[0x277CFAFE0]), data4);
+                  objc_storeStrong((&v245->super.super.isa + *MEMORY[0x277CFAFE0]), data4);
                   if ((isZoneRoot & 1) == 0)
                   {
                   }
@@ -1083,10 +1083,10 @@ LABEL_179:
                   v222 = +[BRCQueryItemUtil sharedQueryItemUtil];
                   v223 = [BRCQueryItemInfo queryItemInfoForItem:itemCopy];
                   v224 = [v222 contentPolicyForItemInfo:v223 sessionContext:v175];
-                  v8 = v246;
-                  *(&v246->super.super.isa + *MEMORY[0x277CFAF48]) = v224;
+                  v8 = v245;
+                  *(&v245->super.super.isa + *MEMORY[0x277CFAF48]) = v224;
 
-                  [(BRCNotification *)v246 _populateExtendedAttributesForItem:itemCopy];
+                  [(BRCNotification *)v245 _populateExtendedAttributesForItem:itemCopy];
                   if ([itemCopy isZoneRoot] && (objc_msgSend(itemCopy, "clientZone"), v225 = objc_claimAutoreleasedReturnValue(), v226 = objc_msgSend(v225, "isCloudDocsZone"), v225, (v226 & 1) == 0))
                   {
                     cloudDocsClientZone = [v175 cloudDocsClientZone];
@@ -1100,12 +1100,12 @@ LABEL_179:
 LABEL_205:
                       if ((v173 & 0x20) != 0)
                       {
-                        *(&v246->super.super.isa + *MEMORY[0x277CFAF58]) |= 0x10u;
+                        *(&v245->super.super.isa + *MEMORY[0x277CFAF58]) |= 0x10u;
                       }
 
                       if ((v173 & 0x1000000040) != 0)
                       {
-                        *(&v246->super.super.isa + *MEMORY[0x277CFAF58]) |= 0x20u;
+                        *(&v245->super.super.isa + *MEMORY[0x277CFAF58]) |= 0x20u;
                       }
 
                       goto LABEL_210;
@@ -1123,21 +1123,21 @@ LABEL_205:
 
                     if (enhancedDrivePrivacyEnabled != enhancedDrivePrivacyEnabled2)
                     {
-                      *(v245 + 4) |= 4u;
+                      *(v244 + 4) |= 4u;
                     }
 
-                    v218 = v242;
+                    v218 = v241;
                   }
 
                   goto LABEL_205;
                 }
 
-                syncUpError2 = [v243 syncUpError];
+                syncUpError2 = [v242 syncUpError];
                 brc_wrappedError = [syncUpError2 brc_wrappedError];
 
                 v128[5] = 4;
                 *v128 |= 3u;
-                asSymlink = [v243 asSymlink];
+                asSymlink = [v242 asSymlink];
                 symlinkTarget = [asSymlink symlinkTarget];
                 v169 = *MEMORY[0x277CFAFE8];
                 v170 = *(&v131->super.super.isa + v169);
@@ -1150,7 +1150,7 @@ LABEL_205:
                 *(&v131->super.super.isa + v172) = v171;
               }
 
-              v174 = v240;
+              v174 = v239;
               v173 = diffsCopy;
               v175 = session;
             }
@@ -1158,15 +1158,15 @@ LABEL_205:
             goto LABEL_179;
           }
 
-          appLibrary4 = [v243 appLibrary];
-          v128 = v245;
+          appLibrary4 = [v242 appLibrary];
+          v128 = v244;
           if ([appLibrary4 isDocumentScopePublic])
           {
-            isInDataScope = [v243 isInDataScope];
+            isInDataScope = [v242 isInDataScope];
 
             if ((isInDataScope & 1) == 0)
             {
-              if ([v243 isUserVisible])
+              if ([v242 isUserVisible])
               {
                 v130 = 0;
               }
@@ -1176,7 +1176,7 @@ LABEL_205:
                 v130 = 0x4000000;
               }
 
-              *v245 = *v245 & 0xFBFFFFFF | v130;
+              *v244 = *v244 & 0xFBFFFFFF | v130;
               goto LABEL_118;
             }
           }
@@ -1185,10 +1185,10 @@ LABEL_205:
           {
           }
 
-          *v245 &= ~0x4000000u;
-          *(v245 + 4) |= 2u;
+          *v244 &= ~0x4000000u;
+          *(v244 + 4) |= 2u;
 LABEL_118:
-          v131 = v246;
+          v131 = v245;
           goto LABEL_123;
         }
       }
@@ -1208,7 +1208,6 @@ LABEL_118:
 LABEL_210:
   v232 = v8;
 
-  v233 = *MEMORY[0x277D85DE8];
   return v232;
 }
 
@@ -1401,21 +1400,21 @@ LABEL_210:
 
 - (void)generateLogicalExtension:(id)extension physicalExtension:(id)physicalExtension
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   physicalExtensionCopy = physicalExtension;
-  memset(v28, 0, sizeof(v28));
-  __brc_create_section(0, "[BRCNotification generateLogicalExtension:physicalExtension:]", 683, 0, v28);
+  memset(v27, 0, sizeof(v27));
+  __brc_create_section(0, "[BRCNotification generateLogicalExtension:physicalExtension:]", 683, 0, v27);
   v8 = brc_bread_crumbs();
   v9 = brc_notifications_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v30 = v28[0];
-    v31 = 2112;
+    v29 = v27[0];
+    v30 = 2112;
     selfCopy = self;
-    v33 = 2112;
-    v34 = v8;
+    v32 = 2112;
+    v33 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[NOTIF] ┏%llx generating sandbox extensions for %@%@", buf, 0x20u);
   }
 
@@ -1468,15 +1467,15 @@ LABEL_210:
 LABEL_14:
         if (([v12 br_isSideFaultName] & 1) == 0)
         {
-          v27 = brc_bread_crumbs();
-          v26 = brc_default_log();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+          v26 = brc_bread_crumbs();
+          v25 = brc_default_log();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
           {
             [BRCNotification generateLogicalExtension:physicalExtension:];
           }
         }
 
-        v21 = [v18 URLByAppendingPathComponent:{v12, v27}];
+        v21 = [v18 URLByAppendingPathComponent:{v12, v26}];
 
         v22 = _issueReadWriteSandboxExtensionForURL(v21);
 
@@ -1511,14 +1510,11 @@ LABEL_14:
 LABEL_23:
   }
 
-  __brc_leave_section(v28);
-
-  v25 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v27);
 }
 
 - (void)_populateExtendedAttributesForItem:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1526,15 +1522,12 @@ LABEL_23:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [item.serverZone.dbRowID isEqualToNumber:_parentGlobalID.zoneRowID]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [item.serverZone.dbRowID isEqualToNumber:_parentGlobalID.zoneRowID]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLocalItem:itemDiffs:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1542,15 +1535,12 @@ LABEL_23:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !item.isBRAlias%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !item.isBRAlias%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLocalItem:itemDiffs:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1558,15 +1548,12 @@ LABEL_23:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _logicalName != nil%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _logicalName != nil%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLocalItem:itemDiffs:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1574,15 +1561,12 @@ LABEL_23:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: shareRoot%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: shareRoot%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLocalItem:itemDiffs:.cold.4()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1590,15 +1574,12 @@ LABEL_23:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _fileObjectID.type != BRFileObjectIDTypeDocument%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _fileObjectID.type != BRFileObjectIDTypeDocument%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLocalItem:itemDiffs:.cold.5()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1606,44 +1587,17 @@ LABEL_23:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: finderTags.tagsCount > 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: finderTags.tagsCount > 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLocalItem:itemDiffs:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_223E7A000, v1, 0x90u, "[ERROR] item has both or neither a public and private share %@%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)notificationFromItem:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: can't create notification from alias%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)generateLogicalExtension:physicalExtension:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: logicalName%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)generateLogicalExtension:physicalExtension:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: physicalName.br_isSideFaultName%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_223E7A000, v1, 0x90u, "[ERROR] item has both or neither a public and private share %@%@", v2, 0x16u);
 }
 
 @end

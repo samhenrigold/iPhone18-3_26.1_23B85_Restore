@@ -246,7 +246,6 @@ LABEL_19:
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 
@@ -257,7 +256,6 @@ LABEL_19:
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    useToken = self->_useToken;
     PBDataWriterWriteBOOLField();
   }
 
@@ -269,7 +267,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -289,12 +286,10 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  authPrompt = self->_authPrompt;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_12:
-    supportsConfirmationACK = self->_supportsConfirmationACK;
     PBDataWriterWriteBOOLField();
   }
 
@@ -304,16 +299,15 @@ LABEL_13:
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if (v8)
+  v5 = self->_has;
+  if (v5)
   {
-    phoneUnlockDate = self->_phoneUnlockDate;
     PBDataWriterWriteDoubleField();
-    v8 = self->_has;
-    if ((v8 & 0x20) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x20) == 0)
     {
 LABEL_17:
-      if ((v8 & 0x10) == 0)
+      if ((v5 & 0x10) == 0)
       {
         goto LABEL_19;
       }
@@ -327,12 +321,10 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  skipMotionCheck = self->_skipMotionCheck;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_18:
-    isAuthenticatingForSiri = self->_isAuthenticatingForSiri;
     PBDataWriterWriteBOOLField();
   }
 
@@ -549,7 +541,6 @@ LABEL_12:
   }
 
   has = self->_has;
-  v6 = equalCopy[60];
   if ((has & 4) != 0)
   {
     if ((equalCopy[60] & 4) == 0 || self->_version != *(equalCopy + 12))
@@ -574,15 +565,14 @@ LABEL_12:
     has = self->_has;
   }
 
-  v8 = equalCopy[60];
+  v7 = equalCopy[60];
   if (has < 0)
   {
-    if ((v8 & 0x80000000) == 0)
+    if ((v7 & 0x80000000) == 0)
     {
       goto LABEL_58;
     }
 
-    v11 = equalCopy[56];
     if (self->_useToken)
     {
       if ((equalCopy[56] & 1) == 0)
@@ -597,7 +587,7 @@ LABEL_12:
     }
   }
 
-  else if (v8 < 0)
+  else if (v7 < 0)
   {
     goto LABEL_58;
   }
@@ -613,7 +603,6 @@ LABEL_12:
     has = self->_has;
   }
 
-  v10 = equalCopy[60];
   if ((has & 2) != 0)
   {
     if ((equalCopy[60] & 2) == 0 || self->_errorCode != *(equalCopy + 8))
@@ -634,7 +623,6 @@ LABEL_12:
       goto LABEL_58;
     }
 
-    v13 = equalCopy[52];
     if (self->_authPrompt)
     {
       if ((equalCopy[52] & 1) == 0)
@@ -661,7 +649,6 @@ LABEL_12:
       goto LABEL_58;
     }
 
-    v14 = equalCopy[55];
     if (self->_supportsConfirmationACK)
     {
       if ((equalCopy[55] & 1) == 0)
@@ -712,7 +699,6 @@ LABEL_12:
       goto LABEL_58;
     }
 
-    v17 = equalCopy[54];
     if (self->_skipMotionCheck)
     {
       if ((equalCopy[54] & 1) == 0)
@@ -732,7 +718,7 @@ LABEL_12:
     goto LABEL_58;
   }
 
-  v15 = (equalCopy[60] & 0x10) == 0;
+  v10 = (equalCopy[60] & 0x10) == 0;
   if ((has & 0x10) != 0)
   {
     if ((equalCopy[60] & 0x10) != 0)
@@ -748,18 +734,18 @@ LABEL_12:
       else if (!equalCopy[53])
       {
 LABEL_66:
-        v15 = 1;
+        v10 = 1;
         goto LABEL_59;
       }
     }
 
 LABEL_58:
-    v15 = 0;
+    v10 = 0;
   }
 
 LABEL_59:
 
-  return v15;
+  return v10;
 }
 
 - (unint64_t)hash

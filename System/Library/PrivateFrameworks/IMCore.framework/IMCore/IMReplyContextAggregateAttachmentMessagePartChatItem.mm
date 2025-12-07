@@ -11,15 +11,15 @@
   obj = d;
   parentItemCopy = parentItem;
   dCopy = d;
-  v28.receiver = self;
-  v28.super_class = IMReplyContextAggregateAttachmentMessagePartChatItem;
-  context = [(IMAggregateAttachmentMessagePartChatItem *)&v28 _initWithItem:itemCopy text:text index:index messagePartRange:range.location transferGUIDs:range.length chatContext:ds, context];
+  v25.receiver = self;
+  v25.super_class = IMReplyContextAggregateAttachmentMessagePartChatItem;
+  context = [(IMAggregateAttachmentMessagePartChatItem *)&v25 _initWithItem:itemCopy text:text index:index messagePartRange:range.location transferGUIDs:range.length chatContext:ds, context];
   if (context)
   {
-    v21 = objc_msgSend_guid(itemCopy, v18, v19);
-    v22 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v20 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(context, v23, v22);
+    [context _setGUID:v20];
     objc_storeStrong(context + 31, parentItem);
     *(context + 240) = me;
     objc_storeStrong(context + 32, obj);
@@ -35,15 +35,15 @@
   parentItemCopy = parentItem;
   dCopy = d;
   dCopy2 = d;
-  v30.receiver = self;
-  v30.super_class = IMReplyContextAggregateAttachmentMessagePartChatItem;
-  items = [(IMAggregateAttachmentMessagePartChatItem *)&v30 _initWithItem:itemCopy text:text index:index messagePartRange:range.location transferGUIDs:range.length chatContext:ds visibleAssociatedMessageChatItems:context, items];
+  v27.receiver = self;
+  v27.super_class = IMReplyContextAggregateAttachmentMessagePartChatItem;
+  items = [(IMAggregateAttachmentMessagePartChatItem *)&v27 _initWithItem:itemCopy text:text index:index messagePartRange:range.location transferGUIDs:range.length chatContext:ds visibleAssociatedMessageChatItems:context, items];
   if (items)
   {
-    v21 = objc_msgSend_guid(itemCopy, v18, v19);
-    v22 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v20 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(items, v23, v22);
+    [items _setGUID:v20];
     objc_storeStrong(items + 31, obj);
     *(items + 240) = me;
     objc_storeStrong(items + 32, dCopy);

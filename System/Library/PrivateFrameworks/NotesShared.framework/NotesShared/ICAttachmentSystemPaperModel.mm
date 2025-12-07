@@ -83,12 +83,12 @@ LABEL_17:
   [attachment updateAttachmentMetadataWithBlock:v8];
 }
 
-void __58__ICAttachmentSystemPaperModel_setPaperContentBoundsHint___block_invoke(uint64_t a1, void *a2)
+void __58__ICAttachmentSystemPaperModel_setPaperContentBoundsHint___block_invoke(CGRect *a1, void *a2)
 {
   v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  IsNull = CGRectIsNull(*(a1 + 32));
-  v5 = *(a1 + 32);
+  IsNull = CGRectIsNull(a1[1]);
+  x = a1[1].origin.x;
   IsFinite = TSDRectIsFinite();
   if (IsNull)
   {
@@ -106,18 +106,18 @@ LABEL_6:
     v11 = os_log_create("com.apple.notes", "SystemPaper");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v14 = *(a1 + 48);
-      v15 = *(a1 + 56);
+      v12 = a1[1].origin.x;
+      y = a1[1].origin.y;
+      width = a1[1].size.width;
+      height = a1[1].size.height;
       v16 = 134218752;
       v17 = v12;
       v18 = 2048;
-      v19 = v13;
+      v19 = y;
       v20 = 2048;
-      v21 = v14;
+      v21 = width;
       v22 = 2048;
-      v23 = v15;
+      v23 = height;
       _os_log_error_impl(&dword_214D51000, v11, OS_LOG_TYPE_ERROR, "Ignoring invalid paper content bounds hint rect: x: %lf, y: %lf, width: %lf, height: %lf", &v16, 0x2Au);
     }
 
@@ -129,16 +129,16 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v7 = [MEMORY[0x277CCABB0] numberWithDouble:v5];
+  v7 = [MEMORY[0x277CCABB0] numberWithDouble:x];
   [v3 setObject:v7 forKeyedSubscript:@"paperContentBoundsOriginXKey"];
 
-  v8 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
+  v8 = [MEMORY[0x277CCABB0] numberWithDouble:a1[1].origin.y];
   [v3 setObject:v8 forKeyedSubscript:@"paperContentBoundsOriginYKey"];
 
-  v9 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
+  v9 = [MEMORY[0x277CCABB0] numberWithDouble:a1[1].size.width];
   [v3 setObject:v9 forKeyedSubscript:@"paperContentBoundsWidthKey"];
 
-  v10 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56)];
+  v10 = [MEMORY[0x277CCABB0] numberWithDouble:a1[1].size.height];
   [v3 setObject:v10 forKeyedSubscript:@"paperContentBoundsHeightKey"];
 
 LABEL_10:
@@ -234,7 +234,7 @@ void __81__ICAttachmentSystemPaperModel_updateAfterLoadWithInlineAttachmentIdent
   attachment = [self attachment];
   ic_loggingDescription = [attachment ic_loggingDescription];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v3, v4, "minimumSupportedNotesVersion is (%lld), but attachment is missing compatibility metadata; setting paperHasNewInks2022 now. Attachment: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v3, v4, "minimumSupportedNotesVersion is (%lld), but attachment is missing compatibility metadata; setting paperHasNewInks2022 now. Attachment: %@", v5, v6, v7, v8);
 }
 
 - (id)additionalIndexableTextContentInNote

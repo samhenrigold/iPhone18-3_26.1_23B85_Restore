@@ -186,7 +186,7 @@ LABEL_8:
   v11 = v10;
   if (v9)
   {
-    if (!v10 || ([v10 isEqualToString:v9] & 1) != 0)
+    if (!v10 || (objc_msgSend_isEqualToString_(v10) & 1) != 0)
     {
       formatter = self->_formatter;
       v13 = v9;

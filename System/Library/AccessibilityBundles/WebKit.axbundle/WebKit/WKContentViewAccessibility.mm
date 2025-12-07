@@ -4,6 +4,7 @@
 - (BOOL)_accessibilityEndUndoableTextInsertion;
 - (BOOL)accessibilityParentDiscardsChildrenContainerGroupingBehavior;
 - (BOOL)canBecomeFocused;
+- (CGPoint)accessibilityActivationPoint;
 - (CGRect)accessibilityFrame;
 - (id)_accessibilityHitTest:(CGPoint)test withEvent:(id)event;
 - (id)_accessibilityResponderElement;
@@ -296,7 +297,7 @@ uint64_t __67__WKContentViewAccessibility_handleKeyEntry_withCompletionHandler__
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __49__WKContentViewAccessibility__pasteboardChanged___block_invoke(uint64_t a1)
+void *__49__WKContentViewAccessibility__pasteboardChanged___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _accessibilityBoolValueForKey:@"needToAnnounceCopy"];
   if (result)
@@ -312,25 +313,25 @@ uint64_t __49__WKContentViewAccessibility__pasteboardChanged___block_invoke(uint
 
 - (void)accessibilityRelayNotification:(id)notification notificationData:(id)data
 {
-  v21[7] = *MEMORY[0x29EDCA608];
+  v20[7] = *MEMORY[0x29EDCA608];
   notificationCopy = notification;
   dataCopy = data;
   if ([dataCopy length])
   {
     v7 = MEMORY[0x29EDBA000];
     v8 = MEMORY[0x29EDB8E50];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v21[2] = objc_opt_class();
-    v21[3] = objc_opt_class();
-    v21[4] = objc_opt_class();
-    v21[5] = objc_opt_class();
-    v21[6] = objc_opt_class();
-    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v21 count:7];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v20[2] = objc_opt_class();
+    v20[3] = objc_opt_class();
+    v20[4] = objc_opt_class();
+    v20[5] = objc_opt_class();
+    v20[6] = objc_opt_class();
+    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v20 count:7];
     v10 = [v8 setWithArray:v9];
-    v20 = 0;
-    v11 = [v7 unarchivedObjectOfClasses:v10 fromData:dataCopy error:&v20];
-    v12 = v20;
+    v19 = 0;
+    v11 = [v7 unarchivedObjectOfClasses:v10 fromData:dataCopy error:&v19];
+    v12 = v19;
 
     if (v12)
     {
@@ -363,11 +364,11 @@ uint64_t __49__WKContentViewAccessibility__pasteboardChanged___block_invoke(uint
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v18 = _AXUIElementCreateWithData();
+        v17 = _AXUIElementCreateWithData();
         _UIAccessibilitySetAssociatedElementContextForNextNotification();
-        if (v18)
+        if (v17)
         {
-          CFRelease(v18);
+          CFRelease(v17);
         }
       }
 
@@ -380,8 +381,8 @@ uint64_t __49__WKContentViewAccessibility__pasteboardChanged___block_invoke(uint
       goto LABEL_11;
     }
 
-    v19 = _AXUIElementCreateWithData();
-    v14 = CFAutorelease(v19);
+    v18 = _AXUIElementCreateWithData();
+    v14 = CFAutorelease(v18);
   }
 
   v15 = v11;
@@ -391,8 +392,6 @@ LABEL_10:
 LABEL_11:
   v16 = AXWebNotificationWithName(notificationCopy);
   UIAccessibilityPostNotification([v16 unsignedIntValue], v11);
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copy:(id)copy
@@ -429,83 +428,77 @@ LABEL_11:
 
 - (void)selectAll:(id)all
 {
-  v6.receiver = self;
-  v6.super_class = WKContentViewAccessibility;
-  [(WKContentViewAccessibility *)&v6 selectAll:all];
+  v5.receiver = self;
+  v5.super_class = WKContentViewAccessibility;
+  [(WKContentViewAccessibility *)&v5 selectAll:all];
   v3 = *MEMORY[0x29EDC7EA8];
-  v4 = *MEMORY[0x29EDBDC78];
-  v5 = UIKitAccessibilityLocalizedString();
-  UIAccessibilityPostNotification(v3, v5);
+  v4 = UIKitAccessibilityLocalizedString();
+  UIAccessibilityPostNotification(v3, v4);
 }
 
 - (void)toggleBoldface:(id)boldface
 {
-  v7.receiver = self;
-  v7.super_class = WKContentViewAccessibility;
-  [(WKContentViewAccessibility *)&v7 toggleBoldface:boldface];
+  v6.receiver = self;
+  v6.super_class = WKContentViewAccessibility;
+  [(WKContentViewAccessibility *)&v6 toggleBoldface:boldface];
   v3 = MEMORY[0x29EDBD7E8];
-  v4 = *MEMORY[0x29EDBDC10];
-  v5 = UIKitAccessibilityLocalizedString();
-  v6 = [v3 axAttributedStringWithString:v5];
+  v4 = UIKitAccessibilityLocalizedString();
+  v5 = [v3 axAttributedStringWithString:v4];
 
-  [v6 setAttribute:*MEMORY[0x29EDBD870] forKey:*MEMORY[0x29EDBD9A0]];
-  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v6);
+  [v5 setAttribute:*MEMORY[0x29EDBD870] forKey:*MEMORY[0x29EDBD9A0]];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v5);
 }
 
 - (void)increaseSizeForWebView:(id)view
 {
-  v7.receiver = self;
-  v7.super_class = WKContentViewAccessibility;
-  [(WKContentViewAccessibility *)&v7 toggleBoldface:view];
+  v6.receiver = self;
+  v6.super_class = WKContentViewAccessibility;
+  [(WKContentViewAccessibility *)&v6 toggleBoldface:view];
   v3 = MEMORY[0x29EDBD7E8];
-  v4 = *MEMORY[0x29EDBDC40];
-  v5 = UIKitAccessibilityLocalizedString();
-  v6 = [v3 axAttributedStringWithString:v5];
+  v4 = UIKitAccessibilityLocalizedString();
+  v5 = [v3 axAttributedStringWithString:v4];
 
-  [v6 setAttribute:*MEMORY[0x29EDBD8D8] forKey:*MEMORY[0x29EDBD9A0]];
-  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v6);
+  [v5 setAttribute:*MEMORY[0x29EDBD8D8] forKey:*MEMORY[0x29EDBD9A0]];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v5);
 }
 
 - (void)decreaseSizeForWebView:(id)view
 {
-  v7.receiver = self;
-  v7.super_class = WKContentViewAccessibility;
-  [(WKContentViewAccessibility *)&v7 toggleBoldface:view];
+  v6.receiver = self;
+  v6.super_class = WKContentViewAccessibility;
+  [(WKContentViewAccessibility *)&v6 toggleBoldface:view];
   v3 = MEMORY[0x29EDBD7E8];
-  v4 = *MEMORY[0x29EDBDC28];
-  v5 = UIKitAccessibilityLocalizedString();
-  v6 = [v3 axAttributedStringWithString:v5];
+  v4 = UIKitAccessibilityLocalizedString();
+  v5 = [v3 axAttributedStringWithString:v4];
 
-  [v6 setAttribute:*MEMORY[0x29EDBD8D8] forKey:*MEMORY[0x29EDBD9A0]];
-  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v6);
+  [v5 setAttribute:*MEMORY[0x29EDBD8D8] forKey:*MEMORY[0x29EDBD9A0]];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v5);
 }
 
 - (void)toggleItalics:(id)italics
 {
-  v7.receiver = self;
-  v7.super_class = WKContentViewAccessibility;
-  [(WKContentViewAccessibility *)&v7 toggleItalics:italics];
+  v6.receiver = self;
+  v6.super_class = WKContentViewAccessibility;
+  [(WKContentViewAccessibility *)&v6 toggleItalics:italics];
   v3 = MEMORY[0x29EDBD7E8];
-  v4 = *MEMORY[0x29EDBDC48];
-  v5 = UIKitAccessibilityLocalizedString();
-  v6 = [v3 axAttributedStringWithString:v5];
+  v4 = UIKitAccessibilityLocalizedString();
+  v5 = [v3 axAttributedStringWithString:v4];
 
-  [v6 setAttribute:*MEMORY[0x29EDBD910] forKey:*MEMORY[0x29EDBD9A0]];
-  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v6);
+  [v5 setAttribute:*MEMORY[0x29EDBD910] forKey:*MEMORY[0x29EDBD9A0]];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v5);
 }
 
 - (void)toggleUnderline:(id)underline
 {
-  v7.receiver = self;
-  v7.super_class = WKContentViewAccessibility;
-  [(WKContentViewAccessibility *)&v7 toggleUnderline:underline];
+  v6.receiver = self;
+  v6.super_class = WKContentViewAccessibility;
+  [(WKContentViewAccessibility *)&v6 toggleUnderline:underline];
   v3 = MEMORY[0x29EDBD7E8];
-  v4 = *MEMORY[0x29EDBDCA0];
-  v5 = UIKitAccessibilityLocalizedString();
-  v6 = [v3 axAttributedStringWithString:v5];
+  v4 = UIKitAccessibilityLocalizedString();
+  v5 = [v3 axAttributedStringWithString:v4];
 
-  [v6 setAttribute:*MEMORY[0x29EDBDA28] forKey:*MEMORY[0x29EDBD9A0]];
-  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v6);
+  [v5 setAttribute:*MEMORY[0x29EDBDA28] forKey:*MEMORY[0x29EDBD9A0]];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v5);
 }
 
 - (BOOL)_accessibilityBeginUndoableTextInsertion
@@ -553,32 +546,32 @@ LABEL_11:
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v3 = [(WKContentViewAccessibility *)self _accessibilityValueForKey:@"RemoteElements"];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v11 + 1) + 8 * v7++) setAccessibilityContainer:0];
+        [*(*(&v10 + 1) + 8 * v7++) setAccessibilityContainer:0];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -587,15 +580,14 @@ LABEL_11:
   defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x29EDC8200] object:0];
 
-  v10.receiver = self;
-  v10.super_class = WKContentViewAccessibility;
-  [(WKContentViewAccessibility *)&v10 dealloc];
-  v9 = *MEMORY[0x29EDCA608];
+  v9.receiver = self;
+  v9.super_class = WKContentViewAccessibility;
+  [(WKContentViewAccessibility *)&v9 dealloc];
 }
 
 - (id)accessibilityElements
 {
-  v16[1] = *MEMORY[0x29EDCA608];
+  v15[1] = *MEMORY[0x29EDCA608];
   v3 = [(WKContentViewAccessibility *)self _accessibilityValueForKey:@"RemoteElements"];
   if (!v3)
   {
@@ -612,17 +604,17 @@ LABEL_11:
         v9 = objc_getAssociatedObject(self, [@"ax-machport" hash]);
         intValue2 = [v9 intValue];
 
-        v15 = objc_getAssociatedObject(self, [@"ax-pid" hash]);
-        LOBYTE(v14) = 1;
+        v14 = objc_getAssociatedObject(self, [@"ax-pid" hash]);
+        LOBYTE(v13) = 1;
         _AXLogWithFacility();
 
-        v11 = [objc_alloc(MEMORY[0x29EDBD800]) initWithUUID:uUIDString andRemotePid:intValue andContextId:{-[WKContentViewAccessibility _accessibilityContextId](self, "_accessibilityContextId", v14, @"WKContentView[%@] set up: %@ pid: %@ MACH_PORT %d", self, uUIDString, v15, intValue2)}];
+        v11 = [objc_alloc(MEMORY[0x29EDBD800]) initWithUUID:uUIDString andRemotePid:intValue andContextId:{-[WKContentViewAccessibility _accessibilityContextId](self, "_accessibilityContextId", v13, @"WKContentView[%@] set up: %@ pid: %@ MACH_PORT %d", self, uUIDString, v14, intValue2)}];
         [v11 setOnClientSide:1];
         [v11 setAccessibilityContainer:self];
         [v11 setMachPort:0];
         [v11 setDeniesDirectAppConnection:1];
-        v16[0] = v11;
-        v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:1];
+        v15[0] = v11;
+        v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v15 count:1];
         [(WKContentViewAccessibility *)self _accessibilitySetRetainedValue:v3 forKey:@"RemoteElements"];
 
         goto LABEL_8;
@@ -640,9 +632,19 @@ LABEL_11:
   }
 
 LABEL_8:
-  v12 = *MEMORY[0x29EDCA608];
 
   return v3;
+}
+
+- (CGPoint)accessibilityActivationPoint
+{
+  [(WKContentViewAccessibility *)self bounds];
+  v8 = UIAccessibilityConvertFrameToScreenCoordinates(v7, self);
+
+  MEMORY[0x2A1C5ECC8](v8.origin, *&v8.origin.y, v8.size, *&v8.size.height);
+  result.y = v4;
+  result.x = v3;
+  return result;
 }
 
 - (CGRect)accessibilityFrame
@@ -696,16 +698,14 @@ void __57__WKContentViewAccessibility__zoomToRevealFocusedElement__block_invoke(
 
 - (id)accessibilityDragSourceDescriptors
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   v2 = objc_alloc(MEMORY[0x29EDC7900]);
   v3 = accessibilityUIKitLocalizedString();
   objc_opt_class();
   v4 = __UIAccessibilityCastAsClass();
   v5 = [v2 initWithName:v3 point:v4 inView:{0.0, 0.0}];
-  v9[0] = v5;
-  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x29EDCA608];
+  v8[0] = v5;
+  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -782,11 +782,10 @@ LABEL_11:
 
 - (void)accessibilityRelayNotification:(uint64_t)a1 notificationData:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C7A6000, a2, OS_LOG_TYPE_ERROR, "Could not de-archive: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C7A6000, a2, OS_LOG_TYPE_ERROR, "Could not de-archive: %@", &v2, 0xCu);
 }
 
 @end

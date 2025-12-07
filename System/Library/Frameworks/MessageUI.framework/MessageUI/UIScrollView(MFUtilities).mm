@@ -1,9 +1,9 @@
 @interface UIScrollView(MFUtilities)
+- (CGFloat)mf_visibleHeight;
 - (double)mf_maxContentOffset;
 - (double)mf_minContentOffset;
 - (double)mf_visibleBounds;
 - (double)mf_visibleFrame;
-- (double)mf_visibleHeight;
 @end
 
 @implementation UIScrollView(MFUtilities)
@@ -24,7 +24,7 @@
   return v3 + v4;
 }
 
-- (double)mf_visibleHeight
+- (CGFloat)mf_visibleHeight
 {
   [self mf_visibleFrame];
 

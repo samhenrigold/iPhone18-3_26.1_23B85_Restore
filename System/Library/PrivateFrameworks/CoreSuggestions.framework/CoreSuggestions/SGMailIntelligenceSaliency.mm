@@ -17,10 +17,9 @@
     v4 = @"salient";
   }
 
-  messageId = self->_messageId;
-  v6 = [v3 initWithFormat:@"<SGMailIntelligenceSaliency score: %@ (%@), messageId: %@, mailboxId: %@>", self->_score, v4, messageId, self->_mailboxId];
+  v5 = [v3 initWithFormat:@"<SGMailIntelligenceSaliency score: %@ (%@), messageId: %@, mailboxId: %@>", self->_score, v4, self->_messageId, self->_mailboxId];
 
-  return v6;
+  return v5;
 }
 
 - (SGMailIntelligenceSaliency)initWithCoder:(id)coder

@@ -18,7 +18,7 @@
 {
   v8 = type metadata accessor for URL();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
@@ -38,7 +38,7 @@
   v16 = *&load->var0.var3;
   v17 = *&load->var1.var1;
   v18 = var3;
-  sub_100009F1C(0, &qword_100579C90);
+  sub_100009F1C(0, &qword_100579C90, NSValue_ptr);
   v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
   taskCopy = task;

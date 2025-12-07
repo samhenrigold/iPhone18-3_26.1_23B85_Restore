@@ -28,8 +28,8 @@
   if (reliedOnLayouts)
   {
     v4 = reliedOnLayouts;
-    sub_100006370(0, &qword_101A287B0);
-    sub_10000FDE0(&qword_101A13610, &qword_101A287B0);
+    sub_100006370(0, &qword_101A287B0, off_10182F780);
+    sub_10000FDE0(&qword_101A13610, &qword_101A287B0, off_10182F780, &protocol conformance descriptor for NSObject);
     v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -40,12 +40,12 @@
 
   v11 = v5;
   children = [v2 children];
-  sub_100006370(0, &qword_101A287B0);
+  sub_100006370(0, &qword_101A287B0, off_10182F780);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   sub_10063FC24(v7);
 
-  sub_10000FDE0(&qword_101A13610, &qword_101A287B0);
+  sub_10000FDE0(&qword_101A13610, &qword_101A287B0, off_10182F780, &protocol conformance descriptor for NSObject);
   v8.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;
@@ -53,11 +53,10 @@
 
 - (id)additionalDependenciesForChildLayout:(id)layout
 {
-  sub_1005B981C(&unk_1019F4D60);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_101465920;
   *(v4 + 32) = self;
-  sub_100006370(0, &qword_101A287B0);
+  sub_100006370(0, &qword_101A287B0, off_10182F780);
   selfCopy = self;
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -67,7 +66,7 @@
 - (void)validate
 {
   selfCopy = self;
-  sub_1012064F8();
+  sub_1012064F8(selfCopy);
 }
 
 - (_TtC8Freeform14CRLTableLayout)initWithInfo:(id)info
@@ -104,7 +103,7 @@
   }
 
   selfCopy = self;
-  sub_101206730(v4);
+  sub_101206730(v4, v6);
 }
 
 - (void)processChangedProperty:(unint64_t)property
@@ -156,9 +155,9 @@
 - (id)childInfosForChildLayouts
 {
   selfCopy = self;
-  sub_10120B634();
+  sub_10120B634(selfCopy);
 
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

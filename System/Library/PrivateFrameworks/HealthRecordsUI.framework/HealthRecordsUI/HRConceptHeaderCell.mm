@@ -84,11 +84,11 @@
 + (id)defaultReuseIdentifier
 {
   swift_getObjCClassMetadata();
-  sub_1D135857C();
+  sub_1D135857C(0, v2);
   sub_1D13901EC();
-  v2 = sub_1D139012C();
+  v3 = sub_1D139012C();
 
-  return v2;
+  return v3;
 }
 
 - (void)setupSubviews
@@ -130,7 +130,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_1D1358070(change);
+  sub_1D1358070(change, selfCopy);
 }
 
 - (HRConceptHeaderCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier

@@ -51,31 +51,29 @@
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   context = [(FCCurrentIssuesFetchOperation *)self context];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current issues fetch operation requires a context"];
-    v6 = 136315906;
-    v7 = "[FCCurrentIssuesFetchOperation validateOperation]";
-    v8 = 2080;
-    v9 = "FCCurrentIssuesFetchOperation.m";
-    v10 = 1024;
-    v11 = 64;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current issues fetch operation requires a context"];
+    v5 = 136315906;
+    v6 = "[FCCurrentIssuesFetchOperation validateOperation]";
+    v7 = 2080;
+    v8 = "FCCurrentIssuesFetchOperation.m";
+    v9 = 1024;
+    v10 = 64;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
   }
 
-  result = context != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return context != 0;
 }
 
 - (void)performOperation
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   context = [(FCCurrentIssuesFetchOperation *)self context];
   configurationManager = [context configurationManager];
   configuration = [configurationManager configuration];
@@ -92,21 +90,21 @@
     v11 = +[FCEdgeCacheHint edgeCacheHintForCurrentIssues];
     [(FCRecordChainFetchOperation *)v9 setEdgeCacheHint:v11];
 
-    v29[0] = v8;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+    v28[0] = v8;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
     [(FCRecordChainFetchOperation *)v9 setTopLevelRecordIDs:v12];
 
-    v27[0] = @"TagList";
-    v26 = @"tagIDs";
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
-    v28[0] = v13;
-    v27[1] = @"Tag";
-    v25 = @"latestIssueIDs";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    v27[2] = @"Issue";
-    v28[1] = v14;
-    v28[2] = MEMORY[0x1E695E0F0];
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+    v26[0] = @"TagList";
+    v25 = @"tagIDs";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+    v27[0] = v13;
+    v26[1] = @"Tag";
+    v24 = @"latestIssueIDs";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v26[2] = @"Issue";
+    v27[1] = v14;
+    v27[2] = MEMORY[0x1E695E0F0];
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
     [(FCRecordChainFetchOperation *)v9 setLinkKeysByRecordType:v15];
 
     cachePolicy = [(FCCurrentIssuesFetchOperation *)self cachePolicy];
@@ -123,33 +121,31 @@
 
     v19 = v18;
 
-    v23 = @"TagList";
-    v24 = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = @"TagList";
+    v23 = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     [(FCRecordChainFetchOperation *)v9 setCachePoliciesByRecordType:v20];
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __49__FCCurrentIssuesFetchOperation_performOperation__block_invoke_2;
-    v22[3] = &unk_1E7C39358;
-    v22[4] = self;
-    [(FCRecordChainFetchOperation *)v9 setRecordChainCompletionHandler:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __49__FCCurrentIssuesFetchOperation_performOperation__block_invoke_2;
+    v21[3] = &unk_1E7C39358;
+    v21[4] = self;
+    [(FCRecordChainFetchOperation *)v9 setRecordChainCompletionHandler:v21];
     [(FCOperation *)self associateChildOperation:v9];
     [(FCOperation *)v9 start];
   }
 
   else
   {
-    v22[5] = MEMORY[0x1E69E9820];
-    v22[6] = 3221225472;
-    v22[7] = __49__FCCurrentIssuesFetchOperation_performOperation__block_invoke;
-    v22[8] = &unk_1E7C36EA0;
-    v22[9] = self;
+    v21[5] = MEMORY[0x1E69E9820];
+    v21[6] = 3221225472;
+    v21[7] = __49__FCCurrentIssuesFetchOperation_performOperation__block_invoke;
+    v21[8] = &unk_1E7C36EA0;
+    v21[9] = self;
     [(FCCurrentIssuesFetchOperation *)self setResultIssues:MEMORY[0x1E695E0F0]];
     [(FCOperation *)self finishedPerformingOperationWithError:0];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__FCCurrentIssuesFetchOperation_performOperation__block_invoke(uint64_t a1)

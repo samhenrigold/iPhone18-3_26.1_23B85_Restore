@@ -3,7 +3,7 @@
 
 @implementation AXSSiriSemanticContextEnabled
 
-uint64_t ___AXSSiriSemanticContextEnabled_block_invoke()
+void *___AXSSiriSemanticContextEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

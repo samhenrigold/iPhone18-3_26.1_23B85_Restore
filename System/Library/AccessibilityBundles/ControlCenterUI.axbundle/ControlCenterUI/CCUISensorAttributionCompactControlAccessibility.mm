@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (id)accessibilityValue;
 - (unint64_t)accessibilityTraits;
+- (void)setExpanded:(BOOL)expanded animated:(BOOL)animated;
 @end
 
 @implementation CCUISensorAttributionCompactControlAccessibility
@@ -66,6 +67,14 @@ LABEL_5:
   v3.receiver = self;
   v3.super_class = CCUISensorAttributionCompactControlAccessibility;
   return *MEMORY[0x29EDC7F70] | [(CCUISensorAttributionCompactControlAccessibility *)&v3 accessibilityTraits];
+}
+
+- (void)setExpanded:(BOOL)expanded animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = CCUISensorAttributionCompactControlAccessibility;
+  [(CCUISensorAttributionCompactControlAccessibility *)&v4 setExpanded:expanded animated:animated];
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 @end

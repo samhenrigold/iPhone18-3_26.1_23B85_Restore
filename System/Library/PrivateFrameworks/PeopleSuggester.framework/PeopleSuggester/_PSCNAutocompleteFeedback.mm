@@ -3,6 +3,8 @@
 + (id)createErasedHandleFeedbackWithBundleIdentifier:(id)identifier contact:(id)contact;
 + (id)createExitedFeedbackWithBundleIdentifier:(id)identifier status:(int64_t)status;
 + (id)createTappedSuggestionFeedbackWithBundleIdentifier:(id)identifier suggestion:(id)suggestion;
++ (id)createTypedHandleFeedbackWithBundleIdentifier:(id)identifier contact:(id)contact viaContactPicker:(BOOL)picker;
++ (id)createVendedSuggestionsFeedbackWithBundleIdentifier:(id)identifier suggestions:(id)suggestions isImplicit:(BOOL)implicit;
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (NSString)description;
 - (_PSCNAutocompleteFeedback)initWithBundleIdentifier:(id)identifier feedbackType:(int64_t)type isImplicit:(BOOL)implicit entered:(id)entered exited:(id)exited vendedSuggestions:(id)suggestions tappedSuggestion:(id)suggestion typedHandle:(id)self0 erasedHandle:(id)self1;
@@ -429,6 +431,19 @@ LABEL_17:
   return v9;
 }
 
++ (id)createVendedSuggestionsFeedbackWithBundleIdentifier:(id)identifier suggestions:(id)suggestions isImplicit:(BOOL)implicit
+{
+  implicitCopy = implicit;
+  suggestionsCopy = suggestions;
+  identifierCopy = identifier;
+  v10 = [self alloc];
+  v11 = [[_PSCNAutocompleteFeedbackVendedSuggestions alloc] initWithSuggestions:suggestionsCopy];
+
+  v12 = [v10 initWithBundleIdentifier:identifierCopy feedbackType:2 isImplicit:implicitCopy entered:0 exited:0 vendedSuggestions:v11 tappedSuggestion:0 typedHandle:0 erasedHandle:0];
+
+  return v12;
+}
+
 + (id)createTappedSuggestionFeedbackWithBundleIdentifier:(id)identifier suggestion:(id)suggestion
 {
   suggestionCopy = suggestion;
@@ -439,6 +454,19 @@ LABEL_17:
   v10 = [v8 initWithBundleIdentifier:identifierCopy feedbackType:3 isImplicit:0 entered:0 exited:0 vendedSuggestions:0 tappedSuggestion:v9 typedHandle:0 erasedHandle:0];
 
   return v10;
+}
+
++ (id)createTypedHandleFeedbackWithBundleIdentifier:(id)identifier contact:(id)contact viaContactPicker:(BOOL)picker
+{
+  pickerCopy = picker;
+  contactCopy = contact;
+  identifierCopy = identifier;
+  v10 = [self alloc];
+  v11 = [[_PSCNAutocompleteFeedbackTypedHandle alloc] initWithContact:contactCopy viaContactPicker:pickerCopy];
+
+  v12 = [v10 initWithBundleIdentifier:identifierCopy feedbackType:4 isImplicit:0 entered:0 exited:0 vendedSuggestions:0 tappedSuggestion:0 typedHandle:v11 erasedHandle:0];
+
+  return v12;
 }
 
 + (id)createErasedHandleFeedbackWithBundleIdentifier:(id)identifier contact:(id)contact
@@ -455,20 +483,18 @@ LABEL_17:
 
 + (void)eventWithData:(uint64_t)a1 dataVersion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "_PSCNAutocompleteFeedback: ERROR unarchiving Biome event: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "_PSCNAutocompleteFeedback: ERROR unarchiving Biome event: %@", &v2, 0xCu);
 }
 
 - (void)serialize
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "_PSCNAutocompleteFeedback: ERROR serializing Biome event: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "_PSCNAutocompleteFeedback: ERROR serializing Biome event: %@", &v2, 0xCu);
 }
 
 @end

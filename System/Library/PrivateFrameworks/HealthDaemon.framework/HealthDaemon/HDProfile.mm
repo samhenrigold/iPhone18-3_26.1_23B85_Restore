@@ -76,7 +76,7 @@
 
 - (id)featureAvailabilityProvidingForFeatureIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (HKFeatureIdentifierIsProvidedBySleepDaemon())
   {
@@ -86,25 +86,25 @@
   else
   {
     [(HDProfile *)self profileExtensionsConformingToProtocol:&unk_283D71258];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v6 = v17 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = v16 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [*(*(&v14 + 1) + 8 * i) featureAvailabilityExtensionForFeatureIdentifier:{identifierCopy, v14}];
+          v11 = [*(*(&v13 + 1) + 8 * i) featureAvailabilityExtensionForFeatureIdentifier:{identifierCopy, v13}];
           if (v11)
           {
             v5 = v11;
@@ -112,7 +112,7 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -126,16 +126,14 @@
 LABEL_13:
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)_sleepFeatureAvailabilityProvider:(id)provider
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  if (SleepLibraryCore() && getgetSleepFeatureAvailabilityProvidingSymbolLoc())
+  if (SleepLibraryCore(0) && getgetSleepFeatureAvailabilityProvidingSymbolLoc())
   {
     providerCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"HDProfile<HKFeatureAvailabilityHealthDataSource> (%@)", providerCopy];
     v5 = providerCopy;
@@ -143,8 +141,8 @@ LABEL_13:
     if (!v6)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"id<HKFeatureAvailabilityProviding>  _Nullable getSleepFeatureAvailabilityProviding(NSString *__strong, HKHealthStore *__strong, __strong HKFeatureIdentifier)"}];
-      [currentHandler handleFailureInFunction:v14 file:@"HDProfile+HKFeatureAvailabilityHealthDataSource.m" lineNumber:32 description:{@"%s", dlerror()}];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"id<HKFeatureAvailabilityProviding>  _Nullable getSleepFeatureAvailabilityProviding(NSString *__strong, HKHealthStore *__strong, __strong HKFeatureIdentifier)"}];
+      [currentHandler handleFailureInFunction:v13 file:@"HDProfile+HKFeatureAvailabilityHealthDataSource.m" lineNumber:32 description:{@"%s", dlerror()}];
 
       __break(1u);
     }
@@ -158,17 +156,15 @@ LABEL_13:
     v8 = *MEMORY[0x277CCC320];
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_ERROR))
     {
-      v11 = v8;
+      v10 = v8;
       *buf = 138543362;
-      v16 = objc_opt_class();
-      v12 = v16;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] HK_TARGET_OS_HAS_SLEEP_DAEMON true but missing getSleepFeatureAvailabilityProviding()", buf, 0xCu);
+      v15 = objc_opt_class();
+      v11 = v15;
+      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] HK_TARGET_OS_HAS_SLEEP_DAEMON true but missing getSleepFeatureAvailabilityProviding()", buf, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -294,7 +290,7 @@ LABEL_11:
 
 - (id)featureStatusProviderForIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [(HDProfile *)self featureAvailabilityProviderForIdentifier:identifierCopy];
   if (v5)
@@ -308,45 +304,43 @@ LABEL_11:
     v7 = HKLogAnalytics();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v10 = 138543618;
+      v9 = 138543618;
       selfCopy = self;
-      v12 = 2114;
-      v13 = identifierCopy;
-      _os_log_fault_impl(&dword_228986000, v7, OS_LOG_TYPE_FAULT, "[%{public}@] Unable to find feature availability provider for feature identifier %{public}@", &v10, 0x16u);
+      v11 = 2114;
+      v12 = identifierCopy;
+      _os_log_fault_impl(&dword_228986000, v7, OS_LOG_TYPE_FAULT, "[%{public}@] Unable to find feature availability provider for feature identifier %{public}@", &v9, 0x16u);
     }
 
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)featureAvailabilityProviderForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   [(HDProfile *)self profileExtensionsConformingToProtocol:&unk_283D71258];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v14 + 1) + 8 * i) featureAvailabilityExtensionForFeatureIdentifier:{identifierCopy, v14}];
+        v10 = [*(*(&v13 + 1) + 8 * i) featureAvailabilityExtensionForFeatureIdentifier:{identifierCopy, v13}];
         if (v10)
         {
           v11 = v10;
@@ -354,7 +348,7 @@ LABEL_11:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -366,8 +360,6 @@ LABEL_11:
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -453,11 +445,11 @@ LABEL_9:
   {
     v14->_profileLock._os_unfair_lock_opaque = 0;
     objc_storeWeak(&v14->_daemon, daemonCopy);
-    v16 = [pathCopy copy];
+    v16 = objc_msgSend_copy(pathCopy);
     directoryPath = v15->_directoryPath;
     v15->_directoryPath = v16;
 
-    v18 = [directoryPathCopy copy];
+    v18 = objc_msgSend_copy(directoryPathCopy);
     medicalIDDirectoryPath = v15->_medicalIDDirectoryPath;
     v15->_medicalIDDirectoryPath = v18;
 
@@ -658,7 +650,7 @@ LABEL_9:
 
 - (void)daemonReady:(id)ready
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_profileLock);
   [(HDProfile *)self _createExtensionsIfNeeded];
   os_unfair_lock_unlock(&self->_profileLock);
@@ -667,27 +659,27 @@ LABEL_9:
   daemon = [(HDProfile *)self daemon];
   protectedResourceStoreProviders = [daemon protectedResourceStoreProviders];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = protectedResourceStoreProviders;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v14 + 1) + 8 * v11) protectedResourceStoreForProfile:{self, v14}];
+        v12 = [*(*(&v13 + 1) + 8 * v11) protectedResourceStoreForProfile:{self, v13}];
         if (v12)
         {
           [v4 addObject:v12];
@@ -697,7 +689,7 @@ LABEL_9:
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -710,8 +702,6 @@ LABEL_9:
 
   [(HDDatabase *)self->_database enterStateRun];
   [(HDProfile *)self _notifyProfileReadyObservers];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createExtensionsIfNeeded
@@ -757,7 +747,7 @@ LABEL_9:
 
 - (void)notifyProfileInitializedObservers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_profileObserverLock);
   self->_hasNotifiedProfileInitializedObservers = 1;
   _HKInitializeLogging();
@@ -771,45 +761,45 @@ LABEL_9:
     {
       v6 = [(HKSynchronousObserverSet *)self->_profileInitializedObservers count];
       *buf = 134218242;
-      v23 = v6;
-      v24 = 2112;
+      v22 = v6;
+      v23 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_INFO, "Notify (%lu) profile initialized observers for profile %@", buf, 0x16u);
     }
   }
 
   profileInitializedObservers = self->_profileInitializedObservers;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __46__HDProfile_notifyProfileInitializedObservers__block_invoke;
-  v20[3] = &unk_27862B898;
-  v20[4] = self;
-  [(HKSynchronousObserverSet *)profileInitializedObservers notifyObservers:v20];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __46__HDProfile_notifyProfileInitializedObservers__block_invoke;
+  v19[3] = &unk_27862B898;
+  v19[4] = self;
+  [(HKSynchronousObserverSet *)profileInitializedObservers notifyObservers:v19];
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allObservers = [(HKSynchronousObserverSet *)self->_profileInitializedObservers allObservers];
-  v9 = [allObservers countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v9 = [allObservers countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(allObservers);
         }
 
-        [(HKSynchronousObserverSet *)self->_profileInitializedObservers unregisterObserver:*(*(&v16 + 1) + 8 * v12++)];
+        [(HKSynchronousObserverSet *)self->_profileInitializedObservers unregisterObserver:*(*(&v15 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [allObservers countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v10 = [allObservers countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v10);
@@ -820,8 +810,6 @@ LABEL_9:
   WeakRetained = objc_loadWeakRetained(&self->_daemon);
   v14 = HKCreateSerialDispatchQueue();
   [WeakRetained registerDaemonReadyObserver:self queue:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HDProfile_notifyProfileInitializedObservers__block_invoke(uint64_t a1, void *a2)
@@ -834,7 +822,7 @@ void __46__HDProfile_notifyProfileInitializedObservers__block_invoke(uint64_t a1
 
 - (void)registerProfileReadyObserver:(id)observer queue:(id)queue
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   queueCopy = queue;
   os_unfair_lock_lock(&self->_profileObserverLock);
@@ -853,33 +841,31 @@ void __46__HDProfile_notifyProfileInitializedObservers__block_invoke(uint64_t a1
         v11 = objc_opt_class();
         v12 = NSStringFromClass(v11);
         *buf = 138412802;
-        v17 = v9;
-        v18 = 2048;
+        v16 = v9;
+        v17 = 2048;
         selfCopy = self;
-        v20 = 2112;
-        v21 = v12;
+        v19 = 2112;
+        v20 = v12;
         _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "<%@:%p> Notified late profile ready observer %@", buf, 0x20u);
       }
     }
 
     profileReadyObservers = self->_profileReadyObservers;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __48__HDProfile_registerProfileReadyObserver_queue___block_invoke;
-    v15[3] = &unk_27862B8C0;
-    v15[4] = self;
-    [(HKObserverSet *)profileReadyObservers notifyObserver:observerCopy handler:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __48__HDProfile_registerProfileReadyObserver_queue___block_invoke;
+    v14[3] = &unk_27862B8C0;
+    v14[4] = self;
+    [(HKObserverSet *)profileReadyObservers notifyObserver:observerCopy handler:v14];
     [(HKObserverSet *)self->_profileReadyObservers unregisterObserver:observerCopy];
   }
 
   os_unfair_lock_unlock(&self->_profileObserverLock);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyProfileReadyObservers
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   profileObserverGroup = self->_profileObserverGroup;
   v5 = dispatch_time(0, 30000000000);
   if (dispatch_group_wait(profileObserverGroup, v5))
@@ -889,8 +875,8 @@ void __46__HDProfile_notifyProfileInitializedObservers__block_invoke(uint64_t a1
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       *buf = 134218242;
-      v40 = 0x403E000000000000;
-      v41 = 2112;
+      v39 = 0x403E000000000000;
+      v40 = 2112;
       selfCopy3 = self;
       _os_log_fault_impl(&dword_228986000, v6, OS_LOG_TYPE_FAULT, "Timeout (%0.1f) waiting on profile initialized observers for profile %@", buf, 0x16u);
     }
@@ -901,12 +887,12 @@ void __46__HDProfile_notifyProfileInitializedObservers__block_invoke(uint64_t a1
   objc_initWeak(&location, self);
   v9 = objc_alloc(MEMORY[0x277CCDDB0]);
   v10 = dispatch_get_global_queue(21, 0);
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __41__HDProfile__notifyProfileReadyObservers__block_invoke;
-  v36[3] = &unk_278628890;
-  objc_copyWeak(&v37, &location);
-  v11 = [v9 initWithName:@"HDProfileObservers" queue:v10 completion:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __41__HDProfile__notifyProfileReadyObservers__block_invoke;
+  v35[3] = &unk_278628890;
+  objc_copyWeak(&v36, &location);
+  v11 = [v9 initWithName:@"HDProfileObservers" queue:v10 completion:v35];
   profileReadyObserversTimer = self->_profileReadyObserversTimer;
   self->_profileReadyObserversTimer = v11;
 
@@ -928,31 +914,31 @@ void __46__HDProfile_notifyProfileInitializedObservers__block_invoke(uint64_t a1
   {
     v16 = [(HKObserverSet *)self->_profileReadyObservers count];
     *buf = 138413058;
-    v40 = v8;
-    v41 = 2048;
+    v39 = v8;
+    v40 = 2048;
     selfCopy3 = self;
-    v43 = 2048;
-    v44 = v16;
-    v45 = 2112;
-    v46 = runtimeDebugInfo;
+    v42 = 2048;
+    v43 = v16;
+    v44 = 2112;
+    v45 = runtimeDebugInfo;
     _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "<%@:%p> Start notification of %lu profile ready observers for %@", buf, 0x2Au);
   }
 
   allObservers = [(HKObserverSet *)self->_profileReadyObservers allObservers];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __41__HDProfile__notifyProfileReadyObservers__block_invoke_368;
-  v35[3] = &unk_27862B8E8;
-  v35[4] = self;
-  [allObservers enumerateObjectsUsingBlock:v35];
-
-  profileReadyObservers = self->_profileReadyObservers;
   v34[0] = MEMORY[0x277D85DD0];
   v34[1] = 3221225472;
-  v34[2] = __41__HDProfile__notifyProfileReadyObservers__block_invoke_2_370;
-  v34[3] = &unk_27862B8C0;
+  v34[2] = __41__HDProfile__notifyProfileReadyObservers__block_invoke_368;
+  v34[3] = &unk_27862B8E8;
   v34[4] = self;
-  [(HKObserverSet *)profileReadyObservers notifyObservers:v34];
+  [allObservers enumerateObjectsUsingBlock:v34];
+
+  profileReadyObservers = self->_profileReadyObservers;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __41__HDProfile__notifyProfileReadyObservers__block_invoke_2_370;
+  v33[3] = &unk_27862B8C0;
+  v33[4] = self;
+  [(HKObserverSet *)profileReadyObservers notifyObservers:v33];
   [(HKObserverSet *)self->_profileReadyObservers unregisterAllObservers];
   v19 = self->_postProfileReadyBlocks;
   postProfileReadyBlocks = self->_postProfileReadyBlocks;
@@ -966,8 +952,8 @@ void __46__HDProfile_notifyProfileInitializedObservers__block_invoke(uint64_t a1
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v40 = v8;
-      v41 = 2048;
+      v39 = v8;
+      v40 = 2048;
       selfCopy3 = self;
       _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "<%@:%p> Adding unitTest_didReadyProfile for profile", buf, 0x16u);
     }
@@ -979,53 +965,50 @@ void __46__HDProfile_notifyProfileInitializedObservers__block_invoke(uint64_t a1
   block[1] = 3221225472;
   block[2] = __41__HDProfile__notifyProfileReadyObservers__block_invoke_371;
   block[3] = &unk_27862B910;
-  v32 = runtimeDebugInfo;
-  v33 = v8;
+  v31 = runtimeDebugInfo;
+  v32 = v8;
   block[4] = self;
-  v30 = v19;
-  v31 = date;
+  v29 = v19;
+  v30 = date;
   v24 = runtimeDebugInfo;
   v25 = date;
   v26 = v19;
   dispatch_group_notify(v22, v23, block);
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(&location);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HDProfile__notifyProfileReadyObservers__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v7 = WeakRetained;
+    v6 = WeakRetained;
     os_unfair_lock_lock(WeakRetained + 36);
-    if ([*&v7[40]._os_unfair_lock_opaque count])
+    if ([*&v6[40]._os_unfair_lock_opaque count])
     {
       _HKInitializeLogging();
       v2 = HKLogDaemonInitialization();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
         v3 = objc_opt_class();
-        v4 = *&v7[40]._os_unfair_lock_opaque;
+        v4 = *&v6[40]._os_unfair_lock_opaque;
         *buf = 138412802;
-        v9 = v3;
-        v10 = 2048;
-        v11 = v7;
-        v12 = 2112;
-        v13 = v4;
+        v8 = v3;
+        v9 = 2048;
+        v10 = v6;
+        v11 = 2112;
+        v12 = v4;
         v5 = v3;
         _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "<%@:%p> Notifying all profile ready observers is slow. Still pending: %@", buf, 0x20u);
       }
     }
 
-    os_unfair_lock_unlock(v7 + 36);
-    WeakRetained = v7;
+    os_unfair_lock_unlock(v6 + 36);
+    WeakRetained = v6;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HDProfile__notifyProfileReadyObservers__block_invoke_368(uint64_t a1, void *a2)
@@ -1078,7 +1061,7 @@ void __41__HDProfile__notifyProfileReadyObservers__block_invoke_2_370(uint64_t a
 
 void __41__HDProfile__notifyProfileReadyObservers__block_invoke_371(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (_HDIsUnitTesting)
   {
     _HKInitializeLogging();
@@ -1089,38 +1072,38 @@ void __41__HDProfile__notifyProfileReadyObservers__block_invoke_371(uint64_t a1)
       v4 = *(a1 + 32);
       v5 = [*(a1 + 40) count];
       *buf = 138412802;
-      v40 = v3;
-      v41 = 2048;
-      v42 = v4;
-      v43 = 2048;
-      v44 = *&v5;
+      v39 = v3;
+      v40 = 2048;
+      v41 = v4;
+      v42 = 2048;
+      v43 = *&v5;
       _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "<%@:%p> Notifying %lu post profile ready blocks", buf, 0x20u);
     }
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v6 = *(a1 + 40);
-  v7 = [v6 countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v34 objects:v46 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = *v35;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        (*(*(*(&v35 + 1) + 8 * i) + 16))(*(*(&v35 + 1) + 8 * i));
+        (*(*(*(&v34 + 1) + 8 * i) + 16))(*(*(&v34 + 1) + 8 * i));
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
     while (v8);
@@ -1133,9 +1116,9 @@ void __41__HDProfile__notifyProfileReadyObservers__block_invoke_371(uint64_t a1)
     v12 = *(a1 + 64);
     v13 = *(a1 + 32);
     *buf = 138412546;
-    v40 = v12;
-    v41 = 2048;
-    v42 = v13;
+    v39 = v12;
+    v40 = 2048;
+    v41 = v13;
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "<%@:%p> Notified all post profile ready blocks", buf, 0x16u);
   }
 
@@ -1153,9 +1136,9 @@ void __41__HDProfile__notifyProfileReadyObservers__block_invoke_371(uint64_t a1)
       v17 = *(a1 + 64);
       v18 = *(a1 + 32);
       *buf = 138412546;
-      v40 = v17;
-      v41 = 2048;
-      v42 = v18;
+      v39 = v17;
+      v40 = 2048;
+      v41 = v18;
       _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "<%@:%p> Calling unitTest_didReadyProfile for profile", buf, 0x16u);
     }
 
@@ -1169,9 +1152,9 @@ void __41__HDProfile__notifyProfileReadyObservers__block_invoke_371(uint64_t a1)
       v21 = *(a1 + 64);
       v22 = *(a1 + 32);
       *buf = 138412546;
-      v40 = v21;
-      v41 = 2048;
-      v42 = v22;
+      v39 = v21;
+      v40 = 2048;
+      v41 = v22;
       _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "<%@:%p> unitTest_didReadyProfile for profile returned", buf, 0x16u);
     }
   }
@@ -1187,13 +1170,13 @@ void __41__HDProfile__notifyProfileReadyObservers__block_invoke_371(uint64_t a1)
     v29 = *(a1 + 56);
     v28 = *(a1 + 64);
     *buf = 138413058;
-    v40 = v28;
-    v41 = 2048;
-    v42 = v27;
-    v43 = 2048;
-    v44 = v25;
-    v45 = 2112;
-    v46 = v29;
+    v39 = v28;
+    v40 = 2048;
+    v41 = v27;
+    v42 = 2048;
+    v43 = v25;
+    v44 = 2112;
+    v45 = v29;
     _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_DEFAULT, "<%@:%p> End notification of profile ready observers in %0.1f seconds for %@", buf, 0x2Au);
   }
 
@@ -1203,22 +1186,20 @@ void __41__HDProfile__notifyProfileReadyObservers__block_invoke_371(uint64_t a1)
     v30 = HKLogDaemonInitialization();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
-      v32 = *(a1 + 32);
-      v34 = *(a1 + 56);
-      v33 = *(a1 + 64);
+      v31 = *(a1 + 32);
+      v33 = *(a1 + 56);
+      v32 = *(a1 + 64);
       *buf = 138413058;
-      v40 = v33;
-      v41 = 2048;
-      v42 = v32;
-      v43 = 2048;
-      v44 = v25;
-      v45 = 2112;
-      v46 = v34;
+      v39 = v32;
+      v40 = 2048;
+      v41 = v31;
+      v42 = 2048;
+      v43 = v25;
+      v44 = 2112;
+      v45 = v33;
       _os_log_fault_impl(&dword_228986000, v30, OS_LOG_TYPE_FAULT, "<%@:%p> End notification of profile ready observers in %0.1f seconds for %@", buf, 0x2Au);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasNotifiedProfileReadyObservers
@@ -1252,7 +1233,7 @@ void __41__HDProfile__notifyProfileReadyObservers__block_invoke_371(uint64_t a1)
 
 uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -1260,21 +1241,19 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
     v3 = *(a1 + 32);
     [v3 profileType];
     v4 = HKStringFromProfileType();
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Device ineligible for loading profile of type %{public}@. Deleting.", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Device ineligible for loading profile of type %{public}@. Deleting.", &v6, 0x16u);
   }
 
-  result = [*(a1 + 32) triggerDeletion];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) triggerDeletion];
 }
 
 - (void)prepareForObliterationWithReason:(id)reason
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   _HKInitializeLogging();
   v5 = HKLogInfrastructure();
@@ -1282,32 +1261,32 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = reasonCopy;
+    v19 = 2114;
+    v20 = reasonCopy;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Preparing for obliteration (%{public}@).", buf, 0x16u);
   }
 
   allProfileExtensions = [(HDProfile *)self allProfileExtensions];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [allProfileExtensions countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [allProfileExtensions countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(allProfileExtensions);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
           [v11 prepareForObliteration];
@@ -1317,18 +1296,16 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
       }
 
       while (v8 != v10);
-      v8 = [allProfileExtensions countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [allProfileExtensions countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAndWaitWithReason:(id)reason
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   _HKInitializeLogging();
   v5 = HKLogInfrastructure();
@@ -1336,8 +1313,8 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
   {
     *buf = 138543618;
     selfCopy = self;
-    v29 = 2114;
-    v30 = reasonCopy;
+    v28 = 2114;
+    v29 = reasonCopy;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Invalidating (%{public}@).", buf, 0x16u);
   }
 
@@ -1369,26 +1346,26 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
   [cloudSyncManager invalidateAndWait];
 
   allProfileExtensions = [(HDProfile *)self allProfileExtensions];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v16 = [allProfileExtensions countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v16 = [allProfileExtensions countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v23;
+    v18 = *v22;
     do
     {
       v19 = 0;
       do
       {
-        if (*v23 != v18)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(allProfileExtensions);
         }
 
-        v20 = *(*(&v22 + 1) + 8 * v19);
+        v20 = *(*(&v21 + 1) + 8 * v19);
         if (objc_opt_respondsToSelector())
         {
           [v20 invalidateAndWait];
@@ -1398,32 +1375,28 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
       }
 
       while (v17 != v19);
-      v17 = [allProfileExtensions countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v17 = [allProfileExtensions countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)obliterateAndTerminateWithOptions:(unint64_t)options reason:(id)reason completion:(id)completion
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   reasonCopy = reason;
   daemon = [(HDProfile *)self daemon];
   profileIdentifier = [(HDProfile *)self profileIdentifier];
-  v14[0] = profileIdentifier;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = profileIdentifier;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [daemon obliterateAndTerminateProfiles:v12 options:options reason:reasonCopy completion:completionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)obliterateWithOptions:(unint64_t)options reason:(id)reason
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   daemon = [(HDProfile *)self daemon];
   behavior = [daemon behavior];
@@ -1438,9 +1411,9 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
       if (medicalIDDataManager)
       {
         medicalIDDataManager2 = [(HDProfile *)self medicalIDDataManager];
-        v19 = 0;
-        v12 = [medicalIDDataManager2 obliterateMedicalIDDataWithReason:reasonCopy error:&v19];
-        v13 = v19;
+        v18 = 0;
+        v12 = [medicalIDDataManager2 obliterateMedicalIDDataWithReason:reasonCopy error:&v18];
+        v13 = v18;
 
         if ((v12 & 1) == 0)
         {
@@ -1449,7 +1422,7 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v21 = v13;
+            v20 = v13;
             _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "Failed to obliterate Medical ID: %{public}@", buf, 0xCu);
           }
         }
@@ -1466,8 +1439,6 @@ uint64_t __26__HDProfile_awakeFromDisk__block_invoke(uint64_t a1)
 
   database = [(HDProfile *)self database];
   [database obliterateWithReason:reasonCopy preserveCopy:isAppleInternalInstall & (options >> 1)];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executeBlockAfterProfileReady:(id)ready
@@ -1669,7 +1640,7 @@ uint64_t __48__HDProfile_setDisplayFirstName_lastName_error___block_invoke(uint6
 - (void)setTestModeEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  *&v23[5] = *MEMORY[0x277D85DE8];
+  *&v22[5] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_profileLock);
   _HKInitializeLogging();
   v5 = HKLogInfrastructure();
@@ -1678,10 +1649,10 @@ uint64_t __48__HDProfile_setDisplayFirstName_lastName_error___block_invoke(uint6
     testModeEnabled = self->_testModeEnabled;
     *buf = 138543874;
     selfCopy4 = self;
-    v22 = 1024;
-    *v23 = testModeEnabled;
-    v23[2] = 1024;
-    *&v23[3] = enabledCopy;
+    v21 = 1024;
+    *v22 = testModeEnabled;
+    v22[2] = 1024;
+    *&v22[3] = enabledCopy;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating test mode %{BOOL}d -> %{BOOL}d", buf, 0x18u);
   }
 
@@ -1699,23 +1670,23 @@ uint64_t __48__HDProfile_setDisplayFirstName_lastName_error___block_invoke(uint6
     {
       *buf = 138543618;
       selfCopy4 = self;
-      v22 = 2114;
-      *v23 = v9;
+      v21 = 2114;
+      *v22 = v9;
       _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Test mode indicator URL: %{public}@", buf, 0x16u);
     }
 
     if (enabledCopy)
     {
       v11 = objc_alloc_init(MEMORY[0x277CBEA90]);
-      v19 = 0;
-      v12 = [v11 writeToURL:v9 options:0x10000000 error:&v19];
-      v13 = v19;
+      v18 = 0;
+      v12 = [v11 writeToURL:v9 options:0x10000000 error:&v18];
+      v13 = v18;
 
       if (v12)
       {
 LABEL_15:
 
-        goto LABEL_16;
+        return;
       }
 
       _HKInitializeLogging();
@@ -1724,8 +1695,8 @@ LABEL_15:
       {
         *buf = 138543618;
         selfCopy4 = self;
-        v22 = 2114;
-        *v23 = v13;
+        v21 = 2114;
+        *v22 = v13;
         _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to enable testing mode: %{public}@", buf, 0x16u);
       }
     }
@@ -1733,9 +1704,9 @@ LABEL_15:
     else
     {
       v13 = objc_alloc_init(MEMORY[0x277CCAA00]);
-      v18 = 0;
-      v15 = [v13 removeItemAtURL:v9 error:&v18];
-      v14 = v18;
+      v17 = 0;
+      v15 = [v13 removeItemAtURL:v9 error:&v17];
+      v14 = v17;
       if ((v15 & 1) == 0)
       {
         _HKInitializeLogging();
@@ -1744,8 +1715,8 @@ LABEL_15:
         {
           *buf = 138543618;
           selfCopy4 = self;
-          v22 = 2114;
-          *v23 = v14;
+          v21 = 2114;
+          *v22 = v14;
           _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to disable testing mode: %{public}@", buf, 0x16u);
         }
       }
@@ -1753,20 +1724,17 @@ LABEL_15:
 
     goto LABEL_15;
   }
-
-LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerDeletion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   daemon = [(HDProfile *)self daemon];
   profileManager = [daemon profileManager];
   profileIdentifier = [(HDProfile *)self profileIdentifier];
-  v12 = 0;
-  v6 = [profileManager deleteProfile:profileIdentifier error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [profileManager deleteProfile:profileIdentifier error:&v11];
+  v7 = v11;
 
   if ((v6 & 1) == 0)
   {
@@ -1774,17 +1742,15 @@ LABEL_16:
     v8 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v10 = v8;
+      v9 = v8;
       profileIdentifier2 = [(HDProfile *)self profileIdentifier];
       *buf = 138543618;
-      v14 = profileIdentifier2;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Error deleting profile %{public}@, error: %{public}@ (#t0)", buf, 0x16u);
+      v13 = profileIdentifier2;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Error deleting profile %{public}@, error: %{public}@ (#t0)", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newDatabase

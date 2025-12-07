@@ -293,32 +293,23 @@ LABEL_19:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensors:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensors:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensors:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

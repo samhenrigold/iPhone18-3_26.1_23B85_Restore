@@ -41,7 +41,7 @@
 
 - (int)start:(id *)start
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   lock = [(DTKPTrigger *)self lock];
   dispatch_semaphore_wait(lock, 0xFFFFFFFFFFFFFFFFLL);
 
@@ -52,12 +52,12 @@
     uTF8String = [(NSString *)self->_pmiEventNameOrAlias UTF8String];
     thresholdCount = self->_thresholdCount;
     *buf = 67109890;
-    v36 = triggerID;
-    v37 = 2080;
-    v38 = uTF8String;
-    v39 = 2048;
-    v40 = thresholdCount;
-    v41 = 2048;
+    v35 = triggerID;
+    v36 = 2080;
+    v37 = uTF8String;
+    v38 = 2048;
+    v39 = thresholdCount;
+    v40 = 2048;
     pmcEventCount = [(DTKPTrigger *)self pmcEventCount];
     _os_log_impl(&dword_247F67000, v6, OS_LOG_TYPE_DEBUG, "DTKPTriggerPMI: Starting PMI Trigger (%d). Event: %s. Threshold: %lld. PMCs: %lu", buf, 0x26u);
   }
@@ -178,7 +178,6 @@ LABEL_28:
   lock2 = [(DTKPTrigger *)self lock];
   dispatch_semaphore_signal(lock2);
 
-  v33 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

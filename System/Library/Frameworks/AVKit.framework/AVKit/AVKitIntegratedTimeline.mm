@@ -104,7 +104,7 @@
 
   memset(&v16, 0, sizeof(v16));
   CMTimeMakeWithSeconds(&v16, time, 1000);
-  [(AVKitIntegratedTimeline *)self duration];
+  objc_msgSend_duration(self);
   if (v8 <= time)
   {
     v9 = v8;
@@ -269,7 +269,7 @@ void __57__AVKitIntegratedTimeline_enumerateInterstitialSegments___block_invoke(
         v6 = *(*(&v9 + 1) + 8 * i);
         if (v6)
         {
-          [v6 duration];
+          objc_msgSend_duration(v6);
           if (v7 > 0.0)
           {
             LOBYTE(v3) = 1;
@@ -327,7 +327,7 @@ LABEL_12:
     v10 = v9;
     [lastObject startTime];
     v12 = v11;
-    [lastObject duration];
+    objc_msgSend_duration(lastObject);
     v14 = [[AVTimeRange alloc] initWithStartTime:v10 endTime:v12 + v13];
   }
 
@@ -342,7 +342,7 @@ LABEL_12:
     if (v14)
     {
       v15 = MEMORY[0x1E696B098];
-      [(AVTimeRange *)v14 cmTimeRange];
+      objc_msgSend_cmTimeRange(v14);
       v16 = [v15 valueWithCMTimeRange:&v18];
       v19[0] = v16;
       v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
@@ -396,7 +396,7 @@ LABEL_12:
     if (_snapshot)
     {
       memset(&buf, 0, sizeof(buf));
-      [_snapshot duration];
+      objc_msgSend_duration(_snapshot);
       time1 = self->_durationCached;
       v14 = buf;
       if (CMTimeCompare(&time1, &v14))
@@ -509,14 +509,14 @@ LABEL_12:
           }
 
           v11 = *(*(&v15 + 1) + 8 * i);
-          [v11 duration];
+          objc_msgSend_duration(v11, v15);
           if (time < v12)
           {
             v7 = v11;
             goto LABEL_13;
           }
 
-          [v11 duration];
+          objc_msgSend_duration(v11);
           time = time - v13;
         }
 
@@ -693,7 +693,7 @@ void __48__AVKitIntegratedTimeline__loadMissingDurations__block_invoke(uint64_t 
           v11 = *(*(&v12 + 1) + 8 * i);
           if (v11)
           {
-            [v11 duration];
+            objc_msgSend_duration(v11);
           }
         }
 
@@ -710,7 +710,7 @@ void __48__AVKitIntegratedTimeline__loadMissingDurations__block_invoke(uint64_t 
   playerItemIntegratedTimeline = self->_playerItemIntegratedTimeline;
   if (playerItemIntegratedTimeline)
   {
-    [(AVPlayerItemIntegratedTimeline *)playerItemIntegratedTimeline currentTime];
+    objc_msgSend_currentTime(playerItemIntegratedTimeline, a2);
   }
 
   else
@@ -746,7 +746,7 @@ void __48__AVKitIntegratedTimeline__loadMissingDurations__block_invoke(uint64_t 
   v11 = MEMORY[0x1E696AEC0];
   v12 = _ClassAndPointer(self);
   v13 = _ClassAndPointer(self->_playerItemIntegratedTimeline);
-  [(AVKitIntegratedTimeline *)self duration];
+  objc_msgSend_duration(self);
   v15 = v14;
   v16 = [v6 componentsJoinedByString:{@", "}];
   v17 = [v11 stringWithFormat:@"%@ [%@] duration = %.1f (%@) %@", v12, v13, v15, v16, asciiRepresentation];
@@ -765,7 +765,7 @@ void __38__AVKitIntegratedTimeline_description__block_invoke(uint64_t a1, void *
   {
     [v3 startTime];
     v7 = v6;
-    [v3 duration];
+    objc_msgSend_duration(v3);
     v9 = v8;
     v10 = [v3 playerInterstitialEvent];
     v11 = [v10 templateItems];
@@ -773,7 +773,7 @@ void __38__AVKitIntegratedTimeline_description__block_invoke(uint64_t a1, void *
     v13 = v12;
     if (v12)
     {
-      [v12 duration];
+      objc_msgSend_duration(v12);
     }
 
     v14 = MEMORY[0x1E696AEC0];
@@ -813,7 +813,7 @@ void __46__AVKitIntegratedTimeline_asciiRepresentation__block_invoke(uint64_t a1
     }
 
     v5 = v4;
-    [v11 duration];
+    objc_msgSend_duration(v11);
     v7 = vcvtpd_s64_f64(v6 / 10.0 + 0.0001);
     if ([(__CFString *)v5 length]<= v7)
     {

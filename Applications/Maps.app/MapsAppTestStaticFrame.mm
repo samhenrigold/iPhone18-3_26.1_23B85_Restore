@@ -98,7 +98,7 @@
 - (BOOL)runTest
 {
   testName = [(MapsAppTest *)self testName];
-  options = [(MapsAppTest *)self options];
+  v4 = objc_msgSend_options(self);
   NSLog(@"test is %@", testName);
   v5 = [testName rangeOfString:@"-"];
   if (v5 == 0x7FFFFFFFFFFFFFFFLL)
@@ -110,8 +110,8 @@
   v7 = NSSelectorFromString(v6);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v8 = [options objectForKeyedSubscript:@"latitude"];
-    if (!v8 || (v9 = v8, [options objectForKeyedSubscript:@"longitude"], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, !v10))
+    v8 = [v4 objectForKeyedSubscript:@"latitude"];
+    if (!v8 || (v9 = v8, [v4 objectForKeyedSubscript:@"longitude"], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, !v10))
     {
       v14 = 0;
       goto LABEL_14;
@@ -168,13 +168,13 @@ LABEL_14:
     v9->_location.altitude = v14;
     v9->_altitudeIsRegionSize = 1;
     v9->_requiresViewSetup = 1;
-    options = [(MapsAppTest *)v9 options];
-    v16 = [options objectForKeyedSubscript:@"renderingDuration"];
+    v15 = objc_msgSend_options(v9);
+    v16 = [v15 objectForKeyedSubscript:@"renderingDuration"];
 
     if (v16)
     {
-      options2 = [(MapsAppTest *)v9 options];
-      v18 = [options2 objectForKeyedSubscript:@"renderingDuration"];
+      v17 = objc_msgSend_options(v9);
+      v18 = [v17 objectForKeyedSubscript:@"renderingDuration"];
       v9->_renderingDuration = [v18 intValue];
     }
 
@@ -183,20 +183,20 @@ LABEL_14:
       v9->_renderingDuration = 10;
     }
 
-    options3 = [(MapsAppTest *)v9 options];
-    _mapstest_hasAltitude = [options3 _mapstest_hasAltitude];
+    v19 = objc_msgSend_options(v9);
+    _mapstest_hasAltitude = [v19 _mapstest_hasAltitude];
 
     if (_mapstest_hasAltitude)
     {
-      options4 = [(MapsAppTest *)v9 options];
-      [options4 _mapstest_altitude];
+      v21 = objc_msgSend_options(v9);
+      [v21 _mapstest_altitude];
       v9->_location.altitude = v22;
 
       v9->_altitudeIsRegionSize = 0;
     }
 
-    options5 = [(MapsAppTest *)v9 options];
-    v9->_waitSecondsForMapViewSetup = [options5 _mapstest_waitSecondsForMapViewSetup];
+    v23 = objc_msgSend_options(v9);
+    v9->_waitSecondsForMapViewSetup = [v23 _mapstest_waitSecondsForMapViewSetup];
   }
 
   return v9;

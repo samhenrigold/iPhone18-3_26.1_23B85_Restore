@@ -25,12 +25,13 @@ intptr_t sub_100002644(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100004260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100004260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 160), 8);
-  _Block_object_dispose((v31 - 128), 8);
-  _Block_object_dispose((v31 - 96), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 160), 8);
+  _Block_object_dispose((v30 - 128), 8);
+  _Block_object_dispose((v30 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -144,13 +145,6 @@ void sub_100004AA8(uint64_t a1, void *a2, void *a3)
   [*(*(a1 + 32) + 8) didFinish:v5 == 0 info:v15 error:v5];
 }
 
-uint64_t sub_100008250()
-{
-  result = *(v0 + 856);
-  v3 = *v1;
-  return result;
-}
-
 void sub_100008270(uint64_t a1, uint64_t a2)
 {
   NSLog(@"Got the download meta data reply: %ld", a2);
@@ -192,27 +186,11 @@ void sub_100008400(uint64_t a1, uint64_t a2)
   [v4 queryComplete:v5 remote:*(a1 + 48) status:a2 completion:*(a1 + 40)];
 }
 
-void sub_10000B954()
-{
-  v1 = *(v0 - 192);
-  v2 = *(v0 - 191);
-  v3 = *(v0 - 190);
-  v4 = *(v0 - 189);
-}
-
 id sub_10000B97C()
 {
   v5 = *(v2 + v0);
 
   return [v5 attemptErrorRecovery:v3 lastAttempt:v1 == 1];
-}
-
-void sub_10000B9F0()
-{
-  v3 = *(v0 - 186);
-  v4 = *(v0 - 185);
-  v1 = *(v0 - 188);
-  v2 = *(v0 - 187);
 }
 
 id sub_10000BA18()
@@ -241,11 +219,12 @@ id sub_10000BADC()
   return [v0 log:7 format:?];
 }
 
-void sub_10000BF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10000BF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 152), 8);
-  _Block_object_dispose((v26 - 120), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 152), 8);
+  _Block_object_dispose((v25 - 120), 8);
   _Unwind_Resume(a1);
 }
 

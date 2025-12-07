@@ -14,7 +14,7 @@
   v5 = [(HDInsertAttachmentReferenceOperation *)&v9 init];
   if (v5)
   {
-    v6 = [referenceCopy copy];
+    v6 = objc_msgSend_copy(referenceCopy);
     reference = v5->_reference;
     v5->_reference = v6;
   }

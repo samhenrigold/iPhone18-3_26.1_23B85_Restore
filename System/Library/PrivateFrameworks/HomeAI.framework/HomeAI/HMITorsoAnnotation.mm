@@ -15,7 +15,7 @@
   torsoprintsCopy = torsoprints;
   recognitionCopy = recognition;
   v8 = +[HMITorsoprinter currentModelUUID];
-  v9 = [(HMITorsoAnnotation *)self initWithFaceRecognition:recognitionCopy torsoprints:torsoprintsCopy torsoModelVersion:v8];
+  v9 = [HMITorsoAnnotation initWithFaceRecognition:"initWithFaceRecognition:torsoprints:torsoModelVersion:" torsoprints:? torsoModelVersion:?];
 
   return v9;
 }
@@ -72,15 +72,15 @@ LABEL_7:
   {
     faceRecognition = [(HMITorsoAnnotation *)self faceRecognition];
     faceRecognition2 = [v6 faceRecognition];
-    if ([faceRecognition isEqual:faceRecognition2])
+    if ([faceRecognition isEqual:?])
     {
       torsoprints = [(HMITorsoAnnotation *)self torsoprints];
       torsoprints2 = [v6 torsoprints];
-      if ([torsoprints isEqualToArray:torsoprints2])
+      if ([torsoprints isEqualToArray:?])
       {
         torsoModelVersion = [(HMITorsoAnnotation *)self torsoModelVersion];
         torsoModelVersion2 = [v6 torsoModelVersion];
-        v13 = [torsoModelVersion isEqual:torsoModelVersion2];
+        v13 = [torsoModelVersion isEqual:?];
       }
 
       else
@@ -117,32 +117,34 @@ LABEL_7:
 {
   coderCopy = coder;
   faceRecognition = [(HMITorsoAnnotation *)self faceRecognition];
-  [coderCopy encodeObject:faceRecognition forKey:@"HMITA.ck.fr"];
+  [coderCopy encodeObject:? forKey:?];
 
   torsoprints = [(HMITorsoAnnotation *)self torsoprints];
-  [coderCopy encodeObject:torsoprints forKey:@"HMITA.ck.tps"];
+  [coderCopy encodeObject:? forKey:?];
 
   torsoModelVersion = [(HMITorsoAnnotation *)self torsoModelVersion];
-  [coderCopy encodeObject:torsoModelVersion forKey:@"HMITA.ck.tmv"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMITorsoAnnotation)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMITA.ck.fr"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
   v6 = MEMORY[0x277CBEB98];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
-  v8 = [v6 setWithArray:v7];
-  v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HMITA.ck.tps"];
+  v26 = objc_opt_class();
+  v27 = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v8 = [v6 setWithArray:?];
+  v9 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMITA.ck.tmv"];
+  objc_opt_class();
+  v10 = [coderCopy decodeObjectOfClass:? forKey:?];
   v11 = v10;
   if (v5 && v9 && v10)
   {
-    selfCopy = [(HMITorsoAnnotation *)self initWithFaceRecognition:v5 torsoprints:v9 torsoModelVersion:v10];
+    selfCopy = [HMITorsoAnnotation initWithFaceRecognition:"initWithFaceRecognition:torsoprints:torsoModelVersion:" torsoprints:? torsoModelVersion:?];
     v13 = selfCopy;
   }
 
@@ -174,21 +176,18 @@ LABEL_7:
 
 - (id)attributeDescriptions
 {
-  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   faceRecognition = [(HMITorsoAnnotation *)self faceRecognition];
-  v5 = [v3 initWithName:@"Face Recognition" value:faceRecognition];
+  v5 = [v3 initWithName:? value:?];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   torsoprints = [(HMITorsoAnnotation *)self torsoprints];
-  v8 = [v6 initWithName:@"Torsoprints" value:torsoprints];
-  v14[1] = v8;
-  v9 = objc_alloc(MEMORY[0x277D0F778]);
+  v12 = [v6 initWithName:? value:?];
+  v8 = objc_alloc(MEMORY[0x277D0F778]);
   torsoModelVersion = [(HMITorsoAnnotation *)self torsoModelVersion];
-  v11 = [v9 initWithName:@"TorsoModelVersion" value:torsoModelVersion];
-  v14[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13 = [v8 initWithName:? value:?];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v12;
+  return v10;
 }
 
 @end

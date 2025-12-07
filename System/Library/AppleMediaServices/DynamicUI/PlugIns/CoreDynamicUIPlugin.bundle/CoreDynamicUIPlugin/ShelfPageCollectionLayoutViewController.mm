@@ -13,25 +13,27 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_62CD4();
+  sub_62CD4(selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_62DC4();
+  sub_62DC4(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_62EA0(appear, &selRef_viewWillAppear_);
+  sub_62EA0(appearCopy, &selRef_viewWillAppear_);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_62EA0(appear, &selRef_viewDidAppear_);
+  sub_62EA0(appearCopy, &selRef_viewDidAppear_);
 }
 
 - (void)viewDidLayoutSubviews

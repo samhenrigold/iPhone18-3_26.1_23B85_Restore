@@ -30,38 +30,39 @@
 
 - (void)_tryLock
 {
-  if ((+[WebBookmarkCollection lockSync]& 1) != 0)
+  v3 = +[WebBookmarkCollection lockSync];
+  if (v3)
   {
-    v3 = [(NSMutableArray *)self->_blocks copy];
+    v5 = [(NSMutableArray *)self->_blocks copy];
     [(NSMutableArray *)self->_blocks removeAllObjects];
+    v15 = 0u;
+    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v17 count:16];
-    if (v5)
+    v6 = v5;
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    if (v7)
     {
-      v6 = *v12;
+      v8 = *v14;
       do
       {
-        v7 = 0;
+        v9 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v14 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v6);
           }
 
-          (*(*(*(&v11 + 1) + 8 * v7) + 16))(*(*(&v11 + 1) + 8 * v7));
-          v7 = v7 + 1;
+          (*(*(*(&v13 + 1) + 8 * v9) + 16))(*(*(&v13 + 1) + 8 * v9));
+          v9 = v9 + 1;
         }
 
-        while (v5 != v7);
-        v5 = [v4 countByEnumeratingWithState:&v11 objects:v17 count:16];
+        while (v7 != v9);
+        v7 = [v6 countByEnumeratingWithState:&v13 objects:v19 count:16];
       }
 
-      while (v5);
+      while (v7);
     }
 
     +[WebBookmarkCollection unlockSync];
@@ -69,21 +70,21 @@
 
   else
   {
-    v8 = sub_10001485C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = sub_10001485C(v3, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Failed to acquire lock, retrying after delay", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Failed to acquire lock, retrying after delay", buf, 2u);
     }
 
-    v9 = dispatch_time(0, 50000000);
+    v11 = dispatch_time(0, 50000000);
     queue = self->_queue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000018D4;
     block[3] = &unk_100028BB0;
     block[4] = self;
-    dispatch_after(v9, queue, block);
+    dispatch_after(v11, queue, block);
   }
 }
 

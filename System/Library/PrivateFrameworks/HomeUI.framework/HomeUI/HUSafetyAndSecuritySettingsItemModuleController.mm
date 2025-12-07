@@ -445,11 +445,11 @@ LABEL_10:
   }
 }
 
-uint64_t __76__HUSafetyAndSecuritySettingsItemModuleController_userSwitchCell_didTurnOn___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__76__HUSafetyAndSecuritySettingsItemModuleController_userSwitchCell_didTurnOn___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) setOn:(*(result + 40) & 1) == 0 animated:1];
+    return [result[4] setOn:(result[5] & 1) == 0 animated:1];
   }
 
   return result;

@@ -68,13 +68,13 @@
 
 - (_xpc_type_s)surfaceXPCType
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E696D0D8];
-  v8[0] = *MEMORY[0x1E696CE30];
-  v8[1] = v2;
-  v9[0] = &unk_1F385A2E8;
-  v9[1] = MEMORY[0x1E695E118];
-  v3 = IOSurfaceCreate([MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2]);
+  v7[0] = *MEMORY[0x1E696CE30];
+  v7[1] = v2;
+  v8[0] = &unk_1F385A2E8;
+  v8[1] = MEMORY[0x1E695E118];
+  v3 = IOSurfaceCreate([MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2]);
   XPCObject = IOSurfaceCreateXPCObject(v3);
   v5 = MEMORY[0x1BFAF66E0](XPCObject);
   xpc_release(XPCObject);
@@ -83,49 +83,44 @@
     CFRelease(v3);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [coder encodeXPCObject:IOSurfaceCreateXPCObject(self->surface.mCFObject) forKey:@"surface"];
-    m_mach_port = self->taskToken.m_mach_port;
-    v6 = xpc_mach_send_create();
-    v7 = *MEMORY[0x1E69E9840];
+    v5 = xpc_mach_send_create();
 
-    [coder encodeXPCObject:v6 forKey:@"token"];
+    [coder encodeXPCObject:v5 forKey:@"token"];
   }
 
   else
   {
-    v8 = gAVAudioBufferLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = gAVAudioBufferLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "AVAudioSharedBufferToken.mm";
-      v12 = 1024;
-      v13 = 53;
-      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d encodeWithCoder called with an incompatible coder", &v10, 0x12u);
+      v7 = 136315394;
+      v8 = "AVAudioSharedBufferToken.mm";
+      v9 = 1024;
+      v10 = 53;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d encodeWithCoder called with an incompatible coder", &v7, 0x12u);
     }
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (AVAudioSharedBufferToken)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14.receiver = self;
-    v14.super_class = AVAudioSharedBufferToken;
-    v5 = [(AVAudioSharedBufferToken *)&v14 init];
+    v13.receiver = self;
+    v13.super_class = AVAudioSharedBufferToken;
+    v5 = [(AVAudioSharedBufferToken *)&v13 init];
     v6 = v5;
     if (v5)
     {
@@ -152,16 +147,15 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "AVAudioSharedBufferToken.mm";
-      v17 = 1024;
-      v18 = 36;
+      v15 = "AVAudioSharedBufferToken.mm";
+      v16 = 1024;
+      v17 = 36;
       _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d initWithCoder called with an incompatible coder", buf, 0x12u);
     }
 
-    v6 = 0;
+    return 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

@@ -1819,7 +1819,7 @@ double __33__CKUIBehaviorMac_toFieldYOffset__block_invoke(uint64_t a1)
   return recipientSelectionViewClipsToBounds_sBehavior_0;
 }
 
-uint64_t __54__CKUIBehaviorMac_recipientSelectionViewClipsToBounds__block_invoke(uint64_t a1)
+void *__54__CKUIBehaviorMac_recipientSelectionViewClipsToBounds__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _recipientSelectionViewClipsToBounds];
   recipientSelectionViewClipsToBounds_sBehavior_0 = result;
@@ -2051,7 +2051,7 @@ void __61__CKUIBehaviorMac_messageEntryContentViewSendLaterDateInsets__block_inv
   return *&entryViewCoverMinHeight_sBehavior_0;
 }
 
-uint64_t __42__CKUIBehaviorMac_entryViewCoverMinHeight__block_invoke(uint64_t a1)
+void *__42__CKUIBehaviorMac_entryViewCoverMinHeight__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewCoverMinHeight];
   entryViewCoverMinHeight_sBehavior_0 = v2;
@@ -2105,7 +2105,7 @@ uint64_t __42__CKUIBehaviorMac_entryViewCoverMinHeight__block_invoke(uint64_t a1
   return result;
 }
 
-uint64_t __51__CKUIBehaviorMac_entryViewVerticalTextFieldInsets__block_invoke(uint64_t a1)
+void *__51__CKUIBehaviorMac_entryViewVerticalTextFieldInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewVerticalTextFieldInsets];
   entryViewVerticalTextFieldInsets_sBehavior_0_0 = v2;
@@ -2159,7 +2159,7 @@ uint64_t __51__CKUIBehaviorMac_entryViewVerticalTextFieldInsets__block_invoke(ui
   return result;
 }
 
-uint64_t __47__CKUIBehaviorMac_entryViewVerticalCoverInsets__block_invoke(uint64_t a1)
+void *__47__CKUIBehaviorMac_entryViewVerticalCoverInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewVerticalCoverInsets];
   entryViewVerticalCoverInsets_sBehavior_0_0 = v2;
@@ -2212,7 +2212,7 @@ uint64_t __47__CKUIBehaviorMac_entryViewVerticalCoverInsets__block_invoke(uint64
   return *&entryViewCoverHorizontalMargin_sBehavior;
 }
 
-uint64_t __49__CKUIBehaviorMac_entryViewCoverHorizontalMargin__block_invoke(uint64_t a1)
+void *__49__CKUIBehaviorMac_entryViewCoverHorizontalMargin__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewCoverHorizontalMargin];
   entryViewCoverHorizontalMargin_sBehavior = v2;
@@ -2428,7 +2428,7 @@ void __45__CKUIBehaviorMac_entryViewMacStopButtonName__block_invoke()
   return forceMinTranscriptMarginInsets_sBehavior;
 }
 
-uint64_t __49__CKUIBehaviorMac_forceMinTranscriptMarginInsets__block_invoke(uint64_t a1)
+void *__49__CKUIBehaviorMac_forceMinTranscriptMarginInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _forceMinTranscriptMarginInsets];
   forceMinTranscriptMarginInsets_sBehavior = result;
@@ -2476,7 +2476,7 @@ uint64_t __49__CKUIBehaviorMac_forceMinTranscriptMarginInsets__block_invoke(uint
   return result;
 }
 
-uint64_t __49__CKUIBehaviorMac_entryViewHorizontalCoverInsets__block_invoke(uint64_t a1)
+void *__49__CKUIBehaviorMac_entryViewHorizontalCoverInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) minTranscriptMarginInsets];
   entryViewHorizontalCoverInsets_sBehavior_0 = v2;
@@ -2501,7 +2501,7 @@ uint64_t __49__CKUIBehaviorMac_entryViewHorizontalCoverInsets__block_invoke(uint
   return *&entryContentViewTextLeftOffset_sBehavior_0;
 }
 
-uint64_t __49__CKUIBehaviorMac_entryContentViewTextLeftOffset__block_invoke(uint64_t a1)
+void *__49__CKUIBehaviorMac_entryContentViewTextLeftOffset__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryContentViewTextLeftOffset];
   entryContentViewTextLeftOffset_sBehavior_0 = v2;
@@ -2654,7 +2654,7 @@ uint64_t __49__CKUIBehaviorMac_entryContentViewTextLeftOffset__block_invoke(uint
   return *&waveformHeight_sBehavior_0;
 }
 
-uint64_t __33__CKUIBehaviorMac_waveformHeight__block_invoke(uint64_t a1)
+void *__33__CKUIBehaviorMac_waveformHeight__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) audioWaveformHeight];
   waveformHeight_sBehavior_0 = v2;
@@ -3031,7 +3031,7 @@ void __42__CKUIBehaviorMac_iosMacDetailsButtonText__block_invoke()
   iosMacDetailsButtonText_attributes = v3;
 
   v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
   v8 = [v5 initWithString:v7 attributes:iosMacDetailsButtonText_attributes];
   v9 = iosMacDetailsButtonText_detailsText;
@@ -3146,7 +3146,7 @@ void __42__CKUIBehaviorMac_marzNavigationBarHeight__block_invoke()
   return *&macEffectPickerTitleLeadingPadding_sBehavior;
 }
 
-uint64_t __53__CKUIBehaviorMac_macEffectPickerTitleLeadingPadding__block_invoke(uint64_t a1)
+void *__53__CKUIBehaviorMac_macEffectPickerTitleLeadingPadding__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _macEffectPickerTitleLeadingPadding];
   macEffectPickerTitleLeadingPadding_sBehavior = v2;
@@ -3426,7 +3426,7 @@ void __34__CKUIBehaviorMac_chatNavbarColor__block_invoke(uint64_t a1)
   return *&macNavbarLeftMargin_sBehavior;
 }
 
-uint64_t __38__CKUIBehaviorMac_macNavbarLeftMargin__block_invoke(uint64_t a1)
+void *__38__CKUIBehaviorMac_macNavbarLeftMargin__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) useMacToolbar];
   v2 = 13.0;
@@ -3454,7 +3454,7 @@ uint64_t __38__CKUIBehaviorMac_macNavbarLeftMargin__block_invoke(uint64_t a1)
   return *&macNavbarRightMargin_sBehavior;
 }
 
-uint64_t __39__CKUIBehaviorMac_macNavbarRightMargin__block_invoke(uint64_t a1)
+void *__39__CKUIBehaviorMac_macNavbarRightMargin__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) useMacToolbar];
   v2 = 12.0;
@@ -3482,7 +3482,7 @@ uint64_t __39__CKUIBehaviorMac_macNavbarRightMargin__block_invoke(uint64_t a1)
   return *&macToLabelTrailingMargin_sBehavior;
 }
 
-uint64_t __43__CKUIBehaviorMac_macToLabelTrailingMargin__block_invoke(uint64_t a1)
+void *__43__CKUIBehaviorMac_macToLabelTrailingMargin__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) useMacToolbar];
   v2 = 9.0;
@@ -3687,7 +3687,7 @@ double __38__CKUIBehaviorMac_macTotalMarginWidth__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __44__CKUIBehaviorMac_minTranscriptMarginInsets__block_invoke(uint64_t a1)
+void *__44__CKUIBehaviorMac_minTranscriptMarginInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _minTranscriptMarginInsets];
   minTranscriptMarginInsets_sBehavior_0 = v2;
@@ -4831,7 +4831,7 @@ void __61__CKUIBehaviorMac_statusItemInsetFromReplyPreviewBalloonEdge__block_inv
   return result;
 }
 
-uint64_t __44__CKUIBehaviorMac_mediaObjectCachedIconSize__block_invoke(uint64_t a1)
+void *__44__CKUIBehaviorMac_mediaObjectCachedIconSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchPhotosThumbnailWidth];
   v3 = v2 * 0.5;
@@ -6344,7 +6344,7 @@ void __52__CKUIBehaviorMac_stickerDetailsCellBackgroundColor__block_invoke()
 void __49__CKUIBehaviorMac_stickerSaveButtonConfiguration__block_invoke()
 {
   v0 = [MEMORY[0x1E69DC740] borderedButtonConfiguration];
-  v1 = CKFrameworkBundle();
+  v1 = CKFrameworkBundle(v0);
   v2 = [v1 localizedStringForKey:@"STICKER_SAVE_BUTTON_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
   [v0 setTitle:v2];
 
@@ -6370,7 +6370,7 @@ void __49__CKUIBehaviorMac_stickerSaveButtonConfiguration__block_invoke()
 void __49__CKUIBehaviorMac_stickerViewButtonConfiguration__block_invoke()
 {
   v0 = [MEMORY[0x1E69DC740] borderedButtonConfiguration];
-  v1 = CKFrameworkBundle();
+  v1 = CKFrameworkBundle(v0);
   v2 = [v1 localizedStringForKey:@"STICKER_VIEW_BUTTON_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
   [v0 setTitle:v2];
 
@@ -7051,20 +7051,20 @@ __n128 __38__CKUIBehaviorMac_searchResultsInsets__block_invoke()
   return *&searchPhotosInterItemSpacingDetailsView_sBehavior_0;
 }
 
-double __58__CKUIBehaviorMac_searchPhotosInterItemSpacingDetailsView__block_invoke()
+double __58__CKUIBehaviorMac_searchPhotosInterItemSpacingDetailsView__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (CKMainScreenScale_once_62 != -1)
   {
     [CKUIBehaviorMac balloonContiguousSpace];
   }
 
-  v0 = *&CKMainScreenScale_sMainScreenScale_62;
+  v2 = *&CKMainScreenScale_sMainScreenScale_62;
   if (*&CKMainScreenScale_sMainScreenScale_62 == 0.0)
   {
-    v0 = 1.0;
+    v2 = 1.0;
   }
 
-  result = round(v0 * 10.0) / v0;
+  result = round(v2 * 10.0) / v2;
   searchPhotosInterItemSpacingDetailsView_sBehavior_0 = *&result;
   return result;
 }
@@ -7327,20 +7327,20 @@ void __53__CKUIBehaviorMac_detailsContactCellButtonEdgeInsets__block_invoke()
   return *&detailsExpanseCellHeight_sBehavior_0;
 }
 
-double __43__CKUIBehaviorMac_detailsExpanseCellHeight__block_invoke()
+double __43__CKUIBehaviorMac_detailsExpanseCellHeight__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (CKMainScreenScale_once_62 != -1)
   {
     [CKUIBehaviorMac balloonContiguousSpace];
   }
 
-  v0 = *&CKMainScreenScale_sMainScreenScale_62;
+  v2 = *&CKMainScreenScale_sMainScreenScale_62;
   if (*&CKMainScreenScale_sMainScreenScale_62 == 0.0)
   {
-    v0 = 1.0;
+    v2 = 1.0;
   }
 
-  result = round(v0 * 195.0) / v0;
+  result = round(v2 * 195.0) / v2;
   detailsExpanseCellHeight_sBehavior_0 = *&result;
   return result;
 }
@@ -7355,20 +7355,20 @@ double __43__CKUIBehaviorMac_detailsExpanseCellHeight__block_invoke()
   return *&detailsExpanseScreenShareCellHeight_sBehavior_0;
 }
 
-double __54__CKUIBehaviorMac_detailsExpanseScreenShareCellHeight__block_invoke()
+double __54__CKUIBehaviorMac_detailsExpanseScreenShareCellHeight__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (CKMainScreenScale_once_62 != -1)
   {
     [CKUIBehaviorMac balloonContiguousSpace];
   }
 
-  v0 = *&CKMainScreenScale_sMainScreenScale_62;
+  v2 = *&CKMainScreenScale_sMainScreenScale_62;
   if (*&CKMainScreenScale_sMainScreenScale_62 == 0.0)
   {
-    v0 = 1.0;
+    v2 = 1.0;
   }
 
-  result = round(v0 * 85.0) / v0;
+  result = round(v2 * 85.0) / v2;
   detailsExpanseScreenShareCellHeight_sBehavior_0 = *&result;
   return result;
 }
@@ -7398,7 +7398,7 @@ double __54__CKUIBehaviorMac_detailsExpanseScreenShareCellHeight__block_invoke()
   return detailsActionViewStyle_sBehavior_0;
 }
 
-uint64_t __41__CKUIBehaviorMac_detailsActionViewStyle__block_invoke(uint64_t a1)
+void *__41__CKUIBehaviorMac_detailsActionViewStyle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _detailsActionViewStyle];
   detailsActionViewStyle_sBehavior_0 = result;
@@ -7520,7 +7520,7 @@ uint64_t __41__CKUIBehaviorMac_detailsActionViewStyle__block_invoke(uint64_t a1)
   return groupRecipientSelectionPresentationStyle_sBehavior_0;
 }
 
-uint64_t __59__CKUIBehaviorMac_groupRecipientSelectionPresentationStyle__block_invoke(uint64_t a1)
+void *__59__CKUIBehaviorMac_groupRecipientSelectionPresentationStyle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _groupRecipientSelectionPresentationStyle];
   groupRecipientSelectionPresentationStyle_sBehavior_0 = result;

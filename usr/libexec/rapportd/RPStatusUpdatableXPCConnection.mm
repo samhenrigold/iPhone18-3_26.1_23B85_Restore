@@ -88,10 +88,10 @@
   else if (error)
   {
 LABEL_9:
-    v9 = RPErrorF();
-    v10 = v9;
+    v15 = RPErrorF(4294896128, "Missing entitlement '%@'", v9, v10, v11, v12, v13, v14, @"com.apple.rapport.StatusUpdates");
+    v16 = v15;
     result = 0;
-    *error = v9;
+    *error = v15;
     return result;
   }
 
@@ -105,7 +105,7 @@ LABEL_9:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001D4D10, "[RPStatusUpdatableXPCConnection xpcStatusUpdatableProvideStatus:statusInfo:]", 30, "ProvideStatus: %@ with info: %@", statusCopy, infoCopy);
   }
 }
 
@@ -115,7 +115,7 @@ LABEL_9:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10012B0E0();
+    sub_10012B0E0(statusCopy);
   }
 }
 
@@ -125,7 +125,7 @@ LABEL_9:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10012B120();
+    sub_10012B120(statusCopy);
   }
 }
 
@@ -135,7 +135,7 @@ LABEL_9:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10012B160();
+    sub_10012B160(statusCopy);
   }
 }
 
@@ -144,14 +144,14 @@ LABEL_9:
   activateCopy = activate;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v11 = 0;
-  [(RPStatusUpdatableXPCConnection *)self _entitledAndReturnError:&v11];
-  v9 = v11;
-  if (v9)
+  v18 = 0;
+  [(RPStatusUpdatableXPCConnection *)self _entitledAndReturnError:&v18];
+  v15 = v18;
+  if (v15)
   {
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, 0, v9);
+      completionCopy[2](completionCopy, 0, v15);
     }
   }
 
@@ -173,15 +173,15 @@ LABEL_9:
         goto LABEL_16;
       }
 
-      v10 = RPErrorF();
-      (completionCopy)[2](completionCopy, &__NSArray0__struct, v10);
+      v16 = RPErrorF(4294960575, "Provider already active", v9, v10, v11, v12, v13, v14, v17);
+      (completionCopy)[2](completionCopy, &__NSArray0__struct, v16);
 
       goto LABEL_16;
     }
 
     if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
     {
-      sub_10012B1D4(self);
+      sub_10012B1D4(self, activateCopy);
     }
 
     [activateCopy setDispatchQueue:self->_dispatchQueue];
@@ -202,14 +202,14 @@ LABEL_16:
   activateCopy = activate;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v11 = 0;
-  [(RPStatusUpdatableXPCConnection *)self _entitledAndReturnError:&v11];
-  v9 = v11;
-  if (v9)
+  v18 = 0;
+  [(RPStatusUpdatableXPCConnection *)self _entitledAndReturnError:&v18];
+  v15 = v18;
+  if (v15)
   {
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, 0, v9);
+      completionCopy[2](completionCopy, 0, v15);
     }
   }
 
@@ -231,15 +231,15 @@ LABEL_16:
         goto LABEL_16;
       }
 
-      v10 = RPErrorF();
-      (completionCopy)[2](completionCopy, &__NSArray0__struct, v10);
+      v16 = RPErrorF(4294960575, "Subscriber already active", v9, v10, v11, v12, v13, v14, v17);
+      (completionCopy)[2](completionCopy, &__NSArray0__struct, v16);
 
       goto LABEL_16;
     }
 
     if (dword_1001D4D10 <= 30 && (dword_1001D4D10 != -1 || _LogCategory_Initialize()))
     {
-      sub_10012B25C(self);
+      sub_10012B25C(self, activateCopy);
     }
 
     [(RPStatusSubscriber *)self->_subscriber setDispatchQueue:self->_dispatchQueue];

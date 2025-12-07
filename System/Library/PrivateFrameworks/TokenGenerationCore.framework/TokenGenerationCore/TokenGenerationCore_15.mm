@@ -1,3309 +1,3 @@
-void sentencepiece::normalizer::Normalizer::Normalize(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  __p = 0;
-  v4 = 0;
-  v5 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  (*(*a1 + 32))(&v2);
-  destructiveProjectEnumData for Regex2BNF.TerminalSymbol(&v2);
-  sentencepiece::util::Status::~Status(&v2);
-  if (__p)
-  {
-    v4 = __p;
-    operator delete(__p);
-  }
-}
-
-void sub_1A8F8A0E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  sentencepiece::util::Status::~Status(&a9);
-  if (*(v11 + 23) < 0)
-  {
-    operator delete(*v11);
-  }
-
-  if (__p)
-  {
-    a11 = __p;
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t sentencepiece::normalizer::PrefixMatcher::PrefixMatch(uint64_t a1, _BYTE *a2, uint64_t a3, BOOL *a4)
-{
-  v25[127] = *MEMORY[0x1E69E9840];
-  if (!*a1)
-  {
-    if (a4)
-    {
-      *a4 = 0;
-    }
-
-    goto LABEL_33;
-  }
-
-  v4 = *(*a1 + 16);
-  v5 = (*v4 >> 10 << ((*v4 >> 6) & 8));
-  if (a3)
-  {
-    v6 = 0;
-    v7 = 0;
-    do
-    {
-      v8 = a2[v6];
-      v9 = v5 ^ v8;
-      v10 = v4[v9];
-      if ((v10 & 0x800000FF) != v8)
-      {
-        break;
-      }
-
-      v5 = v9 ^ (v10 >> 10 << ((v10 >> 6) & 8));
-      if ((v10 & 0x100) != 0)
-      {
-        if (v7 <= 0x3F)
-        {
-          v11 = &v24[16 * v7];
-          *v11 = v4[v5] & 0x7FFFFFFF;
-          *(v11 + 1) = v6 + 1;
-        }
-
-        ++v7;
-      }
-
-      ++v6;
-    }
-
-    while (a3 != v6);
-  }
-
-  else
-  {
-    v12 = *a2;
-    if (*a2)
-    {
-      v7 = 0;
-      v13 = 1;
-      do
-      {
-        v14 = v5 ^ v12;
-        v15 = v4[v14];
-        if ((v15 & 0x800000FF) != v12)
-        {
-          break;
-        }
-
-        v5 = v14 ^ (v15 >> 10 << ((v15 >> 6) & 8));
-        if ((v15 & 0x100) != 0)
-        {
-          if (v7 <= 0x3F)
-          {
-            v16 = &v24[16 * v7];
-            *v16 = v4[v5] & 0x7FFFFFFF;
-            *(v16 + 1) = v13;
-          }
-
-          ++v7;
-        }
-
-        v12 = a2[v13++];
-      }
-
-      while (v12);
-    }
-
-    else
-    {
-      LODWORD(v7) = 0;
-    }
-  }
-
-  if (a4)
-  {
-    *a4 = v7 > 0;
-  }
-
-  if (!v7)
-  {
-LABEL_33:
-    v22 = asc_1A8FDAE6D[*a2 >> 4];
-    if (v22 >= a3)
-    {
-      result = a3;
-    }
-
-    else
-    {
-      result = v22;
-    }
-
-    goto LABEL_36;
-  }
-
-  if (v7 < 1)
-  {
-    result = 0;
-  }
-
-  else
-  {
-    LODWORD(result) = 0;
-    v18 = v7 & 0x7FFFFFFF;
-    v19 = v25;
-    do
-    {
-      v21 = *v19;
-      v19 += 4;
-      v20 = v21;
-      if (result <= v21)
-      {
-        result = v20;
-      }
-
-      else
-      {
-        result = result;
-      }
-
-      --v18;
-    }
-
-    while (v18);
-  }
-
-LABEL_36:
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sentencepiece::normalizer::Normalizer::MemoryMappableString(sentencepiece::normalizer::Normalizer *this@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(this + 48);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  std::string::resize(a2, 4uLL, 0);
-  if (*(a2 + 23) >= 0)
-  {
-    v5 = a2;
-  }
-
-  else
-  {
-    v5 = *a2;
-  }
-
-  *v5 = v4;
-  v6 = *(this + 1);
-  if (v6)
-  {
-    v8 = *(v6 + 8);
-    v7 = *(v6 + 16);
-    memset(&v13, 0, sizeof(v13));
-    std::string::resize(&v13, 4uLL, 0);
-    v9 = 4 * v8;
-    if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v10 = &v13;
-    }
-
-    else
-    {
-      v10 = v13.__r_.__value_.__r.__words[0];
-    }
-
-    LODWORD(v10->__r_.__value_.__l.__data_) = v9;
-    if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v11 = &v13;
-    }
-
-    else
-    {
-      v11 = v13.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v13.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v13.__r_.__value_.__l.__size_;
-    }
-
-    std::string::append(a2, v11, size);
-    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v13.__r_.__value_.__l.__data_);
-    }
-
-    std::string::append(a2, v7, v9);
-    std::string::append(a2, *(this + 2), *(this + 3));
-  }
-}
-
-void sub_1A8F8A3E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v15 + 23) < 0)
-  {
-    operator delete(*v15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *sentencepiece::normalizer::PrefixMatcher::PrefixMatcher(void *result, void *a2)
-{
-  *result = 0;
-  v3 = a2[2];
-  if (v3)
-  {
-    __p = 0;
-    v19 = 0;
-    v20 = 0;
-    std::vector<char const*>::reserve(&__p, v3);
-    v6 = *a2;
-    v4 = a2 + 1;
-    v5 = v6;
-    if (v6 != v4)
-    {
-      v7 = v19;
-      do
-      {
-        v8 = v5[4];
-        if (v7 >= v20)
-        {
-          v9 = (v7 - __p) >> 3;
-          if ((v9 + 1) >> 61)
-          {
-            std::vector<int>::__throw_length_error[abi:ne200100]();
-          }
-
-          v10 = (v20 - __p) >> 2;
-          if (v10 <= v9 + 1)
-          {
-            v10 = v9 + 1;
-          }
-
-          if (v20 - __p >= 0x7FFFFFFFFFFFFFF8)
-          {
-            v11 = 0x1FFFFFFFFFFFFFFFLL;
-          }
-
-          else
-          {
-            v11 = v10;
-          }
-
-          if (v11)
-          {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<char const*>>(&__p, v11);
-          }
-
-          v12 = (8 * v9);
-          *v12 = v8;
-          v7 = (8 * v9 + 8);
-          v13 = v12 - (v19 - __p);
-          memcpy(v13, __p, v19 - __p);
-          v14 = __p;
-          __p = v13;
-          v19 = v7;
-          v20 = 0;
-          if (v14)
-          {
-            operator delete(v14);
-          }
-        }
-
-        else
-        {
-          *v7 = v8;
-          v7 += 8;
-        }
-
-        v19 = v7;
-        v15 = v5[1];
-        if (v15)
-        {
-          do
-          {
-            v16 = v15;
-            v15 = *v15;
-          }
-
-          while (v15);
-        }
-
-        else
-        {
-          do
-          {
-            v16 = v5[2];
-            v17 = *v16 == v5;
-            v5 = v16;
-          }
-
-          while (!v17);
-        }
-
-        v5 = v16;
-      }
-
-      while (v16 != v4);
-    }
-
-    operator new();
-  }
-
-  return result;
-}
-
-void sub_1A8F8A688(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int16 a10, char a11, char a12, void *__p, uint64_t a14)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  v16 = *v14;
-  *v14 = 0;
-  if (v16)
-  {
-    (*(*v16 + 8))(v16);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::vector<char const*>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 3)
-  {
-    if (!(a2 >> 61))
-    {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<char const*>>(result, a2);
-    }
-
-    std::vector<int>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
-}
-
-uint64_t *sentencepiece::normalizer::PrefixMatcher::MemoryMappableString@<X0>(uint64_t *this@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = *this;
-  if (*this)
-  {
-    v4 = 4 * *(v3 + 8);
-    if (v4 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v5 = *(v3 + 16);
-    if (v4 >= 0x17)
-    {
-      operator new();
-    }
-
-    a2[23] = v4;
-    if (v4)
-    {
-      this = memmove(a2, v5, v4);
-    }
-
-    a2 += v4;
-  }
-
-  else
-  {
-    a2[23] = 0;
-  }
-
-  *a2 = 0;
-  return this;
-}
-
-void std::vector<unsigned long>::__append(uint64_t a1, unint64_t a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (a2 <= (v4 - v5) >> 3)
-  {
-    if (a2)
-    {
-      bzero(*(a1 + 8), 8 * a2);
-      v5 += 8 * a2;
-    }
-
-    *(a1 + 8) = v5;
-  }
-
-  else
-  {
-    v6 = *a1;
-    v7 = v5 - *a1;
-    v8 = a2 + (v7 >> 3);
-    if (v8 >> 61)
-    {
-      std::vector<int>::__throw_length_error[abi:ne200100]();
-    }
-
-    v9 = v4 - v6;
-    if (v9 >> 2 > v8)
-    {
-      v8 = v9 >> 2;
-    }
-
-    if (v9 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    if (v10)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, v10);
-    }
-
-    v11 = (8 * (v7 >> 3));
-    bzero(v11, 8 * a2);
-    memcpy(0, v6, v7);
-    v12 = *a1;
-    *a1 = 0;
-    *(a1 + 8) = &v11[8 * a2];
-    *(a1 + 16) = 0;
-    if (v12)
-    {
-
-      operator delete(v12);
-    }
-  }
-}
-
-void sentencepiece::ModelFactory::Create(sentencepiece::ModelFactory *this@<X0>, void *a2@<X8>)
-{
-  if (*(this + 10))
-  {
-    v4 = *(this + 10);
-  }
-
-  else
-  {
-    v4 = &sentencepiece::_TrainerSpec_default_instance_;
-  }
-
-  v5 = v4[68];
-  if (v5 > 2)
-  {
-    if (v5 == 3)
-    {
-      absl::make_unique<sentencepiece::word::Model,sentencepiece::ModelProto const&>();
-    }
-
-    if (v5 == 4)
-    {
-      absl::make_unique<sentencepiece::character::Model,sentencepiece::ModelProto const&>();
-    }
-  }
-
-  else
-  {
-    if (v5 == 1)
-    {
-      absl::make_unique<sentencepiece::unigram::Model,sentencepiece::ModelProto const&>();
-    }
-
-    if (v5 == 2)
-    {
-      absl::make_unique<sentencepiece::bpe::Model,sentencepiece::ModelProto const&>();
-    }
-  }
-
-  if (sentencepiece::logging::GetMinLogLevel(this) <= 2)
-  {
-    LOBYTE(v14) = 0;
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "model_factory.cc", 16);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "(", 1);
-    v8 = MEMORY[0x1AC57D010](v7, 43);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") ", 2);
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "LOG(", 4);
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "ERROR", 5);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ") ", 2);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "Unknown model_type: ", 20);
-    MEMORY[0x1AC57D010](v13, v4[68]);
-    sentencepiece::error::Die::~Die(&v14);
-  }
-
-  *a2 = 0;
-}
-
-void sub_1A8F8AAE4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sentencepiece::error::Die::~Die(va);
-  _Unwind_Resume(a1);
-}
-
-void sentencepiece::ImmutableSentencePieceText::~ImmutableSentencePieceText(sentencepiece::ImmutableSentencePieceText *this)
-{
-  *this = &unk_1F1CABB98;
-  v1 = *(this + 3);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-{
-  *this = &unk_1F1CABB98;
-  v1 = *(this + 3);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x1AC57D1A0);
-}
-
-uint64_t sentencepiece::ImmutableSentencePieceText::mutable_proto(sentencepiece::ImmutableSentencePieceText *this)
-{
-  result = *(this + 2);
-  if (!result)
-  {
-    _ZNSt3__115allocate_sharedB8ne200100IN13sentencepiece17SentencePieceTextENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
-  }
-
-  return result;
-}
-
-void sentencepiece::ImmutableNBestSentencePieceText::~ImmutableNBestSentencePieceText(sentencepiece::ImmutableNBestSentencePieceText *this)
-{
-  *this = &unk_1F1CABBB8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-{
-  *this = &unk_1F1CABBB8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x1AC57D1A0);
-}
-
-uint64_t sentencepiece::ImmutableNBestSentencePieceText::mutable_proto(sentencepiece::ImmutableNBestSentencePieceText *this)
-{
-  result = *(this + 1);
-  if (!result)
-  {
-    _ZNSt3__115allocate_sharedB8ne200100IN13sentencepiece22NBestSentencePieceTextENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
-  }
-
-  return result;
-}
-
-_BYTE *sentencepiece::ImmutableNBestSentencePieceText::SerializeAsString@<X0>(sentencepiece::ImmutableNBestSentencePieceText *this@<X0>, _BYTE *a2@<X8>)
-{
-  v2 = *(this + 1);
-  if (v2)
-  {
-    return google::protobuf::MessageLite::SerializeAsString(v2, a2);
-  }
-
-  else
-  {
-    return std::string::basic_string[abi:ne200100]<0>(a2, "");
-  }
-}
-
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
-{
-  v4 = strlen(__s);
-  if (v4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v5 = v4;
-  if (v4 >= 0x17)
-  {
-    operator new();
-  }
-
-  a1[23] = v4;
-  if (v4)
-  {
-    memmove(a1, __s, v4);
-  }
-
-  a1[v5] = 0;
-  return a1;
-}
-
-void sentencepiece::SentencePieceProcessor::~SentencePieceProcessor(void **this)
-{
-  *this = &unk_1F1CABBD8;
-  if (*(this + 119) < 0)
-  {
-    operator delete(this[12]);
-  }
-
-  v2 = this[11];
-  this[11] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v3 = this[8];
-  if (v3)
-  {
-    this[9] = v3;
-    operator delete(v3);
-  }
-
-  v4 = this[5];
-  if (v4)
-  {
-    this[6] = v4;
-    operator delete(v4);
-  }
-
-  v5 = this[4];
-  this[4] = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  v6 = this[3];
-  this[3] = 0;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  v7 = this[2];
-  this[2] = 0;
-  if (v7)
-  {
-    (*(*v7 + 8))(v7);
-  }
-
-  v8 = this[1];
-  this[1] = 0;
-  if (v8)
-  {
-    (*(*v8 + 8))(v8);
-  }
-}
-
-{
-  sentencepiece::SentencePieceProcessor::~SentencePieceProcessor(this);
-
-  JUMPOUT(0x1AC57D1A0);
-}
-
-uint64_t sentencepiece::io::LoadModelProto@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
-{
-  if (a1)
-  {
-    sentencepiece::filesystem::NewReadableFile();
-  }
-
-  return sentencepiece::util::Status::Status(a2, 5, "model file path should not be empty.", 36);
-}
-
-void sub_1A8F8B5E4(_Unwind_Exception *exception_object)
-{
-  if (*(v1 - 41) < 0)
-  {
-    operator delete(*(v1 - 64));
-  }
-
-  v3 = *(v1 - 40);
-  *(v1 - 40) = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-sentencepiece::ModelProto **std::unique_ptr<sentencepiece::ModelProto>::~unique_ptr[abi:ne200100](sentencepiece::ModelProto **a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    sentencepiece::ModelProto::~ModelProto(v2);
-    MEMORY[0x1AC57D1A0]();
-  }
-
-  return a1;
-}
-
-void sentencepiece::SentencePieceProcessor::LoadOrDie(uint64_t a1)
-{
-  (*(*a1 + 16))(&v12);
-  if (v12.__r_.__value_.__r.__words[0])
-  {
-    v11 = 1;
-    v1 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "sentencepiece_processor.cc", 26);
-    v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v1, "(", 1);
-    v3 = MEMORY[0x1AC57D010](v2, 239);
-    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, ") [", 3);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "_status.ok()", 12);
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "] ", 2);
-    sentencepiece::util::Status::ToString(&v12, __p);
-    if ((v10 & 0x80u) == 0)
-    {
-      v7 = __p;
-    }
-
-    else
-    {
-      v7 = __p[0];
-    }
-
-    if ((v10 & 0x80u) == 0)
-    {
-      v8 = v10;
-    }
-
-    else
-    {
-      v8 = __p[1];
-    }
-
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v7, v8);
-    if (v10 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    sentencepiece::error::Die::~Die(&v11);
-  }
-
-  sentencepiece::util::Status::~Status(&v12);
-}
-
-void sub_1A8F8B7B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  sentencepiece::error::Die::~Die((v15 - 25));
-  sentencepiece::util::Status::~Status((v15 - 24));
-  _Unwind_Resume(a1);
-}
-
-void sub_1A8F8B880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, sentencepiece::ModelProto *a9, sentencepiece::ModelProto *a10)
-{
-  std::unique_ptr<sentencepiece::ModelProto>::~unique_ptr[abi:ne200100](&a9);
-  std::unique_ptr<sentencepiece::ModelProto>::~unique_ptr[abi:ne200100](&a10);
-  _Unwind_Resume(a1);
-}
-
-void sentencepiece::SentencePieceProcessor::Load(sentencepiece::logging *a1, uint64_t *a2)
-{
-  v4 = *a2;
-  v5 = *(*a2 + 88);
-  if (!v5)
-  {
-    v5 = &sentencepiece::_NormalizerSpec_default_instance_;
-  }
-
-  if (v5[80] == 1)
-  {
-    if (sentencepiece::logging::GetMinLogLevel(a1) <= 0)
-    {
-      LOBYTE(v24.__first_) = 0;
-      v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "sentencepiece_processor.cc", 26);
-      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "(", 1);
-      v8 = MEMORY[0x1AC57D010](v7, 260);
-      v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") ", 2);
-      v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "LOG(", 4);
-      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "INFO", 4);
-      v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ") ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "Enable Apple addition for backward compatibility", 48);
-      sentencepiece::error::Die::~Die(&v24);
-    }
-
-    v4 = *a2;
-    *(v4 + 48) = *(*a2 + 48) | 1;
-    v13 = *(v4 + 80);
-    if (!v13)
-    {
-      v14 = *(v4 + 8);
-      if (v14)
-      {
-        v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      v13 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::TrainerSpec>(v14);
-      *(v4 + 80) = v13;
-      v4 = *a2;
-    }
-
-    *(v13 + 40) |= 0x4000u;
-    *(v13 + 245) = 1;
-    *(v4 + 48) |= 2u;
-    v15 = *(v4 + 88);
-    if (!v15)
-    {
-      v16 = *(v4 + 8);
-      if (v16)
-      {
-        v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      v15 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::NormalizerSpec>(v16);
-      *(v4 + 88) = v15;
-      v4 = *a2;
-    }
-
-    *(v15 + 48) |= 0x10u;
-    *(v15 + 81) = 1;
-  }
-
-  *a2 = 0;
-  if (v4)
-  {
-    v17 = v4 + 16;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = *(a1 + 4);
-  *(a1 + 4) = v17;
-  if (v18)
-  {
-    (*(*v18 + 8))(v18);
-    v17 = *(a1 + 4);
-  }
-
-  sentencepiece::ModelFactory::Create((v17 - 16), &v24);
-  first = v24.__first_;
-  v24.__first_ = 0;
-  v20 = *(a1 + 1);
-  *(a1 + 1) = first;
-  if (v20)
-  {
-    (*(*v20 + 8))(v20);
-    v21 = v24.__first_;
-    v24.__first_ = 0;
-    if (v21)
-    {
-      (*(v21->__r_.__value_.__r.__words[0] + 8))(v21);
-    }
-  }
-
-  if (*(v17 + 72))
-  {
-    v22 = *(v17 + 72);
-  }
-
-  if (*(v17 + 64))
-  {
-    v23 = *(v17 + 64);
-  }
-
-  absl::make_unique<sentencepiece::normalizer::Normalizer,sentencepiece::NormalizerSpec const&,sentencepiece::TrainerSpec const&>();
-}
-
-void absl::StrCat<char [2],std::string,char [2],std::string>(void *__src@<X0>, size_t __len@<X1>, char *a3@<X2>, void **a4@<X3>, char *a5@<X4>, void **a6@<X5>, std::string *a7@<X8>)
-{
-  std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  v12 = strlen(a3);
-  absl::StrCat<std::string,char [2],std::string>(a3, v12, a4, a5, a6, &__p);
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    p_p = &__p;
-  }
-
-  else
-  {
-    p_p = __p.__r_.__value_.__r.__words[0];
-  }
-
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = __p.__r_.__value_.__l.__size_;
-  }
-
-  v15 = std::string::append(&__dst, p_p, size);
-  *a7 = *v15;
-  v15->__r_.__value_.__l.__size_ = 0;
-  v15->__r_.__value_.__r.__words[2] = 0;
-  v15->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__dst.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_1A8F8C6F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sentencepiece::SentencePieceProcessor::ParseExtraOptions(sentencepiece::ModelInterface **a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X3>, sentencepiece::util::Status *a5@<X8>)
-{
-  v45[19] = *MEMORY[0x1E69E9840];
-  a4[1] = *a4;
-  if (a3)
-  {
-    (*(*a1 + 11))(a1);
-    if (!*a5)
-    {
-      sentencepiece::util::Status::~Status(a5);
-      {
-        v41[3] = xmmword_1E785E5C0;
-        *__p = unk_1E785E5D0;
-        v43 = xmmword_1E785E5E0;
-        v44 = 3;
-        v40 = xmmword_1E785E580;
-        v41[0] = unk_1E785E590;
-        v41[1] = xmmword_1E785E5A0;
-        v41[2] = *&off_1E785E5B0;
-        std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::map[abi:ne200100](&sentencepiece::SentencePieceProcessor::ParseExtraOptions(std::string_view,std::vector<sentencepiece::SentencePieceProcessor::ExtraOption> *)const::extra_option_map, &v40, 5);
-        __cxa_atexit(std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::~map[abi:ne200100], &sentencepiece::SentencePieceProcessor::ParseExtraOptions(std::string_view,std::vector<sentencepiece::SentencePieceProcessor::ExtraOption> *)const::extra_option_map, &dword_1A8E85000);
-      }
-
-      absl::internal::Splitter::Splitter(&v38, a2, a3, ":", 1, 0);
-      v10 = v38;
-      v11 = v39;
-      if (v38 == v39)
-      {
-LABEL_24:
-        if (v10)
-        {
-          v39 = v10;
-          operator delete(v10);
-        }
-
-        sentencepiece::util::Status::Status(a5);
-      }
-
-      else
-      {
-        while (1)
-        {
-          v12 = std::__tree<std::string_view>::find<std::string_view>(&sentencepiece::SentencePieceProcessor::ParseExtraOptions(std::string_view,std::vector<sentencepiece::SentencePieceProcessor::ExtraOption> *)const::extra_option_map, v10);
-          v13 = v12;
-          if (v12 == &unk_1EB3808C8)
-          {
-            break;
-          }
-
-          v15 = a4[1];
-          v14 = a4[2];
-          if (v15 >= v14)
-          {
-            v17 = *a4;
-            v18 = v15 - *a4;
-            v19 = v18 >> 2;
-            v20 = (v18 >> 2) + 1;
-            if (v20 >> 62)
-            {
-              std::vector<int>::__throw_length_error[abi:ne200100]();
-            }
-
-            v21 = v14 - v17;
-            if (v21 >> 1 > v20)
-            {
-              v20 = v21 >> 1;
-            }
-
-            v22 = v21 >= 0x7FFFFFFFFFFFFFFCLL;
-            v23 = 0x3FFFFFFFFFFFFFFFLL;
-            if (!v22)
-            {
-              v23 = v20;
-            }
-
-            if (v23)
-            {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(a4, v23);
-            }
-
-            *(4 * v19) = *(v12 + 48);
-            v16 = 4 * v19 + 4;
-            memcpy(0, v17, v18);
-            v24 = *a4;
-            *a4 = 0;
-            a4[1] = v16;
-            a4[2] = 0;
-            if (v24)
-            {
-              operator delete(v24);
-            }
-          }
-
-          else
-          {
-            *v15 = *(v12 + 48);
-            v16 = (v15 + 1);
-          }
-
-          a4[1] = v16;
-          v25 = *(v13 + 48);
-          if (v25 == 1)
-          {
-            v26 = sentencepiece::ModelInterface::bos_piece(a1[1]);
-            v27 = strlen(v26);
-            v28 = (*(*a1 + 63))(a1, v26, v27);
-            if ((*(*a1 + 66))(a1, v28))
-            {
-              LODWORD(v40) = 13;
-              std::ostringstream::basic_ostringstream[abi:ne200100](&v40 + 1);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "(", 1);
-              MEMORY[0x1AC57D010](&v40 + 8, 1135);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, ") [", 3);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "!IsUnknown(PieceToId(absl::string_view(model_->bos_piece().data())))", 68);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "] ", 2);
-              v33 = sentencepiece::ModelInterface::bos_piece(a1[1]);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, v33, v34);
-              sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v40, a5);
-              goto LABEL_35;
-            }
-
-            v25 = *(v13 + 48);
-          }
-
-          if (v25 == 2)
-          {
-            v29 = sentencepiece::ModelInterface::eos_piece(a1[1]);
-            v30 = strlen(v29);
-            v31 = (*(*a1 + 63))(a1, v29, v30);
-            if ((*(*a1 + 66))(a1, v31))
-            {
-              LODWORD(v40) = 13;
-              std::ostringstream::basic_ostringstream[abi:ne200100](&v40 + 1);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "(", 1);
-              MEMORY[0x1AC57D010](&v40 + 8, 1140);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, ") [", 3);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "!IsUnknown(PieceToId(absl::string_view(model_->eos_piece().data())))", 68);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "] ", 2);
-              v35 = sentencepiece::ModelInterface::eos_piece(a1[1]);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, v35, v36);
-              sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v40, a5);
-LABEL_35:
-              *(&v40 + 1) = *MEMORY[0x1E69E54E8];
-              *(&v40 + *(*(&v40 + 1) - 24) + 8) = *(MEMORY[0x1E69E54E8] + 24);
-              *&v41[0] = MEMORY[0x1E69E5548] + 16;
-              if (SBYTE7(v43) < 0)
-              {
-                operator delete(__p[0]);
-              }
-
-              goto LABEL_37;
-            }
-          }
-
-          v10 += 2;
-          if (v10 == v11)
-          {
-            v10 = v38;
-            goto LABEL_24;
-          }
-        }
-
-        LODWORD(v40) = 13;
-        std::ostringstream::basic_ostringstream[abi:ne200100](&v40 + 1);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "(", 1);
-        MEMORY[0x1AC57D010](&v40 + 8, 1129);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, ") [", 3);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "it != extra_option_map.end()", 28);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "] ", 2);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "option ", 8);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, *v10, v10[1]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, " is not available.", 19);
-        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v40, a5);
-        *(&v40 + 1) = *MEMORY[0x1E69E54E8];
-        *(&v40 + *(*(&v40 + 1) - 24) + 8) = *(MEMORY[0x1E69E54E8] + 24);
-        *&v41[0] = MEMORY[0x1E69E5548] + 16;
-        if (SBYTE7(v43) < 0)
-        {
-          operator delete(__p[0]);
-        }
-
-LABEL_37:
-        *&v41[0] = MEMORY[0x1E69E5538] + 16;
-        std::locale::~locale(v41 + 1);
-        std::ostream::~ostream();
-        MEMORY[0x1AC57D130](v45);
-        if (v38)
-        {
-          v39 = v38;
-          operator delete(v38);
-        }
-      }
-    }
-
-    v37 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v32 = *MEMORY[0x1E69E9840];
-
-    sentencepiece::util::Status::Status(a5);
-  }
-}
-
-void sentencepiece::SentencePieceProcessor::SetVocabulary(void *a1@<X0>, uint64_t *a2@<X1>, sentencepiece::util::Status *a3@<X8>)
-{
-  (*(*a1 + 88))(a1);
-  if (*a3)
-  {
-    return;
-  }
-
-  sentencepiece::util::Status::~Status(a3);
-  v6 = a1[4];
-  {
-    LODWORD(v23) = 13;
-    v20 = std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "(", 1);
-    MEMORY[0x1AC57D010](&v24, 331);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "(model_proto = dynamic_cast<ModelProto *>(model_proto_.get()))", 62);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "SetVocabulary is not supported when mmap-based model is loaded.", 63);
-    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v23, a3);
-LABEL_26:
-    v24 = *MEMORY[0x1E69E54E8];
-    *(&v24 + *(v24 - 3)) = *(MEMORY[0x1E69E54E8] + 24);
-    v25 = MEMORY[0x1E69E5548] + 16;
-    if (v27 < 0)
-    {
-      operator delete(v26[7].__locale_);
-    }
-
-    v25 = MEMORY[0x1E69E5538] + 16;
-    std::locale::~locale(v26);
-    std::ostream::~ostream();
-    MEMORY[0x1AC57D130](&v28);
-    return;
-  }
-
-  v9 = v8;
-  v10 = &sentencepiece::_TrainerSpec_default_instance_;
-  if (v8[10])
-  {
-    v10 = v8[10];
-  }
-
-  if ((v10[68] - 1) >= 2)
-  {
-    LODWORD(v23) = 13;
-    v21 = std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "(", 1);
-    MEMORY[0x1AC57D010](&v24, 336);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "type == TrainerSpec::UNIGRAM || type == TrainerSpec::BPE", 56);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "Vocabulary constraint is only enabled in subword units.", 55);
-    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v23, a3);
-    goto LABEL_26;
-  }
-
-  std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string_view const*>>(&v23, *a2, a2[1]);
-  if (*(v9 + 16) >= 1)
-  {
-    v11 = 0;
-    do
-    {
-      v12 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>((v9 + 7), v11);
-      v13 = v12;
-      if ((*(v12 + 60) - 2) >= 3)
-      {
-        v14 = *(v12 + 48) & 0xFFFFFFFFFFFFFFFELL;
-        v15 = *(v14 + 23);
-        if (v15 < 0)
-        {
-          v14 = *v14;
-          v15 = *((*(v12 + 48) & 0xFFFFFFFFFFFFFFFELL) + 8);
-        }
-
-        v22[0] = v14;
-        v22[1] = v15;
-        if (&v24 == std::__tree<std::string_view>::find<std::string_view>(&v23, v22) && ((v16 = *(v13 + 48) & 0xFFFFFFFFFFFFFFFELL, v17 = *(v16 + 23), v17 < 0) ? (v18 = *v16, v17 = *(v16 + 8)) : (v18 = (*(v13 + 48) & 0xFFFFFFFFFFFFFFFELL)), v17 != asc_1A8FDAE6D[*v18 >> 4]))
-        {
-          if (!sentencepiece::ModelProto_SentencePiece_Type_IsValid(5))
-          {
-LABEL_31:
-            __assert_rtn("_internal_set_type", "sentencepiece_model.pb.h", 4686, "::sentencepiece::ModelProto_SentencePiece_Type_IsValid(value)");
-          }
-
-          v19 = 5;
-        }
-
-        else
-        {
-          if (!sentencepiece::ModelProto_SentencePiece_Type_IsValid(1))
-          {
-            goto LABEL_31;
-          }
-
-          v19 = 1;
-        }
-
-        *(v13 + 40) |= 4u;
-        *(v13 + 60) = v19;
-      }
-
-      ++v11;
-    }
-
-    while (v11 < *(v9 + 16));
-  }
-
-  sentencepiece::util::Status::Status(a3);
-  std::__tree<std::__value_type<std::string_view,int>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,int>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,int>>>::destroy(&v23, v24);
-}
-
-void *sentencepiece::SentencePieceProcessor::ResetVocabulary@<X0>(char ***this@<X0>, sentencepiece::util::Status *a2@<X8>)
-{
-  result = ((*this)[11])(this);
-  if (!*a2)
-  {
-    sentencepiece::util::Status::~Status(a2);
-    v5 = this[4];
-    {
-      v8 = *(v7 + 9);
-      if (v8)
-      {
-        v9 = (v8 + 8);
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      v10 = v7[16];
-      if (v10)
-      {
-        v11 = 8 * v10;
-        do
-        {
-          v12 = *v9;
-          if (*(*v9 + 60) == 5)
-          {
-            if (!sentencepiece::ModelProto_SentencePiece_Type_IsValid(1))
-            {
-              sentencepiece::SentencePieceProcessor::ResetVocabulary();
-            }
-
-            *(v12 + 40) |= 4u;
-            *(v12 + 60) = 1;
-          }
-
-          ++v9;
-          v11 -= 8;
-        }
-
-        while (v11);
-      }
-
-      return sentencepiece::util::Status::Status(a2);
-    }
-
-    else
-    {
-      v14 = 13;
-      v13 = std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "(", 1);
-      MEMORY[0x1AC57D010](&v15, 365);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "(model_proto = dynamic_cast<ModelProto *>(model_proto_.get()))", 62);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "ResetVocabulary is not supported when mmap-based model is loaded.", 65);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v14, a2);
-      v15 = *MEMORY[0x1E69E54E8];
-      *(&v15 + *(v15 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v16 = MEMORY[0x1E69E5548] + 16;
-      if (v18 < 0)
-      {
-        operator delete(v17[7].__locale_);
-      }
-
-      v16 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(v17);
-      std::ostream::~ostream();
-      return MEMORY[0x1AC57D130](&v19);
-    }
-  }
-
-  return result;
-}
-
-void sub_1A8F8DDDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
-{
-  __p = (v10 - 176);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  __p = (v10 - 152);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  if (*(v10 - 105) < 0)
-  {
-    operator delete(*(v10 - 128));
-  }
-
-  v12 = *(v10 - 104);
-  *(v10 - 104) = 0;
-  if (v12)
-  {
-    (*(*v12 + 8))(v12);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-BOOL absl::SimpleAtoi<int>(const char *a1, uint64_t a2, uint64_t a3)
-{
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
-  v5 = strlen(a1);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v12, a1, v5);
-  if ((*(v6 + *(*v6 - 24) + 32) & 5) != 0)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v8 = MEMORY[0x1AC57CF80](v11, a3);
-    v7 = (*(v8 + *(*v8 - 24) + 32) & 5) == 0;
-  }
-
-  v11[0] = *MEMORY[0x1E69E54D8];
-  v9 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v11 + *(v11[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v12 = v9;
-  v13 = MEMORY[0x1E69E5548] + 16;
-  if (v15 < 0)
-  {
-    operator delete(v14[7].__locale_);
-  }
-
-  v13 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v14);
-  std::iostream::~basic_iostream();
-  MEMORY[0x1AC57D130](&v16);
-  return v7;
-}
-
-void sub_1A8F8E0C4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x1E69E54D8]);
-  MEMORY[0x1AC57D130](v2 + 128);
-  _Unwind_Resume(a1);
-}
-
-void *sentencepiece::anonymous namespace::ToPieceArray@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  result = std::vector<std::string_view>::vector[abi:ne200100](a2, 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3));
-  v4 = *a1;
-  if (a1[1] != *a1)
-  {
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    do
-    {
-      v8 = (v4 + v5);
-      v9 = *(v4 + v5 + 23);
-      if (v9 < 0)
-      {
-        v10 = *v8;
-        v9 = v8[1];
-      }
-
-      else
-      {
-        v10 = v8;
-      }
-
-      v11 = (*result + v6);
-      *v11 = v10;
-      v11[1] = v9;
-      ++v7;
-      v4 = *a1;
-      v6 += 16;
-      v5 += 24;
-    }
-
-    while (0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3) > v7);
-  }
-
-  return result;
-}
-
-void sentencepiece::SentencePieceProcessor::Encode(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, sentencepiece::util::Status *a5@<X8>)
-{
-  (*(*a1 + 88))(a1);
-  if (!*a5)
-  {
-    sentencepiece::util::Status::~Status(a5);
-    if (a4)
-    {
-      std::vector<std::string>::clear[abi:ne200100](a4);
-      sentencepiece::SentencePieceText::SentencePieceText(&v15, 0);
-      (*(*a1 + 232))(a1, a2, a3, &v15);
-      if (!*a5)
-      {
-        sentencepiece::util::Status::~Status(a5);
-        if (v20)
-        {
-          v10 = v20 + 8;
-        }
-
-        else
-        {
-          v10 = 0;
-        }
-
-        if (v19)
-        {
-          v11 = *(a4 + 8);
-          v12 = 8 * v19;
-          do
-          {
-            v13 = *(*v10 + 48);
-            if (v11 >= *(a4 + 16))
-            {
-              v11 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(a4, (v13 & 0xFFFFFFFFFFFFFFFELL));
-            }
-
-            else
-            {
-              std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string const&>(a4, (v13 & 0xFFFFFFFFFFFFFFFELL));
-              ++v11;
-            }
-
-            *(a4 + 8) = v11;
-            v10 += 8;
-            v12 -= 8;
-          }
-
-          while (v12);
-        }
-
-        sentencepiece::util::Status::Status(a5);
-      }
-
-      sentencepiece::SentencePieceText::~SentencePieceText(&v15);
-    }
-
-    else
-    {
-      v15 = 13;
-      v14 = std::ostringstream::basic_ostringstream[abi:ne200100](&v16);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "(", 1);
-      MEMORY[0x1AC57D010](&v16, 415);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "pieces", 6);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v15, a5);
-      v16 = *MEMORY[0x1E69E54E8];
-      *(&v16 + *(v16 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v17 = MEMORY[0x1E69E5548] + 16;
-      if (v22 < 0)
-      {
-        operator delete(__p);
-      }
-
-      v17 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(&v18);
-      std::ostream::~ostream();
-      MEMORY[0x1AC57D130](&v23);
-    }
-  }
-}
-
-void std::vector<std::string>::clear[abi:ne200100](void ***a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  while (v3 != v2)
-  {
-    v4 = *(v3 - 1);
-    v3 -= 3;
-    if (v4 < 0)
-    {
-      operator delete(*v3);
-    }
-  }
-
-  a1[1] = v2;
-}
-
-void sentencepiece::SentencePieceProcessor::Encode(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, sentencepiece::util::Status *a5@<X8>)
-{
-  (*(*a1 + 88))(a1);
-  if (!*a5)
-  {
-    sentencepiece::util::Status::~Status(a5);
-    if (a4)
-    {
-      a4[1] = *a4;
-      sentencepiece::SentencePieceText::SentencePieceText(&v23, 0);
-      (*(*a1 + 232))(a1, a2, a3, &v23);
-      if (!*a5)
-      {
-        sentencepiece::util::Status::~Status(a5);
-        if (v28)
-        {
-          v10 = v28 + 8;
-        }
-
-        else
-        {
-          v10 = 0;
-        }
-
-        if (v27)
-        {
-          v11 = a4[1];
-          v12 = 8 * v27;
-          do
-          {
-            v13 = *(*v10 + 64);
-            v14 = a4[2];
-            if (v11 >= v14)
-            {
-              v15 = *a4;
-              v16 = v11 - *a4;
-              v17 = v16 >> 2;
-              v18 = (v16 >> 2) + 1;
-              if (v18 >> 62)
-              {
-                std::vector<int>::__throw_length_error[abi:ne200100]();
-              }
-
-              v19 = v14 - v15;
-              if (v19 >> 1 > v18)
-              {
-                v18 = v19 >> 1;
-              }
-
-              if (v19 >= 0x7FFFFFFFFFFFFFFCLL)
-              {
-                v20 = 0x3FFFFFFFFFFFFFFFLL;
-              }
-
-              else
-              {
-                v20 = v18;
-              }
-
-              if (v20)
-              {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(a4, v20);
-              }
-
-              *(4 * v17) = v13;
-              v11 = (4 * v17 + 4);
-              memcpy(0, v15, v16);
-              v21 = *a4;
-              *a4 = 0;
-              a4[1] = v11;
-              a4[2] = 0;
-              if (v21)
-              {
-                operator delete(v21);
-              }
-            }
-
-            else
-            {
-              *v11++ = v13;
-            }
-
-            a4[1] = v11;
-            v10 += 8;
-            v12 -= 8;
-          }
-
-          while (v12);
-        }
-
-        sentencepiece::util::Status::Status(a5);
-      }
-
-      sentencepiece::SentencePieceText::~SentencePieceText(&v23);
-    }
-
-    else
-    {
-      v23 = 13;
-      v22 = std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "(", 1);
-      MEMORY[0x1AC57D010](&v24, 428);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "ids", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v23, a5);
-      v24 = *MEMORY[0x1E69E54E8];
-      *(&v24 + *(v24 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v25 = MEMORY[0x1E69E5548] + 16;
-      if (v30 < 0)
-      {
-        operator delete(__p);
-      }
-
-      v25 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(&v26);
-      std::ostream::~ostream();
-      MEMORY[0x1AC57D130](&v31);
-    }
-  }
-}
-
-void sub_1A8F8E880(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sentencepiece::util::StatusBuilder::~StatusBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-void sentencepiece::SentencePieceProcessor::Decode(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  (*(*a1 + 160))(a1, __p, a3);
-  if (__p[0])
-  {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
-  }
-}
-
-{
-  (*(*a1 + 272))(a1, __p, a3);
-  if (__p[0])
-  {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
-  }
-}
-
-void sub_1A8F8E938(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sentencepiece::SentencePieceProcessor::NBestEncode(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void ***a5@<X4>, sentencepiece::util::Status *a6@<X8>)
-{
-  (*(*a1 + 88))(a1);
-  if (!*a6)
-  {
-    sentencepiece::util::Status::~Status(a6);
-    if (a5)
-    {
-      v12 = *a5;
-      v13 = a5[1];
-      while (v13 != v12)
-      {
-        v13 -= 3;
-        v30 = v13;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v30);
-      }
-
-      a5[1] = v12;
-      sentencepiece::NBestSentencePieceText::NBestSentencePieceText(&v30, 0);
-      (*(*a1 + 240))(a1, a2, a3, a4, &v30);
-      if (!*a6)
-      {
-        sentencepiece::util::Status::~Status(a6);
-        if (v34)
-        {
-          v14 = (v34 + 8);
-        }
-
-        else
-        {
-          v14 = 0;
-        }
-
-        if (LODWORD(v33.__locale_))
-        {
-          v15 = &v14[SLODWORD(v33.__locale_)];
-          do
-          {
-            v16 = *v14;
-            v27 = 0;
-            v28 = 0;
-            v29 = 0;
-            v17 = *(v16 + 64);
-            if (v17)
-            {
-              v18 = v17 + 8;
-            }
-
-            else
-            {
-              v18 = 0;
-            }
-
-            v19 = *(v16 + 56);
-            if (v19)
-            {
-              v20 = 0;
-              v21 = 8 * v19;
-              do
-              {
-                v22 = *(*v18 + 48) & 0xFFFFFFFFFFFFFFFELL;
-                if (v20 >= v29)
-                {
-                  v20 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v27, v22);
-                }
-
-                else
-                {
-                  if (*(v22 + 23) < 0)
-                  {
-                    std::string::__init_copy_ctor_external(v20, *v22, *(v22 + 8));
-                  }
-
-                  else
-                  {
-                    v23 = *v22;
-                    v20->__r_.__value_.__r.__words[2] = *(v22 + 16);
-                    *&v20->__r_.__value_.__l.__data_ = v23;
-                  }
-
-                  ++v20;
-                }
-
-                v28 = v20;
-                v18 += 8;
-                v21 -= 8;
-              }
-
-              while (v21);
-            }
-
-            v24 = a5[1];
-            if (v24 >= a5[2])
-            {
-              v25 = std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::vector<std::string>&>(a5, &v27);
-            }
-
-            else
-            {
-              std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&>(a5, &v27);
-              v25 = (v24 + 3);
-            }
-
-            a5[1] = v25;
-            v38 = &v27;
-            std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v38);
-            ++v14;
-          }
-
-          while (v14 != v15);
-        }
-
-        sentencepiece::util::Status::Status(a6);
-      }
-
-      sentencepiece::NBestSentencePieceText::~NBestSentencePieceText(&v30);
-    }
-
-    else
-    {
-      LODWORD(v30) = 13;
-      v26 = std::ostringstream::basic_ostringstream[abi:ne200100](&v31);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "(", 1);
-      MEMORY[0x1AC57D010](&v31, 470);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "pieces", 6);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v30, a6);
-      v31 = *MEMORY[0x1E69E54E8];
-      *(&v31 + *(v31 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v32 = MEMORY[0x1E69E5548] + 16;
-      if (v36 < 0)
-      {
-        operator delete(__p);
-      }
-
-      v32 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(&v33);
-      std::ostream::~ostream();
-      MEMORY[0x1AC57D130](&v37);
-    }
-  }
-}
-
-void sub_1A8F8EFF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  sentencepiece::util::StatusBuilder::~StatusBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-void sentencepiece::SentencePieceProcessor::NBestEncode(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, sentencepiece::util::Status *a6@<X8>)
-{
-  (*(*a1 + 88))(a1);
-  if (!*a6)
-  {
-    sentencepiece::util::Status::~Status(a6);
-    if (a5)
-    {
-      std::vector<std::vector<int>>::clear[abi:ne200100](a5);
-      sentencepiece::NBestSentencePieceText::NBestSentencePieceText(&v37, 0);
-      (*(*a1 + 240))(a1, a2, a3, a4, &v37);
-      if (!*a6)
-      {
-        sentencepiece::util::Status::~Status(a6);
-        if (v41)
-        {
-          v12 = (v41 + 8);
-        }
-
-        else
-        {
-          v12 = 0;
-        }
-
-        if (LODWORD(v40.__locale_))
-        {
-          v33 = &v12[SLODWORD(v40.__locale_)];
-          do
-          {
-            v13 = *v12;
-            __src = 0;
-            v35 = 0;
-            v36 = 0;
-            v14 = *(v13 + 64);
-            if (v14)
-            {
-              v15 = v14 + 8;
-            }
-
-            else
-            {
-              v15 = 0;
-            }
-
-            v16 = *(v13 + 56);
-            if (v16)
-            {
-              v17 = 0;
-              v18 = 8 * v16;
-              do
-              {
-                v19 = *(*v15 + 64);
-                if (v17 >= v36)
-                {
-                  v20 = __src;
-                  v21 = v17 - __src;
-                  v22 = (v17 - __src) >> 2;
-                  v23 = v22 + 1;
-                  if ((v22 + 1) >> 62)
-                  {
-                    std::vector<int>::__throw_length_error[abi:ne200100]();
-                  }
-
-                  v24 = v36 - __src;
-                  if ((v36 - __src) >> 1 > v23)
-                  {
-                    v23 = v24 >> 1;
-                  }
-
-                  if (v24 >= 0x7FFFFFFFFFFFFFFCLL)
-                  {
-                    v25 = 0x3FFFFFFFFFFFFFFFLL;
-                  }
-
-                  else
-                  {
-                    v25 = v23;
-                  }
-
-                  if (v25)
-                  {
-                    std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&__src, v25);
-                  }
-
-                  v26 = (v17 - __src) >> 2;
-                  v27 = (4 * v22);
-                  v28 = (4 * v22 - 4 * v26);
-                  *v27 = v19;
-                  v17 = (v27 + 1);
-                  memcpy(v28, v20, v21);
-                  v29 = __src;
-                  __src = v28;
-                  v35 = v17;
-                  v36 = 0;
-                  if (v29)
-                  {
-                    operator delete(v29);
-                  }
-                }
-
-                else
-                {
-                  *v17 = v19;
-                  v17 += 4;
-                }
-
-                v35 = v17;
-                v15 += 8;
-                v18 -= 8;
-              }
-
-              while (v18);
-            }
-
-            v30 = a5[1];
-            if (v30 >= a5[2])
-            {
-              v31 = std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int>&>(a5, &__src);
-            }
-
-            else
-            {
-              std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&>(a5, &__src);
-              v31 = v30 + 24;
-            }
-
-            a5[1] = v31;
-            if (__src)
-            {
-              v35 = __src;
-              operator delete(__src);
-            }
-
-            ++v12;
-          }
-
-          while (v12 != v33);
-        }
-
-        sentencepiece::util::Status::Status(a6);
-      }
-
-      sentencepiece::NBestSentencePieceText::~NBestSentencePieceText(&v37);
-    }
-
-    else
-    {
-      v37 = 13;
-      v32 = std::ostringstream::basic_ostringstream[abi:ne200100](&v38);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "(", 1);
-      MEMORY[0x1AC57D010](&v38, 488);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "ids", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v37, a6);
-      v38 = *MEMORY[0x1E69E54E8];
-      *(&v38 + *(v38 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v39 = MEMORY[0x1E69E5548] + 16;
-      if (v43 < 0)
-      {
-        operator delete(__p);
-      }
-
-      v39 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(&v40);
-      std::ostream::~ostream();
-      MEMORY[0x1AC57D130](&v44);
-    }
-  }
-}
-
-void std::vector<std::vector<int>>::clear[abi:ne200100](uint64_t *a1)
-{
-  v3 = *a1;
-  v2 = a1[1];
-  if (v2 != *a1)
-  {
-    v4 = a1[1];
-    do
-    {
-      v6 = *(v4 - 24);
-      v4 -= 24;
-      v5 = v6;
-      if (v6)
-      {
-        *(v2 - 16) = v5;
-        operator delete(v5);
-      }
-
-      v2 = v4;
-    }
-
-    while (v4 != v3);
-  }
-
-  a1[1] = v3;
-}
-
-void sentencepiece::SentencePieceProcessor::SampleEncode(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, sentencepiece::util::Status *a6@<X8>, float a7@<S0>)
-{
-  (*(*a1 + 88))(a1);
-  if (!*a6)
-  {
-    sentencepiece::util::Status::~Status(a6);
-    if (a5)
-    {
-      std::vector<std::string>::clear[abi:ne200100](a5);
-      sentencepiece::SentencePieceText::SentencePieceText(&v19, 0);
-      (*(*a1 + 248))(a1, a2, a3, a4, &v19, a7);
-      if (!*a6)
-      {
-        sentencepiece::util::Status::~Status(a6);
-        if (v24)
-        {
-          v14 = v24 + 8;
-        }
-
-        else
-        {
-          v14 = 0;
-        }
-
-        if (v23)
-        {
-          v15 = *(a5 + 8);
-          v16 = 8 * v23;
-          do
-          {
-            v17 = *(*v14 + 48);
-            if (v15 >= *(a5 + 16))
-            {
-              v15 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(a5, (v17 & 0xFFFFFFFFFFFFFFFELL));
-            }
-
-            else
-            {
-              std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string const&>(a5, (v17 & 0xFFFFFFFFFFFFFFFELL));
-              ++v15;
-            }
-
-            *(a5 + 8) = v15;
-            v14 += 8;
-            v16 -= 8;
-          }
-
-          while (v16);
-        }
-
-        sentencepiece::util::Status::Status(a6);
-      }
-
-      sentencepiece::SentencePieceText::~SentencePieceText(&v19);
-    }
-
-    else
-    {
-      v19 = 13;
-      v18 = std::ostringstream::basic_ostringstream[abi:ne200100](&v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "(", 1);
-      MEMORY[0x1AC57D010](&v20, 506);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "pieces", 6);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v19, a6);
-      v20 = *MEMORY[0x1E69E54E8];
-      *(&v20 + *(v20 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v21 = MEMORY[0x1E69E5548] + 16;
-      if (v26 < 0)
-      {
-        operator delete(__p);
-      }
-
-      v21 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(&v22);
-      std::ostream::~ostream();
-      MEMORY[0x1AC57D130](&v27);
-    }
-  }
-}
-
-void sentencepiece::SentencePieceProcessor::SampleEncode(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, sentencepiece::util::Status *a6@<X8>, float a7@<S0>)
-{
-  (*(*a1 + 88))(a1);
-  if (!*a6)
-  {
-    sentencepiece::util::Status::~Status(a6);
-    if (a5)
-    {
-      a5[1] = *a5;
-      sentencepiece::SentencePieceText::SentencePieceText(&v27, 0);
-      (*(*a1 + 248))(a1, a2, a3, a4, &v27, a7);
-      if (!*a6)
-      {
-        sentencepiece::util::Status::~Status(a6);
-        if (v32)
-        {
-          v14 = v32 + 8;
-        }
-
-        else
-        {
-          v14 = 0;
-        }
-
-        if (v31)
-        {
-          v15 = a5[1];
-          v16 = 8 * v31;
-          do
-          {
-            v17 = *(*v14 + 64);
-            v18 = a5[2];
-            if (v15 >= v18)
-            {
-              v19 = *a5;
-              v20 = v15 - *a5;
-              v21 = v20 >> 2;
-              v22 = (v20 >> 2) + 1;
-              if (v22 >> 62)
-              {
-                std::vector<int>::__throw_length_error[abi:ne200100]();
-              }
-
-              v23 = v18 - v19;
-              if (v23 >> 1 > v22)
-              {
-                v22 = v23 >> 1;
-              }
-
-              if (v23 >= 0x7FFFFFFFFFFFFFFCLL)
-              {
-                v24 = 0x3FFFFFFFFFFFFFFFLL;
-              }
-
-              else
-              {
-                v24 = v22;
-              }
-
-              if (v24)
-              {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(a5, v24);
-              }
-
-              *(4 * v21) = v17;
-              v15 = (4 * v21 + 4);
-              memcpy(0, v19, v20);
-              v25 = *a5;
-              *a5 = 0;
-              a5[1] = v15;
-              a5[2] = 0;
-              if (v25)
-              {
-                operator delete(v25);
-              }
-            }
-
-            else
-            {
-              *v15++ = v17;
-            }
-
-            a5[1] = v15;
-            v14 += 8;
-            v16 -= 8;
-          }
-
-          while (v16);
-        }
-
-        sentencepiece::util::Status::Status(a6);
-      }
-
-      sentencepiece::SentencePieceText::~SentencePieceText(&v27);
-    }
-
-    else
-    {
-      v27 = 13;
-      v26 = std::ostringstream::basic_ostringstream[abi:ne200100](&v28);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "(", 1);
-      MEMORY[0x1AC57D010](&v28, 520);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "ids", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v27, a6);
-      v28 = *MEMORY[0x1E69E54E8];
-      *(&v28 + *(v28 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v29 = MEMORY[0x1E69E5548] + 16;
-      if (v34 < 0)
-      {
-        operator delete(__p);
-      }
-
-      v29 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(&v30);
-      std::ostream::~ostream();
-      MEMORY[0x1AC57D130](&v35);
-    }
-  }
-}
-
-void sub_1A8F8FBD0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sentencepiece::util::StatusBuilder::~StatusBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-void sentencepiece::SentencePieceProcessor::SampleEncodeAndScore(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void ***a7@<X6>, sentencepiece::util::Status *a8@<X8>, float a9@<S0>)
-{
-  (*(*a1 + 88))(a1);
-  if (!*a8)
-  {
-    sentencepiece::util::Status::~Status(a8);
-    if (a7)
-    {
-      v18 = *a7;
-      v19 = a7[1];
-      while (v19 != v18)
-      {
-        v19 -= 4;
-        v36 = v19;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v36);
-      }
-
-      a7[1] = v18;
-      sentencepiece::NBestSentencePieceText::NBestSentencePieceText(&v36, 0);
-      (*(*a1 + 256))(a1, a2, a3, a4, a5, a6, &v36, a9);
-      if (!*a8)
-      {
-        sentencepiece::util::Status::~Status(a8);
-        v20 = *a7;
-        v21 = a7[1];
-        while (v21 != v20)
-        {
-          v21 = (v21 - 32);
-          v35.__begin_ = v21;
-          std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v35);
-        }
-
-        a7[1] = &v20->__r_.__value_.__l.__data_;
-        std::vector<std::pair<std::vector<std::string>,float>>::reserve(a7, SLODWORD(v39.__locale_));
-        if (v40)
-        {
-          v23 = (v40 + 8);
-        }
-
-        else
-        {
-          v23 = 0;
-        }
-
-        if (LODWORD(v39.__locale_))
-        {
-          v24 = &v23[SLODWORD(v39.__locale_)];
-          do
-          {
-            v25 = *v23;
-            memset(&v35, 0, sizeof(v35));
-            std::vector<std::string>::reserve(&v35, *(v25 + 56));
-            v26 = *(v25 + 64);
-            if (v26)
-            {
-              v27 = v26 + 8;
-            }
-
-            else
-            {
-              v27 = 0;
-            }
-
-            v28 = *(v25 + 56);
-            if (v28)
-            {
-              end = v35.__end_;
-              v30 = 8 * v28;
-              do
-              {
-                v31 = *(*v27 + 48) & 0xFFFFFFFFFFFFFFFELL;
-                if (end >= v35.__end_cap_.__value_)
-                {
-                  end = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v35, v31);
-                }
-
-                else
-                {
-                  if (*(v31 + 23) < 0)
-                  {
-                    std::string::__init_copy_ctor_external(end, *v31, *(v31 + 8));
-                  }
-
-                  else
-                  {
-                    v32 = *v31;
-                    end->__r_.__value_.__r.__words[2] = *(v31 + 16);
-                    *&end->__r_.__value_.__l.__data_ = v32;
-                  }
-
-                  ++end;
-                }
-
-                v35.__end_ = end;
-                v27 += 8;
-                v30 -= 8;
-              }
-
-              while (v30);
-            }
-
-            LODWORD(v44[0]) = *(v25 + 80);
-            v33 = a7[1];
-            if (v33 >= a7[2])
-            {
-              v34 = std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slow_path<std::vector<std::string>&,float>(a7, &v35, v44);
-            }
-
-            else
-            {
-              std::vector<std::pair<std::vector<std::string>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&,float>(a7, &v35, v44);
-              v34 = (v33 + 4);
-            }
-
-            a7[1] = v34;
-            v44[0] = &v35;
-            std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v44);
-            ++v23;
-          }
-
-          while (v23 != v24);
-        }
-
-        sentencepiece::util::Status::Status(a8);
-      }
-
-      sentencepiece::NBestSentencePieceText::~NBestSentencePieceText(&v36);
-    }
-
-    else
-    {
-      LODWORD(v36) = 13;
-      v22 = std::ostringstream::basic_ostringstream[abi:ne200100](&v37);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "(", 1);
-      MEMORY[0x1AC57D010](&v37, 535);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "pieces", 6);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v36, a8);
-      v37 = *MEMORY[0x1E69E54E8];
-      *(&v37 + *(v37 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v38 = MEMORY[0x1E69E5548] + 16;
-      if (v42 < 0)
-      {
-        operator delete(__p);
-      }
-
-      v38 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(&v39);
-      std::ostream::~ostream();
-      MEMORY[0x1AC57D130](&v43);
-    }
-  }
-}
-
-void sub_1A8F90040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  sentencepiece::util::StatusBuilder::~StatusBuilder(va);
-  _Unwind_Resume(a1);
-}
-
-void *std::vector<std::pair<std::vector<std::string>,float>>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 5)
-  {
-    if (!(a2 >> 59))
-    {
-      v2 = result[1] - *result;
-      v3 = result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<std::pair<std::string_view,int>>,float>>>(result, a2);
-    }
-
-    std::vector<int>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
-}
-
-void sentencepiece::SentencePieceProcessor::SampleEncodeAndScore(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X6>, sentencepiece::util::Status *a8@<X8>, float a9@<S0>)
-{
-  (*(*a1 + 88))(a1);
-  if (!*a8)
-  {
-    sentencepiece::util::Status::~Status(a8);
-    if (a7)
-    {
-      std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::clear[abi:ne200100](a7);
-      sentencepiece::NBestSentencePieceText::NBestSentencePieceText(&v43, 0);
-      (*(*a1 + 256))(a1, a2, a3, a4, a5, a6, &v43, a9);
-      if (!*a8)
-      {
-        v39 = a8;
-        sentencepiece::util::Status::~Status(a8);
-        std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::clear[abi:ne200100](a7);
-        std::vector<std::pair<std::vector<int>,float>>::reserve(a7, SLODWORD(v46.__locale_));
-        if (v47)
-        {
-          v18 = (v47 + 8);
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        if (LODWORD(v46.__locale_))
-        {
-          v40 = &v18[SLODWORD(v46.__locale_)];
-          do
-          {
-            v19 = *v18;
-            memset(&v42, 0, sizeof(v42));
-            std::vector<int>::reserve(&v42, *(v19 + 56));
-            v20 = *(v19 + 64);
-            if (v20)
-            {
-              v21 = v20 + 8;
-            }
-
-            else
-            {
-              v21 = 0;
-            }
-
-            v22 = *(v19 + 56);
-            if (v22)
-            {
-              end = v42.__end_;
-              v24 = 8 * v22;
-              do
-              {
-                v25 = *(*v21 + 64);
-                if (end >= v42.__end_cap_.__value_)
-                {
-                  begin = v42.__begin_;
-                  v27 = end - v42.__begin_;
-                  v28 = end - v42.__begin_;
-                  v29 = v28 + 1;
-                  if ((v28 + 1) >> 62)
-                  {
-                    std::vector<int>::__throw_length_error[abi:ne200100]();
-                  }
-
-                  v30 = v42.__end_cap_.__value_ - v42.__begin_;
-                  if ((v42.__end_cap_.__value_ - v42.__begin_) >> 1 > v29)
-                  {
-                    v29 = v30 >> 1;
-                  }
-
-                  if (v30 >= 0x7FFFFFFFFFFFFFFCLL)
-                  {
-                    v31 = 0x3FFFFFFFFFFFFFFFLL;
-                  }
-
-                  else
-                  {
-                    v31 = v29;
-                  }
-
-                  if (v31)
-                  {
-                    std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v42, v31);
-                  }
-
-                  v32 = v28;
-                  v33 = (4 * v28);
-                  v34 = &v33[-v32];
-                  *v33 = v25;
-                  end = v33 + 1;
-                  memcpy(v34, begin, v27);
-                  v35 = v42.__begin_;
-                  v42.__begin_ = v34;
-                  v42.__end_ = end;
-                  v42.__end_cap_.__value_ = 0;
-                  if (v35)
-                  {
-                    operator delete(v35);
-                  }
-                }
-
-                else
-                {
-                  *end++ = v25;
-                }
-
-                v42.__end_ = end;
-                v21 += 8;
-                v24 -= 8;
-              }
-
-              while (v24);
-            }
-
-            v41 = *(v19 + 80);
-            v36 = a7[1];
-            if (v36 >= a7[2])
-            {
-              v37 = std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<std::vector<int>&,float>(a7, &v42, &v41);
-            }
-
-            else
-            {
-              std::vector<std::pair<std::vector<int>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&,float>(a7, &v42, &v41);
-              v37 = (v36 + 32);
-            }
-
-            a7[1] = v37;
-            if (v42.__begin_)
-            {
-              v42.__end_ = v42.__begin_;
-              operator delete(v42.__begin_);
-            }
-
-            ++v18;
-          }
-
-          while (v18 != v40);
-        }
-
-        sentencepiece::util::Status::Status(v39);
-      }
-
-      sentencepiece::NBestSentencePieceText::~NBestSentencePieceText(&v43);
-    }
-
-    else
-    {
-      v43 = 13;
-      v38 = std::ostringstream::basic_ostringstream[abi:ne200100](&v44);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v44, "(", 1);
-      MEMORY[0x1AC57D010](&v44, 560);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v44, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v44, "ids", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v44, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v44, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v43, a8);
-      v44 = *MEMORY[0x1E69E54E8];
-      *(&v44 + *(v44 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v45 = MEMORY[0x1E69E5548] + 16;
-      if (v49 < 0)
-      {
-        operator delete(__p);
-      }
-
-      v45 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(&v46);
-      std::ostream::~ostream();
-      MEMORY[0x1AC57D130](&v50);
-    }
-  }
-}
-
-void *std::vector<std::pair<std::vector<int>,float>>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 5)
-  {
-    if (!(a2 >> 59))
-    {
-      v2 = result[1] - *result;
-      v3 = result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<int>,float>>>(result, a2);
-    }
-
-    std::vector<int>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
-}
-
-void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_type __n)
-{
-  if (__n > this->__end_cap_.__value_ - this->__begin_)
-  {
-    if (!(__n >> 62))
-    {
-      v2 = this->__end_ - this->__begin_;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(this, __n);
-    }
-
-    std::vector<int>::__throw_length_error[abi:ne200100]();
-  }
-}
-
-void *sentencepiece::SentencePieceProcessor::PopulateSentencePieceText@<X0>(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X4>, uint64_t *a5@<X5>, unsigned __int8 ***a6@<X6>, uint64_t a7@<X7>, sentencepiece::util::Status *a8@<X8>)
-{
-  v10 = *a6;
-  v91 = a6[1];
-  if (*a6 != v91)
-  {
-    v11 = a5;
-    v12 = 0;
-    v13 = 0;
-    while (1)
-    {
-      v14 = v10[1];
-      if (!v14)
-      {
-        LODWORD(__p[0]) = 13;
-        v79 = std::ostringstream::basic_ostringstream[abi:ne200100](&__p[1]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v79, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(", 1);
-        MEMORY[0x1AC57D010](&__p[1], 591);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], ") [", 3);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "!w.empty()", 10);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "] ", 2);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "Empty piece is not allowed.", 27);
-        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(__p, a8);
-        goto LABEL_130;
-      }
-
-      v15 = *v10;
-      v16 = *(v10 + 4);
-      v93 = ((*a1)[66])(a1, v16);
-      if (((*a1)[67])(a1, v16))
-      {
-        v17 = *(a7 + 64);
-        if (v17)
-        {
-          v18 = *(a7 + 56);
-          v19 = *v17;
-          if (v18 < *v17)
-          {
-            *(a7 + 56) = v18 + 1;
-            v20 = *&v17[2 * v18 + 2];
-LABEL_55:
-            *(v20 + 40) |= 1u;
-            std::string::basic_string[abi:ne200100](__p, v15, v14);
-            v48 = *(v20 + 8);
-            if (v48)
-            {
-              v48 = *(v48 & 0xFFFFFFFFFFFFFFFELL);
-            }
-
-            google::protobuf::internal::ArenaStringPtr::Set((v20 + 48), __p, v48);
-            if (SHIBYTE(v97) < 0)
-            {
-              operator delete(__p[0]);
-            }
-
-            v49 = *(v20 + 40);
-            *(v20 + 64) = v16;
-            v50 = *(*v11 + 8 * v12);
-            *(v20 + 68) = v50;
-            *(v20 + 40) = v49 | 0x1C;
-            goto LABEL_80;
-          }
-
-          if (v19 != *(a7 + 60))
-          {
-LABEL_54:
-            *v17 = v19 + 1;
-            v20 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::SentencePieceText_SentencePiece>(*(a7 + 48));
-            v46 = *(a7 + 56);
-            v47 = *(a7 + 64) + 8 * v46;
-            *(a7 + 56) = v46 + 1;
-            *(v47 + 8) = v20;
-            goto LABEL_55;
-          }
-        }
-
-        else
-        {
-          v19 = *(a7 + 60);
-        }
-
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a7 + 48), v19 + 1);
-        v17 = *(a7 + 64);
-        v19 = *v17;
-        goto LABEL_54;
-      }
-
-      v21 = *v11;
-      v22 = v11[1] - *v11;
-      if (v12 >= v22 >> 3)
-      {
-        LODWORD(__p[0]) = 13;
-        v80 = std::ostringstream::basic_ostringstream[abi:ne200100](&__p[1]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v80, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(", 1);
-        MEMORY[0x1AC57D010](&__p[1], 605);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], ") [", 3);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(begin) < (norm_to_orig.size())", 31);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "] ", 2);
-        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(__p, a8);
-        goto LABEL_130;
-      }
-
-      v23 = v14 + v12;
-      if (v14 + v12 >= v22 >> 3)
-      {
-        LODWORD(__p[0]) = 13;
-        v81 = std::ostringstream::basic_ostringstream[abi:ne200100](&__p[1]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v81, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(", 1);
-        MEMORY[0x1AC57D010](&__p[1], 606);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], ") [", 3);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(end) < (norm_to_orig.size())", 29);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "] ", 2);
-        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(__p, a8);
-        goto LABEL_130;
-      }
-
-      v24 = *(v21 + 8 * v12);
-      if (a3 < v24)
-      {
-        LODWORD(__p[0]) = 13;
-        v82 = std::ostringstream::basic_ostringstream[abi:ne200100](&__p[1]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v82, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(", 1);
-        MEMORY[0x1AC57D010](&__p[1], 609);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], ") [", 3);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(orig_begin) <= (input.size())", 30);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "] ", 2);
-        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(__p, a8);
-        goto LABEL_130;
-      }
-
-      v25 = *(v21 + 8 * v23);
-      if (v25 > a3)
-      {
-        LODWORD(__p[0]) = 13;
-        v83 = std::ostringstream::basic_ostringstream[abi:ne200100](&__p[1]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v83, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(", 1);
-        MEMORY[0x1AC57D010](&__p[1], 610);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], ") [", 3);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(orig_end) <= (input.size())", 28);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "] ", 2);
-        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(__p, a8);
-        goto LABEL_130;
-      }
-
-      v26 = v25 - v24;
-      if (v25 < v24)
-      {
-        LODWORD(__p[0]) = 13;
-        v84 = std::ostringstream::basic_ostringstream[abi:ne200100](&__p[1]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(", 1);
-        MEMORY[0x1AC57D010](&__p[1], 611);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], ") [", 3);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(orig_begin) <= (orig_end)", 26);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "] ", 2);
-        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(__p, a8);
-        goto LABEL_130;
-      }
-
-      if (a3 - v24 < v26)
-      {
-        v26 = a3 - v24;
-      }
-
-      __len = v26;
-      if (v93)
-      {
-        if ((*(*a1[1] + 184))(a1[1]))
-        {
-          while (1)
-          {
-            v28 = *v15++;
-            v27 = v28;
-            v29 = *(a7 + 64);
-            if (!v29)
-            {
-              break;
-            }
-
-            v30 = *(a7 + 56);
-            v31 = *v29;
-            if (v30 >= *v29)
-            {
-              if (v31 == *(a7 + 60))
-              {
-LABEL_22:
-                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a7 + 48), v31 + 1);
-                v29 = *(a7 + 64);
-                v31 = *v29;
-              }
-
-              *v29 = v31 + 1;
-              v32 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::SentencePieceText_SentencePiece>(*(a7 + 48));
-              v33 = *(a7 + 56);
-              v34 = *(a7 + 64) + 8 * v33;
-              *(a7 + 56) = v33 + 1;
-              *(v34 + 8) = v32;
-              goto LABEL_24;
-            }
-
-            *(a7 + 56) = v30 + 1;
-            v32 = *&v29[2 * v30 + 2];
-LABEL_24:
-            sentencepiece::ByteToPiece(v27, &__dst);
-            if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              p_dst = &__dst;
-            }
-
-            else
-            {
-              p_dst = __dst.__r_.__value_.__r.__words[0];
-            }
-
-            if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              size = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-            }
-
-            else
-            {
-              size = __dst.__r_.__value_.__l.__size_;
-            }
-
-            v37 = (*(*a1[1] + 112))(a1[1], p_dst, size);
-            if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v38 = &__dst;
-            }
-
-            else
-            {
-              v38 = __dst.__r_.__value_.__r.__words[0];
-            }
-
-            if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v39 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-            }
-
-            else
-            {
-              v39 = __dst.__r_.__value_.__l.__size_;
-            }
-
-            *(v32 + 40) |= 1u;
-            std::string::basic_string[abi:ne200100](__p, v38, v39);
-            v40 = *(v32 + 8);
-            if (v40)
-            {
-              v40 = *(v40 & 0xFFFFFFFFFFFFFFFELL);
-            }
-
-            google::protobuf::internal::ArenaStringPtr::Set((v32 + 48), __p, v40);
-            if (SHIBYTE(v97) < 0)
-            {
-              operator delete(__p[0]);
-            }
-
-            v41 = *(v32 + 40);
-            *(v32 + 40) = v41 | 4;
-            *(v32 + 64) = v37;
-            if (v14 == 1)
-            {
-              *(v32 + 40) = v41 | 6;
-              std::string::basic_string[abi:ne200100](__p, &a2[v24], __len);
-              v42 = *(v32 + 8);
-              if (v42)
-              {
-                v42 = *(v42 & 0xFFFFFFFFFFFFFFFELL);
-              }
-
-              google::protobuf::internal::ArenaStringPtr::Set((v32 + 56), __p, v42);
-              if (SHIBYTE(v97) < 0)
-              {
-                operator delete(__p[0]);
-              }
-
-              v43 = *(v32 + 40);
-              *(v32 + 68) = v24;
-              v44 = v43 | 0x18;
-              v45 = v25;
-            }
-
-            else
-            {
-              *(v32 + 68) = v24;
-              v44 = v41 | 0x1C;
-              v45 = v24;
-            }
-
-            *(v32 + 40) = v44;
-            *(v32 + 72) = v45;
-            if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(__dst.__r_.__value_.__l.__data_);
-            }
-
-            if (!--v14)
-            {
-              v12 = v23;
-              v11 = a5;
-              goto LABEL_81;
-            }
-          }
-
-          v31 = *(a7 + 60);
-          goto LABEL_22;
-        }
-
-        if (v13)
-        {
-          v51 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(a7 + 48, *(a7 + 56) - 1);
-          if (v14 > 0x7FFFFFFFFFFFFFF7)
-          {
-            goto LABEL_134;
-          }
-
-          v20 = v51;
-          v52 = *(v51 + 48);
-          v85 = (v51 + 48);
-          if (v14 >= 0x17)
-          {
-            operator new();
-          }
-
-          *(&__dst.__r_.__value_.__s + 23) = v14;
-          v62 = v52 & 0xFFFFFFFFFFFFFFFELL;
-          memmove(&__dst, v15, v14);
-          __dst.__r_.__value_.__s.__data_[v14] = 0;
-          v63 = *(v62 + 23);
-          if (v63 >= 0)
-          {
-            v64 = v62;
-          }
-
-          else
-          {
-            v64 = *v62;
-          }
-
-          if (v63 >= 0)
-          {
-            v65 = *(v62 + 23);
-          }
-
-          else
-          {
-            v65 = *(v62 + 8);
-          }
-
-          v66 = std::string::insert(&__dst, 0, v64, v65);
-          v67 = *&v66->__r_.__value_.__l.__data_;
-          v97 = v66->__r_.__value_.__r.__words[2];
-          *__p = v67;
-          v66->__r_.__value_.__l.__size_ = 0;
-          v66->__r_.__value_.__r.__words[2] = 0;
-          v66->__r_.__value_.__r.__words[0] = 0;
-          *(v20 + 40) |= 1u;
-          v68 = *(v20 + 8);
-          if (v68)
-          {
-            v68 = *(v68 & 0xFFFFFFFFFFFFFFFELL);
-          }
-
-          google::protobuf::internal::ArenaStringPtr::Set(v85, __p, v68);
-          if (SHIBYTE(v97) < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__dst.__r_.__value_.__l.__data_);
-          }
-
-          if (__len > 0x7FFFFFFFFFFFFFF7)
-          {
-LABEL_134:
-            std::string::__throw_length_error[abi:ne200100]();
-          }
-
-          *v86 = *(v20 + 56);
-          if (__len >= 0x17)
-          {
-            operator new();
-          }
-
-          *(&__dst.__r_.__value_.__s + 23) = __len;
-          if (__len)
-          {
-            memmove(&__dst, &a2[v24], __len);
-          }
-
-          v11 = a5;
-          v69 = *v86 & 0xFFFFFFFFFFFFFFFELL;
-          __dst.__r_.__value_.__s.__data_[__len] = 0;
-          v70 = *((*v86 & 0xFFFFFFFFFFFFFFFELL) + 23);
-          if (v70 >= 0)
-          {
-            v71 = (*v86 & 0xFFFFFFFFFFFFFFFELL);
-          }
-
-          else
-          {
-            v71 = *v69;
-          }
-
-          if (v70 >= 0)
-          {
-            v72 = *(v69 + 23);
-          }
-
-          else
-          {
-            v72 = *(v69 + 8);
-          }
-
-          v73 = std::string::insert(&__dst, 0, v71, v72);
-          v74 = *&v73->__r_.__value_.__l.__data_;
-          v97 = v73->__r_.__value_.__r.__words[2];
-          *__p = v74;
-          v73->__r_.__value_.__l.__size_ = 0;
-          v73->__r_.__value_.__r.__words[2] = 0;
-          v73->__r_.__value_.__r.__words[0] = 0;
-          *(v20 + 40) |= 2u;
-          v75 = *(v20 + 8);
-          if (v75)
-          {
-            v75 = *(v75 & 0xFFFFFFFFFFFFFFFELL);
-          }
-
-          google::protobuf::internal::ArenaStringPtr::Set((v20 + 56), __p, v75);
-          if (SHIBYTE(v97) < 0)
-          {
-            operator delete(__p[0]);
-          }
-
-          if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__dst.__r_.__value_.__l.__data_);
-          }
-
-          *(v20 + 40) |= 0x10u;
-          LODWORD(v50) = v25;
-          v12 = v23;
-          goto LABEL_80;
-        }
-      }
-
-      v53 = *(a7 + 64);
-      if (!v53)
-      {
-        break;
-      }
-
-      v54 = *(a7 + 56);
-      v55 = *v53;
-      if (v54 >= *v53)
-      {
-        if (v55 == *(a7 + 60))
-        {
-LABEL_69:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a7 + 48), v55 + 1);
-          v53 = *(a7 + 64);
-          v55 = *v53;
-        }
-
-        *v53 = v55 + 1;
-        v20 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::SentencePieceText_SentencePiece>(*(a7 + 48));
-        v56 = *(a7 + 56);
-        v57 = *(a7 + 64) + 8 * v56;
-        *(a7 + 56) = v56 + 1;
-        *(v57 + 8) = v20;
-        goto LABEL_71;
-      }
-
-      *(a7 + 56) = v54 + 1;
-      v20 = *&v53[2 * v54 + 2];
-LABEL_71:
-      *(v20 + 40) |= 1u;
-      std::string::basic_string[abi:ne200100](__p, v15, v14);
-      v58 = *(v20 + 8);
-      if (v58)
-      {
-        v58 = *(v58 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      google::protobuf::internal::ArenaStringPtr::Set((v20 + 48), __p, v58);
-      if (SHIBYTE(v97) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v59 = *(v20 + 40);
-      *(v20 + 64) = v16;
-      *(v20 + 40) = v59 | 6;
-      std::string::basic_string[abi:ne200100](__p, &a2[v24], __len);
-      v60 = *(v20 + 8);
-      if (v60)
-      {
-        v60 = *(v60 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      google::protobuf::internal::ArenaStringPtr::Set((v20 + 56), __p, v60);
-      if (SHIBYTE(v97) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v61 = *(v20 + 40);
-      *(v20 + 68) = v24;
-      *(v20 + 40) = v61 | 0x18;
-      LODWORD(v50) = v25;
-      v12 = v23;
-      v11 = a5;
-LABEL_80:
-      *(v20 + 72) = v50;
-      v23 = v12;
-LABEL_81:
-      v10 += 3;
-      v13 = v93;
-      if (v10 == v91)
-      {
-        goto LABEL_116;
-      }
-    }
-
-    v55 = *(a7 + 60);
-    goto LABEL_69;
-  }
-
-  v23 = 0;
-LABEL_116:
-  if (v23 == a4)
-  {
-    result = sentencepiece::SentencePieceProcessor::ApplyExtraOptions(a1, a1 + 5, a7, a8);
-    if (!*a8)
-    {
-      sentencepiece::util::Status::~Status(a8);
-      *(a7 + 40) |= 1u;
-      std::string::basic_string[abi:ne200100](__p, a2, a3);
-      v77 = *(a7 + 8);
-      if (v77)
-      {
-        v77 = *(v77 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      google::protobuf::internal::ArenaStringPtr::Set((a7 + 72), __p, v77);
-      if (SHIBYTE(v97) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      return sentencepiece::util::Status::Status(a8);
-    }
-
-    return result;
-  }
-
-  LODWORD(__p[0]) = 13;
-  v78 = std::ostringstream::basic_ostringstream[abi:ne200100](&__p[1]);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v78, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(", 1);
-  MEMORY[0x1AC57D010](&__p[1], 662);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], ") [", 3);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "(consumed) == (normalized.size())", 33);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "] ", 2);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p[1], "all normalized characters are not consumed.", 43);
-  sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(__p, a8);
-LABEL_130:
-  __p[1] = *MEMORY[0x1E69E54E8];
-  *(&__p[1] + *(__p[1] - 3)) = *(MEMORY[0x1E69E54E8] + 24);
-  v97 = MEMORY[0x1E69E5548] + 16;
-  if (v99 < 0)
-  {
-    operator delete(v98[7].__locale_);
-  }
-
-  v97 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v98);
-  std::ostream::~ostream();
-  return MEMORY[0x1AC57D130](&v100);
-}
-
 void sub_1A8F91538(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   if (a31 < 0)
@@ -3314,7 +8,7 @@ void sub_1A8F91538(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sentencepiece::SentencePieceProcessor::ApplyExtraOptions@<X0>(sentencepiece::ModelInterface **a1@<X0>, int **a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *sentencepiece::SentencePieceProcessor::ApplyExtraOptions@<X0>(sentencepiece::ModelInterface **a1@<X0>, int **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v5 = *a2;
   v6 = a2[1];
@@ -3400,7 +94,7 @@ void *sentencepiece::SentencePieceProcessor::ApplyExtraOptions@<X0>(sentencepiec
 
     if (v9 != 1)
     {
-      return sentencepiece::util::Status::Status(a4, 13, "unknown extra_option type.", 26);
+      return sentencepiece::util::Status::Status(a4, 13, "unknown extra_option type.", 0x1AuLL);
     }
 
     v10 = *(a3 + 64);
@@ -3578,7 +272,7 @@ LABEL_46:
     goto LABEL_63;
   }
 
-  return sentencepiece::util::Status::Status(a4, 13, "unknown extra_option type.", 26);
+  return sentencepiece::util::Status::Status(a4, 13, "unknown extra_option type.", 0x1AuLL);
 }
 
 void sentencepiece::SentencePieceProcessor::Encode(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, sentencepiece::SentencePieceText *a4@<X3>, sentencepiece::util::Status *a5@<X8>)
@@ -3884,7 +578,7 @@ void sub_1A8F92674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::SampleEncode(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, int a4@<W3>, sentencepiece::SentencePieceText *a5@<X4>, sentencepiece::util::Status *a6@<X8>, float a7@<S0>)
+void sentencepiece::SentencePieceProcessor::SampleEncode(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, unsigned int a4@<W3>, sentencepiece::SentencePieceText *a5@<X4>, sentencepiece::util::Status *a6@<X8>, float a7@<S0>)
 {
   ((*a1)[11])(a1);
   if (*a6)
@@ -3924,7 +618,7 @@ LABEL_5:
 
       sentencepiece::util::Status::~Status(a6);
       v16 = (*(*a1[1] + 88))(a1[1]);
-      if (a4 >= 0)
+      if ((a4 & 0x80000000) == 0)
       {
         v17 = v16;
       }
@@ -3957,7 +651,7 @@ LABEL_5:
           else
           {
             LODWORD(v29) = 0;
-            v19 = std::vector<float>::vector[abi:ne200100](&v39, (v32 - v31) >> 5);
+            v19 = std::vector<float>::vector[abi:ne200100](&v39, (v32 - v31) >> 5, &v29);
             if (v32 != v31)
             {
               v20 = v39;
@@ -4433,113 +1127,113 @@ void sub_1A8F93A08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void sentencepiece::SentencePieceProcessor::Decode(void *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, sentencepiece::util::Status *a4@<X8>)
 {
   v4 = a3;
-  v74[19] = *MEMORY[0x1E69E9840];
-  v62 = a3;
+  v67[19] = *MEMORY[0x1E69E9840];
+  v57 = a3;
   (*(*a1 + 88))(a4);
   if (*a4)
   {
-    goto LABEL_2;
+    return;
   }
 
   sentencepiece::util::Status::~Status(a4);
   if (!v4)
   {
-    LODWORD(__dst) = 13;
-    std::ostringstream::basic_ostringstream[abi:ne200100](&__dst + 1);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "(", 1);
-    MEMORY[0x1AC57D010](&__dst + 8, 796);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "spt", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "output proto is null", 20);
+    LODWORD(__dst.__r_.__value_.__l.__data_) = 13;
+    std::ostringstream::basic_ostringstream[abi:ne200100](&__dst.__r_.__value_.__l.__size_);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "(", 1);
+    MEMORY[0x1AC57D010](&__dst.__r_.__value_.__r.__words[1], 796);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, ") [", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "spt", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "output proto is null", 20);
     sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&__dst, a4);
-    *(&__dst + 1) = *MEMORY[0x1E69E54E8];
-    *(&__dst + *(*(&__dst + 1) - 24) + 8) = *(MEMORY[0x1E69E54E8] + 24);
-    v69 = (MEMORY[0x1E69E5548] + 16);
-    if (v73 < 0)
+    __dst.__r_.__value_.__l.__size_ = *MEMORY[0x1E69E54E8];
+    *(&__dst.__r_.__value_.__r.__words[1] + *(__dst.__r_.__value_.__l.__size_ - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+    __dst.__r_.__value_.__r.__words[2] = MEMORY[0x1E69E5548] + 16;
+    if (v66 < 0)
     {
       operator delete(__p);
     }
 
-    v69 = (MEMORY[0x1E69E5538] + 16);
-    std::locale::~locale(&v70);
+    __dst.__r_.__value_.__r.__words[2] = MEMORY[0x1E69E5538] + 16;
+    std::locale::~locale(&v63);
     std::ostream::~ostream();
-    MEMORY[0x1AC57D130](v74);
-    goto LABEL_2;
+    MEMORY[0x1AC57D130](v67);
+    return;
   }
 
   sentencepiece::SentencePieceText::Clear(v4);
-  v9 = a1[4];
-  if (v9 && (*(*v9 + 72))(v9))
+  v8 = a1[4];
+  if (v8 && (*(*v8 + 72))(v8))
   {
-    v10 = (*(*a1[4] + 24))(a1[4]);
+    v9 = (*(*a1[4] + 24))(a1[4]);
   }
 
   else
   {
   }
 
-  v11 = *a2;
-  v12 = a2[1];
-  if (*a2 != v12)
+  v10 = *a2;
+  v11 = a2[1];
+  if (*a2 != v11)
   {
     while (1)
     {
-      v13 = *v11;
-      v14 = v11[1];
-      v15 = v62;
-      v16 = *(v62 + 64);
-      if (!v16)
+      v12 = *v10;
+      v13 = v10[1];
+      v14 = v57;
+      v15 = *(v57 + 64);
+      if (!v15)
       {
         break;
       }
 
-      v17 = *(v62 + 56);
-      v18 = *v16;
-      if (v17 >= *v16)
+      v16 = *(v57 + 56);
+      v17 = *v15;
+      if (v16 >= *v15)
       {
-        if (v18 == *(v62 + 60))
+        if (v17 == *(v57 + 60))
         {
 LABEL_18:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v62 + 48), v18 + 1);
-          v16 = *(v62 + 64);
-          v18 = *v16;
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v57 + 48), v17 + 1);
+          v15 = *(v57 + 64);
+          v17 = *v15;
         }
 
-        *v16 = v18 + 1;
-        v19 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::SentencePieceText_SentencePiece>(*(v15 + 48));
-        v20 = *(v15 + 56);
-        v21 = *(v15 + 64) + 8 * v20;
-        *(v15 + 56) = v20 + 1;
-        *(v21 + 8) = v19;
+        *v15 = v17 + 1;
+        v18 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::SentencePieceText_SentencePiece>(*(v14 + 48));
+        v19 = *(v14 + 56);
+        v20 = *(v14 + 64) + 8 * v19;
+        *(v14 + 56) = v19 + 1;
+        *(v20 + 8) = v18;
         goto LABEL_20;
       }
 
-      *(v62 + 56) = v17 + 1;
-      v19 = *&v16[2 * v17 + 2];
+      *(v57 + 56) = v16 + 1;
+      v18 = *&v15[2 * v16 + 2];
 LABEL_20:
-      *(v19 + 40) |= 1u;
-      v22 = *(v19 + 8);
-      if (v22)
+      *(v18 + 40) |= 1u;
+      v21 = *(v18 + 8);
+      if (v21)
       {
-        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+        v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v23 = google::protobuf::internal::ArenaStringPtr::Mutable((v19 + 48), v22);
-      MEMORY[0x1AC57CEA0](v23, v13, v14);
-      v24 = (*(*a1 + 504))(a1, v13, v14);
-      *(v19 + 40) |= 4u;
-      *(v19 + 64) = v24;
-      v11 += 2;
-      if (v11 == v12)
+      v22 = google::protobuf::internal::ArenaStringPtr::Mutable((v18 + 48), v21);
+      MEMORY[0x1AC57CEA0](v22, v12, v13);
+      v23 = (*(*a1 + 504))(a1, v12, v13);
+      *(v18 + 40) |= 4u;
+      *(v18 + 64) = v23;
+      v10 += 2;
+      if (v10 == v11)
       {
-        v4 = v62;
+        v4 = v57;
         goto LABEL_24;
       }
     }
 
-    v18 = *(v62 + 60);
+    v17 = *(v57 + 60);
     goto LABEL_18;
   }
 
@@ -4547,257 +1241,243 @@ LABEL_24:
   sentencepiece::SentencePieceProcessor::ApplyExtraOptions(a1, a1 + 8, v4, a4);
   if (*a4)
   {
-    goto LABEL_2;
+    return;
   }
 
   sentencepiece::util::Status::~Status(a4);
   *(v4 + 40) |= 1u;
-  v25 = *(v4 + 8);
-  if (v25)
+  v24 = *(v4 + 8);
+  if (v24)
   {
-    v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
+    v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  v60[1] = &v61;
-  v61 = google::protobuf::internal::ArenaStringPtr::Mutable((v4 + 72), v25);
-  v58 = 0;
-  v59[0] = &v62;
-  v59[1] = v60;
-  v60[0] = &v62;
-  v57[0] = 0;
-  v57[1] = 0;
-  v26 = *(v4 + 56);
-  if (v26 >= 1)
+  v55[1] = &v56;
+  v56 = google::protobuf::internal::ArenaStringPtr::Mutable((v4 + 72), v24);
+  v54[0] = &v57;
+  v54[1] = v55;
+  v55[0] = &v57;
+  memset(&v53, 0, sizeof(v53));
+  v25 = *(v4 + 56);
+  if (v25 >= 1)
   {
+    v26 = 0;
     v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v30 = 1;
+    v29 = 1;
     while (1)
     {
-      v31 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(v4 + 48, v29);
-      if (!(*(*a1 + 552))(a1, *(v31 + 64)))
+      v30 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(v4 + 48, v28);
+      if (!(*(*a1 + 552))(a1, *(v30 + 64)))
       {
         break;
       }
 
-      ++v29;
+      v28 = (v28 + 1);
 LABEL_69:
-      v4 = v62;
-      v26 = *(v62 + 56);
-      if (v29 >= v26)
+      v4 = v57;
+      v25 = *(v57 + 56);
+      if (v28 >= v25)
       {
         goto LABEL_87;
       }
     }
 
-    sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(v59, v28, v29, a4);
+    sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(v54, v27, v28, a4);
     if (*a4)
     {
-      goto LABEL_95;
+      goto LABEL_93;
     }
 
     sentencepiece::util::Status::~Status(a4);
-    if (v27)
+    if (v26)
     {
       goto LABEL_36;
     }
 
-    v32 = *(v61 + 23);
-    if (v32 < 0)
+    v31 = *(v56 + 23);
+    if (v31 < 0)
     {
-      v32 = v61[1];
+      v31 = v56[1];
     }
 
-    if (v32)
+    if (v31)
     {
 LABEL_36:
-      v30 = 0;
+      v29 = 0;
     }
 
-    v33 = *(v31 + 48) & 0xFFFFFFFFFFFFFFFELL;
-    v34 = *(v33 + 23);
-    if ((v34 & 0x8000000000000000) != 0)
+    v32 = *(v30 + 48) & 0xFFFFFFFFFFFFFFFELL;
+    v33 = *(v32 + 23);
+    if ((v33 & 0x8000000000000000) != 0)
     {
-      v35 = *v33;
-      v34 = *(v33 + 8);
-    }
-
-    else
-    {
-      v35 = (*(v31 + 48) & 0xFFFFFFFFFFFFFFFELL);
-    }
-
-    v36 = *(v31 + 64);
-    if ((*(*a1 + 536))(a1, v36))
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v54, "");
+      v34 = *v32;
+      v33 = *(v32 + 8);
     }
 
     else
     {
-      if (!(*(*a1 + 528))(a1, v36))
+      v34 = (*(v30 + 48) & 0xFFFFFFFFFFFFFFFELL);
+    }
+
+    v35 = *(v30 + 64);
+    if ((*(*a1 + 536))(a1, v35))
+    {
+      std::string::basic_string[abi:ne200100]<0>(&v51, "");
+    }
+
+    else
+    {
+      if (!(*(*a1 + 528))(a1, v35))
       {
-        if (v30 & 1) != 0 && ((v39 = a1[4]) == 0 || (v40 = (*(*v39 + 152))(v39), ((*(*v40 + 16))(v40)) || (v41 = (*(*a1[4] + 152))(a1[4]), (*(*v41 + 24))(v41))))
+        if (v29 & 1) != 0 && ((v38 = a1[4]) == 0 || (v39 = (*(*v38 + 152))(v38), ((*(*v39 + 16))(v39)) || (v40 = (*(*a1[4] + 152))(a1[4]), (*(*v40 + 24))(v40))))
         {
-          if (v34 >= 3)
+          if (v33 >= 3)
           {
-            v46 = *v35 != 38626 || v35[2] != 129;
-            if (!v46)
+            v45 = *v34 != 38626 || v34[2] != 129;
+            if (!v45)
             {
-              v35 += 3;
-              v34 -= 3;
+              v34 += 3;
+              v33 -= 3;
             }
 
-            v42 = !v46;
+            v41 = !v45;
           }
 
           else
           {
-            v42 = 0;
+            v41 = 0;
           }
 
-          v47 = a1[4];
-          if (v47)
+          v46 = a1[4];
+          if (v46)
           {
-            v48 = (*(*v47 + 152))(v47);
-            if ((*(*v48 + 24))(v48))
+            v47 = (*(*v46 + 152))(v46);
+            if ((*(*v47 + 24))(v47))
             {
-              v42 = 0;
+              v41 = 0;
             }
           }
         }
 
         else
         {
-          v42 = 0;
+          v41 = 0;
         }
 
-        *(&__dst + 1) = 3;
-        v69 = " ";
-        v70.__locale_ = 1;
-        v64 = 0;
-        v65 = 0;
-        v63 = 0;
-        std::vector<std::pair<std::string_view,std::string_view>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,std::string_view> const*,std::pair<std::string_view,std::string_view> const*>(&v63, &__dst, &v71, 1uLL);
-        absl::StrReplaceAll(v35, v34, &v63, &v66);
-        v54 = v66;
-        v55 = v67;
-        v67 = 0;
-        v66 = 0uLL;
-        v56 = v42;
-        if (v63)
+        __dst.__r_.__value_.__l.__size_ = 3;
+        __dst.__r_.__value_.__r.__words[2] = " ";
+        v63.__locale_ = 1;
+        v59 = 0;
+        v60 = 0;
+        v58 = 0;
+        std::vector<std::pair<std::string_view,std::string_view>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,std::string_view> const*,std::pair<std::string_view,std::string_view> const*>(&v58, &__dst, v64, 1uLL);
+        absl::StrReplaceAll(&v61, v34, v33, &v58);
+        v51 = v61;
+        memset(&v61, 0, sizeof(v61));
+        v52 = v41;
+        if (v58)
         {
-          v64 = v63;
-          operator delete(v63);
+          v59 = v58;
+          operator delete(v58);
         }
 
         goto LABEL_60;
       }
 
-      v37 = (*(*a1 + 512))(a1, v36);
-      if (v38 == v34 && !memcmp(v37, v35, v34))
+      v36 = (*(*a1 + 512))(a1, v35);
+      if (v37 == v33 && !memcmp(v36, v34, v33))
       {
-        std::string::basic_string[abi:ne200100]<0>(&v54, v10);
+        std::string::basic_string[abi:ne200100]<0>(&v51, v9);
       }
 
       else
       {
-        if (v34 >= 0x7FFFFFFFFFFFFFF8)
+        if (v33 >= 0x7FFFFFFFFFFFFFF8)
         {
           std::string::__throw_length_error[abi:ne200100]();
         }
 
-        if (v34 >= 0x17)
+        if (v33 >= 0x17)
         {
           operator new();
         }
 
-        HIBYTE(v69) = v34;
-        if (v34)
+        *(&__dst.__r_.__value_.__s + 23) = v33;
+        if (v33)
         {
-          memmove(&__dst, v35, v34);
+          memmove(&__dst, v34, v33);
         }
 
-        *(&__dst + v34) = 0;
-        v54 = __dst;
-        v55 = v69;
+        __dst.__r_.__value_.__s.__data_[v33] = 0;
+        v51 = __dst;
       }
     }
 
-    v56 = 0;
+    v52 = 0;
 LABEL_60:
-    if (SHIBYTE(v58) < 0)
+    if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v57[0]);
+      operator delete(v53.__r_.__value_.__l.__data_);
     }
 
-    v58 = v55;
-    *v57 = v54;
-    v27 = v56;
-    if (SHIBYTE(v55) >= 0)
+    v53 = v51;
+    v26 = v52;
+    if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v43 = v57;
-    }
-
-    else
-    {
-      v43 = v54;
-    }
-
-    if (SHIBYTE(v55) >= 0)
-    {
-      v44 = v55 >> 56;
+      v42 = &v53;
     }
 
     else
     {
-      v44 = *(&v54 + 1);
+      v42 = v51.__r_.__value_.__r.__words[0];
     }
 
-    sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(v60, v29++, v43, v44);
-    v28 = v29;
+    if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v51.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v51.__r_.__value_.__l.__size_;
+    }
+
+    sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(v55, v28, v42, size);
+    v28 = (v28 + 1);
+    v27 = v28;
     goto LABEL_69;
   }
 
-  v28 = 0;
+  v27 = 0;
 LABEL_87:
-  sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(v59, v28, v26, a4);
+  sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(v54, v27, v25, a4);
   if (!*a4)
   {
     sentencepiece::util::Status::~Status(a4);
-    v49 = a1[3];
-    if (v49)
+    v48 = a1[3];
+    if (v48)
     {
-      if ((*(v61 + 23) & 0x8000000000000000) != 0)
+      (*(*v48 + 40))(&__dst);
+      v49 = v56;
+      if (*(v56 + 23) < 0)
       {
-        v50 = *v61;
-        v51 = v61[1];
+        operator delete(*v56);
       }
 
-      (*(*v49 + 40))(&__dst);
-      v52 = v61;
-      if (*(v61 + 23) < 0)
-      {
-        operator delete(*v61);
-      }
-
-      v53 = __dst;
-      v52[2] = v69;
-      *v52 = v53;
+      v50 = *&__dst.__r_.__value_.__l.__data_;
+      v49[2] = __dst.__r_.__value_.__r.__words[2];
+      *v49 = v50;
     }
 
     sentencepiece::util::Status::Status(a4);
   }
 
-LABEL_95:
-  if (SHIBYTE(v58) < 0)
+LABEL_93:
+  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57[0]);
+    operator delete(v53.__r_.__value_.__l.__data_);
   }
-
-LABEL_2:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1A8F943B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
@@ -4810,7 +1490,7 @@ void sub_1A8F943B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(uint64_t a1@<X0>, int a2@<W1>, int a3@<W2>, sentencepiece::util::Status *a4@<X8>)
+void sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, sentencepiece::util::Status *a4@<X8>)
 {
   if (a2 >= a3)
   {
@@ -4820,6 +1500,7 @@ void sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view>
 
   else
   {
+    v6 = a2;
     memset(&v38, 0, sizeof(v38));
     v8 = a2;
     do
@@ -4893,7 +1574,7 @@ void sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view>
           break;
         }
 
-        v19 = v17 + a2;
+        v19 = (v17 + v6);
         if (*v31 != 1)
         {
           if (*v31 != 3)
@@ -4922,7 +1603,7 @@ LABEL_41:
         }
       }
 
-      v19 = v17 + a2;
+      v19 = (v17 + v6);
 LABEL_22:
       v20 = HIBYTE(v38.__r_.__value_.__r.__words[2]);
       if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -4983,7 +1664,7 @@ LABEL_22:
           sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(*(a1 + 8), v19, v28, v29);
           ++v25;
           v22 = *v31;
-          ++v19;
+          v19 = (v19 + 1);
         }
 
         while (*v31 > v25);
@@ -4994,7 +1675,7 @@ LABEL_22:
 
     v15 = 0;
 LABEL_48:
-    if (v15 + a2 == a3)
+    if (v15 + v6 == a3)
     {
       sentencepiece::util::Status::Status(v30);
       goto LABEL_54;
@@ -5040,7 +1721,7 @@ void sub_1A8F94954(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(uint64_t a1, int a2, const void *a3, size_t a4)
+std::string *sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(uint64_t a1, uint64_t a2, const void *a3, size_t a4)
 {
   v7 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(**a1 + 48, a2);
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5106,10 +1787,10 @@ void sub_1A8F94B0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void absl::StrCat<int>(void *__src@<X0>, size_t __len@<X1>, unsigned int *a3@<X2>, std::string *a4@<X8>)
+void absl::StrCat<int>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, unsigned int *a4@<X2>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  absl::StrCat(*a3);
+  absl::StrCat(*a4);
   if ((v10 & 0x80u) == 0)
   {
     v6 = __p;
@@ -5131,7 +1812,7 @@ void absl::StrCat<int>(void *__src@<X0>, size_t __len@<X1>, unsigned int *a3@<X2
   }
 
   v8 = std::string::append(&__dst, v6, v7);
-  *a4 = *v8;
+  *a1 = *v8;
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
@@ -5424,220 +2105,176 @@ uint64_t sentencepiece::SentencePieceProcessor::pad_id(sentencepiece::ModelInter
   }
 }
 
-uint64_t sentencepiece::SentencePieceProcessor::LookupPredictive@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void ***a3@<X3>, sentencepiece::util::Status *a4@<X8>)
+uint64_t sentencepiece::SentencePieceProcessor::LookupPredictive@<X0>(void **a1@<X0>, void ***a2@<X3>, sentencepiece::util::Status *a3@<X8>)
 {
   result = ((*a1)[11])(a1);
-  if (!*a4)
+  if (!*a3)
   {
-    sentencepiece::util::Status::~Status(a4);
-    if (a3)
+    sentencepiece::util::Status::~Status(a3);
+    if (a2)
     {
-      std::vector<std::string>::clear[abi:ne200100](a3);
-      if (*(a2 + 23) >= 0)
-      {
-        v10 = *(a2 + 23);
-      }
+      std::vector<std::string>::clear[abi:ne200100](a2);
+      v7 = *(*a1[1] + 200);
 
-      else
-      {
-        v9 = *a2;
-        v10 = a2[1];
-      }
-
-      v11 = *(*a1[1] + 200);
-
-      return v11();
+      return v7();
     }
 
     else
     {
-      v13 = 13;
-      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
-      MEMORY[0x1AC57D010](&v14, 1027);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "pieces", 6);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a4);
-      v14 = *MEMORY[0x1E69E54E8];
-      *(&v14 + *(v14 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v15 = MEMORY[0x1E69E5548] + 16;
-      if (v17 < 0)
+      LODWORD(v9) = 13;
+      v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+      MEMORY[0x1AC57D010](&v10, 1027);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "pieces", 6);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "output container is null", 24);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a3);
+      v10 = *MEMORY[0x1E69E54E8];
+      *(&v10 + *(v10 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+      v11 = MEMORY[0x1E69E5548] + 16;
+      if (v13 < 0)
       {
-        operator delete(v16[7].__locale_);
+        operator delete(v12[7].__locale_);
       }
 
-      v15 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(v16);
+      v11 = MEMORY[0x1E69E5538] + 16;
+      std::locale::~locale(v12);
       std::ostream::~ostream();
-      return MEMORY[0x1AC57D130](&v18);
+      return MEMORY[0x1AC57D130](&v14);
     }
   }
 
   return result;
 }
 
-uint64_t sentencepiece::SentencePieceProcessor::LookupPredictive@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X3>, sentencepiece::util::Status *a4@<X8>)
+uint64_t sentencepiece::SentencePieceProcessor::LookupPredictive@<X0>(void **a1@<X0>, void *a2@<X3>, sentencepiece::util::Status *a3@<X8>)
 {
   result = ((*a1)[11])(a1);
-  if (!*a4)
+  if (!*a3)
   {
-    sentencepiece::util::Status::~Status(a4);
-    if (a3)
+    sentencepiece::util::Status::~Status(a3);
+    if (a2)
     {
-      a3[1] = *a3;
-      if (*(a2 + 23) >= 0)
-      {
-        v10 = *(a2 + 23);
-      }
+      a2[1] = *a2;
+      v7 = *(*a1[1] + 208);
 
-      else
-      {
-        v9 = *a2;
-        v10 = a2[1];
-      }
-
-      v11 = *(*a1[1] + 208);
-
-      return v11();
+      return v7();
     }
 
     else
     {
-      v13 = 13;
-      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
-      MEMORY[0x1AC57D010](&v14, 1033);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "ids", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a4);
-      v14 = *MEMORY[0x1E69E54E8];
-      *(&v14 + *(v14 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v15 = MEMORY[0x1E69E5548] + 16;
-      if (v17 < 0)
+      LODWORD(v9) = 13;
+      v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+      MEMORY[0x1AC57D010](&v10, 1033);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "ids", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "output container is null", 24);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a3);
+      v10 = *MEMORY[0x1E69E54E8];
+      *(&v10 + *(v10 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+      v11 = MEMORY[0x1E69E5548] + 16;
+      if (v13 < 0)
       {
-        operator delete(v16[7].__locale_);
+        operator delete(v12[7].__locale_);
       }
 
-      v15 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(v16);
+      v11 = MEMORY[0x1E69E5538] + 16;
+      std::locale::~locale(v12);
       std::ostream::~ostream();
-      return MEMORY[0x1AC57D130](&v18);
+      return MEMORY[0x1AC57D130](&v14);
     }
   }
 
   return result;
 }
 
-uint64_t sentencepiece::SentencePieceProcessor::LookupCommonPrefix@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void ***a3@<X2>, sentencepiece::util::Status *a4@<X8>)
+uint64_t sentencepiece::SentencePieceProcessor::LookupCommonPrefix@<X0>(void **a1@<X0>, void ***a2@<X2>, sentencepiece::util::Status *a3@<X8>)
 {
   result = ((*a1)[11])(a1);
-  if (!*a4)
+  if (!*a3)
   {
-    sentencepiece::util::Status::~Status(a4);
-    if (a3)
+    sentencepiece::util::Status::~Status(a3);
+    if (a2)
     {
-      std::vector<std::string>::clear[abi:ne200100](a3);
-      if (*(a2 + 23) >= 0)
-      {
-        v10 = *(a2 + 23);
-      }
+      std::vector<std::string>::clear[abi:ne200100](a2);
+      v7 = *(*a1[1] + 216);
 
-      else
-      {
-        v9 = *a2;
-        v10 = a2[1];
-      }
-
-      v11 = *(*a1[1] + 216);
-
-      return v11();
+      return v7();
     }
 
     else
     {
-      v13 = 13;
-      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
-      MEMORY[0x1AC57D010](&v14, 1039);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "pieces", 6);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a4);
-      v14 = *MEMORY[0x1E69E54E8];
-      *(&v14 + *(v14 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v15 = MEMORY[0x1E69E5548] + 16;
-      if (v17 < 0)
+      LODWORD(v9) = 13;
+      v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+      MEMORY[0x1AC57D010](&v10, 1039);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "pieces", 6);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "output container is null", 24);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a3);
+      v10 = *MEMORY[0x1E69E54E8];
+      *(&v10 + *(v10 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+      v11 = MEMORY[0x1E69E5548] + 16;
+      if (v13 < 0)
       {
-        operator delete(v16[7].__locale_);
+        operator delete(v12[7].__locale_);
       }
 
-      v15 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(v16);
+      v11 = MEMORY[0x1E69E5538] + 16;
+      std::locale::~locale(v12);
       std::ostream::~ostream();
-      return MEMORY[0x1AC57D130](&v18);
+      return MEMORY[0x1AC57D130](&v14);
     }
   }
 
   return result;
 }
 
-uint64_t sentencepiece::SentencePieceProcessor::LookupCommonPrefix@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, sentencepiece::util::Status *a4@<X8>)
+uint64_t sentencepiece::SentencePieceProcessor::LookupCommonPrefix@<X0>(void **a1@<X0>, void *a2@<X2>, sentencepiece::util::Status *a3@<X8>)
 {
   result = ((*a1)[11])(a1);
-  if (!*a4)
+  if (!*a3)
   {
-    sentencepiece::util::Status::~Status(a4);
-    if (a3)
+    sentencepiece::util::Status::~Status(a3);
+    if (a2)
     {
-      a3[1] = *a3;
-      if (*(a2 + 23) >= 0)
-      {
-        v10 = *(a2 + 23);
-      }
+      a2[1] = *a2;
+      v7 = *(*a1[1] + 224);
 
-      else
-      {
-        v9 = *a2;
-        v10 = a2[1];
-      }
-
-      v11 = *(*a1[1] + 224);
-
-      return v11();
+      return v7();
     }
 
     else
     {
-      v13 = 13;
-      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
-      MEMORY[0x1AC57D010](&v14, 1045);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "ids", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a4);
-      v14 = *MEMORY[0x1E69E54E8];
-      *(&v14 + *(v14 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-      v15 = MEMORY[0x1E69E5548] + 16;
-      if (v17 < 0)
+      LODWORD(v9) = 13;
+      v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+      MEMORY[0x1AC57D010](&v10, 1045);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "ids", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "output container is null", 24);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a3);
+      v10 = *MEMORY[0x1E69E54E8];
+      *(&v10 + *(v10 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+      v11 = MEMORY[0x1E69E5548] + 16;
+      if (v13 < 0)
       {
-        operator delete(v16[7].__locale_);
+        operator delete(v12[7].__locale_);
       }
 
-      v15 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(v16);
+      v11 = MEMORY[0x1E69E5538] + 16;
+      std::locale::~locale(v12);
       std::ostream::~ostream();
-      return MEMORY[0x1AC57D130](&v18);
+      return MEMORY[0x1AC57D130](&v14);
     }
   }
 
@@ -5708,9 +2345,9 @@ uint64_t sentencepiece::SentencePieceProcessor::Normalize@<X0>(void **a1@<X0>, u
       return v10();
     }
 
-    v12 = 13;
+    LODWORD(v12) = 13;
     v11 = std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "(", 1);
     MEMORY[0x1AC57D010](&v13, 1062);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, ") [", 3);
@@ -5722,9 +2359,9 @@ uint64_t sentencepiece::SentencePieceProcessor::Normalize@<X0>(void **a1@<X0>, u
 
   else
   {
-    v12 = 13;
+    LODWORD(v12) = 13;
     v9 = std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "(", 1);
     MEMORY[0x1AC57D010](&v13, 1061);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, ") [", 3);
@@ -5783,9 +2420,9 @@ void sentencepiece::SentencePieceProcessor::EncodeAsPieces(uint64_t a1@<X0>, voi
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_1A8F96B5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F96B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5820,9 +2457,9 @@ void sentencepiece::SentencePieceProcessor::NBestEncodeAsPieces(uint64_t a1@<X0>
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_1A8F96C58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F96C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5836,9 +2473,9 @@ void sentencepiece::SentencePieceProcessor::NBestEncodeAsIds(uint64_t a1@<X0>, v
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_1A8F96CD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F96CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5852,9 +2489,9 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAsPieces(uint64_t a1@<X0
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_1A8F96D50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F96D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5889,9 +2526,9 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAndScoreAsPieces(uint64_
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_1A8F96E4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F96E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::pair<std::vector<std::string>,float>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5905,9 +2542,9 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAndScoreAsIds(uint64_t a
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_1A8F96EC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F96EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5994,7 +2631,7 @@ void sentencepiece::SentencePieceProcessor::EncodeAsSerializedProto(sentencepiec
   }
 }
 
-void sub_1A8F9719C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_1A8F9719C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6005,15 +2642,15 @@ void sub_1A8F9719C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::SampleEncodeAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>, float a6@<S0>)
+void sentencepiece::SentencePieceProcessor::SampleEncodeAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, float a5@<S0>, uint64_t a6@<X8>)
 {
   v14 = &unk_1F1CABB98;
   v16 = 0;
   v17 = 0;
   v15 = sentencepiece::SentencePieceText::default_instance(a1);
   v12 = sentencepiece::ImmutableSentencePieceText::mutable_proto(&v14);
-  (*(*a1 + 248))(&v13, a1, a2, a3, a4, v12, a6);
-  google::protobuf::MessageLite::SerializeAsString(v15, a5);
+  (*(*a1 + 248))(&v13, a1, a2, a3, a4, v12, a5);
+  google::protobuf::MessageLite::SerializeAsString(v15, a6);
   sentencepiece::util::Status::~Status(&v13);
   v14 = &unk_1F1CABB98;
   if (v17)
@@ -6022,7 +2659,7 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAsSerializedProto(senten
   }
 }
 
-void sub_1A8F972B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_1A8F972B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6033,7 +2670,7 @@ void sub_1A8F972B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::NBestEncodeAsSerializedProto(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _BYTE *a5@<X8>)
+void sentencepiece::SentencePieceProcessor::NBestEncodeAsSerializedProto(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v12[1] = 0;
   v13 = 0;
@@ -6060,7 +2697,7 @@ void sub_1A8F973BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::SampleEncodeAndScoreAsSerializedProto(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, _BYTE *a7@<X8>, float a8@<S0>)
+void sentencepiece::SentencePieceProcessor::SampleEncodeAndScoreAsSerializedProto(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>, float a8@<S0>)
 {
   v18[1] = 0;
   v19 = 0;
@@ -6120,7 +2757,7 @@ void sentencepiece::SentencePieceProcessor::DecodePiecesAsSerializedProto(senten
   }
 }
 
-void sub_1A8F975EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_1A8F975EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6131,7 +2768,7 @@ void sub_1A8F975EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1A8F976E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_1A8F976E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6159,7 +2796,7 @@ void sentencepiece::SentencePieceProcessor::DecodeIdsAsSerializedProto(sentencep
   }
 }
 
-void sub_1A8F977E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_1A8F977E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6354,9 +2991,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_1A8F97ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A8F97ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6382,9 +3019,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_1A8F97FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A8F97FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6437,9 +3074,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_1A8F98270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A8F98270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6594,20 +3231,20 @@ void std::vector<std::string_view>::push_back[abi:ne200100](uint64_t a1, _OWORD 
   *(a1 + 8) = v6;
 }
 
-void *std::vector<std::string>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::string>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::string>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::string>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6629,17 +3266,17 @@ void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void *
   }
 }
 
-void *std::vector<std::string_view>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::string_view>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::string_view>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::string_view>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1A8F9864C(_Unwind_Exception *exception_object)
@@ -6654,7 +3291,7 @@ void sub_1A8F9864C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::string_view>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string_view>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6664,7 +3301,7 @@ void std::vector<std::string_view>::__vallocate[abi:ne200100](uint64_t a1, unint
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -6676,36 +3313,36 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
-void absl::StrReplaceAll(void *__src@<X0>, size_t __len@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+void absl::StrReplaceAll(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, uint64_t *a4@<X2>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  v7 = *a3;
-  v6 = a3[1];
+  a1->__r_.__value_.__r.__words[0] = 0;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  v7 = *a4;
+  v6 = a4[1];
   while (v7 != v6)
   {
-    if (*(a4 + 23) < 0)
+    if (SHIBYTE(a1->__r_.__value_.__r.__words[2]) < 0)
     {
-      **a4 = 0;
-      *(a4 + 8) = 0;
+      *a1->__r_.__value_.__l.__data_ = 0;
+      a1->__r_.__value_.__l.__size_ = 0;
     }
 
     else
     {
-      *a4 = 0;
-      *(a4 + 23) = 0;
+      a1->__r_.__value_.__s.__data_[0] = 0;
+      *(&a1->__r_.__value_.__s + 23) = 0;
     }
 
     if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -6728,8 +3365,8 @@ void absl::StrReplaceAll(void *__src@<X0>, size_t __len@<X1>, uint64_t *a3@<X2>,
       size = __dst.__r_.__value_.__l.__size_;
     }
 
-    absl::StringReplace(p_dst, size, *v7, *(v7 + 8), *(v7 + 16), *(v7 + 24), 1, a4);
-    std::string::operator=(&__dst, a4);
+    absl::StringReplace(p_dst, size, *v7, *(v7 + 8), *(v7 + 16), *(v7 + 24), 1, a1);
+    std::string::operator=(&__dst, a1);
     v7 += 32;
   }
 
@@ -6830,7 +3467,7 @@ LABEL_14:
   return std::string::append(v23, v22, v24);
 }
 
-uint64_t std::vector<std::pair<std::string_view,std::string_view>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,std::string_view> const*,std::pair<std::string_view,std::string_view> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::string_view,std::string_view>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,std::string_view> const*,std::pair<std::string_view,std::string_view> const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6852,7 +3489,7 @@ void sub_1A8F989E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<std::string_view,std::string_view>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<std::string_view,std::string_view>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -6872,7 +3509,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6910,7 +3547,7 @@ void std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v
   }
 }
 
-void std::vector<std::pair<std::vector<std::string>,float>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::pair<std::vector<std::string>,float>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6967,9 +3604,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_1A8F98CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A8F98CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7008,31 +3645,31 @@ void std::__shared_ptr_emplace<sentencepiece::NBestSentencePieceText>::~__shared
   JUMPOUT(0x1AC57D1A0);
 }
 
-void absl::StrCat<std::string,char [2],std::string>(void *__src@<X0>, size_t __len@<X1>, void **a3@<X2>, char *a4@<X3>, void **a5@<X4>, std::string *a6@<X8>)
+void absl::StrCat<std::string,char [2],std::string>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, void ***a4@<X2>, char *a5@<X3>, void ***a6@<X4>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  v10 = *(a3 + 23);
+  v10 = *(a4 + 23);
   if (v10 >= 0)
   {
-    v11 = a3;
+    v11 = a4;
   }
 
   else
   {
-    v11 = *a3;
+    v11 = *a4;
   }
 
   if (v10 >= 0)
   {
-    v12 = *(a3 + 23);
+    v12 = *(a4 + 23);
   }
 
   else
   {
-    v12 = a3[1];
+    v12 = a4[1];
   }
 
-  absl::StrCat<char [2],std::string>(v11, v12, a4, a5, &__p);
+  absl::StrCat<char [2],std::string>(&__p, v11, v12, a5, a6);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -7054,7 +3691,7 @@ void absl::StrCat<std::string,char [2],std::string>(void *__src@<X0>, size_t __l
   }
 
   v15 = std::string::append(&__dst, p_p, size);
-  *a6 = *v15;
+  *a1 = *v15;
   v15->__r_.__value_.__l.__size_ = 0;
   v15->__r_.__value_.__r.__words[2] = 0;
   v15->__r_.__value_.__r.__words[0] = 0;
@@ -7084,11 +3721,11 @@ void sub_1A8F99050(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void absl::StrCat<char [2],std::string>(void *__src@<X0>, size_t __len@<X1>, char *a3@<X2>, void **a4@<X3>, std::string *a5@<X8>)
+void absl::StrCat<char [2],std::string>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, char *a4@<X2>, void ***a5@<X3>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  v8 = strlen(a3);
-  absl::StrCat<std::string>(a3, v8, a4, &__p);
+  v8 = strlen(a4);
+  absl::StrCat<std::string>(&__p, a4, v8, a5);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -7110,7 +3747,7 @@ void absl::StrCat<char [2],std::string>(void *__src@<X0>, size_t __len@<X1>, cha
   }
 
   v11 = std::string::append(&__dst, p_p, size);
-  *a5 = *v11;
+  *a1 = *v11;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
@@ -7140,28 +3777,28 @@ void sub_1A8F99144(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void absl::StrCat<std::string>(void *__src@<X0>, size_t __len@<X1>, void **a3@<X2>, std::string *a4@<X8>)
+void absl::StrCat<std::string>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, void ***a4@<X2>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  v6 = *(a3 + 23);
+  v6 = *(a4 + 23);
   if (v6 >= 0)
   {
-    v7 = a3;
+    v7 = a4;
   }
 
   else
   {
-    v7 = *a3;
+    v7 = *a4;
   }
 
   if (v6 >= 0)
   {
-    v8 = *(a3 + 23);
+    v8 = *(a4 + 23);
   }
 
   else
   {
-    v8 = a3[1];
+    v8 = a4[1];
   }
 
   std::string::basic_string[abi:ne200100](__p, v7, v8);
@@ -7186,7 +3823,7 @@ void absl::StrCat<std::string>(void *__src@<X0>, size_t __len@<X1>, void **a3@<X
   }
 
   v11 = std::string::append(&__dst, v9, v10);
-  *a4 = *v11;
+  *a1 = *v11;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
@@ -7216,19 +3853,19 @@ void sub_1A8F99230(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string_view const*>>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t **std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string_view const*>>(uint64_t **a1, _OWORD *a2, _OWORD *a3)
 {
   a1[1] = 0;
   v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::string_view>::__emplace_hint_unique_key_args<std::string_view,std::string_view const&>(a1, v4, v6);
-      v6 += 16;
+      std::__tree<std::string_view>::__emplace_hint_unique_key_args<std::string_view,std::string_view const&>(a1, v4, v6, v6);
+      ++v6;
     }
 
     while (v6 != a3);
@@ -7237,15 +3874,15 @@ void *std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string
   return a1;
 }
 
-uint64_t std::__tree<std::string_view>::__emplace_hint_unique_key_args<std::string_view,std::string_view const&>(void *a1, void *a2, uint64_t a3)
+uint64_t std::__tree<std::string_view>::__emplace_hint_unique_key_args<std::string_view,std::string_view const&>(uint64_t **a1, void *a2, uint64_t a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::string_view>::__find_equal<std::string_view>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::string_view>::__find_equal<std::string_view>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t *std::__tree<std::string_view>::__find_equal<std::string_view>(void *a1, void *a2, void *a3, uint64_t *a4, uint64_t a5)
@@ -7479,7 +4116,7 @@ void std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string 
   *(a1 + 8) = v3 + 24;
 }
 
-uint64_t std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&>(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -7490,21 +4127,21 @@ uint64_t std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200
   return result;
 }
 
-uint64_t std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::vector<std::string>&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::vector<std::string>&>(char **a1, void *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -7528,16 +4165,16 @@ uint64_t std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::ve
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(24 * v2, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((24 * v2), *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -7546,14 +4183,14 @@ uint64_t std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::ve
   return v8;
 }
 
-void sub_1A8F99B90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F99B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<std::string>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7667,7 +4304,7 @@ void std::__split_buffer<std::vector<std::string>>::clear[abi:ne200100](uint64_t
   }
 }
 
-uint64_t std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&>(uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -7678,21 +4315,21 @@ uint64_t std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std
   return result;
 }
 
-uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int>&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int>&>(char **a1, const void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -7716,16 +4353,16 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -7734,14 +4371,14 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   return v8;
 }
 
-void sub_1A8F99FBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F99FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7828,7 +4465,7 @@ void std::__split_buffer<std::pair<std::vector<std::string>,float>>::clear[abi:n
   }
 }
 
-float std::vector<std::pair<std::vector<std::string>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&,float>(uint64_t a1, uint64_t *a2, float *a3)
+float std::vector<std::pair<std::vector<std::string>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&,float>(uint64_t a1, void *a2, float *a3)
 {
   v5 = *(a1 + 8);
   *v5 = 0;
@@ -7841,16 +4478,16 @@ float std::vector<std::pair<std::vector<std::string>,float>>::__construct_one_at
   return result;
 }
 
-char *std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slow_path<std::vector<std::string>&,float>(uint64_t a1, uint64_t *a2, _DWORD *a3)
+char *std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slow_path<std::vector<std::string>&,float>(char **a1, void *a2, _DWORD *a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 5;
+  v3 = (a1[1] - *a1) >> 5;
   v4 = v3 + 1;
   if ((v3 + 1) >> 59)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a1 + 16) - *a1;
+  v8 = a1[2] - *a1;
   if (v8 >> 4 > v4)
   {
     v4 = v8 >> 4;
@@ -7883,14 +4520,14 @@ char *std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slo
   std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v10, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   *(v10 + 24) = *a3;
   v11 = v19 + 32;
-  v12 = *(a1 + 8) - *a1;
+  v12 = a1[1] - *a1;
   v13 = &v18[-v12];
   memcpy(&v18[-v12], *a1, v12);
   v14 = *a1;
   *a1 = v13;
-  *(a1 + 8) = v11;
-  v15 = *(a1 + 16);
-  *(a1 + 16) = v20;
+  a1[1] = v11;
+  v15 = a1[2];
+  a1[2] = v20;
   v19 = v14;
   v20 = v15;
   v17 = v14;
@@ -7899,9 +4536,9 @@ char *std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slo
   return v11;
 }
 
-void sub_1A8F9A34C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F9A34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<std::vector<std::string>,float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7948,29 +4585,29 @@ void std::__split_buffer<std::pair<std::vector<int>,float>>::__destruct_at_end[a
   }
 }
 
-float std::vector<std::pair<std::vector<int>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&,float>(uint64_t a1, uint64_t *a2, float *a3)
+float std::vector<std::pair<std::vector<int>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&,float>(uint64_t a1, uint64_t a2, float *a3)
 {
   v5 = *(a1 + 8);
   *v5 = 0;
   *(v5 + 8) = 0;
   *(v5 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   result = *a3;
   *(v5 + 24) = *a3;
   *(a1 + 8) = v5 + 32;
   return result;
 }
 
-char *std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<std::vector<int>&,float>(uint64_t a1, uint64_t *a2, _DWORD *a3)
+char *std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<std::vector<int>&,float>(char **a1, uint64_t a2, _DWORD *a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 5;
+  v3 = (a1[1] - *a1) >> 5;
   v4 = v3 + 1;
   if ((v3 + 1) >> 59)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a1 + 16) - *a1;
+  v8 = a1[2] - *a1;
   if (v8 >> 4 > v4)
   {
     v4 = v8 >> 4;
@@ -8000,17 +4637,17 @@ char *std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<s
   *v10 = 0;
   *(v10 + 8) = 0;
   *(v10 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v10, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v10, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(v10 + 24) = *a3;
   v11 = v19 + 32;
-  v12 = *(a1 + 8) - *a1;
+  v12 = a1[1] - *a1;
   v13 = &v18[-v12];
   memcpy(&v18[-v12], *a1, v12);
   v14 = *a1;
   *a1 = v13;
-  *(a1 + 8) = v11;
-  v15 = *(a1 + 16);
-  *(a1 + 16) = v20;
+  a1[1] = v11;
+  v15 = a1[2];
+  a1[2] = v20;
   v19 = v14;
   v20 = v15;
   v17 = v14;
@@ -8019,24 +4656,24 @@ char *std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<s
   return v11;
 }
 
-void sub_1A8F9A5B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F9A5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1A8F9A6BC(_Unwind_Exception *exception_object)
@@ -8051,13 +4688,13 @@ void sub_1A8F9A6BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::discrete_distribution<int>::param_type::param_type[abi:ne200100]<std::__wrap_iter<float *>>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t *std::discrete_distribution<int>::param_type::param_type[abi:ne200100]<std::__wrap_iter<float *>>(uint64_t *a1, float *a2, float *a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(a1, a2, a3, (a3 - a2) >> 2);
-  std::discrete_distribution<int>::param_type::__init(a1);
+  std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(a1, a2, a3, a3 - a2);
+  std::discrete_distribution<int>::param_type::__init(a1, v4);
   return a1;
 }
 
@@ -8073,75 +4710,75 @@ void sub_1A8F9A718(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::discrete_distribution<int>::param_type::__init(uint64_t a1)
+void std::discrete_distribution<int>::param_type::__init(uint64_t a1, __n128 a2)
 {
-  v1 = *a1;
-  v2 = *(a1 + 8);
-  if (*a1 != v2)
+  v2 = *a1;
+  v3 = *(a1 + 8);
+  if (*a1 != v3)
   {
-    v4 = v2 - v1;
-    if (v4 < 2)
+    v5 = v3 - v2;
+    if (v5 < 2)
     {
-      *(a1 + 8) = v1;
+      *(a1 + 8) = v2;
 
       std::vector<double>::shrink_to_fit(a1);
     }
 
     else
     {
-      v5 = 0.0;
-      v6 = *a1;
+      v6 = 0.0;
+      v7 = *a1;
       do
       {
-        v7 = *v6++;
-        v5 = v5 + v7;
+        v8 = *v7++;
+        v6 = v6 + v8;
       }
 
-      while (v6 != v2);
-      while (v1 < v2)
+      while (v7 != v3);
+      while (v2 < v3)
       {
-        *v1 = *v1 / v5;
-        ++v1;
+        *v2 = *v2 / v6;
+        ++v2;
       }
 
-      std::vector<double>::vector[abi:ne200100](&v16, v4 - 1);
-      v8 = *a1;
-      v9 = *(a1 + 8) - 8;
-      v10 = v16;
-      if (v9 != *a1)
+      std::vector<double>::vector[abi:ne200100](&v17, v5 - 1);
+      v9 = *a1;
+      v10 = *(a1 + 8) - 8;
+      v11 = v17;
+      if (v10 != *a1)
       {
-        v11 = v8 + 1;
-        v12 = *v8;
-        *v16 = *v8;
-        if (v8 + 1 != v9)
+        v12 = v9 + 1;
+        v13 = *v9;
+        *v17 = *v9;
+        if (v9 + 1 != v10)
         {
-          v13 = v10 + 1;
+          v14 = v11 + 1;
           do
           {
-            v14 = *v11++;
-            v12 = v12 + v14;
-            *v13++ = v12;
+            v15 = *v12++;
+            v13 = v13 + v15;
+            *v14++ = v13;
           }
 
-          while (v11 != v9);
+          while (v12 != v10);
         }
       }
 
-      *a1 = v10;
-      v15 = *(a1 + 16);
-      *(a1 + 8) = v17;
-      v16 = v8;
-      *(&v17 + 1) = v15;
-      if (v8)
+      *a1 = v11;
+      v16 = *(a1 + 16);
+      *(a1 + 8) = v18;
+      v17 = v9;
+      *(&v18 + 1) = v16;
+      if (v9)
       {
-        *&v17 = v8;
-        operator delete(v8);
+        *&v18 = v9;
+        operator delete(v9);
       }
     }
   }
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t *result, float *a2, float *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8163,7 +4800,7 @@ void sub_1A8F9A89C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -8191,7 +4828,7 @@ void std::vector<double>::shrink_to_fit(const void **a1)
     {
       v7 = 8 * (v4 >> 3);
       v8 = a1[1] - v2;
-      v9 = v7 - v8;
+      v9 = (v7 - v8);
       memcpy((v7 - v8), v2, v8);
       v6 = *a1;
       *a1 = v9;
@@ -8207,29 +4844,17 @@ void std::vector<double>::shrink_to_fit(const void **a1)
   }
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1A8F9AA24(_Unwind_Exception *exception_object)
@@ -8300,45 +4925,45 @@ std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 429
   return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
 }
 
-uint64_t absl::StrCat(absl *this)
+uint64_t *absl::StrCat(absl *this)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v3);
-  MEMORY[0x1AC57D010](&v3, this);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v4);
+  MEMORY[0x1AC57D010](&v4, this);
   std::stringbuf::str();
-  v3 = *MEMORY[0x1E69E54E8];
-  *(&v3 + *(v3 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v4 = MEMORY[0x1E69E5548] + 16;
-  if (v6 < 0)
+  v4 = *MEMORY[0x1E69E54E8];
+  *(&v4 + *(v4 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v5 = MEMORY[0x1E69E5548] + 16;
+  if (v7 < 0)
   {
-    operator delete(v5[7].__locale_);
+    operator delete(v6[7].__locale_);
   }
 
-  v4 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v5);
+  v5 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v6);
   std::ostream::~ostream();
-  return MEMORY[0x1AC57D130](&v7);
+  return MEMORY[0x1AC57D130](&v8);
 }
 
-void sub_1A8F9ACE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A8F9ACE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x1E69E54E8]);
-  MEMORY[0x1AC57D130](v2 + 112);
+  MEMORY[0x1AC57D130](v3 + 112);
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::map[abi:ne200100](void *a1, uint64_t a2, uint64_t a3)
+uint64_t **std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::map[abi:ne200100](uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   a1[1] = 0;
   v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 24 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,sentencepiece::SentencePieceProcessor::ExtraOption> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,sentencepiece::SentencePieceProcessor::ExtraOption> const&>(a1, v4, a2, a2);
       a2 += 24;
       v6 -= 24;
     }
@@ -8349,15 +4974,15 @@ void *std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOpti
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,sentencepiece::SentencePieceProcessor::ExtraOption> const&>(void *a1, void *a2, uint64_t a3)
+uint64_t std::__tree<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,sentencepiece::SentencePieceProcessor::ExtraOption> const&>(uint64_t **a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::string_view>::__find_equal<std::string_view>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::string_view>::__find_equal<std::string_view>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void sentencepiece::Mmap<char>::~Mmap(void *a1)
@@ -8426,7 +5051,7 @@ double std::__fs::filesystem::path::filename[abi:ne200100]@<D0>(const std::__fs:
   return result;
 }
 
-void *std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(void *a1, _BYTE *a2, _BYTE *a3, unsigned __int8 __c, unsigned __int8 a5)
+void *std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(void *a1, _BYTE *a2, _BYTE *a3, std::string::value_type __c, std::string::value_type a5)
 {
   memset(&v15, 0, sizeof(v15));
   std::string::push_back(&v15, __c);
@@ -8456,15 +5081,15 @@ void *std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(void *a1, 
 
   if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v15.__r_.__value_.__r.__words[2]);
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v11, HIBYTE(v15.__r_.__value_.__r.__words[2]));
   }
 
   else
   {
-    size = v15.__r_.__value_.__l.__size_;
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v11, v15.__r_.__value_.__l.__size_);
   }
 
-  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v11, size);
+  v13 = v12;
   if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v15.__r_.__value_.__l.__data_);
@@ -8483,7 +5108,7 @@ void sub_1A8F9B120(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8496,14 +5121,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -8529,7 +5154,7 @@ void sentencepiece::unigram::Lattice::~Lattice(sentencepiece::unigram::Lattice *
   JUMPOUT(0x1AC57D1A0);
 }
 
-uint64_t sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate(void *a1)
+unint64_t sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate(void *a1)
 {
   v2 = a1[5];
   v3 = a1[6];
@@ -8636,9 +5261,9 @@ void sentencepiece::unigram::Lattice::SetSentence(uint64_t a1, unsigned __int8 *
   v10 = sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate((a1 + 96));
   v11 = *(a1 + 128) + *(a1 + 136) * *(a1 + 144) - 1;
   v15 = v10;
-  v10[6] = v11;
-  v10[7] = -1;
-  v10[4] = 0;
+  *(v10 + 6) = v11;
+  *(v10 + 7) = -1;
+  *(v10 + 4) = 0;
   std::vector<sentencepiece::unigram::Lattice::Node *>::push_back[abi:ne200100](*(a1 + 72), &v15);
   v12 = sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate((a1 + 96));
   v13 = *(a1 + 128) + *(a1 + 136) * *(a1 + 144) - 1;
@@ -8747,20 +5372,17 @@ void std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::resize(v
   }
 }
 
-void *std::vector<sentencepiece::unigram::Lattice::Node *>::reserve(void *result, unint64_t a2)
+void std::vector<sentencepiece::unigram::Lattice::Node *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long Darts::DoubleArrayImpl<void,void,int,void>::predictiveSearch<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>(char const*,Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type *,unsigned long,unsigned long,int)::State *>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long Darts::DoubleArrayImpl<void,void,int,void>::predictiveSearch<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>(char const*,Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type *,unsigned long,unsigned long,int)::State *>>(a1, a2);
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<sentencepiece::unigram::Lattice::Node *>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -8822,7 +5444,7 @@ void std::vector<sentencepiece::unigram::Lattice::Node *>::push_back[abi:ne20010
   *(a1 + 8) = v6;
 }
 
-uint64_t sentencepiece::unigram::Lattice::Insert(sentencepiece::unigram::Lattice *this, int a2, int a3)
+unint64_t sentencepiece::unigram::Lattice::Insert(sentencepiece::unigram::Lattice *this, int a2, int a3)
 {
   v6 = sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate(this + 12);
   v7 = *(this + 32) + *(this + 34) * *(this + 36) - 1;
@@ -8986,76 +5608,78 @@ void sub_1A8F9BBD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void sentencepiece::unigram::Lattice::ForwardAlgorithm(sentencepiece::unigram::Lattice *this@<X0>, float a2@<S0>, uint64_t *a3@<X8>)
 {
   v5 = ((*(this + 4) - *(this + 3)) >> 3) - 1;
-  std::vector<float>::vector[abi:ne200100](a3, *(this + 16) + *(this + 17) * *(this + 18));
-  v6 = 0;
-  v25 = *(this + 6);
-  v23 = this;
-  v24 = (v5 & ~(v5 >> 31)) + 1;
+  v6 = *(this + 16) + *(this + 17) * *(this + 18);
+  v27 = 0;
+  std::vector<float>::vector[abi:ne200100](a3, v6, &v27);
+  v7 = 0;
+  v26 = *(this + 6);
+  v24 = this;
+  v25 = (v5 & ~(v5 >> 31)) + 1;
   do
   {
-    v7 = (v25 + 24 * v6);
-    v8 = *v7;
-    v9 = v7[1];
-    if (*v7 != v9)
+    v8 = (v26 + 24 * v7);
+    v9 = *v8;
+    v10 = v8[1];
+    if (*v8 != v10)
     {
-      v10 = *(v23 + 9) + 24 * v6;
-      v12 = *v10;
-      v11 = *(v10 + 8);
-      v13 = *a3;
+      v11 = *(v24 + 9) + 24 * v7;
+      v13 = *v11;
+      v12 = *(v11 + 8);
+      v14 = *a3;
       do
       {
-        if (v12 != v11)
+        if (v13 != v12)
         {
-          v14 = *(*v8 + 24);
-          v15 = *v12;
-          v16 = *(v13 + 4 * v14);
-          v17 = v12;
+          v15 = *(*v9 + 24);
+          v16 = *v13;
+          v17 = *(v14 + 4 * v15);
+          v18 = v13;
           do
           {
-            v18 = *(v13 + 4 * *(*v17 + 24)) + (a2 * *(*v17 + 32));
-            if (*v17 != v15)
+            v19 = *(v14 + 4 * *(*v18 + 24)) + (a2 * *(*v18 + 32));
+            if (*v18 != v16)
             {
-              if (v18 >= v16)
+              if (v19 >= v17)
               {
-                v19 = v16;
+                v20 = v17;
               }
 
               else
               {
-                v19 = *(v13 + 4 * *(*v17 + 24)) + (a2 * *(*v17 + 32));
+                v20 = *(v14 + 4 * *(*v18 + 24)) + (a2 * *(*v18 + 32));
               }
 
-              if (v16 >= v18)
+              if (v17 >= v19)
               {
-                v18 = v16;
+                v19 = v17;
               }
 
-              if (v18 <= (v19 + 50.0))
+              if (v19 <= (v20 + 50.0))
               {
-                v20 = v18;
-                v21 = exp((v19 - v18));
-                v18 = log(v21 + 1.0) + v20;
+                v21 = v19;
+                v22 = exp((v20 - v19));
+                v19 = log(v22 + 1.0) + v21;
               }
             }
 
-            *(v13 + 4 * v14) = v18;
-            ++v17;
-            v16 = v18;
+            *(v14 + 4 * v15) = v19;
+            ++v18;
+            v17 = v19;
           }
 
-          while (v17 != v11);
+          while (v18 != v12);
         }
 
-        v8 += 8;
+        v9 += 8;
       }
 
-      while (v8 != v9);
+      while (v9 != v10);
     }
 
-    ++v6;
+    ++v7;
   }
 
-  while (v6 != v24);
+  while (v7 != v25);
 }
 
 float sentencepiece::unigram::Lattice::CalculateEntropy(sentencepiece::unigram::Lattice *this, float a2)
@@ -9064,7 +5688,7 @@ float sentencepiece::unigram::Lattice::CalculateEntropy(sentencepiece::unigram::
   v4 = *(this + 4);
   v6 = *(this + 16) + *(this + 17) * *(this + 18);
   LODWORD(__p[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](v29, v6);
+  std::vector<float>::vector[abi:ne200100](v29, v6, __p);
   sentencepiece::unigram::Lattice::ForwardAlgorithm(this, a2, __p);
   v7 = 0;
   v27 = *(this + 6);
@@ -9132,28 +5756,28 @@ void sub_1A8F9BF30(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *this@<X0>, float a2@<S0>, uint64_t a3@<X1>, int a4@<W2>, void *a5@<X8>)
+void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *this@<X0>, float a2@<S0>, uint64_t a3@<X1>, int a4@<W2>, uint64_t *a5@<X8>)
 {
   v6 = a4;
   v7 = a3;
   v8 = this;
-  v159 = *MEMORY[0x1E69E9840];
+  v158 = *MEMORY[0x1E69E9840];
   if (a3 == 1)
   {
     if ((a4 & 1) == 0)
     {
-      sentencepiece::unigram::Lattice::Viterbi(this, &v155);
+      sentencepiece::unigram::Lattice::Viterbi(this, &v154);
       *a5 = 0;
       a5[1] = 0;
       a5[2] = 0;
-      std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__init_with_size[abi:ne200100]<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*>(a5, &v155, &v157[1], 1uLL);
-      if (v155)
+      std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__init_with_size[abi:ne200100]<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*>(a5, &v154, &v156[1], 1uLL);
+      if (v154)
       {
-        *&v156 = v155;
-        operator delete(v155);
+        *&v155 = v154;
+        operator delete(v154);
       }
 
-      goto LABEL_128;
+      return;
     }
   }
 
@@ -9161,7 +5785,7 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
   {
     if (sentencepiece::logging::GetMinLogLevel(this) <= 1)
     {
-      LOBYTE(v155) = 0;
+      LOBYTE(v154) = 0;
       v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "unigram_model.cc", 16);
       v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "(", 1);
       v12 = MEMORY[0x1AC57D010](v11, 351);
@@ -9170,35 +5794,35 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
       v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "WARNING", 7);
       v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, ") ", 2);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "nbest_size >= 1. Returns empty result.", 38);
-      sentencepiece::error::Die::~Die(&v155);
+      sentencepiece::error::Die::~Die(&v154);
     }
 
     *a5 = 0;
     a5[1] = 0;
     a5[2] = 0;
-    goto LABEL_128;
+    return;
   }
 
-  v156 = 0u;
-  memset(v157, 0, sizeof(v157));
-  v155 = &unk_1F1CAC0E8;
-  v158 = 512;
-  v153 = 0;
-  v154 = 0uLL;
+  v155 = 0u;
+  memset(v156, 0, sizeof(v156));
+  v154 = &unk_1F1CAC0E8;
+  v157 = 512;
+  v152 = 0;
+  v153 = 0uLL;
   a5[1] = 0;
   a5[2] = 0;
   *a5 = 0;
-  v149 = v17;
+  v148 = v17;
   v18 = ((*(v8 + 4) - *(v8 + 3)) >> 3) - 1;
   *v17 = **(*(v8 + 6) + 24 * (v18 & ~(v18 >> 31)));
   *(v17 + 8) = 0;
   *(v17 + 20) = 0;
   v19 = *(v8 + 16) + *(v8 + 17) * *(v8 + 18);
-  *v141 = 0;
-  std::vector<float>::vector[abi:ne200100](__p, v19);
+  *v140 = 0;
+  std::vector<float>::vector[abi:ne200100](__p, v19, v140);
   if (v6)
   {
-    sentencepiece::unigram::Lattice::ForwardAlgorithm(v8, a2, v141);
+    sentencepiece::unigram::Lattice::ForwardAlgorithm(v8, a2, v140);
     v20 = __p[0];
     if (__p[0])
     {
@@ -9206,8 +5830,8 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
       operator delete(__p[0]);
     }
 
-    *__p = *v141;
-    __p[2] = *&v141[16];
+    *__p = *v140;
+    __p[2] = *&v140[16];
     RandomGenerator = sentencepiece::random::GetRandomGenerator(v20);
     v22 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(RandomGenerator);
     v23 = logf((vcvts_n_f32_u32(v22, 0x20uLL) + 0.0) + 0.0000001);
@@ -9216,20 +5840,20 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
 
   else
   {
-    sentencepiece::unigram::Lattice::Viterbi(v8, v147);
-    if (v147[0])
+    sentencepiece::unigram::Lattice::Viterbi(v8, v146);
+    if (v146[0])
     {
-      v147[1] = v147[0];
-      operator delete(v147[0]);
+      v146[1] = v146[0];
+      operator delete(v146[0]);
     }
 
     v24 = *(*v17 + 36);
   }
 
   *(v17 + 16) = v24;
-  v25 = v154;
-  v132 = 0;
-  v131 = (10 * v7);
+  v25 = v153;
+  v131 = 0;
+  v130 = (10 * v7);
   if (10 * v7 >= 512)
   {
     v26 = 512;
@@ -9240,7 +5864,7 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
     v26 = 10 * v7;
   }
 
-  v130 = v26;
+  v129 = v26;
   if (v26 <= 1)
   {
     v27 = 1;
@@ -9251,22 +5875,22 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
     v27 = v26;
   }
 
-  v135 = v27;
-  v136 = v6;
+  v134 = v27;
+  v135 = v6;
   while (1)
   {
-    v28 = v153;
-    if (v153 == v25)
+    v28 = v152;
+    if (v152 == v25)
     {
       break;
     }
 
-    v29 = *v153;
-    v30 = (v25 - v153) >> 3;
+    v29 = *v152;
+    v30 = (v25 - v152) >> 3;
     if (v30 >= 2)
     {
       v31 = 0;
-      v32 = v153;
+      v32 = v152;
       do
       {
         v33 = v32;
@@ -9297,8 +5921,8 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
       }
     }
 
-    v25 = (v154 - 8);
-    *&v154 = v154 - 8;
+    v25 = (v153 - 8);
+    *&v153 = v153 - 8;
     v37 = *v29;
     v38 = *(v8 + 9);
     if (*v29 == **v38)
@@ -9330,13 +5954,13 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
     else
     {
       v44 = (v38[3 * *(v37 + 16) + 1] - v38[3 * *(v37 + 16)]);
-      *v141 = 0;
-      std::vector<float>::vector[abi:ne200100](v146, v44);
-      *v141 = 0;
-      std::vector<float>::vector[abi:ne200100](v145, v44);
-      v133 = v7;
-      *v141 = 0;
-      MinLogLevel = std::vector<double>::vector[abi:ne200100](&v143, v44);
+      *v140 = 0;
+      std::vector<float>::vector[abi:ne200100](v145, v44, v140);
+      *v140 = 0;
+      std::vector<float>::vector[abi:ne200100](v144, v44, v140);
+      v132 = v7;
+      *v140 = 0;
+      MinLogLevel = std::vector<double>::vector[abi:ne200100](&v142, v44, v140);
       v46 = *(v37 + 16);
       v47 = *(v8 + 9);
       if (v6)
@@ -9351,12 +5975,12 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
           do
           {
             v52 = ((*(v29 + 5) + *(__p[0] + *(*(v48 + 8 * v50) + 24))) + (a2 * *(*(v48 + 8 * v50) + 32))) - v51;
-            *(v146[0] + v50) = v52;
+            *(v145[0] + v50) = v52;
             v53 = sentencepiece::random::GetRandomGenerator(MinLogLevel);
             v54 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(v53);
             v55 = logf((vcvts_n_f32_u32(v54, 0x20uLL) + 0.0) + 0.0000001);
             v56 = v52 - logf(-v55);
-            *(v145[0] + v50) = v56;
+            *(v144[0] + v50) = v56;
             if (v56 > v49)
             {
               v49 = v56;
@@ -9372,19 +5996,19 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
           v46 = *(v37 + 16);
         }
 
-        v58 = v143;
-        if (v144 != v143)
+        v58 = v142;
+        if (v143 != v142)
         {
           v59 = *(v29 + 4);
-          v60 = v145[0];
-          if (((v144 - v143) >> 3) <= 1)
+          v60 = v144[0];
+          if (((v143 - v142) >> 3) <= 1)
           {
             v61 = 1;
           }
 
           else
           {
-            v61 = (v144 - v143) >> 3;
+            v61 = (v143 - v142) >> 3;
           }
 
           do
@@ -9401,7 +6025,7 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
           while (v61);
         }
 
-        v6 = v136;
+        v6 = v135;
       }
 
       v67 = *(v47 + 24 * v46);
@@ -9411,12 +6035,12 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
         do
         {
           v69 = *(v67 + 8 * v68);
-          *v141 = v70;
+          *v140 = v70;
           *v70 = v69;
           if (v6)
           {
-            *(v70 + 20) = *(v146[0] + v68);
-            v71 = *(v143 + v68);
+            *(v70 + 20) = *(v145[0] + v68);
+            v71 = *(v142 + v68);
           }
 
           else
@@ -9427,7 +6051,7 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
 
           *(v70 + 16) = v71;
           *(v70 + 8) = v29;
-          v25 = v154;
+          v25 = v153;
           ++v68;
           v67 = *(*(v8 + 9) + 24 * *(v37 + 16));
         }
@@ -9435,13 +6059,13 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
         while (v68 < (*(*(v8 + 9) + 24 * *(v37 + 16) + 8) - v67) >> 3);
       }
 
-      v7 = v133;
-      if (!(((v157[1] + v157[2] * v158) < 0x3B9ACA00) | v132 & 1))
+      v7 = v132;
+      if (!(((v156[1] + v156[2] * v157) < 0x3B9ACA00) | v131 & 1))
       {
         MinLogLevel = sentencepiece::logging::GetMinLogLevel(MinLogLevel);
         if (MinLogLevel <= 1)
         {
-          v141[0] = 0;
+          v140[0] = 0;
           v72 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "unigram_model.cc", 16);
           v73 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v72, "(", 1);
           v74 = MEMORY[0x1AC57D010](v73, 475);
@@ -9454,32 +6078,32 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
           v81 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v80, " with an example of length ", 27);
           v82 = ((*(v8 + 4) - *(v8 + 3)) >> 3) - 1;
           MEMORY[0x1AC57D010](v81, v82 & ~(v82 >> 31));
-          sentencepiece::error::Die::~Die(v141);
+          sentencepiece::error::Die::~Die(v140);
         }
 
-        v132 = 1;
+        v131 = 1;
       }
 
-      v83 = v153;
-      if (((v25 - v153) >> 3) >> 4 < 0x271)
+      v83 = v152;
+      if (((v25 - v152) >> 3) >> 4 < 0x271)
       {
-        v6 = v136;
+        v6 = v135;
       }
 
       else
       {
-        v151 = 0;
-        v152 = 0uLL;
-        memset(&v141[8], 0, 40);
-        *v141 = &unk_1F1CAC0E8;
-        v142 = 512;
-        *v138 = 0u;
-        v139 = 0u;
-        v140 = 1065353216;
-        ++HIDWORD(v131);
+        v150 = 0;
+        v151 = 0uLL;
+        memset(&v140[8], 0, 40);
+        *v140 = &unk_1F1CAC0E8;
+        v141 = 512;
+        *v137 = 0u;
+        v138 = 0u;
+        v139 = 1065353216;
+        ++HIDWORD(v130);
         if (sentencepiece::logging::GetMinLogLevel(MinLogLevel) <= 1)
         {
-          LOBYTE(v150) = 0;
+          LOBYTE(v149) = 0;
           v84 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "unigram_model.cc", 16);
           v85 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, "(", 1);
           v86 = MEMORY[0x1AC57D010](v85, 495);
@@ -9490,52 +6114,52 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
           v91 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v90, "Too big agenda size ", 20);
           v92 = MEMORY[0x1AC57D030](v91, (v25 - v83) >> 3);
           v93 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v92, ". Shrinking (round ", 19);
-          v94 = MEMORY[0x1AC57D010](v93, HIDWORD(v131));
+          v94 = MEMORY[0x1AC57D010](v93, HIDWORD(v130));
           v95 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v94, ") down to ", 10);
-          v96 = MEMORY[0x1AC57D010](v95, v130);
+          v96 = MEMORY[0x1AC57D010](v95, v129);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v96, ".", 1);
-          sentencepiece::error::Die::~Die(&v150);
+          sentencepiece::error::Die::~Die(&v149);
         }
 
-        if (v131 >= 1)
+        if (v130 >= 1)
         {
-          v129 = v8;
+          v128 = v8;
           v97 = 0;
           while (1)
           {
-            v98 = v153;
-            v99 = *v153;
-            v150 = 0;
+            v98 = v152;
+            v99 = *v152;
+            v149 = 0;
             if (!v99)
             {
               goto LABEL_101;
             }
 
-            v100 = &v150;
+            v100 = &v149;
             do
             {
               v101 = 0x9DDFEA08EB382D69 * ((8 * (v99 & 0x1FFFFFFF) + 8) ^ HIDWORD(v99));
               v102 = 0x9DDFEA08EB382D69 * (HIDWORD(v99) ^ (v101 >> 47) ^ v101);
               v103 = 0x9DDFEA08EB382D69 * (v102 ^ (v102 >> 47));
-              if (v138[1])
+              if (v137[1])
               {
-                v104 = vcnt_s8(v138[1]);
+                v104 = vcnt_s8(v137[1]);
                 v104.i16[0] = vaddlv_u8(v104);
                 if (v104.u32[0] > 1uLL)
                 {
                   v105 = 0x9DDFEA08EB382D69 * (v102 ^ (v102 >> 47));
-                  if (v103 >= v138[1])
+                  if (v103 >= v137[1])
                   {
-                    v105 = v103 % v138[1];
+                    v105 = v103 % v137[1];
                   }
                 }
 
                 else
                 {
-                  v105 = v103 & (v138[1] - 1);
+                  v105 = v103 & (v137[1] - 1);
                 }
 
-                v106 = *(v138[0] + v105);
+                v106 = *(v137[0] + v105);
                 if (v106)
                 {
                   for (i = *v106; i; i = *i)
@@ -9554,15 +6178,15 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
                     {
                       if (v104.u32[0] > 1uLL)
                       {
-                        if (v108 >= v138[1])
+                        if (v108 >= v137[1])
                         {
-                          v108 %= v138[1];
+                          v108 %= v137[1];
                         }
                       }
 
                       else
                       {
-                        v108 &= v138[1] - 1;
+                        v108 &= v137[1] - 1;
                       }
 
                       if (v108 != v105)
@@ -9578,28 +6202,28 @@ void sentencepiece::unigram::Lattice::NBest(sentencepiece::unigram::Lattice *thi
               *(v109 + 16) = *(v99 + 16);
               *v109 = v110;
               *v100 = v109;
-              if (!v138[1])
+              if (!v137[1])
               {
                 goto LABEL_99;
               }
 
-              v111 = vcnt_s8(v138[1]);
+              v111 = vcnt_s8(v137[1]);
               v111.i16[0] = vaddlv_u8(v111);
               if (v111.u32[0] > 1uLL)
               {
                 v112 = v103;
-                if (v103 >= v138[1])
+                if (v103 >= v137[1])
                 {
-                  v112 = v103 % v138[1];
+                  v112 = v103 % v137[1];
                 }
               }
 
               else
               {
-                v112 = (v138[1] - 1) & v103;
+                v112 = (v137[1] - 1) & v103;
               }
 
-              v113 = *(v138[0] + v112);
+              v113 = *(v137[0] + v112);
               if (!v113 || (v114 = *v113) == 0)
               {
 LABEL_99:
@@ -9616,15 +6240,15 @@ LABEL_99:
 
                 if (v111.u32[0] > 1uLL)
                 {
-                  if (v115 >= v138[1])
+                  if (v115 >= v137[1])
                   {
-                    v115 %= v138[1];
+                    v115 %= v137[1];
                   }
                 }
 
                 else
                 {
-                  v115 &= v138[1] - 1;
+                  v115 &= v137[1] - 1;
                 }
 
                 if (v115 != v112)
@@ -9651,10 +6275,10 @@ LABEL_98:
 
             while (v99);
 LABEL_101:
-            v137 = v150;
+            v136 = v149;
             v116 = (v25 - v98) >> 3;
-            v6 = v136;
-            v7 = v133;
+            v6 = v135;
+            v7 = v132;
             if (v116 >= 2)
             {
               v117 = 0;
@@ -9690,59 +6314,59 @@ LABEL_101:
               }
             }
 
-            v25 = (v154 - 8);
-            *&v154 = v154 - 8;
-            if (++v97 == v135)
+            v25 = (v153 - 8);
+            *&v153 = v153 - 8;
+            if (++v97 == v134)
             {
-              v83 = v153;
-              v8 = v129;
+              v83 = v152;
+              v8 = v128;
               goto LABEL_114;
             }
           }
         }
 
-        v6 = v136;
+        v6 = v135;
 LABEL_114:
         if (v83)
         {
-          *&v154 = v83;
+          *&v153 = v83;
           operator delete(v83);
         }
 
+        v152 = v150;
+        v133 = v151;
         v153 = v151;
-        v134 = v152;
-        v154 = v152;
-        v124 = v156;
-        v156 = *&v141[8];
-        *&v141[8] = v124;
-        v125 = *&v141[24];
-        v126 = v158;
-        *&v141[24] = v157[0];
-        v127 = *&v157[1];
-        *&v157[1] = *&v141[32];
-        *&v141[32] = v127;
-        v157[0] = v125;
-        v158 = v142;
-        v142 = v126;
-        v25 = v134;
+        v124 = v155;
+        v155 = *&v140[8];
+        *&v140[8] = v124;
+        v125 = *&v140[24];
+        v126 = v157;
+        *&v140[24] = v156[0];
+        v127 = *&v156[1];
+        *&v156[1] = *&v140[32];
+        *&v140[32] = v127;
+        v156[0] = v125;
+        v157 = v141;
+        v141 = v126;
+        v25 = v133;
       }
 
-      if (v143)
+      if (v142)
       {
-        v144 = v143;
-        operator delete(v143);
+        v143 = v142;
+        operator delete(v142);
+      }
+
+      if (v144[0])
+      {
+        v144[1] = v144[0];
+        operator delete(v144[0]);
       }
 
       if (v145[0])
       {
         v145[1] = v145[0];
         operator delete(v145[0]);
-      }
-
-      if (v146[0])
-      {
-        v146[1] = v146[0];
-        operator delete(v146[0]);
       }
     }
   }
@@ -9753,16 +6377,13 @@ LABEL_114:
     operator delete(__p[0]);
   }
 
-  if (v153)
+  if (v152)
   {
-    operator delete(v153);
+    operator delete(v152);
   }
-
-LABEL_128:
-  v128 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1A8F9CEFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51)
+void sub_1A8F9CEFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51)
 {
   if (__p)
   {
@@ -9798,7 +6419,7 @@ void sub_1A8F9CEFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sentencepiece::model::FreeList<sentencepiece::unigram::anonymous namespace::Hypothesis>::Allocate(void *a1)
+unint64_t sentencepiece::model::FreeList<sentencepiece::unigram::anonymous namespace::Hypothesis>::Allocate(void *a1)
 {
   v2 = a1[5];
   v3 = a1[6];
@@ -9823,7 +6444,7 @@ uint64_t sentencepiece::model::FreeList<sentencepiece::unigram::anonymous namesp
   return result;
 }
 
-void std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::resize(void *a1, unint64_t a2)
+void std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::resize(const void **a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = (v3 - *a1) >> 5;
@@ -9837,12 +6458,12 @@ void std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,
         v7 = a1[1];
         do
         {
-          v9 = *(v7 - 32);
+          v9 = *(v7 - 4);
           v7 -= 32;
           v8 = v9;
           if (v9)
           {
-            *(v3 - 24) = v8;
+            *(v3 - 3) = v8;
             operator delete(v8);
           }
 
@@ -9862,4 +6483,3369 @@ void std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,
 
     std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__append(a1, v5);
   }
+}
+
+uint64_t std::unordered_map<sentencepiece::unigram::anonymous namespace::Hypothesis const*,sentencepiece::unigram::anonymous namespace::Hypothesis*>::~unordered_map[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    do
+    {
+      v3 = *v2;
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+
+  v4 = *a1;
+  *a1 = 0;
+  if (v4)
+  {
+    operator delete(v4);
+  }
+
+  return a1;
+}
+
+void *sentencepiece::model::FreeList<sentencepiece::unigram::anonymous namespace::Hypothesis>::~FreeList(void *a1)
+{
+  *a1 = &unk_1F1CAC0E8;
+  v2 = a1[1];
+  v3 = a1[2];
+  if (v2 != v3)
+  {
+    do
+    {
+      if (*v2)
+      {
+        MEMORY[0x1AC57D170](*v2, 0x1020C8062D53EE8);
+      }
+
+      ++v2;
+    }
+
+    while (v2 != v3);
+    v2 = a1[1];
+  }
+
+  if (v2)
+  {
+    a1[2] = v2;
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sentencepiece::unigram::Lattice::Sample(sentencepiece::unigram::Lattice *this@<X0>, float a2@<S0>, unint64_t *a3@<X8>)
+{
+  if ((((*(this + 4) - *(this + 3)) >> 3) - 1) <= 0)
+  {
+    *a3 = 0;
+    a3[1] = 0;
+    a3[2] = 0;
+  }
+
+  else
+  {
+    v6 = *(this + 16) + *(this + 17) * *(this + 18);
+    LODWORD(__src[0]) = 0;
+    std::vector<float>::vector[abi:ne200100](__p, v6, __src);
+    sentencepiece::unigram::Lattice::ForwardAlgorithm(this, a2, __src);
+    v7 = __p[0];
+    if (__p[0])
+    {
+      __p[1] = __p[0];
+      operator delete(__p[0]);
+    }
+
+    *__p = *__src;
+    v43 = v41;
+    RandomGenerator = sentencepiece::random::GetRandomGenerator(v7);
+    *a3 = 0;
+    a3[1] = 0;
+    a3[2] = 0;
+    __src[0] = 0;
+    __src[1] = 0;
+    v41 = 0;
+    v9 = ((*(this + 4) - *(this + 3)) >> 3) - 1;
+    v10 = **(*(this + 6) + 24 * (v9 & ~(v9 >> 31)));
+    v11 = *(__p[0] + *(v10 + 24));
+    v39 = v10;
+    do
+    {
+      v12 = __src[0];
+      __src[1] = __src[0];
+      v13 = (*(this + 9) + 24 * *(v39 + 16));
+      v14 = *v13;
+      v15 = v13[1];
+      v16 = __src[0];
+      if (*v13 != v15)
+      {
+        do
+        {
+          v17 = exp(((*(__p[0] + *(*v14 + 24)) + (a2 * *(*v14 + 32))) - v11));
+          if (v12 >= v41)
+          {
+            v18 = __src[0];
+            v19 = v12 - __src[0];
+            v20 = (v12 - __src[0]) >> 2;
+            v21 = v20 + 1;
+            if ((v20 + 1) >> 62)
+            {
+              std::vector<int>::__throw_length_error[abi:ne200100]();
+            }
+
+            v22 = v41 - __src[0];
+            if ((v41 - __src[0]) >> 1 > v21)
+            {
+              v21 = v22 >> 1;
+            }
+
+            if (v22 >= 0x7FFFFFFFFFFFFFFCLL)
+            {
+              v23 = 0x3FFFFFFFFFFFFFFFLL;
+            }
+
+            else
+            {
+              v23 = v21;
+            }
+
+            if (v23)
+            {
+              std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(__src, v23);
+            }
+
+            v24 = v20;
+            v25 = (4 * v20);
+            v26 = &v25[-v24];
+            *v25 = v17;
+            v12 = v25 + 1;
+            memcpy(v26, v18, v19);
+            v27 = __src[0];
+            __src[0] = v26;
+            __src[1] = v12;
+            v41 = 0;
+            if (v27)
+            {
+              operator delete(v27);
+            }
+          }
+
+          else
+          {
+            *v12++ = v17;
+          }
+
+          __src[1] = v12;
+          v14 += 8;
+        }
+
+        while (v14 != v15);
+        v16 = __src[0];
+      }
+
+      std::discrete_distribution<int>::param_type::param_type[abi:ne200100]<std::__wrap_iter<float *>>(v38, v16, v12);
+      v28 = *(v39 + 16);
+      v29 = *(this + 9);
+      v30 = *(*(v29 + 24 * v28) + 8 * std::discrete_distribution<int>::operator()<std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(v38, RandomGenerator, v38));
+      v39 = v30;
+      v31 = ***(this + 9);
+      if (v30 != v31)
+      {
+        v11 = *(__p[0] + *(v30 + 24));
+        std::vector<sentencepiece::unigram::Lattice::Node *>::push_back[abi:ne200100](a3, &v39);
+      }
+
+      if (v38[0])
+      {
+        v38[1] = v38[0];
+        operator delete(v38[0]);
+      }
+    }
+
+    while (v30 != v31);
+    v33 = *a3;
+    v32 = a3[1];
+    if (*a3 != v32)
+    {
+      v34 = (v32 - 8);
+      if (v34 > v33)
+      {
+        v35 = v33 + 8;
+        do
+        {
+          v36 = *(v35 - 8);
+          *(v35 - 8) = *v34;
+          *v34-- = v36;
+          v37 = v35 >= v34;
+          v35 += 8;
+        }
+
+        while (!v37);
+      }
+    }
+
+    if (__src[0])
+    {
+      __src[1] = __src[0];
+      operator delete(__src[0]);
+    }
+
+    if (__p[0])
+    {
+      __p[1] = __p[0];
+      operator delete(__p[0]);
+    }
+  }
+}
+
+void sub_1A8F9D59C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sentencepiece::unigram::Model::PopulateNodes(sentencepiece::unigram::Model *this, sentencepiece::unigram::Lattice *a2)
+{
+  v4 = *(this + 26);
+  v5 = ((*(a2 + 4) - *(a2 + 3)) >> 3) - 1;
+  v6 = *(a2 + 1);
+  v7 = *(a2 + 2);
+  std::vector<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type,std::allocator<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>>::vector[abi:ne200100](&__p, *(this + 23) + 1);
+  v43 = v5;
+  if (v5 < 1)
+  {
+    goto LABEL_40;
+  }
+
+  v44 = 0;
+  v8 = 0;
+  v9 = v4 + -10.0;
+  v42 = v6 + v7;
+  do
+  {
+    v10 = *(*(a2 + 3) + 8 * v8);
+    v11 = __p;
+    v12 = (v47 - __p) >> 4;
+    v13 = *(this + 5);
+    v14 = (*v13 >> 10 << ((*v13 >> 6) & 8));
+    if ((v42 - v10) << 32)
+    {
+      v15 = 0;
+      v16 = 0;
+      do
+      {
+        v17 = v10[v15];
+        v18 = v14 ^ v17;
+        v19 = v13[v18];
+        if ((v19 & 0x800000FF) != v17)
+        {
+          break;
+        }
+
+        v14 = v18 ^ (v19 >> 10 << ((v19 >> 6) & 8));
+        if ((v19 & 0x100) != 0)
+        {
+          if (v16 < v12)
+          {
+            v20 = &v11[16 * v16];
+            *v20 = v13[v14] & 0x7FFFFFFF;
+            *(v20 + 1) = v15 + 1;
+          }
+
+          ++v16;
+        }
+
+        ++v15;
+      }
+
+      while (v42 - v10 != v15);
+    }
+
+    else
+    {
+      v21 = *v10;
+      if (*v10)
+      {
+        v16 = 0;
+        v22 = 1;
+        do
+        {
+          v23 = v14 ^ v21;
+          v24 = v13[v23];
+          if ((v24 & 0x800000FF) != v21)
+          {
+            break;
+          }
+
+          v14 = v23 ^ (v24 >> 10 << ((v24 >> 6) & 8));
+          if ((v24 & 0x100) != 0)
+          {
+            if (v16 < v12)
+            {
+              v25 = &v11[16 * v16];
+              *v25 = v13[v14] & 0x7FFFFFFF;
+              *(v25 + 1) = v22;
+            }
+
+            ++v16;
+          }
+
+          v21 = v10[v22++];
+        }
+
+        while (v21);
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+    }
+
+    if (v16 >= v12)
+    {
+      v45 = 1;
+      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "unigram_model.cc", 16);
+      v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "(", 1);
+      v28 = MEMORY[0x1AC57D010](v27, 572);
+      v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ") [", 3);
+      v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "(num_nodes) < (trie_results.size())", 35);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "] ", 2);
+      sentencepiece::error::Die::~Die(&v45);
+    }
+
+    if (!v16)
+    {
+LABEL_38:
+      v41 = sentencepiece::unigram::Lattice::Insert(a2, v8, 1);
+      *(v41 + 28) = *(this + 22);
+      *(v41 + 32) = v9;
+      goto LABEL_39;
+    }
+
+    v31 = 0;
+    v32 = 0;
+    do
+    {
+      while (1)
+      {
+        v33 = (__p + 16 * v31);
+        v34 = (*(a2 + 3) + v44);
+        v35 = -1;
+        do
+        {
+          v36 = *v34++;
+          ++v35;
+        }
+
+        while (v36 < &v10[*(v33 + 1)]);
+        v37 = *v33;
+        if ((*(**(this + 1) + 128))(*(this + 1), v37))
+        {
+          break;
+        }
+
+        v38 = v8;
+        v39 = sentencepiece::unigram::Lattice::Insert(a2, v8, v35);
+        *(v39 + 28) = v37;
+        if ((*(**(this + 1) + 136))(*(this + 1), v37))
+        {
+          v40 = (*(this + 27) * v35) + -0.1;
+        }
+
+        else
+        {
+          v40 = (*(**(this + 1) + 96))(*(this + 1), v37);
+        }
+
+        *(v39 + 32) = v40;
+        if (!v32)
+        {
+          v32 = *(v39 + 20) == 1;
+          v8 = v38;
+          break;
+        }
+
+        ++v31;
+        v32 = 1;
+        v8 = v38;
+        if (v31 == v16)
+        {
+          goto LABEL_39;
+        }
+      }
+
+      ++v31;
+    }
+
+    while (v31 != v16);
+    if (!v32)
+    {
+      goto LABEL_38;
+    }
+
+LABEL_39:
+    ++v8;
+    v44 += 8;
+  }
+
+  while (v8 != v43);
+LABEL_40:
+  if (__p)
+  {
+    v47 = __p;
+    operator delete(__p);
+  }
+}
+
+void sub_1A8F9D9D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+sentencepiece::unigram::Model *sentencepiece::unigram::Model::Model(sentencepiece::unigram::Model *this, const sentencepiece::ModelProto *a2)
+{
+  v4 = sentencepiece::ModelInterface::ModelInterface(this);
+  *(v4 + 13) = 0;
+  *(v4 + 28) = 0;
+  *v4 = &unk_1F1CABF90;
+  *(v4 + 1) = a2 + 16;
+  sentencepiece::ModelInterface::InitializePieces(v4);
+  v5 = 0;
+  *(this + 13) = 0x8000007F7FFFFFLL;
+  while (v5 < (*(**(this + 1) + 16))(*(this + 1)))
+  {
+    if ((*(**(this + 1) + 104))(*(this + 1), v5))
+    {
+      v6 = (*(**(this + 1) + 96))(*(this + 1), v5);
+      if (v6 >= *(this + 26))
+      {
+        v6 = *(this + 26);
+      }
+
+      *(this + 26) = v6;
+      v7 = (*(**(this + 1) + 96))(*(this + 1), v5);
+      if (*(this + 27) >= v7)
+      {
+        v7 = *(this + 27);
+      }
+
+      *(this + 27) = v7;
+    }
+
+    ++v5;
+  }
+
+  return this;
+}
+
+sentencepiece::ModelInterface *sentencepiece::ModelInterface::ModelInterface(sentencepiece::ModelInterface *this)
+{
+  *this = &unk_1F1CAB9B0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = &unk_1F1CABAD0;
+  *(this + 4) = 0;
+  *(this + 5) = 0;
+  *(this + 6) = 0;
+  *(this + 7) = &unk_1F1CABAD0;
+  *(this + 8) = 0;
+  *(this + 9) = 0;
+  *(this + 10) = 0;
+  *(this + 22) = 0;
+  sentencepiece::util::Status::Status(this + 12);
+  return this;
+}
+
+void sub_1A8F9DC14(_Unwind_Exception *a1)
+{
+  Darts::DoubleArrayImpl<void,void,int,void>::~DoubleArrayImpl(v3);
+  Darts::DoubleArrayImpl<void,void,int,void>::~DoubleArrayImpl(v2);
+  v5 = *v1;
+  *v1 = 0;
+  if (v5)
+  {
+    std::default_delete<sentencepiece::normalizer::PrefixMatcher>::operator()[abi:ne200100](v1, v5);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sentencepiece::unigram::Model::Model(uint64_t a1, uint64_t a2, _DWORD *a3, unint64_t a4)
+{
+  v7 = a4 > 7;
+  if (a4 <= 7)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = a4 - 8;
+  }
+
+  if (v7)
+  {
+    v9 = (a3 + 2);
+  }
+
+  else
+  {
+    v9 = "";
+  }
+
+  v10 = sentencepiece::ModelInterface::ModelInterface(a1, a2, v9, v8);
+  *v10 = &unk_1F1CABF90;
+  *(v10 + 104) = 0;
+  v11 = (v10 + 104);
+  *(v10 + 108) = 0;
+  v12 = (v10 + 108);
+  *(v10 + 112) = 0;
+  sentencepiece::util::Status::Status(&v16, (a1 + 96));
+  v13 = v16;
+  sentencepiece::util::Status::~Status(&v16);
+  if (!v13)
+  {
+    sentencepiece::mmap_util::DecodePrefix<float>(a3, a4, v11, &v16);
+    sentencepiece::util::Status::operator=((a1 + 96), &v16);
+    sentencepiece::util::Status::~Status(&v16);
+    (*(*a1 + 16))(&v16, a1);
+    v14 = v16;
+    sentencepiece::util::Status::~Status(&v16);
+    if (!v14)
+    {
+      sentencepiece::mmap_util::DecodePrefix<float>(a3 + 1, a4 - 4, v12, &v16);
+      sentencepiece::util::Status::operator=((a1 + 96), &v16);
+      sentencepiece::util::Status::~Status(&v16);
+    }
+  }
+
+  return a1;
+}
+
+void sub_1A8F9DD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sentencepiece::util::Status::~Status(va);
+  sentencepiece::ModelInterface::~ModelInterface(v3);
+  _Unwind_Resume(a1);
+}
+
+void *sentencepiece::mmap_util::DecodePrefix<float>@<X0>(_DWORD *a1@<X0>, unint64_t a2@<X1>, _DWORD *a3@<X2>, uint64_t *a4@<X8>)
+{
+  if (a2 <= 3)
+  {
+    LODWORD(v7) = 13;
+    v6 = std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/util.h", 62, v7);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, "(", 1);
+    MEMORY[0x1AC57D010](&v8, 448);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, ") [", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, "string.size() >= sizeof(T)", 26);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, "] ", 2);
+    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v7, a4);
+    v8 = *MEMORY[0x1E69E54E8];
+    *(&v8 + *(v8 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+    v9 = MEMORY[0x1E69E5548] + 16;
+    if (v11 < 0)
+    {
+      operator delete(v10[7].__locale_);
+    }
+
+    v9 = MEMORY[0x1E69E5538] + 16;
+    std::locale::~locale(v10);
+    std::ostream::~ostream();
+    return MEMORY[0x1AC57D130](&v12);
+  }
+
+  else
+  {
+    *a3 = *a1;
+
+    return sentencepiece::util::Status::Status(a4);
+  }
+}
+
+void sentencepiece::unigram::Model::~Model(sentencepiece::unigram::Model *this)
+{
+  sentencepiece::ModelInterface::~ModelInterface(this);
+
+  JUMPOUT(0x1AC57D1A0);
+}
+
+void sentencepiece::unigram::Model::Encode(sentencepiece::unigram::Model *a1@<X0>, unsigned __int8 *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  if (*(a1 + 28))
+  {
+    (*(*a1 + 16))(&v23, a1);
+    if (v23)
+    {
+      sentencepiece::util::Status::~Status(&v23);
+LABEL_4:
+      *a4 = 0;
+      *(a4 + 8) = 0;
+      *(a4 + 16) = 0;
+      return;
+    }
+
+    sentencepiece::util::Status::~Status(&v23);
+    if (!a3)
+    {
+      goto LABEL_4;
+    }
+
+    v23 = &unk_1F1CABF70;
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0;
+    v30 = &unk_1F1CAC0B8;
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0;
+    v34 = 1024;
+    sentencepiece::unigram::Lattice::SetSentence(&v23, a2, a3);
+    sentencepiece::unigram::Model::PopulateNodes(a1, &v23);
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
+    sentencepiece::unigram::Lattice::Viterbi(&v23, &v21);
+    v8 = v21;
+    v9 = v22;
+    if (v21 != v22)
+    {
+      v10 = *(a4 + 8);
+      do
+      {
+        v11 = *v8;
+        v12 = *(a4 + 16);
+        if (v10 >= v12)
+        {
+          v13 = 0xAAAAAAAAAAAAAAABLL * ((v10 - *a4) >> 3);
+          v14 = v13 + 1;
+          if (v13 + 1 > 0xAAAAAAAAAAAAAAALL)
+          {
+            std::vector<int>::__throw_length_error[abi:ne200100]();
+          }
+
+          v15 = 0xAAAAAAAAAAAAAAABLL * ((v12 - *a4) >> 3);
+          if (2 * v15 > v14)
+          {
+            v14 = 2 * v15;
+          }
+
+          if (v15 >= 0x555555555555555)
+          {
+            v16 = 0xAAAAAAAAAAAAAAALL;
+          }
+
+          else
+          {
+            v16 = v14;
+          }
+
+          if (v16)
+          {
+            std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(a4, v16);
+          }
+
+          v17 = 24 * v13;
+          *v17 = *v11;
+          *(v17 + 16) = *(v11 + 28);
+          v10 = 24 * v13 + 24;
+          v18 = *(a4 + 8) - *a4;
+          v19 = v17 - v18;
+          memcpy((v17 - v18), *a4, v18);
+          v20 = *a4;
+          *a4 = v19;
+          *(a4 + 8) = v10;
+          *(a4 + 16) = 0;
+          if (v20)
+          {
+            operator delete(v20);
+          }
+        }
+
+        else
+        {
+          *v10 = *v11;
+          *(v10 + 16) = *(v11 + 28);
+          v10 += 24;
+        }
+
+        *(a4 + 8) = v10;
+        ++v8;
+      }
+
+      while (v8 != v9);
+      v8 = v21;
+    }
+
+    if (v8)
+    {
+      v22 = v8;
+      operator delete(v8);
+    }
+
+    sentencepiece::unigram::Lattice::~Lattice(&v23);
+  }
+
+  else
+  {
+
+    sentencepiece::unigram::Model::EncodeOptimized(a1, a2, a3, a4);
+  }
+}
+
+void sub_1A8F9E2AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+{
+  va_start(va, a12);
+  v14 = *v12;
+  if (*v12)
+  {
+    *(v12 + 8) = v14;
+    operator delete(v14);
+  }
+
+  sentencepiece::unigram::Lattice::~Lattice(va);
+  _Unwind_Resume(a1);
+}
+
+void sentencepiece::unigram::Model::EncodeOptimized(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, unint64_t *a4@<X8>)
+{
+  (*(*a1 + 16))(&v52);
+  if (v52)
+  {
+    sentencepiece::util::Status::~Status(&v52);
+LABEL_3:
+    *a4 = 0;
+    a4[1] = 0;
+    a4[2] = 0;
+    return;
+  }
+
+  sentencepiece::util::Status::~Status(&v52);
+  if (!a3)
+  {
+    goto LABEL_3;
+  }
+
+  if (a3 << 32 != 0xFFFFFFFF00000000)
+  {
+    if ((((a3 << 32) + 0x100000000) >> 32) < 0x1555555555555556)
+    {
+      operator new();
+    }
+
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  if (a3 <= 0)
+  {
+    *a4 = 0;
+    a4[1] = 0;
+    a4[2] = 0;
+  }
+
+  else
+  {
+    v8 = 0;
+    v9 = *(a1 + 104) + -10.0;
+    v10 = a3 & 0x7FFFFFFF;
+    v49 = -v10;
+    v50 = a4;
+    v51 = a3;
+    v47 = v10;
+    v48 = a2;
+    do
+    {
+      v11 = *(12 * v8 + 4);
+      if (a3 - v8 >= asc_1A8FDAE6D[*(a2 + v8) >> 4])
+      {
+        v12 = asc_1A8FDAE6D[*(a2 + v8) >> 4];
+      }
+
+      else
+      {
+        v12 = a3 - v8;
+      }
+
+      if (v10 <= v8)
+      {
+        goto LABEL_27;
+      }
+
+      v13 = 0;
+      v14 = 0;
+      v15 = (12 * v8 + 20);
+      v16 = 1;
+      do
+      {
+        v17 = *(a1 + 40);
+        v18 = *(a2 + v8 + v16 - 1);
+        LODWORD(v14) = (*(v17 + 4 * v14) >> 10 << ((*(v17 + 4 * v14) >> 6) & 8)) ^ v14 ^ v18;
+        v19 = *(v17 + 4 * v14);
+        if ((v19 & 0x800000FF) != v18)
+        {
+          break;
+        }
+
+        if ((v19 & 0x100) != 0)
+        {
+          v20 = *(v17 + 4 * ((v19 >> 10 << ((v19 >> 6) & 8)) ^ v14)) & 0x7FFFFFFF;
+          if (((*(**(a1 + 8) + 128))(*(a1 + 8), v20) & 1) == 0)
+          {
+            if ((*(**(a1 + 8) + 136))(*(a1 + 8), v20))
+            {
+              v21 = (*(a1 + 108) * v16) + -0.1;
+            }
+
+            else
+            {
+              v21 = (*(**(a1 + 8) + 96))(*(a1 + 8), v20);
+            }
+
+            v22 = v21 + v11;
+            if (*v15 == -1 || v22 > *(v15 - 1))
+            {
+              v23 = v22;
+              *(v15 - 1) = v23;
+              *v15 = v8;
+              *(v15 - 2) = v20;
+            }
+
+            v13 |= v12 == v16;
+          }
+        }
+
+        ++v16;
+        v15 += 3;
+      }
+
+      while (v49 + v8 + v16 != 1);
+      a3 = v51;
+      v10 = v47;
+      a2 = v48;
+      if ((v13 & 1) == 0)
+      {
+LABEL_27:
+        v24 = v9 + v11;
+        if (*(12 * (v12 + v8) + 8) == -1 || v24 > *(12 * (v12 + v8) + 4))
+        {
+          *(12 * (v12 + v8) + 4) = v24;
+          *(12 * (v12 + v8) + 8) = v8;
+          *(12 * (v12 + v8)) = *(a1 + 88);
+        }
+      }
+
+      v8 += v12;
+    }
+
+    while (v8 < a3);
+    v26 = 0;
+    v27 = v50;
+    *v50 = 0;
+    v50[1] = 0;
+    v50[2] = 0;
+    v28 = a3;
+    do
+    {
+      v29 = 12 * v28;
+      v30 = *(v29 + 8);
+      if (a3 < v30)
+      {
+        std::__throw_out_of_range[abi:ne200100]("string_view::substr");
+      }
+
+      v31 = v28 - v30;
+      v32 = a2 + v30;
+      if (a3 - v30 >= v31)
+      {
+        v33 = v31;
+      }
+
+      else
+      {
+        v33 = a3 - v30;
+      }
+
+      v34 = v27[2];
+      if (v26 >= v34)
+      {
+        v35 = 0xAAAAAAAAAAAAAAABLL * ((v26 - *v27) >> 3);
+        v36 = v35 + 1;
+        if (v35 + 1 > 0xAAAAAAAAAAAAAAALL)
+        {
+          std::vector<int>::__throw_length_error[abi:ne200100]();
+        }
+
+        v37 = 0xAAAAAAAAAAAAAAABLL * ((v34 - *v27) >> 3);
+        if (2 * v37 > v36)
+        {
+          v36 = 2 * v37;
+        }
+
+        if (v37 >= 0x555555555555555)
+        {
+          v38 = 0xAAAAAAAAAAAAAAALL;
+        }
+
+        else
+        {
+          v38 = v36;
+        }
+
+        if (v38)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(v27, v38);
+        }
+
+        v39 = 24 * v35;
+        *v39 = v32;
+        *(v39 + 8) = v33;
+        *(v39 + 16) = *v29;
+        v26 = 24 * v35 + 24;
+        v40 = v50[1] - *v50;
+        v41 = v39 - v40;
+        memcpy((v39 - v40), *v50, v40);
+        v42 = *v50;
+        *v50 = v41;
+        v50[1] = v26;
+        v50[2] = 0;
+        v27 = v50;
+        if (v42)
+        {
+          operator delete(v42);
+        }
+      }
+
+      else
+      {
+        *v26 = v32;
+        *(v26 + 8) = v33;
+        *(v26 + 16) = *v29;
+        v26 += 24;
+      }
+
+      a3 = v51;
+      v27[1] = v26;
+      v28 = *(v29 + 8);
+    }
+
+    while (v28 > 0);
+    v43 = *v27;
+    if (*v27 == v26 || (v44 = v26 - 24, v26 - 24 <= v43))
+    {
+      operator delete(0);
+    }
+
+    else
+    {
+      do
+      {
+        v52 = *v43;
+        v45 = v52;
+        *v43 = *v44;
+        *v44 = v45;
+        v46 = *(v43 + 16);
+        *(v43 + 16) = *(v44 + 16);
+        *(v44 + 16) = v46;
+        v43 += 24;
+        v44 -= 24;
+      }
+
+      while (v43 < v44);
+    }
+  }
+}
+
+void sub_1A8F9E810(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p)
+{
+  v17 = *a13;
+  if (*a13)
+  {
+    *(a13 + 8) = v17;
+    operator delete(v17);
+  }
+
+  operator delete(__p);
+  _Unwind_Resume(a1);
+}
+
+void sentencepiece::unigram::Model::NBestEncode(sentencepiece::unigram::Model *a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t *a5@<X8>)
+{
+  v37 = *MEMORY[0x1E69E9840];
+  (*(*a1 + 16))(__p);
+  if (__p[0])
+  {
+    sentencepiece::util::Status::~Status(__p);
+LABEL_3:
+    memset(__p, 0, 24);
+    std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(__p, 0, 0, 0);
+    LODWORD(__p[3]) = 0;
+    a5[1] = 0;
+    a5[2] = 0;
+    *a5 = 0;
+    std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__init_with_size[abi:ne200100]<std::pair<std::vector<std::pair<std::string_view,int>>,float> const*,std::pair<std::vector<std::pair<std::string_view,int>>,float> const*>(a5, __p, &__p[4], 1uLL);
+    v10 = __p[0];
+    if (!__p[0])
+    {
+      return;
+    }
+
+    __p[1] = __p[0];
+    goto LABEL_5;
+  }
+
+  sentencepiece::util::Status::~Status(__p);
+  if (!a3)
+  {
+    goto LABEL_3;
+  }
+
+  if (a4 >= 1024)
+  {
+    v11 = 1024;
+  }
+
+  else
+  {
+    v11 = a4;
+  }
+
+  if (v11 <= 1)
+  {
+    v12 = 1;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  if (a4 > 1)
+  {
+    __p[0] = &unk_1F1CABF70;
+    memset(&__p[1], 0, 88);
+    __p[12] = &unk_1F1CAC0B8;
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0;
+    v36 = 1024;
+    sentencepiece::unigram::Lattice::SetSentence(__p, a2, a3);
+    sentencepiece::unigram::Model::PopulateNodes(a1, __p);
+    *a5 = 0;
+    a5[1] = 0;
+    a5[2] = 0;
+    sentencepiece::unigram::Lattice::NBest(__p, 0.0, v12, 0, &v30);
+    v26 = *(&v30 + 1);
+    for (i = v30; i != v26; i += 32)
+    {
+      v27 = 0;
+      v28 = 0;
+      v29 = 0;
+      v14 = *i;
+      v15 = *(i + 8);
+      if (*i != v15)
+      {
+        v16 = 0;
+        do
+        {
+          v17 = *v14;
+          if (v16 >= v29)
+          {
+            v18 = 0xAAAAAAAAAAAAAAABLL * ((v16 - v27) >> 3);
+            v19 = v18 + 1;
+            if (v18 + 1 > 0xAAAAAAAAAAAAAAALL)
+            {
+              std::vector<int>::__throw_length_error[abi:ne200100]();
+            }
+
+            if (0x5555555555555556 * ((v29 - v27) >> 3) > v19)
+            {
+              v19 = 0x5555555555555556 * ((v29 - v27) >> 3);
+            }
+
+            if (0xAAAAAAAAAAAAAAABLL * ((v29 - v27) >> 3) >= 0x555555555555555)
+            {
+              v20 = 0xAAAAAAAAAAAAAAALL;
+            }
+
+            else
+            {
+              v20 = v19;
+            }
+
+            if (v20)
+            {
+              std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(&v27, v20);
+            }
+
+            v21 = 24 * v18;
+            *v21 = *v17;
+            *(v21 + 16) = *(v17 + 28);
+            v16 = 24 * v18 + 24;
+            v22 = (v21 - (v28 - v27));
+            memcpy(v22, v27, v28 - v27);
+            v23 = v27;
+            v27 = v22;
+            v28 = v16;
+            v29 = 0;
+            if (v23)
+            {
+              operator delete(v23);
+            }
+          }
+
+          else
+          {
+            *v16 = *v17;
+            *(v16 + 16) = *(v17 + 28);
+            v16 += 24;
+          }
+
+          v28 = v16;
+          ++v14;
+        }
+
+        while (v14 != v15);
+      }
+
+      v24 = a5[1];
+      if (v24 >= a5[2])
+      {
+        v25 = std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float const&>(a5, &v27, (i + 24));
+      }
+
+      else
+      {
+        std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::pair<std::string_view,int>>&,float const&>(a5, &v27, (i + 24));
+        v25 = (v24 + 32);
+      }
+
+      a5[1] = v25;
+      if (v27)
+      {
+        v28 = v27;
+        operator delete(v27);
+      }
+    }
+
+    v27 = &v30;
+    std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](&v27);
+    sentencepiece::unigram::Lattice::~Lattice(__p);
+  }
+
+  else
+  {
+    (*(*a1 + 40))(&v30, a1, a2, a3);
+    *__p = v30;
+    __p[2] = v31;
+    v31 = 0;
+    v30 = 0uLL;
+    LODWORD(__p[3]) = 0;
+    a5[1] = 0;
+    a5[2] = 0;
+    *a5 = 0;
+    std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__init_with_size[abi:ne200100]<std::pair<std::vector<std::pair<std::string_view,int>>,float> const*,std::pair<std::vector<std::pair<std::string_view,int>>,float> const*>(a5, __p, &__p[4], 1uLL);
+    if (__p[0])
+    {
+      __p[1] = __p[0];
+      operator delete(__p[0]);
+    }
+
+    v10 = v30;
+    if (v30)
+    {
+      *(&v30 + 1) = v30;
+LABEL_5:
+      operator delete(v10);
+    }
+  }
+}
+
+void sub_1A8F9EC54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20)
+{
+  a12 = a11;
+  std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](&a12);
+  sentencepiece::unigram::Lattice::~Lattice(&__p);
+  _Unwind_Resume(a1);
+}
+
+void sentencepiece::unigram::Model::SampleEncode(sentencepiece::unigram::Model *a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>, float a5@<S0>)
+{
+  (*(*a1 + 16))(&v25);
+  if (v25)
+  {
+    sentencepiece::util::Status::~Status(&v25);
+LABEL_3:
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
+    return;
+  }
+
+  sentencepiece::util::Status::~Status(&v25);
+  if (!a3)
+  {
+    goto LABEL_3;
+  }
+
+  v25 = &unk_1F1CABF70;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0;
+  v32 = &unk_1F1CAC0B8;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0;
+  v36 = 1024;
+  sentencepiece::unigram::Lattice::SetSentence(&v25, a2, a3);
+  sentencepiece::unigram::Model::PopulateNodes(a1, &v25);
+  *a4 = 0;
+  *(a4 + 8) = 0;
+  *(a4 + 16) = 0;
+  sentencepiece::unigram::Lattice::Sample(&v25, a5, &v23);
+  v10 = v23;
+  v11 = v24;
+  if (v23 != v24)
+  {
+    v12 = 0;
+    do
+    {
+      v13 = *v10;
+      v14 = *(a4 + 16);
+      if (v12 >= v14)
+      {
+        v15 = 0xAAAAAAAAAAAAAAABLL * ((v12 - *a4) >> 3);
+        v16 = v15 + 1;
+        if (v15 + 1 > 0xAAAAAAAAAAAAAAALL)
+        {
+          std::vector<int>::__throw_length_error[abi:ne200100]();
+        }
+
+        v17 = 0xAAAAAAAAAAAAAAABLL * ((v14 - *a4) >> 3);
+        if (2 * v17 > v16)
+        {
+          v16 = 2 * v17;
+        }
+
+        if (v17 >= 0x555555555555555)
+        {
+          v18 = 0xAAAAAAAAAAAAAAALL;
+        }
+
+        else
+        {
+          v18 = v16;
+        }
+
+        if (v18)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(a4, v18);
+        }
+
+        v19 = 24 * v15;
+        *v19 = *v13;
+        *(v19 + 16) = *(v13 + 28);
+        v12 = 24 * v15 + 24;
+        v20 = *(a4 + 8) - *a4;
+        v21 = v19 - v20;
+        memcpy((v19 - v20), *a4, v20);
+        v22 = *a4;
+        *a4 = v21;
+        *(a4 + 8) = v12;
+        *(a4 + 16) = 0;
+        if (v22)
+        {
+          operator delete(v22);
+        }
+      }
+
+      else
+      {
+        *v12 = *v13;
+        *(v12 + 16) = *(v13 + 28);
+        v12 += 24;
+      }
+
+      *(a4 + 8) = v12;
+      ++v10;
+    }
+
+    while (v10 != v11);
+    v10 = v23;
+  }
+
+  if (v10)
+  {
+    v24 = v10;
+    operator delete(v10);
+  }
+
+  sentencepiece::unigram::Lattice::~Lattice(&v25);
+}
+
+void sub_1A8F9EF68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, ...)
+{
+  va_start(va, a12);
+  sentencepiece::unigram::Lattice::~Lattice(va);
+  _Unwind_Resume(a1);
+}
+
+void sentencepiece::unigram::Model::SampleEncodeAndScore(sentencepiece::unigram::Model *a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, char a5@<W4>, int a6@<W5>, char **j@<X8>, float a8@<S0>)
+{
+  v14 = a1;
+  (*(*a1 + 16))(&v124);
+  if (v124)
+  {
+    sentencepiece::util::Status::~Status(&v124);
+LABEL_3:
+    *j = 0;
+    j[1] = 0;
+    j[2] = 0;
+    return;
+  }
+
+  sentencepiece::util::Status::~Status(&v124);
+  if (!a3)
+  {
+    goto LABEL_3;
+  }
+
+  v136 = 0;
+  v137 = 0;
+  v138 = 0;
+  v124 = &unk_1F1CABF70;
+  v125 = 0u;
+  v126 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v130 = 0;
+  v131 = &unk_1F1CAC0B8;
+  v132 = 0u;
+  v133 = 0u;
+  v134 = 0;
+  v135 = 1024;
+  sentencepiece::unigram::Lattice::SetSentence(&v124, a2, a3);
+  sentencepiece::unigram::Model::PopulateNodes(v14, &v124);
+  sentencepiece::unigram::Lattice::ForwardAlgorithm(&v124, a8, v123);
+  v17 = *(v123[0] + *(**(*(&v127 + 1) + 24 * ((((*(&v126 + 1) - v126) >> 3) - 1) & ~((((*(&v126 + 1) - v126) >> 3) - 1) >> 31))) + 24));
+  if (!a6)
+  {
+    goto LABEL_31;
+  }
+
+  if (a5)
+  {
+    v98 = a2;
+    v100 = a3;
+    v120 = 0;
+    v121 = 0;
+    v122 = 0;
+    sentencepiece::unigram::Lattice::Viterbi(&v124, &__p);
+    v102 = v14;
+    v18 = __p;
+    v19 = v107;
+    if (__p != v107)
+    {
+      v20 = v121;
+      do
+      {
+        v21 = *v18;
+        if (v20 >= v122)
+        {
+          v22 = 0xAAAAAAAAAAAAAAABLL * ((v20 - v120) >> 3);
+          v23 = v22 + 1;
+          if (v22 + 1 > 0xAAAAAAAAAAAAAAALL)
+          {
+            std::vector<int>::__throw_length_error[abi:ne200100]();
+          }
+
+          if (0x5555555555555556 * ((v122 - v120) >> 3) > v23)
+          {
+            v23 = 0x5555555555555556 * ((v122 - v120) >> 3);
+          }
+
+          if (0xAAAAAAAAAAAAAAABLL * ((v122 - v120) >> 3) >= 0x555555555555555)
+          {
+            v24 = 0xAAAAAAAAAAAAAAALL;
+          }
+
+          else
+          {
+            v24 = v23;
+          }
+
+          if (v24)
+          {
+            std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(&v120, v24);
+          }
+
+          v25 = 24 * v22;
+          *v25 = *v21;
+          *(v25 + 16) = *(v21 + 28);
+          v20 = (24 * v22 + 24);
+          v26 = (v25 - (v121 - v120));
+          memcpy(v26, v120, v121 - v120);
+          v27 = v120;
+          v120 = v26;
+          v121 = v20;
+          v122 = 0;
+          if (v27)
+          {
+            operator delete(v27);
+          }
+        }
+
+        else
+        {
+          *v20 = *v21;
+          *(v20 + 4) = *(v21 + 28);
+          v20 = (v20 + 24);
+        }
+
+        v121 = v20;
+        ++v18;
+      }
+
+      while (v18 != v19);
+    }
+
+    v118 = 0.0;
+    v28 = v137;
+    if (v137 >= v138)
+    {
+      v30 = std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,double>(&v136, &v120, &v118);
+    }
+
+    else
+    {
+      *v137 = 0;
+      *(v28 + 1) = 0;
+      *(v28 + 2) = 0;
+      std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v28, v120, v121, 0xAAAAAAAAAAAAAAABLL * ((v121 - v120) >> 3));
+      v29 = v118;
+      *(v28 + 6) = v29;
+      v30 = v28 + 32;
+    }
+
+    a2 = v98;
+    a3 = v100;
+    v14 = v102;
+    v137 = v30;
+    if (__p)
+    {
+      *&v107 = __p;
+      operator delete(__p);
+    }
+
+    if (v120)
+    {
+      v121 = v120;
+      operator delete(v120);
+    }
+
+LABEL_31:
+    if (a5)
+    {
+      sentencepiece::unigram::Lattice::NBest(&v124, a8, a4 + 1, 1, &v120);
+      v97 = j;
+      if (a6)
+      {
+        std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::vector[abi:ne200100](&v118, (v121 - v120) >> 5);
+        v39 = v120;
+        v38 = v121;
+        if (v121 != v120)
+        {
+          v40 = 0;
+          v41 = 0;
+          v42 = 0;
+          do
+          {
+            if (&v39[v40] != (*&v118 + v41))
+            {
+              std::vector<sentencepiece::unigram::Lattice::Node *>::__assign_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>((*&v118 + v41), *&v39[v40], *&v39[v40 + 8], (*&v39[v40 + 8] - *&v39[v40]) >> 3);
+              v39 = v120;
+              v38 = v121;
+            }
+
+            ++v42;
+            v41 += 24;
+            v40 += 32;
+          }
+
+          while (v42 < (v38 - v39) >> 5);
+        }
+
+        sentencepiece::unigram::Lattice::Viterbi(&v124, &__p);
+        v43 = v118;
+        v44 = v119;
+        if (*&v118 == *&v119)
+        {
+          v47 = v118;
+        }
+
+        else
+        {
+          v45 = __p;
+          v46 = v107 - __p;
+          v47 = v118;
+          while (*(*&v47 + 8) - **&v47 != v46 || memcmp(**&v47, v45, v46))
+          {
+            *&v47 += 24;
+            if (*&v47 == *&v44)
+            {
+              v47 = v44;
+              break;
+            }
+          }
+        }
+
+        v63 = 0xAAAAAAAAAAAAAAABLL * ((*&v47 - *&v43) >> 3);
+        v64 = v121;
+        if (v63 == (v121 - v120) >> 5)
+        {
+          v66 = v121 - 2;
+          v65 = *(v121 - 4);
+          if (v65)
+          {
+            *(v121 - 3) = v65;
+            operator delete(v65);
+          }
+        }
+
+        else
+        {
+          v66 = &v120[32 * v63];
+          if (v66 + 2 != v121)
+          {
+            do
+            {
+              v67 = v66 + 2;
+              std::vector<sentencepiece::unigram::Lattice::Node *>::__move_assign(v66, v66 + 2);
+              *(v66 + 6) = *(v66 + 14);
+              v68 = v66 + 4;
+              v66 += 2;
+            }
+
+            while (v68 != v64);
+            v64 = v121;
+            v66 = v67;
+          }
+
+          if (v64 != v66)
+          {
+            v69 = v64;
+            do
+            {
+              v71 = *(v69 - 4);
+              v69 -= 2;
+              v70 = v71;
+              if (v71)
+              {
+                *(v64 - 3) = v70;
+                operator delete(v70);
+              }
+
+              v64 = v69;
+            }
+
+            while (v69 != v66);
+          }
+        }
+
+        v121 = v66;
+        if (__p)
+        {
+          *&v107 = __p;
+          operator delete(__p);
+        }
+
+        __p = &v118;
+        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&__p);
+      }
+
+      v72 = *(v121 - 4);
+      v104 = v121 - 2;
+      v73 = *(v121 - 2);
+      if (v72)
+      {
+        *(v121 - 3) = v72;
+        operator delete(v72);
+      }
+
+      v121 = v104;
+      for (i = v120; i != v104; i += 32)
+      {
+        __p = 0;
+        v107 = 0uLL;
+        v75 = *i;
+        v76 = *(i + 1);
+        if (*i == v76)
+        {
+          v78 = 0.0;
+        }
+
+        else
+        {
+          v77 = 0;
+          v78 = 0.0;
+          do
+          {
+            v79 = *v75;
+            v80 = *(*v75 + 32);
+            if (v77 >= *(&v107 + 1))
+            {
+              v81 = 0xAAAAAAAAAAAAAAABLL * ((v77 - __p) >> 3);
+              v82 = v81 + 1;
+              if (v81 + 1 > 0xAAAAAAAAAAAAAAALL)
+              {
+                std::vector<int>::__throw_length_error[abi:ne200100]();
+              }
+
+              if (0x5555555555555556 * ((*(&v107 + 1) - __p) >> 3) > v82)
+              {
+                v82 = 0x5555555555555556 * ((*(&v107 + 1) - __p) >> 3);
+              }
+
+              if (0xAAAAAAAAAAAAAAABLL * ((*(&v107 + 1) - __p) >> 3) >= 0x555555555555555)
+              {
+                v83 = 0xAAAAAAAAAAAAAAALL;
+              }
+
+              else
+              {
+                v83 = v82;
+              }
+
+              if (v83)
+              {
+                std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(&__p, v83);
+              }
+
+              v84 = 24 * v81;
+              *v84 = *v79;
+              *(v84 + 16) = *(v79 + 28);
+              v77 = 24 * v81 + 24;
+              v85 = (v84 - (v107 - __p));
+              memcpy(v85, __p, v107 - __p);
+              v86 = __p;
+              __p = v85;
+              v107 = v77;
+              if (v86)
+              {
+                operator delete(v86);
+              }
+            }
+
+            else
+            {
+              *v77 = *v79;
+              *(v77 + 16) = *(v79 + 28);
+              v77 += 24;
+            }
+
+            *&v107 = v77;
+            v78 = v78 + (a8 * v80);
+            ++v75;
+          }
+
+          while (v75 != v76);
+        }
+
+        *&v118 = v78 - v17;
+        v87 = v137;
+        if (v137 >= v138)
+        {
+          v88 = std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float>(&v136, &__p, &v118);
+        }
+
+        else
+        {
+          *v137 = 0;
+          *(v87 + 1) = 0;
+          *(v87 + 2) = 0;
+          std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v87, __p, v107, 0xAAAAAAAAAAAAAAABLL * ((v107 - __p) >> 3));
+          *(v87 + 6) = LODWORD(v118);
+          v88 = v87 + 32;
+        }
+
+        v137 = v88;
+        if (__p)
+        {
+          *&v107 = __p;
+          operator delete(__p);
+        }
+      }
+
+      v89 = v136;
+      v90 = v137;
+      for (j = v97; v89 != v90; v89 += 32)
+      {
+        v91 = *(v89 + 6);
+        if (v91 != 0.0)
+        {
+          v92 = v91 - v73;
+          v93 = exp(v92);
+          if (v92 <= -10.0)
+          {
+            v95 = v92 + v93 * -0.5 + v93 * v93 / 24.0 + pow(v93, 4.0) / -2880.0;
+          }
+
+          else
+          {
+            v94 = expm1(-v93);
+            v95 = log(-v94);
+          }
+
+          v96 = v95;
+          *(v89 + 6) = v96;
+        }
+      }
+
+      __p = &v120;
+      std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](&__p);
+      v49 = v136;
+      v48 = v137;
+    }
+
+    else
+    {
+      v49 = v136;
+      v48 = v137;
+      if (a4 > ((v137 - v136) >> 5))
+      {
+        v99 = a2;
+        v101 = a3;
+        v103 = v14;
+        do
+        {
+          v107 = 0u;
+          v108 = 0u;
+          v109 = 0u;
+          v110 = 0u;
+          v111 = 0u;
+          v112 = 0;
+          __p = &unk_1F1CABF70;
+          v113 = &unk_1F1CAC0B8;
+          v114 = 0u;
+          v115 = 0u;
+          v116 = 0;
+          v117 = 1024;
+          sentencepiece::unigram::Lattice::SetSentence(&__p, a2, a3);
+          sentencepiece::unigram::Model::PopulateNodes(v14, &__p);
+          v120 = 0;
+          v121 = 0;
+          v122 = 0;
+          sentencepiece::unigram::Lattice::Sample(&__p, a8, &v118);
+          v51 = v118;
+          v50 = v119;
+          v52 = 0.0;
+          if (*&v118 != *&v119)
+          {
+            v53 = v121;
+            do
+            {
+              v54 = **&v51;
+              if (v53 >= v122)
+              {
+                v55 = 0xAAAAAAAAAAAAAAABLL * ((v53 - v120) >> 3);
+                v56 = v55 + 1;
+                if (v55 + 1 > 0xAAAAAAAAAAAAAAALL)
+                {
+                  std::vector<int>::__throw_length_error[abi:ne200100]();
+                }
+
+                if (0x5555555555555556 * ((v122 - v120) >> 3) > v56)
+                {
+                  v56 = 0x5555555555555556 * ((v122 - v120) >> 3);
+                }
+
+                if (0xAAAAAAAAAAAAAAABLL * ((v122 - v120) >> 3) >= 0x555555555555555)
+                {
+                  v57 = 0xAAAAAAAAAAAAAAALL;
+                }
+
+                else
+                {
+                  v57 = v56;
+                }
+
+                if (v57)
+                {
+                  std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(&v120, v57);
+                }
+
+                v58 = 24 * v55;
+                *v58 = *v54;
+                *(v58 + 16) = *(v54 + 28);
+                v53 = (24 * v55 + 24);
+                v59 = (v58 - (v121 - v120));
+                memcpy(v59, v120, v121 - v120);
+                v60 = v120;
+                v120 = v59;
+                v121 = v53;
+                v122 = 0;
+                if (v60)
+                {
+                  operator delete(v60);
+                }
+              }
+
+              else
+              {
+                *v53 = *v54;
+                *(v53 + 4) = *(v54 + 28);
+                v53 = (v53 + 24);
+              }
+
+              v121 = v53;
+              v52 = v52 + (a8 * *(v54 + 32));
+              *&v51 += 8;
+            }
+
+            while (*&v51 != *&v50);
+          }
+
+          v105 = v52 - v17;
+          v61 = v137;
+          if (v137 >= v138)
+          {
+            v62 = std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float>(&v136, &v120, &v105);
+            v14 = v103;
+          }
+
+          else
+          {
+            *v137 = 0;
+            *(v61 + 1) = 0;
+            *(v61 + 2) = 0;
+            std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v61, v120, v121, 0xAAAAAAAAAAAAAAABLL * ((v121 - v120) >> 3));
+            v14 = v103;
+            *(v61 + 6) = v105;
+            v62 = v61 + 32;
+          }
+
+          a2 = v99;
+          a3 = v101;
+          v137 = v62;
+          if (v118 != 0.0)
+          {
+            v119 = v118;
+            operator delete(*&v118);
+          }
+
+          if (v120)
+          {
+            v121 = v120;
+            operator delete(v120);
+          }
+
+          sentencepiece::unigram::Lattice::~Lattice(&__p);
+          v49 = v136;
+          v48 = v137;
+        }
+
+        while (a4 > ((v137 - v136) >> 5));
+      }
+    }
+
+    *j = v49;
+    j[1] = v48;
+    j[2] = v138;
+    j = &v136;
+    goto LABEL_120;
+  }
+
+  if (sentencepiece::logging::GetMinLogLevel(v16) <= 2)
+  {
+    LOBYTE(__p) = 0;
+    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "unigram_model.cc", 16);
+    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "(", 1);
+    v33 = MEMORY[0x1AC57D010](v32, 717);
+    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, ") ", 2);
+    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "LOG(", 4);
+    v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "ERROR", 5);
+    v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, ") ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, "include_best not supported for wor false", 40);
+    sentencepiece::error::Die::~Die(&__p);
+  }
+
+LABEL_120:
+  *j = 0;
+  j[1] = 0;
+  j[2] = 0;
+  if (v123[0])
+  {
+    v123[1] = v123[0];
+    operator delete(v123[0]);
+  }
+
+  sentencepiece::unigram::Lattice::~Lattice(&v124);
+  v124 = &v136;
+  std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](&v124);
+}
+
+void sub_1A8F9FAB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void **a46)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  v49 = v46[22];
+  if (v49)
+  {
+    v46[23] = v49;
+    operator delete(v49);
+  }
+
+  v50 = v46[25];
+  if (v50)
+  {
+    v46[26] = v50;
+    operator delete(v50);
+  }
+
+  sentencepiece::unigram::Lattice::~Lattice(&a46);
+  a46 = (v47 - 160);
+  std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](&a46);
+  _Unwind_Resume(a1);
+}
+
+float sentencepiece::unigram::Model::CalculateEntropy(sentencepiece::unigram::Model *a1, unsigned __int8 *a2, uint64_t a3, float a4)
+{
+  v8 = &unk_1F1CABF70;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0;
+  v15 = &unk_1F1CAC0B8;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0;
+  v19 = 1024;
+  sentencepiece::unigram::Lattice::SetSentence(&v8, a2, a3);
+  sentencepiece::unigram::Model::PopulateNodes(a1, &v8);
+  v6 = sentencepiece::unigram::Lattice::CalculateEntropy(&v8, a4);
+  sentencepiece::unigram::Lattice::~Lattice(&v8);
+  return v6;
+}
+
+void sub_1A8F9FCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sentencepiece::unigram::Lattice::~Lattice(va);
+  _Unwind_Resume(a1);
+}
+
+BOOL sentencepiece::unigram::Model::VerifyOutputsEquivalent(uint64_t a1, const char *a2, unint64_t a3, const char *a4, unint64_t a5)
+{
+  strcpy(__s, " ");
+  v10 = strlen(__s);
+  absl::internal::Splitter::Splitter(&v45, a2, a3, __s, v10, 0);
+  v48 = 0;
+  v49 = 0;
+  __p = 0;
+  std::vector<std::string_view>::__init_with_size[abi:ne200100]<std::string_view*,std::string_view*>(&__p, v45, v46, (v46 - v45) >> 4);
+  v11 = __p;
+  v12 = v48;
+  if (__p == v48)
+  {
+    v14 = 0.0;
+    if (__p)
+    {
+LABEL_11:
+      v48 = v11;
+      operator delete(v11);
+    }
+  }
+
+  else
+  {
+    v13 = *(a1 + 104) + -10.0;
+    v14 = 0.0;
+    do
+    {
+      v15 = v11[1];
+      v16 = (*(*a1 + 112))(a1, *v11, v15);
+      if (v16 == *(a1 + 88))
+      {
+        v14 = v13 + v14;
+      }
+
+      else
+      {
+        if ((*(**(a1 + 8) + 136))(*(a1 + 8), v16))
+        {
+          v17 = (*(a1 + 108) * v15) + -0.1;
+        }
+
+        else
+        {
+          v17 = (*(**(a1 + 8) + 96))(*(a1 + 8), v16);
+        }
+
+        v14 = v17 + v14;
+      }
+
+      v11 += 2;
+    }
+
+    while (v11 != v12);
+    v11 = __p;
+    if (__p)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  if (v45)
+  {
+    v46 = v45;
+    operator delete(v45);
+  }
+
+  strcpy(__s, " ");
+  v18 = strlen(__s);
+  absl::internal::Splitter::Splitter(&v45, a4, a5, __s, v18, 0);
+  v43 = 0;
+  v44 = 0;
+  v42 = 0;
+  std::vector<std::string_view>::__init_with_size[abi:ne200100]<std::string_view*,std::string_view*>(&v42, v45, v46, (v46 - v45) >> 4);
+  v19 = v42;
+  v20 = v43;
+  if (v42 != v43)
+  {
+    v21 = *(a1 + 104) + -10.0;
+    v22 = 0.0;
+    do
+    {
+      v23 = v19[1];
+      v24 = (*(*a1 + 112))(a1, *v19, v23);
+      if (v24 == *(a1 + 88))
+      {
+        v22 = v21 + v22;
+      }
+
+      else
+      {
+        if ((*(**(a1 + 8) + 136))(*(a1 + 8), v24))
+        {
+          v25 = (*(a1 + 108) * v23) + -0.1;
+        }
+
+        else
+        {
+          v25 = (*(**(a1 + 8) + 96))(*(a1 + 8), v24);
+        }
+
+        v22 = v25 + v22;
+      }
+
+      v19 += 2;
+    }
+
+    while (v19 != v20);
+    v19 = v42;
+    if (!v42)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_24;
+  }
+
+  v22 = 0.0;
+  if (v42)
+  {
+LABEL_24:
+    v43 = v19;
+    operator delete(v19);
+  }
+
+LABEL_25:
+  v26 = v45;
+  if (v45)
+  {
+    v46 = v45;
+    operator delete(v45);
+  }
+
+  v27 = vabds_f32(v14, v22);
+  if (v27 > 0.0000001 && sentencepiece::logging::GetMinLogLevel(v26) <= 1)
+  {
+    LOBYTE(v45) = 0;
+    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "unigram_model.cc", 16);
+    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "(", 1);
+    v30 = MEMORY[0x1AC57D010](v29, 840);
+    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, ") ", 2);
+    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "LOG(", 4);
+    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "WARNING", 7);
+    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, ") ", 2);
+    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Two sentence piece sequences are not equivalent! Left: ", 55);
+    v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, a2, a3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, ", Score: ", 9);
+    v37 = std::ostream::operator<<();
+    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, ". Right: ", 9);
+    v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, a4, a5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, ", Score: ", 9);
+    v40 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, ".", 1);
+    sentencepiece::error::Die::~Die(&v45);
+  }
+
+  return v27 <= 0.0000001;
+}
+
+void sub_1A8FA0144(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sentencepiece::unigram::Model::MemoryMappableString(sentencepiece::unigram::Model *this@<X0>, std::string *a2@<X8>)
+{
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  sentencepiece::ModelInterface::MemoryMappableString(this, &v13);
+  memset(&__p, 0, sizeof(__p));
+  std::string::resize(&__p, 4uLL, 0);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  LODWORD(p_p->__r_.__value_.__l.__data_) = *(this + 26);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v5 = &__p;
+  }
+
+  else
+  {
+    v5 = __p.__r_.__value_.__r.__words[0];
+  }
+
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = __p.__r_.__value_.__l.__size_;
+  }
+
+  std::string::append(a2, v5, size);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  memset(&__p, 0, sizeof(__p));
+  std::string::resize(&__p, 4uLL, 0);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v7 = &__p;
+  }
+
+  else
+  {
+    v7 = __p.__r_.__value_.__r.__words[0];
+  }
+
+  LODWORD(v7->__r_.__value_.__l.__data_) = *(this + 27);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v8 = &__p;
+  }
+
+  else
+  {
+    v8 = __p.__r_.__value_.__r.__words[0];
+  }
+
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v9 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v9 = __p.__r_.__value_.__l.__size_;
+  }
+
+  std::string::append(a2, v8, v9);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v10 = &v13;
+  }
+
+  else
+  {
+    v10 = v13.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v11 = HIBYTE(v13.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v11 = v13.__r_.__value_.__l.__size_;
+  }
+
+  std::string::append(a2, v10, v11);
+  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v13.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1A8FA02E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  if (a20 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (*(v20 + 23) < 0)
+  {
+    operator delete(*v20);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::vector<sentencepiece::unigram::Lattice::Node *>::__init_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<sentencepiece::unigram::Lattice::Node *>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_1A8FA03B8(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<sentencepiece::unigram::Lattice::Node *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long Darts::DoubleArrayImpl<void,void,int,void>::predictiveSearch<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>(char const*,Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type *,unsigned long,unsigned long,int)::State *>>(a1, a2);
+  }
+
+  std::vector<int>::__throw_length_error[abi:ne200100]();
+}
+
+uint64_t *std::vector<std::string_view>::__init_with_size[abi:ne200100]<std::string_view*,std::string_view*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<std::string_view>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_1A8FA0470(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::~FreeList(void *a1)
+{
+  sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::~FreeList(a1);
+
+  JUMPOUT(0x1AC57D1A0);
+}
+
+void *sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::~FreeList(void *a1)
+{
+  *a1 = &unk_1F1CAC0B8;
+  v2 = a1[1];
+  v3 = a1[2];
+  if (v2 != v3)
+  {
+    do
+    {
+      if (*v2)
+      {
+        MEMORY[0x1AC57D170](*v2, 0x1070C8005A2B047);
+      }
+
+      ++v2;
+    }
+
+    while (v2 != v3);
+    v2 = a1[1];
+  }
+
+  if (v2)
+  {
+    a1[2] = v2;
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::__append(uint64_t a1, unint64_t a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 3) >= a2)
+  {
+    if (a2)
+    {
+      v10 = 24 * ((24 * a2 - 24) / 0x18) + 24;
+      bzero(*(a1 + 8), v10);
+      v5 += v10;
+    }
+
+    *(a1 + 8) = v5;
+  }
+
+  else
+  {
+    v6 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 3);
+    v7 = v6 + a2;
+    if (v6 + a2 > 0xAAAAAAAAAAAAAAALL)
+    {
+      std::vector<int>::__throw_length_error[abi:ne200100]();
+    }
+
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
+    if (2 * v8 > v7)
+    {
+      v7 = 2 * v8;
+    }
+
+    if (v8 >= 0x555555555555555)
+    {
+      v9 = 0xAAAAAAAAAAAAAAALL;
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    v18[4] = a1;
+    if (v9)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<sentencepiece::unigram::Lattice::Node *>>>(a1, v9);
+    }
+
+    v11 = 24 * v6;
+    v12 = 24 * ((24 * a2 - 24) / 0x18) + 24;
+    bzero(v11, v12);
+    v13 = v11 + v12;
+    v14 = *(a1 + 8) - *a1;
+    v15 = v11 - v14;
+    memcpy((v11 - v14), *a1, v14);
+    v16 = *a1;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v17 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    v18[2] = v16;
+    v18[3] = v17;
+    v18[0] = v16;
+    v18[1] = v16;
+    std::__split_buffer<std::vector<int>>::~__split_buffer(v18);
+  }
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<sentencepiece::unigram::Lattice::Node *>>>(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0xAAAAAAAAAAAAAABLL)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+void std::vector<sentencepiece::unigram::anonymous namespace::Hypothesis *>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+{
+  v4 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v4 >= v3)
+  {
+    v6 = *a1;
+    v7 = v4 - *a1;
+    v8 = (v7 >> 3) + 1;
+    if (v8 >> 61)
+    {
+      std::vector<int>::__throw_length_error[abi:ne200100]();
+    }
+
+    v9 = v3 - v6;
+    if (v9 >> 2 > v8)
+    {
+      v8 = v9 >> 2;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v10 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    if (v10)
+    {
+      if (!(v10 >> 61))
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v11 = (8 * (v7 >> 3));
+    *v11 = *a2;
+    v5 = v11 + 1;
+    memcpy(0, v6, v7);
+    *a1 = 0;
+    *(a1 + 8) = v5;
+    *(a1 + 16) = 0;
+    if (v6)
+    {
+      operator delete(v6);
+    }
+  }
+
+  else
+  {
+    *v4 = *a2;
+    v5 = v4 + 1;
+  }
+
+  *(a1 + 8) = v5;
+}
+
+uint64_t *std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__init_with_size[abi:ne200100]<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_1A8FA0884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  *(v9 + 8) = v10;
+  std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](&a9);
+  _Unwind_Resume(a1);
+}
+
+void std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 59))
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>>(a1, a2);
+  }
+
+  std::vector<int>::__throw_length_error[abi:ne200100]();
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>>(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 59))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float> const*,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+{
+  v4 = a4;
+  v10 = a4;
+  v11 = a4;
+  v8[0] = a1;
+  v8[1] = &v10;
+  v8[2] = &v11;
+  v9 = 0;
+  if (a2 != a3)
+  {
+    v6 = a2;
+    do
+    {
+      *v4 = 0;
+      v4[1] = 0;
+      v4[2] = 0;
+      std::vector<sentencepiece::unigram::Lattice::Node *>::__init_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      *(v4 + 6) = *(v6 + 24);
+      v6 += 32;
+      v4 = v11 + 4;
+      v11 += 4;
+    }
+
+    while (v6 != a3);
+  }
+
+  v9 = 1;
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
+  return v4;
+}
+
+uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>,std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    std::_AllocatorDestroyRangeReverse<std::allocator<std::pair<std::vector<std::pair<std::string_view,int>>,float>>,std::pair<std::vector<std::pair<std::string_view,int>>,float>*>::operator()[abi:ne200100](a1);
+  }
+
+  return a1;
+}
+
+void sentencepiece::model::FreeList<sentencepiece::unigram::anonymous namespace::Hypothesis>::~FreeList(void *a1)
+{
+
+  JUMPOUT(0x1AC57D1A0);
+}
+
+uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,sentencepiece::unigram::Lattice::NBest(unsigned long,BOOL,float)::HypothesisComparator &,std::__wrap_iter<sentencepiece::unigram::anonymous namespace::Hypothesis **>>(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (a3 >= 2)
+  {
+    v3 = (a3 - 2) >> 1;
+    v4 = (result + 8 * v3);
+    v5 = *v4;
+    v8 = *(a2 - 8);
+    v6 = (a2 - 8);
+    v7 = v8;
+    v9 = *(v8 + 16);
+    if (*(*v4 + 16) < v9)
+    {
+      do
+      {
+        v10 = v4;
+        *v6 = v5;
+        if (!v3)
+        {
+          break;
+        }
+
+        v3 = (v3 - 1) >> 1;
+        v4 = (result + 8 * v3);
+        v5 = *v4;
+        v6 = v10;
+      }
+
+      while (*(*v4 + 16) < v9);
+      *v10 = v7;
+    }
+  }
+
+  return result;
+}
+
+const void **std::vector<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>::__append(const void **result, unint64_t a2)
+{
+  v3 = result;
+  v4 = result[1];
+  v5 = result[2];
+  if (a2 <= (v5 - v4) >> 5)
+  {
+    if (a2)
+    {
+      v11 = 32 * a2;
+      v12 = &v4[4 * a2];
+      do
+      {
+        *v4 = 0;
+        v4[1] = 0;
+        *(v4 + 6) = 0;
+        v4[2] = 0;
+        v4 += 4;
+        v11 -= 32;
+      }
+
+      while (v11);
+      v4 = v12;
+    }
+
+    result[1] = v4;
+  }
+
+  else
+  {
+    v6 = v4 - *result;
+    v7 = a2 + (v6 >> 5);
+    if (v7 >> 59)
+    {
+      std::vector<int>::__throw_length_error[abi:ne200100]();
+    }
+
+    v8 = v6 >> 5;
+    v9 = v5 - *result;
+    if (v9 >> 4 > v7)
+    {
+      v7 = v9 >> 4;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFE0)
+    {
+      v10 = 0x7FFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v7;
+    }
+
+    v21[4] = result;
+    if (v10)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<sentencepiece::unigram::Lattice::Node *>,float>>>(result, v10);
+    }
+
+    v13 = 32 * v8;
+    v14 = 32 * a2;
+    v15 = 32 * v8;
+    v16 = 32 * v8 + 32 * a2;
+    do
+    {
+      *v15 = 0;
+      *(v15 + 8) = 0;
+      *(v15 + 24) = 0;
+      *(v15 + 16) = 0;
+      v15 += 32;
+      v14 -= 32;
+    }
+
+    while (v14);
+    v17 = result[1] - *result;
+    v18 = (v13 - v17);
+    memcpy((v13 - v17), *result, v17);
+    v19 = *v3;
+    *v3 = v18;
+    v3[1] = v16;
+    v20 = v3[2];
+    v3[2] = 0;
+    v21[2] = v19;
+    v21[3] = v20;
+    v21[0] = v19;
+    v21[1] = v19;
+    return std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(v21);
+  }
+
+  return result;
+}
+
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
+void sub_1A8FA0C94(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+float std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::pair<std::string_view,int>>&,float const&>(uint64_t a1, __int128 **a2, float *a3)
+{
+  v5 = *(a1 + 8);
+  *v5 = 0;
+  *(v5 + 8) = 0;
+  *(v5 + 16) = 0;
+  std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v5, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  result = *a3;
+  *(v5 + 24) = *a3;
+  *(a1 + 8) = v5 + 32;
+  return result;
+}
+
+char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float const&>(char **a1, __int128 **a2, _DWORD *a3)
+{
+  v3 = (a1[1] - *a1) >> 5;
+  v4 = v3 + 1;
+  if ((v3 + 1) >> 59)
+  {
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = a1[2] - *a1;
+  if (v8 >> 4 > v4)
+  {
+    v4 = v8 >> 4;
+  }
+
+  if (v8 >= 0x7FFFFFFFFFFFFFE0)
+  {
+    v9 = 0x7FFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v9 = v4;
+  }
+
+  v21 = a1;
+  if (v9)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<std::pair<std::string_view,int>>,float>>>(a1, v9);
+  }
+
+  v10 = 32 * v3;
+  v17 = 0;
+  v18 = v10;
+  v19 = v10;
+  v20 = 0;
+  *v10 = 0;
+  *(v10 + 8) = 0;
+  *(v10 + 16) = 0;
+  std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v10, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  *(v10 + 24) = *a3;
+  v11 = v19 + 32;
+  v12 = a1[1] - *a1;
+  v13 = &v18[-v12];
+  memcpy(&v18[-v12], *a1, v12);
+  v14 = *a1;
+  *a1 = v13;
+  a1[1] = v11;
+  v15 = a1[2];
+  a1[2] = v20;
+  v19 = v14;
+  v20 = v15;
+  v17 = v14;
+  v18 = v14;
+  std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(&v17);
+  return v11;
+}
+
+void sub_1A8FA0E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,double>(char **a1, __int128 **a2, double *a3)
+{
+  v3 = (a1[1] - *a1) >> 5;
+  v4 = v3 + 1;
+  if ((v3 + 1) >> 59)
+  {
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = a1[2] - *a1;
+  if (v8 >> 4 > v4)
+  {
+    v4 = v8 >> 4;
+  }
+
+  if (v8 >= 0x7FFFFFFFFFFFFFE0)
+  {
+    v9 = 0x7FFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v9 = v4;
+  }
+
+  v22 = a1;
+  if (v9)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<std::pair<std::string_view,int>>,float>>>(a1, v9);
+  }
+
+  v10 = 32 * v3;
+  v18 = 0;
+  v19 = v10;
+  v20 = v10;
+  v21 = 0;
+  *v10 = 0;
+  *(v10 + 8) = 0;
+  *(v10 + 16) = 0;
+  std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v10, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  v11 = *a3;
+  *(v10 + 24) = v11;
+  v12 = v20 + 32;
+  v13 = a1[1] - *a1;
+  v14 = &v19[-v13];
+  memcpy(&v19[-v13], *a1, v13);
+  v15 = *a1;
+  *a1 = v14;
+  a1[1] = v12;
+  v16 = a1[2];
+  a1[2] = v21;
+  v20 = v15;
+  v21 = v16;
+  v18 = v15;
+  v19 = v15;
+  std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(&v18);
+  return v12;
+}
+
+void sub_1A8FA0F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
+void std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (a2 < 0xAAAAAAAAAAAAAABLL)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<sentencepiece::unigram::Lattice::Node *>>>(a1, a2);
+  }
+
+  std::vector<int>::__throw_length_error[abi:ne200100]();
+}
+
+uint64_t *std::vector<sentencepiece::unigram::Lattice::Node *>::__assign_with_size[abi:ne200100]<sentencepiece::unigram::Lattice::Node **,sentencepiece::unigram::Lattice::Node **>(uint64_t *result, char *__src, char *a3, unint64_t a4)
+{
+  v6 = result;
+  v7 = result[2];
+  v8 = *result;
+  if (a4 > (v7 - *result) >> 3)
+  {
+    if (v8)
+    {
+      result[1] = v8;
+      operator delete(v8);
+      v7 = 0;
+      *v6 = 0;
+      v6[1] = 0;
+      v6[2] = 0;
+    }
+
+    if (!(a4 >> 61))
+    {
+      v9 = v7 >> 2;
+      if (v7 >> 2 <= a4)
+      {
+        v9 = a4;
+      }
+
+      if (v7 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v10 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v10 = v9;
+      }
+
+      std::vector<sentencepiece::unigram::Lattice::Node *>::__vallocate[abi:ne200100](v6, v10);
+    }
+
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  v11 = result[1];
+  v12 = v11 - v8;
+  if (a4 <= (v11 - v8) >> 3)
+  {
+    v15 = a3 - __src;
+    if (v15)
+    {
+      result = memmove(*result, __src, v15);
+    }
+
+    v14 = &v8[v15];
+  }
+
+  else
+  {
+    v13 = &__src[v12];
+    if (v11 != v8)
+    {
+      result = memmove(*result, __src, v12);
+      v11 = v6[1];
+    }
+
+    if (a3 != v13)
+    {
+      result = memmove(v11, v13, a3 - v13);
+    }
+
+    v14 = &v11[a3 - v13];
+  }
+
+  v6[1] = v14;
+  return result;
+}
+
+__n128 std::vector<sentencepiece::unigram::Lattice::Node *>::__move_assign(uint64_t a1, __n128 *a2)
+{
+  v4 = *a1;
+  if (v4)
+  {
+    *(a1 + 8) = v4;
+    operator delete(v4);
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+  }
+
+  result = *a2;
+  *a1 = *a2;
+  *(a1 + 16) = a2[1].n128_u64[0];
+  a2->n128_u64[0] = 0;
+  a2->n128_u64[1] = 0;
+  a2[1].n128_u64[0] = 0;
+  return result;
+}
+
+char *std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__emplace_back_slow_path<std::vector<std::pair<std::string_view,int>>&,float>(char **a1, __int128 **a2, _DWORD *a3)
+{
+  v3 = (a1[1] - *a1) >> 5;
+  v4 = v3 + 1;
+  if ((v3 + 1) >> 59)
+  {
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  v8 = a1[2] - *a1;
+  if (v8 >> 4 > v4)
+  {
+    v4 = v8 >> 4;
+  }
+
+  if (v8 >= 0x7FFFFFFFFFFFFFE0)
+  {
+    v9 = 0x7FFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v9 = v4;
+  }
+
+  v21 = a1;
+  if (v9)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<std::pair<std::string_view,int>>,float>>>(a1, v9);
+  }
+
+  v10 = 32 * v3;
+  v17 = 0;
+  v18 = v10;
+  v19 = v10;
+  v20 = 0;
+  *v10 = 0;
+  *(v10 + 8) = 0;
+  *(v10 + 16) = 0;
+  std::vector<std::pair<std::string_view,int>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,int>*,std::pair<std::string_view,int>*>(v10, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  *(v10 + 24) = *a3;
+  v11 = v19 + 32;
+  v12 = a1[1] - *a1;
+  v13 = &v18[-v12];
+  memcpy(&v18[-v12], *a1, v12);
+  v14 = *a1;
+  *a1 = v13;
+  a1[1] = v11;
+  v15 = a1[2];
+  a1[2] = v20;
+  v19 = v14;
+  v20 = v15;
+  v17 = v14;
+  v18 = v14;
+  std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(&v17);
+  return v11;
+}
+
+void sub_1A8FA12FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+sentencepiece::character::Model *sentencepiece::character::Model::Model(sentencepiece::character::Model *this, const sentencepiece::ModelProto *a2)
+{
+  v4 = sentencepiece::ModelInterface::ModelInterface(this);
+  *v4 = &unk_1F1CAC118;
+  *(v4 + 1) = a2 + 16;
+  sentencepiece::ModelInterface::InitializePieces(v4);
+  return this;
+}
+
+void sentencepiece::character::Model::~Model(sentencepiece::character::Model *this)
+{
+  sentencepiece::ModelInterface::~ModelInterface(this);
+
+  JUMPOUT(0x1AC57D1A0);
+}
+
+void sentencepiece::character::Model::Encode(uint64_t *a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  (*(*a1 + 16))(&v21);
+  if (v21)
+  {
+    sentencepiece::util::Status::~Status(&v21);
+LABEL_3:
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
+    return;
+  }
+
+  sentencepiece::util::Status::~Status(&v21);
+  if (!a3)
+  {
+    goto LABEL_3;
+  }
+
+  *a4 = 0;
+  *(a4 + 8) = 0;
+  *(a4 + 16) = 0;
+  do
+  {
+    v8 = sentencepiece::normalizer::PrefixMatcher::PrefixMatch(a1[2], a2, a3, 0);
+    v9 = (*(*a1 + 112))(a1, a2, v8);
+    v11 = *(a4 + 8);
+    v10 = *(a4 + 16);
+    if (v11 >= v10)
+    {
+      v13 = 0xAAAAAAAAAAAAAAABLL * ((v11 - *a4) >> 3);
+      v14 = v13 + 1;
+      if (v13 + 1 > 0xAAAAAAAAAAAAAAALL)
+      {
+        std::vector<int>::__throw_length_error[abi:ne200100]();
+      }
+
+      v15 = 0xAAAAAAAAAAAAAAABLL * ((v10 - *a4) >> 3);
+      if (2 * v15 > v14)
+      {
+        v14 = 2 * v15;
+      }
+
+      if (v15 >= 0x555555555555555)
+      {
+        v16 = 0xAAAAAAAAAAAAAAALL;
+      }
+
+      else
+      {
+        v16 = v14;
+      }
+
+      if (v16)
+      {
+        std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(a4, v16);
+      }
+
+      v17 = 24 * v13;
+      *v17 = a2;
+      *(v17 + 8) = v8;
+      *(v17 + 16) = v9;
+      v12 = 24 * v13 + 24;
+      v18 = *(a4 + 8) - *a4;
+      v19 = v17 - v18;
+      memcpy((v17 - v18), *a4, v18);
+      v20 = *a4;
+      *a4 = v19;
+      *(a4 + 8) = v12;
+      *(a4 + 16) = 0;
+      if (v20)
+      {
+        operator delete(v20);
+      }
+    }
+
+    else
+    {
+      *v11 = a2;
+      *(v11 + 8) = v8;
+      v12 = v11 + 24;
+      *(v11 + 16) = v9;
+    }
+
+    *(a4 + 8) = v12;
+    a2 += v8;
+    a3 -= v8;
+  }
+
+  while (a3);
+}
+
+void sub_1A8FA1590(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+sentencepiece::word::Model *sentencepiece::word::Model::Model(sentencepiece::word::Model *this, const sentencepiece::ModelProto *a2)
+{
+  v4 = sentencepiece::ModelInterface::ModelInterface(this);
+  *v4 = &unk_1F1CAC230;
+  *(v4 + 1) = a2 + 16;
+  sentencepiece::ModelInterface::InitializePieces(v4);
+  return this;
+}
+
+void sentencepiece::word::Model::~Model(sentencepiece::word::Model *this)
+{
+  sentencepiece::ModelInterface::~ModelInterface(this);
+
+  JUMPOUT(0x1AC57D1A0);
+}
+
+void sentencepiece::word::Model::Encode(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  (*(*a1 + 16))(&v22);
+  if (v22)
+  {
+    sentencepiece::util::Status::~Status(&v22);
+LABEL_3:
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
+    return;
+  }
+
+  sentencepiece::util::Status::~Status(&v22);
+  if (!a3)
+  {
+    goto LABEL_3;
+  }
+
+  *a4 = 0;
+  *(a4 + 8) = 0;
+  *(a4 + 16) = 0;
+  sentencepiece::SplitIntoWords(a2, a3, 0, 0, &v22);
+  v8 = v22;
+  v9 = v23;
+  if (v22 != v23)
+  {
+    do
+    {
+      v10 = (*(*a1 + 112))(a1, *v8, v8[1]);
+      v12 = *(a4 + 8);
+      v11 = *(a4 + 16);
+      if (v12 >= v11)
+      {
+        v14 = 0xAAAAAAAAAAAAAAABLL * ((v12 - *a4) >> 3);
+        v15 = v14 + 1;
+        if (v14 + 1 > 0xAAAAAAAAAAAAAAALL)
+        {
+          std::vector<int>::__throw_length_error[abi:ne200100]();
+        }
+
+        v16 = 0xAAAAAAAAAAAAAAABLL * ((v11 - *a4) >> 3);
+        if (2 * v16 > v15)
+        {
+          v15 = 2 * v16;
+        }
+
+        if (v16 >= 0x555555555555555)
+        {
+          v17 = 0xAAAAAAAAAAAAAAALL;
+        }
+
+        else
+        {
+          v17 = v15;
+        }
+
+        if (v17)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string_view,int>>>(a4, v17);
+        }
+
+        v18 = 24 * v14;
+        *v18 = *v8;
+        *(v18 + 16) = v10;
+        v13 = 24 * v14 + 24;
+        v19 = *(a4 + 8) - *a4;
+        v20 = v18 - v19;
+        memcpy((v18 - v19), *a4, v19);
+        v21 = *a4;
+        *a4 = v20;
+        *(a4 + 8) = v13;
+        *(a4 + 16) = 0;
+        if (v21)
+        {
+          operator delete(v21);
+        }
+      }
+
+      else
+      {
+        *v12 = *v8;
+        *(v12 + 16) = v10;
+        v13 = v12 + 24;
+      }
+
+      *(a4 + 8) = v13;
+      v8 += 2;
+    }
+
+    while (v8 != v9);
+    v8 = v22;
+  }
+
+  if (v8)
+  {
+    v23 = v8;
+    operator delete(v8);
+  }
+}
+
+void sub_1A8FA1850(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  v13 = *v11;
+  if (*v11)
+  {
+    *(v11 + 8) = v13;
+    operator delete(v13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void InitDefaultsscc_info_NBestSentencePieceText_sentencepiece_2eproto(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+{
+  google::protobuf::internal::VerifyVersion(0x2DFD70, 0x2DFD70, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/builtin_pb/sentencepiece.pb.cc", a4);
+  sentencepiece::NBestSentencePieceText::NBestSentencePieceText(&sentencepiece::_NBestSentencePieceText_default_instance_, 0);
+
+  google::protobuf::internal::OnShutdownRun(google::protobuf::internal::DestroyMessage, &sentencepiece::_NBestSentencePieceText_default_instance_, v4);
+}
+
+void InitDefaultsscc_info_SentencePieceText_sentencepiece_2eproto(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+{
+  google::protobuf::internal::VerifyVersion(0x2DFD70, 0x2DFD70, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/builtin_pb/sentencepiece.pb.cc", a4);
+  sentencepiece::SentencePieceText::SentencePieceText(&sentencepiece::_SentencePieceText_default_instance_, 0);
+
+  google::protobuf::internal::OnShutdownRun(google::protobuf::internal::DestroyMessage, &sentencepiece::_SentencePieceText_default_instance_, v4);
+}
+
+void InitDefaultsscc_info_SentencePieceText_SentencePiece_sentencepiece_2eproto(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+{
+  google::protobuf::internal::VerifyVersion(0x2DFD70, 0x2DFD70, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/builtin_pb/sentencepiece.pb.cc", a4);
+  sentencepiece::SentencePieceText_SentencePiece::SentencePieceText_SentencePiece(&sentencepiece::_SentencePieceText_SentencePiece_default_instance_, 0);
+
+  google::protobuf::internal::OnShutdownRun(google::protobuf::internal::DestroyMessage, &sentencepiece::_SentencePieceText_SentencePiece_default_instance_, v4);
+}
+
+uint64_t sentencepiece::SentencePieceText_SentencePiece::SentencePieceText_SentencePiece(uint64_t a1, uint64_t a2)
+{
+  *a1 = &unk_1F1CAC348;
+  *(a1 + 8) = a2;
+  google::protobuf::internal::ExtensionSet::ExtensionSet(a1 + 16, a2);
+  *(a1 + 40) = 0;
+  if (atomic_load_explicit(scc_info_SentencePieceText_SentencePiece_sentencepiece_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl(scc_info_SentencePieceText_SentencePiece_sentencepiece_2eproto);
+  }
+
+  *(a1 + 48) = &google::protobuf::internal::fixed_address_empty_string;
+  *(a1 + 56) = &google::protobuf::internal::fixed_address_empty_string;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0;
+  return a1;
 }

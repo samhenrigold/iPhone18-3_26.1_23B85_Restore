@@ -30,7 +30,7 @@
   v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v12 = v11;
 
-  v13 = type metadata accessor for CRLDataAssetStorage();
+  v13 = type metadata accessor for CRLDataAssetStorage(0);
   swift_allocObject();
   sub_100024E98(v7, v9);
   v19[3] = v13;
@@ -52,7 +52,7 @@
 
 - (void)removeAllDownloadObserversWithIdentifier:(id)identifier
 {
-  v4 = sub_1005B981C(&qword_1019FB750);
+  v4 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v20 - v5;
   v7 = type metadata accessor for UUID();

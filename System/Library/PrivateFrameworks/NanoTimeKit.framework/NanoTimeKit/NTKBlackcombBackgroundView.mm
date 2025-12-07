@@ -331,77 +331,79 @@ void __43__NTKBlackcombBackgroundView_applyPalette___block_invoke_3(uint64_t a1,
 
   else
   {
+    fractionCopy = fraction;
+    v14 = sqrtf(fractionCopy);
     background = [paletteCopy background];
     background2 = [toPaletteCopy background];
-    v15 = NTKInterpolateBetweenColors();
-    [(NTKBlackcombBackgroundView *)self _applyBackgroundColor:v15];
+    v17 = NTKInterpolateBetweenColors(v14);
+    [(NTKBlackcombBackgroundView *)self _applyBackgroundColor:v17];
 
     if (fraction <= 0.5)
     {
-      v16 = paletteCopy;
+      v18 = paletteCopy;
     }
 
     else
     {
-      v16 = toPaletteCopy;
+      v18 = toPaletteCopy;
     }
 
-    objc_storeStrong(&self->_palette, v16);
+    objc_storeStrong(&self->_palette, v18);
     CLKCompressFraction();
-    v18 = v17;
-    v59 = 0;
+    v20 = v19;
+    v61 = 0;
+    v59 = 0u;
+    v60 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    memset(v54, 0, sizeof(v54));
-    ___LayoutConstants_block_invoke_18(self->_device, v54);
-    v19 = *(&v54[0] + 1);
-    v20 = (v18 * *(&v54[0] + 1));
-    v21 = [(NSArray *)self->_smallTicks count];
+    memset(v56, 0, sizeof(v56));
+    ___LayoutConstants_block_invoke_18(self->_device, v56);
+    v21 = *(&v56[0] + 1);
+    v22 = (v20 * *(&v56[0] + 1));
+    v23 = [(NSArray *)self->_smallTicks count];
     smallTicks = self->_smallTicks;
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __76__NTKBlackcombBackgroundView_applyTransitionFraction_fromPalette_toPalette___block_invoke;
-    v49[3] = &unk_2787810C0;
-    v52 = v19 / v21;
-    v53 = v20;
-    v23 = toPaletteCopy;
-    v50 = v23;
-    v24 = paletteCopy;
-    v51 = v24;
-    [(NSArray *)smallTicks enumerateObjectsUsingBlock:v49];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __76__NTKBlackcombBackgroundView_applyTransitionFraction_fromPalette_toPalette___block_invoke;
+    v51[3] = &unk_2787810C0;
+    v54 = v21 / v23;
+    v55 = v22;
+    v25 = toPaletteCopy;
+    v52 = v25;
+    v26 = paletteCopy;
+    v53 = v26;
+    [(NSArray *)smallTicks enumerateObjectsUsingBlock:v51];
     mediumTicks = self->_mediumTicks;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __76__NTKBlackcombBackgroundView_applyTransitionFraction_fromPalette_toPalette___block_invoke_2;
-    v44[3] = &unk_2787810C0;
-    v26 = v19 / *(&v55 + 1);
-    v47 = v26;
-    v48 = v20;
-    v27 = v23;
-    v45 = v27;
-    v28 = v24;
-    v46 = v28;
-    [(NSArray *)mediumTicks enumerateObjectsUsingBlock:v44];
-    v29 = MEMORY[0x2318D8E70]([(NTKBlackcombBackgroundView *)self _tickLayoutBounds]);
-    v31 = v30;
-    hourMarker = [v28 hourMarker];
-    hourMarker2 = [v27 hourMarker];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __76__NTKBlackcombBackgroundView_applyTransitionFraction_fromPalette_toPalette___block_invoke_2;
+    v46[3] = &unk_2787810C0;
+    v28 = v21 / *(&v57 + 1);
+    v49 = v28;
+    v50 = v22;
+    v29 = v25;
+    v47 = v29;
+    v30 = v26;
+    v48 = v30;
+    [(NSArray *)mediumTicks enumerateObjectsUsingBlock:v46];
+    v31 = MEMORY[0x2318D8E70]([(NTKBlackcombBackgroundView *)self _tickLayoutBounds]);
+    v33 = v32;
+    hourMarker = [v30 hourMarker];
+    hourMarker2 = [v29 hourMarker];
     largeTicks = self->_largeTicks;
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __76__NTKBlackcombBackgroundView_applyTransitionFraction_fromPalette_toPalette___block_invoke_3;
-    v37[3] = &unk_2787810E8;
-    v40 = v26;
-    v41 = v20;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __76__NTKBlackcombBackgroundView_applyTransitionFraction_fromPalette_toPalette___block_invoke_3;
+    v39[3] = &unk_2787810E8;
+    v42 = v28;
+    v43 = v22;
+    v40 = hourMarker;
+    v41 = hourMarker2;
+    v44 = v31;
+    v45 = v33;
+    v37 = hourMarker2;
     v38 = hourMarker;
-    v39 = hourMarker2;
-    v42 = v29;
-    v43 = v31;
-    v35 = hourMarker2;
-    v36 = hourMarker;
-    [(NSArray *)largeTicks enumerateObjectsUsingBlock:v37];
+    [(NSArray *)largeTicks enumerateObjectsUsingBlock:v39];
   }
 }
 

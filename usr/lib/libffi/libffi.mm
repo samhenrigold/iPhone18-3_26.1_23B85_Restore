@@ -164,14 +164,12 @@ LABEL_25:
 
 void ffi_java_raw_call(ffi_cif *cif, void (*fn)(void), void *rvalue, ffi_java_raw *avalue)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
-  nargs = cif->nargs;
+  v10[1] = *MEMORY[0x29EDCA608];
   MEMORY[0x2A1C7C4A8]();
-  v10 = v12 - ((v9 + 15) & 0xFFFFFFFF0);
-  bzero(v10, v9);
-  ffi_java_raw_to_ptrarray(cif, avalue, v10);
-  ffi_call(cif, fn, rvalue, v10);
-  v11 = *MEMORY[0x29EDCA608];
+  v9 = v10 - ((v8 + 15) & 0xFFFFFFFF0);
+  bzero(v9, v8);
+  ffi_java_raw_to_ptrarray(cif, avalue, v9);
+  ffi_call(cif, fn, rvalue, v9);
 }
 
 ffi_status ffi_prep_java_raw_closure_loc(ffi_java_raw_closure *a1, ffi_cif *cif, void (__cdecl *fun)(ffi_cif *, void *, ffi_java_raw *, void *), void *user_data, void *codeloc)
@@ -188,14 +186,12 @@ ffi_status ffi_prep_java_raw_closure_loc(ffi_java_raw_closure *a1, ffi_cif *cif,
 
 uint64_t ffi_java_translate_args(ffi_cif *a1, uint64_t a2, void **a3, uint64_t a4)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   ffi_java_raw_size(a1);
-  v8 = (v12 - ((MEMORY[0x2A1C7C4A8]() + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = (v11 - ((MEMORY[0x2A1C7C4A8]() + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v8, v9);
   ffi_java_ptrarray_to_raw(a1, a3, v8);
-  result = (*(a4 + 40))(a1, a2, v8, *(a4 + 48));
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(a4 + 40))(a1, a2, v8, *(a4 + 48));
 }
 
 ffi_status ffi_prep_java_raw_closure(ffi_java_raw_closure *a1, ffi_cif *cif, void (__cdecl *fun)(ffi_cif *, void *, ffi_java_raw *, void *), void *user_data)
@@ -375,14 +371,12 @@ LABEL_24:
 
 void ffi_raw_call(ffi_cif *cif, void (*fn)(void), void *rvalue, ffi_raw *avalue)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
-  nargs = cif->nargs;
+  v10[1] = *MEMORY[0x29EDCA608];
   MEMORY[0x2A1C7C4A8]();
-  v10 = v12 - ((v9 + 15) & 0xFFFFFFFF0);
-  bzero(v10, v9);
-  ffi_raw_to_ptrarray(cif, avalue, v10);
-  ffi_call(cif, fn, rvalue, v10);
-  v11 = *MEMORY[0x29EDCA608];
+  v9 = v10 - ((v8 + 15) & 0xFFFFFFFF0);
+  bzero(v9, v8);
+  ffi_raw_to_ptrarray(cif, avalue, v9);
+  ffi_call(cif, fn, rvalue, v9);
 }
 
 ffi_status ffi_prep_raw_closure_loc(ffi_raw_closure *a1, ffi_cif *cif, void (__cdecl *fun)(ffi_cif *, void *, ffi_raw *, void *), void *user_data, void *codeloc)
@@ -399,14 +393,12 @@ ffi_status ffi_prep_raw_closure_loc(ffi_raw_closure *a1, ffi_cif *cif, void (__c
 
 uint64_t ffi_translate_args(ffi_cif *a1, uint64_t a2, void **a3, uint64_t a4)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   ffi_raw_size(a1);
-  v8 = (v12 - ((MEMORY[0x2A1C7C4A8]() + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = (v11 - ((MEMORY[0x2A1C7C4A8]() + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v8, v9);
   ffi_ptrarray_to_raw(a1, a3, v8);
-  result = (*(a4 + 40))(a1, a2, v8, *(a4 + 48));
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(a4 + 40))(a1, a2, v8, *(a4 + 48));
 }
 
 ffi_status ffi_prep_raw_closure(ffi_raw_closure *a1, ffi_cif *cif, void (__cdecl *fun)(ffi_cif *, void *, ffi_raw *, void *), void *user_data)
@@ -421,7 +413,7 @@ ffi_status ffi_prep_raw_closure(ffi_raw_closure *a1, ffi_cif *cif, void (__cdecl
   return result;
 }
 
-uint64_t ffi_prep_cif_core(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a6, uint64_t **a7)
+uint64_t ffi_prep_cif_core(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t **a7)
 {
   if ((a2 - 1) > 1)
   {
@@ -429,6 +421,7 @@ uint64_t ffi_prep_cif_core(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t
   }
 
   v7 = a7;
+  v8 = a4;
   *a1 = a2;
   *(a1 + 4) = a5;
   *(a1 + 8) = a7;
@@ -485,7 +478,7 @@ uint64_t ffi_prep_cif_core(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t
   if (a3)
   {
 
-    return ffi_prep_cif_machdep_var(a1, a4);
+    return ffi_prep_cif_machdep_var(a1, v8);
   }
 
   else
@@ -497,7 +490,7 @@ uint64_t ffi_prep_cif_core(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t
 
 ffi_status ffi_prep_cif_var(ffi_cif *cif, ffi_abi abi, unsigned int nfixedargs, unsigned int ntotalargs, ffi_type *rtype, ffi_type **atypes)
 {
-  result = ffi_prep_cif_core(cif, abi, 1, nfixedargs, ntotalargs, rtype, atypes);
+  result = ffi_prep_cif_core(cif, abi, 1, *&nfixedargs, *&ntotalargs, rtype, atypes);
   if (result == FFI_OK)
   {
     if (ntotalargs < 2)
@@ -550,30 +543,25 @@ uint64_t ffi_call_SYSV(uint64_t a1, void *a2, uint64_t (*a3)(void, void, void, v
 {
   *a2 = v5;
   a2[1] = v6;
-  a2[4] = v16;
+  a2[4] = v10;
   a2[2] = a4;
   a2[3] = a5;
-  v8 = a3(v16[16], v16[17], v16[18], v16[19], v16[20], v16[21], v16[22], v16[23]);
-  v9 = a2[2];
-  v10 = a2[3];
-  v11 = a2[4];
-  v14 = a2;
-  v12 = *a2;
-  v13 = v14[1];
-  return ((sub_298790080 + 8 * (v10 & 0x1F)))(v8);
+  v8 = a3(v10[16], v10[17], v10[18], v10[19], v10[20], v10[21], v10[22], v10[23]);
+  return ((sub_298790080 + 8 * (a2[3] & 0x1FLL)))(v8);
 }
 
-void ffi_closure_SYSV(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, char a10)
+void ffi_closure_SYSV(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, ...)
 {
-  v13 = a1;
-  v14 = a2;
-  v15 = a3;
-  v16 = a4;
-  v17 = a5;
-  v18 = a6;
-  v19 = a7;
-  v20 = a8;
-  v11 = sub_298790200 + 8 * (ffi_closure_SYSV_inner(*(v10 + 16), *(v10 + 24), *(v10 + 32), v12, &a10, v21, a9) & 0x1F);
+  va_start(va, a9);
+  v12 = a1;
+  v13 = a2;
+  v14 = a3;
+  v15 = a4;
+  v16 = a5;
+  v17 = a6;
+  v18 = a7;
+  v19 = a8;
+  v10 = sub_298790200 + 8 * (ffi_closure_SYSV_inner(*(v9 + 16), *(v9 + 24), *(v9 + 32), v11, va, v20, a9) & 0x1F);
   __asm { BR              X1 }
 }
 
@@ -841,7 +829,7 @@ LABEL_27:
 
 uint64_t is_vfp_type(unint64_t *a1)
 {
-  v1 = *(a1 + 5);
+  LODWORD(v1) = *(a1 + 5);
   if ((v1 - 2) < 3)
   {
     LODWORD(v2) = 1;
@@ -865,7 +853,7 @@ uint64_t is_vfp_type(unint64_t *a1)
           v9 = is_hfa0(v8);
         }
 
-        while (v9 < 0);
+        while ((v9 & 0x80000000) != 0);
         v1 = v9;
       }
 
@@ -893,7 +881,7 @@ uint64_t is_vfp_type(unint64_t *a1)
       {
         if (v6)
         {
-          v10 = v5 + 1;
+          v10 = (v5 + 8);
           do
           {
             v11 = *(v6 + 10);
@@ -925,7 +913,7 @@ uint64_t is_vfp_type(unint64_t *a1)
 
   else if (v1 == 15)
   {
-    v1 = *(*a1[2] + 10);
+    LODWORD(v1) = *(*a1[2] + 10);
     if ((v1 - 2) < 3)
     {
       LODWORD(v2) = 2;
@@ -943,10 +931,10 @@ uint64_t ffi_prep_cif_machdep_var(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t ffi_call_int(uint64_t a1, uint64_t (*a2)(void, void, void, void, void, void, void, void), void *a3, int **a4)
+void *ffi_call_int(uint64_t a1, uint64_t (*a2)(void, void, void, void, void, void, void, void), void *a3, int ***a4)
 {
-  v50 = a2;
-  v56 = *MEMORY[0x29EDCA608];
+  v49 = a2;
+  v55 = *MEMORY[0x29EDCA608];
   v7 = **(a1 + 16);
   v9 = *(a1 + 24);
   v8 = *(a1 + 28);
@@ -963,13 +951,13 @@ uint64_t ffi_call_int(uint64_t a1, uint64_t (*a2)(void, void, void, void, void, 
     v11 = 0;
   }
 
-  v45 = **(a1 + 16);
+  v44 = **(a1 + 16);
   if (a3)
   {
     v7 = 0;
   }
 
-  v52 = v8;
+  v51 = v8;
   if ((v8 & 0x20) != 0)
   {
     v13 = v7;
@@ -985,30 +973,30 @@ uint64_t ffi_call_int(uint64_t a1, uint64_t (*a2)(void, void, void, void, void, 
     v10 = v12;
   }
 
-  v49 = v10;
+  v48 = v10;
   MEMORY[0x2A1C7C4A8]();
-  v15 = &v45 - v14;
-  bzero(&v45 - v14, v16 + 232);
-  v51 = v15;
-  v54 = v15 + 192;
-  v46 = a3;
-  v47 = &v15[v9 + 192];
-  v17 = v47 + 40;
+  v15 = &v44 - v14;
+  bzero(&v44 - v14, v16 + 232);
+  v50 = v15;
+  v53 = v15 + 192;
+  v45 = a3;
+  v46 = &v15[v9 + 192];
+  v17 = v46 + 40;
   if (!v13)
   {
     v17 = a3;
   }
 
-  v48 = v17;
+  v47 = v17;
   v18 = *(a1 + 4);
   if (v18 >= 1)
   {
     v19 = 0;
     v20 = 0;
     v21 = 0;
-    v55 = 0;
+    v54 = 0;
     v22 = 0;
-    v53 = v51 + 128;
+    v52 = v50 + 128;
     while (1)
     {
       v23 = *(a1 + 8);
@@ -1032,7 +1020,7 @@ uint64_t ffi_call_int(uint64_t a1, uint64_t (*a2)(void, void, void, void, void, 
           if (v27)
           {
             v28 = 4 - (v27 & 3);
-            if ((v52 & 0x100) != 0 && *a1 == 2)
+            if ((v51 & 0x100) != 0 && *a1 == 2)
             {
               if (v28 + v20 <= 8)
               {
@@ -1057,9 +1045,9 @@ LABEL_37:
                 v30 = v31;
               }
 
-              v32 = ((v30 - 1) | (v55 - 1)) + 1;
-              v55 = v32 + v25;
-              v33 = &v54[v32];
+              v32 = ((v30 - 1) | (v54 - 1)) + 1;
+              v54 = v32 + v25;
+              v33 = &v53[v32];
               goto LABEL_40;
             }
 
@@ -1085,9 +1073,9 @@ LABEL_37:
               v35 = v36;
             }
 
-            v37 = ((v35 - 1) | (v55 - 1)) + 1;
-            v55 = v37 + v25;
-            v33 = &v54[v37];
+            v37 = ((v35 - 1) | (v54 - 1)) + 1;
+            v54 = v37 + v25;
+            v33 = &v53[v37];
           }
 
           else
@@ -1101,7 +1089,7 @@ LABEL_24:
 LABEL_32:
               if (v20 <= 7)
               {
-                *&v53[8 * v20++] = v29;
+                *&v52[8 * v20++] = v29;
                 goto LABEL_41;
               }
 
@@ -1140,14 +1128,14 @@ LABEL_32:
                 v38 = v39;
               }
 
-              v40 = ((v38 - 1) | (v55 - 1)) + 1;
-              v55 = v40 + v25;
-              v33 = &v54[v40];
+              v40 = ((v38 - 1) | (v54 - 1)) + 1;
+              v54 = v40 + v25;
+              v33 = &v53[v40];
             }
 
             else
             {
-              v33 = &v53[8 * v20];
+              v33 = &v52[8 * v20];
               v20 += v34;
             }
           }
@@ -1195,15 +1183,14 @@ LABEL_41:
   }
 
 LABEL_62:
-  v41 = v48;
-  v42 = v49;
-  result = ffi_call_SYSV(v51, v47, v50, v48, v49);
+  v41 = v47;
+  v42 = v48;
+  result = ffi_call_SYSV(v50, v46, v49, v47, v48);
   if ((v42 & 0x40) != 0)
   {
-    result = memcpy(v46, v41, v45);
+    return memcpy(v45, v41, v44);
   }
 
-  v44 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1231,18 +1218,18 @@ ffi_status ffi_prep_closure_loc(ffi_closure *a1, ffi_cif *a2, void (__cdecl *fun
 
 uint64_t ffi_closure_SYSV_inner(uint64_t a1, void (*a2)(uint64_t, uint64_t, char *, uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v55 = a6;
-  v56 = a7;
-  v58 = a2;
-  v59 = a4;
-  v57 = a3;
-  v64 = *MEMORY[0x29EDCA608];
+  v54 = a6;
+  v55 = a7;
+  v57 = a2;
+  v58 = a4;
+  v56 = a3;
+  v63 = *MEMORY[0x29EDCA608];
   v9 = *(a1 + 4);
   MEMORY[0x2A1C7C4A8]();
-  v11 = &v53 - ((v10 + 15) & 0xFFFFFFFF0);
+  v11 = &v52 - ((v10 + 15) & 0xFFFFFFFF0);
   bzero(v11, v10);
   v12 = v11;
-  v60 = *(a1 + 28);
+  v59 = *(a1 + 28);
   if (v9 >= 1)
   {
     v13 = a5;
@@ -1251,10 +1238,10 @@ uint64_t ffi_closure_SYSV_inner(uint64_t a1, void (*a2)(uint64_t, uint64_t, char
     v16 = 0;
     v17 = 0;
     v18 = 0;
-    v54 = v13 + 1;
-    v62 = v9;
-    v63 = v59 + 128;
-    v61 = v12;
+    v53 = v13 + 1;
+    v61 = v9;
+    v62 = v58 + 128;
+    v60 = v12;
     while (1)
     {
       v19 = *(*(a1 + 8) + 8 * v14);
@@ -1286,7 +1273,7 @@ uint64_t ffi_closure_SYSV_inner(uint64_t a1, void (*a2)(uint64_t, uint64_t, char
         v24 = ((v23 - 1) | (v17 - 1)) + 1;
         v25 = v24 + v21;
         v26 = v13 + v24;
-        v27 = v63 + 8 * v15;
+        v27 = v62 + 8 * v15;
         v28 = v15 > 7;
         if (v15 <= 7)
         {
@@ -1334,8 +1321,8 @@ LABEL_48:
       v13 = v29;
       if (v21 < 0x11)
       {
-        v12 = v61;
-        v9 = v62;
+        v12 = v60;
+        v9 = v61;
         if (v15 + ((v21 + 7) >> 3) > 8)
         {
           v46 = *(v19 + 8);
@@ -1357,22 +1344,22 @@ LABEL_48:
 
           v48 = ((v46 - 1) | (v17 - 1)) + 1;
           v17 = v48 + v21;
-          *&v61[8 * v14] = v13 + v48;
+          *&v60[8 * v14] = v13 + v48;
         }
 
         else
         {
-          *&v61[8 * v14] = v63 + 8 * v15;
+          *&v60[8 * v14] = v62 + 8 * v15;
           v15 += (v21 + 7) >> 3;
         }
 
         goto LABEL_48;
       }
 
-      v34 = (v63 + 8 * v15);
+      v34 = (v62 + 8 * v15);
       v35 = (v17 - 1) | 7;
       v36 = v35 + 9;
-      v37 = (v54 + v35);
+      v37 = (v53 + v35);
       v38 = v15 >= 8;
       if (v15 < 8)
       {
@@ -1390,14 +1377,14 @@ LABEL_48:
         v34 = v37;
       }
 
-      v12 = v61;
-      *&v61[8 * v14] = *v34;
+      v12 = v60;
+      *&v60[8 * v14] = *v34;
       goto LABEL_47;
     }
 
     v31 = v30;
     v32 = 4 - (v30 & 3u);
-    if ((v60 & 0x100) != 0 && *a1 == 2)
+    if ((v59 & 0x100) != 0 && *a1 == 2)
     {
       if (v32 + v15 > 8)
       {
@@ -1421,13 +1408,13 @@ LABEL_48:
         v45 = ((v43 - 1) | (v17 - 1)) + 1;
         v17 = v45 + v21;
         v13 = v29;
-        v12 = v61;
-        *&v61[8 * v14] = v29 + v45;
+        v12 = v60;
+        *&v60[8 * v14] = v29 + v45;
         v15 = 8;
         goto LABEL_47;
       }
 
-      v33 = (v63 + 8 * v15);
+      v33 = (v62 + 8 * v15);
       v15 += v32;
     }
 
@@ -1455,42 +1442,41 @@ LABEL_48:
         v42 = ((v40 - 1) | (v17 - 1)) + 1;
         v17 = v42 + v21;
         v13 = v29;
-        v12 = v61;
-        *&v61[8 * v14] = v29 + v42;
+        v12 = v60;
+        *&v60[8 * v14] = v29 + v42;
         goto LABEL_47;
       }
 
-      v33 = (v59 + 16 * v18);
+      v33 = (v58 + 16 * v18);
       v18 += v32;
     }
 
     v39 = compress_hfa_type(v33, v33, v31);
-    v12 = v61;
-    *&v61[8 * v14] = v39;
+    v12 = v60;
+    *&v60[8 * v14] = v39;
     v13 = v29;
 LABEL_47:
-    v9 = v62;
+    v9 = v61;
     goto LABEL_48;
   }
 
 LABEL_58:
-  v49 = v60;
-  if ((v60 & 0x20) != 0)
-  {
-    v50 = v56;
-  }
-
-  else
+  v49 = v59;
+  if ((v59 & 0x20) != 0)
   {
     v50 = v55;
   }
 
-  v58(a1, v50, v12, v57);
-  v51 = *MEMORY[0x29EDCA608];
+  else
+  {
+    v50 = v54;
+  }
+
+  v57(a1, v50, v12, v56);
   return v49 & 0xFFFFFEFF;
 }
 
-__int128 *compress_hfa_type(__int128 *result, __int128 *a2, int a3)
+_DWORD *compress_hfa_type(_DWORD *result, _OWORD *a2, int a3)
 {
   if (a3 > 11)
   {
@@ -1498,10 +1484,9 @@ __int128 *compress_hfa_type(__int128 *result, __int128 *a2, int a3)
     {
       if (a3 == 14)
       {
-        v13 = *a2;
-        v14 = a2[1];
+        v12 = a2[1];
         *result = *a2;
-        *(result + 1) = v14;
+        *(result + 1) = v12;
         return result;
       }
 
@@ -1518,23 +1503,22 @@ __int128 *compress_hfa_type(__int128 *result, __int128 *a2, int a3)
 
     else
     {
-      v5 = *a2;
-      v6 = a2[1];
-      v7 = a2[2];
+      v5 = a2[1];
+      v6 = a2[2];
       if (a3 == 12)
       {
-        v11 = a2[3];
+        v10 = a2[3];
         *result = *a2;
-        *(result + 1) = v6;
-        *(result + 2) = v7;
-        *(result + 3) = v11;
+        *(result + 1) = v5;
+        *(result + 2) = v6;
+        *(result + 3) = v10;
       }
 
       else
       {
         *result = *a2;
-        *(result + 1) = v6;
-        *(result + 2) = v7;
+        *(result + 1) = v5;
+        *(result + 2) = v6;
       }
     }
   }
@@ -1545,13 +1529,13 @@ __int128 *compress_hfa_type(__int128 *result, __int128 *a2, int a3)
     {
       if (a3 == 8)
       {
-        v8 = a2[1];
-        v9 = a2[2];
-        v10 = a2[3];
+        v7 = a2[1];
+        v8 = a2[2];
+        v9 = a2[3];
         *result = *a2;
-        *(result + 1) = v8;
-        *(result + 2) = v9;
-        *(result + 3) = v10;
+        result[1] = v7;
+        result[2] = v8;
+        result[3] = v9;
         return result;
       }
 
@@ -1560,8 +1544,8 @@ __int128 *compress_hfa_type(__int128 *result, __int128 *a2, int a3)
         v3 = a2[1];
         v4 = a2[2];
         *result = *a2;
-        *(result + 1) = v3;
-        *(result + 2) = v4;
+        result[1] = v3;
+        result[2] = v4;
         return result;
       }
 
@@ -1576,9 +1560,9 @@ LABEL_20:
 
     if (a3 == 10)
     {
-      v12 = a2[1];
+      v11 = a2[1];
       *result = *a2;
-      *(result + 1) = v12;
+      result[1] = v11;
     }
 
     else if (result != a2)
@@ -1629,7 +1613,7 @@ uint64_t is_hfa0(uint64_t a1)
   return result;
 }
 
-uint64_t is_hfa1(uint64_t a1, int a2)
+uint64_t is_hfa1(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
   if (!v2)
@@ -1648,7 +1632,7 @@ uint64_t is_hfa1(uint64_t a1, int a2)
     v6 = *(v3 + 10);
     if ((v6 & 0xFFFFFFFD) == 0xD)
     {
-      result = is_hfa1();
+      result = is_hfa1(v3, a2);
       if (!result)
       {
         return result;
@@ -1698,7 +1682,7 @@ BOOL initialize_aggregate(uint64_t a1, uint64_t *a2)
     {
       if (!*v4)
       {
-        if (initialize_aggregate())
+        if (initialize_aggregate(v4, 0))
         {
           return 1;
         }

@@ -55,26 +55,26 @@
 
 - (id)jsonDictionary
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMLocationSignificantVisit type](self, "type")}];
   identifier = [(BMLocationSignificantVisit *)self identifier];
-  v10[0] = @"type";
+  v9[0] = @"type";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"identifier";
-  v11[0] = null;
+  v9[1] = @"identifier";
+  v10[0] = null;
   null2 = identifier;
   if (!identifier)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (identifier)
   {
     if (v3)
@@ -93,14 +93,13 @@
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (BMLocationSignificantVisit)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"type"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -123,16 +122,16 @@ LABEL_7:
           goto LABEL_14;
         }
 
-        v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v20 = *MEMORY[0x1E698F240];
-        v24 = *MEMORY[0x1E696A578];
+        v18 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v19 = *MEMORY[0x1E698F240];
+        v23 = *MEMORY[0x1E696A578];
         v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"type"];
-        v25[0] = v11;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-        v21 = [v19 initWithDomain:v20 code:2 userInfo:v10];
+        v24[0] = v11;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+        v20 = [v18 initWithDomain:v19 code:2 userInfo:v10];
         v8 = 0;
         selfCopy = 0;
-        *error = v21;
+        *error = v20;
         goto LABEL_13;
       }
 
@@ -155,13 +154,13 @@ LABEL_7:
     {
       if (error)
       {
-        v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v16 = *MEMORY[0x1E698F240];
-        v22 = *MEMORY[0x1E696A578];
-        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"identifier"];
-        v23 = v17;
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-        *error = [v15 initWithDomain:v16 code:2 userInfo:v18];
+        v14 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v15 = *MEMORY[0x1E698F240];
+        v21 = *MEMORY[0x1E696A578];
+        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"identifier"];
+        v22 = v16;
+        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+        *error = [v14 initWithDomain:v15 code:2 userInfo:v17];
       }
 
       v11 = 0;
@@ -182,7 +181,6 @@ LABEL_7:
 LABEL_13:
 
 LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -198,8 +196,6 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
-  v6 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_identifier)
   {
@@ -374,28 +370,24 @@ LABEL_39:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"type" number:1 type:4 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"identifier" number:2 type:13 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"type" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"identifier" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

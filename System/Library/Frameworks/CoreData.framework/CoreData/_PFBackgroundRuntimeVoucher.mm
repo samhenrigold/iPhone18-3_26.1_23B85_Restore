@@ -36,19 +36,19 @@
 
 + (void)initialize
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (objc_opt_class() != self)
   {
-    goto LABEL_2;
+    return;
   }
 
   _MergedGlobals_88 = [_PFRoutines integerValueForOverride:?];
-  v4 = getprogname();
-  qword_1ED4BEB58 = v4;
-  if (!strcmp("chronod", v4) || !strcmp("SpringBoard", v4) || !strcmp("Carousel", v4))
+  v3 = getprogname();
+  qword_1ED4BEB58 = v3;
+  if (!strcmp("chronod", v3) || !strcmp("SpringBoard", v3) || !strcmp("Carousel", v3))
   {
-    goto LABEL_2;
+    return;
   }
 
   qword_1ED4BEB60 = objc_getClass("UIApplication");
@@ -64,20 +64,20 @@
       sharedApplication = 0;
     }
 
-    v26 = 0;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v25 = 0;
     v23 = 0u;
-    *str = 0u;
+    v24 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    *str = 0u;
+    v20 = 0u;
     __strlcpy_chk();
     qword_1ED4BEB68 = sel_registerName(str);
-    v6 = objc_opt_respondsToSelector();
+    v5 = objc_opt_respondsToSelector();
     if (!_MergedGlobals_88)
     {
 LABEL_27:
-      if (v6)
+      if (v5)
       {
         qword_1ED4BEB70 = sharedApplication;
         if (byte_1ED4BEECF == 1)
@@ -89,7 +89,7 @@ LABEL_27:
       goto LABEL_30;
     }
 
-    v7 = objc_autoreleasePoolPush();
+    v6 = objc_autoreleasePoolPush();
     _pflogInitialize(2);
     if (_NSCoreDataIsLogEnabled(2) && _pflogging_enable_oslog >= 1)
     {
@@ -98,25 +98,25 @@ LABEL_27:
         LogStream = _PFLogGetLogStream(1);
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
-          if (v6)
+          if (v5)
           {
-            v9 = @"sucess";
+            v8 = @"sucess";
           }
 
           else
           {
-            v9 = @"failure";
+            v8 = @"failure";
           }
 
           *buf = 134218498;
-          v15 = qword_1ED4BEB60;
-          v16 = 2048;
-          v17 = sharedApplication;
-          v18 = 2112;
-          v19 = v9;
-          v10 = "CoreData: error: Registration for _beginPowerAssertionNamed completed with class %p on app %p and result %@\n";
+          v14 = qword_1ED4BEB60;
+          v15 = 2048;
+          v16 = sharedApplication;
+          v17 = 2112;
+          v18 = v8;
+          v9 = "CoreData: error: Registration for _beginPowerAssertionNamed completed with class %p on app %p and result %@\n";
 LABEL_37:
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, v10, buf, 0x20u);
+          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, v9, buf, 0x20u);
         }
       }
 
@@ -125,50 +125,50 @@ LABEL_37:
         LogStream = _PFLogGetLogStream(2);
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
-          if (v6)
+          if (v5)
           {
-            v13 = @"sucess";
+            v12 = @"sucess";
           }
 
           else
           {
-            v13 = @"failure";
+            v12 = @"failure";
           }
 
           *buf = 134218498;
-          v15 = qword_1ED4BEB60;
-          v16 = 2048;
-          v17 = sharedApplication;
-          v18 = 2112;
-          v19 = v13;
-          v10 = "CoreData: warning: Registration for _beginPowerAssertionNamed completed with class %p on app %p and result %@\n";
+          v14 = qword_1ED4BEB60;
+          v15 = 2048;
+          v16 = sharedApplication;
+          v17 = 2112;
+          v18 = v12;
+          v9 = "CoreData: warning: Registration for _beginPowerAssertionNamed completed with class %p on app %p and result %@\n";
           goto LABEL_37;
         }
       }
     }
 
-    if (v6)
+    if (v5)
     {
-      v11 = @"sucess";
+      v10 = @"sucess";
     }
 
     else
     {
-      v11 = @"failure";
+      v10 = @"failure";
     }
 
     if (_pflogging_catastrophic_mode)
     {
-      v12 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v12 = 2;
+      v11 = 2;
     }
 
-    _NSCoreDataLog_console(v12, "Registration for _beginPowerAssertionNamed completed with class %p on app %p and result %@", qword_1ED4BEB60, sharedApplication, v11);
-    objc_autoreleasePoolPop(v7);
+    _NSCoreDataLog_console(v11, "Registration for _beginPowerAssertionNamed completed with class %p on app %p and result %@", qword_1ED4BEB60, sharedApplication, v10);
+    objc_autoreleasePoolPop(v6);
     goto LABEL_27;
   }
 
@@ -177,15 +177,12 @@ LABEL_30:
   {
     byte_1ED4BEB4C = 1;
   }
-
-LABEL_2:
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (_PFBackgroundRuntimeVoucher)init
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
@@ -251,53 +248,46 @@ LABEL_2:
 
 - (NSString)name
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   status = [(_PFBackgroundRuntimeVoucher *)self status];
   switch(status)
   {
     case 1uLL:
-      result = @"com.apple.coredata.assertions.uikit.denied";
-      break;
+      return @"com.apple.coredata.assertions.uikit.denied";
     case 4uLL:
-      result = @"com.apple.coredata.assertions.uikit.success";
-      break;
+      return @"com.apple.coredata.assertions.uikit.success";
     case 3uLL:
-      result = @"com.apple.coredata.assertions.uikit.cancelled";
-      break;
-    default:
-      LogStream = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-      {
-        v9 = 138412290;
-        statusName = [(_PFBackgroundRuntimeVoucher *)self statusName];
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Voucher status %@ does not correspond to one of the expected CoreAnalytics event names. Was a new event type added?\n", &v9, 0xCu);
-      }
-
-      v6 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-      {
-        statusName2 = [(_PFBackgroundRuntimeVoucher *)self statusName];
-        v9 = 138412290;
-        statusName = statusName2;
-        _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: Voucher status %@ does not correspond to one of the expected CoreAnalytics event names. Was a new event type added?", &v9, 0xCu);
-      }
-
-      result = @"invalid-name";
-      break;
+      return @"com.apple.coredata.assertions.uikit.cancelled";
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  LogStream = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+  {
+    v8 = 138412290;
+    statusName = [(_PFBackgroundRuntimeVoucher *)self statusName];
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Voucher status %@ does not correspond to one of the expected CoreAnalytics event names. Was a new event type added?\n", &v8, 0xCu);
+  }
+
+  v6 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+  {
+    statusName2 = [(_PFBackgroundRuntimeVoucher *)self statusName];
+    v8 = 138412290;
+    statusName = statusName2;
+    _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: Voucher status %@ does not correspond to one of the expected CoreAnalytics event names. Was a new event type added?", &v8, 0xCu);
+  }
+
+  return @"invalid-name";
 }
 
 - (id)createPayload
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DF90]);
-  v10[0] = @"process_name";
+  v9[0] = @"process_name";
   objc_opt_self();
-  v11[0] = [MEMORY[0x1E696AEC0] stringWithCString:qword_1ED4BEB58 encoding:4];
-  v10[1] = @"assertion_label";
+  v10[0] = [MEMORY[0x1E696AEC0] stringWithCString:qword_1ED4BEB58 encoding:4];
+  v9[1] = @"assertion_label";
   if (self)
   {
     taskName = self->_taskName;
@@ -308,10 +298,10 @@ LABEL_2:
     taskName = 0;
   }
 
-  v11[1] = taskName;
-  v10[2] = @"background_time_remaining";
-  v11[2] = [MEMORY[0x1E696AD98] numberWithDouble:self->_backgroundTimeRemaining];
-  v5 = [v3 initWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v11, v10, 3)}];
+  v10[1] = taskName;
+  v9[2] = @"background_time_remaining";
+  v10[2] = [MEMORY[0x1E696AD98] numberWithDouble:self->_backgroundTimeRemaining];
+  v5 = [v3 initWithDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v10, v9, 3)}];
   status = [(_PFBackgroundRuntimeVoucher *)self status];
   if (status == 3)
   {
@@ -326,7 +316,6 @@ LABEL_7:
     [v5 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithDouble:", *(&self->super.isa + v7) - self->_beginTime), @"duration_seconds"}];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

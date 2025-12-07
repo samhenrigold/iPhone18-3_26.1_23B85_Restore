@@ -36,39 +36,36 @@
 
 - (id)externalStringToInternal:(id)internal
 {
-  v14 = *MEMORY[0x29EDCA608];
-  v12 = 0x2C7000000B4;
-  v13 = 730;
+  v13 = *MEMORY[0x29EDCA608];
+  v11 = 0x2C7000000B4;
+  v12 = 730;
   internalCopy = internal;
-  std::vector<unsigned int>::vector[abi:nn200100](__p, &v12, 3uLL);
-  KB::utf8_string(v11, internalCopy, v5);
+  std::vector<unsigned int>::vector[abi:nn200100](__p, &v11, 3uLL);
+  KB::utf8_string(v10, internalCopy, v5);
 
   [(TIKeyboardFeatureSpecialization *)self precomposedCharacterSet];
   KB::decompose_diacritics();
-  v7 = KB::ns_string(&v12, v6);
-  KB::String::~String(&v12);
-  KB::String::~String(v11);
+  v7 = KB::ns_string(&v11, v6);
+  KB::String::~String(&v11);
+  KB::String::~String(v10);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  v8 = *MEMORY[0x29EDCA608];
-
   return v7;
 }
 
 - (id)internalStringToExternal:(id)external
 {
-  v10 = *MEMORY[0x29EDCA608];
-  KB::utf8_string(v8, external, a2);
+  v9 = *MEMORY[0x29EDCA608];
+  KB::utf8_string(v7, external, a2);
   [(TIKeyboardFeatureSpecialization *)self precomposedCharacterSet];
   KB::compose_diacritics();
-  v5 = KB::ns_string(v9, v4);
-  KB::String::~String(v9);
+  v5 = KB::ns_string(v8, v4);
   KB::String::~String(v8);
-  v6 = *MEMORY[0x29EDCA608];
+  KB::String::~String(v7);
 
   return v5;
 }

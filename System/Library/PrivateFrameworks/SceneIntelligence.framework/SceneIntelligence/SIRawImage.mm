@@ -1,6 +1,7 @@
 @interface SIRawImage
 - (BOOL)printAsMIMEAttachment:(id)attachment;
 - (BOOL)printPGMAsMIMEAttachment:(id)attachment;
+- (BOOL)savePGMToURL:(id)l asBinary:(BOOL)binary;
 - (BOOL)saveToDataURL:(id)l metadataURL:(id)rL;
 - (BOOL)saveToURL:(id)l;
 - (SIRawImage)initWithInfo:(id)info data:(id)data;
@@ -16,6 +17,7 @@
 - (id)initFromSurface:(id)surface;
 - (id)metadataAsJson;
 - (id)reshapeWithWidth:(unint64_t)width height:(unint64_t)height;
+- (id)toPixelFormat:(unsigned int)format bytesPerRow:(unint64_t)row;
 - (unint64_t)bytesPerElement;
 - (unint64_t)bytesPerRow;
 - (unint64_t)height;
@@ -33,57 +35,57 @@
   v5 = surfaceCopy;
   if (surfaceCopy)
   {
-    if ([surfaceCopy planes] < 2)
+    planes = [surfaceCopy planes];
+    if (planes < 2)
     {
-      v8 = objc_opt_new();
+      v9 = objc_opt_new();
       width = [v5 width];
-      *[v8 width] = width;
+      *[v9 width] = width;
       height = [v5 height];
-      *[v8 height] = height;
+      *[v9 height] = height;
       bytesPerElement = [v5 bytesPerElement];
-      *[v8 bytesPerPixel] = bytesPerElement;
+      *[v9 bytesPerPixel] = bytesPerElement;
       bytesPerRow = [v5 bytesPerRow];
-      *[v8 bytesPerRow] = bytesPerRow;
+      *[v9 bytesPerRow] = bytesPerRow;
       allocationSize = [v5 allocationSize];
-      *[v8 size] = allocationSize;
-      [v8 setPlanes:{objc_msgSend(v5, "planes")}];
-      [v8 setPixelFormat:objc_msgSend(v5, "pixelFormat")];
-      [v8 setChannels:0];
+      *[v9 size] = allocationSize;
+      [v9 setPlanes:{objc_msgSend(v5, "planes")}];
+      [v9 setPixelFormat:objc_msgSend(v5, "pixelFormat")];
+      [v9 setChannels:0];
       copyData = [v5 copyData];
-      self = [(SIRawImage *)self initWithInfo:v8 data:copyData];
+      self = [(SIRawImage *)self initWithInfo:v9 data:copyData];
 
       selfCopy = self;
       goto LABEL_10;
     }
 
-    v6 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __SceneIntelligenceLogSharedInstance(planes);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v17 = 136380931;
       v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
       v19 = 1025;
       v20 = 431;
-      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Multiplanar images not yet supported ***", &v17, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Multiplanar images not yet supported ***", &v17, 0x12u);
     }
   }
 
   else
   {
-    v6 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __SceneIntelligenceLogSharedInstance(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v17 = 136380931;
       v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
       v19 = 1025;
       v20 = 427;
-      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** initializing Raw image from nil surface ***", &v17, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** initializing Raw image from nil surface ***", &v17, 0x12u);
     }
   }
 
   selfCopy = 0;
 LABEL_10:
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -181,7 +183,7 @@ LABEL_17:
 
 - (id)initFromDataURL:(id)l metadataURL:(id)rL
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   v8 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:rLCopy];
@@ -191,16 +193,16 @@ LABEL_17:
     v10 = v9;
     if (!v9)
     {
-      v11 = __SceneIntelligenceLogSharedInstance();
+      v11 = __SceneIntelligenceLogSharedInstance(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v23 = 136381187;
-        v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-        v25 = 1025;
-        v26 = 510;
-        v27 = 2112;
-        v28 = rLCopy;
-        _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Could not decode image metadata at '%@' ***", &v23, 0x1Cu);
+        v22 = 136381187;
+        v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+        v24 = 1025;
+        v25 = 510;
+        v26 = 2112;
+        v27 = rLCopy;
+        _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Could not decode image metadata at '%@' ***", &v22, 0x1Cu);
       }
 
       selfCopy = 0;
@@ -247,76 +249,75 @@ LABEL_23:
           goto LABEL_24;
         }
 
-        v21 = "imageInfo.pixelFormat";
-        v22 = 533;
+        v20 = "imageInfo.pixelFormat";
+        v21 = 533;
       }
 
       else
       {
-        v21 = "totalSize == imageData.length && Size from metadata does not match data size.  Invalid info file?";
-        v22 = 532;
+        v20 = "totalSize == imageData.length && Size from metadata does not match data size.  Invalid info file?";
+        v21 = 532;
       }
 
-      __assert_rtn("[SIRawImage initFromDataURL:metadataURL:]", "SIIOUtility.mm", v22, v21);
+      __assert_rtn("[SIRawImage initFromDataURL:metadataURL:]", "SIIOUtility.mm", v21, v20);
     }
 
-    v18 = __SceneIntelligenceLogSharedInstance();
+    v18 = __SceneIntelligenceLogSharedInstance(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136381187;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-      v25 = 1025;
-      v26 = 529;
-      v27 = 2113;
-      v28 = lCopy;
-      _os_log_impl(&dword_21DE0D000, v18, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Could not load image data '%{private}@' ***", &v23, 0x1Cu);
+      v22 = 136381187;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+      v24 = 1025;
+      v25 = 529;
+      v26 = 2113;
+      v27 = lCopy;
+      _os_log_impl(&dword_21DE0D000, v18, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Could not load image data '%{private}@' ***", &v22, 0x1Cu);
     }
 
     selfCopy = 0;
     goto LABEL_22;
   }
 
-  v10 = __SceneIntelligenceLogSharedInstance();
+  v10 = __SceneIntelligenceLogSharedInstance(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v23 = 136381187;
-    v24 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-    v25 = 1025;
-    v26 = 504;
-    v27 = 2112;
-    v28 = rLCopy;
-    _os_log_impl(&dword_21DE0D000, v10, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Could not load image metadata '%@' ***", &v23, 0x1Cu);
+    v22 = 136381187;
+    v23 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+    v24 = 1025;
+    v25 = 504;
+    v26 = 2112;
+    v27 = rLCopy;
+    _os_log_impl(&dword_21DE0D000, v10, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Could not load image metadata '%@' ***", &v22, 0x1Cu);
   }
 
   selfCopy = 0;
 LABEL_24:
 
-  v19 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (__CVBuffer)createPixelBufferWithAttributes:(id)attributes zeroCopy:(BOOL)copy
 {
   copyCopy = copy;
-  v80[3] = *MEMORY[0x277D85DE8];
+  v81[3] = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   v6 = MEMORY[0x277CBEB38];
-  v79[0] = *MEMORY[0x277CC4E30];
+  v80[0] = *MEMORY[0x277CC4E30];
   v7 = MEMORY[0x277CCABB0];
   info = [(SIRawImage *)self info];
   v9 = [v7 numberWithUnsignedInt:{objc_msgSend(info, "pixelFormat")}];
-  v80[0] = v9;
-  v79[1] = *MEMORY[0x277CC4EC8];
+  v81[0] = v9;
+  v80[1] = *MEMORY[0x277CC4EC8];
   v10 = MEMORY[0x277CCABB0];
   info2 = [(SIRawImage *)self info];
   v12 = [v10 numberWithUnsignedLong:{*objc_msgSend(info2, "width")}];
-  v80[1] = v12;
-  v79[2] = *MEMORY[0x277CC4DD8];
+  v81[1] = v12;
+  v80[2] = *MEMORY[0x277CC4DD8];
   v13 = MEMORY[0x277CCABB0];
   info3 = [(SIRawImage *)self info];
   v15 = [v13 numberWithUnsignedLong:{*objc_msgSend(info3, "height")}];
-  v80[2] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:3];
+  v81[2] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:3];
   pixelBufferAttributes = [v6 dictionaryWithDictionary:v16];
 
   [(__CFDictionary *)pixelBufferAttributes addEntriesFromDictionary:attributesCopy];
@@ -324,25 +325,25 @@ LABEL_24:
   {
     texture = 0;
     info4 = [(SIRawImage *)self info];
-    v31 = *[info4 width];
+    v32 = *[info4 width];
     info5 = [(SIRawImage *)self info];
-    v33 = *[info5 height];
+    v34 = *[info5 height];
     info6 = [(SIRawImage *)self info];
     pixelFormat = [info6 pixelFormat];
-    v36 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], v31, v33, pixelFormat, pixelBufferAttributes, &texture);
+    v37 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], v32, v34, pixelFormat, pixelBufferAttributes, &texture);
 
-    if (v36)
+    if (v37)
     {
-      v37 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v39 = __SceneIntelligenceLogSharedInstance(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 136381187;
-        v74 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-        v75 = 1025;
-        v76 = 576;
-        v77 = 1024;
-        v78 = v36;
-        _os_log_impl(&dword_21DE0D000, v37, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed call to CVPixelBufferCreate. Result was: %d ***", buf, 0x18u);
+        v75 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+        v76 = 1025;
+        v77 = 576;
+        v78 = 1024;
+        v79 = v37;
+        _os_log_impl(&dword_21DE0D000, v39, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed call to CVPixelBufferCreate. Result was: %d ***", buf, 0x18u);
       }
 
       CVPixelBufferRelease(texture);
@@ -355,29 +356,29 @@ LABEL_24:
     }
 
     data = [(SIRawImage *)self data];
-    v40 = data;
+    v42 = data;
     bytes = [data bytes];
 
     CVPixelBufferLockBaseAddress(texture, 0);
     info7 = [(SIRawImage *)self info];
-    v43 = [info7 planes] == 1;
+    v45 = [info7 planes] == 1;
 
-    if (v43)
+    if (v45)
     {
       BytesPerRow = CVPixelBufferGetBytesPerRow(texture);
       info8 = [(SIRawImage *)self info];
-      v46 = *[info8 bytesPerRow];
+      v48 = *[info8 bytesPerRow];
 
       Width = CVPixelBufferGetWidth(texture);
       info9 = [(SIRawImage *)self info];
-      v49 = *[info9 width];
+      v51 = *[info9 width];
 
       Height = CVPixelBufferGetHeight(texture);
       info10 = [(SIRawImage *)self info];
-      v52 = *[info10 height];
+      v54 = *[info10 height];
 
       BaseAddress = CVPixelBufferGetBaseAddress(texture);
-      SIStridedCopy(bytes, v49, v52, v46, BaseAddress, Width, Height, BytesPerRow);
+      SIStridedCopy(bytes, v51, v54, v48, BaseAddress, Width, Height, BytesPerRow);
     }
 
     else
@@ -385,34 +386,34 @@ LABEL_24:
       for (i = 0; ; ++i)
       {
         info11 = [(SIRawImage *)self info];
-        v58 = i < [info11 planes];
+        v59 = i < [info11 planes];
 
-        if (!v58)
+        if (!v59)
         {
           break;
         }
 
         BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(texture, i);
         info12 = [(SIRawImage *)self info];
-        v61 = *([info12 bytesPerRow] + 8 * i);
+        v62 = *([info12 bytesPerRow] + 8 * i);
 
         WidthOfPlane = CVPixelBufferGetWidthOfPlane(texture, i);
         info13 = [(SIRawImage *)self info];
-        v64 = *([info13 width] + 8 * i);
+        v65 = *([info13 width] + 8 * i);
 
         HeightOfPlane = CVPixelBufferGetHeightOfPlane(texture, i);
         info14 = [(SIRawImage *)self info];
-        v67 = *([info14 height] + 8 * i);
+        v68 = *([info14 height] + 8 * i);
 
         BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(texture, i);
-        SIStridedCopy(bytes, v64, v67, v61, BaseAddressOfPlane, WidthOfPlane, HeightOfPlane, BytesPerRowOfPlane);
-        bytes += v67 * v61;
+        SIStridedCopy(bytes, v65, v68, v62, BaseAddressOfPlane, WidthOfPlane, HeightOfPlane, BytesPerRowOfPlane);
+        bytes += v68 * v62;
       }
     }
 
     CVPixelBufferUnlockBaseAddress(texture, 0);
 LABEL_15:
-    v38 = texture;
+    v40 = texture;
     goto LABEL_16;
   }
 
@@ -436,25 +437,24 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v29 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v30 = __SceneIntelligenceLogSharedInstance(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     *buf = 136381187;
-    v74 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-    v75 = 1025;
-    v76 = 565;
-    v77 = 1024;
-    v78 = v28;
-    _os_log_impl(&dword_21DE0D000, v29, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed call to CVPixelBufferCreateWithBytes. Result was: %d ***", buf, 0x18u);
+    v75 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+    v76 = 1025;
+    v77 = 565;
+    v78 = 1024;
+    v79 = v28;
+    _os_log_impl(&dword_21DE0D000, v30, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed call to CVPixelBufferCreateWithBytes. Result was: %d ***", buf, 0x18u);
   }
 
   CVPixelBufferRelease(texture);
 LABEL_10:
-  v38 = 0;
+  v40 = 0;
 LABEL_16:
 
-  v54 = *MEMORY[0x277D85DE8];
-  return v38;
+  return v40;
 }
 
 - (id)createSurfaceWithAllocator:(id)allocator
@@ -574,23 +574,21 @@ char *__48__SIRawImage_createSurfaceWithAllocator_stride___block_invoke_2(void *
 
 - (id)metadataAsJson
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   info = [(SIRawImage *)self info];
   v3 = [SIIOUtility_private DictionaryFromImageInfo:info];
 
-  v8 = @"ImageInfo";
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"ImageInfo";
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v4 options:0 error:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (BOOL)saveToDataURL:(id)l metadataURL:(id)rL
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   data = [(SIRawImage *)self data];
@@ -600,54 +598,54 @@ char *__48__SIRawImage_createSurfaceWithAllocator_stride___block_invoke_2(void *
     __assert_rtn("[SIRawImage saveToDataURL:metadataURL:]", "SIIOUtility.mm", 661, "data");
   }
 
-  if (([data writeToURL:lCopy atomically:0] & 1) == 0)
+  v10 = [data writeToURL:lCopy atomically:0];
+  if ((v10 & 1) == 0)
   {
-    v13 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __SceneIntelligenceLogSharedInstance(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136381187;
-      v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-      v19 = 1025;
-      v20 = 663;
-      v21 = 2112;
-      v22 = lCopy;
-      v14 = " %{private}s:%{private}d *** Error saving raw image: %@ ***";
+      v18 = 136381187;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+      v20 = 1025;
+      v21 = 663;
+      v22 = 2112;
+      v23 = lCopy;
+      v16 = " %{private}s:%{private}d *** Error saving raw image: %@ ***";
 LABEL_9:
-      _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, v14, &v17, 0x1Cu);
+      _os_log_impl(&dword_21DE0D000, v15, OS_LOG_TYPE_ERROR, v16, &v18, 0x1Cu);
     }
 
 LABEL_10:
 
-    v12 = 0;
+    v14 = 0;
     goto LABEL_11;
   }
 
   metadataAsJson = [(SIRawImage *)self metadataAsJson];
-  v11 = [metadataAsJson writeToURL:rLCopy atomically:0];
+  v12 = [metadataAsJson writeToURL:rLCopy atomically:0];
 
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    v13 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __SceneIntelligenceLogSharedInstance(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136381187;
-      v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-      v19 = 1025;
-      v20 = 668;
-      v21 = 2112;
-      v22 = rLCopy;
-      v14 = " %{private}s:%{private}d *** Error saving image matadata: %@ ***";
+      v18 = 136381187;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+      v20 = 1025;
+      v21 = 668;
+      v22 = 2112;
+      v23 = rLCopy;
+      v16 = " %{private}s:%{private}d *** Error saving image matadata: %@ ***";
       goto LABEL_9;
     }
 
     goto LABEL_10;
   }
 
-  v12 = 1;
+  v14 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (BOOL)saveToURL:(id)l
@@ -698,7 +696,7 @@ LABEL_11:
 - (id)ToPGMImageAsBinary:(BOOL)binary
 {
   binaryCopy = binary;
-  v87 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   info = [(SIRawImage *)self info];
   pixelFormat = [info pixelFormat];
 
@@ -711,16 +709,16 @@ LABEL_11:
         if (pixelFormat == 1278226534)
         {
           info2 = [(SIRawImage *)self info];
-          v9 = 0;
           v10 = 0;
-          v70 = *[info2 bytesPerRow];
-          v76 = 4;
-          v11 = 1;
-          v12 = 16;
-          v13 = 6;
-          v78 = 0xFFFFLL;
-          v72 = 1;
-          v15 = 4;
+          v11 = 0;
+          v71 = *[info2 bytesPerRow];
+          v77 = 4;
+          v12 = 1;
+          v13 = 16;
+          v14 = 6;
+          v79 = 0xFFFFLL;
+          v73 = 1;
+          v16 = 4;
           goto LABEL_26;
         }
 
@@ -728,14 +726,14 @@ LABEL_11:
       }
 
       info2 = [(SIRawImage *)self info];
-      v9 = 0;
       v10 = 0;
-      v70 = *[info2 bytesPerRow];
-      v76 = 1;
-      v12 = 8;
-      v13 = 4;
-      v11 = 1;
-      v72 = 1;
+      v11 = 0;
+      v71 = *[info2 bytesPerRow];
+      v77 = 1;
+      v13 = 8;
+      v14 = 4;
+      v12 = 1;
+      v73 = 1;
     }
 
     else
@@ -748,34 +746,34 @@ LABEL_11:
         }
 
         info2 = [(SIRawImage *)self info];
-        v72 = 0;
-        v70 = *[info2 bytesPerRow];
-        v9 = 1;
-        v12 = 8;
-        v11 = 3;
-        v76 = 4;
-        v15 = 1;
+        v73 = 0;
+        v71 = *[info2 bytesPerRow];
         v10 = 1;
+        v13 = 8;
+        v12 = 3;
+        v77 = 4;
+        v16 = 1;
+        v11 = 1;
 LABEL_22:
-        v78 = 1;
-        v13 = 4;
+        v79 = 1;
+        v14 = 4;
         goto LABEL_26;
       }
 
       info2 = [(SIRawImage *)self info];
-      v72 = 0;
-      v10 = 0;
-      v70 = *[info2 bytesPerRow];
-      v9 = 1;
-      v12 = 8;
-      v13 = 4;
-      v76 = 3;
-      v11 = 3;
+      v73 = 0;
+      v11 = 0;
+      v71 = *[info2 bytesPerRow];
+      v10 = 1;
+      v13 = 8;
+      v14 = 4;
+      v77 = 3;
+      v12 = 3;
     }
 
-    v15 = 1;
+    v16 = 1;
 LABEL_20:
-    v78 = 1;
+    v79 = 1;
     goto LABEL_26;
   }
 
@@ -784,16 +782,16 @@ LABEL_20:
     if (pixelFormat == 1278226536)
     {
       info2 = [(SIRawImage *)self info];
-      v9 = 0;
       v10 = 0;
-      v70 = *[info2 bytesPerRow];
-      v15 = 3;
-      v11 = 1;
-      v12 = 16;
-      v13 = 6;
-      v78 = 0xFFFFLL;
-      v76 = 2;
-      v72 = 1;
+      v11 = 0;
+      v71 = *[info2 bytesPerRow];
+      v16 = 3;
+      v12 = 1;
+      v13 = 16;
+      v14 = 6;
+      v79 = 0xFFFFLL;
+      v77 = 2;
+      v73 = 1;
       goto LABEL_26;
     }
 
@@ -803,15 +801,15 @@ LABEL_20:
     }
 
     info2 = [(SIRawImage *)self info];
-    v9 = 0;
     v10 = 0;
-    v70 = *[info2 bytesPerRow];
-    v76 = 2;
-    v11 = 1;
-    v12 = 16;
-    v13 = 6;
-    v72 = 1;
-    v15 = 2;
+    v11 = 0;
+    v71 = *[info2 bytesPerRow];
+    v77 = 2;
+    v12 = 1;
+    v13 = 16;
+    v14 = 6;
+    v73 = 1;
+    v16 = 2;
     goto LABEL_20;
   }
 
@@ -819,123 +817,123 @@ LABEL_20:
   {
     case 1380401729:
       info2 = [(SIRawImage *)self info];
-      v72 = 0;
-      v10 = 0;
-      v70 = *[info2 bytesPerRow];
-      v9 = 1;
-      v12 = 8;
-      v11 = 3;
-      v76 = 4;
-      v15 = 1;
+      v73 = 0;
+      v11 = 0;
+      v71 = *[info2 bytesPerRow];
+      v10 = 1;
+      v13 = 8;
+      v12 = 3;
+      v77 = 4;
+      v16 = 1;
       goto LABEL_22;
     case 1380411457:
       info2 = [(SIRawImage *)self info];
-      v72 = 0;
-      v10 = 0;
-      v70 = *[info2 bytesPerRow];
-      v11 = 3;
-      v12 = 16;
-      v13 = 6;
-      v78 = 0xFFFFLL;
-      v9 = 2;
-      v14 = 8;
+      v73 = 0;
+      v11 = 0;
+      v71 = *[info2 bytesPerRow];
+      v12 = 3;
+      v13 = 16;
+      v14 = 6;
+      v79 = 0xFFFFLL;
+      v10 = 2;
+      v15 = 8;
       goto LABEL_25;
     case 1919365992:
       info3 = [(SIRawImage *)self info];
-      v70 = *[info3 bytesPerRow];
+      v71 = *[info3 bytesPerRow];
 
       info2 = [(SIRawImage *)self info];
-      v7 = *[info2 bytesPerRow];
+      v8 = *[info2 bytesPerRow];
       info4 = [(SIRawImage *)self info];
-      v9 = *[info4 height] * v7;
+      v10 = *[info4 height] * v8;
 
-      v72 = 0;
-      v10 = 0;
-      v11 = 3;
-      v12 = 16;
-      v13 = 6;
-      v78 = 0xFFFFLL;
-      v14 = 2;
+      v73 = 0;
+      v11 = 0;
+      v12 = 3;
+      v13 = 16;
+      v14 = 6;
+      v79 = 0xFFFFLL;
+      v15 = 2;
 LABEL_25:
-      v76 = v14;
-      v15 = 3;
+      v77 = v15;
+      v16 = 3;
 LABEL_26:
 
-      v81[0] = MEMORY[0x277D85DD0];
-      v81[1] = 3221225472;
-      v81[2] = __33__SIRawImage_ToPGMImageAsBinary___block_invoke;
-      v81[3] = &__block_descriptor_41_e15___NSString_8__0l;
-      v81[4] = v11;
-      v82 = binaryCopy;
-      v68 = __33__SIRawImage_ToPGMImageAsBinary___block_invoke(v81);
-      if (!v68)
+      v82[0] = MEMORY[0x277D85DD0];
+      v82[1] = 3221225472;
+      v82[2] = __33__SIRawImage_ToPGMImageAsBinary___block_invoke;
+      v82[3] = &__block_descriptor_41_e15___NSString_8__0l;
+      v82[4] = v12;
+      v83 = binaryCopy;
+      v69 = __33__SIRawImage_ToPGMImageAsBinary___block_invoke(v82);
+      if (!v69)
       {
-        v44 = __SceneIntelligenceLogSharedInstance();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v46 = __SceneIntelligenceLogSharedInstance(0);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 136380931;
-          v84 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-          v85 = 1025;
-          v86 = 868;
-          _os_log_impl(&dword_21DE0D000, v44, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unknown error magic bytes for PGM. ***", buf, 0x12u);
+          v85 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+          v86 = 1025;
+          v87 = 868;
+          _os_log_impl(&dword_21DE0D000, v46, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unknown error magic bytes for PGM. ***", buf, 0x12u);
         }
 
-        v22 = 0;
+        v24 = 0;
 LABEL_72:
 
-        v62 = v68;
+        v64 = v69;
         goto LABEL_73;
       }
 
-      if (v70)
+      if (v71)
       {
-        if ((v9 & 0x8000000000000000) == 0)
+        if ((v10 & 0x8000000000000000) == 0)
         {
-          v80[4] = v12;
-          v80[5] = MEMORY[0x277D85DD0];
-          v80[6] = 3221225472;
-          v80[7] = __33__SIRawImage_ToPGMImageAsBinary___block_invoke_135;
-          v80[8] = &__block_descriptor_40_e5_i8__0l;
-          v80[9] = v12;
-          v80[0] = MEMORY[0x277D85DD0];
-          v80[1] = 3221225472;
-          v80[2] = __33__SIRawImage_ToPGMImageAsBinary___block_invoke_2;
-          v80[3] = &__block_descriptor_40_e5_i8__0l;
-          v16 = __33__SIRawImage_ToPGMImageAsBinary___block_invoke_2(v80);
+          v81[4] = v13;
+          v81[5] = MEMORY[0x277D85DD0];
+          v81[6] = 3221225472;
+          v81[7] = __33__SIRawImage_ToPGMImageAsBinary___block_invoke_135;
+          v81[8] = &__block_descriptor_40_e5_i8__0l;
+          v81[9] = v13;
+          v81[0] = MEMORY[0x277D85DD0];
+          v81[1] = 3221225472;
+          v81[2] = __33__SIRawImage_ToPGMImageAsBinary___block_invoke_2;
+          v81[3] = &__block_descriptor_40_e5_i8__0l;
+          v18 = __33__SIRawImage_ToPGMImageAsBinary___block_invoke_2(v81, v17);
           info5 = [(SIRawImage *)self info];
-          v18 = *[info5 width];
+          v20 = *[info5 width];
 
           info6 = [(SIRawImage *)self info];
-          v20 = *[info6 height];
+          v22 = *[info6 height];
 
           if (binaryCopy)
           {
-            v13 = 1;
+            v14 = 1;
           }
 
-          v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n%ld %ld\n%ld\n", v68, v18, v20, v16];
-          v21 = ((v12 * v13) >> 3) * v11 * v18 * v20 + 32;
+          v68 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n%ld %ld\n%ld\n", v69, v20, v22, v18];
+          v23 = ((v13 * v14) >> 3) * v12 * v20 * v22 + 32;
           if (binaryCopy)
           {
-            v22 = [MEMORY[0x277CBEB28] dataWithCapacity:v21];
-            v23 = [v67 dataUsingEncoding:4];
-            [v22 appendData:v23];
+            v24 = [MEMORY[0x277CBEB28] dataWithCapacity:v23];
+            v25 = [v68 dataUsingEncoding:4];
+            [v24 appendData:v25];
 
             data = [(SIRawImage *)self data];
-            v25 = data;
+            v27 = data;
             bytes = [data bytes];
 
-            v26 = 0;
-            v73 = v72 & v10;
-            v27 = v78;
-            v28 = v12 >> 3;
+            v28 = 0;
+            v74 = v73 & v11;
+            v29 = v79;
+            v30 = v13 >> 3;
             while (1)
             {
               info7 = [(SIRawImage *)self info];
-              v71 = v26;
-              v30 = v26 < *[info7 height];
+              v72 = v28;
+              v32 = v28 < *[info7 height];
 
-              if (!v30)
+              if (!v32)
               {
                 break;
               }
@@ -943,185 +941,183 @@ LABEL_72:
               for (i = 0; ; ++i)
               {
                 info8 = [(SIRawImage *)self info];
-                v33 = i < *[info8 width];
+                v35 = i < *[info8 width];
 
-                if (!v33)
+                if (!v35)
                 {
                   break;
                 }
 
-                if (v73)
+                if (v74)
                 {
                   __assert_rtn("[SIRawImage ToPGMImageAsBinary:]", "SIIOUtility.mm", 921, "channels == 3");
                 }
 
-                v34 = 0;
-                v35 = 2;
+                v36 = 0;
+                v37 = 2;
                 do
                 {
-                  if (v10)
+                  if (v11)
                   {
-                    v36 = v35;
+                    v38 = v37;
                   }
 
                   else
                   {
-                    v36 = v34;
+                    v38 = v36;
                   }
 
-                  v37 = (bytes + v71 * v70 + i * v76 + v36 * v9);
-                  if (v15 == 1)
+                  v39 = (bytes + v72 * v71 + i * v77 + v38 * v10);
+                  if (v16 == 1)
                   {
-                    [v22 appendBytes:v37 length:v28];
+                    [v24 appendBytes:v39 length:v30];
                   }
 
-                  else if (v15 == 2)
+                  else if (v16 == 2)
                   {
-                    *buf = bswap32(*v37 * v78) >> 16;
-                    [v22 appendBytes:buf length:v28];
+                    *buf = bswap32(*v39 * v79) >> 16;
+                    [v24 appendBytes:buf length:v30];
                   }
 
                   else
                   {
-                    if (v15 == 3)
+                    if (v16 == 3)
                     {
-                      _H0 = *v37;
+                      _H0 = *v39;
                       __asm { FCVT            S0, H0 }
 
-                      *buf = __rev16((v27 * _S0));
+                      *buf = __rev16((v29 * _S0));
                     }
 
                     else
                     {
-                      *buf = __rev16((*v37 * v27));
+                      *buf = __rev16((*v39 * v29));
                     }
 
-                    [v22 appendBytes:buf length:v28];
+                    [v24 appendBytes:buf length:v30];
                   }
 
-                  ++v34;
-                  --v35;
+                  ++v36;
+                  --v37;
                 }
 
-                while (v11 != v34);
+                while (v12 != v36);
               }
 
-              v26 = v71 + 1;
+              v28 = v72 + 1;
             }
 
 LABEL_71:
-            v44 = v67;
+            v46 = v68;
             goto LABEL_72;
           }
 
-          v45 = [MEMORY[0x277CCAB68] stringWithCapacity:v21];
-          [v45 appendString:v67];
+          v47 = [MEMORY[0x277CCAB68] stringWithCapacity:v23];
+          [v47 appendString:v68];
           data2 = [(SIRawImage *)self data];
-          v47 = data2;
+          v49 = data2;
           bytes2 = [data2 bytes];
 
-          v48 = 0;
-          v49 = v78;
+          v50 = 0;
+          v51 = v79;
           while (1)
           {
             info9 = [(SIRawImage *)self info];
-            v79 = v48;
-            v51 = v48 < *[info9 height];
+            v80 = v50;
+            v53 = v50 < *[info9 height];
 
-            if (!v51)
+            if (!v53)
             {
-              v22 = [v45 dataUsingEncoding:4];
+              v24 = [v47 dataUsingEncoding:4];
 
               goto LABEL_71;
             }
 
-            v52 = 0;
-            v53 = bytes2;
+            v54 = 0;
+            v55 = bytes2;
 LABEL_58:
             info10 = [(SIRawImage *)self info];
-            v55 = v52 < *[info10 width];
+            v57 = v54 < *[info10 width];
 
-            v56 = v53;
-            v57 = v11;
-            if (v55)
+            v58 = v55;
+            v59 = v12;
+            if (v57)
             {
               break;
             }
 
-            [v45 appendFormat:@"\n "];
-            v48 = v79 + 1;
-            bytes2 += v70;
+            [v47 appendFormat:@"\n "];
+            v50 = v80 + 1;
+            bytes2 += v71;
           }
 
-          while (v15 != 3)
+          while (v16 != 3)
           {
-            if (v15 == 2)
+            if (v16 == 2)
             {
-              v58 = *v56;
+              v60 = *v58;
             }
 
             else
             {
-              if (v15 != 1)
+              if (v16 != 1)
               {
-                v61 = *v56 * v49;
+                v63 = *v58 * v51;
                 goto LABEL_66;
               }
 
-              v58 = *v56;
+              v60 = *v58;
             }
 
 LABEL_67:
-            [v45 appendFormat:@"%d ", v58];
-            v56 = (v56 + v9);
-            if (!--v57)
+            [v47 appendFormat:@"%d ", v60];
+            v58 = (v58 + v10);
+            if (!--v59)
             {
-              [v45 appendFormat:@" "];
-              ++v52;
-              v53 = (v53 + v76);
+              [v47 appendFormat:@" "];
+              ++v54;
+              v55 = (v55 + v77);
               goto LABEL_58;
             }
           }
 
-          _H0 = *v56;
+          _H0 = *v58;
           __asm { FCVT            S0, H0 }
 
-          v61 = v49 * _S0;
+          v63 = v51 * _S0;
 LABEL_66:
-          v58 = v61;
+          v60 = v63;
           goto LABEL_67;
         }
 
-        v65 = "channelStride > -1";
-        v66 = 875;
+        v66 = "channelStride > -1";
+        v67 = 875;
       }
 
       else
       {
-        v65 = "rowStride > 0";
-        v66 = 873;
+        v66 = "rowStride > 0";
+        v67 = 873;
       }
 
-      __assert_rtn("[SIRawImage ToPGMImageAsBinary:]", "SIIOUtility.mm", v66, v65);
+      __assert_rtn("[SIRawImage ToPGMImageAsBinary:]", "SIIOUtility.mm", v67, v66);
   }
 
 LABEL_76:
-  v62 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+  v64 = __SceneIntelligenceLogSharedInstance(v5);
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
   {
     *buf = 136380931;
-    v84 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-    v85 = 1025;
-    v86 = 830;
-    _os_log_impl(&dword_21DE0D000, v62, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unsupported pixel format for converting to PGM. ***", buf, 0x12u);
+    v85 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+    v86 = 1025;
+    v87 = 830;
+    _os_log_impl(&dword_21DE0D000, v64, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unsupported pixel format for converting to PGM. ***", buf, 0x12u);
   }
 
-  v22 = 0;
+  v24 = 0;
 LABEL_73:
 
-  v63 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v24;
 }
 
 __CFString *__33__SIRawImage_ToPGMImageAsBinary___block_invoke(uint64_t a1)
@@ -1174,37 +1170,41 @@ uint64_t __33__SIRawImage_ToPGMImageAsBinary___block_invoke_135(uint64_t a1)
   }
 }
 
-uint64_t __33__SIRawImage_ToPGMImageAsBinary___block_invoke_2(uint64_t a1)
+uint64_t __33__SIRawImage_ToPGMImageAsBinary___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  if (v1 == 8)
+  v2 = *(a1 + 32);
+  if (v2 == 8)
   {
-    result = 255;
+    return 255;
   }
 
-  else if (v1 == 16)
+  if (v2 == 16)
   {
-    result = 0xFFFFLL;
+    return 0xFFFFLL;
   }
 
-  else
+  v4 = __SceneIntelligenceLogSharedInstance(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v3 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v5 = 136380931;
-      v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-      v7 = 1025;
-      v8 = 896;
-      _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unknown bitDepth, cannot determine maximum value ***", &v5, 0x12u);
-    }
-
-    result = 0;
+    v5 = 136380931;
+    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+    v7 = 1025;
+    v8 = 896;
+    _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Unknown bitDepth, cannot determine maximum value ***", &v5, 0x12u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
+}
+
+- (BOOL)savePGMToURL:(id)l asBinary:(BOOL)binary
+{
+  binaryCopy = binary;
+  lCopy = l;
+  v7 = [(SIRawImage *)self ToPGMImageAsBinary:binaryCopy];
+  LOBYTE(self) = [v7 writeToURL:lCopy atomically:0];
+
+  return self;
 }
 
 - (id)asByteArray
@@ -1215,133 +1215,194 @@ uint64_t __33__SIRawImage_ToPGMImageAsBinary___block_invoke_2(uint64_t a1)
 
   if (planes < 2)
   {
-    v7 = objc_opt_new();
+    v8 = objc_opt_new();
     info2 = [(SIRawImage *)self info];
-    v9 = *[info2 height];
+    v10 = *[info2 height];
     info3 = [(SIRawImage *)self info];
-    v11 = *[info3 bytesPerRow];
-    *[v7 width] = v11 * v9;
+    v12 = *[info3 bytesPerRow];
+    *[v8 width] = v12 * v10;
 
-    v12 = *[v7 width];
-    *[v7 size] = v12;
-    *[v7 height] = 1;
-    [v7 setPlanes:1];
-    [v7 setChannels:1];
-    *[v7 bytesPerPixel] = 1;
-    v13 = *[v7 width];
-    *[v7 bytesPerRow] = v13;
-    v14 = [SIRawImage alloc];
+    v13 = *[v8 width];
+    *[v8 size] = v13;
+    *[v8 height] = 1;
+    [v8 setPlanes:1];
+    [v8 setChannels:1];
+    *[v8 bytesPerPixel] = 1;
+    v14 = *[v8 width];
+    *[v8 bytesPerRow] = v14;
+    v15 = [SIRawImage alloc];
     data = [(SIRawImage *)self data];
-    v6 = [(SIRawImage *)v14 initWithInfo:v7 data:data];
+    v7 = [(SIRawImage *)v15 initWithInfo:v8 data:data];
   }
 
   else
   {
-    v5 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __SceneIntelligenceLogSharedInstance(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v18 = 136380931;
       v19 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
       v20 = 1025;
       v21 = 991;
-      _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Representing multiplanar images as byte array is not supported, ***", &v18, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Representing multiplanar images as byte array is not supported, ***", &v18, 0x12u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  return v7;
+}
 
-  return v6;
+- (id)toPixelFormat:(unsigned int)format bytesPerRow:(unint64_t)row
+{
+  v34 = *MEMORY[0x277D85DE8];
+  v6 = [(SIRawImage *)self pixelFormat:*&format];
+  if (format == 1278226536 && v6 == 1278226534)
+  {
+    v10 = MEMORY[0x277CBEB28];
+    data = [(SIRawImage *)self data];
+    v12 = [v10 dataWithLength:{objc_msgSend(data, "length") >> 1}];
+
+    data2 = [(SIRawImage *)self data];
+    bytes = [data2 bytes];
+
+    mutableBytes = [v12 mutableBytes];
+    data3 = [(SIRawImage *)self data];
+    v17 = [data3 length];
+    if (v17 >= 4)
+    {
+      v18 = 4 * (v17 >> 2);
+      do
+      {
+        v19 = *bytes++;
+        _S0 = v19;
+        __asm { FCVT            H0, S0 }
+
+        *mutableBytes++ = _S0;
+        v18 -= 4;
+      }
+
+      while (v18);
+    }
+
+    v24 = [SIRawImageInfo alloc];
+    info = [(SIRawImage *)self info];
+    v26 = [(SIRawImageInfo *)v24 initWithInfo:info];
+
+    [(SIRawImageInfo *)v26 setPixelFormat:1278226536];
+    *[(SIRawImageInfo *)v26 bytesPerPixel]= 2;
+    info2 = [(SIRawImage *)self info];
+    v28 = *[info2 bytesPerRow];
+    *[(SIRawImageInfo *)v26 bytesPerRow]= v28 >> 1;
+
+    v9 = [[SIRawImage alloc] initWithInfo:v26 data:v12];
+  }
+
+  else
+  {
+    v8 = __SceneIntelligenceLogSharedInstance(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v30 = 136380931;
+      v31 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+      v32 = 1025;
+      v33 = 1013;
+      _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Currently only conversions from gray-float to gray-half-float are supported. ***", &v30, 0x12u);
+    }
+
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 - (id)reshapeWithWidth:(unint64_t)width height:(unint64_t)height
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   info = [(SIRawImage *)self info];
   planes = [info planes];
 
   if (planes == 1)
   {
     info2 = [(SIRawImage *)self info];
-    v10 = *[info2 width];
+    v11 = *[info2 width];
     info3 = [(SIRawImage *)self info];
-    v12 = *[info3 bytesPerPixel];
+    v13 = *[info3 bytesPerPixel];
     info4 = [(SIRawImage *)self info];
-    v14 = v12 * v10;
-    v15 = *[info4 bytesPerRow];
+    v15 = v13 * v11;
+    v16 = *[info4 bytesPerRow];
 
-    if (v14 == v15)
+    if (v15 == v16)
     {
       width = [(SIRawImage *)self width];
-      if ([(SIRawImage *)self height]* width == height * width)
+      height = [(SIRawImage *)self height];
+      if (height * width == height * width)
       {
-        v17 = [SIRawImageInfo alloc];
+        v20 = [SIRawImageInfo alloc];
         info5 = [(SIRawImage *)self info];
-        v19 = [(SIRawImageInfo *)v17 initWithInfo:info5];
+        v22 = [(SIRawImageInfo *)v20 initWithInfo:info5];
 
-        *[(SIRawImageInfo *)v19 width]= width;
-        *[(SIRawImageInfo *)v19 height]= height;
-        v20 = *[(SIRawImageInfo *)v19 bytesPerPixel];
-        *[(SIRawImageInfo *)v19 bytesPerRow]= v20 * width;
-        v21 = [SIRawImage alloc];
+        *[(SIRawImageInfo *)v22 width]= width;
+        *[(SIRawImageInfo *)v22 height]= height;
+        v23 = *[(SIRawImageInfo *)v22 bytesPerPixel];
+        *[(SIRawImageInfo *)v22 bytesPerRow]= v23 * width;
+        v24 = [SIRawImage alloc];
         data = [(SIRawImage *)self data];
-        v23 = [(SIRawImage *)v21 initWithInfo:v19 mutableData:data];
+        v26 = [(SIRawImage *)v24 initWithInfo:v22 mutableData:data];
 
         goto LABEL_14;
       }
 
-      v24 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = __SceneIntelligenceLogSharedInstance(height);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v27 = 136381955;
-        v28 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-        v29 = 1025;
-        v30 = 1039;
-        v31 = 2048;
-        width2 = [(SIRawImage *)self width];
+        v29 = 136381955;
+        v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+        v31 = 1025;
+        v32 = 1039;
         v33 = 2048;
-        height = [(SIRawImage *)self height];
+        width2 = [(SIRawImage *)self width];
         v35 = 2048;
-        widthCopy = width;
+        height2 = [(SIRawImage *)self height];
         v37 = 2048;
+        widthCopy = width;
+        v39 = 2048;
         heightCopy = height;
-        _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Incompatible reshape dimensions.  Source: (%ld, %ld). Destination: (%ld, %ld) ***", &v27, 0x3Au);
+        _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Incompatible reshape dimensions.  Source: (%ld, %ld). Destination: (%ld, %ld) ***", &v29, 0x3Au);
       }
     }
 
     else
     {
-      v24 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = __SceneIntelligenceLogSharedInstance(v17);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v27 = 136380931;
-        v28 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-        v29 = 1025;
-        v30 = 1033;
-        _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** To reshape, data must be packed (no excess stride) ***", &v27, 0x12u);
+        v29 = 136380931;
+        v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+        v31 = 1025;
+        v32 = 1033;
+        _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** To reshape, data must be packed (no excess stride) ***", &v29, 0x12u);
       }
     }
   }
 
   else
   {
-    v24 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v27 = __SceneIntelligenceLogSharedInstance(v9);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v27 = 136380931;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-      v29 = 1025;
-      v30 = 1029;
-      _os_log_impl(&dword_21DE0D000, v24, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Only single-planar images supported. ***", &v27, 0x12u);
+      v29 = 136380931;
+      v30 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+      v31 = 1025;
+      v32 = 1029;
+      _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Only single-planar images supported. ***", &v29, 0x12u);
     }
   }
 
-  v23 = 0;
+  v26 = 0;
 LABEL_14:
-  v25 = *MEMORY[0x277D85DE8];
 
-  return v23;
+  return v26;
 }
 
 - (unsigned)pixelFormat

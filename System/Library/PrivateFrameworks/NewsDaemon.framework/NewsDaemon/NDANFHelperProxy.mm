@@ -97,20 +97,20 @@ void __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_i
 
 void __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_5(void *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   *(*(a1[5] + 8) + 24) = 1;
   if (v6)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_2;
-    v15[3] = &unk_27997BFF8;
-    v16 = v6;
-    __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_2(v15);
-    v8 = v16;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_2;
+    v14[3] = &unk_27997BFF8;
+    v15 = v6;
+    __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_2(v14);
+    v8 = v15;
   }
 
   else
@@ -121,7 +121,7 @@ void __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_i
       v10 = a1[4];
       v11 = v9;
       *buf = 134217984;
-      v18 = [v10 fc_millisecondTimeIntervalUntilNow];
+      v17 = [v10 fc_millisecondTimeIntervalUntilNow];
       _os_log_impl(&dword_25BE24000, v11, OS_LOG_TYPE_DEFAULT, "ANFDecoder returned manifest, time=%llums", buf, 0xCu);
     }
 
@@ -130,15 +130,13 @@ void __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_i
     v8 = *(v12 + 40);
     *(v12 + 40) = v13;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_2(uint64_t a1)
 {
   if (os_log_type_enabled(*MEMORY[0x277D30988], OS_LOG_TYPE_ERROR))
   {
-    __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_2_cold_1(a1);
+    __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_2_cold_1();
   }
 }
 
@@ -220,23 +218,6 @@ void __43__NDANFHelperProxy__connectionToXPCService__block_invoke_11()
   {
     __43__NDANFHelperProxy__connectionToXPCService__block_invoke_11_cold_1();
   }
-}
-
-void __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __63__NDANFHelperProxy_manifestFromANFDocumentData_reachedService___block_invoke_2_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

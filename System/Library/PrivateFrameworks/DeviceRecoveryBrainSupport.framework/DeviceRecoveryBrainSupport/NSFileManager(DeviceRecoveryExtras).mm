@@ -24,13 +24,14 @@
 - (void)fileAtPathIsSymlink:()DeviceRecoveryExtras .cold.2()
 {
   OUTLINED_FUNCTION_23();
-  v0 = DRGetLogHandle();
-  if (OUTLINED_FUNCTION_15(v0))
+  v1 = DRGetLogHandle(v0);
+  if (OUTLINED_FUNCTION_15(v1))
   {
+    v8 = 136447490;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_10_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_10_0(&dword_0, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_19_0();
@@ -39,13 +40,14 @@
 - (void)fileAtPathIsSymlink:()DeviceRecoveryExtras .cold.3()
 {
   OUTLINED_FUNCTION_23();
-  v0 = DRGetLogHandle();
-  if (OUTLINED_FUNCTION_15(v0))
+  v1 = DRGetLogHandle(v0);
+  if (OUTLINED_FUNCTION_15(v1))
   {
+    v8 = 136447490;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_10_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_10_0(&dword_0, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_19_0();

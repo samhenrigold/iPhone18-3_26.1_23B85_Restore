@@ -66,7 +66,7 @@
   return isSupported_isAnimojiCapableDevice;
 }
 
-uint64_t __39__JFXAnimojiEffectRenderer_isSupported__block_invoke()
+void *__39__JFXAnimojiEffectRenderer_isSupported__block_invoke()
 {
   v0 = [MEMORY[0x277CE5280] isSupported];
   result = [MEMORY[0x277CE5280] supportsFrameSemantics:1];
@@ -367,7 +367,7 @@ uint64_t __39__JFXAnimojiEffectRenderer_isSupported__block_invoke()
       effect = self->_effect;
       self->_effect = v32;
 
-      [MEMORY[0x277D3E868] personSegmentationMatteFormatForColorSize:{height, width}];
+      objc_msgSend_personSegmentationMatteFormatForColorSize_(MEMORY[0x277D3E868], height, width);
       CVPixelBufferRelease(self->_segmentationPixelBuffer);
       v38 = *MEMORY[0x277CC4DE8];
       v39 = MEMORY[0x277CBEC10];
@@ -618,7 +618,7 @@ void __128__JFXAnimojiEffectRenderer_asyncLoadNewPuppet_currentPuppet_captureOri
         if (!*(a1 + 56))
         {
           memset(&v11, 0, sizeof(v11));
-          [*(a1 + 48) timestamp];
+          objc_msgSend_timestamp(*(a1 + 48));
           CMTimeMakeWithSeconds(&v11, v3, 1000000000);
           v4 = *(a1 + 32);
           v5 = *(a1 + 64);
@@ -909,7 +909,7 @@ void __125__JFXAnimojiEffectRenderer_setupPoseForPreRecordedBlendShapes_forRende
 
   v13 = v18;
   LODWORD(orientation) = [(JFXAnimojiEffectRenderer *)self setupHeadPoseAndBlendShapesForFrame:frameCopy forRenderer:v13 captureOrientation:orientation interfaceOrientation:interfaceOrientation isInitialSetup:1];
-  [frameCopy timestamp];
+  objc_msgSend_timestamp(frameCopy);
   v15 = v14;
 
   [v13 updateAtTime:v15];
@@ -1142,7 +1142,7 @@ void __156__JFXAnimojiEffectRenderer_renderFrame_withEffect_depthData_captureOri
   if (*(*(*(a1 + 80) + 8) + 24) == 1)
   {
     memset(&v12, 0, sizeof(v12));
-    [*(a1 + 32) timestamp];
+    objc_msgSend_timestamp(*(a1 + 32));
     CMTimeMakeWithSeconds(&v12, v3, 1000000000);
     v5 = *(a1 + 32);
     v4 = *(a1 + 40);
@@ -1168,31 +1168,31 @@ void __156__JFXAnimojiEffectRenderer_renderFrame_withEffect_depthData_captureOri
 
 - (__CVBuffer)newPixelBufferRenderedFromARFrame:(id)frame withEffect:(id)effect depthData:(id)data captureOrientation:(int64_t)orientation interfaceOrientation:(int64_t)interfaceOrientation preRecordedBlendShapes:(id)shapes backgroundColor:(id)color
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   effectCopy = effect;
   dataCopy = data;
   shapesCopy = shapes;
   colorCopy = color;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
   if (!dataCopy)
   {
     dataCopy = [frameCopy capturedDepthData];
-    if ((useMirroredFrontCameraInStreamMode() & 1) == 0)
+    if ((useMirroredFrontCameraInStreamMode(dataCopy, v20) & 1) == 0)
     {
-      v20 = dataCopy;
+      v21 = dataCopy;
       depthDataMap = [dataCopy depthDataMap];
-      v22 = depthDataMap;
+      v23 = depthDataMap;
       if (depthDataMap)
       {
         Width = CVPixelBufferGetWidth(depthDataMap);
-        Height = CVPixelBufferGetHeight(v22);
+        Height = CVPixelBufferGetHeight(v23);
         p_mirroredDepthBuffer = &self->_mirroredDepthBuffer;
         mirroredDepthBuffer = self->_mirroredDepthBuffer;
-        pixelBuffer = v22;
+        pixelBuffer = v23;
         if (mirroredDepthBuffer)
         {
           if (Width == CVPixelBufferGetWidth(mirroredDepthBuffer))
@@ -1200,13 +1200,13 @@ void __156__JFXAnimojiEffectRenderer_renderFrame_withEffect_depthData_captureOri
             if (Height == CVPixelBufferGetWidth(*p_mirroredDepthBuffer))
             {
 LABEL_11:
-              v26 = *MEMORY[0x277CE2838];
+              v27 = *MEMORY[0x277CE2838];
               VTSessionSetProperty(self->_rotationSession, *MEMORY[0x277CE2838], *MEMORY[0x277CBED28]);
-              v27 = *MEMORY[0x277CE2850];
+              v28 = *MEMORY[0x277CE2850];
               VTSessionSetProperty(self->_rotationSession, *MEMORY[0x277CE2850], *MEMORY[0x277CE2A28]);
               VTPixelRotationSessionRotateImage(self->_rotationSession, pixelBuffer, self->_mirroredDepthBuffer);
-              VTSessionSetProperty(self->_rotationSession, v26, *MEMORY[0x277CBED10]);
-              VTSessionSetProperty(self->_rotationSession, v27, *MEMORY[0x277CE2A20]);
+              VTSessionSetProperty(self->_rotationSession, v27, *MEMORY[0x277CBED10]);
+              VTSessionSetProperty(self->_rotationSession, v28, *MEMORY[0x277CE2A20]);
               VTPixelRotationSessionRotateImage(self->_rotationSession, self->_mirroredDepthBuffer, pixelBuffer);
               goto LABEL_12;
             }
@@ -1225,10 +1225,10 @@ LABEL_11:
           texture = 0;
         }
 
-        PixelFormatType = CVPixelBufferGetPixelFormatType(v22);
-        v43 = *MEMORY[0x277CC4DE8];
-        v44[0] = MEMORY[0x277CBEC10];
-        CVPixelBufferCreate(0, Width, Height, PixelFormatType, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1], &self->_mirroredDepthBuffer);
+        PixelFormatType = CVPixelBufferGetPixelFormatType(v23);
+        v44 = *MEMORY[0x277CC4DE8];
+        v45[0] = MEMORY[0x277CBEC10];
+        CVPixelBufferCreate(0, Width, Height, PixelFormatType, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1], &self->_mirroredDepthBuffer);
         CVPixelBufferRelease(texture);
         goto LABEL_11;
       }
@@ -1236,21 +1236,21 @@ LABEL_11:
   }
 
 LABEL_12:
-  v28 = dispatch_group_create();
-  dispatch_group_enter(v28);
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __162__JFXAnimojiEffectRenderer_newPixelBufferRenderedFromARFrame_withEffect_depthData_captureOrientation_interfaceOrientation_preRecordedBlendShapes_backgroundColor___block_invoke;
-  v36[3] = &unk_278D7A678;
-  v38 = &v39;
-  v29 = v28;
-  v37 = v29;
-  [(JFXAnimojiEffectRenderer *)self renderFrame:frameCopy withEffect:effectCopy depthData:dataCopy captureOrientation:orientation interfaceOrientation:interfaceOrientation preRecordedBlendShapes:shapesCopy backgroundColor:colorCopy completionBlock:v36];
-  dispatch_group_wait(v29, 0xFFFFFFFFFFFFFFFFLL);
-  v30 = v40[3];
+  v29 = dispatch_group_create();
+  dispatch_group_enter(v29);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __162__JFXAnimojiEffectRenderer_newPixelBufferRenderedFromARFrame_withEffect_depthData_captureOrientation_interfaceOrientation_preRecordedBlendShapes_backgroundColor___block_invoke;
+  v37[3] = &unk_278D7A678;
+  v39 = &v40;
+  v30 = v29;
+  v38 = v30;
+  [(JFXAnimojiEffectRenderer *)self renderFrame:frameCopy withEffect:effectCopy depthData:dataCopy captureOrientation:orientation interfaceOrientation:interfaceOrientation preRecordedBlendShapes:shapesCopy backgroundColor:colorCopy completionBlock:v37];
+  dispatch_group_wait(v30, 0xFFFFFFFFFFFFFFFFLL);
+  v31 = v41[3];
 
-  _Block_object_dispose(&v39, 8);
-  return v30;
+  _Block_object_dispose(&v40, 8);
+  return v31;
 }
 
 void __162__JFXAnimojiEffectRenderer_newPixelBufferRenderedFromARFrame_withEffect_depthData_captureOrientation_interfaceOrientation_preRecordedBlendShapes_backgroundColor___block_invoke(uint64_t a1, CVPixelBufferRef texture)

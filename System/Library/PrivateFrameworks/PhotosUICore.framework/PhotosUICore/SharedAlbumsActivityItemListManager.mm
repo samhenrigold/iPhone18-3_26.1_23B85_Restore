@@ -9,7 +9,7 @@
   managerCopy = manager;
   changeCopy = change;
 
-  sub_1A40CAF14(changeCopy);
+  sub_1A40CAF14(changeCopy, v7);
 }
 
 @end

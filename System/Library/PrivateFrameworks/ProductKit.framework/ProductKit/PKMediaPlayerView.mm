@@ -16,6 +16,7 @@
 - (void)setUpTimeRangeNotificationsForItem:(id)item;
 - (void)speedUpRemainderOfCurrentItem;
 - (void)startMovieLoopWithPath:(id)path;
+- (void)startMovieLoopWithPath:(id)path assetType:(int)type adjustmentsURL:(id)l;
 - (void)stop;
 - (void)stopSpeedUpTimer;
 - (void)updateViewForAssetType:(int)type adjustmentsURL:(id)l;
@@ -27,7 +28,7 @@
 {
   if (self->_isKVOObserver && self->_avQueuePlayer)
   {
-    v3 = framework_log();
+    v3 = framework_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [(PKMediaPlayerView *)v3 dealloc];
@@ -77,14 +78,22 @@
   [layer setFilters:v6];
 }
 
+- (void)startMovieLoopWithPath:(id)path assetType:(int)type adjustmentsURL:(id)l
+{
+  v6 = *&type;
+  pathCopy = path;
+  [(PKMediaPlayerView *)self updateViewForAssetType:v6 adjustmentsURL:l];
+  [(PKMediaPlayerView *)self startMovieLoopWithPath:pathCopy];
+}
+
 - (void)stop
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v3 = framework_log();
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = framework_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "[PKMediaPlayerView stop]";
+    v19 = "[PKMediaPlayerView stop]";
     _os_log_impl(&dword_260E02000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -92,31 +101,31 @@
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = [(NSMutableArray *)self->_mediaItems copy];
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(PKMediaPlayerView *)self removeMovieItem:*(*(&v14 + 1) + 8 * v9++)];
+        [(PKMediaPlayerView *)self removeMovieItem:*(*(&v13 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -137,44 +146,41 @@
   self->_mediaItems = 0;
 
   [(PKMediaPlayerView *)self stopSpeedUpTimer];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)play
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = framework_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = framework_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[PKMediaPlayerView play]";
-    _os_log_impl(&dword_260E02000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[PKMediaPlayerView play]";
+    _os_log_impl(&dword_260E02000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v4, 0xCu);
   }
 
   [(AVQueuePlayer *)self->_avQueuePlayer play];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pause
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = framework_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = framework_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[PKMediaPlayerView pause]";
-    _os_log_impl(&dword_260E02000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[PKMediaPlayerView pause]";
+    _os_log_impl(&dword_260E02000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v4, 0xCu);
   }
 
   [(PKMediaPlayerView *)self _pause];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPausesAfterEachItem:(BOOL)item
 {
   itemCopy = item;
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = framework_log();
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = framework_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = "no";
@@ -183,16 +189,15 @@
       v6 = "yes";
     }
 
-    v8 = 136315394;
-    v9 = "[PKMediaPlayerView setPausesAfterEachItem:]";
-    v10 = 2080;
-    v11 = v6;
-    _os_log_impl(&dword_260E02000, v5, OS_LOG_TYPE_DEFAULT, "%s %s", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[PKMediaPlayerView setPausesAfterEachItem:]";
+    v9 = 2080;
+    v10 = v6;
+    _os_log_impl(&dword_260E02000, v5, OS_LOG_TYPE_DEFAULT, "%s %s", &v7, 0x16u);
   }
 
   self->_pausesAfterEachItem = itemCopy;
   [(AVQueuePlayer *)self->_avQueuePlayer setActionAtItemEnd:itemCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMovieItem:(id)item
@@ -216,87 +221,85 @@
 
   [itemCopy setPlayerItem:v10];
   v11 = self->_avQueuePlayer;
+  v12 = v11;
   if (!v11)
   {
     mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
     [mEMORY[0x277CB83F8] setCategory:*MEMORY[0x277CB8020] withOptions:1 error:0];
 
-    v11 = objc_alloc_init(MEMORY[0x277CE65F8]);
-    [(AVQueuePlayer *)v11 setAllowsExternalPlayback:0];
-    [(AVQueuePlayer *)v11 setPreventsDisplaySleepDuringVideoPlayback:0];
-    [(AVQueuePlayer *)v11 _setDisallowsAutoPauseOnRouteRemovalIfNoAudio:1];
-    objc_storeStrong(&self->_avQueuePlayer, v11);
+    v12 = objc_alloc_init(MEMORY[0x277CE65F8]);
+    [(AVQueuePlayer *)v12 setAllowsExternalPlayback:0];
+    [(AVQueuePlayer *)v12 setPreventsDisplaySleepDuringVideoPlayback:0];
+    [(AVQueuePlayer *)v12 _setDisallowsAutoPauseOnRouteRemovalIfNoAudio:1];
+    objc_storeStrong(&self->_avQueuePlayer, v12);
     layer = [(PKMediaPlayerView *)self layer];
-    [layer setPlayer:v11];
+    [layer setPlayer:v12];
 
     [(PKMediaPlayerView *)self setPausesAfterEachItem:[(PKMediaPlayerView *)self pausesAfterEachItem]];
-    [(AVQueuePlayer *)self->_avQueuePlayer addObserver:self forKeyPath:@"currentItem" options:3 context:SFMediaPlayerViewObserverContext];
+    v11 = [(AVQueuePlayer *)self->_avQueuePlayer addObserver:self forKeyPath:@"currentItem" options:3 context:SFMediaPlayerViewObserverContext];
     self->_isKVOObserver = 1;
   }
 
-  v14 = framework_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = framework_log(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 136315394;
     v17 = "[PKMediaPlayerView addMovieItem:]";
     v18 = 2112;
     v19 = itemCopy;
-    _os_log_impl(&dword_260E02000, v14, OS_LOG_TYPE_DEFAULT, "%s %@", &v16, 0x16u);
+    _os_log_impl(&dword_260E02000, v15, OS_LOG_TYPE_DEFAULT, "%s %@", &v16, 0x16u);
   }
 
   [(PKMediaPlayerView *)self enqueueItemsFromMediaItem:itemCopy afterItem:0];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllQueuedItems
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_mediaItems copy];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [(PKMediaPlayerView *)self removeMovieItem:*(*(&v10 + 1) + 8 * v8++), v10];
+        [(PKMediaPlayerView *)self removeMovieItem:*(*(&v9 + 1) + 8 * v8++), v9];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeMovieItem:(id)item
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v5 = framework_log();
+  v5 = framework_log(itemCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[PKMediaPlayerView removeMovieItem:]";
-    v12 = 2112;
-    v13 = itemCopy;
-    _os_log_impl(&dword_260E02000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[PKMediaPlayerView removeMovieItem:]";
+    v11 = 2112;
+    v12 = itemCopy;
+    _os_log_impl(&dword_260E02000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v9, 0x16u);
   }
 
   observerToken = [itemCopy observerToken];
@@ -310,44 +313,41 @@
 
   [itemCopy invalidate];
   [(NSMutableArray *)self->_mediaItems removeObject:itemCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)breakFirstEnqueuedLoop
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_mediaItems;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([v8 shouldLoop])
         {
           [v8 setShouldLoop:0];
-          [(PKMediaPlayerView *)self dequeueNonPlayingItemsFromMediaItem:v8];
-          v9 = framework_log();
+          v9 = framework_log([(PKMediaPlayerView *)self dequeueNonPlayingItemsFromMediaItem:v8]);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v16 = "[PKMediaPlayerView breakFirstEnqueuedLoop]";
-            v17 = 2112;
-            v18 = v8;
+            v15 = "[PKMediaPlayerView breakFirstEnqueuedLoop]";
+            v16 = 2112;
+            v17 = v8;
             _os_log_impl(&dword_260E02000, v9, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
           }
 
@@ -355,7 +355,7 @@
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -366,8 +366,6 @@
   }
 
 LABEL_13:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speedUpRemainderOfCurrentItem
@@ -408,7 +406,7 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
   v4 = *(a1 + 40);
   if (v4)
   {
-    [v4 duration];
+    objc_msgSend_duration(v4);
   }
 
   else
@@ -419,7 +417,7 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
   v5 = *(*(a1 + 32) + 416);
   if (v5)
   {
-    [v5 currentTime];
+    objc_msgSend_currentTime(v5);
   }
 
   else
@@ -429,83 +427,81 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
 
   CMTimeSubtract(&v25, &lhs, &v24);
   lhs = v25;
-  v6 = (CMTimeGetSeconds(&lhs) * 1000.0);
-  v7 = *(a1 + 48);
-  v8 = v6 >= v7;
-  v9 = v6 - v7;
-  if (!v8)
+  v7 = (CMTimeGetSeconds(&lhs) * 1000.0);
+  v8 = *(a1 + 48);
+  v9 = v7 >= v8;
+  v10 = v7 - v8;
+  if (!v9)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = v3;
-  v11 = *(a1 + 56);
-  v12 = *(a1 + 64);
-  v13 = v3 - v11;
-  v14 = *(a1 + 72);
-  v15 = (v13 / v12 * v14);
-  if (v9 <= v15)
+  v11 = v3;
+  v12 = *(a1 + 56);
+  v13 = *(a1 + 64);
+  v14 = v3 - v12;
+  v15 = *(a1 + 72);
+  v16 = (v14 / v13 * v15);
+  if (v10 <= v16)
   {
-    if (v13 <= v11)
+    if (v14 <= v12)
     {
-      v13 = *(a1 + 56);
+      v14 = *(a1 + 56);
     }
 
-    v18 = v13 / v9 * v14;
-    v19 = v3 - v18;
-    if (v11 >= v19)
+    v19 = v14 / v10 * v15;
+    v20 = v3 - v19;
+    if (v12 >= v20)
     {
-      v17 = v11;
+      v18 = v12;
     }
 
     else
     {
-      v17 = v19;
+      v18 = v20;
     }
   }
 
   else
   {
-    v16 = v12 + v10;
-    if (v12 + v10 >= *(a1 + 80))
+    v17 = v13 + v11;
+    if (v13 + v11 >= *(a1 + 80))
     {
-      v16 = *(a1 + 80);
+      v17 = *(a1 + 80);
     }
 
-    v17 = v16;
+    v18 = v17;
   }
 
-  if (vabds_f32(v3, v17) >= 0.00000011921)
+  if (vabds_f32(v3, v18) >= 0.00000011921)
   {
-    v20 = framework_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = framework_log(v6);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(a1 + 48);
+      v22 = *(a1 + 48);
       LODWORD(lhs.value) = 136316418;
       *(&lhs.value + 4) = "[PKMediaPlayerView speedUpRemainderOfCurrentItem]_block_invoke";
       LOWORD(lhs.flags) = 2048;
-      *(&lhs.flags + 2) = v15;
+      *(&lhs.flags + 2) = v16;
       HIWORD(lhs.epoch) = 2048;
-      v27 = v6;
+      v27 = v7;
       v28 = 2048;
-      v29 = v21;
+      v29 = v22;
       v30 = 2048;
       v31 = v3;
       v32 = 2048;
-      v33 = v17;
-      _os_log_impl(&dword_260E02000, v20, OS_LOG_TYPE_DEFAULT, "%s timeToReturnMS:%lums, timeRemaining:%lums (buffer: %lums), rate change %f->%f", &lhs, 0x3Eu);
+      v33 = v18;
+      _os_log_impl(&dword_260E02000, v21, OS_LOG_TYPE_DEFAULT, "%s timeToReturnMS:%lums, timeRemaining:%lums (buffer: %lums), rate change %f->%f", &lhs, 0x3Eu);
     }
 
-    *&v22 = v17;
-    [*(*(a1 + 32) + 416) setRate:v22];
+    *&v23 = v18;
+    [*(*(a1 + 32) + 416) setRate:v23];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSpeedUpTimer
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   speedUpTimer = self->_speedUpTimer;
   if (speedUpTimer)
   {
@@ -515,26 +511,23 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
     self->_speedUpTimer = 0;
 
     LODWORD(v6) = 1.0;
-    [(AVQueuePlayer *)self->_avQueuePlayer setRate:v6];
-    v7 = framework_log();
+    v7 = framework_log([(AVQueuePlayer *)self->_avQueuePlayer setRate:v6]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       [(AVQueuePlayer *)self->_avQueuePlayer rate];
-      v10 = 136315394;
-      v11 = "[PKMediaPlayerView stopSpeedUpTimer]";
-      v12 = 2048;
-      v13 = v8;
-      _os_log_impl(&dword_260E02000, v7, OS_LOG_TYPE_DEFAULT, "%s Resetting rate to %f", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[PKMediaPlayerView stopSpeedUpTimer]";
+      v11 = 2048;
+      v12 = v8;
+      _os_log_impl(&dword_260E02000, v7, OS_LOG_TYPE_DEFAULT, "%s Resetting rate to %f", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)seekToTime:(id *)time
 {
   avQueuePlayer = self->_avQueuePlayer;
-  v6 = framework_log();
+  v6 = framework_log(self);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (avQueuePlayer)
   {
@@ -562,10 +555,10 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
 
 - (void)enqueueItemsFromMediaItem:(id)item afterItem:(id)afterItem
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   afterItemCopy = afterItem;
-  v8 = framework_log();
+  v8 = framework_log(afterItemCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -574,29 +567,29 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
   }
 
   v9 = afterItemCopy;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v21 = itemCopy;
+  v20 = itemCopy;
   obj = [itemCopy playerItems];
-  v10 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
-  v22 = v9;
+  v10 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v21 = v9;
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
-    v23 = *MEMORY[0x277CE60C0];
+    v12 = *v29;
+    v22 = *MEMORY[0x277CE60C0];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
+        v14 = *(*(&v28 + 1) + 8 * i);
         items = [(AVQueuePlayer *)self->_avQueuePlayer items];
         v16 = [items containsObject:v14];
 
@@ -604,12 +597,11 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
         {
           *buf = *MEMORY[0x277CC08F0];
           *&buf[16] = *(MEMORY[0x277CC08F0] + 16);
-          v27 = *buf;
-          v28 = *&buf[16];
-          v25 = *buf;
-          v26 = *&buf[16];
-          [v14 seekToTime:buf toleranceBefore:&v27 toleranceAfter:&v25 completionHandler:0];
-          v17 = framework_log();
+          v26 = *buf;
+          v27 = *&buf[16];
+          v24 = *buf;
+          v25 = *&buf[16];
+          v17 = framework_log([v14 seekToTime:buf toleranceBefore:&v26 toleranceAfter:&v24 completionHandler:0]);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
@@ -617,33 +609,31 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
             *&buf[12] = 2112;
             *&buf[14] = v14;
             *&buf[22] = 2112;
-            v34 = v9;
+            v33 = v9;
             _os_log_impl(&dword_260E02000, v17, OS_LOG_TYPE_DEFAULT, "%s insertItem: %@ afterItem: %@", buf, 0x20u);
           }
 
           [(AVQueuePlayer *)self->_avQueuePlayer insertItem:v14 afterItem:v9];
           defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-          [defaultCenter addObserver:self selector:sel_playerItemDidReachEnd_ name:v23 object:v14];
+          [defaultCenter addObserver:self selector:sel_playerItemDidReachEnd_ name:v22 object:v14];
 
           v19 = v14;
           v9 = v19;
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v11 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v11);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dequeueNonPlayingItemsFromMediaItem:(id)item
 {
   v29 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v5 = framework_log();
+  v5 = framework_log(itemCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -696,14 +686,14 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
         {
         }
 
-        v17 = framework_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = framework_log(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
           v25 = "[PKMediaPlayerView dequeueNonPlayingItemsFromMediaItem:]";
           v26 = 2112;
           v27 = v15;
-          _os_log_impl(&dword_260E02000, v17, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
+          _os_log_impl(&dword_260E02000, v18, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
         }
 
         [(AVQueuePlayer *)self->_avQueuePlayer removeItem:v15];
@@ -714,13 +704,11 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -729,44 +717,44 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
     v13 = pathCopy;
     if (v13 == @"currentItem" || (v14 = v13) != 0 && (v15 = [(__CFString *)v13 isEqual:@"currentItem"], v14, v15))
     {
-      v31 = objectCopy;
-      v32 = pathCopy;
+      v30 = objectCopy;
+      v31 = pathCopy;
       v16 = [changeCopy objectForKey:*MEMORY[0x277CCA300]];
       v17 = [changeCopy objectForKey:*MEMORY[0x277CCA2F0]];
-      v18 = framework_log();
+      v18 = framework_log(v17);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v42 = "[PKMediaPlayerView observeValueForKeyPath:ofObject:change:context:]";
-        v43 = 2112;
-        v44 = v16;
-        v45 = 2112;
-        v46 = v17;
+        v41 = "[PKMediaPlayerView observeValueForKeyPath:ofObject:change:context:]";
+        v42 = 2112;
+        v43 = v16;
+        v44 = 2112;
+        v45 = v17;
         _os_log_impl(&dword_260E02000, v18, OS_LOG_TYPE_DEFAULT, "%s currentItem: %@ -> %@", buf, 0x20u);
       }
 
-      v30 = v16;
+      v29 = v16;
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v19 = self->_mediaItems;
-      v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v36;
+        v22 = *v35;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v36 != v22)
+            if (*v35 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v35 + 1) + 8 * i);
+            v24 = *(*(&v34 + 1) + 8 * i);
             playerItems = [v24 playerItems];
             v26 = [playerItems containsObject:v17];
 
@@ -789,36 +777,34 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
                 block[3] = &unk_279AC3D88;
                 block[4] = self;
                 block[5] = v24;
-                v34 = v17;
+                v33 = v17;
                 dispatch_async(MEMORY[0x277D85CD0], block);
               }
             }
           }
 
-          v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
         while (v21);
       }
 
-      objectCopy = v31;
-      pathCopy = v32;
+      objectCopy = v30;
+      pathCopy = v31;
     }
   }
 
   else
   {
-    v39.receiver = self;
-    v39.super_class = PKMediaPlayerView;
-    [(PKMediaPlayerView *)&v39 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v38.receiver = self;
+    v38.super_class = PKMediaPlayerView;
+    [(PKMediaPlayerView *)&v38 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpTimeRangeNotificationsForItem:(id)item
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   playbackNotificationTimeRanges = [itemCopy playbackNotificationTimeRanges];
   v6 = [playbackNotificationTimeRanges count];
@@ -826,29 +812,29 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
   if (v6)
   {
     v7 = objc_opt_new();
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     playbackNotificationTimeRanges2 = [itemCopy playbackNotificationTimeRanges];
-    v9 = [playbackNotificationTimeRanges2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v9 = [playbackNotificationTimeRanges2 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v9)
     {
-      v10 = *v33;
+      v10 = *v32;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v33 != v10)
+          if (*v32 != v10)
           {
             objc_enumerationMutation(playbackNotificationTimeRanges2);
           }
 
-          v12 = *(*(&v32 + 1) + 8 * i);
+          v12 = *(*(&v31 + 1) + 8 * i);
           memset(&location, 0, sizeof(location));
           if (v12)
           {
-            [v12 CMTimeRangeValue];
+            objc_msgSend_CMTimeRangeValue(v12);
           }
 
           *&range.start.value = *&location.start.value;
@@ -858,12 +844,12 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
 
           v14 = MEMORY[0x277CCAE60];
           range = location;
-          CMTimeRangeGetEnd(&v30, &range);
-          v15 = [v14 valueWithCMTime:&v30];
+          CMTimeRangeGetEnd(&v29, &range);
+          v15 = [v14 valueWithCMTime:&v29];
           [v7 addObject:v15];
         }
 
-        v9 = [playbackNotificationTimeRanges2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v9 = [playbackNotificationTimeRanges2 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v9);
@@ -882,22 +868,20 @@ void __50__PKMediaPlayerView_speedUpRemainderOfCurrentItem__block_invoke(uint64_
     objc_initWeak(&range, itemCopy);
     v19 = self->_avQueuePlayer;
     v20 = MEMORY[0x277D85CD0];
-    v23 = MEMORY[0x277D85DD0];
-    v24 = 3221225472;
-    v25 = __56__PKMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke;
-    v26 = &unk_279AC3DB0;
-    objc_copyWeak(&v27, &location);
-    objc_copyWeak(&v28, &range);
-    v21 = [(AVQueuePlayer *)v19 addBoundaryTimeObserverForTimes:v7 queue:MEMORY[0x277D85CD0] usingBlock:&v23];
-    [itemCopy setObserverToken:{v21, v23, v24, v25, v26}];
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __56__PKMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke;
+    v25 = &unk_279AC3DB0;
+    objc_copyWeak(&v26, &location);
+    objc_copyWeak(&v27, &range);
+    v21 = [(AVQueuePlayer *)v19 addBoundaryTimeObserverForTimes:v7 queue:MEMORY[0x277D85CD0] usingBlock:&v22];
+    [itemCopy setObserverToken:{v21, v22, v23, v24, v25}];
 
-    objc_destroyWeak(&v28);
     objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&range);
     objc_destroyWeak(&location);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __56__PKMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke(uint64_t a1)
@@ -909,17 +893,17 @@ void __56__PKMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke(u
 
 - (void)handleBoundaryTimeObserverForMediaItem:(id)item
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  memset(&v22, 0, sizeof(v22));
+  memset(&v23, 0, sizeof(v23));
   avQueuePlayer = self->_avQueuePlayer;
   if (avQueuePlayer)
   {
-    [(AVQueuePlayer *)avQueuePlayer currentTime];
+    objc_msgSend_currentTime(avQueuePlayer);
   }
 
-  memset(&v21, 0, sizeof(v21));
-  CMTimeMake(&v21, 1, 10);
+  memset(&v22, 0, sizeof(v22));
+  CMTimeMake(&v22, 1, 10);
   playbackNotificationTimeRanges = [itemCopy playbackNotificationTimeRanges];
   v7 = [playbackNotificationTimeRanges count];
 
@@ -931,46 +915,48 @@ void __56__PKMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke(u
       playbackNotificationTimeRanges2 = [itemCopy playbackNotificationTimeRanges];
       v10 = [playbackNotificationTimeRanges2 objectAtIndexedSubscript:v8];
 
-      memset(&v20, 0, sizeof(v20));
+      memset(&v21, 0, sizeof(v21));
       if (v10)
       {
-        [v10 CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(v10);
       }
 
-      start = v20.start;
-      lhs = v20.start;
-      rhs = v21;
+      start = v21.start;
+      lhs = v21.start;
+      rhs = v22;
       CMTimeSubtract(&time1.start, &lhs, &rhs);
-      lhs = v22;
+      lhs = v23;
       if (CMTimeCompare(&time1.start, &lhs) < 0)
       {
         lhs = start;
-        rhs = v21;
+        rhs = v22;
         CMTimeAdd(&time1.start, &lhs, &rhs);
-        lhs = v22;
-        if (CMTimeCompare(&time1.start, &lhs) >= 1)
+        lhs = v23;
+        v11 = CMTimeCompare(&time1.start, &lhs);
+        if (v11 >= 1)
         {
           break;
         }
       }
 
       memset(&lhs, 0, sizeof(lhs));
-      time1 = v20;
+      time1 = v21;
       CMTimeRangeGetEnd(&lhs, &time1);
       rhs = lhs;
-      v16 = v21;
-      CMTimeSubtract(&time1.start, &rhs, &v16);
-      rhs = v22;
+      v17 = v22;
+      CMTimeSubtract(&time1.start, &rhs, &v17);
+      rhs = v23;
       if (CMTimeCompare(&time1.start, &rhs) < 0)
       {
         rhs = lhs;
-        v16 = v21;
-        CMTimeAdd(&time1.start, &rhs, &v16);
-        rhs = v22;
-        if (CMTimeCompare(&time1.start, &rhs) >= 1)
+        v17 = v22;
+        CMTimeAdd(&time1.start, &rhs, &v17);
+        rhs = v23;
+        v12 = CMTimeCompare(&time1.start, &rhs);
+        if (v12 >= 1)
         {
-          v13 = framework_log();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v15 = framework_log(v12);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(time1.start.value) = 136315650;
             *(&time1.start.value + 4) = "[PKMediaPlayerView handleBoundaryTimeObserverForMediaItem:]";
@@ -978,7 +964,7 @@ void __56__PKMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke(u
             *(&time1.start.flags + 2) = itemCopy;
             HIWORD(time1.start.epoch) = 2048;
             time1.duration.value = v8;
-            _os_log_impl(&dword_260E02000, v13, OS_LOG_TYPE_DEFAULT, "%s mediaItem: %@, triggering timeRangeHandler with end of range %ld", &time1, 0x20u);
+            _os_log_impl(&dword_260E02000, v15, OS_LOG_TYPE_DEFAULT, "%s mediaItem: %@, triggering timeRangeHandler with end of range %ld", &time1, 0x20u);
           }
 
           goto LABEL_18;
@@ -987,16 +973,16 @@ void __56__PKMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke(u
 
       ++v8;
       playbackNotificationTimeRanges3 = [itemCopy playbackNotificationTimeRanges];
-      v12 = [playbackNotificationTimeRanges3 count];
+      v14 = [playbackNotificationTimeRanges3 count];
 
-      if (v8 >= v12)
+      if (v8 >= v14)
       {
         goto LABEL_19;
       }
     }
 
-    v13 = framework_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = framework_log(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(time1.start.value) = 136315650;
       *(&time1.start.value + 4) = "[PKMediaPlayerView handleBoundaryTimeObserverForMediaItem:]";
@@ -1004,7 +990,7 @@ void __56__PKMediaPlayerView_setUpTimeRangeNotificationsForItem___block_invoke(u
       *(&time1.start.flags + 2) = itemCopy;
       HIWORD(time1.start.epoch) = 2048;
       time1.duration.value = v8;
-      _os_log_impl(&dword_260E02000, v13, OS_LOG_TYPE_DEFAULT, "%s mediaItem: %@, triggering timeRangeHandler with start of range %ld", &time1, 0x20u);
+      _os_log_impl(&dword_260E02000, v15, OS_LOG_TYPE_DEFAULT, "%s mediaItem: %@, triggering timeRangeHandler with start of range %ld", &time1, 0x20u);
     }
 
 LABEL_18:
@@ -1014,8 +1000,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playerItemDidReachEnd:(id)end
@@ -1025,14 +1009,14 @@ LABEL_19:
   [(PKMediaPlayerView *)self stopSpeedUpTimer];
   object = [endCopy object];
 
-  v6 = framework_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = framework_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     v12 = "[PKMediaPlayerView playerItemDidReachEnd:]";
     v13 = 2112;
     v14 = object;
-    _os_log_impl(&dword_260E02000, v6, OS_LOG_TYPE_DEFAULT, "%s playerItem: %@", buf, 0x16u);
+    _os_log_impl(&dword_260E02000, v7, OS_LOG_TYPE_DEFAULT, "%s playerItem: %@", buf, 0x16u);
   }
 
   v9[0] = MEMORY[0x277D85DD0];
@@ -1041,10 +1025,8 @@ LABEL_19:
   v9[3] = &unk_279AC3DD8;
   v9[4] = self;
   v10 = object;
-  v7 = object;
+  v8 = object;
   dispatch_async(MEMORY[0x277D85CD0], v9);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PKMediaPlayerView_playerItemDidReachEnd___block_invoke(uint64_t a1)
@@ -1075,24 +1057,25 @@ void __43__PKMediaPlayerView_playerItemDidReachEnd___block_invoke(uint64_t a1)
 
         if (v9)
         {
-          if (([v7 shouldLoop] & 1) == 0)
+          v10 = [v7 shouldLoop];
+          if ((v10 & 1) == 0)
           {
-            v10 = framework_log();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+            v11 = framework_log(v10);
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
               v19 = "[PKMediaPlayerView playerItemDidReachEnd:]_block_invoke";
               v20 = 2112;
               v21 = v7;
-              _os_log_impl(&dword_260E02000, v10, OS_LOG_TYPE_DEFAULT, "%s endedItem: %@", buf, 0x16u);
+              _os_log_impl(&dword_260E02000, v11, OS_LOG_TYPE_DEFAULT, "%s endedItem: %@", buf, 0x16u);
             }
 
-            v11 = [v7 completedHandler];
+            v12 = [v7 completedHandler];
 
-            if (v11)
+            if (v12)
             {
-              v12 = [v7 completedHandler];
-              v12[2]();
+              v13 = [v7 completedHandler];
+              v13[2]();
             }
 
             [*(a1 + 32) removeMovieItem:v7];
@@ -1113,8 +1096,6 @@ void __43__PKMediaPlayerView_playerItemDidReachEnd___block_invoke(uint64_t a1)
   }
 
 LABEL_16:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

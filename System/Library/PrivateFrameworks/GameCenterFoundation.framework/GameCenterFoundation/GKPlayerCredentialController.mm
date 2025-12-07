@@ -77,9 +77,11 @@
 
 uint64_t __43__GKPlayerCredentialController_accessQueue__block_invoke()
 {
-  accessQueue_queue = dispatch_queue_create("com.apple.gamed.credentialController", 0);
+  v0 = dispatch_queue_create("com.apple.gamed.credentialController", 0);
+  v1 = accessQueue_queue;
+  accessQueue_queue = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)accessQueue
@@ -270,7 +272,7 @@ void __51__GKPlayerCredentialController__transact_complete___block_invoke_4(uint
 
 - (void)accountStoreDidChange:(id)change
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
@@ -281,9 +283,9 @@ void __51__GKPlayerCredentialController__transact_complete___block_invoke_4(uint
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = changeCopy;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "the main account store attached to the account has changed.The notification is:%@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = changeCopy;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "the main account store attached to the account has changed.The notification is:%@", &v10, 0xCu);
   }
 
   userInfo = [changeCopy userInfo];
@@ -294,13 +296,11 @@ void __51__GKPlayerCredentialController__transact_complete___block_invoke_4(uint
   {
     [(GKPlayerCredentialController *)self invalidateCredentialCaches];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountStoreEmailDidChange:(id)change
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
@@ -311,19 +311,17 @@ void __51__GKPlayerCredentialController__transact_complete___block_invoke_4(uint
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = changeCopy;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "the email address attached to the account has changed.The notification is:%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = changeCopy;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "the email address attached to the account has changed.The notification is:%@", &v7, 0xCu);
   }
 
   [(GKPlayerCredentialController *)self invalidateCredentialCaches];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCredential:(id)credential completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   handlerCopy = handler;
   if (!os_log_GKGeneral)
@@ -335,19 +333,17 @@ void __51__GKPlayerCredentialController__transact_complete___block_invoke_4(uint
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v15 = credentialCopy;
+    v14 = credentialCopy;
     _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "CRED: save credential (%@) start", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __64__GKPlayerCredentialController_setCredential_completionHandler___block_invoke;
-  v12[3] = &unk_2785DDEC8;
-  v13 = credentialCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __64__GKPlayerCredentialController_setCredential_completionHandler___block_invoke;
+  v11[3] = &unk_2785DDEC8;
+  v12 = credentialCopy;
   v10 = credentialCopy;
-  [(GKPlayerCredentialController *)self _transact:v12 complete:handlerCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(GKPlayerCredentialController *)self _transact:v11 complete:handlerCopy];
 }
 
 void __64__GKPlayerCredentialController_setCredential_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -366,7 +362,7 @@ void __64__GKPlayerCredentialController_setCredential_completionHandler___block_
 
 void __64__GKPlayerCredentialController_setCredential_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -377,21 +373,19 @@ void __64__GKPlayerCredentialController_setCredential_completionHandler___block_
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: save credential (%@) finished (error:%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: save credential (%@) finished (error:%@)", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPrimaryCredential:(id)credential completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   handlerCopy = handler;
   if (!os_log_GKGeneral)
@@ -403,46 +397,44 @@ void __64__GKPlayerCredentialController_setCredential_completionHandler___block_
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v16 = credentialCopy;
+    v15 = credentialCopy;
     _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "CRED: set primary credential (%@) start", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke;
-  v12[3] = &unk_2785DDEF0;
-  v13 = credentialCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke;
+  v11[3] = &unk_2785DDEF0;
+  v12 = credentialCopy;
   selfCopy = self;
   v10 = credentialCopy;
-  [(GKPlayerCredentialController *)self _transact:v12 complete:handlerCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(GKPlayerCredentialController *)self _transact:v11 complete:handlerCopy];
 }
 
 void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v29 = a3;
+  v28 = a3;
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "GKPlayerCredentialController.m", 216, "-[GKPlayerCredentialController setPrimaryCredential:completionHandler:]_block_invoke"];
   v7 = [GKDispatchGroup dispatchGroupWithName:v6];
 
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_2;
-  v42[3] = &unk_2785DD910;
-  v43 = *(a1 + 32);
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_2;
+  v41[3] = &unk_2785DD910;
+  v42 = *(a1 + 32);
   v8 = v5;
-  v44 = v8;
+  v43 = v8;
   v9 = v7;
-  v45 = v9;
-  [v9 perform:v42];
+  v44 = v9;
+  [v9 perform:v41];
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "environment")}];
   v11 = *(a1 + 32);
   v12 = [*(a1 + 40) primaryCredentialCache];
   [v12 setObject:v11 forKeyedSubscript:v10];
 
-  v30 = v8;
+  v29 = v8;
   v13 = [v8 _gkAllCredentialsForEnvironment:{objc_msgSend(*(a1 + 32), "environment")}];
   if (v13)
   {
@@ -458,33 +450,33 @@ void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler__
     if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v48 = "[GKPlayerCredentialController setPrimaryCredential:completionHandler:]_block_invoke";
-      v49 = 2112;
-      v50 = v13;
+      v47 = "[GKPlayerCredentialController setPrimaryCredential:completionHandler:]_block_invoke";
+      v48 = 2112;
+      v49 = v13;
       _os_log_impl(&dword_227904000, v16, OS_LOG_TYPE_INFO, "%s - cached all credentials: %@", buf, 0x16u);
     }
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v17 = v13;
-  v18 = [v17 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v39;
+    v20 = *v38;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v39 != v20)
+        if (*v38 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v38 + 1) + 8 * i);
+        v22 = *(*(&v37 + 1) + 8 * i);
         if (([v22 scope] & 4) != 0 && (objc_msgSend(v22, "isEqual:", *(a1 + 32)) & 1) == 0)
         {
           if (!os_log_GKGeneral)
@@ -496,40 +488,38 @@ void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler__
           if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v48 = v22;
+            v47 = v22;
             _os_log_impl(&dword_227904000, v24, OS_LOG_TYPE_INFO, "CRED: clear primary credential on other credential (%@) start", buf, 0xCu);
           }
 
           [v22 setScope:{objc_msgSend(v22, "scope") & 0xFFFFFFF3}];
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_43;
-          v34[3] = &unk_2785DD910;
-          v35 = v30;
-          v36 = v22;
-          v37 = v9;
-          [v37 perform:v34];
+          v33[0] = MEMORY[0x277D85DD0];
+          v33[1] = 3221225472;
+          v33[2] = __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_43;
+          v33[3] = &unk_2785DD910;
+          v34 = v29;
+          v35 = v22;
+          v36 = v9;
+          [v36 perform:v33];
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v19);
   }
 
   v25 = [*(a1 + 40) accessQueue];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_45;
-  v31[3] = &unk_2785DDC10;
-  v32 = v9;
-  v33 = v29;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_45;
+  v30[3] = &unk_2785DDC10;
+  v31 = v9;
+  v32 = v28;
   v26 = v9;
-  v27 = v29;
-  [v26 notifyOnQueue:v25 block:v31];
-
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = v28;
+  [v26 notifyOnQueue:v25 block:v30];
 }
 
 void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -551,7 +541,7 @@ void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler__
 
 void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -562,17 +552,15 @@ void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler__
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: set primary credential (%@) finished (error:%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: set primary credential (%@) finished (error:%@)", &v7, 0x16u);
   }
 
   [*(a1 + 40) setError:v3];
   (*(*(a1 + 48) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_43(uint64_t a1, void *a2)
@@ -593,7 +581,7 @@ void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler__
 
 void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_2_44(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -604,17 +592,15 @@ void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler__
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: clear primary credential on other credential (%@) finished (error:%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: clear primary credential on other credential (%@) finished (error:%@)", &v7, 0x16u);
   }
 
   [*(a1 + 40) setError:v3];
   (*(*(a1 + 48) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __71__GKPlayerCredentialController_setPrimaryCredential_completionHandler___block_invoke_45(uint64_t a1)
@@ -850,7 +836,7 @@ void __85__GKPlayerCredentialController_removeAllCredentialsForEnvironment_compl
 
 void __85__GKPlayerCredentialController_removeAllCredentialsForEnvironment_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -861,22 +847,20 @@ void __85__GKPlayerCredentialController_removeAllCredentialsForEnvironment_compl
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: delete credentials (%@) finished (error:%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: delete credentials (%@) finished (error:%@)", &v7, 0x16u);
   }
 
   [*(a1 + 40) invalidateCredentialCaches];
   (*(*(a1 + 48) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCredential:(id)credential completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   handlerCopy = handler;
   if (!os_log_GKGeneral)
@@ -888,20 +872,18 @@ void __85__GKPlayerCredentialController_removeAllCredentialsForEnvironment_compl
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v16 = credentialCopy;
+    v15 = credentialCopy;
     _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "CRED: delete credential (%@) start", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __67__GKPlayerCredentialController_removeCredential_completionHandler___block_invoke;
-  v12[3] = &unk_2785DDEF0;
-  v13 = credentialCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __67__GKPlayerCredentialController_removeCredential_completionHandler___block_invoke;
+  v11[3] = &unk_2785DDEF0;
+  v12 = credentialCopy;
   selfCopy = self;
   v10 = credentialCopy;
-  [(GKPlayerCredentialController *)self _transact:v12 complete:handlerCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(GKPlayerCredentialController *)self _transact:v11 complete:handlerCopy];
 }
 
 void __67__GKPlayerCredentialController_removeCredential_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -923,7 +905,7 @@ void __67__GKPlayerCredentialController_removeCredential_completionHandler___blo
 
 void __67__GKPlayerCredentialController_removeCredential_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -934,22 +916,20 @@ void __67__GKPlayerCredentialController_removeCredential_completionHandler___blo
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: delete credential (%@) finished (error:%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: delete credential (%@) finished (error:%@)", &v7, 0x16u);
   }
 
   [*(a1 + 40) invalidateCredentialCaches];
   (*(*(a1 + 48) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceCredential:(id)credential withCredential:(id)withCredential completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   withCredentialCopy = withCredential;
   handlerCopy = handler;
@@ -962,24 +942,22 @@ void __67__GKPlayerCredentialController_removeCredential_completionHandler___blo
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v21 = credentialCopy;
-    v22 = 2112;
-    v23 = withCredentialCopy;
+    v20 = credentialCopy;
+    v21 = 2112;
+    v22 = withCredentialCopy;
     _os_log_impl(&dword_227904000, v12, OS_LOG_TYPE_INFO, "CRED: replace credential old:(%@) new:(%@) start", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __83__GKPlayerCredentialController_replaceCredential_withCredential_completionHandler___block_invoke;
-  v16[3] = &unk_2785DDFE0;
-  v17 = credentialCopy;
-  v18 = withCredentialCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __83__GKPlayerCredentialController_replaceCredential_withCredential_completionHandler___block_invoke;
+  v15[3] = &unk_2785DDFE0;
+  v16 = credentialCopy;
+  v17 = withCredentialCopy;
   selfCopy = self;
   v13 = withCredentialCopy;
   v14 = credentialCopy;
-  [(GKPlayerCredentialController *)self _transact:v16 complete:handlerCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(GKPlayerCredentialController *)self _transact:v15 complete:handlerCopy];
 }
 
 void __83__GKPlayerCredentialController_replaceCredential_withCredential_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1005,7 +983,7 @@ void __83__GKPlayerCredentialController_replaceCredential_withCredential_complet
 
 void __83__GKPlayerCredentialController_replaceCredential_withCredential_completionHandler___block_invoke_2(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -1017,32 +995,30 @@ void __83__GKPlayerCredentialController_replaceCredential_withCredential_complet
   {
     v6 = a1[4];
     *buf = 138412546;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v3;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v3;
     _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: replace credential (%@) delete finished (error:%@)", buf, 0x16u);
   }
 
   v8 = a1[5];
   v7 = a1[6];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __83__GKPlayerCredentialController_replaceCredential_withCredential_completionHandler___block_invoke_48;
-  v13[3] = &unk_2785DDC60;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __83__GKPlayerCredentialController_replaceCredential_withCredential_completionHandler___block_invoke_48;
+  v12[3] = &unk_2785DDC60;
   v9 = v7;
   v10 = a1[7];
   v11 = a1[8];
-  v14 = v9;
-  v15 = v10;
-  v16 = v11;
-  [v8 _gkSaveCredential:v9 completionHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = v9;
+  v14 = v10;
+  v15 = v11;
+  [v8 _gkSaveCredential:v9 completionHandler:v12];
 }
 
 void __83__GKPlayerCredentialController_replaceCredential_withCredential_completionHandler___block_invoke_48(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -1053,17 +1029,15 @@ void __83__GKPlayerCredentialController_replaceCredential_withCredential_complet
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: replace credential (%@) save finished (error:%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "CRED: replace credential (%@) save finished (error:%@)", &v7, 0x16u);
   }
 
   [*(a1 + 40) invalidateCredentialCaches];
   (*(*(a1 + 48) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)renewCredentialForUsername:(id)username ttl:(double)ttl completionHandler:(id)handler
@@ -1086,25 +1060,13 @@ void __81__GKPlayerCredentialController_renewCredentialForUsername_ttl_completio
   v6 = a3;
   v7 = [MEMORY[0x277CBEAA8] date];
   v8 = [*(a1 + 32) lastRenewalAttempt];
-  if (!v8)
-  {
-    goto LABEL_4;
-  }
-
-  v9 = v8;
-  v10 = [*(a1 + 32) lastRenewalAttempt];
-  [v7 timeIntervalSinceDate:v10];
-  v12 = v11;
-  v13 = *(a1 + 48);
-
-  if (v12 < v13)
+  if (v8 && (v9 = v8, [*(a1 + 32) lastRenewalAttempt], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "timeIntervalSinceDate:", v10), v12 = v11, v13 = *(a1 + 48), v10, v9, v12 < v13))
   {
     v6[2](v6, 0);
   }
 
   else
   {
-LABEL_4:
     [*(a1 + 32) setLastRenewalAttempt:v7];
     v14 = *(a1 + 40);
     v15[0] = MEMORY[0x277D85DD0];
@@ -1126,27 +1088,27 @@ LABEL_4:
 
 - (id)credentialForPlayerID:(id)d environment:(int64_t)environment
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(GKPlayerCredentialController *)self allCredentialsForEnvironment:environment];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = v20 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = v19 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         playerInternal = [v11 playerInternal];
         playerID = [playerInternal playerID];
         v14 = [playerID isEqualToString:dCopy];
@@ -1158,7 +1120,7 @@ LABEL_4:
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -1169,8 +1131,6 @@ LABEL_4:
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1201,19 +1161,19 @@ void __66__GKPlayerCredentialController_credentialForUsername_environment___bloc
 
 - (id)allCredentialsForEnvironment:(int64_t)environment
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:?];
   allCredentialsCache = [(GKPlayerCredentialController *)self allCredentialsCache];
   v7 = [allCredentialsCache objectForKeyedSubscript:v5];
 
   if (!v7)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __61__GKPlayerCredentialController_allCredentialsForEnvironment___block_invoke;
-    v13[3] = &__block_descriptor_40_e34_v24__0__ACAccountStore_8___v____16l;
-    v13[4] = environment;
-    v7 = [(GKPlayerCredentialController *)self _transactAndWait:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __61__GKPlayerCredentialController_allCredentialsForEnvironment___block_invoke;
+    v12[3] = &__block_descriptor_40_e34_v24__0__ACAccountStore_8___v____16l;
+    v12[4] = environment;
+    v7 = [(GKPlayerCredentialController *)self _transactAndWait:v12];
     if (v7)
     {
       allCredentialsCache2 = [(GKPlayerCredentialController *)self allCredentialsCache];
@@ -1221,22 +1181,20 @@ void __66__GKPlayerCredentialController_credentialForUsername_environment___bloc
 
       if (!os_log_GKGeneral)
       {
-        v11 = GKOSLoggers();
+        v10 = GKOSLoggers();
       }
 
-      v12 = os_log_GKDaemon;
+      v11 = os_log_GKDaemon;
       if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v15 = "[GKPlayerCredentialController allCredentialsForEnvironment:]";
-        v16 = 2112;
-        v17 = v7;
-        _os_log_impl(&dword_227904000, v12, OS_LOG_TYPE_INFO, "%s - cached all credentials: %@", buf, 0x16u);
+        v14 = "[GKPlayerCredentialController allCredentialsForEnvironment:]";
+        v15 = 2112;
+        v16 = v7;
+        _os_log_impl(&dword_227904000, v11, OS_LOG_TYPE_INFO, "%s - cached all credentials: %@", buf, 0x16u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1280,7 +1238,7 @@ void __64__GKPlayerCredentialController_primaryCredentialForEnvironment___block_
 
 - (id)primaryCredentialForEnvironment:(int64_t)environment accountStore:(id)store
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:environment];
   primaryCredentialCache = [(GKPlayerCredentialController *)self primaryCredentialCache];
@@ -1296,22 +1254,20 @@ void __64__GKPlayerCredentialController_primaryCredentialForEnvironment___block_
 
       if (!os_log_GKGeneral)
       {
-        v13 = GKOSLoggers();
+        v12 = GKOSLoggers();
       }
 
-      v14 = os_log_GKDaemon;
+      v13 = os_log_GKDaemon;
       if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
       {
-        v15 = 136315394;
-        v16 = "[GKPlayerCredentialController primaryCredentialForEnvironment:accountStore:]";
-        v17 = 2112;
-        v18 = v9;
-        _os_log_impl(&dword_227904000, v14, OS_LOG_TYPE_INFO, "%s - cached primary credential: %@", &v15, 0x16u);
+        v14 = 136315394;
+        v15 = "[GKPlayerCredentialController primaryCredentialForEnvironment:accountStore:]";
+        v16 = 2112;
+        v17 = v9;
+        _os_log_impl(&dword_227904000, v13, OS_LOG_TYPE_INFO, "%s - cached primary credential: %@", &v14, 0x16u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1326,10 +1282,9 @@ void __64__GKPlayerCredentialController_primaryCredentialForEnvironment___block_
 
 void __153__GKPlayerCredentialController_setContactAssociationID_contactIntegrationConsent_serviceLastUpdateTimestamp_forEnvironment_forcefully_completionHandler___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "Failed to save account after contacts integration update: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "Failed to save account after contacts integration update: %@", v1, 0xCu);
 }
 
 @end

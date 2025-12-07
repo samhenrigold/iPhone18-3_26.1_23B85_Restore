@@ -14,33 +14,33 @@
 
 - (id)hf_durationEndEvent
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   endEvents = [self endEvents];
   v3 = [endEvents count];
 
   if (v3)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     endEvents2 = [self endEvents];
-    v5 = [endEvents2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v5 = [endEvents2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(endEvents2);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           objc_opt_class();
           v11 = v10;
           if (objc_opt_isKindOfClass())
@@ -55,10 +55,10 @@
 
           v13 = v12;
 
-          [v13 duration];
+          objc_msgSend_duration(v13);
           if (v14 > 1.0)
           {
-            if (!v7 || ([v7 duration], v16 = v15, objc_msgSend(v13, "duration"), v16 > v17))
+            if (!v7 || (objc_msgSend_duration(v7), v16 = v15, objc_msgSend_duration(v13), v16 > v17))
             {
               v18 = v13;
 
@@ -67,7 +67,7 @@
           }
         }
 
-        v6 = [endEvents2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v6 = [endEvents2 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v6);
@@ -83,8 +83,6 @@
   {
     v7 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -185,7 +183,7 @@
 
 - (uint64_t)hf_isHomeAppCreatedTrigger
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   uniqueIdentifier = [self uniqueIdentifier];
   uUIDString = [uniqueIdentifier UUIDString];
 
@@ -193,35 +191,35 @@
   {
     v4 = objc_opt_new();
     events = [self events];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __69__HMEventTrigger_HFEventTriggerAdditions__hf_isHomeAppCreatedTrigger__block_invoke;
-    v23[3] = &unk_277DF4FB0;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __69__HMEventTrigger_HFEventTriggerAdditions__hf_isHomeAppCreatedTrigger__block_invoke;
+    v22[3] = &unk_277DF4FB0;
     v6 = v4;
-    v24 = v6;
-    [events na_each:v23];
+    v23 = v6;
+    [events na_each:v22];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          applicationData = [*(*(&v19 + 1) + 8 * v11) applicationData];
+          applicationData = [*(*(&v18 + 1) + 8 * v11) applicationData];
           v13 = [applicationData objectForKey:@"HFDesignatedTriggerAppDataKey"];
 
           v14 = [MEMORY[0x277CBEB98] setWithArray:v13];
@@ -237,7 +235,7 @@
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
         if (v9)
         {
           continue;
@@ -256,7 +254,6 @@ LABEL_12:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -444,17 +441,17 @@ LABEL_12:
 
 + (id)hf_representativeTriggerValueForCharacteristic:()HFEventTriggerAdditions similarToValue:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (v7)
   {
     v8 = [self hf_allTriggerValuesForCharacteristic:v6 similarToValue:v7];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (!v9)
     {
       goto LABEL_17;
@@ -462,17 +459,17 @@ LABEL_12:
 
     v10 = v9;
     anyObject = 0;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         v15 = v14;
         if (objc_opt_isKindOfClass())
@@ -495,7 +492,7 @@ LABEL_12:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -510,8 +507,6 @@ LABEL_17:
   {
     anyObject = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return anyObject;
 }

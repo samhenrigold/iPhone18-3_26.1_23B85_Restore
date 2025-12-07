@@ -1,35 +1,8 @@
-void PKAnimationFilter::drawingBeganWithInk(uint64_t a1, void *a2, uint64_t a3, double a4)
-{
-  v15 = a2;
-  PKInputBaseFilter<_PKStrokePoint,_PKStrokePoint>::drawingBeganWithInk(a1, v15, a3, a4);
-  v7 = [v15 behavior];
-  v8 = [v7 animationDescriptor];
-
-  if (v8)
-  {
-    v9 = [v15 behavior];
-    v10 = [v9 animationDescriptor];
-    [v10 duration];
-    *(a1 + 32) = v11;
-
-    v12 = [v15 behavior];
-    v13 = [v12 animationDescriptor];
-    [v13 sizeDelta];
-    *(a1 + 40) = v14;
-  }
-
-  else
-  {
-    *(a1 + 32) = 0;
-    *(a1 + 40) = 0;
-  }
-}
-
 uint64_t PKAnimationFilter::copyUpdatedRangeFromIndex(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v6 = *a3;
   v5 = a3[1];
-  v7 = (*(**(a1 + 8) + 24))(*(a1 + 8));
+  v7 = (*(**(a1 + 8) + 24))(*(a1 + 8), a2);
   if (*(a1 + 32) > 0.0 && a3[1] != *a3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -105,7 +78,7 @@ uint64_t PKPropertySmootherFilter::copyUpdatedRangeFromIndex(uint64_t a1, uint64
 {
   if (*(a1 + 104) <= 0.0 && *(a1 + 112) <= 0.0)
   {
-    return (*(**(a1 + 8) + 24))();
+    return (*(**(a1 + 8) + 24))(*(a1 + 8), a2, a3);
   }
 
   else
@@ -138,9 +111,10 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
       v9[5] = v10;
       v9[2] = v12;
       v9[3] = v11;
-      v13 = v8[1];
+      v13 = *v8;
+      v14 = v8[1];
       *v9 = *v8;
-      v9[1] = v13;
+      v9[1] = v14;
       if (v6 > 0.0)
       {
         v35 = 0.0;
@@ -155,7 +129,7 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
           v35 = COERCE_DOUBLE(&v39);
           v36 = -v6;
           v37 = v2;
-          PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRadiusFrom(double &,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v14, -v6);
+          PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRadiusFrom(double &,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v15, -v6);
           *&(&v40)[i] = v39;
         }
 
@@ -171,7 +145,7 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
           v35 = COERCE_DOUBLE(&v39);
           v36 = v6;
           v37 = v2;
-          PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRadiusFrom(double &,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v16, v6);
+          PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRadiusFrom(double &,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v13.n128_f64[0], v6);
           *&(&v40)[j] = v39;
         }
 
@@ -194,7 +168,7 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
           v20 = v3;
         }
 
-        if (v16 >= v34)
+        if (v13.n128_f64[0] >= v34)
         {
           v3 = v20;
         }
@@ -212,7 +186,8 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
         v41 = v7 * -0.5;
         v42 = v2;
         v43 = v23;
-        v24 = PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(v21, v22, &v40, v5, v7 * -0.5);
+        v13.n128_f64[0] = v5;
+        v24.n128_f64[0] = PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(v21, v22, &v40, v13, v7 * -0.5);
         v43 = v35 * 0.5;
         for (k = 2; k != -1; --k)
         {
@@ -221,7 +196,7 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
           v36 = -v7;
           v37 = v2;
           v38 = v23;
-          v24 = PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v24, -v7);
+          v24.n128_f64[0] = PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v24, -v7);
           *&(&v40)[k] = v39;
         }
 
@@ -230,7 +205,8 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
         v36 = v7 * 0.5;
         v37 = v2;
         v38 = v23;
-        v26 = PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v5, v7 * 0.5);
+        v24.n128_f64[0] = v5;
+        v26.n128_f64[0] = PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v24, v7 * 0.5);
         v43 = v43 + v39 * 0.5;
         for (m = 4; m != 7; ++m)
         {
@@ -239,7 +215,7 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
           v36 = v7;
           v37 = v2;
           v38 = v23;
-          v26 = PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v26, v7);
+          v26.n128_f64[0] = PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(*(this + 6), *(this + 7), &v35, v26, v7);
           *&(&v40)[m] = v39;
         }
 
@@ -262,7 +238,7 @@ void PKPropertySmootherFilter::run(PKPropertySmootherFilter *this)
           v30 = v3;
         }
 
-        if (v26 >= v34)
+        if (v26.n128_f64[0] >= v34)
         {
           v3 = v30;
         }
@@ -451,7 +427,7 @@ LABEL_37:
   return result;
 }
 
-double PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
+double PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmootherFilter::integrateRelativeAzimuthFrom(double &,double,double,std::vector<_PKStrokePoint> const&)::{lambda(double,double,double)#1}>(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4, double a5)
 {
   v7 = a5 < 0.0;
   v8 = a5 >= 0.0;
@@ -466,14 +442,14 @@ double PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmoot
     v10 = a5;
   }
 
-  v11 = v7 && a4 <= 0.0;
+  v11 = v7 && a4.n128_f64[0] <= 0.0;
   if (!v11 && v10 > 0.0)
   {
     v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 5);
     while (1)
     {
-      v14 = a4;
-      v15 = a4 - a4;
+      v14 = a4.n128_f64[0];
+      v15 = a4.n128_f64[0] - a4.n128_f64[0];
       if (a5 < 0.0 && v15 == 0.0)
       {
         v11 = v14-- < 1;
@@ -500,24 +476,24 @@ double PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmoot
       v18 = v15 * v17;
       if (v15 * v17 > v10)
       {
-        v37 = -v10;
+        v35 = -v10;
         if (a5 >= 0.0)
         {
-          v37 = v10;
+          v35 = v10;
         }
 
-        v20 = a4 + v37 / v17;
-        v38 = *(a3 + 8);
-        if (v38 < 0.0)
+        v20 = a4.n128_f64[0] + v35 / v17;
+        v36 = *(a3 + 8);
+        if (v36 < 0.0)
         {
-          v38 = -v38;
+          v36 = -v36;
         }
 
-        v32 = v10 / v38;
-        v33 = *(a3 + 24);
-        v39 = *(a3 + 16);
-        v35 = *v39;
-        v36 = v39[1];
+        v30 = v10 / v36;
+        v31 = *(a3 + 24);
+        v37 = *(a3 + 16);
+        v33 = *v37;
+        v34 = v37[1];
         goto LABEL_35;
       }
 
@@ -534,20 +510,18 @@ double PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmoot
       v24 = *(a3 + 16);
       v25 = *v24;
       v26 = v24[1];
-      PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(*v24, v26, a4, v23);
-      v28 = v27;
-      PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(v25, v26, v20, v23);
-      **a3 = **a3 + v22 * (v28 + v29) * 0.5;
+      v27 = PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(*v24, v26, a4.n128_f64[0], v23);
+      **a3 = **a3 + v22 * (v27 + PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(v25, v26, v20, v23)) * 0.5;
       v10 = v10 - v18;
-      v30 = !v8;
+      v28 = !v8;
       if (v19 >= 1)
       {
-        v30 = 0;
+        v28 = 0;
       }
 
-      if (!v30)
+      if (!v28)
       {
-        a4 = v20;
+        a4.n128_f64[0] = v20;
         if (v10 > 0.0)
         {
           continue;
@@ -558,33 +532,31 @@ double PKPropertySmootherFilter::stepDistanceFrom<_PKStrokePoint,PKPropertySmoot
     }
   }
 
-  v20 = a4;
+  v20 = a4.n128_f64[0];
 LABEL_26:
   if (v10 > 0.0)
   {
-    v31 = *(a3 + 8);
-    if (v31 < 0.0)
+    v29 = *(a3 + 8);
+    if (v29 < 0.0)
     {
-      v31 = -v31;
+      v29 = -v29;
     }
 
-    v32 = v10 / v31;
-    v33 = *(a3 + 24);
-    v34 = *(a3 + 16);
-    v35 = *v34;
-    v36 = v34[1];
-    a4 = v20;
+    v30 = v10 / v29;
+    v31 = *(a3 + 24);
+    v32 = *(a3 + 16);
+    v33 = *v32;
+    v34 = v32[1];
+    a4.n128_f64[0] = v20;
 LABEL_35:
-    PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(v35, v36, a4, v33);
-    v41 = v40;
-    PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(v35, v36, v20, v33);
-    **a3 = **a3 + v32 * (v41 + v42) * 0.5;
+    v38 = PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(v33, v34, a4.n128_f64[0], v31);
+    **a3 = **a3 + v30 * (v38 + PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(v33, v34, v20, v31)) * 0.5;
   }
 
   return v20;
 }
 
-void PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(uint64_t a1, uint64_t a2, double a3, long double a4)
+double PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(uint64_t a1, uint64_t a2, double a3, long double a4)
 {
   v5 = a3;
   v6 = a3 - a3;
@@ -599,6 +571,7 @@ void PKPropertySmootherFilter::relativeAzimuthAt<_PKStrokePoint>(uint64_t a1, ui
   }
 
   DKDDiffAngleInRadians(a4, v7);
+  return result;
 }
 
 void PKEndCapsFilter::drawingBeganWithInk(uint64_t a1, void *a2, uint64_t a3, double a4)
@@ -902,12 +875,12 @@ void PKCompressionFilter::run(PKCompressionFilter *this)
       v8 = *&v3[v5 + 2];
       v11[0] = *&v3[v5];
       v11[1] = v8;
-      PKCompressStrokePoint(v11, *v3, v12);
-      v9 = (*(this + 10) + v4);
+      PKCompressStrokePoint(v12, v11, *v3);
+      v9 = *(this + 10) + v4;
       v10 = v12[1];
       *v9 = v12[0];
-      v9[1] = v10;
-      v9[2].i32[0] = v13;
+      *(v9 + 16) = v10;
+      *(v9 + 32) = v13;
       ++v2;
       v3 = *(this + 6);
       v4 += 36;
@@ -1090,9 +1063,9 @@ void sub_1C7FBA628(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7FBC4A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7FBC4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<PKProtobufUnknownFields>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1290,17 +1263,17 @@ void legacy_drawing::Command::~Command(legacy_drawing::Command *this)
   JUMPOUT(0x1CCA6ECB0);
 }
 
-uint64_t legacy_drawing::Command::Command(uint64_t this, const legacy_drawing::Command *a2)
+legacy_drawing::Command *legacy_drawing::Command::Command(legacy_drawing::Command *this, const legacy_drawing::CommandID **a2)
 {
   *this = &unk_1F476BB30;
   *(this + 8) = 0u;
-  *(this + 100) = 0;
+  *(this + 25) = 0;
   *(this + 24) = 0u;
   *(this + 40) = 0u;
   *(this + 56) = 0u;
   *(this + 72) = 0u;
-  *(this + 88) = 0;
-  if (*(a2 + 6))
+  *(this + 11) = 0;
+  if (a2[6])
   {
     operator new();
   }
@@ -1309,45 +1282,45 @@ uint64_t legacy_drawing::Command::Command(uint64_t this, const legacy_drawing::C
   {
     v2 = *(a2 + 24);
     *(this + 100) |= 1u;
-    *(this + 96) = v2;
+    *(this + 24) = v2;
   }
 
-  if (*(a2 + 5))
+  if (a2[5])
   {
     operator new();
   }
 
-  if (*(a2 + 1))
+  if (a2[1])
   {
     operator new();
   }
 
-  if (*(a2 + 8) != *(a2 + 9))
+  if (a2[8] != a2[9])
   {
     operator new();
   }
 
-  if (*(a2 + 11))
+  if (a2[11])
   {
     operator new();
   }
 
-  if (*(a2 + 2))
+  if (a2[2])
   {
     operator new();
   }
 
-  if (*(a2 + 4))
+  if (a2[4])
   {
     operator new();
   }
 
-  if (*(a2 + 3))
+  if (a2[3])
   {
     operator new();
   }
 
-  if (*(a2 + 7))
+  if (a2[7])
   {
     operator new();
   }
@@ -1355,7 +1328,7 @@ uint64_t legacy_drawing::Command::Command(uint64_t this, const legacy_drawing::C
   return this;
 }
 
-uint64_t legacy_drawing::Command::operator=(uint64_t a1, const legacy_drawing::Command *a2)
+const legacy_drawing::CommandID **legacy_drawing::Command::operator=(const legacy_drawing::CommandID **a1, const legacy_drawing::CommandID **a2)
 {
   if (a1 != a2)
   {
@@ -2236,9 +2209,9 @@ LABEL_35:
   return v7 ^ v6 ^ v9 ^ v11 ^ v20 ^ v22 ^ v24 ^ v26 ^ v14 ^ v27;
 }
 
-uint64_t legacy_drawing::Command::makeCommandID(uint64_t this)
+void *legacy_drawing::Command::makeCommandID(void *this)
 {
-  if (!*(this + 48))
+  if (!this[6])
   {
     operator new();
   }
@@ -2246,9 +2219,9 @@ uint64_t legacy_drawing::Command::makeCommandID(uint64_t this)
   return this;
 }
 
-uint64_t legacy_drawing::Command::makeColor(uint64_t this)
+void *legacy_drawing::Command::makeColor(void *this)
 {
-  if (!*(this + 40))
+  if (!this[5])
   {
     operator new();
   }
@@ -2256,9 +2229,9 @@ uint64_t legacy_drawing::Command::makeColor(uint64_t this)
   return this;
 }
 
-uint64_t legacy_drawing::Command::makeBaseValues(uint64_t this)
+void *legacy_drawing::Command::makeBaseValues(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -2266,9 +2239,9 @@ uint64_t legacy_drawing::Command::makeBaseValues(uint64_t this)
   return this;
 }
 
-uint64_t legacy_drawing::Command::makeTimestamp(uint64_t this)
+void *legacy_drawing::Command::makeTimestamp(void *this)
 {
-  if (!*(this + 88))
+  if (!this[11])
   {
     operator new();
   }
@@ -2276,9 +2249,9 @@ uint64_t legacy_drawing::Command::makeTimestamp(uint64_t this)
   return this;
 }
 
-uint64_t legacy_drawing::Command::makeBounds(uint64_t this)
+void *legacy_drawing::Command::makeBounds(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -2286,9 +2259,9 @@ uint64_t legacy_drawing::Command::makeBounds(uint64_t this)
   return this;
 }
 
-uint64_t legacy_drawing::Command::makeClipOrigin(uint64_t this)
+void *legacy_drawing::Command::makeClipOrigin(void *this)
 {
-  if (!*(this + 32))
+  if (!this[4])
   {
     operator new();
   }
@@ -2296,9 +2269,9 @@ uint64_t legacy_drawing::Command::makeClipOrigin(uint64_t this)
   return this;
 }
 
-uint64_t legacy_drawing::Command::makeClipNormal(uint64_t this)
+void *legacy_drawing::Command::makeClipNormal(void *this)
 {
-  if (!*(this + 24))
+  if (!this[3])
   {
     operator new();
   }
@@ -2306,9 +2279,9 @@ uint64_t legacy_drawing::Command::makeClipNormal(uint64_t this)
   return this;
 }
 
-uint64_t legacy_drawing::Command::makeParameters(uint64_t this)
+void *legacy_drawing::Command::makeParameters(void *this)
 {
-  if (!*(this + 56))
+  if (!this[7])
   {
     operator new();
   }
@@ -2512,67 +2485,67 @@ double DKDUpdateFixedSizeRectToIncludePoint(double a1, CGFloat a2, CGFloat a3, C
 
 double DKDUpdateFixedSizeRectToIncludeRectIfPossible(double a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10)
 {
-  v58.origin.x = a5;
-  v58.origin.y = a6;
-  v58.size.width = a7;
-  v58.size.height = a8;
-  if (!CGRectIsNull(v58))
+  v50.origin.x = a5;
+  v50.origin.y = a6;
+  v50.size.width = a7;
+  v50.size.height = a8;
+  if (!CGRectIsNull(v50))
   {
-    v59.origin.x = a5;
-    v59.origin.y = a6;
-    v59.size.width = a7;
-    v59.size.height = a8;
-    MinX = CGRectGetMinX(v59);
-    v60.origin.x = a5;
-    v60.origin.y = a6;
-    v60.size.width = a7;
-    v60.size.height = a8;
-    MinY = CGRectGetMinY(v60);
-    v27 = DKDUpdateFixedSizeRectToIncludePoint(a1, a2, a3, a4, MinX, MinY, a9, a10);
-    v52 = v28;
-    v55 = v27;
-    v50 = v29;
-    v31 = v30;
-    v61.origin.x = a5;
-    v61.origin.y = a6;
-    v61.size.width = a7;
-    v61.size.height = a8;
-    v32 = CGRectGetMinX(v61);
-    v62.origin.x = a5;
-    v62.origin.y = a6;
-    v62.size.width = a7;
-    v62.size.height = a8;
-    MaxY = CGRectGetMaxY(v62);
-    v34 = DKDUpdateFixedSizeRectToIncludePoint(v55, v52, v50, v31, v32, MaxY, a9, a10);
-    v53 = v35;
-    v56 = v34;
-    v51 = v36;
+    v51.origin.x = a5;
+    v51.origin.y = a6;
+    v51.size.width = a7;
+    v51.size.height = a8;
+    MinX = CGRectGetMinX(v51);
+    v52.origin.x = a5;
+    v52.origin.y = a6;
+    v52.size.width = a7;
+    v52.size.height = a8;
+    MinY = CGRectGetMinY(v52);
+    v19 = DKDUpdateFixedSizeRectToIncludePoint(a1, a2, a3, a4, MinX, MinY, a9, a10);
+    v44 = v20;
+    v47 = v19;
+    v42 = v21;
+    v23 = v22;
+    v53.origin.x = a5;
+    v53.origin.y = a6;
+    v53.size.width = a7;
+    v53.size.height = a8;
+    v24 = CGRectGetMinX(v53);
+    v54.origin.x = a5;
+    v54.origin.y = a6;
+    v54.size.width = a7;
+    v54.size.height = a8;
+    MaxY = CGRectGetMaxY(v54);
+    v26 = DKDUpdateFixedSizeRectToIncludePoint(v47, v44, v42, v23, v24, MaxY, a9, a10);
+    v45 = v27;
+    v48 = v26;
+    v43 = v28;
+    v30 = v29;
+    v55.origin.x = a5;
+    v55.origin.y = a6;
+    v55.size.width = a7;
+    v55.size.height = a8;
+    MaxX = CGRectGetMaxX(v55);
+    v56.origin.x = a5;
+    v56.origin.y = a6;
+    v56.size.width = a7;
+    v56.size.height = a8;
+    v32 = CGRectGetMinY(v56);
+    v49 = DKDUpdateFixedSizeRectToIncludePoint(v48, v45, v43, v30, MaxX, v32, a9, a10);
+    v34 = v33;
+    v36 = v35;
     v38 = v37;
-    v63.origin.x = a5;
-    v63.origin.y = a6;
-    v63.size.width = a7;
-    v63.size.height = a8;
-    MaxX = CGRectGetMaxX(v63);
-    v64.origin.x = a5;
-    v64.origin.y = a6;
-    v64.size.width = a7;
-    v64.size.height = a8;
-    v40 = CGRectGetMinY(v64);
-    v57 = DKDUpdateFixedSizeRectToIncludePoint(v56, v53, v51, v38, MaxX, v40, a9, a10);
-    v42 = v41;
-    v44 = v43;
-    v46 = v45;
-    v65.origin.x = a5;
-    v65.origin.y = a6;
-    v65.size.width = a7;
-    v65.size.height = a8;
-    v47 = CGRectGetMaxX(v65);
-    v66.origin.x = a5;
-    v66.origin.y = a6;
-    v66.size.width = a7;
-    v66.size.height = a8;
-    v48 = CGRectGetMaxY(v66);
-    return DKDUpdateFixedSizeRectToIncludePoint(v57, v42, v44, v46, v47, v48, a9, a10);
+    v57.origin.x = a5;
+    v57.origin.y = a6;
+    v57.size.width = a7;
+    v57.size.height = a8;
+    v39 = CGRectGetMaxX(v57);
+    v58.origin.x = a5;
+    v58.origin.y = a6;
+    v58.size.width = a7;
+    v58.size.height = a8;
+    v40 = CGRectGetMaxY(v58);
+    return DKDUpdateFixedSizeRectToIncludePoint(v49, v34, v36, v38, v39, v40, a9, a10);
   }
 
   return a1;
@@ -2648,14 +2621,14 @@ double DKDUpdateFixedSizeRectToFitInsideRectIfPossible(double a1, CGFloat a2, CG
 
 BOOL DKDEqualRects(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v17 = vabdd_f64(a2, a6);
-  if (vabdd_f64(a1, a5) >= a9 || v17 >= a9)
+  v9 = vabdd_f64(a2, a6);
+  if (vabdd_f64(a1, a5) >= a9 || v9 >= a9)
   {
     return 0;
   }
 
-  v20 = vabdd_f64(a3, a7) < a9;
-  return vabdd_f64(a4, a8) < a9 && v20;
+  v12 = vabdd_f64(a3, a7) < a9;
+  return vabdd_f64(a4, a8) < a9 && v12;
 }
 
 BOOL DKDNearlyEqualRects(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
@@ -2760,7 +2733,7 @@ uint64_t DKDLineIntersectsRect(CGFloat a1, CGFloat a2, double a3, double a4, CGF
 
     v19 = (v13 + a1) * 0.5;
     v20 = (v12 + a2) * 0.5;
-    v21 = DKDLineIntersectsRect(1, a1, a2, v19, v20, a5, a6, a7, a8);
+    v21 = DKDLineIntersectsRect(a1, a2, v19, v20, a5, a6, a7, a8);
     a1 = v19;
     a2 = v20;
     v13 = a3;
@@ -3575,7 +3548,7 @@ uint64_t DKDMixBOOLs(uint64_t result, unsigned int a2, double a3)
   }
 }
 
-void DKDMixAnglesInDegrees(long double a1, long double a2, double a3)
+void DKDMixAnglesInDegrees(double a1, double a2, double a3)
 {
   v6 = fmod(a1, 360.0);
   if (a1 <= 360.0 && a1 >= 0.0)
@@ -3630,7 +3603,7 @@ void DKDMixAnglesInDegrees(long double a1, long double a2, double a3)
   fmod(v9 * a3 + v8 * (1.0 - a3), 360.0);
 }
 
-void DKDMixAnglesInRadians(long double a1, long double a2, double a3)
+void DKDMixAnglesInRadians(double a1, double a2, double a3)
 {
   v6 = fmod(a1, 6.28318531);
   if (a1 <= 6.28318531 && a1 >= 0.0)
@@ -3961,7 +3934,7 @@ double DKDOriginRotate(double *a1, double a2, double a3)
   return result;
 }
 
-double DKDNiceAngleFromDelta(long double a1, long double a2)
+long double DKDNiceAngleFromDelta(long double a1, long double a2)
 {
   if (a2 != 0.0)
   {
@@ -4364,57 +4337,57 @@ void DKDVisibleUnscaledRectForNewScale(CGFloat a1, CGFloat a2, CGFloat a3, CGFlo
 
 double DKDRectByExpandingBoundingRectToContentRect(double a1, double a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, double a12)
 {
-  v25 = a1 + a5 * a3;
-  v36.origin.x = a5;
-  v36.origin.y = a6;
-  v36.size.width = a7;
-  v36.size.height = a8;
-  MaxX = CGRectGetMaxX(v36);
-  v37.origin.x = a5;
-  v37.origin.y = a6;
-  v37.size.width = a7;
-  v37.size.height = a8;
-  CGRectGetMaxY(v37);
-  v26 = a1 + MaxX * a3;
-  if (v25 >= v26)
+  v17 = a1 + a5 * a3;
+  v28.origin.x = a5;
+  v28.origin.y = a6;
+  v28.size.width = a7;
+  v28.size.height = a8;
+  MaxX = CGRectGetMaxX(v28);
+  v29.origin.x = a5;
+  v29.origin.y = a6;
+  v29.size.width = a7;
+  v29.size.height = a8;
+  CGRectGetMaxY(v29);
+  v18 = a1 + MaxX * a3;
+  if (v17 >= v18)
   {
-    v27 = a1 + MaxX * a3;
+    v19 = a1 + MaxX * a3;
   }
 
   else
   {
-    v27 = v25;
+    v19 = v17;
   }
 
-  if (v25 >= v26)
+  if (v17 >= v18)
   {
-    v26 = v25;
+    v18 = v17;
   }
 
-  v35 = v27;
-  v28 = v26 - v27;
-  v29 = -a9 / a11 * (v26 - v27);
-  v38.origin.x = -a9 / a11;
-  v38.origin.y = -a10 / a12;
-  v38.size.width = 1.0 / a11;
-  v38.size.height = 1.0 / a12;
-  v30 = CGRectGetMaxX(v38);
-  v39.origin.x = -a9 / a11;
-  v39.origin.y = -a10 / a12;
-  v39.size.width = 1.0 / a11;
-  v39.size.height = 1.0 / a12;
-  CGRectGetMaxY(v39);
-  if (v29 >= v30 * v28)
+  v27 = v19;
+  v20 = v18 - v19;
+  v21 = -a9 / a11 * (v18 - v19);
+  v30.origin.x = -a9 / a11;
+  v30.origin.y = -a10 / a12;
+  v30.size.width = 1.0 / a11;
+  v30.size.height = 1.0 / a12;
+  v22 = CGRectGetMaxX(v30);
+  v31.origin.x = -a9 / a11;
+  v31.origin.y = -a10 / a12;
+  v31.size.width = 1.0 / a11;
+  v31.size.height = 1.0 / a12;
+  CGRectGetMaxY(v31);
+  if (v21 >= v22 * v20)
   {
-    v31 = v30 * v28;
+    v23 = v22 * v20;
   }
 
   else
   {
-    v31 = v29;
+    v23 = v21;
   }
 
-  return v35 + v31;
+  return v27 + v23;
 }
 
 double DKDAliasRound(double a1)
@@ -4661,29 +4634,30 @@ drawing::Drawing *drawing::Drawing::Drawing(drawing::Drawing *this, const drawin
   *(this + 8) = 0u;
   *(this + 24) = 0u;
   *(this + 72) = 0u;
+  v4 = (this + 72);
   *(this + 104) = 0u;
   *(this + 40) = 0u;
   *(this + 56) = 0u;
   *(this + 88) = 0u;
   *(this + 120) = 0u;
   *(this + 17) = 0;
-  v4 = *(a2 + 16);
-  v5 = *(a2 + 17);
-  if (v5)
+  v5 = *(a2 + 16);
+  v6 = *(a2 + 17);
+  if (v6)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    v6 = *(this + 17);
-    *(this + 16) = v4;
-    *(this + 17) = v5;
-    if (v6)
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+    v7 = *(this + 17);
+    *(this + 16) = v5;
+    *(this + 17) = v6;
+    if (v7)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     }
   }
 
   else
   {
-    *(this + 16) = v4;
+    *(this + 16) = v5;
     *(this + 17) = 0;
   }
 
@@ -4692,6 +4666,7 @@ drawing::Drawing *drawing::Drawing::Drawing(drawing::Drawing *this, const drawin
     std::vector<PB::Data>::__assign_with_size[abi:ne200100]<PB::Data*,PB::Data*>(this + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 4);
   }
 
+  v10 = a2;
   if (*(a2 + 13) != *(a2 + 14))
   {
     operator new();
@@ -4702,22 +4677,23 @@ drawing::Drawing *drawing::Drawing::Drawing(drawing::Drawing *this, const drawin
     operator new();
   }
 
-  if (*(a2 + 9) != *(a2 + 10))
+  v8 = *(a2 + 9);
+  if (v8 != *(v10 + 10))
   {
-    PB::PtrVector<drawing::Stroke>::emplace_back<drawing::Stroke const&>();
+    PB::PtrVector<drawing::Stroke>::emplace_back<drawing::Stroke const&>(v4, *v8);
   }
 
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  if (*(a2 + 2))
+  if (*(v10 + 1))
   {
     operator new();
   }
 
-  if (*(a2 + 12))
+  if (*(v10 + 2))
+  {
+    operator new();
+  }
+
+  if (*(v10 + 12))
   {
     operator new();
   }
@@ -4725,7 +4701,7 @@ drawing::Drawing *drawing::Drawing::Drawing(drawing::Drawing *this, const drawin
   return this;
 }
 
-const drawing::Drawing *drawing::Drawing::operator=(const drawing::Drawing *a1, const drawing::Drawing *a2)
+drawing *drawing::Drawing::operator=(drawing *a1, const drawing::Drawing *a2)
 {
   if (a1 != a2)
   {
@@ -4882,7 +4858,7 @@ uint64_t drawing::Drawing::Drawing(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *drawing::Drawing::operator=(void *a1, uint64_t a2)
+void *drawing::Drawing::operator=(void *a1, void *a2)
 {
   if (a1 != a2)
   {
@@ -4987,7 +4963,7 @@ uint64_t drawing::Drawing::readFrom(drawing::Drawing *this, PB::Reader *a2)
         {
 LABEL_17:
           v22 = 0;
-          LODWORD(v23) = 0;
+          v23 = 0;
           goto LABEL_18;
         }
       }
@@ -5052,9 +5028,9 @@ LABEL_22:
           PB::Reader::read(a2, (v26 - 16));
           goto LABEL_42;
         case 3:
-          PB::PtrVector<drawing::StrokeID>::emplace_back<>();
+          PB::PtrVector<drawing::StrokeID>::emplace_back<>(this + 13);
         case 4:
-          PB::PtrVector<drawing::Ink>::emplace_back<>();
+          PB::PtrVector<drawing::Ink>::emplace_back<>(this + 3);
       }
     }
 
@@ -5075,7 +5051,7 @@ LABEL_22:
     {
       if (v23 == 5)
       {
-        PB::PtrVector<drawing::Stroke>::emplace_back<>();
+        PB::PtrVector<drawing::Stroke>::emplace_back<>(this + 9);
       }
 
       if (v23 == 6)
@@ -5234,7 +5210,7 @@ uint64_t drawing::Drawing::operator==(uint64_t a1, uint64_t a2)
       v12 = *(a1 + 32);
     }
 
-    result = PB::PtrVector<drawing::Stroke>::operator==((a1 + 72), (a2 + 72));
+    result = PB::PtrVector<drawing::Stroke>::operator==((a1 + 72), a2 + 72);
     if (result)
     {
       v14 = *(a1 + 8);
@@ -5478,9 +5454,9 @@ LABEL_41:
   return v7 ^ v4 ^ v14 ^ v21 ^ v26 ^ v27 ^ v18;
 }
 
-uint64_t drawing::Drawing::makeBounds(uint64_t this)
+void *drawing::Drawing::makeBounds(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5488,9 +5464,9 @@ uint64_t drawing::Drawing::makeBounds(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Drawing::makeBoundsVersion(uint64_t this)
+void *drawing::Drawing::makeBoundsVersion(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -5521,6 +5497,13 @@ void sub_1C7FE4F00(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v1 + 32));
   objc_destroyWeak((v2 - 128));
+  _Unwind_Resume(a1);
+}
+
+void sub_1C7FE89BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 

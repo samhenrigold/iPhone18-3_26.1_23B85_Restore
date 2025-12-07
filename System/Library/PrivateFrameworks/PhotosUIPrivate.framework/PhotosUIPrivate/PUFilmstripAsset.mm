@@ -132,7 +132,7 @@ LABEL_11:
     v4 = _asset;
     if (_asset)
     {
-      [_asset pu_duration];
+      objc_msgSend_pu_duration(_asset);
     }
 
     else

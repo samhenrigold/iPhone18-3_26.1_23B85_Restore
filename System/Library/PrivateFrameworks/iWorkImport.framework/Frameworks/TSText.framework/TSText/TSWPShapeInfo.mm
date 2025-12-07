@@ -455,9 +455,10 @@ LABEL_12:
 
 - (int)columnDirection
 {
-  v3 = objc_msgSend_contentWritingDirection(self, a2, v2);
+  objc_msgSend_contentWritingDirection(self, a2, v2);
 
-  return NStoTSWPWritingDirection(v3);
+  NStoTSWPWritingDirection();
+  return result;
 }
 
 - (TSWPColumns)columns
@@ -570,7 +571,8 @@ LABEL_12:
 - (void)setContentWritingDirection:(int64_t)direction
 {
   v13 = objc_msgSend_textStorage(self, a2, direction);
-  v5 = NStoTSWPWritingDirection(direction);
+  NStoTSWPWritingDirection();
+  v5 = v4;
   v8 = objc_msgSend_textStorage(self, v6, v7);
   v11 = objc_msgSend_range(v8, v9, v10);
   objc_msgSend_setParagraphWritingDirection_forCharRange_undoTransaction_(v13, v12, v5, v11, v12, 0);

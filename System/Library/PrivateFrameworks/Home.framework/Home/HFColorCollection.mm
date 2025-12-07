@@ -89,7 +89,7 @@
 
 - (HFColorCollection)initWithPrimitiveColors:(id)colors
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   colorsCopy = colors;
   if (![colorsCopy count])
   {
@@ -97,35 +97,35 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFColorCollection.m" lineNumber:59 description:{@"Invalid parameter not satisfying: %@", @"primitiveColors.count > 0"}];
   }
 
-  v22.receiver = self;
-  v22.super_class = HFColorCollection;
-  v6 = [(HFColorCollection *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = HFColorCollection;
+  v6 = [(HFColorCollection *)&v21 init];
   if (v6)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v17 = colorsCopy;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v16 = colorsCopy;
     v7 = colorsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (!v8)
     {
       goto LABEL_20;
     }
 
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -158,18 +158,17 @@
         objc_storeStrong(p_RGBColor, v12);
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
       if (!v9)
       {
 LABEL_20:
 
-        colorsCopy = v17;
+        colorsCopy = v16;
         break;
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

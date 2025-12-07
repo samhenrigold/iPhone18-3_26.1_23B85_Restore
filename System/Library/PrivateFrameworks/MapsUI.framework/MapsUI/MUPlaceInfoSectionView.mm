@@ -9,28 +9,28 @@
 
 - (id)draggableContent
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   arrangedSubviews = [(MUStackView *)self arrangedSubviews];
-  v5 = [arrangedSubviews countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [arrangedSubviews countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(arrangedSubviews);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = objc_alloc_init(MUInfoCardDraggableContent);
         [(MUInfoCardDraggableContent *)v10 setView:v9];
         viewModel = [v9 viewModel];
@@ -41,32 +41,31 @@
         [v3 addObject:v10];
       }
 
-      v6 = [arrangedSubviews countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [arrangedSubviews countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
   v13 = [v3 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (void)_updateAppearance
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = self->_viewModels;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     v8 = *MEMORY[0x1E695F058];
     v9 = *(MEMORY[0x1E695F058] + 8);
     v10 = *(MEMORY[0x1E695F058] + 16);
@@ -76,12 +75,12 @@
       v12 = 0;
       do
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v12);
+        v13 = *(*(&v19 + 1) + 8 * v12);
         isDeveloperPlaceCard = [(MUPlaceVerticalCardContainerView *)self isDeveloperPlaceCard];
         v15 = [MULabeledValueActionRowView alloc];
         if (isDeveloperPlaceCard)
@@ -102,7 +101,7 @@
       }
 
       while (v6 != v12);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
@@ -110,8 +109,6 @@
 
   v18 = [v3 copy];
   [(MUPlaceVerticalCardContainerView *)self setRowViews:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setViewModels:(id)models

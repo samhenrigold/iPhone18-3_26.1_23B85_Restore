@@ -20,10 +20,9 @@
 
 void __57__HMDHomeActivityComingHomeAggregatorStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_18699;
-  logCategory__hmf_once_v3_18699 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_18699;
+  logCategory__hmf_once_v3_18699 = v0;
 }
 
 - (id)userActivityReportWithActivityStatus:(id)status user:(id)user
@@ -46,7 +45,7 @@ void __57__HMDHomeActivityComingHomeAggregatorStorage_logCategory__block_invoke(
 
 - (void)updateMKFUserActivityStatus:(id)status withReport:(id)report
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   reportCopy = report;
   v8 = +[HMCContext currentContext];
@@ -81,19 +80,8 @@ void __57__HMDHomeActivityComingHomeAggregatorStorage_logCategory__block_invoke(
   v14 = state;
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "state")}];
   state2 = [statusCopy state];
-  if (![v15 isEqual:state2])
+  if (![v15 isEqual:state2] || (objc_msgSend(statusCopy, "transitionTimestamp"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "stateEnd"), v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v13 = 0x277CCA000, v17, !v19) || (objc_msgSend(statusCopy, "lastReportTimestamp"), (v20 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    goto LABEL_13;
-  }
-
-  transitionTimestamp = [statusCopy transitionTimestamp];
-  stateEnd = [v11 stateEnd];
-  v19 = HMFEqualObjects();
-
-  v13 = 0x277CCA000;
-  if (!v19 || ([statusCopy lastReportTimestamp], (v20 = objc_claimAutoreleasedReturnValue()) == 0))
-  {
-LABEL_13:
 
     goto LABEL_14;
   }
@@ -103,12 +91,12 @@ LABEL_13:
   v22 = [lastReportTimestamp dateByAddingTimeInterval:3600.0];
   [v9 lastUpdateTimestamp];
   v24 = v23 = self;
-  v37 = [v22 compare:v24];
+  v36 = [v22 compare:v24];
 
   v25 = v23;
   v13 = 0x277CCA000;
 
-  if (v37 == -1)
+  if (v36 == -1)
   {
 LABEL_14:
     lastUpdateTimestamp = [v11 lastUpdateTimestamp];
@@ -123,8 +111,8 @@ LABEL_14:
     v33 = [*(v13 + 2992) numberWithUnsignedInteger:{objc_msgSend(v11, "state")}];
     [statusCopy setState:v33];
 
-    stateEnd2 = [v11 stateEnd];
-    [statusCopy setTransitionTimestamp:stateEnd2];
+    stateEnd = [v11 stateEnd];
+    [statusCopy setTransitionTimestamp:stateEnd];
 
     goto LABEL_15;
   }
@@ -136,14 +124,12 @@ LABEL_14:
   {
     v29 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v39 = v29;
+    v38 = v29;
     _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Not storing activity report because the lastUpdateTimestamp is within the update interval", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v26);
 LABEL_15:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 @end

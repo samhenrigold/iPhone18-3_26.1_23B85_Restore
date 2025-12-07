@@ -44,27 +44,25 @@
   userInterfaceIdiom = [collectionCopy userInterfaceIdiom];
   if (userInterfaceIdiom == -1)
   {
-    v19 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v17 = off_2781809C8;
-    if (userInterfaceIdiom && [collectionCopy horizontalSizeClass] != 1)
+    if (userInterfaceIdiom)
     {
-      v17 = off_2781809D0;
+      [collectionCopy horizontalSizeClass];
     }
 
-    v18 = *v17;
-    v19 = objc_alloc_init(objc_opt_class());
-    [v19 setTraitCollection:collectionCopy];
-    [v19 setLayoutMargins:{v14, v13, v12, v11}];
-    [v19 setSafeAreaInsets:{top, left, bottom, right}];
+    v17 = objc_alloc_init(objc_opt_class());
+    [v17 setTraitCollection:collectionCopy];
+    [v17 setLayoutMargins:{v14, v13, v12, v11}];
+    [v17 setSafeAreaInsets:{top, left, bottom, right}];
     right = [ConversationFooterViewDisplayMetrics displayMetricsWithSafeAreaInsets:orientation interfaceOrientation:collectionCopy traitCollection:top, left, bottom, right];
-    [v19 setFooterViewDisplayMetrics:right];
+    [v17 setFooterViewDisplayMetrics:right];
   }
 
-  return v19;
+  return v17;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -218,7 +216,7 @@
 
 - (double)avatarDiameterForCurrentContentSize
 {
-  v20[12] = *MEMORY[0x277D85DE8];
+  v19[12] = *MEMORY[0x277D85DE8];
   traitCollection = [(MFMessageDisplayMetrics *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
 
@@ -228,36 +226,36 @@
   if (!_avatarScaleForContentSize_avatarScales)
   {
     v6 = *MEMORY[0x277D76858];
-    v19[0] = *MEMORY[0x277D76830];
-    v19[1] = v6;
-    v20[0] = &unk_2826DCA88;
-    v20[1] = &unk_2826DCA88;
+    v18[0] = *MEMORY[0x277D76830];
+    v18[1] = v6;
+    v19[0] = &unk_2826DCA88;
+    v19[1] = &unk_2826DCA88;
     v7 = *MEMORY[0x277D76838];
-    v19[2] = *MEMORY[0x277D76840];
-    v19[3] = v7;
-    v20[2] = &unk_2826DCA88;
-    v20[3] = &unk_2826DCA88;
+    v18[2] = *MEMORY[0x277D76840];
+    v18[3] = v7;
+    v19[2] = &unk_2826DCA88;
+    v19[3] = &unk_2826DCA88;
     v8 = *MEMORY[0x277D76820];
-    v19[4] = *MEMORY[0x277D76828];
-    v19[5] = v8;
-    v20[4] = &unk_2826DCAA8;
-    v20[5] = &unk_2826DCAB8;
+    v18[4] = *MEMORY[0x277D76828];
+    v18[5] = v8;
+    v19[4] = &unk_2826DCAA8;
+    v19[5] = &unk_2826DCAB8;
     v9 = *MEMORY[0x277D76808];
-    v19[6] = *MEMORY[0x277D76818];
-    v19[7] = v9;
-    v20[6] = &unk_2826DCA98;
-    v20[7] = &unk_2826DCA88;
+    v18[6] = *MEMORY[0x277D76818];
+    v18[7] = v9;
+    v19[6] = &unk_2826DCA98;
+    v19[7] = &unk_2826DCA88;
     v10 = *MEMORY[0x277D767F8];
-    v19[8] = *MEMORY[0x277D76800];
-    v19[9] = v10;
-    v20[8] = &unk_2826DCA88;
-    v20[9] = &unk_2826DCA88;
+    v18[8] = *MEMORY[0x277D76800];
+    v18[9] = v10;
+    v19[8] = &unk_2826DCA88;
+    v19[9] = &unk_2826DCA88;
     v11 = *MEMORY[0x277D767E8];
-    v19[10] = *MEMORY[0x277D767F0];
-    v19[11] = v11;
-    v20[10] = &unk_2826DCA88;
-    v20[11] = &unk_2826DCA88;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:12];
+    v18[10] = *MEMORY[0x277D767F0];
+    v18[11] = v11;
+    v19[10] = &unk_2826DCA88;
+    v19[11] = &unk_2826DCA88;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:12];
     v13 = _avatarScaleForContentSize_avatarScales;
     _avatarScaleForContentSize_avatarScales = v12;
 
@@ -270,7 +268,6 @@
   UIRoundToViewScale();
   v16 = v15;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

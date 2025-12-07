@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityButtonifyArtworkView;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation VideosExtrasLockupElementViewControllerAccessibility
@@ -39,6 +40,14 @@
 
   [v3 setAccessibilityLabel:v9];
   [v3 setAccessibilityTraits:*MEMORY[0x29EDC7F70]];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VideosExtrasLockupElementViewControllerAccessibility;
+  [(VideosExtrasLockupElementViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(VideosExtrasLockupElementViewControllerAccessibility *)self _accessibilityButtonifyArtworkView];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation

@@ -198,36 +198,36 @@
 
 - (void)updateOrderedCollectionIdentifiers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [(NSArray *)self->_orderedCollectionIdentifiers mutableCopy];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_featuredCollections;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        identifier = [*(*(&v13 + 1) + 8 * v8) identifier];
+        identifier = [*(*(&v12 + 1) + 8 * v8) identifier];
         [v3 removeObject:identifier];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -236,48 +236,45 @@
   v10 = [v3 copy];
   orderedCollectionIdentifiers = self->_orderedCollectionIdentifiers;
   self->_orderedCollectionIdentifiers = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)orderedCollections
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   orderedCollectionIdentifiers = [(TPSContentPackage *)self orderedCollectionIdentifiers];
   v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(orderedCollectionIdentifiers, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = orderedCollectionIdentifiers;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         collectionMap = [(TPSContentPackage *)self collectionMap];
         v12 = [collectionMap objectForKeyedSubscript:v10];
         [v4 addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

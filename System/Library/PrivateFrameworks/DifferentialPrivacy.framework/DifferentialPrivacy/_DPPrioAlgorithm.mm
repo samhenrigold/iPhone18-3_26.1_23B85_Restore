@@ -27,12 +27,12 @@
     coin = selfCopy->_coin;
     selfCopy->_coin = v9;
 
-    if ((2 * nextPowerOfTwo(dimensionality + 1)) > 0x100000)
+    if (2 * nextPowerOfTwo(dimensionality + 1) > 0x100000)
     {
       v11 = +[_DPLog framework];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [_DPPrioAlgorithm initWithEpsilon:? dimensionality:?];
+        [_DPPrioAlgorithm initWithEpsilon:dimensionality:];
       }
 
 LABEL_14:
@@ -49,7 +49,7 @@ LABEL_15:
       v11 = +[_DPLog framework];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [_DPPrioAlgorithm initWithEpsilon:? dimensionality:?];
+        [_DPPrioAlgorithm initWithEpsilon:dimensionality:];
       }
 
       goto LABEL_14;
@@ -81,7 +81,7 @@ LABEL_16:
 - (id)privatizeDataWithLocalDP:(BOOL)p withBlock:(id)block
 {
   pCopy = p;
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   dimension = [(_DPPrioAlgorithm *)self dimension];
   v8 = prio_share_length(dimension);
@@ -89,7 +89,7 @@ LABEL_16:
   v10 = [MEMORY[0x277CBEB28] dataWithLength:4 * v8];
   if (v10)
   {
-    v23 = blockCopy;
+    v22 = blockCopy;
     v11 = [MEMORY[0x277CBEB28] dataWithLength:v9];
     mutableBytes = [v10 mutableBytes];
     if (SecRandomCopyBytes(*MEMORY[0x277CDC540], v9, [v11 mutableBytes]))
@@ -132,14 +132,14 @@ LABEL_16:
         if (v19)
         {
           share_array_prng(mutableBytes, [v19 bytes], v8);
-          v24[0] = @"share1";
-          v24[1] = @"share2";
-          v25[0] = v10;
-          v25[1] = v11;
-          v24[2] = @"dimensionality";
+          v23[0] = @"share1";
+          v23[1] = @"share2";
+          v24[0] = v10;
+          v24[1] = v11;
+          v23[2] = @"dimensionality";
           v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:dimension];
-          v25[2] = v20;
-          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+          v24[2] = v20;
+          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
         }
 
         else
@@ -153,7 +153,7 @@ LABEL_16:
           v14 = 0;
         }
 
-        blockCopy = v23;
+        blockCopy = v22;
 
         goto LABEL_20;
       }
@@ -180,35 +180,7 @@ LABEL_20:
   v14 = 0;
 LABEL_21:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v14;
-}
-
-- (void)initWithEpsilon:(uint64_t *)a1 dimensionality:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithEpsilon:(uint64_t *)a1 dimensionality:.cold.2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)privatizeDataWithLocalDP:withBlock:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

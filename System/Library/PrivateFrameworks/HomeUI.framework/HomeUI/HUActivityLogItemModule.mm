@@ -31,7 +31,7 @@
 
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70, &unk_20D5BCEC0);
     sub_20CEF9114();
     v4 = sub_20D567CD8();
   }
@@ -49,7 +49,7 @@
   selfCopy = self;
   sub_20CFC9124();
 
-  sub_20CECF940(0, &unk_28111FFD0);
+  sub_20CECF940(0, &unk_28111FFD0, 0x277D14778);
   v4 = sub_20D567A58();
 
   return v4;

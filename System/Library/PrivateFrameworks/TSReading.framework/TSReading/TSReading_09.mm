@@ -195,18 +195,18 @@ uint64_t Shape::Booleen(void **this, uint64_t a2, uint64_t a3, unsigned int a4)
   this[19] = 0;
   v291 = 0;
   v284 = this;
-  v285 = (this + 19);
+  v285 = this + 19;
   this[20] = 0;
   v274 = v6;
   v275 = v7;
-  while (v50 < *(v6 + 16) || v49 < *(v7 + 16) || v285[10] >= 1)
+  while (v50 < *(v6 + 16) || v49 < *(v7 + 16) || *(v285 + 10) >= 1)
   {
     v290 = 0.0;
     v289 = 0.0;
     v287 = 0;
     v288 = 0;
     v286 = 0;
-    v54 = SweepEvent::PeekInQueue(&v287, &v286, &v290, &v289, &v288 + 1, &v288, (v285 + 10));
+    v54 = SweepEvent::PeekInQueue(&v287, &v286, &v290, &v289, &v288 + 1, &v288, (v285 + 5));
     v55 = *(v6 + 16);
     if (!v54)
     {
@@ -242,7 +242,7 @@ uint64_t Shape::Booleen(void **this, uint64_t a2, uint64_t a3, unsigned int a4)
       if (*(v73 + 8) > 0 || (v74 = *(v73 + 40), v74 > v289))
       {
 LABEL_78:
-        SweepEvent::ExtractFromQueue(&v287, &v286, &v290, &v289, &v288 + 1, &v288, (v285 + 10));
+        SweepEvent::ExtractFromQueue(&v287, &v286, &v290, &v289, &v288 + 1, &v288, (v285 + 5));
         v68 = 0;
         v71 = 1;
         v67 = -1;
@@ -368,9 +368,9 @@ LABEL_79:
     v78 = ldexpf(roundf(v77), -5);
     v79 = Shape::AddPoint(this, v76, v78);
     v80 = v79;
-    v81 = this[11] + 48 * v79;
-    *(v81 + 36) = v76;
-    *(v81 + 40) = v78;
+    v81 = (this[11] + 48 * v79);
+    v81[9] = v76;
+    v81[10] = v78;
     if (v78 <= v53)
     {
       v104 = v79;
@@ -592,7 +592,7 @@ LABEL_180:
         v178 = v104;
         v179 = SweepTree::AddInList(v68, v117, 1, v104, v285 + 4);
         *(*(v68 + 64) + 56 * v117) = v179;
-        SweepTree::Insert(v179, (v285 + 4), v285 + 10, v284, v178, 1, 1);
+        SweepTree::Insert(v179, (v285 + 2), v285 + 10, v284, v178, 1, 1);
         v278 = v179;
         v185 = *v179;
         if (*v179)
@@ -688,7 +688,7 @@ LABEL_154:
                 v277 = -1;
               }
 
-              SweepTree::Remove(v149, (v285 + 4), v285 + 10, 1);
+              SweepTree::Remove(v149, (v285 + 2), v285 + 10, 1);
               v104 = v280;
               if (v152)
               {
@@ -803,7 +803,7 @@ LABEL_185:
 LABEL_203:
             v202 = SweepTree::AddInList(v68, v192, 1, v193, v285 + 4);
             *(*(v68 + 64) + 56 * v195) = v202;
-            SweepTree::InsertAt(v202, (v285 + 4), v285 + 10, v284, v278, v67, 1, 1);
+            SweepTree::InsertAt(v202, (v285 + 2), v285 + 10, v284, v278, v67, 1, 1);
             if (v166)
             {
               v208 = *v202;
@@ -980,7 +980,7 @@ LABEL_237:
   }
 
   *v285 = 0;
-  *(v285 + 1) = 0;
+  v285[1] = 0;
   Shape::AssembleAretes(this);
   v249 = *(this + 4);
   if (v249 >= 1)
@@ -1006,8 +1006,8 @@ LABEL_237:
       while (1)
       {
         v255 = this[9] + 32 * v254;
-        v258 = *(v255 + 20);
-        v257 = (v255 + 20);
+        v258 = *(v255 + 5);
+        v257 = v255 + 20;
         v256 = v258;
         v259 = *(v257 - 1) & 1;
         *(v257 - 1) = v259;
@@ -1065,8 +1065,8 @@ LABEL_256:
     while (1)
     {
       v267 = this[9] + 32 * v266;
-      v268 = *(v267 + 20);
-      if (*(v267 + 16) < 1)
+      v268 = *(v267 + 5);
+      if (*(v267 + 4) < 1)
       {
         if (v268 <= 0)
         {
@@ -1111,8 +1111,8 @@ LABEL_282:
     while (1)
     {
       v271 = this[9] + 32 * v270;
-      v272 = *(v271 + 20);
-      if (*(v271 + 16) < 1)
+      v272 = *(v271 + 5);
+      if (*(v271 + 4) < 1)
       {
         if (v272 <= 0)
         {
@@ -1150,8 +1150,8 @@ LABEL_294:
     for (i = 0; i < *(this + 8); ++i)
     {
       v263 = this[9] + 32 * i;
-      v264 = *(v263 + 20);
-      if (*(v263 + 16) < 2)
+      v264 = *(v263 + 5);
+      if (*(v263 + 4) < 2)
       {
         if (v264 <= 1)
         {
@@ -1707,9 +1707,9 @@ LABEL_39:
   return 0;
 }
 
-unsigned int *Shape::AssemblePoints(unsigned int *this, Shape *a2)
+Shape *Shape::AssemblePoints(Shape *this, Shape *a2)
 {
-  v2 = this[4];
+  v2 = *(this + 4);
   if (v2 >= 1)
   {
     v4 = this;
@@ -1731,7 +1731,7 @@ unsigned int *Shape::AssemblePoints(unsigned int *this, Shape *a2)
       while (v5);
     }
 
-    v9 = v4[38];
+    v9 = *(v4 + 38);
     if (v9 >= 1)
     {
       v10 = *(v4 + 11);
@@ -1746,7 +1746,7 @@ unsigned int *Shape::AssemblePoints(unsigned int *this, Shape *a2)
       while (v9);
     }
 
-    v4[4] = this;
+    *(v4 + 4) = this;
   }
 
   return this;
@@ -1979,7 +1979,7 @@ uint64_t Shape::Validate(uint64_t this)
   return this;
 }
 
-void Shape::Avance(uint64_t a1, signed int a2, int a3, Shape *a4, int a5, uint64_t a6, Shape *a7, int a8)
+void Shape::Avance(uint64_t a1, int a2, int a3, Shape *a4, int a5, uint64_t a6, Shape *a7, int a8)
 {
   v15 = ldexpf(1.0, -5);
   v17 = a4 != a7 || (a8 & 0xFFFFFFFE) != 2;
@@ -2260,7 +2260,7 @@ LABEL_101:
   *(v18 + 56 * v19 + 48) = a2 - 1;
 }
 
-uint64_t Shape::DoEdgeTo(Shape *this, Shape *a2, int a3, unsigned int a4, int a5, int a6)
+uint64_t Shape::DoEdgeTo(Shape *this, Shape *a2, int a3, int a4, int a5, int a6)
 {
   v9 = a3;
   v10 = *(a2 + 8) + 56 * a3;
@@ -3130,19 +3130,19 @@ uint64_t SweepTree::Remove(AVLTree *a1, uint64_t a2, int *a3, int a4)
   return v7;
 }
 
-uint64_t *SweepTree::Relocate(uint64_t *this, SweepTree *a2)
+AVLTree *SweepTree::Relocate(AVLTree *this, SweepTree *a2)
 {
   if (this != a2)
   {
     v3 = this;
     this = AVLTree::Relocate(this, a2);
-    v4 = v3[8];
+    v4 = *(v3 + 8);
     *(a2 + 8) = v4;
     v5 = *(v3 + 18);
     *(a2 + 18) = v5;
     *(a2 + 76) = *(v3 + 76);
-    v7 = v3[6];
-    v6 = v3[7];
+    v7 = *(v3 + 6);
+    v6 = *(v3 + 7);
     *(a2 + 6) = v7;
     *(a2 + 7) = v6;
     *(a2 + 20) = *(v3 + 20);
@@ -3257,7 +3257,7 @@ uint64_t SweepTree::InsertAt(AVLTree *this, uint64_t a2, int *a3, int a4, AVLTre
 
   v12 = a5;
   v14 = *(this + 8);
-  v15 = *(v14 + 40) + 32 * *(this + 18);
+  v15 = *(v14 + 5) + 32 * *(this + 18);
   v16 = *v15;
   v17 = *(v15 + 4);
   if (*(v15 + 8) > *(v15 + 12))
@@ -3293,7 +3293,7 @@ uint64_t SweepTree::InsertAt(AVLTree *this, uint64_t a2, int *a3, int a4, AVLTre
 
   else
   {
-    v27 = *(v14 + 88) + 48 * a6;
+    v27 = *(v14 + 11) + 48 * a6;
     v28 = *(v27 + 36);
     v29 = *(v27 + 40);
     if (v21 <= 0.0)
@@ -3316,7 +3316,7 @@ uint64_t SweepTree::InsertAt(AVLTree *this, uint64_t a2, int *a3, int a4, AVLTre
           }
 
           v43 = *(v22 + 8);
-          v44 = *(v43 + 40) + 32 * *(v22 + 18);
+          v44 = *(v43 + 5) + 32 * *(v22 + 18);
           v45 = *(v44 + 8);
           if (v43 == v14)
           {
@@ -3337,7 +3337,7 @@ uint64_t SweepTree::InsertAt(AVLTree *this, uint64_t a2, int *a3, int a4, AVLTre
           else
           {
             v46 = *(v44 + 12);
-            v47 = *(v43 + 88);
+            v47 = *(v43 + 11);
             v48 = v47 + 48 * v45;
             if (*(v48 + 36) == v28 && *(v48 + 40) == v29)
             {
@@ -3410,8 +3410,8 @@ LABEL_60:
     while (1)
     {
       v30 = v12;
-      v31 = *(v12 + 8);
-      v32 = *(v31 + 40) + 32 * *(v12 + 18);
+      v31 = v12[8];
+      v32 = *(v31 + 5) + 32 * *(v12 + 18);
       v33 = *(v32 + 8);
       if (v31 == v14)
       {
@@ -3432,7 +3432,7 @@ LABEL_60:
       else
       {
         v34 = *(v32 + 12);
-        v35 = *(v31 + 88);
+        v35 = *(v31 + 11);
         v36 = v35 + 48 * v33;
         if (*(v36 + 36) == v28 && *(v36 + 40) == v29)
         {
@@ -3502,13 +3502,13 @@ LABEL_11:
     }
 
     *(v22 + 6) = 0;
-    v25 = *(v12 + 7);
+    v25 = v12[7];
     if (v25)
     {
       SweepEvent::SupprFromQueue(v25, a3);
     }
 
-    *(v12 + 7) = 0;
+    v12[7] = 0;
     v10 = *(a2 + 16);
   }
 
@@ -3541,16 +3541,16 @@ uint64_t SweepTree::SwapWithRight(uint64_t result)
   return result;
 }
 
-void sub_26C8333A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C8333A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C83A698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C83A698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3599,21 +3599,21 @@ void TSDColorFill_DrawClearColorRepresentation(CGContext *a1, CGFloat a2, CGFloa
   }
 }
 
-void sub_26C83F3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C83F3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C842664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26C842664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t TSDTextInputResponderClass()
+uint64_t TSDTextInputResponderClass(uint64_t a1, uint64_t a2)
 {
   TSUSupportsTextInteraction();
 
@@ -3989,24 +3989,25 @@ LABEL_8:
   }
 }
 
-void sub_26C863280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_26C863280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C865A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C865A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4305,7 +4306,7 @@ void sub_26C8763A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_26C8771D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, char *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, void *__p, uint64_t a54, uint64_t a55, char a56, void *a57, uint64_t a58, void *a59, uint64_t a60)
+void sub_26C8771D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, char *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, void *__p, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, void *a59, uint64_t a60)
 {
   a45 = &a42;
   std::vector<std::vector<boost::polygon::segment_data<double>>>::__destroy_vector::operator()[abi:ne200100](&a45);
@@ -4375,9 +4376,9 @@ void boost::polygon::construct_voronoi<std::__wrap_iter<boost::polygon::point_da
   }
 }
 
-void sub_26C877420(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C877420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::~voronoi_builder(va);
   _Unwind_Resume(a1);
 }
@@ -4405,7 +4406,7 @@ uint64_t std::vector<boost::polygon::segment_data<double>>::push_back[abi:ne2001
   return result;
 }
 
-uint64_t std::vector<std::vector<boost::polygon::segment_data<double>>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<boost::polygon::segment_data<double>>>::push_back[abi:ne200100](uint64_t a1, void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -4416,14 +4417,14 @@ uint64_t std::vector<std::vector<boost::polygon::segment_data<double>>>::push_ba
   else
   {
     std::vector<std::vector<boost::polygon::segment_data<double>>>::__construct_one_at_end[abi:ne200100]<std::vector<boost::polygon::segment_data<double>> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t std::vector<boost::polygon::segment_data<double>>::insert(void *a1, uint64_t a2, void *a3)
+char *std::vector<boost::polygon::segment_data<double>>::insert(void *a1, char *a2, char *a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -4437,7 +4438,7 @@ unint64_t std::vector<boost::polygon::segment_data<double>>::insert(void *a1, ui
       std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
     }
 
-    v13 = a2 - v11;
+    v13 = &a2[-v11];
     v14 = v7 - v11;
     v15 = v14 >> 4;
     if (v14 >> 4 <= v12)
@@ -4484,17 +4485,17 @@ unint64_t std::vector<boost::polygon::segment_data<double>>::insert(void *a1, ui
     *v6 = 0u;
     *(v6 + 16) = 0u;
     *v6 = *a3;
-    *(v6 + 8) = a3[1];
-    *(v6 + 16) = a3[2];
-    *(v6 + 24) = a3[3];
+    *(v6 + 8) = *(a3 + 1);
+    *(v6 + 16) = *(a3 + 2);
+    *(v6 + 24) = *(a3 + 3);
     a1[1] = v6 + 32;
   }
 
   else
   {
-    std::vector<boost::polygon::segment_data<double>>::__move_range(a1, a2, v6, a2 + 32);
+    std::vector<boost::polygon::segment_data<double>>::__move_range(a1, a2, v6, (a2 + 32));
     v8 = a1[1] <= a3 || v4 > a3;
-    v9 = 4;
+    v9 = 32;
     if (v8)
     {
       v9 = 0;
@@ -4502,9 +4503,9 @@ unint64_t std::vector<boost::polygon::segment_data<double>>::insert(void *a1, ui
 
     v10 = &a3[v9];
     *v4 = *v10;
-    *(v4 + 8) = v10[1];
-    *(v4 + 16) = v10[2];
-    *(v4 + 24) = v10[3];
+    *(v4 + 1) = *(v10 + 1);
+    *(v4 + 2) = *(v10 + 2);
+    *(v4 + 3) = *(v10 + 3);
   }
 
   return v4;
@@ -4546,7 +4547,7 @@ uint64_t boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_
   return a1;
 }
 
-uint64_t std::vector<boost::polygon::segment_data<double>>::__init_with_size[abi:ne200100]<boost::polygon::segment_data<double>*,boost::polygon::segment_data<double>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<boost::polygon::segment_data<double>>::__init_with_size[abi:ne200100]<boost::polygon::segment_data<double>*,boost::polygon::segment_data<double>*>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4568,7 +4569,7 @@ void sub_26C877AB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<boost::polygon::segment_data<double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<boost::polygon::segment_data<double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -4588,15 +4589,15 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::segme
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__tree<boost::polygon::point_data<double>>::__emplace_unique_key_args<boost::polygon::point_data<double>,boost::polygon::point_data<double> const&>(uint64_t a1, double *a2)
+uint64_t std::__tree<boost::polygon::point_data<double>>::__emplace_unique_key_args<boost::polygon::point_data<double>,boost::polygon::point_data<double> const&>(uint64_t **a1, double *a2, _OWORD *a3)
 {
-  v2 = *std::__tree<boost::polygon::point_data<double>>::__find_equal<boost::polygon::point_data<double>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<boost::polygon::point_data<double>>::__find_equal<boost::polygon::point_data<double>>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<boost::polygon::point_data<double>>::__find_equal<boost::polygon::point_data<double>>(uint64_t a1, void *a2, double *a3)
@@ -4818,13 +4819,13 @@ double *std::__tree<boost::polygon::point_data<double>>::find<boost::polygon::po
   return v7;
 }
 
-void boost::polygon::insert<std::__wrap_iter<boost::polygon::point_data<double> *>,boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>>(float64x2_t *a1, float64x2_t *a2, uint64_t a3)
+void boost::polygon::insert<std::__wrap_iter<boost::polygon::point_data<double> *>,boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>>(float64x2_t *result, float64x2_t *a2, uint64_t a3)
 {
-  if (a1 != a2)
+  if (result != a2)
   {
     v14 = v3;
     v15 = v4;
-    v7 = a1;
+    v7 = result;
     do
     {
       v8 = *v7++;
@@ -5057,18 +5058,18 @@ uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_cty
   return result;
 }
 
-void *boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::_reserve(void *a1, int a2)
+void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::_reserve(void *a1, int a2)
 {
   std::vector<boost::polygon::voronoi_cell<double>>::reserve(a1, a2);
   std::vector<boost::polygon::voronoi_vertex<double>>::reserve(a1 + 3, 2 * a2);
 
-  return std::vector<boost::polygon::voronoi_edge<double>>::reserve(a1 + 6, 6 * a2);
+  std::vector<boost::polygon::voronoi_edge<double>>::reserve(a1 + 6, 6 * a2);
 }
 
-unsigned int *boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::init_sites_queue(uint64_t a1)
+unsigned int *boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::init_sites_queue(void *a1)
 {
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
+  v2 = a1[1];
+  v3 = a1[2];
   v4 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v3 - v2) >> 3));
   v18 = 0;
   if (v3 == v2)
@@ -5082,13 +5083,13 @@ unsigned int *boost::polygon::voronoi_builder<int,boost::polygon::detail::vorono
   }
 
   std::__introsort<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,false>(v2, v3, &v18, v5, 1);
-  result = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__equal_to &>(*(a1 + 8), *(a1 + 16));
-  v7 = *(a1 + 8);
-  v8 = *(a1 + 16);
+  result = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__equal_to &>(a1[1], a1[2], &v19);
+  v7 = a1[1];
+  v8 = a1[2];
   if (result != v8)
   {
     v8 = result;
-    *(a1 + 16) = result;
+    a1[2] = result;
   }
 
   if (v8 != v7)
@@ -5131,28 +5132,28 @@ unsigned int *boost::polygon::voronoi_builder<int,boost::polygon::detail::vorono
     while (v12 != v9);
   }
 
-  *(a1 + 32) = v7;
+  a1[4] = v7;
   return result;
 }
 
-void boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::init_beach_line<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(void *a1, uint64_t *a2)
+void boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::init_beach_line<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(void *result, uint64_t *a2)
 {
-  v3 = a1[1];
-  v4 = a1[2];
+  v3 = result[1];
+  v4 = result[2];
   if (v3 != v4)
   {
-    if ((v4 - v3) == 40)
+    if (v4 - v3 == 40)
     {
-      v6 = *(v3 + 32) & 0x1FLL;
-      v10 = *(v3 + 24);
+      v6 = *(v3 + 4) & 0x1FLL;
+      v10 = *(v3 + 3);
       v11 = v6;
       std::vector<boost::polygon::voronoi_cell<double>>::push_back[abi:ne200100](a2, &v10);
 LABEL_11:
-      a1[4] += 40;
+      result[4] += 40;
       return;
     }
 
-    v7 = a1[4];
+    v7 = result[4];
     if (v7 != v4)
     {
       v8 = 0;
@@ -5164,25 +5165,25 @@ LABEL_11:
           break;
         }
 
-        if (v9 != v7[2])
+        if (v9 != *(v7 + 2))
         {
           break;
         }
 
-        v7 += 10;
-        a1[4] = v7;
+        v7 += 40;
+        result[4] = v7;
         ++v8;
       }
 
       while (v7 != v4);
       if (v8 == 1)
       {
-        boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(a1, v3, v3, v3 + 40, a1 + 17, a2);
+        boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(result, v3, v3, (v3 + 40), result + 17, a2);
         goto LABEL_11;
       }
     }
 
-    boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::init_beach_line_collinear_sites<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(a1, a2);
+    boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::init_beach_line_collinear_sites<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(result, a2);
   }
 }
 
@@ -5364,15 +5365,15 @@ LABEL_25:
         while (v19);
       }
 
-      v25 = boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(a1, (v37 + 72), v37 + 72, &v43, v25, a2);
-      boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, (v37 + 32), v37 + 72, &v43);
+      v25 = boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(a1, (v37 + 72), (v37 + 72), &v43, v25, a2);
+      boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, (v37 + 32), v37 + 72, &v43, v25);
     }
 
     else
     {
       if (v25 == *(a1 + 128))
       {
-        v34 = boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(a1, (v25 + 32), v25 + 32, &v43, v25, a2);
+        v34 = boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(a1, (v25 + 32), (v25 + 32), &v43, v25, a2);
       }
 
       else
@@ -5409,8 +5410,8 @@ LABEL_25:
           while (v19);
         }
 
-        v34 = boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(a1, (v33 + 72), v25 + 32, &v43, v25, a2);
-        boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, (v33 + 32), v33 + 72, &v43);
+        v34 = boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(a1, (v33 + 72), (v25 + 32), &v43, v25, a2);
+        boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, (v33 + 32), v33 + 72, &v43, v34);
       }
 
       if (v43 != *(&v43 + 1))
@@ -5418,7 +5419,7 @@ LABEL_25:
         v45 ^= 0x20uLL;
       }
 
-      boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, &v43, v25 + 32, (v25 + 72));
+      boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, &v43, v25 + 32, (v25 + 72), v25);
       v25 = v34;
     }
 
@@ -5514,7 +5515,7 @@ void boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_t
       while (v11);
     }
 
-    boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, (v17 + 32), v22, &v24);
+    boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, (v17 + 32), v22, &v24, v9);
   }
 
   v19 = *(v9 + 8);
@@ -5541,16 +5542,16 @@ void boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_t
     while (!v11);
   }
 
-  if (v20 != (a1 + 136))
+  if (v20 != a1 + 136)
   {
-    v21 = *(v20 + 14);
+    v21 = *(v20 + 112);
     if (v21)
     {
       *(v21 + 24) = 0;
-      *(v20 + 14) = 0;
+      *(v20 + 112) = 0;
     }
 
-    boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, v22, &v24, v20 + 18);
+    boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(a1, v22, &v24, (v20 + 72), v20);
   }
 }
 
@@ -5670,19 +5671,19 @@ void boost::polygon::detail::ordered_queue<std::pair<boost::polygon::detail::cir
   operator delete(v4);
 }
 
-void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::_build(uint64_t *a1)
+void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::_build(uint64_t *result)
 {
-  v3 = a1[6];
-  v2 = a1[7];
+  v3 = result[6];
+  v2 = result[7];
   if (v3 == v2)
   {
-    v5 = a1[6];
+    v5 = result[6];
   }
 
   else
   {
     v4 = v3 + 3;
-    v5 = a1[6];
+    v5 = result[6];
     do
     {
       v6 = *(v3 + 1);
@@ -5697,7 +5698,7 @@ void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_trai
         v8 = 1;
       }
 
-      if (v8 || !boost::polygon::voronoi_diagram_traits<double>::vertex_equality_predicate_type::operator()((a1 + 9), v6, v7))
+      if (v8 || !boost::polygon::voronoi_diagram_traits<double>::vertex_equality_predicate_type::operator()((result + 9), v6, v7))
       {
         if (v3 != v5)
         {
@@ -5733,22 +5734,22 @@ void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_trai
 
       else
       {
-        boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::remove_edge(a1, v3);
+        boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::remove_edge(result, v3);
       }
 
       v3 += 6;
-      v2 = a1[7];
+      v2 = result[7];
       v4 += 6;
     }
 
     while (v3 != v2);
-    v3 = a1[6];
+    v3 = result[6];
   }
 
   if (v5 != v2)
   {
     v2 = v5;
-    a1[7] = v5;
+    result[7] = v5;
   }
 
   while (v3 != v2)
@@ -5763,8 +5764,8 @@ void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_trai
     v3 += 3;
   }
 
-  v17 = a1[3];
-  v16 = a1[4];
+  v17 = result[3];
+  v16 = result[4];
   v18 = v17;
   if (v17 != v16)
   {
@@ -5786,7 +5787,7 @@ void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_trai
           }
 
           while (v21 != v20);
-          v16 = a1[4];
+          v16 = result[4];
         }
 
         v17 += 2;
@@ -5796,19 +5797,19 @@ void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_trai
     }
 
     while (v18 != v16);
-    v18 = a1[3];
+    v18 = result[3];
   }
 
   if (v17 != v16)
   {
     v16 = v17;
-    a1[4] = v17;
+    result[4] = v17;
   }
 
   if (v18 == v16)
   {
-    v28 = a1[6];
-    v29 = a1[7];
+    v28 = result[6];
+    v29 = result[7];
     if (v28 != v29)
     {
       v28[3] = v28;
@@ -5831,8 +5832,8 @@ void boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_trai
 
   else
   {
-    v22 = *a1;
-    v23 = a1[1];
+    v22 = *result;
+    v23 = result[1];
     while (v22 != v23)
     {
       v24 = *(v22 + 8);
@@ -5878,49 +5879,43 @@ LABEL_45:
   }
 }
 
-void *std::vector<boost::polygon::voronoi_cell<double>>::reserve(void *result, unint64_t a2)
+void std::vector<boost::polygon::voronoi_cell<double>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::voronoi_cell<double>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::voronoi_cell<double>>>(a1, a2);
     }
 
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<boost::polygon::voronoi_vertex<double>>::reserve(void *result, unint64_t a2)
+void std::vector<boost::polygon::voronoi_vertex<double>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 5)
+  if (a2 > (a1[2] - *a1) >> 5)
   {
     if (!(a2 >> 59))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::voronoi_vertex<double>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::voronoi_vertex<double>>>(a1, a2);
     }
 
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<boost::polygon::voronoi_edge<double>>::reserve(void *result, unint64_t a2)
+void std::vector<boost::polygon::voronoi_edge<double>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x555555555555556)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::voronoi_edge<double>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::voronoi_edge<double>>>(a1, a2);
     }
 
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::voronoi_cell<double>>>(uint64_t a1, unint64_t a2)
@@ -5953,18 +5948,18 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<boost::polygon::voron
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,false>(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,false>(int *result, __n128 *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v8 = a2 - 10;
-  v115 = (a2 - 5);
-  v9 = (a2 - 120);
-  v10 = a1;
+  v8 = &a2[-3].n128_i32[2];
+  v115 = &a2[-5];
+  v9 = &a2[-8].n128_i8[8];
+  v10 = result;
 LABEL_2:
   v11 = 1 - a4;
   while (1)
   {
-    a1 = v10;
+    result = v10;
     v12 = v11;
     v13 = a2 - v10;
     v14 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - v10) >> 3);
@@ -5980,7 +5975,7 @@ LABEL_2:
 
     if (v14 == 2)
     {
-      if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 10, v10))
+      if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a2[-3].n128_i32[2], v10))
       {
         goto LABEL_76;
       }
@@ -6022,47 +6017,47 @@ LABEL_10:
     if (v13 >= 0x1401)
     {
       v17 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v16, v10);
-      v18 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 10, v16);
+      v18 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a2[-3].n128_i32[2], v16);
       if (v17)
       {
         if (v18)
         {
-          v165 = *(a1 + 32);
-          v117 = *a1;
-          v141 = *(a1 + 16);
+          v165 = *(result + 4);
+          v117 = *result;
+          v141 = *(result + 1);
           v19 = *v8;
-          v20 = *(a2 - 24);
-          *(a1 + 32) = *(a2 - 1);
-          *a1 = v19;
-          *(a1 + 16) = v20;
+          v20 = *(&a2[-2] + 8);
+          *(result + 4) = a2[-1].n128_u64[1];
+          *result = v19;
+          *(result + 1) = v20;
           goto LABEL_27;
         }
 
-        v171 = *(a1 + 32);
-        v123 = *a1;
-        v147 = *(a1 + 16);
+        v171 = *(result + 4);
+        v123 = *result;
+        v147 = *(result + 1);
         v33 = *v16;
         v34 = *(v16 + 1);
-        *(a1 + 32) = *(v16 + 4);
-        *a1 = v33;
-        *(a1 + 16) = v34;
+        *(result + 4) = *(v16 + 4);
+        *result = v33;
+        *(result + 1) = v34;
         *(v16 + 4) = v171;
         *v16 = v123;
         *(v16 + 1) = v147;
-        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 10, v16))
+        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a2[-3].n128_i32[2], v16))
         {
           v165 = *(v16 + 4);
           v117 = *v16;
           v141 = *(v16 + 1);
           v35 = *v8;
-          v36 = *(a2 - 24);
-          *(v16 + 4) = *(a2 - 1);
+          v36 = *(&a2[-2] + 8);
+          *(v16 + 4) = a2[-1].n128_u64[1];
           *v16 = v35;
           *(v16 + 1) = v36;
 LABEL_27:
           *v8 = v117;
           *(a2 - 24) = v141;
-          *(a2 - 1) = v165;
+          a2[-1].n128_u64[1] = v165;
         }
       }
 
@@ -6072,189 +6067,189 @@ LABEL_27:
         v119 = *v16;
         v143 = *(v16 + 1);
         v25 = *v8;
-        v26 = *(a2 - 24);
-        *(v16 + 4) = *(a2 - 1);
+        v26 = *(&a2[-2] + 8);
+        *(v16 + 4) = a2[-1].n128_u64[1];
         *v16 = v25;
         *(v16 + 1) = v26;
         *v8 = v119;
         *(a2 - 24) = v143;
-        *(a2 - 1) = v167;
-        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v16, a1))
+        a2[-1].n128_u64[1] = v167;
+        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v16, result))
         {
-          v168 = *(a1 + 32);
-          v120 = *a1;
-          v144 = *(a1 + 16);
+          v168 = *(result + 4);
+          v120 = *result;
+          v144 = *(result + 1);
           v27 = *v16;
           v28 = *(v16 + 1);
-          *(a1 + 32) = *(v16 + 4);
-          *a1 = v27;
-          *(a1 + 16) = v28;
+          *(result + 4) = *(v16 + 4);
+          *result = v27;
+          *(result + 1) = v28;
           *(v16 + 4) = v168;
           *v16 = v120;
           *(v16 + 1) = v144;
         }
       }
 
-      v37 = a1 + 40 * v15 - 40;
-      v38 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v37, (a1 + 40));
+      v37 = &result[10 * v15 - 10];
+      v38 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v37, result + 10);
       v39 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v115, v37);
       if (v38)
       {
         if (v39)
         {
-          v40 = *(a1 + 40);
-          v41 = *(a1 + 56);
-          v42 = *(a1 + 72);
-          v43 = *(a2 - 6);
-          v44 = *(a2 - 4);
-          *(a1 + 40) = *v115;
-          *(a1 + 56) = v44;
-          *(a1 + 72) = v43;
-          *(a2 - 6) = v42;
+          v40 = *(result + 10);
+          v41 = *(result + 14);
+          v42 = *(result + 9);
+          v43 = a2[-3].n128_u64[0];
+          v44 = a2[-4];
+          *(result + 10) = *v115;
+          *(result + 14) = v44;
+          *(result + 9) = v43;
+          a2[-3].n128_u64[0] = v42;
           *v115 = v40;
-          *(a2 - 4) = v41;
+          a2[-4] = v41;
         }
 
         else
         {
-          v127 = *(a1 + 40);
-          v151 = *(a1 + 56);
-          v175 = *(a1 + 72);
+          v127 = *(result + 10);
+          v151 = *(result + 14);
+          v175 = *(result + 9);
           v54 = *v37;
-          v53 = *(a1 + 40 * v15 - 24);
-          *(a1 + 72) = *(a1 + 40 * v15 - 8);
-          *(a1 + 40) = v54;
-          *(a1 + 56) = v53;
-          *(a1 + 40 * v15 - 8) = v175;
+          v53 = *&result[10 * v15 - 6];
+          *(result + 9) = *&result[10 * v15 - 2];
+          *(result + 10) = v54;
+          *(result + 14) = v53;
+          *&result[10 * v15 - 2] = v175;
           *v37 = v127;
-          *(a1 + 40 * v15 - 24) = v151;
+          *&result[10 * v15 - 6] = v151;
           if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v115, v37))
           {
-            v176 = *(a1 + 40 * v15 - 8);
+            v176 = *&result[10 * v15 - 2];
             v128 = *v37;
-            v152 = *(a1 + 40 * v15 - 24);
+            v152 = *&result[10 * v15 - 6];
             v55 = *v115;
-            v56 = *(a2 - 4);
-            *(a1 + 40 * v15 - 8) = *(a2 - 6);
+            v56 = a2[-4];
+            *&result[10 * v15 - 2] = a2[-3].n128_u64[0];
             *v37 = v55;
-            *(a1 + 40 * v15 - 24) = v56;
+            *&result[10 * v15 - 6] = v56;
             *v115 = v128;
-            *(a2 - 4) = v152;
-            *(a2 - 6) = v176;
+            a2[-4] = v152;
+            a2[-3].n128_u64[0] = v176;
           }
         }
       }
 
       else if (v39)
       {
-        v172 = *(a1 + 40 * v15 - 8);
+        v172 = *&result[10 * v15 - 2];
         v124 = *v37;
-        v148 = *(a1 + 40 * v15 - 24);
+        v148 = *&result[10 * v15 - 6];
         v45 = *v115;
-        v46 = *(a2 - 4);
-        *(a1 + 40 * v15 - 8) = *(a2 - 6);
+        v46 = a2[-4];
+        *&result[10 * v15 - 2] = a2[-3].n128_u64[0];
         *v37 = v45;
-        *(a1 + 40 * v15 - 24) = v46;
+        *&result[10 * v15 - 6] = v46;
         *v115 = v124;
-        *(a2 - 4) = v148;
-        *(a2 - 6) = v172;
-        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v37, (a1 + 40)))
+        a2[-4] = v148;
+        a2[-3].n128_u64[0] = v172;
+        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v37, result + 10))
         {
-          v125 = *(a1 + 40);
-          v149 = *(a1 + 56);
-          v173 = *(a1 + 72);
+          v125 = *(result + 10);
+          v149 = *(result + 14);
+          v173 = *(result + 9);
           v48 = *v37;
-          v47 = *(a1 + 40 * v15 - 24);
-          *(a1 + 72) = *(a1 + 40 * v15 - 8);
-          *(a1 + 40) = v48;
-          *(a1 + 56) = v47;
-          *(a1 + 40 * v15 - 8) = v173;
+          v47 = *&result[10 * v15 - 6];
+          *(result + 9) = *&result[10 * v15 - 2];
+          *(result + 10) = v48;
+          *(result + 14) = v47;
+          *&result[10 * v15 - 2] = v173;
           *v37 = v125;
-          *(a1 + 40 * v15 - 24) = v149;
+          *&result[10 * v15 - 6] = v149;
         }
       }
 
-      v57 = a1 + 40 * v15;
-      v58 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (v57 + 40), (a1 + 80));
-      v59 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 30, (v57 + 40));
+      v57 = &result[10 * v15];
+      v58 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v57 + 10, result + 20);
+      v59 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a2[-8].n128_i32[2], v57 + 10);
       if (v58)
       {
         if (v59)
         {
-          v60 = *(a1 + 80);
-          v61 = *(a1 + 96);
-          v62 = *(a1 + 112);
-          v63 = *(a2 - 11);
-          v64 = *(a2 - 104);
-          *(a1 + 80) = *v9;
-          *(a1 + 96) = v64;
-          *(a1 + 112) = v63;
-          *(a2 - 11) = v62;
+          v60 = *(result + 5);
+          v61 = *(result + 6);
+          v62 = *(result + 14);
+          v63 = a2[-6].n128_u64[1];
+          v64 = *(&a2[-7] + 8);
+          *(result + 5) = *v9;
+          *(result + 6) = v64;
+          *(result + 14) = v63;
+          a2[-6].n128_u64[1] = v62;
           *v9 = v60;
           *(a2 - 104) = v61;
         }
 
         else
         {
-          v131 = *(a1 + 80);
-          v155 = *(a1 + 96);
-          v179 = *(a1 + 112);
-          v69 = *(v57 + 56);
-          v70 = *(v57 + 40);
-          *(a1 + 112) = *(v57 + 72);
-          *(a1 + 80) = v70;
-          *(a1 + 96) = v69;
-          *(v57 + 56) = v155;
-          *(v57 + 72) = v179;
-          *(v57 + 40) = v131;
-          if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 30, (v57 + 40)))
+          v131 = *(result + 5);
+          v155 = *(result + 6);
+          v179 = *(result + 14);
+          v69 = *(v57 + 14);
+          v70 = *(v57 + 10);
+          *(result + 14) = *(v57 + 9);
+          *(result + 5) = v70;
+          *(result + 6) = v69;
+          *(v57 + 14) = v155;
+          *(v57 + 9) = v179;
+          *(v57 + 10) = v131;
+          if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a2[-8].n128_i32[2], v57 + 10))
           {
-            v180 = *(v57 + 72);
-            v132 = *(v57 + 40);
-            v156 = *(v57 + 56);
+            v180 = *(v57 + 9);
+            v132 = *(v57 + 10);
+            v156 = *(v57 + 14);
             v71 = *v9;
-            v72 = *(a2 - 104);
-            *(v57 + 72) = *(a2 - 11);
-            *(v57 + 56) = v72;
-            *(v57 + 40) = v71;
+            v72 = *(&a2[-7] + 8);
+            *(v57 + 9) = a2[-6].n128_u64[1];
+            *(v57 + 14) = v72;
+            *(v57 + 10) = v71;
             *v9 = v132;
             *(a2 - 104) = v156;
-            *(a2 - 11) = v180;
+            a2[-6].n128_u64[1] = v180;
           }
         }
       }
 
       else if (v59)
       {
-        v177 = *(v57 + 72);
-        v129 = *(v57 + 40);
-        v153 = *(v57 + 56);
+        v177 = *(v57 + 9);
+        v129 = *(v57 + 10);
+        v153 = *(v57 + 14);
         v65 = *v9;
-        v66 = *(a2 - 104);
-        *(v57 + 72) = *(a2 - 11);
-        *(v57 + 56) = v66;
-        *(v57 + 40) = v65;
+        v66 = *(&a2[-7] + 8);
+        *(v57 + 9) = a2[-6].n128_u64[1];
+        *(v57 + 14) = v66;
+        *(v57 + 10) = v65;
         *v9 = v129;
         *(a2 - 104) = v153;
-        *(a2 - 11) = v177;
-        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (v57 + 40), (a1 + 80)))
+        a2[-6].n128_u64[1] = v177;
+        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v57 + 10, result + 20))
         {
-          v130 = *(a1 + 80);
-          v154 = *(a1 + 96);
-          v178 = *(a1 + 112);
-          v67 = *(v57 + 56);
-          v68 = *(v57 + 40);
-          *(a1 + 112) = *(v57 + 72);
-          *(a1 + 80) = v68;
-          *(a1 + 96) = v67;
-          *(v57 + 56) = v154;
-          *(v57 + 72) = v178;
-          *(v57 + 40) = v130;
+          v130 = *(result + 5);
+          v154 = *(result + 6);
+          v178 = *(result + 14);
+          v67 = *(v57 + 14);
+          v68 = *(v57 + 10);
+          *(result + 14) = *(v57 + 9);
+          *(result + 5) = v68;
+          *(result + 6) = v67;
+          *(v57 + 14) = v154;
+          *(v57 + 9) = v178;
+          *(v57 + 10) = v130;
         }
       }
 
       v73 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v16, v37);
-      v74 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (v57 + 40), v16);
+      v74 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v57 + 10, v16);
       if (v73)
       {
         if (v74)
@@ -6262,10 +6257,10 @@ LABEL_27:
           v181 = *(v37 + 32);
           v133 = *v37;
           v157 = *(v37 + 16);
-          v75 = *(v57 + 56);
-          *v37 = *(v57 + 40);
+          v75 = *(v57 + 14);
+          *v37 = *(v57 + 10);
           *(v37 + 16) = v75;
-          *(v37 + 32) = *(v57 + 72);
+          *(v37 + 32) = *(v57 + 9);
           goto LABEL_55;
         }
 
@@ -6279,19 +6274,19 @@ LABEL_27:
         *(v16 + 4) = v184;
         *v16 = v136;
         *(v16 + 1) = v160;
-        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (v57 + 40), v16))
+        if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v57 + 10, v16))
         {
           v181 = *(v16 + 4);
           v133 = *v16;
           v157 = *(v16 + 1);
-          v79 = *(v57 + 56);
-          *v16 = *(v57 + 40);
+          v79 = *(v57 + 14);
+          *v16 = *(v57 + 10);
           *(v16 + 1) = v79;
-          *(v16 + 4) = *(v57 + 72);
+          *(v16 + 4) = *(v57 + 9);
 LABEL_55:
-          *(v57 + 56) = v157;
-          *(v57 + 72) = v181;
-          *(v57 + 40) = v133;
+          *(v57 + 14) = v157;
+          *(v57 + 9) = v181;
+          *(v57 + 10) = v133;
         }
       }
 
@@ -6300,13 +6295,13 @@ LABEL_55:
         v182 = *(v16 + 4);
         v134 = *v16;
         v158 = *(v16 + 1);
-        v76 = *(v57 + 56);
-        *v16 = *(v57 + 40);
+        v76 = *(v57 + 14);
+        *v16 = *(v57 + 10);
         *(v16 + 1) = v76;
-        *(v16 + 4) = *(v57 + 72);
-        *(v57 + 56) = v158;
-        *(v57 + 72) = v182;
-        *(v57 + 40) = v134;
+        *(v16 + 4) = *(v57 + 9);
+        *(v57 + 14) = v158;
+        *(v57 + 9) = v182;
+        *(v57 + 10) = v134;
         if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v16, v37))
         {
           v183 = *(v37 + 32);
@@ -6322,14 +6317,14 @@ LABEL_55:
         }
       }
 
-      v185 = *(a1 + 32);
-      v137 = *a1;
-      v161 = *(a1 + 16);
+      v185 = *(result + 4);
+      v137 = *result;
+      v161 = *(result + 1);
       v80 = *v16;
       v81 = *(v16 + 1);
-      *(a1 + 32) = *(v16 + 4);
-      *a1 = v80;
-      *(a1 + 16) = v81;
+      *(result + 4) = *(v16 + 4);
+      *result = v80;
+      *(result + 1) = v81;
       *(v16 + 4) = v185;
       *v16 = v137;
       *(v16 + 1) = v161;
@@ -6337,7 +6332,7 @@ LABEL_55:
     }
 
     v21 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v10, v16);
-    v22 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 10, a1);
+    v22 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a2[-3].n128_i32[2], result);
     if (v21)
     {
       if (v22)
@@ -6346,87 +6341,87 @@ LABEL_55:
         v118 = *v16;
         v142 = *(v16 + 1);
         v23 = *v8;
-        v24 = *(a2 - 24);
-        *(v16 + 4) = *(a2 - 1);
+        v24 = *(&a2[-2] + 8);
+        *(v16 + 4) = a2[-1].n128_u64[1];
         *v16 = v23;
         *(v16 + 1) = v24;
 LABEL_36:
         *v8 = v118;
         *(a2 - 24) = v142;
-        *(a2 - 1) = v166;
+        a2[-1].n128_u64[1] = v166;
         goto LABEL_57;
       }
 
       v174 = *(v16 + 4);
       v126 = *v16;
       v150 = *(v16 + 1);
-      v49 = *a1;
-      v50 = *(a1 + 16);
-      *(v16 + 4) = *(a1 + 32);
+      v49 = *result;
+      v50 = *(result + 1);
+      *(v16 + 4) = *(result + 4);
       *v16 = v49;
       *(v16 + 1) = v50;
-      *(a1 + 32) = v174;
-      *a1 = v126;
-      *(a1 + 16) = v150;
-      if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 10, a1))
+      *(result + 4) = v174;
+      *result = v126;
+      *(result + 1) = v150;
+      if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a2[-3].n128_i32[2], result))
       {
-        v166 = *(a1 + 32);
-        v118 = *a1;
-        v142 = *(a1 + 16);
+        v166 = *(result + 4);
+        v118 = *result;
+        v142 = *(result + 1);
         v51 = *v8;
-        v52 = *(a2 - 24);
-        *(a1 + 32) = *(a2 - 1);
-        *a1 = v51;
-        *(a1 + 16) = v52;
+        v52 = *(&a2[-2] + 8);
+        *(result + 4) = a2[-1].n128_u64[1];
+        *result = v51;
+        *(result + 1) = v52;
         goto LABEL_36;
       }
     }
 
     else if (v22)
     {
-      v169 = *(a1 + 32);
-      v121 = *a1;
-      v145 = *(a1 + 16);
+      v169 = *(result + 4);
+      v121 = *result;
+      v145 = *(result + 1);
       v29 = *v8;
-      v30 = *(a2 - 24);
-      *(a1 + 32) = *(a2 - 1);
-      *a1 = v29;
-      *(a1 + 16) = v30;
+      v30 = *(&a2[-2] + 8);
+      *(result + 4) = a2[-1].n128_u64[1];
+      *result = v29;
+      *(result + 1) = v30;
       *v8 = v121;
       *(a2 - 24) = v145;
-      *(a2 - 1) = v169;
-      if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1, v16))
+      a2[-1].n128_u64[1] = v169;
+      if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, result, v16))
       {
         v170 = *(v16 + 4);
         v122 = *v16;
         v146 = *(v16 + 1);
-        v31 = *a1;
-        v32 = *(a1 + 16);
-        *(v16 + 4) = *(a1 + 32);
+        v31 = *result;
+        v32 = *(result + 1);
+        *(v16 + 4) = *(result + 4);
         *v16 = v31;
         *(v16 + 1) = v32;
-        *(a1 + 32) = v170;
-        *a1 = v122;
-        *(a1 + 16) = v146;
+        *(result + 4) = v170;
+        *result = v122;
+        *(result + 1) = v146;
       }
     }
 
 LABEL_57:
-    if ((a5 & 1) == 0 && (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 - 40), a1) & 1) == 0)
+    if ((a5 & 1) == 0 && (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, result - 10, result) & 1) == 0)
     {
-      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::site_event<int> *,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &>(a1, a2, a3);
+      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::site_event<int> *,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &>(result, a2, a3);
       goto LABEL_64;
     }
 
-    v82 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::site_event<int> *,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &>(a1, a2, a3);
+    v82 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::site_event<int> *,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &>(result, a2, a3);
     if ((v83 & 1) == 0)
     {
       goto LABEL_62;
     }
 
-    v84 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(a1, v82, a3);
-    v10 = (v82 + 40);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(v82 + 40, a2, a3))
+    v84 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(result, v82, a3);
+    v10 = &v82[2].n128_i32[2];
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(&v82[2].n128_i8[8], a2, a3))
     {
       a4 = -v12;
       a2 = v82;
@@ -6442,8 +6437,8 @@ LABEL_57:
     if (!v84)
     {
 LABEL_62:
-      std::__introsort<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,false>(a1, v82, a3, -v12, a5 & 1);
-      v10 = (v82 + 40);
+      std::__introsort<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,false>(result, v82, a3, -v12, a5 & 1);
+      v10 = &v82[2].n128_i32[2];
 LABEL_64:
       a5 = 0;
       a4 = -v12;
@@ -6456,14 +6451,14 @@ LABEL_64:
     if (v14 == 4)
     {
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,0>(v10, v10 + 10, v10 + 20, (a2 - 40), a3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,0>(v10, v10 + 10, v10 + 20, &a2[-3].n128_i8[8], a3);
       return;
     }
 
     if (v14 == 5)
     {
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,0>(v10, v10 + 10, v10 + 20, (v10 + 30), a3);
-      if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 10, v10 + 30))
+      if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a2[-3].n128_i32[2], v10 + 30))
       {
         return;
       }
@@ -6471,12 +6466,12 @@ LABEL_64:
       v93 = *(v10 + 30);
       v94 = *(v10 + 34);
       v95 = *(v10 + 19);
-      v96 = *(a2 - 1);
-      v97 = *(a2 - 24);
+      v96 = a2[-1].n128_u64[1];
+      v97 = *(&a2[-2] + 8);
       *(v10 + 30) = *v8;
       *(v10 + 34) = v97;
       *(v10 + 19) = v96;
-      *(a2 - 1) = v95;
+      a2[-1].n128_u64[1] = v95;
       *v8 = v93;
       *(a2 - 24) = v94;
       if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v10 + 30, v10 + 20))
@@ -6989,10 +6984,10 @@ int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,b
   return v7;
 }
 
-uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::site_event<int> *,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &>(__int128 *a1, int *a2, uint64_t a3)
+char *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::site_event<int> *,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &>(char *a1, char *a2, uint64_t a3)
 {
   v6 = 0;
-  v7 = a1[1];
+  v7 = *(a1 + 1);
   v22 = *a1;
   v23 = v7;
   v24 = *(a1 + 4);
@@ -7001,9 +6996,9 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
     v6 += 40;
   }
 
-  while ((boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + v6), &v22) & 1) != 0);
-  v8 = a1 + v6;
-  v9 = a1 + v6 - 40;
+  while ((boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, &a1[v6], &v22) & 1) != 0);
+  v8 = &a1[v6];
+  v9 = &a1[v6 - 40];
   if (v6 == 40)
   {
     do
@@ -7013,7 +7008,7 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
         break;
       }
 
-      a2 -= 10;
+      a2 -= 40;
     }
 
     while ((boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2, &v22) & 1) == 0);
@@ -7023,7 +7018,7 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
   {
     do
     {
-      a2 -= 10;
+      a2 -= 40;
     }
 
     while (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2, &v22));
@@ -7031,21 +7026,21 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
 
   if (v8 < a2)
   {
-    v10 = a1 + v6;
+    v10 = &a1[v6];
     v11 = a2;
     do
     {
-      v13 = *(v10 + 16);
+      v13 = *(v10 + 1);
       v25 = *v10;
       v12 = v25;
       v26 = v13;
-      v27 = *(v10 + 32);
+      v27 = *(v10 + 4);
       v14 = v27;
       v16 = *v11;
       v15 = *(v11 + 1);
-      *(v10 + 32) = *(v11 + 4);
+      *(v10 + 4) = *(v11 + 4);
       *v10 = v16;
-      *(v10 + 16) = v15;
+      *(v10 + 1) = v15;
       *(v11 + 4) = v14;
       *v11 = v12;
       *(v11 + 1) = v13;
@@ -7070,21 +7065,21 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
   if (v9 != a1)
   {
     v17 = *v9;
-    v18 = *(v9 + 16);
-    *(a1 + 4) = *(v9 + 32);
+    v18 = *(v9 + 1);
+    *(a1 + 4) = *(v9 + 4);
     *a1 = v17;
-    a1[1] = v18;
+    *(a1 + 1) = v18;
   }
 
   v19 = v22;
   v20 = v23;
-  *(v9 + 32) = v24;
+  *(v9 + 4) = v24;
   *v9 = v19;
-  *(v9 + 16) = v20;
+  *(v9 + 1) = v20;
   return v9;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(__int128 *a1, __int128 *a2, uint64_t a3)
 {
   v6 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - a1) >> 3);
   if (v6 > 2)
@@ -7092,50 +7087,50 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,boost
     switch(v6)
     {
       case 3:
-        v7 = a2 - 40;
-        v22 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + 40), a1);
-        v23 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v7, (a1 + 40));
+        v7 = a2 - 10;
+        v22 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1 + 10, a1);
+        v23 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v7, a1 + 10);
         if (v22)
         {
           if (v23)
           {
 LABEL_15:
             v24 = *a1;
-            v25 = *(a1 + 16);
-            v26 = *(a1 + 32);
-            v27 = *(v7 + 32);
-            v28 = *(v7 + 16);
+            v25 = a1[1];
+            v26 = *(a1 + 4);
+            v27 = *(v7 + 4);
+            v28 = *(v7 + 1);
             *a1 = *v7;
-            *(a1 + 16) = v28;
-            *(a1 + 32) = v27;
+            a1[1] = v28;
+            *(a1 + 4) = v27;
 LABEL_16:
-            *(v7 + 32) = v26;
+            *(v7 + 4) = v26;
             result = 1;
             *v7 = v24;
-            *(v7 + 16) = v25;
+            *(v7 + 1) = v25;
             return result;
           }
 
-          v54 = *(a1 + 32);
+          v54 = *(a1 + 4);
           v56 = *a1;
-          v55 = *(a1 + 16);
+          v55 = a1[1];
           v57 = *(a1 + 56);
           *a1 = *(a1 + 40);
-          *(a1 + 16) = v57;
-          *(a1 + 32) = *(a1 + 72);
+          a1[1] = v57;
+          *(a1 + 4) = *(a1 + 9);
           *(a1 + 40) = v56;
           *(a1 + 56) = v55;
-          *(a1 + 72) = v54;
-          if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v7, (a1 + 40)))
+          *(a1 + 9) = v54;
+          if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v7, a1 + 10))
           {
             v24 = *(a1 + 40);
             v25 = *(a1 + 56);
-            v26 = *(a1 + 72);
-            v58 = *(v7 + 32);
-            v59 = *(v7 + 16);
+            v26 = *(a1 + 9);
+            v58 = *(v7 + 4);
+            v59 = *(v7 + 1);
             *(a1 + 40) = *v7;
             *(a1 + 56) = v59;
-            *(a1 + 72) = v58;
+            *(a1 + 9) = v58;
             goto LABEL_16;
           }
 
@@ -7149,86 +7144,86 @@ LABEL_16:
 
         v37 = *(a1 + 40);
         v38 = *(a1 + 56);
-        v39 = *(a1 + 72);
-        v40 = *(v7 + 32);
-        v41 = *(v7 + 16);
+        v39 = *(a1 + 9);
+        v40 = *(v7 + 4);
+        v41 = *(v7 + 1);
         *(a1 + 40) = *v7;
         *(a1 + 56) = v41;
-        *(a1 + 72) = v40;
-        *(v7 + 32) = v39;
+        *(a1 + 9) = v40;
+        *(v7 + 4) = v39;
         *v7 = v37;
-        *(v7 + 16) = v38;
+        *(v7 + 1) = v38;
         break;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,0>(a1, (a1 + 40), (a1 + 80), (a2 - 40), a3);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,0>(a1, a1 + 10, a1 + 20, (a2 - 40), a3);
         return 1;
       case 5:
         v8 = a2 - 40;
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,0>(a1, (a1 + 40), (a1 + 80), (a1 + 120), a3);
-        if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v8, (a1 + 120)))
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,0>(a1, a1 + 10, a1 + 20, (a1 + 120), a3);
+        if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v8, a1 + 30))
         {
           return 1;
         }
 
         v9 = *(a1 + 120);
         v10 = *(a1 + 136);
-        v11 = *(a1 + 152);
+        v11 = *(a1 + 19);
         v12 = *(v8 + 32);
         v13 = *(v8 + 16);
         *(a1 + 120) = *v8;
         *(a1 + 136) = v13;
-        *(a1 + 152) = v12;
+        *(a1 + 19) = v12;
         *(v8 + 32) = v11;
         *v8 = v9;
         *(v8 + 16) = v10;
-        if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + 120), (a1 + 80)))
+        if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1 + 30, a1 + 20))
         {
           return 1;
         }
 
-        v14 = *(a1 + 112);
-        v16 = *(a1 + 80);
-        v15 = *(a1 + 96);
+        v14 = *(a1 + 14);
+        v16 = a1[5];
+        v15 = a1[6];
         v17 = *(a1 + 136);
-        *(a1 + 80) = *(a1 + 120);
-        *(a1 + 96) = v17;
-        *(a1 + 112) = *(a1 + 152);
+        a1[5] = *(a1 + 120);
+        a1[6] = v17;
+        *(a1 + 14) = *(a1 + 19);
         *(a1 + 120) = v16;
         *(a1 + 136) = v15;
-        *(a1 + 152) = v14;
-        if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + 80), (a1 + 40)))
+        *(a1 + 19) = v14;
+        if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1 + 20, a1 + 10))
         {
           return 1;
         }
 
-        v18 = *(a1 + 72);
+        v18 = *(a1 + 9);
         v19 = *(a1 + 56);
         v20 = *(a1 + 40);
-        v21 = *(a1 + 96);
-        *(a1 + 40) = *(a1 + 80);
+        v21 = a1[6];
+        *(a1 + 40) = a1[5];
         *(a1 + 56) = v21;
-        *(a1 + 72) = *(a1 + 112);
-        *(a1 + 80) = v20;
-        *(a1 + 96) = v19;
-        *(a1 + 112) = v18;
+        *(a1 + 9) = *(a1 + 14);
+        a1[5] = v20;
+        a1[6] = v19;
+        *(a1 + 14) = v18;
         break;
       default:
         goto LABEL_17;
     }
 
-    if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + 40), a1))
+    if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1 + 10, a1))
     {
-      v42 = *(a1 + 32);
+      v42 = *(a1 + 4);
       v44 = *a1;
-      v43 = *(a1 + 16);
+      v43 = a1[1];
       v45 = *(a1 + 56);
       *a1 = *(a1 + 40);
-      *(a1 + 16) = v45;
-      *(a1 + 32) = *(a1 + 72);
+      a1[1] = v45;
+      *(a1 + 4) = *(a1 + 9);
       *(a1 + 40) = v44;
       *(a1 + 56) = v43;
       result = 1;
-      *(a1 + 72) = v42;
+      *(a1 + 9) = v42;
       return result;
     }
 
@@ -7242,8 +7237,8 @@ LABEL_16:
 
   if (v6 == 2)
   {
-    v7 = a2 - 40;
-    if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a2 - 40), a1))
+    v7 = a2 - 10;
+    if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a2 - 10, a1))
     {
       return 1;
     }
@@ -7252,83 +7247,83 @@ LABEL_16:
   }
 
 LABEL_17:
-  v30 = (a1 + 80);
-  v31 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + 40), a1);
-  v32 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + 80), (a1 + 40));
+  v30 = (a1 + 5);
+  v31 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1 + 10, a1);
+  v32 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1 + 20, a1 + 10);
   if (v31)
   {
     if (v32)
     {
-      v33 = *(a1 + 32);
+      v33 = *(a1 + 4);
       v35 = *a1;
-      v34 = *(a1 + 16);
-      v36 = *(a1 + 96);
+      v34 = a1[1];
+      v36 = a1[6];
       *a1 = *v30;
-      *(a1 + 16) = v36;
-      *(a1 + 32) = *(a1 + 112);
+      a1[1] = v36;
+      *(a1 + 4) = *(a1 + 14);
     }
 
     else
     {
-      v60 = *(a1 + 32);
+      v60 = *(a1 + 4);
       v62 = *a1;
-      v61 = *(a1 + 16);
+      v61 = a1[1];
       v63 = *(a1 + 56);
       *a1 = *(a1 + 40);
-      *(a1 + 16) = v63;
-      *(a1 + 32) = *(a1 + 72);
+      a1[1] = v63;
+      *(a1 + 4) = *(a1 + 9);
       *(a1 + 40) = v62;
       *(a1 + 56) = v61;
-      *(a1 + 72) = v60;
-      if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + 80), (a1 + 40)))
+      *(a1 + 9) = v60;
+      if (!boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1 + 20, a1 + 10))
       {
         goto LABEL_33;
       }
 
-      v33 = *(a1 + 72);
+      v33 = *(a1 + 9);
       v34 = *(a1 + 56);
       v35 = *(a1 + 40);
-      v64 = *(a1 + 96);
+      v64 = a1[6];
       *(a1 + 40) = *v30;
       *(a1 + 56) = v64;
-      *(a1 + 72) = *(a1 + 112);
+      *(a1 + 9) = *(a1 + 14);
     }
 
     *v30 = v35;
-    *(a1 + 96) = v34;
-    *(a1 + 112) = v33;
+    a1[6] = v34;
+    *(a1 + 14) = v33;
   }
 
   else if (v32)
   {
-    v46 = *(a1 + 72);
+    v46 = *(a1 + 9);
     v47 = *(a1 + 56);
     v48 = *(a1 + 40);
-    v49 = *(a1 + 96);
+    v49 = a1[6];
     *(a1 + 40) = *v30;
     *(a1 + 56) = v49;
-    *(a1 + 72) = *(a1 + 112);
+    *(a1 + 9) = *(a1 + 14);
     *v30 = v48;
-    *(a1 + 96) = v47;
-    *(a1 + 112) = v46;
-    if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, (a1 + 40), a1))
+    a1[6] = v47;
+    *(a1 + 14) = v46;
+    if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, a1 + 10, a1))
     {
-      v50 = *(a1 + 32);
+      v50 = *(a1 + 4);
       v52 = *a1;
-      v51 = *(a1 + 16);
+      v51 = a1[1];
       v53 = *(a1 + 56);
       *a1 = *(a1 + 40);
-      *(a1 + 16) = v53;
-      *(a1 + 32) = *(a1 + 72);
+      a1[1] = v53;
+      *(a1 + 4) = *(a1 + 9);
       *(a1 + 40) = v52;
       *(a1 + 56) = v51;
-      *(a1 + 72) = v50;
+      *(a1 + 9) = v50;
     }
   }
 
 LABEL_33:
-  v65 = a1 + 120;
-  if (a1 + 120 == a2)
+  v65 = (a1 + 120);
+  if ((a1 + 120) == a2)
   {
     return 1;
   }
@@ -7339,10 +7334,10 @@ LABEL_33:
   {
     if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a3, v65, v30))
     {
-      v68 = *(v65 + 16);
+      v68 = v65[1];
       v74 = *v65;
       v75 = v68;
-      v76 = *(v65 + 32);
+      v76 = *(v65 + 4);
       v69 = v66;
       while (1)
       {
@@ -7372,13 +7367,13 @@ LABEL_41:
       *(v72 + 32) = v76;
       if (++v67 == 8)
       {
-        return v65 + 40 == a2;
+        return (v65 + 40) == a2;
       }
     }
 
     v30 = v65;
     v66 += 40;
-    v65 += 40;
+    v65 = (v65 + 40);
     if (v65 == a2)
     {
       return 1;
@@ -7485,7 +7480,7 @@ double boost::polygon::detail::voronoi_predicates<boost::polygon::detail::vorono
   return result;
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,boost::polygon::detail::site_event<int>*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*,boost::polygon::detail::site_event<int>*>(__n128 *a1, __n128 *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -7515,20 +7510,20 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,boost::p
         if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a4, v13, a1))
         {
           v14 = *v13;
-          v15 = v13[1];
+          v15 = *(v13 + 1);
           v16 = *(v13 + 4);
-          v17 = *(a1 + 32);
-          v18 = *(a1 + 16);
+          v17 = a1[2].n128_u64[0];
+          v18 = a1[1];
           *v13 = *a1;
-          v13[1] = v18;
+          *(v13 + 1) = v18;
           *(v13 + 4) = v17;
-          *(a1 + 32) = v16;
+          a1[2].n128_u64[0] = v16;
           *a1 = v14;
-          *(a1 + 16) = v15;
+          a1[1] = v15;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(a1, a4, v9, a1);
         }
 
-        v13 = (v13 + 40);
+        v13 += 40;
       }
 
       while (v13 != a3);
@@ -7537,31 +7532,31 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,boost::p
     if (v8 >= 41)
     {
       v19 = 0xCCCCCCCCCCCCCCCDLL * (v8 >> 3);
-      v20 = a2 - 40;
+      v20 = &a2[-3].n128_i8[8];
       do
       {
         v26 = *a1;
-        v27 = *(a1 + 16);
-        v28 = *(a1 + 32);
+        v27 = a1[1];
+        v28 = a1[2].n128_u64[0];
         v21 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(a1, a4, v19);
         if (v20 == v21)
         {
           *v21 = v26;
-          v21[1] = v27;
+          *(v21 + 1) = v27;
           *(v21 + 4) = v28;
         }
 
         else
         {
           v22 = *v20;
-          v23 = *(v20 + 16);
-          *(v21 + 4) = *(v20 + 32);
+          v23 = *(v20 + 1);
+          *(v21 + 4) = *(v20 + 4);
           *v21 = v22;
-          v21[1] = v23;
-          *(v20 + 32) = v28;
+          *(v21 + 1) = v23;
+          *(v20 + 4) = v28;
           *v20 = v26;
-          *(v20 + 16) = v27;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(a1, v21 + 40, a4, 0xCCCCCCCCCCCCCCCDLL * ((v21 - a1 + 40) >> 3));
+          *(v20 + 1) = v27;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(a1, (v21 + 40), a4, 0xCCCCCCCCCCCCCCCDLL * ((v21 + 40 - a1) >> 3));
         }
 
         v20 -= 40;
@@ -7590,7 +7585,7 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::det
       v12 = (0x999999999999999ALL * ((a4 - a1) >> 3)) | 1;
       v13 = (a1 + 40 * v12);
       v14 = 0x999999999999999ALL * ((a4 - a1) >> 3) + 2;
-      if (v14 < a3 && boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a2, (a1 + 40 * v12), v13 + 10))
+      if (v14 < a3 && boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a2, (a1 + 40 * v12), &v13[2].n128_i32[2]))
       {
         v13 = (v13 + 40);
         v12 = v14;
@@ -7601,13 +7596,13 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::det
         v16 = v7[1];
         v23 = *v7;
         v24 = v16;
-        v25 = v7[2].n128_i64[0];
+        v25 = v7[2].n128_u64[0];
         do
         {
           v17 = v13;
           v18 = *v13;
           v19 = v13[1];
-          v7[2].n128_u64[0] = *(v13 + 4);
+          v7[2].n128_u64[0] = v13[2].n128_u64[0];
           *v7 = v18;
           v7[1] = v19;
           if (v9 < v12)
@@ -7620,7 +7615,7 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::det
           v21 = 2 * v12 + 2;
           if (v21 < a3)
           {
-            if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a2, (a1 + 40 * v20), v13 + 10))
+            if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a2, (a1 + 40 * v20), &v13[2].n128_i32[2]))
             {
               v13 = (v13 + 40);
               v20 = v21;
@@ -7644,20 +7639,20 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::det
   return result;
 }
 
-__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(__int128 *a1, uint64_t a2, uint64_t a3)
+char *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>> &,boost::polygon::detail::site_event<int>*>(__int128 *a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   v7 = (a3 - 2) / 2;
   do
   {
-    v8 = a1 + 40 * v6;
-    v9 = (v8 + 40);
+    v8 = a1 + 10 * v6;
+    v9 = (v8 + 10);
     v10 = (2 * v6) | 1;
     v11 = 2 * v6 + 2;
     if (v11 < a3)
     {
-      v12 = (v8 + 80);
-      if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a2, (v8 + 40), (v8 + 80)))
+      v12 = (v8 + 20);
+      if (boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::event_comparison_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::operator()(a2, v8 + 10, v8 + 20))
       {
         v9 = v12;
         v10 = v11;
@@ -7665,7 +7660,7 @@ __int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::pol
     }
 
     v13 = *v9;
-    v14 = v9[1];
+    v14 = *(v9 + 1);
     *(a1 + 4) = *(v9 + 4);
     *a1 = v13;
     a1[1] = v14;
@@ -7722,29 +7717,29 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::detai
   return result;
 }
 
-unsigned int *std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__equal_to &>(unsigned int *a1, unsigned int *a2)
+unsigned int *std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__equal_to &>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v3 = std::__adjacent_find[abi:ne200100]<std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__equal_to,std::__identity>(a1, a2);
-  v4 = a2;
-  if (v3 != a2)
+  v4 = std::__adjacent_find[abi:ne200100]<std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__equal_to,std::__identity>(a1, a2);
+  v5 = a2;
+  if (v4 != a2)
   {
-    for (i = v3 + 20; i != a2; i += 10)
+    for (i = v4 + 20; i != a2; i += 10)
     {
-      if (*v3 != *i || v3[1] != i[1] || v3[2] != i[2] || v3[3] != i[3])
+      if (*v4 != *i || v4[1] != i[1] || v4[2] != i[2] || v4[3] != i[3])
       {
-        v6 = *i;
-        v7 = *(i + 1);
-        *(v3 + 9) = *(i + 4);
-        *(v3 + 14) = v7;
-        *(v3 + 10) = v6;
-        v3 += 10;
+        v7 = *i;
+        v8 = *(i + 1);
+        *(v4 + 9) = *(i + 4);
+        *(v4 + 14) = v8;
+        *(v4 + 10) = v7;
+        v4 += 10;
       }
     }
 
-    return v3 + 10;
+    return v4 + 10;
   }
 
-  return v4;
+  return v5;
 }
 
 unsigned int *std::__adjacent_find[abi:ne200100]<std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__wrap_iter<boost::polygon::detail::site_event<int> *>,std::__equal_to,std::__identity>(unsigned int *result, unsigned int *a2)
@@ -7786,19 +7781,19 @@ unsigned int *std::__adjacent_find[abi:ne200100]<std::__wrap_iter<boost::polygon
 uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::init_beach_line_collinear_sites<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(uint64_t result, uint64_t *a2)
 {
   v2 = *(result + 8);
-  if (v2 + 40 != *(result + 32))
+  if ((v2 + 40) != *(result + 32))
   {
     v4 = result;
     do
     {
-      v5 = *(v2 + 16);
+      v5 = v2[1];
       v11 = *v2;
       v12 = v5;
-      *v13 = *(v2 + 32);
+      *v13 = *(v2 + 4);
       *&v13[8] = *(v2 + 40);
       *&v13[24] = *(v2 + 56);
-      *&v13[40] = *(v2 + 72);
-      inserted = boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::_insert_new_edge<int>(a2, v2, v2 + 40);
+      *&v13[40] = *(v2 + 9);
+      inserted = boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::_insert_new_edge<int>(a2, v2, v2 + 10);
       v8[2] = *v13;
       v8[3] = *&v13[16];
       v8[4] = *&v13[32];
@@ -7806,12 +7801,12 @@ uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_cty
       v8[1] = v12;
       v9 = 0;
       v10 = inserted;
-      result = std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>(v4 + 16, v4 + 17, v8);
-      v7 = v2 + 80;
-      v2 += 40;
+      result = std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>((v4 + 128), (v4 + 136), v8, v8);
+      v7 = v2 + 5;
+      v2 = (v2 + 40);
     }
 
-    while (v7 != v4[4]);
+    while (v7 != *(v4 + 32));
   }
 
   return result;
@@ -7880,28 +7875,28 @@ void std::vector<boost::polygon::voronoi_cell<double>>::push_back[abi:ne200100](
   *(a1 + 8) = v7;
 }
 
-uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t *a6)
+uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::insert_new_arc<boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>>(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4, void *a5, uint64_t *a6)
 {
   v54 = *MEMORY[0x277D85DE8];
   v9 = a2[1];
   v48 = *a2;
   v49 = v9;
   v10 = *(a2 + 4);
-  v11 = *(a4 + 16);
+  v11 = a4[1];
   *&v50[8] = *a4;
   *&v50[24] = v11;
-  v12 = *(a4 + 32);
+  v12 = *(a4 + 4);
   *v50 = v10;
   *&v50[40] = v12;
-  v13 = *(a4 + 16);
+  v13 = a4[1];
   v46 = *a4;
   v47 = v13;
-  v14 = *(a4 + 32);
-  v15 = *(a3 + 16);
+  v14 = *(a4 + 4);
+  v15 = a3[1];
   v43 = *a3;
   v44 = v15;
-  v45 = *(a3 + 32);
-  if (*a4 != *(a4 + 8) || *(a4 + 4) != *(a4 + 12))
+  v45 = *(a3 + 4);
+  if (*a4 != *(a4 + 1))
   {
     v14 ^= 0x20uLL;
   }
@@ -7915,12 +7910,12 @@ uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_cty
   *&v40[40] = v45;
   v41 = 0;
   v42 = v17;
-  v18 = std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>> const,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>((a1 + 128), a5, &v38);
-  if (*a4 != *(a4 + 8) || *(a4 + 4) != *(a4 + 12))
+  v18 = std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>> const,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>((a1 + 128), a5, &v38, &v38);
+  if (*a4 != *(a4 + 1))
   {
     v19 = *a4;
-    v20 = *(a4 + 16);
-    *v53 = *(a4 + 32);
+    v20 = a4[1];
+    *v53 = *(a4 + 4);
     *&v53[24] = v20;
     *&v53[8] = v19;
     *v40 = *v53;
@@ -7933,9 +7928,9 @@ uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_cty
     *&v40[40] = *v53 ^ 0x20;
     v41 = 0;
     v42 = 0;
-    v21 = std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>> const,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>((a1 + 128), v18, &v38);
+    v21 = std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>> const,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>((a1 + 128), v18, &v38, &v38);
     v18 = v21;
-    v22 = *(a4 + 8);
+    v22 = *(a4 + 1);
     v24 = *(a1 + 48);
     v23 = *(a1 + 56);
     if (v24 >= v23)
@@ -8007,13 +8002,13 @@ uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_cty
   v39 = v49;
   v41 = 0;
   v42 = inserted;
-  return std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>> const,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>((a1 + 128), v18, &v38);
+  return std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>> const,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>((a1 + 128), v18, &v38, &v38);
 }
 
-uint64_t boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::_insert_new_edge<int>(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::_insert_new_edge<int>(uint64_t *a1, int *a2, int *a3)
 {
-  v6 = *(a2 + 16);
-  v7 = *(a3 + 16);
+  v6 = *(a2 + 2);
+  v7 = *(a3 + 2);
   v8 = boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::is_linear_edge<boost::polygon::detail::site_event<int>>(a1, a2, a3);
   v18 = 0u;
   v19 = 0u;
@@ -8039,14 +8034,14 @@ uint64_t boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_
   v11 = a1[7];
   if (*a1 == a1[1])
   {
-    v12 = *(a2 + 32) & 0x1FLL;
-    v18 = *(a2 + 24);
+    v12 = *(a2 + 4) & 0x1FLL;
+    v18 = *(a2 + 3);
     *&v19 = v12;
     std::vector<boost::polygon::voronoi_cell<double>>::push_back[abi:ne200100](a1, &v18);
   }
 
-  v13 = *(a3 + 32) & 0x1FLL;
-  v18 = *(a3 + 24);
+  v13 = *(a3 + 4) & 0x1FLL;
+  v18 = *(a3 + 3);
   *&v19 = v13;
   std::vector<boost::polygon::voronoi_cell<double>>::push_back[abi:ne200100](a1, &v18);
   v14 = *a1;
@@ -8071,7 +8066,7 @@ uint64_t boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_
   return v6 ^ v8;
 }
 
-uint64_t boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::is_primary_edge<boost::polygon::detail::site_event<int>>(uint64_t a1, int *a2, int *a3)
+BOOL boost::polygon::voronoi_diagram<double,boost::polygon::voronoi_diagram_traits<double>>::is_primary_edge<boost::polygon::detail::site_event<int>>(uint64_t a1, int *a2, int *a3)
 {
   v4 = *a2;
   v3 = a2[1];
@@ -8178,15 +8173,15 @@ void std::vector<boost::polygon::voronoi_edge<double>>::push_back[abi:ne200100](
   *(a1 + 8) = v8;
 }
 
-uint64_t std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>> const,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>(void *a1, void *a2, uint64_t a3)
+uint64_t std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>> const,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>(uint64_t **a1, void *a2, uint64_t a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__find_equal<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__find_equal<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t *std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__find_equal<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>(void *a1, void *a2, void *a3, uint64_t *a4, uint64_t a5)
@@ -8521,7 +8516,7 @@ unint64_t boost::polygon::detail::voronoi_predicates<boost::polygon::detail::vor
   return v6 | 0x100000000;
 }
 
-uint64_t boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::distance_predicate<boost::polygon::detail::site_event<int>>::pp(uint64_t a1, int *a2, int *a3, int *a4)
+BOOL boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::distance_predicate<boost::polygon::detail::site_event<int>>::pp(uint64_t a1, int *a2, int *a3, int *a4)
 {
   v4 = *a2;
   v5 = *a3;
@@ -8575,7 +8570,7 @@ uint64_t boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voro
 
 BOOL boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::distance_predicate<boost::polygon::detail::site_event<int>>::ss(uint64_t a1, int *a2, _DWORD *a3, int *a4)
 {
-  if (*a2 == *a3 && a2[1] == a3[1] && a2[2] == a3[2] && a2[3] == a3[3])
+  if (*a2 == *a3 && a2[2] == a3[2] && a2[3] == a3[3])
   {
     return boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::orientation_test::eval<boost::polygon::detail::point_2d<int>>(a2, a2 + 2, a4) == 1;
   }
@@ -8801,30 +8796,33 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::vor
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>(void *a1, void *a2, uint64_t a3)
+uint64_t std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__emplace_hint_unique_key_args<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::pair<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>(uint64_t **a1, void *a2, uint64_t a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__find_equal<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__map_value_compare<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::node_comparison_predicate<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>,false>,std::allocator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>>>::__find_equal<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(uint64_t a1, int *a2, uint64_t a3, int *a4)
+uint64_t boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::activate_circle_event(uint64_t a1, int *a2, uint64_t a3, int *a4, uint64_t a5)
 {
-  v6 = 1;
-  result = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::circle_formation_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::circle_existence_predicate<boost::polygon::detail::site_event<int>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::lazy_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>>::operator()(a1 + 160, a2, a3, a4, &v5);
+  BYTE8(v11) = 1;
+  result = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::circle_formation_predicate<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::circle_existence_predicate<boost::polygon::detail::site_event<int>>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::lazy_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>>::operator()(a1 + 160, a2, a3, a4, &v10);
   if (result)
   {
-    boost::polygon::detail::ordered_queue<std::pair<boost::polygon::detail::circle_event<double>,std::__map_iterator<std::__tree_iterator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__tree_node<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,void *> *,long>>>,boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::event_comparison_type>::push();
+    v8[0] = v10;
+    v8[1] = v11;
+    v9 = a5;
+    boost::polygon::detail::ordered_queue<std::pair<boost::polygon::detail::circle_event<double>,std::__map_iterator<std::__tree_iterator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__tree_node<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,void *> *,long>>>,boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::event_comparison_type>::push((a1 + 72), v8);
   }
 
   return result;
 }
 
-uint64_t std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::end_point_comparison &,std::__wrap_iter<std::pair<boost::polygon::detail::point_2d<int>,std::__map_iterator<std::__tree_iterator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__tree_node<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,void *> *,long>>> *>>(void *a1, uint64_t a2, uint64_t a3)
+void *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::polygon::voronoi_builder<int,boost::polygon::detail::voronoi_ctype_traits<int>,boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>>::end_point_comparison &,std::__wrap_iter<std::pair<boost::polygon::detail::point_2d<int>,std::__map_iterator<std::__tree_iterator<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,std::__tree_node<std::__value_type<boost::polygon::detail::beach_line_node_key<boost::polygon::detail::site_event<int>>,boost::polygon::detail::beach_line_node_data<void,boost::polygon::detail::circle_event<double>>>,void *> *,long>>> *>>(void *a1, uint64_t a2, uint64_t a3)
 {
   v3 = 0;
   do
@@ -8834,12 +8832,12 @@ uint64_t std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::poly
     v6 = 2 * v3 + 2;
     if (v6 < a3)
     {
-      v7 = *(v4 + 16);
+      v7 = *(v4 + 4);
       v9 = v7 == *v4;
       v8 = v7 < *v4;
       if (v9)
       {
-        v8 = *(v4 + 20) < *(v4 + 4);
+        v8 = *(v4 + 5) < *(v4 + 1);
       }
 
       v9 = !v8;
@@ -8853,7 +8851,7 @@ uint64_t std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::poly
         v10 = 0;
       }
 
-      v4 += v10;
+      v4 = (v4 + v10);
       if (!v9)
       {
         v5 = v6;
@@ -8861,7 +8859,7 @@ uint64_t std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,boost::poly
     }
 
     *a1 = *v4;
-    a1[1] = *(v4 + 8);
+    a1[1] = v4[1];
     a1 = v4;
     v3 = v5;
   }
@@ -8952,13 +8950,13 @@ uint64_t boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voro
       return 0;
     }
 
-    v26 = a1 + 4;
+    v25 = a1 + 4;
     a2 = v8;
-    v27 = a3;
-    v28 = a4;
-    v29 = 3;
-LABEL_41:
-    boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::lazy_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::pps(v26, a2, v27, v28, v29, a5);
+    v26 = a3;
+    v27 = a4;
+    v28 = 3;
+LABEL_40:
+    boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::lazy_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::pps(v25, a2, v26, v27, v28, a5);
     return 1;
   }
 
@@ -8970,20 +8968,16 @@ LABEL_41:
     if (v23 == a4[3])
     {
       v24 = (*(a3 + 32) >> 2) & 8;
-      if (*(a3 + v24) == v10 && *(a3 + v24 + 4) == v12)
+      if (*(a3 + v24) == v10 && *(a3 + v24 + 4) == v12 && *(a3 + (v24 ^ 8)) == __PAIR64__(v23, v21))
       {
-        v25 = (a3 + (v24 ^ 8));
-        if (*v25 == v21 && v25[1] == v23)
-        {
-          return 0;
-        }
+        return 0;
       }
 
-      v26 = a1 + 4;
-      v27 = a4;
-      v28 = a3;
-      v29 = 2;
-      goto LABEL_41;
+      v25 = a1 + 4;
+      v26 = a4;
+      v27 = a3;
+      v28 = 2;
+      goto LABEL_40;
     }
   }
 
@@ -8999,123 +8993,110 @@ LABEL_41:
 
 void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::lazy_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::ppp(uint64_t a1, int *a2, int *a3, int *a4, uint64_t a5)
 {
-  v9 = *a2;
-  v10 = a2[1];
-  v11 = *a3;
-  v12 = a3[1];
-  v13 = v9 - v11;
-  v14 = *a4;
-  v15 = a4[1];
-  v16 = v11 - v14;
-  v17 = v10 - v12;
-  v18 = v12 - v15;
-  v19 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v9 - v11, v11 - v14, v10 - v12, v12 - v15);
-  v20 = *a2;
-  v21 = *a3;
-  v22 = 0.5 / v19;
-  v23 = v20 + v21;
-  v24 = v21 + *a4;
-  v25 = a2[1];
-  v26 = a3[1];
-  v27 = v25 + v26;
-  v28 = a4[1];
-  v29 = v26 + v28;
-  v43 = v20 - *a4;
-  v44 = v22;
-  v42 = v25 - v28;
-  v50 = 0u;
+  v10 = *a2;
+  v11 = a2[1];
+  v12 = *a3;
+  v13 = a3[1];
+  v14 = v10 - v12;
+  v15 = *a4;
+  v16 = a4[1];
+  v17 = v12 - v15;
+  v18 = v11 - v13;
+  v19 = v13 - v16;
+  v20 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::robust_cross_product(v10 - v12, v12 - v15, v11 - v13, v13 - v16);
+  v21 = *a2;
+  v22 = *a3;
+  v23 = 0.5 / v20;
+  v24 = v21 + v22;
+  v25 = v22 + *a4;
+  v26 = a2[1];
+  v27 = a3[1];
+  v28 = v26 + v27;
+  v29 = a4[1];
+  v30 = v27 + v29;
+  v44 = v21 - *a4;
+  v45 = v23;
+  v43 = v26 - v29;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v30 = v13 * v23;
-  *&v46 = v18 * (v13 * v23);
-  *(&v46 + 1) = 0x4000000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v50, &v46);
-  v31 = v17 * v27;
-  *&v46 = v18 * v31;
-  *(&v46 + 1) = 0x4000000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v50, &v46);
-  v32 = v16 * v24;
-  *&v46 = v17 * v32;
-  *(&v46 + 1) = 0x4000000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v50, &v46);
-  v33 = v18 * v29;
-  *&v46 = v17 * v33;
-  *(&v46 + 1) = 0x4000000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v50, &v46);
-  *&v46 = v13 * v32;
-  *(&v46 + 1) = 0x4000000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v48, &v46);
-  *&v46 = v13 * v33;
-  *(&v46 + 1) = 0x4000000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v48, &v46);
-  *&v46 = v16 * v30;
-  *(&v46 + 1) = 0x4000000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v48, &v46);
-  *&v46 = v16 * v31;
-  *(&v46 + 1) = 0x4000000000000000;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v48, &v46);
-  v46 = v50;
+  v50 = 0u;
+  v31 = v14 * v24;
+  *&v47 = v19 * (v14 * v24);
+  *(&v47 + 1) = 0x4000000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v51, &v47);
+  v32 = v18 * v28;
+  *&v47 = v19 * v32;
+  *(&v47 + 1) = 0x4000000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v51, &v47);
+  v33 = v17 * v25;
+  *&v47 = v18 * v33;
+  *(&v47 + 1) = 0x4000000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v51, &v47);
+  v34 = v19 * v30;
+  *&v47 = v18 * v34;
+  *(&v47 + 1) = 0x4000000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v51, &v47);
+  *&v47 = v14 * v33;
+  *(&v47 + 1) = 0x4000000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v49, &v47);
+  *&v47 = v14 * v34;
+  *(&v47 + 1) = 0x4000000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator+=(&v49, &v47);
+  *&v47 = v17 * v31;
+  *(&v47 + 1) = 0x4000000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v49, &v47);
+  *&v47 = v17 * v32;
+  *(&v47 + 1) = 0x4000000000000000;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v49, &v47);
   v47 = v51;
-  v45[0] = sqrt((v17 * v17 + v13 * v13) * (v18 * v18 + v16 * v16) * (v42 * v42 + v43 * v43));
-  v45[1] = 5.0;
-  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v46, v45);
-  v34 = v44 * boost::polygon::detail::robust_fpt<double>::operator-(&v50, &v51);
-  v35 = v44 * boost::polygon::detail::robust_fpt<double>::operator-(&v48, &v49);
-  v36 = boost::polygon::detail::robust_fpt<double>::operator-(&v46, &v47);
-  *a5 = v34;
-  *(a5 + 8) = v35;
-  *(a5 + 16) = v44 * v36;
+  v48 = v52;
+  v46[0] = sqrt((v18 * v18 + v14 * v14) * (v19 * v19 + v17 * v17) * (v43 * v43 + v44 * v44));
+  v46[1] = 5.0;
+  boost::polygon::detail::robust_dif<boost::polygon::detail::robust_fpt<double>>::operator-=(&v47, v46);
+  v35 = v45 * boost::polygon::detail::robust_fpt<double>::operator-(&v51, &v52);
+  v36 = v45 * boost::polygon::detail::robust_fpt<double>::operator-(&v49, &v50);
+  v37 = boost::polygon::detail::robust_fpt<double>::operator-(&v47, &v48);
+  *a5 = v35;
+  *(a5 + 8) = v36;
+  *(a5 + 16) = v45 * v37;
   *(a5 + 24) = 1;
-  boost::polygon::detail::robust_fpt<double>::operator-(&v50, &v51);
-  v38 = v37;
-  boost::polygon::detail::robust_fpt<double>::operator-(&v48, &v49);
-  v40 = v39;
-  boost::polygon::detail::robust_fpt<double>::operator-(&v46, &v47);
-  if (v38 > 64.0 || v40 > 64.0 || v41 > 64.0)
+  boost::polygon::detail::robust_fpt<double>::operator-(&v51, &v52);
+  v39 = v38;
+  boost::polygon::detail::robust_fpt<double>::operator-(&v49, &v50);
+  v41 = v40;
+  boost::polygon::detail::robust_fpt<double>::operator-(&v47, &v48);
+  if (v39 > 64.0 || v41 > 64.0 || v42 > 64.0)
   {
-    boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::ppp();
+    boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::mp_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::ppp(a1);
   }
 }
 
-uint64_t boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::circle_existence_predicate<boost::polygon::detail::site_event<int>>::pps(uint64_t a1, int *a2, int *a3, uint64_t a4, int a5)
+BOOL boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::circle_existence_predicate<boost::polygon::detail::site_event<int>>::pps(uint64_t a1, int *a2, int *a3, uint64_t a4, int a5)
 {
   v8 = (*(a4 + 32) >> 2) & 8;
   v9 = (a4 + v8);
-  if (a5 == 2)
+  if (a5 != 2)
   {
-    if (*v9 != *a2)
+    v11 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::orientation_test::eval<boost::polygon::detail::point_2d<int>>(a2, a3, v9);
+    v12 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::orientation_test::eval<boost::polygon::detail::point_2d<int>>(a2, a3, (a4 + (~(*(a4 + 32) >> 2) & 8)));
+    if (a5 == 3)
     {
-      return 1;
+      if (*a3 >= *a2)
+      {
+        return v12 == -1;
+      }
     }
 
-    if (v9[1] != a2[1])
+    else if (a5 == 1 && *a2 >= *a3)
     {
-      return 1;
+      return v11 == -1;
     }
 
-    v10 = (a4 + (v8 ^ 8));
-    return *v10 != *a3 || v10[1] != a3[1];
+    return v11 == -1 || v12 == -1;
   }
 
-  v12 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::orientation_test::eval<boost::polygon::detail::point_2d<int>>(a2, a3, v9);
-  v13 = boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::orientation_test::eval<boost::polygon::detail::point_2d<int>>(a2, a3, (a4 + (~(*(a4 + 32) >> 2) & 8)));
-  if (a5 == 3)
-  {
-    if (*a3 >= *a2)
-    {
-      return v13 == -1;
-    }
-
-    return v12 == -1 || v13 == -1;
-  }
-
-  if (a5 != 1 || *a2 < *a3)
-  {
-    return v12 == -1 || v13 == -1;
-  }
-
-  return v12 == -1;
+  return *v9 != *a2 || v9[1] != a2[1] || *(a4 + (v8 ^ 8)) != *a3;
 }
 
 void boost::polygon::detail::voronoi_predicates<boost::polygon::detail::voronoi_ctype_traits<int>>::lazy_circle_formation_functor<boost::polygon::detail::site_event<int>,boost::polygon::detail::circle_event<double>>::pps(uint64_t a1, int *a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6)

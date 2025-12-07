@@ -250,71 +250,43 @@ LABEL_11:
       v17 = [allStickyKeyHorizontalConstraints objectAtIndexedSubscript:v9];
 
       v57 = v14;
-      if (v14 == v9)
+      if (v14 == v9 || (-[AXStickyKeysView allStickyKeyLabels](self, "allStickyKeyLabels"), v18 = objc_claimAutoreleasedReturnValue(), [v18 objectAtIndexedSubscript:v9 + 1], v59 = objc_claimAutoreleasedReturnValue(), v18, -[AXStickyKeysView allStickyKeyHorizontalConstraints](self, "allStickyKeyHorizontalConstraints"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "objectAtIndexedSubscript:", v9 + 1), v55 = objc_claimAutoreleasedReturnValue(), v19, v51 = objc_msgSend(v17, "firstAttribute"), v20 = objc_msgSend(v17, "relation"), objc_msgSend(v17, "secondItem"), v21 = v17, v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v21, "secondAttribute"), objc_msgSend(v21, "multiplier"), v25 = v24, objc_msgSend(v21, "constant"), +[NSLayoutConstraint constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:](NSLayoutConstraint, "constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:", v59, v51, v20, v22, v23, v25, v26), v27 = objc_claimAutoreleasedReturnValue(), v22, objc_msgSend(v6, "addObject:", v55), objc_msgSend(v5, "addObject:", v27), -[AXStickyKeysView allStickyKeyHorizontalConstraints](self, "allStickyKeyHorizontalConstraints"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "setObject:atIndexedSubscript:", v27, v9), v28, v17 = v21, v27, v55, v59, v9))
       {
-        goto LABEL_9;
-      }
-
-      allStickyKeyLabels3 = [(AXStickyKeysView *)self allStickyKeyLabels];
-      v59 = [allStickyKeyLabels3 objectAtIndexedSubscript:v9 + 1];
-
-      allStickyKeyHorizontalConstraints2 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
-      v55 = [allStickyKeyHorizontalConstraints2 objectAtIndexedSubscript:v9 + 1];
-
-      firstAttribute = [v17 firstAttribute];
-      relation = [v17 relation];
-      [v17 secondItem];
-      v22 = v21 = v17;
-      secondAttribute = [v21 secondAttribute];
-      [v21 multiplier];
-      v25 = v24;
-      [v21 constant];
-      v27 = [NSLayoutConstraint constraintWithItem:v59 attribute:firstAttribute relatedBy:relation toItem:v22 attribute:secondAttribute multiplier:v25 constant:v26];
-
-      [v6 addObject:v55];
-      [v5 addObject:v27];
-      allStickyKeyHorizontalConstraints3 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
-      [allStickyKeyHorizontalConstraints3 setObject:v27 atIndexedSubscript:v9];
-
-      v17 = v21;
-      if (v9)
-      {
-LABEL_9:
         v56 = v17;
-        allStickyKeyLabels4 = [(AXStickyKeysView *)self allStickyKeyLabels];
-        v60 = [allStickyKeyLabels4 objectAtIndexedSubscript:v9 - 1];
+        allStickyKeyLabels3 = [(AXStickyKeysView *)self allStickyKeyLabels];
+        v60 = [allStickyKeyLabels3 objectAtIndexedSubscript:v9 - 1];
 
-        allStickyKeyHorizontalConstraints4 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
-        v31 = [allStickyKeyHorizontalConstraints4 objectAtIndexedSubscript:v9 - 1];
+        allStickyKeyHorizontalConstraints2 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
+        v31 = [allStickyKeyHorizontalConstraints2 objectAtIndexedSubscript:v9 - 1];
 
-        firstAttribute2 = [v31 firstAttribute];
-        relation2 = [v31 relation];
+        firstAttribute = [v31 firstAttribute];
+        relation = [v31 relation];
         secondItem = [v31 secondItem];
-        secondAttribute2 = [v31 secondAttribute];
+        secondAttribute = [v31 secondAttribute];
         [v31 multiplier];
         v36 = v35;
         [v31 constant];
-        v38 = [NSLayoutConstraint constraintWithItem:v11 attribute:firstAttribute2 relatedBy:relation2 toItem:secondItem attribute:secondAttribute2 multiplier:v36 constant:v37];
+        v38 = [NSLayoutConstraint constraintWithItem:v11 attribute:firstAttribute relatedBy:relation toItem:secondItem attribute:secondAttribute multiplier:v36 constant:v37];
 
         if (v57 == v9)
         {
-          allStickyKeyHorizontalConstraints5 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
-          [allStickyKeyHorizontalConstraints5 objectAtIndexedSubscript:v9 + 1];
+          allStickyKeyHorizontalConstraints3 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
+          [allStickyKeyHorizontalConstraints3 objectAtIndexedSubscript:v9 + 1];
           v40 = v58 = v38;
 
-          firstAttribute3 = [v40 firstAttribute];
-          relation3 = [v40 relation];
+          firstAttribute2 = [v40 firstAttribute];
+          relation2 = [v40 relation];
           secondItem2 = [v40 secondItem];
-          secondAttribute3 = [v40 secondAttribute];
+          secondAttribute2 = [v40 secondAttribute];
           [v40 multiplier];
           v44 = v43;
           [v40 constant];
-          v46 = [NSLayoutConstraint constraintWithItem:v60 attribute:firstAttribute3 relatedBy:relation3 toItem:secondItem2 attribute:secondAttribute3 multiplier:v44 constant:v45];
+          v46 = [NSLayoutConstraint constraintWithItem:v60 attribute:firstAttribute2 relatedBy:relation2 toItem:secondItem2 attribute:secondAttribute2 multiplier:v44 constant:v45];
 
           [v6 addObject:v40];
           [v5 addObject:v46];
-          allStickyKeyHorizontalConstraints6 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
-          [allStickyKeyHorizontalConstraints6 setObject:v46 atIndexedSubscript:v9];
+          allStickyKeyHorizontalConstraints4 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
+          [allStickyKeyHorizontalConstraints4 setObject:v46 atIndexedSubscript:v9];
 
           v38 = v58;
         }
@@ -327,11 +299,11 @@ LABEL_9:
       v15 = 0;
     }
 
-    allStickyKeyLabels5 = [(AXStickyKeysView *)self allStickyKeyLabels];
-    [allStickyKeyLabels5 removeObjectAtIndex:v9];
+    allStickyKeyLabels4 = [(AXStickyKeysView *)self allStickyKeyLabels];
+    [allStickyKeyLabels4 removeObjectAtIndex:v9];
 
-    allStickyKeyHorizontalConstraints7 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
-    [allStickyKeyHorizontalConstraints7 removeObjectAtIndex:v9 + 1];
+    allStickyKeyHorizontalConstraints5 = [(AXStickyKeysView *)self allStickyKeyHorizontalConstraints];
+    [allStickyKeyHorizontalConstraints5 removeObjectAtIndex:v9 + 1];
 
     [(AXStickyKeysView *)self layoutIfNeeded];
     v64[0] = _NSConcreteStackBlock;

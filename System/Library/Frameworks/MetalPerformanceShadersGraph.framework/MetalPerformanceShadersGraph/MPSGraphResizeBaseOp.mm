@@ -12,7 +12,7 @@
   dependenciesCopy = dependencies;
   nameCopy = name;
   v20 = [tensorsCopy objectAtIndexedSubscript:0];
-  v21 = validateLayout(v20, layout, supportedLayouts, 5);
+  v21 = validateLayout(v20, layout, supportedLayouts, 5u);
 
   if (!v21 && MTLReportFailureTypeEnabled())
   {

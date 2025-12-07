@@ -10,19 +10,18 @@
 {
   v5 = type metadata accessor for Logger();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(&self->super.isa + OBJC_IVAR____TtC13transparencyd16KTNetworkRequest_logClient) = client;
   clientCopy = client;
   Logger.init(subsystem:category:)();
-  (*(v6 + 32))(self + OBJC_IVAR____TtC13transparencyd16KTNetworkRequest_log, v9, v5);
-  v11 = type metadata accessor for KTNetworkRequest();
-  v14.receiver = self;
-  v14.super_class = v11;
-  v12 = [(KTNetworkRequest *)&v14 init];
+  (*(v6 + 32))(self + OBJC_IVAR____TtC13transparencyd16KTNetworkRequest_log, v8, v5);
+  v10 = type metadata accessor for KTNetworkRequest(0);
+  v13.receiver = self;
+  v13.super_class = v10;
+  v11 = [(KTNetworkRequest *)&v13 init];
 
-  return v12;
+  return v11;
 }
 
 - (_TtC13transparencyd16KTNetworkRequest)requestWithIdsURI:(id)i application:(id)application traceUUID:(id)d timeout:(double)timeout complete:(id)complete

@@ -1,9 +1,9 @@
 @interface ARPlaneData
-+ (double)_surfaceToWorldTransformForPlane:(uint64_t)plane pivot:(float64x2_t *)pivot;
 + (double)transformAnchorToPlaneAnchorConvention:(float32x4_t)convention;
 + (float)_pivotForPlane:(CV3DPlaneDetectionPlane *)plane;
 + (float)_surfacePivotForPlane:(CV3DSurfaceDetectionPlane *)plane;
 + (id)anchorForDetectionResult:(CV3DSurfaceDetectionResult *)result;
++ (uint64_t)_surfaceToWorldTransformForPlane:(uint64_t)plane pivot:(uint64_t)pivot;
 - (ARPlaneData)initWithDetectionResult:(CV3DPlaneDetectionPlaneList *)result detectionTypeMask:(unint64_t)mask sceneUnderstandingEnabled:(BOOL)enabled;
 - (NSDictionary)tracingEntry;
 - (__n128)initWithDetectionResult:(__n128)result detectionTypeMask:(__n128)mask sceneUnderstandingEnabled:(__n128)enabled renderingFromVision:(double)vision atTimestamp:;
@@ -237,7 +237,7 @@
     v17 = v14;
     v18 = v15;
     v19 = v16;
-    if ((atomic_load_explicit(&qword_1EBF41CE8, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1EBF41CE8, memory_order_acquire) & 1) == 0)
     {
       ARCreatePlaneAnchorFromCV3DPlane();
     }
@@ -334,7 +334,7 @@
       v22 = v19;
       v23 = v20;
       v24 = v21;
-      if ((atomic_load_explicit(&qword_1EBF41CE8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_1EBF41CE8, memory_order_acquire) & 1) == 0)
       {
         +[ARPlaneData _surfacePivotForPlane:];
       }
@@ -370,35 +370,39 @@
   return result;
 }
 
-+ (double)_surfaceToWorldTransformForPlane:(uint64_t)plane pivot:(float64x2_t *)pivot
++ (uint64_t)_surfaceToWorldTransformForPlane:(uint64_t)plane pivot:(uint64_t)pivot
 {
   if (self == 0.0)
   {
-    return ARMatrix4x4MakeColumnMajorTransformFromArray(pivot + 3);
+    ARMatrix4x4MakeColumnMajorTransformFromArray((pivot + 48));
   }
 
-  v5 = __sincosf_stret(self * 0.5);
-  v6 = vmulq_n_f32(xmmword_1C25C86A0, v5.__sinval);
-  v6.i32[3] = LODWORD(v5.__cosval);
-  *&v7 = simd_matrix4x4(v6);
-  v17 = v8;
-  v18 = v7;
-  v19 = v10;
-  v20 = v9;
-  *v11.i64 = ARMatrix4x4MakeColumnMajorTransformFromArray(pivot + 3);
-  v15 = 0;
-  v21[0] = v18;
-  v21[1] = v17;
-  v21[2] = v20;
-  v21[3] = v19;
-  do
+  else
   {
-    *(&v22 + v15 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v11, COERCE_FLOAT(v21[v15])), v12, *&v21[v15], 1), v13, v21[v15], 2), v14, v21[v15], 3);
-    ++v15;
+    v5 = __sincosf_stret(self * 0.5);
+    v6 = vmulq_n_f32(xmmword_1C25C86A0, v5.__sinval);
+    v6.i32[3] = LODWORD(v5.__cosval);
+    *&v7 = simd_matrix4x4(v6);
+    v17 = v8;
+    v18 = v7;
+    v19 = v10;
+    v20 = v9;
+    *v12.i64 = ARMatrix4x4MakeColumnMajorTransformFromArray((pivot + 48));
+    v16 = 0;
+    v21[0] = v18;
+    v21[1] = v17;
+    v21[2] = v20;
+    v21[3] = v19;
+    do
+    {
+      v21[v16 + 4] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, COERCE_FLOAT(v21[v16])), v13, *&v21[v16], 1), v14, v21[v16], 2), v15, v21[v16], 3);
+      ++v16;
+    }
+
+    while (v16 != 4);
   }
 
-  while (v15 != 4);
-  return *&v22;
+  return result;
 }
 
 + (id)anchorForDetectionResult:(CV3DSurfaceDetectionResult *)result
@@ -471,7 +475,7 @@
 
 + (void)_surfacePivotForPlane:.cold.1()
 {
-  if (__cxa_guard_acquire(&qword_1EBF41CE8))
+  if (__cxa_guard_acquire(byte_1EBF41CE8))
   {
     v0 = OUTLINED_FUNCTION_0(&_MergedGlobals_1);
 

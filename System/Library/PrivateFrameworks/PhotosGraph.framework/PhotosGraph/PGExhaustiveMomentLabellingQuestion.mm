@@ -6,12 +6,12 @@
 
 - (PGExhaustiveMomentLabellingQuestion)initWithMomentUUID:(id)d localFactoryScore:(double)score meaningLabels:(id)labels
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   labelsCopy = labels;
-  v19.receiver = self;
-  v19.super_class = PGExhaustiveMomentLabellingQuestion;
-  v11 = [(PGExhaustiveMomentLabellingQuestion *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = PGExhaustiveMomentLabellingQuestion;
+  v11 = [(PGExhaustiveMomentLabellingQuestion *)&v18 init];
   v12 = v11;
   if (v11)
   {
@@ -23,15 +23,14 @@
       array = [labelsCopy array];
       v14 = [array componentsJoinedByString:{@", "}];
 
-      v20 = *MEMORY[0x277D3C8D8];
-      v21[0] = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x277D3C8D8];
+      v20[0] = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       additionalInfo = v12->_additionalInfo;
       v12->_additionalInfo = v15;
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

@@ -1,9 +1,12 @@
 @interface JavaNioDoubleArrayBuffer
+- (JavaNioDoubleArrayBuffer)initWithInt:(int)int withDoubleArray:(id)array withInt:(int)withInt withBoolean:(BOOL)boolean;
 - (double)get;
 - (double)getWithInt:(int)int;
 - (id)compact;
+- (id)getWithDoubleArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)protectedArray;
 - (id)putWithDouble:(double)double;
+- (id)putWithDoubleArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)putWithInt:(int)int withDouble:(double)double;
 - (id)slice;
 - (int)protectedArrayOffset;
@@ -11,6 +14,15 @@
 @end
 
 @implementation JavaNioDoubleArrayBuffer
+
+- (JavaNioDoubleArrayBuffer)initWithInt:(int)int withDoubleArray:(id)array withInt:(int)withInt withBoolean:(BOOL)boolean
+{
+  JavaNioDoubleBuffer_initWithInt_withLong_(self, *&int, 0, array, *&withInt, boolean, v6, v7);
+  JreStrongAssign(&self->backingArray_, array);
+  self->arrayOffset_ = withInt;
+  self->isReadOnly_ = boolean;
+  return self;
+}
 
 - (id)compact
 {
@@ -102,6 +114,21 @@
   return backingArray->buffer_[v7];
 }
 
+- (id)getWithDoubleArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  if ([(JavaNioBuffer *)self remaining]< withInt)
+  {
+    v10 = new_JavaNioBufferUnderflowException_init();
+    objc_exception_throw(v10);
+  }
+
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->backingArray_, (self->super.super.position_ + self->arrayOffset_), array, v6, v5);
+  self->super.super.position_ += v5;
+  return self;
+}
+
 - (id)putWithDouble:(double)double
 {
   if (self->isReadOnly_)
@@ -160,6 +187,28 @@ LABEL_11:
   }
 
   backingArray->buffer_[v9] = double;
+  return self;
+}
+
+- (id)putWithDoubleArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (self->isReadOnly_)
+  {
+    OnlyBufferException_init = new_JavaNioReadOnlyBufferException_init();
+    goto LABEL_6;
+  }
+
+  v5 = *&withInt;
+  v6 = *&int;
+  if ([(JavaNioBuffer *)self remaining]< withInt)
+  {
+    OnlyBufferException_init = new_JavaNioBufferOverflowException_init();
+LABEL_6:
+    objc_exception_throw(OnlyBufferException_init);
+  }
+
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, v6, self->backingArray_, (self->super.super.position_ + self->arrayOffset_), v5);
+  self->super.super.position_ += v5;
   return self;
 }
 

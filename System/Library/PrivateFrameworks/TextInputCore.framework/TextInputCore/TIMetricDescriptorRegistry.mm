@@ -61,7 +61,7 @@ LABEL_7:
 
 - (void)_loadMetricDescriptors
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   config = [(TIMetricDescriptorRegistry *)self config];
 
   if (!config)
@@ -73,7 +73,7 @@ LABEL_7:
     {
       v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading metric descriptor configuration.", "-[TIMetricDescriptorRegistry _loadMetricDescriptors]"];
       *buf = 138412290;
-      v25 = v7;
+      v24 = v7;
       _os_log_impl(&dword_22CA55000, v6, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
@@ -87,9 +87,9 @@ LABEL_7:
       v10 = IXADefaultLogFacility();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Unable to load the metric descriptor configuration from %@.plist.", "-[TIMetricDescriptorRegistry _loadMetricDescriptors]", @"MetricDescriptors"];
+        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Unable to load the metric descriptor configuration from %@.plist.", "-[TIMetricDescriptorRegistry _loadMetricDescriptors]", @"MetricDescriptors"];
         *buf = 138412290;
-        v25 = v22;
+        v24 = v21;
         _os_log_error_impl(&dword_22CA55000, v10, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
     }
@@ -104,7 +104,7 @@ LABEL_7:
     {
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading metric descriptors.", "-[TIMetricDescriptorRegistry _loadMetricDescriptors]"];
       *buf = 138412290;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_22CA55000, v12, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
@@ -120,42 +120,38 @@ LABEL_7:
       v19 = IXADefaultLogFacility();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s The following errors occurred while parsing the metrics descriptor configuration.", "-[TIMetricDescriptorRegistry _loadMetricDescriptors]"];
+        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s The following errors occurred while parsing the metrics descriptor configuration.", "-[TIMetricDescriptorRegistry _loadMetricDescriptors]"];
         *buf = 138412290;
-        v25 = v21;
+        v24 = v20;
         _os_log_error_impl(&dword_22CA55000, v19, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
 
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __52__TIMetricDescriptorRegistry__loadMetricDescriptors__block_invoke;
-      v23[3] = &unk_2787319C8;
-      v23[4] = self;
-      [v15 enumerateObjectsUsingBlock:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __52__TIMetricDescriptorRegistry__loadMetricDescriptors__block_invoke;
+      v22[3] = &unk_2787319C8;
+      v22[4] = self;
+      [v15 enumerateObjectsUsingBlock:v22];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52__TIMetricDescriptorRegistry__loadMetricDescriptors__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IXADefaultLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = MEMORY[0x277CCACA8];
-    v7 = [*(a1 + 32) contextFromError:v3];
-    v8 = [v3 userInfo];
-    v9 = [v8 objectForKey:@"message"];
-    v10 = [v6 stringWithFormat:@"%s   %@%@", "-[TIMetricDescriptorRegistry _loadMetricDescriptors]_block_invoke", v7, v9];
+    v5 = MEMORY[0x277CCACA8];
+    v6 = [*(a1 + 32) contextFromError:v3];
+    v7 = [v3 userInfo];
+    v8 = [v7 objectForKey:@"message"];
+    v9 = [v5 stringWithFormat:@"%s   %@%@", "-[TIMetricDescriptorRegistry _loadMetricDescriptors]_block_invoke", v6, v8];
     *buf = 138412290;
-    v12 = v10;
+    v11 = v9;
     _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadMetricDescriptorsIfNecessary
@@ -223,66 +219,66 @@ void __52__TIMetricDescriptorRegistry__loadMetricDescriptors__block_invoke(uint6
 
 - (TIMetricDescriptorRegistry)initWithDescriptors:(id)descriptors andInvalidMetricNames:(id)names
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   namesCopy = names;
   v8 = [(TIMetricDescriptorRegistry *)self initWithConfig:MEMORY[0x277CBEC10]];
   if (v8)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v9 = descriptorsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v31;
+      v12 = *v30;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v31 != v12)
+          if (*v30 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v30 + 1) + 8 * i);
+          v14 = *(*(&v29 + 1) + 8 * i);
           metricDescriptors = v8->_metricDescriptors;
           metricName = [v14 metricName];
           [(NSMutableDictionary *)metricDescriptors setObject:v14 forKey:metricName];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v11);
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v17 = namesCopy;
-    v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [(NSMutableSet *)v8->_invalidMetricNames addObject:*(*(&v26 + 1) + 8 * j), v26];
+          [(NSMutableSet *)v8->_invalidMetricNames addObject:*(*(&v25 + 1) + 8 * j), v25];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v19);
@@ -294,7 +290,6 @@ void __52__TIMetricDescriptorRegistry__loadMetricDescriptors__block_invoke(uint6
     v8->_lock = v22;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -9,11 +9,11 @@
 
 - (id)_buildItemWithError:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   builder = self->_builder;
-  v15 = 0;
-  v8 = objc_msgSend_buildItemWithError_(builder, a2, &v15, v3, v4, v5);
-  v9 = v15;
+  v14 = 0;
+  v8 = objc_msgSend_buildItemWithError_(builder, a2, &v14, v3, v4, v5);
+  v9 = v14;
   if (v8)
   {
     v10 = v8;
@@ -24,9 +24,9 @@
   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v17 = "[KVLinkOOVItemBuilder _buildItemWithError:]";
-    v18 = 2112;
-    v19 = v9;
+    v16 = "[KVLinkOOVItemBuilder _buildItemWithError:]";
+    v17 = 2112;
+    v18 = v9;
     _os_log_error_impl(&dword_2559A5000, v11, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
     if (!error)
     {
@@ -47,26 +47,24 @@
 
 LABEL_7:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)linkOOVItemWithPhrase:(id)phrase itemId:(id)id customPronunciations:(id)pronunciations error:(id *)error
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   phraseCopy = phrase;
   pronunciationsCopy = pronunciations;
   builder = self->_builder;
-  v71 = 0;
-  v15 = objc_msgSend_setItemType_itemId_error_(builder, v13, 11, id, &v71, v14);
-  v18 = v71;
+  v70 = 0;
+  v15 = objc_msgSend_setItemType_itemId_error_(builder, v13, 11, id, &v70, v14);
+  v18 = v70;
   if (v15)
   {
     v19 = self->_builder;
-    v70 = v18;
-    v20 = objc_msgSend_addFieldWithType_value_error_(v19, v16, 500, phraseCopy, &v70, v17);
-    v21 = v70;
+    v69 = v18;
+    v20 = objc_msgSend_addFieldWithType_value_error_(v19, v16, 500, phraseCopy, &v69, v17);
+    v21 = v69;
 
     if (v20)
     {
@@ -82,48 +80,48 @@ LABEL_7:
         if (v44)
         {
           errorCopy = error;
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
           v67 = 0u;
+          v68 = 0u;
+          v65 = 0u;
+          v66 = 0u;
           v45 = pronunciationsCopy;
-          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v66, v72, 16, v47);
+          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v65, v71, 16, v47);
           if (v48)
           {
             v51 = v48;
-            v52 = *v67;
+            v52 = *v66;
             while (2)
             {
               v53 = 0;
               v54 = v21;
               do
               {
-                if (*v67 != v52)
+                if (*v66 != v52)
                 {
                   objc_enumerationMutation(v45);
                 }
 
-                v55 = *(*(&v66 + 1) + 8 * v53);
+                v55 = *(*(&v65 + 1) + 8 * v53);
                 v56 = self->_builder;
-                v65 = v54;
-                v57 = objc_msgSend_addFieldWithType_value_error_(v56, v49, 501, v55, &v65, v50, errorCopy);
-                v21 = v65;
+                v64 = v54;
+                v57 = objc_msgSend_addFieldWithType_value_error_(v56, v49, 501, v55, &v64, v50, errorCopy);
+                v21 = v64;
 
                 if (!v57)
                 {
-                  v62 = qword_28106B3C0;
+                  v61 = qword_28106B3C0;
                   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136315394;
-                    v74 = "[KVLinkOOVItemBuilder linkOOVItemWithPhrase:itemId:customPronunciations:error:]";
-                    v75 = 2112;
-                    v76 = v21;
-                    _os_log_error_impl(&dword_2559A5000, v62, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
+                    v73 = "[KVLinkOOVItemBuilder linkOOVItemWithPhrase:itemId:customPronunciations:error:]";
+                    v74 = 2112;
+                    v75 = v21;
+                    _os_log_error_impl(&dword_2559A5000, v61, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
                   }
 
                   if (errorCopy && v21)
                   {
-                    v63 = v21;
+                    v62 = v21;
                     *errorCopy = v21;
                   }
 
@@ -136,7 +134,7 @@ LABEL_7:
               }
 
               while (v51 != v53);
-              v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v49, &v66, v72, 16, v50);
+              v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v49, &v65, v71, 16, v50);
               if (v51)
               {
                 continue;
@@ -166,9 +164,9 @@ LABEL_23:
   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v74 = "[KVLinkOOVItemBuilder linkOOVItemWithPhrase:itemId:customPronunciations:error:]";
-    v75 = 2112;
-    v76 = v18;
+    v73 = "[KVLinkOOVItemBuilder linkOOVItemWithPhrase:itemId:customPronunciations:error:]";
+    v74 = 2112;
+    v75 = v18;
     _os_log_error_impl(&dword_2559A5000, v41, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
@@ -182,8 +180,6 @@ LABEL_23:
 
   v21 = v18;
 LABEL_24:
-
-  v60 = *MEMORY[0x277D85DE8];
 
   return v42;
 }

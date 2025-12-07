@@ -34,6 +34,7 @@
 - (BOOL)startTLSForAccount:(id)account;
 - (BOOL)storeFlagChange:(id)change forUIDs:(id)ds;
 - (BOOL)storeFlags:(id)flags state:(BOOL)state forMessageSet:(id)set;
+- (BOOL)storeFlags:(id)flags state:(BOOL)state forUIDs:(id)ds;
 - (BOOL)storeGmailLabels:(id)labels state:(BOOL)state forUIDs:(id)ds;
 - (BOOL)supportsCapability:(int64_t)capability;
 - (MFIMAPCommandPipeline)fetchPipeline;
@@ -52,6 +53,7 @@
 - (id)_errorForResponse:(id)response commandParams:(id)params;
 - (id)_fetchArgumentForMessageSkeletonsWithAllHeaders;
 - (id)_indexSetForIMAPInlineSet:(id)set;
+- (id)_listingForMailbox:(id)mailbox options:(int64_t)options getSpecialUse:(BOOL)use statusDataItems:(id)items statusEntriesByMailbox:(id *)byMailbox withCommand:(int64_t)command;
 - (id)_logStringForCommand:(id)command;
 - (id)_logStringForIDs:(id)ds;
 - (id)_publicDescriptionForSearchString:(id)string;
@@ -60,12 +62,15 @@
 - (id)_responseFromSendingCommands:(id)commands;
 - (id)_searchUidsForMessageIDs:(id)ds excludeDeleted:(BOOL)deleted;
 - (id)_serverErrorForAccount:(id)account response:(id)response command:(id)command;
+- (id)_uidsForMessageIDs:(id)ds excludeDeleted:(BOOL)deleted;
 - (id)capabilities;
 - (id)copyArgumentForSearchTerm:(id)term;
 - (id)copyDiagnosticInformation;
 - (id)copyInfoForMessageInfo:(id)info;
 - (id)eSearchIDSet:(id)set areMessageSequenceNumbers:(BOOL)numbers arguments:(id)arguments success:(BOOL *)success returning:(int64_t)returning;
+- (id)eSearchIDSet:(id)set areMessageSequenceNumbers:(BOOL)numbers forTerms:(id)terms success:(BOOL *)success returning:(int64_t)returning;
 - (id)fetchMessageIdsForUids:(id)uids;
+- (id)listingForMailbox:(id)mailbox options:(int64_t)options getSpecialUse:(BOOL)use statusDataItems:(id)items statusEntriesByMailbox:(id *)byMailbox;
 - (id)messageSetForNumbers:(id)numbers;
 - (id)messageSetForRange:(id)range;
 - (id)messageSetForUIDs:(id)ds;
@@ -84,6 +89,7 @@
 - (unint64_t)_sendCommands:(id)commands response:(id *)response;
 - (unint64_t)countForSearchOfIDSet:(id)set forTerms:(id)terms success:(BOOL *)success;
 - (unint64_t)countForSearchOfUidSet:(id)set forTerms:(id)terms success:(BOOL *)success;
+- (unsigned)getMailboxIDForUID:(unsigned int)d;
 - (unsigned)readBufferSize;
 - (void)_addCapabilities:(id)capabilities;
 - (void)_clearCapabilities;
@@ -118,12 +124,12 @@
 
 - (BOOL)sendResponsesForCondStoreFlagFetchForUIDs:(id)ds withSequenceIdentifier:(id *)identifier toQueue:(id)queue
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   queueCopy = queue;
   selfCopy = self;
-  v30 = dsCopy;
-  v33 = [(MFIMAPConnection *)self messageSetForNumbers:dsCopy];
+  v29 = dsCopy;
+  v32 = [(MFIMAPConnection *)self messageSetForNumbers:dsCopy];
   v9 = MEMORY[0x1E696AEC0];
   if (identifier && [*identifier length])
   {
@@ -136,26 +142,26 @@
   }
 
   [v9 stringWithFormat:@"(CHANGEDSINCE %@)", v10];
-  v51[0] = v33;
-  v52 = v51[1] = @"(FLAGS)";
-  v31 = v52;
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:3];
-  v36 = [[_MFIMAPCommandParameters alloc] initWithCommand:21 arguments:v34];
-  v50 = v36;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
+  v50[0] = v32;
+  v51 = v50[1] = @"(FLAGS)";
+  v30 = v51;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:3];
+  v35 = [[_MFIMAPCommandParameters alloc] initWithCommand:21 arguments:v33];
+  v49 = v35;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
   identifierCopy = identifier;
-  v35 = [(MFIMAPConnection *)self _responseFromSendingCommands:v11];
+  v34 = [(MFIMAPConnection *)self _responseFromSendingCommands:v11];
 
-  v12 = v36;
-  responseType = [v35 responseType];
+  v12 = v35;
+  responseType = [v34 responseType];
   if (responseType == 2)
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
-    obj = [(_MFIMAPCommandParameters *)v36 untaggedResponses];
-    v14 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    obj = [(_MFIMAPCommandParameters *)v35 untaggedResponses];
+    v14 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (!v14)
     {
 
@@ -164,39 +170,39 @@
 
     v15 = 0;
     v16 = 0;
-    v17 = *v44;
+    v17 = *v43;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v44 != v17)
+        if (*v43 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v43 + 1) + 8 * i);
+        v19 = *(*(&v42 + 1) + 8 * i);
         if ([v19 responseType] == 17)
         {
           fetchResults = [v19 fetchResults];
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           v21 = fetchResults;
-          v22 = [v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v38 objects:v47 count:16];
           if (v22)
           {
-            v23 = *v40;
+            v23 = *v39;
             do
             {
               for (j = 0; j != v22; ++j)
               {
-                if (*v40 != v23)
+                if (*v39 != v23)
                 {
                   objc_enumerationMutation(v21);
                 }
 
-                modSequenceNumber = [*(*(&v39 + 1) + 8 * j) modSequenceNumber];
+                modSequenceNumber = [*(*(&v38 + 1) + 8 * j) modSequenceNumber];
                 v15 |= modSequenceNumber > v16;
                 if (modSequenceNumber > v16)
                 {
@@ -204,7 +210,7 @@
                 }
               }
 
-              v22 = [v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
+              v22 = [v21 countByEnumeratingWithState:&v38 objects:v47 count:16];
             }
 
             while (v22);
@@ -214,33 +220,32 @@
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v14 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v14);
 
-    v12 = v36;
+    v12 = v35;
     responseType = 2;
     if (((identifierCopy != 0) & v15) == 1)
     {
       *identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%llu", v16];
 LABEL_27:
-      v12 = v36;
+      v12 = v35;
       responseType = 2;
     }
   }
 
-  v47 = v12;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
+  v46 = v12;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
   [(MFIMAPConnection *)selfCopy didFinishCommands:v26];
 
-  v27 = *MEMORY[0x1E69E9840];
   return responseType == 2;
 }
 
 - (id)eSearchIDSet:(id)set areMessageSequenceNumbers:(BOOL)numbers arguments:(id)arguments success:(BOOL *)success returning:(int64_t)returning
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   setCopy = set;
   argumentsCopy = arguments;
   v11 = [objc_allocWithZone(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(argumentsCopy, "count") + 2 * (setCopy != 0)}];
@@ -313,11 +318,11 @@ LABEL_16:
   }
 
   [v11 addObjectsFromArray:argumentsCopy];
-  v39[0] = v12;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
-  v32 = [(MFIMAPConnection *)self _responseFromSendingCommands:v15];
+  v38[0] = v12;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+  v31 = [(MFIMAPConnection *)self _responseFromSendingCommands:v15];
 
-  responseType = [v32 responseType];
+  responseType = [v31 responseType];
   if (success)
   {
     *success = responseType == 2;
@@ -377,13 +382,54 @@ LABEL_16:
     v19 = 0;
   }
 
-  v38 = v12;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:{1, v32}];
+  v37 = v12;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:{1, v31}];
   [(MFIMAPConnection *)self didFinishCommands:v28];
 
   v29 = v19;
-  v30 = *MEMORY[0x1E69E9840];
   return v19;
+}
+
+- (id)eSearchIDSet:(id)set areMessageSequenceNumbers:(BOOL)numbers forTerms:(id)terms success:(BOOL *)success returning:(int64_t)returning
+{
+  successCopy = success;
+  returningCopy = returning;
+  numbersCopy = numbers;
+  v27 = *MEMORY[0x1E69E9840];
+  setCopy = set;
+  termsCopy = terms;
+  v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(termsCopy, "count")}];
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v13 = termsCopy;
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v14)
+  {
+    v15 = *v23;
+    do
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v23 != v15)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v17 = [(MFIMAPConnection *)self copyArgumentForSearchTerm:*(*(&v22 + 1) + 8 * i), successCopy, returningCopy, v22];
+        [v12 addObject:v17];
+      }
+
+      v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    }
+
+    while (v14);
+  }
+
+  v18 = [(MFIMAPConnection *)self eSearchIDSet:setCopy areMessageSequenceNumbers:numbersCopy arguments:v12 success:successCopy returning:returningCopy];
+
+  return v18;
 }
 
 - (id)parseIndexSetFromSequenceSet:(id)set
@@ -605,7 +651,7 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
     v8.length = 94;
     CFCharacterSetAddCharactersInRange(Mutable, v8);
     CFCharacterSetInvert(Mutable);
-    CFCharacterSetAddCharactersInString(Mutable, @"(){ %*\\"");
+    CFCharacterSetAddCharactersInString(Mutable, @"(){ %*\");
     sIMAPNeedsQuoteCharacterSet = CFCharacterSetCreateCopy(v3, Mutable);
     CFRelease(Mutable);
   }
@@ -660,49 +706,48 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
 - (id)copyDiagnosticInformation
 {
   [(MFIMAPConnection *)self mf_lock];
-  v15.receiver = self;
-  v15.super_class = MFIMAPConnection;
-  copyDiagnosticInformation = [(MFConnection *)&v15 copyDiagnosticInformation];
+  v14.receiver = self;
+  v14.super_class = MFIMAPConnection;
+  copyDiagnosticInformation = [(MFConnection *)&v14 copyDiagnosticInformation];
   v4 = [copyDiagnosticInformation mutableCopy];
   selfCopy = self;
   v6 = selfCopy;
-  v7 = *(selfCopy + 64) | (*(selfCopy + 130) << 16);
   if ((*(selfCopy + 64) & 0x20) != 0)
   {
     currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
-    v10 = [currentDevice isPlatform:2];
+    v9 = [currentDevice isPlatform:2];
 
-    if (v10)
+    if (v9)
     {
-      v8 = @"no";
+      v7 = @"no";
     }
 
     else
     {
-      v8 = @"yes";
+      v7 = @"yes";
     }
   }
 
   else
   {
 
-    v8 = @"no";
+    v7 = @"no";
   }
 
-  [v4 appendFormat:@"    supports IDLE: %@\n", v8];
+  [v4 appendFormat:@"    supports IDLE: %@\n", v7];
   isIdle = [(MFIMAPConnection *)v6 isIdle];
   idleCommandSequenceNumber = [(MFIMAPConnection *)v6 idleCommandSequenceNumber];
   if (isIdle)
   {
-    v13 = @"yes";
+    v12 = @"yes";
   }
 
   else
   {
-    v13 = @"no";
+    v12 = @"no";
   }
 
-  [v4 appendFormat:@"    using IDLE: %@ (seq=%lu)\n", v13, idleCommandSequenceNumber];
+  [v4 appendFormat:@"    using IDLE: %@ (seq=%lu)\n", v12, idleCommandSequenceNumber];
   [(MFIMAPConnection *)v6 mf_unlock];
 
   return v4;
@@ -839,7 +884,7 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
 
 - (void)_addCapabilities:(id)capabilities
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   if (capabilitiesCopy)
   {
@@ -855,21 +900,21 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
 
     [(NSMutableSet *)capabilities addObjectsFromArray:capabilitiesCopy];
     v8 = 0;
-    v20 = xmmword_1E7AA2A00;
-    v21 = *&off_1E7AA2A10;
-    v22 = xmmword_1E7AA2A20;
-    v23 = off_1E7AA2A30;
-    v16 = xmmword_1E7AA29C0;
-    v17 = *&off_1E7AA29D0;
-    v18 = xmmword_1E7AA29E0;
-    v19 = *&off_1E7AA29F0;
-    v12 = xmmword_1E7AA2980;
-    v13 = *&off_1E7AA2990;
-    v14 = xmmword_1E7AA29A0;
-    v15 = *&off_1E7AA29B0;
+    v19 = xmmword_1E7AA2A00;
+    v20 = *&off_1E7AA2A10;
+    v21 = xmmword_1E7AA2A20;
+    v22 = off_1E7AA2A30;
+    v15 = xmmword_1E7AA29C0;
+    v16 = *&off_1E7AA29D0;
+    v17 = xmmword_1E7AA29E0;
+    v18 = *&off_1E7AA29F0;
+    v11 = xmmword_1E7AA2980;
+    v12 = *&off_1E7AA2990;
+    v13 = xmmword_1E7AA29A0;
+    v14 = *&off_1E7AA29B0;
     do
     {
-      if ([(NSMutableSet *)self->_capabilities containsObject:*(&v12 + v8), v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23])
+      if ([(NSMutableSet *)self->_capabilities containsObject:*(&v11 + v8), v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22])
       {
         v9 = (1 << v8) | *(self + 64) | (*(self + 130) << 16);
         *(self + 64) |= 1 << v8;
@@ -884,16 +929,14 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
     {
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchCapabilities
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = [[_MFIMAPCommandParameters alloc] initWithCommand:0];
-  v17[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v5 = [(MFIMAPConnection *)self _responseFromSendingCommands:v4];
   v6 = [v5 responseType] == 2;
 
@@ -926,24 +969,21 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
     }
   }
 
-  v16 = v3;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+  v15 = v3;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendClientInfoIfSupported
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_1B0389000, v0, OS_LOG_TYPE_DEBUG, "sending ID command: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B0389000, v0, OS_LOG_TYPE_DEBUG, "sending ID command: %@", v1, 0xCu);
 }
 
 - (void)_sendApplePushForAccountIfSupported:(id)supported
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   supportedCopy = supported;
   v3 = MFUserAgent();
   canRegisterForAPSPush = [v3 canRegisterForAPSPush];
@@ -962,7 +1002,7 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
     }
 
     *buf = 138412290;
-    v101 = supportedCopy;
+    v100 = supportedCopy;
     v6 = "#aps-push not registering for push on unauthenticated connection for account %@";
     goto LABEL_5;
   }
@@ -973,7 +1013,7 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v101 = supportedCopy;
+      v100 = supportedCopy;
       _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_INFO, "#aps-push connection doesn't support XAPPLEPUSHSERVICE for account %@", buf, 0xCu);
     }
 
@@ -990,7 +1030,7 @@ void __23__MFIMAPConnection_log__block_invoke(uint64_t a1)
     }
 
     *buf = 138412290;
-    v101 = supportedCopy;
+    v100 = supportedCopy;
     v6 = "#aps-push account %@ not registering for push";
 LABEL_5:
     _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_INFO, v6, buf, 0xCu);
@@ -1000,7 +1040,7 @@ LABEL_5:
   v7 = +[MFAPSManager sharedManager];
   copyDeviceToken = [v7 copyDeviceToken];
 
-  v76 = copyDeviceToken;
+  v75 = copyDeviceToken;
   ef_hexString = [copyDeviceToken ef_hexString];
   if (!ef_hexString)
   {
@@ -1008,7 +1048,7 @@ LABEL_5:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v101 = supportedCopy;
+      v100 = supportedCopy;
       _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_INFO, "#aps-push failed to get device token while registering for push on account %@", buf, 0xCu);
     }
 
@@ -1020,27 +1060,27 @@ LABEL_5:
   context = objc_autoreleasePoolPush();
   uniqueID = [supportedCopy uniqueID];
   mailboxNamesForPushRegistration = [supportedCopy mailboxNamesForPushRegistration];
-  v90 = objc_msgSend(MEMORY[0x1E696AD60], "stringWithString:", @"(");
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
+  v89 = objc_msgSend(MEMORY[0x1E696AD60], "stringWithString:", @"(");
   v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
   obj = mailboxNamesForPushRegistration;
-  v9 = [obj countByEnumeratingWithState:&v95 objects:v118 count:16];
+  v9 = [obj countByEnumeratingWithState:&v94 objects:v117 count:16];
   if (v9)
   {
     v10 = 0;
-    v11 = *v96;
+    v11 = *v95;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v96 != v11)
+        if (*v95 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = MFIMAPStringFromMailboxName(*(*(&v95 + 1) + 8 * i));
+        v13 = MFIMAPStringFromMailboxName(*(*(&v94 + 1) + 8 * i));
         v14 = v13;
         if (v10)
         {
@@ -1052,18 +1092,18 @@ LABEL_5:
           v15 = &stru_1F273A5E0;
         }
 
-        [v90 appendFormat:@"%@%@", v15, v13];
+        [v89 appendFormat:@"%@%@", v15, v13];
 
         ++v10;
       }
 
-      v9 = [obj countByEnumeratingWithState:&v95 objects:v118 count:16];
+      v9 = [obj countByEnumeratingWithState:&v94 objects:v117 count:16];
     }
 
     while (v9);
   }
 
-  [v90 appendString:@""]);
+  [v89 appendString:@""]);
   v16 = MFUserAgent();
   if ([v16 isMaild])
   {
@@ -1077,29 +1117,29 @@ LABEL_5:
   }
 
   v22 = MEMORY[0x1E695DF70];
-  v108 = _IMAPCreateQuotedString(@"aps-version");
-  v87 = v108;
+  v107 = _IMAPCreateQuotedString(@"aps-version");
+  v86 = v107;
   v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", objc_msgSend(supportedCopy, "apsVersion")];
-  v109 = _IMAPCreateQuotedString(v23);
-  v84 = v109;
+  v108 = _IMAPCreateQuotedString(v23);
+  v83 = v108;
   v24 = _IMAPCreateQuotedString(@"aps-account-id");
-  v110 = v24;
+  v109 = v24;
   v25 = _IMAPCreateQuotedString(uniqueID);
-  v111 = v25;
+  v110 = v25;
   v26 = _IMAPCreateQuotedString(@"aps-device-token");
-  v112 = v26;
+  v111 = v26;
   v27 = _IMAPCreateQuotedString(ef_hexString);
-  v113 = v27;
+  v112 = v27;
   v28 = _IMAPCreateQuotedString(@"aps-subtopic");
-  v114 = v28;
+  v113 = v28;
   v29 = _IMAPCreateQuotedString(bundleIdentifier);
   v30 = v23;
-  v115 = v29;
+  v114 = v29;
   v31 = _IMAPCreateQuotedString(@"mailboxes");
-  v116 = v31;
-  v117 = v90;
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v108 count:10];
-  v80 = [v22 arrayWithArray:v32];
+  v115 = v31;
+  v116 = v89;
+  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v107 count:10];
+  v79 = [v22 arrayWithArray:v32];
 
   apsSenderArgument = [supportedCopy apsSenderArgument];
   if (apsSenderArgument)
@@ -1108,34 +1148,34 @@ LABEL_5:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v101 = apsSenderArgument;
+      v100 = apsSenderArgument;
       _os_log_impl(&dword_1B0389000, v33, OS_LOG_TYPE_INFO, "#aps-push Including Sender paramenter. Argument: {%{public}@}", buf, 0xCu);
     }
 
     v34 = _IMAPCreateQuotedString(@"sender");
-    [v80 addObject:v34];
+    [v79 addObject:v34];
 
     v35 = _IMAPCreateQuotedString(apsSenderArgument);
-    [v80 addObject:v35];
+    [v79 addObject:v35];
   }
 
   v36 = MFLogGeneral();
   if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
   {
-    v37 = [v80 componentsJoinedByString:@" "];
+    v37 = [v79 componentsJoinedByString:@" "];
     *buf = 138412546;
-    v101 = supportedCopy;
-    v102 = 2112;
-    v103 = v37;
+    v100 = supportedCopy;
+    v101 = 2112;
+    v102 = v37;
     _os_log_impl(&dword_1B0389000, v36, OS_LOG_TYPE_INFO, "#aps-push account %@ registering for push: {%@}", buf, 0x16u);
   }
 
-  v78 = [[_MFIMAPCommandParameters alloc] initWithCommand:35 arguments:v80];
-  v107 = v78;
-  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v107 count:1];
-  v77 = [(MFIMAPConnection *)self _responseFromSendingCommands:v38];
+  v77 = [[_MFIMAPCommandParameters alloc] initWithCommand:35 arguments:v79];
+  v106 = v77;
+  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v106 count:1];
+  v76 = [(MFIMAPConnection *)self _responseFromSendingCommands:v38];
 
-  if ([v77 responseType] != 2)
+  if ([v76 responseType] != 2)
   {
     v63 = MFLogGeneral();
     if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
@@ -1149,14 +1189,14 @@ LABEL_5:
     goto LABEL_87;
   }
 
-  v85 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(obj, "count")}];
-  v93 = 0u;
-  v94 = 0u;
-  v91 = 0u;
+  v84 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(obj, "count")}];
   v92 = 0u;
-  untaggedResponses = [(_MFIMAPCommandParameters *)v78 untaggedResponses];
-  v88 = untaggedResponses;
-  v40 = [untaggedResponses countByEnumeratingWithState:&v91 objects:v106 count:16];
+  v93 = 0u;
+  v90 = 0u;
+  v91 = 0u;
+  untaggedResponses = [(_MFIMAPCommandParameters *)v77 untaggedResponses];
+  v87 = untaggedResponses;
+  v40 = [untaggedResponses countByEnumeratingWithState:&v90 objects:v105 count:16];
   if (!v40)
   {
 
@@ -1166,7 +1206,7 @@ LABEL_75:
     v65 = MFLogGeneral();
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
-      untaggedResponses2 = [(_MFIMAPCommandParameters *)v78 untaggedResponses];
+      untaggedResponses2 = [(_MFIMAPCommandParameters *)v77 untaggedResponses];
       [(MFIMAPConnection *)supportedCopy _sendApplePushForAccountIfSupported:untaggedResponses2, buf, v65];
     }
 
@@ -1174,19 +1214,19 @@ LABEL_75:
     goto LABEL_78;
   }
 
+  v80 = 0;
   v81 = 0;
-  v82 = 0;
-  v41 = *v92;
+  v41 = *v91;
   do
   {
     for (j = 0; j != v40; ++j)
     {
-      if (*v92 != v41)
+      if (*v91 != v41)
       {
-        objc_enumerationMutation(v88);
+        objc_enumerationMutation(v87);
       }
 
-      v43 = *(*(&v91 + 1) + 8 * j);
+      v43 = *(*(&v90 + 1) + 8 * j);
       if ([v43 responseType] == 21)
       {
         serverInfo = [v43 serverInfo];
@@ -1197,13 +1237,13 @@ LABEL_75:
           if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v101 = supportedCopy;
-            v102 = 2112;
-            v103 = v45;
+            v100 = supportedCopy;
+            v101 = 2112;
+            v102 = v45;
             _os_log_impl(&dword_1B0389000, v46, OS_LOG_TYPE_INFO, "#aps-push account %@ will send pushes for mailbox '%@'", buf, 0x16u);
           }
 
-          [v85 addObject:v45];
+          [v84 addObject:v45];
           goto LABEL_61;
         }
 
@@ -1226,11 +1266,11 @@ LABEL_75:
           if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
-            v101 = supportedCopy;
-            v102 = 2112;
-            v103 = v47;
-            v104 = 2112;
-            v105 = v43;
+            v100 = supportedCopy;
+            v101 = 2112;
+            v102 = v47;
+            v103 = 2112;
+            v104 = v43;
             v52 = v51;
             v53 = "#aps-push account %@ (version %@) sent unknown push response %@";
             goto LABEL_58;
@@ -1242,9 +1282,9 @@ LABEL_75:
           intValue = [v47 intValue];
           if (intValue >= 1 && (v55 = intValue, [supportedCopy apsVersion] >= intValue))
           {
-            v51 = v82;
-            v81 = v55;
-            v82 = [v49 copy];
+            v51 = v81;
+            v80 = v55;
+            v81 = [v49 copy];
           }
 
           else
@@ -1253,11 +1293,11 @@ LABEL_75:
             if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v101 = supportedCopy;
-              v102 = 2112;
-              v103 = v47;
-              v104 = 2112;
-              v105 = v43;
+              v100 = supportedCopy;
+              v101 = 2112;
+              v102 = v47;
+              v103 = 2112;
+              v104 = v43;
               v52 = v51;
               v53 = "#aps-push account %@ (version %@) ignoring invalid version in push response '%@'";
 LABEL_58:
@@ -1271,13 +1311,13 @@ LABEL_61:
       }
     }
 
-    v40 = [v88 countByEnumeratingWithState:&v91 objects:v106 count:16];
+    v40 = [v87 countByEnumeratingWithState:&v90 objects:v105 count:16];
   }
 
   while (v40);
 
-  v56 = v81;
-  if (v81 >= 2)
+  v56 = v80;
+  if (v80 >= 2)
   {
     v57 = MFLogGeneral();
     v58 = os_log_type_enabled(v57, OS_LOG_TYPE_INFO);
@@ -1285,7 +1325,7 @@ LABEL_61:
     if (v58)
     {
       v59 = [obj mutableCopy];
-      [v59 minusSet:v85];
+      [v59 minusSet:v84];
       if ([v59 count])
       {
         v60 = MFLogGeneral();
@@ -1294,9 +1334,9 @@ LABEL_61:
           allObjects = [v59 allObjects];
           v62 = [allObjects componentsJoinedByString:{@", "}];
           *buf = 138412546;
-          v101 = supportedCopy;
-          v102 = 2112;
-          v103 = v62;
+          v100 = supportedCopy;
+          v101 = 2112;
+          v102 = v62;
           _os_log_impl(&dword_1B0389000, v60, OS_LOG_TYPE_INFO, "#aps-push account %@ will NOT push these mailboxes {%@}", buf, 0x16u);
         }
       }
@@ -1307,25 +1347,25 @@ LABEL_61:
         if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v101 = supportedCopy;
+          v100 = supportedCopy;
           _os_log_impl(&dword_1B0389000, v60, OS_LOG_TYPE_INFO, "#aps-push account %@ will push all requested mailboxes", buf, 0xCu);
         }
       }
     }
 
-    v20 = v85;
-    v56 = v81;
-    v64 = v82;
+    v20 = v84;
+    v56 = v80;
+    v64 = v81;
     goto LABEL_86;
   }
 
-  v64 = v82;
-  if (v81 != 1)
+  v64 = v81;
+  if (v80 != 1)
   {
     goto LABEL_75;
   }
 
-  v20 = v85;
+  v20 = v84;
 LABEL_78:
   if ([v20 count])
   {
@@ -1343,19 +1383,18 @@ LABEL_78:
 LABEL_86:
   [supportedCopy serverRegisteredMailboxes:v20 withTopic:v64 version:v56];
 LABEL_87:
-  v99 = v78;
-  v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v99 count:1];
+  v98 = v77;
+  v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v98 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v69];
 
   objc_autoreleasePoolPop(context);
   v19 = v64;
 LABEL_88:
 
-  v5 = v76;
+  v5 = v75;
 LABEL_89:
 
 LABEL_90:
-  v70 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enableCompressionIfSupported
@@ -1374,7 +1413,7 @@ LABEL_90:
 
 - (BOOL)_doBasicConnectionUsingAccount:(id)account
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   if (self->super._socket)
   {
@@ -1435,8 +1474,8 @@ LABEL_90:
 
     [(MFIMAPConnection *)self disconnectAndNotifyDelegate:0];
 LABEL_16:
-    v15[0] = v5;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+    v14[0] = v5;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     [(MFIMAPConnection *)self didFinishCommands:v12];
 
     v10 = (32 * *(self + 152)) > 0;
@@ -1446,7 +1485,6 @@ LABEL_16:
   v10 = 0;
 LABEL_17:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1601,10 +1639,10 @@ LABEL_12:
 
 - (int64_t)connectionState
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (!self->super._socket)
   {
-    goto LABEL_19;
+    return 0;
   }
 
   [(MFIMAPConnection *)self mf_lock];
@@ -1634,8 +1672,8 @@ LABEL_12:
       v6 = [[_MFIMAPCommandParameters alloc] initWithCommand:0];
       v7 = [(MFIMAPConnection *)self _copyNextServerResponseForCommand:v6];
       v4 = [v7 responseType] == 3 || objc_msgSend(v7, "responseType") == 6;
-      v12[0] = v6;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v11[0] = v6;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
       [(MFIMAPConnection *)self didFinishCommands:v8];
     }
 
@@ -1648,11 +1686,9 @@ LABEL_12:
   if (v4 && self->super._socket)
   {
     [(MFIMAPConnection *)self disconnectAndNotifyDelegate:1];
-LABEL_19:
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1664,7 +1700,6 @@ LABEL_19:
     [currentHandler handleFailureInMethod:a2 object:self file:@"IMAPConnection.m" lineNumber:935 description:{@"Invalid parameter not satisfying: %@", @"outNonSynchronizingLiteral"}];
   }
 
-  *(self + 130);
   v11 = *(self + 64);
   v12 = "+";
   if ((v11 & 2) != 0)
@@ -1695,47 +1730,47 @@ LABEL_19:
 
 - (unint64_t)_sendCommands:(id)commands response:(id *)response
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   commandsCopy = commands;
-  v69 = [commandsCopy count];
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
-  v91 = 1;
+  v68 = [commandsCopy count];
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
+  v90 = 1;
   [(MFIMAPConnection *)self locked_finishIdle];
   [(NSMutableData *)self->_data setLength:0];
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
   v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   obj = commandsCopy;
-  v5 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
+  v5 = [obj countByEnumeratingWithState:&v83 objects:v93 count:16];
   if (!v5)
   {
     v6 = 0;
     v7 = 0;
-    v79 = 0;
+    v78 = 0;
     v8 = 0x7FFFFFFFFFFFFFFFLL;
     goto LABEL_135;
   }
 
   v6 = 0;
   v7 = 0;
-  v79 = 0;
-  v73 = *v85;
-  v74 = v5;
+  v78 = 0;
+  v72 = *v84;
+  v73 = v5;
   v8 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_3:
-  v76 = 0;
+  v75 = 0;
   while (1)
   {
-    if (*v85 != v73)
+    if (*v84 != v72)
     {
       objc_enumerationMutation(obj);
     }
 
-    v9 = *(*(&v84 + 1) + 8 * v76);
-    v78 = [v9 command] == 32 ? objc_msgSend(v9, "sequenceNumber") : 0;
+    v9 = *(*(&v83 + 1) + 8 * v75);
+    v77 = [v9 command] == 32 ? objc_msgSend(v9, "sequenceNumber") : 0;
     if ([v9 command] != 29)
     {
       break;
@@ -1743,11 +1778,11 @@ LABEL_3:
 
 LABEL_12:
     arguments = [v9 arguments];
-    v80 = [arguments count];
+    v79 = [arguments count];
 
     if ([v9 command] == 38)
     {
-      if (!v80)
+      if (!v79)
       {
         goto LABEL_128;
       }
@@ -1758,7 +1793,7 @@ LABEL_12:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v77 = v7;
+        v76 = v7;
         goto LABEL_126;
       }
 
@@ -1775,13 +1810,13 @@ LABEL_12:
       v16 = 0;
     }
 
-    if (v16 >= v80)
+    if (v16 >= v79)
     {
-      v77 = v7;
+      v76 = v7;
       goto LABEL_120;
     }
 
-    v77 = v7;
+    v76 = v7;
     while (1)
     {
       arguments3 = [v9 arguments];
@@ -1824,7 +1859,7 @@ LABEL_31:
       ++v16;
 LABEL_113:
 
-      if (v16 == v80)
+      if (v16 == v79)
       {
         goto LABEL_120;
       }
@@ -1839,10 +1874,10 @@ LABEL_113:
         goto LABEL_119;
       }
 
-      v23 = ++v16 == v80 && [v9 command] == 19;
+      v23 = ++v16 == v79 && [v9 command] == 19;
       v30 = v18;
       v31 = [v30 length];
-      v75 = v30;
+      v74 = v30;
       if (v23)
       {
         v32 = v30;
@@ -1876,25 +1911,25 @@ LABEL_113:
 
           while (v36 < v38);
 LABEL_59:
-          v92[0] = -86;
+          v91[0] = -86;
           *&v40 = 0xAAAAAAAAAAAAAAAALL;
           *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
           *buf = v40;
           *&buf[16] = v40;
-          [(NSMutableData *)self->_data appendBytes:buf length:[(MFIMAPConnection *)self fillLiteralBuffer:buf count:32 dataLength:v31 - v78 nonSynchronizingLiteral:v92]];
+          [(NSMutableData *)self->_data appendBytes:buf length:[(MFIMAPConnection *)self fillLiteralBuffer:buf count:32 dataLength:v31 - v77 nonSynchronizingLiteral:v91]];
           v41 = [(MFConnection *)self writeData:self->_data dontLogBytesInRange:v34, v35];
-          *(v89 + 24) = v41;
+          *(v88 + 24) = v41;
           if (!v41)
           {
             v43 = 0;
             goto LABEL_66;
           }
 
-          if (v92[0])
+          if (v91[0])
           {
             v42 = 0;
 LABEL_62:
-            if ((v92[0] & 1) == 0 && !v42)
+            if ((v91[0] & 1) == 0 && !v42)
             {
               v43 = 0;
               goto LABEL_66;
@@ -1902,14 +1937,14 @@ LABEL_62:
 
             if (v37)
             {
-              v45 = v75;
-              bytes2 = [v75 bytes];
-              v47 = [v75 length];
+              v45 = v74;
+              bytes2 = [v74 bytes];
+              v47 = [v74 length];
               [(NSMutableData *)self->_data setLength:0];
-              *(v89 + 24) = 1;
+              *(v88 + 24) = 1;
               if (v47 >= 1)
               {
-                v71 = v42;
+                v70 = v42;
                 v48 = &bytes2[v47];
                 while (1)
                 {
@@ -1957,13 +1992,13 @@ LABEL_86:
                   if ([(NSMutableData *)self->_data length]> 0xFFF || bytes2 >= v48)
                   {
                     v56 = [(MFConnection *)self writeData:self->_data];
-                    *(v89 + 24) = v56;
+                    *(v88 + 24) = v56;
                     [(NSMutableData *)self->_data setLength:0];
                   }
 
-                  if (*(v89 + 24) != 1 || bytes2 >= v48)
+                  if (*(v88 + 24) != 1 || bytes2 >= v48)
                   {
-                    v43 = v71;
+                    v43 = v70;
                     goto LABEL_66;
                   }
                 }
@@ -1977,15 +2012,15 @@ LABEL_103:
             {
               if ([v9 command] == 5)
               {
-                v58 = -[MFConnection writeData:dontLogBytesInRange:](self, "writeData:dontLogBytesInRange:", v75, 0, [v75 length]);
+                v58 = -[MFConnection writeData:dontLogBytesInRange:](self, "writeData:dontLogBytesInRange:", v74, 0, [v74 length]);
               }
 
               else
               {
-                v58 = [(MFConnection *)self writeData:v75];
+                v58 = [(MFConnection *)self writeData:v74];
               }
 
-              *(v89 + 24) = v58;
+              *(v88 + 24) = v58;
               v43 = v42;
             }
           }
@@ -1995,7 +2030,7 @@ LABEL_103:
             v42 = [(MFIMAPConnection *)self _copyNextTaggedOrContinuationResponseForCommand:v9];
             if ([v42 responseType] == 1)
             {
-              if (v89[3])
+              if (v88[3])
               {
                 goto LABEL_62;
               }
@@ -2004,13 +2039,13 @@ LABEL_103:
             }
 
             v43 = 0;
-            *(v89 + 24) = 0;
-            v77 = v42;
+            *(v88 + 24) = 0;
+            v76 = v42;
           }
 
 LABEL_66:
           [(NSMutableData *)self->_data setLength:0];
-          v44 = *(v89 + 24);
+          v44 = *(v88 + 24);
 
           goto LABEL_111;
         }
@@ -2026,7 +2061,7 @@ LABEL_66:
       goto LABEL_59;
     }
 
-    v21 = ++v16 == v80 && [v9 command] == 19;
+    v21 = ++v16 == v79 && [v9 command] == 19;
     v24 = v18;
     v25 = [v24 length];
     if (v21)
@@ -2034,24 +2069,24 @@ LABEL_66:
       v25 += [v24 numberOfNewlinesNeedingConversion:0];
     }
 
-    v92[0] = -86;
+    v91[0] = -86;
     *&v26 = 0xAAAAAAAAAAAAAAAALL;
     *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
     *buf = v26;
     *&buf[16] = v26;
-    [(NSMutableData *)self->_data appendBytes:buf length:[(MFIMAPConnection *)self fillLiteralBuffer:buf count:32 dataLength:v25 - v78 nonSynchronizingLiteral:v92]];
+    [(NSMutableData *)self->_data appendBytes:buf length:[(MFIMAPConnection *)self fillLiteralBuffer:buf count:32 dataLength:v25 - v77 nonSynchronizingLiteral:v91]];
     v27 = [(MFConnection *)self writeData:self->_data dontLogBytesInRange:v8, v6];
-    *(v89 + 24) = v27;
+    *(v88 + 24) = v27;
     if (!v27)
     {
       goto LABEL_43;
     }
 
-    if (v92[0])
+    if (v91[0])
     {
       v28 = 0;
 LABEL_41:
-      if ((v92[0] & 1) == 0 && !v28)
+      if ((v91[0] & 1) == 0 && !v28)
       {
 LABEL_43:
         v29 = 0;
@@ -2061,36 +2096,36 @@ LABEL_43:
       if (v21)
       {
         [(NSMutableData *)self->_data setLength:0];
-        *(v89 + 24) = 1;
-        v81[0] = MEMORY[0x1E69E9820];
-        v81[1] = 3221225472;
-        v81[2] = __43__MFIMAPConnection__sendCommands_response___block_invoke_3;
-        v81[3] = &unk_1E7AA2BA8;
-        v81[4] = self;
-        v81[5] = &v88;
-        [v24 enumerateConvertingNewlinesUsingBlock:v81];
+        *(v88 + 24) = 1;
+        v80[0] = MEMORY[0x1E69E9820];
+        v80[1] = 3221225472;
+        v80[2] = __43__MFIMAPConnection__sendCommands_response___block_invoke_3;
+        v80[3] = &unk_1E7AA2BA8;
+        v80[4] = self;
+        v80[5] = &v87;
+        [v24 enumerateConvertingNewlinesUsingBlock:v80];
       }
 
       else if ([v9 command] == 5)
       {
-        v83[0] = MEMORY[0x1E69E9820];
-        v83[1] = 3221225472;
-        v83[2] = __43__MFIMAPConnection__sendCommands_response___block_invoke;
-        v83[3] = &unk_1E7AA2B80;
-        v83[4] = self;
-        v83[5] = &v88;
-        [v24 enumerateByteRangesUsingBlock:v83];
+        v82[0] = MEMORY[0x1E69E9820];
+        v82[1] = 3221225472;
+        v82[2] = __43__MFIMAPConnection__sendCommands_response___block_invoke;
+        v82[3] = &unk_1E7AA2B80;
+        v82[4] = self;
+        v82[5] = &v87;
+        [v24 enumerateByteRangesUsingBlock:v82];
       }
 
       else
       {
-        v82[0] = MEMORY[0x1E69E9820];
-        v82[1] = 3221225472;
-        v82[2] = __43__MFIMAPConnection__sendCommands_response___block_invoke_2;
-        v82[3] = &unk_1E7AA2B80;
-        v82[4] = self;
-        v82[5] = &v88;
-        [v24 enumerateByteRangesUsingBlock:v82];
+        v81[0] = MEMORY[0x1E69E9820];
+        v81[1] = 3221225472;
+        v81[2] = __43__MFIMAPConnection__sendCommands_response___block_invoke_2;
+        v81[3] = &unk_1E7AA2B80;
+        v81[4] = self;
+        v81[5] = &v87;
+        [v24 enumerateByteRangesUsingBlock:v81];
       }
 
 LABEL_109:
@@ -2102,7 +2137,7 @@ LABEL_109:
       v28 = [(MFIMAPConnection *)self _copyNextTaggedOrContinuationResponseForCommand:v9];
       if ([v28 responseType] == 1)
       {
-        if (v89[3])
+        if (v88[3])
         {
           goto LABEL_41;
         }
@@ -2111,32 +2146,32 @@ LABEL_109:
       }
 
       v29 = 0;
-      *(v89 + 24) = 0;
-      v77 = v28;
+      *(v88 + 24) = 0;
+      v76 = v28;
     }
 
 LABEL_110:
     [(NSMutableData *)self->_data setLength:0];
-    v44 = *(v89 + 24);
+    v44 = *(v88 + 24);
 
 LABEL_111:
     v6 = 0;
     v8 = 0x7FFFFFFFFFFFFFFFLL;
     if (v44)
     {
-      ++v79;
+      ++v78;
       goto LABEL_113;
     }
 
 LABEL_119:
 
 LABEL_120:
-    if (!v77)
+    if (!v76)
     {
       [(NSMutableData *)self->_data appendBytes:&kIMAPLineEnding length:2];
     }
 
-    if (*(v89 + 24) == 1 && [(NSMutableData *)self->_data length])
+    if (*(v88 + 24) == 1 && [(NSMutableData *)self->_data length])
     {
       v13 = +[MFIMAPConnection log];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -2153,12 +2188,12 @@ LABEL_120:
 LABEL_126:
     }
 
-    v7 = v77;
+    v7 = v76;
 LABEL_128:
-    if (++v76 == v74)
+    if (++v75 == v73)
     {
-      v74 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
-      if (!v74)
+      v73 = [obj countByEnumeratingWithState:&v83 objects:v93 count:16];
+      if (!v73)
       {
         goto LABEL_135;
       }
@@ -2189,16 +2224,16 @@ LABEL_128:
   }
 
 LABEL_135:
-  if (*(v89 + 24) == 1 && [(NSMutableData *)self->_data length])
+  if (*(v88 + 24) == 1 && [(NSMutableData *)self->_data length])
   {
     v62 = [(MFConnection *)self writeData:self->_data dontLogBytesInRange:v8, v6];
-    v63 = v79;
+    v63 = v78;
     if (v62)
     {
-      v63 = v69;
+      v63 = v68;
     }
 
-    v79 = v63;
+    v78 = v63;
   }
 
   [(NSMutableData *)self->_data setLength:0];
@@ -2209,7 +2244,7 @@ LABEL_135:
   }
 
   self->_expirationTime = CFAbsoluteTimeGetCurrent() + 1500.0;
-  if (v79 < v69)
+  if (v78 < v68)
   {
     v65 = +[MFIMAPConnection log];
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
@@ -2220,12 +2255,11 @@ LABEL_135:
     [(MFIMAPConnection *)self disconnectAndNotifyDelegate:1];
   }
 
-  _Block_object_dispose(&v88, 8);
-  v66 = *MEMORY[0x1E69E9840];
-  return v79;
+  _Block_object_dispose(&v87, 8);
+  return v78;
 }
 
-uint64_t __43__MFIMAPConnection__sendCommands_response___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__43__MFIMAPConnection__sendCommands_response___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [*(a1 + 32) writeBytes:a2 length:a4 dontLogBytesInRange:{0, a4}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2233,7 +2267,7 @@ uint64_t __43__MFIMAPConnection__sendCommands_response___block_invoke(uint64_t a
   return result;
 }
 
-uint64_t __43__MFIMAPConnection__sendCommands_response___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__43__MFIMAPConnection__sendCommands_response___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [*(a1 + 32) writeBytes:a2 length:a4 dontLogBytesInRange:{0x7FFFFFFFFFFFFFFFLL, 0}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2272,7 +2306,7 @@ uint64_t __43__MFIMAPConnection__sendCommands_response___block_invoke_3(uint64_t
 
 - (id)_copyNextTaggedOrContinuationResponseForCommand:(id)command
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   [commandCopy sequenceNumber];
   v5 = EFStringWithUnsignedInteger();
@@ -2285,7 +2319,7 @@ uint64_t __43__MFIMAPConnection__sendCommands_response___block_invoke_3(uint64_t
   v8 = 0;
   v9 = 0;
   *&v7 = 138543618;
-  v34 = v7;
+  v33 = v7;
   while ([v6 responseType] != 1)
   {
     if (([v6 isUntagged] & 1) == 0)
@@ -2316,10 +2350,10 @@ uint64_t __43__MFIMAPConnection__sendCommands_response___block_invoke_3(uint64_t
       {
         _connectionLogPrefix = [(MFIMAPConnection *)self _connectionLogPrefix];
         ef_publicDescription = [v6 ef_publicDescription];
-        *buf = v34;
-        v36 = _connectionLogPrefix;
-        v37 = 2114;
-        v38 = ef_publicDescription;
+        *buf = v33;
+        v35 = _connectionLogPrefix;
+        v36 = 2114;
+        v37 = ef_publicDescription;
         _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ READ: %{public}@", buf, 0x16u);
       }
     }
@@ -2373,10 +2407,10 @@ LABEL_20:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       _connectionLogPrefix2 = [(MFIMAPConnection *)self _connectionLogPrefix];
-      *buf = v34;
-      v36 = _connectionLogPrefix2;
-      v37 = 1024;
-      LODWORD(v38) = v8;
+      *buf = v33;
+      v35 = _connectionLogPrefix2;
+      v36 = 1024;
+      LODWORD(v37) = v8;
       _os_log_impl(&dword_1B0389000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ READ: %d untagged fetch responses", buf, 0x12u);
     }
   }
@@ -2387,10 +2421,10 @@ LABEL_20:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       _connectionLogPrefix3 = [(MFIMAPConnection *)self _connectionLogPrefix];
-      *buf = v34;
-      v36 = _connectionLogPrefix3;
-      v37 = 1024;
-      LODWORD(v38) = v9;
+      *buf = v33;
+      v35 = _connectionLogPrefix3;
+      v36 = 1024;
+      LODWORD(v37) = v9;
       _os_log_impl(&dword_1B0389000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ READ: %d untagged list responses", buf, 0x12u);
     }
   }
@@ -2400,10 +2434,10 @@ LABEL_20:
   {
     _connectionLogPrefix4 = [(MFIMAPConnection *)self _connectionLogPrefix];
     ef_publicDescription2 = [v6 ef_publicDescription];
-    *buf = v34;
-    v36 = _connectionLogPrefix4;
-    v37 = 2114;
-    v38 = ef_publicDescription2;
+    *buf = v33;
+    v35 = _connectionLogPrefix4;
+    v36 = 2114;
+    v37 = ef_publicDescription2;
     _os_log_impl(&dword_1B0389000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ READ: %{public}@", buf, 0x16u);
   }
 
@@ -2415,13 +2449,12 @@ LABEL_20:
   }
 
 LABEL_38:
-  v32 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)_errorForResponse:(id)response commandParams:(id)params
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   paramsCopy = params;
   v8 = +[MFActivityMonitor currentMonitor];
@@ -2446,25 +2479,25 @@ LABEL_38:
   v16 = _messageFromResponse(responseCopy);
   if (!v16)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     untaggedResponses = [paramsCopy untaggedResponses];
-    v18 = [untaggedResponses countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v18 = [untaggedResponses countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v18)
     {
-      v19 = *v27;
+      v19 = *v26;
 LABEL_8:
       v20 = 0;
       while (1)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(untaggedResponses);
         }
 
-        v16 = _messageFromResponse(*(*(&v26 + 1) + 8 * v20));
+        v16 = _messageFromResponse(*(*(&v25 + 1) + 8 * v20));
         if (v16)
         {
           break;
@@ -2472,7 +2505,7 @@ LABEL_8:
 
         if (v18 == ++v20)
         {
-          v18 = [untaggedResponses countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v18 = [untaggedResponses countByEnumeratingWithState:&v25 objects:v29 count:16];
           if (v18)
           {
             goto LABEL_8;
@@ -2499,8 +2532,6 @@ LABEL_14:
   {
     [v8 setError:v21];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -2541,7 +2572,7 @@ LABEL_14:
 
 - (void)noop
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   [(MFIMAPConnection *)self mf_lock];
   timeout = [(MFNWConnectionWrapper *)self->super._socket timeout];
   if (timeout >= 11)
@@ -2550,8 +2581,8 @@ LABEL_14:
   }
 
   v4 = [[_MFIMAPCommandParameters alloc] initWithCommand:1];
-  v10[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v6 = [(MFIMAPConnection *)self _responseFromSendingCommands:v5];
 
   if (timeout > 10)
@@ -2560,16 +2591,14 @@ LABEL_14:
   }
 
   [(MFIMAPConnection *)self mf_unlock];
-  v9 = v4;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
+  v8 = v4;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)authenticateUsingAccount:(id)account
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   password = [accountCopy password];
   [(MFIMAPConnection *)self mf_lock];
@@ -2578,9 +2607,9 @@ LABEL_14:
     goto LABEL_4;
   }
 
-  v34.receiver = self;
-  v34.super_class = MFIMAPConnection;
-  v6 = [(MFConnection *)&v34 authenticateUsingAccount:accountCopy];
+  v33.receiver = self;
+  v33.super_class = MFIMAPConnection;
+  v6 = [(MFConnection *)&v33 authenticateUsingAccount:accountCopy];
   v7 = +[MFActivityMonitor currentMonitor];
   error = [v7 error];
   preferredAuthScheme = [accountCopy preferredAuthScheme];
@@ -2660,12 +2689,12 @@ LABEL_18:
       else if (!error)
       {
         v18 = MEMORY[0x1E696AEC0];
-        v33 = MFLookupLocalizedString(@"AUTH_NOT_SUPPORTED_FORMAT", @"The %@ server “%@” doesn’t support %@ authentication. Please check your account settings and try again.", @"Delayed");
+        v32 = MFLookupLocalizedString(@"AUTH_NOT_SUPPORTED_FORMAT", @"The %@ server “%@” doesn’t support %@ authentication. Please check your account settings and try again.", @"Delayed");
         accountTypeString = [objc_opt_class() accountTypeString];
         hostname2 = [accountCopy hostname];
         preferredAuthScheme2 = [accountCopy preferredAuthScheme];
         humanReadableName = [preferredAuthScheme2 humanReadableName];
-        v16 = [v18 stringWithFormat:v33, accountTypeString, hostname2, humanReadableName];
+        v16 = [v18 stringWithFormat:v32, accountTypeString, hostname2, humanReadableName];
 
         v17 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1034 localizedDescription:v16];
         goto LABEL_17;
@@ -2688,7 +2717,6 @@ LABEL_4:
 LABEL_25:
   [(MFIMAPConnection *)self mf_unlock];
 
-  v30 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -2743,18 +2771,18 @@ LABEL_25:
 
 - (int64_t)_doIMAPLoginForAccount:(id)account quotedUsername:(id)username password:(id)password
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   usernameCopy = username;
   passwordCopy = password;
   v10 = [_MFIMAPCommandParameters alloc];
-  v32[0] = usernameCopy;
-  v32[1] = passwordCopy;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+  v31[0] = usernameCopy;
+  v31[1] = passwordCopy;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
   v12 = [(_MFIMAPCommandParameters *)v10 initWithCommand:5 arguments:v11];
 
-  v31 = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+  v30 = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
   v14 = [(MFIMAPConnection *)self _responseFromSendingCommands:v13];
 
   responseType = [v14 responseType];
@@ -2770,28 +2798,8 @@ LABEL_25:
     v17 = +[MFActivityMonitor currentMonitor];
     error = [v17 error];
 
-    if (error)
+    if (error || (-[MFIMAPConnection _serverErrorForAccount:response:command:](self, "_serverErrorForAccount:response:command:", accountCopy, v14, v12), (error = objc_claimAutoreleasedReturnValue()) != 0) || (v18 = MEMORY[0x1E696AEC0], MFLookupLocalizedString(@"FAILED_LOGIN", @"The user name or password for “%@” is incorrect.", @"Delayed"), v19 = objc_claimAutoreleasedReturnValue(), [accountCopy hostname], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "stringWithFormat:", v19, v20), v21 = objc_claimAutoreleasedReturnValue(), v20, v19, MFLookupLocalizedString(@"FAILED_FETCH_TITLE", @"Cannot Get Mail", @"Delayed"), v22 = objc_claimAutoreleasedReturnValue(), +[MFError errorWithDomain:code:localizedDescription:title:userInfo:](MFError, "errorWithDomain:code:localizedDescription:title:userInfo:", @"MFMessageErrorDomain", 1032, v21, v22, 0), error = objc_claimAutoreleasedReturnValue(), v22, v21, error))
     {
-      goto LABEL_6;
-    }
-
-    error = [(MFIMAPConnection *)self _serverErrorForAccount:accountCopy response:v14 command:v12];
-    if (error)
-    {
-      goto LABEL_6;
-    }
-
-    v18 = MEMORY[0x1E696AEC0];
-    v19 = MFLookupLocalizedString(@"FAILED_LOGIN", @"The user name or password for “%@” is incorrect.", @"Delayed");
-    hostname = [accountCopy hostname];
-    v21 = [v18 stringWithFormat:v19, hostname];
-
-    v22 = MFLookupLocalizedString(@"FAILED_FETCH_TITLE", @"Cannot Get Mail", @"Delayed");
-    error = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1032 localizedDescription:v21 title:v22 userInfo:0];
-
-    if (error)
-    {
-LABEL_6:
       v23 = *(self + 152);
       if ((32 * v23) >= 33)
       {
@@ -2806,11 +2814,10 @@ LABEL_6:
     }
   }
 
-  v30 = v12;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+  v29 = v12;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v26];
 
-  v27 = *MEMORY[0x1E69E9840];
   return responseType;
 }
 
@@ -2864,28 +2871,24 @@ LABEL_6:
 
 - (BOOL)logout
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  if ((*(self + 152) & 7) != 0)
+  v9[1] = *MEMORY[0x1E69E9840];
+  if ((*(self + 152) & 7) == 0)
   {
-    v3 = [[_MFIMAPCommandParameters alloc] initWithCommand:2];
-    [(MFIMAPConnection *)self mf_lock];
-    v10[0] = v3;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-    v5 = [(MFIMAPConnection *)self _sendCommands:v4 response:0]!= 0;
-
-    [(MFIMAPConnection *)self mf_unlock];
-    [(MFIMAPConnection *)self disconnectAndNotifyDelegate:1];
-    v9 = v3;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
-    [(MFIMAPConnection *)self didFinishCommands:v6];
+    return 1;
   }
 
-  else
-  {
-    v5 = 1;
-  }
+  v3 = [[_MFIMAPCommandParameters alloc] initWithCommand:2];
+  [(MFIMAPConnection *)self mf_lock];
+  v9[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v5 = [(MFIMAPConnection *)self _sendCommands:v4 response:0]!= 0;
 
-  v7 = *MEMORY[0x1E69E9840];
+  [(MFIMAPConnection *)self mf_unlock];
+  [(MFIMAPConnection *)self disconnectAndNotifyDelegate:1];
+  v8 = v3;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
+  [(MFIMAPConnection *)self didFinishCommands:v6];
+
   return v5;
 }
 
@@ -2950,35 +2953,35 @@ LABEL_6:
 
 - (id)_doNamespaceCommand
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   if ([(MFIMAPConnection *)self supportsCapability:7])
   {
     v3 = [[_MFIMAPCommandParameters alloc] initWithCommand:30];
-    v23[0] = v3;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
-    v16 = [(MFIMAPConnection *)self _responseFromSendingCommands:v4];
+    v22[0] = v3;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v15 = [(MFIMAPConnection *)self _responseFromSendingCommands:v4];
 
-    if ([v16 responseType] == 2)
+    if ([v15 responseType] == 2)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       untaggedResponses = [(_MFIMAPCommandParameters *)v3 untaggedResponses];
-      v6 = [untaggedResponses countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v6 = [untaggedResponses countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v6)
       {
-        v7 = *v18;
+        v7 = *v17;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v18 != v7)
+            if (*v17 != v7)
             {
               objc_enumerationMutation(untaggedResponses);
             }
 
-            v9 = *(*(&v17 + 1) + 8 * i);
+            v9 = *(*(&v16 + 1) + 8 * i);
             if ([v9 responseType] == 22)
             {
               privateNamespaces = [v9 privateNamespaces];
@@ -2997,7 +3000,7 @@ LABEL_6:
             }
           }
 
-          v6 = [untaggedResponses countByEnumeratingWithState:&v17 objects:v22 count:16];
+          v6 = [untaggedResponses countByEnumeratingWithState:&v16 objects:v21 count:16];
           if (v6)
           {
             continue;
@@ -3016,8 +3019,8 @@ LABEL_19:
       v12 = 0;
     }
 
-    v21 = v3;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+    v20 = v3;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
     [(MFIMAPConnection *)self didFinishCommands:v13];
   }
 
@@ -3026,30 +3029,28 @@ LABEL_19:
     v12 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)_doListCommand:(int64_t)command withReference:(id)reference mailboxName:(id)name options:(int64_t)options getSpecialUse:(BOOL)use statusDataItems:(id)items statusEntriesByMailbox:(id *)mailbox
 {
   useCopy = use;
-  v91[1] = *MEMORY[0x1E69E9840];
+  v90[1] = *MEMORY[0x1E69E9840];
   referenceCopy = reference;
   nameCopy = name;
   itemsCopy = items;
   theString = nameCopy;
   if (!nameCopy)
   {
-    v82 = 0;
+    v81 = 0;
     array = 0;
     goto LABEL_75;
   }
 
-  v79 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
-  v84 = [[_MFIMAPCommandParameters alloc] initWithCommand:command arguments:v79];
+  v78 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
+  v83 = [[_MFIMAPCommandParameters alloc] initWithCommand:command arguments:v78];
   v15 = MFIMAPStringFromMailboxName(referenceCopy);
-  [v79 addObject:v15];
+  [v78 addObject:v15];
 
   if (options == 1)
   {
@@ -3067,7 +3068,7 @@ LABEL_7:
 
       CFStringAppend(v19, v16);
       v20 = MFIMAPStringFromMailboxName(v19);
-      [v79 addObject:v20];
+      [v78 addObject:v20];
 
       CFRelease(v19);
     }
@@ -3075,7 +3076,7 @@ LABEL_7:
     else
     {
       separatorChar = MFIMAPStringFromMailboxName(v16);
-      [v79 addObject:separatorChar];
+      [v78 addObject:separatorChar];
     }
 
     goto LABEL_13;
@@ -3088,13 +3089,13 @@ LABEL_7:
   }
 
   separatorChar = MFIMAPStringFromMailboxName(nameCopy);
-  [v79 addObject:separatorChar];
+  [v78 addObject:separatorChar];
 LABEL_13:
 
-  v76 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v75 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (useCopy)
   {
-    [v76 addObject:@"SPECIAL-USE"];
+    [v75 addObject:@"SPECIAL-USE"];
   }
 
   if ([itemsCopy count] && -[MFIMAPConnection supportsCapability:](self, "supportsCapability:", 22))
@@ -3104,44 +3105,44 @@ LABEL_13:
     v23 = [(MFIMAPConnection *)self parenthesizedStringWithObjects:itemsCopy];
     v24 = [v22 initWithFormat:@"STATUS %@", v23];
 
-    [v76 addObject:v24];
-    v82 = v21;
+    [v75 addObject:v24];
+    v81 = v21;
   }
 
   else
   {
-    v82 = 0;
+    v81 = 0;
   }
 
-  if ([v76 count])
+  if ([v75 count])
   {
     v25 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v26 = [v76 componentsJoinedByString:@" "];
+    v26 = [v75 componentsJoinedByString:@" "];
     v27 = [v25 initWithFormat:@"RETURN (%@)", v26];
 
-    [v79 addObject:v27];
+    [v78 addObject:v27];
   }
 
-  v91[0] = v84;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:1];
+  v90[0] = v83;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:1];
   v29 = [(MFIMAPConnection *)self _responseFromSendingCommands:v28];
   selfCopy = self;
   v30 = [v29 responseType] == 2;
 
   if (v30)
   {
-    untaggedResponses = [(_MFIMAPCommandParameters *)v84 untaggedResponses];
-    v87 = [untaggedResponses count];
+    untaggedResponses = [(_MFIMAPCommandParameters *)v83 untaggedResponses];
+    v86 = [untaggedResponses count];
 
     array = [MEMORY[0x1E695DF70] array];
     selfCopy3 = self;
-    if (v87)
+    if (v86)
     {
-      v88 = 0;
+      v87 = 0;
       while (1)
       {
-        untaggedResponses2 = [(_MFIMAPCommandParameters *)v84 untaggedResponses];
-        v34 = [untaggedResponses2 objectAtIndex:v88];
+        untaggedResponses2 = [(_MFIMAPCommandParameters *)v83 untaggedResponses];
+        v34 = [untaggedResponses2 objectAtIndex:v87];
 
         responseType = [v34 responseType];
         v36 = responseType;
@@ -3150,25 +3151,25 @@ LABEL_13:
           break;
         }
 
-        if (v82 && responseType == 13)
+        if (v81 && responseType == 13)
         {
           statusEntries = [v34 statusEntries];
           mailboxName = [v34 mailboxName];
-          [v82 setObject:statusEntries forKeyedSubscript:mailboxName];
+          [v81 setObject:statusEntries forKeyedSubscript:mailboxName];
 
-          untaggedResponses3 = [(_MFIMAPCommandParameters *)v84 untaggedResponses];
-          [untaggedResponses3 removeObjectAtIndex:v88];
+          untaggedResponses3 = [(_MFIMAPCommandParameters *)v83 untaggedResponses];
+          [untaggedResponses3 removeObjectAtIndex:v87];
 
 LABEL_70:
-          --v87;
+          --v86;
           goto LABEL_71;
         }
 
-        ++v88;
+        ++v87;
 LABEL_71:
 
         selfCopy3 = selfCopy;
-        if (v88 >= v87)
+        if (v87 >= v86)
         {
           goto LABEL_74;
         }
@@ -3201,12 +3202,12 @@ LABEL_71:
           v41 = [(__CFString *)theString length];
           if ([(NSString *)selfCopy->_serverNamespace length])
           {
-            v73 = [mailboxName2 hasPrefix:selfCopy->_serverNamespace] ^ 1;
+            v72 = [mailboxName2 hasPrefix:selfCopy->_serverNamespace] ^ 1;
           }
 
           else
           {
-            v73 = 0;
+            v72 = 0;
           }
 
           if (separator)
@@ -3227,8 +3228,8 @@ LABEL_71:
 
           if (!separator)
           {
-            v90 = mailboxName2;
-            v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v90 count:1];
+            v89 = mailboxName2;
+            v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v89 count:1];
             v51 = 1;
 LABEL_51:
             dictionary = 0;
@@ -3303,7 +3304,7 @@ LABEL_61:
 
           v62 = [dictionary objectForKey:@"MailboxAttributes"];
           v63 = [v62 unsignedIntValue] & 0xFFFFFFFD | (2 * ((mailboxAttributes >> 1) & 1));
-          if (v73)
+          if (v72)
           {
             v64 = v63 | 0x80;
           }
@@ -3332,8 +3333,8 @@ LABEL_61:
         mailboxName2 = 0;
       }
 
-      untaggedResponses4 = [(_MFIMAPCommandParameters *)v84 untaggedResponses];
-      [untaggedResponses4 removeObjectAtIndex:v88];
+      untaggedResponses4 = [(_MFIMAPCommandParameters *)v83 untaggedResponses];
+      [untaggedResponses4 removeObjectAtIndex:v87];
 
       goto LABEL_70;
     }
@@ -3346,22 +3347,41 @@ LABEL_61:
   }
 
 LABEL_74:
-  v89 = v84;
-  v68 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v89 count:1];
+  v88 = v83;
+  v68 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
   [(MFIMAPConnection *)selfCopy3 didFinishCommands:v68];
 
 LABEL_75:
-  v69 = v82;
+  v69 = v81;
   if (mailbox)
   {
-    v70 = v82;
-    v69 = v82;
-    *mailbox = v82;
+    v70 = v81;
+    v69 = v81;
+    *mailbox = v81;
   }
 
-  v71 = *MEMORY[0x1E69E9840];
-
   return array;
+}
+
+- (id)_listingForMailbox:(id)mailbox options:(int64_t)options getSpecialUse:(BOOL)use statusDataItems:(id)items statusEntriesByMailbox:(id *)byMailbox withCommand:(int64_t)command
+{
+  useCopy = use;
+  mailboxCopy = mailbox;
+  v15 = [(MFIMAPConnection *)self _doListCommand:command withReference:&stru_1F273A5E0 mailboxName:mailboxCopy options:options getSpecialUse:useCopy statusDataItems:items statusEntriesByMailbox:byMailbox];
+  mailboxListFilter = self->_mailboxListFilter;
+  if (mailboxListFilter)
+  {
+    [(MFIMAPMailboxListFilter *)mailboxListFilter filterMailboxList:v15 forMailbox:mailboxCopy options:options];
+  }
+
+  return v15;
+}
+
+- (id)listingForMailbox:(id)mailbox options:(int64_t)options getSpecialUse:(BOOL)use statusDataItems:(id)items statusEntriesByMailbox:(id *)byMailbox
+{
+  v7 = [(MFIMAPConnection *)self _listingForMailbox:mailbox options:options getSpecialUse:use statusDataItems:items statusEntriesByMailbox:byMailbox withCommand:6];
+
+  return v7;
 }
 
 - (id)subscribedListingForMailbox:(id)mailbox options:(int64_t)options
@@ -3373,11 +3393,11 @@ LABEL_75:
 
 - (void)close
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [[_MFIMAPCommandParameters alloc] initWithCommand:18];
   [(MFIMAPConnection *)self mf_lock];
-  v11[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v5 = [(MFIMAPConnection *)self _responseFromSendingCommands:v4];
   v6 = [v5 responseType] == 2;
 
@@ -3389,21 +3409,19 @@ LABEL_75:
   }
 
   [(MFIMAPConnection *)self mf_unlock];
-  v10 = v3;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
+  v9 = v3;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)closeAndLogout
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v3 = [[_MFIMAPCommandParameters alloc] initWithCommand:18];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [[_MFIMAPCommandParameters alloc] initWithCommand:2];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
 
   [(MFIMAPConnection *)self mf_lock];
   v6 = [(MFIMAPConnection *)self _sendCommands:v5 response:0];
@@ -3411,19 +3429,18 @@ LABEL_75:
   [(MFIMAPConnection *)self mf_unlock];
   [(MFIMAPConnection *)self didFinishCommands:v5];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
 - (void)unselect
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if ([(MFIMAPConnection *)self supportsCapability:9])
   {
     v3 = [[_MFIMAPCommandParameters alloc] initWithCommand:25];
     [(MFIMAPConnection *)self mf_lock];
-    v12[0] = v3;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v10[0] = v3;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     v5 = [(MFIMAPConnection *)self _responseFromSendingCommands:v4];
     v6 = [v5 responseType] == 2;
 
@@ -3435,16 +3452,13 @@ LABEL_75:
     }
 
     [(MFIMAPConnection *)self mf_unlock];
-    v11 = v3;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+    v9 = v3;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
     [(MFIMAPConnection *)self didFinishCommands:v8];
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = *MEMORY[0x1E69E9840];
 
     [(MFIMAPConnection *)self close];
   }
@@ -3468,12 +3482,12 @@ LABEL_75:
 
 - (void)_handleBytesAvailableInternal
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [(MFIMAPConnection *)self mf_lock];
   if ([(MFConnection *)self hasBytesAvailable])
   {
     *&v3 = 134218242;
-    v10 = v3;
+    v9 = v3;
     do
     {
       v4 = [[MFIMAPResponse alloc] initWithConnection:self responseConsumer:0];
@@ -3484,10 +3498,10 @@ LABEL_75:
           v5 = +[MFIMAPConnection log];
           if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v10;
+            *buf = v9;
             selfCopy = self;
-            v13 = 2112;
-            v14 = v4;
+            v12 = 2112;
+            v13 = v4;
             _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> received response while idling: %@", buf, 0x16u);
           }
         }
@@ -3506,18 +3520,17 @@ LABEL_75:
   }
 
   [(MFIMAPConnection *)self mf_unlock];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)locked_startIdle
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __36__MFIMAPConnection_locked_startIdle__block_invoke;
-  v22[3] = &unk_1E7AA2BD0;
-  v22[4] = self;
-  v3 = [MEMORY[0x1E699B7C8] lazyFutureWithBlock:v22];
+  v28 = *MEMORY[0x1E69E9840];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __36__MFIMAPConnection_locked_startIdle__block_invoke;
+  v21[3] = &unk_1E7AA2BD0;
+  v21[4] = self;
+  v3 = [MEMORY[0x1E699B7C8] lazyFutureWithBlock:v21];
   if (![(MFIMAPConnection *)self isIdle]&& [(MFIMAPConnection *)self supportsCapability:5])
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -3534,17 +3547,17 @@ LABEL_75:
           delegate = [(MFIMAPConnection *)self delegate];
           *buf = 134218242;
           selfCopy3 = self;
-          v27 = 2112;
-          v28 = delegate;
+          v26 = 2112;
+          v27 = delegate;
           _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> starting IDLE state for delegate %@", buf, 0x16u);
         }
 
         v6 = [[_MFIMAPCommandParameters alloc] initWithCommand:28];
-        v24 = v6;
-        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
-        v21 = 0;
-        v12 = [(MFIMAPConnection *)self _sendCommands:v11 response:&v21];
-        v13 = v21;
+        v23 = v6;
+        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+        v20 = 0;
+        v12 = [(MFIMAPConnection *)self _sendCommands:v11 response:&v20];
+        v13 = v20;
 
         if (v12)
         {
@@ -3563,8 +3576,8 @@ LABEL_75:
           }
         }
 
-        v23 = v6;
-        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+        v22 = v6;
+        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
         [(MFIMAPConnection *)self didFinishCommands:v16];
 
         if ([(MFIMAPConnection *)self isIdle])
@@ -3580,8 +3593,8 @@ LABEL_75:
             delegate2 = [(MFIMAPConnection *)self delegate];
             *buf = 134218242;
             selfCopy3 = self;
-            v27 = 2112;
-            v28 = delegate2;
+            v26 = 2112;
+            v27 = delegate2;
             _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> failed to enter IDLE state: %@", buf, 0x16u);
           }
         }
@@ -3600,8 +3613,8 @@ LABEL_75:
       delegate3 = [(MFIMAPConnection *)self delegate];
       *buf = 134218242;
       selfCopy3 = self;
-      v27 = 2112;
-      v28 = delegate3;
+      v26 = 2112;
+      v27 = delegate3;
       _os_log_impl(&dword_1B0389000, &v6->super, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> delegate rejected starting IDLE state: %@", buf, 0x16u);
     }
 
@@ -3609,8 +3622,6 @@ LABEL_21:
   }
 
   v19 = [v3 result:0];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 id __36__MFIMAPConnection_locked_startIdle__block_invoke(uint64_t a1)
@@ -3630,7 +3641,7 @@ id __36__MFIMAPConnection_locked_startIdle__block_invoke(uint64_t a1)
 
 - (void)locked_finishIdle
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [(MFNWConnectionWrapper *)self->super._socket unregisterForBytesAvailable];
   idleSubscriptionCancelable = [(MFIMAPConnection *)self idleSubscriptionCancelable];
   [idleSubscriptionCancelable cancel];
@@ -3643,19 +3654,17 @@ id __36__MFIMAPConnection_locked_startIdle__block_invoke(uint64_t a1)
       delegate = [(MFIMAPConnection *)self delegate];
       *buf = 134218242;
       selfCopy = self;
-      v12 = 2112;
-      v13 = delegate;
+      v11 = 2112;
+      v12 = delegate;
       _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> leaving IDLE state for delegate: %@", buf, 0x16u);
     }
 
     v6 = [[_MFIMAPCommandParameters alloc] initWithCommand:29 sequenceNumber:self->_idleCommandSequenceNumber];
     self->_idleCommandSequenceNumber = 0;
-    v9 = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
+    v8 = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
     [(MFIMAPConnection *)self _sendCommands:v7 response:0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishIdle
@@ -3671,25 +3680,24 @@ id __36__MFIMAPConnection_locked_startIdle__block_invoke(uint64_t a1)
   if ([(MFIMAPConnection *)self hasValidConnection])
   {
     selfCopy = self;
-    v4 = *(selfCopy + 64) | (*(selfCopy + 130) << 16);
     if ((*(selfCopy + 64) & 0x20) != 0)
     {
-      v8 = selfCopy;
+      v7 = selfCopy;
       currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
-      v6 = [currentDevice isPlatform:2];
+      v5 = [currentDevice isPlatform:2];
 
-      if ((v6 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        socket = v8->super._socket;
-        v9[0] = MEMORY[0x1E69E9820];
-        v9[1] = 3221225472;
-        v9[2] = __39__MFIMAPConnection_locked_scheduleIdle__block_invoke;
-        v9[3] = &unk_1E7AA25C0;
-        v9[4] = v8;
-        [(MFNWConnectionWrapper *)socket registerForBytesAvailableWithHandler:v9];
-        if (v8->_selectedMailbox)
+        socket = v7->super._socket;
+        v8[0] = MEMORY[0x1E69E9820];
+        v8[1] = 3221225472;
+        v8[2] = __39__MFIMAPConnection_locked_scheduleIdle__block_invoke;
+        v8[3] = &unk_1E7AA25C0;
+        v8[4] = v7;
+        [(MFNWConnectionWrapper *)socket registerForBytesAvailableWithHandler:v8];
+        if (v7->_selectedMailbox)
         {
-          [(MFIMAPConnection *)v8 locked_scheduleIdleResetAfterDelay:2.0];
+          [(MFIMAPConnection *)v7 locked_scheduleIdleResetAfterDelay:2.0];
         }
       }
     }
@@ -3705,13 +3713,12 @@ id __36__MFIMAPConnection_locked_startIdle__block_invoke(uint64_t a1)
   [(MFIMAPConnection *)self mf_lock];
   if ([(MFIMAPConnection *)self hasValidConnection])
   {
-    v3 = *(self + 64) | (*(self + 130) << 16);
     if ((*(self + 64) & 0x20) != 0)
     {
       currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
-      v5 = [currentDevice isPlatform:2];
+      v4 = [currentDevice isPlatform:2];
 
-      if ((v5 & 1) == 0)
+      if ((v4 & 1) == 0)
       {
         if (self->_selectedMailbox)
         {
@@ -3746,42 +3753,41 @@ id __36__MFIMAPConnection_locked_startIdle__block_invoke(uint64_t a1)
 
 void __55__MFIMAPConnection_locked_scheduleIdleResetAfterDelay___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = +[MFIMAPConnection log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
     v5 = [WeakRetained delegate];
-    v14 = 134218498;
-    v15 = WeakRetained;
-    v16 = 2048;
-    v17 = v4;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> timer fired for delayed IDLE reset after %0.2fs delay: %@", &v14, 0x20u);
+    v12 = 134218498;
+    v13 = WeakRetained;
+    v14 = 2048;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> timer fired for delayed IDLE reset after %0.2fs delay: %@", &v12, 0x20u);
   }
 
   [WeakRetained mf_lock];
   v6 = WeakRetained;
   v7 = v6;
-  v8 = v6[64] | (*(v6 + 130) << 16);
   if ((v6[64] & 0x20) != 0)
   {
-    v9 = [MEMORY[0x1E699B7B0] currentDevice];
-    v10 = [v9 isPlatform:2];
+    v8 = [MEMORY[0x1E699B7B0] currentDevice];
+    v9 = [v8 isPlatform:2];
 
-    if ((v10 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
-      v11 = +[MFIMAPConnection log];
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v10 = +[MFIMAPConnection log];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [v7 delegate];
-        v14 = 134218242;
-        v15 = v7;
-        v16 = 2112;
-        v17 = v12;
-        _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> resetting IDLE state: %@", &v14, 0x16u);
+        v11 = [v7 delegate];
+        v12 = 134218242;
+        v13 = v7;
+        v14 = 2112;
+        v15 = v11;
+        _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_DEFAULT, "Idle: connection <%p> resetting IDLE state: %@", &v12, 0x16u);
       }
 
       [v7 locked_finishIdle];
@@ -3794,16 +3800,14 @@ void __55__MFIMAPConnection_locked_scheduleIdleResetAfterDelay___block_invoke(ui
   }
 
   [v7 mf_unlock];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)expunge
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = [[_MFIMAPCommandParameters alloc] initWithCommand:16];
-  v12[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v5 = [(MFIMAPConnection *)self _responseFromSendingCommands:v4];
 
   if ([v5 responseType] == 4)
@@ -3816,8 +3820,8 @@ void __55__MFIMAPConnection_locked_scheduleIdleResetAfterDelay___block_invoke(ui
     v6 = 0;
   }
 
-  v11 = v3;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+  v10 = v3;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v7];
 
   if (v6)
@@ -3826,13 +3830,12 @@ void __55__MFIMAPConnection_locked_scheduleIdleResetAfterDelay___block_invoke(ui
     [v8 setError:v6];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)expungeUIDs:(id)ds
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if (![(MFIMAPConnection *)self supportsCapability:3])
   {
@@ -3858,18 +3861,18 @@ LABEL_9:
 
   v5 = [(MFIMAPConnection *)self messageSetForUIDs:dsCopy];
   v6 = [_MFIMAPCommandParameters alloc];
-  v23[0] = v5;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v22[0] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   v8 = [(_MFIMAPCommandParameters *)v6 initWithCommand:17 arguments:v7];
 
-  v22 = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+  v21 = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
   v10 = [(MFIMAPConnection *)self _responseFromSendingCommands:v9];
 
   responseType = [v10 responseType];
   v12 = responseType == 2;
-  v21 = v8;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v20 = v8;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v13];
 
   if (responseType != 2 && (+[MFActivityMonitor currentMonitor](MFActivityMonitor, "currentMonitor"), v14 = objc_claimAutoreleasedReturnValue(), [v14 error], v15 = objc_claimAutoreleasedReturnValue(), v16 = v15 == 0, v15, v14, v16))
@@ -3889,7 +3892,6 @@ LABEL_9:
 
 LABEL_11:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -3971,11 +3973,11 @@ LABEL_13:
 
 - (BOOL)createMailbox:(id)mailbox
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   mailboxCopy = mailbox;
   v5 = MFIMAPStringFromMailboxName(mailboxCopy);
-  v10[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
 
   v7 = [(MFIMAPConnection *)self _sendMailboxCommand:10 withArguments:v6];
   if (v7)
@@ -3983,60 +3985,57 @@ LABEL_13:
     [(MFIMAPConnection *)self _sendMailboxCommand:14 withArguments:v6];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)deleteMailbox:(id)mailbox
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   mailboxCopy = mailbox;
   v5 = MFIMAPStringFromMailboxName(mailboxCopy);
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   [(MFIMAPConnection *)self _sendMailboxCommand:15 withArguments:v6];
   LOBYTE(self) = [(MFIMAPConnection *)self _sendMailboxCommand:11 withArguments:v6];
 
-  v7 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (BOOL)renameMailbox:(id)mailbox toMailbox:(id)toMailbox
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   mailboxCopy = mailbox;
   toMailboxCopy = toMailbox;
   v8 = MFIMAPStringFromMailboxName(mailboxCopy);
 
   v9 = MFIMAPStringFromMailboxName(toMailboxCopy);
 
-  v18[0] = v8;
-  v18[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = v8;
+  v17[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v11 = [(MFIMAPConnection *)self _sendMailboxCommand:12 withArguments:v10];
   if (v11)
   {
-    v17 = v8;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+    v16 = v8;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
     [(MFIMAPConnection *)self _sendMailboxCommand:15 withArguments:v12];
 
-    v16 = v9;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = v9;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
     [(MFIMAPConnection *)self _sendMailboxCommand:14 withArguments:v13];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)_sendMailboxCommand:(int64_t)command withArguments:(id)arguments
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   v7 = [[_MFIMAPCommandParameters alloc] initWithCommand:command arguments:argumentsCopy];
-  v19[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   v9 = [(MFIMAPConnection *)self _responseFromSendingCommands:v8];
 
   responseType = [v9 responseType];
@@ -4052,11 +4051,10 @@ LABEL_13:
     }
   }
 
-  v18 = v7;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v17 = v7;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v15];
 
-  v16 = *MEMORY[0x1E69E9840];
   return responseType == 2;
 }
 
@@ -4315,10 +4313,64 @@ BOOL __55__MFIMAPConnection__updateSearchCapabilityWithAccount___block_invoke(ui
   return v3;
 }
 
+- (unsigned)getMailboxIDForUID:(unsigned int)d
+{
+  v3 = *&d;
+  v23[1] = *MEMORY[0x1E69E9840];
+  v5 = objc_alloc(MEMORY[0x1E695DEC8]);
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", v3];
+  v7 = [v5 initWithObjects:{@"UID", v6, 0}];
+
+  v8 = [[_MFIMAPCommandParameters alloc] initWithCommand:31 arguments:v7];
+  v23[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v10 = [(MFIMAPConnection *)self _responseFromSendingCommands:v9];
+
+  untaggedResponses = [(_MFIMAPCommandParameters *)v8 untaggedResponses];
+  v12 = [untaggedResponses count] == 1;
+
+  if (v12)
+  {
+    untaggedResponses2 = [(_MFIMAPCommandParameters *)v8 untaggedResponses];
+    v14 = [untaggedResponses2 objectAtIndex:0];
+
+    searchResults = [v14 searchResults];
+    if ([searchResults count] == 1)
+    {
+      v16 = [searchResults objectAtIndex:0];
+      unsignedIntValue = [v16 unsignedIntValue];
+
+      if (unsignedIntValue)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    else
+    {
+    }
+  }
+
+  v18 = MFLogGeneral();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_DEFAULT, "#Warning Invalid response from SEARCH command", buf, 2u);
+  }
+
+  unsignedIntValue = 0;
+LABEL_9:
+  v22 = v8;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+  [(MFIMAPConnection *)self didFinishCommands:v19];
+
+  return unsignedIntValue;
+}
+
 - (BOOL)storeFlags:(id)flags state:(BOOL)state forMessageSet:(id)set
 {
   stateCopy = state;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   flagsCopy = flags;
   setCopy = set;
   v10 = @"-FLAGS.SILENT";
@@ -4327,16 +4379,16 @@ BOOL __55__MFIMAPConnection__updateSearchCapabilityWithAccount___block_invoke(ui
     v10 = @"+FLAGS.SILENT";
   }
 
-  v27 = setCopy;
-  v28 = v10;
-  v24 = v28;
+  v26 = setCopy;
+  v27 = v10;
+  v23 = v27;
   v11 = [(MFIMAPConnection *)self parenthesizedStringWithObjects:flagsCopy];
-  v29 = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:3];
+  v28 = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:3];
 
   v13 = [[_MFIMAPCommandParameters alloc] initWithCommand:22 arguments:v12];
-  v26 = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v25 = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
   v15 = [(MFIMAPConnection *)self _responseFromSendingCommands:v14];
   responseType = [v15 responseType];
 
@@ -4357,32 +4409,50 @@ BOOL __55__MFIMAPConnection__updateSearchCapabilityWithAccount___block_invoke(ui
     }
   }
 
-  v25 = v13;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+  v24 = v13;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v21];
 
-  v22 = *MEMORY[0x1E69E9840];
   return responseType == 2;
+}
+
+- (BOOL)storeFlags:(id)flags state:(BOOL)state forUIDs:(id)ds
+{
+  stateCopy = state;
+  flagsCopy = flags;
+  dsCopy = ds;
+  if ([flagsCopy count])
+  {
+    v10 = [(MFIMAPConnection *)self messageSetForNumbers:dsCopy];
+    v11 = [(MFIMAPConnection *)self storeFlags:flagsCopy state:stateCopy forMessageSet:v10];
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  return v11;
 }
 
 - (BOOL)deleteMessagesOlderThanNumberOfDays:(int)days
 {
-  v27[3] = *MEMORY[0x1E69E9840];
+  v26[3] = *MEMORY[0x1E69E9840];
   if (days <= 0)
   {
     v13 = [(MFIMAPConnection *)self messageSetForRange:0xFFFFFFFF00000001];
-    v27[0] = v13;
-    v27[1] = @"+FLAGS.SILENT";
-    v27[2] = @"(\\Deleted)";
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
+    v26[0] = v13;
+    v26[1] = @"+FLAGS.SILENT";
+    v26[2] = @"(\\Deleted)";
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
 
     v7 = [[_MFIMAPCommandParameters alloc] initWithCommand:22 arguments:v5];
-    v26 = v7;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+    v25 = v7;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
     v15 = [(MFIMAPConnection *)self _responseFromSendingCommands:v14];
 
-    v25 = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+    v24 = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
     [(MFIMAPConnection *)self didFinishCommands:v9];
   }
 
@@ -4392,10 +4462,10 @@ BOOL __55__MFIMAPConnection__updateSearchCapabilityWithAccount___block_invoke(ui
     date = [MEMORY[0x1E695DF00] date];
     v7 = [v5 dateByAddingUnit:16 value:1 - days toDate:date options:0];
 
-    v24[0] = @"BEFORE";
+    v23[0] = @"BEFORE";
     v8 = MFIMAPDateSearchStringForDate(v7);
-    v24[1] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[1] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
 
     v10 = [(MFIMAPConnection *)self searchUidSet:0 forTerms:v9 success:0];
     v11 = [v10 count];
@@ -4404,7 +4474,7 @@ BOOL __55__MFIMAPConnection__updateSearchCapabilityWithAccount___block_invoke(ui
       v12 = MFCreateArrayForMessageFlags(2, 1);
       if (v11 > 0x64)
       {
-        v23 = v5;
+        v22 = v5;
         Mutable = CFArrayCreateMutable(0, 100, 0);
         v17 = 0;
         v18 = 100;
@@ -4430,7 +4500,7 @@ BOOL __55__MFIMAPConnection__updateSearchCapabilityWithAccount___block_invoke(ui
         }
 
         while (v20);
-        v5 = v23;
+        v5 = v22;
         CFRelease(Mutable);
       }
 
@@ -4441,17 +4511,16 @@ BOOL __55__MFIMAPConnection__updateSearchCapabilityWithAccount___block_invoke(ui
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)_responseFromSendingCommand:(id)command andPossiblyCreateMailbox:(id)mailbox
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   commandCopy = command;
   mailboxCopy = mailbox;
-  v24[0] = commandCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = commandCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   v9 = [(MFIMAPConnection *)self _responseFromSendingCommands:v8];
 
   if ([v9 responseType] == 4)
@@ -4513,14 +4582,14 @@ LABEL_12:
   [untaggedResponses3 removeObjectAtIndex:v13];
 
 LABEL_16:
-  v23 = commandCopy;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v22 = commandCopy;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v17];
 
   if ([(MFIMAPConnection *)self createMailbox:mailboxCopy])
   {
-    v22 = commandCopy;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    v21 = commandCopy;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     v19 = [(MFIMAPConnection *)self _responseFromSendingCommands:v18];
 
     v9 = v19;
@@ -4528,14 +4597,12 @@ LABEL_16:
 
 LABEL_18:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (BOOL)copyUIDs:(id)ds toMailboxNamed:(id)named copyInfo:(id *)info error:(id *)error
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   namedCopy = named;
   if (!dsCopy)
@@ -4547,15 +4614,15 @@ LABEL_18:
   v13 = [(MFIMAPConnection *)self messageSetForUIDs:dsCopy];
   if ([v13 length])
   {
-    v25[0] = v13;
+    v24[0] = v13;
     v14 = MFIMAPStringFromMailboxName(namedCopy);
-    v25[1] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v24[1] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
 
     v16 = [[_MFIMAPCommandParameters alloc] initWithCommand:23 arguments:v15];
     v17 = [(MFIMAPConnection *)self _responseFromSendingCommand:v16 andPossiblyCreateMailbox:namedCopy];
-    v24 = v16;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v23 = v16;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
     [(MFIMAPConnection *)self didFinishCommands:v18];
 
     if (info)
@@ -4578,13 +4645,12 @@ LABEL_18:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (BOOL)moveUIDs:(id)ds toMailboxNamed:(id)named copyInfo:(id *)info error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   namedCopy = named;
   if (!namedCopy)
@@ -4595,46 +4661,46 @@ LABEL_18:
 
   if ([(MFIMAPConnection *)self supportsCapability:20])
   {
-    v32 = [(MFIMAPConnection *)self messageSetForUIDs:dsCopy];
-    if ([v32 length])
+    v31 = [(MFIMAPConnection *)self messageSetForUIDs:dsCopy];
+    if ([v31 length])
     {
-      v40[0] = v32;
+      v39[0] = v31;
       v12 = MFIMAPStringFromMailboxName(namedCopy);
-      v40[1] = v12;
-      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+      v39[1] = v12;
+      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
 
-      v13 = [[_MFIMAPCommandParameters alloc] initWithCommand:37 arguments:v31];
-      v30 = [(MFIMAPConnection *)self _responseFromSendingCommand:v13 andPossiblyCreateMailbox:namedCopy];
-      responseType = [v30 responseType];
+      v13 = [[_MFIMAPCommandParameters alloc] initWithCommand:37 arguments:v30];
+      v29 = [(MFIMAPConnection *)self _responseFromSendingCommand:v13 andPossiblyCreateMailbox:namedCopy];
+      responseType = [v29 responseType];
       v15 = responseType == 2;
       if (info)
       {
         if (responseType == 2)
         {
-          v16 = MFUIDPlusInfoFromResponse(v30);
+          v16 = MFUIDPlusInfoFromResponse(v29);
           v17 = [(MFIMAPConnection *)self copyInfoForMessageInfo:v16];
 
           if (!v17)
           {
-            v36 = 0u;
-            v37 = 0u;
-            v34 = 0u;
             v35 = 0u;
+            v36 = 0u;
+            v33 = 0u;
+            v34 = 0u;
             untaggedResponses = [(_MFIMAPCommandParameters *)v13 untaggedResponses];
-            v17 = [untaggedResponses countByEnumeratingWithState:&v34 objects:v39 count:16];
+            v17 = [untaggedResponses countByEnumeratingWithState:&v33 objects:v38 count:16];
             if (v17)
             {
-              v19 = *v35;
+              v19 = *v34;
               while (2)
               {
                 for (i = 0; i != v17; i = i + 1)
                 {
-                  if (*v35 != v19)
+                  if (*v34 != v19)
                   {
                     objc_enumerationMutation(untaggedResponses);
                   }
 
-                  v21 = *(*(&v34 + 1) + 8 * i);
+                  v21 = *(*(&v33 + 1) + 8 * i);
                   if ([v21 responseType] == 2 && objc_msgSend(v21, "responseCode") == 16)
                   {
                     v24 = MFUIDPlusInfoFromResponse(v21);
@@ -4644,7 +4710,7 @@ LABEL_18:
                   }
                 }
 
-                v17 = [untaggedResponses countByEnumeratingWithState:&v34 objects:v39 count:16];
+                v17 = [untaggedResponses countByEnumeratingWithState:&v33 objects:v38 count:16];
                 if (v17)
                 {
                   continue;
@@ -4667,8 +4733,8 @@ LABEL_28:
         *info = v17;
       }
 
-      v38 = v13;
-      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+      v37 = v13;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
       [(MFIMAPConnection *)self didFinishCommands:v26];
     }
 
@@ -4691,7 +4757,7 @@ LABEL_28:
     {
       ef_publicDescription = [(MFIMAPConnection *)self ef_publicDescription];
       *buf = 138543362;
-      v42 = ef_publicDescription;
+      v41 = ef_publicDescription;
       _os_log_impl(&dword_1B0389000, v22, OS_LOG_TYPE_DEFAULT, "<%{public}@> Server does not support move.", buf, 0xCu);
     }
 
@@ -4704,7 +4770,6 @@ LABEL_28:
     v15 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -4954,45 +5019,45 @@ LABEL_28:
 
 - (id)fetchMessageIdsForUids:(id)uids
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   uidsCopy = uids;
-  v29 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(uidsCopy, "count")}];
+  v28 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(uidsCopy, "count")}];
   allObjects = [uidsCopy allObjects];
   selfCopy = self;
   v5 = [(MFIMAPConnection *)self messageSetForNumbers:allObjects];
 
-  v23 = v5;
-  v38[0] = v5;
-  v38[1] = @"(BODY.PEEK[HEADER.FIELDS (MESSAGE-ID)])";
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
-  v26 = [[_MFIMAPCommandParameters alloc] initWithCommand:21 arguments:v25];
-  v37 = v26;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+  v22 = v5;
+  v37[0] = v5;
+  v37[1] = @"(BODY.PEEK[HEADER.FIELDS (MESSAGE-ID)])";
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+  v25 = [[_MFIMAPCommandParameters alloc] initWithCommand:21 arguments:v24];
+  v36 = v25;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
   v7 = [(MFIMAPConnection *)selfCopy _responseFromSendingCommands:v6];
   LODWORD(v5) = [v7 responseType] == 2;
 
   if (v5)
   {
-    [(_MFIMAPCommandParameters *)v26 untaggedResponses];
+    [(_MFIMAPCommandParameters *)v25 untaggedResponses];
+    v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
-    obj = v32 = 0u;
-    v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v30 = 0u;
+    obj = v31 = 0u;
+    v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v8)
     {
-      v9 = *v32;
-      v28 = *MEMORY[0x1E699B130];
+      v9 = *v31;
+      v27 = *MEMORY[0x1E699B130];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v32 != v9)
+          if (*v31 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v31 + 1) + 8 * i);
+          v11 = *(*(&v30 + 1) + 8 * i);
           if ([v11 responseType] == 17)
           {
             v12 = [v11 fetchResultWithType:4];
@@ -5005,32 +5070,30 @@ LABEL_28:
               v16 = v15;
 
               v17 = [objc_alloc(MEMORY[0x1E69AD740]) initWithHeaderData:v16 encoding:0xFFFFFFFFLL];
-              v18 = [v17 copyFirstStringValueForKey:v28];
+              v18 = [v17 copyFirstStringValueForKey:v27];
               v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v13, "uid")}];
-              [v29 setObject:v18 forKeyedSubscript:v19];
+              [v28 setObject:v18 forKeyedSubscript:v19];
             }
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v8);
     }
   }
 
-  v35 = v26;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+  v34 = v25;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
   [(MFIMAPConnection *)selfCopy didFinishCommands:v20];
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v28;
 }
 
 - (BOOL)performCustomCommand:(id)command withArguments:(id)arguments
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   commandCopy = command;
   argumentsCopy = arguments;
   if ([argumentsCopy count])
@@ -5045,8 +5108,8 @@ LABEL_28:
   }
 
   v8 = [[_MFIMAPCommandParameters alloc] initWithCommand:38 arguments:v7];
-  v22[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   v10 = [(MFIMAPConnection *)self _responseFromSendingCommands:v9];
 
   responseType = [v10 responseType];
@@ -5064,11 +5127,10 @@ LABEL_28:
     }
   }
 
-  v21 = v8;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v20 = v8;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v17];
 
-  v18 = *MEMORY[0x1E69E9840];
   return responseType == 2;
 }
 
@@ -5355,7 +5417,7 @@ void __58__MFIMAPConnection_messageSetForUIDs_maxTokens_remainder___block_invoke
 
 - (BOOL)authenticateUsingAccount:(id)account authenticator:(id)authenticator
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   authenticatorCopy = authenticator;
   v7 = MEMORY[0x1E695DF70];
@@ -5380,7 +5442,7 @@ void __58__MFIMAPConnection_messageSetForUIDs_maxTokens_remainder___block_invoke
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v42 = authenticatorCopy;
+        v41 = authenticatorCopy;
         _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_DEFAULT, "#Warning %@ claimed to support initial response data, and didn't supply an initial response", buf, 0xCu);
       }
     }
@@ -5388,11 +5450,11 @@ void __58__MFIMAPConnection_messageSetForUIDs_maxTokens_remainder___block_invoke
 
   v15 = [[_MFIMAPCommandParameters alloc] initWithCommand:4 arguments:v10];
   [(MFIMAPConnection *)self mf_lock];
-  v40 = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
-  v38 = 0;
-  v17 = [(MFIMAPConnection *)self _sendCommands:v16 response:&v38];
-  v18 = v38;
+  v39 = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+  v37 = 0;
+  v17 = [(MFIMAPConnection *)self _sendCommands:v16 response:&v37];
+  v18 = v37;
 
   if (!v17)
   {
@@ -5503,7 +5565,7 @@ LABEL_24:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = v19;
+      v41 = v19;
       _os_log_error_impl(&dword_1B0389000, v30, OS_LOG_TYPE_ERROR, "*** Unexpected response during authentication: %@", buf, 0xCu);
     }
 
@@ -5539,8 +5601,8 @@ LABEL_45:
 
 LABEL_46:
   [(MFIMAPConnection *)self mf_unlock];
-  v39 = v15;
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+  v38 = v15;
+  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
   [(MFIMAPConnection *)self didFinishCommands:v32];
 
   if ([authenticatorCopy authenticationState] == 3)
@@ -5550,20 +5612,19 @@ LABEL_46:
 
   v33 = [authenticatorCopy authenticationState] == 4;
 
-  v34 = *MEMORY[0x1E69E9840];
   return v33;
 }
 
 - (BOOL)startTLSForAccount:(id)account
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   [(MFIMAPConnection *)self mf_lock];
   if ([(MFIMAPConnection *)self supportsCapability:0])
   {
     v5 = [[_MFIMAPCommandParameters alloc] initWithCommand:3];
-    v27[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+    v26[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
     v7 = [(MFIMAPConnection *)self _responseFromSendingCommands:v6];
     v8 = [v7 responseType] == 2;
 
@@ -5580,8 +5641,8 @@ LABEL_46:
       [v14 setError:v15];
     }
 
-    v26 = v5;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+    v25 = v5;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
     [(MFIMAPConnection *)self didFinishCommands:v16];
   }
 
@@ -5602,36 +5663,35 @@ LABEL_46:
 
   [(MFIMAPConnection *)self mf_unlock];
 
-  v24 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (NSString)debugDescription
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = +[MFIMAPConnection log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v23 = MEMORY[0x1E696AEC0];
-    v22 = objc_opt_class();
+    v22 = MEMORY[0x1E696AEC0];
+    v21 = objc_opt_class();
     _connectionStateDescription = [(MFIMAPConnection *)self _connectionStateDescription];
-    v16 = atomic_load(&self->super._isFetching);
-    if (v16)
+    v15 = atomic_load(&self->super._isFetching);
+    if (v15)
     {
-      v17 = ", Fetching";
+      v16 = ", Fetching";
     }
 
     else
     {
-      v17 = "";
+      v16 = "";
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v21 = v17;
-    v19 = _connectionStateDescription;
-    v20 = [v23 stringWithFormat:@"<%@:%p> [%@%s] delegate=%p mailbox=<%@>", v22, self, _connectionStateDescription, v21, WeakRetained, self->_selectedMailbox];
+    v20 = v16;
+    v18 = _connectionStateDescription;
+    v19 = [v22 stringWithFormat:@"<%@:%p> [%@%s] delegate=%p mailbox=<%@>", v21, self, _connectionStateDescription, v20, WeakRetained, self->_selectedMailbox];
     *buf = 138412290;
-    v25 = v20;
+    v24 = v19;
     _os_log_debug_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEBUG, "debugDescription for _connectionState: %@", buf, 0xCu);
   }
 
@@ -5662,8 +5722,6 @@ LABEL_46:
     [v5 stringWithFormat:@"<%@:%p> [%@%s] delegate=%p mailbox=<%@>", v6, self, _connectionStateDescription2, v9, v10, self->_selectedMailbox];
   }
   v12 = ;
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -5877,12 +5935,12 @@ LABEL_22:
 
 - (BOOL)sendResponsesForCommand:(id)command toQueue:(id)queue
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   commandCopy = command;
   queueCopy = queue;
   [(MFIMAPConnection *)self mf_lock];
-  v23[0] = commandCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v22[0] = commandCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   v9 = [(MFIMAPConnection *)self _sendCommands:v8 response:0];
 
   if (v9)
@@ -5932,13 +5990,12 @@ LABEL_22:
   [(MFIMAPConnection *)self locked_scheduleIdle];
   [(MFIMAPConnection *)self mf_unlock];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (BOOL)sendResponsesForUIDFetchForUIDs:(id)ds fields:(id)fields toQueue:(id)queue
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   fieldsCopy = fields;
   queueCopy = queue;
@@ -5947,14 +6004,14 @@ LABEL_22:
   v13 = 1;
   while ([v12 count] && (objc_msgSend(v11, "shouldCancel") & 1) == 0)
   {
-    v21 = 0;
-    v14 = [(MFIMAPConnection *)self messageSetForUIDs:v12 maxTokens:500 remainder:&v21];
-    v15 = v21;
+    v20 = 0;
+    v14 = [(MFIMAPConnection *)self messageSetForUIDs:v12 maxTokens:500 remainder:&v20];
+    v15 = v20;
 
     v16 = [_MFIMAPCommandParameters alloc];
-    v22[0] = v14;
-    v22[1] = fieldsCopy;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+    v21[0] = v14;
+    v21[1] = fieldsCopy;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
     v18 = [(_MFIMAPCommandParameters *)v16 initWithCommand:21 arguments:v17];
 
     LOBYTE(v17) = [(MFIMAPConnection *)self sendResponsesForCommand:v18 toQueue:queueCopy];
@@ -5962,7 +6019,6 @@ LABEL_22:
     v12 = v15;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -6058,43 +6114,43 @@ LABEL_22:
 
 - (id)searchUIDs:(id)ds withFlagRequests:(id)requests
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v22 = dsCopy;
+  v21 = dsCopy;
   requestsCopy = requests;
   _fetchArgumentForMessageUidsAndFlags = [(MFIMAPConnection *)self _fetchArgumentForMessageUidsAndFlags];
   v8 = [@"(UID FLAGS)" isEqualToString:_fetchArgumentForMessageUidsAndFlags];
 
   if (v8)
   {
-    v20 = [dsCopy objectAtIndex:0];
+    v19 = [dsCopy objectAtIndex:0];
     lastObject = [dsCopy lastObject];
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", v20, lastObject];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", v19, lastObject];
     v10 = objc_alloc_init(MFIMAPConnectionFlagSearchResults);
-    v28 = 1;
+    v27 = 1;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v11 = requestsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v12)
     {
-      v13 = *v25;
+      v13 = *v24;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           searchTerms = [v15 searchTerms];
-          v17 = [(MFIMAPConnection *)self searchUidSet:v9 forTerms:searchTerms success:&v28];
+          v17 = [(MFIMAPConnection *)self searchUidSet:v9 forTerms:searchTerms success:&v27];
 
-          if (v28 != 1)
+          if (v27 != 1)
           {
 
             v10 = 0;
@@ -6104,7 +6160,7 @@ LABEL_22:
           -[MFIMAPConnectionFlagSearchResults cacheStateForUIDs:mask:existenceSetsFlag:](v10, "cacheStateForUIDs:mask:existenceSetsFlag:", v17, [v15 mask], objc_msgSend(v15, "isPositiveMatch"));
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v12)
         {
           continue;
@@ -6122,46 +6178,44 @@ LABEL_13:
     v10 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (BOOL)sendResponsesForUIDs:(id)ds fields:(id)fields flagSearchResults:(id)results toQueue:(id)queue
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   fieldsCopy = fields;
   resultsCopy = results;
   queueCopy = queue;
   if (resultsCopy)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v14 = dsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v15)
     {
-      v16 = *v23;
+      v16 = *v22;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v18 = [resultsCopy copyResponseForUID:{objc_msgSend(*(*(&v22 + 1) + 8 * i), "integerValue", v22)}];
+          v18 = [resultsCopy copyResponseForUID:{objc_msgSend(*(*(&v21 + 1) + 8 * i), "integerValue", v21)}];
           if (v18)
           {
             [queueCopy addItem:v18];
           }
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v15);
@@ -6175,33 +6229,32 @@ LABEL_13:
     v19 = [(MFIMAPConnection *)self sendResponsesForUIDFetchForUIDs:dsCopy fields:fieldsCopy toQueue:queueCopy];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (void)didFinishCommands:(id)commands
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = commands;
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v4)
   {
-    v23 = *v26;
+    v22 = *v25;
     do
     {
-      v24 = v4;
-      for (i = 0; i != v24; ++i)
+      v23 = v4;
+      for (i = 0; i != v23; ++i)
       {
-        if (*v26 != v23)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v25 + 1) + 8 * i);
+        v6 = *(*(&v24 + 1) + 8 * i);
         untaggedResponses = [v6 untaggedResponses];
         v8 = [untaggedResponses count];
 
@@ -6249,9 +6302,9 @@ LABEL_13:
                     {
                       v20 = _IMAPCommandTable[[v6 command]];
                       *buf = 136315394;
-                      v30 = v20;
-                      v31 = 2112;
-                      v32 = v12;
+                      v29 = v20;
+                      v30 = 2112;
+                      v31 = v12;
                       _os_log_error_impl(&dword_1B0389000, WeakRetained, OS_LOG_TYPE_ERROR, "Unhandled response to command %s: %@", buf, 0x16u);
                     }
 
@@ -6262,9 +6315,9 @@ LABEL_13:
                     {
                       v18 = _IMAPCommandTable[[v6 command]];
                       *buf = 136315394;
-                      v30 = v18;
-                      v31 = 2112;
-                      v32 = v12;
+                      v29 = v18;
+                      v30 = 2112;
+                      v31 = v12;
                       _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_DEFAULT, "MFIMAPConnection was lost during processing of command %s: %@.", buf, 0x16u);
                     }
 
@@ -6346,13 +6399,11 @@ LABEL_41:
         [v6 setUntaggedResponses:0];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v4 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v4);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_logStringForIDs:(id)ds
@@ -6569,14 +6620,50 @@ void __80__MFIMAPConnection_ReferenceSearching___searchUidsForMessageIDs_exclude
   [*(a1 + 32) addObject:v5];
 }
 
+- (id)_uidsForMessageIDs:(id)ds excludeDeleted:(BOOL)deleted
+{
+  deletedCopy = deleted;
+  v19 = *MEMORY[0x1E69E9840];
+  allObjects = [ds allObjects];
+  v7 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(allObjects, "count")}];
+  [allObjects ef_subarraysOfSize:5];
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v8 = v15 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
+  {
+    v10 = *v15;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v15 != v10)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v12 = [(MFIMAPConnection *)self _searchUidsForMessageIDs:*(*(&v14 + 1) + 8 * i) excludeDeleted:deletedCopy, v14];
+        [v7 addObjectsFromArray:v12];
+      }
+
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v9);
+  }
+
+  return v7;
+}
+
 - (void)_sendApplePushForAccountIfSupported:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1B0389000, v1, OS_LOG_TYPE_ERROR, "#aps-push account %@ rejected XAPPLEPUSHSERVICE request: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1B0389000, v1, OS_LOG_TYPE_ERROR, "#aps-push account %@ rejected XAPPLEPUSHSERVICE request: %@", v2, 0x16u);
 }
 
 - (void)_sendApplePushForAccountIfSupported:(uint8_t *)buf .cold.2(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -6590,10 +6677,9 @@ void __80__MFIMAPConnection_ReferenceSearching___searchUidsForMessageIDs_exclude
 
 - (void)_sendApplePushForAccountIfSupported:.cold.3()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B0389000, v0, v1, "#aps-push account %@ received mailbox responses but version 1 response, ignoring mailboxes", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B0389000, v0, v1, "#aps-push account %@ received mailbox responses but version 1 response, ignoring mailboxes", v2);
 }
 
 - (void)_doBasicConnectionUsingAccount:.cold.1()
@@ -6619,10 +6705,9 @@ void __80__MFIMAPConnection_ReferenceSearching___searchUidsForMessageIDs_exclude
 
 - (void)_sendCommands:response:.cold.2()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B0389000, v0, v1, "%{public}@ failed to write commands", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B0389000, v0, v1, "%{public}@ failed to write commands", v2);
 }
 
 - (void)authenticateUsingAccount:.cold.1()
@@ -6641,12 +6726,11 @@ void __80__MFIMAPConnection_ReferenceSearching___searchUidsForMessageIDs_exclude
 
 - (void)_dictionaryFromSourceUIDs:destinationUIDs:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  v3 = 2112;
-  v4 = v0;
-  _os_log_error_impl(&dword_1B0389000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "IMAPConnection: source UIDs count is different from destination UIDs (source: %@; destination: %@)", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = 2112;
+  v3 = v0;
+  _os_log_error_impl(&dword_1B0389000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "IMAPConnection: source UIDs count is different from destination UIDs (source: %@; destination: %@)", v1, 0x16u);
 }
 
 - (void)authenticateUsingAccount:authenticator:.cold.1()

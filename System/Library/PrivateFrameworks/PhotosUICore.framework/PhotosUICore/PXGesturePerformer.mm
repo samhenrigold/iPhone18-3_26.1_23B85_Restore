@@ -343,7 +343,7 @@
   return isAvailable_supportsRPT;
 }
 
-uint64_t __33__PXGesturePerformer_isAvailable__block_invoke()
+void *__33__PXGesturePerformer_isAvailable__block_invoke()
 {
   result = [MEMORY[0x1E69C6C50] isRecapAvailable];
   isAvailable_supportsRPT = result;

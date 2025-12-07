@@ -39,25 +39,22 @@
 
 - (void)localDeviceSupportsService:()BluetoothManagerGKExtensions .cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
-  v5 = v0;
-  v6 = "[BluetoothManager(BluetoothManagerGKExtensions) localDeviceSupportsService:]";
-  v7 = 1024;
-  v8 = 41;
-  v9 = 1024;
-  v10 = v1;
-  _os_log_error_impl(&dword_24E50C000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Could not check bluetooth to see if service supported. %d", v4, 0x22u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = "[BluetoothManager(BluetoothManagerGKExtensions) localDeviceSupportsService:]";
+  v6 = 1024;
+  v7 = 41;
+  v8 = 1024;
+  v9 = v1;
+  _os_log_error_impl(&dword_24E50C000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Could not check bluetooth to see if service supported. %d", v3, 0x22u);
 }
 
 - (void)localDeviceSupportsService:()BluetoothManagerGKExtensions .cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d no local BT device in the BT manager.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d no local BT device in the BT manager.", v2, v3, v4, v5);
 }
 
 @end

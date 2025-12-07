@@ -318,7 +318,7 @@ void __70__PLAssetsdLibraryInternalService_featureProcessingSnapshotWithReply___
   dCopy = d;
   replyCopy = reply;
   trustedCallerBundleID = [(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization trustedCallerBundleID];
-  if (([trustedCallerBundleID isEqualToString:@"com.apple.mobileslideshow.photospicker"] & 1) == 0 && (objc_msgSend(trustedCallerBundleID, "isEqualToString:", @"com.apple.mobileslideshow.PhotosMessagesApp") & 1) == 0 && (objc_msgSend(trustedCallerBundleID, "isEqualToString:", @"com.apple.plphotosctl") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(trustedCallerBundleID) & 1) == 0 && (objc_msgSend_isEqualToString_(trustedCallerBundleID) & 1) == 0 && (objc_msgSend_isEqualToString_(trustedCallerBundleID) & 1) == 0)
   {
     pathManager = [MEMORY[0x1E696AEC0] stringWithFormat:@"Not allowed to read appPrivateData of other bundle IDs from %@", trustedCallerBundleID];
     v22 = PLBackendGetLog();
@@ -339,7 +339,7 @@ void __70__PLAssetsdLibraryInternalService_featureProcessingSnapshotWithReply___
     goto LABEL_16;
   }
 
-  if (([dCopy isEqualToString:*MEMORY[0x1E69BFF18]] & 1) == 0 && (objc_msgSend(trustedCallerBundleID, "isEqualToString:", dCopy) & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(dCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(trustedCallerBundleID) & 1) == 0)
   {
     pathManager = [MEMORY[0x1E696AEC0] stringWithFormat:@"Not allowed to read appPrivateData of bundle ID %@ from %@", dCopy, trustedCallerBundleID];
     v16 = PLBackendGetLog();
@@ -1272,7 +1272,7 @@ void __108__PLAssetsdLibraryInternalService_setFetchFilterWithAssets_forApplicat
   v5 = [PLLimitedLibraryFetchFilter fetchOrCreateLimitedLibraryFetchFilterWithApplicationIdentifier:v2 auditToken:v9 inManagedObjectContext:v3];
 
   [v5 removeAllAssets];
-  if ([*(a1 + 48) count])
+  if (objc_msgSend_count(*(a1 + 48)))
   {
     [v5 addAssetsWithUUIDs:*(a1 + 48)];
   }

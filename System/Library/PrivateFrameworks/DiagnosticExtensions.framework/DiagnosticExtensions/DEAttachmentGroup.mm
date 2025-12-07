@@ -10,7 +10,7 @@
 
 + (id)createWithName:(id)name rootURL:(id)l
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   lCopy = l;
   v7 = objc_alloc_init(DEAttachmentGroup);
@@ -18,32 +18,32 @@
   [(DEAttachmentGroup *)v7 setRootURL:lCopy];
   v8 = [DEUtils lsDir:lCopy];
   v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         v16 = [DEAttachmentItem alloc];
-        v17 = [(DEAttachmentItem *)v16 initWithPathURL:v15, v23];
+        v17 = [(DEAttachmentItem *)v16 initWithPathURL:v15, v22];
         [v9 addObject:v17];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
@@ -56,8 +56,6 @@
   displayName = [(DEAttachmentItem *)v7 displayName];
   v20 = [lCopy URLByAppendingPathComponent:displayName];
   [(DEAttachmentItem *)v7 setPath:v20];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -112,13 +110,13 @@
 
 - (id)attachToDestinationDir:(id)dir
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   v5 = +[DELogging fwHandle];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v37 = dirCopy;
+    v36 = dirCopy;
     _os_log_impl(&dword_248AB3000, v5, OS_LOG_TYPE_INFO, "Log destination directory: %{public}@", buf, 0xCu);
   }
 
@@ -148,29 +146,29 @@
   else
   {
     [(DEAttachmentItem *)self setAttachedPath:v9];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     attachmentItems = [(DEAttachmentGroup *)self attachmentItems];
-    v12 = [attachmentItems countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v12 = [attachmentItems countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v32;
+      v14 = *v31;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(attachmentItems);
           }
 
-          v16 = [*(*(&v31 + 1) + 8 * i) attachToDestinationDir:v9];
+          v16 = [*(*(&v30 + 1) + 8 * i) attachToDestinationDir:v9];
         }
 
-        v13 = [attachmentItems countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v13 = [attachmentItems countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v13);
@@ -215,22 +213,18 @@
 
   attachedPath3 = [(DEAttachmentItem *)self attachedPath];
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return attachedPath3;
 }
 
 - (void)attachToDestinationDir:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 localizedDescription];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_248AB3000, a3, OS_LOG_TYPE_ERROR, "error creating group directory [%{public}@] with error [%{public}@]", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_248AB3000, a3, OS_LOG_TYPE_ERROR, "error creating group directory [%{public}@] with error [%{public}@]", &v6, 0x16u);
 }
 
 @end

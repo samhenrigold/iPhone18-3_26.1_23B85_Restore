@@ -174,22 +174,20 @@ LABEL_9:
 
 - (void)requiresPreflightForBundleIdentifier:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1E115B000, log, OS_LOG_TYPE_ERROR, "Error getting application record for app with identifier %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1E115B000, log, OS_LOG_TYPE_ERROR, "Error getting application record for app with identifier %@: %@", &v3, 0x16u);
 }
 
 - (void)requiresPreflightForBundleIdentifier:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1E115B000, a2, OS_LOG_TYPE_ERROR, "Unable to look up record for application with bundle identifier %@, but no error was provided.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1E115B000, a2, OS_LOG_TYPE_ERROR, "Unable to look up record for application with bundle identifier %@, but no error was provided.", &v2, 0xCu);
 }
 
 @end

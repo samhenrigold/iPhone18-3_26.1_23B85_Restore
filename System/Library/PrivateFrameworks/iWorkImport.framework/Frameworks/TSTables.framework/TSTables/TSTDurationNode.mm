@@ -72,67 +72,67 @@
   contextCopy = context;
   childrenCopy = children;
   objc_opt_class();
-  v14 = TSUDynamicCast();
-  if (!v14)
+  v13 = TSUDynamicCast();
+  if (!v13)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTDurationNode initAsCopyOf:intoContext:children:]", v12, v13);
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v18, v19);
-    v22 = @"nil";
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTDurationNode initAsCopyOf:intoContext:children:]", v12);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v17);
+    v20 = @"nil";
     if (ofCopy)
     {
-      v22 = ofCopy;
+      v20 = ofCopy;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v21, 81, 0, "Unexpected object in initAsCopyOf:... expected TSTDurationNode, got %@", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v19, 81, 0, "Unexpected object in initAsCopyOf:... expected TSTDurationNode, got %@", v20);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
   }
 
-  v30.receiver = self;
-  v30.super_class = TSTDurationNode;
-  v27 = [(TSTExpressionNode *)&v30 initAsCopyOf:ofCopy intoContext:contextCopy children:childrenCopy];
-  v28 = v27;
-  if (v27)
+  v27.receiver = self;
+  v27.super_class = TSTDurationNode;
+  v24 = [(TSTExpressionNode *)&v27 initAsCopyOf:ofCopy intoContext:contextCopy children:childrenCopy];
+  v25 = v24;
+  if (v24)
   {
-    v27[17] = *(v14 + 136);
-    objc_storeStrong(v27 + 18, *(v14 + 144));
-    *(v28 + 128) = *(v14 + 128);
+    v24[17] = *(v13 + 136);
+    objc_storeStrong(v24 + 18, *(v13 + 144));
+    *(v25 + 128) = *(v13 + 128);
   }
 
-  return v28;
+  return v25;
 }
 
 - (void)setDurationInterval:(double)interval
 {
-  objc_msgSend_willModify(self, a2, v3, v4, v5);
+  objc_msgSend_willModify(self, a2, v3, v4);
   self->_blank = 0;
   self->_durationInterval = interval;
-  v16 = objc_msgSend_tokenAttachment(self, v8, v9, v10, v11);
-  objc_msgSend_invalidate(v16, v12, v13, v14, v15);
+  v13 = objc_msgSend_tokenAttachment(self, v7, v8, v9);
+  objc_msgSend_invalidate(v13, v10, v11, v12);
 }
 
 - (void)setDurationFormat:(id)format
 {
   formatCopy = format;
-  objc_msgSend_willModify(self, v5, v6, v7, v8);
+  objc_msgSend_willModify(self, v5, v6, v7);
   self->_blank = 0;
   objc_storeStrong(&self->_durationFormat, format);
-  v13 = objc_msgSend_tokenAttachment(self, v9, v10, v11, v12);
-  objc_msgSend_invalidate(v13, v14, v15, v16, v17);
+  v11 = objc_msgSend_tokenAttachment(self, v8, v9, v10);
+  objc_msgSend_invalidate(v11, v12, v13, v14);
 }
 
 - (TSTCSENodeData)recordHashesForSubexpressions:(id)subexpressions
 {
   subexpressionsCopy = subexpressions;
   v5 = TSUHash();
-  v10 = v5 ^ objc_msgSend_hash(self->_durationFormat, v6, v7, v8, v9);
-  objc_msgSend_recordExpression_data_(subexpressionsCopy, v11, self, v10 ^ 0x5000000, 1);
+  v9 = v5 ^ objc_msgSend_hash(self->_durationFormat, v6, v7, v8);
+  objc_msgSend_recordExpression_data_(subexpressionsCopy, v10, self, v9 ^ 0x5000000, 1);
 
-  v12 = v10 ^ 0x5000000;
-  v13 = 1;
-  result.var1 = v13;
-  result.var0 = v12;
+  v11 = v9 ^ 0x5000000;
+  v12 = 1;
+  result.var1 = v12;
+  result.var0 = v11;
   return result;
 }
 
@@ -146,18 +146,18 @@
 
   else
   {
-    v23.receiver = self;
-    v23.super_class = TSTDurationNode;
-    if ([(TSTExpressionNode *)&v23 isEqualToExpressionNode:nodeCopy])
+    v20.receiver = self;
+    v20.super_class = TSTDurationNode;
+    if ([(TSTExpressionNode *)&v20 isEqualToExpressionNode:nodeCopy])
     {
       v5 = nodeCopy;
       durationInterval = self->_durationInterval;
-      objc_msgSend_durationInterval(v5, v7, v8, v9, v10);
-      if (durationInterval == v15)
+      objc_msgSend_durationInterval(v5, v7, v8, v9);
+      if (durationInterval == v13)
       {
         durationFormat = self->_durationFormat;
-        v17 = objc_msgSend_durationFormat(v5, v11, v12, v13, v14);
-        isEqual = objc_msgSend_isEqual_(durationFormat, v18, v17, v19, v20);
+        v15 = objc_msgSend_durationFormat(v5, v10, v11, v12);
+        isEqual = objc_msgSend_isEqual_(durationFormat, v16, v15, v17);
       }
 
       else
@@ -177,58 +177,58 @@
 
 - (id)string
 {
-  objc_msgSend_durationUnitLargest(self->_durationFormat, a2, v2, v3, v4);
+  objc_msgSend_durationUnitLargest(self->_durationFormat, a2, v2, v3);
   TSUDurationFormatterDurationUnitsNecessaryToFullyDisplayDuration();
-  objc_msgSend_durationStyle(self->_durationFormat, v6, v7, v8, v9);
-  v10 = TSUDurationFormatterFormatFromDurationUnits();
-  v15 = objc_msgSend_context(self, v11, v12, v13, v14);
-  v20 = objc_msgSend_objectLocale(v15, v16, v17, v18, v19);
-  v21 = TSUDurationFormatterStringFromTimeIntervalWithFormat();
+  objc_msgSend_durationStyle(self->_durationFormat, v5, v6, v7);
+  v8 = TSUDurationFormatterFormatFromDurationUnits();
+  v12 = objc_msgSend_context(self, v9, v10, v11);
+  v16 = objc_msgSend_objectLocale(v12, v13, v14, v15);
+  v17 = TSUDurationFormatterStringFromTimeIntervalWithFormat();
 
-  return v21;
+  return v17;
 }
 
 - (void)insertFormulaText:(id)text printingOptions:(unsigned int)options
 {
   optionsCopy = options;
   textCopy = text;
-  v10 = objc_msgSend_children(self, v6, v7, v8, v9);
-  v15 = objc_msgSend_count(v10, v11, v12, v13, v14);
+  v9 = objc_msgSend_children(self, v6, v7, v8);
+  v13 = objc_msgSend_count(v9, v10, v11, v12);
 
-  if (v15)
+  if (v13)
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSTDurationNode insertFormulaText:printingOptions:]", v18, v19);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 152, 0, "DurationNode shouldn't have any children");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTDurationNode insertFormulaText:printingOptions:]", v16);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v20);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v18, v21, 152, 0, "DurationNode shouldn't have any children");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25);
   }
 
   if (optionsCopy)
   {
-    v31 = objc_msgSend_whitespaceBefore(self, v16, v17, v18, v19);
+    v26 = objc_msgSend_whitespaceBefore(self, v14, v15, v16);
 
-    if (v31)
+    if (v26)
     {
-      v36 = objc_msgSend_whitespaceBefore(self, v32, v33, v34, v35);
-      objc_msgSend_takeText_(textCopy, v37, v36, v38, v39);
+      v30 = objc_msgSend_whitespaceBefore(self, v27, v28, v29);
+      objc_msgSend_takeText_(textCopy, v31, v30, v32);
     }
   }
 
-  v40 = [TSTWPTokenAttachment alloc];
-  v45 = objc_msgSend_context(self, v41, v42, v43, v44);
-  v48 = objc_msgSend_initWithContext_expressionNode_(v40, v46, v45, self, v47);
+  v33 = [TSTWPTokenAttachment alloc];
+  v37 = objc_msgSend_context(self, v34, v35, v36);
+  v39 = objc_msgSend_initWithContext_expressionNode_(v33, v38, v37, self);
 
-  objc_msgSend_insertUIGraphicalAttachment_(textCopy, v49, v48, v50, v51);
+  objc_msgSend_insertUIGraphicalAttachment_(textCopy, v40, v39, v41);
   if (optionsCopy)
   {
-    v56 = objc_msgSend_whitespaceAfter(self, v52, v53, v54, v55);
+    v45 = objc_msgSend_whitespaceAfter(self, v42, v43, v44);
 
-    if (v56)
+    if (v45)
     {
-      v61 = objc_msgSend_whitespaceAfter(self, v57, v58, v59, v60);
-      objc_msgSend_takeText_(textCopy, v62, v61, v63, v64);
+      v49 = objc_msgSend_whitespaceAfter(self, v46, v47, v48);
+      objc_msgSend_takeText_(textCopy, v50, v49, v51);
     }
   }
 }
@@ -236,171 +236,171 @@
 - (void)buildASTNodeArray:(TSCEASTNodeArray *)array hostCell:(TSUCellCoord)cell symbolTable:(void *)table
 {
   v7 = objc_msgSend_children(self, a2, array, *&cell, table);
-  v12 = objc_msgSend_count(v7, v8, v9, v10, v11);
+  v11 = objc_msgSend_count(v7, v8, v9, v10);
 
-  if (v12)
+  if (v11)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSTDurationNode buildASTNodeArray:hostCell:symbolTable:]", v15, v16);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v20, v21);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v23, v18, v22, 167, 0, "DurationNode shouldn't have any children");
+    v15 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTDurationNode buildASTNodeArray:hostCell:symbolTable:]", v14);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v18);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v19, 167, 0, "DurationNode shouldn't have any children");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
   }
 
   durationInterval = self->_durationInterval;
-  v29 = objc_msgSend_durationUnitLargest(self->_durationFormat, v13, v14, v15, v16);
-  v30 = sub_221387C78(v29);
-  TSCEDurationFormat::TSCEDurationFormat(&v49, self->_durationFormat);
-  TSCEASTDurationElement::appendDurationElement(array, v30, &v49, v31, v32, durationInterval);
-  v37 = objc_msgSend_whitespaceBefore(self, v33, v34, v35, v36);
+  v25 = objc_msgSend_durationUnitLargest(self->_durationFormat, v12, v13, v14);
+  v26 = sub_221387C78(v25);
+  TSCEDurationFormat::TSCEDurationFormat(&v41, self->_durationFormat);
+  TSCEASTDurationElement::appendDurationElement(array, durationInterval, v26, &v41, v27);
+  v31 = objc_msgSend_whitespaceBefore(self, v28, v29, v30);
 
-  if (v37)
+  if (v31)
   {
-    v42 = objc_msgSend_whitespaceBefore(self, v38, v39, v40, v41);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v42);
+    v35 = objc_msgSend_whitespaceBefore(self, v32, v33, v34);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v35);
   }
 
-  v43 = objc_msgSend_whitespaceAfter(self, v38, v39, v40, v41);
+  v36 = objc_msgSend_whitespaceAfter(self, v32, v33, v34);
 
-  if (v43)
+  if (v36)
   {
-    v48 = objc_msgSend_whitespaceAfter(self, v44, v45, v46, v47);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v48);
+    v40 = objc_msgSend_whitespaceAfter(self, v37, v38, v39);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v40);
   }
 }
 
 - (id)exportString
 {
-  v6 = objc_msgSend_durationUnitLargest(self->_durationFormat, a2, v2, v3, v4);
-  v11 = v6;
+  v5 = objc_msgSend_durationUnitLargest(self->_durationFormat, a2, v2, v3);
+  v9 = v5;
   durationInterval = self->_durationInterval;
-  v13 = 0.0;
-  if (v6 <= 3)
+  v11 = 0.0;
+  if (v5 <= 3)
   {
-    if (v6 == 1)
+    if (v5 == 1)
     {
-      v13 = floor(durationInterval / 604800.0);
-      durationInterval = durationInterval - v13 * 604800.0;
+      v11 = floor(durationInterval / 604800.0);
+      durationInterval = durationInterval - v11 * 604800.0;
     }
 
     else
     {
+      v12 = 0.0;
+      v13 = 0.0;
       v14 = 0.0;
-      v15 = 0.0;
-      v16 = 0.0;
-      if (v6 != 2)
+      if (v5 != 2)
       {
         goto LABEL_12;
       }
     }
 
-    v17 = v13;
-    v13 = floor(durationInterval / 86400.0);
-    durationInterval = durationInterval - v13 * 86400.0;
+    v15 = v11;
+    v11 = floor(durationInterval / 86400.0);
+    durationInterval = durationInterval - v11 * 86400.0;
     goto LABEL_10;
   }
 
-  v17 = 0.0;
-  if (v6 == 4)
+  v15 = 0.0;
+  if (v5 == 4)
   {
 LABEL_10:
-    v18 = v13;
-    v13 = floor(durationInterval / 3600.0);
-    durationInterval = durationInterval - v13 * 3600.0;
+    v16 = v11;
+    v11 = floor(durationInterval / 3600.0);
+    durationInterval = durationInterval - v11 * 3600.0;
     goto LABEL_11;
   }
 
-  v18 = 0.0;
-  v14 = 0.0;
-  v15 = 0.0;
   v16 = 0.0;
-  if (v6 == 8)
+  v12 = 0.0;
+  v13 = 0.0;
+  v14 = 0.0;
+  if (v5 == 8)
   {
 LABEL_11:
-    v16 = floor(durationInterval / 60.0);
-    durationInterval = durationInterval - v16 * 60.0;
-    v11 = 16;
-    v14 = v17;
-    v15 = v18;
+    v14 = floor(durationInterval / 60.0);
+    durationInterval = durationInterval - v14 * 60.0;
+    v9 = 16;
+    v12 = v15;
+    v13 = v16;
   }
 
 LABEL_12:
-  v19 = objc_msgSend_objectLocale(self, v7, v8, v9, v10);
-  v24 = objc_msgSend_listSeparator(v19, v20, v21, v22, v23);
-  v25 = trunc(durationInterval);
-  v26 = durationInterval - v25;
-  if (v11 == 16)
+  v17 = objc_msgSend_objectLocale(self, v6, v7, v8);
+  v21 = objc_msgSend_listSeparator(v17, v18, v19, v20);
+  v22 = trunc(durationInterval);
+  v23 = durationInterval - v22;
+  if (v9 == 16)
   {
-    v27 = v25;
+    v24 = v22;
   }
 
   else
   {
-    v26 = durationInterval;
-    v27 = 0.0;
+    v23 = durationInterval;
+    v24 = 0.0;
   }
 
-  if (v11 == 32 || v11 == 16)
+  if (v9 == 32 || v9 == 16)
   {
-    v29 = v26 * 1000.0;
+    v26 = v23 * 1000.0;
   }
 
   else
   {
-    v29 = 0.0;
+    v26 = 0.0;
   }
 
-  v33 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v30, @"DURATION(%g%@%g%@%g%@%g%@%g%@%g)", v31, v32, *&v14, v24, *&v15, v24, *&v13, v24, *&v16, v24, *&v27, v24, *&v29);
+  v29 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v27, @"DURATION(%g%@%g%@%g%@%g%@%g%@%g)", v28, *&v12, v21, *&v13, v21, *&v11, v21, *&v14, v21, *&v24, v21, *&v26);
 
-  return v33;
+  return v29;
 }
 
 - (id)date
 {
-  v4 = MEMORY[0x277D81150];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTDurationNode date]", v2, v3);
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v7, v8);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v9, 223, 0, "We shouldn't ask a Duration for its date.");
+  v3 = MEMORY[0x277D81150];
+  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTDurationNode date]", v2);
+  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v6);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v8, v4, v7, 223, 0, "We shouldn't ask a Duration for its date.");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13, v14);
-  v19 = MEMORY[0x277CBEAA8];
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10, v11);
+  v15 = MEMORY[0x277CBEAA8];
 
-  return objc_msgSend_date(v19, v15, v16, v17, v18);
+  return objc_msgSend_date(v15, v12, v13, v14);
 }
 
 - (id)format
 {
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTDurationNode format]", v2, v3);
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v8, v9);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 228, 0, "We shouldn't ask a Duration for its format.");
+  v4 = MEMORY[0x277D81150];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTDurationNode format]", v2);
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTDurationNode.mm", v7);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v5, v8, 228, 0, "We shouldn't ask a Duration for its format.");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14, v15);
-  v16 = MEMORY[0x277D811A0];
-  v21 = objc_msgSend_context(self, v17, v18, v19, v20);
-  v26 = objc_msgSend_objectLocale(v21, v22, v23, v24, v25);
-  v30 = objc_msgSend_defaultDateTimeFormatForLocale_(v16, v27, v26, v28, v29);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11, v12);
+  v13 = MEMORY[0x277D811A0];
+  v17 = objc_msgSend_context(self, v14, v15, v16);
+  v21 = objc_msgSend_objectLocale(v17, v18, v19, v20);
+  v24 = objc_msgSend_defaultDateTimeFormatForLocale_(v13, v22, v21, v23);
 
-  return v30;
+  return v24;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[226], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[226], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212E8C14, off_2812E4498[226], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212E8C14, off_2812E4498[226]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -445,21 +445,21 @@ LABEL_12:
     *(archive + 3) = v7;
   }
 
-  v25.receiver = self;
-  v25.super_class = TSTDurationNode;
-  [(TSTExpressionNode *)&v25 saveToArchive:v7 archiver:archiverCopy];
+  v22.receiver = self;
+  v22.super_class = TSTDurationNode;
+  [(TSTExpressionNode *)&v22 saveToArchive:v7 archiver:archiverCopy];
   durationInterval = self->_durationInterval;
   *(archive + 4) |= 2u;
   *(archive + 4) = durationInterval;
-  v14 = objc_msgSend_durationUnitSmallest(self->_durationFormat, v10, v11, v12, v13);
+  v13 = objc_msgSend_durationUnitSmallest(self->_durationFormat, v10, v11, v12);
   *(archive + 4) |= 4u;
-  *(archive + 10) = v14;
-  v19 = objc_msgSend_durationUnitLargest(self->_durationFormat, v15, v16, v17, v18);
+  *(archive + 10) = v13;
+  v17 = objc_msgSend_durationUnitLargest(self->_durationFormat, v14, v15, v16);
   *(archive + 4) |= 8u;
-  *(archive + 11) = v19;
-  v24 = objc_msgSend_durationStyle(self->_durationFormat, v20, v21, v22, v23);
+  *(archive + 11) = v17;
+  v21 = objc_msgSend_durationStyle(self->_durationFormat, v18, v19, v20);
   *(archive + 4) |= 0x10u;
-  *(archive + 12) = v24;
+  *(archive + 12) = v21;
 }
 
 - (id)description
@@ -467,20 +467,20 @@ LABEL_12:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10 = objc_msgSend_string(self, v6, v7, v8, v9);
-  v14 = v10;
+  v9 = objc_msgSend_string(self, v6, v7, v8);
+  v12 = v9;
   if (self->_blank)
   {
-    objc_msgSend_stringWithFormat_(v3, v11, @"<%@ %p>: '%@'%@", v12, v13, v5, self, v10, @" (BLANK)");
+    objc_msgSend_stringWithFormat_(v3, v10, @"<%@ %p>: '%@'%@", v11, v5, self, v9, @" (BLANK)");
   }
 
   else
   {
-    objc_msgSend_stringWithFormat_(v3, v11, @"<%@ %p>: '%@'%@", v12, v13, v5, self, v10, &stru_2834BADA0);
+    objc_msgSend_stringWithFormat_(v3, v10, @"<%@ %p>: '%@'%@", v11, v5, self, v9, &stru_2834BADA0);
   }
-  v15 = ;
+  v13 = ;
 
-  return v15;
+  return v13;
 }
 
 @end

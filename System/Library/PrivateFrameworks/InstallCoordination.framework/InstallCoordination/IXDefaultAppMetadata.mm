@@ -30,19 +30,17 @@
 
 - (id)dictionaryRepresentation
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  v9[0] = @"bundleID";
+  v9[3] = *MEMORY[0x1E69E9840];
+  v8[0] = @"bundleID";
   identity = [(IXDefaultAppMetadata *)self identity];
-  v10[0] = identity;
-  v9[1] = @"appType";
+  v9[0] = identity;
+  v8[1] = @"appType";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[IXDefaultAppMetadata appType](self, "appType")}];
-  v10[1] = v4;
-  v9[2] = @"offloadAnswer";
+  v9[1] = v4;
+  v8[2] = @"offloadAnswer";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[IXDefaultAppMetadata offloadAnswer](self, "offloadAnswer")}];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

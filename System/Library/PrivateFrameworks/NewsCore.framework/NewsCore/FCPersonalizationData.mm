@@ -41,28 +41,26 @@
 
 - (void)_reloadTreatment
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (self)
+  v12 = *MEMORY[0x1E69E9840];
+  if (result)
   {
     v2 = FCPersonalizationDataAccessUnique;
     if (dispatch_get_specific(FCPersonalizationDataAccessUnique) != v2 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing protected data from outside the queue"];
-      v5 = 136315906;
-      v6 = "[FCPersonalizationData _reloadTreatment]";
-      v7 = 2080;
-      v8 = "FCPersonalizationData.m";
-      v9 = 1024;
-      v10 = 627;
-      v11 = 2114;
-      v12 = v4;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
+      v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing protected data from outside the queue"];
+      v4 = 136315906;
+      v5 = "[FCPersonalizationData _reloadTreatment]";
+      v6 = 2080;
+      v7 = "FCPersonalizationData.m";
+      v8 = 1024;
+      v9 = 627;
+      v10 = 2114;
+      v11 = v3;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v4, 0x26u);
     }
 
-    [(FCPersonalizationData *)self _unsafeReloadTreatment];
+    [(FCPersonalizationData *)result _unsafeReloadTreatment];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unsafeReloadTreatment
@@ -128,29 +126,29 @@
 
 void __48__FCPersonalizationData__saveReadableAggregates__block_invoke(uint64_t a1)
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = *(a1 + 32);
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __48__FCPersonalizationData__saveReadableAggregates__block_invoke_2;
-  v31[3] = &unk_1E7C46AF0;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __48__FCPersonalizationData__saveReadableAggregates__block_invoke_2;
+  v30[3] = &unk_1E7C46AF0;
   v4 = v2;
-  v32 = v4;
-  [v3 enumerateKeysAndObjectsUsingBlock:v31];
-  v36[0] = v4;
-  v35[0] = @"aggregates";
-  v35[1] = @"lastUpdated";
+  v31 = v4;
+  [v3 enumerateKeysAndObjectsUsingBlock:v30];
+  v35[0] = v4;
+  v34[0] = @"aggregates";
+  v34[1] = @"lastUpdated";
   v5 = MEMORY[0x1E696AEC0];
   v6 = [MEMORY[0x1E695DF00] date];
   [v6 timeIntervalSince1970];
   v8 = [v5 stringWithFormat:@"%f", v7];
-  v36[1] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+  v35[1] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
 
-  v30 = 0;
-  v10 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v9 options:1 error:&v30];
-  v11 = v30;
+  v29 = 0;
+  v10 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v9 options:1 error:&v29];
+  v11 = v29;
   v12 = v11;
   if (v10)
   {
@@ -164,9 +162,9 @@ void __48__FCPersonalizationData__saveReadableAggregates__block_invoke(uint64_t 
     if (v18)
     {
       v19 = [v18 path];
-      v27 = v12;
-      v20 = [v10 writeToFile:v19 options:1 error:&v27];
-      v21 = v27;
+      v26 = v12;
+      v20 = [v10 writeToFile:v19 options:1 error:&v26];
+      v21 = v26;
 
       v22 = FCPersonalizationLog;
       if (v20)
@@ -176,7 +174,7 @@ void __48__FCPersonalizationData__saveReadableAggregates__block_invoke(uint64_t 
           v23 = v22;
           v24 = [v18 path];
           *buf = 138412290;
-          v34 = v24;
+          v33 = v24;
           _os_log_impl(&dword_1B63EF000, v23, OS_LOG_TYPE_DEFAULT, "Successfully saved readable aggregates at %@.", buf, 0xCu);
         }
       }
@@ -184,7 +182,7 @@ void __48__FCPersonalizationData__saveReadableAggregates__block_invoke(uint64_t 
       else if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v34 = v21;
+        v33 = v21;
         _os_log_error_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_ERROR, "Error when saving readable aggregates: %@", buf, 0xCu);
       }
 
@@ -206,27 +204,25 @@ void __48__FCPersonalizationData__saveReadableAggregates__block_invoke(uint64_t 
 
   else
   {
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __48__FCPersonalizationData__saveReadableAggregates__block_invoke_3;
-    v28[3] = &unk_1E7C36EA0;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __48__FCPersonalizationData__saveReadableAggregates__block_invoke_3;
+    v27[3] = &unk_1E7C36EA0;
     v12 = v11;
-    v29 = v12;
-    __48__FCPersonalizationData__saveReadableAggregates__block_invoke_3(v28);
-    v18 = v29;
+    v28 = v12;
+    __48__FCPersonalizationData__saveReadableAggregates__block_invoke_3(v27);
+    v18 = v28;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = FCPersonalizationLog;
   if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v25) = 0;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_INFO, "will load personalization data from disk", &v25, 2u);
+    LOWORD(v24) = 0;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_INFO, "will load personalization data from disk", &v24, 2u);
   }
 
   v3 = objc_alloc(MEMORY[0x1E69B6F00]);
@@ -249,8 +245,8 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke(uint64_t
       v12 = FCPersonalizationLog;
       if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v25) = 0;
-        _os_log_error_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_ERROR, "ignoring locally-cached PersonalizationProfile record since it lost its data when decoding", &v25, 2u);
+        LOWORD(v24) = 0;
+        _os_log_error_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_ERROR, "ignoring locally-cached PersonalizationProfile record since it lost its data when decoding", &v24, 2u);
       }
 
       v10 = 0;
@@ -271,9 +267,9 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke(uint64_t
     v16 = v15;
     v17 = v14;
     v18 = [v16 count];
-    LODWORD(v25) = 134217984;
-    *(&v25 + 4) = v18;
-    _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "did load personalization data from disk with %lu aggregates", &v25, 0xCu);
+    LODWORD(v24) = 134217984;
+    *(&v24 + 4) = v18;
+    _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "did load personalization data from disk with %lu aggregates", &v24, 0xCu);
   }
 
   v19 = *(a1 + 32);
@@ -282,23 +278,21 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke(uint64_t
     v20 = FCPersonalizationLog;
     if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "Will save readable aggregates.", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "Will save readable aggregates.", &v24, 2u);
     }
 
     v21 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:*(v19 + 104) copyItems:1];
     v22 = FCPersistenceQueue();
-    *&v25 = MEMORY[0x1E69E9820];
-    *(&v25 + 1) = 3221225472;
-    v26 = __48__FCPersonalizationData__saveReadableAggregates__block_invoke;
-    v27 = &unk_1E7C36C58;
-    v28 = v21;
-    v29 = v19;
+    *&v24 = MEMORY[0x1E69E9820];
+    *(&v24 + 1) = 3221225472;
+    v25 = __48__FCPersonalizationData__saveReadableAggregates__block_invoke;
+    v26 = &unk_1E7C36C58;
+    v27 = v21;
+    v28 = v19;
     v23 = v21;
-    dispatch_async(v22, &v25);
+    dispatch_async(v22, &v24);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activityObservingApplicationWindowDidBecomeForeground
@@ -394,19 +388,19 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke(uint64_t
 
 - (void)modifyLocalAggregatesForFeatureKeys:(id)keys withAction:(unint64_t)action actionCount:(unint64_t)count defaultClicks:(double)clicks defaultImpressions:(double)impressions impressionBias:(double)bias groupBias:(double)groupBias
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   if ([MEMORY[0x1E696AF00] isMainThread] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
+    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
     *buf = 136315906;
-    v32 = "[FCPersonalizationData modifyLocalAggregatesForFeatureKeys:withAction:actionCount:defaultClicks:defaultImpressions:impressionBias:groupBias:]";
-    v33 = 2080;
-    v34 = "FCPersonalizationData.m";
-    v35 = 1024;
-    v36 = 169;
-    v37 = 2114;
-    v38 = v27;
+    v31 = "[FCPersonalizationData modifyLocalAggregatesForFeatureKeys:withAction:actionCount:defaultClicks:defaultImpressions:impressionBias:groupBias:]";
+    v32 = 2080;
+    v33 = "FCPersonalizationData.m";
+    v34 = 1024;
+    v35 = 169;
+    v36 = 2114;
+    v37 = v26;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -416,9 +410,9 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke(uint64_t
     v18 = v17;
     v19 = NSStringFromFCPersonalizationAction(action);
     *buf = 138412546;
-    v32 = v19;
-    v33 = 2112;
-    v34 = keysCopy;
+    v31 = v19;
+    v32 = 2112;
+    v33 = keysCopy;
     _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "Processing action %@ for features %@", buf, 0x16u);
   }
 
@@ -447,9 +441,9 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke(uint64_t
   block[3] = &unk_1E7C376A0;
   block[4] = self;
   v23 = keysCopy;
-  v29 = v23;
+  v28 = v23;
   v24 = v20;
-  v30 = v24;
+  v29 = v24;
   dispatch_sync(accessQueue, block);
   if (self)
   {
@@ -462,13 +456,11 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke(uint64_t
   }
 
   [(FCOperationThrottler *)saveThrottler tickle];
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __142__FCPersonalizationData_modifyLocalAggregatesForFeatureKeys_withAction_actionCount_defaultClicks_defaultImpressions_impressionBias_groupBias___block_invoke(uint64_t a1, const char *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   Property = *(a1 + 32);
   if (Property)
   {
@@ -476,27 +468,27 @@ void __142__FCPersonalizationData_modifyLocalAggregatesForFeatureKeys_withAction
   }
 
   v4 = Property;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = *(a1 + 40);
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * v9);
+        v10 = *(*(&v19 + 1) + 8 * v9);
         v11 = *(a1 + 32);
         if (v11)
         {
@@ -508,7 +500,7 @@ void __142__FCPersonalizationData_modifyLocalAggregatesForFeatureKeys_withAction
           v12 = 0;
         }
 
-        v13 = [v12 objectForKeyedSubscript:{*(*(&v20 + 1) + 8 * v9), v20}];
+        v13 = [v12 objectForKeyedSubscript:{*(*(&v19 + 1) + 8 * v9), v19}];
         if (!v13)
         {
           v13 = objc_alloc_init(MEMORY[0x1E69B6EE8]);
@@ -547,14 +539,12 @@ void __142__FCPersonalizationData_modifyLocalAggregatesForFeatureKeys_withAction
       }
 
       while (v7 != v9);
-      v18 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v18 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       v7 = v18;
     }
 
     while (v18);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearPersonalizationData
@@ -649,27 +639,27 @@ void __46__FCPersonalizationData_d_allGlobalAggregates__block_invoke(uint64_t a1
 
 - (id)generateDerivedData
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([MEMORY[0x1E696AF00] isMainThread] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
     *buf = 136315906;
     *&buf[4] = "[FCPersonalizationData generateDerivedData]";
     *&buf[12] = 2080;
     *&buf[14] = "FCPersonalizationData.m";
     *&buf[22] = 1024;
-    LODWORD(v10) = 243;
-    WORD2(v10) = 2114;
-    *(&v10 + 6) = v7;
+    LODWORD(v9) = 243;
+    WORD2(v9) = 2114;
+    *(&v9 + 6) = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  *&v10 = __Block_byref_object_copy__84;
-  *(&v10 + 1) = __Block_byref_object_dispose__84;
-  v11 = 0;
+  *&v9 = __Block_byref_object_copy__84;
+  *(&v9 + 1) = __Block_byref_object_dispose__84;
+  v10 = 0;
   if (self)
   {
     accessQueue = self->_accessQueue;
@@ -680,17 +670,15 @@ void __46__FCPersonalizationData_d_allGlobalAggregates__block_invoke(uint64_t a1
     accessQueue = 0;
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __44__FCPersonalizationData_generateDerivedData__block_invoke;
-  v8[3] = &unk_1E7C3A3A0;
-  v8[4] = self;
-  v8[5] = buf;
-  dispatch_sync(accessQueue, v8);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __44__FCPersonalizationData_generateDerivedData__block_invoke;
+  v7[3] = &unk_1E7C3A3A0;
+  v7[4] = self;
+  v7[5] = buf;
+  dispatch_sync(accessQueue, v7);
   v4 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -746,17 +734,17 @@ void __44__FCPersonalizationData_generateDerivedData__block_invoke(uint64_t a1, 
 
 void __44__FCPersonalizationData_syncWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v7 = v6;
   v8 = FCPersonalizationLog;
   if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_DEBUG))
   {
-    v11 = v7 - *(a1 + 40);
-    v12 = 134217984;
-    v13 = v11;
-    _os_log_debug_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEBUG, "took %.3fs to sync personalization data", &v12, 0xCu);
+    v10 = v7 - *(a1 + 40);
+    v11 = 134217984;
+    v12 = v10;
+    _os_log_debug_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEBUG, "took %.3fs to sync personalization data", &v11, 0xCu);
   }
 
   v9 = *(a1 + 32);
@@ -764,36 +752,31 @@ void __44__FCPersonalizationData_syncWithCompletion___block_invoke(uint64_t a1, 
   {
     (*(v9 + 16))(v9, a2, v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)backingRecordIDs
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:@"SharedPersonalizationProfile"];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 + (id)desiredKeys
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"data";
-  v5[1] = @"version";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"data";
+  v4[1] = @"version";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 - (void)_updateWithRemoteRecord:(void *)record profile:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v6 = a2;
   recordCopy = record;
   if (self)
@@ -801,42 +784,25 @@ void __44__FCPersonalizationData_syncWithCompletion___block_invoke(uint64_t a1, 
     v8 = FCPersonalizationDataAccessUnique;
     if (dispatch_get_specific(FCPersonalizationDataAccessUnique) != v8 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing protected data from outside the queue"];
-      v26 = 136315906;
-      v27 = "[FCPersonalizationData _updateWithRemoteRecord:profile:]";
-      v28 = 2080;
-      v29 = "FCPersonalizationData.m";
-      v30 = 1024;
-      v31 = 466;
-      v32 = 2114;
-      v33 = v25;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v26, 0x26u);
+      v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing protected data from outside the queue"];
+      v25 = 136315906;
+      v26 = "[FCPersonalizationData _updateWithRemoteRecord:profile:]";
+      v27 = 2080;
+      v28 = "FCPersonalizationData.m";
+      v29 = 1024;
+      v30 = 466;
+      v31 = 2114;
+      v32 = v24;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v25, 0x26u);
     }
 
-    if (!v6)
+    if (!v6 || (v9 = self[14]) == 0 || (v10 = v9, [v10 modificationDate], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "modificationDate"), v12 = objc_claimAutoreleasedReturnValue(), v10, v13 = objc_msgSend(v11, "fc_isEarlierThan:", v12), v12, v11, v10, v13))
     {
-      goto LABEL_8;
-    }
-
-    v9 = self[14];
-    if (!v9)
-    {
-      goto LABEL_8;
-    }
-
-    v10 = v9;
-    modificationDate = [v10 modificationDate];
-    modificationDate2 = [v6 modificationDate];
-
-    v13 = [modificationDate fc_isEarlierThan:modificationDate2];
-    if (v13)
-    {
-LABEL_8:
       v14 = FCPersonalizationLog;
       if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v26) = 0;
-        _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_INFO, "will update personalization data from a new remote record", &v26, 2u);
+        LOWORD(v25) = 0;
+        _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_INFO, "will update personalization data from a new remote record", &v25, 2u);
       }
 
       v15 = self[13];
@@ -863,14 +829,12 @@ LABEL_8:
         v21 = self[13];
         v22 = v20;
         v23 = [v21 count];
-        v26 = 134217984;
-        v27 = v23;
-        _os_log_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_DEFAULT, "did update personalization data from a new remote record with %lu aggregates", &v26, 0xCu);
+        v25 = 134217984;
+        v26 = v23;
+        _os_log_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_DEFAULT, "did update personalization data from a new remote record with %lu aggregates", &v25, 0xCu);
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke_49(uint64_t a1)
@@ -886,29 +850,29 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke_49(uint6
 
 - (void)handleSyncWithChangedRecords:(id)records deletedRecordNames:(id)names
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   namesCopy = names;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v7 = recordsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v34;
+    v10 = *v33;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
+        v12 = *(*(&v32 + 1) + 8 * i);
         recordID = [v12 recordID];
         recordName = [recordID recordName];
         v15 = [recordName isEqualToString:@"SharedPersonalizationProfile"];
@@ -936,7 +900,7 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke_49(uint6
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v9)
       {
         continue;
@@ -948,26 +912,26 @@ void __49__FCPersonalizationData_loadLocalCachesFromStore__block_invoke_49(uint6
 
 LABEL_13:
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v17 = namesCopy;
-  v18 = [v17 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v29;
+    v20 = *v28;
     while (2)
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        if ([*(*(&v28 + 1) + 8 * j) isEqualToString:{@"SharedPersonalizationProfile", namesCopy}])
+        if ([*(*(&v27 + 1) + 8 * j) isEqualToString:{@"SharedPersonalizationProfile", namesCopy}])
         {
           if (self)
           {
@@ -979,17 +943,17 @@ LABEL_13:
             v22 = 0;
           }
 
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __73__FCPersonalizationData_handleSyncWithChangedRecords_deletedRecordNames___block_invoke_2;
-          v27[3] = &unk_1E7C36EA0;
-          v27[4] = self;
-          dispatch_async(v22, v27);
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __73__FCPersonalizationData_handleSyncWithChangedRecords_deletedRecordNames___block_invoke_2;
+          v26[3] = &unk_1E7C36EA0;
+          v26[4] = self;
+          dispatch_async(v22, v26);
           goto LABEL_25;
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v27 objects:v36 count:16];
       if (v19)
       {
         continue;
@@ -1004,8 +968,6 @@ LABEL_25:
   date = [MEMORY[0x1E695DF00] date];
   localStore = [(FCPrivateDataController *)self localStore];
   [localStore setObject:date forKeyedSubscript:@"last-successful-download-date"];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __73__FCPersonalizationData_handleSyncWithChangedRecords_deletedRecordNames___block_invoke(uint64_t a1)
@@ -1026,38 +988,10 @@ void __73__FCPersonalizationData_handleSyncWithChangedRecords_deletedRecordNames
 
 id __43__FCPersonalizationData_localStoreMigrator__block_invoke(uint64_t a1, const char *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  if (!v3)
+  if (v3 && (!v3[15] || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) || (v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected nil value for '%s'", "self.accessQueue"], *buf = 136315906, v10 = "-[FCPersonalizationData localStoreMigrator]_block_invoke", v11 = 2080, v12 = "FCPersonalizationData.m", v13 = 1024, v14 = 427, v15 = 2114, v16 = v8, _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u), v8, (v3 = *(a1 + 32)) != 0)))
   {
-    goto LABEL_13;
-  }
-
-  if (!v3[15])
-  {
-    goto LABEL_16;
-  }
-
-  if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    goto LABEL_16;
-  }
-
-  v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected nil value for '%s'", "self.accessQueue"];
-  *buf = 136315906;
-  v11 = "[FCPersonalizationData localStoreMigrator]_block_invoke";
-  v12 = 2080;
-  v13 = "FCPersonalizationData.m";
-  v14 = 1024;
-  v15 = 427;
-  v16 = 2114;
-  v17 = v9;
-  _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-LABEL_16:
     if (objc_getProperty(v3, a2, 128, 1))
     {
       goto LABEL_7;
@@ -1068,7 +1002,6 @@ LABEL_16:
 
   else
   {
-LABEL_13:
     v5 = 0;
   }
 
@@ -1080,21 +1013,19 @@ LABEL_7:
     Property = objc_getProperty(Property, v4, 128, 1);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return Property;
 }
 
 - (id)recordsForRestoringZoneName:(id)name
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__84;
-  v14 = __Block_byref_object_dispose__84;
-  v15 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__84;
+  v13 = __Block_byref_object_dispose__84;
+  v14 = 0;
   if (self)
   {
     accessQueue = self->_accessQueue;
@@ -1105,17 +1036,17 @@ LABEL_7:
     accessQueue = 0;
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __53__FCPersonalizationData_recordsForRestoringZoneName___block_invoke;
-  v9[3] = &unk_1E7C37160;
-  v9[4] = self;
-  v9[5] = &v10;
-  dispatch_sync(accessQueue, v9);
-  if (v11[5])
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __53__FCPersonalizationData_recordsForRestoringZoneName___block_invoke;
+  v8[3] = &unk_1E7C37160;
+  v8[4] = self;
+  v8[5] = &v9;
+  dispatch_sync(accessQueue, v8);
+  if (v10[5])
   {
-    v16[0] = v11[5];
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v10[5];
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   }
 
   else
@@ -1123,9 +1054,7 @@ LABEL_7:
     v6 = MEMORY[0x1E695E0F0];
   }
 
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
@@ -1148,22 +1077,22 @@ void __53__FCPersonalizationData_recordsForRestoringZoneName___block_invoke(uint
 
 - (void)_writeToLocalStoreWithCompletionHandler:(uint64_t)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (handler)
   {
     v4 = FCPersonalizationDataAccessUnique;
     if (dispatch_get_specific(FCPersonalizationDataAccessUnique) != v4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing protected data from outside the queue"];
+      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"accessing protected data from outside the queue"];
       *buf = 136315906;
-      v22 = "[FCPersonalizationData _writeToLocalStoreWithCompletionHandler:]";
-      v23 = 2080;
-      v24 = "FCPersonalizationData.m";
-      v25 = 1024;
-      v26 = 489;
-      v27 = 2114;
-      v28 = v17;
+      v21 = "[FCPersonalizationData _writeToLocalStoreWithCompletionHandler:]";
+      v22 = 2080;
+      v23 = "FCPersonalizationData.m";
+      v24 = 1024;
+      v25 = 489;
+      v26 = 2114;
+      v27 = v16;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -1191,22 +1120,20 @@ void __53__FCPersonalizationData_recordsForRestoringZoneName___block_invoke(uint
       v13 = v11;
       v14 = [v12 count];
       *buf = 134217984;
-      v22 = v14;
+      v21 = v14;
       _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "did generate personalization data for disk with %lu aggregates", buf, 0xCu);
     }
 
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __65__FCPersonalizationData__writeToLocalStoreWithCompletionHandler___block_invoke;
-    v18[3] = &unk_1E7C38FF0;
-    v18[4] = handler;
-    v19 = data;
-    v20 = v3;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __65__FCPersonalizationData__writeToLocalStoreWithCompletionHandler___block_invoke;
+    v17[3] = &unk_1E7C38FF0;
+    v17[4] = handler;
+    v18 = data;
+    v19 = v3;
     v15 = data;
-    FCPerformBlockOnMainThread(v18);
+    FCPerformBlockOnMainThread(v17);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__FCPersonalizationData__writeToLocalStoreWithCompletionHandler___block_invoke(uint64_t a1)
@@ -1323,7 +1250,7 @@ void __55__FCPersonalizationData__applicationDidEnterBackground__block_invoke_2(
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __55__FCPersonalizationData__applicationDidEnterBackground__block_invoke_3(uint64_t a1)
+void *__55__FCPersonalizationData__applicationDidEnterBackground__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) fc_endBackgroundTask:*(*(*(a1 + 48) + 8) + 24)];
   if (*(a1 + 56) == 1)
@@ -1395,17 +1322,16 @@ void __55__FCPersonalizationData__applicationDidEnterBackground__block_invoke_6(
     block[2] = __55__FCPersonalizationData__applicationDidEnterBackground__block_invoke_7;
     block[3] = &unk_1E7C38FF0;
     block[4] = v2;
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 48);
     dispatch_async(v3, block);
   }
 
   else
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 }
 
@@ -1564,17 +1490,15 @@ void __48__FCPersonalizationData__saveReadableAggregates__block_invoke_2(uint64_
 
 void __48__FCPersonalizationData__saveReadableAggregates__block_invoke_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = FCPersonalizationLog;
   if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v4;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Error when saving readable aggregates: %@", &v5, 0xCu);
+    v3 = *(a1 + 32);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Error when saving readable aggregates: %@", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activityObservingApplicationWindowDidBecomeBackground
@@ -1652,28 +1576,28 @@ void __50__FCPersonalizationData_aggregatesForFeatureKeys___block_invoke(void *a
 
 - (void)enumerateAggregatesUsingBlock:(id)block
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if ([MEMORY[0x1E696AF00] isMainThread] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
     *buf = 136315906;
     *&buf[4] = "[FCPersonalizationData enumerateAggregatesUsingBlock:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCPersonalizationData.m";
     *&buf[22] = 1024;
-    LODWORD(v14) = 728;
-    WORD2(v14) = 2114;
-    *(&v14 + 6) = v9;
+    LODWORD(v13) = 728;
+    WORD2(v13) = 2114;
+    *(&v13 + 6) = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  *&v14 = __Block_byref_object_copy__84;
-  *(&v14 + 1) = __Block_byref_object_dispose__84;
-  v15 = 0;
+  *&v13 = __Block_byref_object_copy__84;
+  *(&v13 + 1) = __Block_byref_object_dispose__84;
+  v14 = 0;
   if (self)
   {
     accessQueue = self->_accessQueue;
@@ -1692,16 +1616,15 @@ void __50__FCPersonalizationData_aggregatesForFeatureKeys___block_invoke(void *a
   block[5] = buf;
   dispatch_sync(accessQueue, block);
   v6 = *(*&buf[8] + 40);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __55__FCPersonalizationData_enumerateAggregatesUsingBlock___block_invoke_2;
-  v10[3] = &unk_1E7C46B18;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __55__FCPersonalizationData_enumerateAggregatesUsingBlock___block_invoke_2;
+  v9[3] = &unk_1E7C46B18;
   v7 = blockCopy;
-  v11 = v7;
-  [v6 enumerateObjectsUsingBlock:v10];
+  v10 = v7;
+  [v6 enumerateObjectsUsingBlock:v9];
 
   _Block_object_dispose(buf, 8);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __55__FCPersonalizationData_enumerateAggregatesUsingBlock___block_invoke(uint64_t a1)
@@ -1722,17 +1645,15 @@ void __55__FCPersonalizationData_enumerateAggregatesUsingBlock___block_invoke(ui
 
 - (id)aggregateForFeatureKey:(id)key
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v4 = MEMORY[0x1E695DEC8];
   keyCopy2 = key;
   v6 = [v4 arrayWithObjects:&keyCopy count:1];
 
-  v7 = [(FCPersonalizationData *)self aggregatesForFeatureKeys:v6, keyCopy, v13];
+  v7 = [(FCPersonalizationData *)self aggregatesForFeatureKeys:v6, keyCopy, v12];
   allValues = [v7 allValues];
   firstObject = [allValues firstObject];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -1759,19 +1680,19 @@ void __55__FCPersonalizationData_enumerateAggregatesUsingBlock___block_invoke(ui
 
 - (void)operationThrottler:(id)throttler performAsyncOperationWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if ([MEMORY[0x1E696AF00] isMainThread] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
     *buf = 136315906;
-    v13 = "[FCPersonalizationData operationThrottler:performAsyncOperationWithCompletion:]";
-    v14 = 2080;
-    v15 = "FCPersonalizationData.m";
-    v16 = 1024;
-    v17 = 761;
-    v18 = 2114;
-    v19 = v9;
+    v12 = "[FCPersonalizationData operationThrottler:performAsyncOperationWithCompletion:]";
+    v13 = 2080;
+    v14 = "FCPersonalizationData.m";
+    v15 = 1024;
+    v16 = 761;
+    v17 = 2114;
+    v18 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (self)
@@ -1792,21 +1713,19 @@ LABEL_7:
 LABEL_4:
   accessQueue = self->_accessQueue;
 LABEL_5:
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __80__FCPersonalizationData_operationThrottler_performAsyncOperationWithCompletion___block_invoke;
-  v10[3] = &unk_1E7C37BC0;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __80__FCPersonalizationData_operationThrottler_performAsyncOperationWithCompletion___block_invoke;
+  v9[3] = &unk_1E7C37BC0;
+  v9[4] = self;
+  v10 = completionCopy;
   v7 = completionCopy;
-  dispatch_sync(accessQueue, v10);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_sync(accessQueue, v9);
 }
 
 id __63__FCPersonalizationData_configureKeyValueStoreForJSONHandling___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   objc_opt_class();
@@ -1836,15 +1755,15 @@ id __63__FCPersonalizationData_configureKeyValueStoreForJSONHandling___block_inv
     v9 = [objc_alloc(MEMORY[0x1E69B6F00]) initWithData:v5];
     if (!v9 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "localPersonalizationData"];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "localPersonalizationData"];
       *buf = 136315906;
-      v20 = "+[FCPersonalizationData configureKeyValueStoreForJSONHandling:]_block_invoke";
-      v21 = 2080;
-      v22 = "FCPersonalizationData.m";
-      v23 = 1024;
-      v24 = 780;
-      v25 = 2114;
-      v26 = v18;
+      v19 = "+[FCPersonalizationData configureKeyValueStoreForJSONHandling:]_block_invoke";
+      v20 = 2080;
+      v21 = "FCPersonalizationData.m";
+      v22 = 1024;
+      v23 = 780;
+      v24 = 2114;
+      v25 = v17;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -1887,8 +1806,6 @@ LABEL_18:
 
   v10 = v5;
 LABEL_20:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1938,7 +1855,7 @@ void __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock_
 
 void __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock___block_invoke_2(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[4];
   if (v4)
@@ -1967,7 +1884,7 @@ void __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock_
     if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v19 = v10;
+      v18 = v10;
       _os_log_debug_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEBUG, "Updating aggregate %@", buf, 0xCu);
     }
 
@@ -1976,7 +1893,7 @@ void __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock_
     if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v19 = v10;
+      v18 = v10;
       _os_log_debug_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEBUG, "Updated aggregate %@", buf, 0xCu);
     }
 
@@ -1996,31 +1913,27 @@ void __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock_
 
   else
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock___block_invoke_3;
-    v16[3] = &unk_1E7C36EA0;
-    v17 = v3;
-    __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock___block_invoke_3(v16);
-    v10 = v17;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock___block_invoke_3;
+    v15[3] = &unk_1E7C36EA0;
+    v16 = v3;
+    __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock___block_invoke_3(v15);
+    v10 = v16;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __72__FCPersonalizationData_updateAggregatesWith_creationBlock_updateBlock___block_invoke_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = FCPersonalizationLog;
   if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Ignoring update for aggregate %@ because it doesn't exist already and this update didn't specify the option to create the aggregate", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Ignoring update for aggregate %@ because it doesn't exist already and this update didn't specify the option to create the aggregate", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lookupAggregatesWith:(id)with creationBlock:(id)block
@@ -2123,7 +2036,7 @@ void __60__FCPersonalizationData_lookupAggregatesWith_creationBlock___block_invo
 
 - (id)createAggregateWith:(id)with clicks:(double)clicks impressions:(double)impressions
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   withCopy = with;
   v8 = objc_opt_new();
   [v8 setFeatureKey:withCopy];
@@ -2136,12 +2049,10 @@ void __60__FCPersonalizationData_lookupAggregatesWith_creationBlock___block_invo
   v10 = FCPersonalizationLog;
   if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412290;
-    v14 = v8;
-    _os_log_debug_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEBUG, "Created personalization aggregate %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v8;
+    _os_log_debug_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEBUG, "Created personalization aggregate %@", &v12, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2223,33 +2134,33 @@ void __38__FCPersonalizationData_allAggregates__block_invoke_3(uint64_t a1, void
 - (void)updateFeatures:(id)features withAction:(unint64_t)action displayRank:(int64_t)rank groupRank:(int64_t)groupRank groupType:(int64_t)type individually:(BOOL)individually configurableValues:(id)values
 {
   individuallyCopy = individually;
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   valuesCopy = values;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v12 = featuresCopy;
-  v13 = [v12 countByEnumeratingWithState:&v48 objects:v61 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v47 objects:v60 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = MEMORY[0x1E69E9C10];
-    v16 = *v49;
+    v16 = *v48;
     do
     {
       v17 = 0;
       do
       {
-        if (*v49 != v16)
+        if (*v48 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v48 + 1) + 8 * v17);
+        v18 = *(*(&v47 + 1) + 8 * v17);
         personalizationIdentifier = [v18 personalizationIdentifier];
 
         if (personalizationIdentifier)
@@ -2266,13 +2177,13 @@ LABEL_8:
         {
           personalizationIdentifier2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Found a personalization feature without a personalization identifier"];
           *buf = 136315906;
-          v54 = "[FCPersonalizationData(FCPersonalizationAggregate) updateFeatures:withAction:displayRank:groupRank:groupType:individually:configurableValues:]";
-          v55 = 2080;
-          v56 = "FCPersonalizationAggregate.m";
-          v57 = 1024;
-          v58 = 347;
-          v59 = 2114;
-          v60 = personalizationIdentifier2;
+          v53 = "[FCPersonalizationData(FCPersonalizationAggregate) updateFeatures:withAction:displayRank:groupRank:groupType:individually:configurableValues:]";
+          v54 = 2080;
+          v55 = "FCPersonalizationAggregate.m";
+          v56 = 1024;
+          v57 = 347;
+          v58 = 2114;
+          v59 = personalizationIdentifier2;
           _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           goto LABEL_8;
         }
@@ -2282,7 +2193,7 @@ LABEL_10:
       }
 
       while (v14 != v17);
-      v21 = [v12 countByEnumeratingWithState:&v48 objects:v61 count:16];
+      v21 = [v12 countByEnumeratingWithState:&v47 objects:v60 count:16];
       v14 = v21;
     }
 
@@ -2312,8 +2223,8 @@ LABEL_10:
 
   v34 = +[FCBaselineFeature baselineFeature];
   personalizationIdentifier4 = [v34 personalizationIdentifier];
-  v52 = personalizationIdentifier4;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+  v51 = personalizationIdentifier4;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
   if (individuallyCopy)
   {
     v32 = [array2 count];
@@ -2323,8 +2234,6 @@ LABEL_10:
   v38 = v37;
   [v24 impressions];
   [(FCPersonalizationData *)self modifyLocalAggregatesForFeatureKeys:v36 withAction:action actionCount:v32 defaultClicks:v38 defaultImpressions:v39 impressionBias:v25 groupBias:v26];
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareAggregatesForUseWithCompletionHandler:(id)handler

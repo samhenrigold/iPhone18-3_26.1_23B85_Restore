@@ -1,88 +1,3 @@
-void sub_100057108(uint64_t a1, NSObject *a2)
-{
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "<Error> brightness set %@ failed", &v2, 0xCu);
-}
-
-void sub_1000571E8(int a1, NSObject *a2)
-{
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "<Error> IOMFB Failure: 0x%x", v2, 8u);
-}
-
-void sub_100057448(uint64_t a1, uint64_t a2, os_log_t log)
-{
-  v3 = 134218242;
-  v4 = a2;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "<Error> Invalid detail string length (%llu) for detail string: %@", &v3, 0x16u);
-}
-
-void sub_100057590(os_log_t log, double a2)
-{
-  v2 = 134217984;
-  v3 = a2;
-  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "<Error> Invalid haptic gain value: %f", &v2, 0xCu);
-}
-
-void sub_100057790(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_100013B28();
-  sub_1000461C0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-}
-
-void sub_100057810()
-{
-  sub_10004622C();
-  if (sub_100031C94())
-  {
-    sub_100046208();
-    sub_100033F24();
-    _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  }
-
-  sub_100046244();
-}
-
-void sub_1000578AC(uint64_t a1, uint64_t *a2)
-{
-  if (sub_100031C94())
-  {
-    v3 = *a2;
-    sub_100046208();
-    sub_100033F24();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-  }
-
-  sub_100046244();
-}
-
-void sub_100057960()
-{
-  sub_100046214();
-  sub_10000E76C();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-void sub_1000579D0(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000E76C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_100057A48(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000E76C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_100057AC0()
 {
   sub_100013B28();
@@ -458,12 +373,11 @@ void sub_100058AA4()
   }
 }
 
-void sub_100058B00(uint64_t a1)
+void sub_100058B00()
 {
-  v1 = *(*a1 + 12);
   sub_100046220();
   sub_10000E76C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100058B78(_BYTE *a1)
@@ -811,21 +725,19 @@ void sub_100059A1C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100059A8C(unsigned int *a1)
+void sub_100059A8C()
 {
-  v1 = *a1;
   sub_100046220();
   sub_10000E76C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100059B00(unsigned int *a1)
+void sub_100059B00()
 {
-  v1 = *a1;
   sub_100046220();
   sub_100046238();
   sub_1000461C0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x14u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x14u);
 }
 
 void sub_100059B88()
@@ -852,10 +764,9 @@ void sub_100059C64()
   sub_10004622C();
   if (sub_100031C94())
   {
-    v2 = *(v1 + 8);
     sub_100046220();
     sub_100033F24();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
   }
 
   *v0 = 0;
@@ -866,33 +777,30 @@ void sub_100059D08()
   sub_10004622C();
   if (sub_100031C94())
   {
-    v2 = *(v1 + 8);
     sub_100046220();
     sub_100033F24();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
   }
 
   *v0 = 0;
 }
 
-void sub_100059DAC(uint64_t a1)
+void sub_100059DAC()
 {
   if (sub_100031760())
   {
-    v2 = *(a1 + 8);
     sub_100046220();
     sub_100031750();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
   }
 }
 
-void sub_100059E44(uint64_t a1)
+void sub_100059E44()
 {
-  v1 = *(a1 + 8);
   sub_100046220();
   sub_100046238();
   sub_1000461C0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100059EC0()

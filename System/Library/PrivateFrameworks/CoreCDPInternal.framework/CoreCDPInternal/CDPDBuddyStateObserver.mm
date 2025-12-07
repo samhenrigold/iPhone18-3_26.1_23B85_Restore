@@ -33,30 +33,30 @@
 
 - (void)eventReceived:(const char *)received eventValue:(unint64_t)value
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = _CDPLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [CDPDBuddyStateObserver eventReceived:received eventValue:v6];
   }
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v7 = getBYSetupAssistantFinishedDarwinNotificationSymbolLoc_ptr;
-  v28 = getBYSetupAssistantFinishedDarwinNotificationSymbolLoc_ptr;
+  v27 = getBYSetupAssistantFinishedDarwinNotificationSymbolLoc_ptr;
   if (!getBYSetupAssistantFinishedDarwinNotificationSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __getBYSetupAssistantFinishedDarwinNotificationSymbolLoc_block_invoke;
-    v23 = &unk_278E259A8;
-    v24 = &v25;
+    v20 = 3221225472;
+    v21 = __getBYSetupAssistantFinishedDarwinNotificationSymbolLoc_block_invoke;
+    v22 = &unk_278E259A8;
+    v23 = &v24;
     __getBYSetupAssistantFinishedDarwinNotificationSymbolLoc_block_invoke(buf);
-    v7 = v26[3];
+    v7 = v25[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v7)
   {
     [CDPDBuddyStateObserver eventReceived:eventValue:];
@@ -75,51 +75,48 @@
       _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "CDPDBuddyStateObserver: Buddy Completed. Calling listeners.", buf, 2u);
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v11 = self->_listeners;
-    v12 = [(NSMutableOrderedSet *)v11 countByEnumeratingWithState:&v16 objects:v29 count:16];
+    v12 = [(NSMutableOrderedSet *)v11 countByEnumeratingWithState:&v15 objects:v28 count:16];
     if (v12)
     {
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v16 + 1) + 8 * i) buddyFinished];
+          [*(*(&v15 + 1) + 8 * i) buddyFinished];
         }
 
-        v12 = [(NSMutableOrderedSet *)v11 countByEnumeratingWithState:&v16 objects:v29 count:16];
+        v12 = [(NSMutableOrderedSet *)v11 countByEnumeratingWithState:&v15 objects:v28 count:16];
       }
 
       while (v12);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eventReceived:(uint64_t)a1 eventValue:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDPDBuddyStateObserver Received event %s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDPDBuddyStateObserver Received event %s", &v2, 0xCu);
 }
 
-- (uint64_t)eventReceived:eventValue:.cold.2()
+- (void)eventReceived:eventValue:.cold.2()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [CDPDSOSCircleController _joinCircleIgnoringBackups:v0 completion:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [(CDPDSOSCircleController *)v1 _joinCircleIgnoringBackups:v2 completion:v3, v4, v5, v6, v7, v8];
 }
 
 @end

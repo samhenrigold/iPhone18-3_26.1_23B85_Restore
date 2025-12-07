@@ -51,10 +51,27 @@
 
 - (void)invalidateClient
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, v0, v1, "Dropping remote endpoint for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = getGCSettingsLogger(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [GCSettingsXPCProxyServerEndpoint invalidateClient];
+  }
+
+  clientEndpoint = self->_clientEndpoint;
+  connectionInterruptionRegistration = self->_connectionInterruptionRegistration;
+  self->_connectionInterruptionRegistration = 0;
+  v6 = clientEndpoint;
+
+  connectionInvalidationRegistration = self->_connectionInvalidationRegistration;
+  self->_connectionInvalidationRegistration = 0;
+
+  connection = self->_connection;
+  self->_connection = 0;
+
+  v9 = self->_clientEndpoint;
+  self->_clientEndpoint = 0;
+
+  [(GCSettingsXPCProxyRemoteClientEndpointInterface *)v6 invalidateConnection];
 }
 
 - (BOOL)acceptClient:(id)client onConnection:(id)connection error:(id *)error
@@ -74,13 +91,13 @@
   clientEndpoint = self->_clientEndpoint;
   self->_clientEndpoint = 0;
 
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __68__GCSettingsXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke;
-  v24 = &unk_1E8418D18;
-  objc_copyWeak(&v25, &location);
-  v14 = _Block_copy(&v21);
-  v15 = [connectionCopy addInterruptionHandler:{v14, v21, v22, v23, v24}];
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __68__GCSettingsXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke;
+  v25 = &unk_1E8418D18;
+  objc_copyWeak(&v26, &location);
+  v14 = _Block_copy(&v22);
+  v15 = [connectionCopy addInterruptionHandler:{v14, v22, v23, v24, v25}];
   v16 = self->_connectionInterruptionRegistration;
   self->_connectionInterruptionRegistration = v15;
 
@@ -91,13 +108,13 @@
   objc_storeStrong(&self->_connection, connection);
   objc_storeStrong(&self->_clientEndpoint, client);
   self->_pendingUpdates = 0;
-  v19 = getGCSettingsLogger();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v20 = getGCSettingsLogger(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     [GCSettingsXPCProxyServerEndpoint acceptClient:onConnection:error:];
   }
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
 
   return 1;
@@ -106,22 +123,23 @@
 void __68__GCSettingsXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = getGCSettingsLogger();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = getGCSettingsLogger(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __65__GCSettingsXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1();
     }
 
-    v3 = WeakRetained[4];
-    WeakRetained[4] = 0;
+    v4 = v2[4];
+    v2[4] = 0;
 
-    v4 = WeakRetained[3];
-    WeakRetained[3] = 0;
+    v5 = v2[3];
+    v2[3] = 0;
 
-    v5 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    v6 = v2[1];
+    v2[1] = 0;
   }
 }
 
@@ -130,41 +148,42 @@ void __68__GCSettingsXPCProxyServerEndpoint_acceptClient_onConnection_error___bl
   profileCopy = profile;
   objc_storeStrong(&self->_settingsProfile, profile);
   v6 = self->_clientEndpoint;
+  v7 = v6;
   if (v6)
   {
-    v7 = self->_pendingUpdates + 1;
-    self->_pendingUpdates = v7;
-    if (v7 <= 6)
+    v8 = self->_pendingUpdates + 1;
+    self->_pendingUpdates = v8;
+    if (v8 <= 6)
     {
-      v8 = getGCSettingsLogger();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
-      if (v7 == 6)
+      v9 = getGCSettingsLogger(v6);
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+      if (v8 == 6)
       {
-        if (v9)
+        if (v10)
         {
           [GCSettingsXPCProxyServerEndpoint setSettingsProfile:];
         }
 
-        [(GCSettingsXPCProxyRemoteClientEndpointInterface *)v6 refreshProfile];
+        [(GCSettingsXPCProxyRemoteClientEndpointInterface *)v7 refreshProfile];
       }
 
       else
       {
-        if (v9)
+        if (v10)
         {
           [GCSettingsXPCProxyServerEndpoint setSettingsProfile:];
         }
 
-        [(GCSettingsXPCProxyRemoteClientEndpointInterface *)v6 newProfile:profileCopy];
+        [(GCSettingsXPCProxyRemoteClientEndpointInterface *)v7 newProfile:profileCopy];
         if (self->_pendingUpdates == 3)
         {
           connection = self->_connection;
-          v11[0] = MEMORY[0x1E69E9820];
-          v11[1] = 3221225472;
-          v11[2] = __55__GCSettingsXPCProxyServerEndpoint_setSettingsProfile___block_invoke;
-          v11[3] = &unk_1E8418C28;
-          v11[4] = self;
-          [(_GCIPCEndpointConnection *)connection scheduleSendBarrierBlock:v11];
+          v12[0] = MEMORY[0x1E69E9820];
+          v12[1] = 3221225472;
+          v12[2] = __55__GCSettingsXPCProxyServerEndpoint_setSettingsProfile___block_invoke;
+          v12[3] = &unk_1E8418C28;
+          v12[4] = self;
+          [(_GCIPCEndpointConnection *)connection scheduleSendBarrierBlock:v12];
         }
       }
     }
@@ -225,30 +244,6 @@ void __56__GCSettingsXPCProxyServerEndpoint_invalidateConnection__block_invoke(u
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)acceptClient:onConnection:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, v0, v1, "Client has arrived for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setSettingsProfile:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, v0, v1, "Sending new settings to remote endpoint: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setSettingsProfile:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, v0, v1, "Sending settings refresh request to remote endpoint: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

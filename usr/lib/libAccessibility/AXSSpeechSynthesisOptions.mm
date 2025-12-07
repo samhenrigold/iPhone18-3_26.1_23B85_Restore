@@ -3,7 +3,7 @@
 
 @implementation AXSSpeechSynthesisOptions
 
-uint64_t ___AXSSpeechSynthesisOptions_block_invoke()
+void *___AXSSpeechSynthesisOptions_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -31,7 +31,7 @@
 
 - (BOOL)touchesBegan:(id)began withEvent:(id)event
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (!self->_scene)
   {
     return 0;
@@ -44,7 +44,7 @@
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v7 = [began countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v7 = [began countByEnumeratingWithState:&v26 objects:v34 count:16];
   eventCopy = event;
   v8 = 0;
   if (v7)
@@ -77,8 +77,8 @@
             if (v25)
             {
               [(NSMutableDictionary *)self->_touchMap setObject:v25 forKey:v11];
-              v32[3] = &v25;
-              v14 = std::__tree<std::__value_type<SKNode *,std::vector<UITouch *>>,std::__map_value_compare<SKNode *,std::__value_type<SKNode *,std::vector<UITouch *>>,std::less<SKNode *>,true>,std::allocator<std::__value_type<SKNode *,std::vector<UITouch *>>>>::__emplace_unique_key_args<SKNode *,std::piecewise_construct_t const&,std::tuple<SKNode * const&>,std::tuple<>>(&v31, &v25);
+              v33 = &v25;
+              v14 = std::__tree<std::__value_type<SKNode *,std::vector<UITouch *>>,std::__map_value_compare<SKNode *,std::__value_type<SKNode *,std::vector<UITouch *>>,std::less<SKNode *>,true>,std::allocator<std::__value_type<SKNode *,std::vector<UITouch *>>>>::__emplace_unique_key_args<SKNode *,std::piecewise_construct_t const&,std::tuple<SKNode * const&>,std::tuple<>>(&v31, &v25, &std::piecewise_construct, &v33);
               std::vector<UITouch *>::push_back[abi:nn200100]((v14 + 5), &v30);
               v8 = 1;
             }
@@ -88,7 +88,7 @@
         }
       }
 
-      v7 = [began countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v7 = [began countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v7);
@@ -146,7 +146,7 @@
 
 - (BOOL)touchesMoved:(id)moved withEvent:(id)event
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (!self->_scene)
   {
     return 0;
@@ -159,7 +159,7 @@
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v7 = [moved countByEnumeratingWithState:&v23 objects:v30 count:16];
+  v7 = [moved countByEnumeratingWithState:&v23 objects:v31 count:16];
   eventCopy = event;
   v8 = 0;
   if (v7)
@@ -179,14 +179,14 @@
         v22 = -[NSMutableDictionary objectForKey:](self->_touchMap, "objectForKey:", [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v27, "hash")}]);
         if (v22)
         {
-          v29[3] = &v22;
-          v11 = std::__tree<std::__value_type<SKNode *,std::vector<UITouch *>>,std::__map_value_compare<SKNode *,std::__value_type<SKNode *,std::vector<UITouch *>>,std::less<SKNode *>,true>,std::allocator<std::__value_type<SKNode *,std::vector<UITouch *>>>>::__emplace_unique_key_args<SKNode *,std::piecewise_construct_t const&,std::tuple<SKNode * const&>,std::tuple<>>(&v28, &v22);
+          v30 = &v22;
+          v11 = std::__tree<std::__value_type<SKNode *,std::vector<UITouch *>>,std::__map_value_compare<SKNode *,std::__value_type<SKNode *,std::vector<UITouch *>>,std::less<SKNode *>,true>,std::allocator<std::__value_type<SKNode *,std::vector<UITouch *>>>>::__emplace_unique_key_args<SKNode *,std::piecewise_construct_t const&,std::tuple<SKNode * const&>,std::tuple<>>(&v28, &v22, &std::piecewise_construct, &v30);
           std::vector<UITouch *>::push_back[abi:nn200100]((v11 + 5), &v27);
           v8 = 1;
         }
       }
 
-      v7 = [moved countByEnumeratingWithState:&v23 objects:v30 count:16];
+      v7 = [moved countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v7);
@@ -244,7 +244,7 @@
 
 - (BOOL)touchesEnded:(id)ended withEvent:(id)event
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (!self->_scene)
   {
     return 0;
@@ -258,7 +258,7 @@
   v33 = 0u;
   v34 = 0u;
   v6 = 0;
-  v7 = [ended countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v7 = [ended countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v7)
   {
     v8 = *v32;
@@ -276,14 +276,14 @@
         v30 = -[NSMutableDictionary objectForKey:](self->_touchMap, "objectForKey:", [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v35, "hash")}]);
         if (v30)
         {
-          v37[3] = &v30;
-          v10 = std::__tree<std::__value_type<SKNode *,std::vector<UITouch *>>,std::__map_value_compare<SKNode *,std::__value_type<SKNode *,std::vector<UITouch *>>,std::less<SKNode *>,true>,std::allocator<std::__value_type<SKNode *,std::vector<UITouch *>>>>::__emplace_unique_key_args<SKNode *,std::piecewise_construct_t const&,std::tuple<SKNode * const&>,std::tuple<>>(&v36, &v30);
+          v38 = &v30;
+          v10 = std::__tree<std::__value_type<SKNode *,std::vector<UITouch *>>,std::__map_value_compare<SKNode *,std::__value_type<SKNode *,std::vector<UITouch *>>,std::less<SKNode *>,true>,std::allocator<std::__value_type<SKNode *,std::vector<UITouch *>>>>::__emplace_unique_key_args<SKNode *,std::piecewise_construct_t const&,std::tuple<SKNode * const&>,std::tuple<>>(&v36, &v30, &std::piecewise_construct, &v38);
           std::vector<UITouch *>::push_back[abi:nn200100]((v10 + 5), &v35);
           v6 = 1;
         }
       }
 
-      v7 = [ended countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v7 = [ended countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v7);
@@ -312,7 +312,7 @@
       v29 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v17 = [v11 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v17 = [v11 countByEnumeratingWithState:&v26 objects:v39 count:16];
       if (v17)
       {
         v18 = *v27;
@@ -328,7 +328,7 @@
             [(NSMutableDictionary *)self->_touchMap removeObjectForKey:*(*(&v26 + 1) + 8 * j)];
           }
 
-          v17 = [v11 countByEnumeratingWithState:&v26 objects:v38 count:16];
+          v17 = [v11 countByEnumeratingWithState:&v26 objects:v39 count:16];
         }
 
         while (v17);
@@ -372,7 +372,7 @@
 
 - (BOOL)touchesCancelled:(id)cancelled withEvent:(id)event
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (!self->_scene)
   {
     return 0;
@@ -386,7 +386,7 @@
   v33 = 0u;
   v34 = 0u;
   v6 = 0;
-  v7 = [cancelled countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v7 = [cancelled countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v7)
   {
     v8 = *v32;
@@ -404,14 +404,14 @@
         v30 = -[NSMutableDictionary objectForKey:](self->_touchMap, "objectForKey:", [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v35, "hash")}]);
         if (v30)
         {
-          v37[3] = &v30;
-          v10 = std::__tree<std::__value_type<SKNode *,std::vector<UITouch *>>,std::__map_value_compare<SKNode *,std::__value_type<SKNode *,std::vector<UITouch *>>,std::less<SKNode *>,true>,std::allocator<std::__value_type<SKNode *,std::vector<UITouch *>>>>::__emplace_unique_key_args<SKNode *,std::piecewise_construct_t const&,std::tuple<SKNode * const&>,std::tuple<>>(&v36, &v30);
+          v38 = &v30;
+          v10 = std::__tree<std::__value_type<SKNode *,std::vector<UITouch *>>,std::__map_value_compare<SKNode *,std::__value_type<SKNode *,std::vector<UITouch *>>,std::less<SKNode *>,true>,std::allocator<std::__value_type<SKNode *,std::vector<UITouch *>>>>::__emplace_unique_key_args<SKNode *,std::piecewise_construct_t const&,std::tuple<SKNode * const&>,std::tuple<>>(&v36, &v30, &std::piecewise_construct, &v38);
           std::vector<UITouch *>::push_back[abi:nn200100]((v10 + 5), &v35);
           v6 = 1;
         }
       }
 
-      v7 = [cancelled countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v7 = [cancelled countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v7);
@@ -440,7 +440,7 @@
       v29 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v17 = [v11 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v17 = [v11 countByEnumeratingWithState:&v26 objects:v39 count:16];
       if (v17)
       {
         v18 = *v27;
@@ -456,7 +456,7 @@
             [(NSMutableDictionary *)self->_touchMap removeObjectForKey:*(*(&v26 + 1) + 8 * j)];
           }
 
-          v17 = [v11 countByEnumeratingWithState:&v26 objects:v38 count:16];
+          v17 = [v11 countByEnumeratingWithState:&v26 objects:v39 count:16];
         }
 
         while (v17);

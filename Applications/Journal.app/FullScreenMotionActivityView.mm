@@ -11,7 +11,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8 = OBJC_IVAR____TtC7Journal28FullScreenMotionActivityView_motionActivityView;
-  type metadata accessor for MotionActivityGridView();
+  type metadata accessor for MotionActivityGridView(0);
   *(&self->super.super.super.isa + v8) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   *(&self->super.super.super.isa + OBJC_IVAR____TtC7Journal28FullScreenMotionActivityView_motionActivityAsset) = 0;
   v10.receiver = self;

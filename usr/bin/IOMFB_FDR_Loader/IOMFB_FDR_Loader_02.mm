@@ -2,7 +2,6 @@ uint64_t sub_1000178F0(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 4) != 0x20000)
   {
-    v43 = *(a2 + 4);
     printf("e: unsupported version: 0x%x != 0x%x\n");
     return 0;
   }
@@ -10,13 +9,12 @@ uint64_t sub_1000178F0(uint64_t a1, uint64_t a2)
   v3 = *(a1 + 2840);
   if (*v3 != 6)
   {
-    v44 = *v3;
     printf("e: mismatching versions: %u != %u\n");
     return 0;
   }
 
   v5 = malloc_type_calloc(1uLL, 0x1984uLL, 0x100004099D89073uLL);
-  v50 = v5;
+  v44 = v5;
   if (!v5)
   {
     v8 = "e: out of memory for EMMP table";
@@ -25,34 +23,30 @@ LABEL_10:
     return 0;
   }
 
-  v6 = v3[469018];
+  v6 = *(v3 + 1876072);
   if (v6 >= 4)
   {
-    v42 = v3[469018];
     printf("e: too many EM color channels %d\n");
     return 0;
   }
 
-  v9 = v3[469023];
+  v9 = *(v3 + 1876092);
   if (v9 >= 0x11)
   {
-    v45 = v3[469023];
     printf("e: too many EM gray levels %d\n");
     return 0;
   }
 
-  v10 = *(v3 + 938052);
+  v10 = *(v3 + 1876104);
   if (v10 >= 0x11)
   {
-    v46 = *(v3 + 938052);
     printf("e: too many EM scale intervals %d\n");
     return 0;
   }
 
-  v11 = v3[469022];
+  v11 = *(v3 + 1876088);
   if (v11 >= 0x41)
   {
-    v47 = v3[469018];
     printf("e: too many EM lines %d\n");
     return 0;
   }
@@ -68,8 +62,8 @@ LABEL_10:
   }
 
   v16 = v5;
-  v48 = *(a1 + 3936);
-  v49 = v48 + v12;
+  v42 = *(a1 + 3936);
+  v43 = v42 + v12;
   *(v5 + 6526) = sub_100007AEC(a1, 1uLL);
   *(v16 + 3262) = sub_100007AEC(a1, 2uLL);
   if (v6)
@@ -175,7 +169,7 @@ LABEL_10:
     sub_10000E6C4(a1, v16, v6);
   }
 
-  if (v49 - *(a1 + 3936) < 6)
+  if (v43 - *(a1 + 3936) < 6)
   {
     v8 = "e: underflow while reading EMMP spare";
     goto LABEL_10;
@@ -196,16 +190,16 @@ LABEL_10:
   }
 
   while (v36);
-  sub_10001C5CC(*(a1 + 3912), &v50);
+  sub_10001C5CC(*(a1 + 3912), &v44);
   v38 = *(a1 + 3936);
-  if (v48 - v38 >= 0)
+  if (v42 - v38 >= 0)
   {
-    v39 = -((v48 - v38) & 3);
+    v39 = -((v42 - v38) & 3);
   }
 
   else
   {
-    v39 = (v38 - v48) & 3;
+    v39 = (v38 - v42) & 3;
   }
 
   if (v39)
@@ -228,7 +222,7 @@ LABEL_10:
     v38 = *(a1 + 3936);
   }
 
-  if (v38 != v49)
+  if (v38 != v43)
   {
     v8 = "e: parsing did not consume the full EMMP size";
     goto LABEL_10;
@@ -353,20 +347,20 @@ uint64_t sub_100017D34(uint64_t a1, uint64_t a2)
                     if (v30 < 7u)
                     {
                       v31 = v3 + 1545216;
-                      v39 = v30;
+                      v37 = v30;
+                      v36 = sub_100007AEC(a1, 1uLL);
                       v38 = sub_100007AEC(a1, 1uLL);
-                      v40 = sub_100007AEC(a1, 1uLL);
-                      v37 = sub_100007AEC(a1, 1uLL);
+                      v35 = sub_100007AEC(a1, 1uLL);
                       v32 = sub_100007AEC(a1, 1uLL);
                       v31[454] = v29;
-                      v31[455] = v39;
-                      v31[456] = v38;
+                      v31[455] = v37;
+                      v31[456] = v36;
                       v31[457] = v21;
                       v31[458] = v17;
                       *(v31 + 929) = v28;
                       *(v31 + 930) = v25;
-                      v31[460] = v37;
-                      v31[461] = v40;
+                      v31[460] = v35;
+                      v31[461] = v38;
                       *(v31 + 231) = 0;
                       *(v31 + 928) = v32;
                       if (v21 != 0 && v17 != 0)
@@ -448,14 +442,12 @@ uint64_t sub_100017D34(uint64_t a1, uint64_t a2)
 
     else
     {
-      v36 = *v3;
       printf("e: mismatching versions: %u != %u\n");
     }
   }
 
   else
   {
-    v35 = *(a2 + 4);
     printf("e: unsupported version: 0x%x != 0x%x\n");
   }
 
@@ -466,7 +458,6 @@ uint64_t sub_1000181D4(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 4) != 196608)
   {
-    v57 = *(a2 + 4);
     printf("e: unsupported version: 0x%x != 0x%x\n");
     return 0;
   }
@@ -474,13 +465,12 @@ uint64_t sub_1000181D4(uint64_t a1, uint64_t a2)
   v3 = *(a1 + 2840);
   if (*v3 != 7)
   {
-    v58 = *v3;
     printf("e: mismatching versions: %u != %u\n");
     return 0;
   }
 
   v5 = malloc_type_calloc(1uLL, 0x5A0278uLL, 0x40BA0BA164uLL);
-  v67 = v5;
+  v64 = v5;
   if (!v5)
   {
     v21 = "e: out of memory for EMMP table";
@@ -504,11 +494,11 @@ LABEL_14:
   v17 = v16 != 0;
   v18 = v16 - 1;
   *(a1 + 3944) = v18;
-  v66 = v13;
+  v63 = v13;
   if (!v17)
   {
     puts("e: data_sz underflow in get_value");
-    LODWORD(v13) = v66;
+    LODWORD(v13) = v63;
     v14 = *(a1 + 3936);
     v18 = *(a1 + 3944);
   }
@@ -519,7 +509,7 @@ LABEL_14:
   if (!v18)
   {
     puts("e: data_sz underflow in get_value");
-    LODWORD(v13) = v66;
+    LODWORD(v13) = v63;
   }
 
   v7[462] = v19;
@@ -568,12 +558,11 @@ LABEL_14:
   v27 = 2 * v12;
   if (&v22[-*(a1 + 3936)] < (v19 + 2 * v26 + (v24 + v25 + 2 * v12 + 2 * v23 + 2) * v13 + 2))
   {
-    v59 = &v22[-*(a1 + 3936)];
     printf("e: provided data size smaller than expected %d < %d\n");
     return 0;
   }
 
-  v65 = v26;
+  v62 = v26;
   sub_10000E6C4(a1, v6 + 8, v26);
   memcpy(v6 + 248, *(a1 + 3936), v19);
   *(a1 + 3936) += v19;
@@ -586,9 +575,9 @@ LABEL_14:
     puts("e: data_sz underflow in get_array");
   }
 
-  v61 = v22;
-  v30 = v66;
-  if (v66)
+  v58 = v22;
+  v30 = v63;
+  if (v63)
   {
     v31 = 256;
     do
@@ -609,8 +598,8 @@ LABEL_14:
     }
 
     while (v30);
-    v34 = v66;
-    sub_10000E6C4(a1, v6, v66);
+    v34 = v63;
+    sub_10000E6C4(a1, v6, v63);
     v35 = v6 + 352;
     do
     {
@@ -631,7 +620,7 @@ LABEL_14:
 
     while (v34);
     v38 = v6 + 448;
-    v39 = v66;
+    v39 = v63;
     do
     {
       memcpy(v38, *(a1 + 3936), v25);
@@ -654,20 +643,20 @@ LABEL_14:
 
   else
   {
-    sub_10000E6C4(a1, v6, v66);
+    sub_10000E6C4(a1, v6, v63);
   }
 
-  v60 = v9;
-  v43 = v65;
-  v42 = v66;
+  v57 = v9;
+  v43 = v62;
+  v42 = v63;
   if (v19)
   {
     v44 = 0;
     __dst = v6 + 632;
-    v62 = v19;
+    v59 = v19;
     do
     {
-      v63 = v44;
+      v60 = v44;
       if (v43)
       {
         v45 = 0;
@@ -706,28 +695,28 @@ LABEL_14:
 
               ++v47;
               v48 += 2048;
-              v42 = v66;
+              v42 = v63;
             }
 
-            while (v47 != v66);
+            while (v47 != v63);
           }
 
           ++v45;
           v46 += 6144;
-          v43 = v65;
+          v43 = v62;
         }
 
-        while (v45 != v65);
+        while (v45 != v62);
       }
 
-      v44 = v63 + 1;
+      v44 = v60 + 1;
       __dst += 737280;
     }
 
-    while (v63 + 1 != v62);
+    while (v60 + 1 != v59);
   }
 
-  if (&v61[-*(a1 + 3936)] < 6)
+  if (&v58[-*(a1 + 3936)] < 6)
   {
     v21 = "e: underflow while reading EMMP spare";
     goto LABEL_14;
@@ -741,16 +730,16 @@ LABEL_14:
   }
 
   while (v53);
-  sub_10001C5CC(*(a1 + 3920), &v67);
+  sub_10001C5CC(*(a1 + 3920), &v64);
   v54 = *(a1 + 3936);
-  if (v60 - v54 >= 0)
+  if (v57 - v54 >= 0)
   {
-    v55 = -((v60 - v54) & 3);
+    v55 = -((v57 - v54) & 3);
   }
 
   else
   {
-    v55 = (v54 - v60) & 3;
+    v55 = (v54 - v57) & 3;
   }
 
   if (v55)
@@ -766,7 +755,7 @@ LABEL_14:
     v54 = *(a1 + 3936);
   }
 
-  if (v54 != v61)
+  if (v54 != v58)
   {
     v21 = "e: parsing did not consume the full EMMP size";
     goto LABEL_14;
@@ -775,20 +764,17 @@ LABEL_14:
   return 1;
 }
 
-void *sub_100018710(void *result, unint64_t a2)
+void sub_100018710(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      sub_10001C584(result, a2);
+      sub_10001C584(a1, a2);
     }
 
     sub_100006304();
   }
-
-  return result;
 }
 
 void sub_1000187B0(uint64_t a1, void *a2)
@@ -1400,13 +1386,13 @@ LABEL_23:
 
 uint64_t sub_100018F1C(uint64_t a1)
 {
-  v28 = 0;
   v27 = 0;
-  v1 = *(a1 + 2848);
-  v25 = 1;
-  v30 = v1;
-  v29 = 1556480;
   v26 = 0;
+  v1 = *(a1 + 2848);
+  v24 = 1;
+  v29 = v1;
+  v28 = 1556480;
+  v25 = 0;
   v2 = *(a1 + 3904);
   if (!v2)
   {
@@ -1427,7 +1413,7 @@ uint64_t sub_100018F1C(uint64_t a1)
     v7 = v6;
   }
 
-  sub_10001C6A4(v4, v5, &v31, v7, 1);
+  sub_10001C6A4(v4, v5, &v30, v7, 1);
   v8 = *(a1 + 3904);
   v9 = *v8;
   v10 = v8[1];
@@ -1438,12 +1424,11 @@ uint64_t sub_100018F1C(uint64_t a1)
 LABEL_24:
     if (*(v1 + 1545620) != v18 || *(v1 + 1545624) != v19)
     {
-      v23 = *(v1 + 1545620);
       printf("e: processed ALSS EMMP dimensions (temp %u, bright %u)mismatch specified values (temp %u, bright %u)\n");
       return 0;
     }
 
-    if ((*a1)(94, &v25, 20, 0, 0, *(a1 + 16)))
+    if ((*a1)(94, &v24, 20, 0, 0, *(a1 + 16)))
     {
       puts("i: Set ALSS EM config success");
       return 1;
@@ -1457,7 +1442,7 @@ LABEL_34:
 
   v11 = 0;
   v12 = 0;
-  v24 = v1;
+  v23 = v1;
   v13 = v1 + 8;
   v14 = -1;
   v15 = -1;
@@ -1515,7 +1500,7 @@ LABEL_20:
     {
       v18 = v14 + 1;
       v19 = v15 + 1;
-      v1 = v24;
+      v1 = v23;
       goto LABEL_24;
     }
   }
@@ -2245,7 +2230,7 @@ uint64_t sub_100019E2C(uint64_t **a1, uint64_t a2, int a3, int a4)
 {
   v8 = *a1;
   v9 = a1[1];
-  v10 = 126 - 2 * __clz(v9 - v8);
+  v10 = 126 - 2 * __clz((v9 - v8) >> 3);
   if (v9 == v8)
   {
     v11 = 0;
@@ -2341,7 +2326,7 @@ uint64_t sub_100019FDC(uint64_t **a1, uint64_t a2, int a3, int a4)
 {
   v8 = *a1;
   v9 = a1[1];
-  v10 = 126 - 2 * __clz(v9 - v8);
+  v10 = 126 - 2 * __clz((v9 - v8) >> 3);
   if (v9 == v8)
   {
     v11 = 0;
@@ -2991,8 +2976,8 @@ uint64_t sub_10001AB5C()
   v1 = *(v0 + 2864);
   v2 = *(v0 + 3600);
   v3 = *(v0 + 3584);
-  bzero(v72, 0xC84uLL);
-  bzero(v70, 0xA54uLL);
+  bzero(v70, 0xC84uLL);
+  bzero(v68, 0xA54uLL);
   printf("i: Prox PP LUT bin interpolation, bin = %g\n", (*(v0 + 3568) + *(v0 + 3564)));
   if (v2)
   {
@@ -3001,10 +2986,10 @@ uint64_t sub_10001AB5C()
     {
       v5 = *(v2 + 664);
       v6 = *(v2 + 665);
-      v75 = v5;
-      v76 = v6;
+      v73 = v5;
+      v74 = v6;
       v7 = *(v2 + 666);
-      v77 = v7;
+      v75 = v7;
       v8 = *(v0 + 3568);
       if (v8 == 0.0)
       {
@@ -3013,111 +2998,110 @@ uint64_t sub_10001AB5C()
 
       else
       {
-        v11 = *(v0 + 3608);
-        if (!v11)
+        v10 = *(v0 + 3608);
+        if (!v10)
         {
 LABEL_29:
-          v37 = "e: Prox PP bin tables do no correlate";
+          v36 = "e: Prox PP bin tables do no correlate";
 LABEL_54:
-          puts(v37);
+          puts(v36);
           return 0;
         }
 
-        while (*(v11 + 664) != v5 || *(v11 + 665) != v6 || *(v11 + 666) != v7)
+        while (*(v10 + 664) != v5 || *(v10 + 665) != v6 || *(v10 + 666) != v7)
         {
-          v11 = *v11;
-          if (!v11)
+          v10 = *v10;
+          if (!v10)
           {
             goto LABEL_29;
           }
         }
 
-        v12 = 0;
-        v13 = v2 + 6;
-        v14 = *(v0 + 3164);
-        v15 = v11 + 6;
-        v16 = v11 + 2412;
-        v17 = v71;
+        v11 = 0;
+        v12 = v2 + 6;
+        v13 = *(v0 + 3164);
+        v14 = v10 + 6;
+        v15 = v10 + 2412;
+        v16 = v69;
         do
         {
-          if (v14)
+          if (v13)
           {
-            v18 = 0;
-            v19 = *(v0 + 3162);
-            v20 = v17;
-            v21 = v15;
-            v22 = v13;
+            v17 = 0;
+            v18 = *(v0 + 3162);
+            v19 = v16;
+            v20 = v14;
+            v21 = v12;
             do
             {
-              v23 = *(&v2[10 * v12 + 301] + v18 + 1);
-              v24 = v23 + (v8 * (*(v16 + 80 * v12 + 4 * v18) - v23));
-              v25 = v24 + 0.5;
-              if (v24 >= 0.0)
+              v22 = *(&v2[10 * v11 + 301] + v17 + 1);
+              v23 = v22 + (v8 * (*(v15 + 80 * v11 + 4 * v17) - v22));
+              v24 = v23 + 0.5;
+              if (v23 >= 0.0)
               {
-                v26 = 0.0;
+                v25 = 0.0;
               }
 
               else
               {
-                v26 = 1.0;
+                v25 = 1.0;
               }
 
-              *&v71[80 * v12 + 2400 + 4 * v18] = (v25 - v26);
+              *&v69[80 * v11 + 2400 + 4 * v17] = (v24 - v25);
+              v26 = v18;
               v27 = v19;
               v28 = v20;
               v29 = v21;
-              v30 = v22;
-              if (v19)
+              if (v18)
               {
                 do
                 {
-                  v32 = *v30++;
-                  v31 = v32;
-                  v33 = *v29++;
-                  v34 = v31 + (v8 * (v33 - v31));
-                  v35 = v34 + 0.5;
-                  if (v34 >= 0.0)
+                  v31 = *v29++;
+                  v30 = v31;
+                  v32 = *v28++;
+                  v33 = v30 + (v8 * (v32 - v30));
+                  v34 = v33 + 0.5;
+                  if (v33 >= 0.0)
                   {
-                    v36 = 0.0;
+                    v35 = 0.0;
                   }
 
                   else
                   {
-                    v36 = 1.0;
+                    v35 = 1.0;
                   }
 
-                  *v28++ = (v35 - v36);
-                  --v27;
+                  *v27++ = (v34 - v35);
+                  --v26;
                 }
 
-                while (v27);
+                while (v26);
               }
 
-              ++v18;
-              v22 += 20;
+              ++v17;
               v21 += 20;
               v20 += 20;
+              v19 += 20;
             }
 
-            while (v18 != v14);
+            while (v17 != v13);
           }
 
-          ++v12;
-          v13 += 400;
-          v15 += 400;
-          v17 += 800;
+          ++v11;
+          v12 += 400;
+          v14 += 400;
+          v16 += 800;
         }
 
-        while (v12 != 3);
-        v9 = v70;
+        while (v11 != 3);
+        v9 = v68;
       }
 
       *v9 = v1;
-      v10 = *(v0 + 16);
       v4 &= (*v0)(84);
       if ((v4 & 1) == 0)
       {
-        printf("e: failed to set Prox PP LUT [t %d b %d p %d]\n", v75, v76, v77);
+        printf("e: failed to set Prox PP LUT [t %d b %d p %d]\n", v73, v74, v75);
       }
 
       v2 = *v2;
@@ -3133,111 +3117,110 @@ LABEL_31:
   printf("i: Prox PD LUT bin interpolation, bin = %g\n", (*(v0 + 3552) + *(v0 + 3548)));
   for (; v3; v3 = *v3)
   {
-    v38 = *(v3 + 803);
-    v75 = v38;
-    v39 = *(v0 + 3552);
-    v40 = v0 + 3592;
-    if (v39 == 0.0)
+    v37 = *(v3 + 803);
+    v73 = v37;
+    v38 = *(v0 + 3552);
+    v39 = v0 + 3592;
+    if (v38 == 0.0)
     {
-      v41 = v3 + 1;
+      v40 = v3 + 1;
     }
 
     else
     {
       do
       {
-        v40 = *v40;
-        if (!v40)
+        v39 = *v39;
+        if (!v39)
         {
-          v37 = "e: Prox PD bin tables do no correlate";
+          v36 = "e: Prox PD bin tables do no correlate";
           goto LABEL_54;
         }
       }
 
-      while (*(v40 + 3212) != v38);
-      v42 = *(v0 + 2912);
+      while (*(v39 + 3212) != v37);
+      v41 = *(v0 + 2912);
       if (*(v0 + 2912))
       {
-        v43 = 0;
-        v44 = *(v0 + 2916);
-        v45 = v3 + 3;
-        v46 = (v40 + 12);
-        v47 = &v73;
+        v42 = 0;
+        v43 = *(v0 + 2916);
+        v44 = v3 + 3;
+        v45 = (v39 + 12);
+        v46 = &v71;
         do
         {
-          v48 = v44;
-          v49 = v47;
-          v50 = v46;
-          v51 = v45;
-          if (v44)
+          v47 = v43;
+          v48 = v46;
+          v49 = v45;
+          v50 = v44;
+          if (v43)
           {
             do
             {
-              v52 = *v51++;
-              v53 = v52;
-              v54 = *v50++;
-              *v49++ = v53 + (v39 * (v54 - v53));
-              --v48;
+              v51 = *v50++;
+              v52 = v51;
+              v53 = *v49++;
+              *v48++ = v52 + (v38 * (v53 - v52));
+              --v47;
             }
 
-            while (v48);
+            while (v47);
           }
 
-          ++v43;
+          ++v42;
+          v44 += 20;
           v45 += 20;
           v46 += 20;
-          v47 += 20;
         }
 
-        while (v43 != v42);
+        while (v42 != v41);
       }
 
-      v55 = *(v0 + 2914);
+      v54 = *(v0 + 2914);
       if (*(v0 + 2914))
       {
-        v56 = 0;
-        v57 = *(v0 + 2918);
-        v58 = v3 + 403;
-        v59 = (v40 + 1612);
-        v60 = &v74;
+        v55 = 0;
+        v56 = *(v0 + 2918);
+        v57 = v3 + 403;
+        v58 = (v39 + 1612);
+        v59 = &v72;
         do
         {
-          v61 = v57;
-          v62 = v60;
-          v63 = v59;
-          v64 = v58;
-          if (v57)
+          v60 = v56;
+          v61 = v59;
+          v62 = v58;
+          v63 = v57;
+          if (v56)
           {
             do
             {
-              v65 = *v64++;
-              v66 = v65;
-              v67 = *v63++;
-              *v62++ = v66 + (v39 * (v67 - v66));
-              --v61;
+              v64 = *v63++;
+              v65 = v64;
+              v66 = *v62++;
+              *v61++ = v65 + (v38 * (v66 - v65));
+              --v60;
             }
 
-            while (v61);
+            while (v60);
           }
 
-          ++v56;
+          ++v55;
+          v57 += 20;
           v58 += 20;
           v59 += 20;
-          v60 += 20;
         }
 
-        while (v56 != v55);
+        while (v55 != v54);
       }
 
-      v41 = v72;
+      v40 = v70;
     }
 
-    *v41 = v1;
-    v68 = *(v0 + 16);
+    *v40 = v1;
     v4 &= (*v0)(83);
     if ((v4 & 1) == 0)
     {
-      printf("e: failed to set Prox PD LUT [t %d]\n", v75);
+      printf("e: failed to set Prox PD LUT [t %d]\n", v73);
     }
   }
 
@@ -3316,7 +3299,7 @@ uint64_t sub_10001B08C(uint64_t a1)
   return 1;
 }
 
-uint64_t sub_10001B158(uint64_t a1)
+BOOL sub_10001B158(uint64_t a1)
 {
   if (!*(a1 + 2200))
   {
@@ -3888,7 +3871,6 @@ LABEL_57:
               if (v19 == v1)
               {
 LABEL_66:
-                *(v18 + 664);
                 printf("e: unspecified PP LUT temperature %d C\n");
                 return 0;
               }
@@ -3914,7 +3896,6 @@ LABEL_66:
               if (v20 == v3)
               {
 LABEL_67:
-                *(v18 + 665);
                 printf("e: unspecified PP LUT brightness %d\n");
                 return 0;
               }
@@ -3940,7 +3921,6 @@ LABEL_67:
               if (v21 == v5)
               {
 LABEL_68:
-                v26 = *(v18 + 666);
                 printf("e: unspecified PP LUT scan plan 0x%x\n");
                 return 0;
               }
@@ -4008,7 +3988,6 @@ LABEL_26:
         }
 
 LABEL_65:
-        *(v12 + 803);
         printf("e: unspecified PD LUT temperature value %d C\n");
       }
 
@@ -4022,21 +4001,19 @@ LABEL_61:
 
     else
     {
-      v25 = (*(a1 + 3564) + 1);
       printf("e: missing prox PP table bin %d\n");
     }
   }
 
   else
   {
-    v24 = (*(a1 + 3548) + 1);
     printf("e: missing prox PD table bin %d\n");
   }
 
   return 0;
 }
 
-uint64_t sub_10001BA90(uint64_t a1)
+BOOL sub_10001BA90(uint64_t a1)
 {
   v1 = *(a1 + 3616);
   if (!v1)
@@ -4234,25 +4211,10 @@ LABEL_36:
 
 uint64_t sub_10001BD44(uint64_t a1)
 {
-  if (!*(a1 + 2824))
-  {
-    goto LABEL_3;
-  }
-
-  v2 = *(a1 + 2816);
-  v3 = *(a1 + 2768);
-  v35[2] = *(a1 + 2752);
-  v35[3] = v3;
-  v4 = *(a1 + 2800);
-  v35[4] = *(a1 + 2784);
-  v35[5] = v4;
-  v5 = *(a1 + 2736);
-  v35[0] = *(a1 + 2720);
-  v35[1] = v5;
-  if (v2 >= 2)
+  if (*(a1 + 2824) && (v2 = *(a1 + 2816), v3 = *(a1 + 2768), v35[2] = *(a1 + 2752), v35[3] = v3, v4 = *(a1 + 2800), v35[4] = *(a1 + 2784), v35[5] = v4, v5 = *(a1 + 2736), v35[0] = *(a1 + 2720), v35[1] = v5, v2 >= 2))
   {
     v7 = 0;
-    v33 = a1 + 2824;
+    v33 = (a1 + 2824);
     v8 = a1 + 2520;
     v9 = a1 + 2620;
     v10 = v35[0];
@@ -4318,15 +4280,15 @@ LABEL_31:
           break;
         }
 
-        if (*(v20 + 8) == *(v8 + 4 * v17))
+        if (*(v20 + 2) == *(v8 + 4 * v17))
         {
-          v21 = *(v20 + 12);
-          if (v21 == v10 && *(v20 + 16) == *(v9 + 4 * v15))
+          v21 = *(v20 + 3);
+          if (v21 == v10 && *(v20 + 4) == *(v9 + 4 * v15))
           {
             v19 = v20;
           }
 
-          if (v21 == v12 && *(v20 + 16) == *(v9 + 4 * v15))
+          if (v21 == v12 && *(v20 + 4) == *(v9 + 4 * v15))
           {
             v18 = v20;
           }
@@ -4349,9 +4311,9 @@ LABEL_31:
       v23 = v22;
       v24 = 0;
       *(v22 + 6) = 2;
-      *(v22 + 2) = *(v19 + 8);
+      *(v22 + 2) = *(v19 + 2);
       *(v22 + 3) = v34;
-      *(v22 + 2) = *(v19 + 16);
+      *(v22 + 2) = v19[2];
       v25 = v18 + 28;
       v26 = v19 + 28;
       v27 = v22 + 28;
@@ -4390,7 +4352,6 @@ LABEL_37:
 
   else
   {
-LABEL_3:
     v6 = 1;
   }
 
@@ -4404,7 +4365,7 @@ void sub_10001C038(uint64_t a1, uint64_t a2)
   {
     if (v3 == 1)
     {
-      sub_10001C27C(a2 + 4, *(a2 + 52), "PDC temperatures", "0x%x");
+      sub_10001C27C(a2 + 4, *(a2 + 52), "PDC temperatures", "0x%x", v8);
       v7 = *(a2 + 104);
 
       sub_10001C27C(a2 + 56, v7, "PDC subframes", "%d");
@@ -4511,7 +4472,7 @@ void *sub_10001C1FC(void *a1)
   return result;
 }
 
-uint64_t sub_10001C27C(uint64_t a1, int a2, const char *a3, const char *a4)
+uint64_t sub_10001C27C(uint64_t a1, int a2, const char *a3, const char *a4, ...)
 {
   printf("i: %s: ", a3);
   if (a2)
@@ -4580,7 +4541,7 @@ uint64_t sub_10001C3D0(uint64_t a1, int a2)
   return putchar(10);
 }
 
-uint64_t sub_10001C484(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10001C484(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4602,7 +4563,7 @@ void sub_10001C4E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10001C500(uint64_t a1, unint64_t a2)
+void sub_10001C500(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4632,7 +4593,7 @@ void sub_10001C584(uint64_t a1, unint64_t a2)
   sub_1000062BC();
 }
 
-uint64_t sub_10001C5CC(uint64_t a1, void *a2)
+void *sub_10001C5CC(uint64_t a1, void *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -4689,7 +4650,7 @@ uint64_t sub_10001C5CC(uint64_t a1, void *a2)
   }
 
   *(a1 + 8) = v6;
-  return v6 - 8;
+  return (v6 - 8);
 }
 
 uint64_t sub_10001C6A4(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
@@ -5352,15 +5313,15 @@ uint64_t *sub_10001D408(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-unint64_t sub_10001D4DC(uint64_t *a1, unint64_t a2)
+uint64_t *sub_10001D4DC(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a1;
-  v3 = *(a2 - 8);
+  v3 = *(a2 - 1);
   v4 = *(*a1 + 6434);
   v5 = *(v3 + 6434);
   if (*(*a1 + 6434) < v5 || v4 == *(v3 + 6434) && (v5 = *(v2 + 6432), v5 < *(v3 + 6432)))
   {
-    i = (a1 + 1);
+    i = a1 + 1;
     if (a1 + 1 == a2)
     {
       goto LABEL_24;
@@ -5369,8 +5330,7 @@ unint64_t sub_10001D4DC(uint64_t *a1, unint64_t a2)
     v5 = 6434;
     while (*(*i + 6434) <= v4 && (v4 != *(*i + 6434) || *(v2 + 6432) >= *(*i + 6432)))
     {
-      i += 8;
-      if (i == a2)
+      if (++i == a2)
       {
         goto LABEL_24;
       }
@@ -5379,7 +5339,7 @@ unint64_t sub_10001D4DC(uint64_t *a1, unint64_t a2)
 
   else
   {
-    for (i = (a1 + 1); i < a2; i += 8)
+    for (i = a1 + 1; i < a2; ++i)
     {
       if (*(*i + 6434) > v4 || v4 == *(*i + 6434) && *(v2 + 6432) < *(*i + 6432))
       {
@@ -5396,7 +5356,7 @@ unint64_t sub_10001D4DC(uint64_t *a1, unint64_t a2)
 
   if (a2 != a1)
   {
-    v5 = a2 - 8;
+    v5 = (a2 - 1);
     do
     {
       if (*(*v5 + 6434) <= v4 && (v4 != *(*v5 + 6434) || *(v2 + 6432) >= *(*v5 + 6432)))
@@ -5424,8 +5384,7 @@ LABEL_25:
     v8 = *i;
     v9 = *v5;
 LABEL_27:
-    *i = v9;
-    i += 8;
+    *i++ = v9;
     *v5 = v8;
     while (i != a2)
     {
@@ -5462,21 +5421,21 @@ LABEL_27:
         goto LABEL_42;
       }
 
-      i += 8;
+      ++i;
     }
   }
 
 LABEL_42:
-  if ((i - 8) != a1)
+  if (i - 1 != a1)
   {
-    *a1 = *(i - 8);
+    *a1 = *(i - 1);
   }
 
-  *(i - 8) = v2;
+  *(i - 1) = v2;
   return i;
 }
 
-unint64_t sub_10001D6D4(uint64_t *a1, uint64_t *a2)
+uint64_t *sub_10001D6D4(uint64_t *a1, uint64_t *a2)
 {
   v4 = a1 + 8;
   v5 = *a1;
@@ -5570,8 +5529,7 @@ LABEL_29:
     v14 = v2;
     v15 = v7;
 LABEL_31:
-    *v14 = v13;
-    v14 += 8;
+    *v14++ = v13;
     *v15 = v3;
     while (v14 != a2)
     {
@@ -5607,20 +5565,20 @@ LABEL_31:
         goto LABEL_48;
       }
 
-      v14 += 8;
+      ++v14;
     }
   }
 
   v14 = v2;
 LABEL_48:
-  v16 = (v14 - 8);
-  if ((v14 - 8) != a1)
+  v16 = v14 - 1;
+  if (v14 - 1 != a1)
   {
     *a1 = *v16;
   }
 
   *v16 = v5;
-  return v14 - 8;
+  return v14 - 1;
 }
 
 BOOL sub_10001D8D4(uint64_t *a1, uint64_t *a2)
@@ -6737,17 +6695,17 @@ uint64_t *sub_10001F07C(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-unint64_t sub_10001F158(uint64_t *a1, unint64_t a2)
+uint64_t *sub_10001F158(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = *a1 + 0x2000;
   v4 = *(*a1 + 10370);
-  v5 = *(*(a2 - 8) + 10370);
-  if (*(*a1 + 10370) < v5 || v4 == *(*(a2 - 8) + 10370) && (v5 = *(*a1 + 10368), v5 < *(*(a2 - 8) + 10368)))
+  v5 = *(*(a2 - 1) + 10370);
+  if (*(*a1 + 10370) < v5 || v4 == *(*(a2 - 1) + 10370) && (v5 = *(*a1 + 10368), v5 < *(*(a2 - 1) + 10368)))
   {
-    for (i = (a1 + 1); i != a2; i += 8)
+    for (i = a1 + 1; i != a2; ++i)
     {
-      v5 = *i + 0x2000;
+      v5 = (*i + 0x2000);
       if (*(*i + 10370) > v4)
       {
         goto LABEL_16;
@@ -6778,7 +6736,7 @@ LABEL_16:
 
     if (a2 != a1)
     {
-      v5 = a2 - 8;
+      v5 = a2 - 1;
       do
       {
         if (*(*v5 + 10370) <= v4 && (v4 != *(*v5 + 10370) || *(*a1 + 10368) >= *(*v5 + 10368)))
@@ -6786,8 +6744,7 @@ LABEL_16:
           goto LABEL_25;
         }
 
-        v7 = v5 == a1;
-        v5 -= 8;
+        v7 = v5-- == a1;
       }
 
       while (!v7);
@@ -6807,8 +6764,7 @@ LABEL_25:
     v8 = *i;
     v9 = *v5;
 LABEL_27:
-    *i = v9;
-    i += 8;
+    *i++ = v9;
     *v5 = v8;
     while (i != a2)
     {
@@ -6820,7 +6776,7 @@ LABEL_27:
           goto LABEL_24;
         }
 
-        v5 -= 8;
+        --v5;
         while (1)
         {
           v9 = *v5;
@@ -6829,8 +6785,7 @@ LABEL_27:
             break;
           }
 
-          v7 = v5 == a1;
-          v5 -= 8;
+          v7 = v5-- == a1;
           if (v7)
           {
             goto LABEL_24;
@@ -6845,17 +6800,17 @@ LABEL_27:
         goto LABEL_42;
       }
 
-      i += 8;
+      ++i;
     }
   }
 
 LABEL_42:
-  if ((i - 8) != a1)
+  if (i - 1 != a1)
   {
-    *a1 = *(i - 8);
+    *a1 = *(i - 1);
   }
 
-  *(i - 8) = v2;
+  *(i - 1) = v2;
   return i;
 }
 
@@ -8114,7 +8069,7 @@ uint64_t *sub_100020B90(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-unint64_t sub_100020C60(unsigned __int16 *a1, unsigned __int16 *a2)
+unsigned __int16 *sub_100020C60(unsigned __int16 *a1, unsigned __int16 *a2)
 {
   v2 = *a1;
   v3 = *(a2 - 1);
@@ -8122,7 +8077,7 @@ unint64_t sub_100020C60(unsigned __int16 *a1, unsigned __int16 *a2)
   v5 = *(v3 + 578);
   if (*(*a1 + 578) < v5 || v4 == *(v3 + 578) && (v5 = *(v2 + 576), v5 < *(v3 + 576)))
   {
-    for (i = (a1 + 4); i != a2; i += 8)
+    for (i = a1 + 4; i != a2; i += 4)
     {
       v5 = *i;
       if (*(*i + 578) > v4)
@@ -8132,7 +8087,7 @@ unint64_t sub_100020C60(unsigned __int16 *a1, unsigned __int16 *a2)
 
       if (v4 == *(*i + 578))
       {
-        v5 = *(v5 + 576);
+        v5 = v5[288];
         if (*(v2 + 576) < v5)
         {
           goto LABEL_16;
@@ -8155,7 +8110,7 @@ LABEL_16:
 
     if (a2 != a1)
     {
-      v5 = (a2 - 4);
+      v5 = a2 - 4;
       do
       {
         if (*(*v5 + 578) <= v4 && (v4 != *(*v5 + 578) || *(v2 + 576) >= *(*v5 + 576)))
@@ -8164,7 +8119,7 @@ LABEL_16:
         }
 
         v7 = v5 == a1;
-        v5 -= 8;
+        v5 -= 4;
       }
 
       while (!v7);
@@ -8185,7 +8140,7 @@ LABEL_25:
     v9 = *v5;
 LABEL_27:
     *i = v9;
-    i += 8;
+    i += 4;
     *v5 = v8;
     while (i != a2)
     {
@@ -8197,7 +8152,7 @@ LABEL_27:
           goto LABEL_24;
         }
 
-        v5 -= 8;
+        v5 -= 4;
         while (1)
         {
           v9 = *v5;
@@ -8207,7 +8162,7 @@ LABEL_27:
           }
 
           v7 = v5 == a1;
-          v5 -= 8;
+          v5 -= 4;
           if (v7)
           {
             goto LABEL_24;
@@ -8222,17 +8177,17 @@ LABEL_27:
         goto LABEL_42;
       }
 
-      i += 8;
+      i += 4;
     }
   }
 
 LABEL_42:
-  if ((i - 8) != a1)
+  if (i - 4 != a1)
   {
-    *a1 = *(i - 8);
+    *a1 = *(i - 1);
   }
 
-  *(i - 8) = v2;
+  *(i - 1) = v2;
   return i;
 }
 
@@ -9486,7 +9441,7 @@ uint64_t *sub_1000225D0(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-unint64_t sub_1000226A0(unsigned __int16 *a1, unsigned __int16 *a2)
+unsigned __int16 *sub_1000226A0(unsigned __int16 *a1, unsigned __int16 *a2)
 {
   v2 = *a1;
   v3 = *(a2 - 1);
@@ -9494,7 +9449,7 @@ unint64_t sub_1000226A0(unsigned __int16 *a1, unsigned __int16 *a2)
   v5 = *(v3 + 290);
   if (*(*a1 + 290) < v5 || v4 == *(v3 + 290) && (v5 = *(v2 + 288), v5 < *(v3 + 288)))
   {
-    for (i = (a1 + 4); i != a2; i += 8)
+    for (i = a1 + 4; i != a2; i += 4)
     {
       v5 = *i;
       if (*(*i + 290) > v4)
@@ -9504,7 +9459,7 @@ unint64_t sub_1000226A0(unsigned __int16 *a1, unsigned __int16 *a2)
 
       if (v4 == *(*i + 290))
       {
-        v5 = *(v5 + 288);
+        v5 = v5[144];
         if (*(v2 + 288) < v5)
         {
           goto LABEL_16;
@@ -9527,7 +9482,7 @@ LABEL_16:
 
     if (a2 != a1)
     {
-      v5 = (a2 - 4);
+      v5 = a2 - 4;
       do
       {
         if (*(*v5 + 290) <= v4 && (v4 != *(*v5 + 290) || *(v2 + 288) >= *(*v5 + 288)))
@@ -9536,7 +9491,7 @@ LABEL_16:
         }
 
         v7 = v5 == a1;
-        v5 -= 8;
+        v5 -= 4;
       }
 
       while (!v7);
@@ -9557,7 +9512,7 @@ LABEL_25:
     v9 = *v5;
 LABEL_27:
     *i = v9;
-    i += 8;
+    i += 4;
     *v5 = v8;
     while (i != a2)
     {
@@ -9569,7 +9524,7 @@ LABEL_27:
           goto LABEL_24;
         }
 
-        v5 -= 8;
+        v5 -= 4;
         while (1)
         {
           v9 = *v5;
@@ -9579,7 +9534,7 @@ LABEL_27:
           }
 
           v7 = v5 == a1;
-          v5 -= 8;
+          v5 -= 4;
           if (v7)
           {
             goto LABEL_24;
@@ -9594,17 +9549,17 @@ LABEL_27:
         goto LABEL_42;
       }
 
-      i += 8;
+      i += 4;
     }
   }
 
 LABEL_42:
-  if ((i - 8) != a1)
+  if (i - 4 != a1)
   {
-    *a1 = *(i - 8);
+    *a1 = *(i - 1);
   }
 
-  *(i - 8) = v2;
+  *(i - 1) = v2;
   return i;
 }
 

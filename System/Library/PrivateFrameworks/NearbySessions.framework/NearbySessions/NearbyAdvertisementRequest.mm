@@ -13,14 +13,13 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v3);
-  v8.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v3);
+  v7.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v8.super.isa;
+  return v7.super.isa;
 }
 
 - (NSData)invitation
@@ -38,26 +37,25 @@
 {
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x28223BE20](v10);
-  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   invitationCopy = invitation;
-  v16 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v18 = v17;
+  v15 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v17 = v16;
 
-  (*(v11 + 16))(self + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v14, v10);
-  v19 = (self + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation);
-  *v19 = v16;
-  v19[1] = v18;
+  (*(v11 + 16))(self + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_identifier, v13, v10);
+  v18 = (self + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_invitation);
+  *v18 = v15;
+  v18[1] = v17;
   *(self + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_route) = route;
   *(self + OBJC_IVAR____TtC14NearbySessions26NearbyAdvertisementRequest_activityType) = type;
-  v20 = type metadata accessor for NearbyAdvertisementRequest();
-  v23.receiver = self;
-  v23.super_class = v20;
-  v21 = [(NearbyAdvertisementRequest *)&v23 init];
-  (*(v11 + 8))(v14, v10);
-  return v21;
+  v19 = type metadata accessor for NearbyAdvertisementRequest(0);
+  v22.receiver = self;
+  v22.super_class = v19;
+  v20 = [(NearbyAdvertisementRequest *)&v22 init];
+  (*(v11 + 8))(v13, v10);
+  return v20;
 }
 
 - (void)encodeWithCoder:(id)coder

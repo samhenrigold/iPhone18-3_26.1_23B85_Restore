@@ -1,16 +1,16 @@
 @interface String
-- (uint64_t):(uint64_t)a3;
+- (uint64_t):(uint64_t *)a3;
 - (unint64_t):;
 @end
 
 @implementation String
 
-- (uint64_t):(uint64_t)a3
+- (uint64_t):(uint64_t *)a3
 {
   result = *self;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, self);
@@ -24,8 +24,8 @@
   result = lazy protocol witness table cache variable for type [String : [Int]] and conformance <> [A : B];
   if (!lazy protocol witness table cache variable for type [String : [Int]] and conformance <> [A : B])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSSaySiGGMd);
-    lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A], &_sSaySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSSaySiGGMd, &_sSDySSSaySiGGMR);
+    lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A], &_sSaySiGMd, &_sSaySiGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : [Int]] and conformance <> [A : B]);
   }

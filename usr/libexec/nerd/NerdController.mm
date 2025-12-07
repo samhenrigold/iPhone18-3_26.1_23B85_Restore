@@ -8,6 +8,7 @@
 - (BOOL)rebootToRecovery;
 - (id)getNearestDescriptorToTarget:(id)target primaryDescriptor:(id)descriptor primaryAlternateDescriptor:(id)alternateDescriptor;
 - (id)initController;
+- (id)initControllerWithCustomizations:(id)customizations controllerName:(id)name initialState:(id)state activate:(BOOL)activate;
 - (int)getFreeSpaceAvailableForUpdate:(unint64_t *)update deleteSystemPartition:(BOOL)partition;
 - (int64_t)actionApplyUpdate:(id *)update;
 - (int64_t)actionBeginScan:(id *)scan;
@@ -26,6 +27,7 @@
 - (int64_t)actionReportUpdateFound:(id *)found;
 - (int64_t)actionUnknownAction:(id)action error:(id *)error;
 - (int64_t)performAction:(id)action onEvent:(id)event inState:(id)state withInfo:(id)info nextState:(id)nextState error:(id *)error;
+- (int64_t)spaceCheckHelper:(BOOL)helper outErrorString:(id *)string;
 - (unsigned)readRecoveryReason;
 - (void)activateStateMachine;
 - (void)adjustUpdateProgressUI:(double)i;
@@ -63,6 +65,24 @@
 @end
 
 @implementation NerdController
+
+- (id)initControllerWithCustomizations:(id)customizations controllerName:(id)name initialState:(id)state activate:(BOOL)activate
+{
+  activateCopy = activate;
+  customizationsCopy = customizations;
+  nameCopy = name;
+  stateCopy = state;
+  v16.receiver = self;
+  v16.super_class = NerdController;
+  v13 = [(NerdController *)&v16 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(NerdController *)v13 setCustomizations:customizationsCopy controllerName:nameCopy initialState:stateCopy activate:activateCopy];
+  }
+
+  return v14;
+}
 
 - (unsigned)readRecoveryReason
 {
@@ -3605,6 +3625,84 @@ void __42__NerdController_actionReportUpdateFound___block_invoke(uint64_t a1, vo
   }
 }
 
+- (int64_t)spaceCheckHelper:(BOOL)helper outErrorString:(id *)string
+{
+  v20 = 0;
+  v6 = [(NerdController *)self getFreeSpaceAvailableForUpdate:&v20 deleteSystemPartition:helper];
+  if (v6)
+  {
+    v7 = [[NSString alloc] initWithFormat:@"Failed to determine free space(error: %d).", v6];
+    v8 = 8602;
+    if (!v7)
+    {
+      goto LABEL_15;
+    }
+
+LABEL_8:
+    nerdLogger = [(NerdController *)self nerdLogger];
+    oslog = [nerdLogger oslog];
+
+    if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v22 = v7;
+      _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+    }
+
+    if (string)
+    {
+      v16 = v7;
+      *string = v7;
+    }
+
+    goto LABEL_15;
+  }
+
+  updateDescriptor = [(NerdController *)self updateDescriptor];
+  refreshTotalRequiredFreeSpace = [updateDescriptor refreshTotalRequiredFreeSpace];
+
+  nerdLogger2 = [(NerdController *)self nerdLogger];
+  oslog2 = [nerdLogger2 oslog];
+
+  if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v22 = refreshTotalRequiredFreeSpace;
+    _os_log_impl(&_mh_execute_header, oslog2, OS_LOG_TYPE_DEFAULT, "Refreshed total free space needed for update: %llu bytes", buf, 0xCu);
+  }
+
+  if (v20 < refreshTotalRequiredFreeSpace)
+  {
+    v13 = [NSString alloc];
+    v7 = [v13 initWithFormat:@"Insufficient space for update: %llu bytes available. Require %llu bytes. Additional %llu bytes needed.", v20, refreshTotalRequiredFreeSpace, &refreshTotalRequiredFreeSpace[-v20]];
+    v8 = 8600;
+    if (!v7)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_8;
+  }
+
+  nerdLogger3 = [(NerdController *)self nerdLogger];
+  oslog3 = [nerdLogger3 oslog];
+
+  if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    v22 = v20;
+    v23 = 2048;
+    v24 = refreshTotalRequiredFreeSpace;
+    _os_log_impl(&_mh_execute_header, oslog3, OS_LOG_TYPE_DEFAULT, "Sufficient space(%llu bytes) available for update(%llu bytes).", buf, 0x16u);
+  }
+
+  v8 = 0;
+  v7 = 0;
+LABEL_15:
+
+  return v8;
+}
+
 - (int64_t)actionCheckDownloadConstraints:(id *)constraints
 {
   nerdLogger = [(NerdController *)self nerdLogger];
@@ -5018,7 +5116,7 @@ LABEL_7:
     v14 = v13;
     v15 = @"ErrorGeneric";
 LABEL_15:
-    [v13 postEvent:v15, *v21];
+    [v13 postEvent:v15, *v21, *&v21[8]];
 LABEL_16:
 
     goto LABEL_17;
@@ -5515,11 +5613,11 @@ LABEL_6:
 - (int)getFreeSpaceAvailableForUpdate:(unint64_t *)update deleteSystemPartition:(BOOL)partition
 {
   partitionCopy = partition;
-  bzero(&v98, 0x878uLL);
-  v90 = 0;
-  bzero(v97, 0x400uLL);
-  bzero(v96, 0x400uLL);
-  if (!ramrod_probe_media(&v90, v7, v8, v9, v10, v11, v12, v13))
+  bzero(&v91, 0x878uLL);
+  v83 = 0;
+  bzero(v90, 0x400uLL);
+  bzero(v89, 0x400uLL);
+  if (!ramrod_probe_media(&v83))
   {
     nerdLogger = [(NerdController *)self nerdLogger];
     oslog = [nerdLogger oslog];
@@ -5527,12 +5625,12 @@ LABEL_6:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *&buf[4] = v90;
-      v25 = "Failed to probe media to get space available for update: %{public}@";
-      v26 = oslog;
-      v27 = 12;
+      *&buf[4] = v83;
+      v18 = "Failed to probe media to get space available for update: %{public}@";
+      v19 = oslog;
+      v20 = 12;
 LABEL_26:
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v25, buf, v27);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, buf, v20);
     }
 
 LABEL_27:
@@ -5545,37 +5643,37 @@ LABEL_27:
     set_partition_logging_function(_nerd_partition_logger);
     set_partition_execution_function(msu_execute_command_with_callback);
     set_partition_execution_logging_function(msu_partition_execution_logger);
-    ramrod_get_system_partition_device_node(v97, 0x400uLL);
-    ramrod_get_apfs_container_device_node(v96, 0x400uLL);
+    ramrod_get_system_partition_device_node(v90, 0x400uLL);
+    ramrod_get_apfs_container_device_node(v89, 0x400uLL);
     nerdLogger2 = [(NerdController *)self nerdLogger];
     oslog2 = [nerdLogger2 oslog];
 
     if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = "Unknown";
-      if (v96[0])
+      v9 = "Unknown";
+      if (v89[0])
       {
-        v17 = v96;
+        v10 = v89;
       }
 
       else
       {
-        v17 = "Unknown";
+        v10 = "Unknown";
       }
 
-      if (v97[0])
+      if (v90[0])
       {
-        v16 = v97;
+        v9 = v90;
       }
 
       *buf = 136446466;
-      *&buf[4] = v17;
+      *&buf[4] = v10;
       *&buf[12] = 2082;
-      *&buf[14] = v16;
+      *&buf[14] = v9;
       _os_log_impl(&_mh_execute_header, oslog2, OS_LOG_TYPE_DEFAULT, "APFS container device node: '%{public}s' System partition device node: '%{public}s'", buf, 0x16u);
     }
 
-    if (v96[0])
+    if (v89[0])
     {
       if (!partitionCopy)
       {
@@ -5602,30 +5700,30 @@ LABEL_27:
           {
 LABEL_32:
 
-            v35 = v97[0];
+            v28 = v90[0];
             nerdLogger5 = [(NerdController *)self nerdLogger];
             oslog5 = [nerdLogger5 oslog];
 
-            v38 = os_log_type_enabled(oslog5, OS_LOG_TYPE_DEFAULT);
-            if (v35)
+            v31 = os_log_type_enabled(oslog5, OS_LOG_TYPE_DEFAULT);
+            if (v28)
             {
-              if (v38)
+              if (v31)
               {
                 *buf = 0;
                 _os_log_impl(&_mh_execute_header, oslog5, OS_LOG_TYPE_DEFAULT, "Deleting system partition", buf, 2u);
               }
 
-              v45 = delete_apfs_partition(0, 0, v39, v40, v41, v42, v43, v44);
-              if (v45)
+              v38 = delete_apfs_partition(0, 0, v32, v33, v34, v35, v36, v37);
+              if (v38)
               {
-                v46 = v45;
+                v39 = v38;
                 nerdLogger6 = [(NerdController *)self nerdLogger];
                 oslog6 = [nerdLogger6 oslog];
 
                 if (os_log_type_enabled(oslog6, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 67109120;
-                  *&buf[4] = v46;
+                  *&buf[4] = v39;
                   _os_log_impl(&_mh_execute_header, oslog6, OS_LOG_TYPE_DEFAULT, "Failed to delete system partition(error: %d)", buf, 8u);
                 }
 
@@ -5638,14 +5736,14 @@ LABEL_32:
                 }
 
                 *buf = 0;
-                v51 = "Skipped format of system partition";
+                v44 = "Skipped format of system partition";
                 goto LABEL_50;
               }
             }
 
             else
             {
-              if (v38)
+              if (v31)
               {
                 *buf = 0;
                 _os_log_impl(&_mh_execute_header, oslog5, OS_LOG_TYPE_DEFAULT, "Skipping deleting system partition since it does not exist", buf, 2u);
@@ -5661,106 +5759,106 @@ LABEL_32:
               _os_log_impl(&_mh_execute_header, oslog8, OS_LOG_TYPE_DEFAULT, "ReFormatting system partition", buf, 2u);
             }
 
-            v54 = format_partition(v96, "System", 0, 1, 0);
+            v47 = format_partition(v89, "System", 0, 1, 0);
             nerdLogger9 = [(NerdController *)self nerdLogger];
             oslog7 = [nerdLogger9 oslog];
 
-            v56 = os_log_type_enabled(oslog7, OS_LOG_TYPE_DEFAULT);
-            if (v54)
+            v49 = os_log_type_enabled(oslog7, OS_LOG_TYPE_DEFAULT);
+            if (v47)
             {
-              if (v56)
+              if (v49)
               {
-                v57 = strerror(v54);
+                v50 = strerror(v47);
                 *buf = 67109378;
-                *&buf[4] = v54;
+                *&buf[4] = v47;
                 *&buf[8] = 2082;
-                *&buf[10] = v57;
-                v51 = "Failed to format system partition(error: %d : %{public}s)";
-                v58 = oslog7;
-                v59 = 18;
+                *&buf[10] = v50;
+                v44 = "Failed to format system partition(error: %d : %{public}s)";
+                v51 = oslog7;
+                v52 = 18;
 LABEL_51:
-                _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, v51, buf, v59);
+                _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, v44, buf, v52);
               }
             }
 
-            else if (v56)
+            else if (v49)
             {
               *buf = 0;
-              v51 = "System partition successfully reformatted";
+              v44 = "System partition successfully reformatted";
 LABEL_50:
-              v58 = oslog7;
-              v59 = 2;
+              v51 = oslog7;
+              v52 = 2;
               goto LABEL_51;
             }
 
 LABEL_52:
 
 LABEL_53:
-            v89 = 0;
-            ramrod_mount_filesystem_no_fsck_opt_err(v97, "/private/var/MobileSoftwareUpdate/mnt1", 0, &v89);
-            v60 = v89;
+            v82 = 0;
+            ramrod_mount_filesystem_no_fsck_opt_err(v90, "/private/var/MobileSoftwareUpdate/mnt1", 0, &v82);
+            v53 = v82;
             nerdLogger10 = [(NerdController *)self nerdLogger];
             oslog9 = [nerdLogger10 oslog];
 
-            v63 = os_log_type_enabled(oslog9, OS_LOG_TYPE_DEFAULT);
-            if (v60)
+            v56 = os_log_type_enabled(oslog9, OS_LOG_TYPE_DEFAULT);
+            if (v53)
             {
-              if (v63)
+              if (v56)
               {
                 *buf = 138543362;
-                *&buf[4] = v89;
+                *&buf[4] = v82;
                 _os_log_impl(&_mh_execute_header, oslog9, OS_LOG_TYPE_DEFAULT, "Failed to mount system partition %{public}@", buf, 0xCu);
               }
 
               return 5;
             }
 
-            if (v63)
+            if (v56)
             {
               *buf = 0;
               _os_log_impl(&_mh_execute_header, oslog9, OS_LOG_TYPE_DEFAULT, "Successfully mounted system partition", buf, 2u);
             }
 
-            statfs("/private/var/MobileSoftwareUpdate/mnt1", &v98);
-            *update = v98.f_bavail * v98.f_bsize;
+            statfs("/private/var/MobileSoftwareUpdate/mnt1", &v91);
+            *update = v91.f_bavail * v91.f_bsize;
             nerdLogger11 = [(NerdController *)self nerdLogger];
             oslog10 = [nerdLogger11 oslog];
 
             if (os_log_type_enabled(oslog10, OS_LOG_TYPE_DEFAULT))
             {
-              v66 = *update;
-              v67 = vcvtd_n_f64_u64(*update, 0x14uLL);
+              v59 = *update;
+              v60 = vcvtd_n_f64_u64(*update, 0x14uLL);
               *buf = 134218240;
-              *&buf[4] = v66;
+              *&buf[4] = v59;
               *&buf[12] = 2048;
-              *&buf[14] = v67;
+              *&buf[14] = v60;
               _os_log_impl(&_mh_execute_header, oslog10, OS_LOG_TYPE_DEFAULT, "Free space available for update on container: %llu bytes(%f MB)", buf, 0x16u);
             }
 
-            memset(v88, 0, 12);
+            memset(v81, 0, 12);
             *&buf[12] = 0;
             *&buf[16] = 0;
             *buf = 5;
             *&buf[8] = -2139095040;
-            if (getattrlist("/private/var/MobileSoftwareUpdate/mnt1", buf, v88, 0xCuLL, 0))
+            if (getattrlist("/private/var/MobileSoftwareUpdate/mnt1", buf, v81, 0xCuLL, 0))
             {
               nerdLogger12 = [(NerdController *)self nerdLogger];
               oslog11 = [nerdLogger12 oslog];
 
               if (os_log_type_enabled(oslog11, OS_LOG_TYPE_DEFAULT))
               {
-                v70 = *__error();
-                *v91 = 67109120;
-                LODWORD(v92) = v70;
-                _os_log_impl(&_mh_execute_header, oslog11, OS_LOG_TYPE_DEFAULT, "getattrlist(ATTR_VOL_SPACEUSED) to get filesystem used space failed: %d", v91, 8u);
+                v63 = *__error();
+                *v84 = 67109120;
+                LODWORD(v85) = v63;
+                _os_log_impl(&_mh_execute_header, oslog11, OS_LOG_TYPE_DEFAULT, "getattrlist(ATTR_VOL_SPACEUSED) to get filesystem used space failed: %d", v84, 8u);
               }
 
-              v71 = v98.f_blocks * v98.f_bsize;
+              v64 = v91.f_blocks * v91.f_bsize;
             }
 
             else
             {
-              v71 = *(v88 + 4);
+              v64 = *(v81 + 4);
             }
 
             nerdLogger13 = [(NerdController *)self nerdLogger];
@@ -5768,11 +5866,11 @@ LABEL_53:
 
             if (os_log_type_enabled(oslog12, OS_LOG_TYPE_DEFAULT))
             {
-              *v91 = 134218240;
-              v92 = v71;
-              v93 = 2048;
-              v94 = vcvtd_n_f64_u64(v71, 0x14uLL);
-              _os_log_impl(&_mh_execute_header, oslog12, OS_LOG_TYPE_DEFAULT, "System volume size is: %llu bytes(%f MB)", v91, 0x16u);
+              *v84 = 134218240;
+              v85 = v64;
+              v86 = 2048;
+              v87 = vcvtd_n_f64_u64(v64, 0x14uLL);
+              _os_log_impl(&_mh_execute_header, oslog12, OS_LOG_TYPE_DEFAULT, "System volume size is: %llu bytes(%f MB)", v84, 0x16u);
             }
 
             nerdLogger14 = [(NerdController *)self nerdLogger];
@@ -5780,8 +5878,8 @@ LABEL_53:
 
             if (os_log_type_enabled(oslog13, OS_LOG_TYPE_DEFAULT))
             {
-              *v91 = 0;
-              _os_log_impl(&_mh_execute_header, oslog13, OS_LOG_TYPE_DEFAULT, "Unmounting system volume mounted by controller", v91, 2u);
+              *v84 = 0;
+              _os_log_impl(&_mh_execute_header, oslog13, OS_LOG_TYPE_DEFAULT, "Unmounting system volume mounted by controller", v84, 2u);
             }
 
             if (unmount("/private/var/MobileSoftwareUpdate/mnt1", 0x80000))
@@ -5796,15 +5894,15 @@ LABEL_53:
                   goto LABEL_81;
                 }
 
-                v86 = __error();
-                v87 = strerror(*v86);
-                *v91 = 136446466;
-                v92 = "/private/var/MobileSoftwareUpdate/mnt1";
-                v93 = 2082;
-                v94 = *&v87;
-                v78 = "unable to unmount partition previously mounted at '%{public}s': %{public}s";
-                v80 = oslog14;
-                v81 = 22;
+                v79 = __error();
+                v80 = strerror(*v79);
+                *v84 = 136446466;
+                v85 = "/private/var/MobileSoftwareUpdate/mnt1";
+                v86 = 2082;
+                v87 = *&v80;
+                v71 = "unable to unmount partition previously mounted at '%{public}s': %{public}s";
+                v73 = oslog14;
+                v74 = 22;
                 goto LABEL_80;
               }
 
@@ -5813,14 +5911,14 @@ LABEL_53:
 
               if (os_log_type_enabled(oslog14, OS_LOG_TYPE_DEFAULT))
               {
-                *v91 = 136446210;
-                v92 = "/private/var/MobileSoftwareUpdate/mnt1";
-                v78 = "Unable to find expected mounted system volume at '%{public}s' ";
+                *v84 = 136446210;
+                v85 = "/private/var/MobileSoftwareUpdate/mnt1";
+                v71 = "Unable to find expected mounted system volume at '%{public}s' ";
 LABEL_79:
-                v80 = oslog14;
-                v81 = 12;
+                v73 = oslog14;
+                v74 = 12;
 LABEL_80:
-                _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, v78, v91, v81);
+                _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, v71, v84, v74);
               }
             }
 
@@ -5831,9 +5929,9 @@ LABEL_80:
 
               if (os_log_type_enabled(oslog14, OS_LOG_TYPE_DEFAULT))
               {
-                *v91 = 136446210;
-                v92 = "/private/var/MobileSoftwareUpdate/mnt1";
-                v78 = "System partition at %{public}s(previously mounted by controller) successfully unmounted";
+                *v84 = 136446210;
+                v85 = "/private/var/MobileSoftwareUpdate/mnt1";
+                v71 = "System partition at %{public}s(previously mounted by controller) successfully unmounted";
                 goto LABEL_79;
               }
             }
@@ -5843,17 +5941,17 @@ LABEL_81:
             return 0;
           }
 
-          v83 = __error();
-          v84 = strerror(*v83);
+          v76 = __error();
+          v77 = strerror(*v76);
           *buf = 136446466;
           *&buf[4] = "/private/var/MobileSoftwareUpdate/mnt1";
           *&buf[12] = 2082;
-          *&buf[14] = v84;
-          v22 = "Failed to umount filesystem present at '%{public}s'..error:%{public}s ..Attempting to proceed anyways";
-          v33 = oslog4;
-          v34 = 22;
+          *&buf[14] = v77;
+          v15 = "Failed to umount filesystem present at '%{public}s'..error:%{public}s ..Attempting to proceed anyways";
+          v26 = oslog4;
+          v27 = 22;
 LABEL_31:
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, v22, buf, v34);
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v15, buf, v27);
           goto LABEL_32;
         }
 
@@ -5867,7 +5965,7 @@ LABEL_31:
 
         *buf = 136446210;
         *&buf[4] = "/private/var/MobileSoftwareUpdate/mnt1";
-        v22 = "no filesystem mounted at '%{public}s'..OK to proceed";
+        v15 = "no filesystem mounted at '%{public}s'..OK to proceed";
       }
 
       else
@@ -5882,11 +5980,11 @@ LABEL_31:
 
         *buf = 136446210;
         *&buf[4] = "/private/var/MobileSoftwareUpdate/mnt1";
-        v22 = "Successfully unmounted filesystem previously mounted at %{public}s";
+        v15 = "Successfully unmounted filesystem previously mounted at %{public}s";
       }
 
-      v33 = oslog4;
-      v34 = 12;
+      v26 = oslog4;
+      v27 = 12;
       goto LABEL_31;
     }
 
@@ -5896,9 +5994,9 @@ LABEL_31:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v25 = "Unable to determine APFS container for main system";
-      v26 = oslog;
-      v27 = 2;
+      v18 = "Unable to determine APFS container for main system";
+      v19 = oslog;
+      v20 = 2;
       goto LABEL_26;
     }
 

@@ -11,9 +11,9 @@
     +[NSOperationQueue(VUIAdditions) vuiDefaultQueue];
   }
 
-  v1 = vuiDefaultQueue__vuiDefaultQueue;
+  v2 = vuiDefaultQueue__vuiDefaultQueue;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -39,7 +39,7 @@
   v4 = objc_alloc_init(PXPhotosAssetsFetcherConfiguration);
   [(PXPhotosAssetsFetcherConfiguration *)v4 setCurationKind:[(PXPhotosAssetsFetcherConfiguration *)self curationKind]];
   [(PXPhotosAssetsFetcherConfiguration *)v4 setCurationLength:[(PXPhotosAssetsFetcherConfiguration *)self curationLength]];
-  [(PXPhotosAssetsFetcherConfiguration *)v4 setOptions:[(PXPhotosAssetsFetcherConfiguration *)self options]];
+  [(PXPhotosAssetsFetcherConfiguration *)v4 setOptions:objc_msgSend_options(self)];
   [(PXPhotosAssetsFetcherConfiguration *)v4 setLibraryFilter:[(PXPhotosAssetsFetcherConfiguration *)self libraryFilter]];
   [(PXPhotosAssetsFetcherConfiguration *)v4 setFetchLimit:[(PXPhotosAssetsFetcherConfiguration *)self fetchLimit]];
   filterPredicate = [(PXPhotosAssetsFetcherConfiguration *)self filterPredicate];

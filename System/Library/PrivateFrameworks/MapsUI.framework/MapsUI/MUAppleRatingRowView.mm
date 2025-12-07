@@ -30,37 +30,35 @@
 
 - (id)_attributesWithFont:(id)font color:(id)color
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E69DB650];
-  v12[0] = *MEMORY[0x1E69DB648];
-  v12[1] = v5;
-  v13[0] = font;
-  v13[1] = color;
+  v11[0] = *MEMORY[0x1E69DB648];
+  v11[1] = v5;
+  v12[0] = font;
+  v12[1] = color;
   v6 = MEMORY[0x1E695DF20];
   colorCopy = color;
   fontCopy = font;
-  v9 = [v6 dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [v6 dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }
 
 - (id)_percentageStringComponentsFromCurrentViewModel
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   if ([(MURatingPercentageViewModel *)self->_viewModel hasPercentage]&& (!self->_isInlineMode || self->_wantsPercentageInSubtitle))
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v4 = objc_opt_class();
     v5 = *MEMORY[0x1E69DDD80];
     v6 = [MEMORY[0x1E69DB878] _mapkit_preferredFontForTextStyleInTableViewCell:*MEMORY[0x1E69DDD80] weight:*MEMORY[0x1E69DB978]];
-    v32 = *MEMORY[0x1E69DB650];
+    v31 = *MEMORY[0x1E69DB650];
     v7 = +[MUInfoCardStyle secondaryTextColor];
-    v33[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v32[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     v9 = [v4 ratingSymbolStringWithFont:v6 symbolScale:1 attributes:v8];
-    v29 = [v9 mutableCopy];
+    v28 = [v9 mutableCopy];
 
     v10 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:@"%lu%%", -[MURatingPercentageViewModel displayPercentage](self->_viewModel, "displayPercentage")];
     v11 = objc_alloc(MEMORY[0x1E696AD40]);
@@ -70,12 +68,12 @@
     v15 = [(MUAppleRatingRowView *)self _attributesWithFont:v13 color:v14];
     v16 = [v11 initWithString:v10 attributes:v15];
 
-    [v3 addObject:v29];
+    [v3 addObject:v28];
     v17 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v30 = *MEMORY[0x1E69DB648];
+    v29 = *MEMORY[0x1E69DB648];
     v18 = [MEMORY[0x1E69DB878] _mapkit_preferredFontForTextStyleInTableViewCell:v5 weight:v12];
-    v31 = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v30 = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
     v20 = [v17 initWithString:@" " attributes:v19];
     [v3 addObject:v20];
 
@@ -93,8 +91,6 @@
   {
     v3 = 0;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -300,21 +296,20 @@
 
 - (void)_setupConstraints
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = [MUStackLayout alloc];
   layoutMarginsGuide = [(MUAppleRatingRowView *)self layoutMarginsGuide];
   v5 = [(MUStackLayout *)v3 initWithContainer:layoutMarginsGuide axis:1];
   stackLayout = self->_stackLayout;
   self->_stackLayout = v5;
 
-  titleLabel = self->_titleLabel;
   if (self->_ratingsCountAnimationEnabled)
   {
     subtitleView = self->_subtitleView;
-    v14[0] = self->_titleLabel;
-    v14[1] = subtitleView;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
-    [(MUStackLayout *)self->_stackLayout setArrangedLayoutItems:v9];
+    v12[0] = self->_titleLabel;
+    v12[1] = subtitleView;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    [(MUStackLayout *)self->_stackLayout setArrangedLayoutItems:v8];
 
     [(MUStackLayout *)self->_stackLayout setAlignment:1];
     [(MUStackLayout *)self->_stackLayout setAlignmentBoundsContent:1];
@@ -323,14 +318,13 @@
   else
   {
     subtitleLabel = self->_subtitleLabel;
-    v13[0] = self->_titleLabel;
-    v13[1] = subtitleLabel;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
-    [(MUStackLayout *)self->_stackLayout setArrangedLayoutItems:v11];
+    v11[0] = self->_titleLabel;
+    v11[1] = subtitleLabel;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+    [(MUStackLayout *)self->_stackLayout setArrangedLayoutItems:v10];
   }
 
   [(MUConstraintLayout *)self->_stackLayout activate];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupSubviews

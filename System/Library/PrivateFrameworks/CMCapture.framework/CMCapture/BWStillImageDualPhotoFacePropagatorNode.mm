@@ -1,6 +1,6 @@
 @interface BWStillImageDualPhotoFacePropagatorNode
 - (BWStillImageDualPhotoFacePropagatorNode)initWithBaseZoomFactors:(id)factors;
-- (uint64_t)_emitBuffersAndErrorsToOutputs;
+- (id)_emitBuffersAndErrorsToOutputs;
 - (void)_clearCaptureRequestState;
 - (void)_processWiderAndNarrowerFOVInput;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
@@ -253,7 +253,7 @@ LABEL_22:
   }
 
 LABEL_24:
-  [(BWStillImageDualPhotoFacePropagatorNode *)self _processWiderAndNarrowerFOVInput];
+  [(BWStillImageDualPhotoFacePropagatorNode *)&self->super.super.isa _processWiderAndNarrowerFOVInput];
 }
 
 - (void)_clearCaptureRequestState
@@ -341,29 +341,36 @@ LABEL_9:
         v10 = OUTLINED_FUNCTION_1_75();
         if (OUTLINED_FUNCTION_7_41(v10))
         {
-          v11 = v4;
+          v17 = v4;
         }
 
         else
         {
-          v11 = v4 & 0xFFFFFFFE;
+          v17 = v4 & 0xFFFFFFFE;
         }
 
-        if (v11)
+        if (v17)
         {
+          LODWORD(v67) = 136315138;
           OUTLINED_FUNCTION_5_6();
-          OUTLINED_FUNCTION_4_52();
+          v17 = OUTLINED_FUNCTION_4_52(v28, v29, v30, v31, &dword_1AC90E000, v32, v33, "<<<< BWStillImageDualPhotoFacePropagatorNode >>>> %s: Received two widerFOV errors for the same still image settings", v65);
+          v18 = v17;
         }
 
-        OUTLINED_FUNCTION_0_63();
+        else
+        {
+          v18 = 0;
+        }
+
+        OUTLINED_FUNCTION_0_63(v17, v11, v12, v18, v13, v14, v15, v16, v65, v66, v67, v68, v69);
         OUTLINED_FUNCTION_5_51();
-        v14 = OUTLINED_FUNCTION_6_0();
-        v15 = OUTLINED_FUNCTION_4_5();
-        FigCapturePleaseFileRadar(v15, v16, v17, v18, v19, 221, v20, v21, 0);
-        free(v14);
-        v22 = 192;
+        v38 = OUTLINED_FUNCTION_6_0(v34, v35, v36, v37, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+        v39 = OUTLINED_FUNCTION_4_5();
+        FigCapturePleaseFileRadar(v39, v40, v41, v42, v43, 221, v44, v45, 0);
+        free(v38);
+        v46 = 192;
 LABEL_23:
-        [*(&self->super.super.isa + v22) emitNodeError:*(&self->super.super.isa + v9)];
+        [*(&self->super.super.isa + v46) emitNodeError:*(&self->super.super.isa + v9)];
       }
     }
 
@@ -378,30 +385,37 @@ LABEL_23:
       if (self->_narrowerFOVError)
       {
         FigCaptureGetFrameworkRadarComponent();
-        v12 = OUTLINED_FUNCTION_1_75();
-        if (OUTLINED_FUNCTION_7_41(v12))
+        v19 = OUTLINED_FUNCTION_1_75();
+        if (OUTLINED_FUNCTION_7_41(v19))
         {
-          v13 = v4;
+          v26 = v4;
         }
 
         else
         {
-          v13 = v4 & 0xFFFFFFFE;
+          v26 = v4 & 0xFFFFFFFE;
         }
 
-        if (v13)
+        if (v26)
         {
+          LODWORD(v67) = 136315138;
           OUTLINED_FUNCTION_5_6();
-          OUTLINED_FUNCTION_4_52();
+          v26 = OUTLINED_FUNCTION_4_52(v47, v48, v49, v50, &dword_1AC90E000, v51, v52, "<<<< BWStillImageDualPhotoFacePropagatorNode >>>> %s: Received two narrowerFOV errors for the same still image settings", v65);
+          v27 = v26;
         }
 
-        OUTLINED_FUNCTION_0_63();
+        else
+        {
+          v27 = 0;
+        }
+
+        OUTLINED_FUNCTION_0_63(v26, v20, v21, v27, v22, v23, v24, v25, v65, v66, v67, v68, v69);
         OUTLINED_FUNCTION_5_51();
-        v23 = OUTLINED_FUNCTION_6_0();
-        v24 = OUTLINED_FUNCTION_4_5();
-        FigCapturePleaseFileRadar(v24, v25, v26, v27, v28, 229, v29, v30, 0);
-        free(v23);
-        v22 = 200;
+        v57 = OUTLINED_FUNCTION_6_0(v53, v54, v55, v56, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+        v58 = OUTLINED_FUNCTION_4_5();
+        FigCapturePleaseFileRadar(v58, v59, v60, v61, v62, 229, v63, v64, 0);
+        free(v57);
+        v46 = 200;
         goto LABEL_23;
       }
     }
@@ -412,32 +426,32 @@ LABEL_23:
 
   [-[NSArray objectAtIndexedSubscript:](-[BWNode outputs](self "outputs")];
 LABEL_25:
-  [(BWStillImageDualPhotoFacePropagatorNode *)self _processWiderAndNarrowerFOVInput];
+  [(BWStillImageDualPhotoFacePropagatorNode *)&self->super.super.isa _processWiderAndNarrowerFOVInput];
 }
 
-- (uint64_t)_emitBuffersAndErrorsToOutputs
+- (id)_emitBuffersAndErrorsToOutputs
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 144))
+    if (result[18])
     {
-      result = [*(result + 192) emitSampleBuffer:?];
+      result = [result[24] emitSampleBuffer:?];
     }
 
-    if (*(v1 + 160))
+    if (v1[20])
     {
-      result = [*(v1 + 192) emitNodeError:?];
+      result = [v1[24] emitNodeError:?];
     }
 
-    if (*(v1 + 152))
+    if (v1[19])
     {
-      result = [*(v1 + 200) emitSampleBuffer:?];
+      result = [v1[25] emitSampleBuffer:?];
     }
 
-    if (*(v1 + 168))
+    if (v1[21])
     {
-      v2 = *(v1 + 200);
+      v2 = v1[25];
 
       return [v2 emitNodeError:?];
     }

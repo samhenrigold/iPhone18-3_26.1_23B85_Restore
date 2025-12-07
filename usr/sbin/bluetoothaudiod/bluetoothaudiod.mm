@@ -1,7 +1,8 @@
-void sub_100006F40(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006F40(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
 void sub_100007EC4()
@@ -20,9 +21,9 @@ void sub_100007F34()
   byte_1000A9FD8 = [v1 BOOLValue];
 }
 
-void sub_100009CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100009CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -55,9 +56,9 @@ void sub_100009CCC(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100009E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100009E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -90,10 +91,11 @@ void sub_100009E98(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000A8D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A8D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id sub_10000B444(uint64_t a1)
@@ -170,13 +172,14 @@ void sub_10000F320(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
   }
 }
 
-void sub_10000F3C4(uint64_t a1, char a2, uint64_t a3)
+void sub_10000F3C4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = [*(a1 + 32) currentCAPProcedure];
 
   if (a3 && v6)
   {
-    if ((a2 - 1) >= 8u)
+    if ((v4 - 1) >= 8u)
     {
       v7 = qword_1000A9FE0;
       if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
@@ -192,7 +195,7 @@ void sub_10000F3C4(uint64_t a1, char a2, uint64_t a3)
       block[1] = 3221225472;
       block[2] = sub_10000F4F0;
       block[3] = &unk_100094D70;
-      v10 = 0x2B2228251B16110CuLL >> (8 * ((a2 - 1) & 0x1Fu));
+      v10 = 0x2B2228251B16110CuLL >> (8 * ((v4 - 1) & 0x1Fu));
       block[4] = *(a1 + 32);
       objc_copyWeak(&v9, (a1 + 40));
       dispatch_async(&_dispatch_main_q, block);
@@ -214,13 +217,15 @@ void sub_10000F4F0(uint64_t a1)
   [v3 processAcceptorRsp:WeakRetained withEvent:*(a1 + 48)];
 }
 
-void sub_10000F568(uint64_t a1, int a2, int a3, int a4)
+void sub_10000F568(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!a4)
   {
     return;
   }
 
+  v4 = a3;
+  v5 = a2;
   v7 = [*(a1 + 32) currentCAPProcedure];
 
   if (!v7)
@@ -228,19 +233,19 @@ void sub_10000F568(uint64_t a1, int a2, int a3, int a4)
     return;
   }
 
-  if (a2 > 2)
+  if (v5 > 2)
   {
-    if (a2 <= 4)
+    if (v5 <= 4)
     {
-      if (a2 == 3)
+      if (v5 == 3)
       {
-        if (a3 == 2)
+        if (v4 == 2)
         {
           v19 = 20;
           goto LABEL_28;
         }
 
-        if (a3 != 3)
+        if (v4 != 3)
         {
           v22 = qword_1000A9FE0;
           if (!os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
@@ -252,9 +257,9 @@ void sub_10000F568(uint64_t a1, int a2, int a3, int a4)
         }
       }
 
-      else if (a3 != 4)
+      else if (v4 != 4)
       {
-        if (a3 == 3)
+        if (v4 == 3)
         {
           v8 = [*(a1 + 32) currentCAPProcedure];
           v9 = [v8 currentState];
@@ -324,13 +329,13 @@ LABEL_33:
       goto LABEL_28;
     }
 
-    if (a2 == 5)
+    if (v5 == 5)
     {
       v19 = 35;
       goto LABEL_28;
     }
 
-    if (a2 == 6)
+    if (v5 == 6)
     {
       return;
     }
@@ -338,13 +343,13 @@ LABEL_33:
     goto LABEL_18;
   }
 
-  switch(a2)
+  switch(v5)
   {
     case 0:
       v19 = 41;
       goto LABEL_28;
     case 1:
-      v18 = a3 == 6;
+      v18 = v4 == 6;
       v19 = 10;
       v20 = 41;
       goto LABEL_26;
@@ -358,7 +363,7 @@ LABEL_33:
         goto LABEL_28;
       }
 
-      v18 = a3 == 5;
+      v18 = v4 == 5;
       v19 = 35;
       v20 = 38;
 LABEL_26:
@@ -1998,10 +2003,11 @@ void sub_10002D9F0(uint64_t a1, void *a2)
   [v3 updateValue:v6 forCharacteristic:v5 onSubscribedCentrals:v4];
 }
 
-void sub_100033E28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100033E28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_100033E44(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2011,10 +2017,11 @@ void sub_100033E44(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_100035D74(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100035D74(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_100035DD8(id a1)
@@ -2263,9 +2270,9 @@ void sub_100042BE0()
   exit(0);
 }
 
-void sub_100042E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100042E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2290,9 +2297,9 @@ void sub_100042EA4(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_100043170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100043170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2325,6 +2332,13 @@ void sub_100043188(uint64_t a1, void *a2, void *a3)
   }
 }
 
+void sub_100043E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100043E94(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
@@ -2354,16 +2368,18 @@ id sub_100043F90(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
   return result;
 }
 
-void sub_10004A884(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10004A884(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_10004A8A4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10004A8A4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x14u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x14u);
 }
 
 void sub_10004CF18(id a1)
@@ -2685,10 +2701,11 @@ void sub_100055E84(uint64_t a1)
   [v1 updateCallList:v2];
 }
 
-void sub_10005A370(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10005A370(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10005A38C(void *a1)
@@ -2729,11 +2746,11 @@ void sub_10005A568(void *a1)
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
 }
 
-void sub_10005A654(unsigned __int8 *a1)
+void sub_10005A654()
 {
-  sub_100006FA8(a1);
+  sub_100006FA8();
   sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v1, v2, "Received Server Prefered Framing: %d", v3, v4, v5, v6, v7);
+  sub_100006F40(&_mh_execute_header, v0, v1, "Received Server Prefered Framing: %d", v2, v3, v4, v5);
 }
 
 void sub_10005A6BC(unsigned __int8 *a1, void *a2)
@@ -2754,11 +2771,11 @@ void sub_10005A770(unsigned __int8 *a1, void *a2)
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void sub_10005A824(unsigned __int8 *a1)
+void sub_10005A824()
 {
-  sub_100006FA8(a1);
+  sub_100006FA8();
   sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v1, v2, "Received Server Prefered RX No.: %u", v3, v4, v5, v6, v7);
+  sub_100006F40(&_mh_execute_header, v0, v1, "Received Server Prefered RX No.: %u", v2, v3, v4, v5);
 }
 
 void sub_10005A88C(void *a1)
@@ -2769,13 +2786,6 @@ void sub_10005A88C(void *a1)
   _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
 }
 
-void sub_10005A91C(unsigned __int16 *a1)
-{
-  v1 = *a1;
-  sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v2, v3, "Received Server max Transport latency: %u", v4, v5, v6, v7, v8);
-}
-
 void sub_10005A988(void *a1)
 {
   v2 = a1;
@@ -2784,123 +2794,116 @@ void sub_10005A988(void *a1)
   _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
 }
 
-void sub_10005AA18(unsigned int *a1)
+void sub_10005AA18()
 {
-  sub_100006FB4(a1);
+  sub_100006FB4();
   sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v1, v2, "Received Server Minimum Supported Presentation Delay: %u", v3, v4, v5, v6, v7);
+  sub_100006F40(&_mh_execute_header, v0, v1, "Received Server Minimum Supported Presentation Delay: %u", v2, v3, v4, v5);
 }
 
-void sub_10005AA80(unsigned int *a1)
+void sub_10005AA80()
 {
-  sub_100006FB4(a1);
+  sub_100006FB4();
   sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v1, v2, "Received Server Maximum Supported Presentation Delay: %u", v3, v4, v5, v6, v7);
+  sub_100006F40(&_mh_execute_header, v0, v1, "Received Server Maximum Supported Presentation Delay: %u", v2, v3, v4, v5);
 }
 
-void sub_10005AAE8(unsigned int *a1)
+void sub_10005AAE8()
 {
-  sub_100006FB4(a1);
+  sub_100006FB4();
   sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v1, v2, "Received Server Prefered Minimum Presentation Delay: %u", v3, v4, v5, v6, v7);
+  sub_100006F40(&_mh_execute_header, v0, v1, "Received Server Prefered Minimum Presentation Delay: %u", v2, v3, v4, v5);
 }
 
-void sub_10005AB50(unsigned int *a1)
+void sub_10005AB50()
 {
-  sub_100006FB4(a1);
+  sub_100006FB4();
   sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v1, v2, "Received Server Prefered Maximum Presentation Delay: %u", v3, v4, v5, v6, v7);
+  sub_100006F40(&_mh_execute_header, v0, v1, "Received Server Prefered Maximum Presentation Delay: %u", v2, v3, v4, v5);
 }
 
-void sub_10005ABB8(unsigned __int8 *a1)
+void sub_10005ABB8()
 {
-  sub_100006FA8(a1);
+  sub_100006FA8();
   sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v1, v2, "Received QoS configured confirmation for CIG %d", v3, v4, v5, v6, v7);
+  sub_100006F40(&_mh_execute_header, v0, v1, "Received QoS configured confirmation for CIG %d", v2, v3, v4, v5);
 }
 
-void sub_10005AC20(unsigned __int8 *a1)
+void sub_10005AC20()
 {
-  sub_100006FA8(a1);
+  sub_100006FA8();
   sub_100006F5C();
-  sub_100006F40(&_mh_execute_header, v1, v2, "Received QoS configured confirmation for CIS %d", v3, v4, v5, v6, v7);
+  sub_100006F40(&_mh_execute_header, v0, v1, "Received QoS configured confirmation for CIS %d", v2, v3, v4, v5);
 }
 
 void sub_10005AC88()
 {
   sub_100006F74();
-  v3 = v2;
+  v2 = v1;
   [sub_100006F68() clientSduInterval];
-  v4 = *v0;
   sub_100006F18();
   sub_100006F30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0xEu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
 }
 
 void sub_10005AD20()
 {
   sub_100006F74();
-  v3 = v2;
+  v2 = v1;
   [sub_100006F68() clientFraming];
-  v4 = *v0;
   sub_100006F18();
   sub_100006F30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0xEu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
 }
 
 void sub_10005ADB8()
 {
   sub_100006F74();
-  v3 = v2;
+  v2 = v1;
   [sub_100006F68() clientPHY];
-  v4 = *v0;
   sub_100006F18();
   sub_100006F30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0xEu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
 }
 
 void sub_10005AE50()
 {
   sub_100006F74();
-  v3 = v2;
+  v2 = v1;
   [sub_100006F68() clientMaxSdu];
-  v4 = *v0;
   sub_100006F18();
   sub_100006F30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0xEu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
 }
 
 void sub_10005AEE8()
 {
   sub_100006F74();
-  v3 = v2;
+  v2 = v1;
   [sub_100006F68() clientRetransmissionNumber];
-  v4 = *v0;
   sub_100006F18();
   sub_100006F30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0xEu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
 }
 
 void sub_10005AF80()
 {
   sub_100006F74();
-  v3 = v2;
+  v2 = v1;
   [sub_100006F68() clientMaxTransportLatency];
-  v4 = *v0;
   sub_100006F18();
   sub_100006F30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0xEu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
 }
 
 void sub_10005B018()
 {
   sub_100006F74();
-  v3 = v2;
+  v2 = v1;
   [sub_100006F68() clientPresentationDelay];
-  v4 = *v0;
   sub_100006F18();
   sub_100006F30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0xEu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
 }
 
 void sub_10005B0B0(void *a1, void *a2)
@@ -2917,26 +2920,23 @@ void sub_10005B0B0(void *a1, void *a2)
   _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "peripheral %@ handleControlPointUpdate data %@", &v8, 0x16u);
 }
 
-void sub_10005B1A8(unsigned __int8 *a1, unsigned __int8 *a2)
+void sub_10005B1A8()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_100006F5C();
-  v7 = 1024;
-  v8 = v4;
-  _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "handleControlPointUpdate opCode: %u numOfASE: %u", v6, 0xEu);
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "handleControlPointUpdate opCode: %u numOfASE: %u", v2, 0xEu);
 }
 
 void sub_10005B234()
 {
   sub_100006F74();
-  v3 = v2;
-  v4 = [sub_100006F68() peripheral];
-  v5 = [v4 identifier];
-  v6 = [v5 UUIDString];
-  v7 = *v0;
+  v2 = v1;
+  v3 = [sub_100006F68() peripheral];
+  v4 = [v3 identifier];
+  v5 = [v4 UUIDString];
   sub_100006F90();
-  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Peripheral %@ ASE ID %d doesn't exist", v8, 0x12u);
+  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "Peripheral %@ ASE ID %d doesn't exist", v6, 0x12u);
 }
 
 void sub_10005B308(uint64_t a1, void *a2)
@@ -3187,7 +3187,7 @@ void sub_10005CF30(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 UUID];
   sub_100035D5C();
-  sub_100035D74(&_mh_execute_header, v5, v6, "Error discovering characteristics for service %@: %@", v7, v8, v9, v10, v11);
+  sub_100035D74(&_mh_execute_header, v5, v6, "Error discovering characteristics for service %@: %@", v7, v8, v9, v10);
 }
 
 void sub_10005CFD0(void *a1, void *a2)
@@ -3195,7 +3195,7 @@ void sub_10005CFD0(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 UUID];
   sub_100035D5C();
-  sub_100035D74(&_mh_execute_header, v5, v6, "Error updating value for characteristic %@: %@", v7, v8, v9, v10, v11);
+  sub_100035D74(&_mh_execute_header, v5, v6, "Error updating value for characteristic %@: %@", v7, v8, v9, v10);
 }
 
 void sub_10005D070(void *a1, void *a2)
@@ -3203,7 +3203,7 @@ void sub_10005D070(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 UUID];
   sub_100035D5C();
-  sub_100035D74(&_mh_execute_header, v5, v6, "Error updating notification state for characteristic %@: %@", v7, v8, v9, v10, v11);
+  sub_100035D74(&_mh_execute_header, v5, v6, "Error updating notification state for characteristic %@: %@", v7, v8, v9, v10);
 }
 
 void sub_10005D110()
@@ -3298,27 +3298,6 @@ void sub_10005D6C4(os_log_t log)
   v1 = 136315138;
   v2 = "[ServerCommonAudioProfile peripheralManagerIsReadyToUpdateSubscribers:]";
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s : Transmit queue is full", &v1, 0xCu);
-}
-
-void sub_10005D984(_BYTE *a1)
-{
-  *a1;
-  sub_1000424FC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_10005DA14(_BYTE *a1)
-{
-  *a1;
-  sub_1000424FC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_10005DAA4(_BYTE *a1)
-{
-  *a1;
-  sub_1000424FC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_10005DB34(void *a1, void *a2)
@@ -3512,7 +3491,7 @@ void sub_10005E768(void *a1, void *a2)
   [a2 status];
   [a2 inErrContextTypes];
   sub_10004A864();
-  sub_10004A8A4(&_mh_execute_header, v4, v5, "One or more unsupported context types: status %d contextTypes 0x%02X inErrContextTypes 00x%02X", v6, v7, v8, v9, v10);
+  sub_10004A8A4(&_mh_execute_header, v4, v5, "One or more unsupported context types: status %d contextTypes 0x%02X inErrContextTypes 00x%02X", v6, v7, v8, v9);
 }
 
 void sub_10005E80C(void *a1, void *a2)
@@ -3521,7 +3500,7 @@ void sub_10005E80C(void *a1, void *a2)
   [a2 status];
   [a2 inErrContextTypes];
   sub_10004A864();
-  sub_10004A8A4(&_mh_execute_header, v4, v5, "Available for subset of context types: status %d contextTypes 0x%02X inErrContextTypes 0x%02X", v6, v7, v8, v9, v10);
+  sub_10004A8A4(&_mh_execute_header, v4, v5, "Available for subset of context types: status %d contextTypes 0x%02X inErrContextTypes 0x%02X", v6, v7, v8, v9);
 }
 
 void sub_10005E8AC(void *a1, void *a2)
@@ -3530,7 +3509,7 @@ void sub_10005E8AC(void *a1, void *a2)
   [a2 status];
   [a2 inErrContextTypes];
   sub_10004A864();
-  sub_10004A8A4(&_mh_execute_header, v4, v5, "Unavailable for all context types: status %d contextTypes 0x%02X inErrContextTypes 0x%02X", v6, v7, v8, v9, v10);
+  sub_10004A8A4(&_mh_execute_header, v4, v5, "Unavailable for all context types: status %d contextTypes 0x%02X inErrContextTypes 0x%02X", v6, v7, v8, v9);
 }
 
 void sub_10005E94C(void *a1)
@@ -3539,7 +3518,7 @@ void sub_10005E94C(void *a1)
   v3 = [sub_100006FC0() peripheral];
   v4 = [v3 identifier];
   sub_100021160();
-  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to configure Codec on peripheral %@ ", v7, v8, v9, v10, v11);
+  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to configure Codec on peripheral %@ ", v7, v8, v9, v10);
 }
 
 void sub_10005E9F4(void *a1)
@@ -3548,7 +3527,7 @@ void sub_10005E9F4(void *a1)
   v3 = [sub_100006FC0() peripheral];
   v4 = [v3 identifier];
   sub_100021160();
-  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to configure QoS on peripheral %@ ", v7, v8, v9, v10, v11);
+  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to configure QoS on peripheral %@ ", v7, v8, v9, v10);
 }
 
 void sub_10005EA9C(void *a1)
@@ -3557,7 +3536,7 @@ void sub_10005EA9C(void *a1)
   v3 = [sub_100006FC0() peripheral];
   v4 = [v3 identifier];
   sub_100021160();
-  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to enable on peripheral %@ ", v7, v8, v9, v10, v11);
+  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to enable on peripheral %@ ", v7, v8, v9, v10);
 }
 
 void sub_10005EB88(void *a1)
@@ -3566,7 +3545,7 @@ void sub_10005EB88(void *a1)
   v3 = [sub_100006FC0() peripheral];
   v4 = [v3 identifier];
   sub_100021160();
-  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to disable on peripheral %@ ", v7, v8, v9, v10, v11);
+  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to disable on peripheral %@ ", v7, v8, v9, v10);
 }
 
 void sub_10005EC30(void *a1)
@@ -3575,7 +3554,7 @@ void sub_10005EC30(void *a1)
   v3 = [sub_100006FC0() peripheral];
   v4 = [v3 identifier];
   sub_100021160();
-  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to release on peripheral %@ ", v7, v8, v9, v10, v11);
+  sub_10004A884(&_mh_execute_header, v5, v6, "No ASE's to release on peripheral %@ ", v7, v8, v9, v10);
 }
 
 void sub_10005ECD8(int a1, NSObject *a2)
@@ -3589,14 +3568,18 @@ void sub_10005EDD0(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 description];
-  sub_10004A884(&_mh_execute_header, v5, v6, "Unexpected XPC connection event: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10004A884(&_mh_execute_header, v5, v6, "Unexpected XPC connection event: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10005EE68(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 description];
-  sub_10004A884(&_mh_execute_header, v5, v6, "XPC connection error: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10004A884(&_mh_execute_header, v5, v6, "XPC connection error: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10005EF58(uint64_t a1, NSObject *a2)
@@ -3717,7 +3700,7 @@ void sub_10005F734(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 description];
   sub_100035D5C();
-  sub_100035D74(&_mh_execute_header, v5, v6, "Error updating value for characteristic %@: %@", v7, v8, v9, v10, v11);
+  sub_100035D74(&_mh_execute_header, v5, v6, "Error updating value for characteristic %@: %@", v7, v8, v9, v10);
 }
 
 void sub_10005F7D4(void *a1, void *a2)
@@ -3725,5 +3708,5 @@ void sub_10005F7D4(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 description];
   sub_100035D5C();
-  sub_100035D74(&_mh_execute_header, v5, v6, "Error updating notification state for characteristic %@: %@", v7, v8, v9, v10, v11);
+  sub_100035D74(&_mh_execute_header, v5, v6, "Error updating notification state for characteristic %@: %@", v7, v8, v9, v10);
 }
